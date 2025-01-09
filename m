@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0163CA07C30
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 16:44:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.868837.1280343 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67D79A07C69
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 16:51:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.868848.1280383 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVuhk-0006Qd-07; Thu, 09 Jan 2025 15:44:16 +0000
+	id 1tVunx-0002sm-BU; Thu, 09 Jan 2025 15:50:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 868837.1280343; Thu, 09 Jan 2025 15:44:15 +0000
+Received: by outflank-mailman (output) from mailman id 868848.1280383; Thu, 09 Jan 2025 15:50:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVuhj-0006PA-Te; Thu, 09 Jan 2025 15:44:15 +0000
-Received: by outflank-mailman (input) for mailman id 868837;
- Thu, 09 Jan 2025 15:44:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tVunx-0002r9-8d; Thu, 09 Jan 2025 15:50:41 +0000
+Received: by outflank-mailman (input) for mailman id 868848;
+ Thu, 09 Jan 2025 15:45:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=pS5t=UB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tVuhj-0006P4-1t
- for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 15:44:15 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 93ac9dd7-cea0-11ef-a0df-8be0dac302b0;
- Thu, 09 Jan 2025 16:44:14 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-43625c4a50dso9062305e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jan 2025 07:44:14 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-436e2dc0069sm60145395e9.11.2025.01.09.07.44.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Jan 2025 07:44:13 -0800 (PST)
+ (envelope-from <SRS0=GFlP=UB=minyard.net=corey@srs-se1.protection.inumbo.net>)
+ id 1tVuj5-0007JX-JE
+ for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 15:45:39 +0000
+Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
+ [2607:f8b0:4864:20::333])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c4e9e996-cea0-11ef-99a4-01e77a169b0f;
+ Thu, 09 Jan 2025 16:45:37 +0100 (CET)
+Received: by mail-ot1-x333.google.com with SMTP id
+ 46e09a7af769-71e35be77b5so294447a34.1
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jan 2025 07:45:37 -0800 (PST)
+Received: from mail.minyard.net ([2001:470:b8f6:1b:9076:47eb:1e0a:16fb])
+ by smtp.gmail.com with ESMTPSA id
+ 006d021491bc7-5f882625f0esm386258eaf.9.2025.01.09.07.45.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Jan 2025 07:45:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,132 +45,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 93ac9dd7-cea0-11ef-a0df-8be0dac302b0
+X-Inumbo-ID: c4e9e996-cea0-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1736437453; x=1737042253; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QZNVryZ2V3wnkRwb8LAQRPN50IYrgFAUD6O6S1spCEs=;
-        b=I+Hq/JzkKMPF7IDVNkXDCXnnfjcKDcYNPnDQB2Y4iFM0m8nTUcqmyuXTvdinlxR/vD
-         cPpwAPjTyGYo1F83fJ/lFyqgkdzey5Rw3RBX0OhfA/H4zGSSsrvUaxuDvpqFWO36WRs+
-         I4vIWTyK6yXs1NN+Hxhq6exupweEReHi0nhjKYqMESQOd7wlsX86UazXbHVnxbBc2JLg
-         CvmJT7kusdNOVNyMihcvcWztCIA6DrkCmxVRmBO6iq/PT7FDxZDxuN/oTsYDve+QUmFE
-         gSg9PDqkSsQiA0k4g6tciBEsLjyki5oTrtsDEKK8xKJwg8B21+OkJYUAyOFsuCXA+wDw
-         9IUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736437453; x=1737042253;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=minyard-net.20230601.gappssmtp.com; s=20230601; t=1736437536; x=1737042336; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:reply-to
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QZNVryZ2V3wnkRwb8LAQRPN50IYrgFAUD6O6S1spCEs=;
-        b=epOWnzwU6fjdtSBBgFBQePZ4WgwWfL89owqbyHUL0JLSD3DKB4+qqjQ2B2mcRNCCwi
-         JnndAw1fLH+KrG8zVgiGnopuMrUFNCgP9GI+2fRSypBXCWqS50GgW34oxd8Acsfch5b2
-         8yIgmfzaKgnygYWj/mWz4qwdNC2SRItTOoSoll0hck4eYU2mly/QsQg96fTOO3VOx4q3
-         gr0b9W6RqBRc7UaeZbdQp0aIHDdb3M0kcFZvmkKyJsS1ChrbA7JvyO/dJJBDfA8A/GDA
-         4J3olS6S2WGGXNxUEbRNs3ewQOcGeEBRoD5Qa6Tfna7w4I+QWN5fK0Y5p6YXLbkSKVea
-         83Pw==
-X-Forwarded-Encrypted: i=1; AJvYcCWp9lErlWQUz3HZM/eMKccbJXHxJlrpHyu/UZplarU1hNycJ8w4ip1usKuQ9tgzmzbo9/e0NPAb+3Q=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxByEIrPV1wsLuohk94XOE+g1cIOI9IBFNvFwL7DZgunD6lA/ts
-	Qpk9/kISf7aR4BUnFVgVTIVfV7l0q2/FDY5/jPmk65TbvqFwNup9lIZUQ7uAUg==
-X-Gm-Gg: ASbGncvUzD85vQeWDrh3kynkMzdF175N2RyF/RvwWAbRjKPb10VQ2UHGKR4F+IGGV5P
-	RCFONGkWB2NYL7DWhLJ4WQlfJnpI6koXp7H1L/vPXBzhQCQzVr9y7A+UwBDF9Z4AyUGyHxFHDad
-	FRY23Q3YwRe6EAaArdMMvSkcqdIfrkMp7DNKZZ85jbil8AgBqsMiNXEwbAptah94v9lGsc1Ojnk
-	bnpVzHAveA78hblAwb4N+9FEn0/pxPpDtLdcCKse16kWdeawYk89PQh6PBKpW7Q7HAYWl56EmHX
-	zsXTd3gtfE+ZaSWKbTyDxXqpBg/V9r4bZrO3mQmoQg==
-X-Google-Smtp-Source: AGHT+IGxxHi23askfoSi56FozuLIP9LXgYvqyMA+/SYq/1f2WGGFHdb2D19FrfFBE02xsL2M6RfUUw==
-X-Received: by 2002:a05:600c:4ed3:b0:434:f7e3:bfbd with SMTP id 5b1f17b1804b1-436e26dda8cmr59490845e9.23.1736437453506;
-        Thu, 09 Jan 2025 07:44:13 -0800 (PST)
-Message-ID: <67278014-8208-48f2-92ba-7b843a0d373b@suse.com>
-Date: Thu, 9 Jan 2025 16:44:11 +0100
+        bh=cgTp2x21PamB5G5tjbV3jPSQRWSgTUkiJmrzV93coW4=;
+        b=q6nwCkV41xW+Fds1LDOZpnbvcSLAMdFpaetYqLXTnzUCx7IQj1j0zYEp0XaWBujad9
+         /TRD/k7dj6u5VQUDwALtFgAKVCcj5y7MJGzldjUgilyOdiNGLEh2WKNYyudXRw0HRRtI
+         Tr3qqSUUGH17QNsyhJYXYheppJzIeBdvHOW6gHDphl2Q75p4B3PuQXGnwhgGN165ySpU
+         p31qsrmHbh+h5Fq119u/tuMZo4mg1UidfiOKuFsePnFsKiuG9b+9MAV859mUZIspuuLW
+         sY4HJWxPfQJX7AlAqfZ2Hj9wBxkmR1uJ76+vLbIOJMLa2qhc3wJGQoLpXM2TtUGA+h/a
+         jyOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1736437536; x=1737042336;
+        h=in-reply-to:content-disposition:mime-version:references:reply-to
+         :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=cgTp2x21PamB5G5tjbV3jPSQRWSgTUkiJmrzV93coW4=;
+        b=uoNjiUNfqla2wiKfIc1CXONzzQtuJkCcZWCXUjRUfkLhhnBL14jDIWTImMrXCANhvb
+         2mCZl6fmtHjdpy8L2GQf94UY1seyjiT6w0l7CQUA2iXkrUs/2pj2KajL8d4Tsbkmxka3
+         o1wPrB2GbXz9+ZErZvNWY67fDQYZqArNTveOi2XndqTN1FAdXNX3i6mhhZ52MD/FuJ9B
+         GGWRRowjKL6n2GXZAU2eae2053XS9YujkNPKtZj4xlLrWndHSdcb+nVL1m9Hx8kPAxgo
+         So1ieVMraJOYICqaFsE0ESqbvfxk0z+2RkIgwuxer+eDiJccb6KSph3P7B+HanOTKc6E
+         k/Rw==
+X-Forwarded-Encrypted: i=1; AJvYcCVlDq5RDGTMoMciWnL1g4NqkxwP07YczMn0I6zC3ruIVyOMz208p9j9gb0BaVChW11rc6Jv5y2E6Nc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxGbeouVWadIuctb4flb5ErHvZ5F6hiHzZmjwZIKmHCLYuYotYy
+	FaBaG/Eclpi2VI48QsknFFpf1044n8/SR8aaPSX93gvWYfSK5HgwjZNyW/ZZnAw=
+X-Gm-Gg: ASbGncus6Py/kNjQGHTCQJR3+RLtaTUY4Mh11o6rGTymyePxfqZ28JldDue2qrFyqIn
+	rH7nesQW7rBDp2+WEh6pIR4CVlZU/+P8+XzKWckg2GCmQHfMffTcCwiAucAlfwnATsPENodbW41
+	6RE35Bcsc25dTDdUayrbFFlTPJud/0uUGS6DcymMbZtSDPQBqUyvAAF4ZFnHyPeJK5J6vRRkk0+
+	/ugOrqA/TXnMNjeZsdxyY/Aj9U5j1tvXahrwRUFBi16676dAmyOO2GehPo0
+X-Google-Smtp-Source: AGHT+IHELUnxP9ZvL+e2Ztemz39I9ORoPYZLTVwEa+XG73J5uz7w7yM0cuXu9KZqTaUsGk+1/+jmGA==
+X-Received: by 2002:a05:6830:6610:b0:716:a95d:9ef with SMTP id 46e09a7af769-721e2e000d6mr4949630a34.2.1736437534534;
+        Thu, 09 Jan 2025 07:45:34 -0800 (PST)
+Date: Thu, 9 Jan 2025 09:45:27 -0600
+From: Corey Minyard <corey@minyard.net>
+To: Joel Granados <joel.granados@kernel.org>
+Cc: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+	Kees Cook <kees@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
+	linux-s390@vger.kernel.org, linux-crypto@vger.kernel.org,
+	openipmi-developer@lists.sourceforge.net,
+	intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
+	linux-rdma@vger.kernel.org, linux-raid@vger.kernel.org,
+	linux-scsi@vger.kernel.org, linux-serial@vger.kernel.org,
+	xen-devel@lists.xenproject.org, linux-aio@kvack.org,
+	linux-fsdevel@vger.kernel.org, netfs@lists.linux.dev,
+	codalist@coda.cs.cmu.edu, linux-mm@kvack.org,
+	linux-nfs@vger.kernel.org, ocfs2-devel@lists.linux.dev,
+	fsverity@lists.linux.dev, linux-xfs@vger.kernel.org,
+	io-uring@vger.kernel.org, bpf@vger.kernel.org,
+	kexec@lists.infradead.org, linux-trace-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org, apparmor@lists.ubuntu.com,
+	linux-security-module@vger.kernel.org, keyrings@vger.kernel.org
+Subject: Re: [PATCH] treewide: const qualify ctl_tables where applicable
+Message-ID: <Z3_vF3I453flXoZv@mail.minyard.net>
+Reply-To: corey@minyard.net
+References: <20250109-jag-ctl_table_const-v1-1-622aea7230cf@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] Update Xen version to 4.20-rc
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250109153921.43610-1-andrew.cooper3@citrix.com>
- <20250109153921.43610-3-andrew.cooper3@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250109153921.43610-3-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250109-jag-ctl_table_const-v1-1-622aea7230cf@kernel.org>
 
-On 09.01.2025 16:39, Andrew Cooper wrote:
-> --- a/README
-> +++ b/README
-> @@ -1,11 +1,11 @@
-> -############################################################
-> -__  __                                _        _     _
-> -\ \/ /___ _ __        _   _ _ __  ___| |_ __ _| |__ | | ___
-> - \  // _ \ '_ \ _____| | | | '_ \/ __| __/ _` | '_ \| |/ _ \
-> - /  \  __/ | | |_____| |_| | | | \__ \ || (_| | |_) | |  __/
-> -/_/\_\___|_| |_|      \__,_|_| |_|___/\__\__,_|_.__/|_|\___|
-> -
-> -############################################################
-> +#####################################################
-> +__  __            _  _    ____   ___
-> +\ \/ /___ _ __   | || |  |___ \ / _ \       _ __ ___
-> + \  // _ \ '_ \  | || |_   __) | | | |_____| '__/ __|
-> + /  \  __/ | | | |__   _| / __/| |_| |_____| | | (__
-> +/_/\_\___|_| |_|    |_|(_)_____|\___/      |_|  \___|
-> +
-> +#####################################################
+On Thu, Jan 09, 2025 at 02:16:39PM +0100, Joel Granados wrote:
+> Add the const qualifier to all the ctl_tables in the tree except the
+> ones in ./net dir. The "net" sysctl code is special as it modifies the
+> arrays before passing it on to the registration function.
+> 
+...
+> diff --git a/drivers/char/ipmi/ipmi_poweroff.c b/drivers/char/ipmi/ipmi_poweroff.c
+> index 941d2dcc8c9d..de84f59468a9 100644
+> --- a/drivers/char/ipmi/ipmi_poweroff.c
+> +++ b/drivers/char/ipmi/ipmi_poweroff.c
+> @@ -650,7 +650,7 @@ static struct ipmi_smi_watcher smi_watcher = {
+>  #ifdef CONFIG_PROC_FS
+>  #include <linux/sysctl.h>
 >  
->  https://www.xen.org/
->  
-> --- a/SUPPORT.md
-> +++ b/SUPPORT.md
-> @@ -9,7 +9,7 @@ for the definitions of the support status levels etc.
->  
->  # Release Support
->  
-> -    Xen-Version: 4.20-unstable
-> +    Xen-Version: 4.20-rc
->      Initial-Release: n/a
->      Supported-Until: TBD
->      Security-Support-Until: Unreleased - not yet security-supported
-> --- a/xen/Makefile
-> +++ b/xen/Makefile
-> @@ -6,7 +6,7 @@ this-makefile := $(call lastword,$(MAKEFILE_LIST))
->  # All other places this is stored (eg. compile.h) should be autogenerated.
->  export XEN_VERSION       = 4
->  export XEN_SUBVERSION    = 20
-> -export XEN_EXTRAVERSION ?= -unstable$(XEN_VENDORVERSION)
-> +export XEN_EXTRAVERSION ?= .0-rc$(XEN_VENDORVERSION)
+> -static struct ctl_table ipmi_table[] = {
+> +static const struct ctl_table ipmi_table[] = {
+>  	{ .procname	= "poweroff_powercycle",
+>  	  .data		= &poweroff_powercycle,
+>  	  .maxlen	= sizeof(poweroff_powercycle),
 
-Since we'd been there before I take it the .0 in here (which isn't in the
-changes to the other two files) is deliberate now? Clearly I continue to
-think it shouldn't be put there together with -rc.
+For the IPMI portion:
 
-Jan
+Acked-by: Corey Minyard <cminyard@mvista.com>
+
 
