@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D49FDA07519
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 12:51:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.868286.1279820 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 957BAA0754F
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 13:09:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.868303.1279830 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVr41-0005Sd-Lc; Thu, 09 Jan 2025 11:51:01 +0000
+	id 1tVrL7-0007mN-6T; Thu, 09 Jan 2025 12:08:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 868286.1279820; Thu, 09 Jan 2025 11:51:01 +0000
+Received: by outflank-mailman (output) from mailman id 868303.1279830; Thu, 09 Jan 2025 12:08:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVr41-0005QS-Iw; Thu, 09 Jan 2025 11:51:01 +0000
-Received: by outflank-mailman (input) for mailman id 868286;
- Thu, 09 Jan 2025 11:51:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=pS5t=UB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tVr40-0005QI-57
- for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 11:51:00 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fe19c70f-ce7f-11ef-a0df-8be0dac302b0;
- Thu, 09 Jan 2025 12:50:59 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-436341f575fso8919465e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jan 2025 03:50:59 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-436e2ddca2dsm52559985e9.21.2025.01.09.03.50.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Jan 2025 03:50:58 -0800 (PST)
+	id 1tVrL7-0007kQ-3L; Thu, 09 Jan 2025 12:08:41 +0000
+Received: by outflank-mailman (input) for mailman id 868303;
+ Thu, 09 Jan 2025 12:08:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=eYg4=UB=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1tVrL5-0007kK-4R
+ for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 12:08:39 +0000
+Received: from fout-a3-smtp.messagingengine.com
+ (fout-a3-smtp.messagingengine.com [103.168.172.146])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7321f6f4-ce82-11ef-99a4-01e77a169b0f;
+ Thu, 09 Jan 2025 13:08:35 +0100 (CET)
+Received: from phl-compute-05.internal (phl-compute-05.phl.internal
+ [10.202.2.45])
+ by mailfout.phl.internal (Postfix) with ESMTP id D6B6613808F2;
+ Thu,  9 Jan 2025 07:08:33 -0500 (EST)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-05.internal (MEProxy); Thu, 09 Jan 2025 07:08:33 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 9 Jan 2025 07:08:30 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,111 +45,293 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fe19c70f-ce7f-11ef-a0df-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1736423459; x=1737028259; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=H9m8LioseIqRAUAmVRhVyBB7x2L9TDN3Hr8T1J8beSU=;
-        b=GMrldDCLwRpmUeXJgzYDnJBrbB49GdP7jhh7M+1EUH2snnkiQc8Su541B5Ye6V6ECb
-         N+ucLOpOIXXhw+0qpfhJjXdHlJqMtoqvk144erAmof073DgZusaCGdMNyVhmSNONsAX7
-         lR5B3Ch7cWDMp0mQsqAQcBbZ+X1d57qC0uEsrkIYulSAeTIZJypB0IIDRDF1LQ99kVln
-         6eDB3sCHJFbf2wG2ugyST1uqGVcw9AKqgJ71JU/3LGC0viX0bUZUUzKEYGfi6Rn5uyr6
-         Zx2rXv7OK1UcT12N3Xm06UgRRqaOQuP3kpH3bs80vG1kLqzY6ahL0Rvfzebw8TFJddPu
-         DMHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736423459; x=1737028259;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=H9m8LioseIqRAUAmVRhVyBB7x2L9TDN3Hr8T1J8beSU=;
-        b=b+CEWj3bfYVvARZKJ6x4pWpmaSVmPdxuyObkvCw7vosgtv2VHkO3XGrO3ny8RRHNv0
-         KbSUSVxPQNTFMSekzjwQLaJ0iN/fD8hyhNjwusxwf+DWVVfRsITyyrIMl+ko6zAgHTNy
-         odImXVBCKZY7IglfBYodA5BztdgcU9wliNjs2hnmeM4VENvoKdG12cqN15nA/nRVFSOd
-         8aCL4fQk2AJu5Zx1lkkd2vzjCIEshPy+BhE6EIUIM/ByjH4rL4O8VeUicvuhqXkEHfpy
-         b4GVIH+7i/QA8TB0srhMz4qdZ7ITui/ppjYA4JLmJfdJkW8Sd4phiUoWRmzOIVhpIDhk
-         0dMw==
-X-Forwarded-Encrypted: i=1; AJvYcCUQJJ6VYpz8b5EPWbhf3vqJq40sJ0oRE+DSMq9aQfmtADkYxPwvsDtn4M8LLTIzEdneyeYRWobIJ4Q=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzcapTmI9iKD6fUo1M2pd8vAd8uto2NPLfbVLnwivLaihsxEb8h
-	HfRzzFztDQWDUm/ugwZwx/EMZDBHP/o1sZmhK2WKt3hEHDxaMOpQNSRLG8wBV/0J1/3bb5YvLVA
-	=
-X-Gm-Gg: ASbGnct/2JoUbKFx24ikNXL8OTgk+ZQmm6p3MD8v7knsmeiWpbAKY5X2U4zvtKPMnY4
-	LrCHBDi9+zPBt0pwsmHz1E2PidsVEi+m7mPvhyQlvrPvKQulHP2CxytPpofAVes8PttF0GxdrZQ
-	100OTbBemrmOkch5/QtmHcogaaME56HOMdllYXLGvi/pS8UfsFca/SgmkSskd3Ook/9jiTmUdqX
-	lPQyUyVpEFYg7jkWpRG7Glh56sT9zPpMpRPbn92nhyI7Lnpv4p8JlC1uFs+3OTxGEXJpZ7mS67R
-	LrTR5U23aGgIfUWUrA9R1cuwNqYDo0oSFJHDZ+reow==
-X-Google-Smtp-Source: AGHT+IGCv3s8wq4GwM89JKsOUNktDSiI6s9eEiG+tuGsk01df+4ki07ESE7Fi0CdRLVNGqMruUXoDA==
-X-Received: by 2002:a05:600c:314e:b0:434:f5c0:329f with SMTP id 5b1f17b1804b1-436e2697947mr64735685e9.14.1736423458687;
-        Thu, 09 Jan 2025 03:50:58 -0800 (PST)
-Message-ID: <ec04cc3a-8d35-4a56-a956-f36041d5e54b@suse.com>
-Date: Thu, 9 Jan 2025 12:50:56 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+X-Inumbo-ID: 7321f6f4-ce82-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1736424513;
+	 x=1736510913; bh=kECteZPoKXf9xMfmh68/LbiCRmgtBv9vdGOcf89P5PY=; b=
+	r3f2mMQRy5G0oFHzU8x21odkXjQQkQZEeq6aV5scgYx689oY5WEPgQMxaBkuOXnA
+	Rgmuf5GWnGpiohRKK8CLiOWlezsrct42Q04C5wqggMLNVa8JmTifdFTE/rPyCMot
+	Fq0rAaADIyxzPoGWZnY+1AY5NiV8pFRaZL+Xk5EervhMNv/dSKh4xApPo6JFeQBz
+	qMdNCw3IW6ul1WXaySgjp1CmWB3k0VIUcyC0jq+r3rkLa0wo245tbXA4YWEMvmQ4
+	i+vyff5gfbtNR8FBMANlwtLY4puXNISWY5u/uKBDP51tF+kH3DvNihuqHC+45vP/
+	VJ0x98ZKMwgG0d0QqPGJbA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1736424513; x=1736510913; bh=kECteZPoKXf9xMfmh68/LbiCRmgtBv9vdGO
+	cf89P5PY=; b=HPDpMDuX3cq+CuvCa9dgCP3bwXaHJD2CzaDZ8WZKvJYaRy65WbM
+	BM1nDunT+OnqgEVTNrFyG8Ph+wQJ5YlPkOiGtKmzaf7wkTF1gJtQPREUWrDD0FGk
+	a+Kg1bS3ttli0y/7gTipmdAsbeh5oZHZXRqGsw5Qvx9uH7zQJHRHG1K4eM9WNJ7K
+	SAOUBOX6hz8+H7nVvuwHe5Ku5SB3jB9n3tM6N3h3tZoyD/Vzm3nal6CmlLQEWDRL
+	1noDHCxwjtJ3FmYRBH6b/4CKk5biC34IIkY3l620kUu/WJ6rQzbVvaM6tyP4VAHD
+	+GniZUC3ifCdVC07W52x042cvz/1cb6+bqA==
+X-ME-Sender: <xms:QLx_Z_xZuzzBKCBNlqOeDIA3_TwSiaa2McoX6BD_bwnuXiEl5S17Tw>
+    <xme:QLx_Z3TU4_KCBTYzpAUn8FUtt1EuVSuGVnHXTl2vGYYQ7MJX0uqKzGv7q4dZlD3aS
+    --CRFIR8RGlZw>
+X-ME-Received: <xmr:QLx_Z5UFMoaILubXZb1VppCzgcd1pAVm7F13sKy1l53RRd-OxhmF1B5PkI2pzOXJdu575FN0rddrUYs-XZhX9dZHvaBl_CtQvg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddrudegiedgfeegucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
+    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
+    htshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeen
+    ucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomh
+    grrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggft
+    rfgrthhtvghrnhepgfduleetfeevhfefheeiteeliefhjefhleduveetteekveettddvge
+    euteefjedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhho
+    mhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnh
+    gspghrtghpthhtohepuddtpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopehtvggu
+    ugihrdgrshhtihgvsehvrghtvghsrdhtvggthhdprhgtphhtthhopeigvghnqdguvghvvg
+    hlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhopegrnhgurhgv
+    fidrtghoohhpvghrfeestghithhrihigrdgtohhmpdhrtghpthhtohepjhgsvghulhhitg
+    hhsehsuhhsvgdrtghomhdprhgtphhtthhopehjuhhlihgvnhesgigvnhdrohhrghdprhgt
+    phhtthhopehsshhtrggsvghllhhinhhisehkvghrnhgvlhdrohhrghdprhgtphhtthhope
+    hrohhgvghrrdhprghusegtihhtrhhigidrtghomhdprhgtphhtthhopehluhhkrghsiies
+    hhgrfihrhihlkhhordhplhdprhgtphhtthhopeguphhsmhhithhhsegrphgvrhhtuhhssh
+    holhhuthhiohhnshdrtghomh
+X-ME-Proxy: <xmx:QLx_Z5iqj7Twtl7FAd0pB6fwcvD3hkn0AECSVBlTwe3OpMWLVdWPOw>
+    <xmx:QLx_ZxD300TsgeRb0KyLuzyRNQvliBaGIihCMcIHTrthc78QlQBaRw>
+    <xmx:QLx_ZyIu3-FzS9eXbfUbeU7gKkNkKzHpbnWQx_rIr2oSOJ8lLlNyHg>
+    <xmx:QLx_ZwDCbiW8xWjhruwGZ_EWLVMghami-obGAWlFDafBTf7mc4d0mw>
+    <xmx:Qbx_Z15tZqUF_I8BN9RSfnIuB7yGj7xjSve6J-vRXGQZGHnRwR_OOo0L>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 9 Jan 2025 13:08:27 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Lukasz Hawrylko <lukasz@hawrylko.pl>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Mateusz =?utf-8?B?TcOzd2th?= <mateusz.mowka@intel.com>
 Subject: Re: [XEN RFC PATCH v4 0/5] IOMMU subsystem redesign and PV-IOMMU
  interface
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Lukasz Hawrylko <lukasz@hawrylko.pl>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Mateusz_M=C3=B3wka?= <mateusz.mowka@intel.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Xen-devel <xen-devel@lists.xenproject.org>
+Message-ID: <Z3-8O9opmLfgO5t0@mail-itl>
 References: <cover.1730718102.git.teddy.astie@vates.tech>
- <Z38-y9xR-6C_sARJ@mail-itl> <c0b9fbdb-87db-4f31-8069-0c2d1c4ad4cd@vates.tech>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
+ <Z38-y9xR-6C_sARJ@mail-itl>
+ <c0b9fbdb-87db-4f31-8069-0c2d1c4ad4cd@vates.tech>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="1c1xE17VkmyIay1G"
+Content-Disposition: inline
 In-Reply-To: <c0b9fbdb-87db-4f31-8069-0c2d1c4ad4cd@vates.tech>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 09.01.2025 12:39, Teddy Astie wrote:
->> 3. Xen complains on boot about missing endbr64 (surprisingly, it didn't
->>     exploded):
->>
->>      (XEN) alt table ffff82d0404234d8 -> ffff82d040432d82
->>      (XEN) altcall iommu_get_max_iova+0x11/0x30 dest iommu.c#intel_iommu_get_max_iova has no endbr64
->>      (XEN) altcall context.c#iommu_reattach_phantom+0x30/0x50 dest iommu.c#intel_iommu_add_devfn has no endbr64
->>      (XEN) altcall context.c#iommu_detach_phantom+0x25/0x40 dest iommu.c#intel_iommu_remove_devfn has no endbr64
->>      (XEN) altcall iommu_context_init+0x27/0x40 dest iommu.c#intel_iommu_context_init has no endbr64
->>      (XEN) altcall iommu_attach_context+0x3c/0xd0 dest iommu.c#intel_iommu_attach has no endbr64
->>      (XEN) altcall context.c#iommu_attach_context.cold+0x1d/0x53 dest iommu.c#intel_iommu_detach has no endbr64
->>      (XEN) altcall iommu_detach_context+0x37/0xa0 dest iommu.c#intel_iommu_detach has no endbr64
->>      (XEN) altcall iommu_reattach_context+0x95/0x240 dest iommu.c#intel_iommu_reattach has no endbr64
->>      (XEN) altcall context.c#iommu_reattach_context.cold+0x29/0x110 dest iommu.c#intel_iommu_reattach has no endbr64
->>      (XEN) altcall iommu_context_teardown+0x3f/0xa0 dest iommu.c#intel_iommu_context_teardown has no endbr64
->>      (XEN) altcall pci.c#deassign_device+0x99/0x270 dest iommu.c#intel_iommu_add_devfn has no endbr64
->>
-> 
+
+--1c1xE17VkmyIay1G
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 9 Jan 2025 13:08:27 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Lukasz Hawrylko <lukasz@hawrylko.pl>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Mateusz =?utf-8?B?TcOzd2th?= <mateusz.mowka@intel.com>
+Subject: Re: [XEN RFC PATCH v4 0/5] IOMMU subsystem redesign and PV-IOMMU
+ interface
+
+On Thu, Jan 09, 2025 at 11:39:04AM +0000, Teddy Astie wrote:
+> Thanks for your review.
+>=20
+> > Hi,
+> >=20
+> > I finally got time to try this revision (sorry it took so long!). My
+> > goal was to test it this time with some HVM domU too. I didn't get very
+> > far...
+> >=20
+> > Issues I hit:
+> >=20
+> > 1. AMD IOMMU driver is not converted (fails to build), for now disabled
+> >     CONFIG_AMD_IOMMU.
+>=20
+> I haven't really worked on the AMD-Vi code yet. I have plans for it but=
+=20
+> there is some specific bits to deal with (especially regarding interrupt=
+=20
+> remapping), that I planned to discuss especially during the Xen Project=
+=20
+> Winter Summit 2025.
+
+:)
+
+> > 2. PV shim build fails (linker fails to find p2m_add_identity_entry
+> >     symbol referenced from iommu.c)
+>=20
+> I haven't considered PV shim yet, so I am not really surprised that=20
+> there are some issues with it. We probably want to expose some PV-IOMMU=
+=20
+> features for PV guests under PV shim, but it probably needs some=20
+> specific code for it.
+
+I'm not sure if passthrough is supported with PV shim (never tried). The
+current issue is much earlier ;)
+
+> > 3. Xen complains on boot about missing endbr64 (surprisingly, it didn't
+> >     exploded):
+> >=20
+> >      (XEN) alt table ffff82d0404234d8 -> ffff82d040432d82
+> >      (XEN) altcall iommu_get_max_iova+0x11/0x30 dest iommu.c#intel_iomm=
+u_get_max_iova has no endbr64
+> >      (XEN) altcall context.c#iommu_reattach_phantom+0x30/0x50 dest iomm=
+u.c#intel_iommu_add_devfn has no endbr64
+> >      (XEN) altcall context.c#iommu_detach_phantom+0x25/0x40 dest iommu.=
+c#intel_iommu_remove_devfn has no endbr64
+> >      (XEN) altcall iommu_context_init+0x27/0x40 dest iommu.c#intel_iomm=
+u_context_init has no endbr64
+> >      (XEN) altcall iommu_attach_context+0x3c/0xd0 dest iommu.c#intel_io=
+mmu_attach has no endbr64
+> >      (XEN) altcall context.c#iommu_attach_context.cold+0x1d/0x53 dest i=
+ommu.c#intel_iommu_detach has no endbr64
+> >      (XEN) altcall iommu_detach_context+0x37/0xa0 dest iommu.c#intel_io=
+mmu_detach has no endbr64
+> >      (XEN) altcall iommu_reattach_context+0x95/0x240 dest iommu.c#intel=
+_iommu_reattach has no endbr64
+> >      (XEN) altcall context.c#iommu_reattach_context.cold+0x29/0x110 des=
+t iommu.c#intel_iommu_reattach has no endbr64
+> >      (XEN) altcall iommu_context_teardown+0x3f/0xa0 dest iommu.c#intel_=
+iommu_context_teardown has no endbr64
+> >      (XEN) altcall pci.c#deassign_device+0x99/0x270 dest iommu.c#intel_=
+iommu_add_devfn has no endbr64
+> >=20
+>=20
 > I also see that, but I am not sure what I need to do to fix it.
 
-Add cf_check to the functions in question, I guess.
+I guess add "cf_check" annotation to functions that are called
+indirectly.
 
-Jan
+> > 4. Starting a HVM domU with PCI device fails with:
+> >=20
+> >      libxl: libxl_pci.c:1552:pci_add_dm_done: Domain 1:xc_assign_device=
+ failed: No space left on device
+> >      libxl: libxl_pci.c:1875:device_pci_add_done: Domain 1:libxl__devic=
+e_pci_add failed for PCI device 0:aa:0.0 (rc -3)
+> >      libxl: libxl_create.c:2061:domcreate_attach_devices: Domain 1:unab=
+le to add pci devices
+> > > I didn't change anything in the toolstack - maybe default context nee=
+ds
+> > to be initialized somehow? But the docs suggest the default context
+> > should work out of the box. On the other hand, changelog for v4 says
+> > some parts are moved to the toolstack, but I don't see any changes in
+> > tools/ in this series...
+> >=20
+>=20
+> I only tried stuff inside Dom0, but I haven't really tried passing=20
+> through a device. I think I missed some step regarding quarantine domain=
+=20
+> initialization, which is probably why you have "-ENOSPC" here. You can=20
+> try in the meantime to set "quarantine=3D0" to disable this part to see i=
+f=20
+> it progresses further.
+
+That helped a bit. Now domU starts. But device doesn't work - qemu
+complains:
+
+[2025-01-09 06:52:45] [00:08.0] xen_pt_realize: Real physical device 00:0d.=
+3 registered successfully
+=2E..
+[2025-01-09 06:52:45] [00:09.0] xen_pt_realize: Real physical device 00:0d.=
+2 registered successfully
+=2E..
+[2025-01-09 06:52:45] [00:0a.0] xen_pt_realize: Real physical device 00:0d.=
+0 registered successfully
+=2E..
+[2025-01-09 06:52:59] [00:0a.0] xen_pt_msgctrl_reg_write: setup MSI (regist=
+er: 87).
+[2025-01-09 06:52:59] [00:0a.0] msi_msix_setup: Error: Mapping of MSI (err:=
+ 19, vec: 0x25, entry 0[2025-01-09 06:52:59] x0)
+[2025-01-09 06:52:59] [00:0a.0] xen_pt_msgctrl_reg_write: Warning: Can not =
+map MSI (register: 86)!
+[2025-01-09 06:54:21] [00:08.0] msix_set_enable: disabling MSI-X.
+[2025-01-09 06:54:21] [00:08.0] xen_pt_msixctrl_reg_write: disable MSI-X
+[2025-01-09 06:54:21] [00:09.0] xen_pt_msixctrl_reg_write: enable MSI-X
+[2025-01-09 06:54:21] [00:09.0] msi_msix_setup: Error: Mapping of MSI-X (er=
+r: 19, vec: 0xef, entry 0x0)
+[2025-01-09 06:54:21] [00:09.0] msi_msix_setup: Error: Mapping of MSI-X (er=
+r: 19, vec: 0xef, entry 0x1)
+[2025-01-09 06:54:21] [00:09.0] msi_msix_setup: Error: Mapping of MSI-X (er=
+r: 19, vec: 0xef, entry 0x2)
+[2025-01-09 06:54:21] [00:09.0] msi_msix_setup: Error: Mapping of MSI-X (er=
+r: 19, vec: 0xef, entry 0x3)
+[2025-01-09 06:54:21] [00:09.0] msi_msix_setup: Error: Mapping of MSI-X (er=
+r: 19, vec: 0xef, entry 0x4)
+[2025-01-09 06:54:21] [00:09.0] msi_msix_setup: Error: Mapping of MSI-X (er=
+r: 19, vec: 0xef, entry 0x5)
+[2025-01-09 06:54:21] [00:09.0] msi_msix_setup: Error: Mapping of MSI-X (er=
+r: 19, vec: 0xef, entry 0x6)
+[2025-01-09 06:54:21] [00:09.0] msi_msix_setup: Error: Mapping of MSI-X (er=
+r: 19, vec: 0xef, entry 0x7)
+[2025-01-09 06:54:21] [00:09.0] msi_msix_setup: Error: Mapping of MSI-X (er=
+r: 19, vec: 0xef, entry 0x8)
+[2025-01-09 06:54:21] [00:09.0] msi_msix_setup: Error: Mapping of MSI-X (er=
+r: 19, vec: 0xef, entry 0x9)
+[2025-01-09 06:54:21] [00:09.0] msi_msix_setup: Error: Mapping of MSI-X (er=
+r: 19, vec: 0xef, entry 0xa)
+[2025-01-09 06:54:21] [00:09.0] msi_msix_setup: Error: Mapping of MSI-X (er=
+r: 19, vec: 0xef, entry 0xb)
+
+and interestingly, Xen says all devices are still in dom0:
+
+[2025-01-09 06:53:39] (XEN) =3D=3D=3D=3D PCI devices =3D=3D=3D=3D
+[2025-01-09 06:53:39] (XEN) =3D=3D=3D=3D segment 0000 =3D=3D=3D=3D
+[2025-01-09 06:53:39] (XEN) 0000:aa:00.0 - d0 - node -1
+[2025-01-09 06:53:39] (XEN) 0000:01:00.0 - d0 - node -1  - MSIs < 132 133 1=
+34 135 136 >
+[2025-01-09 06:53:39] (XEN) 0000:00:1f.5 - d0 - node -1
+[2025-01-09 06:53:39] (XEN) 0000:00:1f.4 - d0 - node -1
+[2025-01-09 06:53:39] (XEN) 0000:00:1f.3 - d0 - node -1  - MSIs < 139 >
+[2025-01-09 06:53:39] (XEN) 0000:00:1f.0 - d0 - node -1
+[2025-01-09 06:53:39] (XEN) 0000:00:1d.0 - d0 - node -1  - MSIs < 131 >
+[2025-01-09 06:53:39] (XEN) 0000:00:16.0 - d0 - node -1  - MSIs < 138 >
+[2025-01-09 06:53:39] (XEN) 0000:00:15.3 - d0 - node -1
+[2025-01-09 06:53:39] (XEN) 0000:00:15.1 - d0 - node -1
+[2025-01-09 06:53:39] (XEN) 0000:00:15.0 - d0 - node -1
+[2025-01-09 06:53:39] (XEN) 0000:00:14.2 - d0 - node -1
+[2025-01-09 06:53:39] (XEN) 0000:00:14.0 - d0 - node -1
+[2025-01-09 06:53:39] (XEN) 0000:00:12.0 - d0 - node -1
+[2025-01-09 06:53:39] (XEN) 0000:00:0d.3 - d0 - node -1
+[2025-01-09 06:53:39] (XEN) 0000:00:0d.2 - d0 - node -1
+[2025-01-09 06:53:39] (XEN) 0000:00:0d.0 - d0 - node -1
+[2025-01-09 06:53:39] (XEN) 0000:00:0a.0 - d0 - node -1
+[2025-01-09 06:53:39] (XEN) 0000:00:08.0 - d0 - node -1
+[2025-01-09 06:53:39] (XEN) 0000:00:07.3 - d0 - node -1  - MSIs < 130 >
+[2025-01-09 06:53:39] (XEN) 0000:00:07.2 - d0 - node -1  - MSIs < 129 >
+[2025-01-09 06:53:39] (XEN) 0000:00:07.1 - d0 - node -1  - MSIs < 128 >
+[2025-01-09 06:53:39] (XEN) 0000:00:07.0 - d0 - node -1  - MSIs < 127 >
+[2025-01-09 06:53:39] (XEN) 0000:00:06.0 - d0 - node -1  - MSIs < 126 >
+[2025-01-09 06:53:39] (XEN) 0000:00:04.0 - d0 - node -1
+[2025-01-09 06:53:39] (XEN) 0000:00:02.0 - d0 - node -1  - MSIs < 137 >
+[2025-01-09 06:53:39] (XEN) 0000:00:00.0 - d0 - node -1
+
+I don't see any errors from toolstack this time.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--1c1xE17VkmyIay1G
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmd/vDsACgkQ24/THMrX
+1yzEJwf+KhKLg5e6DtcqalYHE8KVuXIu87i9PmAF0IE7IbwvpR1XzhpOOh0KSuX+
+YYPUUoHXjLCC/h+fSgfb8cRHeLdNDwdC8W1DRGBpMywANlw4EevmVvIDT6S0UQm/
+ntQR7FVJmBin4XgcPpcOUZPujy7KpkByyauZLkE3gvivVmafLoQiANQYJF/+m56c
+FdWthK1tNuO2QJu9hwR7lwEmKTKavA9Eqw/rFJ4zVtYIRPSP/FwN1v30M52P4f6G
+Y1ucSYcFLsdL7UZL3GBGoMtVI0u0RJurrn/1PU4igpPSn6EnRpJF1fWr9Iy4gjzA
+L8Ti1JKUloZD2yZvljKlCvSbJ6uXhA==
+=Qclm
+-----END PGP SIGNATURE-----
+
+--1c1xE17VkmyIay1G--
 
