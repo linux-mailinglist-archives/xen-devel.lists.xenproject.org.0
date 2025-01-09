@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FF27A070AB
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 10:03:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.867886.1279426 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18FC5A07107
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 10:10:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.867897.1279436 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVoRX-0001mp-S7; Thu, 09 Jan 2025 09:03:07 +0000
+	id 1tVoYa-0003LJ-IB; Thu, 09 Jan 2025 09:10:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 867886.1279426; Thu, 09 Jan 2025 09:03:07 +0000
+Received: by outflank-mailman (output) from mailman id 867897.1279436; Thu, 09 Jan 2025 09:10:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVoRX-0001l6-Oy; Thu, 09 Jan 2025 09:03:07 +0000
-Received: by outflank-mailman (input) for mailman id 867886;
- Thu, 09 Jan 2025 09:03:06 +0000
+	id 1tVoYa-0003JW-FQ; Thu, 09 Jan 2025 09:10:24 +0000
+Received: by outflank-mailman (input) for mailman id 867897;
+ Thu, 09 Jan 2025 09:10:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=pS5t=UB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tVoRW-0001l0-IH
- for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 09:03:06 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ id 1tVoYZ-0003JQ-Ky
+ for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 09:10:23 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 899b1610-ce68-11ef-a0df-8be0dac302b0;
- Thu, 09 Jan 2025 10:03:05 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-436a03197b2so4865875e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jan 2025 01:03:05 -0800 (PST)
+ id 8e293693-ce69-11ef-a0df-8be0dac302b0;
+ Thu, 09 Jan 2025 10:10:22 +0100 (CET)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-385e3621518so354710f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jan 2025 01:10:22 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-436e2dc0babsm48127655e9.14.2025.01.09.01.03.04
+ ffacd0b85a97d-38a8e385026sm1234186f8f.42.2025.01.09.01.10.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Jan 2025 01:03:04 -0800 (PST)
+ Thu, 09 Jan 2025 01:10:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 899b1610-ce68-11ef-a0df-8be0dac302b0
+X-Inumbo-ID: 8e293693-ce69-11ef-a0df-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1736413385; x=1737018185; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1736413822; x=1737018622; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=frpOsuC0haFEZmtUajHIEA6hZOD7Mf23nJ6yJozhB+I=;
-        b=ddIGWDmYJ5Ss5aieB3R9T2Aw18hhJRBNh/pk14X/npTw0DoyiPFD7+jt4r80/3mIx7
-         +dFCE3sW/c3cyDRj05CH2fdnDw9fSWuVdmRNZ9oQsscjMQC64ml6GJJ4xvngW11pIQGh
-         wSfCmQXIK+Q0Nd6P1QKsfbyu3rOiANRf4dr8glxbYEnxXBLK4TT/kgtR0bzreorM1A5N
-         6gdMyiI2Cjhtx1hla6N+a/ScUncZL8YQJTYkLyXkx7X7hHZqKHX8s+8c5qOeTwCIOOtR
-         sT10c13MkXg2qdrBhdbvZ+lXKDuBAAG7q0fvM718st3HTr+q8UPeCGHf7h/pSoLTod/S
-         YKxg==
+        bh=ReTD5UTlkgVXDxMMw9RuSPCkrgf4x0dJZIfb4+8JxpQ=;
+        b=Qgm4HqpLU5AZ+SAer/ncVI0yCqSiaEQZ8hGT9AYndOYXGJCZ0ONI8YprVjIQm5MQAD
+         5A1ING/s/HY7oqZpHE2+wki/p5lX+jJqu75r8HOqb3IXKYvr8GudC+3KV+JsXipKDA2c
+         +d9Lhl4um4ns3plqtAZ85btgVCdzZdoMoQgALCCTXa5A71lNWuJj7UaeuJWQm7cJLx0E
+         neEUGyowIjhbo8P3G5RgA0kpHBbpKaIqPoukV5o4m18Ie4+xHx7mxKkd4tGSc1i1rp5e
+         nfGkxa+1E0GaUKr8X6VJdtnrcvoHzK2jeyG/y35GWYaIbQDzqPmPXmIhWkt7ZF/9fWaO
+         oVhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736413385; x=1737018185;
+        d=1e100.net; s=20230601; t=1736413822; x=1737018622;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=frpOsuC0haFEZmtUajHIEA6hZOD7Mf23nJ6yJozhB+I=;
-        b=IC6BjpalHXuxRSSuWN4sNoTYDbfwzbYsdcE+gA33VXUTu49ra1Ot+Dcsyth/llvoTq
-         faXBDv0bGemCFIP9iLSj93C/951tqSw51NgRv4l9IdRNNp/Wr+XIwX8r3kOs3K67Fwz+
-         egENC6d45DB31ysGOd5ibUVhdb54T9GFvd6znRFJQJGX//HcJFGCiN60uL+xYJVbXclm
-         515FiD43JN5D+IhnfsHsBk58nn9xQVwMM0W4xFKam5Y4wndrXTxU93n+eNi00RraIAJE
-         YgPErSqY4BOXz7qXrVrkGyNl1gfvp0/xbC5teRppGb7FI8Rr8heVy9GgXFj7EB7l1i2U
-         y86Q==
-X-Forwarded-Encrypted: i=1; AJvYcCXM5qtdXYAB9SPjfDO0P+ozUBEY9+LihR2Dtn/IgkKfaViMKh6l330DorwXYa5LmKwZ4z74AixoKsI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzDrToSIpwgr0lC7qcGpv86TOz9RLpx5Mv/jU06c8d1qtWul/a4
-	gH5MNpceYL2lK5LFdipVFi+BN1hBCptSan92JSJhq/My4+uRi8Jp/65bx4lKHQ==
-X-Gm-Gg: ASbGncvnKN6nepC0Ac5/ga4wY8GCRmVdbDRliYAOPrE/EcxGgv35xd8OxJqrTXDTBLT
-	pcnLg8RFXCrQd+3woMUi8olWW2ka9oM7DJwYgqMSXims7NnKTOjo9HwjaszA4y5y5vko+u3NbKQ
-	w7Z4dscwJnEqz81uDabD0RxhJSfRD7bvrWAzuIP01W/k6qKp1tSVW2dITJbmvoJPDaPLvpz0Tr8
-	otMvRHQOMYVxr7aa5wmJM6fw9jh0aWQZBh7l1UQFiaDgLIRusJleLJnWLJC9LlXvEMQthEW4Rh0
-	/x8LGFmMrHwlcUlBfbjrSYiYV59r727h42sgjsTYkQ==
-X-Google-Smtp-Source: AGHT+IHxKEzJF/dcrVjwmLMVowgZF25El8uHNL0pJ1KNK3maRIBsa+PC/EtNmguZBjbYI+Ut6bPQTQ==
-X-Received: by 2002:a05:600c:3b86:b0:434:fe4b:be18 with SMTP id 5b1f17b1804b1-436e26bde73mr47254595e9.18.1736413384881;
-        Thu, 09 Jan 2025 01:03:04 -0800 (PST)
-Message-ID: <251e1e4e-be4c-4327-8c9d-652dc064c41d@suse.com>
-Date: Thu, 9 Jan 2025 10:03:03 +0100
+        bh=ReTD5UTlkgVXDxMMw9RuSPCkrgf4x0dJZIfb4+8JxpQ=;
+        b=DutEdAuQMyTWvXfhfkksZuTA/xc+91JvEh5g1m4YQ0tRHC/40y+YsOCyKcExEfRAwk
+         E2dLc7gTa+2y/mV8Ry+UM/Ff02JIMOgU6cxGtpJttTx2ksM2FRMMne2ySsofEbELp66c
+         b0a7LXk5pjzPB6DuBnugb27s17pigmu7qXQzHIZWumXodp3wsc73NaPQygozF/A2AQBd
+         Fcs4aW64WzaDKWDtz7E0/dhIRcluF70A4QPIFviP7sKbGeggROspzovjh6Ua1uvrUWyH
+         lx1MLi6R3keRRFGiY57ZNSi4vMJ7u4CDyGFt3G9cZ8ol1A1m/Km/vl0H+8a3KBfy3Z7T
+         r22A==
+X-Forwarded-Encrypted: i=1; AJvYcCWtOZxK0bORmGg3iOBA9Y4Ao+OVVU2MSLKypyMwtDinJyU4atoAo4I8kvO4kgEkNgVnBRWdTWql61w=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzBNjE3c9xg9n/0r5k439kIzFVWuXWmkynGI8gFB5ywS+Un8aWI
+	xtKwmDAzZx2WoyLfOupHWkbGjJJgCC0PKJJRNbiwiYxDd3MkOC4sNtCuRAI59g==
+X-Gm-Gg: ASbGnctk+/5ORP6YYHj5aQaxretYMk9bDF4QGT/UQrH/y68JNkjjbHgZ17Z3+nczRiq
+	RtWNUJOQtLCLIQNyi3PmJbrxdZbnAVuiZyR7iL5hBF8PoMVgIP1MlV+EIlOWvodJrfQ61by1wx3
+	D5SRcIQBdrGynC7EgQjT03zw8Q8HvGNZd8FXdnrOmqCpX+oyIlRA5XZGRxmh6AFJHOL2rnAKAgY
+	JWD9+/58fUnXaRQsVdq8C84mU6vQmL9r19GU9sjCIUh9QJhLeVtuhR3wtyUGKzVYQRivQiDLCaY
+	VjOi6WobhKNJFLFgvNLGwC2HDTeezrA6wuH4JtjHhg==
+X-Google-Smtp-Source: AGHT+IHyGw4RMavwxdWRx/ukFdOnAnfYQU2xYOUVEgyUWZtTnWVVX+f7ajmZDmcQhNQ59otFcKVbEw==
+X-Received: by 2002:a05:6000:4026:b0:385:e328:890a with SMTP id ffacd0b85a97d-38a8735576fmr4900425f8f.49.1736413821857;
+        Thu, 09 Jan 2025 01:10:21 -0800 (PST)
+Message-ID: <031ce31b-0ab5-4964-96eb-642fbea67bfb@suse.com>
+Date: Thu, 9 Jan 2025 10:10:20 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 03/18] x86/mm: introduce helper to detect per-domain L1
- entries that need freeing
+Subject: Re: [PATCH v2 04/18] x86/pv: introduce function to populate perdomain
+ area and use it to map Xen GDT
 To: Roger Pau Monne <roger.pau@citrix.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 References: <20250108142659.99490-1-roger.pau@citrix.com>
- <20250108142659.99490-4-roger.pau@citrix.com>
+ <20250108142659.99490-5-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,22 +117,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250108142659.99490-4-roger.pau@citrix.com>
+In-Reply-To: <20250108142659.99490-5-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 08.01.2025 15:26, Roger Pau Monne wrote:
-> L1 present entries that require the underlying page to be freed have the
-> _PAGE_AVAIL0 bit set, introduce a helper to unify the checking logic into a
-> single place.
+> The current code to update the Xen part of the GDT when running a PV guest
+> relies on caching the direct map address of all the L1 tables used to map the
+> GDT and LDT, so that entries can be modified.
 > 
-> No functional change intended.
+> Introduce a new function that populates the per-domain region, either using the
+> recursive linear mappings when the target vCPU is the current one, or by
+> directly modifying the L1 table of the per-domain region.
 > 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> Using such function to populate per-domain addresses drops the need to keep a
+> reference to per-domain L1 tables previously used to change the per-domain
+> mappings.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Well, yes. You now record MFNs instead. And you do so at the expense of about
+100 lines of new code. I'm afraid I'm lacking justification for this price to
+be paid.
 
-The name feels longish, yet perhaps that's acceptable here.
+> @@ -2219,11 +2219,9 @@ void __init trap_init(void)
+>      init_ler();
+>  
+>      /* Cache {,compat_}gdt_l1e now that physically relocation is done. */
+> -    this_cpu(gdt_l1e) =
+> -        l1e_from_pfn(virt_to_mfn(boot_gdt), __PAGE_HYPERVISOR_RW);
+> +    this_cpu(gdt_mfn) = _mfn(virt_to_mfn(boot_gdt));
+>      if ( IS_ENABLED(CONFIG_PV32) )
+> -        this_cpu(compat_gdt_l1e) =
+> -            l1e_from_pfn(virt_to_mfn(boot_compat_gdt), __PAGE_HYPERVISOR_RW);
+> +        this_cpu(compat_gdt_mfn) = _mfn(virt_to_mfn(boot_compat_gdt));
+
+The comment's going stale this way.
 
 Jan
 
