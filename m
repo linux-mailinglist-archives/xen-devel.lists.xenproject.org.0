@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67D79A07C69
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 16:51:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.868848.1280383 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 279AAA07C47
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 16:46:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.868852.1280354 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVunx-0002sm-BU; Thu, 09 Jan 2025 15:50:41 +0000
+	id 1tVuje-0007Z2-FQ; Thu, 09 Jan 2025 15:46:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 868848.1280383; Thu, 09 Jan 2025 15:50:41 +0000
+Received: by outflank-mailman (output) from mailman id 868852.1280354; Thu, 09 Jan 2025 15:46:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVunx-0002r9-8d; Thu, 09 Jan 2025 15:50:41 +0000
-Received: by outflank-mailman (input) for mailman id 868848;
- Thu, 09 Jan 2025 15:45:39 +0000
+	id 1tVuje-0007XS-Ck; Thu, 09 Jan 2025 15:46:14 +0000
+Received: by outflank-mailman (input) for mailman id 868852;
+ Thu, 09 Jan 2025 15:46:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=GFlP=UB=minyard.net=corey@srs-se1.protection.inumbo.net>)
- id 1tVuj5-0007JX-JE
- for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 15:45:39 +0000
-Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
- [2607:f8b0:4864:20::333])
+ (envelope-from <SRS0=pS5t=UB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tVujd-0007XK-23
+ for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 15:46:13 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c4e9e996-cea0-11ef-99a4-01e77a169b0f;
- Thu, 09 Jan 2025 16:45:37 +0100 (CET)
-Received: by mail-ot1-x333.google.com with SMTP id
- 46e09a7af769-71e35be77b5so294447a34.1
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jan 2025 07:45:37 -0800 (PST)
-Received: from mail.minyard.net ([2001:470:b8f6:1b:9076:47eb:1e0a:16fb])
- by smtp.gmail.com with ESMTPSA id
- 006d021491bc7-5f882625f0esm386258eaf.9.2025.01.09.07.45.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Jan 2025 07:45:34 -0800 (PST)
+ id d975fe0f-cea0-11ef-99a4-01e77a169b0f;
+ Thu, 09 Jan 2025 16:46:11 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-385f07cd1a4so725046f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jan 2025 07:46:11 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38a9407fd62sm318816f8f.92.2025.01.09.07.46.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 09 Jan 2025 07:46:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,94 +45,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c4e9e996-cea0-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: d975fe0f-cea0-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minyard-net.20230601.gappssmtp.com; s=20230601; t=1736437536; x=1737042336; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:reply-to
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=cgTp2x21PamB5G5tjbV3jPSQRWSgTUkiJmrzV93coW4=;
-        b=q6nwCkV41xW+Fds1LDOZpnbvcSLAMdFpaetYqLXTnzUCx7IQj1j0zYEp0XaWBujad9
-         /TRD/k7dj6u5VQUDwALtFgAKVCcj5y7MJGzldjUgilyOdiNGLEh2WKNYyudXRw0HRRtI
-         Tr3qqSUUGH17QNsyhJYXYheppJzIeBdvHOW6gHDphl2Q75p4B3PuQXGnwhgGN165ySpU
-         p31qsrmHbh+h5Fq119u/tuMZo4mg1UidfiOKuFsePnFsKiuG9b+9MAV859mUZIspuuLW
-         sY4HJWxPfQJX7AlAqfZ2Hj9wBxkmR1uJ76+vLbIOJMLa2qhc3wJGQoLpXM2TtUGA+h/a
-         jyOQ==
+        d=suse.com; s=google; t=1736437570; x=1737042370; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=oQVwmZxbNLLILr1CnM8P4SWHt7jRq2iQ5dx8sauSL5o=;
+        b=RO6MA01kyX8wRR9WF6PSyk+EUFcZTPj9hKUPY7YCbSw8k4909sCHmA3cVkqRzNe2ej
+         kmYqRt0p++Ns+1qWatRiDhc1sOveM56PggZyifIDMrt8LtBdBHh7uN3G4ee5FBsJswLc
+         Ua4MDb6mN1uOZ/ZkI8xrYjjvgSm5Y7hwqRMm56s5IfMj1S8+4JY181d76rQVBJ4rPMCa
+         BNb0Mvmq75/sLTC5OvOcP0m2J2UUKYOLsPjI8LMZD+n/56i/CpNWdBgjqydwfMi9d0rW
+         7lnjsHT0r48hfZT302bggcXUUcL8CzJKdzzMa2FVZJ7LOqBoSwS6O5CjCFIhIV9V+b4A
+         zByA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736437536; x=1737042336;
-        h=in-reply-to:content-disposition:mime-version:references:reply-to
-         :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=cgTp2x21PamB5G5tjbV3jPSQRWSgTUkiJmrzV93coW4=;
-        b=uoNjiUNfqla2wiKfIc1CXONzzQtuJkCcZWCXUjRUfkLhhnBL14jDIWTImMrXCANhvb
-         2mCZl6fmtHjdpy8L2GQf94UY1seyjiT6w0l7CQUA2iXkrUs/2pj2KajL8d4Tsbkmxka3
-         o1wPrB2GbXz9+ZErZvNWY67fDQYZqArNTveOi2XndqTN1FAdXNX3i6mhhZ52MD/FuJ9B
-         GGWRRowjKL6n2GXZAU2eae2053XS9YujkNPKtZj4xlLrWndHSdcb+nVL1m9Hx8kPAxgo
-         So1ieVMraJOYICqaFsE0ESqbvfxk0z+2RkIgwuxer+eDiJccb6KSph3P7B+HanOTKc6E
-         k/Rw==
-X-Forwarded-Encrypted: i=1; AJvYcCVlDq5RDGTMoMciWnL1g4NqkxwP07YczMn0I6zC3ruIVyOMz208p9j9gb0BaVChW11rc6Jv5y2E6Nc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxGbeouVWadIuctb4flb5ErHvZ5F6hiHzZmjwZIKmHCLYuYotYy
-	FaBaG/Eclpi2VI48QsknFFpf1044n8/SR8aaPSX93gvWYfSK5HgwjZNyW/ZZnAw=
-X-Gm-Gg: ASbGncus6Py/kNjQGHTCQJR3+RLtaTUY4Mh11o6rGTymyePxfqZ28JldDue2qrFyqIn
-	rH7nesQW7rBDp2+WEh6pIR4CVlZU/+P8+XzKWckg2GCmQHfMffTcCwiAucAlfwnATsPENodbW41
-	6RE35Bcsc25dTDdUayrbFFlTPJud/0uUGS6DcymMbZtSDPQBqUyvAAF4ZFnHyPeJK5J6vRRkk0+
-	/ugOrqA/TXnMNjeZsdxyY/Aj9U5j1tvXahrwRUFBi16676dAmyOO2GehPo0
-X-Google-Smtp-Source: AGHT+IHELUnxP9ZvL+e2Ztemz39I9ORoPYZLTVwEa+XG73J5uz7w7yM0cuXu9KZqTaUsGk+1/+jmGA==
-X-Received: by 2002:a05:6830:6610:b0:716:a95d:9ef with SMTP id 46e09a7af769-721e2e000d6mr4949630a34.2.1736437534534;
-        Thu, 09 Jan 2025 07:45:34 -0800 (PST)
-Date: Thu, 9 Jan 2025 09:45:27 -0600
-From: Corey Minyard <corey@minyard.net>
-To: Joel Granados <joel.granados@kernel.org>
-Cc: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	Kees Cook <kees@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
-	linux-s390@vger.kernel.org, linux-crypto@vger.kernel.org,
-	openipmi-developer@lists.sourceforge.net,
-	intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
-	linux-rdma@vger.kernel.org, linux-raid@vger.kernel.org,
-	linux-scsi@vger.kernel.org, linux-serial@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-aio@kvack.org,
-	linux-fsdevel@vger.kernel.org, netfs@lists.linux.dev,
-	codalist@coda.cs.cmu.edu, linux-mm@kvack.org,
-	linux-nfs@vger.kernel.org, ocfs2-devel@lists.linux.dev,
-	fsverity@lists.linux.dev, linux-xfs@vger.kernel.org,
-	io-uring@vger.kernel.org, bpf@vger.kernel.org,
-	kexec@lists.infradead.org, linux-trace-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org, apparmor@lists.ubuntu.com,
-	linux-security-module@vger.kernel.org, keyrings@vger.kernel.org
-Subject: Re: [PATCH] treewide: const qualify ctl_tables where applicable
-Message-ID: <Z3_vF3I453flXoZv@mail.minyard.net>
-Reply-To: corey@minyard.net
-References: <20250109-jag-ctl_table_const-v1-1-622aea7230cf@kernel.org>
+        d=1e100.net; s=20230601; t=1736437570; x=1737042370;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=oQVwmZxbNLLILr1CnM8P4SWHt7jRq2iQ5dx8sauSL5o=;
+        b=AC6g+hpxROnypnyug8JzFUm55dlwLir+AhTRl320MQJJwWOTgjYMoVZ+r0lreuVL43
+         z5mrfNbtOmKCvhTTRq0HD/k6xfV0fbU9pug8zCP4HH6ez2YOBUoyIRDI7Ts2WocqHc3l
+         loNRj5bIATWS1iuzPbjFQ93mkjjYOj4sP/4kcS/6lFQ1/ZADidHVbG+R3CzagXvSE8YC
+         wwBChhuwx3ndaZBWmovme+HE6veWRn1jQ27fT7vX+BDFjciD0CY0kBZHirKw16yk0YBc
+         lxn39OXhYsF2Os9KdhaXHRjYowmqaXoLB+rl07/dDnIUMWXK6JVKvQrFn/pgWX9uha6d
+         3tQA==
+X-Forwarded-Encrypted: i=1; AJvYcCX2NuleMxNgqeWQNMRUAdU8vS/Ai1v1igLRzr9aX3lVsqnr6LXCh2dpsKvhFs787wmzcdsuEwuzTi0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx5uoBhiibPU+RlXiHp+whFsspjZ6CgtffkpuNk3nHrlPJ1JLCw
+	D+/vGhtHHwiP+SwzJa/CwyOmgRvyOcspoAeQwRTovR44U82+6zKJYaCh3TNphw==
+X-Gm-Gg: ASbGnct2Nzx6cL8qOoeMgEKyFujmGf8kl18dPvr/Y9Iepdw61rC7oN89vsPeB891T8J
+	bJGu+cszvWtZoUP9GX41OTgOVN96h0sbnhn3EEdvpSlVtTlh5kkpe4tQi4etIV7o2C5uudmTax3
+	J2AV19uU2QgCXM1Xg5/NdTqRnRskUFsO9WrQj/sktOyj3Tx0ToMIgV3mb2TNiZaxawagjugxAJx
+	jDJa286Z4ysRMAfRLYoPsZDNs23bsOwK9wAP58Lkp092MJ6o5H+ylrJ3cithEh4GsPw//J8AwHm
+	SIvH05vTyrZLcqfs+cuuMzGhIGR0ihfp7WeKX9ye3Q==
+X-Google-Smtp-Source: AGHT+IFr7L4PH8JBbsjr7AdoYXvWdFX0VMLQaxUyz+WwqcnsMDw8Px2hlkDY8NCwPlqSxEvpzJ0wNA==
+X-Received: by 2002:adf:b197:0:b0:38a:88b8:99af with SMTP id ffacd0b85a97d-38a88b89a0amr4570426f8f.22.1736437570592;
+        Thu, 09 Jan 2025 07:46:10 -0800 (PST)
+Message-ID: <cb4fbf1a-df46-4891-9614-f5d87512a654@suse.com>
+Date: Thu, 9 Jan 2025 16:46:08 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250109-jag-ctl_table_const-v1-1-622aea7230cf@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 1/7] xen/events: fix race with
+ set_global_virq_handler()
+To: Juergen Gross <jgross@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250109105935.23585-1-jgross@suse.com>
+ <20250109105935.23585-2-jgross@suse.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250109105935.23585-2-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jan 09, 2025 at 02:16:39PM +0100, Joel Granados wrote:
-> Add the const qualifier to all the ctl_tables in the tree except the
-> ones in ./net dir. The "net" sysctl code is special as it modifies the
-> arrays before passing it on to the registration function.
+On 09.01.2025 11:59, Juergen Gross wrote:
+> There is a possible race scenario between set_global_virq_handler()
+> and clear_global_virq_handlers() targeting the same domain, which
+> might result in that domain ending as a zombie domain.
 > 
-...
-> diff --git a/drivers/char/ipmi/ipmi_poweroff.c b/drivers/char/ipmi/ipmi_poweroff.c
-> index 941d2dcc8c9d..de84f59468a9 100644
-> --- a/drivers/char/ipmi/ipmi_poweroff.c
-> +++ b/drivers/char/ipmi/ipmi_poweroff.c
-> @@ -650,7 +650,7 @@ static struct ipmi_smi_watcher smi_watcher = {
->  #ifdef CONFIG_PROC_FS
->  #include <linux/sysctl.h>
->  
-> -static struct ctl_table ipmi_table[] = {
-> +static const struct ctl_table ipmi_table[] = {
->  	{ .procname	= "poweroff_powercycle",
->  	  .data		= &poweroff_powercycle,
->  	  .maxlen	= sizeof(poweroff_powercycle),
+> In case set_global_virq_handler() is being called for a domain which
+> is just dying, it might happen that clear_global_virq_handlers() is
+> running first, resulting in set_global_virq_handler() taking a new
+> reference for that domain and entering in the global_virq_handlers[]
+> array afterwards. The reference will never be dropped, thus the domain
+> will never be freed completely.
+> 
+> This can be fixed by checking the is_dying state of the domain inside
+> the region guarded by global_virq_handlers_lock. In case the domain is
+> dying, handle it as if the domain wouldn't exist, which will be the
+> case in near future anyway.
+> 
+> Fixes: 87521589aa6a ("xen: allow global VIRQ handlers to be delegated to other domains")
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-For the IPMI portion:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Acked-by: Corey Minyard <cminyard@mvista.com>
 
 
