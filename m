@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65669A07814
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 14:47:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.868402.1279920 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFC28A078CF
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 15:13:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.868417.1279929 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVsst-0000RN-1e; Thu, 09 Jan 2025 13:47:39 +0000
+	id 1tVtHL-00053G-1k; Thu, 09 Jan 2025 14:12:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 868402.1279920; Thu, 09 Jan 2025 13:47:39 +0000
+Received: by outflank-mailman (output) from mailman id 868417.1279929; Thu, 09 Jan 2025 14:12:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVsss-0000OP-Un; Thu, 09 Jan 2025 13:47:38 +0000
-Received: by outflank-mailman (input) for mailman id 868402;
- Thu, 09 Jan 2025 13:47:37 +0000
+	id 1tVtHK-00051t-V6; Thu, 09 Jan 2025 14:12:54 +0000
+Received: by outflank-mailman (input) for mailman id 868417;
+ Thu, 09 Jan 2025 14:12:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eYg4=UB=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1tVssr-0000OJ-Cq
- for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 13:47:37 +0000
-Received: from fhigh-a7-smtp.messagingengine.com
- (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
+ <SRS0=29Hz=UB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1tVtHJ-00051n-1w
+ for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 14:12:53 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 48274380-ce90-11ef-a0df-8be0dac302b0;
- Thu, 09 Jan 2025 14:47:36 +0100 (CET)
-Received: from phl-compute-11.internal (phl-compute-11.phl.internal
- [10.202.2.51])
- by mailfhigh.phl.internal (Postfix) with ESMTP id D6CF7114019E;
- Thu,  9 Jan 2025 08:47:34 -0500 (EST)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-11.internal (MEProxy); Thu, 09 Jan 2025 08:47:34 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 9 Jan 2025 08:47:32 -0500 (EST)
+ id d03d9aed-ce93-11ef-a0df-8be0dac302b0;
+ Thu, 09 Jan 2025 15:12:52 +0100 (CET)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-54252789365so1125345e87.0
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jan 2025 06:12:52 -0800 (PST)
+Received: from [192.168.219.191] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5428bec06e1sm211492e87.191.2025.01.09.06.12.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 09 Jan 2025 06:12:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,118 +45,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 48274380-ce90-11ef-a0df-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1736430454;
-	 x=1736516854; bh=6x82qhagMZTKAmMzmxkVPAv3wNezZPg5u0REbe78dwQ=; b=
-	CvHNy04IyvjcnnWguTcHHBIUaw3LGS++mZhpa7hfIU8Y+yyTCY4XIoAaOJLOnPvE
-	f1k/iGTJENDXP/sh2sw23q+5JF/HRGRHlSrv7pPUW9SiLpbQpgy7bvoZ48QczvjR
-	GDrCFZIszQfskz3kiXdSBLNBx2gt/z/xyLP1JjCpm0IZcKFN+1qAQy3DgfDUQWJ/
-	5p3Ace8o4/Kglstma/HsNtTbnyT3FJYGsC5PpUM67ONN2dPfc7ekrnK7U/M0aRaj
-	u7a+E9YY5m6CGYKK2E72Rey+c2YIK/NuRaaLqp6p1i5W4ybh+mEXpKKAi1WMtUhQ
-	QtV23sJBBtuxgiNMNtaaAg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1736430454; x=1736516854; bh=6x82qhagMZTKAmMzmxkVPAv3wNezZPg5u0R
-	Ebe78dwQ=; b=AHXGe0ixUCR5SgVORxTnXO0q/ToG19eYCDwbQPabfv1VFIZ2EP/
-	zmAfOOtfuifNhXy2xvJtmlPOOy9lmVym2qUtB8EKnP/8X8fSHVg+q7yscJ6ZQ5lP
-	m5uEIF62HSmc+6fQ2ec7DcBHgy4lb0eh1F65YIzHmyfpGm4QB22JINBpBxzOGDXY
-	0NYmKDUXgndeRd4Dbt9aUGkjB8wZl5N9rV2rtxPkEPlqyrzXwXUPOAqe/kkjfuaM
-	qsx2rxim+vXwpa0uF0kCUWhsxqBO93m4XA6Z4xbdVYP1/PDrnrncf8Z1t6K7vEc6
-	TW9wV0ysZMGAfpCUYz8w4BmyPpFANUQ1qAQ==
-X-ME-Sender: <xms:dtN_Z-WSBn16sO_RB9cD46FBDD4kpBbVse2Cwgzi1LCMgPS1WHPUXw>
-    <xme:dtN_Z6ll2GwgfVB1vGinmn81HTlx9iKZ0wkdnYOBGuN9mpluhk88F6ajYFdXPrjiV
-    4eDtggVL22oEA>
-X-ME-Received: <xmr:dtN_ZyZ3pQDqlLXvVpKpTQpwzqL5jKEKSUsARp3WxIDWzTN2U0ahrrXOnhMdYMQyohSQRwthH_91lj3Vekm_wk5vQwYl1FUG6g>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddrudegiedgheegucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
-    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
-    htshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeen
-    ucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomh
-    grrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggft
-    rfgrthhtvghrnhepgfduleetfeevhfefheeiteeliefhjefhleduveetteekveettddvge
-    euteefjedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhho
-    mhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnh
-    gspghrtghpthhtohephedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepjhgsvghu
-    lhhitghhsehsuhhsvgdrtghomhdprhgtphhtthhopehfrhgvughirghnohdriihighhlih
-    hosegtlhhouhgurdgtohhmpdhrtghpthhtoheprghnughrvgifrdgtohhophgvrhefsegt
-    ihhtrhhigidrtghomhdprhgtphhtthhopehrohhgvghrrdhprghusegtihhtrhhigidrtg
-    homhdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggt
-    thdrohhrgh
-X-ME-Proxy: <xmx:dtN_Z1VLa_85opJMt6-WRHNmHeys0wHv-KUbhcXUGVmK2c8Ona2G9Q>
-    <xmx:dtN_Z4k1_YqX9oUqgrzi_Tk9ffr-snKXgl1p8_GoJ_NWWCmRHevy-Q>
-    <xmx:dtN_Z6d9G1Wlm6Z87ihkma1cL59sVnLqws2MsWohJlEhzBWdnXsm1g>
-    <xmx:dtN_Z6EbKgoVwU3RfF9_fb8qWGO3XWwDKpWOfCy3g5VtpaD6sLvpnQ>
-    <xmx:dtN_Z3vs7RyKwWgUgY_hb6TokRYiA0KwU1oDLHP8sHHzwKhC_UTYl2j->
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 9 Jan 2025 14:47:29 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] x86/boot: adjust text gap/diff to work with 64-bytes
- alignment too
-Message-ID: <Z3_Tcu_ZtZK4kkiD@mail-itl>
-References: <20250109131515.1757764-1-marmarek@invisiblethingslab.com>
- <d7421558-c2d6-485b-96bf-927992c5c066@suse.com>
+X-Inumbo-ID: d03d9aed-ce93-11ef-a0df-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1736431971; x=1737036771; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Hx9XNRWWQvFgmfC7xFExMys0jqPzn2r8jdox5rkxAKU=;
+        b=bbGiqv09gd+2rkni3krghhslF/PliiEwMY989a9KglIHGcBUdPY4DJEbpE9vUg5KFh
+         dtqLY8PuUBiHCjfhZJHRBwCxJuiPhVvN1k0GF4mDv6wz85GyW5bg9nqHvBRSwV4KlZag
+         S/XDuNURSUKaVchvsXsd56mjuqZKCpntpM+J8YMFtthoiV7VsoBs5pD4t7+4Ra27iTh0
+         7Rgh+cQw3fpPtZuX7ZF9dWLHTOdfU7bucTGbP/sv1GLZFNZGkiuFvv0CpeFX0Z2nkR4c
+         05DqsgVnQYKfI6xMOJMz/AzLYHULl2QN7zgamj4oAn1ySz3koh7rWQ0nQc//Ks3APhBy
+         qsdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1736431971; x=1737036771;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Hx9XNRWWQvFgmfC7xFExMys0jqPzn2r8jdox5rkxAKU=;
+        b=LuSGiqgJpAGEEkzh4RC8eK2qMPxvZxGctM055Q1j7716cmUvQUOow3MpL6nw9wekic
+         V/91mfviG/CoVfMxxdXxyKUSTPej1aykos7ZkO7pqxYEc/xsIn/iJHGURliw2eoSAktg
+         AYJyZWZwFKUmAggpc6p9nd1Y23FlWkIJ6ZEd/n7p3r3jAvCFK0wvYu4uOVMITnHWpAgf
+         y6OaVWeFfA9DCQIDJHmbv0mvit5FV1g9s6cfIjcKoCW+eHywxLEklA0dzqsHESmDBa7c
+         25ShzSc/rWPjq61ZZjMtJiguYzWqubxD/nynnTxT7ugtHYYwIg7Z0lJFuVqseLATcnyF
+         FLEg==
+X-Forwarded-Encrypted: i=1; AJvYcCXTlZPU23E/ZUdkDj+b2s1ZpL1Itzwg6kZ2qgDG0j2kT497MS8kgjlMZjhkhx5ZVgTGZ38ccts69D0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyCJG7q1A6ySV1bZIXjcnc5ZH7IPWLbJsmWRig64OwmuZ8ISrNu
+	Dq3Up3FTcQAcZ6qa5C5YVGbTt5hCI46QLJTj6WJ2y4OPjlfBtGyB
+X-Gm-Gg: ASbGncuf+7dRam09w6GnjYuxdOECMIBEgxZpZDQ3MRb5ng+PiPUAGH+4PbbHPbxS9Am
+	7M+pgZhO/0qdrIdjtHDhGsfEg9wt1t/ujGv8ZtCjsT6SkBE7oBnlTop3MNpHAI6AcOahuFfTnqL
+	cvrUBhcjFPb2/w7BkC8u+sD09glnDxGw7yG+Aejw7wJBc49JGTsQ7EdshM6/mdIQMsQHxi/E1Nf
+	0fkVHwKDfsaCl6v38tiEyQBcEGyTuGHk6gC33TjzyHbaYy3UGYkAfblPL7RZqd+nl596Q==
+X-Google-Smtp-Source: AGHT+IHTR2/ADrDRDofDG7g75O7jRL1IBWYeETf/Q5t1AXXn31P5qw51HbpEDRRCdyExcDPRxCetWg==
+X-Received: by 2002:a05:6512:31d1:b0:540:2542:d89a with SMTP id 2adb3069b0e04-54284823efemr2089975e87.52.1736431971063;
+        Thu, 09 Jan 2025 06:12:51 -0800 (PST)
+Message-ID: <f6a7cc80-7770-44f6-9706-a259aaedcdec@gmail.com>
+Date: Thu, 9 Jan 2025 15:12:49 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="dJ6kpmnJ7JlK/IYM"
-Content-Disposition: inline
-In-Reply-To: <d7421558-c2d6-485b-96bf-927992c5c066@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] xen/arm: ffa: fix build with clang
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ xen-devel@lists.xenproject.org
+Cc: Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Michal Orzel <michal.orzel@amd.com>
+References: <20250108164054.338799-1-stewart.hildebrand@amd.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <20250108164054.338799-1-stewart.hildebrand@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
---dJ6kpmnJ7JlK/IYM
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 9 Jan 2025 14:47:29 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] x86/boot: adjust text gap/diff to work with 64-bytes
- alignment too
+On 1/8/25 5:40 PM, Stewart Hildebrand wrote:
+> Clang 16 reports:
+>
+> In file included from arch/arm/tee/ffa.c:72:
+> arch/arm/tee/ffa_private.h:329:17: error: 'used' attribute ignored on a non-definition declaration [-Werror,-Wignored-attributes]
+> extern uint32_t __ro_after_init ffa_fw_version;
+>                  ^
+>
+> The variable ffa_fw_version is only used in ffa.c. Remove the
+> declaration in the header and make the definition in ffa.c static.
+>
+> Fixes: 2f9f240a5e87 ("xen/arm: ffa: Fine granular call support")
+> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 
-On Thu, Jan 09, 2025 at 02:23:27PM +0100, Jan Beulich wrote:
-> No Fixes: tag?
+Release-Acked-By: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-I guess this would be appropriate:
+Thanks.
 
-    Fixes: aa9045e77130 ("x86/boot: Rework how 32bit C is linked/included f=
-or early boot")
+~ Oleksii
 
-(but not relevant for backports, since that's only in 4.20 release
-cycle)
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---dJ6kpmnJ7JlK/IYM
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmd/03IACgkQ24/THMrX
-1ywZbwf/YEEvAnbHvWFp/MJPfaEopy2rxQLls/00O27vp4UIHiclAfgYI5cG3s7b
-jMDI6ebSJVl65vuTvhkc9mJsmMYdQ1WiDrkVXAwTMCJGtaJ9Pl2gJ65E9QnUxqKF
-U6WG4nHXmK7DPsTmmg99TTHN3OQpIGMo6TQkexQCnTXA0aTM9ZO83y5ysx9HpybR
-bU9UHjDGcja/4hfcdwELVRBoWuCa++GLaUJbRW8c0074tyvtcbs8EpFqqsa5p/es
-GxR5y60MbAnmyr73BdAG/A7upGlb0qCHgNn4xoGgIlHI+flTDSwzzLsB5fXMzT5c
-ii+Z5kmkD0ViH9CB11bLHnpRDWgUjg==
-=k1xQ
------END PGP SIGNATURE-----
-
---dJ6kpmnJ7JlK/IYM--
+> ---
+> v1->v2:
+> * remove declaration and make definition static
+> ---
+>   xen/arch/arm/tee/ffa.c         | 2 +-
+>   xen/arch/arm/tee/ffa_private.h | 1 -
+>   2 files changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> index 87775ed88ffd..3bbdd7168a6b 100644
+> --- a/xen/arch/arm/tee/ffa.c
+> +++ b/xen/arch/arm/tee/ffa.c
+> @@ -72,7 +72,7 @@
+>   #include "ffa_private.h"
+>   
+>   /* Negotiated FF-A version to use with the SPMC, 0 if not there or supported */
+> -uint32_t __ro_after_init ffa_fw_version;
+> +static uint32_t __ro_after_init ffa_fw_version;
+>   
+>   /* Features supported by the SPMC or secure world when present */
+>   DECLARE_BITMAP(ffa_fw_abi_supported, FFA_ABI_BITMAP_SIZE);
+> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_private.h
+> index d441c0ca5598..c4cd65538908 100644
+> --- a/xen/arch/arm/tee/ffa_private.h
+> +++ b/xen/arch/arm/tee/ffa_private.h
+> @@ -326,7 +326,6 @@ extern void *ffa_rx;
+>   extern void *ffa_tx;
+>   extern spinlock_t ffa_rx_buffer_lock;
+>   extern spinlock_t ffa_tx_buffer_lock;
+> -extern uint32_t __ro_after_init ffa_fw_version;
+>   extern DECLARE_BITMAP(ffa_fw_abi_supported, FFA_ABI_BITMAP_SIZE);
+>   
+>   bool ffa_shm_domain_destroy(struct domain *d);
+>
+> base-commit: 70f5a875becc9444a959830b10a361982c31a366
 
