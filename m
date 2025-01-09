@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B05D0A07D27
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 17:16:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.868952.1280484 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A184AA07CDC
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 17:07:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.868954.1280463 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVvCT-0003DE-J3; Thu, 09 Jan 2025 16:16:01 +0000
+	id 1tVv3k-00051H-Dz; Thu, 09 Jan 2025 16:07:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 868952.1280484; Thu, 09 Jan 2025 16:16:01 +0000
+Received: by outflank-mailman (output) from mailman id 868954.1280463; Thu, 09 Jan 2025 16:07:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVvCT-0003Bb-F9; Thu, 09 Jan 2025 16:16:01 +0000
-Received: by outflank-mailman (input) for mailman id 868952;
- Thu, 09 Jan 2025 16:06:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tVv3k-0004yF-BR; Thu, 09 Jan 2025 16:07:00 +0000
+Received: by outflank-mailman (input) for mailman id 868954;
+ Thu, 09 Jan 2025 16:06:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=soqj=UB=intel.com=matthew.auld@srs-se1.protection.inumbo.net>)
- id 1tVv32-0004iX-Q5
- for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 16:06:17 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a5676a1a-cea3-11ef-99a4-01e77a169b0f;
- Thu, 09 Jan 2025 17:06:13 +0100 (CET)
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jan 2025 08:05:55 -0800
-Received: from bergbenj-mobl1.ger.corp.intel.com (HELO [10.245.245.241])
- ([10.245.245.241])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jan 2025 08:05:50 -0800
+ <SRS0=wq9x=UB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tVv3j-0004y9-4q
+ for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 16:06:59 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c0cf40cf-cea3-11ef-a0df-8be0dac302b0;
+ Thu, 09 Jan 2025 17:06:58 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-aaecf50578eso216851166b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jan 2025 08:06:58 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab2c90d9a7dsm85367866b.50.2025.01.09.08.06.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Jan 2025 08:06:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,105 +44,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a5676a1a-cea3-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1736438774; x=1767974774;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=p4XkuorIpNoSEU2HBpQ1O27DvwV5LvulfkLyMZfyAfg=;
-  b=BV96KLx/GpINYPjtoGCUzPgRdDy35Ezx9iAT4TVVlq/VU5z3poIeLtxd
-   XQhs3sidlWwjChJ4sGZciPPiwKLGUDgVjuVaPeUFL3986bSotTV4vR/Za
-   N/WKVaMPmmUo0AG5zMiPpvcmzTSTWOXIhXHoX5Wu0Gz/DoeMEuE6TA9PG
-   QabMXpOFBwFbWICOhEPkDccQZpV3YxVFW06p+gX+SATv2W6TQr5rgnJmn
-   5O6tSIFGD3rwzSYzpxz3bS1S9YzQIoJE2NDN+kqyswP/E6KXYAzyBCaTg
-   AVLcVJvWyDVORuulU68w8UOmSsSoa/7y/4nUe5+RqnFZesA3AxxLVt5Gd
-   Q==;
-X-CSE-ConnectionGUID: nV9CUtq6Q/iikQqV4TSm+w==
-X-CSE-MsgGUID: wgG7ghxVQbKfiqqSZWN6+A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11310"; a="62086137"
-X-IronPort-AV: E=Sophos;i="6.12,301,1728975600"; 
-   d="scan'208";a="62086137"
-X-CSE-ConnectionGUID: gYM7jUeoQau2+oJbNyjiWQ==
-X-CSE-MsgGUID: 8PkbOk3sQpqIzHIL0w463A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,301,1728975600"; 
-   d="scan'208";a="103967271"
-Message-ID: <91c904f8-ba47-4595-be65-6fb57dcc9c64@intel.com>
-Date: Thu, 9 Jan 2025 16:05:47 +0000
+X-Inumbo-ID: c0cf40cf-cea3-11ef-a0df-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1736438818; x=1737043618; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=2ZxKJHt4USamZY7CSfghkQfPog5+4zXIN2+IyM4b7Rk=;
+        b=Kb3Mo6QrnPSZpsAToM5R5yovqwgBP+9/sbKMbxNE1M85KrZ84WOhLkjf3ZRu4hBOru
+         Iut8qVdKVC3QsJTw0jaddEF7Xbf1tsuKf2SvRmvwLixmXIM086bBprG69wsd1ezGR/Ki
+         /OlML+B70CIpFuRVogSGLuQEY2+l9MURS3vPs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1736438818; x=1737043618;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=2ZxKJHt4USamZY7CSfghkQfPog5+4zXIN2+IyM4b7Rk=;
+        b=JF/fi/VHpGe/oFj75yKf26/mevv9Y19eVtLZaxGB3JqCwIIvHOh8BubMO9HH0fVD/c
+         i9UsIvW4grsiPRlRU6Sz7LxsDu1Lg7VeNqW/vHE4Amo+RT8nIwt6C3uhk71CsF17a/B3
+         XIKmbuTjMGXkkt5gb5H4VL9OUNIgrXp0HlM/md2BUGqpOXib78IIwJdwh1+07GcTqx0J
+         sP0sKhqQeRnnA211aWXuxZm5Y8dIA1/Pnmal91QfiUl4+KbWqEXmrJzMpvP4BFUTik3A
+         r3lC3ZNsmQv3Rzc/Ik9xKr1W3f1QqDWfBKusMsB/+T3Fz5SOoY9yliKpkjikk2Abnrlo
+         Xqqg==
+X-Forwarded-Encrypted: i=1; AJvYcCVYdF+bPuw+IpU3SqR7FVP1WkhOQWffa3XIGaDPKSPhh5l+fjDbpxaYcg8fn1i5PBJ8lbRwFUMKBCs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyHZNvaLe+asRIy+dJuHYIsGZldudcKAxySW463CKjCDkHPmZY+
+	kU3Qshy4AqFA+FfcgGE2UUtQNW8nphhT6bKoOMO5ddxo8woVWNwFTryOY23O1qI=
+X-Gm-Gg: ASbGnctGdO4AIrPopFnw4SkH0flEcHi4trnaTy2SC1/jGkzy+mj0SQoG3AYCBPeS7gG
+	616xjTGi9goKtyVcJrDfEcIIXIy0wKv3JwV5Qe8vn65O/WZKpC9mW2k7t4xVej+n4nHuTNpZtyH
+	jSP2wdUfS6l37SbQWvA6Se7Hq4nzBZk1cfkAZnN8Rn6vrMfDC932T7dhO6ffKVMLoytzoT5fOgC
+	4gll++VBtR7JUL2ldtaI9P/sMDD4QWc6/hxBdVpRs0b7KlDn8qDe4Ptjx7QwA==
+X-Google-Smtp-Source: AGHT+IHQCbfJqFT4KaXgnMxTnLcFPSKLuLtytVYJU6DTW8em42L3L0fV3PFS9oWX2MaUMz24eWnApg==
+X-Received: by 2002:a17:907:2d94:b0:aa6:7de9:2637 with SMTP id a640c23a62f3a-ab2ab6bfe70mr614603966b.46.1736438816006;
+        Thu, 09 Jan 2025 08:06:56 -0800 (PST)
+Date: Thu, 9 Jan 2025 17:06:54 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Anthony PERARD <anthony@xenproject.org>
+Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>,
+	Paul Durrant <paul@xen.org>,
+	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+	=?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>,
+	Paolo Bonzini <pbonzini@redhat.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 1/2] xen/console: fix error handling in
+ xen_console_device_create()
+Message-ID: <Z3_0HpmfpSM3Xw5Q@macbook.local>
+References: <20250107093140.86180-1-roger.pau@citrix.com>
+ <20250107093140.86180-2-roger.pau@citrix.com>
+ <Z3-hWRLyMldV4ZZD@l14>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 23/25] drm/xe: Compute dumb-buffer sizes with
- drm_mode_size_dumb()
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
-References: <20250109150310.219442-1-tzimmermann@suse.de>
- <20250109150310.219442-24-tzimmermann@suse.de>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20250109150310.219442-24-tzimmermann@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <Z3-hWRLyMldV4ZZD@l14>
 
-On 09/01/2025 14:57, Thomas Zimmermann wrote:
-> Call drm_mode_size_dumb() to compute dumb-buffer scanline pitch
-> and buffer size. Align the pitch to a multiple of 8. Align the
-> buffer size according to hardware requirements.
+On Thu, Jan 09, 2025 at 11:13:45AM +0100, Anthony PERARD wrote:
+> On Tue, Jan 07, 2025 at 10:31:39AM +0100, Roger Pau Monne wrote:
+> > The usage of error_prepend() in some of the error contexts of
+> > xen_console_device_create() is incorrect, as `errp` hasn't been initialized.
+> > This leads to the following segmentation fault on error paths resulting from
+> > xenstore reads:
+> > 
+> > Program terminated with signal SIGSEGV, Segmentation fault.
+> > Address not mapped to object.
+> >     fmt=0x15c4dfeade42 "failed to read console device type: ", ap=0x15cd0165ab50)
+> >     at ../qemu-xen-dir-remote/util/error.c:142
+> > 142         g_string_append(newmsg, (*errp)->msg);
+> > [...]
+> > (gdb) bt
+> >     (errp=0x15cd0165ae10, fmt=0x15c4dfeade42 "failed to read console device type: ", ap=0x15cd0165ab50) at ../qemu-xen-dir-remote/util/error.c:142
+> >     (errp=0x15cd0165ae10, fmt=0x15c4dfeade42 "failed to read console device type: ")
+> >     at ../qemu-xen-dir-remote/util/error.c:152
+> >     (backend=0x43944de00660, opts=0x43944c929000, errp=0x15cd0165ae10)
+> >     at ../qemu-xen-dir-remote/hw/char/xen_console.c:555
+> > 
+> > Replace usages of error_prepend() with error_setg() where appropriate.
+> > 
+> > Fixes: 9b7737469080 ('hw/xen: update Xen console to XenDevice model')
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > ---
+> >  hw/char/xen_console.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/hw/char/xen_console.c b/hw/char/xen_console.c
+> > index ef0c2912efa1..af706c7ef440 100644
+> > --- a/hw/char/xen_console.c
+> > +++ b/hw/char/xen_console.c
+> > @@ -551,7 +551,7 @@ static void xen_console_device_create(XenBackendInstance *backend,
+> >      }
+> >  
+> >      if (xs_node_scanf(xsh, XBT_NULL, fe, "type", errp, "%ms", &type) != 1) {
+> > -        error_prepend(errp, "failed to read console device type: ");
+> > +        error_setg(errp, "failed to read console device type: ");
 > 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-> Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> ---
->   drivers/gpu/drm/xe/xe_bo.c | 8 ++++----
->   1 file changed, 4 insertions(+), 4 deletions(-)
+> According to error_setg() doc, *errp must be NULL but xs_node_scanf may
+> set it. Looking at the implementation, error_setg() seems to simply
+> discard this new error message if *errp is already set.
 > 
-> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-> index e6c896ad5602..d75e3c39ab14 100644
-> --- a/drivers/gpu/drm/xe/xe_bo.c
-> +++ b/drivers/gpu/drm/xe/xe_bo.c
-> @@ -8,6 +8,7 @@
->   #include <linux/dma-buf.h>
->   
->   #include <drm/drm_drv.h>
-> +#include <drm/drm_dumb_buffers.h>
->   #include <drm/drm_gem_ttm_helper.h>
->   #include <drm/drm_managed.h>
->   #include <drm/ttm/ttm_device.h>
-> @@ -2535,14 +2536,13 @@ int xe_bo_dumb_create(struct drm_file *file_priv,
->   	struct xe_device *xe = to_xe_device(dev);
->   	struct xe_bo *bo;
->   	uint32_t handle;
-> -	int cpp = DIV_ROUND_UP(args->bpp, 8);
->   	int err;
->   	u32 page_size = max_t(u32, PAGE_SIZE,
->   		xe->info.vram_flags & XE_VRAM_FLAGS_NEED64K ? SZ_64K : SZ_4K);
->   
-> -	args->pitch = ALIGN(args->width * cpp, 64);
-> -	args->size = ALIGN(mul_u32_u32(args->pitch, args->height),
-> -			   page_size);
-> +	err = drm_mode_size_dumb(dev, args, SZ_64, page_size);
+> Currently, when there's an I/O error, we get something like:
+>     failed to read console device type: failed to read from /xenstore/path: doesn't exist
+> and when the format scan failed:
+>     SEGV
+> 
+> With this patch, when there's an I/O error, I think we get something
+> like:
+>     failed to read from /xenstore/path: doesn't exist
+> and when the format scan failed:
+>     failed to read console device type: 
+> 
+> 
+> So I think we'll want to distiguish between IO error from
+> xs_node_scanf() and format error, first one returns EOF (like vsscanf)
+> and second one returns a value >= 0 but we expect exactly 1.
 
-AFAICT this looks to change the behaviour, where u64 size was 
-technically possible and was allowed given that args->size is u64, but 
-this helper is limiting the size to u32. Is that intentional? If so, we 
-should probably make that clear in the commit message.
+The call to xs_node_scanf() will go away in the next patch replaced by
+qemu_xen_xs_read(), at which point errp will never be initialized.
 
-> +	if (err)
-> +		return err;
->   
->   	bo = xe_bo_create_user(xe, NULL, NULL, args->size,
->   			       DRM_XE_GEM_CPU_CACHING_WC,
+I can change the order of the patches if that makes it easier.
 
+> 
+> >          goto fail;
+> >      }
+> >  
+> > @@ -582,7 +582,7 @@ static void xen_console_device_create(XenBackendInstance *backend,
+> >      } else if (number) {
+> >          cd = serial_hd(number);
+> >          if (!cd) {
+> > -            error_prepend(errp, "console: No serial device #%ld found: ",
+> > +            error_setg(errp, "console: No serial device #%ld found: ",
+> >                            number);
+> 
+> This change looks correct, ableit we could remove ":  " from the end of
+> the string since they shouldn't be anything after it.
+
+Thanks, Roger.
 
