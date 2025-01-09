@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8791A07479
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 12:18:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.868218.1279750 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB897A0748E
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 12:24:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.868226.1279759 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVqYX-000443-Sd; Thu, 09 Jan 2025 11:18:29 +0000
+	id 1tVqdl-0006BS-D4; Thu, 09 Jan 2025 11:23:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 868218.1279750; Thu, 09 Jan 2025 11:18:29 +0000
+Received: by outflank-mailman (output) from mailman id 868226.1279759; Thu, 09 Jan 2025 11:23:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVqYX-00041d-PS; Thu, 09 Jan 2025 11:18:29 +0000
-Received: by outflank-mailman (input) for mailman id 868218;
- Thu, 09 Jan 2025 11:18:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tVqdl-00068z-AS; Thu, 09 Jan 2025 11:23:53 +0000
+Received: by outflank-mailman (input) for mailman id 868226;
+ Thu, 09 Jan 2025 11:23:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=pS5t=UB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tVqYV-00040q-TB
- for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 11:18:27 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 722ac387-ce7b-11ef-a0df-8be0dac302b0;
- Thu, 09 Jan 2025 12:18:26 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-4361f664af5so9849845e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jan 2025 03:18:26 -0800 (PST)
+ id 1tVqdj-00068q-Jj
+ for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 11:23:51 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 32d54d8f-ce7c-11ef-99a4-01e77a169b0f;
+ Thu, 09 Jan 2025 12:23:49 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-436a39e4891so6098825e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jan 2025 03:23:49 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-436e9e37d46sm17386545e9.25.2025.01.09.03.18.24
+ 5b1f17b1804b1-436e2da6401sm52434755e9.2.2025.01.09.03.23.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Jan 2025 03:18:24 -0800 (PST)
+ Thu, 09 Jan 2025 03:23:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 722ac387-ce7b-11ef-a0df-8be0dac302b0
+X-Inumbo-ID: 32d54d8f-ce7c-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1736421506; x=1737026306; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1736421829; x=1737026629; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UWhs9feB6Sp+Hi/8OiNlRyxfYZ4eXaXibU/Aw8TJAkQ=;
-        b=W9+Z3dS15HM8Yl8r+7GA+/hP0SVh74Kiiep3smePdO7oIC1smEb+lK6Vnj2x3KHzD6
-         N+KLrNdJ50hq0Vq6OKajo3EQ4PlJc3/Tm0sZ+z4XWEyUqgfbPlgidGybl3d+tNN3KNwS
-         U9IKbg6SqWCykgMUDuLDCVs4q5eaOwhW5+3A7YkzeIv5PvhWEtIkyNDKj8U6aGbPBhnS
-         LiO6FJIgG7y0VeVPBtGMdSb3dvb3sWveYsNxUUt61y2jFgYl+ASyJCyzAoAzP7Exxt49
-         LVhVhsiDhl8wTKjhzk30Yte0nakiQKbja+0kmP0/2/YkIE9uxb8DdnNNjgg1SAN5y19I
-         e4ZQ==
+        bh=G4kt3o+Yc7LWOWbjd5MTmHjbaASrzqLfQf/updZjo/Q=;
+        b=bfVexs5WG66q7AjJq2tNoZKuynSy3XQ2bvwSf0Y/wn8S5uCJyW6AbSWsWnt/oigBVN
+         j7xBBXk8vWGpLKWsptU27W8xj3+fm0whGWPh3MT6/jPwJKqrtgTr1g3MQ3+edf8++YXl
+         61wCIz79PEqyjqGhDsSCegyjIqjRiqpe3f7T7vZN+eQyIwEPzx+JZn1noFFrFMkaOg41
+         Gykbmqxb4aM2mzyJngOWMXZbstIy5INN/sFftg0Z9qIYsKbf0F80vKucmu5v2KGFy94s
+         mY8hXEhDnXDTMoUnibEq8iTJMAljRyK8ADbrMngQFVBE7fdKLN3Hj+C/5RTdMrFDNiEd
+         RE7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736421506; x=1737026306;
+        d=1e100.net; s=20230601; t=1736421829; x=1737026629;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UWhs9feB6Sp+Hi/8OiNlRyxfYZ4eXaXibU/Aw8TJAkQ=;
-        b=DtSp0QKxSxsOq8fOALNvy1qJjR7YS6jEnRUAb3wcxruY5xsMFHtmMv4CObda0Lq76i
-         VnPejfyeS8iPb0QykbhyyvLuQYL/WdUEwI2xDskqlyYWjDyKedJvV+v1LfGV4BlSw/Wk
-         s6eh0sq6iA1RNhfLNASZOn2TpAMsLmt4k6dQ0wq/1bYLyMZ1rKAIU0lCynu8iWd2i0Jx
-         gXvWOAUAZrLp8U+M/pRlLdOBWTXTjjsY0m9L6NbUA/LbRHJbFg4q9d918ye8qZDrJ2vd
-         DVdtCHvITfqi52GO5ZHHPHTpJKGSykcgd5avlShIXnPknqHSz4PNDitxetG0TY7HNlsW
-         4hng==
-X-Forwarded-Encrypted: i=1; AJvYcCUk/l7WvKJqddnUS6C++MwH+cmlpiLtPC6m7e6Y0TOxLarrVtZvMnGPByVX6BXlMb/l5MOOKOeeNx0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxwKBUa71ikMVRgCFgWSI2Etxr9YKYHxvVKWMqK0GHVNcrVvWxP
-	wQCHJpJ3gTogSrJhfeLqSo/XDg+qc6CNL0KayNT1ZPtVV/7Hiq63CcqfSu6yWQ==
-X-Gm-Gg: ASbGncvHWOa+OTkCbO0M9+wqDXMPxPGK9goYRJeJYDbS/PNWBupqS2Sc3G2oTDAgusa
-	f7YUSmy9008BkB9vVXhvj1MxRmiR2DYfV6q+lLl05Z/pKjRJaIC7pd+p0zWrN5vdlb6r5C+RaU6
-	nYT9KvAQBo2QVRCGeSqIgySPWd+nyNytkE9pFQXimnttSnuPxWMzgkEJ06D8DsWpAQFdH5iiZZA
-	sqfd4bWlisrNGFC9FopCD374ieCXyT1Sdr2ak5NkMy9x7t9zhH27n4dhQq2byLj1qXeHxoHJhnB
-	NCMwsh1rLVbibvZSvSTS1BkKR+lXUWFBYG3IWn8S1Q==
-X-Google-Smtp-Source: AGHT+IGFWHAXe2D6VKlCC0IANRemBwRSJMrJ7laxduDYApfa+Y5HaOTByJAotwckobAxsAltnYplfA==
-X-Received: by 2002:a5d:6c63:0:b0:385:ee59:4510 with SMTP id ffacd0b85a97d-38a872fb0f9mr5268264f8f.9.1736421504996;
-        Thu, 09 Jan 2025 03:18:24 -0800 (PST)
-Message-ID: <aa88bcec-11e9-4a1a-8c2d-e18ef5bcbc35@suse.com>
-Date: Thu, 9 Jan 2025 12:18:23 +0100
+        bh=G4kt3o+Yc7LWOWbjd5MTmHjbaASrzqLfQf/updZjo/Q=;
+        b=Ls2vpwG9wbYTW/R683V2oYqV8aGT0sV0t/Cv5aSnUmCjv5JzMHH52ic1Vde0lrXUIU
+         nzMaRveZmwXCWIqC6I9lTx9fkX5Z662Gt+IGPgYUTLC6rD1rPe+2xJWDws7VIi5S/niZ
+         kI3exaHkiXdOJtB9NUvQFOn9JyFDfQYfjpzWme7eF38t60tNbOpHSQePb7GJ0KSO/l0w
+         55F34jQtu0VMBDEyoTJRtYtSZjWPbbKISnYvwndWDpepmP6WxttmQ6oOULqQch4AHJN+
+         KKabByXsQKS5PK3FCWCQoBhZDiQFo+Fjgx8rIkHg5N2rUyJY43DOqm2TqXa9dQ078A5A
+         ZUyQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUcHgjtAzpt9Ly/0wmExyQRi7848SXFX5xHq2MuJyAPkmgljInz0+zAmlTtdPvpqFQgnWKXXMBXQcs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzpXXiLhn/kWcmdzXchXNt/83VIuQJqdOkDwuj1C3g9FkKjQETv
+	UhGYr/U/hKeh2us7UKdQwVjmk9/MlZS40j/fQAVBrmP1vr0wY1xyiTjk+Pb+SA==
+X-Gm-Gg: ASbGnctP6eYKSCgntUc+C3TmRa4V1bIEXV/IM8sR4IO+nO1jqv5BVO3vlYgagetJQ/1
+	GMRa8DD+wmycIfDjvDboCV/cOTk56pDno7iFWCCpkKdxqDWznP92oHzT2431cfDy+ZUhxkbfpBA
+	ayNN4gYIWsmPg6pKmswetUkZS2IIJx7mKkPXDBdcShIwyH1uU7Y+sFzrnhlJ0SLGz0aJd7kNNmd
+	DWInOVZSAr18/krIH+P7ZApZYjb2++eX3eFisEaKXQTLcfPB45RFpw8CsUe+QjfaJ7nDXe6nWtA
+	pbm/MI+y2spg+BuCvumuTosNzTAwkwFLPzDcXqfiFw==
+X-Google-Smtp-Source: AGHT+IH/it6L6YNM1tG+YyqSCvlsaPKtoolQy6NeioEKimFwWS/FqtbDh9V8azE4SisIqe517Fsh6g==
+X-Received: by 2002:a05:600c:4f4e:b0:434:a902:97cd with SMTP id 5b1f17b1804b1-436e26935cbmr35033925e9.12.1736421828987;
+        Thu, 09 Jan 2025 03:23:48 -0800 (PST)
+Message-ID: <541ed82a-6cf3-4964-9421-23905b777f9c@suse.com>
+Date: Thu, 9 Jan 2025 12:23:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 07/11] xen/cpufreq: only set gov NULL when
- cpufreq_driver.target() exists
+Subject: Re: [PATCH v1 08/11] x86/cpufreq: add "cpufreq=amd-pstate,active"
+ para
 To: Penny Zheng <Penny.Zheng@amd.com>
 Cc: stefano.stabellini@amd.com, Ray.Huang@amd.com, Xenia.Ragiadakou@amd.com,
- Jason.Andryuk@amd.com, xen-devel@lists.xenproject.org
+ Jason.Andryuk@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
 References: <20241203081111.463400-1-Penny.Zheng@amd.com>
- <20241203081111.463400-8-Penny.Zheng@amd.com>
+ <20241203081111.463400-9-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,30 +121,77 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241203081111.463400-8-Penny.Zheng@amd.com>
+In-Reply-To: <20241203081111.463400-9-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 03.12.2024 09:11, Penny Zheng wrote:
-> --- a/xen/drivers/cpufreq/cpufreq.c
-> +++ b/xen/drivers/cpufreq/cpufreq.c
-> @@ -316,7 +316,13 @@ int cpufreq_add_cpu(unsigned int cpu)
->      if (hw_all || (cpumask_weight(cpufreq_dom->map) ==
->                     perf->domain_info.num_processors)) {
->          memcpy(&new_policy, policy, sizeof(struct cpufreq_policy));
-> -        policy->governor = NULL;
-> +
-> +       /*
-> +        * Only when cpufreq_driver.target exists, we need to deliberately set old gov as NULL
-> +        * to trigger the according gov starting.
-> +        */
-> +       if ( cpufreq_driver.target )
-> +            policy->governor = NULL;
+> From: Penny Zheng <penny.zheng@amd.com>
+> 
+> The amd-pstate driver may support multiple working modes, passive and active.
+> 
+> Introduce a new variable to keep track of which mode is currently enabled.
+> This variable will also help to choose which cpufreq driver to be registered.
+> 
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> ---
+>  docs/misc/xen-command-line.pandoc      |  9 ++++++++-
+>  xen/arch/x86/acpi/cpufreq/amd-pstate.c | 12 +++++++++++-
+>  2 files changed, 19 insertions(+), 2 deletions(-)
+> 
+> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+> index 30f855fa18..a9a3e0ef79 100644
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -499,7 +499,8 @@ If set, force use of the performance counters for oprofile, rather than detectin
+>  available support.
 >  
->          cpufreq_cmdline_common_para(&new_policy);
+>  ### cpufreq
+> -> `= none | {{ <boolean> | xen } { [:[powersave|performance|ondemand|userspace][,[<maxfreq>]][,[<minfreq>]]] } [,verbose]} | dom0-kernel | hwp[:[<hdc>][,verbose]] | amd-pstate[:[verbose]]`
+> +> `= none | {{ <boolean> | xen } { [:[powersave|performance|ondemand|userspace][,[<maxfreq>]][,[<minfreq>]]] }
+> +[,verbose]} | dom0-kernel | hwp[:[<hdc>][,verbose]] | amd-pstate[:[active][,verbose]]`
+>  
+>  > Default: `xen`
+>  
+> @@ -522,6 +523,12 @@ choice of `dom0-kernel` is deprecated and not supported by all Dom0 kernels.
+>    on supported AMD hardware to provide a finer grained frequency control mechanism.
+>    The default is disabled. If `amd-pstate` is selected, but hardware support
+>    is not available, Xen will fallback to cpufreq=xen.
+> +* `active` is a boolean to enable amd-pstate driver in active(autonomous) mode.
+> +  In this mode, users could provide a hint with energy performance preference
+> +  register to the hardware if they want to bias toward performance(0x0) or
+> +  energy efficiency(0xff), then CPPC power algorithm will calculate the runtime
+> +  workload and adjust the realtime cores frequency according to the power supply
+> +  and themal, core voltage and some other hardware conditions.
 
-Looking at __cpufreq_set_policy(), wouldn't the condition better check
-.setpolicy being NULL?
+Nit: thermal
+
+> --- a/xen/arch/x86/acpi/cpufreq/amd-pstate.c
+> +++ b/xen/arch/x86/acpi/cpufreq/amd-pstate.c
+> @@ -27,6 +27,8 @@
+>  #define amd_pstate_warn(fmt, args...) \
+>      printk(XENLOG_WARNING "AMD_PSTATE: CPU%u warning: " fmt, cpu, ## args)
+>  
+> +static bool __ro_after_init opt_cpufreq_active = false;
+
+Pointless initializer.
+
+> @@ -398,5 +407,6 @@ int __init amd_pstate_register_driver(void)
+>      if ( !cpu_has_cppc )
+>          return -ENODEV;
+>  
+> -    return cpufreq_register_driver(&amd_pstate_cpufreq_driver);
+> +    if ( !opt_cpufreq_active )
+> +        return cpufreq_register_driver(&amd_pstate_cpufreq_driver);
+>  }
+
+I'm afraid the description is of no help in determining why this is a
+correct change to make (here). How would the user provided hint (see
+cmdline option description) be communicated to hardware when the driver
+isn't even registered?
+
+Finally I don't think the change above would build, as it leaves a
+return from the function without return value.
 
 Jan
 
