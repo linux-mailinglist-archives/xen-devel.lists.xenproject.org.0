@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 740E1A09DBC
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Jan 2025 23:25:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.870056.1281509 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C408A09DF3
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Jan 2025 23:31:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.870064.1281519 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tWNRZ-0002zf-Sb; Fri, 10 Jan 2025 22:25:29 +0000
+	id 1tWNWx-0004Zy-EK; Fri, 10 Jan 2025 22:31:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 870056.1281509; Fri, 10 Jan 2025 22:25:29 +0000
+Received: by outflank-mailman (output) from mailman id 870064.1281519; Fri, 10 Jan 2025 22:31:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tWNRZ-0002y8-PO; Fri, 10 Jan 2025 22:25:29 +0000
-Received: by outflank-mailman (input) for mailman id 870056;
- Fri, 10 Jan 2025 22:25:29 +0000
+	id 1tWNWx-0004XR-Av; Fri, 10 Jan 2025 22:31:03 +0000
+Received: by outflank-mailman (input) for mailman id 870064;
+ Fri, 10 Jan 2025 22:31:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HMSX=UC=kernel.org=helgaas@srs-se1.protection.inumbo.net>)
- id 1tWNRZ-0002y2-7A
- for xen-devel@lists.xenproject.org; Fri, 10 Jan 2025 22:25:29 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ id 1tWNWw-0004XL-9d
+ for xen-devel@lists.xenproject.org; Fri, 10 Jan 2025 22:31:02 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cb196a35-cfa1-11ef-a0df-8be0dac302b0;
- Fri, 10 Jan 2025 23:25:28 +0100 (CET)
+ id 9174ac9e-cfa2-11ef-a0df-8be0dac302b0;
+ Fri, 10 Jan 2025 23:31:01 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id CA3CCA426AE;
- Fri, 10 Jan 2025 22:23:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86143C4CED6;
- Fri, 10 Jan 2025 22:25:26 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id CA38F5C4CA7;
+ Fri, 10 Jan 2025 22:30:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54BCAC4CED6;
+ Fri, 10 Jan 2025 22:30:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,87 +41,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cb196a35-cfa1-11ef-a0df-8be0dac302b0
+X-Inumbo-ID: 9174ac9e-cfa2-11ef-a0df-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1736547926;
-	bh=DLEpLG1m5W4R6CL6+4W7/UedZGSkgthe9gS3KngxZLE=;
+	s=k20201202; t=1736548259;
+	bh=9WkF6n5RBjRD1mrwR6nxL/hU9QiyhVm6Z4mOb8csuoU=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=ManuQbqHSTcactyB2Pv88RPe6kmW+6bJ70xOHlALBW8ZaApg7qihBPSgg0MB1XxDP
-	 2Sfb1aSG4MEDG2Q5BWaJbM74T9R3ZKbucW1aCtqBIgQJ6t3izk5x6xLe0wm3NfyjX8
-	 W6aHyWUpfVkabF0D/bh1JF5E8gC+jMNk2zr2037C54jxn6rEivGg2tfKQVt4UnprQE
-	 VUAgT20jki7KtulD/31HTvryTgs5MhyhkVlz7fuqbZlVHT5Dv9ha8+/jX9lFhh1Wlz
-	 EKn6/dUuT9e80byAplmUx0Kkp7RPFps29+IhXje/eJo72tFMslKD77CN5Azw1pDnvc
-	 +ITR5HQSLkzzg==
-Date: Fri, 10 Jan 2025 16:25:25 -0600
+	b=rQhgmR2kSJPEviIMFBfSc+Z4Hchk6wciqoxq1D4PiiU2z+OXyngOrFXHmHSoTBD5y
+	 sbrreH+lcvENWHkIyIzaxaX8C25ii1YOZqw2VyaaJQfTYL2+gMI4I9rXwiMD2txSUK
+	 8QvNBNsuAfy5UaWrcvKFE/XCLn0J7RN7prRrAUcf7/kNHZx/sXU9N8AmIgEDAG9X+p
+	 7M1zVVllWvmwGL9AJptwUutps9Txtg/gpYcYE8MwZrAZyS76HmrKZjdykYw0XCp0AT
+	 ef3YzF9qvceS75EskXpOYtlaxhQPzb4PXV6UM0tvX810HEQu14+DoOmSEjliUbi0ot
+	 T8HFuK07K2Y1Q==
+Date: Fri, 10 Jan 2025 16:30:57 -0600
 From: Bjorn Helgaas <helgaas@kernel.org>
 To: Roger Pau Monne <roger.pau@citrix.com>
 Cc: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
-	linux-pci@vger.kernel.org,
-	Nirmal Patel <nirmal.patel@linux.intel.com>,
-	Jonathan Derrick <jonathan.derrick@linux.dev>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
-Subject: Re: [PATCH 2/3] vmd: disable MSI remapping bypass under Xen
-Message-ID: <20250110222525.GA318386@bhelgaas>
+	linux-pci@vger.kernel.org, Juergen Gross <jgross@suse.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>
+Subject: Re: [PATCH 3/3] pci/msi: remove pci_msi_ignore_mask
+Message-ID: <20250110223057.GA318711@bhelgaas>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250110140152.27624-3-roger.pau@citrix.com>
+In-Reply-To: <20250110140152.27624-4-roger.pau@citrix.com>
 
-Match historical subject line style for prefix and capitalization:
+Match subject line style again.
 
-  PCI: vmd: Set devices to D0 before enabling PM L1 Substates
-  PCI: vmd: Add DID 8086:B06F and 8086:B60B for Intel client SKUs
-  PCI: vmd: Fix indentation issue in vmd_shutdown()
-
-On Fri, Jan 10, 2025 at 03:01:49PM +0100, Roger Pau Monne wrote:
-> MSI remapping bypass (directly configuring MSI entries for devices on the VMD
-> bus) won't work under Xen, as Xen is not aware of devices in such bus, and
-> hence cannot configure the entries using the pIRQ interface in the PV case, and
-> in the PVH case traps won't be setup for MSI entries for such devices.
+On Fri, Jan 10, 2025 at 03:01:50PM +0100, Roger Pau Monne wrote:
+> Setting pci_msi_ignore_mask inhibits the toggling of the mask bit for both MSI
+> and MSI-X entries globally, regardless of the IRQ chip they are using.  Only
+> Xen sets the pci_msi_ignore_mask when routing physical interrupts over event
+> channels, to prevent PCI code from attempting to toggle the maskbit, as it's
+> Xen that controls the bit.
 > 
-> Until Xen is aware of devices in the VMD bus prevent the
-> VMD_FEAT_CAN_BYPASS_MSI_REMAP capability from being used when running as any
-> kind of Xen guest.
+> However, the pci_msi_ignore_mask being global will affect devices that use MSI
+> interrupts but are not routing those interrupts over event channels (not using
+> the Xen pIRQ chip).  One example is devices behind a VMD PCI bridge.  In that
+> scenario the VMD bridge configures MSI(-X) using the normal IRQ chip (the pIRQ
+> one in the Xen case), and devices behind the bridge configure the MSI entries
+> using indexes into the VMD bridge MSI table.  The VMD bridge then demultiplexes
+> such interrupts and delivers to the destination device(s).  Having
+> pci_msi_ignore_mask set in that scenario prevents (un)masking of MSI entries
+> for devices behind the VMD bridge.
+> 
+> Move the signaling of no entry masking into the MSI domain flags, as that
+> allows setting it on a per-domain basis.  Set it for the Xen MSI domain that
+> uses the pIRQ chip, while leaving it unset for the rest of the cases.
+> 
+> Remove pci_msi_ignore_mask at once, since it was only used by Xen code, and
+> with Xen dropping usage the variable is unneeded.
+> 
+> This fixes using devices behind a VMD bridge on Xen PV hardware domains.
 
 Wrap to fit in 75 columns.
 
-Can you include a hint about *why* Xen is not aware of devices below
-VMD?  That will help to know whether it's a permanent unfixable
-situation or something that could be done eventually.
+The first two patches talk about devices behind VMD not being usable
+for Xen, but this one says they now work.  But this doesn't undo the
+code changes or comments added by the first two, so the result is a
+bit confusing (probably because I know nothing about Xen).
 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
->  drivers/pci/controller/vmd.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
-> diff --git a/drivers/pci/controller/vmd.c b/drivers/pci/controller/vmd.c
-> index 264a180403a0..d9b7510ace29 100644
-> --- a/drivers/pci/controller/vmd.c
-> +++ b/drivers/pci/controller/vmd.c
-> @@ -965,6 +965,15 @@ static int vmd_probe(struct pci_dev *dev, const struct pci_device_id *id)
->  	struct vmd_dev *vmd;
->  	int err;
->  
-> +	if (xen_domain())
-> +		/*
-> +		 * Xen doesn't have knowledge about devices in the VMD bus.
-
-Also here.
-
-> +		 * Bypass of MSI remapping won't work in that case as direct
-> +		 * write to the MSI entries won't result in functional
-> +		 * interrupts.
-> +		 */
-> +		features &= ~VMD_FEAT_CAN_BYPASS_MSI_REMAP;
-> +
->  	if (resource_size(&dev->resource[VMD_CFGBAR]) < (1 << 20))
->  		return -ENOMEM;
->  
-> -- 
-> 2.46.0
-> 
+Bjorn
 
