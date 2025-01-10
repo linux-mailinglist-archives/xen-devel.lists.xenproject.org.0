@@ -2,37 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A611AA08C48
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Jan 2025 10:36:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.869351.1280826 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA1DEA08D19
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Jan 2025 10:56:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.869375.1280837 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tWBQn-00067m-Qt; Fri, 10 Jan 2025 09:35:53 +0000
+	id 1tWBkJ-0001ZV-CY; Fri, 10 Jan 2025 09:56:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 869351.1280826; Fri, 10 Jan 2025 09:35:53 +0000
+Received: by outflank-mailman (output) from mailman id 869375.1280837; Fri, 10 Jan 2025 09:56:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tWBQn-000651-NF; Fri, 10 Jan 2025 09:35:53 +0000
-Received: by outflank-mailman (input) for mailman id 869351;
- Fri, 10 Jan 2025 09:35:52 +0000
+	id 1tWBkJ-0001WL-82; Fri, 10 Jan 2025 09:56:03 +0000
+Received: by outflank-mailman (input) for mailman id 869375;
+ Fri, 10 Jan 2025 09:56:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=J0bo=UC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tWBQm-0005c8-2A
- for xen-devel@lists.xenproject.org; Fri, 10 Jan 2025 09:35:52 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ <SRS0=b62p=UC=casper.srs.infradead.org=BATV+4f8727a5892a49e75626+7810+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1tWBkH-0001Vw-Iy
+ for xen-devel@lists.xenproject.org; Fri, 10 Jan 2025 09:56:02 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 47e5df83-cf36-11ef-a0df-8be0dac302b0;
- Fri, 10 Jan 2025 10:35:51 +0100 (CET)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-5d9882a936eso3308062a12.3
- for <xen-devel@lists.xenproject.org>; Fri, 10 Jan 2025 01:35:51 -0800 (PST)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d9900c98d6sm1406017a12.35.2025.01.10.01.35.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jan 2025 01:35:50 -0800 (PST)
+ id 1884247a-cf39-11ef-a0df-8be0dac302b0;
+ Fri, 10 Jan 2025 10:56:00 +0100 (CET)
+Received: from 54-240-197-238.amazon.com ([54.240.197.238]
+ helo=edge-cache-192.e-lhr50.amazon.com)
+ by casper.infradead.org with esmtpsa (Exim 4.98 #2 (Red Hat Linux))
+ id 1tWBkE-0000000CjhZ-3eJO; Fri, 10 Jan 2025 09:55:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,180 +41,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47e5df83-cf36-11ef-a0df-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1736501751; x=1737106551; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Fl8lgxmL+/V36LVrcdeJiI3S1Q/yOAFdboy4Zc6RdL0=;
-        b=A80Ow/3+yMMbfH5HJi1oEoaAQL0xoeIOS6GyIcyrwaHxNcw2WNf1CovI2D10b/T48d
-         LIOwMWZONjyNl96kyPpWn34bmWuath6m9e0Uv7GnOb+LtG+rIerXtmdAxPRqodH7HPUr
-         nlhQ8VQjC7MHi2zwlh7xYpswxj/inAqJ7oq4M=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736501751; x=1737106551;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Fl8lgxmL+/V36LVrcdeJiI3S1Q/yOAFdboy4Zc6RdL0=;
-        b=AbrHBy2qafx7lzlDVoPSuosiJ9gapjar9SJpg9KueqeLAjUAx6GG0ulnKPk/FIMG4W
-         ltKSR8uKEyXif5dQYJAEL8i/q6XYGSRwD1i7eJUpuN3N+RxKIcBhN17piY5GWV9FIOUj
-         BSl6aY0cOUeZMluJxZl8SsMjwMxJ92c8zs/5U0aK6PwTkjTN0f3WE2Dy3RBaisq9Wz1A
-         M+WgivlTXLW8iNyBvsBri2BdCCN/vR/BoRZo/W9/4S/UFYP86F6r+pKEUb9voptQDTl6
-         z20jT0DXVFZG8gHF+B3zCGt3gk/93kDcgcB0LksQ0ZHJuxWcTFO08ABffNMRCTpAxmoD
-         K8zQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVWJWo2FpOq7fVqlAjNrA+Aq//sjNckrGUnSQlDazuRkoesS1x+1yEF0NYdQMmrNATG9MpzVbLkhSI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YydjE6+l83Iy67eBZdAy2EJGRRyi4T+nQxu+7gVW/E5qystcj2P
-	Oi6Hx3tQEuwaOI89hJSS4YNzSAjaAwzx6t0P+QCNKKwHP247QdVy3/MA44bnh04=
-X-Gm-Gg: ASbGnctkuwyoMcNYdWQtlkkdzit3KzKNGL2PB3pl8zcHUH1J4Hcv+ZBhyW4uC1AMtOT
-	3CISd6Rh+M5vL9owIiQXeLSeJy2VwQVkRNPdXoLt7bW4Tw5EZJWs+ZYo3y2DB0EkODapIsHRUNX
-	5aiX5GmmUNCSWc2SIFjiEepq2AV13yG30zlBzExGqNvsTLJ2IyHD1kYJI0DsbkiXuVa4Mb8Ygu+
-	Ymh18XssMwWjduS/qOUKDudIX/tCURVRR8ewxtpwwp9C0pEwBFK5JYqaT32+YBZd7E=
-X-Google-Smtp-Source: AGHT+IEo9mpyvl6MxMhMK3vDEIeyTCqPvEtk3ZTUCN5P4v3M5pMXiIevI2rskGgecot8tg5zTq3PXg==
-X-Received: by 2002:a05:6402:50c6:b0:5d3:cfd0:8d3f with SMTP id 4fb4d7f45d1cf-5d972e4cc1amr9661346a12.24.1736501750881;
-        Fri, 10 Jan 2025 01:35:50 -0800 (PST)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: qemu-devel@nongnu.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony PERARD <anthony@xenproject.org>,
-	Paul Durrant <paul@xen.org>,
-	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
-	Kevin Wolf <kwolf@redhat.com>,
-	Hanna Reitz <hreitz@redhat.com>,
-	=?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	xen-devel@lists.xenproject.org,
-	qemu-block@nongnu.org
-Subject: [PATCH v2 2/2] xen: do not use '%ms' scanf specifier
-Date: Fri, 10 Jan 2025 10:35:31 +0100
-Message-ID: <20250110093531.23221-3-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20250110093531.23221-1-roger.pau@citrix.com>
+X-Inumbo-ID: 1884247a-cf39-11ef-a0df-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=Z5Nh+2yckq762MOsfpJkW2r83TK1AAuzk8GDlzKfe1A=; b=nxVaArEN4nTxomP6ZX5WOCnLiW
+	6m+s3Ss+rPKeSODhGqGyt1JpOAmVcBosftVRK7UFlS3oBc/KP6pRB8GS5QspbT8N/AclyalIFJ+w9
+	XHb0JMVfqIELBlzXK6mGLuJBA/1qUevuaa4qb2uXwfNQ0njVH6KGHSyDd6+AIzT2L9q9w7FtbzKM7
+	U3PctHqH8/DX1BX76dgm0SKd6NJ4ifKJZ3f3wGpc8eeIfykBNt6i6jHM2wh0C2TCg/HpzeHFaObV8
+	Ibl4WStKlnlOxNcvTEhkeYSpYWvi3T6Ul5D4qk94NiyLPPNkpvFCbmZq/Dh5GiT8zBC+83zbq3Tt0
+	AjgGGf3Q==;
+Message-ID: <db708ce428d6047b1761d2d11fb25acc8af353a9.camel@infradead.org>
+Subject: Re: [PATCH v2 2/2] xen: do not use '%ms' scanf specifier
+From: David Woodhouse <dwmw2@infradead.org>
+To: Roger Pau Monne <roger.pau@citrix.com>, qemu-devel@nongnu.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Anthony PERARD
+	 <anthony@xenproject.org>, Paul Durrant <paul@xen.org>, "Edgar E. Iglesias"
+	 <edgar.iglesias@gmail.com>, Kevin Wolf <kwolf@redhat.com>, Hanna Reitz
+	 <hreitz@redhat.com>, =?ISO-8859-1?Q?Marc-Andr=E9?= Lureau
+	 <marcandre.lureau@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	xen-devel@lists.xenproject.org, qemu-block@nongnu.org
+Date: Fri, 10 Jan 2025 09:55:57 +0000
+In-Reply-To: <20250110093531.23221-3-roger.pau@citrix.com>
 References: <20250110093531.23221-1-roger.pau@citrix.com>
+	 <20250110093531.23221-3-roger.pau@citrix.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-XSq/2LznYTBFSWcDCZ+A"
+User-Agent: Evolution 3.52.3-0ubuntu1 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-The 'm' parameter used to request auto-allocation of the destination variable
-is not supported on FreeBSD, and as such leads to failures to parse.
 
-What's more, the current usage of '%ms' with xs_node_scanf() is pointless, as
-it just leads to a double allocation of the same string.  Instead use
-xs_node_read() to read the whole xenstore node.
+--=-XSq/2LznYTBFSWcDCZ+A
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Fixes: a783f8ad4ec9 ('xen: add a mechanism to automatically create XenDevice-s...')
-Fixes: 9b7737469080 ('hw/xen: update Xen console to XenDevice model')
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Changes since v2:
- - New version of xs_node_read().
- - Fix usage of %ms in xen-block.c
+On Fri, 2025-01-10 at 10:35 +0100, Roger Pau Monne wrote:
+> The 'm' parameter used to request auto-allocation of the destination vari=
+able
+> is not supported on FreeBSD, and as such leads to failures to parse.
+>=20
+> What's more, the current usage of '%ms' with xs_node_scanf() is pointless=
+, as
+> it just leads to a double allocation of the same string.=C2=A0 Instead us=
+e
+> xs_node_read() to read the whole xenstore node.
+>=20
+> Fixes: a783f8ad4ec9 ('xen: add a mechanism to automatically create XenDev=
+ice-s...')
+> Fixes: 9b7737469080 ('hw/xen: update Xen console to XenDevice model')
+> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 
-Changes since v1:
- - Introduce xs_node_read() helper.
- - Merge with errp fixes.
----
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Anthony PERARD <anthony@xenproject.org>
-Cc: Paul Durrant <paul@xen.org>
-Cc: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-Cc: Kevin Wolf <kwolf@redhat.com>
-Cc: Hanna Reitz <hreitz@redhat.com>
-Cc: "Marc-André Lureau" <marcandre.lureau@redhat.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>
-Cc: xen-devel@lists.xenproject.org
-Cc: qemu-block@nongnu.org
----
- hw/block/xen-block.c     |  3 ++-
- hw/char/xen_console.c    |  6 ++++--
- hw/xen/xen-bus.c         | 14 ++++++++++++--
- include/hw/xen/xen-bus.h |  1 +
- 4 files changed, 19 insertions(+), 5 deletions(-)
+Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
 
-diff --git a/hw/block/xen-block.c b/hw/block/xen-block.c
-index 306d38927cf4..034a18b70e28 100644
---- a/hw/block/xen-block.c
-+++ b/hw/block/xen-block.c
-@@ -239,7 +239,8 @@ static void xen_block_connect(XenDevice *xendev, Error **errp)
-         return;
-     }
- 
--    if (xen_device_frontend_scanf(xendev, "protocol", "%ms", &str) != 1) {
-+    str = xen_device_frontend_read(xendev, "protocol");
-+    if (!str) {
-         /* x86 defaults to the 32-bit protocol even for 64-bit guests. */
-         if (object_dynamic_cast(OBJECT(qdev_get_machine()), "x86-machine")) {
-             protocol = BLKIF_PROTOCOL_X86_32;
-diff --git a/hw/char/xen_console.c b/hw/char/xen_console.c
-index ef0c2912efa1..989e75fef88f 100644
---- a/hw/char/xen_console.c
-+++ b/hw/char/xen_console.c
-@@ -550,7 +550,8 @@ static void xen_console_device_create(XenBackendInstance *backend,
-         goto fail;
-     }
- 
--    if (xs_node_scanf(xsh, XBT_NULL, fe, "type", errp, "%ms", &type) != 1) {
-+    type = xs_node_read(xsh, XBT_NULL, NULL, errp, "%s/%s", fe, "type");
-+    if (!type) {
-         error_prepend(errp, "failed to read console device type: ");
-         goto fail;
-     }
-@@ -568,7 +569,8 @@ static void xen_console_device_create(XenBackendInstance *backend,
- 
-     snprintf(label, sizeof(label), "xencons%ld", number);
- 
--    if (xs_node_scanf(xsh, XBT_NULL, fe, "output", NULL, "%ms", &output) == 1) {
-+    output = xs_node_read(xsh, XBT_NULL, NULL, errp, "%s/%s", fe, "output");
-+    if (output) {
-         /*
-          * FIXME: sure we want to support implicit
-          * muxed monitors here?
-diff --git a/hw/xen/xen-bus.c b/hw/xen/xen-bus.c
-index adfc4efad035..85b92cded4e2 100644
---- a/hw/xen/xen-bus.c
-+++ b/hw/xen/xen-bus.c
-@@ -156,8 +156,8 @@ again:
-             !strcmp(key[i], "hotplug-status"))
-             continue;
- 
--        if (xs_node_scanf(xenbus->xsh, tid, path, key[i], NULL, "%ms",
--                          &val) == 1) {
-+        val = xs_node_read(xenbus->xsh, tid, NULL, NULL, "%s/%s", path, key[i]);
-+        if (val) {
-             qdict_put_str(opts, key[i], val);
-             free(val);
-         }
-@@ -650,6 +650,16 @@ int xen_device_frontend_scanf(XenDevice *xendev, const char *key,
-     return rc;
- }
- 
-+char *xen_device_frontend_read(XenDevice *xendev, const char *key)
-+{
-+    XenBus *xenbus = XEN_BUS(qdev_get_parent_bus(DEVICE(xendev)));
-+
-+    g_assert(xenbus->xsh);
-+
-+    return xs_node_read(xenbus->xsh, XBT_NULL, NULL, NULL, "%s/%s",
-+                        xendev->frontend_path, key);;
-+}
-+
- static void xen_device_frontend_set_state(XenDevice *xendev,
-                                           enum xenbus_state state,
-                                           bool publish)
-diff --git a/include/hw/xen/xen-bus.h b/include/hw/xen/xen-bus.h
-index 38d40afa3798..2adb2af83919 100644
---- a/include/hw/xen/xen-bus.h
-+++ b/include/hw/xen/xen-bus.h
-@@ -91,6 +91,7 @@ void xen_device_frontend_printf(XenDevice *xendev, const char *key,
- int xen_device_frontend_scanf(XenDevice *xendev, const char *key,
-                               const char *fmt, ...)
-     G_GNUC_SCANF(3, 4);
-+char *xen_device_frontend_read(XenDevice *xendev, const char *key);
- 
- void xen_device_set_max_grant_refs(XenDevice *xendev, unsigned int nr_refs,
-                                    Error **errp);
--- 
-2.46.0
+Thanks.
 
+
+--=-XSq/2LznYTBFSWcDCZ+A
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCD9Aw
+ggSOMIIDdqADAgECAhAOmiw0ECVD4cWj5DqVrT9PMA0GCSqGSIb3DQEBCwUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBDQTAeFw0yNDAxMzAwMDAwMDBaFw0zMTEx
+MDkyMzU5NTlaMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYDVQQDExdWZXJv
+a2V5IFNlY3VyZSBFbWFpbCBHMjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMjvgLKj
+jfhCFqxYyRiW8g3cNFAvltDbK5AzcOaR7yVzVGadr4YcCVxjKrEJOgi7WEOH8rUgCNB5cTD8N/Et
+GfZI+LGqSv0YtNa54T9D1AWJy08ZKkWvfGGIXN9UFAPMJ6OLLH/UUEgFa+7KlrEvMUupDFGnnR06
+aDJAwtycb8yXtILj+TvfhLFhafxroXrflspavejQkEiHjNjtHnwbZ+o43g0/yxjwnarGI3kgcak7
+nnI9/8Lqpq79tLHYwLajotwLiGTB71AGN5xK+tzB+D4eN9lXayrjcszgbOv2ZCgzExQUAIt98mre
+8EggKs9mwtEuKAhYBIP/0K6WsoMnQCcCAwEAAaOCAVwwggFYMBIGA1UdEwEB/wQIMAYBAf8CAQAw
+HQYDVR0OBBYEFIlICOogTndrhuWByNfhjWSEf/xwMB8GA1UdIwQYMBaAFEXroq/0ksuCMS1Ri6en
+IZ3zbcgPMA4GA1UdDwEB/wQEAwIBhjAdBgNVHSUEFjAUBggrBgEFBQcDBAYIKwYBBQUHAwIweQYI
+KwYBBQUHAQEEbTBrMCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQwYIKwYB
+BQUHMAKGN2h0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRJRFJvb3RD
+QS5jcnQwRQYDVR0fBD4wPDA6oDigNoY0aHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0
+QXNzdXJlZElEUm9vdENBLmNybDARBgNVHSAECjAIMAYGBFUdIAAwDQYJKoZIhvcNAQELBQADggEB
+ACiagCqvNVxOfSd0uYfJMiZsOEBXAKIR/kpqRp2YCfrP4Tz7fJogYN4fxNAw7iy/bPZcvpVCfe/H
+/CCcp3alXL0I8M/rnEnRlv8ItY4MEF+2T/MkdXI3u1vHy3ua8SxBM8eT9LBQokHZxGUX51cE0kwa
+uEOZ+PonVIOnMjuLp29kcNOVnzf8DGKiek+cT51FvGRjV6LbaxXOm2P47/aiaXrDD5O0RF5SiPo6
+xD1/ClkCETyyEAE5LRJlXtx288R598koyFcwCSXijeVcRvBB1cNOLEbg7RMSw1AGq14fNe2cH1HG
+W7xyduY/ydQt6gv5r21mDOQ5SaZSWC/ZRfLDuEYwggWbMIIEg6ADAgECAhAH5JEPagNRXYDiRPdl
+c1vgMA0GCSqGSIb3DQEBCwUAMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYD
+VQQDExdWZXJva2V5IFNlY3VyZSBFbWFpbCBHMjAeFw0yNDEyMzAwMDAwMDBaFw0yODAxMDQyMzU5
+NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqGSIb3DQEBAQUAA4IC
+DwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZeYAS/SRV6zmfXlXaZ
+sNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2zkC9S7/yHDYnqegqt
+w4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qGpgFdZEk2/c//ZvUN
+i12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41vav1RhZJzYan4a1gU0
+kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0cvnO8FM6PTqsnSbcc
+0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PWPU6zfQTOMZ9uLQRR
+ci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXtREF5lLXxp+CJ6KKS
+blPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQrlR0gO3lBzuyPPArV
+hvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7IqaAovAX0d+f1YjbmC
+VsAwjhLmveFjNwIDAQABo4IBsDCCAawwHwYDVR0jBBgwFoAUiUgI6iBOd2uG5YHI1+GNZIR//HAw
+HQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3bXcyQGluZnJhZGVh
+ZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEBMA4GA1UdDwEB/wQE
+AwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwewYDVR0fBHQwcjA3oDWgM4YxaHR0
+cDovL2NybDMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDA3oDWgM4YxaHR0
+cDovL2NybDQuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDB2BggrBgEFBQcB
+AQRqMGgwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBABggrBgEFBQcwAoY0
+aHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNydDANBgkq
+hkiG9w0BAQsFAAOCAQEAQXc4FPiPLRnTDvmOABEzkIumojfZAe5SlnuQoeFUfi+LsWCKiB8Uextv
+iBAvboKhLuN6eG/NC6WOzOCppn4mkQxRkOdLNThwMHW0d19jrZFEKtEG/epZ/hw/DdScTuZ2m7im
+8ppItAT6GXD3aPhXkXnJpC/zTs85uNSQR64cEcBFjjoQDuSsTeJ5DAWf8EMyhMuD8pcbqx5kRvyt
+JPsWBQzv1Dsdv2LDPLNd/JUKhHSgr7nbUr4+aAP2PHTXGcEBh8lTeYea9p4d5k969pe0OHYMV5aL
+xERqTagmSetuIwolkAuBCzA9vulg8Y49Nz2zrpUGfKGOD0FMqenYxdJHgDCCBZswggSDoAMCAQIC
+EAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQELBQAwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoT
+B1Zlcm9rZXkxIDAeBgNVBAMTF1Zlcm9rZXkgU2VjdXJlIEVtYWlsIEcyMB4XDTI0MTIzMDAwMDAw
+MFoXDTI4MDEwNDIzNTk1OVowHjEcMBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJ
+KoZIhvcNAQEBBQADggIPADCCAgoCggIBANqWLse95HW2F7FhfH9bugyT/danKmmXrbMnz5GZNAfj
+Jl5gBL9JFXrOZ9eVdpmw04Tp6aDxZctFLoEDvSWKi367Q7Sg+ci+fH4KwwfQ8Pi0IpIKx2n5emEg
+nbOQL1Lv/IcNiep6Cq3DiyaSpSp/RZf+CAfUNySHS8eWmhLU6jGpSD6hxTpYKye7PmrmvMWwfGEP
+WoamAV1kSTb9z/9m9Q2LXa89aKmTxNwnAfD3Ohn9mtU3JukwILRMewn9QRXK7KzM+01h5hkCE4nj
+W9q/VGFknNhqfhrWBTSQoE9CSVylASGrjzCgS7XmKy/BaH3/7mOOHQv5g1o3Qj/+cdKnpT0I5Qb1
+nRy+c7wUzo9OqydJtxzSP4ZyHA4dELto/a3m/ay1XHcpum1pgTOLgxAfGb/T4dCkwRUstSKLMmpL
+g9Y9TrN9BM4xn24tBFFyL5znGG0wQGzOVAM68RBzIQb6Fz758fjsr4yZnPbVsU1+gHEs/puNHrG0
+9e1EQXmUtfGn4InoopJuU8p5VGD9S3Ikd4UoBlc7xl5yjtNlQxUeYrRlnUSmdlucCEoTX1n4UmtA
+9CuVHSA7eUHO7I88CtWG9bGOU7tLgOZoSEvNqtaL/N7sQbBZK4jZ4Rr/zNTQg1SwYjjLB7u96lDP
+sipoCi8BfR35/ViNuYJWwDCOEua94WM3AgMBAAGjggGwMIIBrDAfBgNVHSMEGDAWgBSJSAjqIE53
+a4blgcjX4Y1khH/8cDAdBgNVHQ4EFgQUXGIam3Bs59Y60yTmWgfDu6pZQ6cwMAYDVR0RBCkwJ4ET
+ZHdtdzJAaW5mcmFkZWFkLm9yZ4EQZGF2aWRAd29vZGhvdS5zZTAUBgNVHSAEDTALMAkGB2eBDAEF
+AQEwDgYDVR0PAQH/BAQDAgXgMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDB7BgNVHR8E
+dDByMDegNaAzhjFodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
+Y3JsMDegNaAzhjFodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
+Y3JsMHYGCCsGAQUFBwEBBGowaDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29t
+MEAGCCsGAQUFBzAChjRodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVt
+YWlsRzIuY3J0MA0GCSqGSIb3DQEBCwUAA4IBAQBBdzgU+I8tGdMO+Y4AETOQi6aiN9kB7lKWe5Ch
+4VR+L4uxYIqIHxR7G2+IEC9ugqEu43p4b80LpY7M4KmmfiaRDFGQ50s1OHAwdbR3X2OtkUQq0Qb9
+6ln+HD8N1JxO5nabuKbymki0BPoZcPdo+FeRecmkL/NOzzm41JBHrhwRwEWOOhAO5KxN4nkMBZ/w
+QzKEy4PylxurHmRG/K0k+xYFDO/UOx2/YsM8s138lQqEdKCvudtSvj5oA/Y8dNcZwQGHyVN5h5r2
+nh3mT3r2l7Q4dgxXlovERGpNqCZJ624jCiWQC4ELMD2+6WDxjj03PbOulQZ8oY4PQUyp6djF0keA
+MYIDuzCCA7cCAQEwVTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMX
+VmVyb2tleSBTZWN1cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJYIZIAWUDBAIBBQCg
+ggE3MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI1MDExMDA5NTU1
+N1owLwYJKoZIhvcNAQkEMSIEIN3MALgsY/OyhtuLPyN/iAmYvwomMt4RuktBFQ2DvTsDMGQGCSsG
+AQQBgjcQBDFXMFUwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoTB1Zlcm9rZXkxIDAeBgNVBAMTF1Zl
+cm9rZXkgU2VjdXJlIEVtYWlsIEcyAhAH5JEPagNRXYDiRPdlc1vgMGYGCyqGSIb3DQEJEAILMVeg
+VTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMXVmVyb2tleSBTZWN1
+cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQEBBQAEggIAxp99xYgfx6Hh
+IyvhBd0HWKLUqAJ75hYBt+BhTQjg+lGGCA3KbKTPAmRN7KS/yW1jyGDxcF9NUuYE+QVdKTfs9tgD
+Es1t4aHT57mQzbCIX1dZkRlvLJLXLIZMcqyjWRjsVwmUOudDXI9I0KFCHuFbZ4txAQOW0vhQgEpZ
+bvG92IaknYSPf1f2nPQNfB5FPZc7G5BksjtqM6QrUURChml8Kf7SrW4fhWA6vTkQLyNZLvHWkZfn
+YTpUmiwFQR2bjCKrceHVQl8XVdSD2EuOxq8PU0/c43fchtMiZBukwfLs9Mv+3jvdzdlr2/G1t8gX
+nzDTbwSbCEOVthf0cAq7aCLMMIe/tp/NiDuHXXti0+LTHjD4kE0K8y8/FiRszqvME+FSGYtQen73
+X47qTXzsDDbCqDOimgUVb1lqUoOrL4QD+gE7Q4aNZXNSBy9382LFyncmhILPs4dj48D050k9T9vE
+lejIAGunet2IjRTjRAyJQvN+S/Ghlxg9EkjsCf5dX7eMwh10ezdjZtgpFdyynBENr6QbdlM1txBx
+r2deapg8I6bav0GLSS3uOJsNfkmz8VJAqyYt/h53mele+NskZu54CLlHmmMV/eaalSMFHyAqZIT+
+w5yWXONcZY3uBFToySH/MGaRMrA3valV1MkqoRNRJJn9S64fjPCeJ9oZ6JbBHoAAAAAAAAA=
+
+
+--=-XSq/2LznYTBFSWcDCZ+A--
 
