@@ -2,34 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 947B6A09C31
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Jan 2025 21:11:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.870003.1281448 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D2C7A09D1C
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Jan 2025 22:20:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.870013.1281465 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tWLLd-0007sh-KA; Fri, 10 Jan 2025 20:11:13 +0000
+	id 1tWMPj-0008KW-OM; Fri, 10 Jan 2025 21:19:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 870003.1281448; Fri, 10 Jan 2025 20:11:13 +0000
+Received: by outflank-mailman (output) from mailman id 870013.1281465; Fri, 10 Jan 2025 21:19:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tWLLd-0007qF-HX; Fri, 10 Jan 2025 20:11:13 +0000
-Received: by outflank-mailman (input) for mailman id 870003;
- Fri, 10 Jan 2025 20:11:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tWMPj-0008Fn-JG; Fri, 10 Jan 2025 21:19:31 +0000
+Received: by outflank-mailman (input) for mailman id 870013;
+ Fri, 10 Jan 2025 21:19:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RTL5=UC=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tWLLb-0007q7-E9
- for xen-devel@lists.xenproject.org; Fri, 10 Jan 2025 20:11:11 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 058d9265-cf8f-11ef-99a4-01e77a169b0f;
- Fri, 10 Jan 2025 21:11:05 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 50311A4287D;
- Fri, 10 Jan 2025 20:09:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83159C4CED6;
- Fri, 10 Jan 2025 20:11:03 +0000 (UTC)
+ <SRS0=qCll=UC=daemonizer.de=maxi@srs-se1.protection.inumbo.net>)
+ id 1tWMPi-0008EF-F3
+ for xen-devel@lists.xenproject.org; Fri, 10 Jan 2025 21:19:30 +0000
+Received: from mx1.somlen.de (typhoon.somlen.de [89.238.64.140])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 92bb8563-cf98-11ef-a0df-8be0dac302b0;
+ Fri, 10 Jan 2025 22:19:28 +0100 (CET)
+Received: by mx1.somlen.de with ESMTPSA id 553B95030E7;
+ Fri, 10 Jan 2025 22:19:26 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,78 +38,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 058d9265-cf8f-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1736539864;
-	bh=vyjcdsLa6PRt3lYhW4vysftDH2HNiVW6dG52oxM/ci4=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=axKn1aj7ZwkXX1JVWvtAnAAbxKCvbUPLGLXCAuyv5hs2DMuffuGnlHKJUTgVxc76q
-	 uzuVhW9fdPKO9ZkWjKYKqJxe6EXieGnUKGI9LLXdi0FwQsnQgxoxBDNIxcvjQBP93E
-	 0p06Oj4kBPgrwDA87EShcCkiroeAzvyhzew7/L7+XXwO2s9DKpdc/q76F17OjAXy9h
-	 J+/R6I1C35sl3iheCFPYooZIbNKhVIOV6fYSIDZMaZSw9OBUVtl2av+jVUhwOyoIwM
-	 zdVxXpYp7C7VN2383ZJtjk790REx3b3Fd+bgDh8S3k0/wsdi1sx6O97RIGFxuR5mH1
-	 8FTHGKZLWmwkg==
-Date: Fri, 10 Jan 2025 12:11:02 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-cc: Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Xen-devel <xen-devel@lists.xenproject.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Anthony PERARD <anthony.perard@vates.tech>, 
-    Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH] CI: Add an x86_64 Clang Randconfig job
-In-Reply-To: <D6YJY56LLW9U.1JHBJ5DF1A8UK@cloud.com>
-Message-ID: <alpine.DEB.2.22.394.2501101210570.1731534@ubuntu-linux-20-04-desktop>
-References: <20250110160217.183887-1-andrew.cooper3@citrix.com> <D6YJY56LLW9U.1JHBJ5DF1A8UK@cloud.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 92bb8563-cf98-11ef-a0df-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=daemonizer.de;
+	s=202303; t=1736543966;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=jWZqXIp5bUcmoJ7raF+Sui2s7eMrVNjK2aCR0SvW1XU=;
+	b=uk+UYv9svfJr8U5T6duzoCxpjiOyOkhuGe3C8SZlyZeJyooBxHqBpoDpbdVHoXDpfuN2++
+	D2BNirGYlrtpckTMbulqpMGSs+BLNQI9/2QprjqtkzMH9NHCPWmIN0H9jdJOvHd4YGWRzA
+	M3mgEV59tX3dFe5k7wAcBqw1O9gDtN7piQRkz0lKUgvovnlOUxdjE8s6N8saJLoJPszNtR
+	UtRu/YMVQC3EdKTe82/Cosz2hYGqBWxew2nVoUDmqq7xMJltC237Zkpc/Lmd7TJs0ILjuw
+	Gr3KehaZRTllmZdjs9S4l3/9rb90oNg/V1hkiVL340PJIoROgXAYLzwWv6K3Gw==
+From: Maximilian Engelhardt <maxi@daemonizer.de>
+To: xen-devel@lists.xenproject.org
+Cc: Maximilian Engelhardt <maxi@daemonizer.de>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [XEN PATCH 0/1] Bug: Hyperlinks in generated documentation may point to the wrong architecture
+Date: Fri, 10 Jan 2025 22:19:02 +0100
+Message-Id: <cover.1736542505.git.maxi@daemonizer.de>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1405474099-1736539864=:1731534"
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1405474099-1736539864=:1731534
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Content-Transfer-Encoding: 8bit
 
-On Fri, 10 Jan 2025, Alejandro Vallejo wrote:
-> On Fri Jan 10, 2025 at 4:02 PM GMT, Andrew Cooper wrote:
-> > This was recently identified as a hole in testing.
-> >
-> > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> > ---
-> > CC: Roger Pau Monné <roger.pau@citrix.com>
-> > CC: Stefano Stabellini <sstabellini@kernel.org>
-> > CC: Anthony PERARD <anthony.perard@vates.tech>
-> > CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> >
-> > https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/8820980201
-> > ---
-> >  automation/gitlab-ci/build.yaml | 6 ++++++
-> >  1 file changed, 6 insertions(+)
-> >
-> > diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-> > index 3abd2a0c6575..cb84f379b754 100644
-> > --- a/automation/gitlab-ci/build.yaml
-> > +++ b/automation/gitlab-ci/build.yaml
-> > @@ -551,6 +551,12 @@ debian-12-x86_64-clang:
-> >    variables:
-> >      CONTAINER: debian:12-x86_64
-> >  
-> > +debian-12-x86_64-clang-randconfig:
-> > +  extends: .clang-x86-64-build
-> > +  variables:
-> > +    CONTAINER: debian:12-x86_64
-> > +    RANDCONFIG: y
-> > +
-> >  debian-12-x86_64-gcc:
-> >    extends: .gcc-x86-64-build
-> >    variables:
-> 
->   Reviewed-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+As suggested by Andrew Cooper in [1], I formally submit this patch for
+fixing that documentation hyperlinks may point to the wrong
+architecture. This fix also makes building the documentation
+reproducible in Debian.
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
---8323329-1405474099-1736539864=:1731534--
+With this patch applied, I still get the following:
+
+/usr/bin/perl -w /build/reproducible-path/xen-4.19.1/docs/xen-headers -O html/hypercall/ppc \
+	-T 'arch-ppc - Xen public headers' \
+	-X arch-arm -X arch-riscv -X arch-x86_32 -X arch-x86_64 \
+	-X xen-arm -X xen-riscv -X xen-x86_32 -X xen-x86_64 \
+	-X arch-x86 \
+	/build/reproducible-path/xen-4.19.1/docs/../xen include/public include/xen/errno.h
+include/public/hvm/dm_op.h:476: multiple definitions of Typedef xen_ulong_t: include/public/arch-ppc.h:55
+include/public/hvm/dm_op.h:476: multiple definitions of Typedef xen_ulong_t: include/public/arch-ppc.h:61
+include/public/hvm/dm_op.h:476: multiple definitions of Typedef xen_ulong_t: include/public/arch-ppc.h:55
+include/public/hvm/dm_op.h:476: multiple definitions of Typedef xen_ulong_t: include/public/arch-ppc.h:61
+
+This seems to happen due to multiple "typedef uint64_t xen_ulong_t;"
+in xen/include/public/arch-ppc.h (albeit in different if(n)def blocks).
+It does not cause any problems for us at the moment, but probably should
+still be addressed somehow.
+
+[1] https://lists.xen.org/archives/html/xen-devel/2025-01/msg00324.html
+
+Maximilian Engelhardt (1):
+  docs/Makefile: Add ppc and riscv to DOC_ARCHES
+
+ docs/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+-- 
+2.39.5
+
 
