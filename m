@@ -2,29 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0921A084EE
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Jan 2025 02:39:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.869210.1280680 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1315EA08986
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Jan 2025 09:07:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.869220.1280728 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tW400-0008Ud-9y; Fri, 10 Jan 2025 01:39:44 +0000
+	id 1tWA2T-000729-Gl; Fri, 10 Jan 2025 08:06:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 869210.1280680; Fri, 10 Jan 2025 01:39:44 +0000
+Received: by outflank-mailman (output) from mailman id 869220.1280728; Fri, 10 Jan 2025 08:06:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tW400-0008Rc-75; Fri, 10 Jan 2025 01:39:44 +0000
-Received: by outflank-mailman (input) for mailman id 869210;
- Fri, 10 Jan 2025 01:39:43 +0000
+	id 1tWA2T-00070R-Di; Fri, 10 Jan 2025 08:06:41 +0000
+Received: by outflank-mailman (input) for mailman id 869220;
+ Fri, 10 Jan 2025 01:50:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=CmC5=UC=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1tW3zz-0008RW-4k
- for xen-devel@lists.xenproject.org; Fri, 10 Jan 2025 01:39:43 +0000
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c2bda1d0-cef3-11ef-a0df-8be0dac302b0;
- Fri, 10 Jan 2025 02:39:41 +0100 (CET)
+ (envelope-from <SRS0=5fd/=UC=163.com=andyshrk@srs-se1.protection.inumbo.net>)
+ id 1tW4AI-0002ga-54
+ for xen-devel@lists.xenproject.org; Fri, 10 Jan 2025 01:50:22 +0000
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 3eaa7ff7-cef5-11ef-a0df-8be0dac302b0;
+ Fri, 10 Jan 2025 02:50:20 +0100 (CET)
+Received: from andyshrk$163.com ( [58.22.7.114] ) by
+ ajax-webmail-wmsvr-40-121 (Coremail) ; Fri, 10 Jan 2025 09:49:34 +0800
+ (CST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,330 +39,171 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c2bda1d0-cef3-11ef-a0df-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1736473179; x=1736732379;
-	bh=UZCiOtNyBFgwmB0bA+RI2qQUT6B61jfzP8IOQSKi5jk=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=FAnbUF8d4b0cY9FM57C786UUtlIKNwygMNEyP/BWKpvHudQhleGvdLJikhB89oLyq
-	 k/9h/Jp82CjSepAPwqcT6p1uT9hudvez0XEjkyoKPpK/cBqb1yuHeaIXNwqfKkWklw
-	 u/chFQFm6HMh71xlQLBD1gwJXuBEgtQrpR8JyEucxSfH6URc8tgHww7PRFjCx0sqHj
-	 5evITkFXSwRZFq5v5olv3GnWsg8uWOnpViAijWpMx1pJjgBqIkgLEyrCnKFdkZa+DW
-	 CqGYkPIihQPYkp2b7tVARVHxThItAXbCOMzztN9C9T4Fkm5XF3FrVQneAwiT/h26ll
-	 yPOXw3tjWzF5A==
-Date: Fri, 10 Jan 2025 01:39:36 +0000
-To: Stefano Stabellini <sstabellini@kernel.org>
-From: Denis Mukhin <dmkhn@proton.me>
-Cc: =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>, dmukhin@ford.com, xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>
-Subject: Re: [PATCH v2 20/35] xen/console: introduce console_owner_domid()
-Message-ID: <cKowJ0lJhKcoHoaPgGOX4xdDu6PCcg7MVnhS_y5L4mVGJfNlG-xXJdSGXJkIys5OqdCeSdiYtNQmI4znkjXLaqtqHefgvM33MbvMX700nk0=@proton.me>
-In-Reply-To: <alpine.DEB.2.22.394.2501091534090.133435@ubuntu-linux-20-04-desktop>
-References: <8a5a5a0f-72b0-4336-b0d2-142254319242@suse.com> <a2fa92ff-a5fb-4adc-86aa-1481ebec92fe@suse.com> <Z34xhkNu5YLyEzut@macbook.local> <121ae72e-6229-40a4-8b9f-4f8b0764b712@suse.com> <Z344xgqtpNZIDxHD@macbook.local> <m5iIn0DzBY1VE3oW8MMk5aJD5yovtFe2u7eorkGQVf0czY2gzIYl9k2aKmrdyh1AG6YAgyasVn86Js-vUQyudqjHY7bRYE1hXdCkdFVF0U8=@proton.me> <alpine.DEB.2.22.394.2501081615050.133435@ubuntu-linux-20-04-desktop> <Z3-Dcraxc55vi-ur@macbook.local> <alpine.DEB.2.22.394.2501091534090.133435@ubuntu-linux-20-04-desktop>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: aebd2e3c7115c982923ac7776c9ea7f0b1dd45be
+X-Inumbo-ID: 3eaa7ff7-cef5-11ef-a0df-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=rp/KcRTe1MsmgU0PH0K2oNjpoThGJemgMsEfHLsmXZU=; b=W
+	0+7i2RYJnb+IwDKnerRnHxSxLQCjeH0nmPAixXRZJIh73RBq6tWkXMlB8ARB+/jY
+	np1B30dwgcuk3AfdfRFVCdiEx8UK+S2MJZD/8WuIfTW+pMd2/CA2ZVtLym/AK7/5
+	ZlsIJ8WXsVg/F0EKQPdKfYxTn5KUwLSo/yOl2xLFwA=
+X-Originating-IP: [58.22.7.114]
+Date: Fri, 10 Jan 2025 09:49:34 +0800 (CST)
+From: "Andy Yan" <andyshrk@163.com>
+To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com, 
+	simona@ffwll.ch, dri-devel@lists.freedesktop.org, 
+	linux-mediatek@lists.infradead.org, freedreno@lists.freedesktop.org, 
+	linux-arm-msm@vger.kernel.org, imx@lists.linux.dev, 
+	linux-samsung-soc@vger.kernel.org, nouveau@lists.freedesktop.org, 
+	virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org, 
+	linux-renesas-soc@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org, 
+	intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org
+Subject: Re:[PATCH v2 02/25] drm/dumb-buffers: Provide helper to set pitch
+ and size
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version XT5.0.14 build 20240801(9da12a7b)
+ Copyright (c) 2002-2025 www.mailtech.cn 163com
+In-Reply-To: <20250109150310.219442-3-tzimmermann@suse.de>
+References: <20250109150310.219442-1-tzimmermann@suse.de>
+ <20250109150310.219442-3-tzimmermann@suse.de>
+X-NTES-SC: AL_Qu2YBPicvE8s4iWYYukfmkcVgOw9UcO5v/Qk3oZXOJF8jArp+TAefEJSMWvIws60LDKUmgmGdih16sFZbLt8cLIWf0LCiIohAdHyNGUiBtRGKQ==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Message-ID: <94f78e1.19bf.1944de709b0.Coremail.andyshrk@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:eSgvCgDnqsWufIBna6lTAA--.18314W
+X-CM-SenderInfo: 5dqg52xkunqiywtou0bp/1tbiqBTQXmeAdu58vQABsN
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-
-On Thursday, January 9th, 2025 at 3:46 PM, Stefano Stabellini <sstabellini@=
-kernel.org> wrote:
-
->=20
->=20
-> On Thu, 9 Jan 2025, Roger Pau Monn=C3=A9 wrote:
->=20
-> > On Wed, Jan 08, 2025 at 04:29:24PM -0800, Stefano Stabellini wrote:
-> >=20
-> > > On Wed, 8 Jan 2025, Denis Mukhin wrote:
-> > >=20
-> > > > On Wednesday, January 8th, 2025 at 12:35 AM, Roger Pau Monn=C3=
-=A9 roger.pau@citrix.com wrote:
-> > > >=20
-> > > > > On Wed, Jan 08, 2025 at 09:13:02AM +0100, Jan Beulich wrote:
-> > > > >=20
-> > > > > > On 08.01.2025 09:04, Roger Pau Monn=C3=A9 wrote:
-> > > > > >=20
-> > > > > > > On Wed, Jan 08, 2025 at 08:28:32AM +0100, Jan Beulich wrote:
-> > > > > > >=20
-> > > > > > > > On 08.01.2025 00:40, Stefano Stabellini wrote:
-> > > > > > > >=20
-> > > > > > > > > On Tue, 7 Jan 2025, Jan Beulich wrote:
-> > > > > > > > >=20
-> > > > > > > > > > On 06.01.2025 19:48, Stefano Stabellini wrote:
-> > > > > > > > > >=20
-> > > > > > > > > > > On Mon, 6 Jan 2025, Jan Beulich wrote:
-> > > > > > > > > > >=20
-> > > > > > > > > > > > On 04.01.2025 05:15, Denis Mukhin wrote:
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > > On Tuesday, December 10th, 2024 at 11:28 PM, Jan =
-Beulich jbeulich@suse.com wrote:
-> > > > > > > > > > > > >=20
-> > > > > > > > > > > > > > On 06.12.2024 05:41, Denis Mukhin via B4 Relay =
-wrote:
-> > > > > > > > > > > > > >=20
-> > > > > > > > > > > > > > > From: Denis Mukhin dmukhin@ford.com
-> > > > > > > > > > > > > > >=20
-> > > > > > > > > > > > > > > console_owner_domid() is introduced to obtain=
- the "console owner" domain ID.
-> > > > > > > > > > > > > > >=20
-> > > > > > > > > > > > > > > The call is used in NS8250 emulator to identi=
-fy the case when physical xen
-> > > > > > > > > > > > > > > console focus is owned by the domain w/ NS825=
-0 emulator, in which case,
-> > > > > > > > > > > > > > > messages from guest OS are formatted w/o '(XE=
-N)' prefix.
-> > > > > > > > > > > > > >=20
-> > > > > > > > > > > > > > Such messages ought to be processed through gue=
-st_printk(), which wants a
-> > > > > > > > > > > > > > domain pointer, not a domid_t anyway. Plus isn'=
-t that going to be
-> > > > > > > > > > > > > > current->domain anyway at the callsite, elimina=
-ting the need for such a
-> > > > > > > > > > > > > >=20
-> > > > > > > > > > > > > > helper altogether?
-> > > > > > > > > > > > >=20
-> > > > > > > > > > > > > If the current domain is owning the physical cons=
-ole and printing, say, Linux
-> > > > > > > > > > > > > login prompt, there's no need to add "(XEN)" for =
-every printout; adding timestamps
-> > > > > > > > > > > > > can be disabled from Xen command line.
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > Surely there shouldn't be (XEN), but without (d<N>)=
- it'll be ambiguous in a log
-> > > > > > > > > > > > which domain a message came from. As long as only D=
-om0 messages are left un-
-> > > > > > > > > > > > prefixed, that's likely fine. Yet as soon as multip=
-le domains can issue such
-> > > > > > > > > > > > messages (and have console "focus") I think the pre=
-fix needs to be there.
-> > > > > > > > > > >=20
-> > > > > > > > > > > It looks like we are aligned on the desired behavior,
-> > > > > > > > > >=20
-> > > > > > > > > > Hmm, no, I don't think we are. I don't ...
-> > > > > > > > > >=20
-> > > > > > > > > > > but for clarity,
-> > > > > > > > > > > see https://marc.info/?l=3Dxen-devel&m=3D173405161613=
-716, also copy/pasted
-> > > > > > > > > > > here:
-> > > > > > > > > > >=20
-> > > > > > > > > > > I think we should provide a consistent behavior acros=
-s architectures.
-> > > > > > > > > > > The current behavior with vpl011 and dom0less on ARM =
-is the following:
-> > > > > > > > > > >=20
-> > > > > > > > > > > - no prefix for Dom0 output
-> > > > > > > > > > > - DOM$NUM for DomUs when not in focus, otherwise no p=
-refix
-> > > > > > > > > >=20
-> > > > > > > > > > ... view this model as a desirable one. It leaves room =
-for ambiguity.
-> > > > > > > > >=20
-> > > > > > > > > Adding a few more people in CC for feedback.
-> > > > > > > > >=20
-> > > > > > > > > My priority is to keep the architectures aligned. It migh=
-t be OK to
-> > > > > > > > > change output format, but then let's do it uniformly on A=
-RM as well.
-> > > > > > > > >=20
-> > > > > > > > > Jan, please clarify what you think would be better than t=
-he above. Is it
-> > > > > > > > > the following? I don't think I understood your preference=
-.
-> > > > > > > > >=20
-> > > > > > > > > - DOM$NUM for Dom0 and DomUs when not in focus, otherwise=
- no prefix
-> > > > > > > >=20
-> > > > > > > > No, I mean like we have it with guest_printk() today. (XEN)=
- for Xen's
-> > > > > > > > own messages, (d<N>) for ordinary domains' ones, and no pre=
-fix
-> > > > > > > > exclusively for the hardware/control domain. What is best t=
-o do when
-> > > > > > > > hardware and control domains are distinct I'm uncertain - I=
-'d be
-> > > > > > > > inclined to suggest that the hardware domain then stay the =
-one without
-> > > > > > > > any prefix.
-> > > > > > >=20
-> > > > > > > One concern I have with this approach is whether the addition=
- of the
-> > > > > > > (d<N>) prefixes will skew output of interactive applications.=
- So far
-> > > > > > > the prefix is added to output from all domains different than=
- dom0
-> > > > > > > because the console is not interactive for them, and hence no=
- input
-> > > > > > > can be consumed.
-> > > > > >=20
-> > > > > > Hmm, that's an aspect I have to admit I didn't think of.
-> > > > > >=20
-> > > > > > > If that changes however, and domains different than dom0 can =
-get input
-> > > > > > > from the Xen console then I wonder how much the added prefix =
-will skew
-> > > > > > > output. Another possible option would be to not print the pre=
-fix for
-> > > > > > > the domain that has the console input assigned (current targe=
-t), and
-> > > > > > > print it for all other domains (even for dom0 when not in foc=
-us).
-> > > > > >=20
-> > > > > > That's largely what aiui was proposed. My extra requirement the=
-re would
-> > > > > > then be that we make sure a log message is always emitted when =
-console
-> > > > > > focus shifts, so it's possible to identify the owner for any pa=
-rt of
-> > > > > > the log.
-> > > > >=20
-> > > > > Indeed, printing console input shifting should be a requirement
-> > > > > regardless of how we decide to print the prefix.
-> > > >=20
-> > > > Console input focus switch is indicated after pressing Crtl+aaa, e.=
-g.:
-> > > > [[
-> > > > ...
-> > > > (XEN) [15359.353038] *** Serial input to Xen (type 'CTRL-aaa' to sw=
-itch input)
-> > > > (XEN) [15361.176754] *** Serial input to DOM0 (type 'CTRL-aaa' to s=
-witch input)
-> > > > (XEN) [15711.297202] *** Serial input to DOM1 (type 'CTRL-aaa' to s=
-witch input)
-> > > > ...
-> > > > ]]
-> > >=20
-> > > Roger, Jan, you should use Xen Dom0less more :-) This is the way it
-> > > already works on ARM. Let me expand on my earlier message that was to=
-o
-> > > terse.
-> >=20
-> > Hehe, I should use ARM more in general I think :).
-> >=20
-> > > At boot time, Xen prints messages with the (XEN) prefix as usual:
-> > >=20
-> > > (XEN) Brought up 4 CPUs
-> > >=20
-> > > When Dom0 starts, it has not prefix (and has input by default):
-> > >=20
-> > > [ 0.000000] Booting Linux on physical CPU 0x0000000000 [0x410fd034]
-> > >=20
-> > > When a DomU starts, it has the following prefix (and doesn't have
-> > > input):
-> > >=20
-> > > (XEN) DOM1: [ 0.000000] Booting Linux on physical CPU 0x0000000000 [0=
-x410fd034]
-> > >=20
-> > > Eventually, both Linuxes finish booting, you can login into Dom0 as
-> > > usual. Messages from Dom1, if any, are still printed with (XEN) DOM1 =
-as
-> > > prefix.
-> > >=20
-> > > You can switch input to Dom1 with Ctrx-aaa, the same way that you do
-> > > today to switch between Xen and Dom0. Xen prints a message:
-> > >=20
-> > > (XEN) *** Serial input to DOM1 (type 'CTRL-a' three times to switch i=
-nput)
-> > >=20
-> > > Now, as you type, you send characters to Dom1. And Dom1 doesn't have =
-the
-> > > DOM1 prefix any longer, while it is still has (XEN) because the messa=
-ge
-> > > is printed by Xen on behalf of the domain:
-> > >=20
-> > > (XEN) / # echo hello world
-> > > (XEN) hello world
-> > >=20
-> > > If Dom0 prints anything in the backgrounds, it shows without prefixes=
-:
-> > >=20
-> > > hello world from dom0
-> > >=20
-> > > If another domain, dom2, prints anything in the background, it shows
-> > > with (XEN) DOM2 prefix:
-> > >=20
-> > > (XEN) DOM2: hello from dom2
-> > >=20
-> > > I think it makes sense to be consistent across architectures and we
-> > > should default to the same behavior on x86 too. If we want to make
-> > > improvements, the one thing I could potentially see changing is addin=
-g a
-> > > DOM0 prefix to Dom0 messages when Dom0 does not have input. If we do
-> > > that, let's do it on both ARM and x86 architectures.
-> >=20
-> > The usual prefix is (d<domid>) IIRC, that's what guest_printk() uses,
-> > is there any reason dom0less uses "(XEN) DOM<domid>:" instead of the
-> > guest_printk() prefix?
-> >=20
-> > My preference would be use to (d<domid>) prefix for any guest output
-> > that doesn't belong to the domain that's the recipient of the input
-> > (iow: not in console input focus). And drop the (XEN) prefix from
-> > guest output.
-> >=20
-> > The rest looks all sensible to me. I think we should avoid adding any
-> > prefixes to guest output when it has the console focus, as otherwise
-> > interactive applications might not work correctly.
->=20
->=20
-> I am OK with what you describe, I would kindly ask Denis to also modify
-> ARM vpl011 to match. Looking at the code, I don't know where the (XEN)
-> prefix is coming from, but for the DOM<domid> to d<domid> change, it
-
-Yep, I implemented such logic in v3 iteration of the series:
-  https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v3-v1-24-c5d36b31=
-d66c@ford.com/
-
-printk() adds "(XEN)" prefix (drivers/char/console.c)
-
->=20
-> would be probably something like this:
->=20
-> diff --git a/xen/arch/arm/vpl011.c b/xen/arch/arm/vpl011.c
-> index 1fc3114cce..959d172e96 100644
-> --- a/xen/arch/arm/vpl011.c
-> +++ b/xen/arch/arm/vpl011.c
-> @@ -107,7 +107,10 @@ static void vpl011_write_data_xen(struct domain *d, =
-uint8_t data)
-> if ( data !=3D '\n' )
-> intf->out[intf->out_prod++] =3D '\n';
->=20
-> intf->out[intf->out_prod++] =3D '\0';
->=20
-> - printk("DOM%u: %s", d->domain_id, intf->out);
->=20
-> + if ( in_focus(d) )
-> + printk("%s", intf->out);
->=20
-> + else
-> + guest_printk("%s", d, intf->out);
->=20
-> intf->out_prod =3D 0;
->=20
-> }
-> }
->=20
-> There is also one additional change needed to add the (d<domid>) prefix
->=20
-> for dom0 when not in focus. The Dom0 print typically comes from
-
-This change I missed. Thanks!
-
-> do_console_io, so in pseudocode we would need something like:
->=20
-> diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-> index 7da8c5296f..5d250b642a 100644
-> --- a/xen/drivers/char/console.c
-> +++ b/xen/drivers/char/console.c
-> @@ -643,6 +643,9 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARA=
-M(char) buffer,
-> /* Use direct console output as it could be interactive */
-> nrspin_lock_irq(&console_lock);
->=20
-> + if ( !in_focus(cd) )
-> + add_prefix(kbuf, "(d0) ");
-> +
-> console_serial_puts(kbuf, kcount);
-> video_puts(kbuf, kcount);
+CkhpIFRob21hcywKCkF0IDIwMjUtMDEtMDkgMjI6NTY6NTYsICJUaG9tYXMgWmltbWVybWFubiIg
+PHR6aW1tZXJtYW5uQHN1c2UuZGU+IHdyb3RlOgo+QWRkIGRybV9tb2Rlc19zaXplX2R1bWIoKSwg
+YSBoZWxwZXIgdG8gY2FsY3VsYXRlIHRoZSBkdW1iLWJ1ZmZlcgo+c2NhbmxpbmUgcGl0Y2ggYW5k
+IGFsbG9jYXRpb24gc2l6ZS4gSW1wbGVtZW50YXRpb25zIG9mIHN0cnVjdAo+ZHJtX2RyaXZlci5k
+dW1iX2NyZWF0ZSBjYW4gY2FsbCB0aGUgbmV3IGhlbHBlciBmb3IgdGhlaXIgc2l6ZQo+Y29tcHV0
+YXRpb25zLiBUaGVyZSdzIGN1cnJlbnRseSBxdWl0ZSBhIGJpdCBvZiBjb2RlIGR1cGxpY2F0aW9u
+Cj5hbW9uZyBEUk0ncyBtZW1vcnkgbWFuYWdlcnMuIEVhY2ggY2FsY3VsYXRlcyBzY2FubGluZSBw
+aXRjaCBhbmQKPmJ1ZmZlciBzaXplIGZyb20gdGhlIGdpdmVuIGFyZ3VtZW50cywgYnV0IHRoZSBp
+bXBsZW1lbnRhdGlvbnMgYXJlCj5pbmNvbnNpc3RlbnQgaW4gaG93IHRoZXkgdHJlYXQgYWxpZ25t
+ZW50IGFuZCBmb3JtYXQgc3VwcG9ydC4gTGF0ZXIKPnBhdGNoZXMgd2lsbCB1bmlmeSB0aGlzIGNv
+ZGUgb24gdG9wIG9mIGRybV9tb2RlX3NpemVfZHVtYigpIGFzCj5tdWNoIGFzIHBvc3NpYmxlLgo+
+Cj5kcm1fbW9kZV9zaXplX2R1bWIoKSB1c2VzIGV4aXN0aW5nIDRDQyBmb3JtYXQgaGVscGVycyB0
+byBpbnRlcnByZXQgdGhlCj5naXZlbiBjb2xvciBtb2RlLiBUaGlzIG1ha2VzIHRoZSBkdW1iLWJ1
+ZmZlciBpbnRlcmZhY2UgYmVoYXZlIHNpbWlsYXIKPnRoZSBrZXJuZWwncyB2aWRlbz0gcGFyYW1l
+dGVyLiBBZ2FpbiwgY3VycmVudCBwZXItZHJpdmVyIGltcGxlbWVudGF0aW9ucwo+bGlrZWx5IGhh
+dmUgc3VidGxlIGRpZmZlcmVuY2VzIG9yIGJ1Z3MgaW4gaG93IHRoZXkgc3VwcG9ydCBjb2xvciBt
+b2Rlcy4KPgo+RnV0dXJlIGRpcmVjdGlvbnM6IG9uZSBidWcgaXMgcHJlc2VudCBpbiB0aGUgY3Vy
+cmVudCBpbnB1dCB2YWxpZGF0aW9uCj5pbiBkcm1fbW9kZV9jcmVhdGVfZHVtYigpLiBUaGUgZHVt
+Yi1idWZmZXIgb3ZlcmZsb3cgdGVzdHMgcm91bmQgdXAgYW55Cj5naXZlbiBiaXRzLXBlci1waXhl
+bCB2YWx1ZSB0byBhIG11bHRpcGxlIG9mIDguIFNvIGV2ZW4gb25lLWJpdCBmb3JtYXRzLAo+c3Vj
+aCBhcyBEUk1fRk9STUFUX0MxLCByZXF1aXJlIDggYml0cyBwZXIgcGl4ZWwuIFdoaWxlIG5vdCBj
+b21tb24sCj5sb3ctZW5kIGRpc3BsYXlzIHVzZSBzdWNoIGZvcm1hdHM7IHdpdGggYSBwb3NzaWJs
+ZSBvdmVyY29tbWl0bWVudCBvZgo+bWVtb3J5LiBBdCBzb21lIHBvaW50LCB0aGUgdmFsaWRhdGlv
+biBsb2dpYyBpbiBkcm1fbW9kZV9zaXplX2R1bWIoKSBpcwo+c3VwcG9zZWQgdG8gcmVwbGFjZSB0
+aGUgZXJyb25vdXMgY29kZS4KPgo+U2lnbmVkLW9mZi1ieTogVGhvbWFzIFppbW1lcm1hbm4gPHR6
+aW1tZXJtYW5uQHN1c2UuZGU+Cj4tLS0KPiBkcml2ZXJzL2dwdS9kcm0vZHJtX2R1bWJfYnVmZmVy
+cy5jIHwgOTMgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrCj4gaW5jbHVkZS9kcm0vZHJt
+X2R1bWJfYnVmZmVycy5oICAgICB8IDE0ICsrKysrCj4gMiBmaWxlcyBjaGFuZ2VkLCAxMDcgaW5z
+ZXJ0aW9ucygrKQo+IGNyZWF0ZSBtb2RlIDEwMDY0NCBpbmNsdWRlL2RybS9kcm1fZHVtYl9idWZm
+ZXJzLmgKPgo+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHVtYl9idWZmZXJzLmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vZHJtX2R1bWJfYnVmZmVycy5jCj5pbmRleCA5OTE2YWFmNWIzZjIu
+LmZkMzk3MjBiZDYxNyAxMDA2NDQKPi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHVtYl9idWZm
+ZXJzLmMKPisrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHVtYl9idWZmZXJzLmMKPkBAIC0yNSw2
+ICsyNSw4IEBACj4gCj4gI2luY2x1ZGUgPGRybS9kcm1fZGV2aWNlLmg+Cj4gI2luY2x1ZGUgPGRy
+bS9kcm1fZHJ2Lmg+Cj4rI2luY2x1ZGUgPGRybS9kcm1fZHVtYl9idWZmZXJzLmg+Cj4rI2luY2x1
+ZGUgPGRybS9kcm1fZm91cmNjLmg+Cj4gI2luY2x1ZGUgPGRybS9kcm1fZ2VtLmg+Cj4gI2luY2x1
+ZGUgPGRybS9kcm1fbW9kZS5oPgo+IAo+QEAgLTU3LDYgKzU5LDk3IEBACj4gICogYSBoYXJkd2Fy
+ZS1zcGVjaWZpYyBpb2N0bCB0byBhbGxvY2F0ZSBzdWl0YWJsZSBidWZmZXIgb2JqZWN0cy4KPiAg
+Ki8KPiAKPitzdGF0aWMgaW50IGRybV9tb2RlX2FsaWduX2R1bWIoc3RydWN0IGRybV9tb2RlX2Ny
+ZWF0ZV9kdW1iICphcmdzLAo+KwkJCSAgICAgICB1bnNpZ25lZCBsb25nIHBpdGNoX2FsaWduLAo+
+KwkJCSAgICAgICB1bnNpZ25lZCBsb25nIHNpemVfYWxpZ24pCj4rewo+Kwl1MzIgcGl0Y2ggPSBh
+cmdzLT5waXRjaDsKPisJdTMyIHNpemU7Cj4rCj4rCWlmICghcGl0Y2gpCj4rCQlyZXR1cm4gLUVJ
+TlZBTDsKPisKPisJaWYgKHBpdGNoX2FsaWduKQo+KwkJcGl0Y2ggPSByb3VuZHVwKHBpdGNoLCBw
+aXRjaF9hbGlnbik7Cj4rCj4rCS8qIG92ZXJmbG93IGNoZWNrcyBmb3IgMzJiaXQgc2l6ZSBjYWxj
+dWxhdGlvbnMgKi8KPisJaWYgKGFyZ3MtPmhlaWdodCA+IFUzMl9NQVggLyBwaXRjaCkKPisJCXJl
+dHVybiAtRUlOVkFMOwo+Kwo+KwlpZiAoIXNpemVfYWxpZ24pCj4rCQlzaXplX2FsaWduID0gUEFH
+RV9TSVpFOwo+KwllbHNlIGlmICghSVNfQUxJR05FRChzaXplX2FsaWduLCBQQUdFX1NJWkUpKQo+
+KwkJcmV0dXJuIC1FSU5WQUw7Cj4rCj4rCXNpemUgPSBBTElHTihhcmdzLT5oZWlnaHQgKiBwaXRj
+aCwgc2l6ZV9hbGlnbik7Cj4rCWlmICghc2l6ZSkKPisJCXJldHVybiAtRUlOVkFMOwo+Kwo+Kwlh
+cmdzLT5waXRjaCA9IHBpdGNoOwo+KwlhcmdzLT5zaXplID0gc2l6ZTsKPisKPisJcmV0dXJuIDA7
+Cj4rfQo+Kwo+Ky8qKgo+KyAqIGRybV9tb2RlX3NpemVfZHVtYiAtIENhbGN1bGF0ZXMgdGhlIHNj
+YW5saW5lIGFuZCBidWZmZXIgc2l6ZXMgZm9yIGR1bWIgYnVmZmVycwo+KyAqIEBkZXY6IERSTSBk
+ZXZpY2UKPisgKiBAYXJnczogUGFyYW1ldGVycyBmb3IgdGhlIGR1bWIgYnVmZmVyCj4rICogQHBp
+dGNoX2FsaWduOiBTY2FubGluZSBhbGlnbm1lbnQgaW4gYnl0ZXMKPisgKiBAc2l6ZV9hbGlnbjog
+QnVmZmVyLXNpemUgYWxpZ25tZW50IGluIGJ5dGVzCj4rICoKPisgKiBUaGUgaGVscGVyIGRybV9t
+b2RlX3NpemVfZHVtYigpIGNhbGN1bGF0ZXMgdGhlIHNpemUgb2YgdGhlIGJ1ZmZlcgo+KyAqIGFs
+bG9jYXRpb24gYW5kIHRoZSBzY2FubGluZSBzaXplIGZvciBhIGR1bWIgYnVmZmVyLiBDYWxsZXJz
+IGhhdmUgdG8KPisgKiBzZXQgdGhlIGJ1ZmZlcnMgd2lkdGgsIGhlaWdodCBhbmQgY29sb3IgbW9k
+ZSBpbiB0aGUgYXJndW1lbnQgQGFyZy4KPisgKiBUaGUgaGVscGVyIHZhbGlkYXRlcyB0aGUgY29y
+cmVjdG5lc3Mgb2YgdGhlIGlucHV0IGFuZCB0ZXN0cyBmb3IKPisgKiBwb3NzaWJsZSBvdmVyZmxv
+d3MuIElmIHN1Y2Nlc3NmdWwsIGl0IHJldHVybnMgdGhlIGR1bWIgYnVmZmVyJ3MKPisgKiByZXF1
+aXJlZCBzY2FubGluZSBwaXRjaCBhbmQgc2l6ZSBpbiAmYXJncy4KPisgKgo+KyAqIFRoZSBwYXJh
+bWV0ZXIgQHBpdGNoX2FsaWduIGFsbG93cyB0aGUgZHJpdmVyIHRvIHNwZWNpZmllcyBhbgo+KyAq
+IGFsaWdubWVudCBmb3IgdGhlIHNjYW5saW5lIHBpdGNoLCBpZiB0aGUgaGFyZHdhcmUgcmVxdWly
+ZXMgYW55LiBUaGUKPisgKiBjYWxjdWxhdGVkIHBpdGNoIHdpbGwgYmUgYSBtdWx0aXBsZSBvZiB0
+aGUgYWxpZ25tZW50LiBUaGUgcGFyYW1ldGVyCj4rICogQHNpemVfYWxpZ24gYWxsb3dzIHRvIHNw
+ZWNpZnkgYW4gYWxpZ25tZW50IGZvciBidWZmZXIgc2l6ZXMuIFRoZQo+KyAqIHJldHVybmVkIHNp
+emUgaXMgYWx3YXlzIGEgbXVsdGlwbGUgb2YgUEFHRV9TSVpFLgo+KyAqCj4rICogUmV0dXJuczoK
+PisgKiBaZXJvIG9uIHN1Y2Nlc3MsIG9yIGEgbmVnYXRpdmUgZXJyb3IgY29kZSBvdGhlcndpc2Uu
+Cj4rICovCj4raW50IGRybV9tb2RlX3NpemVfZHVtYihzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAo+
+KwkJICAgICAgIHN0cnVjdCBkcm1fbW9kZV9jcmVhdGVfZHVtYiAqYXJncywKPisJCSAgICAgICB1
+bnNpZ25lZCBsb25nIHBpdGNoX2FsaWduLAo+KwkJICAgICAgIHVuc2lnbmVkIGxvbmcgc2l6ZV9h
+bGlnbikKPit7Cj4rCXUzMiBmb3VyY2M7Cj4rCWNvbnN0IHN0cnVjdCBkcm1fZm9ybWF0X2luZm8g
+KmluZm87Cj4rCXU2NCBwaXRjaDsKPisKPisJLyoKPisJICogVGhlIHNjYW5saW5lIHBpdGNoIGRl
+cGVuZHMgb24gdGhlIGJ1ZmZlciB3aWR0aCBhbmQgdGhlIGNvbG9yCj4rCSAqIGZvcm1hdC4gVGhl
+IGxhdHRlciBpcyBzcGVjaWZpZWQgYXMgYSBjb2xvci1tb2RlIGNvbnN0YW50IGZvcgo+KwkgKiB3
+aGljaCB3ZSBmaXJzdCBoYXZlIHRvIGZpbmQgdGhlIGNvcnJlc3BvbmRpbmcgY29sb3IgZm9ybWF0
+Lgo+KwkgKgo+KwkgKiBEaWZmZXJlbnQgY29sb3IgZm9ybWF0cyBjYW4gaGF2ZSB0aGUgc2FtZSBj
+b2xvci1tb2RlIGNvbnN0YW50Lgo+KwkgKiBGb3IgZXhhbXBsZSBYUkdCODg4OCBhbmQgQkdSWDg4
+ODggYm90aCBoYXZlIGEgY29sb3IgbW9kZSBvZiAzMi4KPisJICogSXQgaXMgcG9zc2libGUgdG8g
+dXNlIGRpZmZlcmVudCBmb3JtYXRzIGZvciBkdW1iLWJ1ZmZlciBhbGxvY2F0aW9uCj4rCSAqIGFu
+ZCByZW5kZXJpbmcgYXMgbG9uZyBhcyBhbGwgaW52b2x2ZWQgZm9ybWF0cyBzaGFyZSB0aGUgc2Ft
+ZQo+KwkgKiBjb2xvci1tb2RlIGNvbnN0YW50Lgo+KwkgKi8KPisJZm91cmNjID0gZHJtX2RyaXZl
+cl9jb2xvcl9tb2RlX2Zvcm1hdChkZXYsIGFyZ3MtPmJwcCk7CgpUaGlzIHdpbGwgcmV0dXJuIC1F
+SU5WQUwgd2l0aCBicHAgZHJtX21vZGVfbGVnYWN5X2ZiX2Zvcm1hdCBkb2Vzbid0IHN1cHBvcnQs
+CnN1Y2ggYXMoTlYxNSwgTlYyMCwgTlYzMCwgYnBwIGlzIDEwKVswXQoKQW5kIHRoZXJlIGFyZSBh
+bHNvIHNvbWUgQUZCQyBiYXNlZCBmb3JtYXQgd2l0aCBicHAgY2FuJ3QgYmUgaGFuZGxlZCBoZXJl
+LCBzZWU6CnN0YXRpYyBfX3UzMiBkcm1fZ2VtX2FmYmNfZ2V0X2JwcChzdHJ1Y3QgZHJtX2Rldmlj
+ZSAqZGV2LAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29uc3Qgc3RydWN0IGRy
+bV9tb2RlX2ZiX2NtZDIgKm1vZGVfY21kKQp7ICAgICAgICAgICAgICAgCiAgICAgICAgY29uc3Qg
+c3RydWN0IGRybV9mb3JtYXRfaW5mbyAqaW5mbzsKICAgICAgICAgICAgICAgIAogICAgICAgIGlu
+Zm8gPSBkcm1fZ2V0X2Zvcm1hdF9pbmZvKGRldiwgbW9kZV9jbWQpOwogICAgICAgICAgICAgICAg
+CiAgICAgICAgc3dpdGNoIChpbmZvLT5mb3JtYXQpIHsKICAgICAgICBjYXNlIERSTV9GT1JNQVRf
+WVVWNDIwXzhCSVQ6ICAgICAgIAogICAgICAgICAgICAgICAgcmV0dXJuIDEyOwogICAgICAgIGNh
+c2UgRFJNX0ZPUk1BVF9ZVVY0MjBfMTBCSVQ6ICAgICAgCiAgICAgICAgICAgICAgICByZXR1cm4g
+MTU7ICAgICAgICAgICAgICAgICAKICAgICAgICBjYXNlIERSTV9GT1JNQVRfVlVZMTAxMDEwOiAg
+ICAgICAgIAogICAgICAgICAgICAgICAgcmV0dXJuIDMwOyAgICAgICAgICAgICAgICAgCiAgICAg
+ICAgZGVmYXVsdDoKICAgICAgICAgICAgICAgIHJldHVybiBkcm1fZm9ybWF0X2luZm9fYnBwKGlu
+Zm8sIDApOwogICAgICAgIH0KfQoKCgpbMF1odHRwczovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcv
+bWVzYS9kcm0vLS9ibG9iL21haW4vdGVzdHMvbW9kZXRlc3QvYnVmZmVycy5jP3JlZl90eXBlPWhl
+YWRzI0wxNTkKClRoaXMgaW50cm9kdWNlIGEgbW9kZXRlc3QgZmFpbHVyZSBvbiByb2NrY2hpcCBw
+bGF0Zm9ybToKIyBtb2RldGVzdCAtTSByb2NrY2hpcCAtcyA3MEA2ODoxOTIweDEwODAgLVAgMzJA
+Njg6MTkyMHgxMDgwQE5WMzAKc2V0dGluZyBtb2RlIDE5MjB4MTA4MC02MC4wMEh6IG9uIGNvbm5l
+Y3RvcnMgNzAsIGNydGMgNjgKdGVzdGluZyAxOTIweDEwODBATlYzMCBvdmVybGF5IHBsYW5lIDMy
+CmZhaWxlZCB0byBjcmVhdGUgZHVtYiBidWZmZXI6IEludmFsaWQgYXJndW1lbnQKCkkgdGhpbmsg
+b3RoZXIgcGxhdGZvcm0gd2l0aCBicHAgY2FuJ3QgaGFuZGxlciBieSAgZHJtX21vZGVfbGVnYWN5
+X2ZiX2Zvcm1hdCB3aWxsCmFsc28gc2VlIHRoaXMga2luZCBvZiBmYWlsdXJlOgoKCgo+KwlpZiAo
+Zm91cmNjID09IERSTV9GT1JNQVRfSU5WQUxJRCkKPisJCXJldHVybiAtRUlOVkFMOwo+KwlpbmZv
+ID0gZHJtX2Zvcm1hdF9pbmZvKGZvdXJjYyk7Cj4rCWlmICghaW5mbykKPisJCXJldHVybiAtRUlO
+VkFMOwo+KwlwaXRjaCA9IGRybV9mb3JtYXRfaW5mb19taW5fcGl0Y2goaW5mbywgMCwgYXJncy0+
+d2lkdGgpOwo+KwlpZiAoIXBpdGNoIHx8IHBpdGNoID4gVTMyX01BWCkKPisJCXJldHVybiAtRUlO
+VkFMOwo+Kwo+KwlhcmdzLT5waXRjaCA9IHBpdGNoOwo+Kwo+KwlyZXR1cm4gZHJtX21vZGVfYWxp
+Z25fZHVtYihhcmdzLCBwaXRjaF9hbGlnbiwgc2l6ZV9hbGlnbik7Cj4rfQo+K0VYUE9SVF9TWU1C
+T0woZHJtX21vZGVfc2l6ZV9kdW1iKTsKPisKPiBpbnQgZHJtX21vZGVfY3JlYXRlX2R1bWIoc3Ry
+dWN0IGRybV9kZXZpY2UgKmRldiwKPiAJCQkgc3RydWN0IGRybV9tb2RlX2NyZWF0ZV9kdW1iICph
+cmdzLAo+IAkJCSBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbGVfcHJpdikKPmRpZmYgLS1naXQgYS9pbmNs
+dWRlL2RybS9kcm1fZHVtYl9idWZmZXJzLmggYi9pbmNsdWRlL2RybS9kcm1fZHVtYl9idWZmZXJz
+LmgKPm5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj5pbmRleCAwMDAwMDAwMDAwMDAuLjZmZTM2MDA0YjE5
+ZAo+LS0tIC9kZXYvbnVsbAo+KysrIGIvaW5jbHVkZS9kcm0vZHJtX2R1bWJfYnVmZmVycy5oCj5A
+QCAtMCwwICsxLDE0IEBACj4rLyogU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IE1JVCAqLwo+Kwo+
+KyNpZm5kZWYgX19EUk1fRFVNQl9CVUZGRVJTX0hfXwo+KyNkZWZpbmUgX19EUk1fRFVNQl9CVUZG
+RVJTX0hfXwo+Kwo+K3N0cnVjdCBkcm1fZGV2aWNlOwo+K3N0cnVjdCBkcm1fbW9kZV9jcmVhdGVf
+ZHVtYjsKPisKPitpbnQgZHJtX21vZGVfc2l6ZV9kdW1iKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYs
+Cj4rCQkgICAgICAgc3RydWN0IGRybV9tb2RlX2NyZWF0ZV9kdW1iICphcmdzLAo+KwkJICAgICAg
+IHVuc2lnbmVkIGxvbmcgcGl0Y2hfYWxpZ24sCj4rCQkgICAgICAgdW5zaWduZWQgbG9uZyBzaXpl
+X2FsaWduKTsKPisKPisjZW5kaWYKPi0tIAo+Mi40Ny4xCj4KPgo+X19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPkxpbnV4LXJvY2tjaGlwIG1haWxpbmcgbGlz
+dAo+TGludXgtcm9ja2NoaXBAbGlzdHMuaW5mcmFkZWFkLm9yZwo+aHR0cDovL2xpc3RzLmluZnJh
+ZGVhZC5vcmcvbWFpbG1hbi9saXN0aW5mby9saW51eC1yb2NrY2hpcAo=
 
