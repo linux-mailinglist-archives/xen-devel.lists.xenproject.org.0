@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC1ECA091E9
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Jan 2025 14:29:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.869511.1280966 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B35CA091EB
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Jan 2025 14:29:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.869512.1280977 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tWF4a-0001lw-TB; Fri, 10 Jan 2025 13:29:12 +0000
+	id 1tWF4d-00023R-Aw; Fri, 10 Jan 2025 13:29:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 869511.1280966; Fri, 10 Jan 2025 13:29:12 +0000
+Received: by outflank-mailman (output) from mailman id 869512.1280977; Fri, 10 Jan 2025 13:29:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tWF4a-0001ii-PH; Fri, 10 Jan 2025 13:29:12 +0000
-Received: by outflank-mailman (input) for mailman id 869511;
- Fri, 10 Jan 2025 13:29:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tWF4d-00020W-3a; Fri, 10 Jan 2025 13:29:15 +0000
+Received: by outflank-mailman (input) for mailman id 869512;
+ Fri, 10 Jan 2025 13:29:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mmVM=UC=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1tWF4Y-0001QR-RH
- for xen-devel@lists.xenproject.org; Fri, 10 Jan 2025 13:29:10 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dfe7a059-cf56-11ef-a0df-8be0dac302b0;
- Fri, 10 Jan 2025 14:29:10 +0100 (CET)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-5d0ac27b412so2537670a12.1
- for <xen-devel@lists.xenproject.org>; Fri, 10 Jan 2025 05:29:10 -0800 (PST)
+ id 1tWF4a-0000vX-RM
+ for xen-devel@lists.xenproject.org; Fri, 10 Jan 2025 13:29:12 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e0812746-cf56-11ef-99a4-01e77a169b0f;
+ Fri, 10 Jan 2025 14:29:11 +0100 (CET)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-5d4e2aa7ea9so3927504a12.2
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Jan 2025 05:29:11 -0800 (PST)
 Received: from localhost.localdomain ([66.81.170.107])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d9900c98d6sm1589297a12.35.2025.01.10.05.29.07
+ 4fb4d7f45d1cf-5d9900c98d6sm1589297a12.35.2025.01.10.05.29.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jan 2025 05:29:09 -0800 (PST)
+ Fri, 10 Jan 2025 05:29:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dfe7a059-cf56-11ef-a0df-8be0dac302b0
+X-Inumbo-ID: e0812746-cf56-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1736515749; x=1737120549; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1736515750; x=1737120550; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5O7gLemGUf6JN5FF2lKFWWHjDWg3G1VdwWkZcZUgbRo=;
-        b=H+3rDaSRoJ9qfFjKCevTO9Db2au3aLeL3PSMeJGGENCB2svThvFz6H77i906SZF1tj
-         flMU2CvdS1XcpQb0sWnu5TQSZDXblQRMMdb1Cn650KEGkda9GsuoPGqVdYQx6ZRRb0mp
-         Eck0ivjrA9CJRFAOIC9LpKYtX+PIEmGw/eY8g=
+        bh=Pulx2rJf+eVHBhVEkVLX9BFreaZxFXyF8Is/s9m9sX8=;
+        b=L9dv5+jwFLfSlTaXGdnHHqRHWnGd3jiAk6zju2d3S5GCRblIWX6ac+w38Gcj+/kZ62
+         EcJy/citFUjUzgVOONMRoljKPJvuyO3aizYfKJPHqkUo1wca7LZKS0pk+O3qG59NNtfI
+         Mj0h28MA41aYqJFw4/tQmqEOjwEQZ4HvfPPxE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736515749; x=1737120549;
+        d=1e100.net; s=20230601; t=1736515750; x=1737120550;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=5O7gLemGUf6JN5FF2lKFWWHjDWg3G1VdwWkZcZUgbRo=;
-        b=DOLvvUVE7w+qJa2HJCgrHnB7PchQ8003xmaU93EZeOD6ydJCIO6SCVBana7n9BRvaY
-         9uFnZ/Bolisb0G+aIDXdNfY+1faJH645xLx43+GyIv36fhTyAXqNfL/rOoKlQTAlaw5B
-         AD5dmREDpLZP1t0P9LHWjT1J6VN6eWij7hM9nfzsOJTqYW+UH4b52T6jfxPWmZ/vzElQ
-         K3JDyiRGgieUtFtIkpxV+5PMbnMf5SoN51fu/KTvY8063t/ilsRfoWOacIwqM5m5aV6R
-         UCdv4FCknliuNcxNEjMwa9W3n1gxbFYtb6517Rp4j99/XnZ3aqvf6tXnDcYaChtifJ7C
-         UTBw==
-X-Gm-Message-State: AOJu0Yyadct4GtAKXBF/i66+vxI5pvgo2UVdfkYvjTiqTb0cCzOAKTTl
-	NCLinBwqFdBrvlczabjY0NkuVbu0BYHy7fwYSiWU06AD4r2mkH/R1VDqCMV9iT/zJN+aUbw72+l
-	qaCaVEA==
-X-Gm-Gg: ASbGncupgDhCzJvAWLqJ7oPTlBL5bk4hMHGnb9KHRwkylvdq49+ZlFhnEK8rn0Wzu3k
-	srl7GRwowqQfuyLGUK+XId3j9dZB5NL6dcDJIUjvCQEA1cR6lLGWpviExqIv9tALQQyHvUporEj
-	hC0ybO9MURVDZLPtFvfY5OPxMBCS+3x8/mHHlDQLhVMhkPSSea0iJuYZnxoMyiw1k4XjQhFUUis
-	ZVU22YlOBdezuvYnXpWeC5Z0/MVsMzQyBTa6Vxf8oe7QaS9QlyRHAyJELA3Oz60cVK271Y6FdM7
-	aew=
-X-Google-Smtp-Source: AGHT+IFDwVTKHs3K2kJcgyqa3q8O7JLMmDZootiHiSvxM+9IOV5nU8oJOp9UKXOkmTk4hp/wvl9+qw==
-X-Received: by 2002:a05:6402:5243:b0:5d9:b84:a01f with SMTP id 4fb4d7f45d1cf-5d972e169a3mr10438762a12.18.1736515749503;
-        Fri, 10 Jan 2025 05:29:09 -0800 (PST)
+        bh=Pulx2rJf+eVHBhVEkVLX9BFreaZxFXyF8Is/s9m9sX8=;
+        b=GkepZzWOopzUomAy3R5v0JQ4H8tDOk7ZExvPDVFtXQFX0yNot8vQUJvGsWKVGVPvgc
+         ktgMiuXDq4pI11k62xRS9W+0LMv7dajqV/D6TryfGXRaSXM6oFSVZMvv8h4kiBDo9EKo
+         qU02jtv7cLpHDkKk1rlJeR9dM+jIfs1bmX3bHR2VQE/p8vp5XGUO+TtjVmjLYTwL1oIe
+         2jy0M5CkO9PqmyaSUxqb9Mbx0+NpdKYJG6KmFpEtPyRWOLO3zsLlKvxbldDZjxczJSoz
+         HWEXhL1SlnKTMS24KWgsvODZoZGXn+aIninBTddIyLVQFskQ89kAfSuJMFvtCTr6clQg
+         q7jA==
+X-Gm-Message-State: AOJu0Yyrl7TL+64/VjY10KI9NabR/vLp6VxSNDUVCzzrJoyPKBKFLV2k
+	9T9ivMo8QXgq5fZ8nOxU+CBauBG47SK2hnEiQz96Yd8RRaF//x6CpM3yOx3bKwLUEppQkfNYOIp
+	W4ghZZg==
+X-Gm-Gg: ASbGncuNpCs6tce9ELJ8eYuhct55+oJCg0Wcqw8ajQo/FobBZc+KmnfrEioRgSb/j18
+	oK2nHqQ/847vM5s3oJjWBluUoxgiugb133DCe7aIlUSS/qF7fuvAZdy4dsRpFc6KJje11eHJO0l
+	p2uUzcMJvrjg9naRsWCppF8g7DyuPpnU6bo2lriVluZQShrL8ZWw18jXb+515pxqTFwwXd/4B0Y
+	u1f2m581gsC9Etru8kaXjR76fJvtdoY/WCR9BBeL5ltsQ/4TA53j++xNepj2aI0rrO4e0eO6te4
+	YTo=
+X-Google-Smtp-Source: AGHT+IH/zIJhlFB//h5vV6Zg10dAMqVvYLHKKDAVfZ79wH6CqKU5mgDtC7kYIG7zl3p84Kdgmv0bnA==
+X-Received: by 2002:a05:6402:5244:b0:5d0:8197:7ab3 with SMTP id 4fb4d7f45d1cf-5d972dfb878mr10087008a12.3.1736515750544;
+        Fri, 10 Jan 2025 05:29:10 -0800 (PST)
 From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: xen-devel@lists.xenproject.org
 Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v3 03/12] x86/fpu: Map/umap xsave area in vcpu_{reset,setup}_fpu()
-Date: Fri, 10 Jan 2025 13:28:14 +0000
-Message-ID: <20250110132823.24348-4-alejandro.vallejo@cloud.com>
+Subject: [PATCH v3 04/12] x86/xstate: Map/unmap xsave area in xstate_set_init() and handle_setbv()
+Date: Fri, 10 Jan 2025 13:28:15 +0000
+Message-ID: <20250110132823.24348-5-alejandro.vallejo@cloud.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20250110132823.24348-1-alejandro.vallejo@cloud.com>
 References: <20250110132823.24348-1-alejandro.vallejo@cloud.com>
@@ -99,56 +99,54 @@ Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
 v2->v3:
+  * style: Capitalized first letter of the comment.
   * Added A-by
 
 v1->v2:
-  * No change
+  * Added comment highlighting fastpath for current
 ---
- xen/arch/x86/i387.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+ xen/arch/x86/xstate.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/xen/arch/x86/i387.c b/xen/arch/x86/i387.c
-index 8fba0aef4284..5429531ddd5f 100644
---- a/xen/arch/x86/i387.c
-+++ b/xen/arch/x86/i387.c
-@@ -304,24 +304,32 @@ int vcpu_init_fpu(struct vcpu *v)
+diff --git a/xen/arch/x86/xstate.c b/xen/arch/x86/xstate.c
+index af9e345a7ace..12004d7db24b 100644
+--- a/xen/arch/x86/xstate.c
++++ b/xen/arch/x86/xstate.c
+@@ -993,7 +993,13 @@ int handle_xsetbv(u32 index, u64 new_bv)
  
- void vcpu_reset_fpu(struct vcpu *v)
- {
-+    struct xsave_struct *xsave_area = VCPU_MAP_XSAVE_AREA(v);
+         clts();
+         if ( curr->fpu_dirtied )
+-            asm ( "stmxcsr %0" : "=m" (curr->arch.xsave_area->fpu_sse.mxcsr) );
++        {
++            /* Has a fastpath for `current`, so there's no actual map */
++            struct xsave_struct *xsave_area = VCPU_MAP_XSAVE_AREA(curr);
 +
-     v->fpu_initialised = false;
--    *v->arch.xsave_area = (struct xsave_struct) {
-+    *xsave_area = (struct xsave_struct) {
-         .xsave_hdr.xstate_bv = X86_XCR0_X87,
-     };
++            asm ( "stmxcsr %0" : "=m" (xsave_area->fpu_sse.mxcsr) );
++            VCPU_UNMAP_XSAVE_AREA(curr, xsave_area);
++        }
+         else if ( xstate_all(curr) )
+         {
+             /* See the comment in i387.c:vcpu_restore_fpu_eager(). */
+@@ -1048,7 +1054,7 @@ void xstate_set_init(uint64_t mask)
+     unsigned long cr0 = read_cr0();
+     unsigned long xcr0 = this_cpu(xcr0);
+     struct vcpu *v = idle_vcpu[smp_processor_id()];
+-    struct xsave_struct *xstate = v->arch.xsave_area;
++    struct xsave_struct *xstate;
  
-     /* Old gcc doesn't permit these to be part of the initializer. */
--    v->arch.xsave_area->fpu_sse.mxcsr = MXCSR_DEFAULT;
--    v->arch.xsave_area->fpu_sse.fcw = FCW_RESET;
--    v->arch.xsave_area->fpu_sse.ftw = FXSAVE_FTW_RESET;
-+    xsave_area->fpu_sse.mxcsr = MXCSR_DEFAULT;
-+    xsave_area->fpu_sse.fcw = FCW_RESET;
-+    xsave_area->fpu_sse.ftw = FXSAVE_FTW_RESET;
-+
-+    VCPU_UNMAP_XSAVE_AREA(v, xsave_area);
- }
+     if ( ~xfeature_mask & mask )
+     {
+@@ -1061,8 +1067,10 @@ void xstate_set_init(uint64_t mask)
  
- void vcpu_setup_fpu(struct vcpu *v, const void *data)
- {
-+    struct xsave_struct *xsave_area = VCPU_MAP_XSAVE_AREA(v);
-+
-     v->fpu_initialised = true;
--    *v->arch.xsave_area = (struct xsave_struct) {
-+    *xsave_area = (struct xsave_struct) {
-         .fpu_sse = *(const fpusse_t*)data,
-         .xsave_hdr.xstate_bv = XSTATE_FP_SSE,
-     };
-+
-+    VCPU_UNMAP_XSAVE_AREA(v, xsave_area);
- }
+     clts();
  
- /* Free FPU's context save area */
++    xstate = VCPU_MAP_XSAVE_AREA(v);
+     memset(&xstate->xsave_hdr, 0, sizeof(xstate->xsave_hdr));
+     xrstor(v, mask);
++    VCPU_UNMAP_XSAVE_AREA(v, xstate);
+ 
+     if ( cr0 & X86_CR0_TS )
+         write_cr0(cr0);
 -- 
 2.47.1
 
