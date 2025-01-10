@@ -2,38 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 586F5A091F3
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Jan 2025 14:29:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.869526.1281045 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFFE3A09231
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Jan 2025 14:37:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.869620.1281066 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tWF4n-0004LZ-9e; Fri, 10 Jan 2025 13:29:25 +0000
+	id 1tWFCe-0001WO-Kd; Fri, 10 Jan 2025 13:37:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 869526.1281045; Fri, 10 Jan 2025 13:29:25 +0000
+Received: by outflank-mailman (output) from mailman id 869620.1281066; Fri, 10 Jan 2025 13:37:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tWF4m-0004I0-UW; Fri, 10 Jan 2025 13:29:24 +0000
-Received: by outflank-mailman (input) for mailman id 869526;
- Fri, 10 Jan 2025 13:29:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tWFCe-0001Tp-Hg; Fri, 10 Jan 2025 13:37:32 +0000
+Received: by outflank-mailman (input) for mailman id 869620;
+ Fri, 10 Jan 2025 13:37:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mmVM=UC=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1tWF4l-0001QR-5I
- for xen-devel@lists.xenproject.org; Fri, 10 Jan 2025 13:29:23 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e723c13e-cf56-11ef-a0df-8be0dac302b0;
- Fri, 10 Jan 2025 14:29:22 +0100 (CET)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5d7e3f1fc01so4018560a12.2
- for <xen-devel@lists.xenproject.org>; Fri, 10 Jan 2025 05:29:22 -0800 (PST)
-Received: from localhost.localdomain ([66.81.170.107])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d9900c98d6sm1589297a12.35.2025.01.10.05.29.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jan 2025 05:29:21 -0800 (PST)
+ <SRS0=qOMD=UC=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1tWFCd-0001Tj-1n
+ for xen-devel@lists.xenproject.org; Fri, 10 Jan 2025 13:37:31 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 07c6283b-cf58-11ef-99a4-01e77a169b0f;
+ Fri, 10 Jan 2025 14:37:28 +0100 (CET)
+Received: by mx.zohomail.com with SMTPS id 1736516239821980.5272888487415;
+ Fri, 10 Jan 2025 05:37:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,143 +38,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e723c13e-cf56-11ef-a0df-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1736515762; x=1737120562; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=TGYGQF82WrUmaE3ckte9a2eG993H0v3sPPUj77Kpcmw=;
-        b=Cr83ioQvAcp9FvPphkT8iLQsf2VpYo10ZezFRZ9EPAHxub3qbLyUoi1uxGy72TTRvp
-         to9aDP776+EKGZn6WzPCxNkn4FBg/EpFFeCr8199osQZBFPoIeXyticOMBtnZFlh3Qzb
-         f/2ci0586FJ7pPcmy4+bz+iRP8C8yn45wnwjI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736515762; x=1737120562;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=TGYGQF82WrUmaE3ckte9a2eG993H0v3sPPUj77Kpcmw=;
-        b=I4EJYEBukDpM4TAOTZlL3sdR01BVTK5ZvMTgD5VKEvm3aTwHFhkkp9oP+otEs3o1Kl
-         t5u3ZdXWkI+VBrtOUxjjLNc88kzqsEZM1zXyGLTjKSV6tz7Hf8QdJvCBGJYF/VK1Dv2r
-         fmhUn80kC/1PxMtJOgnMno5VqUJ6iZ9oGBLQjEwm0CSwotIMoOT6nszsddsd6ZiQAel6
-         lSv/sbkGNBQYjgbs00d7X7Cm7sJhzDW52k8IxFL7UWNL7S7Mmw4d5kobP55QXAuNWVZh
-         hVCv+rQFzA0vmNAt7k3dx0qMAck8OkpmXV4y9JdWWzdWHAadjT+ydkV9gZSn9XDKdV1I
-         4xdg==
-X-Gm-Message-State: AOJu0YzfBkjExomFQVAElE1J2aJQ7cOdn60Zpyco7E9eQXVNwbNbkHdf
-	DOr1bbJhrL/gxJMsC2KHjcI4sJKeQnumGFUaXg0rnC1Xj31UkauZjEv9pvNmaCQmklsFyDPyCHn
-	lcsOsTA==
-X-Gm-Gg: ASbGncsN5s72xdY77DUsQW+uE6sAURCK8zm6qrQNGq67qAfxdOpPjtCecRTNpV7ARyd
-	5iW+KzbuxOTep/2w7LAOA2TGgZdMJu5IirLiZM+sQO5QouKgzGCKSyfxZzYt0hKJBhu+L4+le5C
-	b1+HA6qBUXWxVWErfS2ZF7dqh6Jo0rYdchoVBihewFvRSe/hJrBU+hHi3PNVA1//KRxPGEzowv9
-	NiDekHw3Pm9zmTgGjoJSEVxuFPmDiqpyNXl4OqLRhXn8E0qRYT2ZlT4UCcWRtkpAIofW4sM8qNa
-	xG4=
-X-Google-Smtp-Source: AGHT+IHm6oaJ8YwWbN8mvMBsk0Ry+E2PKI9C0KwkXDe5NuUIwFuRQ4O/29eudYZew7AzQZ2WhbARTA==
-X-Received: by 2002:a17:907:c815:b0:ab2:c78f:e4ae with SMTP id a640c23a62f3a-ab2c78fe63dmr536582966b.20.1736515761703;
-        Fri, 10 Jan 2025 05:29:21 -0800 (PST)
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+X-Inumbo-ID: 07c6283b-cf58-11ef-99a4-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; t=1736516244; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=iCniKCbNnMJYNjn/ZD0z4IMjel+Tq6tyKRIoM+H2JOvAkABs3BOYwSrNC4sq4pJSd+7+/s2A9m3xjIayK7NwZoCnj5RMMZ3m6gHFPX9+yL9nPQ/blZGo42X0Zf8I+QJqgt1s1fE+HRdPvYMsyQ3ZUw41mUSnN27NVR78JeMerAk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1736516244; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=lrxUF4Nr7UTugHk+71rew1iL+Fa9qU2pLi+pxaWL6/8=; 
+	b=SVWNLvwQRA1eN6caqCwMD8sjJ2FdustrA/g5UhNvMyAlBN6x81ey+rIMUo6Lx1KNa0EHfTuFK7PSOsJMImghS8Z1L4ZpqMba5cZaI+n1SB1ueVqMz054QDFw9afUA07YJZftACC3xcjLebVp/nGAfW5LASNh7RDYmjQIKQL73Dg=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1736516244;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Transfer-Encoding:Reply-To;
+	bh=lrxUF4Nr7UTugHk+71rew1iL+Fa9qU2pLi+pxaWL6/8=;
+	b=LxbhPdJsxH1FkPBXM+vNXcPRWJOSMJHrSxp7x2F8Z9O9cWUq8OjPjEZFOBq3NxKM
+	O5s+BUOiq61eHDqBYr0U/D0E8m0CDU+cUUmGLzrpqm4t/wiPMTJ5LR+iyCotbUAMZl4
+	xNERpYu7+6HZq/tkGEcPCEc6fevXvwpIIAcdNNC8=
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 To: xen-devel@lists.xenproject.org
-Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v3 12/12] x86/xstate: Make xstate_all() and vcpu_xsave_mask() take explicit xstate
-Date: Fri, 10 Jan 2025 13:28:23 +0000
-Message-ID: <20250110132823.24348-13-alejandro.vallejo@cloud.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <20250110132823.24348-1-alejandro.vallejo@cloud.com>
-References: <20250110132823.24348-1-alejandro.vallejo@cloud.com>
+Cc: openxt@googlegroups.com,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Christopher Clark <christopher.w.clark@gmail.com>
+Subject: [PATCH 0/2] Enable the ability to disable/remove gnttabv2
+Date: Fri, 10 Jan 2025 13:37:09 +0000
+Message-Id: <20250110133711.3958202-1-dpsmith@apertussolutions.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-No functional change.
+OpenXT has carried a patch for some time that allows the disabling and removal
+of the grant table v2 capability. This is a rework of that patch in an attempt
+to make an upstreamable series.
 
-Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
----
-v2->v3:
-  * Added A-by
----
- xen/arch/x86/i387.c               | 9 +++++----
- xen/arch/x86/include/asm/xstate.h | 5 +++--
- xen/arch/x86/xstate.c             | 2 +-
- 3 files changed, 9 insertions(+), 7 deletions(-)
+The original patch was developed under funding provided by BAE, therefore a
+separate Authored-by tag to reflect that is included.
 
-diff --git a/xen/arch/x86/i387.c b/xen/arch/x86/i387.c
-index 943ae668606f..8120a6a4afc0 100644
---- a/xen/arch/x86/i387.c
-+++ b/xen/arch/x86/i387.c
-@@ -107,7 +107,8 @@ static inline void fpu_fxrstor(const fpusse_t *fpu_ctxt)
- /*      FPU Save Functions     */
- /*******************************/
- 
--static inline uint64_t vcpu_xsave_mask(const struct vcpu *v)
-+static inline uint64_t vcpu_xsave_mask(const struct vcpu *v,
-+                                       const struct xsave_struct *xsave_area)
- {
-     if ( v->fpu_dirtied )
-         return v->arch.nonlazy_xstate_used ? XSTATE_ALL : XSTATE_LAZY;
-@@ -124,14 +125,14 @@ static inline uint64_t vcpu_xsave_mask(const struct vcpu *v)
-      * XSTATE_FP_SSE), vcpu_xsave_mask will return XSTATE_ALL. Otherwise
-      * return XSTATE_NONLAZY.
-      */
--    return xstate_all(v) ? XSTATE_ALL : XSTATE_NONLAZY;
-+    return xstate_all(v, xsave_area) ? XSTATE_ALL : XSTATE_NONLAZY;
- }
- 
- /* Save x87 extended state */
- static inline void fpu_xsave(const struct vcpu *v, struct xsave_struct *xsave_area)
- {
-     bool ok;
--    uint64_t mask = vcpu_xsave_mask(v);
-+    uint64_t mask = vcpu_xsave_mask(v, xsave_area);
- 
-     ASSERT(mask);
-     /*
-@@ -211,7 +212,7 @@ void vcpu_restore_fpu_nonlazy(struct vcpu *v, bool need_stts)
-      * saving state belonging to another vCPU.
-      */
-     xsave_area = VCPU_MAP_XSAVE_AREA(v);
--    if ( v->arch.fully_eager_fpu || xstate_all(v) )
-+    if ( v->arch.fully_eager_fpu || xstate_all(v, xsave_area) )
-     {
-         if ( cpu_has_xsave )
-             fpu_xrstor(v, xsave_area, XSTATE_ALL);
-diff --git a/xen/arch/x86/include/asm/xstate.h b/xen/arch/x86/include/asm/xstate.h
-index 7d160d2b54be..a1b188537c15 100644
---- a/xen/arch/x86/include/asm/xstate.h
-+++ b/xen/arch/x86/include/asm/xstate.h
-@@ -132,14 +132,15 @@ xsave_area_compressed(const struct xsave_struct *xsave_area)
-     return xsave_area->xsave_hdr.xcomp_bv & XSTATE_COMPACTION_ENABLED;
- }
- 
--static inline bool xstate_all(const struct vcpu *v)
-+static inline bool xstate_all(const struct vcpu *v,
-+                              const struct xsave_struct *xsave_area)
- {
-     /*
-      * XSTATE_FP_SSE may be excluded, because the offsets of XSTATE_FP_SSE
-      * (in the legacy region of xsave area) are fixed, so saving
-      * XSTATE_FP_SSE will not cause overwriting problem with XSAVES/XSAVEC.
-      */
--    return xsave_area_compressed(v->arch.xsave_area) &&
-+    return xsave_area_compressed(xsave_area) &&
-            (v->arch.xcr0_accum & XSTATE_LAZY & ~XSTATE_FP_SSE);
- }
- 
-diff --git a/xen/arch/x86/xstate.c b/xen/arch/x86/xstate.c
-index 3d4fb7664c5f..b204147815c3 100644
---- a/xen/arch/x86/xstate.c
-+++ b/xen/arch/x86/xstate.c
-@@ -1005,7 +1005,7 @@ int handle_xsetbv(u32 index, u64 new_bv)
-             asm ( "stmxcsr %0" : "=m" (xsave_area->fpu_sse.mxcsr) );
-             VCPU_UNMAP_XSAVE_AREA(curr, xsave_area);
-         }
--        else if ( xstate_all(curr) )
-+        else if ( xstate_all(curr, xsave_area) )
-         {
-             /* See the comment in i387.c:vcpu_restore_fpu_eager(). */
-             mask |= XSTATE_LAZY;
+Daniel P. Smith (2):
+  gnttab: introduce version agnostic macros
+  gnttab: make grant table v2 support configurable
+
+ docs/misc/xen-command-line.pandoc |   4 +-
+ xen/common/Kconfig                |  18 +++
+ xen/common/compat/grant_table.c   |   4 +
+ xen/common/grant_table.c          | 200 +++++++++++++++++++-----------
+ 4 files changed, 150 insertions(+), 76 deletions(-)
+
 -- 
-2.47.1
+2.34.1
 
 
