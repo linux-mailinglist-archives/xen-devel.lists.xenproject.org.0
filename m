@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76D68A09669
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Jan 2025 16:50:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.869814.1281269 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC24AA0966B
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Jan 2025 16:51:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.869824.1281278 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tWHHC-0002NR-4U; Fri, 10 Jan 2025 15:50:22 +0000
+	id 1tWHIX-0002uW-CF; Fri, 10 Jan 2025 15:51:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 869814.1281269; Fri, 10 Jan 2025 15:50:22 +0000
+Received: by outflank-mailman (output) from mailman id 869824.1281278; Fri, 10 Jan 2025 15:51:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tWHHC-0002Kr-0q; Fri, 10 Jan 2025 15:50:22 +0000
-Received: by outflank-mailman (input) for mailman id 869814;
- Fri, 10 Jan 2025 15:50:21 +0000
+	id 1tWHIX-0002t3-9f; Fri, 10 Jan 2025 15:51:45 +0000
+Received: by outflank-mailman (input) for mailman id 869824;
+ Fri, 10 Jan 2025 15:51:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mmVM=UC=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1tWHHB-0002Kl-2y
- for xen-devel@lists.xenproject.org; Fri, 10 Jan 2025 15:50:21 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ id 1tWHIW-0002sx-7i
+ for xen-devel@lists.xenproject.org; Fri, 10 Jan 2025 15:51:44 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 97db49b0-cf6a-11ef-a0df-8be0dac302b0;
- Fri, 10 Jan 2025 16:50:19 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3863c36a731so1627957f8f.1
- for <xen-devel@lists.xenproject.org>; Fri, 10 Jan 2025 07:50:19 -0800 (PST)
+ id c99f8644-cf6a-11ef-a0df-8be0dac302b0;
+ Fri, 10 Jan 2025 16:51:43 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-4361fe642ddso23740125e9.2
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Jan 2025 07:51:43 -0800 (PST)
 Received: from localhost ([66.81.170.107]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-436e9e37d3bsm55461245e9.31.2025.01.10.07.50.17
+ 5b1f17b1804b1-436e2ddd013sm91688465e9.24.2025.01.10.07.51.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 10 Jan 2025 07:50:18 -0800 (PST)
+ Fri, 10 Jan 2025 07:51:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,255 +44,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 97db49b0-cf6a-11ef-a0df-8be0dac302b0
+X-Inumbo-ID: c99f8644-cf6a-11ef-a0df-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1736524219; x=1737129019; darn=lists.xenproject.org;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
+        d=cloud.com; s=cloud; t=1736524302; x=1737129102; darn=lists.xenproject.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
          :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tUhxXZYEiIjTZLGclIWnxltqQKbyORiavFv7JaFGlNs=;
-        b=PAY8c59n38d9cu9/E3q4re++RkjqhAhhoKL2a7Jx2FZ6xL+k4w/ZRatxaY7zSyppH+
-         3+jx0yfMuBZeybdlj944W11dGfRja7Sag12wsha0EVSTV+I5PkxZBpexK6WMcoiJ3xZO
-         osZTM3rmOKSJkbfvCrYd6QYnuNIRBvsqphtuw=
+        bh=iwZXzZRO2IyjqibXEh9atU1QSD30JAVCPU+qoFD9bTA=;
+        b=dxhaSwB18l4Ml5GoAr71VouL/GxT7ESj+J6EIVirmhwSBCScYyzm0f4CU2jEx9gpzr
+         j+i0VDD5V2gjgIN7kPwnOIVx7wDub2noG5rRbbK0P2yImfiKRofWy4jc+f2HaFmG+hHk
+         VPQWm1xnVtG4t2AvDuBZ7v8lbv9OKwZN6B2gE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736524219; x=1737129019;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
+        d=1e100.net; s=20230601; t=1736524302; x=1737129102;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
          :content-transfer-encoding:mime-version:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=tUhxXZYEiIjTZLGclIWnxltqQKbyORiavFv7JaFGlNs=;
-        b=p+RrRFLK8lbEJBp/JLVbXAO6W6norN6/b+8OV+vaYAvTrBCoPNkcWe/Jz7aKTYyFeU
-         EHeprTcguT97VjZ164ItFntqja8FxMAg/VajjS7fep9x8oIwIhc1GvEtrai6tKi+6AgR
-         EUGV1PbpOw1G54qUJsjiz9uqfs4m9pqNhqpj4KG1cOcrIZ2J7JymPmrr+2GjZuMZjQk8
-         Pef48h45LEuNrG3nUtUksgp25cdIm9LDFU7Lq3Qj48vL5dJOgNxzFP6+faGs/rDeQReY
-         jMHDHGST8gN1qb2sc4G14Jx2gzonBUrJAX+y8Su23oC8V03XZcQgXl9DDFvN7WvvPB6p
-         DeXQ==
-X-Gm-Message-State: AOJu0YwxAPtX6LaeBnmbxd+QXN+IxFbWMjWb0zf3BPXEsmxYss2Ucu/y
-	Y9u2IsN/1K723aiCplk8OxIF3EKKAQXV1RY2V+OO1mADgJsCMam1BGrzVB8GU+c=
-X-Gm-Gg: ASbGncuRx0hLh5jeahyABnIhqUncXi/s5/eHo9T1ZiqUqgJL73Z5RuNHqBVzMSQoh3t
-	l7Yj5qd2uGyoGkfG4KwcGzZ0vjwEQNgW+JXNZb8Nm4bNKFGy2u58TxCVHFhdCwBhY9MD6pejkMn
-	qDy14ZoNVRmR9p7WTR0MJDFcQTdNDE6AgJlwKiuIz6ulcmsj5FNgOuAAOijuXSSSmBEJeWyMESR
-	caLMLBFZxQiRsxqU6SX0AREKEVrFoQO1ycWQA4Jrp5lEBfy/Xb9ajdhCS7idQU=
-X-Google-Smtp-Source: AGHT+IFOX73b3dv0QYzSDXgeve5p/cyhZ+80hgt2N6us0ApzB+YFUyV6o7OdOvgJldGH8+zn+rPO5w==
-X-Received: by 2002:a5d:6d84:0:b0:385:ecdf:a30a with SMTP id ffacd0b85a97d-38a873140f6mr10342329f8f.33.1736524218821;
-        Fri, 10 Jan 2025 07:50:18 -0800 (PST)
+        bh=iwZXzZRO2IyjqibXEh9atU1QSD30JAVCPU+qoFD9bTA=;
+        b=SQd+E7zWt35N5AuGrRYUc0byHqUJYSoXf+yLl/m4Z4cFERBpM8yJwiPS4YGXI33eE8
+         uK33w1cmtcbveOYQnoiiB4fmc6EpLRjzF49QnbZ7B04DI07OwIwCjBv3/nrObkPS5rOq
+         ixTftgxXE1j7zWJIEbRASvR8b1/H9NTtetarncnZ4aQshNfMoRHM1Cfd+z0LUz7hVRGV
+         QFUaWF2NtukOpG6zVc2/Hv4GOZ7wFe6AByOXHoY4gALkdzdh/h89hsStrjU8k8D7ewQT
+         N3ZzJpKzZx7lluzndkqzZRTwEvCOUS8nV069j8nacmpXVl4UZ7QAufd7HTc8u935eEhY
+         ucIw==
+X-Gm-Message-State: AOJu0YwjceTNCzGZzleRcz4T1D2pBuYnrtaEkVNdrZddjICJ1o1qz92F
+	li3yUU5PXtXZhR2RzHX25rhOjHElHisRsqTDoJVw1tpBOHCf2Ij7qnkggJqURJI=
+X-Gm-Gg: ASbGnculyFY4HNK14NLAqj0P4zAtvBgBuKd8dQW9IvLqw2NfNDh/dKQWsWq/xxCGoc1
+	OW3FltOwOO+tzAu2o9Yna3FUF/RO6wyU5yQB2U/t99OlhWaKvAaz9vWOm+zrjOnhegFPrSMKdiI
+	rZBF99FCGK4MrDWPj1AEP6M60mdvS6Vydhvc8Hq+IOlPhWjPn1cTEayBd087MiW0Jx5wu+saIEy
+	mvHj5Kbo+5HVPMU5JjzAfl/cSq7Q3NJR//9L5vD7zeQIsc0F9q4ZNjGdFkK/QE=
+X-Google-Smtp-Source: AGHT+IHToGuxDjdFJHa5XBo7mCodPJYVNtgYHm3DQgaPGMIV7J8TQGsup6Hb9IX5HyKoSamt9Oo+xQ==
+X-Received: by 2002:a05:600c:444d:b0:434:f739:7ce2 with SMTP id 5b1f17b1804b1-436eedef4e5mr32807065e9.8.1736524302357;
+        Fri, 10 Jan 2025 07:51:42 -0800 (PST)
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 10 Jan 2025 15:50:17 +0000
-Message-Id: <D6YIGKABLDGN.J7DROWZ0H7BK@cloud.com>
-To: =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: <xen-devel@lists.xenproject.org>, "Jan Beulich" <jbeulich@suse.com>,
- "Andrew Cooper" <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v2 04/18] x86/pv: introduce function to populate
- perdomain area and use it to map Xen GDT
+Date: Fri, 10 Jan 2025 15:51:38 +0000
+Message-Id: <D6YIHLM1RTKR.3QLY96ZGZD6AG@cloud.com>
+Subject: Re: [PATCH v2 13/18] x86/spec-ctrl: introduce Address Space
+ Isolation command line option
 From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+To: =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: <xen-devel@lists.xenproject.org>, "Andrew Cooper"
+ <andrew.cooper3@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>,
+ "Michal Orzel" <michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>,
+ "Julien Grall" <julien@xen.org>, "Stefano Stabellini"
+ <sstabellini@kernel.org>
 X-Mailer: aerc 0.18.2
 References: <20250108142659.99490-1-roger.pau@citrix.com>
- <20250108142659.99490-5-roger.pau@citrix.com>
- <D6XGAK96L261.324ZJ1U3UO8LF@cloud.com> <Z4Eur-PNej2JQAm_@macbook.local>
-In-Reply-To: <Z4Eur-PNej2JQAm_@macbook.local>
+ <20250108142659.99490-14-roger.pau@citrix.com>
+ <D6XMQD34DXRE.24L7RC2WUI298@cloud.com> <Z4E0-5KUWh2AJu50@macbook.local>
+In-Reply-To: <Z4E0-5KUWh2AJu50@macbook.local>
 
-On Fri Jan 10, 2025 at 2:29 PM GMT, Roger Pau Monn=C3=A9 wrote:
-> On Thu, Jan 09, 2025 at 09:55:44AM +0000, Alejandro Vallejo wrote:
+On Fri Jan 10, 2025 at 2:55 PM GMT, Roger Pau Monn=C3=A9 wrote:
+> On Thu, Jan 09, 2025 at 02:58:29PM +0000, Alejandro Vallejo wrote:
 > > On Wed Jan 8, 2025 at 2:26 PM GMT, Roger Pau Monne wrote:
-> > > The current code to update the Xen part of the GDT when running a PV =
-guest
-> > > relies on caching the direct map address of all the L1 tables used to=
- map the
-> > > GDT and LDT, so that entries can be modified.
+> > > No functional change, as the option is not used.
 > > >
-> > > Introduce a new function that populates the per-domain region, either=
- using the
-> > > recursive linear mappings when the target vCPU is the current one, or=
- by
-> > > directly modifying the L1 table of the per-domain region.
+> > > Introduced new so newly added functionality is keyed on the option be=
+ing
+> > > enabled, even if the feature is non-functional.
 > > >
-> > > Using such function to populate per-domain addresses drops the need t=
-o keep a
-> > > reference to per-domain L1 tables previously used to change the per-d=
-omain
-> > > mappings.
+> > > When ASI is enabled for PV domains, printing the usage of XPTI might =
+be
+> > > omitted if it must be uniformly disabled given the usage of ASI.
 > > >
 > > > Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 > > > ---
-> > >  xen/arch/x86/domain.c                | 11 +++-
-> > >  xen/arch/x86/include/asm/desc.h      |  6 +-
-> > >  xen/arch/x86/include/asm/mm.h        |  2 +
-> > >  xen/arch/x86/include/asm/processor.h |  5 ++
-> > >  xen/arch/x86/mm.c                    | 88 ++++++++++++++++++++++++++=
-++
-> > >  xen/arch/x86/smpboot.c               |  6 +-
-> > >  xen/arch/x86/traps.c                 | 10 ++--
-> > >  7 files changed, 113 insertions(+), 15 deletions(-)
+> > > Changes since v1:
+> > >  - Improve comments and documentation about what ASI provides.
+> > >  - Do not print the XPTI information if ASI is used for pv domUs and =
+dom0 is
+> > >    PVH, or if ASI is used for both domU and dom0.
 > > >
-> > > diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-> > > index 1f680bf176ee..0bd0ef7e40f4 100644
-> > > --- a/xen/arch/x86/domain.c
-> > > +++ b/xen/arch/x86/domain.c
-> > > @@ -1953,9 +1953,14 @@ static always_inline bool need_full_gdt(const =
-struct domain *d)
+> > > FWIW, I would print the state of XPTI uniformly, as otherwise I find =
+the output
+> > > might be confusing for user expecting to assert the state of XPTI.
+> > > ---
+> > >  docs/misc/xen-command-line.pandoc    |  19 +++++
+> > >  xen/arch/x86/include/asm/domain.h    |   3 +
+> > >  xen/arch/x86/include/asm/spec_ctrl.h |   2 +
+> > >  xen/arch/x86/spec_ctrl.c             | 115 +++++++++++++++++++++++++=
+--
+> > >  4 files changed, 133 insertions(+), 6 deletions(-)
+> > >
+> > > diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-comman=
+d-line.pandoc
+> > > index 08b0053f9ced..3c1ad7b5fe7d 100644
+> > > --- a/docs/misc/xen-command-line.pandoc
+> > > +++ b/docs/misc/xen-command-line.pandoc
+> > > @@ -202,6 +202,25 @@ to appropriate auditing by Xen.  Argo is disable=
+d by default.
+> > >      This option is disabled by default, to protect domains from a Do=
+S by a
+> > >      buggy or malicious other domain spamming the ring.
 > > > =20
-> > >  static void update_xen_slot_in_full_gdt(const struct vcpu *v, unsign=
-ed int cpu)
-> > >  {
-> > > -    l1e_write(pv_gdt_ptes(v) + FIRST_RESERVED_GDT_PAGE,
-> > > -              !is_pv_32bit_vcpu(v) ? per_cpu(gdt_l1e, cpu)
-> > > -                                   : per_cpu(compat_gdt_l1e, cpu));
-> > > +    ASSERT(v !=3D current);
+> > > +### asi (x86)
+> > > +> `=3D List of [ <bool>, {pv,hvm}=3D<bool>,
+> > > +               {vcpu-pt}=3D<bool>|{pv,hvm}=3D<bool> ]`
 > >=20
-> > For this assert, and others below. IIUC, curr_vcpu =3D=3D current when =
-we're
-> > properly switched. When we're idling current =3D=3D idle and curr_vcpu =
-=3D=3D prev_ctx.
+> > nit: While this grows later, the braces around vcpu-pt aren't strictly =
+needed here.
+>
+> Since I have to modify the whole line I can indeed add the braces
+> later.
+>
+> > > +
+> > > +Offers control over whether the hypervisor will engage in Address Sp=
+ace
+> > > +Isolation, by not having potentially sensitive information permanent=
+ly mapped
+> > > +in the VMM page-tables.  Using this option might avoid the need to a=
+pply
+> > > +mitigations for certain speculative related attacks, at the cost of =
+mapping
+> > > +sensitive information on-demand.
 > >=20
-> > Granted, calling this in the middle of a lazy idle loop would be weird,=
- but
-> > would it make sense for PT consistency to use curr_vcpu here...
+> > Might be worth mentioning that this provides some defense in depth agai=
+nst
+> > unmitigated attacks too.
 >
-> Hm, this function is called in a very specific context, and the assert
-> intends to reflect that.  TBH I could just drop it, as
-> populate_perdomain_mapping() will DTRT also when v =3D=3D current. The
-> expectation for the context is also that current =3D=3D curr_vcpu.
+> It's IMO a bit too vague to make such promises, but I can add:
 >
-> Note however that if v =3D=3D current we would need a flush after the
-> populate_perdomain_mapping() call, since populate_perdomain_mapping()
-> doesn't perform any flushing of the modified entries.  The main
-> purpose of the ASSERT() is to notice this.
->
-> > > +
-> > > +    populate_perdomain_mapping(v,
-> > > +                               GDT_VIRT_START(v) +
-> > > +                               (FIRST_RESERVED_GDT_PAGE << PAGE_SHIF=
-T),
-> > > +                               !is_pv_32bit_vcpu(v) ? &per_cpu(gdt_m=
-fn, cpu)
-> > > +                                                    : &per_cpu(compa=
-t_gdt_mfn,
-> > > +                                                               cpu),=
- 1);
-> > >  }
-> > > =20
-> > >  static void load_full_gdt(const struct vcpu *v, unsigned int cpu)
-> > > diff --git a/xen/arch/x86/include/asm/desc.h b/xen/arch/x86/include/a=
-sm/desc.h
-> > > index a1e0807d97ed..33981bfca588 100644
-> > > --- a/xen/arch/x86/include/asm/desc.h
-> > > +++ b/xen/arch/x86/include/asm/desc.h
-> > > @@ -44,6 +44,8 @@
-> > > =20
-> > >  #ifndef __ASSEMBLY__
-> > > =20
-> > > +#include <xen/mm-frame.h>
-> > > +
-> > >  #define GUEST_KERNEL_RPL(d) (is_pv_32bit_domain(d) ? 1 : 3)
-> > > =20
-> > >  /* Fix up the RPL of a guest segment selector. */
-> > > @@ -212,10 +214,10 @@ struct __packed desc_ptr {
-> > > =20
-> > >  extern seg_desc_t boot_gdt[];
-> > >  DECLARE_PER_CPU(seg_desc_t *, gdt);
-> > > -DECLARE_PER_CPU(l1_pgentry_t, gdt_l1e);
-> > > +DECLARE_PER_CPU(mfn_t, gdt_mfn);
-> > >  extern seg_desc_t boot_compat_gdt[];
-> > >  DECLARE_PER_CPU(seg_desc_t *, compat_gdt);
-> > > -DECLARE_PER_CPU(l1_pgentry_t, compat_gdt_l1e);
-> > > +DECLARE_PER_CPU(mfn_t, compat_gdt_mfn);
-> > >  DECLARE_PER_CPU(bool, full_gdt_loaded);
-> > > =20
-> > >  static inline void lgdt(const struct desc_ptr *gdtr)
-> > > diff --git a/xen/arch/x86/include/asm/mm.h b/xen/arch/x86/include/asm=
-/mm.h
-> > > index 6c7e66ee21ab..b50a51327b2b 100644
-> > > --- a/xen/arch/x86/include/asm/mm.h
-> > > +++ b/xen/arch/x86/include/asm/mm.h
-> > > @@ -603,6 +603,8 @@ int compat_arch_memory_op(unsigned long cmd, XEN_=
-GUEST_HANDLE_PARAM(void) arg);
-> > >  int create_perdomain_mapping(struct domain *d, unsigned long va,
-> > >                               unsigned int nr, l1_pgentry_t **pl1tab,
-> > >                               struct page_info **ppg);
-> > > +void populate_perdomain_mapping(const struct vcpu *v, unsigned long =
-va,
-> > > +                                mfn_t *mfn, unsigned long nr);
-> > >  void destroy_perdomain_mapping(struct domain *d, unsigned long va,
-> > >                                 unsigned int nr);
-> > >  void free_perdomain_mappings(struct domain *d);
-> > > diff --git a/xen/arch/x86/include/asm/processor.h b/xen/arch/x86/incl=
-ude/asm/processor.h
-> > > index d247ef8dd226..82ee89f736c2 100644
-> > > --- a/xen/arch/x86/include/asm/processor.h
-> > > +++ b/xen/arch/x86/include/asm/processor.h
-> > > @@ -243,6 +243,11 @@ static inline unsigned long cr3_pa(unsigned long=
- cr3)
-> > >      return cr3 & X86_CR3_ADDR_MASK;
-> > >  }
-> > > =20
-> > > +static inline mfn_t cr3_mfn(unsigned long cr3)
-> > > +{
-> > > +    return maddr_to_mfn(cr3_pa(cr3));
-> > > +}
-> > > +
-> > >  static inline unsigned int cr3_pcid(unsigned long cr3)
-> > >  {
-> > >      return IS_ENABLED(CONFIG_PV) ? cr3 & X86_CR3_PCID_MASK : 0;
-> > > diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-> > > index 3d5dd22b6c36..0abea792486c 100644
-> > > --- a/xen/arch/x86/mm.c
-> > > +++ b/xen/arch/x86/mm.c
-> > > @@ -6423,6 +6423,94 @@ int create_perdomain_mapping(struct domain *d,=
- unsigned long va,
-> > >      return rc;
-> > >  }
-> > > =20
-> > > +void populate_perdomain_mapping(const struct vcpu *v, unsigned long =
-va,
-> > > +                                mfn_t *mfn, unsigned long nr)
-> > > +{
-> > > +    l1_pgentry_t *l1tab =3D NULL, *pl1e;
-> > > +    const l3_pgentry_t *l3tab;
-> > > +    const l2_pgentry_t *l2tab;
-> > > +    struct domain *d =3D v->domain;
-> > > +
-> > > +    ASSERT(va >=3D PERDOMAIN_VIRT_START &&
-> > > +           va < PERDOMAIN_VIRT_SLOT(PERDOMAIN_SLOTS));
-> > > +    ASSERT(!nr || !l3_table_offset(va ^ (va + nr * PAGE_SIZE - 1)));
-> > > +
-> > > +    /* Use likely to force the optimization for the fast path. */
-> > > +    if ( likely(v =3D=3D current) )
-> >=20
-> > ... and here? In particular I'd expect using curr_vcpu here means...
->
-> I'm afraid not, this is a trap I've fallen originally when doing this
-> series, as I indeed had v =3D=3D curr_vcpu here (and no
-> sync_local_execstate() call).
->
-> However as a result of an interrupt, a call to sync_local_execstate()
-> might happen, at which point the previous check of v =3D=3D curr_vcpu
-> becomes stale.
+> Offers control over whether the hypervisor will engage in Address Space
+> Isolation, by not having potentially sensitive information permanently ma=
+pped
+> in the VMM page-tables.  Using this option might avoid the need to apply
+> mitigations for certain speculative related attacks, at the cost of mappi=
+ng
+> sensitive information on-demand.  It might also offer some protection
+> against unmitigated speculation-related attacks.
 
-Wow, that's nasty! More than fair enough then. Guess the XSAVE wrappers (an=
-d
-more generally all vCPU-local memory accessors) will have to take this into
-account before poking into the contents of the perdomain region.
-
->
-> > > +    {
-> > > +        unsigned int i;
-> > > +
-> > > +        /* Ensure page-tables are from current (if current !=3D curr=
-_vcpu). */
-> > > +        sync_local_execstate();
-> >=20
-> > ... this should not be needed.
->
-> As kind of mentioned above, this is required to ensure the page-tables
-> are in-sync with the vCPU in current, and cannot change as a result of
-> an interrupt triggering a call to sync_local_execstate().
->
-> Otherwise the page-tables could change while or after the call to
-> populate_perdomain_mapping(), and the mappings could end up being
-> created on the wrong page-tables.
->
-> Thanks, Roger.
+SGTM
 
 Cheers,
 Alejandro
