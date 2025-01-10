@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0270CA096E7
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Jan 2025 17:13:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.869844.1281299 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8092CA09711
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Jan 2025 17:19:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.869856.1281309 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tWHd1-0007DQ-6k; Fri, 10 Jan 2025 16:12:55 +0000
+	id 1tWHj6-0008Jz-UD; Fri, 10 Jan 2025 16:19:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 869844.1281299; Fri, 10 Jan 2025 16:12:55 +0000
+Received: by outflank-mailman (output) from mailman id 869856.1281309; Fri, 10 Jan 2025 16:19:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tWHd1-0007BD-3d; Fri, 10 Jan 2025 16:12:55 +0000
-Received: by outflank-mailman (input) for mailman id 869844;
- Fri, 10 Jan 2025 16:12:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tWHj6-0008Ha-RS; Fri, 10 Jan 2025 16:19:12 +0000
+Received: by outflank-mailman (input) for mailman id 869856;
+ Fri, 10 Jan 2025 16:19:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mmVM=UC=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1tWHcz-0007B7-KA
- for xen-devel@lists.xenproject.org; Fri, 10 Jan 2025 16:12:53 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id be5cc168-cf6d-11ef-a0df-8be0dac302b0;
- Fri, 10 Jan 2025 17:12:52 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-385ddcfc97bso1945289f8f.1
- for <xen-devel@lists.xenproject.org>; Fri, 10 Jan 2025 08:12:52 -0800 (PST)
+ id 1tWHj5-0008HU-BA
+ for xen-devel@lists.xenproject.org; Fri, 10 Jan 2025 16:19:11 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9f048a32-cf6e-11ef-99a4-01e77a169b0f;
+ Fri, 10 Jan 2025 17:19:09 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-436ce2ab251so17072105e9.1
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Jan 2025 08:19:09 -0800 (PST)
 Received: from localhost ([66.81.170.107]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-436e2e89df1sm90048765e9.27.2025.01.10.08.12.48
+ 5b1f17b1804b1-436e9e37d7fsm56305855e9.32.2025.01.10.08.19.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 10 Jan 2025 08:12:51 -0800 (PST)
+ Fri, 10 Jan 2025 08:19:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,48 +44,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: be5cc168-cf6d-11ef-a0df-8be0dac302b0
+X-Inumbo-ID: 9f048a32-cf6e-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1736525572; x=1737130372; darn=lists.xenproject.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
+        d=cloud.com; s=cloud; t=1736525949; x=1737130749; darn=lists.xenproject.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
          :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OMbCry0cF+4t0wc4UfHC0OgU/oMWHaSyqCM3/836NGo=;
-        b=UdfFQvP/veL21sXyp5u15pimSF6jFhO/n9kkPNLdPZ5ibM54S27GG9pe4JxTgx4LiZ
-         f6VX4Tn1885M5XkUYu8RrrTZPBXwHmeolG98YxVwbR65+/9nvSVtKJ+95sP4jV1fnB4m
-         s+sthCqOgBcZE3fJ9YAJVCK1mHfN8Z25RFHKI=
+        bh=N3lv/NArzrRA7WULk4MemEkjgKybl1dEMHzMPjgZfgY=;
+        b=dqSW7X804Cx/Z2w4u8UEfTw04TPFQ/5sATPq/8r2UifMUvvBAisZOK9i3/nUgq1Yr2
+         pJG1U2e3A+TaF0dbwCzqQj4Cb0DXFh3j/0rO45yNggPJ7hu33kcRSIq5r7iwr8G701Zp
+         ocJ+XBWqQ8UWvRrVDxWzz3yLmYFhEKH7bwPRU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736525572; x=1737130372;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
+        d=1e100.net; s=20230601; t=1736525949; x=1737130749;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
          :content-transfer-encoding:mime-version:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=OMbCry0cF+4t0wc4UfHC0OgU/oMWHaSyqCM3/836NGo=;
-        b=cQX3ZUXZkR9Esp9TeJ6GNMMyW39YLEkty/Nv9JjdtNjYyegKav5hHHiE/JPBuo+RXD
-         byrboMIPvRxeTRS8CgMqvUZgnHv1Mb61OqpF07qqN2xHRg+dpKM7dXfHvGRe0gS6yG6c
-         BzphcvYLav7ioGX4+EZAvzzdFLWpeJ7UAx+x8unR7pyI76sY4MsU96Vkjg70EppgQdMb
-         7FU3mbinYxCKCpbdB+rKde5+gmaSicS6DRF3AFmOJxVjz8l1kR+JyJOxi807lEu3+fBG
-         nWJqICdznoeXPpg1QwZipE/tZpjxk4WnCN/+ht8AdepKVfTxaPkkmuad3E8Ebgkycz9U
-         oYXQ==
-X-Gm-Message-State: AOJu0YzDMVagkLPkE9MsqG4U4wMwfJc2GBSJZKB5ndqMxgur8plHGelA
-	p+lxl5It+BTR/oVzTGsuqEU97mqzYTLMZVB+Qp3MP2WBoQ7Iub181834lekCFas=
-X-Gm-Gg: ASbGncuwUl6dPSTwZmF3Rbd9y8cidqDteia00xYxDDFDy9Y3WHmxelrzEFRceYl/IOZ
-	c/W+y7LqqaKvoi7o1b+fwQvcBlDXFaB47Coypa15wNTztBopd0ZS6FX5afw4LgUyP3r5sBRPmkE
-	/juy5Y/zFg/7ogtiLm/dRnbdF0hMpFTNI4ifYDvRPd/1YfUwTRM1oR1DuPpm2Nj/juv+iuAB+M7
-	pKPhBcqRa/sxz3zR/sifBwWXjbLloIWb5XHLXWpNSofvGEbeecEOpYJrD1fSQE=
-X-Google-Smtp-Source: AGHT+IEf423ZUfWznIkb2tTcPFSSgD9lw+ElDdU4hnIPpjIogre/Qgkx7Yw/WKCojGIUd5GchXnzIg==
-X-Received: by 2002:adf:9bc6:0:b0:38a:888c:a727 with SMTP id ffacd0b85a97d-38a888caa54mr8045828f8f.25.1736525571968;
-        Fri, 10 Jan 2025 08:12:51 -0800 (PST)
+        bh=N3lv/NArzrRA7WULk4MemEkjgKybl1dEMHzMPjgZfgY=;
+        b=HdKOGBgfGpV+oZjPYttcWt6/uKIuNDFefhfcy8Ikx0UgaKkeAEAcBUlJMRUQ7UZgb7
+         kc5sqWHVr96nCFLKhXSNIrZRwD9KjEsrqoo8ARc9tizrSk+m6QMBCB4QdgcOL6fB6foX
+         UYnB34pYttLNEhY+zRif+f8mREX0R9QeTZQdpmJKu7+R4F+6WnNzHXqNdCBWvuMhO7LV
+         VHDuMhzi7Vrj0oe6xQuVANgVUAiukFFZ6riVAQOZNZFSe2acEhAG9SrnLt/BD/42Tl2w
+         QX619/EPn6dsKO2AJtzr0m/KS5/QfObj4KXCOHvyhJztgKZvZDjQolN0pBZ105Nn6eLc
+         ChRg==
+X-Gm-Message-State: AOJu0YzTM1GqJiHliGuVe0arxrY9sdRccOWzJN3ToGquGxXAq9lWNtca
+	6z1VlnLiLTJKttOwSAwPEvmBgKhv1og0P8fDgLYlPpxrBZ0xk3xmwpcW5o4No7s=
+X-Gm-Gg: ASbGncs6vW/MU0/u/NkJjFAxPrgkl8AYaKIDMgIILFNE+pHVKQ8mgeja5vul5MSR1Nn
+	Wc2W3mEq4uqmdqL4JrPVPKX3acJgh+4eiMKY7ZwWaegbf3tbrlpnvClhWUvTps9Bszx5ds9gpBD
+	pARHb3aVZYos2dSBSMfdlcDE1qx3dlajhi2gAP2GLYXDGxfEk5bEzqr0FnVIzAiM9pnr5mZfdP4
+	y8lkeB5RKf7LtgnRKhq5dLH2RfC2713tFljaEAVEv8rl2obzgYvwEsfwbqUNnA=
+X-Google-Smtp-Source: AGHT+IFCthcT27edbPU/MEm5ZqnDHi6DgoObRUGwD4EsKTVPYbuQu5jZnCJ9rs9X4ifQc6LVMKBPEQ==
+X-Received: by 2002:a05:600c:19ce:b0:42c:bb96:340e with SMTP id 5b1f17b1804b1-436e26f857fmr112068085e9.31.1736525948757;
+        Fri, 10 Jan 2025 08:19:08 -0800 (PST)
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 10 Jan 2025 16:12:41 +0000
-Message-Id: <D6YIXQ2RO454.RX5K5X216R2D@cloud.com>
+Date: Fri, 10 Jan 2025 16:19:03 +0000
+Message-Id: <D6YJ2L9AFQOQ.2ZZ5H8O4SK9J4@cloud.com>
+Cc: <xen-devel@lists.xenproject.org>, "Jan Beulich" <jbeulich@suse.com>,
+ "Andrew Cooper" <andrew.cooper3@citrix.com>
 Subject: Re: [PATCH v2 15/18] x86/mm: introduce a per-vCPU mapcache when
  using ASI
 From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
 To: =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: <xen-devel@lists.xenproject.org>, "Jan Beulich" <jbeulich@suse.com>,
- "Andrew Cooper" <andrew.cooper3@citrix.com>
 X-Mailer: aerc 0.18.2
 References: <20250108142659.99490-1-roger.pau@citrix.com>
  <20250108142659.99490-16-roger.pau@citrix.com>
@@ -168,21 +168,18 @@ s both
 > doesn't use nospec().  That said I'm not claiming those are correct.
 > Shouldn't people that care about this kind of speculation into
 > critical regions just use CONFIG_SPECULATIVE_HARDEN_LOCK?
-
-Do people that care have a choice though? CONFIG_SPECULATIVE_HARDEN_LOCK on=
-ly
-blocks speculation in the taken branch here, so the critical region isn't
-hardened when the relaxed branch is followed.
-
-I suspect nospec in the condition would be fine perf-wise because the CPU c=
-an
-still do straight-line-speculation on the underlying function call when
-CONFIG_SPECULATIVE_HARDEN_LOCK is not defined.
-
-It's not the end of the world either way.
-
 >
 > Thanks, Roger.
+
+Actually, to avoid the double lfence, I think this would work too while
+avoiding the lfence unconditionally when CONFIG_SPECULATIVE_HARDEN_LOCK is =
+not
+set.
+
+    if ( !d->arch.vcpu_pt )
+        spin_lock(&dcache->lock);
+    else
+        block_lock_speculation();
 
 Cheers,
 Alejandro
