@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03B1BA092E0
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Jan 2025 15:04:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.869679.1281136 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7894A09329
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Jan 2025 15:15:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.869693.1281146 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tWFcK-0001zu-1G; Fri, 10 Jan 2025 14:04:04 +0000
+	id 1tWFnI-0005Pv-36; Fri, 10 Jan 2025 14:15:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 869679.1281136; Fri, 10 Jan 2025 14:04:04 +0000
+Received: by outflank-mailman (output) from mailman id 869693.1281146; Fri, 10 Jan 2025 14:15:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tWFcJ-0001y6-TK; Fri, 10 Jan 2025 14:04:03 +0000
-Received: by outflank-mailman (input) for mailman id 869679;
- Fri, 10 Jan 2025 14:04:02 +0000
+	id 1tWFnI-0005Nt-0D; Fri, 10 Jan 2025 14:15:24 +0000
+Received: by outflank-mailman (input) for mailman id 869693;
+ Fri, 10 Jan 2025 14:15:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qOMD=UC=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1tWFcI-0001xu-Nm
- for xen-devel@lists.xenproject.org; Fri, 10 Jan 2025 14:04:02 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bcb38378-cf5b-11ef-99a4-01e77a169b0f;
- Fri, 10 Jan 2025 15:04:00 +0100 (CET)
-Received: from mail.zoho.com by mx.zohomail.com
- with SMTP id 1736517829573868.3192042071445;
- Fri, 10 Jan 2025 06:03:49 -0800 (PST)
+ <SRS0=J0bo=UC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tWFnG-0005Nn-K2
+ for xen-devel@lists.xenproject.org; Fri, 10 Jan 2025 14:15:22 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 532d303b-cf5d-11ef-99a4-01e77a169b0f;
+ Fri, 10 Jan 2025 15:15:20 +0100 (CET)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-aaeec07b705so340461866b.2
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Jan 2025 06:15:20 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab2c90e3f54sm169885766b.81.2025.01.10.06.15.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Jan 2025 06:15:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,55 +44,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bcb38378-cf5b-11ef-99a4-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; t=1736517836; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=TJgHbNDERtnMhBUvbXxKLEgQz+940+G8ZWZ6U8E0htBFw+a9WGogdAa+haMZLtixhb7Zz3o9zNg5LaIUN6yNQ56fxlfBTvB8aY98mY5ndBqDpav/OX/VXJhbRhozL3lnwXOEV9iEOV01IemY1dVHeiEvH0vZvn8K3VAYYMN+uHE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1736517836; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=igYZXyfAvgPFB34XbCdj4dNoIGaNITLAl7eWqXkKCwE=; 
-	b=TTd0rTfkO2jtH5tYSPEYPnuRmWX5Wb3rm0Xef1/cJHDrQXSY0MMf+3xn7M3oYwn9x6uRxVjBznEz0uswwYCw1NvVcuN0saoheLxKGvRXXVsxUlavxfci/EaV+w5fxtcfSYOzalc2EU6Kngz6nWHLzqL0N7wlWwZMPYZICaufN2E=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1736517836;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:References:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=igYZXyfAvgPFB34XbCdj4dNoIGaNITLAl7eWqXkKCwE=;
-	b=L+Vq/XbmuufSAv5A1fmD1U1aP4MwMgedufuM4tc8a7B2fONWU4qj7xhn2iS+2cH2
-	5xLsZpZI/9kxWAVNY71u6rd4GwOBNeqCnU/mnIEHmbTza1K0yizuhYg/KXIugKm+elY
-	LAjfbkUH5yCl+s0AGU/GavEMU18g0QR5jvFejs14=
-Date: Fri, 10 Jan 2025 09:03:49 -0500
-From: Daniel Smith <dpsmith@apertussolutions.com>
-To: "xen-devel" <xen-devel@lists.xenproject.org>
-Cc: "openxt" <openxt@googlegroups.com>,
-	"Christopher Clark" <christopher.w.clark@gmail.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>
-Message-ID: <194508743ac.be65a5e2248998.5521251650313228304@apertussolutions.com>
-In-Reply-To: <20250110133711.3958202-1-dpsmith@apertussolutions.com>
-References: <20250110133711.3958202-1-dpsmith@apertussolutions.com>
-Subject: Re: [PATCH 0/2] Enable the ability to disable/remove gnttabv2
+X-Inumbo-ID: 532d303b-cf5d-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1736518520; x=1737123320; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=fC5Oc6Gac22Agkm0SWitel5gVMu0x+T+FUciEGk4Umo=;
+        b=uPHcmo0hcLiGMqxwGou41nkj6+IHddTy1ABwbgnt8UmaqVNJTaXW4DoAwbNa2C33Uu
+         Jdm1hltkz5YgE83OuJ2LNpyhKXGQqe+FO+tJiNkzGQjsAH61SSfO3gs+ETSUNi094TAn
+         YSGQtbN4WZvUiGyXF9uB8Bb2dKH1yolJ8/4xI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1736518520; x=1737123320;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fC5Oc6Gac22Agkm0SWitel5gVMu0x+T+FUciEGk4Umo=;
+        b=GAPAtpX812Q8WE5taOzMrCPd9mwdKj2wdBco4bWM90BjD12NPghpJrkw9sbk7RPaXs
+         IjGeecckMTJV5tCx0Lc3cbtfek+Qem7AJoeEi8Hv96i9WhXxr3jlOoGKI3eusLQkN6eG
+         9+usvCA7LHUTsSyYBl9CEvOvjlfynoONk+TNuyfQYHM+IEiLkFk/qJ/RkzoHhANcnfj0
+         WZWvZUfUEyfUeX/VXNjZ2D18CJyOjDqVITaanft955LzIK8U3Bn56yLYYHnXbScruYfv
+         mmXahC8urj1BaTnGatQCPTsEc2dcO23AvFO7zqv3rHatxK4MAX+ZfdzJW7LEdA/sZB/p
+         35mg==
+X-Forwarded-Encrypted: i=1; AJvYcCUxga2le4JjMGRZqekBXJp4uKj+wz5EORpskltmZfB2f6mOBgfVLs/6XloTIJizy9Lk2hKrcqfUEu4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxasU/NVy+5b00F/5d83odKPG/at+qoLu7TX/5b/Z3NDCfdA0kz
+	x3GUQULeZPIaOw4I9sFIeNM2nE6SQYrqF5cIiDhtAgtSuJH61vmAJpdi5LGvj6EqZldfM1Erm9Z
+	H
+X-Gm-Gg: ASbGncsAyFiSWOsfnW9/cBLfn19wpyYzjXK2aw3YYXKKGoHf+pf4eEv9B5V6vXHdBxv
+	9EUnZjmaGOPgd2BCVwrNrLzyx/eBf2pLQ+DtJmvqrqksvWDZ3qP6y/tJyZFkRfOw2Zhq/gWhp2f
+	3h9R4HrgkWEatYglRWmDU7C9EXsj61/3fwnqep1OL+g2k+OOvDksjJ0yJ+PdLbVwqyJWILOIOLl
+	mQmYE5zT7TogK+tqbN9CpJsDCEoqJTBEWyKT4ciqYUtc+ARKnqAEPZJbbITXV/wCic=
+X-Google-Smtp-Source: AGHT+IFuf+JCFti89VlW1nKFznhG3hsua6f/izKUid67fvzcXflAECfSIqn8EdL3NDABpTJvdQAjjQ==
+X-Received: by 2002:a17:907:d87:b0:aa6:7ec4:8bac with SMTP id a640c23a62f3a-ab2ab709c68mr1118536466b.17.1736518520009;
+        Fri, 10 Jan 2025 06:15:20 -0800 (PST)
+Date: Fri, 10 Jan 2025 15:15:18 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 04/18] x86/pv: introduce function to populate
+ perdomain area and use it to map Xen GDT
+Message-ID: <Z4ErduC-Nmzttbkf@macbook.local>
+References: <20250108142659.99490-1-roger.pau@citrix.com>
+ <20250108142659.99490-5-roger.pau@citrix.com>
+ <031ce31b-0ab5-4964-96eb-642fbea67bfb@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Importance: Medium
-User-Agent: Zoho Mail
-X-Mailer: Zoho Mail
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <031ce31b-0ab5-4964-96eb-642fbea67bfb@suse.com>
 
----- On Fri, 10 Jan 2025 08:37:09 -0500 Daniel P. Smith  wrote ---
+On Thu, Jan 09, 2025 at 10:10:20AM +0100, Jan Beulich wrote:
+> On 08.01.2025 15:26, Roger Pau Monne wrote:
+> > The current code to update the Xen part of the GDT when running a PV guest
+> > relies on caching the direct map address of all the L1 tables used to map the
+> > GDT and LDT, so that entries can be modified.
+> > 
+> > Introduce a new function that populates the per-domain region, either using the
+> > recursive linear mappings when the target vCPU is the current one, or by
+> > directly modifying the L1 table of the per-domain region.
+> > 
+> > Using such function to populate per-domain addresses drops the need to keep a
+> > reference to per-domain L1 tables previously used to change the per-domain
+> > mappings.
+> 
+> Well, yes. You now record MFNs instead. And you do so at the expense of about
+> 100 lines of new code. I'm afraid I'm lacking justification for this price to
+> be paid.
 
- > OpenXT has carried a patch for some time that allows the disabling and removal 
- > of the grant table v2 capability. This is a rework of that patch in an attempt 
- > to make an upstreamable series. 
- >  
- > The original patch was developed under funding provided by BAE, therefore a 
- > separate Authored-by tag to reflect that is included. 
+Oh, I should have been more explicit on the commit message probably.
+The cover letter kind of covers this, the objective is to remove the
+stashing of L1 page-table references in the domain struct.  Currently
+the per-vCPU GDT L1 are stored in the domain struct, so PTEs can be
+easily manipulated.
 
-Apologies as I should have added a "--suppress-cc=misc=by". If you want to avoid bounce messages, I would recommed dropping the BAE address on response.
+When moving the per-domain slot to being per-vCPU this stashing of the
+L1 tables will become much more complex, and hence I wanted to get rid
+of it.
 
-v/r,
-dps
+With the introduction of populate_perdomain_mapping() I'm attempting
+to get rid of all those L1 references in the domain struct, by having
+a generic function that allows modifying the linea address range that
+belongs to the per-domain slot.
 
+See for example how patch 8 gets rid of all the l1_pgentry_t GDT/LDT
+references in the domain struct.  And how patch 9 simplifies the
+create_perdomain_mapping() interface to be much simpler.  All this is
+built upon the addition of the populate_perdomain_mapping() helper and
+the dropping of the l1_pgentry_t references in the domain struct.
 
+Hope this helps clarify the intent of the change here.
+
+> > @@ -2219,11 +2219,9 @@ void __init trap_init(void)
+> >      init_ler();
+> >  
+> >      /* Cache {,compat_}gdt_l1e now that physically relocation is done. */
+> > -    this_cpu(gdt_l1e) =
+> > -        l1e_from_pfn(virt_to_mfn(boot_gdt), __PAGE_HYPERVISOR_RW);
+> > +    this_cpu(gdt_mfn) = _mfn(virt_to_mfn(boot_gdt));
+> >      if ( IS_ENABLED(CONFIG_PV32) )
+> > -        this_cpu(compat_gdt_l1e) =
+> > -            l1e_from_pfn(virt_to_mfn(boot_compat_gdt), __PAGE_HYPERVISOR_RW);
+> > +        this_cpu(compat_gdt_mfn) = _mfn(virt_to_mfn(boot_compat_gdt));
+> 
+> The comment's going stale this way.
+
+Right, the cache is still there but using a different field name.  I
+can adjust to:
+
+/* Cache {,compat_}gdt_mfn now that physically relocation is done. */
+
+Thanks, Roger.
 
