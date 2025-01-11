@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 313BAA0A33B
-	for <lists+xen-devel@lfdr.de>; Sat, 11 Jan 2025 12:11:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.870128.1281561 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53F2AA0A399
+	for <lists+xen-devel@lfdr.de>; Sat, 11 Jan 2025 13:26:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.870156.1281571 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tWZNF-0007fn-8h; Sat, 11 Jan 2025 11:09:49 +0000
+	id 1tWaY8-0001Xu-Ml; Sat, 11 Jan 2025 12:25:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 870128.1281561; Sat, 11 Jan 2025 11:09:49 +0000
+Received: by outflank-mailman (output) from mailman id 870156.1281571; Sat, 11 Jan 2025 12:25:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tWZNF-0007ck-5Z; Sat, 11 Jan 2025 11:09:49 +0000
-Received: by outflank-mailman (input) for mailman id 870128;
- Sat, 11 Jan 2025 11:09:48 +0000
+	id 1tWaY8-0001VK-JR; Sat, 11 Jan 2025 12:25:08 +0000
+Received: by outflank-mailman (input) for mailman id 870156;
+ Sat, 11 Jan 2025 12:25:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=cNkh=UD=intel.com=lkp@srs-se1.protection.inumbo.net>)
- id 1tWZND-0007ce-PO
- for xen-devel@lists.xenproject.org; Sat, 11 Jan 2025 11:09:48 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ id 1tWaY7-0001VE-4N
+ for xen-devel@lists.xenproject.org; Sat, 11 Jan 2025 12:25:07 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8f573252-d00c-11ef-a0e0-8be0dac302b0;
- Sat, 11 Jan 2025 12:09:45 +0100 (CET)
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jan 2025 03:09:42 -0800
+ id 13eee5ec-d017-11ef-a0e0-8be0dac302b0;
+ Sat, 11 Jan 2025 13:25:04 +0100 (CET)
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jan 2025 04:24:59 -0800
 Received: from lkp-server01.sh.intel.com (HELO d63d4d77d921) ([10.239.97.150])
- by fmviesa008.fm.intel.com with ESMTP; 11 Jan 2025 03:09:39 -0800
+ by fmviesa002.fm.intel.com with ESMTP; 11 Jan 2025 04:24:56 -0800
 Received: from kbuild by d63d4d77d921 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1tWZN2-000KZD-0q;
- Sat, 11 Jan 2025 11:09:36 +0000
+ (envelope-from <lkp@intel.com>) id 1tWaXu-000Kcp-06;
+ Sat, 11 Jan 2025 12:24:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,31 +44,31 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8f573252-d00c-11ef-a0e0-8be0dac302b0
+X-Inumbo-ID: 13eee5ec-d017-11ef-a0e0-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1736593786; x=1768129786;
+  t=1736598304; x=1768134304;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=EPRt+kkcZBvWzhnBv8y7+iUHRzGlu9gQ1lTAJLYHr68=;
-  b=HtBJQNxvun8isl+UqGCUWLOhvvgXOVu39uAYppFzLZxWF05Mvj1OGueB
-   hFPOhrnndv1P1rRvip05DVKYv0XwGq55kD3QMq3sIpBjRF0cxxd3x9KAu
-   h1Kz9I12FO7ssBr3pwLrI5uY6kYRbWq35a5lyyujUGcToZjUeu6Ea0WoM
-   LTP2J4s2Jl0OlUqFhlXCR3C+XW3KyvQZK19N8nct03cTJrqkNnN0RXNyX
-   oSmTNhZXMtHU3yhUKponat2+H9MEcsEJwziFa3VqojRiPJi823rVKplot
-   RVOVeOJ4v1pAde8UlIYcFeXQC1J+ZP3GpZCoAyB56g2B/xhrjiCiQ1Z3P
-   Q==;
-X-CSE-ConnectionGUID: qNLpvHNAR4ix1ZPsMSe/Hw==
-X-CSE-MsgGUID: SfGG0B1ASRWhaWhHuk8I5A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11311"; a="39698420"
+  bh=A/8dZvb4PodA5W5f8//xP4ydt9geI9IEAZNNNqDbBBk=;
+  b=L4eqZmcGKPClDZE944HDryXMaD3iXVM4vYFdm8xt5j+rVGKS2iUCb5Ua
+   Q4oIxfX1hiIgY4Gel14xcdtXKRS4cz6R/x4IOd3JxPrumENrNmQBcnR0C
+   wOvzzOIPaiktN70RBfZ6frDK12Sf79REq3RLa/aUfe5KCBgfBhsgHwtx0
+   er9lFPIrr95tcT6/boClXr8guXkzEpmLnfUafOg9fFQhDmUylOxYNZKtr
+   7mssIjQy3YL1HIFNKQ2+f3dduwDRO9QEUi60rDmLauexB9Of8On9FAXZw
+   rMdsVuRupf3V36oGk0zajByUuRx3zkdCB+8YKbBco7jgP85xWIMt7Mjb0
+   w==;
+X-CSE-ConnectionGUID: m8goT+0WRG+5fPMtKpj2lg==
+X-CSE-MsgGUID: ru0qFPFpQj6B+X2cbsxcAg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11312"; a="36568771"
 X-IronPort-AV: E=Sophos;i="6.12,307,1728975600"; 
-   d="scan'208";a="39698420"
-X-CSE-ConnectionGUID: tgfbQNgiRQWNL1IdbkLGug==
-X-CSE-MsgGUID: zWHsp1HuRgmlsZU4b7yXxg==
+   d="scan'208";a="36568771"
+X-CSE-ConnectionGUID: s7uiThp/StuhE0Qw+ZroYg==
+X-CSE-MsgGUID: wIRlLujDR0CozHf5o3+rzQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,307,1728975600"; 
-   d="scan'208";a="104150974"
-Date: Sat, 11 Jan 2025 19:08:50 +0800
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; 
+   d="scan'208";a="127260895"
+Date: Sat, 11 Jan 2025 20:24:15 +0800
 From: kernel test robot <lkp@intel.com>
 To: Roger Pau Monne <roger.pau@citrix.com>, linux-kernel@vger.kernel.org,
 	xen-devel@lists.xenproject.org, linux-pci@vger.kernel.org
@@ -80,7 +80,7 @@ Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
 	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
 	"H. Peter Anvin" <hpa@zytor.com>
 Subject: Re: [PATCH 3/3] pci/msi: remove pci_msi_ignore_mask
-Message-ID: <202501111839.HXJGe5FL-lkp@intel.com>
+Message-ID: <202501112048.6yCFh2ma-lkp@intel.com>
 References: <20250110140152.27624-4-roger.pau@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -101,36 +101,45 @@ url:    https://github.com/intel-lab-lkp/linux/commits/Roger-Pau-Monne/xen-pci-d
 base:   https://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git next
 patch link:    https://lore.kernel.org/r/20250110140152.27624-4-roger.pau%40citrix.com
 patch subject: [PATCH 3/3] pci/msi: remove pci_msi_ignore_mask
-config: arm64-randconfig-003-20250111 (https://download.01.org/0day-ci/archive/20250111/202501111839.HXJGe5FL-lkp@intel.com/config)
-compiler: clang version 18.1.8 (https://github.com/llvm/llvm-project 3b5b5c1ec4a3095ab096dd780e84d7ab81f3d7ff)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250111/202501111839.HXJGe5FL-lkp@intel.com/reproduce)
+config: riscv-defconfig (https://download.01.org/0day-ci/archive/20250111/202501112048.6yCFh2ma-lkp@intel.com/config)
+compiler: clang version 19.1.3 (https://github.com/llvm/llvm-project ab51eccf88f5321e7c60591c5546b254b6afab99)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250111/202501112048.6yCFh2ma-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202501111839.HXJGe5FL-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202501112048.6yCFh2ma-lkp@intel.com/
 
 All errors (new ones prefixed by >>):
 
->> drivers/pci/msi/msi.c:288:40: error: incomplete definition of type 'struct irq_domain'
+   In file included from drivers/pci/msi/msi.c:12:
+   In file included from include/linux/irq.h:23:
+   In file included from arch/riscv/include/asm/irq.h:10:
+   In file included from include/linux/interrupt.h:22:
+   In file included from arch/riscv/include/asm/sections.h:9:
+   In file included from include/linux/mm.h:2223:
+   include/linux/vmstat.h:518:36: warning: arithmetic between different enumeration types ('enum node_stat_item' and 'enum lru_list') [-Wenum-enum-conversion]
+     518 |         return node_stat_name(NR_LRU_BASE + lru) + 3; // skip "nr_"
+         |                               ~~~~~~~~~~~ ^ ~~~
+>> drivers/pci/msi/msi.c:288:40: error: incomplete definition of type 'const struct irq_domain'
      288 |         const struct msi_domain_info *info = d->host_data;
          |                                              ~^
    include/linux/irq.h:130:8: note: forward declaration of 'struct irq_domain'
      130 | struct irq_domain;
          |        ^
-   drivers/pci/msi/msi.c:604:40: error: incomplete definition of type 'struct irq_domain'
+   drivers/pci/msi/msi.c:604:40: error: incomplete definition of type 'const struct irq_domain'
      604 |         const struct msi_domain_info *info = d->host_data;
          |                                              ~^
    include/linux/irq.h:130:8: note: forward declaration of 'struct irq_domain'
      130 | struct irq_domain;
          |        ^
-   drivers/pci/msi/msi.c:714:40: error: incomplete definition of type 'struct irq_domain'
+   drivers/pci/msi/msi.c:714:40: error: incomplete definition of type 'const struct irq_domain'
      714 |         const struct msi_domain_info *info = d->host_data;
          |                                              ~^
    include/linux/irq.h:130:8: note: forward declaration of 'struct irq_domain'
      130 | struct irq_domain;
          |        ^
-   3 errors generated.
+   1 warning and 3 errors generated.
 
 
 vim +288 drivers/pci/msi/msi.c
