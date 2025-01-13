@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0376EA0B5EA
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Jan 2025 12:43:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.870555.1281730 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BD80A0B896
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Jan 2025 14:47:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.870577.1281741 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXIqX-00042l-Jg; Mon, 13 Jan 2025 11:43:05 +0000
+	id 1tXKm0-0002Gp-W3; Mon, 13 Jan 2025 13:46:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 870555.1281730; Mon, 13 Jan 2025 11:43:05 +0000
+Received: by outflank-mailman (output) from mailman id 870577.1281741; Mon, 13 Jan 2025 13:46:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXIqX-00040K-H4; Mon, 13 Jan 2025 11:43:05 +0000
-Received: by outflank-mailman (input) for mailman id 870555;
- Mon, 13 Jan 2025 11:43:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tXKm0-0002F6-Sp; Mon, 13 Jan 2025 13:46:32 +0000
+Received: by outflank-mailman (input) for mailman id 870577;
+ Mon, 13 Jan 2025 13:46:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+JSt=UF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tXIqV-00040E-JP
- for xen-devel@lists.xenproject.org; Mon, 13 Jan 2025 11:43:03 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8b6cf6df-d1a3-11ef-a0e1-8be0dac302b0;
- Mon, 13 Jan 2025 12:43:02 +0100 (CET)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-aaf3c3c104fso733103466b.1
- for <xen-devel@lists.xenproject.org>; Mon, 13 Jan 2025 03:43:02 -0800 (PST)
+ id 1tXKlz-0002F0-7l
+ for xen-devel@lists.xenproject.org; Mon, 13 Jan 2025 13:46:31 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ca5399b9-d1b4-11ef-99a4-01e77a169b0f;
+ Mon, 13 Jan 2025 14:46:29 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-aaedd529ba1so616048066b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 13 Jan 2025 05:46:29 -0800 (PST)
 Received: from [10.81.35.177] ([46.149.103.14])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d9903c3206sm5002490a12.46.2025.01.13.03.43.01
+ a640c23a62f3a-ab2c9060c00sm503595766b.41.2025.01.13.05.46.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 Jan 2025 03:43:01 -0800 (PST)
+ Mon, 13 Jan 2025 05:46:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b6cf6df-d1a3-11ef-a0e1-8be0dac302b0
+X-Inumbo-ID: ca5399b9-d1b4-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1736768582; x=1737373382; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1736775988; x=1737380788; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2t/ADShDozWFcdoWpKy1RENT8VgLl7MfOxeVbSDz4uE=;
-        b=FAkgC9MMBNAxuw2n6muw7fvghIARwjMZ/RoRuOH/GX/rWpeNURluiaLXWg4Q7FamsB
-         g5ph0jLfAUKzO//2Xf/z3c1/MIv9qtpBTHK+7AA+oHrLyndB8OQKXRZMjFjL6G/k+uhj
-         cH5zxIsdZ3ZmWjUCZOft0tZq7cLP5KCZidIAI=
+        bh=/y5rd0Puue2VupoayGh0HYUm9mRYlH6OktBkuFN9j2w=;
+        b=iuU7p0AqnrzVIuMduUDUeSKkQVHLdxx49eissvvjMkqfbNdio/g1U7yJDq/yvr4AdP
+         53CQ3+TMSLu4U0J+xdZXmVBs8R2o5Wmf4S/h1LzzX56xKSrAL4SLK7UHdzqx2sCnKc5l
+         OaXnwFTXZi9L14hPag53TvNWjtpUi6bkHN6FI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736768582; x=1737373382;
+        d=1e100.net; s=20230601; t=1736775988; x=1737380788;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2t/ADShDozWFcdoWpKy1RENT8VgLl7MfOxeVbSDz4uE=;
-        b=b5PGiK+LQDv8yNHyG3YvMN0L5hkc15I73DTqbVWhIfcyyJQR4EbTggGocOfMwdZbU2
-         XCP62UetbG92yoHUzzKDL3h/03uxvZlOScgW1q6RsuzkG0M6HId8efJ/GE4peHk+FKsi
-         row8eWR/N/JlS7pqZIWI+MHwXotHjS6ih+5QgqEXFm8lrJ4Sykxj0oqFX/t8gAVvWOB1
-         UPXa2xfJzEQco4EFe5aqpNQLTNvSU2tiJ5Xp6qNq0pQgbbqfIWnzyU+d88RJ+GvQksZn
-         ICD5K4bEtjGKVG8WiyZcxFu5wKv74hoxhNwnumcoI43TJ/TwLjammBkFbwxdz6IH7MiP
-         QPXQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUDMQhEQy2mwUCN2c+/nkyKydfEBoz8eHM/izf9Szgs+itS/0cBi3/MNIiIoNNlqv9odxDnT6coSDg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwGOLVfzWbDZm9b9jESgViiicBoxljsdppYk6Uk53ZLnntHBq4+
-	5hszmnaX6hYO8rz6T40nPlsf9N0/VgbJWsdV8XdTiEtIEP7krxkTs59mYcT1usY=
-X-Gm-Gg: ASbGnctPHE0DNFlfAfc+TaF6YjVnbcBZNm5YDeEj+wkPvCvbtetNAJyeFT6V6e7Wu7q
-	CHe0675LAm82o9qcwLJ2zmoXax+veF85pzePL2KmMXcVrc7u4a5oVsnTFBDnguSUXj30/WXAFlk
-	8NFAvZ/dagZ224FnBQbp3PNJzlPWFCA6YI9Uw7pnOvxGiC9wD0buM/aZFyOfTiCuGoCB1fQVh91
-	THw1tfeYykm5pLc2l9BKtWKXM3/FZm8to4lnJKMyjYeAglfEt9/DtbQCmrxp8Exvdk=
-X-Google-Smtp-Source: AGHT+IHTVieikwTqebzCBg4D7H7lOOad+0gFsSfTbe4g2KwvvsOyD/fKYatIv4XlOxZMDuucORGwpw==
-X-Received: by 2002:a17:907:1b1c:b0:aab:d8de:217e with SMTP id a640c23a62f3a-ab2ab5f95d0mr1899711066b.26.1736768581629;
-        Mon, 13 Jan 2025 03:43:01 -0800 (PST)
-Message-ID: <9787ca01-eaf9-4538-9b5a-5d4d1d58f4fc@citrix.com>
-Date: Mon, 13 Jan 2025 11:43:00 +0000
+        bh=/y5rd0Puue2VupoayGh0HYUm9mRYlH6OktBkuFN9j2w=;
+        b=oJUHON2wkY+5JhpyrKaBGOcUZg77lznjGnPcNmp8enbJB/jDG/QcLVvI/2U9otZatI
+         jO+FmOwuSvW3medoESumecPD7s1AY3enBzGXfIW7SRk7I0QpQt+imfZGSVRPJ3/PZ17t
+         NfU0agPgF1hU202UekJDLMVKp2TIhg/fNSAm+w6nHNUOYeo2gixQNSMcowMVLVJ+ngO3
+         RXNvBtPPylQrx2YJV/k95CeVXftGXN35O1L9IReOlPDl6Y9EIPjz4Nf91X+O33ji3d7L
+         hM8LmotauYkIR6P514KeppVHg4qZyRr0A5ynzdfvpiDO0++nOIeAI47dDo1qPo8IDbqU
+         4gIg==
+X-Forwarded-Encrypted: i=1; AJvYcCXFrwdndobLX5eVtPyhHu8UIjttc7g3dh9KUcfme0jh81WwgkvEMQZQiD4I3tuAqw3sP6TkXp/xN9k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx/v4AvE2YK5o7lSgYQDPZi2MhhWpWawB2JN9QkUfuU2wMyvYce
+	OYvVSpNlXBi7EG2VlG5ydmOLY6JZzOquoZiiKgC/e5IGF+jfs/CmT3ftORaQRVD00iJBZTxQkBr
+	V
+X-Gm-Gg: ASbGncvWVI0qIk0eA/iWMEOF9M9tzAY+knM7lX0wcSaY3Gnwc3njs2YhAHXncCSPXho
+	3u+uy2ovp+8qUwijBAEnn0LE5DfFTs1rV5pfMmu2IZO/exPmorO7sycjL4gUI7bzRWCfpUcqwQ2
+	oSyJ9aVgXNYdiwDl3MeKA2CYZTljzd3WAPR/p1+Kcrcza6Et/I40bMHgAVD8VaSsTGv7PCIuDX7
+	D8B3vDkYLEPK5DmLeL9HDZ+7YfFzQMjv6OcjB0tSCP+/kx8SbfktzBTm/i5EbAaM5c=
+X-Google-Smtp-Source: AGHT+IHcn/gZ+61WcMlBT8a9x8xBfwbaJBfza/5ugV/kSkENJRXIKSBEB6+vI++lx8hLWNsN6SC2pg==
+X-Received: by 2002:a05:6402:354a:b0:5d2:7396:b0ed with SMTP id 4fb4d7f45d1cf-5d972e0e3abmr45025233a12.14.1736775988514;
+        Mon, 13 Jan 2025 05:46:28 -0800 (PST)
+Message-ID: <e7cea505-a54e-4094-8335-31b426c485e9@citrix.com>
+Date: Mon, 13 Jan 2025 13:46:27 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 1/1] docs/Makefile: Add ppc and riscv to DOC_ARCHES
+Subject: Re: [XEN PATCH 2/5] docs: set DATE to SOURCE_DATE_EPOCH if available
 To: Maximilian Engelhardt <maxi@daemonizer.de>, xen-devel@lists.xenproject.org
 Cc: Anthony PERARD <anthony.perard@vates.tech>
-References: <cover.1736542505.git.maxi@daemonizer.de>
- <b1d5c6fca18b93e402d229d22763621719964ea7.1736542505.git.maxi@daemonizer.de>
+References: <cover.1735585600.git.maxi@daemonizer.de>
+ <25f9fabf-1239-4465-92c9-484fc24fc4f7@citrix.com>
+ <2637960.Lt9SDvczpP@localhost> <23136765.EfDdHjke4D@localhost>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -132,25 +134,100 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <b1d5c6fca18b93e402d229d22763621719964ea7.1736542505.git.maxi@daemonizer.de>
+In-Reply-To: <23136765.EfDdHjke4D@localhost>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/01/2025 9:19 pm, Maximilian Engelhardt wrote:
-> Not having ppc and riscv included in DOC_ARCHES causes "multiple
-> definitions of ..." message on documentation build, similar to the
-> example shown below:
+On 01/01/2025 7:03 pm, Maximilian Engelhardt wrote:
+> On Montag, 30. Dezember 2024 23:28:42 CET Maximilian Engelhardt wrote:
+>> On Montag, 30. Dezember 2024 22:38:24 CET Andrew Cooper wrote:
+>>> On 30/12/2024 9:00 pm, Maximilian Engelhardt wrote:
+>>>> Use the solution described in [1] to replace the call to the 'date'
+>>>> command with a version that uses SOURCE_DATE_EPOCH if available. This
+>>>> is needed for reproducible builds.
+>>>>
+>>>> The -d "@..." syntax was introduced in GNU date about 2005 (but only
+>>>> added to the docuemntation in 2011), so I assume a version supporting
+>>>> this syntax is available, if SOURCE_DATE_EPOCH is defined. If
+>>>> SOURCE_DATE_EPOCH is not defined, nothing changes with respect to the
+>>>> current behavior.
+>>>>
+>>>> [1] https://reproducible-builds.org/docs/source-date-epoch/
+>>>>
+>>>> Signed-off-by: Maximilian Engelhardt <maxi@daemonizer.de>
+>>>> ---
+>>>>
+>>>>  docs/Makefile | 8 +++++++-
+>>>>  1 file changed, 7 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/docs/Makefile b/docs/Makefile
+>>>> index b30cc619f8..beba02a94f 100644
+>>>> --- a/docs/Makefile
+>>>> +++ b/docs/Makefile
+>>>> @@ -3,7 +3,13 @@ include $(XEN_ROOT)/Config.mk
+>>>>
+>>>>  -include $(XEN_ROOT)/config/Docs.mk
+>>>>  
+>>>>  VERSION		:= $(shell $(MAKE) -C $(XEN_ROOT)/xen --no-print-
+> directory
+>>>>  xenversion)>
+>>>>
+>>>> -DATE		:= $(shell date +%Y-%m-%d)
+>>>> +
+>>>> +DATE_FMT	:= +%Y-%m-%d
+>>>> +ifdef SOURCE_DATE_EPOCH
+>>>> +DATE		:= $(shell date -u -d "@$(SOURCE_DATE_EPOCH)" "$(DATE_FMT)"
+>>>> 2>/dev/null || date -u -r "$(SOURCE_DATE_EPOCH)" "$(DATE_FMT)"
+>>>> 2>/dev/null || date -u "$(DATE_FMT)") +else
+>>>> +DATE		:= $(shell date "$(DATE_FMT)")
+>>>> +endif
+>>>>
+>>>>  DOC_ARCHES      := arm x86_32 x86_64
+>>>>  MAN_SECTIONS    := 1 5 7 8
+>>> While this looks fine for docs, there's another (identical) use of date
+>>> in tools/firmware/hvmloader/Makefile, as well as some differing uses to
+>>> construct XEN_BUILD_{DATE,TIME}.  INSTALL talks about VGABIOS_REL_DATE
+>>> too.
+>>>
+>>> Does something like this work for you?  It seems to DTRT for SMBIOS.  It
+>>> needs adapting a bit more for vgabios and Xen, but I think having one
+>>> common $(date) is going to be better than ad-hoc ones over the tree.
+>>>
+>>> ~Andrew
+>> Hi Andrew,
+>>
+>> Thanks for your quick reply. Your patch looks fine to me. You can add my
+>> Tested-by.
+>>
+>> We currently use "export XEN_BUILD_{DATE,TIME}=...", "export
+>> SMBIOS_REL_DATE=..." and "export VGABIOS_REL_DATE=..." for building xen in
+>> Debian, so we did not run into reproducibility problems with these. But
+>> having them combined to all use SOURCE_DATE_EPOCH if available sounds like
+>> a good idea and would also benefit other downstream users.
+>>
+>> Maxi
+> Hi Andrew,
 >
-> include/public/arch-ppc.h:91: multiple definitions of Typedef
-> vcpu_guest_core_regs_t: include/public/arch-arm.h:300
-> include/public/arch-ppc.h:91: multiple definitions of Typedef
-> vcpu_guest_core_regs_t: include/public/arch-ppc.h:85
+> I extended your patch to also cover the other uses of date. Please check if 
+> this look reasonable as I'm not an expert in makefiles. It seems to DTRT in 
+> the cases I tested.
 >
-> It can also make the generated html documentation link to the header
-> files of another architecture. This is additionally a problem as it can
-> randomly make the documentation build non-reproducible.
+> What I changed compared to your patch:
 >
-> Signed-off-by: Maximilian Engelhardt <maxi@daemonizer.de>
+> * Add LC_ALL=C to all date commands. This was also missing in my original 
+> patch, but I think it's a good thing to do and XEN_BUILD_{DATE,TIME} already 
+> do it.
+>
+> * Change the quoting to allow calling the date command without any additional 
+> (formatting) arguments.
+>
+> * Add an include of Config.mk to tools/firmware/vgabios/Makefile and moved the 
+> definition of XEN_BUILD_{DATE,TIME} further down in xen/Makefile to have the 
+> newly defined date wrapper available.
+>
+> Does this look reasonable or are there parts that should be done differently?
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+That looks good to me.
+
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
