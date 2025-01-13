@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75F82A0B45E
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Jan 2025 11:19:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.870512.1281691 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC84AA0B481
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Jan 2025 11:26:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.870521.1281701 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXHXB-0006nt-UF; Mon, 13 Jan 2025 10:19:01 +0000
+	id 1tXHdy-0000GL-Jx; Mon, 13 Jan 2025 10:26:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 870512.1281691; Mon, 13 Jan 2025 10:19:01 +0000
+Received: by outflank-mailman (output) from mailman id 870521.1281701; Mon, 13 Jan 2025 10:26:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXHXB-0006m4-RZ; Mon, 13 Jan 2025 10:19:01 +0000
-Received: by outflank-mailman (input) for mailman id 870512;
- Mon, 13 Jan 2025 10:19:00 +0000
+	id 1tXHdy-0000Eq-Gr; Mon, 13 Jan 2025 10:26:02 +0000
+Received: by outflank-mailman (input) for mailman id 870521;
+ Mon, 13 Jan 2025 10:26:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=3HK6=UF=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tXHXA-0006ly-CE
- for xen-devel@lists.xenproject.org; Mon, 13 Jan 2025 10:19:00 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
+ id 1tXHdx-0000Ek-5y
+ for xen-devel@lists.xenproject.org; Mon, 13 Jan 2025 10:26:01 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cdb0161d-d197-11ef-a0e1-8be0dac302b0;
- Mon, 13 Jan 2025 11:18:59 +0100 (CET)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-aa6c0d1833eso72636766b.1
- for <xen-devel@lists.xenproject.org>; Mon, 13 Jan 2025 02:18:59 -0800 (PST)
+ id c88e82fb-d198-11ef-a0e1-8be0dac302b0;
+ Mon, 13 Jan 2025 11:26:00 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5d932eac638so7865401a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 13 Jan 2025 02:26:00 -0800 (PST)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab2c95b1207sm480261466b.153.2025.01.13.02.18.58
+ 4fb4d7f45d1cf-5d99046a05asm4788651a12.67.2025.01.13.02.25.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jan 2025 02:18:58 -0800 (PST)
+ Mon, 13 Jan 2025 02:25:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,91 +44,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cdb0161d-d197-11ef-a0e1-8be0dac302b0
+X-Inumbo-ID: c88e82fb-d198-11ef-a0e1-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1736763539; x=1737368339; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1736763960; x=1737368760; darn=lists.xenproject.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=VrEW9RapkLUvbhwp5lZsmgCTaBubEpv7gR1Du+cFUKw=;
-        b=sB1ORh4ISCaXBEepfxjzPLe3xpftzZr0ch/Gqbu0YN9z3LJjsDYfcM3rgriAtJZNJX
-         2kgsCDMxCcIVlzuW32APHKIZ2jRp64XfrHvN2yFmZ6MJniJYGYlGkOPQv5f1b8irz8LY
-         nYJrucsfvrYaF3ps2Rl4AQtrNMph6Ja1V6g64=
+        bh=925HmCk6HSMWdjeEYYDzVrquNKNAs9H/T8Q5GhNYCxE=;
+        b=QO8epKrDtZt3c8MMU06kGXmAlNnuM8cDUBFk0Yny4lMxcaW0xbQdsKYx/5PhfQ5D4G
+         23wI2Ac0wUf0qQqX7/go5DFjGSjYLww/keHmTjSWEtGPSQILXN0/PjbUdCL+Non2nEqg
+         Eynt9U0EvCALSyHzwxEXMjZ/QLv9GOyldrgLA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736763539; x=1737368339;
+        d=1e100.net; s=20230601; t=1736763960; x=1737368760;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VrEW9RapkLUvbhwp5lZsmgCTaBubEpv7gR1Du+cFUKw=;
-        b=g/dRVZxlZqAjxJcHZuLjECiUbK1MKRsIBj9H+v3wbpLlBqzKphFEDVbo6pKbJHhNP9
-         AXc8x5/tPqUyKJbKxkPyeqlU+8ucQ6DC3XTFoMkUd8jCFEYEnvzK68BqMwEW5kax6VSN
-         H4mQUmilfE6fqhkFAPVGDiMYKV2kF+oJ/zC1sPjIhLpKewGoxHofuVWoCNKhWI8XQS67
-         1h29e5M+fIMJWPgFXds1x5wjOqd/Voy9DcECpEp9U+eITvow5ykQO7RxMV0cgFljYC4C
-         mWhOUeUBUbMemUKVawzbzE6i0UOX8t/ZoPa2LYkz89Z8KZ5sC5yasb0VcEW3BEWibBtX
-         4eDQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVsP1MklgwKwP1FBpABpdVNB7EyftJieQJn/PfF584QD2Lf1jnKfNk1SJzGRZLKuWjhMpskS1cZcfI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxFTDjSJn0UbngCF/hRnKhQnK+u452yV0vfcFbevytFWA5w33IY
-	hlwjFNeGNNSkTT9IoRxsHctFJZlCfgi8IeXbQXbnKdzMAlY0fyAGJHBapasp1N0=
-X-Gm-Gg: ASbGncsMstmXz3jo/Tf/8mSzFsOnQX5FGUnTRqpQKEt5LU9Aw0mVut/h65125ipRTvM
-	JP9pjxPFN4N4XOTyLkNGG8aBfZ5enIk2X45TD4PQT8tiTzbDej3bZalAEC/J9p2Nn7w0cjl/whL
-	INHdU+/xdLe+UC6WHt1sIIxk1j8v+RWVigIvUtuUDNtfbrnYivGgCP3HECd/U3MdUpU2eVrDg8V
-	GLjyju4xiuUyabpN7nH1YlWc3LTEvoLMdRhB9AuKQ8b3WhW3L5QEVKHEv1Tjw==
-X-Google-Smtp-Source: AGHT+IFj27FBVfZTJ7AzO9lrawoAO53MNm4jmh4KeKFNibSqpwXUBrNBlB8upGMQuZot38gb5qnfxw==
-X-Received: by 2002:a17:907:2d94:b0:aa6:66eb:9c06 with SMTP id a640c23a62f3a-ab2ab6a8e01mr1928797466b.5.1736763538798;
-        Mon, 13 Jan 2025 02:18:58 -0800 (PST)
-Date: Mon, 13 Jan 2025 11:18:57 +0100
+        bh=925HmCk6HSMWdjeEYYDzVrquNKNAs9H/T8Q5GhNYCxE=;
+        b=BgMiKXMSh8HifK5ssPjRQV3kT2kZZV5vOaOk+sBAZFaJhl+RpvlmhjvW+w2wUKcXZs
+         qktDXMGJA4IaoYclAMlsZXc6txV71Ai4kfaxFogbSQCnd75UJaU1vV4AvbGpbsawC8g3
+         eSPB53Z72enqrmx9w9QsQ9IJs+KiWCvQ66vjCddvI0uQ13BYyFuNvBZa3OF+KQnSU2+I
+         0Y2QeTEcWryi/nUBxyqRrGt0yyLqMvFa7M53vQOOEnr2rWyLLaOSZr6iefoyygQ2ycmO
+         BpqsmtADq0JkgCab0vGVJkq2kNiuoP+p1V9xFyhMIhHMSs8G2IEoHwWmD4ZvW1zTMtVN
+         uU8g==
+X-Forwarded-Encrypted: i=1; AJvYcCUSLHH74YMCSaGqEvV+46XfDcNvmt2pfKttW5lK+dbkpNShoNCiq0TAIFuiwcKd/I80p3ngapXvmLc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzExH/e3GLORF2wa6FQ3a0+hV76mjMUZGpJt+IpdB8l538JnhLA
+	5tDjUCLc2TKaZZdZMKL7z6NBs9o4hEf7l3iDWaefNzOS5oZuT67tJEru0xrWxDw=
+X-Gm-Gg: ASbGncsJ81JsS0OPGZ5jiQGYZn+41Eb0DMLt4izxkyULaXnSJi8ry3z2y/Te/tjjDBT
+	UXib7MrT+za1q+e1rkuqPxxGnFl6o0h/r49UcaqZ2NIX2a2IFFSTr0wfcybBe3Kh69zV6SynhWM
+	2gwMrZ/Ro/hp01dxvL5Srftlwb+qY+AbcSDBig7I+mP43z+JiNof9iZjq0uNLSp9ECIDkQhp5Uo
+	gaupYBjuXunBvwBQ2wJjTjCz4l8ecVK7Xt3Xi3/J98taU56aAtQGuK67AyXRg==
+X-Google-Smtp-Source: AGHT+IFqQfQXn4x8tYwm9aCoWhJeQj7jQKe/nY36w28hVZGBm5avVQz2Sjl6V/fPorhg+0bEmX3Ptg==
+X-Received: by 2002:a05:6402:5006:b0:5d0:e3fa:17ca with SMTP id 4fb4d7f45d1cf-5d972e17902mr18117568a12.15.1736763959654;
+        Mon, 13 Jan 2025 02:25:59 -0800 (PST)
+Date: Mon, 13 Jan 2025 11:25:58 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Bjorn Helgaas <helgaas@kernel.org>
 Cc: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: Re: [PATCH 1/3] xen/pci: do not register devices outside of PCI
- segment scope
-Message-ID: <Z4TokbA1s3OyNdjt@macbook.local>
-References: <20250110140152.27624-2-roger.pau@citrix.com>
- <20250110222129.GA317771@bhelgaas>
+	linux-pci@vger.kernel.org, Juergen Gross <jgross@suse.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>
+Subject: Re: [PATCH 3/3] pci/msi: remove pci_msi_ignore_mask
+Message-ID: <Z4TqNn_RSwGX1TQn@macbook.local>
+References: <20250110140152.27624-4-roger.pau@citrix.com>
+ <20250110223057.GA318711@bhelgaas>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20250110222129.GA317771@bhelgaas>
+In-Reply-To: <20250110223057.GA318711@bhelgaas>
 
-On Fri, Jan 10, 2025 at 04:21:29PM -0600, Bjorn Helgaas wrote:
-> On Fri, Jan 10, 2025 at 03:01:48PM +0100, Roger Pau Monne wrote:
-> > The PCI segment value is limited to 16 bits, however there are buses like VMD
-> > that fake being part of the PCI topology by adding segment with a number
-> > outside the scope of the PCI firmware specification range (>= 0x10000). The
-> > MCFG ACPI Table "PCI Segment Group Number" field is defined as having a 16 bit
-> > width.
-> >
-> > Attempting to register or manage those devices with Xen would result in errors
-> > at best, or overlaps with existing devices living on the truncated equivalent
-> > segment values.
+On Fri, Jan 10, 2025 at 04:30:57PM -0600, Bjorn Helgaas wrote:
+> Match subject line style again.
 > 
-> The ACPI _SEG method (ACPI r6.5, sec 6.5.6) and the corresponding
-> value in the MCFG table (PCI Firmware r3.3, sec 4.1.2) are clearly
-> 16-bit values.
+> On Fri, Jan 10, 2025 at 03:01:50PM +0100, Roger Pau Monne wrote:
+> > Setting pci_msi_ignore_mask inhibits the toggling of the mask bit for both MSI
+> > and MSI-X entries globally, regardless of the IRQ chip they are using.  Only
+> > Xen sets the pci_msi_ignore_mask when routing physical interrupts over event
+> > channels, to prevent PCI code from attempting to toggle the maskbit, as it's
+> > Xen that controls the bit.
+> > 
+> > However, the pci_msi_ignore_mask being global will affect devices that use MSI
+> > interrupts but are not routing those interrupts over event channels (not using
+> > the Xen pIRQ chip).  One example is devices behind a VMD PCI bridge.  In that
+> > scenario the VMD bridge configures MSI(-X) using the normal IRQ chip (the pIRQ
+> > one in the Xen case), and devices behind the bridge configure the MSI entries
+> > using indexes into the VMD bridge MSI table.  The VMD bridge then demultiplexes
+> > such interrupts and delivers to the destination device(s).  Having
+> > pci_msi_ignore_mask set in that scenario prevents (un)masking of MSI entries
+> > for devices behind the VMD bridge.
+> > 
+> > Move the signaling of no entry masking into the MSI domain flags, as that
+> > allows setting it on a per-domain basis.  Set it for the Xen MSI domain that
+> > uses the pIRQ chip, while leaving it unset for the rest of the cases.
+> > 
+> > Remove pci_msi_ignore_mask at once, since it was only used by Xen code, and
+> > with Xen dropping usage the variable is unneeded.
+> > 
+> > This fixes using devices behind a VMD bridge on Xen PV hardware domains.
 > 
-> But otherwise, the segment value is pretty much an arbitrary software
-> value, and the kernel works fine with the larger domain values from
-> vmd_find_free_domain(), so this isn't quite enough to explain what the
-> issue with Xen is.
+> Wrap to fit in 75 columns.
 > 
-> Does Xen truncate the domain to 16 bits or use it to look up something
-> in ACPI?
+> The first two patches talk about devices behind VMD not being usable
+> for Xen, but this one says they now work.
 
-In the interface between Xen and Linux the segment field is 16 bit
-width, so with the current interface is not possible to reference
-devices that are past the 0xffff segment.
+Sorry, let me try to clarify:
 
-I also wonder whether Xen and Linux (or guest OSes in general) would
-agree on how to reference such devices.  AFAICT VMD segment numbers
-are purely a software construct, but not something enforced by the
-specification.  Could for example FreeBSD assign a different segment
-to VMD devices?
+Devices behind a VMD bridge are not known to Xen, however that doesn't
+mean Linux cannot use them.  That's what this series achieves.  By
+inhibiting the usage of VMD_FEAT_CAN_BYPASS_MSI_REMAP and the removal
+of the pci_msi_ignore_mask bodge devices behind a VMD bridge do work
+fine when use from a Linux Xen hardware domain.  That's the whole
+point of the series.
 
-If so we would need some kind of specification about how VMD segment
-values are assigned so that OSes have a coherent way of referencing
-VMD devices without ambiguity.
+> But this doesn't undo the
+> code changes or comments added by the first two, so the result is a
+> bit confusing (probably because I know nothing about Xen).
+
+All patches are needed.  There's probably some confusion about devices
+behind a VMD bridge not being known by Xen vs not being usable by
+Linux running under Xen as a hardware domain.
+
+With all three patches applied devices behind a VMD bridge work under
+Linux with Xen.
 
 Thanks, Roger.
 
