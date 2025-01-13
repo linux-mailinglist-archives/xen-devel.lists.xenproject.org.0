@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B418FA0BF4B
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Jan 2025 18:53:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.870821.1281895 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB238A0C058
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Jan 2025 19:43:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.870835.1281904 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXOcV-0007lk-Iz; Mon, 13 Jan 2025 17:52:59 +0000
+	id 1tXPOk-0006qi-6Z; Mon, 13 Jan 2025 18:42:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 870821.1281895; Mon, 13 Jan 2025 17:52:59 +0000
+Received: by outflank-mailman (output) from mailman id 870835.1281904; Mon, 13 Jan 2025 18:42:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXOcV-0007k4-GF; Mon, 13 Jan 2025 17:52:59 +0000
-Received: by outflank-mailman (input) for mailman id 870821;
- Mon, 13 Jan 2025 17:52:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tXPOk-0006p5-3L; Mon, 13 Jan 2025 18:42:50 +0000
+Received: by outflank-mailman (input) for mailman id 870835;
+ Mon, 13 Jan 2025 18:42:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3HK6=UF=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tXOcU-0007jy-Dm
- for xen-devel@lists.xenproject.org; Mon, 13 Jan 2025 17:52:58 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3840d789-d1d7-11ef-99a4-01e77a169b0f;
- Mon, 13 Jan 2025 18:52:56 +0100 (CET)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5d7e527becaso7592931a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 13 Jan 2025 09:52:56 -0800 (PST)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d9904a411csm5170354a12.72.2025.01.13.09.52.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jan 2025 09:52:51 -0800 (PST)
+ <SRS0=van2=UF=bounce.vates.tech=bounce-md_30504962.67855ea4.v1-90261c6b92024aab9ae729686576b553@srs-se1.protection.inumbo.net>)
+ id 1tXPOi-0006oz-Kq
+ for xen-devel@lists.xenproject.org; Mon, 13 Jan 2025 18:42:48 +0000
+Received: from mail178-22.suw51.mandrillapp.com
+ (mail178-22.suw51.mandrillapp.com [198.2.178.22])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2dc106be-d1de-11ef-a0e1-8be0dac302b0;
+ Mon, 13 Jan 2025 19:42:46 +0100 (CET)
+Received: from pmta13.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail178-22.suw51.mandrillapp.com (Mailchimp) with ESMTP id
+ 4YX1N45FqpzGlsp1y
+ for <xen-devel@lists.xenproject.org>; Mon, 13 Jan 2025 18:42:44 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 90261c6b92024aab9ae729686576b553; Mon, 13 Jan 2025 18:42:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,80 +43,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3840d789-d1d7-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1736790776; x=1737395576; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=KWILQ3PPbyXMIG8wb7+GZY3ItNUYUX85+QnBIKw7Ryk=;
-        b=vNHtgSo3qiCSD9O+76gi7RNaoEE6/aLv4Anm1/+hC6XVOneSFHtVhYDklmro5peWwl
-         YvE3P83YQ2ZxGPG2cwZQ2b/rv52vRWsfz07g84MHWsezkK5az4UBUef9DYOxduvggYlB
-         h56/PXEwKLZVcBDk9D71MpLY2DizjfXHhFZ1k=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736790776; x=1737395576;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=KWILQ3PPbyXMIG8wb7+GZY3ItNUYUX85+QnBIKw7Ryk=;
-        b=s7qJSEBxroFYsqzRyI8vCUAs2p981IIibndBcRhW5hdIZlXqqcHzDo+PMks4Ori4lZ
-         6txWXgfYkzcOAWHZwJpHIZlEYza28bSx4S2r4dHGfre/vOdMT5Ok3ZzcYp+fRhOjBWuZ
-         +G7NpSK5EGIAjoTF21QEtsys4buKQIO7LRLeF4L8wbqRJ4wkikSoIupo+FU1DMsPucpm
-         ZAZ0lReVIboAmSEm7VWhk604wPdTjLm08qOr/8SzjSyu04Y5lTvxWtn3/pUmo+dbspsF
-         F6hlSxTB6FRfw3USoWXGzUdLaRH+P6Xm5dcJVyHkVgDBPkVv3bzsrsGUn7lzmQkICDpM
-         EWrA==
-X-Gm-Message-State: AOJu0YxF1gYyUL/9E9WQSYFYcBFY4fIumFdQxrWIIQR/OB8BNQO54LqM
-	CwuFz2wpYyQQZR3yitaeCeNsXUHbqtLA1mWjlm9S5J3+nAEr4rL9H2ISk+wA6vi45IMRKvVrRjt
-	v
-X-Gm-Gg: ASbGncvUtQsBDvVXyQsfejd/ADR5fCKBpCRJQ0zijE763u4WOTeGMq5kzLHgqOsIciU
-	DMr4r0p7+f+1u1vc4zEGQ0IBKiuAEmANL1GtBTHSnlw3YScMHiLBFs/DYt0TPeWbK+PTGPt08oL
-	MDWdXDaCVaziPLDtMNccxRBQ7IETwIftGdRk1N7TSE+/nIBq8no7GGfI8PtQU8q8YTqe0olflSH
-	4zxibkdN3GX3YwWx2DrX0QQu1uz3DgtwGPPFyoTGhkp9fzwTV/KKTY+Tcbahw==
-X-Google-Smtp-Source: AGHT+IGIXGgV6jRY+pFOx/xUR9nXrfE6XAM5tV6xrL3yUzmJSHVt5euk/9PhZORjzIJOuVir4w3Rcg==
-X-Received: by 2002:a05:6402:26cf:b0:5d4:55e:f99e with SMTP id 4fb4d7f45d1cf-5d972e1d7dfmr53660568a12.18.1736790772567;
-        Mon, 13 Jan 2025 09:52:52 -0800 (PST)
-Date: Mon, 13 Jan 2025 18:52:51 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: xen-devel@lists.xenproject.org,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v7 1/2] x86/time: introduce command line option to select
- wallclock
-Message-ID: <Z4VS88REbzn5uasy@macbook.local>
-References: <20240913075907.34460-1-roger.pau@citrix.com>
- <20240913075907.34460-2-roger.pau@citrix.com>
- <Z4U6WxtmaqGkqOqe@mail-itl>
+X-Inumbo-ID: 2dc106be-d1de-11ef-a0e1-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1736793764; x=1737054264;
+	bh=wg+x7oaTzShFDXw6vWNN7FZ7vOdFvBqAnQZMBsAgMMc=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=WbmG/egTqkRPEeiavbuDYgKp2RTQQBAvZt9xS3hP3dXQVacRO8LVNCzYwjeC37WjV
+	 ryQnFlfKe2UM9rrz2e8lGsTFAQyZ2yfFgyUcuWs+raY9ERp6o2PWavtEJ2CPu/lclT
+	 X8NRFnFbmCVm+LsZ3Z0kFAO01uX0DISnE/JBAur7pm/kL4+prPxsWnIuQFACZbFRwf
+	 M6THGHfxbpZhWQmBgxUGFFIA9NDCncnuF83sSH3yDI3gzsz7bsh2OFJ4rjLQGedqfk
+	 YqPCxokQ7c9Rwr1vq316a3/8bWDVQcWbpeVzojgdJtoEFuuUPTd5QmJiam+ukvNq5i
+	 Y19PQb+i055ew==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1736793764; x=1737054264; i=teddy.astie@vates.tech;
+	bh=wg+x7oaTzShFDXw6vWNN7FZ7vOdFvBqAnQZMBsAgMMc=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=X2ZP00huqKE4HYHIQErcoTn1XH0/lD8de53+0JJ5T827vkYF4NWRk3+Xspd2kZepG
+	 yUHIQDAUGnZHREbwq70zo45i6MKxVQSvuzBJNoISFYC49J0VHAaS2MF9Ec1oEYxAEx
+	 CeWwBiY5IxW1G/chciQDGR2TJSNY1iUlOiYGwaaXIgXo7TYOFvqjP9oPglUiC8EK6M
+	 eb5sjIW3fBpQHbv6Q77LYz31qEcOwTGS6xB7AxMxMs1isD8ma+niAyy92Y8zEkwCBE
+	 8Y7f6KTIv/2+r4cmTzclE+rf9ypF/YpKnx6PcDA68Sx+OAdGLV0psANg71ymEsFmVP
+	 uXFq+ykEY2mfQ==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?[XEN=20PATCH]=20intel/msr:=20Fix=20handling=20of=20MSR=5FRAPL=5FPOWER=5FUNIT?=
+X-Mailer: git-send-email 2.45.2
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1736793763637
+To: xen-devel@lists.xenproject.org
+Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
+Message-Id: <0ac778dbcc7ab383447abe672225ff77b0d4802e.1736793323.git.teddy.astie@vates.tech>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.90261c6b92024aab9ae729686576b553?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250113:md
+Date: Mon, 13 Jan 2025 18:42:44 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <Z4U6WxtmaqGkqOqe@mail-itl>
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jan 13, 2025 at 05:07:55PM +0100, Marek Marczykowski-Górecki wrote:
-> On Fri, Sep 13, 2024 at 09:59:06AM +0200, Roger Pau Monne wrote:
-> > Allow setting the used wallclock from the command line.  When the option is set
-> > to a value different than `auto` the probing is bypassed and the selected
-> > implementation is used (as long as it's available).
-> > 
-> > The `xen` and `efi` options require being booted as a Xen guest (with Xen guest
-> > supported built-in) or from UEFI firmware respectively.
-> > 
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> Reviewed-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Solaris 11.4 tries to access this MSR on some Intel platforms without properly
+setting up a proper #GP handler, which leads to a immediate crash.
 
-Thanks for the review.
+Emulate the access of this MSR by giving it a legal value (all values set to
+default, as defined by Intel SDM "RAPL Interfaces").
 
-Oleksii, can I get your opinion as Release Manager about whether this
-(and the following patch) would be suitable for committing to staging
-given the current release state?
+Fixes: 84e848fd7a1 ('x86/hvm: disallow access to unknown MSRs')
+Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+---
+Does it have a risk of negatively affecting other operating systems expecting
+this MSR read to fail ?
+---
+ xen/arch/x86/include/asm/msr-index.h |  2 ++
+ xen/arch/x86/msr.c                   | 16 ++++++++++++++++
+ 2 files changed, 18 insertions(+)
 
-It's a workaround for broken EFI implementations that many downstreams
-carry on their patch queue.
+diff --git a/xen/arch/x86/include/asm/msr-index.h b/xen/arch/x86/include/asm/msr-index.h
+index 9cdb5b2625..2adcdf344f 100644
+--- a/xen/arch/x86/include/asm/msr-index.h
++++ b/xen/arch/x86/include/asm/msr-index.h
+@@ -144,6 +144,8 @@
+ #define MSR_RTIT_ADDR_A(n)                 (0x00000580 + (n) * 2)
+ #define MSR_RTIT_ADDR_B(n)                 (0x00000581 + (n) * 2)
+ 
++#define MSR_RAPL_POWER_UNIT                 0x00000606
++
+ #define MSR_U_CET                           0x000006a0
+ #define MSR_S_CET                           0x000006a2
+ #define  CET_SHSTK_EN                       (_AC(1, ULL) <<  0)
+diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
+index 289cf10b78..b14d42dacf 100644
+--- a/xen/arch/x86/msr.c
++++ b/xen/arch/x86/msr.c
+@@ -169,6 +169,22 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
+         if ( likely(!is_cpufreq_controller(d)) || rdmsr_safe(msr, *val) == 0 )
+             break;
+         goto gp_fault;
++    
++        /*
++         * Solaris 11.4 DomU tries to use read this MSR without setting up a
++         * proper #GP handler leading to a crash. Emulate this MSR by giving a
++         * legal value.
++         */
++    case MSR_RAPL_POWER_UNIT:
++        if ( !(cp->x86_vendor & (X86_VENDOR_INTEL | X86_VENDOR_CENTAUR)) )
++            goto gp_fault;
++
++        /*
++         * Return a legal register content with all default values defined in
++         * Intel Architecture Software Developer Manual 16.10.1 RAPL Interfaces
++         */
++        *val = 0x0000A1003;
++        break;
+ 
+     case MSR_IA32_THERM_STATUS:
+         if ( cp->x86_vendor != X86_VENDOR_INTEL )
+-- 
+2.45.2
 
-Thanks, Roger.
+
+
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
