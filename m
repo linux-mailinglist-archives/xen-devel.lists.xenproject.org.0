@@ -2,39 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A42EA0B102
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Jan 2025 09:26:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.870468.1281651 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06B62A0B3FC
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Jan 2025 11:05:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.870480.1281660 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXFl6-0007iQ-Gw; Mon, 13 Jan 2025 08:25:16 +0000
+	id 1tXHIj-0003ps-91; Mon, 13 Jan 2025 10:04:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 870468.1281651; Mon, 13 Jan 2025 08:25:16 +0000
+Received: by outflank-mailman (output) from mailman id 870480.1281660; Mon, 13 Jan 2025 10:04:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXFl6-0007gp-DQ; Mon, 13 Jan 2025 08:25:16 +0000
-Received: by outflank-mailman (input) for mailman id 870468;
- Mon, 13 Jan 2025 08:25:15 +0000
+	id 1tXHIj-0003nH-5S; Mon, 13 Jan 2025 10:04:05 +0000
+Received: by outflank-mailman (input) for mailman id 870480;
+ Mon, 13 Jan 2025 10:04:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6oLm=UF=linaro.org=dmitry.baryshkov@srs-se1.protection.inumbo.net>)
- id 1tXFl4-0007gh-R6
- for xen-devel@lists.xenproject.org; Mon, 13 Jan 2025 08:25:15 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
+ <SRS0=3HK6=UF=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tXHIh-0003nB-Dg
+ for xen-devel@lists.xenproject.org; Mon, 13 Jan 2025 10:04:03 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e8fc0850-d187-11ef-a0e1-8be0dac302b0;
- Mon, 13 Jan 2025 09:25:13 +0100 (CET)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-5401bd6cdb4so3753548e87.2
- for <xen-devel@lists.xenproject.org>; Mon, 13 Jan 2025 00:25:13 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5428bec0659sm1286326e87.185.2025.01.13.00.25.11
+ id b6b4a684-d195-11ef-a0e1-8be0dac302b0;
+ Mon, 13 Jan 2025 11:04:01 +0100 (CET)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-5d7e3f1fc01so8263774a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 13 Jan 2025 02:04:01 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab2c90d9b19sm474988566b.73.2025.01.13.02.03.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jan 2025 00:25:11 -0800 (PST)
+ Mon, 13 Jan 2025 02:03:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,89 +44,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e8fc0850-d187-11ef-a0e1-8be0dac302b0
+X-Inumbo-ID: b6b4a684-d195-11ef-a0e1-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1736756713; x=1737361513; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=HsOOejTFjVwFwvDCfWyTG69OVT7YoO10LJVJy5N++GA=;
-        b=iagtDUSXNw1Q7e1mnXCIJzDIMunFrPSvMkEP4W6KHvqDDCQJs2KcU7D6TcJFsLR6jR
-         NeucQIKHJfg+GnJQ4PjbVhEqtmatP7Pk1NAszmc/L0eLRl/sqpckUkohOr8Amo4uvzNw
-         NxswZYBVtu433/tMJILhVh0Qe55+p83wK6jZTt8A0OS1Kxu0xIXkumHL53We2nGDSqYQ
-         jMLUpjwnoUKkzlVNYIN2bf6gRAY8beD0XQ8lhBBBxz9m+bybCbI/5SSWrv2cH7g7YAkg
-         JgoOi+5iT8UacMcA+yPGdNNNsyudFnmmoFmpavFh46X+NFswY7eRFny2I+ezQm6v1Vz+
-         Kg/g==
+        d=citrix.com; s=google; t=1736762641; x=1737367441; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=NAozgVCwe5MTkDq2tRs81RaOUpNYbkuEcwNQ118VObQ=;
+        b=BgfHzj7HyluC0vOZGvybgOYkvYCvvWYhX5rFlkzSq/P0QmMDjFm22DnPfIC2keJb57
+         Z3WvBSAPj2tNDMk33PxFaIUaR8xjOYuR179UWL1+oCVSwyebwQiKf7ktghSlpgQjvTMY
+         rCewtd27S6eKqVefRi57wU09PUqKoD3paQT3k=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736756713; x=1737361513;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HsOOejTFjVwFwvDCfWyTG69OVT7YoO10LJVJy5N++GA=;
-        b=WX7FLrLu0006ZeU8oF6GdrDWq0K5kk1IgoPoGoxcVA4tSk2O2Jmpcms//XhAm891jC
-         1a3Yw93htgBImsSSFOdkxgVaSwA/SluTwxIUxJpHdNc1NDSu3kQO1zuzQhaUNMvnPHJX
-         dy3aubsyqTlQpzcyXW+0fFfur1bO0vxERcBGLbvFD/PfULXpZ4RkZLpXkZzxH0YOrS87
-         lPDv//ZRm7r597BTUvoasTpfQwXAOx9ewB7kxzUxuEDnsmX/4spSyJuPlo1NYvuTxS9t
-         vYbIPmbbbfC3iGb343A1Md2F9u3PqqOz591IXJD6Wtb49uVm1txJqsUdj1ILPpEliYo2
-         FtmQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXQt0ZXw8tcxKj0trCKW3qvBa+Qc1GHX7PhNfiSziD5ziil3noSYXXZDId1KmfXiajx0mjbanRkob8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YykY/dotjauv662MmNcbnxRmlEwZv4a5yAWSPb6XBIw3dm1ANW+
-	ryfKjL+EQpUllPsKJWKtzYVRL7zklKc2A+rLoIEdtLZHkAOHqPUtLVtGCEBTX58=
-X-Gm-Gg: ASbGncs9Z/bB3/8p7GGW9E3EkNUSyjIrYTE3ihVlsqaH5ybwUR5LU8bZHNw1WFY+J/C
-	gFGHbtTFLb9r7uXhsSYGYVoOdvD/eRDLbhehCr7uWIL4cBwXnglz2c9EaqFe/KSR9OpXfpPlwUG
-	UppUptludBj5BuQ+K/2Bf7NA/Q1W3Izgnxzjpwl753H3ywyaIlTCzWjiAr6j1UDhyVaIIQ8GLtV
-	ECSHxLs2kJAP2r/2lOLMLtkfpcG8mcTPQM85JpQU4ogJE4Sv3tK8nKocCrgxFy/ps65Qk6cFccg
-	0OHPCg9nam5fx2KekvvPsngeszAZGdQ1xVx5
-X-Google-Smtp-Source: AGHT+IERZWZtkZrsbkHThnFiBHKfz//tsYW/urMLTgJODZNi9Tp473Grr1NqQ4M0NySCRCOoV5n3Rw==
-X-Received: by 2002:a05:6512:138c:b0:540:2188:763c with SMTP id 2adb3069b0e04-542845b0b55mr6338144e87.37.1736756712614;
-        Mon, 13 Jan 2025 00:25:12 -0800 (PST)
-Date: Mon, 13 Jan 2025 10:25:09 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
-	airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org, 
-	linux-mediatek@lists.infradead.org, freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
-	imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org, nouveau@lists.freedesktop.org, 
-	virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org, 
-	linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org, 
-	intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org, Rob Clark <robdclark@gmail.com>, 
-	Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
-	Marijn Suijten <marijn.suijten@somainline.org>
-Subject: Re: [PATCH v2 13/25] drm/msm: Compute dumb-buffer sizes with
- drm_mode_size_dumb()
-Message-ID: <bbw2n4ccn5jlq7q7lsw3xdnbieazgexkwkycrqvk5aoiq5q3wx@nz6gd3unwkg4>
-References: <20250109150310.219442-1-tzimmermann@suse.de>
- <20250109150310.219442-14-tzimmermann@suse.de>
+        d=1e100.net; s=20230601; t=1736762641; x=1737367441;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=NAozgVCwe5MTkDq2tRs81RaOUpNYbkuEcwNQ118VObQ=;
+        b=p4nhHqF3xeKIt7oBh6VV41MLw3JAH1FwAy+6kXShKd9aaOzSvn067Bvxuck5Rxov1S
+         rp1sKH6um7nGPcrdSTfZc/peUDkIYjmPSoJdTJWVN7sN/QY4JcuoLO5sGXYnBaxpuhlv
+         8k6ATSr37GRkzw2GJMYesTnMNunJVrl5bPxcka4fS5yIHFMdWulV93+8U55NQME/rEgi
+         gM5ciHt55/jKa1i7pXbKwYnTcPIw/j5mpgwZ5pEmA/8oTtSJ2RhhPH2v9Dzf0FINFREL
+         CSdcmaRj69Z0ziO/R0wmMOfAUmmBORAobr2VMdOJGrUcNn9+xA90BMUm3WZMyd4/zwPV
+         rqMA==
+X-Forwarded-Encrypted: i=1; AJvYcCWIdZ0rU087rEGNFJoj6rNYEEDRxUTpgWxXWs3K8+X9ET7dnJ4V+FfDEQ+DZ2zhizh2euMejZAJicc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwxEX5SbieEGj3fJTNz2xlZz1sWZCuGKFgVCZqPlm4PuDgVr0Of
+	e5QbsFex2VGcFEvf59Xq4MXRFQNE7XesQggQeCWxzxaf3W/pbbbh3yukWasBjfg=
+X-Gm-Gg: ASbGncu8szGXDO1Yv+B2WtvgraYK9PW/WwL7KtMXSUplWYhoBe5bk192Q/D9lX+YEFG
+	2DU21if5YGzWGILQpJnJ2D6z0KBuiFgNvGknoDCo/WIWiejjX/UxUrj2nnGIPkolKp7+YBT5qFe
+	+snHrfIyYLrT6rHNDtwL6tFlD8QXx1HoYALjNG3rocn0IhZjsSG4ITrfrnwC6C2gwy1cgL/WjLq
+	tE5eO3kQY4T9Wc4bYFTqF4uMssBTQg6rLfc9IiOUYRpschTfiO4bPY+wJP1XQ==
+X-Google-Smtp-Source: AGHT+IHN6cLAzIHvJBapqtn9TCnnP24m5RjiZPdKHg1bO2RsIgvurTxekJiYNBk5q8SmCTsIwdMt3A==
+X-Received: by 2002:a17:907:60cf:b0:aa6:88f5:5fef with SMTP id a640c23a62f3a-ab2ab6fb426mr1905306566b.32.1736762641198;
+        Mon, 13 Jan 2025 02:04:01 -0800 (PST)
+Date: Mon, 13 Jan 2025 11:03:58 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+	linux-pci@vger.kernel.org,
+	Nirmal Patel <nirmal.patel@linux.intel.com>,
+	Jonathan Derrick <jonathan.derrick@linux.dev>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
+Subject: Re: [PATCH 2/3] vmd: disable MSI remapping bypass under Xen
+Message-ID: <Z4TlDhBNn8TMipdB@macbook.local>
+References: <20250110140152.27624-3-roger.pau@citrix.com>
+ <20250110222525.GA318386@bhelgaas>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20250109150310.219442-14-tzimmermann@suse.de>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250110222525.GA318386@bhelgaas>
 
-On Thu, Jan 09, 2025 at 03:57:07PM +0100, Thomas Zimmermann wrote:
-> Call drm_mode_size_dumb() to compute dumb-buffer scanline pitch and
-> buffer size. The hardware requires the scnaline pitch to be a multiple
-> of 32 pixels. Therefore compute the byte size of 32 pixels in the given
-> color mode and align the pitch accordingly.
-
-- scanline, not scnaline
-- the statement about 32-pixel alignment needs an explanation that it is
-  being currently handled by align_pitch().
-
-With that in mind:
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Rob Clark <robdclark@gmail.com>
-> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Cc: Sean Paul <sean@poorly.run>
-> Cc: Marijn Suijten <marijn.suijten@somainline.org>
-> ---
->  drivers/gpu/drm/msm/msm_gem.c | 27 +++++++++++++++++++++++++--
->  1 file changed, 25 insertions(+), 2 deletions(-)
+On Fri, Jan 10, 2025 at 04:25:25PM -0600, Bjorn Helgaas wrote:
+> Match historical subject line style for prefix and capitalization:
 > 
+>   PCI: vmd: Set devices to D0 before enabling PM L1 Substates
+>   PCI: vmd: Add DID 8086:B06F and 8086:B60B for Intel client SKUs
+>   PCI: vmd: Fix indentation issue in vmd_shutdown()
+> 
+> On Fri, Jan 10, 2025 at 03:01:49PM +0100, Roger Pau Monne wrote:
+> > MSI remapping bypass (directly configuring MSI entries for devices on the VMD
+> > bus) won't work under Xen, as Xen is not aware of devices in such bus, and
+> > hence cannot configure the entries using the pIRQ interface in the PV case, and
+> > in the PVH case traps won't be setup for MSI entries for such devices.
+> > 
+> > Until Xen is aware of devices in the VMD bus prevent the
+> > VMD_FEAT_CAN_BYPASS_MSI_REMAP capability from being used when running as any
+> > kind of Xen guest.
+> 
+> Wrap to fit in 75 columns.
 
--- 
-With best wishes
-Dmitry
+Hm, OK, but isn't the limit 80 columns according to the kernel coding
+style (Documentation/process/coding-style.rst)?
+
+I don't mind adjusting, but if you are going to ask every submitter to
+limit to 75 columns then the coding style document should be updated
+to reflect that.
+
+> Can you include a hint about *why* Xen is not aware of devices below
+> VMD?  That will help to know whether it's a permanent unfixable
+> situation or something that could be done eventually.
+
+Xen would need to be made aware of the devices exposed behind the VMD
+bridge, so it can manage them.  For example Xen is the entity that
+controls the local APICs, and hence interrupts must be configured by
+Xen.  Xen needs knowledge about the devices behind the VMD bridge,
+and how to access those devices PCI config space to at least configure
+MSI or MSI-X capabilities.  It could possibly be exposed similarly to
+how Xen currently deals with ECAM areas.
+
+None of this is present at the moment, could always be added later and
+Linux be made aware that the limitation no longer applies.  That would
+require changes in both Xen and Linux to propagate the VMD information
+into Xen.
+
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > ---
+> >  drivers/pci/controller/vmd.c | 9 +++++++++
+> >  1 file changed, 9 insertions(+)
+> > 
+> > diff --git a/drivers/pci/controller/vmd.c b/drivers/pci/controller/vmd.c
+> > index 264a180403a0..d9b7510ace29 100644
+> > --- a/drivers/pci/controller/vmd.c
+> > +++ b/drivers/pci/controller/vmd.c
+> > @@ -965,6 +965,15 @@ static int vmd_probe(struct pci_dev *dev, const struct pci_device_id *id)
+> >  	struct vmd_dev *vmd;
+> >  	int err;
+> >  
+> > +	if (xen_domain())
+> > +		/*
+> > +		 * Xen doesn't have knowledge about devices in the VMD bus.
+> 
+> Also here.
+
+Would you be OK with something like:
+
+"Xen doesn't have knowledge about devices in the VMD bus because the
+config space of devices behind the VMD bridge is not known to Xen, and
+hence Xen cannot discover or configure them in any way.
+
+Bypass of MSI remapping won't work in that case as direct write by
+Linux to the MSI entries won't result in functional interrupts, as
+it's Xen the entity that manages the local APIC and must configure
+interrupts."
+
+Thanks, Roger.
 
