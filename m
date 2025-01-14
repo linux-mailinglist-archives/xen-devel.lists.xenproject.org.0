@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E3A6A101CF
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 09:13:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.870992.1282043 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8480A101D0
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 09:13:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.871002.1282053 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXc2U-00078B-C3; Tue, 14 Jan 2025 08:12:42 +0000
+	id 1tXc38-0007iM-Nq; Tue, 14 Jan 2025 08:13:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 870992.1282043; Tue, 14 Jan 2025 08:12:42 +0000
+Received: by outflank-mailman (output) from mailman id 871002.1282053; Tue, 14 Jan 2025 08:13:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXc2U-00076j-8m; Tue, 14 Jan 2025 08:12:42 +0000
-Received: by outflank-mailman (input) for mailman id 870992;
- Tue, 14 Jan 2025 08:12:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tXc38-0007fx-Kk; Tue, 14 Jan 2025 08:13:22 +0000
+Received: by outflank-mailman (input) for mailman id 871002;
+ Tue, 14 Jan 2025 08:13:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/Vp6=UG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tXc2S-00076V-6w
- for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 08:12:40 +0000
+ id 1tXc37-0007fh-KW
+ for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 08:13:21 +0000
 Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
  [2a00:1450:4864:20::335])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 520a06f1-d24f-11ef-a0e1-8be0dac302b0;
- Tue, 14 Jan 2025 09:12:39 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 69429ac2-d24f-11ef-99a4-01e77a169b0f;
+ Tue, 14 Jan 2025 09:13:18 +0100 (CET)
 Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-4361c705434so36644305e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 00:12:39 -0800 (PST)
+ 5b1f17b1804b1-4364a37a1d7so53682745e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 00:13:18 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-436e9e62133sm166433875e9.33.2025.01.14.00.12.38
+ 5b1f17b1804b1-436e2df3610sm200368795e9.20.2025.01.14.00.13.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Jan 2025 00:12:38 -0800 (PST)
+ Tue, 14 Jan 2025 00:13:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 520a06f1-d24f-11ef-a0e1-8be0dac302b0
+X-Inumbo-ID: 69429ac2-d24f-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1736842359; x=1737447159; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1736842398; x=1737447198; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
          :from:user-agent:mime-version:date:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=3a6aVJIZxGcOGXILo6dS5uJfAibi9kUy3AHZ09t6haQ=;
-        b=Mh5zW7r4CpWqTjj/VV4XY3R95ETK7sZzddoBExnNFX/Yty7lTEMjCfshJ5mkJ9ekNV
-         s4e1ATZ2XMFDN4D30Lp1tSQFq2FALdF5q1m3yrERzRxtKRKi52POu4+cUb82qpHhqZFD
-         8nwN8QQsgrjx4l0cd0/cdDQmN0GfPOiON0IBLRIxxVERpN6YIioUtoPyrYmt7KfkxDfm
-         C4jieJj2H1QfSbTfF0pqKD7aJyrnyB5H5F0QA5rNUKpBHpe0WiF2y3WLHJhCUXThS0hg
-         FDZh+jemdMX2hFKc7Rw6jaT7+MzrKnnhKbo2BvEBeqqpFqndJD/Kdn99LKQGreyJ5czA
-         Z2yg==
+        bh=JwagmJ2ZAkkmElCxfguveqeewZ+CyIQy8EcKOsWL3NE=;
+        b=HNujk0jOglArFy2A4YOmuqsmmRiArzA8vuaCnk5FWxyq/McNFzQSgqx2NBvEPRxYyc
+         MxNneS0NGpIYIc/dbNU0xnJm55d82ZvG4B4Dmxlr8b/rWbuglzvxmprJZaULjdGlYmOp
+         VOik0vWMv6ZbM5ctnTpYVVN5+nQ21/ewK2rC73vmvrYyTwp0S+6fgD9CvC2g4bU0RGcV
+         2Bzhhd8mTc8LSdwH3b76X+0BFCWZ4JF2JyTESTzw7lLd4p5UrubEGiqDUOJdcmi1JQ26
+         QhGz88My3BcqmiJZ4XG33z0M1fzEiqcvIHi4l5NuhgMrWL/RVm4i6LiSfLKfnaDgsj5I
+         kmgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736842359; x=1737447159;
+        d=1e100.net; s=20230601; t=1736842398; x=1737447198;
         h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
          :from:user-agent:mime-version:date:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=3a6aVJIZxGcOGXILo6dS5uJfAibi9kUy3AHZ09t6haQ=;
-        b=eRvY174F9eTt9ZaGpxznZYJZYh9JSZdPHY6eku866y9Par87G83ULjWVtvzYLGa4Ql
-         9QJQNqetrOgSDfj7BWYia02EbuJIH20cRZKVzaO+fr4hCh2LBPXUD1KumjoLWoa1kiMy
-         kfszZ7lVmUvVgfuZMqrVF2F42qybg1K87z/6tOzSrRST1NeXLaaRkNqzsAAVV9E52x37
-         SyvRgzK5WWeIR3y6ir/2GPDgtnyCwe7yg2xDjfWAPnZjgSefOjUlEiLjcBruCdHpEwf2
-         XXCOW7atUZZGgb84iHeAxZ+XHw22+W63/XVQOn6uJOvclqUKi1ZRt7OuGsNly/E0WdSR
-         xz5g==
-X-Gm-Message-State: AOJu0YwieKAxDBTCJ7n8v4w71RExj+O7+D7iR8HYn5Xuo45qJwHpYyH3
-	Rl+BY18Djm7pogam40E+MovNDECqJVfydSJrxUpVrAwr7h7KPLWEAL0uSnSMzAZ2EhQN8rpwOhc
+        bh=JwagmJ2ZAkkmElCxfguveqeewZ+CyIQy8EcKOsWL3NE=;
+        b=JuF6Ei72pY0JECZOeHMD6+4Rj/6wchvLTp/X84EoH44u+7j6Oj7VGGGWn+1ZNZjLwK
+         FQcpVJPKAqic46NS+xlI/BnCWInWadQ2RH7g02TxeFBU4dzzcWKrDORfgrA3pAUJ+10B
+         5njQthR8TUmevGisEaf7KHm4NwfDe6QjkwxA4Jls0hnYTCBVbGeLje4snAdgmvZ/PRPn
+         +dXX9DPnq3+fWqSAnIUpsp15dVOucU/MGsYLqthYDQW3XiP292+YNnPvAIu6Gepeo9JT
+         gjoJwz2SIihBO8rrQ5xkWTaAE+k3FeD8wJE8f4hOWdtkvIwK7D64ekh6Y64jsQcyU7Mc
+         smow==
+X-Gm-Message-State: AOJu0YyMn+EFeApZ7Lz1+tBjqOKGsV3Rw+uwHhwAV0/GNNopH1F9LA4G
+	ldR59p6OtdCJ8fxBicSdaXMlVORQsxMoFZcyzdk3h0wzkRy8DKq/aRRamahjJOrRR6OoGX4rFM4
 	=
-X-Gm-Gg: ASbGncsGoJdhtYEiQuB9fP3ItU8J0Nrik394TIsYWiciE2NTteFDh3Le/Yq2gwDmCzp
-	vEoiZbSImwhQtsMcvK66m6nvzXfjaL6guvq+3vYDibGM1PX9ylCHni/ZIqJY87LWCo1n/ntdnO+
-	cFqoQAZdFMJwbmr6olI9OgRVeBPbS58dlMmsMbG7iD409vAQbcOb6nv2FGYGEZHUQbEFbZnn0Fz
-	xsXaqDRdZ8m0rkyfCLeVM5PjimgT75LXFss8knPRTqWNWJrNbb1NazQszMPADVzwWwWQkzkoPmQ
-	5TSemKw/EdeM3/sotBG9b28dch+Ubm/EpYxzD8LAaA==
-X-Google-Smtp-Source: AGHT+IH7utO/GKMqnnOWUbcwkAx7/UIXlSWYIaWovjq/cQVkW4QG5uKaOAVvY1I+9bh/DMYy9E2adQ==
-X-Received: by 2002:a05:600c:5848:b0:436:f3f6:9582 with SMTP id 5b1f17b1804b1-436f3f695dfmr107276185e9.8.1736842358792;
-        Tue, 14 Jan 2025 00:12:38 -0800 (PST)
-Message-ID: <fedf2b9d-a475-4062-b8a4-5e33c7dd6305@suse.com>
-Date: Tue, 14 Jan 2025 09:12:37 +0100
+X-Gm-Gg: ASbGnctzvXTaQn8Lo3qEbrVGmsTSCzlZHgSlzA+IDm1FLZGS+NaIw9OOf//K0ectfg3
+	mF/C41w2rwIHp4KNTHImd6a6QUdwMW4biClV7yKHmqHwz2ft2hdjcKUTre3ibb0wXMFrLTIlDOr
+	EO8W8rsVWScfmgdD7yMri00zmi/c5Yg+qcSOWuHNDgA4FbqGr/seSL3klcyXtA4XKv3IkwNh1WG
+	2fDJT0/YVeRlkNPP37VjI0VvkS8IBFOYJdn/ZqyjlAeyWprul3siBYwEz0CQca70F/Gi3zKkcuH
+	rjSF+rYl7DwSZeX/hGzvh0vAkeDw3TU4/I6KV73W+Q==
+X-Google-Smtp-Source: AGHT+IErj72sXb3jhvigDRw0HX1z5VN7aJzdaxPDu0IH+dcPDkVSRWWElIo0FzUAyCkeMqWa4yRUJw==
+X-Received: by 2002:a05:6000:402a:b0:38a:418e:1171 with SMTP id ffacd0b85a97d-38a8733063dmr19997415f8f.37.1736842397840;
+        Tue, 14 Jan 2025 00:13:17 -0800 (PST)
+Message-ID: <73a01ddf-6090-4fda-a8c0-5703e7c9e81b@suse.com>
+Date: Tue, 14 Jan 2025 09:13:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] xentrace: free CPU mask string before overwriting pointer
+Subject: [PATCH] xl: properly dispose of vTPM struct instance
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Anthony PERARD <anthony.perard@vates.tech>,
  Oleksii Kurochko <oleksii.kurochko@gmail.com>
@@ -117,26 +117,36 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-While multiple -c options may be unexpected, we'd still better deal with
-them properly.
+The backend_domname field requires separate freeing; make sure to call
+libxl_device_vtpm_dispose() also on respective error paths.
 
-Also restore the blank line that was bogusly zapped by the same commit.
-
-Coverity-ID: 1638723
-Fixes: e4ad2836842a ("xentrace: Implement cpu mask range parsing of human values (-c)")
+Coverity-ID: 1638719
+Fixes: dde22055ac3a ("libxl: add vtpm support")
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
---- a/tools/xentrace/xentrace.c
-+++ b/tools/xentrace/xentrace.c
-@@ -1105,8 +1105,10 @@ static void parse_args(int argc, char **
-             break;
+--- a/tools/xl/xl_vtpm.c
++++ b/tools/xl/xl_vtpm.c
+@@ -44,12 +44,14 @@ int main_vtpmattach(int argc, char **arg
+         if (MATCH_OPTION("uuid", *argv, oparg)) {
+             if(libxl_uuid_from_string(&(vtpm.uuid), oparg)) {
+                 fprintf(stderr, "Invalid uuid specified (%s)\n", oparg);
++                libxl_device_vtpm_dispose(&vtpm);
+                 return 1;
+             }
+         } else if (MATCH_OPTION("backend", *argv, oparg)) {
+             replace_string(&vtpm.backend_domname, oparg);
+         } else {
+             fprintf(stderr, "unrecognized argument `%s'\n", *argv);
++            libxl_device_vtpm_dispose(&vtpm);
+             return 1;
+         }
+     }
+@@ -65,6 +67,7 @@ int main_vtpmattach(int argc, char **arg
  
-         case 'c': /* set new cpu mask for filtering (when xch is set). */
-+            free(opts.cpu_mask_str);
-             opts.cpu_mask_str = strdup(optarg);
-             break;
-+
-         case 'e': /* set new event mask for filtering*/
-             parse_evtmask(optarg);
-             break;
+     if (libxl_device_vtpm_add(ctx, domid, &vtpm, 0)) {
+         fprintf(stderr, "libxl_device_vtpm_add failed.\n");
++        libxl_device_vtpm_dispose(&vtpm);
+         return 1;
+     }
+     libxl_device_vtpm_dispose(&vtpm);
 
