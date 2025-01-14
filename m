@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 144EEA102FD
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 10:28:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.871029.1282073 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA224A10301
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 10:28:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.871037.1282083 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXdDc-00014Y-5v; Tue, 14 Jan 2025 09:28:16 +0000
+	id 1tXdE5-0001Z7-Ds; Tue, 14 Jan 2025 09:28:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 871029.1282073; Tue, 14 Jan 2025 09:28:16 +0000
+Received: by outflank-mailman (output) from mailman id 871037.1282083; Tue, 14 Jan 2025 09:28:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXdDc-00011i-2n; Tue, 14 Jan 2025 09:28:16 +0000
-Received: by outflank-mailman (input) for mailman id 871029;
- Tue, 14 Jan 2025 09:28:15 +0000
+	id 1tXdE5-0001Wv-9o; Tue, 14 Jan 2025 09:28:45 +0000
+Received: by outflank-mailman (input) for mailman id 871037;
+ Tue, 14 Jan 2025 09:28:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=tIyo=UG=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tXdDb-00010S-0r
- for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 09:28:15 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ id 1tXdE3-00010S-SF
+ for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 09:28:43 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e0d09961-d259-11ef-a0e1-8be0dac302b0;
- Tue, 14 Jan 2025 10:28:13 +0100 (CET)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-aaee0b309adso862321366b.3
- for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 01:28:13 -0800 (PST)
+ id f26def67-d259-11ef-a0e1-8be0dac302b0;
+ Tue, 14 Jan 2025 10:28:43 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5d932eac638so10124593a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 01:28:43 -0800 (PST)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab2c95aee31sm605364366b.133.2025.01.14.01.28.12
+ 4fb4d7f45d1cf-5d99046e048sm5791489a12.71.2025.01.14.01.28.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Jan 2025 01:28:13 -0800 (PST)
+ Tue, 14 Jan 2025 01:28:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e0d09961-d259-11ef-a0e1-8be0dac302b0
+X-Inumbo-ID: f26def67-d259-11ef-a0e1-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1736846893; x=1737451693; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1736846923; x=1737451723; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3LmKmsSiV6JZfOVy5DDtZRxAZb3l77AC0bejAyx6pfc=;
-        b=Q0vhLb/sKj8d7ifeB3sZJrFBNG3Y4nUorludkcw2Xn08H1rCWLKdrv8HzOkvDSz/yd
-         fDQMaSqCtoGwnSF23uAy124QepUBDQuTW9NmqpGInJ0fHSBwoF3Hcm7LrOmEf+1QJ+14
-         7emqMfHqXHiIdNxNF0IorI2lZjMFB2TljXCLI=
+        bh=dT+L1KpIsC7pSYSBbozTyUDtd50clfXUhegf/xEJsJc=;
+        b=jmC1H16SN+dd4vIw1RF5lA7fMTs17i2BtL/I9sDpsLRyvBZMCsrl1NH1gUIPh+XUw1
+         daKVtsL/bk6tf0Y/wy3+mDZXIpvEfYei50EvH3iA8+cwwN1+YsletsjDu93EjIQPigGl
+         hOmdy3ug6kjDgP71qRIGNx76OagLMdoAwlWV4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736846893; x=1737451693;
+        d=1e100.net; s=20230601; t=1736846923; x=1737451723;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3LmKmsSiV6JZfOVy5DDtZRxAZb3l77AC0bejAyx6pfc=;
-        b=jUe6qCf+BA/31GzYKlA2b+ijfvaNZkSaEce5MthW58SUAEcNZX8A9BoNr2h/bFmbUM
-         BwskvSGkkPIbDFqzFmtUGpPsJ6Evw5Fs3yKN2tNXbPJQfmfrIuNmc6UZktzKF2QsRccG
-         FGkmfb/vX9ig6oUNf3QXouO35NDyKz8PA5eIaebmv+oGE7GayjgZkYoWgEL3Rs3OAZxy
-         ERba/KHbGx9cTrMPa8DGF+7pxIkTdASooHbLiDTaiOnFyah8WtCM9mJhtBDLaQRJoIkv
-         a+liRf7PUoJTZiLOLby4Bwt5C4EMieKWjraG7DdK0l4V5BfFZq/DyawmTOfCP1XMpOrs
-         B67g==
-X-Forwarded-Encrypted: i=1; AJvYcCWKSGjaBSZ7j8oYVjh197bCj6ew6v2SefoCE+9801j9MaPuhnyuAV6ZvceovguGvc/EFj98K+SPraw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz5G6ypVtt7ZjVXzGYjdSUiYvAucfc8sCoy8Wok9PjRAIWz/Zd/
-	52Domp57sHG7ZvT5+BJGK/ljRlVTAeNghULPAsuSXgpY28/QZgsrYJODgUzYVIQ=
-X-Gm-Gg: ASbGncukBy0MWX+3LSk6zKB5HjYimwQj8MsTHFYHG+MOeDoL0DwxmwOMZSJDeoZjU3x
-	ykOs9/89oBWA5Vi4cf1C/nSGgHg4LoqSGEozJXQLm+o3PykZooUQLc4VXzpsJQysE5ceVCfJehF
-	gWR7hoyRpLnh+22fh7ubQIknTzxMYrMgebDduJ4z9txR2IWrp6s+W08OuF/P45Kt1XSGA7jqMEN
-	RGMuoBiJvFEVYmj3Z49XPsLeRUPsNF42YUccanKGhvFjfT9S+RJWRCunW5bclgbwizCDrZsRh9/
-	2DWZVBKX3WzN3szUUYxQ
-X-Google-Smtp-Source: AGHT+IGXdO5NUm/saEy9YA+7hraGqILt1gQIjKxJL/n6qVWZ+qkIBhk2rXe3Xid1h57hZioZ/p6fyA==
-X-Received: by 2002:a17:906:e098:b0:ab3:33ad:13c6 with SMTP id a640c23a62f3a-ab333ad13f2mr191132566b.28.1736846893312;
-        Tue, 14 Jan 2025 01:28:13 -0800 (PST)
-Message-ID: <2d461c1c-513a-49c5-8d62-d77969c6b10a@citrix.com>
-Date: Tue, 14 Jan 2025 09:28:12 +0000
+        bh=dT+L1KpIsC7pSYSBbozTyUDtd50clfXUhegf/xEJsJc=;
+        b=h/EQUte4ZCSltnAvDwid1fowQ0Zf7RPNVk3wToBb4iZLT3poqEfOJwp1pAk5JNRfdx
+         lKRD8Nb7SyP8pF6znVw2rcLhr9QxGZ2usdLpS+cTBTE+ZUuPyJV5D4h2yBlqi2F6QsgL
+         9BFNkahg95RAVpUVM/vSjoF9umFRMTBj72EJ8myZhifWfULtAQ+sVpFpyBjIBPi4pnNU
+         OWvNJ4OVl/WDfF2gBWJrxeD4Yu/21Usj8VEqGEmZ3O78RJEVHHJEhGi1hHNfRVikhMYC
+         9xXyJhrmXjcSNj4tJp2fRBgpB0ArfQEQ06wl09WDCJi9jTsjTZKEi0vBp0EXDU81JAA2
+         LNPw==
+X-Forwarded-Encrypted: i=1; AJvYcCWoSZ3lvae4O2DC8tNCEhOP90r3BiRAGw2GTcOyvUrTz5CfND7besi6RYNN46Tobg9KQXS6ARkKmas=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwpvbgbdLNMNYj0NDnVoRZMuTZZdLfvCG3K2jCoX/PkzIVJxPnO
+	eo244Vyn0zSPcsreJ1RMLh/5RxXvpEaRpI8PMR1Rs6CqIUDBwZa90hifMQzhL+g=
+X-Gm-Gg: ASbGncvG/qnuBf6Ng598S8JCBdVG0SbiKLw4NmR+b+yDkngqy+8Hca/vtHaNbJBPSAu
+	8NbbFtCat7xGL8AwQM5LWHUO0j4ctn39voPSlZuylydoxwaQ3bwb2WPzdXVdzhXc+TVJS/JC1RM
+	L6GIw3LmS1SXsDKRI4ZUP7xRjbqg+GcL8kVf2hz2aUZwvWmzgzWi+X0OMVtjvmnPs93qOApbGXm
+	7pw9OpKhk5UrLFqCHv5UNKd5+TGZfv7JWQJa4lo+KseaUqPBJwFRfOcTjnhbKuRNwpLX5Rfchdc
+	sbfMjj47YucJcQnEWUQY
+X-Google-Smtp-Source: AGHT+IF0ew/dAuSAc5VRU3cvZR/fpPhrengQ9e4r4043nxek43urQyx32NDHmEUS9dLxL+Is7BQKIQ==
+X-Received: by 2002:a05:6402:2681:b0:5d3:bc56:3b24 with SMTP id 4fb4d7f45d1cf-5d972dfcb34mr22797330a12.4.1736846922822;
+        Tue, 14 Jan 2025 01:28:42 -0800 (PST)
+Message-ID: <e03befec-2c1b-46e4-ab88-3f2a19575149@citrix.com>
+Date: Tue, 14 Jan 2025 09:28:42 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xentrace: free CPU mask string before overwriting pointer
+Subject: Re: [PATCH] xl: properly dispose of vTPM struct instance
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Anthony PERARD <anthony.perard@vates.tech>,
  Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <fedf2b9d-a475-4062-b8a4-5e33c7dd6305@suse.com>
+References: <73a01ddf-6090-4fda-a8c0-5703e7c9e81b@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -134,18 +134,16 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <fedf2b9d-a475-4062-b8a4-5e33c7dd6305@suse.com>
+In-Reply-To: <73a01ddf-6090-4fda-a8c0-5703e7c9e81b@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14/01/2025 8:12 am, Jan Beulich wrote:
-> While multiple -c options may be unexpected, we'd still better deal with
-> them properly.
+On 14/01/2025 8:13 am, Jan Beulich wrote:
+> The backend_domname field requires separate freeing; make sure to call
+> libxl_device_vtpm_dispose() also on respective error paths.
 >
-> Also restore the blank line that was bogusly zapped by the same commit.
->
-> Coverity-ID: 1638723
-> Fixes: e4ad2836842a ("xentrace: Implement cpu mask range parsing of human values (-c)")
+> Coverity-ID: 1638719
+> Fixes: dde22055ac3a ("libxl: add vtpm support")
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
