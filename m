@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 960D0A10A2C
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 16:02:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.871467.1282462 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1093CA10AD9
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 16:31:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.871480.1282473 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXiQg-0003qH-5v; Tue, 14 Jan 2025 15:02:06 +0000
+	id 1tXis7-0008M3-A2; Tue, 14 Jan 2025 15:30:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 871467.1282462; Tue, 14 Jan 2025 15:02:06 +0000
+Received: by outflank-mailman (output) from mailman id 871480.1282473; Tue, 14 Jan 2025 15:30:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXiQg-0003oF-3L; Tue, 14 Jan 2025 15:02:06 +0000
-Received: by outflank-mailman (input) for mailman id 871467;
- Tue, 14 Jan 2025 15:02:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tXis7-0008K3-6A; Tue, 14 Jan 2025 15:30:27 +0000
+Received: by outflank-mailman (input) for mailman id 871480;
+ Tue, 14 Jan 2025 15:30:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/Vp6=UG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tXiQe-0003o8-Uv
- for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 15:02:04 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8383a50f-d288-11ef-a0e1-8be0dac302b0;
- Tue, 14 Jan 2025 16:02:03 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-4361c705434so40126475e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 07:02:03 -0800 (PST)
+ id 1tXis6-0008Jv-0b
+ for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 15:30:26 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7786b86c-d28c-11ef-99a4-01e77a169b0f;
+ Tue, 14 Jan 2025 16:30:21 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-43634b570c1so40613865e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 07:30:21 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-436e2e89df1sm211552115e9.27.2025.01.14.07.02.01
+ ffacd0b85a97d-38a8e3853b6sm14995598f8f.44.2025.01.14.07.30.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Jan 2025 07:02:01 -0800 (PST)
+ Tue, 14 Jan 2025 07:30:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8383a50f-d288-11ef-a0e1-8be0dac302b0
+X-Inumbo-ID: 7786b86c-d28c-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1736866923; x=1737471723; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1736868621; x=1737473421; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+y5xQkwrI3izGnMbJbaJUFiYT/ZYalok8ANyM4JHUX4=;
-        b=XzmnSqZqERTiM4FzMG/Wts57HsZcG0dfxC8JozQ+6987rKGgrsplvoha+E26HSlIwz
-         DwmTmAoVEx+aeDdLBMnC44bQ8IC9tTNXASwpq3BdJF+qfIeDTBYlW4lYsp6IOjvpNdUW
-         oupmA5fekwO8z3eXorMXDHyEBNwV20D+uzkaMPQ30wdjynwEUb3ys7neYBmnVRQeU/s7
-         jFlrcCOeGLU7eb1MEiMOWIZy4nOf+wkFW8cnMTJL//Rm97ru/unE84vOqO3de3Ftmpqr
-         NfH4Dfr/B+RymbTxXMaJGgx/gQoKpQgw+ffILIWuylL4MaGGkHi+CpJcOjBTc88lfhf7
-         ZwRw==
+        bh=pcfmpAgzk9ixb/ApUpSQ84RZ2MGK8LnCK+xilUkeWj8=;
+        b=P/tUKKCjy6xEk8kPvNHhvKNHsqmAJpppzzyRRdvqFx2KdDnX0/+dpzux7wzEQ3kzUn
+         dVLmvUDeDSeHRzQloqhfFeCHs0CkwZ0wlkL0xpusrvTE0oWIFQPap3qOcRfEAz2+x/k8
+         0JPbin08VKrroozEp1kUeXs4zCVtXIfPeKTSvo/PKoGcqQquvDGr/PZoxV/P9gS5NeVP
+         vPuaK9QTIPCl/e8NmG9cWuZbtkwB9HXEYeE6HW6uqZYnl1JBFogfjbk+PWTnhxkbvkEs
+         7iVyP/O9OAC78N1NH0D8XRzt6/vveZSGG72Hz8UGWr22fGiOQNsU09lUdCqRTcXwcmRJ
+         XUHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736866923; x=1737471723;
+        d=1e100.net; s=20230601; t=1736868621; x=1737473421;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+y5xQkwrI3izGnMbJbaJUFiYT/ZYalok8ANyM4JHUX4=;
-        b=jySVA9Hma8oJO4rm6DjfBXnwU5Q67s45DylJSIH6Tl9PpCkY25HovztgqIb/3scYzz
-         byrnuTv17YwokQUAsZBG4XeubMi7PyABoZQwASMXd7qUYeuEI29Y5wbbhMj/jq7wKQD/
-         HwokQvws7GjG3YjpZbcPvQ7J1pBnuzYj/4UUke9iOqiecsyxcSmwxiP9xDCdqQhEi33q
-         9svJP7vLOK9F4h4pzCHqgCE4QNt0O6AyhoMSTauapNQrrkQu8XhlqjtqALLv8h+5Sh/E
-         H3f4qie5qf7pIPBZ7OPXmvYPIgBqNDruqBPc9brwWZyia+18/xoq8GzAgFQnoPVEgg6F
-         N21w==
-X-Forwarded-Encrypted: i=1; AJvYcCVlDn9JvXOqNkVoqFdYvgVLBMyIMtfKE7efuFj43CwqXSd9pEDc9tUupSUp7MFL+75wsVcl6zzRvIM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz9iDkQkXVOgvSjByG59bufCOSfkxRXSBODSudLjir//s4v1TKK
-	8S0qBuVdI4P1MQAN1Z8atQ+2DUkkZ8v0n66A2dtYyFCBU5ePy3YDnaapp7TjKA==
-X-Gm-Gg: ASbGncsM8H61VXCVM9CBHep1dNFgXeSUC2UStCShlSX6ExcEfDhcLkJTBevSxFiBuA1
-	/3ggbaVaekh0vEX7MMbpqXoY3zO5mljCQIQFFJyXPbLCf6VkClD1YWw78JtAsG6smZqUh/feDaz
-	+B2YrTKXYck1qQTSacLxy0ODoeJArBwOYTx5aartU7GGwwATGagINX2JuMjs3xV/pyNtia2Tbfe
-	+gEoLYLpbnt/BPGOBtWX2kJ0R2m4Tf0O9ytsDTZ2dklHB6CVlk0FgTEKFGBQAFeAtvs0D4wRf9A
-	HbJRHEurcfieDMEeqjTBlbU4sLk3I4A0mp9vA+SwyQ==
-X-Google-Smtp-Source: AGHT+IF1FlKQAM4ZXL3OpzuuSEiCSUhuSm7fOBhqbQZdDWsjKy5J1jjwavrxIW4GC3y5o/vn5Ldk4g==
-X-Received: by 2002:a05:600c:3114:b0:434:f609:1af7 with SMTP id 5b1f17b1804b1-436e2677361mr224792005e9.4.1736866922667;
-        Tue, 14 Jan 2025 07:02:02 -0800 (PST)
-Message-ID: <153425e6-a17d-48d2-a1d7-a9b0bf3167dd@suse.com>
-Date: Tue, 14 Jan 2025 16:02:01 +0100
+        bh=pcfmpAgzk9ixb/ApUpSQ84RZ2MGK8LnCK+xilUkeWj8=;
+        b=PLkvtTj4ZqjabsRfcS1qpoNqhKQkpN36Yuy0M+vOLIbxg2NE0lB6KOnf3Os24jRF7h
+         nbzc/3ZezgFMJ4UqLGygm5DpB4ahs+XnEnvbjT7x/tvIWRnAGZ2Sr7A4/WIQA9QKjADw
+         VhFiD+mwzU9IujsuhW/a0T3NSowEoqDAp/z4jR6nlOrUz7oQXA7Xab40sUEwbBSJgKxa
+         jCZtNoOosUWwVauc+ADV1Cm4JAxnRlwr7QuR0spiI4KngBoKPsXp3CFfONAWHmpEw+Tu
+         VUss+LtYCU5VjmRKQNxVfYFwALBaiCqoSVk3d1D8F3ZOk0TFqOA3LbrImG8ZxZd7Mf3S
+         sl5Q==
+X-Forwarded-Encrypted: i=1; AJvYcCVyu5Q+89wV+JSP1+CZD3DRRu6dak26/Nd8KVLhGw96+FMhjJ0Pcz9Jf4jAAeM3hiBxy6+QS7hqlQo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy1etMd5LLfCn/gS+GWJi5KoJfNAFj6/Nf5o1Zwqc19T7EYAOin
+	WAR8Q7EkcJ50YmDZ7vUR9C+MTJAqZt6U8DFtzdTtqsHWI757AG3kNPa0QTtZCysgsDBKbDpYOFc
+	=
+X-Gm-Gg: ASbGncv4/0ROdUEpUyqaiAnPe7CLcQV+BtKJ2NG/5rrCqd0WxAng0HLG0OtezTd5mOi
+	JZDsXFUhO7WB20+JvxcT28QbMjeNUv3Am0xZWi+y6B0Nds66V1kpLBE94fCwexnfKuxizp3RF7M
+	dmemiKNcmiJvn6qspK3b3h5L56zFu3Zo29BTi02d9Ul6P3Tq+KXQj8OKHtmsJBbP/yhgpdS4XYV
+	z8LfHoEf4yFZMsXHcpFke0h6DFFxoP6Yrly0PZX12IJ1P7hsTMggD+fPF6bVL6qTXpuHuvZXNDo
+	qmxS3WKCKL6VgM+lldHA5Iq2VlnTU76cAfSpBCvUNw==
+X-Google-Smtp-Source: AGHT+IFaxdXQ/rbRXKnOeN56OsWuH7yzR0ZP9r53IpXTJHN40rVW4ipVSikA7DUhTnQozVvhwSLZPQ==
+X-Received: by 2002:a05:6000:1acd:b0:38a:8b0a:78da with SMTP id ffacd0b85a97d-38a8b0a7b87mr19242800f8f.42.1736868620902;
+        Tue, 14 Jan 2025 07:30:20 -0800 (PST)
+Message-ID: <7a05d031-d664-47a9-a9c0-5579fe4cfd9f@suse.com>
+Date: Tue, 14 Jan 2025 16:30:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/18] x86/domain: limit window where curr_vcpu !=
- current on context switch
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH v2.1 06/18] x86/pv: set/clear guest GDT mappings using
+ {populate,destroy}_perdomain_mapping()
+To: Roger Pau Monne <roger.pau@citrix.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250108142659.99490-1-roger.pau@citrix.com>
- <20250108142659.99490-3-roger.pau@citrix.com>
- <46cb0ee0-ea9f-4515-abac-058a9aa846e4@suse.com>
- <Z4AIdlx7uWcS3cOP@macbook.local>
+References: <20250108142659.99490-7-roger.pau@citrix.com>
+ <20250108151133.858-1-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,113 +118,100 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Z4AIdlx7uWcS3cOP@macbook.local>
+In-Reply-To: <20250108151133.858-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 09.01.2025 18:33, Roger Pau Monné wrote:
-> On Thu, Jan 09, 2025 at 09:59:58AM +0100, Jan Beulich wrote:
->> On 08.01.2025 15:26, Roger Pau Monne wrote:
->>> @@ -2048,8 +2060,6 @@ static void __context_switch(void)
->>>      if ( pd != nd )
->>>          cpumask_clear_cpu(cpu, pd->dirty_cpumask);
->>>      write_atomic(&p->dirty_cpu, VCPU_CPU_CLEAN);
->>> -
->>> -    per_cpu(curr_vcpu, cpu) = n;
->>>  }
->>>  
->>>  void context_switch(struct vcpu *prev, struct vcpu *next)
->>> @@ -2081,16 +2091,36 @@ void context_switch(struct vcpu *prev, struct vcpu *next)
->>>  
->>>      local_irq_disable();
->>>  
->>> -    set_current(next);
->>> -
->>>      if ( (per_cpu(curr_vcpu, cpu) == next) ||
->>>           (is_idle_domain(nextd) && cpu_online(cpu)) )
->>>      {
->>> +        /*
->>> +         * Lazy context switch to the idle vCPU, set current == idle.  Full
->>> +         * context switch happens if/when sync_local_execstate() is called.
->>> +         */
->>> +        set_current(next);
->>>          local_irq_enable();
->>
->> The comment is misleading as far as the first half of the if() condition goes:
->> No further switching is going to happen in that case, aiui.
+On 08.01.2025 16:11, Roger Pau Monne wrote:
+> The pv_{set,destroy}_gdt() functions rely on the L1 table(s) that contain such
+> mappings being stashed in the domain structure, and thus such mappings being
+> modified by merely updating the L1 entries.
 > 
-> Right, I should clarify that comment: this is either a lazy context
-> switch, or the return from a lazy state to the previously running
-> vCPU.
-> 
->>>      }
->>>      else
->>>      {
->>> -        __context_switch();
->>> +        /*
->>> +         * curr_vcpu will always point to the currently loaded vCPU context, as
->>> +         * it's not updated when doing a lazy switch to the idle vCPU.
->>> +         */
->>> +        struct vcpu *prev_ctx = per_cpu(curr_vcpu, cpu);
->>> +
->>> +        if ( prev_ctx != current )
->>> +        {
->>> +            /*
->>> +             * Doing a full context switch to a non-idle vCPU from a lazy
->>> +             * context switched state.  Adjust current to point to the
->>> +             * currently loaded vCPU context.
->>> +             */
->>> +            ASSERT(current == idle_vcpu[cpu]);
->>> +            ASSERT(!is_idle_vcpu(next));
->>> +            set_current(prev_ctx);
->>
->> This feels wrong, as in "current" then not representing what it should represent,
->> for a certain time window. I may be dense, but neither comment not description
->> clarify to me why this might be needed. I can see that it's needed to please the
->> ASSERT() you add to __context_switch(), yet then I might ask why that assertion
->> is put there.
-> 
-> This is done so that when calling __context_switch() current ==
-> curr_vcpu, and map_domain_page() can be used without getting into an
-> infinite sync_local_execstate() recursion loop.
+> Switch both pv_{set,destroy}_gdt() to instead use
+> {populate,destory}_perdomain_mapping().
 
-Yet it's the purpose of __context_switch() to bring curr_vcpu in sync
-with current. IOW both matching up is supposed to be an exit condition
-of the function, not an entry one.
+Like for an earlier patch it doesn't really become clear why what is being done
+wants / needs doing. I might guess that it's the "stashed in the domain structure"
+that you ultimately want to get rid of?
 
-Plus, as indicated when we were talking this through yesterday, the
-set_current() here make "current" no longer point at what - from the
-scheduler's perspective - is (supposed to be) the current vCPU.
+> --- a/xen/arch/x86/pv/descriptor-tables.c
+> +++ b/xen/arch/x86/pv/descriptor-tables.c
+> @@ -49,23 +49,20 @@ bool pv_destroy_ldt(struct vcpu *v)
+>  
+>  void pv_destroy_gdt(struct vcpu *v)
+>  {
+> -    l1_pgentry_t *pl1e = pv_gdt_ptes(v);
+> -    mfn_t zero_mfn = _mfn(virt_to_mfn(zero_page));
+> -    l1_pgentry_t zero_l1e = l1e_from_mfn(zero_mfn, __PAGE_HYPERVISOR_RO);
+>      unsigned int i;
+>  
+>      ASSERT(v == current || !vcpu_cpu_dirty(v));
+>  
+> -    v->arch.pv.gdt_ents = 0;
 
-Aiui this adjustment is the reason for ...
+How can this validly go away?
 
->>> --- a/xen/arch/x86/traps.c
->>> +++ b/xen/arch/x86/traps.c
->>> @@ -2232,8 +2232,6 @@ void __init trap_init(void)
->>>  
->>>  void activate_debugregs(const struct vcpu *curr)
->>>  {
->>> -    ASSERT(curr == current);
->>> -
->>>      write_debugreg(0, curr->arch.dr[0]);
->>>      write_debugreg(1, curr->arch.dr[1]);
->>>      write_debugreg(2, curr->arch.dr[2]);
->>
->> Why would this assertion go away? If it suddenly triggers, the parameter name
->> would now end up being wrong.
-> 
-> Well, at the point where activate_debugregs() gets called (in
-> paravirt_ctxt_switch_to()), current == previous as a result of this
-> change, so the assert is no longer true on purpose on that call
-> path.
+> -    for ( i = 0; i < FIRST_RESERVED_GDT_PAGE; i++ )
+> -    {
+> -        mfn_t mfn = l1e_get_mfn(pl1e[i]);
+> +    if ( v->arch.cr3 )
+> +        destroy_perdomain_mapping(v, GDT_VIRT_START(v),
+> +                                  ARRAY_SIZE(v->arch.pv.gdt_frames));
 
-... this behavior. Which, as said, feels wrong the latest when "curr" was
-renamed to no longer suggest it actually is cached "current". At that point
-it'll be dubious whose ->arch.dr[] are actually written into the CPU
-registers.
+How is v->arch.cr3 being non-zero related to the GDT area needing
+destroying?
 
-Also let's not forget that there's a 2nd call here, where I very much hope
-it continues to be "current" that's being passed in.
+> -        if ( (l1e_get_flags(pl1e[i]) & _PAGE_PRESENT) &&
+> -             !mfn_eq(mfn, zero_mfn) )
+> -            put_page_and_type(mfn_to_page(mfn));
+> +    for ( i = 0; i < ARRAY_SIZE(v->arch.pv.gdt_frames); i++)
+> +    {
+> +        if ( !v->arch.pv.gdt_frames[i] )
+> +            break;
+>  
+> -        l1e_write(&pl1e[i], zero_l1e);
+> +        put_page_and_type(mfn_to_page(_mfn(v->arch.pv.gdt_frames[i])));
+>          v->arch.pv.gdt_frames[i] = 0;
+>      }
+>  }
+> @@ -74,8 +71,8 @@ int pv_set_gdt(struct vcpu *v, const unsigned long frames[],
+>                 unsigned int entries)
+>  {
+>      struct domain *d = v->domain;
+> -    l1_pgentry_t *pl1e;
+>      unsigned int i, nr_frames = DIV_ROUND_UP(entries, 512);
+> +    mfn_t mfns[ARRAY_SIZE(v->arch.pv.gdt_frames)];
+
+Having this array is kind of odd - it'll hold all the same values as
+frames[], just under a different type. Considering the further copying
+done ...
+
+> @@ -90,6 +87,8 @@ int pv_set_gdt(struct vcpu *v, const unsigned long frames[],
+>          if ( !mfn_valid(mfn) ||
+>               !get_page_and_type(mfn_to_page(mfn), d, PGT_seg_desc_page) )
+>              goto fail;
+> +
+> +        mfns[i] = mfn;
+>      }
+>  
+>      /* Tear down the old GDT. */
+> @@ -97,12 +96,9 @@ int pv_set_gdt(struct vcpu *v, const unsigned long frames[],
+>  
+>      /* Install the new GDT. */
+>      v->arch.pv.gdt_ents = entries;
+> -    pl1e = pv_gdt_ptes(v);
+>      for ( i = 0; i < nr_frames; i++ )
+> -    {
+>          v->arch.pv.gdt_frames[i] = frames[i];
+
+... here, would it perhaps be an option to change ->arch.pv.gdt_frames[]
+to mfn_t[], thus allowing ...
+
+> -        l1e_write(&pl1e[i], l1e_from_pfn(frames[i], __PAGE_HYPERVISOR_RW));
+> -    }
+> +    populate_perdomain_mapping(v, GDT_VIRT_START(v), mfns, nr_frames);
+
+... that array to be passed into here?
 
 Jan
 
