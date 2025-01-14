@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F81DA10E9D
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CC86A10E9E
 	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 18:59:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.871673.1282729 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.871675.1282741 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXlBp-0005OX-WE; Tue, 14 Jan 2025 17:58:58 +0000
+	id 1tXlBr-0005nG-HL; Tue, 14 Jan 2025 17:58:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 871673.1282729; Tue, 14 Jan 2025 17:58:57 +0000
+Received: by outflank-mailman (output) from mailman id 871675.1282741; Tue, 14 Jan 2025 17:58:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXlBp-000597-Af; Tue, 14 Jan 2025 17:58:57 +0000
-Received: by outflank-mailman (input) for mailman id 871673;
- Tue, 14 Jan 2025 17:58:09 +0000
+	id 1tXlBq-0005d1-Nj; Tue, 14 Jan 2025 17:58:58 +0000
+Received: by outflank-mailman (input) for mailman id 871675;
+ Tue, 14 Jan 2025 17:58:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5Qro=UG=redhat.com=vschneid@srs-se1.protection.inumbo.net>)
- id 1tXlB3-0003Eo-Fl
- for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 17:58:09 +0000
+ id 1tXlBW-0003Eo-HD
+ for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 17:58:38 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1c6d49b2-d2a1-11ef-a0e1-8be0dac302b0;
- Tue, 14 Jan 2025 18:58:08 +0100 (CET)
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ id 2db33f18-d2a1-11ef-a0e1-8be0dac302b0;
+ Tue, 14 Jan 2025 18:58:38 +0100 (CET)
+Received: from mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-26-MmrH9LTtO6KBV4tfRF2CNQ-1; Tue,
- 14 Jan 2025 12:58:06 -0500
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-297-eJ1DsfOqOJaNqmHoHG6xCQ-1; Tue,
+ 14 Jan 2025 12:58:32 -0500
 Received: from mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.15])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id A1F7F195608A; Tue, 14 Jan 2025 17:58:02 +0000 (UTC)
+ by mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id F05721955DDE; Tue, 14 Jan 2025 17:58:28 +0000 (UTC)
 Received: from vschneid-thinkpadt14sgen2i.remote.csb (unknown [10.39.192.55])
  by mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix)
- with ESMTPS id 9E84C19560AB; Tue, 14 Jan 2025 17:57:37 +0000 (UTC)
+ with ESMTPS id 3D327195608A; Tue, 14 Jan 2025 17:58:02 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,19 +52,19 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1c6d49b2-d2a1-11ef-a0e1-8be0dac302b0
+X-Inumbo-ID: 2db33f18-d2a1-11ef-a0e1-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1736877487;
+	s=mimecast20190719; t=1736877516;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=qXsyEmzNJ/sfD0UVcKoaU7D3OtZ64iLWu1bVWX+toF8=;
-	b=VTA28UlRthQJZ94mwi9S1nHzW4ylSeT4A+V/LIIv5mY8vAoA8R9QvSuGZOq9GH25Dz/+Bs
-	tr3qixeTBpnFNXGDMuAANVKhD/KMxL8ZrWpkSFClHAdRxJO3fepoLWaQEpa6sV2A/wOFYk
-	MaDoEEHTs855rVssEbyL3uqn6yQEVYU=
-X-MC-Unique: MmrH9LTtO6KBV4tfRF2CNQ-1
-X-Mimecast-MFC-AGG-ID: MmrH9LTtO6KBV4tfRF2CNQ
+	bh=Y5k5J5CPy2ktlmHvQwq2Ty9MVy4yNi4aG70MTyc3QHM=;
+	b=bVbp4r9Fr/jUDS3bDqjrPjDJURjE5a1iBF6jEK94uVeeEyk6806FZykl8jIi+Iti3Zj6ol
+	DyvBDAVna/Uu8uwk9FUxRSTqmxqAyK//2wWkRzJg2zorVk9xVAnkJC4WhdAfM+RZC3rZAv
+	KjcRzW9KPwO7PyFTEfT5+yUCNyaQHag=
+X-MC-Unique: eJ1DsfOqOJaNqmHoHG6xCQ-1
+X-Mimecast-MFC-AGG-ID: eJ1DsfOqOJaNqmHoHG6xCQ
 From: Valentin Schneider <vschneid@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	x86@kernel.org,
@@ -154,9 +154,9 @@ Cc: Juergen Gross <jgross@suse.com>,
 	Luis Chamberlain <mcgrof@kernel.org>,
 	Randy Dunlap <rdunlap@infradead.org>,
 	Tiezhu Yang <yangtiezhu@loongson.cn>
-Subject: [PATCH v4 12/30] arm64/paravirt: Mark pv_steal_clock static call as __ro_after_init
-Date: Tue, 14 Jan 2025 18:51:25 +0100
-Message-ID: <20250114175143.81438-13-vschneid@redhat.com>
+Subject: [PATCH v4 13/30] arm/paravirt: Mark pv_steal_clock static call as __ro_after_init
+Date: Tue, 14 Jan 2025 18:51:26 +0100
+Message-ID: <20250114175143.81438-14-vschneid@redhat.com>
 In-Reply-To: <20250114175143.81438-1-vschneid@redhat.com>
 References: <20250114175143.81438-1-vschneid@redhat.com>
 MIME-Version: 1.0
@@ -165,29 +165,25 @@ X-Scanned-By: MIMEDefang 3.0 on 10.30.177.15
 
 The static call is only ever updated in
 
-  __init pv_time_init()
   __init xen_time_setup_guest()
 
 so mark it appropriately as __ro_after_init.
 
 Signed-off-by: Valentin Schneider <vschneid@redhat.com>
 ---
- arch/arm64/kernel/paravirt.c | 2 +-
+ arch/arm/kernel/paravirt.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/kernel/paravirt.c b/arch/arm64/kernel/paravirt.c
-index aa718d6a9274a..ad28fa23c9228 100644
---- a/arch/arm64/kernel/paravirt.c
-+++ b/arch/arm64/kernel/paravirt.c
-@@ -32,7 +32,7 @@ static u64 native_steal_clock(int cpu)
+diff --git a/arch/arm/kernel/paravirt.c b/arch/arm/kernel/paravirt.c
+index 7dd9806369fb0..632d8d5e06db3 100644
+--- a/arch/arm/kernel/paravirt.c
++++ b/arch/arm/kernel/paravirt.c
+@@ -20,4 +20,4 @@ static u64 native_steal_clock(int cpu)
  	return 0;
  }
  
 -DEFINE_STATIC_CALL(pv_steal_clock, native_steal_clock);
 +DEFINE_STATIC_CALL_RO(pv_steal_clock, native_steal_clock);
- 
- struct pv_time_stolen_time_region {
- 	struct pvclock_vcpu_stolen_time __rcu *kaddr;
 -- 
 2.43.0
 
