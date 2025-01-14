@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F2C4A10EC2
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 19:00:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.871748.1282794 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2A1CA10ECB
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 19:01:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.871759.1282803 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXlDZ-0004MY-UX; Tue, 14 Jan 2025 18:00:45 +0000
+	id 1tXlDw-00058r-AO; Tue, 14 Jan 2025 18:01:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 871748.1282794; Tue, 14 Jan 2025 18:00:45 +0000
+Received: by outflank-mailman (output) from mailman id 871759.1282803; Tue, 14 Jan 2025 18:01:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXlDZ-0004J4-QS; Tue, 14 Jan 2025 18:00:45 +0000
-Received: by outflank-mailman (input) for mailman id 871748;
- Tue, 14 Jan 2025 18:00:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tXlDw-000543-2i; Tue, 14 Jan 2025 18:01:08 +0000
+Received: by outflank-mailman (input) for mailman id 871759;
+ Tue, 14 Jan 2025 18:01:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5Qro=UG=redhat.com=vschneid@srs-se1.protection.inumbo.net>)
- id 1tXlDZ-0003bz-4P
- for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 18:00:45 +0000
+ id 1tXlDu-0004pK-Kd
+ for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 18:01:06 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 789de557-d2a1-11ef-99a4-01e77a169b0f;
- Tue, 14 Jan 2025 19:00:43 +0100 (CET)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 85fbee9b-d2a1-11ef-a0e1-8be0dac302b0;
+ Tue, 14 Jan 2025 19:01:06 +0100 (CET)
 Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-617-15QLd5xpPJuBfkaI0jxIcg-1; Tue,
- 14 Jan 2025 13:00:36 -0500
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-180-l9crDhjEN0CU5mOOpfPM-A-1; Tue,
+ 14 Jan 2025 13:01:02 -0500
 Received: from mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.15])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
  by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 7DD041954195; Tue, 14 Jan 2025 18:00:33 +0000 (UTC)
+ id 734481954190; Tue, 14 Jan 2025 18:00:56 +0000 (UTC)
 Received: from vschneid-thinkpadt14sgen2i.remote.csb (unknown [10.39.192.55])
  by mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix)
- with ESMTPS id 3F89B195608A; Tue, 14 Jan 2025 18:00:11 +0000 (UTC)
+ with ESMTPS id F38CE195608A; Tue, 14 Jan 2025 18:00:33 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,19 +52,19 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 789de557-d2a1-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 85fbee9b-d2a1-11ef-a0e1-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1736877642;
+	s=mimecast20190719; t=1736877664;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=1xC4OsvuHAy+Ds3sLAPsZ084bYad84WLBsAT/g0G1RM=;
-	b=EfU1XYMdtIwBz1aphjtPxE+cwGPgr0zNTdzY5WWzTtShVLJTZVWHb13KwSg/Ri5bPvKqa1
-	B/klpiQqMk4eQaSvKx9WihjD6ZjuduXdLr5JRBCeOMdmh6onLz6f7kRBZjCow19S1x61Qe
-	ycLMeJkZWKw6jDjMfUvTPmIj+ghEXqE=
-X-MC-Unique: 15QLd5xpPJuBfkaI0jxIcg-1
-X-Mimecast-MFC-AGG-ID: 15QLd5xpPJuBfkaI0jxIcg
+	bh=GQSPZLQ3FmvxIu57q6qI2psmX9IZ2horrf+PeQlNWuI=;
+	b=e4NdWv9XiX5E0gif/3A0cDammbayQb384yeK+jDqJX7Fm+iR5mIfU4oNXGh751kYrGN/6G
+	+RlFzgLqLw+7sA8EHiFYoZI6cGtBbtB4SZxLfdacgEmt8o2lFKeZ2J48Ik7k9X22YdZ5H5
+	SZgeUlKHzROY7cppUQUC0vkfTuXZOKU=
+X-MC-Unique: l9crDhjEN0CU5mOOpfPM-A-1
+X-Mimecast-MFC-AGG-ID: l9crDhjEN0CU5mOOpfPM-A
 From: Valentin Schneider <vschneid@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	x86@kernel.org,
@@ -154,9 +154,9 @@ Cc: Josh Poimboeuf <jpoimboe@kernel.org>,
 	Luis Chamberlain <mcgrof@kernel.org>,
 	Randy Dunlap <rdunlap@infradead.org>,
 	Tiezhu Yang <yangtiezhu@loongson.cn>
-Subject: [PATCH v4 18/30] x86/kvm/vmx: Mark vmx_l1d_should flush and vmx_l1d_flush_cond keys as allowed in .noinstr
-Date: Tue, 14 Jan 2025 18:51:31 +0100
-Message-ID: <20250114175143.81438-19-vschneid@redhat.com>
+Subject: [PATCH v4 19/30] stackleack: Mark stack_erasing_bypass key as allowed in .noinstr
+Date: Tue, 14 Jan 2025 18:51:32 +0100
+Message-ID: <20250114175143.81438-20-vschneid@redhat.com>
 In-Reply-To: <20250114175143.81438-1-vschneid@redhat.com>
 References: <20250114175143.81438-1-vschneid@redhat.com>
 MIME-Version: 1.0
@@ -167,41 +167,36 @@ Later commits will cause objtool to warn about static keys being used in
 .noinstr sections in order to safely defer instruction patching IPIs
 targeted at NOHZ_FULL CPUs.
 
-These keys are used in .noinstr code, and can be modified at runtime
-(/proc/kernel/vmx* write). However it is not expected that they will be
-flipped during latency-sensitive operations, and thus shouldn't be a source
-of interference wrt the text patching IPI.
+stack_erasing_bypass is used in .noinstr code, and can be modified at runtime
+(proc/sys/kernel/stack_erasing write). However it is not expected that it
+will be  flipped during latency-sensitive operations, and thus shouldn't be
+a source of interference wrt the text patching IPI.
 
 Mark it to let objtool know not to warn about it.
 
 Reported-by: Josh Poimboeuf <jpoimboe@kernel.org>
 Signed-off-by: Valentin Schneider <vschneid@redhat.com>
 ---
- arch/x86/kvm/vmx/vmx.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ kernel/stackleak.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index 893366e537322..a028c38f44e02 100644
---- a/arch/x86/kvm/vmx/vmx.c
-+++ b/arch/x86/kvm/vmx/vmx.c
-@@ -225,8 +225,15 @@ module_param(pt_mode, int, S_IRUGO);
+diff --git a/kernel/stackleak.c b/kernel/stackleak.c
+index 39fd620a7db6f..a4f07fbc13f61 100644
+--- a/kernel/stackleak.c
++++ b/kernel/stackleak.c
+@@ -18,7 +18,11 @@
+ #include <linux/sysctl.h>
+ #include <linux/init.h>
  
- struct x86_pmu_lbr __ro_after_init vmx_lbr_caps;
- 
--static DEFINE_STATIC_KEY_FALSE(vmx_l1d_should_flush);
--static DEFINE_STATIC_KEY_FALSE(vmx_l1d_flush_cond);
+-static DEFINE_STATIC_KEY_FALSE(stack_erasing_bypass);
 +/*
-+ * Both of these static keys end up being used in .noinstr sections, however
-+ * they are only modified:
-+ * - at init
-+ * - from a /proc/kernel/vmx* write
-+ * thus during latency-sensitive operations they should remain stable.
++ * This static key can only be modified via its sysctl interface. It is
++ * expected it will remain stable during latency-senstive operations.
 + */
-+static DEFINE_STATIC_KEY_FALSE_NOINSTR(vmx_l1d_should_flush);
-+static DEFINE_STATIC_KEY_FALSE_NOINSTR(vmx_l1d_flush_cond);
- static DEFINE_MUTEX(vmx_l1d_flush_mutex);
++static DEFINE_STATIC_KEY_FALSE_NOINSTR(stack_erasing_bypass);
  
- /* Storage for pre module init parameter parsing */
+ #ifdef CONFIG_SYSCTL
+ static int stack_erasing_sysctl(const struct ctl_table *table, int write,
 -- 
 2.43.0
 
