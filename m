@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0371CA10450
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 11:35:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.871108.1282149 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53281A1044E
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 11:35:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.871109.1282162 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXeG2-0006b6-GQ; Tue, 14 Jan 2025 10:34:50 +0000
+	id 1tXeG6-0006yq-Mx; Tue, 14 Jan 2025 10:34:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 871108.1282149; Tue, 14 Jan 2025 10:34:50 +0000
+Received: by outflank-mailman (output) from mailman id 871109.1282162; Tue, 14 Jan 2025 10:34:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXeG2-0006UY-CC; Tue, 14 Jan 2025 10:34:50 +0000
-Received: by outflank-mailman (input) for mailman id 871108;
- Tue, 14 Jan 2025 10:34:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tXeG6-0006w4-Jj; Tue, 14 Jan 2025 10:34:54 +0000
+Received: by outflank-mailman (input) for mailman id 871109;
+ Tue, 14 Jan 2025 10:34:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=iLru=UG=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tXeG1-0006Sh-Hu
- for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 10:34:49 +0000
+ id 1tXeG5-0006up-GI
+ for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 10:34:53 +0000
 Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
  [2a00:1450:4864:20::634])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2d233095-d263-11ef-99a4-01e77a169b0f;
- Tue, 14 Jan 2025 11:34:47 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2e7e0a50-d263-11ef-a0e1-8be0dac302b0;
+ Tue, 14 Jan 2025 11:34:50 +0100 (CET)
 Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-aa679ad4265so145273766b.0
- for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 02:34:47 -0800 (PST)
+ a640c23a62f3a-aaee0b309adso873307566b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 02:34:50 -0800 (PST)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab2c9060533sm614255366b.23.2025.01.14.02.34.45
+ a640c23a62f3a-ab2c913605csm608116266b.82.2025.01.14.02.34.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Jan 2025 02:34:46 -0800 (PST)
+ Tue, 14 Jan 2025 02:34:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,48 +44,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2d233095-d263-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 2e7e0a50-d263-11ef-a0e1-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1736850887; x=1737455687; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1736850889; x=1737455689; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9ZU2rMw7aFNypI2l6diI5iIm2rhPqMg33NxACGe4Tyg=;
-        b=GNCyW5FZrA/+lopzbAAbKj6lGKPj88F19h47zBKOERhrsG7f4CRg9OZqD325Xbt2eK
-         6muyF5HpzMNWg4Q3a7BlHy4TLINfLqF8hBX9UDyfgiBJCRj6gOFN21sCD+p7EC7zag5a
-         ga7m4oPV1jfo7XD0K57GZVjBz1IY0H3kHpKzE=
+        bh=8aKUOtOG9BVgReGI+Nw2NzmnaZPU8conWgd+JDzRbKo=;
+        b=PEF0JckHlBB5UuSMXMf3o/TTr0oR4JR/dBXCz6JAonXaY4eAf+XgxG3dMuT9jQIT8i
+         BkFJXrnsCPuaQDp9RYaL8h6B0s3bdLwzE6WQ1GC+A01ntBMd/t+3Pig0kAEtQljsMUNq
+         hUK84aLw5frsu4tn9+cySDJEoAlivNQQMTaT0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736850887; x=1737455687;
+        d=1e100.net; s=20230601; t=1736850889; x=1737455689;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=9ZU2rMw7aFNypI2l6diI5iIm2rhPqMg33NxACGe4Tyg=;
-        b=DIvPE3yoUMyD/r9GjaOtKb/QS4Lb0C3/sqkEo+veZGiIUmvZyfHy4eeWUpVgDc2yMj
-         VHTUyMqC7fSc9XUcGLwoh80ho0GW8Qy0QGeXbqGXCQruAB0YLwd8HEWoYWiyoddek3XV
-         mof9vbEJMoyLfwT3RsdYe954gpR2fiyxVeO7cyFFck7IWvsrVOtGH0jsgOe3d+nBcSAf
-         WIYOLnrm3yl78cQwQtNV+odkz/v1enTHtbDQw+Qz1IfhwEdyUkjzqX6sx0MtIQh40AVR
-         cOP9EAKyAXs7/EaFsd4fg2TD7wZAmLiCbkTVXpfepqAHmSQU/+147MaZiFImOpOz5ml5
-         TJ0g==
-X-Forwarded-Encrypted: i=1; AJvYcCVEmN7bs+Kkz3nDfI+e/bkDyESn7hCRUeCG5Z7H5rQBy8bxVqqlR9P6elbFlC49cq+Pi/s25dOhR6M=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywp5eiwDcNGHJAULsjRC6TzkEKUH6ccIoTeVP2qlhmrfPpz0nW4
-	X+VeDa8x+nhktRkl58d9OpGs7i7mqAg9FSZx0HI2dxFN5eAli7GI85tY+i8kdP0=
-X-Gm-Gg: ASbGncu5gX7MoAXzmnwhq8rts2LdN33aXJiO9xrDCiOq/O2fxCXCZlJeQZJMIes6gsu
-	0RFoImG4Ymnzx2is5Iqt0IxoCjqkReldQ1n/lVvhZEHC99cu/xgTjxanAiTaAH16DurHyKOd/M6
-	E7T10gQDnxnRDxhgS14ADz+k49um7XpI/LwNi3hOnf5mVDY1zGUFckSTaDXLxrUU6yxHQG5m3RE
-	9yliW18WOBsx+8H+Jjdz7/8Tn3M2I3Ht5ydWxr2ZBwI1mL9Lt9FXrXsNcWtnYj+HvA=
-X-Google-Smtp-Source: AGHT+IGrlgmiY5VqhHCHxlAvhEi6Yk1f8mgu/4U5ZjNErcoWMIXni6SJK+Ov+D9vuAGhmZvwfqL6FQ==
-X-Received: by 2002:a17:907:3ea3:b0:aac:333:a0a1 with SMTP id a640c23a62f3a-ab2c3d3e817mr1696220466b.32.1736850887183;
-        Tue, 14 Jan 2025 02:34:47 -0800 (PST)
+        bh=8aKUOtOG9BVgReGI+Nw2NzmnaZPU8conWgd+JDzRbKo=;
+        b=Whk7UM1J3zyvEbSnvkm5uKBY3GwCmMzsZA9VQWYl5LtOe6HYyvxjvNuEMdzkmvF9Rc
+         Kvzw0eE5Sxak6aRQhre1MRXVKQ/ZtgKjfmhgpsX/UvKUeUIDHWiSmWgGs+7HeXqLztPi
+         VbflmSLbpgjZwTZU7o7AqFmQgPmZGoNsAnIbtXLd6DpxT8Ib/DtJs6rSc+ay4AOXNM+h
+         lP0VfIJ6bSSBuz0MwD9L7xr75cJFwrWYuPKSrQ8ZwrlOmAq8HIzp8jlBMQuW7OZd7FDr
+         WTCsdO7qA0Zish0m9eGxxj+y6umHFeSIjxmYoLXAjvoVjA7xkj7kLuch3yHr8Es1QqNq
+         LQ/g==
+X-Forwarded-Encrypted: i=1; AJvYcCVgYmn+S0NJTgSP1lHPtLJrTiULiQUyzK0eSkNNR9uFxDuzpw6jpx7ZHVgv8aZGLYSk4oBzi5fHJ0E=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyVAU9uBzVi/5ETPCKzFAd4Oiyo8q9GVrYXmTpPieBULovY/QcZ
+	THXwyIz5Cr8BPrKTBrdAlf+SkDWZcotOGU7UdpOBBQ2q8cBJK9z/MLvRBBzkDsM=
+X-Gm-Gg: ASbGncu83HbuqOJ+nfOeX9PYv1f4/ijD9/0TGm5V5AdYp2Ibjpx483Fq5/iX0X3M/xB
+	skfa77e0eoyCzwI20ARksg7a4iYz6qOi9i9wXxw+56iJ1dq5nzlxTMs+jsV1U0Pm7HyypBckrEh
+	OyjDP3pwDpOj9tdFNapgq1TlnyVsax9xIRJsBnPTwRzuH8vr0Hg8TbEoJm5YB0Ek+arzy7/FKI9
+	9sBouoUat7MTlSvjJ+GsTlEub1WUs1pDqjfEl2RcBFSlEoJfQp7jDHIxGE5YG8QMFE=
+X-Google-Smtp-Source: AGHT+IHu5De2z/QFEQRsmLROwHRAnH4F5r3sr8PBreqTBE5z0L97HWAie9gr7imKD5uPM/cH1y3q+A==
+X-Received: by 2002:a17:906:4fcb:b0:ab2:fefe:7156 with SMTP id a640c23a62f3a-ab2fefe94f8mr1052272666b.43.1736850889114;
+        Tue, 14 Jan 2025 02:34:49 -0800 (PST)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org
+	xen-devel@lists.xenproject.org,
+	linux-pci@vger.kernel.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: [PATCH v2 1/3] xen/pci: do not register devices with segments >= 0x10000
-Date: Tue, 14 Jan 2025 11:33:11 +0100
-Message-ID: <20250114103315.51328-2-roger.pau@citrix.com>
+	Nirmal Patel <nirmal.patel@linux.intel.com>,
+	Jonathan Derrick <jonathan.derrick@linux.dev>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>
+Subject: [PATCH v2 2/3] vmd: disable MSI remapping bypass under Xen
+Date: Tue, 14 Jan 2025 11:33:12 +0100
+Message-ID: <20250114103315.51328-3-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20250114103315.51328-1-roger.pau@citrix.com>
 References: <20250114103315.51328-1-roger.pau@citrix.com>
@@ -93,75 +98,68 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The current hypercall interface for doing PCI device operations always uses
-a segment field that has a 16 bit width.  However on Linux there are buses
-like VMD that hook up devices into the PCI hierarchy at segment >= 0x10000,
-after the maximum possible segment enumerated in ACPI.
+MSI remapping bypass (directly configuring MSI entries for devices on the
+VMD bus) won't work under Xen, as Xen is not aware of devices in such bus,
+and hence cannot configure the entries using the pIRQ interface in the PV
+case, and in the PVH case traps won't be setup for MSI entries for such
+devices.
 
-Attempting to register or manage those devices with Xen would result in
-errors at best, or overlaps with existing devices living on the truncated
-equivalent segment values.  Note also that the VMD segment numbers are
-arbitrarily assigned by the OS, and hence there would need to be some
-negotiation between Xen and the OS to agree on how to enumerate VMD
-segments and devices behind them.
+Until Xen is aware of devices in the VMD bus prevent the
+VMD_FEAT_CAN_BYPASS_MSI_REMAP capability from being used when running as
+any kind of Xen guest.
 
-Skip notifying Xen about those devices.  Given how VMD bridges can
-multiplex interrupts on behalf of devices behind them there's no need for
-Xen to be aware of such devices for them to be usable by Linux.
+The MSI remapping bypass is an optional feature of VMD bridges, and hence
+when running under Xen it will be masked and devices will be forced to
+redirect its interrupts from the VMD bridge.  That mode of operation must
+always be supported by VMD bridges and works when Xen is not aware of
+devices behind the VMD bridge.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
 Changes since v1:
- - Adjust commit message width to 75 columns.
- - Expand commit message.
+ - Add xen header.
+ - Expand comment.
 ---
- drivers/xen/pci.c | 19 +++++++++++++++++++
+ drivers/pci/controller/vmd.c | 19 +++++++++++++++++++
  1 file changed, 19 insertions(+)
 
-diff --git a/drivers/xen/pci.c b/drivers/xen/pci.c
-index 416f231809cb..08e82fd1263e 100644
---- a/drivers/xen/pci.c
-+++ b/drivers/xen/pci.c
-@@ -43,6 +43,13 @@ static int xen_add_device(struct device *dev)
- 		pci_mcfg_reserved = true;
- 	}
- #endif
-+
-+	if (pci_domain_nr(pci_dev->bus) >> 16) {
-+		dev_info(dev,
-+			 "not registering with Xen: invalid PCI segment\n");
-+		return 0;
-+	}
-+
- 	if (pci_seg_supported) {
- 		DEFINE_RAW_FLEX(struct physdev_pci_device_add, add, optarr, 1);
+diff --git a/drivers/pci/controller/vmd.c b/drivers/pci/controller/vmd.c
+index 264a180403a0..33c9514bd926 100644
+--- a/drivers/pci/controller/vmd.c
++++ b/drivers/pci/controller/vmd.c
+@@ -17,6 +17,8 @@
+ #include <linux/rculist.h>
+ #include <linux/rcupdate.h>
  
-@@ -149,6 +156,12 @@ static int xen_remove_device(struct device *dev)
- 	int r;
- 	struct pci_dev *pci_dev = to_pci_dev(dev);
- 
-+	if (pci_domain_nr(pci_dev->bus) >> 16) {
-+		dev_info(dev,
-+			 "not unregistering with Xen: invalid PCI segment\n");
-+		return 0;
-+	}
++#include <xen/xen.h>
 +
- 	if (pci_seg_supported) {
- 		struct physdev_pci_device device = {
- 			.seg = pci_domain_nr(pci_dev->bus),
-@@ -182,6 +195,12 @@ int xen_reset_device(const struct pci_dev *dev)
- 		.flags = PCI_DEVICE_RESET_FLR,
- 	};
+ #include <asm/irqdomain.h>
  
-+	if (pci_domain_nr(dev->bus) >> 16) {
-+		dev_info(&dev->dev,
-+			 "unable to notify Xen of device reset: invalid PCI segment\n");
-+		return 0;
-+	}
+ #define VMD_CFGBAR	0
+@@ -965,6 +967,23 @@ static int vmd_probe(struct pci_dev *dev, const struct pci_device_id *id)
+ 	struct vmd_dev *vmd;
+ 	int err;
+ 
++	if (xen_domain())
++		/*
++		 * Xen doesn't have knowledge about devices in the VMD bus
++		 * because the config space of devices behind the VMD bridge is
++		 * not known to Xen, and hence Xen cannot discover or configure
++		 * them in any way.
++		 *
++		 * Bypass of MSI remapping won't work in that case as direct
++		 * write by Linux to the MSI entries won't result in functional
++		 * interrupts, as it's Xen the entity that manages the host
++		 * interrupt controller and must configure interrupts.
++		 * However multiplexing of interrupts by the VMD bridge will
++		 * work under Xen, so force the usage of that mode which must
++		 * always be supported by VMD bridges.
++		 */
++		features &= ~VMD_FEAT_CAN_BYPASS_MSI_REMAP;
 +
- 	return HYPERVISOR_physdev_op(PHYSDEVOP_pci_device_reset, &device);
- }
- EXPORT_SYMBOL_GPL(xen_reset_device);
+ 	if (resource_size(&dev->resource[VMD_CFGBAR]) < (1 << 20))
+ 		return -ENOMEM;
+ 
 -- 
 2.46.0
 
