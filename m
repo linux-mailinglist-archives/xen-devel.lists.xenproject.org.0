@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5572FA10543
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 12:25:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.871211.1282252 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB860A10551
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 12:27:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.871223.1282264 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXf2m-0002dJ-9d; Tue, 14 Jan 2025 11:25:12 +0000
+	id 1tXf52-0003Fo-MZ; Tue, 14 Jan 2025 11:27:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 871211.1282252; Tue, 14 Jan 2025 11:25:12 +0000
+Received: by outflank-mailman (output) from mailman id 871223.1282264; Tue, 14 Jan 2025 11:27:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXf2m-0002aq-6o; Tue, 14 Jan 2025 11:25:12 +0000
-Received: by outflank-mailman (input) for mailman id 871211;
- Tue, 14 Jan 2025 11:25:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tXf52-0003Cb-JE; Tue, 14 Jan 2025 11:27:32 +0000
+Received: by outflank-mailman (input) for mailman id 871223;
+ Tue, 14 Jan 2025 11:27:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wcbX=UG=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tXf2l-0001Zk-1R
- for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 11:25:11 +0000
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [2a00:1450:4864:20::230])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 367deef2-d26a-11ef-99a4-01e77a169b0f;
- Tue, 14 Jan 2025 12:25:09 +0100 (CET)
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-30034ad2ca3so39280741fa.1
- for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 03:25:09 -0800 (PST)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-305ff0f8830sm17704571fa.56.2025.01.14.03.25.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Jan 2025 03:25:08 -0800 (PST)
+ <SRS0=iLru=UG=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tXf50-0003CV-OA
+ for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 11:27:30 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8a23870c-d26a-11ef-a0e1-8be0dac302b0;
+ Tue, 14 Jan 2025 12:27:29 +0100 (CET)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-5d3ecae02beso6927825a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 03:27:29 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5d9900c440bsm5938529a12.26.2025.01.14.03.27.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Jan 2025 03:27:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,95 +44,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 367deef2-d26a-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 8a23870c-d26a-11ef-a0e1-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1736853909; x=1737458709; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=rxuwXE7Ub93xoW60BGzgtGqv5pjnq4qxOGMwWVH5TvE=;
-        b=TIKA/uWW77LG5m9A5Kf8grzD6dBOdyGV16bfll/IQGg0/WLkaUw6/AI+N+Da13yxT6
-         yB4yfxsFA7v/rcRvFCheVKMqC1evA5t56DICrV3vZ+c5dIFZPpqCqkQJ1yH8E0EuPefZ
-         /6KGmvFaLqGDkl1QSc+kbQUwVL2qfwYhqJwGQJ1jhpquy0hNORT14audiEHQk+z8l8Cx
-         PFTBk8Q7bCp/Njnbpj2WFAKQsj3uItuP68qsXuG4vTUvCLVTXU7Xz+b8yxxo5GUdQu1J
-         bhH3thnUs8fG7vRfmjRspv00jZL3BMw9L3ehGrponezb0eUskbmwm+N6MJ3SZoq27yA/
-         jWEg==
+        d=citrix.com; s=google; t=1736854049; x=1737458849; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=+ldjiazwPH/9g3yJmkdafzgo4e1V47IDF3ZSi2eHgu4=;
+        b=JYrrgirfWYvHoU9/BmiRt6rPr8DcyM4yN5iUJb/1hs67eYhj7qqw21gbrrglN89Nnh
+         B54DPpIG+zWOjI8//l56YWWIEPlXTu/vFpq9WLXV6VeQDbeQ2rWk3/sdFYK7iMvnHc4a
+         rVvnSwFcG2ORuOn5MWjm7CrlUIZOt9m1kNDp4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736853909; x=1737458709;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1736854049; x=1737458849;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=rxuwXE7Ub93xoW60BGzgtGqv5pjnq4qxOGMwWVH5TvE=;
-        b=XZ6FIx2WidIr2l1Cz5CcBJPWhu7yeG8Jgh8s//Bg5sbyu/ZDlj/siOXiPCbs7lKcbk
-         iqSwoXM/sAPfAPU/ivffWWhbiPveePjT2dHf4pvdrSNgSXpP3c3kZPoKOgxnFwzFbtpy
-         tPP1YyY7nQwadQI1UOtdGeNn1sMdOTBp6rO/hElV1xpM7vQ6Ir2kuZOby2puBFIGXBDi
-         MupMNyEa43vRlRol+rHUlL55iLLjNdvU5dfWDO9bgFHMiXTt3bRqGy9Qgf93etDbh6MC
-         BE68H+rigeZbdI5BzIum0Qix6uCrOTDFA3ciw4CerUqF4PKGe7lZ34if7FTUkhqa6VQR
-         RNjg==
-X-Forwarded-Encrypted: i=1; AJvYcCXba86e5lnBqErxTAfVTHbcB4nCf3aGtOHoOSMNUa9Ct4cQ/inwXUkybAZIZyPyTYEM6N2ZWL75epc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw67p8d3RWXAXlm4nrgfdNKFhKniaWMAQpIPWq4WrALu9XQIsqB
-	h9OQAyXjQRzv4z1SE5gZGpw472ExesBwtDZtQr+qUQzddrIdUi6N
-X-Gm-Gg: ASbGncs0VADJ3smlj+qUngP5p7PTgcDo9p3WjsA6orkXiuLktDTm0EJFoYKp1kSnds6
-	miGiPgvbfhsmJ5gMEIYleyAr2mIyRAbj8f5Tf8WPo3mL4vVT0ATJ5WaaV7fmkP5AmdjEoywIpE+
-	0uAj5UHSxSSlqe7vpbbMtUZb/ed2ySy9p3cx05AZG3Ya5Jha6hPCnggKG9nROQXtVcW1e2GgfUs
-	lBeCd48PJvDs/6ZvfdcfCB3iFSSIk9Xlx4hKZbYK9ytAzT4AyPI4eOa5P6p5nK6zF2p4w==
-X-Google-Smtp-Source: AGHT+IGXP8yNnZya4l7S4XQv4FSJGBz0Th1oXdgTyujC48B2Q+C0CnMJee6+QtEVSw8eFotLervMgQ==
-X-Received: by 2002:a05:651c:b29:b0:302:4147:178d with SMTP id 38308e7fff4ca-305f45dc5b0mr94748041fa.28.1736853908817;
-        Tue, 14 Jan 2025 03:25:08 -0800 (PST)
-Message-ID: <652d7978-8810-4e10-9a19-e067948a223f@gmail.com>
-Date: Tue, 14 Jan 2025 12:25:08 +0100
+        bh=+ldjiazwPH/9g3yJmkdafzgo4e1V47IDF3ZSi2eHgu4=;
+        b=XNkAb0IqMwUFcC2cvlRC901vMHJcvfvGt5BXSrddI/ux2gE4FEsC9i2LCBz+LM8tIF
+         te4Tt1rF5T5PEb1h35Lj3rpt2kiBFtOr2VHbF8Z9s0nXiyY2PMbSCHGY7bVQRNbCoi4N
+         F3IRV33eJ1I9bRBGK6pdVhf+ff8aIwhuObnRo+2hSTdUHRyCx2GXAT3zVoUbcSAV6swN
+         Oy84XuEX9THdd87+I1YQ2DRRVXhOIn8dzCJfZ7EEaZK5ZKSEI8i6z7Ci/f9ZuoXY25N9
+         76CPxOlGReCYx8nDXOD5AGQ0j8iDtsXFy9OMvNm7Oh5+2iBMl2k1GtLQGKq5K0rYZRGp
+         XPgQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXvqLRnqEW3Bu4QLXYdVaBYBtloRuWHQcotPUnswodcabMZv9IW/sF/1TQyS1u6gR5nWrA7EJQkh1s=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwKfolTI3gS9r7DmJMN2/ecFFOdF/EG3NS4GA+XC/s3IPxf2ZKc
+	K1ke8RXV+F6TAbEZtwtouemXo9OCF7v0EbJhRo1z9Or5PfVJiuGUboe7CSqfGqE=
+X-Gm-Gg: ASbGncs6jhQWZ5q9HDqSJBFs8KxJqo6/E0w9Z3twksEFn510p4/A5pCj8XhAUBzHtMO
+	AS93IAUpE55x+se4FYNuxvcypoDvwwhhn62xaIdhv6HjPaYLF3hQ6C60OWlqWVXhb1IaDiJwhqL
+	McB9wswx1r42fkkT9mluoOEfvp1tw/WpbuDNYUgj+f+SsRSHuVrLEWgRy82ETNaXDCrQo2D21bX
+	LamAhCiLA1LTGemFwtmhtg5WuckGAwIreBv/slVoBX/kQIcnT0Jq/+84cxwUhYM6bg=
+X-Google-Smtp-Source: AGHT+IE8eng1kEqFIdvntk1QFXrFAxg4/l8zMJCie8iIQHNaFTnDUyQEYIeGFhqb+qjOsbP31spVoA==
+X-Received: by 2002:a05:6402:354b:b0:5d0:bf4a:3dfe with SMTP id 4fb4d7f45d1cf-5d972e4e7b6mr21832791a12.23.1736854049337;
+        Tue, 14 Jan 2025 03:27:29 -0800 (PST)
+Date: Tue, 14 Jan 2025 12:27:28 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	xen-devel@lists.xenproject.org,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v7 1/2] x86/time: introduce command line option to select
+ wallclock
+Message-ID: <Z4ZKINmJXw5T2dsM@macbook.local>
+References: <20240913075907.34460-1-roger.pau@citrix.com>
+ <20240913075907.34460-2-roger.pau@citrix.com>
+ <Z4U6WxtmaqGkqOqe@mail-itl>
+ <Z4VS88REbzn5uasy@macbook.local>
+ <49a2404f-0c45-4397-9094-a4189131832f@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xl: properly dispose of vTPM struct instance
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony.perard@vates.tech>
-References: <73a01ddf-6090-4fda-a8c0-5703e7c9e81b@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <73a01ddf-6090-4fda-a8c0-5703e7c9e81b@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <49a2404f-0c45-4397-9094-a4189131832f@gmail.com>
 
+On Tue, Jan 14, 2025 at 12:12:03PM +0100, Oleksii Kurochko wrote:
+> 
+> On 1/13/25 6:52 PM, Roger Pau Monné wrote:
+> > On Mon, Jan 13, 2025 at 05:07:55PM +0100, Marek Marczykowski-Górecki wrote:
+> > > On Fri, Sep 13, 2024 at 09:59:06AM +0200, Roger Pau Monne wrote:
+> > > > Allow setting the used wallclock from the command line.  When the option is set
+> > > > to a value different than `auto` the probing is bypassed and the selected
+> > > > implementation is used (as long as it's available).
+> > > > 
+> > > > The `xen` and `efi` options require being booted as a Xen guest (with Xen guest
+> > > > supported built-in) or from UEFI firmware respectively.
+> > > > 
+> > > > Signed-off-by: Roger Pau Monné<roger.pau@citrix.com>
+> > > Reviewed-by: Marek Marczykowski-Górecki<marmarek@invisiblethingslab.com>
+> > Thanks for the review.
+> > 
+> > Oleksii, can I get your opinion as Release Manager about whether this
+> > (and the following patch) would be suitable for committing to staging
+> > given the current release state?
+> > 
+> > It's a workaround for broken EFI implementations that many downstreams
+> > carry on their patch queue.
+> 
+> Based on your commit message, I understand this as addressing a bug ( but not very critical
+> as IIUC downstreams have the similar patch on their side ). Therefore, if it has been properly
+> reviewed and tested, we should consider including it in the current release.
 
-On 1/14/25 9:13 AM, Jan Beulich wrote:
-> The backend_domname field requires separate freeing; make sure to call
-> libxl_device_vtpm_dispose() also on respective error paths.
->
-> Coverity-ID: 1638719
-> Fixes: dde22055ac3a ("libxl: add vtpm support")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+IIRC at least Qubes, XenServer and XCP-ng have a patch that achieves
+the same behavior as proposed here.
 
-R-Acked-By: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> IIUC, setting the wallclock to EFI should align with the behavior Xen had previously.
+> It might be preferable to use that argument as the default for a while, allowing others to verify the "auto"
+> value over time. After that, we could consider making "auto" the default.
+> That said, I am not particularly strict about following this approach.
 
-Thanks.
+We cannot really set efi as the default, as it would break when
+booting on legacy BIOS systems.
 
-~ Oleksii
+We could take only patch 1 and leave patch 2 after Xen 4.20 has
+branched, but at that point I would see little benefit in having just
+patch 1.
 
->
-> --- a/tools/xl/xl_vtpm.c
-> +++ b/tools/xl/xl_vtpm.c
-> @@ -44,12 +44,14 @@ int main_vtpmattach(int argc, char **arg
->           if (MATCH_OPTION("uuid", *argv, oparg)) {
->               if(libxl_uuid_from_string(&(vtpm.uuid), oparg)) {
->                   fprintf(stderr, "Invalid uuid specified (%s)\n", oparg);
-> +                libxl_device_vtpm_dispose(&vtpm);
->                   return 1;
->               }
->           } else if (MATCH_OPTION("backend", *argv, oparg)) {
->               replace_string(&vtpm.backend_domname, oparg);
->           } else {
->               fprintf(stderr, "unrecognized argument `%s'\n", *argv);
-> +            libxl_device_vtpm_dispose(&vtpm);
->               return 1;
->           }
->       }
-> @@ -65,6 +67,7 @@ int main_vtpmattach(int argc, char **arg
->   
->       if (libxl_device_vtpm_add(ctx, domid, &vtpm, 0)) {
->           fprintf(stderr, "libxl_device_vtpm_add failed.\n");
-> +        libxl_device_vtpm_dispose(&vtpm);
->           return 1;
->       }
->       libxl_device_vtpm_dispose(&vtpm);
+I don't have a strong opinion, but downstreams have been complaining
+about Xen behavior regarding the usage of EFI_GET_TIME, so it might be
+good to not ship yet another release with such allegedly broken
+behavior.
+
+Let me know what you think, as I would need a formal Release-Ack if
+this is to be committed.
+
+Thanks, Roger.
+
+> ~ Oleksii
+> 
+> 
+> > 
+> > Thanks, Roger.
 
