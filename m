@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDCA8A10772
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 14:11:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.871319.1282342 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F214A107A8
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 14:22:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.871329.1282354 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXggS-0007UA-LX; Tue, 14 Jan 2025 13:10:16 +0000
+	id 1tXgrz-00010v-Qf; Tue, 14 Jan 2025 13:22:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 871319.1282342; Tue, 14 Jan 2025 13:10:16 +0000
+Received: by outflank-mailman (output) from mailman id 871329.1282354; Tue, 14 Jan 2025 13:22:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXggS-0007S0-Ip; Tue, 14 Jan 2025 13:10:16 +0000
-Received: by outflank-mailman (input) for mailman id 871319;
- Tue, 14 Jan 2025 13:10:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wcbX=UG=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tXggR-0007Ru-1e
- for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 13:10:15 +0000
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [2a00:1450:4864:20::232])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e3665fa1-d278-11ef-99a4-01e77a169b0f;
- Tue, 14 Jan 2025 14:10:12 +0100 (CET)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-304d757a9c1so50244901fa.0
- for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 05:10:12 -0800 (PST)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-305ff0fa064sm17709761fa.66.2025.01.14.05.10.10
+	id 1tXgrz-0000z5-Kt; Tue, 14 Jan 2025 13:22:11 +0000
+Received: by outflank-mailman (input) for mailman id 871329;
+ Tue, 14 Jan 2025 13:22:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=/Vp6=UG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tXgry-0000yz-1Z
+ for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 13:22:10 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8e1bdc9b-d27a-11ef-a0e1-8be0dac302b0;
+ Tue, 14 Jan 2025 14:22:08 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-4361b6f9faeso33773715e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 05:22:08 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38a8e4b8116sm14728363f8f.79.2025.01.14.05.22.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Jan 2025 05:10:10 -0800 (PST)
+ Tue, 14 Jan 2025 05:22:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,343 +45,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e3665fa1-d278-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 8e1bdc9b-d27a-11ef-a0e1-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1736860212; x=1737465012; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XCYk/FDIZ1PIGvnaue940QtDZOzM9d25xWtruLovZt4=;
-        b=RY8gM4H4hV3ddeycboUQU/drcZl1HrXZxf0qvR9lczYg0lWPOlSkxQlCmcy8eVUN/M
-         yev+jnYlAQxD1CLSIVEwSMM7aZFb5H6FmDe3rYklrmFRqDqHwKlEg1OnByblfPuHAQXh
-         bG0RYxsFuhA5h6VHo6qIQoVWqrjF10sAO1xOxKTXa/xDfxXdTORkpG2fJLP06KJLl2kx
-         CQLQSzN2ZQhxizQvvyJqXTIXLIh96OMJz30Syokb5rXL5phzNwZ73G1vk/BUQSl9B3pa
-         ubkijvyJsWTiNKqCKqs9s318NSgbEk7vyQKhlRfLsPd5mFB4pYi5YXDw+Yu7VzoZ8ZeO
-         oOow==
+        d=suse.com; s=google; t=1736860928; x=1737465728; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=eY2/uzli6cNLqo6ObQz+GqU946E5SzXqhujARKegLUg=;
+        b=I/FaTU+7SM7riW/t+TJRDDo2U+WAh9+fAVXveu9Uj36qkt0JfP6h9JNi4I2P8Wl/U6
+         ens0v7z4T8gENdivcdFeQBpMoxcGkx1er5erjCu/MsS7vqr7ZEgg8eQXgbIZbiU+8NCj
+         n1vgQqex3owomq20BfdUZPVNmZYf7eLyZdDJ3CT7czJxpkl+gx1Scr9EHH7/Akm8SAYl
+         e49O93XErCHzeTHTyNSNDj2wQsNtQwPfu3S+FjTidnJuyU/EDZu6dBy5fKJGJMqEvxKl
+         eLPv+Q5T5UODr+7+KljJCv6igdbjITxJNNflbgSyD1I7zPZWR9ilAJ6PPg2fNN0p/YlC
+         TJ4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736860212; x=1737465012;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=XCYk/FDIZ1PIGvnaue940QtDZOzM9d25xWtruLovZt4=;
-        b=gg8NHdHCWfl6nqW8/ss7ZeyrxJv/3lLDgOx1SQWP38Q4K7idjKXurOafQLuIaoy8q6
-         1HuHmeFvD5Q9NtCROkU51uKsy3bmm2l++CjtyQp28XAPm7gC4ulR/rloWjwRGfxXlLYI
-         4eC6YWoxUryqtx75D3Gyh9VGDgTDQXwqay4klSGbBsFmGZBuIpn0ozE6+8hn3cThtYUA
-         tqpYkc5/J3ygCOQNBu4wyaW12/cw0Z2C9VvoFNzUQEqLcznircsJHMjLghRQsy3P8VEj
-         H0Btm7wcql5mltKeld1IDU/2t9iE1zdMohQDujALQarOSnwstTx8M8TSca+T3wMozN4l
-         4y+A==
-X-Forwarded-Encrypted: i=1; AJvYcCVnHYulnIMsliWgZ/oWwYm21GW0MkPuJLSHLCsPLsu3Lg25scHk49jjEDg+/UnSos/MuTGwZ1kPU1s=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YytbLYBiZ8aJaPvyEfRwRM1AL7ZCxdXtRa+J2jKNXFecJYi1TgZ
-	7lMs7SsCYXt5P2EgxV+ITfEjGDPNkjxVynucZXhsqNMcbeiW4unO
-X-Gm-Gg: ASbGncuamjxnqbh2TfXvW7wiekeOv624batIwWoV6pO1G/7rzk0i751ycz3RjbYYgdZ
-	GxEl0BRlhUBau23CbQnfvWvo7O/jf9+hU7wRZyTh19yX3ms2t36vVWFO4eC8WTuHAHwDFFUrZiw
-	7VdP3NAYBdJJtPX1NbFvdRbWCs01OznPvbdAM/C6uDaODlfMyy1h3HhBmWffCGalxS/mU0ymOhE
-	pbaHsefdAeefQ8xrlgReAzSd2SnajtDm1C/mmpL23vuKJDW4KlIlRwMLW7YD5FYxXmxEQ==
-X-Google-Smtp-Source: AGHT+IGJ9plYS4K6RRrzZyp7ubjYF7yB/j6PG35YTj/znwZQf7xq6Th3fGweNwIk2eVy1sgRSZZAkA==
-X-Received: by 2002:a05:651c:4ca:b0:302:2097:392f with SMTP id 38308e7fff4ca-305fcfa3b96mr64728341fa.7.1736860210895;
-        Tue, 14 Jan 2025 05:10:10 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------kP9can0595io0wr0tFwwwTop"
-Message-ID: <1c1307a2-9c62-4103-bf91-a587664e764a@gmail.com>
-Date: Tue, 14 Jan 2025 14:10:09 +0100
+        d=1e100.net; s=20230601; t=1736860928; x=1737465728;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=eY2/uzli6cNLqo6ObQz+GqU946E5SzXqhujARKegLUg=;
+        b=UhXLkhD8ZgZ0LSo5G27IIhlN/MqLavq4EWBO/UOH2w+IhrmskkM4TNjELFDX5nszcp
+         zP3b94gOJq/go7qCx9/TYAiIh4bBvF8pqYA0h3C3AJmTuODSPTQscnOMM4e5PpZJBMXm
+         uqP8R+gO9B5iYZPV/0fQ0mX+8O/XyqbHRg4tgFOvJFWL3z/bDKmW4mgdy9bjiN3zR+SD
+         JrBcCZu8eQy42ArpwpI2fbQR8MfeCJWWjnjpaIeg0u5S42i4FU0cqP0bLgoILa6beOwn
+         4q3VgGzaeaWBJzEtfk6+cL2fxT7VGfWMxtRCqLcg85q+heC7UvF4Gqa7JfLRF2zDB6sz
+         6ypw==
+X-Forwarded-Encrypted: i=1; AJvYcCVlL4peV/QKGbsfTjpSofaUoh4/xqPUnK5lTFOSrJeAqnp68crKvwsx1axY0n2FSxFC6RcS63WphkA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxuiquKTIHBask2EmLMwSBfAAaEUUg/gKzkgPj14yWVSIDno83Q
+	5lSnslFfM1/WomsRI5MU+Fsq0zkvOzLZHJXlKiaBOKJ5zxx3sG3J0P/KHjHQKw==
+X-Gm-Gg: ASbGncvCigUuy9akjRYahoy9PyOQTAYjVCGXQoaUY6JzV8zzxJGnEVfX2Lg/pv3MxO7
+	JQ7yJUcnrySXNmYr/o+qGR0M59CKmX5l2DYv+iA2zwhjyKcmkv8ZgJUCdxCC/nA/IWjZu7vrI4e
+	rLCR707+HYoo3vEoGvltXQiOe55HZe2lkQI1UA8ABD8z5oK2xQtDrJieokT6kk1rReL8BpL+CBy
+	5OhtI+PCT9tZdhBEE1m3KDxX9oGw+iOqwhqv0ieL0tc0OUtmZrvw9Jj+Xno8Dm+zb5sVAkGPP83
+	MX6X5qcF1abs+EuYRAM8kYKOD3Tg3vlDvjDLyKZXtA==
+X-Google-Smtp-Source: AGHT+IFHi/5gAPn9GwxTdtWtJEyzJAy0tizls8+BEPIMdQpu2UIo1PWdS0YPJjccQTEF+tD9T4N/Bw==
+X-Received: by 2002:a05:600c:5028:b0:434:fa73:a906 with SMTP id 5b1f17b1804b1-436e9d6fe9emr168224015e9.4.1736860927898;
+        Tue, 14 Jan 2025 05:22:07 -0800 (PST)
+Message-ID: <c8ed49b1-ffa3-4a40-a006-ee6e01b64367@suse.com>
+Date: Tue, 14 Jan 2025 14:22:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for 4.21 v1 1/1] xen/riscv: identify specific ISA
- supported by cpu
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH v3 0/3] Add stack protector
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1734957957.git.oleksii.kurochko@gmail.com>
- <ee14c485c6c6402a2d1706278b21bf3fcf821af9.1734957957.git.oleksii.kurochko@gmail.com>
- <bc636259-5586-428c-8a57-f97ba16a14b8@suse.com>
- <255b0079-4516-404c-81c1-a49e6f7bf5b4@gmail.com>
- <7cf45091-bf3f-4497-a6e2-72571d7e745e@suse.com>
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20241211020424.401614-1-volodymyr_babchuk@epam.com>
+ <f1e86e0e-985a-41ae-a94c-979288275257@suse.com> <87pllx3gib.fsf@epam.com>
+ <fd9ea545-0eb1-4803-9d1e-df15c5805fa3@citrix.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <7cf45091-bf3f-4497-a6e2-72571d7e745e@suse.com>
-
-This is a multi-part message in MIME format.
---------------kP9can0595io0wr0tFwwwTop
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <fd9ea545-0eb1-4803-9d1e-df15c5805fa3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-
-On 1/14/25 8:33 AM, Jan Beulich wrote:
->>>> +    RISCV_ISA_EXT_DATA(i, RISCV_ISA_EXT_i),
->>>> +    RISCV_ISA_EXT_DATA(m, RISCV_ISA_EXT_m),
->>>> +    RISCV_ISA_EXT_DATA(a, RISCV_ISA_EXT_a),
->>>> +    RISCV_ISA_EXT_DATA(f, RISCV_ISA_EXT_f),
->>>> +    RISCV_ISA_EXT_DATA(d, RISCV_ISA_EXT_d),
->>>> +    RISCV_ISA_EXT_DATA(q, RISCV_ISA_EXT_q),
->>>> +    RISCV_ISA_EXT_DATA(h, RISCV_ISA_EXT_h),
->>>> +    RISCV_ISA_EXT_DATA(zicntr, RISCV_ISA_EXT_ZICNTR),
->>>> +    RISCV_ISA_EXT_DATA(zicsr, RISCV_ISA_EXT_ZICSR),
->>>> +    RISCV_ISA_EXT_DATA(zifencei, RISCV_ISA_EXT_ZIFENCEI),
->>>> +    RISCV_ISA_EXT_DATA(zihintpause, RISCV_ISA_EXT_ZIHINTPAUSE),
->>>> +    RISCV_ISA_EXT_DATA(zihpm, RISCV_ISA_EXT_ZIHPM),
->>>> +    RISCV_ISA_EXT_DATA(zbb, RISCV_ISA_EXT_ZBB),
->>> Isn't it kind of implied that with the presence of Zbb, B should also be
->>> present?
->> My interpretation of the RISC-V Bitmanip Extension spec is that the 'B' extension is essentially a collection of
->> the Zba, Zbb, Zbs, and other extensions, but it isn't an extension by itself.
->> The following is mentioned in the spec:
->>     The bit-manipulation (bitmanip) extension collection is comprised of several component extensions to the base
->>     RISC-V architecture that are intended to provide some combination of code size reduction, performance
->>     improvement, and energy reduction. While the instructions are intended to have general use, some instructions
->>     are more useful in some domains than others. Hence, several smaller bitmanip extensions are provided, rather
->>     than one large extension. Each of these smaller extensions is grouped by common function and use case, and
->>     each of which has its own Zb*-extension name.
-> Still the doc has '"B" Extension for Bit Manipulation' as the title of the
-> chapter.
-> And gas accepts B as an extension (e.g. ".option arch, +b").
-
-I think it is fine.
-B, in this case, just represents Zba, Zbb, Zbc, Zbs and that all of them are supported at the same time.
-But I see chips that doesn't have B because it doesn't have one of those extensions.
-
->
->>>> +            /*
->>>> +             * Workaround for invalid single-letter 's' & 'u' (QEMU).
->>>> +             * No need to set the bit in riscv_isa as 's' & 'u' are
->>>> +             * not valid ISA extensions. It works unless the first
->>>> +             * multi-letter extension in the ISA string begins with
->>>> +             * "Su" and is not prefixed with an underscore.
->>>> +             */
->>>> +            if ( ext[-1] != '_' && ext[1] == 'u' )
->>>> +            {
->>>> +                ++isa;
->>>> +                ext_err = true;
->>>> +                break;
->>>> +            }
->>> I'm afraid I don't understand this; the comment raises more questions
->>> than it answers.
->> Some details could be found here about these QEMU workaround from LK view:
->> https://lore.kernel.org/linux-riscv/ae93358e-e117-b43d-faad-772c529f846c@irq.a4lg.com/#t
+On 12.12.2024 02:17, Andrew Cooper wrote:
+> On 12/12/2024 12:13 am, Volodymyr Babchuk wrote:
+>> Hello Jan,
 >>
->> This leads to the following fix in QEMU:
->> https://patchwork.kernel.org/project/qemu-devel/patch/dee09d708405075420b29115c1e9e87910b8da55.1648270894.git.research_trasio@irq.a4lg.com/#24792587
+>> Jan Beulich <jbeulich@suse.com> writes:
 >>
->> Considering QEMU's patch, these workaround isn't needed anymore since QEMU 7.1 ( it has been released30 Aug 2022 ) probably we could update the
->> QEMU version on our CI and just drop these changes.
->> Or, at least, update the comment with the links mentioned above and add a message that these changes are needed only for QEMU < 7.1.
->> Am I right that we don't have something like GCC_VERSION in Xen but for QEMU?
-> How could there be? At the time of building Xen we know what compiler
-> version is in use, but we clearly don't know under what qemu versions
-> it might later be run.
+>>> On 11.12.2024 03:04, Volodymyr Babchuk wrote:
+>>>> Both GCC and Clang support -fstack-protector feature, which add stack
+>>>> canaries to functions where stack corruption is possible. This series
+>>>> makes possible to use this feature in Xen. I tested this on ARM64 and
+>>>> it is working as intended. Tested both with GCC and Clang.
+>>>>
+>>>> It is hard to enable this feature on x86, as GCC stores stack canary
+>>>> in %fs:40 by default, but Xen can't use %fs for various reasons. It is
+>>>> possibly to change stack canary location new newer GCC versions, but
+>>>> this will change minimal GCC requirement, which is also hard due to
+>>>> various reasons. So, this series focus mostly on ARM and RISCV.
+>>> Why exactly would it not be possible to offer the feature when new enough
+>>> gcc is in use?
+>> It is possible to use this feature with a modern enough GCC, yes. Are
+>> you suggesting to make HAS_STACK_PROTECTOR dependent on GCC_VERSION for
+>> x86 platform?
+> 
+> (With the knowledge that this is a disputed Kconfig pattern, and will
+> need rebasing), the way I want this to work is simply:
+> 
+> diff --git a/xen/Makefile b/xen/Makefile
+> index 0de0101fd0bf..5d0a88fb3c3f 100644
+> --- a/xen/Makefile
+> +++ b/xen/Makefile
+> @@ -434,6 +434,9 @@ endif
+>  
+>  ifeq ($(CONFIG_STACK_PROTECTOR),y)
+>  CFLAGS += -fstack-protector
+> +ifeq ($(CONFIG_X86),y)
+> +CFLAGS += -mstack-protector-guard=global
+> +endif
+>  else
+>  CFLAGS += -fno-stack-protector
+>  endif
+> diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+> index 9cdd04721afa..7951ca908b36 100644
+> --- a/xen/arch/x86/Kconfig
+> +++ b/xen/arch/x86/Kconfig
+> @@ -28,6 +28,7 @@ config X86
+>         select HAS_PCI_MSI
+>         select HAS_PIRQ
+>         select HAS_SCHED_GRANULARITY
+> +       select HAS_STACK_PROTECTOR if
+> $(cc-option,-mstack-protector-guard=global)
+>         select HAS_UBSAN
+>         select HAS_VMAP
+>         select HAS_VPCI if HVM
+> 
+> 
+> 
+> Sadly, it doesn't build.  I get a handful of:
+> 
+> prelink.o: in function `cmdline_parse':
+> /home/andrew/xen.git/xen/common/kernel.c:216:(.init.text+0x20f2): failed
+> to convert GOTPCREL relocation against '__stack_chk_guard'; relink with
+> --no-relax
+> /home/andrew/xen.git/xen/common/kernel.c:230:(.init.text+0x246f): failed
+> to convert GOTPCREL relocation against '__stack_chk_guard'; relink with
+> --no-relax
+> 
+> which is more toolchain-whispering than I feel like doing tonight.
 
-Agree with that, there is no any sense for having something similar as GCC_VERSIOB but
-for QEMU. Then I will just update the comment around this workaround with some clarifications.
+For reference:
+https://sourceware.org/pipermail/binutils/2025-January/138631.html
 
->
->>>> +        riscv_isa_parse_string(isa, this_isa);
->>>> +
->>>> +        if ( bitmap_empty(riscv_isa, RISCV_ISA_EXT_MAX) )
->>>> +            bitmap_copy(riscv_isa, this_isa, RISCV_ISA_EXT_MAX);
->>>> +        else
->>>> +            bitmap_and(riscv_isa, riscv_isa, this_isa, RISCV_ISA_EXT_MAX);
->>> What if the first instance had no extensions at all? You'll then copy what
->>> the second instance say, ending up with extensions not supported by one of
->>> the CPUs.
->> I think that it's impossible that there is no extensions at all and it should be
->> considered as a bug of provided riscv,isa property. Thereby it should be enough to
->> add BUG_ON(!bitmap_empty(this_isa, RISCV_ISA_EXT_MAX)) before if-condition.
-> Well, you can of course make such an assumption. I don't think though that
-> it's technically impossible to have an extension-less environment. Xen
-> won't be able to run there, though (we'll require H at the very least aiui,
-> and I'm sure we really also require Zicsr).
+You didn't enter a gcc bug report yet, did you?
 
-I would like to clarify some things. I think we are counting by word 'extension' different things.
-I am including to this `Base ISA` ( and likely it is incorrect to do so ( or,at least, confusing )
-and I will try not to do that in the future. I am using it in this manner because `Base ISA` is
-included to the table 74. Standard ISA extension names in Unpriv spec ) then it is impossible to
-have an extension-less environment because the spec mentions the following:
-
-     A RISC-V ISA is defined as a base integer ISA, which must be present in any implementation, plus
-     optional extensions to the base ISA.
-
-So, at least, r{32,64,128}i should written in riscv,isa property of DTS file and that is the reason why
-this_isa can't be empty, and thereby riscv_isa will be initialized with, at least, `i` ending up with only `i`
-supported by all CPUs.
-
-But if not count `I` as an extension and just as base ISA then it is really technically possible to come up with
-extension-less environment. But anyway as you mentioned we still need for Xen some extensions. ( btw, thanks, I missed to
-add Zicsr to required_extensions[] ).
-
-Thanks.
-
-~ Oleksii
-
---------------kP9can0595io0wr0tFwwwTop
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 1/14/25 8:33 AM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:7cf45091-bf3f-4497-a6e2-72571d7e745e@suse.com">
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">+    RISCV_ISA_EXT_DATA(i, RISCV_ISA_EXT_i),
-+    RISCV_ISA_EXT_DATA(m, RISCV_ISA_EXT_m),
-+    RISCV_ISA_EXT_DATA(a, RISCV_ISA_EXT_a),
-+    RISCV_ISA_EXT_DATA(f, RISCV_ISA_EXT_f),
-+    RISCV_ISA_EXT_DATA(d, RISCV_ISA_EXT_d),
-+    RISCV_ISA_EXT_DATA(q, RISCV_ISA_EXT_q),
-+    RISCV_ISA_EXT_DATA(h, RISCV_ISA_EXT_h),
-+    RISCV_ISA_EXT_DATA(zicntr, RISCV_ISA_EXT_ZICNTR),
-+    RISCV_ISA_EXT_DATA(zicsr, RISCV_ISA_EXT_ZICSR),
-+    RISCV_ISA_EXT_DATA(zifencei, RISCV_ISA_EXT_ZIFENCEI),
-+    RISCV_ISA_EXT_DATA(zihintpause, RISCV_ISA_EXT_ZIHINTPAUSE),
-+    RISCV_ISA_EXT_DATA(zihpm, RISCV_ISA_EXT_ZIHPM),
-+    RISCV_ISA_EXT_DATA(zbb, RISCV_ISA_EXT_ZBB),
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">Isn't it kind of implied that with the presence of Zbb, B should also be
-present?
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-My interpretation of the RISC-V Bitmanip Extension spec is that the 'B' extension is essentially a collection of
-the Zba, Zbb, Zbs, and other extensions, but it isn't an extension by itself.
-The following is mentioned in the spec:
-   The bit-manipulation (bitmanip) extension collection is comprised of several component extensions to the base
-   RISC-V architecture that are intended to provide some combination of code size reduction, performance
-   improvement, and energy reduction. While the instructions are intended to have general use, some instructions
-   are more useful in some domains than others. Hence, several smaller bitmanip extensions are provided, rather
-   than one large extension. Each of these smaller extensions is grouped by common function and use case, and
-   each of which has its own Zb*-extension name.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Still the doc has '"B" Extension for Bit Manipulation' as the title of the
-chapter. </pre>
-    </blockquote>
-    <blockquote type="cite"
-      cite="mid:7cf45091-bf3f-4497-a6e2-72571d7e745e@suse.com">
-      <pre wrap="" class="moz-quote-pre">And gas accepts B as an extension (e.g. ".option arch, +b").</pre>
-    </blockquote>
-    <pre>I think it is fine.
-B, in this case, just represents Zba, Zbb, Zbc, Zbs and that all of them are supported at the same time.
-But I see chips that doesn't have B because it doesn't have one of those extensions.</pre>
-    <blockquote type="cite"
-      cite="mid:7cf45091-bf3f-4497-a6e2-72571d7e745e@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-    </blockquote>
-    <blockquote type="cite"
-      cite="mid:7cf45091-bf3f-4497-a6e2-72571d7e745e@suse.com">
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">+            /*
-+             * Workaround for invalid single-letter 's' &amp; 'u' (QEMU).
-+             * No need to set the bit in riscv_isa as 's' &amp; 'u' are
-+             * not valid ISA extensions. It works unless the first
-+             * multi-letter extension in the ISA string begins with
-+             * "Su" and is not prefixed with an underscore.
-+             */
-+            if ( ext[-1] != '_' &amp;&amp; ext[1] == 'u' )
-+            {
-+                ++isa;
-+                ext_err = true;
-+                break;
-+            }
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">I'm afraid I don't understand this; the comment raises more questions
-than it answers.
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-Some details could be found here about these QEMU workaround from LK view:
-<a class="moz-txt-link-freetext" href="https://lore.kernel.org/linux-riscv/ae93358e-e117-b43d-faad-772c529f846c@irq.a4lg.com/#t">https://lore.kernel.org/linux-riscv/ae93358e-e117-b43d-faad-772c529f846c@irq.a4lg.com/#t</a>
-
-This leads to the following fix in QEMU:
-<a class="moz-txt-link-freetext" href="https://patchwork.kernel.org/project/qemu-devel/patch/dee09d708405075420b29115c1e9e87910b8da55.1648270894.git.research_trasio@irq.a4lg.com/#24792587">https://patchwork.kernel.org/project/qemu-devel/patch/dee09d708405075420b29115c1e9e87910b8da55.1648270894.git.research_trasio@irq.a4lg.com/#24792587</a>
-
-Considering QEMU's patch, these workaround isn't needed anymore since QEMU 7.1 ( it has been released30 Aug 2022 ) probably we could update the
-QEMU version on our CI and just drop these changes.
-Or, at least, update the comment with the links mentioned above and add a message that these changes are needed only for QEMU &lt; 7.1.
-Am I right that we don't have something like GCC_VERSION in Xen but for QEMU?
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-How could there be? At the time of building Xen we know what compiler
-version is in use, but we clearly don't know under what qemu versions
-it might later be run.</pre>
-    </blockquote>
-    <pre>Agree with that, there is no any sense for having something similar as GCC_VERSIOB but
-for QEMU. Then I will just update the comment around this workaround with some clarifications.</pre>
-    <blockquote type="cite"
-      cite="mid:7cf45091-bf3f-4497-a6e2-72571d7e745e@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">+        riscv_isa_parse_string(isa, this_isa);
-+
-+        if ( bitmap_empty(riscv_isa, RISCV_ISA_EXT_MAX) )
-+            bitmap_copy(riscv_isa, this_isa, RISCV_ISA_EXT_MAX);
-+        else
-+            bitmap_and(riscv_isa, riscv_isa, this_isa, RISCV_ISA_EXT_MAX);
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">What if the first instance had no extensions at all? You'll then copy what
-the second instance say, ending up with extensions not supported by one of
-the CPUs.
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-I think that it's impossible that there is no extensions at all and it should be
-considered as a bug of provided riscv,isa property. Thereby it should be enough to
-add BUG_ON(!bitmap_empty(this_isa, RISCV_ISA_EXT_MAX)) before if-condition.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Well, you can of course make such an assumption. I don't think though that
-it's technically impossible to have an extension-less environment. Xen
-won't be able to run there, though (we'll require H at the very least aiui,
-and I'm sure we really also require Zicsr).</pre>
-    </blockquote>
-    <pre>I would like to clarify some things. I think we are counting by word 'extension' different things.
-I am including to this `Base ISA` ( and likely it is incorrect to do so ( or,at least, confusing )
-and I will try not to do that in the future. I am using it in this manner because `Base ISA` is
-included to the table 74. Standard ISA extension names in Unpriv spec ) then it is impossible to
-have an extension-less environment because the spec mentions the following:</pre>
-    <pre>    A RISC-V ISA is defined as a base integer ISA, which must be present in any implementation, plus
-    optional extensions to the base ISA.
-
-So, at least, r{32,64,128}i should written in riscv,isa property of DTS file and that is the reason why
-this_isa can't be empty, and thereby riscv_isa will be initialized with, at least, `i` ending up with only `i`
-supported by all CPUs.
-
-But if not count `I` as an extension and just as base ISA then it is really technically possible to come up with
-extension-less environment. But anyway as you mentioned we still need for Xen some extensions. ( btw, thanks, I missed to
-add Zicsr to required_extensions[] ).
-
-Thanks.
-
-~ Oleksii
-</pre>
-  </body>
-</html>
-
---------------kP9can0595io0wr0tFwwwTop--
+Jan
 
