@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A094A102FC
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 10:28:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.871023.1282063 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 144EEA102FD
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 10:28:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.871029.1282073 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXdD2-0000br-U9; Tue, 14 Jan 2025 09:27:40 +0000
+	id 1tXdDc-00014Y-5v; Tue, 14 Jan 2025 09:28:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 871023.1282063; Tue, 14 Jan 2025 09:27:40 +0000
+Received: by outflank-mailman (output) from mailman id 871029.1282073; Tue, 14 Jan 2025 09:28:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXdD2-0000Za-RR; Tue, 14 Jan 2025 09:27:40 +0000
-Received: by outflank-mailman (input) for mailman id 871023;
- Tue, 14 Jan 2025 09:27:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tXdDc-00011i-2n; Tue, 14 Jan 2025 09:28:16 +0000
+Received: by outflank-mailman (input) for mailman id 871029;
+ Tue, 14 Jan 2025 09:28:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=tIyo=UG=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tXdD1-0000ZU-NZ
- for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 09:27:39 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ca026ec4-d259-11ef-99a4-01e77a169b0f;
- Tue, 14 Jan 2025 10:27:35 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a9e44654ae3so844289366b.1
- for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 01:27:35 -0800 (PST)
+ id 1tXdDb-00010S-0r
+ for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 09:28:15 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e0d09961-d259-11ef-a0e1-8be0dac302b0;
+ Tue, 14 Jan 2025 10:28:13 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-aaee0b309adso862321366b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 01:28:13 -0800 (PST)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab2c90da8b2sm604410066b.44.2025.01.14.01.27.34
+ a640c23a62f3a-ab2c95aee31sm605364366b.133.2025.01.14.01.28.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Jan 2025 01:27:34 -0800 (PST)
+ Tue, 14 Jan 2025 01:28:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca026ec4-d259-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: e0d09961-d259-11ef-a0e1-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1736846855; x=1737451655; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1736846893; x=1737451693; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Nyd7dH3RHiKx0E2y9+ZoavS8jdI9kOOhJQh9JbRxM5Q=;
-        b=rbJuk+h+dAuUd2Q2m4YN+slBS6l5tiqCWdSg6RUoFq3dJCe+72apkdMzwHuS8rEqvc
-         +BqlDqT1tA+j32Ni3N4dDKO4wh3MK4cs3aXRx6uBHcAUVQMhXVNio8Gk7uvxTG67I1DQ
-         n6W7T2CXYsripiT7MVbWxR3UWBCoNsTlpVvHg=
+        bh=3LmKmsSiV6JZfOVy5DDtZRxAZb3l77AC0bejAyx6pfc=;
+        b=Q0vhLb/sKj8d7ifeB3sZJrFBNG3Y4nUorludkcw2Xn08H1rCWLKdrv8HzOkvDSz/yd
+         fDQMaSqCtoGwnSF23uAy124QepUBDQuTW9NmqpGInJ0fHSBwoF3Hcm7LrOmEf+1QJ+14
+         7emqMfHqXHiIdNxNF0IorI2lZjMFB2TljXCLI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736846855; x=1737451655;
+        d=1e100.net; s=20230601; t=1736846893; x=1737451693;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Nyd7dH3RHiKx0E2y9+ZoavS8jdI9kOOhJQh9JbRxM5Q=;
-        b=mx0aNMYkgQwd32zaL/NONQ0r2C8gE0CgqqVqKjb/EenJG5qp0NvAiDHvG0jMb46Itx
-         jL5BlculF3qM1oR/bsCoQabffaORzfx9iGnWYWqFcBm9v0xYGkJfx/C2DWwErsnzP8uF
-         kVyTILEh9JG8BjvzA0Xf4MzU8HxGPbGFBI2N1ZVBiPkZEnXRpF6MZYX+gHqB2opPbMIb
-         7mniZCZC1ObnxRy9cex9nGpNLKd6SfQ3BhWGktvXILNuPlMzCyrLOOIPWp0tZ7DCDP0y
-         R1CO46qmsMXdtTjT5Ek5UGTMVcWMKgHwGyObrfEHP1yuBhaTbFZjZYFQhshggH0GXYvO
-         zNPw==
-X-Forwarded-Encrypted: i=1; AJvYcCUi6JtxyblvePCPMPD/QpHifYfkNx4vX2tjS3igVzRadSfKzY6U+IW1G7MjG8t3f5avv75diVKDaZU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy61eY2PKU2joHABq+wpB1LCpz9DDKhvuL6T7g1+e8rW3sqGOJR
-	AZh2kAaFYR6E98Sr84/5C3xuxokXmF7X0NyELi3E1lC+6n8YvvxNInVzXKeWhAg=
-X-Gm-Gg: ASbGncvBlR7TIAneBuwA73odWNwdIihsiHv9ttA8jAbCo+K2oeoRIX3ZUyAv2wQwNvu
-	LwUsWburnnTPWCxvMsN//7RceUTBik+AV8UE3U19Z8juGvUTIP0HcnnUrN0sgk4Lc20+9dzaBuX
-	mGFdlk8st5c+YlksrVf4+hzvYcdylIHXeo3wICSxcwwiUCd1Ygqwd7LOVBimSiHjOfvf0jYQwiU
-	9iznWTbkMtxo6ZSQSmxTU2+e+qLUyHVYGGcuXmAocBzyWxiBX5wQ6eN9Q8MP2lQknixnjJP4cG+
-	vMau3ZMZtiqrc7HFJG5e
-X-Google-Smtp-Source: AGHT+IH8MfgE39ztq/3hsSseqw32JAQQtYkLXVGYcPntCz+fX0bp3sFv2J4Hd2l4tqrRsPTYLgRESQ==
-X-Received: by 2002:a17:907:2cc2:b0:aaf:123a:e4f0 with SMTP id a640c23a62f3a-ab2ab6c002fmr2005744866b.6.1736846855101;
-        Tue, 14 Jan 2025 01:27:35 -0800 (PST)
-Message-ID: <5e7af388-8b8b-4d81-9429-14a330780b64@citrix.com>
-Date: Tue, 14 Jan 2025 09:27:34 +0000
+        bh=3LmKmsSiV6JZfOVy5DDtZRxAZb3l77AC0bejAyx6pfc=;
+        b=jUe6qCf+BA/31GzYKlA2b+ijfvaNZkSaEce5MthW58SUAEcNZX8A9BoNr2h/bFmbUM
+         BwskvSGkkPIbDFqzFmtUGpPsJ6Evw5Fs3yKN2tNXbPJQfmfrIuNmc6UZktzKF2QsRccG
+         FGkmfb/vX9ig6oUNf3QXouO35NDyKz8PA5eIaebmv+oGE7GayjgZkYoWgEL3Rs3OAZxy
+         ERba/KHbGx9cTrMPa8DGF+7pxIkTdASooHbLiDTaiOnFyah8WtCM9mJhtBDLaQRJoIkv
+         a+liRf7PUoJTZiLOLby4Bwt5C4EMieKWjraG7DdK0l4V5BfFZq/DyawmTOfCP1XMpOrs
+         B67g==
+X-Forwarded-Encrypted: i=1; AJvYcCWKSGjaBSZ7j8oYVjh197bCj6ew6v2SefoCE+9801j9MaPuhnyuAV6ZvceovguGvc/EFj98K+SPraw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz5G6ypVtt7ZjVXzGYjdSUiYvAucfc8sCoy8Wok9PjRAIWz/Zd/
+	52Domp57sHG7ZvT5+BJGK/ljRlVTAeNghULPAsuSXgpY28/QZgsrYJODgUzYVIQ=
+X-Gm-Gg: ASbGncukBy0MWX+3LSk6zKB5HjYimwQj8MsTHFYHG+MOeDoL0DwxmwOMZSJDeoZjU3x
+	ykOs9/89oBWA5Vi4cf1C/nSGgHg4LoqSGEozJXQLm+o3PykZooUQLc4VXzpsJQysE5ceVCfJehF
+	gWR7hoyRpLnh+22fh7ubQIknTzxMYrMgebDduJ4z9txR2IWrp6s+W08OuF/P45Kt1XSGA7jqMEN
+	RGMuoBiJvFEVYmj3Z49XPsLeRUPsNF42YUccanKGhvFjfT9S+RJWRCunW5bclgbwizCDrZsRh9/
+	2DWZVBKX3WzN3szUUYxQ
+X-Google-Smtp-Source: AGHT+IGXdO5NUm/saEy9YA+7hraGqILt1gQIjKxJL/n6qVWZ+qkIBhk2rXe3Xid1h57hZioZ/p6fyA==
+X-Received: by 2002:a17:906:e098:b0:ab3:33ad:13c6 with SMTP id a640c23a62f3a-ab333ad13f2mr191132566b.28.1736846893312;
+        Tue, 14 Jan 2025 01:28:13 -0800 (PST)
+Message-ID: <2d461c1c-513a-49c5-8d62-d77969c6b10a@citrix.com>
+Date: Tue, 14 Jan 2025 09:28:12 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xl: properly dispose of libxl_dominfo struct instances
+Subject: Re: [PATCH] xentrace: free CPU mask string before overwriting pointer
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Anthony PERARD <anthony.perard@vates.tech>,
  Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <f751c5f0-3895-43bb-874b-3611b7916133@suse.com>
+References: <fedf2b9d-a475-4062-b8a4-5e33c7dd6305@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -134,33 +134,19 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <f751c5f0-3895-43bb-874b-3611b7916133@suse.com>
+In-Reply-To: <fedf2b9d-a475-4062-b8a4-5e33c7dd6305@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 14/01/2025 8:12 am, Jan Beulich wrote:
-> The ssid_label field requires separate freeing; make sure to call
-> libxl_dominfo_dispose(). And then, for good measure, also
-> libxl_dominfo_init().
+> While multiple -c options may be unexpected, we'd still better deal with
+> them properly.
 >
-> Coverity-ID: 1638727
-> Coverity-ID: 1638728
-> Fixes: c458c404da16 ("xl: use libxl_domain_info to get the uuid in printf_info")
-> Fixes: 48dab9767d2e ("tools/xl: use libxl_domain_info to get domain type for vcpu-pin")
+> Also restore the blank line that was bogusly zapped by the same commit.
+>
+> Coverity-ID: 1638723
+> Fixes: e4ad2836842a ("xentrace: Implement cpu mask range parsing of human values (-c)")
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> I wasn't quite sure about use of libxl_dominfo_init(): vcpuset(), for
-> example, doesn't call it.
 
-It's a written requirement (somewhere) that *_init() and *_dispose() do
-get called.
-
-Except everyone's lazy with them and plenty of scenarios function
-without, which is why it's often Coverity telling us about it (but only
-for the instances where there's a real malloc()/free() gone missing).
-
-I expect it would be better to extend this patch to fix up vcpuset()
-too.  The changes so far LGTM.
-
-~Andrew
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
