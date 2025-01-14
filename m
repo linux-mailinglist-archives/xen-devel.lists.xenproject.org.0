@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0384BA105A5
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 12:40:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.871234.1282272 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 624AAA105AF
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 12:40:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.871246.1282282 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXfGL-0005cN-LQ; Tue, 14 Jan 2025 11:39:13 +0000
+	id 1tXfHq-0007CG-1Q; Tue, 14 Jan 2025 11:40:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 871234.1282272; Tue, 14 Jan 2025 11:39:13 +0000
+Received: by outflank-mailman (output) from mailman id 871246.1282282; Tue, 14 Jan 2025 11:40:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXfGL-0005aw-IM; Tue, 14 Jan 2025 11:39:13 +0000
-Received: by outflank-mailman (input) for mailman id 871234;
- Tue, 14 Jan 2025 11:39:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tXfHp-0007AV-V7; Tue, 14 Jan 2025 11:40:45 +0000
+Received: by outflank-mailman (input) for mailman id 871246;
+ Tue, 14 Jan 2025 11:40:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iLru=UG=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tXfGJ-0005aq-W0
- for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 11:39:11 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2ba8a9ef-d26c-11ef-a0e1-8be0dac302b0;
- Tue, 14 Jan 2025 12:39:10 +0100 (CET)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5d7e3f1fdafso10995227a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 03:39:10 -0800 (PST)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d9904a411csm6093109a12.72.2025.01.14.03.39.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Jan 2025 03:39:09 -0800 (PST)
+ <SRS0=wcbX=UG=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1tXfHp-0007AJ-71
+ for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 11:40:45 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 63136440-d26c-11ef-99a4-01e77a169b0f;
+ Tue, 14 Jan 2025 12:40:43 +0100 (CET)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-5401d3ea5a1so5341504e87.3
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 03:40:43 -0800 (PST)
+Received: from [192.168.219.191] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5428bec3fadsm1660801e87.188.2025.01.14.03.40.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 14 Jan 2025 03:40:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,117 +45,268 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2ba8a9ef-d26c-11ef-a0e1-8be0dac302b0
+X-Inumbo-ID: 63136440-d26c-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1736854750; x=1737459550; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=8L9HH4K3xM0f6COjLZ16d2gapCO+SXHjhH+Cg7BPtVI=;
-        b=I55Z6V+UwGtzkzmuevQyirUSkSMYHssKHWzXawJCd5nbxj27+AakLFwDaRe23yC/pC
-         7wx4PdbDRXEOKbQQx1NlidDAukb7EyO0fZyzWOTkBSltAV50PKsJFkUjV0j6k/R29Q+8
-         TWGmgakAZdBavtMOFFLF0O8ZICXcg5J91Fd7M=
+        d=gmail.com; s=20230601; t=1736854843; x=1737459643; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tCvMpFPg8q0V/9z6iP7kPF9IeHLFD7m7wQT91KigUqE=;
+        b=kJ3xbmCjPabQp9TLYVRi6tZpVDBayQpfjyrZU5RYo/xRmxtmCB+1fg/em98eZ00jGj
+         WuVwUGcmiekm/IzDudjxJhkQ+4/5paHtaQB914hqZe1xN9KaXoraRO2eKiQN3q855ADx
+         p/unM0eBMHg375RIwM4pbRC570eedM9abhImln0KfxM6rDzQgOnJuWYVyjoWG8ETSrHu
+         4wCPmh8vMKC0pDiHwYM8nMb7DKLwRRc7O6zJj7GJgL3pxjZt7PNZAdi0cNxyZGuLK1T8
+         ToDhTMibIi7RddgtvyU9YzS/r2m+p7buzDmqqSWzrgTN113qsUMteJCQ08V+1mAqHHXz
+         yPFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736854750; x=1737459550;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=8L9HH4K3xM0f6COjLZ16d2gapCO+SXHjhH+Cg7BPtVI=;
-        b=Ms/3wvkFJbtsjTTFeoQvyDVz7N3cxUNp7qynU21cZRwd7+n5GBIxP/okGZVDsHD4pZ
-         ZYdMaxHjM9Pz8w67DHxISpua5B6koU51FQSEEOus/nxP84Bd3vw9VSGn7SR3S++zuv+z
-         ziuoaNu1zlPyFvZNLC9MBah5KiLCo49uTKQDkbQlvqfdimTqK9mTqX1N06M4psx75eGw
-         XH3SfgymCnveI0+2/8iPjxWdDUkWRPDlDCmNz76zXpFtGCjEHYfOpGQM24kMbAkEdpkY
-         FnGcLjX1hPy4eQtrzk2vELlsPNo0aI+0pdk6gStbLIDgC9V1OPhM6T+CDdoGM3Z4qqnZ
-         nMsg==
-X-Forwarded-Encrypted: i=1; AJvYcCXoN3Ndv4i+I05+T0u4Q0nnzVG2O4LK4Cr1xJKEOMLFC6+bSx87dcxH9pcWiFll+rtEH3K4D58O6xk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzpROeIuSNckEEmBezavQWTHWDMtB0CRrUwIWRGwNjekABhKJv4
-	sZBlA+Uyjtg+NRTGUx9FLgfyWazDiabUl1C0RCLsJFHz+wUgQngn8ARj4EtOUyYWQpOnda5sXSe
-	a
-X-Gm-Gg: ASbGncsY6HmYIooI2f+qt2jFBXvTMsPcf04hNOnFJknZr6QFfCrTMMtaMTDzS5WtRZq
-	QRRMlpbcqu7Wxt87vxQ8b1oXVHFB36rqOeLK2SN47K4/ALe16szELx1PwhXx/4ZT6O0Dqv56vIU
-	fPCq2zFBvke4MzxltTY/pA/kvDdzSU3XVyGBCl9ZlaYB4kRcq5y0HXYxxROtRj6iYVW4bTXnkul
-	uoQibExHDpbcJvC0+8k8S/xevGIpBU4x8K2/4wjK6Gglg4bViaiOIuFRPUlnqQHwD8=
-X-Google-Smtp-Source: AGHT+IGMmTqPfnaQeOydPkuHGM4z2RFHBAvyZ+jn/83ik0QSga4uqVnrxWWkMxvq4ANA1Ju7kFS18g==
-X-Received: by 2002:a05:6402:1ec7:b0:5d0:81af:4a43 with SMTP id 4fb4d7f45d1cf-5d972d2063amr24771773a12.0.1736854749858;
-        Tue, 14 Jan 2025 03:39:09 -0800 (PST)
-Date: Tue, 14 Jan 2025 12:39:08 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	xen-devel@lists.xenproject.org,
-	Simone Ballarin <simone.ballarin@bugseng.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v2 2/2] automation/eclair: make Misra rule 20.7 blocking
- for x86 also
-Message-ID: <Z4ZM3Er9dxqiUPNo@macbook.local>
-References: <20241126093508.6966-1-roger.pau@citrix.com>
- <20241126093508.6966-3-roger.pau@citrix.com>
- <Z4ZI-WfUv73iQLI1@macbook.local>
- <54a6f4337e2f9bfc1f295b3c1e9a0897@bugseng.com>
+        d=1e100.net; s=20230601; t=1736854843; x=1737459643;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=tCvMpFPg8q0V/9z6iP7kPF9IeHLFD7m7wQT91KigUqE=;
+        b=HQfQvUAOCvyZa+tCcP0Q/5EI+Zm+rfloEMGU9/ZTy1nDATw+lmFS2/YOlicKkHV6D3
+         /I7AVkim27DYabaS7HLJUpABS+BtZUCnWI6qF8n++Anz+4SAzUl8b8kwZIdzLSspcrmP
+         V7JazzILaDqlcUPjUTM2eWAMGA3HMikqv0zB6s+hRptdtvPKooeeNmYUmRnGF0Cs/S0+
+         8NMAkDnXjWSdts4OvE1aEQRpVL7T4xOQFZKn96mgxPDcgHmRByg/OrRQTEkE9g4A4cGL
+         UlFOCku9zcjYJoJajkk8Q994gwDliFeqp7cgQ6bb/F3au7V50JHdNA1QfXjOJtyc22WG
+         VGNA==
+X-Forwarded-Encrypted: i=1; AJvYcCXUl0seMpeuKDQy5B45lSPyVpNi9p+fFKqG0gYApkoYXi/mhkY5sqt7HmJrMdOYDJt7XORbwqR0yfY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxk/KFzr9UDPTfdDutgPRRxRA1JaLWzcId2LEeE9MbJbSwEN8DN
+	qWQ+VOzPVgdct+kGTCJc/0TaQKCsD4KN8ecBtXajNXKZ66CAgXJw
+X-Gm-Gg: ASbGnctZw5Z3LYc6Bl5616cAaG0g8BgWn/KJ71GG/n7NECPCxuLgJkwFwXHRWgs0IFe
+	b0Vidw52s011znEDsiELhsMY402ghKpRagM6UfHgSVu67RyG17lvJb0i3elqXl7PPRwaQG4ynL5
+	7Wmc1xN6vVBQPUkkI+btIPwSDmj80ARPLTb2mcQMNIEV5fs8XPqwLyE5ScxH661a2C4nR3xaXIv
+	ACYnyBtRvXVlkyPmAqOF4T2A9+/tmSvIp8HjVfBF4u12y108PfgtvvzHfbBoHAQ/c50Eg==
+X-Google-Smtp-Source: AGHT+IFhsTBFi9wbj6mU5gdFIFU7RphJ0sneOC8Q6CJx14xr9PcFHXwlJByz3gCR54XhHwyA1d5Z+g==
+X-Received: by 2002:a05:6512:3c8c:b0:541:4900:7c42 with SMTP id 2adb3069b0e04-542845b1fffmr8736784e87.43.1736854842462;
+        Tue, 14 Jan 2025 03:40:42 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------QZCsQ8CZ0plNpxFsSUBJl0N5"
+Message-ID: <78e09ccb-65b7-4022-b9fc-7874e34c1a99@gmail.com>
+Date: Tue, 14 Jan 2025 12:40:41 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 1/2] x86/time: introduce command line option to select
+ wallclock
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20240913075907.34460-1-roger.pau@citrix.com>
+ <20240913075907.34460-2-roger.pau@citrix.com> <Z4U6WxtmaqGkqOqe@mail-itl>
+ <Z4VS88REbzn5uasy@macbook.local>
+ <49a2404f-0c45-4397-9094-a4189131832f@gmail.com>
+ <Z4ZKINmJXw5T2dsM@macbook.local>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <Z4ZKINmJXw5T2dsM@macbook.local>
+
+This is a multi-part message in MIME format.
+--------------QZCsQ8CZ0plNpxFsSUBJl0N5
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <54a6f4337e2f9bfc1f295b3c1e9a0897@bugseng.com>
 
-On Tue, Jan 14, 2025 at 12:24:30PM +0100, Nicola Vetrini wrote:
-> On 2025-01-14 12:22, Roger Pau Monné wrote:
-> > Hello Oleksii,
-> > 
-> > This is in principle ready to go in now (I'm currently running a
-> > private Eclair scan to ensure the patch is still OK against current
-> > staging).  I would like to ask for a release Ack.
-> > 
-> 
-> One nit below, which I overlooked initially
-> 
-> > Thanks, Roger.
-> > 
-> > On Tue, Nov 26, 2024 at 10:35:08AM +0100, Roger Pau Monne wrote:
-> > > There are no violations left, make the rule globally blocking for
-> > > both x86 and
-> > > ARM.
-> > > 
-> > > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > > Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> > > ---
-> > >  automation/eclair_analysis/ECLAIR/tagging.ecl | 3 ++-
-> > >  1 file changed, 2 insertions(+), 1 deletion(-)
-> > > 
-> > > diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl
-> > > b/automation/eclair_analysis/ECLAIR/tagging.ecl
-> > > index 755ea3271fc9..cb4e233e838d 100644
-> > > --- a/automation/eclair_analysis/ECLAIR/tagging.ecl
-> > > +++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
-> > > @@ -80,6 +80,7 @@ MC3R1.R20.2||
-> > >  MC3R1.R20.3||
-> > >  MC3R1.R20.4||
-> > >  MC3R1.R20.6||
-> > > +MC3R1.R20.7||
-> > >  MC3R1.R20.9||
-> > >  MC3R1.R20.11||
-> > >  MC3R1.R20.12||
-> > > @@ -116,7 +117,7 @@ if(string_equal(target,"x86_64"),
-> > >  )
-> 
-> this hunk will not apply because it uses MC3R1, rather than MC3R2. Should be
-> an easy fix.
-> 
-> > > 
-> > >  if(string_equal(target,"arm64"),
-> > > -    service_selector({"additional_clean_guidelines","MC3R1.R2.1||MC3R1.R5.3||MC3.R11.2||MC3R1.R16.6||MC3R1.R20.7"})
-> > > +    service_selector({"additional_clean_guidelines","MC3R1.R2.1||MC3R1.R5.3||MC3.R11.2||MC3R1.R16.6"})
-> > >  )
-> 
-> here as well
 
-Yeah indeed, I had to rebase the patch:
+On 1/14/25 12:27 PM, Roger Pau Monné wrote:
+> On Tue, Jan 14, 2025 at 12:12:03PM +0100, Oleksii Kurochko wrote:
+>> On 1/13/25 6:52 PM, Roger Pau Monné wrote:
+>>> On Mon, Jan 13, 2025 at 05:07:55PM +0100, Marek Marczykowski-Górecki wrote:
+>>>> On Fri, Sep 13, 2024 at 09:59:06AM +0200, Roger Pau Monne wrote:
+>>>>> Allow setting the used wallclock from the command line.  When the option is set
+>>>>> to a value different than `auto` the probing is bypassed and the selected
+>>>>> implementation is used (as long as it's available).
+>>>>>
+>>>>> The `xen` and `efi` options require being booted as a Xen guest (with Xen guest
+>>>>> supported built-in) or from UEFI firmware respectively.
+>>>>>
+>>>>> Signed-off-by: Roger Pau Monné<roger.pau@citrix.com>
+>>>> Reviewed-by: Marek Marczykowski-Górecki<marmarek@invisiblethingslab.com>
+>>> Thanks for the review.
+>>>
+>>> Oleksii, can I get your opinion as Release Manager about whether this
+>>> (and the following patch) would be suitable for committing to staging
+>>> given the current release state?
+>>>
+>>> It's a workaround for broken EFI implementations that many downstreams
+>>> carry on their patch queue.
+>> Based on your commit message, I understand this as addressing a bug ( but not very critical
+>> as IIUC downstreams have the similar patch on their side ). Therefore, if it has been properly
+>> reviewed and tested, we should consider including it in the current release.
+> IIRC at least Qubes, XenServer and XCP-ng have a patch that achieves
+> the same behavior as proposed here.
+>
+>> IIUC, setting the wallclock to EFI should align with the behavior Xen had previously.
+>> It might be preferable to use that argument as the default for a while, allowing others to verify the "auto"
+>> value over time. After that, we could consider making "auto" the default.
+>> That said, I am not particularly strict about following this approach.
+> We cannot really set efi as the default, as it would break when
+> booting on legacy BIOS systems.
+>
+> We could take only patch 1 and leave patch 2 after Xen 4.20 has
+> branched, but at that point I would see little benefit in having just
+> patch 1.
 
-https://gitlab.com/xen-project/people/royger/xen/-/commit/538439d59dc338ee3861bf1bc056783671ba1fc2
+I don't see a lot of benefit of comitting only the one patch either.
 
-Let's see if Eclair is happy with it, currently running a pipeline.
+
+>
+> I don't have a strong opinion, but downstreams have been complaining
+> about Xen behavior regarding the usage of EFI_GET_TIME, so it might be
+> good to not ship yet another release with such allegedly broken
+> behavior.
+
+Agree with that. As  I mentioned above I consider it as a bug and based on
+that several mentioned above downstreams have the similar patch I could consider
+that as tested approach so ..
+
+>
+> Let me know what you think, as I would need a formal Release-Ack if
+> this is to be committed.
+
+... R-Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>.
+
+Thanks.
+
+~ Oleksii
+
+>
+> Thanks, Roger.
+>
+>> ~ Oleksii
+>>
+>>
+>>> Thanks, Roger.
+--------------QZCsQ8CZ0plNpxFsSUBJl0N5
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 1/14/25 12:27 PM, Roger Pau Monné
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:Z4ZKINmJXw5T2dsM@macbook.local">
+      <pre wrap="" class="moz-quote-pre">On Tue, Jan 14, 2025 at 12:12:03PM +0100, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+On 1/13/25 6:52 PM, Roger Pau Monné wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On Mon, Jan 13, 2025 at 05:07:55PM +0100, Marek Marczykowski-Górecki wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">On Fri, Sep 13, 2024 at 09:59:06AM +0200, Roger Pau Monne wrote:
+</pre>
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">Allow setting the used wallclock from the command line.  When the option is set
+to a value different than `auto` the probing is bypassed and the selected
+implementation is used (as long as it's available).
+
+The `xen` and `efi` options require being booted as a Xen guest (with Xen guest
+supported built-in) or from UEFI firmware respectively.
+
+Signed-off-by: Roger Pau Monné<a class="moz-txt-link-rfc2396E" href="mailto:roger.pau@citrix.com">&lt;roger.pau@citrix.com&gt;</a>
+</pre>
+            </blockquote>
+            <pre wrap="" class="moz-quote-pre">Reviewed-by: Marek Marczykowski-Górecki<a class="moz-txt-link-rfc2396E" href="mailto:marmarek@invisiblethingslab.com">&lt;marmarek@invisiblethingslab.com&gt;</a>
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">Thanks for the review.
+
+Oleksii, can I get your opinion as Release Manager about whether this
+(and the following patch) would be suitable for committing to staging
+given the current release state?
+
+It's a workaround for broken EFI implementations that many downstreams
+carry on their patch queue.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+Based on your commit message, I understand this as addressing a bug ( but not very critical
+as IIUC downstreams have the similar patch on their side ). Therefore, if it has been properly
+reviewed and tested, we should consider including it in the current release.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+IIRC at least Qubes, XenServer and XCP-ng have a patch that achieves
+the same behavior as proposed here.
+
+</pre>
+    </blockquote>
+    <blockquote type="cite" cite="mid:Z4ZKINmJXw5T2dsM@macbook.local">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">IIUC, setting the wallclock to EFI should align with the behavior Xen had previously.
+It might be preferable to use that argument as the default for a while, allowing others to verify the "auto"
+value over time. After that, we could consider making "auto" the default.
+That said, I am not particularly strict about following this approach.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+We cannot really set efi as the default, as it would break when
+booting on legacy BIOS systems.
+
+We could take only patch 1 and leave patch 2 after Xen 4.20 has
+branched, but at that point I would see little benefit in having just
+patch 1.</pre>
+    </blockquote>
+    <pre>I don't see a lot of benefit of comitting only the one patch either.</pre>
+    <p><br>
+    </p>
+    <blockquote type="cite" cite="mid:Z4ZKINmJXw5T2dsM@macbook.local">
+      <pre wrap="" class="moz-quote-pre">
+
+I don't have a strong opinion, but downstreams have been complaining
+about Xen behavior regarding the usage of EFI_GET_TIME, so it might be
+good to not ship yet another release with such allegedly broken
+behavior.</pre>
+    </blockquote>
+    <pre>Agree with that. As  I mentioned above I consider it as a bug and based on
+that several mentioned above downstreams have the similar patch I could consider
+that as tested approach so ..
+</pre>
+    <blockquote type="cite" cite="mid:Z4ZKINmJXw5T2dsM@macbook.local">
+      <pre wrap="" class="moz-quote-pre">
+
+Let me know what you think, as I would need a formal Release-Ack if
+this is to be committed.</pre>
+    </blockquote>
+    <pre>... R-Acked-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>.
+
+</pre>
+    <pre>Thanks.
+<pre>
+</pre></pre>
+    <pre>~ Oleksii
+</pre>
+    <blockquote type="cite" cite="mid:Z4ZKINmJXw5T2dsM@macbook.local">
+      <pre wrap="" class="moz-quote-pre">
 
 Thanks, Roger.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">~ Oleksii
+
+
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">
+Thanks, Roger.
+</pre>
+        </blockquote>
+      </blockquote>
+    </blockquote>
+  </body>
+</html>
+
+--------------QZCsQ8CZ0plNpxFsSUBJl0N5--
 
