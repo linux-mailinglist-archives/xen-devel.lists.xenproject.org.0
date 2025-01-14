@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E458A10330
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 10:42:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.871080.1282122 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03D76A1037E
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 11:00:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.871091.1282132 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXdQm-0006Qy-4v; Tue, 14 Jan 2025 09:41:52 +0000
+	id 1tXdhp-0000B6-LL; Tue, 14 Jan 2025 09:59:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 871080.1282122; Tue, 14 Jan 2025 09:41:52 +0000
+Received: by outflank-mailman (output) from mailman id 871091.1282132; Tue, 14 Jan 2025 09:59:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXdQm-0006OS-24; Tue, 14 Jan 2025 09:41:52 +0000
-Received: by outflank-mailman (input) for mailman id 871080;
- Tue, 14 Jan 2025 09:41:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tXdhp-00008t-IL; Tue, 14 Jan 2025 09:59:29 +0000
+Received: by outflank-mailman (input) for mailman id 871091;
+ Tue, 14 Jan 2025 09:59:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tIyo=UG=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tXdQl-0006OM-2V
- for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 09:41:51 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c69938eb-d25b-11ef-99a4-01e77a169b0f;
- Tue, 14 Jan 2025 10:41:48 +0100 (CET)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-5d7e3f1fdafso10798339a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 01:41:48 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab2c95aedf6sm609598166b.138.2025.01.14.01.41.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Jan 2025 01:41:47 -0800 (PST)
+ <SRS0=s7Sb=UG=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1tXdhn-00008n-Ng
+ for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 09:59:27 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3cf5f630-d25e-11ef-a0e1-8be0dac302b0;
+ Tue, 14 Jan 2025 10:59:26 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-38634c35129so3670314f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 01:59:26 -0800 (PST)
+Received: from localhost.localdomain (158.79.208.46.dyn.plus.net.
+ [46.208.79.158]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38a8e37d472sm14122835f8f.1.2025.01.14.01.59.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Jan 2025 01:59:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,129 +45,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c69938eb-d25b-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 3cf5f630-d25e-11ef-a0e1-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1736847708; x=1737452508; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qbKZ/I5/BSf1C9gMrLhzIhsUeM5QTjxrFIgWSD9Ya2c=;
-        b=PKjcozhnW0nTv+EcKImYPi88uepsqLP4d1Mn5WzvkVWSeQ/gDeNTEQXVCc7J+9DCjC
-         OJZHggS2jDfqjOMv/Rbo9pZ7l4bssxKrW7Ew/IZHt2qJeQ5NbLQoo08etpNULnA6vEZr
-         wu8mX6VB1aLUE7kMulFwIm6umetJfcyoqL85g=
+        d=cloud.com; s=cloud; t=1736848766; x=1737453566; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=a+xrt+pAnmWm6+wI3JBlJF8hkk0OkYfm2j70Ctdabm0=;
+        b=APcJtI2qFh4qI/3ABBXd/2k7l6xKvKjA09eN+TE+cIXN7dYw7B/nQcXzUnSaikllzL
+         W1m+eu7iReMSZMe2TBGs2oasBh7j142Pmpm3tnj0QdnnPhX9ws4CN8BuioMG1vuTrCIq
+         oL/EBaI7jLWP3WW7FtHW+KSB9K8418xndzC3A=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736847708; x=1737452508;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qbKZ/I5/BSf1C9gMrLhzIhsUeM5QTjxrFIgWSD9Ya2c=;
-        b=XA6WzCTXGp9/XxObUxIfn8x9MBJ9MLfvU0k3pL0sZHeS8NMITOrJYmKqbOjOL4gDF9
-         WAxbUPju4QwqjDeqRS0jTy+gHoYPZNl4ra4uwjElGo5BvYQMcwHXOYiSXZYxzgxIycy0
-         Q1JAFJQ5NG916yspJCZyV2prSBcPokU1FO8vM1T9Cq9z31YleGiKp+meLRTaSqez4/Us
-         9rU3BJC/hVU7GgmUb0cqpG8P9WpnUYBvB64BikZRiKZSVk6xRsIuCmX2haSb7d+FPsfF
-         FMjLLvZI+2O07LVzfBCpFF1iolqRpvQlICcs9xTZd594gDM0cSqncWgC8DoIuex+UDIX
-         8NOA==
-X-Forwarded-Encrypted: i=1; AJvYcCUvvCsr2lRVoTZzfj9SPN61ThnEKcFmMMVqXuX5G2CcjFrBsrpU+xZghKd906k3XY73TU7MeWq3nFM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyA7E0p2lUpcxvNWT4XH8PMNoroyhbXA42b+v5WE3JMTOI9e5q3
-	AFvo6mETQtyWGeRsHFaUn6U8r4bFqWtm1Fz3yimnD+EK2cu4cZgwWlVxgxp+oEs=
-X-Gm-Gg: ASbGnctLO7sKqZCclzxIzTfENR5Mws5NoT/SvBm99fiSzmBr2p8Vp8fIo/zoih0btno
-	k/hIuQ5oa8Xkb2W37Xpxq1vmfao9WXkG2rHzdeMiee6Z5iFpQoeSdrMULkqrxruesMA3rgymoEq
-	oLTwzA8RIwXakfMRMbWgZ757taxHGyrJEm+OIsHUu98hEHJ5vtBkfXZyVaV55YrPsmvlQ6mji0m
-	kVwyMLZ7FKHfgYAUX/vmK/yTS07HN0IQlmqgfSLSxWEfEFkNTLgmHTjXR2bgIOFBU4OwbM1XWHC
-	6rznxWUQVHvggx6KW+E/
-X-Google-Smtp-Source: AGHT+IHbY3/lzykXKUtBYmNvnWmFFA6MsHqSTLTSvu6XNPKaAdQeredSGb4Xw6Vbx3Hvehvp2C6a4Q==
-X-Received: by 2002:a17:906:6a26:b0:aaf:73e4:e872 with SMTP id a640c23a62f3a-ab2ab16a9bbmr1768494966b.3.1736847708232;
-        Tue, 14 Jan 2025 01:41:48 -0800 (PST)
-Message-ID: <465406d2-5921-4c52-a95d-b3781b4184e8@citrix.com>
-Date: Tue, 14 Jan 2025 09:41:47 +0000
+        d=1e100.net; s=20230601; t=1736848766; x=1737453566;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=a+xrt+pAnmWm6+wI3JBlJF8hkk0OkYfm2j70Ctdabm0=;
+        b=tmZ8nmPv1AioBr6z8R5ONSlMaSNzARGol0wHZz1uEd+hdoYuEqDNmlxwzxQkBpI5tr
+         4bTsB13bVXbpy/I6Bj6htPhAjyfcmQ/sUY6WP45ul2wa5mU8T17fiTbnj4tb5pe0xpj7
+         LfzsmXOWQd/V2NUdfOI2OyOQ8skwfTd8HbA7e9Z61pcRQWyRoEe/1mgEAyeEYASCHir1
+         f8gvS3jUW10HEfiLwhIDF6SgF85He7SFgDBsQFJyYipZFtNOa7TU0I/3/g7hcmZL057Q
+         Ifek+SE4UMBOGm9IgNVrIspu2xpT2IjettMsoONREzr8t3zySL43ZHPOm6lDv5fQB4Di
+         820Q==
+X-Gm-Message-State: AOJu0Yy+BUvR8lPbb+NRTeFeTDj7oMTuC2wohddQfaVckTfTgZEFK3XO
+	lrsNTRLe8qXY0OpnGjaH9zBrgOmboUta7RqvqeR1wXYENIDGEn/sQFw+7fD7WU49xqmUfsN/RvU
+	8
+X-Gm-Gg: ASbGncssLk/Tuu9wlIt5k4unpu5uffKjUB2cvfGS4NHlOC1QCK7TYufwclXQUMllJ/P
+	dg4cpGcGNbZw8G6qxZmsvSsa5pZcwC9cWFaOPi5VgHV2YX6Hp7x4/wuZvE5ZQpZk55qVB00ChjY
+	v/7kgVYd9oP6MJ11SQodCscoYzf4nlo1AXwteq+bCnu1BNJZaiaWB7ssoW9lTE00/9EkbzSImiV
+	ZerITgkWPQ7IlycPRD7TW7hNCw+OV9uH3netgBGy65OeYDpjhj8fDyyWzggbYxmvb9SgC20kJUx
+	HtO9KtDmZlS3GYJmsX4YyTjFRpU=
+X-Google-Smtp-Source: AGHT+IGIgnAf7V4ePzxUvvDXNDPPDmpTDsb+gCe6d2VFoSE/LHrWCUWBnI/zwIiL18w+NzWoRq9xrg==
+X-Received: by 2002:a05:6000:2a2:b0:38a:8906:6b66 with SMTP id ffacd0b85a97d-38a89066f45mr24234071f8f.38.1736848765702;
+        Tue, 14 Jan 2025 01:59:25 -0800 (PST)
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH] x86/boot: Handle better alignment for 32 bit code
+Date: Tue, 14 Jan 2025 09:59:14 +0000
+Message-Id: <20250114095914.93226-1-frediano.ziglio@cloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] intel/msr: Fix handling of MSR_RAPL_POWER_UNIT
-To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <0ac778dbcc7ab383447abe672225ff77b0d4802e.1736793323.git.teddy.astie@vates.tech>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <0ac778dbcc7ab383447abe672225ff77b0d4802e.1736793323.git.teddy.astie@vates.tech>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 13/01/2025 6:42 pm, Teddy Astie wrote:
-> Solaris 11.4 tries
+Output file didn't have correct alignment.
+Allows alignment into data or code up to 2mb.
 
-Is it only Solaris 11.4, or is the simply the one repro you had?
+Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+---
+ xen/arch/x86/boot/Makefile        | 8 ++++----
+ xen/tools/combine_two_binaries.py | 7 ++++++-
+ 2 files changed, 10 insertions(+), 5 deletions(-)
 
-Have you reported a bug?
+diff --git a/xen/arch/x86/boot/Makefile b/xen/arch/x86/boot/Makefile
+index 13d4583173..9a8ecba7aa 100644
+--- a/xen/arch/x86/boot/Makefile
++++ b/xen/arch/x86/boot/Makefile
+@@ -40,8 +40,8 @@ LD32 := $(LD) $(subst x86_64,i386,$(LDFLAGS_DIRECT))
+ # are affected by both text_diff and text_gap.  Ensure the sum of gap and diff
+ # is greater than 2^16 so that any 16bit relocations if present in the object
+ # file turns into a build-time error.
+-text_gap := 0x010200
+-text_diff := 0x408020
++text_gap := 0x01c240
++text_diff := 0x7e3dc0
+ 
+ $(obj)/build32.base.lds: AFLAGS-y += -DGAP=$(text_gap) -DTEXT_DIFF=$(text_diff)
+ $(obj)/build32.offset.lds: AFLAGS-y += -DGAP=$(text_gap) -DTEXT_DIFF=$(text_diff) -DAPPLY_OFFSET
+@@ -69,7 +69,6 @@ $(obj)/built-in-32.%.bin: $(obj)/build32.%.lds $(obj)/built-in-32.tmp.o
+ 	$(LD32) $(orphan-handling-y) -N -T $< -o $(@:bin=o) $(filter %.o,$^)
+ 	$(NM) -p --format=bsd $(@:bin=o) > $(@:bin=map)
+ 	$(OBJCOPY) -j .text -O binary $(@:bin=o) $@
+-	rm -f $(@:bin=o)
+ 
+ quiet_cmd_combine = GEN     $@
+ cmd_combine = \
+@@ -80,6 +79,7 @@ cmd_combine = \
+               --bin1      $(obj)/built-in-32.base.bin \
+               --bin2      $(obj)/built-in-32.offset.bin \
+               --map       $(obj)/built-in-32.base.map \
++              --align     $(shell $(OBJDUMP) -h $(obj)/built-in-32.base.o|sed '/text.*2\*\*/ {s/.*2\*\*//;p;}; d') \
+               --exports   cmdline_parse_early,reloc,reloc_trampoline32 \
+               --output    $@
+ 
+@@ -90,4 +90,4 @@ $(obj)/built-in-32.S: $(obj)/built-in-32.base.bin $(obj)/built-in-32.offset.bin
+                       $(srctree)/tools/combine_two_binaries.py FORCE
+ 	$(call if_changed,combine)
+ 
+-clean-files := built-in-32.*.bin built-in-32.*.map build32.*.lds
++clean-files := built-in-32.*.bin built-in-32.*.map built-in-32.*.o build32.*.lds
+diff --git a/xen/tools/combine_two_binaries.py b/xen/tools/combine_two_binaries.py
+index 581e57cbc0..8e587c24fb 100755
+--- a/xen/tools/combine_two_binaries.py
++++ b/xen/tools/combine_two_binaries.py
+@@ -26,6 +26,10 @@ parser.add_argument('--text-diff', dest='text_diff',
+                     required=True,
+                     type=auto_int,
+                     help='Difference between code section start')
++parser.add_argument('--align', dest='align',
++                    default=2,
++                    type=auto_int,
++                    help='Alignment in power of 2')
+ parser.add_argument('--output', dest='output',
+                     help='Output file')
+ parser.add_argument('--map', dest='mapfile',
+@@ -93,7 +97,7 @@ if size1 > size2:
+     file1, file2 = file2, file1
+     size1, size2 = size2, size1
+ if size2 != size1 + gap:
+-    raise Exception('File sizes do not match')
++    raise Exception('File sizes do not match %d != %d + %d' % (size2, size1, gap))
+ del size2
+ 
+ file1.seek(0, 0)
+@@ -219,6 +223,7 @@ print('''/*
+  * File autogenerated by combine_two_binaries.py DO NOT EDIT
+  */''', file=out)
+ print('\t' + args.section_header, file=out)
++print('\t.p2align\t' + str(args.align), file=out)
+ print('obj32_start:', file=out)
+ output(out)
+ print('\n\t.section .note.GNU-stack,"",@progbits', file=out)
+-- 
+2.34.1
 
->  to access this MSR on some Intel platforms without properly
-> setting up a proper #GP handler, which leads to a immediate crash.
-
-Minor grammar note.  Either "without a proper #GP handler" or "without
-properly setting up a #GP handler", but having two proper(ly)'s in there
-is less than ideal.
-
-> Emulate the access of this MSR by giving it a legal value (all values set to
-> default, as defined by Intel SDM "RAPL Interfaces").
->
-> Fixes: 84e848fd7a1 ('x86/hvm: disallow access to unknown MSRs')
-> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
-> ---
-> Does it have a risk of negatively affecting other operating systems expecting
-> this MSR read to fail?
-
-It's Complicated.
-
-RAPL is a non-architectural feature (on Intel; AMD did it properly).  It
-does not have a CPUID bit to announce the presence of the MSRs. 
-Therefore OSes use a mixture of model numbers and {wr,rd}msr_safe() to
-probe.
-
-I expect this will change the behaviour of Linux.
-
-~Andrew
 
