@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3567CA105F2
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 12:51:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.871280.1282313 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5C9EA105FB
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 12:55:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.871290.1282323 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXfS9-0002NH-Iw; Tue, 14 Jan 2025 11:51:25 +0000
+	id 1tXfVL-0003Kg-0M; Tue, 14 Jan 2025 11:54:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 871280.1282313; Tue, 14 Jan 2025 11:51:25 +0000
+Received: by outflank-mailman (output) from mailman id 871290.1282323; Tue, 14 Jan 2025 11:54:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXfS9-0002Lb-FK; Tue, 14 Jan 2025 11:51:25 +0000
-Received: by outflank-mailman (input) for mailman id 871280;
- Tue, 14 Jan 2025 11:51:23 +0000
+	id 1tXfVK-0003IH-T6; Tue, 14 Jan 2025 11:54:42 +0000
+Received: by outflank-mailman (input) for mailman id 871290;
+ Tue, 14 Jan 2025 11:54:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wcbX=UG=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tXfS7-0002LV-Jz
- for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 11:51:23 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
+ <SRS0=s7Sb=UG=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1tXfVJ-0003IA-0d
+ for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 11:54:41 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e00d9f9e-d26d-11ef-a0e1-8be0dac302b0;
- Tue, 14 Jan 2025 12:51:22 +0100 (CET)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-54024aa9febso4708520e87.1
- for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 03:51:22 -0800 (PST)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5428be53e86sm1695744e87.62.2025.01.14.03.51.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Jan 2025 03:51:21 -0800 (PST)
+ id 55b07885-d26e-11ef-a0e1-8be0dac302b0;
+ Tue, 14 Jan 2025 12:54:39 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-43625c4a50dso38629945e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 03:54:39 -0800 (PST)
+Received: from localhost.localdomain (158.79.208.46.dyn.plus.net.
+ [46.208.79.158]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-436ed48f4b2sm160187495e9.24.2025.01.14.03.54.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Jan 2025 03:54:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,111 +45,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e00d9f9e-d26d-11ef-a0e1-8be0dac302b0
+X-Inumbo-ID: 55b07885-d26e-11ef-a0e1-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1736855482; x=1737460282; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=YlCVUO5UPH5SMzxPMXud7BtfaNUcpBzGyRU6JqESZCs=;
-        b=McPaEp49sfVuRwSnXFegyHSH85RQrUS+AxYCNFUZ6ulCDyGQ7Z+hMSdLGOErar/tHw
-         gP+H+J0+NtscmZzsPxvyT0hfSHQLANPZ25QkctKTxgAkx16YomFOmPhomU+4FMFDSEYe
-         fKue5ZUn17nPvQ7DKdydCZbqlmuUNO9gG3YHtAMCtDu1k2mfJ923T7INEK2o1O8hvpyL
-         DTYXLTHnmx+OJma37C64Xjg8staPFbkRFyhrt4J2j1YGfs5dG1WBGJMOBJEDWAcocdeG
-         BmzHrbOEYwnV6zo911SgMRxLAevnoIeUKgMSQNnIbEy+mPBNEclRgFz7jZLn53AFCPx8
-         6meg==
+        d=cloud.com; s=cloud; t=1736855679; x=1737460479; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Y85RMcDcdplXx55rxPoCT7LP+dU+Acd11R/HOfjnmew=;
+        b=U5+VzOgxIFUKQkrgqDsuudGX7tycZLaHUh6wvdrJ487yLOMbnBk6lUTtJS9MdNe9PT
+         1lboh+TP8sC6BTMkHeEF9v2dtQLPcgirWC7/42k0v7my2KUF+fBj+8VKD/OgPAM5MJwh
+         qv/yBbP+lQsWa18PJeetFuh4CrYEIi3Flc6FM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736855482; x=1737460282;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=YlCVUO5UPH5SMzxPMXud7BtfaNUcpBzGyRU6JqESZCs=;
-        b=iqda0ze5v8EK+mfjGVuIhAmPLuT84gohZchihW4wwMzs5VLExeWxmQm3Ml6WBo+Vji
-         OwQlvCVtSSvtl/lsn3EYUKpmh6MLu3cSnrWjGxbYE5+C/031w2flFg6jEEd7qM3XldV+
-         A11t+9wLuVFTpfPtJYSIDJVYqTh+/NaQwl8kcXtS1juc9gBO49BQDpxRBEOH7/CK+2Ol
-         rsehu2UrqowSaEkAC0Iee+0YkHh/P/VnBZXfdnmOLhSUDp9wmmFKghoNeLL1RdEm9jHk
-         b1oGPMrOUK9hzS/H1BxC2jd4+PRwGJkNxohGXmDIHLtbFS+J8do6+z/dB+QOFiIap2DP
-         4Ubw==
-X-Gm-Message-State: AOJu0YxX5qn0iZKkn1y52PDHsBowwKy+vVSH6R5Omi/xdjU2pwdcWS/1
-	RGpGx/uQMV/mgmd1Jcj37LXRB5qFbBCmBKSu/ogDaUWQAav806JGvZebKw==
-X-Gm-Gg: ASbGncv9K90fDg9+PFDLaeRM+sBGlHUNrcIVuJU8rSLSj4FPE3yVEi4eBIcFicupzJA
-	MPzKwvI7wlMtTsMpnDtIBuHZgh0GhnjW0M95/kvOupyPY0XWvDJWcDirl8VS1Cm9h4xOszNzeE5
-	JLu1/6lPds1y+j1kBk4DNjex1J5wVUy6MsD2C43WyVW/P4mgLi7IfKzraUjJV4yKK66iTQAHoZF
-	3txVGjP82lPoKy31g/EBzP4a45XZ7ZXtFwxk+s73hO4nvFWWrIQxdftwXiwj33bxKRuYA==
-X-Google-Smtp-Source: AGHT+IELxc2eP8I67QmpikBV7z9BRyJ/WqiixOQhwKv4VmY88ClXjqLLlWEaMQof7T/+mbWnNNJbYA==
-X-Received: by 2002:a05:6512:318d:b0:540:2223:9b0b with SMTP id 2adb3069b0e04-54284801dbemr7505398e87.35.1736855481572;
-        Tue, 14 Jan 2025 03:51:21 -0800 (PST)
-Message-ID: <19dd80e1-deb2-45fa-93e1-3b5952a8ff80@gmail.com>
-Date: Tue, 14 Jan 2025 12:51:20 +0100
+        d=1e100.net; s=20230601; t=1736855679; x=1737460479;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Y85RMcDcdplXx55rxPoCT7LP+dU+Acd11R/HOfjnmew=;
+        b=UeOFlpM3lUZOv6RaIQlnca1rRpJlG9gSdfdkOPYmzFtN8LCY4hL0LxtFOWLlLz29fi
+         q2iKOGlr1qlRIz5ga1WA7WqyAz/BpZoEbPv8BeUFxUk1M9qyFrIRVRYs74ZsZSjlT9N3
+         8AfRjwiuHzLuvy0QsFxu2/NMyrKOEV0T1grDKDL1Dnl47RRCPPqMljDk9ftdAxNMkdCm
+         0Xw3z5l6AUp+DLeoPCSChYx/suFOh7pTrZ8Dkb3Xx0rgrlhzUFfIb9xCTM1hrfXKey7E
+         EyGs4S8BiX70Zv00NtNUezjMJhx2g0iwEWk3G4J7CfX6iRGcdPodF4y6jXBGUAd3kdAi
+         DAGg==
+X-Gm-Message-State: AOJu0Yz2Nogm2Hl0ckLgcTbcCGfvamBZGWXj8bnJnOsVP2f6u4IWLU8Z
+	f2s8nYRsOY4EmF+LgqJnjCMoJQ0V3EtjlsmQbPpIsd3K7m3Osj16XEAD9QX2G4BRPQg5Rz3MjZE
+	8
+X-Gm-Gg: ASbGncvK48/egECfh51tlTSqF9kHYLoaudLM9ha4ioUU0bRxGH1eX7uQjmHu1TxrZCf
+	ho192sKc+vxw08Xm/yD3zAZ8qr13VZZ1IYu7y5U/0gTcOyn+1Ekxq9qbA2ZvAegrQc5/zU4Z8Xh
+	To1XJo+naXGZJaf90J2rK5ACkB7wnAtacEg3zeSRHFNPXe2w0lygLV9ZJ+7TP5kRHxtmjZgNfVx
+	KEBFFdCThIHMxfGDPeGaPvy/kkVm762sU8uCAgKhPCTmEuArw1XTC39Qa2JyZMg0shoLhejG9bL
+	bnEgj2wHJWSgzH+GzrZhz9ajteg=
+X-Google-Smtp-Source: AGHT+IGATqBTzThg/NHUDRGkbKgnJSwL/iLwQrLZqisIJB9AcK6h2aIzUMRL6BFym81BO7yJ2o+PVA==
+X-Received: by 2002:a05:600c:4713:b0:434:ff08:202b with SMTP id 5b1f17b1804b1-436e26970bcmr230811895e9.12.1736855679019;
+        Tue, 14 Jan 2025 03:54:39 -0800 (PST)
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v2] x86/boot: Handle better alignment for 32 bit code
+Date: Tue, 14 Jan 2025 11:54:30 +0000
+Message-Id: <20250114115430.104084-1-frediano.ziglio@cloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] automation/eclair: make Misra rule 20.7 blocking
- for x86 also
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
- Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20241126093508.6966-1-roger.pau@citrix.com>
- <20241126093508.6966-3-roger.pau@citrix.com> <Z4ZI-WfUv73iQLI1@macbook.local>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <Z4ZI-WfUv73iQLI1@macbook.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Roger,
+Output file didn't have correct alignment.
+Allows alignment into data or code up to 2mb.
+Intermediate object files are kept in order to copy alignment
+from object produced by the linker and final object (produced
+by combine_two_binaries.py script).
 
-On 1/14/25 12:22 PM, Roger Pau Monné wrote:
-> Hello Oleksii,
->
-> This is in principle ready to go in now (I'm currently running a
-> private Eclair scan to ensure the patch is still OK against current
-> staging).  I would like to ask for a release Ack.
+Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+---
+ xen/arch/x86/boot/Makefile        | 12 ++++++++----
+ xen/tools/combine_two_binaries.py |  7 ++++++-
+ 2 files changed, 14 insertions(+), 5 deletions(-)
 
-R-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Changes since v1:
+- Improve comments and description.
 
-Thanks.
+diff --git a/xen/arch/x86/boot/Makefile b/xen/arch/x86/boot/Makefile
+index 13d4583173..a56d8a7e0f 100644
+--- a/xen/arch/x86/boot/Makefile
++++ b/xen/arch/x86/boot/Makefile
+@@ -40,8 +40,12 @@ LD32 := $(LD) $(subst x86_64,i386,$(LDFLAGS_DIRECT))
+ # are affected by both text_diff and text_gap.  Ensure the sum of gap and diff
+ # is greater than 2^16 so that any 16bit relocations if present in the object
+ # file turns into a build-time error.
+-text_gap := 0x010200
+-text_diff := 0x408020
++# As gap will affect the output section size it should not be huge to avoid the
++# creation of huge files.
++# The sum of gap and diff will affect the possible alignment so should be a
++# multiple of the possible alignment.
++text_gap := 0x01c240
++text_diff := 0x7e3dc0
+ 
+ $(obj)/build32.base.lds: AFLAGS-y += -DGAP=$(text_gap) -DTEXT_DIFF=$(text_diff)
+ $(obj)/build32.offset.lds: AFLAGS-y += -DGAP=$(text_gap) -DTEXT_DIFF=$(text_diff) -DAPPLY_OFFSET
+@@ -69,7 +73,6 @@ $(obj)/built-in-32.%.bin: $(obj)/build32.%.lds $(obj)/built-in-32.tmp.o
+ 	$(LD32) $(orphan-handling-y) -N -T $< -o $(@:bin=o) $(filter %.o,$^)
+ 	$(NM) -p --format=bsd $(@:bin=o) > $(@:bin=map)
+ 	$(OBJCOPY) -j .text -O binary $(@:bin=o) $@
+-	rm -f $(@:bin=o)
+ 
+ quiet_cmd_combine = GEN     $@
+ cmd_combine = \
+@@ -80,6 +83,7 @@ cmd_combine = \
+               --bin1      $(obj)/built-in-32.base.bin \
+               --bin2      $(obj)/built-in-32.offset.bin \
+               --map       $(obj)/built-in-32.base.map \
++              --align     $(shell $(OBJDUMP) -h $(obj)/built-in-32.base.o|sed '/text.*2\*\*/ {s/.*2\*\*//;p;}; d') \
+               --exports   cmdline_parse_early,reloc,reloc_trampoline32 \
+               --output    $@
+ 
+@@ -90,4 +94,4 @@ $(obj)/built-in-32.S: $(obj)/built-in-32.base.bin $(obj)/built-in-32.offset.bin
+                       $(srctree)/tools/combine_two_binaries.py FORCE
+ 	$(call if_changed,combine)
+ 
+-clean-files := built-in-32.*.bin built-in-32.*.map build32.*.lds
++clean-files := built-in-32.*.bin built-in-32.*.map built-in-32.*.o build32.*.lds
+diff --git a/xen/tools/combine_two_binaries.py b/xen/tools/combine_two_binaries.py
+index 581e57cbc0..8e587c24fb 100755
+--- a/xen/tools/combine_two_binaries.py
++++ b/xen/tools/combine_two_binaries.py
+@@ -26,6 +26,10 @@ parser.add_argument('--text-diff', dest='text_diff',
+                     required=True,
+                     type=auto_int,
+                     help='Difference between code section start')
++parser.add_argument('--align', dest='align',
++                    default=2,
++                    type=auto_int,
++                    help='Alignment in power of 2')
+ parser.add_argument('--output', dest='output',
+                     help='Output file')
+ parser.add_argument('--map', dest='mapfile',
+@@ -93,7 +97,7 @@ if size1 > size2:
+     file1, file2 = file2, file1
+     size1, size2 = size2, size1
+ if size2 != size1 + gap:
+-    raise Exception('File sizes do not match')
++    raise Exception('File sizes do not match %d != %d + %d' % (size2, size1, gap))
+ del size2
+ 
+ file1.seek(0, 0)
+@@ -219,6 +223,7 @@ print('''/*
+  * File autogenerated by combine_two_binaries.py DO NOT EDIT
+  */''', file=out)
+ print('\t' + args.section_header, file=out)
++print('\t.p2align\t' + str(args.align), file=out)
+ print('obj32_start:', file=out)
+ output(out)
+ print('\n\t.section .note.GNU-stack,"",@progbits', file=out)
+-- 
+2.34.1
 
-~ Oleksii
-
-
->
-> Thanks, Roger.
->
-> On Tue, Nov 26, 2024 at 10:35:08AM +0100, Roger Pau Monne wrote:
->> There are no violations left, make the rule globally blocking for both x86 and
->> ARM.
->>
->> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->>   automation/eclair_analysis/ECLAIR/tagging.ecl | 3 ++-
->>   1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl b/automation/eclair_analysis/ECLAIR/tagging.ecl
->> index 755ea3271fc9..cb4e233e838d 100644
->> --- a/automation/eclair_analysis/ECLAIR/tagging.ecl
->> +++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
->> @@ -80,6 +80,7 @@ MC3R1.R20.2||
->>   MC3R1.R20.3||
->>   MC3R1.R20.4||
->>   MC3R1.R20.6||
->> +MC3R1.R20.7||
->>   MC3R1.R20.9||
->>   MC3R1.R20.11||
->>   MC3R1.R20.12||
->> @@ -116,7 +117,7 @@ if(string_equal(target,"x86_64"),
->>   )
->>   
->>   if(string_equal(target,"arm64"),
->> -    service_selector({"additional_clean_guidelines","MC3R1.R2.1||MC3R1.R5.3||MC3.R11.2||MC3R1.R16.6||MC3R1.R20.7"})
->> +    service_selector({"additional_clean_guidelines","MC3R1.R2.1||MC3R1.R5.3||MC3.R11.2||MC3R1.R16.6"})
->>   )
->>   
->>   -reports+={clean:added,"service(clean_guidelines_common||additional_clean_guidelines)"}
->> -- 
->> 2.46.0
->>
 
