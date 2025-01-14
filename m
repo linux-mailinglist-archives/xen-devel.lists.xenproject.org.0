@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03D76A1037E
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 11:00:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.871091.1282132 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DC6FA1044D
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 11:35:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.871107.1282144 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXdhp-0000B6-LL; Tue, 14 Jan 2025 09:59:29 +0000
+	id 1tXeG2-0006UU-8L; Tue, 14 Jan 2025 10:34:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 871091.1282132; Tue, 14 Jan 2025 09:59:29 +0000
+Received: by outflank-mailman (output) from mailman id 871107.1282144; Tue, 14 Jan 2025 10:34:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXdhp-00008t-IL; Tue, 14 Jan 2025 09:59:29 +0000
-Received: by outflank-mailman (input) for mailman id 871091;
- Tue, 14 Jan 2025 09:59:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tXeG2-0006St-45; Tue, 14 Jan 2025 10:34:50 +0000
+Received: by outflank-mailman (input) for mailman id 871107;
+ Tue, 14 Jan 2025 10:34:49 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=s7Sb=UG=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1tXdhn-00008n-Ng
- for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 09:59:27 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3cf5f630-d25e-11ef-a0e1-8be0dac302b0;
- Tue, 14 Jan 2025 10:59:26 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-38634c35129so3670314f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 01:59:26 -0800 (PST)
-Received: from localhost.localdomain (158.79.208.46.dyn.plus.net.
- [46.208.79.158]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a8e37d472sm14122835f8f.1.2025.01.14.01.59.25
+ <SRS0=iLru=UG=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tXeG1-0006Sh-8o
+ for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 10:34:49 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2bc6535e-d263-11ef-99a4-01e77a169b0f;
+ Tue, 14 Jan 2025 11:34:45 +0100 (CET)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-aab925654d9so298300866b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 02:34:45 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab2c956479asm611975466b.116.2025.01.14.02.34.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Jan 2025 01:59:25 -0800 (PST)
+ Tue, 14 Jan 2025 02:34:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,132 +44,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3cf5f630-d25e-11ef-a0e1-8be0dac302b0
+X-Inumbo-ID: 2bc6535e-d263-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1736848766; x=1737453566; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1736850885; x=1737455685; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=a+xrt+pAnmWm6+wI3JBlJF8hkk0OkYfm2j70Ctdabm0=;
-        b=APcJtI2qFh4qI/3ABBXd/2k7l6xKvKjA09eN+TE+cIXN7dYw7B/nQcXzUnSaikllzL
-         W1m+eu7iReMSZMe2TBGs2oasBh7j142Pmpm3tnj0QdnnPhX9ws4CN8BuioMG1vuTrCIq
-         oL/EBaI7jLWP3WW7FtHW+KSB9K8418xndzC3A=
+        bh=wQwSjXI241hYCdXgNAwQNCsum6/0WR1kpNNnkcYE330=;
+        b=sCrjstGYfihAhzrp2wvEczUzvmmvwOHwHwSSgja7L94SUTNiYQaGULrXTz0ZK0GIPN
+         y+n8v0SPd4jv7WCPEuYcj0oxtb73o0EO81KiBKLjB7pYv9rnCV1wh0Sz9NEU27LqENN/
+         fy/UEpm4pDn/mmUGfI50aD5U6zp4rQAO7ppbY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736848766; x=1737453566;
+        d=1e100.net; s=20230601; t=1736850885; x=1737455685;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=a+xrt+pAnmWm6+wI3JBlJF8hkk0OkYfm2j70Ctdabm0=;
-        b=tmZ8nmPv1AioBr6z8R5ONSlMaSNzARGol0wHZz1uEd+hdoYuEqDNmlxwzxQkBpI5tr
-         4bTsB13bVXbpy/I6Bj6htPhAjyfcmQ/sUY6WP45ul2wa5mU8T17fiTbnj4tb5pe0xpj7
-         LfzsmXOWQd/V2NUdfOI2OyOQ8skwfTd8HbA7e9Z61pcRQWyRoEe/1mgEAyeEYASCHir1
-         f8gvS3jUW10HEfiLwhIDF6SgF85He7SFgDBsQFJyYipZFtNOa7TU0I/3/g7hcmZL057Q
-         Ifek+SE4UMBOGm9IgNVrIspu2xpT2IjettMsoONREzr8t3zySL43ZHPOm6lDv5fQB4Di
-         820Q==
-X-Gm-Message-State: AOJu0Yy+BUvR8lPbb+NRTeFeTDj7oMTuC2wohddQfaVckTfTgZEFK3XO
-	lrsNTRLe8qXY0OpnGjaH9zBrgOmboUta7RqvqeR1wXYENIDGEn/sQFw+7fD7WU49xqmUfsN/RvU
-	8
-X-Gm-Gg: ASbGncssLk/Tuu9wlIt5k4unpu5uffKjUB2cvfGS4NHlOC1QCK7TYufwclXQUMllJ/P
-	dg4cpGcGNbZw8G6qxZmsvSsa5pZcwC9cWFaOPi5VgHV2YX6Hp7x4/wuZvE5ZQpZk55qVB00ChjY
-	v/7kgVYd9oP6MJ11SQodCscoYzf4nlo1AXwteq+bCnu1BNJZaiaWB7ssoW9lTE00/9EkbzSImiV
-	ZerITgkWPQ7IlycPRD7TW7hNCw+OV9uH3netgBGy65OeYDpjhj8fDyyWzggbYxmvb9SgC20kJUx
-	HtO9KtDmZlS3GYJmsX4YyTjFRpU=
-X-Google-Smtp-Source: AGHT+IGIgnAf7V4ePzxUvvDXNDPPDmpTDsb+gCe6d2VFoSE/LHrWCUWBnI/zwIiL18w+NzWoRq9xrg==
-X-Received: by 2002:a05:6000:2a2:b0:38a:8906:6b66 with SMTP id ffacd0b85a97d-38a89066f45mr24234071f8f.38.1736848765702;
-        Tue, 14 Jan 2025 01:59:25 -0800 (PST)
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH] x86/boot: Handle better alignment for 32 bit code
-Date: Tue, 14 Jan 2025 09:59:14 +0000
-Message-Id: <20250114095914.93226-1-frediano.ziglio@cloud.com>
-X-Mailer: git-send-email 2.34.1
+        bh=wQwSjXI241hYCdXgNAwQNCsum6/0WR1kpNNnkcYE330=;
+        b=Gfn/WGESkCTKGvcKHR8OWSxqp10wh+grrM2Nwvbx1DdJex3vEekNwOGIwD2f38HJAv
+         nzMGdv9WRKw1Pz8cpMUzD5/XxWzs2oP3Vmzvqo5u1xNF1AfNhGAq2HsQNjhtV1TAkg6d
+         38eHe6oeZXpv3h7vP3R85tXYtm6jNTCdenOSmT7JX9gl6mv6Yklm33k0AnDO7gvM/OAZ
+         PSCuPme/ddyy42wsrafiE0WwDJm3kMQBsRoSswBuMMUWqCuxJf3iWR/eaVfdvKK0PeYh
+         KbYo6pK1sFAybu5xv3naS87/j4OIC8zetZR2Sb0MIiF1aZExbQhzX+O/FqqqDugwJFVd
+         DvQQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXeIKSaY+e5zfqBsAwSSICAjPZHohErvSDtBlw1pGSbQgEb5ZPymNkaZPSBIZiFIZND0pxFR9MEvlQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx1ww9YanU5FFynDjXVSNyWxqe8ATRZxGsmMMsv0bqpZP2wHnaB
+	Leuf/IBWEzEpMTCloEFlfbK9h6KBSddhxJnkZB5CfdS29IMVkMtkjBQ1Sbg+XQs=
+X-Gm-Gg: ASbGncucP59tEC+sGG5lENQJIdA05Dx5BiQWZqFeqB48oOn7Xh6bQLq1hjbnK5WEuQI
+	A/9mgEgtCPTmK5pPV/cpMTod4X/MRQ75tvcLGTNWmsu1Xcbpt1wdt5NR+XfXfzhf8Z+FY3JizMV
+	4Q0mHrhX8fOkOykzyhdObB10hL4NmCnMTVOHuTN8FUyM8FaJqos3CRtJ/k/vayu4szUfTOEyykP
+	WKjKLkrhCYRSIBwVZXfpaVlEYLbovGF2u3I9LVa9FNU8Fvzb4qmNRLSD60Z7MtGRBw=
+X-Google-Smtp-Source: AGHT+IGj7ARHxTxMk2ZMpt+SBomtNarwYt9nXspoozduRWM9XmoJhTSEuJ+ewJ9qdrVRqwpHP4I48w==
+X-Received: by 2002:a17:907:704:b0:aae:bd36:b198 with SMTP id a640c23a62f3a-ab2abcab421mr2297280466b.47.1736850884836;
+        Tue, 14 Jan 2025 02:34:44 -0800 (PST)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>
+Subject: [PATCH v2 0/3] xen: fix usage of devices behind a VMD bridge
+Date: Tue, 14 Jan 2025 11:33:10 +0100
+Message-ID: <20250114103315.51328-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Output file didn't have correct alignment.
-Allows alignment into data or code up to 2mb.
+Hello,
 
-Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
----
- xen/arch/x86/boot/Makefile        | 8 ++++----
- xen/tools/combine_two_binaries.py | 7 ++++++-
- 2 files changed, 10 insertions(+), 5 deletions(-)
+The following series should fix the usage of devices behind a VMD bridge
+when running Linux as a Xen PV hardware domain (dom0).  I've only been
+able to test PV. I think PVH should also work but I don't have hardware
+capable of testing it right now.
 
-diff --git a/xen/arch/x86/boot/Makefile b/xen/arch/x86/boot/Makefile
-index 13d4583173..9a8ecba7aa 100644
---- a/xen/arch/x86/boot/Makefile
-+++ b/xen/arch/x86/boot/Makefile
-@@ -40,8 +40,8 @@ LD32 := $(LD) $(subst x86_64,i386,$(LDFLAGS_DIRECT))
- # are affected by both text_diff and text_gap.  Ensure the sum of gap and diff
- # is greater than 2^16 so that any 16bit relocations if present in the object
- # file turns into a build-time error.
--text_gap := 0x010200
--text_diff := 0x408020
-+text_gap := 0x01c240
-+text_diff := 0x7e3dc0
- 
- $(obj)/build32.base.lds: AFLAGS-y += -DGAP=$(text_gap) -DTEXT_DIFF=$(text_diff)
- $(obj)/build32.offset.lds: AFLAGS-y += -DGAP=$(text_gap) -DTEXT_DIFF=$(text_diff) -DAPPLY_OFFSET
-@@ -69,7 +69,6 @@ $(obj)/built-in-32.%.bin: $(obj)/build32.%.lds $(obj)/built-in-32.tmp.o
- 	$(LD32) $(orphan-handling-y) -N -T $< -o $(@:bin=o) $(filter %.o,$^)
- 	$(NM) -p --format=bsd $(@:bin=o) > $(@:bin=map)
- 	$(OBJCOPY) -j .text -O binary $(@:bin=o) $@
--	rm -f $(@:bin=o)
- 
- quiet_cmd_combine = GEN     $@
- cmd_combine = \
-@@ -80,6 +79,7 @@ cmd_combine = \
-               --bin1      $(obj)/built-in-32.base.bin \
-               --bin2      $(obj)/built-in-32.offset.bin \
-               --map       $(obj)/built-in-32.base.map \
-+              --align     $(shell $(OBJDUMP) -h $(obj)/built-in-32.base.o|sed '/text.*2\*\*/ {s/.*2\*\*//;p;}; d') \
-               --exports   cmdline_parse_early,reloc,reloc_trampoline32 \
-               --output    $@
- 
-@@ -90,4 +90,4 @@ $(obj)/built-in-32.S: $(obj)/built-in-32.base.bin $(obj)/built-in-32.offset.bin
-                       $(srctree)/tools/combine_two_binaries.py FORCE
- 	$(call if_changed,combine)
- 
--clean-files := built-in-32.*.bin built-in-32.*.map build32.*.lds
-+clean-files := built-in-32.*.bin built-in-32.*.map built-in-32.*.o build32.*.lds
-diff --git a/xen/tools/combine_two_binaries.py b/xen/tools/combine_two_binaries.py
-index 581e57cbc0..8e587c24fb 100755
---- a/xen/tools/combine_two_binaries.py
-+++ b/xen/tools/combine_two_binaries.py
-@@ -26,6 +26,10 @@ parser.add_argument('--text-diff', dest='text_diff',
-                     required=True,
-                     type=auto_int,
-                     help='Difference between code section start')
-+parser.add_argument('--align', dest='align',
-+                    default=2,
-+                    type=auto_int,
-+                    help='Alignment in power of 2')
- parser.add_argument('--output', dest='output',
-                     help='Output file')
- parser.add_argument('--map', dest='mapfile',
-@@ -93,7 +97,7 @@ if size1 > size2:
-     file1, file2 = file2, file1
-     size1, size2 = size2, size1
- if size2 != size1 + gap:
--    raise Exception('File sizes do not match')
-+    raise Exception('File sizes do not match %d != %d + %d' % (size2, size1, gap))
- del size2
- 
- file1.seek(0, 0)
-@@ -219,6 +223,7 @@ print('''/*
-  * File autogenerated by combine_two_binaries.py DO NOT EDIT
-  */''', file=out)
- print('\t' + args.section_header, file=out)
-+print('\t.p2align\t' + str(args.align), file=out)
- print('obj32_start:', file=out)
- output(out)
- print('\n\t.section .note.GNU-stack,"",@progbits', file=out)
+I don't expect the first two patches to be problematic, the last patch
+is likely to be more controversial.  I've tested it internally and
+didn't see any issues, but my testing of PV mode is mostly limited to
+dom0.
+
+Thanks, Roger.
+
+Roger Pau Monne (3):
+  xen/pci: do not register devices with segments >= 0x10000
+  vmd: disable MSI remapping bypass under Xen
+  pci/msi: remove pci_msi_ignore_mask
+
+ arch/x86/pci/xen.c           |  8 ++------
+ drivers/pci/controller/vmd.c | 19 ++++++++++++++++++
+ drivers/pci/msi/msi.c        | 37 ++++++++++++++++++++----------------
+ drivers/xen/pci.c            | 19 ++++++++++++++++++
+ include/linux/msi.h          |  3 ++-
+ kernel/irq/msi.c             |  2 +-
+ 6 files changed, 64 insertions(+), 24 deletions(-)
+
 -- 
-2.34.1
+2.46.0
 
 
