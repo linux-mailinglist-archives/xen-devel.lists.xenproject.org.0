@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 975AEA10EBF
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 19:00:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.871743.1282783 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9D36A10EE3
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 19:02:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.871846.1282848 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXlDM-0003rI-LI; Tue, 14 Jan 2025 18:00:32 +0000
+	id 1tXlFQ-0000YR-LR; Tue, 14 Jan 2025 18:02:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 871743.1282783; Tue, 14 Jan 2025 18:00:32 +0000
+Received: by outflank-mailman (output) from mailman id 871846.1282848; Tue, 14 Jan 2025 18:02:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXlDM-0003pB-HV; Tue, 14 Jan 2025 18:00:32 +0000
-Received: by outflank-mailman (input) for mailman id 871743;
- Tue, 14 Jan 2025 18:00:31 +0000
+	id 1tXlFQ-0000T0-H5; Tue, 14 Jan 2025 18:02:40 +0000
+Received: by outflank-mailman (input) for mailman id 871846;
+ Tue, 14 Jan 2025 18:02:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5Qro=UG=redhat.com=vschneid@srs-se1.protection.inumbo.net>)
- id 1tXlCi-0003Eo-EH
- for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 17:59:52 +0000
+ id 1tXlDC-0003Eo-94
+ for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 18:00:22 +0000
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 59d424af-d2a1-11ef-a0e1-8be0dac302b0;
- Tue, 14 Jan 2025 18:59:51 +0100 (CET)
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ id 6afc6d12-d2a1-11ef-a0e1-8be0dac302b0;
+ Tue, 14 Jan 2025 19:00:20 +0100 (CET)
+Received: from mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-83-jmSM7AxOMj2WDdft3VwBHw-1; Tue,
- 14 Jan 2025 12:59:49 -0500
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-113-k3wLyZ7iPkiQIoWyV-6PFw-1; Tue,
+ 14 Jan 2025 13:00:14 -0500
 Received: from mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.15])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id D8B751955F79; Tue, 14 Jan 2025 17:59:45 +0000 (UTC)
+ by mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id BD2A51955DE0; Tue, 14 Jan 2025 18:00:10 +0000 (UTC)
 Received: from vschneid-thinkpadt14sgen2i.remote.csb (unknown [10.39.192.55])
  by mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix)
- with ESMTPS id 6685F195608A; Tue, 14 Jan 2025 17:59:20 +0000 (UTC)
+ with ESMTPS id 79BA9195E3E0; Tue, 14 Jan 2025 17:59:46 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,19 +52,19 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 59d424af-d2a1-11ef-a0e1-8be0dac302b0
+X-Inumbo-ID: 6afc6d12-d2a1-11ef-a0e1-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1736877590;
+	s=mimecast20190719; t=1736877619;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Fzzncw7C2q7Oj32JE4D69orayDnnAM5XMqXCZgIYhoQ=;
-	b=Up6ERI1ArX2PRfjDuOyyz0ZkKXWbUHl9DFm+7XpDGtyl5LM4lDnomzjZIjk0eKhBX0dW9w
-	vah8CxRgKWW6h1hIoFvUDmwmJOS7VmlmoAPnOF7ACaNDqiw/WSyiFSr//ryLzCWLOxOf1k
-	Y7nu7Aq9HScCbOHAU19LkmOj1E3Lt3U=
-X-MC-Unique: jmSM7AxOMj2WDdft3VwBHw-1
-X-Mimecast-MFC-AGG-ID: jmSM7AxOMj2WDdft3VwBHw
+	bh=oEa6Jvbfjlidl4MXGQFSAZ9P76MqELccnrf7elTRMWU=;
+	b=NRl+6MoNTIWNe2+aYksDm9CbWvaZYeQSgCc56F60q0bHR/eiC7JeMihvCji9EGzQrR6lpp
+	mZl5CaUMXVIR6gdULu1eAQ0yDQMTXZ23sILPWR91CK2OEhSm0Dh7a22eseGtNva6UMBpy4
+	RiokD6VQ5LLE+Arp3NVUGBWKE2VFn68=
+X-MC-Unique: k3wLyZ7iPkiQIoWyV-6PFw-1
+X-Mimecast-MFC-AGG-ID: k3wLyZ7iPkiQIoWyV-6PFw
 From: Valentin Schneider <vschneid@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	x86@kernel.org,
@@ -154,9 +154,9 @@ Cc: Juergen Gross <jgross@suse.com>,
 	Luis Chamberlain <mcgrof@kernel.org>,
 	Randy Dunlap <rdunlap@infradead.org>,
 	Tiezhu Yang <yangtiezhu@loongson.cn>
-Subject: [PATCH v4 16/30] x86/speculation/mds: Mark mds_idle_clear key as allowed in .noinstr
-Date: Tue, 14 Jan 2025 18:51:29 +0100
-Message-ID: <20250114175143.81438-17-vschneid@redhat.com>
+Subject: [PATCH v4 17/30] sched/clock, x86: Mark __sched_clock_stable key as allowed in .noinstr
+Date: Tue, 14 Jan 2025 18:51:30 +0100
+Message-ID: <20250114175143.81438-18-vschneid@redhat.com>
 In-Reply-To: <20250114175143.81438-1-vschneid@redhat.com>
 References: <20250114175143.81438-1-vschneid@redhat.com>
 MIME-Version: 1.0
@@ -167,37 +167,33 @@ Later commits will cause objtool to warn about static keys being used in
 .noinstr sections in order to safely defer instruction patching IPIs
 targeted at NOHZ_FULL CPUs.
 
-mds_idle_clear is used in .noinstr code, and can be modified at
-runtime (SMT hotplug). Suppressing the text_poke_sync() IPI has little
-benefits for this key, as hotplug implies eventually going through
-takedown_cpu() -> stop_machine_cpuslocked() which is going to cause
-interference on all online CPUs anyway.
+__sched_clock_stable is used in .noinstr code, and can be modified at
+runtime (e.g. time_cpufreq_notifier()). Suppressing the text_poke_sync()
+IPI has little benefits for this key, as NOHZ_FULL is incompatible with an
+unstable TSC anyway.
 
 Mark it to let objtool know not to warn about it.
 
 Signed-off-by: Valentin Schneider <vschneid@redhat.com>
 ---
- arch/x86/kernel/cpu/bugs.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ kernel/sched/clock.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/kernel/cpu/bugs.c b/arch/x86/kernel/cpu/bugs.c
-index 47a01d4028f60..acad84dcfc3cd 100644
---- a/arch/x86/kernel/cpu/bugs.c
-+++ b/arch/x86/kernel/cpu/bugs.c
-@@ -113,8 +113,13 @@ DEFINE_STATIC_KEY_FALSE(switch_mm_cond_ibpb);
- /* Control unconditional IBPB in switch_mm() */
- DEFINE_STATIC_KEY_FALSE(switch_mm_always_ibpb);
- 
--/* Control MDS CPU buffer clear before idling (halt, mwait) */
--DEFINE_STATIC_KEY_FALSE(mds_idle_clear);
-+/*
-+ * Control MDS CPU buffer clear before idling (halt, mwait)
+diff --git a/kernel/sched/clock.c b/kernel/sched/clock.c
+index 200e5568b9894..e59986bc14a43 100644
+--- a/kernel/sched/clock.c
++++ b/kernel/sched/clock.c
+@@ -75,8 +75,11 @@ static DEFINE_STATIC_KEY_FALSE_RO(sched_clock_running);
+  *
+  * Similarly we start with __sched_clock_stable_early, thereby assuming we
+  * will become stable, such that there's only a single 1 -> 0 transition.
 + *
-+ * Allowed in .noinstr as this key is updated during hotplug which comes with
-+ * more interference than just the text patching IPI.
-+ */
-+DEFINE_STATIC_KEY_FALSE_NOINSTR(mds_idle_clear);
- EXPORT_SYMBOL_GPL(mds_idle_clear);
++ * Allowed in .noinstr as an unstable TLC is incompatible with NOHZ_FULL,
++ * thus the text patching IPI would be the least of our concerns.
+  */
+-static DEFINE_STATIC_KEY_FALSE(__sched_clock_stable);
++static DEFINE_STATIC_KEY_FALSE_NOINSTR(__sched_clock_stable);
+ static int __sched_clock_stable_early = 1;
  
  /*
 -- 
