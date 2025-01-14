@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99ED3A111C2
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 21:16:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.872041.1283002 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0649A112CD
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 22:14:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.872049.1283013 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXnJx-0000S1-EQ; Tue, 14 Jan 2025 20:15:29 +0000
+	id 1tXoEd-0007hN-JS; Tue, 14 Jan 2025 21:14:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 872041.1283002; Tue, 14 Jan 2025 20:15:29 +0000
+Received: by outflank-mailman (output) from mailman id 872049.1283013; Tue, 14 Jan 2025 21:14:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXnJx-0000Pp-Bn; Tue, 14 Jan 2025 20:15:29 +0000
-Received: by outflank-mailman (input) for mailman id 872041;
- Tue, 14 Jan 2025 20:15:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tXoEd-0007fA-GA; Tue, 14 Jan 2025 21:14:03 +0000
+Received: by outflank-mailman (input) for mailman id 872049;
+ Tue, 14 Jan 2025 21:14:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tIyo=UG=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tXnJv-0000NL-6F
- for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 20:15:27 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4921bd37-d2b4-11ef-99a4-01e77a169b0f;
- Tue, 14 Jan 2025 21:15:23 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-4361c705434so42685065e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 12:15:23 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-436e9e37d46sm185145725e9.25.2025.01.14.12.15.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Jan 2025 12:15:22 -0800 (PST)
+ <SRS0=eXvd=UG=flex--seanjc.bounces.google.com=3ltOGZwYKCZsN95IE7BJJBG9.7JHS9I-89Q9GGDNON.S9IKMJE97O.JMB@srs-se1.protection.inumbo.net>)
+ id 1tXoEc-0007dq-R7
+ for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 21:14:02 +0000
+Received: from mail-pj1-x1049.google.com (mail-pj1-x1049.google.com
+ [2607:f8b0:4864:20::1049])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 78f4ff90-d2bc-11ef-a0e1-8be0dac302b0;
+ Tue, 14 Jan 2025 22:14:00 +0100 (CET)
+Received: by mail-pj1-x1049.google.com with SMTP id
+ 98e67ed59e1d1-2ee9f66cb12so10679950a91.1
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 13:14:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,128 +40,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4921bd37-d2b4-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 78f4ff90-d2bc-11ef-a0e1-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1736885723; x=1737490523; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qvA3U4uXT67r8lnIiNLurU6RtyPs5q+KYerySYrGgb4=;
-        b=CYdHOcYCJtuHr//GODCP45Y1Ff5Qkb4oRm5mExFcrubUyfW7YPU2mf6PmWh2rI3I/d
-         VJ7ENYxseoQP90Lx/sKyJ4GT6mcSwQupicOu40oUuyCa9ycYxN4APmjFrU+dLge+aprq
-         aCzoCKrAtDwf+QFhSKd0fbJVQuNQ4e+qs2f6o=
+        d=google.com; s=20230601; t=1736889239; x=1737494039; darn=lists.xenproject.org;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:from:to:cc:subject:date:message-id:reply-to;
+        bh=d9cRGGic7Te5o12Iwy1M3OB31drPOXRp+PHli2u04Fc=;
+        b=AmmEf5wmUY4Q8eyjg0u0n+GempsHdqd743WDW2Ym8VrABy/52oRM6fRPF6yMV8wgUY
+         q1bTqJ3e51I/cs0nid/dXUX1YQWlHptpoxJ50wUluMfziprPElQ08SkkQi88HqwA5/lV
+         EixpOebsr2fHvjOdqHvdZxHbvuyZbocbiRv9tUtU9ftvk61DF8F+xwzMtg0OOfNwNhn9
+         OjNEDRJOoAQL3Y6J9n3S1+XeqoUP5Kvw8WmWlVJKNzNp0UhsvvTkMjYhX3XGhlwkCMgn
+         S59zudW/vS2RJjXByMsc4oLQhX07/3XQiNMXsU6oLPo27FewmqPWO0BcZ+nB/gZYQQeG
+         Lk6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736885723; x=1737490523;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qvA3U4uXT67r8lnIiNLurU6RtyPs5q+KYerySYrGgb4=;
-        b=IEF9aATpR96uU8K2/muggde3ML4QlRLBW0Ur0TL2sBo7OSf5pZ+DGjRWR5KH3UOquF
-         CoijgmHoaEFRuJvxRUEeuqjHz2+Vn0kJR1Spr8oDCyjeMYjs8zIuJeLrX4LwucViyXSl
-         qkZ3JfbFU2Rlze52ZYT3y1IrHrhunOVGhq+dlwloLtLw2Rf0V4QqA2qq2LEQ7OPk1uiI
-         aES+QuXiuRvYdQVAcl6MZrjM++ZzSLgATsvCgKLbCdaDkJrA5XnzMiCHCpsXT/cqdd6n
-         Nwq6eVmUdWOGMSvq4yit4CLulUSoyD83P8ikuh+616mNWzA+WhTt/F5dw92siruoB/uG
-         Wdbg==
-X-Forwarded-Encrypted: i=1; AJvYcCWd8F9kEU+BYujIkUawjmhjcdJF8Rmle9MjpmOnFQI3fW4FW/kEXXS2QkwzRP6iNTVxsSTxuST05yA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxuCP5qTCVHiwMdXGWe5EKNBVSL39Os8PzmLRJZi0202hYqhJpA
-	PKHieUKSAjhoSN1oO6eoraOxDlHO+OFvFuBicRm8/CqtMx7tyfeTCqpF5qw3KSI=
-X-Gm-Gg: ASbGncv65dJtKuffqSWNN8uHHYtqdutSUH64mAL9T6gEjSeA3/fzEvLaZ/B45HSUehD
-	lvI+I7Ft08qVuOrANcwpCdNeP8dWwhNbAMIEDFXt83fdFHjbiK9uqI6NBoTBCvUb8by0hUEnBOf
-	1hxjva94ZGGlfZ4iHDyZOzdXixCnzfR0imn2Q9IkH+RlQjCT/xA35uTBaT45TI+dOShT7PmhonJ
-	xisBoG+/1FR6IWEynXutjb5XDYXVLSqmPx5Dv7LJIj1Eqogj0ckk5UkVV9Cp7nbI0QANJhBHvQk
-	vtlRYXgyBh710W21X87X
-X-Google-Smtp-Source: AGHT+IEe8K9GFenhmBXmR6QQlxjs+MiB0OffvKNqBEkcuBl6cjZ/v0v8/oC7jyxa1m4hfHmJsmirOA==
-X-Received: by 2002:a05:600c:450d:b0:434:a711:ace4 with SMTP id 5b1f17b1804b1-436e26a9510mr256291775e9.17.1736885723032;
-        Tue, 14 Jan 2025 12:15:23 -0800 (PST)
-Message-ID: <9653ccc0-203a-4bec-ba79-57870ed08ea0@citrix.com>
-Date: Tue, 14 Jan 2025 20:15:21 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] docs: fusa: Define the requirements for
- XEN_VERSION hypercall.
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, Artem Mygaiev <artem_mygaiev@epam.com>
-References: <20250114195010.3409094-1-ayan.kumar.halder@amd.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20250114195010.3409094-1-ayan.kumar.halder@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+        d=1e100.net; s=20230601; t=1736889239; x=1737494039;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=d9cRGGic7Te5o12Iwy1M3OB31drPOXRp+PHli2u04Fc=;
+        b=O3QtQcVQtYqQ1/5si7gNuGMWqBYqhBkYOAY+ViFiXdRTbIvA8NmVNz/Jy0W2Ca3Io7
+         sfNTsjOAxhbAeSkHe3b7ceO9J8WvmasTAFkXta/Z5SraD7hQ5JLSOOH+DwkW+ORKdmdh
+         OfIKSVTLp8RmuRoQ8ib++4bgy2YBQKtNnEeWDZKRVcEFCkqxMVag4klz+kVme1YOtit2
+         9MXlZ01gO77nj5s3Cpo2VejV3PMjPT4AFRowxqb1xjSWMLPLKZfPaSRM3M/BQWhzJj1T
+         0kRY8QsInHjgbsQEu3rMWTDxGNAy7ZPLQTTm5jUJsf23/q07amviG4rGNiIS6YApk0/Q
+         //pQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXaD4bfaMBsS2NDT6/724QhpUSI0bJEE8/kFO9Wxio2RLFUqDtfqSiBl0TJO0Cnx3ZC65icPI24XCo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxz7qfhp8obGxd5Ncc54J30Go2BIU4dOK4bmYnsZJQxdI2aTdBJ
+	FKW5pqXePnBHW0QOy5YUG3f8cRV+bmW6hn+3XeuiTy6r3By/DKc5VKLNh0bh2k5NZ34MW5MSc4s
+	A/A==
+X-Google-Smtp-Source: AGHT+IFnD8IBYtaFLZfmn+yp8faKF4j5W1D2QQ93HaiFkyR3KITtNCKyHKA+6Vtw5k/ROipPB4Gea/5UJbQ=
+X-Received: from pjbsn8.prod.google.com ([2002:a17:90b:2e88:b0:2f4:465d:5c61])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:1f8b:b0:2ee:bf84:4fe8
+ with SMTP id 98e67ed59e1d1-2f548f1d44cmr36656404a91.30.1736889238866; Tue, 14
+ Jan 2025 13:13:58 -0800 (PST)
+Date: Tue, 14 Jan 2025 13:13:57 -0800
+In-Reply-To: <20250114175143.81438-26-vschneid@redhat.com>
+Mime-Version: 1.0
+References: <20250114175143.81438-1-vschneid@redhat.com> <20250114175143.81438-26-vschneid@redhat.com>
+Message-ID: <Z4bTlZkqihaAyGb4@google.com>
+Subject: Re: [PATCH v4 25/30] context_tracking,x86: Defer kernel text patching IPIs
+From: Sean Christopherson <seanjc@google.com>
+To: Valentin Schneider <vschneid@redhat.com>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org, 
+	virtualization@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org, 
+	linux-perf-users@vger.kernel.org, xen-devel@lists.xenproject.org, 
+	kvm@vger.kernel.org, linux-arch@vger.kernel.org, rcu@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kselftest@vger.kernel.org, bpf@vger.kernel.org, 
+	bcm-kernel-feedback-list@broadcom.com, Peter Zijlstra <peterz@infradead.org>, 
+	Nicolas Saenz Julienne <nsaenzju@redhat.com>, Juergen Gross <jgross@suse.com>, 
+	Ajay Kaher <ajay.kaher@broadcom.com>, Alexey Makhalov <alexey.amakhalov@broadcom.com>, 
+	Russell King <linux@armlinux.org.uk>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
+	Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Thomas Gleixner <tglx@linutronix.de>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	Kan Liang <kan.liang@linux.intel.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+	Josh Poimboeuf <jpoimboe@kernel.org>, Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Andy Lutomirski <luto@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Frederic Weisbecker <frederic@kernel.org>, "Paul E. McKenney" <paulmck@kernel.org>, 
+	Jason Baron <jbaron@akamai.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Ard Biesheuvel <ardb@kernel.org>, Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
+	Joel Fernandes <joel@joelfernandes.org>, Josh Triplett <josh@joshtriplett.org>, 
+	Boqun Feng <boqun.feng@gmail.com>, Uladzislau Rezki <urezki@gmail.com>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>, 
+	Zqiang <qiang.zhang1211@gmail.com>, Juri Lelli <juri.lelli@redhat.com>, 
+	Clark Williams <williams@redhat.com>, Yair Podemsky <ypodemsk@redhat.com>, 
+	Tomas Glozar <tglozar@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
+	Dietmar Eggemann <dietmar.eggemann@arm.com>, Ben Segall <bsegall@google.com>, 
+	Mel Gorman <mgorman@suse.de>, Kees Cook <kees@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Christoph Hellwig <hch@infradead.org>, 
+	Shuah Khan <shuah@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+	Miguel Ojeda <ojeda@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, Samuel Holland <samuel.holland@sifive.com>, Rong Xu <xur@google.com>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Yosry Ahmed <yosryahmed@google.com>, 
+	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>, 
+	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>, Jinghao Jia <jinghao7@illinois.edu>, 
+	Luis Chamberlain <mcgrof@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Tiezhu Yang <yangtiezhu@loongson.cn>
+Content-Type: text/plain; charset="us-ascii"
 
-On 14/01/2025 7:50 pm, Ayan Kumar Halder wrote:
-> diff --git a/docs/fusa/reqs/product-reqs/version_hypercall.rst b/docs/fusa/reqs/product-reqs/version_hypercall.rst
-> new file mode 100644
-> index 0000000000..fdb8da04e1
-> --- /dev/null
-> +++ b/docs/fusa/reqs/product-reqs/version_hypercall.rst
-> @@ -0,0 +1,61 @@
-> +Return Value
-> +------------
+On Tue, Jan 14, 2025, Valentin Schneider wrote:
+> text_poke_bp_batch() sends IPIs to all online CPUs to synchronize
+> them vs the newly patched instruction. CPUs that are executing in userspace
+> do not need this synchronization to happen immediately, and this is
+> actually harmful interference for NOHZ_FULL CPUs.
+
+...
+
+> This leaves us with static keys and static calls.
+
+...
+
+> @@ -2317,11 +2334,20 @@ static void text_poke_bp_batch(struct text_poke_loc *tp, unsigned int nr_entries
+>  	 * First step: add a int3 trap to the address that will be patched.
+>  	 */
+>  	for (i = 0; i < nr_entries; i++) {
+> -		tp[i].old = *(u8 *)text_poke_addr(&tp[i]);
+> -		text_poke(text_poke_addr(&tp[i]), &int3, INT3_INSN_SIZE);
+> +		void *addr = text_poke_addr(&tp[i]);
 > +
-> +`XenProd~version_hyp_ret_val~1`
+> +		/*
+> +		 * There's no safe way to defer IPIs for patching text in
+> +		 * .noinstr, record whether there is at least one such poke.
+> +		 */
+> +		if (is_kernel_noinstr_text((unsigned long)addr))
+> +			cond = NULL;
+
+Maybe pre-check "cond", especially if multiple ranges need to be checked?  I.e.
+
+		if (cond && is_kernel_noinstr_text(...))
 > +
-> +Description:
-> +Xen shall return 0 in case of success or one of the error codes as defined in
-> +https://man7.org/linux/man-pages/man3/errno.3.html.
+> +		tp[i].old = *((u8 *)addr);
+> +		text_poke(addr, &int3, INT3_INSN_SIZE);
+>  	}
+>  
+> -	text_poke_sync();
+> +	__text_poke_sync(cond);
+>  
+>  	/*
+>  	 * Second step: update all but the first byte of the patched range.
 
-Xen's errors live in public/errno.h
+...
 
-They share a lot in common with Linux (for historical reasons), but they
-are critically not Linux errnos because Xen supports OSes which aren't
-Linux.  xenstored for example sends errors as text rather than numbers.
+> +/**
+> + * is_kernel_noinstr_text - checks if the pointer address is located in the
+> + *                    .noinstr section
+> + *
+> + * @addr: address to check
+> + *
+> + * Returns: true if the address is located in .noinstr, false otherwise.
+> + */
+> +static inline bool is_kernel_noinstr_text(unsigned long addr)
+> +{
+> +	return addr >= (unsigned long)__noinstr_text_start &&
+> +	       addr < (unsigned long)__noinstr_text_end;
+> +}
 
-Also, that's not the return value ABI of __HYPERVISOR_xen_version.  Some
-subops return a positive value instead of 0 on success.
+This doesn't do the right thing for modules, which matters because KVM can be
+built as a module on x86, and because context tracking understands transitions
+to GUEST mode, i.e. CPUs that are running in a KVM guest will be treated as not
+being in the kernel, and thus will have IPIs deferred.  If KVM uses a static key
+or branch between guest_state_enter_irqoff() and guest_state_exit_irqoff(), the
+patching code won't wait for CPUs to exit guest mode, i.e. KVM could theoretically
+use the wrong static path.
 
-And if you're wondering "hey, isn't that ambiguous in extreme cases",
-yes it is.  Xen's hypercall API/ABI are a disaster.
+I don't expect this to ever cause problems in practice, because patching code in
+KVM's VM-Enter/VM-Exit path that has *functional* implications, while CPUs are
+actively running guest code, would be all kinds of crazy.  But I do think we
+should plug the hole.
 
-~Andrew
+If this issue is unique to KVM, i.e. is not a generic problem for all modules (I
+assume module code generally isn't allowed in the entry path, even via NMI?), one
+idea would be to let KVM register its noinstr section for text poking.
 
