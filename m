@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AC10A104F9
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 12:04:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.871153.1282192 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1852EA10514
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 12:12:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.871162.1282203 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXei6-00059m-Ez; Tue, 14 Jan 2025 11:03:50 +0000
+	id 1tXeq9-0006yj-8N; Tue, 14 Jan 2025 11:12:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 871153.1282192; Tue, 14 Jan 2025 11:03:50 +0000
+Received: by outflank-mailman (output) from mailman id 871162.1282203; Tue, 14 Jan 2025 11:12:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXei6-00056n-CQ; Tue, 14 Jan 2025 11:03:50 +0000
-Received: by outflank-mailman (input) for mailman id 871153;
- Tue, 14 Jan 2025 11:03:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tXeq9-0006wm-4n; Tue, 14 Jan 2025 11:12:09 +0000
+Received: by outflank-mailman (input) for mailman id 871162;
+ Tue, 14 Jan 2025 11:12:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iLru=UG=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tXei4-00056h-VA
- for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 11:03:48 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3aa5bab5-d267-11ef-a0e1-8be0dac302b0;
- Tue, 14 Jan 2025 12:03:48 +0100 (CET)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-5d414b8af7bso9554418a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 03:03:48 -0800 (PST)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab2c9646bf9sm619310866b.175.2025.01.14.03.03.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Jan 2025 03:03:44 -0800 (PST)
+ <SRS0=wcbX=UG=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1tXeq7-0006wg-SY
+ for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 11:12:07 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 63861655-d268-11ef-99a4-01e77a169b0f;
+ Tue, 14 Jan 2025 12:12:06 +0100 (CET)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-30615661f98so29568601fa.2
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 03:12:06 -0800 (PST)
+Received: from [192.168.219.191] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-305ff0f749dsm17164511fa.59.2025.01.14.03.12.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 14 Jan 2025 03:12:04 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,90 +45,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3aa5bab5-d267-11ef-a0e1-8be0dac302b0
+X-Inumbo-ID: 63861655-d268-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1736852627; x=1737457427; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=35mB+QjxPdevR8046RphJsKVW0nB2adhW14D5bTUKJg=;
-        b=ed/0Yw63WtUIJCtiWXwQb52UAmFq+RrhMkfe8PYpGiYzE4GQrEOcpdTBT/I/Nr64/J
-         HiIlrY3Q2fSkTt2rWKCdybIxMBLDOT+OVyhXVD7+JBYOsitj4/ISyJ9elDYZr5Csu6GT
-         jJtT1cKivTD+8RY1fW3MWiJQ/RjUcr4+KdDDQ=
+        d=gmail.com; s=20230601; t=1736853125; x=1737457925; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=UJgVkffNfW5g6Y2STd8bV05bXLNIV0U2zEcDWhNpHxk=;
+        b=NMlJt+7womNQcXmmfOyP2MApSLAmC5p2j1IJgthf6XOrEMGfCleAuGQV9HiCzG1fSV
+         w45g6wqntDiOhzKwWiOddbrsJ9HOFcpkIrZp1Fl2EMxXaEcy8W8PDJgj8FckqCG4TNSk
+         cPMWXBOF6+1Q8NQbCd+jVzNOyK1Ie7mOtxhzKV1a4e9qMLHIeAaa9eGYk84K06FawBTf
+         qFayP2QeajVToNjlYVA4jnzm8HX/aRyyL6x3vKyjaLGNP9ARxXjGtRLpby+4LNj1WkOy
+         9ZJe1oEvco4kNBN5EpErm9h/UmAGXdTSuOEHZzsI8VcaxVshq2xIsilW8tRkLLIUSetY
+         TKyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736852627; x=1737457427;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=35mB+QjxPdevR8046RphJsKVW0nB2adhW14D5bTUKJg=;
-        b=ixIZqpepkvaWbyUx1Sq27xCIb9mpkzvnW9QYnsrZzfMWtrG/xwcwY1fTL+Kod1+s4/
-         OoA79RqEuAVhG8edqIteBc3iEZSJvsBN9Sd9Tf5X9MQW4jQt35mLdefsAXd1LAIBTAax
-         m/KcOaUEd53wHl3dbh/CqTT7NI4iG46AvQtNXCRM0NQpiFZu3Towof9xhGpZ1/K30XAK
-         fw0hC1wAlEPnmwKAVdoq2kfyRfamySoGXjT4Rn7A1Y11T2+09NXn1OZgYE6ddDjz/XRD
-         48rtjiwxm+P7aQIErfWhVcFFVLmnRyMa5nIK1kBZ5YqJ5LTsYfBD9dFMdmxZ9+Avf3R5
-         5NHw==
-X-Forwarded-Encrypted: i=1; AJvYcCUplP+GJF6JSWh8Lj/tHwOXbdLijfPeoiKMIpeu4zH3CW15nZY3ZAua0SiPIQujx8UnRWuDQ2zyOcU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwYyV8SPey15TuywV0ftM8brC0GXyPqtTPJOFVKnfvVIQO/sTxk
-	6LU4iMt7VNwpHTEvlnwsz05h3Mp7NGA+hjqQfbkbqZIEMix4y3r9K5sm0UrihYk=
-X-Gm-Gg: ASbGncvh5OLKIc3/DtwhFsMbEs81XqiLfaaBp0HjabL4B75BYxZ0sDM9L1TRiTsZ9bP
-	WfnWKgBUI2yYGJcrUU1af3GLPDYoJnro4iZ4TAc7R0B+ED2STlzJuigXUDVA4nY4xq//bvM2JGJ
-	i/ELG/PjGh1tHA95YH1tuV9FN00CYXV5Hh+KDbD4tLrl5Z+6Bn57i4VoL9q9w1Ynw/QG3BIVF/C
-	vKd6ZR9IpUFiXZ9wrtdlzm9p1liQh48PLo6yZdv9TkECwfU5zhxB1bbmEg9GPdMp+E=
-X-Google-Smtp-Source: AGHT+IGJNe0LSVA3nGJ258TjPthdYloWMFdub4oksN9mfoT80xGa7EGoGjJP2iGpXQ9PWDACteVGUg==
-X-Received: by 2002:a17:907:d89:b0:ab3:3aa6:7d69 with SMTP id a640c23a62f3a-ab33aa681a2mr240126566b.41.1736852625094;
-        Tue, 14 Jan 2025 03:03:45 -0800 (PST)
-Date: Tue, 14 Jan 2025 12:03:43 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Keith Busch <kbusch@kernel.org>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-pci@vger.kernel.org,
-	Nirmal Patel <nirmal.patel@linux.intel.com>,
-	Jonathan Derrick <jonathan.derrick@linux.dev>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C2=B4nski?= <kw@linux.com>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
-Subject: Re: [PATCH 2/3] vmd: disable MSI remapping bypass under Xen
-Message-ID: <Z4ZEj3i71TTPkuwc@macbook.local>
-References: <20250110140152.27624-3-roger.pau@citrix.com>
- <20250110222525.GA318386@bhelgaas>
- <Z4TlDhBNn8TMipdB@macbook.local>
- <Z4UtF737b3QFGnY0@kbusch-mbp>
- <Z4VDIPorOWD-FY-9@macbook.local>
- <Z4VFAZnQ_09cdexm@kbusch-mbp>
+        d=1e100.net; s=20230601; t=1736853125; x=1737457925;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=UJgVkffNfW5g6Y2STd8bV05bXLNIV0U2zEcDWhNpHxk=;
+        b=p/MaPwY7MHRilyXWeyP6jXjx6sei6TFp+QfO/s9gRt1GOmTyLByHlg8Er/BbxK5h23
+         InKR/cK5Ph41c9yG31BUljwRTuOKV6NzPB4jN7xx3MgLS0XYCAXdEwqjmXaUX24GWk5a
+         0a1W4qVn/66u/VLyS727BJ6WWoBfsSNOjOSkSXRbgslF0sYa1Sm6tgtilCYTefnsud4k
+         8+qGDxtL1N/JohSwSEPJ7ezxelgBpvN1dQ2+ile0y9hKus9SCwm5u8Swwx3NNYQ9xwCR
+         laSHD46qEY0Mtd4UOKG6/z4qujVK3LJpVnOsMvDqhNigQjJvXUJB6nYui/jhz9jhhvSJ
+         0BaA==
+X-Gm-Message-State: AOJu0YyLg+CISX3KPXbaNJOfUgzSuAwmSkSEIzGpMR4IlIsnCmPf3OH9
+	Qnm1EZK3iUM4UPJpFcyvs26CEJrhXf7L+oUGmu2hzzhFUJWoC8Su
+X-Gm-Gg: ASbGncuWHFIXDLzLj4/H7MaBIzcAVkG5l1EzdrN8w9ZEcO0q5Cib+Wb+46R6WoYXGqt
+	IrckLApsv3IoYzjVvMFbHPvlVoY+7LjgaAXdH6/MdGso8HV4+R16iOClpC1jJ4NhVxiUXGcOsSu
+	MBxPUEedxWNx2HRHuw/SFup3c5DodHd9iMbGzkwgw5rhDsxDgjJxWDmCGKzvpXk6UydMVdupO4a
+	1kltCe9oOh4tddiJCdfYxOS9dpunhArMv5zdyQZFAmFyteJznl5PwUp01v0TyTaquarjg==
+X-Google-Smtp-Source: AGHT+IEu1ECxH5uvD64E2SASd0GS/CfaQ/EE3RE8jLmsD/VYsJ4Z3fRu5Agc895Ov92pXw4q4X1rbw==
+X-Received: by 2002:a05:651c:2118:b0:302:1e65:f2a1 with SMTP id 38308e7fff4ca-305f4550c2bmr82313821fa.12.1736853125055;
+        Tue, 14 Jan 2025 03:12:05 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------Y37JJYZznLiPdWkkbGeIstdp"
+Message-ID: <49a2404f-0c45-4397-9094-a4189131832f@gmail.com>
+Date: Tue, 14 Jan 2025 12:12:03 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 1/2] x86/time: introduce command line option to select
+ wallclock
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20240913075907.34460-1-roger.pau@citrix.com>
+ <20240913075907.34460-2-roger.pau@citrix.com> <Z4U6WxtmaqGkqOqe@mail-itl>
+ <Z4VS88REbzn5uasy@macbook.local>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <Z4VS88REbzn5uasy@macbook.local>
+
+This is a multi-part message in MIME format.
+--------------Y37JJYZznLiPdWkkbGeIstdp
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <Z4VFAZnQ_09cdexm@kbusch-mbp>
 
-On Mon, Jan 13, 2025 at 09:53:21AM -0700, Keith Busch wrote:
-> On Mon, Jan 13, 2025 at 05:45:20PM +0100, Roger Pau Monné wrote:
-> > On Mon, Jan 13, 2025 at 08:11:19AM -0700, Keith Busch wrote:
-> > > On Mon, Jan 13, 2025 at 11:03:58AM +0100, Roger Pau Monné wrote:
-> > > > 
-> > > > Hm, OK, but isn't the limit 80 columns according to the kernel coding
-> > > > style (Documentation/process/coding-style.rst)?
-> > > 
-> > > That's the coding style. The commit message style is described in a
-> > > different doc:
-> > > 
-> > >   https://docs.kernel.org/process/submitting-patches.html#the-canonical-patch-format
-> > 
-> > It's quite confusing to have different line length for code vs commit
-> > messages, but my fault for not reading those. Will adjust to 75
-> > columns them.
-> 
-> The output of 'git log' prepends spaces to the subject and body of the
-> listed commits. The lower limit for commit messages vs. code makes the
-> change log look readable in an 80-char terminal.
 
-Oh, I see, thanks for explaining.
+On 1/13/25 6:52 PM, Roger Pau Monné wrote:
+> On Mon, Jan 13, 2025 at 05:07:55PM +0100, Marek Marczykowski-Górecki wrote:
+>> On Fri, Sep 13, 2024 at 09:59:06AM +0200, Roger Pau Monne wrote:
+>>> Allow setting the used wallclock from the command line.  When the option is set
+>>> to a value different than `auto` the probing is bypassed and the selected
+>>> implementation is used (as long as it's available).
+>>>
+>>> The `xen` and `efi` options require being booted as a Xen guest (with Xen guest
+>>> supported built-in) or from UEFI firmware respectively.
+>>>
+>>> Signed-off-by: Roger Pau Monné<roger.pau@citrix.com>
+>> Reviewed-by: Marek Marczykowski-Górecki<marmarek@invisiblethingslab.com>
+> Thanks for the review.
+>
+> Oleksii, can I get your opinion as Release Manager about whether this
+> (and the following patch) would be suitable for committing to staging
+> given the current release state?
+>
+> It's a workaround for broken EFI implementations that many downstreams
+> carry on their patch queue.
 
-The 80 column limit for code mean the resulting diff (and `git log`
-output) could have a maximum width of 81 characters (because of the
-prepended +,-, ), but since Linux uses hard tabs for indentation this
-is not really an issue as it would be if using spaces.
+Based on your commit message, I understand this as addressing a bug ( but not very critical
+as IIUC downstreams have the similar patch on their side ). Therefore, if it has been properly
+reviewed and tested, we should consider including it in the current release.
 
-Regards, Roger.
+IIUC, setting the wallclock to EFI should align with the behavior Xen had previously.
+It might be preferable to use that argument as the default for a while, allowing others to verify the "auto"
+value over time. After that, we could consider making "auto" the default.
+That said, I am not particularly strict about following this approach.
+
+~ Oleksii
+
+
+>
+> Thanks, Roger.
+--------------Y37JJYZznLiPdWkkbGeIstdp
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 1/13/25 6:52 PM, Roger Pau Monné
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:Z4VS88REbzn5uasy@macbook.local">
+      <pre wrap="" class="moz-quote-pre">On Mon, Jan 13, 2025 at 05:07:55PM +0100, Marek Marczykowski-Górecki wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">On Fri, Sep 13, 2024 at 09:59:06AM +0200, Roger Pau Monne wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">Allow setting the used wallclock from the command line.  When the option is set
+to a value different than `auto` the probing is bypassed and the selected
+implementation is used (as long as it's available).
+
+The `xen` and `efi` options require being booted as a Xen guest (with Xen guest
+supported built-in) or from UEFI firmware respectively.
+
+Signed-off-by: Roger Pau Monné <a class="moz-txt-link-rfc2396E" href="mailto:roger.pau@citrix.com">&lt;roger.pau@citrix.com&gt;</a>
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+Reviewed-by: Marek Marczykowski-Górecki <a class="moz-txt-link-rfc2396E" href="mailto:marmarek@invisiblethingslab.com">&lt;marmarek@invisiblethingslab.com&gt;</a>
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Thanks for the review.
+
+Oleksii, can I get your opinion as Release Manager about whether this
+(and the following patch) would be suitable for committing to staging
+given the current release state?
+
+It's a workaround for broken EFI implementations that many downstreams
+carry on their patch queue.</pre>
+    </blockquote>
+    <pre>Based on your commit message, I understand this as addressing a bug ( but not very critical
+as IIUC downstreams have the similar patch on their side ). Therefore, if it has been properly
+reviewed and tested, we should consider including it in the current release.
+
+IIUC, setting the wallclock to EFI should align with the behavior Xen had previously.
+It might be preferable to use that argument as the default for a while, allowing others to verify the "auto"
+value over time. After that, we could consider making "auto" the default.
+That said, I am not particularly strict about following this approach.</pre>
+    <pre>
+~ Oleksii
+</pre>
+    <p><br>
+    </p>
+    <blockquote type="cite" cite="mid:Z4VS88REbzn5uasy@macbook.local">
+      <pre wrap="" class="moz-quote-pre">
+
+Thanks, Roger.
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------Y37JJYZznLiPdWkkbGeIstdp--
 
