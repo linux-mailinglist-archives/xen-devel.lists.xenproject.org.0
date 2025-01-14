@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4695A1030D
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 10:33:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.871064.1282112 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E458A10330
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 10:42:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.871080.1282122 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXdI1-0004Je-BF; Tue, 14 Jan 2025 09:32:49 +0000
+	id 1tXdQm-0006Qy-4v; Tue, 14 Jan 2025 09:41:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 871064.1282112; Tue, 14 Jan 2025 09:32:49 +0000
+Received: by outflank-mailman (output) from mailman id 871080.1282122; Tue, 14 Jan 2025 09:41:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXdI1-0004Gt-8N; Tue, 14 Jan 2025 09:32:49 +0000
-Received: by outflank-mailman (input) for mailman id 871064;
- Tue, 14 Jan 2025 09:32:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tXdQm-0006OS-24; Tue, 14 Jan 2025 09:41:52 +0000
+Received: by outflank-mailman (input) for mailman id 871080;
+ Tue, 14 Jan 2025 09:41:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=tIyo=UG=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tXdHz-0003ZR-SF
- for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 09:32:47 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 83dde6de-d25a-11ef-a0e1-8be0dac302b0;
- Tue, 14 Jan 2025 10:32:47 +0100 (CET)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-ab322ecd75dso120685466b.0
- for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 01:32:47 -0800 (PST)
+ id 1tXdQl-0006OM-2V
+ for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 09:41:51 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c69938eb-d25b-11ef-99a4-01e77a169b0f;
+ Tue, 14 Jan 2025 10:41:48 +0100 (CET)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-5d7e3f1fdafso10798339a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 01:41:48 -0800 (PST)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab2c95b7317sm602044066b.154.2025.01.14.01.32.46
+ a640c23a62f3a-ab2c95aedf6sm609598166b.138.2025.01.14.01.41.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Jan 2025 01:32:46 -0800 (PST)
+ Tue, 14 Jan 2025 01:41:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 83dde6de-d25a-11ef-a0e1-8be0dac302b0
+X-Inumbo-ID: c69938eb-d25b-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1736847167; x=1737451967; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1736847708; x=1737452508; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=B9S6pdDsNCp33mtAF7/BbRjeEO4D+sXhz+vsHSrTIR0=;
-        b=Zv7GH+WtwUBfrVOE/SsskghlwpSszRchm1HkGfzGqi5eMZigD96gHezqLrsaoLqtMG
-         Mmn1wb7fH31I87kpOzi5N9B5I8hiCBb0hOQCKJ09aAmvqbouILjTJhykISF4gDQjPJdJ
-         16Wf+ME1NoC+9078dDbJL/eueSZRmHbNKrtgM=
+        bh=qbKZ/I5/BSf1C9gMrLhzIhsUeM5QTjxrFIgWSD9Ya2c=;
+        b=PKjcozhnW0nTv+EcKImYPi88uepsqLP4d1Mn5WzvkVWSeQ/gDeNTEQXVCc7J+9DCjC
+         OJZHggS2jDfqjOMv/Rbo9pZ7l4bssxKrW7Ew/IZHt2qJeQ5NbLQoo08etpNULnA6vEZr
+         wu8mX6VB1aLUE7kMulFwIm6umetJfcyoqL85g=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736847167; x=1737451967;
+        d=1e100.net; s=20230601; t=1736847708; x=1737452508;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=B9S6pdDsNCp33mtAF7/BbRjeEO4D+sXhz+vsHSrTIR0=;
-        b=m5mFoJPxzEQSqXaE7I8PbkdE0rCn3lncAVk2IACV4JwyKfsbRv704tIE+LmwikYsln
-         4bdppxfs53vWEBAyGLQdongvZLlITljArTr3pQNSNK1zHTSlrwzL6eTtrBkZ6SdRGwmv
-         VJVd6yjhj8xHGhPldlBVPCFHoUOCR5Vyo6qRaA6IMqBilIqh0LQSDuc4NAuPGhWU7vRO
-         B5Vv+4mIyUuBOkeaE2p6TIGIwCeXLBf+HteOdA0k/WJuT9ggnRi+Tk0GJwhQ5se3GBip
-         CZ86DtY+1wePuMmBQWf2UX5fU6b8j48455Kk8ztKNChAELgFt34HuFCMo/P2sB4mR+YI
-         54qQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV30JxX9pZHI0o4HXp+gcGvm1yvXGb4IakbB+nr3D4A33LBhq94bhDdWeTNr46dlB0q9Dd5nK9dzyE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx4GZzvAob7iviGFko4JO/vH8JiVkM4bZGYw8ZDhHP4fOi9cKzq
-	h5dsGKwQ5Pfn/WeSX2AMm7OqQacst9PW2UJ0wq+m/cBkVoRc5716nK7HwYr3+Hg=
-X-Gm-Gg: ASbGncs+084Z3uW6Ken4tgLDBw+DxADMkH4Z8iyfVOHb6bd7R5cSe3noBOQ4cXJmoe/
-	0Ia8JcSEXgs4PzrzSwWsXEkQ9Np4LhLDEc2EZAY2H4B+eXrPU0DOm0UibM09JctId7Bc1TcEPOL
-	8hVO6bJCvYvJ3eAOqfR5muCfpshKZ691mN4s3CQzLt0q72gnnOBsmD5RmJDFbqm/4OZD5TKA1tn
-	bJh75mCuTyCidZQCNjtjGf8misOFumvDRN1wJKF181D8YYsRM0P/y1B4M0ykdLdgvelTgQaXoiq
-	EvSfHxOyvqV5sjHMzw7x
-X-Google-Smtp-Source: AGHT+IGt/EWC+NrUj3u542WA/piYX6HYdLSvUnDhmt7XC/QzS6Qd60I9LSfv8KeO4rNFoU8q33tDwA==
-X-Received: by 2002:a17:907:c1c:b0:aab:882e:921e with SMTP id a640c23a62f3a-ab2c3c63988mr1917154966b.2.1736847166868;
-        Tue, 14 Jan 2025 01:32:46 -0800 (PST)
-Message-ID: <5b6b1ad2-c0cd-454c-aa7c-b6de37ab39df@citrix.com>
-Date: Tue, 14 Jan 2025 09:32:45 +0000
+        bh=qbKZ/I5/BSf1C9gMrLhzIhsUeM5QTjxrFIgWSD9Ya2c=;
+        b=XA6WzCTXGp9/XxObUxIfn8x9MBJ9MLfvU0k3pL0sZHeS8NMITOrJYmKqbOjOL4gDF9
+         WAxbUPju4QwqjDeqRS0jTy+gHoYPZNl4ra4uwjElGo5BvYQMcwHXOYiSXZYxzgxIycy0
+         Q1JAFJQ5NG916yspJCZyV2prSBcPokU1FO8vM1T9Cq9z31YleGiKp+meLRTaSqez4/Us
+         9rU3BJC/hVU7GgmUb0cqpG8P9WpnUYBvB64BikZRiKZSVk6xRsIuCmX2haSb7d+FPsfF
+         FMjLLvZI+2O07LVzfBCpFF1iolqRpvQlICcs9xTZd594gDM0cSqncWgC8DoIuex+UDIX
+         8NOA==
+X-Forwarded-Encrypted: i=1; AJvYcCUvvCsr2lRVoTZzfj9SPN61ThnEKcFmMMVqXuX5G2CcjFrBsrpU+xZghKd906k3XY73TU7MeWq3nFM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyA7E0p2lUpcxvNWT4XH8PMNoroyhbXA42b+v5WE3JMTOI9e5q3
+	AFvo6mETQtyWGeRsHFaUn6U8r4bFqWtm1Fz3yimnD+EK2cu4cZgwWlVxgxp+oEs=
+X-Gm-Gg: ASbGnctLO7sKqZCclzxIzTfENR5Mws5NoT/SvBm99fiSzmBr2p8Vp8fIo/zoih0btno
+	k/hIuQ5oa8Xkb2W37Xpxq1vmfao9WXkG2rHzdeMiee6Z5iFpQoeSdrMULkqrxruesMA3rgymoEq
+	oLTwzA8RIwXakfMRMbWgZ757taxHGyrJEm+OIsHUu98hEHJ5vtBkfXZyVaV55YrPsmvlQ6mji0m
+	kVwyMLZ7FKHfgYAUX/vmK/yTS07HN0IQlmqgfSLSxWEfEFkNTLgmHTjXR2bgIOFBU4OwbM1XWHC
+	6rznxWUQVHvggx6KW+E/
+X-Google-Smtp-Source: AGHT+IHbY3/lzykXKUtBYmNvnWmFFA6MsHqSTLTSvu6XNPKaAdQeredSGb4Xw6Vbx3Hvehvp2C6a4Q==
+X-Received: by 2002:a17:906:6a26:b0:aaf:73e4:e872 with SMTP id a640c23a62f3a-ab2ab16a9bbmr1768494966b.3.1736847708232;
+        Tue, 14 Jan 2025 01:41:48 -0800 (PST)
+Message-ID: <465406d2-5921-4c52-a95d-b3781b4184e8@citrix.com>
+Date: Tue, 14 Jan 2025 09:41:47 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/4] Add/enable stack protector
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Community Manager <community.manager@xenproject.org>
-References: <20250114042553.1624831-1-volodymyr_babchuk@epam.com>
+Subject: Re: [XEN PATCH] intel/msr: Fix handling of MSR_RAPL_POWER_UNIT
+To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <0ac778dbcc7ab383447abe672225ff77b0d4802e.1736793323.git.teddy.astie@vates.tech>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -140,20 +133,41 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250114042553.1624831-1-volodymyr_babchuk@epam.com>
+In-Reply-To: <0ac778dbcc7ab383447abe672225ff77b0d4802e.1736793323.git.teddy.astie@vates.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 14/01/2025 4:25 am, Volodymyr Babchuk wrote:
-> Volodymyr Babchuk (4):
->   common: remove -fno-stack-protector from EMBEDDED_EXTRA_CFLAGS
->   xen: common: add ability to enable stack protector
->   xen: arm: enable stack protector feature
->   CHANGELOG.md: Mention stack-protector feature
+On 13/01/2025 6:42 pm, Teddy Astie wrote:
+> Solaris 11.4 tries
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Is it only Solaris 11.4, or is the simply the one repro you had?
 
-There's one minor formatting error which can be fixed on commit.
+Have you reported a bug?
+
+>  to access this MSR on some Intel platforms without properly
+> setting up a proper #GP handler, which leads to a immediate crash.
+
+Minor grammar note.  Either "without a proper #GP handler" or "without
+properly setting up a #GP handler", but having two proper(ly)'s in there
+is less than ideal.
+
+> Emulate the access of this MSR by giving it a legal value (all values set to
+> default, as defined by Intel SDM "RAPL Interfaces").
+>
+> Fixes: 84e848fd7a1 ('x86/hvm: disallow access to unknown MSRs')
+> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+> ---
+> Does it have a risk of negatively affecting other operating systems expecting
+> this MSR read to fail?
+
+It's Complicated.
+
+RAPL is a non-architectural feature (on Intel; AMD did it properly).  It
+does not have a CPUID bit to announce the presence of the MSRs. 
+Therefore OSes use a mixture of model numbers and {wr,rd}msr_safe() to
+probe.
+
+I expect this will change the behaviour of Linux.
 
 ~Andrew
 
