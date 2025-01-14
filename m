@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0200BA10D06
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 18:08:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.871611.1282592 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 956F4A10E12
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 18:44:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.871622.1282602 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXkO8-0002bM-Mi; Tue, 14 Jan 2025 17:07:36 +0000
+	id 1tXkxH-0000A5-7A; Tue, 14 Jan 2025 17:43:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 871611.1282592; Tue, 14 Jan 2025 17:07:36 +0000
+Received: by outflank-mailman (output) from mailman id 871622.1282602; Tue, 14 Jan 2025 17:43:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXkO8-0002Zc-K6; Tue, 14 Jan 2025 17:07:36 +0000
-Received: by outflank-mailman (input) for mailman id 871611;
- Tue, 14 Jan 2025 17:07:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tXkxH-000084-4c; Tue, 14 Jan 2025 17:43:55 +0000
+Received: by outflank-mailman (input) for mailman id 871622;
+ Tue, 14 Jan 2025 17:43:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZRbf=UG=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
- id 1tXkO7-0002ZW-AU
- for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 17:07:35 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0bc271be-d29a-11ef-a0e1-8be0dac302b0;
- Tue, 14 Jan 2025 18:07:33 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id D43CD4EEC6EE;
- Tue, 14 Jan 2025 18:07:32 +0100 (CET)
+ <SRS0=iLru=UG=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tXkxG-00007t-6M
+ for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 17:43:54 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1d292456-d29f-11ef-99a4-01e77a169b0f;
+ Tue, 14 Jan 2025 18:43:50 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5d3d143376dso8301655a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2025 09:43:50 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5d9900c435bsm6318583a12.27.2025.01.14.09.43.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Jan 2025 09:43:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,53 +44,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0bc271be-d29a-11ef-a0e1-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1736874453; bh=HlJzU5W9ek/W+SStPI2l2dbgaZAUTJslVv8+FWFX00M=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=Dfx01khs1ewOS05sIsn7m9ibSjAmZh711HY/ZmZcSsqSej02ZTkRQEQvKySQ2bIBw
-	 hOFN5lt5rVI0gDDGUvx8ApOY/OzkLY+mBq0puSaet0Oai+yYIttlFiWHIU2XSXENHz
-	 VCm71UjCQECnkHp1UHuCNCuPT35i+FLyMg5DcRoV5bXm4GNZ0tVKCtVw7vZOHuFZGm
-	 YQJvFQqwGkUiWCAa2eZDpwNMxedI69G0QTaAE4C2DpGNNJyRNy1U2IB9lnK/9fSKns
-	 Zbf/SnU7l9zi7lVS59xS1xe+A2yR0VAumuwz29kvx4CrdaXlXDqqeGSAMo62rQx7Xu
-	 PvZGITxUMZjqA==
+X-Inumbo-ID: 1d292456-d29f-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1736876629; x=1737481429; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=S7G4MlUHu1n7J9U4fkD7VebSjvuwWh3bWJV+pig280U=;
+        b=hof4V73YjmqTXXTI9tzvABzGIu6T7uDjQT+JuJu3EgI9dnpj3/zWkpLMDiT0tlzkUl
+         Regn58l5wck9XAczaxEYp18PhFsQ0W3r5e3wzch4594krkoPCfFqgTuRrmp+glA+7L0B
+         M7C1f7sZm3hrNO+W3CLJeUc134pkpxladszeM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1736876629; x=1737481429;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=S7G4MlUHu1n7J9U4fkD7VebSjvuwWh3bWJV+pig280U=;
+        b=r7WvltvfssAMTXAf3s6HSnoaeadnxmMbkPxsGsJUAaEdXGtbB5/P1ki6Reso/JyvDj
+         +YiQW5MQiAbPcs/Xk5StlCIACsqCqArTQ9k5DN8eAZrCxkSvZdexeewqsSGwCdpX0BhF
+         70TwIHKjUaUPYbwolFD//judjtEjMYQhdGnz7mumizIAkoW9zf7fLp667DP5YzwpWdM4
+         KvwenHBv2so3/tKRr5gERRK12iREhi0ETu6rcDnonRcxbKdPiOhu1WaKmnC5a71wMY6i
+         myWdzHHtxnso5j+4Bxl3qq9ayIDtnaEINcUNAkTqpcUe+w8rBzCd9nhjnnu/a5fQAPuJ
+         kx4w==
+X-Gm-Message-State: AOJu0Yza6r+q5sM+esURj2LNUeX1JjvPcHKFxOLexLO/nJ2+QT01EuDY
+	fG3W4ipl1JJVPVEcS9CQoZJMb6Myx8J++1tofqveZLktTe7Z/XevqLCctqiP11+/iDoCChtd/8z
+	X
+X-Gm-Gg: ASbGncsqsgAjDQmaHUvcBWS5yOsSnN9RUukB59qSeDmuRYeWGNWt8OTtnLE4Um7Y50z
+	hcpBPEJasAjiKSjVo3Syck6yYcP17OBc5EGxe0Wit3fZBRJGzNsYRdU7AhvVfrTxqdyFP141Jen
+	+amMSWb96OyJ5FQswHX7tmL8o37+G5UOUl7Xck1CS2JQGXqGvYzYsoFUQCp5anjuP+VqP10jtSE
+	ypaR/PdAjpjnBMMDKK+Gfp1cgWpwkW67PRMEpLXWysIdH2taxKV2F52PwP2Cg==
+X-Google-Smtp-Source: AGHT+IEx8Jfszc85JWJM/EvBe/xXV9e9+9ZgxMTMo4OKPAi2BEw7HdLUb+heJNOppBqLInqGUaF5+w==
+X-Received: by 2002:a05:6402:2808:b0:5d3:ba42:ea03 with SMTP id 4fb4d7f45d1cf-5d972e0674bmr21290563a12.8.1736876629486;
+        Tue, 14 Jan 2025 09:43:49 -0800 (PST)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [PATCH for-4.20] automation/gitlab: disable coverage from clang randconfig
+Date: Tue, 14 Jan 2025 18:43:45 +0100
+Message-ID: <20250114174345.60887-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-Date: Tue, 14 Jan 2025 18:07:32 +0100
-From: Simone Ballarin <simone.ballarin@bugseng.com>
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
- michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com,
- consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>, Anthony
- PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>, Julien
- Grall <julien@xen.org>, Simone Ballarin <simone.ballarin@bugseng.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>
-Subject: Re: [XEN PATCH] MAINTAINERS: Change reviewer of the ECLAIR
- integration
-In-Reply-To: <Z4Z8IMWuz0UqldN9@macbook.local>
-References: <8c370ced911457c883360836bd5afda747426a13.1736856521.git.nicola.vetrini@bugseng.com>
- <Z4Z8IMWuz0UqldN9@macbook.local>
-Message-ID: <31259db8185522b14a61ac021f76d6fd@bugseng.com>
-X-Sender: simone.ballarin@bugseng.com
-Organization: BUGSENG
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 2025-01-14 16:00, Roger Pau Monné wrote:
-> On Tue, Jan 14, 2025 at 03:48:54PM +0100, Nicola Vetrini wrote:
->> Simone Ballarin is no longer actively involved in reviewing
->> the ECLAIR integration for Xen. I am stepping up as a reviewer.
->> 
->> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> 
-> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-> 
+If randconfig enables coverage support the build times out due to GNU LD
+taking too long.  For the time being prevent coverage from being enabled in
+clang randconfig job.
 
-Acked-by: Simone Ballarin <simone.ballarin@bugseng.com>
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+---
+I will fix the orphaned section stuff separately, as I'm considering just
+removing LLVM coverage support because the llvm coverage format is not
+stable, and the code to dump it has already become stale.  However I need
+to think about it, and in the short term disabling coverage support from
+randconfig is more straightforward.
+---
+ automation/gitlab-ci/build.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> Adding Simone to the Cc list, it would be helpful if he can also
-> provide an Ack to signal he is OK with begin removed.
-> 
-> Thanks, Roger.
+diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+index cb84f379b754..bc4a8a5ad20c 100644
+--- a/automation/gitlab-ci/build.yaml
++++ b/automation/gitlab-ci/build.yaml
+@@ -556,6 +556,8 @@ debian-12-x86_64-clang-randconfig:
+   variables:
+     CONTAINER: debian:12-x86_64
+     RANDCONFIG: y
++    EXTRA_FIXED_RANDCONFIG: |
++      CONFIG_COVERAGE=n # Disable coverage otherwise build times out.
+ 
+ debian-12-x86_64-gcc:
+   extends: .gcc-x86-64-build
+-- 
+2.46.0
 
 
