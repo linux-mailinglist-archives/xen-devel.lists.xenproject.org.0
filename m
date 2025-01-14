@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97E3DA10E99
+	by mail.lfdr.de (Postfix) with ESMTPS id 71E93A10E98
 	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2025 18:59:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.871661.1282674 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.871663.1282683 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXlBk-00042y-W7; Tue, 14 Jan 2025 17:58:53 +0000
+	id 1tXlBl-0004Ck-HT; Tue, 14 Jan 2025 17:58:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 871661.1282674; Tue, 14 Jan 2025 17:58:52 +0000
+Received: by outflank-mailman (output) from mailman id 871663.1282683; Tue, 14 Jan 2025 17:58:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tXlBk-0003r8-Lb; Tue, 14 Jan 2025 17:58:52 +0000
-Received: by outflank-mailman (input) for mailman id 871661;
- Tue, 14 Jan 2025 17:55:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tXlBl-00042L-5m; Tue, 14 Jan 2025 17:58:53 +0000
+Received: by outflank-mailman (input) for mailman id 871663;
+ Tue, 14 Jan 2025 17:56:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5Qro=UG=redhat.com=vschneid@srs-se1.protection.inumbo.net>)
- id 1tXl8Y-0003B8-Vo
- for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 17:55:34 +0000
+ id 1tXl92-0003Bm-RN
+ for xen-devel@lists.xenproject.org; Tue, 14 Jan 2025 17:56:04 +0000
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bfed8535-d2a0-11ef-a0e1-8be0dac302b0;
- Tue, 14 Jan 2025 18:55:34 +0100 (CET)
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d142d210-d2a0-11ef-99a4-01e77a169b0f;
+ Tue, 14 Jan 2025 18:56:02 +0100 (CET)
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-346-TCnp728BMva_I5fFAbpK4A-1; Tue,
- 14 Jan 2025 12:55:31 -0500
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-20-jE76dcsZPt-31fHWsIhMBg-1; Tue,
+ 14 Jan 2025 12:55:57 -0500
 Received: from mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.15])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id CC0371956053; Tue, 14 Jan 2025 17:55:27 +0000 (UTC)
+ by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 47A70195609E; Tue, 14 Jan 2025 17:55:53 +0000 (UTC)
 Received: from vschneid-thinkpadt14sgen2i.remote.csb (unknown [10.39.192.55])
  by mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix)
- with ESMTPS id 7D2BD195608A; Tue, 14 Jan 2025 17:55:02 +0000 (UTC)
+ with ESMTPS id 6703A195608A; Tue, 14 Jan 2025 17:55:28 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,19 +52,19 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bfed8535-d2a0-11ef-a0e1-8be0dac302b0
+X-Inumbo-ID: d142d210-d2a0-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1736877332;
+	s=mimecast20190719; t=1736877361;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=yW4eDMpnPb09nDVWkM9p9gFnBpCcE/XnyyFFoIpXh9k=;
-	b=aumpFdCNIUo3PjNZscbIrPbaTkMNK/4rnF5jsuCQYqc3tdpO3Q+KAARz/a5Kc0WR/subUa
-	FWKKcTiVvJNJlttB5rUtp+T7ygl9PIn991zURzcb2ywyAeLSJ3VYaow8ecLf8eaobZaW6D
-	gRP88zuo6BuAYhD9yweFo36E2Ub5WOU=
-X-MC-Unique: TCnp728BMva_I5fFAbpK4A-1
-X-Mimecast-MFC-AGG-ID: TCnp728BMva_I5fFAbpK4A
+	bh=P7DcLPe7N47ORcKkDkopF1lM4hKgrpRYFpILYCZNJJ8=;
+	b=Y8bq5zS9poTwPOOLX/87Ai62n1gNtjuD+qKZs9wZ2f1MI5UPpAPNe2yWOJMwInm9qleWlQ
+	IrsMbwNWkLbKkyxmWbcFYDuL7ldiaiHBlnnMI+m0y0MJkxEn2MUq8RYFZDHzZZosjdeD90
+	hrXofc3s0DU17aYkucrM/wKa4rWuwvk=
+X-MC-Unique: jE76dcsZPt-31fHWsIhMBg-1
+X-Mimecast-MFC-AGG-ID: jE76dcsZPt-31fHWsIhMBg
 From: Valentin Schneider <vschneid@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	x86@kernel.org,
@@ -154,64 +154,46 @@ Cc: Josh Poimboeuf <jpoimboe@kernel.org>,
 	Luis Chamberlain <mcgrof@kernel.org>,
 	Randy Dunlap <rdunlap@infradead.org>,
 	Tiezhu Yang <yangtiezhu@loongson.cn>
-Subject: [PATCH v4 06/30] static_call: Add read-only-after-init static calls
-Date: Tue, 14 Jan 2025 18:51:19 +0100
-Message-ID: <20250114175143.81438-7-vschneid@redhat.com>
+Subject: [PATCH v4 07/30] x86/paravirt: Mark pv_sched_clock static call as __ro_after_init
+Date: Tue, 14 Jan 2025 18:51:20 +0100
+Message-ID: <20250114175143.81438-8-vschneid@redhat.com>
 In-Reply-To: <20250114175143.81438-1-vschneid@redhat.com>
 References: <20250114175143.81438-1-vschneid@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.15
 
-From: Josh Poimboeuf <jpoimboe@kernel.org>
+Later commits will cause objtool to warn about static calls being used in
+.noinstr sections in order to safely defer instruction patching IPIs
+targeted at NOHZ_FULL CPUs.
 
-Deferring a code patching IPI is unsafe if the patched code is in a
-noinstr region.  In that case the text poke code must trigger an
-immediate IPI to all CPUs, which can rudely interrupt an isolated NO_HZ
-CPU running in userspace.
+pv_sched_clock is updated in:
+o __init vmware_paravirt_ops_setup()
+o __init xen_init_time_common()
+o kvm_sched_clock_init() <- __init kvmclock_init()
+o hv_setup_sched_clock() <- __init hv_init_tsc_clocksource()
 
-If a noinstr static call only needs to be patched during boot, its key
-can be made ro-after-init to ensure it will never be patched at runtime.
+IOW purely init context, and can thus be marked as __ro_after_init.
 
-Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
+Reported-by: Josh Poimboeuf <jpoimboe@kernel.org>
+Signed-off-by: Valentin Schneider <vschneid@redhat.com>
 ---
- include/linux/static_call.h | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ arch/x86/kernel/paravirt.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/linux/static_call.h b/include/linux/static_call.h
-index 78a77a4ae0ea8..ea6ca57e2a829 100644
---- a/include/linux/static_call.h
-+++ b/include/linux/static_call.h
-@@ -192,6 +192,14 @@ extern long __static_call_return0(void);
- 	};								\
- 	ARCH_DEFINE_STATIC_CALL_TRAMP(name, _func)
+diff --git a/arch/x86/kernel/paravirt.c b/arch/x86/kernel/paravirt.c
+index fec3815335558..ae6675167877b 100644
+--- a/arch/x86/kernel/paravirt.c
++++ b/arch/x86/kernel/paravirt.c
+@@ -73,7 +73,7 @@ static u64 native_steal_clock(int cpu)
+ }
  
-+#define DEFINE_STATIC_CALL_RO(name, _func)				\
-+	DECLARE_STATIC_CALL(name, _func);				\
-+	struct static_call_key __ro_after_init STATIC_CALL_KEY(name) = {\
-+		.func = _func,						\
-+		.type = 1,						\
-+	};								\
-+	ARCH_DEFINE_STATIC_CALL_TRAMP(name, _func)
-+
- #define DEFINE_STATIC_CALL_NULL(name, _func)				\
- 	DECLARE_STATIC_CALL(name, _func);				\
- 	struct static_call_key STATIC_CALL_KEY(name) = {		\
-@@ -200,6 +208,14 @@ extern long __static_call_return0(void);
- 	};								\
- 	ARCH_DEFINE_STATIC_CALL_NULL_TRAMP(name)
+ DEFINE_STATIC_CALL(pv_steal_clock, native_steal_clock);
+-DEFINE_STATIC_CALL(pv_sched_clock, native_sched_clock);
++DEFINE_STATIC_CALL_RO(pv_sched_clock, native_sched_clock);
  
-+#define DEFINE_STATIC_CALL_NULL_RO(name, _func)				\
-+	DECLARE_STATIC_CALL(name, _func);				\
-+	struct static_call_key __ro_after_init STATIC_CALL_KEY(name) = {\
-+		.func = NULL,						\
-+		.type = 1,						\
-+	};								\
-+	ARCH_DEFINE_STATIC_CALL_NULL_TRAMP(name)
-+
- #define DEFINE_STATIC_CALL_RET0(name, _func)				\
- 	DECLARE_STATIC_CALL(name, _func);				\
- 	struct static_call_key STATIC_CALL_KEY(name) = {		\
+ void paravirt_set_sched_clock(u64 (*func)(void))
+ {
 -- 
 2.43.0
 
