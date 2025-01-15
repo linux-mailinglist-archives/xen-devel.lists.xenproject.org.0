@@ -2,44 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0853DA11F57
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jan 2025 11:27:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.872303.1283263 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5BCBA12045
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jan 2025 11:43:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.872316.1283273 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tY0bD-0006om-8H; Wed, 15 Jan 2025 10:26:11 +0000
+	id 1tY0ra-0001rz-LP; Wed, 15 Jan 2025 10:43:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 872303.1283263; Wed, 15 Jan 2025 10:26:11 +0000
+Received: by outflank-mailman (output) from mailman id 872316.1283273; Wed, 15 Jan 2025 10:43:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tY0bD-0006mn-3i; Wed, 15 Jan 2025 10:26:11 +0000
-Received: by outflank-mailman (input) for mailman id 872303;
- Wed, 15 Jan 2025 10:26:10 +0000
+	id 1tY0ra-0001qJ-Ic; Wed, 15 Jan 2025 10:43:06 +0000
+Received: by outflank-mailman (input) for mailman id 872316;
+ Wed, 15 Jan 2025 10:43:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AzvQ=UH=suse.de=tzimmermann@srs-se1.protection.inumbo.net>)
- id 1tY0bB-0006mV-Qt
- for xen-devel@lists.xenproject.org; Wed, 15 Jan 2025 10:26:09 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ <SRS0=4o+i=UH=cloud.com=bernhard.kaindl@srs-se1.protection.inumbo.net>)
+ id 1tY0rZ-0001qD-2a
+ for xen-devel@lists.xenproject.org; Wed, 15 Jan 2025 10:43:05 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1fa15300-d32b-11ef-a0e1-8be0dac302b0;
- Wed, 15 Jan 2025 11:26:04 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3A60921285;
- Wed, 15 Jan 2025 10:26:03 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B2519139CB;
- Wed, 15 Jan 2025 10:26:02 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id yds5KjqNh2dqKAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 15 Jan 2025 10:26:02 +0000
+ id 7f753389-d32d-11ef-a0e1-8be0dac302b0;
+ Wed, 15 Jan 2025 11:43:03 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-4362bae4d7dso46613355e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Jan 2025 02:43:03 -0800 (PST)
+Received: from localhost ([185.68.248.203]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38a8e37d154sm17643663f8f.10.2025.01.15.02.43.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Jan 2025 02:43:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,244 +44,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1fa15300-d32b-11ef-a0e1-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1736936763; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=o5OaTSBvndaqL7pmKVkJ0tKcrkXR4wXg7zZA1xwdifc=;
-	b=Mljgl0DvQXsyKMdMzmz5ZwZ3V789zCdVdhgaCjuMtwHrT61J2CLPcsqyigpgNfMgt5s9ED
-	NQBLa2bFnxQBC6Lh8kmGl4ElL6IbxkHaMKnpSDKgAWvZ5RgKmpAEVOTkk2jS/7Dqz07SiL
-	vCLaFHZP1mmjRXmvQ/ScFe4UhJimBB4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1736936763;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=o5OaTSBvndaqL7pmKVkJ0tKcrkXR4wXg7zZA1xwdifc=;
-	b=qI2Y6oN0l9JxGfh+RN+mqlivvJYcBaYsV/e1PTdXmK0ZMZeCqm75AAiZVcbCx5W/dssHYm
-	9npljUHucuH2iADw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1736936763; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=o5OaTSBvndaqL7pmKVkJ0tKcrkXR4wXg7zZA1xwdifc=;
-	b=Mljgl0DvQXsyKMdMzmz5ZwZ3V789zCdVdhgaCjuMtwHrT61J2CLPcsqyigpgNfMgt5s9ED
-	NQBLa2bFnxQBC6Lh8kmGl4ElL6IbxkHaMKnpSDKgAWvZ5RgKmpAEVOTkk2jS/7Dqz07SiL
-	vCLaFHZP1mmjRXmvQ/ScFe4UhJimBB4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1736936763;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=o5OaTSBvndaqL7pmKVkJ0tKcrkXR4wXg7zZA1xwdifc=;
-	b=qI2Y6oN0l9JxGfh+RN+mqlivvJYcBaYsV/e1PTdXmK0ZMZeCqm75AAiZVcbCx5W/dssHYm
-	9npljUHucuH2iADw==
-Message-ID: <bc97b92e-7f8a-4b92-af8a-20fa165ead55@suse.de>
-Date: Wed, 15 Jan 2025 11:26:02 +0100
+X-Inumbo-ID: 7f753389-d32d-11ef-a0e1-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1736937783; x=1737542583; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=uOXIkpl9nUkKoAlwzI7JQ7MlkyqR4hdJY0tA9XuuqEw=;
+        b=KUOlvW+yj/MXpjsIqLVsHfxcS25j/KzRW4ALYGrgByUcED8r7SJQnlRxoAhIu7JnyM
+         mfYnPdwC7nGBpcWAaL3RPhKtMGOg0m6GWZuVy4PVRdfsy43XUul1cgBMOCq1arMu4cG1
+         hhx4ZoCzIDXIfxlyZcYqD81wwPxDdRE7oy9XY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1736937783; x=1737542583;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=uOXIkpl9nUkKoAlwzI7JQ7MlkyqR4hdJY0tA9XuuqEw=;
+        b=VItrNZNdWRaCjjcgYUaXp+ynESwRjXU9rUUOjqehLFcAjOxglJl9t8Zz+KrqmKanV2
+         pHU6M7VlCLyBqO7Uxmfy47wt8UvOd8lP3ueDBysnk9jmhIZKrQpz+wf110P6rgX4Ekjy
+         X8g3to75NYX0TcKF2j73K10KemAA1wHDyZ5d8Sqa5qJIT92w6iu7PWaITo2udN7qgGz5
+         yHrUt8zPrJAmND1xYR/QGo6e1E96pFT4NlnzAqSCWn2MSn6PEwilvLnVCNRboZtwGdSZ
+         o+Ez5zFGsRvx9ZzwRn/XMjaKyuav2LHJj0fnrnU6fMbXNEH+SHCjIxsldDGS/TC7Slf9
+         jrkA==
+X-Gm-Message-State: AOJu0Yy5cctOjPcY2m/ANYahLStOhT7zbRPNoVdUBYL13q88XDa3bIDW
+	kLGow+SuWYVkNNoIUuj4gYlBf2qWmd3fyHxx3jqR+LLRHdXq1UOR9EpfuHvvcdISpU17193P7Lu
+	4bZgcew==
+X-Gm-Gg: ASbGncvz+Py62prAJcCEwCde3TMlBw3rpNXalfCs5VGzOivcccVQ9Tuk3RIr/ZbePhC
+	YYCcEX0OC4xCsRkgQ53N9aB7HFiIu5MSa6xYKcAke+Oq9rb/NO/DMBrIGU015difmS4kUUBvAfz
+	DlgH8U8r7ynzJaXpGTEmyMpcunSBFmhn8cxEpSLYWWX4AHyZC1oaf0DqDYDsPlO7FrOedrt8kBW
+	IVFsub2aPNxEBxInP7DqyJmkcJATRNsOUTdk+25NL/T4XiN7lVKQlg+gQ3aPA==
+X-Google-Smtp-Source: AGHT+IEBSyUCZdFS+5yN4BDhICeSingrg6DKfYFQe8b/tGnIOwFiHV0ZkEWXBEE9skJxTaRA67lZaQ==
+X-Received: by 2002:a05:600c:3551:b0:434:effb:9f8a with SMTP id 5b1f17b1804b1-436e26b8be2mr277621495e9.15.1736937782974;
+        Wed, 15 Jan 2025 02:43:02 -0800 (PST)
+From: Bernhard Kaindl <bernhard.kaindl@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: Bernhard Kaindl <bernhard.kaindl@cloud.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Ross Lagerwall <ross.lagerwall@citrix.com>
+Subject: [PATCH] docs: Improve spelling of few cases in the documentation
+Date: Wed, 15 Jan 2025 11:42:59 +0100
+Message-ID: <504170a4a195551072c14141e28ef554ac1cad2c.1736937491.git.bernhard.kaindl@cloud.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 25/25] drm/xlnx: Compute dumb-buffer sizes with
- drm_mode_size_dumb()
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-References: <20250109150310.219442-1-tzimmermann@suse.de>
- <20250109150310.219442-26-tzimmermann@suse.de>
- <cdbe483d-0895-47aa-8c83-1c28220f4a02@ideasonboard.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <cdbe483d-0895-47aa-8c83-1c28220f4a02@ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_TO(0.00)[ideasonboard.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
-	RCPT_COUNT_TWELVE(0.00)[20];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid]
-X-Spam-Score: -2.80
-X-Spam-Flag: NO
 
-Hi
+Skimming the docs, I came across a few places for spelling improvements.
+I checked using dictionaries to be sure.
 
+Signed-off-by: Bernhard Kaindl <bernhard.kaindl@cloud.com>
+---
+ docs/admin-guide/microcode-loading.rst    | 4 ++--
+ docs/designs/non-cooperative-migration.md | 4 ++--
+ docs/designs/qemu-deprivilege.md          | 2 +-
+ docs/guest-guide/x86/hypercall-abi.rst    | 2 +-
+ docs/man/xl.conf.5.pod.in                 | 2 +-
+ docs/misc/livepatch.pandoc                | 2 +-
+ 6 files changed, 8 insertions(+), 8 deletions(-)
 
-Am 15.01.25 um 11:13 schrieb Tomi Valkeinen:
-> Hi!
->
-> On 09/01/2025 16:57, Thomas Zimmermann wrote:
->> Call drm_mode_size_dumb() to compute dumb-buffer scanline pitch and
->> buffer size. Align the pitch according to hardware requirements.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
->> Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
->> ---
->>   drivers/gpu/drm/xlnx/zynqmp_kms.c | 7 +++++--
->>   1 file changed, 5 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/xlnx/zynqmp_kms.c 
->> b/drivers/gpu/drm/xlnx/zynqmp_kms.c
->> index b47463473472..7ea0cd4f71d3 100644
->> --- a/drivers/gpu/drm/xlnx/zynqmp_kms.c
->> +++ b/drivers/gpu/drm/xlnx/zynqmp_kms.c
->> @@ -19,6 +19,7 @@
->>   #include <drm/drm_crtc.h>
->>   #include <drm/drm_device.h>
->>   #include <drm/drm_drv.h>
->> +#include <drm/drm_dumb_buffers.h>
->>   #include <drm/drm_encoder.h>
->>   #include <drm/drm_fbdev_dma.h>
->>   #include <drm/drm_fourcc.h>
->> @@ -363,10 +364,12 @@ static int zynqmp_dpsub_dumb_create(struct 
->> drm_file *file_priv,
->>                       struct drm_mode_create_dumb *args)
->>   {
->>       struct zynqmp_dpsub *dpsub = to_zynqmp_dpsub(drm);
->> -    unsigned int pitch = DIV_ROUND_UP(args->width * args->bpp, 8);
->> +    int ret;
->>         /* Enforce the alignment constraints of the DMA engine. */
->> -    args->pitch = ALIGN(pitch, dpsub->dma_align);
->> +    ret = drm_mode_size_dumb(drm, args, dpsub->dma_align, 0);
->> +    if (ret)
->> +        return ret;
->>         return drm_gem_dma_dumb_create_internal(file_priv, drm, args);
->>   }
->
-> I have some trouble with this one.
->
-> I have sent a series to add some pixel formats:
->
-> https://lore.kernel.org/all/20250115-xilinx-formats-v2-0-160327ca652a@ideasonboard.com/ 
->
->
-> Let's look at XV15. It's similar to NV12, but 10 bits per component, 
-> and some packing and padding.
->
-> First plane: 3 pixels in a 32 bit group
-> Second plane: 3 pixels in a 64 bit group, 2x2 subsampled
->
-> So, on average, a pixel on the first plane takes 32 / 3 = 10.666... 
-> bits on a line. That's not a usable number for the 
-> DRM_IOCTL_MODE_CREATE_DUMB ioctl.
->
-> What I did was to use the pixel group size as "bpp" for 
-> DRM_IOCTL_MODE_CREATE_DUMB. So, e.g., for 720 x 576:
->
-> Stride for first plane: 720 * (32 / 3) / 8 = 960 bytes
-> Stride for second plane: 720 / 2 * (64 / 3) / 8 = 960 bytes
->
-> First plane: 720 / 3 = 240 pixel groups
-> Second plane: 720 / 2 / 3 = 120 pixel groups
->
-> So I allocated the two planes with:
-> 240 x 576 with 32 bitspp
-> 120 x 288 with 64 bitspp
->
-> This worked, and if I look at the DRM_IOCTL_MODE_CREATE_DUMB in the 
-> docs, I can't right away see anything there that says my tactic was 
-> not allowed.
->
-> The above doesn't work anymore with this patch, as the code calls 
-> drm_driver_color_mode_format(), which fails for 64 bitspp. It feels a 
-> bit odd that DRM_IOCTL_MODE_CREATE_DUMB will try to guess the RGB 
-> fourcc for a dumb buffer allocation.
->
-> So, what to do here? Am I doing something silly? What's the correct 
-> way to allocate the buffers for XV15? Should I just use 32 bitspp for 
-> the plane 2 too, and double the width (this works)?
->
-> Is DRM_IOCTL_MODE_CREATE_DUMB only meant for simple RGB formats? The 
-> xilinx driver can, of course, just not use drm_mode_size_dumb(). But 
-> if so, I guess the limitations of drm_mode_size_dumb() should be 
-> documented.
->
-> Do we need a new dumb-alloc ioctl that takes the format and plane 
-> number as parameters? Or alternatively a simpler dumb-alloc that 
-> doesn't have width and bpp, but instead takes a stride and height as 
-> parameters? I think those would be easier for the userspace to use, 
-> instead of trying to adjust the parameters to be suitable for the kernel.
-
-These are all good points. Did you read my discussion with Andy on patch 
-2? I think it resolves all the points you have. The current CREATE_DUMB 
-ioctl is unsuited for anything but the simple RGB formats. The bpp 
-parameter is not very precise. The solution would be a new ioctl call 
-that receives the DRM format and returns a buffer for each individual plane.
-
-I provided a workaround patch that uses the bpp value directly if 
-drm_driver_color_mode_format() does not support the bpp value. 
-User-space code has to allocate a large enough buffer via the current 
-CREATE_DUMB and compute the individual planes itself. See [1] for an 
-example. [1] 
-https://gitlab.freedesktop.org/mesa/drm/-/blob/main/tests/modetest/buffers.c?ref_type=heads#L302 
-Does this work for you? Otherwise, I guess we should be talking about a 
-possible CREATE_DUMB2 that fixes these shortcomings. Best regards Thomas
->
->  Tomi
->
-
+diff --git a/docs/admin-guide/microcode-loading.rst b/docs/admin-guide/microcode-loading.rst
+index a07e25802f..f9b2b73d17 100644
+--- a/docs/admin-guide/microcode-loading.rst
++++ b/docs/admin-guide/microcode-loading.rst
+@@ -20,7 +20,7 @@ distro guidance for microcode loading.
+ Microcode can make almost arbitrary changes to the processor, including to
+ software visible features.  This includes removing features (e.g. the Haswell
+ TSX errata which necessitated disabling the feature entirely), or the addition
+-of brand new features (e.g. the Spectre v2 controls to work around speculative
++of brand-new features (e.g. the Spectre v2 controls to work around speculative
+ execution vulnerabilities).
+ 
+ 
+@@ -40,7 +40,7 @@ Xen will report during boot if it performed a microcode update::
+   (XEN) microcode: CPU6 updated from revision 0x1a to 0x25, date = 2018-04-02
+ 
+ The exact details printed are system and microcode specific.  After boot, the
+-current microcode version can obtained from with dom0::
++current microcode version can be obtained from with dom0::
+ 
+   [root@host ~]# head /proc/cpuinfo
+   processor    : 0
+diff --git a/docs/designs/non-cooperative-migration.md b/docs/designs/non-cooperative-migration.md
+index 4b876d809f..54496892ed 100644
+--- a/docs/designs/non-cooperative-migration.md
++++ b/docs/designs/non-cooperative-migration.md
+@@ -112,7 +112,7 @@ because the guest can sample its own domid from the frontend area and use
+ it in hypercalls (e.g. HVMOP_set_param) rather than DOMID_SELF, the guest
+ domid must also be preserved to maintain the ABI.
+ 
+-Furthermore, it will necessary to modify backend drivers to re-establish
++Furthermore, it will be necessary to modify backend drivers to re-establish
+ communication with frontend drivers without perturbing the content of the
+ backend area or requiring any changes to the values of the xenstore state
+ nodes.
+@@ -259,7 +259,7 @@ Essentially this should skip the check to see if PV drivers and migrate as
+ if there are none present, but also enabling the extra save records. Note
+ that at least some of the extra records should only form part of a
+ non-cooperative migration stream. For example, migrating event channel
+-state would be counter productive in a normal migration as this will
++state would be counter-productive in a normal migration as this will
+ essentially leak event channel objects at the receiving end. Others, such
+ as grant table state, could potentially harmlessly form part of a normal
+ migration stream.
+diff --git a/docs/designs/qemu-deprivilege.md b/docs/designs/qemu-deprivilege.md
+index 81a5f5c05d..f12b1a3ae3 100644
+--- a/docs/designs/qemu-deprivilege.md
++++ b/docs/designs/qemu-deprivilege.md
+@@ -3,7 +3,7 @@
+ The goal of deprilvileging qemu is this: Even if there is a bug (for
+ example in qemu) which permits a domain to gain control of the device
+ model, the compromised device model process is prevented from
+-violating the system's overall security properties.  Ie, a guest
++violating the system's overall security properties.  I.e., a guest
+ cannot "escape" from the virtualisation by using a qemu bug.
+ 
+ This document lists the various technical measures which we either
+diff --git a/docs/guest-guide/x86/hypercall-abi.rst b/docs/guest-guide/x86/hypercall-abi.rst
+index 745fbbb64a..e52ed453bc 100644
+--- a/docs/guest-guide/x86/hypercall-abi.rst
++++ b/docs/guest-guide/x86/hypercall-abi.rst
+@@ -109,7 +109,7 @@ abstracting away the details of how it is currently running.
+ Creating Hypercall Pages
+ ------------------------
+ 
+-Guests which are started using the PV boot protocol may set set
++Guests which are started using the PV boot protocol may set
+ ``XEN_ELFNOTE_HYPERCALL_PAGE`` to have the nominated page written as a
+ hypercall page during construction.  This mechanism is common for PV guests,
+ and allows hypercalls to be issued with no additional setup.
+diff --git a/docs/man/xl.conf.5.pod.in b/docs/man/xl.conf.5.pod.in
+index 44738b80bf..0cfec8587c 100644
+--- a/docs/man/xl.conf.5.pod.in
++++ b/docs/man/xl.conf.5.pod.in
+@@ -4,7 +4,7 @@
+ 
+ =head1 DESCRIPTION
+ 
+-The F<xl.conf> file allows configuration of hostwide C<xl> toolstack
++The F<xl.conf> file allows configuration of host-wide C<xl> toolstack
+ options.
+ 
+ For details of per-domain configuration options please see
+diff --git a/docs/misc/livepatch.pandoc b/docs/misc/livepatch.pandoc
+index a94fb57eb5..43010227e5 100644
+--- a/docs/misc/livepatch.pandoc
++++ b/docs/misc/livepatch.pandoc
+@@ -2,7 +2,7 @@
+ 
+ ## Rationale
+ 
+-A mechanism is required to binarily patch the running hypervisor with new
++A mechanism is required to binary-patch the running hypervisor with new
+ opcodes that have come about due to primarily security updates.
+ 
+ This document describes the design of the API that would allow us to
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstrasse 146, 90461 Nuernberg, Germany
-GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-HRB 36809 (AG Nuernberg)
+2.43.0
 
 
