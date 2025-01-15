@@ -2,37 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8728A128D1
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jan 2025 17:37:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.872799.1283829 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 556E6A128DD
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jan 2025 17:38:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.872812.1283840 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tY6O4-0007eE-Rg; Wed, 15 Jan 2025 16:37:00 +0000
+	id 1tY6PO-0008LP-A8; Wed, 15 Jan 2025 16:38:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 872799.1283829; Wed, 15 Jan 2025 16:37:00 +0000
+Received: by outflank-mailman (output) from mailman id 872812.1283840; Wed, 15 Jan 2025 16:38:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tY6O4-0007cm-Of; Wed, 15 Jan 2025 16:37:00 +0000
-Received: by outflank-mailman (input) for mailman id 872799;
- Wed, 15 Jan 2025 16:36:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tY6PO-0008JP-79; Wed, 15 Jan 2025 16:38:22 +0000
+Received: by outflank-mailman (input) for mailman id 872812;
+ Wed, 15 Jan 2025 16:38:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=P4PG=UH=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tY6O2-0007cK-Gr
- for xen-devel@lists.xenproject.org; Wed, 15 Jan 2025 16:36:58 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id eef072b6-d35e-11ef-99a4-01e77a169b0f;
- Wed, 15 Jan 2025 17:36:56 +0100 (CET)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-53e399e3310so7168538e87.1
- for <xen-devel@lists.xenproject.org>; Wed, 15 Jan 2025 08:36:56 -0800 (PST)
-Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5428becb27csm2032564e87.251.2025.01.15.08.36.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Jan 2025 08:36:54 -0800 (PST)
+ <SRS0=ppZO=UH=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1tY6PM-0008JC-Ov
+ for xen-devel@lists.xenproject.org; Wed, 15 Jan 2025 16:38:20 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20628.outbound.protection.outlook.com
+ [2a01:111:f403:2417::628])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1fd4c370-d35f-11ef-a0e1-8be0dac302b0;
+ Wed, 15 Jan 2025 17:38:19 +0100 (CET)
+Received: from BN9PR03CA0039.namprd03.prod.outlook.com (2603:10b6:408:fb::14)
+ by LV2PR12MB5893.namprd12.prod.outlook.com (2603:10b6:408:175::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8356.13; Wed, 15 Jan
+ 2025 16:38:12 +0000
+Received: from BL02EPF0001A105.namprd05.prod.outlook.com
+ (2603:10b6:408:fb:cafe::e9) by BN9PR03CA0039.outlook.office365.com
+ (2603:10b6:408:fb::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8207.18 via Frontend Transport; Wed,
+ 15 Jan 2025 16:38:12 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL02EPF0001A105.mail.protection.outlook.com (10.167.241.137) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8356.11 via Frontend Transport; Wed, 15 Jan 2025 16:38:12 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 15 Jan
+ 2025 10:38:11 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 15 Jan
+ 2025 10:38:11 -0600
+Received: from [172.27.3.102] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Wed, 15 Jan 2025 10:38:10 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,780 +63,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eef072b6-d35e-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1736959015; x=1737563815; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=E63x/z9jkgyvj2/eMGJ3oEP7WQXMUe2ctgd9S/svLA4=;
-        b=QehZ+rbq+JCcgXEqWHJUbHsqoUyE59c3C/3Q7H4ETU7aRQYD4B078yWUhc4YQiML7V
-         2fU7rrpKne7mmdD9AgQ09ct6gFYolxaxbZRfm5zOZYT+Om3vC8KLZ9e+36PwjtbUjSeo
-         3dAgGghJvCrUnfxFpiosNCLUNNxxs8Ra6Pgbe9P+cacsTkwiXYTsAvSlceeJ/W8MQq2G
-         wNmVJ+BcOk6+2tRy6lAoxOCRG7HQq5atIwTRNt5X/BmNNPXdVCM2wO8sKfbzJqnxwukp
-         1amQDMvYPZvkbhLbmmfpEgtawcOhvVVaBi59T9MpV/CTCP8NCND97wVhKbG2gpFsI+WJ
-         JByw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736959015; x=1737563815;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=E63x/z9jkgyvj2/eMGJ3oEP7WQXMUe2ctgd9S/svLA4=;
-        b=OXUlcbbRiTS2+/9as1OqXQYUn1UDtiQ5ToiiLmj35chMpMOuGa/3LJyGFzd+yIpUEz
-         vD7W5B4DBRJqKzY0pErIE1Xatk6A49YQpR+WoiGvNBjwyqzgAGGioYdwYnKBPw4mC3YY
-         wKRGZisFKjUkAW9TdugmQz4OQIq0rTpe4GcPt7W8r6pm+1z0wL1MPdHgjzzS0NAYlUL3
-         +x9ezr/j31KgV/fdZtJMRUKkWznnGc7pfhsK4IkumhkTUux3Ly58VHI35qLlcVmpDdzI
-         3I+5kEcP1pndCDIzZ+H0/nopeJrpbxcPzaIlwup8TE8C6skGFKjt7qAqcD+6ZRPe2FyS
-         fSOQ==
-X-Gm-Message-State: AOJu0YztrEuFc3gzIuYi5A8TS8ig0IfmNcapkvVtdea0RurwRA15Oz1J
-	pl0la4KxLq62QxCdzrEtsqlLLOErZ5qusYyv0Vj/GJQGLFz4KmSOsr9obg==
-X-Gm-Gg: ASbGnctI4DThw/RN8XfaUKQIed2DDW7dp2zJ69xNi+2gV4pJz6sDpU6Y0T4NMayTygs
-	aXr/PFEcMuTp10P7M3Gmj+LYl+Zl7KYSjsZubjAdZ9R1u8qmnkJqquej26ZdLqxY+Xu6bWkUmPy
-	dSmRgVvdJoDRYOXxhCFLJcUXKwVI5KSxLnAgnrl/tXQU608FXSwpIV5Z0rf4rImXFXMreWpZorT
-	sLL17d/Goi5C5gs0wl4VRJRzvPgz6BJBcISyPUyhJk8DHamfPZlolpUWw==
-X-Google-Smtp-Source: AGHT+IE8ccFyrGtHYgh7RHy/mo4w4v+yUPZ8mIjrAjc9RTmNELYGYC2Ar5wDAN7uU6iyXCslFGS5gw==
-X-Received: by 2002:a05:6512:3188:b0:542:98e9:63b1 with SMTP id 2adb3069b0e04-54298e965fcmr6338838e87.31.1736959014837;
-        Wed, 15 Jan 2025 08:36:54 -0800 (PST)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2] xen/riscv: identify specific ISA supported by cpu
-Date: Wed, 15 Jan 2025 17:36:52 +0100
-Message-ID: <0a6562ae1e22e3fe607054b33df3467c12d0b276.1736956861.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.47.1
+X-Inumbo-ID: 1fd4c370-d35f-11ef-a0e1-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=i/7NX37+dhNKPyqUQXTCRZ/4Hi0poI7w5lp+XG0J3nirTBypvcg3Kb5DDSH5KypUoYcegnP1L0GR45Yte+MkB5qMYkRnR5r75QF5ZD/9h7HkywDNG7FU+i/kom2gwckumWV2CEjAEszX9dWUD/wNMpmiunbZVqKu2A6pgTwfkV6frWugDoypx/u1yFZ3o3L9RmILeraLu13p8hY5Je3nG84fRr9Hzqx1dS8/GybSLpd8Egg11ZUqVLZt7gQHJ+2Ek1MRxi2eEOXzDTYzyDUeEe1byNz4GZZOILblQnE8If4KxF6kmaGtjvXvvZefxlA9FODbsELFPsgxNiC8W4ZOeQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aUXXusSk24drhfYsuct6vcK2Za6M9r1k0aIHaTia3Wk=;
+ b=UdvxvULq8KFZqwCPbamVnJA81Yq5f/BNbJkoHJiu4Qebx4rh+68v6vcDDBuO8Y84Sg/3VAKEAB44u86dpVqd93XOdSGDgjsnuzqiWv7gtGXg+5OA55vJ8vS/uXUMojdW2k15cP8LKDgVy35NjXu20+srdZbQigM3Il3gpgv4tWOx7uOUeqElQbTnalXWonGc5fisF6FOjfNkw9I9noLxRHonjlFOpOXywY6uuII51PiGbZBo0EmPiIcsJsaRe+r+00Jd5wRzxK+ePwWdyqNToC2D097wjGh65XQZKJbr4+T8+KZxgsiCPqI/fhMbsiwr/RBzbpQns8mgA6J/kcg4zw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=apertussolutions.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aUXXusSk24drhfYsuct6vcK2Za6M9r1k0aIHaTia3Wk=;
+ b=Ukj5cqRxbevJIsehS7X1jzP/NIforfysGfngMQlG11ouvgsjRFT4f1JhwJRUw+f4DlNEebiB+8rFa0wXU4TKwOT4pOQmLCOCLV+Q2ap7Uz4L2XUkHtJqAjERriTzKQTVxJYIRxvJGvTvLNv9Rs536kkH6tTDr7R9UbGVEahHDxU=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <ed6b3a99-a48a-4a8b-9028-dbb4012fe848@amd.com>
+Date: Wed, 15 Jan 2025 11:38:10 -0500
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Jason Andryuk <jason.andryuk@amd.com>
+Subject: Re: [PATCH v2 09/15] x86/hyperlaunch: obtain cmdline from device tree
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	<xen-devel@lists.xenproject.org>
+CC: <christopher.w.clark@gmail.com>, <stefano.stabellini@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>
+References: <20241226165740.29812-1-dpsmith@apertussolutions.com>
+ <20241226165740.29812-10-dpsmith@apertussolutions.com>
+Content-Language: en-US
+In-Reply-To: <20241226165740.29812-10-dpsmith@apertussolutions.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB05.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A105:EE_|LV2PR12MB5893:EE_
+X-MS-Office365-Filtering-Correlation-Id: 24d71e30-33bb-45ef-08e5-08dd35830096
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|1800799024|36860700013|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?SzBVdnV5bldlejErRTIyeE9NTncvTkZyUG9YMGV1SFI4ZHFJQnczbm45bXE2?=
+ =?utf-8?B?Zm4zNjVkOWNMNG01Mk85SzNGSjhDdEpZNjhJR0lSY1Y2Umc2bkg4RnBwTFgw?=
+ =?utf-8?B?Lyt0N0FTS1lOcFNKUVRUWjVCeGpoRXlBUVJ5NzMyZ0gxV1owdUpZbERJeWw0?=
+ =?utf-8?B?dXVxYStEaDYzb0U5bVEwS1NSUVlVL3FFREhDVEpuc2k2c0wzQkhlZEp2Z0VL?=
+ =?utf-8?B?VCsrNlFKeU5GaTJyVmZoU1JCT0V3SWZtUENoN3dIM3JrNHFRSWtadUx4cHUw?=
+ =?utf-8?B?MnBMY2FHQVR5c1lqVFNjMnRqV0N3dDdTbEJZaC9kTm9UYjNrOHdyamJBTEha?=
+ =?utf-8?B?UEtVSm1VNFZzU3oybitEc2FUN1prbGVsYW15K2ZIbDRRdlJmMjI2UzZBMlhl?=
+ =?utf-8?B?Sk1IaENhandVckg0MThBWmZaRk9Vc2d5OE15YWxQSEpqKzhZQi9CL29ORkRV?=
+ =?utf-8?B?WGFua25UV2JjRGltL2J5ekpuL1VjL3AxN25BV04ra2w4OVRGS1hxb08yNkZU?=
+ =?utf-8?B?LytSb1RNODcrVWt6WVQ4b0lKRjFjUWRZWDhrYUFDU1F1QTRGd0d4TDFLaDVB?=
+ =?utf-8?B?RThBVEZndURoRzBKWEIxWVJIVlN3MHBzOEU3UEJkdUU2V3g4d3FKS1ErZ1Er?=
+ =?utf-8?B?L0M3a3JaUlRkVnh4SHpjSWx3dUs5Q0t5bWl1MitqT0pxVDJ0bFZUdzRtZitz?=
+ =?utf-8?B?RjUveU1abmVobURqejV3QzFsbG8vQkJnVGdNWUJMWUgyMDhNdURrdXlKNFNN?=
+ =?utf-8?B?b0cySnY0WTZIOFRHNzNrVWlCT3g2c1lLWmdqRGkwUDdQb0o4dmkzUER2TWdL?=
+ =?utf-8?B?SU9zWjBjV01ObDlmOU5naldKMjF3WEM5aXVWbGRrUzhqNldNQmRPYTdQazFq?=
+ =?utf-8?B?alczQWhFREQwUGVSeG5FdjRCaGtnS1RzdmZtSUdseWxTNmJlWEQxdE5oV3N0?=
+ =?utf-8?B?dGRWbmNWL3VGTkFGbWdLSDFnbks3V0lwWFRjekoybEdoenpQekxuS3hxMU1h?=
+ =?utf-8?B?elJobUs4OUgrNE0zUDNwRjQ5eC9zK3lZYVlVMUE4QWM3WnR3VjNNOTBTaTV2?=
+ =?utf-8?B?L1NmdlRrWU1YOUVhRG1WV3FFN3REakZ1RDFUM3htSHkyWW9PSmkzelhBM1hJ?=
+ =?utf-8?B?Z01hV1JzSHNrMDIzYVhOYnJBLzdSQVZ2WEg5eWF6aTFmZGVGSDBIYXVDaWZ3?=
+ =?utf-8?B?OG1SV1lWMnZOc1BhbHd5T3JreXV5bFVBL1AzclZ0TUNsV05uUFg5T0hoeHls?=
+ =?utf-8?B?bkVlQzhaUUIzb0FSQ1pYWVBzaUZTTytKc2ZtQVVaUG5vUjl1bC9rZ0tDUEdt?=
+ =?utf-8?B?anZGdHFwNlhJM2ZjWENjb2Y1TXhmWEE3SmtHOHdDZUtFbzNwVlBlMVlCUEJS?=
+ =?utf-8?B?RDgycWpFbEMwaDd0OHFWMlNkakcvNHN1bkdnN0dpQXUzNEpnTC93cTZSQjdx?=
+ =?utf-8?B?S2RQWmhvTktTY3hLRmR0WExxdUZBNlBMWHpIb3k3SFVnM09tVkgwc3k3cVZB?=
+ =?utf-8?B?VjBSWGtPd243dmt4d1lxaFZQcjlIZjU1TEJKQnlJVExRRGJ1cmRBK0dJN05y?=
+ =?utf-8?B?ZzE3RXB0OGNXM0lFZnhKVW9IR09iRitDUlltMFIyRVR2RVBWRW5ZMjhSdFY3?=
+ =?utf-8?B?Sk5KSGRwOUFTUWlQc2VjTDV6cTNqVzZCWjU4bkdyRUZRR2xWK2NkaU9QVzdN?=
+ =?utf-8?B?K21YU1pzdzZxVmVjOW8vMHFuSkl0NDQ2bGhTQll4T3NQVkZBWUMxNUdpcngz?=
+ =?utf-8?B?QjdFWU1iaEFxRTYxZytJV3JUVWxHbk1EcTVSRjdBemsyWEV6ZlRmK3FiZlpv?=
+ =?utf-8?B?YzNBN0FuZ1ZYemk3RW5HK3dyb09qT2x2V0dVRTgweUFZM3hOQml4c1c3VytF?=
+ =?utf-8?B?YXMrQ1NqQUVJZnd3ZEVZbzNFa1RETDVWSXJ1Q3FqYVhJV0UxMGdYeUZGZzdN?=
+ =?utf-8?B?VkludGl1TGlndFcyTHdOVitabzlXMEhBaGcvcVduemFrOHBOSmdCNWtlWGxn?=
+ =?utf-8?Q?6jJuXvVQZ3v0tMDZzCgSRdJGdsglGA=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2025 16:38:12.2517
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 24d71e30-33bb-45ef-08e5-08dd35830096
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF0001A105.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5893
 
-Supported ISA extensions are specified in the device tree within the CPU
-node, using two properties: `riscv,isa-extensions` and `riscv,isa`.
+On 2024-12-26 11:57, Daniel P. Smith wrote:
+> If a command line is not provided through the bootloader's mechanism, e.g.
+> muiltboot module string field, then use one from the device tree if present.
+> The device tree command line is located in the bootargs property of the
+> `multiboot,kernel` node.
+> 
+> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+> ---
+> Changes since v1:
+> - moved common fdt functions to libfdt
+> - rename prop_as_offset to more correct prop_by_offset
 
-Currently, Xen does not support the `riscv,isa-extensions` property, as
-all available device tree source (DTS) files in the Linux kernel (v6.12-rc3)
-and DTBs generated by QEMU use only the `riscv,isa` property.
-Therefore, only `riscv,isa` parsing is implemented.
+> diff --git a/xen/include/xen/libfdt/libfdt-xen.h b/xen/include/xen/libfdt/libfdt-xen.h
+> index 27d23df03af3..0e54aeeb6cc2 100644
+> --- a/xen/include/xen/libfdt/libfdt-xen.h
+> +++ b/xen/include/xen/libfdt/libfdt-xen.h
+> @@ -28,6 +28,30 @@ static inline int __init fdt_cell_as_u64(const fdt32_t *cell, uint64_t *val)
+>       return 0;
+>   }
+>   
+> +static inline int __init fdt_get_prop_by_offset(
 
-The `riscv,isa` property is parsed for each CPU, and the common extensions
-are stored in the `host_riscv_isa` bitmap.
-This bitmap is then used by `riscv_isa_extension_available()` to check
-if a specific extension is supported.
+I think fdt_get_prop_offset() is a better name.  The point of this 
+function is to return the offset in the fdt of the named property.  "by" 
+or "as" confuses the purpose, at least to me.
 
-The current implementation is based on Linux kernel v6.12-rc3
-implementation with the following changes:
- - Drop unconditional setting of {RISCV_ISA_EXT_ZICSR,
-   RISCV_ISA_EXT_ZIFENCEI, RISCV_ISA_EXT_ZICNTR, RISCV_ISA_EXT_ZIHPM} as they
-   are now part of the riscv,isa string.
- - Remove saving of the ISA for each CPU, only the common available ISA is
-   saved.
- - Remove ACPI-related code as ACPI is not supported by Xen.
- - Drop handling of elf_hwcap, since Xen does not provide hwcap to
-   userspace.
- - Replace of_cpu_device_node_get() API, which is not available in Xen,
-   with a combination of dt_for_each_child_node(), dt_device_type_is_equal(),
-   and dt_get_cpuid_from_node() to retrieve cpuid and riscv,isa in
-   riscv_fill_hwcap_from_isa_string().
- - Rename arguments of __RISCV_ISA_EXT_DATA() from _name to ext_name, and
-   _id to ext_id for clarity.
- - Replace instances of __RISCV_ISA_EXT_DATA with RISCV_ISA_EXT_DATA.
- - Replace instances of __riscv_isa_extension_available with
-   riscv_isa_extension_available for consistency. Also, update the type of
-   `bit` argument of riscv_isa_extension_available().
- - Redefine RISCV_ISA_EXT_DATA() to work only with ext_name and ext_id,
-   as other fields are not used in Xen currently.
- - Add check of first 4 letters of riscv,isa string to
-   riscv_isa_parse_string() as Xen doesn't do this check before so it is
-   necessary to check correctness of riscv,isa string. ( it should start with
-   rv{32,64} with taking into account upper and lower case of "rv").
- - Drop an argument of riscv_fill_hwcap() and riscv_fill_hwcap_from_isa_string()
-   as it isn't used, at the moment.
- - Update the comment message about QEMU workaround.
- - Apply Xen coding style.
- - s/pr_info/printk.
+Compare the existing fdt_get_property_by_offset() which is performing a 
+property looking by consulting the offset.
 
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
-Changes in V2:
-- Update the list of changes in comparison with Linux on the top of
-  cpufeature.c.
-- Now really drop all ACPI-related stuff.
-  Add #ifdef CONFIG_ACPI #error ... #endif instead.
-- Make `id` ( member of riscv_isa_ext_data structure ) not const.
-- s/__read_mostly/__ro_after_init for riscv_isa bitmap.
-- Update the comment above riscv_isa_ext[] declaration:
-  - Drop Linux details.
-  - Revised the numbering of the ordering rules for RISC-V ISA extensions.
-  - Add comment that extension name must be all lowercase according to
-    device tree binding.
-- Add __initconst for declarations of riscv_isa_ext[] and
-  required_extensions[].
-- Move riscv_isa_ext_count for global declaration to match_isa_ext where
-  it is really used.
-- Add new function is_lowercase_extension_name().
-- Updates for match_isa_ext():
-  - Move last argument of match_isa_ext() to new line to not violate line
-    length.
-  - s/int/unsigned int for cycle varible `i`.
-  - s/set_bit/__set_bit as no need for atomicity at this stage of boot.
-  - Add ASSERT() to be sure that extension name is in lowercase.
-  - s/strncasecmp/strncasecmp as extension name must be in a lowercase.
-- Updates for riscv_isa_parse_string():
-  - Move last argument of riscv_isa_parse_string() to new line to not violate
-    line length.
-  - Update the checks at the start of the function. Now if CONFIG_RISCV_32=y
-    the only rv32 is accepted, or rv64 for CONFIG_RISCV_64=y.
-  - Drop ACPI-related stuff.
-  - Add blank lines between non-fall-through case blocks.
-  - Add blanks in `for loops` before ')'.
-  - Update the comment about QEMU workaround for invalid single-letter
-    's' & 'u'.
-- Updates for riscv_fill_hwcap_from_ext_list():
-  - Drop initilizer of cpuid inside dt_for_each_child_node() {...}.
-  - Introduce res and return it instead of -EINVAL.
-  - Drop `else` and change printk("riscv,isa-extensions isnt supported\n")
-    to panic("riscv,isa-extensions isnt supported\n").
-  - Drop ( cpuid >= NR_CPUS ) check as cpuid technically could be any
-    number. Only cpuid=0 is guaranteed to be.
-- Updates for riscv_fill_hwcap_from_isa_string():
-  - move cpuid and isa variables to dt_for_each_child_node() {...}.
-  - Drop initilizer of cpuid inside dt_for_each_child_node() {...}.
-  - Drop ( cpuid >= NR_CPUS ) check as cpuid technically could be any
-    number. Only cpuid=0 is guaranteed to be.
-  - Add ASSERT() to be sure that `this_isa` isn't null to prevent ending up
-    with extensions not supported by one of the CPUs.
-- Updates for riscv_isa_extension_available():
-  - Code style fixes.
-  - Drop conditional operator used in return as functions returns bool.
-- s/extenstion/extensions, s/extenstion/extenstion.
-- Drop RISCV_ISA_EXT_SxAIA as it isn't used.
-- Move definitions of RISCV_ISA_EXT_{a,c,d,...,v} to enum riscv_isa_ext_id.
-- Move macros RISCV_ISA_EXT_MAX to enum riscv_isa_ext_id.
-- Update the comment above definition of RISCV_ISA_EXT_BASE.
-- Fix code style ( violation of line length ) for
-  riscv_isa_extension_available().
-- Sync commit message with the comment on the start of cpufeature.c
----
- xen/arch/riscv/Makefile                 |   1 +
- xen/arch/riscv/cpufeature.c             | 506 ++++++++++++++++++++++++
- xen/arch/riscv/include/asm/cpufeature.h |  57 +++
- xen/arch/riscv/setup.c                  |   3 +
- 4 files changed, 567 insertions(+)
- create mode 100644 xen/arch/riscv/cpufeature.c
- create mode 100644 xen/arch/riscv/include/asm/cpufeature.h
-
-diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-index a5eb2aed4b..b0c8270a99 100644
---- a/xen/arch/riscv/Makefile
-+++ b/xen/arch/riscv/Makefile
-@@ -1,3 +1,4 @@
-+obj-y += cpufeature.o
- obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
- obj-y += entry.o
- obj-y += mm.o
-diff --git a/xen/arch/riscv/cpufeature.c b/xen/arch/riscv/cpufeature.c
-new file mode 100644
-index 0000000000..2e43551189
---- /dev/null
-+++ b/xen/arch/riscv/cpufeature.c
-@@ -0,0 +1,506 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Taken for Linux kernel v6.12-rc3 and modified by
-+ * Oleksii Kurochko <oleksii.kurochko@gmail.com>:
-+ *
-+ * - Drop unconditional setting of {RISCV_ISA_EXT_ZICSR,
-+ *   RISCV_ISA_EXT_ZIFENCEI, RISCV_ISA_EXT_ZICNTR, RISCV_ISA_EXT_ZIHPM} as they
-+ *   are now part of the riscv,isa string.
-+ * - Remove saving of the ISA for each CPU, only the common available ISA is
-+ *   saved.
-+ * - Remove ACPI-related code as ACPI is not supported by Xen.
-+ * - Drop handling of elf_hwcap, since Xen does not provide hwcap to
-+ *   userspace.
-+ * - Replace of_cpu_device_node_get() API, which is not available in Xen,
-+ *   with a combination of dt_for_each_child_node(), dt_device_type_is_equal(),
-+ *   and dt_get_cpuid_from_node() to retrieve cpuid and riscv,isa in
-+ *   riscv_fill_hwcap_from_isa_string().
-+ * - Rename arguments of __RISCV_ISA_EXT_DATA() from _name to ext_name, and
-+ *   _id to ext_id for clarity.
-+ * - Replace instances of __RISCV_ISA_EXT_DATA with RISCV_ISA_EXT_DATA.
-+ * - Replace instances of __riscv_isa_extension_available with
-+ *   riscv_isa_extension_available for consistency. Also, update the type of
-+ *   `bit` argument of riscv_isa_extension_available().
-+ * - Redefine RISCV_ISA_EXT_DATA() to work only with ext_name and ext_id,
-+ *   as other fields are not used in Xen currently.
-+ * - Add check of first 4 letters of riscv,isa string to
-+ *   riscv_isa_parse_string() as Xen doesn't do this check before so it is
-+ *   necessary to check correctness of riscv,isa string. ( it should start with
-+ *   rv{32,64} with taking into account lower case of "rv").
-+ * - Drop an argument of riscv_fill_hwcap() and riscv_fill_hwcap_from_isa_string()
-+ *   as it isn't used, at the moment.
-+ * - Update the comment message about QEMU workaround.
-+ * - s/pr_info/printk.
-+ *
-+ * Copyright (C) 2015 ARM Ltd.
-+ * Copyright (C) 2017 SiFive
-+ * Copyright (C) 2024 Vates
-+ */
-+
-+#include <xen/bitmap.h>
-+#include <xen/ctype.h>
-+#include <xen/device_tree.h>
-+#include <xen/errno.h>
-+#include <xen/init.h>
-+#include <xen/lib.h>
-+#include <xen/sections.h>
-+
-+#include <asm/cpufeature.h>
-+
-+#ifdef CONFIG_ACPI
-+#error "cpufeature.c functions should be updated to support ACPI"
-+#endif
-+
-+struct riscv_isa_ext_data {
-+    unsigned int id;
-+    const char *name;
-+};
-+
-+#define RISCV_ISA_EXT_DATA(ext_name, ext_id)    \
-+{                                               \
-+    .id = ext_id,                               \
-+    .name = #ext_name,                          \
-+}
-+
-+/* Host ISA bitmap */
-+static __ro_after_init DECLARE_BITMAP(riscv_isa, RISCV_ISA_EXT_MAX);
-+
-+static int __init dt_get_cpuid_from_node(const struct dt_device_node *cpu)
-+{
-+    const __be32 *prop;
-+    unsigned int reg_len;
-+
-+    if ( dt_n_size_cells(cpu) != 0 )
-+        printk("cpu node `%s`: #size-cells %d\n",
-+               dt_node_full_name(cpu), dt_n_size_cells(cpu));
-+
-+    prop = dt_get_property(cpu, "reg", &reg_len);
-+    if ( !prop )
-+    {
-+        printk("cpu node `%s`: has no reg property\n", dt_node_full_name(cpu));
-+        return -EINVAL;
-+    }
-+
-+    if ( reg_len < dt_cells_to_size(dt_n_addr_cells(cpu)) )
-+    {
-+        printk("cpu node `%s`: reg property too short\n",
-+               dt_node_full_name(cpu));
-+        return -EINVAL;
-+    }
-+
-+    return dt_read_paddr(prop, dt_n_addr_cells(cpu));
-+}
-+
-+/*
-+ * The canonical order of ISA extension names in the ISA string is defined in
-+ * chapter 27 of the unprivileged specification.
-+ *
-+ * The specification uses vague wording, such as should, when it comes to
-+ * ordering, so for our purposes the following rules apply:
-+ *
-+ * 1. All multi-letter extensions must be separated from other extensions by an
-+ *    underscore.
-+ *
-+ * 2. Additional standard extensions (starting with 'Z') must be sorted after
-+ *    single-letter extensions and before any higher-privileged extensions.
-+ *
-+ * 3. The first letter following the 'Z' conventionally indicates the most
-+ *    closely related alphabetical extension category, IMAFDQLCBKJTPVH.
-+ *    If multiple 'Z' extensions are named, they must be ordered first by
-+ *    category, then alphabetically within a category.
-+ *
-+ * 4. Standard supervisor-level extensions (starting with 'S') must be listed
-+ *    after standard unprivileged extensions.  If multiple supervisor-level
-+ *    extensions are listed, they must be ordered alphabetically.
-+ *
-+ * 5. Standard machine-level extensions (starting with 'Zxm') must be listed
-+ *    after any lower-privileged, standard extensions.  If multiple
-+ *    machine-level extensions are listed, they must be ordered
-+ *    alphabetically.
-+ *
-+ * 6. Non-standard extensions (starting with 'X') must be listed after all
-+ *    standard extensions. If multiple non-standard extensions are listed, they
-+ *    must be ordered alphabetically.
-+ *
-+ * An example string following the order is:
-+ *    rv64imadc_zifoo_zigoo_zafoo_sbar_scar_zxmbaz_xqux_xrux
-+ *
-+ * New entries to this struct should follow the ordering rules described above.
-+ *
-+ * Extension name must be all lowercase ( according to device-tree binding )
-+ * and strncmp() is used in match_isa_ext() to compare extension names instead
-+ * of strncasecmp().
-+ */
-+const struct riscv_isa_ext_data __initconst riscv_isa_ext[] = {
-+    RISCV_ISA_EXT_DATA(i, RISCV_ISA_EXT_i),
-+    RISCV_ISA_EXT_DATA(m, RISCV_ISA_EXT_m),
-+    RISCV_ISA_EXT_DATA(a, RISCV_ISA_EXT_a),
-+    RISCV_ISA_EXT_DATA(f, RISCV_ISA_EXT_f),
-+    RISCV_ISA_EXT_DATA(d, RISCV_ISA_EXT_d),
-+    RISCV_ISA_EXT_DATA(q, RISCV_ISA_EXT_q),
-+    RISCV_ISA_EXT_DATA(h, RISCV_ISA_EXT_h),
-+    RISCV_ISA_EXT_DATA(zicntr, RISCV_ISA_EXT_ZICNTR),
-+    RISCV_ISA_EXT_DATA(zicsr, RISCV_ISA_EXT_ZICSR),
-+    RISCV_ISA_EXT_DATA(zifencei, RISCV_ISA_EXT_ZIFENCEI),
-+    RISCV_ISA_EXT_DATA(zihintpause, RISCV_ISA_EXT_ZIHINTPAUSE),
-+    RISCV_ISA_EXT_DATA(zihpm, RISCV_ISA_EXT_ZIHPM),
-+    RISCV_ISA_EXT_DATA(zbb, RISCV_ISA_EXT_ZBB),
-+    RISCV_ISA_EXT_DATA(smaia, RISCV_ISA_EXT_SMAIA),
-+    RISCV_ISA_EXT_DATA(ssaia, RISCV_ISA_EXT_SSAIA),
-+};
-+
-+static const struct riscv_isa_ext_data __initconst required_extensions[] = {
-+    RISCV_ISA_EXT_DATA(zbb, RISCV_ISA_EXT_ZBB),
-+    RISCV_ISA_EXT_DATA(zihintpause, RISCV_ISA_EXT_ZIHINTPAUSE),
-+};
-+
-+static bool is_lowercase_extension_name(const char *str)
-+{
-+    if ( !str )
-+        return false;
-+
-+    for ( unsigned int i = 0; (str[i] != '\0') && (str[i] != '_'); i++ )
-+        if ( !islower(str[i]) )
-+            return false;
-+
-+    return true;
-+}
-+
-+static void __init match_isa_ext(const char *name, const char *name_end,
-+                                 unsigned long *bitmap)
-+{
-+    const size_t riscv_isa_ext_count = ARRAY_SIZE(riscv_isa_ext);
-+
-+    for ( unsigned int i = 0; i < riscv_isa_ext_count; i++ )
-+    {
-+        const struct riscv_isa_ext_data *ext = &riscv_isa_ext[i];
-+
-+        /*
-+         * `name` ( according to device tree binding ) and
-+         * `ext->name` ( according to initialization of riscv_isa_ext[]
-+         * elements must be all in lowercase.
-+         *
-+         * Just to be sure that it is true, ASSERT() are added.
-+         */
-+        ASSERT(is_lowercase_extension_name(name) &&
-+               is_lowercase_extension_name(ext->name));
-+
-+        if ( (name_end - name == strlen(ext->name)) &&
-+             !strncmp(name, ext->name, name_end - name) )
-+        {
-+            __set_bit(ext->id, bitmap);
-+            break;
-+        }
-+    }
-+}
-+
-+static int __init riscv_isa_parse_string(const char *isa,
-+                                         unsigned long *out_bitmap)
-+{
-+    /*
-+     * According to RISC-V device tree binding isa string must be all
-+     * lowercase.
-+     * To be sure that this is true, ASSERT below is added.
-+     */
-+    ASSERT(islower(isa[0]) && islower(isa[1]));
-+
-+    if ( (isa[0] != 'r') && (isa[1] != 'v') )
-+        return -EINVAL;
-+
-+#if defined(CONFIG_RISCV_32)
-+    if ( isa[2] != '3' && isa[3] != '2' )
-+        return -EINVAL;
-+#elif defined(CONFIG_RISCV_64)
-+    if ( isa[2] != '6' && isa[3] != '4' )
-+        return -EINVAL;
-+#else
-+    #error "unsupported RISC-V bitness"
-+#endif
-+
-+    isa += 4;
-+
-+    while ( *isa )
-+    {
-+        const char *ext = isa++;
-+        const char *ext_end = isa;
-+        bool ext_err = false;
-+
-+        switch ( *ext )
-+        {
-+        case 'x':
-+        case 'X':
-+            printk_once("Vendor extensions are ignored in riscv,isa."
-+                        "Use riscv,isa-extensions instead\n");
-+            /*
-+             * To skip an extension, we find its end.
-+             * As multi-letter extensions must be split from other multi-letter
-+             * extensions with an "_", the end of a multi-letter extension will
-+             * either be the null character or the "_" at the start of the next
-+             * multi-letter extension.
-+             */
-+            for ( ; *isa && *isa != '_'; ++isa )
-+                ;
-+            ext_err = true;
-+            break;
-+
-+        case 's':
-+            /*
-+             * Workaround for invalid single-letter 's' & 'u' (QEMU):
-+             *   Before QEMU 7.1 it was an issue with misa to ISA string
-+             *   conversion:
-+             *     https://patchwork.kernel.org/project/qemu-devel/patch/dee09d708405075420b29115c1e9e87910b8da55.1648270894.git.research_trasio@irq.a4lg.com/#24792587
-+             *   Additional details of the workaround on Linux kernel side:
-+             *     https://lore.kernel.org/linux-riscv/ae93358e-e117-b43d-faad-772c529f846c@irq.a4lg.com/#t
-+             *
-+             * No need to set the bit in riscv_isa as 's' & 'u' are
-+             * not valid ISA extensions. It works unless the first
-+             * multi-letter extension in the ISA string begins with
-+             * "Su" and is not prefixed with an underscore.
-+             */
-+            if ( ext[-1] != '_' && ext[1] == 'u' )
-+            {
-+                ++isa;
-+                ext_err = true;
-+                break;
-+            }
-+            fallthrough;
-+        case 'S':
-+        case 'z':
-+        case 'Z':
-+            /*
-+             * Before attempting to parse the extension itself, we find its end.
-+             * As multi-letter extensions must be split from other multi-letter
-+             * extensions with an "_", the end of a multi-letter extension will
-+             * either be the null character or the "_" at the start of the next
-+             * multi-letter extension.
-+             *
-+             * Next, as the extensions version is currently ignored, we
-+             * eliminate that portion. This is done by parsing backwards from
-+             * the end of the extension, removing any numbers. This may be a
-+             * major or minor number however, so the process is repeated if a
-+             * minor number was found.
-+             *
-+             * ext_end is intended to represent the first character *after* the
-+             * name portion of an extension, but will be decremented to the last
-+             * character itself while eliminating the extensions version number.
-+             * A simple re-increment solves this problem.
-+             */
-+            for ( ; *isa && *isa != '_'; ++isa )
-+                if ( unlikely(!isalnum(*isa)) )
-+                    ext_err = true;
-+
-+            ext_end = isa;
-+            if ( unlikely(ext_err) )
-+                break;
-+
-+            if ( !isdigit(ext_end[-1]) )
-+                break;
-+
-+            while ( isdigit(*--ext_end) )
-+                ;
-+
-+            if ( tolower(ext_end[0]) != 'p' || !isdigit(ext_end[-1]) )
-+            {
-+                ++ext_end;
-+                break;
-+            }
-+
-+            while ( isdigit(*--ext_end) )
-+                ;
-+
-+            ++ext_end;
-+            break;
-+
-+        default:
-+            /*
-+             * Things are a little easier for single-letter extensions, as they
-+             * are parsed forwards.
-+             *
-+             * After checking that our starting position is valid, we need to
-+             * ensure that, when isa was incremented at the start of the loop,
-+             * that it arrived at the start of the next extension.
-+             *
-+             * If we are already on a non-digit, there is nothing to do. Either
-+             * we have a multi-letter extension's _, or the start of an
-+             * extension.
-+             *
-+             * Otherwise we have found the current extension's major version
-+             * number. Parse past it, and a subsequent p/minor version number
-+             * if present. The `p` extension must not appear immediately after
-+             * a number, so there is no fear of missing it.
-+             */
-+            if ( unlikely(!isalpha(*ext)) )
-+            {
-+                ext_err = true;
-+                break;
-+            }
-+
-+            if ( !isdigit(*isa) )
-+                break;
-+
-+            while ( isdigit(*++isa) )
-+                ;
-+
-+            if ( tolower(*isa) != 'p' )
-+                break;
-+
-+            if ( !isdigit(*++isa) )
-+            {
-+                --isa;
-+                break;
-+            }
-+
-+            while ( isdigit(*++isa) )
-+                ;
-+
-+            break;
-+        }
-+
-+        /*
-+         * The parser expects that at the start of an iteration isa points to the
-+         * first character of the next extension. As we stop parsing an extension
-+         * on meeting a non-alphanumeric character, an extra increment is needed
-+         * where the succeeding extension is a multi-letter prefixed with an "_".
-+         */
-+        if ( *isa == '_' )
-+            ++isa;
-+
-+        if ( unlikely(ext_err) )
-+            continue;
-+
-+        match_isa_ext(ext, ext_end, out_bitmap);
-+    }
-+
-+    return 0;
-+}
-+
-+static int __init riscv_fill_hwcap_from_ext_list(void)
-+{
-+    const struct dt_device_node *cpus = dt_find_node_by_path("/cpus");
-+    const struct dt_device_node *cpu;
-+    int res = -EINVAL;
-+
-+    if ( !cpus )
-+    {
-+        printk("Missing /cpus node in the device tree?\n");
-+        return -EINVAL;
-+    }
-+
-+    dt_for_each_child_node(cpus, cpu)
-+    {
-+        const char *isa;
-+        int cpuid;
-+
-+        if ( !dt_device_type_is_equal(cpu, "cpu") )
-+            continue;
-+
-+        cpuid = dt_get_cpuid_from_node(cpu);
-+        if ( cpuid < 0 )
-+            continue;
-+
-+        if ( dt_property_read_string(cpu, "riscv,isa-extensions", &isa) )
-+        {
-+            printk("Unable to find \"riscv,isa-extensions\" devicetree entry "
-+                   "for cpu%d\n", cpuid);
-+            res = -EINVAL;
-+            continue;
-+        }
-+
-+        panic("riscv,isa-extensions isnt supported\n");
-+    }
-+
-+    return res;
-+}
-+
-+static void __init riscv_fill_hwcap_from_isa_string(void)
-+{
-+    const struct dt_device_node *cpus = dt_find_node_by_path("/cpus");
-+    const struct dt_device_node *cpu;
-+
-+    if ( !cpus )
-+    {
-+        printk("Missing /cpus node in the device tree?\n");
-+        return;
-+    }
-+
-+    dt_for_each_child_node(cpus, cpu)
-+    {
-+        DECLARE_BITMAP(this_isa, RISCV_ISA_EXT_MAX);
-+        const char *isa;
-+        int cpuid;
-+
-+        if ( !dt_device_type_is_equal(cpu, "cpu") )
-+            continue;
-+
-+        cpuid = dt_get_cpuid_from_node(cpu);
-+        if ( cpuid < 0 )
-+            continue;
-+
-+        if ( dt_property_read_string(cpu, "riscv,isa", &isa) )
-+        {
-+            printk("Unable to find \"riscv,isa\" devicetree entry\n");
-+            continue;
-+        }
-+
-+        riscv_isa_parse_string(isa, this_isa);
-+
-+        /*
-+         * In the unpriv. spec is mentioned:
-+         *   A RISC-V ISA is defined as a base integer ISA, which must be
-+         *   present in any implementation, plus optional extensions to
-+         *   the base ISA.
-+         * What means that isa should contain, at least, I or E thereby
-+         * this_isa can't be empty too.
-+         *
-+         * Ensure that this_isa is not empty, so riscv_isa won't be empty
-+         * during initialization. This prevents ending up with extensions
-+         * not supported by one of the CPUs.
-+         */
-+        ASSERT(!bitmap_empty(this_isa, RISCV_ISA_EXT_MAX));
-+
-+        if ( bitmap_empty(riscv_isa, RISCV_ISA_EXT_MAX) )
-+            bitmap_copy(riscv_isa, this_isa, RISCV_ISA_EXT_MAX);
-+        else
-+            bitmap_and(riscv_isa, riscv_isa, this_isa, RISCV_ISA_EXT_MAX);
-+    }
-+}
-+
-+bool riscv_isa_extension_available(const unsigned long *isa_bitmap,
-+                                   enum riscv_isa_ext_id bit)
-+{
-+    const unsigned long *bmap = (isa_bitmap) ? isa_bitmap : riscv_isa;
-+
-+    if ( bit >= RISCV_ISA_EXT_MAX )
-+        return false;
-+
-+    return test_bit(bit, bmap);
-+}
-+
-+void __init riscv_fill_hwcap(void)
-+{
-+    unsigned int i;
-+    size_t req_extns_amount = ARRAY_SIZE(required_extensions);
-+    bool all_extns_available = true;
-+
-+    int ret = riscv_fill_hwcap_from_ext_list();
-+
-+    if ( ret )
-+    {
-+        printk("Falling back to deprecated \"riscv,isa\"\n");
-+        riscv_fill_hwcap_from_isa_string();
-+    }
-+
-+    for ( i = 0; i < req_extns_amount; i++ )
-+    {
-+        const struct riscv_isa_ext_data ext = required_extensions[i];
-+
-+        if ( !riscv_isa_extension_available(NULL, ext.id) )
-+        {
-+            printk("Xen requires extension: %s\n", ext.name);
-+            all_extns_available = false;
-+        }
-+    }
-+
-+    if ( !all_extns_available )
-+        panic("Look why the extensions above are needed in booting.txt\n");
-+}
-diff --git a/xen/arch/riscv/include/asm/cpufeature.h b/xen/arch/riscv/include/asm/cpufeature.h
-new file mode 100644
-index 0000000000..835bdd6264
---- /dev/null
-+++ b/xen/arch/riscv/include/asm/cpufeature.h
-@@ -0,0 +1,57 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef ASM__RISCV__CPUFEATURE_H
-+#define ASM__RISCV__CPUFEATURE_H
-+
-+#ifndef __ASSEMBLY__
-+
-+#include <xen/stdbool.h>
-+
-+/*
-+ * These macros represent the logical IDs of each multi-letter RISC-V ISA
-+ * extension and are used in the ISA bitmap. The logical IDs start from
-+ * RISCV_ISA_EXT_BASE, which allows the 0-25 range to be reserved for single
-+ * letter extensions and are used in enum riscv_isa_ext_id.
-+ *
-+ * New extensions should just be added to the bottom, rather than added
-+ * alphabetically, in order to avoid unnecessary shuffling.
-+ */
-+#define RISCV_ISA_EXT_BASE  26
-+
-+enum riscv_isa_ext_id {
-+    RISCV_ISA_EXT_a,
-+    RISCV_ISA_EXT_c,
-+    RISCV_ISA_EXT_d,
-+    RISCV_ISA_EXT_f,
-+    RISCV_ISA_EXT_h,
-+    RISCV_ISA_EXT_i,
-+    RISCV_ISA_EXT_m,
-+    RISCV_ISA_EXT_q,
-+    RISCV_ISA_EXT_v,
-+    RISCV_ISA_EXT_ZICNTR = RISCV_ISA_EXT_BASE,
-+    RISCV_ISA_EXT_ZICSR,
-+    RISCV_ISA_EXT_ZIFENCEI,
-+    RISCV_ISA_EXT_ZIHINTPAUSE,
-+    RISCV_ISA_EXT_ZIHPM,
-+    RISCV_ISA_EXT_ZBB,
-+    RISCV_ISA_EXT_SMAIA,
-+    RISCV_ISA_EXT_SSAIA,
-+    RISCV_ISA_EXT_MAX
-+};
-+
-+void riscv_fill_hwcap(void);
-+
-+bool riscv_isa_extension_available(const unsigned long *isa_bitmap,
-+                                   enum riscv_isa_ext_id bit);
-+
-+#endif /* __ASSEMBLY__ */
-+
-+#endif /* ASM__RISCV__CPUFEATURE_H */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index 38ca4f3baa..380461a054 100644
---- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -13,6 +13,7 @@
- 
- #include <public/version.h>
- 
-+#include <asm/cpufeature.h>
- #include <asm/early_printk.h>
- #include <asm/fixmap.h>
- #include <asm/sbi.h>
-@@ -121,6 +122,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
-         panic("Booting using ACPI isn't supported\n");
-     }
- 
-+    riscv_fill_hwcap();
-+
-     printk("All set up\n");
- 
-     machine_halt();
--- 
-2.47.1
-
+Regards,
+Jason
 
