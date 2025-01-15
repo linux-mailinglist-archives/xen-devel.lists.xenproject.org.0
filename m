@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AEDFA12369
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jan 2025 13:03:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.872379.1283343 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89481A12382
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jan 2025 13:06:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.872390.1283352 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tY27Q-0008Pe-N9; Wed, 15 Jan 2025 12:03:32 +0000
+	id 1tY2AH-0000a7-2x; Wed, 15 Jan 2025 12:06:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 872379.1283343; Wed, 15 Jan 2025 12:03:32 +0000
+Received: by outflank-mailman (output) from mailman id 872390.1283352; Wed, 15 Jan 2025 12:06:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tY27Q-0008OR-Je; Wed, 15 Jan 2025 12:03:32 +0000
-Received: by outflank-mailman (input) for mailman id 872379;
- Wed, 15 Jan 2025 12:03:31 +0000
+	id 1tY2AH-0000Yb-05; Wed, 15 Jan 2025 12:06:29 +0000
+Received: by outflank-mailman (input) for mailman id 872390;
+ Wed, 15 Jan 2025 12:06:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hmQ5=UH=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tY27P-0008OL-3D
- for xen-devel@lists.xenproject.org; Wed, 15 Jan 2025 12:03:31 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bc1b8e0f-d338-11ef-a0e1-8be0dac302b0;
- Wed, 15 Jan 2025 13:03:30 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-aafc9d75f8bso1257976266b.2
- for <xen-devel@lists.xenproject.org>; Wed, 15 Jan 2025 04:03:30 -0800 (PST)
-Received: from [10.81.35.177] ([46.149.103.11])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab33d6254ffsm184939966b.6.2025.01.15.04.03.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Jan 2025 04:03:26 -0800 (PST)
+ <SRS0=MxfB=UH=ideasonboard.com=tomi.valkeinen@srs-se1.protection.inumbo.net>)
+ id 1tY2AG-0000YV-De
+ for xen-devel@lists.xenproject.org; Wed, 15 Jan 2025 12:06:28 +0000
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 25adc8fb-d339-11ef-a0e1-8be0dac302b0;
+ Wed, 15 Jan 2025 13:06:27 +0100 (CET)
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
+ [91.158.153.178])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 72820526;
+ Wed, 15 Jan 2025 13:05:27 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,132 +40,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc1b8e0f-d338-11ef-a0e1-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1736942609; x=1737547409; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=oMdOmaOjPflgDDMUOURG61lsCfEO1OuZP7nTavK4yu0=;
-        b=my91PUnS26QML+KTK6GJbiZB6Z6jslPKoevvfD9XVJq8HrLrDrtiH5dXHivkSE8HpL
-         UA/bOAT0nO/twK6u4mkaJn6umJsWgBAKRq7bemevDPHrNDBT6/Kw9P5e1Q6Bdk/nPro6
-         ByorVB7gDzRSPmPPGvhFrjO9CCI3C+6jTUBOc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736942609; x=1737547409;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=oMdOmaOjPflgDDMUOURG61lsCfEO1OuZP7nTavK4yu0=;
-        b=vLxCvEfyWqmGshnlGzerkf86YTTaCJxSL28cRsNOQh/PNIrhVtV++bS0k1Rs80HGWu
-         +nZDGq4pajc950TSFtGlL3UeTJUvLZvv9DlvYzX3utWATQrJQHnsIH03pEzEMUqI6wHZ
-         8IOYQ/dSz6TaIDgyRcXOemrc8GRy43IxsNgSKfhTm2peMwN5sKhZ5qd9jxX3Nllny/Nm
-         R6J3PjpQG2woLsJ9nAld/ozPDVHP3YU0ZQGdirQRtL0sHxl4wffvksRLwJL1DT4wBvvR
-         pUFVrOmKW2rMz80qmZh+seRDHes1oqhgeSiiyR9HNtNmqzOjjHrfCFHY3uOb0hJfTznC
-         IcqQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWPXJqsvHAfzgLE6OvIe7X9uMScJcB0/1KYT2XnMY3IGQykdnsl+pS+EA2liTixjYHWNamY1Toq7v4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy/+E6AE+IBM7XQpXR0fuOLSpHMyLGwpmgBGWpQ/pXMnmd6Z36t
-	xPyWNSK3SSI5ILbHfC6xigVnj1k+fr2c8kC0uAeP/pI1g27tZ6tqW1vpJTv3RnA=
-X-Gm-Gg: ASbGncvfFA7SQ/cuYFMfxO8UlD/EuE7E8wykg0f32bh93NE+oN3aQiR8BLj98CrYzXp
-	JKPCYnydTaEPZC815BF7kcGWUwgsunaOF2psML0N88YbWIcotRb4s7kJCWVyGZk6RoPhYTR1/Vz
-	yleNI+rIOAM3ZjJ2vcK/wiw4HP+h9sQoPjnTdXanvKpX26gsicfPu1w6YUjvfXLtcaB0U81acaW
-	oF22LAriXANELFHa9Esa2S4kqDllej2yQQl+pkpeR7mleMBsaopJpph6HRAxBRtpGc=
-X-Google-Smtp-Source: AGHT+IEv1zTUXDm95B/lXkAxOHGy1GFixgbas1bls0SsG65khNtsFLCMNbtvt3yUTamHmir7DqLmkg==
-X-Received: by 2002:a17:907:36c8:b0:aa6:4494:e354 with SMTP id a640c23a62f3a-ab2abc92570mr2928342866b.42.1736942606745;
-        Wed, 15 Jan 2025 04:03:26 -0800 (PST)
-Message-ID: <b3d8bdf3-96ee-418a-b053-355138a71564@citrix.com>
-Date: Wed, 15 Jan 2025 12:03:25 +0000
+X-Inumbo-ID: 25adc8fb-d339-11ef-a0e1-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1736942728;
+	bh=FuDytT435iHRivsE/G04kLqYkdgsyGU+ZJ0WGc8aFpo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=hIJC7ZXPZtRflk6LODVFXfISeh41qkSpg6phZpn+jJNh/hs7pxM5vBSXBXByWBzS8
+	 LX7kPPllqXqVJXAFomHjs+y2IACUieKV5ZLUGSlreuMdvgLHTwTHVy0dYbnXKnxipV
+	 qOeqzpf4NDSnnVcvegNZjPfUH6Ys4KcU5utGuoQo=
+Message-ID: <d67adb03-5cd0-4ac9-af58-cf4446dacee3@ideasonboard.com>
+Date: Wed, 15 Jan 2025 14:06:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs: Improve spelling of few cases in the documentation
-To: Jan Beulich <jbeulich@suse.com>,
- Bernhard Kaindl <bernhard.kaindl@cloud.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Ross Lagerwall <ross.lagerwall@citrix.com>
-References: <504170a4a195551072c14141e28ef554ac1cad2c.1736937491.git.bernhard.kaindl@cloud.com>
- <2658a15b-16dc-4953-97c0-94bec5283f10@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <2658a15b-16dc-4953-97c0-94bec5283f10@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2 25/25] drm/xlnx: Compute dumb-buffer sizes with
+ drm_mode_size_dumb()
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Andy Yan <andyshrk@163.com>
+References: <20250109150310.219442-1-tzimmermann@suse.de>
+ <20250109150310.219442-26-tzimmermann@suse.de>
+ <cdbe483d-0895-47aa-8c83-1c28220f4a02@ideasonboard.com>
+ <bc97b92e-7f8a-4b92-af8a-20fa165ead55@suse.de>
+ <f3ba05c7-6e49-4641-a3f9-ba418ebdb7c3@ideasonboard.com>
+ <c6735280-7c32-4319-8ca9-a7305d8117c3@suse.de>
+Content-Language: en-US
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
+ 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
+In-Reply-To: <c6735280-7c32-4319-8ca9-a7305d8117c3@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 15/01/2025 11:27 am, Jan Beulich wrote:
-> On 15.01.2025 11:42, Bernhard Kaindl wrote:
->> --- a/docs/admin-guide/microcode-loading.rst
->> +++ b/docs/admin-guide/microcode-loading.rst
->> @@ -20,7 +20,7 @@ distro guidance for microcode loading.
->>  Microcode can make almost arbitrary changes to the processor, including to
->>  software visible features.  This includes removing features (e.g. the Haswell
->>  TSX errata which necessitated disabling the feature entirely), or the addition
->> -of brand new features (e.g. the Spectre v2 controls to work around speculative
->> +of brand-new features (e.g. the Spectre v2 controls to work around speculative
->>  execution vulnerabilities).
-> This having been written by a native speaker, I'm uncertain of the strict need
-> for a dash (also in one or two further places you touch).
+Hi,
 
-Both are fine, but without a dash is more common.  I'd leave it as it was.
+On 15/01/2025 13:37, Thomas Zimmermann wrote:
+> Hi
+> 
+> 
+> Am 15.01.25 um 11:58 schrieb Tomi Valkeinen:
+> [...]
+>>> These are all good points. Did you read my discussion with Andy on 
+>>> patch 2? I think it resolves all the points you have. The current 
+>>> CREATE_DUMB 
+>>
+>> I had missed the discussion, and, indeed, the patch you attached fixes 
+>> the problem on Xilinx.
+> 
+> Great. Thanks for testing.
+> 
+>>
+>>> ioctl is unsuited for anything but the simple RGB formats. The bpp 
+>>
+>> It's a bit difficult to use, but is it really unsuited? bitsperpixel, 
+>> width and height do give an exact pitch and size, do they not? It does 
+>> require the userspace to handle the subsampling and planes, though, so 
+>> far from perfect.
+> 
+> The bpp value sets the number of bits per pixel; except for bpp==15 
+> (XRGB1555), where it sets the color depth. OR bpp is the color depth; 
+> except for bpp==32 (XRGB8888), where it is the number of bits per pixel. 
+> It's therefore best to interpret it like a color-mode enum.
 
->
->> @@ -40,7 +40,7 @@ Xen will report during boot if it performed a microcode update::
->>    (XEN) microcode: CPU6 updated from revision 0x1a to 0x25, date = 2018-04-02
->>  
->>  The exact details printed are system and microcode specific.  After boot, the
->> -current microcode version can obtained from with dom0::
->> +current microcode version can be obtained from with dom0::
-> Pretty certainly then also s/with/within/ ?
+Ah, right... That's horrible =).
 
-Oh, this is slightly stale now we print the BSP microcode version on
-boot, and also since xen-ucode can be used to find the revision.
+And I assume it's not really possible to define the bpp to mean bits per 
+pixel, except for a few special cases like 15?
 
-I'll do a larger update to this paragraph, including both fixes on this
-line.
+Why do we even really care about color depth here? We're just allocating 
+memory. Doesn't DIV_ROUND_UP(args->bpp, SZ_8) work fine for XRGB1555 too?
 
-~Andrew
+>> So, I'm all for a new ioctl, but I don't right away see why the 
+>> current ioctl couldn't be used. Which makes me wonder about the 
+>> drm_warn() in your patch, and the "userspace throws in arbitrary 
+>> values for bpp and relies on the kernel to figure it out". Maybe I'm 
+>> missing something here.
+> 
+> I was unsure about the drm_warn() as well. It's not really wrong to have 
+> odd bpp values, but handing in an unknown bpp value might point to a 
+> user-space error. At least there should be a drm_dbg().
+> 
+>>
+>>> parameter is not very precise. The solution would be a new ioctl call 
+>>> that receives the DRM format and returns a buffer for each individual 
+>>> plane.
+>>
+>> Yes, I think that makes sense. That's a long road, though =). So my 
+>> question is, is CREATE_DUMB really unsuitable for other than simple 
+>> RGB formats, or can it be suitable if we just define how the userspace 
+>> should use it for multiplanar, subsampled formats?
+> 
+> That would duplicate format and hardware information in user-space. Some 
+
+But we already have that, don't we? We have drivers and userspace that 
+support, say, NV12 via dumb buffers. But (correct me if I'm wrong) we 
+don't document how CREATE_DUMB has to be used to allocate multiplanar 
+subsampled buffers, so the userspace devs have to "guess".
+
+> hardware might have odd per-plane limitations that only the driver knows 
+> about. For example, there's another discussion on dri-devel about pitch- 
+> alignment requirements of DRM_FORMAT_MOD_LINEAR on various hardware. 
+> That affects dumb buffers as well. I don't think that there's an 
+> immediate need for a CREATE_DUMB2, but it seems worth to keep in mind.
+
+Yes, the current CREATE_DUMB can't cover all the hardware. We do need 
+CREATE_DUMB2, sooner or later. I just hope we can define and document a 
+set of rules that allows using CREATE_DUMB for the cases where it 
+sensibly works (and is already being used).
+
+  Tomi
+
 
