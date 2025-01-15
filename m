@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5BCBA12045
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jan 2025 11:43:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.872316.1283273 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC7FAA121B2
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jan 2025 11:59:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.872325.1283284 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tY0ra-0001rz-LP; Wed, 15 Jan 2025 10:43:06 +0000
+	id 1tY16x-0003xe-0b; Wed, 15 Jan 2025 10:58:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 872316.1283273; Wed, 15 Jan 2025 10:43:06 +0000
+Received: by outflank-mailman (output) from mailman id 872325.1283284; Wed, 15 Jan 2025 10:58:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tY0ra-0001qJ-Ic; Wed, 15 Jan 2025 10:43:06 +0000
-Received: by outflank-mailman (input) for mailman id 872316;
- Wed, 15 Jan 2025 10:43:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tY16w-0003uV-Tb; Wed, 15 Jan 2025 10:58:58 +0000
+Received: by outflank-mailman (input) for mailman id 872325;
+ Wed, 15 Jan 2025 10:58:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4o+i=UH=cloud.com=bernhard.kaindl@srs-se1.protection.inumbo.net>)
- id 1tY0rZ-0001qD-2a
- for xen-devel@lists.xenproject.org; Wed, 15 Jan 2025 10:43:05 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7f753389-d32d-11ef-a0e1-8be0dac302b0;
- Wed, 15 Jan 2025 11:43:03 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-4362bae4d7dso46613355e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 15 Jan 2025 02:43:03 -0800 (PST)
-Received: from localhost ([185.68.248.203]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a8e37d154sm17643663f8f.10.2025.01.15.02.43.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Jan 2025 02:43:02 -0800 (PST)
+ <SRS0=MxfB=UH=ideasonboard.com=tomi.valkeinen@srs-se1.protection.inumbo.net>)
+ id 1tY16v-0003uP-Ah
+ for xen-devel@lists.xenproject.org; Wed, 15 Jan 2025 10:58:57 +0000
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b5e90f11-d32f-11ef-99a4-01e77a169b0f;
+ Wed, 15 Jan 2025 11:58:54 +0100 (CET)
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
+ [91.158.153.178])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8E93E4AD;
+ Wed, 15 Jan 2025 11:57:54 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,165 +40,214 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f753389-d32d-11ef-a0e1-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1736937783; x=1737542583; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=uOXIkpl9nUkKoAlwzI7JQ7MlkyqR4hdJY0tA9XuuqEw=;
-        b=KUOlvW+yj/MXpjsIqLVsHfxcS25j/KzRW4ALYGrgByUcED8r7SJQnlRxoAhIu7JnyM
-         mfYnPdwC7nGBpcWAaL3RPhKtMGOg0m6GWZuVy4PVRdfsy43XUul1cgBMOCq1arMu4cG1
-         hhx4ZoCzIDXIfxlyZcYqD81wwPxDdRE7oy9XY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736937783; x=1737542583;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=uOXIkpl9nUkKoAlwzI7JQ7MlkyqR4hdJY0tA9XuuqEw=;
-        b=VItrNZNdWRaCjjcgYUaXp+ynESwRjXU9rUUOjqehLFcAjOxglJl9t8Zz+KrqmKanV2
-         pHU6M7VlCLyBqO7Uxmfy47wt8UvOd8lP3ueDBysnk9jmhIZKrQpz+wf110P6rgX4Ekjy
-         X8g3to75NYX0TcKF2j73K10KemAA1wHDyZ5d8Sqa5qJIT92w6iu7PWaITo2udN7qgGz5
-         yHrUt8zPrJAmND1xYR/QGo6e1E96pFT4NlnzAqSCWn2MSn6PEwilvLnVCNRboZtwGdSZ
-         o+Ez5zFGsRvx9ZzwRn/XMjaKyuav2LHJj0fnrnU6fMbXNEH+SHCjIxsldDGS/TC7Slf9
-         jrkA==
-X-Gm-Message-State: AOJu0Yy5cctOjPcY2m/ANYahLStOhT7zbRPNoVdUBYL13q88XDa3bIDW
-	kLGow+SuWYVkNNoIUuj4gYlBf2qWmd3fyHxx3jqR+LLRHdXq1UOR9EpfuHvvcdISpU17193P7Lu
-	4bZgcew==
-X-Gm-Gg: ASbGncvz+Py62prAJcCEwCde3TMlBw3rpNXalfCs5VGzOivcccVQ9Tuk3RIr/ZbePhC
-	YYCcEX0OC4xCsRkgQ53N9aB7HFiIu5MSa6xYKcAke+Oq9rb/NO/DMBrIGU015difmS4kUUBvAfz
-	DlgH8U8r7ynzJaXpGTEmyMpcunSBFmhn8cxEpSLYWWX4AHyZC1oaf0DqDYDsPlO7FrOedrt8kBW
-	IVFsub2aPNxEBxInP7DqyJmkcJATRNsOUTdk+25NL/T4XiN7lVKQlg+gQ3aPA==
-X-Google-Smtp-Source: AGHT+IEBSyUCZdFS+5yN4BDhICeSingrg6DKfYFQe8b/tGnIOwFiHV0ZkEWXBEE9skJxTaRA67lZaQ==
-X-Received: by 2002:a05:600c:3551:b0:434:effb:9f8a with SMTP id 5b1f17b1804b1-436e26b8be2mr277621495e9.15.1736937782974;
-        Wed, 15 Jan 2025 02:43:02 -0800 (PST)
-From: Bernhard Kaindl <bernhard.kaindl@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: Bernhard Kaindl <bernhard.kaindl@cloud.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>
-Subject: [PATCH] docs: Improve spelling of few cases in the documentation
-Date: Wed, 15 Jan 2025 11:42:59 +0100
-Message-ID: <504170a4a195551072c14141e28ef554ac1cad2c.1736937491.git.bernhard.kaindl@cloud.com>
-X-Mailer: git-send-email 2.43.0
+X-Inumbo-ID: b5e90f11-d32f-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1736938675;
+	bh=PHvyrlfL90DWijiSoft7XP7rReZoqz0LHMvPolG3eVc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=lzo3SM0Jh0gt3jMLAaQUsepDmw7eYUBnlka5hbbPJnOVGveG2GsivekYsCC/wVcWM
+	 Fpv1tfAAWSv7Wahb71B2n7RvzSXmVxJHOI1MGlNmaSR3eC23tKmnhwmEeri17hRi+x
+	 h9NpTRQ9X4CPbC+pYA0xfkGmK5O2KaoBdQa05y/Q=
+Message-ID: <f3ba05c7-6e49-4641-a3f9-ba418ebdb7c3@ideasonboard.com>
+Date: Wed, 15 Jan 2025 12:58:48 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 25/25] drm/xlnx: Compute dumb-buffer sizes with
+ drm_mode_size_dumb()
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Andy Yan <andyshrk@163.com>
+References: <20250109150310.219442-1-tzimmermann@suse.de>
+ <20250109150310.219442-26-tzimmermann@suse.de>
+ <cdbe483d-0895-47aa-8c83-1c28220f4a02@ideasonboard.com>
+ <bc97b92e-7f8a-4b92-af8a-20fa165ead55@suse.de>
+Content-Language: en-US
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
+ 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
+In-Reply-To: <bc97b92e-7f8a-4b92-af8a-20fa165ead55@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Skimming the docs, I came across a few places for spelling improvements.
-I checked using dictionaries to be sure.
+Hi,
 
-Signed-off-by: Bernhard Kaindl <bernhard.kaindl@cloud.com>
----
- docs/admin-guide/microcode-loading.rst    | 4 ++--
- docs/designs/non-cooperative-migration.md | 4 ++--
- docs/designs/qemu-deprivilege.md          | 2 +-
- docs/guest-guide/x86/hypercall-abi.rst    | 2 +-
- docs/man/xl.conf.5.pod.in                 | 2 +-
- docs/misc/livepatch.pandoc                | 2 +-
- 6 files changed, 8 insertions(+), 8 deletions(-)
+On 15/01/2025 12:26, Thomas Zimmermann wrote:
+> Hi
+> 
+> 
+> Am 15.01.25 um 11:13 schrieb Tomi Valkeinen:
+>> Hi!
+>>
+>> On 09/01/2025 16:57, Thomas Zimmermann wrote:
+>>> Call drm_mode_size_dumb() to compute dumb-buffer scanline pitch and
+>>> buffer size. Align the pitch according to hardware requirements.
+>>>
+>>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>>> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+>>> Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+>>> ---
+>>>   drivers/gpu/drm/xlnx/zynqmp_kms.c | 7 +++++--
+>>>   1 file changed, 5 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/xlnx/zynqmp_kms.c b/drivers/gpu/drm/ 
+>>> xlnx/zynqmp_kms.c
+>>> index b47463473472..7ea0cd4f71d3 100644
+>>> --- a/drivers/gpu/drm/xlnx/zynqmp_kms.c
+>>> +++ b/drivers/gpu/drm/xlnx/zynqmp_kms.c
+>>> @@ -19,6 +19,7 @@
+>>>   #include <drm/drm_crtc.h>
+>>>   #include <drm/drm_device.h>
+>>>   #include <drm/drm_drv.h>
+>>> +#include <drm/drm_dumb_buffers.h>
+>>>   #include <drm/drm_encoder.h>
+>>>   #include <drm/drm_fbdev_dma.h>
+>>>   #include <drm/drm_fourcc.h>
+>>> @@ -363,10 +364,12 @@ static int zynqmp_dpsub_dumb_create(struct 
+>>> drm_file *file_priv,
+>>>                       struct drm_mode_create_dumb *args)
+>>>   {
+>>>       struct zynqmp_dpsub *dpsub = to_zynqmp_dpsub(drm);
+>>> -    unsigned int pitch = DIV_ROUND_UP(args->width * args->bpp, 8);
+>>> +    int ret;
+>>>         /* Enforce the alignment constraints of the DMA engine. */
+>>> -    args->pitch = ALIGN(pitch, dpsub->dma_align);
+>>> +    ret = drm_mode_size_dumb(drm, args, dpsub->dma_align, 0);
+>>> +    if (ret)
+>>> +        return ret;
+>>>         return drm_gem_dma_dumb_create_internal(file_priv, drm, args);
+>>>   }
+>>
+>> I have some trouble with this one.
+>>
+>> I have sent a series to add some pixel formats:
+>>
+>> https://lore.kernel.org/all/20250115-xilinx-formats- 
+>> v2-0-160327ca652a@ideasonboard.com/
+>>
+>> Let's look at XV15. It's similar to NV12, but 10 bits per component, 
+>> and some packing and padding.
+>>
+>> First plane: 3 pixels in a 32 bit group
+>> Second plane: 3 pixels in a 64 bit group, 2x2 subsampled
+>>
+>> So, on average, a pixel on the first plane takes 32 / 3 = 10.666... 
+>> bits on a line. That's not a usable number for the 
+>> DRM_IOCTL_MODE_CREATE_DUMB ioctl.
+>>
+>> What I did was to use the pixel group size as "bpp" for 
+>> DRM_IOCTL_MODE_CREATE_DUMB. So, e.g., for 720 x 576:
+>>
+>> Stride for first plane: 720 * (32 / 3) / 8 = 960 bytes
+>> Stride for second plane: 720 / 2 * (64 / 3) / 8 = 960 bytes
+>>
+>> First plane: 720 / 3 = 240 pixel groups
+>> Second plane: 720 / 2 / 3 = 120 pixel groups
+>>
+>> So I allocated the two planes with:
+>> 240 x 576 with 32 bitspp
+>> 120 x 288 with 64 bitspp
+>>
+>> This worked, and if I look at the DRM_IOCTL_MODE_CREATE_DUMB in the 
+>> docs, I can't right away see anything there that says my tactic was 
+>> not allowed.
+>>
+>> The above doesn't work anymore with this patch, as the code calls 
+>> drm_driver_color_mode_format(), which fails for 64 bitspp. It feels a 
+>> bit odd that DRM_IOCTL_MODE_CREATE_DUMB will try to guess the RGB 
+>> fourcc for a dumb buffer allocation.
+>>
+>> So, what to do here? Am I doing something silly? What's the correct 
+>> way to allocate the buffers for XV15? Should I just use 32 bitspp for 
+>> the plane 2 too, and double the width (this works)?
+>>
+>> Is DRM_IOCTL_MODE_CREATE_DUMB only meant for simple RGB formats? The 
+>> xilinx driver can, of course, just not use drm_mode_size_dumb(). But 
+>> if so, I guess the limitations of drm_mode_size_dumb() should be 
+>> documented.
+>>
+>> Do we need a new dumb-alloc ioctl that takes the format and plane 
+>> number as parameters? Or alternatively a simpler dumb-alloc that 
+>> doesn't have width and bpp, but instead takes a stride and height as 
+>> parameters? I think those would be easier for the userspace to use, 
+>> instead of trying to adjust the parameters to be suitable for the kernel.
+> 
+> These are all good points. Did you read my discussion with Andy on patch 
+> 2? I think it resolves all the points you have. The current CREATE_DUMB 
 
-diff --git a/docs/admin-guide/microcode-loading.rst b/docs/admin-guide/microcode-loading.rst
-index a07e25802f..f9b2b73d17 100644
---- a/docs/admin-guide/microcode-loading.rst
-+++ b/docs/admin-guide/microcode-loading.rst
-@@ -20,7 +20,7 @@ distro guidance for microcode loading.
- Microcode can make almost arbitrary changes to the processor, including to
- software visible features.  This includes removing features (e.g. the Haswell
- TSX errata which necessitated disabling the feature entirely), or the addition
--of brand new features (e.g. the Spectre v2 controls to work around speculative
-+of brand-new features (e.g. the Spectre v2 controls to work around speculative
- execution vulnerabilities).
- 
- 
-@@ -40,7 +40,7 @@ Xen will report during boot if it performed a microcode update::
-   (XEN) microcode: CPU6 updated from revision 0x1a to 0x25, date = 2018-04-02
- 
- The exact details printed are system and microcode specific.  After boot, the
--current microcode version can obtained from with dom0::
-+current microcode version can be obtained from with dom0::
- 
-   [root@host ~]# head /proc/cpuinfo
-   processor    : 0
-diff --git a/docs/designs/non-cooperative-migration.md b/docs/designs/non-cooperative-migration.md
-index 4b876d809f..54496892ed 100644
---- a/docs/designs/non-cooperative-migration.md
-+++ b/docs/designs/non-cooperative-migration.md
-@@ -112,7 +112,7 @@ because the guest can sample its own domid from the frontend area and use
- it in hypercalls (e.g. HVMOP_set_param) rather than DOMID_SELF, the guest
- domid must also be preserved to maintain the ABI.
- 
--Furthermore, it will necessary to modify backend drivers to re-establish
-+Furthermore, it will be necessary to modify backend drivers to re-establish
- communication with frontend drivers without perturbing the content of the
- backend area or requiring any changes to the values of the xenstore state
- nodes.
-@@ -259,7 +259,7 @@ Essentially this should skip the check to see if PV drivers and migrate as
- if there are none present, but also enabling the extra save records. Note
- that at least some of the extra records should only form part of a
- non-cooperative migration stream. For example, migrating event channel
--state would be counter productive in a normal migration as this will
-+state would be counter-productive in a normal migration as this will
- essentially leak event channel objects at the receiving end. Others, such
- as grant table state, could potentially harmlessly form part of a normal
- migration stream.
-diff --git a/docs/designs/qemu-deprivilege.md b/docs/designs/qemu-deprivilege.md
-index 81a5f5c05d..f12b1a3ae3 100644
---- a/docs/designs/qemu-deprivilege.md
-+++ b/docs/designs/qemu-deprivilege.md
-@@ -3,7 +3,7 @@
- The goal of deprilvileging qemu is this: Even if there is a bug (for
- example in qemu) which permits a domain to gain control of the device
- model, the compromised device model process is prevented from
--violating the system's overall security properties.  Ie, a guest
-+violating the system's overall security properties.  I.e., a guest
- cannot "escape" from the virtualisation by using a qemu bug.
- 
- This document lists the various technical measures which we either
-diff --git a/docs/guest-guide/x86/hypercall-abi.rst b/docs/guest-guide/x86/hypercall-abi.rst
-index 745fbbb64a..e52ed453bc 100644
---- a/docs/guest-guide/x86/hypercall-abi.rst
-+++ b/docs/guest-guide/x86/hypercall-abi.rst
-@@ -109,7 +109,7 @@ abstracting away the details of how it is currently running.
- Creating Hypercall Pages
- ------------------------
- 
--Guests which are started using the PV boot protocol may set set
-+Guests which are started using the PV boot protocol may set
- ``XEN_ELFNOTE_HYPERCALL_PAGE`` to have the nominated page written as a
- hypercall page during construction.  This mechanism is common for PV guests,
- and allows hypercalls to be issued with no additional setup.
-diff --git a/docs/man/xl.conf.5.pod.in b/docs/man/xl.conf.5.pod.in
-index 44738b80bf..0cfec8587c 100644
---- a/docs/man/xl.conf.5.pod.in
-+++ b/docs/man/xl.conf.5.pod.in
-@@ -4,7 +4,7 @@
- 
- =head1 DESCRIPTION
- 
--The F<xl.conf> file allows configuration of hostwide C<xl> toolstack
-+The F<xl.conf> file allows configuration of host-wide C<xl> toolstack
- options.
- 
- For details of per-domain configuration options please see
-diff --git a/docs/misc/livepatch.pandoc b/docs/misc/livepatch.pandoc
-index a94fb57eb5..43010227e5 100644
---- a/docs/misc/livepatch.pandoc
-+++ b/docs/misc/livepatch.pandoc
-@@ -2,7 +2,7 @@
- 
- ## Rationale
- 
--A mechanism is required to binarily patch the running hypervisor with new
-+A mechanism is required to binary-patch the running hypervisor with new
- opcodes that have come about due to primarily security updates.
- 
- This document describes the design of the API that would allow us to
--- 
-2.43.0
+I had missed the discussion, and, indeed, the patch you attached fixes 
+the problem on Xilinx.
+
+> ioctl is unsuited for anything but the simple RGB formats. The bpp 
+
+It's a bit difficult to use, but is it really unsuited? bitsperpixel, 
+width and height do give an exact pitch and size, do they not? It does 
+require the userspace to handle the subsampling and planes, though, so 
+far from perfect.
+
+So, I'm all for a new ioctl, but I don't right away see why the current 
+ioctl couldn't be used. Which makes me wonder about the drm_warn() in 
+your patch, and the "userspace throws in arbitrary values for bpp and 
+relies on the kernel to figure it out". Maybe I'm missing something here.
+
+> parameter is not very precise. The solution would be a new ioctl call 
+> that receives the DRM format and returns a buffer for each individual 
+> plane.
+
+Yes, I think that makes sense. That's a long road, though =). So my 
+question is, is CREATE_DUMB really unsuitable for other than simple RGB 
+formats, or can it be suitable if we just define how the userspace 
+should use it for multiplanar, subsampled formats?
+
+  Tomi
 
 
