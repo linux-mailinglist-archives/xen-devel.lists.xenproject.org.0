@@ -2,37 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3691CA126EE
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jan 2025 16:09:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.872713.1283696 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD532A12821
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jan 2025 17:05:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.872737.1283730 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tY515-0005MJ-De; Wed, 15 Jan 2025 15:09:11 +0000
+	id 1tY5t8-0007El-OS; Wed, 15 Jan 2025 16:05:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 872713.1283696; Wed, 15 Jan 2025 15:09:11 +0000
+Received: by outflank-mailman (output) from mailman id 872737.1283730; Wed, 15 Jan 2025 16:05:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tY515-0005JQ-AU; Wed, 15 Jan 2025 15:09:11 +0000
-Received: by outflank-mailman (input) for mailman id 872713;
- Wed, 15 Jan 2025 15:09:10 +0000
+	id 1tY5t8-0007CM-LQ; Wed, 15 Jan 2025 16:05:02 +0000
+Received: by outflank-mailman (input) for mailman id 872737;
+ Wed, 15 Jan 2025 16:05:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4o+i=UH=cloud.com=bernhard.kaindl@srs-se1.protection.inumbo.net>)
- id 1tY514-0005JK-16
- for xen-devel@lists.xenproject.org; Wed, 15 Jan 2025 15:09:10 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ <SRS0=rWPo=UH=casper.srs.infradead.org=BATV+fb641630334796bb9467+7815+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1tY5t6-0007CG-Ai
+ for xen-devel@lists.xenproject.org; Wed, 15 Jan 2025 16:05:01 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id aae0f255-d352-11ef-99a4-01e77a169b0f;
- Wed, 15 Jan 2025 16:09:08 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-436202dd730so49161075e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 15 Jan 2025 07:09:08 -0800 (PST)
-Received: from localhost ([185.68.248.203]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-437c74d8e06sm26718535e9.31.2025.01.15.07.09.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Jan 2025 07:09:06 -0800 (PST)
+ id 7675f05c-d35a-11ef-99a4-01e77a169b0f;
+ Wed, 15 Jan 2025 17:04:56 +0100 (CET)
+Received: from 54-240-197-226.amazon.com ([54.240.197.226]
+ helo=freeip.amazon.com)
+ by casper.infradead.org with esmtpsa (Exim 4.98 #2 (Red Hat Linux))
+ id 1tY5t0-0000000FpPP-3M4A; Wed, 15 Jan 2025 16:04:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,150 +41,260 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aae0f255-d352-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1736953747; x=1737558547; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=FM1nUjDiePbUjnEKMcMFCsNEpDocEMi4X6ouoLCy73c=;
-        b=k5twQMaOiqOUe/ZjdhWgj2d+Zn49JFA7B+PlK0XT3IyIRrlLLOnfgnV9mWfYiEMTj8
-         /u0XAPC2A8ylg9ApRhouohQdXApN3pk0eNLnqHdF57zehgz/0xqBB9sLjLsgSWtyuomf
-         YpB0nCLFjSM1LkR14kyKklPB4qTcBkjfJCac4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736953747; x=1737558547;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=FM1nUjDiePbUjnEKMcMFCsNEpDocEMi4X6ouoLCy73c=;
-        b=Ako9+nFe2b+kpG1F3NWwQd0Vxf4a/QF38U638OZKNXd+y4jcJQB8R/VHiVZeWgvjVt
-         DHJTmE0b4ViM/MykGJ8X142KVva14VIydzFpPVnn+pH7Dksad9v6Nfk6EMsOse/MTf9h
-         Mz816YD0OWD9gAzrfN8jZ+z1vdEtS2+D5YMu2hqx6KZ3BoorgYckgNqrhUEBAT6mTMHv
-         vgIDQvmn7zW49/klJ0PmqmHUPXqZI2D3MHlaYkjPLvFRWPfZxUretOJTsCtAC5LDgn6f
-         qsjj2mfwxf9NvxBUbfGwCN7Nzu1uPMfWCs7c8n5y3L7qSr7f6xq+IZQndu5yzIfhoPj/
-         zw/A==
-X-Gm-Message-State: AOJu0Yx45wgNIwhz6PnwwTaaIlWFVHG06VxCrbdss5BBHlii8rEUhPe1
-	a+B/yvqMhCRKCILWie7UCx2vwkarn+Ow8FDeLdCaXxIwuz1mJ9QPgYMGnVUHHc0r0jSjHjBO7Qq
-	JimEOWA==
-X-Gm-Gg: ASbGncsJWvwWXcRoEmOAxdLp0MZxQkbapjhta/TsPR3OUskPqJSmNUaBFEnQ6HDPfUX
-	HkmfN/WtZqE6qI157kowbvWZNTQipA5iatzHD3Ie6Da4VzJZz9F4vEPIYlKzUmXq65GOVYT9pDx
-	4XhAFDsisOCTFq9ofW3Bqdf3k9ANCYfgj5XfLE6aK461uKorK+fVdA7bs8v0atp0JqT3NjP8ygm
-	eMty7VX5g/+5jUSAGcrDkQjs5U+uZUBXTK6M9HMzX7u1IyrqEx3NHvrGi0UUQ==
-X-Google-Smtp-Source: AGHT+IEWf3YrPFwQJP4KWvTSkEMRT7ziqadr9R1A2EpqwHuPg747bX7FzrNPeP4dc5Pi6K8sxIPFXA==
-X-Received: by 2002:a05:600c:4586:b0:434:9e1d:7626 with SMTP id 5b1f17b1804b1-436e26f4b91mr233179465e9.25.1736953747285;
-        Wed, 15 Jan 2025 07:09:07 -0800 (PST)
-From: Bernhard Kaindl <bernhard.kaindl@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: Bernhard Kaindl <bernhard.kaindl@cloud.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH] docs/misc: Fix a few typos
-Date: Wed, 15 Jan 2025 16:09:04 +0100
-Message-ID: <5ab7cdad0c275dc2de900568ae3105be60f32db5.1736953714.git.bernhard.kaindl@cloud.com>
-X-Mailer: git-send-email 2.43.0
+X-Inumbo-ID: 7675f05c-d35a-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=zh4pjrW91hnVRk9ncvSX5fKSLJI2W3pr0C11ZvYhgkw=; b=COaHH0NTaQ4zOSTa5AXhRocW7A
+	ffmBNndmpvC1e60QUgXUnCaSKwV4dfe2QWH8ZT0ZXW69d9wUHgXa7XUfC86YvO29/NGdJDJraVLGE
+	Pb88o0E6TqZdHZchVZ2Cd4VAjQD9+INywYpfBTPWS70kAUTE4JFTWsR7M8hfj1FyQQBGqay6GOpYi
+	CQa0ijnotBUHWbXoEdD1rxesrXATsr/dAybFfGEH5Xeo572ihxnQ8Z5gPFl6LdKOpjCxypw3oTcOc
+	J3f5oxXaU8ceGr031bas1X1Dua5UJlQbGb0W+zl2HJSDRF44pCIhDnyn5Lb1Gl/uqcOB4TOm1ByIX
+	9GSQiNhg==;
+Message-ID: <82d7c9d49843afd44ddb7d14f518551646b921bc.camel@infradead.org>
+Subject: Re: [PATCH v2 2/2] xen: do not use '%ms' scanf specifier
+From: David Woodhouse <dwmw2@infradead.org>
+To: Anthony PERARD <anthony@xenproject.org>, Roger Pau Monne
+	 <roger.pau@citrix.com>
+Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>, Paul
+ Durrant <paul@xen.org>, "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ Kevin Wolf <kwolf@redhat.com>, Hanna Reitz <hreitz@redhat.com>, 
+ =?ISO-8859-1?Q?Marc-Andr=E9?= Lureau <marcandre.lureau@redhat.com>, Paolo
+ Bonzini <pbonzini@redhat.com>,  xen-devel@lists.xenproject.org,
+ qemu-block@nongnu.org
+Date: Wed, 15 Jan 2025 17:04:53 +0100
+In-Reply-To: <Z4fH0NwPEmjryqoG@l14>
+References: <20250110093531.23221-1-roger.pau@citrix.com>
+	 <20250110093531.23221-3-roger.pau@citrix.com> <Z4fH0NwPEmjryqoG@l14>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-crBTpTo/dZrAlrKCg/Kg"
+User-Agent: Evolution 3.52.3-0ubuntu1 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-While skimming through the misc docs, I spotted a few typos.
 
-Signed-off-by: Bernhard Kaindl <bernhard.kaindl@cloud.com>
+--=-crBTpTo/dZrAlrKCg/Kg
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, 2025-01-15 at 15:36 +0100, Anthony PERARD wrote:
+> On Fri, Jan 10, 2025 at 10:35:31AM +0100, Roger Pau Monne wrote:
+> > diff --git a/hw/char/xen_console.c b/hw/char/xen_console.c
+> > index ef0c2912efa1..989e75fef88f 100644
+> > --- a/hw/char/xen_console.c
+> > +++ b/hw/char/xen_console.c
+> > @@ -550,7 +550,8 @@ static void xen_console_device_create(XenBackendIns=
+tance *backend,
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto fail;
+> > =C2=A0=C2=A0=C2=A0=C2=A0 }
+> > =C2=A0
+> > -=C2=A0=C2=A0=C2=A0 if (xs_node_scanf(xsh, XBT_NULL, fe, "type", errp, =
+"%ms", &type) !=3D 1) {
+> > +=C2=A0=C2=A0=C2=A0 type =3D xs_node_read(xsh, XBT_NULL, NULL, errp, "%=
+s/%s", fe, "type");
+> > +=C2=A0=C2=A0=C2=A0 if (!type) {
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 error_prepend(errp, "f=
+ailed to read console device type: ");
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto fail;
+> > =C2=A0=C2=A0=C2=A0=C2=A0 }
+> > @@ -568,7 +569,8 @@ static void xen_console_device_create(XenBackendIns=
+tance *backend,
+> > =C2=A0
+> > =C2=A0=C2=A0=C2=A0=C2=A0 snprintf(label, sizeof(label), "xencons%ld", n=
+umber);
+> > =C2=A0
+> > -=C2=A0=C2=A0=C2=A0 if (xs_node_scanf(xsh, XBT_NULL, fe, "output", NULL=
+, "%ms", &output) =3D=3D 1) {
+> > +=C2=A0=C2=A0=C2=A0 output =3D xs_node_read(xsh, XBT_NULL, NULL, errp, =
+"%s/%s", fe, "output");
+>=20
+> This now set `errp` on error, when `output =3D=3D NULL`. In case `output`=
+ is
+> NULL, we check for `number` instead and may generate an error message
+> that probably doesn't really make sense.
+> =C2=A0=C2=A0=C2=A0 "console: No serial device #2 found: failed to read fr=
+om /frontend_path/output"
+> And if number =3D=3D 0, we tried to create a null device, and if that
+> failed, the error message will just be about the missing xenstore path
+> as error_setg() will not set `errp` again.
+>=20
+> Could you keep ignoring errors from xs_node_read() like it was done with
+> xs_node_scanf() (I mean pass `NULL` instead of `errp`)? And we will need
+> another patch to fix the wrong use of `error_prepend()` and use
+> `error_setg` instead when `serial_hd()` fails.
+
+Ack. I'll make that s/errp/NULL/ change in the original patch, and then
+add something like this on top...
+
+=46rom c6ea20c9055f6c5cdd44a56fd6f7f82d301412d1 Mon Sep 17 00:00:00 2001
+From: David Woodhouse <dwmw@amazon.co.uk>
+Date: Wed, 15 Jan 2025 15:46:06 +0000
+Subject: [PATCH] hw/xen: Fix errp handling in xen_console
+
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- docs/misc/livepatch.pandoc            |  8 ++++----
- docs/misc/netif-staging-grants.pandoc | 10 +++++-----
- docs/misc/printk-formats.txt          |  2 +-
- 3 files changed, 10 insertions(+), 10 deletions(-)
+ hw/char/xen_console.c | 32 ++++++++++++++++++++------------
+ 1 file changed, 20 insertions(+), 12 deletions(-)
 
-diff --git a/docs/misc/livepatch.pandoc b/docs/misc/livepatch.pandoc
-index 43010227e5..cbd63d0af8 100644
---- a/docs/misc/livepatch.pandoc
-+++ b/docs/misc/livepatch.pandoc
-@@ -539,13 +539,13 @@ The type definition of the function are as follow:
- ### .livepatch.xen_depends, .livepatch.depends and .note.gnu.build-id
- 
- To support dependencies checking and safe loading (to load the
--appropiate payload against the right hypervisor) there is a need
--to embbed an build-id dependency.
-+appropriate payload against the right hypervisor) there is a need
-+to embed a build-id dependency.
- 
- This is done by the payload containing sections `.livepatch.xen_depends`
- and `.livepatch.depends` which follow the format of an ELF Note.
- The contents of these (name, and description) are specific to the linker
--utilized to build the hypevisor and payload.
-+utilized to build the hypervisor and payload.
- 
- If GNU linker is used then the name is `GNU` and the description
- is a NT_GNU_BUILD_ID type ID. The description can be an SHA1
-@@ -639,7 +639,7 @@ The `name` could be an UUID that stays fixed forever for a given
- payload. It can be embedded into the ELF payload at creation time
- and extracted by tools.
- 
--The return value is zero if the payload was succesfully uploaded.
-+The return value is zero if the payload was successfully uploaded.
- Otherwise an -XEN_EXX return value is provided. Duplicate `name` are not supported.
- 
- The `payload` is the ELF payload as mentioned in the `Payload format` section.
-diff --git a/docs/misc/netif-staging-grants.pandoc b/docs/misc/netif-staging-grants.pandoc
-index cb33028adc..d7ef4db63a 100644
---- a/docs/misc/netif-staging-grants.pandoc
-+++ b/docs/misc/netif-staging-grants.pandoc
-@@ -317,7 +317,7 @@ In essence the steps for receiving of a packet in a Linux frontend is as
-  process the actual like the steps below. This thread has the purpose of
-  aggregating as much copies as possible.]
- 
--2) Checks if there are enough rx ring slots that can accomodate the packet.
-+2) Checks if there are enough rx ring slots that can accommodate the packet.
- 
- 3) Gets a request from the ring for the first data slot and fetches the `gref`
-    from it.
-@@ -375,7 +375,7 @@ In essence the steps for receiving of a packet in a Linux frontend is as
- 
- 24) Call packet into the network stack.
- 
--25) Allocate new pages and any necessary packet metadata strutures to new
-+25) Allocate new pages and any necessary packet metadata structures to new
-     requests. These requests will then be used in step 1) and so forth.
- 
- 26) Update the request producer index (`req_prod`)
-@@ -391,7 +391,7 @@ In essence the steps for receiving of a packet in a Linux frontend is as
- 
- This proposal aims at replacing step 4), 12) and  22) with memcpy if the
- grefs on the Rx ring were requested to be mapped by the guest. Frontend may use
--strategies to allow fast recycling of grants for replinishing the ring,
-+strategies to allow fast recycling of grants for replenishing the ring,
- hence letting Domain-0 replace the grant copies with  memcpy instead, which is
- faster.
- 
-@@ -400,8 +400,8 @@ would need to aggregate as much as grant ops as possible (step 1) and could
- transmit the packet on the transmit function (e.g. Linux ```ndo_start_xmit```)
- as previously proposed
- here\[[0](http://lists.xenproject.org/archives/html/xen-devel/2015-05/msg01504.html)\].
--This would heavily improve efficiency specifially for smaller packets. Which in
--return would decrease RTT, having data being acknoledged much quicker.
-+This would heavily improve efficiency specifically for smaller packets. Which in
-+return would decrease RTT, having data being acknowledged much quicker.
- 
- \clearpage
- 
-diff --git a/docs/misc/printk-formats.txt b/docs/misc/printk-formats.txt
-index 8f666f696a..ce32829dae 100644
---- a/docs/misc/printk-formats.txt
-+++ b/docs/misc/printk-formats.txt
-@@ -11,7 +11,7 @@ Raw buffer as hex string:
-        %*phN   000102 ... 3f
- 
-        Up to 64 characters.  Buffer length expected via the field_width
--       paramter. i.e. printk("%*ph", 8, buffer);
-+       parameter. i.e. printk("%*ph", 8, buffer);
- 
- Bitmaps (e.g. cpumask/nodemask):
- 
--- 
-2.43.0
+diff --git a/hw/char/xen_console.c b/hw/char/xen_console.c
+index 9338e00473..9e7f6da343 100644
+--- a/hw/char/xen_console.c
++++ b/hw/char/xen_console.c
+@@ -569,7 +569,7 @@ static void xen_console_device_create(XenBackendInstanc=
+e *backend,
+=20
+     snprintf(label, sizeof(label), "xencons%ld", number);
+=20
+-    output =3D xs_node_read(xsh, XBT_NULL, NULL, NULL, "%s/%s", fe, "outpu=
+t");
++    output =3D xs_node_read(xsh, XBT_NULL, NULL, errp, "%s/%s", fe, "outpu=
+t");
+     if (output) {
+         /*
+          * FIXME: sure we want to support implicit
 
+@@ -581,19 +581,27 @@ static void xen_console_device_create(XenBackendInsta=
+nce *backend,
+                        output);
+             goto fail;
+         }
+-    } else if (number) {
+-        cd =3D serial_hd(number);
+-        if (!cd) {
+-            error_prepend(errp, "console: No serial device #%ld found: ",
+-                          number);
+-            goto fail;
+-        }
++    } else if (errno !=3D ENOENT) {
++        error_prepend(errp, "console: No valid chardev found: ");
++        goto fail;
+     } else {
+-        /* No 'output' node on primary console: use null. */
+-        cd =3D qemu_chr_new(label, "null", NULL);
+-        if (!cd) {
+-            error_setg(errp, "console: failed to create null device");
+-            goto fail;
++        if (errp) {
++            error_free(*errp);
++        }
++        if (number) {
++            cd =3D serial_hd(number);
++            if (!cd) {
++                error_setg(errp, "console: No serial device #%ld found: ",
++                           number);
++                goto fail;
++            }
++        } else {
++            /* No 'output' node on primary console: use null. */
++            cd =3D qemu_chr_new(label, "null", NULL);
++            if (!cd) {
++                error_setg(errp, "console: failed to create null device");
++                goto fail;
++            }
+         }
+     }
+=20
+--=20
+2.47.0
+
+
+
+--=-crBTpTo/dZrAlrKCg/Kg
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCD9Aw
+ggSOMIIDdqADAgECAhAOmiw0ECVD4cWj5DqVrT9PMA0GCSqGSIb3DQEBCwUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBDQTAeFw0yNDAxMzAwMDAwMDBaFw0zMTEx
+MDkyMzU5NTlaMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYDVQQDExdWZXJv
+a2V5IFNlY3VyZSBFbWFpbCBHMjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMjvgLKj
+jfhCFqxYyRiW8g3cNFAvltDbK5AzcOaR7yVzVGadr4YcCVxjKrEJOgi7WEOH8rUgCNB5cTD8N/Et
+GfZI+LGqSv0YtNa54T9D1AWJy08ZKkWvfGGIXN9UFAPMJ6OLLH/UUEgFa+7KlrEvMUupDFGnnR06
+aDJAwtycb8yXtILj+TvfhLFhafxroXrflspavejQkEiHjNjtHnwbZ+o43g0/yxjwnarGI3kgcak7
+nnI9/8Lqpq79tLHYwLajotwLiGTB71AGN5xK+tzB+D4eN9lXayrjcszgbOv2ZCgzExQUAIt98mre
+8EggKs9mwtEuKAhYBIP/0K6WsoMnQCcCAwEAAaOCAVwwggFYMBIGA1UdEwEB/wQIMAYBAf8CAQAw
+HQYDVR0OBBYEFIlICOogTndrhuWByNfhjWSEf/xwMB8GA1UdIwQYMBaAFEXroq/0ksuCMS1Ri6en
+IZ3zbcgPMA4GA1UdDwEB/wQEAwIBhjAdBgNVHSUEFjAUBggrBgEFBQcDBAYIKwYBBQUHAwIweQYI
+KwYBBQUHAQEEbTBrMCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQwYIKwYB
+BQUHMAKGN2h0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRJRFJvb3RD
+QS5jcnQwRQYDVR0fBD4wPDA6oDigNoY0aHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0
+QXNzdXJlZElEUm9vdENBLmNybDARBgNVHSAECjAIMAYGBFUdIAAwDQYJKoZIhvcNAQELBQADggEB
+ACiagCqvNVxOfSd0uYfJMiZsOEBXAKIR/kpqRp2YCfrP4Tz7fJogYN4fxNAw7iy/bPZcvpVCfe/H
+/CCcp3alXL0I8M/rnEnRlv8ItY4MEF+2T/MkdXI3u1vHy3ua8SxBM8eT9LBQokHZxGUX51cE0kwa
+uEOZ+PonVIOnMjuLp29kcNOVnzf8DGKiek+cT51FvGRjV6LbaxXOm2P47/aiaXrDD5O0RF5SiPo6
+xD1/ClkCETyyEAE5LRJlXtx288R598koyFcwCSXijeVcRvBB1cNOLEbg7RMSw1AGq14fNe2cH1HG
+W7xyduY/ydQt6gv5r21mDOQ5SaZSWC/ZRfLDuEYwggWbMIIEg6ADAgECAhAH5JEPagNRXYDiRPdl
+c1vgMA0GCSqGSIb3DQEBCwUAMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYD
+VQQDExdWZXJva2V5IFNlY3VyZSBFbWFpbCBHMjAeFw0yNDEyMzAwMDAwMDBaFw0yODAxMDQyMzU5
+NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqGSIb3DQEBAQUAA4IC
+DwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZeYAS/SRV6zmfXlXaZ
+sNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2zkC9S7/yHDYnqegqt
+w4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qGpgFdZEk2/c//ZvUN
+i12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41vav1RhZJzYan4a1gU0
+kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0cvnO8FM6PTqsnSbcc
+0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PWPU6zfQTOMZ9uLQRR
+ci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXtREF5lLXxp+CJ6KKS
+blPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQrlR0gO3lBzuyPPArV
+hvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7IqaAovAX0d+f1YjbmC
+VsAwjhLmveFjNwIDAQABo4IBsDCCAawwHwYDVR0jBBgwFoAUiUgI6iBOd2uG5YHI1+GNZIR//HAw
+HQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3bXcyQGluZnJhZGVh
+ZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEBMA4GA1UdDwEB/wQE
+AwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwewYDVR0fBHQwcjA3oDWgM4YxaHR0
+cDovL2NybDMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDA3oDWgM4YxaHR0
+cDovL2NybDQuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDB2BggrBgEFBQcB
+AQRqMGgwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBABggrBgEFBQcwAoY0
+aHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNydDANBgkq
+hkiG9w0BAQsFAAOCAQEAQXc4FPiPLRnTDvmOABEzkIumojfZAe5SlnuQoeFUfi+LsWCKiB8Uextv
+iBAvboKhLuN6eG/NC6WOzOCppn4mkQxRkOdLNThwMHW0d19jrZFEKtEG/epZ/hw/DdScTuZ2m7im
+8ppItAT6GXD3aPhXkXnJpC/zTs85uNSQR64cEcBFjjoQDuSsTeJ5DAWf8EMyhMuD8pcbqx5kRvyt
+JPsWBQzv1Dsdv2LDPLNd/JUKhHSgr7nbUr4+aAP2PHTXGcEBh8lTeYea9p4d5k969pe0OHYMV5aL
+xERqTagmSetuIwolkAuBCzA9vulg8Y49Nz2zrpUGfKGOD0FMqenYxdJHgDCCBZswggSDoAMCAQIC
+EAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQELBQAwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoT
+B1Zlcm9rZXkxIDAeBgNVBAMTF1Zlcm9rZXkgU2VjdXJlIEVtYWlsIEcyMB4XDTI0MTIzMDAwMDAw
+MFoXDTI4MDEwNDIzNTk1OVowHjEcMBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJ
+KoZIhvcNAQEBBQADggIPADCCAgoCggIBANqWLse95HW2F7FhfH9bugyT/danKmmXrbMnz5GZNAfj
+Jl5gBL9JFXrOZ9eVdpmw04Tp6aDxZctFLoEDvSWKi367Q7Sg+ci+fH4KwwfQ8Pi0IpIKx2n5emEg
+nbOQL1Lv/IcNiep6Cq3DiyaSpSp/RZf+CAfUNySHS8eWmhLU6jGpSD6hxTpYKye7PmrmvMWwfGEP
+WoamAV1kSTb9z/9m9Q2LXa89aKmTxNwnAfD3Ohn9mtU3JukwILRMewn9QRXK7KzM+01h5hkCE4nj
+W9q/VGFknNhqfhrWBTSQoE9CSVylASGrjzCgS7XmKy/BaH3/7mOOHQv5g1o3Qj/+cdKnpT0I5Qb1
+nRy+c7wUzo9OqydJtxzSP4ZyHA4dELto/a3m/ay1XHcpum1pgTOLgxAfGb/T4dCkwRUstSKLMmpL
+g9Y9TrN9BM4xn24tBFFyL5znGG0wQGzOVAM68RBzIQb6Fz758fjsr4yZnPbVsU1+gHEs/puNHrG0
+9e1EQXmUtfGn4InoopJuU8p5VGD9S3Ikd4UoBlc7xl5yjtNlQxUeYrRlnUSmdlucCEoTX1n4UmtA
+9CuVHSA7eUHO7I88CtWG9bGOU7tLgOZoSEvNqtaL/N7sQbBZK4jZ4Rr/zNTQg1SwYjjLB7u96lDP
+sipoCi8BfR35/ViNuYJWwDCOEua94WM3AgMBAAGjggGwMIIBrDAfBgNVHSMEGDAWgBSJSAjqIE53
+a4blgcjX4Y1khH/8cDAdBgNVHQ4EFgQUXGIam3Bs59Y60yTmWgfDu6pZQ6cwMAYDVR0RBCkwJ4ET
+ZHdtdzJAaW5mcmFkZWFkLm9yZ4EQZGF2aWRAd29vZGhvdS5zZTAUBgNVHSAEDTALMAkGB2eBDAEF
+AQEwDgYDVR0PAQH/BAQDAgXgMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDB7BgNVHR8E
+dDByMDegNaAzhjFodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
+Y3JsMDegNaAzhjFodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
+Y3JsMHYGCCsGAQUFBwEBBGowaDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29t
+MEAGCCsGAQUFBzAChjRodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVt
+YWlsRzIuY3J0MA0GCSqGSIb3DQEBCwUAA4IBAQBBdzgU+I8tGdMO+Y4AETOQi6aiN9kB7lKWe5Ch
+4VR+L4uxYIqIHxR7G2+IEC9ugqEu43p4b80LpY7M4KmmfiaRDFGQ50s1OHAwdbR3X2OtkUQq0Qb9
+6ln+HD8N1JxO5nabuKbymki0BPoZcPdo+FeRecmkL/NOzzm41JBHrhwRwEWOOhAO5KxN4nkMBZ/w
+QzKEy4PylxurHmRG/K0k+xYFDO/UOx2/YsM8s138lQqEdKCvudtSvj5oA/Y8dNcZwQGHyVN5h5r2
+nh3mT3r2l7Q4dgxXlovERGpNqCZJ624jCiWQC4ELMD2+6WDxjj03PbOulQZ8oY4PQUyp6djF0keA
+MYIDuzCCA7cCAQEwVTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMX
+VmVyb2tleSBTZWN1cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJYIZIAWUDBAIBBQCg
+ggE3MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI1MDExNTE2MDQ1
+M1owLwYJKoZIhvcNAQkEMSIEIPSSazb4uD5mR6Adn3HoITo277uHzV3rkKh1qlPSDqmzMGQGCSsG
+AQQBgjcQBDFXMFUwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoTB1Zlcm9rZXkxIDAeBgNVBAMTF1Zl
+cm9rZXkgU2VjdXJlIEVtYWlsIEcyAhAH5JEPagNRXYDiRPdlc1vgMGYGCyqGSIb3DQEJEAILMVeg
+VTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMXVmVyb2tleSBTZWN1
+cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQEBBQAEggIAHdtZFMM743TS
+m1Cd4vhQKFuzzHtuSRDfheZ4UHkkF9pQQFMCq7Se5IeDnkwSycrJNQXopkk73BZ7XKQwkukzLNuV
+533igSA8IrdgTzH+ImKfmClrN1SQonSgnS/5thDUFcn7k0dKO9e6LOuDYbjQa/r2eIArsYJznCTS
+SkzK+mLUy5pSJep0qNBisaltwNIRdcjXQZpiCOlEkZRcxFsCIWLhTslE9PBpezE43NABP62PsNVE
+BJE1db+OC16AmDQYnMXcTkl2IrQA8hlKd4BTkBY+kUfLekBEc+FzMxVtiVdVioK1pF1Ra9coG1/V
+sQdJrGedMggjznPwXqayJZzPw1IONmc2Twd8eIyjbVFc12B/MEAJ5sHbbt+07u9Zgr7uGDEkbLFr
+FOi/juxYvHRWZZQIvndaR+XmTnjBxjTDd0SyktZ+u8A25NzDvWgIvxqsayZea1g3aOEMCQLIVW7O
+6Xcz7lKeIWqqcov0r7oQn9M3+28cKaRWmHnVOGbZaDQa1qqheRh0w2jSe8zHxTOszfRrve+bij5g
+I+OGfW9jh1KN+axAZ/Lpy9p24Amtl0lTPhYR3Wh7lufX+SfyvvSRkaI8PzhQ/cwN3999qDcnhU0T
+1DAvAnXy4rNRFGr+GbLuap0QwxCWZZixOdiYn0S7Va0YC763C1dXIKrrnoQnOdIAAAAAAAA=
+
+
+--=-crBTpTo/dZrAlrKCg/Kg--
 
