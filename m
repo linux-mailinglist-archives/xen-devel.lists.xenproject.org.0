@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0258FA12387
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jan 2025 13:08:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.872408.1283374 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9686A12399
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jan 2025 13:13:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.872419.1283383 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tY2Bu-0001gx-Pl; Wed, 15 Jan 2025 12:08:10 +0000
+	id 1tY2GG-0003pK-9a; Wed, 15 Jan 2025 12:12:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 872408.1283374; Wed, 15 Jan 2025 12:08:10 +0000
+Received: by outflank-mailman (output) from mailman id 872419.1283383; Wed, 15 Jan 2025 12:12:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tY2Bu-0001dn-MN; Wed, 15 Jan 2025 12:08:10 +0000
-Received: by outflank-mailman (input) for mailman id 872408;
- Wed, 15 Jan 2025 12:08:09 +0000
+	id 1tY2GG-0003mK-6t; Wed, 15 Jan 2025 12:12:40 +0000
+Received: by outflank-mailman (input) for mailman id 872419;
+ Wed, 15 Jan 2025 12:12:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hmQ5=UH=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tY2Bt-0001da-ER
- for xen-devel@lists.xenproject.org; Wed, 15 Jan 2025 12:08:09 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ id 1tY2GE-0003mE-6X
+ for xen-devel@lists.xenproject.org; Wed, 15 Jan 2025 12:12:38 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 618e1cef-d339-11ef-99a4-01e77a169b0f;
- Wed, 15 Jan 2025 13:08:07 +0100 (CET)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-ab322ecd75dso146704566b.0
- for <xen-devel@lists.xenproject.org>; Wed, 15 Jan 2025 04:08:07 -0800 (PST)
-Received: from [10.81.35.177] ([46.149.103.12])
+ id 01c17541-d33a-11ef-99a4-01e77a169b0f;
+ Wed, 15 Jan 2025 13:12:36 +0100 (CET)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-5d4e2aa7ea9so13189606a12.2
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Jan 2025 04:12:36 -0800 (PST)
+Received: from [10.81.35.177] ([46.149.103.15])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab337d71352sm210298966b.54.2025.01.15.04.08.06
+ 4fb4d7f45d1cf-5d990469e5asm7387896a12.55.2025.01.15.04.12.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Jan 2025 04:08:06 -0800 (PST)
+ Wed, 15 Jan 2025 04:12:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 618e1cef-d339-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 01c17541-d33a-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1736942887; x=1737547687; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1736943156; x=1737547956; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Kmeyu+qUWKTXZ4Mksi6zjGxNuSb/SWYG3CoZy2oFHhc=;
-        b=IDh8wNgSFE4Tez6aImdGnF4Pq5y920fYs9b61GG2I+FIdq3skj99QShDVvyzS/SF9M
-         uqH9l8qKWWYVEy/PZlKStDSbge9HWv09zLrDIpJs5lj9PYz6DEqX34ntVHzDh3tby8c5
-         SgrE9k9XCP+1hSCEmVsQfM/C81zrRZIptUq8Y=
+        bh=3vkw3KoLLYwhNznF2w6gk+7TEpb52hT3vRDnAAAOlaI=;
+        b=S3HmaVfbTS+ptbvF/E0jz+NQlecNmu0CQ75J1IJ1eZqIS+ju5Gj5LtV5l3Zh18dYJJ
+         kaWW/Wt/zIpwa018eYwEDkbfzxWmlCgFK4E+zf009IPekD2PbpCnHcL8CuVmlYNe98YM
+         c7MZKadTmmjg+rSL7raKSSV6fJ9ITabm/0V+U=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736942887; x=1737547687;
+        d=1e100.net; s=20230601; t=1736943156; x=1737547956;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Kmeyu+qUWKTXZ4Mksi6zjGxNuSb/SWYG3CoZy2oFHhc=;
-        b=BJMx6GAMFhVH+s90wYToPfNgBAP2jFAYuSuvOixzF7n7Tul9hxWlQ1ojUVAskdvIDx
-         /gZzRDZFUBqd94hnLQldliFx4D3HaEdkxr0vMskQrPRm4d1WXLpgHmObnKEjRuooZxTD
-         22xXvAGxCa/cTrSymvWI8U5Usbja5KgLEIGZdFjO80lqp0xR+8dDYw7Mm09cApgK+soH
-         A2vzuFxWsRPWAd0Zq081BaMl2PDrGLev40VvUebcYRUcY2wIMSZ9qkMpePAKExtvmXtE
-         HXaJmfjw7/N7RQ16WoVU1za3hzCJc3Lg+uYKV7+PL4offTdZLgfNxPOWHfuBFDLEOQeF
-         8Efw==
-X-Forwarded-Encrypted: i=1; AJvYcCW8qSNbI/lrkB4OREDxMcXfC4tbXIx4DV5IuVvFZa76PsXkGouYbu8ZFa+cQVk9TO5J7TJb+n+OimY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzaN4ySTUfhQDIQdgcpMyzHGMKnmD36u6mvKKm8bEQpHlBNgn+k
-	4y2bdrjOZxd2UgbyTNR9/mniwhksRa1ZEoZ1ZXSS7nHU48pkMqIM3pO4o00ifoSk8kTRkfOHBuy
-	/
-X-Gm-Gg: ASbGnctJ46v+Rbmii8j9CarCI6dtiqi6YjE08Ip2pNrwKpBdxpRDr7qiFmuZTaZjtj3
-	vngMN4I8De4xnbpE+1LdHJpBcAgYpL0jRuaYzr1nDm1gO3bwF3qUIDpiuVJ4b4346BrZFnJT/CX
-	GLpRh7aDJYGzroUvDKnCb215PBaK675yB6r+qiYuLjoZqCq9ZfqG4o39Zbjv9imEEtCPmzho0NA
-	FI/RSZNwn2jfn3hW2t65vM2Bai4N3tD587rxVR3pDTUwXdyKWULr7AaJI8cw6paQCw=
-X-Google-Smtp-Source: AGHT+IG3atfQuhtdKGLp5p5I6WBJ7QsLnJX/echZTu4U6xtiE/UhGBCuljohL0c6hqDta35asty+Iw==
-X-Received: by 2002:a17:907:7252:b0:aae:e52f:3d2b with SMTP id a640c23a62f3a-ab2c3d1927fmr1683809866b.28.1736942887049;
-        Wed, 15 Jan 2025 04:08:07 -0800 (PST)
-Message-ID: <a936f720-818e-41d8-bd68-b35bc2bce7b6@citrix.com>
-Date: Wed, 15 Jan 2025 12:08:05 +0000
+        bh=3vkw3KoLLYwhNznF2w6gk+7TEpb52hT3vRDnAAAOlaI=;
+        b=AaGfDvFMNR2XDVo1yb8L1w/W3cRuWJ8aGmygV0dpVORvIzYWfSQLKf5Kgp9OM9rKPT
+         pMyDnsQx3Sju15S1+NGGU+7B6S7GIWEoIyEeaJpw/Y+7XduqC0IjpJAxuOJPXWKfMQRw
+         q5Z5PU2ur5Bhv/XCugAKc5NgoNK9zpg8cRRWkOzX8aeejAl5cc7dxl1Pvoo8CZPINsWH
+         S/nGbQp7wJC25EfZk13zI+rScXxC46S0HwGTqb7/vUyOvnuxhIhdD1Pap4lsVlPaASyA
+         oarzA3Vc96pLHsrHEJuj6gK3lEtjlgOs9BKXbkwpmr7ZIebijzyBOdxBNfSeQrWBwe35
+         jJ+g==
+X-Forwarded-Encrypted: i=1; AJvYcCUiDuEyKe8sWYW9fPlm8q9JFoq8zU8gp3XXie9QXw69K53TKlX4QrssfLbdRtFgebIL8WGkY7H/Tu8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyqCBoPSX59BHmv/19aCobTtfqC978iC0mG28n2AW2Vf0Ny0T49
+	nVAoJ/npnCPTdPv+4v2sIaJjEdlL0qk2t/Osr/PaBazqjnNY4cd695W0BB0MVdk=
+X-Gm-Gg: ASbGnct6K90XljKgH6D6OCh7+/aiE1uJZA4bjLt7ksImjRXiV787eNjXe6sWv8DeXRu
+	Lql0pDaMe1ag0NauS8M3ywZ/GbOOWbQRi9jN9RV7HEOlKRAWvddqQIFwj6K712peKnS+OGCEgRV
+	1I3wZiiYJ1ElQWZiunyi3suFT5204tAxtStOAg+pUOvoHoIHPmWil8METS0tSNt4+JBPc8jxH+c
+	zvJboJJ6YZg29ih7/lfKWQ+PrydYwKO/EIGhEb1UOzjaVFNB3FJPbQVy8lzyBr1QNs=
+X-Google-Smtp-Source: AGHT+IEl0RdV8CHNPhnWQ3AQHNm5IHq1fcGxKoV4ARJvLcZgbWpj4PmyoufeKysPmv2kgj4YiVcYLw==
+X-Received: by 2002:a05:6402:268c:b0:5d2:d72a:77e4 with SMTP id 4fb4d7f45d1cf-5d972e6c9b0mr29734636a12.28.1736943155859;
+        Wed, 15 Jan 2025 04:12:35 -0800 (PST)
+Message-ID: <391f5a96-769d-4dfb-8966-b3d6c255422b@citrix.com>
+Date: Wed, 15 Jan 2025 12:12:34 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 1/2] docs/sphinx: import sys for error reporting
+Subject: Re: [XEN PATCH 2/2] docs/sphinx: gitignore generated files
 To: Yann Dirson <yann.dirson@vates.tech>, xen-devel@lists.xenproject.org
 Cc: Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
  Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
 References: <cover.1736941628.git.yann.dirson@vates.tech>
- <4b7de1b9a5b0eec8cb1803e59b0027092c43c126.1736941628.git.yann.dirson@vates.tech>
+ <cc6e4e8e5fe08c7b4bb183535b7e302bfba41058.1736941628.git.yann.dirson@vates.tech>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -136,34 +135,35 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <4b7de1b9a5b0eec8cb1803e59b0027092c43c126.1736941628.git.yann.dirson@vates.tech>
+In-Reply-To: <cc6e4e8e5fe08c7b4bb183535b7e302bfba41058.1736941628.git.yann.dirson@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 15/01/2025 12:01 pm, Yann Dirson wrote:
 > Signed-off-by: Yann Dirson <yann.dirson@vates.tech>
 > ---
->  docs/conf.py | 1 +
+>  .gitignore | 1 +
 >  1 file changed, 1 insertion(+)
 >
-> diff --git a/docs/conf.py b/docs/conf.py
-> index 5d2e979449..84bec024e7 100644
-> --- a/docs/conf.py
-> +++ b/docs/conf.py
-> @@ -21,6 +21,7 @@
->  # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
->  
->  import sphinx
-> +import sys
->  
->  project = u'Xen'
->  copyright = u'2019-%Y, The Xen development community'
+> diff --git a/.gitignore b/.gitignore
+> index 25484a8fd8..404590c36a 100644
+> --- a/.gitignore
+> +++ b/.gitignore
+> @@ -62,6 +62,7 @@ docs/man5/
+>  docs/man7/
+>  docs/man8/
+>  docs/pdf/
+> +docs/sphinx/
+>  docs/txt/
+>  extras/
+>  install/*
 
-Oh, that's awkward.  Older sphinx must have had sys in context, because
-it did work when I initially added that check.
+Thanks, although we're transitioning to per-dir .gitignore files.
 
-Any chance this can go up above the "Path setup" section, and drop the
-commented out line?
+Can this move into docs/.gitignore and become sphinx/ as the pattern?
+
+If you fancy fixing all of them, that would be excellent too.  See c/s
+0a15b7695bd983f "tools/ocaml: Rationalise .gitignore" as an example.
 
 ~Andrew
 
