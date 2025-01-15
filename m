@@ -2,37 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A7CBA1251F
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jan 2025 14:45:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.872554.1283525 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0C43A1252C
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jan 2025 14:46:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.872564.1283536 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tY3hg-0000tR-SA; Wed, 15 Jan 2025 13:45:04 +0000
+	id 1tY3iX-0001Re-9L; Wed, 15 Jan 2025 13:45:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 872554.1283525; Wed, 15 Jan 2025 13:45:04 +0000
+Received: by outflank-mailman (output) from mailman id 872564.1283536; Wed, 15 Jan 2025 13:45:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tY3hg-0000rR-OP; Wed, 15 Jan 2025 13:45:04 +0000
-Received: by outflank-mailman (input) for mailman id 872554;
- Wed, 15 Jan 2025 13:45:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tY3iX-0001QB-66; Wed, 15 Jan 2025 13:45:57 +0000
+Received: by outflank-mailman (input) for mailman id 872564;
+ Wed, 15 Jan 2025 13:45:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4o+i=UH=cloud.com=bernhard.kaindl@srs-se1.protection.inumbo.net>)
- id 1tY3he-0000rL-V5
- for xen-devel@lists.xenproject.org; Wed, 15 Jan 2025 13:45:03 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ea87a20e-d346-11ef-99a4-01e77a169b0f;
- Wed, 15 Jan 2025 14:45:00 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-43618283dedso64761265e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 15 Jan 2025 05:45:00 -0800 (PST)
-Received: from localhost ([185.68.248.203]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a8e4b80c9sm17489552f8f.84.2025.01.15.05.44.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Jan 2025 05:44:59 -0800 (PST)
+ <SRS0=AzvQ=UH=suse.de=tzimmermann@srs-se1.protection.inumbo.net>)
+ id 1tY3iV-0001Pz-Bj
+ for xen-devel@lists.xenproject.org; Wed, 15 Jan 2025 13:45:55 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [2a07:de40:b251:101:10:150:64:1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0a21543e-d347-11ef-a0e1-8be0dac302b0;
+ Wed, 15 Jan 2025 14:45:54 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 49A6821249;
+ Wed, 15 Jan 2025 13:45:53 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C332E139CB;
+ Wed, 15 Jan 2025 13:45:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id ctv9LRC8h2cUZgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 15 Jan 2025 13:45:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,205 +53,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea87a20e-d346-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1736948700; x=1737553500; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=yOnHHZIX8J37zXnZstGifH2YDQRYPB0JvqGcQB48250=;
-        b=jfSh1U1yYWjX29Gk0+ZlFK8pLbUovSByYUNpxe4oovWPlV0f7/ELDKqnVX027FmVtD
-         +SQ0/Il6SPr3fvkW4Hrg6tGwSnjShU8ZmoideLbrWtmkkun8hA0fZKC7LJFVAXaJB/vI
-         /d9RKQqHVlh6925LpPRpd2Gp4ec+wMDSRO/+w=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736948700; x=1737553500;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=yOnHHZIX8J37zXnZstGifH2YDQRYPB0JvqGcQB48250=;
-        b=hKpp6ExOL3ub80nX8Rwyf9wL0Th+07DAfrsgZBNQidgWz/WY2vM9IpN0jH4onq/3V/
-         2hYEHmZUreYZa+5QZEaMXKsJsbsj05CfCyHZy/39zTfN1wMi6WRq1x6y6QDL9ZckNrdp
-         qeDxlscafuonmkgtIORuhdQBYAGYE3fKIUX0oopAnAMLOchUiLc16eB1R/jmyUIxE5Z/
-         jBd1OIc8p2WG065iNEzhuHIZDlPme6US3t9hrURTySwPtfBzVmO1fnxqyVqzfQhlo70W
-         p4Rycv7fCzsNBmzO77wa7f761iwGYHSxniHH+3reRMjzv31w3Yz4ouNb/I6/Q9gO0y41
-         GtGQ==
-X-Gm-Message-State: AOJu0YxCvHiS1gooV5wyOkuMczizynEvGj16U5d5fG33ZqL/Cqe2Wn5G
-	lK38xj8v+llFsDnsb6XljZ5SZEl5Cj4KYbAPz2oARsZbryU38ieO3j+QotcMsPPrAcLJ2g5zYqZ
-	AcGXpSg==
-X-Gm-Gg: ASbGncubTE+dxNbdvr+uXLhkHOMpyj+4fkSgYcAnBZkudXuXiI+5mmxb2JxIDWAtMix
-	5r/nxpFogtRTAH1rbJEeskHLP6Wo2MxFMFIkREktXJE0gWweqC0VSgiBBMtpqi2xmE54QQOX9pL
-	aQSxjxhE+jaxaOJSn8fJcchoW9sZ2KU+S317R3KyutbwSrtC1AHBquvTSLZeAO95XxP/0QKLFMI
-	WNHNSEifA0m3eVHtTpnM8VelK/+3CfzZAwzUP3sT9uRL/akHvc9uEP7oF1e6g==
-X-Google-Smtp-Source: AGHT+IFpyYKuiVL5NbAKLI2ifsePSYAUGvl21jANUA+UTH3GPyBbIF7X8iDUcSfDCiueLjDGTxDNxw==
-X-Received: by 2002:a05:600c:5117:b0:434:fe62:28c1 with SMTP id 5b1f17b1804b1-436e26cfe5cmr127768285e9.18.1736948700035;
-        Wed, 15 Jan 2025 05:45:00 -0800 (PST)
-From: Bernhard Kaindl <bernhard.kaindl@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: Bernhard Kaindl <bernhard.kaindl@cloud.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH] Design docs: Fix some typos in the design docs
-Date: Wed, 15 Jan 2025 14:44:55 +0100
-Message-ID: <692dabc63953fb0d33536f87e4c5c147ba6ce11c.1736948633.git.bernhard.kaindl@cloud.com>
-X-Mailer: git-send-email 2.43.0
+X-Inumbo-ID: 0a21543e-d347-11ef-a0e1-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1736948753; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=RYyfSaVw6g5xMH+JMHghdrGYmdnvDx9Zhz3pv4DK3Xw=;
+	b=TFLFJF3XySI2ZDMNWqLtnYi9I2CkKelN5grA2a/4kQ0P1TqzT7tSXr4h7/8Ne+Qn4kV+7e
+	tAGkQWxCqwepai1cL8InSYizan9Cfu381FxyhQuTclpqleEGeeZqfcFFnvdBZ7J8flDV0C
+	llifefl5Ww7OTjsLlhec4er0F+GluGU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1736948753;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=RYyfSaVw6g5xMH+JMHghdrGYmdnvDx9Zhz3pv4DK3Xw=;
+	b=qSe023yuize08pZVM2Q7kCwRc6uXGuV4ZJmU+N6SFdTO1SX53lQO+DbJQKBt7UwMutw4m7
+	wijvbfZ3D9R6vCBA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=TFLFJF3X;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=qSe023yu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1736948753; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=RYyfSaVw6g5xMH+JMHghdrGYmdnvDx9Zhz3pv4DK3Xw=;
+	b=TFLFJF3XySI2ZDMNWqLtnYi9I2CkKelN5grA2a/4kQ0P1TqzT7tSXr4h7/8Ne+Qn4kV+7e
+	tAGkQWxCqwepai1cL8InSYizan9Cfu381FxyhQuTclpqleEGeeZqfcFFnvdBZ7J8flDV0C
+	llifefl5Ww7OTjsLlhec4er0F+GluGU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1736948753;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=RYyfSaVw6g5xMH+JMHghdrGYmdnvDx9Zhz3pv4DK3Xw=;
+	b=qSe023yuize08pZVM2Q7kCwRc6uXGuV4ZJmU+N6SFdTO1SX53lQO+DbJQKBt7UwMutw4m7
+	wijvbfZ3D9R6vCBA==
+Message-ID: <4af0b6a7-c16a-4187-bbf5-365a9c86de21@suse.de>
+Date: Wed, 15 Jan 2025 14:45:51 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 25/25] drm/xlnx: Compute dumb-buffer sizes with
+ drm_mode_size_dumb()
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Andy Yan <andyshrk@163.com>
+References: <20250109150310.219442-1-tzimmermann@suse.de>
+ <20250109150310.219442-26-tzimmermann@suse.de>
+ <cdbe483d-0895-47aa-8c83-1c28220f4a02@ideasonboard.com>
+ <bc97b92e-7f8a-4b92-af8a-20fa165ead55@suse.de>
+ <f3ba05c7-6e49-4641-a3f9-ba418ebdb7c3@ideasonboard.com>
+ <c6735280-7c32-4319-8ca9-a7305d8117c3@suse.de>
+ <d67adb03-5cd0-4ac9-af58-cf4446dacee3@ideasonboard.com>
+ <0ea6be58-0e04-4172-87cd-064a3e4a43bc@suse.de>
+ <f35cb350-6be9-48ca-ad7e-e9dd418281d5@ideasonboard.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <f35cb350-6be9-48ca-ad7e-e9dd418281d5@ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 49A6821249
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	URIBL_BLOCKED(0.00)[suse.de:dkim,suse.de:mid];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[21];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	FREEMAIL_TO(0.00)[ideasonboard.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_ENVRCPT(0.00)[163.com,gmail.com];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_CC(0.00)[lists.freedesktop.org,lists.infradead.org,vger.kernel.org,lists.linux.dev,lists.xenproject.org,ideasonboard.com,163.com];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -3.01
+X-Spam-Flag: NO
 
-Skimming through the design docs, I saw some typos that needed fixing.
+Hi
 
----
-Comments for reviewers (not for the commit message itself):
 
-Sample typos (some are not easy to spot):
-- heirarchical: (ei->ie)
-- implementaiton: (it->ti)
-- comprimised: (i->o)
-- contol->control (r)
+Am 15.01.25 um 14:33 schrieb Tomi Valkeinen:
+[...]
+>> Yeah, there are constrains in the scanline and buffer alignments and 
+>> orientation. And if we say that bpp==12 means NV12, it will be a 
+>> problem for all other cases where bpp==12 makes sense.
+>
+> I feel I still don't quite understand. Can't we define and document 
+> CREATE_DUMB like this:
+>
+> If (bpp < 8 || is_power_of_two(bpp))
+>     bpp means bitsperpixel
+>     pitch is args->width * args->bpp / 8, aligned up to 
+> driver-specific-align
+> else
+>     bpp is a legacy parameter, and we deal with it case by case.
+>     list the cases and what they mean
+>
+> And describe that when allocating subsampled buffers, the caller must 
+> adjust the width and height accordingly. And that the bpp and width 
+> can also refer to pixel groups.
+>
+> Or if the currently existing code prevents the above for 16 and 32 
+> bpps, how about defining that any non-RGB or not-simple buffer has to 
+> be allocated with bpp=8, and the userspace has to align the pitch 
+> correctly according to the format and platform's hw restrictions?
 
-PS: I did the fixes using LTeX in an IDE and re-checked the mail too.
+What if a hardware requires certain per-format alignments? Or requires 
+certain alignments for each plane? Or only supports tile modes? Or has 
+strict limits on the maximum buffer size?
 
-Signed-off-by: Bernhard Kaindl <bernhard.kaindl@cloud.com>
----
- docs/designs/argo.pandoc                |  4 ++--
- docs/designs/nested-svm-cpu-features.md | 12 ++++++------
- docs/designs/qemu-deprivilege.md        |  8 ++++----
- docs/designs/xenstore-migration.md      |  2 +-
- docs/features/qemu-deprivilege.pandoc   |  2 +-
- 5 files changed, 14 insertions(+), 14 deletions(-)
+It is not possible to encode all this in a simple 32-bit value. So 
+user-space code has to be aware of all this and tweak bpp-based 
+allocation to make it work. Obviously you can use the current UAPI for 
+your use case. It's just not optimal or future proof.
 
-diff --git a/docs/designs/argo.pandoc b/docs/designs/argo.pandoc
-index e18aacea7c..cd854d2a7a 100644
---- a/docs/designs/argo.pandoc
-+++ b/docs/designs/argo.pandoc
-@@ -58,7 +58,7 @@ concurrency.
- 
- Avoidance of deadlock is essential and since state must frequently be updated
- that pertains to more than one domain, a locking protocol defines which locks
--are needed and the order of their acquistion.
-+are needed and the order of their acquisition.
- 
- ## Structure
- 
-@@ -127,7 +127,7 @@ by the domain.
- 
- ## Hierarchical Locking Model and Protocol
- 
--The locking discipline within the Argo code is heirarchical and utilizes
-+The locking discipline within the Argo code is hierarchical and utilizes
- reader/writer locks to enable increased concurrency when operations do not
- conflict. None of the Argo locks are reentrant.
- 
-diff --git a/docs/designs/nested-svm-cpu-features.md b/docs/designs/nested-svm-cpu-features.md
-index 837a96df05..c855748141 100644
---- a/docs/designs/nested-svm-cpu-features.md
-+++ b/docs/designs/nested-svm-cpu-features.md
-@@ -22,7 +22,7 @@ leaf 8000000A:edx
-   from the L1 hypervisor's perspective to be as close as possible to
-   the original hardware.  In particular, the behavior of the hardware
-   on error paths 1) is not easy to understand or test, 2) can be the
--  source of surprising vulnerabiliies.  (See XSA-7 for an example of a
-+  source of surprising vulnerabilities.  (See XSA-7 for an example of a
-   case where subtle error-handling differences can open up a privilege
-   escalation.)  We should avoid emulating any bit of the hardware with
-   complex error paths if we can at all help it.
-@@ -59,11 +59,11 @@ leaf 8000000A:edx
- 
- - 2 `SVML` *SVM Lock*: Not required for L0, not provided to L1
- 
--  Seems to be aboult enabling an operating system to prevent "blue
-+  Seems to be about enabling an operating system to prevent "blue
-   pill" attacks against itself.
- 
-   Xen doesn't use it, nor provide it; so it would need to be
--  implementend.  The best way to protect a guest OS is to leave nested
-+  implemented.  The best way to protect a guest OS is to leave nested
-   virt disabled in the tools.
- 
- - 3 `NRIPS` NRIP Save: Require for both L0 and L1
-@@ -78,8 +78,8 @@ leaf 8000000A:edx
-   The main putative use for this would be trying to maintain an
-   invariant TSC across cores with different clock speeds, or after a
-   migrate.  Unlike others, this doesn't have an error path to worry
--  about compatibility-wise; and according to tests done when nestedSVM
--  was first implemented, it's actually faster to emliate TscRateMSR in
-+  about compatibility-wise; and according to tests done when nested SVM
-+  was first implemented, it's actually faster to emulate TscRateMSR in
-   the L0 hypervisor than for L1 to attempt to emulate it itself.
- 
-   However, using this properly in L0 will take some implementation
-@@ -89,7 +89,7 @@ leaf 8000000A:edx
-  - 5 `VmcbClean`: VMCB Clean Bits: Not required by L0, provide to L1
- 
-   This is a pure optimization, both on the side of the L0 and L1.  The
--  implementaiton for L1 is entirely Xen-side, so can be provided even
-+  implementation for L1 is entirely Xen-side, so can be provided even
-   on hardware that doesn't provide it.  And it's purely an
-   optimization, so could be "implemented" by ignoring the bits
-   entirely.
-diff --git a/docs/designs/qemu-deprivilege.md b/docs/designs/qemu-deprivilege.md
-index f12b1a3ae3..603491f24d 100644
---- a/docs/designs/qemu-deprivilege.md
-+++ b/docs/designs/qemu-deprivilege.md
-@@ -22,7 +22,7 @@ The following restrictions are currently implemented.
- '''Description''': As mentioned above, having QEMU switch to a
- non-root user, one per domain id.  Not being the root user limits what
- a compromised QEMU process can do to the system, and having one user
--per domain id limits what a comprimised QEMU process can do to the
-+per domain id limits what a compromised QEMU process can do to the
- QEMU processes of other VMs.
- 
- '''Implementation''': The toolstack adds the following to the qemu command-line:
-@@ -79,8 +79,8 @@ Then adds the following to the qemu command-line:
- ## Namespaces for unused functionality (Linux only)
- 
- '''Description''': QEMU doesn't use the functionality associated with
--mount and IPC namespaces. (IPC namespaces contol non-file-based IPC
--mechanisms within the kernel; unix and network sockets are not
-+mount and IPC namespaces. (IPC namespaces control non-file-based IPC
-+mechanisms within the kernel; Unix and network sockets are not
- affected by this.)  Making separate namespaces for these for QEMU
- won't affect normal operation, but it does mean that even if other
- restrictions fail, the process won't be able to even name system mount
-@@ -251,7 +251,7 @@ executing QEMU.  (But this would then require other changes to create
- the QMP socket, VNC socket, and so on).
- 
- It should be noted that `-sandbox` is implemented as a blacklist, not
--a whitelist; that is, it disables known-unsed functionality which may
-+a whitelist; that is, it disables known-unused functionality which may
- be harmful, rather than disabling all functionality except that known
- to be safe and needed.  This is unfortunately necessary since qemu
- doesn't know what system calls libraries might end up making.  (See
-diff --git a/docs/designs/xenstore-migration.md b/docs/designs/xenstore-migration.md
-index 5022268386..082314bf72 100644
---- a/docs/designs/xenstore-migration.md
-+++ b/docs/designs/xenstore-migration.md
-@@ -372,7 +372,7 @@ or modified by a transaction for which there is also a `TRANSACTION_DATA`
- record previously present).
- 
- Each _committed_ node in the stream is required to have an already known parent
--node. A parent node is known if it was either in the node data base before the
-+node. A parent node is known if it was either in the node database before the
- stream was started to be processed, or if a `NODE_DATA` record for that parent
- node has already been processed in the stream.
- 
-diff --git a/docs/features/qemu-deprivilege.pandoc b/docs/features/qemu-deprivilege.pandoc
-index 4ef119c821..915e38d8c9 100644
---- a/docs/features/qemu-deprivilege.pandoc
-+++ b/docs/features/qemu-deprivilege.pandoc
-@@ -25,7 +25,7 @@ dm_restrict is a set of operations to restrict QEMU running in domain
- 
-  1. Mechanisms to restrict QEMU to only being able to affect its own
- domain
-- 2. Mechanisms to restruct QEMU's ability to interact with domain 0.
-+ 2. Mechanisms to restrict QEMU's ability to interact with domain 0.
- 
- # User details
- 
+Best regards
+Thomas
+
+>
+>
+>  Tomi
+>
+
 -- 
-2.43.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstrasse 146, 90461 Nuernberg, Germany
+GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+HRB 36809 (AG Nuernberg)
 
 
