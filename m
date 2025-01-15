@@ -2,31 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 397F3A129D3
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jan 2025 18:26:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.872940.1283940 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3111A12A13
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jan 2025 18:42:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.872953.1283951 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tY79n-0006j7-Vi; Wed, 15 Jan 2025 17:26:19 +0000
+	id 1tY7Ot-0002So-8N; Wed, 15 Jan 2025 17:41:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 872940.1283940; Wed, 15 Jan 2025 17:26:19 +0000
+Received: by outflank-mailman (output) from mailman id 872953.1283951; Wed, 15 Jan 2025 17:41:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tY79n-0006h1-S6; Wed, 15 Jan 2025 17:26:19 +0000
-Received: by outflank-mailman (input) for mailman id 872940;
- Wed, 15 Jan 2025 17:26:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tY7Ot-0002Pv-4b; Wed, 15 Jan 2025 17:41:55 +0000
+Received: by outflank-mailman (input) for mailman id 872953;
+ Wed, 15 Jan 2025 17:41:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3mb0=UH=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1tY79n-0006gq-5m
- for xen-devel@lists.xenproject.org; Wed, 15 Jan 2025 17:26:19 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ce1e5407-d365-11ef-a0e1-8be0dac302b0;
- Wed, 15 Jan 2025 18:26:16 +0100 (CET)
-Received: by mx.zohomail.com with SMTPS id 1736961951913170.49136125974746;
- Wed, 15 Jan 2025 09:25:51 -0800 (PST)
+ <SRS0=Aa7S=UH=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1tY7Or-0002Pn-9p
+ for xen-devel@lists.xenproject.org; Wed, 15 Jan 2025 17:41:53 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ff46574f-d367-11ef-99a4-01e77a169b0f;
+ Wed, 15 Jan 2025 18:41:50 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 6037C8286736;
+ Wed, 15 Jan 2025 11:41:48 -0600 (CST)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id gny4TwPY2_Qb; Wed, 15 Jan 2025 11:41:47 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 898538286868;
+ Wed, 15 Jan 2025 11:41:47 -0600 (CST)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id qDxMNjvKEPwZ; Wed, 15 Jan 2025 11:41:47 -0600 (CST)
+Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id E2EAA8286736;
+ Wed, 15 Jan 2025 11:41:46 -0600 (CST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,81 +51,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ce1e5407-d365-11ef-a0e1-8be0dac302b0
-ARC-Seal: i=1; a=rsa-sha256; t=1736961955; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=JWo/AL4MILPlxOfA67ddLaVtzGN2xgxVdUqCzYBoK9eYpE65JiykH+/9DtPs67wFIykw3vFkjatLZhsFIkEWsPMvXtmet7jxr7wR7tVUxJNkZ0IMdzehL/WvIPy8bWz1vNvG26F2bRfp9+ioLIS4QBdN4j5vwME+FTECI83gZz8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1736961955; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=fy+DIUmUOKoZIHNqVEZaQ3xT6N2YzcU+DcPNi2zQD3E=; 
-	b=Ut/HneLEffkByqQx15V28BqBojGcNjs4NQLBy+GjsCwO8jVGIZAcFSti9EXxhysA98gcirZNB8JSd9T2OiwXGhnkMn6KeqIZnP3ftb3K7loJsojk8DAG8e2P3aqChua73D/YmsxyD0YKz3UOrQOnGrpdqYf6zn8jpbjvFhHF9b0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1736961955;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=fy+DIUmUOKoZIHNqVEZaQ3xT6N2YzcU+DcPNi2zQD3E=;
-	b=M73pzxBu7I5TtquNzxd9g2oPnwGGwqo/QO4IzVhnQTXi57f0X4FCTAUIaDg05QN2
-	0U5+iEtbouECMxRJMYFxWZCsAMt8zMSpqHgz4ruyPsBniD4sRWyi2aOPoKCwJsjkdAD
-	GnlYtkFSfBHH5L8MN35rRaeCO8hYaqTVnpUe6euY=
-Message-ID: <6e22a62a-cf33-4d44-b646-947bf8edab61@apertussolutions.com>
-Date: Wed, 15 Jan 2025 12:25:51 -0500
+X-Inumbo-ID: ff46574f-d367-11ef-99a4-01e77a169b0f
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 898538286868
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1736962907; bh=ByQYVunuVRpGxjkALScEYlY/PYEI+s0b6B6Z0C93INM=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=d1M1HBVb9X+EcHuvQ1BRNtm85ZKrp3SSy1Q6YYhEg1vU5L9NwMG4wcNeqB2uHGAFw
+	 tj3OZv6nOVPy0XZ2RiuJqbxIhkCrXgJmCeXfrvc/f9S8bCybFGnGJWf4RApwBZGmdW
+	 EZKqNrzuNnz1w2wNr7Hn3BmolkM5o9gcAn/mSFlU=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <502aafe5-1e92-4119-b5ff-c4402f2a0822@raptorengineering.com>
+Date: Wed, 15 Jan 2025 11:41:46 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/15] x86/hyperlaunch: introduce the domain builder
-To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
-Cc: christopher.w.clark@gmail.com, stefano.stabellini@amd.com,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20241226165740.29812-1-dpsmith@apertussolutions.com>
- <20241226165740.29812-7-dpsmith@apertussolutions.com>
- <c39d6c7b-0cd8-4b71-965f-1fd0d49b5221@amd.com>
+Subject: Re: [PATCH] xen/ppc: Fix double xen_ulong_t typedef in
+ public/arch-ppc.h
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20250115150339.53931-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <c39d6c7b-0cd8-4b71-965f-1fd0d49b5221@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+In-Reply-To: <20250115150339.53931-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-On 1/8/25 16:54, Jason Andryuk wrote:
-> On 2024-12-26 11:57, Daniel P. Smith wrote:
->> Introduce the domain builder which is capable of consuming a device 
->> tree as the
->> first boot module. If it finds a device tree as the first boot module, 
->> it will
->> set its type to BOOTMOD_FDT. This change only detects the boot module and
->> continues to boot with slight change to the boot convention that the dom0
->> kernel is no longer first boot module but is the second.
->>
->> No functional change intended.
->>
->> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+Hi Andrew,
+
+On 1/15/25 9:03 AM, Andrew Cooper wrote:
+> public/arch-ppc.h contains two adjacent #ifndef __ASSEMBLY__ blocks.
 > 
->> diff --git a/xen/arch/x86/domain-builder/Makefile b/xen/arch/x86/ 
->> domain-builder/Makefile
->> new file mode 100644
->> index 000000000000..309a0c4bdd9e
->> --- /dev/null
->> +++ b/xen/arch/x86/domain-builder/Makefile
->> @@ -0,0 +1,3 @@
->> +obj-$(CONFIG_DOMAIN_BUILDER) += fdt.init.o
->> +obj-y += core.init.o
->> +
+> With these merged, it becomes very obvious that there's a duplicate
+> definition of xen_ulong_t, which is also noticed by the docs build:
 > 
-> When I git am-ed this series, git warned:
-> Applying: x86/hyperlaunch: introduce the domain builder
-> .git/rebase-apply/patch:59: new blank line at EOF.
-> +
-> warning: 1 line adds whitespace errors.
+>   /usr/bin/perl -w /local/xen.git/docs/xen-headers -O html/hypercall/ppc \
+>           -T 'arch-ppc - Xen public headers' \
+>           -X arch-arm -X arch-riscv -X arch-x86_32 -X arch-x86_64 \
+>           -X xen-arm -X xen-riscv -X xen-x86_32 -X xen-x86_64 \
+>           -X arch-x86 \
+>           /local/xen.git/docs/../xen include/public include/xen/errno.h
+>   include/public/memory.h:63: multiple definitions of Typedef xen_ulong_t: include/public/arch-ppc.h:55
+>   include/public/memory.h:63: multiple definitions of Typedef xen_ulong_t: include/public/arch-ppc.h:61
+>   include/public/memory.h:63: multiple definitions of Typedef xen_ulong_t: include/public/arch-ppc.h:61
+>   include/public/memory.h:63: multiple definitions of Typedef xen_ulong_t: include/public/arch-ppc.h:55
 > 
-> I think that is here.
+> Drop the second typedef.  Finally, annotate the #endif so it's clear
+> what it refers to.
+> 
+> Fixes: 08c192cc1127 ("xen/ppc: Add public/arch-ppc.h")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Ack.
+Reviewed-by: Shawn Anastasio <sanastasio@raptorengineering.com>
 
-v/r,
-dps
-
+Thanks,
+Shawn
 
