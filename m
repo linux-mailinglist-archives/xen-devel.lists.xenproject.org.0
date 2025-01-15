@@ -2,44 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98221A123D0
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jan 2025 13:34:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.872474.1283443 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14048A123F8
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jan 2025 13:47:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.872487.1283453 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tY2bC-00026U-81; Wed, 15 Jan 2025 12:34:18 +0000
+	id 1tY2ng-0004Wa-DE; Wed, 15 Jan 2025 12:47:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 872474.1283443; Wed, 15 Jan 2025 12:34:18 +0000
+Received: by outflank-mailman (output) from mailman id 872487.1283453; Wed, 15 Jan 2025 12:47:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tY2bC-00023X-48; Wed, 15 Jan 2025 12:34:18 +0000
-Received: by outflank-mailman (input) for mailman id 872474;
- Wed, 15 Jan 2025 12:34:15 +0000
+	id 1tY2ng-0004V0-9W; Wed, 15 Jan 2025 12:47:12 +0000
+Received: by outflank-mailman (input) for mailman id 872487;
+ Wed, 15 Jan 2025 12:47:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AzvQ=UH=suse.de=tzimmermann@srs-se1.protection.inumbo.net>)
- id 1tY2b9-00023R-M6
- for xen-devel@lists.xenproject.org; Wed, 15 Jan 2025 12:34:15 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ <SRS0=4o+i=UH=cloud.com=bernhard.kaindl@srs-se1.protection.inumbo.net>)
+ id 1tY2ne-0004Uu-Qb
+ for xen-devel@lists.xenproject.org; Wed, 15 Jan 2025 12:47:10 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 06ec4f89-d33d-11ef-99a4-01e77a169b0f;
- Wed, 15 Jan 2025 13:34:13 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 0911921268;
- Wed, 15 Jan 2025 12:34:13 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 767F4139CB;
- Wed, 15 Jan 2025 12:34:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id E28IG0Srh2cCTwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 15 Jan 2025 12:34:12 +0000
+ id d4ffdf7f-d33e-11ef-99a4-01e77a169b0f;
+ Wed, 15 Jan 2025 13:47:08 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-386329da1d9so3412982f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Jan 2025 04:47:08 -0800 (PST)
+Received: from localhost ([185.68.248.203]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38a8e38f0eesm17806171f8f.61.2025.01.15.04.47.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Jan 2025 04:47:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,233 +44,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 06ec4f89-d33d-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1736944453; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=6rF2/Nds9jaSABjY+tPpNsWja3s7il8oCoGTgAQg7zI=;
-	b=fgWXXkrFkmGejWhD5fjTSv1Ssa3J0/Rq3i+ng8TxEKD1eRYuiFNmbUfuajMGofr3s/t2eZ
-	KUgh6Bm/awPn8TV8uJkhGaXDHQR6CWgT/hcaXY1q2efHMbV/wmhjhMEy29fROVqCvSDkdz
-	6tQTVjC5fOWCKOgJQRgT1JzzUj6MBJw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1736944453;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=6rF2/Nds9jaSABjY+tPpNsWja3s7il8oCoGTgAQg7zI=;
-	b=y94aRJ3hTl+xAqZyjbuOx6P3Fm9fL5u2Qm278Eu98uKnVjQZVMuFhA5M1heZuojCir6spI
-	Y/ZF6lkgng5FbRAA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1736944453; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=6rF2/Nds9jaSABjY+tPpNsWja3s7il8oCoGTgAQg7zI=;
-	b=fgWXXkrFkmGejWhD5fjTSv1Ssa3J0/Rq3i+ng8TxEKD1eRYuiFNmbUfuajMGofr3s/t2eZ
-	KUgh6Bm/awPn8TV8uJkhGaXDHQR6CWgT/hcaXY1q2efHMbV/wmhjhMEy29fROVqCvSDkdz
-	6tQTVjC5fOWCKOgJQRgT1JzzUj6MBJw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1736944453;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=6rF2/Nds9jaSABjY+tPpNsWja3s7il8oCoGTgAQg7zI=;
-	b=y94aRJ3hTl+xAqZyjbuOx6P3Fm9fL5u2Qm278Eu98uKnVjQZVMuFhA5M1heZuojCir6spI
-	Y/ZF6lkgng5FbRAA==
-Message-ID: <0ea6be58-0e04-4172-87cd-064a3e4a43bc@suse.de>
-Date: Wed, 15 Jan 2025 13:34:12 +0100
+X-Inumbo-ID: d4ffdf7f-d33e-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1736945228; x=1737550028; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=yiLnvDkMCVfk/JEHp3old2hwqfuuFu8S2Iv1v5+6Iyc=;
+        b=IRsNbVaBzkYtpxc/fyHdzQf8Wa6ZeBOZoefBIR7HvUFEm3vGIqh4aNEQpf1LRZht8x
+         Pd1KQxXiKeTnlK5iKsHbBILTjcbKSbz5nPUHHJWKNi9njCsfMNqcN8UQXfShKLmCCvcI
+         9kYYRB17PdZVlJ10gmV4fO7QMxxyM2VhUx7OQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1736945228; x=1737550028;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=yiLnvDkMCVfk/JEHp3old2hwqfuuFu8S2Iv1v5+6Iyc=;
+        b=lDqghvliz1cPgVK+woMHTTIeWMxJ+s+beeesZuTHJ65rkbcTeMks6ZHfP+j/T+hOSe
+         5IIsx1BRqplowcsmO9p0RGMb+jdUhq4gZaSyACN56l8Zu8k6gfJDsFWO13FcH4MFSzRN
+         T9uE+lcnj5GHGdsZLs9a6mfxDc3KRhW5p11SUM2ckd9gnCU3rIm5aLelLsGKqf8OgVN2
+         yAoMrncbMSoab6GsAp704f+Eylx7zSVM/bVkgcgl2Oc6FRLGsq1zwNMGkHIVC7Bp2zxA
+         327xb5Dn2z46ReyrX9AgO73BNYcdOgYvV+A6DA4HV0OT7j48D8vZg3PF1i93hraM+Ko4
+         BItQ==
+X-Gm-Message-State: AOJu0YxgBGjsBNgDbWLEBcYjt32nsjOpUGdgAxPtnW8B0qFPGXAaW0p0
+	pNa+W9ipeJ3WYVcvEohnuIb96Kvr4tq7xBl+ku6OMEHKhofKstBrWX1PKe5tC2w7R9xP3miRzt6
+	7leB8ow==
+X-Gm-Gg: ASbGnctrLGSbp6Qy6wwSR9z/ZATRiOkrp0glXqXFwkcB50LaLHKaORz5FYPIfZWi1jJ
+	UPWJdOj75g/6jOAwhIU+tkWXU+Qlks2ZocWST1UO2Sy8evLpgjHQsomgegCoKCvrft5BbGkwhGM
+	Rj++FPF4IQdbRLsdzb/eHedZuJ6Dhqx1yWc+iVyBHOQm5rn4ff+bhtxiXIwo+bGcCC2rXHg6J8E
+	k1aqOp5hGgB1IoAxXcdslKoIrlrSLObNfRw942l9Lxzvwr7Vg3+pBwVoT31XA==
+X-Google-Smtp-Source: AGHT+IFNMgxpjui+KOK88z2kypCOVXsvoA2X64Fs5IdKU/ikFNnFWgJ5ZLmYdG2VgLhUOxm12r2KUQ==
+X-Received: by 2002:a5d:6c68:0:b0:38a:82a3:395f with SMTP id ffacd0b85a97d-38a872c93f9mr20693302f8f.9.1736945228032;
+        Wed, 15 Jan 2025 04:47:08 -0800 (PST)
+From: Bernhard Kaindl <bernhard.kaindl@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: Bernhard Kaindl <bernhard.kaindl@cloud.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Ross Lagerwall <ross.lagerwall@citrix.com>
+Subject: [PATCH v2] docs: Improve spelling of few cases in the documentation
+Date: Wed, 15 Jan 2025 13:47:02 +0100
+Message-ID: <2c20751e64552ec69686aa26304710bce975bca5.1736945126.git.bernhard.kaindl@cloud.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 25/25] drm/xlnx: Compute dumb-buffer sizes with
- drm_mode_size_dumb()
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Andy Yan <andyshrk@163.com>
-References: <20250109150310.219442-1-tzimmermann@suse.de>
- <20250109150310.219442-26-tzimmermann@suse.de>
- <cdbe483d-0895-47aa-8c83-1c28220f4a02@ideasonboard.com>
- <bc97b92e-7f8a-4b92-af8a-20fa165ead55@suse.de>
- <f3ba05c7-6e49-4641-a3f9-ba418ebdb7c3@ideasonboard.com>
- <c6735280-7c32-4319-8ca9-a7305d8117c3@suse.de>
- <d67adb03-5cd0-4ac9-af58-cf4446dacee3@ideasonboard.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <d67adb03-5cd0-4ac9-af58-cf4446dacee3@ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spam-Score: -2.80
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_TO(0.00)[ideasonboard.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
-	RCPT_COUNT_TWELVE(0.00)[21];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[163.com,gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[lists.freedesktop.org,lists.infradead.org,vger.kernel.org,lists.linux.dev,lists.xenproject.org,ideasonboard.com,163.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
-X-Spam-Flag: NO
-X-Spam-Level: 
 
-Hi
+Skimming the docs, I came across a few places for spelling improvements.
 
+Signed-off-by: Bernhard Kaindl <bernhard.kaindl@cloud.com>
+---
+Changes in v2:
+- Apply review of v1: Leave "brand new" and omit changes that Andy will do.
+- "binary-patch" -> "binary patch" ("binarily patch" is okay but uncommon)
+---
+ docs/designs/non-cooperative-migration.md | 4 ++--
+ docs/designs/qemu-deprivilege.md          | 2 +-
+ docs/guest-guide/x86/hypercall-abi.rst    | 2 +-
+ docs/man/xl.conf.5.pod.in                 | 2 +-
+ docs/misc/livepatch.pandoc                | 2 +-
+ 5 files changed, 6 insertions(+), 6 deletions(-)
 
-Am 15.01.25 um 13:06 schrieb Tomi Valkeinen:
-> Hi,
->
-> On 15/01/2025 13:37, Thomas Zimmermann wrote:
->> Hi
->>
->>
->> Am 15.01.25 um 11:58 schrieb Tomi Valkeinen:
->> [...]
->>>> These are all good points. Did you read my discussion with Andy on 
->>>> patch 2? I think it resolves all the points you have. The current 
->>>> CREATE_DUMB 
->>>
->>> I had missed the discussion, and, indeed, the patch you attached 
->>> fixes the problem on Xilinx.
->>
->> Great. Thanks for testing.
->>
->>>
->>>> ioctl is unsuited for anything but the simple RGB formats. The bpp 
->>>
->>> It's a bit difficult to use, but is it really unsuited? 
->>> bitsperpixel, width and height do give an exact pitch and size, do 
->>> they not? It does require the userspace to handle the subsampling 
->>> and planes, though, so far from perfect.
->>
->> The bpp value sets the number of bits per pixel; except for bpp==15 
->> (XRGB1555), where it sets the color depth. OR bpp is the color depth; 
->> except for bpp==32 (XRGB8888), where it is the number of bits per 
->> pixel. It's therefore best to interpret it like a color-mode enum.
->
-> Ah, right... That's horrible =).
->
-> And I assume it's not really possible to define the bpp to mean bits 
-> per pixel, except for a few special cases like 15?
->
-> Why do we even really care about color depth here? We're just 
-> allocating memory. Doesn't DIV_ROUND_UP(args->bpp, SZ_8) work fine for 
-> XRGB1555 too?
-
-Drivers always did that, but it does not work correctly for (bpp < 8). 
-As we already have helpers to deal with bpp, it makes sense to use 
-them.  This also aligns dumb buffers with the kernel's video= parameter, 
-which as the same odd semantics. The fallback that uses bpp directly 
-will hopefully be the exception.
-
->
->>> So, I'm all for a new ioctl, but I don't right away see why the 
->>> current ioctl couldn't be used. Which makes me wonder about the 
->>> drm_warn() in your patch, and the "userspace throws in arbitrary 
->>> values for bpp and relies on the kernel to figure it out". Maybe I'm 
->>> missing something here.
->>
->> I was unsure about the drm_warn() as well. It's not really wrong to 
->> have odd bpp values, but handing in an unknown bpp value might point 
->> to a user-space error. At least there should be a drm_dbg().
->>
->>>
->>>> parameter is not very precise. The solution would be a new ioctl 
->>>> call that receives the DRM format and returns a buffer for each 
->>>> individual plane.
->>>
->>> Yes, I think that makes sense. That's a long road, though =). So my 
->>> question is, is CREATE_DUMB really unsuitable for other than simple 
->>> RGB formats, or can it be suitable if we just define how the 
->>> userspace should use it for multiplanar, subsampled formats?
->>
->> That would duplicate format and hardware information in user-space. Some 
->
-> But we already have that, don't we? We have drivers and userspace that 
-> support, say, NV12 via dumb buffers. But (correct me if I'm wrong) we 
-> don't document how CREATE_DUMB has to be used to allocate multiplanar 
-> subsampled buffers, so the userspace devs have to "guess".
-
-Yeah, there are constrains in the scanline and buffer alignments and 
-orientation. And if we say that bpp==12 means NV12, it will be a problem 
-for all other cases where bpp==12 makes sense.
-
-Best regards
-Thomas
-
->
->> hardware might have odd per-plane limitations that only the driver 
->> knows about. For example, there's another discussion on dri-devel 
->> about pitch- alignment requirements of DRM_FORMAT_MOD_LINEAR on 
->> various hardware. That affects dumb buffers as well. I don't think 
->> that there's an immediate need for a CREATE_DUMB2, but it seems worth 
->> to keep in mind.
->
-> Yes, the current CREATE_DUMB can't cover all the hardware. We do need 
-> CREATE_DUMB2, sooner or later. I just hope we can define and document 
-> a set of rules that allows using CREATE_DUMB for the cases where it 
-> sensibly works (and is already being used).
->
->  Tomi
->
-
+diff --git a/docs/designs/non-cooperative-migration.md b/docs/designs/non-cooperative-migration.md
+index 4b876d809f..54496892ed 100644
+--- a/docs/designs/non-cooperative-migration.md
++++ b/docs/designs/non-cooperative-migration.md
+@@ -112,7 +112,7 @@ because the guest can sample its own domid from the frontend area and use
+ it in hypercalls (e.g. HVMOP_set_param) rather than DOMID_SELF, the guest
+ domid must also be preserved to maintain the ABI.
+ 
+-Furthermore, it will necessary to modify backend drivers to re-establish
++Furthermore, it will be necessary to modify backend drivers to re-establish
+ communication with frontend drivers without perturbing the content of the
+ backend area or requiring any changes to the values of the xenstore state
+ nodes.
+@@ -259,7 +259,7 @@ Essentially this should skip the check to see if PV drivers and migrate as
+ if there are none present, but also enabling the extra save records. Note
+ that at least some of the extra records should only form part of a
+ non-cooperative migration stream. For example, migrating event channel
+-state would be counter productive in a normal migration as this will
++state would be counter-productive in a normal migration as this will
+ essentially leak event channel objects at the receiving end. Others, such
+ as grant table state, could potentially harmlessly form part of a normal
+ migration stream.
+diff --git a/docs/designs/qemu-deprivilege.md b/docs/designs/qemu-deprivilege.md
+index 81a5f5c05d..f12b1a3ae3 100644
+--- a/docs/designs/qemu-deprivilege.md
++++ b/docs/designs/qemu-deprivilege.md
+@@ -3,7 +3,7 @@
+ The goal of deprilvileging qemu is this: Even if there is a bug (for
+ example in qemu) which permits a domain to gain control of the device
+ model, the compromised device model process is prevented from
+-violating the system's overall security properties.  Ie, a guest
++violating the system's overall security properties.  I.e., a guest
+ cannot "escape" from the virtualisation by using a qemu bug.
+ 
+ This document lists the various technical measures which we either
+diff --git a/docs/guest-guide/x86/hypercall-abi.rst b/docs/guest-guide/x86/hypercall-abi.rst
+index 745fbbb64a..e52ed453bc 100644
+--- a/docs/guest-guide/x86/hypercall-abi.rst
++++ b/docs/guest-guide/x86/hypercall-abi.rst
+@@ -109,7 +109,7 @@ abstracting away the details of how it is currently running.
+ Creating Hypercall Pages
+ ------------------------
+ 
+-Guests which are started using the PV boot protocol may set set
++Guests which are started using the PV boot protocol may set
+ ``XEN_ELFNOTE_HYPERCALL_PAGE`` to have the nominated page written as a
+ hypercall page during construction.  This mechanism is common for PV guests,
+ and allows hypercalls to be issued with no additional setup.
+diff --git a/docs/man/xl.conf.5.pod.in b/docs/man/xl.conf.5.pod.in
+index 44738b80bf..0cfec8587c 100644
+--- a/docs/man/xl.conf.5.pod.in
++++ b/docs/man/xl.conf.5.pod.in
+@@ -4,7 +4,7 @@
+ 
+ =head1 DESCRIPTION
+ 
+-The F<xl.conf> file allows configuration of hostwide C<xl> toolstack
++The F<xl.conf> file allows configuration of host-wide C<xl> toolstack
+ options.
+ 
+ For details of per-domain configuration options please see
+diff --git a/docs/misc/livepatch.pandoc b/docs/misc/livepatch.pandoc
+index a94fb57eb5..4a0b4fd6d8 100644
+--- a/docs/misc/livepatch.pandoc
++++ b/docs/misc/livepatch.pandoc
+@@ -2,7 +2,7 @@
+ 
+ ## Rationale
+ 
+-A mechanism is required to binarily patch the running hypervisor with new
++A mechanism is required to binary patch the running hypervisor with new
+ opcodes that have come about due to primarily security updates.
+ 
+ This document describes the design of the API that would allow us to
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstrasse 146, 90461 Nuernberg, Germany
-GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-HRB 36809 (AG Nuernberg)
+2.43.0
 
 
