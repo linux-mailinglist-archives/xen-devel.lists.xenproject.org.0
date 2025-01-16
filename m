@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C72EEA13863
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Jan 2025 11:58:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.873495.1284472 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B43C7A138A3
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Jan 2025 12:16:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.873507.1284481 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tYNZq-00027r-Um; Thu, 16 Jan 2025 10:58:18 +0000
+	id 1tYNqR-00066w-Cm; Thu, 16 Jan 2025 11:15:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 873495.1284472; Thu, 16 Jan 2025 10:58:18 +0000
+Received: by outflank-mailman (output) from mailman id 873507.1284481; Thu, 16 Jan 2025 11:15:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tYNZq-00024x-Rh; Thu, 16 Jan 2025 10:58:18 +0000
-Received: by outflank-mailman (input) for mailman id 873495;
- Thu, 16 Jan 2025 10:58:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tYNqR-00065E-9u; Thu, 16 Jan 2025 11:15:27 +0000
+Received: by outflank-mailman (input) for mailman id 873507;
+ Thu, 16 Jan 2025 11:15:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=EPy+=UI=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tYNZq-00024r-7i
- for xen-devel@lists.xenproject.org; Thu, 16 Jan 2025 10:58:18 +0000
-Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
- [2a00:1450:4864:20::542])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c9cae44e-d3f8-11ef-a0e2-8be0dac302b0;
- Thu, 16 Jan 2025 11:58:16 +0100 (CET)
-Received: by mail-ed1-x542.google.com with SMTP id
- 4fb4d7f45d1cf-5d0ac27b412so1077682a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 16 Jan 2025 02:58:16 -0800 (PST)
+ id 1tYNqQ-000658-CB
+ for xen-devel@lists.xenproject.org; Thu, 16 Jan 2025 11:15:26 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2df7c12e-d3fb-11ef-99a4-01e77a169b0f;
+ Thu, 16 Jan 2025 12:15:23 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-aa67ac42819so124299066b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Jan 2025 03:15:24 -0800 (PST)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab2c905ecb7sm890094966b.26.2025.01.16.02.58.10
+ a640c23a62f3a-ab2c964dc9dsm905289366b.178.2025.01.16.03.15.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Jan 2025 02:58:11 -0800 (PST)
+ Thu, 16 Jan 2025 03:15:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c9cae44e-d3f8-11ef-a0e2-8be0dac302b0
+X-Inumbo-ID: 2df7c12e-d3fb-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1737025096; x=1737629896; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1737026124; x=1737630924; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=j/pgzfJHVhqJBf5aofeh4mqtiSZ1isoUvxZ/YYTT6lc=;
-        b=gEF/SVOdaR6Wxsa4IwoLd4a8Zt4Hx55nM4DulpZYyXtrACXZUZRLxZIeRF/Xfe1UXZ
-         /Ebfskr4yuAnOf6awHu5oE9QX2qfCQCBwMVbYV2Ixc779MmBsbtZ9OJ3JnbLvIigQd7I
-         01qKQ9SlCWNBoNzvKnpThdFMcTqi5mbO5XzZw=
+        bh=EIJCpZvmy9qhj+WPYC6fYDDcHO0Q7EQf/pdc0RFqvAc=;
+        b=d2cY2cpe+HqjqnLEWztNJoC5b3muowxloYE+efWLWny4T4Gscj+vcC51IZoth5uJi/
+         KT7qfM7lkYjKNoQGkPpQzzdkV4BhP7pBT3IRuFra4PX5yO/0cDv2lU1fBqBUu9tiAKel
+         TN5A8I2/RiB0x5Gjl3a+nD38Hj0y1durIuIS4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737025096; x=1737629896;
+        d=1e100.net; s=20230601; t=1737026124; x=1737630924;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=j/pgzfJHVhqJBf5aofeh4mqtiSZ1isoUvxZ/YYTT6lc=;
-        b=GSxaqWfMLjkM+esgvGMbnM/vG9KbPrMTS+Cmw0Z1Bj/amcQGJd9QC1qSRUTXHCidRw
-         xbbgvhFTUO0gmRw4HmDJRT7HYyA3ZI1VTpqYUpP+70OrvA+EKxHFSMjP840dQe88EjFB
-         +g7IfiKPlIJRiazO/RaAlQU7ApO+iWNzZZuNHizEwzVzj5Uk2WiKC/9wFRg0pZRWR505
-         rs/zLJQjuMUw9kaA5Se30dlxpy42m1MFxiyleuLI8PMWUGi9MWAmUmwETrdVCIhr1GxL
-         msWykQ4IQwjYa+Ij6yq4Mq5/mqNCB2D4tZvsWQ3dVFHZABeSv+tKTZrJpN/TDMDjL7KT
-         djpg==
-X-Forwarded-Encrypted: i=1; AJvYcCUF2TZqzOrafiy8PZZ1FzlLO1oXck39/IrqESQpkqkxIxij98USDpTD6kItfiY1cXoVj9tQIInoMSE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyq3AsZrNRK8pr3VerVcWp+A2siFTN3jDCN/6yBIiaF++yCierQ
-	QyjzxEHASQRGj7NyWIpsJy98I9eUzZBLvSzWMpJdzn6z2STnrmExfh87BS7NPDs=
-X-Gm-Gg: ASbGncsUeCacOsmrGoK4n0GKEGozA8c158nJYF6xQIy3k87XTVFuav6IbPxa9OwBrK3
-	3coHfzHrHC4RRvDEyw6VnQ9d1jaW8Y92j247U8XdRLyn6lHiAaF1MA0fgVZ7JJxCdDpe43+Q8s5
-	6NB17k9bv25P/U5sOFHLMpRrCP1cu+lTTuK7pAurpMcoIPouifvc04KTwBfR5hzlc6EiA436/oS
-	IHUmqD6KrXg/IMRbzbStOKVJum+c0cEFU6NJL4IJSO0+UYPDIU50boNZc8wbarVDSAMfMS9ET2U
-	uEmkxC/ulasPbrDlsgPP
-X-Google-Smtp-Source: AGHT+IFdBuErmaLQh8qzDSGRNJz+uya9Gtzcme2EUce3xUtYu2KkkyU4wRqy+MrU90COYD0GwDZXzw==
-X-Received: by 2002:a17:907:86a9:b0:aa6:c266:97cc with SMTP id a640c23a62f3a-ab2ab70b006mr2675266466b.23.1737025091425;
-        Thu, 16 Jan 2025 02:58:11 -0800 (PST)
-Message-ID: <ad8a8314-5cd0-4792-93ec-a530396ba3af@citrix.com>
-Date: Thu, 16 Jan 2025 10:58:10 +0000
+        bh=EIJCpZvmy9qhj+WPYC6fYDDcHO0Q7EQf/pdc0RFqvAc=;
+        b=mKu0441zDsvZT1ecm/YPIAOJ7qFNuR7SQ33wlIrb1mR9pY6aSMuEvR6Yoc6H/0ux6p
+         DF467F3qCp/jH8k/I2gv8kV7c5tyZ2ZfxcDZzsW0I2RA8WJESjG8OwxCC7HWeO2XvCJ/
+         Ccz+JYxfBUFGL2PIBMEZ6bFwgRCvODXUqIMh5RntnK5Tap1x/B0mxXKlF04xquHjfpS6
+         c3gQIYR87FCSnIXs43i/lzUW+hv4V3Y4J35Qu1JpXZFMkIdYMxts597IvGepbl+wu1qT
+         j/BYSd9erZNRqv8pnWDtcDzlb/UHyPcb0cFbVS2nrmDmEy7qwI3Hm/Lfz7m+ZA5hnlK0
+         OG7g==
+X-Forwarded-Encrypted: i=1; AJvYcCU3WOE7ac77wAHxKko+MeKhtlhskjN5ILvY2Qk32NCw8wxyPKCQes8CUhADyh92/hG7io6k/9MqgaA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwHIOFK0AnEWwpsbHJWqD6XLOe40AEnGDAwzW4OTynRggfJZK36
+	dxlmOKI400keqaM7U6KSzUxeSaaDTCAW87cx5aY8/N7S3J4MObtWVJWNC1B4dSw=
+X-Gm-Gg: ASbGncvtmD9GNtL7U5mlqX3ZnK8rk+9xCwnzbR787CDaYhwHd6ZBel6D3twsn3KGWOi
+	FWxJOThDNVkl6Rg745kZ9HPrPhdU/wfI0ZbQsW+3C+kqyLqWaIQX6btOjGEB74m3o0w4ziihDrq
+	yU6J1OTYg9pFdxlxlLVgFz/hp88Hg9kYHgDJb6N8CvMJFAnehw7GppWYZIyjoFnS8uH6w2chemP
+	VdMH64GsgPuB4NMQq1TxJZKBqbt+c5dgFdI6XTHcVl+YmviRCCSdsZ2+c4ePxm+ggRPQQYtiYwS
+	HXJqhgx/dp37NPGwGktj
+X-Google-Smtp-Source: AGHT+IHt0viWcS5QE8Ze3REHOvKTPimZtNsvbQZecxxqzgZDCNvsih5u+OhVEAjcCXU18JRXhZEPaw==
+X-Received: by 2002:a17:907:1c2a:b0:ab3:3eea:1ccc with SMTP id a640c23a62f3a-ab33eea225cmr959005666b.27.1737026123658;
+        Thu, 16 Jan 2025 03:15:23 -0800 (PST)
+Message-ID: <d389734e-216f-4c03-9932-b30a8b536183@citrix.com>
+Date: Thu, 16 Jan 2025 11:15:22 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Design docs: Fix some typos in the design docs
+Subject: Re: [PATCH] docs/misc: Fix a few typos
 To: Bernhard Kaindl <bernhard.kaindl@cloud.com>,
  xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-References: <692dabc63953fb0d33536f87e4c5c147ba6ce11c.1736948633.git.bernhard.kaindl@cloud.com>
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+References: <5ab7cdad0c275dc2de900568ae3105be60f32db5.1736953714.git.bernhard.kaindl@cloud.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -136,61 +137,37 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <692dabc63953fb0d33536f87e4c5c147ba6ce11c.1736948633.git.bernhard.kaindl@cloud.com>
+In-Reply-To: <5ab7cdad0c275dc2de900568ae3105be60f32db5.1736953714.git.bernhard.kaindl@cloud.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 15/01/2025 1:44 pm, Bernhard Kaindl wrote:
-> diff --git a/docs/designs/argo.pandoc b/docs/designs/argo.pandoc
-> index e18aacea7c..cd854d2a7a 100644
-> --- a/docs/designs/argo.pandoc
-> +++ b/docs/designs/argo.pandoc
-> @@ -127,7 +127,7 @@ by the domain.
->  
->  ## Hierarchical Locking Model and Protocol
->  
-> -The locking discipline within the Argo code is heirarchical and utilizes
-> +The locking discipline within the Argo code is hierarchical and utilizes
->  reader/writer locks to enable increased concurrency when operations do not
->  conflict. None of the Argo locks are reentrant.
->  
+On 15/01/2025 3:09 pm, Bernhard Kaindl wrote:
+> While skimming through the misc docs, I spotted a few typos.
+>
+> Signed-off-by: Bernhard Kaindl <bernhard.kaindl@cloud.com>
+> ---
+>  docs/misc/livepatch.pandoc            |  8 ++++----
 
-In addition, focusses -> focuses needed in another hunk here.
+specifc -> specific
+perfomed -> performed
+randezvous -> rendezvous
+seperate -> separate (multiple)
+hypevisor -> hypervisor (multiple)
+indepedently -> independently
+containst -> contains
+stricts -> strict
+accomodate -> accommodate
 
-> diff --git a/docs/designs/nested-svm-cpu-features.md b/docs/designs/nested-svm-cpu-features.md
-> index 837a96df05..c855748141 100644
-> --- a/docs/designs/nested-svm-cpu-features.md
-> +++ b/docs/designs/nested-svm-cpu-features.md
-> @@ -89,7 +89,7 @@ leaf 8000000A:edx
->   - 5 `VmcbClean`: VMCB Clean Bits: Not required by L0, provide to L1
->  
->    This is a pure optimization, both on the side of the L0 and L1.  The
-> -  implementaiton for L1 is entirely Xen-side, so can be provided even
-> +  implementation for L1 is entirely Xen-side, so can be provided even
->    on hardware that doesn't provide it.  And it's purely an
->    optimization, so could be "implemented" by ignoring the bits
->    entirely.
+Also, something a bit more complicated, "quiescing zone" -> "quiescent
+zone".  ("quiesced zone" would also do, but quiescent if the proper term.)
 
-Also reson -> reason in another hunk here.
+>  docs/misc/netif-staging-grants.pandoc | 10 +++++-----
 
+hackaton -> hackathon
+emcompasses -> encompasses
+accomodates -> accommodates
+underying -> underlying
+successfull -> successful
 
-> diff --git a/docs/designs/qemu-deprivilege.md b/docs/designs/qemu-deprivilege.md
-> index f12b1a3ae3..603491f24d 100644
-> --- a/docs/designs/qemu-deprivilege.md
-> +++ b/docs/designs/qemu-deprivilege.md
-> @@ -251,7 +251,7 @@ executing QEMU.  (But this would then require other changes to create
->  the QMP socket, VNC socket, and so on).
->  
->  It should be noted that `-sandbox` is implemented as a blacklist, not
-> -a whitelist; that is, it disables known-unsed functionality which may
-> +a whitelist; that is, it disables known-unused functionality which may
->  be harmful, rather than disabling all functionality except that known
->  to be safe and needed.  This is unfortunately necessary since qemu
->  doesn't know what system calls libraries might end up making.  (See
-
-Also assymetry -> asymmetry and constrants -> constraints.
-
-I've folded these in.
-
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+~Andrew
 
