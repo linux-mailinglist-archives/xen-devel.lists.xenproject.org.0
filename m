@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52065A135AE
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Jan 2025 09:44:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.873234.1284179 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70C86A135B3
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Jan 2025 09:44:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.873238.1284209 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tYLTk-0004Ep-6a; Thu, 16 Jan 2025 08:43:52 +0000
+	id 1tYLTl-0004kg-P4; Thu, 16 Jan 2025 08:43:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 873234.1284179; Thu, 16 Jan 2025 08:43:52 +0000
+Received: by outflank-mailman (output) from mailman id 873238.1284209; Thu, 16 Jan 2025 08:43:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tYLTk-0004Bw-2i; Thu, 16 Jan 2025 08:43:52 +0000
-Received: by outflank-mailman (input) for mailman id 873234;
- Thu, 16 Jan 2025 08:43:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tYLTl-0004ds-IW; Thu, 16 Jan 2025 08:43:53 +0000
+Received: by outflank-mailman (input) for mailman id 873238;
+ Thu, 16 Jan 2025 08:43:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8jK+=UI=casper.srs.infradead.org=BATV+cabf69696ff47aa9dee2+7816+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1tYLTg-0004BI-S8
- for xen-devel@lists.xenproject.org; Thu, 16 Jan 2025 08:43:50 +0000
+ id 1tYLTj-0004BJ-7j
+ for xen-devel@lists.xenproject.org; Thu, 16 Jan 2025 08:43:51 +0000
 Received: from casper.infradead.org (casper.infradead.org
  [2001:8b0:10b:1236::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ff9e2857-d3e5-11ef-a0e2-8be0dac302b0;
- Thu, 16 Jan 2025 09:43:46 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ff78101a-d3e5-11ef-99a4-01e77a169b0f;
+ Thu, 16 Jan 2025 09:43:47 +0100 (CET)
 Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
  by casper.infradead.org with esmtpsa (Exim 4.98 #2 (Red Hat Linux))
- id 1tYLTc-0000000AkbC-3UJK; Thu, 16 Jan 2025 08:43:44 +0000
+ id 1tYLTc-0000000AkbG-3qV4; Thu, 16 Jan 2025 08:43:44 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.98 #2 (Red Hat
- Linux)) id 1tYLTc-00000007pHh-2K0i; Thu, 16 Jan 2025 08:43:44 +0000
+ Linux)) id 1tYLTc-00000007pHr-2YxY; Thu, 16 Jan 2025 08:43:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: ff9e2857-d3e5-11ef-a0e2-8be0dac302b0
+X-Inumbo-ID: ff78101a-d3e5-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
 	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
 	To:From:Reply-To:Content-ID:Content-Description;
-	bh=DR5mFAf4m4LBhzxhAqxWzplLWjQI40VGtvjtZ6+t6c4=; b=RWoIb912hQmTElYRyXcO6i7n/6
-	7aQ9mKlddz4vnYA/tzUwlragwZcQDpyLdZkOYQnx8QY0PAzPrbo/hFyjICLNx3nX5LK9sdaCEnkYc
-	ibJ5bH5g9pycHzKmZKbT669twWv62Tj28hLXUCyVEebvwnvm4GnObo2c7OOK+s6st3nY9Lb6MQSI6
-	F3DZ2j8vrn+TZ1sBjPjnYFrB5ZG3DYRJrH8+zBq3keHAVzKms0GxU7ZR241ztLkCkdifRfCxHVOho
-	erHBwyIjIDYQMok8bacin7Vczk5KiVXXyGBZczbCYCUG1+gk3lHW2T01z7ILoGDU/kIJ4kjcQmLYW
-	PsynnlsQ==;
+	bh=j2gaDkDHKbVHS9ffxI7464SULQ6IWC/ZhoSg1yVGsXA=; b=Ci966gPsNiepcNsWTJ3GrGxX2P
+	iialW0rMgLpBYD00Go26JxJJvqqeUCPGWYQzcP/ngxL7HnddZg4utfVp3x8eKOq1hPwziktycPn/3
+	NsZnFK1OFps5OssGxvWZ5VqxLPztx4JSS334JvdHY6YUarq8Mw7guJELf87g+sV1TtP6PWVjCh5Ni
+	QCmEfZsrFVQTqVy7sPEdmhL/AnkwlBTWItxTEDKFn1CllnAPHAIRuzobBxrakQttQ2CJQ6aNb7iLJ
+	0jCSgu+Fb8NJQz9i5dSgRXmsDNqJvbG/jSVvEgjeMt8mFFqdN/RGkeiUBzLR4h82m4RX/TU7w2yNP
+	4FmN4YwA==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: Stefan Hajnoczi <stefanha@redhat.com>,
 	qemu-devel@nongnu.org
@@ -67,12 +67,12 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	xen-devel@lists.xenproject.org,
 	qemu-block@nongnu.org,
 	Phil Dennis-Jordan <phil@philjordan.eu>,
-	Roger Pau Monne <roger.pau@citrix.com>,
 	David Woodhouse <dwmw@amazon.co.uk>,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: [PULL 2/8] xen: do not use '%ms' scanf specifier
-Date: Thu, 16 Jan 2025 08:43:26 +0000
-Message-ID: <20250116084332.1864967-3-dwmw2@infradead.org>
+	Anthony PERARD <anthony.perard@vates.tech>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PULL 3/8] hw/xen: Use xs_node_read() from xs_node_vscanf()
+Date: Thu, 16 Jan 2025 08:43:27 +0000
+Message-ID: <20250116084332.1864967-4-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.47.0
 In-Reply-To: <20250116084332.1864967-1-dwmw2@infradead.org>
 References: <20250116084332.1864967-1-dwmw2@infradead.org>
@@ -82,109 +82,66 @@ Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-From: Roger Pau Monne <roger.pau@citrix.com>
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-The 'm' parameter used to request auto-allocation of the destination variable
-is not supported on FreeBSD, and as such leads to failures to parse.
+Reduce some duplication.
 
-What's more, the current usage of '%ms' with xs_node_scanf() is pointless, as
-it just leads to a double allocation of the same string.  Instead use
-xs_node_read() to read the whole xenstore node.
-
-Fixes: a783f8ad4ec9 ('xen: add a mechanism to automatically create XenDevice-s...')
-Fixes: 9b7737469080 ('hw/xen: update Xen console to XenDevice model')
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
- hw/block/xen-block.c     |  3 ++-
- hw/char/xen_console.c    |  6 ++++--
- hw/xen/xen-bus.c         | 14 ++++++++++++--
- include/hw/xen/xen-bus.h |  1 +
- 4 files changed, 19 insertions(+), 5 deletions(-)
+ hw/xen/trace-events     |  1 -
+ hw/xen/xen-bus-helper.c | 15 ++++++---------
+ 2 files changed, 6 insertions(+), 10 deletions(-)
 
-diff --git a/hw/block/xen-block.c b/hw/block/xen-block.c
-index 306d38927c..034a18b70e 100644
---- a/hw/block/xen-block.c
-+++ b/hw/block/xen-block.c
-@@ -239,7 +239,8 @@ static void xen_block_connect(XenDevice *xendev, Error **errp)
-         return;
+diff --git a/hw/xen/trace-events b/hw/xen/trace-events
+index 461dee7b23..b67942d07b 100644
+--- a/hw/xen/trace-events
++++ b/hw/xen/trace-events
+@@ -38,7 +38,6 @@ xen_device_remove_watch(const char *type, char *name, const char *node, const ch
+ xs_node_create(const char *node) "%s"
+ xs_node_destroy(const char *node) "%s"
+ xs_node_vprintf(char *path, char *value) "%s %s"
+-xs_node_vscanf(char *path, char *value) "%s %s"
+ xs_node_read(const char *path, const char *value) "%s %s"
+ xs_node_watch(char *path) "%s"
+ xs_node_unwatch(char *path) "%s"
+diff --git a/hw/xen/xen-bus-helper.c b/hw/xen/xen-bus-helper.c
+index 22fd2f6c1a..288fad422b 100644
+--- a/hw/xen/xen-bus-helper.c
++++ b/hw/xen/xen-bus-helper.c
+@@ -105,25 +105,22 @@ int xs_node_vscanf(struct qemu_xs_handle *h,  xs_transaction_t tid,
+                    const char *node, const char *key, Error **errp,
+                    const char *fmt, va_list ap)
+ {
+-    char *path, *value;
++    char *value;
+     int rc;
+ 
+-    path = (strlen(node) != 0) ? g_strdup_printf("%s/%s", node, key) :
+-        g_strdup(key);
+-    value = qemu_xen_xs_read(h, tid, path, NULL);
+-
+-    trace_xs_node_vscanf(path, value);
++    if (node && strlen(node) != 0) {
++        value = xs_node_read(h, tid, NULL, errp, "%s/%s", node, key);
++    } else {
++        value = xs_node_read(h, tid, NULL, errp, "%s", key);
++    }
+ 
+     if (value) {
+         rc = vsscanf(value, fmt, ap);
+     } else {
+-        error_setg_errno(errp, errno, "failed to read from '%s'",
+-                         path);
+         rc = EOF;
      }
  
--    if (xen_device_frontend_scanf(xendev, "protocol", "%ms", &str) != 1) {
-+    str = xen_device_frontend_read(xendev, "protocol");
-+    if (!str) {
-         /* x86 defaults to the 32-bit protocol even for 64-bit guests. */
-         if (object_dynamic_cast(OBJECT(qdev_get_machine()), "x86-machine")) {
-             protocol = BLKIF_PROTOCOL_X86_32;
-diff --git a/hw/char/xen_console.c b/hw/char/xen_console.c
-index ef0c2912ef..cb39b21504 100644
---- a/hw/char/xen_console.c
-+++ b/hw/char/xen_console.c
-@@ -550,7 +550,8 @@ static void xen_console_device_create(XenBackendInstance *backend,
-         goto fail;
-     }
+     free(value);
+-    g_free(path);
  
--    if (xs_node_scanf(xsh, XBT_NULL, fe, "type", errp, "%ms", &type) != 1) {
-+    type = xs_node_read(xsh, XBT_NULL, NULL, errp, "%s/%s", fe, "type");
-+    if (!type) {
-         error_prepend(errp, "failed to read console device type: ");
-         goto fail;
-     }
-@@ -568,7 +569,8 @@ static void xen_console_device_create(XenBackendInstance *backend,
- 
-     snprintf(label, sizeof(label), "xencons%ld", number);
- 
--    if (xs_node_scanf(xsh, XBT_NULL, fe, "output", NULL, "%ms", &output) == 1) {
-+    output = xs_node_read(xsh, XBT_NULL, NULL, NULL, "%s/%s", fe, "output");
-+    if (output) {
-         /*
-          * FIXME: sure we want to support implicit
-          * muxed monitors here?
-diff --git a/hw/xen/xen-bus.c b/hw/xen/xen-bus.c
-index adfc4efad0..feeb612681 100644
---- a/hw/xen/xen-bus.c
-+++ b/hw/xen/xen-bus.c
-@@ -156,8 +156,8 @@ again:
-             !strcmp(key[i], "hotplug-status"))
-             continue;
- 
--        if (xs_node_scanf(xenbus->xsh, tid, path, key[i], NULL, "%ms",
--                          &val) == 1) {
-+        val = xs_node_read(xenbus->xsh, tid, NULL, NULL, "%s/%s", path, key[i]);
-+        if (val) {
-             qdict_put_str(opts, key[i], val);
-             free(val);
-         }
-@@ -650,6 +650,16 @@ int xen_device_frontend_scanf(XenDevice *xendev, const char *key,
      return rc;
  }
- 
-+char *xen_device_frontend_read(XenDevice *xendev, const char *key)
-+{
-+    XenBus *xenbus = XEN_BUS(qdev_get_parent_bus(DEVICE(xendev)));
-+
-+    g_assert(xenbus->xsh);
-+
-+    return xs_node_read(xenbus->xsh, XBT_NULL, NULL, NULL, "%s/%s",
-+                        xendev->frontend_path, key);
-+}
-+
- static void xen_device_frontend_set_state(XenDevice *xendev,
-                                           enum xenbus_state state,
-                                           bool publish)
-diff --git a/include/hw/xen/xen-bus.h b/include/hw/xen/xen-bus.h
-index 38d40afa37..2adb2af839 100644
---- a/include/hw/xen/xen-bus.h
-+++ b/include/hw/xen/xen-bus.h
-@@ -91,6 +91,7 @@ void xen_device_frontend_printf(XenDevice *xendev, const char *key,
- int xen_device_frontend_scanf(XenDevice *xendev, const char *key,
-                               const char *fmt, ...)
-     G_GNUC_SCANF(3, 4);
-+char *xen_device_frontend_read(XenDevice *xendev, const char *key);
- 
- void xen_device_set_max_grant_refs(XenDevice *xendev, unsigned int nr_refs,
-                                    Error **errp);
 -- 
 2.47.0
 
