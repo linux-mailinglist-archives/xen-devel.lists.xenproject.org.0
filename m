@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49CB5A135AC
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Jan 2025 09:44:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.873235.1284187 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96533A135AB
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Jan 2025 09:44:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.873241.1284232 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tYLTk-0004Kd-Jl; Thu, 16 Jan 2025 08:43:52 +0000
+	id 1tYLTn-0005Es-4F; Thu, 16 Jan 2025 08:43:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 873235.1284187; Thu, 16 Jan 2025 08:43:52 +0000
+Received: by outflank-mailman (output) from mailman id 873241.1284232; Thu, 16 Jan 2025 08:43:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tYLTk-0004E3-Cm; Thu, 16 Jan 2025 08:43:52 +0000
-Received: by outflank-mailman (input) for mailman id 873235;
- Thu, 16 Jan 2025 08:43:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tYLTm-00055X-Rw; Thu, 16 Jan 2025 08:43:54 +0000
+Received: by outflank-mailman (input) for mailman id 873241;
+ Thu, 16 Jan 2025 08:43:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8jK+=UI=casper.srs.infradead.org=BATV+cabf69696ff47aa9dee2+7816+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1tYLTi-0004BI-7o
- for xen-devel@lists.xenproject.org; Thu, 16 Jan 2025 08:43:50 +0000
+ id 1tYLTk-0004BJ-81
+ for xen-devel@lists.xenproject.org; Thu, 16 Jan 2025 08:43:52 +0000
 Received: from casper.infradead.org (casper.infradead.org
  [2001:8b0:10b:1236::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ff9ddd88-d3e5-11ef-a0e2-8be0dac302b0;
- Thu, 16 Jan 2025 09:43:46 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ff7906a6-d3e5-11ef-99a4-01e77a169b0f;
+ Thu, 16 Jan 2025 09:43:47 +0100 (CET)
 Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
  by casper.infradead.org with esmtpsa (Exim 4.98 #2 (Red Hat Linux))
- id 1tYLTc-0000000AkbM-452f; Thu, 16 Jan 2025 08:43:45 +0000
+ id 1tYLTd-0000000AkbP-02Qr; Thu, 16 Jan 2025 08:43:45 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.98 #2 (Red Hat
- Linux)) id 1tYLTc-00000007pHw-2j0P; Thu, 16 Jan 2025 08:43:44 +0000
+ Linux)) id 1tYLTc-00000007pI3-2yCA; Thu, 16 Jan 2025 08:43:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: ff9ddd88-d3e5-11ef-a0e2-8be0dac302b0
+X-Inumbo-ID: ff7906a6-d3e5-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
 	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
 	To:From:Reply-To:Content-ID:Content-Description;
-	bh=9nRlgfR/HkbXdsVZN1RJ5s3wIYDMgIRx7AVyt9JqyRI=; b=GV4GsiKfcPaha4Yfg/SPTwsYVB
-	VXyP5feW8Uhc+l6Y1k5Sx/MHGVdLm4y7dVanuxoy+bz9LmSQ4o1b1F/FZ2Proo9odrcvD7p2BBiDU
-	D7owT//iz7tqe9F3dxW+m19/t/cDaJzaIm/92hrv5dsFy86rW+1kOkVWDTC9VOds/TgE7exako0lU
-	hckl7d9vFnB73icw7IWpAMAcZRVFVXhd4+HgEvfYTGLfzdjkZ1QNwAFrEHcnfOAi9/ILYoM/JPQ/+
-	Cet8xQcgTObu1BR7oNJwHrk9qF8pLPegEQQ/yVbXMjO/dGU45nDyBpueNecte2Z5oAWRkkUcA6t+o
-	cHxn96pw==;
+	bh=ZBKlQ7iGXowmo3aHS0zEEFjY8wis7AgQV7Ky19BXiPo=; b=YbwhsJicNuvRKaM7mZLvcVWK6x
+	WiVFjSENH4z5Pkik/TbbBGKMRfokc5n3AnYla8b8TFya79gei5DGXoFPyNtEYDuoSbPEvASAzUe7s
+	/Okku4GLLdh7ZIL8/95IXpTsU/ufviN5uegG73LLfNVBGmmo9yc08EgZA/7pCEqFQVNkHvfd1eaAT
+	uMcjr7k3BZPtzBzzpGoQsPxEIArLFfbtmXn+/6XPkKmtZ8YokNBXePazZ5GcK744aKhRDmDrlbUl/
+	9xSpFhIshTG4A/stggqsUQoqVTd1+in6ftZfGoH5NjzvWbDV4Q4x7VbLT7Vo0voq4syaI0/+Emwej
+	65f7SNhg==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: Stefan Hajnoczi <stefanha@redhat.com>,
 	qemu-devel@nongnu.org
@@ -70,9 +70,9 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	David Woodhouse <dwmw@amazon.co.uk>,
 	Anthony PERARD <anthony.perard@vates.tech>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PULL 4/8] hw/xen: Use xs_node_read() from xen_console_get_name()
-Date: Thu, 16 Jan 2025 08:43:28 +0000
-Message-ID: <20250116084332.1864967-5-dwmw2@infradead.org>
+Subject: [PULL 5/8] hw/xen: Use xs_node_read() from xen_netdev_get_name()
+Date: Thu, 16 Jan 2025 08:43:29 +0000
+Message-ID: <20250116084332.1864967-6-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.47.0
 In-Reply-To: <20250116084332.1864967-1-dwmw2@infradead.org>
 References: <20250116084332.1864967-1-dwmw2@infradead.org>
@@ -90,16 +90,16 @@ Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
 Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
- hw/char/xen_console.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ hw/net/xen_nic.c | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
 
-diff --git a/hw/char/xen_console.c b/hw/char/xen_console.c
-index cb39b21504..e61902461b 100644
---- a/hw/char/xen_console.c
-+++ b/hw/char/xen_console.c
-@@ -367,28 +367,28 @@ static char *xen_console_get_name(XenDevice *xendev, Error **errp)
+diff --git a/hw/net/xen_nic.c b/hw/net/xen_nic.c
+index 97ebd9fa30..5410039490 100644
+--- a/hw/net/xen_nic.c
++++ b/hw/net/xen_nic.c
+@@ -510,23 +510,22 @@ static char *xen_netdev_get_name(XenDevice *xendev, Error **errp)
  
-     if (con->dev == -1) {
+     if (netdev->dev == -1) {
          XenBus *xenbus = XEN_BUS(qdev_get_parent_bus(DEVICE(xendev)));
 -        char fe_path[XENSTORE_ABS_PATH_MAX + 1];
          int idx = (xen_mode == XEN_EMULATE) ? 0 : 1;
@@ -108,24 +108,16 @@ index cb39b21504..e61902461b 100644
  
          /* Theoretically we could go up to INT_MAX here but that's overkill */
          while (idx < 100) {
-             if (!idx) {
--                snprintf(fe_path, sizeof(fe_path),
--                         "/local/domain/%u/console", xendev->frontend_id);
-+                value = xs_node_read(xenbus->xsh, XBT_NULL, NULL, &local_err,
-+                                     "/local/domain/%u/console",
-+                                     xendev->frontend_id);
-             } else {
--                snprintf(fe_path, sizeof(fe_path),
--                         "/local/domain/%u/device/console/%u",
--                         xendev->frontend_id, idx);
-+                value = xs_node_read(xenbus->xsh, XBT_NULL, NULL, &local_err,
-+                                     "/local/domain/%u/device/console/%u",
-+                                     xendev->frontend_id, idx);
-             }
+-            snprintf(fe_path, sizeof(fe_path),
+-                     "/local/domain/%u/device/vif/%u",
+-                     xendev->frontend_id, idx);
 -            value = qemu_xen_xs_read(xenbus->xsh, XBT_NULL, fe_path, NULL);
++            value = xs_node_read(xenbus->xsh, XBT_NULL, NULL, &local_err,
++                                 "/local/domain/%u/device/vif/%u",
++                                 xendev->frontend_id, idx);
              if (!value) {
                  if (errno == ENOENT) {
-                     con->dev = idx;
+                     netdev->dev = idx;
 +                    error_free(local_err);
                      goto found;
                  }
