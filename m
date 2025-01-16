@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E3D4A135AF
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AF8AA135AD
 	for <lists+xen-devel@lfdr.de>; Thu, 16 Jan 2025 09:44:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.873240.1284225 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.873239.1284220 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tYLTm-000566-NC; Thu, 16 Jan 2025 08:43:54 +0000
+	id 1tYLTm-0004tP-CB; Thu, 16 Jan 2025 08:43:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 873240.1284225; Thu, 16 Jan 2025 08:43:54 +0000
+Received: by outflank-mailman (output) from mailman id 873239.1284220; Thu, 16 Jan 2025 08:43:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tYLTm-0004th-G0; Thu, 16 Jan 2025 08:43:54 +0000
-Received: by outflank-mailman (input) for mailman id 873240;
+	id 1tYLTl-0004kw-U5; Thu, 16 Jan 2025 08:43:53 +0000
+Received: by outflank-mailman (input) for mailman id 873239;
  Thu, 16 Jan 2025 08:43:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8jK+=UI=casper.srs.infradead.org=BATV+cabf69696ff47aa9dee2+7816+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1tYLTj-0004BJ-Ee
+ id 1tYLTj-0004BI-87
  for xen-devel@lists.xenproject.org; Thu, 16 Jan 2025 08:43:51 +0000
 Received: from casper.infradead.org (casper.infradead.org
  [2001:8b0:10b:1236::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ff7a2145-d3e5-11ef-99a4-01e77a169b0f;
- Thu, 16 Jan 2025 09:43:47 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ff9e0e15-d3e5-11ef-a0e2-8be0dac302b0;
+ Thu, 16 Jan 2025 09:43:46 +0100 (CET)
 Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
  by casper.infradead.org with esmtpsa (Exim 4.98 #2 (Red Hat Linux))
- id 1tYLTd-0000000AkbX-0VhX; Thu, 16 Jan 2025 08:43:45 +0000
+ id 1tYLTd-0000000Akbc-0hzA; Thu, 16 Jan 2025 08:43:45 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.98 #2 (Red Hat
- Linux)) id 1tYLTc-00000007pIG-3SiW; Thu, 16 Jan 2025 08:43:44 +0000
+ Linux)) id 1tYLTc-00000007pIP-3i2w; Thu, 16 Jan 2025 08:43:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: ff7a2145-d3e5-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: ff9e0e15-d3e5-11ef-a0e2-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=rf4XQLZvATxaJ4ZS360lOa75wV7gwRBU9Wx/NrfpNKM=; b=sFlr5bcNd4N4BJ5gR3Jk2RMuSZ
-	5ueFpFbkgmzLDSSjXJ4F7E+VBxywP+JIRlQoRKp3wkAY8M1RXh+2AgFkdaR0I+RJ/HbnrYMA+Z0zU
-	2lmxNsy2Qy/lJdQ9rSRQOyDus7jTuvUOxbVmPxnvd+PQKO1ZzaiVWnoNH0DVgLxdULgr2CX7e6mvu
-	QrD2RyTvgL5O6bdVak0nEQCYiMG6AHb8ODInb95f1z/eiaN9PgRwMoW9LxHdxLVJTzHvEJkOKa99m
-	RL0y+rCcqZpKVNodam5HJp2Ry+5gdt3tdeSL9bekAURJVRyjXefSwKZWd44xr0u1/xBMze+9o1USG
-	+58fvVNg==;
+	bh=tjqHi7zeaRi1ZPcfAv+eUnMUtGpd7kq8NDwOvC3nsVk=; b=bSv6dzL1vdg3gqEa+FP0eVjouM
+	j1nwqH+kRmJ+mY1u3/gaLep/NqlwSpdMpOcYt1dytUykeQJVgUuDnW4v49K4RgJNc1dx01+0jassk
+	JhfKQKY5znnu+hthvlM4rlvAL7lOcloj9F/r3RlWMgiPSzFm/nh/QaAZWfD39v3o2hNz6zOeabUBz
+	iOU0OF5os3V/ZMvjShsLmfv83KQ99Fhq7pJ/v1xsw+hZYc7c0qoRIKFqE2/q5yXXsUWMrvUMsP4l4
+	VDN+WWnfDRy1TysjP3lpzq4ulph49cnnjXzdy+j4ZY6W56keXvTz9FkFo8EXnhsclB1dGNdfwLaZO
+	I9gZjIXw==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: Stefan Hajnoczi <stefanha@redhat.com>,
 	qemu-devel@nongnu.org
@@ -67,11 +67,10 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	xen-devel@lists.xenproject.org,
 	qemu-block@nongnu.org,
 	Phil Dennis-Jordan <phil@philjordan.eu>,
-	David Woodhouse <dwmw@amazon.co.uk>,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: [PULL 7/8] hw/xen: Fix errp handling in xen_console
-Date: Thu, 16 Jan 2025 08:43:31 +0000
-Message-ID: <20250116084332.1864967-8-dwmw2@infradead.org>
+	David Woodhouse <dwmw@amazon.co.uk>
+Subject: [PULL 8/8] system/runstate: Fix regression, clarify BQL status of exit notifiers
+Date: Thu, 16 Jan 2025 08:43:32 +0000
+Message-ID: <20250116084332.1864967-9-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.47.0
 In-Reply-To: <20250116084332.1864967-1-dwmw2@infradead.org>
 References: <20250116084332.1864967-1-dwmw2@infradead.org>
@@ -80,73 +79,56 @@ Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-From: David Woodhouse <dwmw@amazon.co.uk>
+From: Phil Dennis-Jordan <phil@philjordan.eu>
 
-When attempting to read the 'output' node, interpret any error *other*
-than ENOENT as a fatal error. For ENOENT, fall back to serial_hd() to
-find a character device, or create a null device.
+By changing the way the main QEMU event loop is invoked, I inadvertently
+changed the BQL status of exit notifiers: some of them implicitly
+assumed they would be called with the BQL held; the BQL is however
+not held during the exit(status) call in qemu_default_main().
 
-Do not attempt to prepend to errp when serial_hd() fails; the error
-isn't relevant (and prior to this change, wasn't set anyway).
+Instead of attempting to ensuring we always call exit() from the BQL -
+including any transitive calls - this change adds a BQL lock guard to
+qemu_run_exit_notifiers, ensuring the BQL will always be held in the
+exit notifiers.
 
+Additionally, the BQL promise is now documented at the
+qemu_{add,remove}_exit_notifier() declarations.
+
+Fixes: f5ab12caba4f ("ui & main loop: Redesign of system-specific main
+thread event handling")
+Resolves: https://gitlab.com/qemu-project/qemu/-/issues/2771
+Reported-by: David Woodhouse <dwmw@amazon.co.uk>
+Signed-off-by: Phil Dennis-Jordan <phil@philjordan.eu>
+Tested-by: David Woodhouse <dwmw@amazon.co.uk>
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
 ---
- hw/char/xen_console.c | 34 +++++++++++++++++++++-------------
- 1 file changed, 21 insertions(+), 13 deletions(-)
+ include/system/system.h | 1 +
+ system/runstate.c       | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/hw/char/xen_console.c b/hw/char/xen_console.c
-index e61902461b..d03c188d1d 100644
---- a/hw/char/xen_console.c
-+++ b/hw/char/xen_console.c
-@@ -569,7 +569,7 @@ static void xen_console_device_create(XenBackendInstance *backend,
+diff --git a/include/system/system.h b/include/system/system.h
+index 5364ad4f27..0cbb43ec30 100644
+--- a/include/system/system.h
++++ b/include/system/system.h
+@@ -15,6 +15,7 @@ extern bool qemu_uuid_set;
  
-     snprintf(label, sizeof(label), "xencons%ld", number);
+ const char *qemu_get_vm_name(void);
  
--    output = xs_node_read(xsh, XBT_NULL, NULL, NULL, "%s/%s", fe, "output");
-+    output = xs_node_read(xsh, XBT_NULL, NULL, errp, "%s/%s", fe, "output");
-     if (output) {
-         /*
-          * FIXME: sure we want to support implicit
-@@ -581,19 +581,27 @@ static void xen_console_device_create(XenBackendInstance *backend,
-                        output);
-             goto fail;
-         }
--    } else if (number) {
--        cd = serial_hd(number);
--        if (!cd) {
--            error_prepend(errp, "console: No serial device #%ld found: ",
--                          number);
--            goto fail;
--        }
-+    } else if (errno != ENOENT) {
-+        error_prepend(errp, "console: No valid chardev found: ");
-+        goto fail;
-     } else {
--        /* No 'output' node on primary console: use null. */
--        cd = qemu_chr_new(label, "null", NULL);
--        if (!cd) {
--            error_setg(errp, "console: failed to create null device");
--            goto fail;
-+        error_free(*errp);
-+        *errp = NULL;
-+
-+        if (number) {
-+            cd = serial_hd(number);
-+            if (!cd) {
-+                error_setg(errp, "console: No serial device #%ld found",
-+                           number);
-+                goto fail;
-+            }
-+        } else {
-+            /* No 'output' node on primary console: use null. */
-+            cd = qemu_chr_new(label, "null", NULL);
-+            if (!cd) {
-+                error_setg(errp, "console: failed to create null device");
-+                goto fail;
-+            }
-         }
-     }
++/* Exit notifiers will run with BQL held. */
+ void qemu_add_exit_notifier(Notifier *notify);
+ void qemu_remove_exit_notifier(Notifier *notify);
+ 
+diff --git a/system/runstate.c b/system/runstate.c
+index 3a8fe866bc..272801d307 100644
+--- a/system/runstate.c
++++ b/system/runstate.c
+@@ -850,6 +850,7 @@ void qemu_remove_exit_notifier(Notifier *notify)
+ 
+ static void qemu_run_exit_notifiers(void)
+ {
++    BQL_LOCK_GUARD();
+     notifier_list_notify(&exit_notifiers, NULL);
+ }
  
 -- 
 2.47.0
