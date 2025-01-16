@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B415DA14146
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Jan 2025 18:53:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.873683.1284723 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F09C4A14149
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Jan 2025 18:53:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.873685.1284733 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tYU38-0000K6-F6; Thu, 16 Jan 2025 17:52:58 +0000
+	id 1tYU39-0000bI-NS; Thu, 16 Jan 2025 17:52:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 873683.1284723; Thu, 16 Jan 2025 17:52:58 +0000
+Received: by outflank-mailman (output) from mailman id 873685.1284733; Thu, 16 Jan 2025 17:52:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tYU38-0000Et-AW; Thu, 16 Jan 2025 17:52:58 +0000
-Received: by outflank-mailman (input) for mailman id 873683;
- Thu, 16 Jan 2025 17:52:56 +0000
+	id 1tYU39-0000XG-JZ; Thu, 16 Jan 2025 17:52:59 +0000
+Received: by outflank-mailman (input) for mailman id 873685;
+ Thu, 16 Jan 2025 17:52:58 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=PV9y=UI=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tYU36-0007CP-KW
- for xen-devel@lists.xenproject.org; Thu, 16 Jan 2025 17:52:56 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
+ id 1tYU37-0007CP-Uj
+ for xen-devel@lists.xenproject.org; Thu, 16 Jan 2025 17:52:57 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b74e02b7-d432-11ef-a0e2-8be0dac302b0;
- Thu, 16 Jan 2025 18:52:56 +0100 (CET)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-5d3cf094768so2189107a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 16 Jan 2025 09:52:56 -0800 (PST)
+ id b812c9cb-d432-11ef-a0e2-8be0dac302b0;
+ Thu, 16 Jan 2025 18:52:57 +0100 (CET)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-5d9f06f8cf2so2369387a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Jan 2025 09:52:57 -0800 (PST)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab384f224e0sm26235766b.112.2025.01.16.09.52.54
+ 4fb4d7f45d1cf-5db73684c70sm242918a12.47.2025.01.16.09.52.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Jan 2025 09:52:54 -0800 (PST)
+ Thu, 16 Jan 2025 09:52:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,47 +44,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b74e02b7-d432-11ef-a0e2-8be0dac302b0
+X-Inumbo-ID: b812c9cb-d432-11ef-a0e2-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1737049975; x=1737654775; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1737049976; x=1737654776; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=sXVxPmSkdh6kTkitg7Sn1/R1oEUNu+Kk247t0METCbc=;
-        b=Uc7Ti+F3lmBlCvE7EC2B6zQyMxGzLjfvlab3jVvOE1frB7JUn1kWhC6PxGkFDUKHDg
-         0nbLYwRjEnJdtw12z2glQLYVy5vTVfvK+3g/WIfCGd6Ab87d7IYnz9RL2OBKBPVoCd7m
-         H4xie7EIh7MnrVoQ03oLEJsb6TeFly8hoO57M=
+        bh=pdKNm+zFNAAty/krwKMMryYSZX6eNIKljOU3/XkBfjk=;
+        b=TrP4+fX4xWedESq+GgjV0EGPvvFyXVfxL6/8PBb6isMet6d4NFl814iulAIbSB/MHQ
+         wtpjeKTq5IhOZuOeQ+/LYdudWBnaHq8YtMEKqXB9FrXgFRZEp426thxRD67/MwDRsrkj
+         iuoju2xlwQADRgljQduiHBjcudljLHgvW+5kI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737049975; x=1737654775;
+        d=1e100.net; s=20230601; t=1737049976; x=1737654776;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=sXVxPmSkdh6kTkitg7Sn1/R1oEUNu+Kk247t0METCbc=;
-        b=Ndp855aArMaV0u/S0kdQntWR6mkDDoYGnhGWcBiUp8EgbZr5TB4ncYx5Je29Cxx9+B
-         UGoM6ybifsKcO/q09FpG0XiIyQE+bGRPJHVhnVkV9qcYXxPJUpXPpNNGYcWH2PusYPGJ
-         NqHVGJYv1d6O6QBtaQCVuFB9Vg5hGYcrYy8C30vO4Ub/xqF4WZoxNkH2ru18il8W+vhE
-         5WmXkyFrPSfrOwEsQEu6QT0b4N4fsz2LfixQtyYcI/Ca00myvRpgs8lfrJp6gU+oApUZ
-         yVX7xyi3EoLx7WDi4huNP6RyfQp5bzBv4mVPi83OwTidN49sdruA+0G1tcUwGMSnYcLG
-         pF4Q==
-X-Gm-Message-State: AOJu0Yz9EbwjAFcq1h7L/50/AQ8n5ZKD5H8DqM+8sHnu6BbzH1Rt1CSx
-	Lk0J6JxCIlIPsBpD8qZ+EEk3L4pT4TQvaeEAkh2diLITHypiX7tGZky8yjELkWVGtCFmxbt6jXe
-	O
-X-Gm-Gg: ASbGnctyN06UcnGqHK8Oh0sMTPBZxbmsCOspNTDlcSGZheJUhnzDkMABGFISnazOc2v
-	vP6ezJnXd99nL1AbFhGO/2JUR+SQIOBuc6Am4qkeJwa/asN+VdN25nkq8G9GvCUJyfaWMw5De1g
-	0/ELNidHXxrBio027NzWXwh5W5FvtuItng4nq+cQ/kxZSYQgOzDswrgp5Ucz+TyUTjgGBkjRe8B
-	VG56YnVifMW2cmIu7wzpywflinhYvSaqNJ0/1ANMIzC/Wtbpv/Ch0N8gOVRAw==
-X-Google-Smtp-Source: AGHT+IFdZIe4URc/r5aMLDRcUwmFjsTbWtOQeBFa9lkuRgU01Wen7f7gO9nWpmnH3qTK+bjccegIkA==
-X-Received: by 2002:a17:907:72d0:b0:aa6:5eae:7ed8 with SMTP id a640c23a62f3a-ab2ab66cea6mr3122115866b.6.1737049975319;
-        Thu, 16 Jan 2025 09:52:55 -0800 (PST)
+        bh=pdKNm+zFNAAty/krwKMMryYSZX6eNIKljOU3/XkBfjk=;
+        b=CPYiibXyvu7qHt21RClF5XL7WROHoRVZc1OPlxH6TMUBX4ovzvTkzqSbhFij6q+vT6
+         Fm02yWsVNqoRwqxguGzJdyxfSXOx4jeua69a7Az6lJtimiXOTrNKRbx0wKVED1uyhhnk
+         FiFY35sujMcGA1+qdE/NBEoA7B0/+nMwmalIo3sp+gjB4dEMg1T9Bsfxu+NOYgC6ATtB
+         IGzRQET1Kbkemw4quKwvKObumNCWNUZ5IXfWedXE6uxS2nfc2G/c85FtiZt3k8OcQrl2
+         QH/pnSKGN/bi2Hf5+zKmTgewRrC1EmEEjfTcMBbsASzEyJ40uHFFV1hd4GUWWlyic6jb
+         M7sg==
+X-Gm-Message-State: AOJu0YxjYyt0yXiXO0l7VcVU/YrqUMxFtmiwC2quyYrvTUzfvH4pOOQ9
+	BoFBHl03nNjsodiLksLbr0FU19XYr853A+o2BA+IS0CxCpT6g7U4kLoui/71NfL3T9nhpsVkKca
+	e
+X-Gm-Gg: ASbGncv+KmEl5hjOHRbBG9YV1gBJq86mjknt7MWvK+otbtPpNrhUxwOdC8V5g5LoY2P
+	6tRlUOMlgN1+qXTgTL7WYvPBlJXr+ENJlHn1JRW/PxMeM8Gz0q8IAS5J/k02ETO04UYXXMYOoUn
+	58k6zVkVcs6vYF+leiS5cIciRkaN8hqyL/lrPiiqRAbIRkk53umNYRH07+D6gk1XnSmrJjeLMKo
+	CZ09vkA+TbF7CZ/42t2BV6Lw8EdFx/t9ONu9Ncb4iFTY+6N8PBK398JOzaYxA==
+X-Google-Smtp-Source: AGHT+IE5XnhgEzjPcuMfl//ipOH+hpNHepD0cjDK0+Mb4WVVe19cwgfC5+H5ddmcqSBBK+MRP1f+hA==
+X-Received: by 2002:a05:6402:3217:b0:5cf:bcaf:98ec with SMTP id 4fb4d7f45d1cf-5d972e48686mr30530902a12.26.1737049976608;
+        Thu, 16 Jan 2025 09:52:56 -0800 (PST)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: konrad.wilk@oracle.com,
 	ross.lagerwall@citrix.com,
 	Artem Savkov <asavkov@redhat.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 6/7] create-diff-object: propagate ignore.functions to children
-Date: Thu, 16 Jan 2025 18:52:13 +0100
-Message-ID: <20250116175214.83742-7-roger.pau@citrix.com>
+Subject: [PATCH 7/7] create-build-diff: support for .cold functions with no id suffix
+Date: Thu, 16 Jan 2025 18:52:14 +0100
+Message-ID: <20250116175214.83742-8-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20250116175214.83742-1-roger.pau@citrix.com>
 References: <20250116175214.83742-1-roger.pau@citrix.com>
@@ -94,30 +94,45 @@ Content-Transfer-Encoding: 8bit
 
 From: Artem Savkov <asavkov@redhat.com>
 
-Add child symbols to .kpatch.ignore.functions in case their parents are
-added to the list.
+create-build-diff expects .cold functions to be suffixed by an id, which
+is not always the case. Drop the trailing '.' when searching for cold
+functions.
+
+Fixes: #1160
 
 Signed-off-by: Artem Savkov <asavkov@redhat.com>
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
- create-diff-object.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ common.c             | 2 +-
+ create-diff-object.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/common.c b/common.c
+index b46fcf5cb6ca..67b9fcdb0ada 100644
+--- a/common.c
++++ b/common.c
+@@ -127,7 +127,7 @@ static int is_bundleable(struct symbol *sym)
+ 	if (sym->type == STT_FUNC &&
+ 	    !strncmp(sym->sec->name, ".text.unlikely.",15) &&
+ 	    (!strcmp(sym->sec->name + 15, sym->name) ||
+-			 (strstr(sym->name, ".cold.") &&
++			 (strstr(sym->name, ".cold") &&
+ 			  !strncmp(sym->sec->name + 15, sym->name, strlen(sym->sec->name) - 15))))
+ 		return 1;
+ 
 diff --git a/create-diff-object.c b/create-diff-object.c
-index 3189d3e8451c..6060a73555ed 100644
+index 6060a73555ed..19590fc0fce1 100644
 --- a/create-diff-object.c
 +++ b/create-diff-object.c
-@@ -936,6 +936,10 @@ static void kpatch_mark_ignored_functions_same(struct kpatch_elf *kelf)
- 			log_normal("NOTICE: no change detected in function %s, unnecessary KPATCH_IGNORE_FUNCTION()?\n", rela->sym->name);
- 		rela->sym->status = SAME;
- 		rela->sym->sec->status = SAME;
-+
-+		if (rela->sym->child)
-+			rela->sym->child->status = SAME;
-+
- 		if (rela->sym->sec->secsym)
- 			rela->sym->sec->secsym->status = SAME;
- 		if (rela->sym->sec->rela)
+@@ -347,7 +347,7 @@ static void kpatch_detect_child_functions(struct kpatch_elf *kelf)
+ 	list_for_each_entry(sym, &kelf->symbols, list) {
+ 		char *coldstr;
+ 
+-		coldstr = strstr(sym->name, ".cold.");
++		coldstr = strstr(sym->name, ".cold");
+ 		if (coldstr != NULL) {
+ 			char *pname;
+ 
 -- 
 2.46.0
 
