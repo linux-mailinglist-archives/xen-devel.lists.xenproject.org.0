@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F09C4A14149
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Jan 2025 18:53:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.873685.1284733 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B268A14393
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Jan 2025 21:43:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.873765.1284743 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tYU39-0000bI-NS; Thu, 16 Jan 2025 17:52:59 +0000
+	id 1tYWh2-0002Qb-0U; Thu, 16 Jan 2025 20:42:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 873685.1284733; Thu, 16 Jan 2025 17:52:59 +0000
+Received: by outflank-mailman (output) from mailman id 873765.1284743; Thu, 16 Jan 2025 20:42:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tYU39-0000XG-JZ; Thu, 16 Jan 2025 17:52:59 +0000
-Received: by outflank-mailman (input) for mailman id 873685;
- Thu, 16 Jan 2025 17:52:58 +0000
+	id 1tYWh1-0002Np-TX; Thu, 16 Jan 2025 20:42:19 +0000
+Received: by outflank-mailman (input) for mailman id 873765;
+ Thu, 16 Jan 2025 20:42:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PV9y=UI=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tYU37-0007CP-Uj
- for xen-devel@lists.xenproject.org; Thu, 16 Jan 2025 17:52:57 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ <SRS0=mFzr=UI=gmail.com=milandjokic1995@srs-se1.protection.inumbo.net>)
+ id 1tYWh0-0002Nj-Fq
+ for xen-devel@lists.xenproject.org; Thu, 16 Jan 2025 20:42:18 +0000
+Received: from mail-qv1-xf32.google.com (mail-qv1-xf32.google.com
+ [2607:f8b0:4864:20::f32])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b812c9cb-d432-11ef-a0e2-8be0dac302b0;
- Thu, 16 Jan 2025 18:52:57 +0100 (CET)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5d9f06f8cf2so2369387a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 16 Jan 2025 09:52:57 -0800 (PST)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5db73684c70sm242918a12.47.2025.01.16.09.52.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Jan 2025 09:52:56 -0800 (PST)
+ id 5f925972-d44a-11ef-a0e2-8be0dac302b0;
+ Thu, 16 Jan 2025 21:42:17 +0100 (CET)
+Received: by mail-qv1-xf32.google.com with SMTP id
+ 6a1803df08f44-6d900c27af7so14979986d6.2
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Jan 2025 12:42:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,96 +40,174 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b812c9cb-d432-11ef-a0e2-8be0dac302b0
+X-Inumbo-ID: 5f925972-d44a-11ef-a0e2-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1737049976; x=1737654776; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1737060136; x=1737664936; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=pdKNm+zFNAAty/krwKMMryYSZX6eNIKljOU3/XkBfjk=;
-        b=TrP4+fX4xWedESq+GgjV0EGPvvFyXVfxL6/8PBb6isMet6d4NFl814iulAIbSB/MHQ
-         wtpjeKTq5IhOZuOeQ+/LYdudWBnaHq8YtMEKqXB9FrXgFRZEp426thxRD67/MwDRsrkj
-         iuoju2xlwQADRgljQduiHBjcudljLHgvW+5kI=
+        bh=AJQkn8xBOrqxhMrTvXO5m4xHY+rpEt1QvLDpaLCQ2xA=;
+        b=YaMLUcviPxqcYaT7Dr/2MTujR06Wvg6zaU01V7is+4mAujWUrhEZkXB+J8QZHscNqB
+         uhAH2bCXDfyRRMd52TkammOXg1cPLWF370iSqQU4VO64bNhokGhQYO8qdayjDV+GG+1k
+         O5YU9xuAYTvB05HVoWFckEHAuOC8QNyRHS2fiS4Bfefey7h0TXmKVzuJS7dpMzU/x5ts
+         IZtTfke/Upb8J/xSTxdLae566ywl2v327+eLswM1dJsWOHGokG7KWy68Z3mWfLv6OmnE
+         waGGAH6eFyLg7smK53Sa/k50WcwddGLFmvOqfVa8wu4/1gTQgwJiE9D+LDrZoE0xjj1W
+         mWcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737049976; x=1737654776;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20230601; t=1737060136; x=1737664936;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=pdKNm+zFNAAty/krwKMMryYSZX6eNIKljOU3/XkBfjk=;
-        b=CPYiibXyvu7qHt21RClF5XL7WROHoRVZc1OPlxH6TMUBX4ovzvTkzqSbhFij6q+vT6
-         Fm02yWsVNqoRwqxguGzJdyxfSXOx4jeua69a7Az6lJtimiXOTrNKRbx0wKVED1uyhhnk
-         FiFY35sujMcGA1+qdE/NBEoA7B0/+nMwmalIo3sp+gjB4dEMg1T9Bsfxu+NOYgC6ATtB
-         IGzRQET1Kbkemw4quKwvKObumNCWNUZ5IXfWedXE6uxS2nfc2G/c85FtiZt3k8OcQrl2
-         QH/pnSKGN/bi2Hf5+zKmTgewRrC1EmEEjfTcMBbsASzEyJ40uHFFV1hd4GUWWlyic6jb
-         M7sg==
-X-Gm-Message-State: AOJu0YxjYyt0yXiXO0l7VcVU/YrqUMxFtmiwC2quyYrvTUzfvH4pOOQ9
-	BoFBHl03nNjsodiLksLbr0FU19XYr853A+o2BA+IS0CxCpT6g7U4kLoui/71NfL3T9nhpsVkKca
-	e
-X-Gm-Gg: ASbGncv+KmEl5hjOHRbBG9YV1gBJq86mjknt7MWvK+otbtPpNrhUxwOdC8V5g5LoY2P
-	6tRlUOMlgN1+qXTgTL7WYvPBlJXr+ENJlHn1JRW/PxMeM8Gz0q8IAS5J/k02ETO04UYXXMYOoUn
-	58k6zVkVcs6vYF+leiS5cIciRkaN8hqyL/lrPiiqRAbIRkk53umNYRH07+D6gk1XnSmrJjeLMKo
-	CZ09vkA+TbF7CZ/42t2BV6Lw8EdFx/t9ONu9Ncb4iFTY+6N8PBK398JOzaYxA==
-X-Google-Smtp-Source: AGHT+IE5XnhgEzjPcuMfl//ipOH+hpNHepD0cjDK0+Mb4WVVe19cwgfC5+H5ddmcqSBBK+MRP1f+hA==
-X-Received: by 2002:a05:6402:3217:b0:5cf:bcaf:98ec with SMTP id 4fb4d7f45d1cf-5d972e48686mr30530902a12.26.1737049976608;
-        Thu, 16 Jan 2025 09:52:56 -0800 (PST)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: konrad.wilk@oracle.com,
-	ross.lagerwall@citrix.com,
-	Artem Savkov <asavkov@redhat.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 7/7] create-build-diff: support for .cold functions with no id suffix
-Date: Thu, 16 Jan 2025 18:52:14 +0100
-Message-ID: <20250116175214.83742-8-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20250116175214.83742-1-roger.pau@citrix.com>
-References: <20250116175214.83742-1-roger.pau@citrix.com>
+        bh=AJQkn8xBOrqxhMrTvXO5m4xHY+rpEt1QvLDpaLCQ2xA=;
+        b=lGrResSIQ9bLVHw9nukwZlfIqp02aGuukMEjN5TeIZMZiiPEInNcmMLCpP2+o+BHcR
+         c+58v1FV4O7TaVh8CN0N5RxIfc8bv5lHOa52JmH3B0+dQMiamPbpgBexjmivYyJJleUt
+         OACusKLpuHNyF338CnsQqgNArduQ9SnpQrN2lTrdFBxSl1+jiFl8oEeauVlOl8EeSxZI
+         QREpDtYTarT+ZlCYdmK0E3wsd9O9fLQzdlCBrw/aEaFP/JA5xBZuyxYVfKyt5QiZZcpy
+         KxTHJZKnvH9XNnOe+fg5xE4kqW5U5B+1gHKNRi9padqvcJNRZZANDv5nWrA3gHx0kHKS
+         xJ/w==
+X-Forwarded-Encrypted: i=1; AJvYcCV3T5UScYw3BASOgWlNqrVGlftVAMoWqDKyg4QE6hVoj/PyDiiWl8eh/fjRarZsP6rwylNcDViCqb4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwlW0R2diaF3HP5YI0TMx+N6wz7wjTjrVqlP4+wQFE8/2xGPCp5
+	RoD+HHsMfXb+Og0RQrFtmUNq+7klyPG6ugnRBGMokfHRZ60ancKajODkKadYpMOGSuiCCEBd9eX
+	2qTTWjuch+TRfbBRzALtdoCWRD1s=
+X-Gm-Gg: ASbGncuyk9fb4SbtyZzIJuhAZDJ0tctkTw31f7FsTs+el2QGICLuw8S29Yo1z+lBq4a
+	JhwakiNw1e2mOmYmA8XBcdS/sShA1+cB9Wk8VRg==
+X-Google-Smtp-Source: AGHT+IHACpWQarwyHqgVFej12h3sZ9v5XSkC82TZvdnRS6/tjJiM7t0IXYSpLP19pAQaJiQBCnassDGmy7JGKAd6wj8=
+X-Received: by 2002:a05:6214:240b:b0:6df:97a3:5e76 with SMTP id
+ 6a1803df08f44-6e1b21d13e5mr4146116d6.27.1737060136243; Thu, 16 Jan 2025
+ 12:42:16 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <e4a649a7fdfc8fcf5f48a0bc4e76e5d546078083.1736868605.git.Slavisa.Petrovic@rt-rk.com>
+ <alpine.DEB.2.22.394.2501141554170.2684657@ubuntu-linux-20-04-desktop>
+ <2f1432e6-0d27-48fd-b034-475284f14233@gmail.com> <CAKp59VEOiXo+OKwPNiomtXNCsfDURCXaDktooi5JSoTSdhc90w@mail.gmail.com>
+ <alpine.DEB.2.22.394.2501151313590.2684657@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2501151313590.2684657@ubuntu-linux-20-04-desktop>
+From: =?UTF-8?B?TWlsYW4gxJBva2nEhw==?= <milandjokic1995@gmail.com>
+Date: Thu, 16 Jan 2025 21:42:05 +0100
+X-Gm-Features: AbW1kvZkiUy496iMlyaJzvfye_IOgV9RfBQMyk7ZAcKoXtvYI4DmcGkMijbvCWw
+Message-ID: <CAKp59VG=MV2=gCFqsC16EpP9oGa=eDBFJbwn-vS5q8oKyM_ZJQ@mail.gmail.com>
+Subject: Re: [PATCH] riscv: Add initial Xen guest support for RISC-Vgh
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>, linux-riscv@lists.infradead.org, 
+	paul.walmsley@sifive.com, palmer@dabbelt.com, aou@eecs.berkeley.edu, 
+	jgross@suse.com, oleksandr_tyshchenko@epam.com, Slavisa.Petrovic@rt-rk.com, 
+	Milan.Djokic@rt-rk.com, rafael.j.wysocki@intel.com, sunilvl@ventanamicro.com, 
+	takakura@valinux.co.jp, linux-kernel@vger.kernel.org, 
+	xen-devel@lists.xenproject.org, iommu@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Artem Savkov <asavkov@redhat.com>
+On Wed, Jan 15, 2025 at 10:14=E2=80=AFPM Stefano Stabellini
+<sstabellini@kernel.org> wrote:
+>
+> On Wed, 15 Jan 2025, Milan =C4=90oki=C4=87 wrote:
+> > Hello Stefano, Oleksii
+> >
+> > On Wed, Jan 15, 2025 at 5:30=E2=80=AFPM Oleksii Kurochko
+> > <oleksii.kurochko@gmail.com> wrote:
+> > >
+> > > Hi Stefano,
+> > >
+> > > On 1/15/25 1:01 AM, Stefano Stabellini wrote:
+> > >
+> > > +Oleksii
+> > >
+> > > On Tue, 14 Jan 2025, Milan Djokic wrote:
+> > >
+> > > From: Slavisa Petrovic <Slavisa.Petrovic@rt-rk.com>
+> > >
+> > > This patch introduces initial support for running RISC-V as a Xen gue=
+st.
+> > > It provides the necessary infrastructure and stubs for Xen-specific
+> > > operations. Key changes include:
+> > >
+> > > - Modifications to the RISC-V kernel to integrate Xen-specific hyperc=
+alls
+> > >   and interfaces, with function implementations stubbed for future wo=
+rk.
+> > > - Introduction of Xen-specific headers for RISC-V, including event
+> > >   handling, hypervisor interaction, and page management. Functions ar=
+e
+> > >   defined but not yet implemented.
+> > > - Stub implementations for memory management, grant tables, and conte=
+xt
+> > >   switching in the Xen environment, allowing further development and
+> > >   integration.
+> > >
+> > > Signed-off-by: Milan Djokic <Milan.Djokic@rt-rk.com>
+> > > Signed-off-by: Slavisa Petrovic <Slavisa.Petrovic@rt-rk.com>
+> > >
+> > > Hi Milan, Slavisa,
+> > >
+> > > Thank you very much for your contribution! Which Xen tree are you usi=
+ng
+> > > for development?
+> > >
+> > > They are using [1] and have separate branches on top of latest. So we=
+ are in
+> > > sync. Also, if you are interested we have created a task/epics for th=
+is feature in
+> > > [1] so you could also check there some details:
+> > > 1. https://gitlab.com/groups/xen-project/people/olkur/-/epics/5
+> > > 2. https://gitlab.com/xen-project/people/olkur/xen/-/issues/12
+> > >
+> > >  I am asking because RISC-V support in Xen is still in
+> > > the process of being upstreamed, and [1] is the tree that consolidate=
+s
+> > > all patches currently on the to-be-upstreamed list.
+> > >
+> > > While the specific Xen tree you are using is not particularly importa=
+nt
+> > > at this stage, and using [1] is not a requirement, I am asking becaus=
+e
+> > > it is essential to align on the hypervisor ABI, especially regarding =
+any
+> > > details that have not yet been upstreamed. Specifically, is there
+> > > anything in this patch series that relies on features not yet upstrea=
+m
+> > > in Xen?
+> > >
+> > > There are few features but some things which are Rt-Tk's branch in [1=
+] could go
+> > > without waiting for these features to be upstreamed.
+> > >
+> > > Thanks.
+> > >
+> > > ~ Oleksii
+> > >
+> > > [1] https://gitlab.com/xen-project/people/olkur/xen/-/tree/latest?ref=
+_type=3Dheads
+> >
+> > As Oleksii already explained, we are working in sync with his latest
+> > branch where most of the risc port is done.
+>
+> Perfect, I was hoping you'd say that! :-)
+> It is great to have you on board.
+>
+>
+> > I would just add that this patch introduces kernel risc-v hypercall
+> > support on which only our branch on xen tree depends on. Therefore, it
+> > won't disrupt any functionality with current upstream Xen, it will
+> > just introduce kernel functionality which is not used from Xen side
+> > until our branch is merged upstream.
+>
+> Ideally, we should upstream the Xen side of an interface first to Xen,
+> then add support for the interface to Linux. Let me make a concrete
+> example. Let's say that you upstream hypercall support to Linux first,
+> using SBI_ECALL defined as 0xE. Then, during the upstreaming process,
+> the Xen community decides to change SBI_ECALL to 0XEA1 to make it the
+> same as ARM. You'd have to change the Linux code again to fix it. To
+> avoid this, it is best to wait upstreaming the Linux side, until the Xen
+> side is Acked.
+>
+Sure, I got your point. This is actually one of the things we were not
+sure about (whether we should upstream Linux or Xen side first).
+Anyways it's good that we got review comments. We'll fix this patch
+according to suggestions and send it back when Xen side is upstream.
 
-create-build-diff expects .cold functions to be suffixed by an id, which
-is not always the case. Drop the trailing '.' when searching for cold
-functions.
+> This was just an example, and Andrew is right that the SBI
+> Implementation ID for Xen is reserved to 0x7, see the SBI specification.
+Yes, we were not aware of it, thanks.
 
-Fixes: #1160
-
-Signed-off-by: Artem Savkov <asavkov@redhat.com>
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
- common.c             | 2 +-
- create-diff-object.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/common.c b/common.c
-index b46fcf5cb6ca..67b9fcdb0ada 100644
---- a/common.c
-+++ b/common.c
-@@ -127,7 +127,7 @@ static int is_bundleable(struct symbol *sym)
- 	if (sym->type == STT_FUNC &&
- 	    !strncmp(sym->sec->name, ".text.unlikely.",15) &&
- 	    (!strcmp(sym->sec->name + 15, sym->name) ||
--			 (strstr(sym->name, ".cold.") &&
-+			 (strstr(sym->name, ".cold") &&
- 			  !strncmp(sym->sec->name + 15, sym->name, strlen(sym->sec->name) - 15))))
- 		return 1;
- 
-diff --git a/create-diff-object.c b/create-diff-object.c
-index 6060a73555ed..19590fc0fce1 100644
---- a/create-diff-object.c
-+++ b/create-diff-object.c
-@@ -347,7 +347,7 @@ static void kpatch_detect_child_functions(struct kpatch_elf *kelf)
- 	list_for_each_entry(sym, &kelf->symbols, list) {
- 		char *coldstr;
- 
--		coldstr = strstr(sym->name, ".cold.");
-+		coldstr = strstr(sym->name, ".cold");
- 		if (coldstr != NULL) {
- 			char *pname;
- 
--- 
-2.46.0
-
+BR,
+Milan
 
