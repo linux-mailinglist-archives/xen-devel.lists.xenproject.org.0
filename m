@@ -2,33 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D286EA139E8
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Jan 2025 13:25:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.873553.1284559 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAB06A13A7A
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Jan 2025 14:08:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.873567.1284570 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tYOvo-0001ZA-8V; Thu, 16 Jan 2025 12:25:04 +0000
+	id 1tYPat-0007Of-Bb; Thu, 16 Jan 2025 13:07:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 873553.1284559; Thu, 16 Jan 2025 12:25:04 +0000
+Received: by outflank-mailman (output) from mailman id 873567.1284570; Thu, 16 Jan 2025 13:07:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tYOvo-0001XA-5r; Thu, 16 Jan 2025 12:25:04 +0000
-Received: by outflank-mailman (input) for mailman id 873553;
- Thu, 16 Jan 2025 12:25:02 +0000
+	id 1tYPat-0007N9-8x; Thu, 16 Jan 2025 13:07:31 +0000
+Received: by outflank-mailman (input) for mailman id 873567;
+ Thu, 16 Jan 2025 13:07:30 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vlR0=UI=fooishbar.org=daniel@srs-se1.protection.inumbo.net>)
- id 1tYOvm-0001X4-Hd
- for xen-devel@lists.xenproject.org; Thu, 16 Jan 2025 12:25:02 +0000
-Received: from mail-qv1-xf2d.google.com (mail-qv1-xf2d.google.com
- [2607:f8b0:4864:20::f2d])
+ <SRS0=kd1b=UI=bounce.vates.tech=bounce-md_30504962.6789048d.v1-1127180d23774829bb59a9e75bd419e9@srs-se1.protection.inumbo.net>)
+ id 1tYPas-0007N3-2B
+ for xen-devel@lists.xenproject.org; Thu, 16 Jan 2025 13:07:30 +0000
+Received: from mail187-43.suw11.mandrillapp.com
+ (mail187-43.suw11.mandrillapp.com [198.2.187.43])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e6f11f4a-d404-11ef-99a4-01e77a169b0f;
- Thu, 16 Jan 2025 13:24:59 +0100 (CET)
-Received: by mail-qv1-xf2d.google.com with SMTP id
- 6a1803df08f44-6d92e457230so8661046d6.1
- for <xen-devel@lists.xenproject.org>; Thu, 16 Jan 2025 04:24:59 -0800 (PST)
+ id d4ca28c4-d40a-11ef-99a4-01e77a169b0f;
+ Thu, 16 Jan 2025 14:07:26 +0100 (CET)
+Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail187-43.suw11.mandrillapp.com (Mailchimp) with ESMTP id
+ 4YYjnn29D8zLfHXMv
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Jan 2025 13:07:25 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 1127180d23774829bb59a9e75bd419e9; Thu, 16 Jan 2025 13:07:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,109 +43,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e6f11f4a-d404-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fooishbar.org; s=google; t=1737030298; x=1737635098; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=GBwF2KOXlFDp1MGeRltem3iAJtpX3AYE0x8w+f0gonM=;
-        b=Lm18+Oz+7gIDPWShMHyk0mSFlH3i5ER81TApFrletR7iiJ4eBCx0FyNs7WU9XdNEIf
-         9rwmxm6XVNMzF0R86Vn0VCGD5hFhobM2f5kcT1IquavC0DVbr3RPjynUufaxejLfAHEb
-         Mhg5yQacVkmWmHLTG9dMaHuM+Y99z0jLSbXCtI6byDuztACDEolRdWGiOmeYqd1IETJG
-         BfGG6TFBathCPKZAG+q25pZYQCnCezzduCvqcGZuqc//h0HktlHKiqOroPJ4J3S64ZNr
-         EzR9+itpqrN1JSIdo6sJdQ6J37i76t5CDBvMYQOJJei6LVyKMHDqu5KhNmjzhUMPo0Gn
-         dMSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737030299; x=1737635099;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=GBwF2KOXlFDp1MGeRltem3iAJtpX3AYE0x8w+f0gonM=;
-        b=v09sTuMkf1JeeomHctyHCy86LPfJYmuwH1hxjgoKmSrRFp3Yn9FxNK3LFxboYeOft8
-         PoDhia146oaVUKBOGMTcoU3ylh0aQhHpMeAS+5nPhWMUW9JJhlcfIs1A39Vqmgcwc7cx
-         5RHGp7kH4usMnYTp4vz8yhSC2OyAp/Ow+/am8EeTXgWQlUhXuiyra2MO0PYPfHvTqSiR
-         Zl0Ljok4oNv97gA2oO4xEgmSSIN57ADeM0j+an1ua0ucXCrR9s9DmXTfQoRE4Eo2xy/A
-         gX3GW0wsnUMVzuEVRPvYkGetNSfqDeTNkacMo45iDLOi0TOaGc2Z0T+Ruk0Bm5MRYUqj
-         OenA==
-X-Forwarded-Encrypted: i=1; AJvYcCXX1sOIxJ1GkBsfzLs7hF9N0eREgd5ZNxTFxPD4RbjQaLoZj25WVHaCA50U1SZGxXy3fUjN4gpqT0U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzPF31jqOPBVLAWlgeE5RQVh5fXVzTAxmnt6jWc33W4LD52wdbL
-	oeJrzYLWe9bVDjGqZ8YgqT370GZHO2XExKN6KRcs96VvvHrevlr4Bwf2BY9tFD50eQFwCfGdQhp
-	whPYlL0zDm4j+Kz9Xb1XfFsU6uy4JxQVo0av0yQ==
-X-Gm-Gg: ASbGncu5qG3HGIaZP0g3dlswybjKabDC6QKPs5FP7CPStj0o2+fKHqTqOVEl87zllBI
-	B2/VwYq1AAIWh0seXpdZMZCil3UpyZJvLGIc=
-X-Google-Smtp-Source: AGHT+IHYPoThOqCGG0mIrocl9o1givl0D/RoYwWOKY0kUiZ64KPF9cSvP+6N1Rd6ke2PYtdS9xOibflODkJbaGvT990=
-X-Received: by 2002:a05:6214:528e:b0:6d9:3016:d0e7 with SMTP id
- 6a1803df08f44-6df9b2b1a21mr442378366d6.29.1737030298608; Thu, 16 Jan 2025
- 04:24:58 -0800 (PST)
+X-Inumbo-ID: d4ca28c4-d40a-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1737032845; x=1737302845;
+	bh=U4zJKnHETDSGpbyfc8Xor+pecEkKp2yPxoCKuDdLEQM=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=nq9cXfmjNlvnTPh/9FzYjVRRWg2dtzs2QMpVP06Wpl9yE+eUNxpRoYO/zFfzUPK8/
+	 haUsrQ2yqwulqRYrP9OvAgTTGf8RGIl4IYCQfK+chmbbrHhvNWpWyqil1k3acme19U
+	 fFQP3WOlqlpyjqxBlvZMTuAsAi+qES1N8B7ZmK2H2d1YnnScYuRmBfifLRdXBlAnRv
+	 9AT7+liYcZ7IF+5kDd1m7bnTMX2NAei18huXSq7FPTkgFEqf7jU7dxFCTCzGs3gZAi
+	 dKRi0M+V4pD0iw5YP5/weh7SW25rrIxvtE5hUqclgD38RHdnfGBqd3Wq8yolkCR6JV
+	 cFbskirINImfg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1737032845; x=1737293345; i=anthony.perard@vates.tech;
+	bh=U4zJKnHETDSGpbyfc8Xor+pecEkKp2yPxoCKuDdLEQM=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=E/3uIscUUCy4Ot74CfomRs5xP9WEFCPuqVS0/M1W8ulFBqAnWscXaQ1pmjAvpXzyV
+	 WGbMCUu4vgwjl8RkeQL8w6gOF97n7hPPDr/4qksQnq7Od1jvX53GGnN8uCPe0MS9zM
+	 eXx+DVmzFT+GPF86BLAtbrsCK7mbajR7jwZVLxW3tIiY20uAagWtYuxmDhejbuhy4o
+	 T5fU0Puxzr15LA2DmZ+8O/LODfC2dBORX39EDfdG58TLOb6sjSn9qpYtgVYp+tmszF
+	 eqgqFioSqhIDyiQmgSMguEThl1RSKgcXNWL8Z/MBCz+1Ce0dOiVpLOqzA89cUyTN2u
+	 lJ0kDc23g3LeA==
+From: "Anthony PERARD" <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH]=20xentrace:=20free=20CPU=20mask=20string=20before=20overwriting=20pointer?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1737032844354
+To: "Jan Beulich" <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, "Oleksii Kurochko" <oleksii.kurochko@gmail.com>
+Message-Id: <Z4kEi-qPzRQpAwsC@l14>
+References: <fedf2b9d-a475-4062-b8a4-5e33c7dd6305@suse.com>
+In-Reply-To: <fedf2b9d-a475-4062-b8a4-5e33c7dd6305@suse.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.1127180d23774829bb59a9e75bd419e9?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250116:md
+Date: Thu, 16 Jan 2025 13:07:25 +0000
 MIME-Version: 1.0
-References: <f3ba05c7-6e49-4641-a3f9-ba418ebdb7c3@ideasonboard.com>
- <c6735280-7c32-4319-8ca9-a7305d8117c3@suse.de> <d67adb03-5cd0-4ac9-af58-cf4446dacee3@ideasonboard.com>
- <0ea6be58-0e04-4172-87cd-064a3e4a43bc@suse.de> <f35cb350-6be9-48ca-ad7e-e9dd418281d5@ideasonboard.com>
- <4af0b6a7-c16a-4187-bbf5-365a9c86de21@suse.de> <e327ad84-b5c9-4480-b873-dc3aca605538@ideasonboard.com>
- <a2bbeb47-2569-4ee0-9265-92bab139bdc6@suse.de> <f3833771-fcd7-45dc-9019-1525fef34429@ideasonboard.com>
- <CAMuHMdXxYa+Na3XxpLTy=-eUL_zQ9kAiUKYu-E04u3KWApusSA@mail.gmail.com> <xz5ncq67bgmdase2jg3cfvyaxpiwhol2eqpfzow6dqpauvslo5@2w3rw27lhnxo>
-In-Reply-To: <xz5ncq67bgmdase2jg3cfvyaxpiwhol2eqpfzow6dqpauvslo5@2w3rw27lhnxo>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Thu, 16 Jan 2025 12:24:47 +0000
-X-Gm-Features: AbW1kvarRJv1VyJjUo1t8ScK0brJ2o4-Qq6ABYK10edUo6rgOW2PAccCb4uQWlM
-Message-ID: <CAPj87rNS7quwfqDmxyrW8_vQ6tnrcfWUn=81aTduDXtmdVkkAg@mail.gmail.com>
-Subject: Re: [PATCH v2 25/25] drm/xlnx: Compute dumb-buffer sizes with drm_mode_size_dumb()
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>, Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
-	airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org, 
-	linux-mediatek@lists.infradead.org, freedreno@lists.freedesktop.org, 
-	linux-arm-msm@vger.kernel.org, imx@lists.linux.dev, 
-	linux-samsung-soc@vger.kernel.org, nouveau@lists.freedesktop.org, 
-	virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org, 
-	linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-tegra@vger.kernel.org, intel-xe@lists.freedesktop.org, 
-	xen-devel@lists.xenproject.org, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Andy Yan <andyshrk@163.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, 16 Jan 2025 at 10:35, Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
-> On Thu, Jan 16, 2025 at 11:17:50AM +0100, Geert Uytterhoeven wrote:
-> > On Thu, Jan 16, 2025 at 11:03=E2=80=AFAM Tomi Valkeinen
-> > <tomi.valkeinen@ideasonboard.com> wrote:
-> > > On the platforms I have been using (omap, tidss, xilinx, rcar) the du=
-mb
-> > > buffers are the only buffers you can get from the DRM driver. The dum=
-b
-> > > buffers have been used to allocate linear and multiplanar YUV buffers
-> > > for a very long time on those platforms.
-> > >
-> > > I tried to look around, but I did not find any mentions that CREATE_D=
-UMB
-> > > should only be used for RGB buffers. Is anyone outside the core
-> > > developers even aware of it?
-> > >
-> > > If we don't use dumb buffers there, where do we get the buffers? Mayb=
-e
-> > > from a v4l2 device or from a gpu device, but often you don't have tho=
-se.
-> > > DMA_HEAP is there, of course.
-> >
-> > Why can't there be a variant that takes a proper fourcc format instead =
-of
-> > an imprecise bpp value?
->
-> Backwards compatibility. We can add an IOCTL for YUV / etc. But
-> userspace must be able to continue allocating YUV buffers through
-> CREATE_DUMB.
+On Tue, Jan 14, 2025 at 09:12:37AM +0100, Jan Beulich wrote:
+> While multiple -c options may be unexpected, we'd still better deal with
+> them properly.
+> 
+> Also restore the blank line that was bogusly zapped by the same commit.
+> 
+> Coverity-ID: 1638723
+> Fixes: e4ad2836842a ("xentrace: Implement cpu mask range parsing of human values (-c)")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Right. If allocating YUYV dumb buffers works on AM68 today, then we
-need to keep that working. But it doesn't mean we should go out of our
-way to make CREATE_DUMB work for every YUV format on every device.
+Acked-by: Anthony PERARD <anthony.perard@vates.tech>
 
-Currently, drivers are free to implement their own ioctls for anything
-specific they have. But like Laurent said, standardising on heaps and
-how to communicate requirements to userspace wrt heap selection / size
-/ alignment / etc is imo a better path forward for something generic.
+Thanks,
 
-Cheers,
-Daniel
+-- 
+
+ | Vates 
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
