@@ -2,43 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA880A150D0
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Jan 2025 14:46:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.874061.1284932 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B82CA15216
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Jan 2025 15:47:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.874099.1284943 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tYmeq-0007mb-8K; Fri, 17 Jan 2025 13:45:08 +0000
+	id 1tYnbn-0007ja-Eu; Fri, 17 Jan 2025 14:46:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 874061.1284932; Fri, 17 Jan 2025 13:45:08 +0000
+Received: by outflank-mailman (output) from mailman id 874099.1284943; Fri, 17 Jan 2025 14:46:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tYmeq-0007kT-58; Fri, 17 Jan 2025 13:45:08 +0000
-Received: by outflank-mailman (input) for mailman id 874061;
- Fri, 17 Jan 2025 13:45:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tYnbn-0007hp-C8; Fri, 17 Jan 2025 14:46:03 +0000
+Received: by outflank-mailman (input) for mailman id 874099;
+ Fri, 17 Jan 2025 14:46:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qJiU=UJ=redhat.com=vschneid@srs-se1.protection.inumbo.net>)
- id 1tYmeo-0007kN-AO
- for xen-devel@lists.xenproject.org; Fri, 17 Jan 2025 13:45:06 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3f5f4f1a-d4d9-11ef-99a4-01e77a169b0f;
- Fri, 17 Jan 2025 14:45:01 +0100 (CET)
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-504-dO1CuvSTPOqOCtjIYYFVbA-1; Fri, 17 Jan 2025 08:44:57 -0500
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-46798d74f0cso43648521cf.0
- for <xen-devel@lists.xenproject.org>; Fri, 17 Jan 2025 05:44:57 -0800 (PST)
-Received: from vschneid-thinkpadt14sgen2i.remote.csb
- (213-44-141-166.abo.bbox.fr. [213.44.141.166])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-46e1042ef63sm11228641cf.71.2025.01.17.05.44.44
+ <SRS0=wado=UJ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tYnbl-0007hj-Sa
+ for xen-devel@lists.xenproject.org; Fri, 17 Jan 2025 14:46:01 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c47621a4-d4e1-11ef-a0e2-8be0dac302b0;
+ Fri, 17 Jan 2025 15:46:00 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-43618283d48so14936685e9.1
+ for <xen-devel@lists.xenproject.org>; Fri, 17 Jan 2025 06:46:00 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-437c753cc1fsm97868425e9.39.2025.01.17.06.45.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Jan 2025 05:44:55 -0800 (PST)
+ Fri, 17 Jan 2025 06:45:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,144 +44,260 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f5f4f1a-d4d9-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1737121500;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HEKKhsO2kOL/qF9SHnIE9a8dcD47/tUh4wLid3vzvOo=;
-	b=a51vRx2QsdZszzMXf+neqOLckjs1ZNq5QSO3L01C7glmUK9RzGB27lCc3ukQTVuMwOJisy
-	1+OuvjOqVCUPdl02sJLiT5+PAOsjVCpfVrcA6SgKdGPs26r7t4mugWAom0mnglOxajvYVo
-	yfcVWexUV1OlB/UaPLu6P89mG/wIIY8=
-X-MC-Unique: dO1CuvSTPOqOCtjIYYFVbA-1
-X-Mimecast-MFC-AGG-ID: dO1CuvSTPOqOCtjIYYFVbA
+X-Inumbo-ID: c47621a4-d4e1-11ef-a0e2-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1737125160; x=1737729960; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=bhZi52Q331IKB83Epo0yLj7+/mxBEWdhynpLcd6BGdA=;
+        b=FGE0a3luGV0QG6cTQ8zkkkI/ztzjMu4r51pty1hAGwdUz7+qTkVLg5yj3j9U8huc9G
+         PdkvZZC7eUX3loS3I2s523dAPurVCcESWd4PsQuqB8mainmcAgC9ZMnoa0pmVj9GSwJ3
+         WcGQ7xKawtg/7Yp5DmOMJEYXLcnVANRu6nhmA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737121496; x=1737726296;
-        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
-         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=HEKKhsO2kOL/qF9SHnIE9a8dcD47/tUh4wLid3vzvOo=;
-        b=OGLA0Jg6n6IWTXX4Lob4yG7F7UMYrXfnmgJROPpt2Km6cGUFq9pnK0PzmRyxAdIia1
-         b5cbjiPBqtuoEKIcI/lIqFKCYWgw0rB/gRiNBGXoa/mcNzrsDewxq9rfqzZaozdl3Lmr
-         W9+4iYEC/6UaLlKJoccqudQRAYtzhiHCAPKiqLLUKDq8LNmHxfeXrJ8i/yEpfvm2LDJI
-         lG9vakOO+u3H5bApgtSY6xSCXrdvNuWsJam52wRswr5LI5NBGWs/Ais8YKFl8Vv9nvau
-         5WJAjJ7CMlraVz9YPTtM2ypmrFNCYqalbCFUYfC6unX7f2fkl2zrc16TMnaNmAlqITMm
-         yUyA==
-X-Forwarded-Encrypted: i=1; AJvYcCWjbTdOJN3N6WQXriXmXYFOB5pXdkVGd3sm4IFwqIHpSu0RcovBWrhlM1DhdlY6SgCuDRGZdUQp/44=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzevS3QuQ8RqNW/kpS58OVQWLCi2skLiMv8sU8RFSeuC99H1LrG
-	FBxwlGI3wJA9Cx8ZT1g7y13SSg2Y1pJUObaZzZ1JX8XiVUdodA3X8OJwB0o6vwHj0Kf5Ur790QS
-	G5nr49iX55e6t4jKDXhiwhwPhyZ5VhQiZw3x+/GD/3qcWegCQ/skqHwYG+IjoKpfO
-X-Gm-Gg: ASbGncs55ZWleEt90HCUbbyoHLmCr7qvanmWkvgsaOe8woxPCKYJTV4jtJMxnzPtGPn
-	DZChH4+GdwzSe0+GHAzN6NbW+kZFkGLh4teg4phuLDZKMKxGkuOxrdTjPjqQVvzamm0zq6EPM5N
-	cjq8imJX5Ws50cG/is3CbOa5FDpQhb0Is4VSeHPl4EUuoEUquJ4P6sdAXdLEt01Qd64PuVmTgQp
-	BOhwhG1amAPdHE69fdMCQPhHH2QKPkVmSX+XLdfwKj1zrTbOz5s2hmWU1h/Z8ilyIuhvBTTJ7hX
-	OOTIBBJ4zQjmBHjX5/JXjh15COUpLqHIY98Qyz4GiA==
-X-Received: by 2002:a05:622a:1387:b0:467:674d:237f with SMTP id d75a77b69052e-46e12ad5f7bmr40518901cf.11.1737121496627;
-        Fri, 17 Jan 2025 05:44:56 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHmIl4MCDkHkFsxi8fUyXS99BtrKRZsY+6w06Ii3eQgKuqou3xcsKirOxy10aWGIFujuL9O5w==
-X-Received: by 2002:a05:622a:1387:b0:467:674d:237f with SMTP id d75a77b69052e-46e12ad5f7bmr40518371cf.11.1737121496270;
-        Fri, 17 Jan 2025 05:44:56 -0800 (PST)
-From: Valentin Schneider <vschneid@redhat.com>
-To: Dave Hansen <dave.hansen@intel.com>, linux-kernel@vger.kernel.org,
- x86@kernel.org, virtualization@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
- linux-riscv@lists.infradead.org, linux-perf-users@vger.kernel.org,
- xen-devel@lists.xenproject.org, kvm@vger.kernel.org,
- linux-arch@vger.kernel.org, rcu@vger.kernel.org,
- linux-hardening@vger.kernel.org, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, bpf@vger.kernel.org,
- bcm-kernel-feedback-list@broadcom.com
-Cc: Peter Zijlstra <peterz@infradead.org>, Juergen Gross <jgross@suse.com>,
- Ajay Kaher <ajay.kaher@broadcom.com>, Alexey Makhalov
- <alexey.amakhalov@broadcom.com>, Russell King <linux@armlinux.org.uk>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, Paul
- Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave
- Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
- <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Alexander
- Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa
- <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, Adrian Hunter
- <adrian.hunter@intel.com>, "Liang, Kan" <kan.liang@linux.intel.com>, Boris
- Ostrovsky <boris.ostrovsky@oracle.com>, Josh Poimboeuf
- <jpoimboe@kernel.org>, Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
- Sean Christopherson <seanjc@google.com>, Paolo Bonzini
- <pbonzini@redhat.com>, Andy Lutomirski <luto@kernel.org>, Arnd Bergmann
- <arnd@arndb.de>, Frederic Weisbecker <frederic@kernel.org>, "Paul E.
- McKenney" <paulmck@kernel.org>, Jason Baron <jbaron@akamai.com>, Steven
- Rostedt <rostedt@goodmis.org>, Ard Biesheuvel <ardb@kernel.org>, Neeraj
- Upadhyay <neeraj.upadhyay@kernel.org>, Joel Fernandes
- <joel@joelfernandes.org>, Josh Triplett <josh@joshtriplett.org>, Boqun
- Feng <boqun.feng@gmail.com>, Uladzislau Rezki <urezki@gmail.com>, Mathieu
- Desnoyers <mathieu.desnoyers@efficios.com>, Lai Jiangshan
- <jiangshanlai@gmail.com>, Zqiang <qiang.zhang1211@gmail.com>, Juri Lelli
- <juri.lelli@redhat.com>, Clark Williams <williams@redhat.com>, Yair
- Podemsky <ypodemsk@redhat.com>, Tomas Glozar <tglozar@redhat.com>, Vincent
- Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann
- <dietmar.eggemann@arm.com>, Ben Segall <bsegall@google.com>, Mel Gorman
- <mgorman@suse.de>, Kees Cook <kees@kernel.org>, Andrew Morton
- <akpm@linux-foundation.org>, Christoph Hellwig <hch@infradead.org>, Shuah
- Khan <shuah@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, Miguel
- Ojeda <ojeda@kernel.org>, Alice Ryhl <aliceryhl@google.com>, "Mike
- Rapoport (Microsoft)" <rppt@kernel.org>, Samuel Holland
- <samuel.holland@sifive.com>, Rong Xu <xur@google.com>, Nicolas Saenz
- Julienne <nsaenzju@redhat.com>, Geert Uytterhoeven <geert@linux-m68k.org>,
- Yosry Ahmed <yosryahmed@google.com>, "Kirill A. Shutemov"
- <kirill.shutemov@linux.intel.com>, "Masami Hiramatsu (Google)"
- <mhiramat@kernel.org>, Jinghao Jia <jinghao7@illinois.edu>, Luis
- Chamberlain <mcgrof@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
- Tiezhu Yang <yangtiezhu@loongson.cn>
-Subject: Re: [PATCH v4 26/30] x86,tlb: Make __flush_tlb_global()
- noinstr-compliant
-In-Reply-To: <52311c3d-83cf-4dc4-bbcb-5fbca8eb249c@intel.com>
-References: <20250114175143.81438-1-vschneid@redhat.com>
- <20250114175143.81438-27-vschneid@redhat.com>
- <52311c3d-83cf-4dc4-bbcb-5fbca8eb249c@intel.com>
-Date: Fri, 17 Jan 2025 14:44:42 +0100
-Message-ID: <xhsmh5xmdh7w5.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
+        d=1e100.net; s=20230601; t=1737125160; x=1737729960;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bhZi52Q331IKB83Epo0yLj7+/mxBEWdhynpLcd6BGdA=;
+        b=i4BywVDyLCpaQDGsNb8SfgBTsZg6FoeqSO2ze1zvGYNqwTjzyf/1pb6pY9C2jtHwFm
+         fqcJkdseU5veAq+qnZEmTjL0mWaTjP1GOrRgBYGvKIHUL/GRQm4loU4zUNeFqBDHLdRF
+         x5dHp5JYNXoW4JlJvfap/nLJiPj8sD8jxH2aISzp7Fg38u0sxDbpykhde+owcJ4Eowl3
+         5YRAN5cRcSecc4D49Kegp4LzsqPGCRsarPkA6eUrzqvAfutc2dr5aURtdspxCYwXV45l
+         bX2YCKCzFmVU165ne/mK9l5dvJt/TVVLES9KY0+9On4CzEkwiBvDo1tEMSUwdT3NolPY
+         ZVkg==
+X-Forwarded-Encrypted: i=1; AJvYcCU8OeKWOdQDJp+8OprDn4tX+iMkFm0mREY1uKtDsbPxpQ5HGiZqy9MykYblVQwmFWmIPC+lyLp/4Oc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyYbII7YRQaHNON/dCTFOgZLDNsts4TbpE8FOgTSBOUfso9sCH2
+	mqeNdmAxVBhRoOxV+98oDPlPujxUoK/7icnfpGLbF7VTYR6Tn/ZuZHO1jTg4m2o=
+X-Gm-Gg: ASbGncuL9fK0RP4dZEJGF7PgmK8MGO3dsxoK8dXcamzvFXK4PY3AuZlQihRdYle+ZHU
+	F+mezNgnDtjiE1BJqafY9qT36uuWXwhyU2GZLVr0tAOhiT85/qANM2VF/CIa91+n1INLuiQ7j8K
+	xpHvn6VUi8bb5hRgZE/DUZkrERhhOrBTF+Vks3xiEI1H66jcanhVTpcdxf5OT/pHgAA6Ec/kiCw
+	rb3Q/NBGWH8Gjm7ObHYgDsfnyenpa1wVotZ0umDBv5fFIYaAD5t90VrKv1z51maz9A=
+X-Google-Smtp-Source: AGHT+IGXo+sI3Hqa/dapJ9upJMjmD+l/zOCOWl4b5b2dJgpzUKXE+WKzXQ/ExOwuxwiqWrM7hEvEVg==
+X-Received: by 2002:a05:600c:5486:b0:434:f1e9:afae with SMTP id 5b1f17b1804b1-438913bfa0fmr26368815e9.1.1737125159566;
+        Fri, 17 Jan 2025 06:45:59 -0800 (PST)
+Date: Fri, 17 Jan 2025 15:45:57 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Tim Deegan <tim@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 00/18] x86: adventures in Address Space Isolation
+Message-ID: <Z4ptJWmEwWdGsocD@macbook.local>
+References: <20250108142659.99490-1-roger.pau@citrix.com>
+ <8064a526-3525-4c48-8926-6ea99a8312a6@suse.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: oBlO9Yyi-gG1te7VPLjuQergYRA_PHWP-bbKSsUFZwA_1737121496
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <8064a526-3525-4c48-8926-6ea99a8312a6@suse.com>
 
-On 14/01/25 13:45, Dave Hansen wrote:
-> On 1/14/25 09:51, Valentin Schneider wrote:
->> +	cr4 = this_cpu_read(cpu_tlbstate.cr4);
->> +	asm volatile("mov %0,%%cr4": : "r" (cr4 ^ X86_CR4_PGE) : "memory");
->> +	asm volatile("mov %0,%%cr4": : "r" (cr4) : "memory");
->> +	/*
->> +	 * In lieu of not having the pinning crap, hard fail if CR4 doesn't
->> +	 * match the expected value. This ensures that anybody doing dodgy gets
->> +	 * the fallthrough check.
->> +	 */
->> +	BUG_ON(cr4 != this_cpu_read(cpu_tlbstate.cr4));
->
-> Let's say someone managed to write to cpu_tlbstate.cr4 where they
-> cleared one of the pinned bits.
->
-> Before this patch, CR4 pinning would WARN_ONCE() about it pretty quickly
-> and also reset the cleared bits.
->
-> After this patch, the first native_flush_tlb_global() can clear pinned
-> bits, at least until native_write_cr4() gets called the next time. That
-> seems like it'll undermine CR4 pinning at least somewhat.
->
+On Tue, Jan 14, 2025 at 05:20:04PM +0100, Jan Beulich wrote:
+> On 08.01.2025 15:26, Roger Pau Monne wrote:
+> > Hello,
+> > 
+> > The aim of this series is to introduce the functionality required to
+> > create linear mappings visible to a single pCPU.
+> > 
+> > Doing so requires having a per-vCPU root page-table (L4), and hence
+> > requires shadowing the guest selected L4 on PV guests.  As follow ups
+> > (and partially to ensure the per-CPU mappings work fine) the CPU stacks
+> > are switched to use per-CPU mappings, so that remote stack contents are
+> > not by default mapped on all page-tables (note: for this to be true the
+> > directmap entries for the stack pages would need to be removed also).
+> > 
+> > There's one known shortcoming with the presented code: migration of PV
+> > guests using per-vCPU root page-tables is not working.  I need to
+> > introduce extra logic to deal with PV shadow mode when using unique root
+> > page-tables.  I don't think this should block the series however, such
+> > missing functionality can always be added as follow up work.
+> > paging_domctl() is adjusted to reflect this restriction.
+> > 
+> > The main differences compared to v1 are the usage of per-vCPU root page
+> > tables (as opposed to per-pCPU), and the usage of the existing perdomain
+> > family of functions to manage the mappings in the per-domain slot, that
+> > now becomes per-vCPU.
+> > 
+> > All patches until 17 are mostly preparatory, I think there's a nice
+> > cleanup and generalization of the creation and managing of per-domain
+> > mappings, by no longer storing references to L1 page-tables in the vCPU
+> > or domain struct.
+> 
+> Since you referred me to the cover letter, I've looked back here after
+> making some more progress with the series. Along with my earlier comment
+> towards the need or ultimate goal, ...
+> 
+> > Patch 13 introduces the command line option, and would need discussion
+> > and integration with the sparse direct map series.  IMO we should get
+> > consensus on how we want the command line to look ASAP, so that we can
+> > basic parsing logic in place to be used by both the work here and the
+> > direct map removal series.
+> > 
+> > As part of this series the map_domain_page() helpers are also switched
+> > to create per-vCPU mappings (see patch 15), which converts an existing
+> > interface into creating per-vCPU mappings.  Such interface can be used
+> > to hide (map per-vCPU) further data that we don't want to be part of the
+> > direct map, or even shared between vCPUs of the same domain.  Also all
+> > existing users of the interface will already create per-vCPU mappings
+> > without needing additional changes.
+> > 
+> > Note that none of the logic introduced in the series removes entries for
+> > the directmap, so even when creating the per-CPU mappings the underlying
+> > physical addresses are fully accessible when using it's direct map
+> > entries.
+> > 
+> > I also haven't done any benchmarking.  Doesn't seem to cripple
+> > performance up to the point that XenRT jobs would timeout before
+> > finishing, that the only objective reference I can provide at the
+> > moment.
+> > 
+> > The series has been extensively tested on XenRT, but that doesn't cover
+> > all possible use-cases, so it's likely to still have some rough edges,
+> > handle with care.
+> > 
+> > Thanks, Roger.
+> > 
+> > Roger Pau Monne (18):
+> >   x86/mm: purge unneeded destroy_perdomain_mapping()
+> >   x86/domain: limit window where curr_vcpu != current on context switch
+> >   x86/mm: introduce helper to detect per-domain L1 entries that need
+> >     freeing
+> >   x86/pv: introduce function to populate perdomain area and use it to
+> >     map Xen GDT
+> >   x86/mm: switch destroy_perdomain_mapping() parameter from domain to
+> >     vCPU
+> >   x86/pv: set/clear guest GDT mappings using
+> >     {populate,destroy}_perdomain_mapping()
+> >   x86/pv: update guest LDT mappings using the linear entries
+> >   x86/pv: remove stashing of GDT/LDT L1 page-tables
+> >   x86/mm: simplify create_perdomain_mapping() interface
+> >   x86/mm: switch {create,destroy}_perdomain_mapping() domain parameter
+> >     to vCPU
+> >   x86/pv: untie issuing FLUSH_ROOT_PGTBL from XPTI
+> >   x86/mm: move FLUSH_ROOT_PGTBL handling before TLB flush
+> >   x86/spec-ctrl: introduce Address Space Isolation command line option
+> >   x86/mm: introduce per-vCPU L3 page-table
+> >   x86/mm: introduce a per-vCPU mapcache when using ASI
+> >   x86/pv: allow using a unique per-pCPU root page table (L4)
+> >   x86/mm: switch to a per-CPU mapped stack when using ASI
+> >   x86/mm: zero stack on context switch
+> > 
+> >  docs/misc/xen-command-line.pandoc    |  24 +++
+> >  xen/arch/x86/cpu/mcheck/mce.c        |   4 +
+> >  xen/arch/x86/domain.c                | 157 +++++++++++----
+> >  xen/arch/x86/domain_page.c           | 105 ++++++----
+> >  xen/arch/x86/flushtlb.c              |  28 ++-
+> >  xen/arch/x86/hvm/hvm.c               |   6 -
+> >  xen/arch/x86/include/asm/config.h    |  16 +-
+> >  xen/arch/x86/include/asm/current.h   |  58 +++++-
+> >  xen/arch/x86/include/asm/desc.h      |   6 +-
+> >  xen/arch/x86/include/asm/domain.h    |  50 +++--
+> >  xen/arch/x86/include/asm/flushtlb.h  |   2 +-
+> >  xen/arch/x86/include/asm/mm.h        |  15 +-
+> >  xen/arch/x86/include/asm/processor.h |   5 +
+> >  xen/arch/x86/include/asm/pv/mm.h     |   5 +
+> >  xen/arch/x86/include/asm/smp.h       |  12 ++
+> >  xen/arch/x86/include/asm/spec_ctrl.h |   4 +
+> >  xen/arch/x86/mm.c                    | 291 +++++++++++++++++++++------
+> >  xen/arch/x86/mm/hap/hap.c            |   2 +-
+> >  xen/arch/x86/mm/paging.c             |   6 +
+> >  xen/arch/x86/mm/shadow/hvm.c         |   2 +-
+> >  xen/arch/x86/mm/shadow/multi.c       |   2 +-
+> >  xen/arch/x86/pv/descriptor-tables.c  |  47 ++---
+> >  xen/arch/x86/pv/dom0_build.c         |  12 +-
+> >  xen/arch/x86/pv/domain.c             |  57 ++++--
+> >  xen/arch/x86/pv/mm.c                 |  43 +++-
+> >  xen/arch/x86/setup.c                 |  32 ++-
+> >  xen/arch/x86/smp.c                   |  39 ++++
+> >  xen/arch/x86/smpboot.c               |  26 ++-
+> >  xen/arch/x86/spec_ctrl.c             | 205 ++++++++++++++++++-
+> >  xen/arch/x86/traps.c                 |  25 ++-
+> >  xen/arch/x86/x86_64/mm.c             |   7 +-
+> >  xen/common/smp.c                     |  10 +
+> >  xen/common/stop_machine.c            |  10 +
+> >  xen/include/xen/smp.h                |   8 +
+> >  34 files changed, 1052 insertions(+), 269 deletions(-)
+> 
+> ... this diffstat (even after subtracting out the contribution of the last two
+> patches in the series) doesn't really look like a cleanup / simplification.
 
-The BUG_ON() should still catch any pinned bit mishandling, however...
+To be fair you would need to subtract the contribution of the last 8
+patches, as all those are strictly related to ASI.  The perdomain
+mapping interface cleanup is just the first 10 patches.  Which leaves
+a diffstat of:
 
-> What keeps native_write_cr4() from being noinstr-compliant now? Is it
-> just the WARN_ONCE()?
->
+ xen/arch/x86/domain.c                |  81 ++++++++++++----
+ xen/arch/x86/domain_page.c           |  19 ++--
+ xen/arch/x86/hvm/hvm.c               |   6 --
+ xen/arch/x86/include/asm/desc.h      |   6 +-
+ xen/arch/x86/include/asm/domain.h    |  13 +--
+ xen/arch/x86/include/asm/mm.h        |  11 ++-
+ xen/arch/x86/include/asm/processor.h |   5 +
+ xen/arch/x86/mm.c                    | 175 ++++++++++++++++++++++++++---------
+ xen/arch/x86/pv/descriptor-tables.c  |  47 +++++-----
+ xen/arch/x86/pv/domain.c             |  24 ++---
+ xen/arch/x86/pv/mm.c                 |   3 +-
+ xen/arch/x86/smpboot.c               |   6 +-
+ xen/arch/x86/traps.c                 |  12 +--
+ xen/arch/x86/x86_64/mm.c             |   7 +-
+ 14 files changed, 260 insertions(+), 155 deletions(-)
 
-I don't think that's even an issue since __WARN_printf() wraps the print in
-instrumentation_{begin,end}(). In v3 I made native_write_cr4() noinstr and
-added a non-noinstr wrapper to be used in existing callsites.
+That's including the context switch change and not differentiating
+between lines of code vs comments.
 
-AFAICT if acceptable we could make the whole thing noinstr and stick with
-that; Peter, is there something I missed that made you write the handmade
-noinstr CR4 RMW?
+However, I don't think cleanup / simplifications should be purely
+based on diffstat LoC.  Arguably the current
+create_perdomain_mapping() set of parameters are not the most obvious
+ones:
 
+int create_perdomain_mapping(struct domain *d, unsigned long va,
+                             unsigned int nr, l1_pgentry_t **pl1tab,
+                             struct page_info **ppg);
+
+Compared to the result after the first 10 patches in the series:
+
+int create_perdomain_mapping(struct vcpu *v, unsigned long va,
+                             unsigned int nr, bool populate);
+
+Together with the fact that callers no longer need to keep a reference
+to the L1(s) tables to populate such area.
+
+> Things becoming slightly slower (because of the L1 no longer directly available
+> to modify) may, otoh, not be a significant issue, if we assume that GDT/LDT
+> manipulation isn't normally a very frequent operation.
+
+I introduce a fast path in both {populate,destroy}_perdomain_mapping()
+that uses the recursive linear slot for manipulating the L1
+page-table.  There's still a slow path that relies on walking the
+page-tables, but that should only be used when the vCPU is not
+running, and hence the added latency shouldn't be too critical.
+
+As a side-effect of this logic the pages allocated for the per-domain
+region page-tables can now uniformly be from domheap.  The usage of
+xenheap pages for L1 page-tables is no longer needed once those are
+not stashed in the domain structure anymore.
+
+> IOW my earlier request stands: Can you please try to make more clear (in the
+> patch descriptions) what exactly the motivation for these changes is? Just
+> doing things differently with more code overall can't be it, I don't think.
+
+The main motivation for the change is to remove stashing L1
+page-tables for the per-domain area(s) in the domain struct, as with
+the introduction of ASI Xen would need to stash L1 page-tables for the
+per-domain area on the vcpu struct also, as a result of the per-domain
+slot becoming per-vCPU.  IMO managing such references, and having
+logic to deal with domain and vcpu L1 page-tables is too complex and
+error prone.
+
+Instead I propose to add an interface:
+{populate,destroy}_perdomain_mapping() that can be used to manage
+mappings on the per-domain area with callers being completely unaware
+of whether the domain is running with per-vCPU mappings or not.
+
+Please let me know if you are happy with the reasoning and arguments
+provided.  I think the resulting perdomain mapping interface is much
+better than what Xen currently does for manipulating per-domain
+mapping entries, but I might be spoiled.
+
+Thanks, Roger.
 
