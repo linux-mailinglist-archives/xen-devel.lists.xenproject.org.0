@@ -2,31 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2BC1A1587E
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Jan 2025 21:21:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.874291.1285049 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5AE7A15995
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Jan 2025 23:44:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.874337.1285059 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tYspL-00054g-48; Fri, 17 Jan 2025 20:20:23 +0000
+	id 1tYv3w-0006pA-OD; Fri, 17 Jan 2025 22:43:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 874291.1285049; Fri, 17 Jan 2025 20:20:23 +0000
+Received: by outflank-mailman (output) from mailman id 874337.1285059; Fri, 17 Jan 2025 22:43:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tYspL-000529-17; Fri, 17 Jan 2025 20:20:23 +0000
-Received: by outflank-mailman (input) for mailman id 874291;
- Fri, 17 Jan 2025 20:20:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tYv3w-0006nA-L2; Fri, 17 Jan 2025 22:43:36 +0000
+Received: by outflank-mailman (input) for mailman id 874337;
+ Fri, 17 Jan 2025 22:43:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dRtS=UJ=daemonizer.de=maxi@srs-se1.protection.inumbo.net>)
- id 1tYspJ-000523-0S
- for xen-devel@lists.xenproject.org; Fri, 17 Jan 2025 20:20:21 +0000
-Received: from mx1.somlen.de (breeze.somlen.de [2a00:1828:a019::100:0])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 779ba34e-d510-11ef-99a4-01e77a169b0f;
- Fri, 17 Jan 2025 21:20:18 +0100 (CET)
-Received: by mx1.somlen.de with ESMTPSA id 61BA25030C5;
- Fri, 17 Jan 2025 21:20:16 +0100 (CET)
+ <SRS0=O/RI=UJ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1tYv3v-0006n4-7R
+ for xen-devel@lists.xenproject.org; Fri, 17 Jan 2025 22:43:35 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7ae19242-d524-11ef-a0e2-8be0dac302b0;
+ Fri, 17 Jan 2025 23:43:33 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 7CFB25C6417;
+ Fri, 17 Jan 2025 22:42:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47AA7C4CEDD;
+ Fri, 17 Jan 2025 22:43:30 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,104 +41,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 779ba34e-d510-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=daemonizer.de;
-	s=202303; t=1737145216;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=U1f/FOsYILpgODc2jCY0Q8D48grq7mgyBUP9Wk8XFUw=;
-	b=Kf7goFDQXxGaNHDTP5iSUiYHdeLuUIwLDBjcUzqqepkZ0eHhCVh+lV6T5JM2V6FQTd8TIp
-	+2aN8l28qOe9Gx68eAXnLNnf+DghJGiRyo/ef0NuH2mwb74k0FSrT2k1hfotGlpVlpU5Cy
-	+Ii8DMLlVxOvtmsdFl2+HmT9OjeL71tLgJt+88XwK2C/gmcBqqcjbhKY7XbeudhcTsmGAp
-	WaThmKUWaLyUDVWqzU9CU1BIBZn0NOfb+98sKbBdYnQoFF4kJywcpp+9jcmBUusPWiWNJP
-	lmGhcGg8fPrPCkcnBnyiOAFS+lQjLcHacKooMJeYr4X5Y6hq9P5PhoJcBeJDZg==
-From: Maximilian Engelhardt <maxi@daemonizer.de>
-To: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>
-Subject:
- Re: [XEN PATCH 0/1] Bug: Hyperlinks in generated documentation may point to
- the wrong architecture
-Date: Fri, 17 Jan 2025 21:20:03 +0100
-Message-ID: <2013076.usQuhbGJ8B@localhost>
-In-Reply-To: <fe71538a-92ed-4ab5-95f7-e5c8d42929d2@citrix.com>
-References:
- <cover.1736542505.git.maxi@daemonizer.de>
- <fe71538a-92ed-4ab5-95f7-e5c8d42929d2@citrix.com>
+X-Inumbo-ID: 7ae19242-d524-11ef-a0e2-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1737153811;
+	bh=VQkzYmnK1qE/xFXhxxj/74ZXfYa7VSdfUA52jckQ4a8=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=DSAqSH8C/vbi1DYMrwdANw+ivgxjxccegitIMlbPpe1lqPqvm17AzYi3fX4mJAasI
+	 kWasB6j8UvHcN7UYizJp/jtHHiUYyPXwHkKE/wqmxGwSAgo6F3+jBMfE5n2K/8dmNB
+	 kx7gSV02bKflZvUb66mIPvV/QJpZqLlNfhfl8F+9qKrWxJqqGOkcnhVc2q7hrPVWRP
+	 jCXKiyuNPIScNU6ievCIzIaGjEVswZQLXXgtfbRU9YEjUcltqxw6jlih6MJDyXC/ZH
+	 koMQf8cSKS+K5Xad8LmfJVCUlkifFc7VdHf6KZlD7r7MloFNTu7/Vr0TJ0f7zjSEQy
+	 WbxnkbZjdAASA==
+Date: Fri, 17 Jan 2025 14:43:28 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, 
+    Wei Liu <wl@xen.org>, sergiy_kibrik@epam.com, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2 1/4] x86: provide an inverted Kconfig control for
+ shim-exclusive mode
+In-Reply-To: <6285f86d-f2d2-4040-999d-01aed3e72a36@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2501171430570.2684657@ubuntu-linux-20-04-desktop>
+References: <da5f5bac-6d5d-092d-d872-f1120dcd2661@suse.com> <617842e1-8ef2-b095-0c52-c2e2e5f1c0a8@suse.com> <alpine.DEB.2.22.394.2501161503120.2684657@ubuntu-linux-20-04-desktop> <Z4oxZSUQ6VARiR0H@macbook.local> <D74CH4RDRRR9.ZR6RL8U6PQ56@cloud.com>
+ <6285f86d-f2d2-4040-999d-01aed3e72a36@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPart3528437.QJadu78ljV";
- micalg="pgp-sha512"; protocol="application/pgp-signature"
+Content-Type: multipart/mixed; BOUNDARY="8323329-846094575-1737152576=:2684657"
+Content-ID: <alpine.DEB.2.22.394.2501171423030.2684657@ubuntu-linux-20-04-desktop>
 
---nextPart3528437.QJadu78ljV
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"; protected-headers="v1"
-From: Maximilian Engelhardt <maxi@daemonizer.de>
-Cc: Anthony PERARD <anthony.perard@vates.tech>
-Date: Fri, 17 Jan 2025 21:20:03 +0100
-Message-ID: <2013076.usQuhbGJ8B@localhost>
-In-Reply-To: <fe71538a-92ed-4ab5-95f7-e5c8d42929d2@citrix.com>
-MIME-Version: 1.0
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-On Freitag, 10. Januar 2025 22:32:06 CET Andrew Cooper wrote:
-> [...]
-> Thanks for the patch.  I'll commit it in due course.
+--8323329-846094575-1737152576=:2684657
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2501171423031.2684657@ubuntu-linux-20-04-desktop>
+
+On Fri, 17 Jan 2025, Jan Beulich wrote:
+> On 17.01.2025 13:24, Alejandro Vallejo wrote:
+> > On Fri Jan 17, 2025 at 10:31 AM GMT, Roger Pau Monné wrote:
+> >> On Thu, Jan 16, 2025 at 04:31:46PM -0800, Stefano Stabellini wrote:
+> >>> On Wed, 1 Mar 2023, Jan Beulich wrote:
+> >>>> While we want certain things turned off in shim-exclusive mode, doing
+> >>>> so via "depends on !PV_SHIM_EXCLUSIVE" badly affects allyesconfig: Since
+> >>>> that will turn on PV_SHIM_EXCLUSIVE, other options will be turned off as
+> >>>> a result. Yet allyesconfig wants to enable as much of the functionality
+> >>>> as possible.
+> >>>>
+> >>>> Retain PV_SHIM_EXCLUSIVE as a prompt-less option such that first of all
+> >>>> C code using it can remain as is. This isn't just for less code churn,
+> >>>> but also because I think that symbol is more logical to use in many
+> >>>> (all?) places.
+> >>>>
+> >>>> Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> >>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> >>>>
+> >>>> ---
+> >>>> The new Kconfig control's name is up for improvement suggestions, but I
+> >>>> think it's already better than the originally thought of
+> >>>> FULL_HYPERVISOR.
+> >>>
+> >>> I think the approach in general is OK, maybe we can improve the naming
+> >>> further. What about one of the following?
+> >>>
+> >>> NO_PV_SHIM_EXCLUSIVE
+> >>> PV_SHIM_NOT_EXCLUSIVE
+> >>
+> >> IMO negated options are confusing, and if possible I think we should
+> >> avoid using them unless strictly necessary.
+> > 
+> > The problem is that the option is negative in nature. It's asking for
+> > hypervisor without _something_. I do agree with Stefano that shim would be
+> > better in the name. Otherwise readers are forced to play divination tricks.
+> > 
+> > How about something like:
+> > 
+> >     SHIMLESS_HYPERVISOR
+> > 
+> > That's arguably not negated, preserves "shim" in the name and has the correct
+> > polarity for allyesconfig to yield the right thing.
 > 
-> As an aside though, is there anything we could sensibly do in our own CI
-> (Gitlab) to not regress this?
-> 
-> https://salsa.debian.org/reproducible-builds/reprotest looks like it
-> might be good start, but I've never really played in this area before. 
-> Would this be suitable, or do you have any other suggestion?
+> Except that a hypervisor with this option enabled isn't shim-less, but permits
+> working in shim as well as in non-shim mode.
 
-Hi Andrew,
+First, let's recognize that we have two opposing requirements. One
+requirement is to make it as easy as possible to configure for the user.
+Ideally without using negative CONFIG options, such as
+NO_PV_SHIM_EXCLUSIVE. From the user point of view, honestly,
+PV_SHIM_EXCLUSIVE is a pretty good name. Better than all of the others,
+I think.
 
-thanks for merging all my patches. Having some upstream xen testing for 
-reproducible builds would indeed be a good thing to have.
+On the other hand, we have the requirement that we don't want
+allyesconfig to end up disabling a bunch of CONFIG options. Now this
+requirement can be satisfied easily by adding something like
+NO_PV_SHIM_EXCLUSIVE. However, it would go somewhat against the previous
+requirement.
 
-Reprotest is the tool the salsa CI currently runs as one step and I also have 
-been using locally for testing. Salsa is the Debian gitlab instance and there 
-is a CI pipeline provided for testing various Debian packaging related things, 
-including reproducibility of the Debian package. We use this pipeline for 
-testing our Debian xen package.
-There is also the reproducible-builds project which among other things looks 
-at being able to reproduce the whole Debian archive [1], but as far as i know 
-they are using their own tooling for testing.
+So we need a compromise, something that doesn't end up disabling other
+CONFIG options, to make allyesconfig happy, but also not too confusing
+for the user (which is a matter of personal opinion).
 
-So to answer your question, I would say reprotest is a good tool for testing 
-for reproducibility issues and I don't know any better alternative at the 
-moment. There might be some issues e.g. faketime not working as intended in 
-certain situations, but there is always the option to configure or disable a 
-certain variation if it causes problems.
+In short, expect that people will have different opinions on this and
+will find different compromises better or worse. For one, I prefer to
+compromise on "no negative CONFIG options" and use
+PV_SHIM_NOT_EXCLUSIVE. Because it serves the allyesconfig goal, and
+while it is not as clear as PV_SHIM_EXCLUSIVE, is still better than a
+completely generic FULL_HYPERVISOR option, which means nothing to me.
 
-Maxi
-
-[1] https://tests.reproducible-builds.org/debian/reproducible.html
-
-
---nextPart3528437.QJadu78ljV
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEQ8gZ7vwsPje0uPkIgepkfSQr0hUFAmeKu3MACgkQgepkfSQr
-0hVn7A/+NtVMzQKyKqKSf+2QrgsuVYF1/nj1TueW6iWsSayjGhR1D9fszUo9ZFi+
-SZprv668ZPmR40QlmASfqSrAIjxYLrS/yEgWCcZrRd6RSofL8V9zvn3bsX58JJag
-XIdFr2SDqqM4fu8pTScgGpxL7/pOiUxRUzKIjmHEy9MOmsbr9jpkV/4UPRZ1kSXa
-r0x/Jvcb0bDTv+zF6hGqjZLUHDx+SWjx5UVpyHZjszupOM2SzaP+ZcZn6ez4E67q
-/puHmCwGJk+uBQQPn8swkIcX5SGmv4V2BxmalTLFxgMp+uamr7MsQg7wb6fpg91M
-qCdDOglfZjx0zGqUZripFLq1kocU1AXGHTGamGPlZe4A71G44jCXPqrqujzSke+1
-xGExOiXzLScOHyjZiBdbfegoZedYUDkf6W7jf17fVV7CsnIIFErQS0JK1r6PjudJ
-T0NfKp0X/V0kZDDdCb6mN88iQsdUnjlY4Mdw1+uteRw0poUWYvIzTvOEvOxRWJu8
-Wh0Ab+ua1ryT3S/xdwQZbb018Iu1JOW8dBr1BseCDmVGupIn+ws8IU6TjuFBKJNo
-W/5PK+kt3IdECj40vDXTWRexQUJNv1FJetK2dmWN+5jcoxumI2paeXt/+KYYfH/1
-U+yBuPwC9iS1Wdlybo1DuqdG1AY5A9eFG6H1KYwsMw+lV1vzEvI=
-=nrf+
------END PGP SIGNATURE-----
-
---nextPart3528437.QJadu78ljV--
-
-
-
+I cannot see a way to have a good and clear non-negated CONFIG option,
+and also satisfy the allyesconfig requirement. So I prefer to compromise
+on the "non-negated" part.
+--8323329-846094575-1737152576=:2684657--
 
