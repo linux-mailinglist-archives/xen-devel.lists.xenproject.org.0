@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C93EA14EFB
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Jan 2025 13:06:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.874015.1284902 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50C30A14F1E
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Jan 2025 13:25:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.874040.1284913 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tYl6n-0001Ks-Td; Fri, 17 Jan 2025 12:05:53 +0000
+	id 1tYlPI-0004Yd-Da; Fri, 17 Jan 2025 12:25:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 874015.1284902; Fri, 17 Jan 2025 12:05:53 +0000
+Received: by outflank-mailman (output) from mailman id 874040.1284913; Fri, 17 Jan 2025 12:25:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tYl6n-0001Hm-Qo; Fri, 17 Jan 2025 12:05:53 +0000
-Received: by outflank-mailman (input) for mailman id 874015;
- Fri, 17 Jan 2025 12:05:52 +0000
+	id 1tYlPI-0004X9-Af; Fri, 17 Jan 2025 12:25:00 +0000
+Received: by outflank-mailman (input) for mailman id 874040;
+ Fri, 17 Jan 2025 12:24:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rDGL=UJ=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1tYl6m-0001HN-Hg
- for xen-devel@lists.xenproject.org; Fri, 17 Jan 2025 12:05:52 +0000
-Received: from fout-b5-smtp.messagingengine.com
- (fout-b5-smtp.messagingengine.com [202.12.124.148])
+ <SRS0=SGgd=UJ=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1tYlPG-0004X3-Kc
+ for xen-devel@lists.xenproject.org; Fri, 17 Jan 2025 12:24:58 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 63656738-d4cb-11ef-99a4-01e77a169b0f;
- Fri, 17 Jan 2025 13:05:49 +0100 (CET)
-Received: from phl-compute-09.internal (phl-compute-09.phl.internal
- [10.202.2.49])
- by mailfout.stl.internal (Postfix) with ESMTP id ACB0C114014A;
- Fri, 17 Jan 2025 07:05:47 -0500 (EST)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-09.internal (MEProxy); Fri, 17 Jan 2025 07:05:47 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 17 Jan 2025 07:05:44 -0500 (EST)
+ id 0fcb850e-d4ce-11ef-99a4-01e77a169b0f;
+ Fri, 17 Jan 2025 13:24:56 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-aaec61d0f65so439546566b.1
+ for <xen-devel@lists.xenproject.org>; Fri, 17 Jan 2025 04:24:56 -0800 (PST)
+Received: from localhost ([217.156.233.154]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab384d28507sm162195766b.77.2025.01.17.04.24.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 17 Jan 2025 04:24:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,182 +44,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 63656738-d4cb-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:message-id:mime-version:reply-to
-	:subject:subject:to:to; s=fm2; t=1737115547; x=1737201947; bh=E4
-	BKaLgjKwxl3qk+S8d/r25/8ei0FPAdbuCz0wO7smo=; b=tjZfnjVdV4QdGRwsEx
-	DS2LMAOMtk8DiwivpYQoZQveZgUTBeCkOwXnvBWYNLUlfOZyxINj4xiRm6DfYVip
-	ZPRUU9tT+BVC5q9ARmDvWAxDQgWhE/sVwNM0eSjwo+n6maMgYsRSf94eCihQ1kjv
-	9YVkR5oVx10DT3akBe3w5WiXIr/mVyJWzmn+/ti37hgTTfuwo0PJvt94hAM5dYqO
-	gSOhq9BBAu/INz+SmDoVxUg738UNeH8sVHGeiEKiVQUbW9dueqEN8/A4dTfOS4Sj
-	yApXUW3Fuh/QwgHViOAYqBX6nO1W9T68hZE0NJPHLQ3fqea5yJM5tH4nzNz6sKKI
-	+BUg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:message-id
-	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1737115547; x=
-	1737201947; bh=E4BKaLgjKwxl3qk+S8d/r25/8ei0FPAdbuCz0wO7smo=; b=e
-	7Y/W0SY4AGk1J1Qg9sa3BAnCAeTTNk++WFNqgZrMdlvFVxKPusThjMNoHK+odS54
-	MqG/tDHrcYUH1co3lxeqgx+4Cw9eK0UptOcrf13GOlI1FeY2NFF2RfwTYnSlqAO7
-	3rnDJ/bjvwtQ1Qkm5INUpq5qlqkgzodIt1rdtdzsjQt9EPkZOYAqmZqoMk0MxeNg
-	ZjklWlwg4wl0BvuRuomCs7bYLZC8AEoAFRG4oZsHWS8S4srVQ/Y8VHSkLiQcjxke
-	SCMopBFP/9TkGO+k2GZpGjnhT7Ij06gq172nnjaeq2d2AkHW6rSNIQzBzfKrk21v
-	LLbL9dOBGwHClBwV16f9A==
-X-ME-Sender: <xms:mkeKZ7tvasDCMxptcYa8_7KxesDN9FchzTWXK871Yh-5KsnnuzxZxQ>
-    <xme:mkeKZ8ewDQBMtS_rRSXzHLuZwZHqaTDz7RESVDrWD-Bwd9RpFr4-7LdMhCH1cDtji
-    Z9oJMbXuxojzA>
-X-ME-Received: <xmr:mkeKZ-xme9OmWV3NosHuPlo-4-01iUdfFSNvDiEJ5dM6aNqV1-su9bPn3p8stfzw1OUDqhNPFMLjei9AmNtMHmq79Zj993q1hg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddrudeifedgfeegucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
-    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
-    htshculddquddttddmnecujfgurhepfffhvfevuffkgggtugesghdtreertddtjeenucfh
-    rhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrh
-    hmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgr
-    thhtvghrnhephfetuefhiefgtddtlefggffggeevhedtvdefffeugfeiieeiheefteefge
-    fggeejnecuffhomhgrihhnpehgihhthhhusgdrtghomhenucevlhhushhtvghrufhiiigv
-    pedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisg
-    hlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopedutddpmhhouggvpehs
-    mhhtphhouhhtpdhrtghpthhtohepsghhvghlghgrrghssehgohhoghhlvgdrtghomhdprh
-    gtphhtthhopehjghhrohhsshesshhushgvrdgtohhmpdhrtghpthhtoheprhhoghgvrhdr
-    phgruhestghithhrihigrdgtohhmpdhrtghpthhtohepsghorhhishdrohhsthhrohhvsh
-    hkhiesohhrrggtlhgvrdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishht
-    shdrgigvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtoheplhhinhhugidqkhgvrhhnvg
-    hlsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdhrtghpthhtoheprhgvghhrvghsshhiohhn
-    sheslhhishhtshdrlhhinhhugidruggvvhdprhgtphhtthhopehnsggusehnsggurdhnrg
-    hmvgdprhgtphhtthhopehlohhrvghniihosehkvghrnhgvlhdrohhrgh
-X-ME-Proxy: <xmx:mkeKZ6NGdri_FRzbilqE0iPwZQ5mER2Nt835O87c-hsPeJcSIXO9Tw>
-    <xmx:mkeKZ79JWoKaeCfzhawdpNTD6_HUFHL-pNoDj9nr6cDcR1woi2uSVw>
-    <xmx:mkeKZ6Wcrb0PrFd_-xuRybEXr3-OfjWb5gv6w2VbzI6HIIz06cCO3A>
-    <xmx:mkeKZ8eBYa7pmyU9aKDnEyGfLpIWcF4fOUqwgmGSpNkcZOaU9PP5Ng>
-    <xmx:m0eKZ83JcmhpKN0VmRnx_g48kqQHNlsKPfxwtB0dAomm_J7mCpF7-YZp>
-Feedback-ID: i1568416f:Fastmail
-Date: Fri, 17 Jan 2025 13:05:30 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
-	linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
-	Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>
-Subject: Config space access to Mediatek MT7922 doesn't work after device
- reset in Xen PV dom0 (regression, Linux 6.12)
-Message-ID: <Z4pHll_6GX7OUBzQ@mail-itl>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="sWxZVOYUfcZCOYXA"
-Content-Disposition: inline
-
-
---sWxZVOYUfcZCOYXA
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+X-Inumbo-ID: 0fcb850e-d4ce-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1737116696; x=1737721496; darn=lists.xenproject.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ZjGDC0ZAfo7uCkPg54+zeMeHrkZkBx1xwvN1HBSGBps=;
+        b=cyH9RGKuNyFEetxcYUkxYWuRe9PD7JLc60GWBHpATvK48c9PYSsDCwvOOAwh5Fkrlw
+         yLBqHymKbHYr8rh9OS2DB0z2slcGAhI1oJ6whBVgNdW5dS71iIoWb9E18PHjuWu9xQTT
+         FyPTZCfKpIaSVYLqQ7JyuZKKKqBr5Ft5QAdlg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1737116696; x=1737721496;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=ZjGDC0ZAfo7uCkPg54+zeMeHrkZkBx1xwvN1HBSGBps=;
+        b=u6QAMGXPTVOE8GIukD3fu1jEJBXxz7HXWmh0/yV+im5lrr9jXV4RgM3kBlEMT6pUWy
+         Ii+nQrS0dWsJyfU3DIKYBc5fHw8xVawuKsaMPZb56d7V2dAaYDU361M8aJgex88eutop
+         v54NFX6OzhgC7Fl6AqmHoGHVnX9dEk8TkHoYwXmVbifwTylkcDH6/sZ2FHoxc5A75gcx
+         /7y3FPV17Ap0zck1JXZaXt8V/PlrLnfuiVP/mdRhequehHgGTwDN5fCdKTaPYPGPW3cL
+         r3bXqQAZDXaAQ/aLydcJqDS9Y6I5jlJ8w7opjyr6BnjkcuL/q7bW8wkKqosRHxUB3VR7
+         8Jwg==
+X-Forwarded-Encrypted: i=1; AJvYcCXNOsYRZWAhqPo/wxwW9vmf/NU+aolYGPOMhbKUQC2dhxVU2nhz2J23Yq3Yu2+gxQ6X5xDe5nAX+8w=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzzG41fiEO+aaTQC0nQs3U/lQpqgVFB8Yk7JTD6mzcrb6nvVoSN
+	dKXouHvrRy6XSjjW/EcnG3i9E3rlb9vk06CVeWg4iW3RrKK1pb6AHo2CGqREWPs=
+X-Gm-Gg: ASbGnct/c0oTZ7STK0K3f9BGe4iiPaeQxUWO+EKfi5NCR+jrN/yHXEGpvUZTDRYELyI
+	VtQfurhHTW6uKw9TMZbnvCef+N+gNhqogzaxZcfer/SbkvzMgFsak5yfXLWLG+IUYDtHSg8swny
+	uQhFsZ8nqQwnk04C9vVu12z6kZmAHOafLluwFqbwxmCDe7vagsnZESK6379su9Uwf1f67iBFz2m
+	QBA3NY/YiLrqekAKEo790iFPuTsEaLcOQs7MJFr2CQLfkU6sknm8XP081eiNolrvA==
+X-Google-Smtp-Source: AGHT+IHiqGtgizAR99kSa21ynZO425cuV68rvSS6tGs+oi/qyVmdNo9uJqML7SsYa+R2Qn+Nz1/H+g==
+X-Received: by 2002:a17:907:930b:b0:aab:c78c:a705 with SMTP id a640c23a62f3a-ab38b3d4253mr243695766b.52.1737116696049;
+        Fri, 17 Jan 2025 04:24:56 -0800 (PST)
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Jan 2025 13:05:30 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
-	linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
-	Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>
-Subject: Config space access to Mediatek MT7922 doesn't work after device
- reset in Xen PV dom0 (regression, Linux 6.12)
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 17 Jan 2025 12:24:54 +0000
+Message-Id: <D74CH4RDRRR9.ZR6RL8U6PQ56@cloud.com>
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+To: =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>
+Cc: "Jan Beulich" <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>, "Andrew Cooper"
+ <andrew.cooper3@citrix.com>, "George Dunlap" <george.dunlap@citrix.com>,
+ "Julien Grall" <julien@xen.org>, "Wei Liu" <wl@xen.org>,
+ <sergiy_kibrik@epam.com>
+Subject: Re: [PATCH v2 1/4] x86: provide an inverted Kconfig control for
+ shim-exclusive mode
+X-Mailer: aerc 0.18.2
+References: <da5f5bac-6d5d-092d-d872-f1120dcd2661@suse.com>
+ <617842e1-8ef2-b095-0c52-c2e2e5f1c0a8@suse.com>
+ <alpine.DEB.2.22.394.2501161503120.2684657@ubuntu-linux-20-04-desktop>
+ <Z4oxZSUQ6VARiR0H@macbook.local>
+In-Reply-To: <Z4oxZSUQ6VARiR0H@macbook.local>
 
-Hi,
+On Fri Jan 17, 2025 at 10:31 AM GMT, Roger Pau Monn=C3=A9 wrote:
+> On Thu, Jan 16, 2025 at 04:31:46PM -0800, Stefano Stabellini wrote:
+> > On Wed, 1 Mar 2023, Jan Beulich wrote:
+> > > While we want certain things turned off in shim-exclusive mode, doing
+> > > so via "depends on !PV_SHIM_EXCLUSIVE" badly affects allyesconfig: Si=
+nce
+> > > that will turn on PV_SHIM_EXCLUSIVE, other options will be turned off=
+ as
+> > > a result. Yet allyesconfig wants to enable as much of the functionali=
+ty
+> > > as possible.
+> > >=20
+> > > Retain PV_SHIM_EXCLUSIVE as a prompt-less option such that first of a=
+ll
+> > > C code using it can remain as is. This isn't just for less code churn=
+,
+> > > but also because I think that symbol is more logical to use in many
+> > > (all?) places.
+> > >=20
+> > > Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> > > Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> > >
+> > > ---
+> > > The new Kconfig control's name is up for improvement suggestions, but=
+ I
+> > > think it's already better than the originally thought of
+> > > FULL_HYPERVISOR.
+> >=20
+> > I think the approach in general is OK, maybe we can improve the naming
+> > further. What about one of the following?
+> >=20
+> > NO_PV_SHIM_EXCLUSIVE
+> > PV_SHIM_NOT_EXCLUSIVE
+>
+> IMO negated options are confusing, and if possible I think we should
+> avoid using them unless strictly necessary.
 
-After updating PV dom0 to Linux 6.12, The Mediatek MT7922 device reports
-all 0xff when accessing its config space. This happens only after device
-reset (which is also triggered when binding the device to the
-xen-pciback driver).
+The problem is that the option is negative in nature. It's asking for
+hypervisor without _something_. I do agree with Stefano that shim would be
+better in the name. Otherwise readers are forced to play divination tricks.
 
-Reproducer:
+How about something like:
 
-    # lspci -xs 01:00.0
-    01:00.0 Network controller: MEDIATEK Corp. MT7922 802.11ax PCI Express =
-Wireless Network Adapter
-    00: c3 14 16 06 00 00 10 00 00 00 80 02 10 00 00 00
-    ...
-    # echo 1 > /sys/bus/pci/devices/0000:01:00.0/reset
-    # lspci -xs 01:00.0
-    01:00.0 Network controller: MEDIATEK Corp. MT7922 802.11ax PCI Express =
-Wireless Network Adapter
-    00: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
-    ...
+    SHIMLESS_HYPERVISOR
 
-The same operation done on Linux 6.12 running without Xen works fine.
+That's arguably not negated, preserves "shim" in the name and has the corre=
+ct
+polarity for allyesconfig to yield the right thing.
 
-git bisect points at:
+>
+> I for example always considered extremely confusing that previous to
+> having CONFIG_DEBUG Xen used NDEBUG (so no debug) as a way to signal
+> debug vs non-debug builds.
+>
+> Thanks, Roger.
 
-    commit d591f6804e7e1310881c9224d72247a2b65039af
-    Author: Bjorn Helgaas <bhelgaas@google.com>
-    Date:   Tue Aug 27 18:48:46 2024 -0500
-
-    PCI: Wait for device readiness with Configuration RRS
-
-part of that commit:
-@@ -1311,9 +1320,15 @@ static int pci_dev_wait(struct pci_dev *dev, char *r=
-eset_type, int timeout)
-                        return -ENOTTY;
-                }
-=20
--               pci_read_config_dword(dev, PCI_COMMAND, &id);
--               if (!PCI_POSSIBLE_ERROR(id))
--                       break;
-+               if (root && root->config_crs_sv) {
-+                       pci_read_config_dword(dev, PCI_VENDOR_ID, &id);
-+                       if (!pci_bus_crs_vendor_id(id))
-+                               break;
-+               } else {
-+                       pci_read_config_dword(dev, PCI_COMMAND, &id);
-+                       if (!PCI_POSSIBLE_ERROR(id))
-+                               break;
-+               }
-=20
-   =20
-Adding some debugging, the PCI_VENDOR_ID read in pci_dev_wait() returns
-initially 0xffffffff. If I extend the condition with
-"&& !PCI_POSSIBLE_ERROR(id)", then the issue disappear. But reading the
-patch description, it would break VF.
-I'm not sure where the issue is, but given it breaks only when running
-with Xen, I guess something is wrong with "Configuration RRS Software
-Visibility" in that case.
-
-BTW, shouldn't PCI_VENDOR_ID be accessed via pci_read_config_word()
-instead of pci_read_config_dword()?
-
-I'm also CC-ing MT76 driver maintainers in case it turns out to be
-device-specific issue, not a generic one.
-
-Initially reported at https://github.com/QubesOS/qubes-issues/issues/9689
-
-#regzbot introduced: d591f6804e7e1310881c9224d72247a2b65039af
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---sWxZVOYUfcZCOYXA
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmeKR5YACgkQ24/THMrX
-1yyDjQf+JBoWE4mxxNyZATD6m9P70rRJd0JhGqotS5b1B5P6bMIEGSophssWxldE
-+p9xAUihpymf67AQsqMP1bEgUuQUHbBE+VuQp12aFb1AdKgGCjsKK1sZgx+1WjlM
-mWxC8vWyXEmRXUBU+0j531yBb9JbO93HULXk8EC0DYHqt1YSH68b0vHYNoRVBVqZ
-S4fOb7LhEsIWpprx/yWtRlcKwFUSK96KabmpGSeXgkZ+LSM8eMQgLfTXcpRLxNaR
-yKIeadTj2I2wjwZ0LnGSFjDGfMqhWl/myprlcyoonnEGs/lenDpMQ8Ja2QHzpSKx
-GrUjgFoZdghTv4mOtnDPTarPl0e6KQ==
-=9sOx
------END PGP SIGNATURE-----
-
---sWxZVOYUfcZCOYXA--
+Cheers,
+Alejandro
 
