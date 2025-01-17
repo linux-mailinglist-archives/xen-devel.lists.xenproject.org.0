@@ -2,38 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 521D8A14A0F
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Jan 2025 08:25:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.873886.1284802 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57C2FA14C66
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Jan 2025 10:49:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.873944.1284853 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tYghd-000186-3P; Fri, 17 Jan 2025 07:23:37 +0000
+	id 1tYixO-0002yo-Lw; Fri, 17 Jan 2025 09:48:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 873886.1284802; Fri, 17 Jan 2025 07:23:37 +0000
+Received: by outflank-mailman (output) from mailman id 873944.1284853; Fri, 17 Jan 2025 09:48:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tYghd-00016L-0W; Fri, 17 Jan 2025 07:23:37 +0000
-Received: by outflank-mailman (input) for mailman id 873886;
- Fri, 17 Jan 2025 07:23:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=b505=UJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tYghb-00016F-Of
- for xen-devel@lists.xenproject.org; Fri, 17 Jan 2025 07:23:35 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f43d95e7-d4a3-11ef-99a4-01e77a169b0f;
- Fri, 17 Jan 2025 08:23:31 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-436637e8c8dso16451125e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 16 Jan 2025 23:23:31 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-437c752910esm85600795e9.28.2025.01.16.23.23.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Jan 2025 23:23:30 -0800 (PST)
+	id 1tYixO-0002wF-Ip; Fri, 17 Jan 2025 09:48:02 +0000
+Received: by outflank-mailman (input) for mailman id 873944;
+ Fri, 17 Jan 2025 09:48:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=qJiU=UJ=redhat.com=vschneid@srs-se1.protection.inumbo.net>)
+ id 1tYixM-0002w9-UD
+ for xen-devel@lists.xenproject.org; Fri, 17 Jan 2025 09:48:00 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 219d00f6-d4b8-11ef-a0e2-8be0dac302b0;
+ Fri, 17 Jan 2025 10:47:58 +0100 (CET)
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-113-DOgDMzT-OCm8bYKou_wLEg-1; Fri, 17 Jan 2025 04:47:55 -0500
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-4361eb83f46so13349995e9.3
+ for <xen-devel@lists.xenproject.org>; Fri, 17 Jan 2025 01:47:54 -0800 (PST)
+Received: from vschneid-thinkpadt14sgen2i.remote.csb
+ (213-44-141-166.abo.bbox.fr. [213.44.141.166])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-438904131f5sm27135155e9.11.2025.01.17.01.47.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 Jan 2025 01:47:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,123 +50,199 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f43d95e7-d4a3-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1737098611; x=1737703411; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=IJkQQXkSc73VEbb4qnL4cwBsQbLzEFyJJDAPga3driA=;
-        b=DXwSRTgpO3C/4DEH76EfoHYdFEy3UqShPCvyQyLYhRF+UGsFl3lgwza3SPxDTMQPwg
-         1wGWKXL0KkNJDzJsax658ABQyDfT2BZZoxjQBwfJpLdTQmh0Q1osfeh3HdRBeIGkcRKU
-         mPyi/8tgBPNSSTG82G3LsM3Elcq2Z+BP2kBV+U5CVrdGVK6lkPWjU8pcmJN57bTQb8ZA
-         pcmi12hp+8QPaMyzq1DlHMI2hGypa2m6HIcXXDcnb7iB8TDjRF9/8nuU59n3ThfnZT65
-         ZoWc+gXK70Pd5AWX/2iOSJRycvgr59wmI9+voHhcMmIAPGFR+dJyCH1jTaxFX4a8auVm
-         fzDw==
+X-Inumbo-ID: 219d00f6-d4b8-11ef-a0e2-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1737107277;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VvR9KfuLK5jT/0k1YGBwcApH+9cF5PsvBxGMV+DYi4c=;
+	b=DHBRYnQclWBz29AczmtdH2psrHQWNAp2LDJjwl32uDPBUSGvi1VCdiDO7Zu95RYG4y3OpB
+	9Tebjf3WoGAbLJ64WOQ9vzSA4BycUOWy/bKAHOHksNptStG7BmNFug3JbEo5RGgIFyw1yE
+	ZQ5x15X5d61OUrj/+AN5FwVAZ+jtRyE=
+X-MC-Unique: DOgDMzT-OCm8bYKou_wLEg-1
+X-Mimecast-MFC-AGG-ID: DOgDMzT-OCm8bYKou_wLEg
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737098611; x=1737703411;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IJkQQXkSc73VEbb4qnL4cwBsQbLzEFyJJDAPga3driA=;
-        b=hhhpbhiaqzIPPNVLLDiDfpn6tGizS+KNqbqBh6joXjxohBZtki07vQNvLs3//rp/+y
-         dZU23IWi5OPOx51iegTg3sT9Ng6Q5LA9uy6466ZYfeTKRkbG2QB8mNu7P39hc+z//Kzr
-         AhwgaH4pn0xlFK17zXbCO/sDvMJLLqKUf9B8fhYd9BKpMYcNo/n3k+rW1CPHJizgt/Q2
-         MrASKUIAuD52YAod+MA2MijNz/nZC+gXd/+ukyvm8pABY+HvGrVSzePDz4OO1Db1NFz6
-         JMyclDXO55ryMifoOKHoQOIqLzu4lryRMhZQddaxvQax+207VD4gP3lfi1A7RWikHbh1
-         jWUg==
-X-Gm-Message-State: AOJu0YzuVMrFI1S5ab/RJN5Xkfgz+w2RYtQIw0iLqd0fqafk16BFhQXe
-	KOOIYcxAJE7yH+4k+fqmlm8t81Aycshi/51OJA+XJcYj21rcf1ua15eerrAwoA==
-X-Gm-Gg: ASbGncslLdPkctrZoG1elGC0HMrjmPlZjHZZZTP8gngpg+4mbHVcAkfUvu/cIMHSoVn
-	MlsuKekrUJbcsKve5S2NiQstGW4LNfbJkbtL7OnaHjBkPsz7Ken93xKg8Sani/2Kluj32VYxFD8
-	FB9W1Ok04iofLdi4Db6yFGIJmaUNia/lJ/+pkO2JmBdydBe89DmxEIch1Xyg1vPBkiUtmqlUisU
-	dO6KiSHOFO18BpaSfQ3TqJ/Ak8rTmb4laY64g7zH+t4eLQParM5VKWRU5ox8JVfJ3G11z73mD8o
-	aDdEvUHSBfl0wqcEuLOXMeI0q4C0T4z9Re36fZsqGw==
-X-Google-Smtp-Source: AGHT+IFGRZVGhg+yXHTXDsh9nXaJk4/mMSWvEdaWpaihb/28Oj7LdRKX9riLRoFaQ5t9IYubZy6wcg==
-X-Received: by 2002:a05:600c:c87:b0:434:ff30:a159 with SMTP id 5b1f17b1804b1-438912d54b1mr14740705e9.0.1737098610924;
-        Thu, 16 Jan 2025 23:23:30 -0800 (PST)
-Message-ID: <afe1350b-249a-478c-ad27-7c1c80ad3558@suse.com>
-Date: Fri, 17 Jan 2025 08:23:29 +0100
+        d=1e100.net; s=20230601; t=1737107274; x=1737712074;
+        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=VvR9KfuLK5jT/0k1YGBwcApH+9cF5PsvBxGMV+DYi4c=;
+        b=oxmTON5xHZVXjXzsSXQ6YAwA3NeW6tgVP/J6eD+Frt+OUC15fUHDDqtPrAuoQ/6sVY
+         nSL1dTkkwwIr69JV3auNPbmRYoMa7/FUjH8WL5GwuCD16EDVI6yGX3GcOTIhfbLjVuAm
+         vTBPa0Cgb6IwBTmkbUsippHbfr/pdZwOIJ1szl/rfvSXflNsyR2V4rMCUhLN5hD5Wrnh
+         rHQ8Ifqcl5K20Fu3KJJsJ5eFpLoPf4heSL142VV5VqTHikNyyitAefZjqnVtuo6ilB1y
+         nqf7eh0Tj5nY52jD3v9AL0D1WubKqITpjpwNC7QFQVV+2YYF+qGgKp+HvtmiAS6EgEsi
+         uY2Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXh3cwGNUEUQdLwyXXUShnKcsEHUjx9ZjA8ekZMnHvdONMMyMvDuBoREsisjW/6oFyo2vN3vQarbuw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwbaKuHq6sfOQjW2kDchdHs24RSW9RTQFLm5Ba9XoN/mEEwfOPW
+	BSEFiMdMA1VvPFhOBw5gQ+eFA6iiCKS8n2qXOHSfv1o3Oo2TUubumV2vNva5XgPfe0MYgVLIU2h
+	VaBef8ebor18wZmiH15meXd2tY0F10/h4qhDhiEMU5lRICfUurl9/1ZwZYiFhKofj
+X-Gm-Gg: ASbGncuIEhQJjh3F9Sx/4xql+G7GvuiiT0R7b506uBfIAoBZNm+lzRgk8jm9GLBoSo4
+	3ZrxynI/XknVxeJObrqqaHTuH46lFhrH8xOULbGT8XF3tKaMHOeWdtwuIZvlkEb94pVs13Fm+vK
+	gQaGuLFPz3rfbKFAY4HWqOONIHWvOMMfS1V3jPuM47Ko4yy4Aj2RRVGdhDCyphAZ/HHdtJXMGdY
+	U8LsljYc6/WWGPCvDe4v1WhhaoFU29H9Z/caAqwR3/9dQ+R31hElTgm5BbXP+ObTrdNzVt77dFI
+	AKhWfdkftWiPK1t5xsIbEcV9/NwUr585BghcyOKXIw==
+X-Received: by 2002:a05:600c:9a3:b0:434:fa73:a907 with SMTP id 5b1f17b1804b1-4389191b819mr16314055e9.13.1737107273772;
+        Fri, 17 Jan 2025 01:47:53 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHToHDxXT5KMOIEW1byUZUSn/LchRidR5pJg2ZFHbUxu07B2Q/njknWrWkjTXhDYHkp8NfwWQ==
+X-Received: by 2002:a05:600c:9a3:b0:434:fa73:a907 with SMTP id 5b1f17b1804b1-4389191b819mr16313255e9.13.1737107273291;
+        Fri, 17 Jan 2025 01:47:53 -0800 (PST)
+From: Valentin Schneider <vschneid@redhat.com>
+To: Sean Christopherson <seanjc@google.com>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
+ virtualization@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+ linux-perf-users@vger.kernel.org, xen-devel@lists.xenproject.org,
+ kvm@vger.kernel.org, linux-arch@vger.kernel.org, rcu@vger.kernel.org,
+ linux-hardening@vger.kernel.org, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, bpf@vger.kernel.org,
+ bcm-kernel-feedback-list@broadcom.com, Peter Zijlstra
+ <peterz@infradead.org>, Nicolas Saenz Julienne <nsaenzju@redhat.com>,
+ Juergen Gross <jgross@suse.com>, Ajay Kaher <ajay.kaher@broadcom.com>,
+ Alexey Makhalov <alexey.amakhalov@broadcom.com>, Russell King
+ <linux@armlinux.org.uk>, Catalin Marinas <catalin.marinas@arm.com>, Will
+ Deacon <will@kernel.org>, Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui
+ <kernel@xen0n.name>, Paul Walmsley <paul.walmsley@sifive.com>, Palmer
+ Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Thomas
+ Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav
+ Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "H.
+ Peter Anvin" <hpa@zytor.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa
+ <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, Adrian Hunter
+ <adrian.hunter@intel.com>, Kan Liang <kan.liang@linux.intel.com>, Boris
+ Ostrovsky <boris.ostrovsky@oracle.com>, Josh Poimboeuf
+ <jpoimboe@kernel.org>, Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Andy Lutomirski <luto@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, Frederic Weisbecker <frederic@kernel.org>,
+ "Paul E. McKenney" <paulmck@kernel.org>, Jason Baron <jbaron@akamai.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Ard Biesheuvel <ardb@kernel.org>,
+ Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Joel Fernandes
+ <joel@joelfernandes.org>, Josh Triplett <josh@joshtriplett.org>, Boqun
+ Feng <boqun.feng@gmail.com>, Uladzislau Rezki <urezki@gmail.com>, Mathieu
+ Desnoyers <mathieu.desnoyers@efficios.com>, Lai Jiangshan
+ <jiangshanlai@gmail.com>, Zqiang <qiang.zhang1211@gmail.com>, Juri Lelli
+ <juri.lelli@redhat.com>, Clark Williams <williams@redhat.com>, Yair
+ Podemsky <ypodemsk@redhat.com>, Tomas Glozar <tglozar@redhat.com>, Vincent
+ Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann
+ <dietmar.eggemann@arm.com>, Ben Segall <bsegall@google.com>, Mel Gorman
+ <mgorman@suse.de>, Kees Cook <kees@kernel.org>, Andrew Morton
+ <akpm@linux-foundation.org>, Christoph Hellwig <hch@infradead.org>, Shuah
+ Khan <shuah@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, Miguel
+ Ojeda <ojeda@kernel.org>, Alice Ryhl <aliceryhl@google.com>, "Mike
+ Rapoport (Microsoft)" <rppt@kernel.org>, Samuel Holland
+ <samuel.holland@sifive.com>, Rong Xu <xur@google.com>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, Yosry Ahmed <yosryahmed@google.com>, "Kirill A.
+ Shutemov" <kirill.shutemov@linux.intel.com>, "Masami Hiramatsu (Google)"
+ <mhiramat@kernel.org>, Jinghao Jia <jinghao7@illinois.edu>, Luis
+ Chamberlain <mcgrof@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
+ Tiezhu Yang <yangtiezhu@loongson.cn>
+Subject: Re: [PATCH v4 25/30] context_tracking,x86: Defer kernel text
+ patching IPIs
+In-Reply-To: <Z4bTlZkqihaAyGb4@google.com>
+References: <20250114175143.81438-1-vschneid@redhat.com>
+ <20250114175143.81438-26-vschneid@redhat.com>
+ <Z4bTlZkqihaAyGb4@google.com>
+Date: Fri, 17 Jan 2025 10:47:49 +0100
+Message-ID: <xhsmhed11hiuy.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] x86: provide an inverted Kconfig control for
- shim-exclusive mode
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, sergiy_kibrik@epam.com
-References: <da5f5bac-6d5d-092d-d872-f1120dcd2661@suse.com>
- <617842e1-8ef2-b095-0c52-c2e2e5f1c0a8@suse.com>
- <alpine.DEB.2.22.394.2501161503120.2684657@ubuntu-linux-20-04-desktop>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2501161503120.2684657@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: oYi4crjaPN1tOE9tpzoh7_hiWhVzH64uureXBywV25w_1737107274
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 
-On 17.01.2025 01:31, Stefano Stabellini wrote:
-> On Wed, 1 Mar 2023, Jan Beulich wrote:
->> While we want certain things turned off in shim-exclusive mode, doing
->> so via "depends on !PV_SHIM_EXCLUSIVE" badly affects allyesconfig: Since
->> that will turn on PV_SHIM_EXCLUSIVE, other options will be turned off as
->> a result. Yet allyesconfig wants to enable as much of the functionality
->> as possible.
+On 14/01/25 13:13, Sean Christopherson wrote:
+> On Tue, Jan 14, 2025, Valentin Schneider wrote:
+>> text_poke_bp_batch() sends IPIs to all online CPUs to synchronize
+>> them vs the newly patched instruction. CPUs that are executing in userspace
+>> do not need this synchronization to happen immediately, and this is
+>> actually harmful interference for NOHZ_FULL CPUs.
+>
+> ...
+>
+>> This leaves us with static keys and static calls.
+>
+> ...
+>
+>> @@ -2317,11 +2334,20 @@ static void text_poke_bp_batch(struct text_poke_loc *tp, unsigned int nr_entries
+>>       * First step: add a int3 trap to the address that will be patched.
+>>       */
+>>      for (i = 0; i < nr_entries; i++) {
+>> -		tp[i].old = *(u8 *)text_poke_addr(&tp[i]);
+>> -		text_poke(text_poke_addr(&tp[i]), &int3, INT3_INSN_SIZE);
+>> +		void *addr = text_poke_addr(&tp[i]);
+>> +
+>> +		/*
+>> +		 * There's no safe way to defer IPIs for patching text in
+>> +		 * .noinstr, record whether there is at least one such poke.
+>> +		 */
+>> +		if (is_kernel_noinstr_text((unsigned long)addr))
+>> +			cond = NULL;
+>
+> Maybe pre-check "cond", especially if multiple ranges need to be checked?  I.e.
+>
+>               if (cond && is_kernel_noinstr_text(...))
+>> +
+>> +		tp[i].old = *((u8 *)addr);
+>> +		text_poke(addr, &int3, INT3_INSN_SIZE);
+>>      }
 >>
->> Retain PV_SHIM_EXCLUSIVE as a prompt-less option such that first of all
->> C code using it can remain as is. This isn't just for less code churn,
->> but also because I think that symbol is more logical to use in many
->> (all?) places.
+>> -	text_poke_sync();
+>> +	__text_poke_sync(cond);
 >>
->> Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>
->> ---
->> The new Kconfig control's name is up for improvement suggestions, but I
->> think it's already better than the originally thought of
->> FULL_HYPERVISOR.
-> 
-> I think the approach in general is OK, maybe we can improve the naming
-> further. What about one of the following?
-> 
-> NO_PV_SHIM_EXCLUSIVE
-> PV_SHIM_NOT_EXCLUSIVE
-> ADD_PV_SHIM
-> PV_SHIM_AND_HYPERVISOR
-> 
-> This is because I think the option should be tied to PV_SHIM. Keep in
-> mind that users are supposed to be able to use "make menuconfig" and
-> pick good options based on the menu. An option called UNCONSTRAINED or
-> FULL_HYPERVISOR or any other name that has nothing to do with PV_SHIM is
-> very confusing to me.
+>>      /*
+>>       * Second step: update all but the first byte of the patched range.
+>
+> ...
+>
+>> +/**
+>> + * is_kernel_noinstr_text - checks if the pointer address is located in the
+>> + *                    .noinstr section
+>> + *
+>> + * @addr: address to check
+>> + *
+>> + * Returns: true if the address is located in .noinstr, false otherwise.
+>> + */
+>> +static inline bool is_kernel_noinstr_text(unsigned long addr)
+>> +{
+>> +	return addr >= (unsigned long)__noinstr_text_start &&
+>> +	       addr < (unsigned long)__noinstr_text_end;
+>> +}
+>
+> This doesn't do the right thing for modules, which matters because KVM can be
+> built as a module on x86, and because context tracking understands transitions
+> to GUEST mode, i.e. CPUs that are running in a KVM guest will be treated as not
+> being in the kernel, and thus will have IPIs deferred.  If KVM uses a static key
+> or branch between guest_state_enter_irqoff() and guest_state_exit_irqoff(), the
+> patching code won't wait for CPUs to exit guest mode, i.e. KVM could theoretically
+> use the wrong static path.
+>
 
-Hmm. That was actually something I was specifically trying to avoid. Imo
-the connection to the shim only wants making in the help text. And I fear
-I view all your naming suggestions as hard to grok.
+AFAICT guest_state_{enter,exit}_irqoff() are only used in noinstr functions
+and thus such a static key usage should at the very least be caught and
+warned about by objtool - when this isn't built as a module.
 
-Jan
+I never really thought about noinstr sections for modules; I can get
+objtool to warn about a non-noinstr allowed key being used in
+e.g. vmx_vcpu_enter_exit() just by feeding it the vmx.o:
+
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_vcpu_enter_exit.isra.0+0x0: dummykey: non-RO static key usage in noinstr
+
+...but that requires removing a lot of code first because objtool stops
+earlier in its noinstr checks as it hits functions it doesn't have full
+information on, e.g.
+
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_vcpu_enter_exit+0x21c: call to __ct_user_enter() leaves .noinstr.text section
+
+__ct_user_enter() *is* noinstr, but you don't get that from just the header prototype.
+
+> I don't expect this to ever cause problems in practice, because patching code in
+> KVM's VM-Enter/VM-Exit path that has *functional* implications, while CPUs are
+> actively running guest code, would be all kinds of crazy.  But I do think we
+> should plug the hole.
+>
+> If this issue is unique to KVM, i.e. is not a generic problem for all modules (I
+> assume module code generally isn't allowed in the entry path, even via NMI?), one
+> idea would be to let KVM register its noinstr section for text poking.
+
 
