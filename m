@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5827CA14DD3
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Jan 2025 11:40:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.873990.1284892 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C93EA14EFB
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Jan 2025 13:06:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.874015.1284902 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tYjly-0005Ar-2Y; Fri, 17 Jan 2025 10:40:18 +0000
+	id 1tYl6n-0001Ks-Td; Fri, 17 Jan 2025 12:05:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 873990.1284892; Fri, 17 Jan 2025 10:40:18 +0000
+Received: by outflank-mailman (output) from mailman id 874015.1284902; Fri, 17 Jan 2025 12:05:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tYjlx-000593-WD; Fri, 17 Jan 2025 10:40:18 +0000
-Received: by outflank-mailman (input) for mailman id 873990;
- Fri, 17 Jan 2025 10:40:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tYl6n-0001Hm-Qo; Fri, 17 Jan 2025 12:05:53 +0000
+Received: by outflank-mailman (input) for mailman id 874015;
+ Fri, 17 Jan 2025 12:05:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wado=UJ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tYjlx-00058x-6S
- for xen-devel@lists.xenproject.org; Fri, 17 Jan 2025 10:40:17 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7031a7d8-d4bf-11ef-a0e2-8be0dac302b0;
- Fri, 17 Jan 2025 11:40:15 +0100 (CET)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-385e3621518so871965f8f.1
- for <xen-devel@lists.xenproject.org>; Fri, 17 Jan 2025 02:40:15 -0800 (PST)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38bf327e118sm2118050f8f.82.2025.01.17.02.40.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Jan 2025 02:40:14 -0800 (PST)
+ <SRS0=rDGL=UJ=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1tYl6m-0001HN-Hg
+ for xen-devel@lists.xenproject.org; Fri, 17 Jan 2025 12:05:52 +0000
+Received: from fout-b5-smtp.messagingengine.com
+ (fout-b5-smtp.messagingengine.com [202.12.124.148])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 63656738-d4cb-11ef-99a4-01e77a169b0f;
+ Fri, 17 Jan 2025 13:05:49 +0100 (CET)
+Received: from phl-compute-09.internal (phl-compute-09.phl.internal
+ [10.202.2.49])
+ by mailfout.stl.internal (Postfix) with ESMTP id ACB0C114014A;
+ Fri, 17 Jan 2025 07:05:47 -0500 (EST)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-09.internal (MEProxy); Fri, 17 Jan 2025 07:05:47 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 17 Jan 2025 07:05:44 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,164 +45,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7031a7d8-d4bf-11ef-a0e2-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1737110415; x=1737715215; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=7mwTTuad42S1rQBszQTQ89Dyk+uWIrWT74aPH7+8FQo=;
-        b=IOE07+0cHWb+Hpiuuv7WqeiXOQ+FCjHAC2TWHC/4T8YpyCsaL5hE0Ckwicq/ko04Wo
-         hib/WggkCrSWvdwR7+4OKpgb8GEddWI6I9vV9ImHY9oK1EFoTplegdzSBQJRXhVF4nlR
-         SmiYXQlCEU1hDmthaFBHJdE4aIHUcaJS1zkt8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737110415; x=1737715215;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=7mwTTuad42S1rQBszQTQ89Dyk+uWIrWT74aPH7+8FQo=;
-        b=Vc8TIQyEomIP6P7OZd1ozAOjx4DzvNkgWZdib00ShBqKQJkfyYcrpv+loWzNH7askv
-         lykCfBjiSAjZuqTzTlLOCpLEuL/AIGFWdSxm/hsh6qkguGKOklhzLviBirS6iN6jko2W
-         BqHbAUIl6+ey7gCjRLXMLdPKUyCDEcw0qu/yYrZgDDfcSF4EonAgcrYp+eOwX9IlbejP
-         WydmSg9xFUCaQ18xKV1DAgEjZTIAs80Ni7Tjv5QUj4h8OmpOte3A49BWOgBSZtsyp5lD
-         lP1RzBWRMu0CWfJwkMNzzhmAFp8iP6KhlMY9Vayv/+xcBaTwqppcU0V52bih1yH7uUPj
-         0Y0g==
-X-Forwarded-Encrypted: i=1; AJvYcCXiFc2fAbe7TvHOeQHm6iVQD4TpoTM0oA5fSat7R5BKbsQSFl39ewbfiEh6giI82fErotKa7VEZ8YQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxGqzQSc5CRDprfcDJ5/FLGn4fJtlaHv9gycDNR+ZfYYe4oXKP0
-	GoULuwCx9x27SlbhauqCB8m/Z+8qwks3FMaMjG34vg9vBaipXilcW18gh2XqwdM=
-X-Gm-Gg: ASbGncv3vU4xTDksKpqVW5rhCzpfMNMUe9ufGhMTk8wkjJ/RkeumfHDMVGn4VNArT77
-	ne02XGJj+MbMV6TIUTEP9TLXNtXraqs0G1rOT8QDEVrwFYqKHMzCRpQINAA5z7zY2oI2LSjb2YQ
-	A0vwlZY+/rxI0TTpKlGBiL8EKq6orHPi17Kg+Vwm1yhXET21waAsGVV0REyURmwXk33Ph0jqWBT
-	llTr7GuwgY1P/44quTFcoCcYN+KjSMcpKCZBJoI6d+0G+fJpLNTe1zqgxELPw==
-X-Google-Smtp-Source: AGHT+IEd3Voj97QjUCC8T2mznpMxbTLbRdt6fDN/yV+XnZv4JkSA2HFG4hid+6GiGQ53VtTaISRNYg==
-X-Received: by 2002:a05:6000:10cd:b0:385:e429:e591 with SMTP id ffacd0b85a97d-38bf566e433mr1658936f8f.23.1737110415311;
-        Fri, 17 Jan 2025 02:40:15 -0800 (PST)
-Date: Fri, 17 Jan 2025 11:40:12 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: Problems in PV dom0 on recent x86 hardware
-Message-ID: <Z4ozjKIrT8tEi_wn@macbook.local>
-References: <baade0a7-e204-4743-bda1-282df74e5f89@suse.com>
- <d379a900-fd1c-42ca-bc31-071f7fd80d0b@suse.com>
- <ZousjqOAFJgO6681@macbook.local>
- <6101999a-6f88-46cb-b850-af43b364f299@suse.com>
- <7a0a8b1c-69e0-435d-b4f4-7a9d784eab29@amd.com>
- <1f96a355-b0d2-4cc9-a2ae-6d3ab750136d@suse.com>
- <89d7b5a6-e971-4cd0-85df-0dd599d0ba1b@suse.com>
- <7d207d6c-d025-4fbb-8649-9c42224097f5@suse.com>
- <88db3cb6-2b7e-48b2-9bf4-d871067325a0@suse.com>
- <3d6d35ea-5044-4249-a277-0e5aa31ed888@amd.com>
+X-Inumbo-ID: 63656738-d4cb-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm2; t=1737115547; x=1737201947; bh=E4
+	BKaLgjKwxl3qk+S8d/r25/8ei0FPAdbuCz0wO7smo=; b=tjZfnjVdV4QdGRwsEx
+	DS2LMAOMtk8DiwivpYQoZQveZgUTBeCkOwXnvBWYNLUlfOZyxINj4xiRm6DfYVip
+	ZPRUU9tT+BVC5q9ARmDvWAxDQgWhE/sVwNM0eSjwo+n6maMgYsRSf94eCihQ1kjv
+	9YVkR5oVx10DT3akBe3w5WiXIr/mVyJWzmn+/ti37hgTTfuwo0PJvt94hAM5dYqO
+	gSOhq9BBAu/INz+SmDoVxUg738UNeH8sVHGeiEKiVQUbW9dueqEN8/A4dTfOS4Sj
+	yApXUW3Fuh/QwgHViOAYqBX6nO1W9T68hZE0NJPHLQ3fqea5yJM5tH4nzNz6sKKI
+	+BUg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:message-id
+	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1737115547; x=
+	1737201947; bh=E4BKaLgjKwxl3qk+S8d/r25/8ei0FPAdbuCz0wO7smo=; b=e
+	7Y/W0SY4AGk1J1Qg9sa3BAnCAeTTNk++WFNqgZrMdlvFVxKPusThjMNoHK+odS54
+	MqG/tDHrcYUH1co3lxeqgx+4Cw9eK0UptOcrf13GOlI1FeY2NFF2RfwTYnSlqAO7
+	3rnDJ/bjvwtQ1Qkm5INUpq5qlqkgzodIt1rdtdzsjQt9EPkZOYAqmZqoMk0MxeNg
+	ZjklWlwg4wl0BvuRuomCs7bYLZC8AEoAFRG4oZsHWS8S4srVQ/Y8VHSkLiQcjxke
+	SCMopBFP/9TkGO+k2GZpGjnhT7Ij06gq172nnjaeq2d2AkHW6rSNIQzBzfKrk21v
+	LLbL9dOBGwHClBwV16f9A==
+X-ME-Sender: <xms:mkeKZ7tvasDCMxptcYa8_7KxesDN9FchzTWXK871Yh-5KsnnuzxZxQ>
+    <xme:mkeKZ8ewDQBMtS_rRSXzHLuZwZHqaTDz7RESVDrWD-Bwd9RpFr4-7LdMhCH1cDtji
+    Z9oJMbXuxojzA>
+X-ME-Received: <xmr:mkeKZ-xme9OmWV3NosHuPlo-4-01iUdfFSNvDiEJ5dM6aNqV1-su9bPn3p8stfzw1OUDqhNPFMLjei9AmNtMHmq79Zj993q1hg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddrudeifedgfeegucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
+    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
+    htshculddquddttddmnecujfgurhepfffhvfevuffkgggtugesghdtreertddtjeenucfh
+    rhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrh
+    hmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgr
+    thhtvghrnhephfetuefhiefgtddtlefggffggeevhedtvdefffeugfeiieeiheefteefge
+    fggeejnecuffhomhgrihhnpehgihhthhhusgdrtghomhenucevlhhushhtvghrufhiiigv
+    pedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisg
+    hlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopedutddpmhhouggvpehs
+    mhhtphhouhhtpdhrtghpthhtohepsghhvghlghgrrghssehgohhoghhlvgdrtghomhdprh
+    gtphhtthhopehjghhrohhsshesshhushgvrdgtohhmpdhrtghpthhtoheprhhoghgvrhdr
+    phgruhestghithhrihigrdgtohhmpdhrtghpthhtohepsghorhhishdrohhsthhrohhvsh
+    hkhiesohhrrggtlhgvrdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishht
+    shdrgigvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtoheplhhinhhugidqkhgvrhhnvg
+    hlsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdhrtghpthhtoheprhgvghhrvghsshhiohhn
+    sheslhhishhtshdrlhhinhhugidruggvvhdprhgtphhtthhopehnsggusehnsggurdhnrg
+    hmvgdprhgtphhtthhopehlohhrvghniihosehkvghrnhgvlhdrohhrgh
+X-ME-Proxy: <xmx:mkeKZ6NGdri_FRzbilqE0iPwZQ5mER2Nt835O87c-hsPeJcSIXO9Tw>
+    <xmx:mkeKZ79JWoKaeCfzhawdpNTD6_HUFHL-pNoDj9nr6cDcR1woi2uSVw>
+    <xmx:mkeKZ6Wcrb0PrFd_-xuRybEXr3-OfjWb5gv6w2VbzI6HIIz06cCO3A>
+    <xmx:mkeKZ8eBYa7pmyU9aKDnEyGfLpIWcF4fOUqwgmGSpNkcZOaU9PP5Ng>
+    <xmx:m0eKZ83JcmhpKN0VmRnx_g48kqQHNlsKPfxwtB0dAomm_J7mCpF7-YZp>
+Feedback-ID: i1568416f:Fastmail
+Date: Fri, 17 Jan 2025 13:05:30 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+	linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
+	Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>
+Subject: Config space access to Mediatek MT7922 doesn't work after device
+ reset in Xen PV dom0 (regression, Linux 6.12)
+Message-ID: <Z4pHll_6GX7OUBzQ@mail-itl>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="sWxZVOYUfcZCOYXA"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3d6d35ea-5044-4249-a277-0e5aa31ed888@amd.com>
 
-On Tue, Jul 09, 2024 at 09:08:11AM -0400, Jason Andryuk wrote:
-> On 2024-07-09 06:56, Jürgen Groß wrote:
-> > On 09.07.24 09:01, Jan Beulich wrote:
-> > > On 09.07.2024 08:36, Jürgen Groß wrote:
-> > > > On 09.07.24 08:24, Jan Beulich wrote:
-> > > > > On 08.07.2024 23:30, Jason Andryuk wrote:
-> > > > > >    From the backtrace, it looks like the immediate case
-> > > > > > is just trying to
-> > > > > > read a 4-byte version:
-> > > > > > 
-> > > > > >    >>>> [   44.575541]  ucsi_acpi_dsm+0x53/0x80
-> > > > > >    >>>> [   44.575546]  ucsi_acpi_read+0x2e/0x60
-> > > > > >    >>>> [   44.575550]  ucsi_register+0x24/0xa0
-> > > > > >    >>>> [   44.575555]  ucsi_acpi_probe+0x162/0x1e3
-> > > > > > 
-> > > > > > int ucsi_register(struct ucsi *ucsi)
-> > > > > > {
-> > > > > >            int ret;
-> > > > > > 
-> > > > > >            ret = ucsi->ops->read(ucsi, UCSI_VERSION, &ucsi->version,
-> > > > > >                                  sizeof(ucsi->version));
-> > > > > > 
-> > > > > > ->read being ucsi_acpi_read()
-> > > > > > 
-> > > > > > However, the driver also appears write to adjacent addresses.
-> > > > > 
-> > > > > There are also corresponding write functions in the driver, yes, but
-> > > > > ucsi_acpi_async_write() (used directly or indirectly) similarly calls
-> > > > > ucsi_acpi_dsm(), which wires through to acpi_evaluate_dsm(). That's
-> > > > > ACPI object evaluation, which isn't obvious without seeing the
-> > > > > involved AML whether it might write said memory region.
-> > > > 
-> > > > I guess an ACPI dump would help here?
-> > > 
-> > > Perhaps, yes.
-> > 
-> > It is available in the bug report:
-> > 
-> > https://bugzilla.opensuse.org/show_bug.cgi?id=1227301
-> 
-> After acpixtract & iasl:
-> 
-> $ grep -ir FEEC *
-> dsdt.dsl:   OperationRegion (ECMM, SystemMemory, 0xFEEC2000, 0x0100)
-> ssdt16.dsl: OperationRegion (SUSC, SystemMemory, 0xFEEC2100, 0x30)
-> 
-> 
-> from the DSDT:
->     Scope (\_SB.PCI0.LPC0.EC0)
->     {
->         OperationRegion (ECMM, SystemMemory, 0xFEEC2000, 0x0100)
->         Field (ECMM, AnyAcc, Lock, Preserve)
->         {
->             TWBT,   2048
->         }
-> 
->         Name (BTBF, Buffer (0x0100)
->         {
->              0x00                                             // .
->         })
->         Method (BTIF, 0, NotSerialized)
->         {
->             BTBF = TWBT /* \_SB_.PCI0.LPC0.EC0_.TWBT */
->             Return (BTBF) /* \_SB_.PCI0.LPC0.EC0_.BTBF */
->         }
->     }
-> 
-> From SSDT16:
-> DefinitionBlock ("", "SSDT", 2, "LENOVO", "UsbCTabl", 0x00000001)
-> {
->     External (_SB_.PCI0.LPC0.EC0_, DeviceObj)
-> 
->     Scope (\_SB)
->     {
->         OperationRegion (SUSC, SystemMemory, 0xFEEC2100, 0x30)
->         Field (SUSC, ByteAcc, Lock, Preserve)
->         {
-> 
-> 
-> This embedded controller (?) seems to live at 0xfeec2xxx.
 
-I've done some further research on this, and my current hypothesis is
-that the region defined in 0xfeec2xxx contains at least the UCSI
-shared mailbox, used for communication between ACPI and the OSPM.
+--sWxZVOYUfcZCOYXA
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 17 Jan 2025 13:05:30 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+	linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
+	Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>
+Subject: Config space access to Mediatek MT7922 doesn't work after device
+ reset in Xen PV dom0 (regression, Linux 6.12)
 
-This is a regular RAM region (iow: not MMIO), that's used to send and
-receive UCSI commands with the mediation of ACPI.
+Hi,
 
-The specification that defines the interface can be found at:
+After updating PV dom0 to Linux 6.12, The Mediatek MT7922 device reports
+all 0xff when accessing its config space. This happens only after device
+reset (which is also triggered when binding the device to the
+xen-pciback driver).
 
-https://www.intel.com/content/dam/www/public/us/en/documents/white-papers/bios-implementation-of-ucsi.pdf
+Reproducer:
 
-If my suspicion is correct, this is a purely software defined
-interface, and hence not related to the chipset or the CPU in any way.
+    # lspci -xs 01:00.0
+    01:00.0 Network controller: MEDIATEK Corp. MT7922 802.11ax PCI Express =
+Wireless Network Adapter
+    00: c3 14 16 06 00 00 10 00 00 00 80 02 10 00 00 00
+    ...
+    # echo 1 > /sys/bus/pci/devices/0000:01:00.0/reset
+    # lspci -xs 01:00.0
+    01:00.0 Network controller: MEDIATEK Corp. MT7922 802.11ax PCI Express =
+Wireless Network Adapter
+    00: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+    ...
 
-I will attempt to contact Lenovo to figure out which of their systems
-place the mailbox in the 0xfeecxxxx range, and how we can detect
-this.
+The same operation done on Linux 6.12 running without Xen works fine.
 
-I think such memory range should likely be defined in the memory map
-with type EfiACPIMemoryNVS, so that we know it's presence and can map
-it into the guest.  Otherwise this won't work with PVH dom0.
+git bisect points at:
 
-Regards, Roger.
+    commit d591f6804e7e1310881c9224d72247a2b65039af
+    Author: Bjorn Helgaas <bhelgaas@google.com>
+    Date:   Tue Aug 27 18:48:46 2024 -0500
+
+    PCI: Wait for device readiness with Configuration RRS
+
+part of that commit:
+@@ -1311,9 +1320,15 @@ static int pci_dev_wait(struct pci_dev *dev, char *r=
+eset_type, int timeout)
+                        return -ENOTTY;
+                }
+=20
+-               pci_read_config_dword(dev, PCI_COMMAND, &id);
+-               if (!PCI_POSSIBLE_ERROR(id))
+-                       break;
++               if (root && root->config_crs_sv) {
++                       pci_read_config_dword(dev, PCI_VENDOR_ID, &id);
++                       if (!pci_bus_crs_vendor_id(id))
++                               break;
++               } else {
++                       pci_read_config_dword(dev, PCI_COMMAND, &id);
++                       if (!PCI_POSSIBLE_ERROR(id))
++                               break;
++               }
+=20
+   =20
+Adding some debugging, the PCI_VENDOR_ID read in pci_dev_wait() returns
+initially 0xffffffff. If I extend the condition with
+"&& !PCI_POSSIBLE_ERROR(id)", then the issue disappear. But reading the
+patch description, it would break VF.
+I'm not sure where the issue is, but given it breaks only when running
+with Xen, I guess something is wrong with "Configuration RRS Software
+Visibility" in that case.
+
+BTW, shouldn't PCI_VENDOR_ID be accessed via pci_read_config_word()
+instead of pci_read_config_dword()?
+
+I'm also CC-ing MT76 driver maintainers in case it turns out to be
+device-specific issue, not a generic one.
+
+Initially reported at https://github.com/QubesOS/qubes-issues/issues/9689
+
+#regzbot introduced: d591f6804e7e1310881c9224d72247a2b65039af
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--sWxZVOYUfcZCOYXA
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmeKR5YACgkQ24/THMrX
+1yyDjQf+JBoWE4mxxNyZATD6m9P70rRJd0JhGqotS5b1B5P6bMIEGSophssWxldE
++p9xAUihpymf67AQsqMP1bEgUuQUHbBE+VuQp12aFb1AdKgGCjsKK1sZgx+1WjlM
+mWxC8vWyXEmRXUBU+0j531yBb9JbO93HULXk8EC0DYHqt1YSH68b0vHYNoRVBVqZ
+S4fOb7LhEsIWpprx/yWtRlcKwFUSK96KabmpGSeXgkZ+LSM8eMQgLfTXcpRLxNaR
+yKIeadTj2I2wjwZ0LnGSFjDGfMqhWl/myprlcyoonnEGs/lenDpMQ8Ja2QHzpSKx
+GrUjgFoZdghTv4mOtnDPTarPl0e6KQ==
+=9sOx
+-----END PGP SIGNATURE-----
+
+--sWxZVOYUfcZCOYXA--
 
