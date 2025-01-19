@@ -2,38 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54043A15A0D
-	for <lists+xen-devel@lfdr.de>; Sat, 18 Jan 2025 00:42:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.874351.1285070 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24E58A16160
+	for <lists+xen-devel@lfdr.de>; Sun, 19 Jan 2025 12:30:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.874607.1285078 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tYvxw-0006Mg-Tl; Fri, 17 Jan 2025 23:41:28 +0000
+	id 1tZTUi-0007rw-Uv; Sun, 19 Jan 2025 11:29:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 874351.1285070; Fri, 17 Jan 2025 23:41:28 +0000
+Received: by outflank-mailman (output) from mailman id 874607.1285078; Sun, 19 Jan 2025 11:29:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tYvxw-0006JX-R4; Fri, 17 Jan 2025 23:41:28 +0000
-Received: by outflank-mailman (input) for mailman id 874351;
- Fri, 17 Jan 2025 23:41:28 +0000
+	id 1tZTUi-0007ph-Pw; Sun, 19 Jan 2025 11:29:32 +0000
+Received: by outflank-mailman (input) for mailman id 874607;
+ Sun, 19 Jan 2025 11:29:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VHvT=UJ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tYvxv-0006JR-Um
- for xen-devel@lists.xenproject.org; Fri, 17 Jan 2025 23:41:27 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ <SRS0=mvz8=UL=linux.dev=sui.jingfeng@srs-se1.protection.inumbo.net>)
+ id 1tZTUe-0007pb-Va
+ for xen-devel@lists.xenproject.org; Sun, 19 Jan 2025 11:29:32 +0000
+Received: from out-173.mta1.migadu.com (out-173.mta1.migadu.com
+ [2001:41d0:203:375::ad])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 903a99ad-d52c-11ef-a0e2-8be0dac302b0;
- Sat, 18 Jan 2025 00:41:25 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-4361f664af5so28712845e9.1
- for <xen-devel@lists.xenproject.org>; Fri, 17 Jan 2025 15:41:25 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-438904084e7sm48317705e9.6.2025.01.17.15.41.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 17 Jan 2025 15:41:24 -0800 (PST)
+ id a38c4fee-d658-11ef-a0e2-8be0dac302b0;
+ Sun, 19 Jan 2025 12:29:26 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,206 +37,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 903a99ad-d52c-11ef-a0e2-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1737157285; x=1737762085; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7G+q7+YNodUeSCykRUjbKao1Cp6MRoZwAU9NzKs+V2Y=;
-        b=fhy8Aka7FZ9cFtHYwDjJKS+FECbDjOv0kZEQI1EQE+x3P5+/9F6FSxU8MdBZaZm8y8
-         uJdxIVGiChE4M6b2iAtjVdQ7vMwFJQZlp/KwPNuh9yfKjoTn74+ZeTEM5Fk6Ub7T6fMt
-         En3tqw8ZPThBuuEod4+Yrp8HOFE8e1dEwhdgk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737157285; x=1737762085;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7G+q7+YNodUeSCykRUjbKao1Cp6MRoZwAU9NzKs+V2Y=;
-        b=KbkjqJBTRffsEvDutA+PwXAZTZ38YpAK2cWkNSpgCf4b3a58xzP8jQ5/L5xvi3a1pz
-         WuRrnWIXLb+D2hFF12ZBgFct75cyzNAHmw3+F3JEZVvHgCO4fbzgOVUHcN1FLtKzX1N0
-         WvU3fJgVfRCMuWgTY9w4TFsTmd/wOUQUwAYPrGbG97V0BT6kEXFrsNM9S4399YJTxYpv
-         X+oRmYubpvpfo4RE75Y0RqoVhxH7CdHeOdVyYNy4t1l/GF7SYrAx7fUUye2W/UOzoXZH
-         zYBQIldjwYxxDN4gJLlLw0FJJV34t63CZcgYfxtuk/fkfZcTnzpnnbSVdvOaEfsmE3Es
-         rMbQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVTeFCu2pBtKnKpjDXT1m432xSjOka4DEvahuTKeVincxU6VnEBaBx6yZsRYGz+3EzpSpbA3xvCWbY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YznaBKFxMvVSpJO3Pbc+MGb0MAnfa7EHl0QRXWkFiXrrtE4m+96
-	vYvdXBL60Efj2xOZvy/AYid9kUdafOa8WnGSoSM9AWNhzFY0KtjhTqrIqh4MGBQ=
-X-Gm-Gg: ASbGncuB5wEYoTyoByTyMZx/AeJehJufFHp5FbHIKycFbZ3TGqUhPqXoAdVes1G1t+b
-	hEgWaOHNCQGjoG+EvjRWq/RVNYhnxM7vDAinvKsoDGSdPC9MmEvWlkkQTEW7Z0iqBFeYZJz2hVK
-	tvx55/Ls5SP30zol68QLb5Z+/HC5SvhCgf8wGA8Hj5ukFTD1Ib9wXqae22MvuGKufm2yp8yiGcJ
-	nbag6Ez25g2n2250xs5JHQnG5+TycvfKGPM39OVVCAREb0cyI4N+KLWE/+cdGlK3Pe+w6uXzmFC
-	F97Jm41QfVe0GlwYAgmY6m/LCVdGD/TfaQ==
-X-Google-Smtp-Source: AGHT+IHe/sgsUcek+Vt3Nw04aT02txb4V9vNV2R/6qTKuS/gvdVvsjV+LIMdtfyg/XFfOpBWB9KFmg==
-X-Received: by 2002:a05:600c:3ba7:b0:435:172:5052 with SMTP id 5b1f17b1804b1-438913becb8mr36689365e9.1.1737157284922;
-        Fri, 17 Jan 2025 15:41:24 -0800 (PST)
-Message-ID: <f8c1e2c2-ceb5-4200-a304-e2d824a171a8@citrix.com>
-Date: Fri, 17 Jan 2025 23:41:24 +0000
+X-Inumbo-ID: a38c4fee-d658-11ef-a0e2-8be0dac302b0
+Message-ID: <b97fcd2f-516a-4172-aef3-631418564cfa@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1737286164;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uuK0LkbEgQqPgK0yPnR5LzoggyynezSlKlKR/CKdeTY=;
+	b=xMqoqpXwM+10B3buteMukau9UQmlGuAXyj0ur9aXSA7WbWzwRnMniPiQaxTWp6qqTY2fRw
+	kdeVaGsloeyKfqel8VbZAIHcFFD77zLC4uiMyod2/pw8443jMEAy0AngMSBb8Lp3KLn9lX
+	baphMPg1zk5Qs828ODB8iVWTCpuol5w=
+Date: Sun, 19 Jan 2025 19:29:14 +0800
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] x86: provide an inverted Kconfig control for
- shim-exclusive mode
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Jan Beulich <jbeulich@suse.com>
-Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>, sergiy_kibrik@epam.com,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <da5f5bac-6d5d-092d-d872-f1120dcd2661@suse.com>
- <617842e1-8ef2-b095-0c52-c2e2e5f1c0a8@suse.com>
- <alpine.DEB.2.22.394.2501161503120.2684657@ubuntu-linux-20-04-desktop>
- <Z4oxZSUQ6VARiR0H@macbook.local> <D74CH4RDRRR9.ZR6RL8U6PQ56@cloud.com>
- <6285f86d-f2d2-4040-999d-01aed3e72a36@suse.com>
- <alpine.DEB.2.22.394.2501171430570.2684657@ubuntu-linux-20-04-desktop>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <alpine.DEB.2.22.394.2501171430570.2684657@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v2 25/25] drm/xlnx: Compute dumb-buffer sizes with
+ drm_mode_size_dumb()
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Andy Yan <andyshrk@163.com>, Daniel Stone <daniel@fooishbar.org>
+References: <f3ba05c7-6e49-4641-a3f9-ba418ebdb7c3@ideasonboard.com>
+ <c6735280-7c32-4319-8ca9-a7305d8117c3@suse.de>
+ <d67adb03-5cd0-4ac9-af58-cf4446dacee3@ideasonboard.com>
+ <0ea6be58-0e04-4172-87cd-064a3e4a43bc@suse.de>
+ <f35cb350-6be9-48ca-ad7e-e9dd418281d5@ideasonboard.com>
+ <4af0b6a7-c16a-4187-bbf5-365a9c86de21@suse.de>
+ <e327ad84-b5c9-4480-b873-dc3aca605538@ideasonboard.com>
+ <a2bbeb47-2569-4ee0-9265-92bab139bdc6@suse.de>
+ <f3833771-fcd7-45dc-9019-1525fef34429@ideasonboard.com>
+ <CAMuHMdXxYa+Na3XxpLTy=-eUL_zQ9kAiUKYu-E04u3KWApusSA@mail.gmail.com>
+ <xz5ncq67bgmdase2jg3cfvyaxpiwhol2eqpfzow6dqpauvslo5@2w3rw27lhnxo>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Sui Jingfeng <sui.jingfeng@linux.dev>
+In-Reply-To: <xz5ncq67bgmdase2jg3cfvyaxpiwhol2eqpfzow6dqpauvslo5@2w3rw27lhnxo>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-On 17/01/2025 10:43 pm, Stefano Stabellini wrote:
-> On Fri, 17 Jan 2025, Jan Beulich wrote:
->> On 17.01.2025 13:24, Alejandro Vallejo wrote:
->>> On Fri Jan 17, 2025 at 10:31 AM GMT, Roger Pau Monné wrote:
->>>> On Thu, Jan 16, 2025 at 04:31:46PM -0800, Stefano Stabellini wrote:
->>>>> On Wed, 1 Mar 2023, Jan Beulich wrote:
->>>>>> While we want certain things turned off in shim-exclusive mode, doing
->>>>>> so via "depends on !PV_SHIM_EXCLUSIVE" badly affects allyesconfig: Since
->>>>>> that will turn on PV_SHIM_EXCLUSIVE, other options will be turned off as
->>>>>> a result. Yet allyesconfig wants to enable as much of the functionality
->>>>>> as possible.
->>>>>>
->>>>>> Retain PV_SHIM_EXCLUSIVE as a prompt-less option such that first of all
->>>>>> C code using it can remain as is. This isn't just for less code churn,
->>>>>> but also because I think that symbol is more logical to use in many
->>>>>> (all?) places.
->>>>>>
->>>>>> Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>>>>
->>>>>> ---
->>>>>> The new Kconfig control's name is up for improvement suggestions, but I
->>>>>> think it's already better than the originally thought of
->>>>>> FULL_HYPERVISOR.
->>>>> I think the approach in general is OK, maybe we can improve the naming
->>>>> further. What about one of the following?
+Hi,
+
+On 2025/1/16 18:35, Dmitry Baryshkov wrote:
+> On Thu, Jan 16, 2025 at 11:17:50AM +0100, Geert Uytterhoeven wrote:
+>> On Thu, Jan 16, 2025 at 11:03 AM Tomi Valkeinen
+>> <tomi.valkeinen@ideasonboard.com> wrote:
+>>> On 16/01/2025 10:09, Thomas Zimmermann wrote:
+>>>> Am 15.01.25 um 15:20 schrieb Tomi Valkeinen:
+>>>> [...]
+>>>>> My point is that we have the current UAPI, and we have userspace using
+>>>>> it, but we don't have clear rules what the ioctl does with specific
+>>>>> parameters, and we don't document how it has to be used.
 >>>>>
->>>>> NO_PV_SHIM_EXCLUSIVE
->>>>> PV_SHIM_NOT_EXCLUSIVE
->>>> IMO negated options are confusing, and if possible I think we should
->>>> avoid using them unless strictly necessary.
->>> The problem is that the option is negative in nature. It's asking for
->>> hypervisor without _something_. I do agree with Stefano that shim would be
->>> better in the name. Otherwise readers are forced to play divination tricks.
+>>>>> Perhaps the situation is bad, and all we can really say is that
+>>>>> CREATE_DUMB only works for use with simple RGB formats, and the
+>>>>> behavior for all other formats is platform specific. But I think even
+>>>>> that would be valuable in the UAPI docs.
+>>>> To be honest, I would not want to specify behavior for anything but the
+>>>> linear RGB formats. If anything, I'd take Daniel's reply mail for
+>>>> documentation as-is. Anyone stretching the UAPI beyond RGB is on their own.
+>>>>
+>>>>> Thinking about this, I wonder if this change is good for omapdrm or
+>>>>> xilinx (probably other platforms too that support non-simple non-RGB
+>>>>> formats via dumb buffers): without this patch, in both drivers, the
+>>>>> pitch calculations just take the bpp as bit-per-pixels, align it up,
+>>>>> and that's it.
+>>>>>
+>>>>> With this patch we end up using drm_driver_color_mode_format(), and
+>>>>> aligning buffers according to RGB formats figured out via heuristics.
+>>>>> It does happen to work, for the formats I tested, but it sounds like
+>>>>> something that might easily not work, as it's doing adjustments based
+>>>>> on wrong format.
+>>>>>
+>>>>> Should we have another version of drm_mode_size_dumb() which just
+>>>>> calculates using the bpp, without the drm_driver_color_mode_format()
+>>>>> path? Or does the drm_driver_color_mode_format() path provide some
+>>>>> value for the drivers that do not currently do anything similar?
+>>>> With the RGB-only rule, using drm_driver_color_mode_format() makes
+>>>> sense. It aligns dumb buffers and video=, provides error checking, and
+>>>> overall harmonizes code. The fallback is only required because of the
+>>>> existing odd cases that already bend the UAPI's rules.
+>>> I have to disagree here.
 >>>
->>> How about something like:
+>>> On the platforms I have been using (omap, tidss, xilinx, rcar) the dumb
+>>> buffers are the only buffers you can get from the DRM driver. The dumb
+>>> buffers have been used to allocate linear and multiplanar YUV buffers
+>>> for a very long time on those platforms.
 >>>
->>>     SHIMLESS_HYPERVISOR
+>>> I tried to look around, but I did not find any mentions that CREATE_DUMB
+>>> should only be used for RGB buffers. Is anyone outside the core
+>>> developers even aware of it?
 >>>
->>> That's arguably not negated, preserves "shim" in the name and has the correct
->>> polarity for allyesconfig to yield the right thing.
->> Except that a hypervisor with this option enabled isn't shim-less, but permits
->> working in shim as well as in non-shim mode.
-> First, let's recognize that we have two opposing requirements. One
-> requirement is to make it as easy as possible to configure for the user.
-> Ideally without using negative CONFIG options, such as
-> NO_PV_SHIM_EXCLUSIVE. From the user point of view, honestly,
-> PV_SHIM_EXCLUSIVE is a pretty good name. Better than all of the others,
-> I think.
->
-> On the other hand, we have the requirement that we don't want
-> allyesconfig to end up disabling a bunch of CONFIG options. Now this
-> requirement can be satisfied easily by adding something like
-> NO_PV_SHIM_EXCLUSIVE. However, it would go somewhat against the previous
-> requirement.
->
-> So we need a compromise, something that doesn't end up disabling other
-> CONFIG options, to make allyesconfig happy, but also not too confusing
-> for the user (which is a matter of personal opinion).
->
-> In short, expect that people will have different opinions on this and
-> will find different compromises better or worse. For one, I prefer to
-> compromise on "no negative CONFIG options" and use
-> PV_SHIM_NOT_EXCLUSIVE. Because it serves the allyesconfig goal, and
-> while it is not as clear as PV_SHIM_EXCLUSIVE, is still better than a
-> completely generic FULL_HYPERVISOR option, which means nothing to me.
->
-> I cannot see a way to have a good and clear non-negated CONFIG option,
-> and also satisfy the allyesconfig requirement. So I prefer to compromise
-> on the "non-negated" part.
+>>> If we don't use dumb buffers there, where do we get the buffers? Maybe
+>>> from a v4l2 device or from a gpu device, but often you don't have those.
+>>> DMA_HEAP is there, of course.
+>> Why can't there be a variant that takes a proper fourcc format instead of
+>> an imprecise bpp value?
+> Backwards compatibility. We can add an IOCTL for YUV / etc.
 
-Debating the naming is missing the point.
+[...]
+
+> But userspace must be able to continue allocating YUV buffers through
+> CREATE_DUMB.
+
+I think, allocating YUV buffers through CREATE_DUMB interface is just
+an *abuse* and *misuse* of this API for now.
+
+Take the NV12 format as an example, NV12 is YUV420 planar format, have
+two planar: the Y-planar and the UV-planar. The Y-planar appear first
+in memory as an array of unsigned char values. The Y-planar is followed
+immediately by the UV-planar, which is also an array of unsigned char
+values that contains packed U (Cb) and V (Cr) samples.
+
+But the 'drm_mode_create_dumb' structure is only intend to provide
+descriptions for *one* planar.
+
+struct drm_mode_create_dumb {
+     __u32 height;
+     __u32 width;
+     __u32 bpp;
+     __u32 flags;
+     __u32 handle;
+     __u32 pitch;
+     __u64 size;
+};
+
+An width x height NV12 image takes up width*height*(1 + 1/4 + 1/4) bytes.
+
+So we can allocate an *equivalent* sized buffer to store the NV12 raw data.
+
+Either 'width * (height * 3/2)' where each pixel take up 8 bits,
+or just 'with * height' where each pixels take up 12 bits.
+
+However, all those math are just equivalents description to the original
+NV12 format, neither are concrete correct physical description.
+
+Therefore, allocating YUV buffers through the dumb interface is just an
+abuse for that API. We certainly can abuse more by allocating two dumb
+buffers, one for Y-planer, another one for the UV-planer. But again,dumb buffers can be (and must be) used for *scanout* directly. What will yield if I commit the YUV buffers you allocated to the CRTC directly?
+
+In other words, You can allocated buffers via the dumb APIs to store anything,
+but the key point is that how can we interpret it.
+
+As Daniel puts it, the semantics of that API is well defined for simple RGB
+formats. Usages on non linear RGB dumb buffers are considered as undefined
+behavior.
+
+Peoples can still abusing it at the user-space though, but the kernel don't
+have to guarantee that the user-space *must* to be able to continue doing
+balabala..., That's it.
 
 
-The problem here is the wish to have PV_SHIM_EXCLUSIVE behave in a way
-that Kconfig is not capable of expressing.  Specifically, what is broken
-is having "lower level" options inhibit unrelated "higher level" options
-when the graph gets rescanned[1].  That's why we're in the laughable
-position of `make allyesconfig` turning off CONFIG_HVM.
+Best regards,
+Sui
 
-Jan, you want "echo PV_SHIM_EXCLUSIVE=y >> .config && make" to mean
-"reset me back to a PV Shim".
+>> Gr{oetje,eeting}s,
+>>
+>>                          Geert
+>>
+>> -- 
+>> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+>>
+>> In personal conversations with technical people, I call myself a hacker. But
+>> when I'm talking to journalists I just say "programmer" or something like that.
+>>                                  -- Linus Torvalds
 
-Kconfig spells this "make $foo_defconfig" for an appropriately given foo.
+-- 
+Best regards,
+Sui
 
-
-There should be:
-
-1) an option called PV_SHIM_EXCLUSIVE which does *nothing* other than
-making the boolean be a compile time constant.
-
-2) a pvshim_defconfig target which expresses what a pvshim ought to look
-like.
-
-Trying to fight against the behaviour of Kconfig is not a good use of
-anyone's time.
-
-~Andrew
-
-[1] default to unrelated symbols is also broken for a related reason. 
-The result you get is sensitive to the order of processing of symbols.
 
