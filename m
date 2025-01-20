@@ -2,38 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 206C9A16F44
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Jan 2025 16:36:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.874984.1285310 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76CBEA16FE0
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Jan 2025 17:10:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.874992.1285321 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tZtoQ-0000ps-5M; Mon, 20 Jan 2025 15:35:38 +0000
+	id 1tZuLR-0005Wc-LR; Mon, 20 Jan 2025 16:09:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 874984.1285310; Mon, 20 Jan 2025 15:35:38 +0000
+Received: by outflank-mailman (output) from mailman id 874992.1285321; Mon, 20 Jan 2025 16:09:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tZtoQ-0000nc-2i; Mon, 20 Jan 2025 15:35:38 +0000
-Received: by outflank-mailman (input) for mailman id 874984;
- Mon, 20 Jan 2025 15:35:37 +0000
+	id 1tZuLR-0005U5-IW; Mon, 20 Jan 2025 16:09:45 +0000
+Received: by outflank-mailman (input) for mailman id 874992;
+ Mon, 20 Jan 2025 16:09:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=BOU1=UM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tZtoP-0000nU-9f
- for xen-devel@lists.xenproject.org; Mon, 20 Jan 2025 15:35:37 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UHT9=UM=redhat.com=vschneid@srs-se1.protection.inumbo.net>)
+ id 1tZuLQ-0005Tz-Pa
+ for xen-devel@lists.xenproject.org; Mon, 20 Jan 2025 16:09:44 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 30cefac5-d744-11ef-99a4-01e77a169b0f;
- Mon, 20 Jan 2025 16:35:35 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-435f8f29f8aso32896365e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 20 Jan 2025 07:35:35 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-437c74c475csm206068965e9.20.2025.01.20.07.35.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Jan 2025 07:35:34 -0800 (PST)
+ id f48f7a44-d748-11ef-99a4-01e77a169b0f;
+ Mon, 20 Jan 2025 17:09:42 +0100 (CET)
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-107-8_LS9IIPM5KAgYCe1zV-Mw-1; Mon, 20 Jan 2025 11:09:39 -0500
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-38a873178f2so2320517f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Jan 2025 08:09:39 -0800 (PST)
+Received: from vschneid-thinkpadt14sgen2i.remote.csb
+ (213-44-141-166.abo.bbox.fr. [213.44.141.166])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38bf3221b70sm10695813f8f.26.2025.01.20.08.09.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Jan 2025 08:09:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,173 +50,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 30cefac5-d744-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1737387334; x=1737992134; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=IvXlhcaAtilLlQfU3BTOUNloWLtSLhanA/kAgU+qBAI=;
-        b=fJFzCQvsbkkkem4uZPt82FXtFzV2wp6f8JJcEYDHH/zM69sSlyacRiKhu8NICLxgFJ
-         szgHbZ2nbLs0Bi1nPWcgXoyzUbSUgxtv8bJ44szJ3dnaEZXw0j9BBMY5R7M17y5abCeQ
-         Wf0IGnrRGsH+sgBlkL7IKRpI60NvcBGECtxIku77NzgK7kpz58SIskdbFfZz7IKMwQ3A
-         U7F4agcmt3CUZ0uYS+7IFOrltGxp0YsgZmqEyMbbARig4l9OEi8wl+92nFLVDYMGfraJ
-         qn/50qV+C4VjawcnnGAe+wWo9Vit1Q51CV08Kvc1SHo/l5MCCPa4uUI7ncJOmt+I6MDE
-         t6DA==
+X-Inumbo-ID: f48f7a44-d748-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1737389381;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SNeDTVMDd6LFz2Ibm+JZz5IT863oQDJPOaC5/U8lcJk=;
+	b=YCuIi2gqY27/RenYo+i67O1JK7ekVse6cs1fAn7xO6n6ukpSgzz3wokTwcvwoSIDPChQFO
+	yupdrm0+05XyuGVby5P4zH4FFDrt382SGWD+3X6j1lkD4aqbEDrQBw4NKoLCHKliqBmMj5
+	WCxV8GAHEnJFtnnMaRdblDg5U18r8xM=
+X-MC-Unique: 8_LS9IIPM5KAgYCe1zV-Mw-1
+X-Mimecast-MFC-AGG-ID: 8_LS9IIPM5KAgYCe1zV-Mw
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737387334; x=1737992134;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IvXlhcaAtilLlQfU3BTOUNloWLtSLhanA/kAgU+qBAI=;
-        b=TiM2uY/ujqP5nVbdB5hGgn0prelms5HXqghiW7IshpfDfBzi1HIzl8Qmo6sn5U8qTZ
-         4SjuYf+XsIezN/tcSiWlL2pBRFxG2N1CsZ6GNvdtPkf+eyxYt+GhsLoce4umQ+gEHfaF
-         Vnar1A3Ksixk0Rqx6DGHW+uE2VLa6ed4AcUgaNlASspJgh5T8LxNETgjV+CNb47kCRea
-         9W2kINDmo5TrVcHCRUBq9bsGoj0v0vAWJPV2T3+Hczz6EbQRaZCIb9y3sfQoG0OTqJoR
-         xf1AF74UD+haoSnIEzFWQO+KHF8YWhSW+z4Q+krePlkKJku4gmfyQ14pn5syWFe5NjVe
-         dk7Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWgNsxhh5F4S3ieBTjzth73swm2BmjKeYgWVjYE8kYdk9Oxs8chFrjNg5LmPHGTNgHor4TVOR6wYcs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxQbyR62n1KsfwuVrIP8e6UKWNW7KgHp7NoDAl4cgL74hZc3r9W
-	Sxmg1K35bSwlpS5LpFR21x8RrZk+HrA7HXmTfjTM6xG4Pjg33h61tbcR2MptKA==
-X-Gm-Gg: ASbGncsFAoPNA4i9SD5lPzBmPkE1axSRrWqeTC1nfYAKSNVDGNboxjzY01DjNP2A0xA
-	ZNfpxyzOw3m+K6EMh1i9d0g02ZMOJrCeMp8mt15n/yPKoRy0eO8Zwxv8E+wj96TuruSln5xtMfM
-	aZfdyv4+Oo5PyPRR8X6KyEBFhjM3fY+mPXa/6sU+Bn32R0CePq8YSJk+7jMeNSQOPxiCJZBfpeT
-	JcAVZwW264Qw9Nsb2POKDdZ7B7OyH2gFUWk9YPWnOGmJFThvHhRFCvyGCK8Vc8gvIQryzcUjLHy
-	a8QX2CvuZon8CRmlZprXSmjL+/TgGKZR5tvz6qTDUqmZugpoH1gGW9k=
-X-Google-Smtp-Source: AGHT+IE5ipjHq7F9TG/oz+jCJmBEWQtDtV1iDJltR/psCLN2WsjGGTfT+/aUO344TL0m0x4V0Df4jQ==
-X-Received: by 2002:a05:600c:4e4f:b0:434:f767:68ea with SMTP id 5b1f17b1804b1-438913bf92cmr148742105e9.5.1737387334505;
-        Mon, 20 Jan 2025 07:35:34 -0800 (PST)
-Message-ID: <3e535294-8e68-476f-9958-d8c870f85f7c@suse.com>
-Date: Mon, 20 Jan 2025 16:35:33 +0100
+        d=1e100.net; s=20230601; t=1737389378; x=1737994178;
+        h=content-transfer-encoding:mime-version:message-id:date:references
+         :in-reply-to:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=uPYF3/ytKmNcBW6xY8UN6OXUapKiaxgyBXzq3dB0L9c=;
+        b=nditCq6lK08+KZb1wgmp56msNVReaZ2stKnzRiOk2eFmtTZiKXY3sXsQWZbv25veL4
+         4qVMgGQGniCu2URqO6vCG9P5qctfNhZO78Qe+BOYHs+UmW8GbwwlImBWDQzss+0uQbYN
+         9f7g4PzhN7jwYd7B2znYOsLcfmrqT9DMZTa+J/g3k9DS11V2W2Vk2rO2V95Bums/Bp6S
+         4tV/m3unvnpDN9/ntoPCiRL1/em8+P98TLFYOJjQWynnaW5G76VS5APckwA66LcPOYgx
+         TRsMFiwktr39GwozxmQAAk8JCTiipTZpzYBEgHp8aGDD+Jh/0U0NpHYsjoOZCaKTiLoG
+         4Dlg==
+X-Forwarded-Encrypted: i=1; AJvYcCXBnpOIy3bZ8q4zXGX6m3ReBvwlANulOIKKAAeWYoHosI44HF7UGFZ8I2kS8P+sos61MXS4HEoknG8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx9DY4dkvA6VA3D0US0ePp8e5M2dyrG9pBCrEeLibDsrsAW1lD1
+	PqYimRIyGbkLBIAbTn+N8XZMQ5OGJt384ckJL/eiofATDoEkLPBQggkafGUF/MzPXcv92qenz3E
+	n4muxMwtIrdUWhqaN5Ci2DPHZwkoMYU+Mfw+Wex6oHH9gYp2hBkihSjT1ok1WFCa1
+X-Gm-Gg: ASbGncsGzlDApXm8JZRkAD3wDj/Awox/B394jfNNXSOBNEMuhOzNtOm45MRyczjWFZJ
+	T+e/I9H1d5M5P+8Mph/KFC77Dvn12C7LdxKvB+3eMZCagvg9wV72VVCEiRSLM7RXAbqZ195s1F+
+	9tO1UxlvdvQbAMI+RcBqYC56KWtrHmFchxcA1WihMtegfCXj3t4dEhzv7B9r0nD6vonq0jpXsuP
+	4MZKLIHoElkvtT2rIZgIfWQmuMGmGoLkGyQ8J6fh26DrrQVcJbYS2wYg+wYAxCXj6ZQ7ygz/E+2
+	2qo1r2EaY5D8/i3Zx8J/IRwxdaAOnnSfo35SnqQfrUj77CggzRceU4k=
+X-Received: by 2002:adf:f682:0:b0:38b:e26d:ea0b with SMTP id ffacd0b85a97d-38bf566c314mr10592139f8f.25.1737389378238;
+        Mon, 20 Jan 2025 08:09:38 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IE7jMmKmijGDhYJpj3v2AzDeWwh7lxfHaye7x+JEw9SklvyOVZq+Wb4Niy5wxwqRIeZEeA2rg==
+X-Received: by 2002:adf:f682:0:b0:38b:e26d:ea0b with SMTP id ffacd0b85a97d-38bf566c314mr10592030f8f.25.1737389377661;
+        Mon, 20 Jan 2025 08:09:37 -0800 (PST)
+From: Valentin Schneider <vschneid@redhat.com>
+To: Uladzislau Rezki <urezki@gmail.com>
+Cc: Uladzislau Rezki <urezki@gmail.com>, Jann Horn <jannh@google.com>,
+ linux-kernel@vger.kernel.org, x86@kernel.org,
+ virtualization@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+ linux-perf-users@vger.kernel.org, xen-devel@lists.xenproject.org,
+ kvm@vger.kernel.org, linux-arch@vger.kernel.org, rcu@vger.kernel.org,
+ linux-hardening@vger.kernel.org, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, bpf@vger.kernel.org,
+ bcm-kernel-feedback-list@broadcom.com, Juergen Gross <jgross@suse.com>,
+ Ajay Kaher <ajay.kaher@broadcom.com>, Alexey Makhalov
+ <alexey.amakhalov@broadcom.com>, Russell King <linux@armlinux.org.uk>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, Paul
+ Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave
+ Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ Peter Zijlstra <peterz@infradead.org>, Arnaldo Carvalho de Melo
+ <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Mark Rutland
+ <mark.rutland@arm.com>, Alexander Shishkin
+ <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, Ian
+ Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
+ "Liang, Kan" <kan.liang@linux.intel.com>, Boris Ostrovsky
+ <boris.ostrovsky@oracle.com>, Josh Poimboeuf <jpoimboe@kernel.org>, Pawan
+ Gupta <pawan.kumar.gupta@linux.intel.com>, Sean Christopherson
+ <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, Andy Lutomirski
+ <luto@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Frederic Weisbecker
+ <frederic@kernel.org>, "Paul E. McKenney" <paulmck@kernel.org>, Jason
+ Baron <jbaron@akamai.com>, Steven Rostedt <rostedt@goodmis.org>, Ard
+ Biesheuvel <ardb@kernel.org>, Neeraj Upadhyay
+ <neeraj.upadhyay@kernel.org>, Joel Fernandes <joel@joelfernandes.org>,
+ Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun.feng@gmail.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Lai Jiangshan
+ <jiangshanlai@gmail.com>, Zqiang <qiang.zhang1211@gmail.com>, Juri Lelli
+ <juri.lelli@redhat.com>, Clark Williams <williams@redhat.com>, Yair
+ Podemsky <ypodemsk@redhat.com>, Tomas Glozar <tglozar@redhat.com>, Vincent
+ Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann
+ <dietmar.eggemann@arm.com>, Ben Segall <bsegall@google.com>, Mel Gorman
+ <mgorman@suse.de>, Kees Cook <kees@kernel.org>, Andrew Morton
+ <akpm@linux-foundation.org>, Christoph Hellwig <hch@infradead.org>, Shuah
+ Khan <shuah@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, Miguel
+ Ojeda <ojeda@kernel.org>, Alice Ryhl <aliceryhl@google.com>, "Mike
+ Rapoport (Microsoft)" <rppt@kernel.org>, Samuel Holland
+ <samuel.holland@sifive.com>, Rong Xu <xur@google.com>, Nicolas Saenz
+ Julienne <nsaenzju@redhat.com>, Geert Uytterhoeven <geert@linux-m68k.org>,
+ Yosry Ahmed <yosryahmed@google.com>, "Kirill A. Shutemov"
+ <kirill.shutemov@linux.intel.com>, "Masami Hiramatsu (Google)"
+ <mhiramat@kernel.org>, Jinghao Jia <jinghao7@illinois.edu>, Luis
+ Chamberlain <mcgrof@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
+ Tiezhu Yang <yangtiezhu@loongson.cn>
+Subject: Re: [PATCH v4 29/30] x86/mm, mm/vmalloc: Defer
+ flush_tlb_kernel_range() targeting NOHZ_FULL CPUs
+In-Reply-To: <Z44wSJTXknQVKWb0@pc636>
+References: <20250114175143.81438-1-vschneid@redhat.com>
+ <20250114175143.81438-30-vschneid@redhat.com>
+ <CAG48ez1Mh+DOy0ysOo7Qioxh1W7xWQyK9CLGNU9TGOsLXbg=gQ@mail.gmail.com>
+ <xhsmh34hhh37q.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
+ <Z4qBMqcMg16p57av@pc636>
+ <xhsmhwmetfk9d.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
+ <Z44wSJTXknQVKWb0@pc636>
+Date: Mon, 20 Jan 2025 17:09:34 +0100
+Message-ID: <xhsmhr04xfow1.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] vpci: Add resizable bar support
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Huang Rui <ray.huang@amd.com>,
- xen-devel@lists.xenproject.org
-References: <20250114032636.3698383-1-Jiqian.Chen@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250114032636.3698383-1-Jiqian.Chen@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 1VxRLfKOh_hiPXpwwouRVcP6w-GXnGZyknx6S_2iY98_1737389378
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 14.01.2025 04:26, Jiqian Chen wrote:
-> --- /dev/null
-> +++ b/xen/drivers/vpci/rebar.c
-> @@ -0,0 +1,135 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+On 20/01/25 12:15, Uladzislau Rezki wrote:
+> On Fri, Jan 17, 2025 at 06:00:30PM +0100, Valentin Schneider wrote:
+>> On 17/01/25 17:11, Uladzislau Rezki wrote:
+>> > On Fri, Jan 17, 2025 at 04:25:45PM +0100, Valentin Schneider wrote:
+>> >> On 14/01/25 19:16, Jann Horn wrote:
+>> >> > On Tue, Jan 14, 2025 at 6:51=E2=80=AFPM Valentin Schneider <vschnei=
+d@redhat.com> wrote:
+>> >> >> vunmap()'s issued from housekeeping CPUs are a relatively common s=
+ource of
+>> >> >> interference for isolated NOHZ_FULL CPUs, as they are hit by the
+>> >> >> flush_tlb_kernel_range() IPIs.
+>> >> >>
+>> >> >> Given that CPUs executing in userspace do not access data in the v=
+malloc
+>> >> >> range, these IPIs could be deferred until their next kernel entry.
+>> >> >>
+>> >> >> Deferral vs early entry danger zone
+>> >> >> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>> >> >>
+>> >> >> This requires a guarantee that nothing in the vmalloc range can be=
+ vunmap'd
+>> >> >> and then accessed in early entry code.
+>> >> >
+>> >> > In other words, it needs a guarantee that no vmalloc allocations th=
+at
+>> >> > have been created in the vmalloc region while the CPU was idle can
+>> >> > then be accessed during early entry, right?
+>> >>
+>> >> I'm not sure if that would be a problem (not an mm expert, please do
+>> >> correct me) - looking at vmap_pages_range(), flush_cache_vmap() isn't
+>> >> deferred anyway.
+>> >>
+>> >> So after vmapping something, I wouldn't expect isolated CPUs to have
+>> >> invalid TLB entries for the newly vmapped page.
+>> >>
+>> >> However, upon vunmap'ing something, the TLB flush is deferred, and th=
+us
+>> >> stale TLB entries can and will remain on isolated CPUs, up until they
+>> >> execute the deferred flush themselves (IOW for the entire duration of=
+ the
+>> >> "danger zone").
+>> >>
+>> >> Does that make sense?
+>> >>
+>> > Probably i am missing something and need to have a look at your patche=
+s,
+>> > but how do you guarantee that no-one map same are that you defer for T=
+LB
+>> > flushing?
+>> >
+>>
+>> That's the cool part: I don't :')
+>>
+> Indeed, sounds unsafe :) Then we just do not need to free areas.
+>
+>> For deferring instruction patching IPIs, I (well Josh really) managed to
+>> get instrumentation to back me up and catch any problematic area.
+>>
+>> I looked into getting something similar for vmalloc region access in
+>> .noinstr code, but I didn't get anywhere. I even tried using emulated
+>> watchpoints on QEMU to watch the whole vmalloc range, but that went abou=
+t
+>> as well as you could expect.
+>>
+>> That left me with staring at code. AFAICT the only vmap'd thing that is
+>> accessed during early entry is the task stack (CONFIG_VMAP_STACK), which
+>> itself cannot be freed until the task exits - thus can't be subject to
+>> invalidation when a task is entering kernelspace.
+>>
+>> If you have any tracing/instrumentation suggestions, I'm all ears (eyes?=
+).
+>>
+> As noted before, we defer flushing for vmalloc. We have a lazy-threshold
+> which can be exposed(if you need it) over sysfs for tuning. So, we can ad=
+d it.
+>
 
-Nit: This has now gone stale.
+In a CPU isolation / NOHZ_FULL context, isolated CPUs will be running a
+single userspace application that will never enter the kernel, unless
+forced to by some interference (e.g. IPI sent from a housekeeping CPU).
 
-> + * Author: Jiqian Chen <Jiqian.Chen@amd.com>
-> + */
-> +
-> +#include <xen/sched.h>
-> +#include <xen/vpci.h>
-> +
-> +static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
-> +                                      unsigned int reg,
-> +                                      uint32_t val,
-> +                                      void *data)
-> +{
-> +    unsigned int index;
-> +    struct vpci_bar *bar = data;
-> +    uint64_t size = PCI_REBAR_CTRL_SIZE(val);
-> +
-> +    if ( bar->enabled )
-> +    {
-> +        /*
-> +         * Refuse to resize a BAR while memory decoding is enabled, as
-> +         * otherwise the size of the mapped region in the p2m would become
-> +         * stale with the newly set BAR size, and the position of the BAR
-> +         * would be reset to undefined.  Note the PCIe specification also
-> +         * forbids resizing a BAR with memory decoding enabled.
-> +         */
-> +        if ( size != bar->size )
-> +            gprintk(XENLOG_ERR,
-> +                    "%pp: refuse to resize BAR with memory decoding enabled\n",
-> +                    &pdev->sbdf);
-> +        return;
-> +    }
-> +
-> +    if ( !((size >> PCI_REBAR_CTRL_SIZE_BIAS) & bar->resizable_sizes) )
-> +        gprintk(XENLOG_WARNING,
-> +                "%pp: new size %#lx is not supported by hardware\n",
-> +                &pdev->sbdf, size);
-> +
-> +    pci_conf_write32(pdev->sbdf, reg, val);
-> +
-> +    index = pci_conf_read32(pdev->sbdf, reg) & PCI_REBAR_CTRL_BAR_IDX;
-> +    pci_size_mem_bar(pdev->sbdf, PCI_BASE_ADDRESS_0 + index * 4, &bar->addr,
-> +                     &bar->size, ((index == PCI_HEADER_NORMAL_NR_BARS - 1) ?
-> +                                  PCI_BAR_LAST : 0));
+Increasing the lazy threshold would unfortunately only delay the
+interference - housekeeping CPUs are free to run whatever, and so they will
+eventually cause the lazy threshold to be hit and IPI all the CPUs,
+including the isolated/NOHZ_FULL ones.
 
-Nit: Imo it's unhelpful to the reader if you put multiple arguments on a single
-line, when the final one then needs wrapping across lines. (Putting multiple
-arguments on a single line is fine of course when they fully fit.)
+I was thinking maybe we could subdivide the vmap space into two regions
+with their own thresholds, but a task may allocate/vmap stuff while on a HK
+CPU and be moved to an isolated CPU afterwards, and also I still don't have
+any strong guarantee about what accesses an isolated CPU can do in its
+early entry code :(
 
-> --- a/xen/include/xen/pci_regs.h
-> +++ b/xen/include/xen/pci_regs.h
-> @@ -459,6 +459,7 @@
->  #define PCI_EXT_CAP_ID_ARI	14
->  #define PCI_EXT_CAP_ID_ATS	15
->  #define PCI_EXT_CAP_ID_SRIOV	16
-> +#define PCI_EXT_CAP_ID_REBAR	21	/* Resizable BAR */
->  
->  /* Advanced Error Reporting */
->  #define PCI_ERR_UNCOR_STATUS	4	/* Uncorrectable Error Status */
-> @@ -541,6 +542,19 @@
->  #define  PCI_VNDR_HEADER_REV(x)	(((x) >> 16) & 0xf)
->  #define  PCI_VNDR_HEADER_LEN(x)	(((x) >> 20) & 0xfff)
->  
-> +/* Resizable BARs */
-> +#define PCI_REBAR_CAP(n)	(4 + 8 * (n))	/* capability register */
-> +#define  PCI_REBAR_CAP_SIZES_MASK	0xFFFFFFF0U	/* supported BAR sizes in CAP */
-> +#define PCI_REBAR_CTRL(n)	(8 + 8 * (n))	/* control register */
-> +#define  PCI_REBAR_CTRL_BAR_IDX		0x00000007	/* BAR index */
-> +#define  PCI_REBAR_CTRL_NBAR_MASK	0x000000E0	/* # of resizable BARs */
-> +#define  PCI_REBAR_CTRL_BAR_SIZE	0x00003F00	/* BAR size */
-> +#define  PCI_REBAR_CTRL_SIZES_MASK	0xFFFF0000U	/* supported BAR sizes in CTRL */
-> +#define  PCI_REBAR_CTRL_SIZE_BIAS	20
-> +#define  PCI_REBAR_CTRL_SIZE(v) \
-> +            (1UL << (MASK_EXTR(v, PCI_REBAR_CTRL_BAR_SIZE) \
-> +                     + PCI_REBAR_CTRL_SIZE_BIAS))
+> --
+> Uladzislau Rezki
 
-On x86 (being 64-bit only) and Arm64 1UL may be good enough here, but
-I expect we'll need 1ULL for any 32-bit architecture.
-
-Plus, as indicated before, these two auxiliary #define-s would imo
-better be separated from those directly pertaining to the control
-register fields (and then also not be padded like those).
-
-Jan
 
