@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF45CA16836
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Jan 2025 09:30:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.874821.1285199 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AC14A16870
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Jan 2025 09:51:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.874839.1285208 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tZn9l-0008Mx-FM; Mon, 20 Jan 2025 08:29:13 +0000
+	id 1tZnVL-0004AV-4s; Mon, 20 Jan 2025 08:51:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 874821.1285199; Mon, 20 Jan 2025 08:29:13 +0000
+Received: by outflank-mailman (output) from mailman id 874839.1285208; Mon, 20 Jan 2025 08:51:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tZn9l-0008LP-CW; Mon, 20 Jan 2025 08:29:13 +0000
-Received: by outflank-mailman (input) for mailman id 874821;
- Mon, 20 Jan 2025 08:29:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tZnVL-000480-2H; Mon, 20 Jan 2025 08:51:31 +0000
+Received: by outflank-mailman (input) for mailman id 874839;
+ Mon, 20 Jan 2025 08:51:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FiXK=UM=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1tZn9k-0008LJ-Ba
- for xen-devel@lists.xenproject.org; Mon, 20 Jan 2025 08:29:12 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2060d.outbound.protection.outlook.com
- [2a01:111:f403:2413::60d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9e726a76-d708-11ef-a0e3-8be0dac302b0;
- Mon, 20 Jan 2025 09:29:10 +0100 (CET)
-Received: from DM4PR12MB8451.namprd12.prod.outlook.com (2603:10b6:8:182::7) by
- CH3PR12MB9023.namprd12.prod.outlook.com (2603:10b6:610:17b::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8356.20; Mon, 20 Jan
- 2025 08:29:04 +0000
-Received: from DM4PR12MB8451.namprd12.prod.outlook.com
- ([fe80::b04e:2da5:7189:4c4d]) by DM4PR12MB8451.namprd12.prod.outlook.com
- ([fe80::b04e:2da5:7189:4c4d%4]) with mapi id 15.20.8356.017; Mon, 20 Jan 2025
- 08:29:04 +0000
+ <SRS0=2DPH=UM=ideasonboard.com=tomi.valkeinen@srs-se1.protection.inumbo.net>)
+ id 1tZnVK-00047t-7q
+ for xen-devel@lists.xenproject.org; Mon, 20 Jan 2025 08:51:30 +0000
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b8f32a0a-d70b-11ef-99a4-01e77a169b0f;
+ Mon, 20 Jan 2025 09:51:22 +0100 (CET)
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
+ [91.158.153.178])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9AED3735;
+ Mon, 20 Jan 2025 09:50:24 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,165 +40,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9e726a76-d708-11ef-a0e3-8be0dac302b0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FVzf3dYVUcmju5InveuEvE+m9uouTi+bqQ9ih21Yh2JZ265da4jdql9ivD9I2JCVnXnQU2bxEuEVYevRYHvhTMN44ifwoZbfq80f8R8ws6GGd9plkKApAHe63gGO99P0tYipviPqjUopTrDjGOYL9bYirEAim7JjGAy2mOKD+PCww66tH3EJSpk8EgyKToISHRtq9n8ay7r59QBqK1Zoyl1J+FA37zh6Qxe2hheb5UN23CYuOld9YQR/B3YBXhbeWWA39ZH0v/aaNPPrkfKJSiMZQdONhfpAAyokHd1QMNveYiLdeu2UEK+QvY9P/7T8CJg4Tyr7/ft5ax7NRA/SeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9ynM/lfWoVXzwT4DZ6o9ktmrkPZFyJwLOwBQ8mbcao0=;
- b=Asf87K027yeGyXfly8jHRKkBOv0aKxfuBM42AGFKxVT3QK1aZYlCqt/TRkzQ+5f5c1PX8SchdfdKGRZUkrDdpKm4fhdRT8sy7McYlFXzkAxygms8GcPhkOPI36RJJKw1oCTKzm8c/RDkqqBUatP6um5OXbxhHJq0x6cDilYPDUALrbz7NkpCd8CGQc3VyxB2kQf63gJ6EQCpqmginXDckhEHK0m2VYXH/jAt0j2GtlHtWn6KaAhmFHGtowyLj5AcJXay9nYWQ/jzRXaxpefSpYVf0l4BDXyb5zCTt/7dnhi8koc54ta9VEg9wl1gFGanxg0Tuah1vWomz1IJMIInuA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9ynM/lfWoVXzwT4DZ6o9ktmrkPZFyJwLOwBQ8mbcao0=;
- b=yK+oAiOwc/I6H0nzLpVSHsD9Ocomp0OgCjj0R0dER9YVXaaznDyml2baccssLIAf23Mt5wWE6uAxIAFCSDjrtqrGev9NI47t+rauV5P/mLZElJ8I04FD5bzRrowoIhhphmv55DWfslZ1nTWUIwpfyLlT6gZaQYu1g1kk/PJW/74=
-From: "Penny, Zheng" <penny.zheng@amd.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "Stabellini, Stefano" <stefano.stabellini@amd.com>, "Huang, Ray"
-	<Ray.Huang@amd.com>, "Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>,
-	"Andryuk, Jason" <Jason.Andryuk@amd.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?=
-	<roger.pau@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-Subject: RE: [PATCH v1 04/11] xen/x86: get processor max speed from DMI table
-Thread-Topic: [PATCH v1 04/11] xen/x86: get processor max speed from DMI table
-Thread-Index: AQHbRVyYUn8JDdimHUmiK3WJzTytZ7MOc1iAgBEaM5A=
-Date: Mon, 20 Jan 2025 08:29:04 +0000
-Message-ID:
- <DM4PR12MB84513955738017284726E260E1E72@DM4PR12MB8451.namprd12.prod.outlook.com>
-References: <20241203081111.463400-1-Penny.Zheng@amd.com>
- <20241203081111.463400-5-Penny.Zheng@amd.com>
- <69360d8f-61e8-4bdc-b7e4-be67dbdd719b@suse.com>
-In-Reply-To: <69360d8f-61e8-4bdc-b7e4-be67dbdd719b@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=01dcd389-e04c-4bec-9154-66fe2076012f;MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only;MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-01-20T07:22:59Z;MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB8451:EE_|CH3PR12MB9023:EE_
-x-ms-office365-filtering-correlation-id: 94d2f463-5499-4315-1b84-08dd392c8039
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|1800799024|366016|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?MUtLUEFSQTZYWFh6YTgrQzlRUHhrUjZpSjd2TCsrWWl3S2FCZXFTcjQ2UVE5?=
- =?utf-8?B?TWJ1OW94NFRHZFRtOFFuenVxYWo4SURpakJOeXQzdXVIR1FVb1RYQUZRQVpu?=
- =?utf-8?B?aDQxUXlCUXlqT1N1b01oVzN1R2FDcDh0bk5TU09PUitBaWVDRnlkaHJmcGdL?=
- =?utf-8?B?bEJlb3hjVVNBM0pkY0tZU2Jqa1I3QkVnTFJsN3pXSm1ubDZTWWtZd3E5SGls?=
- =?utf-8?B?SFdWTkpnbUFCUkRyMzIvZzVlM3ljSzhISldZZHBvZnh3VzVKdzJBYWFxN3Az?=
- =?utf-8?B?WlFTcXNHWUFKbGpvNTZVS1E5K2dWUXJVNGtaRFZ3WGpSOEhQNGRrYTB5Mktx?=
- =?utf-8?B?QTU3a0k2dVRGWDhmeWlONklHOExkVnRFcnVFeDdCOCtLanBUd1NqenFrNk5q?=
- =?utf-8?B?K0JmM0F3b2Z5bTVrSEpnUHRZMHpIYlRaaWJzTG1CZUE2MjhSTHkxQ1lSR1Jp?=
- =?utf-8?B?dVpldlArTzJpaHk2VitPRlRXRTN3MzZtWWh0YTJDTFJqTkVUdUhuUENGS0xr?=
- =?utf-8?B?YXFib1JLbXR6TWdrQVRsR0xCZDhJNS9NdHMrWXBWaXIxWE1ycEdpZHFFMEs1?=
- =?utf-8?B?VDB3c3pzL0JGbXBIOVJTYlNWMzZmbjRnRTVhTHJQTHRkblZCNVlodWwzQ0o1?=
- =?utf-8?B?ZUJoMEp0SDJPUVhCSlUrMTZxZTRBaFpwN1VsZElQSlFHRjRMRGNZZzlFbVpp?=
- =?utf-8?B?M2VxMTNPaGdjN2hwbGZ3ekZyR0xOOVlFNEM3eVVIMnd4M285ajZxU0tIZHJC?=
- =?utf-8?B?NEdwV1dTdjQ1c0hxOE1KdnMzYTBoLzFrYUF1SWZRVGxLajlxMVJjMDhETVQ3?=
- =?utf-8?B?dHFpR0srTS8vNFV4MFFhN2h1ZTJEeGROOFcyUkFCSU55OHRhOEY5blFFT1Ni?=
- =?utf-8?B?KzhRczYzenJSOERRdzk3N0t2RkJSakNtbUVNSnRtQThXVkxkYTZjOEgyZmFD?=
- =?utf-8?B?U1FOYzRPNmkxTHlkZUx6dTVkR0NuaWVsMGY0RnN3aDV3TTRycFZtSm1oNWxY?=
- =?utf-8?B?cG0rbGhNdW84SzFrSm5GY0xjNGliTkZPdlNrdmg1ZGhBbit6VnI4TG1kNHcy?=
- =?utf-8?B?Q2xob0ovVjBDdUhORnBqM0dhRGxESm1NNGEvc1l6KzR0SjBmTGJkU2lBNll2?=
- =?utf-8?B?SXJReERxWDY2eUxPYnc4cDhtN1l4aUQ0cmdTR1E0VEJuYnR0Wkx0eW5MUnZJ?=
- =?utf-8?B?Z1JxTFQ5UnZWQmJ2YUtVblhKUmhadGtNZUJmMVNyRkZPOGtJYUZGazJRQ205?=
- =?utf-8?B?eU90ZVduN1ZVelZYRXNmdTMwS0J4OGFycG1IL0RBM3dzTmJjaFZFSHdKdEhX?=
- =?utf-8?B?ZmJYeVlxZkluU1VMd1Yxcit6QkhSQ1NBdnhlNGU1SkVzSTNWcU1GQWIxR3Rl?=
- =?utf-8?B?WVNteFQwdHU2aUI5d0t4REJhUnYyZW52d01jWHYzbEk3enozbTJkRTg0Nlgy?=
- =?utf-8?B?Ym1SVGNVQkkwM3V3M2tyTzFOaFBoNmJ3NmhYbFVWekkwWExQQ3p1YTVyeUZD?=
- =?utf-8?B?WTdseGhxaE5lSENJOFlNOXVQQVV2d2xUSEhsaDRtOUJkOHJIVFM5N2pqNUEr?=
- =?utf-8?B?dEVDOStEWWdrYkdGR1duRndMUkFaU0hScUtYZ1NzcnpTY3d0bUIwSjZ0NUZU?=
- =?utf-8?B?NlRqL0c2UU55WUw0aFk3U2hKZ3dHT0RlWnd4cU1IdE9FNzNURHJYRStTVlh3?=
- =?utf-8?B?dGhqQ3FvRzhnZjdVNFlpbkVCdE1mN1dUSlhKMVdQTmZRNHBhamxSUGl3b29s?=
- =?utf-8?B?VlRYWXd2cmJEQWl2YmRWZCsvaGZOcEhqbzJzWmxmMCtOSzFmMGI4My9IbUt3?=
- =?utf-8?B?YklSckx6Q3NjWlpIeWNMeHZNTmRjTHU2ME1kbzBjaEtUNDVSL2ZjRG9OM0pC?=
- =?utf-8?B?WGRweTcrcUdzT2grOU1Gbjd5WTV6NmhoUHNHL1lvMGdQdGtJTHlXMm93YUM0?=
- =?utf-8?Q?U3CZuavUEwS0w1mf6sIPoA7+XHBbzo8L?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB8451.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?cmk4bGpqUGt3QUYva1dONVRtSDU3WW1kWmpveERmTncvc1V1cjdEMVRFekt6?=
- =?utf-8?B?dEk2elVROUM4cFNlZ2E4OURGMWtCL2NtL09tMUlPZnlqYXZKZjZRYUk5NEs1?=
- =?utf-8?B?UXBhNU1jc0xiWXk1empiUStleVRKOFlCQ0Y4VUNkaHNUY09nTDYwQkFhbjdI?=
- =?utf-8?B?bEY3VzdtdkhjVE5Fd0lYUGlXWnpOdnYxZ0lEd2FiT3czOHMwRi9DMXlhaDlp?=
- =?utf-8?B?d1E3VVNqRko3Q3lQZWorQ0s1WmJDSmVTT1dJV1VuNGpRYmF1Zk1xcG9NN2ht?=
- =?utf-8?B?d2tmQzlCUHBYdUw4eTNsQlZBKys5aDFYVzh0YWR6SUN3WU9kTy9aWkpaT3pS?=
- =?utf-8?B?MnJqUHhBakFCM3N5c204YXlrVVFxQ3FYTTluaFVjRjQ0ZVFYODFiVlhVWHBo?=
- =?utf-8?B?RHlFUkgwZnhKZU5WOGozRlpUTU1mdUJrQlhqay9LdEpPUDNnTkZWblV2L0I0?=
- =?utf-8?B?N3lyR1EwT0Roc2gyZzMyaFdQVGJtRDdlamd1Qm9IZGtNbUM3RmdrS2xLdERX?=
- =?utf-8?B?eURrQVhxUGIyeHo3NDFSVW0zS291QmwwaTRJdU9FUlhtS1htMUxGNTFnRi9k?=
- =?utf-8?B?Y21QeEg4RFRJTVFoZmhqQThTVFA4QXdXa0liZmRTa09qZlBRMGZTajRDNmlw?=
- =?utf-8?B?ZjRsZjl1a0NXbkwzSGNvREhpTkM0aVdRK25NdGVVbmJIRElINWZPdzltZU0x?=
- =?utf-8?B?NXowMEcxM1BvRDJzQzZZbkMvZVMwNjNwVktPOTJSNFpheWJOdGg2TFVNVXlX?=
- =?utf-8?B?d1RRQVlkdWVvMFN3QWJ2eXZyV2N6cllqSVA5YUQ2TDJVSVVMMmtZNUhrVFhm?=
- =?utf-8?B?YnpyU2ZkajlOamN6d2IzMU5Sa1ZLb0dxNC9YcGFveEFLYkgwc2t1ODhrSFo0?=
- =?utf-8?B?Zms4aEsxYW05ekZJTVJ5NXU0VGdjdXdMSTJCc2pOVkV2MnRuUnZMWVQwOUxU?=
- =?utf-8?B?MzVHSUFVRVRFWVd2NkFhdXltaW9Qc3NhUUVNNDUrZzlmVDhUTFlVNDhYaFdX?=
- =?utf-8?B?WkZmQkdRbjlDdFhJVG1Lb2hwd3JmSnJkYjZEUTRJSDdIaGN6aEVsdlFkOExP?=
- =?utf-8?B?TzI0MnRCczBvejBzQWZhR3VvbGMvNkl4WHllZForNXI0ZENDSHVwOEhuaEM1?=
- =?utf-8?B?ZEJWUlBtTlB1eVNxd2tkVGwzQzlwZDA3K0VVVWhqN2l4OE9hM29XWjlKV3BC?=
- =?utf-8?B?bzBoVEorZ1l2TkRzcS9ZTGtXSVRSM0h0RUlkdTlJRGljQkZXcW1EQkR5WSsy?=
- =?utf-8?B?cGRYTmIyUGVib0JWMUNEZHVVaGY3eVpBK0xrUTl3aE5lMUltcHFmV01mQkwr?=
- =?utf-8?B?NnVGNS9vU0k0TWxWRSsrK1JjR1h4RStGSDEyY2E5M1RwdHpRM2FWb09YY0pl?=
- =?utf-8?B?V0FLSHEvcldCSytZSkNGRkJQOXlpNytPeXRhWFprSTFCdHdDcVdORkVFYm5N?=
- =?utf-8?B?dzZGYWRuM1RjaHUvTVhXR2xMUHZTaGxiR3crNlVsSDduek05WTEwVVZvYkNi?=
- =?utf-8?B?NmpUMStqOExiems5cnpyZlN0ajIyNjFOR09zRlJML3hncXF4eUd5RnNMSGNh?=
- =?utf-8?B?ejREblRIUEc1cEJyTklreG1ZWGsxYk5xaWhlQzZWbVprUlpIajA3eE1HTHhB?=
- =?utf-8?B?WHkrc1RaS1BodUp3c0IxOHFpSVhYQUJrQ1AwM1VQQ3ZLN1N3Vi9saFRrQ0tR?=
- =?utf-8?B?Rk9KcjNzSmpuRDE5Ri9hS2FNUmRDbXk4WlRxbzBHLzU4TlpyTllpeEt2YjBl?=
- =?utf-8?B?eWc0ZnZjMVUzM3JpeU1CTUJnK3NNdEp3b0UwMWliaVZYUW5EamhDRzYvbWRN?=
- =?utf-8?B?ZXNNSnlycGtTdExJVTJYQWdHVDNDTHdhUXZLb25oblBEWkdKWWNjSTNWVytI?=
- =?utf-8?B?VGFXMHFlN1BJYUNHc1dmNkYwdlcvbUtTUTZhdTcrZzBtNENqTWgyMEhqcmRi?=
- =?utf-8?B?YkFTYUJrRGMyaHlYSEdLaHRWWXhpeDBURjRkcklHbW12ekp5YTAyNjJ5dE5v?=
- =?utf-8?B?V0NpbDZreXZ6d0ZhSHNBMUN0d28zaElUK2tTbDRXTjZhRy90c00wRVQzTTNr?=
- =?utf-8?B?dXpkV0R2TTZMbHdsZFViZVFiOGFiSzdtRHBnM1ZCTGUwTVJjNUZQR2xDbFZm?=
- =?utf-8?Q?qKu8=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: b8f32a0a-d70b-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1737363025;
+	bh=XGVXA8RFEid3r1QRColBlQttrSeJN5LcMuwzsp8evGE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ORoPGZ873bLFpXc4xj0ZeN/6Lx5dqB9w0e97Rm1RwzB6B3smvYvJOGaAS4AdO2FdK
+	 uv1FmShTizPOz7DlEX13/kmFLevZy83ajoSYNtGKPOSQRWTZfN0EY8Cf3sW8dOQTLV
+	 iLeaw24LF8z2yQ15B8wAEXOEhqialqWrnRg2dKzA=
+Message-ID: <469daa7f-123b-41cb-a99c-4441436d82dc@ideasonboard.com>
+Date: Mon, 20 Jan 2025 10:51:23 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8451.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 94d2f463-5499-4315-1b84-08dd392c8039
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jan 2025 08:29:04.8575
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /BWYKPTVfRS6BnB6lG0nHEYt2P+VGDas4HUnbbmQrpiQDr4JnOf7nO80JzpRY0x/tNmkwc7LDCsssvLjeLHxHg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9023
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 25/25] drm/xlnx: Compute dumb-buffer sizes with
+ drm_mode_size_dumb()
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Andy Yan <andyshrk@163.com>, Daniel Stone <daniel@fooishbar.org>
+References: <20250109150310.219442-1-tzimmermann@suse.de>
+ <20250109150310.219442-26-tzimmermann@suse.de>
+ <cdbe483d-0895-47aa-8c83-1c28220f4a02@ideasonboard.com>
+ <bc97b92e-7f8a-4b92-af8a-20fa165ead55@suse.de>
+ <f3ba05c7-6e49-4641-a3f9-ba418ebdb7c3@ideasonboard.com>
+ <c6735280-7c32-4319-8ca9-a7305d8117c3@suse.de>
+ <d67adb03-5cd0-4ac9-af58-cf4446dacee3@ideasonboard.com>
+ <0ea6be58-0e04-4172-87cd-064a3e4a43bc@suse.de>
+ <f35cb350-6be9-48ca-ad7e-e9dd418281d5@ideasonboard.com>
+ <4af0b6a7-c16a-4187-bbf5-365a9c86de21@suse.de>
+ <e327ad84-b5c9-4480-b873-dc3aca605538@ideasonboard.com>
+ <a2bbeb47-2569-4ee0-9265-92bab139bdc6@suse.de>
+ <f3833771-fcd7-45dc-9019-1525fef34429@ideasonboard.com>
+ <156804a9-3095-4c93-888f-d9041f523da6@suse.de>
+Content-Language: en-US
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
+ 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
+In-Reply-To: <156804a9-3095-4c93-888f-d9041f523da6@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
-Cg0KSGksDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogSmFuIEJldWxp
-Y2ggPGpiZXVsaWNoQHN1c2UuY29tPg0KPiBTZW50OiBUaHVyc2RheSwgSmFudWFyeSA5LCAyMDI1
-IDY6MTMgUE0NCj4gVG86IFBlbm55LCBaaGVuZyA8cGVubnkuemhlbmdAYW1kLmNvbT4NCj4gQ2M6
-IFN0YWJlbGxpbmksIFN0ZWZhbm8gPHN0ZWZhbm8uc3RhYmVsbGluaUBhbWQuY29tPjsgSHVhbmcs
-IFJheQ0KPiA8UmF5Lkh1YW5nQGFtZC5jb20+OyBSYWdpYWRha291LCBYZW5pYSA8WGVuaWEuUmFn
-aWFkYWtvdUBhbWQuY29tPjsNCj4gQW5kcnl1aywgSmFzb24gPEphc29uLkFuZHJ5dWtAYW1kLmNv
-bT47IEFuZHJldyBDb29wZXINCj4gPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20+OyBSb2dlciBQ
-YXUgTW9ubsOpIDxyb2dlci5wYXVAY2l0cml4LmNvbT47DQo+IEp1bGllbiBHcmFsbCA8anVsaWVu
-QHhlbi5vcmc+OyBTdGVmYW5vIFN0YWJlbGxpbmkgPHNzdGFiZWxsaW5pQGtlcm5lbC5vcmc+OyB4
-ZW4tDQo+IGRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnDQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0gg
-djEgMDQvMTFdIHhlbi94ODY6IGdldCBwcm9jZXNzb3IgbWF4IHNwZWVkIGZyb20gRE1JIHRhYmxl
-DQo+DQo+IE9uIDAzLjEyLjIwMjQgMDk6MTEsIFBlbm55IFpoZW5nIHdyb3RlOg0KPiA+IFdoZW4g
-X0NQQyB0YWJsZSBjb3VsZCBub3QgcHJvdmlkZSBwcm9jZXNzb3IgZnJlcXVlbmN5IHJhbmdlIHZh
-bHVlcyBmb3INCj4gPiBPUyBnb3Zlcm5vciwgd2UgbmVlZCB0byByZWFkIHByb2Nlc3NvciBtYXgg
-ZnJlcXVlbmN5IGFzIGFuY2hvciBwb2ludC4NCj4gPg0KPiA+IEZvciBBTUQgcHJvY2Vzc29ycywg
-d2UgcmVseSBvbiBwYXJzaW5nIERNSSB0YWJsZSB0byBnZXQgcHJvY2Vzc29yIG1heA0KPiA+IHNw
-ZWVkLg0KPg0KPiBUaGF0IHNvdW5kcyBlbnRpcmVseSBmcmFnaWxlLiBUaGVyZSBhcmUgYmV0dGVy
-IHNvdXJjZXMgZm9yIHRoaXMgaW5mbywgYXJlbid0IHRoZXJlPw0KPiBTZWUgZS5nLiBhbWRfbG9n
-X2ZyZXEoKS4NCj4NCg0KVGhhbmtzIGZvciB0aGUgcmVmZXIuIFRoZW4gSSBtYXkgaW50cm9kdWNl
-IGEgbmV3IHBlci1jcHUgdmFsdWUgdG8gZXhwb3J0IG1heCBmcmVxdWVuY3kNCmZyb20gYW1kX2xv
-Z19mcmVxKCkuDQoNCj4gSmFuDQoNCk1hbnkgdGhhbmtzLA0KUGVubnkNCg0K
+Hi,
+
+On 20/01/2025 09:49, Thomas Zimmermann wrote:
+> Hi
+> 
+> 
+> Am 16.01.25 um 11:03 schrieb Tomi Valkeinen:
+> [...]
+>> Aligning video= and dumb buffers almost sounds like going backwards. 
+>> video= parameter is bad,
+> 
+> Who told you that? Video= is still the way to specify an initial display 
+> mode to the kernel and it will remain so.
+
+You did =). "It aligns dumb buffers and video=". I understand the need 
+for drm_driver_color_mode_format() for video=. But I think it's bad for 
+CREATE_DUMB, at least for the platforms which have never aimed for 
+"RGB-only".
+
+So you're not in favor of a drm_mode_size_dumb() version that does not 
+use drm_driver_color_mode_format(), for these platforms? I'm still at 
+loss as to why we would want to change the behavior of CREATE_DUMB. I 
+see no upside, but I see the chance of regressions.
+
+  Tomi
+
 
