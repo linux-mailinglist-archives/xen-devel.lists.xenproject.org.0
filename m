@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6B7EA17058
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Jan 2025 17:42:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.875019.1285351 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3F18A170DB
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Jan 2025 17:55:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.875026.1285360 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tZuqj-0003kH-Ht; Mon, 20 Jan 2025 16:42:05 +0000
+	id 1tZv3A-0005he-Ka; Mon, 20 Jan 2025 16:54:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 875019.1285351; Mon, 20 Jan 2025 16:42:05 +0000
+Received: by outflank-mailman (output) from mailman id 875026.1285360; Mon, 20 Jan 2025 16:54:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tZuqj-0003in-F7; Mon, 20 Jan 2025 16:42:05 +0000
-Received: by outflank-mailman (input) for mailman id 875019;
- Mon, 20 Jan 2025 16:42:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=BOU1=UM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tZuqi-0003ih-5G
- for xen-devel@lists.xenproject.org; Mon, 20 Jan 2025 16:42:04 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7a055fa5-d74d-11ef-a0e4-8be0dac302b0;
- Mon, 20 Jan 2025 17:42:03 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-436341f575fso51765765e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 20 Jan 2025 08:42:03 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38bf327ded8sm10776855f8f.89.2025.01.20.08.42.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Jan 2025 08:42:02 -0800 (PST)
+	id 1tZv3A-0005fT-Hn; Mon, 20 Jan 2025 16:54:56 +0000
+Received: by outflank-mailman (input) for mailman id 875026;
+ Mon, 20 Jan 2025 16:54:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=1xfr=UM=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1tZv39-0005fM-MT
+ for xen-devel@lists.xenproject.org; Mon, 20 Jan 2025 16:54:55 +0000
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [2a00:1450:4864:20::22d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 453dd124-d74f-11ef-99a4-01e77a169b0f;
+ Mon, 20 Jan 2025 17:54:53 +0100 (CET)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-30225b2586cso53775291fa.0
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Jan 2025 08:54:53 -0800 (PST)
+Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3072a35aec4sm16581501fa.56.2025.01.20.08.54.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Jan 2025 08:54:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,102 +44,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a055fa5-d74d-11ef-a0e4-8be0dac302b0
+X-Inumbo-ID: 453dd124-d74f-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1737391323; x=1737996123; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Z4nvgaG6VFt2175QMussB2Byc/bxtdqA81s35cU6zRw=;
-        b=CYyu8J6tTcNjsdG2yQcLS15RbSWp3v/+PIPAbFKgt5fTtO/x8V3wwb931yNYKEmOaQ
-         RdLyLVBXEbyet2Vfi1TScx26j0ImZC5UvSchv6CPfYsg677kUlFgS535PLuatogEbPsN
-         heonFGVjCCcXZE4QGMehKOhf0G1oXWIrFuoAOvxBpljuu9tX9Tbe+pz+58IJgl7JyL78
-         ORXwE8/kaf9H//4EzQ9/WTK4VwS4wrNIJjWyUpk3CV3qCEGKeKl0KCr0bQUTWdoLxcjX
-         MWxinhmgrtCwZgPo6ggfqneZrQIS7kjFAMsiQyCfh0rVPSAB0Epu+i/2LBjnseNlhVEy
-         MUsw==
+        d=gmail.com; s=20230601; t=1737392092; x=1737996892; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=2wmguJZGAmdCa6h8C+hITCEE8sE0M2/Z9lgrMQrF6jo=;
+        b=c62LsOP8QSFLIQswVJn5PJ32ex1tPJ9YktnMGjYOMGEoi/ykndE8jCg9EzI8tOBapv
+         80zDoi8DuX488+SR5BvF7nc/Nv8gRhb6mhuMsceY5uyFuGC2AVhZyxvWDx+lRPV78FR2
+         6PyHMGtk+5PqZEHpbgX4ac20HgjfNoE4kkxJHkqPPHw7Qp9+E90Asqy3Zw+Iq0hefLI/
+         2NFpZOBRk2MTzD6WDMjuA6C3AsJwNYW6UR/wqV7J846f7OUE++VKuwxLwoYJrG55Jq4d
+         3ZnSWqCKHb16yujrylrCSMhcWqg65/K4ExCLfI6lmUNdeVhL9mRNWodcHV9GJzt2JTbY
+         FcDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737391323; x=1737996123;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Z4nvgaG6VFt2175QMussB2Byc/bxtdqA81s35cU6zRw=;
-        b=iDIubjNR0e/cX8VJj1ApvxSxNWftPIYUYNuVeDN/JvB8PtF1b8qMQ3HVLjub3bmAiL
-         2ZeRt7oQITNFxa+Abjr7if3aYW/qjB4wP5ytSXRWLsFJG2fTrY2n3uAviX9g8IViSiMw
-         8UNUaRt4accRG3v30xyYJixGXJaMq7UWEqIWN9skbNUWaYxqAwUs8o8DsMYYwwYMy4Ag
-         hPcX4IOA3/ha6R3dIrDvT+Wnrl3RBmRBceGgJYzzMdZIzimtRFGO9HbWHLM8ENZDV2RL
-         Qc2oxfZtDXhGUIYNbdJHOKONu8TGA9vtsZgfVDzYrPCdhB6LOVOQtD5FoRv9sHj8IMnT
-         h1hw==
-X-Forwarded-Encrypted: i=1; AJvYcCWmFPMjYpcVcqaaaEmAa5f6x9hc2W2jY6oyacPgM/8yEtz16cG2wknuo2FrXffepn3XwAdbbSpEvf8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyFLTHzxt84VtYM0BRR1dDfTTx+tkIB62LzrV1Q+KxpI72whLbD
-	6qiFDAbJwiMZKZjrIHotUrZPt//MdEaveiwLwJoHWup+TQYQGsF/j/GiPALdMw==
-X-Gm-Gg: ASbGnctD9plm2/22Usx2yFPOGoPEEa8JmXwr4dQsr/LxAh2o0CfpY4O6dtTIUsoQFKF
-	ogBhWFmPaIHh5ezgoSgjn8e4lGc0z474nQGskYJ1zPfZqNDkHIisVGy0uEFbWMIV5E9/iDHf+Bx
-	uJfRuPwtZ6Xojtxh8Cm0o2JshaGFbP00ZZHD3RC0eVKPwRL/sGfoMoZBil72iJ28rbHRlG+7oXw
-	GgKcq7F+4l77DaqeR6LtGtQsf3nK04klLqzR15Wh0QRF2XfyQo+pVlHHfifQveC02BNmkoO76RU
-	mMJhWCDAcBdVyfrEzT+3UctN1HjTp39rECYTsg+wHlex66JeJhNfjWY=
-X-Google-Smtp-Source: AGHT+IH9GiBsS3TarhI4zxGpX03LVLiMlYHoUx1xU/1XDA0chbP4YYaPx/7+uR3VgySmrrP+FkoYSQ==
-X-Received: by 2002:adf:e98e:0:b0:38b:e32a:109f with SMTP id ffacd0b85a97d-38bf56594e9mr8336111f8f.12.1737391322748;
-        Mon, 20 Jan 2025 08:42:02 -0800 (PST)
-Message-ID: <9e02381e-f350-4d89-a164-6db2dfbde0b3@suse.com>
-Date: Mon, 20 Jan 2025 17:42:01 +0100
+        d=1e100.net; s=20230601; t=1737392092; x=1737996892;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=2wmguJZGAmdCa6h8C+hITCEE8sE0M2/Z9lgrMQrF6jo=;
+        b=T2O0Us09APZHHAAsEtXZ9d4YW0cyHxPAoJUNzRagfnB+grtszr4qvk7TCJky5jzdO2
+         zivR4YWHCQBmhQqA0fk8XFdkqQXfaqUYzHrTgssolJ8y8VHH/3PvGtv26sVM6eLioeZo
+         73tjs8X3RPHM2LhtDbpKeRPUWa0wdIXy+SdtBbhy5jIPOnc0R7aVHUHTjQuj+/9yxuPg
+         PmsbOKUM97T/QMfoS6+q4ztzPnqC4a5AaBvU7ZyvUrkr0JrDfpRmqcZOopbcCLGNz/TO
+         g63Ls1M5T2O2HD4hydQA+y9mwlltYPCHODZ+WUmvqpWMwfdMH7ENgs+W/OjcdahY8K35
+         YUfw==
+X-Gm-Message-State: AOJu0YxxPkL/CBRK8XZBzJrgSmUqSasY2ruF9WrgOwELEXEJjnIoveKE
+	u5zbfIaKxipHkT9TYywZmvqTZ/x+6Ow8uYWuZEEd5+x0T5FOosXE6f/CIw==
+X-Gm-Gg: ASbGnctlOe1xjGYZME/hwBd0q7j+54TUs7qvbx6OV6lF8AxyRDRSQsT1BBCWgNbeKZ7
+	0hzDSKa3saGhV9WHwezkudj4hIsysNcCqMEAccp7gA1QJQePwsrRpBALQ/1vSbOsPxi1xirxMLr
+	W0jJkkh9d7tjcZm5f77j7w86zEAwejcIYdv73WFEeVeJjFpWJx7hvBghXzS12KxDOiO4jnELUWM
+	neScDNKAUH9y+ODAYFN7aJjsuLusTvlJA+4S5Bd00mRC2C8wRqJkPUiHuuCsNJfWpa7UwE=
+X-Google-Smtp-Source: AGHT+IHS/he8PSwbOJuVFJ4wvA8HOKfU67IvvWM2roebx+FbhzRiGY4cH+9P/bHOXHLBjKmCoYw7OA==
+X-Received: by 2002:a05:651c:118d:b0:302:23a7:1ee8 with SMTP id 38308e7fff4ca-3063057702fmr67983861fa.3.1737392092013;
+        Mon, 20 Jan 2025 08:54:52 -0800 (PST)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH for 4.20? v1 0/3] Fixes for vmap_to_mfn() and pt_mapping_level
+Date: Mon, 20 Jan 2025 17:54:46 +0100
+Message-ID: <cover.1737391102.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 07/10] x86/hvm: Don't count XSS bits in XSAVE size
-To: Tu Dinh <ngoc-tu.dinh@vates.tech>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20250102084413.102-1-ngoc-tu.dinh@vates.tech>
- <20250102084413.102-8-ngoc-tu.dinh@vates.tech>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250102084413.102-8-ngoc-tu.dinh@vates.tech>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 02.01.2025 09:45, Tu Dinh wrote:
-> HVM vCPU state images are uncompressed and therefore can't contain XSS
-> states.
+Introduce pt_walk(), which does software page table walking to resolve the
+following issues:
+1. vmap_to_mfn() uses virt_to_maddr(), which is designed to work with VA
+   from either the direct map region or Xen's linkage region (XEN_VIRT_START),
+   thereby an assertion will occur if it is used with other regions, in
+   particular for the VMAP region. The solution is usage of pt_walk() for
+   vmap_to_mfn().
+2. pt_mapping_level() returns incorrect page table level in the case when
+   mfn==INVALID_MFN when, for example, VA was mapped to PA using 4k mapping,
+   but during destroying/modification pt_mapping_level() could return incorrect
+   page table level as when mfn==INVALID_MFN then only VA is taking into account
+   for page table level calculation and so if VA is page table level 1 aligned
+   then page_mapping_level() will return level 1 ( instead of level 0 as VA was
+   mapped to PA using 4k mapping so there is incostinency here ). The solution is
+   usage of pt_walk() to recieve mfn and use both mfn and VA for proper page
+   table level calculation.
 
-Then again ...
+It would be nice  to have these fixes in Xen 4.20 but isn't really critical as
+there is no any users for RISC-V port at this moment.
 
-> --- a/xen/arch/x86/hvm/hvm.c
-> +++ b/xen/arch/x86/hvm/hvm.c
-> @@ -1208,7 +1208,8 @@ HVM_REGISTER_SAVE_RESTORE(CPU, hvm_save_cpu_ctxt, NULL, hvm_load_cpu_ctxt, 1,
->  
->  #define HVM_CPU_XSAVE_SIZE(xcr0) (offsetof(struct hvm_hw_cpu_xsave, \
->                                             save_area) + \
-> -                                  xstate_uncompressed_size(xcr0))
-> +                                  xstate_uncompressed_size(xcr0 & \
-> +                                                           ~X86_XSS_STATES))
+Oleksii Kurochko (3):
+  xen/riscv: implement software page table walking
+  xen/riscv: update defintion of vmap_to_mfn()
+  xen/riscv: update mfn calculation in pt_mapping_level()
 
-... a variable / parameter named "xcr0" shouldn't include any XSS bits
-anyway. IOW this perhaps needs sorting at the use sites of the macros.
+ xen/arch/riscv/include/asm/mm.h |  4 +-
+ xen/arch/riscv/pt.c             | 84 ++++++++++++++++++++++++++++++++-
+ 2 files changed, 85 insertions(+), 3 deletions(-)
 
-Jan
+-- 
+2.48.1
+
 
