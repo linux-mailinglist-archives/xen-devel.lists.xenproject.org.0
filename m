@@ -2,38 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FFAFA16B5B
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Jan 2025 12:16:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.874930.1285281 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA79DA16DD8
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Jan 2025 14:54:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.874959.1285291 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tZpkk-0001To-2l; Mon, 20 Jan 2025 11:15:34 +0000
+	id 1tZsDf-0004cj-RA; Mon, 20 Jan 2025 13:53:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 874930.1285281; Mon, 20 Jan 2025 11:15:34 +0000
+Received: by outflank-mailman (output) from mailman id 874959.1285291; Mon, 20 Jan 2025 13:53:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tZpkj-0001RK-VQ; Mon, 20 Jan 2025 11:15:33 +0000
-Received: by outflank-mailman (input) for mailman id 874930;
- Mon, 20 Jan 2025 11:15:32 +0000
+	id 1tZsDf-0004Zt-NZ; Mon, 20 Jan 2025 13:53:35 +0000
+Received: by outflank-mailman (input) for mailman id 874959;
+ Mon, 20 Jan 2025 13:53:34 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/LCm=UM=gmail.com=urezki@srs-se1.protection.inumbo.net>)
- id 1tZpki-0001RE-Bx
- for xen-devel@lists.xenproject.org; Mon, 20 Jan 2025 11:15:32 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UHT9=UM=redhat.com=vschneid@srs-se1.protection.inumbo.net>)
+ id 1tZsDd-0004Zl-Vv
+ for xen-devel@lists.xenproject.org; Mon, 20 Jan 2025 13:53:34 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id db95f187-d71f-11ef-a0e3-8be0dac302b0;
- Mon, 20 Jan 2025 12:15:30 +0100 (CET)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-5401be44b58so4488478e87.0
- for <xen-devel@lists.xenproject.org>; Mon, 20 Jan 2025 03:15:30 -0800 (PST)
-Received: from pc636 (host-217-213-93-172.mobileonline.telia.com.
- [217.213.93.172]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5439af60936sm1298036e87.107.2025.01.20.03.15.22
+ id ee928ed5-d735-11ef-a0e3-8be0dac302b0;
+ Mon, 20 Jan 2025 14:53:31 +0100 (CET)
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-328-TqlFYvuiOWu4g0FaAdR92A-1; Mon, 20 Jan 2025 08:53:29 -0500
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-467a3c0c8f6so85056201cf.0
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Jan 2025 05:53:29 -0800 (PST)
+Received: from vschneid-thinkpadt14sgen2i.remote.csb
+ (213-44-141-166.abo.bbox.fr. [213.44.141.166])
+ by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-46e1030da00sm42651971cf.33.2025.01.20.05.53.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Jan 2025 03:15:27 -0800 (PST)
+ Mon, 20 Jan 2025 05:53:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,199 +50,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: db95f187-d71f-11ef-a0e3-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1737371729; x=1737976529; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:date:from:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=2GVkq9tRDCkhxRDT/CBStGfoQ0If4+e8Z0FyGDV8QRs=;
-        b=muBHzK9OGtoqhUoFdYXAVrgnerS1nJ4l/MxbPuuLduD3Rq5Ux8VwhWL6SFZPPdK1hR
-         RLhPekPpZ8+6uajrGGSsIK96da11yDhnE7Lp8lefTN2z4+wfUbS3badjfNFBkN3l0wlv
-         TNPNOgNVpHn9+Uk+IZlbBxyPUbQ0k8gwq8ITHSHvN/4FnO519V/XudTQ4WnUoUyeuN2r
-         +Cq641zeoY1OQmcpL4D8PR3+OLjyR9j+/gQm92KKCnhCZ/j+NUCmNGmEEqZtO1rMXif1
-         KpUH9gTrwlha79kSEe4VNhp71GgaUCs+ISavBkipYAVXBbiZCCqB3O8phIzlKE2l+1j0
-         9dTg==
+X-Inumbo-ID: ee928ed5-d735-11ef-a0e3-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1737381210;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6OUKdt6VXAQzpOTUFB26LmXUDO8O/oST+Zn2uKcAtKs=;
+	b=eGDHOXeGpR0jSKvHT5MBkJQHXMkMHJjrO/ODuRg5+tdN5vwxwkP5D7crDRlIYgMqpJ/ZRH
+	Mgv+dY1h8sVNw6GaDZ5g5/KruDz557TqFehXyGhq67R0z2CdocTOLD1xCXDhfTipTZGWGs
+	N0NKT0mZO49sGVe0K2zIRN7scilZ6Qg=
+X-MC-Unique: TqlFYvuiOWu4g0FaAdR92A-1
+X-Mimecast-MFC-AGG-ID: TqlFYvuiOWu4g0FaAdR92A
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737371729; x=1737976529;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:date:from
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=2GVkq9tRDCkhxRDT/CBStGfoQ0If4+e8Z0FyGDV8QRs=;
-        b=K67/x9IjZ4StFMKV3Jn3NFUHmhUjFOXPwWvf3nLM8shQkVaREbEChTx44qHK/Oij7C
-         vytYL1ZYTlTFYy7AAUpq4Fy7tBitCzs4zhxnxAFY0dh6FUi0iz+Xd2jWrFWRFb5aOf20
-         8mKuls0AHsCst1oOgKaMibOQYmhtk+51YBuyVfXN813qHSplHXWMjhUTgykJYOZT96nI
-         k9W8lozPC3ue6K9PgE34wWEfZx3mpI/o5jDomM5nKT0S+SY8IKCm8nSXVK3JgbeoZMPU
-         /Lp2NI17CYqPCRXNztuXELQM819inEFLuL+7DTzyhjKbdGhzvWE2L/lIek8OvFMT0dC5
-         Obow==
-X-Forwarded-Encrypted: i=1; AJvYcCUd5Vimjcl0aeoF2+VVxTYwhOD/GSaFVUlYTaBo5T5JLrJ97XSoyIvb7kyuXbZ4KBP2Re1J4dJj7k8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwLvL2QKBF04rJs7rrgWTV/Qj3E4Ftp4MW4RiC/Iu84epNDtfIn
-	ti6xsMme8MKeo5eIk8liJfJWFFY9khllAYyrA/Xsg0pmYiaQa3ic
-X-Gm-Gg: ASbGncucYInBv4NGscMAYmx5ulOoorqT9DnX+CLcn4bc4EOr7xc8UFThPsjygcP1o4K
-	CFcC4C3tCTCqUunZrnsVr77YFnRO6/HiSCQCs1VZhoRf37VxD+A6r7E1tsX9iZ2LP5ydRSXnNAh
-	w1QsGjEELrUmV2E/+gqO0AWi/aND2FEn5otlzfXm5G6JEcIMeku987c90jGfCCtwbhdfidqjtm8
-	7BTdPGf1Ut4rxqqqgnD71JKR0P5oYK+hXNFN/Rpsw8YkXpzjFmAISBNynmGFF5aBPGb3JA0fOPL
-	CLrbjbEG/JPjzoBoxuoSSIjv
-X-Google-Smtp-Source: AGHT+IHKV/b4OpTja4V+3bSeLRqiI1pV4ugkz/2qcipp1USPLcCJuF4RKlBH/zOnSXkuGgwcoGAG8A==
-X-Received: by 2002:ac2:4155:0:b0:542:8cf5:a3a3 with SMTP id 2adb3069b0e04-5439c216c23mr3426183e87.5.1737371729069;
-        Mon, 20 Jan 2025 03:15:29 -0800 (PST)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@pc636>
-Date: Mon, 20 Jan 2025 12:15:20 +0100
-To: Valentin Schneider <vschneid@redhat.com>
-Cc: Uladzislau Rezki <urezki@gmail.com>, Jann Horn <jannh@google.com>,
-	linux-kernel@vger.kernel.org, x86@kernel.org,
-	virtualization@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
-	linux-riscv@lists.infradead.org, linux-perf-users@vger.kernel.org,
-	xen-devel@lists.xenproject.org, kvm@vger.kernel.org,
-	linux-arch@vger.kernel.org, rcu@vger.kernel.org,
-	linux-hardening@vger.kernel.org, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, bpf@vger.kernel.org,
-	bcm-kernel-feedback-list@broadcom.com,
-	Juergen Gross <jgross@suse.com>,
-	Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.amakhalov@broadcom.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	"Liang, Kan" <kan.liang@linux.intel.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Andy Lutomirski <luto@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Jason Baron <jbaron@akamai.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joel@joelfernandes.org>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun.feng@gmail.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang1211@gmail.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Clark Williams <williams@redhat.com>,
-	Yair Podemsky <ypodemsk@redhat.com>,
-	Tomas Glozar <tglozar@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Kees Cook <kees@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Christoph Hellwig <hch@infradead.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Miguel Ojeda <ojeda@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Rong Xu <xur@google.com>,
-	Nicolas Saenz Julienne <nsaenzju@redhat.com>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Yosry Ahmed <yosryahmed@google.com>,
-	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
-	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
-	Jinghao Jia <jinghao7@illinois.edu>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Tiezhu Yang <yangtiezhu@loongson.cn>
-Subject: Re: [PATCH v4 29/30] x86/mm, mm/vmalloc: Defer
- flush_tlb_kernel_range() targeting NOHZ_FULL CPUs
-Message-ID: <Z44wSJTXknQVKWb0@pc636>
+        d=1e100.net; s=20230601; t=1737381207; x=1737986007;
+        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=6OUKdt6VXAQzpOTUFB26LmXUDO8O/oST+Zn2uKcAtKs=;
+        b=CbTUyyzxiT3lhdrkXY8ybdys8SrdadnZdlPlTiu7L2CGxYsEqexykABvJjxT/uMZ6v
+         B1Z9qejckrfHgr8Zop0n9YfORA199J3wKJ4AKGYFPbUBuzoFTZTvsBrZefjIij4/xpLJ
+         LpR3hXrMWx2ThTP7d2j8AdCTXqHaVijtx3H2a4cFlXJsZxo/yJsCi2ts8POeibMx8FIm
+         O564aHRnIkKOqsxfTi6ue5xhitsNULnvmc6ea2+2KUKEgkveZP20sZCYneyO6SCR4kyj
+         npPcv/zI07w0tMTpGoYjgURxuAkU8g80HmqzesgU5R44ZuK4glvR09CW+PJ9NnzVZlu+
+         y91w==
+X-Forwarded-Encrypted: i=1; AJvYcCXn1/CmquGKvk/TZJvy56S/mfPutQsYt5PQ23hSdO3A8BS2r5LX0EqNb+WMAVrwdW03gGhgAzUKgBE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyykohG3DIBKsDr5SAe1/rLC6M+/KnTxQsDL6S1lXbtmXlVtexq
+	eOIrdOYo6fCbfniIaa1upbaSgNJMiRAA/ISJpv9f18MP4UfpS953ybZUUZKwTusqOKZhZK1x5j3
+	QUfsctn+nKKRzYA3G2vG3DLlQze1mjgcjr8fx3skpPfPMGcUUAonzXjBxNeU1niVC
+X-Gm-Gg: ASbGncv8z5oagsD9DECKb/J4iBOmamgfYLljadAShLnq4Ul4oIxpjG3rwt/17ufBAqU
+	tXfySkkilHvl8Hp238zT1db+q+BnOLBm3C+b6GB7YjJ5UHdzfDMpkhyXvJzV3yTDMVC7ho+FKQs
+	AvjTnbnMyNoB15XQm/wMuJTXdfPwmR2bUFzsVESkyntHPgnLnnR65lHzOJ/JQStHB393lGC2ywf
+	0YX1Ql6dOyd4FWC8IOT5KZqoYEb/vvYvt81RTWRPvycgiNnjCjgG5OLXns7/CVkhj30AUEAycJj
+	/YAESxYLrDm1Mf5RYr39IiFcQeA6q7z3bbKapGQShICAfEjD964TuWQ=
+X-Received: by 2002:ac8:7d82:0:b0:467:5e61:c116 with SMTP id d75a77b69052e-46e12a1e36cmr160729241cf.7.1737381207225;
+        Mon, 20 Jan 2025 05:53:27 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGCbxGDy6CHUSfOLqTxGL3gA1S6wKRHlUvydXAdXodFBspL8+Pdog+OKdfN6k1jzDkgqmOx+A==
+X-Received: by 2002:ac8:7d82:0:b0:467:5e61:c116 with SMTP id d75a77b69052e-46e12a1e36cmr160728291cf.7.1737381206799;
+        Mon, 20 Jan 2025 05:53:26 -0800 (PST)
+From: Valentin Schneider <vschneid@redhat.com>
+To: Sean Christopherson <seanjc@google.com>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
+ virtualization@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+ linux-perf-users@vger.kernel.org, xen-devel@lists.xenproject.org,
+ kvm@vger.kernel.org, linux-arch@vger.kernel.org, rcu@vger.kernel.org,
+ linux-hardening@vger.kernel.org, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, bpf@vger.kernel.org,
+ bcm-kernel-feedback-list@broadcom.com, Peter Zijlstra
+ <peterz@infradead.org>, Nicolas Saenz Julienne <nsaenzju@redhat.com>,
+ Juergen Gross <jgross@suse.com>, Ajay Kaher <ajay.kaher@broadcom.com>,
+ Alexey Makhalov <alexey.amakhalov@broadcom.com>, Russell King
+ <linux@armlinux.org.uk>, Catalin Marinas <catalin.marinas@arm.com>, Will
+ Deacon <will@kernel.org>, Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui
+ <kernel@xen0n.name>, Paul Walmsley <paul.walmsley@sifive.com>, Palmer
+ Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Thomas
+ Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav
+ Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "H.
+ Peter Anvin" <hpa@zytor.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa
+ <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, Adrian Hunter
+ <adrian.hunter@intel.com>, Kan Liang <kan.liang@linux.intel.com>, Boris
+ Ostrovsky <boris.ostrovsky@oracle.com>, Josh Poimboeuf
+ <jpoimboe@kernel.org>, Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Andy Lutomirski <luto@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, Frederic Weisbecker <frederic@kernel.org>,
+ "Paul E. McKenney" <paulmck@kernel.org>, Jason Baron <jbaron@akamai.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Ard Biesheuvel <ardb@kernel.org>,
+ Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Joel Fernandes
+ <joel@joelfernandes.org>, Josh Triplett <josh@joshtriplett.org>, Boqun
+ Feng <boqun.feng@gmail.com>, Uladzislau Rezki <urezki@gmail.com>, Mathieu
+ Desnoyers <mathieu.desnoyers@efficios.com>, Lai Jiangshan
+ <jiangshanlai@gmail.com>, Zqiang <qiang.zhang1211@gmail.com>, Juri Lelli
+ <juri.lelli@redhat.com>, Clark Williams <williams@redhat.com>, Yair
+ Podemsky <ypodemsk@redhat.com>, Tomas Glozar <tglozar@redhat.com>, Vincent
+ Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann
+ <dietmar.eggemann@arm.com>, Ben Segall <bsegall@google.com>, Mel Gorman
+ <mgorman@suse.de>, Kees Cook <kees@kernel.org>, Andrew Morton
+ <akpm@linux-foundation.org>, Christoph Hellwig <hch@infradead.org>, Shuah
+ Khan <shuah@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, Miguel
+ Ojeda <ojeda@kernel.org>, Alice Ryhl <aliceryhl@google.com>, "Mike
+ Rapoport (Microsoft)" <rppt@kernel.org>, Samuel Holland
+ <samuel.holland@sifive.com>, Rong Xu <xur@google.com>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, Yosry Ahmed <yosryahmed@google.com>, "Kirill A.
+ Shutemov" <kirill.shutemov@linux.intel.com>, "Masami Hiramatsu (Google)"
+ <mhiramat@kernel.org>, Jinghao Jia <jinghao7@illinois.edu>, Luis
+ Chamberlain <mcgrof@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
+ Tiezhu Yang <yangtiezhu@loongson.cn>
+Subject: Re: [PATCH v4 25/30] context_tracking,x86: Defer kernel text
+ patching IPIs
+In-Reply-To: <Z4qQL89GZ_gk0vpu@google.com>
 References: <20250114175143.81438-1-vschneid@redhat.com>
- <20250114175143.81438-30-vschneid@redhat.com>
- <CAG48ez1Mh+DOy0ysOo7Qioxh1W7xWQyK9CLGNU9TGOsLXbg=gQ@mail.gmail.com>
- <xhsmh34hhh37q.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
- <Z4qBMqcMg16p57av@pc636>
- <xhsmhwmetfk9d.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
+ <20250114175143.81438-26-vschneid@redhat.com>
+ <Z4bTlZkqihaAyGb4@google.com>
+ <xhsmhed11hiuy.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
+ <Z4qQL89GZ_gk0vpu@google.com>
+Date: Mon, 20 Jan 2025 14:53:13 +0100
+Message-ID: <xhsmhtt9tfv7a.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <xhsmhwmetfk9d.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: Hz6eqdwPvC4VycMOcC0wGO5K0ZeTa_NzpDiwQXN2mvU_1737381207
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 
-On Fri, Jan 17, 2025 at 06:00:30PM +0100, Valentin Schneider wrote:
-> On 17/01/25 17:11, Uladzislau Rezki wrote:
-> > On Fri, Jan 17, 2025 at 04:25:45PM +0100, Valentin Schneider wrote:
-> >> On 14/01/25 19:16, Jann Horn wrote:
-> >> > On Tue, Jan 14, 2025 at 6:51 PM Valentin Schneider <vschneid@redhat.com> wrote:
-> >> >> vunmap()'s issued from housekeeping CPUs are a relatively common source of
-> >> >> interference for isolated NOHZ_FULL CPUs, as they are hit by the
-> >> >> flush_tlb_kernel_range() IPIs.
-> >> >>
-> >> >> Given that CPUs executing in userspace do not access data in the vmalloc
-> >> >> range, these IPIs could be deferred until their next kernel entry.
-> >> >>
-> >> >> Deferral vs early entry danger zone
-> >> >> ===================================
-> >> >>
-> >> >> This requires a guarantee that nothing in the vmalloc range can be vunmap'd
-> >> >> and then accessed in early entry code.
-> >> >
-> >> > In other words, it needs a guarantee that no vmalloc allocations that
-> >> > have been created in the vmalloc region while the CPU was idle can
-> >> > then be accessed during early entry, right?
-> >>
-> >> I'm not sure if that would be a problem (not an mm expert, please do
-> >> correct me) - looking at vmap_pages_range(), flush_cache_vmap() isn't
-> >> deferred anyway.
-> >>
-> >> So after vmapping something, I wouldn't expect isolated CPUs to have
-> >> invalid TLB entries for the newly vmapped page.
-> >>
-> >> However, upon vunmap'ing something, the TLB flush is deferred, and thus
-> >> stale TLB entries can and will remain on isolated CPUs, up until they
-> >> execute the deferred flush themselves (IOW for the entire duration of the
-> >> "danger zone").
-> >>
-> >> Does that make sense?
-> >>
-> > Probably i am missing something and need to have a look at your patches,
-> > but how do you guarantee that no-one map same are that you defer for TLB
-> > flushing?
-> >
-> 
-> That's the cool part: I don't :')
-> 
-Indeed, sounds unsafe :) Then we just do not need to free areas.
+On 17/01/25 09:15, Sean Christopherson wrote:
+> On Fri, Jan 17, 2025, Valentin Schneider wrote:
+>> On 14/01/25 13:13, Sean Christopherson wrote:
+>> > On Tue, Jan 14, 2025, Valentin Schneider wrote:
+>> >> +/**
+>> >> + * is_kernel_noinstr_text - checks if the pointer address is located in the
+>> >> + *                    .noinstr section
+>> >> + *
+>> >> + * @addr: address to check
+>> >> + *
+>> >> + * Returns: true if the address is located in .noinstr, false otherwise.
+>> >> + */
+>> >> +static inline bool is_kernel_noinstr_text(unsigned long addr)
+>> >> +{
+>> >> +	return addr >= (unsigned long)__noinstr_text_start &&
+>> >> +	       addr < (unsigned long)__noinstr_text_end;
+>> >> +}
+>> >
+>> > This doesn't do the right thing for modules, which matters because KVM can be
+>> > built as a module on x86, and because context tracking understands transitions
+>> > to GUEST mode, i.e. CPUs that are running in a KVM guest will be treated as not
+>> > being in the kernel, and thus will have IPIs deferred.  If KVM uses a static key
+>> > or branch between guest_state_enter_irqoff() and guest_state_exit_irqoff(), the
+>> > patching code won't wait for CPUs to exit guest mode, i.e. KVM could theoretically
+>> > use the wrong static path.
+>>>
+>> AFAICT guest_state_{enter,exit}_irqoff() are only used in noinstr functions
+>> and thus such a static key usage should at the very least be caught and
+>> warned about by objtool - when this isn't built as a module.
+>
+> That doesn't magically do the right thing though.  If KVM is built as a module,
+> is_kernel_noinstr_text() will get false negatives even for static keys/branches
+> that are annotaed as NOINSTR.
 
-> For deferring instruction patching IPIs, I (well Josh really) managed to
-> get instrumentation to back me up and catch any problematic area.
-> 
-> I looked into getting something similar for vmalloc region access in
-> .noinstr code, but I didn't get anywhere. I even tried using emulated
-> watchpoints on QEMU to watch the whole vmalloc range, but that went about
-> as well as you could expect.
-> 
-> That left me with staring at code. AFAICT the only vmap'd thing that is
-> accessed during early entry is the task stack (CONFIG_VMAP_STACK), which
-> itself cannot be freed until the task exits - thus can't be subject to
-> invalidation when a task is entering kernelspace.
-> 
-> If you have any tracing/instrumentation suggestions, I'm all ears (eyes?).
-> 
-As noted before, we defer flushing for vmalloc. We have a lazy-threshold
-which can be exposed(if you need it) over sysfs for tuning. So, we can add it.
+Quite so.
 
---
-Uladzislau Rezki
+I've been looking at mod_mem_type & friends, I'm thinking adding a
+MOD_NOINSTR_TEXT type might be overkill considering modules really
+shouldn't be involved with early entry, KVM being the one exception.
+
+Your suggestion to have a KVM-module-specific noinstr section sounds good
+to me, I'll have a look at that.
+
 
