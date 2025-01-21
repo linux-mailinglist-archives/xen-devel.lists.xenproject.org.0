@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40071A17C06
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Jan 2025 11:41:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.875364.1285814 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8820A17C09
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Jan 2025 11:41:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.875371.1285824 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1taBgy-00045t-SE; Tue, 21 Jan 2025 10:41:08 +0000
+	id 1taBhc-0004eu-40; Tue, 21 Jan 2025 10:41:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 875364.1285814; Tue, 21 Jan 2025 10:41:08 +0000
+Received: by outflank-mailman (output) from mailman id 875371.1285824; Tue, 21 Jan 2025 10:41:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1taBgy-00044O-PB; Tue, 21 Jan 2025 10:41:08 +0000
-Received: by outflank-mailman (input) for mailman id 875364;
- Tue, 21 Jan 2025 10:41:07 +0000
+	id 1taBhc-0004cm-1E; Tue, 21 Jan 2025 10:41:48 +0000
+Received: by outflank-mailman (input) for mailman id 875371;
+ Tue, 21 Jan 2025 10:41:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=abyW=UN=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1taBgx-00044I-ED
- for xen-devel@lists.xenproject.org; Tue, 21 Jan 2025 10:41:07 +0000
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
- [2607:f8b0:4864:20::22e])
+ id 1taBha-00044I-46
+ for xen-devel@lists.xenproject.org; Tue, 21 Jan 2025 10:41:46 +0000
+Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com
+ [2001:4860:4864:20::29])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 37166250-d7e4-11ef-99a4-01e77a169b0f;
- Tue, 21 Jan 2025 11:41:05 +0100 (CET)
-Received: by mail-oi1-x22e.google.com with SMTP id
- 5614622812f47-3eb9a0a2089so3458511b6e.1
- for <xen-devel@lists.xenproject.org>; Tue, 21 Jan 2025 02:41:05 -0800 (PST)
+ id 4e594aa3-d7e4-11ef-99a4-01e77a169b0f;
+ Tue, 21 Jan 2025 11:41:44 +0100 (CET)
+Received: by mail-oa1-x29.google.com with SMTP id
+ 586e51a60fabf-29fcbf3d709so1794524fac.2
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Jan 2025 02:41:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,46 +40,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 37166250-d7e4-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 4e594aa3-d7e4-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1737456064; x=1738060864; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1737456103; x=1738060903; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GN5S+dtoU4QAnEngV7PhQV+IPW4js7xThkeyUCCuQ4c=;
-        b=V3q5PdDqwFHKyx8FsSZr7E32LpTkloqIWgFsGKngbVCvuNW1+/kFHab393fHojteG+
-         mOrFsN9EB2x3aEYr1QPyXmHe0XJ7a7miugSkXthtkHCaTAZis7/HvmqPR6N9+0QNp2XO
-         MZOs5E6L3RcofrL/c4l+i/CFxbBjKUXvzseLs=
+        bh=nLo5nkHbVjFQWG7SU2GZfAG4NVdknbQu66jBuqWlEBE=;
+        b=lOJWvMxB51eQ+THr65u07/55Xnc9s3ZDPaYOsPfy4YdjP7xDdHaX88c2otqF8gw1Oa
+         rT1etZtUtieMx6uKDrvvJPk9RCcARMTyNd9ZLKPD/LwSJZuNHXQcNwFpl5eXw1iGKRl5
+         4A9usHLy6geXKMet7odLALtSIduOCSfUdV/+g=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737456064; x=1738060864;
+        d=1e100.net; s=20230601; t=1737456103; x=1738060903;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=GN5S+dtoU4QAnEngV7PhQV+IPW4js7xThkeyUCCuQ4c=;
-        b=CTnepkkX4H2wGXejGxilRIJbMx+R9vTHsRc+WoSiN5iKRQDbScrctOBzQwYF3/bwU2
-         Cx52W9la2OkqbUI7B+AgVl/NBn4Dr453aC9ebVl4rqBjMCCt5HXMHuTkn/U8I8bTj6Tl
-         DDlhcG2KBDlZ4c8j35sNy8caZeeQLEJJRvpf+m4TPFnT2tU8n1VA5+DqFMgYUJfY+fv+
-         KNmluS7krgoppt9I9vLj+yX1h5k+xmoeuaYCAsh5aAMYDKNgl7pSMLEQdmxyGXwn7h/j
-         1tx5dFUiXNkYh2ATRIF4xQzh4AS7moRTdEq+EWMWqnQI3DzICNlPvZgSPOKvDWTYKg2M
-         y2tw==
-X-Gm-Message-State: AOJu0YyDMNcpZ3qGnkhy2QjqqdXzF7yEtiIRzBhSQeFe2njOHXebgWI7
-	dJcbA70qN+f98EsDgItf7YBCukggmwN1NyEEHDmQrDbWMJqQ7vWLgE7nrxdZqDDkg0kqlbYCVwx
-	LILxXJmH7m9RCmFtcRaiSynnsxixfTDXp5nFE
-X-Gm-Gg: ASbGnctQVlz58HZYyaNssjII+Tqh00YL77fQtGkoPdpZofEP086P2Yd9nLuUhC1Lmwa
-	TOi2t0KnwnWzEQl3/FSHIU0l0KFntSBDdbcYmL49H9CzThIG56w==
-X-Google-Smtp-Source: AGHT+IHqS/wo2mBbTCedt8iB+VHN+ntqRQqanojZ1LwZUrPfIbNjigsFmu4EPD/Re7JU95bh8hzNNzi27yI9nVF4jG8=
-X-Received: by 2002:a05:6871:5e07:b0:29e:4d0e:a2b6 with SMTP id
- 586e51a60fabf-2b1c08c9884mr10092665fac.10.1737456064233; Tue, 21 Jan 2025
- 02:41:04 -0800 (PST)
+        bh=nLo5nkHbVjFQWG7SU2GZfAG4NVdknbQu66jBuqWlEBE=;
+        b=iWRzNsFhRAiW/CrsRj3e8HzkZrXC77PcVloJQthWuN8+JHGOR9HjLMfhqa/GFof/ZE
+         bp4UKlwjxzK0I/BBoonEtR/+fMnXZ+NI0XEbLg3eiQAPTrLb+9BltP01ys7RuyHL0iFm
+         4yQ427Fqnqyl0B6PFxsBDkkqjGbj64lsGXV0NFFkc5NQbmrwMsQIxh41dp3Vx/n3vpP6
+         zBIaR0sArX9YKWNI49rApVH+rmhspmgrs3MpBRHheytsphWQa1cgV4/K2/lPihmLeNNC
+         4b9mf19cvYsRU82LgRweR6kNnl5xtnw6x7+eNOF1UnrgRNoGtZ/OPHKCq1z6XY6A/mn/
+         AcjA==
+X-Gm-Message-State: AOJu0YwyeOk9EW7lam3BZpd7cv331X+O+HQX7Fve2WDF3lnGWx8KZ1cb
+	oWHZFEN4Fj/K43/61Ta8xqgAv0BPaHl2VC18h2x1J9k9nK720zzEDwdhZHOxZ6M+7uvQngm7iZF
+	+JpQIdWBzckQOZ/EM03t8QgsIxaBxqA/Y9q0H
+X-Gm-Gg: ASbGncvlUvin9esmZNkpmQnEp42/PTfH4xl3cTL+oiSN4k9CJCsR3f1GpTtMfL6zEYn
+	cyfWIj22yBxXGKxy8xhtwbq+XR8Kf7TUGSWBaMS/IgQ7yF7N9mA==
+X-Google-Smtp-Source: AGHT+IG/mxAUyoXNSINHiPN+Mg2JH9PbaFAd9/SZQ3skGOKzC9evh8TgHbkIwOzcPwJ+v2zHhqoxEEqHk+Jb4MK20y0=
+X-Received: by 2002:a05:6870:6981:b0:29f:f1cc:12a5 with SMTP id
+ 586e51a60fabf-2b1c0c025c8mr10156762fac.31.1737456103234; Tue, 21 Jan 2025
+ 02:41:43 -0800 (PST)
 MIME-Version: 1.0
-References: <20241107151509.73621-1-roger.pau@citrix.com> <20241107151509.73621-4-roger.pau@citrix.com>
-In-Reply-To: <20241107151509.73621-4-roger.pau@citrix.com>
+References: <20241107151509.73621-1-roger.pau@citrix.com> <20241107151509.73621-5-roger.pau@citrix.com>
+In-Reply-To: <20241107151509.73621-5-roger.pau@citrix.com>
 From: Ross Lagerwall <ross.lagerwall@citrix.com>
-Date: Tue, 21 Jan 2025 10:40:53 +0000
-X-Gm-Features: AbW1kvaAvU0anQ9Lp5l5BRcrMFkqvTdyCSIonIDOFkLGYeR_jcYkIKl4sb-9SS4
-Message-ID: <CAG7k0EoV-hOonu0qZLOHoeSoQJmVb+1pn7g9MFff_tQfou_rKQ@mail.gmail.com>
-Subject: Re: [PATCH 3/4] create-diff-object: don't include symbols for
- .livepatch.hooks.* sections
+Date: Tue, 21 Jan 2025 10:41:32 +0000
+X-Gm-Features: AbW1kvZNKOw-wF9VqtF2H7WYu6tLCWVGnyH0wTPOiWVWFncY6gAgLGwdq1Qbgmc
+Message-ID: <CAG7k0EqVdZK4Pe73k_1PiUg0RoCxkekC7a6yn4MceZUvO81EXg@mail.gmail.com>
+Subject: Re: [PATCH 4/4] create-diff-object: also include relas that point to
+ changed sections
 To: Roger Pau Monne <roger.pau@citrix.com>
 Cc: xen-devel@lists.xenproject.org, konrad.wilk@oracle.com
 Content-Type: text/plain; charset="UTF-8"
@@ -88,39 +88,90 @@ Content-Transfer-Encoding: quoted-printable
 On Thu, Nov 7, 2024 at 3:15=E2=80=AFPM Roger Pau Monne <roger.pau@citrix.co=
 m> wrote:
 >
-> Not all toolchains generate symbols for the .livepatch.hooks.* sections,
-> neither those symbols are required by the livepatch loading logic in Xen =
-to
-> find and process the hooks.  Hooks in livepatch payloads are found and
-> processed based exclusively on section data.
+> create-diff-object has a special handling for some specific sections, lik=
+e
+> .altinstructions or .livepatch.hooks.*.  The contents of those sections a=
+re in
+> the form of array elements, where each element can be processed independe=
+ntly
+> of the rest.  For example an element in .altinstructions is a set of
+> replacement coordinates, with the layout specified by the alt_instr struc=
+t.  In
+> the case of .livepatch.hooks.* each element is a pointer to a hook functi=
+on to
+> call.
 >
-> The unconditional attempt to expect each hook serction to have a matching
-> symbol leads to a segmentation fault in create-diff-object when such symb=
-ol is
-> not present, as the code references a NULL pointer.
+> The contents of this array is processed element wise, so that
+> create-diff-object can decide whether the element relates to the content =
+in the
+> livepatch and thus needs keeping.  Such relation is driven based on the
+> contents of the relocations for the special sections.  If a relocation to=
+ be
+> applied to a special section element depends on any symbol to be included=
+ in
+> the livepatch then the special element is also considered required and th=
+us
+> added to the livepatch contents.
 >
-> Fix this by not attempting to include symbols associated with hook sectio=
-ns.
+> However relocations don't always reference function type symbols, they ca=
+n also
+> reference sections type symbols, and that's usually the case with hook sy=
+mbols
+> that have relocations based on section symbols, as an example:
+>
+> RELOCATION RECORDS FOR [.livepatch.hooks.load]:
+> OFFSET           TYPE              VALUE
+> 0000000000000000 R_X86_64_64       .text.foobar
+>
+> Symbol information for .text.foobar:
+>
+> 0000000000000000 l    d  .text.foobar      0000000000000000 .text.foobar
+>
+> As seen above, the .livepatch.hooks.load relocation uses a non-function s=
+ymbol,
+> which given the current code in should_keep_rela_group() would mean it's =
+not
+> considered for inclusion in the livepatch.
+>
+> Fix this by allowing should_keep_rela_group() to also keep relocations if=
+ they
+> either point to function or section symbols.
 >
 > Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 > ---
->  create-diff-object.c | 2 --
->  1 file changed, 2 deletions(-)
+>  create-diff-object.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
 >
 > diff --git a/create-diff-object.c b/create-diff-object.c
-> index d8a2afbf2774..924059a1842b 100644
+> index 924059a1842b..c21cc576052a 100644
 > --- a/create-diff-object.c
 > +++ b/create-diff-object.c
-> @@ -1555,8 +1555,6 @@ static int kpatch_include_hook_elements(struct kpat=
-ch_elf *kelf)
->                                 sym->sec->sym =3D NULL;
->                                 /* use section symbol instead */
->                                 rela->sym =3D sym->sec->secsym;
-> -                       } else {
-> -                               sec->secsym->include =3D 1;
->                         }
->                 }
->         }
+> @@ -1158,11 +1158,17 @@ static int should_keep_rela_group(struct section =
+*sec, int start, int size)
+>         struct rela *rela;
+>         int found =3D 0;
+>
+> -       /* check if any relas in the group reference any changed function=
+s */
+> +       /*
+> +        * Check if any relas in the group reference any changed function=
+s or
+> +        * sections.  As seen by hook related relocations (.livepatch.hoo=
+ks.*),
+> +        * it's possible they use the section symbol as a reference rathe=
+r than
+> +        * the function symbol.
+> +        */
+>         list_for_each_entry(rela, &sec->relas, list) {
+>                 if (rela->offset >=3D start &&
+>                     rela->offset < start + size &&
+> -                   rela->sym->type =3D=3D STT_FUNC &&
+> +                   (rela->sym->type =3D=3D STT_FUNC ||
+> +                    rela->sym->type =3D=3D STT_SECTION) &&
+>                     rela->sym->sec->include) {
+>                         found =3D 1;
+>                         log_debug("new/changed symbol %s found in special=
+ section %s\n",
 > --
 > 2.46.0
 >
