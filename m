@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 502BFA18251
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Jan 2025 17:54:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.875604.1286047 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 621AFA1825F
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Jan 2025 17:56:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.875611.1286058 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1taHVi-00038x-O2; Tue, 21 Jan 2025 16:53:54 +0000
+	id 1taHYG-0003gE-5F; Tue, 21 Jan 2025 16:56:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 875604.1286047; Tue, 21 Jan 2025 16:53:54 +0000
+Received: by outflank-mailman (output) from mailman id 875611.1286058; Tue, 21 Jan 2025 16:56:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1taHVi-00036f-LN; Tue, 21 Jan 2025 16:53:54 +0000
-Received: by outflank-mailman (input) for mailman id 875604;
- Tue, 21 Jan 2025 16:53:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1taHYG-0003du-1a; Tue, 21 Jan 2025 16:56:32 +0000
+Received: by outflank-mailman (input) for mailman id 875611;
+ Tue, 21 Jan 2025 16:56:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qQWO=UN=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1taHVh-00036Z-36
- for xen-devel@lists.xenproject.org; Tue, 21 Jan 2025 16:53:53 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4ab5f32a-d818-11ef-a0e4-8be0dac302b0;
- Tue, 21 Jan 2025 17:53:52 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-4361dc6322fso41460845e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 21 Jan 2025 08:53:52 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38bf322acdcsm14145777f8f.55.2025.01.21.08.53.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Jan 2025 08:53:50 -0800 (PST)
+ id 1taHYF-0003do-4I
+ for xen-devel@lists.xenproject.org; Tue, 21 Jan 2025 16:56:31 +0000
+Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
+ [2a00:1450:4864:20::542])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a88aa2fd-d818-11ef-99a4-01e77a169b0f;
+ Tue, 21 Jan 2025 17:56:29 +0100 (CET)
+Received: by mail-ed1-x542.google.com with SMTP id
+ 4fb4d7f45d1cf-5d3d0205bd5so9525822a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Jan 2025 08:56:29 -0800 (PST)
+Received: from andrewcoop.eng.citrite.net (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5db73697174sm7377310a12.45.2025.01.21.08.56.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Jan 2025 08:56:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,103 +45,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4ab5f32a-d818-11ef-a0e4-8be0dac302b0
+X-Inumbo-ID: a88aa2fd-d818-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1737478431; x=1738083231; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kkhqh9rNWNPd4Q42WrI+ZA18UDRR0mdGKMdRpVxxhmM=;
-        b=TSi1p/A+rhUe7dFImDvOU+Y6QbfDRE/dWMD0fE0mMsd60+Eb9WchnTmLDuJeUlb1c0
-         via+S5Aa9EP48bNKFUWVWfLfS6fY1OWxv6CqUgEWO8IHu8JHQ7ZPVCc/XF0utQxk3vs4
-         9AdY8LMghuz16GyMIyTZHboyIquQQ/eg1MYxM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737478431; x=1738083231;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=citrix.com; s=google; t=1737478588; x=1738083388; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kkhqh9rNWNPd4Q42WrI+ZA18UDRR0mdGKMdRpVxxhmM=;
-        b=g+elOwqhoDrkEBk3QlTWtmsT560TlJ2KMUgfY5gcV1iOf4Sj4CsUzozCGXaPMx1xCU
-         e82genQN02NzpLnKpPBko+R7g5h/rSWHVpb3LnbxXkY0OkPCUf99bY/cInBwsxXheq73
-         GHB51yFHSGnsj3HEXJMcL5MPrTBK1DRG9BnB2/3B7gXlI2gtqTsSSRgL+R+nP5WKb96R
-         +UVwpye1bO9WGiZB8sCd7+Bq+H78sO6pmDLjHzLFCQo4bQ5f4Jyr2knSR16KHW6MPe6G
-         +78gL8RgFigmmmWV4oGzS9QxX0Ykkk+2yriCgpJV9XrT3Rpa+z0xFF9N9Xowj5jVnVV3
-         D3aQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWn7Pquiq3kjdmKxTntZI3AcGfPgOQcVA0QekGuDaDprZyzS3w/f5BbiowzQ4jmD0tBM+pANguEN1w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywm7a93Veig46VPEOjJX8YSmEq9XVR8sn0hCYOr35fmftcsJcK3
-	4xCOtDjQRqbi84ahz0HRqO7LYC4sdY42BfhEuKz5tPxR6NhT7peayWvZ1gBgl7o=
-X-Gm-Gg: ASbGncsEDz4dLivc+ssmHYNrP6ovQ7yTdnz+97OZd0WFkbvyGYuJIIjzdbomFyoGY3h
-	h+N3WtKb0eOWyDgL5OrKwN9r4Y6G4FHIhLkRN9CZ1KfRGB496zEWaXo1Z/iJfccbCDnAVUdNKbf
-	rdGefk/F8jCVWsSKduT0EM2+koAKJumaGRvw4cfMSbK/we0KUi8fZpZdkiGjsz6CiBQdkgZQc3G
-	PCTp6KvWWxWlvHcPcmx1AzNAXPL2sz9NIniiFL6Upnu5+GYGnp7aArJg0BOXjq8IuhuceU24Gwp
-	t9HDPeMJ5OKmr8//hXlJscHbiE3ax7R2Uw==
-X-Google-Smtp-Source: AGHT+IEELCP1btDzM/dM+aN2CQWxqYzE4Xy6f7wDKLy8byD7OQVrTqYih4ULcOM3kU3aFLLmVfqL5g==
-X-Received: by 2002:a05:600c:1ca7:b0:431:44fe:fd9f with SMTP id 5b1f17b1804b1-4389142776dmr164977055e9.23.1737478431210;
-        Tue, 21 Jan 2025 08:53:51 -0800 (PST)
-Message-ID: <1e876c43-1b16-4996-9818-1fad0b9d73ea@citrix.com>
-Date: Tue, 21 Jan 2025 16:53:50 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.21] x86emul: drop open-coding of REX.W prefixes
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <a2f8501d-2cc9-4210-ab33-cd70f47c6373@suse.com>
-Content-Language: en-GB
+        bh=aJMA+NwRz9Q4wQth1iLhNf8fNKE6Vjh+DxIWkVVgb04=;
+        b=IADM2SyXWUHUkD/1SMJ6UuVd7dz1+SnUxScXyaBOAns9kkUKkauwYJm9fXg4/UdtLQ
+         hXpkp7SkeSBx3IPtpaCaExUmBHLdTNqH1/VpS3rpTdQC7fBlq5MrKBszft6tu8/A+CUS
+         CBJjiNfeU4jcOiYHoRyIDRYSWu7pBqn8Lk/QE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1737478588; x=1738083388;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=aJMA+NwRz9Q4wQth1iLhNf8fNKE6Vjh+DxIWkVVgb04=;
+        b=eaNM2sLxaGMDaEC591W3kfOjCDY0qdiAbMRxXytBmhVSQ0RTNjtRhAzGSLbhWYXeli
+         e+xgjkydTDoSm/o0Tb6D8c1Q7AatKjUH8SEe1gISufGiyzbvD4Lxxzv3nGoNEy2qdQIM
+         Nn/StHBT8ea/VcTKpQ61SpqFJkn4HFtdsTdo9V3ysnI3HBiLr7bFz/JukyV5pNxXEWWc
+         7G/Q6ii8DWlg3KCG0NFAQi1/TqkVzOZZA9C7i8D7+c0zI1S3g++XnLULkKp8CY1o89K+
+         rqdKzDf3DSAA8gG9xBxdPTB0khL2dYUfPKD3HQqQ9/XhIa6fcoLDm7Z8qsPBe+yODRDU
+         VGSw==
+X-Gm-Message-State: AOJu0Yy7CP05v+0/tYz7kO+yGQzLoa3/7wsczQUiewQ9CJX9+GbwjNlx
+	TuJ8kIRTCAkgkXLpfiGov3FMW1mCdhqPSRZCwWEcqLws61mfS/rA7tAXgE6e9WTB+nXE1LlpI9G
+	c/xoG8Q==
+X-Gm-Gg: ASbGncu1VO/mlImxc9Jbtq9894yeq+wyS2TSRwN0nmKXOfiNrwo4sA1azNMA7iiTRmF
+	hTlMes6AhaCgmQPAMzlsyfWwB4L2sR6jCfYLW+BaWFh4sHBiCN246hIq6Iov0P4FCtpGkf055pJ
+	IER31fX/HOwAOOpjY21N0FsEPxyA0QVbd+Q58PZ7aaud3atm9wPjYURz6stTNrJ8itu/3RB8XOn
+	+/DlM5v4HcNkWdLlCPUPnD9EmPxwNJTE8xMfRW7YdUsF6b1MrShseDKSY7GXeRwvsNZy4NUdWMI
+	MOwrtuG0ALA4sloB3q3NvKsgDWkmnQ+uk4Rr71MVez8yuUnshw==
+X-Google-Smtp-Source: AGHT+IEztnPdON91e+BElFap+6j1zBaaefdtCNoo2J1bSnKRifwrsDk8mjz5XHrhMs/ipgcqsbL87g==
+X-Received: by 2002:a50:c010:0:b0:5d9:8877:895a with SMTP id 4fb4d7f45d1cf-5db7d300e78mr13640317a12.17.1737478588313;
+        Tue, 21 Jan 2025 08:56:28 -0800 (PST)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <a2f8501d-2cc9-4210-ab33-cd70f47c6373@suse.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jonathan Katz <jonathan.katz@aptar.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [PATCH for-4.20 v2] x86/intel: Fix PERF_GLOBAL fixup when virtualised
+Date: Tue, 21 Jan 2025 16:56:26 +0000
+Message-Id: <20250121165626.380627-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20250121142510.358996-1-andrew.cooper3@citrix.com>
+References: <20250121142510.358996-1-andrew.cooper3@citrix.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 21/01/2025 4:44 pm, Jan Beulich wrote:
-> Along the lines of 0e3642514719 ("x86: drop REX64_PREFIX"), move to well
-> formed FXSAVEQ / FXRSTORQ here as well.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Logic using performance counters needs to look at
+MSR_MISC_ENABLE.PERF_AVAILABLE before touching any other resources.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+When virtualised under ESX, Xen dies with a #GP fault trying to read
+MSR_CORE_PERF_GLOBAL_CTRL.
+
+Factor this logic out into a separate function (it's already too squashed to
+the RHS), and insert a check of MSR_MISC_ENABLE.PERF_AVAILABLE.
+
+This also avoids setting X86_FEATURE_ARCH_PERFMON if MSR_MISC_ENABLE says that
+PERF is unavailable, although oprofile (the only consumer of this flag)
+cross-checks too.
+
+Fixes: 6bdb965178bb ("x86/intel: ensure Global Performance Counter Control is setup correctly")
+Reported-by: Jonathan Katz <jonathan.katz@aptar.com>
+Link: https://xcp-ng.org/forum/topic/10286/nesting-xcp-ng-on-esx-8
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+
+v2:
+ * Drop _safe() on MSR_IA32_MISC_ENABLE read.
+ * Fix the setting of X86_FEATURE_ARCH_PERFMON.
+
+Untested, but this is the same pattern used by oprofile and watchdog setup.
+
+I've intentionally stopped using Intel style.  This file is already mixed (as
+visible even in context), and it doesn't remotely resemble it's Linux origin
+any more.
+
+For 4.20.  This regressions has already been backported.
+---
+ xen/arch/x86/cpu/intel.c | 64 +++++++++++++++++++++++-----------------
+ 1 file changed, 37 insertions(+), 27 deletions(-)
+
+diff --git a/xen/arch/x86/cpu/intel.c b/xen/arch/x86/cpu/intel.c
+index 6a7347968ba2..6a680ba38dc9 100644
+--- a/xen/arch/x86/cpu/intel.c
++++ b/xen/arch/x86/cpu/intel.c
+@@ -535,39 +535,49 @@ static void intel_log_freq(const struct cpuinfo_x86 *c)
+     printk("%u MHz\n", (factor * max_ratio + 50) / 100);
+ }
+ 
++static void init_intel_perf(struct cpuinfo_x86 *c)
++{
++    uint64_t val;
++    unsigned int eax, ver, nr_cnt;
++
++    if ( c->cpuid_level <= 9 ||
++         ({  rdmsrl(MSR_IA32_MISC_ENABLE, val);
++             !(val & MSR_IA32_MISC_ENABLE_PERF_AVAIL); }) )
++        return;
++
++    eax = cpuid_eax(10);
++    ver = eax & 0xff;
++    nr_cnt = (eax >> 8) & 0xff;
++
++    if ( ver && nr_cnt > 1 && nr_cnt <= 32 )
++    {
++        unsigned int cnt_mask = (1UL << nr_cnt) - 1;
++
++        /*
++         * On (some?) Sapphire/Emerald Rapids platforms each package-BSP
++         * starts with all the enable bits for the general-purpose PMCs
++         * cleared.  Adjust so counters can be enabled from EVNTSEL.
++         */
++        rdmsrl(MSR_CORE_PERF_GLOBAL_CTRL, val);
++
++        if ( (val & cnt_mask) != cnt_mask )
++        {
++            printk("FIRMWARE BUG: CPU%u invalid PERF_GLOBAL_CTRL: %#"PRIx64" adjusting to %#"PRIx64"\n",
++                   smp_processor_id(), val, val | cnt_mask);
++            wrmsrl(MSR_CORE_PERF_GLOBAL_CTRL, val | cnt_mask);
++        }
++
++        __set_bit(X86_FEATURE_ARCH_PERFMON, c->x86_capability);
++    }
++}
++
+ static void cf_check init_intel(struct cpuinfo_x86 *c)
+ {
+ 	/* Detect the extended topology information if available */
+ 	detect_extended_topology(c);
+ 
+ 	init_intel_cacheinfo(c);
+-	if (c->cpuid_level > 9) {
+-		unsigned eax = cpuid_eax(10);
+-		unsigned int cnt = (eax >> 8) & 0xff;
+-
+-		/* Check for version and the number of counters */
+-		if ((eax & 0xff) && (cnt > 1) && (cnt <= 32)) {
+-			uint64_t global_ctrl;
+-			unsigned int cnt_mask = (1UL << cnt) - 1;
+-
+-			/*
+-			 * On (some?) Sapphire/Emerald Rapids platforms each
+-			 * package-BSP starts with all the enable bits for the
+-			 * general-purpose PMCs cleared.  Adjust so counters
+-			 * can be enabled from EVNTSEL.
+-			 */
+-			rdmsrl(MSR_CORE_PERF_GLOBAL_CTRL, global_ctrl);
+-			if ((global_ctrl & cnt_mask) != cnt_mask) {
+-				printk("CPU%u: invalid PERF_GLOBAL_CTRL: %#"
+-				       PRIx64 " adjusting to %#" PRIx64 "\n",
+-				       smp_processor_id(), global_ctrl,
+-				       global_ctrl | cnt_mask);
+-				wrmsrl(MSR_CORE_PERF_GLOBAL_CTRL,
+-				       global_ctrl | cnt_mask);
+-			}
+-			__set_bit(X86_FEATURE_ARCH_PERFMON, c->x86_capability);
+-		}
+-	}
++	init_intel_perf(c);
+ 
+ 	if ( !cpu_has(c, X86_FEATURE_XTOPOLOGY) )
+ 	{
+
+base-commit: c3f5d1bb40b57d467cb4051eafa86f5933ec9003
+-- 
+2.39.5
+
 
