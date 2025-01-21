@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83258A17AAD
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Jan 2025 10:57:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.875232.1285674 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69E7DA17B22
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Jan 2025 11:13:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.875242.1285683 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1taB0Y-0006VM-OL; Tue, 21 Jan 2025 09:57:18 +0000
+	id 1taBFs-0001Aw-0Z; Tue, 21 Jan 2025 10:13:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 875232.1285674; Tue, 21 Jan 2025 09:57:18 +0000
+Received: by outflank-mailman (output) from mailman id 875242.1285683; Tue, 21 Jan 2025 10:13:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1taB0Y-0006SL-LY; Tue, 21 Jan 2025 09:57:18 +0000
-Received: by outflank-mailman (input) for mailman id 875232;
- Tue, 21 Jan 2025 09:57:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1taBFr-00019W-UD; Tue, 21 Jan 2025 10:13:07 +0000
+Received: by outflank-mailman (input) for mailman id 875242;
+ Tue, 21 Jan 2025 10:13:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jEc5=UN=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1taB0X-0006SF-Dw
- for xen-devel@lists.xenproject.org; Tue, 21 Jan 2025 09:57:17 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 178893a7-d7de-11ef-99a4-01e77a169b0f;
- Tue, 21 Jan 2025 10:57:15 +0100 (CET)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-5d9f0a6ad83so1864995a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 21 Jan 2025 01:57:15 -0800 (PST)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab384f22fdesm720781366b.89.2025.01.21.01.57.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jan 2025 01:57:13 -0800 (PST)
+ <SRS0=qQWO=UN=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1taBFr-00019Q-1D
+ for xen-devel@lists.xenproject.org; Tue, 21 Jan 2025 10:13:07 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4d9175ae-d7e0-11ef-a0e4-8be0dac302b0;
+ Tue, 21 Jan 2025 11:13:04 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-4361f664af5so62395325e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Jan 2025 02:13:04 -0800 (PST)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-438904625e5sm174706295e9.32.2025.01.21.02.13.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 21 Jan 2025 02:13:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,231 +45,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 178893a7-d7de-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 4d9175ae-d7e0-11ef-a0e4-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1737453434; x=1738058234; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=JLq/1/TKHChK/00HofyD4lzzmkRQv59j49Ig1IX6vnk=;
-        b=YVFOIFuwVGaipQYwxCU/9Svap/edFFUqCrvJeOUe4XWd3GjqzT5yOwlxKg5lnpNZWA
-         bGw54ElSIWCJNDuUWBfwL2cvJdLLtj99o7Y2TH8dVpIXTMrGooh21oGTHXu+lNH4bueU
-         0SSrsaci13APlPdI80rSz7K9Ya81o40T18kX4=
+        d=citrix.com; s=google; t=1737454384; x=1738059184; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=w7PL6jtDuqaCI47/vBihS/1cwVtVGWcN0cpHdQWY7CM=;
+        b=QEiS9Rn4CeBp3Qb8zPmWxObOjZEZIZfQ41RmTb3SONE2ZE+5x5eATPcuUHsxlsTXhD
+         X50qNn3ixMcbdIsGbrqY/sHcBubeuOhMng6SkA8q9yquhDtB4TF9+AMRD3s+x7E2l8Ic
+         edpAbmz+os4FCyzJl4NDrKbGjJkyn67QdMh7Q=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737453434; x=1738058234;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=JLq/1/TKHChK/00HofyD4lzzmkRQv59j49Ig1IX6vnk=;
-        b=fBh3d1dD0H9Z8owQVHTfLVvz3Gus4/tvIV7wB2+7TzjJ9c07EaNqdxNLeyEOBN9eyQ
-         1UdPvHmteuEtF1WWrKgV4TzyqPyjzxe3U/sMYzxAhzrHQBViw/H1gYRinpczZ4Q8v5+C
-         4O5wlgH7wbqbCJzqpOE7f7M+qlKLO6hdL3ORbn9RyQBXmbu7Ifo4Iy+EnbFeN/eRmLt2
-         oqHx9xnWcwWyb+GY3a6C3I0VjtjurxrWnzxgE+HRnJ+mA/e2IT/sJacNFRWRm0gd/Oa7
-         mJZuQEXONrXNEyZjIDNlsEzqbvguTfyncsbM/AXUw1VwsLdWZsssKUM9kQUpKb0uPn44
-         2M0A==
-X-Gm-Message-State: AOJu0YzTc7b5ulfEiVs80zZ674cSaP8atoT7lv1y4A+gFH78Mq/4JdX1
-	D1kSiXhkSqwW5VqVr4wHL4dqZOtK+egY734stG2HN0c/Rdo7Ki90WYS6QpP3oGBQY441X4pQtvm
-	s
-X-Gm-Gg: ASbGncv2tBWsr4n+1WTWlJaQRnSFw/Tp0QIlYyfIVwlNldzhx49u0j1el0mAwiIjXo0
-	33rarxpadBpaHdKxB0D/bNUhqbHetAVGArd3H7d3t6jf8wAj6soHQHDluWA/sE+sFfVWqkKjG6m
-	TjI89dg3sJUDfP7VHY0e02BlImgSwuKSk1ugptBaVSpmCtYR1zNuVv4QizJJAMEeKXIOxTfqBmY
-	+J+Ro3hdh8TIBSraAyIZNeu7VXRnnMcSlmzOjG1fbXkGMafjMq4bQ0cCuIGYyVnmPEu00GFTILD
-	aEUJ
-X-Google-Smtp-Source: AGHT+IHcgiXHgAMe1LbUuoPDB4nCxqK3qTBmqrJxS+RM4BGJBFhOGNBA4zgJ516v7Bn7w3Sa93pYxQ==
-X-Received: by 2002:a17:906:dc8c:b0:ab2:f937:b3aa with SMTP id a640c23a62f3a-ab38b4cff42mr1545982566b.56.1737453434167;
-        Tue, 21 Jan 2025 01:57:14 -0800 (PST)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH] iommu/amd: atomically update IRTE if supported
-Date: Tue, 21 Jan 2025 10:57:04 +0100
-Message-ID: <20250121095704.18769-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.46.0
+        d=1e100.net; s=20230601; t=1737454384; x=1738059184;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=w7PL6jtDuqaCI47/vBihS/1cwVtVGWcN0cpHdQWY7CM=;
+        b=OWo6IKWIUhMu2P6i50t1JJh/xnnSjpcAC8Oavxe7GNElkqrhUmqZ4Oz1dsH7AE+jZ7
+         UM2jxJjMgaR5gyxorPIpIB7C/Tw/Ej3jO71ISIJVQ4eS/zxDN0/alWB0BCLONn7YD4Pe
+         DXfgET9DD/kJLjjIz4/daJdmHJlTXh/aN82tfpRIVHZE0OmIDnxeIPEyKfn2eALumeDG
+         Xr21qpQhIMhVtCe5m005JE0ILLE5518YCW+MeeuCj0AMZ+tNLXJmeWmEAuver56KAX/Y
+         YCmKpCK/0pHBtBEFN/64fQM4yPgFZ3PLve4ClqtHECNhggx0O5bNR5v9EsHHJhiuMdQi
+         REMQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXM3969ePUKkqvmpfn/P9pkB3gdcHj1RzunGJh9my1hu70pKATcst5Er//vpEW1l8AXWbw7DoZ0/uc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwADqI5gMWxCcyHNsc3uftvFiHkeRYuyXRdy6L2JTLWYhV5jZL8
+	nHEbb/zgxFnmG2Y2Rig/6hTkzfGHt3Kf9ilIES5XbFiWAL3HlL4y1lgRXvf0WOI=
+X-Gm-Gg: ASbGncsvtNH1y/WlgCFsxEtEDD/MiX21rji3gfOQn5gMGQafmOGL+xW3+dskrsYF9F/
+	GUH3TcFOWWjvu175GRlANykgXSIXCs6+A5XjuZBU3WR3x/W7ZrNwlSfaUtqpEY3SSg/FA1Z9SAN
+	8Fmzw2ffOfqRUsbTbdLZSO1yL9tsna27s93FX2kFPvt7hYSO0DjvgV4wKiqwoVzmCHT+16hqXVR
+	uD+2bOY+UzfZ3oqNj2vUUqvGh+gF01co5u6QdhsR281hf++Hp+HdRWv4x6hC5soHecJGiC7hikE
+	llDPxl0x7ukoEb0nk+pJ2UjW2RihA59t8Q==
+X-Google-Smtp-Source: AGHT+IGqgc+G/R8qYlMP6RGudFGP5SKZBDMGlxz7E3VKZrURjhhqXxZSWlXLKqDCUsQZaAj3K5l9uw==
+X-Received: by 2002:a05:600c:6c06:b0:436:e8b4:36e7 with SMTP id 5b1f17b1804b1-438913cb191mr145965745e9.8.1737454384103;
+        Tue, 21 Jan 2025 02:13:04 -0800 (PST)
+Message-ID: <a1a43ab4-5028-4fe4-8e08-5ebd92220436@citrix.com>
+Date: Tue, 21 Jan 2025 10:13:03 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] iommu/amd: atomically update IRTE if supported
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>
+References: <20250121095704.18769-1-roger.pau@citrix.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20250121095704.18769-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-If using a 32bit Interrupt Remapping Entry or a 128bit one and the CPU
-supports 128bit cmpxchg don't disable the entry by setting RemapEn = 0
-ahead of updating it.  As a consequence of not toggling RemapEn ahead of
-the update the Interrupt Remapping Table needs to be flushed after the
-entry update.
+On 21/01/2025 9:57 am, Roger Pau Monne wrote:
+> diff --git a/xen/drivers/passthrough/amd/iommu_intr.c b/xen/drivers/passthrough/amd/iommu_intr.c
+> index 7fc796dec25b..efa9ddc62458 100644
+> --- a/xen/drivers/passthrough/amd/iommu_intr.c
+> +++ b/xen/drivers/passthrough/amd/iommu_intr.c
+> @@ -223,14 +224,36 @@ static void update_intremap_entry(const struct amd_iommu *iommu,
+>              },
+>          };
+>  
+> -        ASSERT(!entry.ptr128->full.remap_en);
+> -        entry.ptr128->raw[1] = irte.raw[1];
+> -        /*
+> -         * High half needs to be set before low one (containing RemapEn).  See
+> -         * comment in free_intremap_entry() regarding the choice of barrier.
+> -         */
+> -        smp_wmb();
+> -        ACCESS_ONCE(entry.ptr128->raw[0]) = irte.raw[0];
+> +        if ( cpu_has_cx16 )
 
-This avoids a window where the IRTE has RemapEn = 0, which can lead to
-IO_PAGE_FAULT if the underlying interrupt source is not masked.
+cx16 is always available.  Teddy even submitted patches, but it looks
+like they succumbed.
 
-There's no guidance in AMD-Vi specification about how IRTE update should be
-performed as opposed to DTE updating which has specific guidance.  However
-DTE updating claims that reads will always be at least 128bits in size, and
-hence for the purposes here assume that reads and caching of the IRTE
-entries in either 32 or 128 bit format will be done atomically from
-the IOMMU.
+We need to take Teddy's patches, then ~half this one.
 
-Note that as part of introducing a new raw128 field in the IRTE struct, the
-current raw field is renamed to raw64 to explicitly contain the size in the
-field name.
+As proved by this patch alone, it's already hard enough getting this
+right, without introducing dead logic paths into the mix.
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/drivers/passthrough/amd/iommu_intr.c | 68 ++++++++++++++++++------
- 1 file changed, 53 insertions(+), 15 deletions(-)
-
-diff --git a/xen/drivers/passthrough/amd/iommu_intr.c b/xen/drivers/passthrough/amd/iommu_intr.c
-index 7fc796dec25b..efa9ddc62458 100644
---- a/xen/drivers/passthrough/amd/iommu_intr.c
-+++ b/xen/drivers/passthrough/amd/iommu_intr.c
-@@ -39,7 +39,8 @@ union irte32 {
- };
- 
- union irte128 {
--    uint64_t raw[2];
-+    uint64_t raw64[2];
-+    __uint128_t raw128;
-     struct {
-         bool remap_en:1;
-         bool sup_io_pf:1;
-@@ -187,7 +188,7 @@ static void free_intremap_entry(const struct amd_iommu *iommu,
- 
-     if ( iommu->ctrl.ga_en )
-     {
--        ACCESS_ONCE(entry.ptr128->raw[0]) = 0;
-+        ACCESS_ONCE(entry.ptr128->raw64[0]) = 0;
-         /*
-          * Low half (containing RemapEn) needs to be cleared first.  Note that
-          * strictly speaking smp_wmb() isn't enough, as conceptually it expands
-@@ -197,7 +198,7 @@ static void free_intremap_entry(const struct amd_iommu *iommu,
-          * variant will do.
-          */
-         smp_wmb();
--        entry.ptr128->raw[1] = 0;
-+        entry.ptr128->raw64[1] = 0;
-     }
-     else
-         ACCESS_ONCE(entry.ptr32->raw) = 0;
-@@ -223,14 +224,36 @@ static void update_intremap_entry(const struct amd_iommu *iommu,
-             },
-         };
- 
--        ASSERT(!entry.ptr128->full.remap_en);
--        entry.ptr128->raw[1] = irte.raw[1];
--        /*
--         * High half needs to be set before low one (containing RemapEn).  See
--         * comment in free_intremap_entry() regarding the choice of barrier.
--         */
--        smp_wmb();
--        ACCESS_ONCE(entry.ptr128->raw[0]) = irte.raw[0];
-+        if ( cpu_has_cx16 )
-+        {
-+            __uint128_t old = entry.ptr128->raw128;
-+            __uint128_t res = cmpxchg16b(&entry.ptr128->raw128, &old,
-+                                         &irte.raw128);
-+
-+            /*
-+             * Hardware does not update the IRTE behind our backs, so the
-+             * return value should match "old".
-+             */
-+            if ( res != old )
-+            {
-+                printk(XENLOG_ERR
-+                       "unexpected IRTE %016lx_%016lx (expected %016lx_%016lx)\n",
-+                       (uint64_t)(res >> 64), (uint64_t)res,
-+                       (uint64_t)(old >> 64), (uint64_t)old);
-+                BUG();
-+            }
-+        }
-+        else
-+        {
-+            ASSERT(!entry.ptr128->full.remap_en);
-+            entry.ptr128->raw64[1] = irte.raw64[1];
-+            /*
-+             * High half needs to be set before low one (containing RemapEn).  See
-+             * comment in free_intremap_entry() regarding the choice of barrier.
-+             */
-+            smp_wmb();
-+            ACCESS_ONCE(entry.ptr128->raw64[0]) = irte.raw64[0];
-+        }
-     }
-     else
-     {
-@@ -300,7 +323,8 @@ static int update_intremap_entry_from_ioapic(
-     entry = get_intremap_entry(iommu, req_id, offset);
- 
-     /* The RemapEn fields match for all formats. */
--    while ( iommu->enabled && entry.ptr32->flds.remap_en )
-+    while ( iommu->enabled && entry.ptr32->flds.remap_en &&
-+            iommu->ctrl.ga_en && !cpu_has_cx16 )
-     {
-         entry.ptr32->flds.remap_en = false;
-         spin_unlock(lock);
-@@ -314,6 +338,9 @@ static int update_intremap_entry_from_ioapic(
- 
-     spin_unlock_irqrestore(lock, flags);
- 
-+    if ( iommu->enabled && !fresh && (!iommu->ctrl.ga_en || cpu_has_cx16) )
-+        amd_iommu_flush_intremap(iommu, req_id);
-+
-     set_rte_index(rte, offset);
- 
-     return 0;
-@@ -425,6 +452,7 @@ static int update_intremap_entry_from_msi_msg(
-     uint8_t delivery_mode, vector, dest_mode;
-     spinlock_t *lock;
-     unsigned int dest, offset, i;
-+    bool fresh = false;
- 
-     req_id = get_dma_requestor_id(iommu->seg, bdf);
-     alias_id = get_intremap_requestor_id(iommu->seg, bdf);
-@@ -468,12 +496,14 @@ static int update_intremap_entry_from_msi_msg(
-             return -ENOSPC;
-         }
-         *remap_index = offset;
-+        fresh = true;
-     }
- 
-     entry = get_intremap_entry(iommu, req_id, offset);
- 
-     /* The RemapEn fields match for all formats. */
--    while ( iommu->enabled && entry.ptr32->flds.remap_en )
-+    while ( iommu->enabled && entry.ptr32->flds.remap_en &&
-+            iommu->ctrl.ga_en && !cpu_has_cx16 )
-     {
-         entry.ptr32->flds.remap_en = false;
-         spin_unlock(lock);
-@@ -488,6 +518,13 @@ static int update_intremap_entry_from_msi_msg(
-     update_intremap_entry(iommu, entry, vector, delivery_mode, dest_mode, dest);
-     spin_unlock_irqrestore(lock, flags);
- 
-+    if ( iommu->enabled && !fresh && (!iommu->ctrl.ga_en || cpu_has_cx16) )
-+    {
-+        amd_iommu_flush_intremap(iommu, req_id);
-+        if ( alias_id != req_id )
-+            amd_iommu_flush_intremap(iommu, alias_id);
-+    }
-+
-     *data = (msg->data & ~(INTREMAP_MAX_ENTRIES - 1)) | offset;
- 
-     /*
-@@ -722,7 +759,7 @@ static void dump_intremap_table(const struct amd_iommu *iommu,
-     for ( count = 0; count < nr; count++ )
-     {
-         if ( iommu->ctrl.ga_en
--             ? !tbl.ptr128[count].raw[0] && !tbl.ptr128[count].raw[1]
-+             ? !tbl.ptr128[count].raw64[0] && !tbl.ptr128[count].raw64[1]
-              : !tbl.ptr32[count].raw )
-                 continue;
- 
-@@ -735,7 +772,8 @@ static void dump_intremap_table(const struct amd_iommu *iommu,
- 
-         if ( iommu->ctrl.ga_en )
-             printk("    IRTE[%03x] %016lx_%016lx\n",
--                   count, tbl.ptr128[count].raw[1], tbl.ptr128[count].raw[0]);
-+                   count, tbl.ptr128[count].raw64[1],
-+                   tbl.ptr128[count].raw64[0]);
-         else
-             printk("    IRTE[%03x] %08x\n", count, tbl.ptr32[count].raw);
-     }
--- 
-2.46.0
-
+~Andrew
 
