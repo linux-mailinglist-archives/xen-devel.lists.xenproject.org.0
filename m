@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D50EA1828D
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Jan 2025 18:07:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.875650.1286098 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DF3BA1841B
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Jan 2025 19:03:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.875662.1286108 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1taHj3-0007OT-Qb; Tue, 21 Jan 2025 17:07:41 +0000
+	id 1taIaI-0007hj-N9; Tue, 21 Jan 2025 18:02:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 875650.1286098; Tue, 21 Jan 2025 17:07:41 +0000
+Received: by outflank-mailman (output) from mailman id 875662.1286108; Tue, 21 Jan 2025 18:02:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1taHj3-0007ML-N1; Tue, 21 Jan 2025 17:07:41 +0000
-Received: by outflank-mailman (input) for mailman id 875650;
- Tue, 21 Jan 2025 17:07:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1taIaI-0007fd-KN; Tue, 21 Jan 2025 18:02:42 +0000
+Received: by outflank-mailman (input) for mailman id 875662;
+ Tue, 21 Jan 2025 18:02:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qQWO=UN=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1taHj2-0007MF-KQ
- for xen-devel@lists.xenproject.org; Tue, 21 Jan 2025 17:07:40 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 383d8d6d-d81a-11ef-a0e4-8be0dac302b0;
- Tue, 21 Jan 2025 18:07:39 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-38789e5b6a7so3411966f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 21 Jan 2025 09:07:39 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38bf322a859sm13683445f8f.43.2025.01.21.09.07.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Jan 2025 09:07:38 -0800 (PST)
+ <SRS0=jEc5=UN=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1taIaG-0007fX-VF
+ for xen-devel@lists.xenproject.org; Tue, 21 Jan 2025 18:02:41 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e6924a69-d821-11ef-99a4-01e77a169b0f;
+ Tue, 21 Jan 2025 19:02:38 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-ab39f84cbf1so719639666b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Jan 2025 10:02:38 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab384f86272sm783077866b.131.2025.01.21.10.02.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Jan 2025 10:02:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,160 +44,252 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 383d8d6d-d81a-11ef-a0e4-8be0dac302b0
+X-Inumbo-ID: e6924a69-d821-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1737479259; x=1738084059; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=AJzUpIejbduRBYy2kvT1O33GN715gAdfV7786VAfMWg=;
-        b=ZsO2Lh6yejoEEbhhARg9exs0YEcysfbxrgd4s33cD+cJJpWeOnHI2n8vzgl00LGZFo
-         QihaOyUjMz5trjwazLm9gNdueLHUyWU/Oc6llbPj1XLeBzX8EgZF6Yc1fWM5xazRfK5p
-         3iN+MyYHiGJ7SlRVxD6To1Zu4RaFibTpWoZdg=
+        d=citrix.com; s=google; t=1737482558; x=1738087358; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=GJk/G0s9PSVIMmLyL9Z6K7hA1vh4XdMlLF14FiECGDo=;
+        b=l+qQgJH2uisqQAZTtXzxpQkeyFqpm7PeopeiWjPxxQ75sw0nUImA+uT8ezYj2CfIhN
+         FpxqPhVPKZfKnr7nLtEH7kHfAITeBw89V1hEammYS4vnQhX/CrsTGsrt6/CCX9GYLOEq
+         0Go5p/exeYiV8MlkvAjjPoaFxCKJIMYTnUEYE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737479259; x=1738084059;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=AJzUpIejbduRBYy2kvT1O33GN715gAdfV7786VAfMWg=;
-        b=iLT9tDM4YJssARFnYskb/m69/vcUYBq59mUDgszHGgoKuWDZCuSFApVZtmkjYEJ5Nd
-         rRk/ha0Cg7mk6VikjPZJB/92ULoAoWEkBMfRDFMNytbM0ubAuyOmg2Bv1IuOgpJNVSiz
-         K4v8dBjQ8gngDVtvqqzoIsKfkPLDp5ToR4X8U2dwpRU2b7svGlZ6sl8SrbFKh2tpreM1
-         +TejZKF/kqNitLuumrB9H2I5TLjlp/LEo+l2gPDBriURbMBQ5ELPfvYM0idblbDHghUb
-         GBNRyQmGhOjL33NoSB0IFgTgxobquojCSpfAnBUOckqr8B+wjW6Dma8yHKtldgy9n3lV
-         Z3mQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXzFhv2R6w83R9nDG9y+ZRLm2q18wJRHlBhHWtbe/mTOcEC4TKuxRXJuPjReR8U+k5Y1Eh6cUph4iw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyyv7f+plBjsftuUOjvTTxIqmelis5LvVHfv+2fuXfHETvepW4A
-	xnDv/narILBCJ4Ply4UJVnI6U8rrU1XnimPWQ8dM2XEleFQEr4uOnfmkMABSLes=
-X-Gm-Gg: ASbGncuMrkYEEtAkZREbEuot7ReQsJfPpSymswbva4UyYw5L+vR2XniKrSCoVQNGsYy
-	tDEUyTnXY9djwLEE4Ms3pLOXpUDhoeGkIJmaQX9DqQWafUY3YIAPxLKffweKpWjl0mqS4ePHNFQ
-	MmzGJZnXNI6O6QCvKyLfqEOINiRPiUXRTnf1I/tC8cNpi6GlwalchPfABZzyqT6A3Ls6SwzYjm/
-	U8M4FDc8Dit/AWzvYO5rQGrXC3o5aWQzCzv41PKyCMeO6ZZ744SZ94efXEPQWFCZLmJz3F7NBXK
-	1Mb0yE4E27dbGp4C+dl0GISjgtjX0NEpbw==
-X-Google-Smtp-Source: AGHT+IFAmYxdDbFDiO95xQDGwz1F9G0T2sQUI89BOl+FnWANhuXHVcXT7nLKQcNPrMqh+vcnclW6gg==
-X-Received: by 2002:a5d:47cf:0:b0:38c:1270:f964 with SMTP id ffacd0b85a97d-38c1270fbaamr5894163f8f.47.1737479259181;
-        Tue, 21 Jan 2025 09:07:39 -0800 (PST)
-Message-ID: <fb62d881-720e-499f-a301-fdf1880b097c@citrix.com>
-Date: Tue, 21 Jan 2025 17:07:38 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.20 v2] x86/intel: Fix PERF_GLOBAL fixup when
- virtualised
+        d=1e100.net; s=20230601; t=1737482558; x=1738087358;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=GJk/G0s9PSVIMmLyL9Z6K7hA1vh4XdMlLF14FiECGDo=;
+        b=kRLMhRJeZTak2BVlP1r84VeoUobacLy3c3P/V9fYxD6wuceSCEInustOSUd7XrVU8z
+         pgfh8skQoZ7lu7tvCNAWikssH0AosGnfdguSleGVkkGSLj1GmAe48LjLolgW3Hj4I2Tq
+         Wlcfu3RIZ8cDLPsXGG7Gz3f+9tLxttBnPUX3vD2GGx6zxuo0yK1BZ2E4Wuh2amPYNyP/
+         9M3ni5MITn1JQC6qcOfhWiDlwvxT/o8yyeTysTXEZfZIusNJw1ma5fZUOxzAoxzvfYAB
+         LWFqAxenFd3CGBp/mOTdK0mDwL2Afhs096RZ1oBOBHAOWs6YOOdiW9RlWsn71PW2BVr8
+         nR4g==
+X-Forwarded-Encrypted: i=1; AJvYcCUYnUZe+kTqDHdfAtwrEvJaAou6dQeUOWSC0Tpa/3fUuwo9CEdJoHwBKwKuuS9qqP6b7AWb+NiwwNY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxfm1BUTlJp8qbwA6cLAX5OsatE0IBD3JysU626Eg0yFuDuiuNo
+	0/A65EZApfJsDEEqMQKiWcdlJn3Xd22i/nBDpBNP8BlEcEjTleJps5deXcA1v9w=
+X-Gm-Gg: ASbGncvPeKK+AJFhrRVWbwJ/6hwzisK1o4ISyd1cXBbU8alMshkccmGCA8crKchVcrT
+	mzCcxrSiGgsK+jDZsSzzUwgsyegw2B7/A/kdpjNN+ozg6f6gjmeWmFAOIc7D1Ju+pZ8TcJVPFI3
+	WRAec520dlBmwFKz6BWKsmDKxdRV/74as+F5GRME4pr5kWL2IAmbxCADDXuWWzILt52QjzqwoSB
+	nImCnxCRydFHLITquJ9//LbWLihLtvnc0F2J1fLPDKrSwkNOK8YfK7bzZIJlZqWY6ibNw6KGDY=
+X-Google-Smtp-Source: AGHT+IEX/pcZDUDZCmo0FxPsa1DFtDpMkew0eUS2Md/SqwLoEM2qmXnWuROzFUJZvz6Hx+j4T9GeEA==
+X-Received: by 2002:a17:907:969f:b0:aa6:8dcb:365c with SMTP id a640c23a62f3a-ab38b3ce55fmr2026298066b.49.1737482556484;
+        Tue, 21 Jan 2025 10:02:36 -0800 (PST)
+Date: Tue, 21 Jan 2025 19:02:34 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Jonathan Katz <jonathan.katz@aptar.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250121142510.358996-1-andrew.cooper3@citrix.com>
- <20250121165626.380627-1-andrew.cooper3@citrix.com>
- <741f15ea-2c54-4e02-8be6-bcce10c7393b@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <741f15ea-2c54-4e02-8be6-bcce10c7393b@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
+	sergiy_kibrik@epam.com
+Subject: Re: [PATCH v2 1/4] x86: provide an inverted Kconfig control for
+ shim-exclusive mode
+Message-ID: <Z4_hOmi01AkiYH_k@macbook.local>
+References: <Z4oxZSUQ6VARiR0H@macbook.local>
+ <D74CH4RDRRR9.ZR6RL8U6PQ56@cloud.com>
+ <6285f86d-f2d2-4040-999d-01aed3e72a36@suse.com>
+ <alpine.DEB.2.22.394.2501171430570.2684657@ubuntu-linux-20-04-desktop>
+ <f8c1e2c2-ceb5-4200-a304-e2d824a171a8@citrix.com>
+ <40c9d806-000d-43e7-a804-ad4e84209b2f@suse.com>
+ <alpine.DEB.2.22.394.2501201527090.11086@ubuntu-linux-20-04-desktop>
+ <bae48627-fa5b-48b6-b74e-267285175eff@suse.com>
+ <Z49gQBkxCbXIO84D@macbook.local>
+ <41859184-bd9c-420f-96c1-65abe379b81e@suse.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <41859184-bd9c-420f-96c1-65abe379b81e@suse.com>
 
-On 21/01/2025 5:04 pm, Jan Beulich wrote:
-> On 21.01.2025 17:56, Andrew Cooper wrote:
->> --- a/xen/arch/x86/cpu/intel.c
->> +++ b/xen/arch/x86/cpu/intel.c
->> @@ -535,39 +535,49 @@ static void intel_log_freq(const struct cpuinfo_x86 *c)
->>      printk("%u MHz\n", (factor * max_ratio + 50) / 100);
->>  }
->>  
->> +static void init_intel_perf(struct cpuinfo_x86 *c)
->> +{
->> +    uint64_t val;
->> +    unsigned int eax, ver, nr_cnt;
->> +
->> +    if ( c->cpuid_level <= 9 ||
->> +         ({  rdmsrl(MSR_IA32_MISC_ENABLE, val);
-> Just curious (not an objection or anything): Is there a reason you have
-> two padding blanks here instead of just one?
+On Tue, Jan 21, 2025 at 11:35:42AM +0100, Jan Beulich wrote:
+> On 21.01.2025 09:52, Roger Pau Monné wrote:
+> > On Tue, Jan 21, 2025 at 09:13:38AM +0100, Jan Beulich wrote:
+> >> On 21.01.2025 00:27, Stefano Stabellini wrote:
+> >>> On Mon, 20 Jan 2025, Jan Beulich wrote:
+> >>>> On 18.01.2025 00:41, Andrew Cooper wrote:
+> >>>>> On 17/01/2025 10:43 pm, Stefano Stabellini wrote:
+> >>>>>> On Fri, 17 Jan 2025, Jan Beulich wrote:
+> >>>>>>> On 17.01.2025 13:24, Alejandro Vallejo wrote:
+> >>>>>>>> On Fri Jan 17, 2025 at 10:31 AM GMT, Roger Pau Monné wrote:
+> >>>>>>>>> On Thu, Jan 16, 2025 at 04:31:46PM -0800, Stefano Stabellini wrote:
+> >>>>>>>>>> On Wed, 1 Mar 2023, Jan Beulich wrote:
+> >>>>>>>>>>> While we want certain things turned off in shim-exclusive mode, doing
+> >>>>>>>>>>> so via "depends on !PV_SHIM_EXCLUSIVE" badly affects allyesconfig: Since
+> >>>>>>>>>>> that will turn on PV_SHIM_EXCLUSIVE, other options will be turned off as
+> >>>>>>>>>>> a result. Yet allyesconfig wants to enable as much of the functionality
+> >>>>>>>>>>> as possible.
+> >>>>>>>>>>>
+> >>>>>>>>>>> Retain PV_SHIM_EXCLUSIVE as a prompt-less option such that first of all
+> >>>>>>>>>>> C code using it can remain as is. This isn't just for less code churn,
+> >>>>>>>>>>> but also because I think that symbol is more logical to use in many
+> >>>>>>>>>>> (all?) places.
+> >>>>>>>>>>>
+> >>>>>>>>>>> Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> >>>>>>>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> >>>>>>>>>>>
+> >>>>>>>>>>> ---
+> >>>>>>>>>>> The new Kconfig control's name is up for improvement suggestions, but I
+> >>>>>>>>>>> think it's already better than the originally thought of
+> >>>>>>>>>>> FULL_HYPERVISOR.
+> >>>>>>>>>> I think the approach in general is OK, maybe we can improve the naming
+> >>>>>>>>>> further. What about one of the following?
+> >>>>>>>>>>
+> >>>>>>>>>> NO_PV_SHIM_EXCLUSIVE
+> >>>>>>>>>> PV_SHIM_NOT_EXCLUSIVE
+> >>>>>>>>> IMO negated options are confusing, and if possible I think we should
+> >>>>>>>>> avoid using them unless strictly necessary.
+> >>>>>>>> The problem is that the option is negative in nature. It's asking for
+> >>>>>>>> hypervisor without _something_. I do agree with Stefano that shim would be
+> >>>>>>>> better in the name. Otherwise readers are forced to play divination tricks.
+> >>>>>>>>
+> >>>>>>>> How about something like:
+> >>>>>>>>
+> >>>>>>>>     SHIMLESS_HYPERVISOR
+> >>>>>>>>
+> >>>>>>>> That's arguably not negated, preserves "shim" in the name and has the correct
+> >>>>>>>> polarity for allyesconfig to yield the right thing.
+> >>>>>>> Except that a hypervisor with this option enabled isn't shim-less, but permits
+> >>>>>>> working in shim as well as in non-shim mode.
+> >>>>>> First, let's recognize that we have two opposing requirements. One
+> >>>>>> requirement is to make it as easy as possible to configure for the user.
+> >>>>>> Ideally without using negative CONFIG options, such as
+> >>>>>> NO_PV_SHIM_EXCLUSIVE. From the user point of view, honestly,
+> >>>>>> PV_SHIM_EXCLUSIVE is a pretty good name. Better than all of the others,
+> >>>>>> I think.
+> >>>>>>
+> >>>>>> On the other hand, we have the requirement that we don't want
+> >>>>>> allyesconfig to end up disabling a bunch of CONFIG options. Now this
+> >>>>>> requirement can be satisfied easily by adding something like
+> >>>>>> NO_PV_SHIM_EXCLUSIVE. However, it would go somewhat against the previous
+> >>>>>> requirement.
+> >>>>>>
+> >>>>>> So we need a compromise, something that doesn't end up disabling other
+> >>>>>> CONFIG options, to make allyesconfig happy, but also not too confusing
+> >>>>>> for the user (which is a matter of personal opinion).
+> >>>>>>
+> >>>>>> In short, expect that people will have different opinions on this and
+> >>>>>> will find different compromises better or worse. For one, I prefer to
+> >>>>>> compromise on "no negative CONFIG options" and use
+> >>>>>> PV_SHIM_NOT_EXCLUSIVE. Because it serves the allyesconfig goal, and
+> >>>>>> while it is not as clear as PV_SHIM_EXCLUSIVE, is still better than a
+> >>>>>> completely generic FULL_HYPERVISOR option, which means nothing to me.
+> >>>>>>
+> >>>>>> I cannot see a way to have a good and clear non-negated CONFIG option,
+> >>>>>> and also satisfy the allyesconfig requirement. So I prefer to compromise
+> >>>>>> on the "non-negated" part.
+> >>>>>
+> >>>>> Debating the naming is missing the point.
+> >>>>>
+> >>>>>
+> >>>>> The problem here is the wish to have PV_SHIM_EXCLUSIVE behave in a way
+> >>>>> that Kconfig is not capable of expressing.  Specifically, what is broken
+> >>>>> is having "lower level" options inhibit unrelated "higher level" options
+> >>>>> when the graph gets rescanned[1].  That's why we're in the laughable
+> >>>>> position of `make allyesconfig` turning off CONFIG_HVM.
+> >>>>>
+> >>>>> Jan, you want "echo PV_SHIM_EXCLUSIVE=y >> .config && make" to mean
+> >>>>> "reset me back to a PV Shim".
+> >>>>
+> >>>> Isn't this an independent goal? Or is this a statement on what you see
+> >>>> my change (kind of) doing, indicating you consider this wrong?
+> >>>
+> >>> The way I understood it, it is the latter
+> >>>
+> >>>
+> >>>>> Kconfig spells this "make $foo_defconfig" for an appropriately given foo.
+> >>>>>
+> >>>>>
+> >>>>> There should be:
+> >>>>>
+> >>>>> 1) an option called PV_SHIM_EXCLUSIVE which does *nothing* other than
+> >>>>> making the boolean be a compile time constant.
+> >>>>
+> >>>> I fear it remains unclear to me what exactly you mean here. It feels like
+> >>>> you may be suggesting that all other uses of PV_SHIM_EXCLUSIVE should be
+> >>>> dropped, without replacement. That seems wrong to me, though. In
+> >>>> particular I'm of the opinion that besides using "make pvshim_defconfig"
+> >>>> people ought to also have the option to properly configure a shim build
+> >>>> from scratch (or from any random .config they hold in hands), requiring
+> >>>> respective "depends on" and/or "select" / "imply" to be in place.
+> >>>
+> >>> That should be done with "make pvshim_defconfig"
+> >>
+> >> Why? Specifically, why should people use only one entirely nailed down
+> >> configuration for a shim. Like a "normal" hypervisor, there are aspects
+> >> which very well can be left to the person doing the configuration.
+> > 
+> > But nothing prevents a user from starting from a shim defconfig, and
+> > then tweaking it as desired:
+> > 
+> > $ make pvshim_defconfig
+> > $ make menuconfig
+> > 
+> > Or there's something I'm missing here?
+> 
+> Well, no, you don't. But if the above is okay, why would not starting from
+> pvshim_defconfig not also be okay? Plus whichever way tweaks are done,
+> sensible dependencies should still be enforced imo.
 
-Alignment with the next line.
+Not starting from pvshim_defconfig should always be OK, as the
+defconfig file is just a set of options that the user can otherwise
+enable manually.
 
-> (Really we may want to gain
-> a function-like form to invoke RDMSR, but that's orthogonal to the change
-> here.)
+There are two different things that PV_SHIM_EXCLUSIVE accomplishes:
+ - Use to remove code blocks or change defines:  for example
+   short-circuiting PG_log_dirty to 0.  This should likely be done
+   using a different more fine grained set of Kconfig options.
+ - Convert pv_shim to a compile time constant: this is the tricky part
+   IMO, as such conversion will force DCO and thus make the resulting
+   Xen binary no longer what a user would expect when using
+   allyesconfig.
 
-Indeed.
+> >>>> Or else they may end up with a lot of dead code. (Just consider e.g.
+> >>>> HVM=n: We also don't permit HVM-only stuff to be enabled in that case,
+> >>>> as any of that would again be dead code then.)
+> >>>
+> >>> It will always be possible to come up with poor configurations. I do not
+> >>> believe it is necessarily our responsibility to go out of our way to
+> >>> prevent them.
+> >>
+> >> Well - if so, why would we do this in some cases but not in others?
+> >> You may recall that I'm a proponent of consistency and predictability.
+> >>
+> >>>>> 2) a pvshim_defconfig target which expresses what a pvshim ought to look
+> >>>>> like.
+> >>>>
+> >>>> We have this file already. I consider it debatable though whether this file
+> >>>> should really force PV_SHIM_EXCLUSIVE=y. People may read "pvshim" in the
+> >>>> name as either "works just as shim" or "can also work as shim".
+> >>>
+> >>> If I understood it right, I like Andrew's suggestion. He is suggesting
+> >>> to do the following:
+> >>>
+> >>> - turning PV_SHIM_EXCLUSIVE into something that does nothing
+> >>
+> >> FTAOD - you mean Kconfig-wise? Andrew clearly didn't say "nothing", but
+> >> "nothing other than making the boolean be a compile time constant".
+> > 
+> > Won't making the boolean a compile time constant would also result in
+> > DCO kicking in and removing a fair amount of code?  So even if you
+> > have enabled everything in Kconfig, the resulting hypervisor would
+> > only be suitable to be used as a shim?
+> 
+> Of course.
 
-* def0701b5373 - (xen-nj-msr) switch rdmsrl => rdmsr (30 hours ago)
-<Andrew Cooper>
-* 1a3f92abccf1 - rdmsr (30 hours ago) <Andrew Cooper>
-* 01c9ec7d9482 - rdmsr_safe (30 hours ago) <Andrew Cooper>
-* 7ec72a0379b2 - fix error printing in write_msr() (30 hours ago)
-<Andrew Cooper>
-* 3ff3d60835a5 - drop wrmsrl (30 hours ago) <Andrew Cooper>
-* 136128799b4a - wrmsr cleanup (30 hours ago) <Andrew Cooper>
-* b2ed78d2e7e3 - x86/msr: Move MSR_FEATURE_CONTROL handling to the new
-MSR infrastructure (30 hours ago) <Andrew Cooper>
-* 7691edea3d67 - x86/msr: Clean up the MSR_DEBUGCTL constants (30 hours
-ago) <Andrew Cooper>
-* 77ba2827a955 - x86/msr: Clean up the MSR_MISC_ENABLE constants (30
-hours ago) <Andrew Cooper>
-* 7f2768cfc4b3 - ---upstream--- (30 hours ago) <Andrew Cooper>
-* 8b2e048fdd14 - x86/msr: Introduce msr_{set,clear}_bits() helpers (30
-hours ago) <Andrew Cooper>
-* 562f88503342 - x86/msr: Clean up the MSR_FEATURE_CONTROL constants (30
-hours ago) <Andrew Cooper>
-* 199888c9e2f8 - x86/msr: Clean up the
-MSR_{PLATFORM_INFO,MISC_FEATURES_ENABLES} constants (30 hours ago)
-<Andrew Cooper>
-* c3f5d1bb40b5 - (tag: 4.20.0-rc2, xenbits/staging, xenbits/master,
-upstream/staging, upstream/master, origin/staging, origin/master,
-origin/HEAD, staging, pending, master) automation/cirrus-ci: introduce
-FreeBSD randconfig builds (4 days ago) <Roger Pau Monne>
+Then what's the point of this approach?  Options will be enabled in
+Kconfig, but the resulting hypervisor build when using allyesconfig
+would have a lot of them short-circuited, making it even worse than
+currently?  As options will get effectively build-time disabled due
+to DCO while enabled in Kconfig.
 
-That was work I did while sat in an airport unable to leave XenSummit in
-Nanjing...
+Overall I think PV_SHIM_EXCLUSIVE should be excluded from
+allyesconfig, even with Andrew's proposed change.  Otherwise the
+purpose of allyesconfig is defeated if enabling PV_SHIM_EXCLUSIVE
+makes the resulting hypervisor build PV shim only.  IIRC we can
+provide a default alllyes.config with CONFIG_PV_SHIM_EXCLUSIVE=n.
 
-It's blocked on arguments over naming.
-
-~Andrew
+Thanks, Roger.
 
