@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E833A1826D
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Jan 2025 18:00:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.875631.1286077 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 366F3A1827E
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Jan 2025 18:04:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.875641.1286087 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1taHbt-0005lI-Tq; Tue, 21 Jan 2025 17:00:17 +0000
+	id 1taHg6-0006qH-Cf; Tue, 21 Jan 2025 17:04:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 875631.1286077; Tue, 21 Jan 2025 17:00:17 +0000
+Received: by outflank-mailman (output) from mailman id 875641.1286087; Tue, 21 Jan 2025 17:04:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1taHbt-0005ij-QY; Tue, 21 Jan 2025 17:00:17 +0000
-Received: by outflank-mailman (input) for mailman id 875631;
- Tue, 21 Jan 2025 17:00:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1taHg6-0006ob-A7; Tue, 21 Jan 2025 17:04:38 +0000
+Received: by outflank-mailman (input) for mailman id 875641;
+ Tue, 21 Jan 2025 17:04:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=wvur=UN=gmail.com=urezki@srs-se1.protection.inumbo.net>)
- id 1taHbr-0005id-Q0
- for xen-devel@lists.xenproject.org; Tue, 21 Jan 2025 17:00:15 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2f2b1153-d819-11ef-a0e4-8be0dac302b0;
- Tue, 21 Jan 2025 18:00:14 +0100 (CET)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-53f22fd6832so6170908e87.1
- for <xen-devel@lists.xenproject.org>; Tue, 21 Jan 2025 09:00:14 -0800 (PST)
-Received: from pc636 (host-217-213-93-172.mobileonline.telia.com.
- [217.213.93.172]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5439af76fe9sm1916768e87.212.2025.01.21.09.00.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jan 2025 09:00:12 -0800 (PST)
+ (envelope-from <SRS0=Gode=UN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1taHg5-0006oV-G0
+ for xen-devel@lists.xenproject.org; Tue, 21 Jan 2025 17:04:37 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ca80e822-d819-11ef-99a4-01e77a169b0f;
+ Tue, 21 Jan 2025 18:04:35 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-438a3216fc2so31443905e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Jan 2025 09:04:35 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-437c75298adsm248530265e9.30.2025.01.21.09.04.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 21 Jan 2025 09:04:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,166 +45,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2f2b1153-d819-11ef-a0e4-8be0dac302b0
+X-Inumbo-ID: ca80e822-d819-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1737478814; x=1738083614; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=6O7kZyVX02YaNVvlK+AnjIGslDTljYFtI1mm3L3G+es=;
-        b=MZtQqUN6VI8Z+xYY9kFNJjnjLk3DnCLkjEYBzKlS28hkExIopJp9Dz7mCw1XMYUL3H
-         liXrGfPTg0iEcC6go396nNdpyGXcaweKjo5HxfCq0hsp9hymStUW7EIIHEYteekHzdBe
-         SV60ILQ/YCuT6rf45KyYm+XGRwwpkkNHVUMq94J76Nwi4TgsaBZ+qo6/Gpbc3fNV35+D
-         KKDN/VG7sOhtzjvqsy+552qkRhpejILhZhX2xe5+WavH2+MzQzBXQJ95DgL8UW0ahxjr
-         siKj+N0FCCrvYVD4vWmrPp9imWqDvNRNsaq/u2WpYRlIxvtofciY6ZlN/0EHMSK16bsC
-         axtA==
+        d=suse.com; s=google; t=1737479075; x=1738083875; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=42MoWso1BmGQpEDbQM3c8i2LYn73IupsdAF3ksm2ifk=;
+        b=JBg+dytl3fiiTo4WvLnXfk66lmHqSgfd0UQG+U0RYUc7voAvUX1KYCl1MPhOJPpE4z
+         TkGTAfpIV6X1FhlVewxdvbb02iF7qOSzJb109bg53aQs+vLWLgowMpJvPbD+MMJD+LlV
+         vxZLdhHE9QQ1SmrpCLneTrTM/5T2M0vSD/gHR2MshtlQKzgJYAmx+jJBSbS5iWhegX61
+         G4zLXMAwKGWvXjBGdDkuMjwf8sVQ3Bw2szPlhMTeIIxLlfbbE7fwWShVZm/zwD738w9e
+         H7Wrd4lOT0Meq+4tzJnM7J8ZEFgTtvGWgl5njAahqfQJBkq/CMg+OV3Zji2cuJrNEbEH
+         zpXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737478814; x=1738083614;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1737479075; x=1738083875;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6O7kZyVX02YaNVvlK+AnjIGslDTljYFtI1mm3L3G+es=;
-        b=HlNwhenZ7C/zgjWoWXYgWElpSlYU4rTjG4La4/D9bOXf1YlWN5JskJlbR9eG6K8hYn
-         tMJWJl3Xy5nG0B32yY3QSNFV5M72y8SP+rqafnVlidngrxcllohvOC2LJy9Z3rKQccVr
-         1/ASP0HEMC+XvGp8lYwh/KVRF0fNDduKI4b3keBx5LJqcmO06w5i1SmWZ550FXimPXUe
-         pEeb3qt1udPw0fT+BJlMafYib/yROJjPtJSFROSt7nwENxFmSM+qpFLcTY8VnZuiDpJu
-         WL3Hmwfbwyvv4L1mZsTnD6STEBvljpaOuqjZenXE2w2GKqSk/rp/TQpn2B2UsUGz66/C
-         sglw==
-X-Forwarded-Encrypted: i=1; AJvYcCXe2Yg88AEi0BMPtie0ef9QpWa6A/qGWe9yJ4hizZHQI7lCqVHFwEbLnBiWuCeCcO+STGawevjkJSA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzW7dAdcbg+Gax+oI4MBNhqHnvWE2vilfWSosVFdcH0QZaHCkZ0
-	vBXnVBH7Cd6fJZfiyYePgv47s6wY41Es1W0GO5+xO2DFF6eOAbHF
-X-Gm-Gg: ASbGnctArsRnWjYmB8lCpSqv6JWRLsU3F+59NEOP8xwE4/e3XZCHrTTmzoY8Zp3chE0
-	PhZowO0DN6EFiJ5l+LcdcJ7iFjDv3Z78HW2weuSK+B8tLPksC5KutRtM84O/KvkLwpt7Yj9FTF0
-	/zVA//AEMMZxtPezOko7NsJ6uXD7x5afyIxgMEHOX2cfDzarRnoim/fd2dQqOHUNRn9zkNlIl5B
-	UXUBV/mGHPCGrZbrH/sW3v6+06SwAqYupLvrDBUnTHdBL/jkW3aGQ24CsCWmtcdxYFyJFwX3QVg
-	kninqJiph2dfR3fplSAeNM7u
-X-Google-Smtp-Source: AGHT+IGYPF71D1RmaKnbW82c+U5IMmpDPZJTk/HJCRRaq5z7S90tH0rTVzhA6Sl8Kwc0O/33Vf8jgg==
-X-Received: by 2002:a05:6512:104b:b0:543:9b0f:7d39 with SMTP id 2adb3069b0e04-5439c282920mr7151519e87.32.1737478813837;
-        Tue, 21 Jan 2025 09:00:13 -0800 (PST)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@pc636>
-Date: Tue, 21 Jan 2025 18:00:07 +0100
-To: Valentin Schneider <vschneid@redhat.com>
-Cc: Uladzislau Rezki <urezki@gmail.com>, Jann Horn <jannh@google.com>,
-	linux-kernel@vger.kernel.org, x86@kernel.org,
-	virtualization@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
-	linux-riscv@lists.infradead.org, linux-perf-users@vger.kernel.org,
-	xen-devel@lists.xenproject.org, kvm@vger.kernel.org,
-	linux-arch@vger.kernel.org, rcu@vger.kernel.org,
-	linux-hardening@vger.kernel.org, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, bpf@vger.kernel.org,
-	bcm-kernel-feedback-list@broadcom.com,
-	Juergen Gross <jgross@suse.com>,
-	Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.amakhalov@broadcom.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	"Liang, Kan" <kan.liang@linux.intel.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Andy Lutomirski <luto@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Jason Baron <jbaron@akamai.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joel@joelfernandes.org>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun.feng@gmail.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang1211@gmail.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Clark Williams <williams@redhat.com>,
-	Yair Podemsky <ypodemsk@redhat.com>,
-	Tomas Glozar <tglozar@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Kees Cook <kees@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Christoph Hellwig <hch@infradead.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Miguel Ojeda <ojeda@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Rong Xu <xur@google.com>,
-	Nicolas Saenz Julienne <nsaenzju@redhat.com>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Yosry Ahmed <yosryahmed@google.com>,
-	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
-	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
-	Jinghao Jia <jinghao7@illinois.edu>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Tiezhu Yang <yangtiezhu@loongson.cn>
-Subject: Re: [PATCH v4 29/30] x86/mm, mm/vmalloc: Defer
- flush_tlb_kernel_range() targeting NOHZ_FULL CPUs
-Message-ID: <Z4_Sl-zu7GprkbaL@pc636>
-References: <20250114175143.81438-1-vschneid@redhat.com>
- <20250114175143.81438-30-vschneid@redhat.com>
- <CAG48ez1Mh+DOy0ysOo7Qioxh1W7xWQyK9CLGNU9TGOsLXbg=gQ@mail.gmail.com>
- <xhsmh34hhh37q.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
- <Z4qBMqcMg16p57av@pc636>
- <xhsmhwmetfk9d.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
- <Z44wSJTXknQVKWb0@pc636>
- <xhsmhr04xfow1.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
+        bh=42MoWso1BmGQpEDbQM3c8i2LYn73IupsdAF3ksm2ifk=;
+        b=wnWEApBmS087gVqWgTeJxlcvumPV8kTKGpsk1DKj1P1jRWUhXeKNQ/A1Q62MAYNHO9
+         3mAUu7z2bmlCRWdpeRnjkdS8l9ViGI7EIThDg9L9DEOR+VFq8iwxbcf78c6bAC3YGhY3
+         JwdzfRBwFdwhfHuQ9O5g4Rh62XxCYcLytOSYdBAkrJBO2cO/2La3lwYKf7tzg6p1OWMV
+         z70OYYOgxzAD2eLUXB/JE6ChQrT3DtoVRRiuMCrVSZqFDpniGWGdPdp4sgG3bqIv8TKp
+         rHOwmvljMLS40xmOB62innNYWn4oeWGGCYrYdSXes1VhONATiur5+B3CXc40fE11wlaV
+         JnwQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX1YEaG5/nX+1dPJrdV6T1r+RNpVkM3MlFXcik/lq42SqF7aki6wcAr5AaxMpTBNf5UeKPbeRtMi6g=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxEWKFrNBr8P8bl1akg+V6jvzz/lIH3ZjIsvC/Hw/QeDDhSkjYy
+	gUF/SaxdVIuMXhiueM0hlcBX3M0H0gGqNALACt0CwbscI+UgfSfR0oQOmvS1PA==
+X-Gm-Gg: ASbGnctWKckfd7RdSrp66xiXFo6xGw4Nh9//NKmpYlBN+JrbeYLBOPCNBs66IBXs2Jn
+	p++HNg9Xsc3CQw7uK7Fng7XIqSMk30q+ugBvyjNHasA/jE+C3HrQFbkDBErI3LpAEqZ7z0uS35v
+	Dy1PXXRNHP6DdTJMFyLIGL9OFK75OupgpqRGctxypX5y7JMgZECwRuE7nTMmx21m8cadVFObmt5
+	Jig8ESfSkYytkd81EdIwgcq2ESif8Q8pBoVI5rBeiSRyl/SfRze/GRiOBgoabB5M7t0Omio8i3W
+	+M/IGrJybm8cOz2ivMuhElg48Juj4lzzQeBCsmBD8nkV7jN89NU4NHE=
+X-Google-Smtp-Source: AGHT+IEkABKMT+dXN1ujGpLRwwiARZqTdWN1FzdFhlY4bctwIEx0gIDcYl9E1l0rmoHXsR4a8PyItA==
+X-Received: by 2002:a05:600c:3b26:b0:434:a0bf:98ea with SMTP id 5b1f17b1804b1-438913cd4a1mr158634355e9.9.1737479074940;
+        Tue, 21 Jan 2025 09:04:34 -0800 (PST)
+Message-ID: <741f15ea-2c54-4e02-8be6-bcce10c7393b@suse.com>
+Date: Tue, 21 Jan 2025 18:04:33 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <xhsmhr04xfow1.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.20 v2] x86/intel: Fix PERF_GLOBAL fixup when
+ virtualised
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Jonathan Katz <jonathan.katz@aptar.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250121142510.358996-1-andrew.cooper3@citrix.com>
+ <20250121165626.380627-1-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250121165626.380627-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-> >
-> > As noted before, we defer flushing for vmalloc. We have a lazy-threshold
-> > which can be exposed(if you need it) over sysfs for tuning. So, we can add it.
-> >
-> 
-> In a CPU isolation / NOHZ_FULL context, isolated CPUs will be running a
-> single userspace application that will never enter the kernel, unless
-> forced to by some interference (e.g. IPI sent from a housekeeping CPU).
-> 
-> Increasing the lazy threshold would unfortunately only delay the
-> interference - housekeeping CPUs are free to run whatever, and so they will
-> eventually cause the lazy threshold to be hit and IPI all the CPUs,
-> including the isolated/NOHZ_FULL ones.
-> 
-Do you have any testing results for your workload? I mean how much
-potentially we can allocate. Again, maybe it is just enough to back
-and once per-hour offload it.
+On 21.01.2025 17:56, Andrew Cooper wrote:
+> --- a/xen/arch/x86/cpu/intel.c
+> +++ b/xen/arch/x86/cpu/intel.c
+> @@ -535,39 +535,49 @@ static void intel_log_freq(const struct cpuinfo_x86 *c)
+>      printk("%u MHz\n", (factor * max_ratio + 50) / 100);
+>  }
+>  
+> +static void init_intel_perf(struct cpuinfo_x86 *c)
+> +{
+> +    uint64_t val;
+> +    unsigned int eax, ver, nr_cnt;
+> +
+> +    if ( c->cpuid_level <= 9 ||
+> +         ({  rdmsrl(MSR_IA32_MISC_ENABLE, val);
 
-Apart of that how critical IPIing CPUs affect your workloads?
+Just curious (not an objection or anything): Is there a reason you have
+two padding blanks here instead of just one? (Really we may want to gain
+a function-like form to invoke RDMSR, but that's orthogonal to the change
+here.)
 
-> I was thinking maybe we could subdivide the vmap space into two regions
-> with their own thresholds, but a task may allocate/vmap stuff while on a HK
-> CPU and be moved to an isolated CPU afterwards, and also I still don't have
-> any strong guarantee about what accesses an isolated CPU can do in its
-> early entry code :(
-> 
-I agree this is not worth to play with a vmap space in terms of splitting it.
-
-Sorry for later answer and thank you!
-
---
-Uladzislau Rezki
+Jan
 
