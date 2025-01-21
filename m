@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD121A17A2E
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Jan 2025 10:29:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.875198.1285579 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83258A17AAD
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Jan 2025 10:57:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.875232.1285674 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1taAZM-0001Mh-Ly; Tue, 21 Jan 2025 09:29:12 +0000
+	id 1taB0Y-0006VM-OL; Tue, 21 Jan 2025 09:57:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 875198.1285579; Tue, 21 Jan 2025 09:29:12 +0000
+Received: by outflank-mailman (output) from mailman id 875232.1285674; Tue, 21 Jan 2025 09:57:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1taAZM-0001KM-Ie; Tue, 21 Jan 2025 09:29:12 +0000
-Received: by outflank-mailman (input) for mailman id 875198;
- Tue, 21 Jan 2025 09:29:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1taB0Y-0006SL-LY; Tue, 21 Jan 2025 09:57:18 +0000
+Received: by outflank-mailman (input) for mailman id 875232;
+ Tue, 21 Jan 2025 09:57:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jEc5=UN=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1taAZK-0001KG-9l
- for xen-devel@lists.xenproject.org; Tue, 21 Jan 2025 09:29:10 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2a79241b-d7da-11ef-a0e4-8be0dac302b0;
- Tue, 21 Jan 2025 10:29:09 +0100 (CET)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-aaf900cc7fbso894483766b.3
- for <xen-devel@lists.xenproject.org>; Tue, 21 Jan 2025 01:29:08 -0800 (PST)
+ id 1taB0X-0006SF-Dw
+ for xen-devel@lists.xenproject.org; Tue, 21 Jan 2025 09:57:17 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 178893a7-d7de-11ef-99a4-01e77a169b0f;
+ Tue, 21 Jan 2025 10:57:15 +0100 (CET)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-5d9f0a6ad83so1864995a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Jan 2025 01:57:15 -0800 (PST)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab644adb658sm57199666b.134.2025.01.21.01.29.07
+ a640c23a62f3a-ab384f22fdesm720781366b.89.2025.01.21.01.57.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jan 2025 01:29:07 -0800 (PST)
+ Tue, 21 Jan 2025 01:57:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,119 +44,231 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2a79241b-d7da-11ef-a0e4-8be0dac302b0
+X-Inumbo-ID: 178893a7-d7de-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1737451748; x=1738056548; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=GvJEpUlaCpSa5xrAbtwL2ucNycSaZ8DMf4Zq0g3iUCE=;
-        b=bn6abcNGIFrmamYxXvqxSsK2oyqCFO8sdPxCnb5AU1n+Dgh12mNfLMSjOK9i4O5SOm
-         QlZYil7zLF056IFTG4Zai4BpZgK0i9OzG0lwToJENemlzAYxyaz+GnYpNN/5Ik6jCLQU
-         JIshCyI+lHiKKaDjqcHNyyEaRp9V1h+DP2PJE=
+        d=citrix.com; s=google; t=1737453434; x=1738058234; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=JLq/1/TKHChK/00HofyD4lzzmkRQv59j49Ig1IX6vnk=;
+        b=YVFOIFuwVGaipQYwxCU/9Svap/edFFUqCrvJeOUe4XWd3GjqzT5yOwlxKg5lnpNZWA
+         bGw54ElSIWCJNDuUWBfwL2cvJdLLtj99o7Y2TH8dVpIXTMrGooh21oGTHXu+lNH4bueU
+         0SSrsaci13APlPdI80rSz7K9Ya81o40T18kX4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737451748; x=1738056548;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=GvJEpUlaCpSa5xrAbtwL2ucNycSaZ8DMf4Zq0g3iUCE=;
-        b=Hw+Ugm5u8hzSXzY8SLDs+rU9Hnn7BjHDrPmsuiHW3PbQHfUKzbzSTL2JO8iX9wD+N8
-         KjEHJY8A+8c9W5r7k9RF4sYR7Sfz0S4z2P5wVc4qwHVZy65E2IQXhhzVo+iDKfBVlytU
-         ydsvh2066dUZfn52W83ZYj2luWFSYF0iFvr7GrXv8Ko6NJ3C1gZixKRudlinYnmFAlkc
-         RQwvnhqMeAsl42ElHZH0u6+vaKM72M9DXYJPqp6o5dnfJpdyGxPM/llelnQ9GyHPb8UW
-         1GSzxz4h1oqGjJ5hUzdcs29HNwD9f89rL+n14JhrN6mpsYRmMQKJ2xEpbQ9YuoBsakhz
-         bGBw==
-X-Forwarded-Encrypted: i=1; AJvYcCVElCcqYbTIwcRbK+cfop/QrzyeuMo+EH/aUGjiIHp1X99f95DtFtGVWoBiF0cQN+D2vwSm+r+NGqY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxYq8dKeGKd0wtBDRAcJK5M52K7kEW89Nn2O/wdZG/QAN369U1e
-	EdfAbvOGrK3sFGgtW8D80+Xv0CWiKRl3twV2VdFQ56T5EfCJJ9BuoDw/AlyFyZ4=
-X-Gm-Gg: ASbGncvyDY5CURB1bvPIAaof5OENNjPUaQySqa9CHNbpGsRY44Vw6v54bxGbWqzPWYg
-	OD+vTNDgrUprWdf+PkvBnVgP84kpI5QXqDYthicFNGcEUOH18gKdrBtS0Y5ApqZvMhzlTwaegf4
-	Slx49C8V004/C3OkrZXq04CLTEFdarGMpRCcPz1RagZXTeO9rHYlou+a5CAa4B8kPp7KS7sFhP8
-	DPfOuAxQfm2o+wnbVmxr8YBhCaxpAIvrNexwGbssm+9u8uNGUrpYBD3FcPJTCZwHagVt2zxkwk=
-X-Google-Smtp-Source: AGHT+IGswEwVXXzTKLYyvM7Jam5pW0T7DgM5GLV0NMC4GIai2nKx2ULjAk42kPDcqavcwsds+qxWyA==
-X-Received: by 2002:a17:907:2d2c:b0:ab2:faed:f180 with SMTP id a640c23a62f3a-ab38b18bf29mr1705692866b.33.1737451748250;
-        Tue, 21 Jan 2025 01:29:08 -0800 (PST)
-Date: Tue, 21 Jan 2025 10:29:06 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	"Huang, Ray" <Ray.Huang@amd.com>
-Subject: Re: [PATCH v5] vpci: Add resizable bar support
-Message-ID: <Z49o4iyY7vPhz2ow@macbook.local>
-References: <20250114032636.3698383-1-Jiqian.Chen@amd.com>
- <Z49e8NmROzke-tYc@macbook.local>
- <BL1PR12MB58492016DDBB106A607F32CDE7E62@BL1PR12MB5849.namprd12.prod.outlook.com>
+        d=1e100.net; s=20230601; t=1737453434; x=1738058234;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=JLq/1/TKHChK/00HofyD4lzzmkRQv59j49Ig1IX6vnk=;
+        b=fBh3d1dD0H9Z8owQVHTfLVvz3Gus4/tvIV7wB2+7TzjJ9c07EaNqdxNLeyEOBN9eyQ
+         1UdPvHmteuEtF1WWrKgV4TzyqPyjzxe3U/sMYzxAhzrHQBViw/H1gYRinpczZ4Q8v5+C
+         4O5wlgH7wbqbCJzqpOE7f7M+qlKLO6hdL3ORbn9RyQBXmbu7Ifo4Iy+EnbFeN/eRmLt2
+         oqHx9xnWcwWyb+GY3a6C3I0VjtjurxrWnzxgE+HRnJ+mA/e2IT/sJacNFRWRm0gd/Oa7
+         mJZuQEXONrXNEyZjIDNlsEzqbvguTfyncsbM/AXUw1VwsLdWZsssKUM9kQUpKb0uPn44
+         2M0A==
+X-Gm-Message-State: AOJu0YzTc7b5ulfEiVs80zZ674cSaP8atoT7lv1y4A+gFH78Mq/4JdX1
+	D1kSiXhkSqwW5VqVr4wHL4dqZOtK+egY734stG2HN0c/Rdo7Ki90WYS6QpP3oGBQY441X4pQtvm
+	s
+X-Gm-Gg: ASbGncv2tBWsr4n+1WTWlJaQRnSFw/Tp0QIlYyfIVwlNldzhx49u0j1el0mAwiIjXo0
+	33rarxpadBpaHdKxB0D/bNUhqbHetAVGArd3H7d3t6jf8wAj6soHQHDluWA/sE+sFfVWqkKjG6m
+	TjI89dg3sJUDfP7VHY0e02BlImgSwuKSk1ugptBaVSpmCtYR1zNuVv4QizJJAMEeKXIOxTfqBmY
+	+J+Ro3hdh8TIBSraAyIZNeu7VXRnnMcSlmzOjG1fbXkGMafjMq4bQ0cCuIGYyVnmPEu00GFTILD
+	aEUJ
+X-Google-Smtp-Source: AGHT+IHcgiXHgAMe1LbUuoPDB4nCxqK3qTBmqrJxS+RM4BGJBFhOGNBA4zgJ516v7Bn7w3Sa93pYxQ==
+X-Received: by 2002:a17:906:dc8c:b0:ab2:f937:b3aa with SMTP id a640c23a62f3a-ab38b4cff42mr1545982566b.56.1737453434167;
+        Tue, 21 Jan 2025 01:57:14 -0800 (PST)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH] iommu/amd: atomically update IRTE if supported
+Date: Tue, 21 Jan 2025 10:57:04 +0100
+Message-ID: <20250121095704.18769-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <BL1PR12MB58492016DDBB106A607F32CDE7E62@BL1PR12MB5849.namprd12.prod.outlook.com>
 
-On Tue, Jan 21, 2025 at 09:10:26AM +0000, Chen, Jiqian wrote:
-> On 2025/1/21 16:46, Roger Pau Monné wrote:
-> > On Tue, Jan 14, 2025 at 11:26:36AM +0800, Jiqian Chen wrote:
-> >> +    ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL(0));
-> >> +    nbars = MASK_EXTR(ctrl, PCI_REBAR_CTRL_NBAR_MASK);
-> >> +    for ( unsigned int i = 0; i < nbars; i++ )
-> >> +    {
-> >> +        int rc;
-> >> +        struct vpci_bar *bar;
-> >> +        unsigned int index;
-> >> +
-> >> +        ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL(i));
-> >> +        index = ctrl & PCI_REBAR_CTRL_BAR_IDX;
-> >> +        if ( index >= PCI_HEADER_NORMAL_NR_BARS )
-> >> +        {
-> >> +            printk(XENLOG_ERR "%pd %pp: too big BAR number %u in REBAR_CTRL\n",
-> >> +                   pdev->domain, &pdev->sbdf, index);
-> >> +            continue;
-> >> +        }
-> >> +
-> >> +        bar = &pdev->vpci->header.bars[index];
-> >> +        if ( bar->type != VPCI_BAR_MEM64_LO && bar->type != VPCI_BAR_MEM32 )
-> >> +        {
-> >> +            printk(XENLOG_ERR "%pd %pp: BAR%u is not in memory space\n",
-> >> +                   pdev->domain, &pdev->sbdf, index);
-> >> +            continue;
-> >> +        }
-> >> +
-> >> +        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, vpci_hw_write32,
-> >> +                               rebar_offset + PCI_REBAR_CAP(i), 4, NULL);
-> >> +        if ( rc )
-> >> +        {
-> >> +            /*
-> >> +             * TODO: for failed pathes, need to hide ReBar capability
-> >> +             * from hardware domain instead of returning an error.
-> >> +             */
-> >> +            printk(XENLOG_ERR "%pd %pp: fail to add reg of REBAR_CAP rc=%d\n",
-> >> +                   pdev->domain, &pdev->sbdf, rc);
-> >> +            return rc;
-> >> +        }
-> >> +
-> >> +        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, rebar_ctrl_write,
-> >> +                               rebar_offset + PCI_REBAR_CTRL(i), 4, bar);
-> >> +        if ( rc )
-> >> +        {
-> >> +            printk(XENLOG_ERR "%pd %pp: fail to add reg of REBAR_CTRL rc=%d\n",
-> >> +                   pdev->domain, &pdev->sbdf, rc);
-> >> +            return rc;
-> > 
-> > I think we said we wanted to attempt to continue here, rather than
-> > returning an error and thus removing all vPCI handlers from the
-> > device?
-> I thought the result of your discussion with Jan was that I only needed to change the above two error paths to be "continue".
-> If these two also need to be changed, I will modify them in the next version.
+If using a 32bit Interrupt Remapping Entry or a 128bit one and the CPU
+supports 128bit cmpxchg don't disable the entry by setting RemapEn = 0
+ahead of updating it.  As a consequence of not toggling RemapEn ahead of
+the update the Interrupt Remapping Table needs to be flushed after the
+entry update.
 
-Hm, let's wait for Jan to confirm, but even if handler cannot be setup
-for some of the registers, it's better than just allowing dom0
-unmediated access to the capability.
+This avoids a window where the IRTE has RemapEn = 0, which can lead to
+IO_PAGE_FAULT if the underlying interrupt source is not masked.
 
-None of this is ideal, but it seems to be the option that gives dom0
-most options to successfully boot.
+There's no guidance in AMD-Vi specification about how IRTE update should be
+performed as opposed to DTE updating which has specific guidance.  However
+DTE updating claims that reads will always be at least 128bits in size, and
+hence for the purposes here assume that reads and caching of the IRTE
+entries in either 32 or 128 bit format will be done atomically from
+the IOMMU.
 
-Thanks, Roger.
+Note that as part of introducing a new raw128 field in the IRTE struct, the
+current raw field is renamed to raw64 to explicitly contain the size in the
+field name.
+
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/drivers/passthrough/amd/iommu_intr.c | 68 ++++++++++++++++++------
+ 1 file changed, 53 insertions(+), 15 deletions(-)
+
+diff --git a/xen/drivers/passthrough/amd/iommu_intr.c b/xen/drivers/passthrough/amd/iommu_intr.c
+index 7fc796dec25b..efa9ddc62458 100644
+--- a/xen/drivers/passthrough/amd/iommu_intr.c
++++ b/xen/drivers/passthrough/amd/iommu_intr.c
+@@ -39,7 +39,8 @@ union irte32 {
+ };
+ 
+ union irte128 {
+-    uint64_t raw[2];
++    uint64_t raw64[2];
++    __uint128_t raw128;
+     struct {
+         bool remap_en:1;
+         bool sup_io_pf:1;
+@@ -187,7 +188,7 @@ static void free_intremap_entry(const struct amd_iommu *iommu,
+ 
+     if ( iommu->ctrl.ga_en )
+     {
+-        ACCESS_ONCE(entry.ptr128->raw[0]) = 0;
++        ACCESS_ONCE(entry.ptr128->raw64[0]) = 0;
+         /*
+          * Low half (containing RemapEn) needs to be cleared first.  Note that
+          * strictly speaking smp_wmb() isn't enough, as conceptually it expands
+@@ -197,7 +198,7 @@ static void free_intremap_entry(const struct amd_iommu *iommu,
+          * variant will do.
+          */
+         smp_wmb();
+-        entry.ptr128->raw[1] = 0;
++        entry.ptr128->raw64[1] = 0;
+     }
+     else
+         ACCESS_ONCE(entry.ptr32->raw) = 0;
+@@ -223,14 +224,36 @@ static void update_intremap_entry(const struct amd_iommu *iommu,
+             },
+         };
+ 
+-        ASSERT(!entry.ptr128->full.remap_en);
+-        entry.ptr128->raw[1] = irte.raw[1];
+-        /*
+-         * High half needs to be set before low one (containing RemapEn).  See
+-         * comment in free_intremap_entry() regarding the choice of barrier.
+-         */
+-        smp_wmb();
+-        ACCESS_ONCE(entry.ptr128->raw[0]) = irte.raw[0];
++        if ( cpu_has_cx16 )
++        {
++            __uint128_t old = entry.ptr128->raw128;
++            __uint128_t res = cmpxchg16b(&entry.ptr128->raw128, &old,
++                                         &irte.raw128);
++
++            /*
++             * Hardware does not update the IRTE behind our backs, so the
++             * return value should match "old".
++             */
++            if ( res != old )
++            {
++                printk(XENLOG_ERR
++                       "unexpected IRTE %016lx_%016lx (expected %016lx_%016lx)\n",
++                       (uint64_t)(res >> 64), (uint64_t)res,
++                       (uint64_t)(old >> 64), (uint64_t)old);
++                BUG();
++            }
++        }
++        else
++        {
++            ASSERT(!entry.ptr128->full.remap_en);
++            entry.ptr128->raw64[1] = irte.raw64[1];
++            /*
++             * High half needs to be set before low one (containing RemapEn).  See
++             * comment in free_intremap_entry() regarding the choice of barrier.
++             */
++            smp_wmb();
++            ACCESS_ONCE(entry.ptr128->raw64[0]) = irte.raw64[0];
++        }
+     }
+     else
+     {
+@@ -300,7 +323,8 @@ static int update_intremap_entry_from_ioapic(
+     entry = get_intremap_entry(iommu, req_id, offset);
+ 
+     /* The RemapEn fields match for all formats. */
+-    while ( iommu->enabled && entry.ptr32->flds.remap_en )
++    while ( iommu->enabled && entry.ptr32->flds.remap_en &&
++            iommu->ctrl.ga_en && !cpu_has_cx16 )
+     {
+         entry.ptr32->flds.remap_en = false;
+         spin_unlock(lock);
+@@ -314,6 +338,9 @@ static int update_intremap_entry_from_ioapic(
+ 
+     spin_unlock_irqrestore(lock, flags);
+ 
++    if ( iommu->enabled && !fresh && (!iommu->ctrl.ga_en || cpu_has_cx16) )
++        amd_iommu_flush_intremap(iommu, req_id);
++
+     set_rte_index(rte, offset);
+ 
+     return 0;
+@@ -425,6 +452,7 @@ static int update_intremap_entry_from_msi_msg(
+     uint8_t delivery_mode, vector, dest_mode;
+     spinlock_t *lock;
+     unsigned int dest, offset, i;
++    bool fresh = false;
+ 
+     req_id = get_dma_requestor_id(iommu->seg, bdf);
+     alias_id = get_intremap_requestor_id(iommu->seg, bdf);
+@@ -468,12 +496,14 @@ static int update_intremap_entry_from_msi_msg(
+             return -ENOSPC;
+         }
+         *remap_index = offset;
++        fresh = true;
+     }
+ 
+     entry = get_intremap_entry(iommu, req_id, offset);
+ 
+     /* The RemapEn fields match for all formats. */
+-    while ( iommu->enabled && entry.ptr32->flds.remap_en )
++    while ( iommu->enabled && entry.ptr32->flds.remap_en &&
++            iommu->ctrl.ga_en && !cpu_has_cx16 )
+     {
+         entry.ptr32->flds.remap_en = false;
+         spin_unlock(lock);
+@@ -488,6 +518,13 @@ static int update_intremap_entry_from_msi_msg(
+     update_intremap_entry(iommu, entry, vector, delivery_mode, dest_mode, dest);
+     spin_unlock_irqrestore(lock, flags);
+ 
++    if ( iommu->enabled && !fresh && (!iommu->ctrl.ga_en || cpu_has_cx16) )
++    {
++        amd_iommu_flush_intremap(iommu, req_id);
++        if ( alias_id != req_id )
++            amd_iommu_flush_intremap(iommu, alias_id);
++    }
++
+     *data = (msg->data & ~(INTREMAP_MAX_ENTRIES - 1)) | offset;
+ 
+     /*
+@@ -722,7 +759,7 @@ static void dump_intremap_table(const struct amd_iommu *iommu,
+     for ( count = 0; count < nr; count++ )
+     {
+         if ( iommu->ctrl.ga_en
+-             ? !tbl.ptr128[count].raw[0] && !tbl.ptr128[count].raw[1]
++             ? !tbl.ptr128[count].raw64[0] && !tbl.ptr128[count].raw64[1]
+              : !tbl.ptr32[count].raw )
+                 continue;
+ 
+@@ -735,7 +772,8 @@ static void dump_intremap_table(const struct amd_iommu *iommu,
+ 
+         if ( iommu->ctrl.ga_en )
+             printk("    IRTE[%03x] %016lx_%016lx\n",
+-                   count, tbl.ptr128[count].raw[1], tbl.ptr128[count].raw[0]);
++                   count, tbl.ptr128[count].raw64[1],
++                   tbl.ptr128[count].raw64[0]);
+         else
+             printk("    IRTE[%03x] %08x\n", count, tbl.ptr32[count].raw);
+     }
+-- 
+2.46.0
+
 
