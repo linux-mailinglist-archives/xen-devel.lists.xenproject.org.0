@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04DF9A17B23
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Jan 2025 11:14:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.875251.1285694 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BF60A17B42
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Jan 2025 11:18:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.875258.1285704 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1taBGt-0001gz-A6; Tue, 21 Jan 2025 10:14:11 +0000
+	id 1taBKN-0002GZ-PM; Tue, 21 Jan 2025 10:17:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 875251.1285694; Tue, 21 Jan 2025 10:14:11 +0000
+Received: by outflank-mailman (output) from mailman id 875258.1285704; Tue, 21 Jan 2025 10:17:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1taBGt-0001f0-7S; Tue, 21 Jan 2025 10:14:11 +0000
-Received: by outflank-mailman (input) for mailman id 875251;
- Tue, 21 Jan 2025 10:14:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1taBKN-0002Ev-LI; Tue, 21 Jan 2025 10:17:47 +0000
+Received: by outflank-mailman (input) for mailman id 875258;
+ Tue, 21 Jan 2025 10:17:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=abyW=UN=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1taBGs-00019Q-21
- for xen-devel@lists.xenproject.org; Tue, 21 Jan 2025 10:14:10 +0000
-Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
- [2001:4860:4864:20::31])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 73cd04df-d7e0-11ef-a0e4-8be0dac302b0;
- Tue, 21 Jan 2025 11:14:09 +0100 (CET)
-Received: by mail-oa1-x31.google.com with SMTP id
- 586e51a60fabf-2a8690dcb35so1790274fac.3
- for <xen-devel@lists.xenproject.org>; Tue, 21 Jan 2025 02:14:09 -0800 (PST)
+ <SRS0=fb3U=UN=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
+ id 1taBKM-0002Ep-C9
+ for xen-devel@lists.xenproject.org; Tue, 21 Jan 2025 10:17:46 +0000
+Received: from fforwardh-b2-smtp.messagingengine.com
+ (fforwardh-b2-smtp.messagingengine.com [202.12.124.197])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f3799fb8-d7e0-11ef-99a4-01e77a169b0f;
+ Tue, 21 Jan 2025 11:17:43 +0100 (CET)
+Received: from phl-compute-06.internal (phl-compute-06.phl.internal
+ [10.202.2.46])
+ by mailfforwardh.stl.internal (Postfix) with ESMTP id E1FE21740127;
+ Tue, 21 Jan 2025 05:17:41 -0500 (EST)
+Received: from phl-frontend-02 ([10.202.2.161])
+ by phl-compute-06.internal (MEProxy); Tue, 21 Jan 2025 05:17:42 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 21 Jan 2025 05:17:39 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,74 +45,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 73cd04df-d7e0-11ef-a0e4-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1737454448; x=1738059248; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vrwCgFpGhvioWbjjmWesN6tqEnMoFZb0MgDSm3GqrOw=;
-        b=gXU06Q5g3CVJL9sDbJPgpqJ8L/SRWQOwZleHiR6eykYr8/tCirV41hjHnb3esInHr/
-         iObuWfqqwVSIY5Us3spZwBDl/XCw/v9B30Bm2dZTtbJM1Y9uoeJcA0E3TiazbVPZ+b1G
-         ZqkyBMMIcTQospWXKu1Sl7RHsMmokK58pOtpA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737454448; x=1738059248;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=vrwCgFpGhvioWbjjmWesN6tqEnMoFZb0MgDSm3GqrOw=;
-        b=TTW1kR55SpKLKucnzR7YFzjzmnj0CZ8WA5M9Uwz6Nj3Haw9GcXsNOytZxdmODJyVZ2
-         mXo5/kVe78O0+9f7Dd6YiapaX/6mrKuAgXELoHXpT8HYGYAlAEPgojVwZTOfhIcKB5Su
-         2yPx61DXMRUeBUzj5hhCy7wEljIzm8TrmRBIOuM82Qb7kVsaLmleobH0lJa8BVHLRh/q
-         kgaMckqwNjE62lBrlD8AnZjjo2hYBLCR/fG18RcS9MhD/lsP+6G7knwJM+UcxZemiLSq
-         epo7YcdM98q/av1bkGuph0hw9NqF+KPTHhbVDcWejlXGZFKOdGphKObroQBm5xcJtpn5
-         xY4g==
-X-Gm-Message-State: AOJu0YzcgUOUPBjEVB4PXLztc2qZFa7P1E39pssFF637HeEv+/kFmF+h
-	LIaAMt4/RhzUgK11U/ifj9WVXlfvLw7Gw/YUZNWc29YO4n5UzZAW+hzPlM96Dlp43v0tBEgQm5v
-	Wbf5GT1oo+nkxV866S5Ffq9nwMu8VoV3oAIUJ
-X-Gm-Gg: ASbGncvX0zt/L8vCgJFYjpVqA0JvutixFpyHeqY8BIpAC/VchqT7bq72Z6bGMV4NNEB
-	3KkWVgeL+OYnPG15Wq79TY4OhNt/Vu40/mQhBEejNUxS2ZHaY7A==
-X-Google-Smtp-Source: AGHT+IGI3+dV2kc5H5TBxUN/oFa5UzTmoLuTgpUYKclPHbvqgj3pdBRh/G5gqwka4Q1OMeC7xlmviwpc9QfrMnFiGaQ=
-X-Received: by 2002:a05:6870:4f0b:b0:29e:7dd8:92b1 with SMTP id
- 586e51a60fabf-2b1c0c01e40mr8642567fac.24.1737454448172; Tue, 21 Jan 2025
- 02:14:08 -0800 (PST)
+X-Inumbo-ID: f3799fb8-d7e0-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1737454661; x=1737541061; bh=OBw60GEEhVQWibPY0f38eIS0+A3cujIKzzL
+	MMlGQtkI=; b=U0M5Y1WW1639D8DhQqTaOGPUFzQizqxKkqpp18ak0sfXgsWImAx
+	UoHNZgny8E5SAUr+v+FSs1IoMWAF4SrJvLkJX1ugvWMLD0SmAM7Y0DvCOIqtW5Po
+	pwIM3QcJFT67rLJTR/QvRnytGJ4xwlWEpl20EnpKWiyigXc2UJ1Vn4fQax/knrJe
+	o8sxOGgFN4efRHZ7XfoY+TwIX6cO9YRdQS+6e465ydXUmEXw5A+VZS2agaOe6BJQ
+	Q7Pa9j82mt/vaLx6dX+2A6vBBXDAy75NfKNu987zXWh5a0fuOw78ZnLKgZR92JTj
+	GtjeCs63vN9YJdcKuJm/zPTitIJZLfU1tyw==
+X-ME-Sender: <xms:RHSPZ2hmbNtoj0wKMHCvGzXogxRZqHGmatrdKzJJnIz6jqk6Uk9dQw>
+    <xme:RHSPZ3Am_7AbC_2afDjJShvj0CeQmoR-EEZIyC8DzaqCw36k647t-xPsMIANsyMMj
+    TjpW-l7cdGNA18la3I>
+X-ME-Received: <xmr:RHSPZ-FVzB9Bh2PtHEZ-SMSilufk_8tBGE9v-FKoRGvPw6HOcusykx-c6TraKywgnfIiVwdQwhk37r2KfrF6jCUI4FY-tQacfs8XUnmEzuyzMOJg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddrudejuddgudefucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
+    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
+    htshculddquddttddmnecujfgurhephffvvefufffkofgggfestdekredtredttdenucfh
+    rhhomhepufgvrhhgihihucfmihgsrhhikhcuoefuvghrghhihigpmfhisghrihhksegvph
+    grmhdrtghomheqnecuggftrfgrthhtvghrnhepgedvfeefhfduvdetkeegleeggfelheek
+    veeiuddufeehtdehleelhfekiedvvedvnecuffhomhgrihhnpehkvghrnhgvlhdrohhrgh
+    enucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehsrghk
+    ihgssegurghrkhhsthgrrhdrshhithgvpdhnsggprhgtphhtthhopedvvddpmhhouggvpe
+    hsmhhtphhouhhtpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhp
+    rhhojhgvtghtrdhorhhgpdhrtghpthhtohepshgvrhhgihihpghkihgsrhhikhesvghprg
+    hmrdgtohhmpdhrtghpthhtohepjhhulhhivghnseigvghnrdhorhhgpdhrtghpthhtohep
+    sggvrhhtrhgrnhgurdhmrghrqhhuihhssegrrhhmrdgtohhmpdhrtghpthhtohepmhhitg
+    hhrghlrdhorhiivghlsegrmhgurdgtohhmpdhrtghpthhtohepvhholhhougihmhihrhgp
+    sggrsggthhhukhesvghprghmrdgtohhmpdhrtghpthhtoheprghnughrvgifrdgtohhoph
+    gvrhefsegtihhtrhhigidrtghomhdprhgtphhtthhopegrnhhthhhonhihrdhpvghrrghr
+    ugesvhgrthgvshdrthgvtghhpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtg
+    homh
+X-ME-Proxy: <xmx:RHSPZ_QieK1_Xks3ahqP2RuG3y-uIOyQImNZ7cjeBmi5WF54U8VncQ>
+    <xmx:RHSPZzzewdg1B7SVA5FzYF9ZasFPPAACQ_7HrBmOCG15KiaRgviY5g>
+    <xmx:RHSPZ94jbOA-cMHLhipmmsT-8MBv4GmQrmt_y1XtG_E_6Q3nT6t0rA>
+    <xmx:RHSPZwxLir330FpAOuRQtZU8OuwpKad6wUSVLwXT8s0InGr_HYg2uQ>
+    <xmx:RHSPZ_iID5Or8hlS37cBQ79ppiF5Tp42VB9RFiWg9s6SYqbyx4H7Dg>
+    <xmx:RXSPZxpDWjrCQsiaEa9gB3bqD8nN-XVf_U3BVzfDa1fWELBuqlwSdHBKbNtW>
+Feedback-ID: if7fb09ee:Fastmail
+From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+To: xen-devel@lists.xenproject.org
+Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Alexandru Isaila <aisaila@bitdefender.com>,
+	Petre Pircalabu <ppircalabu@bitdefender.com>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v2 0/4] make build of vm_event/mem_access/monitor optional
+Date: Tue, 21 Jan 2025 12:17:36 +0200
+Message-Id: <cover.1737452864.git.Sergiy_Kibrik@epam.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20250116175214.83742-1-roger.pau@citrix.com>
-In-Reply-To: <20250116175214.83742-1-roger.pau@citrix.com>
-From: Ross Lagerwall <ross.lagerwall@citrix.com>
-Date: Tue, 21 Jan 2025 10:13:56 +0000
-X-Gm-Features: AbW1kvb9nfCQoAe19QxR8uhgZBe2FEwWEaoeQD6hc-nUmn819CVSrekFHO2fJew
-Message-ID: <CAG7k0EqE2HrZabEqA741cDT+nMGttwGZ2jssLLwOzxp+ZYE85w@mail.gmail.com>
-Subject: Re: [PATCH 0/7] livepatch-build-tools: fixes for handling .cold and
- .hot sections
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, konrad.wilk@oracle.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jan 16, 2025 at 5:52=E2=80=AFPM Roger Pau Monne <roger.pau@citrix.c=
-om> wrote:
->
-> Hello,
->
-> Fixes picked from kpatch to deal with .cold and .hot sub-functions
-> sections generated by gcc.
->
-> Thanks, Roger.
->
-> Artem Savkov (7):
->   create-diff-object: ignore .cold.* suffixes in is_bundleable()
->   create-diff-object: add symbol relations
->   create-diff-object: propagate child symbol changes
->   create-diff-object: allow changing subsections
->   create-diff-object: add .text.hot to the list of bundleable functions
->   create-diff-object: propagate ignore.functions to children
->   create-build-diff: support for .cold functions with no id suffix
->
+This series aims to provide a possibility to build Xen without mem_access and
+related features. It is already largely covered by corresponding
+CONFIG_MEM_ACCESS option, yet there're still some parts remaining.
+Hopefully this would help to reduce dead code a bit.
 
-For all patches,
+As coverage of MEM_ACCESS config option begins to extend beyond actual
+mem_access code it has been suggested to rename it into VM_EVENT, as a more
+general option controlling mem_access, vm_event and monitor code.
 
-Reviewed-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+v1 patch here:
+https://lore.kernel.org/xen-devel/20241230063051.3332332-1-Sergiy_Kibrik@epam.com/
 
-Thanks
+  -Sergiy
+
+Sergiy Kibrik (3):
+  xen: kconfig: rename MEM_ACCESS -> VM_EVENT
+  x86:monitor: control monitor.c build with CONFIG_VM_EVENT option
+  automation: rename CONFIG_MEM_ACCESS -> CONFIG_VM_EVENT
+
+Stefano Stabellini (1):
+  xen: mem_access: conditionally compile vm_event.c & monitor.c
+
+ automation/eclair_analysis/xen_arm_config |  2 +-
+ automation/eclair_analysis/xen_x86_config |  2 +-
+ automation/gitlab-ci/build.yaml           |  2 +-
+ xen/arch/arm/Makefile                     |  6 +++---
+ xen/arch/arm/configs/tiny64_defconfig     |  2 +-
+ xen/arch/arm/include/asm/mem_access.h     |  4 ++--
+ xen/arch/arm/vsmc.c                       |  3 ++-
+ xen/arch/ppc/configs/ppc64_defconfig      |  2 +-
+ xen/arch/riscv/configs/tiny64_defconfig   |  2 +-
+ xen/arch/x86/Makefile                     |  2 +-
+ xen/arch/x86/mm/Makefile                  |  2 +-
+ xen/common/Kconfig                        |  2 +-
+ xen/common/Makefile                       |  6 +++---
+ xen/common/domctl.c                       |  2 +-
+ xen/include/xen/mem_access.h              |  6 +++---
+ xen/include/xen/monitor.h                 |  9 +++++++++
+ xen/include/xen/vm_event.h                | 14 +++++++++++---
+ xen/include/xsm/dummy.h                   |  2 +-
+ xen/include/xsm/xsm.h                     |  4 ++--
+ xen/xsm/dummy.c                           |  2 +-
+ xen/xsm/flask/hooks.c                     |  4 ++--
+ 21 files changed, 49 insertions(+), 31 deletions(-)
+
+-- 
+2.25.1
+
 
