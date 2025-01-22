@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BBE7A195FE
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Jan 2025 17:02:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.875985.1286377 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24E33A197EB
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jan 2025 18:47:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.876004.1286393 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tadAu-000738-9R; Wed, 22 Jan 2025 16:01:52 +0000
+	id 1taenx-0002eC-EX; Wed, 22 Jan 2025 17:46:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 875985.1286377; Wed, 22 Jan 2025 16:01:52 +0000
+Received: by outflank-mailman (output) from mailman id 876004.1286393; Wed, 22 Jan 2025 17:46:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tadAu-00070W-6g; Wed, 22 Jan 2025 16:01:52 +0000
-Received: by outflank-mailman (input) for mailman id 875985;
- Wed, 22 Jan 2025 16:01:50 +0000
+	id 1taenx-0002dN-BW; Wed, 22 Jan 2025 17:46:17 +0000
+Received: by outflank-mailman (input) for mailman id 876004;
+ Wed, 22 Jan 2025 17:46:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=32Vc=UO=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tadAs-00070L-4o
- for xen-devel@lists.xenproject.org; Wed, 22 Jan 2025 16:01:50 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ <SRS0=jYzQ=UO=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1taenw-0002dF-Ck
+ for xen-devel@lists.xenproject.org; Wed, 22 Jan 2025 17:46:16 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2fed3085-d8da-11ef-a0e5-8be0dac302b0;
- Wed, 22 Jan 2025 17:01:49 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-5d7e3f1fc01so14384484a12.2
- for <xen-devel@lists.xenproject.org>; Wed, 22 Jan 2025 08:01:49 -0800 (PST)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5db73edbaffsm8826378a12.66.2025.01.22.08.01.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Jan 2025 08:01:46 -0800 (PST)
+ id b643a662-d8e8-11ef-a0e5-8be0dac302b0;
+ Wed, 22 Jan 2025 18:45:47 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5db689a87cbso77039a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Jan 2025 09:45:47 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab384f223dcsm926998566b.123.2025.01.22.09.45.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Jan 2025 09:45:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,175 +44,272 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2fed3085-d8da-11ef-a0e5-8be0dac302b0
+X-Inumbo-ID: b643a662-d8e8-11ef-a0e5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1737561708; x=1738166508; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8uR6wsqFlwBpyRXiy4j2Zc9iFSAkkHWXDs0GCAz7Ziw=;
-        b=GPblWV455scQKyIAysOkegXvY/Qy4Ect/oAxkzLlJrXdeyCjFAqBs13vco+J7Q4Hgs
-         Y/O8n0LmIlWLEF/sPDxNWAxbMmhM8XgP/U+BVpSRtnPRy8kU0ldb3j5ob+elTZlXsIeq
-         JkypPUcbRcQnpmDdIaEA6MYWzWMPJIXIM19YheUgrkoSvpoa82FIKuEvuxGsz3XfwFLY
-         ZziiGcnw0927v85ZEohagq45PhSWTpPNIGwf6AWF8vHHUCHaD96NG8L8fwbAgSenXdku
-         lKz4RAyzKxUcmHYIoDebJYjzBR8EkpXk+mNmpj8hpcNwfi8i5+ZgWS35TAaYEnAfObTt
-         QN8Q==
+        d=citrix.com; s=google; t=1737567947; x=1738172747; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=35X/Lm1Sw8kEIzs1tpQwWbVyenVhfCjmTR+f/Pr3sRE=;
+        b=wJADaysaPtZAasHansq5ByveySZWMUzxSeMer4nWWs/C8p9WMVfOv+0SRvRK5AhiYV
+         T7ZvlivxhoYFfwz/ikelfWDxQO4XjJa2o1ml27mhJ4mNWSkMpW+L5DQ4eaAFT3up+R3s
+         S6vO6Giv81mX8Y8hz+9WgDSaDQ5FlP0erTqjk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737561708; x=1738166508;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=8uR6wsqFlwBpyRXiy4j2Zc9iFSAkkHWXDs0GCAz7Ziw=;
-        b=hRW9KgqxnHVqrdyOAnMrsvHUl8j8GO+iwReL86cLTXc7OnFuLtk9EHys5IXNji+x9I
-         0MRyoJW4uTQ/2SlrLkcC5t8cc0CA36mE+xhoyhxX6oIf8u4uWofb9X4p5GAYKN4rSN0c
-         78PIGVDZeZVqNdEiF/Csw1m7Fa7Vywk3+QblIGPWLR5EC/B6CItc1Vqwkm2XSBe9Qvdn
-         1SrjcjmWTElJBpe8uuxt6ImC/zD6ReFIqq6H9ILoi2e8udYy+p5IIkWqbx6TGapIGoHV
-         g2xleZRYu7VBgYPJQ2V3QSoh2TwD2IVofopShWZi/Tw67IJ3G7BsouS6lx7rgNexjiEH
-         juqQ==
-X-Gm-Message-State: AOJu0YzUl35L27k0wmcsd7A/ohP4kP/AjOKXz/8NP2Cuosl1q1LSxuSC
-	nW580Jc3xzwSPOg9aSSW8+ll7CqdYAtYLHs7iq2ucQZjrcB+qOqU
-X-Gm-Gg: ASbGncv0/LLtHmT7pIGo3UMPmDjbf2VI7Bd1sip6ybw3KnB0EKcq2KogvPOiJ495nSD
-	NdO5olp06Z85gkbihwV78TbmCA6g6O00m+4U6n+XnlChKM9v3w/F9eO1aatDqZqTK6Dqz88hMFC
-	GosMA/m2sRQZ8P/ySwHBbTkjjNHkTM1dZKebaKa5p5ItlrmC9f0mc5jPwBcoKf6xtgcM5LjQ8Dj
-	VYRoPKofYolIvLl/JpdnXHol2NIU1r+MboZVfqXLphzjubPocutB5YQ6gAjbDXjNemK1kj9XAla
-	2ry2mmI=
-X-Google-Smtp-Source: AGHT+IGZS1PwZcjjzqbcIiM0wjykbuA/dZyUpYPyp+ZmhfemWabxVFjf2TZV3vHHchCFDWuWWhRWgw==
-X-Received: by 2002:a05:6402:1ec1:b0:5d3:f6cb:73e7 with SMTP id 4fb4d7f45d1cf-5db7d2fc234mr21005799a12.13.1737561706755;
-        Wed, 22 Jan 2025 08:01:46 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------UmrOygGyndRTXyq57w1EU0b8"
-Message-ID: <7dcee103-1f3d-4b0c-b9c3-d9f37d4735b2@gmail.com>
-Date: Wed, 22 Jan 2025 17:01:45 +0100
+        d=1e100.net; s=20230601; t=1737567947; x=1738172747;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=35X/Lm1Sw8kEIzs1tpQwWbVyenVhfCjmTR+f/Pr3sRE=;
+        b=q/EORdX4uCqw/zm/GPPyPPFZZyID+6cbzcXwytMYYwyBFzEVTwRRGJ3rUUPCKR7O0/
+         2Y3WFKqT9oeNWTOiy7RqHgSVJTzwV71kHe0b3XkkRx8EpnqtrIGj8bBv9jd6wyhhMey4
+         VELIAt6FxA8ORPGKrZTBxdSI18eiPx6OuwbcjEgQadol08i4W3ErnGiWS95wbisKZeNf
+         S0kTPx9nYNh7y5ZVjpTy1J99MIKrIm7wTsb+01Ct+jSgwqOtK2+pH4QeLqq6UTc9RS6+
+         i5lI32Bw0owTKJtbINudUOg+QAIU9f7U2ugPJ67NZeG4dUBZ5gUO5WvV3yK90dMsbh54
+         TmJw==
+X-Gm-Message-State: AOJu0YzFubgPfYwsHDp7+GFVq7qXCUAvPIqDq7llO86RhyPSJS0AwD3Z
+	lEK2RGh1oZhYcLtWSrdP29s4qA2MkD8KGM2BDEH+rIy36Qmv2uK1iddCl8+8BdU=
+X-Gm-Gg: ASbGnctW3CgcAw4s4iKujTLOfPQOoOQeeWZ3QCqC+/4no+zgSlTVRs8AU2YN709Uf+7
+	jS8tTb/Nm+IhWlbzaEuRBCWUUNNv8Q8FLDRPnWZob/2EaeTNqAZRA/Yprs5Y4OYW6hQt+zv2YTr
+	oqcNpx+HV1nEihWsUb3u9QFAqvVndqKfG0K6SjVYkSpjI9NPf67tZYSRuO1ju2n8zjzxQxD+b76
+	cjtquvgtJYVrSuwjfc2bplMCwDE4eG+Wjnn5KoTBYMGBvt4UHCbKm3bdXORyUYgfBjLcAKInkTE
+	Qq/3
+X-Google-Smtp-Source: AGHT+IH/D45BGwMiZmkbGM3czLY3pmdJQtJyHdVu9uf1cegfUURe/UlntRacHZVcTrdMSuDTZQZjiQ==
+X-Received: by 2002:a17:907:3da4:b0:aa6:7933:8b31 with SMTP id a640c23a62f3a-ab38b3707bdmr2297719566b.46.1737567946758;
+        Wed, 22 Jan 2025 09:45:46 -0800 (PST)
+Date: Wed, 22 Jan 2025 18:45:45 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Manuel Andreas <manuel.andreas@tum.de>
+Subject: Re: [PATCH v2 3/5] x86/HVM: correct read/write split at page
+ boundaries
+Message-ID: <Z5Euyc91PZsyMP6f@macbook.local>
+References: <3294f629-f91f-4b5d-9eb0-40a34aa2ec3e@suse.com>
+ <fde70079-4084-4aa6-b76e-becd62a71ddb@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] x86emul: further correct 64-bit mode zero count
- repeated string insn handling
-To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <2e81cf29-65fd-74fc-db4f-95c453acc327@suse.com>
- <Z5DHOknjrhMoAGz6@macbook.local>
- <24885d31-e536-4ff4-8457-300c9a028701@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <24885d31-e536-4ff4-8457-300c9a028701@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <fde70079-4084-4aa6-b76e-becd62a71ddb@suse.com>
 
-This is a multi-part message in MIME format.
---------------UmrOygGyndRTXyq57w1EU0b8
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+On Tue, Oct 01, 2024 at 10:49:40AM +0200, Jan Beulich wrote:
+> The MMIO cache is intended to have one entry used per independent memory
+> access that an insn does. This, in particular, is supposed to be
+> ignoring any page boundary crossing. Therefore when looking up a cache
+> entry, the access'es starting (linear) address is relevant, not the one
+> possibly advanced past a page boundary.
+> 
+> In order for the same offset-into-buffer variable to be usable in
+> hvmemul_phys_mmio_access() for both the caller's buffer and the cache
+> entry's it is further necessary to have the un-adjusted caller buffer
+> passed into there.
+> 
+> Fixes: 2d527ba310dc ("x86/hvm: split all linear reads and writes at page boundary")
+> Reported-by: Manuel Andreas <manuel.andreas@tum.de>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> This way problematic overlaps are only reduced (to ones starting at the
+> same address), not eliminated: Assumptions in hvmemul_phys_mmio_access()
+> go further - if a subsequent access is larger than an earlier one, but
+> the splitting results in a chunk to cross the end "boundary" of the
+> earlier access, an assertion will still trigger. Explicit memory
+> accesses (ones encoded in an insn by explicit or implicit memory
+> operands) match the assumption afaict (i.e. all those accesses are of
+> uniform size, and hence they either fully overlap or are mapped to
+> distinct cache entries).
+> 
+> Insns accessing descriptor tables, otoh, don't fulfill these
+> expectations: The selector read (if coming from memory) will always be
+> smaller than the descriptor being read, and if both (insanely) start at
+> the same linear address (in turn mapping MMIO), said assertion will kick
+> in. (The same would be true for an insn trying to access itself as data,
+> as long as certain size "restrictions" between insn and memory operand
+> are met. Except that linear_read() disallows insn fetches from MMIO.) To
+> deal with such, I expect we will need to further qualify (tag) cache
+> entries, such that reads/writes won't use insn fetch entries, and
+> implicit-supervisor-mode accesses won't use entries of ordinary
+> accesses. (Page table accesses don't need considering here for now, as
+> our page walking code demands page tables to be mappable, implying
+> they're in guest RAM; such accesses also don't take the path here.)
+> Thoughts anyone, before I get to making another patch?
+> 
+> Considering the insn fetch aspect mentioned above I'm having trouble
+> following why the cache has 3 entries. With insn fetches permitted,
+> descriptor table accesses where the accessed bit needs setting may also
+> fail because of that limited capacity of the cache, due to the way the
+> accesses are done. The read and write (cmpxchg) are independent accesses
+> from the cache's perspective, and hence we'd need another entry there.
+> If, otoh, the 3 entries are there to account for precisely this (which
+> seems unlikely with commit e101123463d2 ["x86/hvm: track large memory
+> mapped accesses by buffer offset"] not saying anything at all), then we
+> should be fine in this regard. If we were to permit insn fetches, which
+> way to overcome this (possibly by allowing the write to re-use the
+> earlier read's entry in this special situation) would remain to be
+> determined.
 
+I'm not that familiar with the emulator logic for memory accesses, but
+it seems like we are adding more and more complexity and special
+casing.  Maybe it's the only way to go forward, but I wonder if there
+could be some other way to solve this.  However, I don't think I
+will have time to look into it, and hence I'm not going to oppose to
+your proposal.
 
-On 1/22/25 2:29 PM, Jan Beulich wrote:
-> On 22.01.2025 11:23, Roger Pau Monné wrote:
->> On Fri, Aug 04, 2023 at 07:58:21AM +0200, Jan Beulich wrote:
->>> In an entirely different context I came across Linux commit 428e3d08574b
->>> ("KVM: x86: Fix zero iterations REP-string"), which points out that
->>> we're still doing things wrong: For one, there's no zero-extension at
->>> all on AMD. And then while RCX is zero-extended from 32 bits uniformly
->>> for all string instructions on newer hardware, RSI/RDI are only for MOVS
->>> and STOS on the systems I have access to. (On an old family 0xf system
->>> I've further found that for REP LODS even RCX is not zero-extended.)
->>>
->>> Fixes: 79e996a89f69 ("x86emul: correct 64-bit mode repeated string insn handling with zero count")
->>> Signed-off-by: Jan Beulich<jbeulich@suse.com>
->> Acked-by: Roger Pau Monné<roger.pau@citrix.com>
-> Thanks. I'm uncertain though whether with concerns Andrew had voiced (maybe
-> just on irc/Matrix) I may go ahead and commit this. Andrew?
->
-> In any event - Oleksii, I guess I'd need a release ack here (or an indication
-> to defer to 4.21).
+Are there however some tests, possibly XTF, that we could use to
+ensure the behavior of accesses is as we expect?
 
-If Andrew has no objections to this patch, then:|R-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>|
+> 
+> --- a/xen/arch/x86/hvm/emulate.c
+> +++ b/xen/arch/x86/hvm/emulate.c
+> @@ -31,8 +31,9 @@
+>   * device-model transactions.
+>   */
+>  struct hvm_mmio_cache {
+> -    unsigned long gla;
+> -    unsigned int size;
+> +    unsigned long gla;     /* Start of original access (e.g. insn operand) */
+> +    unsigned int skip;     /* Offset to start of MMIO */
+> +    unsigned int size;     /* Populated space, including @skip */
+>      unsigned int space:31;
+>      unsigned int dir:1;
+>      uint8_t buffer[] __aligned(sizeof(long));
+> @@ -953,6 +954,13 @@ static int hvmemul_phys_mmio_access(
+>          return X86EMUL_UNHANDLEABLE;
+>      }
+>  
+> +    /* Accesses must not be to the unused leading space. */
+> +    if ( offset < cache->skip )
+> +    {
+> +        ASSERT_UNREACHABLE();
+> +        return X86EMUL_UNHANDLEABLE;
+> +    }
+> +
+>      /*
+>       * hvmemul_do_io() cannot handle non-power-of-2 accesses or
+>       * accesses larger than sizeof(long), so choose the highest power
+> @@ -1010,13 +1018,15 @@ static int hvmemul_phys_mmio_access(
+>  
+>  /*
+>   * Multi-cycle MMIO handling is based upon the assumption that emulation
+> - * of the same instruction will not access the same MMIO region more
+> - * than once. Hence we can deal with re-emulation (for secondary or
+> - * subsequent cycles) by looking up the result or previous I/O in a
+> - * cache indexed by linear MMIO address.
+> + * of the same instruction will not access the exact same MMIO region
+> + * more than once in exactly the same way (if it does, the accesses will
+> + * be "folded"). Hence we can deal with re-emulation (for secondary or
+> + * subsequent cycles) by looking up the result of previous I/O in a cache
+> + * indexed by linear address and access type.
+>   */
+>  static struct hvm_mmio_cache *hvmemul_find_mmio_cache(
+> -    struct hvm_vcpu_io *hvio, unsigned long gla, uint8_t dir, bool create)
+> +    struct hvm_vcpu_io *hvio, unsigned long gla, uint8_t dir,
+> +    unsigned int skip)
+>  {
+>      unsigned int i;
+>      struct hvm_mmio_cache *cache;
+> @@ -1030,7 +1040,11 @@ static struct hvm_mmio_cache *hvmemul_fi
+>              return cache;
+>      }
+>  
+> -    if ( !create )
+> +    /*
+> +     * Bail if a new entry shouldn't be allocated, utilizing that ->space has
+                                                      ^rely on ->space having ...
+Would be easier to read IMO.
 
-Otherwise, it would be better to defer the patch to 4.21 or wait until the objections are resolved or clarified as unnecessary.
+> +     * the same value for all entries.
+> +     */
+> +    if ( skip >= hvio->mmio_cache[0]->space )
+>          return NULL;
+>  
+>      i = hvio->mmio_cache_count;
+> @@ -1043,7 +1057,8 @@ static struct hvm_mmio_cache *hvmemul_fi
+>      memset(cache->buffer, 0, cache->space);
+>  
+>      cache->gla = gla;
+> -    cache->size = 0;
+> +    cache->skip = skip;
+> +    cache->size = skip;
+>      cache->dir = dir;
+>  
+>      return cache;
+> @@ -1064,12 +1079,14 @@ static void latch_linear_to_phys(struct
+>  
+>  static int hvmemul_linear_mmio_access(
+>      unsigned long gla, unsigned int size, uint8_t dir, void *buffer,
+> -    uint32_t pfec, struct hvm_emulate_ctxt *hvmemul_ctxt, bool known_gpfn)
+> +    uint32_t pfec, struct hvm_emulate_ctxt *hvmemul_ctxt,
+> +    unsigned long start, bool known_gpfn)
 
+I think start is a bit ambiguous, start_gla might be clearer (same
+below for the start parameter).
 
-~ Oleksii
+>  {
+>      struct hvm_vcpu_io *hvio = &current->arch.hvm.hvm_io;
+>      unsigned long offset = gla & ~PAGE_MASK;
+> -    struct hvm_mmio_cache *cache = hvmemul_find_mmio_cache(hvio, gla, dir, true);
+> -    unsigned int chunk, buffer_offset = 0;
+> +    unsigned int chunk, buffer_offset = gla - start;
+> +    struct hvm_mmio_cache *cache = hvmemul_find_mmio_cache(hvio, start, dir,
+> +                                                           buffer_offset);
+>      paddr_t gpa;
+>      unsigned long one_rep = 1;
+>      int rc;
+> @@ -1117,19 +1134,19 @@ static int hvmemul_linear_mmio_access(
+>  static inline int hvmemul_linear_mmio_read(
+>      unsigned long gla, unsigned int size, void *buffer,
+>      uint32_t pfec, struct hvm_emulate_ctxt *hvmemul_ctxt,
+> -    bool translate)
+> +    unsigned long start, bool translate)
+>  {
+>      return hvmemul_linear_mmio_access(gla, size, IOREQ_READ, buffer,
+> -                                      pfec, hvmemul_ctxt, translate);
+> +                                      pfec, hvmemul_ctxt, start, translate);
+>  }
+>  
+>  static inline int hvmemul_linear_mmio_write(
+>      unsigned long gla, unsigned int size, void *buffer,
+>      uint32_t pfec, struct hvm_emulate_ctxt *hvmemul_ctxt,
+> -    bool translate)
+> +    unsigned long start, bool translate)
+>  {
+>      return hvmemul_linear_mmio_access(gla, size, IOREQ_WRITE, buffer,
+> -                                      pfec, hvmemul_ctxt, translate);
+> +                                      pfec, hvmemul_ctxt, start, translate);
+>  }
+>  
+>  static bool known_gla(unsigned long addr, unsigned int bytes, uint32_t pfec)
+> @@ -1158,7 +1175,10 @@ static int linear_read(unsigned long add
+>  {
+>      pagefault_info_t pfinfo;
+>      struct hvm_vcpu_io *hvio = &current->arch.hvm.hvm_io;
+> +    void *buffer = p_data;
+> +    unsigned long start = addr;
+>      unsigned int offset = addr & ~PAGE_MASK;
+> +    const struct hvm_mmio_cache *cache;
+>      int rc;
+>  
+>      if ( offset + bytes > PAGE_SIZE )
+> @@ -1182,8 +1202,17 @@ static int linear_read(unsigned long add
+>       * an access that was previously handled as MMIO. Thus it is imperative that
+>       * we handle this access in the same way to guarantee completion and hence
+>       * clean up any interim state.
+> +     *
+> +     * Care must be taken, however, to correctly deal with crossing RAM/MMIO or
+> +     * MMIO/RAM boundaries. While we want to use a single cache entry (tagged
+> +     * by the starting linear address), we need to continue issuing (i.e. also
+> +     * upon replay) the RAM access for anything that's ahead of or past MMIO,
+> +     * i.e. in RAM.
+>       */
+> -    if ( !hvmemul_find_mmio_cache(hvio, addr, IOREQ_READ, false) )
+> +    cache = hvmemul_find_mmio_cache(hvio, start, IOREQ_READ, ~0);
+> +    if ( !cache ||
+> +         addr + bytes <= start + cache->skip ||
+> +         addr >= start + cache->size )
 
->
->>> ---
->>> Partly RFC for none of this being documented anywhere (and it partly
->>> being model specific); inquiry pending.
->> Did you get any reply on this?
-> No, and to be honest I also didn't have much hope I would get any reply.
->
-> Jan
---------------UmrOygGyndRTXyq57w1EU0b8
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Seeing as this bound checks is also used below, could it be a macro or
+inline function?
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 1/22/25 2:29 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:24885d31-e536-4ff4-8457-300c9a028701@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 22.01.2025 11:23, Roger Pau Monné wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">On Fri, Aug 04, 2023 at 07:58:21AM +0200, Jan Beulich wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">In an entirely different context I came across Linux commit 428e3d08574b
-("KVM: x86: Fix zero iterations REP-string"), which points out that
-we're still doing things wrong: For one, there's no zero-extension at
-all on AMD. And then while RCX is zero-extended from 32 bits uniformly
-for all string instructions on newer hardware, RSI/RDI are only for MOVS
-and STOS on the systems I have access to. (On an old family 0xf system
-I've further found that for REP LODS even RCX is not zero-extended.)
+is_cached() or similar?
 
-Fixes: 79e996a89f69 ("x86emul: correct 64-bit mode repeated string insn handling with zero count")
-Signed-off-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-Acked-by: Roger Pau Monné <a class="moz-txt-link-rfc2396E" href="mailto:roger.pau@citrix.com">&lt;roger.pau@citrix.com&gt;</a>
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Thanks. I'm uncertain though whether with concerns Andrew had voiced (maybe
-just on irc/Matrix) I may go ahead and commit this. Andrew?
-
-In any event - Oleksii, I guess I'd need a release ack here (or an indication
-to defer to 4.21).</pre>
-    </blockquote>
-    <pre>If Andrew has no objections to this patch, then: <code>R-Acked-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a></code></pre>
-    <pre>Otherwise, it would be better to defer the patch to 4.21 or wait until the objections are resolved or clarified as unnecessary.</pre>
-    <pre>
-
-~ Oleksii
-</pre>
-    <blockquote type="cite"
-      cite="mid:24885d31-e536-4ff4-8457-300c9a028701@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">---
-Partly RFC for none of this being documented anywhere (and it partly
-being model specific); inquiry pending.
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-Did you get any reply on this?
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-No, and to be honest I also didn't have much hope I would get any reply.
-
-Jan
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------UmrOygGyndRTXyq57w1EU0b8--
+Thanks, Roger.
 
