@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBACDA18CB0
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Jan 2025 08:19:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.875780.1286203 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53FAFA18CBF
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jan 2025 08:26:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.875791.1286213 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1taV15-0005VD-Bg; Wed, 22 Jan 2025 07:19:11 +0000
+	id 1taV7w-0007HY-35; Wed, 22 Jan 2025 07:26:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 875780.1286203; Wed, 22 Jan 2025 07:19:11 +0000
+Received: by outflank-mailman (output) from mailman id 875791.1286213; Wed, 22 Jan 2025 07:26:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1taV15-0005T9-87; Wed, 22 Jan 2025 07:19:11 +0000
-Received: by outflank-mailman (input) for mailman id 875780;
- Wed, 22 Jan 2025 07:19:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1taV7v-0007Eh-W3; Wed, 22 Jan 2025 07:26:15 +0000
+Received: by outflank-mailman (input) for mailman id 875791;
+ Wed, 22 Jan 2025 07:26:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XwhO=UO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1taV14-0005T3-1N
- for xen-devel@lists.xenproject.org; Wed, 22 Jan 2025 07:19:10 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2be3d6a3-d891-11ef-a0e5-8be0dac302b0;
- Wed, 22 Jan 2025 08:19:09 +0100 (CET)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3863703258fso307667f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 21 Jan 2025 23:19:09 -0800 (PST)
+ id 1taV7t-0007Eb-Si
+ for xen-devel@lists.xenproject.org; Wed, 22 Jan 2025 07:26:13 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 27ac1d29-d892-11ef-99a4-01e77a169b0f;
+ Wed, 22 Jan 2025 08:26:11 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-4361e89b6daso44995245e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Jan 2025 23:26:11 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38bf3275901sm15635954f8f.61.2025.01.21.23.19.07
+ ffacd0b85a97d-38bf327e06asm15730131f8f.95.2025.01.21.23.26.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Jan 2025 23:19:08 -0800 (PST)
+ Tue, 21 Jan 2025 23:26:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2be3d6a3-d891-11ef-a0e5-8be0dac302b0
+X-Inumbo-ID: 27ac1d29-d892-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1737530348; x=1738135148; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1737530771; x=1738135571; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6SJAo92DyDNJXxNIt7nA2UJV2gTXGpGtR/vEGz4DxbQ=;
-        b=GRCV8BQN57i1ZVlyRoZz3M+OcUU5oDVkTZ/Cje99oPOKbMw3wNVd3NlXqJh23yATcI
-         NEtGJTfN+cL+mP2q/1Cks8L/sDfmI4FOsORFnrI5mYhCOjwLX3pLLwx7VidDbruBIx1N
-         cljWxXDCkBRe1r+ZaUgOiglzAk62PK/7LbqkmLZFZKOsr2yYsmdMgCnU/IAgiqpMHPbP
-         edp7bd/XIRK97DFi99HO9RiM0DunTXiOJOilz2wHuXJoA9SPRRiRa4bAM3KRgE8YuBjx
-         dclSJCmatDepKwbmSCPZ/lfAv5WLNrBdNPZcHHQq9o/VxpZBgx4wED6mPBNdh52Mrm+x
-         byzw==
+        bh=uXON6t7AxhOnqd0US4WwWK/Pgdlb8dqLkOOvl3UraWs=;
+        b=OcFJ+Lyq2W5AFwvmJj57rXSICal/KqucmQ+j1umToi+qdO3dbdU50WRk4c2SEf2xYe
+         N6SxN5Egw464zIfZ2eLjDgkVSvtSt2cEo/D6aWabztuuu3HYUAzBG5z90NqQWj6oOhsl
+         0yZZruEJ5EQKE6TLSRaSU7WBmUSjXW5tDyT2jCkbiKOXWbXuaV5ESSipwfOQEz3sFHV4
+         tp0obEk4nWQO4mKuW8YutISiaSjoWRA9Nm004rCGLIB0uT6aQEsKZjPXzN0fHw6GM9t5
+         kVsbLUwRR8Gfh/BtlRw/L1KSE6xyTja8BnNI3caCEuM5IUYtxCDNmYGJtH6SWFtvJe9V
+         TF5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737530348; x=1738135148;
+        d=1e100.net; s=20230601; t=1737530771; x=1738135571;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6SJAo92DyDNJXxNIt7nA2UJV2gTXGpGtR/vEGz4DxbQ=;
-        b=pInACeOeF8/B0i6cmoNj5GwaIL6yYy1eKv1UedmC7fMwLs9thN43cv1ECL1HpFTrwA
-         4Tr3ySK8CNd0XJcU+tD27Z0uqhLYlfhhYLAv244NfRq5rkKLaBAMAOFDT2MNRRRyESTq
-         jPaihOnpaGXPiQkJlLcpViJUzVR6rRv/rnoqWXJ3VtbPXqo0fxmtenp+N0uoPJicKQ/k
-         ikWvHGPJmJS6ngbL2BOqQFzi8ITT7KPbDRoc7ZnGczVBekJUccH34ifYHM4QIfta8E5/
-         HhSfXqzJI9Z/NOGGriCUA38pMg6By8gtLOw/JKVcNxwpcmFfHQfgCTpmF5UseQNgyZP0
-         g7AQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV0VOC6DmYKNfFGIprR6avnjtDF6YH4PwSPk8qFoyY19Ccw17DQwJ4DFQnfeO4/wRLMdFeYnnjo60U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxw99LaxkNSOp+yThWo/+aJ/wHOsOg+SX7gp1yNHxUYMRuNds5e
-	Wim5VQ5S/uDGbU/qWVQiuvEyWmoz0uh77lMIhRoCFQdFCtUaoptsa/3IyPHAzA==
-X-Gm-Gg: ASbGncvFzgnkSESemPiGZyov4a0M0DXzV74nQfUmTwGGF/ri/rEE2SZPtTQ12khPpTJ
-	Vo7qi/OFE464PcyIJuvXglXCj4NJHag5HsjHV6AVWRdFF4PjYmK6VSpeHw+fjhGIeMTou6JrDnK
-	ah0VRutYvWcUnuJORfTExHBVIO/u71N/sKpmE4XK6kOx4OEbEWOonSPT3dXUs56XMofmywdqNmE
-	DynRHhCGpamDFdpsC9W1cffL+UqQE9UT+2R03pq3+8lOJBXMuFouKUSa1CyQBcoIO9zG7HwCSGh
-	VXvQm0j3dYoJmjKFxDmQALcdwGuxiBZmTqX7Pp7X4fBBHKenGB4j5bE=
-X-Google-Smtp-Source: AGHT+IH3qI48ShHKGTiTqG5IrLo8zKLfLUJUlAC/orWWS151hSB30Iez6U+DXhV4yyzlpWAPXtaXog==
-X-Received: by 2002:a5d:47a2:0:b0:38b:e22e:aee0 with SMTP id ffacd0b85a97d-38bf5b02a75mr17587005f8f.23.1737530348548;
-        Tue, 21 Jan 2025 23:19:08 -0800 (PST)
-Message-ID: <c490d01a-fe97-414d-8093-b0bff6a12eec@suse.com>
-Date: Wed, 22 Jan 2025 08:19:07 +0100
+        bh=uXON6t7AxhOnqd0US4WwWK/Pgdlb8dqLkOOvl3UraWs=;
+        b=EN+LsEsObswleF8PS39SFQFm65e4K/1Mjo0/9vDbX84w98ffjIbME+rT9/0Tb+4V7Z
+         QKeXol+F4bWHfWYQ4yQfvbzxjJpFpXZN0QH1iQMsNOFqykDvwFX7Cl4w0b7qUknVMpHM
+         biVIldElh9OtMLcIhN1stWONqucgyjRayO9bs5b9Kt0HBuXVcHW9wSi/L9wFjx1mYslf
+         tRZqcZSSzL2hhzwA/xdHfOBChBI/x/OWyrsllvjpx/vbFMv0u2GnPpVTmciEA3175O/h
+         y0uyq+D91UqyXygSJdBc/ymQSQE102tGLRAzLTqnWSiom71KaRNT35cLwvfS7kxAtlqb
+         LzTQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXva91dnzyTZ4KQ7bnbt7HtLPbc77NuTvRCmoEl/BSHtYO+5Uj4jaQrbK+/H2FijojH/usjajM7J3o=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyCAE57YP/2gIibC3K/CJABDogc1xuPbYe+0gSBSX//1YWIr8cA
+	AhmFIl9NICty+yB8FB2ATVTKD0t4A8gq7Iv5Hooq7785GJUNj+1rQ00wts9Xkw==
+X-Gm-Gg: ASbGncuOgnfBWyK6CMX5LsqmbTb1n8liVWSCp8uZY70WSpnw8aMpweb1f6abQl/eU3j
+	tCRjQrD8TzkgbrlWl0Gy3dOhY45NT+6CGDDwrXzAzDdt2iChCWXYfF0jgDIJDYkFS63UvJyhAL5
+	b/XGbqq0KcDrq1gcOMmjKScpwlYA2JENffvKUZdxCVBt1AeUPW7DFZvTlLMKX84ocjq7swc74jg
+	A0+sxyYcC12ZpR7IZ33AzWkQ3SA3WOF6NhIvjE1RVPHM+dV1JOrBq1fB41NG7r2QnZ4ctf6DKHN
+	SeKbq1wCgX0d/WlN6RS3i609EMoHpK7DvSVPmD8CjfkJQN+E4N98ATc=
+X-Google-Smtp-Source: AGHT+IFXOLvBP+gbmo2rvCn94gz6toag1PleudUe00XW4enwQFjr5EhSWaVywxlq3lYSQ/lK0vE2/A==
+X-Received: by 2002:adf:f788:0:b0:38a:41c9:8544 with SMTP id ffacd0b85a97d-38bf57a2838mr12894564f8f.37.1737530768580;
+        Tue, 21 Jan 2025 23:26:08 -0800 (PST)
+Message-ID: <68e3da06-2b21-4f42-8d24-2743290ac562@suse.com>
+Date: Wed, 22 Jan 2025 08:26:07 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/24] xen/ctype: introduce is_console_printable()
-To: dmukhin@ford.com
+Subject: Re: [PATCH v3 02/24] arm/vuart: move vpl011-related code to vpl011
+ emulator
+To: Jason Andryuk <jason.andryuk@amd.com>, dmukhin@ford.com
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -95,7 +96,8 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20250103-vuart-ns8250-v3-v1-0-c5d36b31d66c@ford.com>
- <20250103-vuart-ns8250-v3-v1-1-c5d36b31d66c@ford.com>
+ <20250103-vuart-ns8250-v3-v1-2-c5d36b31d66c@ford.com>
+ <99bda095-391e-4825-9bb4-c21b7c5e1813@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,40 +123,43 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250103-vuart-ns8250-v3-v1-1-c5d36b31d66c@ford.com>
+In-Reply-To: <99bda095-391e-4825-9bb4-c21b7c5e1813@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 04.01.2025 02:58, Denis Mukhin via B4 Relay wrote:
-> --- a/xen/include/xen/ctype.h
-> +++ b/xen/include/xen/ctype.h
-> @@ -4,6 +4,8 @@
->  /*
->   * NOTE! This ctype does not handle EOF like the standard C
->   * library is required to.
-> + *
-> + * See Rule 21.13 in docs/misra/rules.rst.
->   */
+On 21.01.2025 23:56, Jason Andryuk wrote:
+> On 2025-01-03 20:58, Denis Mukhin via B4 Relay wrote:
+>> --- a/xen/drivers/char/console.c
+>> +++ b/xen/drivers/char/console.c
+> 
+>> @@ -579,6 +571,9 @@ static void __serial_rx(char c)
+>>       if ( pv_shim && pv_console )
+>>           consoled_guest_tx(c);
+>>   #endif
+>> +
+>> +    if ( rc )
+>> +        printk(KERN_ERR "d%pd: failed to process console input: %d\n", d, rc);
+>>   }
+>>   
+>>   static void cf_check serial_rx(char c)
+>>
+> 
+> This will print the ENOSPC that was formerly silent.  Since this is 
+> input from the console, that seems more informative to the user and okay 
+> to me.
 
-As previously indicated, I object to such comments. I think I said so before:
-_All_ Misra rules are relevant _everywhere_ anyway.
+I don't view this as okay. For one it needs to be a guest log level, such
+that rate limiting can suitably suppress too many of these messages in a
+short time (which in particular might happen if the ENOSPC reason isn't
+dealt with by the receiving domain). And then I wonder whether this
+wouldn't better be even more strongly limited, perhaps to just once per
+domain.
 
-> @@ -51,4 +53,9 @@ static inline unsigned char __toupper(unsigned char c)
->  #define tolower(c) ((char)__tolower(c))
->  #define toupper(c) ((char)__toupper(c))
->  
-> +static inline unsigned is_console_printable(unsigned char c)
-> +{
-> +	return isprint(c) || c == '\n' || c == '\t';
-> +}
+I'm also unconvinced of KERN_ERR - from Xen's perspective nothing error-
+like has happened, once again most notably for the ENOSPC case. I'd view
+this as a warning at best.
 
-Why a return type of unsigned (and then not even "unsigned int")? I can't
-spot anything in the file which would serve as a reference for this, and
-by its nature the function clearly wants to return bool.
-
-I further question the placement of this function in ctype.h: Only console
-related code cares about this function, so exposure is far too wide this
-way.
+Finally: Why d%pd? It ought to be just %pd.
 
 Jan
 
