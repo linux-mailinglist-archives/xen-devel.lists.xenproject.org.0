@@ -2,37 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8568FA1910F
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Jan 2025 13:00:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.875903.1286308 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29E4CA19159
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jan 2025 13:26:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.875916.1286319 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1taZPA-0005Rk-Oo; Wed, 22 Jan 2025 12:00:20 +0000
+	id 1taZny-0000Pm-Np; Wed, 22 Jan 2025 12:25:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 875903.1286308; Wed, 22 Jan 2025 12:00:20 +0000
+Received: by outflank-mailman (output) from mailman id 875916.1286319; Wed, 22 Jan 2025 12:25:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1taZPA-0005Ot-LN; Wed, 22 Jan 2025 12:00:20 +0000
-Received: by outflank-mailman (input) for mailman id 875903;
- Wed, 22 Jan 2025 12:00:19 +0000
+	id 1taZny-0000Ma-Kn; Wed, 22 Jan 2025 12:25:58 +0000
+Received: by outflank-mailman (input) for mailman id 875916;
+ Wed, 22 Jan 2025 12:25:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jYzQ=UO=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1taZP9-0005Oh-2j
- for xen-devel@lists.xenproject.org; Wed, 22 Jan 2025 12:00:19 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ <SRS0=fBaA=UO=kernel.org=joel.granados@srs-se1.protection.inumbo.net>)
+ id 1taZnx-0000MU-7j
+ for xen-devel@lists.xenproject.org; Wed, 22 Jan 2025 12:25:57 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 71e15ec9-d8b8-11ef-99a4-01e77a169b0f;
- Wed, 22 Jan 2025 13:00:16 +0100 (CET)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-ab39f84cbf1so868767466b.3
- for <xen-devel@lists.xenproject.org>; Wed, 22 Jan 2025 04:00:16 -0800 (PST)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab384c56fc9sm910060966b.14.2025.01.22.04.00.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Jan 2025 04:00:15 -0800 (PST)
+ id 0574c9c5-d8bc-11ef-99a4-01e77a169b0f;
+ Wed, 22 Jan 2025 13:25:53 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 8086E5C54FD;
+ Wed, 22 Jan 2025 12:25:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DED6C4CED6;
+ Wed, 22 Jan 2025 12:25:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,190 +41,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 71e15ec9-d8b8-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1737547216; x=1738152016; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=3myN014Aqnv4wVHqpthFcYH4tQfPzWvxstnSnEWD1Fo=;
-        b=obpyYE5goX9Kl427AV4FTDPC9/42QU3TzhiUp2o3dYG2O33FwGipusIO9EpeGWrv6O
-         7WIZ+cNgcJICBNL4nZIUPwFoPnUrEC6bi8kUidBsLPEVF6VLSxoskjecNqYyvDw5h/D7
-         CVydFDzBtiieQvjWsJqBkD8Hb1kY6ds2KgeE8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737547216; x=1738152016;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3myN014Aqnv4wVHqpthFcYH4tQfPzWvxstnSnEWD1Fo=;
-        b=q9D3PxuAZlLWKInlUZh61Ip7Bu4lWIM9erzebPrE36VH36oNHq59spsFzvzcpGT2co
-         Sif8iI0tleJMI7z+ZRZ9Mp4zUKTVrDoDIoQXmy8OlECO2/AnTvV2oGTnaunRrl6nZ2uI
-         QdtQXnHiJx9gMRCRzXxhwoGEBs0I910BdWZQyV4UBrTaH2itTPb6tOxvKVSzOlrZpLfz
-         wnq2e/tUoJN0Tt+rFE7yQpTLWGRmi8SA5tDJirTKESG5GI42uTqqk8FxDuN6dsosfS4U
-         Zx5amSBSm/L0rhAURcdlL8H5vmQMpvbhtaJEcTjoAsEv6dJ4rk2hxIqr7wWKFRoVbW7j
-         gBig==
-X-Gm-Message-State: AOJu0YzV9AUQyfkfxh/eF3IxJcAnegIa9UW4XlYBg2ir/FMGMBE1RztV
-	AWOTQX0QZoOqEmx45XoXug+EGDA7SmFEVsCPc5jFCDoRuvEbpvENr6n1ZRPAtAKZw9K1ZCt0TiU
-	3
-X-Gm-Gg: ASbGncv85NRYK14lBtaFb/fWkpbagqNW4D/wuP7DhRWcqsMub6P0QQXpZzDVq/gdpco
-	b9tii6OaT7zCbo0CkNVoWR0bViO3VKb5IbzZUBazE+Gu+vSXGx3IILNeLtFpo49vrzwWKu648hd
-	bJcpLtYEe8sCjhdHRLH6xI53XDeEFVFDVawHBvaTC8AVRbJzZvj7gXg9habLwKmvcRRHmTuFl07
-	a2VkiDuHYC8HkvXrTHmrkAuzTpFM+UHpWryri7hjTa0eqjSlqFmt1sZa8sKtgiLkjnVZ+g9MCGR
-	SAM6
-X-Google-Smtp-Source: AGHT+IGY+OWgIP7COSfUTRVofSe4SEhbeMlE7xr3ttJ9YDEGYYumHF8golmYLkERHWOJK3aj+BexCw==
-X-Received: by 2002:a17:907:1b15:b0:ab6:53fb:9683 with SMTP id a640c23a62f3a-ab653fba885mr230447166b.54.1737547216328;
-        Wed, 22 Jan 2025 04:00:16 -0800 (PST)
-Date: Wed, 22 Jan 2025 13:00:14 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v2 2/5] x86/HVM: allocate emulation cache entries
- dynamically
-Message-ID: <Z5Ddzh-Ygy5cGuPj@macbook.local>
-References: <3294f629-f91f-4b5d-9eb0-40a34aa2ec3e@suse.com>
- <93967ab8-a472-475a-bdd6-41dfc3afa895@suse.com>
+X-Inumbo-ID: 0574c9c5-d8bc-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1737548751;
+	bh=Xfp892u0X0rMtHWkGD3r2bVHj+FTM/t28M4VtoJ0Wyc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZRnNn+6Tt76019xBirdMVmzRbeL8Q2odMq6HFhgkth9P5ZrYdpErYPlXsxL6Fl3rj
+	 ZI5VtP10jvH/fQAv6HRDykVpsfGmvb0d/xEWjnDE5tgAnq++jvuWWHT6WYDemhqEh2
+	 qhtEzGq7/MMx5/wpO74r4FRgEujUuclOLSKI/Yy3NZM6X5dfnqSKY4Ag8uJB7GG8XW
+	 AQ7J/NzQdgEpLRKLYUKh7jqPAvOBjZZ+gq5nRJ0qTwqiguA+mChUjtx0pX3QTt2bwy
+	 E0gMyTw1G3DnV5TJGaTuN+E86ySP5PQe5fDrGHlTa+/9p9roru7zJ1Awo7fm8PfyZm
+	 vQJdRIi7afA0Q==
+Date: Wed, 22 Jan 2025 13:25:46 +0100
+From: Joel Granados <joel.granados@kernel.org>
+To: Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
+	Kees Cook <kees@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, linux-crypto@vger.kernel.org, 
+	openipmi-developer@lists.sourceforge.net, intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	intel-xe@lists.freedesktop.org, linux-hyperv@vger.kernel.org, linux-rdma@vger.kernel.org, 
+	linux-raid@vger.kernel.org, linux-scsi@vger.kernel.org, linux-serial@vger.kernel.org, 
+	xen-devel@lists.xenproject.org, linux-aio@kvack.org, linux-fsdevel@vger.kernel.org, 
+	netfs@lists.linux.dev, codalist@coda.cs.cmu.edu, linux-mm@kvack.org, 
+	linux-nfs@vger.kernel.org, ocfs2-devel@lists.linux.dev, fsverity@lists.linux.dev, 
+	linux-xfs@vger.kernel.org, io-uring@vger.kernel.org, bpf@vger.kernel.org, 
+	kexec@lists.infradead.org, linux-trace-kernel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org, 
+	keyrings@vger.kernel.org, Song Liu <song@kernel.org>, 
+	"Steven Rostedt (Google)" <rostedt@goodmis.org>, "Martin K. Petersen" <martin.petersen@oracle.com>, 
+	"Darrick J. Wong" <djwong@kernel.org>, Jani Nikula <jani.nikula@intel.com>, 
+	Corey Minyard <cminyard@mvista.com>
+Subject: Re: Re: [PATCH v2] treewide: const qualify ctl_tables where
+ applicable
+Message-ID: <nslqrapp4v3rknjgtfk4cg64ha7rewrrg24aslo2e5jmxfwce5@t4chrpuk632k>
+References: <20250110-jag-ctl_table_const-v2-1-0000e1663144@kernel.org>
+ <Z4+jwDBrZNRgu85S@li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <93967ab8-a472-475a-bdd6-41dfc3afa895@suse.com>
+In-Reply-To: <Z4+jwDBrZNRgu85S@li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com>
 
-On Tue, Oct 01, 2024 at 10:49:10AM +0200, Jan Beulich wrote:
-> Both caches may need higher capacity, and the upper bound will need to
-> be determined dynamically based on CPUID policy (for AMX'es TILELOAD /
-> TILESTORE at least).
+On Tue, Jan 21, 2025 at 02:40:16PM +0100, Alexander Gordeev wrote:
+> On Fri, Jan 10, 2025 at 03:16:08PM +0100, Joel Granados wrote:
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> Hi Joel,
+> 
+> > Add the const qualifier to all the ctl_tables in the tree except for
+> > watchdog_hardlockup_sysctl, memory_allocation_profiling_sysctls,
+> > loadpin_sysctl_table and the ones calling register_net_sysctl (./net,
+> > drivers/inifiniband dirs). These are special cases as they use a
+> > registration function with a non-const qualified ctl_table argument or
+> > modify the arrays before passing them on to the registration function.
+> > 
+> > Constifying ctl_table structs will prevent the modification of
+> > proc_handler function pointers as the arrays would reside in .rodata.
+> > This is made possible after commit 78eb4ea25cd5 ("sysctl: treewide:
+> > constify the ctl_table argument of proc_handlers") constified all the
+> > proc_handlers.
+> 
+> I could identify at least these occurences in s390 code as well:
+Hey Alexander
 
-Just a couple of comments below.
+Thx for bringing these to my attention. I had completely missed them as
+the spatch only deals with ctl_tables outside functions.
 
-> ---
-> This is a patch taken from the AMX series, but wasn't part of the v3
-> submission. All I did is strip out the actual AMX bits (from
-> hvmemul_cache_init()), plus of course change the description. As a
-> result some local variables there may look unnecessary, but this way
-> it's going to be less churn when the AMX bits are added. The next patch
-> pretty strongly depends on the changed approach (contextually, not so
-> much functionally), and I'd really like to avoid rebasing that one ahead
-> of this one, and then this one on top of that.
+Short answer:
+These should not be included in the current patch because they are a
+different pattern from how sysctl tables are usually used. So I will not
+include them.
 
-Oh, I was just going to ask about the weirdness of nents compared to
-what was previously.
+With that said, I think it might be interesting to look closer at them
+as they seem to be complicating the proc_handler (I have to look at them
+closer).
+
+I see that they are defining a ctl_table struct within the functions and
+just using the data (from the incoming ctl_table) to forward things down
+to proc_do{u,}intvec_* functions. This is very odd and I have only seen
+it done in order to change the incoming ctl_table (which is not what is
+being done here).
+
+I will take a closer look after the merge window and circle back with
+more info. Might take me a while as I'm not very familiar with s390
+code; any additional information on why those are being used inside the
+functions would be helpfull.
+
+Best
+
 
 > 
-> TBD: For AMX hvmemul_cache_init() will become CPUID policy dependent. We
->      could of course take the opportunity and also reduce overhead when
->      AVX-512 (and maybe even AVX) is unavailable (in the future: to the
->      guest).
-> ---
-> v2: Split off cache bounds check fix.
-> 
-> --- a/xen/arch/x86/hvm/emulate.c
-> +++ b/xen/arch/x86/hvm/emulate.c
-> @@ -26,6 +26,18 @@
->  #include <asm/iocap.h>
->  #include <asm/vm_event.h>
->  
-> +/*
-> + * We may read or write up to m512 or up to a tile row as a number of
-> + * device-model transactions.
-> + */
-> +struct hvm_mmio_cache {
-> +    unsigned long gla;
-> +    unsigned int size;
-> +    unsigned int space:31;
-
-Having size and space is kind of confusing, would you mind adding a
-comment that size is the runtime consumed buffer space, while space is
-the total allocated buffer size (and hence not supposed to change
-during usage)?
-
-> +    unsigned int dir:1;
-> +    uint8_t buffer[] __aligned(sizeof(long));
-> +};
-> +
->  struct hvmemul_cache
+> diff --git a/arch/s390/appldata/appldata_base.c b/arch/s390/appldata/appldata_base.c
+> index dd7ba7587dd5..9b83c318f919 100644
+> --- a/arch/s390/appldata/appldata_base.c
+> +++ b/arch/s390/appldata/appldata_base.c
+> @@ -204,7 +204,7 @@ appldata_timer_handler(const struct ctl_table *ctl, int write,
 >  {
->      /* The cache is disabled as long as num_ents > max_ents. */
-> @@ -935,7 +947,7 @@ static int hvmemul_phys_mmio_access(
->      }
->  
->      /* Accesses must not overflow the cache's buffer. */
-> -    if ( offset + size > sizeof(cache->buffer) )
-> +    if ( offset + size > cache->space )
->      {
->          ASSERT_UNREACHABLE();
->          return X86EMUL_UNHANDLEABLE;
-> @@ -1011,7 +1023,7 @@ static struct hvm_mmio_cache *hvmemul_fi
->  
->      for ( i = 0; i < hvio->mmio_cache_count; i ++ )
->      {
-> -        cache = &hvio->mmio_cache[i];
-> +        cache = hvio->mmio_cache[i];
->  
->          if ( gla == cache->gla &&
->               dir == cache->dir )
-> @@ -1027,10 +1039,11 @@ static struct hvm_mmio_cache *hvmemul_fi
->  
->      ++hvio->mmio_cache_count;
->  
-> -    cache = &hvio->mmio_cache[i];
-> -    memset(cache, 0, sizeof (*cache));
-> +    cache = hvio->mmio_cache[i];
-> +    memset(cache->buffer, 0, cache->space);
->  
->      cache->gla = gla;
-> +    cache->size = 0;
->      cache->dir = dir;
->  
->      return cache;
-> @@ -2978,16 +2991,21 @@ void hvm_dump_emulation_state(const char
->  int hvmemul_cache_init(struct vcpu *v)
+>  	int timer_active = appldata_timer_active;
+>  	int rc;
+> -	struct ctl_table ctl_entry = {
+> +	const struct ctl_table ctl_entry = {
+>  		.procname	= ctl->procname,
+>  		.data		= &timer_active,
+>  		.maxlen		= sizeof(int),
+> @@ -237,7 +237,7 @@ appldata_interval_handler(const struct ctl_table *ctl, int write,
 >  {
->      /*
-> -     * No insn can access more than 16 independent linear addresses (AVX512F
-> -     * scatters/gathers being the worst). Each such linear range can span a
-> -     * page boundary, i.e. may require two page walks. Account for each insn
-> -     * byte individually, for simplicity.
-> +     * AVX512F scatter/gather insns can access up to 16 independent linear
-> +     * addresses, up to 8 bytes size. Each such linear range can span a page
-> +     * boundary, i.e. may require two page walks.
-> +     */
-> +    unsigned int nents = 16 * 2 * (CONFIG_PAGING_LEVELS + 1);
-> +    unsigned int i, max_bytes = 64;
-> +    struct hvmemul_cache *cache;
-> +
-> +    /*
-> +     * Account for each insn byte individually, both for simplicity and to
-> +     * leave some slack space.
->       */
-> -    const unsigned int nents = (CONFIG_PAGING_LEVELS + 1) *
-> -                               (MAX_INST_LEN + 16 * 2);
-> -    struct hvmemul_cache *cache = xmalloc_flex_struct(struct hvmemul_cache,
-> -                                                      ents, nents);
-> +    nents += MAX_INST_LEN * (CONFIG_PAGING_LEVELS + 1);
->  
-> +    cache = xvmalloc_flex_struct(struct hvmemul_cache, ents, nents);
+>  	int interval = appldata_interval;
+>  	int rc;
+> -	struct ctl_table ctl_entry = {
+> +	const struct ctl_table ctl_entry = {
+>  		.procname	= ctl->procname,
+>  		.data		= &interval,
+>  		.maxlen		= sizeof(int),
+> @@ -269,7 +269,7 @@ appldata_generic_handler(const struct ctl_table *ctl, int write,
+>  	struct list_head *lh;
+>  	int rc, found;
+>  	int active;
+> -	struct ctl_table ctl_entry = {
+> +	const struct ctl_table ctl_entry = {
+>  		.data		= &active,
+>  		.maxlen		= sizeof(int),
+>  		.extra1		= SYSCTL_ZERO,
+> diff --git a/arch/s390/kernel/hiperdispatch.c b/arch/s390/kernel/hiperdispatch.c
+> index 7857a7e8e56c..7d0ba16085c1 100644
+> --- a/arch/s390/kernel/hiperdispatch.c
+> +++ b/arch/s390/kernel/hiperdispatch.c
+> @@ -273,7 +273,7 @@ static int hiperdispatch_ctl_handler(const struct ctl_table *ctl, int write,
+>  {
+>  	int hiperdispatch;
+>  	int rc;
+> -	struct ctl_table ctl_entry = {
+> +	const struct ctl_table ctl_entry = {
+>  		.procname	= ctl->procname,
+>  		.data		= &hiperdispatch,
+>  		.maxlen		= sizeof(int),
+> diff --git a/arch/s390/kernel/topology.c b/arch/s390/kernel/topology.c
+> index 6691808bf50a..26e50de83d80 100644
+> --- a/arch/s390/kernel/topology.c
+> +++ b/arch/s390/kernel/topology.c
+> @@ -629,7 +629,7 @@ static int topology_ctl_handler(const struct ctl_table *ctl, int write,
+>  	int enabled = topology_is_enabled();
+>  	int new_mode;
+>  	int rc;
+> -	struct ctl_table ctl_entry = {
+> +	const struct ctl_table ctl_entry = {
+>  		.procname	= ctl->procname,
+>  		.data		= &enabled,
+>  		.maxlen		= sizeof(int),
+> @@ -658,7 +658,7 @@ static int polarization_ctl_handler(const struct ctl_table *ctl, int write,
+>  {
+>  	int polarization;
+>  	int rc;
+> -	struct ctl_table ctl_entry = {
+> +	const struct ctl_table ctl_entry = {
+>  		.procname	= ctl->procname,
+>  		.data		= &polarization,
+>  		.maxlen		= sizeof(int),
+> diff --git a/arch/s390/mm/cmm.c b/arch/s390/mm/cmm.c
+> index 939e3bec2db7..8e354c90a3dd 100644
+> --- a/arch/s390/mm/cmm.c
+> +++ b/arch/s390/mm/cmm.c
+> @@ -263,7 +263,7 @@ static int cmm_pages_handler(const struct ctl_table *ctl, int write,
+>  			     void *buffer, size_t *lenp, loff_t *ppos)
+>  {
+>  	long nr = cmm_get_pages();
+> -	struct ctl_table ctl_entry = {
+> +	const struct ctl_table ctl_entry = {
+>  		.procname	= ctl->procname,
+>  		.data		= &nr,
+>  		.maxlen		= sizeof(long),
+> @@ -283,7 +283,7 @@ static int cmm_timed_pages_handler(const struct ctl_table *ctl, int write,
+>  				   loff_t *ppos)
+>  {
+>  	long nr = cmm_get_timed_pages();
+> -	struct ctl_table ctl_entry = {
+> +	const struct ctl_table ctl_entry = {
+>  		.procname	= ctl->procname,
+>  		.data		= &nr,
+>  		.maxlen		= sizeof(long),
+> 
+> 
+> > Best regards,
+> > -- 
+> > Joel Granados <joel.granados@kernel.org>
+> 
+> Thanks!
 
-Change here seems completely unrelated, but I guess this is what you
-refer to in the post-commit remark.  IOW: the split of the nents
-variable setup, plus the change of xmalloc_flex_struct() ->
-xvmalloc_flex_struct() don't seem to be related to the change at
-hand.
+-- 
 
->      if ( !cache )
->          return -ENOMEM;
->  
-> @@ -2997,6 +3015,15 @@ int hvmemul_cache_init(struct vcpu *v)
->  
->      v->arch.hvm.hvm_io.cache = cache;
->  
-> +    for ( i = 0; i < ARRAY_SIZE(v->arch.hvm.hvm_io.mmio_cache); ++i )
-> +    {
-> +        v->arch.hvm.hvm_io.mmio_cache[i] =
-> +            xmalloc_flex_struct(struct hvm_mmio_cache, buffer, max_bytes);
-
-TBH I would be tempted to just use xvmalloc here also, even if the
-structure is never going to be > PAGE_SIZE, it's more consistent IMO.
-
-Thanks, Roger.
+Joel Granados
 
