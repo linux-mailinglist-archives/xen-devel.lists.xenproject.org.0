@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9F6AA1A0C0
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Jan 2025 10:20:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.876105.1286463 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4ED06A1A12A
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Jan 2025 10:50:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.876111.1286474 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tatNr-0005wv-57; Thu, 23 Jan 2025 09:20:19 +0000
+	id 1tatqH-0000jB-15; Thu, 23 Jan 2025 09:49:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 876105.1286463; Thu, 23 Jan 2025 09:20:19 +0000
+Received: by outflank-mailman (output) from mailman id 876111.1286474; Thu, 23 Jan 2025 09:49:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tatNr-0005uP-1m; Thu, 23 Jan 2025 09:20:19 +0000
-Received: by outflank-mailman (input) for mailman id 876105;
- Thu, 23 Jan 2025 09:20:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tatqG-0000g3-UY; Thu, 23 Jan 2025 09:49:40 +0000
+Received: by outflank-mailman (input) for mailman id 876111;
+ Thu, 23 Jan 2025 09:49:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nhpA=UP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tatNp-0005uH-HJ
- for xen-devel@lists.xenproject.org; Thu, 23 Jan 2025 09:20:17 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 412af8c0-d96b-11ef-99a4-01e77a169b0f;
- Thu, 23 Jan 2025 10:20:15 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-3863494591bso288800f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 23 Jan 2025 01:20:15 -0800 (PST)
+ id 1tatqF-0000fx-IT
+ for xen-devel@lists.xenproject.org; Thu, 23 Jan 2025 09:49:39 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5befa02f-d96f-11ef-a0e5-8be0dac302b0;
+ Thu, 23 Jan 2025 10:49:38 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-437a92d7b96so6760905e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Jan 2025 01:49:38 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38bf322a414sm18564375f8f.47.2025.01.23.01.20.14
+ 5b1f17b1804b1-438b31ddef8sm54926105e9.35.2025.01.23.01.49.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Jan 2025 01:20:14 -0800 (PST)
+ Thu, 23 Jan 2025 01:49:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 412af8c0-d96b-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 5befa02f-d96f-11ef-a0e5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1737624014; x=1738228814; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1737625777; x=1738230577; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7Jr2azDodMzgBejAO0xKx87ZKSMbgFNXoTP8dfxn3n0=;
-        b=MEBLdM1Eu/vpy/uZAujmarhnSuiOOX0g3pkT79KasqRNJkEqPFE6zg57Nb+lP7QXer
-         8nDaYhCbg7a8PqhZcP8vZf1KK2D0dTh06PsEjtw7qKHUriy5ujg3DunhznF+oVwzMpQg
-         jYty7PfADsZjBj7ywGqUP8hPrhOPyiMBtKG5SxSKL6UZaY6aEM5Dm6E2SMoKHBRdrTSw
-         bTiGj8gyEZdtqtZEgGpHyA6+GrXMzmjYqZ6ig5e9FdUDH3x3ileiTd4iZexbLc+k51ns
-         87FCsaGlYAjxoVEyuxCUU1RfoCOUH/ARCM/i536fOMpjgP70XxYXjyPI458YY0yYNHYg
-         do3w==
+        bh=1LygtcFDAU1z8CMYGmvaUpsVoDP57AchSXyWewGKPgM=;
+        b=MGaa2OYIoVqkVpqwF7ndQo4ktMPv7GJb47cnu/yfHToWna+CKf2okGgDXW7iq732Sz
+         t2gy4sLGlNJMWSNHHyd1RLUyLV0ajJv5vayEYSF52ZJpy46U440YtxG8omIwjE8D/M+r
+         FVAcx68bYhdjHsDv8WfLlrtRADW9813cd01zxPdJXTlJ1XaOoJUzA1wysIJ7As3pzBMB
+         bIRfIi//zs16K2a3cWpZ4WXxe85YVNtlmj8IUhp5HrqziIn8G5rhvZlrppTanOt/XB+9
+         8nX2W76x4GOmNJ9E8U41AHSBIqe5g02CfwXQul2qyW7XHnWlLp8jDcc44BzNXQJ6yL+P
+         ITSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737624014; x=1738228814;
+        d=1e100.net; s=20230601; t=1737625777; x=1738230577;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7Jr2azDodMzgBejAO0xKx87ZKSMbgFNXoTP8dfxn3n0=;
-        b=swABlaFoqfJUIIMauyr3YQtlPGWJYqRQuPMO+fXuaWzIO97CUl74CvoV/SlOx9Cw5e
-         HX37dpu/J+ybD229QLtwwZLXdYa+UF/M3fUJFOTLI/WzWbYJa/HrDsi5YYKlKSUGZ0aE
-         EQ6u4GY1qZNJoFkrbbcGkifwmxkhqz6L48vS5ZTxyloV/c4DwE+wUy7iHlVUarYCVOwN
-         9E1VHYMiixKvI83kHh+NBrVSIiV9FY2HZ9hYx9w7W+s1vxP6TY1k5WvoAUEhgimp6WzJ
-         PCjklXGp6XBtsUiWc5rHeFvHspS5qb8CcF90sUmUiRFfZP7gn8miNPfeYYKlnRFufRf3
-         Huxg==
-X-Gm-Message-State: AOJu0YxzwF4RboMuyub6Pkqp5MQCwOH4ya2/DrYpul6mjSbArQOczkIk
-	lCD0fJY5XS2wSAs9USjF3WG4JwtrTTUurZ409X3KJPXSGQUNMlkkCf3HqLqbn7rCYWA5pnnDSzQ
-	=
-X-Gm-Gg: ASbGncupF3qYHSofgAXKc0ojO+TOgr8j08SQOXts/zQs94yBtbgK6uxg2eCSI0Hsvvx
-	dFKWc2Dr+yfQr1pMhcik/vC0EAmbvDUKvSlTqjYu9u/92CDfhwWmUlG2U13X3xSMiqLKOaUoBmP
-	TCIpH+DQMRVVXb0415ZPD38VYEbYsgCl8ptqiSj/PdEXmbGFpMWCHm3WPm6jHbEEbLgqr19pCaC
-	UPc8Bp7PkGAnz7YEnDPoyL0z4ENX8Z3uYnKhNd+4y00BYXisp/UcDNYh/Oug4sDOymjQqYXY9X5
-	kYE9v2w3HPPNpQeXgs+pe/mVQ/V+URtgp5R9PmTg7UeabSW+pAIqmf9Xm01+QBZtVg==
-X-Google-Smtp-Source: AGHT+IHFvdM5nj6TnqemPiCW+JaNkfkCElKyd/v0ROFo6tSquTBY0tdUFw1lERpTZz+oBR4qByaQbA==
-X-Received: by 2002:a5d:59ad:0:b0:38b:ed7b:f78c with SMTP id ffacd0b85a97d-38bf566f41cmr21752445f8f.6.1737624014507;
-        Thu, 23 Jan 2025 01:20:14 -0800 (PST)
-Message-ID: <600c8bee-a6fd-41df-82bf-60ec15fec42c@suse.com>
-Date: Thu, 23 Jan 2025 10:20:13 +0100
+        bh=1LygtcFDAU1z8CMYGmvaUpsVoDP57AchSXyWewGKPgM=;
+        b=HmHNN363FbCPfV3i3+7NXTIWPorROoGkqY1OdOGHVAA9SGB5LbgTd+JplWigmKh7Rd
+         7OupjxEtZlPjFp14kIa1ulwGV/Av1U/ruWHzSZq3/aRFOudoLx/lTTAH9UR2Zdvn9Ojc
+         O7aum1Tw2zXXHYDom2gxwdEbi03i3PYey2iY9u5UvYRySZK1o9btc+zfyZaRD5GxsTg4
+         kDFPFSWBTNXDdTQTaA+zDB+u9j2kOIYmeZ3/VSREdrWYsv6w39yr1XCSq0tjXQ41QTxL
+         YJoJtorV8cRLcyxgu/cQo7JjnTQ2d9gFPBDEUqGJzCMOm72nJ2friAFnojcXmtpgRTpr
+         CVzA==
+X-Gm-Message-State: AOJu0YwI3aIBj9oCrIIRh1zHrDIZdXnjAZp0zkFDuYnVY6qd/l3wRVle
+	5Cw7S3h8yJk5Mpt0qfvKs5qi2JE9tsOtt5XfuRYc33gRm+siLy4hh2fzRlhiPA==
+X-Gm-Gg: ASbGncvnSUadtI2WW7vF+Fd8LnfBwjd1zd+VhBG8/u//rEyDKJx/7DfzR1UqH3NUJjq
+	pVhw26c/PoSJUlD+wVV1iDC4EKbVCxAKTStSdntenc0QwqcUEL21XIjPGXO4baHM941wocJYMo3
+	NLEDvCOGcPfWfl8KZyOJKOqyXriHhVR2b6IeVHyoG1szZQ9sFw9R2Iov7J424lxET0B2OuHXY3+
+	mIt92s+j7M9iWElJIPR0U8XEcd0a36wI+h/ciTzf0v2xZ+PCgWLZ5LaeutNRLB2IBFRj1dXI4lW
+	pkzYX3r1dTXr/45z7cmoyqpQOwHfFI9OMOipTU9Z4Z/YBE8zp2w6mx2vrEXcvMCKUA==
+X-Google-Smtp-Source: AGHT+IE4LxbkZ37r/V0zkEhESf7PJtGARK5SXTxdC+coikfBbCF9o4g6uesG5UofvLK7HTsz1BXSnw==
+X-Received: by 2002:a05:600c:1f8c:b0:436:fb02:e90 with SMTP id 5b1f17b1804b1-438913cdaa8mr271546785e9.10.1737625777235;
+        Thu, 23 Jan 2025 01:49:37 -0800 (PST)
+Message-ID: <41e6c4a5-d5c4-40a2-a8c6-f6b5bba70f8c@suse.com>
+Date: Thu, 23 Jan 2025 10:49:36 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/5] x86/HVM: drop redundant access splitting
+Subject: Re: [PATCH v2 3/5] x86/HVM: correct read/write split at page
+ boundaries
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Manuel Andreas <manuel.andreas@tum.de>
 References: <3294f629-f91f-4b5d-9eb0-40a34aa2ec3e@suse.com>
- <7d73f0c5-3d16-4cf3-b8de-e45f539e8916@suse.com>
- <Z5IFWQLbhCBk4XxY@macbook.local>
+ <fde70079-4084-4aa6-b76e-becd62a71ddb@suse.com>
+ <Z5Euyc91PZsyMP6f@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,43 +119,144 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Z5IFWQLbhCBk4XxY@macbook.local>
+In-Reply-To: <Z5Euyc91PZsyMP6f@macbook.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 23.01.2025 10:01, Roger Pau Monné wrote:
-> On Tue, Oct 01, 2024 at 10:50:25AM +0200, Jan Beulich wrote:
->> --- a/xen/arch/x86/hvm/emulate.c
->> +++ b/xen/arch/x86/hvm/emulate.c
->> @@ -1084,7 +1084,7 @@ static int hvmemul_linear_mmio_access(
->>  {
->>      struct hvm_vcpu_io *hvio = &current->arch.hvm.hvm_io;
->>      unsigned long offset = gla & ~PAGE_MASK;
->> -    unsigned int chunk, buffer_offset = gla - start;
->> +    unsigned int buffer_offset = gla - start;
->>      struct hvm_mmio_cache *cache = hvmemul_find_mmio_cache(hvio, start, dir,
->>                                                             buffer_offset);
->>      paddr_t gpa;
->> @@ -1094,13 +1094,17 @@ static int hvmemul_linear_mmio_access(
->>      if ( cache == NULL )
->>          return X86EMUL_UNHANDLEABLE;
+On 22.01.2025 18:45, Roger Pau Monné wrote:
+> On Tue, Oct 01, 2024 at 10:49:40AM +0200, Jan Beulich wrote:
+>> The MMIO cache is intended to have one entry used per independent memory
+>> access that an insn does. This, in particular, is supposed to be
+>> ignoring any page boundary crossing. Therefore when looking up a cache
+>> entry, the access'es starting (linear) address is relevant, not the one
+>> possibly advanced past a page boundary.
+>>
+>> In order for the same offset-into-buffer variable to be usable in
+>> hvmemul_phys_mmio_access() for both the caller's buffer and the cache
+>> entry's it is further necessary to have the un-adjusted caller buffer
+>> passed into there.
+>>
+>> Fixes: 2d527ba310dc ("x86/hvm: split all linear reads and writes at page boundary")
+>> Reported-by: Manuel Andreas <manuel.andreas@tum.de>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> This way problematic overlaps are only reduced (to ones starting at the
+>> same address), not eliminated: Assumptions in hvmemul_phys_mmio_access()
+>> go further - if a subsequent access is larger than an earlier one, but
+>> the splitting results in a chunk to cross the end "boundary" of the
+>> earlier access, an assertion will still trigger. Explicit memory
+>> accesses (ones encoded in an insn by explicit or implicit memory
+>> operands) match the assumption afaict (i.e. all those accesses are of
+>> uniform size, and hence they either fully overlap or are mapped to
+>> distinct cache entries).
+>>
+>> Insns accessing descriptor tables, otoh, don't fulfill these
+>> expectations: The selector read (if coming from memory) will always be
+>> smaller than the descriptor being read, and if both (insanely) start at
+>> the same linear address (in turn mapping MMIO), said assertion will kick
+>> in. (The same would be true for an insn trying to access itself as data,
+>> as long as certain size "restrictions" between insn and memory operand
+>> are met. Except that linear_read() disallows insn fetches from MMIO.) To
+>> deal with such, I expect we will need to further qualify (tag) cache
+>> entries, such that reads/writes won't use insn fetch entries, and
+>> implicit-supervisor-mode accesses won't use entries of ordinary
+>> accesses. (Page table accesses don't need considering here for now, as
+>> our page walking code demands page tables to be mappable, implying
+>> they're in guest RAM; such accesses also don't take the path here.)
+>> Thoughts anyone, before I get to making another patch?
+>>
+>> Considering the insn fetch aspect mentioned above I'm having trouble
+>> following why the cache has 3 entries. With insn fetches permitted,
+>> descriptor table accesses where the accessed bit needs setting may also
+>> fail because of that limited capacity of the cache, due to the way the
+>> accesses are done. The read and write (cmpxchg) are independent accesses
+>> from the cache's perspective, and hence we'd need another entry there.
+>> If, otoh, the 3 entries are there to account for precisely this (which
+>> seems unlikely with commit e101123463d2 ["x86/hvm: track large memory
+>> mapped accesses by buffer offset"] not saying anything at all), then we
+>> should be fine in this regard. If we were to permit insn fetches, which
+>> way to overcome this (possibly by allowing the write to re-use the
+>> earlier read's entry in this special situation) would remain to be
+>> determined.
+> 
+> I'm not that familiar with the emulator logic for memory accesses, but
+> it seems like we are adding more and more complexity and special
+> casing.  Maybe it's the only way to go forward, but I wonder if there
+> could be some other way to solve this.  However, I don't think I
+> will have time to look into it, and hence I'm not going to oppose to
+> your proposal.
+
+I'll see what I can do; it's been quite a while, so I'll first need to
+swap context back in.
+
+> Are there however some tests, possibly XTF, that we could use to
+> ensure the behavior of accesses is as we expect?
+
+Manuel's report included an XTF test, which I expect will become a part
+of XTF once this fix went in. I fear though that there is an issue
+Andrew has been pointing out, which may prevent this from happening
+right away (even if with osstest having disappeared that's now only a
+latent issue, until gitlab CI would start exercising XTF): With the
+issue unfixed on older trees (i.e. those remaining after this series
+was backported as appropriate), the new test would fail there.
+
+>> @@ -1030,7 +1040,11 @@ static struct hvm_mmio_cache *hvmemul_fi
+>>              return cache;
+>>      }
 >>  
->> -    chunk = min_t(unsigned int, size, PAGE_SIZE - offset);
->> +    if ( size > PAGE_SIZE - offset )
+>> -    if ( !create )
+>> +    /*
+>> +     * Bail if a new entry shouldn't be allocated, utilizing that ->space has
+>                                                       ^rely on ->space having ...
+> Would be easier to read IMO.
+
+Changed; I'm not overly fussed, yet at the same time I also don't really
+agree with your comment.
+
+>> @@ -1064,12 +1079,14 @@ static void latch_linear_to_phys(struct
+>>  
+>>  static int hvmemul_linear_mmio_access(
+>>      unsigned long gla, unsigned int size, uint8_t dir, void *buffer,
+>> -    uint32_t pfec, struct hvm_emulate_ctxt *hvmemul_ctxt, bool known_gpfn)
+>> +    uint32_t pfec, struct hvm_emulate_ctxt *hvmemul_ctxt,
+>> +    unsigned long start, bool known_gpfn)
 > 
-> FWIW, I find this easier to read as `size + offset > PAGE_SIZE` (which
-> is the same condition used in linear_{read,write}().
+> I think start is a bit ambiguous, start_gla might be clearer (same
+> below for the start parameter).
 
-Hmm, yes, considering that "size" here is specifically what "bytes" is there,
-doing the change is okay. However, in general I prefer the way it was written
-above, for being more obviously safe against overflow (taking into account
-how "offset" is calculated).
+Fine with me - changed for all three hvmemul_linear_mmio_*(). It wasn't
+clear to me whether you also meant the local variables in
+linear_{read,write}(); since you said "parameter" I assumed you didn't.
+If you did, I fear I'd be less happy to make the change there too, for
+"addr" then preferably also wanting to change to "gla". Yet that would
+cause undue extra churn.
 
-> Preferably with that adjusted:
+>> @@ -1182,8 +1202,17 @@ static int linear_read(unsigned long add
+>>       * an access that was previously handled as MMIO. Thus it is imperative that
+>>       * we handle this access in the same way to guarantee completion and hence
+>>       * clean up any interim state.
+>> +     *
+>> +     * Care must be taken, however, to correctly deal with crossing RAM/MMIO or
+>> +     * MMIO/RAM boundaries. While we want to use a single cache entry (tagged
+>> +     * by the starting linear address), we need to continue issuing (i.e. also
+>> +     * upon replay) the RAM access for anything that's ahead of or past MMIO,
+>> +     * i.e. in RAM.
+>>       */
+>> -    if ( !hvmemul_find_mmio_cache(hvio, addr, IOREQ_READ, false) )
+>> +    cache = hvmemul_find_mmio_cache(hvio, start, IOREQ_READ, ~0);
+>> +    if ( !cache ||
+>> +         addr + bytes <= start + cache->skip ||
+>> +         addr >= start + cache->size )
 > 
-> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+> Seeing as this bound checks is also used below, could it be a macro or
+> inline function?
+> 
+> is_cached() or similar?
 
-Thanks.
+Hmm. Yes, it's twice the same expression, yet that helper would require
+four parameters. That's a little too much for my taste; I'd prefer to
+keep things as they are. After all there are far more redundancies between
+the two functions.
 
 Jan
 
