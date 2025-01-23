@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18262A1A558
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Jan 2025 14:59:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.876261.1286641 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 208FCA1A564
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Jan 2025 15:02:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.876271.1286651 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1taxj7-0008Dt-FF; Thu, 23 Jan 2025 13:58:33 +0000
+	id 1taxn7-0001Ua-TL; Thu, 23 Jan 2025 14:02:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 876261.1286641; Thu, 23 Jan 2025 13:58:33 +0000
+Received: by outflank-mailman (output) from mailman id 876271.1286651; Thu, 23 Jan 2025 14:02:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1taxj7-0008Bo-Bx; Thu, 23 Jan 2025 13:58:33 +0000
-Received: by outflank-mailman (input) for mailman id 876261;
- Thu, 23 Jan 2025 13:58:32 +0000
+	id 1taxn7-0001Sk-QY; Thu, 23 Jan 2025 14:02:41 +0000
+Received: by outflank-mailman (input) for mailman id 876271;
+ Thu, 23 Jan 2025 14:02:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AE9i=UP=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1taxj5-0008Bi-Qi
- for xen-devel@lists.xenproject.org; Thu, 23 Jan 2025 13:58:31 +0000
-Received: from fhigh-a6-smtp.messagingengine.com
- (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
+ <SRS0=Lw3w=UP=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1taxn6-0001SS-FU
+ for xen-devel@lists.xenproject.org; Thu, 23 Jan 2025 14:02:40 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1f3e3082-d992-11ef-99a4-01e77a169b0f;
- Thu, 23 Jan 2025 14:58:29 +0100 (CET)
-Received: from phl-compute-11.internal (phl-compute-11.phl.internal
- [10.202.2.51])
- by mailfhigh.phl.internal (Postfix) with ESMTP id ED8961140086;
- Thu, 23 Jan 2025 08:58:27 -0500 (EST)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-11.internal (MEProxy); Thu, 23 Jan 2025 08:58:27 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 23 Jan 2025 08:58:25 -0500 (EST)
+ id b4610c39-d992-11ef-99a4-01e77a169b0f;
+ Thu, 23 Jan 2025 15:02:38 +0100 (CET)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-5d9b6b034easo1981259a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Jan 2025 06:02:38 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5dc0e9f5a75sm859627a12.40.2025.01.23.06.02.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Jan 2025 06:02:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,233 +44,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1f3e3082-d992-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1737640707;
-	 x=1737727107; bh=YNgtDN8MyYrnS0ZAXV//Lsh9jHzupvOzKZGjbiEleBU=; b=
-	T/t1zQyZccRUNHXJnOa7D9aKvisiWF/NirT/F4M1mfRjJRmsj0sS3VU05Hw9QFMN
-	znnaoQreoB5H1JYxKUVpSQsooFHBlTV5cCFV9sGTLFtCMUka8fiGNGM1214xVomV
-	COgO403NpAwyh2rMd12xZg7vN9czKTFhK/hN/GWehEXRRHhiriUxuPb0RnK4DZl7
-	DOpib/gU0E1xs6Gc1gaWXYsNY/3cHjLKZwVbOvxgBm/O2/xba4XPq0PogIMN45tu
-	6NlKuNqURzGerxN8yEykA0yBcYcWDnsFL73vxDVuPkXaE9ZjVkeUrK+YVF4Cy15J
-	+P7XLUIkuydRe64eFLRH3w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1737640707; x=1737727107; bh=YNgtDN8MyYrnS0ZAXV//Lsh9jHzupvOzKZG
-	jbiEleBU=; b=d+m58byQe4dTIPQhd65N1GZElII5lgFW9SycyderwUs3purGdQO
-	L/t0iwyfyEG2li1QVi2N6gVHQTJwQtymnS1w1ZyXDWOHrSId/HylrQ4koh5xvcBN
-	Tw02JMElUjp4ST8bH+sU09B6u4UKCHEXRTM1fe0IWVcCOY9l5r+M1dLN/EUiyCh3
-	pRG5V/KadO7ncle6ka0UvkIa4Asd17tK61sOkW9kuWK/srlug29JzftlyA6iEaNV
-	v2MWADO/c8G9JknIdLZ3Nds2McdEryF9XAMTDB6AS2rs4D8dsqY4X3ZXzm730oBl
-	qJ/MVC/4ZMf5pZEKrJkJxz13u6Tl3bgG0Mg==
-X-ME-Sender: <xms:A0uSZ-kKP9xjkDnfEO77mkVJuQz6OZZRfSLJxwbLRkO6rWf3e3QO4A>
-    <xme:A0uSZ10XZ88kAbPQLwT74IW99q776qzdA0RXIzvUczXnT9XY7E-REsZhFGEaCAPGB
-    FpERzAzeq-Lcw>
-X-ME-Received: <xmr:A0uSZ8rY_hTn6TjUnwEv7QrJYVYuhsHm73s6wATf8HwZG5mIinnbQoAQhUNc6ajNlatdZEP6gLnHJSD9iRdYTWZb2MSwIQaizw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddrudejgedgudekgecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdp
-    uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivg
-    hnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdej
-    necuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoe
-    hmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucgg
-    tffrrghtthgvrhhnpeevueejteegleelteduueevhfetgfffjeevtddvgfeiveehteehle
-    egueelvdejveenucffohhmrghinhepghhithhlrggsrdgtohhmnecuvehluhhsthgvrhfu
-    ihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepuddtpdhmohgu
-    vgepshhmthhpohhuthdprhgtphhtthhopehtvgguugihrdgrshhtihgvsehvrghtvghsrd
-    htvggthhdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhj
-    vggtthdrohhrghdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghithhrih
-    igrdgtohhmpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtghomhdprhgtphht
-    thhopehjuhhlihgvnhesgigvnhdrohhrghdprhgtphhtthhopehsshhtrggsvghllhhinh
-    hisehkvghrnhgvlhdrohhrghdprhgtphhtthhopehrohhgvghrrdhprghusegtihhtrhhi
-    gidrtghomhdprhgtphhtthhopehluhhkrghsiieshhgrfihrhihlkhhordhplhdprhgtph
-    htthhopeguphhsmhhithhhsegrphgvrhhtuhhsshholhhuthhiohhnshdrtghomh
-X-ME-Proxy: <xmx:A0uSZyk2YzID61H9CVcihBzIxEtYKcI8KqdOqJk1IdEGxcX60ImCRw>
-    <xmx:A0uSZ82p9k56l4nichfAm1jeqTH5dcoe6ENbmUB67bhSKC3rPl5RLw>
-    <xmx:A0uSZ5sWdwsFOT12akfe4ZFQeSPA-y0dIkp5iBk3MYDmwCeJd3dF2g>
-    <xmx:A0uSZ4VzhZM-sm5ls4n_9TrRRfUWq8DaI6qQsyLWW7loJOeCt3-HgA>
-    <xmx:A0uSZ1tJP1tsDUp3StNq9lcMNq_qA9XEfiXm1dWKW7LgAJojXD2y6qwh>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 23 Jan 2025 14:58:23 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Lukasz Hawrylko <lukasz@hawrylko.pl>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Mateusz =?utf-8?B?TcOzd2th?= <mateusz.mowka@intel.com>
-Subject: Re: [XEN RFC PATCH v5 0/5] IOMMU subsystem redesign and PV-IOMMU
- interface
-Message-ID: <Z5JK_xHjIqvk25VE@mail-itl>
-References: <cover.1737470269.git.teddy.astie@vates.tech>
- <Z5I59HC77QxpPtJG@mail-itl>
+X-Inumbo-ID: b4610c39-d992-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1737640958; x=1738245758; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=/y5Gr8QBrV9P5vy6alHK/Y3zsWpx60h7+msUsErPQDQ=;
+        b=Nn67jt20MPO0TME9rkGoOzV89PbnPWfHsD1cQVLyUAE+Wa9DbeaNT9nUryDkPlGgNj
+         qPTgOPFwt37oZ04gNhLB/rskA5HWowIct8E6g8VYZ2FcDjZP+e+bccPD+d+mbidOe5Y+
+         cGlxI5T1psH7E4vg3LT136EFDv7bT3j6Heh04=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1737640958; x=1738245758;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=/y5Gr8QBrV9P5vy6alHK/Y3zsWpx60h7+msUsErPQDQ=;
+        b=ijMjHAvSsv+GDhqkTaZqEtrPyhqaZlj0SwCsI3kFREWFtQKq41UcRtzGkuIOtw7B2E
+         AFY6u0W7vWJwX1RjwIEspY4W8Zc5B0a/fuGYdW9njwBsrpJsFw0UIcTmQzSUSoz/GyAj
+         jcinp/7b/U6nzz9pkxD7oSUWyqoVdJXgX51cIvgFUcmL1SArXIvsYvzHJ+orMR/y+j7k
+         N3zE0I6oA6uPRqay6yCDpP9AebNz6EI046g+Lv5VFlf0uASL/RYyztgph5V6QWioR+Xu
+         bgQslptl48PDOAz5n/BZtibLmDrGhOv6OyHJdBzVqSUszgCoedLGpX9EYWIV1EOTMx4p
+         D2vQ==
+X-Gm-Message-State: AOJu0YxafgoIZzJsPYyctWPVg8xeaOdoOvjWPT/kCPw/Sfq/R7v0nGQq
+	NPv0S6B7prebo+Rso4BNaaT728VRBRF74LWUNzNnoroV2JtMqnmTp7anckWptNI=
+X-Gm-Gg: ASbGnctmfCxUTXn/a4vOFdTDLi8L7U7sCSQAHiqL42KhBzAqOGVO7+q7xtvWO+Y1cVJ
+	W0uxF88piGuUDZID1FOvdak7zTOPGFHDkU8c1qtHUZVJFbnYyy32kL9905Rh8ZBhTiZU0i5SZxe
+	y2PzRwZRUhvWCQbR/n3JRl1DiFVAwhWNZ5k8nT9pf8GkFTe8lhqA4jAn+jyfyGjdmlqfY6RYPdT
+	nTVGVlR0Hz6IbHlaViLYoVUu+qxymZfwiiqF+8yIHZC1vGQJs/DS6Xfowqz8l6JWxfsJI0IgZfU
+	Jpt7pKj5UA==
+X-Google-Smtp-Source: AGHT+IGrsTrKj0Bx/slw8fyvnmOSjhQPheiyoBi/n/hH+4wjHznHoLu07nwiczXUoPMQieYHX5J1tw==
+X-Received: by 2002:a05:6402:348c:b0:5dc:1239:1e5b with SMTP id 4fb4d7f45d1cf-5dc123920a9mr1232823a12.23.1737640957782;
+        Thu, 23 Jan 2025 06:02:37 -0800 (PST)
+Date: Thu, 23 Jan 2025 15:02:36 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH] x86/PV: further harden guest memory accesses against
+ speculative abuse
+Message-ID: <Z5JL_HXbtsx5g02y@macbook.local>
+References: <a537dd1e-bbd3-4ef8-8014-6bb432484c57@suse.com>
+ <Z5IuEq9Lauhn8glx@macbook.local>
+ <10a655b0-1cdc-4e14-8fcf-221336ccc0ac@suse.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="rwOvWbJJcpXuwh6q"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <Z5I59HC77QxpPtJG@mail-itl>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <10a655b0-1cdc-4e14-8fcf-221336ccc0ac@suse.com>
 
+On Thu, Jan 23, 2025 at 01:44:34PM +0100, Jan Beulich wrote:
+> On 23.01.2025 12:54, Roger Pau Monné wrote:
+> > On Tue, Nov 05, 2024 at 02:56:42PM +0100, Jan Beulich wrote:
+> >> The original implementation has two issues: For one it doesn't preserve
+> >> non-canonical-ness of inputs in the range 0x8000000000000000 through
+> >> 0x80007fffffffffff. Bogus guest pointers in that range would not cause a
+> >> (#GP) fault upon access, when they should.
+> >>
+> >> And then there is an AMD-specific aspect, where only the low 48 bits of
+> >> an address are used for speculative execution; the architecturally
+> >> mandated #GP for non-canonical addresses would be raised at a later
+> >> execution stage. Therefore to prevent Xen controlled data to make it
+> >> into any of the caches in a guest controllable manner, we need to
+> >> additionally ensure that for non-canonical inputs bit 47 would be clear.
+> >>
+> >> See the code comment for how addressing both is being achieved.
+> >>
+> >> Fixes: 4dc181599142 ("x86/PV: harden guest memory accesses against speculative abuse")
+> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> >> ---
+> >> RFC: Two variants of part of the logic are being presented, both with
+> >>      certain undesirable aspects: The first form is pretty large and
+> >>      ugly (some improvement may be possible by introducing further
+> >>      helper macros). The alternative form continues to use RCR, which
+> >>      generally would be nice to do away with. Then again that's also
+> >>      slightly smaller generated code.
+> > 
+> > Oh, I assume that's why there's a hardcoded .if 1, I was wondering
+> > about that.  What's the specific issue with using rcr?
+> 
+> It's slower than SHL. Albeit - checking a few places - not as much as I
+> thought I remembered it would be.
+> 
+> >  And why is the
+> > more complex set of macros that use setc plus a shl better?
+> 
+> They're slightly longer (beyond the source complexity), but (presumably)
+> a little faster.
+> 
+> > Why not use cmovc:
+> > 
+> > mov $(1 << 63), \scratch1
+> > cmovc \scratch1, \scratch2
+> > 
+> > AFAICT \scratch1 is not used past the btr instruction, and hence can
+> > be used for the cmovc?
+> 
+> Such an alternative was already considered back at the time:
+> https://lists.xen.org/archives/html/xen-devel/2021-02/msg01067.html.
+> Granted I was wrong there about needing a 3rd scratch register, but
+> the code size consideration remains - we have dozens of instances of
+> this macro in the resulting binary, after all. Yet ftaod, this isn't
+> to mean we can't re-consider. Given the above I'm inclined though to
+> go the RCR route.
 
---rwOvWbJJcpXuwh6q
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jan 2025 14:58:23 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Lukasz Hawrylko <lukasz@hawrylko.pl>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Mateusz =?utf-8?B?TcOzd2th?= <mateusz.mowka@intel.com>
-Subject: Re: [XEN RFC PATCH v5 0/5] IOMMU subsystem redesign and PV-IOMMU
- interface
+RCR or CMOVC would either be fine by me.  The SETC is IMO too complex,
+and using it would need a clear performance justification compared to
+RCR or CMOVC.
 
-On Thu, Jan 23, 2025 at 01:45:40PM +0100, Marek Marczykowski-G=C3=B3recki w=
-rote:
-> On Tue, Jan 21, 2025 at 04:13:20PM +0000, Teddy Astie wrote:
-> > This work has been presented at Xen Summit 2024 during the
-> >   IOMMU paravirtualization and Xen IOMMU subsystem rework
-> > design session.
-> >=20
-> > Operating systems may want to have access to a IOMMU in order to do DMA
-> > protection or implement certain features (e.g VFIO on Linux).
-> >=20
-> > VFIO support is mandatory for framework such as SPDK, which can be usef=
-ul to
-> > implement an alternative storage backend for virtual machines [1].
-> >=20
-> > In this patch series, we introduce in Xen the ability to manage several
-> > contexts per domain and provide a new hypercall interface to allow gues=
-ts
-> > to manage IOMMU contexts.
-> >=20
-> > The VT-d driver is updated to support these new features.
-> >=20
-> > [1] Using SPDK with the Xen hypervisor - FOSDEM 2023
-> > ---
-> > Cc: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
-> >=20
-> > PCI Passthrough now work on my side, but things are still feels quite b=
-rittle.
-> >=20
-> > Changed in v2 :
-> > * fixed Xen crash when dumping IOMMU contexts (using X debug key)
-> > with DomUs without IOMMU
-> > * s/dettach/detach/
-> > * removed some unused includes
-> > * fix dangling devices in contexts with detach
-> >=20
-> > Changed in v3 :
-> > * lock entirely map/unmap in hypercall
-> > * prevent IOMMU operations on dying contexts (fix race condition)
-> > * iommu_check_context+iommu_get_context -> iommu_get_context and check =
-for NULL
-> >=20
-> > Changed in v4 :
-> > * Part of initialization logic is moved to domain or toolstack (IOMMU_i=
-nit)
-> >   + domain/toolstack now decides on "context count" and "pagetable pool=
- size"
-> >   + for now, all domains are able to initialize PV-IOMMU
-> > * introduce "dom0-iommu=3Dno-dma" to make default context block all DMA
-> >   (disables HAP and sync-pt), enforcing usage of PV-IOMMU for DMA
-> >   Can be used to expose properly "Pre-boot DMA protection"
-> > * redesigned locking logic for contexts
-> >   + contexts are accessed using iommu_get_context and released with iom=
-mu_put_context
-> >=20
-> > Changed in v5 :
-> > * various PCI Passthrough related fixes
-> >   + rewrote parts of PCI Passthrough logic
-> >   + various other related bug fixes
-> > * simplified VT-d DID (for hardware) management by only having one map =
-instead of two
-> >   (pseudo_domid map was previously used for old quarantine code then re=
-cycled for PV-IOMMU
-> >    in addition to another map also tracing Domain<->VT-d DID, now there=
- is only one
-> >    map tracking both making things simpler)
-> > * reworked parts of Xen quarantine logic (needed for PCI Passthrough)
-> > * added cf_check annotations
-> > * some changes to PV-IOMMU headers (Alejandro)
-> >=20
-> > TODO:
-> > * add stub implementations for bissecting needs and non-ported IOMMU im=
-plementations
-> > * fix some issues with no-dma+PV and grants
-> > * complete "no-dma" mode (expose to toolstack, add documentation, ...)
-> > * properly define nested mode and PASID support
-> >=20
-> > * make new quarantine code more unity region aware (isolate devices with
-> >   different reserved regions regions using separate 'contexts')
-> > * find a way to make PV-IOMMU work in DomUs (they don't see machine bdf)
-> > * there are corner cases with PV-IOMMU and to-domain Xen PCI Passthrough
-> >   (e.g pci-assignable-remove will reassign to context 0, while the driv=
-er
-> >    expects the device to to be in context X)
->=20
-> Thanks for the updated patches. I have run them through gitlab-ci, and
-> here are some observations:
-> - I needed to disable CONFIG_AMD_IOMMU (it fails to build, as expected at=
- this point)
-> - I needed to disable pvshim (it fails to build)
-> - fails to build with clang: https://gitlab.com/xen-project/people/marmar=
-ek/xen/-/jobs/8931373789/viewer#L3525
-> - gcc-ibt build fails: https://gitlab.com/xen-project/people/marmarek/xen=
-/-/jobs/8931373785#L1314
-> - fails to build for ARM (both 32 and 64) and PPC64
-> - QEMU smoke test panic with PV dom0, looks like it runs on AMD, so it
->   may be related to the disabled CONFIG_AMD_IOMMU, but I wouldn't expect
->   it to panic on _PV_ dom0 boot...
-> - PVH dom0 fails to boot (on real hw) with a lot of VT-d faults: https://=
-gitlab.com/xen-project/people/marmarek/xen/-/jobs/8931373875
-> - PCI passthrough (with PV dom0) results in a lot of VT-d faults: https:/=
-/gitlab.com/xen-project/people/marmarek/xen/-/jobs/8931373881
->=20
-> Note this uses only this series, but plain Linux (appears to be 6.1.19).
-> IIUC if one doesn't try to configure PV-IOMMU specifically (non-default
-> contexts) it should still work.
->=20
-> BTW Linux says it detected "Xen version 4.19." - shouldn't it report
-> 4.20 already at this point in release cycle?
->=20
-> All results:
-> https://gitlab.com/xen-project/people/marmarek/xen/-/pipelines/1637849303
-
-FWIW the test run rebased on staging looks similar:
-https://gitlab.com/xen-project/people/marmarek/xen/-/pipelines/1638019332
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---rwOvWbJJcpXuwh6q
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmeSSv8ACgkQ24/THMrX
-1yxJLwf8Dk+VwjjB9TlbQysRYZLQGSCvu+D2io17gZlwLZf2sFTfU0eQw93aWdo2
-+qoglODNxc2Z3mW0LwbFAo2rkP01LOt9+TumPMeQ5bl7HboqGW5Q5QpNAtOO5h+O
-QZqZcNEjNWX1enG8yyFcEuoDHt9Br9JBOZsijfMUtyxYqQC9baElo71J4PBvdzWc
-g3HeEhcvbsjIqHCPjRUV30+AbPl8MtZUer4/Tc0+yjJl9fJDMsCjW2FBGSMjcKD8
-ZRCPLaVn8W6Oqj6nZx/9T4uhslcWGmYbu+79jCDVnYsG0VxyVwyS3ooIcsIa1wfs
-CNaGQBwi6u88PPBEpGiKD1vkeSnWFw==
-=vzyZ
------END PGP SIGNATURE-----
-
---rwOvWbJJcpXuwh6q--
+Thanks, Roger.
 
