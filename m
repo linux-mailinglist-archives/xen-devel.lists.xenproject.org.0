@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC4F8A1AD9E
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Jan 2025 00:50:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.876452.1286847 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E3EBA1ADA0
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Jan 2025 00:51:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.876479.1286866 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tb6yJ-0005Kz-1p; Thu, 23 Jan 2025 23:50:51 +0000
+	id 1tb6yb-0006zM-NT; Thu, 23 Jan 2025 23:51:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 876452.1286847; Thu, 23 Jan 2025 23:50:51 +0000
+Received: by outflank-mailman (output) from mailman id 876479.1286866; Thu, 23 Jan 2025 23:51:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tb6yI-0005HD-TX; Thu, 23 Jan 2025 23:50:50 +0000
-Received: by outflank-mailman (input) for mailman id 876452;
- Thu, 23 Jan 2025 23:50:49 +0000
+	id 1tb6yb-0006w1-K6; Thu, 23 Jan 2025 23:51:09 +0000
+Received: by outflank-mailman (input) for mailman id 876479;
+ Thu, 23 Jan 2025 23:51:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QxCy=UP=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1tb6to-0007hN-Ta
- for xen-devel@lists.xenproject.org; Thu, 23 Jan 2025 23:46:12 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ id 1tb6tZ-0007hN-9Y
+ for xen-devel@lists.xenproject.org; Thu, 23 Jan 2025 23:45:57 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3989e658-d9e4-11ef-99a4-01e77a169b0f;
- Fri, 24 Jan 2025 00:46:11 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-38a25d4b9d4so823024f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 23 Jan 2025 15:46:11 -0800 (PST)
-Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
+ id 3041449e-d9e4-11ef-99a4-01e77a169b0f;
+ Fri, 24 Jan 2025 00:45:55 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-43624b2d453so16032555e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Jan 2025 15:45:55 -0800 (PST)
+Received: from [192.168.69.181] (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-438bd4d34e3sm6953255e9.39.2025.01.23.15.46.08
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 23 Jan 2025 15:46:10 -0800 (PST)
+ 5b1f17b1804b1-438bd47f355sm7140915e9.4.2025.01.23.15.45.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 23 Jan 2025 15:45:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,173 +45,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3989e658-d9e4-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 3041449e-d9e4-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1737675971; x=1738280771; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xSu/7xOdAlhOhpGqndt0dd/xIMB7MzmL+xgNpZ/1JvM=;
-        b=MpF2rRi6k7bvT8XV5swq9D7SwhLpMTGCQ0qzULPbxAT0EYMx5yw6XlgiQYoI/Hb0c+
-         rUKSsgvtH4jocAc8JcdM3xW8dzMIE1NGRKwbfpFS+kf28/h3YMzA2u4XQpeLFYgyDTyj
-         k7pMa5oB2GA/VvijECAfW8p+Mrh++5//KGB0tcVHIAbGMpHMI3KyIMiJOP8EbG1CIDQk
-         DBDz+ISRJB14LQ9e6DaqhynYqTDvcgyRNEivIfABdvlDjPD7DDYOua6FZ/yDANN6djK6
-         9PYQLjkDMEUX2i3X4U7zbNAQRcEaON84WKUZY2VtPS/7xeRGs5rEUY9305H/073V3US5
-         gzTA==
+        d=linaro.org; s=google; t=1737675955; x=1738280755; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=sIImxUuZ28chVlLL+vN1mb6UQluYe71i/J3SLXui4EM=;
+        b=kAPNveCIXFEMkKGA1q4Ps84Wkn0js23LmfHkvmJWBelJ0ETeR4oFk2q2ZsHu2R5gTN
+         OWG/WINmUUc+ev83A4A2V64C3ncICF+bceHMGliX8Rd0MKjbadhSn1tH3iuf3bBqaqxZ
+         +AiLx+x0LR5DFWCHz8I9gXjb5oKRBIWsh32zvsVa/EAfQpfC0ELsa+0mSqBfXY0+naCd
+         DmDQDtD6XHYe0gJIdQQUESXfK0/ZG0/yqygaz5QD+we5AtxspfjUoO/x0JZo06nxRlKH
+         JdVdom//19VvXkcr/driW+xuXDzG94kwCHW6ME9dy0eaoe99rH9dL8XhLwic0oJ/8fcU
+         gkww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737675971; x=1738280771;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=xSu/7xOdAlhOhpGqndt0dd/xIMB7MzmL+xgNpZ/1JvM=;
-        b=Xc8+8N19wTqQ6NdhsP/8HWXYxGMA+nP2yCeSWllmkP5BV6rV1v5Gf7Gva1fyhRs5jQ
-         PRSJPS0eX/9v6+shSdyQJrCg8YvUugTTyLDchZWjQKNt4qJG/RV20wTS0DPXojPeqjJ7
-         rqWOsOsxB6SXtA37nQiZ2nnDCoLvg+AaXpw9U2pFoXnkCmjljELdN1YSwPoZecpA8/nb
-         y4Osl2nDluB6Ors1jfx7/9udwg4mjhWCZw/55dv1SiBvsu1EO4QbriLcY8dLGYmbTq79
-         MAz224yF+R1UpqVOYQujWw5H3q9hJK6BZk1I3+Gk1edL3wM/T/mZt4QGHE6FMrtE6n+e
-         Z0ow==
-X-Forwarded-Encrypted: i=1; AJvYcCU7MFNtEMpJwOJcKWJMlK1sNotzbEAFBMzk9OjnYfAJc+xa62Bg1cQhAUmN3EsP9br5MCA6jjvHy1U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyYuFfOS1lb2nKCjbfh0KTf4UYIzENA8txIGTbmQNqwnh4L1c0X
-	X3EA2D19cxLzbAPER3SeDamwSyIKjQxA4jldIMxOAiGqCStroJJHawqJEVRauJk=
-X-Gm-Gg: ASbGncv0h+cU0BGypouSVAY1GeBfcMG2DffjUDGdxw72jcApIt2w7S1v/assMatryPB
-	G3jD/gG5QzBLuFD2Fuu89yavBDF0MA9arshcyZj71GYUAs2KQ59G4Hdw4aoVEkNYu8OW2hSuc8g
-	+WK9lUqUVWFRRVyzdWiq6wuCSqYa5+LPKtpOJfssSXYN3mduBeruiQiS1zq57O5XMVcsN78z33s
-	kwXoigWEjYPzM1BSbLTFlzL2CF9q0KbW7tYAnKey5YizwY4LfbbeoCzxNtmzuYHUAXaJ3lYZPe1
-	HjBaJjuK2reZBJo/OWGF9l93uPp4iCtXZDmhFWowtm2EEztt63XpynA=
-X-Google-Smtp-Source: AGHT+IFycJysfhMaCpSR16Rzr8MUGZyLqdkkV1WoJ+3KdF//Z7stLVwsFpncYG19E6JH49Nuy1YUSA==
-X-Received: by 2002:a05:6000:e4a:b0:385:ed16:c91 with SMTP id ffacd0b85a97d-38bf566f3bemr20406552f8f.24.1737675970851;
-        Thu, 23 Jan 2025 15:46:10 -0800 (PST)
-From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+        d=1e100.net; s=20230601; t=1737675955; x=1738280755;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=sIImxUuZ28chVlLL+vN1mb6UQluYe71i/J3SLXui4EM=;
+        b=AVzBi6Fujm26gE4T+Z/2HDRWUpEvkcwMWx09eb1WgO6nSjjkQexwUHTxnCiWYl7XvT
+         dZX9PNXumlfE3vOIezwptJviiFzKqRsBPxMhFTntpTzauebq/UwlgJCOU/Z4GsvSXqc+
+         rsMzfTWqq68RUV7MZNNoQXbjQa1mxzsdk8Yjy7yX8zeMc8IfsOJ0eA8dQ6NxxT/Cq1uw
+         Zb38mB7jJW5sUtx7PiD8VWXGmc7PdqhzlpY8DXIX0V8uxO+PJfFi0746X+NdLsImNfGv
+         i4BEcd0ETwpk1cFHT7PX1r7y5zvSlBQEhDOJkFCX90NJpUvFI8DGMm/0hfcDl/Nov9SO
+         rn6w==
+X-Forwarded-Encrypted: i=1; AJvYcCX8L+NzcXcTq2fGLhjZe1QG9xoF/9Y8RfoLleu8wF1fssPmjIF4SQvltaZcE6Hsjmtw0G5W+O5TVPI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxDUIBBwm3w7MbPpX957K/e/OsWvyEXnXjs6L1owQFhnUX547j4
+	EOgqupgeJJcfCFebWaBB7Nr6Bp0hvRtO0gdmXjmF9ClLtvYMOgINoX+P0c842D0=
+X-Gm-Gg: ASbGncv+shEOpmOZ4lravWKGPDbJffxlwYJa0zzKmJz3d9jJ/AdWH0aoSsP+6x9hU0H
+	hGDLH4Th/nnYosWJxEitYuuKSFpjvHQT58gML1GndA874LBkI0ET5G3AE7FhSmVig5Ay2MiaOfi
+	IaMinop4KQQp9HPcU1Vq7UJH9Da7/n9pboWcg6f0uhK4HzpMmR/KNWDUPdA2YqvhH9w3Q+Ocu8e
+	sevUHNg+ilEd5Pe2lnYE70RCADOM7kIYC21uYGL4eP0ApMj2vq9D7RMN16Z9lNIOc3S0qfpa/8e
+	OtIUEAm2vyvjlj7m+7QjIZj677WAQ+6ctkS3ey40ke6cnMWbnOLwk84rifI=
+X-Google-Smtp-Source: AGHT+IGfBJfULhniARVxaeHND22dVQGvVM8jm6sNf2yido1MC4lasaduEx+qwJvir1julFx+bnHZjg==
+X-Received: by 2002:a05:600c:35c3:b0:434:f131:1e71 with SMTP id 5b1f17b1804b1-438913cf2e0mr264387845e9.8.1737675955349;
+        Thu, 23 Jan 2025 15:45:55 -0800 (PST)
+Message-ID: <3ef3ad0c-0f53-4588-aaf2-f6fd712ebd41@linaro.org>
+Date: Fri, 24 Jan 2025 00:45:52 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 02/20] user: Extract common MMAP API to 'user/mmap.h'
 To: qemu-devel@nongnu.org
 Cc: Peter Maydell <peter.maydell@linaro.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	qemu-arm@nongnu.org,
-	Igor Mammedov <imammedo@redhat.com>,
-	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	kvm@vger.kernel.org,
-	qemu-ppc@nongnu.org,
-	qemu-riscv@nongnu.org,
-	David Hildenbrand <david@redhat.com>,
-	qemu-s390x@nongnu.org,
-	xen-devel@lists.xenproject.org,
-	Richard Henderson <richard.henderson@linaro.org>,
-	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-Subject: [PATCH 20/20] cpus: Build cpu_exec_[un]realizefn() methods once
-Date: Fri, 24 Jan 2025 00:44:14 +0100
-Message-ID: <20250123234415.59850-21-philmd@linaro.org>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <20250123234415.59850-1-philmd@linaro.org>
+ Paolo Bonzini <pbonzini@redhat.com>, qemu-arm@nongnu.org,
+ Igor Mammedov <imammedo@redhat.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
+ <alex.bennee@linaro.org>, kvm@vger.kernel.org, qemu-ppc@nongnu.org,
+ qemu-riscv@nongnu.org, David Hildenbrand <david@redhat.com>,
+ qemu-s390x@nongnu.org, xen-devel@lists.xenproject.org,
+ Richard Henderson <richard.henderson@linaro.org>
 References: <20250123234415.59850-1-philmd@linaro.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+ <20250123234415.59850-3-philmd@linaro.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <20250123234415.59850-3-philmd@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Now that cpu_exec_realizefn() and cpu_exec_unrealizefn()
-methods don't use any target specific definition anymore,
-we can move them to cpu-common.c to be able to build them
-once.
+On 24/1/25 00:43, Philippe Mathieu-Daudé wrote:
+> Keep common MMAP-related declarations in a single place.
+> 
+> Note, this disable ThreadSafetyAnalysis on Linux for:
+> - mmap_fork_start()
+> - mmap_fork_end().
+> 
+> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 
-Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
----
-Eventually they'll be absorbed within cpu_common_[un]realizefn().
----
- cpu-target.c         | 30 ------------------------------
- hw/core/cpu-common.c | 26 ++++++++++++++++++++++++++
- 2 files changed, 26 insertions(+), 30 deletions(-)
+I forgot to include:
+Reviewed-by: Warner Losh <imp@bsdimp.com>
 
-diff --git a/cpu-target.c b/cpu-target.c
-index bfcd48f9ae2..8f4477be417 100644
---- a/cpu-target.c
-+++ b/cpu-target.c
-@@ -19,43 +19,13 @@
- 
- #include "qemu/osdep.h"
- #include "qapi/error.h"
--#include "qemu/error-report.h"
- #include "qemu/qemu-print.h"
- #include "system/accel-ops.h"
- #include "system/cpus.h"
- #include "exec/replay-core.h"
--#include "exec/cpu-common.h"
- #include "exec/log.h"
- #include "accel/accel-cpu-target.h"
- #include "trace/trace-root.h"
--#include "qemu/accel.h"
--#include "hw/core/cpu.h"
--
--bool cpu_exec_realizefn(CPUState *cpu, Error **errp)
--{
--    if (!accel_cpu_common_realize(cpu, errp)) {
--        return false;
--    }
--
--    /* Wait until cpu initialization complete before exposing cpu. */
--    cpu_list_add(cpu);
--
--    cpu_vmstate_register(cpu);
--
--    return true;
--}
--
--void cpu_exec_unrealizefn(CPUState *cpu)
--{
--    cpu_vmstate_unregister(cpu);
--
--    cpu_list_remove(cpu);
--    /*
--     * Now that the vCPU has been removed from the RCU list, we can call
--     * accel_cpu_common_unrealize, which may free fields using call_rcu.
--     */
--    accel_cpu_common_unrealize(cpu);
--}
- 
- char *cpu_model_from_type(const char *typename)
- {
-diff --git a/hw/core/cpu-common.c b/hw/core/cpu-common.c
-index 71425cb7422..c5382a350fc 100644
---- a/hw/core/cpu-common.c
-+++ b/hw/core/cpu-common.c
-@@ -193,6 +193,20 @@ static void cpu_common_parse_features(const char *typename, char *features,
-     }
- }
- 
-+bool cpu_exec_realizefn(CPUState *cpu, Error **errp)
-+{
-+    if (!accel_cpu_common_realize(cpu, errp)) {
-+        return false;
-+    }
-+
-+    /* Wait until cpu initialization complete before exposing cpu. */
-+    cpu_list_add(cpu);
-+
-+    cpu_vmstate_register(cpu);
-+
-+    return true;
-+}
-+
- static void cpu_common_realizefn(DeviceState *dev, Error **errp)
- {
-     CPUState *cpu = CPU(dev);
-@@ -234,6 +248,18 @@ static void cpu_common_unrealizefn(DeviceState *dev)
-     cpu_exec_unrealizefn(cpu);
- }
- 
-+void cpu_exec_unrealizefn(CPUState *cpu)
-+{
-+    cpu_vmstate_unregister(cpu);
-+
-+    cpu_list_remove(cpu);
-+    /*
-+     * Now that the vCPU has been removed from the RCU list, we can call
-+     * accel_cpu_common_unrealize, which may free fields using call_rcu.
-+     */
-+    accel_cpu_common_unrealize(cpu);
-+}
-+
- static void cpu_common_initfn(Object *obj)
- {
-     CPUState *cpu = CPU(obj);
--- 
-2.47.1
+> ---
+>   bsd-user/qemu.h        | 12 +-----------
+>   include/user/mmap.h    | 32 ++++++++++++++++++++++++++++++++
+>   linux-user/user-mmap.h | 19 ++-----------------
+>   3 files changed, 35 insertions(+), 28 deletions(-)
+>   create mode 100644 include/user/mmap.h
 
 
