@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE55EA1AD9F
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Jan 2025 00:51:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.876462.1286856 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8AF4A1ADA9
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Jan 2025 00:51:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.876503.1286932 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tb6yR-000664-98; Thu, 23 Jan 2025 23:50:59 +0000
+	id 1tb6yx-00012Z-9n; Thu, 23 Jan 2025 23:51:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 876462.1286856; Thu, 23 Jan 2025 23:50:59 +0000
+Received: by outflank-mailman (output) from mailman id 876503.1286932; Thu, 23 Jan 2025 23:51:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tb6yR-00063v-5Z; Thu, 23 Jan 2025 23:50:59 +0000
-Received: by outflank-mailman (input) for mailman id 876462;
- Thu, 23 Jan 2025 23:50:57 +0000
+	id 1tb6yw-0000y9-W2; Thu, 23 Jan 2025 23:51:30 +0000
+Received: by outflank-mailman (input) for mailman id 876503;
+ Thu, 23 Jan 2025 23:51:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QxCy=UP=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1tb6st-0007hN-R9
- for xen-devel@lists.xenproject.org; Thu, 23 Jan 2025 23:45:15 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ id 1tb6sz-0007hN-Q1
+ for xen-devel@lists.xenproject.org; Thu, 23 Jan 2025 23:45:21 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 175196d6-d9e4-11ef-99a4-01e77a169b0f;
- Fri, 24 Jan 2025 00:45:14 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-43618283dedso15514455e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 23 Jan 2025 15:45:14 -0800 (PST)
+ id 1b02e3f4-d9e4-11ef-99a4-01e77a169b0f;
+ Fri, 24 Jan 2025 00:45:20 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-4361f796586so16011705e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Jan 2025 15:45:20 -0800 (PST)
 Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-438bd54c04bsm6412735e9.27.2025.01.23.15.45.11
+ 5b1f17b1804b1-438bd54c0f7sm6499935e9.28.2025.01.23.15.45.17
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 23 Jan 2025 15:45:12 -0800 (PST)
+ Thu, 23 Jan 2025 15:45:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 175196d6-d9e4-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 1b02e3f4-d9e4-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1737675913; x=1738280713; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1737675920; x=1738280720; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9nZeRXAiaA5TpZm6lq5Kgnlq642/zMUBUZPLj6lypP8=;
-        b=zOoCTYz4CxkPOVKnpTHv6t3P4ZL/ySg13Oysr6zXEoDUOKhoUud9UIk22rWlvbUqUS
-         7kepcbo0fd+G6VUlehI/ITWzJV1hrrjg13A8EaLI5Tq/ht0DTrXCG0Ze2U81gq/UtQZY
-         XGdU61ktqiNfANpNGR9DwDijBZK6MK3hA2Dr7FQjJAwgZ4+cceO4JVKE2t2JEs52lUzl
-         vTvodMINGarMf42hDRz7oggZWFQkHg2mX9G0tbkxZD/r1yjJB7yzx0He1yy3MUBCWOJK
-         e9SR9PLKQk4Y81N0uIKAAB43oxMWOfbgN1W5/w24FAUiEL8RnWJu+PBBwajV9mJRFmfz
-         Idig==
+        bh=KLiVQy6/uYr9fS/vE5notUMei/mcFiOsSDRea34SIY0=;
+        b=d0r20FJaOP8sF53di0wK8dZgus1XplMyHR0TD5DJ6D5EjB61yFz52RClr5HgjOvLG6
+         3j+J2bKR7gIvn2R57HGQAUXvkOYSwuMo8yFGWfgRoNIfmx+187E6PJXlPYfqKXvj/7ab
+         OF1GBXzednkjV8+DoJAZpSLPpJAdtV93TKOvOTwnAhFtpk4gxVw5S8sVXPDXv4iZVMDH
+         gTNyEFMP06JChQB2ZwqqAUw40/RyGBpWjBJUmMoYboYJIq1I1CFjZ9BDib3XeyJ+a9FJ
+         u9ieZRxYEqqdKd8xaGFMo18lPRma5a3NJPuvEGC/Cm49YbPwnvYI2f9qguWEZOqb/8eO
+         qrLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737675913; x=1738280713;
+        d=1e100.net; s=20230601; t=1737675920; x=1738280720;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=9nZeRXAiaA5TpZm6lq5Kgnlq642/zMUBUZPLj6lypP8=;
-        b=hEX5m78JQgOAPt9J1UZjOvLiM90qKH4MzECg7t4KpYPU2v8p7SDuk57qYEkQERd6V9
-         G4K/wy+YtuyG9yyCThWIup1msIxQ4aiAb9CzQYKJ4wnWCrAHGa+6xoJ0COHsD71BsuA6
-         T5/oRx9rcz+Oa864R7haFdZvtQG03dUdhq89kP10/yxrZVBqxgyPvMqslUxUGXrHehqy
-         voPpHpD139JiCXfmbxflSYRpoO58oue/MI+1n/nFJx8yrJBM3egUrUEo0jLNq238KN1J
-         a22B68ZEPQQne0e6j+yyRkwPjVS+Udjkcrmss6snh48L1ehBIyfcvaKztwCU11SAaEE0
-         hmOg==
-X-Forwarded-Encrypted: i=1; AJvYcCUU3nJEE0GzCNl2HE5yrFa+PcdVf3F9zowYdBls4XuA7a6adJH1lqFrjA/JGv+66ENldNJBwEXCRP0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyApg/XN8f6NmsFIz8CotECLtz1/ZAU31mn15PUu8cbjVjj+H1c
-	Z7vV1j9j42rW2UVfPn5njoDIjaIVvWPW4vipqDKEnSDxZx5b3KxW+fwnrREs0KA=
-X-Gm-Gg: ASbGnctqBWnsEuqAuVgTtxYk2lXhtZ39hqvjGMsWiFfGA5YSo8TywVSvbIrc5auTS96
-	a2K5xy2MvfO6y8q7BHnKcpFOxJ6+BFnDoibvXB/oozGm/RrttYtnabjTOKSEEuDoykwbrjhBI9+
-	HMcS7cQ02zICU4/9vtS4pKYXBkvcUgbw6WAXwh3tpA+xYt4xhFSgyPX2zx9AxrE00q4hjHd1/cH
-	l8tpUYfU0gX2uwVSe9M1N0HBM08hxpoSTihlC8cRafm8/6KDUjt6rP+yo61AGw6DZ0B1qHvRQ4H
-	3oMkIE8tgUuDhrfom9q9Ko+sAyDGPENlJ6oHAiDJxybFMP5QPPMrJ+CMKCghyFnI4w==
-X-Google-Smtp-Source: AGHT+IEDiDQdxrx2jB8os0igTQ7OuBNE672qZpSpts43JKLj6+qBPVdV+5rplNMJaEPLV2MbkLotbw==
-X-Received: by 2002:a05:600c:4713:b0:436:9227:915 with SMTP id 5b1f17b1804b1-438913caa3cmr222825345e9.9.1737675913369;
-        Thu, 23 Jan 2025 15:45:13 -0800 (PST)
+        bh=KLiVQy6/uYr9fS/vE5notUMei/mcFiOsSDRea34SIY0=;
+        b=XwEUwY1FA6CNIapzmjMKNNMq74TB13IbK80ys0V0TfPzGK5i3zYFjg/WWOdhL4bDV9
+         FBMXQ/8iPePXElQVFXRFMecaLuJoaLrT9X8z6Az8G2MNc16hqxYkSQr9IWzDet7X8CU+
+         ys6B2TewxLH6izK8KhWEg+xh7ezDroJjptGWnqf1dLpQQsW97xdpgblcgx/Il+q1Hofo
+         vj9J+D9uF5DFtsJf0npne7+eKJeNAvP/YnmYuKVqnfCd2kYG19G7so9/kb5DW1do9zSe
+         KHwJn6rpEPFcg1Cz1SKRvQ/pBoyOmmVZS+oR5X0tef6Bovow8Qn2OtlATSf31HZfZZRK
+         n8Cw==
+X-Forwarded-Encrypted: i=1; AJvYcCU6cX61DFk9qK3d8jpEHIXIYsnEyzJ4oC5Hj4Vi1rASlllCjuPgcAC0prC50JQxih5k7zBQxvY2urM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwJ5dH5S41BKu8p7T+jyn3wAqtM8yZtAyglG6PR77sCK6pSNW6o
+	HYn/BnDd3Gye5tiSiwQORKe9aGhIgmtZjFJtHIHL+dFGjuG6tKlUtbk2xUK2rkc=
+X-Gm-Gg: ASbGnctHLGmw6pWPCn3q7m5198H/tn6ZD5SpQKBGamcj4CnAYWCnIh/hbJ5QDYS8goJ
+	gzfBMrS72+dq8wlboLL3fa1sanuhbSIyx5gp8S/n53K/4fngHwilC7akl0rKJrlUExeaizpV8XW
+	cE+e46IjrhUXQ5JeVKyQcfEh5lsr82yU2TjMlt+gWjzQRVWZzsml1wFhoJ5jcNU/xNwxZcwbZH5
+	VQrYdaxUH8T8ixtIW+5A/WG6miLJ6eufIAKEr4Fxg6AqFzLDC14XEyuIi9Mddq6rr+JIL9zgVMm
+	K8PjreX7uSH+/8rxW3C4E4XLe36q9cPUzr5xuuxzx76GEONy9Snlk+w=
+X-Google-Smtp-Source: AGHT+IHCUhXEKn4F81kx6ZpXqs9faqGpJN5W9Mj/EUJJpXYvZE3+gYqYLTjnf0hJ5kDL6XLUxlFm9g==
+X-Received: by 2002:a05:600c:1913:b0:434:f4fa:83c4 with SMTP id 5b1f17b1804b1-43891453fa7mr280858325e9.29.1737675919693;
+        Thu, 23 Jan 2025 15:45:19 -0800 (PST)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Peter Maydell <peter.maydell@linaro.org>,
@@ -96,9 +96,9 @@ Cc: Peter Maydell <peter.maydell@linaro.org>,
 	xen-devel@lists.xenproject.org,
 	Richard Henderson <richard.henderson@linaro.org>,
 	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-Subject: [PATCH 10/20] accel/tcg: Rename 'hw/core/tcg-cpu-ops.h' -> 'accel/tcg/cpu-ops.h'
-Date: Fri, 24 Jan 2025 00:44:04 +0100
-Message-ID: <20250123234415.59850-11-philmd@linaro.org>
+Subject: [PATCH 11/20] accel: Rename 'hw/core/accel-cpu.h' -> 'accel/accel-cpu-target.h'
+Date: Fri, 24 Jan 2025 00:44:05 +0100
+Message-ID: <20250123234415.59850-12-philmd@linaro.org>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20250123234415.59850-1-philmd@linaro.org>
 References: <20250123234415.59850-1-philmd@linaro.org>
@@ -106,523 +106,177 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-TCGCPUOps structure makes more sense in the accelerator context
-rather than hardware emulation. Move it under the accel/tcg/ scope.
+AccelCPUClass is for accelerator to initialize target specific
+features of a vCPU. Not really related to hardware emulation,
+rename "hw/core/accel-cpu.h" as "accel/accel-cpu-target.h"
+(using the explicit -target suffix).
+
+More importantly, target specific header often access the
+target specific definitions which are in each target/FOO/cpu.h
+header, usually included generically as "cpu.h" relative to
+target/FOO/. However, there is already a "cpu.h" in hw/core/
+which takes precedence. This change allows "accel-cpu-target.h"
+to include a target "cpu.h".
 
 Mechanical change doing:
 
- $  sed -i -e 's,hw/core/tcg-cpu-ops.h,accel/tcg/cpu-ops.h,g' \
-   $(git grep -l hw/core/tcg-cpu-ops.h)
+ $  git mv include/hw/core/accel-cpu.h \
+           include/accel/accel-cpu-target.h
+ $  sed -i -e 's,hw/core/accel-cpu.h,accel/accel-cpu-target.h,' \
+   $(git grep -l hw/core/accel-cpu.h)
+
+and renaming header guard 'ACCEL_CPU_TARGET_H'.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 ---
- MAINTAINERS                                            | 2 +-
- include/{hw/core/tcg-cpu-ops.h => accel/tcg/cpu-ops.h} | 0
- accel/tcg/cpu-exec.c                                   | 4 ++--
- accel/tcg/cputlb.c                                     | 2 +-
- accel/tcg/translate-all.c                              | 2 +-
- accel/tcg/user-exec.c                                  | 2 +-
- accel/tcg/watchpoint.c                                 | 2 +-
- bsd-user/signal.c                                      | 2 +-
- hw/mips/jazz.c                                         | 2 +-
- linux-user/signal.c                                    | 2 +-
- system/physmem.c                                       | 2 +-
- target/alpha/cpu.c                                     | 2 +-
- target/arm/cpu.c                                       | 2 +-
- target/arm/tcg/cpu-v7m.c                               | 2 +-
- target/arm/tcg/cpu32.c                                 | 2 +-
- target/arm/tcg/mte_helper.c                            | 2 +-
- target/arm/tcg/sve_helper.c                            | 2 +-
- target/avr/cpu.c                                       | 2 +-
- target/avr/helper.c                                    | 2 +-
- target/hexagon/cpu.c                                   | 2 +-
- target/hppa/cpu.c                                      | 2 +-
- target/i386/tcg/tcg-cpu.c                              | 2 +-
- target/loongarch/cpu.c                                 | 2 +-
- target/m68k/cpu.c                                      | 2 +-
- target/microblaze/cpu.c                                | 2 +-
- target/mips/cpu.c                                      | 2 +-
- target/openrisc/cpu.c                                  | 2 +-
- target/ppc/cpu_init.c                                  | 2 +-
- target/riscv/tcg/tcg-cpu.c                             | 2 +-
- target/rx/cpu.c                                        | 2 +-
- target/s390x/cpu.c                                     | 2 +-
- target/s390x/tcg/mem_helper.c                          | 2 +-
- target/sh4/cpu.c                                       | 2 +-
- target/sparc/cpu.c                                     | 2 +-
- target/tricore/cpu.c                                   | 2 +-
- target/xtensa/cpu.c                                    | 2 +-
- 36 files changed, 36 insertions(+), 36 deletions(-)
- rename include/{hw/core/tcg-cpu-ops.h => accel/tcg/cpu-ops.h} (100%)
+ MAINTAINERS                                               | 2 +-
+ include/{hw/core/accel-cpu.h => accel/accel-cpu-target.h} | 4 ++--
+ accel/accel-target.c                                      | 2 +-
+ cpu-target.c                                              | 2 +-
+ target/i386/hvf/hvf-cpu.c                                 | 2 +-
+ target/i386/kvm/kvm-cpu.c                                 | 2 +-
+ target/i386/tcg/tcg-cpu.c                                 | 2 +-
+ target/ppc/kvm.c                                          | 2 +-
+ target/riscv/kvm/kvm-cpu.c                                | 2 +-
+ target/riscv/tcg/tcg-cpu.c                                | 2 +-
+ 10 files changed, 11 insertions(+), 11 deletions(-)
+ rename include/{hw/core/accel-cpu.h => accel/accel-cpu-target.h} (95%)
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 7be3d8f431a..fa46d077d30 100644
+index fa46d077d30..e4521852519 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -175,7 +175,7 @@ F: include/exec/helper-info.c.inc
- F: include/exec/page-protection.h
- F: include/system/cpus.h
- F: include/system/tcg.h
--F: include/hw/core/tcg-cpu-ops.h
-+F: include/accel/tcg/cpu-ops.h
- F: host/include/*/host/cpuinfo.h
- F: util/cpuinfo-*.c
- F: include/tcg/
-diff --git a/include/hw/core/tcg-cpu-ops.h b/include/accel/tcg/cpu-ops.h
-similarity index 100%
-rename from include/hw/core/tcg-cpu-ops.h
-rename to include/accel/tcg/cpu-ops.h
-diff --git a/accel/tcg/cpu-exec.c b/accel/tcg/cpu-exec.c
-index be2ba199d3d..8ee76e14b0d 100644
---- a/accel/tcg/cpu-exec.c
-+++ b/accel/tcg/cpu-exec.c
-@@ -22,7 +22,7 @@
- #include "qapi/error.h"
- #include "qapi/type-helpers.h"
- #include "hw/core/cpu.h"
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- #include "trace.h"
- #include "disas/disas.h"
- #include "exec/cpu-common.h"
-@@ -39,7 +39,7 @@
- #include "exec/replay-core.h"
- #include "system/tcg.h"
- #include "exec/helper-proto-common.h"
--#include "tb-jmp-cache.h"
-+//#include "tb-jmp-cache.h"
- #include "tb-hash.h"
- #include "tb-context.h"
- #include "tb-internal.h"
-diff --git a/accel/tcg/cputlb.c b/accel/tcg/cputlb.c
-index b4ccf0cdcb7..d68401b35c3 100644
---- a/accel/tcg/cputlb.c
-+++ b/accel/tcg/cputlb.c
-@@ -19,7 +19,7 @@
- 
- #include "qemu/osdep.h"
- #include "qemu/main-loop.h"
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- #include "exec/exec-all.h"
- #include "exec/page-protection.h"
- #include "exec/memory.h"
-diff --git a/accel/tcg/translate-all.c b/accel/tcg/translate-all.c
-index d4189c73860..786e2f6f1a7 100644
---- a/accel/tcg/translate-all.c
-+++ b/accel/tcg/translate-all.c
-@@ -58,7 +58,7 @@
- #include "system/cpu-timers.h"
- #include "system/tcg.h"
- #include "qapi/error.h"
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- #include "tb-jmp-cache.h"
- #include "tb-hash.h"
- #include "tb-context.h"
-diff --git a/accel/tcg/user-exec.c b/accel/tcg/user-exec.c
-index 0561c4f6dc7..c4454100ad7 100644
---- a/accel/tcg/user-exec.c
-+++ b/accel/tcg/user-exec.c
-@@ -17,7 +17,7 @@
-  * License along with this library; if not, see <http://www.gnu.org/licenses/>.
+@@ -499,7 +499,7 @@ R: Paolo Bonzini <pbonzini@redhat.com>
+ S: Maintained
+ F: include/qemu/accel.h
+ F: include/system/accel-*.h
+-F: include/hw/core/accel-cpu.h
++F: include/accel/accel-cpu-target.h
+ F: accel/accel-*.c
+ F: accel/Makefile.objs
+ F: accel/stubs/Makefile.objs
+diff --git a/include/hw/core/accel-cpu.h b/include/accel/accel-cpu-target.h
+similarity index 95%
+rename from include/hw/core/accel-cpu.h
+rename to include/accel/accel-cpu-target.h
+index 24dad45ab9e..0a8e518600d 100644
+--- a/include/hw/core/accel-cpu.h
++++ b/include/accel/accel-cpu-target.h
+@@ -8,8 +8,8 @@
+  * See the COPYING file in the top-level directory.
   */
- #include "qemu/osdep.h"
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- #include "disas/disas.h"
- #include "exec/exec-all.h"
- #include "tcg/tcg.h"
-diff --git a/accel/tcg/watchpoint.c b/accel/tcg/watchpoint.c
-index af57d182d5b..40112b2b2e7 100644
---- a/accel/tcg/watchpoint.c
-+++ b/accel/tcg/watchpoint.c
-@@ -26,7 +26,7 @@
- #include "tb-internal.h"
- #include "system/tcg.h"
- #include "system/replay.h"
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- #include "hw/core/cpu.h"
- #include "internal-common.h"
  
-diff --git a/bsd-user/signal.c b/bsd-user/signal.c
-index b4e1458237a..088fe775c05 100644
---- a/bsd-user/signal.c
-+++ b/bsd-user/signal.c
-@@ -28,7 +28,7 @@
- #include "gdbstub/user.h"
- #include "signal-common.h"
- #include "trace.h"
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- #include "host-signal.h"
+-#ifndef ACCEL_CPU_H
+-#define ACCEL_CPU_H
++#ifndef ACCEL_CPU_TARGET_H
++#define ACCEL_CPU_TARGET_H
  
- /* target_siginfo_t must fit in gdbstub's siginfo save area. */
-diff --git a/hw/mips/jazz.c b/hw/mips/jazz.c
-index c89610639a9..1700c3765de 100644
---- a/hw/mips/jazz.c
-+++ b/hw/mips/jazz.c
-@@ -50,7 +50,7 @@
- #include "qemu/error-report.h"
- #include "qemu/help_option.h"
- #ifdef CONFIG_TCG
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- #endif /* CONFIG_TCG */
+ /*
+  * This header is used to define new accelerator-specific target-specific
+diff --git a/accel/accel-target.c b/accel/accel-target.c
+index 08626c00c2d..09c1e1053e0 100644
+--- a/accel/accel-target.c
++++ b/accel/accel-target.c
+@@ -27,7 +27,7 @@
+ #include "qemu/accel.h"
+ 
  #include "cpu.h"
+-#include "hw/core/accel-cpu.h"
++#include "accel/accel-cpu-target.h"
  
-diff --git a/linux-user/signal.c b/linux-user/signal.c
-index 087c4d270e4..b9e9b0a6c03 100644
---- a/linux-user/signal.c
-+++ b/linux-user/signal.c
-@@ -21,7 +21,7 @@
- #include "qemu/cutils.h"
- #include "gdbstub/user.h"
- #include "exec/page-protection.h"
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- 
- #include <sys/ucontext.h>
- #include <sys/resource.h>
-diff --git a/system/physmem.c b/system/physmem.c
-index c76503aea82..8638f8817e6 100644
---- a/system/physmem.c
-+++ b/system/physmem.c
-@@ -28,7 +28,7 @@
- #include "qemu/lockable.h"
- 
- #ifdef CONFIG_TCG
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- #endif /* CONFIG_TCG */
- 
- #include "exec/exec-all.h"
-diff --git a/target/alpha/cpu.c b/target/alpha/cpu.c
-index e1b898e5755..da21f99a6ac 100644
---- a/target/alpha/cpu.c
-+++ b/target/alpha/cpu.c
-@@ -220,7 +220,7 @@ static const struct SysemuCPUOps alpha_sysemu_ops = {
- };
- #endif
- 
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- 
- static const TCGCPUOps alpha_tcg_ops = {
-     .initialize = alpha_translate_init,
-diff --git a/target/arm/cpu.c b/target/arm/cpu.c
-index dc0231233a6..d59433e33fb 100644
---- a/target/arm/cpu.c
-+++ b/target/arm/cpu.c
-@@ -29,7 +29,7 @@
- #include "cpu.h"
- #ifdef CONFIG_TCG
+ #ifndef CONFIG_USER_ONLY
+ #include "accel-system.h"
+diff --git a/cpu-target.c b/cpu-target.c
+index 75501a909df..f97f3a14751 100644
+--- a/cpu-target.c
++++ b/cpu-target.c
+@@ -44,7 +44,7 @@
+ #include "exec/tb-flush.h"
  #include "exec/translation-block.h"
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- #endif /* CONFIG_TCG */
- #include "internals.h"
- #include "cpu-features.h"
-diff --git a/target/arm/tcg/cpu-v7m.c b/target/arm/tcg/cpu-v7m.c
-index 03acdf83e00..29a41fde694 100644
---- a/target/arm/tcg/cpu-v7m.c
-+++ b/target/arm/tcg/cpu-v7m.c
-@@ -10,7 +10,7 @@
+ #include "exec/log.h"
+-#include "hw/core/accel-cpu.h"
++#include "accel/accel-cpu-target.h"
+ #include "trace/trace-root.h"
+ #include "qemu/accel.h"
  
- #include "qemu/osdep.h"
- #include "cpu.h"
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- #include "internals.h"
+diff --git a/target/i386/hvf/hvf-cpu.c b/target/i386/hvf/hvf-cpu.c
+index 560b5a05940..b5f4c80028f 100644
+--- a/target/i386/hvf/hvf-cpu.c
++++ b/target/i386/hvf/hvf-cpu.c
+@@ -14,7 +14,7 @@
+ #include "system/system.h"
+ #include "hw/boards.h"
+ #include "system/hvf.h"
+-#include "hw/core/accel-cpu.h"
++#include "accel/accel-cpu-target.h"
+ #include "hvf-i386.h"
  
- #if !defined(CONFIG_USER_ONLY)
-diff --git a/target/arm/tcg/cpu32.c b/target/arm/tcg/cpu32.c
-index 2ad21825255..c5913665d12 100644
---- a/target/arm/tcg/cpu32.c
-+++ b/target/arm/tcg/cpu32.c
-@@ -10,7 +10,7 @@
+ static void hvf_cpu_max_instance_init(X86CPU *cpu)
+diff --git a/target/i386/kvm/kvm-cpu.c b/target/i386/kvm/kvm-cpu.c
+index 1bda403f88b..6269fa80452 100644
+--- a/target/i386/kvm/kvm-cpu.c
++++ b/target/i386/kvm/kvm-cpu.c
+@@ -15,7 +15,7 @@
+ #include "hw/boards.h"
  
- #include "qemu/osdep.h"
- #include "cpu.h"
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- #include "internals.h"
- #include "target/arm/idau.h"
- #if !defined(CONFIG_USER_ONLY)
-diff --git a/target/arm/tcg/mte_helper.c b/target/arm/tcg/mte_helper.c
-index f72ce2ae0d4..5d6d8a17ae8 100644
---- a/target/arm/tcg/mte_helper.c
-+++ b/target/arm/tcg/mte_helper.c
-@@ -31,7 +31,7 @@
- #endif
- #include "exec/cpu_ldst.h"
- #include "exec/helper-proto.h"
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- #include "qapi/error.h"
- #include "qemu/guest-random.h"
- #include "mte_helper.h"
-diff --git a/target/arm/tcg/sve_helper.c b/target/arm/tcg/sve_helper.c
-index d0865dece35..2268fcd41b0 100644
---- a/target/arm/tcg/sve_helper.c
-+++ b/target/arm/tcg/sve_helper.c
-@@ -28,7 +28,7 @@
- #include "tcg/tcg.h"
- #include "vec_internal.h"
- #include "sve_ldst_internal.h"
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- #ifdef CONFIG_USER_ONLY
- #include "user/page-protection.h"
- #endif
-diff --git a/target/avr/cpu.c b/target/avr/cpu.c
-index 8a126ff3222..5a0e21465e5 100644
---- a/target/avr/cpu.c
-+++ b/target/avr/cpu.c
-@@ -203,7 +203,7 @@ static const struct SysemuCPUOps avr_sysemu_ops = {
-     .get_phys_page_debug = avr_cpu_get_phys_page_debug,
- };
+ #include "kvm_i386.h"
+-#include "hw/core/accel-cpu.h"
++#include "accel/accel-cpu-target.h"
  
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- 
- static const TCGCPUOps avr_tcg_ops = {
-     .initialize = avr_cpu_tcg_init,
-diff --git a/target/avr/helper.c b/target/avr/helper.c
-index 345708a1b39..9ea6870e44d 100644
---- a/target/avr/helper.c
-+++ b/target/avr/helper.c
-@@ -22,7 +22,7 @@
- #include "qemu/log.h"
- #include "qemu/error-report.h"
- #include "cpu.h"
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- #include "exec/exec-all.h"
- #include "exec/page-protection.h"
- #include "exec/cpu_ldst.h"
-diff --git a/target/hexagon/cpu.c b/target/hexagon/cpu.c
-index 0b7fc98f6ce..238e63bcea4 100644
---- a/target/hexagon/cpu.c
-+++ b/target/hexagon/cpu.c
-@@ -321,7 +321,7 @@ static void hexagon_cpu_init(Object *obj)
+ static void kvm_set_guest_phys_bits(CPUState *cs)
  {
- }
- 
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- 
- static const TCGCPUOps hexagon_tcg_ops = {
-     .initialize = hexagon_translate_init,
-diff --git a/target/hppa/cpu.c b/target/hppa/cpu.c
-index b0bc9d35e4c..f2441d4d7fb 100644
---- a/target/hppa/cpu.c
-+++ b/target/hppa/cpu.c
-@@ -235,7 +235,7 @@ static const struct SysemuCPUOps hppa_sysemu_ops = {
- };
- #endif
- 
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- 
- static const TCGCPUOps hppa_tcg_ops = {
-     .initialize = hppa_translate_init,
 diff --git a/target/i386/tcg/tcg-cpu.c b/target/i386/tcg/tcg-cpu.c
-index 14ee038079a..f09ee813ac9 100644
+index f09ee813ac9..b8aff825eec 100644
 --- a/target/i386/tcg/tcg-cpu.c
 +++ b/target/i386/tcg/tcg-cpu.c
-@@ -105,7 +105,7 @@ static bool x86_debug_check_breakpoint(CPUState *cs)
- }
- #endif
+@@ -21,7 +21,7 @@
+ #include "cpu.h"
+ #include "helper-tcg.h"
+ #include "qemu/accel.h"
+-#include "hw/core/accel-cpu.h"
++#include "accel/accel-cpu-target.h"
+ #include "exec/translation-block.h"
  
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
+ #include "tcg-cpu.h"
+diff --git a/target/ppc/kvm.c b/target/ppc/kvm.c
+index 966c2c65723..216638dee40 100644
+--- a/target/ppc/kvm.c
++++ b/target/ppc/kvm.c
+@@ -49,7 +49,7 @@
+ #include "elf.h"
+ #include "system/kvm_int.h"
+ #include "system/kvm.h"
+-#include "hw/core/accel-cpu.h"
++#include "accel/accel-cpu-target.h"
  
- static const TCGCPUOps x86_tcg_ops = {
-     .initialize = tcg_x86_init,
-diff --git a/target/loongarch/cpu.c b/target/loongarch/cpu.c
-index d611a604704..ecfd6edefbe 100644
---- a/target/loongarch/cpu.c
-+++ b/target/loongarch/cpu.c
-@@ -813,7 +813,7 @@ static void loongarch_cpu_dump_state(CPUState *cs, FILE *f, int flags)
- }
+ #include CONFIG_DEVICES
  
- #ifdef CONFIG_TCG
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- 
- static const TCGCPUOps loongarch_tcg_ops = {
-     .initialize = loongarch_translate_init,
-diff --git a/target/m68k/cpu.c b/target/m68k/cpu.c
-index 41dfdf58045..5eac4a38c62 100644
---- a/target/m68k/cpu.c
-+++ b/target/m68k/cpu.c
-@@ -547,7 +547,7 @@ static const struct SysemuCPUOps m68k_sysemu_ops = {
- };
- #endif /* !CONFIG_USER_ONLY */
- 
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- 
- static const TCGCPUOps m68k_tcg_ops = {
-     .initialize = m68k_tcg_init,
-diff --git a/target/microblaze/cpu.c b/target/microblaze/cpu.c
-index f114789abd8..13d194cef88 100644
---- a/target/microblaze/cpu.c
-+++ b/target/microblaze/cpu.c
-@@ -419,7 +419,7 @@ static const struct SysemuCPUOps mb_sysemu_ops = {
- };
- #endif
- 
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- 
- static const TCGCPUOps mb_tcg_ops = {
-     .initialize = mb_tcg_init,
-diff --git a/target/mips/cpu.c b/target/mips/cpu.c
-index 47cd7cfdcef..0b267d2e507 100644
---- a/target/mips/cpu.c
-+++ b/target/mips/cpu.c
-@@ -544,7 +544,7 @@ static const Property mips_cpu_properties[] = {
- };
- 
- #ifdef CONFIG_TCG
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- static const TCGCPUOps mips_tcg_ops = {
-     .initialize = mips_tcg_init,
-     .translate_code = mips_translate_code,
-diff --git a/target/openrisc/cpu.c b/target/openrisc/cpu.c
-index b7bab0d7abf..0669ba2fd10 100644
---- a/target/openrisc/cpu.c
-+++ b/target/openrisc/cpu.c
-@@ -232,7 +232,7 @@ static const struct SysemuCPUOps openrisc_sysemu_ops = {
- };
- #endif
- 
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- 
- static const TCGCPUOps openrisc_tcg_ops = {
-     .initialize = openrisc_translate_init,
-diff --git a/target/ppc/cpu_init.c b/target/ppc/cpu_init.c
-index c05c2dc42dc..ed85448bc7d 100644
---- a/target/ppc/cpu_init.c
-+++ b/target/ppc/cpu_init.c
-@@ -7427,7 +7427,7 @@ static const struct SysemuCPUOps ppc_sysemu_ops = {
- #endif
- 
- #ifdef CONFIG_TCG
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- 
- static const TCGCPUOps ppc_tcg_ops = {
-   .initialize = ppc_translate_init,
+diff --git a/target/riscv/kvm/kvm-cpu.c b/target/riscv/kvm/kvm-cpu.c
+index 23ce7793594..7e4443c5bda 100644
+--- a/target/riscv/kvm/kvm-cpu.c
++++ b/target/riscv/kvm/kvm-cpu.c
+@@ -32,7 +32,7 @@
+ #include "system/kvm_int.h"
+ #include "cpu.h"
+ #include "trace.h"
+-#include "hw/core/accel-cpu.h"
++#include "accel/accel-cpu-target.h"
+ #include "hw/pci/pci.h"
+ #include "exec/memattrs.h"
+ #include "exec/address-spaces.h"
 diff --git a/target/riscv/tcg/tcg-cpu.c b/target/riscv/tcg/tcg-cpu.c
-index 0a137281de1..e40c8e85b26 100644
+index e40c8e85b26..79345e4b89d 100644
 --- a/target/riscv/tcg/tcg-cpu.c
 +++ b/target/riscv/tcg/tcg-cpu.c
-@@ -31,7 +31,7 @@
+@@ -30,7 +30,7 @@
+ #include "qemu/accel.h"
  #include "qemu/error-report.h"
  #include "qemu/log.h"
- #include "hw/core/accel-cpu.h"
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
+-#include "hw/core/accel-cpu.h"
++#include "accel/accel-cpu-target.h"
+ #include "accel/tcg/cpu-ops.h"
  #include "tcg/tcg.h"
  #ifndef CONFIG_USER_ONLY
- #include "hw/boards.h"
-diff --git a/target/rx/cpu.c b/target/rx/cpu.c
-index 8c50c7a1bc8..d237d007023 100644
---- a/target/rx/cpu.c
-+++ b/target/rx/cpu.c
-@@ -192,7 +192,7 @@ static const struct SysemuCPUOps rx_sysemu_ops = {
- };
- #endif
- 
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- 
- static const TCGCPUOps rx_tcg_ops = {
-     .initialize = rx_translate_init,
-diff --git a/target/s390x/cpu.c b/target/s390x/cpu.c
-index 97d41c23de7..3bea014f9ee 100644
---- a/target/s390x/cpu.c
-+++ b/target/s390x/cpu.c
-@@ -322,7 +322,7 @@ static const Property s390x_cpu_properties[] = {
- #endif
- 
- #ifdef CONFIG_TCG
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- 
- void cpu_get_tb_cpu_state(CPUS390XState *env, vaddr *pc,
-                           uint64_t *cs_base, uint32_t *pflags)
-diff --git a/target/s390x/tcg/mem_helper.c b/target/s390x/tcg/mem_helper.c
-index 32717acb7d1..4ce7aa8127f 100644
---- a/target/s390x/tcg/mem_helper.c
-+++ b/target/s390x/tcg/mem_helper.c
-@@ -28,7 +28,7 @@
- #include "exec/exec-all.h"
- #include "exec/page-protection.h"
- #include "exec/cpu_ldst.h"
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- #include "qemu/int128.h"
- #include "qemu/atomic128.h"
- 
-diff --git a/target/sh4/cpu.c b/target/sh4/cpu.c
-index 24a22724c61..e3c2aea1a64 100644
---- a/target/sh4/cpu.c
-+++ b/target/sh4/cpu.c
-@@ -247,7 +247,7 @@ static const struct SysemuCPUOps sh4_sysemu_ops = {
- };
- #endif
- 
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- 
- static const TCGCPUOps superh_tcg_ops = {
-     .initialize = sh4_translate_init,
-diff --git a/target/sparc/cpu.c b/target/sparc/cpu.c
-index fbd38ec334a..e3b46137178 100644
---- a/target/sparc/cpu.c
-+++ b/target/sparc/cpu.c
-@@ -992,7 +992,7 @@ static const struct SysemuCPUOps sparc_sysemu_ops = {
- #endif
- 
- #ifdef CONFIG_TCG
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- 
- static const TCGCPUOps sparc_tcg_ops = {
-     .initialize = sparc_tcg_init,
-diff --git a/target/tricore/cpu.c b/target/tricore/cpu.c
-index 95202fadbfd..eb794674c8d 100644
---- a/target/tricore/cpu.c
-+++ b/target/tricore/cpu.c
-@@ -168,7 +168,7 @@ static const struct SysemuCPUOps tricore_sysemu_ops = {
-     .get_phys_page_debug = tricore_cpu_get_phys_page_debug,
- };
- 
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- 
- static const TCGCPUOps tricore_tcg_ops = {
-     .initialize = tricore_tcg_init,
-diff --git a/target/xtensa/cpu.c b/target/xtensa/cpu.c
-index 4eb699d1f45..efbfe73fcfb 100644
---- a/target/xtensa/cpu.c
-+++ b/target/xtensa/cpu.c
-@@ -228,7 +228,7 @@ static const struct SysemuCPUOps xtensa_sysemu_ops = {
- };
- #endif
- 
--#include "hw/core/tcg-cpu-ops.h"
-+#include "accel/tcg/cpu-ops.h"
- 
- static const TCGCPUOps xtensa_tcg_ops = {
-     .initialize = xtensa_translate_init,
 -- 
 2.47.1
 
