@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE8B2A1A3A5
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Jan 2025 12:57:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.876178.1286551 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09B6CA1A41C
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Jan 2025 13:23:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.876195.1286561 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tavpZ-0004Km-Bb; Thu, 23 Jan 2025 11:57:05 +0000
+	id 1tawEz-0000CP-AZ; Thu, 23 Jan 2025 12:23:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 876178.1286551; Thu, 23 Jan 2025 11:57:05 +0000
+Received: by outflank-mailman (output) from mailman id 876195.1286561; Thu, 23 Jan 2025 12:23:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tavpZ-0004Ic-7k; Thu, 23 Jan 2025 11:57:05 +0000
-Received: by outflank-mailman (input) for mailman id 876178;
- Thu, 23 Jan 2025 11:57:04 +0000
+	id 1tawEz-0000Ax-7t; Thu, 23 Jan 2025 12:23:21 +0000
+Received: by outflank-mailman (input) for mailman id 876195;
+ Thu, 23 Jan 2025 12:23:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nhpA=UP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tavpY-0004IW-ET
- for xen-devel@lists.xenproject.org; Thu, 23 Jan 2025 11:57:04 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Lw3w=UP=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tawEy-0000Ar-9n
+ for xen-devel@lists.xenproject.org; Thu, 23 Jan 2025 12:23:20 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 284d4859-d981-11ef-99a4-01e77a169b0f;
- Thu, 23 Jan 2025 12:57:02 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-385deda28b3so534491f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 23 Jan 2025 03:57:02 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38bf322a838sm18753848f8f.48.2025.01.23.03.57.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Jan 2025 03:57:01 -0800 (PST)
+ id d399a3de-d984-11ef-99a4-01e77a169b0f;
+ Thu, 23 Jan 2025 13:23:18 +0100 (CET)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-5d9837f201aso3727096a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Jan 2025 04:23:18 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab632fa9f6esm472093166b.115.2025.01.23.04.23.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Jan 2025 04:23:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,458 +44,202 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 284d4859-d981-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: d399a3de-d984-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1737633422; x=1738238222; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/joPImFr6xW5XVBnoTNvsOMKWUJOHC3IgxYB/qzg4Wg=;
-        b=J4lWypdkTLZ6rNqjuqO5OXvOmjnRI5nVLI1CA+2DpAyZdCt9C9AJMfQE8vJ+JO5dsk
-         GhVxhGOGVxybIH4dcRloPQxKrVJtfzQn54u3Sxhn/Gt5tKgimp3ezMuZythHWYQjIjQz
-         9di+dSkTSD6LF6Gfs6jE9uFXcxzIouiKzrnpAqi3VpvH86en+0o6ZbBzXZEm90qaW7+b
-         VoCU88YPX8M6eFKo8iPJvY6+pQpq4nJTXW6vJpX/dAo4Kr9yib5uAnM7sKb1+IL5XGU4
-         1nAnD9Ju4rSpiYi4uJubYADmITkePuqTAVrtdROkpp2EA2ABgxfE1yilYQObRZ99Z62w
-         VjMw==
+        d=citrix.com; s=google; t=1737634997; x=1738239797; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Jqyzbacxeoe/hGUk9E85W1gEGbEF6DW25f7NXqDuufc=;
+        b=FSfE2rzkPx98irM5pK7njLeIyxYcbd+ViyMuWI925AX5fxtQr8Z+xJaMyQpq1jmGrf
+         XbgZslXRrZO13Hq3lfi+CyDlm3jqoMKsZm02quFlIRBqt4rYrvt524ZxEiXmpn7doCM5
+         /UNixTTDrLcW79hCC620zZHTNJU8AvDK1Mh1s=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737633422; x=1738238222;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/joPImFr6xW5XVBnoTNvsOMKWUJOHC3IgxYB/qzg4Wg=;
-        b=kUXWCChdvTLNC5CnRFFHRWyqkYC+I6kpujzP66UQJab1DR5SsZxBHBWp5eWbvKI86d
-         1VWp7TCZn+SkA0wY7ZK3BGhylTEYTKC4bM7GuMhHMWw2VmCgrOZ8zaZIpcXCfu1Uptmi
-         T2xG1bR8lWq0QbAxFl+U5kNJ/YnK6KOHISyTSCaa6stOecwi70szRSuItStEln04oNJx
-         OD1BSTqAM0KqqXrZ+UaquNMtA18fW3+M5Z9+TxZEITZVvhoKPjDP3wb6X92sBPZpEe5E
-         Zfoizin3VEW54MGY2Hc3X1zmw7YmctRVe/zAFm6zsbYoidQBj466vaj2rzJAL6QyaW1+
-         RlLw==
-X-Forwarded-Encrypted: i=1; AJvYcCXJq9ymhICqg4jbG6Ne3L7yrt3pjPfrVg6UlTKfosgFiE92GFAly/M2fW89fcHfbEiQxsWf4RJIRIc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzpkAwwz13FcqKmjbR6YKIQtHVm815FlSEEcaDdvHiZKU1eiwxi
-	5bw/u71I/+6pbmC1ljSFLbTrbulmRKfclbBog74tHzZOQj5TKplrPZfOSGYrVQ==
-X-Gm-Gg: ASbGncsicbqCr7Jt5XKPlAVsWE3upe6U04f6vcpuxAQxo9ZEGFfEDxZbrEKAKO8wgHB
-	nUfmvoc2WzHkS4+y4pxAntrx6lye9S46N5moS3bZVExKXetJl2RKea/dlgiV8roNGwVM3Vuj8UX
-	Pa+AnyITaLK1ioUj4lIdFokBnn8Qg5WNPAkWd/LyW4+uCgGnsKR+dOYB57mO+G0Yc5B/7ox50/V
-	qqG+yKoO6nu2FYMZ+a1mI/RpcTeTffxwj411lC6G5r1vNZ8kcwIQQbJJLdrdKpN+kHsumTJJZv6
-	TJqiegm+w+/z1gjX3C+38sON2MS0cAx0YfgUzlbpAkvIOJLidvAUM9do/N/na/qztg==
-X-Google-Smtp-Source: AGHT+IG9RxqFBr+4wuNveVskPoUugHh9j64Cfe+bFcUo5L8Xjy6VChDCcfDpn7Dv+8eYKq5HRGyd5Q==
-X-Received: by 2002:a05:6000:1883:b0:386:459f:67e0 with SMTP id ffacd0b85a97d-38bf5663678mr27149519f8f.21.1737633421654;
-        Thu, 23 Jan 2025 03:57:01 -0800 (PST)
-Message-ID: <867b4010-29d3-475c-a17d-8c7c19edea56@suse.com>
-Date: Thu, 23 Jan 2025 12:57:00 +0100
+        d=1e100.net; s=20230601; t=1737634997; x=1738239797;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Jqyzbacxeoe/hGUk9E85W1gEGbEF6DW25f7NXqDuufc=;
+        b=GUHm5LFy9wG7RFthj7Ejkm6snnpEx7KfrNlB5CRAW+mCA0oXq9eqlZC3riIBrZ5Mb4
+         7pcJAdB0AU5mWA+kuv2lUTuwAmrzF0zUssV1eiOAOc0nQEylOlBMzztew5SxCwvXrXoZ
+         wlJOg0sZP7ED9p5Yfkw2s8l0frWPbxPX4EvlGS5g6dT10+oaKlSm3qwoGfSsfzuH1D6c
+         h5sBLu8V4/thKCk5a6BQj8pPXUjdSLHIRaBOHjLEb4AoyYhFhxRwOgQ8GWnqXTJBslIj
+         5tMA6hjmO/gDT+OQlSHvrbzbQQWmVkYLxUYAWKDmdcFrydiVovef36QFlj5LXQGUmQyW
+         4EDg==
+X-Gm-Message-State: AOJu0Yz8C2XHuA1nGi5Lk3Up+tKn++fj4bhLlxL47LhgU886I3TcmKAX
+	SFalt+aVhl5VUgkHto73SEEHKGfMRDWuExo1RIdL3K24WnyB8LUHpHxy2vM5N+Q=
+X-Gm-Gg: ASbGncs5zLv7B4oFVrOSvdtl7eLF2e0SHd4rAiVV8IBFwQYOfK76JNs/GOwGp9UR0o7
+	OGVjIzg3MYaTZglY7DocSuB8Eq17qvn3SL73MCHEOv5uTbwgRHrNLXGbgOap5/YnNvkaK5+F8V+
+	mBNPZ/BMtHXFtaN/MyWwCY5LEwPDugBl0Mb4FVcul5ZgPzqO0x98u6sZkbNli8BjfDZRMe61HT5
+	aXZwqMMqPiwutW52kax4/EQG/gwWxbvYkCYeL2nrNI/mG5T2F7uj5zM0qpEuaHwxxrnVXuAt6Q+
+	zR/Jjq1AWWfxLHg=
+X-Google-Smtp-Source: AGHT+IF4N2JVRlBpG1T/QPKg1+XOsCej1L+ouNhpRhI4mzQ4NrsbquZWlOFokiZosxt9dmmJbsak8w==
+X-Received: by 2002:a17:906:d555:b0:ab3:85eb:377c with SMTP id a640c23a62f3a-ab662a63a50mr315122066b.17.1737634997388;
+        Thu, 23 Jan 2025 04:23:17 -0800 (PST)
+Date: Thu, 23 Jan 2025 13:23:15 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Manuel Andreas <manuel.andreas@tum.de>
+Subject: Re: [PATCH v2 3/5] x86/HVM: correct read/write split at page
+ boundaries
+Message-ID: <Z5I0s83trDGp1x2V@macbook.local>
+References: <3294f629-f91f-4b5d-9eb0-40a34aa2ec3e@suse.com>
+ <fde70079-4084-4aa6-b76e-becd62a71ddb@suse.com>
+ <Z5Euyc91PZsyMP6f@macbook.local>
+ <41e6c4a5-d5c4-40a2-a8c6-f6b5bba70f8c@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 09/10] x86/vmx: Implement arch LBR
-To: Tu Dinh <ngoc-tu.dinh@vates.tech>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20250102084413.102-1-ngoc-tu.dinh@vates.tech>
- <20250102084413.102-10-ngoc-tu.dinh@vates.tech>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250102084413.102-10-ngoc-tu.dinh@vates.tech>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <41e6c4a5-d5c4-40a2-a8c6-f6b5bba70f8c@suse.com>
 
-On 02.01.2025 09:45, Tu Dinh wrote:
-> --- a/xen/arch/x86/domain.c
-> +++ b/xen/arch/x86/domain.c
-> @@ -2021,6 +2021,13 @@ static void __context_switch(void)
->              if ( cpu_has_xsaves && is_hvm_vcpu(n) )
->                  set_msr_xss(n->arch.msrs->xss.raw);
->          }
-> +#ifdef CONFIG_HVM
-> +        /* XRSTORS LBR state behavior depends on MSR_LBR_DEPTH */
-> +        if ( using_vmx() &&
-> +             is_hvm_vcpu(n) &&
-> +             n->domain->arch.cpu_policy->feat.arch_lbr )
-> +            wrmsrl(MSR_LBR_DEPTH, n->arch.msrs->lbr_depth.raw);
-> +#endif
->          vcpu_restore_fpu_nonlazy(n, false);
->          nd->arch.ctxt_switch->to(n);
->      }
+On Thu, Jan 23, 2025 at 10:49:36AM +0100, Jan Beulich wrote:
+> On 22.01.2025 18:45, Roger Pau Monné wrote:
+> > On Tue, Oct 01, 2024 at 10:49:40AM +0200, Jan Beulich wrote:
+> >> The MMIO cache is intended to have one entry used per independent memory
+> >> access that an insn does. This, in particular, is supposed to be
+> >> ignoring any page boundary crossing. Therefore when looking up a cache
+> >> entry, the access'es starting (linear) address is relevant, not the one
+> >> possibly advanced past a page boundary.
+> >>
+> >> In order for the same offset-into-buffer variable to be usable in
+> >> hvmemul_phys_mmio_access() for both the caller's buffer and the cache
+> >> entry's it is further necessary to have the un-adjusted caller buffer
+> >> passed into there.
+> >>
+> >> Fixes: 2d527ba310dc ("x86/hvm: split all linear reads and writes at page boundary")
+> >> Reported-by: Manuel Andreas <manuel.andreas@tum.de>
+> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> >> ---
+> >> This way problematic overlaps are only reduced (to ones starting at the
+> >> same address), not eliminated: Assumptions in hvmemul_phys_mmio_access()
+> >> go further - if a subsequent access is larger than an earlier one, but
+> >> the splitting results in a chunk to cross the end "boundary" of the
+> >> earlier access, an assertion will still trigger. Explicit memory
+> >> accesses (ones encoded in an insn by explicit or implicit memory
+> >> operands) match the assumption afaict (i.e. all those accesses are of
+> >> uniform size, and hence they either fully overlap or are mapped to
+> >> distinct cache entries).
+> >>
+> >> Insns accessing descriptor tables, otoh, don't fulfill these
+> >> expectations: The selector read (if coming from memory) will always be
+> >> smaller than the descriptor being read, and if both (insanely) start at
+> >> the same linear address (in turn mapping MMIO), said assertion will kick
+> >> in. (The same would be true for an insn trying to access itself as data,
+> >> as long as certain size "restrictions" between insn and memory operand
+> >> are met. Except that linear_read() disallows insn fetches from MMIO.) To
+> >> deal with such, I expect we will need to further qualify (tag) cache
+> >> entries, such that reads/writes won't use insn fetch entries, and
+> >> implicit-supervisor-mode accesses won't use entries of ordinary
+> >> accesses. (Page table accesses don't need considering here for now, as
+> >> our page walking code demands page tables to be mappable, implying
+> >> they're in guest RAM; such accesses also don't take the path here.)
+> >> Thoughts anyone, before I get to making another patch?
+> >>
+> >> Considering the insn fetch aspect mentioned above I'm having trouble
+> >> following why the cache has 3 entries. With insn fetches permitted,
+> >> descriptor table accesses where the accessed bit needs setting may also
+> >> fail because of that limited capacity of the cache, due to the way the
+> >> accesses are done. The read and write (cmpxchg) are independent accesses
+> >> from the cache's perspective, and hence we'd need another entry there.
+> >> If, otoh, the 3 entries are there to account for precisely this (which
+> >> seems unlikely with commit e101123463d2 ["x86/hvm: track large memory
+> >> mapped accesses by buffer offset"] not saying anything at all), then we
+> >> should be fine in this regard. If we were to permit insn fetches, which
+> >> way to overcome this (possibly by allowing the write to re-use the
+> >> earlier read's entry in this special situation) would remain to be
+> >> determined.
+> > 
+> > I'm not that familiar with the emulator logic for memory accesses, but
+> > it seems like we are adding more and more complexity and special
+> > casing.  Maybe it's the only way to go forward, but I wonder if there
+> > could be some other way to solve this.  However, I don't think I
+> > will have time to look into it, and hence I'm not going to oppose to
+> > your proposal.
+> 
+> I'll see what I can do; it's been quite a while, so I'll first need to
+> swap context back in.
+> 
+> > Are there however some tests, possibly XTF, that we could use to
+> > ensure the behavior of accesses is as we expect?
+> 
+> Manuel's report included an XTF test, which I expect will become a part
+> of XTF once this fix went in. I fear though that there is an issue
+> Andrew has been pointing out, which may prevent this from happening
+> right away (even if with osstest having disappeared that's now only a
+> latent issue, until gitlab CI would start exercising XTF): With the
+> issue unfixed on older trees (i.e. those remaining after this series
+> was backported as appropriate), the new test would fail there.
 
-Why the #ifdef? That's (indirectly) included in using_vmx() already,
-isn't it?
+All this seems (to my possibly untrained eye in the emulator) quite
+fragile, so I would feel more comfortable knowing we have some way to
+test functionality here don't regress.
 
-And why the is_hvm_vcpu()? Non-HVM ones shouldn't ever have
-->feat.arch_lbr set. In fact using_vmx() ought to be redundant with
-the CPU policy check, too.
+> >> @@ -1030,7 +1040,11 @@ static struct hvm_mmio_cache *hvmemul_fi
+> >>              return cache;
+> >>      }
+> >>  
+> >> -    if ( !create )
+> >> +    /*
+> >> +     * Bail if a new entry shouldn't be allocated, utilizing that ->space has
+> >                                                       ^rely on ->space having ...
+> > Would be easier to read IMO.
+> 
+> Changed; I'm not overly fussed, yet at the same time I also don't really
+> agree with your comment.
+> 
+> >> @@ -1064,12 +1079,14 @@ static void latch_linear_to_phys(struct
+> >>  
+> >>  static int hvmemul_linear_mmio_access(
+> >>      unsigned long gla, unsigned int size, uint8_t dir, void *buffer,
+> >> -    uint32_t pfec, struct hvm_emulate_ctxt *hvmemul_ctxt, bool known_gpfn)
+> >> +    uint32_t pfec, struct hvm_emulate_ctxt *hvmemul_ctxt,
+> >> +    unsigned long start, bool known_gpfn)
+> > 
+> > I think start is a bit ambiguous, start_gla might be clearer (same
+> > below for the start parameter).
+> 
+> Fine with me - changed for all three hvmemul_linear_mmio_*(). It wasn't
+> clear to me whether you also meant the local variables in
+> linear_{read,write}(); since you said "parameter" I assumed you didn't.
 
-> --- a/xen/arch/x86/hvm/vmx/vmx.c
-> +++ b/xen/arch/x86/hvm/vmx/vmx.c
-> @@ -48,6 +48,7 @@
->  #include <asm/monitor.h>
->  #include <asm/prot-key.h>
->  #include <asm/spec_ctrl.h>
-> +#include <asm/xstate.h>
->  #include <public/arch-x86/cpuid.h>
->  
->  static bool __initdata opt_force_ept;
-> @@ -773,6 +774,67 @@ void vmx_update_exception_bitmap(struct vcpu *v)
->          __vmwrite(EXCEPTION_BITMAP, bitmap);
->  }
->  
-> +static void cf_check vmx_set_lbr_depth(struct vcpu *v,
-> +                                       uint32_t depth)
-> +{
-> +    struct cpu_policy *cp = v->domain->arch.cpu_policy;
-> +    bool host_lip, guest_lip;
-> +    uint32_t i;
+Indeed, I think those are fine as they are local variables.
 
-unsigned int
+> If you did, I fear I'd be less happy to make the change there too, for
+> "addr" then preferably also wanting to change to "gla". Yet that would
+> cause undue extra churn.
+> 
+> >> @@ -1182,8 +1202,17 @@ static int linear_read(unsigned long add
+> >>       * an access that was previously handled as MMIO. Thus it is imperative that
+> >>       * we handle this access in the same way to guarantee completion and hence
+> >>       * clean up any interim state.
+> >> +     *
+> >> +     * Care must be taken, however, to correctly deal with crossing RAM/MMIO or
+> >> +     * MMIO/RAM boundaries. While we want to use a single cache entry (tagged
+> >> +     * by the starting linear address), we need to continue issuing (i.e. also
+> >> +     * upon replay) the RAM access for anything that's ahead of or past MMIO,
+> >> +     * i.e. in RAM.
+> >>       */
+> >> -    if ( !hvmemul_find_mmio_cache(hvio, addr, IOREQ_READ, false) )
+> >> +    cache = hvmemul_find_mmio_cache(hvio, start, IOREQ_READ, ~0);
+> >> +    if ( !cache ||
+> >> +         addr + bytes <= start + cache->skip ||
+> >> +         addr >= start + cache->size )
+> > 
+> > Seeing as this bound checks is also used below, could it be a macro or
+> > inline function?
+> > 
+> > is_cached() or similar?
+> 
+> Hmm. Yes, it's twice the same expression, yet that helper would require
+> four parameters. That's a little too much for my taste; I'd prefer to
+> keep things as they are. After all there are far more redundancies between
+> the two functions.
 
-> +    if ( !cp->feat.arch_lbr )
-> +        return;
-> +
-> +    ASSERT(depth != 0 &&
-> +           depth <= NUM_MSR_ARCH_LBR_FROM_TO &&
+Oh, indeed that would be 4 parameters.  Anyway, I guess it's fine
+as-is then.
 
-See comments on the respective guest_wrmsr() additions.
-
-> +           depth % 8 == 0);
-> +    ASSERT(cp->basic.lbr_1Ca.supported_depths & ((1u << (depth / 8)) - 1));
-> +
-> +    host_lip = current_cpu_has_lbr_lip;
-> +    guest_lip = !!cp->basic.lbr_1Ca.ip_contains_lip;
-
-As already indicated elsewhere in the series: No need for !! in cases
-like this one. I wonder though whether the local variables are actually
-needed. They look to be used only ...
-
-> +    if ( v->arch.msrs->lbr_depth.raw == depth &&
-> +         v->arch.hvm.vmx.last_host_lip == host_lip )
-> +        return;
-> +
-> +    if ( host_lip != guest_lip )
-
-... here (the XSS_EXIT_BITMAP update could be folded into this if()
-and its "else").
-
-> +    {
-> +        for ( i = 0; i < depth; i++ )
-> +        {
-> +            vmx_set_msr_intercept(v, MSR_LBR_FROM_IP(i), VMX_MSR_RW);
-> +            vmx_set_msr_intercept(v, MSR_LBR_TO_IP(i), VMX_MSR_RW);
-> +        }
-> +        vmx_set_msr_intercept(v, MSR_IA32_LASTINTFROMIP, VMX_MSR_RW);
-> +        vmx_set_msr_intercept(v, MSR_IA32_LASTINTTOIP, VMX_MSR_RW);
-> +    }
-> +    else
-> +    {
-> +        for ( i = 0; i < depth; i++ )
-> +        {
-> +            vmx_clear_msr_intercept(v, MSR_LBR_FROM_IP(i), VMX_MSR_RW);
-> +            vmx_clear_msr_intercept(v, MSR_LBR_TO_IP(i), VMX_MSR_RW);
-> +        }
-> +        vmx_clear_msr_intercept(v, MSR_IA32_LASTINTFROMIP, VMX_MSR_RW);
-> +        vmx_clear_msr_intercept(v, MSR_IA32_LASTINTTOIP, VMX_MSR_RW);
-> +    }
-> +
-> +    /* MSR_{LBR,LER}_INFO don't need translating */
-> +    for ( i = 0; i < depth; i++ )
-> +        vmx_clear_msr_intercept(v, MSR_LBR_INFO(i), VMX_MSR_RW);
-> +    vmx_clear_msr_intercept(v, MSR_LER_INFO, VMX_MSR_RW);
-> +    /* MSRs beyond LBR_DEPTH always need #GP */
-> +    for ( i = depth; i < NUM_MSR_ARCH_LBR_FROM_TO; i++ )
-> +    {
-> +        vmx_set_msr_intercept(v, MSR_LBR_INFO(i), VMX_MSR_RW);
-> +        vmx_set_msr_intercept(v, MSR_LBR_FROM_IP(i), VMX_MSR_RW);
-> +        vmx_set_msr_intercept(v, MSR_LBR_TO_IP(i), VMX_MSR_RW);
-> +    }
-
-While I agree with the comment ahead of the loop, wouldn't hardware take
-care of this when the intercept is disabled?
-
-Further, do you really need to fiddle with the entire
-[0,NUM_MSR_ARCH_LBR_FROM_TO) range for all three groups? Isn't is enough
-to cover
-[min(depth, v->arch.msrs->lbr_depth), max(depth, v->arch.msrs->lbr_depth))
-when "host_lip != guest_lip" didn't change (which, aiui, on some [many?]
-systems will never be the case)?
-
-> @@ -871,6 +933,16 @@ static void cf_check vmx_cpuid_policy_changed(struct vcpu *v)
->      else
->          vmx_set_msr_intercept(v, MSR_PKRS, VMX_MSR_RW);
->  
-> +    if ( cp->feat.arch_lbr && v->arch.msrs->lbr_depth.raw == 0 )
-> +    {
-> +        uint32_t max_depth;
-
-unsigned int
-
-> @@ -2679,6 +2752,48 @@ static uint64_t cf_check vmx_get_reg(struct vcpu *v, unsigned int reg)
->          __vmread(GUEST_BNDCFGS, &val);
->          break;
->  
-> +    case MSR_LBR_CTL:
-> +        __vmread(GUEST_LBR_CTL, &val);
-> +        break;
-> +
-> +    case MSR_LBR_DEPTH:
-> +        val = v->arch.msrs->lbr_depth.raw;
-> +        break;
-
-This doesn't look to be VMX-specific (beyond the question whether AMD
-will ever implement ARCH-LBR), and hence perhaps does't belong here.
-
-> +    case MSR_LER_INFO:
-> +    case MSR_LBR_INFO(0)...MSR_LBR_INFO(NUM_MSR_ARCH_LBR_FROM_TO - 1):
-> +        if ( v != curr )
-> +        {
-> +            val = 0;
-> +            break;
-> +        }
-> +        rdmsrl(reg, val);
-> +        break;
-> +
-> +    case MSR_IA32_LASTINTFROMIP:
-> +    case MSR_IA32_LASTINTTOIP:
-> +    case MSR_LBR_FROM_IP(0)...MSR_LBR_FROM_IP(NUM_MSR_ARCH_LBR_FROM_TO - 1):
-> +    case MSR_LBR_TO_IP(0)...MSR_LBR_TO_IP(NUM_MSR_ARCH_LBR_FROM_TO - 1):
-> +    {
-> +        struct segment_register cs;
-> +        int mode_64bit;
-> +        uint64_t offset;
-> +
-> +        if ( v != curr )
-> +        {
-> +            val = 0;
-> +            break;
-> +        }
-> +
-> +        mode_64bit = vmx_guest_x86_mode(v) == X86_MODE_64BIT;
-> +        hvm_get_segment_register(v, x86_seg_cs, &cs);
-> +        offset = x86_get_lbr_cs_offset(cp, mode_64bit, &cs, true);
-> +
-> +        rdmsrl(reg, val);
-> +        val += offset;
-> +        break;
-> +    }
-
-Same for all of these as it seems. And then similarly for set-reg.
-
-> @@ -4055,6 +4197,36 @@ static void undo_nmis_unblocked_by_iret(void)
->                guest_info | VMX_INTR_SHADOW_NMI);
->  }
->  
-> +static void vmx_handle_xsaves_xrstors(bool saving)
-> +{
-> +    struct hvm_emulate_ctxt ctxt;
-> +    int rc;
-> +
-> +    if ( saving )
-> +        hvm_emulate_init_once(&ctxt, x86_insn_is_xsaves, guest_cpu_user_regs());
-> +    else
-> +        hvm_emulate_init_once(&ctxt, x86_insn_is_xrstors, guest_cpu_user_regs());
-> +
-> +    switch ( rc = hvm_emulate_one(&ctxt, VIO_no_completion) )
-> +    {
-> +    case X86EMUL_UNHANDLEABLE:
-> +        hvm_dump_emulation_state(XENLOG_G_WARNING, "XSAVES/XRSTORS", &ctxt, rc);
-
-Can the strings passed here and ...
-
-> +        hvm_inject_hw_exception(X86_EXC_UD, 0);
-> +        return;
-> +
-> +    case X86EMUL_UNRECOGNIZED:
-> +        hvm_dump_emulation_state(XENLOG_G_WARNING, "XSAVES/XRSTORS", &ctxt, rc);
-
-... here please properly reflect "saving"?
-
-> +        hvm_inject_hw_exception(X86_EXC_UD, X86_EVENT_NO_EC);
-
-You correctly have X86_EVENT_NO_EC here, but not in the earlier invocation
-of the function.
-
-> +        break;
-> +
-> +    case X86EMUL_EXCEPTION:
-> +        hvm_inject_event(&ctxt.ctxt.event);
-> +        break;
-> +    }
-
-This switch lacks the handling of other X86EMUL_* cases (I realize you may
-have found this pattern elsewhere). Actually, why aren't you using
-hvm_emulate_one_insn() in the first place? After all this code isn't VMX-
-specific at all.
-
-> --- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-> +++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-> @@ -154,6 +154,9 @@ struct vmx_vcpu {
->      /* Are we emulating rather than VMENTERing? */
->      uint8_t              vmx_emulate;
->  
-> +    /* If the vCPU last ran on a host CPU with XEN_X86_FEATURE_LBR_LIP */
-> +    bool                 last_host_lip;
-
-I assume this is for asymmetric configurations (e.g. E-cores vs P-cores)?
-Yet then - doesn't this field also need migrating (which I first thought
-it's for, considering the "host" in its name)?
-
-> @@ -229,6 +232,7 @@ extern u32 vmx_pin_based_exec_control;
->  #define VM_EXIT_LOAD_HOST_EFER          0x00200000
->  #define VM_EXIT_SAVE_PREEMPT_TIMER      0x00400000
->  #define VM_EXIT_CLEAR_BNDCFGS           0x00800000
-> +#define VM_EXIT_CLEAR_GUEST_LBR_CTL     0x04000000
->  extern u32 vmx_vmexit_control;
->  
->  #define VM_ENTRY_IA32E_MODE             0x00000200
-> @@ -238,6 +242,7 @@ extern u32 vmx_vmexit_control;
->  #define VM_ENTRY_LOAD_GUEST_PAT         0x00004000
->  #define VM_ENTRY_LOAD_GUEST_EFER        0x00008000
->  #define VM_ENTRY_LOAD_BNDCFGS           0x00010000
-> +#define VM_ENTRY_LOAD_GUEST_LBR_CTL     0x00200000
->  extern u32 vmx_vmentry_control;
-
-As you can see from context (BNDCFGS) we don't use a _GUEST_ infix for
-these. It's technically wrong in the former case (as it's the real MSR
-that's to be cleared, not the guest view thereof).
-
-> @@ -480,6 +489,8 @@ enum vmcs_field {
->      GUEST_PDPTE0                    = 0x0000280a,
->  #define GUEST_PDPTE(n) (GUEST_PDPTE0 + (n) * 2) /* n = 0...3 */
->      GUEST_BNDCFGS                   = 0x00002812,
-> +    GUEST_RTIT_CTL                  = 0x00002814,
-> +    GUEST_LBR_CTL                   = 0x00002816,
->      HOST_PAT                        = 0x00002c00,
->      HOST_EFER                       = 0x00002c02,
->      HOST_PERF_GLOBAL_CTRL           = 0x00002c04,
-
-While I don't mind the GUEST_RTIT_CTL addition here, it's unrelated. Such
-things, even if minor, are normally mentioned in the patch description
-(if nothing else, then to indicate they're actually deliberate).
-
-> --- a/xen/arch/x86/include/asm/msr.h
-> +++ b/xen/arch/x86/include/asm/msr.h
-> @@ -389,6 +389,11 @@ struct vcpu_msrs
->          uint64_t raw;
->      } xss;
->  
-> +    /* 0x000014cf - MSR_LBR_DEPTH */
-> +    struct {
-> +        uint64_t raw;
-> +    } lbr_depth;
-
-Why is this needed? The value is part of xstate, and hence saved/restored
-that way, and also accessible there. You may of course have chosen to put
-it here for other reasons, but then please comment this entry accordingly.
-The comment would presumably also want to clarify that this is a HVM-only
-field (alternatively this could be expressed by enclosing in #ifdef
-CONFIG_HVM, provided the result actually builds okay).
-
-I'm also uncertain about this wanting to be a struct. There are no fields
-within the MSR (except for the partitioning between valid and reserved
-bits).
-
-> --- a/xen/arch/x86/msr.c
-> +++ b/xen/arch/x86/msr.c
-> @@ -193,6 +193,38 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
->              goto gp_fault;
->          goto get_reg;
->  
-> +    case MSR_LBR_CTL:
-> +    case MSR_LBR_DEPTH:
-> +    case MSR_LER_INFO:
-> +        if ( !cp->feat.arch_lbr )
-> +            goto gp_fault;
-> +
-> +        goto get_reg;
-> +
-> +    case MSR_LBR_INFO(0)...MSR_LBR_INFO(NUM_MSR_ARCH_LBR_FROM_TO - 1):
-> +        if ( !cp->feat.arch_lbr )
-> +            goto gp_fault;
-> +
-> +        if ( msr - MSR_LBR_INFO(0) >= msrs->lbr_depth.raw )
-> +            goto gp_fault;
-> +
-> +        goto get_reg;
-> +
-> +    case MSR_IA32_LASTINTFROMIP:
-> +    case MSR_IA32_LASTINTTOIP:
-
-I don't think you can wire these two ...
-
-> +    case MSR_LBR_FROM_IP(0)...MSR_LBR_FROM_IP(NUM_MSR_ARCH_LBR_FROM_TO - 1):
-> +    case MSR_LBR_TO_IP(0)...MSR_LBR_TO_IP(NUM_MSR_ARCH_LBR_FROM_TO - 1):
-> +        if ( !cp->feat.arch_lbr )
-> +            goto gp_fault;
-
-... this way. When called from hvm_msr_read_intercept() they need to be
-permitted through to vmx_msr_read_intercept() in the !ARCH_LBR case.
-
-> +        if ( (msr >= MSR_LBR_FROM_IP(msrs->lbr_depth.raw) &&
-> +              msr <= MSR_LBR_FROM_IP(NUM_MSR_ARCH_LBR_FROM_TO - 1)) ||
-> +             (msr >= MSR_LBR_TO_IP(msrs->lbr_depth.raw) &&
-> +              msr <= MSR_LBR_TO_IP(NUM_MSR_ARCH_LBR_FROM_TO - 1)) )
-> +            goto gp_fault;
-
-Much like you did for INFO, having the two ranges separately will simplify
-the conditional(s) here.
-
-Both comments obviously apply to the write path, too.
-
-> @@ -516,6 +548,60 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
->          }
->  
->          goto set_reg;
-> +
-> +    case MSR_LBR_CTL:
-> +        if ( !cp->feat.arch_lbr )
-> +            goto gp_fault;
-> +
-> +        if ( val & ~LBR_CTL_VALID )
-> +            goto gp_fault;
-> +
-> +        goto set_reg;
-> +
-> +    case MSR_LBR_DEPTH:
-> +        if ( !cp->feat.arch_lbr )
-> +            goto gp_fault;
-> +
-> +        if ( val == 0 ||
-
-I wasn't able to find an indication that 0 is an illegal value here. It
-looks as if this simply means "no LBRs other than the LER ones".
-
-> +             val > NUM_MSR_ARCH_LBR_FROM_TO ||
-
-Isn't this redundant with ...
-
-> +             val % 8 != 0 )
-> +            goto gp_fault;
-> +
-> +        if ( !(cp->basic.lbr_1Ca.supported_depths &
-> +               ((1u << (val / 8)) - 1)) )
-> +            goto gp_fault;
-
-... this?
-
-Jan
+Thanks, Roger.
 
