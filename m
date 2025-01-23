@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66118A1AD64
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FE6CA1AD66
 	for <lists+xen-devel@lfdr.de>; Fri, 24 Jan 2025 00:45:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.876389.1286747 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.876390.1286757 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tb6s5-0007zR-UW; Thu, 23 Jan 2025 23:44:25 +0000
+	id 1tb6sA-0008Fg-5u; Thu, 23 Jan 2025 23:44:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 876389.1286747; Thu, 23 Jan 2025 23:44:25 +0000
+Received: by outflank-mailman (output) from mailman id 876390.1286757; Thu, 23 Jan 2025 23:44:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tb6s5-0007wY-RD; Thu, 23 Jan 2025 23:44:25 +0000
-Received: by outflank-mailman (input) for mailman id 876389;
- Thu, 23 Jan 2025 23:44:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tb6sA-0008Di-2c; Thu, 23 Jan 2025 23:44:30 +0000
+Received: by outflank-mailman (input) for mailman id 876390;
+ Thu, 23 Jan 2025 23:44:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QxCy=UP=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1tb6s4-0007w9-KA
- for xen-devel@lists.xenproject.org; Thu, 23 Jan 2025 23:44:24 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f8c4c627-d9e3-11ef-a0e5-8be0dac302b0;
- Fri, 24 Jan 2025 00:44:22 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3863703258fso1722951f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 23 Jan 2025 15:44:22 -0800 (PST)
+ id 1tb6s9-0007hN-5d
+ for xen-devel@lists.xenproject.org; Thu, 23 Jan 2025 23:44:29 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fba857b2-d9e3-11ef-99a4-01e77a169b0f;
+ Fri, 24 Jan 2025 00:44:27 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-385df53e559so1133687f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Jan 2025 15:44:27 -0800 (PST)
 Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38c2a1764c8sm979124f8f.3.2025.01.23.15.44.20
+ ffacd0b85a97d-38c2a17d6e2sm989811f8f.23.2025.01.23.15.44.25
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 23 Jan 2025 15:44:21 -0800 (PST)
+ Thu, 23 Jan 2025 15:44:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f8c4c627-d9e3-11ef-a0e5-8be0dac302b0
+X-Inumbo-ID: fba857b2-d9e3-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1737675862; x=1738280662; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1737675867; x=1738280667; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7gr0bDqRAyX8smxLdEX+9XpZH40OE0aprdKko/M9qp4=;
-        b=mHQFV8Yxc4qnodx15/O9P9U9JbYITuRwuKA9jw+Sq4OcPQCOVNWXoNA4WPz6CdpAMy
-         nnr4CqgG8CA0CYw+hMp7wpk9Jco4nY/kKtyhQKqltw3fqBv/B+9KVfQ87spg0i9DD21M
-         MsVI90GlKbMcBJdxWhxXDXksi2McmW2xoKtW2q1tH0wj3GvuAjpUNrbezl7cI6P6H3VU
-         FLqWzYmNkK+1FxoqFL9KQ4/ENdktoK2GhmFnxceHq6KvydkUE6EL1SVdN3a8TMOp0ega
-         afLgX7kLLxtaVOnpdpdSjC/495OXg3cH3l1lSFKL4zsyrFU+JPZQ2pVR834MkH7elHc5
-         anzQ==
+        bh=4nuXtmGFXC6ord9LKCUcMBdqEKN9u5T/6Xkbf7Pq9+s=;
+        b=Gm1Rwz1Ej4xWapZtJpOvUo7Vj9iGnyELUcoaRwcc47DMm3/GkikBmZue3bTmXGC/rK
+         4dFoFKdsyns1G7mqGduPHFLWo42wYSyVo33PGsYTUn7cwPkftCQyvckeWjcD6TOthFtk
+         mKPhFL4Fc2CtAdh8XbfWE2JpFkf0g5L7GhcwhdugoVJC/yXA00XWpN0Rc+PwWmWp1d21
+         SuaR9HhhxN8PukvdGzK0JAIOm2pSQg4D2pzf/OWLwwbmqlqguf8XrmJpBCZkuh0acJPW
+         JtKzVsI+6fL4STQcxxdYhT0B6tWNEMj2pwr7VLPR98+Pg5uvb+a454oIDfJ4LwgIrtVH
+         VVsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737675862; x=1738280662;
+        d=1e100.net; s=20230601; t=1737675867; x=1738280667;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=7gr0bDqRAyX8smxLdEX+9XpZH40OE0aprdKko/M9qp4=;
-        b=g6+6tNRx6ziPPrQVGO9sVimMd5OErBiHfwRLiwOD2pX1TYdh3Xe8rk8bc6+Q/QleT/
-         S10iDccCBtbOs7fLyCmQt3a99jNlZkfpzpS3p66KrTrRssEjhrHYB57c4YxE2+di+XYJ
-         iET+3fXrOeZaR2+Pvcx5lqXevR1ov/e6+fw0sfWPko8B2AbbvFoI2X57BNP15ktyvtyY
-         IbCfkA8p1HlQyT6G6qMgQNw5BQH8Qj8PTwTWaQzditCi35y5lFAZWp5WnGKkrvmqc0oy
-         bnIzg+X7lTLR4qqD/keC7hqkabg0NnHSDRJSwXwRyOSHkzJEhv5k2fozonS0GSLuRUBg
-         o1UA==
-X-Forwarded-Encrypted: i=1; AJvYcCWnggkLV6Ooynqe+FfQlbHB+SQrNQCGEt+DFulVgGmnGhap9kvHfmSiHdW09/cQdj8ug5tvDnsvH3w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyliCGj8xhBuwp0156Zm5e9P5HD7r3GbhR4wwcsY1OkMltl5aaV
-	lNaWn2LeIxHbW6NMs4xBdDqJA4LcsM6h3sz7tyU4B3gDPHN+92YleedPT7KdltM=
-X-Gm-Gg: ASbGncuxguO2fXbmrF4hCHAOMqZ6ZSVxywOAdrHwN5Evt7HD08PUmuLiEyv8wduxbvq
-	F2lr4uIR5oZeHk32m5YQu9TX+vBzJ+Qmu1mJRSBXyPpWwfGZOBRT8i8IiajFCfdWpdm4JRRS83y
-	N8/AfHScz28WjXWE0z4Cn4ejJRUYA86KXV2zBLQszzY0j3vnQ26nggSfAHRb0+nKY8JU329YDuX
-	lzzSnLpf7rgio/5XD1zy4MWpsSMc0adgTlyUGKCsm757j0NTV/BK3I+eHA7+uNTeAj+nqon80hy
-	tdQ9vFstEdfOP1f7YdzFZZwxB74iDpvb8opezJkmC7/BMD420VD1rDw=
-X-Google-Smtp-Source: AGHT+IFO1I6JtHdZSiAttwFg1MlQL9TeL6Qp22FcnpRuMJ6TxX0mL0F5rCxwJt2t6SeC+o26N2z+Yw==
-X-Received: by 2002:a5d:5885:0:b0:386:3213:5b80 with SMTP id ffacd0b85a97d-38c2b7cdc55mr1203868f8f.24.1737675862142;
-        Thu, 23 Jan 2025 15:44:22 -0800 (PST)
+        bh=4nuXtmGFXC6ord9LKCUcMBdqEKN9u5T/6Xkbf7Pq9+s=;
+        b=RBZxwe+LPjZqTJ+Qx8U3LXFgN7KilptYvLS+s97iQP1PWmzQLYtTSYM0VbMpGc9/6c
+         RfZ18BHiCVx+XmdRlQMzKuddiy3/SLAQujhABTC4/P1o0nB052Fa4IK+mb+R4r95CC6U
+         aEFcktuDKKsb2wkMDxgorno94iyjgHsvIO2qXhLTFXGqYfjyjfvS9CDZSD9h/0VCLN9u
+         lU6h8Or9yYc3Ll+jC+uhkZkn0iqeIoDeAo9KgwvH21jk7dZxMl1k+mqBreHSXBsUUm7x
+         COeD+EJNCounXDhW3iRr7GDbpUxpWC4YDEuni7Mc0uLppEdmw19I6WC8AExMEQqxsMbl
+         5wrA==
+X-Forwarded-Encrypted: i=1; AJvYcCXOjH5ZOURC1YR031D5dyPeMC/3l6wSJ3mC1us1i/JJ3qmFCjhTsD1QjV6bSG0HbtIAAcZzqeaN+Xs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxJ72by1UqHzeAf1khyBGEm39P/+AphJuJYTxQDnLPfqhspuIx5
+	SPe5lGeWzfItqQMqgRkfjEQaKH7/53b8Js4hXMmWnj1NvlGxMyRe2bErN3Kz5XA=
+X-Gm-Gg: ASbGncuR4A3f3kTa+SuwfzL5FCoea5bKmloO4/fdxr+lWLoBS2aPNyBHnF16BGAd+Dz
+	hAebmo53CubVZGz6haiy+kTSV158ALn3nyfL4pwAiegAdeetJmVhS/gmFjYr0CMEIWVkfmX0fxv
+	IUt7pNqGGzNNZI8/UTI4hPhVYOG2G/yLqUAN3csbO8tRb8wOMg5K7IMldqsYF/iHEcQh4tD2e/u
+	LGk8X7g5Qxxo34aJEfyWBKgrbpdOBVvLxGKiIGUpL0NVDaW8+C95cot7g3lbDlR6BAWYAs20A3s
+	TSgarR5pcKUr0Ew0u0WVYlWv6rUmYTSl8tXc7uG9MDnZl23aQAx/I8s=
+X-Google-Smtp-Source: AGHT+IHv5zns5zWE/8mYKYb9FdwvG4F/GC7lN2DJcXXFDd0WLjCHyuvzadU0RlDxZ5dNLmoZuF9u5A==
+X-Received: by 2002:a05:6000:1887:b0:38a:87cc:fb42 with SMTP id ffacd0b85a97d-38bf56639d5mr27205303f8f.21.1737675867076;
+        Thu, 23 Jan 2025 15:44:27 -0800 (PST)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Peter Maydell <peter.maydell@linaro.org>,
@@ -95,12 +95,10 @@ Cc: Peter Maydell <peter.maydell@linaro.org>,
 	qemu-s390x@nongnu.org,
 	xen-devel@lists.xenproject.org,
 	Richard Henderson <richard.henderson@linaro.org>,
-	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
-	Pierrick Bouvier <pierrick.bouvier@linaro.org>,
-	Kevin Wolf <kwolf@redhat.com>
-Subject: [PATCH 01/20] qemu/compiler: Absorb 'clang-tsa.h'
-Date: Fri, 24 Jan 2025 00:43:55 +0100
-Message-ID: <20250123234415.59850-2-philmd@linaro.org>
+	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+Subject: [PATCH 02/20] user: Extract common MMAP API to 'user/mmap.h'
+Date: Fri, 24 Jan 2025 00:43:56 +0100
+Message-ID: <20250123234415.59850-3-philmd@linaro.org>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20250123234415.59850-1-philmd@linaro.org>
 References: <20250123234415.59850-1-philmd@linaro.org>
@@ -108,358 +106,128 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-We already have "qemu/compiler.h" for compiler-specific arrangements,
-automatically included by "qemu/osdep.h" for each source file. No
-need to explicitly include a header for a Clang particularity.
+Keep common MMAP-related declarations in a single place.
 
-Suggested-by: Pierrick Bouvier <pierrick.bouvier@linaro.org>
-Reviewed-by: Pierrick Bouvier <pierrick.bouvier@linaro.org>
-Reviewed-by: Alex Bennée <alex.bennee@linaro.org>
-Reviewed-by: Kevin Wolf <kwolf@redhat.com>
+Note, this disable ThreadSafetyAnalysis on Linux for:
+- mmap_fork_start()
+- mmap_fork_end().
+
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 ---
- bsd-user/qemu.h                  |   1 -
- include/block/block_int-common.h |   1 -
- include/block/graph-lock.h       |   2 -
- include/exec/page-protection.h   |   2 -
- include/qemu/clang-tsa.h         | 114 -------------------------------
- include/qemu/compiler.h          |  87 +++++++++++++++++++++++
- include/qemu/thread.h            |   1 -
- block/create.c                   |   1 -
- tests/unit/test-bdrv-drain.c     |   1 -
- tests/unit/test-block-iothread.c |   1 -
- util/qemu-thread-posix.c         |   1 -
- 11 files changed, 87 insertions(+), 125 deletions(-)
- delete mode 100644 include/qemu/clang-tsa.h
+ bsd-user/qemu.h        | 12 +-----------
+ include/user/mmap.h    | 32 ++++++++++++++++++++++++++++++++
+ linux-user/user-mmap.h | 19 ++-----------------
+ 3 files changed, 35 insertions(+), 28 deletions(-)
+ create mode 100644 include/user/mmap.h
 
 diff --git a/bsd-user/qemu.h b/bsd-user/qemu.h
-index 3eaa14f3f56..4e97c796318 100644
+index 4e97c796318..c1c508281a8 100644
 --- a/bsd-user/qemu.h
 +++ b/bsd-user/qemu.h
-@@ -40,7 +40,6 @@ extern char **environ;
- #include "target.h"
- #include "exec/gdbstub.h"
- #include "exec/page-protection.h"
--#include "qemu/clang-tsa.h"
- #include "accel/tcg/vcpu-state.h"
+@@ -32,6 +32,7 @@
+ extern char **environ;
  
- #include "qemu-os.h"
-diff --git a/include/block/block_int-common.h b/include/block/block_int-common.h
-index bb91a0f62fa..ebb4e56a503 100644
---- a/include/block/block_int-common.h
-+++ b/include/block/block_int-common.h
-@@ -28,7 +28,6 @@
- #include "block/block-common.h"
- #include "block/block-global-state.h"
- #include "block/snapshot.h"
--#include "qemu/clang-tsa.h"
- #include "qemu/iov.h"
- #include "qemu/rcu.h"
- #include "qemu/stats64.h"
-diff --git a/include/block/graph-lock.h b/include/block/graph-lock.h
-index dc8d9491843..2c26c721081 100644
---- a/include/block/graph-lock.h
-+++ b/include/block/graph-lock.h
-@@ -20,8 +20,6 @@
- #ifndef GRAPH_LOCK_H
- #define GRAPH_LOCK_H
+ #include "user/thunk.h"
++#include "user/mmap.h"
+ #include "target_arch.h"
+ #include "syscall_defs.h"
+ #include "target_syscall.h"
+@@ -233,19 +234,8 @@ void print_taken_signal(int target_signum, const target_siginfo_t *tinfo);
+ extern int do_strace;
  
--#include "qemu/clang-tsa.h"
--
- /**
-  * Graph Lock API
-  * This API provides a rwlock used to protect block layer
-diff --git a/include/exec/page-protection.h b/include/exec/page-protection.h
-index bae3355f62c..3e0a8a03331 100644
---- a/include/exec/page-protection.h
-+++ b/include/exec/page-protection.h
-@@ -40,8 +40,6 @@
+ /* mmap.c */
+-int target_mprotect(abi_ulong start, abi_ulong len, int prot);
+-abi_long target_mmap(abi_ulong start, abi_ulong len, int prot,
+-                     int flags, int fd, off_t offset);
+-int target_munmap(abi_ulong start, abi_ulong len);
+-abi_long target_mremap(abi_ulong old_addr, abi_ulong old_size,
+-                       abi_ulong new_size, unsigned long flags,
+-                       abi_ulong new_addr);
+ int target_msync(abi_ulong start, abi_ulong len, int flags);
+-extern abi_ulong mmap_next_start;
+-abi_ulong mmap_find_vma(abi_ulong start, abi_ulong size);
+ void mmap_reserve(abi_ulong start, abi_ulong size);
+-void TSA_NO_TSA mmap_fork_start(void);
+-void TSA_NO_TSA mmap_fork_end(int child);
  
- #ifdef CONFIG_USER_ONLY
- 
--#include "qemu/clang-tsa.h"
--
- void TSA_NO_TSA mmap_lock(void);
- void TSA_NO_TSA mmap_unlock(void);
- bool have_mmap_lock(void);
-diff --git a/include/qemu/clang-tsa.h b/include/qemu/clang-tsa.h
-deleted file mode 100644
-index ba06fb8c924..00000000000
---- a/include/qemu/clang-tsa.h
-+++ /dev/null
-@@ -1,114 +0,0 @@
--#ifndef CLANG_TSA_H
--#define CLANG_TSA_H
--
--/*
-- * Copyright 2018 Jarkko Hietaniemi <jhi@iki.fi>
-- *
-- * Permission is hereby granted, free of charge, to any person obtaining
-- * a copy of this software and associated documentation files (the "Software"),
-- * to deal in the Software without restriction, including without
-- * limitation the rights to use, copy, modify, merge, publish,
-- * distribute, sublicense, and/or sell copies of the Software, and to
-- * permit persons to whom the Software is furnished to do so, subject to
-- * the following conditions:
-- *
-- * The above copyright notice and this permission notice shall be
-- * included in all copies or substantial portions of the Software.
-- *
-- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-- * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-- * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-- * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-- * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-- */
--
--/* http://clang.llvm.org/docs/ThreadSafetyAnalysis.html
-- *
-- * TSA is available since clang 3.6-ish.
-- */
--#ifdef __clang__
--#  define TSA(x)   __attribute__((x))
--#else
--#  define TSA(x)   /* No TSA, make TSA attributes no-ops. */
--#endif
--
--/* TSA_CAPABILITY() is used to annotate typedefs:
-- *
-- * typedef pthread_mutex_t TSA_CAPABILITY("mutex") tsa_mutex;
-- */
--#define TSA_CAPABILITY(x) TSA(capability(x))
--
--/* TSA_GUARDED_BY() is used to annotate global variables,
-- * the data is guarded:
-- *
-- * Foo foo TSA_GUARDED_BY(mutex);
-- */
--#define TSA_GUARDED_BY(x) TSA(guarded_by(x))
--
--/* TSA_PT_GUARDED_BY() is used to annotate global pointers, the data
-- * behind the pointer is guarded.
-- *
-- * Foo* ptr TSA_PT_GUARDED_BY(mutex);
-- */
--#define TSA_PT_GUARDED_BY(x) TSA(pt_guarded_by(x))
--
--/* The TSA_REQUIRES() is used to annotate functions: the caller of the
-- * function MUST hold the resource, the function will NOT release it.
-- *
-- * More than one mutex may be specified, comma-separated.
-- *
-- * void Foo(void) TSA_REQUIRES(mutex);
-- */
--#define TSA_REQUIRES(...) TSA(requires_capability(__VA_ARGS__))
--#define TSA_REQUIRES_SHARED(...) TSA(requires_shared_capability(__VA_ARGS__))
--
--/* TSA_EXCLUDES() is used to annotate functions: the caller of the
-- * function MUST NOT hold resource, the function first acquires the
-- * resource, and then releases it.
-- *
-- * More than one mutex may be specified, comma-separated.
-- *
-- * void Foo(void) TSA_EXCLUDES(mutex);
-- */
--#define TSA_EXCLUDES(...) TSA(locks_excluded(__VA_ARGS__))
--
--/* TSA_ACQUIRE() is used to annotate functions: the caller of the
-- * function MUST NOT hold the resource, the function will acquire the
-- * resource, but NOT release it.
-- *
-- * More than one mutex may be specified, comma-separated.
-- *
-- * void Foo(void) TSA_ACQUIRE(mutex);
-- */
--#define TSA_ACQUIRE(...) TSA(acquire_capability(__VA_ARGS__))
--#define TSA_ACQUIRE_SHARED(...) TSA(acquire_shared_capability(__VA_ARGS__))
--
--/* TSA_RELEASE() is used to annotate functions: the caller of the
-- * function MUST hold the resource, but the function will then release it.
-- *
-- * More than one mutex may be specified, comma-separated.
-- *
-- * void Foo(void) TSA_RELEASE(mutex);
-- */
--#define TSA_RELEASE(...) TSA(release_capability(__VA_ARGS__))
--#define TSA_RELEASE_SHARED(...) TSA(release_shared_capability(__VA_ARGS__))
--
--/* TSA_NO_TSA is used to annotate functions.  Use only when you need to.
-- *
-- * void Foo(void) TSA_NO_TSA;
-- */
--#define TSA_NO_TSA TSA(no_thread_safety_analysis)
--
--/*
-- * TSA_ASSERT() is used to annotate functions: This function will assert that
-- * the lock is held. When it returns, the caller of the function is assumed to
-- * already hold the resource.
-- *
-- * More than one mutex may be specified, comma-separated.
-- */
--#define TSA_ASSERT(...) TSA(assert_capability(__VA_ARGS__))
--#define TSA_ASSERT_SHARED(...) TSA(assert_shared_capability(__VA_ARGS__))
--
--#endif /* #ifndef CLANG_TSA_H */
-diff --git a/include/qemu/compiler.h b/include/qemu/compiler.h
-index d904408e5ed..af0a9b17ff9 100644
---- a/include/qemu/compiler.h
-+++ b/include/qemu/compiler.h
-@@ -207,6 +207,93 @@
- # define QEMU_USED
- #endif
- 
-+/* http://clang.llvm.org/docs/ThreadSafetyAnalysis.html
+ /* main.c */
+ extern char qemu_proc_pathname[];
+diff --git a/include/user/mmap.h b/include/user/mmap.h
+new file mode 100644
+index 00000000000..4d004e6b822
+--- /dev/null
++++ b/include/user/mmap.h
+@@ -0,0 +1,32 @@
++/*
++ * MMAP declarations for QEMU user emulation
 + *
-+ * TSA is available since clang 3.6-ish.
++ * SPDX-License-Identifier: GPL-2.0-or-later
 + */
-+#ifdef __clang__
-+#  define TSA(x)   __attribute__((x))
-+#else
-+#  define TSA(x)   /* No TSA, make TSA attributes no-ops. */
-+#endif
++#ifndef USER_MMAP_H
++#define USER_MMAP_H
 +
-+/* TSA_CAPABILITY() is used to annotate typedefs:
-+ *
-+ * typedef pthread_mutex_t TSA_CAPABILITY("mutex") tsa_mutex;
-+ */
-+#define TSA_CAPABILITY(x) TSA(capability(x))
-+
-+/* TSA_GUARDED_BY() is used to annotate global variables,
-+ * the data is guarded:
-+ *
-+ * Foo foo TSA_GUARDED_BY(mutex);
-+ */
-+#define TSA_GUARDED_BY(x) TSA(guarded_by(x))
-+
-+/* TSA_PT_GUARDED_BY() is used to annotate global pointers, the data
-+ * behind the pointer is guarded.
-+ *
-+ * Foo* ptr TSA_PT_GUARDED_BY(mutex);
-+ */
-+#define TSA_PT_GUARDED_BY(x) TSA(pt_guarded_by(x))
-+
-+/* The TSA_REQUIRES() is used to annotate functions: the caller of the
-+ * function MUST hold the resource, the function will NOT release it.
-+ *
-+ * More than one mutex may be specified, comma-separated.
-+ *
-+ * void Foo(void) TSA_REQUIRES(mutex);
-+ */
-+#define TSA_REQUIRES(...) TSA(requires_capability(__VA_ARGS__))
-+#define TSA_REQUIRES_SHARED(...) TSA(requires_shared_capability(__VA_ARGS__))
-+
-+/* TSA_EXCLUDES() is used to annotate functions: the caller of the
-+ * function MUST NOT hold resource, the function first acquires the
-+ * resource, and then releases it.
-+ *
-+ * More than one mutex may be specified, comma-separated.
-+ *
-+ * void Foo(void) TSA_EXCLUDES(mutex);
-+ */
-+#define TSA_EXCLUDES(...) TSA(locks_excluded(__VA_ARGS__))
-+
-+/* TSA_ACQUIRE() is used to annotate functions: the caller of the
-+ * function MUST NOT hold the resource, the function will acquire the
-+ * resource, but NOT release it.
-+ *
-+ * More than one mutex may be specified, comma-separated.
-+ *
-+ * void Foo(void) TSA_ACQUIRE(mutex);
-+ */
-+#define TSA_ACQUIRE(...) TSA(acquire_capability(__VA_ARGS__))
-+#define TSA_ACQUIRE_SHARED(...) TSA(acquire_shared_capability(__VA_ARGS__))
-+
-+/* TSA_RELEASE() is used to annotate functions: the caller of the
-+ * function MUST hold the resource, but the function will then release it.
-+ *
-+ * More than one mutex may be specified, comma-separated.
-+ *
-+ * void Foo(void) TSA_RELEASE(mutex);
-+ */
-+#define TSA_RELEASE(...) TSA(release_capability(__VA_ARGS__))
-+#define TSA_RELEASE_SHARED(...) TSA(release_shared_capability(__VA_ARGS__))
-+
-+/* TSA_NO_TSA is used to annotate functions.  Use only when you need to.
-+ *
-+ * void Foo(void) TSA_NO_TSA;
-+ */
-+#define TSA_NO_TSA TSA(no_thread_safety_analysis)
++#include "user/abitypes.h"
 +
 +/*
-+ * TSA_ASSERT() is used to annotate functions: This function will assert that
-+ * the lock is held. When it returns, the caller of the function is assumed to
-+ * already hold the resource.
-+ *
-+ * More than one mutex may be specified, comma-separated.
++ * mmap_next_start: The base address for the next mmap without hint,
++ * increased after each successful map, starting at task_unmapped_base.
++ * This is an optimization within QEMU and not part of ADDR_COMPAT_LAYOUT.
 + */
-+#define TSA_ASSERT(...) TSA(assert_capability(__VA_ARGS__))
-+#define TSA_ASSERT_SHARED(...) TSA(assert_shared_capability(__VA_ARGS__))
++extern abi_ulong mmap_next_start;
++
++int target_mprotect(abi_ulong start, abi_ulong len, int prot);
++
++abi_long target_mmap(abi_ulong start, abi_ulong len, int prot,
++                     int flags, int fd, off_t offset);
++int target_munmap(abi_ulong start, abi_ulong len);
++abi_long target_mremap(abi_ulong old_addr, abi_ulong old_size,
++                       abi_ulong new_size, unsigned long flags,
++                       abi_ulong new_addr);
++
++abi_ulong mmap_find_vma(abi_ulong, abi_ulong, abi_ulong);
++
++void TSA_NO_TSA mmap_fork_start(void);
++void TSA_NO_TSA mmap_fork_end(int child);
++
++#endif
+diff --git a/linux-user/user-mmap.h b/linux-user/user-mmap.h
+index b94bcdcf83c..dfc4477a720 100644
+--- a/linux-user/user-mmap.h
++++ b/linux-user/user-mmap.h
+@@ -18,6 +18,8 @@
+ #ifndef LINUX_USER_USER_MMAP_H
+ #define LINUX_USER_USER_MMAP_H
+ 
++#include "user/mmap.h"
 +
  /*
-  * Ugly CPP trick that is like "defined FOO", but also works in C
-  * code.  Useful to replace #ifdef with "if" statements; assumes
-diff --git a/include/qemu/thread.h b/include/qemu/thread.h
-index 7eba27a7049..6f800aad31a 100644
---- a/include/qemu/thread.h
-+++ b/include/qemu/thread.h
-@@ -3,7 +3,6 @@
+  * Guest parameters for the ADDR_COMPAT_LAYOUT personality
+  * (at present this is the only layout supported by QEMU).
+@@ -39,24 +41,7 @@
+ extern abi_ulong task_unmapped_base;
+ extern abi_ulong elf_et_dyn_base;
  
- #include "qemu/processor.h"
- #include "qemu/atomic.h"
--#include "qemu/clang-tsa.h"
+-/*
+- * mmap_next_start: The base address for the next mmap without hint,
+- * increased after each successful map, starting at task_unmapped_base.
+- * This is an optimization within QEMU and not part of ADDR_COMPAT_LAYOUT.
+- */
+-extern abi_ulong mmap_next_start;
+-
+-int target_mprotect(abi_ulong start, abi_ulong len, int prot);
+-abi_long target_mmap(abi_ulong start, abi_ulong len, int prot,
+-                     int flags, int fd, off_t offset);
+-int target_munmap(abi_ulong start, abi_ulong len);
+-abi_long target_mremap(abi_ulong old_addr, abi_ulong old_size,
+-                       abi_ulong new_size, unsigned long flags,
+-                       abi_ulong new_addr);
+ abi_long target_madvise(abi_ulong start, abi_ulong len_in, int advice);
+-abi_ulong mmap_find_vma(abi_ulong, abi_ulong, abi_ulong);
+-void mmap_fork_start(void);
+-void mmap_fork_end(int child);
  
- typedef struct QemuCond QemuCond;
- typedef struct QemuSemaphore QemuSemaphore;
-diff --git a/block/create.c b/block/create.c
-index 72abafb4c12..6b23a216753 100644
---- a/block/create.c
-+++ b/block/create.c
-@@ -24,7 +24,6 @@
- 
- #include "qemu/osdep.h"
- #include "block/block_int.h"
--#include "qemu/clang-tsa.h"
- #include "qemu/job.h"
- #include "qemu/main-loop.h"
- #include "qapi/qapi-commands-block-core.h"
-diff --git a/tests/unit/test-bdrv-drain.c b/tests/unit/test-bdrv-drain.c
-index 98ad89b390c..7410e6f3528 100644
---- a/tests/unit/test-bdrv-drain.c
-+++ b/tests/unit/test-bdrv-drain.c
-@@ -28,7 +28,6 @@
- #include "system/block-backend.h"
- #include "qapi/error.h"
- #include "qemu/main-loop.h"
--#include "qemu/clang-tsa.h"
- #include "iothread.h"
- 
- static QemuEvent done_event;
-diff --git a/tests/unit/test-block-iothread.c b/tests/unit/test-block-iothread.c
-index 1de04a8a13d..26a6c051758 100644
---- a/tests/unit/test-block-iothread.c
-+++ b/tests/unit/test-block-iothread.c
-@@ -29,7 +29,6 @@
- #include "system/block-backend.h"
- #include "qapi/error.h"
- #include "qapi/qmp/qdict.h"
--#include "qemu/clang-tsa.h"
- #include "qemu/main-loop.h"
- #include "iothread.h"
- 
-diff --git a/util/qemu-thread-posix.c b/util/qemu-thread-posix.c
-index 6fff4162ac6..b2e26e21205 100644
---- a/util/qemu-thread-posix.c
-+++ b/util/qemu-thread-posix.c
-@@ -17,7 +17,6 @@
- #include "qemu-thread-common.h"
- #include "qemu/tsan.h"
- #include "qemu/bitmap.h"
--#include "qemu/clang-tsa.h"
- 
- #ifdef CONFIG_PTHREAD_SET_NAME_NP
- #include <pthread_np.h>
+ abi_ulong target_shmat(CPUArchState *cpu_env, int shmid,
+                        abi_ulong shmaddr, int shmflg);
 -- 
 2.47.1
 
