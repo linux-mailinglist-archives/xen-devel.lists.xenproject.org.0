@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68E77A1A745
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Jan 2025 16:47:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.876346.1286707 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6DF7A1A7A7
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Jan 2025 17:15:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.876357.1286717 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tazPd-0000gy-1H; Thu, 23 Jan 2025 15:46:33 +0000
+	id 1tazqv-0005F2-4I; Thu, 23 Jan 2025 16:14:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 876346.1286707; Thu, 23 Jan 2025 15:46:33 +0000
+Received: by outflank-mailman (output) from mailman id 876357.1286717; Thu, 23 Jan 2025 16:14:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tazPc-0000et-UW; Thu, 23 Jan 2025 15:46:32 +0000
-Received: by outflank-mailman (input) for mailman id 876346;
- Thu, 23 Jan 2025 15:46:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NrAP=UP=bounce.vates.tech=bounce-md_30504962.67926454.v1-6f4cd110751f4a0d9dc20ee8aea8c00f@srs-se1.protection.inumbo.net>)
- id 1tazPb-0000en-NL
- for xen-devel@lists.xenproject.org; Thu, 23 Jan 2025 15:46:31 +0000
-Received: from mail180-4.suw31.mandrillapp.com
- (mail180-4.suw31.mandrillapp.com [198.2.180.4])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 35bc0b3d-d9a1-11ef-a0e5-8be0dac302b0;
- Thu, 23 Jan 2025 16:46:29 +0100 (CET)
-Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail180-4.suw31.mandrillapp.com (Mailchimp) with ESMTP id 4Yf5041JkvzlgWY5
- for <xen-devel@lists.xenproject.org>; Thu, 23 Jan 2025 15:46:28 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 6f4cd110751f4a0d9dc20ee8aea8c00f; Thu, 23 Jan 2025 15:46:28 +0000
+	id 1tazqv-0005Dd-1C; Thu, 23 Jan 2025 16:14:45 +0000
+Received: by outflank-mailman (input) for mailman id 876357;
+ Thu, 23 Jan 2025 16:14:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=nhpA=UP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tazqt-0005DX-KZ
+ for xen-devel@lists.xenproject.org; Thu, 23 Jan 2025 16:14:43 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 26c9c5a7-d9a5-11ef-99a4-01e77a169b0f;
+ Thu, 23 Jan 2025 17:14:41 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-43635796b48so7869585e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Jan 2025 08:14:41 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-438b31c6fbasm65761645e9.33.2025.01.23.08.14.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 23 Jan 2025 08:14:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,142 +45,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 35bc0b3d-d9a1-11ef-a0e5-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1737647188; x=1737917188;
-	bh=qZYA7QoYh/1BL2aHwxg5JDHqafw6k32+xHrB0+1VTtY=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=gmtyhtKMAGb2z6HZ8meI9nwufwSi5GiYAOim+wcDCXiPqLiIj1EqnTmCEhN9HBQ86
-	 Ik26KQJ28Mq7QGbCD4umcMGh2wAl//77UA2PT2I4XLl7iJYkrzyZcc6akNIzzVEO9i
-	 tmUeukYFf410c9tHIS9xYBt8gejX9R5iMesSTAc7rddxRhwCsitSIXmg0LK4QD3VPm
-	 +ZHi85keV8wmNrrfBhbWWiTmH9y+9yTsS5gVse8sI+a93DePIQfZV5xo8RiYKcAkYY
-	 AkTiOKq7FdhfDGdrjGHkhvWb3ifnu/4pAEmUlEGrjTX59GALseQHLVxeRXT7DceXdx
-	 Qkf/uWTEwpVYg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1737647188; x=1737907688; i=teddy.astie@vates.tech;
-	bh=qZYA7QoYh/1BL2aHwxg5JDHqafw6k32+xHrB0+1VTtY=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=dyClGd/nxuC+0lrygYRAG0p1G+pQqxIOX6B6ACHxfxfyp0uhDQ8BIB9LXCmpu4dHb
-	 wE5z09tq48wCF+Nqv1+BMVLxwjI1X378iWcgnrXcuy3KrvXMLomz9XG4SvTsDs3WIU
-	 amCoSbPtZj0eWUOQOPt9xb4DxqBe25Bwc6cVd0Btsm2itWIC+x903X8GvzSod+WgTZ
-	 Ecjr/nuQ76UPwV0ieSqrt15rqAuUyn/x3vfHKOhRHNlmik0FkDdjrfO3rT3aMfF4SX
-	 PnZ/7B2+K3t7ayRzQKUrDd5VAVJVpl0UHlu3dVjPR25Gv6/jxXOm704RMhDhA5VPKB
-	 zyplFrcEhiP0A==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[XEN=20RFC=20PATCH=20v5=200/5]=20IOMMU=20subsystem=20redesign=20and=20PV-IOMMU=20interface?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1737647186337
-Message-Id: <27cbe4ae-054d-454e-8d8a-3eb2f4af7654@vates.tech>
-To: "=?utf-8?Q?Marek=20Marczykowski-G=C3=B3recki?=" <marmarek@invisiblethingslab.com>
-Cc: xen-devel@lists.xenproject.org, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Lukasz Hawrylko" <lukasz@hawrylko.pl>, "Daniel P. Smith" <dpsmith@apertussolutions.com>, "=?utf-8?Q?Mateusz=20M=C3=B3wka?=" <mateusz.mowka@intel.com>
-References: <cover.1737470269.git.teddy.astie@vates.tech> <Z5I59HC77QxpPtJG@mail-itl>
-In-Reply-To: <Z5I59HC77QxpPtJG@mail-itl>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.6f4cd110751f4a0d9dc20ee8aea8c00f?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250123:md
-Date: Thu, 23 Jan 2025 15:46:28 +0000
+X-Inumbo-ID: 26c9c5a7-d9a5-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1737648881; x=1738253681; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=PZ4ivLeAwKE7KroPvTmAfQrCzVUwXfNphHY6Uzsd7mg=;
+        b=I8w/ULaTj9voPOpWb0GyO03bJPdrHmWZ1S93wgcoCIUrDPHkjJdwskpz3EV7ASvIx2
+         ADtLzbfrS/xomTECtyDE2mLJ8wflzgyL+6pb2VDVzetF6BOK5kDRm4DzBA3cD/e4A7hO
+         C5gXNfOMUT3WX2luGS0SWjWHuJp8lwGBbMack/VEZNEair4fov/BPWkL5BBXOMF3QC8S
+         imYrOb4UZUwDHSaTzPmwp2k9jbzfu0byhLx1c2uTo28JMLlFXk9PmrImu0t2Yh8e3HPu
+         iKdJBOtzqcs5MDgD0lCZtmALgQtqrvSTb78VNmkTc1EeKtzvV++LRirKd4C0QuAuzJWa
+         /Eiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1737648881; x=1738253681;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PZ4ivLeAwKE7KroPvTmAfQrCzVUwXfNphHY6Uzsd7mg=;
+        b=LYXW5TsEJmKL32JitNds/PBAyFiB7eDGLZU41ZKe+5lBoNi30LoT1YkIMiESYLPoIe
+         UVNGME8QDJ9DRD1HY4tp8aYfT2R5Vga8IqVQQg1cjbS8Mw9m/4KVFlZHTwG3cAsnAFGf
+         2ukwm0kE0fMshvJ971MsfoFIH3WV/C51FKlj10/upN1gNL9a1bBKibhxppAxx++MNjCv
+         i4k/XnD5IMLaykwqumvCfZYIDaj8JLpYj82XlgCfgzmMVOA5kd/uLF3TruG26xj6OIvR
+         oLmUIHIcZGW7bbG702V2Uftq5mDzQ+rMz6uc6iqRxllGpkWsznOIz3PRjwHk02wTZkzL
+         tnVA==
+X-Gm-Message-State: AOJu0Yzf1yk1VgzoifnDiE2heGbEPiLR+uWxfNxgCzSBXrmU7DuLhxjk
+	n/wDE+xJTBFId8cYe8Al6VAPu0kTbxqF41LLtYECwtd2Yn2ZeKqukigetviN/w==
+X-Gm-Gg: ASbGnct8t3RTfwXu2QwnxikbHQTjSDMVakqeg0Ya9glQfvps+1oTP3uLFrVy9JROlwk
+	xdlpGgPKIBHfwO6KWhpOrBekWxK7MwMafpWDRWEAicvHVVOj3098Ph3J1Su2XYPll76XgDmueCO
+	9C08wE+XXKYk3PIdehzcDLh7cJWG7FyJFFY9gNXcsCEneNT8v5MqqvHL2OtlCGhUvN6N9ns5zHe
+	nr8FPRebMjKKya7NgnjwUUuhJLLawFNegEECmtibj2rGkgytU+euNxzXN1GmxyhjKpCocDyKU6Q
+	VobiMzeOeu8exvNw7qpuDO7ZF5z8q6d8GOaFNcokwapK4FLwsrKP5oda5DNu1jO6QQ==
+X-Google-Smtp-Source: AGHT+IFQleoj5MhZsMmVajEiKDgPZgo5utL3vrTngILg1WPPDOcNjUvSope6kTPgCOkghr3cdmMUZw==
+X-Received: by 2002:a05:600c:83c4:b0:434:fe3c:c662 with SMTP id 5b1f17b1804b1-438b885be4cmr34116705e9.12.1737648881104;
+        Thu, 23 Jan 2025 08:14:41 -0800 (PST)
+Message-ID: <8aa7c377-b664-4786-b671-deff1601ac5f@suse.com>
+Date: Thu, 23 Jan 2025 17:14:39 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 02/12] x86/HVM: improve CET-IBT pruning of ENDBR
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>
+References: <293e5aef-8843-461c-bc96-709a605b2680@suse.com>
+ <537b0d9c-1936-4cf5-a012-d50b1097a22d@suse.com>
+ <Z5I5D_uVxijLF6sK@macbook.local>
+ <f0e2a3f3-3081-414d-824c-bf940134aece@suse.com>
+ <Z5JRGwA51lOs65t5@macbook.local>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <Z5JRGwA51lOs65t5@macbook.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hello Marek,
-Thanks for your testing.
-
-Le 23/01/2025 =C3=A0 13:45, Marek Marczykowski-G=C3=B3recki a =C3=A9crit=C2=
-=A0:
-> Thanks for the updated patches. I have run them through gitlab-
-ci, and
-> here are some observations:
-> - I needed to disable CONFIG_AMD_IOMMU (it fails to build, as expected at=
- this point)
-> - I needed to disable pvshim (it fails to build)
-
-> - fails to build with clang: https://gitlab.com/xen-project/people/marmar=
-ek/xen/-/jobs/8931373789/viewer#L3525> - gcc-ibt build fails: 
-https://gitlab.com/xen-project/people/marmarek/xen/-/jobs/8931373785#L1314
-
-Looks like another cf_check related issue that I missed.
-
-> - fails to build for ARM (both 32 and 64) and PPC64
-
-This is expected like for the AMD_IOMMU part.
-
-> - QEMU smoke test panic with PV dom0, looks like it runs on AMD, so it
->    may be related to the disabled CONFIG_AMD_IOMMU, but I wouldn't expect
->    it to panic on _PV_ dom0 boot...
-
-Looks like I broke something when there is no IOMMU detected (removed 
-some check that should be there).
-
-This patch should fix it (tested with QEMU without IOMMU).
-
----
-diff --git a/xen/drivers/passthrough/context.c 
-b/xen/drivers/passthrough/context.c
-index 6e68f840f3..98c84b439b 100644
---- a/xen/drivers/passthrough/context.c
-+++ b/xen/drivers/passthrough/context.c
-@@ -347,6 +347,10 @@ int iommu_iotlb_flush_all(struct domain *d, u16 
-ctx_no, unsigned int flush_flags
-      struct iommu_context *ctx;
-      int rc;
-
-+    if ( !is_iommu_enabled(d) || !hd->platform_ops->iotlb_flush ||
-+         !flush_flags )
-+        return 0;
-+
-      if ( !(ctx =3D iommu_get_context(d, ctx_no)) )
-          return -ENOENT;
-
----
-
-> - PVH dom0 fails to boot (on real hw) with a lot of VT-d faults: https://=
-gitlab.com/xen-project/people/marmarek/xen/-/jobs/8931373875
-
-I guess 00:02.0 is the iGPU. The addresses point to reserved memory in 
-E820 (is it the framebuffer ?) which should be reconfigured by the guest.
-
-Is the guest dying (maybe due to the PVH Dom0 issue) before being able
-to setup anything, causing the GPU to not be properly set ?
-I tested a plain Alpine 3.18 PVH Dom0 and the kernel crashes very early
-(6.1.123-0-lts though).
-
-Or there is something else going wrong like with PCI Passthrough.
-> - PCI passthrough (with PV dom0) results in a lot of VT-d faults: 
-> Note this uses only this series, but plain Linux (appears to be 6.1.19).
-> IIUC if one doesn't try to configure PV-IOMMU specifically (non-default
-> contexts) it should still work.
-
-Yes, and PV-IOMMU drivers will likely not fix the issues you are facing.
-
+On 23.01.2025 15:24, Roger Pau Monné wrote:
+> On Thu, Jan 23, 2025 at 02:18:41PM +0100, Jan Beulich wrote:
+>> On 23.01.2025 13:41, Roger Pau Monné wrote:
+>>> On Mon, Feb 26, 2024 at 05:42:20PM +0100, Jan Beulich wrote:
+>>>> --- a/xen/arch/x86/hvm/hvm.c
+>>>> +++ b/xen/arch/x86/hvm/hvm.c
+>>>> @@ -161,10 +161,15 @@ static int __init cf_check hvm_enable(vo
+>>>>      else if ( cpu_has_svm )
+>>>>          fns = start_svm();
+>>>>  
+>>>> +    if ( fns )
+>>>> +        hvm_funcs = *fns;
+>>>> +
+>>>> +    prune_vmx();
+>>>> +    prune_svm();
+>>>
+>>> Isn't it actually the opposite of pruning.  What the helpers do is
+>>> fill all the pointers in the structure.
+>>
+>> With the goal of their ENDBR to then be pruned. I agree though that the
+>> functions don't do any pruning themselves. Yet
+>> {svm,vmx}_prepare_for_cet_ibt_pruning() is a little awkward for my taste
+>> (although it would properly document the purpose). Plus ...
+>>
+>>>  I would rather name them {vmx,svm}_fill_hvm_funcs() or similar.
+>>
+>> ... while I can use those names (perhaps without the "hvm" infix), the
+>> present names have the advantage that any other pruning that we may
+>> find desirable could also be put there. Hence also why the cpu_has_*
+>> checks live there.
 > 
-> BTW Linux says it detected "Xen version 4.19." - shouldn't it report
-> 4.20 already at this point in release cycle?
+> Hm, I'm unsure.  What else do you see becoming part of those
+> functions?  It's hard for me to suggest a name when it's unclear what
+> future logic do you think they could contain.
+
+Prior to IBT it wasn't foreseeable any pruning might be needed. We're
+in a similar position now: We simply can't know whether anything else
+is going to be needed there.
+
+> Given the current code I still think something that contains 'fill' or
+> similar is way more appropriate, the more if the IBT check is pulled
+> out into the caller.
+
+As indicated, I'd prefer the IBT check to remain in the function. But
+yes, I'll see about renaming. If ever other stuff wants adding there,
+we can surely rename another time.
+
+>>>  And possibly pull the
+>>> cpu_has_xen_ibt check outside the functions:
+>>>
+>>> if ( cpu_has_xen_ibt )
+>>> {
+>>>     /*
+>>>      * Now that svm_function_table was copied, populate all function pointers
+>>>      * which may have been left at NULL, for __initdata_cf_clobber to have as
+>>>      * much of an effect as possible.
+>>>      */
+>>>     vmx_fill_hvm_funcs();
+>>>     svm_fill_hvm_funcs();
+>>> }
+>>
+>> Which would leave the SVM function entirely empty.
 > 
-
-It's probably because I mostly tested on Xen 4.19 (for practical reasons 
-to make toolstack happy), but I will update it to staging.
-
-> All results:
-> https://gitlab.com/xen-project/people/marmarek/xen/-/pipelines/1637849303
+> You could possible declare it as an static inline in the hvm.h header
+> for the time being?
 > 
+>> The intention was for
+>> that to not be the case, and also for the comment you have added above
+>> to also live in the per-vendor functions.
+> 
+> Isn't that a bit redundant?  I would prefer to not have duplicated
+> comments over the code, hence my suggestion to place part of the logic
+> in the caller.
 
-Thanks
+In this case I view the redundancy as necessary. You want to know what
+to add to the functions when you look at them, irrespective of whether
+you also look at their caller.
 
-Teddy
-
-
-
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+Jan
 
