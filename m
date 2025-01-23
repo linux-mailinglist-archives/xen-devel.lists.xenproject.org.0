@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FE6CA1AD66
+	by mail.lfdr.de (Postfix) with ESMTPS id 621DCA1AD63
 	for <lists+xen-devel@lfdr.de>; Fri, 24 Jan 2025 00:45:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.876390.1286757 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.876393.1286767 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tb6sA-0008Fg-5u; Thu, 23 Jan 2025 23:44:30 +0000
+	id 1tb6sH-0000BF-GF; Thu, 23 Jan 2025 23:44:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 876390.1286757; Thu, 23 Jan 2025 23:44:30 +0000
+Received: by outflank-mailman (output) from mailman id 876393.1286767; Thu, 23 Jan 2025 23:44:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tb6sA-0008Di-2c; Thu, 23 Jan 2025 23:44:30 +0000
-Received: by outflank-mailman (input) for mailman id 876390;
- Thu, 23 Jan 2025 23:44:29 +0000
+	id 1tb6sH-00008v-AQ; Thu, 23 Jan 2025 23:44:37 +0000
+Received: by outflank-mailman (input) for mailman id 876393;
+ Thu, 23 Jan 2025 23:44:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QxCy=UP=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1tb6s9-0007hN-5d
- for xen-devel@lists.xenproject.org; Thu, 23 Jan 2025 23:44:29 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
+ id 1tb6sF-0007hN-GI
+ for xen-devel@lists.xenproject.org; Thu, 23 Jan 2025 23:44:35 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fba857b2-d9e3-11ef-99a4-01e77a169b0f;
- Fri, 24 Jan 2025 00:44:27 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-385df53e559so1133687f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 23 Jan 2025 15:44:27 -0800 (PST)
+ id ff707947-d9e3-11ef-99a4-01e77a169b0f;
+ Fri, 24 Jan 2025 00:44:34 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3862ca8e0bbso1403875f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Jan 2025 15:44:33 -0800 (PST)
 Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38c2a17d6e2sm989811f8f.23.2025.01.23.15.44.25
+ ffacd0b85a97d-38c2a1c4006sm982952f8f.94.2025.01.23.15.44.30
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 23 Jan 2025 15:44:26 -0800 (PST)
+ Thu, 23 Jan 2025 15:44:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fba857b2-d9e3-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: ff707947-d9e3-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1737675867; x=1738280667; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1737675873; x=1738280673; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4nuXtmGFXC6ord9LKCUcMBdqEKN9u5T/6Xkbf7Pq9+s=;
-        b=Gm1Rwz1Ej4xWapZtJpOvUo7Vj9iGnyELUcoaRwcc47DMm3/GkikBmZue3bTmXGC/rK
-         4dFoFKdsyns1G7mqGduPHFLWo42wYSyVo33PGsYTUn7cwPkftCQyvckeWjcD6TOthFtk
-         mKPhFL4Fc2CtAdh8XbfWE2JpFkf0g5L7GhcwhdugoVJC/yXA00XWpN0Rc+PwWmWp1d21
-         SuaR9HhhxN8PukvdGzK0JAIOm2pSQg4D2pzf/OWLwwbmqlqguf8XrmJpBCZkuh0acJPW
-         JtKzVsI+6fL4STQcxxdYhT0B6tWNEMj2pwr7VLPR98+Pg5uvb+a454oIDfJ4LwgIrtVH
-         VVsA==
+        bh=ce4xXqVbqUUJ3kwtGZLdz75HP+CS3yxZeowyzQLM8Ns=;
+        b=M8MSYh4FA1WGZl6q5/sHZkYMUsiSlL9TI4NfXSXSADnqsjqXJyDzwMZCV8YNc+HXe6
+         U+UfbMytymvLkOfask9hVv6sbCCt6DtOQNhFrVesllxTs0wAEDlj0NVo0lTVvQ6XI1VA
+         +3KOIk1xq7252WaZvJZDpj7Qr4dWMVeDEnGnWqNUwhN1nsYw2DZO1z/cB5SvRP/0S5Bb
+         geWiYAcEuoR++jg6hL8wIT3B8uWX74L8Z41TsOR4Ud2Tl+o3WItgF7sWtHYN/3zLRUVp
+         oVUhfUHmLXmVBbxz1pci90Yf15VJhplSMgCFgeJ26LjzlLP5+x+2HOLPw5thKopI9viQ
+         M/Ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737675867; x=1738280667;
+        d=1e100.net; s=20230601; t=1737675873; x=1738280673;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=4nuXtmGFXC6ord9LKCUcMBdqEKN9u5T/6Xkbf7Pq9+s=;
-        b=RBZxwe+LPjZqTJ+Qx8U3LXFgN7KilptYvLS+s97iQP1PWmzQLYtTSYM0VbMpGc9/6c
-         RfZ18BHiCVx+XmdRlQMzKuddiy3/SLAQujhABTC4/P1o0nB052Fa4IK+mb+R4r95CC6U
-         aEFcktuDKKsb2wkMDxgorno94iyjgHsvIO2qXhLTFXGqYfjyjfvS9CDZSD9h/0VCLN9u
-         lU6h8Or9yYc3Ll+jC+uhkZkn0iqeIoDeAo9KgwvH21jk7dZxMl1k+mqBreHSXBsUUm7x
-         COeD+EJNCounXDhW3iRr7GDbpUxpWC4YDEuni7Mc0uLppEdmw19I6WC8AExMEQqxsMbl
-         5wrA==
-X-Forwarded-Encrypted: i=1; AJvYcCXOjH5ZOURC1YR031D5dyPeMC/3l6wSJ3mC1us1i/JJ3qmFCjhTsD1QjV6bSG0HbtIAAcZzqeaN+Xs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxJ72by1UqHzeAf1khyBGEm39P/+AphJuJYTxQDnLPfqhspuIx5
-	SPe5lGeWzfItqQMqgRkfjEQaKH7/53b8Js4hXMmWnj1NvlGxMyRe2bErN3Kz5XA=
-X-Gm-Gg: ASbGncuR4A3f3kTa+SuwfzL5FCoea5bKmloO4/fdxr+lWLoBS2aPNyBHnF16BGAd+Dz
-	hAebmo53CubVZGz6haiy+kTSV158ALn3nyfL4pwAiegAdeetJmVhS/gmFjYr0CMEIWVkfmX0fxv
-	IUt7pNqGGzNNZI8/UTI4hPhVYOG2G/yLqUAN3csbO8tRb8wOMg5K7IMldqsYF/iHEcQh4tD2e/u
-	LGk8X7g5Qxxo34aJEfyWBKgrbpdOBVvLxGKiIGUpL0NVDaW8+C95cot7g3lbDlR6BAWYAs20A3s
-	TSgarR5pcKUr0Ew0u0WVYlWv6rUmYTSl8tXc7uG9MDnZl23aQAx/I8s=
-X-Google-Smtp-Source: AGHT+IHv5zns5zWE/8mYKYb9FdwvG4F/GC7lN2DJcXXFDd0WLjCHyuvzadU0RlDxZ5dNLmoZuF9u5A==
-X-Received: by 2002:a05:6000:1887:b0:38a:87cc:fb42 with SMTP id ffacd0b85a97d-38bf56639d5mr27205303f8f.21.1737675867076;
-        Thu, 23 Jan 2025 15:44:27 -0800 (PST)
+        bh=ce4xXqVbqUUJ3kwtGZLdz75HP+CS3yxZeowyzQLM8Ns=;
+        b=ZccKH5rkaOKFpnABW+QiEUa42BED/tZ8OdNN5bBm8SEfEHxUy2ZvxbXSzJ4s5SW+G3
+         AX53+mmpZalUiDi2awPis8YELnhr4vVePJjfSwetJ7HCcWBtQEAfzXSHY+TQHBU6hbq0
+         gG5BlWdSEzLNCSxGQoJ8ikaLQuXUNfIehwMK2PoP4+OLNQ7KLdF+5VqVw8LqscOQBM+9
+         +BgSGRozhRB3kJ9aEjDiVj0MLopaJufzo4HeUNf/Xp7LdKiDNjCoSvkmkXEXUCBzpxEJ
+         C38k6R3K3g3yI6KkAkW1GrpHQSO1eWMWAHYH3MyxKvQD+gnu6NQ2409/LNsWNt8D+qlr
+         AHpQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVBqGKJd49irVuEE+czPmnZbidXts5wSzp7bdDekE015ciEC6Q1dqR/vyei+OGrXAdxwKh3Hdp8Jzk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxuur7aGUPwh4EGL1ENFXQqt7fnS55ghshPmnqLcaXiDTlxuwov
+	WECuH4zJfJd5OjTJKMglP0SbdDq0r91s3M6waYYfe+F9lTTCqI7X0z9qpIcc6gI=
+X-Gm-Gg: ASbGnctac+rmcBQtDUZDA9l3OI3TPZC+wBUcaynefeGr2mFQcErlj6+Wu+hnkSgWmJl
+	+xyru4P1kMabHWahoFieHE/gM7eDaP8IupcPlGqG2k/AARjbd7Fz/CmRNm4do51wk/qUWt5PV46
+	6l/d8saN5Akrh9NGeTruyTyN7eXXfQy4YGss7RqGe2eJmlU/CbIk3VG5YhOwH9yYDy5sWuMtOaW
+	A9P9fG2IreQ1vWiFaBxynbEIn+jj1Uk+YYtxZRL6FQI48xbdJ42JFr77l3oRGkckLs0+U+V90SW
+	F3Qwm0Hx5nOqeYjEPuONjyQUdh8L6xCiMI4lzc0n22qn3FNOCNkAUW6RAtliERmesQ==
+X-Google-Smtp-Source: AGHT+IF2OW+qflIazHPgiEcST7oe1qZGT6aj/Hik/HFfGWbVcOJj4aFV8515DLdGfzbOF2nObYCMQg==
+X-Received: by 2002:a05:6000:144a:b0:38a:9c1b:df5b with SMTP id ffacd0b85a97d-38bf566a279mr25563799f8f.30.1737675873434;
+        Thu, 23 Jan 2025 15:44:33 -0800 (PST)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Peter Maydell <peter.maydell@linaro.org>,
@@ -96,9 +96,9 @@ Cc: Peter Maydell <peter.maydell@linaro.org>,
 	xen-devel@lists.xenproject.org,
 	Richard Henderson <richard.henderson@linaro.org>,
 	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-Subject: [PATCH 02/20] user: Extract common MMAP API to 'user/mmap.h'
-Date: Fri, 24 Jan 2025 00:43:56 +0100
-Message-ID: <20250123234415.59850-3-philmd@linaro.org>
+Subject: [PATCH 03/20] gdbstub: Check for TCG before calling tb_flush()
+Date: Fri, 24 Jan 2025 00:43:57 +0100
+Message-ID: <20250123234415.59850-4-philmd@linaro.org>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20250123234415.59850-1-philmd@linaro.org>
 References: <20250123234415.59850-1-philmd@linaro.org>
@@ -106,128 +106,54 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Keep common MMAP-related declarations in a single place.
-
-Note, this disable ThreadSafetyAnalysis on Linux for:
-- mmap_fork_start()
-- mmap_fork_end().
+Use the tcg_enabled() check so the compiler can elide
+the call when TCG isn't available, allowing to remove
+the tb_flush() stub.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 ---
- bsd-user/qemu.h        | 12 +-----------
- include/user/mmap.h    | 32 ++++++++++++++++++++++++++++++++
- linux-user/user-mmap.h | 19 ++-----------------
- 3 files changed, 35 insertions(+), 28 deletions(-)
- create mode 100644 include/user/mmap.h
+ accel/stubs/tcg-stub.c | 4 ----
+ gdbstub/system.c       | 5 ++++-
+ 2 files changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/bsd-user/qemu.h b/bsd-user/qemu.h
-index 4e97c796318..c1c508281a8 100644
---- a/bsd-user/qemu.h
-+++ b/bsd-user/qemu.h
-@@ -32,6 +32,7 @@
- extern char **environ;
+diff --git a/accel/stubs/tcg-stub.c b/accel/stubs/tcg-stub.c
+index 7f4208fddf2..b2b9881bdfb 100644
+--- a/accel/stubs/tcg-stub.c
++++ b/accel/stubs/tcg-stub.c
+@@ -14,10 +14,6 @@
+ #include "exec/tb-flush.h"
+ #include "exec/exec-all.h"
  
- #include "user/thunk.h"
-+#include "user/mmap.h"
- #include "target_arch.h"
- #include "syscall_defs.h"
- #include "target_syscall.h"
-@@ -233,19 +234,8 @@ void print_taken_signal(int target_signum, const target_siginfo_t *tinfo);
- extern int do_strace;
- 
- /* mmap.c */
--int target_mprotect(abi_ulong start, abi_ulong len, int prot);
--abi_long target_mmap(abi_ulong start, abi_ulong len, int prot,
--                     int flags, int fd, off_t offset);
--int target_munmap(abi_ulong start, abi_ulong len);
--abi_long target_mremap(abi_ulong old_addr, abi_ulong old_size,
--                       abi_ulong new_size, unsigned long flags,
--                       abi_ulong new_addr);
- int target_msync(abi_ulong start, abi_ulong len, int flags);
--extern abi_ulong mmap_next_start;
--abi_ulong mmap_find_vma(abi_ulong start, abi_ulong size);
- void mmap_reserve(abi_ulong start, abi_ulong size);
--void TSA_NO_TSA mmap_fork_start(void);
--void TSA_NO_TSA mmap_fork_end(int child);
- 
- /* main.c */
- extern char qemu_proc_pathname[];
-diff --git a/include/user/mmap.h b/include/user/mmap.h
-new file mode 100644
-index 00000000000..4d004e6b822
---- /dev/null
-+++ b/include/user/mmap.h
-@@ -0,0 +1,32 @@
-+/*
-+ * MMAP declarations for QEMU user emulation
-+ *
-+ * SPDX-License-Identifier: GPL-2.0-or-later
-+ */
-+#ifndef USER_MMAP_H
-+#define USER_MMAP_H
-+
-+#include "user/abitypes.h"
-+
-+/*
-+ * mmap_next_start: The base address for the next mmap without hint,
-+ * increased after each successful map, starting at task_unmapped_base.
-+ * This is an optimization within QEMU and not part of ADDR_COMPAT_LAYOUT.
-+ */
-+extern abi_ulong mmap_next_start;
-+
-+int target_mprotect(abi_ulong start, abi_ulong len, int prot);
-+
-+abi_long target_mmap(abi_ulong start, abi_ulong len, int prot,
-+                     int flags, int fd, off_t offset);
-+int target_munmap(abi_ulong start, abi_ulong len);
-+abi_long target_mremap(abi_ulong old_addr, abi_ulong old_size,
-+                       abi_ulong new_size, unsigned long flags,
-+                       abi_ulong new_addr);
-+
-+abi_ulong mmap_find_vma(abi_ulong, abi_ulong, abi_ulong);
-+
-+void TSA_NO_TSA mmap_fork_start(void);
-+void TSA_NO_TSA mmap_fork_end(int child);
-+
-+#endif
-diff --git a/linux-user/user-mmap.h b/linux-user/user-mmap.h
-index b94bcdcf83c..dfc4477a720 100644
---- a/linux-user/user-mmap.h
-+++ b/linux-user/user-mmap.h
-@@ -18,6 +18,8 @@
- #ifndef LINUX_USER_USER_MMAP_H
- #define LINUX_USER_USER_MMAP_H
- 
-+#include "user/mmap.h"
-+
- /*
-  * Guest parameters for the ADDR_COMPAT_LAYOUT personality
-  * (at present this is the only layout supported by QEMU).
-@@ -39,24 +41,7 @@
- extern abi_ulong task_unmapped_base;
- extern abi_ulong elf_et_dyn_base;
- 
--/*
-- * mmap_next_start: The base address for the next mmap without hint,
-- * increased after each successful map, starting at task_unmapped_base.
-- * This is an optimization within QEMU and not part of ADDR_COMPAT_LAYOUT.
-- */
--extern abi_ulong mmap_next_start;
+-void tb_flush(CPUState *cpu)
+-{
+-}
 -
--int target_mprotect(abi_ulong start, abi_ulong len, int prot);
--abi_long target_mmap(abi_ulong start, abi_ulong len, int prot,
--                     int flags, int fd, off_t offset);
--int target_munmap(abi_ulong start, abi_ulong len);
--abi_long target_mremap(abi_ulong old_addr, abi_ulong old_size,
--                       abi_ulong new_size, unsigned long flags,
--                       abi_ulong new_addr);
- abi_long target_madvise(abi_ulong start, abi_ulong len_in, int advice);
--abi_ulong mmap_find_vma(abi_ulong, abi_ulong, abi_ulong);
--void mmap_fork_start(void);
--void mmap_fork_end(int child);
- 
- abi_ulong target_shmat(CPUArchState *cpu_env, int shmid,
-                        abi_ulong shmaddr, int shmflg);
+ G_NORETURN void cpu_loop_exit(CPUState *cpu)
+ {
+     g_assert_not_reached();
+diff --git a/gdbstub/system.c b/gdbstub/system.c
+index 8ce79fa88cf..7f047a285c8 100644
+--- a/gdbstub/system.c
++++ b/gdbstub/system.c
+@@ -22,6 +22,7 @@
+ #include "system/cpus.h"
+ #include "system/runstate.h"
+ #include "system/replay.h"
++#include "system/tcg.h"
+ #include "hw/core/cpu.h"
+ #include "hw/cpu/cluster.h"
+ #include "hw/boards.h"
+@@ -171,7 +172,9 @@ static void gdb_vm_state_change(void *opaque, bool running, RunState state)
+         } else {
+             trace_gdbstub_hit_break();
+         }
+-        tb_flush(cpu);
++        if (tcg_enabled()) {
++            tb_flush(cpu);
++        }
+         ret = GDB_SIGNAL_TRAP;
+         break;
+     case RUN_STATE_PAUSED:
 -- 
 2.47.1
 
