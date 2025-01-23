@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75F23A1A4C3
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Jan 2025 14:19:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.876242.1286621 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A575EA1A4CF
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Jan 2025 14:24:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.876250.1286631 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tax6b-0001vY-Ch; Thu, 23 Jan 2025 13:18:45 +0000
+	id 1taxBh-0003iS-W5; Thu, 23 Jan 2025 13:24:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 876242.1286621; Thu, 23 Jan 2025 13:18:45 +0000
+Received: by outflank-mailman (output) from mailman id 876250.1286631; Thu, 23 Jan 2025 13:24:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tax6b-0001u5-9l; Thu, 23 Jan 2025 13:18:45 +0000
-Received: by outflank-mailman (input) for mailman id 876242;
- Thu, 23 Jan 2025 13:18:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nhpA=UP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tax6a-0001ty-08
- for xen-devel@lists.xenproject.org; Thu, 23 Jan 2025 13:18:44 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9144c3a7-d98c-11ef-a0e5-8be0dac302b0;
- Thu, 23 Jan 2025 14:18:42 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-386329da1d9so482467f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 23 Jan 2025 05:18:42 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38bf32151f1sm19534961f8f.14.2025.01.23.05.18.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Jan 2025 05:18:42 -0800 (PST)
+	id 1taxBh-0003ha-Qs; Thu, 23 Jan 2025 13:24:01 +0000
+Received: by outflank-mailman (input) for mailman id 876250;
+ Thu, 23 Jan 2025 13:24:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=AE9i=UP=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1taxBh-0003hU-28
+ for xen-devel@lists.xenproject.org; Thu, 23 Jan 2025 13:24:01 +0000
+Received: from fout-a3-smtp.messagingengine.com
+ (fout-a3-smtp.messagingengine.com [103.168.172.146])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4ca45d23-d98d-11ef-99a4-01e77a169b0f;
+ Thu, 23 Jan 2025 14:23:58 +0100 (CET)
+Received: from phl-compute-04.internal (phl-compute-04.phl.internal
+ [10.202.2.44])
+ by mailfout.phl.internal (Postfix) with ESMTP id 9826F1380193;
+ Thu, 23 Jan 2025 08:23:56 -0500 (EST)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-04.internal (MEProxy); Thu, 23 Jan 2025 08:23:56 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 23 Jan 2025 08:23:54 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,142 +45,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9144c3a7-d98c-11ef-a0e5-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1737638322; x=1738243122; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=sHEDMNPetKm/UfJaod/2s4iViLSNkUfQuWFOwKPC9L4=;
-        b=YZFEBy0LsQVo0OoYe8mY9DGPcQl1EW3ayESpNC3YIa6o+9jv6U+e3RIjqRh3zXU+VJ
-         lTCLWJhbWeSAIW3TvWrBT3z2aRB9uhVqRAerLMZsKsA0ngM3WwubBxrAfmaDzeZP6lLp
-         bVzHq9jr/SJGCCsb/nLEf72kdIAOQC3rwEdJMZgAScAZsTd2brigOyI9ZoP3ffQRomae
-         uOYsTMNI6h373ApVkcaxGWAvB+aJMT00lt4shQ3Q0BmmZgaVl7eAhKXwTeUkdOncjLzv
-         D0at/w1vTcs3YOehUuv+H2dmrP8DE07SdhJrPHb7Ajva0khz9QBjYyWVFU2RGzQILd/t
-         zF8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737638322; x=1738243122;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=sHEDMNPetKm/UfJaod/2s4iViLSNkUfQuWFOwKPC9L4=;
-        b=t1BmdYUIXf3/IygjknPEW0jveuU9vDgzPlRYnJojxf8XiySiu6ttYrgKlsMOeVjFgZ
-         0FINudpA0PpWN6v2CkZ55Uyn03KvPt0XhDXA6TA5dxytJn1DgoaWAjAfqxL2LXkqegmZ
-         /IyAhHI/MAdxRXflD3UkeAcUHbEz19QGQKTmS0IaUb6G9LklLbTJZnK4H0fdu9HEEIE7
-         +WvyQuqzafte0LdY9Yz6VODUPuRIyQPRcnT1AIZvArMrgp/UhHovJuKx/N0YLDGEUeiv
-         0SysvOsNAlFkeOEfqJ8sGIU6dsXQ/Cr5/B81JeLrtH5Cv0AsK5nYrvWfZHPQMDPnAv/D
-         XM8g==
-X-Gm-Message-State: AOJu0Yz4gDSjFtDLy63LwWnGY3nQDSc9ss7DSDZtElHYxILW9eV5c8kH
-	dPU6/Ji31y3pFxOMuoYBJNWhaBE4oh+ElF3P2ULNmuSVdQFzLwO0zPPVUWzVRg==
-X-Gm-Gg: ASbGncu/3ZR45/DkJIPFmnOgnGZN2cCUEEV5WejoYBFyxdbyjWKd54pq23MtkiVg1PT
-	RdxPGX71UH0oVKaGvZOVMnXzyS6HjAtgylJQ0gwq2Gi1yegUTSHZrq98x5VyDRWr9WpLqA3CUrn
-	dLdLPmlBf4+faa2vQvWAF8UUOXP01XuwOlDnli+XbhuEBD4GnQ58ZiuahAoQkW2Lc/ok7loUeVw
-	NHGW27tGBHQrnkbq0YfZ0kfSwZOy+NKOBrvHT+HzSXPB+94OAi/zJ4R1cjz8p8AVrHwm78SZAc4
-	DYw+aoE8x1MFKF6kdQ7VCS2Vb6SKYKzqs3STNCk4cAgHHWcjn5BuQISW3rtz/d7wqQ==
-X-Google-Smtp-Source: AGHT+IFXPz7rmqsiP+SNHu+vhNL3+N7/3rsFkXOo82FToxA2ZrFmMRcVo+GkNk/bmMEcwpagkK7onQ==
-X-Received: by 2002:a5d:6d86:0:b0:38a:8e2e:9fcc with SMTP id ffacd0b85a97d-38bf57befa9mr24717162f8f.45.1737638322334;
-        Thu, 23 Jan 2025 05:18:42 -0800 (PST)
-Message-ID: <f0e2a3f3-3081-414d-824c-bf940134aece@suse.com>
-Date: Thu, 23 Jan 2025 14:18:41 +0100
+X-Inumbo-ID: 4ca45d23-d98d-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1737638636;
+	 x=1737725036; bh=DgjgGv7jyTeHmwDzOc84QYkjkbvkYFUocoQoxVjSo6o=; b=
+	K5QdPxKv7Endgvv6UxUni76NhpABqGfSRQff+EKuePeySA10KdeVNUYQFF+TCPbX
+	72YjVr7wStFXW2iW5ozxZu347QaLzjE9BU6IBc5oyC1Yc76rXqJ082NrE8lGlC6J
+	cYceEprbsPzLwHbHSK93nx8/0B9Xub6yeqw3Xjz1QO31gKVFg/8EgpMxEC/cfdFD
+	PAVFdBXKoNLdfsmRDQUCfQ4Xl4xE4zbDbJyVZfvkvBRO/+wyjRh5dvA7YNIOhPAN
+	JeYpWsQvPyKFtAtPfPlzE6DqB2iJa3Wug9d3And+AzINoiP/8f3mpmUtvFMIP8RB
+	/MbIc9aTp2ATYtWyAh1Eog==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1737638636; x=1737725036; bh=DgjgGv7jyTeHmwDzOc84QYkjkbvkYFUocoQ
+	oxVjSo6o=; b=QuaTGKnP2JW0es9xmMC9VM4KWYHWqR9mGoR359jxVL59Z3t7LgC
+	ukMUTfMVlnnJUQ62PfPGQhWBGCQ6RUgp0KKeF5ut0Fsz44TnX86dagnTdFv9LoNu
+	NhVlv+zBI0LWLScSdDUKzojk0ZyepIcRIPDRrpu150V0VrcFysxS1Td7clBvot+n
+	AFmqJ7Tsv6gonMbZpeVUw2Usy4gG/igLpV0ZOzZ9G+ATM567hqnrmP2jbenl5mSZ
+	Qi/M5E+5KG9JD6SrWtsHbsrldsUIE0eNGg6RnnzXEz9cCy4/Ym6kTcNt7S1k5yz4
+	tB8Zdn+B1JBsCULsRfGy2B+m5t803aW3SAg==
+X-ME-Sender: <xms:60KSZ_odNENTJMa_u51_H2fzaQSp3brNAZ5SPh5SwEUSpTTt6WUGHA>
+    <xme:60KSZ5p7jSbtOrWWuJsTmtBh5jxuwJCiklzu6_70ro4K0qW5ANwGkSZlTXBNh3ktF
+    3PiYTOO9onE9g>
+X-ME-Received: <xmr:60KSZ8NUovzoGXqFeP8cQ8DV39BXs07etsKqMFt-ZwifvA8iZnukvUgkd2grwzy-Mt_3a7tEu_HxCVCQLkv7rycfpoG31pCf4g>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddrudejgedgudejkecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdp
+    uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivg
+    hnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdej
+    necuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoe
+    hmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucgg
+    tffrrghtthgvrhhnpefgudelteefvefhfeehieetleeihfejhfeludevteetkeevtedtvd
+    egueetfeejudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhr
+    ohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpd
+    hnsggprhgtphhtthhopedutddpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepjhgs
+    vghulhhitghhsehsuhhsvgdrtghomhdprhgtphhtthhopeigvghnqdguvghvvghlsehlih
+    hsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhopegrnhgurhgvfidrtgho
+    ohhpvghrfeestghithhrihigrdgtohhmpdhrtghpthhtohepjhhulhhivghnseigvghnrd
+    horhhgpdhrtghpthhtohepshhsthgrsggvlhhlihhniheskhgvrhhnvghlrdhorhhgpdhr
+    tghpthhtoheprhhoghgvrhdrphgruhestghithhrihigrdgtohhmpdhrtghpthhtoheplh
+    hukhgrshiisehhrgifrhihlhhkohdrphhlpdhrtghpthhtohepughpshhmihhthhesrghp
+    vghrthhushhsohhluhhtihhonhhsrdgtohhmpdhrtghpthhtohepmhgrthgvuhhsiidrmh
+    hofihkrgesihhnthgvlhdrtghomh
+X-ME-Proxy: <xmx:7EKSZy617Ot1YxrZLeoAyiKeQHuCD7URHwHXJOckmZBEl9wr5Ze0oQ>
+    <xmx:7EKSZ-48PEV4ns1pYZ-SD4t_C9R0UQKRHSr6mZ5WP5FMNin1_cRFmg>
+    <xmx:7EKSZ6hhsqnnMjD2FHxqFiligYjNfnJFStWuHx62S_K_gQ-KGKEAhQ>
+    <xmx:7EKSZw4WLq6zv-ACYrz-G4bei9kXG8PbR3ospW1vQmvfpXHu08MfxA>
+    <xmx:7EKSZ7zmA3nV6bE1uzwH-mVUn3ZEYgy3_vP2zKfwm7H-cQO0UZzqcKQ4>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 23 Jan 2025 14:23:52 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Lukasz Hawrylko <lukasz@hawrylko.pl>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Mateusz =?utf-8?B?TcOzd2th?= <mateusz.mowka@intel.com>,
+	Teddy Astie <teddy.astie@vates.tech>
+Subject: Re: [XEN RFC PATCH v5 0/5] IOMMU subsystem redesign and PV-IOMMU
+ interface
+Message-ID: <Z5JC6ELVTWtvbqPU@mail-itl>
+References: <cover.1737470269.git.teddy.astie@vates.tech>
+ <Z5I59HC77QxpPtJG@mail-itl>
+ <8e19c066-2d76-4f4d-9ccc-ed57e02143ab@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/12] x86/HVM: improve CET-IBT pruning of ENDBR
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>
-References: <293e5aef-8843-461c-bc96-709a605b2680@suse.com>
- <537b0d9c-1936-4cf5-a012-d50b1097a22d@suse.com>
- <Z5I5D_uVxijLF6sK@macbook.local>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Z5I5D_uVxijLF6sK@macbook.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="HzESkeORsoA+bDtT"
+Content-Disposition: inline
+In-Reply-To: <8e19c066-2d76-4f4d-9ccc-ed57e02143ab@suse.com>
 
-On 23.01.2025 13:41, Roger Pau Monné wrote:
-> On Mon, Feb 26, 2024 at 05:42:20PM +0100, Jan Beulich wrote:
->> --- a/xen/arch/x86/hvm/hvm.c
->> +++ b/xen/arch/x86/hvm/hvm.c
->> @@ -161,10 +161,15 @@ static int __init cf_check hvm_enable(vo
->>      else if ( cpu_has_svm )
->>          fns = start_svm();
->>  
->> +    if ( fns )
->> +        hvm_funcs = *fns;
->> +
->> +    prune_vmx();
->> +    prune_svm();
-> 
-> Isn't it actually the opposite of pruning.  What the helpers do is
-> fill all the pointers in the structure.
 
-With the goal of their ENDBR to then be pruned. I agree though that the
-functions don't do any pruning themselves. Yet
-{svm,vmx}_prepare_for_cet_ibt_pruning() is a little awkward for my taste
-(although it would properly document the purpose). Plus ...
+--HzESkeORsoA+bDtT
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 23 Jan 2025 14:23:52 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Lukasz Hawrylko <lukasz@hawrylko.pl>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Mateusz =?utf-8?B?TcOzd2th?= <mateusz.mowka@intel.com>,
+	Teddy Astie <teddy.astie@vates.tech>
+Subject: Re: [XEN RFC PATCH v5 0/5] IOMMU subsystem redesign and PV-IOMMU
+ interface
 
->  I would rather name them {vmx,svm}_fill_hvm_funcs() or similar.
+On Thu, Jan 23, 2025 at 01:48:29PM +0100, Jan Beulich wrote:
+> On 23.01.2025 13:45, Marek Marczykowski-G=C3=B3recki wrote:
+> > BTW Linux says it detected "Xen version 4.19." - shouldn't it report
+> > 4.20 already at this point in release cycle?
+>=20
+> Not only at this point, but throughout the release cycle. Yet I fear I
+> haven't seen such, so I wouldn't be able to look into it.
 
-... while I can use those names (perhaps without the "hvm" infix), the
-present names have the advantage that any other pruning that we may
-find desirable could also be put there. Hence also why the cpu_has_*
-checks live there.
+Ah, my bad, it seems Teddy's branch is based on 4.19, not staging.
 
->  And possibly pull the
-> cpu_has_xen_ibt check outside the functions:
-> 
-> if ( cpu_has_xen_ibt )
-> {
->     /*
->      * Now that svm_function_table was copied, populate all function pointers
->      * which may have been left at NULL, for __initdata_cf_clobber to have as
->      * much of an effect as possible.
->      */
->     vmx_fill_hvm_funcs();
->     svm_fill_hvm_funcs();
-> }
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-Which would leave the SVM function entirely empty. The intention was for
-that to not be the case, and also for the comment you have added above
-to also live in the per-vendor functions.
+--HzESkeORsoA+bDtT
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> I would be nice to avoid directly exporting more vmx and smv specific
-> helpers, as if we ever want to compile out vmx or svm it would be more
-> churn to deal with those.  I however cannot think of any good way to
-> do this here, so it's fine to export those functions.
+-----BEGIN PGP SIGNATURE-----
 
-It could be another hook, just that the hook pointer then would point
-into .init.text (i.e. become stale once we purge .init.*). We could zap
-it of course after invoking it ...
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmeSQugACgkQ24/THMrX
+1yzMcgf+JHwlpghc/p0Ho9n3bWbYggDhPxoy0nDmFRPAFayT5S1xU4v1wo30cBgi
+rNKLOlT43yb1xTukdAZnBqvFu4rXDG3kw4au4D3kXGXYtJrr2cBmRRTi/S+cc39Q
+SDM3+QssS/dqu1+0N4olIf9E8Ig1YJmiTfZ4unoKLeLf9Ve6aMIUSjO76BVHGoL8
+EtIxCLCnhPEuUy4AacYxmtKaw+XnqOcvQ5JFZutp0zyZR/vmsfrLe44eHPDCgihn
+SjUBJIfuHyxTu2wYs9asFXYYEAAmlxKjgJqmsdVc6RiHI4FLwgCjVXlE4qiM3d8E
+Znbh77PDx4bJSEqjbHbQe/5EXQe0bw==
+=2TQ+
+-----END PGP SIGNATURE-----
 
-Note that the vendor function invocations have meanwhile, in the course
-of re-basing, gained "if ( IS_ENABLED(CONFIG_...) )", so no extra
-(future) churn for the (already available) option you talk about.
-
-Jan
+--HzESkeORsoA+bDtT--
 
