@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDC78A1B271
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Jan 2025 10:17:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.876624.1286976 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48FACA1B377
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Jan 2025 11:26:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.876643.1286995 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tbFnr-0007RV-2P; Fri, 24 Jan 2025 09:16:39 +0000
+	id 1tbGsx-000845-VJ; Fri, 24 Jan 2025 10:25:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 876624.1286976; Fri, 24 Jan 2025 09:16:39 +0000
+Received: by outflank-mailman (output) from mailman id 876643.1286995; Fri, 24 Jan 2025 10:25:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tbFnq-0007Q2-Vl; Fri, 24 Jan 2025 09:16:38 +0000
-Received: by outflank-mailman (input) for mailman id 876624;
- Fri, 24 Jan 2025 09:16:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tbGsx-00081U-Rs; Fri, 24 Jan 2025 10:25:59 +0000
+Received: by outflank-mailman (input) for mailman id 876643;
+ Fri, 24 Jan 2025 10:25:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=AkuS=UQ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tbFnp-0007Pw-Lq
- for xen-devel@lists.xenproject.org; Fri, 24 Jan 2025 09:16:37 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e7a4ccb9-da33-11ef-a0e5-8be0dac302b0;
- Fri, 24 Jan 2025 10:16:33 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-ab2b29dfc65so301669366b.1
- for <xen-devel@lists.xenproject.org>; Fri, 24 Jan 2025 01:16:33 -0800 (PST)
+ id 1tbGsw-00081K-Qn
+ for xen-devel@lists.xenproject.org; Fri, 24 Jan 2025 10:25:58 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 95df7bbd-da3d-11ef-99a4-01e77a169b0f;
+ Fri, 24 Jan 2025 11:25:51 +0100 (CET)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-5d7e3f1fc01so3897141a12.2
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Jan 2025 02:25:56 -0800 (PST)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab675e6790bsm97248166b.63.2025.01.24.01.16.32
+ 4fb4d7f45d1cf-5dc186397c0sm972585a12.35.2025.01.24.02.25.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jan 2025 01:16:32 -0800 (PST)
+ Fri, 24 Jan 2025 02:25:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,140 +44,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e7a4ccb9-da33-11ef-a0e5-8be0dac302b0
+X-Inumbo-ID: 95df7bbd-da3d-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1737710193; x=1738314993; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1737714356; x=1738319156; darn=lists.xenproject.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=kbPtAH9ZMOxDBaDDxqcnEfFRDOrWtvleAjEuxXHtuuE=;
-        b=RupBwn3ZLGnlGx0CeWMNACdg2h/8dl4HH2ZjHmYI7udI2GJ1Vb/6mwly2KRhU81h+y
-         +KA1z3RcuVPeu+WOGFK+m9BfH+Q7h87SxJvbYHGkruVzBqg2gDyDKgTJ1fAAwgVy+ohz
-         2wCH8d3uO962Eipll/y7kdqzHVzcsb8/3MdIE=
+        bh=SH3d1P09sjphp9Rwg2Fq0xkJcIR7BrUleRchqAoxUeA=;
+        b=C9gz/+HOqlkeiGoUaJORVbBGlo1I8g27cHmeN6XqjQpR99YVn8xlsTz41Y0lHFND33
+         fyylSD8nZmFSXGg3cz8fdq6TbS9gHrVAsklv02NiqG13t4ZCDwEHQxfw4Nt7Y3RI7pQU
+         sOLfzSjA1Cqbtb4lz0BQ8w2CMnJxzLaSIZ4Vo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737710193; x=1738314993;
+        d=1e100.net; s=20230601; t=1737714356; x=1738319156;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=kbPtAH9ZMOxDBaDDxqcnEfFRDOrWtvleAjEuxXHtuuE=;
-        b=XtpkJnOIMIJosvLhCkDNCMy4R9xA5nrCrrcsHFBEEa8ZVrlmf1fSRGpTKr43RgfvDY
-         LZFEV3RPRKBzwuwiaJjUiSGiPwNd6P4rcKK8zJi3azLkslKfVhgStU2AGMyEFcWR64FR
-         wjjPiplytzG3rL6yIfyMvsXSJsgM/DJ9mlpD3wdq4S6REnBhSEL/xJLn9sqKS9dv+2pI
-         xVMJu0VDY6TjGllKJ14yauOeB5VD/l4HN5pgqycmtnOIoVeS0GbaJignAGeRjN8h8kzR
-         RY6Y14+x35jiwPTz/Q786lbusDTqJ/g4arBaj+DZZtq2RfMEbonvjhELpkRpQx1fGL8x
-         cKQA==
-X-Gm-Message-State: AOJu0YyLXB615AReq9J6zN12QpRTI8Q0Lp2bzLKvMoVj7LT6wt+KOjv+
-	oRkGNf4ZgvFvhedhFGjzt0JZ3dggLo5XIYQ+agOp2/2o+Z7Ne+PjytDygzp3eVM=
-X-Gm-Gg: ASbGncs8JE/z4edd4fkHpLPPLNLBUI8AB45E/vq8NAPmPl/AqYx+UoUrW0O+hYKmo8D
-	9zwZJNkZCXR+QixUp6ut95geRRIBltCRfcVI2ruIelpWaXAHBR8jf8o7fmyfn8stKTgJOw0mhFn
-	4oEHmm9skaNg4MNuQjpipr5/je/7CL1Yqti74+7/qGstfP0Jum8E5Olp5CleIaEHWpNhPSNa08o
-	KPBXQrxg//5OowEiuEmN88mJUCM9zzz1qH0kNINa4xSBBhJXFZfkmIyr9e6CABp2iA+SbWULuQV
-	SfGM3tzr6BnFTSA=
-X-Google-Smtp-Source: AGHT+IFX0PvntvqjF6O1EoqNi9G2SFAfcl0Ta2PMKTb7GWpvTN5WYdAeKB0HTF1OHh00sbE9AhRUuA==
-X-Received: by 2002:a17:906:7956:b0:aae:fb7c:50df with SMTP id a640c23a62f3a-ab38b36be2bmr2891029166b.36.1737710193175;
-        Fri, 24 Jan 2025 01:16:33 -0800 (PST)
-Date: Fri, 24 Jan 2025 10:16:31 +0100
+        bh=SH3d1P09sjphp9Rwg2Fq0xkJcIR7BrUleRchqAoxUeA=;
+        b=pYiASPvWU/NZwpW5/34aatYFAdLeYTCbraTYgMV2NrwZfR2lO9Aq/evjVSXZcmZqEt
+         N0F15YkzQe9B5wNwy0SKDQLpc21BSwmcuac2eYgYCP5km0nz06wKv3bJ5636dDijJ3aA
+         AVq+RyudYLiEY6sCsrKeGWUL8wXpYn4+tZvtz6BLwrQOGvX3ZuqDqzXlb1JnAIECxDDX
+         CAYXnSaSPSRfGjYUT1DOotcq5Dv8+1r8RZrhGB9L4B/7uLgPF045lf9CGR+TTFQkI3s3
+         UHW+k8RSgxe4bAqVO1dTeVDS3wZSij84mzkX5oKu5UT0DMSes/7FsU8V/GkVkdhIDisn
+         EGGg==
+X-Gm-Message-State: AOJu0YxFx2ODUafWCE3lGSEG16bqTrVwOB+HIiHxSQrnrzVk52V0NylQ
+	4xYa/oEDKnNL/fqOKN0egC5ze41pIlUU3Z1ZPDPKMgKEqulWjKjHKWHP/T4iCLk=
+X-Gm-Gg: ASbGnctOGZRN4TsrA0fbnRslsU6JSVPBAv10VtOwRfOXfXJOLHtAuKWLSNaqeMkjmNo
+	byROO/qbIe1N3GrDZ9/dfuv133E/NAVmbf1NgtxIyds3eMQOrycBFdcBBhJD8KL/1cEyqICqU+E
+	DUl8G29rH18G9f8xfWuDmDXZPAPZYxatYxs+qF2L6xBkcVJgaAfjy9RQf2eJAT/pP8vF0xUtcFQ
+	XKO6a5Y+u5zfNHVUDcMJbw6FL7MP6z2K+FjkpzhsjAnFnmBKojo/BNXMExko5ftkLdcAtN/lD9/
+	xNAzsFwMrw==
+X-Google-Smtp-Source: AGHT+IH+J+vsQnuFLNc0JbXT53jFl5cytesOIiEr/rEfOWpmpBpAWFY13ohqKSq9aCc/0YgyQrgBRQ==
+X-Received: by 2002:a05:6402:51cd:b0:5d3:e4eb:8d1f with SMTP id 4fb4d7f45d1cf-5db7d2fc8b0mr25384463a12.12.1737714356275;
+        Fri, 24 Jan 2025 02:25:56 -0800 (PST)
+Date: Fri, 24 Jan 2025 11:25:54 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
 	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
 	Kevin Tian <kevin.tian@intel.com>,
 	Jun Nakajima <jun.nakajima@intel.com>
-Subject: Re: [PATCH v3 02/12] x86/HVM: improve CET-IBT pruning of ENDBR
-Message-ID: <Z5Nab7X6l9McxFw2@macbook.local>
+Subject: Re: [PATCH v3 01/12] VMX: don't run with CR4.VMXE set when VMX could
+ not be enabled
+Message-ID: <Z5NqsmsuVfQcOcMg@macbook.local>
 References: <293e5aef-8843-461c-bc96-709a605b2680@suse.com>
- <537b0d9c-1936-4cf5-a012-d50b1097a22d@suse.com>
- <Z5I5D_uVxijLF6sK@macbook.local>
- <f0e2a3f3-3081-414d-824c-bf940134aece@suse.com>
- <Z5JRGwA51lOs65t5@macbook.local>
- <8aa7c377-b664-4786-b671-deff1601ac5f@suse.com>
+ <21e6cbec-dc29-452f-b6a2-6926245a8beb@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <8aa7c377-b664-4786-b671-deff1601ac5f@suse.com>
+In-Reply-To: <21e6cbec-dc29-452f-b6a2-6926245a8beb@suse.com>
 
-On Thu, Jan 23, 2025 at 05:14:39PM +0100, Jan Beulich wrote:
-> On 23.01.2025 15:24, Roger Pau Monné wrote:
-> > On Thu, Jan 23, 2025 at 02:18:41PM +0100, Jan Beulich wrote:
-> >> On 23.01.2025 13:41, Roger Pau Monné wrote:
-> >>> On Mon, Feb 26, 2024 at 05:42:20PM +0100, Jan Beulich wrote:
-> >>>> --- a/xen/arch/x86/hvm/hvm.c
-> >>>> +++ b/xen/arch/x86/hvm/hvm.c
-> >>>> @@ -161,10 +161,15 @@ static int __init cf_check hvm_enable(vo
-> >>>>      else if ( cpu_has_svm )
-> >>>>          fns = start_svm();
-> >>>>  
-> >>>> +    if ( fns )
-> >>>> +        hvm_funcs = *fns;
-> >>>> +
-> >>>> +    prune_vmx();
-> >>>> +    prune_svm();
-> >>>
-> >>> Isn't it actually the opposite of pruning.  What the helpers do is
-> >>> fill all the pointers in the structure.
-> >>
-> >> With the goal of their ENDBR to then be pruned. I agree though that the
-> >> functions don't do any pruning themselves. Yet
-> >> {svm,vmx}_prepare_for_cet_ibt_pruning() is a little awkward for my taste
-> >> (although it would properly document the purpose). Plus ...
-> >>
-> >>>  I would rather name them {vmx,svm}_fill_hvm_funcs() or similar.
-> >>
-> >> ... while I can use those names (perhaps without the "hvm" infix), the
-> >> present names have the advantage that any other pruning that we may
-> >> find desirable could also be put there. Hence also why the cpu_has_*
-> >> checks live there.
-> > 
-> > Hm, I'm unsure.  What else do you see becoming part of those
-> > functions?  It's hard for me to suggest a name when it's unclear what
-> > future logic do you think they could contain.
+On Mon, Feb 26, 2024 at 05:42:02PM +0100, Jan Beulich wrote:
+> While generally benign, doing so is still at best misleading.
 > 
-> Prior to IBT it wasn't foreseeable any pruning might be needed. We're
-> in a similar position now: We simply can't know whether anything else
-> is going to be needed there.
-> 
-> > Given the current code I still think something that contains 'fill' or
-> > similar is way more appropriate, the more if the IBT check is pulled
-> > out into the caller.
-> 
-> As indicated, I'd prefer the IBT check to remain in the function. But
-> yes, I'll see about renaming. If ever other stuff wants adding there,
-> we can surely rename another time.
-> 
-> >>>  And possibly pull the
-> >>> cpu_has_xen_ibt check outside the functions:
-> >>>
-> >>> if ( cpu_has_xen_ibt )
-> >>> {
-> >>>     /*
-> >>>      * Now that svm_function_table was copied, populate all function pointers
-> >>>      * which may have been left at NULL, for __initdata_cf_clobber to have as
-> >>>      * much of an effect as possible.
-> >>>      */
-> >>>     vmx_fill_hvm_funcs();
-> >>>     svm_fill_hvm_funcs();
-> >>> }
-> >>
-> >> Which would leave the SVM function entirely empty.
-> > 
-> > You could possible declare it as an static inline in the hvm.h header
-> > for the time being?
-> > 
-> >> The intention was for
-> >> that to not be the case, and also for the comment you have added above
-> >> to also live in the per-vendor functions.
-> > 
-> > Isn't that a bit redundant?  I would prefer to not have duplicated
-> > comments over the code, hence my suggestion to place part of the logic
-> > in the caller.
-> 
-> In this case I view the redundancy as necessary. You want to know what
-> to add to the functions when you look at them, irrespective of whether
-> you also look at their caller.
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-OK, I won't oppose to it, but I do think function names need
-adjusting.
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
 Thanks, Roger.
 
