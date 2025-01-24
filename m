@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71F4AA1B446
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Jan 2025 11:57:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.876670.1287025 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3269BA1B45A
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Jan 2025 12:02:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.876678.1287034 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tbHNQ-0004pl-Ps; Fri, 24 Jan 2025 10:57:28 +0000
+	id 1tbHSF-0006mq-B0; Fri, 24 Jan 2025 11:02:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 876670.1287025; Fri, 24 Jan 2025 10:57:28 +0000
+Received: by outflank-mailman (output) from mailman id 876678.1287034; Fri, 24 Jan 2025 11:02:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tbHNQ-0004nP-NE; Fri, 24 Jan 2025 10:57:28 +0000
-Received: by outflank-mailman (input) for mailman id 876670;
- Fri, 24 Jan 2025 10:57:26 +0000
+	id 1tbHSF-0006kN-81; Fri, 24 Jan 2025 11:02:27 +0000
+Received: by outflank-mailman (input) for mailman id 876678;
+ Fri, 24 Jan 2025 11:02:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=AkuS=UQ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tbHNO-0004nJ-QN
- for xen-devel@lists.xenproject.org; Fri, 24 Jan 2025 10:57:26 +0000
-Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
- [2607:f8b0:4864:20::630])
+ id 1tbHSE-0006kH-Co
+ for xen-devel@lists.xenproject.org; Fri, 24 Jan 2025 11:02:26 +0000
+Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
+ [2607:f8b0:4864:20::635])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id facf0e84-da41-11ef-99a4-01e77a169b0f;
- Fri, 24 Jan 2025 11:57:19 +0100 (CET)
-Received: by mail-pl1-x630.google.com with SMTP id
- d9443c01a7336-216395e151bso26014925ad.0
- for <xen-devel@lists.xenproject.org>; Fri, 24 Jan 2025 02:57:24 -0800 (PST)
+ id ad4bea6c-da42-11ef-99a4-01e77a169b0f;
+ Fri, 24 Jan 2025 12:02:19 +0100 (CET)
+Received: by mail-pl1-x635.google.com with SMTP id
+ d9443c01a7336-219f8263ae0so36375475ad.0
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Jan 2025 03:02:24 -0800 (PST)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-21da3d9e09dsm13814305ad.23.2025.01.24.02.57.21
+ d2e1a72fcca58-72f8a78f317sm1583806b3a.176.2025.01.24.03.02.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jan 2025 02:57:22 -0800 (PST)
+ Fri, 24 Jan 2025 03:02:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,63 +44,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: facf0e84-da41-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: ad4bea6c-da42-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1737716243; x=1738321043; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1737716543; x=1738321343; darn=lists.xenproject.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=rFQIflmp26yTsLJbWxnGkhpLA53I4s54Cp17dTKkwog=;
-        b=ajJafDITsHfy9dyreKRUUqHo+jKBn6XqDeF0UGwxjd+u4MO/BvlCsMsHsB5N1x0wdN
-         qp0/IHz+TItnAUprR5aSHRlGzpmoRl8buFs/Meu+8WxmtgYN54n9zrjRelOiwajHhEF9
-         8OyjPV3G4hc9PY6OV2oHXExgZ6JtjM3TSVACU=
+        bh=y5iX+PGEJ6GpHjvYAaAoXQh+m+2PBM8nT4eMQKseUCU=;
+        b=kq2dHEbH3I6B2PQ/06F4+ySzkmNwyCRckAIPmReTkTNI30ZBoHDpJUZYZah5wp/K2l
+         Gu5rRqWdjdBfpSpYwadaShcbbhX83ZNpxmHUKj/V358zN8TA026Q01TaSOs5IpiFRu/L
+         8tn8x5bxveTfuDBzYUDuFleaqVCN1Jvs9CtlY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737716243; x=1738321043;
+        d=1e100.net; s=20230601; t=1737716543; x=1738321343;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=rFQIflmp26yTsLJbWxnGkhpLA53I4s54Cp17dTKkwog=;
-        b=LLjPt3w6WbS5ZV16/NBFFmECoDPOv4KiHikxRaWS0oa71ccVSJlPYv6TyTsQJhyrJm
-         +A1uXVUpw5XMLpKRD0m/5t6l6OJxUP2A8ksyrgsHkr5BKfE9SltNVKzL3m43wdAEOr4T
-         ssOWMX3wrZ08vNQsQ2C90ob5kJTOnwEGV+vCPhgph1a/mCJReXXuOuaiOTDKLIVXitOS
-         QcPwttp2FDAdN1NV49A7gC5XP0kPY+T8udS6ft4l1zShfSXYsoYTyd0ktM3xYs5jac2z
-         sZKsNE25CXsUamYnjolMZcj1Xp0D9K2rsF17FEztiWS7lpeauf3AHb1aNXrHpSiJPD4b
-         4wHA==
-X-Gm-Message-State: AOJu0YyPdil7vysOJyce+uQnlKZWA5KwHGIX3nfv5ZGMtwbG5SO/Ss9A
-	KpNipJXdAHw3UJdrlQYXgVAwSWoXNXQLMbHl0EswhcrUuJvNebpTbcXnSfoELRo=
-X-Gm-Gg: ASbGncsbPceNuXWdL3ZdsnQq/TMctpZnbEYbIPWJ1ptSWAwJRRFWf2H6QOu23lbBsiA
-	wWLQ3NaUYozBq/pERu4+W6FXe9Eum09kkEvpqi0mvqJxZPkolLE4dK7UHtqQs2p3T1RqNNv6gu2
-	Ggc/phCg1uxf+AGSCaClpOeUYm8oFEEs8081BhZI35NKXzvPrmOySuXUxUUuOgZHDsLdISozjSw
-	rae3IgdCA+yqpPOzxk5SKa1QgtwxT4nbBFKJ7QtchaC1JtsPH4yJvPEM0FWRGKP/ymW3TXNhr2X
-	RXQsIJcFbRE26M8=
-X-Google-Smtp-Source: AGHT+IF25OZFiLio9neQOJNfyfp9Y7pK1Oo6zaWPwQ1t22frCvYY7dDwDHB4ncAs4lOGRe1aP5519w==
-X-Received: by 2002:a17:902:ea02:b0:216:4676:dfb5 with SMTP id d9443c01a7336-21d9937d527mr105145015ad.21.1737716243426;
-        Fri, 24 Jan 2025 02:57:23 -0800 (PST)
-Date: Fri, 24 Jan 2025 11:57:17 +0100
+        bh=y5iX+PGEJ6GpHjvYAaAoXQh+m+2PBM8nT4eMQKseUCU=;
+        b=YfMPCR/Na+i/knuGzONfhLv1pP31qXYEM74KiMj/U5HhYj5qTNji7CbQVIj1m3MUMV
+         ZO6LtUa8ZaLJMbc4euEanhZrZwdsPYSAq4UdAMQU6eV7EN2sQGO0tkKuLRQ2HgzjHhnF
+         BrIGBrWJjoRWi4YndG5+xZN0q+7FFbtLCgVxJE8BGYJMsEsjf5Ih8avQ0LP+hAxQNKT5
+         7Ue8woEryaVrPXJLgwfYGo4S4BkrR5C2aIDwmopzhwl6wjM5WwmIhMVt0gFj0fYVx2Py
+         WuWmBD4foVvz70R2crHLZOHOQz8vQSHc9xQLAm/Pnk/zGEkENmeuDg6v4qaqj3BugXi0
+         3rYg==
+X-Gm-Message-State: AOJu0YzTCf13NxpEHACzBsO8EQJS9lZOiAQc09/IWlC0GPUDvvmQsK7p
+	GZ9+hG16OdDRP0peRvj4nP9x/CwvJ/uSVIxMXBwvwKqACRyyEaRi+6xhcDscnJo=
+X-Gm-Gg: ASbGncs+edx/tbpJZnx++gsjz2qMuh5ae1OuYsqhTkV67RDO5dQv1cIDLPN+XUsRmhE
+	Izs7n5DegJzuszeylesM7ElnfBuR0jIiczhkpfDCwQnZmHq1JFLAFznnVOymu1+EdX024FqPLRN
+	fxkScUDGITkchPRCYGQmttEN+PxsqiFymGKwixepm8P/GfOqOmejuxqYwlOtSdV+Ff7wHpfZA/C
+	//vZ1D2ZqYCzHMzLaD2Q6HgJxWAzKU2DGYYitLEqSYQZpxkiVaIXPpIvArwbJRv9pfWw7YmEfgF
+	MIeoiVR4nn1gQFE=
+X-Google-Smtp-Source: AGHT+IGaBEWz5RMs885I0m9+mTysZRLYcF2IAxNSiwmUi/rfdOuTY02tfK6N2sI0XreI3edLBse8PQ==
+X-Received: by 2002:a05:6a00:244d:b0:71e:6c3f:2fb6 with SMTP id d2e1a72fcca58-72daf950b94mr50262422b3a.8.1737716542857;
+        Fri, 24 Jan 2025 03:02:22 -0800 (PST)
+Date: Fri, 24 Jan 2025 12:02:17 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
 	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
 	Kevin Tian <kevin.tian@intel.com>,
 	Jun Nakajima <jun.nakajima@intel.com>
-Subject: Re: [PATCH v3 04/12] VMX: convert vmx_basic_msr
-Message-ID: <Z5NyDfY_ja3hr96P@macbook.local>
+Subject: Re: [PATCH v3 03/12] VMX: drop vmcs_revision_id
+Message-ID: <Z5NzOUA-bWQMkh-_@macbook.local>
 References: <293e5aef-8843-461c-bc96-709a605b2680@suse.com>
- <eb9874c7-a392-49c2-a610-cf7ff45a3e3b@suse.com>
+ <7a4ec627-f801-409b-995e-42732970e47c@suse.com>
+ <Z5NwuaCBm4vxATUu@macbook.local>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <eb9874c7-a392-49c2-a610-cf7ff45a3e3b@suse.com>
+In-Reply-To: <Z5NwuaCBm4vxATUu@macbook.local>
 
-On Mon, Feb 26, 2024 at 05:43:21PM +0100, Jan Beulich wrote:
-> ... to a struct field, which is then going to be accompanied by other
-> capability/control data presently living in individual variables. As
-> this structure isn't supposed to be altered post-boot, put it in
-> .data.ro_after_init right away.
+On Fri, Jan 24, 2025 at 11:51:37AM +0100, Roger Pau Monné wrote:
+> On Mon, Feb 26, 2024 at 05:42:50PM +0100, Jan Beulich wrote:
+> > It's effectively redundant with vmx_basic_msr. For the #define
+> > replacement to work, struct vmcs_struct's respective field name also
+> > needs to change: Drop the not really meaningful "vmcs_" prefix from it.
+> > 
+> > Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> > ---
+> > v2: New.
+> > 
+> > --- a/xen/arch/x86/hvm/vmx/vmcs.c
+> > +++ b/xen/arch/x86/hvm/vmx/vmcs.c
+> > @@ -175,7 +175,7 @@ static DEFINE_PER_CPU(paddr_t, current_v
+> >  static DEFINE_PER_CPU(struct list_head, active_vmcs_list);
+> >  DEFINE_PER_CPU(bool, vmxon);
+> >  
+> > -static u32 vmcs_revision_id __read_mostly;
+> > +#define vmcs_revision_id (vmx_basic_msr & VMX_BASIC_REVISION_MASK)
+> >  u64 __read_mostly vmx_basic_msr;
 > 
-> Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> __ro_after_init maybe while at it (and then uint64_t also)?
+> 
+> I would place the #define after the definition of vmx_basic_msr, but
+> that's just my taste.
+
+I see that this gets further adjusted by the next patch, and the
+comments I made are no longer relevant.
 
 Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
