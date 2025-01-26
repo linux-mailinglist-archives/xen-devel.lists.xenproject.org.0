@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC65AA1CE6E
-	for <lists+xen-devel@lfdr.de>; Sun, 26 Jan 2025 21:34:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.877269.1287402 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09455A1CE73
+	for <lists+xen-devel@lfdr.de>; Sun, 26 Jan 2025 21:37:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.877277.1287413 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tc9Kw-0002O7-Fh; Sun, 26 Jan 2025 20:34:30 +0000
+	id 1tc9ND-0002wc-Rz; Sun, 26 Jan 2025 20:36:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 877269.1287402; Sun, 26 Jan 2025 20:34:30 +0000
+Received: by outflank-mailman (output) from mailman id 877277.1287413; Sun, 26 Jan 2025 20:36:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tc9Kw-0002LQ-D8; Sun, 26 Jan 2025 20:34:30 +0000
-Received: by outflank-mailman (input) for mailman id 877269;
- Sun, 26 Jan 2025 20:34:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tc9ND-0002ts-Op; Sun, 26 Jan 2025 20:36:51 +0000
+Received: by outflank-mailman (input) for mailman id 877277;
+ Sun, 26 Jan 2025 20:36:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Vl/L=US=linaro.org=richard.henderson@srs-se1.protection.inumbo.net>)
- id 1tc9Ku-0002LI-Mc
- for xen-devel@lists.xenproject.org; Sun, 26 Jan 2025 20:34:28 +0000
-Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
- [2607:f8b0:4864:20::102a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ef984a56-dc24-11ef-a0e6-8be0dac302b0;
- Sun, 26 Jan 2025 21:34:27 +0100 (CET)
-Received: by mail-pj1-x102a.google.com with SMTP id
- 98e67ed59e1d1-2f4409fc8fdso5711905a91.1
- for <xen-devel@lists.xenproject.org>; Sun, 26 Jan 2025 12:34:27 -0800 (PST)
+ id 1tc9NC-0002th-Vq
+ for xen-devel@lists.xenproject.org; Sun, 26 Jan 2025 20:36:50 +0000
+Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
+ [2607:f8b0:4864:20::62c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 43cfd0a7-dc25-11ef-99a4-01e77a169b0f;
+ Sun, 26 Jan 2025 21:36:49 +0100 (CET)
+Received: by mail-pl1-x62c.google.com with SMTP id
+ d9443c01a7336-2161eb94cceso44373175ad.2
+ for <xen-devel@lists.xenproject.org>; Sun, 26 Jan 2025 12:36:49 -0800 (PST)
 Received: from [192.168.0.4] (174-21-71-127.tukw.qwest.net. [174.21.71.127])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2f7ffaf8b27sm5519409a91.37.2025.01.26.12.34.25
+ d2e1a72fcca58-72f8a6b18b5sm5645530b3a.39.2025.01.26.12.36.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 26 Jan 2025 12:34:25 -0800 (PST)
+ Sun, 26 Jan 2025 12:36:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ef984a56-dc24-11ef-a0e6-8be0dac302b0
+X-Inumbo-ID: 43cfd0a7-dc25-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1737923666; x=1738528466; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1737923807; x=1738528607; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=HV0rFwm2c/DiJ3VIFDuxU64dDw12Xibjr9C6hrIuIZM=;
-        b=E41ZbYGAgfvpd8ve17OwbRlNK+Je79yrbsF36aliJvhlbu/KxYEMX77AXPg0GW9Qel
-         dVYWD7x9S83eOZkDQFi9KOphDXExXO61oVfpur62pUvPjh1I52JnLnIUMWQ1t/5bX8Lo
-         F4rISFQX4KEJWQqmk9qPLYHT3fJyFZhD+c5iq0UoXWuoThMwpyY+azffYwzg8+iKvQ/w
-         /9jVsgkqbLHr3j51plodmfzfWPkDiYqMmzNI12NmTVEcPSTt/rMeoVbB2ndO+3ydBPhb
-         kca8frmoFCxcClb91YY1UoiDrOs19c925oUhxVjdtb8Zbbo5rbk1Scv+Xa3DMJOU/wq8
-         rMGQ==
+        bh=g2WeP5q4hv+K1Hr21O956YlU/gBG9YtJDHMFPAKuFc4=;
+        b=QEt1SpT0VtBkL2hZ85IaRNu0Maypq2iNdmwVLvx2v6o5ZPXF6f9Oc5hOK9V4xdLoTI
+         QokCQk4qDhltNpFuhbCmMfsIuJ6rOJCem2OHVRMrZvGgR5vyMjKGJoVmz0JIjx/2jKu4
+         kILVQ5eegQGNM7SAYIbYlbJmopFEIaceHSIE/wtTPyJPyz3v0TPtCzrJHbXO3dYzvs4A
+         V0AxDQU5ccSbsgP8Pu4jfxF8uMI8+FfirlJGbYUZV4TUQq2YH3hm3Mkxsl07GbVUCwQP
+         097B8lCM/Kr3Od2Z4KhniEUj4RMqgeEDikk17pAaBfbA4legl5ldeJMX7InxHbAj5yKJ
+         1NAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737923666; x=1738528466;
+        d=1e100.net; s=20230601; t=1737923807; x=1738528607;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=HV0rFwm2c/DiJ3VIFDuxU64dDw12Xibjr9C6hrIuIZM=;
-        b=w/HNB+1RoGxnQsCAXHeVPa0lcVeAtzXNM5mCXoVNNTS8FgEdzt4gZbdMI0AD9EjTnI
-         1pjewo/k5HJJyy3GcOfM2jzfMTMeocmYp/OPNiOKeZHhkjealMKfcfGhLs6kY2byTGAy
-         sBgYCEgZ1PtwY8dhrmeN7gpBcRqdt5lTc7/SVACsAdZAi1SjTFus/84rZtsELD2tBETR
-         zDwOrW+C1j3vE7hhEijlo6p2MBsLeYq4SbNjXiMO8IiBDbPL+Y6qokRYIhPrKXu+azI2
-         lwi8i/7nAa5j3IEiXsRbdhNTGwLl/h6prD9yZPB9DQOUiZMp8/qSpt/6NpAmTE2zFRoe
-         +ujw==
-X-Forwarded-Encrypted: i=1; AJvYcCW35okzgSlQLFqJMSLHts+9pug7IErstLVXchTjSxFhwou7RbdhcAoUPDbHEJiO64zLglm+tAlWZIE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwyIfuTsin4j02GP67GjWin2jFPGk/MoQdFKui4tYnGim+2x13M
-	XvnS5t4C1jP45mwhYODtrUZ7Fz7o0a1SrP8WeeOVjJQes7KBzE9XYwx8/lUGiZk=
-X-Gm-Gg: ASbGncteZ0atWMeAABv3YyX/qrvDCifOQc9WcYO4WG9tSjNse70TE26M7H7dmz8xeMx
-	0FrtMlj7Y3wXa6cl3+rhhcwR2QJL6GZ/rvnciuugzMAnvWqogt9ve/NfT85Zzkc2uqc3MxB7UB9
-	6UeO8vBwwYwu7N601ufrxdJU4OR2znTWXn6m8UkKwBB0b3YtZd9A+ltTbuKgaA/Z2NJErqILKA0
-	deEGnQRXgI0fHUayXJTtqZdZoeYHOGyuPsBs7T5tXbXpBl6Mi9FLb0wabY+FEWc5/r2d9rcqfY3
-	YgOueSGXgs3zRoaDp/YFQToXwxi/ooFS7lHEh7/8WPr62/M=
-X-Google-Smtp-Source: AGHT+IEnuvCpks4R8m2CWUAxXqy7OUK3I7qmzF32T6Ls9afPXbIvlOOo7wFmoCIeuE1afURwxObJ8g==
-X-Received: by 2002:a17:90b:5488:b0:2ee:7e53:bfae with SMTP id 98e67ed59e1d1-2f7f177c6b3mr23097382a91.10.1737923666307;
-        Sun, 26 Jan 2025 12:34:26 -0800 (PST)
-Message-ID: <2641e9da-db13-490e-9bae-64ecde1f9352@linaro.org>
-Date: Sun, 26 Jan 2025 12:34:24 -0800
+        bh=g2WeP5q4hv+K1Hr21O956YlU/gBG9YtJDHMFPAKuFc4=;
+        b=j+2Z4nHjQiWLwgua8P3pgXo/0VeDyw856YXHLkERmFNAQZB+XkJmuEN2NKiVGnRczK
+         CDRF8KJzNuLZvypq4dW5FznNqhfePIxqUBnXJJ3DgVjFmfs3Fniraw/mJeCJ3m1MEzFr
+         31p+v0JH6jmqI62x0Pq6cIcOO+80WmTOiPVtzPuNJMx/Xbs4d2Glz5lo4CIOcDb1cWkh
+         e7zaZUIumQ02g47r9CyQnZwzR+wNXu5vwQ2cNwLYdqCo0E3PJVc8U3xdiOpuzHCP+IAo
+         2WRfnaUXX/eqvT9WN0nKNUpuxMRQLfRdWy2Rv7vaEgSSiNld85H43dC9v3bUeCPhFCx1
+         Ly7A==
+X-Forwarded-Encrypted: i=1; AJvYcCXDWU2MELgxWkpfydnCjoIcv15Hdz4zCRBcPlM8InlYcpmzH5y41dCu+RmofOnRVju4u9p0m4g6MyA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzZNjHcwLw+/kDybamOg8BHygDDal+CkjJlp8kiVfn1aaj/lNox
+	cEpKPCgcVvoj0fG7t0OU+kT2j0Ry/l784QIJXgcHcXgaqoeQGaZ5cH4pm+LFk48=
+X-Gm-Gg: ASbGncth5U42uW6kWQ4+xJsinHLKUA9g/KuTrg+HcVI/9gq22rt/sFvSR1wLybPdSN9
+	wV7nBcCu9QDOeiThA+2jUW7K/29atFa0A7ySv97/H0fVxGhr1krCUG9EiTFciSoKwCDKOh97Dix
+	53kV/wN09WVfZNDG5egtTF4ArksF6MnHsTjyc90bAe6ysWDgD1Prut+Xy7F8um+d6jY72yt9J5V
+	R6z5nxmllKQ1YZQlmd5ZfLaIH0waOGURamdZlDp4Dk1MKZlccPqjFe5u8hfsX0K1vrZVH9ja5ev
+	Yt/Y6FiwnHRzgm0H/DJUIjXy+OPe29CRvjXNzq9L9798g0M=
+X-Google-Smtp-Source: AGHT+IG7QHEN6N12IEj7HpZ8+9ISOfMpvPDzHND+sb7CKsQVCW2Siz1JbFKV0CJ4CarsM9/PXCPftw==
+X-Received: by 2002:a05:6a20:2447:b0:1e0:ce11:b0ce with SMTP id adf61e73a8af0-1eb215adabfmr66485176637.35.1737923807521;
+        Sun, 26 Jan 2025 12:36:47 -0800 (PST)
+Message-ID: <d81542e9-bebf-4f5f-a911-8ab7b6180d4e@linaro.org>
+Date: Sun, 26 Jan 2025 12:36:45 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/20] accel/tcg: Restrict 'icount_align_option' global to
- TCG
+Subject: Re: [PATCH 10/20] accel/tcg: Rename 'hw/core/tcg-cpu-ops.h' ->
+ 'accel/tcg/cpu-ops.h'
 To: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
  qemu-devel@nongnu.org
 Cc: Peter Maydell <peter.maydell@linaro.org>,
@@ -96,28 +96,102 @@ Cc: Peter Maydell <peter.maydell@linaro.org>,
  qemu-riscv@nongnu.org, David Hildenbrand <david@redhat.com>,
  qemu-s390x@nongnu.org, xen-devel@lists.xenproject.org
 References: <20250123234415.59850-1-philmd@linaro.org>
- <20250123234415.59850-10-philmd@linaro.org>
+ <20250123234415.59850-11-philmd@linaro.org>
 Content-Language: en-US
 From: Richard Henderson <richard.henderson@linaro.org>
-In-Reply-To: <20250123234415.59850-10-philmd@linaro.org>
+In-Reply-To: <20250123234415.59850-11-philmd@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 On 1/23/25 15:44, Philippe Mathieu-Daudé wrote:
-> Since commit 740b1759734 ("cpu-timers, icount: new modules")
-> we don't need to expose icount_align_option to all the
-> system code, we can restrict it to TCG. Since it is used as
-> a boolean, declare it as 'bool' type.
+> TCGCPUOps structure makes more sense in the accelerator context
+> rather than hardware emulation. Move it under the accel/tcg/ scope.
 > 
-> Signed-off-by: Philippe Mathieu-Daudé<philmd@linaro.org>
+> Mechanical change doing:
+> 
+>   $  sed -i -e 's,hw/core/tcg-cpu-ops.h,accel/tcg/cpu-ops.h,g' \
+>     $(git grep -l hw/core/tcg-cpu-ops.h)
+> 
+> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 > ---
->   accel/tcg/internal-common.h | 2 ++
->   include/system/cpus.h       | 2 --
->   accel/tcg/icount-common.c   | 2 ++
->   system/globals.c            | 1 -
->   4 files changed, 4 insertions(+), 3 deletions(-)
+>   MAINTAINERS                                            | 2 +-
+>   include/{hw/core/tcg-cpu-ops.h => accel/tcg/cpu-ops.h} | 0
+>   accel/tcg/cpu-exec.c                                   | 4 ++--
+>   accel/tcg/cputlb.c                                     | 2 +-
+>   accel/tcg/translate-all.c                              | 2 +-
+>   accel/tcg/user-exec.c                                  | 2 +-
+>   accel/tcg/watchpoint.c                                 | 2 +-
+>   bsd-user/signal.c                                      | 2 +-
+>   hw/mips/jazz.c                                         | 2 +-
+>   linux-user/signal.c                                    | 2 +-
+>   system/physmem.c                                       | 2 +-
+>   target/alpha/cpu.c                                     | 2 +-
+>   target/arm/cpu.c                                       | 2 +-
+>   target/arm/tcg/cpu-v7m.c                               | 2 +-
+>   target/arm/tcg/cpu32.c                                 | 2 +-
+>   target/arm/tcg/mte_helper.c                            | 2 +-
+>   target/arm/tcg/sve_helper.c                            | 2 +-
+>   target/avr/cpu.c                                       | 2 +-
+>   target/avr/helper.c                                    | 2 +-
+>   target/hexagon/cpu.c                                   | 2 +-
+>   target/hppa/cpu.c                                      | 2 +-
+>   target/i386/tcg/tcg-cpu.c                              | 2 +-
+>   target/loongarch/cpu.c                                 | 2 +-
+>   target/m68k/cpu.c                                      | 2 +-
+>   target/microblaze/cpu.c                                | 2 +-
+>   target/mips/cpu.c                                      | 2 +-
+>   target/openrisc/cpu.c                                  | 2 +-
+>   target/ppc/cpu_init.c                                  | 2 +-
+>   target/riscv/tcg/tcg-cpu.c                             | 2 +-
+>   target/rx/cpu.c                                        | 2 +-
+>   target/s390x/cpu.c                                     | 2 +-
+>   target/s390x/tcg/mem_helper.c                          | 2 +-
+>   target/sh4/cpu.c                                       | 2 +-
+>   target/sparc/cpu.c                                     | 2 +-
+>   target/tricore/cpu.c                                   | 2 +-
+>   target/xtensa/cpu.c                                    | 2 +-
+>   36 files changed, 36 insertions(+), 36 deletions(-)
+>   rename include/{hw/core/tcg-cpu-ops.h => accel/tcg/cpu-ops.h} (100%)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 7be3d8f431a..fa46d077d30 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -175,7 +175,7 @@ F: include/exec/helper-info.c.inc
+>   F: include/exec/page-protection.h
+>   F: include/system/cpus.h
+>   F: include/system/tcg.h
+> -F: include/hw/core/tcg-cpu-ops.h
+> +F: include/accel/tcg/cpu-ops.h
+>   F: host/include/*/host/cpuinfo.h
+>   F: util/cpuinfo-*.c
+>   F: include/tcg/
+> diff --git a/include/hw/core/tcg-cpu-ops.h b/include/accel/tcg/cpu-ops.h
+> similarity index 100%
+> rename from include/hw/core/tcg-cpu-ops.h
+> rename to include/accel/tcg/cpu-ops.h
+> diff --git a/accel/tcg/cpu-exec.c b/accel/tcg/cpu-exec.c
+> index be2ba199d3d..8ee76e14b0d 100644
+> --- a/accel/tcg/cpu-exec.c
+> +++ b/accel/tcg/cpu-exec.c
+> @@ -22,7 +22,7 @@
+>   #include "qapi/error.h"
+>   #include "qapi/type-helpers.h"
+>   #include "hw/core/cpu.h"
+> -#include "hw/core/tcg-cpu-ops.h"
+> +#include "accel/tcg/cpu-ops.h"
+>   #include "trace.h"
+>   #include "disas/disas.h"
+>   #include "exec/cpu-common.h"
+> @@ -39,7 +39,7 @@
+>   #include "exec/replay-core.h"
+>   #include "system/tcg.h"
+>   #include "exec/helper-proto-common.h"
+> -#include "tb-jmp-cache.h"
+> +//#include "tb-jmp-cache.h"
 
-Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
+What's this?
+
 
 r~
 
