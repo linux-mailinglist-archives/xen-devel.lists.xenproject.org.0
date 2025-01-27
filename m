@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 210C3A1D4D5
+	by mail.lfdr.de (Postfix) with ESMTPS id 16D95A1D4D4
 	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 11:52:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.877680.1287817 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.877681.1287827 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcMix-0006C6-AQ; Mon, 27 Jan 2025 10:52:11 +0000
+	id 1tcMiy-0006QY-HZ; Mon, 27 Jan 2025 10:52:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 877680.1287817; Mon, 27 Jan 2025 10:52:11 +0000
+Received: by outflank-mailman (output) from mailman id 877681.1287827; Mon, 27 Jan 2025 10:52:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcMix-0006AR-7q; Mon, 27 Jan 2025 10:52:11 +0000
-Received: by outflank-mailman (input) for mailman id 877680;
- Mon, 27 Jan 2025 10:52:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qVGR=UT=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tcMdY-0001ah-4o
- for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 10:46:36 +0000
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [2a00:1450:4864:20::229])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fa7e16e0-dc9b-11ef-a0e6-8be0dac302b0;
- Mon, 27 Jan 2025 11:46:35 +0100 (CET)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-30613802a04so44033881fa.2
- for <xen-devel@lists.xenproject.org>; Mon, 27 Jan 2025 02:46:35 -0800 (PST)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3076bc19614sm14251691fa.69.2025.01.27.02.46.34
+	id 1tcMiy-0006OP-EK; Mon, 27 Jan 2025 10:52:12 +0000
+Received: by outflank-mailman (input) for mailman id 877681;
+ Mon, 27 Jan 2025 10:52:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=O4xJ=UT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tcMix-0006AP-1U
+ for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 10:52:11 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c0a614eb-dc9c-11ef-99a4-01e77a169b0f;
+ Mon, 27 Jan 2025 11:52:08 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-aaec111762bso918280066b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Jan 2025 02:52:07 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab6aa40824asm118455866b.134.2025.01.27.02.52.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Jan 2025 02:46:34 -0800 (PST)
+ Mon, 27 Jan 2025 02:52:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,265 +45,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fa7e16e0-dc9b-11ef-a0e6-8be0dac302b0
+X-Inumbo-ID: c0a614eb-dc9c-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1737974795; x=1738579595; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=k5lEUWzgXvLvxqvn90u0nUXpGS3fDaQopw24r12oRWw=;
-        b=bj6+t24hqtODBimktizGlNs3xLRF4Oj4rtGI0hnQ0F4ku/a34MjtjCkbz68YTZGFSI
-         x+/Y9XKhGX6fG86UlQiWCK1TTEbVAfWPGkbbShf143xgweRlGVWiJSKP5uknN8Xp4gTB
-         nSqrQ+TxiOeTMviWJ6MostWvP1zrzUPyUrulY0JyVYHBNb/MsL885YXYLfAAsvt6KS+k
-         SStPBKYBGN8GtbVTUPOsfA3L0CVOkQ3c4S3o7BNyIKd3QuaJIs74FaN1LpeSSnFIC+oC
-         lHhcyaYppFyWQR3UE15/a6RWq6DV9Bx/UkYvVfS7REAn4LI4ynfhSbGoJKVGqKFS2BuE
-         3tJQ==
+        d=suse.com; s=google; t=1737975127; x=1738579927; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=IyjeDF8OKBxz6ia6vXzbKX4nJegmuau8imeDrdNM1bU=;
+        b=G8bIfIa5fFDY9FXUSwz4jqOT7FhDUwDXTxBUHWWO7+tj87CQAPI7xzgH+EVkVTz8+k
+         umww9r5pfg3gxVqN/DHkHjbBT9ydcWLUJW5JSG1nQkYxL8mzlp2s+NNOC3vs1IbhJDfK
+         TL2JVUsFYMTCbWpuVesMwxPBbK0gC2X1AIDe/62TKyyVvvQz7qarO2ZaIFd46Jnq3u+5
+         Cq5iWq191kAnRkgnQZsme8uNlFvI7cJtBQEiVc4vHUXVcXk7zs8SjDzweCheUZ1mjgNM
+         CgeUHWxPDuLy1B7VyTQ23AJQYYU2b1Xj23jx1glRXgy0fGbLbJ6GeAY6CYtdC19aPjev
+         6akA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737974795; x=1738579595;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=k5lEUWzgXvLvxqvn90u0nUXpGS3fDaQopw24r12oRWw=;
-        b=EhUBVbjl7rQWio74Q4bzlgumMT8sxtD4PB0m6CCLuYoR8OUklr3Ypr3Ccv6XUqIR8n
-         hrQ9vFE2xa9icl1tKPfhTFNJR5Cju83a13Oyww5Bu1Locz3y2xSA+IguTz1oF7P5CM4w
-         GF6awJz9PVYAlFwGEcVI5GMZxqENePLGqRp4CZAFnJqESjXoK0MKTzSJYW0pXV10VBFl
-         Rpp9yETuEPPBy2Kq+M6z2LRVHFCexAQnfKe8WknlKgiFeltGxfvD3FQVQ9RbI8nRNkge
-         MZjRfp1XZL3h58uUZtEdnWOuTRMaPOGByxFDzEzwfHMDRsPslnXzzQrEXTKJPWPRDJZH
-         NbHw==
-X-Forwarded-Encrypted: i=1; AJvYcCUQzQIWv+HFtucG3U3LmRTHGQddus2IhYTAD/Q4DvP+NcQWX/DmynqBXE54n/F08w6ehgKs1sSvpog=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywzz7nhS5617HYFTor5mMXolSZyiL2hxqHau4Ox3DyxzBCFimPW
-	sd/CbQzycpnMDGJEjwtpAFRR5Obb7gu4+g962FfPSpYABhj2LWdt
-X-Gm-Gg: ASbGncsDBCnNTw58OqYqezTBBK0mYpsC5enbUBapn6Hh+/6PfoxeGXATErchOxuJZCR
-	rYm6C3TZoZ9hzElcXPNXt2W221c+yIUFL1qfbpR+BU+9mYCLkpC0UYJzu98zYcqiJ2QzTxHqgaO
-	gqYYMnTRCGSbDrFH4ReDgG1/S5o1uts45mPqzNOC34E6//5z7n11bsqiIU/QXsTyI9LmBuKGFAn
-	IRWDi2vUD1uQmFToM+pIjYIOhIBOvubIUzmr9oI2B0R/QH0ddU/4KgYpKpJBsxTL7PzTyhglsR6
-	eOHiq522ykqSedsFcA==
-X-Google-Smtp-Source: AGHT+IFjPFW1ByP4+7nnOXYgAfCAVV6ahZA2UqGgf1/6HRADwylGqoyRLFaWpi3ae3WG3+uz0ukhiQ==
-X-Received: by 2002:a2e:a54a:0:b0:300:43cd:3b18 with SMTP id 38308e7fff4ca-3072cb3a76dmr144956561fa.36.1737974794518;
-        Mon, 27 Jan 2025 02:46:34 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------MeY1ENnMmOw4u2oSx5g6K1Ws"
-Message-ID: <b6d21569-c692-4270-ae0f-137246881a8a@gmail.com>
-Date: Mon, 27 Jan 2025 11:46:33 +0100
+        d=1e100.net; s=20230601; t=1737975127; x=1738579927;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IyjeDF8OKBxz6ia6vXzbKX4nJegmuau8imeDrdNM1bU=;
+        b=mAeRa5MAj0uzGkcyR5240IjUWW2oqTB6/JoRYo1pOtYmFCD/3k9fGNOCs+cVmjEsSs
+         sS5PHFWYalZOd3DEZK4C7OAn/Ynm867Zi7ZBr3G1I9jfK46KWdiIy08ZCIWxGGTr4d0o
+         FuFUo2u/ZRMi5d0UU7BK1c7EFwwaUeuCDPn6hxD9rL2sNWP/h8UH3u4HtPmqzWzHH8Nw
+         MM/DyEUZdPPNZbhAuUhldxYjrgdXBSWUL5/umy//lcrND3nG7+AYGN8zNI8cGPOooGYb
+         aHG/wANCXukrsvcXc7Q4UMfkN58fSDa/mRuuECmtXRLVB/74cgRRrel67jeUpJUb3im6
+         bVFA==
+X-Forwarded-Encrypted: i=1; AJvYcCXY0NUaw6ITO8JvUNY/2BppiJV+Ap8gdMDH26aNMJwCb0kIUx9UakGTGs4+JedmbU6Ri4khteUGtJ0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzE3h460q4qcRN/sFgE2mccVZ0A8dA5Kz0OL6CWHb/bzZubaRRi
+	n6QqTP+TwBrP9thl8N4s1/gRJwgphCobAHPwl+tvYt9dGTPw//nhW6pxRxBMRg==
+X-Gm-Gg: ASbGnctUKrjTNMGVwirXVPyDKCh54jIYYUS5lKFYnIqmxm3a+qbewJXPv89LbNwquSj
+	inytrg6qFvDkqtY0rsKUSnzkonJuLM6xYf3mVyanYrrVu6WxbL/IMfOS+JBVYGhMgaGbChEloSO
+	avQF48+Xz93gGeyZ9oiR/zV3HIYzHQ9rpEe+H3cM4J3rzazWXtOvgBnRobkJ3Vc6eBKw1Genh8b
+	7tJuXizZPCHyt0Q651j0HRnjIotlvb80Fbjcen/vL82HoLbxQMNRmFdcAP/E9yR5iZJtwqj85jJ
+	JpAPTryWS7ygQRrXdVGajrS0496PIpc7HG/N1qo+8ZRf67yqaqT9P+ZeFTRHsm7AEg==
+X-Google-Smtp-Source: AGHT+IEbxacT0Rf7glIV5zqQTQpKB3fYs6ygwCctur3iH2OIEYbdv0+TAfSzoLAAPaA0iPTY1QPe+A==
+X-Received: by 2002:a17:906:6a26:b0:aa6:b473:ea4c with SMTP id a640c23a62f3a-ab38b0b920fmr3551212766b.10.1737975127295;
+        Mon, 27 Jan 2025 02:52:07 -0800 (PST)
+Message-ID: <bc5185ca-9001-4699-82d0-88e629ae6503@suse.com>
+Date: Mon, 27 Jan 2025 11:52:09 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.20] x86/PV: further harden guest memory accesses
- against speculative abuse
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v3 08/12] x86/emulator: Refactor FXSAVE_AREA to use
+ wrappers
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <a615a96e-95d2-442f-b57d-0bb51142c977@suse.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20250110132823.24348-1-alejandro.vallejo@cloud.com>
+ <20250110132823.24348-9-alejandro.vallejo@cloud.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <a615a96e-95d2-442f-b57d-0bb51142c977@suse.com>
-
-This is a multi-part message in MIME format.
---------------MeY1ENnMmOw4u2oSx5g6K1Ws
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250110132823.24348-9-alejandro.vallejo@cloud.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
+On 10.01.2025 14:28, Alejandro Vallejo wrote:
+> Adds an UNMAP primitive to make use of vcpu_unmap_xsave_area() when
+> linked into xen. unmap is a no-op during tests.
+> 
+> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 
-On 1/27/25 11:15 AM, Jan Beulich wrote:
-> The original implementation has two issues: For one it doesn't preserve
-> non-canonical-ness of inputs in the range 0x8000000000000000 through
-> 0x80007fffffffffff. Bogus guest pointers in that range would not cause a
-> (#GP) fault upon access, when they should.
->
-> And then there is an AMD-specific aspect, where only the low 48 bits of
-> an address are used for speculative execution; the architecturally
-> mandated #GP for non-canonical addresses would be raised at a later
-> execution stage. Therefore to prevent Xen controlled data to make it
-> into any of the caches in a guest controllable manner, we need to
-> additionally ensure that for non-canonical inputs bit 47 would be clear.
->
-> See the code comment for how addressing both is being achieved.
->
-> Fixes: 4dc181599142 ("x86/PV: harden guest memory accesses against speculative abuse")
-> Signed-off-by: Jan Beulich<jbeulich@suse.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
+despite ...
 
-With getting proper Acked-by/Reviewed-by:
-   R-Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+> --- a/xen/arch/x86/x86_emulate/blk.c
+> +++ b/xen/arch/x86/x86_emulate/blk.c
+> @@ -11,9 +11,12 @@
+>      !defined(X86EMUL_NO_SIMD)
+>  # ifdef __XEN__
+>  #  include <asm/xstate.h>
+> -#  define FXSAVE_AREA ((void *)&current->arch.xsave_area->fpu_sse)
+> +/* Has a fastpath for `current`, so there's no actual map */
+> +#  define FXSAVE_AREA ((void *)VCPU_MAP_XSAVE_AREA(current))
+> +#  define UNMAP_FXSAVE_AREA(x) VCPU_UNMAP_XSAVE_AREA(current, x)
 
-Thanks.
+... the comment here kind of suggesting that ...
 
-~ Oleksii
+>  # else
+>  #  define FXSAVE_AREA get_fpu_save_area()
+> +#  define UNMAP_FXSAVE_AREA(x) ((void)(x))
 
-> ---
-> RFC: When scratch2 isn't %r8...%r15, the MOV, CMOVNB, and XOR will have
->       unnecessary REX prefixes emitted, as users of the macro pass in 64-
->       bit registers. Similar to what was done to be able to use SETcc (in
->       the earlier alternative code sequence), we could derive %e.. from
->       %r.. to shrink code size some; there are a few dozen instances of
->       this code, after all. (An alternative, requiring to touch the use
->       sites, would be to constrain the scratch registers to rAX...rDI and
->       pass in only the last two characters of the names [e.g. "di", i.e.
->       also without the leading %]. That would make it straightforward to
->       use both %r.. and %e.. at the same time.)
-> ---
-> v2: Drop the non-RCR alternative.
->
-> --- a/xen/arch/x86/include/asm/asm-defns.h
-> +++ b/xen/arch/x86/include/asm/asm-defns.h
-> @@ -1,3 +1,5 @@
-> +#include <asm/page-bits.h>
-> +
->   #ifndef HAVE_AS_CLAC_STAC
->   .macro clac
->       .byte 0x0f, 0x01, 0xca
-> @@ -65,17 +67,36 @@
->   .macro guest_access_mask_ptr ptr:req, scratch1:req, scratch2:req
->   #if defined(CONFIG_SPECULATIVE_HARDEN_GUEST_ACCESS)
->       /*
-> -     * Here we want
-> -     *
-> -     * ptr &= ~0ull >> (ptr < HYPERVISOR_VIRT_END);
-> -     *
-> +     * Here we want to adjust \ptr such that
-> +     * - if it's within Xen range, it becomes non-canonical,
-> +     * - otherwise if it's (non-)canonical on input, it retains that property,
-> +     * - if the result is non-canonical, bit 47 is clear (to avoid
-> +     *   potentially populating the cache with Xen data),
->        * but guaranteed without any conditional branches (hence in assembly).
-> +     *
-> +     * To achieve this we determine which bit to forcibly clear: Either bit 47
-> +     * (in case the address is below HYPERVISOR_VIRT_END) or bit 63.  Further
-> +     * we determine whether for forcably set bit 63: In case we first cleared
-> +     * it, we'll merely restore the original address.  In case we ended up
-> +     * clearing bit 47 (i.e. the address was either non-canonical or within Xen
-> +     * range), setting the bit will yield a guaranteed non-canonical address.
-> +     * If we didn't clear a bit, we also won't set one: The address was in the
-> +     * low half of address space in that case with bit 47 already clear.  The
-> +     * address can thus be left unchanged, whether canonical or not.
->        */
->       mov $(HYPERVISOR_VIRT_END - 1), \scratch1
-> -    mov $~0, \scratch2
-> +    mov $(VADDR_BITS - 1), \scratch2
->       cmp \ptr, \scratch1
-> +    /*
-> +     * Not needed: The value we have in \scratch1 will be truncated to 6 bits,
-> +     * thus yielding the value we need.
-> +    mov $63, \scratch1
-> +     */
-> +    cmovnb \scratch2, \scratch1
-> +    xor \scratch2, \scratch2
-> +    btr \scratch1, \ptr
->       rcr $1, \scratch2
-> -    and \scratch2, \ptr
-> +    or \scratch2, \ptr
->   #elif defined(CONFIG_DEBUG) && defined(CONFIG_PV)
->       xor $~\@, \scratch1
->       xor $~\@, \scratch2
---------------MeY1ENnMmOw4u2oSx5g6K1Ws
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+... use of this new construct is solely decoration, and could hence as
+well be omitted.
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 1/27/25 11:15 AM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:a615a96e-95d2-442f-b57d-0bb51142c977@suse.com">
-      <pre wrap="" class="moz-quote-pre">The original implementation has two issues: For one it doesn't preserve
-non-canonical-ness of inputs in the range 0x8000000000000000 through
-0x80007fffffffffff. Bogus guest pointers in that range would not cause a
-(#GP) fault upon access, when they should.
-
-And then there is an AMD-specific aspect, where only the low 48 bits of
-an address are used for speculative execution; the architecturally
-mandated #GP for non-canonical addresses would be raised at a later
-execution stage. Therefore to prevent Xen controlled data to make it
-into any of the caches in a guest controllable manner, we need to
-additionally ensure that for non-canonical inputs bit 47 would be clear.
-
-See the code comment for how addressing both is being achieved.
-
-Fixes: 4dc181599142 ("x86/PV: harden guest memory accesses against speculative abuse")
-Signed-off-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a></pre>
-    </blockquote>
-    <pre>With getting proper Acked-by/Reviewed-by:
-  R-Acked-by: Oleksii Kurochko<a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a></pre>
-    <pre>Thanks.</pre>
-    <pre>~ Oleksii
-</pre>
-    <blockquote type="cite"
-      cite="mid:a615a96e-95d2-442f-b57d-0bb51142c977@suse.com">
-      <pre wrap="" class="moz-quote-pre">
----
-RFC: When scratch2 isn't %r8...%r15, the MOV, CMOVNB, and XOR will have
-     unnecessary REX prefixes emitted, as users of the macro pass in 64-
-     bit registers. Similar to what was done to be able to use SETcc (in
-     the earlier alternative code sequence), we could derive %e.. from
-     %r.. to shrink code size some; there are a few dozen instances of
-     this code, after all. (An alternative, requiring to touch the use
-     sites, would be to constrain the scratch registers to rAX...rDI and
-     pass in only the last two characters of the names [e.g. "di", i.e.
-     also without the leading %]. That would make it straightforward to
-     use both %r.. and %e.. at the same time.)
----
-v2: Drop the non-RCR alternative.
-
---- a/xen/arch/x86/include/asm/asm-defns.h
-+++ b/xen/arch/x86/include/asm/asm-defns.h
-@@ -1,3 +1,5 @@
-+#include &lt;asm/page-bits.h&gt;
-+
- #ifndef HAVE_AS_CLAC_STAC
- .macro clac
-     .byte 0x0f, 0x01, 0xca
-@@ -65,17 +67,36 @@
- .macro guest_access_mask_ptr ptr:req, scratch1:req, scratch2:req
- #if defined(CONFIG_SPECULATIVE_HARDEN_GUEST_ACCESS)
-     /*
--     * Here we want
--     *
--     * ptr &amp;= ~0ull &gt;&gt; (ptr &lt; HYPERVISOR_VIRT_END);
--     *
-+     * Here we want to adjust \ptr such that
-+     * - if it's within Xen range, it becomes non-canonical,
-+     * - otherwise if it's (non-)canonical on input, it retains that property,
-+     * - if the result is non-canonical, bit 47 is clear (to avoid
-+     *   potentially populating the cache with Xen data),
-      * but guaranteed without any conditional branches (hence in assembly).
-+     *
-+     * To achieve this we determine which bit to forcibly clear: Either bit 47
-+     * (in case the address is below HYPERVISOR_VIRT_END) or bit 63.  Further
-+     * we determine whether for forcably set bit 63: In case we first cleared
-+     * it, we'll merely restore the original address.  In case we ended up
-+     * clearing bit 47 (i.e. the address was either non-canonical or within Xen
-+     * range), setting the bit will yield a guaranteed non-canonical address.
-+     * If we didn't clear a bit, we also won't set one: The address was in the
-+     * low half of address space in that case with bit 47 already clear.  The
-+     * address can thus be left unchanged, whether canonical or not.
-      */
-     mov $(HYPERVISOR_VIRT_END - 1), \scratch1
--    mov $~0, \scratch2
-+    mov $(VADDR_BITS - 1), \scratch2
-     cmp \ptr, \scratch1
-+    /*
-+     * Not needed: The value we have in \scratch1 will be truncated to 6 bits,
-+     * thus yielding the value we need.
-+    mov $63, \scratch1
-+     */
-+    cmovnb \scratch2, \scratch1
-+    xor \scratch2, \scratch2
-+    btr \scratch1, \ptr
-     rcr $1, \scratch2
--    and \scratch2, \ptr
-+    or \scratch2, \ptr
- #elif defined(CONFIG_DEBUG) &amp;&amp; defined(CONFIG_PV)
-     xor $~\@, \scratch1
-     xor $~\@, \scratch2
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------MeY1ENnMmOw4u2oSx5g6K1Ws--
+Jan
 
