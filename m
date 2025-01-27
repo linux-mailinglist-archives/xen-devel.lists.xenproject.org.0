@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD979A1D7FD
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 15:21:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.877959.1288129 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6254AA1D896
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 15:41:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.877974.1288146 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcPyn-00085s-7P; Mon, 27 Jan 2025 14:20:45 +0000
+	id 1tcQIv-0003kh-TX; Mon, 27 Jan 2025 14:41:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 877959.1288129; Mon, 27 Jan 2025 14:20:45 +0000
+Received: by outflank-mailman (output) from mailman id 877974.1288146; Mon, 27 Jan 2025 14:41:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcPyn-000820-4T; Mon, 27 Jan 2025 14:20:45 +0000
-Received: by outflank-mailman (input) for mailman id 877959;
- Mon, 27 Jan 2025 14:20:43 +0000
+	id 1tcQIv-0003iJ-PZ; Mon, 27 Jan 2025 14:41:33 +0000
+Received: by outflank-mailman (input) for mailman id 877974;
+ Mon, 27 Jan 2025 14:41:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=O4xJ=UT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tcPyl-00081u-Lp
- for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 14:20:43 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jIzP=UT=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tcQIu-0003iB-Gw
+ for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 14:41:32 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e405e1b2-dcb9-11ef-a0e6-8be0dac302b0;
- Mon, 27 Jan 2025 15:20:42 +0100 (CET)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-aa679ad4265so1098678866b.0
- for <xen-devel@lists.xenproject.org>; Mon, 27 Jan 2025 06:20:42 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab69fb4e5a0sm236644766b.153.2025.01.27.06.20.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Jan 2025 06:20:41 -0800 (PST)
+ id cc25779b-dcbc-11ef-a0e6-8be0dac302b0;
+ Mon, 27 Jan 2025 15:41:31 +0100 (CET)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-5d3ecae02beso6194627a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Jan 2025 06:41:30 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5dc186d8b37sm5467311a12.72.2025.01.27.06.41.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Jan 2025 06:41:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,169 +44,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e405e1b2-dcb9-11ef-a0e6-8be0dac302b0
+X-Inumbo-ID: cc25779b-dcbc-11ef-a0e6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1737987642; x=1738592442; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Qru1M4fUT7Isr1Z0AlBOKn1jz3c669V53mqt5oK3aNo=;
-        b=ZHnpaxAubeaWBSgRLel8N9EZR0U5wZQGOOrNWelSaAIM5yqDtHpKLVtfr9o8yCv/rV
-         D+HNCG07e10WnnihNyhQ3Kja5XVnU6JWC6YZ6oNlLRLG2ke16OOSSjfZ6bv+y9kmDxpN
-         2RQj9xysQrWr+Yf32bdGXQ+etUpF+DJjThrVb3YwMzhT+UvavdMOU8d90kUAlvM/nXN7
-         NMo6bW5akrbewMG7iaa7tWd6Z1O/T1hTHrMXzZUCtkQtkxf5qfGhTSV4V5etGgyfJHMw
-         Bqv8XEpP+0CMwy/WX60pDuVni4rQJCD27z1zgQHVx5X9bOd08mJQ17DQDzJEPuo0yWW1
-         0OHA==
+        d=citrix.com; s=google; t=1737988890; x=1738593690; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=DuQVWa3UAj0x1+sC5RPCZtQ/X8NDmzt/StrL5IE96mw=;
+        b=upV8hwOQe2k7AxFv7Yjl0dRYyKY2OnAT989U37hpimAzC+t4kONCW8Z9xqtal3vE/a
+         8F2qywQ5+WlIiuaNoiNF9t+1/FMHHf4L2BNFidpFq/48icoQrmGJGQ6en9VR+yP7irxr
+         O54fA0n52gt+JKX1l9dRBzbjzqmdYwbZVV5Sg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737987642; x=1738592442;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1737988890; x=1738593690;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Qru1M4fUT7Isr1Z0AlBOKn1jz3c669V53mqt5oK3aNo=;
-        b=nDxVTnX4S70Oey2LXvP6JW0OE5wZMDLoblue1Sd4kb5C6rjpdbPW78LEFvKogfHl4i
-         1p2GZIG/t+Tx0K+6Dz98NMneWLhXyJU44Oc3Evr1eCDyM+MfJIpLt3RHEnqj9bvtdf6n
-         Zz3zRSMHPbjMKzndH26T91k5HBMj8pRDl7dXCKH8PdaG23PBpyBpRXz96WoR93trdgnt
-         dBHUS9zZW2TsWmvVX6Jj8447l2zoJkD4STIw+TwYIBYplNaE+5RNTn79BmwaIq9LeA+q
-         STkm0MyvJ9xqavfzdtnw10ws1RFgRnXLar6YtLH9pv4PlV9K1cXNcr47Pn8vagEin2M3
-         Uj6g==
-X-Forwarded-Encrypted: i=1; AJvYcCVfk8s/b1TMgQ5TYR7MZw0+aXN40hmjs/4hn/SDstLngsDOky5zjbDY3k7ZQvZXRPXMckBuzZuZFiM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yziw9urWsbDGy9YqNf0MlXpLhwDLjukeQEYzSWWxyIPMSBGGJWL
-	/J1kDvnnHbH9eDlcq+MLk3k/xWNal2wBgO8OoS0Fa+T4h0tlNo8K0H6g69nKFQ==
-X-Gm-Gg: ASbGnct++aQHCNlCWTkgip7YNrzopqr64MiTC//28M1QX+8kWyzrE4FKBd3NWmagdBi
-	OBrj7ugnxDAs0U3sbhZucBV2lkLdGFaZ4/zGWdfB0hcp899M7I2EGvU1qty05mN7452S32CsZ8I
-	j3Zj8meR1YgbXKor5a3p0jkN7VuRYjWzE7xp/1n+qlRIWihU6ArcD8sGYBxzQcJdPOHAPbrkGPJ
-	vcmq77iOqZKtxLpkTmgvb6BB25JlqdKxg/TfAURJ39XUwnyq5iaEjU0yLd+5Kqktoup+j/neOsf
-	eesCdBhUKxTE0yeC4JCDlKf7MK9DnhLn9tgs0oprEccEcyIKjkPJOQpUZuqqLpY6gA==
-X-Google-Smtp-Source: AGHT+IFHpJxlS2aURhdmhpW1tQVAwNNp5I+gLZhqI05Rfq3i9V4/SNPksZJK/k+63/3N/fKv/a5PUQ==
-X-Received: by 2002:a17:907:7e85:b0:ab6:59e0:b756 with SMTP id a640c23a62f3a-ab6629cce1dmr1744839766b.14.1737987641941;
-        Mon, 27 Jan 2025 06:20:41 -0800 (PST)
-Message-ID: <2f34ba33-070e-4c02-a7e5-71451553a23e@suse.com>
-Date: Mon, 27 Jan 2025 15:20:40 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+        bh=DuQVWa3UAj0x1+sC5RPCZtQ/X8NDmzt/StrL5IE96mw=;
+        b=YiqZ+bLMfO4vMPUjF7QwPlz8ZXuBbflVkSDMd1NJifVLGfwqBTpoOfr5Bu/P8HFkln
+         NlC4Pmbw5E4lCdRBLF0L5ECXGnvIbiafM9JIs+XuT8C84hEPBGOyA+imXxK3iCP+WX9O
+         H1fDhP1LUryQ4js85ic0PQGi/D5bK+XRWF9Bmk0AFS5xO6NOG7Yfm7d7iL0uxkHI+njl
+         uY29I4Nmt1i7FhQgxaCQSKsSc3E2wtiyts59ifkhfJIhRHTsWu72ocxCLck2adT0+IbB
+         QV2FDXPE84EiQBDdB120ypB1vb48G+X4iWbdcaMu6MIpV+vx3G6ET00Kaeta05Obqb3L
+         lxXw==
+X-Forwarded-Encrypted: i=1; AJvYcCX9JAdMdXk4mSf7ZB490HLH0i0GTAb38zG+ta+WpK9HTofcPv+929jr/I0jOQNVv+JrdRnYCRXc3FY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw0T8VbrQshqM3quy+HIYRZVMjKyaa1S4cyZTQaO5IrqBwXbF9D
+	YuY4kT8FX0ZkebACWl+L3AOmaaQxOwBkUB8EzTLwNE9VcEdL2sDZEXF7bC3+wYw=
+X-Gm-Gg: ASbGncvoSsFGwcI3ZsEC6a3hgRt9tcOyGsleF16xAudA6aSg0FT5U+GUBfnPcq8QBgK
+	RDeFGoTbeRC46lcH6ibYmSUm14Re8VjMNDyvqY6sqCaxsy6YyjnSEcTojmfnFY81PK06HbrsKhR
+	bxvWOJiPcxgZEl4VugCRW5nMtj4G5/8CyviNqjpYkzMEJPkORKY97/K8Hd0+zfWYgkr9zqcM3zR
+	OY9j5pNlEu79Z27VeXAh5JCkDX0rZMyxwzDX5Ik5kNrKLgnVCk9Z0ctpj8abcCeBXjlnhaOyaru
+	ca5cSItsOg==
+X-Google-Smtp-Source: AGHT+IEkT5y7ZTrLdEEz45DlubyCU0IVulmOTVNa2RieT4MUePILWFs4ZZBYlzdM1XTFNrxLPBbi1Q==
+X-Received: by 2002:a05:6402:278f:b0:5d2:7346:3ecb with SMTP id 4fb4d7f45d1cf-5db7d2f8066mr39168584a12.12.1737988890364;
+        Mon, 27 Jan 2025 06:41:30 -0800 (PST)
+Date: Mon, 27 Jan 2025 15:41:28 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Jiqian Chen <Jiqian.Chen@amd.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Huang Rui <ray.huang@amd.com>, xen-devel@lists.xenproject.org
 Subject: Re: [PATCH v6] vpci: Add resizable bar support
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Huang Rui <ray.huang@amd.com>,
- xen-devel@lists.xenproject.org
+Message-ID: <Z5ebGImjSz-55Nkj@macbook.local>
 References: <20250123035003.3797022-1-Jiqian.Chen@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250123035003.3797022-1-Jiqian.Chen@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ <2f34ba33-070e-4c02-a7e5-71451553a23e@suse.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <2f34ba33-070e-4c02-a7e5-71451553a23e@suse.com>
 
-On 23.01.2025 04:50, Jiqian Chen wrote:
-> v5->v6 changes:
-> * Changed "1UL" to "1ULL" in PCI_REBAR_CTRL_SIZE idefinition for 32 bit architecture.
-> * In rebar_ctrl_write used "bar - pdev->vpci->header.bars" to get index instead of reading
->   from register.
-> * Added the index of BAR to error messages.
-> * Changed to "continue" instead of "return an error" when vpci_add_register failed.
+On Mon, Jan 27, 2025 at 03:20:40PM +0100, Jan Beulich wrote:
+> On 23.01.2025 04:50, Jiqian Chen wrote:
+> > v5->v6 changes:
+> > * Changed "1UL" to "1ULL" in PCI_REBAR_CTRL_SIZE idefinition for 32 bit architecture.
+> > * In rebar_ctrl_write used "bar - pdev->vpci->header.bars" to get index instead of reading
+> >   from register.
+> > * Added the index of BAR to error messages.
+> > * Changed to "continue" instead of "return an error" when vpci_add_register failed.
+> 
+> I'm not convinced this was a good change to make. While ...
+> 
+> > +static int cf_check init_rebar(struct pci_dev *pdev)
+> > +{
+> > +    uint32_t ctrl;
+> > +    unsigned int nbars;
+> > +    unsigned int rebar_offset = pci_find_ext_capability(pdev->sbdf,
+> > +                                                        PCI_EXT_CAP_ID_REBAR);
+> > +
+> > +    if ( !rebar_offset )
+> > +        return 0;
+> > +
+> > +    if ( !is_hardware_domain(pdev->domain) )
+> > +    {
+> > +        printk(XENLOG_ERR "%pp: resizable BARs unsupported for unpriv %pd\n",
+> > +               &pdev->sbdf, pdev->domain);
+> > +        return -EOPNOTSUPP;
+> > +    }
+> > +
+> > +    ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL(0));
+> > +    nbars = MASK_EXTR(ctrl, PCI_REBAR_CTRL_NBAR_MASK);
+> > +    for ( unsigned int i = 0; i < nbars; i++ )
+> > +    {
+> > +        int rc;
+> > +        struct vpci_bar *bar;
+> > +        unsigned int index;
+> > +
+> > +        ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL(i));
+> > +        index = ctrl & PCI_REBAR_CTRL_BAR_IDX;
+> > +        if ( index >= PCI_HEADER_NORMAL_NR_BARS )
+> > +        {
+> > +            printk(XENLOG_ERR "%pd %pp: too big BAR number %u in REBAR_CTRL\n",
+> > +                   pdev->domain, &pdev->sbdf, index);
+> > +            continue;
+> > +        }
+> > +
+> > +        bar = &pdev->vpci->header.bars[index];
+> > +        if ( bar->type != VPCI_BAR_MEM64_LO && bar->type != VPCI_BAR_MEM32 )
+> > +        {
+> > +            printk(XENLOG_ERR "%pd %pp: BAR%u is not in memory space\n",
+> > +                   pdev->domain, &pdev->sbdf, index);
+> > +            continue;
+> > +        }
+> 
+> ... for these two cases we can permit Dom0 direct access because the BAR
+> isn't going to work anyway (as far as we can tell), ...
+> 
+> > +        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, vpci_hw_write32,
+> > +                               rebar_offset + PCI_REBAR_CAP(i), 4, NULL);
+> > +        if ( rc )
+> > +        {
+> > +            /*
+> > +             * TODO: for failed pathes, need to hide ReBar capability
+> > +             * from hardware domain instead of returning an error.
+> > +             */
+> > +            printk(XENLOG_ERR "%pd %pp: BAR%u fail to add reg of REBAR_CAP rc=%d\n",
+> > +                   pdev->domain, &pdev->sbdf, index, rc);
+> > +            continue;
+> > +        }
+> > +
+> > +        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, rebar_ctrl_write,
+> > +                               rebar_offset + PCI_REBAR_CTRL(i), 4, bar);
+> > +        if ( rc )
+> > +        {
+> > +            printk(XENLOG_ERR "%pd %pp: BAR%u fail to add reg of REBAR_CTRL rc=%d\n",
+> > +                   pdev->domain, &pdev->sbdf, index, rc);
+> > +            continue;
+> > +        }
+> 
+> ... in these two cases we had an issue internally, and would hence wrongly
+> allow Dom0 direct access (and in case it's the 2nd one that failed, in fact
+> only partially direct access, with who knows what resulting inconsistencies).
+> 
+> Only with this particular change undone:
+R> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> 
+> Otherwise you and Roger (who needs to at least ack the change anyway) will
+> need to sort that out, with me merely watching.
 
-I'm not convinced this was a good change to make. While ...
+Ideally errors here should be dealt with by masking the capability.
+However Xen doesn't yet have that support.  The usage of continue is
+to merely attempt to keep any possible setup hooks working (header,
+MSI, MSI-X). Returning failure from init_rebar() will cause all
+vPCI hooks to be removed, and thus the hardware domain to have
+unmediated access to the device, which is likely worse than just
+continuing here.
 
-> +static int cf_check init_rebar(struct pci_dev *pdev)
-> +{
-> +    uint32_t ctrl;
-> +    unsigned int nbars;
-> +    unsigned int rebar_offset = pci_find_ext_capability(pdev->sbdf,
-> +                                                        PCI_EXT_CAP_ID_REBAR);
-> +
-> +    if ( !rebar_offset )
-> +        return 0;
-> +
-> +    if ( !is_hardware_domain(pdev->domain) )
-> +    {
-> +        printk(XENLOG_ERR "%pp: resizable BARs unsupported for unpriv %pd\n",
-> +               &pdev->sbdf, pdev->domain);
-> +        return -EOPNOTSUPP;
-> +    }
-> +
-> +    ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL(0));
-> +    nbars = MASK_EXTR(ctrl, PCI_REBAR_CTRL_NBAR_MASK);
-> +    for ( unsigned int i = 0; i < nbars; i++ )
-> +    {
-> +        int rc;
-> +        struct vpci_bar *bar;
-> +        unsigned int index;
-> +
-> +        ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL(i));
-> +        index = ctrl & PCI_REBAR_CTRL_BAR_IDX;
-> +        if ( index >= PCI_HEADER_NORMAL_NR_BARS )
-> +        {
-> +            printk(XENLOG_ERR "%pd %pp: too big BAR number %u in REBAR_CTRL\n",
-> +                   pdev->domain, &pdev->sbdf, index);
-> +            continue;
-> +        }
-> +
-> +        bar = &pdev->vpci->header.bars[index];
-> +        if ( bar->type != VPCI_BAR_MEM64_LO && bar->type != VPCI_BAR_MEM32 )
-> +        {
-> +            printk(XENLOG_ERR "%pd %pp: BAR%u is not in memory space\n",
-> +                   pdev->domain, &pdev->sbdf, index);
-> +            continue;
-> +        }
+This already happens in other capability init paths, that are much less
+careful about returning errors, so Jan might be right that if nothing
+else for consistency we return an error.  With the hope that
+initialization error of capabilities in vPCI will eventually lead to
+such capabilities being hidden instead of removing all vPCI handlers
+from the device.
 
-... for these two cases we can permit Dom0 direct access because the BAR
-isn't going to work anyway (as far as we can tell), ...
-
-> +        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, vpci_hw_write32,
-> +                               rebar_offset + PCI_REBAR_CAP(i), 4, NULL);
-> +        if ( rc )
-> +        {
-> +            /*
-> +             * TODO: for failed pathes, need to hide ReBar capability
-> +             * from hardware domain instead of returning an error.
-> +             */
-> +            printk(XENLOG_ERR "%pd %pp: BAR%u fail to add reg of REBAR_CAP rc=%d\n",
-> +                   pdev->domain, &pdev->sbdf, index, rc);
-> +            continue;
-> +        }
-> +
-> +        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, rebar_ctrl_write,
-> +                               rebar_offset + PCI_REBAR_CTRL(i), 4, bar);
-> +        if ( rc )
-> +        {
-> +            printk(XENLOG_ERR "%pd %pp: BAR%u fail to add reg of REBAR_CTRL rc=%d\n",
-> +                   pdev->domain, &pdev->sbdf, index, rc);
-> +            continue;
-> +        }
-
-... in these two cases we had an issue internally, and would hence wrongly
-allow Dom0 direct access (and in case it's the 2nd one that failed, in fact
-only partially direct access, with who knows what resulting inconsistencies).
-
-Only with this particular change undone:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-Otherwise you and Roger (who needs to at least ack the change anyway) will
-need to sort that out, with me merely watching.
-
-Jan
+Thanks, Roger.
 
