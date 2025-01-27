@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50C97A1D9EC
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 16:52:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.878068.1288246 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2756CA1DA91
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 17:29:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.878080.1288255 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcRPG-000367-Um; Mon, 27 Jan 2025 15:52:10 +0000
+	id 1tcRy8-0000nD-JT; Mon, 27 Jan 2025 16:28:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 878068.1288246; Mon, 27 Jan 2025 15:52:10 +0000
+Received: by outflank-mailman (output) from mailman id 878080.1288255; Mon, 27 Jan 2025 16:28:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcRPG-00033T-Qi; Mon, 27 Jan 2025 15:52:10 +0000
-Received: by outflank-mailman (input) for mailman id 878068;
- Mon, 27 Jan 2025 15:52:08 +0000
+	id 1tcRy8-0000lF-G5; Mon, 27 Jan 2025 16:28:12 +0000
+Received: by outflank-mailman (input) for mailman id 878080;
+ Mon, 27 Jan 2025 16:28:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Hjlm=UT=kernel.org=will@srs-se1.protection.inumbo.net>)
- id 1tcRPE-000329-SE
- for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 15:52:08 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [2604:1380:45d1:ec00::3])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=zo7v=UT=gmail.com=julien.grall.oss@srs-se1.protection.inumbo.net>)
+ id 1tcRy7-0000l9-Em
+ for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 16:28:11 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a825fcfe-dcc6-11ef-99a4-01e77a169b0f;
- Mon, 27 Jan 2025 16:52:06 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id B5CFFA41826;
- Mon, 27 Jan 2025 15:50:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87519C4CED2;
- Mon, 27 Jan 2025 15:51:50 +0000 (UTC)
+ id b13e875b-dccb-11ef-99a4-01e77a169b0f;
+ Mon, 27 Jan 2025 17:28:08 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-385de9f789cso3720263f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Jan 2025 08:28:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,178 +40,193 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a825fcfe-dcc6-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1737993124;
-	bh=lKShl/TiOp2ZoXo/jImChQXPJ2hMZLXx2pOut7WiptI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Opi/ZOMV/zfLovkaRrjcFN22SaJmB+XJGtnDJ/cIoGIjT25SkYRyAorU+UjcclWyd
-	 6DePEaUZ/QK4W0yHLc5Kb3ieU/uOi+zRZdhIrfh5zorrG9bSfVDQc9h0dR9gO+3bHq
-	 ul1VD9PJ3iJuekF+lfnqBztVCR/WhUeMwXxaqNSwUyFJREhVmoO8Vtntzw4FAiTB00
-	 00OvDbjpP1jbVZyUSglO9BK2uxJ3fZYicWL3MsWiS1eDM68OxCFUf3tPPbIQwtET/k
-	 cGteI6qIszlohfI51re4Bs3hb3htIsly4LrqymlfAEdhSawB5JdAEcLJmnZm2zRPZn
-	 N7W92SLp2WhHA==
-Date: Mon, 27 Jan 2025 15:51:47 +0000
-From: Will Deacon <will@kernel.org>
-To: Jann Horn <jannh@google.com>
-Cc: Valentin Schneider <vschneid@redhat.com>, linux-kernel@vger.kernel.org,
-	x86@kernel.org, virtualization@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
-	linux-riscv@lists.infradead.org, linux-perf-users@vger.kernel.org,
-	xen-devel@lists.xenproject.org, kvm@vger.kernel.org,
-	linux-arch@vger.kernel.org, rcu@vger.kernel.org,
-	linux-hardening@vger.kernel.org, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, bpf@vger.kernel.org,
-	bcm-kernel-feedback-list@broadcom.com,
-	Juergen Gross <jgross@suse.com>,
-	Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.amakhalov@broadcom.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	"Liang, Kan" <kan.liang@linux.intel.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Andy Lutomirski <luto@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Jason Baron <jbaron@akamai.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joel@joelfernandes.org>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun.feng@gmail.com>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang1211@gmail.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Clark Williams <williams@redhat.com>,
-	Yair Podemsky <ypodemsk@redhat.com>,
-	Tomas Glozar <tglozar@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Kees Cook <kees@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Christoph Hellwig <hch@infradead.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Miguel Ojeda <ojeda@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Rong Xu <xur@google.com>,
-	Nicolas Saenz Julienne <nsaenzju@redhat.com>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Yosry Ahmed <yosryahmed@google.com>,
-	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
-	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
-	Jinghao Jia <jinghao7@illinois.edu>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Tiezhu Yang <yangtiezhu@loongson.cn>
-Subject: Re: [PATCH v4 29/30] x86/mm, mm/vmalloc: Defer
- flush_tlb_kernel_range() targeting NOHZ_FULL CPUs
-Message-ID: <20250127155146.GB25757@willie-the-truck>
-References: <20250114175143.81438-1-vschneid@redhat.com>
- <20250114175143.81438-30-vschneid@redhat.com>
- <CAG48ez1Mh+DOy0ysOo7Qioxh1W7xWQyK9CLGNU9TGOsLXbg=gQ@mail.gmail.com>
- <xhsmh34hhh37q.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
- <CAG48ez3H8OVP1GxBLdmFgusvT1gQhwu2SiXbgi8T9uuCYVK52w@mail.gmail.com>
+X-Inumbo-ID: b13e875b-dccb-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1737995288; x=1738600088; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=Xxvar//qrbUI6q4rPrdTNpFfIopLXSamQzfZIfBFkDw=;
+        b=Y/afrIbK6dVUhTN6FsUSxA1Jy9l49d9fYzYMed4hBVOqc0GJPjNW1mx1+Kh7yVpm4s
+         YynPXA/0xgOyUDZ4X6AkSG7LJ87rf35KSwiijyOnckZxjEu04y/zbBY7idpwbyOdDS+k
+         jWrrovFokv4u2D07ObEX+bZmNCxbAu80Tx2LTF85UBV+VCcRoz5BPgHWEbtbDVDAggGJ
+         gm7o4t5dk1+X1MBLpWL2m6OG7bt2lXyyeeCXIX4uvcZt3BXr73q15HhZt5PdAqw2Izqp
+         aZPu/rFirBQ35ZzOfwQfSbBhWu/M51j7Jf12Dy0lpAQDOZw+LlXuOdgLnQhOmdM5GtYy
+         cP2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1737995288; x=1738600088;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Xxvar//qrbUI6q4rPrdTNpFfIopLXSamQzfZIfBFkDw=;
+        b=UAEOUxpEkIZzfpOkjjACfuhdA2WDMk6w5ELJsu1+KV8dYpJuANdPq690lH6c1ldUEU
+         3DkSTVJicBf9EKZe7EU9swcIgTWV5zRMVThqcW5PFi2nBbIytxzRm774WdNmmRQ01NsG
+         f2bKgEJxHcmRU7zy4dhI50qnVNXrBh4Rliz++5/ilG1jkR31rAI9uAIhrTXgtuf8cw0y
+         gCvtai8a+XMgTK89M+UiQowkx0gA4w4zcElG2JU//GSYGuGvtDZ7v+gVGmes/CMWeGJh
+         0eTmI9TJqr4wIu0o4I0A2sjo4IydA8LtJjf8VFCG1oFhYucsXE8bNVZrvbEeYwxjLJmq
+         pZfA==
+X-Gm-Message-State: AOJu0Yxrhou9hU7RhGtj0vw4xfsBbu+zEWTQqSzqg+K0tWWf7pbEOQnu
+	ZoBdQA9eSTrDJiYvBph+d6hO6xi+7av6PwpUBSvv7uavz9ckvutcjGyhiNUgropdJ0v+/XPP/pJ
+	e9mhjMWVYPY35boW7LGUwjMXyhUXwASGa
+X-Gm-Gg: ASbGnctwnxpRkEPf8/gjuzfhKAM0aflhLJ9vr5uVB4xF1p1XAxApww1QIrm38lLXm7w
+	eeNObFq5Zu3ixg3mMiy7h84yMCkgrmD7fWQdcH3lM95mJK/he0qA9PRUcbuOr
+X-Google-Smtp-Source: AGHT+IHlQJg9IUyWq5KlgJoUKUSYcgPP3qFoPWnTLjzjGmj666QkddFqrq+b5uyqAp1y5X+kHw3kQZUlw5+VLsR/444=
+X-Received: by 2002:a05:6000:1f85:b0:385:e374:be1 with SMTP id
+ ffacd0b85a97d-38bf5662b18mr39288527f8f.13.1737995287266; Mon, 27 Jan 2025
+ 08:28:07 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAG48ez3H8OVP1GxBLdmFgusvT1gQhwu2SiXbgi8T9uuCYVK52w@mail.gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+References: <20250127104556.175641-1-michal.orzel@amd.com> <20250127104556.175641-2-michal.orzel@amd.com>
+ <CAJ=z9a24=PE-3bhmZvfTaTgpdCXp9iDTWfoH-9F9-_OdkEf4Tg@mail.gmail.com> <32d42df5-08d9-4670-a571-ef315897514b@amd.com>
+In-Reply-To: <32d42df5-08d9-4670-a571-ef315897514b@amd.com>
+From: Julien Grall <julien.grall.oss@gmail.com>
+Date: Mon, 27 Jan 2025 13:27:55 -0300
+X-Gm-Features: AWEUYZmP-NHuOkusriDWnQSxy2T953O9I2IZglvnbEdNvhSG2GxYdtYS6Hb2j1o
+Message-ID: <CAJ=z9a3gN0NyuvVQfEW2v9H9F5ZUhHB9+LvK4viQhSm6A=hauA@mail.gmail.com>
+Subject: Re: [for-4.20][PATCH 1/2] device-tree: bootfdt: Fix build issue when CONFIG_PHYS_ADDR_T_32=y
+To: Michal Orzel <michal.orzel@amd.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+	oleksii.kurochko@gmail.com
+Content-Type: multipart/alternative; boundary="000000000000b80ee6062cb28f53"
 
-On Fri, Jan 17, 2025 at 04:52:19PM +0100, Jann Horn wrote:
-> On Fri, Jan 17, 2025 at 4:25 PM Valentin Schneider <vschneid@redhat.com> wrote:
-> > On 14/01/25 19:16, Jann Horn wrote:
-> > > On Tue, Jan 14, 2025 at 6:51 PM Valentin Schneider <vschneid@redhat.com> wrote:
-> > >> vunmap()'s issued from housekeeping CPUs are a relatively common source of
-> > >> interference for isolated NOHZ_FULL CPUs, as they are hit by the
-> > >> flush_tlb_kernel_range() IPIs.
-> > >>
-> > >> Given that CPUs executing in userspace do not access data in the vmalloc
-> > >> range, these IPIs could be deferred until their next kernel entry.
-> > >>
-> > >> Deferral vs early entry danger zone
-> > >> ===================================
-> > >>
-> > >> This requires a guarantee that nothing in the vmalloc range can be vunmap'd
-> > >> and then accessed in early entry code.
-> > >
-> > > In other words, it needs a guarantee that no vmalloc allocations that
-> > > have been created in the vmalloc region while the CPU was idle can
-> > > then be accessed during early entry, right?
-> >
-> > I'm not sure if that would be a problem (not an mm expert, please do
-> > correct me) - looking at vmap_pages_range(), flush_cache_vmap() isn't
-> > deferred anyway.
-> 
-> flush_cache_vmap() is about stuff like flushing data caches on
-> architectures with virtually indexed caches; that doesn't do TLB
-> maintenance. When you look for its definition on x86 or arm64, you'll
-> see that they use the generic implementation which is simply an empty
-> inline function.
-> 
-> > So after vmapping something, I wouldn't expect isolated CPUs to have
-> > invalid TLB entries for the newly vmapped page.
-> >
-> > However, upon vunmap'ing something, the TLB flush is deferred, and thus
-> > stale TLB entries can and will remain on isolated CPUs, up until they
-> > execute the deferred flush themselves (IOW for the entire duration of the
-> > "danger zone").
-> >
-> > Does that make sense?
-> 
-> The design idea wrt TLB flushes in the vmap code is that you don't do
-> TLB flushes when you unmap stuff or when you map stuff, because doing
-> TLB flushes across the entire system on every vmap/vunmap would be a
-> bit costly; instead you just do batched TLB flushes in between, in
-> __purge_vmap_area_lazy().
-> 
-> In other words, the basic idea is that you can keep calling vmap() and
-> vunmap() a bunch of times without ever doing TLB flushes until you run
-> out of virtual memory in the vmap region; then you do one big TLB
-> flush, and afterwards you can reuse the free virtual address space for
-> new allocations again.
-> 
-> So if you "defer" that batched TLB flush for CPUs that are not
-> currently running in the kernel, I think the consequence is that those
-> CPUs may end up with incoherent TLB state after a reallocation of the
-> virtual address space.
-> 
-> Actually, I think this would mean that your optimization is disallowed
-> at least on arm64 - I'm not sure about the exact wording, but arm64
-> has a "break before make" rule that forbids conflicting writable
-> address translations or something like that.
+--000000000000b80ee6062cb28f53
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Yes, that would definitely be a problem. There's also the more obvious
-issue that the CnP ("Common not Private") feature of some Arm CPUs means
-that TLB entries can be shared between cores, so the whole idea of using
-a CPU's exception level to predicate invalidation is flawed on such a
-system.
+On Mon, 27 Jan 2025 at 09:52, Michal Orzel <michal.orzel@amd.com> wrote:
 
-Will
+>
+>
+> On 27/01/2025 12:19, Julien Grall wrote:
+> >
+> >
+> >
+> >
+> >
+> > On Mon, 27 Jan 2025 at 07:46, Michal Orzel <michal.orzel@amd.com
+> <mailto:michal.orzel@amd.com>> wrote:
+> >
+> >     On Arm32, when CONFIG_PHYS_ADDR_T_32 is set, a build failure is
+> observed:
+> >     common/device-tree/bootfdt.c: In function 'build_assertions':
+> >     ./include/xen/macros.h:47:31: error: static assertion failed:
+> "!(alignof(struct membanks) !=3D 8)"
+> >        47 | #define BUILD_BUG_ON(cond) ({ _Static_assert(!(cond), "!("
+> #cond ")"); })
+> >           |                               ^~~~~~~~~~~~~~
+> >     common/device-tree/bootfdt.c:31:5: note: in expansion of macro
+> 'BUILD_BUG_ON'
+> >        31 |     BUILD_BUG_ON(alignof(struct membanks) !=3D 8);
+> >
+> >     When CONFIG_PHYS_ADDR_T_32 is set, paddr_t is defined as unsigned
+> long,
+> >     therefore the struct membanks alignment is 4B. Fix it.
+> >
+> >
+> > Usually, we add a BUILD_BUG_ON when other parts of the code rely on a
+> specific property (in this case alignment). Can you explain in the commit
+> message why the new check is still ok?
+> Well, the change itself reflects the change in alignment requirement.
+> When paddr_t is 64b (Arm64, Arm32 with PA=3D40b) the alignment is 8B.
+> On Arm32 with PA=3D32b, the alignment is 4B because paddr_t is 4B.
+>
+> AFAICT you requested this check back then, because struct membanks
+> contains flexible array member 'bank' of type struct membank.
+> The alignment requirement of struct membanks becomes the requirement of
+> struct membank whose largest type is paddr_t.
+
+
+Reading this, it sounds like you want to check against the alignment of =C2=
+=AB
+struct membank =C2=BB. This is because the structure could gain a 64-bit fi=
+eld
+in the future and this would not be caught by the BUILD_BUG_ON.
+
+
+> Let me know how you would like to have this written in commit msg.
+
+
+I think it needs to be rephrased to make clear the alignment of  struct
+membanks should be the same as struct membank.
+
+Cheers,
+
+
+>
+> ~Michal
+>
+>
+
+--000000000000b80ee6062cb28f53
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div><br></div><div><br><div class=3D"gmail_quote gmail_quote_container"><d=
+iv dir=3D"ltr" class=3D"gmail_attr">On Mon, 27 Jan 2025 at 09:52, Michal Or=
+zel &lt;<a href=3D"mailto:michal.orzel@amd.com">michal.orzel@amd.com</a>&gt=
+; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .=
+8ex;border-left:1px #ccc solid;padding-left:1ex"><br>
+<br>
+On 27/01/2025 12:19, Julien Grall wrote:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0<br>
+&gt; <br>
+&gt; <br>
+&gt; <br>
+&gt; <br>
+&gt; On Mon, 27 Jan 2025 at 07:46, Michal Orzel &lt;<a href=3D"mailto:micha=
+l.orzel@amd.com" target=3D"_blank">michal.orzel@amd.com</a> &lt;mailto:<a h=
+ref=3D"mailto:michal.orzel@amd.com" target=3D"_blank">michal.orzel@amd.com<=
+/a>&gt;&gt; wrote:<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0On Arm32, when CONFIG_PHYS_ADDR_T_32 is set, a buil=
+d failure is observed:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0common/device-tree/bootfdt.c: In function &#39;buil=
+d_assertions&#39;:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0./include/xen/macros.h:47:31: error: static asserti=
+on failed: &quot;!(alignof(struct membanks) !=3D 8)&quot;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A047 | #define BUILD_BUG_ON(cond) ({ _St=
+atic_assert(!(cond), &quot;!(&quot; #cond &quot;)&quot;); })<br>
+&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0^~~~~~~~~~~~~~<br>
+&gt;=C2=A0 =C2=A0 =C2=A0common/device-tree/bootfdt.c:31:5: note: in expansi=
+on of macro &#39;BUILD_BUG_ON&#39;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A031 |=C2=A0 =C2=A0 =C2=A0BUILD_BUG_ON(a=
+lignof(struct membanks) !=3D 8);<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0When CONFIG_PHYS_ADDR_T_32 is set, paddr_t is defin=
+ed as unsigned long,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0therefore the struct membanks alignment is 4B. Fix =
+it.<br>
+&gt; <br>
+&gt; <br>
+&gt; Usually, we add a BUILD_BUG_ON when other parts of the code rely on a =
+specific property (in this case alignment). Can you explain in the commit m=
+essage why the new check is still ok?<br>
+Well, the change itself reflects the change in alignment requirement.<br>
+When paddr_t is 64b (Arm64, Arm32 with PA=3D40b) the alignment is 8B.<br>
+On Arm32 with PA=3D32b, the alignment is 4B because paddr_t is 4B.<br>
+<br>
+AFAICT you requested this check back then, because struct membanks contains=
+ flexible array member &#39;bank&#39; of type struct membank.<br>
+The alignment requirement of struct membanks becomes the requirement of str=
+uct membank whose largest type is paddr_t.</blockquote><div dir=3D"auto"><b=
+r></div><div dir=3D"auto">Reading this, it sounds like you want to check ag=
+ainst the alignment of =C2=AB struct membank =C2=BB. This is because the st=
+ructure could gain a 64-bit field in the future and this would not be caugh=
+t by the BUILD_BUG_ON.</div><div dir=3D"auto"><br></div><blockquote class=
+=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padd=
+ing-left:1ex" dir=3D"auto"><br>
+Let me know how you would like to have this written in commit msg.</blockqu=
+ote><div dir=3D"auto"><br></div><div dir=3D"auto">I think it needs to be re=
+phrased to make clear the alignment of =C2=A0struct membanks should be the =
+same as struct membank.</div><div dir=3D"auto"><br></div><div dir=3D"auto">=
+Cheers,</div><div dir=3D"auto"><br></div><blockquote class=3D"gmail_quote" =
+style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex" dir=
+=3D"auto"><br>
+<br>
+~Michal<br>
+<br>
+</blockquote></div></div>
+
+--000000000000b80ee6062cb28f53--
 
