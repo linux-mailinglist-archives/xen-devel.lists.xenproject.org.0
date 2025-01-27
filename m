@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFACDA1D63B
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 13:52:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.877864.1288017 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27963A1D643
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 13:53:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.877873.1288028 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcOb6-0005rV-Tl; Mon, 27 Jan 2025 12:52:12 +0000
+	id 1tcObk-0006VQ-9m; Mon, 27 Jan 2025 12:52:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 877864.1288017; Mon, 27 Jan 2025 12:52:12 +0000
+Received: by outflank-mailman (output) from mailman id 877873.1288028; Mon, 27 Jan 2025 12:52:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcOb6-0005p7-QR; Mon, 27 Jan 2025 12:52:12 +0000
-Received: by outflank-mailman (input) for mailman id 877864;
- Mon, 27 Jan 2025 12:52:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=O4xJ=UT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tcOb5-0005oj-5p
- for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 12:52:11 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 85574f1f-dcad-11ef-a0e6-8be0dac302b0;
- Mon, 27 Jan 2025 13:52:09 +0100 (CET)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-aa67ac42819so703869166b.0
- for <xen-devel@lists.xenproject.org>; Mon, 27 Jan 2025 04:52:09 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab6914e56a2sm353398366b.94.2025.01.27.04.52.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Jan 2025 04:52:08 -0800 (PST)
+	id 1tcObk-0006So-71; Mon, 27 Jan 2025 12:52:52 +0000
+Received: by outflank-mailman (input) for mailman id 877873;
+ Mon, 27 Jan 2025 12:52:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rEBS=UT=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1tcObi-0006Ai-J5
+ for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 12:52:50 +0000
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2060b.outbound.protection.outlook.com
+ [2a01:111:f403:240a::60b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9b892487-dcad-11ef-99a4-01e77a169b0f;
+ Mon, 27 Jan 2025 13:52:48 +0100 (CET)
+Received: from BL1PR13CA0450.namprd13.prod.outlook.com (2603:10b6:208:2c3::35)
+ by SA1PR12MB8597.namprd12.prod.outlook.com (2603:10b6:806:251::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8377.21; Mon, 27 Jan
+ 2025 12:52:42 +0000
+Received: from BN2PEPF000044A7.namprd04.prod.outlook.com
+ (2603:10b6:208:2c3:cafe::b) by BL1PR13CA0450.outlook.office365.com
+ (2603:10b6:208:2c3::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8398.14 via Frontend Transport; Mon,
+ 27 Jan 2025 12:52:42 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN2PEPF000044A7.mail.protection.outlook.com (10.167.243.101) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8398.14 via Frontend Transport; Mon, 27 Jan 2025 12:52:42 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 27 Jan
+ 2025 06:52:41 -0600
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Mon, 27 Jan 2025 06:52:40 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,346 +59,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85574f1f-dcad-11ef-a0e6-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1737982329; x=1738587129; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XkCpdyV8NVkI5a1J2Q3wsVE9S43lR8cz8V/RXeohAQw=;
-        b=KTZA2YqIKV+Tg5VwN61/+dR94CY3GVu732aeQADm16fk2MltKXhHy+fEWooGJfFjDY
-         zbcoxzhuTBbvObhDqg2NxxSCAEY47L14uXyzDwJYoEIC+SalhwQY8EdQehYgHPnTvBbT
-         2qw8qzurcOCP3YgXw5Lc4gbhej/H90+QEVtU7JvgDtRYgWMVXshUCEsZwC4rSYalqYuT
-         A+3imbeCf+hFipZbHJBmI42XO2zMMc0cOQxBMn52v+yKEuZgYyhqGJVsZ6vCI3HbUyHR
-         cNPkoYbQr7bvc+m4AVvMiVVXv8h9SGRrq+obwqfW2/2VFvONIbrNtnVmlJUUf72oDSyE
-         qmVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737982329; x=1738587129;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XkCpdyV8NVkI5a1J2Q3wsVE9S43lR8cz8V/RXeohAQw=;
-        b=E+nnJuW2IO+r4ZC4kK9sBbmkqqzu+8/voMKfc9GtsrGmSwua44tOTugCx++EZ0yUnk
-         mbsChdX1k+zb7g/SIkSRWYc6Sn4Whsx7OKVdrJa+ueQKbjSlWJ/EYOSL7Im9LAYwTqBA
-         O+ICtQGdjksweXLm1jmsxpAQPjn5AG5pgBQ0Y/oT9xhCo68llDZx2boUchal5lKakpZX
-         EnPyov1mKqesQ1ZI1WRLMLb9tUXzAl8yOd7xCmd4dpj87yqe+g+2z8vGhvFvRikkMlmt
-         U6AYATs+gpKwbpuMMAUcpDufhXTlWPnkoIMxmtQ5ORrvnOpDivteV2uHzTPM4HF1zmEg
-         JMeA==
-X-Forwarded-Encrypted: i=1; AJvYcCUNH5z5TXYy5NB6u1Iae+MThLpodIBU88sfn0VZ59DyfXaqi5b/hozG4j2WgPW7XxynvF2nCKgJ5aM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxCXnXRWdb7pYEzJoia8FMkdqAUJN0cenHJXi1VT+4kCssBLwCN
-	S8BaYOsPDUjSDFoI86AKh8DaCBjLTnvZCNutpyH/vwu8qjsValBtu1smzMqYJA==
-X-Gm-Gg: ASbGncs007rLL/5iELvehBpm+2CPYlLHJxPvfPinP6j9yHrTwy3w0lO6iGBwVMaKiXo
-	CljNkKADg2uQRqAhxORR5jdLXlhk/8Be73yB0aEWIuY2KHsXRWjVSbI5m7WkYxHQYorVyHeC4lh
-	W5tiIsJ+dGEJlB+L5lYhpqJYOAIVO+rRr2srs/oqTKnLDvINv58/osOLLorzyLu3PlMfjA5TPNu
-	Ik4B9wsVUE+WVW1LaECGNMI2IohEOfIRrjQQj745g+yY58tfvuTqcUgKZYAQM45ZA0AL3tJEbIy
-	PZLYmtfsoc0ZvbJZRLz3jq7kZpqq4a9V3HPghxrDdH9blynTvMJj7fwYBEXmzvSdAg==
-X-Google-Smtp-Source: AGHT+IGQJbPCqTpRCuBhPuDdpu3G9o3PvkpXd6egHoRZJeP74h8BeEHGQx3eQa+XnL5Hl/eXLXlmvQ==
-X-Received: by 2002:a17:907:706:b0:aa6:5201:7ae3 with SMTP id a640c23a62f3a-ab38b3b23e1mr4327358266b.40.1737982328994;
-        Mon, 27 Jan 2025 04:52:08 -0800 (PST)
-Message-ID: <a159353b-cd3c-418b-9102-f00ed2098d64@suse.com>
-Date: Mon, 27 Jan 2025 13:52:10 +0100
+X-Inumbo-ID: 9b892487-dcad-11ef-99a4-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XHPcj6wifu+2dtKoZJBRuqTGq1BfW5Ese17h+gwVHK20L+DP1wVIlYTYtI5xEL+u1dyZLgnO//aEJW/hgR4fOHn+QExfCLuYdqdYbB5NcaVh6sq3pu4LfZfgZ3BZoxd21bzQuLbWhO14bG36lB8AeHJAMvhyKFNN2zcurL1XzoTR4FjtUZlYwqzECuunsRMmpmHpcTMQhvu87AFF5zaKIK41MlSgv5PYSPg8/BCG5xxGfwBpHSWRKCHB5k6nzN1mvEZkDmyYrv72RJfyPssv1TW0npV4yN9VEJ6Z/iMWLm9m3hCDm2A0oirbe276ApB0KiPTVuh+MM7fKet/icSnbA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6XFgsxSwQx1KRayDWUBjwuGRg2YMiR5oxVMFrlWouDI=;
+ b=GFItp0rBjmIT0bvBnuZZQwqMkOP5LMv2EsqxnS3rT61VBl6Rm6gY89kcEBWXcZXZgijuvoP+BT/4bkUbI2/neLs3U3j5G4WK4iJJ324Xn41ueiaQo8rBSsCk6wV1lzgs4ctPuHnd2RnisR7p8QpwDJXVeuh16lSDPKbgAdtUYVWe0ZuJTtwrU1F6Reulie2qsaeFyYc993RcaKAuX0Xs9R/6FpkmDdMkaGbr33n2PmQBnDRBl9vzi/yrECKzEEg6qLSBzv8wEo3RvFrDcwy8Qi/s95H6R95cYmgro0hPunXK5vfqkyHvQgNZJOl2j9tJ1lEbaoGzdaizZU8JARkNrw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6XFgsxSwQx1KRayDWUBjwuGRg2YMiR5oxVMFrlWouDI=;
+ b=2Fmt9P61o8vDHkvGEbUcbtyHqVN68KyX7v2KNBeXrSDfqm9AaRsvJB7l8RQvKhxpdEHzPHod0ZRVyQXVuuq4/GwWeD80fynHyqad5TmhbH/HIy01X9ZODSow6rdCDyAYrBN4CfTBX9RPQDprbRiamZ7Ij0CSzO7cRZDDDrGiPNc=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <32d42df5-08d9-4670-a571-ef315897514b@amd.com>
+Date: Mon, 27 Jan 2025 13:52:39 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] gnttab: make grant table v2 support configurable
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Christopher Clark <christopher.w.clark@gmail.com>
-Cc: openxt@googlegroups.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250110133711.3958202-1-dpsmith@apertussolutions.com>
- <20250110133711.3958202-3-dpsmith@apertussolutions.com>
+Subject: Re: [for-4.20][PATCH 1/2] device-tree: bootfdt: Fix build issue when
+ CONFIG_PHYS_ADDR_T_32=y
+To: Julien Grall <julien.grall.oss@gmail.com>
+CC: <xen-devel@lists.xenproject.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+	<oleksii.kurochko@gmail.com>
+References: <20250127104556.175641-1-michal.orzel@amd.com>
+ <20250127104556.175641-2-michal.orzel@amd.com>
+ <CAJ=z9a24=PE-3bhmZvfTaTgpdCXp9iDTWfoH-9F9-_OdkEf4Tg@mail.gmail.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250110133711.3958202-3-dpsmith@apertussolutions.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <CAJ=z9a24=PE-3bhmZvfTaTgpdCXp9iDTWfoH-9F9-_OdkEf4Tg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB03.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A7:EE_|SA1PR12MB8597:EE_
+X-MS-Office365-Filtering-Correlation-Id: efff4bb7-4be0-434c-6df3-08dd3ed17ce3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|82310400026|1800799024|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?cHIzZS9YQ2J2eHEvUG5JU3dlQmhXNnVvT0ZJNWlQZDh2blpybFVDRmJrVUMr?=
+ =?utf-8?B?VlhQQ1ByL1FGZ05qMnl3VUtoeWtDSWY0K0JJQUV1Q0cycFhzenhjYTlZZWhB?=
+ =?utf-8?B?alh1K0hsVVFiTVVFa3BYOTBjbDk3K3ArR1JndmYvMlVJQXZQRktyeGhHQTc3?=
+ =?utf-8?B?dThycmVwSjFTSm10bGJWYVNUL3lIaXpqR2RTOXJLUTBpaEVDMFRudFV4SWV2?=
+ =?utf-8?B?V085TGdwNC9vRTFPbUtXNk9VaTA2dmhtakNvTFNlYmpIcVpIL05xSHozNXNq?=
+ =?utf-8?B?dUY4Nis5bTNuQWtodUFjQUlqSGVLZ1E5eVR4aWdDdGtkMm5uOTBJMlVHM0tW?=
+ =?utf-8?B?b1VyekVOYy9nVlNoQ1pSK3NHSUpLYXZTdU44eXFENHRCU0xUcHJ0VkRNUFJP?=
+ =?utf-8?B?RjY2QWQ2UmIvT1M5eG5LT0ZrQ21nRlZtN2Z5VkxLSWNHSy9TMkwwT3M3RHhL?=
+ =?utf-8?B?ZGZVYXVRNndobFB3K1Z0dVIwaS94TWNOb2dtalQ0ZVp4dVQ3bzhML0R1Njk0?=
+ =?utf-8?B?c0svQUpzS213K21wcWNteFNCOFZJMFptdkFMcG9ORFE2WXRxVTlHNWdoWDBx?=
+ =?utf-8?B?YmpFTnlud01iWmQ1YVZsN1NGaWM4UWhVM09wL0l1UUZuTzc5VzJtc0dCNmZz?=
+ =?utf-8?B?QTdYZ3dDUmtHUEE3L2t4a1BjeDB6MjJHY3ZkR1VHUXF5T05EZ3NPR2pKUkRI?=
+ =?utf-8?B?bTcrS3R5T2t3a25iZTR5cC9aWHhPZGpsSDN6VERFYXNkNU9WZVJYUmtOK2hX?=
+ =?utf-8?B?MnlRNDFzYjhrbExraEtjbDBtZ3E4Z3AxaXJITlRGdzhjWm1qejBEZlNKYTZK?=
+ =?utf-8?B?bExHT29GSTdsamJOZkR2YlZCOWh4VmJEUDdSdm9vTWdGSzd3aGNrREVxeHdw?=
+ =?utf-8?B?ZStJdVF6bEl5RXdlMElmYjMxUzNWSkpiOFFGcmlOV1JWSkRxWFo1UmJOaG05?=
+ =?utf-8?B?dlZpYm5ncXdpVVIvWWp1eEFqUnFlOXlvRmZiR3RmQ2J5bGp6NlVSN21MMGJ6?=
+ =?utf-8?B?N0hjeWJQclhsSGlVS3BCOEFaRzB2TnhHcHI3a1dJU2V4UmNSUEtHZHUwRnVs?=
+ =?utf-8?B?bXQvNllYWEN2YU9rUTBBR2Nhckl4YmtSMWFqYkRLeUlidzhBckJuMHdpaVlw?=
+ =?utf-8?B?WDZQSXpzLzlTSTZpM1RsV0krZFRKWVZLUXhSMFpwcGR1eGgzL0paTmJNQ0lO?=
+ =?utf-8?B?TzVlZ0p5VUNyaHhhZGxSTE9CME0xWUZuek9EbUhPNzNxdkV5bWdCaUZBN0Jt?=
+ =?utf-8?B?Wm9INmhzYmZRY2pWTXJOM2FYcFBtbWJUcjZTbkFaNW4waVE3Qi9OcDl1elNU?=
+ =?utf-8?B?MW5zc24yRnZhMklySGNJY2hjVmYwZGo5KzJ2NkdvaHplS3ZOUVMxbnJPMXdB?=
+ =?utf-8?B?OUZHOEhxcThZZFRBc3o4OFkvZ0h6dENxaWhtMFVEODBMcW9oREtDUWlXajFs?=
+ =?utf-8?B?bnd1Y0lvdFJkc0M4OEs2UXExTDY1S0dnUHZOOElpNXFrVW8yeUhUTndDRWVj?=
+ =?utf-8?B?MVVBRUJBSVIxK0ZPUXZ6TytUMGFKT2lXWklwQmo0eUdyaUUxVUVla3pJUlky?=
+ =?utf-8?B?OFlhZGFURk5nOHQ5OVQ1R0JKMWhqNUQwbHFUUWlLMmh6V28welg3WFllaGdM?=
+ =?utf-8?B?amJObm0vc0lFN1pDTkpmVDJ3ZXc2KzgyajM1NEV1SnVQZEswRzNqZTFFQzdq?=
+ =?utf-8?B?WmUzWjl3R3dKTnBEaDJneHIrekZBNWlVMU1HSitKQmV0NXRMWStTLzNDVnl4?=
+ =?utf-8?B?eERsRFRxQ0s5L1VjWmk4RXpZc1Yyck9PY0RBcjZOSHFFVlNqbkNad0ZhVHVQ?=
+ =?utf-8?B?UktuV1RTdWJGKzVtQlRxVDl4ZmVGSHlHb2FCOUQ4dEhnbzBKNFY4NGk0Q1lx?=
+ =?utf-8?B?aElxU2ZtOGJUd2RFQ1JhSUdBS1pLaHB3ekFnMWlHOTNIUTc1YVJ4WW1aclZk?=
+ =?utf-8?B?Q1JuZTZacUxqcVo1NExWb014WmYxbWtURzZjZUJ1SnRzOEpPV0VlSFVRSE85?=
+ =?utf-8?Q?j/hh6E5CdQzFI6ZKtHiF/j/NLqVnWw=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jan 2025 12:52:42.0220
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: efff4bb7-4be0-434c-6df3-08dd3ed17ce3
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF000044A7.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8597
 
-On 10.01.2025 14:37, Daniel P. Smith wrote:
-> If the v2 interface support is not required, disabling this option will remove
-> substantial amounts of unused code in a critical subsystem.
+
+
+On 27/01/2025 12:19, Julien Grall wrote:
+> 	
 > 
-> Disables the v2-only GNTTABOP_get_status_frames grant table op.
+> 
+> 
+> 
+> On Mon, 27 Jan 2025 at 07:46, Michal Orzel <michal.orzel@amd.com <mailto:michal.orzel@amd.com>> wrote:
+> 
+>     On Arm32, when CONFIG_PHYS_ADDR_T_32 is set, a build failure is observed:
+>     common/device-tree/bootfdt.c: In function 'build_assertions':
+>     ./include/xen/macros.h:47:31: error: static assertion failed: "!(alignof(struct membanks) != 8)"
+>        47 | #define BUILD_BUG_ON(cond) ({ _Static_assert(!(cond), "!(" #cond ")"); })
+>           |                               ^~~~~~~~~~~~~~
+>     common/device-tree/bootfdt.c:31:5: note: in expansion of macro 'BUILD_BUG_ON'
+>        31 |     BUILD_BUG_ON(alignof(struct membanks) != 8);
+> 
+>     When CONFIG_PHYS_ADDR_T_32 is set, paddr_t is defined as unsigned long,
+>     therefore the struct membanks alignment is 4B. Fix it.
+> 
+> 
+> Usually, we add a BUILD_BUG_ON when other parts of the code rely on a specific property (in this case alignment). Can you explain in the commit message why the new check is still ok?
+Well, the change itself reflects the change in alignment requirement.
+When paddr_t is 64b (Arm64, Arm32 with PA=40b) the alignment is 8B.
+On Arm32 with PA=32b, the alignment is 4B because paddr_t is 4B.
 
-Why's this explicitly mentioned, but not e.g. GNTTABOP_{get,set}_version,
-which ought to disappear altogether as well is you mean to truly limit
-functionality to a pre-v2 hypervisor? Even a post-v2 addition like
-GNTTABOP_swap_grant_ref might arguably need disabling then.
+AFAICT you requested this check back then, because struct membanks contains flexible array member 'bank' of type struct membank.
+The alignment requirement of struct membanks becomes the requirement of struct membank whose largest type is paddr_t.
+Let me know how you would like to have this written in commit msg.
 
-> --- a/docs/misc/xen-command-line.pandoc
-> +++ b/docs/misc/xen-command-line.pandoc
-> @@ -1278,8 +1278,8 @@ does not provide `VM_ENTRY_LOAD_GUEST_PAT`.
->  
->  Control various aspects of the grant table behaviour available to guests.
->  
-> -* `max-ver` Select the maximum grant table version to offer to guests.  Valid
-> -version are 1 and 2.
-> +* `max-ver` Select the maximum grant table version to offer to guests. Only
-> +available when CONFIG_GRANT_TABLE_V2 is set. Valid version are 1 and 2.
+~Michal
 
-No, the option ought to still be legitimate to use with value 1.
-
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -23,6 +23,24 @@ config GRANT_TABLE
->  
->  	  If unsure, say Y.
->  
-> +config GRANT_TABLE_V2
-> +	bool "Grant table version 2 support" if EXPERT
-
-While often I'm a proponent of using EXPERT, here I'm uncertain it
-really takes an expert to turn this off. Or wait, it's "to turn
-this on", as you have no default at all (see also below). This
-means a non-expert has no way to configure a hypervisor compatible
-with the previous version; that's a no-go imo.
-
-> +	depends on GRANT_TABLE && X86
-> +	help
-> +	  Grant table interface version 2 is not the default. It has never
-> +	  been implemented for ARM.
-> +
-> +	  The version 2 interface enables support for systems with large amounts
-> +	  of memory and some exotic grant primitives that are not in use by the
-> +	  supported PV drivers.
-> +
-> +	  Disabling this option reduces the amount of complex security-critical
-> +	  hypervisor code in a subsystem of Xen responsible for approximately
-> +	  5% of Xen Security Advisories.
-> +
-> +	  If you do not require large memory support, say N.
-> +	  If you are paranoid, say N. If unsure, say Y.
-
-Should this therefore perhaps have "default BIGMEM"?
-
-> --- a/xen/common/compat/grant_table.c
-> +++ b/xen/common/compat/grant_table.c
-> @@ -296,6 +296,9 @@ int compat_grant_table_op(
->              break;
->  
->          case GNTTABOP_get_status_frames:
-> +#ifndef CONFIG_GRANT_TABLE_V2
-> +            rc = -ENOSYS;
-
-I understand ENOSYS is abused elsewhere like this, but can we please not
-widen the issue and use EOPNOTSUPP instead?
-
-> --- a/xen/common/grant_table.c
-> +++ b/xen/common/grant_table.c
-> @@ -59,11 +59,13 @@ struct grant_table {
->      /* Lock protecting the maptrack limit */
->      spinlock_t            maptrack_lock;
->      unsigned int          max_version;
-> +#ifdef CONFIG_GRANT_TABLE_V2
->      /*
->       * Defaults to v1.  May be changed with GNTTABOP_set_version.  All other
->       * values are invalid.
->       */
->      unsigned int          gt_version;
-> +#endif
->      /* Resource limits of the domain. */
->      unsigned int          max_grant_frames;
->      unsigned int          max_maptrack_frames;
-
-Between this and the following hunk there's also nr_status_frames, which
-is v2-only too.
-
-> @@ -178,11 +182,20 @@ static int cf_check parse_gnttab_max_maptrack_frames(const char *arg)
->                                opt_max_maptrack_frames_val);
->  }
->  
-> +#ifdef CONFIG_GRANT_TABLE_V2
-> +
->  #ifndef GNTTAB_MAX_VERSION
->  #define GNTTAB_MAX_VERSION 2
->  #endif
->  #define get_gt_version(gt) ((gt)->gt_version)
->  
-> +#else
-> +
-> +#define GNTTAB_MAX_VERSION 1
-> +#define get_gt_version(gt) 1
-
-What about mem_sharing_gref_to_gfn(), which checks for the version not
-having been set yet? gnttab_get_shared_frame_mfn() also has an assertion
-to this effect.
-
-> @@ -204,12 +217,17 @@ static int __init cf_check parse_gnttab(const char *s)
->          if ( !strncmp(s, "max-ver:", 8) ||
->               !strncmp(s, "max_ver:", 8) ) /* Alias for original XSA-226 patch */
->          {
-> +#ifdef CONFIG_GRANT_TABLE_V2
-> +            const char *e;
->              long ver = simple_strtol(s + 8, &e, 10);
->  
->              if ( e == ss && ver >= 1 && ver <= 2 )
->                  opt_gnttab_max_version = ver;
->              else
->                  rc = -EINVAL;
-> +#else
-> +            no_config_param("GRANT_TABLE_V2", "max_ver", s, ss);
-> +#endif
-
-See respective comment on the cmdline doc.
-
-> @@ -330,6 +350,14 @@ nr_maptrack_frames(struct grant_table *t)
->  #define status_entry(t, e) \
->      ((t)->status[(e)/STGNT_PER_PAGE][(e)%STGNT_PER_PAGE])
->  
-> +#else /* CONFIG_GRANT_TABLE_V2 */
-> +
-> +#define shared_entry_full_frame(gt, ref) ( shared_entry_v1((gt), (ref)).frame )
-> +#define set_shared_entry(gt, ref, val) \
-> +    ( shared_entry_v1((gt), (ref)).frame = (val) )
-> +#define status_addr(gt, ref, flags_addr) (flags_addr)
-> +
-> +#endif /* CONFIG_GRANT_TABLE_V2 */
-
-See style related comments on patch 1.
-
-> @@ -734,7 +764,7 @@ static unsigned int nr_grant_entries(struct grant_table *gt)
->          /* Make sure we return a value independently of speculative execution */
->          block_speculation();
->          return f2e(nr_grant_frames(gt), 1);
-> -
-> +#ifdef CONFIG_GRANT_TABLE_V2
->      case 2:
->          BUILD_BUG_ON(f2e(INITIAL_NR_GRANT_FRAMES, 2) <
->                       GNTTAB_NR_RESERVED_ENTRIES);
-
-Please don't remove blank lines like this.
-
-> @@ -1796,6 +1828,12 @@ static int
->  gnttab_populate_status_frames(struct domain *d, struct grant_table *gt,
->                                unsigned int req_nr_frames)
->  {
-> +#ifndef CONFIG_GRANT_TABLE_V2
-> +    ASSERT_UNREACHABLE();
-> +
-> +    return 0;
-
-For a release build you want to return an error here.
-
-> +}
-
-Hmm, the opening figure brace above then has two closing counterparts.
-People may find this confusing, and since Misra is almost all about
-confusion, I wonder whether they actually permit such (albeit I don't
-recall any rule on this matter).
-
-> +#else
->      unsigned int i;
->      unsigned int req_status_frames;
->  
-> @@ -1898,6 +1936,7 @@ gnttab_unpopulate_status_frames(struct domain *d, struct grant_table *gt)
->  
->      return 0;
->  }
-> +#endif
-
-In fact, to add to the confusion the #else part then even extends across
-function boundaries, if the hunk header are to be trusted.
-
-> @@ -2518,12 +2559,14 @@ release_grant_for_copy(
->          td = rd;
->          trans_gref = gref;
->      }
-> +#ifdef CONFIG_GRANT_TABLE_V2
->      else
->      {
->          td = (act->src_domid == rd->domain_id)
->               ? rd : knownalive_domain_from_domid(act->src_domid);
->          trans_gref = act->trans_gref;
->      }
-> +#endif
-
-Why's this needed? Can't leave it to the compiler's DCE?
-
-> @@ -2748,7 +2792,9 @@ acquire_grant_for_copy(
->              act->is_sub_page = true;
->          }
->      }
-> -    else if ( !old_pin ||
-> +    else
-> +#endif
-> +    if ( !old_pin ||
->                (!readonly && !(old_pin & (GNTPIN_devw_mask|GNTPIN_hstw_mask))) )
->      {
-
-Hmm, this #if extending across multiple not really related constructs
-looks to be the reason why patch 1 moves the assignment to old_pin.
-
-Below from here is an assignment to act->trans_gref. That's another
-field that probably better wouldn't exits in a v1-only build. Much
-like is_sub_page and perhaps others.
-
-> @@ -3165,6 +3211,17 @@ static long
->  gnttab_set_version(XEN_GUEST_HANDLE_PARAM(gnttab_set_version_t) uop)
->  {
->      gnttab_set_version_t op;
-> +#ifndef CONFIG_GRANT_TABLE_V2
-> +
-> +    if ( copy_from_guest(&op, uop, 1) )
-> +        return -EFAULT;
-> +
-> +    if ( op.version == 1 )
-> +        return 0;
-> +
-> +    /* Behave as before set_version was introduced. */
-> +    return -ENOSYS;
-
-Imo in a case like this one if ( !IS_ENABLED() ) would be preferable
-to use, to keep as much code as possible exposed to the compiler,
-thus reducing the chance of someone not noticing that it also needs
-changing for whatever (perhaps) purely mechanical adjustment. I.e.
-use #ifdef / #ifndef only in cases where lexical elements would be
-missing, thus breaking the build.
-
-> @@ -4080,6 +4146,9 @@ int mem_sharing_gref_to_gfn(struct grant_table *gt, grant_ref_t ref,
->  static int gnttab_get_status_frame_mfn(struct domain *d,
->                                         unsigned int idx, mfn_t *mfn)
->  {
-> +#ifndef CONFIG_GRANT_TABLE_V2
-> +    ASSERT_UNREACHABLE();
-> +#else
->      const struct grant_table *gt = d->grant_table;
->  
->      ASSERT(gt->gt_version == 2);
-> @@ -4113,6 +4182,7 @@ static int gnttab_get_status_frame_mfn(struct domain *d,
->      /* Make sure idx is bounded wrt nr_status_frames */
->      *mfn = _mfn(virt_to_mfn(
->                  gt->status[array_index_nospec(idx, nr_status_frames(gt))]));
-> +#endif
->      return 0;
->  }
-
-As in the earlier case - the function ought to return an error in a
-release build.
-
-Jan
 
