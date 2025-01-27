@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85441A1D411
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 11:06:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.877571.1287708 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78ADAA1D417
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 11:09:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.877582.1287718 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcM0h-0007er-Gu; Mon, 27 Jan 2025 10:06:27 +0000
+	id 1tcM3G-0008I4-Ua; Mon, 27 Jan 2025 10:09:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 877571.1287708; Mon, 27 Jan 2025 10:06:27 +0000
+Received: by outflank-mailman (output) from mailman id 877582.1287718; Mon, 27 Jan 2025 10:09:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcM0h-0007cj-E2; Mon, 27 Jan 2025 10:06:27 +0000
-Received: by outflank-mailman (input) for mailman id 877571;
- Mon, 27 Jan 2025 10:06:25 +0000
+	id 1tcM3G-0008FS-RS; Mon, 27 Jan 2025 10:09:06 +0000
+Received: by outflank-mailman (input) for mailman id 877582;
+ Mon, 27 Jan 2025 10:09:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=O4xJ=UT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tcM0f-0007cQ-Df
- for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 10:06:25 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+ id 1tcM3G-0008FM-2r
+ for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 10:09:06 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5ceade93-dc96-11ef-99a4-01e77a169b0f;
- Mon, 27 Jan 2025 11:06:23 +0100 (CET)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5dc10fe4e62so7726841a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 27 Jan 2025 02:06:23 -0800 (PST)
+ id bcbde66c-dc96-11ef-99a4-01e77a169b0f;
+ Mon, 27 Jan 2025 11:09:04 +0100 (CET)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-aa689a37dd4so855112966b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Jan 2025 02:09:04 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5dc186183eesm5187647a12.10.2025.01.27.02.06.22
+ a640c23a62f3a-ab6760ab26asm554650966b.111.2025.01.27.02.09.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Jan 2025 02:06:22 -0800 (PST)
+ Mon, 27 Jan 2025 02:09:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5ceade93-dc96-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: bcbde66c-dc96-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1737972383; x=1738577183; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1737972544; x=1738577344; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZxEmDsMo+/gBOLwpFJjk0+oatht2X6UlbmkSSleeHPI=;
-        b=LCoKVpwE8WecBiA+tNDWNflmxVtKyP4P1My8ZDu35s38iUpVNhJ7nK2Qyha73Eot9X
-         tsY/xKp9WVkQRX7CWj0jTGW96muBT+BYDBzI/1iXuqrwrefeLL2TzWpKk1959nWOj5gq
-         8p2Db4T4qVXVVe/aWjghyfqB/TTYKqt+ljqhxFFdarOM0oyP6vTGxz5NrhSlxyeK81bv
-         TC2Pd1A5aXJRU81sWIm5SS58yPUF8Yn/GMZv/9EgzhU9ZpuK5Y1EfJfSwC7ATJ49vLZn
-         x3bYdIrhGgNKot5lzdZe+Tg7U4O1Olwo9ztdpiP7y25M7sa7RsReVh2IZszof/AQIsvx
-         1AMg==
+        bh=Ei6kV8GCrFpcOMgKNhaAoBHMAESFzzrlx3lF3NeC/CY=;
+        b=fL6dBuHWk8o+ZNjNBrL67IUVIkrqnK3RgaTz1jVegoSuHzcCq9+rGLEY+FSHY70zkv
+         7l3Ewk2dSHSs7i+gH9upG6sVC1jPTKU/AE4Vox9A72L0sIG9pwiaaod3waGzVgGmcIXx
+         e4Qpp3RN+3YxlWeUwzjeMPUSmoABw/sY6e+/09LSGx+wO5LXC6jEzfC8j7yI2K+O2MpI
+         eGXkKXjbg2RoRESRFRRxndEWa+IFT7kVUMGncnEXnrmzqaCGlSgH0DijzZh6miLNG0hq
+         WfQcGt8kcVvw6pFSMlt7hA2fup+tKDdJR0YyZAoZo2Y61ffljteRIr0BQPP0DciC51kb
+         qHcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737972383; x=1738577183;
+        d=1e100.net; s=20230601; t=1737972544; x=1738577344;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ZxEmDsMo+/gBOLwpFJjk0+oatht2X6UlbmkSSleeHPI=;
-        b=uQkUv6u8zk1OxJ6OVEEVaMvmFuHXKNL42nVK7se7bbeAO0MLNHigdLMs4PeFwmiMJ3
-         f6q9dQyzDPNPA29ph4UFBeV3uxL6SmErOLueLyMmlkI5wx7C6JyHxrvmk5rGaATB7xTk
-         8ODvDrrqhbeV51tFddFo0mRfD6lfRWGW7jxpt1PjIoYHRYZrDV7e07ehrpOd5OE908I/
-         q6yq2Sp2yOdOEXwfnXGp8Y8Uk1+tJe8GNq48fMduN9UQpRhYWxzjCAI4PJGo6bvw1idf
-         EpntMUcLNJS4h584iVPY3kVZiz8fnJA6iTuokWrJKuvLc1PYZTBy2qsMcPX27qFCnOcn
-         RQaA==
-X-Forwarded-Encrypted: i=1; AJvYcCVj0z8hfR2GdE5RftjeZbcdCOg84g3f1EEY0CV/FojxueBuJ1Htjon0yjoxu2VqQMAMIVkkJ7lraCA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxf59+8tk8JWhT7WAjvO83qDT4Lea5tW1fkSf69OPvA2qsMDOVq
-	Rzo9A/Xw5BM+G+OxTCmZMTlUIS+IU0WDKn/51vy+V2p5FtQ4HCjD+52CJzvbaQ==
-X-Gm-Gg: ASbGncsxKzn1vzUIzdpccA5JKHLWc5SPIBzwe7HriYD+6jeoAVf7qiYEo2TnNxzKvEL
-	1ADwGU1OnnXUOLj5HEfgUOm0xum2C9LdlAvJ6FNAbu4jKQY5fo4SOHn+Kl/iB2X88mCVGDPp2fG
-	Ylb7Oq76tOMyCAPrzIi84JZ3+YALTusJeZJxcZcWEWXhAmh2/IvLxXHhYYupoWsL4W97iFm1IeT
-	7vimG5rnbpwwHM83apPTMIFXJVNywltXQ+9E5WAftzu4UOw116GsYTzeXmc/6uMmrmPql0UXOnB
-	mi/Z2r7hum2G8bG+L/Q4JKz0NpiP7SVm6U0DBto2PVHvS6ENcCs1wm3B6LhoB5o8tw==
-X-Google-Smtp-Source: AGHT+IEn3B8C3oJOAraoTae1gQ94YDTGMGSsKqimyCZYBtgSVZEtwOjZ9A68F1tu3BvFsqVBSNUwoQ==
-X-Received: by 2002:a05:6402:5203:b0:5d3:e766:6143 with SMTP id 4fb4d7f45d1cf-5db7db078a1mr39509010a12.30.1737972382913;
-        Mon, 27 Jan 2025 02:06:22 -0800 (PST)
-Message-ID: <21bfd2f5-74b8-409e-956c-dd736a3c0be2@suse.com>
-Date: Mon, 27 Jan 2025 11:06:24 +0100
+        bh=Ei6kV8GCrFpcOMgKNhaAoBHMAESFzzrlx3lF3NeC/CY=;
+        b=rgpFXmwjEkaUVbO4+mLGTroDM6ku93pyrhpiOvi1DDIdMIwQmjb8pC3Xqoaj/ufcgC
+         ySXya912dBlkHKhbj9gCXNhXGgfxhyd+lcIqPKJ32LZLMpX22MlUDGB3WXD01LdI960Z
+         1zzSrBA/tbU3Vt1v6evexuvR5E8aAJFqatyQyNW+VTdRQk6W0EyUL4wF76LiJ7c7R0GH
+         i9RyOcVDD0po+fxXtlmz+VkMA0zhSm9gzwOpq6D8bZ931Wczc7XeKTpqZGDkKFbm3xtG
+         cSnCVBYVveauY/xqhOgJ97S/0RfSIWsIqhzD46PNxv86LkRCoiw0aP4EFrKHjV+tXgAa
+         K+cw==
+X-Forwarded-Encrypted: i=1; AJvYcCXzZfb6Z8OewfUV/+o4XB92/vyD0Ol1Cm3OmvQn4OBSxuycI5RgFmjqfGZ/KedrIgp0xkFslDN53qI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz+DKmEZnxi0v/Vp7M6zzoPyN5wDvwGE28ck8FNVBvha50XoCVT
+	0hVzITdkViKDgi1Ofq64BvNOXFTUHAKuPOmAu/TGVUxm4frvH3qBGfSPooD9qA==
+X-Gm-Gg: ASbGncuSCQ7aHu0kLKbla4HqU3wdP7Wl/Lir6zj06bgmgfd7xhToftIlrJ8JM+eA/3E
+	uO/FH8e/PVTsXuo0XxlWVlCDnMQ2/gMcYZxyVvgx3x3yQ/ByM0jaRsYdLkD3aFcQHROCsKNIE6l
+	qHYWrLBY+lnlAAOfLrY7YeHBUxfTd2UR0htqCSvLSXKqboMjwJVxTjRZ9KzSeMm18/9x65PAWHl
+	vpqhp/9w51uZS6OBoKgQ1WKISOtDcFyucsVzoB17zhB/lsEJncjeSKbwxrMC4NdxIePHb07lRSy
+	v2fbgAgk7WLGZdcWReH0DJ0pRHkJGF0UQinELLstmu2bgCLFbUhQUMFIkYcRb61Oig==
+X-Google-Smtp-Source: AGHT+IFAvxkwOkiLdl1MuXJxKTdGk9iaC2ZqMvxNmlOE3G/tr7LiSglopafw3E2Xyfc0YRUeKAb6TA==
+X-Received: by 2002:a17:907:6ea4:b0:ab2:bffb:4b5c with SMTP id a640c23a62f3a-ab38b24bd9emr3492394666b.18.1737972543672;
+        Mon, 27 Jan 2025 02:09:03 -0800 (PST)
+Message-ID: <2bf6ef11-fb4e-40ef-b258-dd9314cba791@suse.com>
+Date: Mon, 27 Jan 2025 11:09:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/3] xen/riscv: implement software page table walking
+Subject: Re: [PATCH v1 2/3] xen/riscv: update defintion of vmap_to_mfn()
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -96,7 +96,7 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1737391102.git.oleksii.kurochko@gmail.com>
- <00dfc71569bc9971b53e29b36a80e9e020ac61ac.1737391102.git.oleksii.kurochko@gmail.com>
+ <bf85f6987c2a2f3374ad47fc0bf1513d69372b1f.1737391102.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,115 +122,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <00dfc71569bc9971b53e29b36a80e9e020ac61ac.1737391102.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <bf85f6987c2a2f3374ad47fc0bf1513d69372b1f.1737391102.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 20.01.2025 17:54, Oleksii Kurochko wrote:
-> RISC-V doesn't have hardware feature to ask MMU to translate
-> virtual address to physical address ( like Arm has, for example ),
-> so software page table walking in implemented.
+> vmap_to_mfn() uses virt_to_maddr(), which is designed to work with VA from
+> either the direct map region or Xen's linkage region (XEN_VIRT_START).
+> An assertion will occur if it is used with other regions, in particular for
+> the VMAP region.
 > 
+> Since RISC-V lacks a hardware feature to request the MMU to translate a VA to
+> a PA (as Arm does, for example), software page table walking (pt_walk()) is
+> used for the VMAP region to obtain the PA.
+> 
+> Fixes: 7db8d2bd9b ("xen/riscv: add minimal stuff to mm.h to build full Xen")
 > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
->  xen/arch/riscv/include/asm/mm.h |  2 ++
->  xen/arch/riscv/pt.c             | 56 +++++++++++++++++++++++++++++++++
->  2 files changed, 58 insertions(+)
-> 
-> diff --git a/xen/arch/riscv/include/asm/mm.h b/xen/arch/riscv/include/asm/mm.h
-> index 292aa48fc1..d46018c132 100644
+
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
 > --- a/xen/arch/riscv/include/asm/mm.h
 > +++ b/xen/arch/riscv/include/asm/mm.h
-> @@ -15,6 +15,8 @@
->  
->  extern vaddr_t directmap_virt_start;
->  
-> +paddr_t pt_walk(vaddr_t va);
+> @@ -25,7 +25,7 @@ paddr_t pt_walk(vaddr_t va);
+>  #define gaddr_to_gfn(ga)    _gfn(paddr_to_pfn(ga))
+>  #define mfn_to_maddr(mfn)   pfn_to_paddr(mfn_x(mfn))
+>  #define maddr_to_mfn(ma)    _mfn(paddr_to_pfn(ma))
+> -#define vmap_to_mfn(va)     maddr_to_mfn(virt_to_maddr((vaddr_t)(va)))
+> +#define vmap_to_mfn(va)     maddr_to_mfn(pt_walk((vaddr_t)(va)))
 
-In the longer run, is returning just the PA really going to be sufficient?
-If not, perhaps say a word on the limitation in the description.
-
-> --- a/xen/arch/riscv/pt.c
-> +++ b/xen/arch/riscv/pt.c
-> @@ -274,6 +274,62 @@ static int pt_update_entry(mfn_t root, vaddr_t virt,
->      return rc;
->  }
->  
-> +paddr_t pt_walk(vaddr_t va)
-> +{
-> +    const mfn_t root = get_root_page();
-> +    /*
-> +     * In pt_walk() only XEN_TALE_MAP_NONE and XEN_TABLE_SUPER_PAGE are
-
-Nit: s/TALE/TABLE/ ?
-
-> +     * handled ( as they are only possible for page table walking ), so
-
-Nit: Blanks again inside parentheses in a comment.
-
-> +     * initialize `ret` with "impossible" XEN_TABLE_MAP_NOMEM.
-> +    */
-> +    int ret = XEN_TABLE_MAP_NOMEM;
-> +    unsigned int level = HYP_PT_ROOT_LEVEL;
-> +    paddr_t pa = 0;
-
-Seeing 0 as initializer here, just to double check: You do prevent MFN 0
-to be handed to the page allocator, and you also don't use it "manually"
-anywhere?
-
-> +    pte_t *table;
-> +
-> +    DECLARE_OFFSETS(offsets, va);
-> +
-> +    table = map_table(root);
-> +
-> +    /*
-> +     * Find `pa` of an entry which corresponds to `va` by iterating for each
-> +     * page level and checking if the entry points to a next page table or
-> +     * to a page.
-> +     *
-> +     * Two cases are possible:
-> +     * - ret == XEN_TABLE_SUPER_PAGE means that the entry was find;
-> +     *   (Despite of the name) XEN_TABLE_SUPER_PAGE covers 4k mapping too.
-> +     * - ret == XEN_TABLE_MAP_NONE means that requested `va` wasn't actually
-> +     *   mapped.
-> +     */
-> +    while ( (ret != XEN_TABLE_MAP_NONE) && (ret != XEN_TABLE_SUPER_PAGE) )
-> +    {
-> +        /*
-> +         * This case shouldn't really occur as it will mean that for table
-> +         * level 0 a pointer to next page table has been written, but at
-> +         * level 0 it could be only a pointer to 4k page.
-> +         */
-> +        ASSERT(level <= HYP_PT_ROOT_LEVEL);
-> +
-> +        ret = pt_next_level(false, &table, offsets[level]);
-> +        level--;
-> +    }
-> +
-> +    if ( ret == XEN_TABLE_MAP_NONE )
-> +        dprintk(XENLOG_WARNING, "Is va(%#lx) really mapped?\n", va);
-
-Even if it's a dprintk(), I'd recommend against adding such.
-
-> +    else if ( ret == XEN_TABLE_SUPER_PAGE )
-> +        pa = pte_to_paddr(*(table + offsets[level + 1]));
-
-Missing "else if ( ret == XEN_TABLE_NORMAL )" (or maybe simply "else")?
-
-> +    /*
-> +     * There is no need for unmap_table() after each pt_next_level() call as
-> +     * pt_next_level() will do unmap_table() for the previous table before
-> +     * returning next level table.
-> +     */
-> +    unmap_table(table);
-
-I don't think the comment is needed. You map once before the loop, so it's
-natural that you unmap once after.
-
-> +    return pa;
-
-Don't you want to OR in the low 12 bits of VA here (unless "pa" is still 0)?
+With this being the first use of pt_walk(), I wonder whether the function might
+better return mfn_t (and simply ignore the low 12 bits of Vthe incoming VA; see
+my respective comment on the earlier patch). After all it is quite natural for
+a page table walk to return a page frame number, not a physical address.
 
 Jan
 
