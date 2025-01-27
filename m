@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7A9FA1D43D
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 11:15:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.877590.1287727 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67848A1D45D
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 11:25:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.877601.1287738 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcM9L-0002Cy-H7; Mon, 27 Jan 2025 10:15:23 +0000
+	id 1tcMI3-0004i9-FG; Mon, 27 Jan 2025 10:24:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 877590.1287727; Mon, 27 Jan 2025 10:15:23 +0000
+Received: by outflank-mailman (output) from mailman id 877601.1287738; Mon, 27 Jan 2025 10:24:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcM9L-0002BW-ER; Mon, 27 Jan 2025 10:15:23 +0000
-Received: by outflank-mailman (input) for mailman id 877590;
- Mon, 27 Jan 2025 10:15:22 +0000
+	id 1tcMI3-0004gY-BI; Mon, 27 Jan 2025 10:24:23 +0000
+Received: by outflank-mailman (input) for mailman id 877601;
+ Mon, 27 Jan 2025 10:24:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=O4xJ=UT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tcM9J-0002BM-VF
- for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 10:15:21 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
+ id 1tcMI1-0004gO-Ib
+ for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 10:24:21 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9d1f1bd9-dc97-11ef-a0e6-8be0dac302b0;
- Mon, 27 Jan 2025 11:15:20 +0100 (CET)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-5dc149e14fcso6181059a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 27 Jan 2025 02:15:20 -0800 (PST)
+ id de979630-dc98-11ef-a0e6-8be0dac302b0;
+ Mon, 27 Jan 2025 11:24:20 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-aa689a37dd4so858228566b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Jan 2025 02:24:20 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5dc186f1c4bsm5209763a12.81.2025.01.27.02.15.19
+ a640c23a62f3a-ab675e124e3sm555067466b.21.2025.01.27.02.24.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Jan 2025 02:15:19 -0800 (PST)
+ Mon, 27 Jan 2025 02:24:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d1f1bd9-dc97-11ef-a0e6-8be0dac302b0
+X-Inumbo-ID: de979630-dc98-11ef-a0e6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1737972920; x=1738577720; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=nGaowH9dYFvSfPuZ8QS4xHL6+BSe9sQpqO6jV1ExWKE=;
-        b=Rv2WZNnAK2TuF6rtOqqA/NqlNsciJqLqKHZNUZpPVsZxfN1ziKAny0aj2gLZmeN+iu
-         evjkEtdoAv4BhOa5qay+ucwB4BYjVHIS1zGmQnsusMmpj9kwgBXKVKW6b+MavBYlfuFg
-         E1o85DF4k3LbyMiDAECpn8wqOYE2sW5L47zb3318Q7KjMleaAHPGbvEh32rZp7JPZYet
-         t0tWdpNctVSrrDsQ42TuZnjTrHYJGRTtYj1OX7D3tOKB2AHWlWPlZACu6uA1S7VMtBut
-         hhwjxioYQGrHqSFio+l7cQ/q2Vy2nyzCKhkdo7yo7kBKITcPR+Tutyv5NqdK0THPGKU1
-         RDMA==
+        d=suse.com; s=google; t=1737973459; x=1738578259; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=RgmuTDj0uAXzjg8zQRTvW2GcIE0H5Jo8YjWaR+itgXU=;
+        b=Yxex4Pg5yx0tl2soA+Q5fXtZT3MT1GmEKcsEYaYEh9HSO3HzgHVp54pEf/ObrDFzQH
+         +4c2P2+l+cnlikTs1PwUNHGt7R9eqhqUi8gWRj8HKwvRva5XY7YRkj+NVFbzG6LbzrZK
+         a0RkB8g5RmjGM4bC2prc0M8f7vLr6hQI1hLU5UqxZ3ePb4lAhzo0NwMlzJRcpirMcVRW
+         CO9a6r8xWcym/jWFrpuDhqyKfc30tmz54qApBHzQRZShjlKsmMeIbIWLTROEkhjX6ntJ
+         /vcTU6z65fyJk3BwAAxYXBdmya5L15tC/IhPhMM5jfAP48eujf/GSzCBng8ekYk5Xlkg
+         OKOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737972920; x=1738577720;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=nGaowH9dYFvSfPuZ8QS4xHL6+BSe9sQpqO6jV1ExWKE=;
-        b=tis3QBRtBwZh2Afz+WzJ0BWNUpgTFMZ1Kb7jdemSPVGfS3fVmayT12Jba4xb1Ia7fI
-         xb4yWMLyacJofeHUY/wO7j9+3ySKjg65fhM6wQugs0VPAb9NCvDq9a+lP/KKt1rtkUAV
-         9uwRv9/hMztgA9FAzx91SAMZ95sUVtgdPs0weY4YfSM6K+nFvW3OMvjaTNdnEvyHxxqQ
-         o0BEWj4RhWNOq14yMFcqyU9Ha1MZU9EXHhlTQ/cOW5OFZVu2UcnoRUhESqMxrByQOO4K
-         pGYaCvHJkn+e4Ft9lfcm5DjhACUQJ8tyKR2wrLyA/q/zcQjQjLPx8MKjaLxDcWsPTXTb
-         wqIw==
-X-Gm-Message-State: AOJu0YwJOh707q06B7TD5nGOojIkmkhize9vMNeK6Wrnc6P0229PGJBe
-	Upd3ASBp/Z5G36i/lrLThg/b14Mx7JINfgABEgFWf71F94BoxvkAi8NRHR+gH09+bKjgATmLqRg
-	=
-X-Gm-Gg: ASbGncvOna8fZxlvZKBeF0WA3d63Re1CDkubdBxyz5tVY22I4hlRldCSryYJagbYXRe
-	jeIlP2bT9ZqfMUubtmVsB96xTIqsV+KF4B/qtJmrAbIr+Z8wWx74hMUYnVNthqewb1of2m+Xu9W
-	eSEAehhGpHuQVD00AvN0y/VlBk56Mh72wmc5Ads/3bpJ7aDgUFNxjHVVR9ZmVse+lfIM9gnn/xp
-	85BCwavdJSI2uM5XlAcsOiQ9otd4KaZhARcMaNeaWuGTtLGK7AOGUa0pi/1zxQKxSW7sTRzgikW
-	eKe/eZ2w5xw+RHeh0PzQwi05jNSBkLEQZ1DDdux7hdCbZ1n4HdU3k/G5cBBBXndLMQ==
-X-Google-Smtp-Source: AGHT+IHCaFaM2/nTC+OOFqL0d4WI6Cy5oEUGr1f6rlJjVZ9KQM092jO166tod8walMcATMC1mEomYQ==
-X-Received: by 2002:a05:6402:278f:b0:5d9:b50e:7008 with SMTP id 4fb4d7f45d1cf-5db7d2f8c49mr33710087a12.8.1737972920162;
-        Mon, 27 Jan 2025 02:15:20 -0800 (PST)
-Message-ID: <a615a96e-95d2-442f-b57d-0bb51142c977@suse.com>
-Date: Mon, 27 Jan 2025 11:15:22 +0100
+        d=1e100.net; s=20230601; t=1737973459; x=1738578259;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RgmuTDj0uAXzjg8zQRTvW2GcIE0H5Jo8YjWaR+itgXU=;
+        b=Nd9+6ykg8kbH0P/qtV018ML5meXrP4gNayJ0KvGEOFfYztVevXhLnTXuo8lXfsg2Hv
+         p5eUrcS79GAsDoUAdv0EFt7V0/L5gPgNk7lq7X3UP3GVa8DglWYE1GA4QF8I1GvheA6o
+         9aiVRr1oqlidx3GO04PbS9uYDOLSyi9JwYzj/BlkF9Iph/h0zd9xg5PwzLouYmD05ya1
+         7gu7D+S3W3rLp6enWzKZqXsd8JMGdok9YNYanQmR5egzZXwhBXZ9qqUdx9KE1RPc1ZN9
+         /1WS1BqkK+SdKXs4dAmAH3cgNSw+VWoAa1pEW0ibRV8NcqFmcwvC95rUaCnpMCAiDXZz
+         dVLQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWKylWiqxS7a8XUOViaYjxHUwg6MCmlSUQvd6kzZvGe65pWlxQo6EKWsH+zn3uxrcfXW94u51SmGRA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw7fQtt7QbLAho/OS9jd1uGOlm+b4s7NVnM30L3lS0K1L0lkElv
+	UtRiF0ANDo2sxtDphV4tgGno1HnlShquok0fKVAT9H9G928Yvt5unM9YJrHrTA==
+X-Gm-Gg: ASbGnctCqf9w1O4zVo84qqXDma3lzqJQscRmwj7FXxEFBhjQD0fVKeigrStTFaaJmTa
+	OCXUrKBahObmKBUu8TAlyGIu5wXNh0KcvULtpWexJ0qqUer0YH1UOnBsahLenTHoXR1cm+Sqttt
+	bMGT1XOy6Q/SSQo/Bn1WpAiEFNM0NPtmjMQKXzIuMIqyAuhuMl0XUagmEGB2fi7HsW54rRA+Rgj
+	sHG+WL0Cei03lby79ePtzjNqmyKzEK8pSVpb1GwdDGjKLsN21YpSnu30XGWqkr9GpkR3sBtwvjv
+	/mUHYKFr75e/Fp60JQHT0AyF8Mcklca1BJdwgFFBZolrsUm4SC2CW92s9R7ujOoeFw==
+X-Google-Smtp-Source: AGHT+IF8DiyW/DpERaeVfY0KnBz+bUJ6Lt3txnMt06zX1Tj2jv7M9Yqxt/Yr7SiPf0OJH1f6xJ1Xow==
+X-Received: by 2002:a17:907:7dab:b0:aa6:a87e:f2df with SMTP id a640c23a62f3a-ab38b2b7842mr3436872566b.25.1737973459399;
+        Mon, 27 Jan 2025 02:24:19 -0800 (PST)
+Message-ID: <f244ed32-cf27-452f-8c92-206f892f809c@suse.com>
+Date: Mon, 27 Jan 2025 11:24:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH for-4.20] x86/PV: further harden guest memory accesses against
- speculative abuse
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v1 3/3] xen/riscv: update mfn calculation in
+ pt_mapping_level()
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1737391102.git.oleksii.kurochko@gmail.com>
+ <a4a970490471035bf49a97257b400da23091fb9a.1737391102.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -116,88 +123,49 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <a4a970490471035bf49a97257b400da23091fb9a.1737391102.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-The original implementation has two issues: For one it doesn't preserve
-non-canonical-ness of inputs in the range 0x8000000000000000 through
-0x80007fffffffffff. Bogus guest pointers in that range would not cause a
-(#GP) fault upon access, when they should.
+On 20.01.2025 17:54, Oleksii Kurochko wrote:
+> --- a/xen/arch/riscv/pt.c
+> +++ b/xen/arch/riscv/pt.c
+> @@ -346,9 +346,33 @@ static int pt_mapping_level(unsigned long vfn, mfn_t mfn, unsigned long nr,
+>          return level;
+>  
+>      /*
+> -     * Don't take into account the MFN when removing mapping (i.e
+> -     * MFN_INVALID) to calculate the correct target order.
+> +     * `mfn` should be set properly in cases when modifying/destroying a
+> +     * mapping to ensure the correct page table `level` is received. In the
+> +     * case of `mfn` == INVALID_MFN, the `mask` will take into account only
+> +     * `vfn` and could accidentally return an incorrect level. For example,
+> +     * if `vfn` is page table level 1 aligned, but it was mapped as page table
+> +     * level 0, then without the check below it will return `level` = 1
+> +     * because only `vfn`, which is page table level 1 aligned, is taken into
+> +     * account when `mfn` == INVALID_MFN.
+>       *
+> +     * POPULATE shouldn't be considered as `va` hasn't been mapped yet.
+> +     */
+> +    if ( mfn_eq(mfn, INVALID_MFN) && !(flags & PTE_POPULATE) )
+> +    {
+> +        vaddr_t va = vfn << PAGE_SHIFT;
+> +        paddr_t pa;
+> +        unsigned long xen_virt_end = (XEN_VIRT_START + XEN_VIRT_SIZE - 1);
+> +
+> +        if ( ((va >= DIRECTMAP_VIRT_START) && (va <= DIRECTMAP_VIRT_END)) ||
+> +             ((va >= XEN_VIRT_START) && (va <= xen_virt_end)) )
+> +            pa = virt_to_maddr(va);
+> +        else
+> +            pa = pt_walk(va);
+> +
+> +        mfn = _mfn(paddr_to_pfn(pa));
+> +    }
 
-And then there is an AMD-specific aspect, where only the low 48 bits of
-an address are used for speculative execution; the architecturally
-mandated #GP for non-canonical addresses would be raised at a later
-execution stage. Therefore to prevent Xen controlled data to make it
-into any of the caches in a guest controllable manner, we need to
-additionally ensure that for non-canonical inputs bit 47 would be clear.
+Doing a walk here and then another in pt_update() feels wasteful. I
+wonder whether the overall approach to page table updating doesn't want
+changing. It ought to be possible to tell an "update" operation to walk
+down to wherever the leaf entry is, and update there.
 
-See the code comment for how addressing both is being achieved.
-
-Fixes: 4dc181599142 ("x86/PV: harden guest memory accesses against speculative abuse")
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-RFC: When scratch2 isn't %r8...%r15, the MOV, CMOVNB, and XOR will have
-     unnecessary REX prefixes emitted, as users of the macro pass in 64-
-     bit registers. Similar to what was done to be able to use SETcc (in
-     the earlier alternative code sequence), we could derive %e.. from
-     %r.. to shrink code size some; there are a few dozen instances of
-     this code, after all. (An alternative, requiring to touch the use
-     sites, would be to constrain the scratch registers to rAX...rDI and
-     pass in only the last two characters of the names [e.g. "di", i.e.
-     also without the leading %]. That would make it straightforward to
-     use both %r.. and %e.. at the same time.)
----
-v2: Drop the non-RCR alternative.
-
---- a/xen/arch/x86/include/asm/asm-defns.h
-+++ b/xen/arch/x86/include/asm/asm-defns.h
-@@ -1,3 +1,5 @@
-+#include <asm/page-bits.h>
-+
- #ifndef HAVE_AS_CLAC_STAC
- .macro clac
-     .byte 0x0f, 0x01, 0xca
-@@ -65,17 +67,36 @@
- .macro guest_access_mask_ptr ptr:req, scratch1:req, scratch2:req
- #if defined(CONFIG_SPECULATIVE_HARDEN_GUEST_ACCESS)
-     /*
--     * Here we want
--     *
--     * ptr &= ~0ull >> (ptr < HYPERVISOR_VIRT_END);
--     *
-+     * Here we want to adjust \ptr such that
-+     * - if it's within Xen range, it becomes non-canonical,
-+     * - otherwise if it's (non-)canonical on input, it retains that property,
-+     * - if the result is non-canonical, bit 47 is clear (to avoid
-+     *   potentially populating the cache with Xen data),
-      * but guaranteed without any conditional branches (hence in assembly).
-+     *
-+     * To achieve this we determine which bit to forcibly clear: Either bit 47
-+     * (in case the address is below HYPERVISOR_VIRT_END) or bit 63.  Further
-+     * we determine whether for forcably set bit 63: In case we first cleared
-+     * it, we'll merely restore the original address.  In case we ended up
-+     * clearing bit 47 (i.e. the address was either non-canonical or within Xen
-+     * range), setting the bit will yield a guaranteed non-canonical address.
-+     * If we didn't clear a bit, we also won't set one: The address was in the
-+     * low half of address space in that case with bit 47 already clear.  The
-+     * address can thus be left unchanged, whether canonical or not.
-      */
-     mov $(HYPERVISOR_VIRT_END - 1), \scratch1
--    mov $~0, \scratch2
-+    mov $(VADDR_BITS - 1), \scratch2
-     cmp \ptr, \scratch1
-+    /*
-+     * Not needed: The value we have in \scratch1 will be truncated to 6 bits,
-+     * thus yielding the value we need.
-+    mov $63, \scratch1
-+     */
-+    cmovnb \scratch2, \scratch1
-+    xor \scratch2, \scratch2
-+    btr \scratch1, \ptr
-     rcr $1, \scratch2
--    and \scratch2, \ptr
-+    or \scratch2, \ptr
- #elif defined(CONFIG_DEBUG) && defined(CONFIG_PV)
-     xor $~\@, \scratch1
-     xor $~\@, \scratch2
+Jan
 
