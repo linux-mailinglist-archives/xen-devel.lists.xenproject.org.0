@@ -2,38 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCEA6A1DB7D
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 18:42:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.878168.1288346 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85124A1DC5E
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 20:01:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.878182.1288364 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcT6s-00016Z-Db; Mon, 27 Jan 2025 17:41:18 +0000
+	id 1tcUL2-0003qc-4m; Mon, 27 Jan 2025 19:00:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 878168.1288346; Mon, 27 Jan 2025 17:41:18 +0000
+Received: by outflank-mailman (output) from mailman id 878182.1288364; Mon, 27 Jan 2025 19:00:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcT6s-00014r-AA; Mon, 27 Jan 2025 17:41:18 +0000
-Received: by outflank-mailman (input) for mailman id 878168;
- Mon, 27 Jan 2025 17:41:16 +0000
+	id 1tcUL2-0003oM-10; Mon, 27 Jan 2025 19:00:00 +0000
+Received: by outflank-mailman (input) for mailman id 878182;
+ Mon, 27 Jan 2025 18:56:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qVGR=UT=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tcT6q-00010f-9X
- for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 17:41:16 +0000
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [2a00:1450:4864:20::12c])
+ <SRS0=TuAY=UT=aptar.com=jonathan.katz@srs-se1.protection.inumbo.net>)
+ id 1tcUHY-0003kg-At
+ for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 18:56:24 +0000
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazlp170120005.outbound.protection.outlook.com
+ [2a01:111:f403:c105::5])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e2e2afdf-dcd5-11ef-99a4-01e77a169b0f;
- Mon, 27 Jan 2025 18:41:06 +0100 (CET)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-54024aa9febso5023380e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 27 Jan 2025 09:41:06 -0800 (PST)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-543c83684basm1340780e87.109.2025.01.27.09.41.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Jan 2025 09:41:05 -0800 (PST)
+ id 64d560bd-dce0-11ef-99a4-01e77a169b0f;
+ Mon, 27 Jan 2025 19:56:20 +0100 (CET)
+Received: from BY3PR05CA0032.namprd05.prod.outlook.com (2603:10b6:a03:39b::7)
+ by BY5PR04MB6932.namprd04.prod.outlook.com (2603:10b6:a03:219::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8377.23; Mon, 27 Jan
+ 2025 18:56:13 +0000
+Received: from CY4PEPF0000FCC0.namprd03.prod.outlook.com
+ (2603:10b6:a03:39b:cafe::69) by BY3PR05CA0032.outlook.office365.com
+ (2603:10b6:a03:39b::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8398.15 via Frontend Transport; Mon,
+ 27 Jan 2025 18:56:13 +0000
+Received: from us1.smtp.exclaimer.net (191.237.4.149) by
+ CY4PEPF0000FCC0.mail.protection.outlook.com (10.167.242.102) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8398.14 via Frontend Transport; Mon, 27 Jan 2025 18:56:09 +0000
+Received: from BL0PR05CU006.outbound.protection.outlook.com (40.93.2.10) by
+ us1.smtp.exclaimer.net (191.237.4.149) with Exclaimer Signature Manager
+ ESMTP Proxy us1.smtp.exclaimer.net (tlsversion=TLS12,
+ tlscipher=TLS_DIFFIEHELLMAN_WITH_AES256_NONE); Mon, 27 Jan 2025 18:56:10
+ +0000
+Received: from SJ0PR04MB8343.namprd04.prod.outlook.com (2603:10b6:a03:3d3::6)
+ by MN2PR04MB6750.namprd04.prod.outlook.com (2603:10b6:208:19f::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8377.23; Mon, 27 Jan
+ 2025 18:56:05 +0000
+Received: from SJ0PR04MB8343.namprd04.prod.outlook.com
+ ([fe80::979e:f75e:9b90:1052]) by SJ0PR04MB8343.namprd04.prod.outlook.com
+ ([fe80::979e:f75e:9b90:1052%4]) with mapi id 15.20.8377.021; Mon, 27 Jan 2025
+ 18:56:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,234 +66,572 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e2e2afdf-dcd5-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1737999666; x=1738604466; darn=lists.xenproject.org;
-        h=in-reply-to:content-language:references:cc:to:from:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=zgGt0UWgv/Np04JsWjifwQUIQ9PfPuCBVZ7oSviphrw=;
-        b=b9cx0n76VFihzdQeon3OavbZ/KiYSqghvshIzJqYhL4IsLm2xcyj10nvBhc7hunIWd
-         MUbevs93YZvCxCJkSk82zkoMMv8X1l6cu52XBFdp9MuVqi8GVaGi/S3QA+9r8Yq8/z4A
-         fC9t2/l/eaPIx6nzT+fygQwNO5GWytR9jm9GBW943a7JxJcnaWKtUbJbg7jX71GYTi8Q
-         v1UiV8Fc6whyFtTlzLyYZxSM2WPjIWQX9/LEGrK7o+ufyZenw7XhdQv3XIURtewh8/Ql
-         7HTXY/C0yJpqnu4c945RFtH8KB5T0/bPfur/hs36rWaSYxBZDJYLbasFT2gRs5yl+pwA
-         kuew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737999666; x=1738604466;
-        h=in-reply-to:content-language:references:cc:to:from:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=zgGt0UWgv/Np04JsWjifwQUIQ9PfPuCBVZ7oSviphrw=;
-        b=Z2IZf7FWS7EGH8WMXcCz9Ww4hjzyJQVrd6KjhEiHik4j+tKKi7/WNv9n3mkvla0AZj
-         LOXo2DgXxZnffhX/rZPefnNF17S2wSwtUYJ/0oMa4futKkxAes1utVh68kBrpVxWj/c4
-         G1SaY/UxoSBuYeEqdef2Wyvm+Y4ubdi37BWlnNevGCuX+bnSyJRKFrX7O5mj3eHXzljs
-         0MS0K2yClPFcv6E62nBH35/XqmHVDnxrlV47GRIghGPxESRNKRKPeSIMvLeyeHbBY1na
-         kEsu+wW9NJKko7VUtpE7WMm+5+ANxOcskqfH/UJFcFbiVKtIDpeIHmhj0qlphbdJeKgJ
-         0Oww==
-X-Forwarded-Encrypted: i=1; AJvYcCVdefueCi8IFdH5BNRKVQYhhXOfRY9vdi8T38A56yvAv2qZ8uI4wyA/PutnTB8+jJxsF+rIYZgIp5Y=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyxDD7dEBU7TvVwKZJYKRh43HempunCL7+7uT6WYR9qfXnCATop
-	P5si/ERBmbG6kIxBJ1e3xXMVvSOE2/H+HvoGptDEV/GKe319W0Zm
-X-Gm-Gg: ASbGncv6xTMH57II+iT7BWW5GuL7JjRI+WU0VORwruzBj4LIlwTmq9pscNKNqnKVCbL
-	2Gvqq5Ag0ROvEhSqnv1qsb1BzpwcXfLCnECqylQNOWD/rxYlIsDygAuvIAqYb3SagueVewirZ/T
-	aKhbr7CmYOf5CSuBvpPJ1YN2FbvKDQdeeAO148jCsvqRohzSST9Eps60bOqCwPxCiSAOoIrdTuW
-	LTfYdS8QscTsFyeQYkpw6+Rd33ngS27By7Y4iFVT+L8PkTkSImbHYw6V1YgZcSlI+ucnpqAL/SZ
-	kF7lcDO3bq0qsk3/sw==
-X-Google-Smtp-Source: AGHT+IF0YCjbqvn/5iYJcQNS/PYdLHDRoSCxQuoIvLYVpZYcJCymOz2g7JCsqJHPMsqUvwte4/Nf4w==
-X-Received: by 2002:ac2:4acb:0:b0:540:1a0c:9ba6 with SMTP id 2adb3069b0e04-5439c282d2bmr12671485e87.34.1737999665681;
-        Mon, 27 Jan 2025 09:41:05 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------NR3E6JH0lAFy9RT57IGkjVGJ"
-Message-ID: <67446e8f-71d4-480e-8566-1a464b6f6639@gmail.com>
-Date: Mon, 27 Jan 2025 18:41:04 +0100
+X-Inumbo-ID: 64d560bd-dce0-11ef-99a4-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BqvKTQsHwKIRYSLrNnAlrLVdIeG+sVwoG0m8+CybLK9Idy64ZxD9/YHDUkI4LQAATNAhyj2yoVz9XYXxWXZyGo4SvTFvju5Kesr6ZSgdXQH6uLkx8rMzqj8Bd4okc86v/FLYtRVCYXVBetOt6BWVgdnvm8702XGxNL+HgPkMsMBoEZ8kxb3xYXSW1BJep2XIKxgcdW/tpvDDLsEdC0is+RD9NynHFJp41ZspR7sdBmotlVAUGgZmbtaDP9pgJqzTmefCVJAN/G36ttDfPvIj1P/U3hLTd1iSRHGUjYqs/1sVa3aAoVdFu6mrpmlk2Jk+TnDW/XuKkoDxaVmj4hRVEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MtaWsi7QBnTEI4vu3G8gnaRFSj1E4bvDFBEA1/fypsk=;
+ b=u1F95YrCn4PZNTW4Rjdd+LTkI6YZA3kD8zoBctplm3bTwcCRVMvf2jpjonHvBYplKPs5gFjjGB8kGqLVs5rY7rZpDYftnJbjmDiVmNF19b3ML45zrecUQzqCwMPPBxDx98L2xLxwGESyhOOtriY5Cv2pPTDmZev6ff/acxrEq6kckZrZKMIyVvxBmajIpotbll6mV5ldSIPmxuipXFH3OA88bF+LyOkepK3UJV09nJGFABIU80KrYVY/YK6lYjItEr7qChaDO+3cteCfyfIuhLsRvXQdkHp8BkBXy77WxQ4qfOZJ/padz7ZEg36QE4Fatp87a2RMR5Wesdq78ADxgg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 191.237.4.149) smtp.rcpttodomain=citrix.com smtp.mailfrom=aptar.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=aptar.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aptar.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MtaWsi7QBnTEI4vu3G8gnaRFSj1E4bvDFBEA1/fypsk=;
+ b=XQC4044X20+dkxJDVoxUcrj/FGm1u6qqHfH/BHo2GYE3EBsSVGRviEJSrF48wCaSMcnYYyl2UvU3iukFdHW/hKT/ZASJn07+VwYcHWc6QNSltlnkZsPWgnv4pUALeU6DGrURiJgs6JlpkRYZULELuXYvKxTl4HwAMhubSuzBURc=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 191.237.4.149)
+ smtp.mailfrom=aptar.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=aptar.com;
+Received-SPF: Pass (protection.outlook.com: domain of aptar.com designates
+ 191.237.4.149 as permitted sender) receiver=protection.outlook.com;
+ client-ip=191.237.4.149; helo=us1.smtp.exclaimer.net; pr=C
+X-ExclaimerHostedSignatures-MessageProcessed: true
+X-ExclaimerProxyLatency: 20661893
+X-ExclaimerImprintLatency: 3849405
+X-ExclaimerImprintAction: e97ae8a1243143d0b04624149f191e88
+From: "Katz, Jonathan" <jonathan.katz@aptar.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Oleksii Kurochko
+	<oleksii.kurochko@gmail.com>, Xen-devel <xen-devel@lists.xenproject.org>
+CC: Jan Beulich <JBeulich@suse.com>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
+	<roger.pau@citrix.com>
+Subject: RE: [PATCH for-4.20] x86/intel: Fix PERF_GLOBAL fixup when
+ virtualised
+Thread-Topic: [PATCH for-4.20] x86/intel: Fix PERF_GLOBAL fixup when
+ virtualised
+Thread-Index: AQHbbBBKV+twyfPJT0qgl/gKrH7t/bMhcvcAgAkmwoCAAGb34A==
+Date: Mon, 27 Jan 2025 18:56:05 +0000
+Message-ID:
+ <SJ0PR04MB83435FE711BB6747C6EA9F90F0EC2@SJ0PR04MB8343.namprd04.prod.outlook.com>
+References: <20250121142510.358996-1-andrew.cooper3@citrix.com>
+ <eb58ed74-1156-4de5-8392-a546d9afddc3@gmail.com>
+ <76b3b208-a576-48f2-820b-e213722fe229@citrix.com>
+In-Reply-To: <76b3b208-a576-48f2-820b-e213722fe229@citrix.com>
+Accept-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=aptar.com;
+x-ms-traffictypediagnostic:
+	SJ0PR04MB8343:EE_|MN2PR04MB6750:EE_|CY4PEPF0000FCC0:EE_|BY5PR04MB6932:EE_
+X-MS-Office365-Filtering-Correlation-Id: 377fd882-1979-4de8-046d-08dd3f0443de
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|1800799024|366016|376014|38070700018;
+X-Microsoft-Antispam-Message-Info-Original:
+ =?us-ascii?Q?HPv6Y7HsnymqNl4mEjlbZOtffVFP0FTXBJaOMy+fksyeg9yxGyxDdwsn++Pf?=
+ =?us-ascii?Q?D5Gqc6Mzx5HEju9jxJo8fuFOgCisbzGWRjPSj8K/062lkU/v4QhelQHdykt4?=
+ =?us-ascii?Q?lU5XKt6ljB/HBdewQcAv5HOrDz+W1F1EiD0qM7h9OMX/8LxOHXfr5+mloRbf?=
+ =?us-ascii?Q?VYLjptw1x60lgejApi1KagwYC7u9kfYLW9GYtntN93Ybx22TJ2i1NgpVvBRq?=
+ =?us-ascii?Q?TVs4XgFSWQC3EUTThnZDqX23gP3hEKDwwOmq7ULiV8DT1WpOhpNIRqk+FMrO?=
+ =?us-ascii?Q?oEi4AtRlBULXJA+fOpatNa18AUPC/5n9XTZ5oWxbA79ZxXIKkkGe1ewYyY8C?=
+ =?us-ascii?Q?q3t+hJKWoOupnQckrE8LXAJ9xJCI3OAmP/YhixIUkoeMDbCHQZkx9nbWumo2?=
+ =?us-ascii?Q?aDdKxzKHMiDnXwxvjeLwp6uzkaBqDz0eiTKF77FCcbOGwyQF5/ld0caM6Jea?=
+ =?us-ascii?Q?tVF3Y6dRrnxCZ+VifSaWQ6fnhvW6iJcDEvi8JaHazMMtdD2AWWlv8H0qC8t7?=
+ =?us-ascii?Q?KfQBWz2TzS8qIi0MQ2HMK32h+GYQ1pou4Dv9JqoPkCCpHzZMRYl9PbmLtmZd?=
+ =?us-ascii?Q?oEkrQesEKMAwn0hSrntWIdcMXLanuw+Hx2QT+qDMMCq0NjKjG2mHMDybEA4c?=
+ =?us-ascii?Q?VPEXgmJriysy0vvTOwlcJoGJoHaPPjylZtHjc4D/1VQGLg4vLm7P/JklVfuL?=
+ =?us-ascii?Q?gmd2Tme7un52yr5cocECuJ2cO6C23Zo0A+LnYqPrAlSkikb6UDF3o66ytr4m?=
+ =?us-ascii?Q?kFn5u67Ing5EJlqodFPpmNAuMKLyA3uiLPaI+sAlJlhd8LytLiwhHx9PK5jN?=
+ =?us-ascii?Q?7VcR3TngzHfqe1DBfhZH4iFIoOpp3k3O8evpH/OkVqa++DSUQSsMnBExyXIo?=
+ =?us-ascii?Q?mreRHa7iP38U1BKUXnI8cipBfbkCjKrzmiQkW8VLWHxfFdJXIrlVZ1xguXo+?=
+ =?us-ascii?Q?57oO/EtNUigJfN+AF6epDNSfT1iiOA4fNe94Z/+A3iROEOGwPQq2oQOMvDER?=
+ =?us-ascii?Q?YzoLB8N+M1kbeA5uMBCMI9pr94p5MPlx9MIyWGbjGfEmfsz/Cv1S5DsO0k++?=
+ =?us-ascii?Q?6WQTJ+WJpNcBsF0LZS7eBUifG9lwtgRhTIVOqI/yCButlgA/t7I6hRhUXFRt?=
+ =?us-ascii?Q?IYW4VCto1Gv7dZNAi07gZt3geg3gfhvWlVbn8Os6M0jXtQ/L53hm34OloLun?=
+ =?us-ascii?Q?pl+9/qi3HEV41DcvnOv5fPghGb0s9WrVjA2Ry+1bSsBJFAnHbAI9xWqcfFcl?=
+ =?us-ascii?Q?nEg7S3EVFbsn29iwWkPYMWnPPo7VxcVH5b9c/Wf0MOuf3nabi+TOuovOlJTC?=
+ =?us-ascii?Q?j3DRtWmFZAIR9vYlbIZADqtledxm7iQqPuxvHA7OKqu9db5q271k5hnJZ6Q9?=
+ =?us-ascii?Q?DfaGtyL0eWms0tRDitHgwrrWSuRm6BIJkHt3UeTLFnpCXUw+hUtZmqfY0nYG?=
+ =?us-ascii?Q?I/igk+rdxgtxGZ6MldMLIjgofu6vt9BE?=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR04MB8343.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(38070700018);DIR:OUT;SFP:1102;
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/3] xen/riscv: implement software page table walking
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1737391102.git.oleksii.kurochko@gmail.com>
- <00dfc71569bc9971b53e29b36a80e9e020ac61ac.1737391102.git.oleksii.kurochko@gmail.com>
- <21bfd2f5-74b8-409e-956c-dd736a3c0be2@suse.com>
- <e2290a2a-a3c0-4cfe-b9e9-8cfec0b194a8@gmail.com>
- <a304e4f0-709f-4fcd-9847-01fe6ab4b98c@suse.com>
- <d9ca4252-1bf0-4257-ad6b-e91240cc5de3@gmail.com>
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR04MB6750
+Content-Type: multipart/alternative; boundary="=-zyd2Ueu4pAKVThpU39UFJQ=="
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ CY4PEPF0000FCC0.namprd03.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	a68b26a4-cd5e-4046-1a8a-08dd3f0440c1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|35042699022|14060799003|36860700013|376014|82310400026|8096899003|13003099007|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?WWF2VnpLVUVXVlQzZVNaUXhYQVJSVCtFUGo1eWM1aHJBcERGbThXQ3Nsa2ZQ?=
+ =?utf-8?B?UjVEcnVDTW9XZ1REa3BQQkxiZ2RVdU1aT1U4cWFubmZVQWJvTlAwVWRxSXR4?=
+ =?utf-8?B?b3EvQjBYczRDSW42ZWgwbHdXWEtyMjVHalJVblFLdXdvR0tVVEV4SnR3V1hi?=
+ =?utf-8?B?UWFIdUhtQk8rWUUwaGpCNzhGbkx1SS8zR3d5MEc1cnVNelNCdWI4TzVYYklW?=
+ =?utf-8?B?d1BiY0EyNW5SQTM0TnpLcUhmV2l2bXhiTjJKbmZmRnFpZlp6eTkrbEc5QlVa?=
+ =?utf-8?B?OGpDSU9JZitwNTNyZ3hWNkRqUy9oUFQyQTZpWEEzdzFxdzRVSEdYSWU1b0t5?=
+ =?utf-8?B?UGNOdXVjUVd0RVVNZ3llenUyREROU3hUb1E2UlIwZ2RTWnFweUlLNWRJdW5F?=
+ =?utf-8?B?TTNkKytRZ0J2M3p4S0NoRzNZTTFpcjRYaEcxZDA3bDNGa3N2cGVBaGVZYkpo?=
+ =?utf-8?B?OCtvUzFUSzFOTVcxbzlMMUo3d1dVREtuSjhYSjhvaEx4ZlBxNndWeFVucTRF?=
+ =?utf-8?B?cVhxS1FTUzY4NG90bG9WY3FTcmkwdkg0bCtDL21tKzRDbUlnNW9qOFVpcHBF?=
+ =?utf-8?B?K1pvUnJEMG1sUWNsNllBYmV0REg4Q1pkZmNKR1NYSVVHQjZMSEFWQzZRc2Rj?=
+ =?utf-8?B?a3c1LzZ4UktSN2JrT29INEhXMnY3OXBudGpBb05Uako3YmJoU0N0WnVUeHBn?=
+ =?utf-8?B?eW84Wmw0Q0RGendVaktaSFIyUVM1dEdzQmFtRTBsWDVFQ3ZwMWQ1QlluTHh2?=
+ =?utf-8?B?empYM0o2NlFvNnpiaWdwYVVNNGlYYmlKS2IvRlkxak40VzQ3N0tJVk8vVWRG?=
+ =?utf-8?B?ZE5ZK0xhM0pwdnd5bThDYXZqWE9aUjhINS93bXNiVndZSnFRVDg1NnNBc21z?=
+ =?utf-8?B?eUhydElHbjRjMUdsY0dBUVpHM1lqZUI3KzNJV2dvSlpYM2tpcmIyTTZqdDBR?=
+ =?utf-8?B?dWQxR3hoU2ZYeHptcnluZC9kUlRmc0NSdHkzL0VzV2ptYTJzU1hVcmlMV0Fl?=
+ =?utf-8?B?YnNwSk9KT01CMU95czhDODkzTXBXWmlkdXp0bS9BSHl3ODJwdDhzZStyOFBv?=
+ =?utf-8?B?Szd0SWVIUk0wR0Y1RGlCd002S2NFcXRSUGlzQk10azViVnkyWDNGV1FvcHZ0?=
+ =?utf-8?B?NENNOXBURlJLK2hnSFVhVmJVVkIzbEhyNVc2b2FDc3ZzVEVlbUlESldEbFlD?=
+ =?utf-8?B?eG9oVHF5ZHRXUnJEeFU2Tks3RzBmSWgyNkZFSHpxSHpKeWhsdzhzVDU2cE84?=
+ =?utf-8?B?aGN2YXZHWkZjbnA5d3F6TFBENVMweUFtS0dpWjNPM2dVd1JDQmNLZVVUWHVZ?=
+ =?utf-8?B?QTk5WEdRYVZ4aWpZWUlQdWRwa0o1enJJbVJlSlZmQ1hsSXBYejlHWXNmcFdL?=
+ =?utf-8?B?NTFwRmFqWFFQeE5kdC9iTXFBbDMveG93NzZOcmRlODYxZFRCd0Z2SVFKTDU5?=
+ =?utf-8?B?Y0ZGMlp2aWNSczBsTG42RmNPd0N2ZmNVaUhUajhvM1BoRzhHZmJwQ1FTQW4y?=
+ =?utf-8?B?Kys3ekMyUWxFNDU0aTllUUhFT3Flc2lLNktoRFRDeThrOXBJbEFMRk9IbzZP?=
+ =?utf-8?B?TDBUeHNSM28xdjdDenJaR2xVeVUvSGszaWtncEl5SlB6bFQwUVF1NzJOTWo1?=
+ =?utf-8?B?SnM0SU9iVE9Qam93N1VGUlQvdzJtVWVQbG1qZ1FuWnQ0QTNkWGVRN09YdVBu?=
+ =?utf-8?B?Z0JINVFCOXJENkk1R2VTMS9MelZaV0lmbkd2RENLZmZUelpGVm9VRXBKZTFW?=
+ =?utf-8?B?L2ZVdVV0Y2Uxd0U1K1hjbk5zVTkvdysvdFd2K0V5dmVZakFORWtKRXI0MUNt?=
+ =?utf-8?B?OHJMKzRGTHVwSmVCSXI1VWNidjNwU3NKUlpqWWQxOUd4UnhRWU5XdmI4YTBG?=
+ =?utf-8?B?Z1ZaN25qYUtwMVFMeUJBbjBpYWFsR0ZZNDhNdHZIc21lY0lKK3hzT285ZGdP?=
+ =?utf-8?Q?lx30bvazTXg=3D?=
+X-Forefront-Antispam-Report:
+	CIP:191.237.4.149;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:us1.smtp.exclaimer.net;PTR:us1.smtp.exclaimer.net;CAT:NONE;SFS:(13230040)(1800799024)(35042699022)(14060799003)(36860700013)(376014)(82310400026)(8096899003)(13003099007)(7053199007);DIR:OUT;SFP:1102;
+X-OriginatorOrg: aptar.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jan 2025 18:56:09.8614
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 377fd882-1979-4de8-046d-08dd3f0443de
+X-MS-Exchange-CrossTenant-Id: 5fd74a3e-d57a-410e-8d7c-02c4df062234
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=5fd74a3e-d57a-410e-8d7c-02c4df062234;Ip=[191.237.4.149];Helo=[us1.smtp.exclaimer.net]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000FCC0.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR04MB6932
+
+--=-zyd2Ueu4pAKVThpU39UFJQ==
 Content-Language: en-US
-In-Reply-To: <d9ca4252-1bf0-4257-ad6b-e91240cc5de3@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-This is a multi-part message in MIME format.
---------------NR3E6JH0lAFy9RT57IGkjVGJ
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Tested on xcp-ng vm on esx 8 that previously failed to boot when performanc=
+e counters were not enabled.
+
+- patched host
+- rebooted host
+- host still came up normally
+- shut host down
+- turned off performance counters on vm
+- booted host
+- host still came up normally and no issues running vms
+
+Thanks!
+jonathan
 
 
-On 1/27/25 6:22 PM, Oleksii Kurochko wrote:
+Jonathan=E2=80=8B=E2=80=8B=E2=80=8B=E2=80=8B
+
+
+
+Katz
+
+
+
+IS Senior Specialist, Infrastructure Operations Engineer
+
+AptarGroup
+
+265 Exchange Drive, Suite 100
+
+,
+
+Crystal Lake
+
+,
+
+Illinois
+
+
+
+60014
+
+,
+
+United States
+
+(phone) +1 779 220 4484<tel:+1%20779%20220%204484>
+
+ |
+
+(mobile) +1 847 525 8441<tel:+1%20847%20525%208441>
+
+jonathan.katz@aptar.com<mailto:jonathan.katz@aptar.com>
+
+ |
+
+www.aptar.com<http://www.aptar.com/>
+
+AptarOnlineSignature
+
+-----Original Message-----
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Sent: Monday, January 27, 2025 6:42 AM
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>; Xen-devel <xen-devel@lis=
+ts.xenproject.org>
+Cc: Katz, Jonathan <jonathan.katz@aptar.com>; Jan Beulich <JBeulich@suse.co=
+m>; Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+Subject: Re: [PATCH for-4.20] x86/intel: Fix PERF_GLOBAL fixup when virtual=
+ised
+
+
+EXTERNAL MAIL: Do not click any links or open any attachments unless you tr=
+ust the sender and know the content is safe.
+
+
+On 21/01/2025 4:57 pm, Oleksii Kurochko wrote:
 >
+> On 1/21/25 3:25 PM, Andrew Cooper wrote:
+>> Logic using performance counters needs to look at
+>> MSR_MISC_ENABLE.PERF_AVAILABLE before touching any other resources.
+>>
+>> When virtualised under ESX, Xen dies with a #GP fault trying to read
+>> MSR_CORE_PERF_GLOBAL_CTRL.
+>>
+>> Factor this logic out into a separate function (it's already too
+>> squashed to the RHS), and insert a check of
+>> MSR_MISC_ENABLE.PERF_AVAILABLE.
+>>
+>> This also limits setting X86_FEATURE_ARCH_PERFMON, although oprofile
+>> (the only consumer of this flag) cross-checks too.
+>>
+>> Reported-by: Jonathan Katz <jonathan.katz@aptar.com>
+>> Link:
+>> https://nam02.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fxcp
+>> -ng.org%2Fforum%2Ftopic%2F10286%2Fnesting-xcp-ng-on-esx-8&data=3D05%7C0
+>> 2%7Cjonathan.katz%40aptar.com%7Cc036df18462d402eda5608dd3ed01147%7C5f
+>> d74a3ed57a410e8d7c02c4df062234%7C0%7C0%7C638735785584484308%7CUnknown
+>> %7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW
+>> 4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=3DjG5dfAjyXvB
+>> JRrtNklKp8MjGOUoYGntpD14eRP5GCcI%3D&reserved=3D0
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+>> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>
+>> Untested, but this is the same pattern used by oprofile and watchdog
+>> setup.
 >
-> On 1/27/25 1:57 PM, Jan Beulich wrote:
->> On 27.01.2025 13:29, Oleksii Kurochko wrote:
->>> On 1/27/25 11:06 AM, Jan Beulich wrote:
->>>> On 20.01.2025 17:54, Oleksii Kurochko wrote:
->>>>> RISC-V doesn't have hardware feature to ask MMU to translate
->>>>> virtual address to physical address ( like Arm has, for example ),
->>>>> so software page table walking in implemented.
->>>>>
->>>>> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
->>>>> ---
->>>>>    xen/arch/riscv/include/asm/mm.h |  2 ++
->>>>>    xen/arch/riscv/pt.c             | 56 +++++++++++++++++++++++++++++++++
->>>>>    2 files changed, 58 insertions(+)
->>>>>
->>>>> diff --git a/xen/arch/riscv/include/asm/mm.h b/xen/arch/riscv/include/asm/mm.h
->>>>> index 292aa48fc1..d46018c132 100644
->>>>> --- a/xen/arch/riscv/include/asm/mm.h
->>>>> +++ b/xen/arch/riscv/include/asm/mm.h
->>>>> @@ -15,6 +15,8 @@
->>>>>    
->>>>>    extern vaddr_t directmap_virt_start;
->>>>>    
->>>>> +paddr_t pt_walk(vaddr_t va);
->>>> In the longer run, is returning just the PA really going to be sufficient?
->>>> If not, perhaps say a word on the limitation in the description.
->>> In the long run, this function's prototype looks like|paddr_t pt_walk(vaddr_t root, vaddr_t va, bool is_xen)| [1]. However, I'm not sure if it will stay that way,
->>> as I think|is_xen| could be skipped, since using|map_table()| should be sufficient (as it now considers|system_state|) and I'm not really sure if I need root argument
->>> as initial goal was to use this function for debug only purposes and I've never used it for guest page table (stage-1) walking.
->>> Anyway, yes, it is still returning a physical address, and that seems enough to me.
->>>
->>> Could you share your thoughts on what I should take into account for returning value, probably, I am missing something really useful?
->> Often you care about the permissions as well. Sometimes it may even be relevant
->> to know the (super-)page size of the mapping.
-> Perhaps it would be better to change the prototype to:
->    bool pt_walk(vaddr_t va, mfn_t *ret_pa);
-> or even
->    void pt_walk(vaddr_t va, mfn_t *ret_pa);
->    In this case,|ret_pa = INVALID_MFN| could serve as a signal that|pt_walk()| failed.
-> If there's a need to return permissions or (super-)page size in the future, another argument could be added.
-> What do you think? Would this approach be better?
+> Probably it will make sense to wait for a response on the forum (you
+> mentioned in the Link:) that the current one patch works?
 
-We have to return mfn_t or paddr_t as pt_walk() is used invmap_to_mfn().
+It's been a week. At this point it needs to go in for the release. As I sai=
+d, this is exactly the same pattern as used elsewhere in Xen, so I'm confid=
+ent it's a good fix, and Roger agrees too.
 
-~ Oleksii
+~Andrew
+This e-mail may contain confidential information. If you are not the intend=
+ed recipient, please notify the sender immediately and destroy this e-mail.=
+ Any unauthorized copying, disclosure or distribution of the material in th=
+is e-mail is strictly forbidden.
 
->
-> I am also considering returning a structure containing the|mfn| (or|paddr_t|) and adding other properties (such as permissions or
-> page size) as needed in the future. Both solutions seem more or less equivalent.
->
-> ~ Oleksii
---------------NR3E6JH0lAFy9RT57IGkjVGJ
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Aptar=E2=80=99s Privacy Policy<https://www.aptar.com/en-us/general-terms-an=
+d-conditions-use.html> explains how Aptar may use your personal information=
+ or data and any personal information or data provided or made available to=
+ us.
 
-<!DOCTYPE html>
+--=-zyd2Ueu4pAKVThpU39UFJQ==
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 1/27/25 6:22 PM, Oleksii Kurochko
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:d9ca4252-1bf0-4257-ad6b-e91240cc5de3@gmail.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <p><br>
-      </p>
-      <div class="moz-cite-prefix">On 1/27/25 1:57 PM, Jan Beulich
-        wrote:<br>
-      </div>
-      <blockquote type="cite"
-        cite="mid:a304e4f0-709f-4fcd-9847-01fe6ab4b98c@suse.com">
-        <pre class="moz-quote-pre" wrap=""><pre wrap=""
-        class="moz-quote-pre">On 27.01.2025 13:29, Oleksii Kurochko wrote:
-</pre><blockquote type="cite" style="color: #007cff;"><pre wrap=""
-        class="moz-quote-pre">On 1/27/25 11:06 AM, Jan Beulich wrote:
-</pre><blockquote type="cite" style="color: #007cff;"><pre wrap=""
-        class="moz-quote-pre">On 20.01.2025 17:54, Oleksii Kurochko wrote:
-</pre><blockquote type="cite" style="color: #007cff;"><pre wrap=""
-        class="moz-quote-pre">RISC-V doesn't have hardware feature to ask MMU to translate
-virtual address to physical address ( like Arm has, for example ),
-so software page table walking in implemented.
-
-Signed-off-by: Oleksii Kurochko<a class="moz-txt-link-rfc2396E"
-        href="mailto:oleksii.kurochko@gmail.com" moz-do-not-send="true">&lt;oleksii.kurochko@gmail.com&gt;</a>
----
-  xen/arch/riscv/include/asm/mm.h |  2 ++
-  xen/arch/riscv/pt.c             | 56 +++++++++++++++++++++++++++++++++
-  2 files changed, 58 insertions(+)
-
-diff --git a/xen/arch/riscv/include/asm/mm.h b/xen/arch/riscv/include/asm/mm.h
-index 292aa48fc1..d46018c132 100644
---- a/xen/arch/riscv/include/asm/mm.h
-+++ b/xen/arch/riscv/include/asm/mm.h
-@@ -15,6 +15,8 @@
-  
-  extern vaddr_t directmap_virt_start;
-  
-+paddr_t pt_walk(vaddr_t va);
-</pre></blockquote><pre wrap="" class="moz-quote-pre">In the longer run, is returning just the PA really going to be sufficient?
-If not, perhaps say a word on the limitation in the description.
-</pre></blockquote><pre wrap="" class="moz-quote-pre">In the long run, this function's prototype looks like|paddr_t pt_walk(vaddr_t root, vaddr_t va, bool is_xen)| [1]. However, I'm not sure if it will stay that way,
-as I think|is_xen| could be skipped, since using|map_table()| should be sufficient (as it now considers|system_state|) and I'm not really sure if I need root argument
-as initial goal was to use this function for debug only purposes and I've never used it for guest page table (stage-1) walking.
-Anyway, yes, it is still returning a physical address, and that seems enough to me.
-
-Could you share your thoughts on what I should take into account for returning value, probably, I am missing something really useful?
-</pre></blockquote><pre wrap="" class="moz-quote-pre">Often you care about the permissions as well. Sometimes it may even be relevant
-to know the (super-)page size of the mapping.</pre></pre>
-      </blockquote>
-      <div
-class="group/conversation-turn relative flex w-full min-w-0 flex-col agent-turn">
-        <div class="flex-col gap-1 md:gap-3">
-          <div class="flex max-w-full flex-col flex-grow">
-            <div data-message-author-role="assistant"
-              data-message-id="452652fc-e319-4d3f-8fe8-e9df6f7b8a45"
-              dir="auto"
-class="min-h-8 text-message flex w-full flex-col items-end gap-2 whitespace-normal break-words text-start [.text-message+&amp;]:mt-5"
-              data-message-model-slug="gpt-4o">
-              <div
-class="flex w-full flex-col gap-1 empty:hidden first:pt-[3px]">
-                <div
-class="markdown prose w-full break-words dark:prose-invert light">
-                  <pre>Perhaps it would be better to change the prototype to:
-  bool pt_walk(vaddr_t va, mfn_t *ret_pa);
-or even
-  void pt_walk(vaddr_t va, mfn_t *ret_pa);
-  In this case, <code>ret_pa = INVALID_MFN</code> could serve as a signal that <code>pt_walk()</code> failed.
-If there's a need to return permissions or (super-)page size in the future, another argument could be added.</pre>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <pre>What do you think? Would this approach be better?</pre>
-    </blockquote>
-    <pre>We have to return mfn_t or paddr_t as pt_walk() is used in <span
-    style="white-space: pre-wrap">vmap_to_mfn().</span></pre>
-    <pre><span style="white-space: pre-wrap">
-</span></pre>
-    <pre><span style="white-space: pre-wrap">~ Oleksii
-</span></pre>
-    <blockquote type="cite"
-      cite="mid:d9ca4252-1bf0-4257-ad6b-e91240cc5de3@gmail.com">
-      <pre>
-
-I am also considering returning a structure containing the <code>mfn</code> (or <code>paddr_t</code>) and adding other properties (such as permissions or
-page size) as needed in the future. Both solutions seem more or less equivalent.
-
-~ Oleksii
-</pre>
-    </blockquote>
-  </body>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8">
+</head>
+<body>
+<div>Tested on xcp-ng vm on esx 8 that previously failed to boot when perfo=
+rmance counters were not enabled.<br>
+<br>
+- patched host<br>
+- rebooted host<br>
+- host still came up normally<br>
+- shut host down<br>
+- turned off performance counters on vm<br>
+- booted host<br>
+- host still came up normally and no issues running vms<br>
+<br>
+Thanks!<br>
+jonathan<br>
+<br>
+<div dir=3D"ltr" style=3D"mso-line-height-rule:exactly;-webkit-text-size-ad=
+just:100%;font-size:1px;direction:ltr;">
+<table dir=3D"ltr" cellpadding=3D"0" cellspacing=3D"0" border=3D"0" style=
+=3D"width:100%;direction:ltr;border-collapse:collapse;font-size:1px;">
+<tbody>
+<tr style=3D"font-size:0;">
+<td align=3D"left" style=3D"vertical-align:top;">
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" style=3D"border-col=
+lapse:collapse;font-size:0;">
+<tbody>
+<tr style=3D"font-size:0;">
+<td align=3D"left" style=3D"padding:13px 0;vertical-align:top;">
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" style=3D"width:0;bo=
+rder-collapse:collapse;font-size:0;color:#FFFFFF;font-style:normal;font-wei=
+ght:400;white-space:nowrap;">
+<tbody>
+<tr style=3D"font-size:0;">
+<td align=3D"left" style=3D"padding:0;vertical-align:top;">
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" style=3D"border-col=
+lapse:collapse;font-size:0;">
+<tbody>
+<tr style=3D"font-size:0;">
+<td align=3D"left" style=3D"padding:0;vertical-align:middle;">
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" style=3D"border-col=
+lapse:collapse;font-size:0;">
+<tbody>
+<tr style=3D"font-size:0;">
+<td align=3D"left" style=3D"padding:0;vertical-align:top;">
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" style=3D"border-col=
+lapse:collapse;font-size:0;color:#5F5F5F;font-style:normal;font-weight:400;=
+white-space:nowrap;">
+<tbody>
+<tr style=3D"font-size:14.67px;">
+<td align=3D"left" style=3D"vertical-align:top;font-size:17.33px;color:#376=
+05E;font-family:Arial;font-weight:700;">
+<p style=3D"margin-top:0px;margin-bottom:0px;">Jonathan<span style=3D"font-=
+family:remialcxesans;font-size:1px;color:#FFFFFF;line-height:1px;">=E2=80=
+=8B<span style=3D"font-family:'template-KDWbeBsYEeiAwgANOhMCUQ';">=E2=80=8B=
+</span><span style=3D"font-family:'zone-1';">=E2=80=8B</span><span style=3D=
+"font-family:'zones-AQ';">=E2=80=8B</span></span></p>
+</td>
+<td align=3D"left" style=3D"vertical-align:top;font-family:Arial;">
+<p style=3D"margin-top:0px;margin-bottom:0px;">&nbsp;</p>
+</td>
+<td align=3D"left" style=3D"vertical-align:top;font-size:17.33px;color:#376=
+05E;font-family:Arial;font-weight:700;">
+<p style=3D"margin-top:0px;margin-bottom:0px;">Katz</p>
+</td>
+<td align=3D"left" style=3D"vertical-align:top;font-family:Arial;">
+<p style=3D"margin-top:0px;margin-bottom:0px;">&nbsp;&nbsp;</p>
+</td>
+<td align=3D"left" style=3D"vertical-align:middle;font-family:Arial;">
+<p style=3D"margin-top:0px;margin-bottom:0px;">IS&nbsp;Senior&nbsp;Speciali=
+st,&nbsp;Infrastructure&nbsp;Operations&nbsp;Engineer</p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr style=3D"font-size:17.33px;color:#37605E;font-style:normal;font-weight:=
+700;white-space:nowrap;">
+<td align=3D"left" style=3D"padding:0;vertical-align:top;font-family:Arial;=
+">
+<p style=3D"margin-top:0px;margin-bottom:0px;">AptarGroup</p>
+</td>
+</tr>
+<tr style=3D"font-size:0;">
+<td align=3D"left" style=3D"padding:0;vertical-align:bottom;">
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" style=3D"border-col=
+lapse:collapse;font-size:0;color:#5F5F5F;font-style:normal;font-weight:400;=
+white-space:nowrap;">
+<tbody>
+<tr style=3D"font-size:14.67px;">
+<td align=3D"left" style=3D"vertical-align:bottom;font-family:Arial;">
+<p style=3D"margin-top:0px;margin-bottom:0px;">265&nbsp;Exchange&nbsp;Drive=
+,&nbsp;Suite&nbsp;100</p>
+</td>
+<td align=3D"left" style=3D"vertical-align:bottom;font-family:Arial;">
+<p style=3D"margin-top:0px;margin-bottom:0px;">,&nbsp;</p>
+</td>
+<td align=3D"left" style=3D"vertical-align:bottom;font-family:Arial;">
+<p style=3D"margin-top:0px;margin-bottom:0px;">Crystal&nbsp;Lake</p>
+</td>
+<td align=3D"left" style=3D"vertical-align:bottom;font-family:Arial;">
+<p style=3D"margin-top:0px;margin-bottom:0px;">,&nbsp;</p>
+</td>
+<td align=3D"left" style=3D"vertical-align:bottom;font-family:Arial;">
+<p style=3D"margin-top:0px;margin-bottom:0px;">Illinois</p>
+</td>
+<td align=3D"left" style=3D"vertical-align:bottom;font-family:Arial;">
+<p style=3D"margin-top:0px;margin-bottom:0px;">&nbsp;</p>
+</td>
+<td align=3D"left" style=3D"vertical-align:bottom;font-family:Arial;">
+<p style=3D"margin-top:0px;margin-bottom:0px;">60014</p>
+</td>
+<td align=3D"left" style=3D"vertical-align:bottom;font-family:Arial;">
+<p style=3D"margin-top:0px;margin-bottom:0px;">,&nbsp;</p>
+</td>
+<td align=3D"left" style=3D"vertical-align:bottom;font-family:Arial;">
+<p style=3D"margin-top:0px;margin-bottom:0px;">United&nbsp;States</p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr style=3D"font-size:0;">
+<td align=3D"left" style=3D"padding:0;vertical-align:bottom;">
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" style=3D"border-col=
+lapse:collapse;font-size:0;color:#000001;font-style:normal;font-weight:400;=
+white-space:nowrap;">
+<tbody>
+<tr style=3D"font-size:14.67px;">
+<td align=3D"left" style=3D"vertical-align:bottom;font-family:Arial;">
+<p style=3D"margin-top:0px;margin-bottom:0px;">(phone)&nbsp;<a href=3D"tel:=
++1%20779%20220%204484" target=3D"_blank" id=3D"LPlnk689713" style=3D"text-d=
+ecoration:none;color:#000001;">+1&nbsp;779&nbsp;220&nbsp;4484</a></p>
+</td>
+<td align=3D"left" style=3D"vertical-align:middle;font-family:Arial;">
+<p style=3D"margin-top:0px;margin-bottom:0px;">&nbsp;<span style=3D"color:#=
+37605E;font-size:17.33px;font-weight:700;">|&nbsp;</span></p>
+</td>
+<td align=3D"left" style=3D"vertical-align:bottom;font-family:Arial;">
+<p style=3D"margin-top:0px;margin-bottom:0px;">(mobile)&nbsp;<a href=3D"tel=
+:+1%20847%20525%208441" target=3D"_blank" id=3D"LPlnk689713" style=3D"text-=
+decoration:none;color:#000001;">+1&nbsp;847&nbsp;525&nbsp;8441</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr style=3D"font-size:0;">
+<td align=3D"left" style=3D"padding:0;vertical-align:top;">
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" style=3D"border-col=
+lapse:collapse;font-size:0;color:#000001;font-style:normal;font-weight:700;=
+white-space:nowrap;">
+<tbody>
+<tr style=3D"font-size:14.67px;">
+<td align=3D"left" style=3D"vertical-align:bottom;font-family:Arial;">
+<p style=3D"margin-top:0px;margin-bottom:0px;"><a href=3D"mailto:jonathan.k=
+atz@aptar.com" target=3D"_blank" id=3D"LPlnk689713" style=3D"text-decoratio=
+n:none;color:#37605E;"><span style=3D"text-decoration:underline;">jonathan.=
+katz@aptar.com</span></a></p>
+</td>
+<td align=3D"left" style=3D"vertical-align:middle;font-family:Arial;font-we=
+ight:400;">
+<p style=3D"margin-top:0px;margin-bottom:0px;">&nbsp;<span style=3D"font-we=
+ight:700;color:#37605E;font-size:17.33px;">|&nbsp;</span></p>
+</td>
+<td align=3D"left" style=3D"vertical-align:bottom;font-family:Arial;">
+<p style=3D"margin-top:0px;margin-bottom:0px;"><a href=3D"http://www.aptar.=
+com/" target=3D"_blank" id=3D"LPlnk689713" title=3D"www.aptar.com" style=3D=
+"text-decoration:none;color:#37605E;"><span style=3D"text-decoration:underl=
+ine;">www.aptar.com</span></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr style=3D"font-size:1.33px;">
+<td align=3D"left" style=3D"padding:13px 0 0;vertical-align:top;font-family=
+:Arial;">
+<p style=3D"margin-top:0px;margin-bottom:0px;">AptarOnlineSignature</p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+-----Original Message-----<br>
+From: Andrew Cooper &lt;andrew.cooper3@citrix.com&gt; <br>
+Sent: Monday, January 27, 2025 6:42 AM<br>
+To: Oleksii Kurochko &lt;oleksii.kurochko@gmail.com&gt;; Xen-devel &lt;xen-=
+devel@lists.xenproject.org&gt;<br>
+Cc: Katz, Jonathan &lt;jonathan.katz@aptar.com&gt;; Jan Beulich &lt;JBeulic=
+h@suse.com&gt;; Roger Pau Monn=C3=A9 &lt;roger.pau@citrix.com&gt;<br>
+Subject: Re: [PATCH for-4.20] x86/intel: Fix PERF_GLOBAL fixup when virtual=
+ised<br>
+<br>
+<br>
+EXTERNAL MAIL: Do not click any links or open any attachments unless you tr=
+ust the sender and know the content is safe.<br>
+<br>
+<br>
+On 21/01/2025 4:57 pm, Oleksii Kurochko wrote:<br>
+&gt;<br>
+&gt; On 1/21/25 3:25 PM, Andrew Cooper wrote:<br>
+&gt;&gt; Logic using performance counters needs to look at <br>
+&gt;&gt; MSR_MISC_ENABLE.PERF_AVAILABLE before touching any other resources=
+.<br>
+&gt;&gt;<br>
+&gt;&gt; When virtualised under ESX, Xen dies with a #GP fault trying to re=
+ad <br>
+&gt;&gt; MSR_CORE_PERF_GLOBAL_CTRL.<br>
+&gt;&gt;<br>
+&gt;&gt; Factor this logic out into a separate function (it's already too <=
+br>
+&gt;&gt; squashed to the RHS), and insert a check of <br>
+&gt;&gt; MSR_MISC_ENABLE.PERF_AVAILABLE.<br>
+&gt;&gt;<br>
+&gt;&gt; This also limits setting X86_FEATURE_ARCH_PERFMON, although oprofi=
+le <br>
+&gt;&gt; (the only consumer of this flag) cross-checks too.<br>
+&gt;&gt;<br>
+&gt;&gt; Reported-by: Jonathan Katz &lt;jonathan.katz@aptar.com&gt;<br>
+&gt;&gt; Link: <br>
+&gt;&gt; https://nam02.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%=
+2Fxcp<br>
+&gt;&gt; -ng.org%2Fforum%2Ftopic%2F10286%2Fnesting-xcp-ng-on-esx-8&amp;data=
+=3D05%7C0<br>
+&gt;&gt; 2%7Cjonathan.katz%40aptar.com%7Cc036df18462d402eda5608dd3ed01147%7=
+C5f<br>
+&gt;&gt; d74a3ed57a410e8d7c02c4df062234%7C0%7C0%7C638735785584484308%7CUnkn=
+own<br>
+&gt;&gt; %7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJ=
+XaW<br>
+&gt;&gt; 4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&amp;sdata=3DjG=
+5dfAjyXvB<br>
+&gt;&gt; JRrtNklKp8MjGOUoYGntpD14eRP5GCcI%3D&amp;reserved=3D0<br>
+&gt;&gt; Signed-off-by: Andrew Cooper &lt;andrew.cooper3@citrix.com&gt;<br>
+&gt;&gt; ---<br>
+&gt;&gt; CC: Jan Beulich &lt;JBeulich@suse.com&gt;<br>
+&gt;&gt; CC: Roger Pau Monn=C3=A9 &lt;roger.pau@citrix.com&gt;<br>
+&gt;&gt; CC: Oleksii Kurochko &lt;oleksii.kurochko@gmail.com&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; Untested, but this is the same pattern used by oprofile and watchd=
+og <br>
+&gt;&gt; setup.<br>
+&gt;<br>
+&gt; Probably it will make sense to wait for a response on the forum (you <=
+br>
+&gt; mentioned in the Link:) that the current one patch works?<br>
+<br>
+It's been a week. At this point it needs to go in for the release. As I sai=
+d, this is exactly the same pattern as used elsewhere in Xen, so I'm confid=
+ent it's a good fix, and Roger agrees too.<br>
+<br>
+~Andrew<br>
+</div>
+This e-mail may contain confidential information. If you are not the intend=
+ed recipient, please notify the sender immediately and destroy this e-mail.=
+ Any unauthorized copying, disclosure or distribution of the material in th=
+is e-mail is strictly forbidden.
+<p><span style=3D"font-size: xx-small;"><span class=3D"SpellE"><em><span la=
+ng=3D"EN-US">Aptar=E2=80=99s</span></em></span><em><span lang=3D"EN-US">&nb=
+sp;<a href=3D"https://www.aptar.com/en-us/general-terms-and-conditions-use.=
+html">Privacy Policy</a>&nbsp;</span></em><em><span lang=3D"EN-US">explains
+ how Aptar may use your personal information or data and any personal infor=
+mation or data provided or made available to us.</span></em></span></p>
+</body>
 </html>
 
---------------NR3E6JH0lAFy9RT57IGkjVGJ--
+--=-zyd2Ueu4pAKVThpU39UFJQ==--
 
