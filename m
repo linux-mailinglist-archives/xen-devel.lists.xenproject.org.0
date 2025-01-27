@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2010A1D51E
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 12:12:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.877725.1287867 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7851AA1D523
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 12:15:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.877733.1287879 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcN2B-0004bH-RT; Mon, 27 Jan 2025 11:12:03 +0000
+	id 1tcN5B-0005kC-9Z; Mon, 27 Jan 2025 11:15:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 877725.1287867; Mon, 27 Jan 2025 11:12:03 +0000
+Received: by outflank-mailman (output) from mailman id 877733.1287879; Mon, 27 Jan 2025 11:15:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcN2B-0004XT-OU; Mon, 27 Jan 2025 11:12:03 +0000
-Received: by outflank-mailman (input) for mailman id 877725;
- Mon, 27 Jan 2025 11:12:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tcN5B-0005h2-6B; Mon, 27 Jan 2025 11:15:09 +0000
+Received: by outflank-mailman (input) for mailman id 877733;
+ Mon, 27 Jan 2025 11:15:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=O4xJ=UT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tcN2A-0004W9-0C
- for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 11:12:02 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 87470e83-dc9f-11ef-99a4-01e77a169b0f;
- Mon, 27 Jan 2025 12:12:00 +0100 (CET)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-aafc9d75f8bso813399266b.2
- for <xen-devel@lists.xenproject.org>; Mon, 27 Jan 2025 03:12:00 -0800 (PST)
+ id 1tcN59-0005gu-IZ
+ for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 11:15:07 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f67523d5-dc9f-11ef-a0e6-8be0dac302b0;
+ Mon, 27 Jan 2025 12:15:06 +0100 (CET)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-5d9b6b034easo8520136a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Jan 2025 03:15:06 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab693c63541sm316732166b.67.2025.01.27.03.11.58
+ 4fb4d7f45d1cf-5dc186183eesm5267645a12.10.2025.01.27.03.15.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Jan 2025 03:11:59 -0800 (PST)
+ Mon, 27 Jan 2025 03:15:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 87470e83-dc9f-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: f67523d5-dc9f-11ef-a0e6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1737976319; x=1738581119; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1737976506; x=1738581306; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=9BLjtbNMLBZ5w8uegTIY6Tfu0zDz5HDRnWszrYj6B6g=;
-        b=NqTxZ3KVWAbE/9mCWLNkk9n8vJCrfQzYGa9b467eup++OpUQ502I1gtcu9l3mE8TuQ
-         A8pPmdHsG4g0/duH5bPfHAdQ+eKJ8UY+Fd5w35w2WP+1f5SlVIWjUL1YW2stwRxn5hBE
-         G5WA9PgaqoFsE4B3YbdWy4smFZ+VcXaviEd48EkzgTcwM9XKMCR2ptBCuvFtueSEI9tS
-         2QlvepQTt7OUOb4nYV5FpV1h65ekOD8cGckXFEf62+lJuu3C/FFTALB150pDTpdnIj0a
-         01YcUMjAV6zjiiJu+8ZG/bWrISYIr/oMpmU6g/VeEkFUoVT5OILzuMNl6ZMxd2Olm1BM
-         GfQQ==
+        bh=UCJ5XuZJ+PJiMDlji/FAG2eL5A9cqn6zQ2h8ERWqJN4=;
+        b=dddSMqhFlv/KiQYb6gB63nWMiNZiybe1XcZ1fXKQ0Dw2QfyS6UjrJtt9LBJ9kjHLTF
+         LxJHSk14NtXJQ3ckLTkqaLmVkD1TOXm+yZbS6wNZ4B/khUp1T8zlPwj3hm8IRgtM+Lkz
+         7pLSRcwqaDSM8P9lvMs4nN8C/h7a8CokkFhSbCS2EsLTOhX2Br77//fU2nxyY84OrZQY
+         Tny7MiSWCoBu0ddvB5I0kubGi6vsPNlqvTrUbNfc/hTdkKlBtEukBWpJdABP6xJsaUwE
+         tmAwg0jS7jevXq3h98rRIiucpIuSW/9i3mEHY7W2ZA6H0CcjWKLx8gRuHrPTsYOuncgI
+         qoWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737976319; x=1738581119;
+        d=1e100.net; s=20230601; t=1737976506; x=1738581306;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9BLjtbNMLBZ5w8uegTIY6Tfu0zDz5HDRnWszrYj6B6g=;
-        b=EYqvnC+Skjf7OTHAqI2oQkJqHd6KbXoMQSuobm3oZbxWgmUcLwl82uk9sDHGcsDjAO
-         R6D4ZyStVTZvpXCn942cGCOyby2+7ZxbN0F+saMjvbJ/6W5pSFm6UH0t408dgRZDWufx
-         AgXTFbBP/l+9OAHve971rGf+YEmqR80YSvNUWwhK1M3ZtYnqiFYfWIgJSri42BojaMPx
-         Od3v6Urc0DPWRdANur4OjL6ZEh4eM+5SAJhMjCGsUWVmp41xp8vQdLqHQDcXG2iz9p8W
-         +X+zbdjkeYljZwYVX53nZI4kekdLnlHLWbr5ZgxWYJ8DMNoAL4gp24+CJbrvminFOgcg
-         6WKA==
-X-Forwarded-Encrypted: i=1; AJvYcCUYXWAFwnqXe4xJBIi9ro+iXW1Xr9pixdn/6HyykdPbV7yO/85nPk/zLR2jzV/c6ZYh36If3aAZre8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw4mUgLnUOYn3ANBfZST3RmwXL9pyVDgb3NiS/mJ6Q0Oynn4lwt
-	p02fRAPRwUjAXs8BVtW40hLVty7hHb7AWnBWU//0bI7vOy9dyjc9TRQ28JJSEw==
-X-Gm-Gg: ASbGncszIW5qsv0WiJaum6MaNM0CaYxL/Ul/OToiBlyF+bT6tThhfRkOvtSc8Zi8EAJ
-	pK1HB+p2fThiQb+S+rahZcN1I2nAHAYc51PzSbsY87K2vxNKKVZEWAtv+xropEROLYlWe8jnYX3
-	dm4gcw6FjkglZNfrrzOSGIyMkqver7c5Rly2hP9xorGs33qKAtbRffuIto2aKfaGrku2h3rsHM/
-	TZ/NnZ1Ts7bWAthu4iRNCPl22X+nqyxqNh5xn/fh9W1LhzgIc5PcLi35oF/C4TSSqaDHY6JJLpb
-	XpWldJ5NRco8EsmvzMMVQ95nbvb8aJBcN+y8f/YfM2ZLS1EhY1TINC7oWjJMOPUHEw==
-X-Google-Smtp-Source: AGHT+IEAEdk/RqrYYymah7FRX5KJ+Fp7SUGg427RKIRz1nTOIGFLHCiwWjlW3qBBiGVsXFYxy5+X4Q==
-X-Received: by 2002:a17:907:60cc:b0:aab:c35e:509b with SMTP id a640c23a62f3a-ab38b4bb44bmr3656920766b.55.1737976319384;
-        Mon, 27 Jan 2025 03:11:59 -0800 (PST)
-Message-ID: <f8d4a1d4-a332-4dad-ba6e-5a127ae2187e@suse.com>
-Date: Mon, 27 Jan 2025 12:12:01 +0100
+        bh=UCJ5XuZJ+PJiMDlji/FAG2eL5A9cqn6zQ2h8ERWqJN4=;
+        b=MSOFokS8cVd1UgpAhcN08U38DB0xZ8V5Hfk0CaZV7cDg+yDTFs57LOyCIB5wujZJ9U
+         Bf+i111wFsFE48TA7Yvg/Bue7yJ3hXa40Z790tp1iteHB6KV7ZC6WsbulY9ssjLUvwqT
+         DdKnAlFNfn5cMa2ZrSZFDKb38aF5VimId0R1uOLOTUXH07Afx4Od9i6/igdCUG2P1Yxj
+         h7HC//Hh6e4GK0HXpm+5t8u86WJ4KRhsDMXJRDyOeNkl7S3I5XL7LQi888rzvZs5ogLB
+         07T//8pE8Fq3QvTb01wD64pbiLAYnpgpLMp7RxyRh9r8h3ArOAc4tXW0r05vC2wCCHIH
+         zkCQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWmE2ZwVzj0X0oXZ9JApg59DeRVMpH5wpKmQ7hQs4tB/ODdUedTeMa285yYfBqbOzS3RmrUgTvzMew=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy4yPLgfxMEDX7yWT/fYpG3baC1YUWRDRmrW0Hy/8hpHFQnvqjp
+	wHN5xAGkapqvF6vZLSI0/cN65Jg7ZvTBFNk6ZoIgbPZ9g7+2DE2Cv8vBhrFu2A==
+X-Gm-Gg: ASbGnctHQt6kMQQZuzyUrd3XpdSHpMHyxm0dletP8iZPU+hyN+qsdSDDGMhZUBZp8sQ
+	SeuC/gOLkPlNNqU4qSG/n5z0LjQcPxCl0/uShsNxSj7XQ98OcLasTAO4SpJDjnAhsS0AF6iVcWv
+	0LHgAuklzaelgZ+0c73KGL0H3PztfKmJ8fVOuBXDQo3kWsD1aPoNxnC2dq0IaUKVqlKw5hUUzlj
+	e/x6Lnngd2kgmeSyJ5zBl4ty678uSChB13Q7e8hQ4s1LeLiwju+O4zMCcIEh+5c6Jdfh1D5Wsha
+	arBi89iook7I7/smWGgujds/1hyARQjhRfwGF3xdr3ltBELAppUGOyIu8TCta6OEwg==
+X-Google-Smtp-Source: AGHT+IGHplv2Hzunxl8A4zXSTgfUnZjSWCkfgGRYjL009Q18yAu88aXaGHX5MYflHizB9bhR7AH4YA==
+X-Received: by 2002:a05:6402:1d4e:b0:5db:fcb0:e52b with SMTP id 4fb4d7f45d1cf-5dbfcb0e88amr17490011a12.24.1737976506185;
+        Mon, 27 Jan 2025 03:15:06 -0800 (PST)
+Message-ID: <2f14762e-d302-483c-8adb-3223e6290de0@suse.com>
+Date: Mon, 27 Jan 2025 12:15:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/9] xen/common: dom0less: make some parts of Arm's
- CONFIG_DOM0LESS common
+Subject: Re: [PATCH v1 2/9] asm-generic: move parts of Arm's asm/kernel.h to
+ asm-generic
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
@@ -98,7 +98,7 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <cover.1736334615.git.oleksii.kurochko@gmail.com>
- <396a60496844c8a86667f4ee57c5bedc9899f5ad.1736334615.git.oleksii.kurochko@gmail.com>
+ <6404cb5ae077909cbfdf3860d38c701c65547b56.1736334615.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,31 +124,39 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <396a60496844c8a86667f4ee57c5bedc9899f5ad.1736334615.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <6404cb5ae077909cbfdf3860d38c701c65547b56.1736334615.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 08.01.2025 12:13, Oleksii Kurochko wrote:
-> Unify the API for creating DomUs and checking for Dom0less mode across
-> architectures, including Arm and RISC-V, with potential applicability
-> for PPC.
+> Move the following parts to asm-generic with the following changes:
+> - struct kernel_info:
+>   - Create arch_kernel_info for arch specific kernel information.
+>     At the moment, it contains domain_type for Arm.
+>   - Rename vpl011 to vuart to have more generic name suitable for other archs.
+>   - s/phandle_gic/phandle_intc to have more generic name suitable for other
+>     archs.
+>   - Make text_offset of zimage structure available for RISCV_64.
+> - Wrap by `#ifdef KERNEL_INFO_SHM_MEM_INIT` definition of KERNEL_SHM_MEM_INIT
+>   and wrap by `#ifndef KERNEL_INFO_INIT` definition of KERNEL_INFO_INIT to have
+>   ability to override KERNEL_INFO_SHM_MEM_INIT for arch in case it doesn't
+>   want to use generic one.
+> - All other parts are left as is from Arm's asm/kernel.h
+> 
+> Because of the changes in struct kernel_info the correspondent parts of Arm's
+> code are updated.
+> 
+> As part of this patch the following clean up happens:
+> - Drop asm/setup.h from asm/kernel.h as nothing depends from it.
+>   Add inclusion of asm/setup.h for a code which uses device_tree_get_reg() to
+>   avoid compilation issues for CONFIG_STATIC_MEMORY and CONFIG_STATIC_SHM.
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-That is you mean to re-use it for RISC-V?
-
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -12,6 +12,15 @@ config CORE_PARKING
->  	bool
->  	depends on NR_CPUS > 1
->  
-> +config DOM0LESS_BOOT
-> +	bool "Dom0less boot support" if EXPERT
-> +	depends on ARM
-> +	default ARM
-
-This then would better be converted to "depends on HAVE_DOM0LESS", which
-for now only Arm would select. With a dependency on XYZ the default also
-doesn't need to name XYZ again, i.e. can simply be "default y".
+I question that what is being moved qualifies for asm-generic, an in particular
+for a header named kernel.h. Some of what you move may make sense to move to
+dom0less-build.h instead. But everything that doesn't fit there needs to find
+a different home, imo.
 
 Jan
 
