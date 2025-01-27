@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDD11A1D9DF
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 16:48:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.878059.1288235 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50C97A1D9EC
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 16:52:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.878068.1288246 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcRLN-00015M-DW; Mon, 27 Jan 2025 15:48:09 +0000
+	id 1tcRPG-000367-Um; Mon, 27 Jan 2025 15:52:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 878059.1288235; Mon, 27 Jan 2025 15:48:09 +0000
+Received: by outflank-mailman (output) from mailman id 878068.1288246; Mon, 27 Jan 2025 15:52:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcRLN-00013A-Aj; Mon, 27 Jan 2025 15:48:09 +0000
-Received: by outflank-mailman (input) for mailman id 878059;
- Mon, 27 Jan 2025 15:48:08 +0000
+	id 1tcRPG-00033T-Qi; Mon, 27 Jan 2025 15:52:10 +0000
+Received: by outflank-mailman (input) for mailman id 878068;
+ Mon, 27 Jan 2025 15:52:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fFPb=UT=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1tcRLM-000134-6K
- for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 15:48:08 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Hjlm=UT=kernel.org=will@srs-se1.protection.inumbo.net>)
+ id 1tcRPE-000329-SE
+ for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 15:52:08 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org
+ [2604:1380:45d1:ec00::3])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 199566fd-dcc6-11ef-99a4-01e77a169b0f;
- Mon, 27 Jan 2025 16:48:06 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-3862b40a6e0so3328333f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 27 Jan 2025 07:48:06 -0800 (PST)
-Received: from localhost (0545937c.skybroadband.com. [5.69.147.124])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38c2a1c402esm11566456f8f.97.2025.01.27.07.48.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Jan 2025 07:48:05 -0800 (PST)
+ id a825fcfe-dcc6-11ef-99a4-01e77a169b0f;
+ Mon, 27 Jan 2025 16:52:06 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id B5CFFA41826;
+ Mon, 27 Jan 2025 15:50:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87519C4CED2;
+ Mon, 27 Jan 2025 15:51:50 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,83 +42,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 199566fd-dcc6-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1737992886; x=1738597686; darn=lists.xenproject.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3HwOUrFPP3C74s2uL0aHvL48yitbfvYFsp4Fk1YJxfg=;
-        b=Xytr+TyzaUYxC8nPo04CYZkh2bYkVETX9oa5rW9unRSryAjsG5OZpDocZx3I5BsXqt
-         GVmk+EyDYKocOBH7/hG05zQ3vPMYNPD8DDp5jV1Q+5nibBuQ36SsWGAXjO/wjuv2mvcz
-         5tOJl3CN8Rk88i67Flq7oZ64qucWC3GAwjpGc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737992886; x=1738597686;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=3HwOUrFPP3C74s2uL0aHvL48yitbfvYFsp4Fk1YJxfg=;
-        b=UNqFNDclW3JS/o4g6p1KKsF5lASILAbpRIdi8T2fYjCL1j3VVcDbHgFTJ8n54tgIE7
-         QEgLJ2Aowe+oOZ/izWH5mSDgUQWgb39/oNUJatVayV0YLt+6rxQ0r0szlPmavRQ4SLoq
-         KyVh4Nhnvchzql4/0HL3+Nkw8AAm2qzEVb1nTEqqS8lg8l/MsKtQsgh6s628Fjt4h0A6
-         QwhrCcS/A9fhKP2uAWxFu2JCB/rS3b7WFk5AoGRypdAzmh2kXzcHSv//xEnFiar4YwnD
-         B9e8jZBZjNw7zftXCbBiRC3qQ7yQjNJRVoPdEbAhJ3TDARvP0KJNK3XQdaAsevtwZs5q
-         2CoA==
-X-Forwarded-Encrypted: i=1; AJvYcCUI6Uw2PPKpOYdzG5YUq/6Jh14En3zzZC6wkYxwIx0DsAKxPuLnrzzxZV2ero8IDQIaYghPU/VoIDY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YylOkJ4bUluqizHdHxw/wnfiMkVK7oJN91F3nqJExy8VXVElAUx
-	IUGo061m9SDhX9fY2h+W0aI26BEzE9YRHq080zpFtrCOjEeQQhk9y8vIso3+aaM=
-X-Gm-Gg: ASbGncuulCu24kN8lAhrOW5V///f5wtYJ4J18LsNvMGy2loHs9xnrCI4rjbxzM+38sB
-	pYHkhRQQybvJOB1Imu0liZBxgimXnAycbCNPmIeJEZqyj54YMqI/ss3ygBNeq8wjQWjN1bIBGdh
-	rYeoJ9n0WHZ5XecvgXh44BdFjtFyXWeBqezjFEnIhhW1MWmHYzHgl5WPKnE2bX1Clsly9dCtsij
-	5Y1pFhhfFBYaHMEp5bYuCJaSoezejJ5oWx0Oke5hdOo/5he0mUgdOD2BVVAy2aalSsPBMVOGyf+
-	yBi45HKkZOj+2uJ7AE+qC+l7NdD1GTbew18=
-X-Google-Smtp-Source: AGHT+IH9BRN3AfKnxcDIKp+YtA+mU8O15XvSZ+2w2Llkgmxfmz2yoAu/cYRr5RzCOGrh8la4VDpCjw==
-X-Received: by 2002:a05:6000:144b:b0:385:df43:223c with SMTP id ffacd0b85a97d-38bf565c029mr35524706f8f.13.1737992885848;
-        Mon, 27 Jan 2025 07:48:05 -0800 (PST)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 27 Jan 2025 15:48:01 +0000
-Message-Id: <D7CZ23KACJ16.A4EFWQ1X682K@cloud.com>
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>,
- =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v3 11/12] x86/fpu: Pass explicit xsave areas to
- fpu_(f)xrstor()
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Jan Beulich" <jbeulich@suse.com>
-X-Mailer: aerc 0.18.2
-References: <20250110132823.24348-1-alejandro.vallejo@cloud.com>
- <20250110132823.24348-12-alejandro.vallejo@cloud.com>
- <1f1ab2d4-73ad-4562-b3c5-0b423b56aed2@suse.com>
-In-Reply-To: <1f1ab2d4-73ad-4562-b3c5-0b423b56aed2@suse.com>
+X-Inumbo-ID: a825fcfe-dcc6-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1737993124;
+	bh=lKShl/TiOp2ZoXo/jImChQXPJ2hMZLXx2pOut7WiptI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Opi/ZOMV/zfLovkaRrjcFN22SaJmB+XJGtnDJ/cIoGIjT25SkYRyAorU+UjcclWyd
+	 6DePEaUZ/QK4W0yHLc5Kb3ieU/uOi+zRZdhIrfh5zorrG9bSfVDQc9h0dR9gO+3bHq
+	 ul1VD9PJ3iJuekF+lfnqBztVCR/WhUeMwXxaqNSwUyFJREhVmoO8Vtntzw4FAiTB00
+	 00OvDbjpP1jbVZyUSglO9BK2uxJ3fZYicWL3MsWiS1eDM68OxCFUf3tPPbIQwtET/k
+	 cGteI6qIszlohfI51re4Bs3hb3htIsly4LrqymlfAEdhSawB5JdAEcLJmnZm2zRPZn
+	 N7W92SLp2WhHA==
+Date: Mon, 27 Jan 2025 15:51:47 +0000
+From: Will Deacon <will@kernel.org>
+To: Jann Horn <jannh@google.com>
+Cc: Valentin Schneider <vschneid@redhat.com>, linux-kernel@vger.kernel.org,
+	x86@kernel.org, virtualization@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+	linux-riscv@lists.infradead.org, linux-perf-users@vger.kernel.org,
+	xen-devel@lists.xenproject.org, kvm@vger.kernel.org,
+	linux-arch@vger.kernel.org, rcu@vger.kernel.org,
+	linux-hardening@vger.kernel.org, linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org, bpf@vger.kernel.org,
+	bcm-kernel-feedback-list@broadcom.com,
+	Juergen Gross <jgross@suse.com>,
+	Ajay Kaher <ajay.kaher@broadcom.com>,
+	Alexey Makhalov <alexey.amakhalov@broadcom.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	"Liang, Kan" <kan.liang@linux.intel.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Andy Lutomirski <luto@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Jason Baron <jbaron@akamai.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joel@joelfernandes.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Boqun Feng <boqun.feng@gmail.com>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang1211@gmail.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Clark Williams <williams@redhat.com>,
+	Yair Podemsky <ypodemsk@redhat.com>,
+	Tomas Glozar <tglozar@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Kees Cook <kees@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Christoph Hellwig <hch@infradead.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Miguel Ojeda <ojeda@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Rong Xu <xur@google.com>,
+	Nicolas Saenz Julienne <nsaenzju@redhat.com>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Yosry Ahmed <yosryahmed@google.com>,
+	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
+	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+	Jinghao Jia <jinghao7@illinois.edu>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Tiezhu Yang <yangtiezhu@loongson.cn>
+Subject: Re: [PATCH v4 29/30] x86/mm, mm/vmalloc: Defer
+ flush_tlb_kernel_range() targeting NOHZ_FULL CPUs
+Message-ID: <20250127155146.GB25757@willie-the-truck>
+References: <20250114175143.81438-1-vschneid@redhat.com>
+ <20250114175143.81438-30-vschneid@redhat.com>
+ <CAG48ez1Mh+DOy0ysOo7Qioxh1W7xWQyK9CLGNU9TGOsLXbg=gQ@mail.gmail.com>
+ <xhsmh34hhh37q.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
+ <CAG48ez3H8OVP1GxBLdmFgusvT1gQhwu2SiXbgi8T9uuCYVK52w@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAG48ez3H8OVP1GxBLdmFgusvT1gQhwu2SiXbgi8T9uuCYVK52w@mail.gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 
-Hi,
+On Fri, Jan 17, 2025 at 04:52:19PM +0100, Jann Horn wrote:
+> On Fri, Jan 17, 2025 at 4:25 PM Valentin Schneider <vschneid@redhat.com> wrote:
+> > On 14/01/25 19:16, Jann Horn wrote:
+> > > On Tue, Jan 14, 2025 at 6:51 PM Valentin Schneider <vschneid@redhat.com> wrote:
+> > >> vunmap()'s issued from housekeeping CPUs are a relatively common source of
+> > >> interference for isolated NOHZ_FULL CPUs, as they are hit by the
+> > >> flush_tlb_kernel_range() IPIs.
+> > >>
+> > >> Given that CPUs executing in userspace do not access data in the vmalloc
+> > >> range, these IPIs could be deferred until their next kernel entry.
+> > >>
+> > >> Deferral vs early entry danger zone
+> > >> ===================================
+> > >>
+> > >> This requires a guarantee that nothing in the vmalloc range can be vunmap'd
+> > >> and then accessed in early entry code.
+> > >
+> > > In other words, it needs a guarantee that no vmalloc allocations that
+> > > have been created in the vmalloc region while the CPU was idle can
+> > > then be accessed during early entry, right?
+> >
+> > I'm not sure if that would be a problem (not an mm expert, please do
+> > correct me) - looking at vmap_pages_range(), flush_cache_vmap() isn't
+> > deferred anyway.
+> 
+> flush_cache_vmap() is about stuff like flushing data caches on
+> architectures with virtually indexed caches; that doesn't do TLB
+> maintenance. When you look for its definition on x86 or arm64, you'll
+> see that they use the generic implementation which is simply an empty
+> inline function.
+> 
+> > So after vmapping something, I wouldn't expect isolated CPUs to have
+> > invalid TLB entries for the newly vmapped page.
+> >
+> > However, upon vunmap'ing something, the TLB flush is deferred, and thus
+> > stale TLB entries can and will remain on isolated CPUs, up until they
+> > execute the deferred flush themselves (IOW for the entire duration of the
+> > "danger zone").
+> >
+> > Does that make sense?
+> 
+> The design idea wrt TLB flushes in the vmap code is that you don't do
+> TLB flushes when you unmap stuff or when you map stuff, because doing
+> TLB flushes across the entire system on every vmap/vunmap would be a
+> bit costly; instead you just do batched TLB flushes in between, in
+> __purge_vmap_area_lazy().
+> 
+> In other words, the basic idea is that you can keep calling vmap() and
+> vunmap() a bunch of times without ever doing TLB flushes until you run
+> out of virtual memory in the vmap region; then you do one big TLB
+> flush, and afterwards you can reuse the free virtual address space for
+> new allocations again.
+> 
+> So if you "defer" that batched TLB flush for CPUs that are not
+> currently running in the kernel, I think the consequence is that those
+> CPUs may end up with incoherent TLB state after a reallocation of the
+> virtual address space.
+> 
+> Actually, I think this would mean that your optimization is disallowed
+> at least on arm64 - I'm not sure about the exact wording, but arm64
+> has a "break before make" rule that forbids conflicting writable
+> address translations or something like that.
 
-On Mon Jan 27, 2025 at 11:05 AM GMT, Jan Beulich wrote:
-> On 10.01.2025 14:28, Alejandro Vallejo wrote:
-> > No functional change.
-> >=20
-> > Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
->
-> Acked-by: Jan Beulich <jbeulich@suse.com>
->
-> > ---
-> > v2->v3:
-> >   * const-ified v in fpu_xrstor()
-> >   * Removed v in fpu_fxrstor()
->
-> On this basis the parameter could also be removed from fpu_fxsave(), by
-> passing in fip_width instead.
->
-> Jan
+Yes, that would definitely be a problem. There's also the more obvious
+issue that the CnP ("Common not Private") feature of some Arm CPUs means
+that TLB entries can be shared between cores, so the whole idea of using
+a CPU's exception level to predicate invalidation is flawed on such a
+system.
 
-Could be, but there's not a whole lot of gain to be had? The access must be
-done either way before or after the fpu_fxsave() call, and a parameter must=
- be
-passed (be it fip_width or v). Passing the vCPU encapsulates the access of
-fip_width where its actually used, which seems more desirable, I'd say.
-
-Cheers,
-Alejandro
+Will
 
