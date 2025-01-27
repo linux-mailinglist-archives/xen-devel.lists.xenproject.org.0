@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 093F9A1D53C
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 12:20:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.877759.1287908 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2BB0A1D540
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 12:23:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.877769.1287917 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcN9y-0008Gx-BI; Mon, 27 Jan 2025 11:20:06 +0000
+	id 1tcNCv-0001pX-NS; Mon, 27 Jan 2025 11:23:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 877759.1287908; Mon, 27 Jan 2025 11:20:06 +0000
+Received: by outflank-mailman (output) from mailman id 877769.1287917; Mon, 27 Jan 2025 11:23:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcN9y-0008Fy-7m; Mon, 27 Jan 2025 11:20:06 +0000
-Received: by outflank-mailman (input) for mailman id 877759;
- Mon, 27 Jan 2025 11:20:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zo7v=UT=gmail.com=julien.grall.oss@srs-se1.protection.inumbo.net>)
- id 1tcN9w-00080G-SG
- for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 11:20:04 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a71ba185-dca0-11ef-99a4-01e77a169b0f;
- Mon, 27 Jan 2025 12:20:03 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-38637614567so2007700f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 27 Jan 2025 03:20:03 -0800 (PST)
+	id 1tcNCv-0001nP-Ki; Mon, 27 Jan 2025 11:23:09 +0000
+Received: by outflank-mailman (input) for mailman id 877769;
+ Mon, 27 Jan 2025 11:23:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=O4xJ=UT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tcNCu-0001nF-QT
+ for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 11:23:08 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 15312bac-dca1-11ef-a0e6-8be0dac302b0;
+ Mon, 27 Jan 2025 12:23:07 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-aaf3c3c104fso156352366b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Jan 2025 03:23:07 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab675e63177sm575186766b.58.2025.01.27.03.23.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 27 Jan 2025 03:23:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,178 +45,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a71ba185-dca0-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 15312bac-dca1-11ef-a0e6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1737976802; x=1738581602; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=mXfdOJ+RgG7pJjUQf0zW2Jw1uQOQIvQ/648lA6oQ02Q=;
-        b=OsDSyHpl1TXee9HUbEoYgw40rkSCoJq69145oZ32i+YIrSa+8w0IJFPbaWoBV69ire
-         0JUZGOsijToFgIyFn51fiYDrz3eAynK7cZle20r/ReJndSMN54CumSzKdBiV6VMkBoE4
-         gSyjTRdZK9jX9Hw4l6wzM8OettdMF7pcUm0nLZpxnKJPY6Cf++PyznTXPSf4XEY2mbjT
-         XQ24ZIYlLdFt7eEwIRfJ4D9GlJszt6ApEmBhCBSQk2MUmmQQ6oWwXPJ+lcktv5b3twLF
-         8M+AV/INfRcv6dJLd9G4g9ag2HzacXA6PnGpp8UAvvdZ0gtOT44zCJN9kWE1h6hgcK65
-         7juw==
+        d=suse.com; s=google; t=1737976987; x=1738581787; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=lm0QtMrPvnrzQ9lpLNrwgXP6KR8PUuVz+jjFjySMBmg=;
+        b=XKOLPfwRwZV0PXJTIYq4Z5eQvPDv9SLbi4JV6dppKoxD/vqoRhkQXrbO6NDmFU/r/v
+         onOMpKJnY/CUK9hbQVwYJMiT4WsIJVO6zh/WURI5hJjnD2gwX4XlB8XqSTVreCJFFBly
+         amNl9SF271tEK6/A8jWrn3G1ys2Oc4xlT+P5p0SkfgJn2T3CSYuM9ZvDrCjdC4dvBOgD
+         nVfpvnwZWVws9bK3hJ4MN/NddIYFmq8WUyEIXr7gBtuFZuYFtHIe4qz1OgtO4YNHCNU8
+         bBosCeY/4hWJw44DO119NK0LFEKcZvhzAmtVIeW+N3eqcSrsXjuS2IvwpCB6u1rBniOK
+         yL0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737976802; x=1738581602;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=mXfdOJ+RgG7pJjUQf0zW2Jw1uQOQIvQ/648lA6oQ02Q=;
-        b=jnTMK1YchX+se5cknM10kgfWP/YwRSVIEGyBmuxtKtuoIBOrqVcWdWMIZF4iIl3UZt
-         MVpjX5e/cIPaX6FztkasMSGvp7khox76IzJc6h0+euNp71kXkNQrn61THdya8HN4snm4
-         h6NpGnjmICt9KDk5+ZU+QPGZq1c+34+LH7a5xywW/MFLqF2uwZXm867m3hdioGR35qpf
-         LRFrMbcOyxdq6cuSDeKNc2WUtAIGUirryS/vrEi2c/RZWYTRFl/Aqgy/uZUZEuh0TRly
-         DRCCgjNqJZ8iczZMjd4KdgEX0MpqflzHtY88VDaCJfVKh1PbVSSDy6i/QSc4nieAnTVh
-         7Djg==
-X-Gm-Message-State: AOJu0YwvViEOBE5jhRPKwp4NL6rL7/jteHw1CzX7Botjs87R61Mf7B+2
-	iCQze/t6o8rN6APZ1+ln1ory8U6ZFoj9QLBxDvdOKRNWvJkthVDlif1mBX0uCLnbIyZ2ydU6u0R
-	nL9etouw+ne7Oh9Gt9kBztp7DOh4=
-X-Gm-Gg: ASbGncsH3YqqZ4dIdM4ZBgKG9aYqE9XSjZtMpbRiIHc7xHRVVBzXtV7Vt2HZJzX/UH+
-	1kHMSiNGN8UnnIcN093QNxRCBeSx3BHpQPU1vb1rge9WNR6iTOzq5VtzEerCX
-X-Google-Smtp-Source: AGHT+IELobLiQtzkh0ybrp8Oor3ODkT4/kGvZ0dqBC00TYbI3Wvqs+46iBcrT7txNyAc6F+qatiZhDS4sy61VwBSFrc=
-X-Received: by 2002:a5d:668b:0:b0:385:ed16:c8b with SMTP id
- ffacd0b85a97d-38bf5674631mr31270954f8f.23.1737976800723; Mon, 27 Jan 2025
- 03:20:00 -0800 (PST)
+        d=1e100.net; s=20230601; t=1737976987; x=1738581787;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lm0QtMrPvnrzQ9lpLNrwgXP6KR8PUuVz+jjFjySMBmg=;
+        b=UIZL2kWpu/Ue7LLdZuSS0GYonsrsJ8gqlC0qxFoCeWc3Hyx4W2VqbSAqZp/bjz+Ckn
+         vWZaCmr0t6TJ9TjCCLUxyCZDLsnItU/SND3QdG6M7xZiGGh455JSeP8Hmw8LBg5xWAfZ
+         v96r21B7FSmihcMmfzhmaa8mkLpj9RDwR4yJ8GD6YAgzWGK1IwqEiWEbwMsooUKCfX8c
+         J8nRgO3eJjck5M1UOTg+/TUt20wTUkLsM9hur3nCK/vPUZNG45cDRLgsNbhXdoIPdI9c
+         s6Ic7hnb7JcBlD/2bzbsdw5g6DwVcVy2WgxKXDfmeTg37BC06XtX8V1iZMW8yVjrXWUp
+         H8dA==
+X-Forwarded-Encrypted: i=1; AJvYcCXrwlu8FOzjf/oDfWsmUmvmgWKc5d7AeJJMhI4UnjoETVaknQYBlIG0XgagMRS2VwgeHZLNWao87tA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy6JIBeK+9PZI6VyvQfv//wzGfSLL3XMj9MZOl8/yLL3j3Ugilp
+	eM72EMJiVRhyIDnKI6Br+iLgmxza1Ig6O3dISGmyOWFH4ufEJKjlp5p0bFE4Ug==
+X-Gm-Gg: ASbGncslrDjGcGPhGKSLIjboq6bMZ2kabm4ndd8erIa4gFo7OMnnV6F8ZRhKyAMeBg1
+	HzltGPGghMbniiH1/6U9XGSjLoQurg59NVbPlRcgY++UGjeGe+3qBuNGz6MWmmx912dxRGzN1jg
+	NyZe716vRG9JMl6ed9sc34/waITkEoDBV0kxFlzTvG55MAWMzq9jgQg9FrSd2IGyeA+In/ej7Hd
+	JiFBv7HJNyLPMqgtmTcgl3RIpgWfe9nOammxUU31DTQTGvo6J3cMCp9gHDgQksBdF5ElY7/5xmr
+	NaEtr+AYrC+S1FXvAB5ccZwQN2ur/Z33+p6zh+e8DrTGjy07gUWksZzBvUUKo46x3A==
+X-Google-Smtp-Source: AGHT+IG78vQ2pIMfNxKeSKP2qAi5ur9DPCG6rSCwv4eYJ+U+0tnJjtFb79bw7udES64VUpdhNMX0Ig==
+X-Received: by 2002:a17:907:1c11:b0:ab2:f74f:3f82 with SMTP id a640c23a62f3a-ab38b3da0cemr3587389866b.57.1737976987228;
+        Mon, 27 Jan 2025 03:23:07 -0800 (PST)
+Message-ID: <347b4bb0-5fd1-439f-9e3b-ef13ac89bbe9@suse.com>
+Date: Mon, 27 Jan 2025 12:23:09 +0100
 MIME-Version: 1.0
-References: <20250127104556.175641-1-michal.orzel@amd.com> <20250127104556.175641-2-michal.orzel@amd.com>
-In-Reply-To: <20250127104556.175641-2-michal.orzel@amd.com>
-From: Julien Grall <julien.grall.oss@gmail.com>
-Date: Mon, 27 Jan 2025 08:19:49 -0300
-X-Gm-Features: AWEUYZnba3JVHcFI5c4SopWf8Xa-2oL-auOCpkzkutvXXRI9dDW3mqGn_nbgqPU
-Message-ID: <CAJ=z9a24=PE-3bhmZvfTaTgpdCXp9iDTWfoH-9F9-_OdkEf4Tg@mail.gmail.com>
-Subject: Re: [for-4.20][PATCH 1/2] device-tree: bootfdt: Fix build issue when CONFIG_PHYS_ADDR_T_32=y
-To: Michal Orzel <michal.orzel@amd.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-	oleksii.kurochko@gmail.com
-Content-Type: multipart/alternative; boundary="000000000000d5c959062cae41d1"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 6/9] asm-generic: move some parts of Arm's
+ domain_build.h to asm-generic header
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1736334615.git.oleksii.kurochko@gmail.com>
+ <ba3cde730ae072ba1088e396dd7d03482e4c4011.1736334615.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ba3cde730ae072ba1088e396dd7d03482e4c4011.1736334615.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---000000000000d5c959062cae41d1
-Content-Type: text/plain; charset="UTF-8"
-
-On Mon, 27 Jan 2025 at 07:46, Michal Orzel <michal.orzel@amd.com> wrote:
-
-> On Arm32, when CONFIG_PHYS_ADDR_T_32 is set, a build failure is observed:
-> common/device-tree/bootfdt.c: In function 'build_assertions':
-> ./include/xen/macros.h:47:31: error: static assertion failed:
-> "!(alignof(struct membanks) != 8)"
->    47 | #define BUILD_BUG_ON(cond) ({ _Static_assert(!(cond), "!(" #cond
-> ")"); })
->       |                               ^~~~~~~~~~~~~~
-> common/device-tree/bootfdt.c:31:5: note: in expansion of macro
-> 'BUILD_BUG_ON'
->    31 |     BUILD_BUG_ON(alignof(struct membanks) != 8);
->
-> When CONFIG_PHYS_ADDR_T_32 is set, paddr_t is defined as unsigned long,
-> therefore the struct membanks alignment is 4B. Fix it.
-
-
-Usually, we add a BUILD_BUG_ON when other parts of the code rely on a
-specific property (in this case alignment). Can you explain in the commit
-message why the new check is still ok?
-
-Cheers,
-
-
-
->
-> Fixes: 2209c1e35b47 ("xen/arm: Introduce a generic way to access memory
-> bank structures")
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+On 08.01.2025 12:13, Oleksii Kurochko wrote:
+> Nothing changed. Only some functions declaration are moved to asm-generic
+> header as they are expected to be used by common code of domain builing or
+> dom0less.
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 > ---
->  xen/common/device-tree/bootfdt.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/xen/common/device-tree/bootfdt.c
-> b/xen/common/device-tree/bootfdt.c
-> index 47386d4fffea..511700ccc2ba 100644
-> --- a/xen/common/device-tree/bootfdt.c
-> +++ b/xen/common/device-tree/bootfdt.c
-> @@ -27,8 +27,8 @@ static void __init __maybe_unused build_assertions(void)
->       */
->      BUILD_BUG_ON((offsetof(struct membanks, bank) !=
->                   offsetof(struct meminfo, bank)));
-> -    /* Ensure "struct membanks" is 8-byte aligned */
-> -    BUILD_BUG_ON(alignof(struct membanks) != 8);
-> +    /* Ensure "struct membanks" is paddr aligned */
-> +    BUILD_BUG_ON(alignof(struct membanks) != sizeof(paddr_t));
->  }
->
->  static bool __init device_tree_node_is_available(const void *fdt, int
-> node)
-> --
-> 2.25.1
->
->
+>  xen/arch/arm/include/asm/domain_build.h | 19 ++----------
+>  xen/include/asm-generic/domain-build.h  | 41 +++++++++++++++++++++++++
+>  2 files changed, 43 insertions(+), 17 deletions(-)
+>  create mode 100644 xen/include/asm-generic/domain-build.h
 
---000000000000d5c959062cae41d1
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Again I question this movement under this name. "Domain building" is a pretty
+generic thing, yes, but what you move would e.g. be entirely inapplicable on
+x86 (as it is now). For example ...
 
-<div dir=3D"auto"><br></div><div><br><div class=3D"gmail_quote gmail_quote_=
-container"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, 27 Jan 2025 at 07:=
-46, Michal Orzel &lt;<a href=3D"mailto:michal.orzel@amd.com">michal.orzel@a=
-md.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"m=
-argin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On Arm32, whe=
-n CONFIG_PHYS_ADDR_T_32 is set, a build failure is observed:<br>
-common/device-tree/bootfdt.c: In function &#39;build_assertions&#39;:<br>
-./include/xen/macros.h:47:31: error: static assertion failed: &quot;!(align=
-of(struct membanks) !=3D 8)&quot;<br>
-=C2=A0 =C2=A047 | #define BUILD_BUG_ON(cond) ({ _Static_assert(!(cond), &qu=
-ot;!(&quot; #cond &quot;)&quot;); })<br>
-=C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^~~~~~~~~~~~~~<b=
-r>
-common/device-tree/bootfdt.c:31:5: note: in expansion of macro &#39;BUILD_B=
-UG_ON&#39;<br>
-=C2=A0 =C2=A031 |=C2=A0 =C2=A0 =C2=A0BUILD_BUG_ON(alignof(struct membanks) =
-!=3D 8);<br>
-<br>
-When CONFIG_PHYS_ADDR_T_32 is set, paddr_t is defined as unsigned long,<br>
-therefore the struct membanks alignment is 4B. Fix it.</blockquote><div dir=
-=3D"auto"><br></div><div dir=3D"auto">Usually, we add a BUILD_BUG_ON when o=
-ther parts of the code rely on a specific property (in this case alignment)=
-. Can you explain in the commit message why the new check is still ok?</div=
-><div dir=3D"auto"><br></div><div dir=3D"auto">Cheers,</div><div dir=3D"aut=
-o"><br></div><div dir=3D"auto"><br></div><blockquote class=3D"gmail_quote" =
-style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex" dir=
-=3D"auto"><br>
-<br>
-Fixes: 2209c1e35b47 (&quot;xen/arm: Introduce a generic way to access memor=
-y bank structures&quot;)<br>
-Signed-off-by: Michal Orzel &lt;<a href=3D"mailto:michal.orzel@amd.com" tar=
-get=3D"_blank">michal.orzel@amd.com</a>&gt;<br>
----<br>
-=C2=A0xen/common/device-tree/bootfdt.c | 4 ++--<br>
-=C2=A01 file changed, 2 insertions(+), 2 deletions(-)<br>
-<br>
-diff --git a/xen/common/device-tree/bootfdt.c b/xen/common/device-tree/boot=
-fdt.c<br>
-index 47386d4fffea..511700ccc2ba 100644<br>
---- a/xen/common/device-tree/bootfdt.c<br>
-+++ b/xen/common/device-tree/bootfdt.c<br>
-@@ -27,8 +27,8 @@ static void __init __maybe_unused build_assertions(void)<=
-br>
-=C2=A0 =C2=A0 =C2=A0 */<br>
-=C2=A0 =C2=A0 =C2=A0BUILD_BUG_ON((offsetof(struct membanks, bank) !=3D<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 offsetof(str=
-uct meminfo, bank)));<br>
--=C2=A0 =C2=A0 /* Ensure &quot;struct membanks&quot; is 8-byte aligned */<b=
-r>
--=C2=A0 =C2=A0 BUILD_BUG_ON(alignof(struct membanks) !=3D 8);<br>
-+=C2=A0 =C2=A0 /* Ensure &quot;struct membanks&quot; is paddr aligned */<br=
->
-+=C2=A0 =C2=A0 BUILD_BUG_ON(alignof(struct membanks) !=3D sizeof(paddr_t));=
-<br>
-=C2=A0}<br>
-<br>
-=C2=A0static bool __init device_tree_node_is_available(const void *fdt, int=
- node)<br>
--- <br>
-2.25.1<br>
-<br>
-</blockquote></div></div>
+> --- /dev/null
+> +++ b/xen/include/asm-generic/domain-build.h
+> @@ -0,0 +1,41 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +#ifndef __ASM_GENERIC_DOMAIN_BUILD_H__
+> +#define __ASM_GENERIC_DOMAIN_BUILD_H__
+> +
+> +#include <xen/types.h>
+> +
+> +struct domain;
+> +struct page_info;
+> +struct kernel_info;
+> +struct membanks;
+> +
+> +typedef bool (*alloc_domheap_mem_cb)(struct domain *d, struct page_info *pg,
+> +                                     unsigned int order, void *extra);
+> +bool allocate_domheap_memory(struct domain *d, paddr_t tot_size,
+> +                             alloc_domheap_mem_cb cb, void *extra);
+> +
+> +bool allocate_bank_memory(struct kernel_info *kinfo, gfn_t sgfn,
+> +                          paddr_t tot_size);
 
---000000000000d5c959062cae41d1--
+... the term "bank" seems pretty closely tied to DT. Other stuff ...
+
+> +void allocate_memory(struct domain *d, struct kernel_info *kinfo);
+> +int construct_domain(struct domain *d, struct kernel_info *kinfo);
+> +int make_chosen_node(const struct kernel_info *kinfo);
+> +int make_cpus_node(const struct domain *d, void *fdt);
+> +int make_hypervisor_node(struct domain *d, const struct kernel_info *kinfo,
+> +                         int addrcells, int sizecells);
+> +int make_memory_node(const struct kernel_info *kinfo, int addrcells,
+> +                     int sizecells, const struct membanks *mem);
+> +int make_timer_node(const struct kernel_info *kinfo);
+
+... here also falls in this category. Stuff like this may well live
+under asm-generic/, but the file name chosen then needs to reflect
+constraints.
+
+> +unsigned int get_allocation_size(paddr_t size);
+> +
+> +
+
+Nit: As before - no double blank lines please.
+
+Jan
 
