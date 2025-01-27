@@ -2,38 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7851AA1D523
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 12:15:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.877733.1287879 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B01A4A1D530
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 12:17:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.877741.1287888 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcN5B-0005kC-9Z; Mon, 27 Jan 2025 11:15:09 +0000
+	id 1tcN7D-0006J3-L4; Mon, 27 Jan 2025 11:17:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 877733.1287879; Mon, 27 Jan 2025 11:15:09 +0000
+Received: by outflank-mailman (output) from mailman id 877741.1287888; Mon, 27 Jan 2025 11:17:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcN5B-0005h2-6B; Mon, 27 Jan 2025 11:15:09 +0000
-Received: by outflank-mailman (input) for mailman id 877733;
- Mon, 27 Jan 2025 11:15:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=O4xJ=UT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tcN59-0005gu-IZ
- for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 11:15:07 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f67523d5-dc9f-11ef-a0e6-8be0dac302b0;
- Mon, 27 Jan 2025 12:15:06 +0100 (CET)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-5d9b6b034easo8520136a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 27 Jan 2025 03:15:06 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5dc186183eesm5267645a12.10.2025.01.27.03.15.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Jan 2025 03:15:05 -0800 (PST)
+	id 1tcN7D-0006Gk-Gs; Mon, 27 Jan 2025 11:17:15 +0000
+Received: by outflank-mailman (input) for mailman id 877741;
+ Mon, 27 Jan 2025 11:17:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=9dXK=UT=redhat.com=vschneid@srs-se1.protection.inumbo.net>)
+ id 1tcN7B-0006Ga-Ms
+ for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 11:17:13 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3ff4dc6a-dca0-11ef-99a4-01e77a169b0f;
+ Mon, 27 Jan 2025 12:17:10 +0100 (CET)
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-424-6qqBBGn8Ow-TmUI9ZILVYw-1; Mon, 27 Jan 2025 06:17:08 -0500
+Received: by mail-wm1-f69.google.com with SMTP id
+ 5b1f17b1804b1-4388eee7073so25119425e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Jan 2025 03:17:07 -0800 (PST)
+Received: from vschneid-thinkpadt14sgen2i.remote.csb
+ (213-44-141-166.abo.bbox.fr. [213.44.141.166])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-438bd48a145sm128093025e9.16.2025.01.27.03.17.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Jan 2025 03:17:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,118 +50,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f67523d5-dc9f-11ef-a0e6-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1737976506; x=1738581306; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UCJ5XuZJ+PJiMDlji/FAG2eL5A9cqn6zQ2h8ERWqJN4=;
-        b=dddSMqhFlv/KiQYb6gB63nWMiNZiybe1XcZ1fXKQ0Dw2QfyS6UjrJtt9LBJ9kjHLTF
-         LxJHSk14NtXJQ3ckLTkqaLmVkD1TOXm+yZbS6wNZ4B/khUp1T8zlPwj3hm8IRgtM+Lkz
-         7pLSRcwqaDSM8P9lvMs4nN8C/h7a8CokkFhSbCS2EsLTOhX2Br77//fU2nxyY84OrZQY
-         Tny7MiSWCoBu0ddvB5I0kubGi6vsPNlqvTrUbNfc/hTdkKlBtEukBWpJdABP6xJsaUwE
-         tmAwg0jS7jevXq3h98rRIiucpIuSW/9i3mEHY7W2ZA6H0CcjWKLx8gRuHrPTsYOuncgI
-         qoWg==
+X-Inumbo-ID: 3ff4dc6a-dca0-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1737976629;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0llw80E8nAjg6kMfEOzoPei4nanpbue7YefsY9gW++w=;
+	b=COsELM3dgMzqvxES3yiE/1iCKTW6mckRJV7B8/AVvEmfEs3SAt58Asoo0IgFILoNYu5k29
+	fBFSTjEQXJS4MWwknSPRBkiv8c2Xy/Cc+zdBfzbAHLOzoyM7Z/f6FRWzeb8BFXztoPRlie
+	qe9GX2oHEkEnaCuf0iM8NV5Gi4TtJI8=
+X-MC-Unique: 6qqBBGn8Ow-TmUI9ZILVYw-1
+X-Mimecast-MFC-AGG-ID: 6qqBBGn8Ow-TmUI9ZILVYw
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737976506; x=1738581306;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=UCJ5XuZJ+PJiMDlji/FAG2eL5A9cqn6zQ2h8ERWqJN4=;
-        b=MSOFokS8cVd1UgpAhcN08U38DB0xZ8V5Hfk0CaZV7cDg+yDTFs57LOyCIB5wujZJ9U
-         Bf+i111wFsFE48TA7Yvg/Bue7yJ3hXa40Z790tp1iteHB6KV7ZC6WsbulY9ssjLUvwqT
-         DdKnAlFNfn5cMa2ZrSZFDKb38aF5VimId0R1uOLOTUXH07Afx4Od9i6/igdCUG2P1Yxj
-         h7HC//Hh6e4GK0HXpm+5t8u86WJ4KRhsDMXJRDyOeNkl7S3I5XL7LQi888rzvZs5ogLB
-         07T//8pE8Fq3QvTb01wD64pbiLAYnpgpLMp7RxyRh9r8h3ArOAc4tXW0r05vC2wCCHIH
-         zkCQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWmE2ZwVzj0X0oXZ9JApg59DeRVMpH5wpKmQ7hQs4tB/ODdUedTeMa285yYfBqbOzS3RmrUgTvzMew=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy4yPLgfxMEDX7yWT/fYpG3baC1YUWRDRmrW0Hy/8hpHFQnvqjp
-	wHN5xAGkapqvF6vZLSI0/cN65Jg7ZvTBFNk6ZoIgbPZ9g7+2DE2Cv8vBhrFu2A==
-X-Gm-Gg: ASbGnctHQt6kMQQZuzyUrd3XpdSHpMHyxm0dletP8iZPU+hyN+qsdSDDGMhZUBZp8sQ
-	SeuC/gOLkPlNNqU4qSG/n5z0LjQcPxCl0/uShsNxSj7XQ98OcLasTAO4SpJDjnAhsS0AF6iVcWv
-	0LHgAuklzaelgZ+0c73KGL0H3PztfKmJ8fVOuBXDQo3kWsD1aPoNxnC2dq0IaUKVqlKw5hUUzlj
-	e/x6Lnngd2kgmeSyJ5zBl4ty678uSChB13Q7e8hQ4s1LeLiwju+O4zMCcIEh+5c6Jdfh1D5Wsha
-	arBi89iook7I7/smWGgujds/1hyARQjhRfwGF3xdr3ltBELAppUGOyIu8TCta6OEwg==
-X-Google-Smtp-Source: AGHT+IGHplv2Hzunxl8A4zXSTgfUnZjSWCkfgGRYjL009Q18yAu88aXaGHX5MYflHizB9bhR7AH4YA==
-X-Received: by 2002:a05:6402:1d4e:b0:5db:fcb0:e52b with SMTP id 4fb4d7f45d1cf-5dbfcb0e88amr17490011a12.24.1737976506185;
-        Mon, 27 Jan 2025 03:15:06 -0800 (PST)
-Message-ID: <2f14762e-d302-483c-8adb-3223e6290de0@suse.com>
-Date: Mon, 27 Jan 2025 12:15:08 +0100
+        d=1e100.net; s=20230601; t=1737976627; x=1738581427;
+        h=content-transfer-encoding:mime-version:message-id:date:references
+         :in-reply-to:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=0llw80E8nAjg6kMfEOzoPei4nanpbue7YefsY9gW++w=;
+        b=jzwhF9MzKwzEPGZI2D/tLlSeU0PZelpLnn8vs68+apPz5tmj7fllW5mBmErshj4OvL
+         o9SOJAZXiO8h6A0Je42I+9s4WCNKP8TSTHbweRAMDhTEPuXua9m8+Iek29W0sooPHV2O
+         lCRFUVtRnz+k+OB7S2jR1ztZCOhr+Qk9qmJJ5YhOYt25McgMh52AJSlNfKRn9kMNHgcX
+         HdmSE9MxAklzr3xlt4UbL4P6I8RX8D6FP6i35zazQb22YShPn5bLw1pMsVGdyuTFPJkc
+         qr7yJ+eZtkrMynUtwBEjB2tVXPjyKE4klcuXA5nlo1UBXmUcs0HqGshkzmfyDfI+ARSG
+         Nftg==
+X-Forwarded-Encrypted: i=1; AJvYcCXyNxa2alMeeRo3IGslcgveFarX/Qgo4JF6yNYuBewJlvGMfTL9Mi9x69nZjOFSpnL5cwQlM48Be3k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzJHrsRrDpNZ7vsR68n32unqrLpAQB254JiSh2XNbbVvZP7g29p
+	mO3oSLSiL74Q1ey96DPtXDNp9DU7lYgsNRvXh8ewER4t5Y9dgmyAlQlj03xz5fWQTtzhd+e6VGJ
+	5oonGeWP2nUUD+1fBdDBhl1SX7dxiiqPnMPZN3PS7Ph8McuVZO9sXPWlzKMty1NX8
+X-Gm-Gg: ASbGncvoi14cX1uqGPKSbYvxUhDOmg7CNWJwPgExUKwFTCg3g5mgti9mfRKFuiqV1Vg
+	fRw2CND2EumO2R3veuqbdmjZ5vbXA/FYPCMtjTFnDi5od7T47WGxoUUZLMIHCRujVAMvuYxMCvE
+	1OOBzCfCTLUSZYpQNG/G/NAjhgpRJ51vfZuwl/x2nCmfhsE0Oi68FS9qX0pI8rTYkaO2avPeJT6
+	84E4Dv/TK/hbaNenAzTaD34cI50fbOZ29RpHjAiv8u+K2ZwihF7fPj7Lr/AVDJ4/AlVT7lx5v5Q
+	+po6bITiOK0BXmuHS6f3rlu/TkIqU5oL4sSVrnREP4h8FiSF4U5a20Q7FaeJ1U6lsA==
+X-Received: by 2002:a05:600c:6d46:b0:434:92f8:54a8 with SMTP id 5b1f17b1804b1-438bcfd440dmr101053225e9.0.1737976626882;
+        Mon, 27 Jan 2025 03:17:06 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IE5ZBkhc7Mo57S55YqkWjUaKcE0DvJ7v1EsH72AA8CbL1E0vvN/eQHzrpNG4sI4i71C/vJTUQ==
+X-Received: by 2002:a05:600c:6d46:b0:434:92f8:54a8 with SMTP id 5b1f17b1804b1-438bcfd440dmr101052395e9.0.1737976626396;
+        Mon, 27 Jan 2025 03:17:06 -0800 (PST)
+From: Valentin Schneider <vschneid@redhat.com>
+To: Frederic Weisbecker <frederic@kernel.org>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
+ virtualization@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+ linux-perf-users@vger.kernel.org, xen-devel@lists.xenproject.org,
+ kvm@vger.kernel.org, linux-arch@vger.kernel.org, rcu@vger.kernel.org,
+ linux-hardening@vger.kernel.org, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, bpf@vger.kernel.org,
+ bcm-kernel-feedback-list@broadcom.com, Juergen Gross <jgross@suse.com>,
+ Ajay Kaher <ajay.kaher@broadcom.com>, Alexey Makhalov
+ <alexey.amakhalov@broadcom.com>, Russell King <linux@armlinux.org.uk>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, Paul
+ Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave
+ Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ Peter Zijlstra <peterz@infradead.org>, Arnaldo Carvalho de Melo
+ <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Mark Rutland
+ <mark.rutland@arm.com>, Alexander Shishkin
+ <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, Ian
+ Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
+ "Liang, Kan" <kan.liang@linux.intel.com>, Boris Ostrovsky
+ <boris.ostrovsky@oracle.com>, Josh Poimboeuf <jpoimboe@kernel.org>, Pawan
+ Gupta <pawan.kumar.gupta@linux.intel.com>, Sean Christopherson
+ <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, Andy Lutomirski
+ <luto@kernel.org>, Arnd Bergmann <arnd@arndb.de>, "Paul E. McKenney"
+ <paulmck@kernel.org>, Jason Baron <jbaron@akamai.com>, Steven Rostedt
+ <rostedt@goodmis.org>, Ard Biesheuvel <ardb@kernel.org>, Neeraj Upadhyay
+ <neeraj.upadhyay@kernel.org>, Joel Fernandes <joel@joelfernandes.org>,
+ Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun.feng@gmail.com>,
+ Uladzislau Rezki <urezki@gmail.com>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>,
+ Zqiang <qiang.zhang1211@gmail.com>, Juri Lelli <juri.lelli@redhat.com>,
+ Clark Williams <williams@redhat.com>, Yair Podemsky <ypodemsk@redhat.com>,
+ Tomas Glozar <tglozar@redhat.com>, Vincent Guittot
+ <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Kees Cook
+ <kees@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Christoph
+ Hellwig <hch@infradead.org>, Shuah Khan <shuah@kernel.org>, Sami Tolvanen
+ <samitolvanen@google.com>, Miguel Ojeda <ojeda@kernel.org>, Alice Ryhl
+ <aliceryhl@google.com>, "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Samuel Holland <samuel.holland@sifive.com>, Rong Xu <xur@google.com>,
+ Nicolas Saenz Julienne <nsaenzju@redhat.com>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, Yosry Ahmed <yosryahmed@google.com>, "Kirill A.
+ Shutemov" <kirill.shutemov@linux.intel.com>, "Masami Hiramatsu (Google)"
+ <mhiramat@kernel.org>, Jinghao Jia <jinghao7@illinois.edu>, Luis
+ Chamberlain <mcgrof@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
+ Tiezhu Yang <yangtiezhu@loongson.cn>
+Subject: Re: [PATCH v4 22/30] context_tracking: Exit CT_STATE_IDLE upon
+ irq/nmi entry
+In-Reply-To: <Z5A6NPqVGoZ32YsN@pavilion.home>
+References: <20250114175143.81438-1-vschneid@redhat.com>
+ <20250114175143.81438-23-vschneid@redhat.com>
+ <Z5A6NPqVGoZ32YsN@pavilion.home>
+Date: Mon, 27 Jan 2025 12:17:03 +0100
+Message-ID: <xhsmh5xm0pkuo.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/9] asm-generic: move parts of Arm's asm/kernel.h to
- asm-generic
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1736334615.git.oleksii.kurochko@gmail.com>
- <6404cb5ae077909cbfdf3860d38c701c65547b56.1736334615.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6404cb5ae077909cbfdf3860d38c701c65547b56.1736334615.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 9me6uozEWVqStNDV69xWT4h7W4jVdvPAoK3C5jluVxA_1737976627
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 08.01.2025 12:13, Oleksii Kurochko wrote:
-> Move the following parts to asm-generic with the following changes:
-> - struct kernel_info:
->   - Create arch_kernel_info for arch specific kernel information.
->     At the moment, it contains domain_type for Arm.
->   - Rename vpl011 to vuart to have more generic name suitable for other archs.
->   - s/phandle_gic/phandle_intc to have more generic name suitable for other
->     archs.
->   - Make text_offset of zimage structure available for RISCV_64.
-> - Wrap by `#ifdef KERNEL_INFO_SHM_MEM_INIT` definition of KERNEL_SHM_MEM_INIT
->   and wrap by `#ifndef KERNEL_INFO_INIT` definition of KERNEL_INFO_INIT to have
->   ability to override KERNEL_INFO_SHM_MEM_INIT for arch in case it doesn't
->   want to use generic one.
-> - All other parts are left as is from Arm's asm/kernel.h
-> 
-> Because of the changes in struct kernel_info the correspondent parts of Arm's
-> code are updated.
-> 
-> As part of this patch the following clean up happens:
-> - Drop asm/setup.h from asm/kernel.h as nothing depends from it.
->   Add inclusion of asm/setup.h for a code which uses device_tree_get_reg() to
->   avoid compilation issues for CONFIG_STATIC_MEMORY and CONFIG_STATIC_SHM.
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+On 22/01/25 01:22, Frederic Weisbecker wrote:
+> Le Tue, Jan 14, 2025 at 06:51:35PM +0100, Valentin Schneider a =C3=A9crit=
+ :
+>> ct_nmi_{enter, exit}() only touches the RCU watching counter and doesn't
+>> modify the actual CT state part context_tracking.state. This means that
+>> upon receiving an IRQ when idle, the CT_STATE_IDLE->CT_STATE_KERNEL
+>> transition only happens in ct_idle_exit().
+>>
+>> One can note that ct_nmi_enter() can only ever be entered with the CT st=
+ate
+>> as either CT_STATE_KERNEL or CT_STATE_IDLE, as an IRQ/NMI happenning in =
+the
+>> CT_STATE_USER or CT_STATE_GUEST states will be routed down to ct_user_ex=
+it().
+>
+> Are you sure? An NMI can fire between guest_state_enter_irqoff() and
+> __svm_vcpu_run().
 
-I question that what is being moved qualifies for asm-generic, an in particular
-for a header named kernel.h. Some of what you move may make sense to move to
-dom0less-build.h instead. But everything that doesn't fit there needs to find
-a different home, imo.
+Urgh, you're quite right.
 
-Jan
+> And NMIs interrupting userspace don't call
+> enter_from_user_mode(). In fact they don't call irqentry_enter_from_user_=
+mode()
+> like regular IRQs but irqentry_nmi_enter() instead. Well that's for archs
+> implementing common entry code, I can't speak for the others.
+>
+
+That I didn't realize, so thank you for pointing it out. Having another
+look now, I mistook DEFINE_IDTENTRY_RAW(exc_int3) for the general case
+when it really isn't :(
+
+> Unifying the behaviour between user and idle such that the IRQs/NMIs exit=
+ the
+> CT_STATE can be interesting but I fear this may not come for free. You wo=
+uld
+> need to save the old state on IRQ/NMI entry and restore it on exit.
+>
+
+That's what I tried to avoid, but it sounds like there's no nice way around=
+ it.
+
+> Do we really need it?
+>
+
+Well, my problem with not doing IDLE->KERNEL transitions on IRQ/NMI is that
+this leads the IPI deferral logic to observe a technically-out-of-sync sate
+for remote CPUs. Consider:
+
+  CPUx            CPUy
+                    state :=3D CT_STATE_IDLE
+                    ...
+                    ~>IRQ
+                    ...
+                    ct_nmi_enter()
+                    [in the kernel proper by now]
+
+  text_poke_bp_batch()
+    ct_set_cpu_work(CPUy, CT_WORK_SYNC)
+      READ CPUy ct->state
+      `-> CT_IDLE_STATE
+      `-> defer IPI
+
+
+I thought this meant I would need to throw out the "defer IPIs if CPU is
+idle" part, but AIUI this also affects CT_STATE_USER and CT_STATE_GUEST,
+which is a bummer :(
+
 
