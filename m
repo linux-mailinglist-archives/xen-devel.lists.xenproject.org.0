@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC730A1D9BD
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 16:43:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.878042.1288215 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7AEFA1D9D0
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 16:44:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.878048.1288226 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcRGP-0008OY-LN; Mon, 27 Jan 2025 15:43:01 +0000
+	id 1tcRHN-0000Tr-V2; Mon, 27 Jan 2025 15:44:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 878042.1288215; Mon, 27 Jan 2025 15:43:01 +0000
+Received: by outflank-mailman (output) from mailman id 878048.1288226; Mon, 27 Jan 2025 15:44:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcRGP-0008Le-IZ; Mon, 27 Jan 2025 15:43:01 +0000
-Received: by outflank-mailman (input) for mailman id 878042;
- Mon, 27 Jan 2025 15:43:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tcRHN-0000SA-R8; Mon, 27 Jan 2025 15:44:01 +0000
+Received: by outflank-mailman (input) for mailman id 878048;
+ Mon, 27 Jan 2025 15:44:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N5Z6=UT=infradead.org=willy@srs-se1.protection.inumbo.net>)
- id 1tcRGO-0008Km-03
- for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 15:43:00 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 617af748-dcc5-11ef-99a4-01e77a169b0f;
- Mon, 27 Jan 2025 16:42:58 +0100 (CET)
-Received: from willy by casper.infradead.org with local (Exim 4.98 #2 (Red Hat
- Linux)) id 1tcRG3-00000009b8r-2Zcd; Mon, 27 Jan 2025 15:42:39 +0000
+ <SRS0=fFPb=UT=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1tcRHM-0000S2-8V
+ for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 15:44:00 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 863c4ba6-dcc5-11ef-a0e6-8be0dac302b0;
+ Mon, 27 Jan 2025 16:43:59 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3862d161947so2377937f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Jan 2025 07:43:59 -0800 (PST)
+Received: from localhost (0545937c.skybroadband.com. [5.69.147.124])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-438bd48574csm137098645e9.9.2025.01.27.07.43.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 27 Jan 2025 07:43:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,66 +45,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 617af748-dcc5-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=754tTQ0Xv0FV1pAPiQ7XMzOqvV5Ru3eT2/4MtIxHkKc=; b=Pyozw0tsKLD9gp97o+N6ZbHkTo
-	Il8/2Vpa4F0aqTQ5eLNtncdojFavxqC+3hOoMyt2pPZYgpxoa7oSXp+1z19h2FwdJ9ksectEr6L5y
-	pdndzuM9IJbuYbMGyY8OnttTeia0ZsfUEQN3vE3Kvu3ywzVzVm7PiaoVN1j+XGx7cGtNMyIWcHM2K
-	IHU9EJmiTnsw2atKedPjlIYgnndG3plYffG/psV0clxoDlPsLg9vBJ8MCt7RCyZQNR2Rl4uIk2hOI
-	SGpvgckCCBw+KC2Pto4K/lzMPYNt+Lyqoqjs99RL8H5P/AQH7nlJDuMDpJ1IZ/IMsyAIp8YsG+ytq
-	PlpOQ/eA==;
-Date: Mon, 27 Jan 2025 15:42:39 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: Jani Nikula <jani.nikula@intel.com>
-Cc: Joel Granados <joel.granados@kernel.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>,
-	Kees Cook <kees@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
-	linux-s390@vger.kernel.org, linux-crypto@vger.kernel.org,
-	openipmi-developer@lists.sourceforge.net,
-	intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
-	linux-rdma@vger.kernel.org, linux-raid@vger.kernel.org,
-	linux-scsi@vger.kernel.org, linux-serial@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-aio@kvack.org,
-	linux-fsdevel@vger.kernel.org, netfs@lists.linux.dev,
-	codalist@coda.cs.cmu.edu, linux-mm@kvack.org,
-	linux-nfs@vger.kernel.org, ocfs2-devel@lists.linux.dev,
-	fsverity@lists.linux.dev, linux-xfs@vger.kernel.org,
-	io-uring@vger.kernel.org, bpf@vger.kernel.org,
-	kexec@lists.infradead.org, linux-trace-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org, apparmor@lists.ubuntu.com,
-	linux-security-module@vger.kernel.org, keyrings@vger.kernel.org,
-	Song Liu <song@kernel.org>,
-	"Steven Rostedt (Google)" <rostedt@goodmis.org>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Corey Minyard <cminyard@mvista.com>
-Subject: Re: Re: Re: [PATCH v2] treewide: const qualify ctl_tables where
- applicable
-Message-ID: <Z5epb86xkHQ3BLhp@casper.infradead.org>
-References: <20250110-jag-ctl_table_const-v2-1-0000e1663144@kernel.org>
- <Z4+jwDBrZNRgu85S@li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com>
- <nslqrapp4v3rknjgtfk4cg64ha7rewrrg24aslo2e5jmxfwce5@t4chrpuk632k>
- <CAMj1kXEZPe8zk7s67SADK9wVH3cfBup-sAZSC6_pJyng9QT7aw@mail.gmail.com>
- <f4lfo2fb7ajogucsvisfd5sg2avykavmkizr6ycsllcrco4mo3@qt2zx4zp57zh>
- <87jzag9ugx.fsf@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87jzag9ugx.fsf@intel.com>
+X-Inumbo-ID: 863c4ba6-dcc5-11ef-a0e6-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1737992639; x=1738597439; darn=lists.xenproject.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=AuMOHJudoXPgzPtgSV+ojiBsyso+cl8f7sg2TFlWHh0=;
+        b=OkUue7ZhSFRPUzKVBsvlSkMg66Fx4EnNbOAYvARwOChk0JhZ3FKTSbJHXD6pjx6pr2
+         JPzcKCeLgzKxSZuOFGTkKZRFJILI9wcrjD055/8PbgwOrr3SqFYWZguFkrse72HwVCML
+         mzkpe+1hhD5eNx2qo/RqfiD4C7WgMrXKBho+c=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1737992639; x=1738597439;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=AuMOHJudoXPgzPtgSV+ojiBsyso+cl8f7sg2TFlWHh0=;
+        b=dF0zXhnijY1auYfgZE6I1dnNAa8pO/emAcwZ/VURE6uQaJTYAC/CJV+NKgAjza798E
+         53n6BLwC6XqML8KHKuiFOm+s5MKWDcFAVp4WP2iJDQXg2WSPdx+aWqVNUY47lxfljORz
+         rgOJry4wOWSgGJ/UFTTNFXrXM/hNpxGY5nFdWgzc6WmA5Y5uhxRi6WTlZt2f8zi4/iCh
+         ticMiJt8Y84r1UierCK9Yy0UmNVlI9mKaqLA+vDDr467PMsYjhINOiphMKt55Y2c9G13
+         +izzQxnogmPRq0thqQpAyJB25BcD6jA6JxRL5s219bZx5f9dti16NAOWRGfHRDZC0o9h
+         q8ew==
+X-Forwarded-Encrypted: i=1; AJvYcCW/Hp4LxEPvyBxc9FrM27EaKfwNi9Ww2pwsWvbcg0w3Y6AZB2qExQZaxd3ueJ3FhAJX30HWE+zLACY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz50Z9yHZw95xy0EZgN9oGwW58kZteqJ2nnVpAFwwzR1mSLekjf
+	CiPthhwK+VJWLZk9/ONyPmzK/A0fxHN4G3kONzcv7UTaMaeUvgbo/XsXtvMDbH0=
+X-Gm-Gg: ASbGncu7GOMMK953OGHUK48IOr7jgVqPgdrxM9i5KG4hSEQFtyy7y0kC9JqMCF+d0+4
+	TL6It6O43SVQQ3IBN6wAcmTGOKpXGmqSf6sa5h0ZCGSh6tacSyBySGb5Pj19IkNp35jcZp27waJ
+	GJOErjjXt/snGeETugkXh+xXQGneyKDIqAivp3EGFAP2oj+Cmk++/rhJZylY1dKw2iyQL/Lu+rS
+	bz8axkTAFji7zzXvkeSWXsoX7vBdRDG0KLGIWbF8KRSkxLgjZhDXDl0nlqz+pgl5Ynu7252OLjh
+	SerQDbxcvebr67FfpPQI6VLkVN++KE+BJjc=
+X-Google-Smtp-Source: AGHT+IE28Ua4x5CtYdEPb/xGIcmnu7/aDKftHQsHftpAeED79woDN2BQ2y+mt59dCALNsoLEIWl3Ow==
+X-Received: by 2002:a05:6000:1888:b0:385:fb59:8358 with SMTP id ffacd0b85a97d-38bf57bd745mr33693302f8f.53.1737992638668;
+        Mon, 27 Jan 2025 07:43:58 -0800 (PST)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 27 Jan 2025 15:43:54 +0000
+Message-Id: <D7CYYY32L980.13KVUVEGKDHK@cloud.com>
+Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>,
+ =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v3 10/12] x86/fpu: Pass explicit xsave areas to
+ fpu_(f)xsave()
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+To: "Jan Beulich" <jbeulich@suse.com>
+X-Mailer: aerc 0.18.2
+References: <20250110132823.24348-1-alejandro.vallejo@cloud.com>
+ <20250110132823.24348-11-alejandro.vallejo@cloud.com>
+ <5c0f2096-32ec-4d08-83be-6153f4a637e3@suse.com>
+In-Reply-To: <5c0f2096-32ec-4d08-83be-6153f4a637e3@suse.com>
 
-On Mon, Jan 27, 2025 at 04:55:58PM +0200, Jani Nikula wrote:
-> You could have static const within functions too. You get the rodata
-> protection and function local scope, best of both worlds?
+On Mon Jan 27, 2025 at 11:01 AM GMT, Jan Beulich wrote:
+> On 10.01.2025 14:28, Alejandro Vallejo wrote:
+> > No functional change.
+> >=20
+> > Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> > ---
+> > v2->v3:
+> >   * const-ified v in fpu_fxsave() (missing in v2)
+>
+> Sadly this has rendered ...
+>
+> > --- a/xen/arch/x86/i387.c
+> > +++ b/xen/arch/x86/i387.c
+> > @@ -129,7 +129,7 @@ static inline uint64_t vcpu_xsave_mask(const struct=
+ vcpu *v)
+> >  }
+> > =20
+> >  /* Save x87 extended state */
+> > -static inline void fpu_xsave(struct vcpu *v)
+> > +static inline void fpu_xsave(const struct vcpu *v, struct xsave_struct=
+ *xsave_area)
+>
+> ... this line too long now. With it suitably wrapped (possibly doable whi=
+le
+> committing, if no other reason for a v4 appears)
 
-timer_active is on the stack, so it can't be static const.
+Bah, yes. You're right. I don't mind it being adjusted on commit.
 
-Does this really need to be cc'd to such a wide distribution list?
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+>
+> Jan
+
+Cheers,
+Alejandro
 
