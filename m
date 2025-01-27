@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8442A1D8DA
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 15:56:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.878003.1288176 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7701FA1D904
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 16:09:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.878012.1288186 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcQXE-0006xx-Io; Mon, 27 Jan 2025 14:56:20 +0000
+	id 1tcQjV-0000kG-Jg; Mon, 27 Jan 2025 15:09:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 878003.1288176; Mon, 27 Jan 2025 14:56:20 +0000
+Received: by outflank-mailman (output) from mailman id 878012.1288186; Mon, 27 Jan 2025 15:09:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcQXE-0006w5-FO; Mon, 27 Jan 2025 14:56:20 +0000
-Received: by outflank-mailman (input) for mailman id 878003;
- Mon, 27 Jan 2025 14:56:19 +0000
+	id 1tcQjV-0000iG-GV; Mon, 27 Jan 2025 15:09:01 +0000
+Received: by outflank-mailman (input) for mailman id 878012;
+ Mon, 27 Jan 2025 15:08:59 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=20UT=UT=intel.com=jani.nikula@srs-se1.protection.inumbo.net>)
- id 1tcQXC-0006vx-O4
- for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 14:56:18 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ <SRS0=jIzP=UT=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tcQjT-0000iA-Rx
+ for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 15:08:59 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id da6e4289-dcbe-11ef-99a4-01e77a169b0f;
- Mon, 27 Jan 2025 15:56:15 +0100 (CET)
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2025 06:56:13 -0800
-Received: from bergbenj-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.14])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2025 06:56:01 -0800
+ id a1b8a6ea-dcc0-11ef-99a4-01e77a169b0f;
+ Mon, 27 Jan 2025 16:08:57 +0100 (CET)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-5d3e6274015so8550531a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Jan 2025 07:08:57 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab69095d6c8sm380218466b.104.2025.01.27.07.08.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Jan 2025 07:08:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,136 +44,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: da6e4289-dcbe-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1737989775; x=1769525775;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=jgZ2GO8S3cXCdWyE6ZvOdFoqm0rhCqZC3ICQKad44uQ=;
-  b=WVed1oKVFkzK/oETPO0J8VpsIwi4ypJTg0lX+AcJEgqH+erXdJNaC/zx
-   vwuxJ5EvFrKw8crBjfrH3OrZkmYyiIBfNFMF7HidrQkt6uq0J8zqSAp/C
-   45ZUNEiKIjk56k4gUxBaq3cmZw4dCPXjJfc0nYZR7zJGhVo2kmA6NEUXR
-   0KWBG3Cls9htsZqhlU+aXWYz+V2nSgl8rO7BSXBFLVrHPboFTM4jos7U7
-   sXSVvlfFUG6DsyEBbPRooxxmuhyYGXhs3SfVRgtB3m5OhDLEzWHgORxHb
-   nG6Ys7jT0v1Ol5wgE5vgBrxk+WOrx/f94U1RMMbUu5Eo/yUWua9d7E6Dh
-   w==;
-X-CSE-ConnectionGUID: PPON44NnRBuQKp9ydgWp4Q==
-X-CSE-MsgGUID: f0RySWx5RBqyp9yR5Sazgw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11328"; a="49104678"
-X-IronPort-AV: E=Sophos;i="6.13,238,1732608000"; 
-   d="scan'208";a="49104678"
-X-CSE-ConnectionGUID: Z9Coz29cQ6uqfPwc/L4sHg==
-X-CSE-MsgGUID: XE2pskZGQO2Q6A9y4rThjA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; 
-   d="scan'208";a="113598177"
-From: Jani Nikula <jani.nikula@intel.com>
-To: Joel Granados <joel.granados@kernel.org>, Ard Biesheuvel <ardb@kernel.org>
-Cc: Alexander Gordeev <agordeev@linux.ibm.com>, Thomas =?utf-8?Q?Wei=C3=9F?=
- =?utf-8?Q?schuh?=
- <linux@weissschuh.net>, Kees Cook <kees@kernel.org>, Luis Chamberlain
- <mcgrof@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-crypto@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-raid@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-serial@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-aio@kvack.org,
- linux-fsdevel@vger.kernel.org, netfs@lists.linux.dev,
- codalist@coda.cs.cmu.edu, linux-mm@kvack.org, linux-nfs@vger.kernel.org,
- ocfs2-devel@lists.linux.dev, fsverity@lists.linux.dev,
- linux-xfs@vger.kernel.org, io-uring@vger.kernel.org, bpf@vger.kernel.org,
- kexec@lists.infradead.org, linux-trace-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org, apparmor@lists.ubuntu.com,
- linux-security-module@vger.kernel.org, keyrings@vger.kernel.org, Song Liu
- <song@kernel.org>, "Steven Rostedt (Google)" <rostedt@goodmis.org>,
- "Martin K. Petersen" <martin.petersen@oracle.com>, "Darrick J. Wong"
- <djwong@kernel.org>, Corey Minyard <cminyard@mvista.com>
-Subject: Re: Re: Re: [PATCH v2] treewide: const qualify ctl_tables where
- applicable
-In-Reply-To: <f4lfo2fb7ajogucsvisfd5sg2avykavmkizr6ycsllcrco4mo3@qt2zx4zp57zh>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20250110-jag-ctl_table_const-v2-1-0000e1663144@kernel.org>
- <Z4+jwDBrZNRgu85S@li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com>
- <nslqrapp4v3rknjgtfk4cg64ha7rewrrg24aslo2e5jmxfwce5@t4chrpuk632k>
- <CAMj1kXEZPe8zk7s67SADK9wVH3cfBup-sAZSC6_pJyng9QT7aw@mail.gmail.com>
- <f4lfo2fb7ajogucsvisfd5sg2avykavmkizr6ycsllcrco4mo3@qt2zx4zp57zh>
-Date: Mon, 27 Jan 2025 16:55:58 +0200
-Message-ID: <87jzag9ugx.fsf@intel.com>
+X-Inumbo-ID: a1b8a6ea-dcc0-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1737990537; x=1738595337; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Pqg/8C+rq1Z7I8x8tR8XZfMwe9rEjvF9C4goOoYa7jk=;
+        b=Kq097DiZrOuS0hyYDW1iUTSxxWiCkZdfF1uCoWAOek4k/+Phe8y5rYVxv7pdoHmxyE
+         wIKvDo8orZwDY/3rpDZ7hejKDy+a51OCIsq51upZ6Zhp+Sjhj9MrRHRclEfYjZ3gzQJp
+         6M2kD5zayRi3hbw4DRT+XfE9wLFiJ/SFWXkKM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1737990537; x=1738595337;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Pqg/8C+rq1Z7I8x8tR8XZfMwe9rEjvF9C4goOoYa7jk=;
+        b=lepJF/cUJTNpqKBRTQiDTH15khoZhYYQdfQt9NXEJsTjm2W8nBp6sO4sFkXnBWZ0Ep
+         tqa9t7ODNWW6RdTYkgPjRgTarHH77WZ0zi9GPNQNaAfRizZCx9UyFhv9x7VGSDJyXf5v
+         e/y0xHRHRXftZHGwnQXhR5dJRw4cE1DKSFee5KAU/D9u8qBqgY/kyw6ncQixENbbl7Jf
+         T4X46pijJ9bB7jco+lvy+fOi0mpX4iA0ziXwb5/NrWciFNpGWM1hgu+kp1sUkLUfwYHB
+         EB6nFAkuyvsi+A4iDBPogEEUX7Ish9SocwOOW8isj+l5SVHdAInZUe+GiI362vKKvhLi
+         x+Bw==
+X-Forwarded-Encrypted: i=1; AJvYcCXkb3nQ6twew95pTOBSJ9wOaPinoXNtga3tC17aPhK+0IyexiNwedFWdza2diP8Mj74XRtAebBwd/w=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyYGCAl68z2igoAhBbKLpqnCHrYPJ4UDh6tWXdOqvKVePENI5nF
+	sNekxk/vXj3QSPNOxE8CEUFldw36YQ8+egDrajFdQgsU2ZH+99BAQ4ttvrqfCwg=
+X-Gm-Gg: ASbGncsbAZSCtbYMC7HkFMbrxyF1vUCbtkteClAnTehLJz5u0SKIVLGJkygaHf1tUAm
+	99DNCkFwKr+nVSuw+l+yse1NCWx8JNoDXXGtH8ZfC4qAlCts71j2NtsWyZhIq1wKobTpif2j6bT
+	bvZ5BtYykwMJnWPuo1S/hzasw2AdyActviS1gD9eu6z1rlygsBbIIlARu1MxAiSssM7ND8t61Qz
+	EUvCS2a+QYpGTdHAPeNLDip36KF6l+x6RhwrCL0zoc+BKySxx30m0ClgFuxVMoBiAQ3ZWn/Z/kl
+	Tt77gohzwQ==
+X-Google-Smtp-Source: AGHT+IEcjQPQqADvho5JeuBDBOESkaQg+b+CsH7vZGYyRdvBPkdKfqHB0dYQ800ODIZpn1su0ZrFTw==
+X-Received: by 2002:a17:907:7fa3:b0:aa6:707a:af59 with SMTP id a640c23a62f3a-ab38b4c6b1amr4181681866b.50.1737990537115;
+        Mon, 27 Jan 2025 07:08:57 -0800 (PST)
+Date: Mon, 27 Jan 2025 16:08:55 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Jiqian Chen <Jiqian.Chen@amd.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Huang Rui <ray.huang@amd.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v6] vpci: Add resizable bar support
+Message-ID: <Z5ehh9IK3W8fLXIl@macbook.local>
+References: <20250123035003.3797022-1-Jiqian.Chen@amd.com>
+ <2f34ba33-070e-4c02-a7e5-71451553a23e@suse.com>
+ <Z5ebGImjSz-55Nkj@macbook.local>
+ <9a4ed1f8-0cbf-4df5-804e-78cc3ee1d777@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <9a4ed1f8-0cbf-4df5-804e-78cc3ee1d777@suse.com>
 
-On Mon, 27 Jan 2025, Joel Granados <joel.granados@kernel.org> wrote:
-> On Wed, Jan 22, 2025 at 01:41:35PM +0100, Ard Biesheuvel wrote:
->> On Wed, 22 Jan 2025 at 13:25, Joel Granados <joel.granados@kernel.org> wrote:
->> >
->> > On Tue, Jan 21, 2025 at 02:40:16PM +0100, Alexander Gordeev wrote:
->> > > On Fri, Jan 10, 2025 at 03:16:08PM +0100, Joel Granados wrote:
->> > >
->> > > Hi Joel,
->> > >
->> > > > Add the const qualifier to all the ctl_tables in the tree except for
->> > > > watchdog_hardlockup_sysctl, memory_allocation_profiling_sysctls,
->> > > > loadpin_sysctl_table and the ones calling register_net_sysctl (./net,
->> > > > drivers/inifiniband dirs). These are special cases as they use a
->> > > > registration function with a non-const qualified ctl_table argument or
->> > > > modify the arrays before passing them on to the registration function.
->> > > >
->> > > > Constifying ctl_table structs will prevent the modification of
->> > > > proc_handler function pointers as the arrays would reside in .rodata.
->> > > > This is made possible after commit 78eb4ea25cd5 ("sysctl: treewide:
->> > > > constify the ctl_table argument of proc_handlers") constified all the
->> > > > proc_handlers.
->> > >
->> > > I could identify at least these occurences in s390 code as well:
->> > Hey Alexander
->> >
->> > Thx for bringing these to my attention. I had completely missed them as
->> > the spatch only deals with ctl_tables outside functions.
->> >
->> > Short answer:
->> > These should not be included in the current patch because they are a
->> > different pattern from how sysctl tables are usually used. So I will not
->> > include them.
->> >
->> > With that said, I think it might be interesting to look closer at them
->> > as they seem to be complicating the proc_handler (I have to look at them
->> > closer).
->> >
->> > I see that they are defining a ctl_table struct within the functions and
->> > just using the data (from the incoming ctl_table) to forward things down
->> > to proc_do{u,}intvec_* functions. This is very odd and I have only seen
->> > it done in order to change the incoming ctl_table (which is not what is
->> > being done here).
->> >
->> > I will take a closer look after the merge window and circle back with
->> > more info. Might take me a while as I'm not very familiar with s390
->> > code; any additional information on why those are being used inside the
->> > functions would be helpfull.
->> >
->> 
->> Using const data on the stack is not as useful, because the stack is
->> always mapped writable.
->> 
->> Global data structures marked 'const' will be moved into an ELF
->> section that is typically mapped read-only in its entirely, and so the
->> data cannot be modified by writing to it directly. No such protection
->> is possible for the stack, and so the constness there is only enforced
->> at compile time.
-> I completely agree with you. No reason to use const within those
-> functions. But why define those ctl_tables in function to begin with.
-> Can't you just use the ones that are defined outside the functions?
+On Mon, Jan 27, 2025 at 03:52:31PM +0100, Jan Beulich wrote:
+> On 27.01.2025 15:41, Roger Pau Monné wrote:
+> > On Mon, Jan 27, 2025 at 03:20:40PM +0100, Jan Beulich wrote:
+> >> On 23.01.2025 04:50, Jiqian Chen wrote:
+> >>> v5->v6 changes:
+> >>> * Changed "1UL" to "1ULL" in PCI_REBAR_CTRL_SIZE idefinition for 32 bit architecture.
+> >>> * In rebar_ctrl_write used "bar - pdev->vpci->header.bars" to get index instead of reading
+> >>>   from register.
+> >>> * Added the index of BAR to error messages.
+> >>> * Changed to "continue" instead of "return an error" when vpci_add_register failed.
+> >>
+> >> I'm not convinced this was a good change to make. While ...
+> >>
+> >>> +static int cf_check init_rebar(struct pci_dev *pdev)
+> >>> +{
+> >>> +    uint32_t ctrl;
+> >>> +    unsigned int nbars;
+> >>> +    unsigned int rebar_offset = pci_find_ext_capability(pdev->sbdf,
+> >>> +                                                        PCI_EXT_CAP_ID_REBAR);
+> >>> +
+> >>> +    if ( !rebar_offset )
+> >>> +        return 0;
+> >>> +
+> >>> +    if ( !is_hardware_domain(pdev->domain) )
+> >>> +    {
+> >>> +        printk(XENLOG_ERR "%pp: resizable BARs unsupported for unpriv %pd\n",
+> >>> +               &pdev->sbdf, pdev->domain);
+> >>> +        return -EOPNOTSUPP;
+> >>> +    }
+> >>> +
+> >>> +    ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL(0));
+> >>> +    nbars = MASK_EXTR(ctrl, PCI_REBAR_CTRL_NBAR_MASK);
+> >>> +    for ( unsigned int i = 0; i < nbars; i++ )
+> >>> +    {
+> >>> +        int rc;
+> >>> +        struct vpci_bar *bar;
+> >>> +        unsigned int index;
+> >>> +
+> >>> +        ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL(i));
+> >>> +        index = ctrl & PCI_REBAR_CTRL_BAR_IDX;
+> >>> +        if ( index >= PCI_HEADER_NORMAL_NR_BARS )
+> >>> +        {
+> >>> +            printk(XENLOG_ERR "%pd %pp: too big BAR number %u in REBAR_CTRL\n",
+> >>> +                   pdev->domain, &pdev->sbdf, index);
+> >>> +            continue;
+> >>> +        }
+> >>> +
+> >>> +        bar = &pdev->vpci->header.bars[index];
+> >>> +        if ( bar->type != VPCI_BAR_MEM64_LO && bar->type != VPCI_BAR_MEM32 )
+> >>> +        {
+> >>> +            printk(XENLOG_ERR "%pd %pp: BAR%u is not in memory space\n",
+> >>> +                   pdev->domain, &pdev->sbdf, index);
+> >>> +            continue;
+> >>> +        }
+> >>
+> >> ... for these two cases we can permit Dom0 direct access because the BAR
+> >> isn't going to work anyway (as far as we can tell), ...
+> >>
+> >>> +        rc = vpci_add_register(pdev->vpci, vpci_hw_read32vpci_hw_read32, vpci_hw_write32,
+> >>> +                               rebar_offset + PCI_REBAR_CAP(i), 4, NULL);
+> >>> +        if ( rc )
+> >>> +        {
+> >>> +            /*
+> >>> +             * TODO: for failed pathes, need to hide ReBar capability
+> >>> +             * from hardware domain instead of returning an error.
+> >>> +             */
+> >>> +            printk(XENLOG_ERR "%pd %pp: BAR%u fail to add reg of REBAR_CAP rc=%d\n",
+> >>> +                   pdev->domain, &pdev->sbdf, index, rc);
+> >>> +            continue;
+> >>> +        }
+> >>> +
+> >>> +        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, rebar_ctrl_write,
+> >>> +                               rebar_offset + PCI_REBAR_CTRL(i), 4, bar);
+> >>> +        if ( rc )
+> >>> +        {
+> >>> +            printk(XENLOG_ERR "%pd %pp: BAR%u fail to add reg of REBAR_CTRL rc=%d\n",
+> >>> +                   pdev->domain, &pdev->sbdf, index, rc);
+> >>> +            continue;
+> >>> +        }
+> >>
+> >> ... in these two cases we had an issue internally, and would hence wrongly
+> >> allow Dom0 direct access (and in case it's the 2nd one that failed, in fact
+> >> only partially direct access, with who knows what resulting inconsistencies).
+> >>
+> >> Only with this particular change undone:
+> > R> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> >>
+> >> Otherwise you and Roger (who needs to at least ack the change anyway) will
+> >> need to sort that out, with me merely watching.
+> > 
+> > Ideally errors here should be dealt with by masking the capability.
+> > However Xen doesn't yet have that support.  The usage of continue is
+> > to merely attempt to keep any possible setup hooks working (header,
+> > MSI, MSI-X). Returning failure from init_rebar() will cause all
+> > vPCI hooks to be removed, and thus the hardware domain to have
+> > unmediated access to the device, which is likely worse than just
+> > continuing here.
+> 
+> Hmm, true. Maybe with the exception of the case where the first reg
+> registration works, but the 2nd fails. Since CTRL is writable but
+> CAP is r/o (and data there is simply being handed through) I wonder
+> whether we need to intercept CAP at all, and if we do, whether we
+> wouldn't better try to register CTRL first.
 
-You could have static const within functions too. You get the rodata
-protection and function local scope, best of both worlds?
+Indeed, Jiqian is that a leftover from a previous version when writes
+to CAP where ignored for being a read-only register?
 
-BR,
-Jani.
+The current adding of a handler with vpci_hw_{read,write}32() result
+in the exact same behavior for a hardware domain, which is the only
+domain where ReBAR will be exposed.
 
-
--- 
-Jani Nikula, Intel
+Thanks, Roger.
 
