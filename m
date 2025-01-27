@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75EF0A1D516
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 12:06:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.877718.1287858 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2010A1D51E
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 12:12:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.877725.1287867 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcMwL-0002Tj-7G; Mon, 27 Jan 2025 11:06:01 +0000
+	id 1tcN2B-0004bH-RT; Mon, 27 Jan 2025 11:12:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 877718.1287858; Mon, 27 Jan 2025 11:06:01 +0000
+Received: by outflank-mailman (output) from mailman id 877725.1287867; Mon, 27 Jan 2025 11:12:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcMwL-0002RA-3z; Mon, 27 Jan 2025 11:06:01 +0000
-Received: by outflank-mailman (input) for mailman id 877718;
- Mon, 27 Jan 2025 11:06:00 +0000
+	id 1tcN2B-0004XT-OU; Mon, 27 Jan 2025 11:12:03 +0000
+Received: by outflank-mailman (input) for mailman id 877725;
+ Mon, 27 Jan 2025 11:12:02 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=O4xJ=UT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tcMwK-0002R2-5X
- for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 11:06:00 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
+ id 1tcN2A-0004W9-0C
+ for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 11:12:02 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id afa2ec7e-dc9e-11ef-99a4-01e77a169b0f;
- Mon, 27 Jan 2025 12:05:58 +0100 (CET)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-aab925654d9so836683966b.2
- for <xen-devel@lists.xenproject.org>; Mon, 27 Jan 2025 03:05:58 -0800 (PST)
+ id 87470e83-dc9f-11ef-99a4-01e77a169b0f;
+ Mon, 27 Jan 2025 12:12:00 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-aafc9d75f8bso813399266b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Jan 2025 03:12:00 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab675e12090sm562093066b.29.2025.01.27.03.05.57
+ a640c23a62f3a-ab693c63541sm316732166b.67.2025.01.27.03.11.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Jan 2025 03:05:57 -0800 (PST)
+ Mon, 27 Jan 2025 03:11:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: afa2ec7e-dc9e-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 87470e83-dc9f-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1737975958; x=1738580758; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1737976319; x=1738581119; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=NNHBCSlOcRiuXlHNRAgql38aYjNqbCAxYmxfI+H8MNE=;
-        b=Tso65KdtZlq5qJr/jCcFu5mDaP8ZbJMaq1cI997Vo86M1ZNUkdEkyLS+Hc+AiRhIt2
-         8fwPs60Jbf8THKbq/sRPQBMEyd7P/mP8pd4dhUNRS4ngZjx36Blbbdl6NQpFCvYMP27k
-         rp1+yKOL5snZlTqWW01Eg9IKyQKrwvUfMbMRGebOsr3+MenK63p56Fj+B9aMeS+hCaXj
-         IiCxVQONbZ9OzM0/eFRW/dgRaaa9pTA7gO+1rC15Ie9+f52oq8AZH+5OhOfNYhyiI9+2
-         zuC/jIs8Z4nBIcktdLYIIqqexcoZAALt+MUhHAB0UAPxeQ+rjGFiRods3/BAiET0itay
-         kElg==
+        bh=9BLjtbNMLBZ5w8uegTIY6Tfu0zDz5HDRnWszrYj6B6g=;
+        b=NqTxZ3KVWAbE/9mCWLNkk9n8vJCrfQzYGa9b467eup++OpUQ502I1gtcu9l3mE8TuQ
+         A8pPmdHsG4g0/duH5bPfHAdQ+eKJ8UY+Fd5w35w2WP+1f5SlVIWjUL1YW2stwRxn5hBE
+         G5WA9PgaqoFsE4B3YbdWy4smFZ+VcXaviEd48EkzgTcwM9XKMCR2ptBCuvFtueSEI9tS
+         2QlvepQTt7OUOb4nYV5FpV1h65ekOD8cGckXFEf62+lJuu3C/FFTALB150pDTpdnIj0a
+         01YcUMjAV6zjiiJu+8ZG/bWrISYIr/oMpmU6g/VeEkFUoVT5OILzuMNl6ZMxd2Olm1BM
+         GfQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737975958; x=1738580758;
+        d=1e100.net; s=20230601; t=1737976319; x=1738581119;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=NNHBCSlOcRiuXlHNRAgql38aYjNqbCAxYmxfI+H8MNE=;
-        b=kp28ugTPteJTD/8Kdj5BqhuKreAUAZyimqqR21JDV7xUpfNZ2spxEFFlN7mfNQcyr/
-         TqNGOL/1QtqjRPMPeBFhw0u06D6c5Sx+0aa27GDscvQv/SlwRp8Bg+lR1mpUDycx6/N6
-         uVr8rFKBZGf/ShNJppL5sXMaYoFE1kwleAmpiYqAUDqan+HfgOjLoZT9s9DEZXC4B8sz
-         3wTIXV5gaTq2cHtl9YC1ZSmdk7w/6kaCSrGw/BgO52pVdKHaTjy+UsVP1uJnQFCISMv8
-         Dqs4c/kTWy6sAR2ryPCl56PV69cj1HtOkoYT2a9tHJXEupM7Dr9Nbf1LwPrvUOAAMYdb
-         125g==
-X-Forwarded-Encrypted: i=1; AJvYcCVdbRJ72j4Lj0yFTuOdfJUbz9SBEEEtlEBsLh+XaMYOcLVXAoRcrirKIFoq/IXd0MI8i1s9SBQa1Nc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzZ5vXnaqF/TaTeq6Gq69o4QFs7pWcuGkzw556h0DK3KdgJfrUX
-	yVw92FLJCslAPC4+1kZ2W9iek1Ay/+LeEpt0sHjVfrON9Xz3onAwBS9sZNkhWg==
-X-Gm-Gg: ASbGncv7MZs3/kUWTFhNh0xbmPKv9KPgxoOn+fDmqY/NPQSWdX/J+HCGp9xgUbocmAi
-	cAVRyCVLArOL2SHJCCQlJWMg/lsa6e7aQBgnvhlHGA922fpWzBzuKlirTZoQu5Wo30yrObC68AG
-	koQ1n60QhCscNVKSY7Spf7Q2VgS7dAwHfH4yFpTroj741u/qHzk7DImzQWlyBJALyF8jR/KqiWY
-	YyfHdKVbLCE0UCxEboox/83u/m18eI6iYIE0uqR0k1BbNcBxXqYDzY7UbyTDnSqEzIX3HbXo6LN
-	i5wbv8h0KgRLM/G8tt1AWx5qdWcLMCn9xHK4CZbYB0zBHnWCKD3r4aW43XPRY26pzw==
-X-Google-Smtp-Source: AGHT+IH8bQdzTmZHSVkjgbBbLgsVKMx9tVeB3fK7uMCAGX6OGMWZfFrPxhY74Ys+0Z78b5yxRrOkiQ==
-X-Received: by 2002:a17:907:3e9b:b0:ab2:bd0b:acdf with SMTP id a640c23a62f3a-ab38b43bc08mr3824307366b.36.1737975957663;
-        Mon, 27 Jan 2025 03:05:57 -0800 (PST)
-Message-ID: <1f1ab2d4-73ad-4562-b3c5-0b423b56aed2@suse.com>
-Date: Mon, 27 Jan 2025 12:05:59 +0100
+        bh=9BLjtbNMLBZ5w8uegTIY6Tfu0zDz5HDRnWszrYj6B6g=;
+        b=EYqvnC+Skjf7OTHAqI2oQkJqHd6KbXoMQSuobm3oZbxWgmUcLwl82uk9sDHGcsDjAO
+         R6D4ZyStVTZvpXCn942cGCOyby2+7ZxbN0F+saMjvbJ/6W5pSFm6UH0t408dgRZDWufx
+         AgXTFbBP/l+9OAHve971rGf+YEmqR80YSvNUWwhK1M3ZtYnqiFYfWIgJSri42BojaMPx
+         Od3v6Urc0DPWRdANur4OjL6ZEh4eM+5SAJhMjCGsUWVmp41xp8vQdLqHQDcXG2iz9p8W
+         +X+zbdjkeYljZwYVX53nZI4kekdLnlHLWbr5ZgxWYJ8DMNoAL4gp24+CJbrvminFOgcg
+         6WKA==
+X-Forwarded-Encrypted: i=1; AJvYcCUYXWAFwnqXe4xJBIi9ro+iXW1Xr9pixdn/6HyykdPbV7yO/85nPk/zLR2jzV/c6ZYh36If3aAZre8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw4mUgLnUOYn3ANBfZST3RmwXL9pyVDgb3NiS/mJ6Q0Oynn4lwt
+	p02fRAPRwUjAXs8BVtW40hLVty7hHb7AWnBWU//0bI7vOy9dyjc9TRQ28JJSEw==
+X-Gm-Gg: ASbGncszIW5qsv0WiJaum6MaNM0CaYxL/Ul/OToiBlyF+bT6tThhfRkOvtSc8Zi8EAJ
+	pK1HB+p2fThiQb+S+rahZcN1I2nAHAYc51PzSbsY87K2vxNKKVZEWAtv+xropEROLYlWe8jnYX3
+	dm4gcw6FjkglZNfrrzOSGIyMkqver7c5Rly2hP9xorGs33qKAtbRffuIto2aKfaGrku2h3rsHM/
+	TZ/NnZ1Ts7bWAthu4iRNCPl22X+nqyxqNh5xn/fh9W1LhzgIc5PcLi35oF/C4TSSqaDHY6JJLpb
+	XpWldJ5NRco8EsmvzMMVQ95nbvb8aJBcN+y8f/YfM2ZLS1EhY1TINC7oWjJMOPUHEw==
+X-Google-Smtp-Source: AGHT+IEAEdk/RqrYYymah7FRX5KJ+Fp7SUGg427RKIRz1nTOIGFLHCiwWjlW3qBBiGVsXFYxy5+X4Q==
+X-Received: by 2002:a17:907:60cc:b0:aab:c35e:509b with SMTP id a640c23a62f3a-ab38b4bb44bmr3656920766b.55.1737976319384;
+        Mon, 27 Jan 2025 03:11:59 -0800 (PST)
+Message-ID: <f8d4a1d4-a332-4dad-ba6e-5a127ae2187e@suse.com>
+Date: Mon, 27 Jan 2025 12:12:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 11/12] x86/fpu: Pass explicit xsave areas to
- fpu_(f)xrstor()
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v1 1/9] xen/common: dom0less: make some parts of Arm's
+ CONFIG_DOM0LESS common
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
-References: <20250110132823.24348-1-alejandro.vallejo@cloud.com>
- <20250110132823.24348-12-alejandro.vallejo@cloud.com>
+References: <cover.1736334615.git.oleksii.kurochko@gmail.com>
+ <396a60496844c8a86667f4ee57c5bedc9899f5ad.1736334615.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,24 +124,31 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250110132823.24348-12-alejandro.vallejo@cloud.com>
+In-Reply-To: <396a60496844c8a86667f4ee57c5bedc9899f5ad.1736334615.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10.01.2025 14:28, Alejandro Vallejo wrote:
-> No functional change.
-> 
-> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+On 08.01.2025 12:13, Oleksii Kurochko wrote:
+> Unify the API for creating DomUs and checking for Dom0less mode across
+> architectures, including Arm and RISC-V, with potential applicability
+> for PPC.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+That is you mean to re-use it for RISC-V?
 
-> ---
-> v2->v3:
->   * const-ified v in fpu_xrstor()
->   * Removed v in fpu_fxrstor()
+> --- a/xen/common/Kconfig
+> +++ b/xen/common/Kconfig
+> @@ -12,6 +12,15 @@ config CORE_PARKING
+>  	bool
+>  	depends on NR_CPUS > 1
+>  
+> +config DOM0LESS_BOOT
+> +	bool "Dom0less boot support" if EXPERT
+> +	depends on ARM
+> +	default ARM
 
-On this basis the parameter could also be removed from fpu_fxsave(), by
-passing in fip_width instead.
+This then would better be converted to "depends on HAVE_DOM0LESS", which
+for now only Arm would select. With a dependency on XYZ the default also
+doesn't need to name XYZ again, i.e. can simply be "default y".
 
 Jan
 
