@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6254AA1D896
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 15:41:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.877974.1288146 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF9ABA1D8A8
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2025 15:47:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.877983.1288155 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcQIv-0003kh-TX; Mon, 27 Jan 2025 14:41:33 +0000
+	id 1tcQOT-0004KM-F5; Mon, 27 Jan 2025 14:47:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 877974.1288146; Mon, 27 Jan 2025 14:41:33 +0000
+Received: by outflank-mailman (output) from mailman id 877983.1288155; Mon, 27 Jan 2025 14:47:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcQIv-0003iJ-PZ; Mon, 27 Jan 2025 14:41:33 +0000
-Received: by outflank-mailman (input) for mailman id 877974;
- Mon, 27 Jan 2025 14:41:32 +0000
+	id 1tcQOT-0004Ib-CD; Mon, 27 Jan 2025 14:47:17 +0000
+Received: by outflank-mailman (input) for mailman id 877983;
+ Mon, 27 Jan 2025 14:47:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jIzP=UT=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tcQIu-0003iB-Gw
- for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 14:41:32 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=O4xJ=UT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tcQOS-0004IV-2T
+ for xen-devel@lists.xenproject.org; Mon, 27 Jan 2025 14:47:16 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cc25779b-dcbc-11ef-a0e6-8be0dac302b0;
- Mon, 27 Jan 2025 15:41:31 +0100 (CET)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5d3ecae02beso6194627a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 27 Jan 2025 06:41:30 -0800 (PST)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5dc186d8b37sm5467311a12.72.2025.01.27.06.41.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Jan 2025 06:41:29 -0800 (PST)
+ id 990a370f-dcbd-11ef-a0e6-8be0dac302b0;
+ Mon, 27 Jan 2025 15:47:14 +0100 (CET)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-5d3d14336f0so7777323a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Jan 2025 06:47:14 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab6760fc485sm593270566b.160.2025.01.27.06.47.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 27 Jan 2025 06:47:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,157 +45,381 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc25779b-dcbc-11ef-a0e6-8be0dac302b0
+X-Inumbo-ID: 990a370f-dcbd-11ef-a0e6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1737988890; x=1738593690; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=DuQVWa3UAj0x1+sC5RPCZtQ/X8NDmzt/StrL5IE96mw=;
-        b=upV8hwOQe2k7AxFv7Yjl0dRYyKY2OnAT989U37hpimAzC+t4kONCW8Z9xqtal3vE/a
-         8F2qywQ5+WlIiuaNoiNF9t+1/FMHHf4L2BNFidpFq/48icoQrmGJGQ6en9VR+yP7irxr
-         O54fA0n52gt+JKX1l9dRBzbjzqmdYwbZVV5Sg=
+        d=suse.com; s=google; t=1737989234; x=1738594034; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=4dN2Jf2QxKafFsTiL+n5u/HmojnBqzxm8u2EAGTVhJM=;
+        b=TZCR1OX78m9WITzyi7hhcrO0Ji85UrDxavhWXHnLEFTWRlza2q+WC9MgP4GQ0z234b
+         tkDklmKfeRsowqxir0qw1xm8s0g1D2scjPpGxs5L0FENTOxXnNzVqYuReigoZDW+SODe
+         l5iPC2B04B71a7nDTwSBigvNRPY8ptujTWuGH15uyBDz2zU34jLn7ac78FWV+UeEb8E0
+         YJhN85OGdWvCTywlYVjzBAyivhbQqzsNvAGmKqOEvu3xDOQy2Yd8kx7smWajG9BsFbcF
+         vC9UkuTulngtDByYLNATiqKOllnMBJmBv4eOCQlUKd4FbocKCbHjY68dcRQf9Lwr5b8P
+         HdqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737988890; x=1738593690;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1737989234; x=1738594034;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=DuQVWa3UAj0x1+sC5RPCZtQ/X8NDmzt/StrL5IE96mw=;
-        b=YiqZ+bLMfO4vMPUjF7QwPlz8ZXuBbflVkSDMd1NJifVLGfwqBTpoOfr5Bu/P8HFkln
-         NlC4Pmbw5E4lCdRBLF0L5ECXGnvIbiafM9JIs+XuT8C84hEPBGOyA+imXxK3iCP+WX9O
-         H1fDhP1LUryQ4js85ic0PQGi/D5bK+XRWF9Bmk0AFS5xO6NOG7Yfm7d7iL0uxkHI+njl
-         uY29I4Nmt1i7FhQgxaCQSKsSc3E2wtiyts59ifkhfJIhRHTsWu72ocxCLck2adT0+IbB
-         QV2FDXPE84EiQBDdB120ypB1vb48G+X4iWbdcaMu6MIpV+vx3G6ET00Kaeta05Obqb3L
-         lxXw==
-X-Forwarded-Encrypted: i=1; AJvYcCX9JAdMdXk4mSf7ZB490HLH0i0GTAb38zG+ta+WpK9HTofcPv+929jr/I0jOQNVv+JrdRnYCRXc3FY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw0T8VbrQshqM3quy+HIYRZVMjKyaa1S4cyZTQaO5IrqBwXbF9D
-	YuY4kT8FX0ZkebACWl+L3AOmaaQxOwBkUB8EzTLwNE9VcEdL2sDZEXF7bC3+wYw=
-X-Gm-Gg: ASbGncvoSsFGwcI3ZsEC6a3hgRt9tcOyGsleF16xAudA6aSg0FT5U+GUBfnPcq8QBgK
-	RDeFGoTbeRC46lcH6ibYmSUm14Re8VjMNDyvqY6sqCaxsy6YyjnSEcTojmfnFY81PK06HbrsKhR
-	bxvWOJiPcxgZEl4VugCRW5nMtj4G5/8CyviNqjpYkzMEJPkORKY97/K8Hd0+zfWYgkr9zqcM3zR
-	OY9j5pNlEu79Z27VeXAh5JCkDX0rZMyxwzDX5Ik5kNrKLgnVCk9Z0ctpj8abcCeBXjlnhaOyaru
-	ca5cSItsOg==
-X-Google-Smtp-Source: AGHT+IEkT5y7ZTrLdEEz45DlubyCU0IVulmOTVNa2RieT4MUePILWFs4ZZBYlzdM1XTFNrxLPBbi1Q==
-X-Received: by 2002:a05:6402:278f:b0:5d2:7346:3ecb with SMTP id 4fb4d7f45d1cf-5db7d2f8066mr39168584a12.12.1737988890364;
-        Mon, 27 Jan 2025 06:41:30 -0800 (PST)
-Date: Mon, 27 Jan 2025 15:41:28 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Jiqian Chen <Jiqian.Chen@amd.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Huang Rui <ray.huang@amd.com>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v6] vpci: Add resizable bar support
-Message-ID: <Z5ebGImjSz-55Nkj@macbook.local>
-References: <20250123035003.3797022-1-Jiqian.Chen@amd.com>
- <2f34ba33-070e-4c02-a7e5-71451553a23e@suse.com>
+        bh=4dN2Jf2QxKafFsTiL+n5u/HmojnBqzxm8u2EAGTVhJM=;
+        b=A53dFdLRp+fqrsMVHoyp827rbijOwwUIMote7t/rNwPOCb0lVfVKuL5x/R7RuepXgh
+         D5Oa8b97ImMiL3bYpCBRNp3yoLGybgT4VYRIfHMRTGh3toRN/3birXQHjJ0qbasZdGvn
+         2AQ1ltQ7Ftl9CMWk99nN2lOY2jIxuM2NuOcnsVbPOrklIH+ifwCdkPOrfFcXBhUzZFaz
+         8YupgygrcvZX6DDm5OylhV4SmACpnvsGiSArkLGeXM4Igc/fjM9EeHv/dNj0ckadL5k2
+         +iTBA9s0b0fhk0pjFgk/yvLQ8nTQCEOxbQKMFYO+U7NsYsjXYy94gZP1IPnFNgU7rDrL
+         qehg==
+X-Forwarded-Encrypted: i=1; AJvYcCXfhdt4ZuIN7RDxDomruqZkelEu91Y+mle8sE+G7U8agNY5el0ZAOW3U9fbjgz7Sq3Q7oK+4e+uN6A=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzjI2WxLCTWYoxNto8ziNqOev/5CJukJyYmsjUGGbt9PZ1WpmhQ
+	BxhNCOcWoTy6ctF1k3TdfA3pZ3tE1bFixQwejW7l1oV6X8AXdSVCsd9P0hQzxg==
+X-Gm-Gg: ASbGnct6c0SWkf5wxpuQC7t0l6LhJHTPusbMbQjItQtYN/CFo85vLjyrc5bjHCNO5WV
+	oJRLqWp8mMNKS+9798yBzhEkEBtYz+vj/UUaB2dJNE7FvvkZcqdeRtGWUcV7quHsbIBknxooYQW
+	ts4qL519zexogMb7KlUiiXVDfd8pN66wlyEE+mQihensGrvMfygHV3ozYDcyDHIbnmZQRY9wPyR
+	BraaZ3jLkldU3Raf35uO8l5XDpSUGdSljozhtrV/9QFt5+FvoU5noAweu8PoQvtZ5e/nG3Vn4F6
+	QTmQA7Lbp4/7CEpNo8VM2dJlJnUDqh4N3y0BxAa+/gU5EI7XDi+mpihFWDhK3liBpw==
+X-Google-Smtp-Source: AGHT+IGMOeBjqaG+v1rdsY09FQzSkHWHO/l379dsRQ34yaHqbGqhayqzi+WhV6ZqE84b37Wmyw7CCw==
+X-Received: by 2002:a17:906:eb18:b0:ab6:9d53:13be with SMTP id a640c23a62f3a-ab69d531682mr486298866b.29.1737989232588;
+        Mon, 27 Jan 2025 06:47:12 -0800 (PST)
+Message-ID: <e51b0425-568a-4a4b-b240-a5276a017a70@suse.com>
+Date: Mon, 27 Jan 2025 15:47:11 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <2f34ba33-070e-4c02-a7e5-71451553a23e@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] xen/riscv: identify specific ISA supported by cpu
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <ddf678bb829003b2c4a0a85166a29b61e75bcea9.1737643226.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ddf678bb829003b2c4a0a85166a29b61e75bcea9.1737643226.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jan 27, 2025 at 03:20:40PM +0100, Jan Beulich wrote:
-> On 23.01.2025 04:50, Jiqian Chen wrote:
-> > v5->v6 changes:
-> > * Changed "1UL" to "1ULL" in PCI_REBAR_CTRL_SIZE idefinition for 32 bit architecture.
-> > * In rebar_ctrl_write used "bar - pdev->vpci->header.bars" to get index instead of reading
-> >   from register.
-> > * Added the index of BAR to error messages.
-> > * Changed to "continue" instead of "return an error" when vpci_add_register failed.
-> 
-> I'm not convinced this was a good change to make. While ...
-> 
-> > +static int cf_check init_rebar(struct pci_dev *pdev)
-> > +{
-> > +    uint32_t ctrl;
-> > +    unsigned int nbars;
-> > +    unsigned int rebar_offset = pci_find_ext_capability(pdev->sbdf,
-> > +                                                        PCI_EXT_CAP_ID_REBAR);
-> > +
-> > +    if ( !rebar_offset )
-> > +        return 0;
-> > +
-> > +    if ( !is_hardware_domain(pdev->domain) )
-> > +    {
-> > +        printk(XENLOG_ERR "%pp: resizable BARs unsupported for unpriv %pd\n",
-> > +               &pdev->sbdf, pdev->domain);
-> > +        return -EOPNOTSUPP;
-> > +    }
-> > +
-> > +    ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL(0));
-> > +    nbars = MASK_EXTR(ctrl, PCI_REBAR_CTRL_NBAR_MASK);
-> > +    for ( unsigned int i = 0; i < nbars; i++ )
-> > +    {
-> > +        int rc;
-> > +        struct vpci_bar *bar;
-> > +        unsigned int index;
-> > +
-> > +        ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL(i));
-> > +        index = ctrl & PCI_REBAR_CTRL_BAR_IDX;
-> > +        if ( index >= PCI_HEADER_NORMAL_NR_BARS )
-> > +        {
-> > +            printk(XENLOG_ERR "%pd %pp: too big BAR number %u in REBAR_CTRL\n",
-> > +                   pdev->domain, &pdev->sbdf, index);
-> > +            continue;
-> > +        }
-> > +
-> > +        bar = &pdev->vpci->header.bars[index];
-> > +        if ( bar->type != VPCI_BAR_MEM64_LO && bar->type != VPCI_BAR_MEM32 )
-> > +        {
-> > +            printk(XENLOG_ERR "%pd %pp: BAR%u is not in memory space\n",
-> > +                   pdev->domain, &pdev->sbdf, index);
-> > +            continue;
-> > +        }
-> 
-> ... for these two cases we can permit Dom0 direct access because the BAR
-> isn't going to work anyway (as far as we can tell), ...
-> 
-> > +        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, vpci_hw_write32,
-> > +                               rebar_offset + PCI_REBAR_CAP(i), 4, NULL);
-> > +        if ( rc )
-> > +        {
-> > +            /*
-> > +             * TODO: for failed pathes, need to hide ReBar capability
-> > +             * from hardware domain instead of returning an error.
-> > +             */
-> > +            printk(XENLOG_ERR "%pd %pp: BAR%u fail to add reg of REBAR_CAP rc=%d\n",
-> > +                   pdev->domain, &pdev->sbdf, index, rc);
-> > +            continue;
-> > +        }
-> > +
-> > +        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, rebar_ctrl_write,
-> > +                               rebar_offset + PCI_REBAR_CTRL(i), 4, bar);
-> > +        if ( rc )
-> > +        {
-> > +            printk(XENLOG_ERR "%pd %pp: BAR%u fail to add reg of REBAR_CTRL rc=%d\n",
-> > +                   pdev->domain, &pdev->sbdf, index, rc);
-> > +            continue;
-> > +        }
-> 
-> ... in these two cases we had an issue internally, and would hence wrongly
-> allow Dom0 direct access (and in case it's the 2nd one that failed, in fact
-> only partially direct access, with who knows what resulting inconsistencies).
-> 
-> Only with this particular change undone:
-R> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> 
-> Otherwise you and Roger (who needs to at least ack the change anyway) will
-> need to sort that out, with me merely watching.
+On 23.01.2025 15:46, Oleksii Kurochko wrote:
+> --- /dev/null
+> +++ b/xen/arch/riscv/cpufeature.c
+> @@ -0,0 +1,482 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Taken for Linux kernel v6.12-rc3.
 
-Ideally errors here should be dealt with by masking the capability.
-However Xen doesn't yet have that support.  The usage of continue is
-to merely attempt to keep any possible setup hooks working (header,
-MSI, MSI-X). Returning failure from init_rebar() will cause all
-vPCI hooks to be removed, and thus the hardware domain to have
-unmediated access to the device, which is likely worse than just
-continuing here.
+Nit: s/for/from/ ? Perhaps also add "Originally ...", as it'll otherwise
+also go stale as changes are being made.
 
-This already happens in other capability init paths, that are much less
-careful about returning errors, so Jan might be right that if nothing
-else for consistency we return an error.  With the hope that
-initialization error of capabilities in vPCI will eventually lead to
-such capabilities being hidden instead of removing all vPCI handlers
-from the device.
+> + * Copyright (C) 2015 ARM Ltd.
+> + * Copyright (C) 2017 SiFive
+> + * Copyright (C) 2024 Vates
+> + */
+> +
+> +#include <xen/bitmap.h>
+> +#include <xen/ctype.h>
+> +#include <xen/device_tree.h>
+> +#include <xen/errno.h>
+> +#include <xen/init.h>
+> +#include <xen/lib.h>
+> +#include <xen/sections.h>
+> +
+> +#include <asm/cpufeature.h>
+> +
+> +#ifdef CONFIG_ACPI
+> +#error "cpufeature.c functions should be updated to support ACPI"
+> +#endif
+> +
+> +struct riscv_isa_ext_data {
+> +    unsigned int id;
+> +    const char *name;
+> +};
+> +
+> +#define RISCV_ISA_EXT_DATA(ext_name, ext_id)    \
+> +{                                               \
+> +    .id = ext_id,                               \
+> +    .name = #ext_name,                          \
+> +}
+> +
+> +/* Host ISA bitmap */
+> +static __ro_after_init DECLARE_BITMAP(riscv_isa, RISCV_ISA_EXT_MAX);
+> +
+> +static int __init dt_get_cpuid_from_node(const struct dt_device_node *cpu,
+> +                                         unsigned long *dt_cpuid)
+> +{
+> +    const __be32 *prop;
+> +    unsigned int reg_len;
+> +
+> +    /*
+> +     * For debug purpose check dt_n_size_cells(cpu) value.
+> +     *
+> +     * Based on DT's bindings [1] and RISC-V's DTS files in kernel #size-cells
+> +     * for cpu node is expected to be 0.
+> +     *
+> +     * [1] https://www.kernel.org/doc/Documentation/devicetree/bindings/riscv/cpus.txt
+> +     */
+> +    if ( dt_n_size_cells(cpu) != 0 )
+> +        printk("DT's cpu node `%s`: #size-cells %d\n",
+> +               dt_node_full_name(cpu), dt_n_size_cells(cpu));
+> +
+> +    prop = dt_get_property(cpu, "reg", &reg_len);
+> +    if ( !prop )
+> +    {
+> +        printk("cpu node `%s`: has no reg property\n", dt_node_full_name(cpu));
+> +        return -EINVAL;
+> +    }
+> +
+> +    if ( reg_len < dt_cells_to_size(dt_n_addr_cells(cpu)) )
+> +    {
+> +        printk("cpu node `%s`: reg property too short\n",
+> +               dt_node_full_name(cpu));
+> +        return -EINVAL;
+> +    }
+> +
+> +    /*
+> +     * It is safe to convert `paddr_t` to `unsigned long` as dt_read_paddr()
+> +     * in the context of this function returns cpuid which according to RISC-V
+> +     * specification could be from 0 to ((1ULL << (MXLEN)) - 1), where
+> +     * MXLEN=32 for RV32 and MXLEN=64 for RV64.
+> +    */
 
-Thanks, Roger.
+Nit: Indentation.
+
+> +    *dt_cpuid = dt_read_paddr(prop, dt_n_addr_cells(cpu));
+> +
+> +    return 0;
+> +}
+> +
+> +/*
+> + * The canonical order of ISA extension names in the ISA string is defined in
+> + * chapter 27 of the unprivileged specification.
+> + *
+> + * The specification uses vague wording, such as should, when it comes to
+> + * ordering, so for our purposes the following rules apply:
+> + *
+> + * 1. All multi-letter extensions must be separated from other extensions by an
+> + *    underscore.
+> + *
+> + * 2. Additional standard extensions (starting with 'Z') must be sorted after
+> + *    single-letter extensions and before any higher-privileged extensions.
+> + *
+> + * 3. The first letter following the 'Z' conventionally indicates the most
+> + *    closely related alphabetical extension category, IMAFDQLCBKJTPVH.
+> + *    If multiple 'Z' extensions are named, they must be ordered first by
+> + *    category, then alphabetically within a category.
+> + *
+> + * 4. Standard supervisor-level extensions (starting with 'S') must be listed
+> + *    after standard unprivileged extensions.  If multiple supervisor-level
+> + *    extensions are listed, they must be ordered alphabetically.
+> + *
+> + * 5. Standard machine-level extensions (starting with 'Zxm') must be listed
+> + *    after any lower-privileged, standard extensions.  If multiple
+> + *    machine-level extensions are listed, they must be ordered
+> + *    alphabetically.
+> + *
+> + * 6. Non-standard extensions (starting with 'X') must be listed after all
+> + *    standard extensions. If multiple non-standard extensions are listed, they
+> + *    must be ordered alphabetically.
+> + *
+> + * An example string following the order is:
+> + *    rv64imadc_zifoo_zigoo_zafoo_sbar_scar_zxmbaz_xqux_xrux
+> + *
+> + * New entries to this struct should follow the ordering rules described above.
+> + *
+> + * Extension name must be all lowercase (according to device-tree binding)
+> + * and strncmp() is used in match_isa_ext() to compare extension names instead
+> + * of strncasecmp().
+> + */
+> +const struct riscv_isa_ext_data __initconst riscv_isa_ext[] = {
+> +    RISCV_ISA_EXT_DATA(i, RISCV_ISA_EXT_i),
+> +    RISCV_ISA_EXT_DATA(m, RISCV_ISA_EXT_m),
+> +    RISCV_ISA_EXT_DATA(a, RISCV_ISA_EXT_a),
+> +    RISCV_ISA_EXT_DATA(f, RISCV_ISA_EXT_f),
+> +    RISCV_ISA_EXT_DATA(d, RISCV_ISA_EXT_d),
+> +    RISCV_ISA_EXT_DATA(q, RISCV_ISA_EXT_q),
+> +    RISCV_ISA_EXT_DATA(h, RISCV_ISA_EXT_h),
+> +    RISCV_ISA_EXT_DATA(zicntr, RISCV_ISA_EXT_ZICNTR),
+> +    RISCV_ISA_EXT_DATA(zicsr, RISCV_ISA_EXT_ZICSR),
+> +    RISCV_ISA_EXT_DATA(zifencei, RISCV_ISA_EXT_ZIFENCEI),
+> +    RISCV_ISA_EXT_DATA(zihintpause, RISCV_ISA_EXT_ZIHINTPAUSE),
+> +    RISCV_ISA_EXT_DATA(zihpm, RISCV_ISA_EXT_ZIHPM),
+> +    RISCV_ISA_EXT_DATA(zbb, RISCV_ISA_EXT_ZBB),
+> +    RISCV_ISA_EXT_DATA(smaia, RISCV_ISA_EXT_SMAIA),
+> +    RISCV_ISA_EXT_DATA(ssaia, RISCV_ISA_EXT_SSAIA),
+> +};
+
+Just to clarify: There's no particular sorting intended for this table,
+while ...
+
+> +static const struct riscv_isa_ext_data __initconst required_extensions[] = {
+> +    RISCV_ISA_EXT_DATA(zbb, RISCV_ISA_EXT_ZBB),
+> +    RISCV_ISA_EXT_DATA(zicsr, RISCV_ISA_EXT_ZICSR),
+> +    RISCV_ISA_EXT_DATA(zihintpause, RISCV_ISA_EXT_ZIHINTPAUSE),
+> +};
+
+... this one looks to mean to be alphabetically sorted?
+
+> +static bool is_lowercase_extension_name(const char *str)
+> +{
+> +    /*
+> +     * `str` could contain full riscv,isa string from device tree so one
+> +     * of the stop condionitions is checking for '_' as extensions are
+> +     * separated by '_'.
+> +     */
+> +    for ( unsigned int i = 0; (str[i] != '\0') && (str[i] != '_'); i++ )
+> +        if ( !islower(str[i]) )
+> +            return false;
+> +
+> +    return true;
+> +}
+> +
+> +static void __init match_isa_ext(const char *name, const char *name_end,
+> +                                 unsigned long *bitmap)
+> +{
+> +    const size_t riscv_isa_ext_count = ARRAY_SIZE(riscv_isa_ext);
+> +
+> +    for ( unsigned int i = 0; i < riscv_isa_ext_count; i++ )
+> +    {
+> +        const struct riscv_isa_ext_data *ext = &riscv_isa_ext[i];
+> +
+> +        /*
+> +         * `name` (according to device tree binding) and
+> +         * `ext->name` (according to initialization of riscv_isa_ext[]
+> +         * elements) must be all in lowercase.
+> +         *
+> +         * Just to be sure that it is true, ASSERT() is added.
+> +         */
+> +        ASSERT(is_lowercase_extension_name(name) &&
+> +               is_lowercase_extension_name(ext->name));
+
+More general remark: While asserting on ext->name is okay, for it being
+our own data, asserting on data coming from the outside is generally not
+correct. For now I'm not going to insist on this being changed, but
+sooner or later it will want revisiting.
+
+> +        if ( (name_end - name == strlen(ext->name)) &&
+> +             !strncmp(name, ext->name, name_end - name) )
+> +        {
+> +            __set_bit(ext->id, bitmap);
+> +            break;
+> +        }
+> +    }
+> +}
+> +
+> +static int __init riscv_isa_parse_string(const char *isa,
+> +                                         unsigned long *out_bitmap)
+> +{
+> +    if ( (isa[0] != 'r') && (isa[1] != 'v') )
+> +        return -EINVAL;
+> +
+> +#if defined(CONFIG_RISCV_32)
+> +    if ( isa[2] != '3' && isa[3] != '2' )
+> +        return -EINVAL;
+> +#elif defined(CONFIG_RISCV_64)
+> +    if ( isa[2] != '6' && isa[3] != '4' )
+> +        return -EINVAL;
+> +#else
+> +    #error "unsupported RISC-V bitness"
+
+Nit: We generally like to have the # in the first column, and - if
+so desired - blank padding afterwards.
+
+> +#endif
+> +
+> +    isa += 4;
+> +
+> +    while ( *isa )
+> +    {
+> +        const char *ext = isa++;
+> +        const char *ext_end = isa;
+> +        bool ext_err = false;
+> +
+> +        switch ( *ext )
+> +        {
+> +        case 'x':
+> +        case 'X':
+> +            printk_once("Vendor extensions are ignored in riscv,isa\n");
+> +            /*
+> +             * To skip an extension, we find its end.
+> +             * As multi-letter extensions must be split from other multi-letter
+> +             * extensions with an "_", the end of a multi-letter extension will
+> +             * either be the null character or the "_" at the start of the next
+> +             * multi-letter extension.
+> +             */
+> +            for ( ; *isa && *isa != '_'; ++isa )
+> +                ;
+> +            ext_err = true;
+> +            break;
+> +
+> +        case 's':
+> +            /*
+> +             * Workaround for invalid single-letter 's' & 'u' (QEMU):
+> +             *   Before QEMU 7.1 it was an issue with misa to ISA string
+> +             *   conversion:
+> +             *     https://patchwork.kernel.org/project/qemu-devel/patch/dee09d708405075420b29115c1e9e87910b8da55.1648270894.git.research_trasio@irq.a4lg.com/#24792587
+> +             *   Additional details of the workaround on Linux kernel side:
+> +             *     https://lore.kernel.org/linux-riscv/ae93358e-e117-b43d-faad-772c529f846c@irq.a4lg.com/#t
+> +             *
+> +             * No need to set the bit in riscv_isa as 's' & 'u' are
+> +             * not valid ISA extensions. It works unless the first
+> +             * multi-letter extension in the ISA string begins with
+> +             * "Su" and is not prefixed with an underscore.
+> +             */
+> +            if ( ext[-1] != '_' && ext[1] == 'u' )
+> +            {
+> +                ++isa;
+> +                ext_err = true;
+> +                break;
+> +            }
+> +            fallthrough;
+> +        case 'S':
+> +        case 'z':
+> +        case 'Z':
+
+With match_isa_ext() insisting on ISA strings being all lowercase, what's
+the point of permitting 'S' and 'Z' here?
+
+> +void __init riscv_fill_hwcap(void)
+> +{
+> +    unsigned int i;
+> +    size_t req_extns_amount = ARRAY_SIZE(required_extensions);
+> +    bool all_extns_available = true;
+> +
+> +    riscv_fill_hwcap_from_isa_string();
+> +
+> +    if ( bitmap_empty(riscv_isa, RISCV_ISA_EXT_MAX) )
+> +    {
+> +        const char *failure_msg = has_isa_extensions_property() ?
+> +                                    "\"riscv,isa-extension\" isn't supported" :
+> +                                    "\"riscv,isa\" parsing failed";
+
+Nit: Indentation (the opening double quotes on the continuation lines
+want to line up with the 'h' in has_isa_extensions_property).
+
+Jan
 
