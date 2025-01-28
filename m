@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8689A20932
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 12:02:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.878393.1288570 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76F6BA20962
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 12:15:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.878402.1288579 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcjMY-0006t4-Ct; Tue, 28 Jan 2025 11:02:34 +0000
+	id 1tcjYF-0000S2-Co; Tue, 28 Jan 2025 11:14:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 878393.1288570; Tue, 28 Jan 2025 11:02:34 +0000
+Received: by outflank-mailman (output) from mailman id 878402.1288579; Tue, 28 Jan 2025 11:14:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcjMY-0006qh-9n; Tue, 28 Jan 2025 11:02:34 +0000
-Received: by outflank-mailman (input) for mailman id 878393;
- Tue, 28 Jan 2025 11:02:32 +0000
+	id 1tcjYF-0000QG-AE; Tue, 28 Jan 2025 11:14:39 +0000
+Received: by outflank-mailman (input) for mailman id 878402;
+ Tue, 28 Jan 2025 11:14:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AW3f=UU=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1tcjMW-0006qb-Qi
- for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 11:02:32 +0000
-Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
- [2607:f8b0:4864:20::32d])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=jygh=UU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tcjYE-0000QA-2B
+ for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 11:14:38 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5dfa34e3-dd67-11ef-99a4-01e77a169b0f;
- Tue, 28 Jan 2025 12:02:30 +0100 (CET)
-Received: by mail-ot1-x32d.google.com with SMTP id
- 46e09a7af769-71e2bc5b90fso2931789a34.0
- for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 03:02:30 -0800 (PST)
+ id 0e6c33fc-dd69-11ef-99a4-01e77a169b0f;
+ Tue, 28 Jan 2025 12:14:35 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-ab633d9582aso992149166b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 03:14:36 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab675e12d5bsm758746266b.36.2025.01.28.03.14.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 28 Jan 2025 03:14:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,160 +45,220 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5dfa34e3-dd67-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 0e6c33fc-dd69-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1738062149; x=1738666949; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hAPP67iq/fZlFT5QwMZH0FVtr7XinDNZQPhjL/SYDyo=;
-        b=QcMM2vqUfcrtLDRw7h/g2QbSj42fCbUXYhXtjP8Mf44alhk3uwrgj8OwJhGJSjRhF1
-         gkrpgH9MGvTwShnaGcAgd9UttOH0LKn+Jy/W1fvYmROBkRuXF3COZN+lXdZTw2zQRFXz
-         gRMkbfyxKazlSd3x+12SNCvFXE2L2IDdp1+MQ=
+        d=suse.com; s=google; t=1738062875; x=1738667675; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=NyZNG64s9cXy53YmnMSX23SVcQKgzG6tniYUQRcI02M=;
+        b=Hc0i2PKWV5PRhy6frnYwbNnsjcKnN+kmEalnCs/pIewe/SnSic3MGaBmORxEgvA6y8
+         pCetBDdAPLBeRsHbXxvUp53ERO1gD3NBPCgx/Fe7kKne3xh31mSGDI0PWpANXiwIbt6N
+         M/9noVuYoLlfGDt7DkMwIqwoWTP23/NpReU5CnV+sHt7GImmuYequpTXK2v8fyR5KFOW
+         MPRDnWYL+lgwWPTUqRyKfFWIPhQxPVxwHsBWexUPsxcJ2MfQtIOF22jwIIquN8yRNBIU
+         uZM84AwXsvASHw4Ou7knYMumFT5HKQCI0o0hhKdP3IuWXTBeBniKpIFzxHluA99U2xiF
+         w6og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738062149; x=1738666949;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=hAPP67iq/fZlFT5QwMZH0FVtr7XinDNZQPhjL/SYDyo=;
-        b=OakXMlweBz9Pa0gIa70GO57Q8Mg2cc1NPQOYu7MIJiLmbcf1HNoiMT4eiQUN4dhfOA
-         pJqaFVkbuIHYlaVlgji+RCy/kcRSFXfDxIc9hyLkPPyW8IXWj+K41NEi3uQIMFPJ4gIA
-         D5ptEr81HX3Pt6H+S3TtV5qO+zygxBjxDdZYWt6Av5lsHZAznJLd+LaGTz6MCIqsty5/
-         W9Z0F/rUj5vDhzEoHeusAUMZvUrDMtw3kFjwsk6BX/2+BwRaDU7CwZ28uwA8ExfnMTjN
-         Ywbybo8YolDeQBxswKAj03eQyLWt+rGo+V+IdR8EckFf4AX+3SH70ktBth58VCeoyjJO
-         b0Lw==
-X-Gm-Message-State: AOJu0YxT13cJRl94srumZawdaCFjPPzdZio1CPMMRSYV7FTR98sqKez+
-	wGFLodywrx8Aag8jCWkVG6IBRnuRTEFfQFul1YBy61JCi+4P/wnS90Ie7biGXaS3yM9/5Ji0GUy
-	rGaSWo+CJ1hCIuybNPe9m/J2Ztj1O/pEDhh8OoSVMlYXoZXfV7gE=
-X-Gm-Gg: ASbGnctoEEDkM8LwTqyzbuNNhAdsombZohjcOOpTiPFiWGUaD+C1EZNSX5CnZ7B+muU
-	CN41NECVTkPN1MriP7j5c8lq+I/f9Ju0x+1BLN0cWwmsC0WsxqOj+5UJDLLFqbxtmL52IKxgq7U
-	8=
-X-Google-Smtp-Source: AGHT+IGoGR17LILmDJyAuvFIrE6eoahMphFFs3jrb79H45NTRlP+3t7BPnU6oQtSav491MANOIpfszF2Eykzvcpp1dY=
-X-Received: by 2002:a05:6870:7e89:b0:27c:a414:b907 with SMTP id
- 586e51a60fabf-2b1c0c7667amr27172377fac.33.1738062149237; Tue, 28 Jan 2025
- 03:02:29 -0800 (PST)
+        d=1e100.net; s=20230601; t=1738062875; x=1738667675;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NyZNG64s9cXy53YmnMSX23SVcQKgzG6tniYUQRcI02M=;
+        b=sxh18Nli/oN8IQZKNDC0qiguSoLN3LtMi0l5jZitpP3BkM50pNW42/Ft0NyayrQ//7
+         Yve5OaxYJxm+VI6jxAaS4vwRfmr+LlV4Y+Dl7xEJtflEVluWwMIRmX+w/sMTkAP2X1Tw
+         Ky44kjHAHYn36g6REtEi9kDTfvozlOhEfxWNr3cgU3/vj5z3dncZCMmsiNkIo4ZtXHZ3
+         ql7d7tbJHd6sMYSHh33ZBcieecjY9wgTwWOkvSVDSvDNjSpe2Qq4SmY3JVXlx24evWJJ
+         Yo86oS1Oo8l/sSTk3HjvzZvbqYgWFZfECWMhyslTEBFmWZuAP1jmU5jJOF4AHQqGFa1d
+         t3cw==
+X-Forwarded-Encrypted: i=1; AJvYcCWnrdXYxLHE4bwBLlTe4ZR/wUzPd+kS9wBRDPX3N/VABLBCI4RvrpV9V64UiDOWw3CBJpab19CJQkk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwY5IvO7Krxn+mDk7dUomx6cRdEZ+XF3WrvF+V8c9giWshK0jgv
+	YXbAuR2tAZIdgZv/Q93WWiksKJJhACHUpsb82O0RqeowL5ZBpir+8VOcmMR7HPKNPehUk6AWcMI
+	=
+X-Gm-Gg: ASbGnctvcnZ59H7IsDiwWWMiAP9RsCcFGVfYLZi4j5focezNLxxz8wN3yHkXumtd9x6
+	qXJ03cJpZxmrMHrs55lIk6H/PEBnP0Lea2xe4WvW3MCe003x3aGOmVe4uysX6cHPL3FUay4P0Z3
+	GQXJkzBFXU3z0z1t39zilurdEsZC7imd7R8NNIfGPrSArC9tuOVQawDzdaxGrjv1S0L+mIqIkWr
+	qmV5DKhjNyMtW8CdmKrUdwKfj+RuKD4yzYSNX58z04L0rX2hAPVHyvj6jUzHpVnnts9DpyP6A4C
+	c4oLtcoycsBs6SGwAM30NlQ6Ch6+pe76NgtGRbAInMC7/Yw+xh0jrbVCzM7ZnjCIqOvNoua1T8t
+	k
+X-Google-Smtp-Source: AGHT+IF7GiwWH8LCsOqA6J6cz6/jexPdH7tHuUfevQc3FNqWDrfFHdTiXDpq4/i8HxiuBuRcm0HDBA==
+X-Received: by 2002:a17:907:969f:b0:ab2:b863:b7fa with SMTP id a640c23a62f3a-ab38b43b915mr4243596566b.44.1738062875381;
+        Tue, 28 Jan 2025 03:14:35 -0800 (PST)
+Message-ID: <ef1e6ff9-e5ae-41ef-9ca1-d4fa7f2e74b8@suse.com>
+Date: Tue, 28 Jan 2025 12:14:33 +0100
 MIME-Version: 1.0
-References: <20250114115430.104084-1-frediano.ziglio@cloud.com>
-In-Reply-To: <20250114115430.104084-1-frediano.ziglio@cloud.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Tue, 28 Jan 2025 11:02:17 +0000
-X-Gm-Features: AWEUYZmMzTgbbxw__LmW2sukWOiGlbA7wKpYVfJ0oKMXUJkSbi2BmHkn1V1b5Jo
-Message-ID: <CACHz=Zh65aak9T7WQiV9CYDPfJG-KLfJ=rJWFB5y=_XXqNsAaQ@mail.gmail.com>
-Subject: Re: [PATCH v2] x86/boot: Handle better alignment for 32 bit code
-To: xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 06/24] xen/domain: introduce hardware emulation flags
+To: dmukhin@ford.com
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20250103-vuart-ns8250-v3-v1-0-c5d36b31d66c@ford.com>
+ <20250103-vuart-ns8250-v3-v1-6-c5d36b31d66c@ford.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250103-vuart-ns8250-v3-v1-6-c5d36b31d66c@ford.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-ping
+On 04.01.2025 02:58, Denis Mukhin via B4 Relay wrote:
+> @@ -8,7 +9,9 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
+>  {
+>      switch(d_config->c_info.type) {
+>      case LIBXL_DOMAIN_TYPE_HVM:
+> -        config->arch.emulation_flags = (XEN_X86_EMU_ALL & ~XEN_X86_EMU_VPCI);
+> +        config->arch.emulation_flags = XEN_X86_EMU_ALL;
+> +        config->arch.emulation_flags &= ~XEN_X86_EMU_VPCI;
+> +
+>          if (!libxl_defbool_val(d_config->b_info.u.hvm.pirq))
+>              config->arch.emulation_flags &= ~XEN_X86_EMU_USE_PIRQ;
+>          break;
 
-On Tue, Jan 14, 2025 at 11:54=E2=80=AFAM Frediano Ziglio
-<frediano.ziglio@cloud.com> wrote:
->
-> Output file didn't have correct alignment.
-> Allows alignment into data or code up to 2mb.
-> Intermediate object files are kept in order to copy alignment
-> from object produced by the linker and final object (produced
-> by combine_two_binaries.py script).
->
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-> ---
->  xen/arch/x86/boot/Makefile        | 12 ++++++++----
->  xen/tools/combine_two_binaries.py |  7 ++++++-
->  2 files changed, 14 insertions(+), 5 deletions(-)
->
-> Changes since v1:
-> - Improve comments and description.
->
-> diff --git a/xen/arch/x86/boot/Makefile b/xen/arch/x86/boot/Makefile
-> index 13d4583173..a56d8a7e0f 100644
-> --- a/xen/arch/x86/boot/Makefile
-> +++ b/xen/arch/x86/boot/Makefile
-> @@ -40,8 +40,12 @@ LD32 :=3D $(LD) $(subst x86_64,i386,$(LDFLAGS_DIRECT))
->  # are affected by both text_diff and text_gap.  Ensure the sum of gap an=
-d diff
->  # is greater than 2^16 so that any 16bit relocations if present in the o=
-bject
->  # file turns into a build-time error.
-> -text_gap :=3D 0x010200
-> -text_diff :=3D 0x408020
-> +# As gap will affect the output section size it should not be huge to av=
-oid the
-> +# creation of huge files.
-> +# The sum of gap and diff will affect the possible alignment so should b=
-e a
-> +# multiple of the possible alignment.
-> +text_gap :=3D 0x01c240
-> +text_diff :=3D 0x7e3dc0
->
->  $(obj)/build32.base.lds: AFLAGS-y +=3D -DGAP=3D$(text_gap) -DTEXT_DIFF=
-=3D$(text_diff)
->  $(obj)/build32.offset.lds: AFLAGS-y +=3D -DGAP=3D$(text_gap) -DTEXT_DIFF=
-=3D$(text_diff) -DAPPLY_OFFSET
-> @@ -69,7 +73,6 @@ $(obj)/built-in-32.%.bin: $(obj)/build32.%.lds $(obj)/b=
-uilt-in-32.tmp.o
->         $(LD32) $(orphan-handling-y) -N -T $< -o $(@:bin=3Do) $(filter %.=
-o,$^)
->         $(NM) -p --format=3Dbsd $(@:bin=3Do) > $(@:bin=3Dmap)
->         $(OBJCOPY) -j .text -O binary $(@:bin=3Do) $@
-> -       rm -f $(@:bin=3Do)
->
->  quiet_cmd_combine =3D GEN     $@
->  cmd_combine =3D \
-> @@ -80,6 +83,7 @@ cmd_combine =3D \
->                --bin1      $(obj)/built-in-32.base.bin \
->                --bin2      $(obj)/built-in-32.offset.bin \
->                --map       $(obj)/built-in-32.base.map \
-> +              --align     $(shell $(OBJDUMP) -h $(obj)/built-in-32.base.=
-o|sed '/text.*2\*\*/ {s/.*2\*\*//;p;}; d') \
->                --exports   cmdline_parse_early,reloc,reloc_trampoline32 \
->                --output    $@
->
-> @@ -90,4 +94,4 @@ $(obj)/built-in-32.S: $(obj)/built-in-32.base.bin $(obj=
-)/built-in-32.offset.bin
->                        $(srctree)/tools/combine_two_binaries.py FORCE
->         $(call if_changed,combine)
->
-> -clean-files :=3D built-in-32.*.bin built-in-32.*.map build32.*.lds
-> +clean-files :=3D built-in-32.*.bin built-in-32.*.map built-in-32.*.o bui=
-ld32.*.lds
-> diff --git a/xen/tools/combine_two_binaries.py b/xen/tools/combine_two_bi=
-naries.py
-> index 581e57cbc0..8e587c24fb 100755
-> --- a/xen/tools/combine_two_binaries.py
-> +++ b/xen/tools/combine_two_binaries.py
-> @@ -26,6 +26,10 @@ parser.add_argument('--text-diff', dest=3D'text_diff',
->                      required=3DTrue,
->                      type=3Dauto_int,
->                      help=3D'Difference between code section start')
-> +parser.add_argument('--align', dest=3D'align',
-> +                    default=3D2,
-> +                    type=3Dauto_int,
-> +                    help=3D'Alignment in power of 2')
->  parser.add_argument('--output', dest=3D'output',
->                      help=3D'Output file')
->  parser.add_argument('--map', dest=3D'mapfile',
-> @@ -93,7 +97,7 @@ if size1 > size2:
->      file1, file2 =3D file2, file1
->      size1, size2 =3D size2, size1
->  if size2 !=3D size1 + gap:
-> -    raise Exception('File sizes do not match')
-> +    raise Exception('File sizes do not match %d !=3D %d + %d' % (size2, =
-size1, gap))
->  del size2
->
->  file1.seek(0, 0)
-> @@ -219,6 +223,7 @@ print('''/*
->   * File autogenerated by combine_two_binaries.py DO NOT EDIT
->   */''', file=3Dout)
->  print('\t' + args.section_header, file=3Dout)
-> +print('\t.p2align\t' + str(args.align), file=3Dout)
->  print('obj32_start:', file=3Dout)
->  output(out)
->  print('\n\t.section .note.GNU-stack,"",@progbits', file=3Dout)
-> --
-> 2.34.1
->
+You're merely writing the same thing differently here, aren't you? Why
+is this needed?
+
+> @@ -159,9 +160,7 @@ static PyObject *pyxc_domain_create(XcObject *self,
+>  
+>  #if defined (__i386) || defined(__x86_64__)
+>      if ( config.flags & XEN_DOMCTL_CDF_hvm )
+> -        config.arch.emulation_flags = XEN_X86_EMU_ALL &
+> -                                      ~(XEN_X86_EMU_VPCI |
+> -                                        XEN_X86_EMU_USE_PIRQ);
+> +        config.arch.emulation_flags = XEN_X86_EMU_BASELINE;
+
+While less direct here, same question as above.
+
+> --- a/tools/tests/paging-mempool/test-paging-mempool.c
+> +++ b/tools/tests/paging-mempool/test-paging-mempool.c
+> @@ -9,6 +9,7 @@
+>  #include <xenforeignmemory.h>
+>  #include <xengnttab.h>
+>  #include <xen-tools/common-macros.h>
+> +#include <xen/virtdev.h>
+>  
+>  static unsigned int nr_failures;
+>  #define fail(fmt, ...)                          \
+> --- a/tools/tests/resource/test-resource.c
+> +++ b/tools/tests/resource/test-resource.c
+> @@ -8,6 +8,7 @@
+>  #include <xenforeignmemory.h>
+>  #include <xengnttab.h>
+>  #include <xen-tools/common-macros.h>
+> +#include <xen/virtdev.h>
+>  
+>  static unsigned int nr_failures;
+>  #define fail(fmt, ...)                          \
+> --- a/tools/tests/tsx/test-tsx.c
+> +++ b/tools/tests/tsx/test-tsx.c
+> @@ -29,6 +29,7 @@
+>  #include <xenctrl.h>
+>  #include <xenguest.h>
+>  #include <xen-tools/common-macros.h>
+> +#include <xen/virtdev.h>
+>  
+>  #include "xg_private.h"
+>  
+
+Throughout these in particular - it's not really nice to require the extra
+#include everywhere now.
+
+> --- a/xen/arch/x86/domain.c
+> +++ b/xen/arch/x86/domain.c
+> @@ -753,9 +753,7 @@ static bool emulation_flags_ok(const struct domain *d, uint32_t emflags)
+>               emflags != (X86_EMU_VPCI | X86_EMU_LAPIC | X86_EMU_IOAPIC) )
+>              return false;
+>          if ( !is_hardware_domain(d) &&
+> -             /* HVM PIRQ feature is user-selectable. */
+> -             (emflags & ~X86_EMU_USE_PIRQ) !=
+> -             (X86_EMU_ALL & ~(X86_EMU_VPCI | X86_EMU_USE_PIRQ)) &&
+> +             xen_emflags_allowable(emflags) != XEN_X86_EMU_BASELINE &&
+
+What is or is not allowable doesn't depend on just the flags. Either the
+name needs to be more specific, or the domain needs passing in.
+
+> @@ -456,7 +457,7 @@ struct arch_domain
+>      /* Don't unconditionally inject #GP for unhandled MSRs. */
+>      bool msr_relaxed;
+>  
+> -    /* Emulated devices enabled bitmap. */
+> +    /* Hardware emulation flags. */
+>      uint32_t emulation_flags;
+>  } __cacheline_aligned;
+
+The original comment isn't good enough because of what?
+
+> --- a/xen/include/Makefile
+> +++ b/xen/include/Makefile
+> @@ -15,6 +15,7 @@ headers-y := \
+>      compat/sched.h \
+>      compat/vcpu.h \
+>      compat/version.h \
+> +    compat/virtdev.h \
+>      compat/xen.h \
+>      compat/xlat.h
+
+This shouldn't be needed, as ...
+
+> --- /dev/null
+> +++ b/xen/include/public/virtdev.h
+> @@ -0,0 +1,61 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +#ifndef XEN__PUBLIC_VIRTDEV_H
+> +#define XEN__PUBLIC_VIRTDEV_H
+
+... this should in no case be generally exposed: You moved the flags
+from a tools-only section of arch-x86/xen.h, and hence they should
+remain tools-only.
+
+> +/*
+> + * Domain hardware emulation flags.
+> + */
+> +enum {
+> +    VIRTDEV_LAPIC      = 1U << 0,
+> +    VIRTDEV_HPET       = 1U << 1,
+> +    VIRTDEV_PM         = 1U << 2,
+> +    VIRTDEV_RTC        = 1U << 3,
+> +    VIRTDEV_IOAPIC     = 1U << 4,
+> +    VIRTDEV_PIC        = 1U << 5,
+> +    VIRTDEV_VGA        = 1U << 6,
+> +    VIRTDEV_IOMMU      = 1U << 7,
+> +    VIRTDEV_PIT        = 1U << 8,
+> +    VIRTDEV_PIRQ       = 1U << 9,
+> +    VIRTDEV_PCI        = 1U << 10,
+> +};
+> +
+> +#if defined(__i386__) || defined(__x86_64__)
+
+Why does this conditional live only here? Almost the entire enum above
+is x86-specific, too.
+
+Bottom line: I remain yet to be convinced of the need for the new header.
+
+Jan
 
