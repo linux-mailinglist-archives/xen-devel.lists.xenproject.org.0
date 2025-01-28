@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FDBFA20F05
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 17:48:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.878695.1288888 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EB0DA20F48
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 17:57:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.878704.1288898 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcolG-0002V8-D2; Tue, 28 Jan 2025 16:48:26 +0000
+	id 1tcotS-0004hM-5p; Tue, 28 Jan 2025 16:56:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 878695.1288888; Tue, 28 Jan 2025 16:48:26 +0000
+Received: by outflank-mailman (output) from mailman id 878704.1288898; Tue, 28 Jan 2025 16:56:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcolG-0002Su-8m; Tue, 28 Jan 2025 16:48:26 +0000
-Received: by outflank-mailman (input) for mailman id 878695;
- Tue, 28 Jan 2025 16:48:25 +0000
+	id 1tcotS-0004fI-2a; Tue, 28 Jan 2025 16:56:54 +0000
+Received: by outflank-mailman (input) for mailman id 878704;
+ Tue, 28 Jan 2025 16:56:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jygh=UU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tcolF-0002So-DD
- for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 16:48:25 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ id 1tcotQ-0004fA-Na
+ for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 16:56:52 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b06cc1d0-dd97-11ef-a0e6-8be0dac302b0;
- Tue, 28 Jan 2025 17:48:24 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-aab925654d9so1147973666b.2
- for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 08:48:24 -0800 (PST)
+ id def4de09-dd98-11ef-a0e6-8be0dac302b0;
+ Tue, 28 Jan 2025 17:56:51 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-aab6fa3e20eso992542866b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 08:56:51 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab6760fc4aasm811547266b.159.2025.01.28.08.48.22
+ a640c23a62f3a-ab6760fbe92sm818784166b.131.2025.01.28.08.56.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Jan 2025 08:48:23 -0800 (PST)
+ Tue, 28 Jan 2025 08:56:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b06cc1d0-dd97-11ef-a0e6-8be0dac302b0
+X-Inumbo-ID: def4de09-dd98-11ef-a0e6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738082904; x=1738687704; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1738083411; x=1738688211; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=K5WdeAugfw1zLhTjqfKX13AAha5zDWO0+XALTcJYz8g=;
-        b=bW3p3LpaTnzItH68XuW6Mt+Sddmzn7f/eAMc+TQstTuMnf/WD4Q/yZAncLWoLRGYko
-         e+hi75tK3JijM9C9DuSIIkzosRrsWAn1nBT4KGO8Z9YguWEdJsQjQoFVHwQ71qDPbULJ
-         oEGSigDmdjAUOq7dvQEnaRz1Ka3fyeGjqdcF2g/nbicia3A2paBC7HjpyValb/BxKxIS
-         ND8Ni2+/b9rdMl5Jr33Xo7Rc8HOwlQK1mgilDwmqhfxrLB+Uzx9ZN8DK0l/0RcS5hZii
-         dSWlSXdV4p0wWSENYEeQPQcMoGTIHr61CNAkiwtyixy0T7kHXORw/5q11fK357jWyoCm
-         2nCA==
+        bh=txK94ENtdQMm8AuKPokoFbuC4y9QJF+mwyg+VQoY2UM=;
+        b=Xx8DIHvgamwIMe/eMEoM63QqlPIEAkCk1wiMWvpUpvKz+/KHAISNmRwvivIMx8FFPw
+         o80mmS9VJxuNtgAJrttryps4kNhPY7dU702M2AV124mmECmKzGdmNktAfuYtMCUpYIKe
+         5MhPXfXH3yzPG8hr3XkOyClYel/Kvdyo780Ee+UH0UiAD4kJGDhrwIcdbo8ttEsumwvv
+         Rw47g/o6bBawi8BIEz99hSAosA7+R8pE0eDM75xkO/8HjBbAgexvq27yaoAGrKvpl9gx
+         P5sdG+TfVeI6yl9OkVVTMjHm1u/l93tuhyZ3oD5yS1JvNk6NvD/keOsbpr8zspKt0iqs
+         BM9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738082904; x=1738687704;
+        d=1e100.net; s=20230601; t=1738083411; x=1738688211;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=K5WdeAugfw1zLhTjqfKX13AAha5zDWO0+XALTcJYz8g=;
-        b=D/0GYAfKZ50neDvcjcxGcc9Klotpl7pNJcDpih2dkhwDrkBnrGVNwQSc6J54en/hDK
-         ZyEbjcO1HwPgNTxxmj3or35LQKu4jKDLn0ZXRG+a5nvdmW6Dgt/t6HSlluJYr8Y62X6z
-         4FY16dQHoAE85ToDdMzc/+4jpxHk0KD3WRPW2+Q4yyOcqUCl4m5V5qvY/Isp3+qnXSSx
-         oOdN4NBQV/vmHeubveZlmGKdI3lnkpHTYA/Dkg05EGuQJXLkf2VwOIp9INALSMZflvep
-         2w8ezk6/hwIEWTH8q1m5jS2q87rQQ7gRH81pWwA6RiWRMxLnby6IqH+yIb3tHvlWGBJY
-         nTJA==
-X-Forwarded-Encrypted: i=1; AJvYcCX3wn9yYRuUU1HKAPDtNuwk9YnsDAxqAy4neDeWWkOYKr/mCMhX31x1f6cOqeqV6LHXPAS5xcnguRo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwghSz3drn+nFahA6SxZW4UciWoKwfO033PnZ2dgp3bCEUKTbw5
-	DnTQvh4Y51bKv8iC1aNbvatWRalgEnG5aQV/w+J0PzNXXToXo715U9X1wOP0Ew==
-X-Gm-Gg: ASbGncuQuUp9haWbu1pST9TQN9prwTmXOWA+utEhO1V4ZyH8anYuQcEqLRN4bHpiPc1
-	DKH0QP5RaIrIQPc1C8Uba5VMxEI5cDnKmFhLA+pUjUwcVA+idLDMMQIGKCBjSg+KcE/PGrmI6eo
-	+4QmhGCRvhmFmjCv3s8jvS+4OV8JGBUSP3p9lIR+pAHjN7kG4a2GCyJcxcRxZG8CkrgoSToCrX6
-	LaVAWSj1tPIjN5hayXPWjaND0D0n8v/70YmaEiZOyWWQhFDpS+kli9/TwhVbWUIoJjMnj5QAQfy
-	jMRQcfZZnr33Ub7y1rKD5QNT+azfpAaUUmGMV139Ya7qkToiczffAwL1aKXuda7SZKjzLYUqvL+
-	NeMQouExkqdk=
-X-Google-Smtp-Source: AGHT+IFKcoSrZF/TOHLWTTIGAqV+4mH4gauL+MSjCK70Hg7n7K38mI3aiRuclcGFw1PMkg3oilCeMg==
-X-Received: by 2002:a17:907:72d0:b0:aa6:7cae:dba7 with SMTP id a640c23a62f3a-ab38b1e1dfcmr4683129366b.4.1738082903675;
-        Tue, 28 Jan 2025 08:48:23 -0800 (PST)
-Message-ID: <be8e6ec3-30d1-4d20-88a8-07698cc630fe@suse.com>
-Date: Tue, 28 Jan 2025 17:48:22 +0100
+        bh=txK94ENtdQMm8AuKPokoFbuC4y9QJF+mwyg+VQoY2UM=;
+        b=ptNNfYQNsyw/aFSaFjK/hrqSZI//WdXtv6/BTYf70Etfh/jUBeSGf0btXeYwZCju+a
+         +Js3cwctwgCoAcPQ4bzL3ugNVpfJAtKoE7ELkRGbNyGP6bA4B4sz1Gku2Fa9AGr1r7Kw
+         YOxSFBmbv3WfU2RDhBLaxe1b+f5jF5eIGGU24QLpl8zPFwj7wJgrqPeiZwt1AaFLEvEj
+         AyUBAKkULp+DIn33nWQf2dlb33qYR3p0q0j3CVbptrVS2+/qHnygw/V0YA5B+zZZR6b4
+         qGNS1WBCLdPC5dRHwIgvUE1o1boWiVZlaO6gQRgdjkstqmgMhU7a154NpBtTLdekgSIo
+         YNRg==
+X-Forwarded-Encrypted: i=1; AJvYcCW9pZPfrEADK0y0yEqSrYuTqJhBwhOji75YXj5QXfbYKNsxevE+LDzXVmuqLzEuH9/4v5j9kvqekjE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwbuOiIpUQd+sAwcNpUcVBgRr4Gkvwhwt/AtYliKWQzFMZwfOaB
+	8dPyaoL+es2S4xTuw+Yd2t9aKhGNaycDjM4ND8/KEDI0t+Oq78n6O9E9KmyloA==
+X-Gm-Gg: ASbGncsmO8f/xgsF1ZYkTlYYy+l3mhRH8RzQf089/jcQf3rZP2hRpEBvNG/a9ApDwiz
+	L5wxuNFYOG6iNrtqLo1BNq0yPhd1QtZUa0/aKyQ4K6iNvDMSUCCuzTGZiXgg9VeBMehGxnWTXUB
+	FEUTxRa76HLDoUytIjC3rc7UOlAoC6+Ebl9gw2LEvwg5YCRvDN1BjgnQb9dMf2lW9uaLyXkeD+4
+	hhW6bh+O32pFNr2KKmV/wxEltiZLkpwOTk+Icu5hGLGOHX7YzRfRIBjHcRBZvApFjZyYR54FvsN
+	IhQEUq7wSFqK1wS2XxFN1JBKpn+XBGeLlWPfLLHNt7Un6gJDsU46R0DmRH/Emb1t6vKH5ina7tO
+	D
+X-Google-Smtp-Source: AGHT+IHHJOw76BjLXqGBnvw43my2VkhquZuadp84pDPIp2kf2AYFivbcZrggsA+azVQI8HRL2Yy1ZQ==
+X-Received: by 2002:a17:906:d54d:b0:aae:bac6:6659 with SMTP id a640c23a62f3a-ab38b190d52mr3936652666b.7.1738083411199;
+        Tue, 28 Jan 2025 08:56:51 -0800 (PST)
+Message-ID: <58d99a7b-4f16-424e-bcbb-c2bc475bce82@suse.com>
+Date: Tue, 28 Jan 2025 17:56:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 16/24] xen/console: introduce console_write()
+Subject: Re: [PATCH v3 17/24] xen/console: flush console ring to physical
+ console
 To: dmukhin@ford.com
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>,
@@ -96,7 +97,7 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20250103-vuart-ns8250-v3-v1-0-c5d36b31d66c@ford.com>
- <20250103-vuart-ns8250-v3-v1-16-c5d36b31d66c@ford.com>
+ <20250103-vuart-ns8250-v3-v1-17-c5d36b31d66c@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,131 +123,77 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250103-vuart-ns8250-v3-v1-16-c5d36b31d66c@ford.com>
+In-Reply-To: <20250103-vuart-ns8250-v3-v1-17-c5d36b31d66c@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 04.01.2025 02:58, Denis Mukhin via B4 Relay wrote:
 > --- a/xen/drivers/char/console.c
 > +++ b/xen/drivers/char/console.c
-> @@ -40,6 +40,11 @@
->  #include <asm/guest.h>
->  #endif
->  
-> +/* Console flags. */
-> +enum {
-> +    CONSOLE_RING    = BIT(0, U),
-> +};
-
-These aren't console flags, but flags passed to the new console_write().
-The comment wants adjusting accordingly, and I guess the enum would also
-best move immediately ahead of the function.
-
-> @@ -636,6 +641,16 @@ static void cf_check notify_dom0_con_ring(void *unused)
->  static DECLARE_SOFTIRQ_TASKLET(notify_dom0_con_ring_tasklet,
->                                 notify_dom0_con_ring, NULL);
->  
-> +static bool console_locks_busted;
-> +
-> +static void conring_write(const char *str, size_t len)
-> +{
-> +    conring_puts(str, len);
-> +
-> +    if ( !console_locks_busted )
-> +        tasklet_schedule(&notify_dom0_con_ring_tasklet);
-> +}
-
-This doesn't really need to be a separate function, does it?
-
-> @@ -644,8 +659,47 @@ static inline void xen_console_write_debug_port(const char *buf, size_t len)
->                     : "=&S" (tmp), "=&c" (tmp)
->                     : "0" (buf), "1" (len), "d" (XEN_HVM_DEBUGCONS_IOPORT) );
+> @@ -430,23 +430,36 @@ void console_serial_puts(const char *s, size_t nr)
+>      pv_console_puts(s, nr);
 >  }
-> +
-> +static void xen_console_write(const char *str, size_t len)
-> +{
-> +    if ( xen_guest )
-> +        xen_hypercall_console_write(str, len);
-> +    else
-> +        xen_console_write_debug_port(str, len);
-> +}
-
-Nor does this, I suppose. The more that the sole call to here ...
-
->  #endif
 >  
+> -static void cf_check dump_console_ring_key(unsigned char key)
 > +/*
-> + * Write characters to console.
-> + *
-> + * That will handle all possible scenarios working w/ console
+> + * Write characters to physical console(s).
+> + * That covers:
 > + * - serial console;
-> + * - VGA console (x86 only);
-> + * - __HYPERVISOR_console_io hypercall (x86 only);
-> + * - debug I/O port (x86 only);
-> + * - PV console.
+> + * - video output.
 > + */
-> +static void console_write(const char *str, size_t len, unsigned int flags)
+> +static void console_puts(const char *str, size_t len)
 > +{
 > +    ASSERT(rspin_is_locked(&console_lock));
 > +
 > +    console_serial_puts(str, len);
 > +    video_puts(str, len);
+> +}
 > +
-> +#ifdef CONFIG_X86
-> +    if ( opt_console_xen )
-> +        xen_console_write(str, len);
-> +#endif
-
-... continues to sit in an #ifdef.
-
-> @@ -666,28 +720,8 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
+> +/*
+> + * Flush contents of the conring to the physical console devices.
+> + */
+> +static int console_flush(void)
+>  {
+>      uint32_t idx, len, sofar, c;
+>      unsigned int order;
+>      char *buf;
 >  
->          if ( is_hardware_domain(cd) )
->          {
-> -            /* Use direct console output as it could be interactive */
-
-This comment looks like being removed with no replacement? Why?
-
->              nrspin_lock_irq(&console_lock);
+> -    printk("'%c' pressed -> dumping console ring buffer (dmesg)\n", key);
 > -
-> -            console_serial_puts(kbuf, kcount);
-> -            video_puts(kbuf, kcount);
-> -
-> -#ifdef CONFIG_X86
-> -            if ( opt_console_xen )
-> -            {
-> -                if ( xen_guest )
-> -                    xen_hypercall_console_write(kbuf, kcount);
-> -                else
-> -                    xen_console_write_debug_port(kbuf, kcount);
-> -            }
-> -#endif
-> -
-> -            if ( opt_console_to_ring )
-> -            {
-> -                conring_puts(kbuf, kcount);
-> -                tasklet_schedule(&notify_dom0_con_ring_tasklet);
-> -            }
-> -
-> +            console_write(kbuf, kcount, !!opt_console_to_ring);
+> -    /* create a buffer in which we'll copy the ring in the correct
+> -       order and NUL terminate */
+>      order = get_order_from_bytes(conring_size + 1);
+>      buf = alloc_xenheap_pages(order, 0);
+>      if ( buf == NULL )
+> -    {
+> -        printk("unable to allocate memory!\n");
+> -        return;
+> -    }
+> +        return -ENOMEM;
+> +
+> +
+> +    nrspin_lock(&console_lock);
 
-Here you assume CONSOLE_RING is bit 0. Please don't create such (then
-also un-annotated) implicit dependencies.
+Nit: No double blank lines please.
 
-> @@ -788,33 +822,6 @@ long do_console_io(
->   * *****************************************************
+> @@ -681,10 +707,7 @@ static void xen_console_write(const char *str, size_t len)
 >   */
->  
-> -static bool console_locks_busted;
-> -
-> -static void __putstr(const char *str)
-> -{
+>  static void console_write(const char *str, size_t len, unsigned int flags)
+>  {
+> -    ASSERT(rspin_is_locked(&console_lock));
 
-Please note the comment up from here, the tail of which is visible in
-context. I wonder whether the new function wouldn't better live here,
-then also reducing the diff quite a bit. Requiring a forward decl
-for this to work isn't very nice, but a reasonable price to pay, I
-think.
+Why is this being dropped? Hmm, I see, it moves into console_puts().
+
+> @@ -1061,6 +1084,9 @@ void __init console_init_preirq(void)
+>      serial_set_rx_handler(sercon_handle, serial_rx);
+>      pv_console_set_rx_handler(serial_rx);
+>  
+> +    /* NB: send conring contents to all enabled physical consoles, if any */
+> +    console_flush();
+
+Aren't you potentially emitting messages a 2nd time this way? Imo
+such flushing needs to come immediately after any particular console
+is ready.
 
 Jan
 
