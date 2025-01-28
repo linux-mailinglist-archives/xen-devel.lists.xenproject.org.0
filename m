@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86D9EA20CAE
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 16:10:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.878556.1288737 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 075C2A20CFA
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 16:25:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.878565.1288747 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcnEP-0005vK-1v; Tue, 28 Jan 2025 15:10:25 +0000
+	id 1tcnSW-0007xz-7t; Tue, 28 Jan 2025 15:25:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 878556.1288737; Tue, 28 Jan 2025 15:10:25 +0000
+Received: by outflank-mailman (output) from mailman id 878565.1288747; Tue, 28 Jan 2025 15:25:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcnEO-0005tD-VQ; Tue, 28 Jan 2025 15:10:24 +0000
-Received: by outflank-mailman (input) for mailman id 878556;
- Tue, 28 Jan 2025 15:10:22 +0000
+	id 1tcnSW-0007vh-5L; Tue, 28 Jan 2025 15:25:00 +0000
+Received: by outflank-mailman (input) for mailman id 878565;
+ Tue, 28 Jan 2025 15:24:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=p3hs=UU=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1tcnEM-0005t7-RA
- for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 15:10:22 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ (envelope-from <SRS0=jygh=UU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tcnSV-0007vb-HN
+ for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 15:24:59 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fe0cf39e-dd89-11ef-a0e6-8be0dac302b0;
- Tue, 28 Jan 2025 16:10:21 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-385d7f19f20so2959193f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 07:10:21 -0800 (PST)
-Received: from [192.168.69.151] (88-187-86-199.subs.proxad.net.
- [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38c2a1c402esm14561306f8f.97.2025.01.28.07.10.19
+ id 089f9b31-dd8c-11ef-a0e6-8be0dac302b0;
+ Tue, 28 Jan 2025 16:24:58 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-aa689a37dd4so1142176066b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 07:24:58 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab6aa40824asm356119366b.134.2025.01.28.07.24.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Jan 2025 07:10:20 -0800 (PST)
+ Tue, 28 Jan 2025 07:24:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,130 +45,216 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fe0cf39e-dd89-11ef-a0e6-8be0dac302b0
+X-Inumbo-ID: 089f9b31-dd8c-11ef-a0e6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1738077021; x=1738681821; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ViM+rjZUgxvbfxwTZxZKl7dD2XoHFDnQHFMIYBVWG2o=;
-        b=Jc7LKc7d2evkXQVhtyyua8mXB/9d5D0SHZ6HVDAIciiPe0S0TnJcOVU4O9KBQzNxzr
-         zZ7Q5NNFy8cOdLXTs7ouKZgBXriMYBmWs7el8z6vTlfFu+iuUQd5fyZHm/uUiEg0DnDB
-         bx9hMrtXlXOSI5h/1c8sWWOh/3sDGDHRkiP7secrt31lD9zi7UmzHn0x15F+jcVpAYXq
-         HlhLw64CrhyDL7wJgXf+bd/uJuBAoYexYmt5/Ow0ArgtD2+uwZ6j6t9x5yBQ3RTlzBzO
-         Tt+aFfA3yyHw+Pb5dayWku48OMzGXjBBSMv4s1olbHUQooXvbp6A41xKFVQ90MmaodDs
-         fZZw==
+        d=suse.com; s=google; t=1738077898; x=1738682698; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=R6+bHWtED+akRsbrsegFrhoUIY65i2DzLq8lI03TP+0=;
+        b=KgMxe0LXPDTN8mtv7pkP7GFufGWiIpLSbGu25A8ZszregSEf7QnGgrW371+UaJ+k9y
+         PEv4gxFQB2cicgqI7rxuMm4foXpLu2nzGz/91ZAxEmdVkhoenroaQPawHjPy3PTvg7Qn
+         0gFItNxyFQjNofILHmoyZUK+p4J7I65cPfiDY25bl5WzuoZnwHPEFJnjz2DNhQC5AQg9
+         BHBvrmCr0epI0/hzaBBw5x26cAyOkYgpEIEug3ip3140FJrcpEZ39CWwONum7FKpqNOc
+         1K0iP6GVjbDwj4c8yO4eZUo0dIG+tqqjs1GbagFP83GBrHGhETNUeRwNIKo6Cwb+1Pqk
+         40qQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738077021; x=1738681821;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ViM+rjZUgxvbfxwTZxZKl7dD2XoHFDnQHFMIYBVWG2o=;
-        b=Qtbe/Ug0YaOWSXs4v7ClXVGBu0kghkDLN7TJMPNnUuKsWx5PZLikHPLEDw28TbJlT2
-         OX6Lal/zCPhidtqANgA+zUtOCz2feR6FLNoXMLQwcOT8OibfCLA7mIvtJe1VZnDqdFxV
-         I/rDV1E1388Y2sIRV5BaeVPYfY5KqQiljk/qMll0j61FNFkSTg2fNsUFmN92jdbk5HZ6
-         vwsPjDDCvLrfh5QDgR19p0wZoBaW47a3zBHzauqGZs1GqIhoxkinxiEJvACX1X3Ihnm5
-         1wrBokoAOONqfb/CiP0Jn5+C5pVclUwJt9Ly1PIO1vLBLl2O2WRz3aVU+bVmz045JL5m
-         vw1A==
-X-Forwarded-Encrypted: i=1; AJvYcCXZZubHtnN8ShXEKtU2j736ZgSzEjwXkijT5+FvSGKf4ZdG6fRsqMAXP12bJ7fERw53+xpztjJdR6g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzkRf/wy6VicL/faudfxA1i8f2dwIHhVH0MzpTOd8CGyIEvWvzH
-	BTjTl2Y3t22s/Zs6i4Qh+tQfHMLCxQWq0KN/7f1ei6utWMEH2C0MKa/+y+o20X4=
-X-Gm-Gg: ASbGncvz1jb0G6JfgU/Qf+vMtGcDG7JNE81c157+sVaW8bXGYjjUsEq/bFAlvGfJk1h
-	VXtrfVg9Zsudbl1SNy9i8XHSAwf4oQekMIk+/dK0lzppWYb7t5aB77ANpOadFZVNSLwmAR438mS
-	caKh1h/vomK/4ehnSEeQ2Gy0AjzgWK3yb9Bu7vwKdMs8xiSDDCn7nYwRD21TRXbBtS5zF0uKecb
-	3QlUiXYFFPi/pkXiJSJXcpkJn7Dd0J92p4d4NcAlGau9MzVePN+XMkXfKAXrVN2NiV7BJKLTL1u
-	w0uTJ0Mr0vVVGyTke+Lk/UG0f5/UXpZaP6yZ7nbkxu8p3z31s8+89VyVdos=
-X-Google-Smtp-Source: AGHT+IGLc4A5clvj21CfoQyBX6F3omCt6bWQLv3EkWi0U+JM0LkNEZMv50192jgozkl7S+UQxS3FRg==
-X-Received: by 2002:a05:6000:18a9:b0:38a:86fe:52dc with SMTP id ffacd0b85a97d-38c3b0cbb61mr9689447f8f.13.1738077020863;
-        Tue, 28 Jan 2025 07:10:20 -0800 (PST)
-Message-ID: <990dacab-6cfd-4a18-944d-ba076a80996c@linaro.org>
-Date: Tue, 28 Jan 2025 16:10:18 +0100
+        d=1e100.net; s=20230601; t=1738077898; x=1738682698;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=R6+bHWtED+akRsbrsegFrhoUIY65i2DzLq8lI03TP+0=;
+        b=xP6HVtYZ/VG3ajmnPrWvsMTD0BjKzRHbGgUoRsobouA6LonxAJ7YxH6u14WiL0YyBh
+         kJTuDZqFSib9CNS6lfFR3ig6k0ffs8HZyYE/Ov4u/SAAe9hnjROL21zTl7E4CUuMu+MZ
+         ISC+yX8aphbE6A3zvVzBp8WDIAAg3idyu3heFcH3x+krbUc9XIyIXM5ZHH4HQ78ogMGT
+         oqjwU3aXXXZMGmgD96XQlPnhcRkLvedljD3PuKTMbXMv2yMn6rEBcMafki6J86jTTjEg
+         4RSmQrbPepmh5fv/kvRZqJNyNNuITLunJeeSsy4OG2fSdmoMOrt1Bo4LPXsm0dvTNLME
+         91HQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVfcXj7bQ6M2l963cXaYnE+YGcJJbtM+pfKhbwS0tjLKh74MNR09xbZUAsiV1y9mw9ZgH2V3JGw7nY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyWmAxsVD4aGpBMIZKn4cxilrRO99MJx5Z3DWOrbSZvP71n2MLg
+	s5u1FARZ09iAUZxozQLBDIk2NlvYi7AlSje9a9nDLckbp0sAbykfDrddfqxJtg==
+X-Gm-Gg: ASbGncvBrVUOBQ1zBWlNxo/l3ieZB9zdRnu4rXuHtaEFMBEtgAKpXvQ5QV/RAmT6VMH
+	CSICCaa4LON2PWLIpN4Urqjy5O3LzLnVlD5g9XXkk8XTrqMpC8twpIot+d2TzqYDex7Q0YoDK/9
+	1QWhfzUJENrdG6F8gwxSGtJ6MF6qvT10aSHs3y7ivyJaLfkXaabw2Ewh2DDV4x4i9EAGaYjagnB
+	tqYDxfCYOmPTtzEi4/5xogjM1zZDc9BvkdlPWfAOi0xPY6ek4Cm6zHcxuaGE8Rhzh1+zpHbX7U0
+	bUom2qVvfSs1WdL1YttWTW9FEoq89H3mo/jR/+enjthrabOuCNAwAZxGdYhvu7dqsMsrpupSeFI
+	e
+X-Google-Smtp-Source: AGHT+IG7lKKdeOQl2WGGWu5hg3C36ZqNreoUFyU59TmynYr4bsmW/gaxeqTwYMgoo31Rr/nAtgMzcQ==
+X-Received: by 2002:a17:906:7955:b0:ab2:f816:c5e1 with SMTP id a640c23a62f3a-ab38b1b4659mr4533584766b.1.1738077897383;
+        Tue, 28 Jan 2025 07:24:57 -0800 (PST)
+Message-ID: <ebb76855-9ab4-445d-9f43-5554c4743755@suse.com>
+Date: Tue, 28 Jan 2025 16:24:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/9] hw/sysbus/platform-bus: Introduce
- TYPE_DYNAMIC_SYS_BUS_DEVICE
-To: BALATON Zoltan <balaton@eik.bme.hu>,
- Peter Maydell <peter.maydell@linaro.org>
-Cc: Gerd Hoffmann <kraxel@redhat.com>, qemu-devel@nongnu.org,
- Yi Liu <yi.l.liu@intel.com>, Markus Armbruster <armbru@redhat.com>,
- Eduardo Habkost <eduardo@habkost.net>,
- Anthony PERARD <anthony@xenproject.org>,
- Gustavo Romero <gustavo.romero@linaro.org>, Jason Wang
- <jasowang@redhat.com>, qemu-ppc@nongnu.org,
- "Michael S. Tsirkin" <mst@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
- Alexander Graf <graf@amazon.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- Stefan Berger <stefanb@linux.vnet.ibm.com>,
- Bernhard Beschow <shentey@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>,
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
- xen-devel@lists.xenproject.org, Marcel Apfelbaum
- <marcel.apfelbaum@gmail.com>, Alex Williamson <alex.williamson@redhat.com>,
- Paul Durrant <paul@xen.org>,
- =?UTF-8?Q?Cl=C3=A9ment_Mathieu--Drif?= <clement.mathieu--drif@eviden.com>,
- =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@redhat.com>
-References: <20250125181343.59151-1-philmd@linaro.org>
- <wkb53fhvfchqa4uvmifgitvcr7t7rfpc3hcohdhzczkzvktetx@yjveswjel3s4>
- <CAFEAcA-QOYcnJi=joKHbRmUCXK1UFOgQRgYP-fDq4h_1SkMGyQ@mail.gmail.com>
- <2893a552-ca6c-01c4-dcc0-6107ccf1c7b5@eik.bme.hu>
+Subject: Re: [PATCH v3 11/24] xen/domain: move get_initial_domain_id() to
+ arch-independent header
+To: dmukhin@ford.com
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20250103-vuart-ns8250-v3-v1-0-c5d36b31d66c@ford.com>
+ <20250103-vuart-ns8250-v3-v1-11-c5d36b31d66c@ford.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-In-Reply-To: <2893a552-ca6c-01c4-dcc0-6107ccf1c7b5@eik.bme.hu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250103-vuart-ns8250-v3-v1-11-c5d36b31d66c@ford.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 28/1/25 13:57, BALATON Zoltan wrote:
-> On Tue, 28 Jan 2025, Peter Maydell wrote:
->> On Tue, 28 Jan 2025 at 10:42, Gerd Hoffmann <kraxel@redhat.com> wrote:
->>>
->>> On Sat, Jan 25, 2025 at 07:13:34PM +0100, Philippe Mathieu-Daudé wrote:
->>>> Some SysBus devices can optionally be dynamically plugged onto
->>>> the sysbus-platform-bus (then virtual guests are aware of
->>>> mmio mapping and IRQs via device tree / ACPI rules).
->>>
->>> Do we have some sane way to have user-pluggable sysbus devices on arm?
->>
->> The answer in a general sense is "no, because user pluggable
->> sysbus is a weird idea". "sysbus" means "it's wired into a
->> specific bit of the memory map and to specific IRQs, and whoever
->> does that needs to know what IRQs and bits of memory are usable,
->> and the guest OS needs to know it's there". "user-pluggable" means
->> "it's all automatic and the guest can just do some kind of
->> probing for what is or isn't present". All the platform bus stuff
->> is a nasty mess that's working around the things people want
->> to plug in not being clean devices on probeable buses :-(
->> And the platform bus is only supported on the "virt" board,
->> because that's the only one where QEMU is generating its
->> own dtb or ACPI tables where it can tell the guest "hey,
->> there's some device here".
+On 04.01.2025 02:58, Denis Mukhin via B4 Relay wrote:
+> From: Denis Mukhin <dmukhin@ford.com>
 > 
-> There are some SoCs that have memory mapped devices but different 
-> versions in the same family have different devices. Either older ones 
-> missing some devices or have less USB or network ports while newer SoCs 
-> have more of those or they have PCIe instead of PCI. Modelling these 
-> could use pluggable sysbus devices so one could add the devices needed 
-> for a SoC version without having to write or modify a board code. I 
-> think Bernhard's attempt to try creating e500 SoCs from a device tree 
-> goes in that direction too. We could also model this by having a SoC 
-> that can instantiate devices based on some properties but maybe 
-> pluggable devices could be more generic for this. The issue seems to be 
-> how to tell the board or SoC where to map it and what IRQ to connect it 
-> as this is done by the board and not the device so properties on the 
-> device to set these does not really help unless the board can somehow 
-> query it and instantiate the devices based on that. Otherwise whatever 
-> handles the -device option to create the device would need knowledge 
-> about the board. (E.g. the e500 devices are mapped in the CCSR memory 
-> region so one can't just use system address space for them.)
+> Honor 'hardware_domid=' parameter across all architectures
 
-IIRC Bernard's series takes a DTB as input and create the machine
-matching this DTB.
+In which way is it not honored right now (besides depending on
+LATE_HWDOM=y)? It is, for example, not supposed to be the case that
+in a late-hwdom configuration all IDs below hardware_domid are
+unavailable for new domains to be created.
 
-As Peter explained, sysbus-platform-bus fits TYPE_DYNAMIC_SYS_BUS_DEVICE
-in free slots, then generates the corresponding ACPI/DTB.
+> and update
+> max_init_domid correctly so that toolstack and, subsequently, console driver
+> could iterate across known domains more efficiently.
+> 
+> Also, move max_init_domid to arch-independent location.
+> 
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 
-What you describe seems closer to the QEMU Dynamic Machine project,
-following Damien's idea:
-https://lore.kernel.org/qemu-devel/20220223090706.4888-1-damien.hedde@greensocs.com/
-We are not quite there yet...
+
+> @@ -2387,15 +2388,15 @@ void __init create_dom0(void)
+>      if ( !llc_coloring_enabled )
+>          flags |= CDF_directmap;
+>  
+> -    dom0 = domain_create(0, &dom0_cfg, flags);
+> +    dom0 = domain_create(domid, &dom0_cfg, CDF_privileged | CDF_directmap);
+
+Why the move from "flags" to "CDF_privileged | CDF_directmap"?
+
+>      if ( IS_ERR(dom0) )
+> -        panic("Error creating domain 0 (rc = %ld)\n", PTR_ERR(dom0));
+> +        panic("Error creating domain %d (rc = %ld)\n", domid, PTR_ERR(dom0));
+>  
+>      if ( llc_coloring_enabled && (rc = dom0_set_llc_colors(dom0)) )
+>          panic("Error initializing LLC coloring for domain 0 (rc = %d)\n", rc);
+>  
+>      if ( alloc_dom0_vcpu0(dom0) == NULL )
+> -        panic("Error creating domain 0 vcpu0\n");
+> +        panic("Error creating domain %d vcpu0\n", domid);
+
+If already you alter this, please switch to %pd.
+
+> @@ -65,6 +68,9 @@ DEFINE_RCU_READ_LOCK(domlist_read_lock);
+>  static struct domain *domain_hash[DOMAIN_HASH_SIZE];
+>  struct domain *domain_list;
+>  
+> +/* Last known non-system domain ID. */
+> +domid_t __read_mostly max_init_domid;
+
+I'm afraid comment and variable name conflict with one another. And
+really with its present purpose it ought to be __ro_after_init, I
+think.
+
+> @@ -2261,6 +2267,15 @@ int continue_hypercall_on_cpu(
+>      return 0;
+>  }
+>  
+> +domid_t get_initial_domain_id(void)
+> +{
+> +#ifdef CONFIG_PV_SHIM
+> +    if ( pv_shim )
+> +        return pv_shim_get_initial_domain_id();
+> +#endif
+
+Aiui the #ifdef is necessary for non-x86? Would be nice to avoid that, yet
+then I'm not meaning to ask you to do a lot of further rearrangements.
+
+> --- a/xen/common/domctl.c
+> +++ b/xen/common/domctl.c
+> @@ -415,10 +415,9 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+>      case XEN_DOMCTL_createdomain:
+>      {
+>          domid_t        dom;
+> -        static domid_t rover = 0;
+>  
+>          dom = op->domain;
+> -        if ( (dom > 0) && (dom < DOMID_FIRST_RESERVED) )
+> +        if ( (dom > max_init_domid) && (dom < DOMID_FIRST_RESERVED) )
+>          {
+>              ret = -EEXIST;
+>              if ( !is_free_domid(dom) )
+> @@ -426,19 +425,19 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+>          }
+>          else
+>          {
+> -            for ( dom = rover + 1; dom != rover; dom++ )
+> +            for ( dom = max_init_domid + 1; dom != max_init_domid; dom++ )
+
+The "dom != max_init_domid" is dead code now if I'm no t mistaken, due to ...
+
+>              {
+>                  if ( dom == DOMID_FIRST_RESERVED )
+> -                    dom = 1;
+> +                    dom = max_init_domid + 1;
+
+... this. Thus the loop will become infinite if all permissible domain IDs
+are in use. Yet then ...
+
+>                  if ( is_free_domid(dom) )
+>                      break;
+>              }
+>  
+>              ret = -ENOMEM;
+> -            if ( dom == rover )
+> +            if ( dom == max_init_domid )
+>                  break;
+>  
+> -            rover = dom;
+> +            max_init_domid = dom;
+>          }
+
+... why would all of this code need changing? (If it does, I think that
+wants to be in a separate patch, with appropriate description.)
+
+> --- a/xen/common/kernel.c
+> +++ b/xen/common/kernel.c
+> @@ -568,6 +568,14 @@ static long xenver_varbuf_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>      return sz;
+>  }
+>  
+> +static int __init cf_check globals_init(void)
+> +{
+> +    max_init_domid = get_initial_domain_id();
+> +
+> +    return 0;
+> +}
+> +__initcall(globals_init);
+
+Imo this wants to live in the CU defining the variable.
+
+Jan
 
