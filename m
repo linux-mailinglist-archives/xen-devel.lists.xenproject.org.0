@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CD31A211F2
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 20:04:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.878778.1288968 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CEC8A21365
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 22:02:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.878787.1288978 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcqsS-0000fB-9l; Tue, 28 Jan 2025 19:04:00 +0000
+	id 1tcshu-0006O3-4J; Tue, 28 Jan 2025 21:01:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 878778.1288968; Tue, 28 Jan 2025 19:04:00 +0000
+Received: by outflank-mailman (output) from mailman id 878787.1288978; Tue, 28 Jan 2025 21:01:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcqsS-0000cF-6Q; Tue, 28 Jan 2025 19:04:00 +0000
-Received: by outflank-mailman (input) for mailman id 878778;
- Tue, 28 Jan 2025 19:03:58 +0000
+	id 1tcshu-0006Mb-1P; Tue, 28 Jan 2025 21:01:14 +0000
+Received: by outflank-mailman (input) for mailman id 878787;
+ Tue, 28 Jan 2025 21:01:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=O8nr=UU=gmail.com=julien.grall.oss@srs-se1.protection.inumbo.net>)
- id 1tcqsQ-0000c9-NS
- for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 19:03:58 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ZS2U=UU=gmail.com=shentey@srs-se1.protection.inumbo.net>)
+ id 1tcshs-0006MV-8q
+ for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 21:01:12 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a04477da-ddaa-11ef-a0e6-8be0dac302b0;
- Tue, 28 Jan 2025 20:03:57 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-385e3621518so3175340f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 11:03:57 -0800 (PST)
+ id ff999f3e-ddba-11ef-a0e6-8be0dac302b0;
+ Tue, 28 Jan 2025 22:01:09 +0100 (CET)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-5d3f57582a2so128677a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 13:01:09 -0800 (PST)
+Received: from [127.0.0.1] (dynamic-089-012-042-254.89.12.pool.telefonica.de.
+ [89.12.42.254]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab6760ab311sm860147666b.97.2025.01.28.13.01.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 28 Jan 2025 13:01:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,195 +45,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a04477da-ddaa-11ef-a0e6-8be0dac302b0
+X-Inumbo-ID: ff999f3e-ddba-11ef-a0e6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1738091037; x=1738695837; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=E9des8+uKNTqFkgwRy/Jni2WaoGo4jFNwW33xKg+mEE=;
-        b=IX/hIOqwuzsabmshsdrtxEzc5YZ1PeM4NNSEVS98ywApJRLFhQA6fELampIkd5XYO0
-         jfj8PM0cAC9fax32/TrQeb3nG6mQadxi5B7AhqMogw1BZPM3BBBPPzKhprEebevrAB0E
-         9atzehRNJwtojNM/fr+f5wJ5bmuSLt8watZy1L2nxwgnHLLeRF3oRcAp1G+YpRgdbD0Z
-         24oYr72Npu3nO+G5Q8Wk6wRsR0bYYEBHtJb3LcX7c5+ogAE6FcVclxfTofI9Oy6mA6Ba
-         IEe8UMoSVHRXzUguSa8uR92HwTgURDpd/D528zMfSq/OZKYAYVj5hPrJy36PSou/GU0D
-         IlYg==
+        d=gmail.com; s=20230601; t=1738098069; x=1738702869; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:references
+         :in-reply-to:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NTNqOQ4RwVUWCgn6HX+Oj/bHeQslJwkndeT4/tSVYlU=;
+        b=CvITPvJWlKRKHO3aWOqYPbYsyrLWZa+m2l9nB8JM+4EPxdyqez2Dr1pkI8Hjz4IcuY
+         044Wsjkwb9kIlSFcNNmDlF7Wt85BhIz6MM8fllRNcn9TzNztlBUAW2ID1z6xF41xUJMU
+         Mqcew/vD0VO42tdjQ3cNAQBrihPcw/KUwvYwiXcaxLr4QWAm3Bidj+CNg1Ld5iv8G0F4
+         j8lPyfrM5ZHxGge8IVylmn0/mSLq5uROg4UOvSwDx1RF/62buL+O+5b0ySrl+++vCiG+
+         S4bbIRahntpMwjLIMIq9RoCj9Te5GWZfBTP/s7PbAlNXeJCcyYpkdUKy5VVtWKYEPp4a
+         lKPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738091037; x=1738695837;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=E9des8+uKNTqFkgwRy/Jni2WaoGo4jFNwW33xKg+mEE=;
-        b=S3H6ZC2hKgUDBsap2oUJAF11WHzdkcdPNfIPK3e+e4NO8rKk/RKN3FX5avAHunZLSJ
-         iYfvX8rs7Efr7/qXNoht5PRyeMqMsrGL6WNgJlftO0BRmLelKVvbvfWXWs9F2VzrA5GV
-         u3Z3VKBObjzxK3QXTpB0a7BvDNDwQ/27bcbXXP5+6yvOfQ4I8EkozAkOWqIzu8TznfM0
-         46j8mthrfty9e/IPkmYb0XtZupHQYnhe9qQr2gr7OFfndS9HTI0VGtIbkam6F/CaAkc1
-         Rqcwz2Q2ESNaDkL+jk8V1BVMiOl/EbYa5kYA6aiXexfVyMLKLdhOugDe+7Y5xx8s4rzL
-         7HrQ==
-X-Gm-Message-State: AOJu0YyuWG5mbMzmdT/PZvGbPPHc1cb4N9m3YyP8/gSp7bJD4GVaBdR6
-	cX7wSW1lRSb2SmQKlKSfD3AVHAvul7n+bh6KeUBpY2dq6k62tzA9tpzbyEJEq75MKjSOsYpcMTJ
-	WIWzyqjpe+bNxJCnbctQ/6vOBNdo=
-X-Gm-Gg: ASbGncszfTAY7YfaEV/aN0oxoraWvd3B5Arf28JckH5M1soZw7oJKjyKlT7zWyH8J+W
-	I2iiehcDFcweM8jrB/xYl3ND9QHNe0CR6l4/wX+VTgV/R1pUF+fFInkO04y4XQpkVaMzQTx0=
-X-Google-Smtp-Source: AGHT+IES9C0uxBhBvZlHAAssZ3d3a3KnNV+hSY6mN2zNVjcftfXEN76umZ0Rd35GYh42V0hQqG+fVrpgPQuk42c6kkQ=
-X-Received: by 2002:adf:f504:0:b0:38b:e109:1e0d with SMTP id
- ffacd0b85a97d-38c520b6629mr135714f8f.49.1738091036665; Tue, 28 Jan 2025
- 11:03:56 -0800 (PST)
+        d=1e100.net; s=20230601; t=1738098069; x=1738702869;
+        h=content-transfer-encoding:mime-version:message-id:references
+         :in-reply-to:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=NTNqOQ4RwVUWCgn6HX+Oj/bHeQslJwkndeT4/tSVYlU=;
+        b=jYfP9deA7qelb6JaMIjBFIR1hrr/hBXxA30nksNKFZK63OAUAdrddQ040ZilFB678E
+         22KdzO3hRvJF3gD7Q1ug5M2NPvSCkcDgONwu9pJ3DuwqSgnrAVyxZL0YOlh0ybDzfWaP
+         xMuyHioVhVZjStiCeSQ4BeIhtTJMXrHpO4337O8edi1qg0KK2/LcIfNP7oVdrpWMeToh
+         a8Ab4KS4fsx+J+ctP+ue1c0Xdc7Mcpng4sgxP5wGdOZrgRvPnTNS+ssrPus1Nz9Oc9Ss
+         h4aZtxY5iVL9oa/7VAoFWvJK3yaaE9EBRtlGB02EMGNUMy+Y967nodQ2IaTn5EbO/OYi
+         OSDQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWvihNWySOG77iAiCBQeLWhUYXBnB5YfuVJxBsRsN1d2R7s/JOk4XuVqasVCE7ij15HXc9J33RhpU0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwpKT97AN0XM27n7I1wy5YcwSsukutmE2YGDzGNvOM0MoL5mGQy
+	W+T9b3ALNXZhqcyh0GOPx4iFYA79CqRkv66vdP46nNT9tROdjCe5
+X-Gm-Gg: ASbGncvX3iRke9hcvnn+PvEKswluP3NzSseiS7xjUd79zdVGUkq6vN+a4v4SV9lkrAu
+	kqY6XXIuvaB1u3xdmiaK/tcPi8qLQ+De7NROijRdWD3hvkXNxDWiBLQZlp7QkPQc4HoiVTL7I6U
+	sqzRMln4yKlA+MRT5tH/ZWUMETXlZwb9i95/RkrAbs45Wejx3EjulUdn+imp/mW5aWgmy5zDTXu
+	w6FSJCukfs7r4RKoN5mjha8tjdoMjDpth6tdrB/fETAj7t+F7ufd3mllhUE2iTqdezfkiSqRNw3
+	riO9K6XixkPzQwLBLvUSBMQtshr5QQ85JwUDYLThCTOv/Rn3Ku/86PXTd10rdJhM
+X-Google-Smtp-Source: AGHT+IEUH1MqAsTKouPAgO63mx87B7XD+KP2maJkZHlUr1Y668zI87sZ/y2pdGu6scR74+6RcErjsQ==
+X-Received: by 2002:a17:907:3f25:b0:aa4:cd1e:c91b with SMTP id a640c23a62f3a-ab6bbaa8a32mr417503766b.7.1738098068537;
+        Tue, 28 Jan 2025 13:01:08 -0800 (PST)
+Date: Tue, 28 Jan 2025 19:13:56 +0000
+From: Bernhard Beschow <shentey@gmail.com>
+To: =?ISO-8859-1?Q?Philippe_Mathieu-Daud=E9?= <philmd@linaro.org>,
+ BALATON Zoltan <balaton@eik.bme.hu>,
+ Peter Maydell <peter.maydell@linaro.org>
+CC: Gerd Hoffmann <kraxel@redhat.com>, qemu-devel@nongnu.org,
+ Yi Liu <yi.l.liu@intel.com>, Markus Armbruster <armbru@redhat.com>,
+ Eduardo Habkost <eduardo@habkost.net>,
+ Anthony PERARD <anthony@xenproject.org>,
+ Gustavo Romero <gustavo.romero@linaro.org>, Jason Wang <jasowang@redhat.com>,
+ qemu-ppc@nongnu.org, "Michael S. Tsirkin" <mst@redhat.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Alexander Graf <graf@amazon.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Stefan Berger <stefanb@linux.vnet.ibm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ =?ISO-8859-1?Q?Daniel_P=2E_Berrang=E9?= <berrange@redhat.com>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ xen-devel@lists.xenproject.org,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Alex Williamson <alex.williamson@redhat.com>, Paul Durrant <paul@xen.org>,
+ =?ISO-8859-1?Q?Cl=E9ment_Mathieu--Drif?= <clement.mathieu--drif@eviden.com>,
+ =?ISO-8859-1?Q?C=E9dric_Le_Goater?= <clg@redhat.com>
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_0/9=5D_hw/sysbus/platform-bus?=
+ =?US-ASCII?Q?=3A_Introduce_TYPE=5FDYNAMIC=5FSYS=5FBUS=5FDEVICE?=
+In-Reply-To: <990dacab-6cfd-4a18-944d-ba076a80996c@linaro.org>
+References: <20250125181343.59151-1-philmd@linaro.org> <wkb53fhvfchqa4uvmifgitvcr7t7rfpc3hcohdhzczkzvktetx@yjveswjel3s4> <CAFEAcA-QOYcnJi=joKHbRmUCXK1UFOgQRgYP-fDq4h_1SkMGyQ@mail.gmail.com> <2893a552-ca6c-01c4-dcc0-6107ccf1c7b5@eik.bme.hu> <990dacab-6cfd-4a18-944d-ba076a80996c@linaro.org>
+Message-ID: <291CA1E7-6220-4F8E-90E1-D38723E7FDBE@gmail.com>
 MIME-Version: 1.0
-References: <20250128094002.145755-1-michal.orzel@amd.com> <20250128094002.145755-2-michal.orzel@amd.com>
-In-Reply-To: <20250128094002.145755-2-michal.orzel@amd.com>
-From: Julien Grall <julien.grall.oss@gmail.com>
-Date: Tue, 28 Jan 2025 16:03:44 -0300
-X-Gm-Features: AWEUYZmzu1Y8pm78xYAsiHyAQFMIxdPHdWeKJYrZed6AHoIunNplOtPsugDKDMc
-Message-ID: <CAJ=z9a2m3UY=asS6zMtVu0sxSGZdK2vEk4if69DndGzsVcM8wg@mail.gmail.com>
-Subject: Re: [for-4.20][PATCH v2 1/2] device-tree: bootfdt: Fix build issue
- when CONFIG_PHYS_ADDR_T_32=y
-To: Michal Orzel <michal.orzel@amd.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-	oleksii.kurochko@gmail.com
-Content-Type: multipart/alternative; boundary="000000000000d3eea1062cc8da35"
-
---000000000000d3eea1062cc8da35
-Content-Type: text/plain; charset="UTF-8"
-
-On Tue, 28 Jan 2025 at 06:40, Michal Orzel <michal.orzel@amd.com> wrote:
-
-> On Arm32, when CONFIG_PHYS_ADDR_T_32 is set, a build failure is observed:
-> common/device-tree/bootfdt.c: In function 'build_assertions':
-> ./include/xen/macros.h:47:31: error: static assertion failed:
-> "!(alignof(struct membanks) != 8)"
->    47 | #define BUILD_BUG_ON(cond) ({ _Static_assert(!(cond), "!(" #cond
-> ")"); })
->       |                               ^~~~~~~~~~~~~~
-> common/device-tree/bootfdt.c:31:5: note: in expansion of macro
-> 'BUILD_BUG_ON'
->    31 |     BUILD_BUG_ON(alignof(struct membanks) != 8);
->
-> When CONFIG_PHYS_ADDR_T_32 is set, paddr_t is defined as unsigned long,
-> therefore the struct membanks alignment is 4B and not 8B. The check is
-> there to ensure the struct membanks and struct membank, which is a
-> member of the former, are equally aligned. Therefore modify the check to
-> compare alignments obtained via alignof not to rely on hardcoded
-> values.
->
-> Fixes: 2209c1e35b47 ("xen/arm: Introduce a generic way to access memory
-> bank structures")
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-> Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-
-
-Reviewed-by: Julien Grall <julien@xen.org>
-
-Cheers,
-
-
-
-> ---
-> Changes in v2:
->  - modify the check to test against alignment of struct membank
-> ---
->  xen/common/device-tree/bootfdt.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/xen/common/device-tree/bootfdt.c
-> b/xen/common/device-tree/bootfdt.c
-> index 47386d4fffea..529c91e603ab 100644
-> --- a/xen/common/device-tree/bootfdt.c
-> +++ b/xen/common/device-tree/bootfdt.c
-> @@ -27,8 +27,8 @@ static void __init __maybe_unused build_assertions(void)
->       */
->      BUILD_BUG_ON((offsetof(struct membanks, bank) !=
->                   offsetof(struct meminfo, bank)));
-> -    /* Ensure "struct membanks" is 8-byte aligned */
-> -    BUILD_BUG_ON(alignof(struct membanks) != 8);
-> +    /* Ensure "struct membanks" and "struct membank" are equally aligned
-> */
-> +    BUILD_BUG_ON(alignof(struct membanks) != alignof(struct membank));
->  }
->
->  static bool __init device_tree_node_is_available(const void *fdt, int
-> node)
-> --
-> 2.25.1
->
->
-
---000000000000d3eea1062cc8da35
-Content-Type: text/html; charset="UTF-8"
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-<div><br><div class=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" =
-class=3D"gmail_attr">On Tue, 28 Jan 2025 at 06:40, Michal Orzel &lt;<a href=
-=3D"mailto:michal.orzel@amd.com">michal.orzel@amd.com</a>&gt; wrote:<br></d=
-iv><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left=
-:1px #ccc solid;padding-left:1ex">On Arm32, when CONFIG_PHYS_ADDR_T_32 is s=
-et, a build failure is observed:<br>
-common/device-tree/bootfdt.c: In function &#39;build_assertions&#39;:<br>
-./include/xen/macros.h:47:31: error: static assertion failed: &quot;!(align=
-of(struct membanks) !=3D 8)&quot;<br>
-=C2=A0 =C2=A047 | #define BUILD_BUG_ON(cond) ({ _Static_assert(!(cond), &qu=
-ot;!(&quot; #cond &quot;)&quot;); })<br>
-=C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^~~~~~~~~~~~~~<b=
-r>
-common/device-tree/bootfdt.c:31:5: note: in expansion of macro &#39;BUILD_B=
-UG_ON&#39;<br>
-=C2=A0 =C2=A031 |=C2=A0 =C2=A0 =C2=A0BUILD_BUG_ON(alignof(struct membanks) =
-!=3D 8);<br>
-<br>
-When CONFIG_PHYS_ADDR_T_32 is set, paddr_t is defined as unsigned long,<br>
-therefore the struct membanks alignment is 4B and not 8B. The check is<br>
-there to ensure the struct membanks and struct membank, which is a<br>
-member of the former, are equally aligned. Therefore modify the check to<br=
->
-compare alignments obtained via alignof not to rely on hardcoded<br>
-values.<br>
-<br>
-Fixes: 2209c1e35b47 (&quot;xen/arm: Introduce a generic way to access memor=
-y bank structures&quot;)<br>
-Signed-off-by: Michal Orzel &lt;<a href=3D"mailto:michal.orzel@amd.com" tar=
-get=3D"_blank">michal.orzel@amd.com</a>&gt;<br>
-Release-Acked-by: Oleksii Kurochko &lt;<a href=3D"mailto:oleksii.kurochko@g=
-mail.com" target=3D"_blank">oleksii.kurochko@gmail.com</a>&gt;</blockquote>=
-<div dir=3D"auto"><br></div><div dir=3D"auto">Reviewed-by: Julien Grall &lt=
-;<a href=3D"mailto:julien@xen.org">julien@xen.org</a>&gt;</div><div dir=3D"=
-auto"><br></div><div dir=3D"auto">Cheers,</div><div dir=3D"auto"><br></div>=
-<div dir=3D"auto"><br></div><blockquote class=3D"gmail_quote" style=3D"marg=
-in:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex" dir=3D"auto"><br=
->
----<br>
-Changes in v2:<br>
-=C2=A0- modify the check to test against alignment of struct membank<br>
----<br>
-=C2=A0xen/common/device-tree/bootfdt.c | 4 ++--<br>
-=C2=A01 file changed, 2 insertions(+), 2 deletions(-)<br>
-<br>
-diff --git a/xen/common/device-tree/bootfdt.c b/xen/common/device-tree/boot=
-fdt.c<br>
-index 47386d4fffea..529c91e603ab 100644<br>
---- a/xen/common/device-tree/bootfdt.c<br>
-+++ b/xen/common/device-tree/bootfdt.c<br>
-@@ -27,8 +27,8 @@ static void __init __maybe_unused build_assertions(void)<=
-br>
-=C2=A0 =C2=A0 =C2=A0 */<br>
-=C2=A0 =C2=A0 =C2=A0BUILD_BUG_ON((offsetof(struct membanks, bank) !=3D<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 offsetof(str=
-uct meminfo, bank)));<br>
--=C2=A0 =C2=A0 /* Ensure &quot;struct membanks&quot; is 8-byte aligned */<b=
-r>
--=C2=A0 =C2=A0 BUILD_BUG_ON(alignof(struct membanks) !=3D 8);<br>
-+=C2=A0 =C2=A0 /* Ensure &quot;struct membanks&quot; and &quot;struct memba=
-nk&quot; are equally aligned */<br>
-+=C2=A0 =C2=A0 BUILD_BUG_ON(alignof(struct membanks) !=3D alignof(struct me=
-mbank));<br>
-=C2=A0}<br>
-<br>
-=C2=A0static bool __init device_tree_node_is_available(const void *fdt, int=
- node)<br>
--- <br>
-2.25.1<br>
-<br>
-</blockquote></div></div>
 
---000000000000d3eea1062cc8da35--
+
+Am 28=2E Januar 2025 15:10:18 UTC schrieb "Philippe Mathieu-Daud=C3=A9" <p=
+hilmd@linaro=2Eorg>:
+>On 28/1/25 13:57, BALATON Zoltan wrote:
+>> On Tue, 28 Jan 2025, Peter Maydell wrote:
+>>> On Tue, 28 Jan 2025 at 10:42, Gerd Hoffmann <kraxel@redhat=2Ecom> wrot=
+e:
+>>>>=20
+>>>> On Sat, Jan 25, 2025 at 07:13:34PM +0100, Philippe Mathieu-Daud=C3=A9=
+ wrote:
+>>>>> Some SysBus devices can optionally be dynamically plugged onto
+>>>>> the sysbus-platform-bus (then virtual guests are aware of
+>>>>> mmio mapping and IRQs via device tree / ACPI rules)=2E
+>>>>=20
+>>>> Do we have some sane way to have user-pluggable sysbus devices on arm=
+?
+>>>=20
+>>> The answer in a general sense is "no, because user pluggable
+>>> sysbus is a weird idea"=2E "sysbus" means "it's wired into a
+>>> specific bit of the memory map and to specific IRQs, and whoever
+>>> does that needs to know what IRQs and bits of memory are usable,
+>>> and the guest OS needs to know it's there"=2E "user-pluggable" means
+>>> "it's all automatic and the guest can just do some kind of
+>>> probing for what is or isn't present"=2E All the platform bus stuff
+>>> is a nasty mess that's working around the things people want
+>>> to plug in not being clean devices on probeable buses :-(
+>>> And the platform bus is only supported on the "virt" board,
+>>> because that's the only one where QEMU is generating its
+>>> own dtb or ACPI tables where it can tell the guest "hey,
+>>> there's some device here"=2E
+>>=20
+>> There are some SoCs that have memory mapped devices but different versi=
+ons in the same family have different devices=2E Either older ones missing =
+some devices or have less USB or network ports while newer SoCs have more o=
+f those or they have PCIe instead of PCI=2E Modelling these could use plugg=
+able sysbus devices so one could add the devices needed for a SoC version w=
+ithout having to write or modify a board code=2E I think Bernhard's attempt=
+ to try creating e500 SoCs from a device tree goes in that direction too=2E=
+ We could also model this by having a SoC that can instantiate devices base=
+d on some properties but maybe pluggable devices could be more generic for =
+this=2E The issue seems to be how to tell the board or SoC where to map it =
+and what IRQ to connect it as this is done by the board and not the device =
+so properties on the device to set these does not really help unless the bo=
+ard can somehow query it and instantiate the devices based on that=2E Other=
+wise whatever handles the -device option to create the device would need kn=
+owledge about the board=2E (E=2Eg=2E the e500 devices are mapped in the CCS=
+R memory region so one can't just use system address space for them=2E)
+>
+>IIRC Bernard's series takes a DTB as input and create the machine
+>matching this DTB=2E
+
+That's correct=2E It's still on my todo list to send an RFC=2E I first wan=
+ted to gain some experience implementing a machine in the classic way which=
+ I've now done by means of the imx8mp-evk series=2E Once I clean up the e50=
+0-fdt branch I'd send an RFC=2E
+
+Best regards,
+Bernhard
+
+>
+>As Peter explained, sysbus-platform-bus fits TYPE_DYNAMIC_SYS_BUS_DEVICE
+>in free slots, then generates the corresponding ACPI/DTB=2E
+>
+>What you describe seems closer to the QEMU Dynamic Machine project,
+>following Damien's idea:
+>https://lore=2Ekernel=2Eorg/qemu-devel/20220223090706=2E4888-1-damien=2Eh=
+edde@greensocs=2Ecom/
+>We are not quite there yet=2E=2E=2E
 
