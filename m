@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CAD3A20925
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 11:59:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.878382.1288559 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8689A20932
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 12:02:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.878393.1288570 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcjIw-00050D-QS; Tue, 28 Jan 2025 10:58:50 +0000
+	id 1tcjMY-0006t4-Ct; Tue, 28 Jan 2025 11:02:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 878382.1288559; Tue, 28 Jan 2025 10:58:50 +0000
+Received: by outflank-mailman (output) from mailman id 878393.1288570; Tue, 28 Jan 2025 11:02:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcjIw-0004yX-NS; Tue, 28 Jan 2025 10:58:50 +0000
-Received: by outflank-mailman (input) for mailman id 878382;
- Tue, 28 Jan 2025 10:58:49 +0000
+	id 1tcjMY-0006qh-9n; Tue, 28 Jan 2025 11:02:34 +0000
+Received: by outflank-mailman (input) for mailman id 878393;
+ Tue, 28 Jan 2025 11:02:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jygh=UU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tcjIv-0004yR-7f
- for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 10:58:49 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=AW3f=UU=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1tcjMW-0006qb-Qi
+ for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 11:02:32 +0000
+Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
+ [2607:f8b0:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d8c48e3b-dd66-11ef-99a4-01e77a169b0f;
- Tue, 28 Jan 2025 11:58:47 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-aab925654d9so1076333266b.2
- for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 02:58:46 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab675e64dbesm770704666b.57.2025.01.28.02.58.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Jan 2025 02:58:45 -0800 (PST)
+ id 5dfa34e3-dd67-11ef-99a4-01e77a169b0f;
+ Tue, 28 Jan 2025 12:02:30 +0100 (CET)
+Received: by mail-ot1-x32d.google.com with SMTP id
+ 46e09a7af769-71e2bc5b90fso2931789a34.0
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 03:02:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,114 +40,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d8c48e3b-dd66-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 5dfa34e3-dd67-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738061926; x=1738666726; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rJj3eidiekjHFdZobMVCVZquWgpQtdsNdOqH5cRtVhw=;
-        b=XSV7W3Vz15CAofLO1Q5ST4k+cPygq4uRMDdWFi0KU0Z4r26CrT4NtR66kdgh9fDgh0
-         uu7CXXCXZGYM8lahfDMP/LI0uyY6gDpeTTxEelIJWawgv3M7yz5zc4c/fdYyyU7byftb
-         lSRJeSolZh/c/Cz6cXLOhJ4Qx8UKWClXwbd78kMVn8/ZRT1Kd9TjgtEp1YZWxN5TIjv3
-         yt6fRFwLPom9yTMoIzwdSSyFuFmcryLsFYWCZy8G7Lr0laJ2NvFVxnLFxbn0fKAhNEhs
-         any1MdVTpf6jvLdm6lDwuwsK7unH6aXDOTl6Nmg9u04LMFNFBF9Jag1dKIsELzyVihsC
-         YNfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738061926; x=1738666726;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1738062149; x=1738666949; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rJj3eidiekjHFdZobMVCVZquWgpQtdsNdOqH5cRtVhw=;
-        b=ACznE8SmZBoaSj6ptU66nlJUsm044xl40du4yLBQSI+rD7ufZ7/Q9VF6gJ/5XJeNL6
-         +CAO8S7u5uBCUySEkoF0Xfr/b5GLbY9XchC1fMARP7v2NpqKSukMxwctmxd+BadzTOez
-         X4iQkDRmsmTG/AGZu8tE29T1lIIod7iw1sENKE8G7EYdqElgqaRD8eT1MZsSUs4VGR4c
-         ZDnExHJ8BsQGFxyLHk8Dr/DcB0DavKuURqTcBFKl2tva/ZoFbW1elHnrZ9hosNohnJrn
-         HsaVAcuBeCarfaM5/+1NA3BmUmdqBuCuN3sY0gXBgl8SXb6oh3sq2W1m0MjPzChWVC9d
-         64lA==
-X-Forwarded-Encrypted: i=1; AJvYcCUdJnxSGjr9KRPFcN8d3QwBZuS3YN7ZbJwEXFOtTY0zNFgYQYdYPHrndCEt6HpM2WulelkRh137iy8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwZIi/FPHdo68DwGEXG1cy65L+qmzLzOKjjhFFPs8kyBDvpXV9G
-	G0CUrvbSEbkLERjI9nML6VAUZHMjCFICG5EBk1MXGhzsjYtOD7y/f9plrmCrDw==
-X-Gm-Gg: ASbGncvRpoGorp+JSFD0ODfbyiUtx2H+ZHe8xDlcF3NPEToXX8LZFQxkUiUIhpvmshz
-	pHr747QYqBKvWTYFeOm9nRBZZVuNh/YciDXxePCBguFQNEGEprflj3AsXg4M7szPiwhNyTojDQN
-	8A9lXkZOYTu4pURCKLYJLTyDR10wBiNwtrToaPN/x6UP988WeGBAzXTYOtZc1HN44mEHYbp7dlr
-	PUaz5Es+uavFtntNEZS1g2vtsGrqdbWHBsZPBoDovoFsRdv19WIRP/xEcbGtXnnBEmz9zg5XZgV
-	UCAhJB0k0nwnaK7H/XGBf4G2w/v+dGmut8N2njViKEo/GknqgyvS/39jvIUgfqmfWU/DEi93sEb
-	d
-X-Google-Smtp-Source: AGHT+IEfuWflZSaLdRG/nS1r6jWnAs4qCszGzcwGPoUAe7nR8VPv+cXuKMqqlAUdwkjTL9I9MGgzRg==
-X-Received: by 2002:a17:907:7f17:b0:ab2:b5f1:5698 with SMTP id a640c23a62f3a-ab38b44e10emr4538752166b.38.1738061926137;
-        Tue, 28 Jan 2025 02:58:46 -0800 (PST)
-Message-ID: <a3b62c5e-44e7-4592-8075-844b219df216@suse.com>
-Date: Tue, 28 Jan 2025 11:58:45 +0100
+        bh=hAPP67iq/fZlFT5QwMZH0FVtr7XinDNZQPhjL/SYDyo=;
+        b=QcMM2vqUfcrtLDRw7h/g2QbSj42fCbUXYhXtjP8Mf44alhk3uwrgj8OwJhGJSjRhF1
+         gkrpgH9MGvTwShnaGcAgd9UttOH0LKn+Jy/W1fvYmROBkRuXF3COZN+lXdZTw2zQRFXz
+         gRMkbfyxKazlSd3x+12SNCvFXE2L2IDdp1+MQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1738062149; x=1738666949;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=hAPP67iq/fZlFT5QwMZH0FVtr7XinDNZQPhjL/SYDyo=;
+        b=OakXMlweBz9Pa0gIa70GO57Q8Mg2cc1NPQOYu7MIJiLmbcf1HNoiMT4eiQUN4dhfOA
+         pJqaFVkbuIHYlaVlgji+RCy/kcRSFXfDxIc9hyLkPPyW8IXWj+K41NEi3uQIMFPJ4gIA
+         D5ptEr81HX3Pt6H+S3TtV5qO+zygxBjxDdZYWt6Av5lsHZAznJLd+LaGTz6MCIqsty5/
+         W9Z0F/rUj5vDhzEoHeusAUMZvUrDMtw3kFjwsk6BX/2+BwRaDU7CwZ28uwA8ExfnMTjN
+         Ywbybo8YolDeQBxswKAj03eQyLWt+rGo+V+IdR8EckFf4AX+3SH70ktBth58VCeoyjJO
+         b0Lw==
+X-Gm-Message-State: AOJu0YxT13cJRl94srumZawdaCFjPPzdZio1CPMMRSYV7FTR98sqKez+
+	wGFLodywrx8Aag8jCWkVG6IBRnuRTEFfQFul1YBy61JCi+4P/wnS90Ie7biGXaS3yM9/5Ji0GUy
+	rGaSWo+CJ1hCIuybNPe9m/J2Ztj1O/pEDhh8OoSVMlYXoZXfV7gE=
+X-Gm-Gg: ASbGnctoEEDkM8LwTqyzbuNNhAdsombZohjcOOpTiPFiWGUaD+C1EZNSX5CnZ7B+muU
+	CN41NECVTkPN1MriP7j5c8lq+I/f9Ju0x+1BLN0cWwmsC0WsxqOj+5UJDLLFqbxtmL52IKxgq7U
+	8=
+X-Google-Smtp-Source: AGHT+IGoGR17LILmDJyAuvFIrE6eoahMphFFs3jrb79H45NTRlP+3t7BPnU6oQtSav491MANOIpfszF2Eykzvcpp1dY=
+X-Received: by 2002:a05:6870:7e89:b0:27c:a414:b907 with SMTP id
+ 586e51a60fabf-2b1c0c7667amr27172377fac.33.1738062149237; Tue, 28 Jan 2025
+ 03:02:29 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 05/24] xen/console: introduce consoled_is_enabled()
-To: dmukhin@ford.com
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20250103-vuart-ns8250-v3-v1-0-c5d36b31d66c@ford.com>
- <20250103-vuart-ns8250-v3-v1-5-c5d36b31d66c@ford.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250103-vuart-ns8250-v3-v1-5-c5d36b31d66c@ford.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20250114115430.104084-1-frediano.ziglio@cloud.com>
+In-Reply-To: <20250114115430.104084-1-frediano.ziglio@cloud.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Tue, 28 Jan 2025 11:02:17 +0000
+X-Gm-Features: AWEUYZmMzTgbbxw__LmW2sukWOiGlbA7wKpYVfJ0oKMXUJkSbi2BmHkn1V1b5Jo
+Message-ID: <CACHz=Zh65aak9T7WQiV9CYDPfJG-KLfJ=rJWFB5y=_XXqNsAaQ@mail.gmail.com>
+Subject: Re: [PATCH v2] x86/boot: Handle better alignment for 32 bit code
+To: xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 04.01.2025 02:58, Denis Mukhin via B4 Relay wrote:
-> From: Denis Mukhin <dmukhin@ford.com>
-> 
-> There are few places which check pv_shim console under CONFIG_PV_SHIM in xen
-> console driver. Instead of #ifdef-ing, use new consoled_is_enabled() to
-> customize the logic.
-> 
-> Header file now can be included w/o CONFIG_X86.
-> 
-> Signature of consoled_guest_{rx,tx} has changed so the error can be logged.
+ping
 
-While you use consoled_guest_tx()'es return value, consoled_guest_rx()'es
-remains unused. Why change its return type then in the first place, even
-more so when these adjustments are pretty much unrelated to the purpose of
-the patch anyway?
-
-> @@ -508,11 +508,9 @@ static void switch_serial_input(void)
->              break;
->          }
->  
-> -#ifdef CONFIG_PV_SHIM
-> -        if ( next_rx == 1 )
-> +        if ( consoled_is_enabled() && next_rx == 1 )
->              domid = get_initial_domain_id();
-
-Isn't this again a bug-fix-like change, without this actually being
-mentioned anywhere?
-
-Jan
+On Tue, Jan 14, 2025 at 11:54=E2=80=AFAM Frediano Ziglio
+<frediano.ziglio@cloud.com> wrote:
+>
+> Output file didn't have correct alignment.
+> Allows alignment into data or code up to 2mb.
+> Intermediate object files are kept in order to copy alignment
+> from object produced by the linker and final object (produced
+> by combine_two_binaries.py script).
+>
+> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+> ---
+>  xen/arch/x86/boot/Makefile        | 12 ++++++++----
+>  xen/tools/combine_two_binaries.py |  7 ++++++-
+>  2 files changed, 14 insertions(+), 5 deletions(-)
+>
+> Changes since v1:
+> - Improve comments and description.
+>
+> diff --git a/xen/arch/x86/boot/Makefile b/xen/arch/x86/boot/Makefile
+> index 13d4583173..a56d8a7e0f 100644
+> --- a/xen/arch/x86/boot/Makefile
+> +++ b/xen/arch/x86/boot/Makefile
+> @@ -40,8 +40,12 @@ LD32 :=3D $(LD) $(subst x86_64,i386,$(LDFLAGS_DIRECT))
+>  # are affected by both text_diff and text_gap.  Ensure the sum of gap an=
+d diff
+>  # is greater than 2^16 so that any 16bit relocations if present in the o=
+bject
+>  # file turns into a build-time error.
+> -text_gap :=3D 0x010200
+> -text_diff :=3D 0x408020
+> +# As gap will affect the output section size it should not be huge to av=
+oid the
+> +# creation of huge files.
+> +# The sum of gap and diff will affect the possible alignment so should b=
+e a
+> +# multiple of the possible alignment.
+> +text_gap :=3D 0x01c240
+> +text_diff :=3D 0x7e3dc0
+>
+>  $(obj)/build32.base.lds: AFLAGS-y +=3D -DGAP=3D$(text_gap) -DTEXT_DIFF=
+=3D$(text_diff)
+>  $(obj)/build32.offset.lds: AFLAGS-y +=3D -DGAP=3D$(text_gap) -DTEXT_DIFF=
+=3D$(text_diff) -DAPPLY_OFFSET
+> @@ -69,7 +73,6 @@ $(obj)/built-in-32.%.bin: $(obj)/build32.%.lds $(obj)/b=
+uilt-in-32.tmp.o
+>         $(LD32) $(orphan-handling-y) -N -T $< -o $(@:bin=3Do) $(filter %.=
+o,$^)
+>         $(NM) -p --format=3Dbsd $(@:bin=3Do) > $(@:bin=3Dmap)
+>         $(OBJCOPY) -j .text -O binary $(@:bin=3Do) $@
+> -       rm -f $(@:bin=3Do)
+>
+>  quiet_cmd_combine =3D GEN     $@
+>  cmd_combine =3D \
+> @@ -80,6 +83,7 @@ cmd_combine =3D \
+>                --bin1      $(obj)/built-in-32.base.bin \
+>                --bin2      $(obj)/built-in-32.offset.bin \
+>                --map       $(obj)/built-in-32.base.map \
+> +              --align     $(shell $(OBJDUMP) -h $(obj)/built-in-32.base.=
+o|sed '/text.*2\*\*/ {s/.*2\*\*//;p;}; d') \
+>                --exports   cmdline_parse_early,reloc,reloc_trampoline32 \
+>                --output    $@
+>
+> @@ -90,4 +94,4 @@ $(obj)/built-in-32.S: $(obj)/built-in-32.base.bin $(obj=
+)/built-in-32.offset.bin
+>                        $(srctree)/tools/combine_two_binaries.py FORCE
+>         $(call if_changed,combine)
+>
+> -clean-files :=3D built-in-32.*.bin built-in-32.*.map build32.*.lds
+> +clean-files :=3D built-in-32.*.bin built-in-32.*.map built-in-32.*.o bui=
+ld32.*.lds
+> diff --git a/xen/tools/combine_two_binaries.py b/xen/tools/combine_two_bi=
+naries.py
+> index 581e57cbc0..8e587c24fb 100755
+> --- a/xen/tools/combine_two_binaries.py
+> +++ b/xen/tools/combine_two_binaries.py
+> @@ -26,6 +26,10 @@ parser.add_argument('--text-diff', dest=3D'text_diff',
+>                      required=3DTrue,
+>                      type=3Dauto_int,
+>                      help=3D'Difference between code section start')
+> +parser.add_argument('--align', dest=3D'align',
+> +                    default=3D2,
+> +                    type=3Dauto_int,
+> +                    help=3D'Alignment in power of 2')
+>  parser.add_argument('--output', dest=3D'output',
+>                      help=3D'Output file')
+>  parser.add_argument('--map', dest=3D'mapfile',
+> @@ -93,7 +97,7 @@ if size1 > size2:
+>      file1, file2 =3D file2, file1
+>      size1, size2 =3D size2, size1
+>  if size2 !=3D size1 + gap:
+> -    raise Exception('File sizes do not match')
+> +    raise Exception('File sizes do not match %d !=3D %d + %d' % (size2, =
+size1, gap))
+>  del size2
+>
+>  file1.seek(0, 0)
+> @@ -219,6 +223,7 @@ print('''/*
+>   * File autogenerated by combine_two_binaries.py DO NOT EDIT
+>   */''', file=3Dout)
+>  print('\t' + args.section_header, file=3Dout)
+> +print('\t.p2align\t' + str(args.align), file=3Dout)
+>  print('obj32_start:', file=3Dout)
+>  output(out)
+>  print('\n\t.section .note.GNU-stack,"",@progbits', file=3Dout)
+> --
+> 2.34.1
+>
 
