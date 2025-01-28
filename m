@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74378A20EA8
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 17:34:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.878658.1288856 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 267ACA20EAB
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 17:34:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.878659.1288868 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcoXS-0007Ag-MX; Tue, 28 Jan 2025 16:34:10 +0000
+	id 1tcoXT-0007UR-UL; Tue, 28 Jan 2025 16:34:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 878658.1288856; Tue, 28 Jan 2025 16:34:10 +0000
+Received: by outflank-mailman (output) from mailman id 878659.1288868; Tue, 28 Jan 2025 16:34:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcoXS-000740-HZ; Tue, 28 Jan 2025 16:34:10 +0000
-Received: by outflank-mailman (input) for mailman id 878658;
+	id 1tcoXT-0007T4-Of; Tue, 28 Jan 2025 16:34:11 +0000
+Received: by outflank-mailman (input) for mailman id 878659;
  Tue, 28 Jan 2025 16:34:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=C4cq=UU=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1tcoXR-00070Z-6u
+ id 1tcoXR-00070Z-Rf
  for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 16:34:09 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b2371477-dd95-11ef-a0e6-8be0dac302b0;
- Tue, 28 Jan 2025 17:34:08 +0100 (CET)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-aa68b513abcso1177535766b.0
- for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 08:34:08 -0800 (PST)
+ id b2b1284e-dd95-11ef-a0e6-8be0dac302b0;
+ Tue, 28 Jan 2025 17:34:09 +0100 (CET)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-5d3d14336f0so9948170a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 08:34:09 -0800 (PST)
 Received: from localhost.localdomain ([217.156.233.154])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab6973090d0sm534810966b.18.2025.01.28.08.34.06
+ a640c23a62f3a-ab6973090d0sm534810966b.18.2025.01.28.08.34.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Jan 2025 08:34:06 -0800 (PST)
+ Tue, 28 Jan 2025 08:34:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,39 +45,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b2371477-dd95-11ef-a0e6-8be0dac302b0
+X-Inumbo-ID: b2b1284e-dd95-11ef-a0e6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1738082047; x=1738686847; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1738082048; x=1738686848; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=k2wXYm4vj9zHpf4g1hT+h92PgyCXWbc4DWlhdSJr70A=;
-        b=X5s30jRmyfQdoWdWUozrK1M0qmMXOTKAnhppKtURGyqvSyzZwA8t7DaeQUHk5OE1LL
-         s2ljVLcMoYP8Ju9usGyUb1+tzI6DU+NXsGrRuJiBCGjD3yCCn0xeIJ4B2l4GGmaxaRSb
-         8vm4Z8+tDyjZMH4ZuI4Ge7TxQDu4yXY6ZC9zw=
+        bh=9PocrDZ9hDRaC7DH9mGBlVuageGkmPBew72m1MalZps=;
+        b=SeDo6HQD43B9Tg2lusAh3ekHc4vMD/5YNWIknrkayvSjS6oakYijT1hiexy5ryRiLv
+         9aJleiuV/nzBFAvFMIwByYA1sYqTlUVgeq4MRJ3DCBOj/En4+MjBSdaVUSzInMZw5HfL
+         qMvJdYWwdKuUgoVyJHC0+Cn0T9b7XrsjlCzTE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738082047; x=1738686847;
+        d=1e100.net; s=20230601; t=1738082048; x=1738686848;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=k2wXYm4vj9zHpf4g1hT+h92PgyCXWbc4DWlhdSJr70A=;
-        b=AAiRs7ioN6fJtnl1g7KqxGuFRXnzwnACU7Yz2x/H/RKPeYifbeobk1oel3yjjvegb4
-         a0AuAqlEwGcu5DOiZmpVL25NacaxPgE31Q55HJKjw1iu2rRiwbis9+ehZqGbgRf5LB5x
-         uSYE4Dz2zXSeUW1GpxqT/S34yZpN13apC68AgXHfbJzJ2t7G/jlWeIWfYnoB7R0K2wNq
-         S+YQDqLML47PNHV4ANHrFkGiSRQLCfPthbCuDXmGz+ySumUBium/0a7bkRBGhT1UenfU
-         7ReFDPs/scXVxrTw/IiXLrZAVEf1vB9gM7DSANrEAFY4dnLbp+Fa5FPr7/J+HlvuU0tV
-         48Jw==
-X-Gm-Message-State: AOJu0Yx56ZlVY4ACB/55IiSI6BCILig0l9FGpn88vfb65u3BeYasTgm4
-	DoJT2uCT9kb9WnPH488PJWjU80aqt7IsGwtddgjYWkF2Z8IKO2k7lNheczcogOOzkHJkWJHUWFJ
-	6LA4=
-X-Gm-Gg: ASbGnctqDrG7/QCg7k9SK9rL8bvn+MoQPwWvoPkSzVqSb2FqylDDZoHZftzQIW67V+k
-	hl72fhZloT4+fo8sThWBQP3X5IitKB18O7+jGXuw56yPj1ZJh2iWO3mpFj3ETtQdVsd6Jpyo70I
-	eqaoHEmCos6rLHsW0LjT+k8d3eQOysAmyhJHlZM9cIezgZCUP+fOG0l2SFX5ifqDoWZBkYMMWtS
-	x5WnVxV2G+Avk9hQMTnIlr0w/QRoBIQ52kONRWECdUWvig/DFQziNJ4fN/R/rk0WfCUd1v90juU
-	B40dXOXafFnaYEs0XR5zFLkX7sOENCcy8pTgRG6l
-X-Google-Smtp-Source: AGHT+IEwuL9IleBtGqDhzoL9t0Kye8GCON7QSXArcXKY1+gnfx33mdQmIerjEV/aNAHSm8DDJZDfvA==
-X-Received: by 2002:a17:907:72c6:b0:ab2:b84b:2dab with SMTP id a640c23a62f3a-ab38b163149mr5052649466b.30.1738082047389;
-        Tue, 28 Jan 2025 08:34:07 -0800 (PST)
+        bh=9PocrDZ9hDRaC7DH9mGBlVuageGkmPBew72m1MalZps=;
+        b=jyFdlW1Vpdd3lqVnMOhIBDgsXTMJqiDhxvKrvFa2yGZEtI/cjfE09mZuKvifrpkNFQ
+         B90LHUscZenWefrXdo84B8gIKGMEZdAomuvq7UdLAwmtQ1Fx5MmVYfiSVkWd3hcqT9n6
+         y22iA8w6/QMZOx8MgpoxPox25uQGjsIdHmsC74exAzGuo65Wh4hgfbXYcQZBUjdqsrf1
+         /3FI90nUCLeYKJUATb7Xlo1yqTho/Re+mbzXHru+l4W2IRyQOCgIibYpveapbIgbUxnX
+         YzRRnCXMzL9rrcPgHhKI3DiHhps40hrFqT6nteruZSSBfbMA7ms9UcVuy/HomgfCua4J
+         po3Q==
+X-Gm-Message-State: AOJu0YyXnnDBdiZHS994OaA1epmlN89QKNqd7dQE4Nd/BCg5c6FRmJgX
+	GZjOqbVx1s1qXKxX3A5E/FJvtgPu85nmkcwXz/Na8s7K3ncNl/JZySubE7cctQk3y43QsOTP9SP
+	CYKQ=
+X-Gm-Gg: ASbGncsi1ZeXEZkONS25SIXnDdHYJFMSwZp9R1IQqSgoYAWgEWztohC7MWdeeHw6RTV
+	LdBqOa23UA3sF6+DFLoKcVr5eK2ToJ2kBkvU5JBc7BgrKP6nG5jeIDwdxwAHj3OPoeuasA9VbEO
+	O5TtsI9es+v0j1bOOVmVVYH4wUE/IiUYOkqdzfJJYw/L7x46YF9RKK5OmPYd+XWoY8yt0tKwmMK
+	sG35PwEGraGBZdLJ5Uvv2vvaLtACXuJHSZJJlro4KNM7dxwLD51dEnXX21g7xas+WgwAIvHg7RS
+	gMn42nzBR8PJk4UB+oQ/B6wP6Y4rrAX0/SNtZCz7cx0qx7EJ+/o=
+X-Google-Smtp-Source: AGHT+IEHvOHZ3rC79zgZtlrliUBcqHcZd/1yasALjI6l+oiiKoATwG1XM4JqoTd0amr0xZiVHwo+Tg==
+X-Received: by 2002:a17:906:f598:b0:aa6:7933:8b26 with SMTP id a640c23a62f3a-ab38b1b17ecmr4577230966b.9.1738082048332;
+        Tue, 28 Jan 2025 08:34:08 -0800 (PST)
 From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: xen-devel@lists.xenproject.org
 Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
@@ -85,105 +85,104 @@ Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Anthony PERARD <anthony.perard@vates.tech>
-Subject: [PATCH 1/3] tools/hvmloader: Retrieve (x2)APIC IDs from the APs themselves
-Date: Tue, 28 Jan 2025 16:33:40 +0000
-Message-ID: <20250128163342.1491-2-alejandro.vallejo@cloud.com>
+Subject: [PATCH 2/3] tools/hvmloader: Replace LAPIC_ID() with cpu_to_apicid[]
+Date: Tue, 28 Jan 2025 16:33:41 +0000
+Message-ID: <20250128163342.1491-3-alejandro.vallejo@cloud.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250128163342.1491-1-alejandro.vallejo@cloud.com>
 References: <20250128163342.1491-1-alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Make it so the APs expose their own APIC IDs in a lookup table (LUT). We
-can use that LUT to populate the MADT, decoupling the algorithm that
-relates CPU IDs and APIC IDs from hvmloader.
+Replace uses of the LAPIC_ID() macro with accesses to the
+cpu_to_apicid[] lookup table. This table contains the APIC IDs of each
+vCPU as probed at runtime rather than assuming a predefined relation.
 
-Modified the printf to also print the APIC ID of each CPU, as well as
-fixing a (benign) wrong specifier being used for the vcpu id.
+Moved smp_initialise() ahead of apic_setup() in order to initialise
+cpu_to_apicid ASAP and avoid using it uninitialised. Note that bringing
+up the APs doesn't need the APIC in hvmloader becasue it always runs
+virtualized and uses the PV interface.
 
 Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 ---
-Changes from the v7 version of this patch in the longer topology series:
-  * s/cpu_to_x2apicid/cpu_to_apicid/
-    * Though, as I already stated, I don't think this is a good idea.
-  * Dynamically size cpu_to_apicid rather than using HVM_MAX_VCPUS.
-  * Got rid of the ap_callin removal. It's not as trivial if we don't
-    want to assume cpu0 always has apicid=0. Part of the complaints on
-    the previous versions involved the inability to do that.
-  * For debugging sanity, I've added the apicid to the CPU boot printf.
-      * Later on, toolstack will choose the APIC IDs and it's helpful
-        to know the relationship in the logs.
-      * While at it, fix the vcpu specifier s/%d/%u/
-  * Check for leaf 0xb while probing for x2apic support.
+Changes from v7 of the longer topology series:
+  * Removed ASSERT() for the MP tables and merely skipped writing them
+    if any vCPU has an APIC ID >=255.
 ---
- tools/firmware/hvmloader/smp.c | 43 +++++++++++++++++++++++++++++++++-
- 1 file changed, 42 insertions(+), 1 deletion(-)
+ tools/firmware/hvmloader/config.h    | 3 ++-
+ tools/firmware/hvmloader/hvmloader.c | 6 +++---
+ tools/firmware/hvmloader/mp_tables.c | 2 +-
+ tools/firmware/hvmloader/util.c      | 2 +-
+ 4 files changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/tools/firmware/hvmloader/smp.c b/tools/firmware/hvmloader/smp.c
-index 1b940cefd071..c61ed524f947 100644
---- a/tools/firmware/hvmloader/smp.c
-+++ b/tools/firmware/hvmloader/smp.c
-@@ -31,9 +31,38 @@
+diff --git a/tools/firmware/hvmloader/config.h b/tools/firmware/hvmloader/config.h
+index cd716bf39245..6e1da137d779 100644
+--- a/tools/firmware/hvmloader/config.h
++++ b/tools/firmware/hvmloader/config.h
+@@ -48,8 +48,9 @@ extern uint8_t ioapic_version;
  
- static int ap_callin;
+ #define IOAPIC_ID           0x01
  
-+/** True if x2apic support is exposed to the guest. */
-+static bool has_x2apic;
++extern uint32_t *cpu_to_apicid;
 +
-+/**
-+ * Lookup table of (x2)APIC IDs.
-+ *
-+ * Each entry is populated for its respective CPU as they come online. This is
-+ * required for generating the MADT with minimal assumptions about ID
-+ * relationships.
-+ */
-+uint32_t *cpu_to_apicid;
+ #define LAPIC_BASE_ADDRESS  0xfee00000
+-#define LAPIC_ID(vcpu_id)   ((vcpu_id) * 2)
+ 
+ #define PCI_ISA_DEVFN       0x08    /* dev 1, fn 0 */
+ #define PCI_ISA_IRQ_MASK    0x0c20U /* ISA IRQs 5,10,11 are PCI connected */
+diff --git a/tools/firmware/hvmloader/hvmloader.c b/tools/firmware/hvmloader/hvmloader.c
+index f8af88fabf24..4e330fc1e241 100644
+--- a/tools/firmware/hvmloader/hvmloader.c
++++ b/tools/firmware/hvmloader/hvmloader.c
+@@ -224,7 +224,7 @@ static void apic_setup(void)
+ 
+     /* 8259A ExtInts are delivered through IOAPIC pin 0 (Virtual Wire Mode). */
+     ioapic_write(0x10, APIC_DM_EXTINT);
+-    ioapic_write(0x11, SET_APIC_ID(LAPIC_ID(0)));
++    ioapic_write(0x11, SET_APIC_ID(cpu_to_apicid[0]));
+ }
+ 
+ struct bios_info {
+@@ -341,11 +341,11 @@ int main(void)
+ 
+     printf("CPU speed is %u MHz\n", get_cpu_mhz());
+ 
++    smp_initialise();
 +
-+static uint32_t read_apic_id(void)
-+{
-+    uint32_t apic_id;
-+
-+    if ( has_x2apic )
-+        cpuid(0xb, NULL, NULL, NULL, &apic_id);
-+    else
-+    {
-+        cpuid(1, NULL, &apic_id, NULL, NULL);
-+        apic_id >>= 24;
-+    }
-+
-+    return apic_id;
-+}
-+
- static void cpu_setup(unsigned int cpu)
+     apic_setup();
+     pci_setup();
+ 
+-    smp_initialise();
+-
+     perform_tests();
+ 
+     if ( bios->bios_info_setup )
+diff --git a/tools/firmware/hvmloader/mp_tables.c b/tools/firmware/hvmloader/mp_tables.c
+index 77d3010406d0..3c93a5c947d9 100644
+--- a/tools/firmware/hvmloader/mp_tables.c
++++ b/tools/firmware/hvmloader/mp_tables.c
+@@ -199,7 +199,7 @@ static void fill_mp_config_table(struct mp_config_table *mpct, int length)
+ static void fill_mp_proc_entry(struct mp_proc_entry *mppe, int vcpu_id)
  {
--    printf(" - CPU%d ... ", cpu);
-+    uint32_t apicid = cpu_to_apicid[cpu] = read_apic_id();
-+
-+    printf(" - CPU%u[%u] ... ", cpu, apicid);
-     cacheattr_init();
-     printf("done.\n");
+     mppe->type = ENTRY_TYPE_PROCESSOR;
+-    mppe->lapic_id = LAPIC_ID(vcpu_id);
++    mppe->lapic_id = cpu_to_apicid[vcpu_id];
+     mppe->lapic_version = 0x11;
+     mppe->cpu_flags = CPU_FLAG_ENABLED;
+     if ( vcpu_id == 0 )
+diff --git a/tools/firmware/hvmloader/util.c b/tools/firmware/hvmloader/util.c
+index d3b3f9038e64..2d07ce129013 100644
+--- a/tools/firmware/hvmloader/util.c
++++ b/tools/firmware/hvmloader/util.c
+@@ -827,7 +827,7 @@ static void acpi_mem_free(struct acpi_ctxt *ctxt,
  
-@@ -104,8 +133,20 @@ static void boot_cpu(unsigned int cpu)
- void smp_initialise(void)
+ static uint32_t acpi_lapic_id(unsigned cpu)
  {
-     unsigned int i, nr_cpus = hvm_info->nr_vcpus;
-+    uint32_t ecx, max_leaf;
-+
-+    cpuid(0, &max_leaf, NULL, NULL, NULL);
-+    if ( max_leaf >= 0xb )
-+    {
-+        cpuid(1, NULL, NULL, &ecx, NULL);
-+        has_x2apic = (ecx >> 21) & 1;
-+        if ( has_x2apic )
-+            printf("x2APIC supported\n");
-+    }
+-    return LAPIC_ID(cpu);
++    return cpu_to_apicid[cpu];
+ }
  
-     printf("Multiprocessor initialisation:\n");
-+    cpu_to_apicid = scratch_alloc(sizeof(*cpu_to_apicid) * nr_cpus,
-+                                  sizeof(*cpu_to_apicid));
-     cpu_setup(0);
-     for ( i = 1; i < nr_cpus; i++ )
-         boot_cpu(i);
+ void hvmloader_acpi_build_tables(struct acpi_config *config,
 -- 
 2.48.1
 
