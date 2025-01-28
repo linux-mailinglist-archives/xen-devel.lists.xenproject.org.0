@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C29AA211CA
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 19:46:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.878754.1288948 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02BBBA211D2
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 19:48:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.878762.1288957 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcqaz-0005M1-IF; Tue, 28 Jan 2025 18:45:57 +0000
+	id 1tcqde-0005v5-VC; Tue, 28 Jan 2025 18:48:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 878754.1288948; Tue, 28 Jan 2025 18:45:57 +0000
+Received: by outflank-mailman (output) from mailman id 878762.1288957; Tue, 28 Jan 2025 18:48:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcqaz-0005KA-FT; Tue, 28 Jan 2025 18:45:57 +0000
-Received: by outflank-mailman (input) for mailman id 878754;
- Tue, 28 Jan 2025 18:45:56 +0000
+	id 1tcqde-0005sw-S9; Tue, 28 Jan 2025 18:48:42 +0000
+Received: by outflank-mailman (input) for mailman id 878762;
+ Tue, 28 Jan 2025 18:48:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=C4cq=UU=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1tcqay-0005K4-Hc
- for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 18:45:56 +0000
+ id 1tcqdd-0005sq-KS
+ for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 18:48:41 +0000
 Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
  [2a00:1450:4864:20::631])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1aede02a-dda8-11ef-a0e6-8be0dac302b0;
- Tue, 28 Jan 2025 19:45:54 +0100 (CET)
+ id 7dc7ea79-dda8-11ef-a0e6-8be0dac302b0;
+ Tue, 28 Jan 2025 19:48:40 +0100 (CET)
 Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-ab2aea81cd8so1099021866b.2
- for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 10:45:54 -0800 (PST)
+ a640c23a62f3a-ab68d900c01so647175766b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 10:48:40 -0800 (PST)
 Received: from localhost ([217.156.233.154]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab6914e56a2sm608223866b.94.2025.01.28.10.45.53
+ 4fb4d7f45d1cf-5dc1861939asm7582917a12.12.2025.01.28.10.48.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Jan 2025 10:45:53 -0800 (PST)
+ Tue, 28 Jan 2025 10:48:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,167 +44,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1aede02a-dda8-11ef-a0e6-8be0dac302b0
+X-Inumbo-ID: 7dc7ea79-dda8-11ef-a0e6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1738089954; x=1738694754; darn=lists.xenproject.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
+        d=cloud.com; s=cloud; t=1738090120; x=1738694920; darn=lists.xenproject.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
          :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bD4eyHKxLm4mD8wo182CvRVC4pDKYF0hvlY36UdSX2E=;
-        b=FYZFAZDof+usyAnelOoBCID6mhBLVE1MeZDgRRzw8WulSDF/NrXWFOQTTK/rgaBu/Z
-         756iG4+CD2hwDlBrPnSqniRw0nuPNf0VwsdHoT+uk5MaL8G+brInkUf7KWt59cNagthl
-         S4RpcmBUSX8uTNM030Cyg33dqSKrIBxHetfMA=
+        bh=ZN5Yun5WykiYr20jfdAR3DBUumqD/eSRuq1mIK3T6o8=;
+        b=YxviCEXnOsNvjZVJHemvVudw/RVZKt0LqlGMXHv1yQba7ruqFB9tNZcQbeGxYuXh0x
+         VB2BbMYHEPrmOfpOFgULRhUuSrDYJBthdrFMLzfqjuTf1irlqVbVZSImStKjJGgovqFh
+         ukwcuNzOB+qZUKgEykEKpInzRfQAkwzCTncJU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738089954; x=1738694754;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
+        d=1e100.net; s=20230601; t=1738090120; x=1738694920;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
          :content-transfer-encoding:mime-version:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=bD4eyHKxLm4mD8wo182CvRVC4pDKYF0hvlY36UdSX2E=;
-        b=bYlfABK2YNcCiWJaYoNHQ+TA2vOpSrJwfVk5rs1/qp++q//MS0yGT2/tR/Xy6rh2x+
-         MM1lOYOQdW2V6knAYIwaAWS+Za2YG0DDgNc8KVcROdz/CVfKyr83GoJdkwT5oQcKozcg
-         Xu1mfuS4tOeFpGjqDGZgf5FzAiXhtWD56TPzYkDPs+Kq0qnodMA9ttI40/c6w0ErwqM6
-         +bS0F7oU3aOTWBemdzzO4KaHnDnvVkKszTApaioABLsa6pThyieH5ZBTeUhDc9PhIBNS
-         IDFqsVbC/SXLW/W8pcevwmJ+mP6uklh8+igD7ynXaAPjz8GNCJr3U8uhPZ65p8T3o6UU
-         DZPQ==
-X-Gm-Message-State: AOJu0YwohympYqX+DO0faqJuLVZmhd+O0aTQ5ocKuxvSPXcJOsqt5ErG
-	CNsf1X9KpKI9y1/ZF2V5lRWSmfFAtec9iHnVwe8jM3hc0W7Q1vAmHZVgNDqbkQY=
-X-Gm-Gg: ASbGncshEskDN6NoxlHtt/oZNKKoYvA9OYKEctHM+wNK+bex1pVcmc7h5iFf3YLqgHL
-	8KLsFfP5V0UwQX9me2Tu0JYn38Uh+edsFWje8T1pqfDdzLQAcGbkoZbDsQs7FUrQNDRqoJg2C/6
-	m2ul+opPPqKpdCuzCLiwBNGVwTQ/TbmEZ73Kn2/XmJL8amHad+2TmTa1rw8UkPYdVS3dEyW8D+C
-	9ibgF/d6+axp1UWw/NbhecSPveJnqpP9CIEPXsFtXbEXtJSyAzBetWtC3CD5Ab0RjFzb3Aq+gGu
-	zb1truzhZRfyYXWLVcK8jJRq
-X-Google-Smtp-Source: AGHT+IGU5hQdzHGpzfaGJZ5weXmUKRNOT80dDpS4HUDTU1IFi4Isd9gHx9MNcveqxm+ZH6A6973MrQ==
-X-Received: by 2002:a17:907:2cc5:b0:aaf:74d6:6467 with SMTP id a640c23a62f3a-ab6cfe11f0cmr19701066b.42.1738089954372;
-        Tue, 28 Jan 2025 10:45:54 -0800 (PST)
+        bh=ZN5Yun5WykiYr20jfdAR3DBUumqD/eSRuq1mIK3T6o8=;
+        b=iyOcTpgdlIJ6y8ZWx+OLGQ6+Yhwq/KKRQ/raCoJ3dn323x+/KVdepX303cw6I6hVnA
+         zjP9n/nUE+sGepEAfWO53DT33nRnvgKYCNOVZUQ8xqW0TTTwMxfjXsjuil11jtph/FGI
+         RDmd/xOLg/qM3DrI0ZCN4pnzmtClCHQG4wGH5fDG5P802pNQKqIe3jPBpkGNvxERtdaQ
+         NWZs7ga48am5T7nd0P7tEjBPwKGTVRNFcQs7M3+o7pl6HfSna0Uas//hAD3gIjkknol3
+         DcE9ikciy2AFrMJjoKGiB5dAKY1wxU58eYHOP4y2sosnybqEDVwNUlaPwGaBMpgVBEGn
+         V8EA==
+X-Forwarded-Encrypted: i=1; AJvYcCVC6wERAaw2efpcCPM7+EtHpAkm7P3sAtWV9l5bKKWIRRjfn96Q90jPd7L9hclgjkXgGVi6if0i9q0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxpgaYIVH3yizPlGC7OHOa/nFOP+HMaNSGBi0RIuiUbJSw0Zpun
+	pSnfVzDp+UoEutHXbNh792OP80fNYNXnw7EfG1bLqDsP9hLX9VVA3PJkeYYrw40=
+X-Gm-Gg: ASbGncu4eWsZgJUgKdZNTkoSlif5/dAaO+0kEEheKc8Jp6GollJHBC0CFXpsCkwJfAe
+	BXP6s9f524rP8PWs8T57DlS6+RALjhDiqA6FOiURREIGJ1sd3vYYNx5O/OMRNJBJXyt+M8hMr/m
+	5bsKf2GgwTwzGfzltm4qI3u66bdvX67pq9R69kmNTmKnfHV0m8FC6SkdslD0sTIWJ1+A4RK/59n
+	Ek0RwkJ+db/D+H2iMxLjkTkTVw+6+AvS27HlMqGPSGLpxHTqnXshc0GnB+x1n3jGSM++EoX0S0o
+	FmUh/rFMZ7lIA7X6g78CrbIJCvLxfe3c2mU=
+X-Google-Smtp-Source: AGHT+IEbDcBGxWNgg6DhCEa6hExrGkeKCy0PLVyCNMEp9l7A62uxlYPvJ/XTmOzdW2AV8OK1G2K5zg==
+X-Received: by 2002:a17:906:7310:b0:ab2:c0b0:3109 with SMTP id a640c23a62f3a-ab6bbbcd478mr484408466b.21.1738090120236;
+        Tue, 28 Jan 2025 10:48:40 -0800 (PST)
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 28 Jan 2025 18:45:53 +0000
-Message-Id: <D7DXGTJ8OZYN.1W70NDFFJW4B@cloud.com>
-Subject: Re: [PATCH 1/3] tools/hvmloader: Retrieve (x2)APIC IDs from the APs
- themselves
+Date: Tue, 28 Jan 2025 18:48:38 +0000
+Message-Id: <D7DXIXNODNSU.B17NMD5C6WNW@cloud.com>
 From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: <xen-devel@lists.xenproject.org>, "Jan Beulich" <jbeulich@suse.com>,
- "Andrew Cooper" <andrew.cooper3@citrix.com>, "Anthony PERARD"
- <anthony.perard@vates.tech>
+To: "Michal Orzel" <michal.orzel@amd.com>, <xen-devel@lists.xenproject.org>
+Cc: "Stefano Stabellini" <sstabellini@kernel.org>, "Julien Grall"
+ <julien@xen.org>, "Bertrand Marquis" <bertrand.marquis@arm.com>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>, <oleksii.kurochko@gmail.com>
+Subject: Re: [for-4.20][PATCH 2/2] xen/arm: Fix build issue when
+ CONFIG_PHYS_ADDR_T_32=y
 X-Mailer: aerc 0.18.2
-References: <20250128163342.1491-1-alejandro.vallejo@cloud.com>
- <20250128163342.1491-2-alejandro.vallejo@cloud.com>
- <Z5kbD08TFyH0hwwF@macbook.local>
-In-Reply-To: <Z5kbD08TFyH0hwwF@macbook.local>
+References: <20250127104556.175641-1-michal.orzel@amd.com>
+ <20250127104556.175641-3-michal.orzel@amd.com>
+ <D7D0O214VJBT.18EFVF7AJACYQ@cloud.com>
+ <4788ed30-f182-4fd9-aad5-5faca3580e3b@amd.com>
+In-Reply-To: <4788ed30-f182-4fd9-aad5-5faca3580e3b@amd.com>
 
-On Tue Jan 28, 2025 at 5:59 PM GMT, Roger Pau Monn=C3=A9 wrote:
-> On Tue, Jan 28, 2025 at 04:33:40PM +0000, Alejandro Vallejo wrote:
-> > Make it so the APs expose their own APIC IDs in a lookup table (LUT). W=
-e
-> > can use that LUT to populate the MADT, decoupling the algorithm that
-> > relates CPU IDs and APIC IDs from hvmloader.
+On Mon Jan 27, 2025 at 5:14 PM GMT, Michal Orzel wrote:
+>
+>
+> On 27/01/2025 18:03, Alejandro Vallejo wrote:
 > >=20
-> > Modified the printf to also print the APIC ID of each CPU, as well as
-> > fixing a (benign) wrong specifier being used for the vcpu id.
 > >=20
-> > Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-> > ---
-> > Changes from the v7 version of this patch in the longer topology series=
-:
-> >   * s/cpu_to_x2apicid/cpu_to_apicid/
-> >     * Though, as I already stated, I don't think this is a good idea.
-> >   * Dynamically size cpu_to_apicid rather than using HVM_MAX_VCPUS.
-> >   * Got rid of the ap_callin removal. It's not as trivial if we don't
-> >     want to assume cpu0 always has apicid=3D0. Part of the complaints o=
-n
-> >     the previous versions involved the inability to do that.
-> >   * For debugging sanity, I've added the apicid to the CPU boot printf.
-> >       * Later on, toolstack will choose the APIC IDs and it's helpful
-> >         to know the relationship in the logs.
-> >       * While at it, fix the vcpu specifier s/%d/%u/
-> >   * Check for leaf 0xb while probing for x2apic support.
-> > ---
-> >  tools/firmware/hvmloader/smp.c | 43 +++++++++++++++++++++++++++++++++-
-> >  1 file changed, 42 insertions(+), 1 deletion(-)
+> > Hi,
 > >=20
-> > diff --git a/tools/firmware/hvmloader/smp.c b/tools/firmware/hvmloader/=
-smp.c
-> > index 1b940cefd071..c61ed524f947 100644
-> > --- a/tools/firmware/hvmloader/smp.c
-> > +++ b/tools/firmware/hvmloader/smp.c
-> > @@ -31,9 +31,38 @@
-> > =20
-> >  static int ap_callin;
-> > =20
-> > +/** True if x2apic support is exposed to the guest. */
-> > +static bool has_x2apic;
-> > +
-> > +/**
-> > + * Lookup table of (x2)APIC IDs.
+> > On Mon Jan 27, 2025 at 10:45 AM GMT, Michal Orzel wrote:
+> >> On Arm32, when CONFIG_PHYS_ADDR_T_32 is set, a build failure is observ=
+ed:
+> >> arch/arm/platforms/vexpress.c: In function 'vexpress_smp_init':
+> >> arch/arm/platforms/vexpress.c:102:12: error: format '%lx' expects argu=
+ment of type 'long unsigned int', but argument 2 has type 'long long unsign=
+ed int' [-Werror=3Dformat=3D]
+> >>   102 |     printk("Set SYS_FLAGS to %"PRIpaddr" (%p)\n",
+> >>
+> >> When CONFIG_PHYS_ADDR_T_32 is set, paddr_t is defined as unsigned long=
+.
+> >> Commit 96f35de69e59 dropped __virt_to_maddr() which used paddr_t as a
+> >> return type. Without a cast, the expression type is unsigned long long
+> >> which causes the issue. Fix it.
+> >>
+> >> Fixes: 96f35de69e59 ("x86+Arm: drop (rename) __virt_to_maddr() / __mad=
+dr_to_virt()")
+> >> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> >> ---
+> >>  xen/arch/arm/include/asm/mm.h | 2 +-
+> >>  1 file changed, 1 insertion(+), 1 deletion(-)
+> >>
+> >> diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/=
+mm.h
+> >> index f91ff088f6b1..a0d8e5afe977 100644
+> >> --- a/xen/arch/arm/include/asm/mm.h
+> >> +++ b/xen/arch/arm/include/asm/mm.h
+> >> @@ -263,7 +263,7 @@ static inline void __iomem *ioremap_wc(paddr_t sta=
+rt, size_t len)
+> >>
+> >>  #define virt_to_maddr(va) ({                                        \
+> >>      vaddr_t va_ =3D (vaddr_t)(va);                                   =
+ \
+> >> -    (va_to_par(va_) & PADDR_MASK & PAGE_MASK) | (va_ & ~PAGE_MASK); \
+> >> +    (paddr_t)((va_to_par(va_) & PADDR_MASK & PAGE_MASK) | (va_ & ~PAG=
+E_MASK)); \
+> >>  })
+> >>
+> >>  #ifdef CONFIG_ARM_32
+> >=20
+> > Out of curiosity, why not make va_to_par() and __va_to_par() return pad=
+dr_t
+> > rather than uint64_t? Then this cast would be unnecessary and the expre=
+ssion
+> > end up as unsigned long.
+> >=20
+> > That would also cover any other uses outside this macro.
+> >=20
+> > Unless I'm missing something else...
+> va_to_par() returns uint64_t because PAR_EL1 on Arm64 or PAR on Arm32 sys=
+tem registers are both 64bit.
+> So, it would not make sense (also it would be confusing) for va_to_par() =
+to return already casted value.
+> The function ends with _par so it should reflect the register size as the=
+ name suggests. Macro is there
+> to cast this value as it also takes into account PADDR_MASK and PAGE_MASK=
+.
 >
-> Not sure you need to explicitly mention (x2) in the comment?  It will
-> either be xAPIC or x2APIC IDs, but just using "APIC IDs" should cover
-> both unambiguously?
+> ~Michal
 
-Sure.
+I see. The point is to keep va_to_par() in sync with PAR's width then.
 
->
-> > + *
-> > + * Each entry is populated for its respective CPU as they come online.=
- This is
-> > + * required for generating the MADT with minimal assumptions about ID
-> > + * relationships.
-> > + */
-> > +uint32_t *cpu_to_apicid;
-> > +
-> > +static uint32_t read_apic_id(void)
-> > +{
-> > +    uint32_t apic_id;
-> > +
-> > +    if ( has_x2apic )
-> > +        cpuid(0xb, NULL, NULL, NULL, &apic_id);
-> > +    else
-> > +    {
-> > +        cpuid(1, NULL, &apic_id, NULL, NULL);
-> > +        apic_id >>=3D 24;
-> > +    }
-> > +
-> > +    return apic_id;
-> > +}
-> > +
-> >  static void cpu_setup(unsigned int cpu)
-> >  {
-> > -    printf(" - CPU%d ... ", cpu);
-> > +    uint32_t apicid =3D cpu_to_apicid[cpu] =3D read_apic_id();
-> > +
-> > +    printf(" - CPU%u[%u] ... ", cpu, apicid);
->
-> I would explicitly name the field in the print:
->
-> " - CPU%u APIC ID %u ... "
->
-> As otherwise it's not obvious what the value in the braces is (and you
-> have to go look at the code).
-
-Sure.
-
->
-> >      cacheattr_init();
-> >      printf("done.\n");
-> > =20
-> > @@ -104,8 +133,20 @@ static void boot_cpu(unsigned int cpu)
-> >  void smp_initialise(void)
-> >  {
-> >      unsigned int i, nr_cpus =3D hvm_info->nr_vcpus;
-> > +    uint32_t ecx, max_leaf;
->
-> Noticed you could narrow the scope of ecx, but at the price of
-> introducing the definition line inside of the if condition.  I don't
-> have a strong opinion, and I assume you prefer it this way, which is
-> fine IMO.
->
-> Thanks, Roger.
-
-I marginally prefer it this way, but I don't particularly care. I wanted to
-avoid one more line in a hunk that's already quite high for a single CPUID
-check.=20
+Fair enough then.
 
 Cheers,
 Alejandro
