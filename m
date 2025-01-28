@@ -2,40 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9C4EA20ACD
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 13:57:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.878488.1288678 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67442A20BD8
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 15:17:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.878498.1288688 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcl9k-00038G-LN; Tue, 28 Jan 2025 12:57:28 +0000
+	id 1tcmO4-0004mt-7t; Tue, 28 Jan 2025 14:16:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 878488.1288678; Tue, 28 Jan 2025 12:57:28 +0000
+Received: by outflank-mailman (output) from mailman id 878498.1288688; Tue, 28 Jan 2025 14:16:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcl9k-00036D-I6; Tue, 28 Jan 2025 12:57:28 +0000
-Received: by outflank-mailman (input) for mailman id 878488;
- Tue, 28 Jan 2025 12:57:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IPSL=UU=eik.bme.hu=balaton@srs-se1.protection.inumbo.net>)
- id 1tcl9j-000367-4e
- for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 12:57:27 +0000
-Received: from zero.eik.bme.hu (zero.eik.bme.hu [2001:738:2001:2001::2001])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6b3218fb-dd77-11ef-a0e6-8be0dac302b0;
- Tue, 28 Jan 2025 13:57:25 +0100 (CET)
-Received: from zero.eik.bme.hu (localhost [127.0.0.1])
- by zero.eik.bme.hu (Postfix) with ESMTP id 7D45F4E6029;
- Tue, 28 Jan 2025 13:57:23 +0100 (CET)
-Received: from zero.eik.bme.hu ([127.0.0.1])
- by zero.eik.bme.hu (zero.eik.bme.hu [127.0.0.1]) (amavisd-new, port 10028)
- with ESMTP id 3uK6LJmOcV0F; Tue, 28 Jan 2025 13:57:21 +0100 (CET)
-Received: by zero.eik.bme.hu (Postfix, from userid 432)
- id 811C44E6027; Tue, 28 Jan 2025 13:57:21 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
- by zero.eik.bme.hu (Postfix) with ESMTP id 7E1B874577C;
- Tue, 28 Jan 2025 13:57:21 +0100 (CET)
+	id 1tcmO4-0004km-4v; Tue, 28 Jan 2025 14:16:20 +0000
+Received: by outflank-mailman (input) for mailman id 878498;
+ Tue, 28 Jan 2025 14:16:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=SSIY=UU=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
+ id 1tcmO1-0004kd-Rx
+ for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 14:16:18 +0000
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
+ [85.215.255.21]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6e01e073-dd82-11ef-99a4-01e77a169b0f;
+ Tue, 28 Jan 2025 15:16:13 +0100 (CET)
+Received: from sender by smtp.strato.de (RZmta 51.2.17 AUTH)
+ with ESMTPSA id D0534410SEFrwAY
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Tue, 28 Jan 2025 15:15:53 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,90 +41,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b3218fb-dd77-11ef-a0e6-8be0dac302b0
-X-Virus-Scanned: amavisd-new at eik.bme.hu
-Date: Tue, 28 Jan 2025 13:57:21 +0100 (CET)
-From: BALATON Zoltan <balaton@eik.bme.hu>
-To: Peter Maydell <peter.maydell@linaro.org>
-cc: Gerd Hoffmann <kraxel@redhat.com>, 
-    =?ISO-8859-15?Q?Philippe_Mathieu-Daud=E9?= <philmd@linaro.org>, 
-    qemu-devel@nongnu.org, Yi Liu <yi.l.liu@intel.com>, 
-    Markus Armbruster <armbru@redhat.com>, 
-    Eduardo Habkost <eduardo@habkost.net>, 
-    Anthony PERARD <anthony@xenproject.org>, 
-    Gustavo Romero <gustavo.romero@linaro.org>, 
-    Jason Wang <jasowang@redhat.com>, qemu-ppc@nongnu.org, 
-    "Michael S. Tsirkin" <mst@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-    Alexander Graf <graf@amazon.com>, 
-    Richard Henderson <richard.henderson@linaro.org>, 
-    Stefan Berger <stefanb@linux.vnet.ibm.com>, 
-    Bernhard Beschow <shentey@gmail.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    =?ISO-8859-15?Q?Daniel_P=2E_Berrang=E9?= <berrange@redhat.com>, 
-    "Edgar E. Iglesias" <edgar.iglesias@gmail.com>, 
-    xen-devel@lists.xenproject.org, 
-    Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, 
-    Alex Williamson <alex.williamson@redhat.com>, Paul Durrant <paul@xen.org>, 
-    =?ISO-8859-15?Q?Cl=E9ment_Mathieu--Drif?= <clement.mathieu--drif@eviden.com>, 
-    =?ISO-8859-15?Q?C=E9dric_Le_Goater?= <clg@redhat.com>
-Subject: Re: [PATCH 0/9] hw/sysbus/platform-bus: Introduce
- TYPE_DYNAMIC_SYS_BUS_DEVICE
-In-Reply-To: <CAFEAcA-QOYcnJi=joKHbRmUCXK1UFOgQRgYP-fDq4h_1SkMGyQ@mail.gmail.com>
-Message-ID: <2893a552-ca6c-01c4-dcc0-6107ccf1c7b5@eik.bme.hu>
-References: <20250125181343.59151-1-philmd@linaro.org> <wkb53fhvfchqa4uvmifgitvcr7t7rfpc3hcohdhzczkzvktetx@yjveswjel3s4> <CAFEAcA-QOYcnJi=joKHbRmUCXK1UFOgQRgYP-fDq4h_1SkMGyQ@mail.gmail.com>
+X-Inumbo-ID: 6e01e073-dd82-11ef-99a4-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; t=1738073753; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=SOyMQAtIzj+RwSIcSg6QjiBnex3xT1Ok5vYE8Jag6yer446ZEiuZ4BgL5U7zBnAv/X
+    GueasaoSUJqeup+3hol84AS4h3VQfaVKyIBusPFY1v9Hk3lbzupHovqfr3g1jathHEQH
+    z9KXzncSzZAMiYxk8dtNWF1BmfS03rEs5w8HpukKXMnwzZfypNCVRkyn67Rnf1GY9T1W
+    M9xhWMSSVwOqPKKbi/GuN9xkZ0cHzxvxRn7Xvpe0BAjFsD33TExNugCMzErwk7VgoORd
+    QNG22PxZAYeD2XG26JwL9jsVlDaF9bjrbp5SyDt2eWDZkVRvNCRi/LG4S7ouPO8IU+HB
+    fMGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1738073753;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-ID:Subject:Cc:To:From:Date:Cc:Date:From:Subject:Sender;
+    bh=6+FFDMnFMkrA8wSKIFiEbNLT+sTX2ENPHcGK1OU85ZQ=;
+    b=GaMGSgR7TgkvNQEH34iKmvWlh3A08beaWVaHay+wwgxNFHSLR9tY9/FVXDc6gI2F5w
+    408zIR7x9bTOt5MR/fp/9BUyKgagiXM6VbaIQjaoM7UDYZpm06VztaDmrhOFuMIL+q3I
+    qgkjv30wXjCiz1Jfh2AfvTytF2Wcq5Ilz7SVDMHK8JXtg4BxIeOzZZQ/pQYpWHrwnoNe
+    XV2VYK6i2Kkg153S33aB2Mfea58mqcbPN7zNMGXZK34gQzyA6bJ7HICcPxWVhhw2p2xR
+    iyrli/a9W5QJQ2Cqege7eKZzMqdHqMqVQi3Ehcqymar4yNtjMmJxkWbOdM4TDudMqbn5
+    8KRw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1738073753;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=Message-ID:Subject:Cc:To:From:Date:Cc:Date:From:Subject:Sender;
+    bh=6+FFDMnFMkrA8wSKIFiEbNLT+sTX2ENPHcGK1OU85ZQ=;
+    b=E+Tv7aCOWB1/OhUhrS7xsRQeiH6XduGJG+OuK3jutS/X00zL1caFicCfrlYUWh7WFr
+    jOk8eFqiPQiNwIKsL4dNulrHtSI5WWfllInD8bH4A2JYfSc/CDo5EucwGnuM0hzEh4+z
+    +dBoibm5+NcCRSVbO7Pn345BHv5O0Fwy+dvQaqdRGZ30hXsyqCS6pproEjy/44AVHjlB
+    WiFXCG9PWv3z89OcxU5auFwghC/ZPJYf9Ye20snA7atfgbhbxvXSr0jWdZX+SE9eXV5j
+    0ECv6Xa8bksz2qNRXReEpINrt5BXDsORl3CcefL4UKniQlGRVE+78W+CC0Nqj87Zvl0k
+    a37w==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1738073753;
+    s=strato-dkim-0003; d=aepfle.de;
+    h=Message-ID:Subject:Cc:To:From:Date:Cc:Date:From:Subject:Sender;
+    bh=6+FFDMnFMkrA8wSKIFiEbNLT+sTX2ENPHcGK1OU85ZQ=;
+    b=DTnr2/AyUXOJF0komU3MnoVlPvFGTpzEJDnPfFNnYS4WnGzIPUdTAiJvSdrNQwZY7p
+    3DSVayn8QMVlPaQJk9CA==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OmD4uXd0fmxSoJ8/RK6b07KGriu4yBf+6JptMSdiuOzXC/d"
+Date: Tue, 28 Jan 2025 15:15:44 +0100
+From: Olaf Hering <olaf@aepfle.de>
+To: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, jgross@suse.com,
+ Anthony PERARD <anthony@xenproject.org>, Paul Durrant <paul@xen.org>
+Subject: slow start of Pod HVM domU with qemu 9.1
+Message-ID: <20250128151544.26fc827d.olaf@aepfle.de>
+X-Mailer: Claws Mail (olh) 20240408T134401.7adfa8f7 hat ein Softwareproblem, kann man nichts machen.
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="3866299591-275533675-1738069041=:16171"
+Content-Type: multipart/signed; boundary="Sig_/3_gYOUqZaZS0d84viqP81qM";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Transfer-Encoding: 7bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+--Sig_/3_gYOUqZaZS0d84viqP81qM
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
---3866299591-275533675-1738069041=:16171
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8BIT
+Hello,
 
-On Tue, 28 Jan 2025, Peter Maydell wrote:
-> On Tue, 28 Jan 2025 at 10:42, Gerd Hoffmann <kraxel@redhat.com> wrote:
->>
->> On Sat, Jan 25, 2025 at 07:13:34PM +0100, Philippe Mathieu-Daudé wrote:
->>> Some SysBus devices can optionally be dynamically plugged onto
->>> the sysbus-platform-bus (then virtual guests are aware of
->>> mmio mapping and IRQs via device tree / ACPI rules).
->>
->> Do we have some sane way to have user-pluggable sysbus devices on arm?
->
-> The answer in a general sense is "no, because user pluggable
-> sysbus is a weird idea". "sysbus" means "it's wired into a
-> specific bit of the memory map and to specific IRQs, and whoever
-> does that needs to know what IRQs and bits of memory are usable,
-> and the guest OS needs to know it's there". "user-pluggable" means
-> "it's all automatic and the guest can just do some kind of
-> probing for what is or isn't present". All the platform bus stuff
-> is a nasty mess that's working around the things people want
-> to plug in not being clean devices on probeable buses :-(
-> And the platform bus is only supported on the "virt" board,
-> because that's the only one where QEMU is generating its
-> own dtb or ACPI tables where it can tell the guest "hey,
-> there's some device here".
+starting with qemu 9.1 a PoD HVM domU takes a long time to start.
+Depending on the domU kernel, it may trigger a warning, which prompted me
+to notice this change in behavior:
 
-There are some SoCs that have memory mapped devices but different versions 
-in the same family have different devices. Either older ones missing some 
-devices or have less USB or network ports while newer SoCs have more of 
-those or they have PCIe instead of PCI. Modelling these could use 
-pluggable sysbus devices so one could add the devices needed for a SoC 
-version without having to write or modify a board code. I think Bernhard's 
-attempt to try creating e500 SoCs from a device tree goes in that 
-direction too. We could also model this by having a SoC that can 
-instantiate devices based on some properties but maybe pluggable devices 
-could be more generic for this. The issue seems to be how to tell the 
-board or SoC where to map it and what IRQ to connect it as this is done by 
-the board and not the device so properties on the device to set these does 
-not really help unless the board can somehow query it and instantiate the 
-devices based on that. Otherwise whatever handles the -device option to 
-create the device would need knowledge about the board. (E.g. the e500 
-devices are mapped in the CCSR memory region so one can't just use system 
-address space for them.)
+[    0.000000] Linux version 4.12.14-120-default (geeko@buildhost) (gcc ver=
+sion 4.8.5 (SUSE Linux) ) #1 SMP Thu Nov 7 16:39:09 UTC 2019 (fd9dc36)
+...
+[    1.096432] HPET: 3 timers in total, 0 timers will be used for per-cpu t=
+imer
+[    1.101636] hpet0: at MMIO 0xfed00000, IRQs 2, 8, 0
+[    1.104051] hpet0: 3 comparators, 64-bit 62.500000 MHz counter
+[   16.136086] random: crng init done
+[   31.712052] BUG: workqueue lockup - pool cpus=3D1 node=3D0 flags=3D0x0 n=
+ice=3D0 stuck for 30s!
+[   31.716029] Showing busy workqueues and worker pools:
+[   31.721164] workqueue events: flags=3D0x0
+[   31.724054]   pwq 2: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D2/2=
+56
+[   31.728000]     in-flight: 17:balloon_process
+[   31.728000]     pending: hpet_work
+[   31.728023] workqueue mm_percpu_wq: flags=3D0x8
+[   31.732987]   pwq 2: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D1/2=
+56
+[   31.736000]     pending: vmstat_update
+[   31.736024] pool 2: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 hung=3D30s wo=
+rkers=3D2 idle: 34
+[   50.400102] clocksource: Switched to clocksource xen
+[   50.441153] VFS: Disk quotas dquot_6.6.0
+...
 
-Regards,
-BALATON Zoltan
---3866299591-275533675-1738069041=:16171--
+With qemu 9.0 and older, this domU will start the /init task after 8 second=
+s.
+
+The change which caused this commit is qemu.git commit 9ecdd4bf08dfe4a37e16=
+b8a8b228575aff641468
+Author:     Edgar E. Iglesias <edgar.iglesias@amd.com>
+AuthorDate: Tue Apr 30 10:26:45 2024 +0200
+Commit:     Edgar E. Iglesias <edgar.iglesias@amd.com>
+CommitDate: Sun Jun 9 20:16:14 2024 +0200
+
+    xen: mapcache: Add support for grant mappings
+
+As you can see, v4 instead of v5 was apparently applied.
+This was probably unintentional, but would probably not change the result.
+
+With this change the domU starts fast again:
+
+--- a/hw/xen/xen-mapcache.c
++++ b/hw/xen/xen-mapcache.c
+@@ -522,6 +522,7 @@ ram_addr_t xen_ram_addr_from_mapcache(void *ptr)
+     ram_addr_t addr;
+=20
+     addr =3D xen_ram_addr_from_mapcache_single(mapcache, ptr);
++    if (1)
+     if (addr =3D=3D RAM_ADDR_INVALID) {
+         addr =3D xen_ram_addr_from_mapcache_single(mapcache_grants, ptr);
+     }
+@@ -626,6 +627,7 @@ static void xen_invalidate_map_cache_entry_single(MapCa=
+che *mc, uint8_t *buffer)
+ static void xen_invalidate_map_cache_entry_all(uint8_t *buffer)
+ {
+     xen_invalidate_map_cache_entry_single(mapcache, buffer);
++    if (1)
+     xen_invalidate_map_cache_entry_single(mapcache_grants, buffer);
+ }
+=20
+@@ -700,6 +702,7 @@ void xen_invalidate_map_cache(void)
+     bdrv_drain_all();
+=20
+     xen_invalidate_map_cache_single(mapcache);
++    if (0)
+     xen_invalidate_map_cache_single(mapcache_grants);
+ }
+=20
+I did the testing with libvirt, the domU.cfg equivalent looks like this:
+maxmem =3D 4096
+memory =3D 2048
+maxvcpus =3D 4
+vcpus =3D 2
+pae =3D 1
+acpi =3D 1
+apic =3D 1
+viridian =3D 0
+rtc_timeoffset =3D 0
+localtime =3D 0
+on_poweroff =3D "destroy"
+on_reboot =3D "destroy"
+on_crash =3D "destroy"
+device_model_override =3D "/usr/lib64/qemu-9.1/bin/qemu-system-i386"
+sdl =3D 0
+vnc =3D 1
+vncunused =3D 1
+vnclisten =3D "127.0.0.1"
+vif =3D [ "mac=3D52:54:01:23:63:29,bridge=3Dbr0,script=3Dvif-bridge" ]
+parallel =3D "none"
+serial =3D "pty"
+builder =3D "hvm"
+kernel =3D "/bug1236329/linux"
+ramdisk =3D "/bug1236329/initrd"
+cmdline =3D "console=3DttyS0,115200n8 quiet ignore_loglevel""
+boot =3D "c"=20
+disk =3D [ "format=3Dqcow2,vdev=3Dhda,access=3Drw,backendtype=3Dqdisk,targe=
+t=3D/bug1236329/sles12sp5.qcow2" ]
+usb =3D 1
+usbdevice =3D "tablet"
+
+Any idea what can be done to restore boot times?
+
+
+Olaf
+
+--Sig_/3_gYOUqZaZS0d84viqP81qM
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmeY5pAACgkQ86SN7mm1
+DoCFOw//W5Fcozw9uIT8fIzv1P9oQEP/KA/H4M25Z1+GmV9jQE2Teo6ycS7FkL0+
+ule3smRYAOS5JOeCuQaomUVMbbMZl8LWOnYKl0cGO6Z+WPWgam6Z0B1Qnkba2KwJ
+OWxVewxsDL2LgvBc+B7aw4BYhxtcMQq0DhFqr/9BdFFJmvI7q3iOTyfh8WzoJGXH
+uGS53lWtxKf8xS3ZrdlEP0hZJpveFlaMENw1DS9fWvV04TuBQYxnUhQt1uBg0kVg
+5ZLlB1W8+gsaHzH9PZuBB0kzmQiYmOQV4KuQw9Yxs5oRvJiiZADvTi2kXmk8ihp3
++DCF1aSk4piqqap1uCgYu7Xow2pd7p8SbpMXh7qjdAN3yqbaJ46hC6cOad/RsMFC
+1k8zMSmRuB/zs0Pd0g/ZlPrBk5YMsIth0H9405qYnOcDL2zN+9u614GyZkDhd+JW
+POXsphk0ZNPju5ZeVNtQWCRJtGu2LzEVxYziSqoQl9gFT4BYoPzCAKI/Gg5XAQFZ
+w9tPJ2mxyiStXStazMIZPcYovMjVxPNB7rPVNUkoHedqIGqHtXJMICLkN3jvub9D
+NmrUJvklZp/lMY7qoDL8RZ0H1NYYZ0ycs+LB4LVoILZQk18YrJFT3scyFF3ImpaC
+1pYwbfYbh/RBwIu6tQoPRYMy/03XwQubbr77j+NbK9JjjSG0Kv8=
+=Duhj
+-----END PGP SIGNATURE-----
+
+--Sig_/3_gYOUqZaZS0d84viqP81qM--
 
