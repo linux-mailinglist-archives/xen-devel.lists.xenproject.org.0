@@ -2,56 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46F1CA2029C
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 01:33:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.878242.1288414 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E72FA202CC
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 02:01:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.878255.1288424 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcZWq-0003cD-7t; Tue, 28 Jan 2025 00:32:32 +0000
+	id 1tcZyg-0003Y0-BL; Tue, 28 Jan 2025 01:01:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 878242.1288414; Tue, 28 Jan 2025 00:32:32 +0000
+Received: by outflank-mailman (output) from mailman id 878255.1288424; Tue, 28 Jan 2025 01:01:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcZWq-0003aa-3s; Tue, 28 Jan 2025 00:32:32 +0000
-Received: by outflank-mailman (input) for mailman id 878242;
- Tue, 28 Jan 2025 00:32:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tcZyg-0003SZ-8O; Tue, 28 Jan 2025 01:01:18 +0000
+Received: by outflank-mailman (input) for mailman id 878255;
+ Tue, 28 Jan 2025 01:01:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LT9m=UU=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1tcZWo-0003aU-K7
- for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 00:32:30 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20629.outbound.protection.outlook.com
- [2a01:111:f403:2009::629])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 59b19d04-dd0f-11ef-99a4-01e77a169b0f;
- Tue, 28 Jan 2025 01:32:28 +0100 (CET)
-Received: from BY5PR16CA0017.namprd16.prod.outlook.com (2603:10b6:a03:1a0::30)
- by DM4PR12MB7693.namprd12.prod.outlook.com (2603:10b6:8:103::8) with
+ id 1tcZyf-0002vW-9M
+ for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 01:01:17 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20609.outbound.protection.outlook.com
+ [2a01:111:f403:2414::609])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5f8f2f52-dd13-11ef-a0e6-8be0dac302b0;
+ Tue, 28 Jan 2025 02:01:15 +0100 (CET)
+Received: from DS7PR03CA0224.namprd03.prod.outlook.com (2603:10b6:5:3ba::19)
+ by DS7PR12MB8292.namprd12.prod.outlook.com (2603:10b6:8:e2::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8377.22; Tue, 28 Jan
- 2025 00:32:24 +0000
-Received: from SJ5PEPF000001D0.namprd05.prod.outlook.com
- (2603:10b6:a03:1a0:cafe::a4) by BY5PR16CA0017.outlook.office365.com
- (2603:10b6:a03:1a0::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8377.22 via Frontend Transport; Tue,
- 28 Jan 2025 00:32:23 +0000
+ 2025 01:01:08 +0000
+Received: from DS1PEPF0001709D.namprd05.prod.outlook.com
+ (2603:10b6:5:3ba:cafe::10) by DS7PR03CA0224.outlook.office365.com
+ (2603:10b6:5:3ba::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8377.23 via Frontend Transport; Tue,
+ 28 Jan 2025 01:01:08 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF000001D0.mail.protection.outlook.com (10.167.242.52) with Microsoft
+ DS1PEPF0001709D.mail.protection.outlook.com (10.167.18.107) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8398.14 via Frontend Transport; Tue, 28 Jan 2025 00:32:23 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ 15.20.8398.14 via Frontend Transport; Tue, 28 Jan 2025 01:01:08 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 27 Jan
- 2025 18:32:22 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 27 Jan
- 2025 18:32:22 -0600
-Received: from [172.25.15.116] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Mon, 27 Jan 2025 18:32:21 -0600
+ 2025 19:01:07 -0600
+Received: from [172.25.15.116] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Mon, 27 Jan 2025 19:01:06 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,33 +59,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 59b19d04-dd0f-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 5f8f2f52-dd13-11ef-a0e6-8be0dac302b0
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ppn/jytpHTpsSAr+utwlVpsHb9xOm2Jg3Ooz85LSLVb+6n+ZvxaYzcjaUHoqf6n40eGuCZGQ56WGojDmA/Vts2d4Ry1WfvdeCf6chw72yWCGA8WtlpPQqpe7tYLbdcaCj0eVrhekPyE5VCsKuzEdiiDBf6S4HcaffjLgZ/GFOd8RzeOfzYbut4kOmXPj0rLoaGQI6cMGON6QRol1eP6UocxNI4vPiCv7jmDauMi92DRJIIXxs4fzE5xFULBJwnQWY7yXep/OT5CK7/+O+ZL5HwROH0KaUlNR8V4qcJiLnpSToF0ZHZzwPTFD0iCrSPlpL6FD0YpePEDeAkMhAV7CAg==
+ b=KmbF3FlH7x9HNWP3YYHbwDpsSBiNqAhuou51GAztEEePO5GWBztp7Ql+G8tbVvgEg4zL7djFE7/Dd5c71WrzMa+cpS2jWfehYn88ukl2z6obcg6Hmd737zFxegHtY0y2EX7o7W7eS02qihPtD0kRzABFYz7+T6IFhU0rv998Lpn90iFuocJYwhC37geAl1C3ZYIxOQMbQrw79v9I6qu9x8obN7EH20IA2yqOBVTyHFH161GlPQz+WLpU8VQFRke5CH8cnNqpIFFeVIMl7+RRoyobutRk54iz7xy+rEu+u3PoRBWbsa2goHf4fux/DDkXjS8lUMsxGj4rRvcQTC4RlQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=51YNYtPACKD20etOArML24Odd1c+C2MmKvdCCVrsVvI=;
- b=HsJ1/3Kp1gZdl2bi6kzm3jcIYjHI1N9/uJYvtTneU4ve8s+Nke3vr8z3xKtHE0Mcz2t7TenwWKfnY2T+rMRcgoVvSUdq+VgYP8watESXpebrJxyQsLwlRBUM7TjBTAidO7VN8xz4rVNN4mN8NQuueWuWmR4EYKJ0s03j1cJ9uiSN587vAD2oNwvhJuPE27sdFA6kqqx00F2dhYwR4TQdPxnXMU79t9uHQbXxx2LkJ3vqaV/QexhfxDav0fK4hIN9/QaXQ4b1UMxuuVhtCAMj/i8VKjVQYkPZHW+ZvX3NN+5y+7J2aQFC51lKZdaQAzNgsDV9g5UtR2cDhXV1xR8m7A==
+ bh=UwRU4nxk5uvPUHcrM/kNF4IzdzGLXo7Ym7SK0HWhYmM=;
+ b=yAOsnDqH14NkzcHO4w4994E8kLdIsjyMaMU5X876aD2W/dNkZ6PQ1Cync6hRwGV/SIw6gPcTbpPOSP81gQGRUEAv8ISyCWD0JsUBCwKhzJ3aGtQQ/K0PFKG+olYGe3cfAJepeNs2zCMzHB7LlkqdduAxwuRmonojx6Cf5Gbmnsy7P2h7J6vAwLVEN+AOskt1uY9+mBatHKjaR6UlRCLuNKa5LPHGTlCBAsvgyteO7yyOMhqOKKR89PTENuvsg98KlQOPYZsrRLDzzWmD2Att+wlS8gCdcco09dBs4AfGL6NlqF3spEPO9gOADL25b10f31qo6Yn9J97xre7+6efZsg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=ford.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=51YNYtPACKD20etOArML24Odd1c+C2MmKvdCCVrsVvI=;
- b=i00qMbnAzvk1b59UfEq55RlNhMbrhQaTEonY2/mhH9mgpPTAF77dFLvOU+lV1ieSvGZ2361sE7spk9TOKgB5xeGxJqcajdEwE6iq53uj7JEQvkcYLWsVw2naGumJ5n9jcU/Z0rbJzNjRFmOlrrcLJnwXv4ydgSwSWfPpogaoEEw=
+ bh=UwRU4nxk5uvPUHcrM/kNF4IzdzGLXo7Ym7SK0HWhYmM=;
+ b=lOpBJXV2O7VqpRQBnmd5o0fvwNg3qc6/vCJhMmFhdP2CUvlZqBCYD/iav00xrjjGA9vIMU3VBbBj9XxbrSBlEB8qO9t7r3fTNX0UbxvS+/OkzDjoMfW70IBjpD5LQetPYZSSWgKSJIorcgc+HsS/6tx3dOWATkSjjGnwVRFO0rg=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <3ab581fb-4c7b-43ff-8ac4-6bab65758437@amd.com>
-Date: Mon, 27 Jan 2025 18:57:09 -0500
+Message-ID: <a49b67b2-87ff-49c6-a319-bb9b33ae8f04@amd.com>
+Date: Mon, 27 Jan 2025 19:25:59 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 06/24] xen/domain: introduce hardware emulation flags
+Subject: Re: [PATCH v3 07/24] xen/console: introduce framework for UART
+ emulators
 To: <dmukhin@ford.com>, <xen-devel@lists.xenproject.org>
 CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
 	<julien@xen.org>, Michal Orzel <michal.orzel@amd.com>, Andrew Cooper
@@ -97,121 +94,221 @@ CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  Beulich" <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
 	<roger.pau@citrix.com>
 References: <20250103-vuart-ns8250-v3-v1-0-c5d36b31d66c@ford.com>
- <20250103-vuart-ns8250-v3-v1-6-c5d36b31d66c@ford.com>
+ <20250103-vuart-ns8250-v3-v1-7-c5d36b31d66c@ford.com>
 Content-Language: en-US
 From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <20250103-vuart-ns8250-v3-v1-6-c5d36b31d66c@ford.com>
+In-Reply-To: <20250103-vuart-ns8250-v3-v1-7-c5d36b31d66c@ford.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB04.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D0:EE_|DM4PR12MB7693:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0d0b5f9a-6952-45c5-ae21-08dd3f333be9
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001709D:EE_|DS7PR12MB8292:EE_
+X-MS-Office365-Filtering-Correlation-Id: d0718031-caf3-42f6-febb-08dd3f373ff2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700013|1800799024|376014|7053199007;
+	BCL:0;ARA:13230040|1800799024|36860700013|376014|82310400026|7053199007;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?ekxNK05kUGRad2RmMTNyMHdkOUpJOExrK2RhYzBndUV5QlUwZWRDVEFiWk5M?=
- =?utf-8?B?UjJ0Y0x6akRwWUhsUUFWTSsrYVRINnJMd3hQUmNBVTNDZjVGQXRsdmNVcVF4?=
- =?utf-8?B?c21jdjlVMXFEanlHelFOUWhRaXowQ0NuWEY5ekJKRTFqanJGd2RteEUwVS82?=
- =?utf-8?B?WFVsOEpuYjd1YVdPWGN6T2lZbkJMRUdQRjMwR1hBd0Z6eExBdlAwOXNNMmZt?=
- =?utf-8?B?RGJEbmhwczdvMlpyMllXY0VCcWJLeVVtV1NFMms0K05YMzJHejQ5WWp1ck1y?=
- =?utf-8?B?bXI4SUVOYXVLK3hWZEZDYXM3T3ZqMjRXVkxWTFpnSU5zSk5EREVkSVR4aVpD?=
- =?utf-8?B?cDVEbEhpM1Y0Ym5KamJLYUJEQnVPa2FvVGNwOG9XTldLTFFMMytKejhvTzJo?=
- =?utf-8?B?cHpuNWZ5NzRNZEE1aWh2YjRhVmMxY1dOcE1BSjB5aUlIbTVNUE5nREJNUnlJ?=
- =?utf-8?B?VWh5T0tOS24yTTRhcFhKeTJpb3JhYUFocXRYY0VzdWFjOGRDY0hwSlZFMFRQ?=
- =?utf-8?B?NzByMklCbWFLSFhXajFibm94bDNvaUpsd1lkZjVCNG1pOUZWbFplV3Uwbmgx?=
- =?utf-8?B?VFlMT0Y2UzQwNkpEeFd4RlJFa1BoOEVOa1Rqcm00U2Z6VDY5LysyM2NvcURk?=
- =?utf-8?B?T1JGcGRuenVGZUpkc3dMaXQyNmNROHRXeW5MMkozeFl3YVBJYytRM25BM0dx?=
- =?utf-8?B?MXY1dTYyNkRMUVlOWmJoRmFmQXFJMDRpVEk0cWVZZTBGdTlxM1hvazhTckhO?=
- =?utf-8?B?STFGVDAyOVNZa1Nnbm9MNWVKMTdpYWhoMGZRT3dvWVNCT3M2VnE0YVBxQXZN?=
- =?utf-8?B?OXhDUGVEQW9rVnJIOUJvSVlDMTdEM1hnMHBGN2pBVWgrMkZZUFdkTjRhd0k0?=
- =?utf-8?B?bG9ESWdITXo4MS8vTWJrWDhORHd1RnEyRTF5VFJldTc1WGdSanZnRmp1Y3Rv?=
- =?utf-8?B?aXgrWFBkZk0xNFliSFZxQk9ZWkFJWTQ2REJnR2JyNEx1WCtEMlZVRTR5WGRQ?=
- =?utf-8?B?OWNDK2JMbDcra3pvNDk5dnVVS05tT0Q5WWlUYXNWVEJySmhnU25FV0lkWUR4?=
- =?utf-8?B?dVByZmx6TjFBNCtoUS9Wc1dHeW5rRDY3YlVteVFkZG15eVJzWW05QzNaZmtP?=
- =?utf-8?B?N2xLNW1YeXBHSHd3TEZ5bG4wODM2b3BvNzhWR2RQZTgxYTg3aWZMdDRYZVRh?=
- =?utf-8?B?a09ZSks0TXZuWFZxbWtldUxtSWpMKzREQVIzWVh6RXptdFJrMkdjOXBybzhP?=
- =?utf-8?B?azFXUC9weVpRdGYwZThEa2VkWUN4TVlEdE56NU5DMHhWdG5UcmtnbDBYUWNy?=
- =?utf-8?B?UTZpeGRRbUlHUVlDWlF3Ympidk9TVm9wUFFmd1NYTkkyV01temM5cmx3ZW9x?=
- =?utf-8?B?SCtqTkIvM1ZiUFFjazMrclovRmxqT1Q4eDVpbHpMV0hCWEZmN1UyTkxuTSs5?=
- =?utf-8?B?WUQyUU5EdElPTkk0TDZqdmlES3B0MzJaZU9BQmxhMzNXUTB3RUxwWWNjNUVa?=
- =?utf-8?B?V1VKWVI5VzN2a0pjdUdDNStYTDNtb2Y2MWl1djRGdzdmM1FJbFEyMDFvWEFY?=
- =?utf-8?B?RHlkdkYrbDF3Um1jeHRIVHJSU3dUOE9iU09UbGpiYkMvSFA1N0FXMUpVNWNU?=
- =?utf-8?B?MlQ0NzlqcDdlNm8yaklnRUlxTnR3MUpuUVRTOVU5REN5RTVKVzE1UFRqb3Ar?=
- =?utf-8?B?ano5WkthczMxck03c05xa29NRFBIejM3aUprUm1HVWloQzJuODdGNHdYV29N?=
- =?utf-8?B?NnM3ZHQvUDNVbmd5UGxoZnA0TWZLODF1b0pGckh6MTJrQ3NQUmF5WXlIVFcx?=
- =?utf-8?B?d0l3ZU4zOGNZMWdFNThhRTRhMTlNZDBrdWNpQlFKMmRRTVExZUwxbHZjaFdo?=
- =?utf-8?B?LzduUG1XeTVzNWdsZTBiQjVrT21yaTM5aGxvWUhiRXVIODNZTW12MFVucUtH?=
- =?utf-8?B?Z2Z2UUU2SzczSVhwaHY2WFMvUTdsU0oveHBqT3kwZWdrTUVQV2FQZGhubU9C?=
- =?utf-8?Q?kLBChtUa4BH99XI75FTAhLUVTNIM2Q=3D?=
+	=?utf-8?B?ekJPcVlheUlGYTVWU1B4ZDhjQ3hPUTlTWTEyTldEbEpFbit0Sy9Lck1SNDly?=
+ =?utf-8?B?b2RoalRydzZzemtRNmxjUlRhZDJpVjdZOGQ1OGduZUhCT0ZyZ25mS0ZGRllT?=
+ =?utf-8?B?ZzdMaDl0dmRRb2FOcysxaGhHc1NaaE5TR1ZaRHlpTVVURDluSFdVODFLdGMx?=
+ =?utf-8?B?ZVI2T1F4S0UzVTZFa0FSYXMvNVNaSTFxTkdkcWoxdEUvMHZrbUVaaXVHczRR?=
+ =?utf-8?B?Vmo4aXMrV3l6WjkxZHBsNEhuSG96eGhZSzYveVMyRXlXeCtMc2tqakRlaDJN?=
+ =?utf-8?B?NFZpVVkranpCbkxncXBWaDAwQm9hdmdUbVMzTFlUYkI0R1dwNVNDTjZuVllr?=
+ =?utf-8?B?dnhtbUJUM3hqYmlXQWp0MmhBcUxaNnNXZ0tWZENXeWdnRnVoN2JUMGQ3NHZK?=
+ =?utf-8?B?Wk55SDFGRXMvMURXOENsbnNleWxva2syWm1VQkN0UjV2ejYrZExkQzB2eG1H?=
+ =?utf-8?B?cWIyWWtXUnJ3ZmxJZVVhUVlHUFZjTlBlSUhpUlIyeGZ2dEtGd0dCOVhleU12?=
+ =?utf-8?B?UUsya0pjdUZBTFF2WGJEWlNpOEFLOEVRZTM2YWxJR1pGK3JTODVDVHZNT2JV?=
+ =?utf-8?B?dkxhQ0xVZGJOSFNRckFEdUQwRFFJdmpUV2hFTmV4SHhJTDVrVjdJM045bGEr?=
+ =?utf-8?B?cWRhUzZ6Q3VMeFJ1OTJjSUV6M0pkWDlBL2tCTDUyYnJXSmU1cDZlZE1pZEVo?=
+ =?utf-8?B?VWUycnU5NWJ5Yno4YUQ1S3JwSmRNMGdZeWRuT2NGQWVlVGxRRit6SHcrckdj?=
+ =?utf-8?B?V1VOa05IbFJ1cmF0NHB4eEpoN3VEcS94T0dLaXRUS3dSWVJNZ2c3UWNRWGIz?=
+ =?utf-8?B?MTg3YzNwaGhPc3prTFM3OUN4aXVNSlZqLzlGZmdxUDFEbzE0cnRUQmg0cmI1?=
+ =?utf-8?B?dHUvL2tUTHVQa3YxYVhicVFaV3liaXNkWU10WEl0by9ZY0FPRnJnVHEralZC?=
+ =?utf-8?B?Z01VWTBzazVucmZRcTNGU1BuaHhzOG0yOXlsMHpPQ25GRHpraEhoWnd4aGM1?=
+ =?utf-8?B?L0Nuc2JFVTRMY3ppWjhGOXRLUzNseUpqQVFBUEo4Wnp4MXV2SWdRa2puZFdz?=
+ =?utf-8?B?MWdGa0k4WFp5MnFEQTZQdGRLd1ppTjRRbmxHNnQ0eGtrUWJZdCthZXEzRWZX?=
+ =?utf-8?B?azZvQjhqTUdlSzc4VUR2SForcnVBQU5TdUlZY0wzSzR1OXhEL1lpK1l0cHpy?=
+ =?utf-8?B?d0MrUnY3M3pvay9FYUNUbkNlVlkwNjBzbzZCaDNiQjFlNGFjYlVETVJ3RjM5?=
+ =?utf-8?B?K1paeFM0cTNNRXkxdS9CVmgyaWVoTlNsWWhrWGp6QlRZeDhWTmd1YmlJTEJW?=
+ =?utf-8?B?OXltdUdSYXdkNVZ0Q2RIdkJsU3puVkFvQ0x1bGlXejRwWWkvNThoclZqc1Jv?=
+ =?utf-8?B?UUp1V3RRbGZoTlEwVmJNTmF5eGYyd2JKZ1AydFljbUNVOFNjVEFGcFNqUEtm?=
+ =?utf-8?B?WEcvQUMrSGFBU0c4OXlyZk8rOUpQaEYvZUZ4S0RzYVN6VjI5U3F1eG15WFo4?=
+ =?utf-8?B?MzFvbm5sY04vM1AyZ0hremg3SjloZlE4M1JGc3k2emYvTFZtM1dYVG9KTEdZ?=
+ =?utf-8?B?czh3NVo3ZzJ2ZjRoQVZIQzNHRXRGaElMZVA3bDVZcW5zTVJwTnptdEpVZHE1?=
+ =?utf-8?B?blVWT2M1QlR6b1dIYmFRUHJZYjM1c0Raem5NbG5uRVZrM2lyNUFwTDFqNzln?=
+ =?utf-8?B?TmcvUVBlYkU3L0pqY21FNHp5UnZuZXlqMDRGRlNlbmxvdGQwc1dER0Q0U0sw?=
+ =?utf-8?B?YzJjOEJhR0Z5d3VLaGNhSEhRRGlEK01tVHg0dDRQK2VmTUUzZEZFMjljMnk5?=
+ =?utf-8?B?bEdGMHQxMUQzQnB6QlJnZzZoZWtkVytaZENyUFAwZklFS29TOHAwUUxhbmlk?=
+ =?utf-8?B?N3FVWUxhR2NWOTZGOWlIV0ZqcGxtR1I4ZUxvL0lDOE5hbGF0QWNjZURBMHZP?=
+ =?utf-8?B?VEw4Y1dxcmxUWE5pZGk1SVp2aENnWW52Zkc4OUNIS0h4d21CcFV2bnlUNjNi?=
+ =?utf-8?Q?rtFr+wI2SI+8yHJG2YgLKVKugH4ynE=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014)(7053199007);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026)(7053199007);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2025 00:32:23.5968
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2025 01:01:08.4024
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0d0b5f9a-6952-45c5-ae21-08dd3f333be9
+X-MS-Exchange-CrossTenant-Network-Message-Id: d0718031-caf3-42f6-febb-08dd3f373ff2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001D0.namprd05.prod.outlook.com
+	DS1PEPF0001709D.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7693
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8292
 
 On 2025-01-03 20:58, Denis Mukhin via B4 Relay wrote:
 > From: Denis Mukhin <dmukhin@ford.com>
 > 
-> Define an architecture-independent location for describing hardware emulation
-> flags for configuring in-hypervisor emulators.
-
-I'm not sure about this.  It's a lot of churn.  The common internal 
-handling makes sense, but specifying in a domain architecture-specific 
-fashion seems okay.  Letting ARM specify EMU_VPL011 and x86 EMU_UART 
-better aligns with the rest of the architecture-specific emulation flags.
-
-> Print d->arch.emulation_flags from 'q' keyhandler for better traceability while
-> debugging in-hypervisor hardware emulators.
+> Introduce a driver framework to abstract UART emulators in the hypervisor.
 > 
-> Also, expanded the error message in arch_domain_create() in x86 case when
-> user-defined domain emulation_flags are incompatible w/ platform supported
-> emulation_flags.
+> That allows for architecture-independent handling of virtual UARTs from Xen
+> console driver and simplifies enabling new architecture-dependent UART
+> emulators.
+> 
+> The framework is built under CONFIG_HAS_VUART, which is automatically enabled
+> once the user selects a specific UART emulator.
+> 
+> All domains w/ enabled vUART will have VIRTDEV_UART bit set in
+> d->arch.emulation_flags.
+> 
+> Current implementation supports maximum of one vUART per domain, excluding
+> emulators for hardware domains.
+> 
+> Use domain_has_vuart() in Xen console driver code to check whether the
+> domain can own the physical console focus.
+> 
+> Note, arm/vuart.c emulator is not hooked to virtdev-uart framework because the
+> emulator is limited to the hardware domains only and was not designed to own
+> the physical console input. Updated arm/vuart.c APIs to have 'hwdom_' prefix
+> instead of generic 'domain_' to avoid possible confusion.
 
-These two seem okay, but could be in their own patch.
+It might be good to renmae xen/arch/arm/vuart.c to 
+xen/arch/arm/hwdom-vuart.c and then use just the shorter vuart prefix 
+instead virtdev_uart.
 
 > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 
-> diff --git a/xen/include/public/virtdev.h b/xen/include/public/virtdev.h
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..27434377ecacfe069a91dea3768d14b0c14e08b4
-> --- /dev/null
-> +++ b/xen/include/public/virtdev.h
-> @@ -0,0 +1,61 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +#ifndef XEN__PUBLIC_VIRTDEV_H
-> +#define XEN__PUBLIC_VIRTDEV_H
+
+> diff --git a/xen/drivers/Kconfig b/xen/drivers/Kconfig
+> index 20050e9bb8b32bd16c2da76c2c3e0f68dab89394..355719c3af67683c153a4f7a35dad4944992846e 100644
+> --- a/xen/drivers/Kconfig
+> +++ b/xen/drivers/Kconfig
+> @@ -19,4 +19,9 @@ config HAS_VPCI_GUEST_SUPPORT
+>   	bool
+>   	select HAS_VPCI
+>   
+> +config HAS_VUART
+> +	bool "UART emulation framework"
+> +	help
+> +	  This selects UART emulation framework.
+
+This can be hidden, so just:
+
+config HAS_VUART
+	bool
+
+> +
+>   endmenu
+
+> +int virtdev_uart_init(struct domain *d, struct virtdev_uart_params *params)
+> +{
+> +    int rc;
+> +
+> +    ASSERT(__start_virtdev_uart);
+> +
+> +    rc = __start_virtdev_uart->init(d, params);
+> +    if ( rc )
+> +        return rc;
+> +
+> +#if !defined(__i386__) && !defined(__x86_64__)
+> +    d->arch.emulation_flags |= VIRTDEV_UART;
+> +#endif
+> +
+> +    return 0;
+> +}
+> +
+> +void virtdev_uart_exit(struct domain *d)
+> +{
+> +    ASSERT(__start_virtdev_uart);
+> +
+> +    __start_virtdev_uart->exit(d);
+> +
+> +#if !defined(__i386__) && !defined(__x86_64__)
+> +    d->arch.emulation_flags &= ~VIRTDEV_UART;
+> +#endif
+
+I think this is only called at domain teardown, so you don't need to 
+clear flags.
+
+> +}
+> +
+> +int virtdev_uart_putchar(struct domain *d, char c)
+> +{
+> +    ASSERT(__start_virtdev_uart);
+> +    ASSERT(d->arch.emulation_flags & VIRTDEV_UART);
+> +
+> +    return __start_virtdev_uart->putchar(d, c);
+> +}
+> +
+> +void virtdev_uart_dump(struct domain *d)
+> +{
+> +    ASSERT(__start_virtdev_uart);
+> +
+> +    __start_virtdev_uart->dump(d);
+> +}
 > +
 > +/*
-> + * Domain hardware emulation flags.
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * indent-tabs-mode: nil
+> + * End:
 > + */
-> +enum {
-> +    VIRTDEV_LAPIC      = 1U << 0,
-> +    VIRTDEV_HPET       = 1U << 1,
-> +    VIRTDEV_PM         = 1U << 2,
-> +    VIRTDEV_RTC        = 1U << 3,
-> +    VIRTDEV_IOAPIC     = 1U << 4,
-> +    VIRTDEV_PIC        = 1U << 5,
-> +    VIRTDEV_VGA        = 1U << 6,
-> +    VIRTDEV_IOMMU      = 1U << 7,
-> +    VIRTDEV_PIT        = 1U << 8,
-> +    VIRTDEV_PIRQ       = 1U << 9,
-> +    VIRTDEV_PCI        = 1U << 10,
-> +};
 
-If you do create this new header, I think you'll want to leave these as 
-just bit numbers and shifts.  IIRC, the headers strive for greatest 
-compatibility and, enums are less rigorously defined.
+> diff --git a/xen/include/xen/virtdev-uart.h b/xen/include/xen/virtdev-uart.h
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..fbe48e513996404d793d011747b3f40c236a6a57
+> --- /dev/null
+> +++ b/xen/include/xen/virtdev-uart.h
+> @@ -0,0 +1,72 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +#ifndef XEN__VIRTDEV_UART_H
+> +#define XEN__VIRTDEV_UART_H
+> +
+> +#include <public/xen.h>
+> +#include <public/event_channel.h>
+> +#include <xen/types.h>
+> +
+> +struct virtdev_uart_params {
+> +    domid_t console_domid;
+> +    gfn_t gfn;
+> +    evtchn_port_t evtchn;
+> +};
+> +
+> +struct virtdev_uart {
+> +    int (*putchar)(struct domain *d, char c);
+> +    int (*init)(struct domain *d, struct virtdev_uart_params *params);
+> +    void (*exit)(struct domain *d);
+> +    void (*dump)(struct domain *d);
+> +};
+> +
+> +#define VIRTDEV_UART_REGISTER(x) \
+> +    static const struct virtdev_uart *x##_entry \
+> +           __used_section(".data.virtdev.uart") = \
+> +    &(const struct virtdev_uart){ \
+> +        .init    = x ## _init, \
+> +        .exit    = x ## _exit, \
+> +        .dump    = x ## _dump, \
+> +        .putchar = x ## _putchar, \
+> +    }
+
+Are multiple types of uarts for a given architecture expected?  If only 
+a single implemention is needed per-architecture, using defines or 
+wrappers seems simpler to me.
 
 Regards,
 Jason
