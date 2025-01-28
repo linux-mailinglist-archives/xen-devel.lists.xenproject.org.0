@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46E93A20E9B
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 17:32:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.878649.1288838 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC9F0A20EAA
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 17:34:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.878657.1288849 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcoVX-0006S8-1q; Tue, 28 Jan 2025 16:32:11 +0000
+	id 1tcoXS-00073y-DO; Tue, 28 Jan 2025 16:34:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 878649.1288838; Tue, 28 Jan 2025 16:32:11 +0000
+Received: by outflank-mailman (output) from mailman id 878657.1288849; Tue, 28 Jan 2025 16:34:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcoVW-0006Py-Ur; Tue, 28 Jan 2025 16:32:10 +0000
-Received: by outflank-mailman (input) for mailman id 878649;
- Tue, 28 Jan 2025 16:32:10 +0000
+	id 1tcoXS-00070q-9t; Tue, 28 Jan 2025 16:34:10 +0000
+Received: by outflank-mailman (input) for mailman id 878657;
+ Tue, 28 Jan 2025 16:34:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jygh=UU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tcoVV-0006Ps-Uw
- for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 16:32:10 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=C4cq=UU=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1tcoXR-00070a-87
+ for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 16:34:09 +0000
+Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
+ [2a00:1450:4864:20::643])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6a9645a7-dd95-11ef-99a4-01e77a169b0f;
- Tue, 28 Jan 2025 17:32:08 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-38633b5dbcfso6639602f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 08:32:08 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab69179d7c7sm578711566b.112.2025.01.28.08.32.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Jan 2025 08:32:07 -0800 (PST)
+ id b1b17942-dd95-11ef-99a4-01e77a169b0f;
+ Tue, 28 Jan 2025 17:34:07 +0100 (CET)
+Received: by mail-ej1-x643.google.com with SMTP id
+ a640c23a62f3a-aaf57c2e0beso1173066966b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 08:34:07 -0800 (PST)
+Received: from localhost.localdomain ([217.156.233.154])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab6973090d0sm534810966b.18.2025.01.28.08.34.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 28 Jan 2025 08:34:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,172 +45,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a9645a7-dd95-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: b1b17942-dd95-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738081927; x=1738686727; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UkCd7FMoo0J6NkVeEHdu6xmJCSHgM3opraZr/s1fnRg=;
-        b=E27BLiXWCHlcqMhUvIV+l4ICS9P0+OwmLaG1fTM4smBWDdQ1G7cEyaOdml9dP/zCsg
-         clWmSWP3fjGRYf6CWjV3WRbtlXUxiPozFHdAoUgS9kP3dR76E7RNSGW68BA75dvyPGR2
-         FkNeQKsG/3zTq59kRUf194CP6Sf6r0O9cCpVVkgXPs4EtIYtysaVH1/5SGxAP8nWYAZV
-         QV/pl3ncqPBAl7K7CvQ1Gub3E2XhTbbvj9QtCn/Ew9v2XuSRsdGPqHbOYN2pfrk/cVAc
-         dS05+kG8zACthkU//btpN8sx/69qIll2RYAxniosjC6O4i+splYwOZsusmgvR9d34k+n
-         xjfw==
+        d=cloud.com; s=cloud; t=1738082046; x=1738686846; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=kxkQhfjKvrf8HHDrNJTtmA9R4L9LSQEslDN3hWnIrF0=;
+        b=gsqdnKNKa6hLcd+rz3BS+OCgECHBXNcRexl86HOASokHyDY7hbmSEzeJXH/shNTenW
+         tdCxecUlSsPGvEljWoQqGqi3ZkD7sqcyFgKB9VYlg1KB/sIKwrMml1vQdHwsxDJ+85dt
+         J5/jAC/f1ZtY7zv2j5YHG/lDhZlM4id3ZF4q4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738081927; x=1738686727;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=UkCd7FMoo0J6NkVeEHdu6xmJCSHgM3opraZr/s1fnRg=;
-        b=vCoL8xWvxwH6eaArSqCVOorBWCPw/8LSxrTB0HtAvG3ukiT/tGFegGWR34Dvc8Eu5I
-         Wszu9Nt9MPVor50TC9vT0ylqmYI3pYdyh5+jz+7eoN7Ze1yjUXT2kv0gvjlcXUVWkD2E
-         FZgBHMUQ63CfMiGTuWVcOjzG/25KpR1MuSiVYrt1sm76f6YhznZyDZog7vsJw8ap1Nd8
-         On0fVZ5JiD7+FJLYtsCGLKBempoEYqLiHgt6wGjaVbZ/81BpOhpCOqU7MnePcn01jvMX
-         SSRjgOgqAlFFDU1O9MsjnN1yhe2GnM7RNvlodcC8HiHvoqyARUBt5Cvu5RL1Mrd8I7zf
-         Rx3A==
-X-Forwarded-Encrypted: i=1; AJvYcCXeURU2EJ463IYRpMDMzs0Tqb8sgWvie/Cxd7dpTgCQxvkRnfeHq0faX5AZ53HFlEQkD3jTcfL67mg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwqIDO1j0NOHFGMcagJ8nSbiV7N0z8KEFaSDwvadVwpq9TvkZ9q
-	qw9K+BBw0KdXVit/FJQ2eP4YL+lw2VOSRerPFaOpLuUuaFrUzjqlMGBlEY6kQg==
-X-Gm-Gg: ASbGncsD3EMLB8SQhtWf3BD1NQPz1vSUbIeVnOb8tJy8emCjkUBd2+FdJ6NXnnRlWnM
-	UwtvCqAhn8noULwxL8jUkQEzC7kcx7hF22mcubJPoFDfz6dps99QyWwV7Wi2lR88r00zmuSbxeX
-	gBcvPFVsayIJ1ULLp5+iT+rybftXSmdO5xyoa7kKj6MTxG+lQozuuh/LMP2JC6oU/Lsu87g8QD/
-	oEA+3aTa8aaWfwJVed4ypP+76YiZsQCIP03Y9FcYB5/70emypbFm4rK6E68L9Upyx/s76T4r9vZ
-	HY+rOyclJvD0MeiKsDMBxsnU6af1NKPVH6JQUBSwsszKLxVds0z3uwBZfGf9w9LN5DqWbscqLy5
-	O
-X-Google-Smtp-Source: AGHT+IHapNumHUc0+s5PUTlXuSriAJ3SYR0jIwhBcAr6R0GtwfMVnAiIsksKYBNOfHW3E39Il90NCQ==
-X-Received: by 2002:a05:6000:186f:b0:385:fa26:f0ac with SMTP id ffacd0b85a97d-38bf564926cmr39788652f8f.7.1738081927522;
-        Tue, 28 Jan 2025 08:32:07 -0800 (PST)
-Message-ID: <d471f3b0-5638-47b3-927e-318b0575eaa3@suse.com>
-Date: Tue, 28 Jan 2025 17:32:06 +0100
+        d=1e100.net; s=20230601; t=1738082046; x=1738686846;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=kxkQhfjKvrf8HHDrNJTtmA9R4L9LSQEslDN3hWnIrF0=;
+        b=eJmU+WUvVHzt4W4wMBNV7yaXVtrWaJjRNJYXToLB1nkjcOTFndY46192WREOacmzv+
+         n0jXJ52sbQhCWEHJx4fcQF1cQoZM+l24yTi8/BTPYGkF/V4ZWaRkuWa/M/Gb2macOh4R
+         zhEAviE5fmucN5rl2AhXA3UWgu1uAS6OFQI+vCgs3HMV8r2GGgM0nrAFxhj8UApcS7aM
+         ne9hRcjbu929BSGtJxH8RMdXOP5PLgg8RbXZKfEpWUNQM2yBL/Lf9f1GPdtMvgxea968
+         YQ3quLKmcVWLke5kFVfN4uCbmOx7dNqGK9DP49P2sdFnN9PPM+ji/Kl4oTsf6BJ/Eopw
+         W8eA==
+X-Gm-Message-State: AOJu0YxLr+57ZQk2YOiUBHT6t1qQwgaxS6x3G/7JyQdJg1AtpwN4bX4K
+	wN5KTaOQtDqGMps8717cB14+xjgPZES1REikBDrVm8rQyF0fuOHF2+Ev/c7Jx0XJmyv0pckd11M
+	jyuIePQ==
+X-Gm-Gg: ASbGncs/6+gF64xC/wKZxTVMQ0vnwi6ZeB1Nu9YXVjDFc8A1SkaFuaVXFfkiVUwGdfP
+	8PQqNSQ0L1sCgFtm/lQlWY6ib9A6lrRMvqAHg5UyTKpMEmrAc9++YsbBBTdcJQhueUKueLRJdFu
+	0HMJjsFSufL2ZUCA7lf7wvZ97zjPoVnn+kOurMHN5H/TToD32cN8md/DVIIfmr7RWneMu6o2RGD
+	h9L6MRJa3zInjwxyXPMskgetUqqXuPUPrUVPMpc/e94VwT4CdRojr8nDN/zVz2DHQphMwsc2MUg
+	jVLB/eMmB6EWklSA+E88Mf6963fW3oW5GUQuJENG
+X-Google-Smtp-Source: AGHT+IEK6szVFEF/wz7XSVOj9YqpHityyfgkfOrDcP3vfyGQmfgp0qRqWAJBhw8l4b3iKbD8wOm51A==
+X-Received: by 2002:a17:907:969f:b0:ab2:b863:b7fa with SMTP id a640c23a62f3a-ab38b43b915mr4376791066b.44.1738082046581;
+        Tue, 28 Jan 2025 08:34:06 -0800 (PST)
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>
+Subject: [PATCH 0/3] tools/hvmloader: Decouple APIC IDs from vCPU IDs
+Date: Tue, 28 Jan 2025 16:33:39 +0000
+Message-ID: <20250128163342.1491-1-alejandro.vallejo@cloud.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 15/24] xen/console: make console buffer size
- configurable
-To: dmukhin@ford.com
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20250103-vuart-ns8250-v3-v1-0-c5d36b31d66c@ford.com>
- <20250103-vuart-ns8250-v3-v1-15-c5d36b31d66c@ford.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250103-vuart-ns8250-v3-v1-15-c5d36b31d66c@ford.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 04.01.2025 02:58, Denis Mukhin via B4 Relay wrote:
-> From: Denis Mukhin <dmukhin@ford.com>
-> 
-> Add new CONRING_SIZE Kconfig parameter to specify the boot console buffer size
-> in bytes. The value is rounded to the nearest power of 2 to match existing
-> conring_size= behavior.
-> 
-> The supported range is [16KiB..128MiB].
-> 
-> Bump default size to 32 KiB.
-> 
-> Link: https://gitlab.com/xen-project/xen/-/issues/185
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+The hypervisor, hvmloader and the toolstack currently engage in a shared
+assumption that for every vCPU apicid == 2 * vcpuid. This series removes such
+assumption from hvmloader, by making it read the APIC ID of each vCPU and
+storing it for later use.
 
-As asked elsewhere already: How's this related to the goal of the series?
+The last patch prevents writing an MP Tables should we have vCPUs that can not
+be represented there. That's at the moment dead code because all vCPUs are
+currently representable in 8 bits. This will inavitably stop being true in the
+future after we increase the maximum number of guest vCPUs.
 
-> --- a/docs/misc/xen-command-line.pandoc
-> +++ b/docs/misc/xen-command-line.pandoc
-> @@ -423,12 +423,15 @@ The following are examples of correct specifications:
->      com1=baud=115200,parity=n,stop-bits=1,io-base=0x3f8,reg-width=4
->  
->  ### conring_size
-> -> `= <size>`
-> +> `= <size-in-bytes>`
+This short series is extracted from v7 of the much longer "Expose consistent
+topology to guests".
 
-May I direct you to the explanations near the top of the file? <size>
-is a uniform term throughout this document, and wants to stay like this.
+  https://lore.kernel.org/xen-devel/20241021154600.11745-5-alejandro.vallejo@cloud.com/
 
-> --- a/xen/drivers/char/Kconfig
-> +++ b/xen/drivers/char/Kconfig
-> @@ -96,6 +96,17 @@ config SERIAL_TX_BUFSIZE
->  
->  	  Default value is 32768 (32KiB).
->  
-> +config CONRING_SIZE
-> +	int "Console buffer size"
-> +	default 32768
-> +	help
-> +	  Select the boot console buffer size (in bytes).
-> +	  Note, the value provided will be rounded down to the nearest power of 2.
-> +	  Run-time console buffer size is the same as the boot console size,
-> +	  unless enforced via 'conring_size=' boot parameter.
+Changes with respect to the original patch on each individual patch.
 
-Maybe s/enforced/overridden/ ?
+Alejandro Vallejo (3):
+  tools/hvmloader: Retrieve (x2)APIC IDs from the APs themselves
+  tools/hvmloader: Replace LAPIC_ID() with cpu_to_apicid[]
+  tools/hvmloader: Skip writing MP tables if any CPU has an APIC ID >=
+    255
 
-> +	  Default value is 32768 (32KiB). The supported range is [16KiB..128MiB].
+ tools/firmware/hvmloader/config.h    |  4 ++-
+ tools/firmware/hvmloader/hvmloader.c | 12 ++++---
+ tools/firmware/hvmloader/mp_tables.c |  2 +-
+ tools/firmware/hvmloader/smp.c       | 47 +++++++++++++++++++++++++++-
+ tools/firmware/hvmloader/util.c      |  2 +-
+ 5 files changed, 59 insertions(+), 8 deletions(-)
 
-Yet then there's no "range" directive.
+-- 
+2.48.1
 
-> --- a/xen/drivers/char/console.c
-> +++ b/xen/drivers/char/console.c
-> @@ -100,12 +100,15 @@ static int cf_check parse_console_timestamps(const char *s);
->  custom_runtime_param("console_timestamps", parse_console_timestamps,
->                       con_timestamp_mode_upd);
->  
-> -/* conring_size: allows a large console ring than default (16kB). */
-> +/* conring_size: allows a large console ring than default (32 KiB). */
-
-As you touch this, also s/large/larger/ ?
-
->  static uint32_t __initdata opt_conring_size;
->  size_param("conring_size", opt_conring_size);
->  
-> -#define _CONRING_SIZE 16384
-> -#define CONRING_IDX_MASK(i) ((i)&(conring_size-1))
-> +#define _CONRING_SIZE       (1UL << (31 - __builtin_clz(CONFIG_CONRING_SIZE)))
-> +_Static_assert(_CONRING_SIZE >= 4096 && _CONRING_SIZE <= MB(128),
-> +    "CONFIG_CONRING_SIZE must be in [4K..128M] range");
-
-Hmm, 4k here as the lower bound, when in description and Kconfig it's
-said to be 16k?
-
-Also I fear _Static_assert() can't be used here, for not being supported
-by all gcc versions we continue to permit being used on x86. That'll be
-unnecessary anyway once you put in place the missing range directive in
-Kconfig. (If something like this needed keeping, it would be
-BUILD_BUG_ON() that you want to use instead. Which, yes, can only be
-used inside a function. Hence why we have a number of build_assertions()
-functions throughout the codebase.)
-
-> +#define CONRING_IDX_MASK(i) ( (i) & (conring_size - 1) )
-
-Once again - no blanks immediately inside parentheses, _except_ as
-written in ./CODING_STYLE (i.e. in control flow statements).
-
-Jan
 
