@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39127A20976
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 12:18:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.878410.1288589 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8E32A20978
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 12:18:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.878411.1288600 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcjbu-00010q-R5; Tue, 28 Jan 2025 11:18:26 +0000
+	id 1tcjbz-0001Hp-3s; Tue, 28 Jan 2025 11:18:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 878410.1288589; Tue, 28 Jan 2025 11:18:26 +0000
+Received: by outflank-mailman (output) from mailman id 878411.1288600; Tue, 28 Jan 2025 11:18:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcjbu-0000z3-OG; Tue, 28 Jan 2025 11:18:26 +0000
-Received: by outflank-mailman (input) for mailman id 878410;
- Tue, 28 Jan 2025 11:18:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tcjbz-0001G6-07; Tue, 28 Jan 2025 11:18:31 +0000
+Received: by outflank-mailman (input) for mailman id 878411;
+ Tue, 28 Jan 2025 11:18:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=p3hs=UU=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1tcjbt-0000yw-Fn
- for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 11:18:25 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 95fdbe84-dd69-11ef-99a4-01e77a169b0f;
- Tue, 28 Jan 2025 12:18:23 +0100 (CET)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3862ca8e0bbso4802777f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 03:18:23 -0800 (PST)
+ id 1tcjbx-0001F4-3o
+ for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 11:18:29 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 99048f01-dd69-11ef-a0e6-8be0dac302b0;
+ Tue, 28 Jan 2025 12:18:28 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-43618283dedso58131915e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 03:18:28 -0800 (PST)
 Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38c2a1764e9sm14028356f8f.17.2025.01.28.03.18.22
+ ffacd0b85a97d-38c2a17630asm13849683f8f.6.2025.01.28.03.18.26
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Tue, 28 Jan 2025 03:18:22 -0800 (PST)
+ Tue, 28 Jan 2025 03:18:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,40 +45,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95fdbe84-dd69-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 99048f01-dd69-11ef-a0e6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1738063103; x=1738667903; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=fT2SAbuvKPbKd3z1KkDvR/xDsz8I4RjNHLW+g3/uOgc=;
-        b=f6nx3FfrGbWpBXuJorKeQpOVxAi3hfHNIR1OpCCZ1iCBskdNxQFKvozk/H6537En8S
-         lGNIIhVjlY5Y/tEwVJnRAqyWbAdXLbAKwS7jMRsZf/3GfLh6qZ36TwOOWp5x3KDkv6of
-         OGGe3X6PieWFc9RcLbo5vmbE0Dp+UZ4hXzvtCVh9OLVhaRSRCB2XKX/O71yw3FQG3oQf
-         ZzSmHlIgs0DaZk5eMzihZqMF3XnJRsK5VYUTP241Ij+HDFPxMVOLqHOfFkFtHxTKfGqY
-         V5kOhb0zN5EgOQdRVMSPFYY3Ndy0MrtOA6MORNPENGHByoyou8i4wIl840X6kTIPhJ8r
-         z54g==
+        d=linaro.org; s=google; t=1738063107; x=1738667907; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=OYrLqiOXcaakZxlAQt7EUmigWAEMqhVrl2IG/lxJyhw=;
+        b=TJjpaU8jMle07/7MkT8rtfEM7YglAa79rNtk93PtGP7PTzN+Zylc106GyVo4wlJSYK
+         iFnOlxV/zBoTKfVGgJwitCuRMmk8RXK5ugViM+cxk2jfZOeqd4uacyi/ULXyXZDb0LKO
+         cNB20cs7jfMs35362PqzuSMIqlU8axSXG2aPCxFCNQgWgE0O7R8nUQ3KI1iFawabk2J0
+         A8LMPSbe3BnvN5gMyfX92zfO1G/4wA1JBHWUaAvoZFm4GdwPuhYB/wwSN0MiPvroYuDp
+         VDvzL+BHGEyljuc5b/WgzIEjQ8jhP/C4IwdgmhSfBlkZzYqB8WRMDN/6Yb+/y4cPBbo6
+         ukPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738063103; x=1738667903;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=fT2SAbuvKPbKd3z1KkDvR/xDsz8I4RjNHLW+g3/uOgc=;
-        b=AcnyTrl6wmDbz4NKP6OG/oAhiCHBlna/MO+PVkKUadaipM5nZyTQxpeObKVO9D1aMZ
-         w3fSclelx3pyMy7aBZGsa8YWMztHm8gL7nRS9Zk4wk/ao91KxczUL7OB55qLlfN10hnc
-         GBcAk8617EHIdTIeMdcw9gUFjVbznCE/g82Tw0vQ9JIXa12ayi60UhCxETv6TTrjwFNL
-         ipWmqHabFkZuWBWJ+xVGaWA2drtQSoPDO2m24lbTPV3D9IxkdaFyiACBfgLTyR4h70xx
-         lAFSoC+9yi+YfgqZukJU2JmJrchI21bf1dKr5YPHFig9EG7mt01VM0GH/cwJNE+TQOCH
-         rEBg==
-X-Gm-Message-State: AOJu0YyTPTLWfeKcX1pDH/Yct4zAGGKTROC0vmOZZ2xF8BADL0ICqcw+
-	NGA0m4+IWLWSC/J+w2fwQ2/s2J7yLOym7Y+Nf1wrUJzG1CR0DvV7AEUIj77ik6M=
-X-Gm-Gg: ASbGncuv/gg3abJLBTm3DMwPuvTBW5Nant0MbXQ8hQ0v5ED9cL6C9JJLds52Y4btbku
-	SOhBaxdUnFe4CYtUosEwdf49HpwEV3HCz8DPiTqPYssPCzSFE7aoTFAhKanKky7zdYKfv54Ji+x
-	42Z+oylDC1l+VOP9xhy1t4lS17+zhbZMWNr8HlO/SPfx5fKYVt66cP6mh/2QGN9mQncvWH48NSM
-	I3907xe0xvMNnsXkK043pMGCMSi2lLzh0fmpTPZPs2ZyyW7f2MrcJIGf4gqtvCPJ9NF9PvvGkVe
-	I7Ubnn55yC8tfhReaKjvNeFViPYKQ23VCrMUKk0g6KCvH7oD1E8LJWUc+IQboDQGUA==
-X-Google-Smtp-Source: AGHT+IH+qdHcEoJcFpOtnVud1J3WbJAaKIWKl6fv7LCSJoOys54P6jRa3uzMWf61KKffEYTlHNPhxw==
-X-Received: by 2002:a05:6000:2a9:b0:38a:50f7:24fa with SMTP id ffacd0b85a97d-38bf57bed8emr46915786f8f.54.1738063102960;
-        Tue, 28 Jan 2025 03:18:22 -0800 (PST)
+        d=1e100.net; s=20230601; t=1738063107; x=1738667907;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=OYrLqiOXcaakZxlAQt7EUmigWAEMqhVrl2IG/lxJyhw=;
+        b=Ko7R0mVQ/d6weUMvAXoZlwi1221/TcwrSUgUNg9zSw4Ry9uGKaoiuXj0rVV5ydKC52
+         w7dKbBi0RVS4dFCrSov9YeF8rh6XelNA3fiZNkQ2huWsmS3GyvwD2Zu9suxRHJ32HkVx
+         tT2a4ScvBQI28tComRzKBrphFvaLZCjoN3OuKNEjUsjqT3d67hYk6nZCr/Gh5F8/w0Qk
+         jojd6GqpgdYNMgh+jWP8ett0H2OeI4/eNYR9UTGcRABy7WMKMWAC2RvITyZOEuEMQ7NN
+         +BXFQC2LOk1XekOR4zA3Ky5X+2K7G4XcyhuV7AaBqmF+PqfK0xqusfyHvTW0wyVUyhcS
+         RbIA==
+X-Gm-Message-State: AOJu0YwCyo0I0yNmV1ieZY/2Xp9j+Pyf3Hg7s2aOMVM5XliA8e5P6fTV
+	slYm4qmvSVpNwLbsBwZrM4dYANUY0MybzGShEi3mv7tM3RjN/b2xhxPzJXjvvrU=
+X-Gm-Gg: ASbGncuvh2GGtM1b11GkTMLy9/Lh8FnRVW+qzSknYvPgFxymipE6PYr14Ddxl/3tVI+
+	NMfO1KKCGluNuMl0dqEQkCIUMkD1yP4uozXt2DODrnaq3tthhYNAX22S0y7PoluSbM5hROi6Btk
+	g1EhvQDmpyd76g6zqevxN6z+5jS6A/zUTzfyh25BWfUW3LZUBz1aiSINiCgkBpKC9BFyAsp7NJV
+	IATODPwAET9bbPWifGwBrrAMJrV8pA1OfvxdQEz7F03g/mNR0hfJ2li6c1oMWmq0KcSXHP9FtiY
+	B0nAIjgo1fsCLl4Iso7eX6MXpzOhypme0HoGZ3KZKH3YfsgFYSH847Yq1BDt+J/6ng==
+X-Google-Smtp-Source: AGHT+IHuyptLaRttD9sYQjH4mdAu0F/Xvz8DUVOj+7pYznWKRjFlcYnhiRd7S+GEQeAAPBF5mr0tSg==
+X-Received: by 2002:a05:6000:1887:b0:38a:87cc:fb42 with SMTP id ffacd0b85a97d-38bf56639d5mr43298969f8f.21.1738063107562;
+        Tue, 28 Jan 2025 03:18:27 -0800 (PST)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: xen-devel@lists.xenproject.org,
@@ -92,27 +93,132 @@ Cc: xen-devel@lists.xenproject.org,
 	Akihiko Odaki <akihiko.odaki@daynix.com>,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-Subject: [PATCH 0/2] tests/qtest: Make qtest_has_accel() generic
-Date: Tue, 28 Jan 2025 12:18:19 +0100
-Message-ID: <20250128111821.93767-1-philmd@linaro.org>
+Subject: [PATCH 1/2] tests/qtest: Extract qtest_qom_has_concrete_type() helper
+Date: Tue, 28 Jan 2025 12:18:20 +0100
+Message-ID: <20250128111821.93767-2-philmd@linaro.org>
 X-Mailer: git-send-email 2.47.1
+In-Reply-To: <20250128111821.93767-1-philmd@linaro.org>
+References: <20250128111821.93767-1-philmd@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-In preparation of running QTests using HVF on Darwin,
-make qtest_has_accel() generic.
+Extract qtest_qom_has_concrete_type() out of qtest_has_device()
+in order to re-use it in the following commit.
 
-Note, this also allow running other accelerators such
-Xen, WHPX, ...
+Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+---
+ tests/qtest/libqtest.c | 89 ++++++++++++++++++++++++------------------
+ 1 file changed, 51 insertions(+), 38 deletions(-)
 
-Philippe Mathieu-Daudé (2):
-  tests/qtest: Extract qtest_qom_has_concrete_type() helper
-  tests/qtest: Make qtest_has_accel() generic
-
- tests/qtest/libqtest.c | 110 +++++++++++++++++++++++------------------
- 1 file changed, 61 insertions(+), 49 deletions(-)
-
+diff --git a/tests/qtest/libqtest.c b/tests/qtest/libqtest.c
+index a1e105f27f9..7e9366ad6d5 100644
+--- a/tests/qtest/libqtest.c
++++ b/tests/qtest/libqtest.c
+@@ -978,6 +978,56 @@ const char *qtest_get_arch(void)
+     return end + 1;
+ }
+ 
++static bool qtest_qom_has_concrete_type(const char *parent_typename,
++                                        const char *child_typename,
++                                        QList **cached_list)
++{
++    QList *list = cached_list ? *cached_list : NULL;
++    const QListEntry *p;
++    QObject *qobj;
++    QString *qstr;
++    QDict *devinfo;
++    int idx;
++
++    if (!list) {
++        QDict *resp;
++        QDict *args;
++        QTestState *qts = qtest_init("-machine none");
++
++        args = qdict_new();
++        qdict_put_bool(args, "abstract", false);
++        qdict_put_str(args, "implements", parent_typename);
++
++        resp = qtest_qmp(qts, "{'execute': 'qom-list-types', 'arguments': %p }",
++                         args);
++        g_assert(qdict_haskey(resp, "return"));
++        list = qdict_get_qlist(resp, "return");
++        qobject_ref(list);
++        qobject_unref(resp);
++
++        qtest_quit(qts);
++
++        if (cached_list) {
++            *cached_list = list;
++        }
++    }
++
++    for (p = qlist_first(list), idx = 0; p; p = qlist_next(p), idx++) {
++        devinfo = qobject_to(QDict, qlist_entry_obj(p));
++        g_assert(devinfo);
++
++        qobj = qdict_get(devinfo, "name");
++        g_assert(qobj);
++        qstr = qobject_to(QString, qobj);
++        g_assert(qstr);
++        if (g_str_equal(qstring_get_str(qstr), child_typename)) {
++            return true;
++        }
++    }
++
++    return false;
++}
++
+ bool qtest_has_accel(const char *accel_name)
+ {
+     if (g_str_equal(accel_name, "tcg")) {
+@@ -1757,45 +1807,8 @@ bool qtest_has_machine(const char *machine)
+ bool qtest_has_device(const char *device)
+ {
+     static QList *list;
+-    const QListEntry *p;
+-    QObject *qobj;
+-    QString *qstr;
+-    QDict *devinfo;
+-    int idx;
+ 
+-    if (!list) {
+-        QDict *resp;
+-        QDict *args;
+-        QTestState *qts = qtest_init("-machine none");
+-
+-        args = qdict_new();
+-        qdict_put_bool(args, "abstract", false);
+-        qdict_put_str(args, "implements", "device");
+-
+-        resp = qtest_qmp(qts, "{'execute': 'qom-list-types', 'arguments': %p }",
+-                         args);
+-        g_assert(qdict_haskey(resp, "return"));
+-        list = qdict_get_qlist(resp, "return");
+-        qobject_ref(list);
+-        qobject_unref(resp);
+-
+-        qtest_quit(qts);
+-    }
+-
+-    for (p = qlist_first(list), idx = 0; p; p = qlist_next(p), idx++) {
+-        devinfo = qobject_to(QDict, qlist_entry_obj(p));
+-        g_assert(devinfo);
+-
+-        qobj = qdict_get(devinfo, "name");
+-        g_assert(qobj);
+-        qstr = qobject_to(QString, qobj);
+-        g_assert(qstr);
+-        if (g_str_equal(qstring_get_str(qstr), device)) {
+-            return true;
+-        }
+-    }
+-
+-    return false;
++    return qtest_qom_has_concrete_type("device", device, &list);
+ }
+ 
+ /*
 -- 
 2.47.1
 
