@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB186A20A7F
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 13:19:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.878459.1288644 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F1D0A20A94
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 13:30:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.878467.1288654 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tckYG-0004e5-Am; Tue, 28 Jan 2025 12:18:44 +0000
+	id 1tckjo-0007UU-Aj; Tue, 28 Jan 2025 12:30:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 878459.1288644; Tue, 28 Jan 2025 12:18:44 +0000
+Received: by outflank-mailman (output) from mailman id 878467.1288654; Tue, 28 Jan 2025 12:30:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tckYG-0004bf-7i; Tue, 28 Jan 2025 12:18:44 +0000
-Received: by outflank-mailman (input) for mailman id 878459;
- Tue, 28 Jan 2025 12:18:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tckjo-0007Si-6q; Tue, 28 Jan 2025 12:30:40 +0000
+Received: by outflank-mailman (input) for mailman id 878467;
+ Tue, 28 Jan 2025 12:30:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Hs5b=UU=redhat.com=thuth@srs-se1.protection.inumbo.net>)
- id 1tckYE-0004bX-0e
- for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 12:18:42 +0000
+ id 1tckjn-0007Sc-Dq
+ for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 12:30:39 +0000
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0098f244-dd72-11ef-99a4-01e77a169b0f;
- Tue, 28 Jan 2025 13:18:38 +0100 (CET)
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id acb4f76f-dd73-11ef-a0e6-8be0dac302b0;
+ Tue, 28 Jan 2025 13:30:37 +0100 (CET)
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
+ [209.85.208.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-561-xd-wPyHhMfK64Si5KekWaw-1; Tue, 28 Jan 2025 07:18:36 -0500
-Received: by mail-ej1-f72.google.com with SMTP id
- a640c23a62f3a-aa689b88293so597960466b.3
- for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 04:18:35 -0800 (PST)
+ us-mta-563-QhrWZrb3NseI9zkAom9gGA-1; Tue, 28 Jan 2025 07:30:34 -0500
+Received: by mail-ed1-f72.google.com with SMTP id
+ 4fb4d7f45d1cf-5dc0de54194so5284009a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 04:30:34 -0800 (PST)
 Received: from [192.168.0.7] (ip-109-42-50-234.web.vodafone.de.
  [109.42.50.234]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab6bd0afb93sm149916966b.128.2025.01.28.04.18.33
+ 4fb4d7f45d1cf-5dc2ea16e7asm4661486a12.42.2025.01.28.04.30.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Jan 2025 04:18:34 -0800 (PST)
+ Tue, 28 Jan 2025 04:30:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,51 +49,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0098f244-dd72-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: acb4f76f-dd73-11ef-a0e6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1738066717;
+	s=mimecast20190719; t=1738067435;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=5n+WzSjjZga1/5dzHPwJh+sb0Qk6Ca3DIe5tAah4KKk=;
-	b=auH9NutCYMGYvEyHx77vv6BPtiT4tAi6Hec3c9JMvK3Yty79FuS+StY6PlCXTjNFBwIJHy
-	7XTsODkaONLr1e5NQyt0gtAT9pKobfA8RRYtuXpTjO3XcPcIV18fxILWvZNQtHPhCjYe4Q
-	soaxdFroy5rhrjmSmKZu5pWrenqlYvg=
-X-MC-Unique: xd-wPyHhMfK64Si5KekWaw-1
-X-Mimecast-MFC-AGG-ID: xd-wPyHhMfK64Si5KekWaw
+	bh=mwEdGeYwCVEf3va0CRehsDI0IO9aha2vG+WbTqnfbXg=;
+	b=JUXFq2BPT8fiAUB/Q52OiusIKcMZH+XR0pIL0Z4h3OCkT95qs19urTu+52K7L6qEwehZIc
+	rfH9aV1AOB1surtfzuVNSAIYR2SKCm4MS0RvKqBc4Bi3gZ7d22ygeSgfM+7sxaa0xGNu+5
+	dp4bdhy+CZ6BNl6hl4YimDypfRHW9Oc=
+X-MC-Unique: QhrWZrb3NseI9zkAom9gGA-1
+X-Mimecast-MFC-AGG-ID: QhrWZrb3NseI9zkAom9gGA
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738066715; x=1738671515;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=5n+WzSjjZga1/5dzHPwJh+sb0Qk6Ca3DIe5tAah4KKk=;
-        b=f/7SDM6LKrAlc48wK4VpDWGwlcGaLrhMBpCUpmcIIcDxuJCh5qvvKIQyWNDkWAHO9+
-         BR7EoZKYak2JYGAo0ek0N7kkRGUjw8axc/KrmPkPHR7ucSGv1UqwqFVY2HfADLLq52Qf
-         h5mPsd3yMvGa7D+wu+d+Jy0eRYsDzGpjEXQ1LINYx0tmw8CV3mxfNtMDtn9l0s5ZJ07f
-         1ChW6b/q0PKl2H2i+D63lSk070K/Pym1xYiKEi1I8+HUk7KWkP2zJYy64BuftjPSbMhe
-         rYAx4b1esWp/HCNz5VTP/UTCzCpxl6hkUiVtaUtujWEqXfTa5RpQ7GWFPQZkTtHBbPcI
-         PnJw==
-X-Gm-Message-State: AOJu0YztQeVsIjXioKe2Zaj0K7IPSZvX5himMFi5NbDBTwwZY3/GWLdW
-	rlErTi/fUvamfPomVYxMck4IQjeDc3cAceGR7gdylcdKdeMhSrQ+D1G9K/ZhK4VFiN17B05jBiK
-	moQa7E/vuUo35n1S40ZL5xLXhLBMabKvD1A5q+Zi4AkRFc+WZ7jZcOWFtQ1Uqvet8
-X-Gm-Gg: ASbGncvw2J+g/eVjBSvHqQ2kTuTF/pm/tBgkoe0+3L6NpSBm3WkWbFLan2XTEdKxox5
-	KICFwLgK/sdnDrXBix30H0/DHFxAoGF9pJ6Fq0LBPSjAIEPa5Dih3QPVaL3EeIlVCRHtTKI89WM
-	WmlF2R+nOoCQ2zX2U6WwLZ0P/baehAtWj0W4qNVU7cew5fjGA4PXpfn8ta0h9EaIqW6fYY9bo7d
-	rxLxPqMmxEV1ujQNdhonJB5926yCD9TW5PEWLe1z4KJ3d8pgcsVYCvW7dvjGTLsFPUJZUYSgqt/
-	a20kHfTBj5LJKXEZQ7Fk/CfuNOns5HBMENE6
-X-Received: by 2002:a17:907:2da3:b0:aa6:83cc:7996 with SMTP id a640c23a62f3a-ab38b37eb86mr4119385266b.42.1738066714901;
-        Tue, 28 Jan 2025 04:18:34 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEPV1rzvwtGh/0owwTO1K12pEHLlm4LLq/EKPT+RrOmpKFZmOoxMbTgyLuoVeAf0osD9CBfRA==
-X-Received: by 2002:a17:907:2da3:b0:aa6:83cc:7996 with SMTP id a640c23a62f3a-ab38b37eb86mr4119381666b.42.1738066714544;
-        Tue, 28 Jan 2025 04:18:34 -0800 (PST)
-Message-ID: <a29c4005-dea3-411d-8564-d79739a7befa@redhat.com>
-Date: Tue, 28 Jan 2025 13:18:32 +0100
+        d=1e100.net; s=20230601; t=1738067433; x=1738672233;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=mwEdGeYwCVEf3va0CRehsDI0IO9aha2vG+WbTqnfbXg=;
+        b=vWodI8ZkcMx2Afn0P/+WWog/NFoeEfxuONXTMUg7b18Xm0rDUWk8Xajdi20hCRYEmS
+         tQ4j6YzAWfXSpLin+ER4XShd9QFBm7KZfNW3kq63G7N8AHEri/B0ISU32trWUg5FmgPI
+         nfwwWLMBCK/RDhLz6JoJJ+OiJZAfXPYXO9RAx/FG+M1eHHjMTpcw+txKv79FBCg7pp0g
+         Jx3Eqn48m4Aro8nVF3y2uwvr6kpu1MHclUU2nQsfo8lIvcGxcaX8qGTGQTguM40T1PJl
+         6WymS27oAZJA3tJEHQOv2iDNQ/QqyTYaYUR+EsDJAtv8YtNNWcqnQpMVG02ZrE3xZ2Gp
+         z6fQ==
+X-Gm-Message-State: AOJu0Yz78JPfPNcQw2nUgnWMjGrELZy1ihM94ysBsBXNNulPdGSirjcA
+	Qo1frMRm1vn3qIS2yEI1uJq0wuy359x7/56AeQzFGG8G91zRMppdHKqLKl04CrBzGCXnE3i2Z4f
+	sc3r7/d+e3Dtr7M3GLClS1sP1NPa68LeNJ4KPvTotPmT51+YxQj9GpXPGP7XEyzUY
+X-Gm-Gg: ASbGncuiJrwCjLwQGOX9dT26ZmC2i3h4I+J1oH0cTg8D9gdihjVPfrDqRkYgXQJXNPg
+	YgkcqHaALhC8/Vc9ZjlMSfMRQ8wUQVrmUjRPj196JPrw2kMhnhP8phUP9CCOCF7whAI4FL0xzmn
+	zSH7T0xj4MP/8OAEeoV0VQy6uoZzSBjwsr/fsk3old9x1TYembQYseBLbJlnfnqCUNOLLdp29Lv
+	t2srh4fIk83izcZ8WsXQ1uzrWBzGFtmg9ME2/RBY0I4nCxVICpcEohrye9hYb2OXhL5lfya1JMS
+	Q2SXu9AYPnhNMaFSCl7d3r+cf67SRlzVQrYy
+X-Received: by 2002:a05:6402:1e8f:b0:5dc:eb2:570d with SMTP id 4fb4d7f45d1cf-5dc4fd1153emr4070528a12.2.1738067430204;
+        Tue, 28 Jan 2025 04:30:30 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHE5zcsdFqOnxwXJMHoRt5avby+/62eopuGkbdjyfNCDtaIa+EgX1nN8lJkWB9mowl6EBIMVA==
+X-Received: by 2002:a05:6402:1e8f:b0:5dc:eb2:570d with SMTP id 4fb4d7f45d1cf-5dc4fd1153emr4070158a12.2.1738067424760;
+        Tue, 28 Jan 2025 04:30:24 -0800 (PST)
+Message-ID: <8da6ca8d-9819-4f4c-9131-f9fcf498d86d@redhat.com>
+Date: Tue, 28 Jan 2025 13:30:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] tests/qtest: Extract qtest_qom_has_concrete_type()
- helper
+Subject: Re: [PATCH 2/2] tests/qtest: Make qtest_has_accel() generic
 To: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
  qemu-devel@nongnu.org
 Cc: xen-devel@lists.xenproject.org, =?UTF-8?Q?Daniel_P_=2E_Berrang=C3=A9?=
@@ -103,7 +102,7 @@ Cc: xen-devel@lists.xenproject.org, =?UTF-8?Q?Daniel_P_=2E_Berrang=C3=A9?=
  <shentey@gmail.com>, Akihiko Odaki <akihiko.odaki@daynix.com>,
  Paolo Bonzini <pbonzini@redhat.com>
 References: <20250128111821.93767-1-philmd@linaro.org>
- <20250128111821.93767-2-philmd@linaro.org>
+ <20250128111821.93767-3-philmd@linaro.org>
 From: Thomas Huth <thuth@redhat.com>
 Autocrypt: addr=thuth@redhat.com; keydata=
  xsFNBFH7eUwBEACzyOXKU+5Pcs6wNpKzrlJwzRl3VGZt95VCdb+FgoU9g11m7FWcOafrVRwU
@@ -147,22 +146,73 @@ Autocrypt: addr=thuth@redhat.com; keydata=
  oiT+z+/E59qj/EKfyce3sbC9XLjXv3mHMrq1tKX4G7IJGnS989E/fg6crv6NHae9Ckm7+lSs
  IQu4bBP2GxiRQ+NV3iV/KU3ebMRzqIC//DCOxzQNFNJAKldPe/bKZMCxEqtVoRkuJtNdp/5a
  yXFZ6TfE1hGKrDBYAm4vrnZ4CXFSBDllL59cFFOJCkn4Xboj/aVxxJxF30bn
-In-Reply-To: <20250128111821.93767-2-philmd@linaro.org>
+In-Reply-To: <20250128111821.93767-3-philmd@linaro.org>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Jk_XiX7Du_yzbtlxFxT9orkpZWsaCiUMUEfYJM7oCPo_1738066715
+X-Mimecast-MFC-PROC-ID: SMHGwCQYYMjSoJOb7wvvpr-WcqXPpeMZkZFNrORyqEY_1738067433
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 On 28/01/2025 12.18, Philippe Mathieu-Daudé wrote:
-> Extract qtest_qom_has_concrete_type() out of qtest_has_device()
-> in order to re-use it in the following commit.
+> Since commit b14a0b7469f ("accel: Use QOM classes for accel types")
+> accelerators are registered as QOM objects. Use QOM as a generic
+> API to query for available accelerators. This is in particular
+> useful to query hardware accelerators such HFV, Xen or WHPX which
+> otherwise have their definitions poisoned in "exec/poison.h".
 > 
 > Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 > ---
->   tests/qtest/libqtest.c | 89 ++++++++++++++++++++++++------------------
->   1 file changed, 51 insertions(+), 38 deletions(-)
+>   tests/qtest/libqtest.c | 21 ++++++++++-----------
+>   1 file changed, 10 insertions(+), 11 deletions(-)
+> 
+> diff --git a/tests/qtest/libqtest.c b/tests/qtest/libqtest.c
+> index 7e9366ad6d5..3071dedeff6 100644
+> --- a/tests/qtest/libqtest.c
+> +++ b/tests/qtest/libqtest.c
+> @@ -30,6 +30,7 @@
+>   
+>   #include "libqtest.h"
+>   #include "libqmp.h"
+> +#include "qemu/accel.h"
+>   #include "qemu/ctype.h"
+>   #include "qemu/cutils.h"
+>   #include "qemu/sockets.h"
+> @@ -1030,13 +1031,10 @@ static bool qtest_qom_has_concrete_type(const char *parent_typename,
+>   
+>   bool qtest_has_accel(const char *accel_name)
+>   {
+> -    if (g_str_equal(accel_name, "tcg")) {
+> -#if defined(CONFIG_TCG)
+> -        return true;
+> -#else
+> -        return false;
+> -#endif
+> -    } else if (g_str_equal(accel_name, "kvm")) {
+> +    static QList *list;
+> +    g_autofree char *accel_type = NULL;
+> +
+> +    if (g_str_equal(accel_name, "kvm")) {
+>           int i;
+>           const char *arch = qtest_get_arch();
+>           const char *targets[] = { CONFIG_KVM_TARGETS };
+> @@ -1048,11 +1046,12 @@ bool qtest_has_accel(const char *accel_name)
+>                   }
+>               }
+>           }
+> -    } else {
+> -        /* not implemented */
+> -        g_assert_not_reached();
+> +        return false;
+>       }
+> -    return false;
+> +
+> +    accel_type = g_strdup_printf("%s%s", accel_name, ACCEL_CLASS_SUFFIX);
+> +
+> +    return qtest_qom_has_concrete_type("accel", accel_type, &list);
+>   }
+
+Nice!
 
 Reviewed-by: Thomas Huth <thuth@redhat.com>
 
