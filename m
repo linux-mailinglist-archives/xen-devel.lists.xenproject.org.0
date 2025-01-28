@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EB0DA20F48
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 17:57:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.878704.1288898 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B622BA20F65
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 18:06:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.878713.1288907 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcotS-0004hM-5p; Tue, 28 Jan 2025 16:56:54 +0000
+	id 1tcp2g-0006xF-0y; Tue, 28 Jan 2025 17:06:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 878704.1288898; Tue, 28 Jan 2025 16:56:54 +0000
+Received: by outflank-mailman (output) from mailman id 878713.1288907; Tue, 28 Jan 2025 17:06:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcotS-0004fI-2a; Tue, 28 Jan 2025 16:56:54 +0000
-Received: by outflank-mailman (input) for mailman id 878704;
- Tue, 28 Jan 2025 16:56:52 +0000
+	id 1tcp2f-0006vg-US; Tue, 28 Jan 2025 17:06:25 +0000
+Received: by outflank-mailman (input) for mailman id 878713;
+ Tue, 28 Jan 2025 17:06:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jygh=UU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tcotQ-0004fA-Na
- for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 16:56:52 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ id 1tcp2e-0006va-QQ
+ for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 17:06:24 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id def4de09-dd98-11ef-a0e6-8be0dac302b0;
- Tue, 28 Jan 2025 17:56:51 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-aab6fa3e20eso992542866b.2
- for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 08:56:51 -0800 (PST)
+ id 32ea7681-dd9a-11ef-a0e6-8be0dac302b0;
+ Tue, 28 Jan 2025 18:06:22 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-aa689a37dd4so1165245566b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 09:06:22 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab6760fbe92sm818784166b.131.2025.01.28.08.56.49
+ 4fb4d7f45d1cf-5dc186d8b2csm7405936a12.76.2025.01.28.09.06.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Jan 2025 08:56:50 -0800 (PST)
+ Tue, 28 Jan 2025 09:06:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: def4de09-dd98-11ef-a0e6-8be0dac302b0
+X-Inumbo-ID: 32ea7681-dd9a-11ef-a0e6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738083411; x=1738688211; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1738083982; x=1738688782; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=txK94ENtdQMm8AuKPokoFbuC4y9QJF+mwyg+VQoY2UM=;
-        b=Xx8DIHvgamwIMe/eMEoM63QqlPIEAkCk1wiMWvpUpvKz+/KHAISNmRwvivIMx8FFPw
-         o80mmS9VJxuNtgAJrttryps4kNhPY7dU702M2AV124mmECmKzGdmNktAfuYtMCUpYIKe
-         5MhPXfXH3yzPG8hr3XkOyClYel/Kvdyo780Ee+UH0UiAD4kJGDhrwIcdbo8ttEsumwvv
-         Rw47g/o6bBawi8BIEz99hSAosA7+R8pE0eDM75xkO/8HjBbAgexvq27yaoAGrKvpl9gx
-         P5sdG+TfVeI6yl9OkVVTMjHm1u/l93tuhyZ3oD5yS1JvNk6NvD/keOsbpr8zspKt0iqs
-         BM9A==
+        bh=e5X663P4en3YR5ZbXxt+29IcazmwoosY2ySdVtlKhQU=;
+        b=J9CbkG1p9sfQzl33eDAybybTp06BoKo2+ZWPTvrS5NlReudLuMOaSw5WSYOJI7uPe0
+         vjpKD71JpMmDZQc/Qgx8qVV0raQ4oOtn6XZl4J7tGmZpKouj+YelHOXjMqr5or0ZgS7J
+         oA4kHQozAISvDoN0TITGe4PHx+Asa8NIzEZCdfEQ9IFrSXXs9LrMPZeHqK4lR7ey/4nw
+         ieVgknUduxBa0XFUCplFI6OgsBkJ2cerLVlZzW+LkjJxHgpDJQPCg+z4V1IpgaqRBZMU
+         JrZimCstcPPxd/LQLlty9Caj3VIFZBysp/pdR0seAVls31FeNuq+C7nXeIjtHCCtUtOY
+         Jn8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738083411; x=1738688211;
+        d=1e100.net; s=20230601; t=1738083982; x=1738688782;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=txK94ENtdQMm8AuKPokoFbuC4y9QJF+mwyg+VQoY2UM=;
-        b=ptNNfYQNsyw/aFSaFjK/hrqSZI//WdXtv6/BTYf70Etfh/jUBeSGf0btXeYwZCju+a
-         +Js3cwctwgCoAcPQ4bzL3ugNVpfJAtKoE7ELkRGbNyGP6bA4B4sz1Gku2Fa9AGr1r7Kw
-         YOxSFBmbv3WfU2RDhBLaxe1b+f5jF5eIGGU24QLpl8zPFwj7wJgrqPeiZwt1AaFLEvEj
-         AyUBAKkULp+DIn33nWQf2dlb33qYR3p0q0j3CVbptrVS2+/qHnygw/V0YA5B+zZZR6b4
-         qGNS1WBCLdPC5dRHwIgvUE1o1boWiVZlaO6gQRgdjkstqmgMhU7a154NpBtTLdekgSIo
-         YNRg==
-X-Forwarded-Encrypted: i=1; AJvYcCW9pZPfrEADK0y0yEqSrYuTqJhBwhOji75YXj5QXfbYKNsxevE+LDzXVmuqLzEuH9/4v5j9kvqekjE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwbuOiIpUQd+sAwcNpUcVBgRr4Gkvwhwt/AtYliKWQzFMZwfOaB
-	8dPyaoL+es2S4xTuw+Yd2t9aKhGNaycDjM4ND8/KEDI0t+Oq78n6O9E9KmyloA==
-X-Gm-Gg: ASbGncsmO8f/xgsF1ZYkTlYYy+l3mhRH8RzQf089/jcQf3rZP2hRpEBvNG/a9ApDwiz
-	L5wxuNFYOG6iNrtqLo1BNq0yPhd1QtZUa0/aKyQ4K6iNvDMSUCCuzTGZiXgg9VeBMehGxnWTXUB
-	FEUTxRa76HLDoUytIjC3rc7UOlAoC6+Ebl9gw2LEvwg5YCRvDN1BjgnQb9dMf2lW9uaLyXkeD+4
-	hhW6bh+O32pFNr2KKmV/wxEltiZLkpwOTk+Icu5hGLGOHX7YzRfRIBjHcRBZvApFjZyYR54FvsN
-	IhQEUq7wSFqK1wS2XxFN1JBKpn+XBGeLlWPfLLHNt7Un6gJDsU46R0DmRH/Emb1t6vKH5ina7tO
-	D
-X-Google-Smtp-Source: AGHT+IHHJOw76BjLXqGBnvw43my2VkhquZuadp84pDPIp2kf2AYFivbcZrggsA+azVQI8HRL2Yy1ZQ==
-X-Received: by 2002:a17:906:d54d:b0:aae:bac6:6659 with SMTP id a640c23a62f3a-ab38b190d52mr3936652666b.7.1738083411199;
-        Tue, 28 Jan 2025 08:56:51 -0800 (PST)
-Message-ID: <58d99a7b-4f16-424e-bcbb-c2bc475bce82@suse.com>
-Date: Tue, 28 Jan 2025 17:56:49 +0100
+        bh=e5X663P4en3YR5ZbXxt+29IcazmwoosY2ySdVtlKhQU=;
+        b=etz3emeJ8ojRWg4J58+WMEXeRRaJAaqLxHtfb7Ka0ZNDSmvPOiIvggD/ASWPjfvbm4
+         avLt3VZcaES9qz19l5SJmhGKlJdqnoOTzIHaJVUPWfO/rv08/TQIpy2IshpLdd+zyX/u
+         rAz+DVpO9QiNY5quBTERKisltgx518JzAg51/FszHxS5pAbgoqd8KYdiWksmc0kTVkZI
+         mcHRwSzbJ/YaXJxP4jcayImTxPP2+C4KlE5va8onlXPXXrmeDXajdpr/csU5kMrzbCwz
+         OPTDUc6I9U+geiQr0ht0CjmaatdMM7EBLMpLgf98KUMcFnMBOSnVfo4op/z/UIzwY+ml
+         B9IQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU03chWnc1gMBSzGLy8hpF18kjyMIZzac9o5iLR4Azt3c2x7PskQH18o/XJcAuZSSlPJJAyvgMlObI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwcqUTsjZ2kH1tqW4ypBpinz0HFFJKmd9OLhaXzqwN9FENrvPC0
+	1Pw7lRyHdgBsDzV+YjSs1HWFLui+knK2Ba45cqfeFacypbB5zM7mX1x9hUcnbg==
+X-Gm-Gg: ASbGncukwUjklVxzacFeQNm/ab1xpS348BbFFUR2EaseLrZ6SceYYr9EDKcEu4rsbJB
+	ydz3TozZ88CaVNfkjj9f3iYN6dNJYLbupeRU5HXS7uSdAkWDhmSITNnXfi/WoD1Fw6jVdEM0vIc
+	KNQDWV+fevzh9GHUourndR9l8zMVdSJQr/+F1S5u7QeP+uwgRIAlMrmtwAIflFJ4VkFkR8RTe/r
+	LeZfWMPxN7F1R5NhVnoOtj1cvblAMis1jcUyBxele+OjYTiSjwJSGOD1M41GSj28xFilzVI0k+v
+	tqlBJ26PqRQ+buNFKPrXmTf8klkGLOb539jMDBDystUFtxcmdBg7o5dN4/RhRtPSKXOYW0cOfas
+	uhd1dmGXUtDY=
+X-Google-Smtp-Source: AGHT+IHfiCDvIODhw0y4B5tZznVO2YVbxwwgWs4Q8B+oXLHrj3lADlrGJQgimmmiVFkWRE2RdzUdRw==
+X-Received: by 2002:a17:907:1c0a:b0:aa6:5eae:7ece with SMTP id a640c23a62f3a-ab38b42e649mr4046044466b.43.1738083980265;
+        Tue, 28 Jan 2025 09:06:20 -0800 (PST)
+Message-ID: <475cd06a-f659-4921-8910-4b6033a4c95b@suse.com>
+Date: Tue, 28 Jan 2025 18:06:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 17/24] xen/console: flush console ring to physical
- console
+Subject: Re: [PATCH v3 19/24] xen/8250-uart: add missing definitions
 To: dmukhin@ford.com
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>,
@@ -97,7 +96,7 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20250103-vuart-ns8250-v3-v1-0-c5d36b31d66c@ford.com>
- <20250103-vuart-ns8250-v3-v1-17-c5d36b31d66c@ford.com>
+ <20250103-vuart-ns8250-v3-v1-19-c5d36b31d66c@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,77 +122,85 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250103-vuart-ns8250-v3-v1-17-c5d36b31d66c@ford.com>
+In-Reply-To: <20250103-vuart-ns8250-v3-v1-19-c5d36b31d66c@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 04.01.2025 02:58, Denis Mukhin via B4 Relay wrote:
-> --- a/xen/drivers/char/console.c
-> +++ b/xen/drivers/char/console.c
-> @@ -430,23 +430,36 @@ void console_serial_puts(const char *s, size_t nr)
->      pv_console_puts(s, nr);
->  }
->  
-> -static void cf_check dump_console_ring_key(unsigned char key)
-> +/*
-> + * Write characters to physical console(s).
-> + * That covers:
-> + * - serial console;
-> + * - video output.
-> + */
-> +static void console_puts(const char *str, size_t len)
-> +{
-> +    ASSERT(rspin_is_locked(&console_lock));
-> +
-> +    console_serial_puts(str, len);
-> +    video_puts(str, len);
-> +}
-> +
-> +/*
-> + * Flush contents of the conring to the physical console devices.
-> + */
-> +static int console_flush(void)
->  {
->      uint32_t idx, len, sofar, c;
->      unsigned int order;
->      char *buf;
->  
-> -    printk("'%c' pressed -> dumping console ring buffer (dmesg)\n", key);
-> -
-> -    /* create a buffer in which we'll copy the ring in the correct
-> -       order and NUL terminate */
->      order = get_order_from_bytes(conring_size + 1);
->      buf = alloc_xenheap_pages(order, 0);
->      if ( buf == NULL )
-> -    {
-> -        printk("unable to allocate memory!\n");
-> -        return;
-> -    }
-> +        return -ENOMEM;
-> +
-> +
-> +    nrspin_lock(&console_lock);
+> @@ -51,12 +54,19 @@
+>  #define UART_IIR_THR      0x02    /*  - tx reg. empty     */
+>  #define UART_IIR_MSI      0x00    /*  - MODEM status      */
+>  #define UART_IIR_BSY      0x07    /*  - busy detect (DW) */
+> +#define UART_IIR_FE       0xC0    /* FIFO enabled (2 bits) */
 
-Nit: No double blank lines please.
+Please can you use lower case hex digits?
 
-> @@ -681,10 +707,7 @@ static void xen_console_write(const char *str, size_t len)
+> @@ -64,17 +74,17 @@
+>  
+>  /*
+>   * Note: The FIFO trigger levels are chip specific:
+> - *	RX:76 = 00  01  10  11	TX:54 = 00  01  10  11
+> - * PC16550D:	 1   4   8  14		xx  xx  xx  xx
+> - * TI16C550A:	 1   4   8  14          xx  xx  xx  xx
+> - * TI16C550C:	 1   4   8  14          xx  xx  xx  xx
+> - * ST16C550:	 1   4   8  14		xx  xx  xx  xx
+> - * ST16C650:	 8  16  24  28		16   8  24  30	PORT_16650V2
+> - * NS16C552:	 1   4   8  14		xx  xx  xx  xx
+> - * ST16C654:	 8  16  56  60		 8  16  32  56	PORT_16654
+> - * TI16C750:	 1  16  32  56		xx  xx  xx  xx	PORT_16750
+> - * TI16C752:	 8  16  56  60		 8  16  32  56
+> - * Tegra:	 1   4   8  14		16   8   4   1	PORT_TEGRA
+> + *  RX:76 = 00  01  10  11  TX:54 = 00  01  10  11
+> + * PC16550D:     1   4   8  14      xx  xx  xx  xx
+> + * TI16C550A:    1   4   8  14      xx  xx  xx  xx
+> + * TI16C550C:    1   4   8  14      xx  xx  xx  xx
+> + * ST16C550:     1   4   8  14      xx  xx  xx  xx
+> + * ST16C650:     8  16  24  28      16   8  24  30  PORT_16650V2
+> + * NS16C552:     1   4   8  14      xx  xx  xx  xx
+> + * ST16C654:     8  16  56  60       8  16  32  56  PORT_16654
+> + * TI16C750:     1  16  32  56      xx  xx  xx  xx  PORT_16750
+> + * TI16C752:     8  16  56  60       8  16  32  56
+> + * Tegra:        1   4   8  14      16   8   4   1  PORT_TEGRA
 >   */
->  static void console_write(const char *str, size_t len, unsigned int flags)
->  {
-> -    ASSERT(rspin_is_locked(&console_lock));
 
-Why is this being dropped? Hmm, I see, it moves into console_puts().
+What is this change about? All I can see is that the table heading no
+longer aligns with table contents.
 
-> @@ -1061,6 +1084,9 @@ void __init console_init_preirq(void)
->      serial_set_rx_handler(sercon_handle, serial_rx);
->      pv_console_set_rx_handler(serial_rx);
+> @@ -96,11 +106,33 @@
+>  #define UART_LCR_CONF_MODE_B	0xBF		/* Configuration mode B */
 >  
-> +    /* NB: send conring contents to all enabled physical consoles, if any */
-> +    console_flush();
+>  /* Modem Control Register */
+> -#define UART_MCR_DTR      0x01    /* Data Terminal Ready  */
+> -#define UART_MCR_RTS      0x02    /* Request to Send      */
+> -#define UART_MCR_OUT2     0x08    /* OUT2: interrupt mask */
+> -#define UART_MCR_LOOP     0x10    /* Enable loopback test mode */
+> -#define UART_MCR_TCRTLR   0x40    /* Access TCR/TLR (TI16C752, EFR[4]=1) */
+> +#define UART_MCR_DTR            BIT(0, U)   /* Data Terminal Ready  */
+> +#define UART_MCR_RTS            BIT(1, U)   /* Request to Send      */
+> +#define UART_MCR_OUT1           BIT(2, U)   /* OUT1: interrupt mask */
+> +#define UART_MCR_OUT2           BIT(3, U)   /* OUT2: interrupt mask */
+> +#define UART_MCR_LOOP           BIT(4, U)   /* Enable loopback test mode */
+> +#define UART_MCR_RESERVED0      BIT(5, U)   /* Reserved #0 */
+> +#define UART_MCR_RESERVED1      BIT(6, U)   /* Reserved #1 */
+> +#define UART_MCR_TCRTLR         BIT(6, U)   /* Access TCR/TLR (TI16C752, EFR[4]=1) */
 
-Aren't you potentially emitting messages a 2nd time this way? Imo
-such flushing needs to come immediately after any particular console
-is ready.
+I find it odd for a bit to be reserved and also not reserved.
+
+> +#define UART_MCR_RESERVED2      BIT(7, U)   /* Reserved #2 */
+> +#define UART_MCR_MASK \
+> +    (UART_MCR_DTR | UART_MCR_RTS | \
+> +     UART_MCR_OUT1 | UART_MCR_OUT2 | \
+> +     UART_MCR_LOOP)
+
+Yet then not including UART_MCR_TCRTLR?
+
+> @@ -111,6 +143,7 @@
+>  #define UART_LSR_THRE     0x20    /* Xmit hold reg empty  */
+>  #define UART_LSR_TEMT     0x40    /* Xmitter empty        */
+>  #define UART_LSR_ERR      0x80    /* Error                */
+> +#define UART_LSR_MASK     (UART_LSR_OE | UART_LSR_BI)
+
+On what basis were these two bits chose and the others left out?
 
 Jan
 
