@@ -2,52 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 895E3A20785
+	by mail.lfdr.de (Postfix) with ESMTPS id A4B05A20786
 	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 10:40:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.878311.1288490 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.878310.1288484 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tci4x-0000oa-3X; Tue, 28 Jan 2025 09:40:19 +0000
+	id 1tci4w-0000hG-Ps; Tue, 28 Jan 2025 09:40:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 878311.1288490; Tue, 28 Jan 2025 09:40:19 +0000
+Received: by outflank-mailman (output) from mailman id 878310.1288484; Tue, 28 Jan 2025 09:40:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tci4x-0000hK-0M; Tue, 28 Jan 2025 09:40:19 +0000
-Received: by outflank-mailman (input) for mailman id 878311;
+	id 1tci4w-0000ek-Mc; Tue, 28 Jan 2025 09:40:18 +0000
+Received: by outflank-mailman (input) for mailman id 878310;
  Tue, 28 Jan 2025 09:40:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=WhQb=UU=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1tci4v-0000QT-RJ
+ id 1tci4v-0000QN-04
  for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 09:40:17 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20631.outbound.protection.outlook.com
- [2a01:111:f403:2416::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dfc1600e-dd5b-11ef-a0e6-8be0dac302b0;
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20618.outbound.protection.outlook.com
+ [2a01:111:f403:2009::618])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e005e2cd-dd5b-11ef-99a4-01e77a169b0f;
  Tue, 28 Jan 2025 10:40:15 +0100 (CET)
-Received: from SA9PR03CA0025.namprd03.prod.outlook.com (2603:10b6:806:20::30)
- by SA1PR12MB5639.namprd12.prod.outlook.com (2603:10b6:806:22b::7)
- with Microsoft SMTP Server (version=TLS1_2,
+Received: from SJ0PR03CA0258.namprd03.prod.outlook.com (2603:10b6:a03:3a0::23)
+ by CY5PR12MB6106.namprd12.prod.outlook.com (2603:10b6:930:29::7) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8377.22; Tue, 28 Jan
- 2025 09:40:07 +0000
-Received: from SN1PEPF0002636A.namprd02.prod.outlook.com
- (2603:10b6:806:20:cafe::bb) by SA9PR03CA0025.outlook.office365.com
- (2603:10b6:806:20::30) with Microsoft SMTP Server (version=TLS1_3,
+ 2025 09:40:10 +0000
+Received: from SJ1PEPF00002320.namprd03.prod.outlook.com
+ (2603:10b6:a03:3a0:cafe::dc) by SJ0PR03CA0258.outlook.office365.com
+ (2603:10b6:a03:3a0::23) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8377.23 via Frontend Transport; Tue,
- 28 Jan 2025 09:40:07 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF0002636A.mail.protection.outlook.com (10.167.241.135) with Microsoft
+ 28 Jan 2025 09:40:10 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SJ1PEPF00002320.mail.protection.outlook.com (10.167.242.86) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8398.14 via Frontend Transport; Tue, 28 Jan 2025 09:40:07 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.8398.14 via Frontend Transport; Tue, 28 Jan 2025 09:40:09 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 28 Jan
- 2025 03:40:06 -0600
+ 2025 03:40:08 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 28 Jan
+ 2025 03:40:08 -0600
 Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39
- via Frontend Transport; Tue, 28 Jan 2025 03:40:05 -0600
+ via Frontend Transport; Tue, 28 Jan 2025 03:40:06 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,133 +63,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dfc1600e-dd5b-11ef-a0e6-8be0dac302b0
+X-Inumbo-ID: e005e2cd-dd5b-11ef-99a4-01e77a169b0f
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MByVBeI9/F7YL/5QXHWhPWnbbDH8wAPEkEZo5qV2i7aHrIuuNBSUfXobA93I3AwqU46cryE3bX8gwoGqCfLeQ+yDo8H4ZAvfCx1+VDJN0ihgY0uARELTJgLYgkJgbTiqWkjrD9u0LsyQQ92dzZd3DlhPrHjO5Vhu4bVxZVWLiPyM2JAgE4A5XWBjauHb/K91XCTcn1j5oHwvHRQqUpPrA0jS2e4kQmOepBQATAV1NsskoIDD9SVZehUJ2902aWaMAxTRBLWvEZsnnCUk2kY4dvbvfBY/cs1uBKFjpKYEoD/OfjWBQ9d277EEEC8UZ3E2CUpxxx/TdPvkSL5pz9ZruQ==
+ b=YlVU8/zyJz0/QZoEmFgMCxhJ/nrFEHtP75M2w6+PM0uNBu9gcT7qS/5FhJr0+71S9g6a6qecbNmQ6Djh8qphRRjSxkIumXFv3mL30DCt5kELTfeFdRahIXD466vYji2MK63Rz5bnRsoQ3XYHDDxQ9cB5wtp4Tiyl51F3n8JnKNVtepVWAMzeE5yXYybCugsOQXvD+8Lj5GniYSbFgOv6b3MEZlGjiz/QaCbRo/dJSDGCqsEMNdiuG/Yuq5ACWR+uDDMTyOwOn9gyhM4sO816xMJNI018p1Jx4qF9KS2hA0YqxatNLPRnt8Z+shUcoWiMDrjJkQhuYZwPcwxxBUiXOw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NdAIrJ/MqjNZfh4vApir3Fhdo53NdRh7/2IUDn+1cts=;
- b=XwHdJq9PY+g5NsAyZP+zPxyB5gPf8hMMWIlaw/S5MSumuz8KJL2m+/W/xO3xOC33d0zQqBhKqyCL+kVE7N7cAIwhVhOcs+LAeM/oWgcqhLueUG5U5FrsmN3/Iq7REm5B26X7kgU5gBSPwi1sVqn11qZ1aZUM9nVOQLgO2stz0iP5AAtjcIuIwDzx/fwro0kuUkgWLV2Tk7lQjYu4LRAA6Jb1FNTvcaAqUES77hdub9m38Quyrk6GSEzwboApBYKDJSFrEUGgvhLnQ84kN/VURJRacOAGsmIE6LmiN10StScK0KZ7TC08I/VnHfub28s2HBJEnZerUZIdj+ZoCikoFQ==
+ bh=p5PS00aovMc/LXTzX3cWiC6NVUzhB6/IMA3gbnyVqzM=;
+ b=D7wN9AMda9m9+7wBgZXIYNwl5b3EeSGrsrJ9goF+DX5EFBWU2xDVkoKR3ZdvPP6XVkt7GWsL7itieM8OmklV4oPt6gxPaBfQ2yPHsWUGK11u1TY8T1zyYre07IW2uXyePSo3pyTgpmL8JczZXo3UyvWa/g3OhGYXD67jNNLICizZ1zgPoQhIkT08IsH/03skzEKVLzhO6XNigo+/M9lqE5n4Jh1OlMH6lq0zpo5lVZMYgijj2XdYDw7QOXGd/3Ug0GuI69ViNZeTmKAQROj5slJh2qaSm82riIs6uEMWAhtrEjx/EofBnAozQ3h5zWpnBQ/0I3MSHT+CfsNfJASBMg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NdAIrJ/MqjNZfh4vApir3Fhdo53NdRh7/2IUDn+1cts=;
- b=EmIu05WktGw2vo+LCVswYpsWYcSRLlE3AT8W1ELMc76sKd0WnLZepHHAtbIw0qtm0Sonnih1gkDHa5SUXSo4p8VBO3MGbKasb7KVBOwLxesTsk6ei4yUhvhBx/MM1ixJM2yA9hNlvC+F8ImSN/YVvgICliuSps9zLI29xDp4rwg=
+ bh=p5PS00aovMc/LXTzX3cWiC6NVUzhB6/IMA3gbnyVqzM=;
+ b=ueVVHoD5wjWM4N047gqpCIGyOkpRA24e+iLsFzDU/S5D0JWkm8CaPi3xh3KLmS055+8lhVtEUskFc3HpqkWhJpOI0fOCIwoCjvBeXlqoSq5fyTEf6QCcTKum2zLy5/T7M6HZ5tD0STpYAFKtChXHpU0zSr8mmQDcmb9J7HJTlpk=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 From: Michal Orzel <michal.orzel@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, <oleksii.kurochko@gmail.com>
-Subject: [for-4.20][PATCH v2 1/2] device-tree: bootfdt: Fix build issue when CONFIG_PHYS_ADDR_T_32=y
-Date: Tue, 28 Jan 2025 10:40:01 +0100
-Message-ID: <20250128094002.145755-2-michal.orzel@amd.com>
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	<oleksii.kurochko@gmail.com>, Luca Fancellu <luca.fancellu@arm.com>
+Subject: [for-4.20][PATCH v2 2/2] xen/arm: Fix build issue when CONFIG_PHYS_ADDR_T_32=y
+Date: Tue, 28 Jan 2025 10:40:02 +0100
+Message-ID: <20250128094002.145755-3-michal.orzel@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20250128094002.145755-1-michal.orzel@amd.com>
 References: <20250128094002.145755-1-michal.orzel@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
- designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002636A:EE_|SA1PR12MB5639:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2a5daca5-b10e-4680-3af9-08dd3f7fc061
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002320:EE_|CY5PR12MB6106:EE_
+X-MS-Office365-Filtering-Correlation-Id: d6df9984-2065-4f39-ceea-08dd3f7fc176
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|376014|82310400026;
+	BCL:0;ARA:13230040|1800799024|376014|36860700013|82310400026;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?jLuw5yeT+DLcd05Gr29gO4hAlKcY7oqbLe29HZQIEz1qkp5PfJpz1TW2Gm+Y?=
- =?us-ascii?Q?GX2s3xV5jPvNtbpOfWSAwlcKuEeovBKVxNUptWXISbohhJkuNBYVnINOyIQb?=
- =?us-ascii?Q?chSfvblS83hdj9vkjp2LCuZJB7fD4pys5nJgTPlSVi6QfP14KLiGmQPtqi9U?=
- =?us-ascii?Q?tLHnHjdk1uHCMVqPZfXbzhxdBmO3Fyh9siRNuVOySUky4TIEMxAyw2YIPrzr?=
- =?us-ascii?Q?ughBsvd/mITaS8/rBIPbXAKhL5YJCBwogKngmYEaqpib2cLxkYkEUiV6+65P?=
- =?us-ascii?Q?ZUcUVPjckYMeN+e0k2knKDeHDhcg2UICudu0v6OuPNev47hWh+Zhdfrpp2GR?=
- =?us-ascii?Q?dnzDOqo02YQRh2nHpvUL9hO0ZBBR19+Ov0fqCMTISPmRLnY96nxuDSLQNXAk?=
- =?us-ascii?Q?O9KcxThqs3GxU6mMx3+CZI6WqDbwAZRItK1lJGvQb9beyW4OiNvJg2B5gZKV?=
- =?us-ascii?Q?WCTRyoTRWqXWcN+XfJ3Dk4fPgwbAkjVbLLU0XzwBEnX+CzfBHTU2EiOCPk4C?=
- =?us-ascii?Q?a4Wv0hXkS/yxABSrTzaP7oexzuRyyJHjRrzt2UMG5phDNNyHjN7aLpKkHKmp?=
- =?us-ascii?Q?maCVsXoedR6wELkX8ikVU/UCwn20jm9dapQBbioPMLtSNTNT6WwxPTIe7Dev?=
- =?us-ascii?Q?3umYavmd9Tx1uVNiFUsGaU0OtIU2o2/cTkUjC1Npj0NDplWbyh8gTy3QCY2T?=
- =?us-ascii?Q?D+E1HlxMEtDXF00RWCZHdF6muh4GDJvG6t5BSb/Lp88vp4jn6EKHZlRX/YCJ?=
- =?us-ascii?Q?Dxjp2wREXGmrtnGJtyKWxGd0GyMJg9xSaV2Q6FUFVnnwEuMX002GREG5zz7+?=
- =?us-ascii?Q?cV/jSL7ZJyXSnPc2ErRryQkZU/kABaGP3Sy0QHMNy3soSgmNpKWgtCTBR/Pl?=
- =?us-ascii?Q?ZnZYDLER0S5RQdD1P9lHpBC24ziQPfw0DsF/XsAUcaQYpSXTnDfnvqVyIRfn?=
- =?us-ascii?Q?t7oMK10kkWRZzIKoWn0yos9I1/JeNWEdOnt0F3SutJEbhmlb5I3a0EtkufTD?=
- =?us-ascii?Q?0ovkp2IOX+04ptvvVft0nvOLnzJ1+wsw1e9e3jK8KnXbrYw1hkioGCWUBlOP?=
- =?us-ascii?Q?U5f+Un7n6O+QX7rSzMYgStvWOcettOJutdkTT46MTnyhluH0u3GUZYWS0Cc7?=
- =?us-ascii?Q?IVr7CeZOedqju+DtBoFCGk1eQYJeSSTg4VxBQvLjuqE2IQDlOr0AUOzU5ELo?=
- =?us-ascii?Q?0l7MMjzw4S/KaIfRNN1vdBt1bOS1IMdYbuyDVYd+TF39jKnlVaL5wYTqmiSo?=
- =?us-ascii?Q?5VhtUMs8/UIN0qJbZZRveDW/k90Ae37WkjM1B67V9W3q8JDdCRz6Tf9INAXs?=
- =?us-ascii?Q?gd0E1i414Xfj8F2O5sL40y2TWdqAkNZtaYbaemY0x3ixH7agLJjoCg1YtxoM?=
- =?us-ascii?Q?0bR3RHa84GbyXA7IG8dVhIrFHJSJjQOaiMlj8qtZ53DBpYCMWMcUTEb6fbOw?=
- =?us-ascii?Q?G8gdkJK913dzGjw8Ih1WAGK4CvJVmv2VuOgofrjJJ3+Nem8/Nv3LkQ/Eber8?=
- =?us-ascii?Q?lYN4jKI4FyFzV5A=3D?=
+	=?us-ascii?Q?J4JC/3EXPRJp9LbF7KAZWarMl/+Er0MkoTDzfCC/hPZxpH7qlD1c1Uv0ln6o?=
+ =?us-ascii?Q?ypcimIOAaEqMsQytF0ui6z+srwY568chCOVrlX50qAx7HcLh2mfD+OXiOcWe?=
+ =?us-ascii?Q?q9pZ4J9IXMXIpOSTi9uxLk6dilfe7F8+nb4bW1u4r3VQ2pZIl9F87SOOzGVq?=
+ =?us-ascii?Q?bqo6gFY1q31iXf7n29uomreHu3wr+BBsFYwH/BWLHlOnaa7qesh08LzUoz2b?=
+ =?us-ascii?Q?PhTuyi3ebXkV6sDd+/qAtDh2Rb2LyIePpSW58SrJN8rnuaKklumBf5NcvnzT?=
+ =?us-ascii?Q?Gq6V2Lzs+lSSKODBHpljfh536EJDVAoyxk3rLFDu28MrqiYjAwQz4Ps6/c6j?=
+ =?us-ascii?Q?PGuoRkETGB+/y0+ttB538zjy8M8Ax2nezhkG/RRfj+RkXCzoC74PXq2FTl8n?=
+ =?us-ascii?Q?oVJGHvIIatLPNk7x0j/7Ld55iLDhOyjOfJMduiFeW6Nglna93LfWd+NQTl3K?=
+ =?us-ascii?Q?GZtZq9fg3+/AS41vUgP1jpEUC1jQOEAPB7zQF1615TlB5rMt4VtUOuhwaQKk?=
+ =?us-ascii?Q?FQHRFjXkAh2H8ExrmU6VK1YY9ayFVonVTeIDjaArQwuF3uA4AgzPJj1IeGep?=
+ =?us-ascii?Q?RwuykkWrhwfsLEMD6VE4Ho6ShJccYKc21P2tOGxr6o+f72zchuvdACsDR+yt?=
+ =?us-ascii?Q?zgZ+ApT0W3peobd34EPU3a3Gljo800NAE3NqfRPPmpTYiyXrS8+u2AcjShQ7?=
+ =?us-ascii?Q?szYwjPmUE+6gvOZMW8obu/PMy6d2i+FHPG5OQZGvnVWQWLKtyLacvHSpwMSb?=
+ =?us-ascii?Q?Zs/I2+l06SWzyeSnGMtQ6o35gTHI2sKpQV89bDk+75I9JSjhY/D2Sx6Zk8k1?=
+ =?us-ascii?Q?qHMjLCVMWywJPt6LOyvO5vnBBrvWt19bvhOL2NBAc6YbG4gJRZAQGSfwlmvj?=
+ =?us-ascii?Q?2zJAFWVE/IAwctE/boGY2INlbMw6fVWL6DegNSvAnsQkWI+dFWFdiImtccaB?=
+ =?us-ascii?Q?8YvHDhz09iuDHRuGiuD9B0GBaWtJ8aO1P9mYVpSX9GxTBYB5AIMmxCGH32qH?=
+ =?us-ascii?Q?r/XOk2fwIk+y2XelaMKAgpJ7DGemThMW71l1+91DYk58+GTj23Mbbrkkuo2N?=
+ =?us-ascii?Q?qiTKAtO/N8dU7Bii2pOQOTGLFMp9sF6e1dbll+PaF9T95J6ERP+9lj3yXBgk?=
+ =?us-ascii?Q?8ZiiQ6wRiCZU49OPBe8ngR0AvjfiH8SfmOneJvVJoun3xVoGhh6pWNElHUJK?=
+ =?us-ascii?Q?omltlqLumzU44OioyPYT3FJgJAg691ZGBNyydxFUbeMhRjifrDIjH5W/fFoH?=
+ =?us-ascii?Q?haE2aiC2oUxtTwLjq8k30IbmRFftqds88F8/mXRMfKNlKmUuqshOfAnmoZtM?=
+ =?us-ascii?Q?2cZiCRJ9o8IVSB/xNjdBh+neu35bGPJY4L9hcIjb+lyakBsGJZQtTVFUyvYb?=
+ =?us-ascii?Q?UtdXCggJliNRqdawJOOBq+oYpJ2v3i3pP8FdOz+rksDUJXodbGWMHN+YZduh?=
+ =?us-ascii?Q?0MOMLnttyE39SvemWt9JKR6IgGSIOzRWeCDDEhRqjkx8/1oVJVIefuYY9244?=
+ =?us-ascii?Q?iQCxmFQIr3prjUs=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2025 09:40:07.6691
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2025 09:40:09.4726
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a5daca5-b10e-4680-3af9-08dd3f7fc061
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6df9984-2065-4f39-ceea-08dd3f7fc176
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF0002636A.namprd02.prod.outlook.com
+	SJ1PEPF00002320.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5639
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6106
 
 On Arm32, when CONFIG_PHYS_ADDR_T_32 is set, a build failure is observed:
-common/device-tree/bootfdt.c: In function 'build_assertions':
-./include/xen/macros.h:47:31: error: static assertion failed: "!(alignof(struct membanks) != 8)"
-   47 | #define BUILD_BUG_ON(cond) ({ _Static_assert(!(cond), "!(" #cond ")"); })
-      |                               ^~~~~~~~~~~~~~
-common/device-tree/bootfdt.c:31:5: note: in expansion of macro 'BUILD_BUG_ON'
-   31 |     BUILD_BUG_ON(alignof(struct membanks) != 8);
+arch/arm/platforms/vexpress.c: In function 'vexpress_smp_init':
+arch/arm/platforms/vexpress.c:102:12: error: format '%lx' expects argument of type 'long unsigned int', but argument 2 has type 'long long unsigned int' [-Werror=format=]
+  102 |     printk("Set SYS_FLAGS to %"PRIpaddr" (%p)\n",
 
-When CONFIG_PHYS_ADDR_T_32 is set, paddr_t is defined as unsigned long,
-therefore the struct membanks alignment is 4B and not 8B. The check is
-there to ensure the struct membanks and struct membank, which is a
-member of the former, are equally aligned. Therefore modify the check to
-compare alignments obtained via alignof not to rely on hardcoded
-values.
+When CONFIG_PHYS_ADDR_T_32 is set, paddr_t is defined as unsigned long.
+Commit 96f35de69e59 dropped __virt_to_maddr() which used paddr_t as a
+return type. Without a cast, the expression type is unsigned long long
+which causes the issue. Fix it.
 
-Fixes: 2209c1e35b47 ("xen/arm: Introduce a generic way to access memory bank structures")
+Fixes: 96f35de69e59 ("x86+Arm: drop (rename) __virt_to_maddr() / __maddr_to_virt()")
 Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+Tested-by: Luca Fancellu <luca.fancellu@arm.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
 Changes in v2:
- - modify the check to test against alignment of struct membank
+ - none
 ---
- xen/common/device-tree/bootfdt.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ xen/arch/arm/include/asm/mm.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/xen/common/device-tree/bootfdt.c b/xen/common/device-tree/bootfdt.c
-index 47386d4fffea..529c91e603ab 100644
---- a/xen/common/device-tree/bootfdt.c
-+++ b/xen/common/device-tree/bootfdt.c
-@@ -27,8 +27,8 @@ static void __init __maybe_unused build_assertions(void)
-      */
-     BUILD_BUG_ON((offsetof(struct membanks, bank) !=
-                  offsetof(struct meminfo, bank)));
--    /* Ensure "struct membanks" is 8-byte aligned */
--    BUILD_BUG_ON(alignof(struct membanks) != 8);
-+    /* Ensure "struct membanks" and "struct membank" are equally aligned */
-+    BUILD_BUG_ON(alignof(struct membanks) != alignof(struct membank));
- }
+diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
+index f91ff088f6b1..a0d8e5afe977 100644
+--- a/xen/arch/arm/include/asm/mm.h
++++ b/xen/arch/arm/include/asm/mm.h
+@@ -263,7 +263,7 @@ static inline void __iomem *ioremap_wc(paddr_t start, size_t len)
  
- static bool __init device_tree_node_is_available(const void *fdt, int node)
+ #define virt_to_maddr(va) ({                                        \
+     vaddr_t va_ = (vaddr_t)(va);                                    \
+-    (va_to_par(va_) & PADDR_MASK & PAGE_MASK) | (va_ & ~PAGE_MASK); \
++    (paddr_t)((va_to_par(va_) & PADDR_MASK & PAGE_MASK) | (va_ & ~PAGE_MASK)); \
+ })
+ 
+ #ifdef CONFIG_ARM_32
 -- 
 2.25.1
 
