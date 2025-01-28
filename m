@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77A5CA20C32
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 15:43:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.878528.1288707 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7FB8A20C35
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 15:45:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.878537.1288718 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcmoL-0000kH-HE; Tue, 28 Jan 2025 14:43:29 +0000
+	id 1tcmqD-0001Jw-03; Tue, 28 Jan 2025 14:45:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 878528.1288707; Tue, 28 Jan 2025 14:43:29 +0000
+Received: by outflank-mailman (output) from mailman id 878537.1288718; Tue, 28 Jan 2025 14:45:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcmoL-0000iQ-EF; Tue, 28 Jan 2025 14:43:29 +0000
-Received: by outflank-mailman (input) for mailman id 878528;
- Tue, 28 Jan 2025 14:43:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tcmqC-0001IT-ST; Tue, 28 Jan 2025 14:45:24 +0000
+Received: by outflank-mailman (input) for mailman id 878537;
+ Tue, 28 Jan 2025 14:45:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jygh=UU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tcmoK-0000iK-KK
- for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 14:43:28 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3b80746a-dd86-11ef-99a4-01e77a169b0f;
- Tue, 28 Jan 2025 15:43:26 +0100 (CET)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-aab6fa3e20eso964009966b.2
- for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 06:43:26 -0800 (PST)
+ id 1tcmqB-0001II-DB
+ for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 14:45:23 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 808f7b57-dd86-11ef-a0e6-8be0dac302b0;
+ Tue, 28 Jan 2025 15:45:22 +0100 (CET)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-5d0ac27b412so7554707a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 06:45:22 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab676114e78sm788780266b.164.2025.01.28.06.43.25
+ a640c23a62f3a-ab675e1251dsm797345366b.23.2025.01.28.06.45.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Jan 2025 06:43:25 -0800 (PST)
+ Tue, 28 Jan 2025 06:45:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b80746a-dd86-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 808f7b57-dd86-11ef-a0e6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738075406; x=1738680206; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1738075522; x=1738680322; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=KRuTf83lWyflbO7ZbRjUN4I/48s/hNFs2otmIWnKcJ8=;
-        b=B0BlBvanSxn6leOggwWouvgU3cZ17T+QKbtb+1FDF4q280T7zepBQ7tbOujBA5/u5l
-         Mzt6sTOUdWv4mi6dP7KSVpzsFMPLkbS3DZ2DS+z2j+2ebz+hRZY+iiyFhmsAiApTrYqK
-         gyChAdLnkww6lQKR1aBIYwcdeSeoxvDobltrA1dlnwj5r8pAHoOyQoXIdeeR6D6dEEhG
-         70KPLxONhgGFooxwDl4XJ8UGNxEifVUTU/hVCMKJ1taTWYPt8Ej0ujR6+gcPQtsqL+07
-         nXWvTydu45FdSBdAYRWmVb3oPXDqIdjQZutTAeVNTCdCKo0f7ef+8V6XIWrgV4I2gC+J
-         szqw==
+        bh=bAZAoWoHUizWksXgxL/xbbj4bxyh7pa6NvIG5oI9n7k=;
+        b=Lp57WfiE3+e5rdJcSO68wY73DEEecAzKgBkgwGjwXAGCkElVmBhUSrZB27Mx0NffqP
+         x3vb1CjwMt5Q9Ln6JXPzlK8Ieakb2XU245l7Q3Dg8CPM0boNFQlTBeq0jDpbNeZJmVOS
+         EpoRPYlaN6lLnfT+Ho3YiASDRUxjo+A8r4k8+1sir1yk7pCrWF/5ZYCVMeTI+cYIV5oz
+         C22A59pr5IBJ6ElKS7cG1bRq/taQtQfmJCQnRAylFyYlCdUeryhVMDB1Y116hM40Ufvt
+         PHPqDFKhASLd/QVnbCMG6Ii8mVrL8piwem1PdPch9ev998zhN6/AVj+PrtiRs/HoezVJ
+         Ia/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738075406; x=1738680206;
+        d=1e100.net; s=20230601; t=1738075522; x=1738680322;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=KRuTf83lWyflbO7ZbRjUN4I/48s/hNFs2otmIWnKcJ8=;
-        b=p/n/GGFU4ytJxjEz033x3cAmGInS2SXSpzRnpzBWvnzclZNMz/fg8mF7/PHtHggWaE
-         +Dk7F09MiRCucOFe5cFgGYlNHnkK3qB2jn0IrpMhgApu90rdvN7kKet3O/LTtZEf3yBL
-         ASPrTyfXUQHQvfPKO63qX1hB5NB7Bra1o7ECKdnlDbBZlg/CPRbPD3ZVyIBBlp9eHWau
-         ug9zbxbZ+a0ksXpbJZLiWq1QKznqwW8TOxOQLRZ/yJsoTfI9DPOjB3y8byIiruaK+Xm7
-         WLZO6AE6LR8iGytB93khSkgpTZtxn5xrKJYVh73ZIURa/7W+7jeeZXR8CQKSDgyyjDbH
-         YBKA==
-X-Forwarded-Encrypted: i=1; AJvYcCXmHeFA8CByUEO7Foemy1ioV9bnGb4K6OuUgpLU9XaTWXwBZpZvda08NwN1LpqaJRbzXCJT4R7slOM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxdt3R3latoQLexrFuz0YUz1ET3hbE6+XHNM5H06XLznk2NdWP7
-	gg2DCtalYp3StexCJrD+vQWkKMVOzRV7Qt2sW097njElD9qs0BTj6abmR7ZHEg==
-X-Gm-Gg: ASbGncskXrTbiMceTwWWJoNGMgHCnGs96+GcSEGTIVzMQ0Dbd/dU2IGpXnaEhpzH8i0
-	dTv4piabQ4jxbFEVFt1/M9i7t165B8npbqgUqQ/hhCwKCSDR7oQd53YxgSmbP3kFthhQf+uu8si
-	QGwRy/77Y/2gsq7ECyyo816anWyXhBt/gIoUe/AVcmQEH9iXIWEwk1QxlUbxFq1Znj8LT3uVomI
-	mWwEXKpCjzOhltB3mKH2jySzlMOnS6jv+9V3ZIOFC/VnC6rBc8VDk+SqiTvLxdfalUsOLSE3WzD
-	NsUd8LzPckcgWRQVB+gJjSd0XltSmDHQe07YBYSK2qwrI0uCYTKd+Yn6HpMO1b4bjJpMvy45KHF
-	H
-X-Google-Smtp-Source: AGHT+IFhnAsfkuLWe55KqmE9AW5Sx/IiKWwCH/ze3QabRa12T7xitF+Q1T1h7zCdb6tgygpDh+3fLw==
-X-Received: by 2002:a17:907:7296:b0:aab:75f1:e51a with SMTP id a640c23a62f3a-ab38b44e04emr4761171966b.38.1738075406067;
-        Tue, 28 Jan 2025 06:43:26 -0800 (PST)
-Message-ID: <03de0e24-dd5b-4ca4-a0de-299cd48de58b@suse.com>
-Date: Tue, 28 Jan 2025 15:43:24 +0100
+        bh=bAZAoWoHUizWksXgxL/xbbj4bxyh7pa6NvIG5oI9n7k=;
+        b=Bw59lNrTn78gqZn1tveZ+ElNaSTZXSGXyShdt7ONcNwaQ1jhAMV+QECEaiNJDUD5cf
+         Djuk9pIC5Rfe2L7KF4aou3GQ0bXIx92VujVlqospJXgNUXP1uq41Bl0fseE/6+bvdkrf
+         AFhjvgZkirpZpV4YD0ie8ScbyScw2fZW/EAGF0OqLKx/+ekQGJce8yJyuxyoDd7IZH0M
+         Vn56YRlfAhzmpOf6GEPnpSiB9Q4k8eQIa1uf3oYsacyzHT6bCKLtp9luiQ4hb0j9PRLc
+         nRZbgChj0eb6VxnmFKAsrnAZiQW0gCNBb264unN/jgF90MZMKXLPnSTRx/ZifIqfOVsP
+         Uq3Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXvleDmO9FBX7FE3oFi0fNnedH7HWLvEpZKD1Lxq4JRppa5j/SmFnYceRRCRMCzA48HUAlFMrg5maE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw/a0IV7c85BtaWnQH1yNQ7cy1xDxKRdHs0mwEvtF4mwkECyFSG
+	+p4zMEB6K01rRI/kiXT+QiDgEp5265UYaplQyh+o7qKtU7Zg/ux0GIJqFIWy1w==
+X-Gm-Gg: ASbGncuMqeOvxSl/w/v9FoNhOvsvJbKja+79FrkwaIWQPFynBkL3iRrBMEu8wmu9ile
+	P7q05utxZA+7xaOvY83/1f/NYPnER3a+0Vhwho5RSn1Ub0ivgS8I+3HzCl/HGBl/n+XfhDdvBEd
+	Pm1xQflGmanxAk/AK6AamwXLsTWrsfNUeEV6jjBEmcg+YWVGHA5EjJ4y8zPzUc7CqiMu+E8nVoB
+	za1NJJFoYei/4zUfoS+IBBo0Eze9k5a75Dthv9UZf72r3eq47gkxZ4piedC7HHLiVgiyj+qIy/S
+	uqT2lfyI9kImtGAdhopVIItBAzUdBGXt/ZSe4I6DzIsef2xtnoOoZK7odaJhqND15iNyLY3QxHc
+	B
+X-Google-Smtp-Source: AGHT+IGyH7WQMyjPEDrinSrqIlbC2IvcL+H2+vHfHiWY16s6ot2Vry4cR0ZzyBDQdZohUQRwYwNhEA==
+X-Received: by 2002:a17:906:ef05:b0:ab3:4b0c:ea44 with SMTP id a640c23a62f3a-ab38b0b7ef3mr4302166866b.9.1738075521957;
+        Tue, 28 Jan 2025 06:45:21 -0800 (PST)
+Message-ID: <89074dee-7e54-417f-a164-8b53e0bfead9@suse.com>
+Date: Tue, 28 Jan 2025 15:45:20 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 08/24] xen/console: rename switch_serial_input() to
- console_switch_input()
+Subject: Re: [PATCH v3 09/24] xen/console: rename console_rx to console_owner
 To: dmukhin@ford.com
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>,
@@ -97,7 +96,7 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20250103-vuart-ns8250-v3-v1-0-c5d36b31d66c@ford.com>
- <20250103-vuart-ns8250-v3-v1-8-c5d36b31d66c@ford.com>
+ <20250103-vuart-ns8250-v3-v1-9-c5d36b31d66c@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,22 +122,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250103-vuart-ns8250-v3-v1-8-c5d36b31d66c@ford.com>
+In-Reply-To: <20250103-vuart-ns8250-v3-v1-9-c5d36b31d66c@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 04.01.2025 02:58, Denis Mukhin via B4 Relay wrote:
 > From: Denis Mukhin <dmukhin@ford.com>
 > 
-> Updated the name to highlight the physical console input selection logic:
-> existing code does not switch only serial console, it also switches debugging
-> console (debug I/O port and console hypercall).
+> Update the symbol name to prepare for the follow on semantic change of console
+> owner identifier.
 
-Would you mind clarify what you refer to by "debug I/O port" here? I can't
-spot console_rx (which what the function alters) having any interaction with
-that. I'm also having similar trouble with the console hypercall. (The
-renaming is likely still okay to do, but I'd like to understand what I'm
-presently missing.)
+Again the rename may be okay, but I'm afraid you can't defer to future changes
+when it comes to addressing the why aspect(s).
 
 Jan
 
