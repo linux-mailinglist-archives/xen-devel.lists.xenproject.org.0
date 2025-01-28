@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67442A20BD8
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 15:17:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.878498.1288688 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A58C3A20C21
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 15:34:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.878520.1288698 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcmO4-0004mt-7t; Tue, 28 Jan 2025 14:16:20 +0000
+	id 1tcmfN-0007WP-MW; Tue, 28 Jan 2025 14:34:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 878498.1288688; Tue, 28 Jan 2025 14:16:20 +0000
+Received: by outflank-mailman (output) from mailman id 878520.1288698; Tue, 28 Jan 2025 14:34:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcmO4-0004km-4v; Tue, 28 Jan 2025 14:16:20 +0000
-Received: by outflank-mailman (input) for mailman id 878498;
- Tue, 28 Jan 2025 14:16:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tcmfN-0007TK-Jc; Tue, 28 Jan 2025 14:34:13 +0000
+Received: by outflank-mailman (input) for mailman id 878520;
+ Tue, 28 Jan 2025 14:34:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=SSIY=UU=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
- id 1tcmO1-0004kd-Rx
- for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 14:16:18 +0000
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
- [85.215.255.21]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6e01e073-dd82-11ef-99a4-01e77a169b0f;
- Tue, 28 Jan 2025 15:16:13 +0100 (CET)
-Received: from sender by smtp.strato.de (RZmta 51.2.17 AUTH)
- with ESMTPSA id D0534410SEFrwAY
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Tue, 28 Jan 2025 15:15:53 +0100 (CET)
+ (envelope-from <SRS0=jygh=UU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tcmfM-0007TE-AJ
+ for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 14:34:12 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f0335d76-dd84-11ef-a0e6-8be0dac302b0;
+ Tue, 28 Jan 2025 15:34:10 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-aaedd529ba1so818297366b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 06:34:10 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5dc18619346sm7259833a12.8.2025.01.28.06.34.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 28 Jan 2025 06:34:09 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,196 +45,334 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e01e073-dd82-11ef-99a4-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; t=1738073753; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=SOyMQAtIzj+RwSIcSg6QjiBnex3xT1Ok5vYE8Jag6yer446ZEiuZ4BgL5U7zBnAv/X
-    GueasaoSUJqeup+3hol84AS4h3VQfaVKyIBusPFY1v9Hk3lbzupHovqfr3g1jathHEQH
-    z9KXzncSzZAMiYxk8dtNWF1BmfS03rEs5w8HpukKXMnwzZfypNCVRkyn67Rnf1GY9T1W
-    M9xhWMSSVwOqPKKbi/GuN9xkZ0cHzxvxRn7Xvpe0BAjFsD33TExNugCMzErwk7VgoORd
-    QNG22PxZAYeD2XG26JwL9jsVlDaF9bjrbp5SyDt2eWDZkVRvNCRi/LG4S7ouPO8IU+HB
-    fMGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1738073753;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-ID:Subject:Cc:To:From:Date:Cc:Date:From:Subject:Sender;
-    bh=6+FFDMnFMkrA8wSKIFiEbNLT+sTX2ENPHcGK1OU85ZQ=;
-    b=GaMGSgR7TgkvNQEH34iKmvWlh3A08beaWVaHay+wwgxNFHSLR9tY9/FVXDc6gI2F5w
-    408zIR7x9bTOt5MR/fp/9BUyKgagiXM6VbaIQjaoM7UDYZpm06VztaDmrhOFuMIL+q3I
-    qgkjv30wXjCiz1Jfh2AfvTytF2Wcq5Ilz7SVDMHK8JXtg4BxIeOzZZQ/pQYpWHrwnoNe
-    XV2VYK6i2Kkg153S33aB2Mfea58mqcbPN7zNMGXZK34gQzyA6bJ7HICcPxWVhhw2p2xR
-    iyrli/a9W5QJQ2Cqege7eKZzMqdHqMqVQi3Ehcqymar4yNtjMmJxkWbOdM4TDudMqbn5
-    8KRw==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1738073753;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=Message-ID:Subject:Cc:To:From:Date:Cc:Date:From:Subject:Sender;
-    bh=6+FFDMnFMkrA8wSKIFiEbNLT+sTX2ENPHcGK1OU85ZQ=;
-    b=E+Tv7aCOWB1/OhUhrS7xsRQeiH6XduGJG+OuK3jutS/X00zL1caFicCfrlYUWh7WFr
-    jOk8eFqiPQiNwIKsL4dNulrHtSI5WWfllInD8bH4A2JYfSc/CDo5EucwGnuM0hzEh4+z
-    +dBoibm5+NcCRSVbO7Pn345BHv5O0Fwy+dvQaqdRGZ30hXsyqCS6pproEjy/44AVHjlB
-    WiFXCG9PWv3z89OcxU5auFwghC/ZPJYf9Ye20snA7atfgbhbxvXSr0jWdZX+SE9eXV5j
-    0ECv6Xa8bksz2qNRXReEpINrt5BXDsORl3CcefL4UKniQlGRVE+78W+CC0Nqj87Zvl0k
-    a37w==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1738073753;
-    s=strato-dkim-0003; d=aepfle.de;
-    h=Message-ID:Subject:Cc:To:From:Date:Cc:Date:From:Subject:Sender;
-    bh=6+FFDMnFMkrA8wSKIFiEbNLT+sTX2ENPHcGK1OU85ZQ=;
-    b=DTnr2/AyUXOJF0komU3MnoVlPvFGTpzEJDnPfFNnYS4WnGzIPUdTAiJvSdrNQwZY7p
-    3DSVayn8QMVlPaQJk9CA==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OmD4uXd0fmxSoJ8/RK6b07KGriu4yBf+6JptMSdiuOzXC/d"
-Date: Tue, 28 Jan 2025 15:15:44 +0100
-From: Olaf Hering <olaf@aepfle.de>
-To: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
-Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, jgross@suse.com,
- Anthony PERARD <anthony@xenproject.org>, Paul Durrant <paul@xen.org>
-Subject: slow start of Pod HVM domU with qemu 9.1
-Message-ID: <20250128151544.26fc827d.olaf@aepfle.de>
-X-Mailer: Claws Mail (olh) 20240408T134401.7adfa8f7 hat ein Softwareproblem, kann man nichts machen.
+X-Inumbo-ID: f0335d76-dd84-11ef-a0e6-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1738074850; x=1738679650; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=FrOZuR8YN0J8NFphtjvgsh/CUngd3QXSCk7CgN8cugs=;
+        b=WmRscV78Ycme0AW2qx2ukEoRBaJN5xOCWJfpUXQgdsDTp2S+PMq3HN6rZ6r6DXFUYP
+         BNEmX3NFYh4ADzi/Ak+8YTBxImTvysCWfuyO4T+ykj/xohSe8vYZ7llCspkYlWagMC/Q
+         TicaXNCUWVVS6b9ukoxXZ7tP9OuZgrQ7YJpt0tK2i8fVZKr0B596vf1mXplTGNUCbdLu
+         dxjjulD18oAPracrPyTdRWJPYDKr9GR2VblbuZs/dS7vd+7aeXyvADtZzoty3gMEgUkN
+         ZDKda+z4cvyqSPAlvh/R69qWRNpNl36OUaldsAM3CdjrgjWOrJLv5T5Z444EIDSTHO6a
+         WoVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1738074850; x=1738679650;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FrOZuR8YN0J8NFphtjvgsh/CUngd3QXSCk7CgN8cugs=;
+        b=OmU9ZxxyUSpEq4QdHeThnRTkk0s8k3szLlpWJDYkKrR5866a6cWKOMA1lrAUJUc58j
+         FP0Ow161/8pJ8aonrIeUpVHRTVWDfw42tqVmZG5PuCbGH6zizQYBcNVIwBee9mu6h8DI
+         mnUldtjK3srSjP2P6uxJoANBOOqwhq2/2sPUMpZV7/Mm6E2XnoIOQ7qif3kannYSTqON
+         KYTyl9Yhs8/A12dzmMvCImXuIrOcs8FRm2WcL4e4nicHFTxeEO8FnARIPSAwzsG+Tyva
+         JuSDfN9KtEjWOhxkT79kcAAfSdjpZJP4uV73yXeXuzw4yhwidopU0mdmkJ4SjquSqr4Y
+         1UOA==
+X-Forwarded-Encrypted: i=1; AJvYcCUNs2oQXfAmar89TpQAQbqsJIQ1+EflAnbRhChlg8eGMHW8TqBQpu8tqlzzy5iooeYWQU/O03qRMR8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YximcJ/KvHSngVexpCQ87XlO6nCN14+5GgsRCr253CljaCx9vtU
+	8Sl18wryotE95riaga+NBkuR34Yt8iaUkIfL08h9EPD8CfDcfU8HPi2XOxCb+A==
+X-Gm-Gg: ASbGncsPxVzvkDSJmxSoitXX18VvX+dnA7mwRYwqsCQt6O2w4jpSNwp1EoRAkCQZcre
+	5fl0dSwS0XmqJesb+Az8RK5FgngFGsWhJadvQ2Hg1ecrzlAbkBaKceY2s2aEsvnd7i7VpQBChAz
+	+OcZ3RMSIuSoqHnwOJlK7Ken2xkLKjQmlSMwv2snbtGpoosTU00zzZVgQZ38QXa72uA7vvx/Hke
+	eenaiIn24wYw0DtDUS8g409qzaHq94bMsbVqDF1hmoERN6Obt3pCjILlmRK0Ewxoc+Rkgmo470c
+	8BDUmPUoHLopSJgPmLB7Y+GPrIMJfEFGX9Vf9OkggAb/w17rQ5+eHtGpLMeic3FoGhEpsjVGhe8
+	K
+X-Google-Smtp-Source: AGHT+IH2LZ4wexQGoBvT0Bz50LBdt2EJehB9n5V/+aQJuFTdvEdgAazb532fr5rclg/mJhO1NKbQ4g==
+X-Received: by 2002:a05:6402:2745:b0:5d0:bf5e:eb8 with SMTP id 4fb4d7f45d1cf-5db7db07846mr100313182a12.23.1738074849867;
+        Tue, 28 Jan 2025 06:34:09 -0800 (PST)
+Message-ID: <e9a5af87-a80e-464c-bd67-8509dfac1d18@suse.com>
+Date: Tue, 28 Jan 2025 15:34:08 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/3_gYOUqZaZS0d84viqP81qM";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 07/24] xen/console: introduce framework for UART
+ emulators
+To: dmukhin@ford.com
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20250103-vuart-ns8250-v3-v1-0-c5d36b31d66c@ford.com>
+ <20250103-vuart-ns8250-v3-v1-7-c5d36b31d66c@ford.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250103-vuart-ns8250-v3-v1-7-c5d36b31d66c@ford.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
---Sig_/3_gYOUqZaZS0d84viqP81qM
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+On 04.01.2025 02:58, Denis Mukhin via B4 Relay wrote:
+> From: Denis Mukhin <dmukhin@ford.com>
+> 
+> Introduce a driver framework to abstract UART emulators in the hypervisor.
+> 
+> That allows for architecture-independent handling of virtual UARTs from Xen
+> console driver and simplifies enabling new architecture-dependent UART
+> emulators.
+> 
+> The framework is built under CONFIG_HAS_VUART, which is automatically enabled
+> once the user selects a specific UART emulator.
+> 
+> All domains w/ enabled vUART will have VIRTDEV_UART bit set in
+> d->arch.emulation_flags.
+> 
+> Current implementation supports maximum of one vUART per domain, excluding
+> emulators for hardware domains.
+> 
+> Use domain_has_vuart() in Xen console driver code to check whether the
+> domain can own the physical console focus.
 
-Hello,
+Purely from how it is spelled out here this looks wrong: A domain having a
+vUART may not necessarily imply it may also own console focus. Imo the two
+need to be treated separately (perhaps even involving XSM), with it merely
+being a prereq to have a vUART in order to possible also own console focus.
 
-starting with qemu 9.1 a PoD HVM domU takes a long time to start.
-Depending on the domU kernel, it may trigger a warning, which prompted me
-to notice this change in behavior:
+> --- a/xen/arch/arm/dom0less-build.c
+> +++ b/xen/arch/arm/dom0less-build.c
+> @@ -785,7 +785,7 @@ static int __init construct_domU(struct domain *d,
+>       */
+>      if ( kinfo.vpl011 )
+>      {
+> -        rc = domain_vpl011_init(d, NULL);
+> +        rc = virtdev_uart_init(d, NULL);
 
-[    0.000000] Linux version 4.12.14-120-default (geeko@buildhost) (gcc ver=
-sion 4.8.5 (SUSE Linux) ) #1 SMP Thu Nov 7 16:39:09 UTC 2019 (fd9dc36)
-...
-[    1.096432] HPET: 3 timers in total, 0 timers will be used for per-cpu t=
-imer
-[    1.101636] hpet0: at MMIO 0xfed00000, IRQs 2, 8, 0
-[    1.104051] hpet0: 3 comparators, 64-bit 62.500000 MHz counter
-[   16.136086] random: crng init done
-[   31.712052] BUG: workqueue lockup - pool cpus=3D1 node=3D0 flags=3D0x0 n=
-ice=3D0 stuck for 30s!
-[   31.716029] Showing busy workqueues and worker pools:
-[   31.721164] workqueue events: flags=3D0x0
-[   31.724054]   pwq 2: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D2/2=
-56
-[   31.728000]     in-flight: 17:balloon_process
-[   31.728000]     pending: hpet_work
-[   31.728023] workqueue mm_percpu_wq: flags=3D0x8
-[   31.732987]   pwq 2: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D1/2=
-56
-[   31.736000]     pending: vmstat_update
-[   31.736024] pool 2: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 hung=3D30s wo=
-rkers=3D2 idle: 34
-[   50.400102] clocksource: Switched to clocksource xen
-[   50.441153] VFS: Disk quotas dquot_6.6.0
-...
+Like I said for the public header, "virt" as in "virtdev" is ambiguous.
+Is there anything wrong with calling this function vuart_init()? While
+you may say that the 'v' in there is then as ambiguous, I think that's
+not actually the case.
 
-With qemu 9.0 and older, this domU will start the /init task after 8 second=
-s.
+> @@ -891,7 +891,7 @@ void __init create_domUs(void)
+>               * d->arch.vpl011.irq. So the logic to find the vIRQ has to
+>               * be hardcoded.
+>               * The logic here shall be consistent with the one in
+> -             * domain_vpl011_init().
+> +             * vpl011_init().
+>               */
 
-The change which caused this commit is qemu.git commit 9ecdd4bf08dfe4a37e16=
-b8a8b228575aff641468
-Author:     Edgar E. Iglesias <edgar.iglesias@amd.com>
-AuthorDate: Tue Apr 30 10:26:45 2024 +0200
-Commit:     Edgar E. Iglesias <edgar.iglesias@amd.com>
-CommitDate: Sun Jun 9 20:16:14 2024 +0200
+Since you relaxed the tying to vpl011 in the earlier hunk, why is the
+tight connection being retained here?
 
-    xen: mapcache: Add support for grant mappings
+> @@ -30,10 +31,7 @@ static int handle_vuart_init(struct domain *d,
+>                               struct xen_domctl_vuart_op *vuart_op)
+>  {
+>      int rc;
+> -    struct vpl011_init_info info;
+> -
+> -    info.console_domid = vuart_op->console_domid;
+> -    info.gfn = _gfn(vuart_op->gfn);
+> +    struct virtdev_uart_params info;
+>  
+>      if ( d->creation_finished )
+>          return -EPERM;
+> @@ -41,8 +39,11 @@ static int handle_vuart_init(struct domain *d,
+>      if ( vuart_op->type != XEN_DOMCTL_VUART_TYPE_VPL011 )
+>          return -EOPNOTSUPP;
+>  
+> -    rc = domain_vpl011_init(d, &info);
+> +    info.console_domid = vuart_op->console_domid;
+> +    info.gfn = _gfn(vuart_op->gfn);
+> +    info.evtchn = (evtchn_port_t)-1;
 
-As you can see, v4 instead of v5 was apparently applied.
-This was probably unintentional, but would probably not change the result.
+Where's the literal -1 coming from? Port 0 being guaranteed invalid, that's
+what we normally use as sentinel. (It's also unclear why the field needs
+setting now, when it wasn't set before.)
 
-With this change the domU starts fast again:
+Also: Can't all three fields be set in the variable's initializer?
 
---- a/hw/xen/xen-mapcache.c
-+++ b/hw/xen/xen-mapcache.c
-@@ -522,6 +522,7 @@ ram_addr_t xen_ram_addr_from_mapcache(void *ptr)
-     ram_addr_t addr;
-=20
-     addr =3D xen_ram_addr_from_mapcache_single(mapcache, ptr);
-+    if (1)
-     if (addr =3D=3D RAM_ADDR_INVALID) {
-         addr =3D xen_ram_addr_from_mapcache_single(mapcache_grants, ptr);
-     }
-@@ -626,6 +627,7 @@ static void xen_invalidate_map_cache_entry_single(MapCa=
-che *mc, uint8_t *buffer)
- static void xen_invalidate_map_cache_entry_all(uint8_t *buffer)
- {
-     xen_invalidate_map_cache_entry_single(mapcache, buffer);
-+    if (1)
-     xen_invalidate_map_cache_entry_single(mapcache_grants, buffer);
- }
-=20
-@@ -700,6 +702,7 @@ void xen_invalidate_map_cache(void)
-     bdrv_drain_all();
-=20
-     xen_invalidate_map_cache_single(mapcache);
-+    if (0)
-     xen_invalidate_map_cache_single(mapcache_grants);
- }
-=20
-I did the testing with libvirt, the domU.cfg equivalent looks like this:
-maxmem =3D 4096
-memory =3D 2048
-maxvcpus =3D 4
-vcpus =3D 2
-pae =3D 1
-acpi =3D 1
-apic =3D 1
-viridian =3D 0
-rtc_timeoffset =3D 0
-localtime =3D 0
-on_poweroff =3D "destroy"
-on_reboot =3D "destroy"
-on_crash =3D "destroy"
-device_model_override =3D "/usr/lib64/qemu-9.1/bin/qemu-system-i386"
-sdl =3D 0
-vnc =3D 1
-vncunused =3D 1
-vnclisten =3D "127.0.0.1"
-vif =3D [ "mac=3D52:54:01:23:63:29,bridge=3Dbr0,script=3Dvif-bridge" ]
-parallel =3D "none"
-serial =3D "pty"
-builder =3D "hvm"
-kernel =3D "/bug1236329/linux"
-ramdisk =3D "/bug1236329/initrd"
-cmdline =3D "console=3DttyS0,115200n8 quiet ignore_loglevel""
-boot =3D "c"=20
-disk =3D [ "format=3Dqcow2,vdev=3Dhda,access=3Drw,backendtype=3Dqdisk,targe=
-t=3D/bug1236329/sles12sp5.qcow2" ]
-usb =3D 1
-usbdevice =3D "tablet"
+> @@ -783,6 +788,12 @@ void domain_vpl011_deinit(struct domain *d)
+>          XFREE(vpl011->backend.xen);
+>  }
+>  
+> +static void cf_check vpl011_dump(struct domain *d)
+> +{
+> +}
 
-Any idea what can be done to restore boot times?
+If at all possible, can we try to avoid having empty handler functions.
+Putting NULL there and having the caller check is generally preferable,
+at least from cf_check perspective.
 
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -30,6 +30,7 @@
+>  #include <xen/vpci.h>
+>  #include <xen/nospec.h>
+>  #include <xen/vm_event.h>
+> +#include <xen/virtdev-uart.h>
+>  #include <asm/shadow.h>
+>  #include <asm/hap.h>
+>  #include <asm/current.h>
 
-Olaf
+Why would this be needed at this time?
 
---Sig_/3_gYOUqZaZS0d84viqP81qM
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
+> --- a/xen/drivers/Makefile
+> +++ b/xen/drivers/Makefile
+> @@ -5,3 +5,4 @@ obj-$(CONFIG_HAS_VPCI) += vpci/
+>  obj-$(CONFIG_HAS_PASSTHROUGH) += passthrough/
+>  obj-$(CONFIG_ACPI) += acpi/
+>  obj-$(CONFIG_VIDEO) += video/
+> +obj-$(CONFIG_HAS_VUART) += virtdev-uart.o
 
------BEGIN PGP SIGNATURE-----
+I'm unconvinced we want any C files directly under drivers/.
 
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmeY5pAACgkQ86SN7mm1
-DoCFOw//W5Fcozw9uIT8fIzv1P9oQEP/KA/H4M25Z1+GmV9jQE2Teo6ycS7FkL0+
-ule3smRYAOS5JOeCuQaomUVMbbMZl8LWOnYKl0cGO6Z+WPWgam6Z0B1Qnkba2KwJ
-OWxVewxsDL2LgvBc+B7aw4BYhxtcMQq0DhFqr/9BdFFJmvI7q3iOTyfh8WzoJGXH
-uGS53lWtxKf8xS3ZrdlEP0hZJpveFlaMENw1DS9fWvV04TuBQYxnUhQt1uBg0kVg
-5ZLlB1W8+gsaHzH9PZuBB0kzmQiYmOQV4KuQw9Yxs5oRvJiiZADvTi2kXmk8ihp3
-+DCF1aSk4piqqap1uCgYu7Xow2pd7p8SbpMXh7qjdAN3yqbaJ46hC6cOad/RsMFC
-1k8zMSmRuB/zs0Pd0g/ZlPrBk5YMsIth0H9405qYnOcDL2zN+9u614GyZkDhd+JW
-POXsphk0ZNPju5ZeVNtQWCRJtGu2LzEVxYziSqoQl9gFT4BYoPzCAKI/Gg5XAQFZ
-w9tPJ2mxyiStXStazMIZPcYovMjVxPNB7rPVNUkoHedqIGqHtXJMICLkN3jvub9D
-NmrUJvklZp/lMY7qoDL8RZ0H1NYYZ0ycs+LB4LVoILZQk18YrJFT3scyFF3ImpaC
-1pYwbfYbh/RBwIu6tQoPRYMy/03XwQubbr77j+NbK9JjjSG0Kv8=
-=Duhj
------END PGP SIGNATURE-----
+> --- /dev/null
+> +++ b/xen/drivers/virtdev-uart.c
+> @@ -0,0 +1,60 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +
+> +#include <xen/errno.h>
+> +#include <xen/event.h>
+> +#include <xen/virtdev-uart.h>
+> +#include <public/virtdev.h>
+> +
+> +extern const struct virtdev_uart *__start_virtdev_uart;
 
---Sig_/3_gYOUqZaZS0d84viqP81qM--
+Imo this wants to be an array from the very beginning, no matter that
+for now you expect the array to have just (at most) one element.
+
+> +int virtdev_uart_init(struct domain *d, struct virtdev_uart_params *params)
+> +{
+> +    int rc;
+> +
+> +    ASSERT(__start_virtdev_uart);
+
+What is this to guard against? If the linker script doesn't define the
+symbol, linking will fail (as the symbol isn't weak). If it does define
+it, its address will be guaranteed non-NULL. What you instead need to
+assure is for ...
+
+> +    rc = __start_virtdev_uart->init(d, params);
+
+... this de-ref to actually be within bounds (i.e. __start_virtdev_uart
+< __end_virtdev_uart at the very least).
+
+> +    if ( rc )
+> +        return rc;
+> +
+> +#if !defined(__i386__) && !defined(__x86_64__)
+> +    d->arch.emulation_flags |= VIRTDEV_UART;
+> +#endif
+
+This isn't how emulation_flags has been used so far: The field is set
+once, and then isn't further modified. Question is what you mean to
+achieve by setting this conditionally. Depending on that it may be
+possible to suggest alternatives.
+
+> --- a/xen/include/xen/domain.h
+> +++ b/xen/include/xen/domain.h
+> @@ -54,6 +54,9 @@ void arch_get_domain_info(const struct domain *d,
+>  
+>  #define is_domain_direct_mapped(d) ((d)->cdf & CDF_directmap)
+>  #define is_domain_using_staticmem(d) ((d)->cdf & CDF_staticmem)
+> +#define domain_has_vuart(d) \
+> +    ( IS_ENABLED(CONFIG_HAS_VUART) && \
+> +      (d)->arch.emulation_flags & VIRTDEV_UART )
+
+Nit: Parentheses around the & operation, to separate it from the && one.
+
+As to the IS_ENABLED(): If you look at how CDF_staticmem and
+CDF_directmap you'll find that we conditionally #define them to zero
+when the respective CONFIG_* isn't / aren't enabled. That would be nice
+to have here, too.
+
+> --- /dev/null
+> +++ b/xen/include/xen/virtdev-uart.h
+> @@ -0,0 +1,72 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +#ifndef XEN__VIRTDEV_UART_H
+> +#define XEN__VIRTDEV_UART_H
+> +
+> +#include <public/xen.h>
+> +#include <public/event_channel.h>
+> +#include <xen/types.h>
+> +
+> +struct virtdev_uart_params {
+> +    domid_t console_domid;
+> +    gfn_t gfn;
+> +    evtchn_port_t evtchn;
+> +};
+> +
+> +struct virtdev_uart {
+> +    int (*putchar)(struct domain *d, char c);
+> +    int (*init)(struct domain *d, struct virtdev_uart_params *params);
+> +    void (*exit)(struct domain *d);
+> +    void (*dump)(struct domain *d);
+> +};
+> +
+> +#define VIRTDEV_UART_REGISTER(x) \
+> +    static const struct virtdev_uart *x##_entry \
+> +           __used_section(".data.virtdev.uart") = \
+> +    &(const struct virtdev_uart){ \
+> +        .init    = x ## _init, \
+> +        .exit    = x ## _exit, \
+> +        .dump    = x ## _dump, \
+> +        .putchar = x ## _putchar, \
+> +    }
+
+Why the extra level of indirection? Can't the section consist of instances
+of struct virtdev_uart rather than pointers to such?
+
+> +#ifdef CONFIG_HAS_VUART
+> +
+> +int virtdev_uart_putchar(struct domain *d, char c);
+> +int virtdev_uart_init(struct domain *d, struct virtdev_uart_params *params);
+> +void virtdev_uart_exit(struct domain *d);
+> +void virtdev_uart_dump(struct domain *d);
+> +
+> +#else
+> +
+> +static inline int virtdev_uart_putchar(struct domain *d, char c)
+> +{
+> +    ASSERT_UNREACHABLE();
+> +    return -ENODEV;
+> +}
+> +
+> +static inline int virtdev_uart_init(struct domain *d,
+> +                                    struct virtdev_uart_params *params)
+> +{
+> +    return 0;
+> +}
+> +
+> +static inline void virtdev_uart_exit(struct domain *d)
+> +{
+> +}
+> +
+> +static inline void virtdev_uart_dump(struct domain *d)
+> +{
+> +}
+
+Are all of these stubs really needed? The sole putchar call site suggests
+the stub isn't needed (as the call will be DCE'd by the compiler). The
+dump invocation likely also wants guarding by a domain_has_vuart() check.
+Perhaps also the exit one.
+
+At least for the dump hook it would also be quite desirable if it could
+have a pointer-to-const parameter.
+
+Jan
 
