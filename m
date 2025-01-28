@@ -2,56 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6236A21470
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 23:35:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.878804.1288997 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B64EA21558
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Jan 2025 00:59:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.878815.1289008 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcuAi-0000YX-Np; Tue, 28 Jan 2025 22:35:04 +0000
+	id 1tcvTO-0001nJ-BS; Tue, 28 Jan 2025 23:58:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 878804.1288997; Tue, 28 Jan 2025 22:35:04 +0000
+Received: by outflank-mailman (output) from mailman id 878815.1289008; Tue, 28 Jan 2025 23:58:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcuAi-0000WP-LG; Tue, 28 Jan 2025 22:35:04 +0000
-Received: by outflank-mailman (input) for mailman id 878804;
- Tue, 28 Jan 2025 22:35:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tcvTO-0001l4-8J; Tue, 28 Jan 2025 23:58:26 +0000
+Received: by outflank-mailman (input) for mailman id 878815;
+ Tue, 28 Jan 2025 23:58:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LT9m=UU=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1tcuAh-0000WH-MS
- for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 22:35:03 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20609.outbound.protection.outlook.com
- [2a01:111:f403:2418::609])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1c72f579-ddc8-11ef-99a4-01e77a169b0f;
- Tue, 28 Jan 2025 23:35:01 +0100 (CET)
-Received: from MN0PR03CA0021.namprd03.prod.outlook.com (2603:10b6:208:52f::35)
- by CH3PR12MB9316.namprd12.prod.outlook.com (2603:10b6:610:1ce::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8377.22; Tue, 28 Jan
- 2025 22:34:56 +0000
-Received: from BN1PEPF0000468D.namprd05.prod.outlook.com
- (2603:10b6:208:52f:cafe::b6) by MN0PR03CA0021.outlook.office365.com
- (2603:10b6:208:52f::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8377.24 via Frontend Transport; Tue,
- 28 Jan 2025 22:34:56 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN1PEPF0000468D.mail.protection.outlook.com (10.167.243.138) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8398.14 via Frontend Transport; Tue, 28 Jan 2025 22:34:56 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 28 Jan
- 2025 16:34:55 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 28 Jan
- 2025 16:34:55 -0600
-Received: from [172.25.15.116] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 28 Jan 2025 16:34:54 -0600
+ <SRS0=hG5x=UU=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1tcvTN-0001ky-HD
+ for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 23:58:25 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c15f592f-ddd3-11ef-a0e6-8be0dac302b0;
+ Wed, 29 Jan 2025 00:58:23 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 90AA85C61F3;
+ Tue, 28 Jan 2025 23:57:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEE92C4CED3;
+ Tue, 28 Jan 2025 23:58:19 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,158 +41,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1c72f579-ddc8-11ef-99a4-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NxdgHDd4R3LzGBjfVMj6KguK+og0kLJp2h0ym5ZcyrzzmHT4HHKCUOiU9g2IpqfDMaLdXY31eHsQjsP8uGj5cl8T9KT8Hbhx2+w80XxuG+Q2jF9A+ANvUQxub9JZu9Ut3Rt8lTWZsyaE8KtBmb7Go53WZBi22n8ZAGQkTmaYZn37i90KcR2IhyNL864T3RFZ4lhxZo+PrlFES4jza/Nx7hkDrevz8IyryhHRP57bt9qEs7GYrfD91Z7uBdiZdoACmhqp54cETzTOVTlM+TYZ12Z9MZ09OsBZKzLALrNin3ZHhHBiJ/nrT2JtCvXMai8vzx7IHFYqFy1/8tFekEzfAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kjREZM+WkORLLCFukDoPY3JgX+OtpvlTGAO9r4XIFo0=;
- b=keWZ7KOqni0HIMBBN09LhzWmWL9m6nNr8f7PEZuKPFM/uOiFzVqtTwrIw5GQ8BGkWB34kxsmW+DCsgW5Ceim9/WU1JrnHTl+t9x1hGrMT8wk0hMTgzpdqhCJwplhBH0yM//PUrIEu3qorsuJ5mCzwiKaHrTxxIrILbXd0MJguYigqOLz+j1hUkRyqOeQURqy2JFmzO5yfLX5r2hJgwBsZBQeaaD2KNp7IDh8m9N1qsWCAplpFNeRVf/PRtk0QWcQUwOQRktMLWJ7NkdNcp0vQhwzEVFIZs0krwjfi+pzyERgpTmM5aoh0ZaMtGUDEWIPjQQkgibYJse6BgH8JKR+WA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=ford.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kjREZM+WkORLLCFukDoPY3JgX+OtpvlTGAO9r4XIFo0=;
- b=xduY/EfC10DVvQE+Z5KjauCv6J6UlFikF83uW0+P9pyTtMyg5Jcfgp8HQvZtlrli63zpeay83+j2WQama/40oKc12TmVjhXpuZ+XhZnngsYNFHvoiPUT6seG5oj56uH6qRAOfEnG0mqSM1mjAvbuFijjx3dc7pm0893FEnStEAI=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <d58cfd92-cd73-4a7f-8660-6a235ae887e5@amd.com>
-Date: Tue, 28 Jan 2025 17:34:56 -0500
+X-Inumbo-ID: c15f592f-ddd3-11ef-a0e6-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1738108701;
+	bh=WDIVgVXSZ73AxmTdh3o1mK6CERItzEu65S4Nz9OpFa4=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=T/d4+n1QaAdHRw4QQ5sRgj/vhtBhy4T6EUP4Wq2AVzgPlmLy7jXTf+UP8hfNHni6p
+	 A3jVKyutIKqBmDg36X7jNZtIn2Et4Wb+c99yEDGLDcasTJhspUomwMt0EOOwrJx/Vl
+	 Qu/8pGMceoM9DmmHsGpDVerUd8eoUfZ/O/cxy9VSUyTD2lOF6mK2C4aDwYvaR8+Pk/
+	 yK3zfeA7qyysrjBa4sM6XQhfuR69ER1xXASGVHdn5ZoG5qQXXhkK3MEQgp9ujLf3++
+	 0LTDTukJBkH08EHB8iV4QtdQxdbdVJ5T9sub9N9NL7wKzZq+NJ8kXtGOSeZVeNGkFb
+	 Y0U0gjLczRDeg==
+Date: Tue, 28 Jan 2025 15:58:14 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+cc: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org, 
+    sstabellini@kernel.org, jgross@suse.com, 
+    Anthony PERARD <anthony@xenproject.org>, Paul Durrant <paul@xen.org>, 
+    jbeulich@suse.com, andrew.cooper3@citrix.com, roger.pau@citrix.com
+Subject: Re: slow start of Pod HVM domU with qemu 9.1
+In-Reply-To: <Z5j-bkdFZ7riavv7@zapote>
+Message-ID: <alpine.DEB.2.22.394.2501281543580.3264561@ubuntu-linux-20-04-desktop>
+References: <20250128151544.26fc827d.olaf@aepfle.de> <Z5j-bkdFZ7riavv7@zapote>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 19/24] xen/8250-uart: add missing definitions
-To: <dmukhin@ford.com>, <xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, Michal Orzel <michal.orzel@amd.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, "Jan
- Beulich" <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>
-References: <20250103-vuart-ns8250-v3-v1-0-c5d36b31d66c@ford.com>
- <20250103-vuart-ns8250-v3-v1-19-c5d36b31d66c@ford.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <20250103-vuart-ns8250-v3-v1-19-c5d36b31d66c@ford.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB05.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF0000468D:EE_|CH3PR12MB9316:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5219ca82-bd43-4aab-fb65-08dd3febfd97
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|376014|82310400026|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?OUtSUnFXdEhldDF1SzFiQWtMa1dWODYzd2Y5dC9UVHljcE9YQmwrNCszSU5V?=
- =?utf-8?B?NUplSjd4K05OSnY1MXRrb29ab2V0NG1FalhKOG10NzlsSDVFeFNJdjRlV3JB?=
- =?utf-8?B?c2VDaEp4dmY5N1lPYmlVZjRmM3JiOVhaMFc2U21IOXJWYmRsWnhqa0txS1p6?=
- =?utf-8?B?TWFRZ2UrZDdJZ1JTb1BtR2RsVXl0dW1ES0pWYnJ3M1JyVTVyRGh1WWd4a2pm?=
- =?utf-8?B?TStlbjR0RytZN21lZ1JQR2JrbkxTdnF5ZThJeDdRMDE1TVdLNytkR0llVXZL?=
- =?utf-8?B?Q2owWkNzS2h1bWc1bnIxZmEvdVhVbmlLaWNLZTRJNEVEZWUvYTJwNnJWaW1S?=
- =?utf-8?B?UXRpd0lCY0JFWnRMa0NKWEk5cHVKcVRMdVJ1VjFrT1hzb2tvTkJVU05oWDJ6?=
- =?utf-8?B?bUNkMWhmZVM3N0tlWWJmZFN5YkFUUTBGbnJpcUV1ZFpYb1I1cXBhZGJaVmhI?=
- =?utf-8?B?YU5OZkF4RDVBZnZsWTg0Y0hwRkNHbWVQOWVEZFk2dWYyMmpHNWFxeE5tSU96?=
- =?utf-8?B?cjZoa3l1WThDZytCWnYrQnRPQUYvWnFaSkg3MTA0aERhWms0SG1nb3NUN2xl?=
- =?utf-8?B?Rm5wMUYza0d2QytiUjM1dnJFRWdlS3pMYVNkSFhiQlQ4WDR3VStiWGJpZG1y?=
- =?utf-8?B?UWJobkpuWitDdUhWVmxnNzJvRnJCbmYrMURBNXF5Y3I2T3ZyM0F3aU0xd2RV?=
- =?utf-8?B?bGpRZFAycCtTQTRuaHVrVm92QVB3d2hWNjdMY1dmbE9LZWhZcWxadjYvRjJk?=
- =?utf-8?B?cERUd0pINFZxN1pHbjBaSmhkTFkzSkFOWGJOeUJpY1lab3dwcERleVZXWXFD?=
- =?utf-8?B?T011Y0I2dzl2ckNLVHR6VXZ5YmdQY1hselhqSlp5Vlhodk5iUTNITWU5Mk5Y?=
- =?utf-8?B?UUh4eStzRTUzaUt4amo2TFRyNnc5UmdGMlozbFZFZEJ2M2JrRjAvTEFId0g1?=
- =?utf-8?B?eDlkUU9mS29DMFltWW1DeWtPV1ZIR0JjYXZ2UkJlMlFnR0xGSDRiNzQvbzQr?=
- =?utf-8?B?WnFSdzR4QUpiOHdkNkVFczRtQU5rb2x0enQzTm5sV0VMZUxZZi9oK2Q2V3I3?=
- =?utf-8?B?MGtRcWlpTEQ5ZXRYb0VlL2x6SzZkMnRBemh5My9yYmYyTkI5R0kzaU4yNXpE?=
- =?utf-8?B?dkhVb3Z2QU40TC9LcTJQc1BsOG5DOXp5NXNvVUtRSUhheldEbXBESXJkNm5o?=
- =?utf-8?B?bDZ3c1FxMUdNcUVMWHdIQ04rby9CaXkrTW82eXhaYTNrY1J0b2w3ZU8vdHZJ?=
- =?utf-8?B?bnd2WXlYK2RDSFMwUXhGQk4xcjFGZUVKTDhnUWlydVdJSkR0R1Z5WWJvemR0?=
- =?utf-8?B?ckpUMlZFaHlxeEgxZHZtTkRxYW5FcTZrcFdQN0tpMDN4RGVxRzZJaXcwWEJ4?=
- =?utf-8?B?QmpscDdCTlJDUk13TmsrYnYrQTAzNVJDTzYzYlRGM05uaFM3ZlpEOGhQbDU5?=
- =?utf-8?B?M1BRMFZ2ZmhaTGgxblNoTVYrR2YvTTVvVDU0dFJiTDA1d3VZNm5XU1RDdzBa?=
- =?utf-8?B?eXRXSUh5STk2Mlh3M2VUbU9BWmsyODZBaC9nSGFtOWJRVXdsMkRUYXhkbS9L?=
- =?utf-8?B?RTBqdFBxdmZlUEZxZnJha1FZY2E1NkpoUDBSU1lVZGZpNFBlVjFGSitWSlNW?=
- =?utf-8?B?NDJzNXpIdjFmQzJpMzkvK3dmY2pRc1pteWs5YTBsVzZOeFBUTS9KdTFGUXdl?=
- =?utf-8?B?ajBFVG5QaGRSNlFEWU1qSHVQNCtjUjE2bVZ4MjJqNHhsMWdJdFhUT2VYWHJs?=
- =?utf-8?B?Sy82cWpqbU1pdjBseWRwNFZLQ2V4TEI5ZWVWblM3Q051aXFpd3owdlZ2WEx6?=
- =?utf-8?B?Z3NDMXM2dmlLMVhFUGQvZ2piaDYrNnpKdC9jZ001MVJzbVVOWXdhTlNtMzhH?=
- =?utf-8?B?dllBU3FRUEZ3NGp5Vjh6Qk9tU2FmTVY2aFlVbGg5ekw1dGJJcWJGS3BQM3pV?=
- =?utf-8?B?UDVYUktRb21PNVlGdmF4WForcFZ0NHIxcnNsNVJ6dnhGV2o3VnF4a1h2Wk1E?=
- =?utf-8?Q?jpcCgLMlyM/S95cg5P6KRsLvNPDtU4=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2025 22:34:56.0313
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5219ca82-bd43-4aab-fb65-08dd3febfd97
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF0000468D.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9316
+Content-Type: text/plain; charset=US-ASCII
 
-On 2025-01-03 20:58, Denis Mukhin via B4 Relay wrote:
-> From: Denis Mukhin <dmukhin@ford.com>
+On Tue, 28 Jan 2025, Edgar E. Iglesias wrote:
+> On Tue, Jan 28, 2025 at 03:15:44PM +0100, Olaf Hering wrote:
+> > Hello,
+> > 
+> > starting with qemu 9.1 a PoD HVM domU takes a long time to start.
+> > Depending on the domU kernel, it may trigger a warning, which prompted me
+> > to notice this change in behavior:
+> > 
+> > [    0.000000] Linux version 4.12.14-120-default (geeko@buildhost) (gcc version 4.8.5 (SUSE Linux) ) #1 SMP Thu Nov 7 16:39:09 UTC 2019 (fd9dc36)
+> > ...
+> > [    1.096432] HPET: 3 timers in total, 0 timers will be used for per-cpu timer
+> > [    1.101636] hpet0: at MMIO 0xfed00000, IRQs 2, 8, 0
+> > [    1.104051] hpet0: 3 comparators, 64-bit 62.500000 MHz counter
+> > [   16.136086] random: crng init done
+> > [   31.712052] BUG: workqueue lockup - pool cpus=1 node=0 flags=0x0 nice=0 stuck for 30s!
+> > [   31.716029] Showing busy workqueues and worker pools:
+> > [   31.721164] workqueue events: flags=0x0
+> > [   31.724054]   pwq 2: cpus=1 node=0 flags=0x0 nice=0 active=2/256
+> > [   31.728000]     in-flight: 17:balloon_process
+> > [   31.728000]     pending: hpet_work
+> > [   31.728023] workqueue mm_percpu_wq: flags=0x8
+> > [   31.732987]   pwq 2: cpus=1 node=0 flags=0x0 nice=0 active=1/256
+> > [   31.736000]     pending: vmstat_update
+> > [   31.736024] pool 2: cpus=1 node=0 flags=0x0 nice=0 hung=30s workers=2 idle: 34
+> > [   50.400102] clocksource: Switched to clocksource xen
+> > [   50.441153] VFS: Disk quotas dquot_6.6.0
+> > ...
+> > 
+> > With qemu 9.0 and older, this domU will start the /init task after 8 seconds.
+> > 
+> > The change which caused this commit is qemu.git commit 9ecdd4bf08dfe4a37e16b8a8b228575aff641468
+> > Author:     Edgar E. Iglesias <edgar.iglesias@amd.com>
+> > AuthorDate: Tue Apr 30 10:26:45 2024 +0200
+> > Commit:     Edgar E. Iglesias <edgar.iglesias@amd.com>
+> > CommitDate: Sun Jun 9 20:16:14 2024 +0200
+> > 
+> >     xen: mapcache: Add support for grant mappings
+> > 
+> > As you can see, v4 instead of v5 was apparently applied.
+> > This was probably unintentional, but would probably not change the result.
 > 
-> Added missing definitions needed for NS8250 UART emulator.
+> Hi Olaf,
 > 
-> Re-used newly introduced MSR definitions in the existing ns16550 driver.
+> It looks like v8 was applied, or am I missing something?
 > 
-> Also, fixed indentation in a comment for FCR register.
 > 
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> ---
->   xen/drivers/char/ns16550.c  |  6 ++--
->   xen/include/xen/8250-uart.h | 78 +++++++++++++++++++++++++++++++++------------
->   2 files changed, 60 insertions(+), 24 deletions(-)
+> > 
+> > With this change the domU starts fast again:
+> > 
+> > --- a/hw/xen/xen-mapcache.c
+> > +++ b/hw/xen/xen-mapcache.c
+> > @@ -522,6 +522,7 @@ ram_addr_t xen_ram_addr_from_mapcache(void *ptr)
+> >      ram_addr_t addr;
+> >  
+> >      addr = xen_ram_addr_from_mapcache_single(mapcache, ptr);
+> > +    if (1)
+> >      if (addr == RAM_ADDR_INVALID) {
+> >          addr = xen_ram_addr_from_mapcache_single(mapcache_grants, ptr);
+> >      }
+> > @@ -626,6 +627,7 @@ static void xen_invalidate_map_cache_entry_single(MapCache *mc, uint8_t *buffer)
+> >  static void xen_invalidate_map_cache_entry_all(uint8_t *buffer)
+> >  {
+> >      xen_invalidate_map_cache_entry_single(mapcache, buffer);
+> > +    if (1)
+> >      xen_invalidate_map_cache_entry_single(mapcache_grants, buffer);
+> >  }
+> >  
+> > @@ -700,6 +702,7 @@ void xen_invalidate_map_cache(void)
+> >      bdrv_drain_all();
+> >  
+> >      xen_invalidate_map_cache_single(mapcache);
+> > +    if (0)
+> >      xen_invalidate_map_cache_single(mapcache_grants);
+> >  }
+> >  
+> > I did the testing with libvirt, the domU.cfg equivalent looks like this:
+> > maxmem = 4096
+> > memory = 2048
+> > maxvcpus = 4
+> > vcpus = 2
+> > pae = 1
+> > acpi = 1
+> > apic = 1
+> > viridian = 0
+> > rtc_timeoffset = 0
+> > localtime = 0
+> > on_poweroff = "destroy"
+> > on_reboot = "destroy"
+> > on_crash = "destroy"
+> > device_model_override = "/usr/lib64/qemu-9.1/bin/qemu-system-i386"
+> > sdl = 0
+> > vnc = 1
+> > vncunused = 1
+> > vnclisten = "127.0.0.1"
+> > vif = [ "mac=52:54:01:23:63:29,bridge=br0,script=vif-bridge" ]
+> > parallel = "none"
+> > serial = "pty"
+> > builder = "hvm"
+> > kernel = "/bug1236329/linux"
+> > ramdisk = "/bug1236329/initrd"
+> > cmdline = "console=ttyS0,115200n8 quiet ignore_loglevel""
+> > boot = "c" 
+> > disk = [ "format=qcow2,vdev=hda,access=rw,backendtype=qdisk,target=/bug1236329/sles12sp5.qcow2" ]
+> > usb = 1
+> > usbdevice = "tablet"
+> > 
+> > Any idea what can be done to restore boot times?
 > 
+> 
+> A guess is that it's taking a long time to walk the grants mapcache
+> when invalidating (in QEMU). Despite it being unused and empty. We
+> could try to find a way to keep track of usage and do nothing when
+> invalidating an empty/unused cache.
 
-> diff --git a/xen/include/xen/8250-uart.h b/xen/include/xen/8250-uart.h
-> index d13352940c13c50bac17d4cdf2f3bf584380776a..6d1af31d582a3dd674a401d7f649e28c889cdc3e 100644
-> --- a/xen/include/xen/8250-uart.h
-> +++ b/xen/include/xen/8250-uart.h
+If mapcache_grants is unused and empty, the call to
+xen_invalidate_map_cache_single(mapcache_grants) should be really fast?
 
-> @@ -51,12 +54,19 @@
->   #define UART_IIR_THR      0x02    /*  - tx reg. empty     */
->   #define UART_IIR_MSI      0x00    /*  - MODEM status      */
->   #define UART_IIR_BSY      0x07    /*  - busy detect (DW) */
-> +#define UART_IIR_FE       0xC0    /* FIFO enabled (2 bits) */
->   
->   /* FIFO Control Register */
-> -#define UART_FCR_ENABLE   0x01    /* enable FIFO          */
-> -#define UART_FCR_CLRX     0x02    /* clear Rx FIFO        */
-> -#define UART_FCR_CLTX     0x04    /* clear Tx FIFO        */
-> -#define UART_FCR_DMA      0x10    /* enter DMA mode       */
+I think probably it might be the opposite: mapcache_grants is utilized,
+so going through all the mappings in xen_invalidate_map_cache_single
+takes time.
 
-0x10 is bit 4...
+However, I wonder if it is really needed. At least in the PoD case, the
+reason for the IOREQ_TYPE_INVALIDATE request is that the underlying DomU
+memory has changed. But that doesn't affect the grant mappings, because
+those are mappings of other domains' memory.
 
-> +#define UART_FCR_ENABLE     BIT(0, U)   /* enable FIFO          */
-> +#define UART_FCR_CLRX       BIT(1, U)   /* clear Rx FIFO        */
-> +#define UART_FCR_CLTX       BIT(2, U)   /* clear Tx FIFO        */
-> +#define UART_FCR_DMA        BIT(3, U)   /* enter DMA mode       */
+So I am thinking whether we should remove the call to
+xen_invalidate_map_cache_single(mapcache_grants) ?
 
-Now it's 0x08.  Is this a bug fix?  Looks like UART_FCR_DMA is unused.
-
-Regards,
-Jason
-
-> +#define UART_FCR_RESERVED0  BIT(4, U)   /* reserved; always 0   */
-> +#define UART_FCR_RESERVED1  BIT(5, U)   /* reserved; always 0   */
-> +#define UART_FCR_RTB0       BIT(6, U)   /* receiver trigger bit #0 */
-> +#define UART_FCR_RTB1       BIT(7, U)   /* receiver trigger bit #1 */
-> +#define UART_FCR_TRG_MASK   (UART_FCR_RTB0 | UART_FCR_RTB1)
-> +
->   #define UART_FCR_TRG1     0x00    /* Rx FIFO trig lev 1   */
->   #define UART_FCR_TRG4     0x40    /* Rx FIFO trig lev 4   */
->   #define UART_FCR_TRG8     0x80    /* Rx FIFO trig lev 8   */
-
+Adding x86 maintainers: do we need to flush grant table mappings for the
+PV backends running in QEMU when Xen issues a IOREQ_TYPE_INVALIDATE
+request to QEMU?
 
