@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 598CEA20C5E
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 15:56:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.878546.1288727 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86D9EA20CAE
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2025 16:10:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.878556.1288737 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcn0N-00037m-Sw; Tue, 28 Jan 2025 14:55:55 +0000
+	id 1tcnEP-0005vK-1v; Tue, 28 Jan 2025 15:10:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 878546.1288727; Tue, 28 Jan 2025 14:55:55 +0000
+Received: by outflank-mailman (output) from mailman id 878556.1288737; Tue, 28 Jan 2025 15:10:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcn0N-00035O-QO; Tue, 28 Jan 2025 14:55:55 +0000
-Received: by outflank-mailman (input) for mailman id 878546;
- Tue, 28 Jan 2025 14:55:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tcnEO-0005tD-VQ; Tue, 28 Jan 2025 15:10:24 +0000
+Received: by outflank-mailman (input) for mailman id 878556;
+ Tue, 28 Jan 2025 15:10:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jygh=UU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tcn0M-00035G-4R
- for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 14:55:54 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f7aded1a-dd87-11ef-99a4-01e77a169b0f;
- Tue, 28 Jan 2025 15:55:51 +0100 (CET)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-aa66c1345caso271984666b.3
- for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 06:55:51 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab6760fbe92sm800028866b.131.2025.01.28.06.55.50
+ (envelope-from <SRS0=p3hs=UU=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1tcnEM-0005t7-RA
+ for xen-devel@lists.xenproject.org; Tue, 28 Jan 2025 15:10:22 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fe0cf39e-dd89-11ef-a0e6-8be0dac302b0;
+ Tue, 28 Jan 2025 16:10:21 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-385d7f19f20so2959193f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 07:10:21 -0800 (PST)
+Received: from [192.168.69.151] (88-187-86-199.subs.proxad.net.
+ [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38c2a1c402esm14561306f8f.97.2025.01.28.07.10.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Jan 2025 06:55:50 -0800 (PST)
+ Tue, 28 Jan 2025 07:10:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,137 +45,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f7aded1a-dd87-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: fe0cf39e-dd89-11ef-a0e6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738076151; x=1738680951; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7DKF9GhoQrHwtEPC7q2CRYlIVUo0o6yRv3V2OPPdXck=;
-        b=Q325kpWwvBBVs7lKbGRGZ1WGWpH3GKe5c+Fqzvjd9prNxTWUDJzl8p9GCY6KazYIvX
-         zppQvjkBYJ4B2r0OCMXhfFrsMZfX2iZgOnGOTQ2ZfsPia1PWvtqXBlWsN4xnwSggbziD
-         1HyPSYJ6pSl4XR9wdTaIcKpGt4kkrP4zei0k+NIqENlxxMYLAtW5rosp+B44vbShPOHQ
-         17DWwOtfs7kTazTWyxceZeRebz61j7cdJpVAZeeNnfQD4twwPj+slCYlMgaX/smxcelC
-         1dlPYbKGshSARWaUF8+CMcsVhvo1vHEoOGUHBgn3awrZuHdKGDwA8kken62d7UZcs1pR
-         LS6w==
+        d=linaro.org; s=google; t=1738077021; x=1738681821; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ViM+rjZUgxvbfxwTZxZKl7dD2XoHFDnQHFMIYBVWG2o=;
+        b=Jc7LKc7d2evkXQVhtyyua8mXB/9d5D0SHZ6HVDAIciiPe0S0TnJcOVU4O9KBQzNxzr
+         zZ7Q5NNFy8cOdLXTs7ouKZgBXriMYBmWs7el8z6vTlfFu+iuUQd5fyZHm/uUiEg0DnDB
+         bx9hMrtXlXOSI5h/1c8sWWOh/3sDGDHRkiP7secrt31lD9zi7UmzHn0x15F+jcVpAYXq
+         HlhLw64CrhyDL7wJgXf+bd/uJuBAoYexYmt5/Ow0ArgtD2+uwZ6j6t9x5yBQ3RTlzBzO
+         Tt+aFfA3yyHw+Pb5dayWku48OMzGXjBBSMv4s1olbHUQooXvbp6A41xKFVQ90MmaodDs
+         fZZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738076151; x=1738680951;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7DKF9GhoQrHwtEPC7q2CRYlIVUo0o6yRv3V2OPPdXck=;
-        b=L20ItEesEP2Kx67mH6S+zSQwaQZiR+I5AxkVIB60rg4nGEfUtTolbasolsLsNqPFh8
-         dqPrHR+zt5QpPwEWVTXHhb1IYfR2ZyRK0t2tIJOnYOiyG2Cls7ReliATsbWVhwZMSPnT
-         YIaIz7SLYS5AonNcLtuMgbKjq4fujF9nkH+AkrWfkuMQjW2a8a25YsFeR/KCldQQsZmy
-         ExODFV8MV0z4T52DRbCso96I8xd8SoPOluBdpIFq8bWdyLNpP0Hitq4IVzp+iCeUY1xK
-         tF1H22Aun3uXw6OsxPXvwlQgWOP3vpnRW3drrcEZnhcoAWcULzOhA0K38J84xdEmg0r5
-         PTug==
-X-Forwarded-Encrypted: i=1; AJvYcCUygvnJT27L4+fKrcIrpa6jigDTv6mQSnBsrJbPYqE2S7TxC5GNHH7HCT35ZBAm0wn2yC5k8eZdoc8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxA3i4hRVF3M9B2FiTpL7l0fimh9g0jcf+WK33JNOagooYEG0eb
-	NJHyxh0/juCHCBkSL+AFUX0zzQ6zEMoBG6md7sjVMrTcxM9m05r2yZkMrrzFLA==
-X-Gm-Gg: ASbGncsYHKlsho4yDLEtne6kkxaXwQT+RMsJI/5xGM3b0B3+p09zaV74SBsAax6EWFK
-	Em4I7NUKOB2AfR7a/cOBfks4926QfpSnToXWIBrTf1JTHSLcabOKSFbPgyWYy1zKHSpKy7ubK+1
-	XwTTsp0TFSOPU75KD9hj67nJU0dHhG/uTQgQTP9QVAzCJm+/xOoPEcOqchXL7O3VOesAfhm0+GI
-	sCEZ15X4t+gB/ptJwj7DCNu55acfZyD2Te44gnljEqGmyjXliDfSm/r6SEjWfgLUhlpfEzj9T+d
-	mfbAL8aoJVAKhGBhZjk+F9nrjOVKVD+RfGSCCZmrPguZK+OJ+tA1mI/ErbAtLRsMQqbdHxCzggU
-	r
-X-Google-Smtp-Source: AGHT+IFyfu1kscEgbfSZwh3r0b3vQ4Lm/q180GZfN52ySA5lBJqKZPeCFMmF/zcD0kgfg2baN57tDg==
-X-Received: by 2002:a17:907:7e92:b0:aab:eefc:92e5 with SMTP id a640c23a62f3a-ab38b1f33e1mr3987559866b.14.1738076151247;
-        Tue, 28 Jan 2025 06:55:51 -0800 (PST)
-Message-ID: <e899f63b-6182-4b53-9fb4-9a821e75648b@suse.com>
-Date: Tue, 28 Jan 2025 15:55:49 +0100
+        d=1e100.net; s=20230601; t=1738077021; x=1738681821;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=ViM+rjZUgxvbfxwTZxZKl7dD2XoHFDnQHFMIYBVWG2o=;
+        b=Qtbe/Ug0YaOWSXs4v7ClXVGBu0kghkDLN7TJMPNnUuKsWx5PZLikHPLEDw28TbJlT2
+         OX6Lal/zCPhidtqANgA+zUtOCz2feR6FLNoXMLQwcOT8OibfCLA7mIvtJe1VZnDqdFxV
+         I/rDV1E1388Y2sIRV5BaeVPYfY5KqQiljk/qMll0j61FNFkSTg2fNsUFmN92jdbk5HZ6
+         vwsPjDDCvLrfh5QDgR19p0wZoBaW47a3zBHzauqGZs1GqIhoxkinxiEJvACX1X3Ihnm5
+         1wrBokoAOONqfb/CiP0Jn5+C5pVclUwJt9Ly1PIO1vLBLl2O2WRz3aVU+bVmz045JL5m
+         vw1A==
+X-Forwarded-Encrypted: i=1; AJvYcCXZZubHtnN8ShXEKtU2j736ZgSzEjwXkijT5+FvSGKf4ZdG6fRsqMAXP12bJ7fERw53+xpztjJdR6g=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzkRf/wy6VicL/faudfxA1i8f2dwIHhVH0MzpTOd8CGyIEvWvzH
+	BTjTl2Y3t22s/Zs6i4Qh+tQfHMLCxQWq0KN/7f1ei6utWMEH2C0MKa/+y+o20X4=
+X-Gm-Gg: ASbGncvz1jb0G6JfgU/Qf+vMtGcDG7JNE81c157+sVaW8bXGYjjUsEq/bFAlvGfJk1h
+	VXtrfVg9Zsudbl1SNy9i8XHSAwf4oQekMIk+/dK0lzppWYb7t5aB77ANpOadFZVNSLwmAR438mS
+	caKh1h/vomK/4ehnSEeQ2Gy0AjzgWK3yb9Bu7vwKdMs8xiSDDCn7nYwRD21TRXbBtS5zF0uKecb
+	3QlUiXYFFPi/pkXiJSJXcpkJn7Dd0J92p4d4NcAlGau9MzVePN+XMkXfKAXrVN2NiV7BJKLTL1u
+	w0uTJ0Mr0vVVGyTke+Lk/UG0f5/UXpZaP6yZ7nbkxu8p3z31s8+89VyVdos=
+X-Google-Smtp-Source: AGHT+IGLc4A5clvj21CfoQyBX6F3omCt6bWQLv3EkWi0U+JM0LkNEZMv50192jgozkl7S+UQxS3FRg==
+X-Received: by 2002:a05:6000:18a9:b0:38a:86fe:52dc with SMTP id ffacd0b85a97d-38c3b0cbb61mr9689447f8f.13.1738077020863;
+        Tue, 28 Jan 2025 07:10:20 -0800 (PST)
+Message-ID: <990dacab-6cfd-4a18-944d-ba076a80996c@linaro.org>
+Date: Tue, 28 Jan 2025 16:10:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 10/24] xen/console: introduce use of 'is_console' flag
-To: dmukhin@ford.com
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20250103-vuart-ns8250-v3-v1-0-c5d36b31d66c@ford.com>
- <20250103-vuart-ns8250-v3-v1-10-c5d36b31d66c@ford.com>
+Subject: Re: [PATCH 0/9] hw/sysbus/platform-bus: Introduce
+ TYPE_DYNAMIC_SYS_BUS_DEVICE
+To: BALATON Zoltan <balaton@eik.bme.hu>,
+ Peter Maydell <peter.maydell@linaro.org>
+Cc: Gerd Hoffmann <kraxel@redhat.com>, qemu-devel@nongnu.org,
+ Yi Liu <yi.l.liu@intel.com>, Markus Armbruster <armbru@redhat.com>,
+ Eduardo Habkost <eduardo@habkost.net>,
+ Anthony PERARD <anthony@xenproject.org>,
+ Gustavo Romero <gustavo.romero@linaro.org>, Jason Wang
+ <jasowang@redhat.com>, qemu-ppc@nongnu.org,
+ "Michael S. Tsirkin" <mst@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ Alexander Graf <graf@amazon.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Stefan Berger <stefanb@linux.vnet.ibm.com>,
+ Bernhard Beschow <shentey@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ xen-devel@lists.xenproject.org, Marcel Apfelbaum
+ <marcel.apfelbaum@gmail.com>, Alex Williamson <alex.williamson@redhat.com>,
+ Paul Durrant <paul@xen.org>,
+ =?UTF-8?Q?Cl=C3=A9ment_Mathieu--Drif?= <clement.mathieu--drif@eviden.com>,
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@redhat.com>
+References: <20250125181343.59151-1-philmd@linaro.org>
+ <wkb53fhvfchqa4uvmifgitvcr7t7rfpc3hcohdhzczkzvktetx@yjveswjel3s4>
+ <CAFEAcA-QOYcnJi=joKHbRmUCXK1UFOgQRgYP-fDq4h_1SkMGyQ@mail.gmail.com>
+ <2893a552-ca6c-01c4-dcc0-6107ccf1c7b5@eik.bme.hu>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250103-vuart-ns8250-v3-v1-10-c5d36b31d66c@ford.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <2893a552-ca6c-01c4-dcc0-6107ccf1c7b5@eik.bme.hu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 04.01.2025 02:58, Denis Mukhin via B4 Relay wrote:
-> From: Denis Mukhin <dmukhin@ford.com>
+On 28/1/25 13:57, BALATON Zoltan wrote:
+> On Tue, 28 Jan 2025, Peter Maydell wrote:
+>> On Tue, 28 Jan 2025 at 10:42, Gerd Hoffmann <kraxel@redhat.com> wrote:
+>>>
+>>> On Sat, Jan 25, 2025 at 07:13:34PM +0100, Philippe Mathieu-Daudé wrote:
+>>>> Some SysBus devices can optionally be dynamically plugged onto
+>>>> the sysbus-platform-bus (then virtual guests are aware of
+>>>> mmio mapping and IRQs via device tree / ACPI rules).
+>>>
+>>> Do we have some sane way to have user-pluggable sysbus devices on arm?
+>>
+>> The answer in a general sense is "no, because user pluggable
+>> sysbus is a weird idea". "sysbus" means "it's wired into a
+>> specific bit of the memory map and to specific IRQs, and whoever
+>> does that needs to know what IRQs and bits of memory are usable,
+>> and the guest OS needs to know it's there". "user-pluggable" means
+>> "it's all automatic and the guest can just do some kind of
+>> probing for what is or isn't present". All the platform bus stuff
+>> is a nasty mess that's working around the things people want
+>> to plug in not being clean devices on probeable buses :-(
+>> And the platform bus is only supported on the "virt" board,
+>> because that's the only one where QEMU is generating its
+>> own dtb or ACPI tables where it can tell the guest "hey,
+>> there's some device here".
+> 
+> There are some SoCs that have memory mapped devices but different 
+> versions in the same family have different devices. Either older ones 
+> missing some devices or have less USB or network ports while newer SoCs 
+> have more of those or they have PCIe instead of PCI. Modelling these 
+> could use pluggable sysbus devices so one could add the devices needed 
+> for a SoC version without having to write or modify a board code. I 
+> think Bernhard's attempt to try creating e500 SoCs from a device tree 
+> goes in that direction too. We could also model this by having a SoC 
+> that can instantiate devices based on some properties but maybe 
+> pluggable devices could be more generic for this. The issue seems to be 
+> how to tell the board or SoC where to map it and what IRQ to connect it 
+> as this is done by the board and not the device so properties on the 
+> device to set these does not really help unless the board can somehow 
+> query it and instantiate the devices based on that. Otherwise whatever 
+> handles the -device option to create the device would need knowledge 
+> about the board. (E.g. the e500 devices are mapped in the CCSR memory 
+> region so one can't just use system address space for them.)
 
-First: The title gives the impression that the field is never used (read)
-right now. That's not the case.
+IIRC Bernard's series takes a DTB as input and create the machine
+matching this DTB.
 
-> The code inspects d->is_console flag to decide whether the console focus
-> should move to the domain with console after administrator uses <Ctrl+aaa>
-> key combination to switch the console focus.
+As Peter explained, sysbus-platform-bus fits TYPE_DYNAMIC_SYS_BUS_DEVICE
+in free slots, then generates the corresponding ACPI/DTB.
 
-It's unclear whether this sentence describes what is the situation before
-the patch, or what the patch changes things to. (The impression I'm getting
-is that it's the latter.)
-
-> --- a/xen/arch/arm/dom0less-build.c
-> +++ b/xen/arch/arm/dom0less-build.c
-> @@ -985,7 +985,6 @@ void __init create_domUs(void)
->              panic("Error initializing LLC coloring for domain %s (rc = %d)\n",
->                    dt_node_name(node), rc);
->  
-> -        d->is_console = true;
->          dt_device_set_used_by(node, d->domain_id);
->  
->          rc = construct_domU(d, node);
-
-The flag having an existing user, what's the replacement of the setting of
-it that you drop from here? Same question then goes for the places where
-you set the flag anew.
-
-> @@ -562,8 +584,19 @@ static void __serial_rx(char c)
->          /* Deliver input to the PV shim console. */
->          rc = consoled_guest_tx(c);
->  
-> -    if ( rc )
-> -        printk(KERN_ERR "d%pd: failed to process console input: %d\n", d, rc);
-> +    switch ( rc )
-> +    {
-> +    case 0:
-> +        break;
-> +    case -EBUSY:    /* Loopback mode */
-> +    case -ENOSPC:   /* FIFO is full */
-> +        printk(KERN_WARNING "d%pd: failed to process console input: %d\n", d, rc);
-> +        break;
-> +    default:
-> +        d->is_console = false;
-> +        printk(KERN_ERR "d%pd: disabled console forwarding: %d\n", d, rc);
-> +        break;
-> +    }
-
-Nit: Blank lines between non-fall-through case blocks please.
-
-Jan
+What you describe seems closer to the QEMU Dynamic Machine project,
+following Damien's idea:
+https://lore.kernel.org/qemu-devel/20220223090706.4888-1-damien.hedde@greensocs.com/
+We are not quite there yet...
 
