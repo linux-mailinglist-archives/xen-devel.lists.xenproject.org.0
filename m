@@ -2,45 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 140FFA21C18
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Jan 2025 12:23:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.879094.1289313 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78DADA21C1A
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Jan 2025 12:24:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.879102.1289324 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1td69l-0003Yx-Iw; Wed, 29 Jan 2025 11:22:53 +0000
+	id 1td6Aq-000464-Sk; Wed, 29 Jan 2025 11:24:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 879094.1289313; Wed, 29 Jan 2025 11:22:53 +0000
+Received: by outflank-mailman (output) from mailman id 879102.1289324; Wed, 29 Jan 2025 11:24:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1td69l-0003XV-G8; Wed, 29 Jan 2025 11:22:53 +0000
-Received: by outflank-mailman (input) for mailman id 879094;
- Wed, 29 Jan 2025 11:22:52 +0000
+	id 1td6Aq-00043N-PJ; Wed, 29 Jan 2025 11:24:00 +0000
+Received: by outflank-mailman (input) for mailman id 879102;
+ Wed, 29 Jan 2025 11:23:58 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=PyJd=UV=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1td69j-0003XP-Ue
- for xen-devel@lists.xenproject.org; Wed, 29 Jan 2025 11:22:52 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [2a07:de40:b251:101:10:150:64:2])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=AXM0=UV=amd.com=Edgar.Iglesias@srs-se1.protection.inumbo.net>)
+ id 1td6Ao-000439-TJ
+ for xen-devel@lists.xenproject.org; Wed, 29 Jan 2025 11:23:58 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20617.outbound.protection.outlook.com
+ [2a01:111:f403:2417::617])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5f9a134c-de33-11ef-a0e6-8be0dac302b0;
- Wed, 29 Jan 2025 12:22:50 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id AFE231F365;
- Wed, 29 Jan 2025 11:22:49 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5DC99137DB;
- Wed, 29 Jan 2025 11:22:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id RAg8FYkPmmf4PQAAD6G6ig
- (envelope-from <jgross@suse.com>); Wed, 29 Jan 2025 11:22:49 +0000
+ id 87144ceb-de33-11ef-a0e6-8be0dac302b0;
+ Wed, 29 Jan 2025 12:23:57 +0100 (CET)
+Received: from BN0PR02CA0046.namprd02.prod.outlook.com (2603:10b6:408:e5::21)
+ by IA1PR12MB8465.namprd12.prod.outlook.com (2603:10b6:208:457::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8377.24; Wed, 29 Jan
+ 2025 11:23:53 +0000
+Received: from BN2PEPF000044A4.namprd02.prod.outlook.com
+ (2603:10b6:408:e5:cafe::39) by BN0PR02CA0046.outlook.office365.com
+ (2603:10b6:408:e5::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8398.18 via Frontend Transport; Wed,
+ 29 Jan 2025 11:23:53 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN2PEPF000044A4.mail.protection.outlook.com (10.167.243.155) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8398.14 via Frontend Transport; Wed, 29 Jan 2025 11:23:52 +0000
+Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 29 Jan
+ 2025 05:23:51 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,273 +56,211 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f9a134c-de33-11ef-a0e6-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1738149769; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=kJ+sVjc09SMmCjC36y3BSChpyhgwQ/u/jQHMHdFN9Nc=;
-	b=f7vc5PDhDRqWblW/GZdLTykMmWWjLklpvDwps0adPsGref8qZhZb3sW1yy4cxwQ99Fu5h8
-	ls8SyILmsY1GTfjutMcTrzJ/mDSUK0xRS2R96L7Pfjbf8tMf3BctFsGxR8RSgIPqrZf7TY
-	2YKH1FV2x48ldHUoU1sjVCNoCIRjuM4=
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1738149769; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=kJ+sVjc09SMmCjC36y3BSChpyhgwQ/u/jQHMHdFN9Nc=;
-	b=f7vc5PDhDRqWblW/GZdLTykMmWWjLklpvDwps0adPsGref8qZhZb3sW1yy4cxwQ99Fu5h8
-	ls8SyILmsY1GTfjutMcTrzJ/mDSUK0xRS2R96L7Pfjbf8tMf3BctFsGxR8RSgIPqrZf7TY
-	2YKH1FV2x48ldHUoU1sjVCNoCIRjuM4=
-Message-ID: <83bd90c7-8879-4462-9548-bb5b69cac39e@suse.com>
-Date: Wed, 29 Jan 2025 12:22:48 +0100
+X-Inumbo-ID: 87144ceb-de33-11ef-a0e6-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CjeEViTWqyglQUSVBd/x0vRrAGzi7Hf+dhPTvOUybrsB7Em/pctcyDHvCuttkaVGpLLtlE7Nfmk+ocbV5GPglisrbvXJgO89AoaXUR5/IJ8HozJ/Td4gT05/qpvYSSYcnYEjkAEaJwWgbqrJl/30q7c82WW7ThbiNSfSBuKycY5ah16TCq9WdgNK4xmvHANsCy299yKIRmf+MpbkLTESzgUHw5h5JkMbmgbbcqE8JEWsxy316QBOxT9phs659NQbuQz2pz1k6X5M8nnbhYyNFppUaRA9OLKm4fuWCkZrZ3avsARGxBSgnM34WDH42TvQrjqylWsgZo5MsF3iIUDeQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dI9yDiljzJ+q6XSv4LqL9UWFdllKHvicSiPtw0OJEDc=;
+ b=IPht/4RheLWbWHWwySgZKFKzPRXcnQ5g+uzLNsb7sjU07rxwKmUQYJpIXKmDDJq5iuTwidk1wTiVoSI+X1cYc8Fl3HCnO3fz2A5Kdwe6/Y9RgOIiO+LJfrSII/xG7jhGkd1yg8vOnyUCAPJn+NLiLx2e8oyleJVJfPMAqnK3dzC9QHJ87KzwKXX6cXkIUx6BekbIZtowL3qTKE+KRrVDpKYlq8za9Gx2SnfUpEK8IqIGh19dxU2Q81MWew8cPrjaFDP+FnHyhiEAeSwiwI5o1gatNgxpExLCYkF2XqtUg5ASOkIsjaOJjo+BaHdCR74UDukGEVHbUt6nTa05VwSvJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dI9yDiljzJ+q6XSv4LqL9UWFdllKHvicSiPtw0OJEDc=;
+ b=4AFHrcN1dsp+KX6qY+bTHq3qc23CFCEq2N/nf+Bjk59++fL1fmQLKvq1/cn6ToFHu9Q26KyFf9+GdWCWfZEh3c8/FHW2me0mb3pMzNL0XLbV8Epys/L8dlakCiB8n6I7AwMcvKI5yZ276hnx0zYi5sbaIQDZQ9j0OmoMVE5Qw5Y=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Date: Wed, 29 Jan 2025 12:23:46 +0100
+From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Olaf Hering <olaf@aepfle.de>,
+	<xen-devel@lists.xenproject.org>, <jgross@suse.com>, Anthony PERARD
+	<anthony@xenproject.org>, Paul Durrant <paul@xen.org>,
+	<andrew.cooper3@citrix.com>, <roger.pau@citrix.com>
+Subject: Re: slow start of Pod HVM domU with qemu 9.1
+Message-ID: <Z5oPwthxmLfIbjSE@zapote>
+References: <20250128151544.26fc827d.olaf@aepfle.de>
+ <Z5j-bkdFZ7riavv7@zapote>
+ <alpine.DEB.2.22.394.2501281543580.3264561@ubuntu-linux-20-04-desktop>
+ <b4ccccbb-f3ee-44fe-a5e2-780195cbbc0e@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: v5.4.289 failed to boot with error megasas_build_io_fusion 3219
- sge_count (-12) is out of range
-To: Harshvardhan Jha <harshvardhan.j.jha@oracle.com>,
- Greg KH <gregkh@linuxfoundation.org>
-Cc: Konrad Wilk <konrad.wilk@oracle.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
- stable@vger.kernel.org
-References: <7dc143fa-4a48-440b-b624-ac57a361ac74@oracle.com>
- <9dd91f6e-1c66-4961-994e-dbda87d69dad@oracle.com>
- <2025012919-series-chaps-856e@gregkh>
- <8eb33b38-23e1-4e43-8952-3f2b05660236@oracle.com>
- <2025012936-finalize-ducktail-c524@gregkh>
- <1f017284-1a29-49d8-b0d9-92409561990e@oracle.com>
- <2025012956-jiffy-condone-3137@gregkh>
- <1f225b8d-d958-4304-829e-8798884d9b6b@oracle.com>
-Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <1f225b8d-d958-4304-829e-8798884d9b6b@oracle.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------ATVvY1dA3DXYncI2xe3rxfCi"
-X-Spam-Score: -6.20
-X-Spamd-Result: default: False [-6.20 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SIGNED_PGP(-2.00)[];
-	NEURAL_HAM_LONG(-1.00)[-0.998];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_UNKNOWN(0.10)[application/pgp-keys];
-	MIME_BASE64_TEXT(0.10)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	RCVD_COUNT_TWO(0.00)[2];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	HAS_ATTACHMENT(0.00)[]
-X-Spam-Flag: NO
-X-Spam-Level: 
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <b4ccccbb-f3ee-44fe-a5e2-780195cbbc0e@suse.com>
+User-Agent: Mutt/2.2.12 (2023-09-09)
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A4:EE_|IA1PR12MB8465:EE_
+X-MS-Office365-Filtering-Correlation-Id: a3d63df6-0f35-45a1-d049-08dd40576940
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700013|1800799024|376014|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?LIEWNCLXSi4MEEt/57DuEfhGERtryREiVSKyGK+bppFmCh9kJ4kbum9Wj4Jr?=
+ =?us-ascii?Q?L44PAhyWlsjdyUTOPZwhNzOq84OFdV5CaoQOX8W/QQ9o4qWZEhQOHEF8CANs?=
+ =?us-ascii?Q?ms6KnuWuta2GaYd6/EzSgtX29ips9dk5YeF4Y6nBNA4IsT9TndxaxI+QGoAq?=
+ =?us-ascii?Q?8eyRu9UuOVpa24zCccMvk/244sDbg0CLTr8EyXigPDdigIliFQrfMqvygUIt?=
+ =?us-ascii?Q?Mcu1JH5TOk4Dt+5kyTYlB63ZI3vPnJrALJ0OwintG+YZwTn1XH6B4e8qqJOe?=
+ =?us-ascii?Q?C2IXIJI/TsINGxHxWxytD0ktsnoqAL4qgMuQuQl+OpDWcetn2CJj9Pqz4ahF?=
+ =?us-ascii?Q?EILAaiL73Q9jUhKipkj2mpIvcPwihJnmDZYEPN4H9I82K892V4wcLYROjnpo?=
+ =?us-ascii?Q?2javnpPPWPYvmJzGh3gycnDEu8pHV6imBE/iTlKY3z58kCkGqoY1z7wgtnG+?=
+ =?us-ascii?Q?pieAjZh1WftmLd4KSica2do2AzRB4qjVB17HBQ4NeZvgsLuRdC6Dbxq6H1dp?=
+ =?us-ascii?Q?yK8yUGifLD2mauoqVpvgbsucfI1h1BM3HfWsLbU4RzgpbfBcmKg8cmNITymq?=
+ =?us-ascii?Q?kviHKG5KQmCbpjzDSIAUDR/tcVbNnVqUcxI3YK9AiRUFXGFRm5+dtSX3GXWk?=
+ =?us-ascii?Q?qNPpcjvWqBcsLLJrZWDfDRr+MxU09ujJy7rcXoVNYDTQderOaYnWDsYSlXSw?=
+ =?us-ascii?Q?gz2kpFoiM3wIgYXn4OlUELJc/1fVSJGYLdz4i8fZRA8JqnB9YcUv3W+TjBn9?=
+ =?us-ascii?Q?aAKEUIPWlRSSw1y2COywi3HVs9RAPUjsMezYXvwWI7TbtySX4CLWQH+sGGQb?=
+ =?us-ascii?Q?gy/0CZ9qiLNp15fvMt+V3KOC6HJxMXyazxlg/SyyxWsbBt71eHb637ZDf0LX?=
+ =?us-ascii?Q?xRWqC5RgpYIiFexFIpV9bmn0fWwz06iHmU0fYSVrgYcyDCjl3KM9zykxvMhI?=
+ =?us-ascii?Q?phHkE8OaOyXmQAw88bfjNkxV5L8QRApFi/hI8aao+poMYcDrguLzWITdSZrt?=
+ =?us-ascii?Q?BkyTKbkXuH582Str6KIuuMn7R1wVXwZdR63FdLHoqlTCI9sDVe8Emv/sSLYG?=
+ =?us-ascii?Q?8zcuXfK4cIc+7+VSmkI4mg8eYwT/Y8AcEhuYrdyMSch6HoY2OKgkM+K7xA4b?=
+ =?us-ascii?Q?O7GM3hCZeNLx7AMZDnjUjWP8OQ7JqWVgfUOWngHGrvYAH7fr31sAcegobKqa?=
+ =?us-ascii?Q?jIKnbwiosG1sPxTzEaQ1CFiNOGabFyholQK2AO2wiVqY0kNzHVmSYIvgIRwC?=
+ =?us-ascii?Q?dmaF4cr7LojDXuIzGDTSgl0Nfi9S1vgGhnVbQ/GA6pemRE7oDYkT1ywtxe+z?=
+ =?us-ascii?Q?bWngMUa/2r86o/3NUPAZQpG6dG+SkVyx52GkbNpH4LMdCI19AYWmq7n0DSZr?=
+ =?us-ascii?Q?KD3z1KLpTdl2BLx9rG0inkbeGW6pmb+Kj0eDbEJj/+gIVTXeWFAjahzZyeRI?=
+ =?us-ascii?Q?GQgRNeYwcnR2w0Si7vl9xyYmr78pOCX6CcCb3VQPOeAT79mmsHLj+5khMjtW?=
+ =?us-ascii?Q?p/8MRdzpqUjBfSU=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014)(13003099007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jan 2025 11:23:52.8041
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a3d63df6-0f35-45a1-d049-08dd40576940
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF000044A4.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8465
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------ATVvY1dA3DXYncI2xe3rxfCi
-Content-Type: multipart/mixed; boundary="------------Vp4XYrfeinVwEvuNrWn450MA";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Harshvardhan Jha <harshvardhan.j.jha@oracle.com>,
- Greg KH <gregkh@linuxfoundation.org>
-Cc: Konrad Wilk <konrad.wilk@oracle.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
- stable@vger.kernel.org
-Message-ID: <83bd90c7-8879-4462-9548-bb5b69cac39e@suse.com>
-Subject: Re: v5.4.289 failed to boot with error megasas_build_io_fusion 3219
- sge_count (-12) is out of range
-References: <7dc143fa-4a48-440b-b624-ac57a361ac74@oracle.com>
- <9dd91f6e-1c66-4961-994e-dbda87d69dad@oracle.com>
- <2025012919-series-chaps-856e@gregkh>
- <8eb33b38-23e1-4e43-8952-3f2b05660236@oracle.com>
- <2025012936-finalize-ducktail-c524@gregkh>
- <1f017284-1a29-49d8-b0d9-92409561990e@oracle.com>
- <2025012956-jiffy-condone-3137@gregkh>
- <1f225b8d-d958-4304-829e-8798884d9b6b@oracle.com>
-In-Reply-To: <1f225b8d-d958-4304-829e-8798884d9b6b@oracle.com>
+On Wed, Jan 29, 2025 at 09:52:19AM +0100, Jan Beulich wrote:
+> On 29.01.2025 00:58, Stefano Stabellini wrote:
+> > On Tue, 28 Jan 2025, Edgar E. Iglesias wrote:
+> >> On Tue, Jan 28, 2025 at 03:15:44PM +0100, Olaf Hering wrote:
+> >>> With this change the domU starts fast again:
+> >>>
+> >>> --- a/hw/xen/xen-mapcache.c
+> >>> +++ b/hw/xen/xen-mapcache.c
+> >>> @@ -522,6 +522,7 @@ ram_addr_t xen_ram_addr_from_mapcache(void *ptr)
+> >>>      ram_addr_t addr;
+> >>>  
+> >>>      addr = xen_ram_addr_from_mapcache_single(mapcache, ptr);
+> >>> +    if (1)
+> >>>      if (addr == RAM_ADDR_INVALID) {
+> >>>          addr = xen_ram_addr_from_mapcache_single(mapcache_grants, ptr);
+> >>>      }
+> >>> @@ -626,6 +627,7 @@ static void xen_invalidate_map_cache_entry_single(MapCache *mc, uint8_t *buffer)
+> >>>  static void xen_invalidate_map_cache_entry_all(uint8_t *buffer)
+> >>>  {
+> >>>      xen_invalidate_map_cache_entry_single(mapcache, buffer);
+> >>> +    if (1)
+> >>>      xen_invalidate_map_cache_entry_single(mapcache_grants, buffer);
+> >>>  }
+> >>>  
+> >>> @@ -700,6 +702,7 @@ void xen_invalidate_map_cache(void)
+> >>>      bdrv_drain_all();
+> >>>  
+> >>>      xen_invalidate_map_cache_single(mapcache);
+> >>> +    if (0)
+> >>>      xen_invalidate_map_cache_single(mapcache_grants);
+> >>>  }
+> >>>  
+> >>> I did the testing with libvirt, the domU.cfg equivalent looks like this:
+> >>> maxmem = 4096
+> >>> memory = 2048
+> >>> maxvcpus = 4
+> >>> vcpus = 2
+> >>> pae = 1
+> >>> acpi = 1
+> >>> apic = 1
+> >>> viridian = 0
+> >>> rtc_timeoffset = 0
+> >>> localtime = 0
+> >>> on_poweroff = "destroy"
+> >>> on_reboot = "destroy"
+> >>> on_crash = "destroy"
+> >>> device_model_override = "/usr/lib64/qemu-9.1/bin/qemu-system-i386"
+> >>> sdl = 0
+> >>> vnc = 1
+> >>> vncunused = 1
+> >>> vnclisten = "127.0.0.1"
+> >>> vif = [ "mac=52:54:01:23:63:29,bridge=br0,script=vif-bridge" ]
+> >>> parallel = "none"
+> >>> serial = "pty"
+> >>> builder = "hvm"
+> >>> kernel = "/bug1236329/linux"
+> >>> ramdisk = "/bug1236329/initrd"
+> >>> cmdline = "console=ttyS0,115200n8 quiet ignore_loglevel""
+> >>> boot = "c" 
+> >>> disk = [ "format=qcow2,vdev=hda,access=rw,backendtype=qdisk,target=/bug1236329/sles12sp5.qcow2" ]
+> >>> usb = 1
+> >>> usbdevice = "tablet"
+> >>>
+> >>> Any idea what can be done to restore boot times?
+> >>
+> >>
+> >> A guess is that it's taking a long time to walk the grants mapcache
+> >> when invalidating (in QEMU). Despite it being unused and empty. We
+> >> could try to find a way to keep track of usage and do nothing when
+> >> invalidating an empty/unused cache.
+> > 
+> > If mapcache_grants is unused and empty, the call to
+> > xen_invalidate_map_cache_single(mapcache_grants) should be really fast?
+> > 
+> > I think probably it might be the opposite: mapcache_grants is utilized,
+> > so going through all the mappings in xen_invalidate_map_cache_single
+> > takes time.
+> > 
+> > However, I wonder if it is really needed. At least in the PoD case, the
+> > reason for the IOREQ_TYPE_INVALIDATE request is that the underlying DomU
+> > memory has changed. But that doesn't affect the grant mappings, because
+> > those are mappings of other domains' memory.
+> > 
+> > So I am thinking whether we should remove the call to
+> > xen_invalidate_map_cache_single(mapcache_grants) ?
+> > 
+> > Adding x86 maintainers: do we need to flush grant table mappings for the
+> > PV backends running in QEMU when Xen issues a IOREQ_TYPE_INVALIDATE
+> > request to QEMU?
+> 
+> Judging from two of the three uses of ioreq_request_mapcache_invalidate()
+> in x86'es p2m.c, I'd say no. The 3rd use there is unconditional, but
+> maybe wrongly so.
+> 
+> However, the answer also depends on what qemu does when encountering a
+> granted page. Would it enter it into its mapcache? Can it even access it?
+> (If it can't, how does emulated I/O work to such pages? If it can, isn't
+> this a violation of the grant's permissions, as it's targeted at solely
+> the actual HVM domain named in the grant?)
+>
 
---------------Vp4XYrfeinVwEvuNrWn450MA
-Content-Type: multipart/mixed; boundary="------------cRXte0Sy5h7PSMais8nDyUqr"
+QEMU will only map granted pages if the guest explicitly asks QEMU to
+DMA into granted pages. Guests first need to grant pages to the domain
+running QEMU, then pass a cookie/address to QEMU with the grant id. QEMU
+will then map the granted memory, enter it into a dedicated mapcache
+(mapcache_grants) and then emulate device DMA to/from the grant.
 
---------------cRXte0Sy5h7PSMais8nDyUqr
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+So QEMU will only map grants intended for QEMU DMA devices, not any grant
+to any domain.
 
-T24gMjkuMDEuMjUgMTA6MTUsIEhhcnNodmFyZGhhbiBKaGEgd3JvdGU6DQo+IA0KPiBPbiAy
-OS8wMS8yNSAyOjM0IFBNLCBHcmVnIEtIIHdyb3RlOg0KPj4gT24gV2VkLCBKYW4gMjksIDIw
-MjUgYXQgMDI6Mjk6NDhQTSArMDUzMCwgSGFyc2h2YXJkaGFuIEpoYSB3cm90ZToNCj4+PiBI
-aSBHcmVnLA0KPj4+DQo+Pj4gT24gMjkvMDEvMjUgMjoxOCBQTSwgR3JlZyBLSCB3cm90ZToN
-Cj4+Pj4gT24gV2VkLCBKYW4gMjksIDIwMjUgYXQgMDI6MTM6MzRQTSArMDUzMCwgSGFyc2h2
-YXJkaGFuIEpoYSB3cm90ZToNCj4+Pj4+IEhpIHRoZXJlLA0KPj4+Pj4NCj4+Pj4+IE9uIDI5
-LzAxLzI1IDI6MDUgUE0sIEdyZWcgS0ggd3JvdGU6DQo+Pj4+Pj4gT24gV2VkLCBKYW4gMjks
-IDIwMjUgYXQgMDI6MDM6NTFQTSArMDUzMCwgSGFyc2h2YXJkaGFuIEpoYSB3cm90ZToNCj4+
-Pj4+Pj4gSGkgQWxsLA0KPj4+Pj4+Pg0KPj4+Pj4+PiArc3RhYmxlDQo+Pj4+Pj4+DQo+Pj4+
-Pj4+IFRoZXJlIHNlZW1zIHRvIGJlIHNvbWUgZm9ybWF0dGluZyBpc3N1ZXMgaW4gbXkgbG9n
-IG91dHB1dC4gSSBoYXZlDQo+Pj4+Pj4+IGF0dGFjaGVkIGl0IGFzIGEgZmlsZS4NCj4+Pj4+
-PiBDb25mdXNlZCwgd2hhdCBhcmUgeW91IHdhbnRpbmcgdXMgdG8gZG8gaGVyZSBpbiB0aGUg
-c3RhYmxlIHRyZWU/DQo+Pj4+Pj4NCj4+Pj4+PiB0aGFua3MsDQo+Pj4+Pj4NCj4+Pj4+PiBn
-cmVnIGstaA0KPj4+Pj4gU2luY2UsIHRoaXMgaXMgcmVwcm9kdWNpYmxlIG9uIDUuNC55IEkg
-aGF2ZSBhZGRlZCBzdGFibGUuIFRoZSBjdWxwcml0DQo+Pj4+PiBjb21taXQgd2hpY2ggdXBv
-biBnZXR0aW5nIHJldmVydGVkIGZpeGVzIHRoaXMgaXNzdWUgaXMgYWxzbyBwcmVzZW50IGlu
-DQo+Pj4+PiA1LjQueSBzdGFibGUuDQo+Pj4+IFdoYXQgY3VscHJpdCBjb21taXQ/ICBJIHNl
-ZSBubyBpbmZvcm1hdGlvbiBoZXJlIDooDQo+Pj4+DQo+Pj4+IFJlbWVtYmVyLCB0b3AtcG9z
-dGluZyBpcyBldmlsLi4uDQo+Pj4gTXkgYXBvbG9naWVzLA0KPj4+DQo+Pj4gVGhlIHN0YWJs
-ZSB0YWcgdjUuNC4yODkgc2VlbXMgdG8gZmFpbCB0byBib290IHdpdGggdGhlIGZvbGxvd2lu
-ZyBwcm9tcHQgaW4gYW4gaW5maW5pdGUgbG9vcDoNCj4+PiBbICAgMjQuNDI3MjE3XSBtZWdh
-cmFpZF9zYXMgMDAwMDo2NTowMC4wOiBtZWdhc2FzX2J1aWxkX2lvX2Z1c2lvbiAzMjczIHNn
-ZV9jb3VudCAoLTEyKSBpcyBvdXQgb2YgcmFuZ2UuIFJhbmdlIGlzOiAgMC0yNTYNCj4+Pg0K
-Pj4+IFJldmVydGluZyB0aGUgZm9sbG93aW5nIHBhdGNoIHNlZW1zIHRvIGZpeCB0aGUgaXNz
-dWU6DQo+Pj4NCj4+PiBzdGFibGUtNS40wqDCoMKgwqDCoCA6IHY1LjQuMjg1wqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIC0gNWRmMjlhNDQ1ZjNhIHhlbi9zd2lvdGxiOiBhZGQNCj4+PiBh
-bGlnbm1lbnQgY2hlY2sgZm9yIGRtYSBidWZmZXJzDQo+Pj4NCj4+PiBJIHRyaWVkIGNoYW5n
-aW5nIHN3aW90bGIgZ3J1YiBjb21tYW5kIGxpbmUgYXJndW1lbnRzIGJ1dCB0aGF0IGRpZG4n
-dA0KPj4+IHNlZW0gdG8gaGVscCBtdWNoIHVuZm9ydHVuYXRlbHkgYW5kIHRoZSBlcnJvciB3
-YXMgc2VlbiBhZ2Fpbi4NCj4+Pg0KPj4gT2ssIGNhbiB5b3Ugc3VibWl0IHRoaXMgcmV2ZXJ0
-IHdpdGggdGhlIGluZm9ybWF0aW9uIGFib3V0IHdoeSBpdCBzaG91bGQNCj4+IG5vdCBiZSBp
-bmNsdWRlZCBpbiB0aGUgNS40LnkgdHJlZSBhbmQgY2M6IGV2ZXJ5b25lIGludm9sdmVkIGFu
-ZCB0aGVuIHdlDQo+PiB3aWxsIGJlIGdsYWQgdG8gcXVldWUgaXQgdXAuDQo+Pg0KPj4gdGhh
-bmtzLA0KPj4NCj4+IGdyZWcgay1oDQo+IA0KPiBUaGlzIG1pZ2h0IGJlIHJlcHJvZHVjaWJs
-ZSBvbiBvdGhlciBzdGFibGUgdHJlZXMgYW5kIG1haW5saW5lIGFzIHdlbGwgc28NCj4gd2Ug
-d2lsbCBnZXQgaXQgZml4ZWQgdGhlcmUgYW5kIEkgd2lsbCBzdWJtaXQgdGhlIG5lY2Vzc2Fy
-eSBmaXggdG8gc3RhYmxlDQo+IHdoZW4gZXZlcnl0aGluZyBpcyBzb3J0ZWQgb3V0IG9uIG1h
-aW5saW5lLg0KDQpSaWdodC4gSnVzdCByZXZlcnRpbmcgbXkgcGF0Y2ggd2lsbCB0cmFkZSBv
-bmUgZXJyb3Igd2l0aCBhbm90aGVyIG9uZSAodGhlDQpvbmUgd2hpY2ggdHJpZ2dlcmVkIG1l
-IHRvIHdyaXRlIHRoZSBwYXRjaCkuDQoNClRoZXJlIGFyZSB0d28gcG9zc2libGUgd2F5cyB0
-byBmaXggdGhlIGlzc3VlOg0KDQotIGFsbG93IGxhcmdlciBETUEgYnVmZmVycyBpbiB4ZW4v
-c3dpb3RsYiAodG9kYXkgMk1CIGFyZSB0aGUgbWF4LiBzdXBwb3J0ZWQNCiAgIHNpemUsIHRo
-ZSBtZWdhcmFpZF9zYXMgZHJpdmVyIHNlZW1zIHRvIGVmZmVjdGl2ZWx5IHJlcXVlc3QgNE1C
-KQ0KDQotIGZpeCB0aGUgbWVnYXJhaWRfc2FzIGRyaXZlciBieSBzcGxpdHRpbmcgdXAgdGhl
-IGFsbG9jYXRlZCBETUEgYnVmZmVyIChpdCBpcw0KICAgcmVxdWVzdGluZyAyLjNNQiwgd2hp
-Y2ggd2lsbCBiZSByb3VuZGVkIHVwIHRvIDRNQiAtIGl0IGlzIHByb2JhYmx5IG5vdCBuZWVk
-ZWQNCiAgIHRvIGJlIGluIG9uZSBjaHVuaywgc28gYSBzcGxpdCB3b3VsZCByZXN1bHQgaW4g
-bWF4LiAyTUIgY2h1bmsgc2l6ZSkNCg0KQm90aCB2YXJpYW50cyBoYXZlIHRoZWlyIHByb3Mg
-YW5kIGNvbnMsIHRob3VnaC4NCg0KDQpKdWVyZ2VuDQo=
---------------cRXte0Sy5h7PSMais8nDyUqr
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Details:
+https://github.com/torvalds/linux/blob/master/drivers/xen/grant-dma-ops.c
 
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
-
---------------cRXte0Sy5h7PSMais8nDyUqr--
-
---------------Vp4XYrfeinVwEvuNrWn450MA--
-
---------------ATVvY1dA3DXYncI2xe3rxfCi
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmeaD4gFAwAAAAAACgkQsN6d1ii/Ey/e
-QAf/b0DOiXqpS126jdS6Narc1sI8VN+8jDIFFn9YcdLpcys5SSyrhT1I/zwX+8wyDP3m2i/41Mq+
-VoGjfmMGL2+Be9hvUmrHVBgoHXuj+Sj2A4Vcsx0w4fm8vUfxVkYZLWlhh42OJYpq0PT/6sP6haAT
-lVulWT3Jpyx2K0UrTS3+5C55jyZkdCWAKTisAd/Wfp5rn3NUNzk7LjFAfXJFHxuPKEoLE51KT5RC
-XjANN0XT3KyslLpCLwwUGT1wkX1MxXhTHBbqK4uCxVWXsOY7OkVBrypedqFU6wqu3OIG29/6rSg8
-zSdLdLtS+Kfl7dMDEl+goVmoAUtRY3i3jqfmIhyPDQ==
-=Zw5T
------END PGP SIGNATURE-----
-
---------------ATVvY1dA3DXYncI2xe3rxfCi--
+Cheers,
+Edgar
 
