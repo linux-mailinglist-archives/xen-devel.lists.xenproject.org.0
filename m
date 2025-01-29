@@ -2,29 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5624AA2169F
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Jan 2025 04:05:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.878858.1289057 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60145A216D8
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Jan 2025 04:23:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.878868.1289067 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcyO1-0000mV-Uh; Wed, 29 Jan 2025 03:05:05 +0000
+	id 1tcyfH-0003al-D5; Wed, 29 Jan 2025 03:22:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 878858.1289057; Wed, 29 Jan 2025 03:05:05 +0000
+Received: by outflank-mailman (output) from mailman id 878868.1289067; Wed, 29 Jan 2025 03:22:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcyO1-0000kO-S5; Wed, 29 Jan 2025 03:05:05 +0000
-Received: by outflank-mailman (input) for mailman id 878858;
- Wed, 29 Jan 2025 03:05:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Wz9u=UV=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1tcyNz-0000kG-AQ
- for xen-devel@lists.xenproject.org; Wed, 29 Jan 2025 03:05:04 +0000
-Received: from mail-40131.protonmail.ch (mail-40131.protonmail.ch
- [185.70.40.131]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d414c793-dded-11ef-99a4-01e77a169b0f;
- Wed, 29 Jan 2025 04:05:01 +0100 (CET)
+	id 1tcyfH-0003Yp-AL; Wed, 29 Jan 2025 03:22:55 +0000
+Received: by outflank-mailman (input) for mailman id 878868;
+ Wed, 29 Jan 2025 03:22:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ri1h=UV=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1tcyfE-0003Yj-PH
+ for xen-devel@lists.xenproject.org; Wed, 29 Jan 2025 03:22:53 +0000
+Received: from fhigh-a8-smtp.messagingengine.com
+ (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5078404d-ddf0-11ef-a0e6-8be0dac302b0;
+ Wed, 29 Jan 2025 04:22:49 +0100 (CET)
+Received: from phl-compute-06.internal (phl-compute-06.phl.internal
+ [10.202.2.46])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id AECCD1140117;
+ Tue, 28 Jan 2025 22:22:47 -0500 (EST)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-06.internal (MEProxy); Tue, 28 Jan 2025 22:22:47 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 28 Jan 2025 22:22:45 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,154 +45,358 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d414c793-dded-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1738119899; x=1738379099;
-	bh=PyFNH2W17lpXsSxCoKNfmr4ag+ROC15HYWFDAc6sbcA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=THwOldtQxsh0qQl/YF+sO8qcqVLJE36v+ygoPGSar7cJwPOYowgHSeY+nqlgvuoU7
-	 IQoLC2nf7OrZL/K3H5fcvwxWUhUZakLgvEQR+1/ifC0vHKGWVtDzhHPSwELgdFEDbN
-	 /Al7XpLflWRxHUwVnt8UXEIzDre9Or4wVrN6Ibi/clpvgaNzyW4N0I+IApZDst3QKd
-	 xkuv78WD+1jd1ju+cz3h+BHxfwNtYk0zefWfFqISruTnYtxH0yRTzRkKI5BKk1PCJU
-	 zuxc6OEaoXec7RcDtSIkWaIqUjzSAx7bKdY1pMRO2U8hKALqoQiB3pYiKh9VqqJ6v1
-	 v8zq5k9l8huYg==
-Date: Wed, 29 Jan 2025 03:04:53 +0000
-To: Jan Beulich <jbeulich@suse.com>
-From: Denis Mukhin <dmkhn@proton.me>
-Cc: dmukhin@ford.com, Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>, Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, xen-devel@lists.xenproject.org, Denis Mukhin <dmkhn@proton.me>
-Subject: Re: [PATCH v3 15/24] xen/console: make console buffer size configurable
-Message-ID: <RKwzueYurWHDxryD0KUwTcZHRfprlyr4H0fIq4w-yV2i5uK4XfDGrWsUBgt8FnW4R-28hIjbclYcGVP62eLjfFAIwNjXzP0Qj2sajURd-8s=@proton.me>
-In-Reply-To: <d471f3b0-5638-47b3-927e-318b0575eaa3@suse.com>
-References: <20250103-vuart-ns8250-v3-v1-0-c5d36b31d66c@ford.com> <20250103-vuart-ns8250-v3-v1-15-c5d36b31d66c@ford.com> <d471f3b0-5638-47b3-927e-318b0575eaa3@suse.com>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 2c63239978f09058f3816328b8ccca303c9a2959
+X-Inumbo-ID: 5078404d-ddf0-11ef-a0e6-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1738120967;
+	 x=1738207367; bh=S7YOKlMbFES7C1wJ58+2rQQqMC0Rhv4K2F0BUr6oSnw=; b=
+	n5lqyQm93dkFYPyIRmzqEFFJVBkj6tf/CHb4DN4ebxKT4KkqrtNYKBRf8pjH7f46
+	q3HIb/K8BVHLw0oqN2C6M/3inVlPVQkqmDOcC4wlFIlP6lkNFWMy6alEidFq41aG
+	nRhEUZY2scxwS3xMVHt1ed/LHN8kb/V06rROl4KQsCxPbMjKluPr6HXfdrPWT1Fh
+	1f5ylg1Ei0wvLVWuSQKQOHnxSA74imKPpdAZ9xpqnaNZEErnP6+jhfE5546p+Ef4
+	G2WDpa4ePDXy9k5Cf/CrsEbZIPVkgaPHrya6huXrTCRTanDPt0dR/Vgd9637bFyh
+	dqv9ppWKNm6OkZLh373ptA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1738120967; x=1738207367; bh=S7YOKlMbFES7C1wJ58+2rQQqMC0Rhv4K2F0
+	BUr6oSnw=; b=l7QlGe/J/1xn8gg8+q7y5m0O3dvVLy44o4oM3fdUPw1WN+s8fTc
+	Zsu6Wpwzm6TDWnAwRf0EgMvQ28ClnDAlnGPKyGF/fg8TAp+RIaR63tPeul8PBSkb
+	+pABvy5U8H4z8u1C1I/NxXAe+xi/UVwA1av6HLJuAHJ31Q80zjk0cKtzbkW4zglz
+	KDkJvz/0HWAoEDqwUBGWR6gMjRnAcdj4sgroSZb2Jy2YUBNPDbFhBDCikemzc1X4
+	5UMLoml/bGzmIERJyNfOTLD9VhBprTCIkUSlUMXE2ovOZcjFR49qp2LZ9Iq1YIg2
+	rzfj0jjCh8WXbS6mUkRxrav47JzuikmkorA==
+X-ME-Sender: <xms:B5-ZZ2B3FkerFGiAb5rzKUieMrqRQTdeZYN8BM0YkxmCBIOp-gNfMg>
+    <xme:B5-ZZwgwRwjeIGmV2yqBnvqrsV7F8zkz-qNPE_Fd5MKvdER7H1Q3b5i8duEd-wYpK
+    gU8DyLxUj_e9g>
+X-ME-Received: <xmr:B5-ZZ5n7NqqsTzdcFFA_-UQAI0iT3f8muIX6dpB0OTSJ7XhQw-tBNGHz4WdPcyvBLe9S1vp_Kcjqye5MbArFZq2onMOyKsiqHw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdduledtucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
+    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
+    htshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeen
+    ucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomh
+    grrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggft
+    rfgrthhtvghrnhepjeffleekjefhffffvdevgeehkeeitddtieelgeejffevheduheefff
+    ekvedtjeevnecuffhomhgrihhnpehgihhthhhusgdrtghomhdpgigvnhdrohhrghenucev
+    lhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrh
+    gvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthho
+    peduvddpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohephhgvlhhgrggrsheskhgvrh
+    hnvghlrdhorhhgpdhrtghpthhtohepsghhvghlghgrrghssehgohhoghhlvgdrtghomhdp
+    rhgtphhtthhopehjghhrohhsshesshhushgvrdgtohhmpdhrtghpthhtoheprhhoghgvrh
+    drphgruhestghithhrihigrdgtohhmpdhrtghpthhtohepsghorhhishdrohhsthhrohhv
+    shhkhiesohhrrggtlhgvrdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhish
+    htshdrgigvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtoheplhhinhhugidqkhgvrhhn
+    vghlsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdhrtghpthhtoheprhgvghhrvghsshhioh
+    hnsheslhhishhtshdrlhhinhhugidruggvvhdprhgtphhtthhopehnsggusehnsggurdhn
+    rghmvg
+X-ME-Proxy: <xmx:B5-ZZ0wCZMN_56wC7NNkj2GybruKCXcX-Ev0i7B4aGWIWKB5e_0j2Q>
+    <xmx:B5-ZZ7QG-U3yF0FanDEGvLVczbmdkqJznYAMvEY0SKS1mMMnhMVj_w>
+    <xmx:B5-ZZ_Yu5LVZKUOJVzsyEfEHMsS6yAwquKOvUB07cQ_GHveWA_FGUQ>
+    <xmx:B5-ZZ0SUvoUlFcXygdAZmxlLFGMqCpaFaarw2fEcAgt2bl1nWu1dUg>
+    <xmx:B5-ZZ6ItCMh6-qcEVMcgt4SJjgrFWDFI_VsRGRnqMJCkmdSMON3vh3NJ>
+Feedback-ID: i1568416f:Fastmail
+Date: Wed, 29 Jan 2025 04:22:43 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
+	Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>, linux-pci@vger.kernel.org
+Subject: Re: Config space access to Mediatek MT7922 doesn't work after device
+ reset in Xen PV dom0 (regression, Linux 6.12)
+Message-ID: <Z5mfA32bvEn6yD-C@mail-itl>
+References: <Z5mOKQUrgeF_r6te@mail-itl>
+ <20250129030315.GA392478@bhelgaas>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="Ffsn6E5EvKfIOHmn"
+Content-Disposition: inline
+In-Reply-To: <20250129030315.GA392478@bhelgaas>
+
+
+--Ffsn6E5EvKfIOHmn
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Wed, 29 Jan 2025 04:22:43 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
+	Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>, linux-pci@vger.kernel.org
+Subject: Re: Config space access to Mediatek MT7922 doesn't work after device
+ reset in Xen PV dom0 (regression, Linux 6.12)
 
-On Tuesday, January 28th, 2025 at 8:32 AM, Jan Beulich <jbeulich@suse.com> =
-wrote:
-
+On Tue, Jan 28, 2025 at 09:03:15PM -0600, Bjorn Helgaas wrote:
+> [+cc linux-pci]
 >=20
->=20
-> On 04.01.2025 02:58, Denis Mukhin via B4 Relay wrote:
->=20
-> > From: Denis Mukhin dmukhin@ford.com
-> >=20
-> > Add new CONRING_SIZE Kconfig parameter to specify the boot console buff=
-er size
-> > in bytes. The value is rounded to the nearest power of 2 to match exist=
+> On Wed, Jan 29, 2025 at 03:10:49AM +0100, Marek Marczykowski-G=C3=B3recki=
+ wrote:
+> > On Tue, Jan 28, 2025 at 07:15:26PM -0600, Bjorn Helgaas wrote:
+> > > On Fri, Jan 17, 2025 at 01:05:30PM +0100, Marek Marczykowski-G=C3=B3r=
+ecki wrote:
+> > > > After updating PV dom0 to Linux 6.12, The Mediatek MT7922 device re=
+ports
+> > > > all 0xff when accessing its config space. This happens only after d=
+evice
+> > > > reset (which is also triggered when binding the device to the
+> > > > xen-pciback driver).
+> > >=20
+> > > Thanks for the report and for all the debugging you've already done!
+> > >=20
+> > > > Reproducer:
+> > > >=20
+> > > >     # lspci -xs 01:00.0
+> > > >     01:00.0 Network controller: MEDIATEK Corp. MT7922 802.11ax PCI =
+Express Wireless Network Adapter
+> > > >     00: c3 14 16 06 00 00 10 00 00 00 80 02 10 00 00 00
+> > > >     ...
+> > > >     # echo 1 > /sys/bus/pci/devices/0000:01:00.0/reset
+> > > >     # lspci -xs 01:00.0
+> > > >     01:00.0 Network controller: MEDIATEK Corp. MT7922 802.11ax PCI =
+Express Wireless Network Adapter
+> > > >     00: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+> > > >
+> > > > The same operation done on Linux 6.12 running without Xen works fin=
+e.
+> > > >=20
+> > > > git bisect points at:
+> > > >=20
+> > > >     commit d591f6804e7e1310881c9224d72247a2b65039af
+> > > >     Author: Bjorn Helgaas <bhelgaas@google.com>
+> > > >     Date:   Tue Aug 27 18:48:46 2024 -0500
+> > > >=20
+> > > >     PCI: Wait for device readiness with Configuration RRS
+> > > >=20
+> > > > part of that commit:
+> > > > @@ -1311,9 +1320,15 @@ static int pci_dev_wait(struct pci_dev *dev,=
+ char *reset_type, int timeout)
+> > > >                         return -ENOTTY;
+> > > >                 }
+> > > > =20
+> > > > -               pci_read_config_dword(dev, PCI_COMMAND, &id);
+> > > > -               if (!PCI_POSSIBLE_ERROR(id))
+> > > > -                       break;
+> > > > +               if (root && root->config_crs_sv) {
+> > > > +                       pci_read_config_dword(dev, PCI_VENDOR_ID, &=
+id);
+> > > > +                       if (!pci_bus_crs_vendor_id(id))
+> > > > +                               break;
+> > > > +               } else {
+> > > > +                       pci_read_config_dword(dev, PCI_COMMAND, &id=
+);
+> > > > +                       if (!PCI_POSSIBLE_ERROR(id))
+> > > > +                               break;
+> > > > +               }
+> > > > =20
+> > > >    =20
+> > > > Adding some debugging, the PCI_VENDOR_ID read in pci_dev_wait() ret=
+urns
+> > > > initially 0xffffffff. If I extend the condition with
+> > > > "&& !PCI_POSSIBLE_ERROR(id)", then the issue disappear. But reading=
+ the
+> > > > patch description, it would break VF.
+> > > > I'm not sure where the issue is, but given it breaks only when runn=
 ing
-> > conring_size=3D behavior.
+> > > > with Xen, I guess something is wrong with "Configuration RRS Softwa=
+re
+> > > > Visibility" in that case.
+> > >=20
+> > > I'm missing something.  If you get 0xffffffff, that is not the 0x0001
+> > > Vendor ID, so pci_dev_wait() should exit immediately. =20
 > >=20
-> > The supported range is [16KiB..128MiB].
-> >=20
-> > Bump default size to 32 KiB.
-> >=20
-> > Link: https://gitlab.com/xen-project/xen/-/issues/185
-> > Signed-off-by: Denis Mukhin dmukhin@ford.com
+> > I'm not sure what is going on there either, but my _guess_ is that the
+> > loop exits too early due to the above. And it makes some further actions
+> > to fail.
 >=20
->=20
-> As asked elsewhere already: How's this related to the goal of the series?
+> When RRS SV is enabled, reading PCI_VENDOR_ID should always return
+> 0x0001 (if the device isn't ready and responds with RRS status) or the
+> valid Vendor ID.  I don't think it should ever return 0xffff (unless
+> the device is powered off, unplugged, or broken, of course).
 
-I mentioned in the cover letter that there are two group of patches - conso=
-le
-driver cleanups/fixes and the follow on UART emulator (and up until v3 it w=
-as OK
-to have this patch bundled into the series).
+Maybe it isn't really enabled when Xen is involved?
+By looking at lspci of the bridge for this device, I do see RootCtl: ...
+CRSVisible+, but maybe there is something else needed too?
 
-Yes, I acknowledge that the first group of patches for console driver grew =
-big
-and probably should have been posted in its own thread.
+Just in case, full lspci -vvvs 2.2 (the bridge):
 
-I can move "console" part to its own series if it makes sense now.
 
-What do you think?
+00:02.2 PCI bridge: Advanced Micro Devices, Inc. [AMD] Phoenix GPP Bridge (=
+prog-if 00 [Normal decode])
+	Subsystem: Advanced Micro Devices, Inc. [AMD] Device 1453
+	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Steppi=
+ng- SERR- FastB2B- DisINTx+
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=3Dfast >TAbort- <TAbort- =
+<MAbort- >SERR- <PERR- INTx-
+	Latency: 0, Cache Line Size: 64 bytes
+	Interrupt: pin ? routed to IRQ 102
+	Bus: primary=3D00, secondary=3D01, subordinate=3D01, sec-latency=3D0
+	I/O behind bridge: 0000f000-00000fff [disabled] [32-bit]
+	Memory behind bridge: 90b00000-90bfffff [size=3D1M] [32-bit]
+	Prefetchable memory behind bridge: 8010900000-80109fffff [size=3D1M] [32-b=
+it]
+	Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=3Dfast >TAbort- <TAbort- =
+<MAbort+ <SERR- <PERR-
+	BridgeCtl: Parity- SERR+ NoISA- VGA- VGA16- MAbort- >Reset- FastB2B-
+		PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+	Capabilities: [50] Power Management version 3
+		Flags: PMEClk- DSI- D1- D2- AuxCurrent=3D0mA PME(D0+,D1-,D2-,D3hot+,D3col=
+d+)
+		Status: D0 NoSoftRst- PME-Enable- DSel=3D0 DScale=3D0 PME-
+	Capabilities: [58] Express (v2) Root Port (Slot+), IntMsgNum 0
+		DevCap:	MaxPayload 256 bytes, PhantFunc 0
+			ExtTag+ RBE+ TEE-IO-
+		DevCtl:	CorrErr- NonFatalErr- FatalErr- UnsupReq-
+			RlxdOrd+ ExtTag+ PhantFunc- AuxPwr- NoSnoop+
+			MaxPayload 128 bytes, MaxReadReq 512 bytes
+		DevSta:	CorrErr- NonFatalErr- FatalErr- UnsupReq- AuxPwr- TransPend-
+		LnkCap:	Port #4, Speed 16GT/s, Width x1, ASPM L1, Exit Latency L1 <64us
+			ClockPM- Surprise- LLActRep+ BwNot+ ASPMOptComp+
+		LnkCtl:	ASPM L1 Enabled; RCB 64 bytes, LnkDisable- CommClk+
+			ExtSynch+ ClockPM- AutWidDis- BWInt- AutBWInt-
+		LnkSta:	Speed 5GT/s, Width x1
+			TrErr- Train- SlotClk+ DLActive+ BWMgmt- ABWMgmt-
+		SltCap:	AttnBtn- PwrCtrl- MRL- AttnInd- PwrInd- HotPlug- Surprise-
+			Slot #0, PowerLimit 75W; Interlock- NoCompl+
+		SltCtl:	Enable: AttnBtn- PwrFlt- MRL- PresDet- CmdCplt- HPIrq- LinkChg-
+			Control: AttnInd Unknown, PwrInd Unknown, Power- Interlock-
+		SltSta:	Status: AttnBtn- PowerFlt- MRL- CmdCplt- PresDet+ Interlock-
+			Changed: MRL- PresDet- LinkState+
+		RootCap: CRSVisible+
+		RootCtl: ErrCorrectable- ErrNon-Fatal- ErrFatal- PMEIntEna+ CRSVisible+
+		RootSta: PME ReqID 0000, PMEStatus- PMEPending-
+		DevCap2: Completion Timeout: Range ABCD, TimeoutDis+ NROPrPrP- LTR+
+			 10BitTagComp+ 10BitTagReq+ OBFF Not Supported, ExtFmt+ EETLPPrefix+, Ma=
+xEETLPPrefixes 1
+			 EmergencyPowerReduction Not Supported, EmergencyPowerReductionInit-
+			 FRS- LN System CLS Not Supported, TPHComp+ ExtTPHComp- ARIFwd+
+			 AtomicOpsCap: Routing+ 32bit+ 64bit+ 128bitCAS-
+		DevCtl2: Completion Timeout: 65ms to 210ms, TimeoutDis- ARIFwd-
+			 AtomicOpsCtl: ReqEn- EgressBlck-
+			 IDOReq- IDOCompl- LTR+ EmergencyPowerReductionReq-
+			 10BitTagReq- OBFF Disabled, EETLPPrefixBlk-
+		LnkCap2: Supported Link Speeds: 2.5-16GT/s, Crosslink- Retimer+ 2Retimers=
++ DRS-
+		LnkCtl2: Target Link Speed: 5GT/s, EnterCompliance- SpeedDis-
+			 Transmit Margin: Normal Operating Range, EnterModifiedCompliance- Compl=
+ianceSOS-
+			 Compliance Preset/De-emphasis: -6dB de-emphasis, 0dB preshoot
+		LnkSta2: Current De-emphasis Level: -3.5dB, EqualizationComplete- Equaliz=
+ationPhase1-
+			 EqualizationPhase2- EqualizationPhase3- LinkEqualizationRequest-
+			 Retimer- 2Retimers- CrosslinkRes: unsupported
+	Capabilities: [a0] MSI: Enable+ Count=3D1/1 Maskable- 64bit+
+		Address: 00000000fee08000  Data: 4000
+	Capabilities: [c0] Subsystem: Advanced Micro Devices, Inc. [AMD] Device 14=
+53
+	Capabilities: [c8] HyperTransport: MSI Mapping Enable+ Fixed+
+	Capabilities: [100 v1] Vendor Specific Information: ID=3D0001 Rev=3D1 Len=
+=3D010 <?>
+	Capabilities: [270 v1] Secondary PCI Express
+		LnkCtl3: LnkEquIntrruptEn- PerformEqu-
+		LaneErrStat: 0
+	Capabilities: [2a0 v1] Access Control Services
+		ACSCap:	SrcValid+ TransBlk+ ReqRedir+ CmpltRedir+ UpstreamFwd+ EgressCtrl=
+- DirectTrans+
+		ACSCtl:	SrcValid+ TransBlk- ReqRedir+ CmpltRedir+ UpstreamFwd+ EgressCtrl=
+- DirectTrans-
+	Capabilities: [370 v1] L1 PM Substates
+		L1SubCap: PCI-PM_L1.2+ PCI-PM_L1.1+ ASPM_L1.2+ ASPM_L1.1+ L1_PM_Substates+
+			  PortCommonModeRestoreTime=3D10us PortTPowerOnTime=3D150us
+		L1SubCtl1: PCI-PM_L1.2+ PCI-PM_L1.1+ ASPM_L1.2+ ASPM_L1.1+
+			   T_CommonMode=3D10us LTR1.2_Threshold=3D166912ns
+		L1SubCtl2: T_PwrOn=3D150us
+	Capabilities: [400 v1] Data Link Feature <?>
+	Capabilities: [410 v1] Physical Layer 16.0 GT/s <?>
+	Capabilities: [440 v1] Lane Margining at the Receiver
+		PortCap: Uses Driver-
+		PortSta: MargReady- MargSoftReady-
+	Kernel driver in use: pcieport
 
 >=20
-> > --- a/docs/misc/xen-command-line.pandoc
-> > +++ b/docs/misc/xen-command-line.pandoc
-> > @@ -423,12 +423,15 @@ The following are examples of correct specificati=
-ons:
-> > com1=3Dbaud=3D115200,parity=3Dn,stop-bits=3D1,io-base=3D0x3f8,reg-width=
-=3D4
+> > > But the log at
+> > > https://github.com/QubesOS/qubes-issues/issues/9689#issuecomment-2582=
+927149
+> > > says it *doesn't* exit and eventually times out.
 > >=20
-> > ### conring_size
-> > -> `=3D <size>`
-> > +> `=3D <size-in-bytes>`
+> > Note this log is from "working" kernel, so that timeout must be
+> > something else.
 >=20
->=20
-> May I direct you to the explanations near the top of the file? <size>
->=20
-> is a uniform term throughout this document, and wants to stay like this.
->=20
-> > --- a/xen/drivers/char/Kconfig
-> > +++ b/xen/drivers/char/Kconfig
-> > @@ -96,6 +96,17 @@ config SERIAL_TX_BUFSIZE
+> I saw it was labeled "NO BUG" but I'm not sure it's labeled correctly
+> since there are no interesting messages from the "BUG PRESENT" part.
+> Awfully funny coincidence if it's unrelated.
+
+The timeout thing I have seen before, possibly also on a different
+hardware (although I'm not 100% sure), I think it's a different issue.
+
+> > > And the lspci above shows ~0 data for much of the header, even though
+> > > the device must be ready by then.
+> > >=20
+> > > I don't have any good ideas, but since the problem only happens with
+> > > Xen, and it seems to affect more than just the Vendor ID, maybe you
+> > > could instrument xen_pcibk_config_read() and see if there's something
+> > > wonky going on there?
 > >=20
-> > Default value is 32768 (32KiB).
-> >=20
-> > +config CONRING_SIZE
-> > + int "Console buffer size"
-> > + default 32768
-> > + help
-> > + Select the boot console buffer size (in bytes).
-> > + Note, the value provided will be rounded down to the nearest power of=
- 2.
-> > + Run-time console buffer size is the same as the boot console size,
-> > + unless enforced via 'conring_size=3D' boot parameter.
+> > This one is used when pcifront (from a different PV VM) is asking pciba=
+ck
+> > to read something. I see the issue even before starting any other VM and
+> > not even attaching the device to the xen-pciback driver...
 >=20
+> The report claims the problem only happens with Xen.  I'm not a Xen
+> person, and I don't know how to find the relevant config accessors.
+> The snippets of kernel messages I see at [1] all mention pciback, so
+> that's my only clue of where to look.  Bottom line, I have no idea
+> what the config accessor path is, and maybe we could learn something
+> by looking at whatever it is.
+
+AFAIK there are no separate config accessors under Xen dom0, the default
+ones are used. xen-pcifront takes over PCI config space access (and few
+more) only in a domU (and only for PV), when PCI passthrough is used.
+Here, it didn't went that far...
+
+But then, Xen may intercept such access [2]. If I read it right, it
+should allow all access (is_hardware_domain(dom0)=3D=3Dtrue, and also the
+device is not on ro_map - otherwise reset wouldn't work at all).
+
+
 >=20
-> Maybe s/enforced/overridden/ ?
->=20
-> > + Default value is 32768 (32KiB). The supported range is [16KiB..128MiB=
-].
->=20
->=20
-> Yet then there's no "range" directive.
->=20
-> > --- a/xen/drivers/char/console.c
-> > +++ b/xen/drivers/char/console.c
-> > @@ -100,12 +100,15 @@ static int cf_check parse_console_timestamps(cons=
-t char *s);
-> > custom_runtime_param("console_timestamps", parse_console_timestamps,
-> > con_timestamp_mode_upd);
-> >=20
-> > -/* conring_size: allows a large console ring than default (16kB). /
-> > +/ conring_size: allows a large console ring than default (32 KiB). */
->=20
->=20
-> As you touch this, also s/large/larger/ ?
->=20
-> > static uint32_t __initdata opt_conring_size;
-> > size_param("conring_size", opt_conring_size);
-> >=20
-> > -#define _CONRING_SIZE 16384
-> > -#define CONRING_IDX_MASK(i) ((i)&(conring_size-1))
-> > +#define _CONRING_SIZE (1UL << (31 - __builtin_clz(CONFIG_CONRING_SIZE)=
-))
-> > +_Static_assert(_CONRING_SIZE >=3D 4096 && _CONRING_SIZE <=3D MB(128),
-> > + "CONFIG_CONRING_SIZE must be in [4K..128M] range");
->=20
->=20
-> Hmm, 4k here as the lower bound, when in description and Kconfig it's
-> said to be 16k?
->=20
-> Also I fear _Static_assert() can't be used here, for not being supported
-> by all gcc versions we continue to permit being used on x86. That'll be
-> unnecessary anyway once you put in place the missing range directive in
-> Kconfig. (If something like this needed keeping, it would be
-> BUILD_BUG_ON() that you want to use instead. Which, yes, can only be
-> used inside a function. Hence why we have a number of build_assertions()
-> functions throughout the codebase.)
->=20
-> > +#define CONRING_IDX_MASK(i) ( (i) & (conring_size - 1) )
->=20
->=20
-> Once again - no blanks immediately inside parentheses, except as
-> written in ./CODING_STYLE (i.e. in control flow statements).
->=20
-> Jan
+> [1] https://github.com/QubesOS/qubes-issues/issues/9689#issuecomment-2582=
+927149
+
+[2] https://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dblob;f=3Dxen/arch/x86/p=
+v/emul-priv-op.c;h=3D70150c27227661baa253af8693ff00f2ab640a98;hb=3DHEAD#l295
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--Ffsn6E5EvKfIOHmn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmeZnwMACgkQ24/THMrX
+1yyR7Af+KIY4PA0PjnpQt79utqv7p+f3M9SfesSkZTufAXPuwmhGuJtB58kwYfuu
+YUM1w3BqfkhSKpyaFyKHtDPjvZEcFzX25swvrcYe+wMM5kdqJBp/WXWR0cROxdan
+Qws8s/JUvQFd5byOtfV+rggzfNVGE/cwwTAP49MwyQe8JFoFwUN/srj94rU8Oqm+
+Z8IYGmVYlEV5zvcFMZ+Gmxgy6U3SVpkivxMxUIClGwCEAAjqmCNoK9ZAfVN0fgOZ
+0aruISde8KcTjNpH4bUjN1EZGyqobDwlp3N8cEAcg/ULYWGYNQ8cZpLeX/1ldoTW
+Hbz0lXlbgV3Y4uege+mBuOSk4DYLmA==
+=oexv
+-----END PGP SIGNATURE-----
+
+--Ffsn6E5EvKfIOHmn--
 
