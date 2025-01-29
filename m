@@ -2,34 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 076ADA21602
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Jan 2025 02:16:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.878823.1289019 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82D7CA21603
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Jan 2025 02:16:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.878830.1289027 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcwg4-0002wd-Lx; Wed, 29 Jan 2025 01:15:36 +0000
+	id 1tcwhB-0003Qi-Tn; Wed, 29 Jan 2025 01:16:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 878823.1289019; Wed, 29 Jan 2025 01:15:36 +0000
+Received: by outflank-mailman (output) from mailman id 878830.1289027; Wed, 29 Jan 2025 01:16:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tcwg4-0002tY-Ic; Wed, 29 Jan 2025 01:15:36 +0000
-Received: by outflank-mailman (input) for mailman id 878823;
- Wed, 29 Jan 2025 01:15:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CGF7=UV=kernel.org=helgaas@srs-se1.protection.inumbo.net>)
- id 1tcwg2-0002tR-Mo
- for xen-devel@lists.xenproject.org; Wed, 29 Jan 2025 01:15:34 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 881df907-ddde-11ef-a0e6-8be0dac302b0;
- Wed, 29 Jan 2025 02:15:31 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 6AB14A4165D;
- Wed, 29 Jan 2025 01:13:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1D51C4CED3;
- Wed, 29 Jan 2025 01:15:29 +0000 (UTC)
+	id 1tcwhB-0003Oj-RA; Wed, 29 Jan 2025 01:16:45 +0000
+Received: by outflank-mailman (input) for mailman id 878830;
+ Wed, 29 Jan 2025 01:16:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Wz9u=UV=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1tcwh9-0003OX-RI
+ for xen-devel@lists.xenproject.org; Wed, 29 Jan 2025 01:16:44 +0000
+Received: from mail-40133.protonmail.ch (mail-40133.protonmail.ch
+ [185.70.40.133]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b211e3cb-ddde-11ef-99a4-01e77a169b0f;
+ Wed, 29 Jan 2025 02:16:41 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,122 +36,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 881df907-ddde-11ef-a0e6-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1738113329;
-	bh=LPH+rFFvj0cEdutC7LtIU0vNsmeZQG7HJPWEn8vdN3Q=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=iV9OlV/aXWEEdLHO2uvdr6xaCFhmHutsN2xpsLTRCNq2ST+c6gCBo6fi6NBvY/82X
-	 RqfudEpz9SDziEyepzeBi/dwX51b7VPEjIu2iEdjwsJ/qv6KrjptJohHIQJH1rYeKn
-	 G2md0z7KlR0jvwPODLzLE1jexGtQXpw2qeHFEtG/l+Lz7oGBvQgOA1lFEjMnpWJdnr
-	 V/gUaKp2W66i76UxCCRSkIl+3+XZb4utYI+NC3GHw6XOvsXwtUZ4c8/bYubYizdFMZ
-	 6S/4D8RImB6QC5xpgk8TPVKMevaOwjiXqVBZL2jtzjif7CueSC6RkTXr44ZLEEthad
-	 s2vGUM3FxWKJA==
-Date: Tue, 28 Jan 2025 19:15:26 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	xen-devel <xen-devel@lists.xenproject.org>,
-	linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
-	Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>
-Subject: Re: Config space access to Mediatek MT7922 doesn't work after device
- reset in Xen PV dom0 (regression, Linux 6.12)
-Message-ID: <20250129011526.GA184585@bhelgaas>
+X-Inumbo-ID: b211e3cb-ddde-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1738113400; x=1738372600;
+	bh=JdWJmHQbmjZeiqwUM39FyhLa0jEhfsyR5FX5P4UOsjk=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
+	b=K1MCrKKojTfksrtf406ona7lDmZjSKw5kQfU9geiDHMCqcCbE4UF1o8oi34K8x4QO
+	 7ohOaAlgV2wK7CSGs1kBch31Tgg7nNzrcxDvXvadiSO3D2RTI2rawbRmbB+W0ezVJx
+	 E0yWY5WgueYLkvgJEhDzkmYFxWs0JBt42JtS5BT61gtqRdYjpuTMTmdFPELdypBrY/
+	 tgqtZsQqz8obvwsuylCU5b6jQRiysMHp/sEC5Hy92v0vpuPBSEBmRpwqrE2frcBncD
+	 basmYuI9m7jj4cR+l/HpouRTOxV0FYnoqpvHq2qRIvzLSXkT0a1kSeR5w5f3Mqob0W
+	 JfgZyjBZQhJcw==
+Date: Wed, 29 Jan 2025 01:16:34 +0000
+To: Jason Andryuk <jason.andryuk@amd.com>
+From: Denis Mukhin <dmkhn@proton.me>
+Cc: dmukhin@ford.com, xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>, Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>, =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH v3 19/24] xen/8250-uart: add missing definitions
+Message-ID: <_2QXLWvBsyAVvLYs1e9CcyCX4s4MXM4YyIrs-lqVvpVUzZTdO6qkqnwJzHV_EEQnWkUhn2nhazgADEnsEM4kf8ciUYTrsjSJll57wFcW4nM=@proton.me>
+In-Reply-To: <d58cfd92-cd73-4a7f-8660-6a235ae887e5@amd.com>
+References: <20250103-vuart-ns8250-v3-v1-0-c5d36b31d66c@ford.com> <20250103-vuart-ns8250-v3-v1-19-c5d36b31d66c@ford.com> <d58cfd92-cd73-4a7f-8660-6a235ae887e5@amd.com>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: 66400b03a27ad5d1f6a74964080aec0ede54e61e
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <Z4pHll_6GX7OUBzQ@mail-itl>
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jan 17, 2025 at 01:05:30PM +0100, Marek Marczykowski-Górecki wrote:
-> After updating PV dom0 to Linux 6.12, The Mediatek MT7922 device reports
-> all 0xff when accessing its config space. This happens only after device
-> reset (which is also triggered when binding the device to the
-> xen-pciback driver).
+On Tuesday, January 28th, 2025 at 2:34 PM, Jason Andryuk <jason.andryuk@amd=
+.com> wrote:
 
-Thanks for the report and for all the debugging you've already done!
+>=20
+>=20
+> On 2025-01-03 20:58, Denis Mukhin via B4 Relay wrote:
+>=20
+> > From: Denis Mukhin dmukhin@ford.com
+> >=20
+> > Added missing definitions needed for NS8250 UART emulator.
+> >=20
+> > Re-used newly introduced MSR definitions in the existing ns16550 driver=
+.
+> >=20
+> > Also, fixed indentation in a comment for FCR register.
+> >=20
+> > Signed-off-by: Denis Mukhin dmukhin@ford.com
+> > ---
+> > xen/drivers/char/ns16550.c | 6 ++--
+> > xen/include/xen/8250-uart.h | 78 +++++++++++++++++++++++++++++++++-----=
+-------
+> > 2 files changed, 60 insertions(+), 24 deletions(-)
+>=20
+> > diff --git a/xen/include/xen/8250-uart.h b/xen/include/xen/8250-uart.h
+> > index d13352940c13c50bac17d4cdf2f3bf584380776a..6d1af31d582a3dd674a401d=
+7f649e28c889cdc3e 100644
+> > --- a/xen/include/xen/8250-uart.h
+> > +++ b/xen/include/xen/8250-uart.h
+>=20
+> > @@ -51,12 +54,19 @@
+> > #define UART_IIR_THR 0x02 /* - tx reg. empty /
+> > #define UART_IIR_MSI 0x00 / - MODEM status /
+> > #define UART_IIR_BSY 0x07 / - busy detect (DW) /
+> > +#define UART_IIR_FE 0xC0 / FIFO enabled (2 bits) */
+> >=20
+> > /* FIFO Control Register /
+> > -#define UART_FCR_ENABLE 0x01 / enable FIFO /
+> > -#define UART_FCR_CLRX 0x02 / clear Rx FIFO /
+> > -#define UART_FCR_CLTX 0x04 / clear Tx FIFO /
+> > -#define UART_FCR_DMA 0x10 / enter DMA mode */
+>=20
+>=20
+> 0x10 is bit 4...
+>=20
+> > +#define UART_FCR_ENABLE BIT(0, U) /* enable FIFO /
+> > +#define UART_FCR_CLRX BIT(1, U) / clear Rx FIFO /
+> > +#define UART_FCR_CLTX BIT(2, U) / clear Tx FIFO /
+> > +#define UART_FCR_DMA BIT(3, U) / enter DMA mode */
+>=20
+>=20
+> Now it's 0x08. Is this a bug fix? Looks like UART_FCR_DMA is unused.
 
-> Reproducer:
+Correct, NS16550 defines FCR DMA as bit#3 (0x08):
+  https://www.ti.com/lit/ds/symlink/tl16c550c.pdf
+
+  Table 7-3. Summary of Accessible Registers
+  7.7.2 FIFO Control Register (FCR)
+
+>=20
+> Regards,
+> Jason
+>=20
+> > +#define UART_FCR_RESERVED0 BIT(4, U) /* reserved; always 0 /
+> > +#define UART_FCR_RESERVED1 BIT(5, U) / reserved; always 0 /
+> > +#define UART_FCR_RTB0 BIT(6, U) / receiver trigger bit #0 /
+> > +#define UART_FCR_RTB1 BIT(7, U) / receiver trigger bit #1 /
+> > +#define UART_FCR_TRG_MASK (UART_FCR_RTB0 | UART_FCR_RTB1)
+> > +
+> > #define UART_FCR_TRG1 0x00 / Rx FIFO trig lev 1 /
+> > #define UART_FCR_TRG4 0x40 / Rx FIFO trig lev 4 /
+> > #define UART_FCR_TRG8 0x80 / Rx FIFO trig lev 8 */
+>=20
 > 
->     # lspci -xs 01:00.0
->     01:00.0 Network controller: MEDIATEK Corp. MT7922 802.11ax PCI Express Wireless Network Adapter
->     00: c3 14 16 06 00 00 10 00 00 00 80 02 10 00 00 00
->     ...
->     # echo 1 > /sys/bus/pci/devices/0000:01:00.0/reset
->     # lspci -xs 01:00.0
->     01:00.0 Network controller: MEDIATEK Corp. MT7922 802.11ax PCI Express Wireless Network Adapter
->     00: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
->
-> The same operation done on Linux 6.12 running without Xen works fine.
-> 
-> git bisect points at:
-> 
->     commit d591f6804e7e1310881c9224d72247a2b65039af
->     Author: Bjorn Helgaas <bhelgaas@google.com>
->     Date:   Tue Aug 27 18:48:46 2024 -0500
-> 
->     PCI: Wait for device readiness with Configuration RRS
-> 
-> part of that commit:
-> @@ -1311,9 +1320,15 @@ static int pci_dev_wait(struct pci_dev *dev, char *reset_type, int timeout)
->                         return -ENOTTY;
->                 }
->  
-> -               pci_read_config_dword(dev, PCI_COMMAND, &id);
-> -               if (!PCI_POSSIBLE_ERROR(id))
-> -                       break;
-> +               if (root && root->config_crs_sv) {
-> +                       pci_read_config_dword(dev, PCI_VENDOR_ID, &id);
-> +                       if (!pci_bus_crs_vendor_id(id))
-> +                               break;
-> +               } else {
-> +                       pci_read_config_dword(dev, PCI_COMMAND, &id);
-> +                       if (!PCI_POSSIBLE_ERROR(id))
-> +                               break;
-> +               }
->  
->     
-> Adding some debugging, the PCI_VENDOR_ID read in pci_dev_wait() returns
-> initially 0xffffffff. If I extend the condition with
-> "&& !PCI_POSSIBLE_ERROR(id)", then the issue disappear. But reading the
-> patch description, it would break VF.
-> I'm not sure where the issue is, but given it breaks only when running
-> with Xen, I guess something is wrong with "Configuration RRS Software
-> Visibility" in that case.
-
-I'm missing something.  If you get 0xffffffff, that is not the 0x0001
-Vendor ID, so pci_dev_wait() should exit immediately.  But the log at
-https://github.com/QubesOS/qubes-issues/issues/9689#issuecomment-2582927149
-says it *doesn't* exit and eventually times out.
-
-And the lspci above shows ~0 data for much of the header, even though
-the device must be ready by then.
-
-I don't have any good ideas, but since the problem only happens with
-Xen, and it seems to affect more than just the Vendor ID, maybe you
-could instrument xen_pcibk_config_read() and see if there's something
-wonky going on there?
-
-> BTW, shouldn't PCI_VENDOR_ID be accessed via pci_read_config_word()
-> instead of pci_read_config_dword()?
-
-Per PCIe r6.0, sec 2.3.2:
-
-  If Configuration RRS Software Visibility is enabled (see below):
-
-    For a Configuration Read Request that includes both bytes of the
-    Vendor ID field of a device Function's Configuration Space Header,
-    the Root Complex must complete the Request to the host by
-    returning a read-data value of 0001h for the Vendor ID field and
-    all ‘1’s for any additional bytes included in the request.
-
-Since either a word (16 bit) or dword (32 bit) read includes both
-bytes of Vendor ID, I think either should work.  We use a 32-bit read
-in the enumeration path, where we need both Vendor ID and Device ID,
-but we don't care about the Device ID here, so it probably doesn't
-really matter here.
 
