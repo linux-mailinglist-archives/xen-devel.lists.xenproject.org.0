@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 566A6A21852
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Jan 2025 08:54:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.878908.1289116 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF398A2185D
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Jan 2025 08:56:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.878918.1289125 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1td2sw-0004Uu-Jp; Wed, 29 Jan 2025 07:53:18 +0000
+	id 1td2vg-00057x-3b; Wed, 29 Jan 2025 07:56:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 878908.1289116; Wed, 29 Jan 2025 07:53:18 +0000
+Received: by outflank-mailman (output) from mailman id 878918.1289125; Wed, 29 Jan 2025 07:56:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1td2sw-0004TD-Gu; Wed, 29 Jan 2025 07:53:18 +0000
-Received: by outflank-mailman (input) for mailman id 878908;
- Wed, 29 Jan 2025 07:53:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1td2vg-00055i-13; Wed, 29 Jan 2025 07:56:08 +0000
+Received: by outflank-mailman (input) for mailman id 878918;
+ Wed, 29 Jan 2025 07:56:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1peA=UV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1td2sv-0004T7-GB
- for xen-devel@lists.xenproject.org; Wed, 29 Jan 2025 07:53:17 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1873f577-de16-11ef-a0e6-8be0dac302b0;
- Wed, 29 Jan 2025 08:53:15 +0100 (CET)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5d0d32cd31aso9325732a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 23:53:15 -0800 (PST)
+ id 1td2vf-00055c-62
+ for xen-devel@lists.xenproject.org; Wed, 29 Jan 2025 07:56:07 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7da685ed-de16-11ef-99a4-01e77a169b0f;
+ Wed, 29 Jan 2025 08:56:05 +0100 (CET)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-5d96944401dso10813762a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2025 23:56:05 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab6760ab171sm928129766b.107.2025.01.28.23.53.13
+ a640c23a62f3a-ab6a2fbcca0sm549817566b.101.2025.01.28.23.56.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Jan 2025 23:53:14 -0800 (PST)
+ Tue, 28 Jan 2025 23:56:04 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1873f577-de16-11ef-a0e6-8be0dac302b0
+X-Inumbo-ID: 7da685ed-de16-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738137195; x=1738741995; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1738137365; x=1738742165; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=mcgoQ4RQ/+msiATfSS3LRvmHZ1tq/ucOrokkG5BuK4c=;
-        b=W0GJg/8i22SViP5VHhWme4DHiP6ckCEc1W9hzm28fBveH7AautTYUcX+yT1Df/Rh1S
-         n2FeCaXPD34tEWixxZRPjNKY+nLFP3Dez33/66bnfdVyZfRTLC8s1fZFy+T6q2r4anVc
-         GODf8+IR6WTHuj58Ms9vvYogwnrt1JSSKUebQCleKRv/WwDKg0AXJ4vtPfFuW/l+OLb+
-         BtoLexwV4RSE2htpFZ7bEzXbmKOF8HhRP2gZIcCLQoSgw+pwa2g5AlzAsaOqzwdAgCvW
-         JS4mhpxCXFLg7rEm0vsUTjVwlK+DmymqUU/bU/Sf53M/xskZ83mrXSGQaClZaTAUNJEs
-         VIeA==
+        bh=K/Okr+Pagtqjv6CJ8CoRIdA57yq3DXtsNYEeGfdN0ko=;
+        b=CZ9V60SsZCbgKx0dDyIdbFcy4qQfhIDCtabmqouc/ojR2FERc39b/oAzmvMfnITy3E
+         kRj7dydmHgb6eFEHKzvCddllz5Wn7PkJZpAkR3vVs30CRsmg6wYsmBqL8wFtnrVB17wi
+         EtzxXLkplBjXQhsU4ep4pzH/f7blte0x+VsPxOL8ySYeucBfNBKqqaERswNowix16F2D
+         4a8DtINLKvwN4qXUBLx15PLKKaOVDVXCPBDDkWpIW7AcOknigqIYvj+ui2xjVeh/sxrJ
+         w5vuEubo7ZC2GQSfDZyFHl1/FV91PkIHAai0fgROIELyflZffHjzeqqKSITYlIxKurbT
+         QV0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738137195; x=1738741995;
+        d=1e100.net; s=20230601; t=1738137365; x=1738742165;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mcgoQ4RQ/+msiATfSS3LRvmHZ1tq/ucOrokkG5BuK4c=;
-        b=fXRWM05KLxG8LGuqOdIvztkaZw4NLzJ0KDmQIED1Y9lT1YM4ZMeJDSKBQ28RNVwiaB
-         uEQD1dSNMOj1wOU+hQzEbMYaiG3TxyF560kgV/0+o9yNZcWg4mjEY9ecQ6+REs7D7ljT
-         NMxaCpq2xRbvVAslANWufhjoLQQ9YxDALJoWXDANdCOPbLVSWvTl6EWI4K2wfacxQ4nQ
-         u/jH3iB3tXWwGw2JK5+X+/C3BJFt8SPu+9sYpFiEZCUM1HetvGC4A4nUhsSMgQD+Jp7+
-         crVfV6ateOyH+f4F2+OAVTiwLTbDe3uNZVu3jdwLsB2F8B5oWi4DQesEB1ImmTdcjfUH
-         BDxg==
-X-Forwarded-Encrypted: i=1; AJvYcCWq7tqVj9DJRPsbmjjJ0XHmHgJLGIvTYCYqxx/Ua/DlVBlNMQbY5QGNn6KZFKPSvq6r7flFdczvvS8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyumzLBRDTyx5BeEjoLZOeWPq0iSaRGbausta6GMPQByTZnmgnO
-	VnUxTPe4/3p7qBt0tE77FzFqhaLfaDkT9TxiUojS5RjvACTKPiToEr9tW310ug==
-X-Gm-Gg: ASbGncvnLVhUrP84icdAURptE1OMVd0LdLFqLRFNAzroVDEr+RqDZRWJuHBxLcOy2jV
-	FUI3YkLLDrPWKbq7dwL/Dr2dfZtiIps30N78Msp0tsmdj4l58OOIeVSVBA8tGRNvM26vGE6IBJJ
-	cxhW/sCFbq9KbIJHXrbcwMvrpmv4uDEuWEEowelX0tgm0PUYAuagRK3zfjQuDdb4SDvYlNdgQKz
-	F3YddoMWi2w4mrZD942ebOhtyPhk7gtAGc1/lSVI7qiMq05S068KZmm5M2GnMfm64T9jM2+Hvti
-	J8k+yITECEkMvl6Nh0m0ljqgEwmvhgGn8UYr+hf+ajPfGz+YKaDaqC0RAdg2dWc2n45/F7vkGrG
-	A
-X-Google-Smtp-Source: AGHT+IHN7Yw+nj0laTMFMqxkFW6y877jCTQNKW7apzEZ1xKv8k1Ooc3D0fbPkXvLOo0EadNg8+2Guw==
-X-Received: by 2002:a05:6402:4309:b0:5d0:fb56:3f with SMTP id 4fb4d7f45d1cf-5dc5efbf5d8mr4587300a12.12.1738137194507;
-        Tue, 28 Jan 2025 23:53:14 -0800 (PST)
-Message-ID: <b4426452-16cc-4a85-84b1-8e27152796d4@suse.com>
-Date: Wed, 29 Jan 2025 08:53:12 +0100
+        bh=K/Okr+Pagtqjv6CJ8CoRIdA57yq3DXtsNYEeGfdN0ko=;
+        b=MEooW2s0YolX+IgRe+ywA9aEmgCawOeFIxNAn1IStTIGqeR/SNBCVrnYQT+9PUHV8k
+         G/IJuEzIjSo3AEtc3Ptvk/RWC3nCMjUVM8S9a9/pjnS8AnSmWUydw2Mz+SmUO12KMCPg
+         P2Rr6/hnIJDGapXXG5uskHiM0hVj36p27GAlNIt0uMs3dqJKb9yaAnAObajAT9fy6J2n
+         rc6YFnq3ehxj+Mi1a2AZKl3NuKtNOVJROgHU2mUG3IU5LXh4tiT6FuXJfFwyuK0GgJ7P
+         F7qIfEv+/2GL95dEka+2Wc68jLOW3ON1hzoxN01HQWZdJQSU+SMtSPggwyJTp5UMgKPm
+         S3Zg==
+X-Forwarded-Encrypted: i=1; AJvYcCWjBIqJMBnCS3F3umtr8rZrEjmv7Wlhcr64RdKWtYx7iq3HnHQY/eEJr1deMwmVZ7aznaes2JJcfR4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxZsxuLMrK5xHMSrhHleV1Kb4Okqe8zAX0Lz0uPIhdoL9PaS41l
+	RXq58JvGwMA7e+uBIlgYzv7bfRC+xw6J+DARnBdCQosx88qc6oStneM8cCng5A==
+X-Gm-Gg: ASbGncv+QijBSZxq/iERodkt7Z5TG8FZrj5XQ1j8GBpuzWPiqV7/vXqvEXnLiwJ3CK8
+	xuNkFZzwuW//v6yrC1rDS47wBBit82z0vEqVVL38iMszKwpaRpFYOzggtw1lVYCsqNVRmk4Nld1
+	Lm5CfpaUmvleGCNK84Z9NNcDtEhq59BAXIB6aKqg4H6GO0mLiGJNptAWt2LX3MWHKV24I2oXaTk
+	1wSXxWrLRa//nF/iTGsc3NuZaqhlrYtjO6A1Zgwct3aar6xYD//ClYiETTXvJ48O8AL3vHZ1388
+	WopJFSNTtEwiPOghuW8D2yJJtkXuZMll0E9CRYjkVGglotNHHepIa4o91dInzCVHGRFpYA0z9bR
+	Fq9Zde+nDoKM=
+X-Google-Smtp-Source: AGHT+IHK8WQ/g/1ERnSQ33elHTcROz3RTpGGcRz5+xoMnnSAS2iU1lH5gv0yRU3hP6aX4dUvKQua3w==
+X-Received: by 2002:a17:907:724c:b0:ab2:b5f1:567d with SMTP id a640c23a62f3a-ab6cfd0a17amr168419666b.32.1738137364712;
+        Tue, 28 Jan 2025 23:56:04 -0800 (PST)
+Message-ID: <f57b6e29-c0c8-4166-9567-53ac01225b26@suse.com>
+Date: Wed, 29 Jan 2025 08:56:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 15/24] xen/console: make console buffer size
- configurable
+Subject: Re: [PATCH v3 19/24] xen/8250-uart: add missing definitions
 To: Denis Mukhin <dmkhn@proton.me>
-Cc: dmukhin@ford.com, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>,
+Cc: dmukhin@ford.com, xen-devel@lists.xenproject.org,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Michal Orzel <michal.orzel@amd.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
+ Jason Andryuk <jason.andryuk@amd.com>
 References: <20250103-vuart-ns8250-v3-v1-0-c5d36b31d66c@ford.com>
- <20250103-vuart-ns8250-v3-v1-15-c5d36b31d66c@ford.com>
- <d471f3b0-5638-47b3-927e-318b0575eaa3@suse.com>
- <RKwzueYurWHDxryD0KUwTcZHRfprlyr4H0fIq4w-yV2i5uK4XfDGrWsUBgt8FnW4R-28hIjbclYcGVP62eLjfFAIwNjXzP0Qj2sajURd-8s=@proton.me>
+ <20250103-vuart-ns8250-v3-v1-19-c5d36b31d66c@ford.com>
+ <d58cfd92-cd73-4a7f-8660-6a235ae887e5@amd.com>
+ <_2QXLWvBsyAVvLYs1e9CcyCX4s4MXM4YyIrs-lqVvpVUzZTdO6qkqnwJzHV_EEQnWkUhn2nhazgADEnsEM4kf8ciUYTrsjSJll57wFcW4nM=@proton.me>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,45 +125,67 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <RKwzueYurWHDxryD0KUwTcZHRfprlyr4H0fIq4w-yV2i5uK4XfDGrWsUBgt8FnW4R-28hIjbclYcGVP62eLjfFAIwNjXzP0Qj2sajURd-8s=@proton.me>
+In-Reply-To: <_2QXLWvBsyAVvLYs1e9CcyCX4s4MXM4YyIrs-lqVvpVUzZTdO6qkqnwJzHV_EEQnWkUhn2nhazgADEnsEM4kf8ciUYTrsjSJll57wFcW4nM=@proton.me>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 29.01.2025 04:04, Denis Mukhin wrote:
-> On Tuesday, January 28th, 2025 at 8:32 AM, Jan Beulich <jbeulich@suse.com> wrote:
->> On 04.01.2025 02:58, Denis Mukhin via B4 Relay wrote:
+On 29.01.2025 02:16, Denis Mukhin wrote:
+> On Tuesday, January 28th, 2025 at 2:34 PM, Jason Andryuk <jason.andryuk@amd.com> wrote:
+> 
+>>
+>>
+>> On 2025-01-03 20:58, Denis Mukhin via B4 Relay wrote:
 >>
 >>> From: Denis Mukhin dmukhin@ford.com
 >>>
->>> Add new CONRING_SIZE Kconfig parameter to specify the boot console buffer size
->>> in bytes. The value is rounded to the nearest power of 2 to match existing
->>> conring_size= behavior.
+>>> Added missing definitions needed for NS8250 UART emulator.
 >>>
->>> The supported range is [16KiB..128MiB].
+>>> Re-used newly introduced MSR definitions in the existing ns16550 driver.
 >>>
->>> Bump default size to 32 KiB.
+>>> Also, fixed indentation in a comment for FCR register.
 >>>
->>> Link: https://gitlab.com/xen-project/xen/-/issues/185
 >>> Signed-off-by: Denis Mukhin dmukhin@ford.com
+>>> ---
+>>> xen/drivers/char/ns16550.c | 6 ++--
+>>> xen/include/xen/8250-uart.h | 78 +++++++++++++++++++++++++++++++++------------
+>>> 2 files changed, 60 insertions(+), 24 deletions(-)
+>>
+>>> diff --git a/xen/include/xen/8250-uart.h b/xen/include/xen/8250-uart.h
+>>> index d13352940c13c50bac17d4cdf2f3bf584380776a..6d1af31d582a3dd674a401d7f649e28c889cdc3e 100644
+>>> --- a/xen/include/xen/8250-uart.h
+>>> +++ b/xen/include/xen/8250-uart.h
+>>
+>>> @@ -51,12 +54,19 @@
+>>> #define UART_IIR_THR 0x02 /* - tx reg. empty /
+>>> #define UART_IIR_MSI 0x00 / - MODEM status /
+>>> #define UART_IIR_BSY 0x07 / - busy detect (DW) /
+>>> +#define UART_IIR_FE 0xC0 / FIFO enabled (2 bits) */
+>>>
+>>> /* FIFO Control Register /
+>>> -#define UART_FCR_ENABLE 0x01 / enable FIFO /
+>>> -#define UART_FCR_CLRX 0x02 / clear Rx FIFO /
+>>> -#define UART_FCR_CLTX 0x04 / clear Tx FIFO /
+>>> -#define UART_FCR_DMA 0x10 / enter DMA mode */
 >>
 >>
->> As asked elsewhere already: How's this related to the goal of the series?
+>> 0x10 is bit 4...
+>>
+>>> +#define UART_FCR_ENABLE BIT(0, U) /* enable FIFO /
+>>> +#define UART_FCR_CLRX BIT(1, U) / clear Rx FIFO /
+>>> +#define UART_FCR_CLTX BIT(2, U) / clear Tx FIFO /
+>>> +#define UART_FCR_DMA BIT(3, U) / enter DMA mode */
+>>
+>>
+>> Now it's 0x08. Is this a bug fix? Looks like UART_FCR_DMA is unused.
 > 
-> I mentioned in the cover letter that there are two group of patches - console
-> driver cleanups/fixes and the follow on UART emulator (and up until v3 it was OK
-> to have this patch bundled into the series).
+> Correct, NS16550 defines FCR DMA as bit#3 (0x08):
+>   https://www.ti.com/lit/ds/symlink/tl16c550c.pdf
 > 
-> Yes, I acknowledge that the first group of patches for console driver grew big
-> and probably should have been posted in its own thread.
-> 
-> I can move "console" part to its own series if it makes sense now.
-> 
-> What do you think?
+>   Table 7-3. Summary of Accessible Registers
+>   7.7.2 FIFO Control Register (FCR)
 
-I for one would appreciate you doing so. Where patches are independent, you
-may even want to consider posting them individually. That way it'll be clear
-they're isolated, and hence any one of them that is fully reviewed/acked can
-go in (once the tree is fully open again).
+Any actual corrections you make need mentioning in the description.
+I'm glad Jason spotted this; I did overlook it.
 
 Jan
 
