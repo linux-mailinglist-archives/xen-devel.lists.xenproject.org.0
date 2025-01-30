@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29E0BA23514
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Jan 2025 21:28:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.879753.1289969 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9066FA2365E
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Jan 2025 22:14:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.879771.1289978 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tdb8y-0002uE-GQ; Thu, 30 Jan 2025 20:28:08 +0000
+	id 1tdbrX-0000tz-Mj; Thu, 30 Jan 2025 21:14:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 879753.1289969; Thu, 30 Jan 2025 20:28:08 +0000
+Received: by outflank-mailman (output) from mailman id 879771.1289978; Thu, 30 Jan 2025 21:14:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tdb8y-0002sA-Cg; Thu, 30 Jan 2025 20:28:08 +0000
-Received: by outflank-mailman (input) for mailman id 879753;
- Thu, 30 Jan 2025 20:28:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tdbrX-0000sC-K7; Thu, 30 Jan 2025 21:14:11 +0000
+Received: by outflank-mailman (input) for mailman id 879771;
+ Thu, 30 Jan 2025 21:14:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=URkf=UW=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tdb8w-0002s4-Lv
- for xen-devel@lists.xenproject.org; Thu, 30 Jan 2025 20:28:06 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b5331243-df48-11ef-a0e6-8be0dac302b0;
- Thu, 30 Jan 2025 21:28:05 +0100 (CET)
+ id 1tdbrW-0000s6-L2
+ for xen-devel@lists.xenproject.org; Thu, 30 Jan 2025 21:14:10 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 244e7c12-df4f-11ef-99a4-01e77a169b0f;
+ Thu, 30 Jan 2025 22:14:08 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 76A905C501F;
- Thu, 30 Jan 2025 20:27:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C64CCC4CEE4;
- Thu, 30 Jan 2025 20:28:01 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 81594A4252D;
+ Thu, 30 Jan 2025 21:12:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4038CC4CED2;
+ Thu, 30 Jan 2025 21:14:05 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,180 +41,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b5331243-df48-11ef-a0e6-8be0dac302b0
+X-Inumbo-ID: 244e7c12-df4f-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1738268883;
-	bh=p9nVrigsDYKicwkfzbW1Xes5NHnGUH3hN9svLzouh8Q=;
+	s=k20201202; t=1738271646;
+	bh=PeQxpJiFJJfVnOrZDjcv8XKQguXVUUIzW+NyAJvnnP4=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=HWZH8ahgB9vx8+j2xBmxLOgm/lRsFpULHlwwbuM3e7CmaCIy6OtCK9mfeiRlax8p0
-	 fw0S/FZLbB6ohnL9+Yvw/7Ib9hEq6T2dT07pBk6yBFfZ9JerJ1AapMsYmswZqYJ1Td
-	 8LBPM30TI7oU059pdPqOwq3pQKPbtjojjD78VNoQsKbs0WTf6LNsS8I42R5CSAulpf
-	 RRSihr6ry39uarymYt9lNPj0OimRKczyTUqUuhYoBL17i5gTyFN4+MszolUtxw/cnx
-	 jj94tHlLOGcpaIIuGpIz2MeQvZYbjlnBz40SnmVZZK1kLyFmdKCrn4iZeTg/G4Hv3z
-	 CNrbsI1C57kew==
-Date: Thu, 30 Jan 2025 12:28:00 -0800 (PST)
+	b=NB1K4AW+goFqcl1V5r8kTv08pXGIVSd+VJ9vcxrfT6A6fjNeR1mglNChyFJwILpMS
+	 SZOnbGFLTa+pg4yyjPiFRO/FgsZdWLRe8qoiI8XsPMCFA669TuQ60ZYmcOiKgRx4hu
+	 XnodUz5c/vX/o+V0+GECLZfSUyOjRVkPg9zzNLmydB/pC8NkMUrkZckQYqA0JaDVyn
+	 GF86NSLkGpvFU3JCXC0i+hZq1JxidxAUfTaKWsRQgQTRWyqa73B/0JCC+O1nOC+njV
+	 rVAqmjRU4Ey7RUk9KsxMI13zJKq8huT5rAU+RuS0CspuUeDjz9nG3TovxaZHKoZ72H
+	 8wSmGp34AGtkA==
+Date: Thu, 30 Jan 2025 13:14:03 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: =?UTF-8?Q?J=C3=BCrgen_Gro=C3=9F?= <jgross@suse.com>
-cc: Harshvardhan Jha <harshvardhan.j.jha@oracle.com>, 
-    Greg KH <gregkh@linuxfoundation.org>, Konrad Wilk <konrad.wilk@oracle.com>, 
-    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-    "sstabellini@kernel.org" <sstabellini@kernel.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-    Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>, 
-    stable@vger.kernel.org
-Subject: Re: v5.4.289 failed to boot with error megasas_build_io_fusion 3219
- sge_count (-12) is out of range
-In-Reply-To: <5a7d969b-b2ab-4fac-b95e-4a536e2c8d5c@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2501301226330.11632@ubuntu-linux-20-04-desktop>
-References: <7dc143fa-4a48-440b-b624-ac57a361ac74@oracle.com> <9dd91f6e-1c66-4961-994e-dbda87d69dad@oracle.com> <2025012919-series-chaps-856e@gregkh> <8eb33b38-23e1-4e43-8952-3f2b05660236@oracle.com> <2025012936-finalize-ducktail-c524@gregkh>
- <1f017284-1a29-49d8-b0d9-92409561990e@oracle.com> <2025012956-jiffy-condone-3137@gregkh> <1f225b8d-d958-4304-829e-8798884d9b6b@oracle.com> <83bd90c7-8879-4462-9548-bb5b69cac39e@suse.com> <b4ab0246-3846-41d1-8e84-64bd7fefc089@oracle.com>
- <de6912ad-3dba-4d66-8ca2-71a0aa09172c@suse.com> <686986a0-c981-4aa3-ae88-92a34368129e@oracle.com> <5a7d969b-b2ab-4fac-b95e-4a536e2c8d5c@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
+cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>, jason.andryuk@amd.com, 
+    christopher.w.clark@gmail.com, stefano.stabellini@amd.com, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 08/15] x86/hyperlaunch: locate dom0 kernel with
+ hyperlaunch
+In-Reply-To: <efc352d6-e686-435c-98b3-2333b6dee6a3@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2501301250410.11632@ubuntu-linux-20-04-desktop>
+References: <20241226165740.29812-1-dpsmith@apertussolutions.com> <20241226165740.29812-9-dpsmith@apertussolutions.com> <efc352d6-e686-435c-98b3-2333b6dee6a3@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-717441065-1738268883=:11632"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-717441065-1738268883=:11632
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Thu, 30 Jan 2025, Jürgen Groß wrote:
-> Can you try the attached patch, please? I don't have a system at hand
-> showing the problem.
->
-> From cff43e997f79a95dc44e02debaeafe5f127f40bb Mon Sep 17 00:00:00 2001
-> From: Juergen Gross <jgross@suse.com>
-> Date: Thu, 30 Jan 2025 09:56:57 +0100
-> Subject: [PATCH] x86/xen: allow larger contiguous memory regions in PV guests
+On Thu, 30 Jan 2025, Jan Beulich wrote:
+> On 26.12.2024 17:57, Daniel P. Smith wrote:
+> > Look for a subnode of type `multiboot,kernel` within a domain node. If found,
+> > process the reg property for the MB1 module index. If the bootargs property is
+> > present and there was not an MB1 string, then use the command line from the
+> > device tree definition.
 > 
-> Today a PV guest (including dom0) can create 2MB contiguous memory
-> regions for DMA buffers at max. This has led to problems at least
-> with the megaraid_sas driver, which wants to allocate a 2.3MB DMA
-> buffer.
-> 
-> The limiting factor is the frame array used to do the hypercall for
-> making the memory contiguous, which has 512 entries and is just a
-> static array in mmu_pv.c.
-> 
-> In case a contiguous memory area larger than the initially supported
-> 2MB is requested, allocate a larger buffer for the frame list. Note
-> that such an allocation is tried only after memory management has been
-> initialized properly, which is tested via the early_boot_irqs_disabled
-> flag.
-> 
-> Fixes: 9f40ec84a797 ("xen/swiotlb: add alignment check for dma buffers")
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
-> Note that the "Fixes:" tag is not really correct, as that patch didn't
-> introduce the problem, but rather made it visible. OTOH it is the best
-> indicator we have to identify kernel versions this patch should be
-> backported to.
-> ---
->  arch/x86/xen/mmu_pv.c | 44 ++++++++++++++++++++++++++++++++++++-------
->  1 file changed, 37 insertions(+), 7 deletions(-)
-> 
-> diff --git a/arch/x86/xen/mmu_pv.c b/arch/x86/xen/mmu_pv.c
-> index 55a4996d0c04..62aec29b8174 100644
-> --- a/arch/x86/xen/mmu_pv.c
-> +++ b/arch/x86/xen/mmu_pv.c
-> @@ -2200,8 +2200,10 @@ void __init xen_init_mmu_ops(void)
->  }
->  
->  /* Protected by xen_reservation_lock. */
-> -#define MAX_CONTIG_ORDER 9 /* 2MB */
-> -static unsigned long discontig_frames[1<<MAX_CONTIG_ORDER];
-> +#define MIN_CONTIG_ORDER 9 /* 2MB */
-> +static unsigned int discontig_frames_order = MIN_CONTIG_ORDER;
-> +static unsigned long discontig_frames_early[1UL << MIN_CONTIG_ORDER];
-> +static unsigned long *discontig_frames = discontig_frames_early;
->  
->  #define VOID_PTE (mfn_pte(0, __pgprot(0)))
->  static void xen_zap_pfn_range(unsigned long vaddr, unsigned int order,
-> @@ -2319,18 +2321,44 @@ int xen_create_contiguous_region(phys_addr_t pstart, unsigned int order,
->  				 unsigned int address_bits,
->  				 dma_addr_t *dma_handle)
->  {
-> -	unsigned long *in_frames = discontig_frames, out_frame;
-> +	unsigned long *in_frames, out_frame;
-> +	unsigned long *new_array, *old_array;
->  	unsigned long  flags;
->  	int            success;
->  	unsigned long vstart = (unsigned long)phys_to_virt(pstart);
->  
-> -	if (unlikely(order > MAX_CONTIG_ORDER))
-> -		return -ENOMEM;
-> +	if (unlikely(order > discontig_frames_order)) {
-> +		if (early_boot_irqs_disabled)
-> +			return -ENOMEM;
-> +
-> +		new_array = vmalloc(sizeof(unsigned long) * (1UL << order));
-> +
-> +		if (!new_array)
-> +			return -ENOMEM;
-> +
-> +		spin_lock_irqsave(&xen_reservation_lock, flags);
-> +
-> +		if (order > discontig_frames_order) {
+> While multiboot is apparently the first x86-specific part (as far as Xen goes)
+> to be put under domain-builder/, I wonder:
+> - Wouldn't looking for "multiboot,kernel" simply yield nothing on non-x86,
+>   so having the code under common/ would still be okay?
+
+One small clarification: multiboot,kernel is actually common between
+both ARM and x86. It is "module-index" which is x86-specific and would
+"simply yield nothing on non-x86", as you wrote.
+
+I'll let Dan address your point that "having the code under common/
+would still be okay".
 
 
-This second if check should not be needed because it is the same as the
-outer if check.
+> - What's "multiboot" describing here? The origin of the module? (What other
+>   origins would then be possible? How would MB1 and MB2 be distinguished?
+>   What about a native xen.efi boot?) A property of the kernel (when Linux
+>   doesn't use MB)?
 
+Each device tree node has a compatible string to qualify what kind of
+information the node is describing. The compatible string for device
+tree nodes describing a kernel binary or a ramdisk previously loaded
+into memory by a bootloader have a "multiboot," prefix. See
+docs/misc/arm/device-tree/booting.txt. This is unrelated to the binary
+multiboot protocol Grub uses on x86 to boot Xen.
 
-
-> +			if (discontig_frames == discontig_frames_early)
-> +				old_array = NULL;
-> +			else
-> +				old_array = discontig_frames;
-> +			discontig_frames = new_array;
-> +			discontig_frames_order = order;
-> +		} else
-> +			old_array = new_array;
-> +
-> +		spin_unlock_irqrestore(&xen_reservation_lock, flags);
-> +
-> +		vfree(old_array);
-> +	}
->  
->  	memset((void *) vstart, 0, PAGE_SIZE << order);
->  
->  	spin_lock_irqsave(&xen_reservation_lock, flags);
->  
-> +	in_frames = discontig_frames;
-> +
->  	/* 1. Zap current PTEs, remembering MFNs. */
->  	xen_zap_pfn_range(vstart, order, in_frames, NULL);
->  
-> @@ -2354,12 +2382,12 @@ int xen_create_contiguous_region(phys_addr_t pstart, unsigned int order,
->  
->  void xen_destroy_contiguous_region(phys_addr_t pstart, unsigned int order)
->  {
-> -	unsigned long *out_frames = discontig_frames, in_frame;
-> +	unsigned long *out_frames, in_frame;
->  	unsigned long  flags;
->  	int success;
->  	unsigned long vstart;
->  
-> -	if (unlikely(order > MAX_CONTIG_ORDER))
-> +	if (unlikely(order > discontig_frames_order))
->  		return;
->  
->  	vstart = (unsigned long)phys_to_virt(pstart);
-> @@ -2367,6 +2395,8 @@ void xen_destroy_contiguous_region(phys_addr_t pstart, unsigned int order)
->  
->  	spin_lock_irqsave(&xen_reservation_lock, flags);
->  
-> +	out_frames = discontig_frames;
-> +
->  	/* 1. Find start MFN of contiguous extent. */
->  	in_frame = virt_to_mfn((void *)vstart);
->  
-> -- 
-> 2.43.0
-> 
---8323329-717441065-1738268883=:11632--
+A distinction between MB1 and MB2 is not needed in device tree, that
+information is retrieved via the Grub multiboot protocol as usual. The
+only thing needed here in device tree is the location of the kernel,
+either by RAM address, or by Grub multiboot module index. This last
+option (Grub multiboot module index) is the "module-index" property I
+mentioned above.
 
