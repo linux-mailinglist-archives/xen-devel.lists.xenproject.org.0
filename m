@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D870FA23252
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Jan 2025 17:55:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.879702.1289919 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FCAFA23260
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Jan 2025 18:01:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.879713.1289929 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tdXpB-0001cj-VM; Thu, 30 Jan 2025 16:55:29 +0000
+	id 1tdXuk-0003F8-Hv; Thu, 30 Jan 2025 17:01:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 879702.1289919; Thu, 30 Jan 2025 16:55:29 +0000
+Received: by outflank-mailman (output) from mailman id 879713.1289929; Thu, 30 Jan 2025 17:01:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tdXpB-0001bH-Rj; Thu, 30 Jan 2025 16:55:29 +0000
-Received: by outflank-mailman (input) for mailman id 879702;
- Thu, 30 Jan 2025 16:55:28 +0000
+	id 1tdXuk-0003DI-Dx; Thu, 30 Jan 2025 17:01:14 +0000
+Received: by outflank-mailman (input) for mailman id 879713;
+ Thu, 30 Jan 2025 17:01:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zr8Z=UW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tdXpA-0001bB-CB
- for xen-devel@lists.xenproject.org; Thu, 30 Jan 2025 16:55:28 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+ id 1tdXuj-0003DC-9z
+ for xen-devel@lists.xenproject.org; Thu, 30 Jan 2025 17:01:13 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 016ae8df-df2b-11ef-a0e6-8be0dac302b0;
- Thu, 30 Jan 2025 17:55:27 +0100 (CET)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5d3d0205bd5so1487997a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 30 Jan 2025 08:55:27 -0800 (PST)
+ id cf0b3c29-df2b-11ef-a0e6-8be0dac302b0;
+ Thu, 30 Jan 2025 18:01:12 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a9e44654ae3so172978066b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Jan 2025 09:01:12 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab6e4a31f86sm149876566b.145.2025.01.30.08.55.26
+ a640c23a62f3a-ab6e47a7ebdsm151171066b.19.2025.01.30.09.01.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Jan 2025 08:55:26 -0800 (PST)
+ Thu, 30 Jan 2025 09:01:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 016ae8df-df2b-11ef-a0e6-8be0dac302b0
+X-Inumbo-ID: cf0b3c29-df2b-11ef-a0e6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738256127; x=1738860927; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1738256472; x=1738861272; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UL6m9jSOYiRqbqeYE4HaooWlMMzqsQ2C4luuKoEqRTg=;
-        b=XXJObWqcQyHOZpRzTewsEz/Yg++sKLd0bi8K6lBp109pgj66pPZnqWyS2MuLOzBmxq
-         3pDlqV8zteSACDa0cnYQtUSOCV66knbNV59r+iIwhE/Qzgkzixz6UAylIxTq4zu9AOeJ
-         sF/IvMfpFei/xmSmELF4YqxRwvBFPSb73eG+9EMMXaEoWa1pATMxp+NNzvBfuPQW70cl
-         91GmhCFkR+V6PQz3USKKX+KX8PIAyd4ESmeMq0dP98RVxe2EyQ9+akWsjvRJaDdTGR7K
-         IMLUAVqH13y49Lz8mxWIKqIUwrldz8UzXN1tAM9b9dX0jPc7bcvzUwdw6MbGdcBirbDv
-         u8WA==
+        bh=H/qZZhv7zDkl6dxtuVktJfjHqNt+FWfiYLykCxjLw8E=;
+        b=M5odwVHP21Gelb90mGVyvkn2/vq653+B0kcRuwgKwaRY9sJoPP4ox99JkGhEeOe46U
+         Mgh/I8Pc0Ur0ktum2yaArwiVn0HWfzVAVHCIPSkHAlGTRPMbgjt1i5/R6EOuiLpYeC3E
+         27Zl8QQNvvptSZgbxoP9shKM8SRmpXW6ai4IDk6D04b2kQL43T7NcQ7EXefmbjVowUkD
+         Mi3HEUxmvT0JAm8kpVyKmm/XeedfRSW1G1DFyx67me5lDUbNkfYaERQ11EDsVstORN6K
+         8sfg9wmIHWWDGMymmAbGqE7zNGM9dH0lruDYuc+wW2r0AXROx698sNPHqfjvq8UwsV5W
+         2c2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738256127; x=1738860927;
+        d=1e100.net; s=20230601; t=1738256472; x=1738861272;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UL6m9jSOYiRqbqeYE4HaooWlMMzqsQ2C4luuKoEqRTg=;
-        b=ZRdP+/CZJssxtzjHsTAQS9eA0xbgq+44VqfgO8ltOvyTVBGSMHGcb460kP0z3ZiN3+
-         5qeKGgoC3qo3nmi3vnpkVkkcnDqKsBX6JJsO+DiJNtmDyazbdRzdgdLdmGypBcb1gXz6
-         4c4Vn7arLF19+HTI/CAM+gPQuEqWt/Z140HgRpjUDuZIjkUwi6TF6N9CMswg/jDPCNBS
-         EG+OYkl/XJaMdjqHdlHPLrpzVAJ/I+wO8IGX/30zdvjpceCHpNl00Xahbr/JK5nzNjpD
-         61US0VM+rfyqHL2AudndOpK+QnEJ0aUgasFZB0tY/uD7vnT7GLBqh/dFCu2aPp3GLn62
-         sgSg==
-X-Forwarded-Encrypted: i=1; AJvYcCVGRchJuSfW9V/OrXrUoRLJeS7xG5+SaHB79OuIJrks9fQJ6EI+tAa0wckucBmY23YvrOAvPVPMshc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yydems7fg1opqVEZn1BuL5kRYiQcoERrbDFX3H9niHbhXYb/qX4
-	cfhx3I1YZMIXYpG28I2cl5NxxMjBeIJ3MEg/o2Qlm7x8o84hlsenMOjCpnXxZQ==
-X-Gm-Gg: ASbGnctODDSwLebbokK/glP+X2Akh1bUE+xB/qZ1kcgs1VItIyv4J6cnOvOFU+RfsJ2
-	yoSZGLMsG8i8ukXvm4xNrRm9rxmbJK7wr3Am74HdgNtOYsH9wYbWoS2qqpkokmUU6O27EaTjs/r
-	yg/NSviWyycL1k9cJT7S2eD8Ex9A7RQZc+yfBCfZO6rqaMJ6Ml6CSDUk/sn831zifTmA1iPQmhu
-	hDwrSCz3Kna+C2TpWN3ss/M9j5kudu7v6ZLKsGaVBHYbOseOoBGJQk3zLe2vWlpGjMEjD6glXGm
-	DO9JD07D4wfqrk2ZzlqUSMNcB7blNxpACwOUrFSo9FHYT+HPROrTd0F+ejtyZgJBkWDEMVM7+aE
-	F
-X-Google-Smtp-Source: AGHT+IEgaT4ArUWMiuHdtsbLSX0cyvXhQ5kJIO27/SNuGu0IFB4hRQGWSSHONx2PFzWE6k62kWE+6Q==
-X-Received: by 2002:a17:906:794f:b0:ab3:3eea:1ccc with SMTP id a640c23a62f3a-ab6cfd07ca4mr766463966b.27.1738256126790;
-        Thu, 30 Jan 2025 08:55:26 -0800 (PST)
-Message-ID: <0aadddb9-ee7f-41b5-b271-4716d66330f8@suse.com>
-Date: Thu, 30 Jan 2025 17:55:25 +0100
+        bh=H/qZZhv7zDkl6dxtuVktJfjHqNt+FWfiYLykCxjLw8E=;
+        b=T7nyoXTeIEqO0xLhUHT7VguIHrOyo3sXFTKJajr2koqUB4wxbVquf+peF3glufDST4
+         0rLA4ZbtxleGth+AmYG2Lw+xLTw9qp4r/rkd5u0yNq+if0iX8wrt18aBD0Ndt0SvET1i
+         qm5vDvlj9Z2ci1wnVmxmALkwBES26dyQ7LAcSfHQvf3DCqA2UfIa1jIG6YZ4izcbOn5D
+         4YF+UFTnyFEK5nrmTf7UJQ7b/C9VDTOLK10l7eSuIqLJrhZYrskiOE9LxOiiMhVP9sqf
+         jHR4dIx692pqVapBhf22zdIXgsyat+7cXUneItRapeh/GjPH/f4tAFuw5nZhZeabRwQP
+         ISdA==
+X-Forwarded-Encrypted: i=1; AJvYcCVrniZc3/L0gFmfXWj5URzbrYszlVipQH4OmyXH7trw8hm62uc1tcRv/vgMXAv5Ii8pXDU2/k5zOd8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxWHgJOAW21UQelqbGYRbp4dFVRjvu1rG4x9mLdFltV/t1dIb+t
+	ztN81bNw87Q/BVgwXXgxkkontV0Mf/1kERdbU6azCTW3eAEsY8cp+/M7inC/BQ==
+X-Gm-Gg: ASbGncukKEOwg6ZhOiov/lzaBjRuxC7sZ3ElX7jVzogPm5OUz2u8KwfLRojz56rC8b5
+	+KGFSuVNKGBT5Tx8+xhiY4BaXXIaumbsn8AD8pQxHc5qcgbPiF8gGzD5w5qiZnNSZtqj26RobaR
+	DItD8h4ALkRslH/Qv/U4agmAqUSsFQTNKDsozvV6G3Gw5UGLJmLnMPIylcD6dEb1wLfHwLgPKsC
+	0r4zpV3ylVCkJnuKXjw3rKGen/qIlTcworE4mRKS10EQVtsMdTnmKduGq0JvnsVB335+S7aUgqY
+	D4BQftlcbmkGkCt/wulFsS8H2c7Hws/+HSiKNWYbP7+7IrJ7r/eXInGXk7JtEMz4QFLVcdRwGqJ
+	x
+X-Google-Smtp-Source: AGHT+IGhfuAItdSHr2MvZhq+UICA5QmfbL77u6Bzy9o9QGkgc7O2vmchyiShAsWBvacRT3kjV1Q8ag==
+X-Received: by 2002:a17:907:c24c:b0:ab6:e10e:2f5 with SMTP id a640c23a62f3a-ab6e10e06e6mr426508966b.37.1738256466723;
+        Thu, 30 Jan 2025 09:01:06 -0800 (PST)
+Message-ID: <6806b3cd-aebd-4c18-ba34-783d6faa9529@suse.com>
+Date: Thu, 30 Jan 2025 18:01:04 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 12/15] x86/hyperlaunch: specify dom0 mode with device
- tree
+Subject: Re: [PATCH v2 13/15] x86/hyperlaunch: add memory parsing to domain
+ config
 To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
  stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
 References: <20241226165740.29812-1-dpsmith@apertussolutions.com>
- <20241226165740.29812-13-dpsmith@apertussolutions.com>
+ <20241226165740.29812-14-dpsmith@apertussolutions.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,73 +123,41 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241226165740.29812-13-dpsmith@apertussolutions.com>
+In-Reply-To: <20241226165740.29812-14-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 26.12.2024 17:57, Daniel P. Smith wrote:
-> Enable selecting the mode in which the domain will be built and ran. This
-> includes:
-> 
-> - whether it will be either a 32/64 bit domain
-
-I can't spot anything like this in the code changes.
-
-> --- a/xen/arch/x86/domain-builder/fdt.c
-> +++ b/xen/arch/x86/domain-builder/fdt.c
-> @@ -94,6 +94,25 @@ static int __init process_domain_node(
->              bd->domid = (domid_t)val;
->              printk("  domid: %d\n", bd->domid);
->          }
-> +        else if ( strncmp(prop_name, "mode", name_len) == 0 )
-> +        {
-> +            if ( fdt_prop_as_u32(prop, &bd->mode) != 0 )
-> +            {
-> +                printk("  failed processing mode for domain %s\n", name);
-> +                return -EINVAL;
-> +            }
-> +
-> +            printk("  mode: ");
-> +            if ( !(bd->mode & BUILD_MODE_PARAVIRT) )
-> +            {
-> +                if ( bd->mode & BUILD_MODE_ENABLE_DM )
-> +                    printk("HVM\n");
-> +                else
-> +                    printk("PVH\n");
-> +            }
-> +            else
-> +                printk("PV\n");
-
-Shorter and less indentation as
-
-            if ( bd->mode & BUILD_MODE_PARAVIRT )
-                printk("PV\n");
-            else if ( bd->mode & BUILD_MODE_ENABLE_DM )
-                printk("HVM\n");
-            else
-                printk("PVH\n");
-
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -1016,7 +1016,8 @@ static struct domain *__init create_dom0(struct boot_info *bi)
->      struct boot_domain *bd = &bi->domains[0];
->      struct domain *d;
+> --- a/xen/arch/x86/dom0_build.c
+> +++ b/xen/arch/x86/dom0_build.c
+> @@ -609,6 +609,14 @@ int __init construct_dom0(struct boot_domain *bd)
 >  
-> -    if ( opt_dom0_pvh )
-> +    if ( opt_dom0_pvh ||
-> +         (bi->hyperlaunch_enabled && !(bd->mode & BUILD_MODE_PARAVIRT)) )
+>      process_pending_softirqs();
+>  
+> +    /* If param dom0_size was not set and HL config provided memory size */
+> +    if ( !get_memsize(&dom0_size, LONG_MAX) && bd->mem_pages )
+> +        dom0_size.nr_pages = bd->mem_pages;
+> +    if ( !get_memsize(&dom0_min_size, LONG_MAX) && bd->min_pages )
+> +        dom0_size.nr_pages = bd->min_pages;
+> +    if ( !get_memsize(&dom0_max_size, LONG_MAX) && bd->max_pages )
+> +        dom0_size.nr_pages = bd->max_pages;
 
-And then dropping BUILD_MODE_ENABLE_DM on the floor?
+Again I don't think it should be mix-and-match: Either everything is
+taken from DT, or everything is taken from the command line. Yet I'm
+open to be convinced otherwise.
 
-Also shouldn't this be
+> --- a/xen/include/xen/libfdt/libfdt-xen.h
+> +++ b/xen/include/xen/libfdt/libfdt-xen.h
+> @@ -37,6 +37,15 @@ static inline int __init fdt_prop_as_u32(
+>      return fdt_cell_as_u32((fdt32_t *)prop->data, val);
+>  }
+>  
+> +static inline int __init fdt_prop_as_u64(
+> +    const struct fdt_property *prop, uint64_t *val)
+> +{
+> +    if ( !prop || fdt32_to_cpu(prop->len) < sizeof(u64) )
 
-    if ( bi->hyperlaunch_enabled
-         ? bd->mode & BUILD_MODE_PARAVIRT
-         : opt_dom0_pvh )
-
-as it can't do any good to honor a conflicting command line option.
-Command line doc then will want amending to clarify that the option
-will be ignored in certain cases.
+No new uses of u64 (and alike) please.
 
 Jan
 
