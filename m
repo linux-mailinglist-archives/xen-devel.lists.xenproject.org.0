@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FE8FA22ED4
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Jan 2025 15:15:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.879611.1289829 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F636A22F36
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Jan 2025 15:19:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.879619.1289838 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tdVKC-0001kX-7l; Thu, 30 Jan 2025 14:15:20 +0000
+	id 1tdVOE-0002Lf-NK; Thu, 30 Jan 2025 14:19:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 879611.1289829; Thu, 30 Jan 2025 14:15:20 +0000
+Received: by outflank-mailman (output) from mailman id 879619.1289838; Thu, 30 Jan 2025 14:19:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tdVKC-0001i4-4n; Thu, 30 Jan 2025 14:15:20 +0000
-Received: by outflank-mailman (input) for mailman id 879611;
- Thu, 30 Jan 2025 14:15:18 +0000
+	id 1tdVOE-0002Ja-Kf; Thu, 30 Jan 2025 14:19:30 +0000
+Received: by outflank-mailman (input) for mailman id 879619;
+ Thu, 30 Jan 2025 14:19:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zr8Z=UW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tdVKA-0001hc-1M
- for xen-devel@lists.xenproject.org; Thu, 30 Jan 2025 14:15:18 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
+ id 1tdVOD-0002JU-DO
+ for xen-devel@lists.xenproject.org; Thu, 30 Jan 2025 14:19:29 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a07391d6-df14-11ef-99a4-01e77a169b0f;
- Thu, 30 Jan 2025 15:15:15 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-436341f575fso9647165e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 30 Jan 2025 06:15:15 -0800 (PST)
+ id 36833314-df15-11ef-99a4-01e77a169b0f;
+ Thu, 30 Jan 2025 15:19:27 +0100 (CET)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-aaf3c3c104fso188797166b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Jan 2025 06:19:27 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab6e47a7fd9sm127608866b.34.2025.01.30.06.15.14
+ a640c23a62f3a-ab6e4a320c6sm125875866b.155.2025.01.30.06.19.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Jan 2025 06:15:14 -0800 (PST)
+ Thu, 30 Jan 2025 06:19:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a07391d6-df14-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 36833314-df15-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738246515; x=1738851315; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1738246767; x=1738851567; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=727D/DkoH5Aywyiyi7Z0Y6u9UAsi8e29CsiZ5+y2AQQ=;
-        b=Gj0nsLeA0+ti0W2dHduj4w8WJemwgzBTKHfHAh9SeSS3rm4kRuSbo2ler43cHGrVQV
-         hxUCtxsCLDUN5QAkm571ZBmiQoDXwAoakbRKqnROAAFX07TD1ixdSQQEBQQHq6dyGsoG
-         FpG7ODZQIpFTlw+8+ARSKaT93nexDFhwCHxUAHiu5s2BEV6E9joDOuXcmYx5SuJqbdr+
-         sEJ1iSQY3yXHlcpI0w9bRNiLLR/NQetHOs+oJaHx1Kuooe4Mf06//3pt5B34VMtwljsg
-         ZbkGiOtvR3FdAshFvPhtBdAK0ReGZ+qFo7BqrZ3pFUWbw0OZvXfvxnoNOotNXepHJq+a
-         7mPw==
+        bh=7bh7LiGDhOhVo2P+f/nlI0xgHAPklGXZuw12L1qJ208=;
+        b=Ct9Bm7JzFuyy54CdxWes8w7CkRBC/a3cgAn1bB3NoCQEN+D677umdzZV9kcSDSmHm1
+         +pTroHdO5z1nId3tVaoDp580hHxzljD3RUe9X1/jXi5t0fkqx43nBG9fnX+g3X9AjTQj
+         4Fv+XzsAWZuA4C937G8o4/oZ0WhlKWhsmtLvEFj0lzdsiMOu+S0PSJSvUDXB7ASoei18
+         8HIsVl589PhfJRHQOykvBTWrvi7Rit2FtHLFWgWSLQVkw6cSRi97Jm68+0iLFxNullDy
+         SqbhFlH2NIVD2Uvxu6sJqJnQGOtZy7+fN2Qh7olrHkixXPOipItfFK0DTczBGOflGhla
+         G0Ww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738246515; x=1738851315;
+        d=1e100.net; s=20230601; t=1738246767; x=1738851567;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=727D/DkoH5Aywyiyi7Z0Y6u9UAsi8e29CsiZ5+y2AQQ=;
-        b=Bs79TLkfNzjf7Mu+hOIWLNHj5ti16LPthHBP2iLJc4+cAod/Qn4H2mzM5HAksdBBA7
-         AxEBkUlOCTqMFjo/PA98Ufrf8GLouwyOVieNovkYXV5XX6c3Fcmbw1Ayb8EpvhErWKxd
-         /6KOV3ci4B8FDeNByLb6rNQyKfcvMQ/WGQdnmrqrWFXiZ9/+wK4QUXuojx9JwP8BwOTI
-         jl9Oamr5r6lDYj00dhN4zB1nS8fB5f+BAzlGjW6UiV2XrskWJbHMhvY+n8TVbhD6S+Wh
-         E8gmSYz/xgUduH+L/aI8NiFIgAC11HGU0lyDkYwgI2w5i9PvC6bVfgVHoNWAQ5lgAm05
-         YgvA==
-X-Forwarded-Encrypted: i=1; AJvYcCWxOKQwBPdE3sT4HSpnZgTtfvufd7kwU6v8tvD2QNQZxQw0rB1ghFLIwRiXzXjiWVtt5HPjbHGDHpM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YytT9W28ZP9t+4Zss4c3VdilUclUTDgWaQBfZkDeFy2hp7H35bl
-	oe4WE95ZNXrjj7mapBIjeU06K2QjgZJZ6KDNsyHG0saFoHgTY5+GrMyyk7O/YQw5ewbcSwwkxUs
-	=
-X-Gm-Gg: ASbGncuVxaBK2mrIjN8opji5VXL6kHbMtlQl/iq4X1n4eBpIQAjOEqQPOwwFPtNn54W
-	CJwK+kzffLRrWMJIEEvK0udcuq/M5hEaOK9Qr6Hmq+9DtvBOz1VU6q7LKGNqugNcp7OGg9b9oSi
-	wWi6oQySfK5VthC09hnzgCwbU49IPUoeRNY8vC0KuET6QKufGstCsMYgSOvEc63qMzeqrO7z3f1
-	Jp4Xbbww1BE/qWeqWcyhqW/iCzfDhifJV7e2/mostfWjrkBGjmmz+gqbBJ+S3VjUVbCjiTzEkN+
-	fj832ens18/GbCp2XwBfRGU+RlZzZQqaO1RKdQq3eosWcvUSY18W6cBv4oXGJpl/Lc3X6fNtmZN
-	V
-X-Google-Smtp-Source: AGHT+IF3MDcjEx6HDfRoFPJ8fmeSpma+3suW0DJBdxl7Px92egDROwe7Wd8ZxZ4pszkBfsk9mQ0cVQ==
-X-Received: by 2002:a05:6000:1548:b0:38c:3f12:64be with SMTP id ffacd0b85a97d-38c51f8a3camr8768835f8f.35.1738246515108;
-        Thu, 30 Jan 2025 06:15:15 -0800 (PST)
-Message-ID: <791f9f14-e329-4cc4-9065-cdb84b6907ce@suse.com>
-Date: Thu, 30 Jan 2025 15:15:13 +0100
+        bh=7bh7LiGDhOhVo2P+f/nlI0xgHAPklGXZuw12L1qJ208=;
+        b=qgOammmz/P/82N95jpd2tDLDu96uOy2f+ZBZvH9eeOUBWe/g0E0tvtxaRhnAyDPGZG
+         Zma5ntrj3kvLXrKZ027d4fWpMB74EjmWCnml82lJwjwUVBt6ynagi1ht/ncU/5+w9gjQ
+         B/qfy21INZVCYVeS8JCyXBcBq2yrwphFHwE6B1CW0yK5tAn0iiPeOkbFdWooVGGAAcOy
+         aIc2hXPykDMIPQ6z5jaM5fBqw7uj1pdTTVRDEB4vJRU/MJ07TkNHeMnyzKmB2d/+Mpc6
+         yYdhg8P5BMbSDmnR5cVRPl8Wf7vvsT4ddc41Wk2lEuhDcsJ4wZpuHbxCNC4SJNLUny7v
+         gUCw==
+X-Forwarded-Encrypted: i=1; AJvYcCWfmhOCJY/U+xjbOXYgIg2HFdoXlmceb42QrvK/exVBvbjMn8x6/mHyL9XXsEZlBzxdwEBHYMKuhz4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw7d3ZTy9/Tbeg+gBXxWb2CR9j+U5UgVvmjTh1K0lVvXq312eUe
+	XXRvSdrBHEDpXTgA9QYe1sLWXbqknBwF2PVKVsddOvDeHjSiW3Xt49jHmSxwuQ==
+X-Gm-Gg: ASbGncsAT/IHHV2YOXGLT2aBfhJf/6R3/H2G7oIik+wH7ZOv7uktBHsfgRtjeg+y6Bp
+	PgVlhJofJNHXuT0T3HLw961jfcFowR4tTW8glEPuOdhuxLPEfoe86rGb2sQvvKGYgy+DfZEq8dd
+	A8ejzM3IhBLnXfu2R5xp2cnzTPOBsJfr5UPmjC//TEiSFjrU2V73YCnKdHQ/avMFsmIM+5Je0p1
+	7m76xF38gtgSKdxrEpwPY3WFHKC9coFMnbLY3fDSQBr0YlWrVGGjDuznKYlzLl9ABVjtMc7w4Jk
+	TR/8eSPYblD+QzMEvJj/czsrTKWLDuz+lsHYQm3vf0E2mdNNf7Wa5+4hbvmn7SP/ZM/KzDyoL9l
+	k
+X-Google-Smtp-Source: AGHT+IE1eDqG4Q1FgN8Z7Oua76qGWxTX2F1e6Zw/V42Wr2aC+Po6k9l9x64DhdSj1PUUPY1sunN/nw==
+X-Received: by 2002:a17:907:c319:b0:aaf:4008:5e2d with SMTP id a640c23a62f3a-ab6cfbb95e4mr674264666b.0.1738246766926;
+        Thu, 30 Jan 2025 06:19:26 -0800 (PST)
+Message-ID: <10e34547-08f1-46dd-8c87-115cf4f6ba4a@suse.com>
+Date: Thu, 30 Jan 2025 15:19:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 03/15] x86/boot: add cmdline to struct boot_domain
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH v2 04/15] kconfig: introduce option to independently
+ enable libfdt
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
  stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel@lists.xenproject.org
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20241226165740.29812-1-dpsmith@apertussolutions.com>
- <20241226165740.29812-4-dpsmith@apertussolutions.com>
+ <20241226165740.29812-5-dpsmith@apertussolutions.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,156 +123,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241226165740.29812-4-dpsmith@apertussolutions.com>
+In-Reply-To: <20241226165740.29812-5-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 26.12.2024 17:57, Daniel P. Smith wrote:
-> @@ -759,9 +758,10 @@ static int __init pvh_load_kernel(
->      /* Free temporary buffers. */
->      free_boot_modules();
->  
-> -    if ( cmdline != NULL )
-> +    if ( bd->cmdline != NULL )
->      {
-> -        rc = hvm_copy_to_guest_phys(last_addr, cmdline, strlen(cmdline) + 1, v);
-> +        rc = hvm_copy_to_guest_phys(
-> +                last_addr, bd->cmdline, strlen(bd->cmdline) + 1, v);
+> Currently, the inclusion of libfdt is controlled by the CONFIG_HAS_DEVICE_TREE
+> kconfig flag. This flag also changes behavior in a few places, such as boot
+> module processing for XSM. To support the ability to include libfdt without
+> changing these behaviors, introduce CONFIG_LIB_DEVICE_TREE. The inclusion of
+> libfdt is then moved under CONFIG_LIB_DEVICE_TREE.
 
-Nit: Indentation. The anchor point for this kind of increased indentation
-is the function name being called, so you want to add one more blank. (It
-is not N times the usual indentation of 4, until "it looks okay".)
-
-> --- a/xen/arch/x86/include/asm/bootdomain.h
-> +++ b/xen/arch/x86/include/asm/bootdomain.h
-> @@ -11,6 +11,8 @@
->  #define __XEN_X86_BOOTDOMAIN_H__
->  
->  struct boot_domain {
-> +    const char *cmdline;
-> +
->      domid_t domid;
->  
->      struct boot_module *kernel;
-
-I can see why in the earlier patch you added domid at the top. But cmdline?
-
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -975,10 +975,29 @@ static unsigned int __init copy_bios_e820(struct e820entry *map, unsigned int li
->      return n;
->  }
->  
-> -static struct domain *__init create_dom0(struct boot_info *bi)
-> +static size_t __init domain_cmdline_size(
-> +    struct boot_info *bi, struct boot_domain *bd)
->  {
-> -    static char __initdata cmdline[MAX_GUEST_CMDLINE];
-> +    size_t s = bi->kextra ? strlen(bi->kextra) : 0;
-> +
-> +    s += bd->kernel->cmdline_pa ? strlen(__va(bd->kernel->cmdline_pa)) : 0;
-> +
-> +    if ( s == 0 )
-> +        return s;
-> +
-> +    /*
-> +     * Certain parameters from the Xen command line may be added to the dom0
-> +     * command line. Add additional space for the possible cases along with one
-> +     * extra char to hold \0.
-> +     */
-> +    s += strlen(" noapic") + strlen(" acpi=") + sizeof(acpi_param) + 1;
-
-See below; I question this all being necessary for PVH Dom0.
-
-> @@ -1018,39 +1037,52 @@ static struct domain *__init create_dom0(struct boot_info *bi)
->          panic("Error creating d%uv0\n", bd->domid);
->  
->      /* Grab the DOM0 command line. */
-> -    if ( bd->kernel->cmdline_pa || bi->kextra )
-> +    if ( (bd->kernel->cmdline_pa &&
-> +          ((char *)__va(bd->kernel->cmdline_pa))[0]) ||
-> +         bi->kextra )
->      {
-> -        if ( bd->kernel->cmdline_pa )
-> -            safe_strcpy(cmdline,
-> -                        cmdline_cook(__va(bd->kernel->cmdline_pa), bi->loader));
-> +        size_t cmdline_size = domain_cmdline_size(bi, bd);
-> +
-> +        if ( cmdline_size )
-> +        {
-> +            if ( !(cmdline = xzalloc_array(char, cmdline_size)) )
-> +                panic("Error allocating cmdline buffer for %pd\n", d);
->  
-> -        if ( bi->kextra )
-> -            /* kextra always includes exactly one leading space. */
-> -            safe_strcat(cmdline, bi->kextra);
-> +            if ( bd->kernel->cmdline_pa )
-> +                strlcpy(cmdline,
-> +                        cmdline_cook(__va(bd->kernel->cmdline_pa), bi->loader),
-> +                        cmdline_size);
->  
-> -        /* Append any extra parameters. */
-> -        if ( skip_ioapic_setup && !strstr(cmdline, "noapic") )
-> -            safe_strcat(cmdline, " noapic");
-> +            if ( bi->kextra )
-> +                /* kextra always includes exactly one leading space. */
-> +                strlcat(cmdline, bi->kextra, cmdline_size);
->  
-> -        if ( (strlen(acpi_param) == 0) && acpi_disabled )
-> -        {
-> -            printk("ACPI is disabled, notifying Domain 0 (acpi=off)\n");
-> -            safe_strcpy(acpi_param, "off");
-> -        }
-> +            /* Append any extra parameters. */
-> +            if ( skip_ioapic_setup && !strstr(cmdline, "noapic") )
-> +                strlcat(cmdline, " noapic", cmdline_size);
-
-Roger - this isn't going to work very well with PVH Dom0, is it?
-
-> -        if ( (strlen(acpi_param) != 0) && !strstr(cmdline, "acpi=") )
-> -        {
-> -            safe_strcat(cmdline, " acpi=");
-> -            safe_strcat(cmdline, acpi_param);
-> -        }
-> +            if ( (strlen(acpi_param) == 0) && acpi_disabled )
-
-Not sure whether the compiler will do that transformation anyway, but this
-check looks odd to me. Why not simply check whether the first char is the
-nul one?
-
-> +            {
-> +                printk("ACPI is disabled, notifying Domain 0 (acpi=off)\n");
-> +                safe_strcpy(acpi_param, "off");
-> +            }
-
-Here I'm doubtful, too, when it comes to PVH Dom0. If Xen's even works in
-this mode anymore at all, I don't think we can sensibly start a PVH Dom0
-then.
-
-(This is leaving aside that all of this is Linux-centric anyway.)
-
-> -        bd->kernel->cmdline_pa = __pa(cmdline);
-> +            if ( (strlen(acpi_param) != 0) && !strstr(cmdline, "acpi=") )
-> +            {
-> +                strlcat(cmdline, " acpi=", cmdline_size);
-> +                strlcat(cmdline, acpi_param, cmdline_size);
-> +            }
-
-(This, btw, won't work quite well when acpi= is specified more than once
-on the command line.)
-
-> +            bd->kernel->cmdline_pa = 0;
-> +            bd->cmdline = cmdline;
-> +        }
->      }
->  
->      bd->d = d;
->      if ( construct_dom0(bd) != 0 )
->          panic("Could not construct domain 0\n");
->  
-> +    xfree(cmdline);
-
-Leaving bd->cmdline dangling?
+Hmm. I'm not a DT maintainer (imo approval here needs to come from one of
+its maintainers, despite the files being touched not saying so; I notice
+you have the larger Cc list already), but to me the 'f' in libfdt is lost
+with CONFIG_LIB_DEVICE_TREE. What's wrong with CONFIG_LIBFDT when that's
+the code that you want to cover?
 
 Jan
 
