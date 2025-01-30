@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C5EEA22854
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Jan 2025 05:57:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.879370.1289579 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21FA7A2288B
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Jan 2025 06:28:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.879378.1289589 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tdMb3-0004u3-VE; Thu, 30 Jan 2025 04:56:09 +0000
+	id 1tdN5Y-0000ea-9k; Thu, 30 Jan 2025 05:27:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 879370.1289579; Thu, 30 Jan 2025 04:56:09 +0000
+Received: by outflank-mailman (output) from mailman id 879378.1289589; Thu, 30 Jan 2025 05:27:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tdMb3-0004sd-Rb; Thu, 30 Jan 2025 04:56:09 +0000
-Received: by outflank-mailman (input) for mailman id 879370;
- Thu, 30 Jan 2025 04:56:08 +0000
+	id 1tdN5Y-0000d3-6s; Thu, 30 Jan 2025 05:27:40 +0000
+Received: by outflank-mailman (input) for mailman id 879378;
+ Thu, 30 Jan 2025 05:27:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WYlJ=UW=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1tdMb2-0004sU-Eh
- for xen-devel@lists.xenproject.org; Thu, 30 Jan 2025 04:56:08 +0000
-Received: from fhigh-b8-smtp.messagingengine.com
- (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7fde40bc-dec6-11ef-99a4-01e77a169b0f;
- Thu, 30 Jan 2025 05:56:01 +0100 (CET)
-Received: from phl-compute-10.internal (phl-compute-10.phl.internal
- [10.202.2.50])
- by mailfhigh.stl.internal (Postfix) with ESMTP id 6C032254015B;
- Wed, 29 Jan 2025 23:55:59 -0500 (EST)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-10.internal (MEProxy); Wed, 29 Jan 2025 23:55:59 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 29 Jan 2025 23:55:56 -0500 (EST)
+ <SRS0=J50r=UW=oracle.com=harshvardhan.j.jha@srs-se1.protection.inumbo.net>)
+ id 1tdN5W-0000cx-I0
+ for xen-devel@lists.xenproject.org; Thu, 30 Jan 2025 05:27:38 +0000
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e8596f09-deca-11ef-99a4-01e77a169b0f;
+ Thu, 30 Jan 2025 06:27:35 +0100 (CET)
+Received: from pps.filterd (m0333521.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50U27Gfk017331;
+ Thu, 30 Jan 2025 05:27:30 GMT
+Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta01.appoci.oracle.com [138.1.114.2])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 44g0bw0kfu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 30 Jan 2025 05:27:29 +0000 (GMT)
+Received: from pps.filterd
+ (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
+ with ESMTP id 50U52fLb036973; Thu, 30 Jan 2025 05:27:29 GMT
+Received: from nam10-mw2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10lp2046.outbound.protection.outlook.com [104.47.55.46])
+ by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
+ 44cpdamsew-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 30 Jan 2025 05:27:29 +0000
+Received: from PH7PR10MB6505.namprd10.prod.outlook.com (2603:10b6:510:200::11)
+ by CH0PR10MB4875.namprd10.prod.outlook.com (2603:10b6:610:de::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8398.18; Thu, 30 Jan
+ 2025 05:27:26 +0000
+Received: from PH7PR10MB6505.namprd10.prod.outlook.com
+ ([fe80::83d9:1bf1:52cf:df54]) by PH7PR10MB6505.namprd10.prod.outlook.com
+ ([fe80::83d9:1bf1:52cf:df54%6]) with mapi id 15.20.8398.017; Thu, 30 Jan 2025
+ 05:27:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,439 +63,265 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7fde40bc-dec6-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1738212959;
-	 x=1738299359; bh=WcWEhE8zpmeG9E46SMEpHiqP+tJawc+Geu7OtXAUW+s=; b=
-	Fv1sqzjAA3y2QqTzLmcwn0ZV/hZXeiILMJ2jRhgy+NfQoq+98A9q+8sX8mV2amEe
-	ufbxtoVlpvv5Oy7jrSHqyRYvm0xbpjSj2XG9DBCtOsdZ4BOCCM7J2F5Q951nyG2Z
-	SrHKMP5PGtzdF2WheJP/oTD3aJwCKLvVA2xs1KGY6o1F6k8r5fKW085luN/6mRR+
-	GC8cyDm12tkwp28YsKFZ+bvoBHArOJaYJ9DFt45Sd0iAu3WBhoznnXUTd9dV26We
-	I4U3W7X82Pw1bS4k0MyMKh9NfZMU6Pnp9nn6EcFVSQJSdfrlH27MxPa4gFqD6IIc
-	RARaKan1EVl1ohOP9M52aw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1738212959; x=1738299359; bh=WcWEhE8zpmeG9E46SMEpHiqP+tJawc+Geu7
-	OtXAUW+s=; b=a2pEFFSbVnK71YCxy8suDB0XaatF027xIOnZl0EqQOpsBMB1hZG
-	6P0MgfiZ2HmnqeWMz2d7JvGht38XV3lYpSd1hvVPwy54EztpFf1xWsvEkxuYSlcC
-	emZSeDYSqk0ya/jywiyCKd+P1S7HO0cskJVxnU9SWzkxkhTKTlm1OJzyeYSMueOM
-	bCSrw4IY0bITyICu0iwb3c3pm0mhmpCaO3rFfDNTMb4OeisC0oneGEkPuGsgpgQl
-	IX4tsYP9jfK8fTrZs38un1dNfFV23+72+d8lqrFe9mrr3G+UuDIcysdqYZDucrIO
-	DiTtTAKJP80pI0RVqbhCk0sokSSlSlRkPjg==
-X-ME-Sender: <xms:XgabZ09sH-wC86UC0nxZnJgvrD2akNsfY-SM2vF8CSfKTXUUf__mvg>
-    <xme:XgabZ8szemd9P9hLTSx0xIvf81lkAS8rmgir-UcoVu5ir0iViaUb_kF6yt0BassAa
-    pad5lwd47rJ8g>
-X-ME-Received: <xmr:XgabZ6DHFJqtlKsOGc3eNO1of70hOnKQLbA90kugaGJUh54cpaskb-akK_m7AnskS1XVuRBywKFFKym2Rw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdegledtucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
-    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
-    htshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeen
-    ucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomh
-    grrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggft
-    rfgrthhtvghrnhepuddufedvieeiteeivedvfeelfedvudegveffledvleegudeiveffle
-    eitefhfeejnecuffhomhgrihhnpeigvghnrdhorhhgpdhgihhthhhusgdrtghomhenucev
-    lhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrh
-    gvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthho
-    peduuddpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohephhgvlhhgrggrsheskhgvrh
-    hnvghlrdhorhhgpdhrtghpthhtohepsghhvghlghgrrghssehgohhoghhlvgdrtghomhdp
-    rhgtphhtthhopehjghhrohhsshesshhushgvrdgtohhmpdhrtghpthhtoheprhhoghgvrh
-    drphgruhestghithhrihigrdgtohhmpdhrtghpthhtohepsghorhhishdrohhsthhrohhv
-    shhkhiesohhrrggtlhgvrdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhish
-    htshdrgigvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtoheplhhinhhugidqkhgvrhhn
-    vghlsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdhrtghpthhtoheprhgvghhrvghsshhioh
-    hnsheslhhishhtshdrlhhinhhugidruggvvhdprhgtphhtthhopehnsggusehnsggurdhn
-    rghmvg
-X-ME-Proxy: <xmx:XgabZ0crllJAlgvCGhF2V_oLwcdrgd3Vy_rLNOzQ18bjfflXca1iow>
-    <xmx:XgabZ5P7icjw1tz-tKm4hnfvCTXIUAJjZFyY_JjBRxvgRuDEdvrKgg>
-    <xmx:XgabZ-nLMEGsyUP-LmXCSMCblZQQ5NS0gamuVDfMeennnnGAVeUxYQ>
-    <xmx:XgabZ7u5YxT4Z9kWRpmmvebwyy_KIBYnJggJz4jhdOfesY8ahA5EVA>
-    <xmx:XwabZ-mqJfPjcyQ-_mB7ksK07xwyBhfw4VnhkFG8wB2FzVC41Y0-mR2Q>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 30 Jan 2025 05:55:55 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	xen-devel <xen-devel@lists.xenproject.org>,
-	linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
-	Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>
-Subject: Re: Config space access to Mediatek MT7922 doesn't work after device
- reset in Xen PV dom0 (regression, Linux 6.12)
-Message-ID: <Z5sGW4b0pMtm38Y-@mail-itl>
-References: <Z5mOKQUrgeF_r6te@mail-itl>
- <20250129184825.GA484760@bhelgaas>
+X-Inumbo-ID: e8596f09-deca-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	corp-2023-11-20; bh=B48FXnNjVoTmGaIivTnb6qANYjJR4exf89gkaEt+BJ4=; b=
+	dvAiJuebzKIqjn36D0bnrPOZsIYr4Rhbf5HUOi44OfGsqzJKizjWNloPufsZmCPS
+	9PHSb3zU8+7+JkBnfjlMn3BpPXsevzL1OBH9qLgTK+ns0W8YyxczbaxS+/ZwbWWV
+	XVBcRac7p1znqtVDG+F6ONRYSoJqTgfjEKnsqj+4vlP4uUSGXRR3t93ZUqBi8BMI
+	cm86VsDX8f55SfJd2VTERbQ9qhs6diouTFHUMXnmgkMvlkahhTyf3E28XmFnYDOW
+	UExUFImwGbJstdBe2wPFElGugZVRpmuY7QwYVix8FN39FhKqHSYTDZb1dHJGRxsJ
+	a+e1P+Dw92ZS++GUQgkgJQ==
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=I0KWyX1B6JXWLh87aNHd7aIlITdAITFndN6hqZUNZqyYEBH0AetIVEYz1bB7BYcQ9uipHtehldANIyRaQpl55Lkf2MkYh1pcCgIcwQgJSpEcCH5ey6q2y1AuwwaPPG3xbpDldGMiruss72VLM6v3XEtywpqmt5dLr76xfpvKIoyrQp/pS3pwA1OuTT7oh4l37TVhr1IJX7mKpSmBWnr1g/Uz1DmWTPV9ifcrHJdosuWcv7NXeGnX/abFPOjm+nQyO6fBOnqEXKFO+Sf4emopNvaYFWABKD4n3lzqO9xWm9Gw2njweIKQpNiXqfUuBjHI1PLPy6WBYK9kvaEerEHXbg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=B48FXnNjVoTmGaIivTnb6qANYjJR4exf89gkaEt+BJ4=;
+ b=AugLG9B4ZU6jn+xwJi7OuoM6l7F0vtKSTIJJxtrpOAEeJZy0v1WlOFQk2YaYz516pVLDsEajc+8ZZBLor+YxaQfheDEmAYpCUYpeppLg5yhUMzHYjVf7q3jA9PdCLqnt/v37ekR9SUCTSO4blmmsE12H3RVqVo9pE16eChzK0NIqnr7uZ9VCTMHg97NWbttlFvd87ftJjAspEMrCQVi8143moSZuJeqi6ymyfHw/zK3lwJjBt/up6jiBJoqk5oKOkbV+SNSgE/emDgTBUlhJWPuDFSmbnzcDWu1ECwop5mXwcPQzIPr0VPICr9LuQEDsXnpWspa7DulWRDGM0q9bLw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=B48FXnNjVoTmGaIivTnb6qANYjJR4exf89gkaEt+BJ4=;
+ b=OZA+VIxi6IG5HtjnUdfDDM5N57yvDgD07P+pNe144ruZbH1XPPwDJAhgro52eUI1n3fBO2mvajEM/bw/abFAxdQIgOCnHBWajmjUxz5/HrDzQlNRBKgaqlu8zhAeRN5cB0J/jpGRkSsc9AY5GQGfxAO6rcn+RFjRQTAXajr+7RE=
+Message-ID: <827aceff-28ed-4922-b841-b7dd06c082b1@oracle.com>
+Date: Thu, 30 Jan 2025 10:57:17 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: v5.4.289 failed to boot with error megasas_build_io_fusion 3219
+ sge_count (-12) is out of range
+To: Stefano Stabellini <sstabellini@kernel.org>,
+        =?UTF-8?B?SsO8cmdlbiBHcm8=?=
+ =?UTF-8?B?w58=?= <jgross@suse.com>
+Cc: Greg KH <gregkh@linuxfoundation.org>,
+        Konrad Wilk
+ <konrad.wilk@oracle.com>,
+        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
+        stable@vger.kernel.org
+References: <7dc143fa-4a48-440b-b624-ac57a361ac74@oracle.com>
+ <9dd91f6e-1c66-4961-994e-dbda87d69dad@oracle.com>
+ <2025012919-series-chaps-856e@gregkh>
+ <8eb33b38-23e1-4e43-8952-3f2b05660236@oracle.com>
+ <2025012936-finalize-ducktail-c524@gregkh>
+ <1f017284-1a29-49d8-b0d9-92409561990e@oracle.com>
+ <2025012956-jiffy-condone-3137@gregkh>
+ <1f225b8d-d958-4304-829e-8798884d9b6b@oracle.com>
+ <83bd90c7-8879-4462-9548-bb5b69cac39e@suse.com>
+ <b4ab0246-3846-41d1-8e84-64bd7fefc089@oracle.com>
+ <de6912ad-3dba-4d66-8ca2-71a0aa09172c@suse.com>
+ <alpine.DEB.2.22.394.2501291401290.11632@ubuntu-linux-20-04-desktop>
+Content-Language: en-US
+From: Harshvardhan Jha <harshvardhan.j.jha@oracle.com>
+In-Reply-To: <alpine.DEB.2.22.394.2501291401290.11632@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SI2PR02CA0043.apcprd02.prod.outlook.com
+ (2603:1096:4:196::12) To PH7PR10MB6505.namprd10.prod.outlook.com
+ (2603:10b6:510:200::11)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="J/cW/5xtZf/8V1JK"
-Content-Disposition: inline
-In-Reply-To: <20250129184825.GA484760@bhelgaas>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR10MB6505:EE_|CH0PR10MB4875:EE_
+X-MS-Office365-Filtering-Correlation-Id: 73553d1a-e7b6-4162-d9bc-08dd40eec7cc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?QmhrRUNjMklBbU53TnVtVU1ZY2JhY2hjVFNLYytHWjZJQVFCaVh0aks4UmZJ?=
+ =?utf-8?B?cGcyY3NVYWZJVXBvZldFQkdpUVJGOVdYWmh6UmRnM1FOTUFrNUt4d3JvS3NI?=
+ =?utf-8?B?Mm9Xa2VES25IQkVkK0NOUHBteDVNa1ZpWEgwSjBJTW9KQzd5RDRpcnphVlQ2?=
+ =?utf-8?B?Nkl2czlqbVpFKzA5c09mMndFaHRjNERLUVhuL0lWdDFzaXVkQ1VIK0RaLzJC?=
+ =?utf-8?B?MloyakNVeWNnb1ZYRjdkOEkxUkRFYUx0L0MvWk9sZmVjZVhMbzJ5a09ITmRO?=
+ =?utf-8?B?SU01TXBEZUVXbXVNVENlRjdIQVVjaXRmR0VudWdGZ0JpVkRkbzcvNlIyS0Yx?=
+ =?utf-8?B?dWx6UVIxNnlxellkVUc5RjI0TUhTM24wbnFXbTZsa000amUweXRVbjZaUm41?=
+ =?utf-8?B?UGZaN3oxTDdJcU1raW05RVBCR2Fock1NNG1xS20zS1RLQlQ1ZGFUQjc1K1ZO?=
+ =?utf-8?B?a3h6QVAyKzRid3B5UDdxaW1CaHcxaUZHL014am9ucmMxUU9lRzJRcUhEMDd0?=
+ =?utf-8?B?V1lIVFFoVWRYRFltM0ZYUTJFMU1lR1pJZHdiMTY4M2Y0R3g5dTY2NXdzQTZ4?=
+ =?utf-8?B?VTF2VG5zcHAvTFk0TlN6UndKbTJSdjllalUvZlpzUzRtWk5mQkpXQndHeUEx?=
+ =?utf-8?B?K0ZkSENhMXp1YmRNV2FXRGpGTGgyZVFZWWNmRDVsUkhxVFE5ZW51Y040U2xZ?=
+ =?utf-8?B?TnVKemVXdUQ3eDI3RWZOY0c5VlhwaDl2c1NnK2lQZ2dxN2RTbEJqcEZMYm5Z?=
+ =?utf-8?B?dDJQdVhpQ25KVnFsaHdXVzNkVUpDQ2pHYW9PYWF1MVpQL3NHM0dPWFJXTGVz?=
+ =?utf-8?B?T3lrYkoxN3VORmF2VHJ3SVMyTHY0MjlEb0ZJdnpCVWV3czI0MEtpRDR4dlpJ?=
+ =?utf-8?B?aXIvaXJ3RGlkMnVDdVI5bE15RUZJWnRBZE9hMWszRkwrcy9OVENvZ0JoMHhV?=
+ =?utf-8?B?SkROKzZETFNWTkZZTFgwcUdXbXNKTEJkTWgvMjl4WTNObXBsbnRuMXNqaWZk?=
+ =?utf-8?B?RjMyNGVYQ1ZuaHJxMnRTbUZmSUU1NC9tMTg4b0NUOG4yejBDQUpmSTYyQzY0?=
+ =?utf-8?B?OGkwZUlHcE5qT1F4bzlvWm1mdVlKajR6OVJ1WFNKbWxJdk9tdkczb0E4Z3lq?=
+ =?utf-8?B?dEkrRS9ubW1ObjNPejA3NFRJd0Y4NFRNbXR3ellJNm1NazFORGtFUVUzdnhM?=
+ =?utf-8?B?WEpLOUJSKytTZmI2UitZcVZCd3ZxMmVxUzFEQ3FUNDBkUUYxb1FXa3p4WmNP?=
+ =?utf-8?B?a1JMNEw5aUk1RGFtWThZUUR2cXVNV3MzU3g3UkNDOG9OTDdyd0xqR3V5MXlB?=
+ =?utf-8?B?VFJRZlgxNVBpZWxZQThOZyt0V0tTUWJ5TU9acEFRL2Q4SWx5a01JbXpBaWhI?=
+ =?utf-8?B?bWpvb2IrY2NCVGpXTGVJa1cxbmU0T3VuTGJ6MFZuN1I3ZmQ1U1ZFa3hUTG1N?=
+ =?utf-8?B?NHNQSDZURnpLdkhNY2l1Q3ZzTGdHWktuOExxMVhUdEU2T1MreS9tbWdPWjN2?=
+ =?utf-8?B?WnRNVCtqaHpMZlNRNXRqbDJDRE5uR2hHTWtiREw2T2praDRoU3JBNVlWY2VV?=
+ =?utf-8?B?ZEdubW9IMTV0TVRYTHVURGVQTzBTZXVqVzBWa0NXVjFBV0o0dk5VNDg2Wmt0?=
+ =?utf-8?B?U3hvL0dwcmlMVXJKdnhrZVRwSlpWMm1ubERBT3hSODk0NFRQVXpOK05BZGpP?=
+ =?utf-8?B?Zkxlc1VqakIyL3NWVXV6Q204NTgyYXJVVHd1MnRQYUkzci9xN2FEdHRJb242?=
+ =?utf-8?B?bWJqLytyZkpuTVJiUGNFOXNSVHVwakxQaE42WUcyVWprYjdUVGE2SWp0WUVz?=
+ =?utf-8?B?VXI1MzlyMGhqS212R3grQT09?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR10MB6505.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NUxza0Z4eDlFaUtpck90aUxmbEN1VGtia1owSkNEWDdRbW9lTytjcmJaQk1J?=
+ =?utf-8?B?YTBpcVVKK2pTRGhzREZjcUNDMGFET1lFTnV0dXUreVFaUW1oczVTRFZidmxo?=
+ =?utf-8?B?cXp0SkhyM3l6S3ZsLzRJTDhOMDM3cEtBaktyRGdxQTZhRnZnSlExcWFud0JR?=
+ =?utf-8?B?Y2hqM3YxMjM5WlEzMmM3Wm9kcGlsSTBjU2FXNTdIWlFDdmlVekdoY1RGVzBq?=
+ =?utf-8?B?bFIrNzFjYzlqdGk5L0tzc29UaStQeE9EM1dYU0tYcUFnaG5vaFJzSFVZa0Rm?=
+ =?utf-8?B?a0JvQ1YvVGNTR2RsN1dzMGVPQWNMNUtvcXdjMGhnTjBXL1oySEJoQmNzVURE?=
+ =?utf-8?B?bm56Qy9yQTl4empIQ0dqSHB0ajQvRnpSNFR1cWkwZHc2djF5YUsyWVo0NmR2?=
+ =?utf-8?B?QmFTZEdwdzJ6YWxpdGtoWXA5S3VGNk5BRG1FL01nNzdTZ3ZHL2JHNnNnQWhl?=
+ =?utf-8?B?dUdtTVhmQXE1TFJKNU9GYmtibEVaQmhOQUVDZ3lmcEZHKzZWTUxMRUFuSVZB?=
+ =?utf-8?B?RjM5NUkwQVVmY1gvYTY5M0ExbUpmUk1yUXdyc0t4dkI3bVhnQktYS0xXbGJN?=
+ =?utf-8?B?T3BGZVE0TVhobXFJWjVqNXZOMkFwMkNsK0dvbndWTmpVYjJ3Z1NpMUNjOWZU?=
+ =?utf-8?B?NGRsdTBWckNHUXRodzZGL2RRQU80SnBmemRqYXNqTENpTVZUbWJldVFUZ1BW?=
+ =?utf-8?B?WXkvK3U2eW01cXFtTDR1b0NpL0JQUkVMdEczV2RzV2p5anNjQ250bXZ2QzNz?=
+ =?utf-8?B?dHZCNXRkWldjcjZ1RzNRRFVMNWJnczY4dXZMVkRYcU9RMlZQbytpNEZCazg3?=
+ =?utf-8?B?UC9IeThQeFJuRHNlUEZXc1cvaXhpV2ZTQVgxMlRWTWZmWmRLSFhGM0xWeVJO?=
+ =?utf-8?B?OTdySWZSRktLVXBCaDY0WFdqL2FLUDJwaWhNUVl6b0d3aXFwb2pTLzJuRVI5?=
+ =?utf-8?B?Q0JlcjZQbDdrRXNrSGJkSm52Q0RXY2VEQ3MzaGtRRDVsSUN3aW1kOCt2ZElG?=
+ =?utf-8?B?MnNiK1RkUUJmWURQTnVRY3R0MjBocExEcnFJa0YzN3RFMWRlWkRhcWVTK2U5?=
+ =?utf-8?B?akVqTlpCVzNrY2RwZGNVWXZSQk44ZjJwMklsZ05YNnFwcTc0cUx3UEVwbzFE?=
+ =?utf-8?B?NndUaEVxbnlBNmVFOWZKQmxzZWI4ckdiVUF0cy81VktLUE5KRG9uSFBaWkNa?=
+ =?utf-8?B?Uk5xc0FndG1qWWtPNW9EaEFWOXJNeEd2UktaV2FvQUhXY1hOWGhIbjVXTFZm?=
+ =?utf-8?B?ajdkQjlIS2F0RHFyRWxDWS9aK01HTHRsUlVud2NuS0Z0aUNnY2x3aDA2L3Zx?=
+ =?utf-8?B?OXc3Z1d3Z2o5VDVYbVVUZnEzMHpvRElZa2svZWdadS9qUzkxbzd2Wm1JTzJ1?=
+ =?utf-8?B?bnVTRWV2aWZDVklTK3Z5Vjk3dVJMdUZ4QWtYNkRCMnBGTmUxMURRTXRTdW12?=
+ =?utf-8?B?dUpobWlzVmdNT0RjNll3SGlzR3pTdGVSVVZQWmVYeUJQMEw1YWxkdWN2NHd3?=
+ =?utf-8?B?VnA0QmRSSVhjTEd3clNITVN6ak9UVUR1L3E5YXROV1VUZ2t5aTdwY3U1Rjkr?=
+ =?utf-8?B?U1JsUGxkbWJha1lkeUJ0U0NHbVhRR0RDV1F5N0ZRc0FsUDd4a1IwRkwwTmdF?=
+ =?utf-8?B?QmFSOFhyS2ZUZk4ycnM5d2J3UUYrdnBUWlhRejdaaGc2SElKZmFCaTN5WitZ?=
+ =?utf-8?B?T01TMTNiZmczQ2pUdThrUUpiUHNPbktiKzd3U2hjaytJZ3BISE1CVUZSQU52?=
+ =?utf-8?B?WDhzcmFGS2lSM1ZsMGQvSm1lUmNoYlY2b1VMeStZZnhIVkhnOTVwVUI1Wk9P?=
+ =?utf-8?B?MnNBcGRHU0hYTWlaYXJldTk5d0NocmNXVEZFeTlKY0tJMGxqWUtSTlVQa0k3?=
+ =?utf-8?B?SGQzVWhwa1IrMTJXcHNiVE1nQUNUMTRFa2FuUU9GZS9TSjU1Q3h3TlNuc3FF?=
+ =?utf-8?B?REc2clVNQWpXTFlUUVMzZy9QcStEdFNZZjNqNmVQREYxWENzeTc3S1NTLzlN?=
+ =?utf-8?B?R0c5UllvTW5FZ3lacHFwQjI1WnRsNzhYWjJmZWRMeVlqb3cySDB1R0hJZFJI?=
+ =?utf-8?B?S0grZTVKeG5sZlNaL3lKRXJTTXVoQWYvMVVnL3lRSnp3ZjQvWFJ6ak9OR3F4?=
+ =?utf-8?B?RHdCckpHRFYyLzFRUlpmNUN5VEVleDEyUmxOeFJmM2FnT1RqUGl0NVRxaHho?=
+ =?utf-8?B?aGc9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	6XMqzzSXbTigILxQi8dUJTs+2wd3BQMx51RlkYaPPoazKYGT6sosXdw/J1ZFnuA3+9kmDLYsWi0+ni8rc9RMu/va+JbwBtG2EFSKVZpp6zvgdm1kVZLluXNLQr9xX/8UecBzop64c15gofn2KK0n8/8ojKpuMBOUP9ttgOGtXfbEsa1YVinUAYGZoCdDkITNKTQC3kwRBW+Nn9FHF9UM0duBIlfqWqamVYw1GOHJRJC/MkSOgSbdsj23ig/v5vknYtef7Po0LFDJb/hGsWjvl/NGTaPJkO5nLkKjFigx4oMdkoSzQiLWuDqFyh1iZC0U7AlawlGbfdOU12u4kJKHQI0Onm7x5l8lj8ZeA3OJhUEWJNP+9TewvtjE4oqQ+7Kqw0vtRZUvJNV/GXRMwdsayqNxvhn3kovbq9t32qpaCVT32ffOoYvZMS0Jjb0G5n7/FPOY9Sh/0cLWCyTH7b3lU4m/MLsPdLx302ZMuig1VWPgdyxoVhO0CJB0+QyL9cRQKFxZMwDWOhXx2M4kubo2Eo8GVKKkaOufWgfxr3P+LX5ftnzVIbDpcsDruQ7wDPAA+bHqtWaP2zH/UhTU3eIqPvdLuus0B3Kpjj2Dxqvtabs=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 73553d1a-e7b6-4162-d9bc-08dd40eec7cc
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR10MB6505.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jan 2025 05:27:25.9373
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pzzVrIGtUX+v2X9zaHKjxowIjfmImpf+fEyMM8QEZsuYmj2vFsUHtQdCScqCdjmVwLgz0YB4CSGntHd3NpLh0QDVJ5bDZEfm8KixZ8R9zmM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR10MB4875
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-01-30_02,2025-01-29_01,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0 bulkscore=0 malwarescore=0
+ mlxlogscore=999 suspectscore=0 spamscore=0 mlxscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2411120000
+ definitions=main-2501300039
+X-Proofpoint-ORIG-GUID: DvTJ6oBnUbmGh8n7aYSsPJoQ7smWrmzh
+X-Proofpoint-GUID: DvTJ6oBnUbmGh8n7aYSsPJoQ7smWrmzh
 
 
---J/cW/5xtZf/8V1JK
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jan 2025 05:55:55 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	xen-devel <xen-devel@lists.xenproject.org>,
-	linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
-	Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>
-Subject: Re: Config space access to Mediatek MT7922 doesn't work after device
- reset in Xen PV dom0 (regression, Linux 6.12)
+On 30/01/25 3:31 AM, Stefano Stabellini wrote:
+> On Wed, 29 Jan 2025, Jürgen Groß wrote:
+>> On 29.01.25 19:35, Harshvardhan Jha wrote:
+>>> On 29/01/25 4:52 PM, Juergen Gross wrote:
+>>>> On 29.01.25 10:15, Harshvardhan Jha wrote:
+>>>>> On 29/01/25 2:34 PM, Greg KH wrote:
+>>>>>> On Wed, Jan 29, 2025 at 02:29:48PM +0530, Harshvardhan Jha wrote:
+>>>>>>> Hi Greg,
+>>>>>>>
+>>>>>>> On 29/01/25 2:18 PM, Greg KH wrote:
+>>>>>>>> On Wed, Jan 29, 2025 at 02:13:34PM +0530, Harshvardhan Jha wrote:
+>>>>>>>>> Hi there,
+>>>>>>>>>
+>>>>>>>>> On 29/01/25 2:05 PM, Greg KH wrote:
+>>>>>>>>>> On Wed, Jan 29, 2025 at 02:03:51PM +0530, Harshvardhan Jha
+>>>>>>>>>> wrote:
+>>>>>>>>>>> Hi All,
+>>>>>>>>>>>
+>>>>>>>>>>> +stable
+>>>>>>>>>>>
+>>>>>>>>>>> There seems to be some formatting issues in my log output. I
+>>>>>>>>>>> have
+>>>>>>>>>>> attached it as a file.
+>>>>>>>>>> Confused, what are you wanting us to do here in the stable
+>>>>>>>>>> tree?
+>>>>>>>>>>
+>>>>>>>>>> thanks,
+>>>>>>>>>>
+>>>>>>>>>> greg k-h
+>>>>>>>>> Since, this is reproducible on 5.4.y I have added stable. The
+>>>>>>>>> culprit
+>>>>>>>>> commit which upon getting reverted fixes this issue is also
+>>>>>>>>> present in
+>>>>>>>>> 5.4.y stable.
+>>>>>>>> What culprit commit?  I see no information here :(
+>>>>>>>>
+>>>>>>>> Remember, top-posting is evil...
+>>>>>>> My apologies,
+>>>>>>>
+>>>>>>> The stable tag v5.4.289 seems to fail to boot with the following
+>>>>>>> prompt in an infinite loop:
+>>>>>>> [   24.427217] megaraid_sas 0000:65:00.0: megasas_build_io_fusion
+>>>>>>> 3273 sge_count (-12) is out of range. Range is:  0-256
+>>>>>>>
+>>>>>>> Reverting the following patch seems to fix the issue:
+>>>>>>>
+>>>>>>> stable-5.4      : v5.4.285             - 5df29a445f3a xen/swiotlb:
+>>>>>>> add
+>>>>>>> alignment check for dma buffers
+>>>>>>>
+>>>>>>> I tried changing swiotlb grub command line arguments but that didn't
+>>>>>>> seem to help much unfortunately and the error was seen again.
+>>>>>>>
+>>>>>> Ok, can you submit this revert with the information about why it
+>>>>>> should
+>>>>>> not be included in the 5.4.y tree and cc: everyone involved and then
+>>>>>> we
+>>>>>> will be glad to queue it up.
+>>>>>>
+>>>>>> thanks,
+>>>>>>
+>>>>>> greg k-h
+>>>>> This might be reproducible on other stable trees and mainline as well so
+>>>>> we will get it fixed there and I will submit the necessary fix to stable
+>>>>> when everything is sorted out on mainline.
+>>>> Right. Just reverting my patch will trade one error with another one (the
+>>>> one which triggered me to write the patch).
+>>>>
+>>>> There are two possible ways to fix the issue:
+>>>>
+>>>> - allow larger DMA buffers in xen/swiotlb (today 2MB are the max.
+>>>> supported
+>>>>    size, the megaraid_sas driver seems to effectively request 4MB)
+>>> This seems relatively simpler to implement but I'm not sure whether it's
+>>> the most optimal approach
+>> Just making the static array larger used to hold the frame numbers for the
+>> buffer seems to be a waste of memory for most configurations.
+>>
+>> I'm thinking of an allocated array using the max needed size (replace a
+>> former buffer with a larger one if needed).
+> You are referring to discontig_frames and MAX_CONTIG_ORDER in
+> arch/x86/xen/mmu_pv.c, right? I am not super familiar with that code but
+> it looks like a good way to go.
 
-On Wed, Jan 29, 2025 at 12:48:25PM -0600, Bjorn Helgaas wrote:
-> On Wed, Jan 29, 2025 at 03:10:49AM +0100, Marek Marczykowski-G=C3=B3recki=
- wrote:
-> > On Tue, Jan 28, 2025 at 07:15:26PM -0600, Bjorn Helgaas wrote:
-> > > On Fri, Jan 17, 2025 at 01:05:30PM +0100, Marek Marczykowski-G=C3=B3r=
-ecki wrote:
-> > > > After updating PV dom0 to Linux 6.12, The Mediatek MT7922 device re=
-ports
-> > > > all 0xff when accessing its config space. This happens only after d=
-evice
-> > > > reset (which is also triggered when binding the device to the
-> > > > xen-pciback driver).
-> > >=20
-> > > Thanks for the report and for all the debugging you've already done!
-> > >=20
-> > > > Reproducer:
-> > > >=20
-> > > >     # lspci -xs 01:00.0
-> > > >     01:00.0 Network controller: MEDIATEK Corp. MT7922 802.11ax PCI =
-Express Wireless Network Adapter
-> > > >     00: c3 14 16 06 00 00 10 00 00 00 80 02 10 00 00 00
-> > > >     ...
-> > > >     # echo 1 > /sys/bus/pci/devices/0000:01:00.0/reset
-> > > >     # lspci -xs 01:00.0
-> > > >     01:00.0 Network controller: MEDIATEK Corp. MT7922 802.11ax PCI =
-Express Wireless Network Adapter
-> > > >     00: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
-> > > >
-> > > > The same operation done on Linux 6.12 running without Xen works fin=
-e.
-> > > >=20
-> > > > git bisect points at:
-> > > >=20
-> > > >     commit d591f6804e7e1310881c9224d72247a2b65039af
-> > > >     Author: Bjorn Helgaas <bhelgaas@google.com>
-> > > >     Date:   Tue Aug 27 18:48:46 2024 -0500
-> > > >=20
-> > > >     PCI: Wait for device readiness with Configuration RRS
-> > > >=20
-> > > > part of that commit:
-> > > > @@ -1311,9 +1320,15 @@ static int pci_dev_wait(struct pci_dev *dev,=
- char *reset_type, int timeout)
-> > > >                         return -ENOTTY;
-> > > >                 }
-> > > > =20
-> > > > -               pci_read_config_dword(dev, PCI_COMMAND, &id);
-> > > > -               if (!PCI_POSSIBLE_ERROR(id))
-> > > > -                       break;
-> > > > +               if (root && root->config_crs_sv) {
-> > > > +                       pci_read_config_dword(dev, PCI_VENDOR_ID, &=
-id);
-> > > > +                       if (!pci_bus_crs_vendor_id(id))
-> > > > +                               break;
-> > > > +               } else {
-> > > > +                       pci_read_config_dword(dev, PCI_COMMAND, &id=
-);
-> > > > +                       if (!PCI_POSSIBLE_ERROR(id))
-> > > > +                               break;
-> > > > +               }
-> > > > =20
-> > > >    =20
-> > > > Adding some debugging, the PCI_VENDOR_ID read in pci_dev_wait() ret=
-urns
-> > > > initially 0xffffffff. If I extend the condition with
-> > > > "&& !PCI_POSSIBLE_ERROR(id)", then the issue disappear. But reading=
- the
-> > > > patch description, it would break VF.
-> > > > I'm not sure where the issue is, but given it breaks only when runn=
-ing
-> > > > with Xen, I guess something is wrong with "Configuration RRS Softwa=
-re
-> > > > Visibility" in that case.
-> > >=20
-> > > I'm missing something.  If you get 0xffffffff, that is not the 0x0001
-> > > Vendor ID, so pci_dev_wait() should exit immediately. =20
-> >=20
-> > I'm not sure what is going on there either, but my _guess_ is that the
-> > loop exits too early due to the above. And it makes some further actions
-> > to fail.
->=20
-> Seems like a good guess worth investigating.  Maybe log all config
-> accesses to this device after the FLR and see what we're doing?
+This rejected patch works on MAX_CONTIG_ORDER and doubles the buffer
+size but that is undesirable in most situations:
 
-I've added logging of all config read/write to this device. Full log at
-[1].
+https://lore.kernel.org/lkml/28947d4f-ab32-4a57-8dbb-e37fa4183a69@suse.com/t/
 
-A little explanation:
-- it's done in pci_conf_read/pci_conf_write in https://xenbits.xen.org/gitw=
-eb/?p=3Dxen.git;a=3Dblob;f=3Dxen/arch/x86/pci.c;h=3D97b792e578f109319446608=
-1ad3651ade21cae7d;hb=3DHEAD
-- cf8 means cf8 port value (BDF + register)
-- bytes is read/write size (1/2/4)
-- offset is the offset in the register (on top of cf8), but not in data
-- data is either retrieved value, or written value, depending on
-  function
-- it's logging only accesses to 01:00.0
-
-interesting part:
-
-lspci before reset:
-(XEN) d0v3 conf read cf8 0x80010000 bytes 4 offset 0 data 0x61614c3
-(XEN) d0v3 conf read cf8 0x80010004 bytes 4 offset 0 data 0x100000
-(XEN) d0v3 conf read cf8 0x80010008 bytes 4 offset 0 data 0x2800000
-(XEN) d0v3 conf read cf8 0x8001000c bytes 4 offset 0 data 0x10
-(XEN) d0v3 conf read cf8 0x80010010 bytes 4 offset 0 data 0x1090000c
-(XEN) d0v3 conf read cf8 0x80010014 bytes 4 offset 0 data 0x80
-(XEN) d0v3 conf read cf8 0x80010018 bytes 4 offset 0 data 0x90b00004
-(XEN) d0v3 conf read cf8 0x8001001c bytes 4 offset 0 data 0
-(XEN) d0v3 conf read cf8 0x80010020 bytes 4 offset 0 data 0
-(XEN) d0v3 conf read cf8 0x80010024 bytes 4 offset 0 data 0
-(XEN) d0v3 conf read cf8 0x80010028 bytes 4 offset 0 data 0
-(XEN) d0v3 conf read cf8 0x8001002c bytes 4 offset 0 data 0xe61614c3
-(XEN) d0v3 conf read cf8 0x80010030 bytes 4 offset 0 data 0
-(XEN) d0v3 conf read cf8 0x80010034 bytes 4 offset 0 data 0x80
-(XEN) d0v3 conf read cf8 0x80010038 bytes 4 offset 0 data 0
-(XEN) d0v3 conf read cf8 0x8001003c bytes 4 offset 0 data 0x1ff
-(XEN) d0v3 conf read cf8 0x80010080 bytes 4 offset 0 data 0x2e010
-(XEN) d0v3 conf read cf8 0x800100e0 bytes 4 offset 0 data 0x18af805
-(XEN) d0v3 conf read cf8 0x800100f8 bytes 4 offset 0 data 0xc8030001
-
-reset:
-(XEN) d0v1 conf read cf8 0x800100fc bytes 2 offset 0 data 0x8
-(XEN) d0v1 conf read cf8 0x800100fc bytes 2 offset 0 data 0x8
-(XEN) d0v1 conf read cf8 0x8001008c bytes 4 offset 0 data 0x145dc12
-(XEN) d0v1 conf read cf8 0x80010000 bytes 4 offset 0 data 0x61614c3
-(XEN) d0v1 conf read cf8 0x80010004 bytes 4 offset 0 data 0x100000
-(XEN) d0v1 conf read cf8 0x80010008 bytes 4 offset 0 data 0x2800000
-(XEN) d0v1 conf read cf8 0x8001000c bytes 4 offset 0 data 0x10
-(XEN) d0v1 conf read cf8 0x80010010 bytes 4 offset 0 data 0x1090000c
-(XEN) d0v1 conf read cf8 0x80010014 bytes 4 offset 0 data 0x80
-(XEN) d0v1 conf read cf8 0x80010018 bytes 4 offset 0 data 0x90b00004
-(XEN) d0v1 conf read cf8 0x8001001c bytes 4 offset 0 data 0
-(XEN) d0v1 conf read cf8 0x80010020 bytes 4 offset 0 data 0
-(XEN) d0v1 conf read cf8 0x80010024 bytes 4 offset 0 data 0
-(XEN) d0v1 conf read cf8 0x80010028 bytes 4 offset 0 data 0
-(XEN) d0v1 conf read cf8 0x8001002c bytes 4 offset 0 data 0xe61614c3
-(XEN) d0v1 conf read cf8 0x80010030 bytes 4 offset 0 data 0
-(XEN) d0v1 conf read cf8 0x80010034 bytes 4 offset 0 data 0x80
-(XEN) d0v1 conf read cf8 0x80010038 bytes 4 offset 0 data 0
-(XEN) d0v1 conf read cf8 0x8001003c bytes 4 offset 0 data 0x1ff
-(XEN) d0v1 conf read cf8 0x80010088 bytes 2 offset 0 data 0x2910
-(XEN) d0v1 conf read cf8 0x80010090 bytes 2 offset 0 data 0x1c2
-(XEN) d0v1 conf read cf8 0x800100a8 bytes 2 offset 0 data 0x400
-(XEN) d0v1 conf read cf8 0x800100b0 bytes 2 offset 0 data 0x2
-(XEN) d0v1 conf read cf8 0x80010004 bytes 2 offset 2 data 0x10
-(XEN) d0v1 conf read cf8 0x80010034 bytes 1 offset 0 data 0x80
-(XEN) d0v1 conf read cf8 0x80010080 bytes 2 offset 0 data 0xe010
-(XEN) d0v1 conf read cf8 0x800100e0 bytes 2 offset 0 data 0xf805
-(XEN) d0v1 conf read cf8 0x800100f8 bytes 2 offset 0 data 0x1
-(XEN) d0v1 conf write cf8 0x80010004 bytes 2 offset 0 data 0x400
-(XEN) d0v1 conf read cf8 0x80010088 bytes 2 offset 2 data 0x9
-(XEN) d0v1 conf read cf8 0x80010088 bytes 2 offset 0 data 0x2910
-(XEN) d0v1 conf write cf8 0x80010088 bytes 2 offset 0 data 0xa910
-(XEN) d0v2 conf read cf8 0x80010000 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf read cf8 0x80010090 bytes 2 offset 0 data 0xffff
-(XEN) d0v2 conf write cf8 0x80010090 bytes 2 offset 0 data 0xfffc
-(XEN) d0v2 conf write cf8 0x80010090 bytes 2 offset 0 data 0xffff
-(XEN) d0v2 conf write cf8 0x80010088 bytes 2 offset 0 data 0x2910
-(XEN) d0v2 conf write cf8 0x80010090 bytes 2 offset 0 data 0x1c2
-(XEN) d0v2 conf write cf8 0x800100a8 bytes 2 offset 0 data 0x400
-(XEN) d0v2 conf write cf8 0x800100b0 bytes 2 offset 0 data 0x2
-(XEN) d0v2 conf read cf8 0x8001003c bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x8001003c bytes 4 offset 0 data 0x1ff
-(XEN) d0v2 conf read cf8 0x80010038 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010038 bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x80010034 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010034 bytes 4 offset 0 data 0x80
-(XEN) d0v2 conf read cf8 0x80010030 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010030 bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x8001002c bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x8001002c bytes 4 offset 0 data 0xe61614c3
-(XEN) d0v2 conf read cf8 0x80010028 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010028 bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x80010024 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010024 bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x80010024 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010024 bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x80010024 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010024 bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x80010024 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010024 bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x80010024 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010024 bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x80010024 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010024 bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x80010024 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010024 bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x80010024 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010024 bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x80010024 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010024 bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x80010024 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010024 bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x80010024 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010024 bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x80010020 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010020 bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x80010020 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010020 bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x80010020 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010020 bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x80010020 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010020 bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x80010020 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010020 bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x80010020 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010020 bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x80010020 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010020 bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x80010020 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010020 bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x80010020 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010020 bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x80010020 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010020 bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x80010020 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010020 bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x8001001c bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x8001001c bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x8001001c bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x8001001c bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x8001001c bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x8001001c bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x8001001c bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x8001001c bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x8001001c bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x8001001c bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x8001001c bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x8001001c bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x8001001c bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x8001001c bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x8001001c bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x8001001c bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x8001001c bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x8001001c bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x8001001c bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x8001001c bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x8001001c bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x8001001c bytes 4 offset 0 data 0
-(XEN) d0v2 conf read cf8 0x80010018 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010018 bytes 4 offset 0 data 0x90b00004
-(XEN) d0v2 conf read cf8 0x80010018 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010018 bytes 4 offset 0 data 0x90b00004
-(XEN) d0v2 conf read cf8 0x80010018 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010018 bytes 4 offset 0 data 0x90b00004
-(XEN) d0v2 conf read cf8 0x80010018 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010018 bytes 4 offset 0 data 0x90b00004
-(XEN) d0v2 conf read cf8 0x80010018 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010018 bytes 4 offset 0 data 0x90b00004
-(XEN) d0v2 conf read cf8 0x80010018 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010018 bytes 4 offset 0 data 0x90b00004
-(XEN) d0v2 conf read cf8 0x80010018 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010018 bytes 4 offset 0 data 0x90b00004
-(XEN) d0v2 conf read cf8 0x80010018 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010018 bytes 4 offset 0 data 0x90b00004
-(XEN) d0v2 conf read cf8 0x80010018 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010018 bytes 4 offset 0 data 0x90b00004
-(XEN) d0v2 conf read cf8 0x80010018 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010018 bytes 4 offset 0 data 0x90b00004
-(XEN) d0v2 conf read cf8 0x80010018 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010018 bytes 4 offset 0 data 0x90b00004
-(XEN) d0v2 conf read cf8 0x80010014 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010014 bytes 4 offset 0 data 0x80
-(XEN) d0v2 conf read cf8 0x80010014 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010014 bytes 4 offset 0 data 0x80
-(XEN) d0v2 conf read cf8 0x80010014 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010014 bytes 4 offset 0 data 0x80
-(XEN) d0v2 conf read cf8 0x80010014 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010014 bytes 4 offset 0 data 0x80
-(XEN) d0v2 conf read cf8 0x80010014 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010014 bytes 4 offset 0 data 0x80
-(XEN) d0v2 conf read cf8 0x80010014 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010014 bytes 4 offset 0 data 0x80
-(XEN) d0v2 conf read cf8 0x80010014 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010014 bytes 4 offset 0 data 0x80
-(XEN) d0v2 conf read cf8 0x80010014 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010014 bytes 4 offset 0 data 0x80
-(XEN) d0v2 conf read cf8 0x80010014 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010014 bytes 4 offset 0 data 0x80
-(XEN) d0v2 conf read cf8 0x80010014 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010014 bytes 4 offset 0 data 0x80
-(XEN) d0v2 conf read cf8 0x80010014 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010014 bytes 4 offset 0 data 0x80
-(XEN) d0v2 conf read cf8 0x80010010 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010010 bytes 4 offset 0 data 0x1090000c
-(XEN) d0v2 conf read cf8 0x80010010 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010010 bytes 4 offset 0 data 0x1090000c
-(XEN) d0v2 conf read cf8 0x80010010 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010010 bytes 4 offset 0 data 0x1090000c
-(XEN) d0v2 conf read cf8 0x80010010 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010010 bytes 4 offset 0 data 0x1090000c
-(XEN) d0v2 conf read cf8 0x80010010 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010010 bytes 4 offset 0 data 0x1090000c
-(XEN) d0v2 conf read cf8 0x80010010 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010010 bytes 4 offset 0 data 0x1090000c
-(XEN) d0v2 conf read cf8 0x80010010 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010010 bytes 4 offset 0 data 0x1090000c
-(XEN) d0v2 conf read cf8 0x80010010 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010010 bytes 4 offset 0 data 0x1090000c
-(XEN) d0v2 conf read cf8 0x80010010 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010010 bytes 4 offset 0 data 0x1090000c
-(XEN) d0v2 conf read cf8 0x80010010 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010010 bytes 4 offset 0 data 0x1090000c
-(XEN) d0v2 conf read cf8 0x80010010 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010010 bytes 4 offset 0 data 0x1090000c
-(XEN) d0v2 conf read cf8 0x8001000c bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x8001000c bytes 4 offset 0 data 0x10
-(XEN) d0v2 conf read cf8 0x80010008 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010008 bytes 4 offset 0 data 0x2800000
-(XEN) d0v2 conf read cf8 0x80010004 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010004 bytes 4 offset 0 data 0x100000
-(XEN) d0v2 conf read cf8 0x80010000 bytes 4 offset 0 data 0xffffffff
-(XEN) d0v2 conf write cf8 0x80010000 bytes 4 offset 0 data 0x61614c3
-(XEN) d0v2 conf read cf8 0x80010004 bytes 2 offset 2 data 0xffff
-(XEN) d0v2 conf read cf8 0x80010034 bytes 1 offset 0 data 0xff
-(XEN) d0v2 conf read cf8 0x800100fc bytes 2 offset 0 data 0xffff
+What needs to be done is the buffer size will only be doubled when needed.
 
 
-[1] https://gist.github.com/marmarek/b4391c71801145e52590e877c559c5e0
+Harshvardhan
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---J/cW/5xtZf/8V1JK
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmebBlsACgkQ24/THMrX
-1yyn3Af7BrI+9JP20AopXgQiUzuBTfGkVg1dJCDcGt5VcGlj2MKaWKDWz/5RHlmZ
-lokPGFHb/IVaLk7VQVTmFEtjoVuL65KUFS7yfLsnPGwTIQ708p0P9KG8LJM0jQF7
-QbQ7kGmkUsXcemvw+RGgxpbT6s7UggPMGD+xguJlKw4TiMbo+sdxcIHE1iMX7zeD
-val/Cc3Z8brc08I+l8cn6Hl7T1dJhXrCnHXH+a2NHijzCslYcP2YGnR2j0R8+rl2
-5agqXNGhRvakDUDcodasD2VdEzb/f2YW4YmERn5AsVFWABek46o2LoFBS5PWgqbY
-dQAI1RYFaeSGyny5q3djqSAeZCAL5Q==
-=uBH5
------END PGP SIGNATURE-----
-
---J/cW/5xtZf/8V1JK--
 
