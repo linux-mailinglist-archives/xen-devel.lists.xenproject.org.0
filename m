@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CBA3A22D6C
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Jan 2025 14:15:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.879548.1289754 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61A86A22DA9
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Jan 2025 14:24:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.879556.1289764 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tdUNq-00062h-M0; Thu, 30 Jan 2025 13:15:02 +0000
+	id 1tdUWv-0007su-GL; Thu, 30 Jan 2025 13:24:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 879548.1289754; Thu, 30 Jan 2025 13:15:02 +0000
+Received: by outflank-mailman (output) from mailman id 879556.1289764; Thu, 30 Jan 2025 13:24:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tdUNq-000601-IO; Thu, 30 Jan 2025 13:15:02 +0000
-Received: by outflank-mailman (input) for mailman id 879548;
- Thu, 30 Jan 2025 13:15:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tdUWv-0007qJ-CM; Thu, 30 Jan 2025 13:24:25 +0000
+Received: by outflank-mailman (input) for mailman id 879556;
+ Thu, 30 Jan 2025 13:24:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zr8Z=UW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tdUNp-0005zt-0W
- for xen-devel@lists.xenproject.org; Thu, 30 Jan 2025 13:15:01 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3565db6f-df0c-11ef-a0e6-8be0dac302b0;
- Thu, 30 Jan 2025 14:15:00 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-ab6ed8a3f6aso59384966b.2
- for <xen-devel@lists.xenproject.org>; Thu, 30 Jan 2025 05:15:00 -0800 (PST)
+ id 1tdUWu-0007qD-3X
+ for xen-devel@lists.xenproject.org; Thu, 30 Jan 2025 13:24:24 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 84526289-df0d-11ef-99a4-01e77a169b0f;
+ Thu, 30 Jan 2025 14:24:22 +0100 (CET)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-5d3bdccba49so1241448a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Jan 2025 05:24:22 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab6e47a7fc2sm119308866b.37.2025.01.30.05.14.58
+ 4fb4d7f45d1cf-5dc723d0c1csm1071079a12.8.2025.01.30.05.24.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Jan 2025 05:14:59 -0800 (PST)
+ Thu, 30 Jan 2025 05:24:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3565db6f-df0c-11ef-a0e6-8be0dac302b0
+X-Inumbo-ID: 84526289-df0d-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738242899; x=1738847699; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1738243461; x=1738848261; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=KwpFGvRRs+3NF+GLon9isEJU2HhAwCR7pDMivKby9zY=;
-        b=P3Mx6Jq3/0Nzv4WHsmS1Sm6cBmvREf4C9QHvWP2ruUo5+zJt6vIbPYHiKdWsHFtlIT
-         CTtnQHiqtpBQ3TrUrq1HR34sTxg2QU+rRA2YGTNQ695Kxz9cgc53qGgBt51Ds5zNCDO3
-         3V/q405ttRgQSOIz8UI2+FRbyOZJLH0uRA2wYhRnzDc/BCIXayVlq4KCz3/emYJMTk87
-         2Vi47i5dvmSn7DTOCMMJ7q6yYRgBpF4wSvA3MgAzDgQAWKH36ZYqYmUevGh8CPkKbtUA
-         gwpV7JzNq019FWH5yFDSZ6Y2qD1c30Dx1hYwMyyjos4BC6H/wYWjLLXBYFOQcHKlgKP8
-         BoYQ==
+        bh=Vf5QowOgE0E3B/jKk8i3RWRVtqetY2O6THo3Hensm0I=;
+        b=LYinb8F0022EV7maD7qhLqfKy84bqis6Hir44ebsuUk6BXYzvhCmmpLy1TN6AE9KkB
+         Pyt0BmAuV0QJFi25rSdabSOkkJPS/+IYxSxXZ4kle17rLaDc+sv7QwQajyesugEJfsME
+         w2LeJHZK6W243Ga8nqY8hI2z993jQRj77ZoAwYtWsPQ/ApjxODCnvLasuNrVu6Z85tGj
+         Q7husEZ/CS0BV+GfyQpYZaEOSTcNqZ191Ehwt0vFTrgYlyqge2w+HlZNYXk0K8xcx0nG
+         WRwRVWv5jGhL7LvUTJrL4OJMjNVQGlhgoiCZ//p/sAY/9eylpu3us24XpxJCdIwUu42n
+         uFpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738242899; x=1738847699;
+        d=1e100.net; s=20230601; t=1738243461; x=1738848261;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=KwpFGvRRs+3NF+GLon9isEJU2HhAwCR7pDMivKby9zY=;
-        b=YKry49nIsspY27F5nK6SvMM75bn1Hs1CKbgphsLfl7o2upP80vUK7Rz6Q2gxAmjV8V
-         9de1S4tN6oeXmywtuo3IJI1Cs/KgMJqOdf9JauhzbR2LYIw2afa1UOl4W0cOAfPiucLz
-         KFbHtr+lvnZbG4fqYbnxr3/HIfYQ+vOwqX+IObRhQzKX5GBiSlzXFAEJyp9fhI/eHN14
-         Dm/XfusX2nFaspXAvHNFYJ2GRAheEUOpOWI6S10Ns5okSVFWvi3+zvISRZRM+jVo/Ggh
-         A6M0Q1aiSrIUaFl0FNuuT561D29JZwuvKTaFXZUVcUSRi7f94ZjYMIIHSaMn6rCtQ+ef
-         yoLQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVEfkRwzdQfSgfNnIeYOtgsH+2535phSXpG44TLxhlj5/rLoBZQntXq1sFux2/8fkKcduvyEC0HcO4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxcEFmUSDI5RIu9TemZApkBnECP8WL4qBEwzAfMy2m0PCpNCOKN
-	sv/VYCDDa9lVpxLOg1z0FWS3UYHZiivV68FjsYtaHISrQdsmsyO+Q9LTQBGhKQ==
-X-Gm-Gg: ASbGnctp/46XoZqzEqgqnhFnH3wSWH4Tb2XHi5A3iIMk2Xbnsxe4KhAmubzTtxz7Jdc
-	FoUzrDmOZcCY2VOygtYMI/PKKRFeGJgxHYjFJIZZ/3tXCfqsglU3yuAdtRGgHlDHTCRsJhffLGu
-	QgauA7L6SGIeGGAodTmvnVUMXur6rXkZqj7DE07U7wJ/kwNr9+AkZifkvlV6KHPGN9gsoftJ5OF
-	sZiabZFZ6jT/BTZJhz8IEZvZkSnAvHxv0LU7Uiii73HxXXBB57NVhyfB0Q6VtmM+EQ7PksvxmjX
-	Bg9CTa2goEGoEK7DpzpY8mrrKiUNGkjVjnAwKWErsTHJTeTqLu7WBibJt4wGNNzmwK9wbGev5SX
-	D
-X-Google-Smtp-Source: AGHT+IGNz1W7lX07gSEzFb/LwnSiee3zZpyw3i0PptaHZkUhHff4bsW65lsdMGFkxSqy/fAr5q1wjA==
-X-Received: by 2002:a17:907:94d1:b0:ab6:eec9:5c08 with SMTP id a640c23a62f3a-ab6eec95d8emr113153666b.10.1738242899577;
-        Thu, 30 Jan 2025 05:14:59 -0800 (PST)
-Message-ID: <99b26eb1-eed7-4eb0-8be5-d1e971eede8a@suse.com>
-Date: Thu, 30 Jan 2025 14:14:58 +0100
+        bh=Vf5QowOgE0E3B/jKk8i3RWRVtqetY2O6THo3Hensm0I=;
+        b=EcHzrGhIFB0WZf74fKQdFxpYw8FL1Z6LPRydOts0eVeZ6mA21HaFodniKpprlAtPsK
+         d8UkaY2H+gGfoE2J+PC9zVxvLgfxw5DQSpCyCa6d1XyzqW/5lmb/icol2ERiHlSi0DbV
+         ebU+WeXrsGFLPg3f2ufqkUgXExhrvZ2YW7PGdoRg/fRGqneFynoXWrhtkUoTGFboggQa
+         pHcJwiZXTNULIJGFl4ZrjP4uW4N4N2XMHx8wnI+baWCUPO+u/S9giZ1PAjMsID7nHvbk
+         M8VP0D+rnLPjZZ4iI2sQH0lJaMIiUqVCRmz3awlySqGda2qoAOZFQC7VpyJpQxpzZ761
+         zIFQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUBcxwFzOpBwjDrG0bSCeoekbB+5CVvya1KYzI1Q2lYMCZScuDNAJLaqemE57cikE/ce7cUyv3hEx4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzIqMG4YNt1L007PV9y/I+oMdnBKwzPKxSX0GiFAH8uPb4XMEfu
+	I/B2+8FVoIkq+/smrssPm8Tvf1Mf+BX1RqxDOAKshgjELktVkzhfmW+EWHQeVA==
+X-Gm-Gg: ASbGnctl2S6R3YV0aBU3+9qZcItWnw4RKnPfFaBl+tD+wBJ6PXaYH+FIxetlL1jowDE
+	SVcCkgNGHXDDijx2tOlShwurBpfobZT19su37KWAz8k4qVA8BwwWhIOpCSE73q/cqf+C86SGKTb
+	s9XhBpjQi/jrf6AoGPtZ2omX+ZTiWUI5a+rKLhjpHpGhTvc75Gy+rXUuWRYeeZFla6mXbmQlVg3
+	gqzJqQkvg3OWSLvB4fx5y5w1WezB7gyzUkG5IKOxYUh9BlsgOURJEDj0eudcf1B3U0bPzkIF2bq
+	avQHJvZIjS9vxOepEO2VB9zD/Cqj5zNDxt445KNByNPsshgd7icLD0jVk6B9g0WIxSp3Y1yljog
+	t
+X-Google-Smtp-Source: AGHT+IFHavudSc7NX3QVay8UspMjCts8HZ3DrR5/IWfa3s284RXeHWhRn3rt+NmJy++jlBHEJxfopA==
+X-Received: by 2002:a05:6402:42cc:b0:5dc:1273:63fd with SMTP id 4fb4d7f45d1cf-5dc5efec154mr6507887a12.20.1738243461437;
+        Thu, 30 Jan 2025 05:24:21 -0800 (PST)
+Message-ID: <c74d334e-6e33-4a58-bf94-936249244cb0@suse.com>
+Date: Thu, 30 Jan 2025 14:24:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] automation: rename CONFIG_MEM_ACCESS ->
- CONFIG_VM_EVENT
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
+Subject: Re: [PATCH v2 1/4] xen: kconfig: rename MEM_ACCESS -> VM_EVENT
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>
+Cc: Julien Grall <julien@xen.org>, Bertrand Marquis
+ <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1737452864.git.Sergiy_Kibrik@epam.com>
- <e43444e0cd04bf08edf47ee4c56d0aa675d19534.1737452864.git.Sergiy_Kibrik@epam.com>
+ <ff22f35dafd04b16165e1caec038e5a5fcf2aeee.1737452864.git.Sergiy_Kibrik@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,23 +131,53 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e43444e0cd04bf08edf47ee4c56d0aa675d19534.1737452864.git.Sergiy_Kibrik@epam.com>
+In-Reply-To: <ff22f35dafd04b16165e1caec038e5a5fcf2aeee.1737452864.git.Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 21.01.2025 11:23, Sergiy Kibrik wrote:
-> Following the renaming of Xen build option.
+On 21.01.2025 11:19, Sergiy Kibrik wrote:
+> Use more generic CONFIG_VM_EVENT name throughout Xen code instead of
+> CONFIG_MEM_ACCESS. This reflects the fact that vm_event is a higher level
+> feature, with mem_access & monitor depending on it.
 > 
-> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-> ---
->  automation/eclair_analysis/xen_arm_config | 2 +-
->  automation/eclair_analysis/xen_x86_config | 2 +-
->  automation/gitlab-ci/build.yaml           | 2 +-
->  3 files changed, 3 insertions(+), 3 deletions(-)
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
 
-This can't really be separated from the changes doing the actual rename,
-can it? Aiui the build (randconfig ones in particular) may break between
-the two patches, or what is being tested may end up being different.
+I don't think this is applicable; my suggestion went in a different direction.
+
+> Suggested-by: Tamas K Lengyel <tamas@tklengyel.com>
+> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+
+Before considering to ack this, I'd like you, Tamas, to confirm this is really
+what you had thought of. In particular ...
+
+> --- a/xen/arch/arm/Makefile
+> +++ b/xen/arch/arm/Makefile
+> @@ -37,7 +37,7 @@ obj-y += irq.o
+>  obj-y += kernel.init.o
+>  obj-$(CONFIG_LIVEPATCH) += livepatch.o
+>  obj-$(CONFIG_LLC_COLORING) += llc-coloring.o
+> -obj-$(CONFIG_MEM_ACCESS) += mem_access.o
+> +obj-$(CONFIG_VM_EVENT) += mem_access.o
+
+... changes like this one look somewhat odd to me.
+
+> --- a/xen/common/Kconfig
+> +++ b/xen/common/Kconfig
+> @@ -92,7 +92,7 @@ config HAS_VMAP
+>  config MEM_ACCESS_ALWAYS_ON
+>  	bool
+>  
+> -config MEM_ACCESS
+> +config VM_EVENT
+>  	def_bool MEM_ACCESS_ALWAYS_ON
+>  	prompt "Memory Access and VM events" if !MEM_ACCESS_ALWAYS_ON
+>  	depends on HVM
+
+What about MEM_ACCESS_ALWAYS_ON (visible in patch context)? Shouldn't that
+become VM_EVENT_ALWAYS_ON then, too?
+
+Further, what about MEM_PAGING and MEM_SHARING? Shouldn't those, at least
+documentation purposes, then also gain a dependency on VM_EVENT?
 
 Jan
 
