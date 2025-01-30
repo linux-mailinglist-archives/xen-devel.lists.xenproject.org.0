@@ -2,52 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9213BA234F8
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Jan 2025 21:18:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.879745.1289959 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29E0BA23514
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Jan 2025 21:28:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.879753.1289969 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tdayN-0001H7-I6; Thu, 30 Jan 2025 20:17:11 +0000
+	id 1tdb8y-0002uE-GQ; Thu, 30 Jan 2025 20:28:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 879745.1289959; Thu, 30 Jan 2025 20:17:11 +0000
+Received: by outflank-mailman (output) from mailman id 879753.1289969; Thu, 30 Jan 2025 20:28:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tdayN-0001Er-EX; Thu, 30 Jan 2025 20:17:11 +0000
-Received: by outflank-mailman (input) for mailman id 879745;
- Thu, 30 Jan 2025 20:17:09 +0000
+	id 1tdb8y-0002sA-Cg; Thu, 30 Jan 2025 20:28:08 +0000
+Received: by outflank-mailman (input) for mailman id 879753;
+ Thu, 30 Jan 2025 20:28:06 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5/JT=UW=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1tdayL-0001El-Cl
- for xen-devel@lists.xenproject.org; Thu, 30 Jan 2025 20:17:09 +0000
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on20607.outbound.protection.outlook.com
- [2a01:111:f403:2405::607])
+ <SRS0=URkf=UW=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1tdb8w-0002s4-Lv
+ for xen-devel@lists.xenproject.org; Thu, 30 Jan 2025 20:28:06 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2c182ab4-df47-11ef-a0e6-8be0dac302b0;
- Thu, 30 Jan 2025 21:17:06 +0100 (CET)
-Received: from BY5PR17CA0063.namprd17.prod.outlook.com (2603:10b6:a03:167::40)
- by CY5PR12MB6624.namprd12.prod.outlook.com (2603:10b6:930:40::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8398.20; Thu, 30 Jan
- 2025 20:17:02 +0000
-Received: from CO1PEPF000042AA.namprd03.prod.outlook.com
- (2603:10b6:a03:167:cafe::98) by BY5PR17CA0063.outlook.office365.com
- (2603:10b6:a03:167::40) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8398.18 via Frontend Transport; Thu,
- 30 Jan 2025 20:17:01 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000042AA.mail.protection.outlook.com (10.167.243.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8398.14 via Frontend Transport; Thu, 30 Jan 2025 20:17:01 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 30 Jan
- 2025 14:17:01 -0600
-Received: from [192.168.195.178] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Thu, 30 Jan 2025 14:17:00 -0600
+ id b5331243-df48-11ef-a0e6-8be0dac302b0;
+ Thu, 30 Jan 2025 21:28:05 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 76A905C501F;
+ Thu, 30 Jan 2025 20:27:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C64CCC4CEE4;
+ Thu, 30 Jan 2025 20:28:01 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,150 +42,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c182ab4-df47-11ef-a0e6-8be0dac302b0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KUvNDmS+ZMJDhVixfEGTmG3GnO2oitsCjqbZqOnxlCYbQFTXEHnPcx1D4uJJVvNAKypAb9uNe6oJvfajaPFRHr5HMpAQ9GAMZwX5jRpAGidblO2qEDXLHjVmiS/Ryal0YCM+j2dqNlYUkZYPhVQT8SOg9MgNdaraQbEm5Pf+MTh+G6cyoJwFNeNnZF0htERmqSgcGB4OOkDgD69d6XMtmOGEmk+7YA9OAArFU2y6ai5m5e7iw2/myJsMuXblfVFO2JhJeCDbxQIODNlpkWWo5bCJlNCtX0P9vm+0Lraz4e1nRp3qT5ZIklir6n6wfWFU22e6YT2IxPPP/+9EWgabxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O99zEQuAGJEov1QDHpiKvSyQOqTcgqLzoiZX6jyfpfI=;
- b=X5ufYE/2ODjhxbKlJDGaEjEWVi9m5Nkevd3kiZDXmRkjk5zMJYSXwM9wsKCA1koINO3OIcXB1m2ZOo8BwTV7ZcAjtFtLcya9xmMOsRkWyELd/AbDuwAYcS3Zxdwwytk/UPohACkrb3b58XmaL3fQfV3GqLOryMlj++1tXGyu1UBIMb7ry2V6Bg3XwUTcSbtb8frVAW6wppP22e4zNKw1NrXfA3U7S8wOyOZ1/0SITdtIkc83VqlZzfTqvd2WlSQraPVxRiEncNvRSH5DpiQ/84+DwYwo+U2EN1iwLhK2NoWjchwTdlC6oow7UgMLqCHSMqKkt5sH/HVUHsmpMT3Eyw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vates.tech smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=O99zEQuAGJEov1QDHpiKvSyQOqTcgqLzoiZX6jyfpfI=;
- b=y1fwI2ePkgPnvUkeyh6WXJ8f6EP8bT9oq4Hf3zS8qoRweh7D6E86xsm8My1ATsEBFWEbrGKkKRlU3E4rPsDMoaNtpdg2PKVc8Y/L6TCM3Glg1TKfe0DzYJi3DZDvMC7x/MEB+bWh6spyjTdd/wgUJDdJaDw+sT+Xct2zRq0gnhg=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <1ea6447c-3451-4aca-8a17-2848acd0868f@amd.com>
-Date: Thu, 30 Jan 2025 15:17:01 -0500
+X-Inumbo-ID: b5331243-df48-11ef-a0e6-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1738268883;
+	bh=p9nVrigsDYKicwkfzbW1Xes5NHnGUH3hN9svLzouh8Q=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=HWZH8ahgB9vx8+j2xBmxLOgm/lRsFpULHlwwbuM3e7CmaCIy6OtCK9mfeiRlax8p0
+	 fw0S/FZLbB6ohnL9+Yvw/7Ib9hEq6T2dT07pBk6yBFfZ9JerJ1AapMsYmswZqYJ1Td
+	 8LBPM30TI7oU059pdPqOwq3pQKPbtjojjD78VNoQsKbs0WTf6LNsS8I42R5CSAulpf
+	 RRSihr6ry39uarymYt9lNPj0OimRKczyTUqUuhYoBL17i5gTyFN4+MszolUtxw/cnx
+	 jj94tHlLOGcpaIIuGpIz2MeQvZYbjlnBz40SnmVZZK1kLyFmdKCrn4iZeTg/G4Hv3z
+	 CNrbsI1C57kew==
+Date: Thu, 30 Jan 2025 12:28:00 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: =?UTF-8?Q?J=C3=BCrgen_Gro=C3=9F?= <jgross@suse.com>
+cc: Harshvardhan Jha <harshvardhan.j.jha@oracle.com>, 
+    Greg KH <gregkh@linuxfoundation.org>, Konrad Wilk <konrad.wilk@oracle.com>, 
+    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+    "sstabellini@kernel.org" <sstabellini@kernel.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+    Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>, 
+    stable@vger.kernel.org
+Subject: Re: v5.4.289 failed to boot with error megasas_build_io_fusion 3219
+ sge_count (-12) is out of range
+In-Reply-To: <5a7d969b-b2ab-4fac-b95e-4a536e2c8d5c@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2501301226330.11632@ubuntu-linux-20-04-desktop>
+References: <7dc143fa-4a48-440b-b624-ac57a361ac74@oracle.com> <9dd91f6e-1c66-4961-994e-dbda87d69dad@oracle.com> <2025012919-series-chaps-856e@gregkh> <8eb33b38-23e1-4e43-8952-3f2b05660236@oracle.com> <2025012936-finalize-ducktail-c524@gregkh>
+ <1f017284-1a29-49d8-b0d9-92409561990e@oracle.com> <2025012956-jiffy-condone-3137@gregkh> <1f225b8d-d958-4304-829e-8798884d9b6b@oracle.com> <83bd90c7-8879-4462-9548-bb5b69cac39e@suse.com> <b4ab0246-3846-41d1-8e84-64bd7fefc089@oracle.com>
+ <de6912ad-3dba-4d66-8ca2-71a0aa09172c@suse.com> <686986a0-c981-4aa3-ae88-92a34368129e@oracle.com> <5a7d969b-b2ab-4fac-b95e-4a536e2c8d5c@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN RFC PATCH v5 3/5] xen/public: Introduce PV-IOMMU hypercall
- interface
-To: Teddy Astie <teddy.astie@vates.tech>, <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
-	<marmarek@invisiblethingslab.com>
-References: <cover.1737470269.git.teddy.astie@vates.tech>
- <29f3e87532573bfc4196083ab0291326adae5100.1737470269.git.teddy.astie@vates.tech>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <29f3e87532573bfc4196083ab0291326adae5100.1737470269.git.teddy.astie@vates.tech>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB04.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042AA:EE_|CY5PR12MB6624:EE_
-X-MS-Office365-Filtering-Correlation-Id: 561c6b4c-64e6-4cb0-c035-08dd416b0e6d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|376014|1800799024|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?emJnNVBMQ0tBQnZETTFjZ0NRT293WUlzSEhyNHNGVXRDTWdPbzNxMElqeWxa?=
- =?utf-8?B?ZThVRGVRVGFaR1ByZnUrL1B1QThkT3htMUxpL05LODlTZlp6Y1NsWnpqbW9G?=
- =?utf-8?B?Zi9YLzVCblZtamJZMHBhTXQ5dG13QWpuZmtJU0hLbkVvbGduRVlPZW9oMUMy?=
- =?utf-8?B?aU1KNkF3ZGFBWlZsNk9WMnhTSTlwZnhpTExxemZQb2xOTHRQZWtjQk5zU1B4?=
- =?utf-8?B?a2I1SGxmdE15YVpYODVIb29JbG1lQk8yMXRLZXg0V1dhWXZpMjMxR3prWCtQ?=
- =?utf-8?B?Z2dOdWFBTm9XT3MrZjNMM2hJRXNONHk5WG4zSHJEb2dxRGZGS3V4SFozYVZX?=
- =?utf-8?B?VmtycGZLVHNCTTRFeUExdEJiSHpNWUIxYllGdDZuVHY4aG9Cd1dwUXhXbDBD?=
- =?utf-8?B?eCtDMDdRV29PQjRhMFFyTmJxbzVFaStDcGxNeHNPVmJDMVZFR1MvMVpNSC9E?=
- =?utf-8?B?WVY1TzlLVVVXRWwvV2xWZ3l3SzlndnQ5VUZLekU2N0dsVzIxY3VtUk9XU3cx?=
- =?utf-8?B?MDllUEc5dHR6MURHWXpXQ2xnUm9sZ0RlRnFUOXlnMVYvNU5FekhzN1JnU2NS?=
- =?utf-8?B?WmE0SGd5K21PaWd1QzZjUFdSWi9zSDV0b3d1V2ozODdUc001Zjh3NmtVWmxD?=
- =?utf-8?B?VXhkdlBjSGUvZnc0UUltUzY1c21ZcG0ya3lrWHM0RDBUNzgvQS82VU5zd2xQ?=
- =?utf-8?B?ZmEvb1ozNG41M0paUmdtaGlza0FnTW9FRlFRbzNsTWYxaWl2VEpVWE9UaDBX?=
- =?utf-8?B?OE1KRGNWUUJCajJnV1lxQ3NmbnFtOTZiUVZYRUhTeGR1L0kydEl1VklyajBD?=
- =?utf-8?B?R2RRdkZ4WldaeGRsR2libU0wSnY3UTV3aVhYQ1d3dytMSGwxWG1oakl3dTRy?=
- =?utf-8?B?RzF4TXRPN3dpNGUrTzNBb0s4N3JWU2tDQWR2VFVsWnhsRHl2V2tzS0VraHFh?=
- =?utf-8?B?OVZoTGtuaHF4Unc1MUpoWGE1ait5bUxqNlVkS3l5OHpyNFZTd04rZ2VTRGVI?=
- =?utf-8?B?dGc2cEh1bUcxdlBSSFBNQmwzWGFJR0J0RlNvdzRjUzB6Y1hJY0NzZWZ4OE1o?=
- =?utf-8?B?K3JjR2lrMVZyL3N0aSt1WmJzYnZEbXYyV2lJRE8vV1N5bnlmQjJlN3JsRkpD?=
- =?utf-8?B?MGpFZDhoZzlLRE9LaDZ1eFpWdUUvSVRQRW15TkUrNUJRS0I1a0hPY1pQeUU1?=
- =?utf-8?B?dlBWYnB3dFR5YmFsc0lxMXhndEN2cmZPV2dPaFRIVDhkRld6d1lIOURSRHMx?=
- =?utf-8?B?N2ZSSnJnTlBEYU1xbmVlNjNyWHE0MWtOYTVENVFnb0Q3ZnZCYUdNQjVLa1hG?=
- =?utf-8?B?amN2c0NEZGNlQzgxRVEzcWNJQm9oTWpUNitSVnR5VVc0djQ0bW5CMHlDSWhE?=
- =?utf-8?B?WlFaWC9UUGpQMDZJQW8zR1c1TGdhYzBmWlh6RDhjY1lBZ1liOWhJdys5L25V?=
- =?utf-8?B?OG5HaXFIRlZFRC8zMXVhR2RUN0JSbHIwMEEySjVwaERyTDF5UUVXQk4wRnUw?=
- =?utf-8?B?QmtzYTNmRmI4VHc4bnZwNFRaWnBTTUcybGtqM2JQMlRQek9iSUtIdFdZZTB5?=
- =?utf-8?B?SHJFT3N3VGEvVkMrRmVFeVpvcXB0RCtkbUVRTGtac3lXcVZFZlJhZFBJaW5E?=
- =?utf-8?B?Y1lTMXYvZ3Zick5YZnJKSWxpVk91ZnJiK3dVL0dSUFd0VGNSMnQvU0lxekJS?=
- =?utf-8?B?eXg2ZEJKc21MT1lwTU9WUmYrdWZtTEx5cFBrTTFLSE5jMFJoV2hmL2FBS2hR?=
- =?utf-8?B?WHM1M0J0M1hDeHRCcHdOSTBkbnR4cGxma3N2NFh4RlNiSklQSkUyN0cvcFNk?=
- =?utf-8?B?T2oxamNuMzM3cGZneUJkUWVOQ1h1Ym1oU21ZcnhRVjhYU1A5WE54QWZkLzZk?=
- =?utf-8?B?TXZtSGN4bWhrYUk3Ly9IQXhRcmRyU3VFOUVCaXExQ3FBT2x6QWxxeVFHOCtD?=
- =?utf-8?B?Nkx3QW8vUUh5M0FVT2dNcDZXbWgrcDRpbG1kc0NTZk4wWm5KaTJPVWdGRVZG?=
- =?utf-8?B?ZG5za1JtNWJ3PT0=?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jan 2025 20:17:01.4139
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 561c6b4c-64e6-4cb0-c035-08dd416b0e6d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000042AA.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6624
+Content-Type: multipart/mixed; boundary="8323329-717441065-1738268883=:11632"
 
-Hi Teddy,
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Thanks for working on this.  I'm curious about your plans for this:
+--8323329-717441065-1738268883=:11632
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-On 2025-01-21 11:13, Teddy Astie wrote:
-> +/**
-> + * IOMMU_alloc_nested
-> + * Create a nested IOMMU context (needs IOMMUCAP_nested).
-> + *
-> + * This context uses a platform-specific page table from domain address space
-> + * specified in pgtable_gfn and use it for nested translations.
-> + *
-> + * Explicit flushes needs to be submited with IOMMU_flush_nested on
-> + * modification of the nested pagetable to ensure coherency between IOTLB and
-> + * nested page table.
-> + *
-> + * This context can be destroyed using IOMMU_free_context.
-> + * This context cannot be modified using map_pages, unmap_pages.
-> + */
-> +struct pv_iommu_alloc_nested {
-> +    /* OUT: allocated IOMMU context number */
-> +    uint16_t ctx_no;
+On Thu, 30 Jan 2025, Jürgen Groß wrote:
+> Can you try the attached patch, please? I don't have a system at hand
+> showing the problem.
+>
+> From cff43e997f79a95dc44e02debaeafe5f127f40bb Mon Sep 17 00:00:00 2001
+> From: Juergen Gross <jgross@suse.com>
+> Date: Thu, 30 Jan 2025 09:56:57 +0100
+> Subject: [PATCH] x86/xen: allow larger contiguous memory regions in PV guests
+> 
+> Today a PV guest (including dom0) can create 2MB contiguous memory
+> regions for DMA buffers at max. This has led to problems at least
+> with the megaraid_sas driver, which wants to allocate a 2.3MB DMA
+> buffer.
+> 
+> The limiting factor is the frame array used to do the hypercall for
+> making the memory contiguous, which has 512 entries and is just a
+> static array in mmu_pv.c.
+> 
+> In case a contiguous memory area larger than the initially supported
+> 2MB is requested, allocate a larger buffer for the frame list. Note
+> that such an allocation is tried only after memory management has been
+> initialized properly, which is tested via the early_boot_irqs_disabled
+> flag.
+> 
+> Fixes: 9f40ec84a797 ("xen/swiotlb: add alignment check for dma buffers")
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+> Note that the "Fixes:" tag is not really correct, as that patch didn't
+> introduce the problem, but rather made it visible. OTOH it is the best
+> indicator we have to identify kernel versions this patch should be
+> backported to.
+> ---
+>  arch/x86/xen/mmu_pv.c | 44 ++++++++++++++++++++++++++++++++++++-------
+>  1 file changed, 37 insertions(+), 7 deletions(-)
+> 
+> diff --git a/arch/x86/xen/mmu_pv.c b/arch/x86/xen/mmu_pv.c
+> index 55a4996d0c04..62aec29b8174 100644
+> --- a/arch/x86/xen/mmu_pv.c
+> +++ b/arch/x86/xen/mmu_pv.c
+> @@ -2200,8 +2200,10 @@ void __init xen_init_mmu_ops(void)
+>  }
+>  
+>  /* Protected by xen_reservation_lock. */
+> -#define MAX_CONTIG_ORDER 9 /* 2MB */
+> -static unsigned long discontig_frames[1<<MAX_CONTIG_ORDER];
+> +#define MIN_CONTIG_ORDER 9 /* 2MB */
+> +static unsigned int discontig_frames_order = MIN_CONTIG_ORDER;
+> +static unsigned long discontig_frames_early[1UL << MIN_CONTIG_ORDER];
+> +static unsigned long *discontig_frames = discontig_frames_early;
+>  
+>  #define VOID_PTE (mfn_pte(0, __pgprot(0)))
+>  static void xen_zap_pfn_range(unsigned long vaddr, unsigned int order,
+> @@ -2319,18 +2321,44 @@ int xen_create_contiguous_region(phys_addr_t pstart, unsigned int order,
+>  				 unsigned int address_bits,
+>  				 dma_addr_t *dma_handle)
+>  {
+> -	unsigned long *in_frames = discontig_frames, out_frame;
+> +	unsigned long *in_frames, out_frame;
+> +	unsigned long *new_array, *old_array;
+>  	unsigned long  flags;
+>  	int            success;
+>  	unsigned long vstart = (unsigned long)phys_to_virt(pstart);
+>  
+> -	if (unlikely(order > MAX_CONTIG_ORDER))
+> -		return -ENOMEM;
+> +	if (unlikely(order > discontig_frames_order)) {
+> +		if (early_boot_irqs_disabled)
+> +			return -ENOMEM;
 > +
-> +    /* IN: guest frame number of the nested page table */
-> +    uint64_aligned_t pgtable_gfn;
+> +		new_array = vmalloc(sizeof(unsigned long) * (1UL << order));
 > +
-> +    /* IN: nested mode flags */
-> +    uint64_aligned_t nested_flags;
-> +};
-> +typedef struct pv_iommu_alloc_nested pv_iommu_alloc_nested_t;
-> +DEFINE_XEN_GUEST_HANDLE(pv_iommu_alloc_nested_t);
+> +		if (!new_array)
+> +			return -ENOMEM;
+> +
+> +		spin_lock_irqsave(&xen_reservation_lock, flags);
+> +
+> +		if (order > discontig_frames_order) {
 
-Is this command intended to be used for GVA -> GPA translation?  Would 
-you need some way to associate with another iommu context for GPA -> HPA 
-translation?
 
-Maybe more broadly, what are your goals for enabling PV-IOMMU?  The 
-examples on your blog post cover a domain restrict device access to 
-specific portions of the the GPA space.  Are you also interested in GVA 
--> GPA?  Does VFIO required GVA -> GPA?
+This second if check should not be needed because it is the same as the
+outer if check.
 
-And, sorry to bike shed, but ctx_no reads like "Context No" to me.  I 
-think ctxid/ctx_id might be clearer.  Others probably have their own 
-opinions :)
 
-Thanks,
-Jason
+
+> +			if (discontig_frames == discontig_frames_early)
+> +				old_array = NULL;
+> +			else
+> +				old_array = discontig_frames;
+> +			discontig_frames = new_array;
+> +			discontig_frames_order = order;
+> +		} else
+> +			old_array = new_array;
+> +
+> +		spin_unlock_irqrestore(&xen_reservation_lock, flags);
+> +
+> +		vfree(old_array);
+> +	}
+>  
+>  	memset((void *) vstart, 0, PAGE_SIZE << order);
+>  
+>  	spin_lock_irqsave(&xen_reservation_lock, flags);
+>  
+> +	in_frames = discontig_frames;
+> +
+>  	/* 1. Zap current PTEs, remembering MFNs. */
+>  	xen_zap_pfn_range(vstart, order, in_frames, NULL);
+>  
+> @@ -2354,12 +2382,12 @@ int xen_create_contiguous_region(phys_addr_t pstart, unsigned int order,
+>  
+>  void xen_destroy_contiguous_region(phys_addr_t pstart, unsigned int order)
+>  {
+> -	unsigned long *out_frames = discontig_frames, in_frame;
+> +	unsigned long *out_frames, in_frame;
+>  	unsigned long  flags;
+>  	int success;
+>  	unsigned long vstart;
+>  
+> -	if (unlikely(order > MAX_CONTIG_ORDER))
+> +	if (unlikely(order > discontig_frames_order))
+>  		return;
+>  
+>  	vstart = (unsigned long)phys_to_virt(pstart);
+> @@ -2367,6 +2395,8 @@ void xen_destroy_contiguous_region(phys_addr_t pstart, unsigned int order)
+>  
+>  	spin_lock_irqsave(&xen_reservation_lock, flags);
+>  
+> +	out_frames = discontig_frames;
+> +
+>  	/* 1. Find start MFN of contiguous extent. */
+>  	in_frame = virt_to_mfn((void *)vstart);
+>  
+> -- 
+> 2.43.0
+> 
+--8323329-717441065-1738268883=:11632--
 
