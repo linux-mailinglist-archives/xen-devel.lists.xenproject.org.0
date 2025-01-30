@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A368A22E0F
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Jan 2025 14:46:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.879590.1289804 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F41C4A22E3B
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Jan 2025 14:52:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.879600.1289819 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tdUrH-0004Vf-Pf; Thu, 30 Jan 2025 13:45:27 +0000
+	id 1tdUxR-0006WX-HA; Thu, 30 Jan 2025 13:51:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 879590.1289804; Thu, 30 Jan 2025 13:45:27 +0000
+Received: by outflank-mailman (output) from mailman id 879600.1289819; Thu, 30 Jan 2025 13:51:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tdUrH-0004UC-Mm; Thu, 30 Jan 2025 13:45:27 +0000
-Received: by outflank-mailman (input) for mailman id 879590;
- Thu, 30 Jan 2025 13:45:26 +0000
+	id 1tdUxR-0006UK-D2; Thu, 30 Jan 2025 13:51:49 +0000
+Received: by outflank-mailman (input) for mailman id 879600;
+ Thu, 30 Jan 2025 13:51:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zr8Z=UW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tdUrG-0004U6-Q2
- for xen-devel@lists.xenproject.org; Thu, 30 Jan 2025 13:45:26 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ id 1tdUxQ-0006UE-36
+ for xen-devel@lists.xenproject.org; Thu, 30 Jan 2025 13:51:48 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 757d8da6-df10-11ef-a0e6-8be0dac302b0;
- Thu, 30 Jan 2025 14:45:25 +0100 (CET)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-5d96944401dso1371204a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 30 Jan 2025 05:45:25 -0800 (PST)
+ id 58eab81e-df11-11ef-a0e6-8be0dac302b0;
+ Thu, 30 Jan 2025 14:51:47 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-aaecf50578eso172796266b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Jan 2025 05:51:47 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5dc724045e5sm1100802a12.37.2025.01.30.05.45.24
+ 4fb4d7f45d1cf-5dc723e4c8esm1112425a12.23.2025.01.30.05.51.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Jan 2025 05:45:24 -0800 (PST)
+ Thu, 30 Jan 2025 05:51:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 757d8da6-df10-11ef-a0e6-8be0dac302b0
+X-Inumbo-ID: 58eab81e-df11-11ef-a0e6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738244725; x=1738849525; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1738245107; x=1738849907; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=dDs+c5r+1qJQcbILWROriYzFnh4iRG1G/YVXdd/RsZA=;
-        b=hEViOhYHV531DuG1PvFlp9oVQgzU+BoR4PayEfWfej4KmlNcvgMU95f9LXKzdRGzAr
-         L1SBh5P/GQ2eVyedB/yCIMsIrwfLdtelsOalaMRbGGyn9628yUqnA1Rcs1nYUQzVhp4m
-         2AvrGYqt9t6OlGseh8A2p5n094Bu6erWQAzZUwre09FY/3LucDG9tiVsunzZ355G1PZM
-         Au2u+Os0cQZc1hB/sZLg2XWle43prKpZ+dUALTSJhN1YqGwqnGfk9aB/gM+RTXChcac4
-         VyXZnlr43nfgdfqFinbJTpb63BNwW7+29va2Y1x0r4DbavUqeq7KgldktqO309s4ySum
-         03Fw==
+        bh=4j26GBKFhejBkGSKMpktjiN6fvhII4e5qr1SdkqYS14=;
+        b=VdQbXuc39uTbq7kTGOO75jbM0P+ylU23HXE+OxMKAgY1T+ugD7H1ntIs/Jv6GKHqMN
+         cttCUB4heZxbdCk9Sai0S743Uv31ZnEr/NFFASwBYiV0ZNJKbTG+89KzengCwPFMe0lW
+         NmgnKLfyqvGq0yusIvqAtbyiTCbH1c1CFo/AtIQ7X+66cIy06ysTfky0cwGvU8R3aXmt
+         sLlJitkZUViQqCsxKGjLGvPrl8Y/mc9znyhELsGt6XyWfJooXAgU72iCHQk22XyVS5oF
+         wd6vsbTtogvpGfziXce0baBeMH0r+uAEc11IoiE1ngyBdA5GCKRxhqLQJJVrbRRqAxZE
+         1egg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738244725; x=1738849525;
+        d=1e100.net; s=20230601; t=1738245107; x=1738849907;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dDs+c5r+1qJQcbILWROriYzFnh4iRG1G/YVXdd/RsZA=;
-        b=OoPKj9vrRoXPlh4CZG0f1Ep016gduV3ibaakddxbof2V98jlaEtbpwOycfH+EFQBaq
-         Ibv5tu0XpMs3uis6aEknmJHSifJxPi8e4p7VHQl51bMf3IY567DXb/i4Zonq28KAPXX1
-         Nfb4fZo3FGri6BVcHlG+yk8fDctxBuKFvyOzwGBf9gSvMGIS9ugDBjEGK7SG3UGR6e9X
-         JAHpgGfFYst6Vb4DCREwIO+5Pwm/kgqDzhOtR2+r+yypzuLRqYBONPikuP/YRzeKZZdO
-         jIA8lJfM+aCWp5ThXbAHEexh+DDyXw2SuoiqsCJzgt/Nr3655GwKu+PiSkNanw23yCNr
-         U1zA==
-X-Forwarded-Encrypted: i=1; AJvYcCU5JOmanFXvVV8Jo74yUsUulxKvTtJhYv7xObUKLzndlBPQ6OM+5fzhcRea12/goa9CD3nJmFKJunY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw/OcuRlU2F3depvOMdw7WqIYNYBA2k8y5X6QVMt7qq09TohDNY
-	KVPrUMbTukcND1qFqghJMAYmPi8TY3h9vOnzNDX2buo1qVa5jvVvcCLUpWWYfg==
-X-Gm-Gg: ASbGncu+MetbCc9LUVYHTbv8QWgJf61LIA5QGNMko0s7PnaVqsii80vQQEStXGICjh4
-	r/eZwwg7dLfVEiKFj9rSOhqc8IHPm0T/ZxYSZ/hxo+a5TkJmQFiaaBiH8o9SjC2OrhO8OSfl3Lo
-	yn6cAoNwp+KqeJ4duFOsD+MBtYMLxbQMiV+i+Kg9bKZoKbAs2CW75qvmQ+PUxqNjD7Y3NdfxIRA
-	LHf+PUy64Q73YJ/OGxcIKQNEiJrn1V0XNYZROJ265Teeo7KSuT4pm5CEGiKDnu93+Yw2hwFdQTK
-	CtUPq86XRvTp11dCADcya+BQ7rkOR+n3w5LGxNi8hsKxJuTWgpQhC62Zs0j4X1PVm5UIZHNtpSX
-	b
-X-Google-Smtp-Source: AGHT+IGptZ5pGgjW8lLTJvqpZ+K8U4xsJHcPkZ+zmOvXk4Fmf2l6+/tLA41IxZATvgot7gU5CYQe9A==
-X-Received: by 2002:a05:6402:1ec9:b0:5d0:e410:468b with SMTP id 4fb4d7f45d1cf-5dc5efa8adamr6274258a12.2.1738244725159;
-        Thu, 30 Jan 2025 05:45:25 -0800 (PST)
-Message-ID: <2e02b7d6-fe71-4ed8-a09d-5bde7438718c@suse.com>
-Date: Thu, 30 Jan 2025 14:45:24 +0100
+        bh=4j26GBKFhejBkGSKMpktjiN6fvhII4e5qr1SdkqYS14=;
+        b=FYtjj9/oTSuKAZotTrkfHn1GuEZV+NlZQaOgnxFOrAxoDZ0VUWujXjkbgQghUC2tFZ
+         WyLyfiNXY/oZsTHLMWVrUdJafgZY5JjbhGz2K9JUPWSvAx98LiQJu1piO8loutqEbk2x
+         gUO7VZ1dBgrwKshmlqjvk4xYNpHR1glNMTthKhNYsA+EX5LURryRJZNI8VY4EXXb1fna
+         6uzKEGn8lQVSqKk/ciMarqrzdl+VOa42oy2BW1vpI86FJVNaCV/EPjUAKrdK4Ev9cyUN
+         xwkFmGoWQJgdaP+/GjauheXq0Jq0C43sJmLQ7KgUav4mRZJ3YQGYYkGN8LlveL+5rxNl
+         Y9zg==
+X-Forwarded-Encrypted: i=1; AJvYcCW7ORt/Lj/ALrHSgN4+72fupcL9wgwE63+E/RHSQdKtzPhkWET06rWlQUui1zXKWfp2NsY4Lwf7wnk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwSJYoVi8bm/+H1TTWV1ArN5vEtNsf2T8syjzu3qOzlfYCw4CaW
+	pdoEJ9Qp76u1rJam3LssaDUiuGaX+9cedtU4ZKe22jQwpjDZxxvpGhyjj4UY3w==
+X-Gm-Gg: ASbGncsAr4WpolQftyCORasTvqME83dJDEhys1y2scHOeTPjSij7bi/S6iQxEz/MW90
+	azYtnnq1PI7Ta5vtj08BbyiUahU8MS1OwHI/tqDE5S6/QWo+UxTK6oXCVAdzMNS4Xlq774k7Dhp
+	E/hwK0y6qb1VVWFSrxnZxoObkWqh/KYC3DZR5LtcGeUVhoRpkz8vOq3W2vdAqGt/6Q8eemsu86j
+	yChzbJZB7Q6w82UifJr4tG9VUt3iwEOupkEv8jZN4XL2vbX9rBf/25rWwtXGrtcmxvK1WgDsgxs
+	yS3O6tWjcjiygc5wBUaZoNUdZvtnB9Uy6ilhzl4cX4HmuZKawPtNCxqzuKrENumQPh2hXM2VnVf
+	x
+X-Google-Smtp-Source: AGHT+IH6BqAuOJC1JhLDNCYwrZmwZadAiKHJGi/qqAKYlFCcCybNd5FVV6NSx6mGMMW9h5o/JcMeBA==
+X-Received: by 2002:a17:907:7d93:b0:aae:c3c1:1361 with SMTP id a640c23a62f3a-ab6cfdd6b4fmr725392966b.44.1738245106645;
+        Thu, 30 Jan 2025 05:51:46 -0800 (PST)
+Message-ID: <61d5986f-bd52-4b00-87e1-49f9e6f7ed44@suse.com>
+Date: Thu, 30 Jan 2025 14:51:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/15] x86/boot: introduce boot domain
+Subject: Re: [PATCH v2 02/15] x86/boot: introduce domid field to struct
+ boot_domain
 To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
  stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20241226165740.29812-1-dpsmith@apertussolutions.com>
- <20241226165740.29812-2-dpsmith@apertussolutions.com>
+ <20241226165740.29812-3-dpsmith@apertussolutions.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,49 +121,35 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241226165740.29812-2-dpsmith@apertussolutions.com>
+In-Reply-To: <20241226165740.29812-3-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 26.12.2024 17:57, Daniel P. Smith wrote:
-> @@ -596,9 +597,10 @@ int __init dom0_setup_permissions(struct domain *d)
->      return rc;
->  }
->  
-> -int __init construct_dom0(struct boot_info *bi, struct domain *d)
-> +int __init construct_dom0(struct boot_domain *bd)
+> Add a domid field to struct boot_domain to hold the assigned domain id for the
+> domain. During initialization, ensure all instances of struct boot_domain have
+> the invalid domid to ensure that the domid must be set either by convention or
+> configuration.
 
-Pointer-to-const? Domain construction should only be consuming data
-supplied, I expect.
+I'm still missing justification for the duplication between the struct domain *
+that's already in struct boot_domain and this new member. Iirc you responded to
+this earlier question of mine, but nothing was put here.
 
-> --- /dev/null
-> +++ b/xen/arch/x86/include/asm/bootdomain.h
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -292,6 +292,7 @@ static const char *cmdline_cook(const char *p, const char *loader_name);
+>  struct boot_info __initdata xen_boot_info = {
+>      .loader = "unknown",
+>      .cmdline = "",
+> +    .domains = { {.domid = DOMID_INVALID} },
 
-Maybe boot-domain.h? Or was that suggested before and discarded for
-whatever reason?
+Please can you fully use designated initializers here, thus also protecting
+against MAX_NR_BOOTDOMS increasing without and update being done here (and
+the compiler still being happy)?
 
-> @@ -0,0 +1,28 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * Copyright (c) 2024 Apertus Solutions, LLC
-> + * Author: Daniel P. Smith <dpsmith@apertussolutions.com>
-> + * Copyright (c) 2024 Christopher Clark <christopher.w.clark@gmail.com>
-> + */
-> +
-> +#ifndef __XEN_X86_BOOTDOMAIN_H__
-> +#define __XEN_X86_BOOTDOMAIN_H__
-> +
-> +struct boot_domain {
-> +    struct boot_module *kernel;
-> +    struct boot_module *ramdisk;
+    .domains = { [0 ... MAX_NR_BOOTDOMS - 1] = { .domid = DOMID_INVALID } },
 
-"ramdisk" is Linux-centric, I think. Can we name this more generically?
-"module" perhaps, despite it then being the same name as we use for the
-modules Xen is passed?
-
-Also, are consumers of this struct supposed to be able to modify what
-the pointers point to? I'd expect they aren't, in which case const will
-want adding here, too.
+Nit: Note also the blanks I added.
 
 Jan
 
