@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F636A22F36
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Jan 2025 15:19:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.879619.1289838 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D705A23058
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Jan 2025 15:31:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.879627.1289849 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tdVOE-0002Lf-NK; Thu, 30 Jan 2025 14:19:30 +0000
+	id 1tdVZT-0005Mf-OA; Thu, 30 Jan 2025 14:31:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 879619.1289838; Thu, 30 Jan 2025 14:19:30 +0000
+Received: by outflank-mailman (output) from mailman id 879627.1289849; Thu, 30 Jan 2025 14:31:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tdVOE-0002Ja-Kf; Thu, 30 Jan 2025 14:19:30 +0000
-Received: by outflank-mailman (input) for mailman id 879619;
- Thu, 30 Jan 2025 14:19:29 +0000
+	id 1tdVZT-0005Jf-Kc; Thu, 30 Jan 2025 14:31:07 +0000
+Received: by outflank-mailman (input) for mailman id 879627;
+ Thu, 30 Jan 2025 14:31:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zr8Z=UW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tdVOD-0002JU-DO
- for xen-devel@lists.xenproject.org; Thu, 30 Jan 2025 14:19:29 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ id 1tdVZS-0005JX-9p
+ for xen-devel@lists.xenproject.org; Thu, 30 Jan 2025 14:31:06 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 36833314-df15-11ef-99a4-01e77a169b0f;
- Thu, 30 Jan 2025 15:19:27 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-aaf3c3c104fso188797166b.1
- for <xen-devel@lists.xenproject.org>; Thu, 30 Jan 2025 06:19:27 -0800 (PST)
+ id d456424f-df16-11ef-99a4-01e77a169b0f;
+ Thu, 30 Jan 2025 15:31:01 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-aaedd529ba1so126144966b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Jan 2025 06:31:01 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab6e4a320c6sm125875866b.155.2025.01.30.06.19.26
+ a640c23a62f3a-ab6e4a562e7sm126380366b.167.2025.01.30.06.30.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Jan 2025 06:19:26 -0800 (PST)
+ Thu, 30 Jan 2025 06:30:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36833314-df15-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: d456424f-df16-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738246767; x=1738851567; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1738247461; x=1738852261; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7bh7LiGDhOhVo2P+f/nlI0xgHAPklGXZuw12L1qJ208=;
-        b=Ct9Bm7JzFuyy54CdxWes8w7CkRBC/a3cgAn1bB3NoCQEN+D677umdzZV9kcSDSmHm1
-         +pTroHdO5z1nId3tVaoDp580hHxzljD3RUe9X1/jXi5t0fkqx43nBG9fnX+g3X9AjTQj
-         4Fv+XzsAWZuA4C937G8o4/oZ0WhlKWhsmtLvEFj0lzdsiMOu+S0PSJSvUDXB7ASoei18
-         8HIsVl589PhfJRHQOykvBTWrvi7Rit2FtHLFWgWSLQVkw6cSRi97Jm68+0iLFxNullDy
-         SqbhFlH2NIVD2Uvxu6sJqJnQGOtZy7+fN2Qh7olrHkixXPOipItfFK0DTczBGOflGhla
-         G0Ww==
+        bh=zH4SExfP15QqnigMMMw/hrCvxM6oyFaSmBIhN4cUHVM=;
+        b=bjMFQdVkycotjYjoThysr5t+dKt3Tn+hD/4MrJa6mWje7aJWS3eBW0Y9RzAzTAM06R
+         7ILCeQoF4g+gpF6e+5ctp4jqM+7zQHd1epfccQt3sQWy+Tvani5PMIcLjHxT3JBxIb39
+         lHe0eDkxI7jOr7a+EfYl5YDDEfLxphrCZa0njaB67auaK2YbGJshvdkggfGqflsfIL5+
+         OyLB/1hWP61klyurw+/24l/wSGocZ12TG6844H3lEzqlaWjcRSvA5rYKp3m0nH3fEhBP
+         ai5hv5T1KmKnCH1pC02FTN76z2JS6Z9IaFzLVKHd/F0g59k+RwfXQ/fmTe1VCG9vskKU
+         Q4ZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738246767; x=1738851567;
+        d=1e100.net; s=20230601; t=1738247461; x=1738852261;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7bh7LiGDhOhVo2P+f/nlI0xgHAPklGXZuw12L1qJ208=;
-        b=qgOammmz/P/82N95jpd2tDLDu96uOy2f+ZBZvH9eeOUBWe/g0E0tvtxaRhnAyDPGZG
-         Zma5ntrj3kvLXrKZ027d4fWpMB74EjmWCnml82lJwjwUVBt6ynagi1ht/ncU/5+w9gjQ
-         B/qfy21INZVCYVeS8JCyXBcBq2yrwphFHwE6B1CW0yK5tAn0iiPeOkbFdWooVGGAAcOy
-         aIc2hXPykDMIPQ6z5jaM5fBqw7uj1pdTTVRDEB4vJRU/MJ07TkNHeMnyzKmB2d/+Mpc6
-         yYdhg8P5BMbSDmnR5cVRPl8Wf7vvsT4ddc41Wk2lEuhDcsJ4wZpuHbxCNC4SJNLUny7v
-         gUCw==
-X-Forwarded-Encrypted: i=1; AJvYcCWfmhOCJY/U+xjbOXYgIg2HFdoXlmceb42QrvK/exVBvbjMn8x6/mHyL9XXsEZlBzxdwEBHYMKuhz4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw7d3ZTy9/Tbeg+gBXxWb2CR9j+U5UgVvmjTh1K0lVvXq312eUe
-	XXRvSdrBHEDpXTgA9QYe1sLWXbqknBwF2PVKVsddOvDeHjSiW3Xt49jHmSxwuQ==
-X-Gm-Gg: ASbGncsAT/IHHV2YOXGLT2aBfhJf/6R3/H2G7oIik+wH7ZOv7uktBHsfgRtjeg+y6Bp
-	PgVlhJofJNHXuT0T3HLw961jfcFowR4tTW8glEPuOdhuxLPEfoe86rGb2sQvvKGYgy+DfZEq8dd
-	A8ejzM3IhBLnXfu2R5xp2cnzTPOBsJfr5UPmjC//TEiSFjrU2V73YCnKdHQ/avMFsmIM+5Je0p1
-	7m76xF38gtgSKdxrEpwPY3WFHKC9coFMnbLY3fDSQBr0YlWrVGGjDuznKYlzLl9ABVjtMc7w4Jk
-	TR/8eSPYblD+QzMEvJj/czsrTKWLDuz+lsHYQm3vf0E2mdNNf7Wa5+4hbvmn7SP/ZM/KzDyoL9l
-	k
-X-Google-Smtp-Source: AGHT+IE1eDqG4Q1FgN8Z7Oua76qGWxTX2F1e6Zw/V42Wr2aC+Po6k9l9x64DhdSj1PUUPY1sunN/nw==
-X-Received: by 2002:a17:907:c319:b0:aaf:4008:5e2d with SMTP id a640c23a62f3a-ab6cfbb95e4mr674264666b.0.1738246766926;
-        Thu, 30 Jan 2025 06:19:26 -0800 (PST)
-Message-ID: <10e34547-08f1-46dd-8c87-115cf4f6ba4a@suse.com>
-Date: Thu, 30 Jan 2025 15:19:25 +0100
+        bh=zH4SExfP15QqnigMMMw/hrCvxM6oyFaSmBIhN4cUHVM=;
+        b=ByrxfzYOIF2T2ZW7IUU/7cKHfwg7esUpe36pG0whg6NycFZc9kofyHGbMzmLxst+n2
+         LzozntrJgx4X9/1CGZHqa+FebvQqbBw6ISY3E9ITcNFuEDLPcPTwKXIXqDwTnCgJ8Ukk
+         2uahaCuIFv01gPBJpK8+9vulzJTaMrGgMfsN+0Nskc1C2U9lnvhJkOsxB3O3G4ViqVdr
+         CIiRevtPMPNSQcomknrLwHjm0VvaVGq6fWQHTWA1uc1Si3cz80uBzwefJBlWWfwi37Ym
+         zgI0lhPpdczQUAAxEvgge/nTkSQlGh238eOcz24IxzpRDOZcynHUKQiHMNPS8yc0QjTf
+         wsow==
+X-Forwarded-Encrypted: i=1; AJvYcCUDl3rFXbjaCJH5GGezT3g9SS0JgQTTMa2bCLSk60W8ejWMCch48sy2UPTKJD1XePCH7CJ3tNYABGQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwKgU+3MornQYT4lujEwMHTD4bmsbPaDrVaHGDBlNN4urBHXkoO
+	DGJkbqweSxX+Dl1IaRhVAvICMq0nxlrvPI64HyfiqZHzxN8Q6IsC6oT2e7+mIQ==
+X-Gm-Gg: ASbGncsKCeqPYe2c2aYGeXmN0uhvfp2735F4oDty1KxOe58mieDT2xlR2j4BNifVoeZ
+	fCsgoCmOnoLMIF7KJbxp55d9wdy/GKr7hs5jc87+foFiPYkGjXdd+cInWaphfykBjYpZXW3hCNL
+	UvYfeAfF8J04Lu0j4YTLyzh3kVwTHAk2zdw9qz1qRTyn03qEbnxVn/vhSpLsIeAzRF1dmYl5Ubk
+	KltbZWl7Kw0TAoBlkSm9gj7x93XCDsxDCU4ak2gJHUFFpk/R5avwTsj8gG/0/DC6mXarNEenx2R
+	+eubn1ULwQ0AD9oevw9rpHswDLoKmTVoBtnn7W+xjIYdzncVps/f7JUL11WJMcCm2q48Qvgnqjq
+	s
+X-Google-Smtp-Source: AGHT+IGROh7kfe458AtiDEkMD3Nr/FRXa88sn/COUJiJ4F0TFQ00aGFXM8KW9ok7E7t/48E2yXxyxg==
+X-Received: by 2002:a05:6402:a001:b0:5dc:7374:261d with SMTP id 4fb4d7f45d1cf-5dc737427bfmr3798282a12.7.1738247459830;
+        Thu, 30 Jan 2025 06:30:59 -0800 (PST)
+Message-ID: <df094ad3-810a-46c1-8bb0-d240a8d80744@suse.com>
+Date: Thu, 30 Jan 2025 15:30:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 04/15] kconfig: introduce option to independently
- enable libfdt
+Subject: Re: [PATCH v2 05/15] kconfig: introduce domain builder config option
 To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
  stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+ xen-devel@lists.xenproject.org
 References: <20241226165740.29812-1-dpsmith@apertussolutions.com>
- <20241226165740.29812-5-dpsmith@apertussolutions.com>
+ <20241226165740.29812-6-dpsmith@apertussolutions.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,22 +120,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241226165740.29812-5-dpsmith@apertussolutions.com>
+In-Reply-To: <20241226165740.29812-6-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 26.12.2024 17:57, Daniel P. Smith wrote:
-> Currently, the inclusion of libfdt is controlled by the CONFIG_HAS_DEVICE_TREE
-> kconfig flag. This flag also changes behavior in a few places, such as boot
-> module processing for XSM. To support the ability to include libfdt without
-> changing these behaviors, introduce CONFIG_LIB_DEVICE_TREE. The inclusion of
-> libfdt is then moved under CONFIG_LIB_DEVICE_TREE.
+> Hyperlaunch domain builder will be the consolidated boot time domain building
+> logic framework. Introduces the config option to enable this domain builder to
+> and turn on the ability to load the domain configuration via a flattened device
+> tree.
 
-Hmm. I'm not a DT maintainer (imo approval here needs to come from one of
-its maintainers, despite the files being touched not saying so; I notice
-you have the larger Cc list already), but to me the 'f' in libfdt is lost
-with CONFIG_LIB_DEVICE_TREE. What's wrong with CONFIG_LIBFDT when that's
-the code that you want to cover?
+s/and/eventually/? Else I fear I'm not getting what is being said here. There's
+no turning on of anything just yet, afaics.
 
 Jan
 
