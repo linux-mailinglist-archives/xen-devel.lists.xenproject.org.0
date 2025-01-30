@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7582BA23265
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Jan 2025 18:04:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.879724.1289938 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7ADBEA233A1
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Jan 2025 19:15:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.879734.1289949 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tdXxo-0003yn-03; Thu, 30 Jan 2025 17:04:24 +0000
+	id 1tdZ43-0004QI-1M; Thu, 30 Jan 2025 18:14:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 879724.1289938; Thu, 30 Jan 2025 17:04:23 +0000
+Received: by outflank-mailman (output) from mailman id 879734.1289949; Thu, 30 Jan 2025 18:14:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tdXxn-0003wV-Tl; Thu, 30 Jan 2025 17:04:23 +0000
-Received: by outflank-mailman (input) for mailman id 879724;
- Thu, 30 Jan 2025 17:04:21 +0000
+	id 1tdZ42-0004OA-U0; Thu, 30 Jan 2025 18:14:54 +0000
+Received: by outflank-mailman (input) for mailman id 879734;
+ Thu, 30 Jan 2025 18:14:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=zr8Z=UW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tdXxl-0003wP-Ln
- for xen-devel@lists.xenproject.org; Thu, 30 Jan 2025 17:04:21 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=URkf=UW=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1tdZ41-0004O3-P6
+ for xen-devel@lists.xenproject.org; Thu, 30 Jan 2025 18:14:53 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3eb98a5e-df2c-11ef-99a4-01e77a169b0f;
- Thu, 30 Jan 2025 18:04:19 +0100 (CET)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5d414b8af7bso2009121a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 30 Jan 2025 09:04:19 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5dc72404537sm1351473a12.35.2025.01.30.09.04.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Jan 2025 09:04:18 -0800 (PST)
+ id 179f310a-df36-11ef-99a4-01e77a169b0f;
+ Thu, 30 Jan 2025 19:14:50 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 3F8305C61AB;
+ Thu, 30 Jan 2025 18:14:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89246C4CEE2;
+ Thu, 30 Jan 2025 18:14:46 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,105 +41,212 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3eb98a5e-df2c-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738256659; x=1738861459; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=PC47WVyukDJfXb7iaySshoMITKzOO/itxgUqAubfeXc=;
-        b=IarxStwS/XIoBMGgNPbWTiMrKIZ+8jzelX7aO7FGUT3ivsTfdK+2AffVrFgCl8nw3J
-         a9k134QdZT0j2yLdkPamAnp0OdriUuwcw7JlGLzRhVfGfK9z891bGXZmm2QWWy8BlVKP
-         XeFhiBMEXDwf+eM+ogUvq3Zwr/3KV6GIOS0RuBI8hUv7oNhlaszB5CJ/jiJL+LSStZpK
-         QHg/QYiK6xZ1P4jok2wSvX/JFdQCECD674/B9VNuqqbyBZgfHUEIq9vj2q+GON/BqJ82
-         wNl/i6B7zELSysfRoPwZt67JBvh1MjYYMRrOxdDhzi53//tFSJHsAMMcE+oR9YJE53dA
-         WcPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738256659; x=1738861459;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=PC47WVyukDJfXb7iaySshoMITKzOO/itxgUqAubfeXc=;
-        b=b5YEsizEe+5GUUcFbrgzkvwd7OFQn5Tz69uDh6Yxjloqx/rGM7s/VJzjvk9nl4LxAU
-         mxYOQc2c9Et/rK/UPg4+SKl0Np2VfuCox2pzoXLkhBU9QsA5EUZUm41NIH7LADAdBZuj
-         urfwJhp7/kZLLbWYnlqq3mekZTFC6zzbIZ90aQwevcNpiyplyBrE6MaR0Mky3F1GGaMh
-         CxdpR29Oa1hT7m11a4GNVH5gL9rJZDgMevEZy/z602m6ctgRpmMNhk6zQmFqdrItoh+G
-         yOBMfNnpTg9ppudTALSO2sxVVXPCXu8tNa4kedBjIW1WeV+1IlIJ7AmIx2kHT6uwWZB0
-         tu1g==
-X-Forwarded-Encrypted: i=1; AJvYcCUK5+ci0qZg7qjuS6zCepCuhFCopAkCCMJHLc/39naZKmCuukaKje758eE3vz0KOhBUM52awc7kB1s=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxOzYH7mlX4s/Uy4fbmuw5wH2oxfeeFwgHoAqSzVGqq990HQ29f
-	QLZiLTTjmg+Ph30IQHUgqPccbnJBGsD74iLyqfEoIDj0bNGvDvlBlhCl+oOqFw==
-X-Gm-Gg: ASbGncubzjtFqYlavkaHLmYsZy20YyLG8ILlPB2b7gZIfEYl4Kjpk24az9hN7lbfSdy
-	rmesQcJWvkeWTOaL1vT3qq2hsxTaQZ42Yusz9H+/Mbx4vcq6xt3+WC7uEJqScrlf+oIWuYQEI2T
-	y8qn11khbCSqln1p+Yhj91dBvANsFZ6uCACdRGf6VBwlbpIZjFdwW3t+thJmqbQHlJuH0WwBzfV
-	DMaITFtG2txi/riIk3ZMTBKemsnDE3y8gq+3GWTbmBD1d2V9NSTsXh5MIE5JIAkAKbZKe+gWW6r
-	8rOh6/FC7ZO8S3c+qIz9aLs/qmkE+C554f8qiRiIyvE449Hyyj7abLkm+iUplhtlma3hSlWUHLM
-	h
-X-Google-Smtp-Source: AGHT+IHX4RrZ/YQf7/2vnz5JmKaTw6yyPmnpPjqbCFDKmTkPhVVt1Lh4C62dX9pGdoxrNh6ix4W7xQ==
-X-Received: by 2002:a05:6402:2812:b0:5d3:ba42:e9f4 with SMTP id 4fb4d7f45d1cf-5dc5f00850fmr8323957a12.23.1738256659124;
-        Thu, 30 Jan 2025 09:04:19 -0800 (PST)
-Message-ID: <9282f971-a500-4c05-b99b-c7bae72709ff@suse.com>
-Date: Thu, 30 Jan 2025 18:04:17 +0100
+X-Inumbo-ID: 179f310a-df36-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1738260888;
+	bh=0UcRcKHAoImktBj185XdlHn+UMI2y8OBYg2X+QmV7Pg=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=i1Fi7V2RcFfGMeMTuGd8eC2nw2FscSeX13lRojr76AEzeR9/ZEURXa+iqK6MdYi8H
+	 lvSpblkvispW6sIUU30f5S+uUDu3q/q+jDRIDlJLrGbiv/NKnedn7zuZi0FmaU3Rmi
+	 46ZRhUgvP7B3p4dkIg5JmuKehF3wh6QraHEKlbXuhfg3v1dcnkGOn5mv0C76xkYB01
+	 HevwYPct2Rh+UecoBZVfL9s6L6/q9Un8WJfbxlFgeJ/fQ2pGs5vR8Tsxu8NJiqExyc
+	 m3DQzdD5j7wcJ0PQ51htLPlUWxsvI3nKpgvc6JakT6TtuQXIsejwDhpEVQuJJFTHtc
+	 jUWeNBU73o1bQ==
+Date: Thu, 30 Jan 2025 10:14:44 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Stefano Stabellini <sstabellini@kernel.org>
+cc: "Edgar E. Iglesias" <edgar.iglesias@amd.com>, Olaf Hering <olaf@aepfle.de>, 
+    xen-devel@lists.xenproject.org, jgross@suse.com, 
+    Anthony PERARD <anthony@xenproject.org>, Paul Durrant <paul@xen.org>, 
+    jbeulich@suse.com, andrew.cooper3@citrix.com, roger.pau@citrix.com
+Subject: Re: slow start of Pod HVM domU with qemu 9.1
+In-Reply-To: <alpine.DEB.2.22.394.2501291429040.11632@ubuntu-linux-20-04-desktop>
+Message-ID: <alpine.DEB.2.22.394.2501301014400.11632@ubuntu-linux-20-04-desktop>
+References: <20250128151544.26fc827d.olaf@aepfle.de> <Z5j-bkdFZ7riavv7@zapote> <alpine.DEB.2.22.394.2501281543580.3264561@ubuntu-linux-20-04-desktop> <Z5oIvUINVDfrrVla@zapote> <alpine.DEB.2.22.394.2501291429040.11632@ubuntu-linux-20-04-desktop>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 14/15] x86/hyperlaunch: add max vcpu parsing of
- hyperlaunch device tree
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
- stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20241226165740.29812-1-dpsmith@apertussolutions.com>
- <20241226165740.29812-15-dpsmith@apertussolutions.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241226165740.29812-15-dpsmith@apertussolutions.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 26.12.2024 17:57, Daniel P. Smith wrote:
-> --- a/xen/arch/x86/domain-builder/fdt.c
-> +++ b/xen/arch/x86/domain-builder/fdt.c
-> @@ -147,6 +147,17 @@ static int __init process_domain_node(
->              bd->max_pages = PFN_DOWN(kb * SZ_1K);
->              printk("  max memory: %ld kb\n", kb);
->          }
-> +        else if ( strncmp(prop_name, "cpus", name_len) == 0 )
-> +        {
-> +            uint32_t val = UINT_MAX;
+On Wed, 29 Jan 2025, Stefano Stabellini wrote:
+> On Wed, 29 Jan 2025, Edgar E. Iglesias wrote:
+> > On Tue, Jan 28, 2025 at 03:58:14PM -0800, Stefano Stabellini wrote:
+> > > On Tue, 28 Jan 2025, Edgar E. Iglesias wrote:
+> > > > On Tue, Jan 28, 2025 at 03:15:44PM +0100, Olaf Hering wrote:
+> > > > > Hello,
+> > > > > 
+> > > > > starting with qemu 9.1 a PoD HVM domU takes a long time to start.
+> > > > > Depending on the domU kernel, it may trigger a warning, which prompted me
+> > > > > to notice this change in behavior:
+> > > > > 
+> > > > > [    0.000000] Linux version 4.12.14-120-default (geeko@buildhost) (gcc version 4.8.5 (SUSE Linux) ) #1 SMP Thu Nov 7 16:39:09 UTC 2019 (fd9dc36)
+> > > > > ...
+> > > > > [    1.096432] HPET: 3 timers in total, 0 timers will be used for per-cpu timer
+> > > > > [    1.101636] hpet0: at MMIO 0xfed00000, IRQs 2, 8, 0
+> > > > > [    1.104051] hpet0: 3 comparators, 64-bit 62.500000 MHz counter
+> > > > > [   16.136086] random: crng init done
+> > > > > [   31.712052] BUG: workqueue lockup - pool cpus=1 node=0 flags=0x0 nice=0 stuck for 30s!
+> > > > > [   31.716029] Showing busy workqueues and worker pools:
+> > > > > [   31.721164] workqueue events: flags=0x0
+> > > > > [   31.724054]   pwq 2: cpus=1 node=0 flags=0x0 nice=0 active=2/256
+> > > > > [   31.728000]     in-flight: 17:balloon_process
+> > > > > [   31.728000]     pending: hpet_work
+> > > > > [   31.728023] workqueue mm_percpu_wq: flags=0x8
+> > > > > [   31.732987]   pwq 2: cpus=1 node=0 flags=0x0 nice=0 active=1/256
+> > > > > [   31.736000]     pending: vmstat_update
+> > > > > [   31.736024] pool 2: cpus=1 node=0 flags=0x0 nice=0 hung=30s workers=2 idle: 34
+> > > > > [   50.400102] clocksource: Switched to clocksource xen
+> > > > > [   50.441153] VFS: Disk quotas dquot_6.6.0
+> > > > > ...
+> > > > > 
+> > > > > With qemu 9.0 and older, this domU will start the /init task after 8 seconds.
+> > > > > 
+> > > > > The change which caused this commit is qemu.git commit 9ecdd4bf08dfe4a37e16b8a8b228575aff641468
+> > > > > Author:     Edgar E. Iglesias <edgar.iglesias@amd.com>
+> > > > > AuthorDate: Tue Apr 30 10:26:45 2024 +0200
+> > > > > Commit:     Edgar E. Iglesias <edgar.iglesias@amd.com>
+> > > > > CommitDate: Sun Jun 9 20:16:14 2024 +0200
+> > > > > 
+> > > > >     xen: mapcache: Add support for grant mappings
+> > > > > 
+> > > > > As you can see, v4 instead of v5 was apparently applied.
+> > > > > This was probably unintentional, but would probably not change the result.
+> > > > 
+> > > > Hi Olaf,
+> > > > 
+> > > > It looks like v8 was applied, or am I missing something?
+> > > > 
+> > > > 
+> > > > > 
+> > > > > With this change the domU starts fast again:
+> > > > > 
+> > > > > --- a/hw/xen/xen-mapcache.c
+> > > > > +++ b/hw/xen/xen-mapcache.c
+> > > > > @@ -522,6 +522,7 @@ ram_addr_t xen_ram_addr_from_mapcache(void *ptr)
+> > > > >      ram_addr_t addr;
+> > > > >  
+> > > > >      addr = xen_ram_addr_from_mapcache_single(mapcache, ptr);
+> > > > > +    if (1)
+> > > > >      if (addr == RAM_ADDR_INVALID) {
+> > > > >          addr = xen_ram_addr_from_mapcache_single(mapcache_grants, ptr);
+> > > > >      }
+> > > > > @@ -626,6 +627,7 @@ static void xen_invalidate_map_cache_entry_single(MapCache *mc, uint8_t *buffer)
+> > > > >  static void xen_invalidate_map_cache_entry_all(uint8_t *buffer)
+> > > > >  {
+> > > > >      xen_invalidate_map_cache_entry_single(mapcache, buffer);
+> > > > > +    if (1)
+> > > > >      xen_invalidate_map_cache_entry_single(mapcache_grants, buffer);
+> > > > >  }
+> > > > >  
+> > > > > @@ -700,6 +702,7 @@ void xen_invalidate_map_cache(void)
+> > > > >      bdrv_drain_all();
+> > > > >  
+> > > > >      xen_invalidate_map_cache_single(mapcache);
+> > > > > +    if (0)
+> > > > >      xen_invalidate_map_cache_single(mapcache_grants);
+> > > > >  }
+> > > > >  
+> > > > > I did the testing with libvirt, the domU.cfg equivalent looks like this:
+> > > > > maxmem = 4096
+> > > > > memory = 2048
+> > > > > maxvcpus = 4
+> > > > > vcpus = 2
+> > > > > pae = 1
+> > > > > acpi = 1
+> > > > > apic = 1
+> > > > > viridian = 0
+> > > > > rtc_timeoffset = 0
+> > > > > localtime = 0
+> > > > > on_poweroff = "destroy"
+> > > > > on_reboot = "destroy"
+> > > > > on_crash = "destroy"
+> > > > > device_model_override = "/usr/lib64/qemu-9.1/bin/qemu-system-i386"
+> > > > > sdl = 0
+> > > > > vnc = 1
+> > > > > vncunused = 1
+> > > > > vnclisten = "127.0.0.1"
+> > > > > vif = [ "mac=52:54:01:23:63:29,bridge=br0,script=vif-bridge" ]
+> > > > > parallel = "none"
+> > > > > serial = "pty"
+> > > > > builder = "hvm"
+> > > > > kernel = "/bug1236329/linux"
+> > > > > ramdisk = "/bug1236329/initrd"
+> > > > > cmdline = "console=ttyS0,115200n8 quiet ignore_loglevel""
+> > > > > boot = "c" 
+> > > > > disk = [ "format=qcow2,vdev=hda,access=rw,backendtype=qdisk,target=/bug1236329/sles12sp5.qcow2" ]
+> > > > > usb = 1
+> > > > > usbdevice = "tablet"
+> > > > > 
+> > > > > Any idea what can be done to restore boot times?
+> > > > 
+> > > > 
+> > > > A guess is that it's taking a long time to walk the grants mapcache
+> > > > when invalidating (in QEMU). Despite it being unused and empty. We
+> > > > could try to find a way to keep track of usage and do nothing when
+> > > > invalidating an empty/unused cache.
+> > > 
+> > > If mapcache_grants is unused and empty, the call to
+> > > xen_invalidate_map_cache_single(mapcache_grants) should be really fast?
+> > 
+> > Yes, I agree but looking at the invalidation code it looks like if we're
+> > unconditionally walking all the buckets in the hash-table...
+> > 
+> > 
+> > > 
+> > > I think probably it might be the opposite: mapcache_grants is utilized,
+> > > so going through all the mappings in xen_invalidate_map_cache_single
+> > > takes time.
+> > 
+> > The reason I don't think it's being used is because we've only enabled
+> > grants for PVH machines and Olaf runs HVM machines, so QEMU would never
+> > end up mapping grants for DMA.
+>  
+> Oh, I see! In that case we could have a trivial check on mc->last_entry
+> == NULL as fast path, something like:
+> 
+> if ( mc->last_entry == NULL )
+>     return;
+> 
+> at the beginning of xen_invalidate_map_cache_single?
+>  
+>  
+> > > However, I wonder if it is really needed. At least in the PoD case, the
+> > > reason for the IOREQ_TYPE_INVALIDATE request is that the underlying DomU
+> > > memory has changed. But that doesn't affect the grant mappings, because
+> > > those are mappings of other domains' memory.
+> > > 
+> > > So I am thinking whether we should remove the call to
+> > > xen_invalidate_map_cache_single(mapcache_grants) ?
+> > 
+> > Good point!
+>  
+> Let's see how the discussion evolves on that point
 
-It's not the first time I see such an initializer, yet it's even more
-pronounced here, as the call ...
+Jan and Juergen clarified that there is no need to call
+xen_invalidate_map_cache_single for grants on IOREQ_TYPE_INVALIDATE
+requests.
 
-> +            if ( fdt_prop_as_u32(prop, &val) != 0 )
+---
+xen: no need to flush the mapcache for grants
 
-... is coming right next. If that function succeeds, it surely should
-set its output? And if it didn't, you're as hosed with initializer as
-you're without.
+On IOREQ_TYPE_INVALIDATE we need to invalidate the mapcache for regular
+mappings. Since recently we started reusing the mapcache also to keep
+track of grants mappings. However, there is no need to remove grant
+mappings on IOREQ_TYPE_INVALIDATE requests, we shouldn't do that. So
+remove the function call.
 
-Jan
+Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+
+diff --git a/hw/xen/xen-mapcache.c b/hw/xen/xen-mapcache.c
+index 00bfbcc6fb..698b5c53ed 100644
+--- a/hw/xen/xen-mapcache.c
++++ b/hw/xen/xen-mapcache.c
+@@ -700,7 +700,6 @@ void xen_invalidate_map_cache(void)
+     bdrv_drain_all();
+ 
+     xen_invalidate_map_cache_single(mapcache);
+-    xen_invalidate_map_cache_single(mapcache_grants);
+ }
+ 
+ static uint8_t *xen_replace_cache_entry_unlocked(MapCache *mc,
 
