@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8673A22C53
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Jan 2025 12:12:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.879484.1289694 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6476EA22C57
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Jan 2025 12:13:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.879491.1289704 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tdSTL-0004O4-6a; Thu, 30 Jan 2025 11:12:35 +0000
+	id 1tdSTu-0004sm-Cw; Thu, 30 Jan 2025 11:13:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 879484.1289694; Thu, 30 Jan 2025 11:12:35 +0000
+Received: by outflank-mailman (output) from mailman id 879491.1289704; Thu, 30 Jan 2025 11:13:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tdSTL-0004MH-2K; Thu, 30 Jan 2025 11:12:35 +0000
-Received: by outflank-mailman (input) for mailman id 879484;
- Thu, 30 Jan 2025 11:12:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tdSTu-0004qi-9a; Thu, 30 Jan 2025 11:13:10 +0000
+Received: by outflank-mailman (input) for mailman id 879491;
+ Thu, 30 Jan 2025 11:13:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zr8Z=UW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tdSTJ-0004Eh-BP
- for xen-devel@lists.xenproject.org; Thu, 30 Jan 2025 11:12:33 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1a06b5c8-defb-11ef-a0e6-8be0dac302b0;
- Thu, 30 Jan 2025 12:12:32 +0100 (CET)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5dbfab8a2b0so1292027a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 30 Jan 2025 03:12:32 -0800 (PST)
+ id 1tdSTs-0003ns-W5
+ for xen-devel@lists.xenproject.org; Thu, 30 Jan 2025 11:13:08 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2ea500ff-defb-11ef-99a4-01e77a169b0f;
+ Thu, 30 Jan 2025 12:13:07 +0100 (CET)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-5dc149e14fcso1138692a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Jan 2025 03:13:07 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5dc723efc45sm889777a12.32.2025.01.30.03.12.31
+ 4fb4d7f45d1cf-5dc724c94b1sm901543a12.66.2025.01.30.03.13.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Jan 2025 03:12:31 -0800 (PST)
+ Thu, 30 Jan 2025 03:13:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1a06b5c8-defb-11ef-a0e6-8be0dac302b0
+X-Inumbo-ID: 2ea500ff-defb-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738235552; x=1738840352; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1738235587; x=1738840387; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=203/lJVcbBuSiBOTZslr+MFpCzEbnnZrAdk7fuxdPb4=;
-        b=OFRAeVTNsraLQIm+bh5zg0AIJY9e/e2fmIk8EQH0q43YrtVrH2uOcya/WPSsQzV4Ze
-         gL52OATTt7gFrC9Fprcwc65MwKBo+hBeV/5H/6rTxfuBso+rj6/VlP+qDQZ66Y5CcCAE
-         hsvOXrCkEMChHvNhjI14NpaAZo2BgXY5tiwtbbU2KH5PI6B35GhzGoydm24mX20q4Moh
-         3gYN10FL1ZAxf1atGA2fn+zW5QCAnOBQObtwUmo3Fiw6iU+uqyVs6N0hLUBMLV1CSq/o
-         eqMtpZxsRgAvPfbxTJZOtkcyMQW1IPTqxi7EMYBG3Hk1xiHRi6fJ37LENC9+u0a2iPSD
-         Bz7g==
+        bh=V9vwx/V7mW1SrRmfY7WrHmeRj0Uzde1i3C5utHUovTg=;
+        b=Eyp0Fb3hTiOioLBxZbHEea6mCoN7cCQW51s4KY1cBmK78jjwcZMvP6Zo5+vcdghnJG
+         CU9k4l7j+saxS5i8oZQcfq16GXwqs//ohtHYNQCKwKE9BAgsEF3k5Xr3gQcW0pkTjU7j
+         zVr99dZ5Xr/1lHqHLYEAqyuQ4gFLHrAfPfjgDiNhfIhdmKl9WwQ5yeq2ztLnalP74IvR
+         9xPFtQ3NpByDpCfCtVtMCgAEzj9A9Dl40PLIYe8LpUqk7/D1kN7dVejbt/JxfiBA+t71
+         X97mrU50Pv3sLxweCOQarVKRj/YQGnFB+88AzUiktURG4RPRfwM6CBlXZnxQcdN+vy9A
+         wCUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738235552; x=1738840352;
+        d=1e100.net; s=20230601; t=1738235587; x=1738840387;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=203/lJVcbBuSiBOTZslr+MFpCzEbnnZrAdk7fuxdPb4=;
-        b=Zks/y7fL5H9Zf6hmqQPdG+mDLDlDZ2SMvLzTGCTvDzlkyA6Ok6GReFOjeG8y9HM6+p
-         +cH1/FBVflbr9vFMWqFdQF2i5vxWrtEQlveQqEUhVcJPK0BmYDKjVixXFMc0a8sRoYv/
-         8QZQjIpa26APYsparv98fYeGzE16k13EYEO0mO7Vgj3K6qPWenZ2hM/jYHIeifM8e++Q
-         hDGRVpE2lkKD5ks8HoAu/Xkf8eiYNgW/ihhHEyeV8dS07zbYHpOIZXsm5Smw7nBVrQKv
-         eN/7nD1dqGgoB2MSYUVZZATnqZ0Rz8WqKuyc3KA+zdxg8JgKRplwz74Cx8pFRHp40Bd9
-         S4uw==
-X-Gm-Message-State: AOJu0YxNH17Gp8/nCusUf6Fxdj0tzppNC4EAXNzWfMSjCYyeL/8iU0YK
-	bNviCrIwJWIdwbL19rkfsiBoum+K+XqLEfFrDwp6Ezl21QkR3Q8r6o2lqRv8q4WytOELUP/DT+U
+        bh=V9vwx/V7mW1SrRmfY7WrHmeRj0Uzde1i3C5utHUovTg=;
+        b=kYA6AcBeyxgkkyS5HC6hD1nx7NW8c2+dhShIJlxXTel+ubJfXKkSarIH0v30igtWqv
+         eP+ktYep3R2t9gSmteFaxdmZ/5w77DaZ87Uf8MzMNivjgejiOLhMQmU9yfVzBWvQSOLc
+         rM5mStFTvcGU/gsoPtsPZbk4rFEKkEf+zy3mhbt4da6XM4kzA1ljakwsia93dwy6W98v
+         Ml1elj8b1viLNe+Pwe0QbvhezoIFWlPrLYfsiCEhSc75QqRUPG7y6MjG5sdpvB9PEDfT
+         MFAwHS0qZTtJIcexhqE2gVTGlCPkpL26fZizh7TTko6OMmVr9g5pyckKEjVK2izIgI3s
+         PnjA==
+X-Gm-Message-State: AOJu0YzmnW6ZVQeZNmrSca80hp2A04IG59uyH4LYf3TRKWFy5q9PkNwu
+	oGMz8WIiArnJz5T99MedPxtSeSeCaAC2P68P6p+EbN8ymM+121j6d3Op72i2RMxwhwcM4/aaO88
 	=
-X-Gm-Gg: ASbGncuhjGuGdZx1aloXAhxzQV+WO4Bf8guKlTXvtk9U7cMAuiQrbaK6E+bsEojyz3I
-	YW6jeDjOkZrA80KZhv3G/nvwjPpQVJhS1odJ0fDCvpE8ShTM6871yfIQoeuVZgH1oowqYhjHWBY
-	OXCf4O6pRM7QKLsrW8cuLySEvfPQE5RgSZygfvI9KM4Y9xkJfY8txbBQQPn//M+gbnXpWhYqxMe
-	PTyeIoLGTTI+jsfhJAquVjJIwVUk1Ipr6uU6Lpt9Tp2noHsJRdFLo/elcV9hdY+QXSa/AGqt4hJ
-	xnN0Ydn3coNbs2cZ5ZHrfPs8hOae1fDRC2pBztn/WFbx6HdznS9ZVbymOsVvfjxDfWQiKPBbsf/
-	V
-X-Google-Smtp-Source: AGHT+IGudiXusSP2uHk+VdJeM7vMvtwwfZHKTitaJdmZMgsqHjKiyq6vHxtlyr40vNZ9sUkp2r6mNg==
-X-Received: by 2002:a05:6402:5109:b0:5dc:5a34:1296 with SMTP id 4fb4d7f45d1cf-5dc5efc5e1amr5442094a12.16.1738235552204;
-        Thu, 30 Jan 2025 03:12:32 -0800 (PST)
-Message-ID: <940ccd1b-9ad8-4b68-a035-36f45326872b@suse.com>
-Date: Thu, 30 Jan 2025 12:12:31 +0100
+X-Gm-Gg: ASbGncuN2UpZFqroMrLQBMMrzzS2/IJmuxXF4Jw3aEWIq5crzojLo4R8zS7T6vQMYAZ
+	tYpBejDKIrXe0TVPGUI4WIgDgmDiTiCb1n+7mush/U2TrwCdG/zHjVwKmdmNyrIiYioF/uS0qsW
+	B1ZbPgEg4G4lum8iRAkuLGu1KoG7jRLn4JSwkI6yZVseQrHZv9kUMA7SGo0vJQMWuJR5q1ELj4D
+	ea2HZ2Yf9F+Ivt0y1ZA0xa0myTiqkZoEyjZxXg+pNonixhVq6QMgnefNcEXlZRFnIM7JUGVJlGL
+	+HjW7oSSTbxcIFR9o9Wck2MqrGAFMi/f83zsP94Y0a43mfQFb2x+p5DPcfV1I80CPMRQpJ4khw/
+	x
+X-Google-Smtp-Source: AGHT+IG6xC4jEPXW9L0hQq67LWsRj+B/KKoOd3P3KbafdpL1VtRAKMBlkhbx8oVSD7X2vc8QSlCJTQ==
+X-Received: by 2002:a05:6402:51cf:b0:5d9:f042:dab with SMTP id 4fb4d7f45d1cf-5dc5efc4d4cmr7316347a12.18.1738235586818;
+        Thu, 30 Jan 2025 03:13:06 -0800 (PST)
+Message-ID: <b0b8c35f-5c88-46bb-a882-9ff737683367@suse.com>
+Date: Thu, 30 Jan 2025 12:13:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH for-4.20 2/3] x86/PCI: init segments earlier
+Subject: [PATCH for-4.20? 3/3] AMD/IOMMU: log IVHD contents
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -122,58 +122,24 @@ In-Reply-To: <2bb9d3c4-0761-4d63-8193-29293e35eb04@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-In order for amd_iommu_detect_one_acpi()'s call to pci_ro_device() to
-have permanent effect, pci_segments_init() needs to be called ahead of
-making it there. Without this we're losing segment 0's r/o map, and thus
-we're losing write-protection of the PCI devices representing IOMMUs.
-Which in turn means that half-way recent Linux Dom0 will, as it boots,
-turn off MSI on these devices, thus preventing any IOMMU events (faults
-in particular) from being reported on pre-x2APIC hardware.
+Despite all the verbosity with "iommu=debug", information on the IOMMUs
+themselves was missing.
 
-As the acpi_iommu_init() invocation was moved ahead of
-acpi_mmcfg_init()'s by the offending commit, move the call to
-pci_segments_init() accordingly.
-
-Fixes: 3950f2485bbc ("x86/x2APIC: defer probe until after IOMMU ACPI table parsing")
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Of course it would have been quite a bit easier to notice this issue if
-radix_tree_insert() wouldn't work fine ahead of radix_tree_init() being
-invoked for a given radix tree, when the index inserted at is 0.
 
-While hunting down various other dead paths to actually find the root
-cause, it occurred to me that it's probably not a good idea to fully
-disallow config space writes for r/o devices: Dom0 won't be able to size
-their BARs (luckily the IOMMU "devices" don't have any, but e.g. serial
-ones generally will have at least one), for example. Without being able
-to size BARs it also will likely be unable to correctly account for the
-address space taken by these BARs. However, outside of vPCI it's not
-really clear to me how we could reasonably emulate such BAR sizing
-writes - we can't, after all, allow Dom0 to actually write to the
-underlying physical registers, yet we don't intercept reads (i.e. we
-can't mimic expected behavior then).
-
---- a/xen/arch/x86/x86_64/mmconfig-shared.c
-+++ b/xen/arch/x86/x86_64/mmconfig-shared.c
-@@ -402,8 +402,6 @@ void __init acpi_mmcfg_init(void)
- {
-     bool valid = true;
+--- a/xen/drivers/passthrough/amd/iommu_acpi.c
++++ b/xen/drivers/passthrough/amd/iommu_acpi.c
+@@ -911,6 +911,11 @@ static int __init parse_ivhd_block(const
+         return -ENODEV;
+     }
  
--    pci_segments_init();
--
-     /* MMCONFIG disabled */
-     if ((pci_probe & PCI_PROBE_MMCONF) == 0)
-         return;
---- a/xen/drivers/passthrough/x86/iommu.c
-+++ b/xen/drivers/passthrough/x86/iommu.c
-@@ -55,6 +55,8 @@ void __init acpi_iommu_init(void)
- {
-     int ret = -ENODEV;
- 
-+    pci_segments_init();
++    AMD_IOMMU_DEBUG("IVHD: IOMMU @ %#lx cap @ %#x seg 0x%04x info %#x attr %#x\n",
++                    ivhd_block->base_address, ivhd_block->capability_offset,
++                    ivhd_block->pci_segment_group, ivhd_block->info,
++                    ivhd_block->iommu_attr);
 +
-     if ( !iommu_enable && !iommu_intremap )
-         return;
- 
+     iommu = find_iommu_from_bdf_cap(ivhd_block->pci_segment_group,
+                                     ivhd_block->header.device_id,
+                                     ivhd_block->capability_offset);
 
 
