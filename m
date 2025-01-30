@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7596A22D34
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Jan 2025 14:02:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.879531.1289734 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D306DA22D65
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Jan 2025 14:12:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.879540.1289743 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tdUBb-0003kr-EI; Thu, 30 Jan 2025 13:02:23 +0000
+	id 1tdUL3-0005Sz-81; Thu, 30 Jan 2025 13:12:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 879531.1289734; Thu, 30 Jan 2025 13:02:23 +0000
+Received: by outflank-mailman (output) from mailman id 879540.1289743; Thu, 30 Jan 2025 13:12:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tdUBb-0003ie-AX; Thu, 30 Jan 2025 13:02:23 +0000
-Received: by outflank-mailman (input) for mailman id 879531;
- Thu, 30 Jan 2025 13:02:22 +0000
+	id 1tdUL3-0005Qv-5Q; Thu, 30 Jan 2025 13:12:09 +0000
+Received: by outflank-mailman (input) for mailman id 879540;
+ Thu, 30 Jan 2025 13:12:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zr8Z=UW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tdUBa-0003iY-Ee
- for xen-devel@lists.xenproject.org; Thu, 30 Jan 2025 13:02:22 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
+ id 1tdUL2-0005Qp-AR
+ for xen-devel@lists.xenproject.org; Thu, 30 Jan 2025 13:12:08 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 713f2f72-df0a-11ef-a0e6-8be0dac302b0;
- Thu, 30 Jan 2025 14:02:21 +0100 (CET)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-5d3e6274015so1244200a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 30 Jan 2025 05:02:21 -0800 (PST)
+ id ce057ddb-df0b-11ef-a0e6-8be0dac302b0;
+ Thu, 30 Jan 2025 14:12:07 +0100 (CET)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-5d7e3f1fc01so1521857a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Jan 2025 05:12:06 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5dc723d0021sm1050516a12.5.2025.01.30.05.02.20
+ a640c23a62f3a-ab6e4a5635bsm115677866b.164.2025.01.30.05.12.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Jan 2025 05:02:20 -0800 (PST)
+ Thu, 30 Jan 2025 05:12:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 713f2f72-df0a-11ef-a0e6-8be0dac302b0
+X-Inumbo-ID: ce057ddb-df0b-11ef-a0e6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738242141; x=1738846941; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1738242726; x=1738847526; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=dhBKkyMKFLQGFgRqtZx5QzBR67KbmMu+gZvn6LeSaQs=;
-        b=ENGN6sINC3rkGcShThB/Z8R1i/tFTFRRzMv5bVDIlayZqKcD4Cr83YBAQOuo9daEe7
-         Z8uLRRaxAt0tE+ADDUhJgtFYAV3UfeQdJbPXLh1W9XrTR0VlwcvqklHxdeSbIIEnkhf+
-         DE76HPUSv7zvH5sk/G0BUXXzYxxpIcIhE5AYFJfPzz8DwDmcuU57JNEZDaCHmXQJH1rI
-         Nhnc20+SQyqFOvEfKZmVkdZKzvOLpVik0nP67cpbGaO2k7jWqTbccXXYK8Hjn8qn+Nz+
-         H6Cp5oP7wAPFVTNWbnarURTewbNOA30vsUCOTYXZe5BpMRemyOAyIURicr89jC6As1BL
-         dfjA==
+        bh=hR3mxz4iO59pz8lIUOtj6Jo/T8UDytMT+govV4YAs08=;
+        b=LmPhTg22UqeCeF9em9WQlEvTckkIBuD1xfRCBaHzDpIPSHCaLhAx+CyiS0/uwz7yxm
+         /W0vJg4GFJVc3PJx533xyrjd4F3TKyaZ2k3TLEBow/qBvdljOHRgklkUmniB7yLbmKN9
+         vYgRDs4K5Bh+svNpdJzthJ9Pjn8b5SRdqn+8AOCjrYssXmolF1xP7eGZsf8k0+4jOAcZ
+         0ig+QUE6j6fjRvwQ0VByP6HsZl9g0xcRjh6EVlFMVBMqzDg9uTBcS+MhJdNeudLoo72p
+         V846uCRQ1HvSXjyQJ9+JqK3rtvD8fe8G0HMqv48x9kRxgIwUVyi8SuEWneC2oUB4jJH8
+         zVBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738242141; x=1738846941;
+        d=1e100.net; s=20230601; t=1738242726; x=1738847526;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dhBKkyMKFLQGFgRqtZx5QzBR67KbmMu+gZvn6LeSaQs=;
-        b=aFu93QvyugPe5STxaFPArT557sJCq4lGmSWZtsepmY7zNm7G/k8WLYW8XatyYloDu6
-         9f7Y81FJtE2San9HPXauZ+M5n7GqQUyzNWyDGn+lZgUGaOc5XwYnXDk2qQa6i1guZn4W
-         GPxGf+EFDleRoPAKGdZBSbsB69g/cKAxVNnHFFZ2Iz9+irGb1+u03xW4x/lCiUkv7REx
-         q50rKYDbUqc0fJzEdYLEV0fxkMoNVQTBhX0hkwj1vv/+UWFNblQC23dxfDjgjCtg6LpS
-         5E/sjghTu6nK/clX50a3HqbWr7DJaIDF9RYFd2jXEiEzPlQ1KSPeGiibRqHTjEQo0taY
-         MRaw==
-X-Forwarded-Encrypted: i=1; AJvYcCUJiZHTIE8AE0PtfnIR8E71UyAAWQL4QezdzfheH6D1Bsm8gBpVly8tgdyDVCiJ/ko5VfgBrGVmnIM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyfljeARM7moluizhoUvQjloUyliNRG/SkfTLicJx8noNCdJeva
-	xa+Y+YjtuM6IUbG5UsqLwp0mvZwI9XKNhyRUsKUFkbuREoJI4OBUyq5teRMuhg==
-X-Gm-Gg: ASbGnct9TQ6wvCoUGwz03x35ubK59Csbm4+7h30QObqMhrUoVWe29xGDQDjAAYUbD2R
-	1oy6zXh3gFChbLeXp4Hl65J+7vAXXf020wqCtuTK1r2OBgADQisJqKH80klY8ZhHGVuqy1/RsWD
-	bZJ9xRceouXAmCyQrPuNhfMOac30lZWTRVh4oeud26wprlewbjRt+h3GSyH1a8k7UBaCYHf0Dpp
-	QUGN9qdF4eQrqtm+JXQzezLbrKwhPtDpPIDNw3Fi+5MTm5Kvjl7r815wpWsWtFMVsFRIlXPMgIl
-	0BSySRFONQ4RScleiLf2tPkSgb4/O1W8kPXGSPb8poYmgH4+bPF3tzAiswBsX6ln1aFTUbBKdSw
-	N
-X-Google-Smtp-Source: AGHT+IEjPEi8l0joPn9UY3tVYZvSwXubrQApCCPiEn93vgRY/Rf3MtHBT/hEmyok1pNhpOFcyLlYVg==
-X-Received: by 2002:a05:6402:84c:b0:5d3:e9fd:9a15 with SMTP id 4fb4d7f45d1cf-5dc5f0084abmr6591395a12.32.1738242140968;
-        Thu, 30 Jan 2025 05:02:20 -0800 (PST)
-Message-ID: <e0ab6920-86bd-4a0c-a5ff-4129b314bfd6@suse.com>
-Date: Thu, 30 Jan 2025 14:02:19 +0100
+        bh=hR3mxz4iO59pz8lIUOtj6Jo/T8UDytMT+govV4YAs08=;
+        b=XVAT4uutz8Pi7bC2yw6WVhmf+EyY+uGGKbM8CZun3l5CrLikYBMLbCl7lpanMNrNax
+         N0wiLpsvFy74gVdnnEIPQqe/RrPC8X6ijFz2c4LzsO6+DLJy3Z2OkCPRzFUX6QAbMgQf
+         vAUvXwqtgUlSKf34V4Y1l/pl8CjVPsznE1kLpKH94K00JGPSb/VMknHK+1xzRO4+DAju
+         ZcOh16+Zq9H6zvDusfXDfdkF0+jGXlQ2d+rzm0lykoTcabY/DzMmhOYmiwwGZilD5AHd
+         4KXQQzmwClArZIEQEBejwS5e4x4miyoNWe5TOPKFDebOZcbuXEwPEy+tIM5s5HPc7ab1
+         5Tag==
+X-Forwarded-Encrypted: i=1; AJvYcCVTkromfIFymatPXovxTSuzj4p+p4+wC9BUdImEgfz4CJ1k4hFo/FMQ1/SPgk1TIqEcmG5hgXqqIQw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy5bvDQlGXYAEsH+iBKh8BkoiSbETh5bogcaSerjfVr4baG64xZ
+	oRd+lrZcKykj1Y0sGbGMH6TMFlId1tfuv9rphE2W4doeVvLBgofCxzc70bE2NA==
+X-Gm-Gg: ASbGnctK8bFgK4ci4BRdZxRjadWpSXm1IA3ou8O8c9E+HvOMI1HOD1syzLshQNZWFb8
+	CE1bLFFaAGvdI9X5ZFtkGEWCGWXHI93FvHUN1xK6uOiRErF35Fjj6M8WmYkFL7BHSTIJ4H+Top6
+	RbfLt17trUOGfqJpWRP7XRkCsKVMNfdOgJK/2IuxrCy/HFT/abd6P9FM6DMVPd1tRD2ANnrYdSa
+	SqxgPIEvcjU1fVIXeZFn7DyAQknkGbUtTxu8jeMk8u8y4XRT2jE8JyYeO3CE0MvDOfhsaW2F3Q6
+	sIC75X6l0oQXQak9FPWXeUwBJ04jRMF6/lMeY9YDjZxEUDT65NxDGoGbKkgS31K70a9dlVdMABf
+	U
+X-Google-Smtp-Source: AGHT+IHIhWViDrziAW9ZWgePOKMwZianzDwA+AHPvcOJDJYDIElq/gkeSsMlF+uN5Cjs2xcmtxj+vQ==
+X-Received: by 2002:a17:907:3dab:b0:aa6:7091:1e91 with SMTP id a640c23a62f3a-ab6cfcc6f11mr731449866b.11.1738242726072;
+        Thu, 30 Jan 2025 05:12:06 -0800 (PST)
+Message-ID: <f28c0573-8ded-431d-a6ba-b814755b3380@suse.com>
+Date: Thu, 30 Jan 2025 14:12:04 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] tools/hvmloader: Skip writing MP tables if any CPU
- has an APIC ID >= 255
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v3 20/24] x86/hvm: add HVM-specific Kconfig
+To: dmukhin@ford.com
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
-References: <20250128163342.1491-1-alejandro.vallejo@cloud.com>
- <20250128163342.1491-4-alejandro.vallejo@cloud.com>
+ xen-devel@lists.xenproject.org
+References: <20250103-vuart-ns8250-v3-v1-0-c5d36b31d66c@ford.com>
+ <20250103-vuart-ns8250-v3-v1-20-c5d36b31d66c@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,50 +122,50 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250128163342.1491-4-alejandro.vallejo@cloud.com>
+In-Reply-To: <20250103-vuart-ns8250-v3-v1-20-c5d36b31d66c@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28.01.2025 17:33, Alejandro Vallejo wrote:
-> MP Tables have no means of representing APIC IDs wider than 255. At the
-> moment the effect is wrapping around which would give a corrupted table
-> with duplicate APIC IDs (some of them possibly the broadcast 255).
+On 04.01.2025 02:58, Denis Mukhin via B4 Relay wrote:
+> From: Denis Mukhin <dmukhin@ford.com>
 > 
-> Skip writing it altogether. While it would be possible to restrict the
-> APs shown it's just not worth the work. Any OS that needs such
-> adjustments should not have been booted with that many vCPUs to begin
-> with.
+> Add separate menu for configuring HVM build-time settings to help organizing
+> HVM-specific options.
 > 
-> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 
-Oh, here we go. Yet then indeed ...
+Largely: Why not. Question is whether what is being moved now may
+eventually require moving back, if support was extended to PV (MEM_PAGING
+and MEM_SHARING). That doesn't look very likely though.
 
-> --- a/tools/firmware/hvmloader/config.h
-> +++ b/tools/firmware/hvmloader/config.h
-> @@ -49,6 +49,7 @@ extern uint8_t ioapic_version;
->  #define IOAPIC_ID           0x01
->  
->  extern uint32_t *cpu_to_apicid;
-> +extern uint32_t max_apicid;
+> --- a/xen/arch/x86/Kconfig
+> +++ b/xen/arch/x86/Kconfig
+> @@ -30,7 +30,6 @@ config X86
+>  	select HAS_SCHED_GRANULARITY
+>  	select HAS_UBSAN
+>  	select HAS_VMAP
+> -	select HAS_VPCI if HVM
+>  	select NEEDS_LIBELF
 
-.. I don't think we need this, as ...
+I don't mind the movement of this line, but I'd like to point out that it
+may be beneficial to have all selects of HAS_* in a central place. Views
+of other maintainers (or of course anyone else) appreciated.
 
-> --- a/tools/firmware/hvmloader/hvmloader.c
-> +++ b/tools/firmware/hvmloader/hvmloader.c
-> @@ -389,7 +389,11 @@ int main(void)
->  
->      if ( (hvm_info->nr_vcpus > 1) || hvm_info->apic_mode )
->      {
-> -        if ( bios->create_mp_tables )
-> +        /*
-> +         * Legacy MP tables hold strictly xAPIC IDs. Skip writing
-> +         * the tables altogether if we have IDs wider than 8bits.
-> +         */
-> +        if ( max_apicid < 0xFF && bios->create_mp_tables )
->              bios->create_mp_tables();
+> --- /dev/null
+> +++ b/xen/arch/x86/hvm/Kconfig
+> @@ -0,0 +1,74 @@
+> +menuconfig HVM
+> +	bool "HVM support"
+> +	depends on !PV_SHIM_EXCLUSIVE
+> +	default !PV_SHIM
+> +	select COMPAT
+> +	select IOREQ_SERVER
+> +	select MEM_ACCESS_ALWAYS_ON
+> +	select HAS_VPCI
 
-I think we ought to continue to write MP tables in this case, merely
-omitting processor entries with APIC IDs that don't fit.
+We strive to have such lists of selects sorted alphabetically, preventing
+everyone to add to the end of the list (in turn reducing the risk of
+patches conflicting).
 
 Jan
 
