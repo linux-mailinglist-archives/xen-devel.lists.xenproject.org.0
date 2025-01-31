@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB115A2398D
-	for <lists+xen-devel@lfdr.de>; Fri, 31 Jan 2025 07:31:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.879840.1290050 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DA9FA2398E
+	for <lists+xen-devel@lfdr.de>; Fri, 31 Jan 2025 07:36:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.879848.1290059 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tdkY1-0007bm-OI; Fri, 31 Jan 2025 06:30:37 +0000
+	id 1tdkdv-0008EW-BJ; Fri, 31 Jan 2025 06:36:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 879840.1290050; Fri, 31 Jan 2025 06:30:37 +0000
+Received: by outflank-mailman (output) from mailman id 879848.1290059; Fri, 31 Jan 2025 06:36:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tdkY1-0007Ye-Jr; Fri, 31 Jan 2025 06:30:37 +0000
-Received: by outflank-mailman (input) for mailman id 879840;
- Fri, 31 Jan 2025 06:30:36 +0000
+	id 1tdkdv-0008Bo-82; Fri, 31 Jan 2025 06:36:43 +0000
+Received: by outflank-mailman (input) for mailman id 879848;
+ Fri, 31 Jan 2025 06:36:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aogm=UX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tdkY0-0007YY-NH
- for xen-devel@lists.xenproject.org; Fri, 31 Jan 2025 06:30:36 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
+ id 1tdkdt-0008Bi-TZ
+ for xen-devel@lists.xenproject.org; Fri, 31 Jan 2025 06:36:41 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e07f1871-df9c-11ef-a0e6-8be0dac302b0;
- Fri, 31 Jan 2025 07:30:35 +0100 (CET)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-aaec61d0f65so171295866b.1
- for <xen-devel@lists.xenproject.org>; Thu, 30 Jan 2025 22:30:35 -0800 (PST)
+ id bad1f507-df9d-11ef-a0e6-8be0dac302b0;
+ Fri, 31 Jan 2025 07:36:41 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-437a92d7b96so15848065e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Jan 2025 22:36:41 -0800 (PST)
 Received: from ?IPV6:2003:ca:b741:f10a:3123:f9e9:b484:6874?
  (p200300cab741f10a3123f9e9b4846874.dip0.t-ipconnect.de.
  [2003:ca:b741:f10a:3123:f9e9:b484:6874])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab6e47a7e90sm242505266b.11.2025.01.30.22.30.33
+ ffacd0b85a97d-38c5c1cfa2fsm3900170f8f.91.2025.01.30.22.36.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Jan 2025 22:30:33 -0800 (PST)
+ Thu, 30 Jan 2025 22:36:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,69 +47,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e07f1871-df9c-11ef-a0e6-8be0dac302b0
+X-Inumbo-ID: bad1f507-df9d-11ef-a0e6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738305034; x=1738909834; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1738305400; x=1738910200; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1W4c8uBbuL7vMjIiA9qV8VqjX57zd2oaWcyYJ5Ma2m4=;
-        b=PxB2EPhvPSsMtYqy8TQHFE7t8CvXDL+YurmcOkxExu7Z/+huHMbG7vSTXQezNzIICS
-         +lBIZaNd9bCWE3MuJ8r32wSMKsldSnSndN2auAJekeld/v+P9h/SfsZkOY2VZIwB6E6h
-         w+yIYIbaEZIVeiA8MpXuZrxZfgp0uvNN1ztqb5C/T79gsA0A9RrMaCEC/SuSzsiD+VNn
-         yXGCQdglKY3lKPiloO0wK1jVR605OCpFCvHJyiEBLIqPcNxQPmliElUixDcyQYyCvmrU
-         f4cRZ6BqfdNh3I80SPLffyOMOhWAMtNPMy9qxECJ0uVCM3yQZb5Q7NtrYt0m/MISYImQ
-         UB/w==
+        bh=A+1DnVEFLzfE5r0bS0gsVg8+jdgAAOBfGlCLm8njAgQ=;
+        b=cmWA3QA9Vi6ERqhDJRyEP5A0dSyhfGJ0JA4LOM4DtqnxVciC4D4MDPVtmcR+LR5PxH
+         wrzcLFFRIhQc7z5njisa233BXCc6UPbSGEQHO4hnGNMTuvENPsXyslKDMYG/D429ZOva
+         A2M4xV1o5keE+rVQBpAN68F+dNtJx79yd+ExQkYQPqo0bRq+KUVMWD7tzeJZfyQFJ/cW
+         bTVlU6E0T8SMXooYHxi3SWLKNkvjhmkY+md9KOkByWfQTXFBu5OMiK8d+1juBl6oq7Qi
+         2CEMm7v8b59UUgRXCY9k3BMviXRS6Gu17s2Tb0cmQoxUADm4pYZl00/6/xiIpfvsTZV8
+         Nf3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738305034; x=1738909834;
+        d=1e100.net; s=20230601; t=1738305400; x=1738910200;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1W4c8uBbuL7vMjIiA9qV8VqjX57zd2oaWcyYJ5Ma2m4=;
-        b=SuOKANPXaXSk1Uz+hG9Kh4ua1Lpi1RWYC81P+uL4v1jTakvoarcWaO5WfvCf2M+gRM
-         5fec2PhxzJmz7qWlRCESE8oqX4BitInGYmw5WSeXWZCXDb3tO+jDRjtvn3vUIEe+FYEm
-         BpJ7aiW5/qE1e2ROh30O3YJsF+qTBRbPsm+Vb2ewS/7XtXR+bqZW89708M41pli4yWMV
-         JymP7fGeq0ppS0ClR+Y3UErGX7vddPIbDWdZjSsdJuYX7+sPYrBeSuZWG4jK7A5/JkB0
-         iNexxvEwrM0udDJfCCmiOK5av40tpq6gLi1jNmFGzYGTBawDBr+nqFae7I4iYk3uqrpM
-         cl3w==
-X-Forwarded-Encrypted: i=1; AJvYcCWoIQjnUa7wyrBGxV8E1xVm16/KEYoTRLIlRJCyXKU6CuWf/mVDOoGZQ+3jc6w/kfo7hPnUkkePA/g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzawmNLVEhZEqFLEouW0hUDlUKmzTxwku+pdvsB8kyEEe1LXnW3
-	NrL3lc3KJnilJSHeKzpmSSZ/280KYTKPxZeAsVbfHO51ELYmJRvuQ3/zl+EtWA==
-X-Gm-Gg: ASbGncu+kJvH0Js1+7TLa2hNrW7C08iiEmJ/qFIauLiyMoIgayT9rcX1u4eus8FI3pE
-	ovnbViO1BtUP/0pnUb9+YV73z3ZinZwCeXd6lPlS5XIaTnjgam1PZeFrPZccXLnNplziajv3Wvs
-	UcOXsE0nHLYbKORYHowLgS6HbyLwfEgIV1rPc5q6nmEk8aXb1xy6fyvUzI7cev4cJc0jnwBY2D5
-	kYSLSUGgWVcL2dg6MLHO6OQsWOgNd5Dhq9k+J3NWn/ZO3wQ/sNrhew8lcEpuU65Vb8gkFATzwfV
-	d8JvoQ0FNKotuw3sD+E7JHZsdTuUs+uUuQn/662Kw5Lhr/xuGrTFx2LXRQI+0VqIEBxA9Ig5bpe
-	nce3CdTu8ckPJKYk1KZOEEkNy0etCej+WLH8VlYfb5AkuJNKtOw==
-X-Google-Smtp-Source: AGHT+IHw9EWsQunkJ67ku6vDrhG0u3Mp0tYaedwIIlSK7KBhJp6NuCZsWpP2wbG5QG2Q3z8h3vh92Q==
-X-Received: by 2002:a17:907:7da2:b0:aae:fd36:f511 with SMTP id a640c23a62f3a-ab6cfe4003amr1086413066b.47.1738305034144;
-        Thu, 30 Jan 2025 22:30:34 -0800 (PST)
-Message-ID: <b850c2b1-5aa9-4e64-9161-ba55028b43a7@suse.com>
-Date: Fri, 31 Jan 2025 07:30:29 +0100
+        bh=A+1DnVEFLzfE5r0bS0gsVg8+jdgAAOBfGlCLm8njAgQ=;
+        b=fyUI55AgCC3pQdvXdOOHm6A92NdQoC4Rh2RATeUH2/Sv0tSeAy6gcFq0jN7dEICIqB
+         YOUmROLx0OLaGRmWTKIz17Fuiyk8oQODfE8WW3q7doiStKchTViKlGRDcaV3DjVZv+5J
+         0nPRVPjt/2R3f9lt86Bl7bD75eFCpReO/cWrmOHTHlQNezzDgLBmd4lP98oV47rC88Zv
+         h+j3APAHHX5DM6aU4J3x2fIbnqjd4r+bJTFGspWoWcpvgD5OTnukrpDNRYF5wxmzVDzd
+         FhHl6ak0eRwI54Xolz1Ij1jIikFFajw5XoEUEE42xkLU5wnf+/GUpvBOo1Dwz3RljZ2b
+         eP4A==
+X-Forwarded-Encrypted: i=1; AJvYcCXQZXpMnmNdWIE1iAdDeHasq/P/Fx/yhad99/V2S5EUOT83LfIH0zfOxdZEbQTpI37ZUdjLBoEnyro=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzJC2U4Xbwq+Na07FMvs0UjVtqdKfyfC+pFBSo46FMblGlbxyeZ
+	htG3uVf5bKDrFsgv015U///fuUtuNnjr6RgDi83CbzQIlgvVoD6Ykkh1UqcC0A==
+X-Gm-Gg: ASbGncufu9cdBeIDs5gwCrexfR7W3FYnRy2DewNVNOu4wN3z7LCbQ6X6GZi6te3wW45
+	wgXAZaqIsoPNIIapyZ4a2/F0K4eghlyO2rcyb3OV09A02EGQmgK8tMdv/Hia4vdVpWGGQWEAf4n
+	S1BWH1XLBjJSwEgnDJWd31XpnCCqF+Xz+fSutBxlVuxmqjmOlFhFGM3f+ig/yRImd2U0WNotrqg
+	wNCmNMrgt3dkyyePHF7E/N6bzgKEZFdwwsAg1gGwGivTgTwkUN6Ff5eZfmxSqpUyazVdpDIeCLW
+	NR7S4W07miUEGQ7Zs6QBDzUDUlQy+qKG1BKqk8hqApLsYZZmz/xnqn0xJaBIBbPD+f0k8TKigot
+	vrTrIVBwccDtcVgZDMZ99VvcN+N4xqpuqvgXjaIpL3A0AnXqeCA==
+X-Google-Smtp-Source: AGHT+IEuCPzRmhlKb94RcqQsTE/JvZBQ1e+nFfrmO/b/Z6P5A5t5+xi7IxRJYx5hbw93KD9lsQLemg==
+X-Received: by 2002:a05:6000:4008:b0:386:37f5:99f6 with SMTP id ffacd0b85a97d-38c520bc551mr8972429f8f.53.1738305400475;
+        Thu, 30 Jan 2025 22:36:40 -0800 (PST)
+Message-ID: <eb927472-5399-4a82-aefd-7ffd28e09788@suse.com>
+Date: Fri, 31 Jan 2025 07:36:36 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] xen: kconfig: rename MEM_ACCESS -> VM_EVENT
-To: Tamas K Lengyel <tamas@tklengyel.com>
-Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
+Subject: Re: [PATCH v2 08/15] x86/hyperlaunch: locate dom0 kernel with
+ hyperlaunch
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
+ stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1737452864.git.Sergiy_Kibrik@epam.com>
- <ff22f35dafd04b16165e1caec038e5a5fcf2aeee.1737452864.git.Sergiy_Kibrik@epam.com>
- <c74d334e-6e33-4a58-bf94-936249244cb0@suse.com>
- <CABfawhm8Cb3xz8Fv=YhA1TSKtvA3ThWHMcqJCFDarwSuYKQ5ZA@mail.gmail.com>
+ Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+References: <20241226165740.29812-1-dpsmith@apertussolutions.com>
+ <20241226165740.29812-9-dpsmith@apertussolutions.com>
+ <efc352d6-e686-435c-98b3-2333b6dee6a3@suse.com>
+ <alpine.DEB.2.22.394.2501301250410.11632@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -135,80 +127,52 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CABfawhm8Cb3xz8Fv=YhA1TSKtvA3ThWHMcqJCFDarwSuYKQ5ZA@mail.gmail.com>
+In-Reply-To: <alpine.DEB.2.22.394.2501301250410.11632@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 31.01.2025 01:26, Tamas K Lengyel wrote:
-> On Thu, Jan 30, 2025 at 8:24 AM Jan Beulich <jbeulich@suse.com> wrote:
+On 30.01.2025 22:14, Stefano Stabellini wrote:
+> On Thu, 30 Jan 2025, Jan Beulich wrote:
+>> On 26.12.2024 17:57, Daniel P. Smith wrote:
+>>> Look for a subnode of type `multiboot,kernel` within a domain node. If found,
+>>> process the reg property for the MB1 module index. If the bootargs property is
+>>> present and there was not an MB1 string, then use the command line from the
+>>> device tree definition.
 >>
->> On 21.01.2025 11:19, Sergiy Kibrik wrote:
->>> Use more generic CONFIG_VM_EVENT name throughout Xen code instead of
->>> CONFIG_MEM_ACCESS. This reflects the fact that vm_event is a higher level
->>> feature, with mem_access & monitor depending on it.
->>>
->>> Suggested-by: Jan Beulich <jbeulich@suse.com>
->>
->> I don't think this is applicable; my suggestion went in a different direction.
->>
->>> Suggested-by: Tamas K Lengyel <tamas@tklengyel.com>
->>> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
->>
->> Before considering to ack this, I'd like you, Tamas, to confirm this is really
->> what you had thought of. In particular ...
->>
->>> --- a/xen/arch/arm/Makefile
->>> +++ b/xen/arch/arm/Makefile
->>> @@ -37,7 +37,7 @@ obj-y += irq.o
->>>  obj-y += kernel.init.o
->>>  obj-$(CONFIG_LIVEPATCH) += livepatch.o
->>>  obj-$(CONFIG_LLC_COLORING) += llc-coloring.o
->>> -obj-$(CONFIG_MEM_ACCESS) += mem_access.o
->>> +obj-$(CONFIG_VM_EVENT) += mem_access.o
->>
->> ... changes like this one look somewhat odd to me.
->>
->>> --- a/xen/common/Kconfig
->>> +++ b/xen/common/Kconfig
->>> @@ -92,7 +92,7 @@ config HAS_VMAP
->>>  config MEM_ACCESS_ALWAYS_ON
->>>       bool
->>>
->>> -config MEM_ACCESS
->>> +config VM_EVENT
->>>       def_bool MEM_ACCESS_ALWAYS_ON
->>>       prompt "Memory Access and VM events" if !MEM_ACCESS_ALWAYS_ON
->>>       depends on HVM
->>
->> What about MEM_ACCESS_ALWAYS_ON (visible in patch context)? Shouldn't that
->> become VM_EVENT_ALWAYS_ON then, too?
->>
->> Further, what about MEM_PAGING and MEM_SHARING? Shouldn't those, at least
->> documentation purposes, then also gain a dependency on VM_EVENT?
+>> While multiboot is apparently the first x86-specific part (as far as Xen goes)
+>> to be put under domain-builder/, I wonder:
+>> - Wouldn't looking for "multiboot,kernel" simply yield nothing on non-x86,
+>>   so having the code under common/ would still be okay?
 > 
-> MEM_PAGING, yes. MEM_SHARING, definitely not. MEM_SHARING is perfectly
-> functional without vm_event.
+> One small clarification: multiboot,kernel is actually common between
+> both ARM and x86. It is "module-index" which is x86-specific and would
+> "simply yield nothing on non-x86", as you wrote.
+> 
+> I'll let Dan address your point that "having the code under common/
+> would still be okay".
+> 
+> 
+>> - What's "multiboot" describing here? The origin of the module? (What other
+>>   origins would then be possible? How would MB1 and MB2 be distinguished?
+>>   What about a native xen.efi boot?) A property of the kernel (when Linux
+>>   doesn't use MB)?
+> 
+> Each device tree node has a compatible string to qualify what kind of
+> information the node is describing. The compatible string for device
+> tree nodes describing a kernel binary or a ramdisk previously loaded
+> into memory by a bootloader have a "multiboot," prefix. See
+> docs/misc/arm/device-tree/booting.txt. This is unrelated to the binary
+> multiboot protocol Grub uses on x86 to boot Xen.
+> 
+> A distinction between MB1 and MB2 is not needed in device tree, that
+> information is retrieved via the Grub multiboot protocol as usual. The
+> only thing needed here in device tree is the location of the kernel,
+> either by RAM address, or by Grub multiboot module index. This last
+> option (Grub multiboot module index) is the "module-index" property I
+> mentioned above.
 
-Is it? I see e.g.
-
-    if ( sharing_enomem )
-    {
-#ifdef CONFIG_MEM_SHARING
-        if ( !vm_event_check_ring(currd->vm_event_share) )
-        {
-            gprintk(XENLOG_ERR, "Domain %pd attempt to unshare "
-                    "gfn %lx, ENOMEM and no helper\n",
-                    currd, gfn);
-            /* Crash the domain */
-            rc = 0;
-        }
-#endif
-    }
-
-in hvm_hap_nested_page_fault().
-
-Also - you responded only to a secondary remark here. What about the
-more basic points further up?
+Hmm, then I'm afraid I can't make sense of the mentioning of MB1 in the
+description. Yet that's a point more towards Daniel than you.
 
 Jan
 
