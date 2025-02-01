@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA01CA245AD
-	for <lists+xen-devel@lfdr.de>; Sat,  1 Feb 2025 00:38:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.880035.1290200 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6297A24686
+	for <lists+xen-devel@lfdr.de>; Sat,  1 Feb 2025 03:18:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.880050.1290208 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1te0Zd-00035T-0z; Fri, 31 Jan 2025 23:37:21 +0000
+	id 1te34e-0002kc-R9; Sat, 01 Feb 2025 02:17:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 880035.1290200; Fri, 31 Jan 2025 23:37:20 +0000
+Received: by outflank-mailman (output) from mailman id 880050.1290208; Sat, 01 Feb 2025 02:17:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1te0Zc-00032Z-Tm; Fri, 31 Jan 2025 23:37:20 +0000
-Received: by outflank-mailman (input) for mailman id 880035;
- Fri, 31 Jan 2025 23:37:19 +0000
+	id 1te34e-0002ip-KX; Sat, 01 Feb 2025 02:17:32 +0000
+Received: by outflank-mailman (input) for mailman id 880050;
+ Sat, 01 Feb 2025 02:17:31 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HyPN=UX=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
- id 1te0Zb-00032T-Nc
- for xen-devel@lists.xenproject.org; Fri, 31 Jan 2025 23:37:19 +0000
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
- [136.143.188.12]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4cf2c0a0-e02c-11ef-99a4-01e77a169b0f;
- Sat, 01 Feb 2025 00:37:16 +0100 (CET)
-Received: by mx.zohomail.com with SMTPS id 1738366630199446.59530756690776;
- Fri, 31 Jan 2025 15:37:10 -0800 (PST)
-Received: by mail-yb1-f176.google.com with SMTP id
- 3f1490d57ef6-e58a90c6059so4418384276.1
- for <xen-devel@lists.xenproject.org>; Fri, 31 Jan 2025 15:37:10 -0800 (PST)
+ <SRS0=b9ke=UY=flex--seanjc.bounces.google.com=3N4SdZwYKCfgxjfsohlttlqj.htr2js-ij0jqqnxyx.2jsuwtojhy.twl@srs-se1.protection.inumbo.net>)
+ id 1te34d-0002if-Bh
+ for xen-devel@lists.xenproject.org; Sat, 01 Feb 2025 02:17:31 +0000
+Received: from mail-pj1-x104a.google.com (mail-pj1-x104a.google.com
+ [2607:f8b0:4864:20::104a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id af157f97-e042-11ef-99a4-01e77a169b0f;
+ Sat, 01 Feb 2025 03:17:29 +0100 (CET)
+Received: by mail-pj1-x104a.google.com with SMTP id
+ 98e67ed59e1d1-2ee5616e986so7262646a91.2
+ for <xen-devel@lists.xenproject.org>; Fri, 31 Jan 2025 18:17:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,152 +40,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4cf2c0a0-e02c-11ef-99a4-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; t=1738366633; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=n6SDlibQEZsUdYsWGSRsGCSug8Dh6DzgidXfvQ66BlKkd8CRBEKx3dLUHTYSOkzmu6AivD1je6RWMvBfEb+ZcgnABaPatO898VFcSbznx93RB/WMs6jrz1HjOzG+x2iXbfqGdet+7KYrwVeirEIkld89jolm8LkXp4dSaIFf1Nk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1738366633; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=/F1F7S9JW3z+rec15MLaBGQV6OMlNjewyhuLpVQbeVM=; 
-	b=lL+VTb5jwOEXT4usodH7rX4nEZ+o+C+c2w0gbSR6fGRLb5fOZNNeV1eMr+TDbUW6XtRi0XxvQMWKEt1fw4IkT3KTZBdV+SP/Bwu+0KWKXulXYf44sMzqwqAX/osGoX5V2iB+2s6RxCDIXCce7hXtNOGfl/sqVp66NDDKtEpDjW0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=tklengyel.com;
-	spf=pass  smtp.mailfrom=tamas@tklengyel.com;
-	dmarc=pass header.from=<tamas@tklengyel.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1738366633;
-	s=zmail; d=tklengyel.com; i=tamas@tklengyel.com;
-	h=MIME-Version:References:In-Reply-To:From:From:Date:Date:Message-ID:Subject:Subject:To:To:Cc:Cc:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=/F1F7S9JW3z+rec15MLaBGQV6OMlNjewyhuLpVQbeVM=;
-	b=iOdzAhKPOQEXvx3/3jHLK1fBwjx94oo64w8OCm0HaMx41QsyRbJ7yVK5X+JKa7Jx
-	URcpqIslaJaRDDc9QA/KgLs4tre13B5TYxpOVzXGCqLc8xyx7y9SjNV/JxwIQ5I/OaP
-	Qx7L5YEAH+bO+PmBVPaDHi9JggiBxk3gCmO55XE0=
-X-Forwarded-Encrypted: i=1; AJvYcCX4xv4JtWLkDOaowI0EX+Jqmbt9+ZuTcpecYmzutpE7QoY5hNH0I9qQ0IfVRU5YWyApJxeHbDA7iCI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzIeD9xh6sTv0sF0e96ptXs8QgtkJCNRjdsIvQFLboAAoddiTZS
-	dvmLG/a8/yHl9JJbLyp4zcD6tJw79CsSBlvpJ5e9wqCQFCilMe7rwII0pvxGKE49jTpXttuyJZx
-	RUOn16R1bsMuNIMWnSMjD00Ehz60=
-X-Google-Smtp-Source: AGHT+IEgWmwUuJOM8vimqGVJ6KGYtJ2xn9+Zofc643JIAkDgbaH8coTHWRn04BPMS95MfPEpr9CGpEvLtM9Dk7o+BAM=
-X-Received: by 2002:a25:b006:0:b0:e5a:cc48:847d with SMTP id
- 3f1490d57ef6-e5acc4884d8mr6030063276.20.1738366629403; Fri, 31 Jan 2025
- 15:37:09 -0800 (PST)
-MIME-Version: 1.0
-References: <cover.1737452864.git.Sergiy_Kibrik@epam.com> <ff22f35dafd04b16165e1caec038e5a5fcf2aeee.1737452864.git.Sergiy_Kibrik@epam.com>
- <c74d334e-6e33-4a58-bf94-936249244cb0@suse.com> <CABfawhm8Cb3xz8Fv=YhA1TSKtvA3ThWHMcqJCFDarwSuYKQ5ZA@mail.gmail.com>
- <b850c2b1-5aa9-4e64-9161-ba55028b43a7@suse.com>
-In-Reply-To: <b850c2b1-5aa9-4e64-9161-ba55028b43a7@suse.com>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Fri, 31 Jan 2025 18:36:33 -0500
-X-Gmail-Original-Message-ID: <CABfawhn8uhUbr4yRcSb=_Jw3y2Cgsh_ozXotTFkrDt12K8Cyog@mail.gmail.com>
-X-Gm-Features: AWEUYZnFVlVSHAzmLOPA9B2OMZh_tGh9yJEsax242NIz3ZYe_YdecPGVr1K5L1A
-Message-ID: <CABfawhn8uhUbr4yRcSb=_Jw3y2Cgsh_ozXotTFkrDt12K8Cyog@mail.gmail.com>
-Subject: Re: [PATCH v2 1/4] xen: kconfig: rename MEM_ACCESS -> VM_EVENT
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, Julien Grall <julien@xen.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	Anthony PERARD <anthony.perard@vates.tech>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Alexandru Isaila <aisaila@bitdefender.com>, Petre Pircalabu <ppircalabu@bitdefender.com>, 
-	Shawn Anastasio <sanastasio@raptorengineering.com>, 
-	Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, 
-	Connor Davis <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	xen-devel@lists.xenproject.org
+X-Inumbo-ID: af157f97-e042-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1738376247; x=1738981047; darn=lists.xenproject.org;
+        h=cc:to:from:subject:message-id:mime-version:date:reply-to:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Cq2j2i7xKbEmxmaKlx5ycVjsc6NUu7PBqfSVX6ZfTN4=;
+        b=AmgjInzCZTtMueEhKHRv1q62pJoxPdl0j8Q/whlqtunqzZ3+aRBLzPjuCrEnLmqspI
+         JTa/7MXb7ICCzZoBpF1CumNUBLcmyg+hf1+2FIxoP29bsF7qstTyK59WVliHRJS1RFpw
+         9tuAD1oAl0YfUZHMwGgEuTf+p+Or4uiLLMG0uNADXH1dRTP9J4zD/Onfzbp7knKN553P
+         3+zvS2i0k0jYip1be7m2rzvC6oTjoJBsZLVlyjQW4KG2pZdblqQJOFa6FgA+AEJz3DgR
+         yMXea+Zjo1sYahVemQJTJd+mHcnRXZe3sTU/VIbruXySLQVmQnlLpiV5cikv3Y806rqk
+         omkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1738376247; x=1738981047;
+        h=cc:to:from:subject:message-id:mime-version:date:reply-to
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Cq2j2i7xKbEmxmaKlx5ycVjsc6NUu7PBqfSVX6ZfTN4=;
+        b=khG5ftdGd9tMSwmc8JtkS9bPLC8Udv5ZA+48dwn3Kc+joqngUOAquRzkUcqFrYR5zS
+         MHcfcovccwn/n9LvEmFNRZOUNVpimLRYkaDfyXqqBgRUXjj5jHKTnL5WkxFdK/U78Pnn
+         mHGfGwgUGPBycy+Xibp/JEMWDtUSdAuVVi+SCTGR1U4JJwkxzMntAZX/BEYaaBuPl9Be
+         unZO9zRleyeh5rYCJPrun6zBQpeyXm3wVQra9hH5dMRNwLwQRzpGMWxXmtHorcH8m9Eo
+         57+SIkld9HbIaWzDzRQQMvphsOojL8EKwbbuUY/yfBI6Bv422iZ2VHbCFNUNh9j13ad8
+         LBTw==
+X-Forwarded-Encrypted: i=1; AJvYcCXyN0NaJEIgCpU17JRBcGJZ1BOkoj9lowGwUpEUr6YYJkz6+aDnibHvG2VDx7UUmeiSNIi349RP5Ao=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyaUCC9NH3/p7ip3AjgyDlnf1NAY6DRq7VYCsNBlWkfi9bWrCop
+	tEARnHajj0iFDXbsueToJ99utOLXTJWQZhTCZZAti5btbNUT2TmXpQ0N8lqpV4JWdLVkfEApZcV
+	MwQ==
+X-Google-Smtp-Source: AGHT+IEXms2W7h6OPbgfhbPe+T0bjO3rPyG4kBeOBL1XLya2FJ/dryX9qDtrHv/AVlJBJdJ2J5PBFLJRbi4=
+X-Received: from pjbsw11.prod.google.com ([2002:a17:90b:2c8b:b0:2ef:a732:f48d])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:258c:b0:2ee:f687:6acb
+ with SMTP id 98e67ed59e1d1-2f83abd9998mr19471173a91.13.1738376247517; Fri, 31
+ Jan 2025 18:17:27 -0800 (PST)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Fri, 31 Jan 2025 18:17:02 -0800
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.48.1.362.g079036d154-goog
+Message-ID: <20250201021718.699411-1-seanjc@google.com>
+Subject: [PATCH 00/16] x86/tsc: Try to wrangle PV clocks vs. TSC
+From: Sean Christopherson <seanjc@google.com>
+To: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>, Juergen Gross <jgross@suse.com>, 
+	"K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
+	Dexuan Cui <decui@microsoft.com>, Ajay Kaher <ajay.kaher@broadcom.com>, 
+	Alexey Makhalov <alexey.amakhalov@broadcom.com>, Jan Kiszka <jan.kiszka@siemens.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Andy Lutomirski <luto@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>
+Cc: linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev, 
+	virtualization@lists.linux.dev, linux-hyperv@vger.kernel.org, 
+	jailhouse-dev@googlegroups.com, kvm@vger.kernel.org, 
+	xen-devel@lists.xenproject.org, Sean Christopherson <seanjc@google.com>, 
+	Nikunj A Dadhania <nikunj@amd.com>, Tom Lendacky <thomas.lendacky@amd.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jan 31, 2025 at 1:30=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
-te:
->
-> On 31.01.2025 01:26, Tamas K Lengyel wrote:
-> > On Thu, Jan 30, 2025 at 8:24=E2=80=AFAM Jan Beulich <jbeulich@suse.com>=
- wrote:
-> >>
-> >> On 21.01.2025 11:19, Sergiy Kibrik wrote:
-> >>> Use more generic CONFIG_VM_EVENT name throughout Xen code instead of
-> >>> CONFIG_MEM_ACCESS. This reflects the fact that vm_event is a higher l=
-evel
-> >>> feature, with mem_access & monitor depending on it.
-> >>>
-> >>> Suggested-by: Jan Beulich <jbeulich@suse.com>
-> >>
-> >> I don't think this is applicable; my suggestion went in a different di=
-rection.
-> >>
-> >>> Suggested-by: Tamas K Lengyel <tamas@tklengyel.com>
-> >>> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-> >>
-> >> Before considering to ack this, I'd like you, Tamas, to confirm this i=
-s really
-> >> what you had thought of. In particular ...
-> >>
-> >>> --- a/xen/arch/arm/Makefile
-> >>> +++ b/xen/arch/arm/Makefile
-> >>> @@ -37,7 +37,7 @@ obj-y +=3D irq.o
-> >>>  obj-y +=3D kernel.init.o
-> >>>  obj-$(CONFIG_LIVEPATCH) +=3D livepatch.o
-> >>>  obj-$(CONFIG_LLC_COLORING) +=3D llc-coloring.o
-> >>> -obj-$(CONFIG_MEM_ACCESS) +=3D mem_access.o
-> >>> +obj-$(CONFIG_VM_EVENT) +=3D mem_access.o
-> >>
-> >> ... changes like this one look somewhat odd to me.
-> >>
-> >>> --- a/xen/common/Kconfig
-> >>> +++ b/xen/common/Kconfig
-> >>> @@ -92,7 +92,7 @@ config HAS_VMAP
-> >>>  config MEM_ACCESS_ALWAYS_ON
-> >>>       bool
-> >>>
-> >>> -config MEM_ACCESS
-> >>> +config VM_EVENT
-> >>>       def_bool MEM_ACCESS_ALWAYS_ON
-> >>>       prompt "Memory Access and VM events" if !MEM_ACCESS_ALWAYS_ON
-> >>>       depends on HVM
-> >>
-> >> What about MEM_ACCESS_ALWAYS_ON (visible in patch context)? Shouldn't =
-that
-> >> become VM_EVENT_ALWAYS_ON then, too?
-> >>
-> >> Further, what about MEM_PAGING and MEM_SHARING? Shouldn't those, at le=
-ast
-> >> documentation purposes, then also gain a dependency on VM_EVENT?
-> >
-> > MEM_PAGING, yes. MEM_SHARING, definitely not. MEM_SHARING is perfectly
-> > functional without vm_event.
->
-> Is it? I see e.g.
->
->     if ( sharing_enomem )
->     {
-> #ifdef CONFIG_MEM_SHARING
->         if ( !vm_event_check_ring(currd->vm_event_share) )
->         {
->             gprintk(XENLOG_ERR, "Domain %pd attempt to unshare "
->                     "gfn %lx, ENOMEM and no helper\n",
->                     currd, gfn);
->             /* Crash the domain */
->             rc =3D 0;
->         }
-> #endif
->     }
+Attempt to bring some amount of order to the PV clocks vs. TSC madness in
+the kernel.  The primary goal of this series is to fix flaws with SNP
+and TDX guests where a PV clock provided by the untrusted hypervisor is
+used instead of the secure/trusted TSC that is controlled by trusted
+firmware.
 
-On x86 vm_event is always compiled in as per current setup. If we were
-to make that dependent on the now renamed config option this here
-should be converted to CONFIG_MEM_SHARING && CONFIG_VM_EVENT. The rest
-of the mem_sharing codebase does not require vm_event to function,
-this here is used only if there is a subscriber to the enomem
-corner-case. It isn't normally used.
+The secondary goal (last few patches) is to draft off of the SNP and TDX
+changes to slightly modernize running under KVM.  Currently, KVM guests
+will use TSC for clocksource, but not sched_clock.  And they ignore Intel's
+CPUID-based TSC and CPU frequency enumeration, even when using the TSC
+instead of kvmclock.  And if the host provides the core crystal frequency
+in CPUID.0x15, then KVM guests can use that for the APIC timer period
+instead of manually calibrating the frequency.
 
-> in hvm_hap_nested_page_fault().
->
-> Also - you responded only to a secondary remark here. What about the
-> more basic points further up?
+Lots more background: https://lore.kernel.org/all/20250106124633.1418972-13-nikunj@amd.com
 
-My recommendation to use CONFIG_VM_EVENT for the
-vm_event/mem_access/monitor subsystems strictly only applies to ARM
-where these three subsystems have a 1:1:1 dependency. On x86 the
-dependency between the three can be more complex, I would not change
-the x86 side of things unless we want to get the three subsystems
-their own kconfig options.
+This is all *very* lightly tested (borderline RFC).
+
+Sean Christopherson (16):
+  x86/tsc: Add a standalone helpers for getting TSC info from CPUID.0x15
+  x86/tsc: Add standalone helper for getting CPU frequency from CPUID
+  x86/tsc: Add helper to register CPU and TSC freq calibration routines
+  x86/sev: Mark TSC as reliable when configuring Secure TSC
+  x86/sev: Move check for SNP Secure TSC support to tsc_early_init()
+  x86/tdx: Override PV calibration routines with CPUID-based calibration
+  x86/acrn: Mark TSC frequency as known when using ACRN for calibration
+  x86/tsc: Pass KNOWN_FREQ and RELIABLE as params to registration
+  x86/tsc: Rejects attempts to override TSC calibration with lesser
+    routine
+  x86/paravirt: Move handling of unstable PV clocks into
+    paravirt_set_sched_clock()
+  x86/paravirt: Don't use a PV sched_clock in CoCo guests with trusted
+    TSC
+  x86/kvmclock: Mark TSC as reliable when it's constant and nonstop
+  x86/kvmclock: Get CPU base frequency from CPUID when it's available
+  x86/kvmclock: Get TSC frequency from CPUID when its available
+  x86/kvmclock: Stuff local APIC bus period when core crystal freq comes
+    from CPUID
+  x86/kvmclock: Use TSC for sched_clock if it's constant and non-stop
+
+ arch/x86/coco/sev/core.c        |  9 ++--
+ arch/x86/coco/tdx/tdx.c         | 27 ++++++++--
+ arch/x86/include/asm/paravirt.h |  7 ++-
+ arch/x86/include/asm/tdx.h      |  2 +
+ arch/x86/include/asm/tsc.h      | 67 +++++++++++++++++++++++++
+ arch/x86/kernel/cpu/acrn.c      |  5 +-
+ arch/x86/kernel/cpu/mshyperv.c  | 11 +++--
+ arch/x86/kernel/cpu/vmware.c    |  9 ++--
+ arch/x86/kernel/jailhouse.c     |  6 +--
+ arch/x86/kernel/kvmclock.c      | 88 +++++++++++++++++++++++----------
+ arch/x86/kernel/paravirt.c      | 15 +++++-
+ arch/x86/kernel/tsc.c           | 74 ++++++++++++++++-----------
+ arch/x86/mm/mem_encrypt_amd.c   |  3 --
+ arch/x86/xen/time.c             |  4 +-
+ 14 files changed, 243 insertions(+), 84 deletions(-)
 
 
-Tamas
+base-commit: ebbb8be421eefbe2d47b99c2e1a6dd840d7930f9
+-- 
+2.48.1.362.g079036d154-goog
+
 
