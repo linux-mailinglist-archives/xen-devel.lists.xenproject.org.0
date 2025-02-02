@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4A0CA24E64
-	for <lists+xen-devel@lfdr.de>; Sun,  2 Feb 2025 14:50:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.880354.1290428 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 817B5A24E75
+	for <lists+xen-devel@lfdr.de>; Sun,  2 Feb 2025 14:57:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.880363.1290437 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1teaMz-0002v2-JZ; Sun, 02 Feb 2025 13:50:41 +0000
+	id 1teaTK-0003ZS-7x; Sun, 02 Feb 2025 13:57:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 880354.1290428; Sun, 02 Feb 2025 13:50:41 +0000
+Received: by outflank-mailman (output) from mailman id 880363.1290437; Sun, 02 Feb 2025 13:57:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1teaMz-0002tE-Go; Sun, 02 Feb 2025 13:50:41 +0000
-Received: by outflank-mailman (input) for mailman id 880354;
- Sun, 02 Feb 2025 13:50:39 +0000
+	id 1teaTK-0003XB-57; Sun, 02 Feb 2025 13:57:14 +0000
+Received: by outflank-mailman (input) for mailman id 880363;
+ Sun, 02 Feb 2025 13:57:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=okHa=UZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1teaMx-0002t6-KS
- for xen-devel@lists.xenproject.org; Sun, 02 Feb 2025 13:50:39 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1teaTI-0003X5-Gh
+ for xen-devel@lists.xenproject.org; Sun, 02 Feb 2025 13:57:12 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id aecdd78e-e16c-11ef-99a4-01e77a169b0f;
- Sun, 02 Feb 2025 14:50:37 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-aa684b6d9c7so574255966b.2
- for <xen-devel@lists.xenproject.org>; Sun, 02 Feb 2025 05:50:37 -0800 (PST)
+ id 98f72ecb-e16d-11ef-99a4-01e77a169b0f;
+ Sun, 02 Feb 2025 14:57:10 +0100 (CET)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-aaedd529ba1so492058166b.1
+ for <xen-devel@lists.xenproject.org>; Sun, 02 Feb 2025 05:57:10 -0800 (PST)
 Received: from [10.101.4.108] ([89.207.171.161])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab6e47a7b1asm583900866b.31.2025.02.02.05.50.35
+ a640c23a62f3a-ab6e4a59862sm588318266b.178.2025.02.02.05.57.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 02 Feb 2025 05:50:36 -0800 (PST)
+ Sun, 02 Feb 2025 05:57:09 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aecdd78e-e16c-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 98f72ecb-e16d-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1738504237; x=1739109037; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1738504630; x=1739109430; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZdZjnAMbZPhGbyBa31/qXbMjW6hGCGvM/GX3JBWsh8k=;
-        b=Fr51eJlFEXzXDibjnp4dcGvYaXja4qoP956Y/WxCFBsnFfWfYSRKjuk1qBS7S32+ww
-         vlYhddCKcZoVu2xnfbHJ9Ip8lv49cUHjN31TmCqNX2dhJH1TIO+Mv2xIdq5x6n/Dp8Lo
-         NnnTnACQtLJobvCvQBQKMtMnq6N8FbZ0ODW5k=
+        bh=8mzXUq5J3QrgO2HjDwPAHkjQrWmqFhB25bMOYK67Dag=;
+        b=i0swmADFHdhXxzAEzqLNjeRnbEpAQuh8KNOIEptRfkOAh2mj2OjvZ2PDtF7scTcsVN
+         PmXhQKOQYC+xizylPayQSUe5eArrdUe/CONxQ0R6YOJkcK/XG9Wj4nWtr2Z068b1jn9g
+         Y2TEGpcaiV+P6wa/EPghVor0nIKyLdhJW3NlA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738504237; x=1739109037;
+        d=1e100.net; s=20230601; t=1738504630; x=1739109430;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ZdZjnAMbZPhGbyBa31/qXbMjW6hGCGvM/GX3JBWsh8k=;
-        b=JZ656O2sr69PSrgN4eRqP7pYjuJn6XuOxHqhnQaRuQgjdtUDlyxpqffgkWlnVosGqc
-         LH0yinza/58oswvUbqmMiPKzlCQECCQvaSDRFP6jTGuf+gMEYFwKn+kNwEdzgfUCrati
-         LuAW4C5Z2cf1qmnR2zoaHU89nKETexwpN/JGnFSQwfjTjdZJ5x7wp0hAOBfIZla7o/iC
-         gaAJ0C16eIi1VNBZVl4MhBgG8g0JxejXqjHrmyb4QLmppkSS5R8SuV7ZpzaMNo9+939X
-         Kshf3stlraxyiR6Gyj2ygSuPLamB0B3ODRcg6xLobGD8/2n5rEW1khVo7gPWJx4FlXAA
-         U3nQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVQ1mWw0iXlCcwULpsKFkUS6npn7r4fCdhZadry/93TdYgzVvpXkjWRVylev8pCWzAVzfo0Y9Lhhyw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzAL2+b2d1SqzSV8/505iO0sB7EUMMmWURXz1Q2jsTcIUD9y5pv
-	hZ4UUx0O6LeM+0eRYY7/4sE6++3FzGpoeAqosF84UC5/I9/ZoM+v9xcyRlevgvBUB+eDqC7/pon
-	D1i8=
-X-Gm-Gg: ASbGncvlTrp+k/XUM7WgbNT1OaAXaF91x22SnflpEXUsSK9BXfhpxQtQRX5n/F1w85A
-	9T2rzji9PK6Cav7M72hofEh46RcXyrx+yiJC8jKKrYaqEBV9yfyjlgGEN3L4vV4Z6JS4G/lN4Us
-	kTN1BbHzSkUF46OkYr+UdQnsp+JnVDGgXH04jqf+9PacrVT82ZzUZZZJekBQvvurz/bHsYrh8c5
-	hp++1DguAnFcuZWc28VtBGABZzbGtjtLY2f7qlSrY/QyqdrfQQCAHC2Ti8dkFdwMPycGyU4bcuU
-	ZpDh3slwmNnSi4Qo69Dx+n99BPQ=
-X-Google-Smtp-Source: AGHT+IF6fdWst2By1eClMdbyx8B3rsQWK/xFGe95ibXcfINCsjyekVjBe4s4bpBblSC0KZld6e5iNw==
-X-Received: by 2002:a17:907:3e8f:b0:ab7:ac0:24ea with SMTP id a640c23a62f3a-ab70ac0291dmr675027566b.3.1738504237292;
-        Sun, 02 Feb 2025 05:50:37 -0800 (PST)
-Message-ID: <cf5ae390-fb9d-4839-9423-d1ead9bd34bf@citrix.com>
-Date: Sun, 2 Feb 2025 13:50:33 +0000
+        bh=8mzXUq5J3QrgO2HjDwPAHkjQrWmqFhB25bMOYK67Dag=;
+        b=pTPSenX5ErIapjj2gyLRxE70WrSzCPbrQmqp+g0IJ7SufXRHxmaLbBMAKeUv58dkLn
+         DZNdzseNYOBXG2y05tlfzVlKfZkLzk/7XutNJOaPi/aF78IdKIO7c92jZpqB/0/tVGWk
+         Zgt5oLX1raVc5I6AdUwrUnxk2XU4tnCkEOYWd0AXRTiKNb5Dm668zUhQ62bYwGTDvuvt
+         qExmxLCrMbJLvNYoR7/4+tS6q5e5JyQhaU3N1/9/SnIATTBgnJsy/45L01NAmKHT3d35
+         kH92yB9OZEd/j/Y3o8+4nvJnE2YL4q9TXJAfx+AyM24G0EP+qy6kY8ee3eAAO/ZEfv1A
+         82Dg==
+X-Forwarded-Encrypted: i=1; AJvYcCWBE6iRea9uPWQQKCXEIK8QmapRsCwUhEX3X/DZ+nA1NBq5U7/In5whZgajyW6ZB7OebxK8q5j6P6s=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwkVyhgyhqGlxJNqgmW5E/JYmNw3qYJikeFsnyCHS4JctZGxJgP
+	taHEc47MV5jQJu/QhYuhGp12pmlpunPv5LscATBtuXdc912ZO9iFtONIr92X+3yvb7MrD0NOnx2
+	x4+c=
+X-Gm-Gg: ASbGncuiqtCFuTJQepyLI12csMEcXK/NTs59W7qzDhnBLC5o1/NMmHQQO4vi92OLmGN
+	tiJKNuRNoKXO1ebvuTZXOenFOfnKyi27Cnud9l4pD1T9QHosXDGjNsbO9YfqK8m1NgpMNKakMXu
+	ey0ydMuhdHxk0Ty75KPOB9D/FY+dig4h9ZuQXGSoSWYJXe+g7C4gkx/Ta6uB3kZ6dUnhp+O/SQ3
+	cItJL0gePtq65DYTyEa1cAtee6wMiCh/7jY+X9AqDdQssuLDa+kk06eB94m+qNIyyeaFZ97vZoM
+	exzECW9E4SCcFPa66/xAg+psML0=
+X-Google-Smtp-Source: AGHT+IHX+sAWGpXYYUSmVsxXUuTUCF/gDbpXtHxs5mcwIRY+zoKwN0K/LpLoNaJanD8S12LK1ceq1w==
+X-Received: by 2002:a05:6402:270b:b0:5d0:bf5e:eb8 with SMTP id 4fb4d7f45d1cf-5dc5efec180mr43004025a12.23.1738504630183;
+        Sun, 02 Feb 2025 05:57:10 -0800 (PST)
+Message-ID: <82e9f4f8-a9e9-416b-b6cf-cdd803c5de1b@citrix.com>
+Date: Sun, 2 Feb 2025 13:57:06 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.20? 1/3] AMD/IOMMU: drop stray MSI enabling
+Subject: Re: [PATCH for-4.20? 3/3] AMD/IOMMU: log IVHD contents
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Oleksii Kurochko <oleksii.kurochko@gmail.com>
 References: <2bb9d3c4-0761-4d63-8193-29293e35eb04@suse.com>
- <ea0fea03-6002-4fc6-86ac-19598c9d9ef6@suse.com>
+ <b0b8c35f-5c88-46bb-a882-9ff737683367@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -136,44 +136,15 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <ea0fea03-6002-4fc6-86ac-19598c9d9ef6@suse.com>
+In-Reply-To: <b0b8c35f-5c88-46bb-a882-9ff737683367@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 30/01/2025 11:11 am, Jan Beulich wrote:
-> While the 2nd of the commits referenced below should have moved the call
-> to amd_iommu_msi_enable() instead of adding another one, the situation
-> wasn't quite right even before: It can't have done any good to enable
-> MSI when no IRQ was allocated for it, yet.
+On 30/01/2025 11:13 am, Jan Beulich wrote:
+> Despite all the verbosity with "iommu=debug", information on the IOMMUs
+> themselves was missing.
 >
-> Fixes: 5f569f1ac50e ("AMD/IOMMU: allow enabling with IRQ not yet set up")
-> Fixes: d9e49d1afe2e ("AMD/IOMMU: adjust setup of internal interrupt for x2APIC mode")
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
->
-> --- a/xen/drivers/passthrough/amd/iommu_init.c
-> +++ b/xen/drivers/passthrough/amd/iommu_init.c
-> @@ -902,8 +902,6 @@ static void enable_iommu(struct amd_iomm
 
-There's a call to amd_iommu_msi_enable() just out of context here which
-was added by the 2nd referenced commit.
-
-Given that it's asymmetric in an if() condition regarding xt_en, and the
-calls are only set_affinity() calls, why is this retained?
-
-(I think I know, and if it is the reason I suspect, then you're missing
-a very critical detail from the commit message.)
-
-~Andrew
-
-
->          }
->      }
->  
-> -    amd_iommu_msi_enable(iommu, IOMMU_CONTROL_ENABLED);
-> -
->      set_iommu_ht_flags(iommu);
->      set_iommu_command_buffer_control(iommu, IOMMU_CONTROL_ENABLED);
->  
->
-
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
