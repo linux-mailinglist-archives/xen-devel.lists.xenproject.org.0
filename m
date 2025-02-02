@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55A57A24C9D
-	for <lists+xen-devel@lfdr.de>; Sun,  2 Feb 2025 06:10:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.880313.1290407 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 887F0A24E63
+	for <lists+xen-devel@lfdr.de>; Sun,  2 Feb 2025 14:49:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.880347.1290417 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1teSE9-0003Sx-On; Sun, 02 Feb 2025 05:09:01 +0000
+	id 1teaLD-0001Qn-Ao; Sun, 02 Feb 2025 13:48:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 880313.1290407; Sun, 02 Feb 2025 05:09:01 +0000
+Received: by outflank-mailman (output) from mailman id 880347.1290417; Sun, 02 Feb 2025 13:48:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1teSE9-0003R5-KW; Sun, 02 Feb 2025 05:09:01 +0000
-Received: by outflank-mailman (input) for mailman id 880313;
- Sun, 02 Feb 2025 05:09:00 +0000
+	id 1teaLD-0001PM-6R; Sun, 02 Feb 2025 13:48:51 +0000
+Received: by outflank-mailman (input) for mailman id 880347;
+ Sun, 02 Feb 2025 13:48:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bKUz=UZ=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1teSE8-0003Qj-2U
- for xen-devel@lists.xenproject.org; Sun, 02 Feb 2025 05:09:00 +0000
-Received: from fout-a2-smtp.messagingengine.com
- (fout-a2-smtp.messagingengine.com [103.168.172.145])
+ <SRS0=okHa=UZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1teaLB-0001PE-7x
+ for xen-devel@lists.xenproject.org; Sun, 02 Feb 2025 13:48:49 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cd757400-e123-11ef-a0e7-8be0dac302b0;
- Sun, 02 Feb 2025 06:08:56 +0100 (CET)
-Received: from phl-compute-01.internal (phl-compute-01.phl.internal
- [10.202.2.41])
- by mailfout.phl.internal (Postfix) with ESMTP id 36F2A13800F9;
- Sun,  2 Feb 2025 00:08:55 -0500 (EST)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-01.internal (MEProxy); Sun, 02 Feb 2025 00:08:55 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 2 Feb 2025 00:08:53 -0500 (EST)
+ id 6ccc99f7-e16c-11ef-a0e7-8be0dac302b0;
+ Sun, 02 Feb 2025 14:48:47 +0100 (CET)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-5d3e9a88793so5464810a12.1
+ for <xen-devel@lists.xenproject.org>; Sun, 02 Feb 2025 05:48:47 -0800 (PST)
+Received: from andrew-laptop.. ([89.207.171.161])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab6e47a818csm583715266b.6.2025.02.02.05.48.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 02 Feb 2025 05:48:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,213 +45,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cd757400-e123-11ef-a0e7-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:content-type:content-type:date:date
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to; s=fm3; t=1738472935; x=1738559335; bh=rr1/byr+Wd
-	oUVFGph7xFQwvycFnOeNWMbFMI/glDuBM=; b=Q/05GUTxnXCkG8TjV+QgIg1zk1
-	D/IkxXDnEnNB+b/eGZ4VPclHUXxhCffBsUy3E9xpn5RMZWVMoc756E7D3fYY922m
-	mZo6ZMN55wNaCf+VRQcVvhPhOaiYAWjOTmpKCvnMnM2nwcEaMpjsphYdLFZBVd2n
-	b5E4W1mC/WurGSry/LHKxDCFS8uwUWORWz6RtDJg1S5/9qPJSFRONLMUvkzQ/316
-	0bxM2WBrEy4RJBfN/mD7kQoUrtgnySdAVYYAojmFtJLNce0/IzfwYZZG+d51+lOU
-	PeGXuKMFj5benmCjpel4tbi6o3uS3tUx8z87XqUgmibPdV2LWdkUTpu55dbg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:message-id
-	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1738472935; x=
-	1738559335; bh=rr1/byr+WdoUVFGph7xFQwvycFnOeNWMbFMI/glDuBM=; b=k
-	yc8YgL35qKHFKQnQUCEkTYrk+DPiURcRoH+S/pce3F+MBT+rwmR0EjhPHwQ8dFBn
-	r9Ah5src4J3+3cC9xt9Ta1INVDhhWu7Un/TLkTBWvVAX7uo1xGTc+x5kgQcGMQ07
-	utHslzjSGpGo8tsMOCOoug9fGcd4dz4pCeYgMqOtzZqJimmA82b/q1ADW8JaWrmH
-	3tE7+Qhr4rH3GPhe7HRQAYkkdC7XK7h6ON9aFLdTu+mwq1t/kzmt8j/O5WdEHUl3
-	ppjh/ONpns7tfuO4B2RBpzJp2NdXSSaQQSgm+yLgUe548KKy7yMbq+1OP1RVGX8u
-	i+GvVWjX85Xf33pqmFYpQ==
-X-ME-Sender: <xms:5v2eZybNuNqzxk9dTEISjdkXwMVZLSzRf9I0DJRc1IXYsHA42-g76A>
-    <xme:5v2eZ1aZ_YPYhe0pQQ_sMrJZVcXnAsXLmPDGfpgL2TMFjWbp6PpUR2pFlGlhIL4pT
-    Cxz8zuJXPhUUf0>
-X-ME-Received: <xmr:5v2eZ8_lZfEl_TXpDDf1EO8CHdkR5WXgK61xtm8l0eU0VTgCh2g30nyhS6Y>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddufeejhecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdp
-    uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivg
-    hnthhsucdlqddutddtmdenucfjughrpeffhffvuffkgggtugesghdtreertddtvdenucfh
-    rhhomhepffgvmhhiucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsih
-    gslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepudejgfejgeeg
-    lefhveekledtkedvuefhteeiffefhfekhefhveehhfekgfdugeeknecuvehluhhsthgvrh
-    fuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgs
-    lhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepudeipdhmohguvgepsh
-    hmthhpohhuthdprhgtphhtthhopehhohhnghhlvghiuddrhhhurghnghesrghmugdrtgho
-    mhdprhgtphhtthhopehrrgihrdhhuhgrnhhgsegrmhgurdgtohhmpdhrtghpthhtohepug
-    hmihhtrhihrdhoshhiphgvnhhkohestgholhhlrggsohhrrgdrtghomhdprhgtphhtthho
-    pegurhhiqdguvghvvghlsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtg
-    hpthhtoheprghirhhlihgvugesrhgvughhrghtrdgtohhmpdhrtghpthhtohepkhhrrgig
-    vghlsehrvgguhhgrthdrtghomhdprhgtphhtthhopehguhhrtghhvghtrghnshhinhhghh
-    estghhrhhomhhiuhhmrdhorhhgpdhrtghpthhtohepohhlvhgrfhhfvgesghhmrghilhdr
-    tghomhdprhgtphhtthhopegrkhhihhhikhhordhouggrkhhisegurgihnhhigidrtghomh
-X-ME-Proxy: <xmx:5v2eZ0o_kvYUoj1MkPPTqAR50VeauorRCOLQS5P_rShN7sc680H50A>
-    <xmx:5v2eZ9oynSEf4YG4DG2yuqQyg0-XLBXWnCHIn9luSF1UBhG5isbdZQ>
-    <xmx:5v2eZyQfffkbwhmHealFiqgvgSU0NWZFP0QMmJbp_Lg2z7pBX_k26A>
-    <xmx:5v2eZ9orDgSl0hVFWwvJoYMAs_qMFFaOYTrynaTW3fodOHKTW01RxA>
-    <xmx:5_2eZzaWCamvQOxzxn_Ksv2U3ZitpXJUH1_G7-ivNGaej9yjsT6jsG3G>
-Feedback-ID: iac594737:Fastmail
-Date: Sun, 2 Feb 2025 00:08:46 -0500
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: "Huang, Honglei1" <Honglei1.Huang@amd.com>,
-	Huang Rui <ray.huang@amd.com>,
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	dri-devel@lists.freedesktop.org, David Airlie <airlied@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Gurchetan Singh <gurchetansingh@chromium.org>,
-	Chia-I Wu <olvaffe@gmail.com>,
-	Akihiko Odaki <akihiko.odaki@daynix.com>,
-	Lingshan Zhu <Lingshan.Zhu@amd.com>,
-	Xen developer discussion <xen-devel@lists.xenproject.org>,
-	Marek =?us-ascii?B?PT91dGYtOD9RP01hcmN6eWtvd3NraS1HPUMzPUIzcmVja2k/?=
-	=?us-ascii?Q?=3D?= <marmarek@invisiblethingslab.com>,
-	Xenia Ragiadakou <burzalodowa@gmail.com>,
-	Stefano Stabellini <stefano.stabellini@amd.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Subject: Xen memory management primitives for GPU virtualization
-Message-ID: <Z5794ysNE4KDkFuT@itl-email>
+X-Inumbo-ID: 6ccc99f7-e16c-11ef-a0e7-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1738504126; x=1739108926; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=bFcQ659jbUzCeZCoQlcoXVT2+2vW+6Th9OMJj6ERNYE=;
+        b=XEELsrMo+MUH9C+6LySRjRcwuU+3VbU8eWzAZu5i04F1Sbs590hqpxG2FL7QI3sGN7
+         i6HHFpZtur+itaLXhaRTlijegd+0yAvPb74YdyV8xzUbqWOfw7Y81F9J9V/4F1Qney+5
+         Fbst7GctYmAl74EDloqmCKjV4lizUl3Ua8iaA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1738504126; x=1739108926;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=bFcQ659jbUzCeZCoQlcoXVT2+2vW+6Th9OMJj6ERNYE=;
+        b=ULaRoJC2oDu1dbWIAQWLvAhHf4G0yB1NDBgmljnm8y8iKFHG26wWolBOv+rL/iJKa1
+         O9XvbNAFfp1qxJtgBIGcVA+7uTgkuPBLMFO/Iw8qmvnaBEQYbAMAs77i3DQn2cSP91dW
+         qoYaoO/f/9LvFNvOmQtPnV25W/nZirB+SxD+cQpTxRSqLAVKSJROUNv/X74wWmI+BVed
+         XGEJrfuvhBNiqc9SQUoYqBfhzYp36TPakorsL4rKGgq+8mKhEpjripYqgzQrU6PGqvUB
+         eR1UIwx0K+0DnzFB5bvBIA6me68qtaGgCb+jiRAeFaKNj77AsqM2GjBqCH4iwUFLA98N
+         mzTA==
+X-Gm-Message-State: AOJu0YyqRDaK3GmU6h05NkewmqqsCrtX95NZ45cn67Ai5XHzEahOHXGw
+	lg/BZ/70MVCtca6rWpZ9q/cF69WfbQvWthY3I2uEwAZ+/SAZGgUbq/HRl7nyyByHcOO5+PHdILx
+	vZEs=
+X-Gm-Gg: ASbGnct/8K8jGzgjJB+wVGoIHnxBdKGACMM3j2SMhE7MiAXmBVS0+3ihsaqmzRyJ/Cp
+	yFtMAvsPTueuc3WJHJAdy6aDs2xCJv37zmx9jPj1Ac1gdmihVJKIuPVPELDrpTUMC5G03zVWW3y
+	rj8lx3/5sG4jHuL1wty714lfTMXEll3EXkbYQ5cRLm6IZNj4K9X74DHlbaIE1d2XNcH5qs3rq0c
+	8Bv406/AmDcNpyz7ozkxCY/YmCXfsMJSlVi5gGpLMoXx31uDIlVYE/sxzpKPlU1ih8d0B+QoWgP
+	Fcxs9f7aec73zQviSgjTRDp90MUJ
+X-Google-Smtp-Source: AGHT+IECVpLoroUXEVvQkkxrfppPcKlQYxzlv3FvJl9DjijsgsKrhUxwfmmrB3JBquhUA6M4Thp1pA==
+X-Received: by 2002:a17:907:3f0b:b0:ab6:37c3:381d with SMTP id a640c23a62f3a-ab6cfceb5c2mr1898548766b.24.1738504126248;
+        Sun, 02 Feb 2025 05:48:46 -0800 (PST)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH for-4.21] x86/msi: Change __msi_set_enable() to take pci_sbdf_t
+Date: Sun,  2 Feb 2025 13:48:40 +0000
+Message-Id: <20250202134840.40102-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="xfrIvn0OgIq9mZNB"
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+This removes the unnecessary work of splitting a 32-bit number across
+4 registers, and recombining later.  Bloat-o-meter reports:
 
---xfrIvn0OgIq9mZNB
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 2 Feb 2025 00:08:46 -0500
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: "Huang, Honglei1" <Honglei1.Huang@amd.com>,
-	Huang Rui <ray.huang@amd.com>,
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	dri-devel@lists.freedesktop.org, David Airlie <airlied@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Gurchetan Singh <gurchetansingh@chromium.org>,
-	Chia-I Wu <olvaffe@gmail.com>,
-	Akihiko Odaki <akihiko.odaki@daynix.com>,
-	Lingshan Zhu <Lingshan.Zhu@amd.com>,
-	Xen developer discussion <xen-devel@lists.xenproject.org>,
-	Marek =?us-ascii?B?PT91dGYtOD9RP01hcmN6eWtvd3NraS1HPUMzPUIzcmVja2k/?=
-	=?us-ascii?Q?=3D?= <marmarek@invisiblethingslab.com>,
-	Xenia Ragiadakou <burzalodowa@gmail.com>,
-	Stefano Stabellini <stefano.stabellini@amd.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Subject: Xen memory management primitives for GPU virtualization
+  add/remove: 0/0 grow/shrink: 0/9 up/down: 0/-295 (-295)
+  Function                                     old     new   delta
+  enable_iommu                                1748    1732     -16
+  iommu_msi_unmask                              98      81     -17
+  iommu_msi_mask                               100      83     -17
+  disable_iommu                                286     269     -17
+  __msi_set_enable                              81      50     -31
+  __pci_disable_msi                            178     146     -32
+  pci_cleanup_msi                              268     229     -39
+  pci_enable_msi                              1063    1019     -44
+  pci_restore_msi_state                       1116    1034     -82
 
-Cc:=20
-Bcc:=20
-Subject: Xen requirements for GPU virtualization via virtio-GPU
-Reply-To:=20
-X-Mutt-Fcc: =3DINBOX,=3Dxen-devel,=3DSent
-X-Mutt-PGP: S
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/arch/x86/include/asm/msi.h           |  2 +-
+ xen/arch/x86/msi.c                       | 14 ++++----------
+ xen/drivers/passthrough/amd/iommu_init.c |  5 +++--
+ 3 files changed, 8 insertions(+), 13 deletions(-)
 
-Recently, AMD submitted patches to the dri-devel mailing list to support
-using application-provided buffers in virtio-GPU.  This feature is
-called Shared Virtual Memory (SVM) and it is implemented via an API
-called User Pointer (userptr).  This lead to some discussion on
-dri-devel@lists.freedesktop.org and dri-devel IRC, from which I
-concluded that Xen is missing critical primitives for GPU-accelerated
-graphics and compute.  The missing primitives for graphics are the ones
-discussed at Xen Project Summit 2024, but it turns out that additional
-primitives are needed for compute workloads.
+diff --git a/xen/arch/x86/include/asm/msi.h b/xen/arch/x86/include/asm/msi.h
+index 63adb19820e8..5bb9abd3eb6f 100644
+--- a/xen/arch/x86/include/asm/msi.h
++++ b/xen/arch/x86/include/asm/msi.h
+@@ -237,7 +237,7 @@ struct arch_msix {
+ void early_msi_init(void);
+ void msi_compose_msg(unsigned vector, const cpumask_t *cpu_mask,
+                      struct msi_msg *msg);
+-void __msi_set_enable(u16 seg, u8 bus, u8 slot, u8 func, int pos, int enable);
++void __msi_set_enable(pci_sbdf_t sbdf, int pos, int enable);
+ void cf_check mask_msi_irq(struct irq_desc *desc);
+ void cf_check unmask_msi_irq(struct irq_desc *desc);
+ void guest_mask_msi_irq(struct irq_desc *desc, bool mask);
+diff --git a/xen/arch/x86/msi.c b/xen/arch/x86/msi.c
+index e2360579deda..52117d97b522 100644
+--- a/xen/arch/x86/msi.c
++++ b/xen/arch/x86/msi.c
+@@ -267,28 +267,22 @@ void cf_check set_msi_affinity(struct irq_desc *desc, const cpumask_t *mask)
+     write_msi_msg(msi_desc, &msg);
+ }
+ 
+-void __msi_set_enable(u16 seg, u8 bus, u8 slot, u8 func, int pos, int enable)
++void __msi_set_enable(pci_sbdf_t sbdf, int pos, int enable)
+ {
+-    uint16_t control = pci_conf_read16(PCI_SBDF(seg, bus, slot, func),
+-                                       pos + PCI_MSI_FLAGS);
++    uint16_t control = pci_conf_read16(sbdf, pos + PCI_MSI_FLAGS);
+ 
+     control &= ~PCI_MSI_FLAGS_ENABLE;
+     if ( enable )
+         control |= PCI_MSI_FLAGS_ENABLE;
+-    pci_conf_write16(PCI_SBDF(seg, bus, slot, func),
+-                     pos + PCI_MSI_FLAGS, control);
++    pci_conf_write16(sbdf, pos + PCI_MSI_FLAGS, control);
+ }
+ 
+ static void msi_set_enable(struct pci_dev *dev, int enable)
+ {
+     unsigned int pos = dev->msi_pos;
+-    u16 seg = dev->seg;
+-    u8 bus = dev->bus;
+-    u8 slot = PCI_SLOT(dev->devfn);
+-    u8 func = PCI_FUNC(dev->devfn);
+ 
+     if ( pos )
+-        __msi_set_enable(seg, bus, slot, func, pos, enable);
++        __msi_set_enable(dev->sbdf, pos, enable);
+ }
+ 
+ static void msix_set_enable(struct pci_dev *dev, int enable)
+diff --git a/xen/drivers/passthrough/amd/iommu_init.c b/xen/drivers/passthrough/amd/iommu_init.c
+index 05fd3bde6e29..f1076bf11d62 100644
+--- a/xen/drivers/passthrough/amd/iommu_init.c
++++ b/xen/drivers/passthrough/amd/iommu_init.c
+@@ -409,8 +409,9 @@ static void iommu_reset_log(struct amd_iommu *iommu,
+ 
+ static void amd_iommu_msi_enable(struct amd_iommu *iommu, int flag)
+ {
+-    __msi_set_enable(iommu->seg, PCI_BUS(iommu->bdf), PCI_SLOT(iommu->bdf),
+-                     PCI_FUNC(iommu->bdf), iommu->msi.msi_attrib.pos, flag);
++    pci_sbdf_t sbdf = { .seg = iommu->seg, .bdf = iommu->bdf };
++
++    __msi_set_enable(sbdf, iommu->msi.msi_attrib.pos, flag);
+ }
+ 
+ static void cf_check iommu_msi_unmask(struct irq_desc *desc)
+-- 
+2.34.1
 
-As discussed at Xen Project Summit 2024, GPU acceleration via virtio-GPU
-requires that an IOREQ server have access to the following primitives:
-
-1. Map: Map a backend-provided buffer into the frontend.  The buffer
-   might point to system memory or to a PCIe BAR.  The frontend is _not_
-   allowed to use these buffers in hypercalls or grant them to other
-   domains.  Accessing the pages using hypercalls directed at the
-   frontend fails as if the frontend did not have the pages.  The only
-   exception is that the frontend _may_ be allowed to use the buffer in
-   a Map operation, provided that Revoke (below) is transitive.
-
-2. Revoke: Revoke access to a buffer provided by the backend.  Once
-   access is revoked, no operation on or in the frontend domain can
-   access or modify the pages, and the backend can safely reuse the
-   backing memory for other purposes.  Furthermore, revocation is not
-   allowed to fail unless the backend or hypervisor is buggy, and if it
-   does fail for any reason, the backend will panic.  Once access is
-   revoked, further accesses by the frontend will cause a fault that the
-   backend can intercept.
-
-Map can be handled by userspace, but Revoke must be handled entirely
-in-kernel.  This is because Revoke happens from a Linux MMU notifier
-callback, and those are not allowed to block, fail, or involve userspace
-in any way.  Since MMU notifier callbacks are called before freeing
-memory, failure means that some other part of the system still has
-access to freed memory that might be reused for other purposes, which
-is a security vulnerability.
-
-It turns out that compute has additional requirements.  Graphics APIs
-use DMA buffers (dmabufs), which only support a subset of operations.
-In particular, direct I/O doesn't work.  Compute APIs allow users to
-make malloc'd memory accessible to the GPU.  This memory can be used
-in Linux kernel direct I/O and in other operations that do not work
-with dmabufs.  However, such memory starts out as frontend-owned pages,
-so it must be converted to backend pages before it can be used by the
-GPU.  Linux supports migration of userspace pages, but this is too
-unreliable to be used for this purpose.  Instead, it will need to be
-done by Xen and the backend.
-
-This requires two additional primitives:
-
-3. Steal: Convert frontend-owned pages to backend-owned pages and
-   provide the backend with a mapping of the page.  After a successful
-   Steal operation, the pages are in the same state as if they had been
-   provided via Map.  Steal fails if the pages are currently being used
-   in a hypercall, are MMIO (as opposed to system memory), were provided
-   by another domain via Map or grant tables, are currently foreign
-   mapped, are currently granted to another domain, or more generally
-   are accessible to any domain other than the target domain.  The
-   frontend's quota is decreased by the number of pages stolen, and the
-   backend's quota is increased by the same amount.  A successful Steal
-   operation means that Revoke and Map can be used to operate on the
-   pages.
-
-4. Return: Convert a backend-owned page to a frontend-owned page.  After
-   a successful call to Return, the backend is no lonter able to use
-   Revoke or Map.  The returned page ceases to count against backend
-   quota and now counts against frontend quota.
-
-Are these operations ones that Xen is interested in providing?  There
-may be other primitives that are sufficient to implement the above four,
-but I believe that any solution that allows virtio-GPU to work must
-allow the above four operations to be implemented.  Without the first
-two, virtio-GPU will not be able to support Vulkan or native contexts,
-and without the second two also being present, shared virtual memory
-and compute APIs that require it will not work.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
-
---xfrIvn0OgIq9mZNB
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmee/d4ACgkQszaHOrMp
-8lPaQQ/9Ern0ko7OPnEl4/TRQ+LI7iawb45bEXoOoOmj2AeHl3hlvJK6eGQ3Q520
-71VAeRYl3h5MZm5LQRjTUm1iz+q+3vQJhZuUs6m/mD0sla2XHIAS2ILJWe8bNILb
-q5Pq6bsSlEZMyVJOzrpp5Ym/IWf0oYYvgT6epkggI5lmND3wE8/2ns0RupZW5jQW
-0pzNhPYVe9WHMtCZDPQWqzTgrXxbabAw1QO2fV9Epf/jojqbsBhnWoijqHoTKfjd
-pi7J+QG+v4KyRM1Oql9f/JFhwJ5rP+te/dn08hsKuuwTCortSq3gRjyGup1tHDvU
-l3roIHfT3nppVUh5cDiLTDybYtD16unhRcoEPO+VtH8kQ15Q9vY3u326k563f5xg
-WRRVCJUJX+druNkQg1YA1XRGE6N3LvvD189+GWnIsZHuIf4/LD5lC/VlNjxscAIl
-NRIV6TPP/cgiCLLX6zT1AoCS1vum4jRIopjhOTXZUlcrI9Pn+ZM9cEsazAxE9g4/
-xHr3idiUkKksj5D2TjqTHfNCQn3WvMKYphzbxxOLKFLMnQBQRGJ6wSDqY+PGJAIX
-1GMQ+pbsJO5XkWj+wJm7j7nDAYas+/qz+A3S+Ko1FM0OJ8/2HYcMzyf+wg219k6j
-JkKMA0HmxUfgc5tcmyRd0jZZkAQ301ChEatIwzEHTXb2gxv1eKk=
-=pzYf
------END PGP SIGNATURE-----
-
---xfrIvn0OgIq9mZNB--
 
