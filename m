@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8421A246AF
-	for <lists+xen-devel@lfdr.de>; Sat,  1 Feb 2025 03:20:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.880128.1290349 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55A57A24C9D
+	for <lists+xen-devel@lfdr.de>; Sun,  2 Feb 2025 06:10:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.880313.1290407 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1te37h-0002cm-F8; Sat, 01 Feb 2025 02:20:41 +0000
+	id 1teSE9-0003Sx-On; Sun, 02 Feb 2025 05:09:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 880128.1290349; Sat, 01 Feb 2025 02:20:41 +0000
+Received: by outflank-mailman (output) from mailman id 880313.1290407; Sun, 02 Feb 2025 05:09:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1te37h-0002a9-Bo; Sat, 01 Feb 2025 02:20:41 +0000
-Received: by outflank-mailman (input) for mailman id 880128;
- Sat, 01 Feb 2025 02:20:39 +0000
+	id 1teSE9-0003R5-KW; Sun, 02 Feb 2025 05:09:01 +0000
+Received: by outflank-mailman (input) for mailman id 880313;
+ Sun, 02 Feb 2025 05:09:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LHbF=UY=flex--seanjc.bounces.google.com=3U4SdZwYKCRYE0w95y2AA270.yA8J09-z0H0774EFE.J09BDA50yF.AD2@srs-se1.protection.inumbo.net>)
- id 1te359-0002sH-9m
- for xen-devel@lists.xenproject.org; Sat, 01 Feb 2025 02:18:03 +0000
-Received: from mail-pj1-x104a.google.com (mail-pj1-x104a.google.com
- [2607:f8b0:4864:20::104a])
+ <SRS0=bKUz=UZ=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1teSE8-0003Qj-2U
+ for xen-devel@lists.xenproject.org; Sun, 02 Feb 2025 05:09:00 +0000
+Received: from fout-a2-smtp.messagingengine.com
+ (fout-a2-smtp.messagingengine.com [103.168.172.145])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bfaa0c4c-e042-11ef-a0e6-8be0dac302b0;
- Sat, 01 Feb 2025 03:17:56 +0100 (CET)
-Received: by mail-pj1-x104a.google.com with SMTP id
- 98e67ed59e1d1-2eebfd6d065so7097197a91.3
- for <xen-devel@lists.xenproject.org>; Fri, 31 Jan 2025 18:17:56 -0800 (PST)
+ id cd757400-e123-11ef-a0e7-8be0dac302b0;
+ Sun, 02 Feb 2025 06:08:56 +0100 (CET)
+Received: from phl-compute-01.internal (phl-compute-01.phl.internal
+ [10.202.2.41])
+ by mailfout.phl.internal (Postfix) with ESMTP id 36F2A13800F9;
+ Sun,  2 Feb 2025 00:08:55 -0500 (EST)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-01.internal (MEProxy); Sun, 02 Feb 2025 00:08:55 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 2 Feb 2025 00:08:53 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,144 +45,213 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bfaa0c4c-e042-11ef-a0e6-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1738376275; x=1738981075; darn=lists.xenproject.org;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:reply-to:from:to:cc:subject:date:message-id:reply-to;
-        bh=SJJEXGT/CGEg26HmUNCtCBi/lOkkZBhLk4mR9XODbn0=;
-        b=t6rzrq9+t+xZ12KuS63bQ3TIW3JqHecj53fMRv3LMU6y4GVMSwBcV5QgS2owJfa/pu
-         8QmoXscGuEflNHY+3sONOneb5xPntBIbsXfBbwbBF5yeF2fmC4Hp8rAESa2UJ7Qs1cgJ
-         FbRgDRnkcuKqGEGjv1zaaz/SGXfLtgXvDewcIX8gUFrP6HV/RKh5s2mHNFLCBljiW6kG
-         LVsc9J+Du4U+Unjn5RcZQo3kaxWymUdLZkDjaFYe11dvIF8udFVc8Qm0g5h5DbMhh2ph
-         pL8WdvGmsVQctYk3OVyd1CitaPoibkC+iSq6eOV60ne21GoegksD7UrcCOVMyLVbj403
-         aAlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738376275; x=1738981075;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=SJJEXGT/CGEg26HmUNCtCBi/lOkkZBhLk4mR9XODbn0=;
-        b=i8gJtzcLUnTEZ9K50asKOEFDo7qqAKTwXYudg4X6OKGhzsubSGgXAXNPL7CY5zNXvH
-         zDPcH2zkN3UflBJYKDkHpgpAmrrTXeQGrgoLgQID0cMNGdHnVn+QgtcUyKLV1fYIGWH3
-         f4CDN9xQIHjtn3CwJkD7+VET7kU4oBPNu5GqD+2/5JMVs8njflZK2Cssd64jHEhnCSh5
-         DTh9rAYsz3pkFzFbey3QBcnAlKrW2vWfEBXpEN2FdcqO+1UmW8Wsk7FoTKMwBQ7vNSOb
-         mN7oOB8+j/XuvhLzxqsK12YJq2jstUu2LOENTR9SOG7k3U6xKq2QgupwGyPjjMzVPgS7
-         IL2Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWfCACJ68NE56+RFSM56M3a9pJoaOP0BzJivBFlQ4E8g6iCRv7+6QwMpsbj/C1eo4TUqpFLwvCU3SE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxy2Lb1js+yM08p8qxzrTrjX6Jv192MsswVnRE98X+9hItWMhWm
-	r8+e3p8739vfhkUtofXED1W5pYpuTRjZhK+ouehnufcGKlcoNvq9FRLrErXnSvo4JSkEz1BlnrW
-	mOA==
-X-Google-Smtp-Source: AGHT+IGR6HwuD9w+8Kze6jNqduo1hcKEvlqzGV2yi3bR0PK9E6ixYJtwZg6BVPpJ2g9E6rQRruKKBVyC7NI=
-X-Received: from pjtu8.prod.google.com ([2002:a17:90a:c888:b0:2f7:f660:cfe7])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2702:b0:2f4:4003:f3d4
- with SMTP id 98e67ed59e1d1-2f83ac83632mr19746549a91.30.1738376275470; Fri, 31
- Jan 2025 18:17:55 -0800 (PST)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Fri, 31 Jan 2025 18:17:18 -0800
-In-Reply-To: <20250201021718.699411-1-seanjc@google.com>
-Mime-Version: 1.0
-References: <20250201021718.699411-1-seanjc@google.com>
-X-Mailer: git-send-email 2.48.1.362.g079036d154-goog
-Message-ID: <20250201021718.699411-17-seanjc@google.com>
-Subject: [PATCH 16/16] x86/kvmclock: Use TSC for sched_clock if it's constant
- and non-stop
-From: Sean Christopherson <seanjc@google.com>
-To: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>, Juergen Gross <jgross@suse.com>, 
-	"K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
-	Dexuan Cui <decui@microsoft.com>, Ajay Kaher <ajay.kaher@broadcom.com>, 
-	Alexey Makhalov <alexey.amakhalov@broadcom.com>, Jan Kiszka <jan.kiszka@siemens.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Andy Lutomirski <luto@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>
-Cc: linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev, 
-	virtualization@lists.linux.dev, linux-hyperv@vger.kernel.org, 
-	jailhouse-dev@googlegroups.com, kvm@vger.kernel.org, 
-	xen-devel@lists.xenproject.org, Sean Christopherson <seanjc@google.com>, 
-	Nikunj A Dadhania <nikunj@amd.com>, Tom Lendacky <thomas.lendacky@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+X-Inumbo-ID: cd757400-e123-11ef-a0e7-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:content-type:content-type:date:date
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm3; t=1738472935; x=1738559335; bh=rr1/byr+Wd
+	oUVFGph7xFQwvycFnOeNWMbFMI/glDuBM=; b=Q/05GUTxnXCkG8TjV+QgIg1zk1
+	D/IkxXDnEnNB+b/eGZ4VPclHUXxhCffBsUy3E9xpn5RMZWVMoc756E7D3fYY922m
+	mZo6ZMN55wNaCf+VRQcVvhPhOaiYAWjOTmpKCvnMnM2nwcEaMpjsphYdLFZBVd2n
+	b5E4W1mC/WurGSry/LHKxDCFS8uwUWORWz6RtDJg1S5/9qPJSFRONLMUvkzQ/316
+	0bxM2WBrEy4RJBfN/mD7kQoUrtgnySdAVYYAojmFtJLNce0/IzfwYZZG+d51+lOU
+	PeGXuKMFj5benmCjpel4tbi6o3uS3tUx8z87XqUgmibPdV2LWdkUTpu55dbg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:message-id
+	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1738472935; x=
+	1738559335; bh=rr1/byr+WdoUVFGph7xFQwvycFnOeNWMbFMI/glDuBM=; b=k
+	yc8YgL35qKHFKQnQUCEkTYrk+DPiURcRoH+S/pce3F+MBT+rwmR0EjhPHwQ8dFBn
+	r9Ah5src4J3+3cC9xt9Ta1INVDhhWu7Un/TLkTBWvVAX7uo1xGTc+x5kgQcGMQ07
+	utHslzjSGpGo8tsMOCOoug9fGcd4dz4pCeYgMqOtzZqJimmA82b/q1ADW8JaWrmH
+	3tE7+Qhr4rH3GPhe7HRQAYkkdC7XK7h6ON9aFLdTu+mwq1t/kzmt8j/O5WdEHUl3
+	ppjh/ONpns7tfuO4B2RBpzJp2NdXSSaQQSgm+yLgUe548KKy7yMbq+1OP1RVGX8u
+	i+GvVWjX85Xf33pqmFYpQ==
+X-ME-Sender: <xms:5v2eZybNuNqzxk9dTEISjdkXwMVZLSzRf9I0DJRc1IXYsHA42-g76A>
+    <xme:5v2eZ1aZ_YPYhe0pQQ_sMrJZVcXnAsXLmPDGfpgL2TMFjWbp6PpUR2pFlGlhIL4pT
+    Cxz8zuJXPhUUf0>
+X-ME-Received: <xmr:5v2eZ8_lZfEl_TXpDDf1EO8CHdkR5WXgK61xtm8l0eU0VTgCh2g30nyhS6Y>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddufeejhecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdp
+    uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivg
+    hnthhsucdlqddutddtmdenucfjughrpeffhffvuffkgggtugesghdtreertddtvdenucfh
+    rhhomhepffgvmhhiucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsih
+    gslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepudejgfejgeeg
+    lefhveekledtkedvuefhteeiffefhfekhefhveehhfekgfdugeeknecuvehluhhsthgvrh
+    fuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgs
+    lhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepudeipdhmohguvgepsh
+    hmthhpohhuthdprhgtphhtthhopehhohhnghhlvghiuddrhhhurghnghesrghmugdrtgho
+    mhdprhgtphhtthhopehrrgihrdhhuhgrnhhgsegrmhgurdgtohhmpdhrtghpthhtohepug
+    hmihhtrhihrdhoshhiphgvnhhkohestgholhhlrggsohhrrgdrtghomhdprhgtphhtthho
+    pegurhhiqdguvghvvghlsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtg
+    hpthhtoheprghirhhlihgvugesrhgvughhrghtrdgtohhmpdhrtghpthhtohepkhhrrgig
+    vghlsehrvgguhhgrthdrtghomhdprhgtphhtthhopehguhhrtghhvghtrghnshhinhhghh
+    estghhrhhomhhiuhhmrdhorhhgpdhrtghpthhtohepohhlvhgrfhhfvgesghhmrghilhdr
+    tghomhdprhgtphhtthhopegrkhhihhhikhhordhouggrkhhisegurgihnhhigidrtghomh
+X-ME-Proxy: <xmx:5v2eZ0o_kvYUoj1MkPPTqAR50VeauorRCOLQS5P_rShN7sc680H50A>
+    <xmx:5v2eZ9oynSEf4YG4DG2yuqQyg0-XLBXWnCHIn9luSF1UBhG5isbdZQ>
+    <xmx:5v2eZyQfffkbwhmHealFiqgvgSU0NWZFP0QMmJbp_Lg2z7pBX_k26A>
+    <xmx:5v2eZ9orDgSl0hVFWwvJoYMAs_qMFFaOYTrynaTW3fodOHKTW01RxA>
+    <xmx:5_2eZzaWCamvQOxzxn_Ksv2U3ZitpXJUH1_G7-ivNGaej9yjsT6jsG3G>
+Feedback-ID: iac594737:Fastmail
+Date: Sun, 2 Feb 2025 00:08:46 -0500
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: "Huang, Honglei1" <Honglei1.Huang@amd.com>,
+	Huang Rui <ray.huang@amd.com>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	dri-devel@lists.freedesktop.org, David Airlie <airlied@redhat.com>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Gurchetan Singh <gurchetansingh@chromium.org>,
+	Chia-I Wu <olvaffe@gmail.com>,
+	Akihiko Odaki <akihiko.odaki@daynix.com>,
+	Lingshan Zhu <Lingshan.Zhu@amd.com>,
+	Xen developer discussion <xen-devel@lists.xenproject.org>,
+	Marek =?us-ascii?B?PT91dGYtOD9RP01hcmN6eWtvd3NraS1HPUMzPUIzcmVja2k/?=
+	=?us-ascii?Q?=3D?= <marmarek@invisiblethingslab.com>,
+	Xenia Ragiadakou <burzalodowa@gmail.com>,
+	Stefano Stabellini <stefano.stabellini@amd.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Subject: Xen memory management primitives for GPU virtualization
+Message-ID: <Z5794ysNE4KDkFuT@itl-email>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="xfrIvn0OgIq9mZNB"
+Content-Disposition: inline
 
-Prefer the TSC over kvmclock for sched_clock if the TSC is constant,
-nonstop, and not marked unstable via command line.  I.e. use the same
-criteria as tweaking the clocksource rating so that TSC is preferred over
-kvmclock.  Per the below comment from native_sched_clock(), sched_clock
-is more tolerant of slop than clocksource; using TSC for clocksource but
-not sched_clock makes little to no sense, especially now that KVM CoCo
-guests with a trusted TSC use TSC, not kvmclock.
 
-        /*
-         * Fall back to jiffies if there's no TSC available:
-         * ( But note that we still use it if the TSC is marked
-         *   unstable. We do this because unlike Time Of Day,
-         *   the scheduler clock tolerates small errors and it's
-         *   very important for it to be as fast as the platform
-         *   can achieve it. )
-         */
+--xfrIvn0OgIq9mZNB
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 2 Feb 2025 00:08:46 -0500
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: "Huang, Honglei1" <Honglei1.Huang@amd.com>,
+	Huang Rui <ray.huang@amd.com>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	dri-devel@lists.freedesktop.org, David Airlie <airlied@redhat.com>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Gurchetan Singh <gurchetansingh@chromium.org>,
+	Chia-I Wu <olvaffe@gmail.com>,
+	Akihiko Odaki <akihiko.odaki@daynix.com>,
+	Lingshan Zhu <Lingshan.Zhu@amd.com>,
+	Xen developer discussion <xen-devel@lists.xenproject.org>,
+	Marek =?us-ascii?B?PT91dGYtOD9RP01hcmN6eWtvd3NraS1HPUMzPUIzcmVja2k/?=
+	=?us-ascii?Q?=3D?= <marmarek@invisiblethingslab.com>,
+	Xenia Ragiadakou <burzalodowa@gmail.com>,
+	Stefano Stabellini <stefano.stabellini@amd.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Subject: Xen memory management primitives for GPU virtualization
 
-The only advantage of using kvmclock is that doing so allows for early
-and common detection of PVCLOCK_GUEST_STOPPED, but that code has been
-broken for nearly two years with nary a complaint, i.e. it can't be
-_that_ valuable.  And as above, certain types of KVM guests are losing
-the functionality regardless, i.e. acknowledging PVCLOCK_GUEST_STOPPED
-needs to be decoupled from sched_clock() no matter what.
+Cc:=20
+Bcc:=20
+Subject: Xen requirements for GPU virtualization via virtio-GPU
+Reply-To:=20
+X-Mutt-Fcc: =3DINBOX,=3Dxen-devel,=3DSent
+X-Mutt-PGP: S
 
-Link: https://lore.kernel.org/all/Z4hDK27OV7wK572A@google.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- arch/x86/kernel/kvmclock.c | 23 ++++++++++++++---------
- 1 file changed, 14 insertions(+), 9 deletions(-)
+Recently, AMD submitted patches to the dri-devel mailing list to support
+using application-provided buffers in virtio-GPU.  This feature is
+called Shared Virtual Memory (SVM) and it is implemented via an API
+called User Pointer (userptr).  This lead to some discussion on
+dri-devel@lists.freedesktop.org and dri-devel IRC, from which I
+concluded that Xen is missing critical primitives for GPU-accelerated
+graphics and compute.  The missing primitives for graphics are the ones
+discussed at Xen Project Summit 2024, but it turns out that additional
+primitives are needed for compute workloads.
 
-diff --git a/arch/x86/kernel/kvmclock.c b/arch/x86/kernel/kvmclock.c
-index 9d05d070fe25..fb8cd8313d18 100644
---- a/arch/x86/kernel/kvmclock.c
-+++ b/arch/x86/kernel/kvmclock.c
-@@ -344,23 +344,23 @@ void __init kvmclock_init(void)
- 		pvclock_set_flags(PVCLOCK_TSC_STABLE_BIT);
- 
- 	/*
--	 * X86_FEATURE_NONSTOP_TSC is TSC runs at constant rate
--	 * with P/T states and does not stop in deep C-states.
--	 *
--	 * Invariant TSC exposed by host means kvmclock is not necessary:
--	 * can use TSC as clocksource.
--	 *
-+	 * If the TSC counts at a constant frequency across P/T states, counts
-+	 * in deep C-states, and the TSC hasn't been marked unstable, prefer
-+	 * the TSC over kvmclock for sched_clock and drop kvmclock's rating so
-+	 * that TSC is chosen as the clocksource.  Note, the TSC unstable check
-+	 * exists purely to honor the TSC being marked unstable via command
-+	 * line, any runtime detection of an unstable will happen after this.
- 	 */
- 	if (boot_cpu_has(X86_FEATURE_CONSTANT_TSC) &&
- 	    boot_cpu_has(X86_FEATURE_NONSTOP_TSC) &&
- 	    !check_tsc_unstable()) {
- 		kvm_clock.rating = 299;
- 		tsc_properties = TSC_FREQ_KNOWN_AND_RELIABLE;
-+	} else {
-+		flags = pvclock_read_flags(&hv_clock_boot[0].pvti);
-+		kvm_sched_clock_init(flags & PVCLOCK_TSC_STABLE_BIT);
- 	}
- 
--	flags = pvclock_read_flags(&hv_clock_boot[0].pvti);
--	kvm_sched_clock_init(flags & PVCLOCK_TSC_STABLE_BIT);
--
- 	tsc_register_calibration_routines(kvm_get_tsc_khz, kvm_get_cpu_khz,
- 					  tsc_properties);
- 
-@@ -369,6 +369,11 @@ void __init kvmclock_init(void)
- #ifdef CONFIG_X86_LOCAL_APIC
- 	x86_cpuinit.early_percpu_clock_init = kvm_setup_secondary_clock;
- #endif
-+	/*
-+	 * Save/restore "sched" clock state even if kvmclock isn't being used
-+	 * for sched_clock, as kvmclock is still used for wallclock and relies
-+	 * on these hooks to re-enable kvmclock after suspend+resume.
-+	 */
- 	x86_platform.save_sched_clock_state = kvm_save_sched_clock_state;
- 	x86_platform.restore_sched_clock_state = kvm_restore_sched_clock_state;
- 	kvm_get_preset_lpj();
--- 
-2.48.1.362.g079036d154-goog
+As discussed at Xen Project Summit 2024, GPU acceleration via virtio-GPU
+requires that an IOREQ server have access to the following primitives:
 
+1. Map: Map a backend-provided buffer into the frontend.  The buffer
+   might point to system memory or to a PCIe BAR.  The frontend is _not_
+   allowed to use these buffers in hypercalls or grant them to other
+   domains.  Accessing the pages using hypercalls directed at the
+   frontend fails as if the frontend did not have the pages.  The only
+   exception is that the frontend _may_ be allowed to use the buffer in
+   a Map operation, provided that Revoke (below) is transitive.
+
+2. Revoke: Revoke access to a buffer provided by the backend.  Once
+   access is revoked, no operation on or in the frontend domain can
+   access or modify the pages, and the backend can safely reuse the
+   backing memory for other purposes.  Furthermore, revocation is not
+   allowed to fail unless the backend or hypervisor is buggy, and if it
+   does fail for any reason, the backend will panic.  Once access is
+   revoked, further accesses by the frontend will cause a fault that the
+   backend can intercept.
+
+Map can be handled by userspace, but Revoke must be handled entirely
+in-kernel.  This is because Revoke happens from a Linux MMU notifier
+callback, and those are not allowed to block, fail, or involve userspace
+in any way.  Since MMU notifier callbacks are called before freeing
+memory, failure means that some other part of the system still has
+access to freed memory that might be reused for other purposes, which
+is a security vulnerability.
+
+It turns out that compute has additional requirements.  Graphics APIs
+use DMA buffers (dmabufs), which only support a subset of operations.
+In particular, direct I/O doesn't work.  Compute APIs allow users to
+make malloc'd memory accessible to the GPU.  This memory can be used
+in Linux kernel direct I/O and in other operations that do not work
+with dmabufs.  However, such memory starts out as frontend-owned pages,
+so it must be converted to backend pages before it can be used by the
+GPU.  Linux supports migration of userspace pages, but this is too
+unreliable to be used for this purpose.  Instead, it will need to be
+done by Xen and the backend.
+
+This requires two additional primitives:
+
+3. Steal: Convert frontend-owned pages to backend-owned pages and
+   provide the backend with a mapping of the page.  After a successful
+   Steal operation, the pages are in the same state as if they had been
+   provided via Map.  Steal fails if the pages are currently being used
+   in a hypercall, are MMIO (as opposed to system memory), were provided
+   by another domain via Map or grant tables, are currently foreign
+   mapped, are currently granted to another domain, or more generally
+   are accessible to any domain other than the target domain.  The
+   frontend's quota is decreased by the number of pages stolen, and the
+   backend's quota is increased by the same amount.  A successful Steal
+   operation means that Revoke and Map can be used to operate on the
+   pages.
+
+4. Return: Convert a backend-owned page to a frontend-owned page.  After
+   a successful call to Return, the backend is no lonter able to use
+   Revoke or Map.  The returned page ceases to count against backend
+   quota and now counts against frontend quota.
+
+Are these operations ones that Xen is interested in providing?  There
+may be other primitives that are sufficient to implement the above four,
+but I believe that any solution that allows virtio-GPU to work must
+allow the above four operations to be implemented.  Without the first
+two, virtio-GPU will not be able to support Vulkan or native contexts,
+and without the second two also being present, shared virtual memory
+and compute APIs that require it will not work.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
+
+--xfrIvn0OgIq9mZNB
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmee/d4ACgkQszaHOrMp
+8lPaQQ/9Ern0ko7OPnEl4/TRQ+LI7iawb45bEXoOoOmj2AeHl3hlvJK6eGQ3Q520
+71VAeRYl3h5MZm5LQRjTUm1iz+q+3vQJhZuUs6m/mD0sla2XHIAS2ILJWe8bNILb
+q5Pq6bsSlEZMyVJOzrpp5Ym/IWf0oYYvgT6epkggI5lmND3wE8/2ns0RupZW5jQW
+0pzNhPYVe9WHMtCZDPQWqzTgrXxbabAw1QO2fV9Epf/jojqbsBhnWoijqHoTKfjd
+pi7J+QG+v4KyRM1Oql9f/JFhwJ5rP+te/dn08hsKuuwTCortSq3gRjyGup1tHDvU
+l3roIHfT3nppVUh5cDiLTDybYtD16unhRcoEPO+VtH8kQ15Q9vY3u326k563f5xg
+WRRVCJUJX+druNkQg1YA1XRGE6N3LvvD189+GWnIsZHuIf4/LD5lC/VlNjxscAIl
+NRIV6TPP/cgiCLLX6zT1AoCS1vum4jRIopjhOTXZUlcrI9Pn+ZM9cEsazAxE9g4/
+xHr3idiUkKksj5D2TjqTHfNCQn3WvMKYphzbxxOLKFLMnQBQRGJ6wSDqY+PGJAIX
+1GMQ+pbsJO5XkWj+wJm7j7nDAYas+/qz+A3S+Ko1FM0OJ8/2HYcMzyf+wg219k6j
+JkKMA0HmxUfgc5tcmyRd0jZZkAQ301ChEatIwzEHTXb2gxv1eKk=
+=pzYf
+-----END PGP SIGNATURE-----
+
+--xfrIvn0OgIq9mZNB--
 
