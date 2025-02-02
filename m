@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 887F0A24E63
-	for <lists+xen-devel@lfdr.de>; Sun,  2 Feb 2025 14:49:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.880347.1290417 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4A0CA24E64
+	for <lists+xen-devel@lfdr.de>; Sun,  2 Feb 2025 14:50:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.880354.1290428 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1teaLD-0001Qn-Ao; Sun, 02 Feb 2025 13:48:51 +0000
+	id 1teaMz-0002v2-JZ; Sun, 02 Feb 2025 13:50:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 880347.1290417; Sun, 02 Feb 2025 13:48:51 +0000
+Received: by outflank-mailman (output) from mailman id 880354.1290428; Sun, 02 Feb 2025 13:50:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1teaLD-0001PM-6R; Sun, 02 Feb 2025 13:48:51 +0000
-Received: by outflank-mailman (input) for mailman id 880347;
- Sun, 02 Feb 2025 13:48:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1teaMz-0002tE-Go; Sun, 02 Feb 2025 13:50:41 +0000
+Received: by outflank-mailman (input) for mailman id 880354;
+ Sun, 02 Feb 2025 13:50:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=okHa=UZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1teaLB-0001PE-7x
- for xen-devel@lists.xenproject.org; Sun, 02 Feb 2025 13:48:49 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6ccc99f7-e16c-11ef-a0e7-8be0dac302b0;
- Sun, 02 Feb 2025 14:48:47 +0100 (CET)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5d3e9a88793so5464810a12.1
- for <xen-devel@lists.xenproject.org>; Sun, 02 Feb 2025 05:48:47 -0800 (PST)
-Received: from andrew-laptop.. ([89.207.171.161])
+ id 1teaMx-0002t6-KS
+ for xen-devel@lists.xenproject.org; Sun, 02 Feb 2025 13:50:39 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id aecdd78e-e16c-11ef-99a4-01e77a169b0f;
+ Sun, 02 Feb 2025 14:50:37 +0100 (CET)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-aa684b6d9c7so574255966b.2
+ for <xen-devel@lists.xenproject.org>; Sun, 02 Feb 2025 05:50:37 -0800 (PST)
+Received: from [10.101.4.108] ([89.207.171.161])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab6e47a818csm583715266b.6.2025.02.02.05.48.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 02 Feb 2025 05:48:45 -0800 (PST)
+ a640c23a62f3a-ab6e47a7b1asm583900866b.31.2025.02.02.05.50.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 02 Feb 2025 05:50:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,143 +45,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6ccc99f7-e16c-11ef-a0e7-8be0dac302b0
+X-Inumbo-ID: aecdd78e-e16c-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1738504126; x=1739108926; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=bFcQ659jbUzCeZCoQlcoXVT2+2vW+6Th9OMJj6ERNYE=;
-        b=XEELsrMo+MUH9C+6LySRjRcwuU+3VbU8eWzAZu5i04F1Sbs590hqpxG2FL7QI3sGN7
-         i6HHFpZtur+itaLXhaRTlijegd+0yAvPb74YdyV8xzUbqWOfw7Y81F9J9V/4F1Qney+5
-         Fbst7GctYmAl74EDloqmCKjV4lizUl3Ua8iaA=
+        d=citrix.com; s=google; t=1738504237; x=1739109037; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZdZjnAMbZPhGbyBa31/qXbMjW6hGCGvM/GX3JBWsh8k=;
+        b=Fr51eJlFEXzXDibjnp4dcGvYaXja4qoP956Y/WxCFBsnFfWfYSRKjuk1qBS7S32+ww
+         vlYhddCKcZoVu2xnfbHJ9Ip8lv49cUHjN31TmCqNX2dhJH1TIO+Mv2xIdq5x6n/Dp8Lo
+         NnnTnACQtLJobvCvQBQKMtMnq6N8FbZ0ODW5k=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738504126; x=1739108926;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=bFcQ659jbUzCeZCoQlcoXVT2+2vW+6Th9OMJj6ERNYE=;
-        b=ULaRoJC2oDu1dbWIAQWLvAhHf4G0yB1NDBgmljnm8y8iKFHG26wWolBOv+rL/iJKa1
-         O9XvbNAFfp1qxJtgBIGcVA+7uTgkuPBLMFO/Iw8qmvnaBEQYbAMAs77i3DQn2cSP91dW
-         qoYaoO/f/9LvFNvOmQtPnV25W/nZirB+SxD+cQpTxRSqLAVKSJROUNv/X74wWmI+BVed
-         XGEJrfuvhBNiqc9SQUoYqBfhzYp36TPakorsL4rKGgq+8mKhEpjripYqgzQrU6PGqvUB
-         eR1UIwx0K+0DnzFB5bvBIA6me68qtaGgCb+jiRAeFaKNj77AsqM2GjBqCH4iwUFLA98N
-         mzTA==
-X-Gm-Message-State: AOJu0YyqRDaK3GmU6h05NkewmqqsCrtX95NZ45cn67Ai5XHzEahOHXGw
-	lg/BZ/70MVCtca6rWpZ9q/cF69WfbQvWthY3I2uEwAZ+/SAZGgUbq/HRl7nyyByHcOO5+PHdILx
-	vZEs=
-X-Gm-Gg: ASbGnct/8K8jGzgjJB+wVGoIHnxBdKGACMM3j2SMhE7MiAXmBVS0+3ihsaqmzRyJ/Cp
-	yFtMAvsPTueuc3WJHJAdy6aDs2xCJv37zmx9jPj1Ac1gdmihVJKIuPVPELDrpTUMC5G03zVWW3y
-	rj8lx3/5sG4jHuL1wty714lfTMXEll3EXkbYQ5cRLm6IZNj4K9X74DHlbaIE1d2XNcH5qs3rq0c
-	8Bv406/AmDcNpyz7ozkxCY/YmCXfsMJSlVi5gGpLMoXx31uDIlVYE/sxzpKPlU1ih8d0B+QoWgP
-	Fcxs9f7aec73zQviSgjTRDp90MUJ
-X-Google-Smtp-Source: AGHT+IECVpLoroUXEVvQkkxrfppPcKlQYxzlv3FvJl9DjijsgsKrhUxwfmmrB3JBquhUA6M4Thp1pA==
-X-Received: by 2002:a17:907:3f0b:b0:ab6:37c3:381d with SMTP id a640c23a62f3a-ab6cfceb5c2mr1898548766b.24.1738504126248;
-        Sun, 02 Feb 2025 05:48:46 -0800 (PST)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH for-4.21] x86/msi: Change __msi_set_enable() to take pci_sbdf_t
-Date: Sun,  2 Feb 2025 13:48:40 +0000
-Message-Id: <20250202134840.40102-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20230601; t=1738504237; x=1739109037;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ZdZjnAMbZPhGbyBa31/qXbMjW6hGCGvM/GX3JBWsh8k=;
+        b=JZ656O2sr69PSrgN4eRqP7pYjuJn6XuOxHqhnQaRuQgjdtUDlyxpqffgkWlnVosGqc
+         LH0yinza/58oswvUbqmMiPKzlCQECCQvaSDRFP6jTGuf+gMEYFwKn+kNwEdzgfUCrati
+         LuAW4C5Z2cf1qmnR2zoaHU89nKETexwpN/JGnFSQwfjTjdZJ5x7wp0hAOBfIZla7o/iC
+         gaAJ0C16eIi1VNBZVl4MhBgG8g0JxejXqjHrmyb4QLmppkSS5R8SuV7ZpzaMNo9+939X
+         Kshf3stlraxyiR6Gyj2ygSuPLamB0B3ODRcg6xLobGD8/2n5rEW1khVo7gPWJx4FlXAA
+         U3nQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVQ1mWw0iXlCcwULpsKFkUS6npn7r4fCdhZadry/93TdYgzVvpXkjWRVylev8pCWzAVzfo0Y9Lhhyw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzAL2+b2d1SqzSV8/505iO0sB7EUMMmWURXz1Q2jsTcIUD9y5pv
+	hZ4UUx0O6LeM+0eRYY7/4sE6++3FzGpoeAqosF84UC5/I9/ZoM+v9xcyRlevgvBUB+eDqC7/pon
+	D1i8=
+X-Gm-Gg: ASbGncvlTrp+k/XUM7WgbNT1OaAXaF91x22SnflpEXUsSK9BXfhpxQtQRX5n/F1w85A
+	9T2rzji9PK6Cav7M72hofEh46RcXyrx+yiJC8jKKrYaqEBV9yfyjlgGEN3L4vV4Z6JS4G/lN4Us
+	kTN1BbHzSkUF46OkYr+UdQnsp+JnVDGgXH04jqf+9PacrVT82ZzUZZZJekBQvvurz/bHsYrh8c5
+	hp++1DguAnFcuZWc28VtBGABZzbGtjtLY2f7qlSrY/QyqdrfQQCAHC2Ti8dkFdwMPycGyU4bcuU
+	ZpDh3slwmNnSi4Qo69Dx+n99BPQ=
+X-Google-Smtp-Source: AGHT+IF6fdWst2By1eClMdbyx8B3rsQWK/xFGe95ibXcfINCsjyekVjBe4s4bpBblSC0KZld6e5iNw==
+X-Received: by 2002:a17:907:3e8f:b0:ab7:ac0:24ea with SMTP id a640c23a62f3a-ab70ac0291dmr675027566b.3.1738504237292;
+        Sun, 02 Feb 2025 05:50:37 -0800 (PST)
+Message-ID: <cf5ae390-fb9d-4839-9423-d1ead9bd34bf@citrix.com>
+Date: Sun, 2 Feb 2025 13:50:33 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.20? 1/3] AMD/IOMMU: drop stray MSI enabling
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <2bb9d3c4-0761-4d63-8193-29293e35eb04@suse.com>
+ <ea0fea03-6002-4fc6-86ac-19598c9d9ef6@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <ea0fea03-6002-4fc6-86ac-19598c9d9ef6@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-This removes the unnecessary work of splitting a 32-bit number across
-4 registers, and recombining later.  Bloat-o-meter reports:
+On 30/01/2025 11:11 am, Jan Beulich wrote:
+> While the 2nd of the commits referenced below should have moved the call
+> to amd_iommu_msi_enable() instead of adding another one, the situation
+> wasn't quite right even before: It can't have done any good to enable
+> MSI when no IRQ was allocated for it, yet.
+>
+> Fixes: 5f569f1ac50e ("AMD/IOMMU: allow enabling with IRQ not yet set up")
+> Fixes: d9e49d1afe2e ("AMD/IOMMU: adjust setup of internal interrupt for x2APIC mode")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>
+> --- a/xen/drivers/passthrough/amd/iommu_init.c
+> +++ b/xen/drivers/passthrough/amd/iommu_init.c
+> @@ -902,8 +902,6 @@ static void enable_iommu(struct amd_iomm
 
-  add/remove: 0/0 grow/shrink: 0/9 up/down: 0/-295 (-295)
-  Function                                     old     new   delta
-  enable_iommu                                1748    1732     -16
-  iommu_msi_unmask                              98      81     -17
-  iommu_msi_mask                               100      83     -17
-  disable_iommu                                286     269     -17
-  __msi_set_enable                              81      50     -31
-  __pci_disable_msi                            178     146     -32
-  pci_cleanup_msi                              268     229     -39
-  pci_enable_msi                              1063    1019     -44
-  pci_restore_msi_state                       1116    1034     -82
+There's a call to amd_iommu_msi_enable() just out of context here which
+was added by the 2nd referenced commit.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/include/asm/msi.h           |  2 +-
- xen/arch/x86/msi.c                       | 14 ++++----------
- xen/drivers/passthrough/amd/iommu_init.c |  5 +++--
- 3 files changed, 8 insertions(+), 13 deletions(-)
+Given that it's asymmetric in an if() condition regarding xt_en, and the
+calls are only set_affinity() calls, why is this retained?
 
-diff --git a/xen/arch/x86/include/asm/msi.h b/xen/arch/x86/include/asm/msi.h
-index 63adb19820e8..5bb9abd3eb6f 100644
---- a/xen/arch/x86/include/asm/msi.h
-+++ b/xen/arch/x86/include/asm/msi.h
-@@ -237,7 +237,7 @@ struct arch_msix {
- void early_msi_init(void);
- void msi_compose_msg(unsigned vector, const cpumask_t *cpu_mask,
-                      struct msi_msg *msg);
--void __msi_set_enable(u16 seg, u8 bus, u8 slot, u8 func, int pos, int enable);
-+void __msi_set_enable(pci_sbdf_t sbdf, int pos, int enable);
- void cf_check mask_msi_irq(struct irq_desc *desc);
- void cf_check unmask_msi_irq(struct irq_desc *desc);
- void guest_mask_msi_irq(struct irq_desc *desc, bool mask);
-diff --git a/xen/arch/x86/msi.c b/xen/arch/x86/msi.c
-index e2360579deda..52117d97b522 100644
---- a/xen/arch/x86/msi.c
-+++ b/xen/arch/x86/msi.c
-@@ -267,28 +267,22 @@ void cf_check set_msi_affinity(struct irq_desc *desc, const cpumask_t *mask)
-     write_msi_msg(msi_desc, &msg);
- }
- 
--void __msi_set_enable(u16 seg, u8 bus, u8 slot, u8 func, int pos, int enable)
-+void __msi_set_enable(pci_sbdf_t sbdf, int pos, int enable)
- {
--    uint16_t control = pci_conf_read16(PCI_SBDF(seg, bus, slot, func),
--                                       pos + PCI_MSI_FLAGS);
-+    uint16_t control = pci_conf_read16(sbdf, pos + PCI_MSI_FLAGS);
- 
-     control &= ~PCI_MSI_FLAGS_ENABLE;
-     if ( enable )
-         control |= PCI_MSI_FLAGS_ENABLE;
--    pci_conf_write16(PCI_SBDF(seg, bus, slot, func),
--                     pos + PCI_MSI_FLAGS, control);
-+    pci_conf_write16(sbdf, pos + PCI_MSI_FLAGS, control);
- }
- 
- static void msi_set_enable(struct pci_dev *dev, int enable)
- {
-     unsigned int pos = dev->msi_pos;
--    u16 seg = dev->seg;
--    u8 bus = dev->bus;
--    u8 slot = PCI_SLOT(dev->devfn);
--    u8 func = PCI_FUNC(dev->devfn);
- 
-     if ( pos )
--        __msi_set_enable(seg, bus, slot, func, pos, enable);
-+        __msi_set_enable(dev->sbdf, pos, enable);
- }
- 
- static void msix_set_enable(struct pci_dev *dev, int enable)
-diff --git a/xen/drivers/passthrough/amd/iommu_init.c b/xen/drivers/passthrough/amd/iommu_init.c
-index 05fd3bde6e29..f1076bf11d62 100644
---- a/xen/drivers/passthrough/amd/iommu_init.c
-+++ b/xen/drivers/passthrough/amd/iommu_init.c
-@@ -409,8 +409,9 @@ static void iommu_reset_log(struct amd_iommu *iommu,
- 
- static void amd_iommu_msi_enable(struct amd_iommu *iommu, int flag)
- {
--    __msi_set_enable(iommu->seg, PCI_BUS(iommu->bdf), PCI_SLOT(iommu->bdf),
--                     PCI_FUNC(iommu->bdf), iommu->msi.msi_attrib.pos, flag);
-+    pci_sbdf_t sbdf = { .seg = iommu->seg, .bdf = iommu->bdf };
-+
-+    __msi_set_enable(sbdf, iommu->msi.msi_attrib.pos, flag);
- }
- 
- static void cf_check iommu_msi_unmask(struct irq_desc *desc)
--- 
-2.34.1
+(I think I know, and if it is the reason I suspect, then you're missing
+a very critical detail from the commit message.)
+
+~Andrew
+
+
+>          }
+>      }
+>  
+> -    amd_iommu_msi_enable(iommu, IOMMU_CONTROL_ENABLED);
+> -
+>      set_iommu_ht_flags(iommu);
+>      set_iommu_command_buffer_control(iommu, IOMMU_CONTROL_ENABLED);
+>  
+>
 
 
