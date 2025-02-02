@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 817B5A24E75
-	for <lists+xen-devel@lfdr.de>; Sun,  2 Feb 2025 14:57:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.880363.1290437 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4488CA24EA9
+	for <lists+xen-devel@lfdr.de>; Sun,  2 Feb 2025 15:33:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.880372.1290448 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1teaTK-0003ZS-7x; Sun, 02 Feb 2025 13:57:14 +0000
+	id 1teb1g-0000VF-QJ; Sun, 02 Feb 2025 14:32:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 880363.1290437; Sun, 02 Feb 2025 13:57:14 +0000
+Received: by outflank-mailman (output) from mailman id 880372.1290448; Sun, 02 Feb 2025 14:32:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1teaTK-0003XB-57; Sun, 02 Feb 2025 13:57:14 +0000
-Received: by outflank-mailman (input) for mailman id 880363;
- Sun, 02 Feb 2025 13:57:12 +0000
+	id 1teb1g-0000SY-Mt; Sun, 02 Feb 2025 14:32:44 +0000
+Received: by outflank-mailman (input) for mailman id 880372;
+ Sun, 02 Feb 2025 14:32:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=okHa=UZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1teaTI-0003X5-Gh
- for xen-devel@lists.xenproject.org; Sun, 02 Feb 2025 13:57:12 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ <SRS0=9TtP=UZ=gmail.com=thouveng@srs-se1.protection.inumbo.net>)
+ id 1teb1f-0000SS-69
+ for xen-devel@lists.xenproject.org; Sun, 02 Feb 2025 14:32:43 +0000
+Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
+ [2001:4860:4864:20::33])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 98f72ecb-e16d-11ef-99a4-01e77a169b0f;
- Sun, 02 Feb 2025 14:57:10 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-aaedd529ba1so492058166b.1
- for <xen-devel@lists.xenproject.org>; Sun, 02 Feb 2025 05:57:10 -0800 (PST)
-Received: from [10.101.4.108] ([89.207.171.161])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab6e4a59862sm588318266b.178.2025.02.02.05.57.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 02 Feb 2025 05:57:09 -0800 (PST)
+ id 8e53ef9c-e172-11ef-99a4-01e77a169b0f;
+ Sun, 02 Feb 2025 15:32:41 +0100 (CET)
+Received: by mail-oa1-x33.google.com with SMTP id
+ 586e51a60fabf-29f88004a92so2003516fac.1
+ for <xen-devel@lists.xenproject.org>; Sun, 02 Feb 2025 06:32:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,106 +40,194 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 98f72ecb-e16d-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 8e53ef9c-e172-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1738504630; x=1739109430; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8mzXUq5J3QrgO2HjDwPAHkjQrWmqFhB25bMOYK67Dag=;
-        b=i0swmADFHdhXxzAEzqLNjeRnbEpAQuh8KNOIEptRfkOAh2mj2OjvZ2PDtF7scTcsVN
-         PmXhQKOQYC+xizylPayQSUe5eArrdUe/CONxQ0R6YOJkcK/XG9Wj4nWtr2Z068b1jn9g
-         Y2TEGpcaiV+P6wa/EPghVor0nIKyLdhJW3NlA=
+        d=gmail.com; s=20230601; t=1738506759; x=1739111559; darn=lists.xenproject.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=kcgYUxWIdN1YYjYkqm50dtEfNs0UeQl9JAGAYSSgupY=;
+        b=W4+iIj5FiVzcXmMhJ4iQcY2y6mM9GG9US84TX75p5a2D1iEc6TMbO+xZ3Ysrjf6rMH
+         1TwNNKkYDByn8oZHByqYmNmkgylQ+Qvkoe/Aw/4dt2QZdT8wr1A9GVcc5gVNcSDdW9Bz
+         Xkw72nITnJJvI3fV4vJOftR9mADuPG5T1xlbnpOjb63203z8DOi8eqHUP9AmkQ+LJlC5
+         0KGnKbAzoJhiMU8xr33cd7EzilM1bVPxxXRPsjMPu59Bl2AyBPTmf7soX+KvsUeRaa3c
+         TYLrXiYHecx4j+WrkRMMfPDyLz63qZGXf9GLQpXZyZZujYe84fS41w/gmVJca3CFrY2R
+         qBRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738504630; x=1739109430;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8mzXUq5J3QrgO2HjDwPAHkjQrWmqFhB25bMOYK67Dag=;
-        b=pTPSenX5ErIapjj2gyLRxE70WrSzCPbrQmqp+g0IJ7SufXRHxmaLbBMAKeUv58dkLn
-         DZNdzseNYOBXG2y05tlfzVlKfZkLzk/7XutNJOaPi/aF78IdKIO7c92jZpqB/0/tVGWk
-         Zgt5oLX1raVc5I6AdUwrUnxk2XU4tnCkEOYWd0AXRTiKNb5Dm668zUhQ62bYwGTDvuvt
-         qExmxLCrMbJLvNYoR7/4+tS6q5e5JyQhaU3N1/9/SnIATTBgnJsy/45L01NAmKHT3d35
-         kH92yB9OZEd/j/Y3o8+4nvJnE2YL4q9TXJAfx+AyM24G0EP+qy6kY8ee3eAAO/ZEfv1A
-         82Dg==
-X-Forwarded-Encrypted: i=1; AJvYcCWBE6iRea9uPWQQKCXEIK8QmapRsCwUhEX3X/DZ+nA1NBq5U7/In5whZgajyW6ZB7OebxK8q5j6P6s=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwkVyhgyhqGlxJNqgmW5E/JYmNw3qYJikeFsnyCHS4JctZGxJgP
-	taHEc47MV5jQJu/QhYuhGp12pmlpunPv5LscATBtuXdc912ZO9iFtONIr92X+3yvb7MrD0NOnx2
-	x4+c=
-X-Gm-Gg: ASbGncuiqtCFuTJQepyLI12csMEcXK/NTs59W7qzDhnBLC5o1/NMmHQQO4vi92OLmGN
-	tiJKNuRNoKXO1ebvuTZXOenFOfnKyi27Cnud9l4pD1T9QHosXDGjNsbO9YfqK8m1NgpMNKakMXu
-	ey0ydMuhdHxk0Ty75KPOB9D/FY+dig4h9ZuQXGSoSWYJXe+g7C4gkx/Ta6uB3kZ6dUnhp+O/SQ3
-	cItJL0gePtq65DYTyEa1cAtee6wMiCh/7jY+X9AqDdQssuLDa+kk06eB94m+qNIyyeaFZ97vZoM
-	exzECW9E4SCcFPa66/xAg+psML0=
-X-Google-Smtp-Source: AGHT+IHX+sAWGpXYYUSmVsxXUuTUCF/gDbpXtHxs5mcwIRY+zoKwN0K/LpLoNaJanD8S12LK1ceq1w==
-X-Received: by 2002:a05:6402:270b:b0:5d0:bf5e:eb8 with SMTP id 4fb4d7f45d1cf-5dc5efec180mr43004025a12.23.1738504630183;
-        Sun, 02 Feb 2025 05:57:10 -0800 (PST)
-Message-ID: <82e9f4f8-a9e9-416b-b6cf-cdd803c5de1b@citrix.com>
-Date: Sun, 2 Feb 2025 13:57:06 +0000
+        d=1e100.net; s=20230601; t=1738506759; x=1739111559;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=kcgYUxWIdN1YYjYkqm50dtEfNs0UeQl9JAGAYSSgupY=;
+        b=qLxv1lcuD2svEcaVczmsyaEfwu/+IGbQ0pJWA0ia9+pUiNGk8Tu/VoYAoZD9UTY+84
+         K24qYlH4+4WP8A3OM5krRPNz8mifnnAAxdQKJTp45NkhSYRtzKuffc/X7/A4yUug8sbT
+         jgDlXzuJHu5JUoFyv1h2pA50KyiOcgdnuTUBEdbH2CB/I7u5cQ3vKUAFVACRPc6wrnKM
+         yftKmXFdafA04u5v9mKoVk+uApC4iXgEQOQYt/kDB1zb4sATMAzfxGeunf64eNS56X0f
+         T+qH2nrViB7xityef+lRuKkuTwG1mM0DmnkW2NypehPZMtz2TMHdJ6JpACqCnmWQ0GrL
+         uNmQ==
+X-Gm-Message-State: AOJu0Yw7m+UOAQEMBwaVlE1RKX70pQexluLkPH8sJsuvi+n13tD3r4mS
+	VHz7w3yB8v+k73czsI3VibPMvlJlVqiM/IFkkLp3XmlitMEswdsJqp86Lz2tN4VRgdzH994HPgT
+	tsGReamZp6+2QTNyHXhEFTQuCl8sq4srC
+X-Gm-Gg: ASbGncvMiPTPfAFMBM2URfIfTq6fq75XkiMIZY7h1AkcLs1V2+kGsoPX104ywkp/FKf
+	SdTETleAiDGk6AdYaX4Zk/RceAlvh9lqR/YF9E0VSy0poZAQTo6kbzSosj2Ms3T1zbITmKd1MyA
+	==
+X-Google-Smtp-Source: AGHT+IHPLXuHPkIlNF/nmnTLoHFMsKlG6R3ImESUBrJA6SaLCVxSTO/X5r9OxcYQgNjg6IfhwdZXHT7W0iqR0SWehhk=
+X-Received: by 2002:a05:6870:ecac:b0:29e:5e83:150e with SMTP id
+ 586e51a60fabf-2b32f2926bfmr12053991fac.27.1738506759438; Sun, 02 Feb 2025
+ 06:32:39 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.20? 3/3] AMD/IOMMU: log IVHD contents
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <2bb9d3c4-0761-4d63-8193-29293e35eb04@suse.com>
- <b0b8c35f-5c88-46bb-a882-9ff737683367@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <b0b8c35f-5c88-46bb-a882-9ff737683367@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Guillaume <thouveng@gmail.com>
+Date: Sun, 2 Feb 2025 15:32:03 +0100
+X-Gm-Features: AWEUYZnGfc9bI9ljdSGnO_tzlBSMDceljRTElW2V_yzSwIREjY2X3_QCUekU6lo
+Message-ID: <CACt9=QgsSM18to9M5k8+3N3NvRoNVmAvsQo5oLO5-A0dm7VFNg@mail.gmail.com>
+Subject: Xen panic due to xstate mismatch
+To: xen-devel@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="000000000000d60ecd062d29a59c"
 
-On 30/01/2025 11:13 am, Jan Beulich wrote:
-> Despite all the verbosity with "iommu=debug", information on the IOMMUs
-> themselves was missing.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+--000000000000d60ecd062d29a59c
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Hello,
+
+ I'd like to report an issue I encountered when building Xen from source.
+To give you some context, During the Xen winter meetup in Grenoble few days
+ago, there was a discussion about strengthening collaboration between Xen
+and academia. One issue raised by a professor was that Xen is harder for
+students to install and experiment compared to KVM. In response it was
+mentionned that Debian packages are quite decent. This motivated me to try
+installing and playing with Xen myself. While I am familiar with Xen (I
+work on the XAPI toolstack at Vates) I'm not deeply familiar with its
+internals, so this seemed like a good learning opportunity and maybe some
+contents for some blog posts :).
+
+ I set up a Debian testing VM on Virtualbox and installed Xen from
+packages. Everything worked fine: Grub was updated, I rebooted, and I had a
+functional Xen setup with xl running in Dom0.
+ Next I download the last version of Xen from xenbits.org, and built only
+the hypervisor (no tools, no stubdom) , using the same configuration as the
+Debian package (which is for Xen 4.19). After updating GRUB and rebooting,
+Xen failed to boot. Fortunately, I was able to capture the following error
+via `ttyS0`:
+```
+(XEN) [0000000d2c23739a] xstate: size: 0x340 and states: 0x7
+(XEN) [0000000d2c509c1d]
+(XEN) [0000000d2c641ffa] ****************************************
+(XEN) [0000000d2c948e3b] Panic on CPU 0:
+(XEN) [0000000d2cb349bb] XSTATE 0x0000000000000003, uncompressed hw size
+0x340 !=3D xen size 0x240
+(XEN) [0000000d2cfc5786] ****************************************
+(XEN) [0000000d2d308c24]
+```
+From my understanding, the hardware xstate size (`hw_size`) represents the
+maximum memory required for the `XSAVE/XRSTOR` save area, while `xen_size`
+is computed by summing the space required for the enabled features. In `xen=
+/
+arch/x86/xstate.c`, if these sizes do not match, Xen panics. However,
+wouldn=E2=80=99t it be correct for `xen_size` to be **less than or equal to=
+**
+`hw_size` instead of exactly matching?
+
+I tested the following change:
+```
+--- a/xen/arch/x86/xstate.c
++++ b/xen/arch/x86/xstate.c
+@@ -710,7 +710,7 @@ static void __init check_new_xstate(struct xcheck_state
+*s, uint64_t new)
+      */
+     xen_size =3D xstate_uncompressed_size(s->states & X86_XCR0_STATES);
+
+-    if ( xen_size !=3D hw_size )
++    if ( xen_size > hw_size )
+         panic("XSTATE 0x%016"PRIx64", uncompressed hw size %#x !=3D xen si=
+ze
+%#x\n",
+               s->states, hw_size, xen_size);
+```
+With this change, Xen boots correctly, but I may be missing some side
+effects...
+Additionally, I am confused as to why this issue does *not* occur with the
+default Debian Xen package. Even when I rebuild Xen *4.19.1* from source
+(the same version as the package), I still encounter the issue.
+So I have two questions:
+- Is my understanding correct that xen_size <=3D hw_size should be allowed?
+- Are there any potential side effects of this change?
+- Bonus: Have some of you any explanations about why does the issue not
+occur with the packaged version of Xen but does with a self-built version?
+
+Hope I wasn't too long and thanks for taking the time to read this,
+Best regards,
+
+Guillaume
+
+--000000000000d60ecd062d29a59c
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div><div><div><div><div><div><div><div><=
+div><div><div>Hello,<br><br></div>=C2=A0I&#39;d like to report an issue I e=
+ncountered when building Xen from source. To give you some context, During =
+the Xen winter meetup in Grenoble few days ago, there was a discussion abou=
+t strengthening collaboration between Xen and academia. One issue raised by=
+ a professor was that Xen is harder for students to install and experiment =
+compared to KVM. In response it was mentionned that Debian packages are qui=
+te decent. This motivated me to try installing and playing with Xen myself.=
+ While I am familiar with Xen (I work on the XAPI toolstack at Vates) I&#39=
+;m not deeply familiar with its internals, so this seemed like a good learn=
+ing opportunity and maybe some contents for some blog posts :).<br><br></di=
+v>=C2=A0I set up a Debian testing VM on Virtualbox and installed Xen from p=
+ackages. Everything worked fine: Grub was updated, I rebooted, and I had a =
+functional Xen setup with xl running in Dom0.<br></div>=C2=A0Next I downloa=
+d the last version of Xen from <a href=3D"http://xenbits.org" target=3D"_bl=
+ank">xenbits.org</a>,<span class=3D"gmail-hljs-keyword"> and</span> built <=
+span class=3D"gmail-hljs-keyword">only</span> the hypervisor (no tools, no =
+stubdom) , <span class=3D"gmail-hljs-keyword">using</span> the same <span c=
+lass=3D"gmail-hljs-keyword">configuration</span> <span class=3D"gmail-hljs-=
+keyword">as</span> the Debian package (which <span class=3D"gmail-hljs-keyw=
+ord">is</span> <span class=3D"gmail-hljs-keyword">for</span> Xen <span clas=
+s=3D"gmail-hljs-number">4.19</span>). <span class=3D"gmail-hljs-keyword">Af=
+ter</span> updating GRUB <span class=3D"gmail-hljs-keyword">and</span> rebo=
+oting, Xen failed <span class=3D"gmail-hljs-keyword">to</span> boot. Fortun=
+ately, I was able <span class=3D"gmail-hljs-keyword">to</span> capture the =
+<span class=3D"gmail-hljs-keyword">following</span> error via `ttyS0`:</div=
+>```<br>(XEN) [0000000d2c23739a] xstate: size: 0x340 and states: 0x7<br>(XE=
+N) [0000000d2c509c1d]<br>(XEN) [0000000d2c641ffa] *************************=
+***************<br>(XEN) [0000000d2c948e3b] Panic on CPU 0:<br>(XEN) [00000=
+00d2cb349bb] XSTATE 0x0000000000000003, uncompressed hw size 0x340 !=3D xen=
+ size 0x240<br>(XEN) [0000000d2cfc5786] ***********************************=
+*****<br>(XEN) [0000000d2d308c24]<br>```<br><span class=3D"gmail-hljs-type"=
+>From</span> my understanding, the hardware xstate size (`hw_size`) represe=
+nts the maximum memory <span class=3D"gmail-hljs-keyword">required</span> <=
+span class=3D"gmail-hljs-keyword">for</span> the `<span class=3D"gmail-hljs=
+-type">XSAVE</span><span class=3D"gmail-hljs-regexp">/XRSTOR` save area, wh=
+ile `xen_size` is computed by summing the space required for the enabled fe=
+atures. In `xen/</span>arch<span class=3D"gmail-hljs-regexp">/x86/</span>xs=
+tate.c`, <span class=3D"gmail-hljs-keyword">if</span> these sizes <span cla=
+ss=3D"gmail-hljs-keyword">do</span> not match, <span class=3D"gmail-hljs-ty=
+pe">Xen</span> panics. <span class=3D"gmail-hljs-type">However</span>, woul=
+dn=E2=80=99t it be correct <span class=3D"gmail-hljs-keyword">for</span> `x=
+en_size` to be <span class=3D"gmail-hljs-operator">**</span>less than or eq=
+ual to<span class=3D"gmail-hljs-operator">**</span> `hw_size` instead of ex=
+actly matching<span class=3D"gmail-hljs-operator">?<br><br></span></div>I t=
+ested the following change:</div>```<br>--- a/xen/arch/x86/xstate.c<br>+++ =
+b/xen/arch/x86/xstate.c<br>@@ -710,7 +710,7 @@ static void __init check_new=
+_xstate(struct xcheck_state *s, uint64_t new)<br>=C2=A0 =C2=A0 =C2=A0 */<br=
+>=C2=A0 =C2=A0 =C2=A0xen_size =3D xstate_uncompressed_size(s-&gt;states &am=
+p; X86_XCR0_STATES);<br><br>- =C2=A0 =C2=A0if ( xen_size !=3D hw_size )<br>=
++ =C2=A0 =C2=A0if ( xen_size &gt; hw_size )<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0panic(&quot;XSTATE 0x%016&quot;PRIx64&quot;, uncompressed hw size %#x=
+ !=3D xen size %#x\n&quot;,<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0s-&gt;states, hw_size, xen_size);<br>```<br></div>With this ch=
+ange, Xen boots correctly, but I may be missing some side effects...<br> Ad=
+ditionally, I am confused as to why this issue does <strong>not</strong> oc=
+cur with the default Debian Xen package. Even when I rebuild Xen <strong>4.=
+19.1</strong> from source (the same version as the package), I still encoun=
+ter the issue.<br></div><div>So I have two questions:<br>- Is my understand=
+ing correct that <code>xen_size &lt;=3D hw_size</code> should be allowed?<b=
+r>- Are there any potential side effects of this change?<br></div><div>- Bo=
+nus: Have some of you any explanations about why does the issue not occur w=
+ith the packaged version of Xen but does with a self-built version?</div><b=
+r></div>Hope I wasn&#39;t too long and thanks for taking the time to read t=
+his,<br></div>Best regards,<br></div><br>Guillaume<br></div>
+</div>
+
+--000000000000d60ecd062d29a59c--
 
