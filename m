@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2690DA25F3C
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Feb 2025 16:50:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.880733.1290811 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 594EDA25F45
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Feb 2025 16:54:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.880743.1290821 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1teyiL-0005fh-AO; Mon, 03 Feb 2025 15:50:21 +0000
+	id 1teylv-0006Rn-O3; Mon, 03 Feb 2025 15:54:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 880733.1290811; Mon, 03 Feb 2025 15:50:21 +0000
+Received: by outflank-mailman (output) from mailman id 880743.1290821; Mon, 03 Feb 2025 15:54:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1teyiL-0005d5-7H; Mon, 03 Feb 2025 15:50:21 +0000
-Received: by outflank-mailman (input) for mailman id 880733;
- Mon, 03 Feb 2025 15:50:19 +0000
+	id 1teylv-0006Pe-LC; Mon, 03 Feb 2025 15:54:03 +0000
+Received: by outflank-mailman (input) for mailman id 880743;
+ Mon, 03 Feb 2025 15:54:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=o2EM=U2=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1teyiJ-0005cz-7N
- for xen-devel@lists.xenproject.org; Mon, 03 Feb 2025 15:50:19 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=LRcK=U2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1teylt-0006PV-MQ
+ for xen-devel@lists.xenproject.org; Mon, 03 Feb 2025 15:54:01 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 906a3632-e246-11ef-99a4-01e77a169b0f;
- Mon, 03 Feb 2025 16:50:17 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-43618283d48so33972625e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 03 Feb 2025 07:50:17 -0800 (PST)
-Received: from [192.168.100.192] (lfbn-gre-1-190-108.w90-112.abo.wanadoo.fr.
- [90.112.153.108]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38c5c0ec2f4sm13381142f8f.11.2025.02.03.07.50.15
+ id 14f85e3f-e247-11ef-99a4-01e77a169b0f;
+ Mon, 03 Feb 2025 16:53:59 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-aaeef97ff02so728317566b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Feb 2025 07:53:59 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab705a00b60sm543602566b.10.2025.02.03.07.53.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Feb 2025 07:50:16 -0800 (PST)
+ Mon, 03 Feb 2025 07:53:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,225 +45,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 906a3632-e246-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 14f85e3f-e247-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1738597816; x=1739202616; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hGLnd7MW+INFn8KfAogSE4Aqa3eGROQgfUiqN6p7Bnk=;
-        b=cV+C8LSyvQyatJ6O5vzcQSFP+ksIhuP3OCzeYDqi9wsqxBhGCuai+la7dQ3ymIfSzk
-         mtmi9MM6VVIOWlB/ku4WdAq6Ywu0dtgbi8XV+vrkTid6uWgWQcOqTz4HpcBtrsF1gBdT
-         dEx8HejRUuRaTUYXFA9AJRmI+AfSEvbk2wYp/HQD88phj2rL/aF7YM+gPel2n/wdO+3a
-         f+p6Lx5uJyC8BlLwM6GWT9BmGkw9ghIbKRIGI1I/9GmJoJu98COW6CRyMrvLjNLLNbae
-         RBVTu4ytcqebpVLyTOMZ3eJto+6Uuax45CpNL9/4+709+E+1rpYDLNB8IrWzKFUCsy+F
-         OWHQ==
+        d=suse.com; s=google; t=1738598039; x=1739202839; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=uKnKo3YewSna8tJAuHCL4LI92jIpxy0/12cpvJNE2o8=;
+        b=FYfEkJGmCrrU+v6sasc+8+iqGtm6mgnkE3R5fDrJr7Q3CAL61VLD/RpGfn120YnSOE
+         XHNZSxIfxojXmeuol6ic7AmzhG37gGegLA7IMVIpFyCF0SL/aM0gwGc22lMBmvHa1OkH
+         lKn11MAKFUA/RtBFSoRUMpRjbcKDmDjBl/zrEkHi8CmNfXr+qUHJtZORLyQZNtbN68mE
+         sCGCq9G2K3+EUvqOKgiRFVKyTyVzuRNU8XY4zatFiZCFqOcfNcr5LVIirx6sEp4hS8XJ
+         vKEP86dT2nz+SZHsu6nLtLorSAUiy6kjAXqrN6WBktYiiA+UGzsDYMW7Ou+aCaTVyAvn
+         ibjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738597816; x=1739202616;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=hGLnd7MW+INFn8KfAogSE4Aqa3eGROQgfUiqN6p7Bnk=;
-        b=U2rFNkO/lCTWCj+5swfzwTerfRiZbPVz7aakRhk0HIWt/KVSizJhpDQbLYBaw+HnpO
-         ShicLWUB5oObA9ucDJA1wxFX3cMxsex00aDMTKauznr5g5FviS5yzEtM9rx3FTfiAf9s
-         0Fbu60+t39sVcV6Evugur1DGo/Rpwga2yX2F6n750VGXt5EHMK36U5J8iawIs1pdC3V1
-         cCfFttIFKX5pjxOwJp+65YPpH0u8yY2At+4IyH5aJjpTDm1fnD/tP5TxXdDpgvNnuCzW
-         zNajDdzMxi/dh2/7apC9WHwHwwuu9IAMi26cL7/CowPhM4WGpIIoBdAgW/newvlrp1Cc
-         QLrA==
-X-Forwarded-Encrypted: i=1; AJvYcCV2MvcZO0gtnPtFLTlps4F0xwbRkHBAlBZNyznFuDiTxXQGJejlihxM9ZQ9FplI/tqaigYCK4tM+RE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyqG4G8nP79s1TBgfTssi8OURoYh8VRRpas2gTFlc9dlW2hXTfK
-	EXwKhYzqjvWM2dLktuPW5RR24F0FbJw3/CDPat7dG/uTNr/xNRvG
-X-Gm-Gg: ASbGnct1EvRR7nvDDNs95wlsKBCTHNJ+dvumkXTtKPtpmduSn7f06yVSY5daXhsJNum
-	5mBFSIGbyErw+XTEc23i6x8pej10MPKgbDpZb/HibBKpFR2T9A2mvfeSnNzIn7Ra52ul0iQ/6ZT
-	KLZPD9rnpYFGhJOaLivLZ4wmTrOLCVvTjygvg9ZJSAZaioLDz64X7PDqVEejHbULbblZPAskJkw
-	k7PuvILLzwFgxdfdGNtgNb5PPJlavlpg8rt6S5x05gcVFwowSBl3aXFYlp4zhMsglg+6ldmMRHR
-	Oz2u09EfH5eN49DbjfxZoDs/LfRACEcYBqAkXZVcWHLsFCU5JTD2OXDcnUPwYtxOhE4LB4Ly0Cm
-	tRII=
-X-Google-Smtp-Source: AGHT+IE8SxZpPo+pJoPbv7IyfcVSXKgbbliSJkUdPL8PJEXPDMpM8sh5QpzXoCMN2Ms31WEyG/TORw==
-X-Received: by 2002:a05:6000:154f:b0:388:da10:ea7e with SMTP id ffacd0b85a97d-38c5195f6b3mr18568863f8f.24.1738597816322;
-        Mon, 03 Feb 2025 07:50:16 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------E4oC060um80aI3lOPnfbVY73"
-Message-ID: <8ca2fe43-f698-4913-bb09-13093938fba9@gmail.com>
-Date: Mon, 3 Feb 2025 16:50:15 +0100
+        d=1e100.net; s=20230601; t=1738598039; x=1739202839;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uKnKo3YewSna8tJAuHCL4LI92jIpxy0/12cpvJNE2o8=;
+        b=pipbU7eZJErLP/lNgKW8smAlqI0r8gHeZwjqDSMdiL+dIqBESdh3o2+VvsSAESnFOk
+         c7OgcTSUEkjsnK+mQ7x5w9Z4y0w23I5iGO+3fp0zi0mCw1BHnf2S6yjidMm6a9OTAAeF
+         9k35XuC4pkTJWzpr6nl79/fYUd0WVxTTfF6+FVriM/f7xPz+lhAVVOaLFZyo01J5+ea5
+         x4CvBDmrS5WR+cdx6dO4M/AQgA8nyfLAjr8H9xE05qSTt2ckcfy7EtBw6crwwmpvn8oo
+         rF3UVSVcF1cVmHeM5vgxpdMQ+4Oorhsq0K9ku2Vl+uKWN5p/NmiI3Juk4XBkFQrbBLPG
+         LtwA==
+X-Forwarded-Encrypted: i=1; AJvYcCWPACU+WNz9ZITsnNrw8XPN+tpjq9DLbnHCMdfAl5ZWMvii1g5aVcCA7X2/ls3ZlVhG1u+zUZ4bl7M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzAo0+ZEOw9BUD6DHdJnN4lAQsDo5+HOOA2fBcJyONtEGAWGuJ0
+	8ZLje8hROnhr1iZJu8ibNFs8ViZNJbaAPC2qXRcVfWya+dEPETPnDVv2njYMgA==
+X-Gm-Gg: ASbGnctQNpTuc111elMM1adiKwQhcngdDHWuj4deAthf/NlVNSxgbgfD/B95e7k3YnD
+	JdMK/PlegdSZ/ch1Vz3i0ARgu0oiJur4DGdb9twuS2s1QX96MpuUoGGLnnDDwIwjHLeLPJgwXtO
+	EdXHAC5LmGmxsHcrtNEsS792CL1z8lyp+uIdAd29mGxA5Nq7/t+6PCtH/RmGJEKkYQ+x3AHjPCd
+	55m0DV1WMw4ykCL/0b3IZtWJNG8CSQz4ZILWzOOSGyyInv+n62f6/0cnKYC6XBz0bngFtiYFJr1
+	n8aj4YE+Jf+shv7t0UkXIM0ipMWKpnIga22q8pFJiqvOIfGyON1RroeWQlpyRjrIYXoYDq0KaWK
+	2
+X-Google-Smtp-Source: AGHT+IHhspVLxtLa8CXxWhNhWOnVVmsmKdZvKJDZgvc8+ZBL6XqET05+doidEiDTj5avMPzMpjc5cQ==
+X-Received: by 2002:a17:907:3f1e:b0:ab6:fea0:5f14 with SMTP id a640c23a62f3a-ab6fea06b3cmr1436988366b.16.1738598038967;
+        Mon, 03 Feb 2025 07:53:58 -0800 (PST)
+Message-ID: <ceff513c-5074-4828-8718-5d1c2ae27793@suse.com>
+Date: Mon, 3 Feb 2025 16:53:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 6/9] asm-generic: move some parts of Arm's
- domain_build.h to asm-generic header
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1736334615.git.oleksii.kurochko@gmail.com>
- <ba3cde730ae072ba1088e396dd7d03482e4c4011.1736334615.git.oleksii.kurochko@gmail.com>
- <347b4bb0-5fd1-439f-9e3b-ef13ac89bbe9@suse.com>
+Subject: Re: [PATCH for-4.20? 1/3] AMD/IOMMU: drop stray MSI enabling
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <2bb9d3c4-0761-4d63-8193-29293e35eb04@suse.com>
+ <ea0fea03-6002-4fc6-86ac-19598c9d9ef6@suse.com>
+ <cf5ae390-fb9d-4839-9423-d1ead9bd34bf@citrix.com>
+ <14d1f7fb-4e4e-4f06-b3e6-8ab25de7f939@suse.com>
+ <ad10a9d3-672e-443f-a7cd-c50df16b67b4@citrix.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <347b4bb0-5fd1-439f-9e3b-ef13ac89bbe9@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ad10a9d3-672e-443f-a7cd-c50df16b67b4@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This is a multi-part message in MIME format.
---------------E4oC060um80aI3lOPnfbVY73
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-
-On 1/27/25 12:23 PM, Jan Beulich wrote:
-> On 08.01.2025 12:13, Oleksii Kurochko wrote:
->> Nothing changed. Only some functions declaration are moved to asm-generic
->> header as they are expected to be used by common code of domain builing or
->> dom0less.
+On 03.02.2025 15:19, Andrew Cooper wrote:
+> On 03/02/2025 8:41 am, Jan Beulich wrote:
+>> On 02.02.2025 14:50, Andrew Cooper wrote:
+>>> On 30/01/2025 11:11 am, Jan Beulich wrote:
+>>>> While the 2nd of the commits referenced below should have moved the call
+>>>> to amd_iommu_msi_enable() instead of adding another one, the situation
+>>>> wasn't quite right even before: It can't have done any good to enable
+>>>> MSI when no IRQ was allocated for it, yet.
+>>>>
+>>>> Fixes: 5f569f1ac50e ("AMD/IOMMU: allow enabling with IRQ not yet set up")
+>>>> Fixes: d9e49d1afe2e ("AMD/IOMMU: adjust setup of internal interrupt for x2APIC mode")
+>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>>
+>>>> --- a/xen/drivers/passthrough/amd/iommu_init.c
+>>>> +++ b/xen/drivers/passthrough/amd/iommu_init.c
+>>>> @@ -902,8 +902,6 @@ static void enable_iommu(struct amd_iomm
+>>> There's a call to amd_iommu_msi_enable() just out of context here which
+>>> was added by the 2nd referenced commit.
+>>>
+>>> Given that it's asymmetric in an if() condition regarding xt_en, and the
+>>> calls are only set_affinity() calls, why is this retained?
+>>>
+>>> (I think I know, and if it is the reason I suspect, then you're missing
+>>> a very critical detail from the commit message.)
+>> Hmm, you did read the commit message, didn't you? That commit should have
+>> moved that call, rather than adding another one.
 >>
->> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
->> ---
->>   xen/arch/arm/include/asm/domain_build.h | 19 ++----------
->>   xen/include/asm-generic/domain-build.h  | 41 +++++++++++++++++++++++++
->>   2 files changed, 43 insertions(+), 17 deletions(-)
->>   create mode 100644 xen/include/asm-generic/domain-build.h
-> Again I question this movement under this name. "Domain building" is a pretty
-> generic thing, yes, but what you move would e.g. be entirely inapplicable on
-> x86 (as it is now). For example ...
->
->> --- /dev/null
->> +++ b/xen/include/asm-generic/domain-build.h
->> @@ -0,0 +1,41 @@
->> +/* SPDX-License-Identifier: GPL-2.0-only */
->> +#ifndef __ASM_GENERIC_DOMAIN_BUILD_H__
->> +#define __ASM_GENERIC_DOMAIN_BUILD_H__
->> +
->> +#include <xen/types.h>
->> +
->> +struct domain;
->> +struct page_info;
->> +struct kernel_info;
->> +struct membanks;
->> +
->> +typedef bool (*alloc_domheap_mem_cb)(struct domain *d, struct page_info *pg,
->> +                                     unsigned int order, void *extra);
->> +bool allocate_domheap_memory(struct domain *d, paddr_t tot_size,
->> +                             alloc_domheap_mem_cb cb, void *extra);
->> +
->> +bool allocate_bank_memory(struct kernel_info *kinfo, gfn_t sgfn,
->> +                          paddr_t tot_size);
-> ... the term "bank" seems pretty closely tied to DT. Other stuff ...
->
->> +void allocate_memory(struct domain *d, struct kernel_info *kinfo);
->> +int construct_domain(struct domain *d, struct kernel_info *kinfo);
->> +int make_chosen_node(const struct kernel_info *kinfo);
->> +int make_cpus_node(const struct domain *d, void *fdt);
->> +int make_hypervisor_node(struct domain *d, const struct kernel_info *kinfo,
->> +                         int addrcells, int sizecells);
->> +int make_memory_node(const struct kernel_info *kinfo, int addrcells,
->> +                     int sizecells, const struct membanks *mem);
->> +int make_timer_node(const struct kernel_info *kinfo);
-> ... here also falls in this category. Stuff like this may well live
-> under asm-generic/, but the file name chosen then needs to reflect
-> constraints.
+>> However, you have a point. It looks like 7a89f62dddee ("AMD IOMMU: make
+>> interrupt work again") should already have removed that call. Prior to
+>> that change request_irq()'s call (via setup_irq()) to iommu_msi_startup()
+>> was in fact premature, as MSI address and data weren't set up yet (IOW
+>> while still apparently redundant, the extra call served kind of a doc
+>> purpose). Things apparently worked because the IOMMU itself wasn't
+>> enabled yet, and hence shouldn't have raised any interrupts prior to MSI
+>> being fully configured.
+>>
+>> However, for S3 resume I think the call needs to stay there, as the
+>> startup hook wouldn't be called in that case (which may be the detail
+>> you're alluding to). Imo that wants solving differently though. Not sure
+>> it's a good idea to do this right here, or perhaps better in a separate
+>> change.
+>>
+>> I've added
+>>
+>> "The other call to amd_iommu_msi_enable(), just out of patch context,
+>>  needs to stay there until S3 resume is re-worked. For the boot path that
+>>  call should be unnecessary, as iommu{,_maskable}_msi_startup() will have
+>>  done it already (by way of invoking iommu_msi_unmask())."
+>>
+>> as a 2nd paragraph to the description, in the hope that's what you're
+>> after.
+> 
+> Ok, not the reason I was thinking.  I was thinking it was an x vs x2
+> APIC issue, and split setup path.
+> 
+> It is specifically weird to have:
+> 
+>     if ( msi )
+>     {
+>         if ( cap_xt_en )
+>             ...
+>         else
+>         {
+>             ...
+>             amd_iommu_msi_enable();
+>         }
+>         // should enable here ?
+>     }
+> 
+> If this call really is only necessary for the S3 path, that explains
+> half the problem, but what activates MSIs for the xt_en case after S3?
 
-Unfortunately, at least at the moment, this is not applicable to x86.
+The write of the control register where the enable bit is. There's no
+actual "MSI" anymore in that case.
 
-Partially, domain_build.h was chosen to have less changes in Arm code.
-
-Would it be better to use domain-build-dt.h?
-
-~ Oleksii
-
---------------E4oC060um80aI3lOPnfbVY73
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 1/27/25 12:23 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:347b4bb0-5fd1-439f-9e3b-ef13ac89bbe9@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 08.01.2025 12:13, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">Nothing changed. Only some functions declaration are moved to asm-generic
-header as they are expected to be used by common code of domain builing or
-dom0less.
-
-Signed-off-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
----
- xen/arch/arm/include/asm/domain_build.h | 19 ++----------
- xen/include/asm-generic/domain-build.h  | 41 +++++++++++++++++++++++++
- 2 files changed, 43 insertions(+), 17 deletions(-)
- create mode 100644 xen/include/asm-generic/domain-build.h
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Again I question this movement under this name. "Domain building" is a pretty
-generic thing, yes, but what you move would e.g. be entirely inapplicable on
-x86 (as it is now). For example ...
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- /dev/null
-+++ b/xen/include/asm-generic/domain-build.h
-@@ -0,0 +1,41 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef __ASM_GENERIC_DOMAIN_BUILD_H__
-+#define __ASM_GENERIC_DOMAIN_BUILD_H__
-+
-+#include &lt;xen/types.h&gt;
-+
-+struct domain;
-+struct page_info;
-+struct kernel_info;
-+struct membanks;
-+
-+typedef bool (*alloc_domheap_mem_cb)(struct domain *d, struct page_info *pg,
-+                                     unsigned int order, void *extra);
-+bool allocate_domheap_memory(struct domain *d, paddr_t tot_size,
-+                             alloc_domheap_mem_cb cb, void *extra);
-+
-+bool allocate_bank_memory(struct kernel_info *kinfo, gfn_t sgfn,
-+                          paddr_t tot_size);
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-... the term "bank" seems pretty closely tied to DT. Other stuff ...
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+void allocate_memory(struct domain *d, struct kernel_info *kinfo);
-+int construct_domain(struct domain *d, struct kernel_info *kinfo);
-+int make_chosen_node(const struct kernel_info *kinfo);
-+int make_cpus_node(const struct domain *d, void *fdt);
-+int make_hypervisor_node(struct domain *d, const struct kernel_info *kinfo,
-+                         int addrcells, int sizecells);
-+int make_memory_node(const struct kernel_info *kinfo, int addrcells,
-+                     int sizecells, const struct membanks *mem);
-+int make_timer_node(const struct kernel_info *kinfo);
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-... here also falls in this category. Stuff like this may well live
-under asm-generic/, but the file name chosen then needs to reflect
-constraints.</pre>
-    </blockquote>
-    <pre>Unfortunately, at least at the moment, this is not applicable to x86.
-
-Partially, domain_build.h was chosen to have less changes in Arm code.
-
-Would it be better to use domain-build-dt.h?
-
-</pre>
-    <pre>~ Oleksii</pre>
-  </body>
-</html>
-
---------------E4oC060um80aI3lOPnfbVY73--
+Jan
 
