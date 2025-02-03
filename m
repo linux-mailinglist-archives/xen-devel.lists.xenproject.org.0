@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B11E2A2641A
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Feb 2025 20:53:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.880986.1291090 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CE7DA26654
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Feb 2025 23:04:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.880998.1291102 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tf2V9-0003Pi-DH; Mon, 03 Feb 2025 19:52:59 +0000
+	id 1tf4XP-0000vX-9v; Mon, 03 Feb 2025 22:03:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 880986.1291090; Mon, 03 Feb 2025 19:52:59 +0000
+Received: by outflank-mailman (output) from mailman id 880998.1291102; Mon, 03 Feb 2025 22:03:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tf2V9-0003O8-AD; Mon, 03 Feb 2025 19:52:59 +0000
-Received: by outflank-mailman (input) for mailman id 880986;
- Mon, 03 Feb 2025 19:52:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tf4XP-0000sQ-6y; Mon, 03 Feb 2025 22:03:27 +0000
+Received: by outflank-mailman (input) for mailman id 880998;
+ Mon, 03 Feb 2025 22:03:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ioxk=U2=flex--seanjc.bounces.google.com=3lh6hZwYKCZsN95IE7BJJBG9.7JHS9I-89Q9GGDNON.S9IKMJE97O.JMB@srs-se1.protection.inumbo.net>)
- id 1tf2V7-0003O2-IA
- for xen-devel@lists.xenproject.org; Mon, 03 Feb 2025 19:52:57 +0000
-Received: from mail-pl1-x649.google.com (mail-pl1-x649.google.com
- [2607:f8b0:4864:20::649])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 75c6f418-e268-11ef-a0e7-8be0dac302b0;
- Mon, 03 Feb 2025 20:52:56 +0100 (CET)
-Received: by mail-pl1-x649.google.com with SMTP id
- d9443c01a7336-216405eea1fso97317515ad.0
- for <xen-devel@lists.xenproject.org>; Mon, 03 Feb 2025 11:52:56 -0800 (PST)
+ <SRS0=OMNE=U2=flex--seanjc.bounces.google.com=3KD2hZwYKCWsbNJWSLPXXPUN.LXVgNW-MNeNUURbcb.gNWYaXSNLc.XaP@srs-se1.protection.inumbo.net>)
+ id 1tf4XN-0000s4-Sn
+ for xen-devel@lists.xenproject.org; Mon, 03 Feb 2025 22:03:25 +0000
+Received: from mail-pl1-x64a.google.com (mail-pl1-x64a.google.com
+ [2607:f8b0:4864:20::64a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id aeb45bf4-e27a-11ef-99a4-01e77a169b0f;
+ Mon, 03 Feb 2025 23:03:22 +0100 (CET)
+Received: by mail-pl1-x64a.google.com with SMTP id
+ d9443c01a7336-2166855029eso100398335ad.0
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Feb 2025 14:03:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,47 +40,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75c6f418-e268-11ef-a0e7-8be0dac302b0
+X-Inumbo-ID: aeb45bf4-e27a-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1738612374; x=1739217174; darn=lists.xenproject.org;
+        d=google.com; s=20230601; t=1738620201; x=1739225001; darn=lists.xenproject.org;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=Z4DCNVElxq2OdBlpMH7Nkzbl/aQqIemXOZXJQi0SM/U=;
-        b=RViBIQ41cPhBqtOuMYTlf35djqnhH72w/txNh7yZr/QuBTQtgSKYYsOfMS6w1yE5k/
-         wSOsCudXiw/7w+A3OZAjuygvSTrJRoxdJSirjLVYgLwHMEqF+NocNfSq56FaOc4q9qkp
-         wdchPZ532sK9fZSFs9yPV0oQE6qIWp4hX4Zuk3H7rkY/KqIC61ds1ccQ4Dyz6YR5Lf9E
-         kl8RXgxrY+DNqF8oQ6WHpmfpJXOVIuc+ETTi8H6VLudhHXqN4O0vxsg89kmlnAhJTisy
-         hUjWOyLPTTfWtqzgP7aBI7L6ozkjFzCqr8IjN4RUcNLz6YAvLvDnTul3abPb//N64fqW
-         UjpQ==
+        bh=aKyU5o4qg4MzJLbHNBTuIVedrQGzcqdvvxUHOUnfSU8=;
+        b=KOoojyS7FNdDI5p1Y3CMQ+FoGCfdDcaK7cNozewWGvpS2QtvX5+C5JRgOPW45KEAaW
+         q3SSe8CAC2V2Lid611zyCwXjf2DzIS7aWEBs9Ma50RDDIqhFwRW/D0pYdbJZLoSzq2OI
+         y2+v+ss5L6he67k/P7QHoPNiPIT2caYLcibDcef3CNlOK4I9cq5kP8E5YEzSVfuMAjqJ
+         AUrhS6Ya9EW07JOEMPnvzSUx1mBhDJMIEpyDw8XGRkWN4bGRKdGrQqOaJVXLogBEvzcb
+         8DZ/3/Ufg907TI/PnRibARxl4w6FF0BNsc2GTzS/9jXqilK7T5Rfl3nOIadssawBkMjX
+         Th1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738612374; x=1739217174;
+        d=1e100.net; s=20230601; t=1738620201; x=1739225001;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Z4DCNVElxq2OdBlpMH7Nkzbl/aQqIemXOZXJQi0SM/U=;
-        b=hyshlrJ0gcUgxU3UeD61WM78beS3Fovi+8sDHHdUp7n8NJxV1kcmuMpvmfdM7hcapf
-         pgRACb2oaEFYCcBY0WPDrjv5ePqusWQf6QxRDJDw3e2BazMvZK2A+8+BeA6KAm+phEuP
-         PrsQZKb6bv1A2/R/pYV6Jgc99w5imLyF13rMVq4g9LPMgf6YscBa2AiDR5xc9Hhe/IjD
-         ZHnoHqGt5e3vrAftoEzJD/gODK0XUJUDUX0fnyUjmIpwZgXbIxzr04hjLz1fjbWEiILm
-         fXFBUG+7GgPucLAr3WcqvpTcY6aeZthFiSd+wBHTB0+mc5a5kBUu2EHCguBNLZJJ09Lf
-         n1iw==
-X-Forwarded-Encrypted: i=1; AJvYcCWULZOfbyqh0U6wQVR0SHGSUQ33j3+3pWUfmK2GzTEJqex6MpPYElG6579zepPYc2hR4BMKZKRbeKI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz7CLMLdX6dwazLMmpxfSpPzRzvhpBajUl4zZV0GPwfK5FLBrrv
-	Dgun0DImuQ/ZBCVnHB/1ormMBA+fvJdrIpPp6dnQPpK7baMrrUAhPMGG543SJJpgE4+OheMp8ai
-	vpQ==
-X-Google-Smtp-Source: AGHT+IGdTeFcZ8i5SvZ2bB5g1492lleQh9maGoQBlpXj01DaF5LbzkfV8PQhJ2gBHFVfNpv3sg2ev2woN1U=
-X-Received: from pfsq1.prod.google.com ([2002:a05:6a00:2a1:b0:72d:4132:7360])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:2287:b0:72d:a208:d366
- with SMTP id d2e1a72fcca58-72fd0c8bae3mr33309743b3a.20.1738612374524; Mon, 03
- Feb 2025 11:52:54 -0800 (PST)
-Date: Mon, 3 Feb 2025 11:52:53 -0800
-In-Reply-To: <fb1d32fb-f213-350f-95a4-766c88a6249c@amd.com>
+        bh=aKyU5o4qg4MzJLbHNBTuIVedrQGzcqdvvxUHOUnfSU8=;
+        b=r7nhN+xx7uDuEpAl4+vh3HfI+2WFLxP/y1yq2KojcLpzZa0FUh8rZPyKtb3DMJFz7g
+         TZL+pAKyXAAJAraLNCiITA6TRZg7FSF3PpArrs68o14r+HBU8ExD9QU89IDYE5tYP5jV
+         yZWa0BXJzXyXkhmslnFQ4m20Ggk9gyTVVgwFapkQLR19VTqxZXR9TFs2XN9zBZn6Ccea
+         fTrlXALw2+RnpnNqlcttykcti0ruFdCkYqPTpy0tnkI7HpqTQEjZ1kdPo4qh2TLD16dj
+         zyfpQqgJPKocBnKjq6iUlYgl4t7t2qo90/V5ZAQlyNPdyFgQNwtfzYTdw9uL2DmwV+s9
+         CZKg==
+X-Forwarded-Encrypted: i=1; AJvYcCXUE3F3SohEz2ltePhyd8uXFHzVH3Wc93oCsEdTf/p35k11De9BdMZu1bqaTjA+SEM2t/nhSCj/u+k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzZabPUOf+O+ENdptN6uMi96NJnY/2zqRnpJhiXtJmDBphayzEg
+	VpLCL4L5uYnbMkaymMlJhv+lIS9Zo0fAjZWkhJSKyw5EWxvDCjwo2MeaewyLRj7oQY6MhLEO7NM
+	rrg==
+X-Google-Smtp-Source: AGHT+IFdBp/YFKt3tvbP89npJlfJHjx2Z4+9Qkgevwe01Rjz28QPVaPLsqR/RKs2uDbYm8l82lXHNvJ4gI0=
+X-Received: from pfbfb39.prod.google.com ([2002:a05:6a00:2da7:b0:728:e945:d2c2])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:acc:b0:71d:f2e3:a878
+ with SMTP id d2e1a72fcca58-72fd0bc6c50mr33717772b3a.5.1738620200924; Mon, 03
+ Feb 2025 14:03:20 -0800 (PST)
+Date: Mon, 3 Feb 2025 14:03:19 -0800
+In-Reply-To: <855xlra7yh.fsf@amd.com>
 Mime-Version: 1.0
-References: <20250201021718.699411-1-seanjc@google.com> <20250201021718.699411-9-seanjc@google.com>
- <fb1d32fb-f213-350f-95a4-766c88a6249c@amd.com>
-Message-ID: <Z6EelTYbVIcmGH5Q@google.com>
-Subject: Re: [PATCH 08/16] x86/tsc: Pass KNOWN_FREQ and RELIABLE as params to registration
+References: <20250201021718.699411-1-seanjc@google.com> <20250201021718.699411-2-seanjc@google.com>
+ <855xlra7yh.fsf@amd.com>
+Message-ID: <Z6E9JyybI6SUWlcG@google.com>
+Subject: Re: [PATCH 01/16] x86/tsc: Add a standalone helpers for getting TSC
+ info from CPUID.0x15
 From: Sean Christopherson <seanjc@google.com>
-To: Tom Lendacky <thomas.lendacky@amd.com>
+To: Nikunj A Dadhania <nikunj@amd.com>
 Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
 	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
 	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>, Juergen Gross <jgross@suse.com>, 
@@ -92,68 +93,35 @@ Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borisl
 	linux-coco@lists.linux.dev, virtualization@lists.linux.dev, 
 	linux-hyperv@vger.kernel.org, jailhouse-dev@googlegroups.com, 
 	kvm@vger.kernel.org, xen-devel@lists.xenproject.org, 
-	Nikunj A Dadhania <nikunj@amd.com>
+	Tom Lendacky <thomas.lendacky@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 
-On Mon, Feb 03, 2025, Tom Lendacky wrote:
-> On 1/31/25 20:17, Sean Christopherson wrote:
-> > Add a "tsc_properties" set of flags and use it to annotate whether the
-> > TSC operates at a known and/or reliable frequency when registering a
-> > paravirtual TSC calibration routine.  Currently, each PV flow manually
-> > sets the associated feature flags, but often in haphazard fashion that
-> > makes it difficult for unfamiliar readers to see the properties of the
-> > TSC when running under a particular hypervisor.
-> > 
-> > The other, bigger issue with manually setting the feature flags is that
-> > it decouples the flags from the calibration routine.  E.g. in theory, PV
-> > code could mark the TSC as having a known frequency, but then have its
-> > PV calibration discarded in favor of a method that doesn't use that known
-> > frequency.  Passing the TSC properties along with the calibration routine
-> > will allow adding sanity checks to guard against replacing a "better"
-> > calibration routine with a "worse" routine.
-> > 
-> > As a bonus, the flags also give developers working on new PV code a heads
-> > up that they should at least mark the TSC as having a known frequency.
-> > 
+On Mon, Feb 03, 2025, Nikunj A Dadhania wrote:
+> Sean Christopherson <seanjc@google.com> writes:
+> > Extract retrieval of TSC frequency information from CPUID into standalone
+> > helpers so that TDX guest support and kvmlock can reuse the logic.  Provide
+> 
+> s/kvmlock/kvmclock
+> 
+> > a version that includes the multiplier math as TDX in particular does NOT
+> > want to use native_calibrate_tsc()'s fallback logic that derives the TSC
+> > frequency based on CPUID.0x16 when the core crystal frequency isn't known.
+> >
+> > No functional change intended.
+> >
 > > Signed-off-by: Sean Christopherson <seanjc@google.com>
 > > ---
-> >  arch/x86/coco/sev/core.c       |  6 ++----
-> >  arch/x86/coco/tdx/tdx.c        |  7 ++-----
-> >  arch/x86/include/asm/tsc.h     |  8 +++++++-
-> >  arch/x86/kernel/cpu/acrn.c     |  4 ++--
-> >  arch/x86/kernel/cpu/mshyperv.c | 10 +++++++---
-> >  arch/x86/kernel/cpu/vmware.c   |  7 ++++---
-> >  arch/x86/kernel/jailhouse.c    |  4 ++--
-> >  arch/x86/kernel/kvmclock.c     |  4 ++--
-> >  arch/x86/kernel/tsc.c          |  8 +++++++-
-> >  arch/x86/xen/time.c            |  4 ++--
-> >  10 files changed, 37 insertions(+), 25 deletions(-)
-> > 
 > 
-> > diff --git a/arch/x86/kernel/cpu/vmware.c b/arch/x86/kernel/cpu/vmware.c
-> > index d6f079a75f05..6e4a2053857c 100644
-> > --- a/arch/x86/kernel/cpu/vmware.c
-> > +++ b/arch/x86/kernel/cpu/vmware.c
-> > @@ -385,10 +385,10 @@ static void __init vmware_paravirt_ops_setup(void)
-> >   */
-> >  static void __init vmware_set_capabilities(void)
-> >  {
-> > +	/* TSC is non-stop and reliable even if the frequency isn't known. */
-> >  	setup_force_cpu_cap(X86_FEATURE_CONSTANT_TSC);
-> >  	setup_force_cpu_cap(X86_FEATURE_TSC_RELIABLE);
+> ...
 > 
-> Should this line be deleted, too, or does the VMware flow require this
-> to be done separate from the tsc_register_calibration_routines() call?
+> > +
+> > +static inline int cpuid_get_tsc_freq(unsigned int *tsc_khz,
+> > +				     unsigned int *crystal_khz)
+> 
+> Should we add this in patch 6/16 where it is being used for the first time ?
 
-No idea, I just didn't want to break existing setups.  I assume VMware hypervisors
-will always advertise the TSC frequency, but nothing in the code guarantees that.
-
-The check on the hypervisor providing the TSC frequency has existed since the
-original support was added, and the CONSTANT+RELIABLE logic was added immediately
-after.  So even if it the above code _shouldn't_ be needed, I don't want to be
-the sucker that finds out :-)
-
-  395628ef4ea12ff0748099f145363b5e33c69acb x86: Skip verification by the watchdog for TSC clocksource.
-  eca0cd028bdf0f6aaceb0d023e9c7501079a7dda x86: Add a synthetic TSC_RELIABLE feature bit.
-  88b094fb8d4fe43b7025ea8d487059e8813e02cd x86: Hypervisor detection and get tsc_freq from hypervisor
+No strong preference on my end.  I put it here mostly to keep each patch focused
+on a single subsystem where possible, since the series touches so many areas.  I
+also wanted to show the "full" API in a single patch, but I agree that adding a
+helper without a user is generally undesirable.
 
