@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F2DAA25C39
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Feb 2025 15:23:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.880646.1290731 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27A4AA25C94
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Feb 2025 15:32:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.880659.1290740 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1texMX-0007XU-OU; Mon, 03 Feb 2025 14:23:45 +0000
+	id 1texUM-0000p0-Hw; Mon, 03 Feb 2025 14:31:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 880646.1290731; Mon, 03 Feb 2025 14:23:45 +0000
+Received: by outflank-mailman (output) from mailman id 880659.1290740; Mon, 03 Feb 2025 14:31:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1texMX-0007Uj-Kh; Mon, 03 Feb 2025 14:23:45 +0000
-Received: by outflank-mailman (input) for mailman id 880646;
- Mon, 03 Feb 2025 14:23:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1texUM-0000mt-FH; Mon, 03 Feb 2025 14:31:50 +0000
+Received: by outflank-mailman (input) for mailman id 880659;
+ Mon, 03 Feb 2025 14:31:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9wUg=U2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1texMW-0007Ud-88
- for xen-devel@lists.xenproject.org; Mon, 03 Feb 2025 14:23:44 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 780727a5-e23a-11ef-99a4-01e77a169b0f;
- Mon, 03 Feb 2025 15:23:42 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-43690d4605dso30518275e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 03 Feb 2025 06:23:42 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38c5c102d00sm13170236f8f.32.2025.02.03.06.23.41
+ <SRS0=o2EM=U2=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1texUL-0000mn-Ed
+ for xen-devel@lists.xenproject.org; Mon, 03 Feb 2025 14:31:49 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 99ac1e77-e23b-11ef-a0e7-8be0dac302b0;
+ Mon, 03 Feb 2025 15:31:48 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-43690d4605dso30593455e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Feb 2025 06:31:48 -0800 (PST)
+Received: from [192.168.100.192] (lfbn-gre-1-190-108.w90-112.abo.wanadoo.fr.
+ [90.112.153.108]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38c5c0ec7e6sm13110181f8f.19.2025.02.03.06.31.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Feb 2025 06:23:41 -0800 (PST)
+ Mon, 03 Feb 2025 06:31:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,142 +45,607 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 780727a5-e23a-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 99ac1e77-e23b-11ef-a0e7-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1738592622; x=1739197422; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=uzRaqZNdtbZr8SHkz9yZxDEsCpPhpCPqdRrnb0tJuac=;
-        b=kgHWR/5XG4TFkNzauclMS/1yLWn+pt+aIcLCcC3sCJDq/KSNBSioeL+/+X1btUVlOu
-         s1MlL4cPVb6H3IVV5vviyW40a+QIN1YybLkb4a6hm4X5BxtvJjHLhvH9mhGbUn+c0/DY
-         5ztA9onp3iD95ybAk0/9UsB38Vmy1gZGqq5Xs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738592622; x=1739197422;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1738593108; x=1739197908; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uzRaqZNdtbZr8SHkz9yZxDEsCpPhpCPqdRrnb0tJuac=;
-        b=aqeCN4Zm9cJRxdBliQgB0jsOSNDTuUke9IIdkJalaiTVKviAsKoscmzJrJVoJx1agg
-         95f0llSuPTZNfM2sZ9TEvIEtIBesPBu8TqGWPTEGw/IUjpTDZdJSjYxr/Ipc5/pj57K+
-         fLvOSnQqhdoZe0H9D2FY/eXqJSThIded2FoTGvj4OVtgKSkt97PxBh2wMnFumQAzfMiT
-         h4DbvCdWfd5EisdT6lxEalYK5TvzzWfFawQe5F1L7bvnKFlqoJDhkZY3IQfVC634ManB
-         Qxe1BU+mbyaj4EJlKiPttg+AbVJNGtwaUfzpJDdvTpS2bIueJr1E1zeuEMGr4CpKbGDX
-         yb+g==
-X-Gm-Message-State: AOJu0YwJ0RgylwF/ACuRj5JAc3mRUMgJ+bxCpdMNaKgqM+NYjcOdDxWU
-	88HdC7LxHKWnhXlBHhmZn/JuYus7eHcNATTp995nfgoDbkcMvhj7rw8tF4rrz6E=
-X-Gm-Gg: ASbGncuQgdylDupx4jDR8C9SwXtMPNKZb5VDnquIoi9i3fj4HRO3G8/59xa5+o6bLB+
-	DW1tYtavrNKs2LP+O8ZMrVdEHvBPP2fP4JBQEg6zuxciLXkysNXDYXXI5I6Y6S1ZKUwL1tcgvNp
-	yMvsRzJgo7WukK67rbeGIhEeVvD4w07V+3n9lhXlh2jhoXOEKhZZpPSp2qYIxc/JVem3uaBv3n3
-	tkEKKPQpRg3I6X1ucoY09xAHMiy/BdZawTPTqoCt3V1SyG0URhxvhvdORt8edsF1DBLH5cbTymp
-	aQAadhI5iKvmzsfKbItmMPdL5igTH0rKMBv1GHT4EknRocbsPHk5zZI=
-X-Google-Smtp-Source: AGHT+IHqgoym70Y7LkW61dgL7NyXa8j2s9a/NFOnJSs7ws++56xAIU1l3DZTbUQyJXiG58+cdWVMQw==
-X-Received: by 2002:a05:600c:3d9b:b0:434:f297:8e85 with SMTP id 5b1f17b1804b1-438dc3c39d6mr216822605e9.10.1738592621678;
-        Mon, 03 Feb 2025 06:23:41 -0800 (PST)
-Message-ID: <ebf97ded-3e26-4bb8-8a61-ebdcdac1b176@citrix.com>
-Date: Mon, 3 Feb 2025 14:23:40 +0000
+        bh=k7t3BSSjcrxejb2puSOiWGTMZiXldn1JUwo60pdwC2k=;
+        b=nC9HDfJ+ZzptMlMZ7LwEN8fuZXifu9WSD/bfiQqtEdRwNsTZ1YQ9Sb7TbhgK8jOvZJ
+         iDd/X2r6ZMMGrXcL2khFePG49FYKnkTyf6LcWcw+KCBG1UH65OzZJBtCszFNbHPXPeRI
+         CO0dOPytjmgwsuLovkt7iVXRQRLCAJtDLATtWjWzlISwHUReaO1Zl1fY+pw1bMwynhNW
+         DFWWFgO2ruKhOcbBBt0jPwBeD6koWg30V25t6UWFM5TffQsvBaoJTT6RS9JQBZSRVSQK
+         5a/x+4PoWtj96k2YZ+VIbvDLyJAVQbcrtwN/TH/E9HBwDPDBGMPmnBVoICGbJJCnXu//
+         NHJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1738593108; x=1739197908;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=k7t3BSSjcrxejb2puSOiWGTMZiXldn1JUwo60pdwC2k=;
+        b=lt7QgHOzwqiWfz6Kehgb7qNAdn60Om4LyxHDnKCGb1g0XRRUoo5mPb4sFtEBDYoJnK
+         sL06G9fJYQbtzjVrG6DER2w0N3+lK8VwuVi0QvGyYd/xORdHZnE6dmOdjXYDW8axEj91
+         fGJPlPgiIeDI7MTuJJYiasTBmwsuww/h1gPD2/8X8yfrXMwi7R98XUOmUzxZlycDXnBT
+         vD+aBbKotWg2JLyumP8trHClMG59H/28vbxB+Cwh++yh0B5IwLUOFGBtfftcBMyT99zD
+         MQ8d9kAeEGrUTPn4mgqonA9zf5zF1wc0jueOOQwNPgKJjE4zRgqXKrtTOnd6j+/Thw0Y
+         Pukw==
+X-Forwarded-Encrypted: i=1; AJvYcCXA+z7WyUFSqOMp7XYlDUtHxqjDRh8BLKnMRNg4BpWRqSsVuI7TcZ8u4/HynSzBTCIoC5IDRBAy9Xk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwqZkKg9TreBBt15+GpLHoG3MzOX7i43wcextGqDIDZDJ3CSq2E
+	5n9kwyETaQYyzGTsTElkhIp0lbz88bX9T1OehU50zIGEWCkndbt0
+X-Gm-Gg: ASbGncvyV+fil1YyaRcgPB4Ykw1u+EdoD2CpWNT/3bHuSaoPfJ/VyM2kWZDo4S0hGw3
+	cFSSh5ZVfmEjF6C4dl9mBw9m/vWq5lIF/ftCR1ZgmUDm3MYfh2sUzErqenWdPsRm7ouop0KwrqB
+	M28TxWhpFvHYBEi7JM4DJtx0hNI30cbEXhJAwgRJJGKm21ino2vrSQYs+JXPT1+YlXkag5ZHhSd
+	dlSsHWOsy42u8qyvV34uB2g0jVlfAX6Q+4jOcvQ8x4bAizQSYqafPtGBEeSvZ2ocWijFB8fgwQ7
+	dS3gcxF+aOaoBH3lnzqH/zp1o1aaTEMjHgwsMMkHE6stQT8n2DTjx3bPubSNlAZ+T32KONWTt86
+	mvgs=
+X-Google-Smtp-Source: AGHT+IFp0oH5+6tMoz60Mj/fnyQfMkvPuk7hF7UfclkPQVtlpM//Q1B6gRkJoaADEIgN5CUqpH2D0A==
+X-Received: by 2002:a05:600c:1d07:b0:434:f219:6b28 with SMTP id 5b1f17b1804b1-438dc40ff6fmr173782485e9.24.1738593107087;
+        Mon, 03 Feb 2025 06:31:47 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------P5TN0BHlsPahZbI0XV4qJ94N"
+Message-ID: <027c2603-1a2a-4a76-975f-b227a3adef5a@gmail.com>
+Date: Mon, 3 Feb 2025 15:31:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.20 2/3] x86/PCI: init segments earlier
-To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+Subject: Re: [PATCH for-4.20] x86/intel: Fix PERF_GLOBAL fixup when
+ virtualised
+To: "Katz, Jonathan" <jonathan.katz@aptar.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <2bb9d3c4-0761-4d63-8193-29293e35eb04@suse.com>
- <940ccd1b-9ad8-4b68-a035-36f45326872b@suse.com>
- <Z6C6fUeB4mFfGfJc@macbook.local>
- <e7eff762-ff80-440e-8a92-e5a5e09a97ce@suse.com>
- <37df8931-c9f4-4af2-a099-b2bb4539bffe@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <37df8931-c9f4-4af2-a099-b2bb4539bffe@suse.com>
-Content-Type: text/plain; charset=UTF-8
+References: <20250121142510.358996-1-andrew.cooper3@citrix.com>
+ <eb58ed74-1156-4de5-8392-a546d9afddc3@gmail.com>
+ <76b3b208-a576-48f2-820b-e213722fe229@citrix.com>
+ <SJ0PR04MB83435FE711BB6747C6EA9F90F0EC2@SJ0PR04MB8343.namprd04.prod.outlook.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <SJ0PR04MB83435FE711BB6747C6EA9F90F0EC2@SJ0PR04MB8343.namprd04.prod.outlook.com>
+
+This is a multi-part message in MIME format.
+--------------P5TN0BHlsPahZbI0XV4qJ94N
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 03/02/2025 1:03 pm, Jan Beulich wrote:
-> On 03.02.2025 14:00, Jan Beulich wrote:
->> On 03.02.2025 13:45, Roger Pau Monné wrote:
->>> On Thu, Jan 30, 2025 at 12:12:31PM +0100, Jan Beulich wrote:
->>>> --- a/xen/arch/x86/x86_64/mmconfig-shared.c
->>>> +++ b/xen/arch/x86/x86_64/mmconfig-shared.c
->>>> @@ -402,8 +402,6 @@ void __init acpi_mmcfg_init(void)
->>>>  {
->>>>      bool valid = true;
->>>>  
->>>> -    pci_segments_init();
->>>> -
->>>>      /* MMCONFIG disabled */
->>>>      if ((pci_probe & PCI_PROBE_MMCONF) == 0)
->>>>          return;
->>>> --- a/xen/drivers/passthrough/x86/iommu.c
->>>> +++ b/xen/drivers/passthrough/x86/iommu.c
->>>> @@ -55,6 +55,8 @@ void __init acpi_iommu_init(void)
->>>>  {
->>>>      int ret = -ENODEV;
->>>>  
->>>> +    pci_segments_init();
->>> My preference might be to just place the pci_segments_init() call in
->>> __start_xen(),
->> As said in reply to Andrew - I was considering doing so as an alternative
->> to the moving done here. I can certainly do so, in case some non-negative
->> reply comes back from him.
-> Oh, and: With further adjustments following from what Andrew had outlined,
-> I'm actually moving the invocation of what was pci_segments_init() back to
-> where it's now. (Which doesn't mean that couldn't be done from
-> __start_xen(); just mentioning it.)
 
-The name acpi_mmcfg_init() at least has a PCI implication, given mmcfg.
+On 1/27/25 7:56 PM, Katz, Jonathan wrote:
+> Tested on xcp-ng vm on esx 8 that previously failed to boot when 
+> performance counters were not enabled.
+>
+> - patched host
+> - rebooted host
+> - host still came up normally
+> - shut host down
+> - turned off performance counters on vm
+> - booted host
+> - host still came up normally and no issues running vms
+>
+> Thanks!
+> jonathan
+>
+> Jonathan​​​​
+>
+> 	
+>
+> 	
+>
+> Katz
+>
+> 	
+>
+> 	
+>
+> IS Senior Specialist, Infrastructure Operations Engineer
+>
+> AptarGroup
+>
+> 265 Exchange Drive, Suite 100
+>
+> 	
+>
+> ,
+>
+> 	
+>
+> Crystal Lake
+>
+> 	
+>
+> ,
+>
+> 	
+>
+> Illinois
+>
+> 	
+>
+> 	
+>
+> 60014
+>
+> 	
+>
+> ,
+>
+> 	
+>
+> United States
+>
+> (phone) +1 779 220 4484 <tel:+1%20779%20220%204484>
+>
+> 	
+>
+> |
+>
+> 	
+>
+> (mobile) +1 847 525 8441 <tel:+1%20847%20525%208441>
+>
+> jonathan.katz@aptar.com <mailto:jonathan.katz@aptar.com>
+>
+> 	
+>
+> |
+>
+> 	
+>
+> www.aptar.com <http://www.aptar.com/>
+>
+> AptarOnlineSignature
+>
+> -----Original Message-----
+> From: Andrew Cooper <andrew.cooper3@citrix.com>
+> Sent: Monday, January 27, 2025 6:42 AM
+> To: Oleksii Kurochko <oleksii.kurochko@gmail.com>; Xen-devel 
+> <xen-devel@lists.xenproject.org>
+> Cc: Katz, Jonathan <jonathan.katz@aptar.com>; Jan Beulich 
+> <JBeulich@suse.com>; Roger Pau Monné <roger.pau@citrix.com>
+> Subject: Re: [PATCH for-4.20] x86/intel: Fix PERF_GLOBAL fixup when 
+> virtualised
+>
+>
+> EXTERNAL MAIL: Do not click any links or open any attachments unless 
+> you trust the sender and know the content is safe.
+>
+>
+> On 21/01/2025 4:57 pm, Oleksii Kurochko wrote:
+> >
+> > On 1/21/25 3:25 PM, Andrew Cooper wrote:
+> >> Logic using performance counters needs to look at
+> >> MSR_MISC_ENABLE.PERF_AVAILABLE before touching any other resources.
+> >>
+> >> When virtualised under ESX, Xen dies with a #GP fault trying to read
+> >> MSR_CORE_PERF_GLOBAL_CTRL.
+> >>
+> >> Factor this logic out into a separate function (it's already too
+> >> squashed to the RHS), and insert a check of
+> >> MSR_MISC_ENABLE.PERF_AVAILABLE.
+> >>
+> >> This also limits setting X86_FEATURE_ARCH_PERFMON, although oprofile
+> >> (the only consumer of this flag) cross-checks too.
+> >>
+> >> Reported-by: Jonathan Katz <jonathan.katz@aptar.com>
+> >> Link:
+> >> https://nam02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fxcp
+> >> -ng.org%2Fforum%2Ftopic%2F10286%2Fnesting-xcp-ng-on-esx-8&data=05%7C0
+> >> 2%7Cjonathan.katz%40aptar.com%7Cc036df18462d402eda5608dd3ed01147%7C5f
+> >> d74a3ed57a410e8d7c02c4df062234%7C0%7C0%7C638735785584484308%7CUnknown
+> >> %7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW
+> >> 4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=jG5dfAjyXvB
+> >> JRrtNklKp8MjGOUoYGntpD14eRP5GCcI%3D&reserved=0
+> >> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> >> ---
+> >> CC: Jan Beulich <JBeulich@suse.com>
+> >> CC: Roger Pau Monné <roger.pau@citrix.com>
+> >> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> >>
+> >> Untested, but this is the same pattern used by oprofile and watchdog
+> >> setup.
+> >
+> > Probably it will make sense to wait for a response on the forum (you
+> > mentioned in the Link:) that the current one patch works?
+>
+> It's been a week. At this point it needs to go in for the release. As 
+> I said, this is exactly the same pattern as used elsewhere in Xen, so 
+> I'm confident it's a good fix, and Roger agrees too.
 
-I know it's late in 4.20, and moving pci_segments_init() would be
-acceptable at this juncture.
+Based on the test results, it seems everything is okay, so:
+R-Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
 
-However, if you're making progress with improving radix trees, I think
-that would be a better approach and probably fine to be considered at
-this point.
+Thanks.
 
-~Andrew
+~ Oleksii
+
+
+>
+> ~Andrew
+> This e-mail may contain confidential information. If you are not the 
+> intended recipient, please notify the sender immediately and destroy 
+> this e-mail. Any unauthorized copying, disclosure or distribution of 
+> the material in this e-mail is strictly forbidden.
+>
+> /Aptar’s//Privacy Policy 
+> <https://www.aptar.com/en-us/general-terms-and-conditions-use.html> 
+> //explains how Aptar may use your personal information or data and any 
+> personal information or data provided or made available to us./
+>
+--------------P5TN0BHlsPahZbI0XV4qJ94N
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 1/27/25 7:56 PM, Katz, Jonathan
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:SJ0PR04MB83435FE711BB6747C6EA9F90F0EC2@SJ0PR04MB8343.namprd04.prod.outlook.com">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <div>Tested on xcp-ng vm on esx 8 that previously failed to boot
+        when performance counters were not enabled.<br>
+        <br>
+        - patched host<br>
+        - rebooted host<br>
+        - host still came up normally<br>
+        - shut host down<br>
+        - turned off performance counters on vm<br>
+        - booted host<br>
+        - host still came up normally and no issues running vms<br>
+        <br>
+        Thanks!<br>
+        jonathan<br>
+        <br>
+        <div dir="ltr"
+style="mso-line-height-rule:exactly;-webkit-text-size-adjust:100%;font-size:1px;direction:ltr;">
+          <table dir="ltr" cellpadding="0" cellspacing="0" border="0"
+style="width:100%;direction:ltr;border-collapse:collapse;font-size:1px;">
+            <tbody>
+              <tr style="font-size:0;">
+                <td align="left" style="vertical-align:top;">
+                  <table cellpadding="0" cellspacing="0" border="0"
+                    style="border-collapse:collapse;font-size:0;">
+                    <tbody>
+                      <tr style="font-size:0;">
+                        <td align="left"
+                          style="padding:13px 0;vertical-align:top;">
+                          <table cellpadding="0" cellspacing="0"
+                            border="0"
+style="width:0;border-collapse:collapse;font-size:0;color:#FFFFFF;font-style:normal;font-weight:400;white-space:nowrap;">
+                            <tbody>
+                              <tr style="font-size:0;">
+                                <td align="left"
+                                  style="padding:0;vertical-align:top;">
+                                  <table cellpadding="0" cellspacing="0"
+                                    border="0"
+style="border-collapse:collapse;font-size:0;">
+                                    <tbody>
+                                      <tr style="font-size:0;">
+                                        <td align="left"
+style="padding:0;vertical-align:middle;">
+                                          <table cellpadding="0"
+                                            cellspacing="0" border="0"
+style="border-collapse:collapse;font-size:0;">
+                                            <tbody>
+                                              <tr style="font-size:0;">
+                                                <td align="left"
+style="padding:0;vertical-align:top;">
+                                                  <table cellpadding="0"
+                                                    cellspacing="0"
+                                                    border="0"
+style="border-collapse:collapse;font-size:0;color:#5F5F5F;font-style:normal;font-weight:400;white-space:nowrap;">
+                                                    <tbody>
+                                                      <tr
+style="font-size:14.67px;">
+                                                        <td align="left"
+style="vertical-align:top;font-size:17.33px;color:#37605E;font-family:Arial;font-weight:700;">
+                                                          <p
+style="margin-top:0px;margin-bottom:0px;">Jonathan<span
+style="font-family:remialcxesans;font-size:1px;color:#FFFFFF;line-height:1px;">​<span
+style="font-family:'template-KDWbeBsYEeiAwgANOhMCUQ';">​</span><span
+style="font-family:'zone-1';">​</span><span
+style="font-family:'zones-AQ';">​</span></span></p>
+                                                        </td>
+                                                        <td align="left"
+style="vertical-align:top;font-family:Arial;">
+                                                          <p
+style="margin-top:0px;margin-bottom:0px;"> </p>
+                                                        </td>
+                                                        <td align="left"
+style="vertical-align:top;font-size:17.33px;color:#37605E;font-family:Arial;font-weight:700;">
+                                                          <p
+style="margin-top:0px;margin-bottom:0px;">Katz</p>
+                                                        </td>
+                                                        <td align="left"
+style="vertical-align:top;font-family:Arial;">
+                                                          <p
+style="margin-top:0px;margin-bottom:0px;">  </p>
+                                                        </td>
+                                                        <td align="left"
+style="vertical-align:middle;font-family:Arial;">
+                                                          <p
+style="margin-top:0px;margin-bottom:0px;">IS Senior Specialist, Infrastructure Operations Engineer</p>
+                                                        </td>
+                                                      </tr>
+                                                    </tbody>
+                                                  </table>
+                                                </td>
+                                              </tr>
+                                              <tr
+style="font-size:17.33px;color:#37605E;font-style:normal;font-weight:700;white-space:nowrap;">
+                                                <td align="left"
+style="padding:0;vertical-align:top;font-family:Arial;">
+                                                  <p
+style="margin-top:0px;margin-bottom:0px;">AptarGroup</p>
+                                                </td>
+                                              </tr>
+                                              <tr style="font-size:0;">
+                                                <td align="left"
+style="padding:0;vertical-align:bottom;">
+                                                  <table cellpadding="0"
+                                                    cellspacing="0"
+                                                    border="0"
+style="border-collapse:collapse;font-size:0;color:#5F5F5F;font-style:normal;font-weight:400;white-space:nowrap;">
+                                                    <tbody>
+                                                      <tr
+style="font-size:14.67px;">
+                                                        <td align="left"
+style="vertical-align:bottom;font-family:Arial;">
+                                                          <p
+style="margin-top:0px;margin-bottom:0px;">265 Exchange Drive, Suite 100</p>
+                                                        </td>
+                                                        <td align="left"
+style="vertical-align:bottom;font-family:Arial;">
+                                                          <p
+style="margin-top:0px;margin-bottom:0px;">, </p>
+                                                        </td>
+                                                        <td align="left"
+style="vertical-align:bottom;font-family:Arial;">
+                                                          <p
+style="margin-top:0px;margin-bottom:0px;">Crystal Lake</p>
+                                                        </td>
+                                                        <td align="left"
+style="vertical-align:bottom;font-family:Arial;">
+                                                          <p
+style="margin-top:0px;margin-bottom:0px;">, </p>
+                                                        </td>
+                                                        <td align="left"
+style="vertical-align:bottom;font-family:Arial;">
+                                                          <p
+style="margin-top:0px;margin-bottom:0px;">Illinois</p>
+                                                        </td>
+                                                        <td align="left"
+style="vertical-align:bottom;font-family:Arial;">
+                                                          <p
+style="margin-top:0px;margin-bottom:0px;"> </p>
+                                                        </td>
+                                                        <td align="left"
+style="vertical-align:bottom;font-family:Arial;">
+                                                          <p
+style="margin-top:0px;margin-bottom:0px;">60014</p>
+                                                        </td>
+                                                        <td align="left"
+style="vertical-align:bottom;font-family:Arial;">
+                                                          <p
+style="margin-top:0px;margin-bottom:0px;">, </p>
+                                                        </td>
+                                                        <td align="left"
+style="vertical-align:bottom;font-family:Arial;">
+                                                          <p
+style="margin-top:0px;margin-bottom:0px;">United States</p>
+                                                        </td>
+                                                      </tr>
+                                                    </tbody>
+                                                  </table>
+                                                </td>
+                                              </tr>
+                                              <tr style="font-size:0;">
+                                                <td align="left"
+style="padding:0;vertical-align:bottom;">
+                                                  <table cellpadding="0"
+                                                    cellspacing="0"
+                                                    border="0"
+style="border-collapse:collapse;font-size:0;color:#000001;font-style:normal;font-weight:400;white-space:nowrap;">
+                                                    <tbody>
+                                                      <tr
+style="font-size:14.67px;">
+                                                        <td align="left"
+style="vertical-align:bottom;font-family:Arial;">
+                                                          <p
+style="margin-top:0px;margin-bottom:0px;">(phone) <a
+href="tel:+1%20779%20220%204484" target="_blank" id="LPlnk689713"
+style="text-decoration:none;color:#000001;" moz-do-not-send="true">+1 779 220 4484</a></p>
+                                                        </td>
+                                                        <td align="left"
+style="vertical-align:middle;font-family:Arial;">
+                                                          <p
+style="margin-top:0px;margin-bottom:0px;"> <span
+style="color:#37605E;font-size:17.33px;font-weight:700;">| </span></p>
+                                                        </td>
+                                                        <td align="left"
+style="vertical-align:bottom;font-family:Arial;">
+                                                          <p
+style="margin-top:0px;margin-bottom:0px;">(mobile) <a
+href="tel:+1%20847%20525%208441" target="_blank" id="LPlnk689713"
+style="text-decoration:none;color:#000001;" moz-do-not-send="true">+1 847 525 8441</a></p>
+                                                        </td>
+                                                      </tr>
+                                                    </tbody>
+                                                  </table>
+                                                </td>
+                                              </tr>
+                                              <tr style="font-size:0;">
+                                                <td align="left"
+style="padding:0;vertical-align:top;">
+                                                  <table cellpadding="0"
+                                                    cellspacing="0"
+                                                    border="0"
+style="border-collapse:collapse;font-size:0;color:#000001;font-style:normal;font-weight:700;white-space:nowrap;">
+                                                    <tbody>
+                                                      <tr
+style="font-size:14.67px;">
+                                                        <td align="left"
+style="vertical-align:bottom;font-family:Arial;">
+                                                          <p
+style="margin-top:0px;margin-bottom:0px;"><a
+href="mailto:jonathan.katz@aptar.com" target="_blank" id="LPlnk689713"
+style="text-decoration:none;color:#37605E;" moz-do-not-send="true"><span
+style="text-decoration:underline;">jonathan.katz@aptar.com</span></a></p>
+                                                        </td>
+                                                        <td align="left"
+style="vertical-align:middle;font-family:Arial;font-weight:400;">
+                                                          <p
+style="margin-top:0px;margin-bottom:0px;"> <span
+style="font-weight:700;color:#37605E;font-size:17.33px;">| </span></p>
+                                                        </td>
+                                                        <td align="left"
+style="vertical-align:bottom;font-family:Arial;">
+                                                          <p
+style="margin-top:0px;margin-bottom:0px;"><a
+href="http://www.aptar.com/" target="_blank" id="LPlnk689713"
+title="www.aptar.com" style="text-decoration:none;color:#37605E;"
+moz-do-not-send="true"><span style="text-decoration:underline;">www.aptar.com</span></a></p>
+                                                        </td>
+                                                      </tr>
+                                                    </tbody>
+                                                  </table>
+                                                </td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                              <tr style="font-size:1.33px;">
+                                <td align="left"
+style="padding:13px 0 0;vertical-align:top;font-family:Arial;">
+                                  <p
+style="margin-top:0px;margin-bottom:0px;">AptarOnlineSignature</p>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        -----Original Message-----<br>
+        From: Andrew Cooper <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a> <br>
+        Sent: Monday, January 27, 2025 6:42 AM<br>
+        To: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>;
+        Xen-devel <a class="moz-txt-link-rfc2396E" href="mailto:xen-devel@lists.xenproject.org">&lt;xen-devel@lists.xenproject.org&gt;</a><br>
+        Cc: Katz, Jonathan <a class="moz-txt-link-rfc2396E" href="mailto:jonathan.katz@aptar.com">&lt;jonathan.katz@aptar.com&gt;</a>; Jan Beulich
+        <a class="moz-txt-link-rfc2396E" href="mailto:JBeulich@suse.com">&lt;JBeulich@suse.com&gt;</a>; Roger Pau Monné
+        <a class="moz-txt-link-rfc2396E" href="mailto:roger.pau@citrix.com">&lt;roger.pau@citrix.com&gt;</a><br>
+        Subject: Re: [PATCH for-4.20] x86/intel: Fix PERF_GLOBAL fixup
+        when virtualised<br>
+        <br>
+        <br>
+        EXTERNAL MAIL: Do not click any links or open any attachments
+        unless you trust the sender and know the content is safe.<br>
+        <br>
+        <br>
+        On 21/01/2025 4:57 pm, Oleksii Kurochko wrote:<br>
+        &gt;<br>
+        &gt; On 1/21/25 3:25 PM, Andrew Cooper wrote:<br>
+        &gt;&gt; Logic using performance counters needs to look at <br>
+        &gt;&gt; MSR_MISC_ENABLE.PERF_AVAILABLE before touching any
+        other resources.<br>
+        &gt;&gt;<br>
+        &gt;&gt; When virtualised under ESX, Xen dies with a #GP fault
+        trying to read <br>
+        &gt;&gt; MSR_CORE_PERF_GLOBAL_CTRL.<br>
+        &gt;&gt;<br>
+        &gt;&gt; Factor this logic out into a separate function (it's
+        already too <br>
+        &gt;&gt; squashed to the RHS), and insert a check of <br>
+        &gt;&gt; MSR_MISC_ENABLE.PERF_AVAILABLE.<br>
+        &gt;&gt;<br>
+        &gt;&gt; This also limits setting X86_FEATURE_ARCH_PERFMON,
+        although oprofile <br>
+        &gt;&gt; (the only consumer of this flag) cross-checks too.<br>
+        &gt;&gt;<br>
+        &gt;&gt; Reported-by: Jonathan Katz
+        <a class="moz-txt-link-rfc2396E" href="mailto:jonathan.katz@aptar.com">&lt;jonathan.katz@aptar.com&gt;</a><br>
+        &gt;&gt; Link: <br>
+        &gt;&gt;
+        <a class="moz-txt-link-freetext" href="https://nam02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fxcp">https://nam02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fxcp</a><br>
+        &gt;&gt;
+-ng.org%2Fforum%2Ftopic%2F10286%2Fnesting-xcp-ng-on-esx-8&amp;data=05%7C0<br>
+        &gt;&gt;
+        2%7Cjonathan.katz%40aptar.com%7Cc036df18462d402eda5608dd3ed01147%7C5f<br>
+        &gt;&gt;
+        d74a3ed57a410e8d7c02c4df062234%7C0%7C0%7C638735785584484308%7CUnknown<br>
+        &gt;&gt;
+        %7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW<br>
+        &gt;&gt;
+4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&amp;sdata=jG5dfAjyXvB<br>
+        &gt;&gt; JRrtNklKp8MjGOUoYGntpD14eRP5GCcI%3D&amp;reserved=0<br>
+        &gt;&gt; Signed-off-by: Andrew Cooper
+        <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a><br>
+        &gt;&gt; ---<br>
+        &gt;&gt; CC: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:JBeulich@suse.com">&lt;JBeulich@suse.com&gt;</a><br>
+        &gt;&gt; CC: Roger Pau Monné <a class="moz-txt-link-rfc2396E" href="mailto:roger.pau@citrix.com">&lt;roger.pau@citrix.com&gt;</a><br>
+        &gt;&gt; CC: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a><br>
+        &gt;&gt;<br>
+        &gt;&gt; Untested, but this is the same pattern used by oprofile
+        and watchdog <br>
+        &gt;&gt; setup.<br>
+        &gt;<br>
+        &gt; Probably it will make sense to wait for a response on the
+        forum (you <br>
+        &gt; mentioned in the Link:) that the current one patch works?<br>
+        <br>
+        It's been a week. At this point it needs to go in for the
+        release. As I said, this is exactly the same pattern as used
+        elsewhere in Xen, so I'm confident it's a good fix, and Roger
+        agrees too.<br>
+      </div>
+    </blockquote>
+    <pre>Based on the test results, it seems everything is okay, so:
+R-Acked-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+</pre>
+    <pre>Thanks.
+
+~ Oleksii
+</pre>
+    <p><br>
+    </p>
+    <blockquote type="cite"
+cite="mid:SJ0PR04MB83435FE711BB6747C6EA9F90F0EC2@SJ0PR04MB8343.namprd04.prod.outlook.com">
+      <div>
+        <br>
+        ~Andrew<br>
+      </div>
+      This e-mail may contain confidential information. If you are not
+      the intended recipient, please notify the sender immediately and
+      destroy this e-mail. Any unauthorized copying, disclosure or
+      distribution of the material in this e-mail is strictly forbidden.
+      <p><span style="font-size: xx-small;"><span class="SpellE"><em><span
+                lang="EN-US">Aptar’s</span></em></span><em><span
+              lang="EN-US"> <a
+href="https://www.aptar.com/en-us/general-terms-and-conditions-use.html"
+                moz-do-not-send="true">Privacy Policy</a> </span></em><em><span
+              lang="EN-US">explains how Aptar may use your personal
+              information or data and any personal information or data
+              provided or made available to us.</span></em></span></p>
+    </blockquote>
+  </body>
+</html>
+
+--------------P5TN0BHlsPahZbI0XV4qJ94N--
 
