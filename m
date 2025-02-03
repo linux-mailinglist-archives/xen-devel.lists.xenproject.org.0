@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1F62A26029
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Feb 2025 17:33:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.880859.1290951 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31368A25FFC
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Feb 2025 17:29:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.880842.1290931 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tezNZ-0002Xl-7J; Mon, 03 Feb 2025 16:32:57 +0000
+	id 1tezKJ-0008W7-JU; Mon, 03 Feb 2025 16:29:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 880859.1290951; Mon, 03 Feb 2025 16:32:57 +0000
+Received: by outflank-mailman (output) from mailman id 880842.1290931; Mon, 03 Feb 2025 16:29:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tezNZ-0002W1-3Q; Mon, 03 Feb 2025 16:32:57 +0000
-Received: by outflank-mailman (input) for mailman id 880859;
- Mon, 03 Feb 2025 16:32:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tezKJ-0008TZ-GE; Mon, 03 Feb 2025 16:29:35 +0000
+Received: by outflank-mailman (input) for mailman id 880842;
+ Mon, 03 Feb 2025 16:29:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LRcK=U2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tezIF-0006gZ-Ms
- for xen-devel@lists.xenproject.org; Mon, 03 Feb 2025 16:27:27 +0000
+ id 1tezKI-0008TT-76
+ for xen-devel@lists.xenproject.org; Mon, 03 Feb 2025 16:29:34 +0000
 Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
  [2a00:1450:4864:20::62f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c103a5f0-e24b-11ef-99a4-01e77a169b0f;
- Mon, 03 Feb 2025 17:27:26 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0cbbf165-e24c-11ef-a0e7-8be0dac302b0;
+ Mon, 03 Feb 2025 17:29:33 +0100 (CET)
 Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-aaf57c2e0beso943962866b.3
- for <xen-devel@lists.xenproject.org>; Mon, 03 Feb 2025 08:27:26 -0800 (PST)
+ a640c23a62f3a-ab69bba49e2so697477766b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Feb 2025 08:29:33 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab6e47d070bsm772781666b.48.2025.02.03.08.27.24
+ a640c23a62f3a-ab6e49ffd4dsm788945366b.91.2025.02.03.08.29.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Feb 2025 08:27:25 -0800 (PST)
+ Mon, 03 Feb 2025 08:29:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c103a5f0-e24b-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 0cbbf165-e24c-11ef-a0e7-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738600046; x=1739204846; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1738600173; x=1739204973; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=oIG8+dfgv5JrBN9qiubMzxCH8fENGmq0/5ptspun5xg=;
-        b=F1CSUD0421d0LFTvLog1YkCUNtLhLqYYKf9oB8RU8t7K2SwfLNl7ixCed+bFWUlrn6
-         UP8meVAr1rkjN1L8ixZkcvNvufAARHXu1itJ+JfE6NZ/Z6T6qSiNPrDYaOYR91reCgx/
-         mb+7ZqVxK2aqLDQ7NZ/eq06+amsESpNl5u3Ym9exMoZCwDPKDIP6xg9NAeuBHVrUepz7
-         7223ggMOOfkUkZN9LuAIHZr/EWd8ZqKFj8QcoV8xMSEdk3RHnuJilrRK4AA8T5Udl8bR
-         Dt0DNab+wddBbCytWmQ+t2tMi+LoU0lzNuAXm2FFcu0L3DI9lDD0Hv/knaRrk9zN9eC+
-         KDiw==
+        bh=hUPfQOe3yxSx1BdVSEGajOQrhld3vUU6nO4co9Op0/w=;
+        b=Hd4F1VrrtRBCj09scExsxvoiGBxEBBZGbPAc7svUFCNK+kbFYQBt7x1sH02HU+tvVN
+         NZJm9Rh5vLk2OIV6uF2hkSomWbshCX6hNn7QwhNdMEg5aeIDt2hSDnrlxz1pt2y/j5Er
+         tRX/r4eVCS9EBqiPmfeZV2Aepe8ZgI4CbjdMplb+2FTdrH+bV0XSArOxOaD3DxxT0kTk
+         PnzojfIxJgCOOo53EgJhXrRsQOpBKR5OPuuxo6+h+56j97tu9aMSRUWLGBGfpO2163q6
+         N15v9EMGQT4G5JR59vfmiLuY1ahCasgC8dlsFb7w4a2scLInG1eLXATGPIftHk4MO7gr
+         kObw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738600046; x=1739204846;
+        d=1e100.net; s=20230601; t=1738600173; x=1739204973;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=oIG8+dfgv5JrBN9qiubMzxCH8fENGmq0/5ptspun5xg=;
-        b=aMb+VmjucGbUVgeiKX5aK3hMtLM7eThaEv3C78ne9a9okwpK12RjV8fiGDDrvy+E/W
-         zqdsYSxHDHpdB0I8qEcvzm8BkrXCE1aW7VpzxgrP7JztIBtUAQIxJykLcFyg0ek6Jmn0
-         RMnvxjQscmsWDnozvWdC9i6adE9kMzuU8jxBk2oUa6c8D0BxxUtnz3AGOe1b8g2cYuz1
-         KwrZxKewGhZKJTvLwwXG0X3DMAYhxB+MmVARfJDwX3BmsogOBVJIsMthYSwLYhEVA0+/
-         fOSdExDDvkxsEcsn+B+DwBZGkUz2oJTNlcRzTxzxp46Bqz6arHJAOqUT8f/AH1z/pgsB
-         +DHw==
-X-Gm-Message-State: AOJu0YyOegYKLcC3mfZvQkH7PV4YfdNKK1wP1j8TTHORPtu7llIUh5uX
-	m1OSbQBPxUmfaAY6vDACfC1Tcgcy5x2X4nrw7BcycjejWQ/CX/eLd8+/hKcEc7fEYKSXWE0NIsc
+        bh=hUPfQOe3yxSx1BdVSEGajOQrhld3vUU6nO4co9Op0/w=;
+        b=Rpmc+/oXmR76XlqQiuNOacACO7f1AvKs4Re8qPsebkl3yGnO05qlWsvTHg+WYlTEyT
+         5dqKIm2FT1lp0VhsMCLL5tjUmHPlXZC4oyFlCV30bhFep9HOyBQDz+EW4ff+093FTOKO
+         T8X6mBzrja7Jsft9wBNvrEfA93zPc3exWluzMvfFue8Z1ZFhpmD+LWJl1naiWY22XXwf
+         Hx1MFhityk9XXfB+w0hZCAKUU+nYeUZJg8xILo9zBtwKVkHDt8ZcHBvBxyv+7BvvsUDi
+         n2Ohb2VQswP7aF6N26ldeWAcuDz4y/mItr/LNZ9H6IJTMCGhhqwuAYdj+lui3y7mUB16
+         yo4Q==
+X-Gm-Message-State: AOJu0YxQke1/2uwi7xw4sH1eOGKi6QRU6FeyFpiSl5nWmuhorGhJSkGd
+	dXratalFTSZ40yI75HpR2u4sM33kDfG/AAflraB55ROWAXYrrErsm2X9+cMNlpFMIz3RAJvwCMc
 	=
-X-Gm-Gg: ASbGnctZxc+9jgVMNwsxMnp55fgkzAW0fNcMA23a2ttdrllLMk/f3XgGQ9EpFj9FZrg
-	gIH5XojdALAj+JtMcrwKnUEC6a8eAqPSjqCRBxhdweZvayROHS5EDCQ3o7NbJLgzu3lrL1zJwVk
-	f/6OrDcUd7HaUvstijLayEdo7aM5ASgyujqV3H8A/yFk72CCAsfX+P6mqi+CbPDvT0xyuJa9NgK
-	/yJaC8CxfG3oSPTKeolxvk4Gxf3gManecOqktGIjXLhbAKDyOg26hsmtU8/7JbwWMNU/xqInIo2
-	wOaOruANpAiGfua7EgKXWP5FnHV/7EfGCgyVZtKJPREAKTRGZjRrgEAffqVQEQQMf6CmIChbB5G
-	s
-X-Google-Smtp-Source: AGHT+IHihczvoIXGJfjJMfSlrCjW2GvCHbT5w24tirZXoVH4RlueR8nqEW1Pfm5TUrSdqQNbeXA42Q==
-X-Received: by 2002:a17:906:6a23:b0:ab6:de3a:351d with SMTP id a640c23a62f3a-ab6de3a358emr2081002466b.12.1738600045611;
-        Mon, 03 Feb 2025 08:27:25 -0800 (PST)
-Message-ID: <3abd753b-b1f2-499a-8c02-6b6d64a78a17@suse.com>
-Date: Mon, 3 Feb 2025 17:27:24 +0100
+X-Gm-Gg: ASbGncuOWP+0UytNSTOUnzg1oqAEW9M0fNZBJzzlSuuCe2dq9p4n1CUcjIlnEGm3MRq
+	a2VOMCm0bjO3odBSBkq/n6wPYQy2XfIla+yzv+Kn6GhhAUWrVQskQbyCtngzQHNpD+ShC7QpHk+
+	IzpwLMYm5IJ7MKzP3+LKlG5567zuRhfN2gzp6uNnjKGidicfkjxjx8YxNWuGq5GvepXc9jh6jwH
+	GGIdkbLCZIjRrBjfBaabCGA722Fui7v8lJa8scXPmNkFzvcx4kOvTWBuaDR262AcDsIafXG1mai
+	LwP5jRlwfccuxC2BTMx1xcb5SO0XCVg6rE8WZg6q8Ac2JQWJFQmtVJgeiRJ+34Uyx76id9Xx/YC
+	h
+X-Google-Smtp-Source: AGHT+IGiSA4XeiAR8Qxb0bHQJvBFDtnYVQevqqUGDDQAZ1fOAL8klD1KHWEwsR4FvlOeOM/hLvFEbQ==
+X-Received: by 2002:a05:6402:4016:b0:5dc:8f03:bb5b with SMTP id 4fb4d7f45d1cf-5dc8f03c0a0mr31076293a12.5.1738600172644;
+        Mon, 03 Feb 2025 08:29:32 -0800 (PST)
+Message-ID: <0648a806-900f-4014-8e4c-90e7fa5c8994@suse.com>
+Date: Mon, 3 Feb 2025 17:29:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 for-4.20? 6/6] PCI: drop pci_segments_init()
+Subject: Re: [PATCH v2 for-4.20 3/6] radix-tree: purge node allocation
+ override hooks
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>, Julien Grall
- <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
 References: <30f29dde-15e1-4af9-b86f-0040658c381a@suse.com>
+ <3c571436-b678-49bc-938d-892913e0e96e@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -122,75 +123,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <30f29dde-15e1-4af9-b86f-0040658c381a@suse.com>
+In-Reply-To: <3c571436-b678-49bc-938d-892913e0e96e@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Have callers invoke pci_add_segment() directly instead. On x86 move the
-invocation back to acpi_mmcfg_init(), where it was prior to ????????????
-("x86/PCI: init segments earlier").
----
-v2: New.
+On 03.02.2025 17:25, Jan Beulich wrote:
+> These were needed by TMEM only, which is long gone. The Linux original
+> doesn't have such either. This effectively reverts one of the "Other
+> changes" from 8dc6738dbb3c ("Update radix-tree.[ch] from upstream Linux
+> to gain RCU awareness").
+> 
+> Positive side effect: Two cf_check go away.
+> 
+> While there also convert xmalloc()+memset() to xzalloc(). (Don't convert
+> to xvzalloc(), as that would require touching the freeing side, too.)
+> 
+> Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
---- a/xen/arch/arm/pci/pci.c
-+++ b/xen/arch/arm/pci/pci.c
-@@ -88,7 +88,8 @@ static int __init pci_init(void)
-     if ( !pci_passthrough_enabled )
-         return 0;
- 
--    pci_segments_init();
-+    if ( pci_add_segment(0) )
-+        panic("Could not initialize PCI segment 0\n");
- 
-     if ( acpi_disabled )
-         return dt_pci_init();
---- a/xen/arch/x86/x86_64/mmconfig-shared.c
-+++ b/xen/arch/x86/x86_64/mmconfig-shared.c
-@@ -402,6 +402,9 @@ void __init acpi_mmcfg_init(void)
- {
-     bool valid = true;
- 
-+    if ( pci_add_segment(0) )
-+        panic("Could not initialize PCI segment 0\n");
-+
-     /* MMCONFIG disabled */
-     if ((pci_probe & PCI_PROBE_MMCONF) == 0)
-         return;
---- a/xen/drivers/passthrough/pci.c
-+++ b/xen/drivers/passthrough/pci.c
-@@ -122,12 +122,6 @@ static int pci_segments_iterate(
-     return rc;
- }
- 
--void __init pci_segments_init(void)
--{
--    if ( !alloc_pseg(0) )
--        panic("Could not initialize PCI segment 0\n");
--}
--
- int __init pci_add_segment(u16 seg)
- {
-     return alloc_pseg(seg) ? 0 : -ENOMEM;
---- a/xen/drivers/passthrough/x86/iommu.c
-+++ b/xen/drivers/passthrough/x86/iommu.c
-@@ -55,8 +55,6 @@ void __init acpi_iommu_init(void)
- {
-     int ret = -ENODEV;
- 
--    pci_segments_init();
--
-     if ( !iommu_enable && !iommu_intremap )
-         return;
- 
---- a/xen/include/xen/pci.h
-+++ b/xen/include/xen/pci.h
-@@ -214,7 +214,6 @@ void setup_hwdom_pci_devices(struct doma
-                              int (*handler)(uint8_t devfn,
-                                             struct pci_dev *pdev));
- int pci_release_devices(struct domain *d);
--void pci_segments_init(void);
- int pci_add_segment(u16 seg);
- const unsigned long *pci_get_ro_map(u16 seg);
- int pci_add_device(u16 seg, u8 bus, u8 devfn,
+I'm sorry, the question mark after for-4.20 was somehow lost in the
+submission.
 
+Jan
 
