@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8B83A260A1
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Feb 2025 17:55:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.880930.1291030 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5879BA260A9
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Feb 2025 17:58:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.880939.1291041 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tezjY-0002bv-J7; Mon, 03 Feb 2025 16:55:40 +0000
+	id 1tezmX-0003FR-W5; Mon, 03 Feb 2025 16:58:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 880930.1291030; Mon, 03 Feb 2025 16:55:40 +0000
+Received: by outflank-mailman (output) from mailman id 880939.1291041; Mon, 03 Feb 2025 16:58:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tezjY-0002aR-Fa; Mon, 03 Feb 2025 16:55:40 +0000
-Received: by outflank-mailman (input) for mailman id 880930;
- Mon, 03 Feb 2025 16:55:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9wUg=U2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tezjW-00027y-8j
- for xen-devel@lists.xenproject.org; Mon, 03 Feb 2025 16:55:38 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b09df054-e24f-11ef-99a4-01e77a169b0f;
- Mon, 03 Feb 2025 17:55:36 +0100 (CET)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-38789e5b6a7so2431691f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 03 Feb 2025 08:55:36 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38c5c1b61f1sm13527504f8f.68.2025.02.03.08.55.35
+	id 1tezmX-0003Dh-TH; Mon, 03 Feb 2025 16:58:45 +0000
+Received: by outflank-mailman (input) for mailman id 880939;
+ Mon, 03 Feb 2025 16:58:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=LRcK=U2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tezmW-0003Db-HT
+ for xen-devel@lists.xenproject.org; Mon, 03 Feb 2025 16:58:44 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 20058003-e250-11ef-a0e7-8be0dac302b0;
+ Mon, 03 Feb 2025 17:58:43 +0100 (CET)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-5dc7eba78e6so8540691a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Feb 2025 08:58:43 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab6e49ff98bsm790120766b.101.2025.02.03.08.58.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Feb 2025 08:55:35 -0800 (PST)
+ Mon, 03 Feb 2025 08:58:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,119 +45,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b09df054-e24f-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 20058003-e250-11ef-a0e7-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1738601736; x=1739206536; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1738601923; x=1739206723; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+O2Z28GZ2gsuA+Mi329KCVj5lltn793uXpCx9+ZRb+0=;
-        b=Rm0yzgbZdZY3y2hPOImvfP/NgOm6xNm3n3O3/lLU7/hLMKKKky+nN030WhjGoVeCLX
-         rMrxQd86YxHRcy/c2BAlL4HLDmq9NTQHv7B17UXKVxCArTktRh7M1Fbap/gBEmccNJPy
-         AUXDlAhoDPb2MOKKTzTxW2rWTgiFsaM9HT70I=
+        bh=OSbrmsg7FjY0BHPsbHWpDr6/AeUrQW1H3rWcZb4hqfU=;
+        b=buGSYNnm2/XXoWt14vfKB5cVZSGTUiiZlVW4NxLHvIJfOspUo6F5NkVQDSwS8BL/kp
+         RLx1zGlWWRN5xxNerjf5hGbweN62jqx1zez2Qkkwi34/mYlIU/QuSJF2kkpOu/1cekmN
+         YllStMi3R7zicAp43tRJoE9Vr3/mJtUBJixqL3HeQL6//Js5XT3CKOsr0phyYwfQeqSc
+         bvx3APdOfs91bkcwdfUi7fUxg+Vw4uY2syi6mYjL4hlHEDHQCACo0ivsH+8fmsm+FveJ
+         ZyD9pMSm6KV01BFRUo2cLHxMzwY1HcykQPgmXmb7rFM/6Lhtg/jdSQEdvrn9yyON15rv
+         PqTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738601736; x=1739206536;
+        d=1e100.net; s=20230601; t=1738601923; x=1739206723;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+O2Z28GZ2gsuA+Mi329KCVj5lltn793uXpCx9+ZRb+0=;
-        b=J631asq3PFyrqldFoLHRGe8QyTPn6atKlTgYuuvKlwE8D8yieYIwsvPNypMnXsrTQo
-         RrSUAiQp8lar/iKEM2Fgz1+Ax7z3hQqYSBuFBzjzp0BEGNzscz3uJGI7vB7H3eMTaJd3
-         1yFY6bin0HrQk6tCqbdw+HOjnlrIZwbgJuC0J1XJaeP7GP6ELX/Wo/qJYAL4tTVDNAuF
-         CYopngGGrTpV5B4K/Qr2X3e2rzeNEjvXlcS0rb1Pav38XfL6bLk/lZkXNwrUOIaLrcR0
-         9437NHOvIs4v5UGXq+xDKM5++mf4hkGE6PSutN9jJGv/r1cycnPVKZXO4Z4SYRmdZ9El
-         OfRg==
-X-Forwarded-Encrypted: i=1; AJvYcCU4FPBsM+0CiKShBSIx05G802va+A5wQAbBIIfbL1PG9gLVcUUcdvxLXSOpl3XXk5EcNKmw7D1PfDA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy8TcNS8GRYkm2k3EcE6uY5SFJMv77adS7eqfR0uHGsAew/QPWl
-	59BFblNhOyqCSjqRrWRwIYo082ew1sIkUtmKqbKDagQHLNMJiEaeh/U/g/ayjAc=
-X-Gm-Gg: ASbGnctVOkAy9s2KHN+Olpj9yErZ+mdlZx8KUp9mqIxe+V7Yp9pIm7+71+/w4+3ojCx
-	ICcHStXBD7rtL0VXbKa3Z26j+PymR3fdSBdaNkXrtDf8InVdTGNhybuijTeO/KKtpRBNKnw8Kg+
-	D5SizBZKUm7aqE4OSnM5aLE3eKFX5oWCp/EjfGMC/+87tIWJ22jgNIMLOTTTsihx3kBOiRdU9hf
-	twjcnoi2jIoTjmpht7putS4S2+fANdbmOq4hutoU/iEY4CEY0nYunDcg1F7Sao9y6xdwFVu7ScP
-	7SRmNFfi3EFsFmBXjhFFJnObkUJHDBFOmIf/pBG2xmm4B2+ucWoz4cc=
-X-Google-Smtp-Source: AGHT+IG3fm8+yIwbJ5EtyObkpwHARu2+43i1wU1THKmOrZmkgPvFDCIoIcbvZ9u2/rMqVpMIjH5Dqg==
-X-Received: by 2002:a05:6000:2a9:b0:385:fbb7:672d with SMTP id ffacd0b85a97d-38c5209753cmr17915142f8f.52.1738601736118;
-        Mon, 03 Feb 2025 08:55:36 -0800 (PST)
-Message-ID: <8e9aadd9-8a16-4738-8ce0-058cf7664841@citrix.com>
-Date: Mon, 3 Feb 2025 16:55:35 +0000
+        bh=OSbrmsg7FjY0BHPsbHWpDr6/AeUrQW1H3rWcZb4hqfU=;
+        b=sDHfOYMHI/9dxCkiCDFv67TV6McGLjm+lNj830ynR3yX/0KWHWLPswOMzP/D4G3JMJ
+         O9bhXLO+UwZlG4XPQNjKrrN2l0cgwntmI5imRuzx+d9d63RZ6Z2iVPCAxYrYydjO8CSm
+         6ZcHZw4uWMNsuQWbUYmTF0ltvEsWWEfB9qzqiIgmVnWp9L/vEYJvaIEXJDKWVh4bVwTv
+         bFMlnLCh+j22iyZKA1RiuseNsCND1CCZVxaNxAmw4Kkyis9BS9pCExQgKAHW3H9w5Km2
+         i0FZWqxRsaQQxZubL1LBlpSX8uI1GRTjQHBy7VDOUBsKAmlpRPskuvLEPOWOXLsqOqOI
+         aRBA==
+X-Forwarded-Encrypted: i=1; AJvYcCUniYtbMqn0fFcBNc6rJu65+NNFc52BVUV7+Q5EJj/iIPWzqzYV2vhlhLVHERL/Vv04Z2IGcludVXk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwHd6ASJyR+jBS7wCMRM/Az86zEZrJmZ5y6mWsQZY2E+JA7UJzK
+	4edUp/vwJ2D5IiRX9ZS53ca4u5RZB+1XAKbqvpN3g1aQW0xscWvchhEAwnaZjg==
+X-Gm-Gg: ASbGncuFLRWgzXYAa6IkQy9za6yVO2xEbb4bZNbQS75cudRH8NgHY52Pz9fXLEtLslr
+	rv8EAjj4ruhScQHEOTBxwfW4KCkRZpbv/MBcPZisgoRwt/HqKrgO3fVywiH0sTYNNRGcUcJJDeE
+	f1ZEPY7QumHO7uCRmADLQ2GU4790AefdztqRpKsNCmDXKYyKR34vecyjlK6V3PmVpAvJoUff0pw
+	sV5KEl5uP1h4CSP4l+ubHKIrnLGiT59hYMzpLjEJb6BsweywjnyJMhGbaWOxTJ2iPqvgGaGp2gJ
+	H1AYvWUiuJYpcmcgMiqiZfv+5xb2F3PCSff0G0vot9zRvOI7EtcSCMW1Y3ZeftlEk8wlKIN/SRX
+	o
+X-Google-Smtp-Source: AGHT+IEosuQe8379ioXWqiH9NYmVH79LZfQfPaKb422p3A9hYnV5aQZPnMdM2LYAm1gcUvVJfSbH5g==
+X-Received: by 2002:a17:906:6b17:b0:ab6:d575:9541 with SMTP id a640c23a62f3a-ab6d57596fcmr1974151166b.19.1738601922986;
+        Mon, 03 Feb 2025 08:58:42 -0800 (PST)
+Message-ID: <3facc3f9-fd75-49f9-aa8e-ecee3c67dc80@suse.com>
+Date: Mon, 3 Feb 2025 17:58:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.20 0/6] AMD/IOMMU: assorted corrections
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Jan Beulich <jbeulich@suse.com>,
+Subject: Re: [PATCH v2 for-4.20? 5/6] radix-tree: introduce
+ RADIX_TREE{,_INIT}()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <30f29dde-15e1-4af9-b86f-0040658c381a@suse.com>
- <3a049628-8693-4fe5-81a1-1961b1402e50@gmail.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <3a049628-8693-4fe5-81a1-1961b1402e50@gmail.com>
+ <bd8d65e6-e887-4afe-8ff0-df86416fa869@suse.com>
+ <528e3341-45ce-4e82-bdb5-ee3dc72a6925@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <528e3341-45ce-4e82-bdb5-ee3dc72a6925@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 03/02/2025 4:38 pm, Oleksii Kurochko wrote:
-> On 2/3/25 5:22 PM, Jan Beulich wrote:
->> The first two patches are functionally independent, and they're presented
->> here merely in the order I came to notice the respective issues. At least
->> patch 2 wants seriously considering for 4.20.
+On 03.02.2025 17:48, Andrew Cooper wrote:
+> On 03/02/2025 4:26 pm, Jan Beulich wrote:
+>> ... now that static initialization is possible. Use RADIX_TREE() for
+>> pci_segments and ivrs_maps.
 >>
->> While alternatives were considered for patch 2, it's left as it was in v1
->> for now. The disposition there depends on (a) the four new patches, in
->> particular what the last patch does and (b) backporting considerations
->> (we probably don't want to backport any of the radix tree tidying).
->>
->> 1: AMD/IOMMU: drop stray MSI enabling
->> 2: x86/PCI: init segments earlier
-> R-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com> for first two patches.
-> For others it seems like nothing serious will happen if to merge them after 4.20.
+>> Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> 
+> I'd not considered having RADIX_TREE() but it's nicer than my attempt.
+> 
+> However,
+> 
+>> --- a/xen/include/xen/radix-tree.h
+>> +++ b/xen/include/xen/radix-tree.h
+>> @@ -72,6 +72,9 @@ struct radix_tree_root {
+>>   *** radix-tree API starts here **
+>>   */
+>>  
+>> +#define RADIX_TREE_INIT() {}
+> 
+> ... this ought to be (struct radix_tree_root){} so it can't be used with
+> other types, and radix_tree_init() wants to become:
+> 
+> void radix_tree_init(struct radix_tree_root *root)
+> {
+>         *root = RADIX_TREE_INIT();
+> }
+> 
+> instead of the raw memset(), so the connection is retained.
 
-The reason I asked for them is because I think they're a far more robust
-fix than just patch 2 in isolation.  That goes for older versions of Xen
-too.
+Can do; in fact I did consider both, but omitted them for simplicity.
 
-~Andrew
+> Assuming you're happy with these adjustments, Reviewed-by: Andrew Cooper
+> <andrew.cooper3@citrix.com>
+
+Thanks.
+
+Jan
 
