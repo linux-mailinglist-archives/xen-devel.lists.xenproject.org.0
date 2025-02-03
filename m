@@ -2,38 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F100A2513A
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Feb 2025 03:21:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.880445.1290517 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02FC4A2528A
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Feb 2025 07:35:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.880453.1290527 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tem4s-0006EB-EM; Mon, 03 Feb 2025 02:20:46 +0000
+	id 1teq2W-0000ss-8V; Mon, 03 Feb 2025 06:34:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 880445.1290517; Mon, 03 Feb 2025 02:20:46 +0000
+Received: by outflank-mailman (output) from mailman id 880453.1290527; Mon, 03 Feb 2025 06:34:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tem4s-0006Cb-8j; Mon, 03 Feb 2025 02:20:46 +0000
-Received: by outflank-mailman (input) for mailman id 880445;
- Mon, 03 Feb 2025 02:20:45 +0000
+	id 1teq2W-0000qg-1r; Mon, 03 Feb 2025 06:34:36 +0000
+Received: by outflank-mailman (input) for mailman id 880453;
+ Mon, 03 Feb 2025 05:55:58 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=V+Rf=U2=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1tem4q-0006CT-S9
- for xen-devel@lists.xenproject.org; Mon, 03 Feb 2025 02:20:45 +0000
-Received: from fhigh-b1-smtp.messagingengine.com
- (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
+ <SRS0=SxL3=U2=amd.com=nikunj.dadhania@srs-se1.protection.inumbo.net>)
+ id 1tepR7-0004wK-Rz
+ for xen-devel@lists.xenproject.org; Mon, 03 Feb 2025 05:55:58 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20612.outbound.protection.outlook.com
+ [2a01:111:f403:200a::612])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 764ecfd0-e1d5-11ef-a0e7-8be0dac302b0;
- Mon, 03 Feb 2025 03:20:41 +0100 (CET)
-Received: from phl-compute-06.internal (phl-compute-06.phl.internal
- [10.202.2.46])
- by mailfhigh.stl.internal (Postfix) with ESMTP id 0F1A825400EE;
- Sun,  2 Feb 2025 21:20:39 -0500 (EST)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-06.internal (MEProxy); Sun, 02 Feb 2025 21:20:39 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 2 Feb 2025 21:20:37 -0500 (EST)
+ id 87ac0694-e1f3-11ef-a0e7-8be0dac302b0;
+ Mon, 03 Feb 2025 06:55:55 +0100 (CET)
+Received: from BYAPR06CA0060.namprd06.prod.outlook.com (2603:10b6:a03:14b::37)
+ by MW6PR12MB8957.namprd12.prod.outlook.com (2603:10b6:303:23a::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8398.23; Mon, 3 Feb
+ 2025 05:55:51 +0000
+Received: from CO1PEPF000066EC.namprd05.prod.outlook.com
+ (2603:10b6:a03:14b:cafe::89) by BYAPR06CA0060.outlook.office365.com
+ (2603:10b6:a03:14b::37) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8377.14 via Frontend Transport; Mon,
+ 3 Feb 2025 05:55:51 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000066EC.mail.protection.outlook.com (10.167.249.8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8398.14 via Frontend Transport; Mon, 3 Feb 2025 05:55:50 +0000
+Received: from BLR-L1-NDADHANI (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Sun, 2 Feb
+ 2025 23:55:15 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,266 +56,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 764ecfd0-e1d5-11ef-a0e7-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:content-type:content-type:date:date
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1738549238;
-	 x=1738635638; bh=kLgdLI5oUO5W6IbNsChm6AJlzDDfUQRpYNImEHLeohM=; b=
-	ncqRb4AgPpaGHCbbtHgwBxEUkPiWkOXJ9x1hT3P1WLc7tgWfUFfPoIeczEoaMZk5
-	CpKjMb+WRI8ywyA6aFEQnhkPDpMgYEYTQYg0HTewdAz9BCMTMchD5xv+3UqE2XEI
-	n4cEmuOzb1SmVbGJaVWDpJ7UX1hMgm8BF7Lt8XtVLC+a01SypNFhvibh88RL19rT
-	F1KtmVP9/9Nl0rDQTEk4mSrTF9osEQV3pGdKDSsGTazG3j4cJEmIoLltGq+jd9Yc
-	jKcDJT6CnJIqtKk7rSxyVMmzcJJ21aByywxaBh36ujhjObSzM6nmNQfqE3W5wr1u
-	a0kivErtKjsNn9TMLMcvig==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1738549238; x=1738635638; bh=kLgdLI5oUO5W6IbNsChm6AJlzDDfUQRpYNI
-	mEHLeohM=; b=e0XlE5bRmpUnVCqeYdO0TyzykVBXzkXZaYh3F836bC3yrxrMSQ8
-	R36yjtRLhVVPz7cac8IImt4Z9oG4YTtZSEpTlPXP9Rgvgzq762Khch6KmGAhLV5K
-	R1Gli4rccTPYVOgNPWzjYKrX1tStaG5MqRKzdpoA6LdBj9WzAygy4OMEDKTsmtxB
-	qxSnZlt/3qLGuvukLEIFdOe+F8bXDWlC3MQShHj+hrgRgTepdhqDIx4yxcEWEaR0
-	uECLxgX2h10HLJfBKTeKL/GkMgmM8mJQn3skGI/1GqsTmCmciYy7WU9CnAOVnYJP
-	0U3mJhNbyueONQwLLbYPJ/r2cdY/7iPp8+g==
-X-ME-Sender: <xms:9iegZ9Er1xwDSsdifAjLQeiF_hc77G7oy3P8QPT2DU9Az3GM7g_IVg>
-    <xme:9iegZyWKnYM3dHi8UdnkyycnLDGdqT7tQ3Jf01mOtt7AJU5khPHnawCO2hGZe7HIg
-    KUeGBVDlMlSQQs>
-X-ME-Received: <xmr:9iegZ_Jnrft4IDiKvetPAdqexEaHwk-WyJR3KbHvcTmhaZlp8zwpDPKNAqs>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdduieefiecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdp
-    uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivg
-    hnthhsucdlqddutddtmdenucfjughrpeffhffvuffkfhggtggujgesghdtreertddtvden
-    ucfhrhhomhepffgvmhhiucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepiefgieef
-    vdfgjeelfeeifefgjedvvdefleegleeifeegfffhgffffeffhfeuudehnecuvehluhhsth
-    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhs
-    ihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepudekpdhmohguvg
-    epshhmthhpohhuthdprhgtphhtthhopehhohhnghhlvghiuddrhhhurghnghesrghmugdr
-    tghomhdprhgtphhtthhopehrrgihrdhhuhgrnhhgsegrmhgurdgtohhmpdhrtghpthhtoh
-    epughmihhtrhihrdhoshhiphgvnhhkohestgholhhlrggsohhrrgdrtghomhdprhgtphht
-    thhopegurhhiqdguvghvvghlsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpd
-    hrtghpthhtoheprghirhhlihgvugesrhgvughhrghtrdgtohhmpdhrtghpthhtohepkhhr
-    rgigvghlsehrvgguhhgrthdrtghomhdprhgtphhtthhopehguhhrtghhvghtrghnshhinh
-    hghhestghhrhhomhhiuhhmrdhorhhgpdhrtghpthhtohepohhlvhgrfhhfvgesghhmrghi
-    lhdrtghomhdprhgtphhtthhopegrkhhihhhikhhordhouggrkhhisegurgihnhhigidrtg
-    homh
-X-ME-Proxy: <xmx:9iegZzEaNOgSGM9Yon92Im4r0b1M_wMeZXfndSJeRCkKYLsB0QPd1A>
-    <xmx:9iegZzXxJo2-dwTxOEwyj4j4PUaNQOEN513yjD2dwxRtcfxPVpwb2Q>
-    <xmx:9iegZ-PtDOokRGouCaKQii9Dq_JxDzQVkwEmbE2rnCIzu5aicExPtw>
-    <xmx:9iegZy3NHN-0W5re0cyQtJtEeNIjGU_SX0YNnhEmZTZAGO94A8DTcA>
-    <xmx:9iegZ6OhqvdmY-sFGKoCC3Ay55jRIV5wpS9TWhELj6mEJWMnCqTmiFdF>
-Feedback-ID: iac594737:Fastmail
-Date: Sun, 2 Feb 2025 21:20:22 -0500
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: "Huang, Honglei1" <Honglei1.Huang@amd.com>,
-	Huang Rui <ray.huang@amd.com>,
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	dri-devel@lists.freedesktop.org, David Airlie <airlied@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Gurchetan Singh <gurchetansingh@chromium.org>,
-	Chia-I Wu <olvaffe@gmail.com>,
-	Akihiko Odaki <akihiko.odaki@daynix.com>,
-	Lingshan Zhu <Lingshan.Zhu@amd.com>,
-	Xen developer discussion <xen-devel@lists.xenproject.org>,
-	Marek =?us-ascii?B?PT91dGYtOD9RP01hcmN6eWtvd3NraS1HPUMzPUIzcmVja2k/?=
-	=?us-ascii?Q?=3D?= <marmarek@invisiblethingslab.com>,
-	Xenia Ragiadakou <burzalodowa@gmail.com>,
-	Stefano Stabellini <stefano.stabellini@amd.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Matthew Wilcox <willy@infradead.org>,
-	Simona Vetter <simona.vetter@ffwll.ch>
-Subject: Re: Xen memory management primitives for GPU virtualization
-Message-ID: <Z6An8odKgv2xgmBw@itl-email>
-References: <Z5794ysNE4KDkFuT@itl-email>
+X-Inumbo-ID: 87ac0694-e1f3-11ef-a0e7-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qe/HrCE+KcGzczlaNno3v3hblZvAvrNxga+jlDOUBmkF/9ogkFYAywUjsxSvaG4JApXyvzc4jkHUF2rP98eKSUtwKwpIdTFmL4AxvJxm13z/NdE6mRXv5KC/Uk1zDAegJcVefNatrYi2jtf2y/y34Mh3yy6fwzdoIr4Lq3/cx+K9/esXhgnJcQ6hKNZrflH5treVKtcEhnRpZYvnZqyrzdx3YAv4VtHiu4V+RclgMnxQjN/MbDLups/VZ7JuHLfbQGiA9PbR8lz25s0MxW+tmVKmlJNfaC2IlJtngI0rlUAGhLbefUcdAeNFOjSJPjMQVUVxT+TkV6qgQTwaZ0mIaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j8lK7oImK5GsAjjYujbZqwkRW6kPxfs15oiWYx+hDAA=;
+ b=bgWHLc407qUOi57kg9bzpjWa9aZ919VWnSlCF2aBiHfu44jkW9mrzCQks2lQLHm8nZevMwukv7luoOnxk/0OkaqO04NbyReGVRBTKFfeiCSC9VVvrqRnEIfuEjXHnS9CIre2lH3xgOUzwtaNqRXuYzfNDYSkTEaLQ8d+fvn85g6Jg+U63u2ua2mngHdWFVAgex6WmpxqwjJmCK9j4I/+4dQzjoGAlU+ikxeYjMf8Yaj+HdMNHW3Aar0/34O0atsWhE3v1JMQDKoiNlb1jDf6ZNKYxPTjXWQ0+mP29dCKGYiz6yMC9KNvLa5DiWBdrkmNCooeB8cTfhYBpGYJlm3jWQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=j8lK7oImK5GsAjjYujbZqwkRW6kPxfs15oiWYx+hDAA=;
+ b=AR/5oMM0Ep2Rp/Pgk6uw7drexzJo97IMWZ9SoskydpUVQHhYbAnb+qkwmXnDMnphDFBFEYk7Uv/RkiBRscQbvrNoauQBKVBJ35c6TQYopeHQLic8bWTTGy8Q10pX8PeY3t/7BUQBW39vUpqY/H0bLJ/yTLOU5FR37ZW2ENOKSlk=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Nikunj A Dadhania <nikunj@amd.com>
+To: Sean Christopherson <seanjc@google.com>, Thomas Gleixner
+	<tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
+	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, <x86@kernel.org>,
+	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>, Juergen Gross
+	<jgross@suse.com>, "K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang
+	<haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui
+	<decui@microsoft.com>, Ajay Kaher <ajay.kaher@broadcom.com>, "Alexey
+ Makhalov" <alexey.amakhalov@broadcom.com>, Jan Kiszka
+	<jan.kiszka@siemens.com>, Paolo Bonzini <pbonzini@redhat.com>, "Andy
+ Lutomirski" <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>
+CC: <linux-kernel@vger.kernel.org>, <linux-coco@lists.linux.dev>,
+	<virtualization@lists.linux.dev>, <linux-hyperv@vger.kernel.org>,
+	<jailhouse-dev@googlegroups.com>, <kvm@vger.kernel.org>,
+	<xen-devel@lists.xenproject.org>, Sean Christopherson <seanjc@google.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>
+Subject: Re: [PATCH 01/16] x86/tsc: Add a standalone helpers for getting TSC
+ info from CPUID.0x15
+In-Reply-To: <20250201021718.699411-2-seanjc@google.com>
+References: <20250201021718.699411-1-seanjc@google.com>
+ <20250201021718.699411-2-seanjc@google.com>
+Date: Mon, 3 Feb 2025 05:55:02 +0000
+Message-ID: <855xlra7yh.fsf@amd.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="QlLW1qX7YRCu52Cm"
-Content-Disposition: inline
-In-Reply-To: <Z5794ysNE4KDkFuT@itl-email>
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000066EC:EE_|MW6PR12MB8957:EE_
+X-MS-Office365-Filtering-Correlation-Id: a866d209-0981-4b8e-3556-08dd441769f8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|376014|7416014|1800799024|82310400026|7053199007|921020;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?yHnpJxwWZjnytpYcAYL+LWwCw3QW/pQ9N+XyD8SerezGnn6wJ06BQIOh0seo?=
+ =?us-ascii?Q?EoP4uTnKYbj1cTrmJceqzOtAkPVwUrisXaKd6J/u7R6HdSLUWdlVQqBAW33q?=
+ =?us-ascii?Q?OOZq1bPgBtEmK65lvWVUaqN+BSTNwWNHZUQDR8tLC7s/husAIO3bXfifZZ5r?=
+ =?us-ascii?Q?icQeNcNOnB0zVNtMWFLiMaX8fohdfkHyJuGtUTUilPQr2RlTz8CpZbd7xE+E?=
+ =?us-ascii?Q?eVIW4r/dgceYuR4SIt9UKH/1qTOZCYq5GJtXONinVUPkqAMPWJIQ2jIW4p/G?=
+ =?us-ascii?Q?31CeABi/NYLLVxC/5A2W9ak6UsGhBSsKThCbgXc64nOdlxHX/GE9X4YeqVkX?=
+ =?us-ascii?Q?MPT+nd8swdb5yy1u90i4YZgq84qFMl+j2XriuUPkM6+OLYkDf+0c7b3Hm90x?=
+ =?us-ascii?Q?p6H8FGvPHASk8WMkMwGf9gm/xOW1CtNiKxSzTnkS6YeYIpRoqZPHmwQ4vHzT?=
+ =?us-ascii?Q?5Zhi3ejJ1+xOOT9MLIIxI/yU7DZQyozAF7Np7yKvfVDoyiduqmX1Gq5SMlkn?=
+ =?us-ascii?Q?gI6KRiA2H9tA3KyK+72lW0gyoiiNAcmF+8GYD2PjB0VktT8L4Y88yLc9whJQ?=
+ =?us-ascii?Q?NgBbnpgeE6u30+SeT3XyVQk5fd1wkUfUF0CCyyq0hk1EZxc0cOyuyidiDDVF?=
+ =?us-ascii?Q?wlhMeRwkTt31KRUekS9gLXKlYHHdQtbBtoHSI2cxZWhSjqB5ESKrVs2HzHi2?=
+ =?us-ascii?Q?ye9sVv6X8oXYzcIuLvVv0jAZVk3B5s/nP6gAJ79jMoyPf3YqYQqtQrR5bbTb?=
+ =?us-ascii?Q?pbI31BN+QSWmKU1m13/cdlpF0sXfF9hILz6kakMFcnmuxCORTPii2xikvYca?=
+ =?us-ascii?Q?886IcjHcQzRmvwL81r1uWJlsANVHO8Gqlnsykq5GBdzf7hZzqTA8mXxYAkHL?=
+ =?us-ascii?Q?c9hIDuACr7aSfvdmfUeYgkVhj1ZPGjEOgFRhogUDRvg3uNT3Eb0EkCfvmt9T?=
+ =?us-ascii?Q?nHTTWzAhBlrFB11XyCtnxH3wSrYzDaEav+CR2OjQ56ninqhwKNRmG2ELte9O?=
+ =?us-ascii?Q?KdCfD9KppmwbjLW2GGMN2zL0IFBXHWir267iLpHQ8Mmt5mewJqVb6BUZkDgf?=
+ =?us-ascii?Q?O8+TMZ+37oJRVw3qvikHV4eMuC5HwwCukX1xo9Zbd3WE7yEzPMukQLKxJSwD?=
+ =?us-ascii?Q?7yS/ZsRWkn8nmwo9dquNnEtvLBsY7AVk/HgSkMiLV/P9PEdXhyCsw8pgxzvl?=
+ =?us-ascii?Q?iHCheneNIq9/u8Dd8rHepKs90c7xW8OWsxdEzuuhWjJHBihBsT9uvOdWEXGa?=
+ =?us-ascii?Q?hwpVGtXUXnrYSTS3u2fM5j11TYuqMyzwUXdAY+FC9I7O2Xbam86vEN4rR5vm?=
+ =?us-ascii?Q?m/In9rYAVotUOQdOdec1SGLw7t9ktkpmlirztFxbw0IAP4vFUsh/25DrSk5D?=
+ =?us-ascii?Q?qwG0Cx2ZaITOdv50qYkddEtT0hRLsmDNeDnhFs2sraZ9bmViKFdAgWDuNVcI?=
+ =?us-ascii?Q?eIimnEZcqo/yrbsAJj1/hzdcGF2grP2MMQSW4ou43o1SLA928ouJmQGz8mLw?=
+ =?us-ascii?Q?SOhHHyidjVEjbbQ=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(7416014)(1800799024)(82310400026)(7053199007)(921020);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Feb 2025 05:55:50.8351
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a866d209-0981-4b8e-3556-08dd441769f8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF000066EC.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8957
 
+Sean Christopherson <seanjc@google.com> writes:
+> Extract retrieval of TSC frequency information from CPUID into standalone
+> helpers so that TDX guest support and kvmlock can reuse the logic.  Provide
 
---QlLW1qX7YRCu52Cm
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 2 Feb 2025 21:20:22 -0500
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: "Huang, Honglei1" <Honglei1.Huang@amd.com>,
-	Huang Rui <ray.huang@amd.com>,
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	dri-devel@lists.freedesktop.org, David Airlie <airlied@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Gurchetan Singh <gurchetansingh@chromium.org>,
-	Chia-I Wu <olvaffe@gmail.com>,
-	Akihiko Odaki <akihiko.odaki@daynix.com>,
-	Lingshan Zhu <Lingshan.Zhu@amd.com>,
-	Xen developer discussion <xen-devel@lists.xenproject.org>,
-	Marek =?us-ascii?B?PT91dGYtOD9RP01hcmN6eWtvd3NraS1HPUMzPUIzcmVja2k/?=
-	=?us-ascii?Q?=3D?= <marmarek@invisiblethingslab.com>,
-	Xenia Ragiadakou <burzalodowa@gmail.com>,
-	Stefano Stabellini <stefano.stabellini@amd.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Matthew Wilcox <willy@infradead.org>,
-	Simona Vetter <simona.vetter@ffwll.ch>
-Subject: Re: Xen memory management primitives for GPU virtualization
+s/kvmlock/kvmclock
 
-On Sun, Feb 02, 2025 at 12:08:46AM -0500, Demi Marie Obenour wrote:
-> Recently, AMD submitted patches to the dri-devel mailing list to support
-> using application-provided buffers in virtio-GPU.  This feature is
-> called Shared Virtual Memory (SVM) and it is implemented via an API
-> called User Pointer (userptr).  This lead to some discussion on
-> dri-devel@lists.freedesktop.org and dri-devel IRC, from which I
-> concluded that Xen is missing critical primitives for GPU-accelerated
-> graphics and compute.  The missing primitives for graphics are the ones
-> discussed at Xen Project Summit 2024, but it turns out that additional
-> primitives are needed for compute workloads.
->=20
-> As discussed at Xen Project Summit 2024, GPU acceleration via virtio-GPU
-> requires that an IOREQ server have access to the following primitives:
->=20
-> 1. Map: Map a backend-provided buffer into the frontend.  The buffer
->    might point to system memory or to a PCIe BAR.  The frontend is _not_
->    allowed to use these buffers in hypercalls or grant them to other
->    domains.  Accessing the pages using hypercalls directed at the
->    frontend fails as if the frontend did not have the pages.  The only
->    exception is that the frontend _may_ be allowed to use the buffer in
->    a Map operation, provided that Revoke (below) is transitive.
+> a version that includes the multiplier math as TDX in particular does NOT
+> want to use native_calibrate_tsc()'s fallback logic that derives the TSC
+> frequency based on CPUID.0x16 when the core crystal frequency isn't known.
+>
+> No functional change intended.
+>
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> ---
 
-Further note: if the frontend has an assigned PCI device, I believe that
-pages provided by Map _should not_ be included in the device's IOMMU
-mappings.  This avoids needing a synchronous IOTLB flush when Revoke is
-performed, which would be slow.  Delaying the flush would allow the
-frontend to DMA into freed backend memory and so would be a security
-vulnerability.  Furthermore, such entries would not be useable by the
-frontend in any way, as the frontend cannot perform DMA to them without
-racing against a concurrent call to Revoke made by the backend.
+...
 
-> 2. Revoke: Revoke access to a buffer provided by the backend.  Once
->    access is revoked, no operation on or in the frontend domain can
->    access or modify the pages, and the backend can safely reuse the
->    backing memory for other purposes.  Furthermore, revocation is not
->    allowed to fail unless the backend or hypervisor is buggy, and if it
->    does fail for any reason, the backend will panic.  Once access is
->    revoked, further accesses by the frontend will cause a fault that the
->    backend can intercept.
+> +
+> +static inline int cpuid_get_tsc_freq(unsigned int *tsc_khz,
+> +				     unsigned int *crystal_khz)
 
-How should this interact with emulated I/O devices?  If the emulated I/O
-device uses mmap() on the dmabuf to access the pages, things will work
-fine, but if it uses foreign mapping operations, things will fail rather
-miserably.  I think it is okay for this to fail: DMA to pages provided
-by Map is always a guest bug, and that includes DMA by an emulated
-device.  Guest userspace is prepared for such errors, because dmabufs on
-bare silicon work the same way.
+Should we add this in patch 6/16 where it is being used for the first time ?
 
-> 3. Steal: Convert frontend-owned pages to backend-owned pages and
->    provide the backend with a mapping of the page.  After a successful
->    Steal operation, the pages are in the same state as if they had been
->    provided via Map.  Steal fails if the pages are currently being used
->    in a hypercall, are MMIO (as opposed to system memory), were provided
->    by another domain via Map or grant tables, are currently foreign
->    mapped, are currently granted to another domain, or more generally
->    are accessible to any domain other than the target domain.  The
->    frontend's quota is decreased by the number of pages stolen, and the
->    backend's quota is increased by the same amount.  A successful Steal
->    operation means that Revoke and Map can be used to operate on the
->    pages.
-
-How should this work if the frontend has an assigned PCI device?  Xen
-can unmap the pages from the frontend's IOMMU mappings, but the frontend
-might continue to try to perform DMA to these pages.  This would result
-in runtime misbehavior or data corruption.
-
-PV devices could be a significant problem too, because Steal is
-incompatible with grant tables for security reasons.  Otherwise, a
-malicious guest could grant a page to domain A (which expects it to be
-ordinary RAM) and then ask domain B to steal it.  Domain B steals the
-page, revokes it (for page migration purposes, say), and reuses the
-backing storage.  Now domain A has a mapping of freed domain B memory.
-If Steal instead revoked domain A's mapping too, domain B could block
-domain A forever.  This means unless domain B is privileged over domain
-A (and domain A has no assigned PCI devices), the mapping must fail.
-
-Matthew: Do you know if Linux supports marking anonymous memory as "does
-not support DMA/pin_user_pages()"?  If not, how hard would it be to
-implement this?  Without this, all I/O by a guest using virtio-GPU
-shared virtual memory would need to be bounce-buffered, which isn't
-great for performance.  This includes I/O using paravirtualized devices,
-unless the PV driver can handle the grant operation failing and fall
-back to a bounce buffer.  It would be much better if only I/O from stolen
-pages needed to be bounced.
-
-What _might_ work is this sequence of operations:
-
-1. The frontend asks backend userspace to give the pages back.
-2. The backend converts the memory to pinned CPU memory, perhaps via
-   mlock().
-3. The backend returns the pages to the guest via Return (below).  This
-   can be done without blocking GPU access because these pages are
-   pinned to system RAM.
-4. The frontend uses the pages for DMA/grant tables/etc as normal.
-
-This requires a blocking cross-VM round-trip, though, so it won't be
-fast.
-
-As an aside, emulated devices will work fine if the device model is in
-the same domain as the backend and uses the same mappings as are passed
-to the GPU driver.  In that case, access to the stolen pages will be
-handled correctly.  It's only when there are multiple IOREQ servers
-or PV drivers involved that sadness occurs.  It seems that shared
-virtual memory is very unfriendly to disaggregated setups.
-
-> 4. Return: Convert a backend-owned page to a frontend-owned page.  After
->    a successful call to Return, the backend is no lonter able to use
->    Revoke or Map.  The returned page ceases to count against backend
->    quota and now counts against frontend quota.
->=20
-> Are these operations ones that Xen is interested in providing?  There
-> may be other primitives that are sufficient to implement the above four,
-> but I believe that any solution that allows virtio-GPU to work must
-> allow the above four operations to be implemented.  Without the first
-> two, virtio-GPU will not be able to support Vulkan or native contexts,
-> and without the second two also being present, shared virtual memory
-> and compute APIs that require it will not work.
-
-In light of all of the above limitations, I think that there is an
-important special case: if the GPU is an iGPU, then all SVM buffers
-should be allocated form pinned CPU memory, which makes the problem go
-away entirely.  If access to SVM data is not at all performance
-critical, then it might still be possible to keep all the data in system
-memory.
-
-The underlying limitation that causes all of the above problems is that
-both DMA and Xen grant table operations require pinned memory, and there
-is no way to do that from userspace. =20
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab>=20
-
---QlLW1qX7YRCu52Cm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmegJ+8ACgkQszaHOrMp
-8lMLxw/+OoP8cs+d1RU/7CGDcJgR6gQWEHjeMCiMKTmmVobPAAhzuTBNLXajBPOr
-xYTkI2ggQcHUlGTV6hSxDu3NJST/Twheb4Yq+NKNMXVzxIfsnfu/UDwW9b55Vmnn
-ggv8HQeMfLFghA+UTmWaZIkowgj0vr86Z6Jg9l0ey5UPAedgSB4yPx9wNl2Xio/W
-ruB2VsEf3470MZ/w3rGcqnwlL+2l6qTD+dTBPztfqtvcLOWeB1fL7IoZqr5WzZsp
-SFq6O+eV/NSJXlywEzr1EPbxmobX4q19LafAkEgwXVXnu87SdahzNwePuhUnBLPf
-jENIbOMjkRbe+o/DPqMh7DkVCBPJQQ/6P1LF9p+2eHABqBclm1i1XvH20OnXsCv5
-MsWLbaHPHAO5aHhnSegISQHQUXattXvb2NpZ9dq2IX54V1fjmxQEst8+Wr96y/bH
-tJ/G2gBebNGM674LRhzUVxUOFOc1b2AF7ejgMf4UxAXfsS0ymvu8/MikNPTGBVtT
-VZeDtvFf8+20IKB0Cq9iFRB7a+3A8veQTXWOx+OxvDhWtCXuvvaUBYaUVlnEK2dB
-wh02apRSvuMt1dc5lbLIG0vb3sQw+K8nd5bpgNlT34U1rDldo+71Ii5tBdy2eB+g
-Yt6x7mNp7K/GJb4bFuSw9CP85AtfRZSaG/f5nBcuD0LQAiA+m44=
-=zwlt
------END PGP SIGNATURE-----
-
---QlLW1qX7YRCu52Cm--
+Regards
+Nikunj
 
