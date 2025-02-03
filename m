@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F154A25A78
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Feb 2025 14:12:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.880591.1290691 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63376A25A75
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Feb 2025 14:12:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.880592.1290701 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tewFO-0004ER-An; Mon, 03 Feb 2025 13:12:18 +0000
+	id 1tewFP-0004Sc-JV; Mon, 03 Feb 2025 13:12:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 880591.1290691; Mon, 03 Feb 2025 13:12:18 +0000
+Received: by outflank-mailman (output) from mailman id 880592.1290701; Mon, 03 Feb 2025 13:12:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tewFO-0004CW-8J; Mon, 03 Feb 2025 13:12:18 +0000
-Received: by outflank-mailman (input) for mailman id 880591;
- Mon, 03 Feb 2025 13:12:17 +0000
+	id 1tewFP-0004R1-En; Mon, 03 Feb 2025 13:12:19 +0000
+Received: by outflank-mailman (input) for mailman id 880592;
+ Mon, 03 Feb 2025 13:12:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=o2EM=U2=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tewFN-00041c-EG
- for xen-devel@lists.xenproject.org; Mon, 03 Feb 2025 13:12:17 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
+ id 1tewFO-00041c-Bx
+ for xen-devel@lists.xenproject.org; Mon, 03 Feb 2025 13:12:18 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7ccc18a0-e230-11ef-99a4-01e77a169b0f;
- Mon, 03 Feb 2025 14:12:15 +0100 (CET)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-385e3621518so2088109f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 03 Feb 2025 05:12:15 -0800 (PST)
+ id 7d8cde81-e230-11ef-99a4-01e77a169b0f;
+ Mon, 03 Feb 2025 14:12:16 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-436326dcb1cso29922515e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Feb 2025 05:12:16 -0800 (PST)
 Received: from localhost.localdomain
  (lfbn-gre-1-190-108.w90-112.abo.wanadoo.fr. [90.112.153.108])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38c5c1b574fsm12737179f8f.70.2025.02.03.05.12.13
+ ffacd0b85a97d-38c5c1b574fsm12737179f8f.70.2025.02.03.05.12.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Feb 2025 05:12:13 -0800 (PST)
+ Mon, 03 Feb 2025 05:12:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,42 +46,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ccc18a0-e230-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 7d8cde81-e230-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1738588334; x=1739193134; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1738588336; x=1739193136; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=wuXSmrl6TLJUtPYl5bMBoppQk4TX3m/R0rN8q8JrjDw=;
-        b=XSZ2ApGGXu8PFvC7q/Qc4ydIxCKKg3BYEMqVFi7aQzxR7USty/CUVPpn1+TN2TdITT
-         QTmKSDde3cBky/M08gliNbV4a+6UuNhoywArMtgQ2Op46EP0amr86WfCe3AU/tvzwhc8
-         LwhiWqeAeyqxqPFzNqEDyBbKBrhx4ER0F5Sds9lADTMCt+C8+0mjV/F4CbRKoUiI+xHe
-         RkoQLrTy/FSijGx+tTgp3sFBKk//Oxw6wrPD6yc9abDSjrdN/g21R4iqjDwv8f5q8/ti
-         NVTZD/frG7/aneN2HcaYRcKInUtMshUzV52Aeb9tklQpeAlTrp6lTcIy024qC8mr2NL8
-         Duwg==
+        bh=kum80qMHQ1iOJY0jxjVV18JPJf4BZ7CxJk4FbacXJnQ=;
+        b=jzOBKm3gk5gc/tPzyqGxjggKP0KQhWHAo/KXEQzr/Nw8rvDBXERW8+asNvtPQP5WRg
+         baynUxYS1nLZzzr0acNdCgXKGbv4TPPNF5Rz9o1dsQgSVnjSfP6AVR8l9cs6Nj5c1MYq
+         ZhkDEdoYirNdj7TqlynpwsaEkkyYgqm0IAk4Nni/ErpKHuEfSw9PNcUMNf9JbkTzqaQd
+         r028cOnGSesIHnDee0RJBu706TxdtaL6y9xaXdDO4rzWyxw5iSwneFfdiAB9TXfCbFyj
+         2GeIl4GNa7CLmDNTWAAo/1SCAWRdKXfMLhvbqJdqIGFFpB2jjUUb6C2/EtdYDJBwjI6Z
+         Mnrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738588334; x=1739193134;
+        d=1e100.net; s=20230601; t=1738588336; x=1739193136;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=wuXSmrl6TLJUtPYl5bMBoppQk4TX3m/R0rN8q8JrjDw=;
-        b=gQcpL9NVUJ5XvGtKX2d+xoFSHvbgluGTLvY+ZACGeIcTTDlLA06RqM7g49YWT6F/og
-         P/yxknWp9xXcCD7vc1WPNjy1alyknr4fwc5H6/5RVNh1tOJ675f0FoApsrFqRk5h78cr
-         b/eLaVxIcii/cvacOlOc4DFT8VpE9Y7K69d+1GvZwUJEiRA7VSkiTq640ANiwUphvXo4
-         KHkQyLb1/2A8uKgAgpdfwSZegQNCjd/hcjPV+YFTGUdJg9Xx7TCAZDTtk/DwtV+C4pG9
-         HsAMkecyZ9yKq28g/uyqSlWH4gsHQuYGTOB/mPAheR8NQunZ4oQriI2OR62Z+XpE2nwj
-         RiwQ==
-X-Gm-Message-State: AOJu0Yyt/C1UOzz61AdDdkWYNE2UpWA3nlbGL+i3DDNXE5hwbU646pHj
-	yerQMofoZHbC0qe18TNRULqWlZFjgJpDg9bzv1rOZB1ePCcdvg1xfGc7gXmr
-X-Gm-Gg: ASbGncvTIZSSSC9xK0NCZ6/2/GSAXq4Zp/R2u3UonIoOSSKEON7yIievkl8PaM96zF8
-	lKwIuzVoY+uO65vabXzkZb/BSirWBoaz9GVkTVXUnJqmMHZC8QVAVb2qj0s3hPgNbkhWMpABVD0
-	DKpcejnpgJIT2OYdrJVSMgrgJHv0lupZUCEVJ6ud2NZVjlPq3ICvGiX2TCIoS2oeeJs5pL+4Unn
-	wFpSlcASJYOHclM580gX2fVIGrn7qPUhNSrtv2l/R0Ks52il9hFelXvb0FuB0YOLKsduRRXv5qH
-	RKSbG9lb1aneu+8ffyahDrgpZsbzvP86znz9baLee2kQ3EwVINh79ScWdelUL9iUZsNmkJOcXVJ
-	dzQ0LS/4E
-X-Google-Smtp-Source: AGHT+IHcGr0FB9ivy/IkSr1Hg1wnuiCrKXFiiEaPttUHOI1z5iYQse/6t6MFdGhymF5gnpraouHukQ==
-X-Received: by 2002:a05:6000:1fac:b0:38a:614b:8632 with SMTP id ffacd0b85a97d-38c52093f16mr21369107f8f.39.1738588334462;
-        Mon, 03 Feb 2025 05:12:14 -0800 (PST)
+        bh=kum80qMHQ1iOJY0jxjVV18JPJf4BZ7CxJk4FbacXJnQ=;
+        b=CnH3mZ9AX87nsHy0sBbVV5FxkDR8QKfqU1LJiARAVp41G4KC+u0cvPb6q5h5S3qosd
+         uyLzq7cVfGfyRkUBox6T4a5zNx0jc2uwS4s7cYmYaXTEp4wizMHy2ngQ4uWJGlF9n2mg
+         fC69BMF4SYFm3WN1lWZH44AXw0sBj6BNCTrJAbiJ6/Zp8xo3IaIkLBGgk02nb9ouyu3f
+         LNfe3L7t6ciF+o8qNulbWXP1eB1Zw4nS4SK7ZuOA71WeYBeXAnqUtbV6KC3xIiDkk2zz
+         CsNwqdR0hUGMJJh0UsBJ/2zeasteQMtYjUWkdwjO0o/NAymgebA0fJb9v/tZmKbScQSx
+         l4kg==
+X-Gm-Message-State: AOJu0YwwI2zl/fSaorX06BCdQ4wV1u2vzVxYmAZ4UayKuRJgoseXbT7m
+	WC+YugPs6ukZFJTj+bZFgKdb+7oQDRDzvLXvr2Nj6x5fPhhGr0YslX8tsMoF
+X-Gm-Gg: ASbGnctkenN0fcJXT8wj0mXvd8i+WNhBoQEcg6IXoSslX+Te7KnVTArPUKmYAIsGqOW
+	Q9/MM/X/9WG1jQjGuLMN6m3GChGejo3R3GknXS4fU8jbz3bsCjwxtR4rYp1VrkdB+POV1Z2DfJo
+	w+MEokYrsSe9c7N+h7+hjJM8N+tGr+gzytmr7s2Yjgq8Dcoj1PE0tD1FPMaKq/oRYEfSLmGj28I
+	6RWc5+AcMvzDKvPeq+JkWRfVY6c5mkECAkqZN+0Xu/fxf3meHqDV6SfLKX0mUP/ghMSuXsSy+NR
+	U0Kf6SZzbiXexYUI6rdf1JNp3FhTKCKwG5+MKNcJAbHUlVhyA9cnWbV0hYDxuquEjPviatkqSx9
+	YKRyW61D4
+X-Google-Smtp-Source: AGHT+IGaUTMQCpS492+z1yD9Tv4b5bylcmDTm9uBymDlKr/uELuEEYiNpvVdpokGLKeJLx7zK2kRbQ==
+X-Received: by 2002:a05:6000:18a5:b0:385:ee59:44f1 with SMTP id ffacd0b85a97d-38c5195e77emr18551620f8f.20.1738588335328;
+        Mon, 03 Feb 2025 05:12:15 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -95,67 +95,209 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2 for 4.20? 2/3] xen/riscv: update defintion of vmap_to_mfn()
-Date: Mon,  3 Feb 2025 14:12:03 +0100
-Message-ID: <131ecfd1b39b4ca4fe3e5d7f7e28a130c301e0fd.1738587493.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v2 3/3] xen/riscv: update mfn calculation in pt_mapping_level()
+Date: Mon,  3 Feb 2025 14:12:04 +0100
+Message-ID: <133526ddccc22ab39dd6841038157d48bd35da81.1738587493.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <cover.1738587493.git.oleksii.kurochko@gmail.com>
 References: <cover.1738587493.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-vmap_to_mfn() uses virt_to_maddr(), which is designed to work with VA from
-either the direct map region or Xen's linkage region (XEN_VIRT_START).
-An assertion will occur if it is used with other regions, in particular for
-the VMAP region.
+When pt_update() is called with arguments (..., INVALID_MFN, ..., 0 or 1),
+it indicates that a mapping is being destroyed/modifyed.
 
-Since RISC-V lacks a hardware feature to request the MMU to translate a VA to
-a PA (as Arm does, for example), software page table walking (pt_walk()) is
-used for the VMAP region to obtain the mfn from pte_t.
+In the case when modifying or destroying a mapping, it is necessary to
+search until a leaf node is found, instead of searching for a page table
+entry based on the precalculated `level` and `order` returned from pt_update().
+This is because when `mfn` == INVALID_MFN, the `mask` (in pt_mapping_level())
+will take into account only `vfn`, which could accidentally return an
+incorrect level, leading to the discovery of an incorrect page table entry.
 
-Fixes: 7db8d2bd9b ("xen/riscv: add minimal stuff to mm.h to build full Xen")
+For example, if `vfn` is page table level 1 aligned, but it was mapped as
+page table level 0, then pt_mapping_level() will return `level` = 1, since
+only `vfn` (which is page table level 1 aligned) is taken into account when
+`mfn` == INVALID_MFN (look at pt_mapping_level()).
+
+Fixes: c2f1ded524 ("xen/riscv: page table handling")
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in v2:
- - Update defintion of vmap_to_mfn() as pt_walk() now returns pte_t
-   instead of paddr_t.
+ - Introduce PTE_LEAF_SEARCH to tell page table update operation to
+   walk down to wherever the leaf entry is.
+ - Use introduced PTE_LEAF_SEARCH to not searching pte_t entry twice.
  - Update the commit message.
 ---
- xen/arch/riscv/include/asm/mm.h | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+ xen/arch/riscv/include/asm/page.h | 16 ++++++
+ xen/arch/riscv/pt.c               | 87 +++++++++++++++++++------------
+ 2 files changed, 69 insertions(+), 34 deletions(-)
 
-diff --git a/xen/arch/riscv/include/asm/mm.h b/xen/arch/riscv/include/asm/mm.h
-index 10a15a8b03..814a7035a8 100644
---- a/xen/arch/riscv/include/asm/mm.h
-+++ b/xen/arch/riscv/include/asm/mm.h
-@@ -23,8 +23,6 @@ extern vaddr_t directmap_virt_start;
- #define gaddr_to_gfn(ga)    _gfn(paddr_to_pfn(ga))
- #define mfn_to_maddr(mfn)   pfn_to_paddr(mfn_x(mfn))
- #define maddr_to_mfn(ma)    _mfn(paddr_to_pfn(ma))
--#define vmap_to_mfn(va)     maddr_to_mfn(virt_to_maddr((vaddr_t)(va)))
--#define vmap_to_page(va)    mfn_to_page(vmap_to_mfn(va))
+diff --git a/xen/arch/riscv/include/asm/page.h b/xen/arch/riscv/include/asm/page.h
+index b9076173f4..72d29376bc 100644
+--- a/xen/arch/riscv/include/asm/page.h
++++ b/xen/arch/riscv/include/asm/page.h
+@@ -55,6 +55,22 @@
+ #define PTE_SMALL       BIT(10, UL)
+ #define PTE_POPULATE    BIT(11, UL)
  
- static inline void *maddr_to_virt(paddr_t ma)
++/*
++ * In the case when modifying or destroying a mapping, it is necessary to
++ * search until a leaf node is found, instead of searching for a page table
++ * entry based on the precalculated `level` and `order` (look at pt_update()).
++ * This is because when `mfn` == INVALID_MFN, the `mask`(in pt_mapping_level())
++ * will take into account only `vfn`, which could accidentally return an
++ * incorrect level, leading to the discovery of an incorrect page table entry.
++ *
++ * For example, if `vfn` is page table level 1 aligned, but it was mapped as
++ * page table level 0, then pt_mapping_level() will return `level` = 1,
++ * since only `vfn` (which is page table level 1 aligned) is taken into account
++ * when `mfn` == INVALID_MFN (look at pt_mapping_level()).
++ */
++
++#define PTE_LEAF_SEARCH BIT(12, UL)
++
+ #define PTE_ACCESS_MASK (PTE_READABLE | PTE_WRITABLE | PTE_EXECUTABLE)
+ 
+ /* Calculate the offsets into the pagetables for a given VA */
+diff --git a/xen/arch/riscv/pt.c b/xen/arch/riscv/pt.c
+index 2a5a191a70..9db41eac53 100644
+--- a/xen/arch/riscv/pt.c
++++ b/xen/arch/riscv/pt.c
+@@ -187,11 +187,10 @@ static int pt_next_level(bool alloc_tbl, pte_t **table, unsigned int offset)
+ 
+ /* Update an entry at the level @target. */
+ static int pt_update_entry(mfn_t root, vaddr_t virt,
+-                           mfn_t mfn, unsigned int target,
++                           mfn_t mfn, unsigned int *target,
+                            unsigned int flags)
  {
-@@ -160,6 +158,18 @@ static inline struct page_info *virt_to_page(const void *v)
+     int rc;
+-    unsigned int level = HYP_PT_ROOT_LEVEL;
+     pte_t *table;
+     /*
+      * The intermediate page table shouldn't be allocated when MFN isn't
+@@ -205,39 +204,48 @@ static int pt_update_entry(mfn_t root, vaddr_t virt,
+     bool alloc_tbl = !mfn_eq(mfn, INVALID_MFN) || (flags & PTE_POPULATE);
+     pte_t pte, *entry;
  
- pte_t * pt_walk(vaddr_t va, unsigned int *pte_level);
+-    /* convenience aliases */
+-    DECLARE_OFFSETS(offsets, virt);
+-
+-    table = map_table(root);
+-    for ( ; level > target; level-- )
++    if ( flags & PTE_LEAF_SEARCH )
+     {
+-        rc = pt_next_level(alloc_tbl, &table, offsets[level]);
+-        if ( rc == XEN_TABLE_MAP_NOMEM )
++        entry = pt_walk(virt, target);
++        BUG_ON(!pte_is_mapping(*entry));
++    }
++    else
++    {
++        unsigned int level = HYP_PT_ROOT_LEVEL;
++        /* convenience aliases */
++        DECLARE_OFFSETS(offsets, virt);
++
++        table = map_table(root);
++        for ( ; level > *target; level-- )
+         {
+-            rc = -ENOMEM;
+-            goto out;
++            rc = pt_next_level(alloc_tbl, &table, offsets[level]);
++            if ( rc == XEN_TABLE_MAP_NOMEM )
++            {
++                rc = -ENOMEM;
++                goto out;
++            }
++
++            if ( rc == XEN_TABLE_MAP_NONE )
++            {
++                rc = 0;
++                goto out;
++            }
++
++            if ( rc != XEN_TABLE_NORMAL )
++                break;
+         }
  
-+static inline mfn_t vmap_to_mfn_(vaddr_t va)
-+{
-+    pte_t *entry = pt_walk(va, NULL);
+-        if ( rc == XEN_TABLE_MAP_NONE )
++        if ( level != *target )
+         {
+-            rc = 0;
++            dprintk(XENLOG_ERR,
++                    "%s: Shattering superpage is not supported\n", __func__);
++            rc = -EOPNOTSUPP;
+             goto out;
+         }
+ 
+-        if ( rc != XEN_TABLE_NORMAL )
+-            break;
++        entry = table + offsets[level];
+     }
+ 
+-    if ( level != target )
+-    {
+-        dprintk(XENLOG_ERR,
+-                "%s: Shattering superpage is not supported\n", __func__);
+-        rc = -EOPNOTSUPP;
+-        goto out;
+-    }
+-
+-    entry = table + offsets[level];
+-
+     rc = -EINVAL;
+     if ( !pt_check_entry(*entry, mfn, flags) )
+         goto out;
+@@ -345,9 +353,6 @@ static int pt_mapping_level(unsigned long vfn, mfn_t mfn, unsigned long nr,
+         return level;
+ 
+     /*
+-     * Don't take into account the MFN when removing mapping (i.e
+-     * MFN_INVALID) to calculate the correct target order.
+-     *
+      * `vfn` and `mfn` must be both superpage aligned.
+      * They are or-ed together and then checked against the size of
+      * each level.
+@@ -415,19 +420,33 @@ static int pt_update(vaddr_t virt, mfn_t mfn,
+ 
+     spin_lock(&pt_lock);
+ 
+-    while ( left )
++    /* look at the comment above the definition of PTE_LEAF_SEARCH */
++    if ( mfn_eq(mfn, INVALID_MFN) && !(flags & PTE_POPULATE) )
+     {
+-        unsigned int order, level;
++        flags |= PTE_LEAF_SEARCH;
++    }
+ 
+-        level = pt_mapping_level(vfn, mfn, left, flags);
+-        order = XEN_PT_LEVEL_ORDER(level);
++    while ( left )
++    {
++        unsigned int order = 0, level;
+ 
+-        ASSERT(left >= BIT(order, UL));
++        if ( !(flags & PTE_LEAF_SEARCH) )
++        {
++            level = pt_mapping_level(vfn, mfn, left, flags);
++            order = XEN_PT_LEVEL_ORDER(level);
++            ASSERT(left >= BIT(order, UL));
++        }
+ 
+-        rc = pt_update_entry(root, vfn << PAGE_SHIFT, mfn, level, flags);
++        rc = pt_update_entry(root, vfn << PAGE_SHIFT, mfn, &level, flags);
+         if ( rc )
+             break;
+ 
++        if ( flags & PTE_LEAF_SEARCH )
++        {
++            order = XEN_PT_LEVEL_ORDER(level);
++            ASSERT(left >= BIT(order, UL));
++        }
 +
-+    BUG_ON(!pte_is_mapping(*entry));
-+
-+    return mfn_from_pte(*entry);
-+}
-+
-+#define vmap_to_mfn(va)     vmap_to_mfn_((vaddr_t)va)
-+#define vmap_to_page(va)    mfn_to_page(vmap_to_mfn(va))
-+
- /*
-  * Common code requires get_page_type and put_page_type.
-  * We don't care about typecounts so we just do the minimum to make it
+         vfn += 1UL << order;
+         if ( !mfn_eq(mfn, INVALID_MFN) )
+             mfn = mfn_add(mfn, 1UL << order);
 -- 
 2.48.1
 
