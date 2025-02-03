@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86213A2600C
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Feb 2025 17:31:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.880851.1290941 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B378A26030
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Feb 2025 17:34:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.880867.1290961 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tezLu-0001fQ-Uh; Mon, 03 Feb 2025 16:31:14 +0000
+	id 1tezOK-0003HT-EL; Mon, 03 Feb 2025 16:33:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 880851.1290941; Mon, 03 Feb 2025 16:31:14 +0000
+Received: by outflank-mailman (output) from mailman id 880867.1290961; Mon, 03 Feb 2025 16:33:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tezLu-0001cg-Qp; Mon, 03 Feb 2025 16:31:14 +0000
-Received: by outflank-mailman (input) for mailman id 880851;
- Mon, 03 Feb 2025 16:31:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tezOK-0003G1-BK; Mon, 03 Feb 2025 16:33:44 +0000
+Received: by outflank-mailman (input) for mailman id 880867;
+ Mon, 03 Feb 2025 16:33:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LRcK=U2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tezLt-0001bQ-I3
- for xen-devel@lists.xenproject.org; Mon, 03 Feb 2025 16:31:13 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 479e74ee-e24c-11ef-a0e7-8be0dac302b0;
- Mon, 03 Feb 2025 17:31:12 +0100 (CET)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5d0d32cd31aso6588209a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 03 Feb 2025 08:31:12 -0800 (PST)
+ id 1tezOI-00031N-L0
+ for xen-devel@lists.xenproject.org; Mon, 03 Feb 2025 16:33:42 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a06c79c3-e24c-11ef-99a4-01e77a169b0f;
+ Mon, 03 Feb 2025 17:33:41 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-ab2c9b8aecaso785035266b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Feb 2025 08:33:41 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab6e47ceb47sm777354366b.42.2025.02.03.08.31.10
+ a640c23a62f3a-ab6e49ff269sm775735966b.118.2025.02.03.08.33.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Feb 2025 08:31:10 -0800 (PST)
+ Mon, 03 Feb 2025 08:33:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 479e74ee-e24c-11ef-a0e7-8be0dac302b0
+X-Inumbo-ID: a06c79c3-e24c-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738600271; x=1739205071; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1738600420; x=1739205220; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=A+DkwE7AiU1AA9jrMmFuAjztWO1rbekuEF+coC0hFXc=;
-        b=bAon/K3xjovBFsOn4sntmp02Rf7Km8QYsrwJXdtWN9KwSx2zuKrNAJ/DM17WERzRVx
-         l5W+OS2H+Q0BPEHMnLt03xxQK5t8G+TXHTBfkXykCQlAdZP6muds6Wlm30MdMagsvigz
-         xM4H89fIB2t0PB7yJJl+ZeqdbG6A66e+kmyxHPnJ01n1U1C0n25SFSAUA3eWpkfqizuz
-         7O01V8vC6Iv3gZ9IrqSNcdwUldu0w6y6b3dIRzxsFPTsz9B4e1AnkfflkmfYD0DqngIC
-         e9U6HeU1Psxf4eabCsYbHoPNQFUUqQqiGYMKCBeYxgtEwNYNSvP7ntDMFoXm5UgkjCNj
-         oqDg==
+        bh=xU9FE5UikwYpsW1feAk3el5qgiM8RTKMmdxwjd+Fq5U=;
+        b=PAVj7QfGJ4rDcoZ6dR+ZcUCJKHWUGSqwzemCUr2X+fsV2HmfDHgae4VVbhcblvZMau
+         8ZlnT7NEeV4SwclHat5vkTcDpja8aWsXaNPZFrLRqmaEZjuWEqsQ0rY0oOrnqrkqQogk
+         AlKH31nshTeskdKB49rh7EKfcixHqcUfepxP+oXnyakOivf9PMzkXePnn1nchTY5XvSf
+         y0HmcqZCcXjFchAWLAtbfZQJAW6PivDgqJfe0UDDTbmW7Mg0RpK63ySMQQTx11pVSDfc
+         V0gAkH0n5AoRDkU0JuCqUvdUMqWf2ySShKe8ftul7dsYLHJ/oTEXA4ePSmZPE1s1nf30
+         nN2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738600271; x=1739205071;
+        d=1e100.net; s=20230601; t=1738600420; x=1739205220;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=A+DkwE7AiU1AA9jrMmFuAjztWO1rbekuEF+coC0hFXc=;
-        b=s13YgdZiHrUFDPL5diKsfVkWMt0rZAN2NsgLegSOcq5HbHGF1jJ/Cxz+NDbJa2Hggb
-         4rOdppL2whLTLG89ha/Lq5Fl2kyyfF0NlkshiiGmi6tD5E7nZkZerAOlpsJCITVpIckc
-         r7u5qulTSjTOkGroL5aWEvwR+e1ciQ3JMypmi8/rkyzhSTi3QhUJmygq39SUbLq+3+9I
-         JOJlqEiNG5vulV5t+jzW5HT/Lm1Om2LPEElASfnZS/Cv/T9PtHQbUYkUih/yU94cE97v
-         MUXboh0qmtnFx43f273a3IH8+lXBs5t6I4OGa4t17bs5cqCItsshNBFbD+M9tiLvxLHi
-         JCVA==
-X-Forwarded-Encrypted: i=1; AJvYcCWh55IxTMKVpQkCdVHg7mlv4O9Q51n5N4SCAVgPML+So6CFTMT8WEYvzzAgHyNFyV/39wpl/ABufwg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxBhpt+DlWsmOKof0sVnfjj9Ho64NaWlRefNbtl1ZRv8zR/fu3t
-	tTvZXPBQTmerf2f5TocaqF7bmBX4j3CNtBrsv/pCCJAp18Qp/gDheyfzhdVPtg==
-X-Gm-Gg: ASbGncsi0CS1ARQyGjLB3kKgffo3b7vD/Il0AM0PvmZzlrIJp62UWYWF0Gmha/ANPZA
-	zgFFEf356tsFJM8AouRZuI7HJL9AVb3JlTouMbewFIO/hGDUS6UOVC175zvJfgJHjSX6tO/qkz3
-	ciaKihF+7K7DnjeT2fRUBdnKpQjVzuwb5WGdXqSJ1vXk0z3un4ct44zGO1Pe07KJjuSzpPEfMa1
-	XcfQq4WI7xog8dNVExB3XbyPKp4qgABX05ca+GbPpVsAXSfEOesXOl77qe6WtsB3FJY64q898lA
-	Me8nYFJaSawLbMJt0Zl5ePvR9t+U76tiIgOF9ZjtfbxNVcmOvsjbM4hzpeLofSIy1oxp3mqeNAf
-	2
-X-Google-Smtp-Source: AGHT+IG+NMWseO6kFpsBr1qeLqI5FYLMDSIGMK7CXOGD3Wj70ELEGm/TdemtlIDJuhUK7BkAgWNn3w==
-X-Received: by 2002:a05:6402:2390:b0:5dc:71f6:9725 with SMTP id 4fb4d7f45d1cf-5dc71f698d6mr35131017a12.27.1738600271346;
-        Mon, 03 Feb 2025 08:31:11 -0800 (PST)
-Message-ID: <78a30e0b-5d79-4451-8fdc-99dfc7485b7d@suse.com>
-Date: Mon, 3 Feb 2025 17:31:09 +0100
+        bh=xU9FE5UikwYpsW1feAk3el5qgiM8RTKMmdxwjd+Fq5U=;
+        b=o/3grm7k5l9/LeotXH1+jWETJER1V7Zwk7ujppJqFRhsMom1mqwsK6iLeZUTTHEtNW
+         nZWZcZ3dqoKZ2t0HVGqvBk4UxZmOpTV/z/dueRS9hZf+9MKRtu9rJzgtBQ7hjrUl2nzo
+         bXokvHJg21S1A1Mmp8CwyGtCle7LY9H1EmoXzpxaQHQfhan2MTI26zdRzdUkXqVICQZ2
+         MBZw/DrFZFp06uROy8ApDhUFI/XpfUIxqoESd7Pq00li4OibNlK6+ML/oJIEsZIb1omu
+         Su8blQtlTAUvWeMLx5Vy4WTBewUvMLruIDeqtld1I14Rdz65PGdjOGCFecDaZFQe0eo9
+         TnPw==
+X-Forwarded-Encrypted: i=1; AJvYcCUZju+Um9KxVGuHoDQb+RyK3Zu9tYDQeONWfWF+3yy2jcSbBomTyoHNAlpMPE18BrgE3xAbhiaLYyg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzbRrGSng0l+HtGzO2MImgi/rSrxysChu1nB5R6GOUAk0Pk7R/9
+	Xjz9EdR5Nc7I34Ca6yimXtHrLAB6+lGk4uMpQCfASfACytuyTIYvWoZrUdiHKg==
+X-Gm-Gg: ASbGncsgFsm8KooDvsrPtejdCb8GeOv6tGUy4dC+aRiDON+IsRBAy7MpIgUkHAx0nsF
+	IYEoISCcvMdExC9MPOE0+IzsuQhbU1h6x0nfU5fpUHdfLTFqc4XCubZKh/APF1dIjCHTzDRV47u
+	kly6fl0olPmAhRH7K6LnvUTw9dtr8gEofiqnjV04kEIwMe7uGOp4lnUmS+yvc7I49swfJC2/r06
+	67lpGoX3Q9d15/crnYMDTysITKoAtU1ZS3yNL7nzv315B2xiF9jCY+aSvH1NNy+QgcAtjiN12Vu
+	5wNGZc5Pgk8TsveeoemIRUrU1/3QNV5dM06E5rd4ChHQeEbyrS+prgGbaAKvblZb+UeU2hFmrV9
+	K
+X-Google-Smtp-Source: AGHT+IE/jBkjXNkbQGUUm/mY78YJk4uarbpJUjMyCQUXnXL+n9EMK0ToQ48y7U+GARnkRtCTDAcCZw==
+X-Received: by 2002:a17:906:f58b:b0:ab7:3e27:ff04 with SMTP id a640c23a62f3a-ab73e28080bmr285408666b.3.1738600419975;
+        Mon, 03 Feb 2025 08:33:39 -0800 (PST)
+Message-ID: <3adb5869-fb96-4b8e-8423-7f9eccd2f6ca@suse.com>
+Date: Mon, 3 Feb 2025 17:33:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] xen/riscv: identify specific ISA supported by cpu
+Subject: Re: [PATCH v1 2/9] asm-generic: move parts of Arm's asm/kernel.h to
+ asm-generic
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <ddf678bb829003b2c4a0a85166a29b61e75bcea9.1737643226.git.oleksii.kurochko@gmail.com>
- <e51b0425-568a-4a4b-b240-a5276a017a70@suse.com>
- <4ee4c8c8-b392-4c0a-8173-624d661409f4@gmail.com>
- <99a1a2f6-12d7-4a4e-a776-05d6b960cf1d@suse.com>
- <f9c4166a-4d96-46af-adf0-1c91fe50e249@gmail.com>
+ xen-devel@lists.xenproject.org
+References: <cover.1736334615.git.oleksii.kurochko@gmail.com>
+ <6404cb5ae077909cbfdf3860d38c701c65547b56.1736334615.git.oleksii.kurochko@gmail.com>
+ <2f14762e-d302-483c-8adb-3223e6290de0@suse.com>
+ <a2e07db1-ce5b-4999-9dbd-e7e097061d2a@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,80 +127,56 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f9c4166a-4d96-46af-adf0-1c91fe50e249@gmail.com>
+In-Reply-To: <a2e07db1-ce5b-4999-9dbd-e7e097061d2a@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 03.02.2025 17:24, Oleksii Kurochko wrote:
-> On 2/3/25 5:03 PM, Jan Beulich wrote:
->> On 03.02.2025 16:05, Oleksii Kurochko wrote:
->>> On 1/27/25 3:47 PM, Jan Beulich wrote:
->>>>> +static bool is_lowercase_extension_name(const char *str)
->>>>> +{
->>>>> +    /*
->>>>> +     * `str` could contain full riscv,isa string from device tree so one
->>>>> +     * of the stop condionitions is checking for '_' as extensions are
->>>>> +     * separated by '_'.
->>>>> +     */
->>>>> +    for ( unsigned int i = 0; (str[i] != '\0') && (str[i] != '_'); i++ )
->>>>> +        if ( !islower(str[i]) )
->>>>> +            return false;
->>>>> +
->>>>> +    return true;
->>>>> +}
->>>>> +
->>>>> +static void __init match_isa_ext(const char *name, const char *name_end,
->>>>> +                                 unsigned long *bitmap)
->>>>> +{
->>>>> +    const size_t riscv_isa_ext_count = ARRAY_SIZE(riscv_isa_ext);
->>>>> +
->>>>> +    for ( unsigned int i = 0; i < riscv_isa_ext_count; i++ )
->>>>> +    {
->>>>> +        const struct riscv_isa_ext_data *ext = &riscv_isa_ext[i];
->>>>> +
->>>>> +        /*
->>>>> +         * `name` (according to device tree binding) and
->>>>> +         * `ext->name` (according to initialization of riscv_isa_ext[]
->>>>> +         * elements) must be all in lowercase.
->>>>> +         *
->>>>> +         * Just to be sure that it is true, ASSERT() is added.
->>>>> +         */
->>>>> +        ASSERT(is_lowercase_extension_name(name) &&
->>>>> +               is_lowercase_extension_name(ext->name));
->>>> More general remark: While asserting on ext->name is okay, for it being
->>>> our own data, asserting on data coming from the outside is generally not
->>>> correct. For now I'm not going to insist on this being changed, but
->>>> sooner or later it will want revisiting
->>> IIUC it would be better to leave ASSERT(is_lowercase_extension_name(ext->name)) in match_isa_ext()
->>> and put ASSERT(is_lowercase_extension_name(ext) in riscv_isa_parse_string() before match_isa_ext()
->>> is called:
->>>     static int __init riscv_isa_parse_string(const char *isa,
->>>                                              unsigned long *out_bitmap)
->>>     {
->>>       ...
->>>       while ( *isa )
->>>       {
->>>         const char *ext = isa++;
->>>       ...
->>>       ASSERT(is_lowercase_extension_name(ext));
->>>       match_isa_ext(ext, ext_end, out_bitmap);
->>>     }
+On 03.02.2025 16:34, Oleksii Kurochko wrote:
+> 
+> On 1/27/25 12:15 PM, Jan Beulich wrote:
+>> On 08.01.2025 12:13, Oleksii Kurochko wrote:
+>>> Move the following parts to asm-generic with the following changes:
+>>> - struct kernel_info:
+>>>    - Create arch_kernel_info for arch specific kernel information.
+>>>      At the moment, it contains domain_type for Arm.
+>>>    - Rename vpl011 to vuart to have more generic name suitable for other archs.
+>>>    - s/phandle_gic/phandle_intc to have more generic name suitable for other
+>>>      archs.
+>>>    - Make text_offset of zimage structure available for RISCV_64.
+>>> - Wrap by `#ifdef KERNEL_INFO_SHM_MEM_INIT` definition of KERNEL_SHM_MEM_INIT
+>>>    and wrap by `#ifndef KERNEL_INFO_INIT` definition of KERNEL_INFO_INIT to have
+>>>    ability to override KERNEL_INFO_SHM_MEM_INIT for arch in case it doesn't
+>>>    want to use generic one.
+>>> - All other parts are left as is from Arm's asm/kernel.h
 >>>
->>> Is my understanding correct?
->> That depends on the origin of the incoming "isa". Considering the function
->> wants to parse it, I'd expect it still comes from DT. In which case
->> asserting on it is wrong; anything may come from there, and nothing should
->> cause assertion failures. Recall that assertions are checks of _our own
->> internal state_ only.
+>>> Because of the changes in struct kernel_info the correspondent parts of Arm's
+>>> code are updated.
+>>>
+>>> As part of this patch the following clean up happens:
+>>> - Drop asm/setup.h from asm/kernel.h as nothing depends from it.
+>>>    Add inclusion of asm/setup.h for a code which uses device_tree_get_reg() to
+>>>    avoid compilation issues for CONFIG_STATIC_MEMORY and CONFIG_STATIC_SHM.
+>>>
+>>> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+>> I question that what is being moved qualifies for asm-generic, an in particular
+>> for a header named kernel.h. Some of what you move may make sense to move to
+>> dom0less-build.h instead. But everything that doesn't fit there needs to find
+>> a different home, imo.
 > 
-> But based on the device tree binding (https://elixir.bootlin.com/linux/v6.13.1/source/Documentation/devicetree/bindings/riscv/extensions.yaml#L47 <https://elixir.bootlin.com/linux/v6.13.1/source/Documentation/devicetree/bindings/riscv/extensions.yaml#L47> ),
-> not anything should come from DT for the riscv,isa string; only lowercase letters are allowed.
-> I am not sure if it makes sense to double-check if riscv,isa is correct, as my expectation (which I haven’t checked yet) is that the DTS will
-> be validated during compilation.
+> It doesn't clear what then should be in kernel.h, I did in this way to not have a problem with header inclusion
+> during the build of Arm.
 > 
-> Does it make sense to double check what was put in DT's riscv,isa?
+> Definitions DOM0LESSS_* could be moved to dom0less-build.h, all other doesn't really connected only to dom0less feature
+> and could be re-used for dom0 so it seems like it should leave in a separate header ( if kernel.h isn't good for it ).
+> 
+> Probably kernel.h shouldn't leave in asm-generic as nothing architecture specific is in it,
 
-I think so. Just not by way of an assertion.
+Well, kernel.h under asm-generic/ is somewhat odd in the first place.
+
+> but on the other hand, will it
+> be okay to have something in xen/include if it isn't supported by all architectures?
+
+It can be okay; it depends on a number of factors.
 
 Jan
 
