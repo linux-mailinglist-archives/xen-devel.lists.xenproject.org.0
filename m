@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27A17A25FD3
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Feb 2025 17:24:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.880791.1290891 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF18BA25FD6
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Feb 2025 17:25:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.880811.1290901 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tezFb-0005wk-DG; Mon, 03 Feb 2025 16:24:43 +0000
+	id 1tezGK-0006iG-Kf; Mon, 03 Feb 2025 16:25:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 880791.1290891; Mon, 03 Feb 2025 16:24:43 +0000
+Received: by outflank-mailman (output) from mailman id 880811.1290901; Mon, 03 Feb 2025 16:25:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tezFb-0005ti-9k; Mon, 03 Feb 2025 16:24:43 +0000
-Received: by outflank-mailman (input) for mailman id 880791;
- Mon, 03 Feb 2025 16:24:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tezGK-0006gq-HS; Mon, 03 Feb 2025 16:25:28 +0000
+Received: by outflank-mailman (input) for mailman id 880811;
+ Mon, 03 Feb 2025 16:25:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LRcK=U2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tezFZ-0005sg-Ro
- for xen-devel@lists.xenproject.org; Mon, 03 Feb 2025 16:24:41 +0000
+ id 1tezGJ-0006gZ-2s
+ for xen-devel@lists.xenproject.org; Mon, 03 Feb 2025 16:25:27 +0000
 Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
  [2a00:1450:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5e46e26f-e24b-11ef-a0e7-8be0dac302b0;
- Mon, 03 Feb 2025 17:24:40 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 78de5357-e24b-11ef-99a4-01e77a169b0f;
+ Mon, 03 Feb 2025 17:25:25 +0100 (CET)
 Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-ab6f636d821so683544066b.1
- for <xen-devel@lists.xenproject.org>; Mon, 03 Feb 2025 08:24:40 -0800 (PST)
+ a640c23a62f3a-aaeef97ff02so734817366b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Feb 2025 08:25:25 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab6e49ffe7asm784122466b.102.2025.02.03.08.24.39
+ a640c23a62f3a-ab6e49ff75esm790295566b.99.2025.02.03.08.25.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Feb 2025 08:24:39 -0800 (PST)
+ Mon, 03 Feb 2025 08:25:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e46e26f-e24b-11ef-a0e7-8be0dac302b0
+X-Inumbo-ID: 78de5357-e24b-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738599880; x=1739204680; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1738599924; x=1739204724; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rghaj4ZjOzXehAiZ3WxOiVs5CufQM8CYuAaY5QdYnBc=;
-        b=fRnM853FvnGvi7G9UHt83hQlmyrRvbyejTJmn/4uv8e3Tcn8Ku2Tk6QyRE2GUQZPCl
-         ljy15TYiSyse5ZCpvwOMNt0LOyJqUjyOsUtn6FyC6fvU27iffWuZa3PoUSThmEgoq2s5
-         jk5XPrWRsC+FFtvizLSkLvIb0DpfWJ9/CuKeC6uSjno+8vQZ/jLuKsrrodC+HTtp8wt8
-         Lb72QiXIcT9zfAdru08RMsvt58QxP639JXDi80cjsqjnc206xKmEJBzO6jDJr2fh0pCU
-         IsxCJunKRAni3aqGgNspHZlS8Jt120PhdQWDTJh6tTAGku7R6L670tXv7iZPz1tVwKeR
-         0p1A==
+        bh=O3fWtnzy8q95r0vZdz81zagpku9xK1NzgCFks3bIOlg=;
+        b=bJV2W/Rvf07/4jIAFCcw5qW3zZ7s7Zfac23+4n9h6bs6TR5e3S7UAJwZiC9FfaU0iY
+         28HCY16S9m8jn+e1PgjaGq95oZ6QvbQiMpuTf46o3prCbEvAo6h28nNH++fg0rMjNyxf
+         o1Gsyglee621hXO+zNmdg1EfrdgtD2+Lg7pv1fwQh1IDrQYcWVzHIe4ywQ6b+TWPSlsH
+         hWRGZPuHB0ROOuftHF6pzs3EFL2Yyl95NGKG6mvpx6YNOjvIkRLbklJWLmey0fwUbdgp
+         7x970uAMbN0QfGwPS5SA3yzdd2BmYEfPiDtN/wtNOyPJbejqoStW5NTX8OBsgMYAQn7o
+         n/hg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738599880; x=1739204680;
+        d=1e100.net; s=20230601; t=1738599924; x=1739204724;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=rghaj4ZjOzXehAiZ3WxOiVs5CufQM8CYuAaY5QdYnBc=;
-        b=ldkwDcXB2ajxES8Mru8I4Z1pWmpZITxoA+U9D8OMv3pqTnJ6v4zy1OEwZ6wI2K+h4h
-         SCrzWuvretxUvgXg/FJqxX0JK9T44pyZ/bsYIo45STcGpcl4/QJ1JNPl5qVAov5oHUA6
-         0ovvkRcOa3iLBaqMKNjSZcEcG4vD1ii8iLZeAHcpO1yk3wLTWKT08J3Mpy2FhJMRAd+J
-         cK09u+yQK/7a3McQjm4ggOcuqs9uckU1vvkbUxX/iYOWPnFvFPuS9G0DnW4z0xsBmufw
-         sJ7g6MWt57bkxZgoaLaonRXHyFm7CUg4URCFa2EoWRHEkxAfnNNe4f6P9zVB0X6+E2PO
-         EdAg==
-X-Gm-Message-State: AOJu0YydSNGlFxHkW8YYWGdz32pTjCM/FaypTYZaUs57ygtzjPfhmrus
-	KdmCw03Z30psI4NNQXMtYohWYDBNIzkN1CqwckuwdLjDKzqD5sUadHLTeoih27mHFJkYSYtMT6U
+        bh=O3fWtnzy8q95r0vZdz81zagpku9xK1NzgCFks3bIOlg=;
+        b=kmX88lNxm/BKfbdAVKiK+PTCgXmXG4pnqbJbywHIB3Iq0LVtuQJDpu/5Cxtn2fck9H
+         cbN/RrXCD2wURigr8i2C4KMNDKFnkp6v38v4VF8oseC9VEfWZtD5Kfj2pO8UidA9TKoA
+         zEO6tS9HqrFKbDGxouf37RZC3Ep3q0T8eiuaVv74WZ9nQvHs1oB4WV+7Q/b0gzCNuBsV
+         gojYaYJozJ75NA+44Md6CD/wbztFopgDXY5b9oYbkDNupy5eroUJL6OOAOXX5PF2yiMt
+         zfSNqvqQrwFMCJTzkPeSrE/iYoZn0ByjLZMfr4YQkW2bml4pcsAvNSIVqU5lGLRq57cb
+         3ZuA==
+X-Gm-Message-State: AOJu0Yw33/S4jRwVvoyBUGC96r+XinmWbQYGHeHxhFm9qxNni5y8n4VR
+	2/vtHQwFdXHLlSXiP2/KvgdGLM38VbpaFe8DR1zY9T9/4/ghkZ478TJaAIqd8ynbHXW1z6dc3us
 	=
-X-Gm-Gg: ASbGncs9mtB8EW1qbWW5yKqpVX63bnGrZzME4hAat5TsMf4uzV6eM+weFz8L+wFVaOa
-	di6RU+7PRRIDCkqTZHjky4LAGwvGG0Hj/ecYU7Tj4If4Rut0IpibuG+UY+cfDFPaXrv47BKg0ze
-	/razcSzQpItZ7omxF/qy/Wh12JTSX+eLcQwCCJax0skYNox2+aOQye6z40AU1QgOHJ2IHZJGaoL
-	3KWshX5xvMU2VLkiE0Ls7RaFWJWzPyq6FTchk9y8PMLg8cDhV176jmWtXda82JFcU5gC3YI/pei
-	38a5yOOcmMpsHKNQDq0UMQTsq908f9zIxgG2tROvhbDpLQtrd80unN9EcI/dSI/UjffBkA+y0sa
-	f
-X-Google-Smtp-Source: AGHT+IGVLHfKQRmGfk5y3XE5eEwO3CBkpHtHEm9iKGl7MXC6R8QbkMUPB9f8ZKa0VWCIKm/jvDRoZg==
-X-Received: by 2002:a17:907:2d0e:b0:ab6:f68f:ea9a with SMTP id a640c23a62f3a-ab6f68febd4mr1758065866b.1.1738599879883;
-        Mon, 03 Feb 2025 08:24:39 -0800 (PST)
-Message-ID: <fc207c1d-80ae-49fb-96e0-ffa335510044@suse.com>
-Date: Mon, 3 Feb 2025 17:24:39 +0100
+X-Gm-Gg: ASbGnctxMj+bl14PTdzN8stu/vNB6pgk4bfNxcv0sxr/UpRYj8HjT0E9VtBXMaBcHTK
+	YhuA53zS0uNMDtmnTgZe9xeEkzhanUGNA/sPssL6mRtq/xzdq5tNFmwG7RzD65EeUIh0MbzfRVw
+	07Vp7n/UvRsc1cNU6QRHiICPBntLVGlP44J/T3Oxe5JaGjYOzdIZ95u8PyQABt8EYRs0uVCFy6y
+	xr4UWAYqJugbDshHd4EooY7R1OLgCdk0TwxhJ8X/X5KMVNaO9EjHb+qepY9q05Fn9euTczFyAfM
+	9gQCNV7DH0wQWtW9wHL+jkG5vhwEsEAhZQMWQmUENczMDppYidK4tD1mr6bgdbpZQMoQsghegRI
+	/
+X-Google-Smtp-Source: AGHT+IEh9r4ek3QzTRScwChgA3NhCa3o0NUsv5PuHAateBunzJOz8fX09E9gIRVtgsvQv9mzhi/DIw==
+X-Received: by 2002:a17:907:868d:b0:ab6:d7c4:fc7d with SMTP id a640c23a62f3a-ab6d7c4fee7mr2571796666b.39.1738599924522;
+        Mon, 03 Feb 2025 08:25:24 -0800 (PST)
+Message-ID: <3c571436-b678-49bc-938d-892913e0e96e@suse.com>
+Date: Mon, 3 Feb 2025 17:25:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 for-4.20 2/6] x86/PCI: init segments earlier
+Subject: [PATCH v2 for-4.20 3/6] radix-tree: purge node allocation override
+ hooks
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
 References: <30f29dde-15e1-4af9-b86f-0040658c381a@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,60 +126,113 @@ In-Reply-To: <30f29dde-15e1-4af9-b86f-0040658c381a@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-In order for amd_iommu_detect_one_acpi()'s call to pci_ro_device() to
-have permanent effect, pci_segments_init() needs to be called ahead of
-making it there. Without this we're losing segment 0's r/o map, and thus
-we're losing write-protection of the PCI devices representing IOMMUs.
-Which in turn means that half-way recent Linux Dom0 will, as it boots,
-turn off MSI on these devices, thus preventing any IOMMU events (faults
-in particular) from being reported on pre-x2APIC hardware.
+These were needed by TMEM only, which is long gone. The Linux original
+doesn't have such either. This effectively reverts one of the "Other
+changes" from 8dc6738dbb3c ("Update radix-tree.[ch] from upstream Linux
+to gain RCU awareness").
 
-As the acpi_iommu_init() invocation was moved ahead of
-acpi_mmcfg_init()'s by the offending commit, move the call to
-pci_segments_init() accordingly.
+Positive side effect: Two cf_check go away.
 
-Fixes: 3950f2485bbc ("x86/x2APIC: defer probe until after IOMMU ACPI table parsing")
+While there also convert xmalloc()+memset() to xzalloc(). (Don't convert
+to xvzalloc(), as that would require touching the freeing side, too.)
+
+Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
-Tested-by: Jason Andryuk <jason.andryuk@amd.com>
 ---
-Of course it would have been quite a bit easier to notice this issue if
-radix_tree_insert() wouldn't work fine ahead of radix_tree_init() being
-invoked for a given radix tree, when the index inserted at is 0.
+v2: New.
 
-While hunting down various other dead paths to actually find the root
-cause, it occurred to me that it's probably not a good idea to fully
-disallow config space writes for r/o devices: Dom0 won't be able to size
-their BARs (luckily the IOMMU "devices" don't have any, but e.g. serial
-ones generally will have at least one), for example. Without being able
-to size BARs it also will likely be unable to correctly account for the
-address space taken by these BARs. However, outside of vPCI it's not
-really clear to me how we could reasonably emulate such BAR sizing
-writes - we can't, after all, allow Dom0 to actually write to the
-underlying physical registers, yet we don't intercept reads (i.e. we
-can't mimic expected behavior then).
-
---- a/xen/arch/x86/x86_64/mmconfig-shared.c
-+++ b/xen/arch/x86/x86_64/mmconfig-shared.c
-@@ -402,8 +402,6 @@ void __init acpi_mmcfg_init(void)
- {
-     bool valid = true;
+--- a/xen/common/radix-tree.c
++++ b/xen/common/radix-tree.c
+@@ -53,12 +53,6 @@ struct rcu_node {
+ 	struct rcu_head rcu_head;
+ };
  
--    pci_segments_init();
+-static struct radix_tree_node *cf_check rcu_node_alloc(void *arg)
+-{
+-	struct rcu_node *rcu_node = xmalloc(struct rcu_node);
+-	return rcu_node ? &rcu_node->node : NULL;
+-}
 -
-     /* MMCONFIG disabled */
-     if ((pci_probe & PCI_PROBE_MMCONF) == 0)
-         return;
---- a/xen/drivers/passthrough/x86/iommu.c
-+++ b/xen/drivers/passthrough/x86/iommu.c
-@@ -55,6 +55,8 @@ void __init acpi_iommu_init(void)
+ static void cf_check _rcu_node_free(struct rcu_head *head)
  {
-     int ret = -ENODEV;
+ 	struct rcu_node *rcu_node =
+@@ -66,26 +60,19 @@ static void cf_check _rcu_node_free(stru
+ 	xfree(rcu_node);
+ }
  
-+    pci_segments_init();
+-static void cf_check rcu_node_free(struct radix_tree_node *node, void *arg)
+-{
+-	struct rcu_node *rcu_node = container_of(node, struct rcu_node, node);
+-	call_rcu(&rcu_node->rcu_head, _rcu_node_free);
+-}
+-
+ static struct radix_tree_node *radix_tree_node_alloc(
+ 	struct radix_tree_root *root)
+ {
+-	struct radix_tree_node *ret;
+-	ret = root->node_alloc(root->node_alloc_free_arg);
+-	if (ret)
+-		memset(ret, 0, sizeof(*ret));
+-	return ret;
++	struct rcu_node *rcu_node = xzalloc(struct rcu_node);
 +
-     if ( !iommu_enable && !iommu_intremap )
-         return;
++	return rcu_node ? &rcu_node->node : NULL;
+ }
  
+ static void radix_tree_node_free(
+ 	struct radix_tree_root *root, struct radix_tree_node *node)
+ {
+-	root->node_free(node, root->node_alloc_free_arg);
++	struct rcu_node *rcu_node = container_of(node, struct rcu_node, node);
++	call_rcu(&rcu_node->rcu_head, _rcu_node_free);
+ }
+ 
+ /*
+@@ -718,19 +705,6 @@ void radix_tree_destroy(
+ void radix_tree_init(struct radix_tree_root *root)
+ {
+ 	memset(root, 0, sizeof(*root));
+-	root->node_alloc = rcu_node_alloc;
+-	root->node_free = rcu_node_free;
+-}
+-
+-void radix_tree_set_alloc_callbacks(
+-	struct radix_tree_root *root,
+-	radix_tree_alloc_fn_t *node_alloc,
+-	radix_tree_free_fn_t *node_free,
+-	void *node_alloc_free_arg)
+-{
+-	root->node_alloc = node_alloc;
+-	root->node_free = node_free;
+-	root->node_alloc_free_arg = node_alloc_free_arg;
+ }
+ 
+ static __init unsigned long __maxindex(unsigned int height)
+--- a/xen/include/xen/radix-tree.h
++++ b/xen/include/xen/radix-tree.h
+@@ -66,11 +66,6 @@ typedef void radix_tree_free_fn_t(struct
+ struct radix_tree_root {
+ 	unsigned int		height;
+ 	struct radix_tree_node	__rcu *rnode;
+-
+-	/* Allow to specify custom node alloc/dealloc routines. */
+-	radix_tree_alloc_fn_t *node_alloc;
+-	radix_tree_free_fn_t *node_free;
+-	void *node_alloc_free_arg;
+ };
+ 
+ /*
+@@ -78,11 +73,6 @@ struct radix_tree_root {
+  */
+ 
+ void radix_tree_init(struct radix_tree_root *root);
+-void radix_tree_set_alloc_callbacks(
+-	struct radix_tree_root *root,
+-	radix_tree_alloc_fn_t *node_alloc,
+-	radix_tree_free_fn_t *node_free,
+-	void *node_alloc_free_arg);
+ 
+ void radix_tree_destroy(
+ 	struct radix_tree_root *root,
 
 
