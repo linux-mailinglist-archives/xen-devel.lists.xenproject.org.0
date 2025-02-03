@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70C13A25324
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Feb 2025 08:37:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.880464.1290538 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70CE3A254A8
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Feb 2025 09:42:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.880474.1290547 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ter0o-0008PW-KU; Mon, 03 Feb 2025 07:36:54 +0000
+	id 1tes0u-0000Jm-3V; Mon, 03 Feb 2025 08:41:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 880464.1290538; Mon, 03 Feb 2025 07:36:54 +0000
+Received: by outflank-mailman (output) from mailman id 880474.1290547; Mon, 03 Feb 2025 08:41:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ter0o-0008Ne-Gh; Mon, 03 Feb 2025 07:36:54 +0000
-Received: by outflank-mailman (input) for mailman id 880464;
- Mon, 03 Feb 2025 07:36:53 +0000
+	id 1tes0u-0000Hz-0p; Mon, 03 Feb 2025 08:41:04 +0000
+Received: by outflank-mailman (input) for mailman id 880474;
+ Mon, 03 Feb 2025 08:41:02 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LRcK=U2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ter0m-0008NW-VD
- for xen-devel@lists.xenproject.org; Mon, 03 Feb 2025 07:36:52 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+ id 1tes0s-0000Hq-TB
+ for xen-devel@lists.xenproject.org; Mon, 03 Feb 2025 08:41:02 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a0bdafcf-e201-11ef-99a4-01e77a169b0f;
- Mon, 03 Feb 2025 08:36:49 +0100 (CET)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5d3d14336f0so6302272a12.3
- for <xen-devel@lists.xenproject.org>; Sun, 02 Feb 2025 23:36:49 -0800 (PST)
+ id 9739a17c-e20a-11ef-99a4-01e77a169b0f;
+ Mon, 03 Feb 2025 09:40:58 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-aaf0f1adef8so790428566b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Feb 2025 00:40:58 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab6e49ff968sm705283066b.111.2025.02.02.23.36.47
+ a640c23a62f3a-ab6e47f18e8sm711482866b.76.2025.02.03.00.40.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 02 Feb 2025 23:36:48 -0800 (PST)
+ Mon, 03 Feb 2025 00:40:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,71 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a0bdafcf-e201-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 9739a17c-e20a-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738568209; x=1739173009; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1738572058; x=1739176858; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4baJp83ghtp+FU0uN2nnGqMot2AeGGHG9a+8M4GlBsA=;
-        b=K3g3gfToPPF5xh1kF+Reu0o2PNzRmH1pA23h322PT1gn6rDn8VWQ/shr2kWUdjZZ+x
-         Q7MgPz+05to7dOi7mx7Fi7sejt0IdHi6m6RaHqnXrUHyl8XOnKCPjD1dSEgaPoqP1bBb
-         UPN5b/vX/wYwqLBpsNUkRz/wrmM/zXka0xd90sS2Q4O6MO93yG4nnL1Yr0VJg8BKm0CI
-         yOfSBLtq73P/8wMuCyD3MMq67enY5uyW/B8jX3KoKlHWlB5yq6+4V1d49LYSmhueqQPa
-         xcWg6cy+3nwQ/CN+aCI4nlwAwx3AEImW9lBkNDQSjZLjTYM7Gf/DBKUiLoCZZbRqaFq8
-         iOfQ==
+        bh=8Y0xBbitpS9i8ni377JlZcv1Y5PcoH7Rr8Lrb2D13J8=;
+        b=RC9VzAvtjWPm6xAswku4ma4cM7hjGaEhD32QN/eXSndqrg6X10m4Qlq/cCC0hGtjD7
+         iE3jxhDpQMUn1hPFpV9hio935LCkOAehz6Qqf7/0LSKpSy+4jJSYJnMMogjRlTJtzoY3
+         E92mZ158U3ymTvefz00lU4ei0yhjlbQ0B7R4YSCe4F9FehD4AjYxRwTgnDJ+ViMXU+ro
+         xbzFg1HxqEs77ynRavs7jPKvtddUOvU4WONydYdWfVys7Ic33DZVTySkvYwNZ0snSrbe
+         QNVnPRHBCL/7OOiUid3mZ7iuLr5e9PiAPFq6xnC4ppeccyqriNmDJgly+BKWdNCMhOSC
+         QNiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738568209; x=1739173009;
+        d=1e100.net; s=20230601; t=1738572058; x=1739176858;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4baJp83ghtp+FU0uN2nnGqMot2AeGGHG9a+8M4GlBsA=;
-        b=I4f+Eu07zibgmqkH/8Lyqn2F7TT+N1JrZdjtSRv0T6UVdO3+OVHrX+a03yJ1TO0IsH
-         5eAeicHOx5L2cNbJfObvf/0HT8TZPs5te9vm3vaDxFrt1F9F5VuaLiefJpm1lvx7WSOb
-         Omkr5B/HUZ9rUwy1ykqicjv5g79TFGBTRBc2N5cCweURA18aA/345HDllXk9NG/pmuet
-         VQxRaNLu4Wt5XZ6HGvLd7FMrR5mZWZACAX8KzJl4evBDHyYGerTd95Gw+LXnluN61DlE
-         b9EJO2fG/BchDdK8JJMEaqsxgyo+LCq/TeGR+kxpcBKG+XhbQi/xxcX6thLDo9bwG2l1
-         uTdA==
-X-Forwarded-Encrypted: i=1; AJvYcCWLwdSxnY9P5VZ6ii4Xyr5+1ESiP1i9VHFCChEfQpm2UsWRe4MK6438zqEUdSqEodFwk1Rhtf5qauw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwarZBbgzP78VqdpEcG6nZonilpxfyZ3QLuheHezWrQzRDAiD9m
-	8G4x7gFXdt9H9rmWueLf6UmHQs2vPK0j9XBkZ93v8y8nOgzrcUQvZ28nI0Rb0w==
-X-Gm-Gg: ASbGncva9Iph/WnAPM604trmNcYYC3MEHo97hvw50jbxlHRvVMMR4v39rsue/Ex5WJc
-	PxNDBxzKaVPR+Wy7rpt4Jjk88xQJWVGPtVIQycY/u/2u4v9zR8UBluHrazl/VFwIXBWA6GBeHNz
-	d3IRStiFvDA6AYRk1GZo2V4I0/wwhDISWRNSV+RXM1J0Uy+IT+W6Pi05wucYvITsNJakxdIrBWQ
-	7O80NT0Jo72tg1ySsqRZ/3ZMyt52Qf41fxDTVqVwG4J66zMyn3fCI7SfoIMthuMjFaU+xTm0Q+P
-	Yqyx0SH4YjppEzbfRAeQaa7SWgBrOH/31QM0PPVEd0gn5zEwCZMNC3ynl7PbJlVFvOFdJtKAHrE
-	J
-X-Google-Smtp-Source: AGHT+IGOq7avkSsRydbSqAQFo+9tKawq6n47pR/AwMTLa9J9KEJYkjPXfdN6VmtXPTQG0/+URSUL3w==
-X-Received: by 2002:a17:907:72d6:b0:aa6:a87e:f2e1 with SMTP id a640c23a62f3a-ab6cfdc6e55mr2377842066b.56.1738568208595;
-        Sun, 02 Feb 2025 23:36:48 -0800 (PST)
-Message-ID: <02cbd163-9048-45dc-9951-c8f2febb8b5f@suse.com>
-Date: Mon, 3 Feb 2025 08:36:50 +0100
+        bh=8Y0xBbitpS9i8ni377JlZcv1Y5PcoH7Rr8Lrb2D13J8=;
+        b=BOxLa3rvmbTFAeuge00LCC5xxRzEo/ae/Lw6HGp34S4K5NZ2lKbs8mcPBgoCQqc0IJ
+         m4uwW0ukDFe1QtWjHQ/GKJfsne8QxDzhrhb4IRubf4EMhG0RzIK1eF1AG3KrOOXKGK15
+         BDrTCEFNURGHjM01rGVH9lysZD5T4aByPhEnU1jaEIMICz/19ttkD8mSUR77HIvWycy9
+         SfxQ9Xe78n3vXOwVrzdFFE5DdqwMQx4Ih53oatVAbp+ILcyDe3C0c5PnTz2ZfcT+O8vB
+         t5KRnipde8M21k2witjwEGCUl0HLuLyCeTGz5JDoM/45UzbiBlGt80cM7jahrNjmX27E
+         0yLg==
+X-Forwarded-Encrypted: i=1; AJvYcCXT7nt5lE1lToMV9z1kRRlAmz1FJIXmkKfRYWyCWeX4N2kAzWM9Ct5mzAqQUcul8AC1LPJIhtNrNgI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwT39Uqw03CYFBu9DUNUUQAbwWF5MYe/nPZkGq66qYC9f1U7Nyf
+	YLZf+zvq0pJjgVxJejVOtU7klDTREq1ToDgpuKdFRgLIm7MZvFfMS1fMjfZIsg==
+X-Gm-Gg: ASbGncuKdhtcbJwgBudayrbFnLgJGRdRNK9KAFpqxTSupSZ77BLIUeNfrkE/ciHXF+6
+	T1w//UXw98UwA9gAJpK7QEwxZAQSKGXZNCQ/VE3/4eWyJ0CnGGW5uIG0nNw9C/OAyPmN++YUBai
+	EzSrgFOCpxy11RgLQKwKLR1xpE0O2ML4TVObDqQ08tbdH+fB5lqfXdMElzENaEwbh6wwkcLlBpU
+	CH8S1rB/wPcVthHEh/SvFElfUFrIa0URYDRyPzD07v4LmifMsu6TA83TuG3CcocyYgXbhEVKoDy
+	Wi40T64zN9qF9ewOJudTE1RTohhqFdZ/1QNc27DheIikqjMYR7NI+JFSUOyHXDiSvYGEm+NAAmn
+	H
+X-Google-Smtp-Source: AGHT+IESPnzULv5Yno2JL4rlXkl0mgfdPWOtgBkTQktqy7gZJiEEcj20W4SpovIXJpgezMMlWNjGJw==
+X-Received: by 2002:a17:907:2ce3:b0:aa6:6a52:970 with SMTP id a640c23a62f3a-ab6cfcb3b92mr2430563066b.1.1738572058166;
+        Mon, 03 Feb 2025 00:40:58 -0800 (PST)
+Message-ID: <14d1f7fb-4e4e-4f06-b3e6-8ab25de7f939@suse.com>
+Date: Mon, 3 Feb 2025 09:41:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] xen: kconfig: rename MEM_ACCESS -> VM_EVENT
-To: Tamas K Lengyel <tamas@tklengyel.com>
-Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1737452864.git.Sergiy_Kibrik@epam.com>
- <ff22f35dafd04b16165e1caec038e5a5fcf2aeee.1737452864.git.Sergiy_Kibrik@epam.com>
- <c74d334e-6e33-4a58-bf94-936249244cb0@suse.com>
- <CABfawhm8Cb3xz8Fv=YhA1TSKtvA3ThWHMcqJCFDarwSuYKQ5ZA@mail.gmail.com>
- <b850c2b1-5aa9-4e64-9161-ba55028b43a7@suse.com>
- <CABfawhn8uhUbr4yRcSb=_Jw3y2Cgsh_ozXotTFkrDt12K8Cyog@mail.gmail.com>
+Subject: Re: [PATCH for-4.20? 1/3] AMD/IOMMU: drop stray MSI enabling
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <2bb9d3c4-0761-4d63-8193-29293e35eb04@suse.com>
+ <ea0fea03-6002-4fc6-86ac-19598c9d9ef6@suse.com>
+ <cf5ae390-fb9d-4839-9423-d1ead9bd34bf@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -135,101 +120,61 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CABfawhn8uhUbr4yRcSb=_Jw3y2Cgsh_ozXotTFkrDt12K8Cyog@mail.gmail.com>
+In-Reply-To: <cf5ae390-fb9d-4839-9423-d1ead9bd34bf@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 01.02.2025 00:36, Tamas K Lengyel wrote:
-> On Fri, Jan 31, 2025 at 1:30 AM Jan Beulich <jbeulich@suse.com> wrote:
->> On 31.01.2025 01:26, Tamas K Lengyel wrote:
->>> On Thu, Jan 30, 2025 at 8:24 AM Jan Beulich <jbeulich@suse.com> wrote:
->>>> On 21.01.2025 11:19, Sergiy Kibrik wrote:
->>>>> Use more generic CONFIG_VM_EVENT name throughout Xen code instead of
->>>>> CONFIG_MEM_ACCESS. This reflects the fact that vm_event is a higher level
->>>>> feature, with mem_access & monitor depending on it.
->>>>>
->>>>> Suggested-by: Jan Beulich <jbeulich@suse.com>
->>>>
->>>> I don't think this is applicable; my suggestion went in a different direction.
->>>>
->>>>> Suggested-by: Tamas K Lengyel <tamas@tklengyel.com>
->>>>> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
->>>>
->>>> Before considering to ack this, I'd like you, Tamas, to confirm this is really
->>>> what you had thought of. In particular ...
->>>>
->>>>> --- a/xen/arch/arm/Makefile
->>>>> +++ b/xen/arch/arm/Makefile
->>>>> @@ -37,7 +37,7 @@ obj-y += irq.o
->>>>>  obj-y += kernel.init.o
->>>>>  obj-$(CONFIG_LIVEPATCH) += livepatch.o
->>>>>  obj-$(CONFIG_LLC_COLORING) += llc-coloring.o
->>>>> -obj-$(CONFIG_MEM_ACCESS) += mem_access.o
->>>>> +obj-$(CONFIG_VM_EVENT) += mem_access.o
->>>>
->>>> ... changes like this one look somewhat odd to me.
->>>>
->>>>> --- a/xen/common/Kconfig
->>>>> +++ b/xen/common/Kconfig
->>>>> @@ -92,7 +92,7 @@ config HAS_VMAP
->>>>>  config MEM_ACCESS_ALWAYS_ON
->>>>>       bool
->>>>>
->>>>> -config MEM_ACCESS
->>>>> +config VM_EVENT
->>>>>       def_bool MEM_ACCESS_ALWAYS_ON
->>>>>       prompt "Memory Access and VM events" if !MEM_ACCESS_ALWAYS_ON
->>>>>       depends on HVM
->>>>
->>>> What about MEM_ACCESS_ALWAYS_ON (visible in patch context)? Shouldn't that
->>>> become VM_EVENT_ALWAYS_ON then, too?
->>>>
->>>> Further, what about MEM_PAGING and MEM_SHARING? Shouldn't those, at least
->>>> documentation purposes, then also gain a dependency on VM_EVENT?
->>>
->>> MEM_PAGING, yes. MEM_SHARING, definitely not. MEM_SHARING is perfectly
->>> functional without vm_event.
+On 02.02.2025 14:50, Andrew Cooper wrote:
+> On 30/01/2025 11:11 am, Jan Beulich wrote:
+>> While the 2nd of the commits referenced below should have moved the call
+>> to amd_iommu_msi_enable() instead of adding another one, the situation
+>> wasn't quite right even before: It can't have done any good to enable
+>> MSI when no IRQ was allocated for it, yet.
 >>
->> Is it? I see e.g.
+>> Fixes: 5f569f1ac50e ("AMD/IOMMU: allow enabling with IRQ not yet set up")
+>> Fixes: d9e49d1afe2e ("AMD/IOMMU: adjust setup of internal interrupt for x2APIC mode")
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 >>
->>     if ( sharing_enomem )
->>     {
->> #ifdef CONFIG_MEM_SHARING
->>         if ( !vm_event_check_ring(currd->vm_event_share) )
->>         {
->>             gprintk(XENLOG_ERR, "Domain %pd attempt to unshare "
->>                     "gfn %lx, ENOMEM and no helper\n",
->>                     currd, gfn);
->>             /* Crash the domain */
->>             rc = 0;
->>         }
->> #endif
->>     }
+>> --- a/xen/drivers/passthrough/amd/iommu_init.c
+>> +++ b/xen/drivers/passthrough/amd/iommu_init.c
+>> @@ -902,8 +902,6 @@ static void enable_iommu(struct amd_iomm
 > 
-> On x86 vm_event is always compiled in as per current setup. If we were
-> to make that dependent on the now renamed config option this here
-> should be converted to CONFIG_MEM_SHARING && CONFIG_VM_EVENT. The rest
-> of the mem_sharing codebase does not require vm_event to function,
-> this here is used only if there is a subscriber to the enomem
-> corner-case. It isn't normally used.
-
-I see.
-
->> in hvm_hap_nested_page_fault().
->>
->> Also - you responded only to a secondary remark here. What about the
->> more basic points further up?
+> There's a call to amd_iommu_msi_enable() just out of context here which
+> was added by the 2nd referenced commit.
 > 
-> My recommendation to use CONFIG_VM_EVENT for the
-> vm_event/mem_access/monitor subsystems strictly only applies to ARM
-> where these three subsystems have a 1:1:1 dependency. On x86 the
-> dependency between the three can be more complex, I would not change
-> the x86 side of things unless we want to get the three subsystems
-> their own kconfig options.
+> Given that it's asymmetric in an if() condition regarding xt_en, and the
+> calls are only set_affinity() calls, why is this retained?
+> 
+> (I think I know, and if it is the reason I suspect, then you're missing
+> a very critical detail from the commit message.)
 
-Then why did you ack the patch, which clearly extends things to x86 as
-well? Iirc my suggestion was to indeed go with separate options (hence
-why I think the Suggested-by: here is wrong; see context near the top).
+Hmm, you did read the commit message, didn't you? That commit should have
+moved that call, rather than adding another one.
+
+However, you have a point. It looks like 7a89f62dddee ("AMD IOMMU: make
+interrupt work again") should already have removed that call. Prior to
+that change request_irq()'s call (via setup_irq()) to iommu_msi_startup()
+was in fact premature, as MSI address and data weren't set up yet (IOW
+while still apparently redundant, the extra call served kind of a doc
+purpose). Things apparently worked because the IOMMU itself wasn't
+enabled yet, and hence shouldn't have raised any interrupts prior to MSI
+being fully configured.
+
+However, for S3 resume I think the call needs to stay there, as the
+startup hook wouldn't be called in that case (which may be the detail
+you're alluding to). Imo that wants solving differently though. Not sure
+it's a good idea to do this right here, or perhaps better in a separate
+change.
+
+I've added
+
+"The other call to amd_iommu_msi_enable(), just out of patch context,
+ needs to stay there until S3 resume is re-worked. For the boot path that
+ call should be unnecessary, as iommu{,_maskable}_msi_startup() will have
+ done it already (by way of invoking iommu_msi_unmask())."
+
+as a 2nd paragraph to the description, in the hope that's what you're
+after.
 
 Jan
 
