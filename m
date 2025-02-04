@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 143A1A26956
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 02:17:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.881054.1291188 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DF14A26977
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 02:20:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.881081.1291198 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tf7ZC-0008Ef-Vr; Tue, 04 Feb 2025 01:17:30 +0000
+	id 1tf7c8-00022X-Fz; Tue, 04 Feb 2025 01:20:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 881054.1291188; Tue, 04 Feb 2025 01:17:30 +0000
+Received: by outflank-mailman (output) from mailman id 881081.1291198; Tue, 04 Feb 2025 01:20:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tf7ZC-0008Cb-Su; Tue, 04 Feb 2025 01:17:30 +0000
-Received: by outflank-mailman (input) for mailman id 881054;
- Tue, 04 Feb 2025 01:17:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tf7c8-00020L-D7; Tue, 04 Feb 2025 01:20:32 +0000
+Received: by outflank-mailman (input) for mailman id 881081;
+ Tue, 04 Feb 2025 01:20:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=v9a5=U3=kernel.org=sashal@srs-se1.protection.inumbo.net>)
- id 1tf7ZB-0006iz-8h
- for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 01:17:29 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ca7e3029-e295-11ef-99a4-01e77a169b0f;
- Tue, 04 Feb 2025 02:17:25 +0100 (CET)
+ id 1tf7ZE-000612-0v
+ for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 01:17:32 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cdd575b6-e295-11ef-a0e7-8be0dac302b0;
+ Tue, 04 Feb 2025 02:17:31 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 7B0505C572E;
- Tue,  4 Feb 2025 01:16:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3231C4CEE0;
- Tue,  4 Feb 2025 01:17:22 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 2782B5C572E;
+ Tue,  4 Feb 2025 01:16:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6707AC4CEE5;
+ Tue,  4 Feb 2025 01:17:28 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +42,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca7e3029-e295-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: cdd575b6-e295-11ef-a0e7-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1738631844;
-	bh=WfV0I2XcMcWq6iqVHClcxb6CZ1GUpZumWWMRKQxTWPo=;
+	s=k20201202; t=1738631849;
+	bh=unEW58bxgDp9Tci6Qt8M/HsnkK6vKAqU1o7VDLda/o0=;
 	h=From:To:Cc:Subject:Date:From;
-	b=tv4iU+zbrSlv8yVrjuDbIHRlttiA0Bct6P/BoPU4CUH5gb3FsEL5SPb0OJLaS7YB9
-	 ESTyYmoUI2z+iBJpm//6e+QW8JeoXr3arXWnuihjQ0hh9KUzIp9oAFvuVQjYP0PYAA
-	 gZBAumzd5BWhPcstg8YQyEtSLUdsvWOQ+eXxzkh5qNM4p3m0tF6PbyV5Xyta9LifiA
-	 4a1nGef+fPAUu4m7IRNP7h62oeoJkvK2lX6otR5NP/W0jfZaYA5HtcErV8Wbq7Z205
-	 fwu6fWW3oEaDnlKvR14N7Ea4dZY24Tl3qX7RKBvZ+o5cfJS2t4RKVeSxSuagsZKhHm
-	 UVOE/cBDHI6rQ==
+	b=R7BB8sSC+hnEQvVVaqUk9Vim5oMbEq44ey42AG/ZWGXy/JPLnn8LamLxmZSBkan1H
+	 6bBYjLtJCKTc3jDBMKMn7bg0nfv5jDcziOJGgoQhkBg781ZMQya3qiMvwKA3acwNhb
+	 1abkD5Km+NSicDvrwENyje4Urqo1UVZ+9XogLTFPyQJv2AxoLWKR1oHTacNQL11Obb
+	 Wcw8aNNjmhfDNQGJddOU7GTcTDDMDzDTzdgP+GdUWPbEfvTx4jb3431Lvro5feq4Hg
+	 a1zG5vfiVtUKa2nAjhlguVAiKwIJ1qboz8gYkTQhoyD/b4oDyK9vB/MYTBodZXNf2F
+	 WE6kRvh8CUrMQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -64,14 +65,14 @@ Cc: Maksym Planeta <maksym@exostellar.io>,
 	dave.hansen@linux.intel.com,
 	x86@kernel.org,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH AUTOSEL 5.10] Grab mm lock before grabbing pt lock
-Date: Mon,  3 Feb 2025 20:17:18 -0500
-Message-Id: <20250204011718.2206631-1-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4] Grab mm lock before grabbing pt lock
+Date: Mon,  3 Feb 2025 20:17:24 -0500
+Message-Id: <20250204011724.2206660-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 5.10.234
+X-stable-base: Linux 5.4.290
 Content-Transfer-Encoding: 8bit
 
 From: Maksym Planeta <maksym@exostellar.io>
@@ -187,10 +188,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 4 insertions(+)
 
 diff --git a/arch/x86/xen/mmu_pv.c b/arch/x86/xen/mmu_pv.c
-index cf2ade864c302..2fef8ad3f1df9 100644
+index c8dbee62ec2ab..51f8b657ec8a7 100644
 --- a/arch/x86/xen/mmu_pv.c
 +++ b/arch/x86/xen/mmu_pv.c
-@@ -762,6 +762,7 @@ void xen_mm_pin_all(void)
+@@ -842,6 +842,7 @@ void xen_mm_pin_all(void)
  {
  	struct page *page;
  
@@ -198,15 +199,15 @@ index cf2ade864c302..2fef8ad3f1df9 100644
  	spin_lock(&pgd_lock);
  
  	list_for_each_entry(page, &pgd_list, lru) {
-@@ -772,6 +773,7 @@ void xen_mm_pin_all(void)
+@@ -852,6 +853,7 @@ void xen_mm_pin_all(void)
  	}
  
  	spin_unlock(&pgd_lock);
 +	spin_unlock(&init_mm.page_table_lock);
  }
  
- static void __init xen_mark_pinned(struct mm_struct *mm, struct page *page,
-@@ -866,6 +868,7 @@ void xen_mm_unpin_all(void)
+ static int __init xen_mark_pinned(struct mm_struct *mm, struct page *page,
+@@ -961,6 +963,7 @@ void xen_mm_unpin_all(void)
  {
  	struct page *page;
  
@@ -214,7 +215,7 @@ index cf2ade864c302..2fef8ad3f1df9 100644
  	spin_lock(&pgd_lock);
  
  	list_for_each_entry(page, &pgd_list, lru) {
-@@ -877,6 +880,7 @@ void xen_mm_unpin_all(void)
+@@ -972,6 +975,7 @@ void xen_mm_unpin_all(void)
  	}
  
  	spin_unlock(&pgd_lock);
