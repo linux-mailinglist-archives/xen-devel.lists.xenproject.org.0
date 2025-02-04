@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DF14A26977
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 02:20:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.881081.1291198 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA99DA26C82
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 08:15:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.881091.1291209 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tf7c8-00022X-Fz; Tue, 04 Feb 2025 01:20:32 +0000
+	id 1tfD8R-0000w8-M5; Tue, 04 Feb 2025 07:14:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 881081.1291198; Tue, 04 Feb 2025 01:20:32 +0000
+Received: by outflank-mailman (output) from mailman id 881091.1291209; Tue, 04 Feb 2025 07:14:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tf7c8-00020L-D7; Tue, 04 Feb 2025 01:20:32 +0000
-Received: by outflank-mailman (input) for mailman id 881081;
- Tue, 04 Feb 2025 01:20:31 +0000
+	id 1tfD8R-0000tN-Ic; Tue, 04 Feb 2025 07:14:15 +0000
+Received: by outflank-mailman (input) for mailman id 881091;
+ Tue, 04 Feb 2025 07:14:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=v9a5=U3=kernel.org=sashal@srs-se1.protection.inumbo.net>)
- id 1tf7ZE-000612-0v
- for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 01:17:32 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ (envelope-from <SRS0=yELw=U3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tfD8P-0000tH-CV
+ for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 07:14:13 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cdd575b6-e295-11ef-a0e7-8be0dac302b0;
- Tue, 04 Feb 2025 02:17:31 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 2782B5C572E;
- Tue,  4 Feb 2025 01:16:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6707AC4CEE5;
- Tue,  4 Feb 2025 01:17:28 +0000 (UTC)
+ id a1ccd7fd-e2c7-11ef-a0e7-8be0dac302b0;
+ Tue, 04 Feb 2025 08:14:11 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-aaec111762bso535283966b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Feb 2025 23:14:11 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab706ce9a53sm615955766b.72.2025.02.03.23.14.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 03 Feb 2025 23:14:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,188 +45,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cdd575b6-e295-11ef-a0e7-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1738631849;
-	bh=unEW58bxgDp9Tci6Qt8M/HsnkK6vKAqU1o7VDLda/o0=;
-	h=From:To:Cc:Subject:Date:From;
-	b=R7BB8sSC+hnEQvVVaqUk9Vim5oMbEq44ey42AG/ZWGXy/JPLnn8LamLxmZSBkan1H
-	 6bBYjLtJCKTc3jDBMKMn7bg0nfv5jDcziOJGgoQhkBg781ZMQya3qiMvwKA3acwNhb
-	 1abkD5Km+NSicDvrwENyje4Urqo1UVZ+9XogLTFPyQJv2AxoLWKR1oHTacNQL11Obb
-	 Wcw8aNNjmhfDNQGJddOU7GTcTDDMDzDTzdgP+GdUWPbEfvTx4jb3431Lvro5feq4Hg
-	 a1zG5vfiVtUKa2nAjhlguVAiKwIJ1qboz8gYkTQhoyD/b4oDyK9vB/MYTBodZXNf2F
-	 WE6kRvh8CUrMQ==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Cc: Maksym Planeta <maksym@exostellar.io>,
-	Juergen Gross <jgross@suse.com>,
-	Sasha Levin <sashal@kernel.org>,
-	tglx@linutronix.de,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH AUTOSEL 5.4] Grab mm lock before grabbing pt lock
-Date: Mon,  3 Feb 2025 20:17:24 -0500
-Message-Id: <20250204011724.2206660-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.39.5
+X-Inumbo-ID: a1ccd7fd-e2c7-11ef-a0e7-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1738653251; x=1739258051; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=pK9a+ymbmfw2qzP3ZfojBmmVQFUbNe44/GkLdTlPtRg=;
+        b=X3Jiwhq/ZRmvesmZw/KZRvW4fNZfYrqCfUqyceNo34VMhzkKaKqw1cstKUE3+I3Era
+         Y5l/TEiSs1FIX1sXopFD3/0GSfkoMpKACuePvoseEVfh8eF7lZwXWEb7f4pAJw7G6wcR
+         klCCNlG9Kis9ip6B/faosY6/ajDNE3r3V422b/J2jp5L9hlbngqhkFVs2LIAActNOks/
+         2dqnIDgbbVFI5aPHn4X0JDCGtQGxZqfEN2FvTUJdYfrF/Q7iydcxfPwvoRY3Xsg41VCa
+         0JMCZY7pcfZOrKUdRGpoS2TiO8lIuB7AwybXIbmoJUWll4a5cq0s2tW/FtZ2gwlGS6Zn
+         XylA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1738653251; x=1739258051;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=pK9a+ymbmfw2qzP3ZfojBmmVQFUbNe44/GkLdTlPtRg=;
+        b=VW2RXpSf0EbJYADy2c7hY15plg90t1JKkMdENuyDABH/MNf2LldPevAtQJX2T4BFq+
+         dlcz04P3otRIOtPhIauXkWI7xRYPZBMHyEzA8BetDom6cb254MGS/18pVlLhs5Rkq8s5
+         yOojjWpv0HV90cGZ7g/CtWZ2gG3PorvwFWu70OTg2o8Gp7zvny8Y/XglSeQgOmMCojCx
+         3v50rlAJYvQh5wEx5CKf8BWgEZEq1NTwflXBOx/Dmzsouzmh2g5OtV3QbVR+RoC6QSuJ
+         v0Q91yM7QEwiovbx7pKQfkADrk9yTubnOkx836ehbmzl+/3vpdBTgaNE1rKICD0LjTYS
+         nFgw==
+X-Forwarded-Encrypted: i=1; AJvYcCU0iNwjCvX22Np4v5Dfr3TNTEgRiAIZV2jaWBJEREIGQlZCleIBp+v9BLCxF/SMDy094srCOaovFe0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyLfcI2blXcEXVINK3tb9091Kzj5l1m+06CRuXa1TJbUT2xz3so
+	FwzrUOYxeXVNh7tODeg7GfNn9EkyWyMislHj4p9cDy76vmYgI7XWvBwArosTMQ==
+X-Gm-Gg: ASbGncs8JzxAxFZ91cDgQ11fT21SHHFlCaSELcoeIexdsR499MLrWtFrhyUEdWJkb15
+	h+KOJrpjU8FHGlWFKvxFiZVatIuWEoJjdSZaMFWHMUPi/D4dAPx37BzYHK3RFhG7x+n1ILdpmoS
+	ghDF/3ftfwGBUIBX0DotpUyjhStGjE7/n5Sn905ErB+o7v8ejuBpDRGQ+VOgtZVezlC6UGW0ikb
+	SB6JAsKZa+mVzYh17vwoEzrw6OwBs0xk4AuvFFwEzIFjxqZbquyGGpxBWu2ODaxPHsYRfSh8i83
+	qNK9ouqYlwJFCGrgg7c2ipIfcujORuZo3/hwEdteW6yCAaWcPDQtDirmKAY5x2XRzITYITuiodc
+	r
+X-Google-Smtp-Source: AGHT+IFTmOTGedUJX6bvLB699vsEvT8rTj8IYJrgtzA6z02xflbmdJ4lYWXDwuKcLIgnmS9KKVDDew==
+X-Received: by 2002:a17:907:94cb:b0:aae:fb7c:50df with SMTP id a640c23a62f3a-ab6cfdbc4c8mr2862185766b.36.1738653250850;
+        Mon, 03 Feb 2025 23:14:10 -0800 (PST)
+Message-ID: <f044c38b-c8c4-4117-a216-dbdb95d46c50@suse.com>
+Date: Tue, 4 Feb 2025 08:14:09 +0100
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 5.4.290
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.20 0/6] AMD/IOMMU: assorted corrections
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <30f29dde-15e1-4af9-b86f-0040658c381a@suse.com>
+ <3a049628-8693-4fe5-81a1-1961b1402e50@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <3a049628-8693-4fe5-81a1-1961b1402e50@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Maksym Planeta <maksym@exostellar.io>
+On 03.02.2025 17:38, Oleksii Kurochko wrote:
+> 
+> On 2/3/25 5:22 PM, Jan Beulich wrote:
+>> The first two patches are functionally independent, and they're presented
+>> here merely in the order I came to notice the respective issues. At least
+>> patch 2 wants seriously considering for 4.20.
+>>
+>> While alternatives were considered for patch 2, it's left as it was in v1
+>> for now. The disposition there depends on (a) the four new patches, in
+>> particular what the last patch does and (b) backporting considerations
+>> (we probably don't want to backport any of the radix tree tidying).
+>>
+>> 1: AMD/IOMMU: drop stray MSI enabling
+>> 2: x86/PCI: init segments earlier
+> 
+> R-Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com> for first two patches.
+> 
+> For others it seems like nothing serious will happen if to merge them after 4.20.
 
-[ Upstream commit 6d002348789bc16e9203e9818b7a3688787e3b29 ]
+It took me some time to actually take two and two together, but: With the
+observation underlying patch 6, patch 2 can actually be dropped altogether,
+with what is now patch 5 taking the role of the bug fix. That'll make what
+is now patch 3 a strict prereq then, though. I'll cut a shrunk down v3.
 
-Function xen_pin_page calls xen_pte_lock, which in turn grab page
-table lock (ptlock). When locking, xen_pte_lock expect mm->page_table_lock
-to be held before grabbing ptlock, but this does not happen when pinning
-is caused by xen_mm_pin_all.
-
-This commit addresses lockdep warning below, which shows up when
-suspending a Xen VM.
-
-[ 3680.658422] Freezing user space processes
-[ 3680.660156] Freezing user space processes completed (elapsed 0.001 seconds)
-[ 3680.660182] OOM killer disabled.
-[ 3680.660192] Freezing remaining freezable tasks
-[ 3680.661485] Freezing remaining freezable tasks completed (elapsed 0.001 seconds)
-[ 3680.685254]
-[ 3680.685265] ==================================
-[ 3680.685269] WARNING: Nested lock was not taken
-[ 3680.685274] 6.12.0+ #16 Tainted: G        W
-[ 3680.685279] ----------------------------------
-[ 3680.685283] migration/0/19 is trying to lock:
-[ 3680.685288] ffff88800bac33c0 (ptlock_ptr(ptdesc)#2){+.+.}-{3:3}, at: xen_pin_page+0x175/0x1d0
-[ 3680.685303]
-[ 3680.685303] but this task is not holding:
-[ 3680.685308] init_mm.page_table_lock
-[ 3680.685311]
-[ 3680.685311] stack backtrace:
-[ 3680.685316] CPU: 0 UID: 0 PID: 19 Comm: migration/0 Tainted: G        W          6.12.0+ #16
-[ 3680.685324] Tainted: [W]=WARN
-[ 3680.685328] Stopper: multi_cpu_stop+0x0/0x120 <- __stop_cpus.constprop.0+0x8c/0xd0
-[ 3680.685339] Call Trace:
-[ 3680.685344]  <TASK>
-[ 3680.685347]  dump_stack_lvl+0x77/0xb0
-[ 3680.685356]  __lock_acquire+0x917/0x2310
-[ 3680.685364]  lock_acquire+0xce/0x2c0
-[ 3680.685369]  ? xen_pin_page+0x175/0x1d0
-[ 3680.685373]  _raw_spin_lock_nest_lock+0x2f/0x70
-[ 3680.685381]  ? xen_pin_page+0x175/0x1d0
-[ 3680.685386]  xen_pin_page+0x175/0x1d0
-[ 3680.685390]  ? __pfx_xen_pin_page+0x10/0x10
-[ 3680.685394]  __xen_pgd_walk+0x233/0x2c0
-[ 3680.685401]  ? stop_one_cpu+0x91/0x100
-[ 3680.685405]  __xen_pgd_pin+0x5d/0x250
-[ 3680.685410]  xen_mm_pin_all+0x70/0xa0
-[ 3680.685415]  xen_pv_pre_suspend+0xf/0x280
-[ 3680.685420]  xen_suspend+0x57/0x1a0
-[ 3680.685428]  multi_cpu_stop+0x6b/0x120
-[ 3680.685432]  ? update_cpumasks_hier+0x7c/0xa60
-[ 3680.685439]  ? __pfx_multi_cpu_stop+0x10/0x10
-[ 3680.685443]  cpu_stopper_thread+0x8c/0x140
-[ 3680.685448]  ? smpboot_thread_fn+0x20/0x1f0
-[ 3680.685454]  ? __pfx_smpboot_thread_fn+0x10/0x10
-[ 3680.685458]  smpboot_thread_fn+0xed/0x1f0
-[ 3680.685462]  kthread+0xde/0x110
-[ 3680.685467]  ? __pfx_kthread+0x10/0x10
-[ 3680.685471]  ret_from_fork+0x2f/0x50
-[ 3680.685478]  ? __pfx_kthread+0x10/0x10
-[ 3680.685482]  ret_from_fork_asm+0x1a/0x30
-[ 3680.685489]  </TASK>
-[ 3680.685491]
-[ 3680.685491] other info that might help us debug this:
-[ 3680.685497] 1 lock held by migration/0/19:
-[ 3680.685500]  #0: ffffffff8284df38 (pgd_lock){+.+.}-{3:3}, at: xen_mm_pin_all+0x14/0xa0
-[ 3680.685512]
-[ 3680.685512] stack backtrace:
-[ 3680.685518] CPU: 0 UID: 0 PID: 19 Comm: migration/0 Tainted: G        W          6.12.0+ #16
-[ 3680.685528] Tainted: [W]=WARN
-[ 3680.685531] Stopper: multi_cpu_stop+0x0/0x120 <- __stop_cpus.constprop.0+0x8c/0xd0
-[ 3680.685538] Call Trace:
-[ 3680.685541]  <TASK>
-[ 3680.685544]  dump_stack_lvl+0x77/0xb0
-[ 3680.685549]  __lock_acquire+0x93c/0x2310
-[ 3680.685554]  lock_acquire+0xce/0x2c0
-[ 3680.685558]  ? xen_pin_page+0x175/0x1d0
-[ 3680.685562]  _raw_spin_lock_nest_lock+0x2f/0x70
-[ 3680.685568]  ? xen_pin_page+0x175/0x1d0
-[ 3680.685572]  xen_pin_page+0x175/0x1d0
-[ 3680.685578]  ? __pfx_xen_pin_page+0x10/0x10
-[ 3680.685582]  __xen_pgd_walk+0x233/0x2c0
-[ 3680.685588]  ? stop_one_cpu+0x91/0x100
-[ 3680.685592]  __xen_pgd_pin+0x5d/0x250
-[ 3680.685596]  xen_mm_pin_all+0x70/0xa0
-[ 3680.685600]  xen_pv_pre_suspend+0xf/0x280
-[ 3680.685607]  xen_suspend+0x57/0x1a0
-[ 3680.685611]  multi_cpu_stop+0x6b/0x120
-[ 3680.685615]  ? update_cpumasks_hier+0x7c/0xa60
-[ 3680.685620]  ? __pfx_multi_cpu_stop+0x10/0x10
-[ 3680.685625]  cpu_stopper_thread+0x8c/0x140
-[ 3680.685629]  ? smpboot_thread_fn+0x20/0x1f0
-[ 3680.685634]  ? __pfx_smpboot_thread_fn+0x10/0x10
-[ 3680.685638]  smpboot_thread_fn+0xed/0x1f0
-[ 3680.685642]  kthread+0xde/0x110
-[ 3680.685645]  ? __pfx_kthread+0x10/0x10
-[ 3680.685649]  ret_from_fork+0x2f/0x50
-[ 3680.685654]  ? __pfx_kthread+0x10/0x10
-[ 3680.685657]  ret_from_fork_asm+0x1a/0x30
-[ 3680.685662]  </TASK>
-[ 3680.685267] xen:grant_table: Grant tables using version 1 layout
-[ 3680.685921] OOM killer enabled.
-[ 3680.685934] Restarting tasks ... done.
-
-Signed-off-by: Maksym Planeta <maksym@exostellar.io>
-Reviewed-by: Juergen Gross <jgross@suse.com>
-Message-ID: <20241204103516.3309112-1-maksym@exostellar.io>
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/x86/xen/mmu_pv.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/arch/x86/xen/mmu_pv.c b/arch/x86/xen/mmu_pv.c
-index c8dbee62ec2ab..51f8b657ec8a7 100644
---- a/arch/x86/xen/mmu_pv.c
-+++ b/arch/x86/xen/mmu_pv.c
-@@ -842,6 +842,7 @@ void xen_mm_pin_all(void)
- {
- 	struct page *page;
- 
-+	spin_lock(&init_mm.page_table_lock);
- 	spin_lock(&pgd_lock);
- 
- 	list_for_each_entry(page, &pgd_list, lru) {
-@@ -852,6 +853,7 @@ void xen_mm_pin_all(void)
- 	}
- 
- 	spin_unlock(&pgd_lock);
-+	spin_unlock(&init_mm.page_table_lock);
- }
- 
- static int __init xen_mark_pinned(struct mm_struct *mm, struct page *page,
-@@ -961,6 +963,7 @@ void xen_mm_unpin_all(void)
- {
- 	struct page *page;
- 
-+	spin_lock(&init_mm.page_table_lock);
- 	spin_lock(&pgd_lock);
- 
- 	list_for_each_entry(page, &pgd_list, lru) {
-@@ -972,6 +975,7 @@ void xen_mm_unpin_all(void)
- 	}
- 
- 	spin_unlock(&pgd_lock);
-+	spin_unlock(&init_mm.page_table_lock);
- }
- 
- static void xen_activate_mm(struct mm_struct *prev, struct mm_struct *next)
--- 
-2.39.5
-
+Jan
 
