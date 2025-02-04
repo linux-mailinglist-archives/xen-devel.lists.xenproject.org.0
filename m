@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EA1DA2670A
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Feb 2025 23:43:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.881006.1291110 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7932DA2693A
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 02:09:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.881016.1291128 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tf59v-0005hc-4Y; Mon, 03 Feb 2025 22:43:15 +0000
+	id 1tf7QN-0004Q4-TE; Tue, 04 Feb 2025 01:08:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 881006.1291110; Mon, 03 Feb 2025 22:43:15 +0000
+Received: by outflank-mailman (output) from mailman id 881016.1291128; Tue, 04 Feb 2025 01:08:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tf59v-0005f6-1u; Mon, 03 Feb 2025 22:43:15 +0000
-Received: by outflank-mailman (input) for mailman id 881006;
- Mon, 03 Feb 2025 22:43:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tf7QN-0004O8-QZ; Tue, 04 Feb 2025 01:08:23 +0000
+Received: by outflank-mailman (input) for mailman id 881016;
+ Tue, 04 Feb 2025 01:08:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ijIa=U2=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tf59s-0005f0-Pm
- for xen-devel@lists.xenproject.org; Mon, 03 Feb 2025 22:43:12 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3e449c8c-e280-11ef-a0e7-8be0dac302b0;
- Mon, 03 Feb 2025 23:43:11 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 5B58A5C659B;
- Mon,  3 Feb 2025 22:42:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC262C4CED2;
- Mon,  3 Feb 2025 22:43:06 +0000 (UTC)
+ <SRS0=eXmP=U3=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
+ id 1tf7QN-0004O2-0z
+ for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 01:08:23 +0000
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 83cb885a-e294-11ef-99a4-01e77a169b0f;
+ Tue, 04 Feb 2025 02:08:18 +0100 (CET)
+Received: by mx.zohomail.com with SMTPS id 1738631291745282.4803734328266;
+ Mon, 3 Feb 2025 17:08:11 -0800 (PST)
+Received: by mail-yw1-f178.google.com with SMTP id
+ 00721157ae682-6f9625c0fccso13844507b3.1
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Feb 2025 17:08:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,81 +41,168 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e449c8c-e280-11ef-a0e7-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1738622588;
-	bh=w5vf9cG5VK6b/SnMprT06cGeL1SqYhsAOQKm3TDtL3o=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Zn39Xx+LWRwbeiAtmL8Y+Fm2zomYFjVAgcPxHtXy6C9CvcdLac5DmRK6uxcnD7wJQ
-	 Bh+q8L/UeOKN1OMSkJutspLeRq+qezb/FDNANW6ko3d5Uz/tmMPB10CCrHpGLxcT1c
-	 yDKbEefk89GG0W3MZxl4E+aknG7aYc2XE7x1r6SLaIVNWpBb73pbXE2OUa4v/HZGAZ
-	 lvLaIPR0P6eKfgsN62v/lgwfmXxcQTxuYePaZs8barJtIh6Ov5OXn+ltSVa+3ubdDx
-	 0qBRBxNbQsYR8/NnEHu4qcIFFSNxbOYptO+mTYJlOajTx/TV0qiG1sI4+nn5vvDIej
-	 pwoAHSZ7lMj1g==
-Date: Mon, 3 Feb 2025 14:43:05 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Richard Henderson <richard.henderson@linaro.org>
-cc: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org, 
-    Stefano Stabellini <sstabellini@kernel.org>, mark.cave-ayland@ilande.co.uk, 
-    berrange@redhat.com, philmd@linaro.org, thuth@redhat.com, 
-    andrew.cooper3@citrix.com, anthony.perard@vates.tech, michal.orzel@amd.com, 
-    jbeulich@suse.com, julien@xen.org, roger.pau@citrix.com, 
-    xen-devel@lists.xenproject.org, bertrand.marquis@arm.com
-Subject: Re: [PATCH v2 00/14] meson: Deprecate 32-bit host support
-In-Reply-To: <e40c39d4-425c-4566-af41-373941894045@linaro.org>
-Message-ID: <alpine.DEB.2.22.394.2502031438170.11632@ubuntu-linux-20-04-desktop>
-References: <20250203031821.741477-1-richard.henderson@linaro.org> <467a5a58-952e-4930-8e91-744eda6d87d9@redhat.com> <e40c39d4-425c-4566-af41-373941894045@linaro.org>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 83cb885a-e294-11ef-99a4-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; t=1738631295; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Mqtjjw4WT/ZT2IjpaWX4TIyLmvQzKPyV4u4j0jefFK07EtL3gz/YJiuYYlkMGm7f+0qPmWHXGoXadxUBHtlArOriL4PK20kAu3RnZIxBaW8JG+dFyHGOnP0ERpZHxeZMc9Ml26lSLHim3bAGDfbX/w8RrVcoT4bPgPQc/fjpq5Y=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1738631295; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=t9OQZAEDF3gVYJ0V4k66wrEvzYSH5auyndHpy3VxpZI=; 
+	b=jEsmWwzBdusZJ1wP7YBbfqtJv/HIssYpp4roLsR7Jkte6tqGw/Z2qnOeIajruPejtcyvI7pHbknSNTTWs7Jv5Cgw+NG6nyEOrpEK2PNMyNAJsGjeEDH0e0nXmJyM5Uesz5JEhBz8ij7qsER0n3c9R06Sq8U6hEH00LGZPh88agU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=tklengyel.com;
+	spf=pass  smtp.mailfrom=tamas@tklengyel.com;
+	dmarc=pass header.from=<tamas@tklengyel.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1738631295;
+	s=zmail; d=tklengyel.com; i=tamas@tklengyel.com;
+	h=MIME-Version:References:In-Reply-To:From:From:Date:Date:Message-ID:Subject:Subject:To:To:Cc:Cc:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=t9OQZAEDF3gVYJ0V4k66wrEvzYSH5auyndHpy3VxpZI=;
+	b=SJ5NDz9iBa+lWmwJcBetOmRz4e1XPXRdlehppKMrYcWOAIyzJzxpEz6k9X71hpTk
+	W8oi75cVaSOL9IkVSA3iZDfD+qf5PgG5EphsrfYnS42sGK6Er3laJG++G7G9DL0nhRe
+	glV9hugf1QiwLHOx0Yc9kauHkoW48P1cld9SqmHI=
+X-Forwarded-Encrypted: i=1; AJvYcCV2PpK6ybet15+4tUL0ITQbj9MQBNx7UABGIVcTh9jxJKbK1CiyMKu6tDOiUoShWv2sbi52BkOw5Y4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz8cw0MjDcxikPIhagghMx861HWh3Hf68ks88+EH/+PZiV1uw5q
+	bKfHsW0KXaw5bH5hO+TD5b7aA2ncgOLDj1JATQczzX6qVbr6eyhw0owlVkMkE9pK273HVwy6ly8
+	MJ9wCBn/Pc8aAeEEtq5y5j++5/cc=
+X-Google-Smtp-Source: AGHT+IFytmffq45x8Wjkq7zdzUGe4kfq9HoBGT6vJpY5lq+0EtYQlO1ouKbSiwBbwsDcw5QoBaPvh3WYM9b4NT3US0s=
+X-Received: by 2002:a05:690c:6e93:b0:6f5:2793:2897 with SMTP id
+ 00721157ae682-6f7a8407d9bmr196946377b3.30.1738631291210; Mon, 03 Feb 2025
+ 17:08:11 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-12469339-1738622583=:11632"
-Content-ID: <alpine.DEB.2.22.394.2502031443030.11632@ubuntu-linux-20-04-desktop>
+References: <cover.1737452864.git.Sergiy_Kibrik@epam.com> <ff22f35dafd04b16165e1caec038e5a5fcf2aeee.1737452864.git.Sergiy_Kibrik@epam.com>
+ <c74d334e-6e33-4a58-bf94-936249244cb0@suse.com> <CABfawhm8Cb3xz8Fv=YhA1TSKtvA3ThWHMcqJCFDarwSuYKQ5ZA@mail.gmail.com>
+ <b850c2b1-5aa9-4e64-9161-ba55028b43a7@suse.com> <CABfawhn8uhUbr4yRcSb=_Jw3y2Cgsh_ozXotTFkrDt12K8Cyog@mail.gmail.com>
+ <02cbd163-9048-45dc-9951-c8f2febb8b5f@suse.com>
+In-Reply-To: <02cbd163-9048-45dc-9951-c8f2febb8b5f@suse.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Mon, 3 Feb 2025 20:07:34 -0500
+X-Gmail-Original-Message-ID: <CABfawhnA91Yn4zN2Pz5n0Gengie6Au4zAjxu3_owr-0BAiNZUg@mail.gmail.com>
+X-Gm-Features: AWEUYZnSkfHt_HyjL7i6HsS6-FwSQAPBoU2ZSF0NBdxji8lXXrjLpZrW9zKP9Tg
+Message-ID: <CABfawhnA91Yn4zN2Pz5n0Gengie6Au4zAjxu3_owr-0BAiNZUg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/4] xen: kconfig: rename MEM_ACCESS -> VM_EVENT
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Anthony PERARD <anthony.perard@vates.tech>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Alexandru Isaila <aisaila@bitdefender.com>, Petre Pircalabu <ppircalabu@bitdefender.com>, 
+	Shawn Anastasio <sanastasio@raptorengineering.com>, 
+	Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, 
+	Connor Davis <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Mon, Feb 3, 2025 at 2:36=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wrot=
+e:
+>
+> On 01.02.2025 00:36, Tamas K Lengyel wrote:
+> > On Fri, Jan 31, 2025 at 1:30=E2=80=AFAM Jan Beulich <jbeulich@suse.com>=
+ wrote:
+> >> On 31.01.2025 01:26, Tamas K Lengyel wrote:
+> >>> On Thu, Jan 30, 2025 at 8:24=E2=80=AFAM Jan Beulich <jbeulich@suse.co=
+m> wrote:
+> >>>> On 21.01.2025 11:19, Sergiy Kibrik wrote:
+> >>>>> Use more generic CONFIG_VM_EVENT name throughout Xen code instead o=
+f
+> >>>>> CONFIG_MEM_ACCESS. This reflects the fact that vm_event is a higher=
+ level
+> >>>>> feature, with mem_access & monitor depending on it.
+> >>>>>
+> >>>>> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> >>>>
+> >>>> I don't think this is applicable; my suggestion went in a different =
+direction.
+> >>>>
+> >>>>> Suggested-by: Tamas K Lengyel <tamas@tklengyel.com>
+> >>>>> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+> >>>>
+> >>>> Before considering to ack this, I'd like you, Tamas, to confirm this=
+ is really
+> >>>> what you had thought of. In particular ...
+> >>>>
+> >>>>> --- a/xen/arch/arm/Makefile
+> >>>>> +++ b/xen/arch/arm/Makefile
+> >>>>> @@ -37,7 +37,7 @@ obj-y +=3D irq.o
+> >>>>>  obj-y +=3D kernel.init.o
+> >>>>>  obj-$(CONFIG_LIVEPATCH) +=3D livepatch.o
+> >>>>>  obj-$(CONFIG_LLC_COLORING) +=3D llc-coloring.o
+> >>>>> -obj-$(CONFIG_MEM_ACCESS) +=3D mem_access.o
+> >>>>> +obj-$(CONFIG_VM_EVENT) +=3D mem_access.o
+> >>>>
+> >>>> ... changes like this one look somewhat odd to me.
+> >>>>
+> >>>>> --- a/xen/common/Kconfig
+> >>>>> +++ b/xen/common/Kconfig
+> >>>>> @@ -92,7 +92,7 @@ config HAS_VMAP
+> >>>>>  config MEM_ACCESS_ALWAYS_ON
+> >>>>>       bool
+> >>>>>
+> >>>>> -config MEM_ACCESS
+> >>>>> +config VM_EVENT
+> >>>>>       def_bool MEM_ACCESS_ALWAYS_ON
+> >>>>>       prompt "Memory Access and VM events" if !MEM_ACCESS_ALWAYS_ON
+> >>>>>       depends on HVM
+> >>>>
+> >>>> What about MEM_ACCESS_ALWAYS_ON (visible in patch context)? Shouldn'=
+t that
+> >>>> become VM_EVENT_ALWAYS_ON then, too?
+> >>>>
+> >>>> Further, what about MEM_PAGING and MEM_SHARING? Shouldn't those, at =
+least
+> >>>> documentation purposes, then also gain a dependency on VM_EVENT?
+> >>>
+> >>> MEM_PAGING, yes. MEM_SHARING, definitely not. MEM_SHARING is perfectl=
+y
+> >>> functional without vm_event.
+> >>
+> >> Is it? I see e.g.
+> >>
+> >>     if ( sharing_enomem )
+> >>     {
+> >> #ifdef CONFIG_MEM_SHARING
+> >>         if ( !vm_event_check_ring(currd->vm_event_share) )
+> >>         {
+> >>             gprintk(XENLOG_ERR, "Domain %pd attempt to unshare "
+> >>                     "gfn %lx, ENOMEM and no helper\n",
+> >>                     currd, gfn);
+> >>             /* Crash the domain */
+> >>             rc =3D 0;
+> >>         }
+> >> #endif
+> >>     }
+> >
+> > On x86 vm_event is always compiled in as per current setup. If we were
+> > to make that dependent on the now renamed config option this here
+> > should be converted to CONFIG_MEM_SHARING && CONFIG_VM_EVENT. The rest
+> > of the mem_sharing codebase does not require vm_event to function,
+> > this here is used only if there is a subscriber to the enomem
+> > corner-case. It isn't normally used.
+>
+> I see.
+>
+> >> in hvm_hap_nested_page_fault().
+> >>
+> >> Also - you responded only to a secondary remark here. What about the
+> >> more basic points further up?
+> >
+> > My recommendation to use CONFIG_VM_EVENT for the
+> > vm_event/mem_access/monitor subsystems strictly only applies to ARM
+> > where these three subsystems have a 1:1:1 dependency. On x86 the
+> > dependency between the three can be more complex, I would not change
+> > the x86 side of things unless we want to get the three subsystems
+> > their own kconfig options.
+>
+> Then why did you ack the patch, which clearly extends things to x86 as
+> well? Iirc my suggestion was to indeed go with separate options (hence
+> why I think the Suggested-by: here is wrong; see context near the top).
 
---8323329-12469339-1738622583=:11632
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2502031443031.11632@ubuntu-linux-20-04-desktop>
+Because I'm fine with the level of impact this single renaming has on
+the x86 codebase. I just don't want to start renaming other x86
+specific config options or combining them into a single one because
+the interactions between the sharing/paging/access/monitor/vm_event is
+fairly tangled and would require a bit more careful consideration.
 
-+Xen maintainers
-
-
-On Mon, 3 Feb 2025, Richard Henderson wrote:
-> On 2/3/25 04:54, Paolo Bonzini wrote:
-> > On 2/3/25 04:18, Richard Henderson wrote:
-> > > v1: 20250128004254.33442-1-richard.henderson@linaro.org
-> > > 
-> > > For v2, immediately disable 64-on-32 TCG.
-> > > 
-> > > I *suspect* that we should disable 64-on-32 for *all* accelerators.
-> > > The idea that an i686 binary on an x86_64 host may be used to spawn
-> > > an x86_64 guest via kvm is silly and a bit more than niche.
-> > 
-> > At least Xen used to be commonly used with 32-bit dom0, because it saved
-> > memory and dom0 would map in guest buffers as needed.  I'm not sure how
-> > common that is these days, perhaps Stefano knows.
-> 
-> As a data-point, debian does not ship libxen-dev for i686.
-> We cannot build-test this configuration at all.
-> 
-> I can build-test Xen for armhf, and I guess it would use i386-softmmu; it's
-> unclear whether x86_64-softmmu and aarch64-softmmu are relevant or useful for
-> an armhf host, or as an armhf binary running on an aarch64 host.
-
-
-On the Xen side, there are two different use cases: x86 32-bit and ARM
-32-bit.  
-
-For x86 32-bit, while it was a very important use case in the past, I
-believe it is far less so now. I will let the x86 maintainers comment on
-how important it is today. 
-
-For ARM 32-bit, I do not think we ever had many deployments, as most are
-64-bit. Even when there are deployments, they do not typically use QEMU,
-as QEMU is less important for Xen on ARM compared to x86. Therefore, I
-would not block your cleanup and deprecation because of that. I will let
-the other ARM maintainers chime in.
---8323329-12469339-1738622583=:11632--
+Tamas
 
