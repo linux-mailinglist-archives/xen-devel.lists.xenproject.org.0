@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3945CA274C0
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 15:46:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.881646.1291816 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D64F8A274F8
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 15:58:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.881668.1291827 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfKCC-0002H7-96; Tue, 04 Feb 2025 14:46:36 +0000
+	id 1tfKMs-0004tu-AV; Tue, 04 Feb 2025 14:57:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 881646.1291816; Tue, 04 Feb 2025 14:46:36 +0000
+Received: by outflank-mailman (output) from mailman id 881668.1291827; Tue, 04 Feb 2025 14:57:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfKCC-0002D8-5F; Tue, 04 Feb 2025 14:46:36 +0000
-Received: by outflank-mailman (input) for mailman id 881646;
- Tue, 04 Feb 2025 14:46:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CkjP=U3=bounce.vates.tech=bounce-md_30504962.67a22847.v1-4c5cbc0a07684ad2957193fd2a558be5@srs-se1.protection.inumbo.net>)
- id 1tfKCA-0000sX-7p
- for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 14:46:34 +0000
-Received: from mail145-20.atl61.mandrillapp.com
- (mail145-20.atl61.mandrillapp.com [198.2.145.20])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d31d742e-e306-11ef-a0e7-8be0dac302b0;
- Tue, 04 Feb 2025 15:46:33 +0100 (CET)
-Received: from pmta06.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail145-20.atl61.mandrillapp.com (Mailchimp) with ESMTP id
- 4YnR5M3ZD4zCf9Xsl
- for <xen-devel@lists.xenproject.org>; Tue,  4 Feb 2025 14:46:31 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 4c5cbc0a07684ad2957193fd2a558be5; Tue, 04 Feb 2025 14:46:31 +0000
+	id 1tfKMs-0004rJ-7T; Tue, 04 Feb 2025 14:57:38 +0000
+Received: by outflank-mailman (input) for mailman id 881668;
+ Tue, 04 Feb 2025 14:57:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=yELw=U3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tfKMr-0004qx-Cl
+ for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 14:57:37 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5e3516cc-e308-11ef-99a4-01e77a169b0f;
+ Tue, 04 Feb 2025 15:57:35 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-ab7157cf352so611411666b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 04 Feb 2025 06:57:35 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab6e4a56103sm948184766b.171.2025.02.04.06.57.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 04 Feb 2025 06:57:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,298 +45,226 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d31d742e-e306-11ef-a0e7-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1738680391; x=1738950391;
-	bh=hhom3KKYrFZbq8NgxfUhw5QnVCOzyHXQRBvALWglcIw=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=LfwZ01OHG7lCcsqDaAq03JVTX8AF/Yif7LFMUOBesWe0f5/xNOXTX3rpMYQrbUYqc
-	 d+Ixbk2pwUt+N+XqkTr/km5klCD3xchLnkgAWlChTA6fxTqo6Krgv1Gqx3gOPECRAR
-	 h0WBSjRHcVQ0JP9coEFDU3LxNHq3BUjUFlqdobFU+Iq/DmhfEyrbBt44AfyQCP3gVK
-	 2YAcjovrja3CgaIJxjALX8Is9ab4wpja293ONuAkAB5pU7QO9ud38j7+pEq4rj3f9t
-	 +dLtVrIOVokJKuLkUxhs0xFbsqt0wtbCuJRKkurcBIYHPTqX1u8k1pXIi4A/gu6ye3
-	 Lnh/XTiZ320Gw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1738680391; x=1738940891; i=teddy.astie@vates.tech;
-	bh=hhom3KKYrFZbq8NgxfUhw5QnVCOzyHXQRBvALWglcIw=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=azayknkHPfwpBOIfPhZ3+ZhrRkB5xnVq/njAJfLDPhSt5NAdfR39mWs+WzBMXuDLY
-	 OsFJi+VFXP/nRPxMSYYkm3HaFv5LtoEbjvfTfOZ1ijRGQd883kg0LTI0zNBazb9M4H
-	 eu90cRkcV+zBd2ny82pHrmghxavFxfzRoUBkuKEagqFsX1QyrI1CIcAXS9J9EDYu+q
-	 TK14+3gJb+AxnKvlx/q1/LG36Pv5SAWOjSPx6KfKRNte/y0SpziP/8KKbDvNVBksup
-	 OSm1oDf1LTYeJWzteB5nd84/YpSwfLR7dcsvcxEbFpZiGmpKggmhOjkalo4rvQIjx3
-	 s+uJenfnCxoLQ==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[XEN=20RFC=20PATCH=20v5=203/5]=20xen/public:=20Introduce=20PV-IOMMU=20hypercall=20interface?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1738680389983
-Message-Id: <07423892-7f23-4e57-b1e9-4ef0fe45d6bc@vates.tech>
-To: "Stefano Stabellini" <sstabellini@kernel.org>
-Cc: "Jason Andryuk" <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, "=?utf-8?Q?Marek=20Marczykowski-G=C3=B3recki?=" <marmarek@invisiblethingslab.com>
-References: <cover.1737470269.git.teddy.astie@vates.tech> <29f3e87532573bfc4196083ab0291326adae5100.1737470269.git.teddy.astie@vates.tech> <1ea6447c-3451-4aca-8a17-2848acd0868f@amd.com> <c4351594-e394-4949-8dd1-20cce54ec192@vates.tech> <alpine.DEB.2.22.394.2502030939470.11632@ubuntu-linux-20-04-desktop>
-In-Reply-To: <alpine.DEB.2.22.394.2502030939470.11632@ubuntu-linux-20-04-desktop>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.4c5cbc0a07684ad2957193fd2a558be5?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250204:md
-Date: Tue, 04 Feb 2025 14:46:31 +0000
+X-Inumbo-ID: 5e3516cc-e308-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1738681054; x=1739285854; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=oI7i2Lc8c4/rS/rHo8tJd5JjFJK4E5iI/R4Wy8KOfdk=;
+        b=SWVOAE6Ir8SASAIdUZdxahYRHqWM7f5YBp8wAZ8Z9I5AIdz21NbzU2VZIPrPfZ39ga
+         RCfGC1LvOhv4oApNLaCigSc2i14Fw/MJ6Td+8yBL1rX11gMOS4VaEjZbJ1Fh2p6NdXuG
+         sHvP1FPm5bykuMVK/x+fN7HTAd5wsxolwRbjeLpHrTbN2DQiwnJt6CUksbJIFPU5mixm
+         UaF3f8n73BVuff6aVyo4H7fM7kvgDIjkeCcFbfe5zpf38egKjfFmrnT9dxA6lrTfTPXG
+         1uIW3JPT9kJDsXpoNwxDgQOQsA98BwkmR0Qz8anETTQFU/4bwq/y7tNj2cEcZkKHJULK
+         IoUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1738681054; x=1739285854;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=oI7i2Lc8c4/rS/rHo8tJd5JjFJK4E5iI/R4Wy8KOfdk=;
+        b=LOaTmR1VqkfMWghCA7LDKylvwv/0XvTc2t2dyeu7VTE3Q5DVyxEVViX/kKH1879kDz
+         yetmtUB9UesUSnVo2bNvYyNfzNIYYYec3iZJBN8ZCJWzvhjE+G+9+Aon+3xAdnVLLS0J
+         /NRBzzChmByLddkqal/Y24aAjrcKc71+zDIw1i2yXroBPkbEL6WlVNj1Tor3GLQILUBu
+         ApuxA+6Hoi/r329sO4r72NVhXteyXuRi8TbHIHnRxjS6ezm8jQnZ6ezqgJq45W6cYi4/
+         zIJTkr+rl7Qv+F53GDBXJOyC7GgTbS/7unmW+T4kFN1hzEba/Z3wKmHZiUAe1uJ2MDYK
+         sPXw==
+X-Forwarded-Encrypted: i=1; AJvYcCUGB11AXX5XG2YrvAefwwiFiwd8w3GluwqTHWz5gFqTdyNwzky3eZE6Cv9M63WC7mT9IrQ2xzwKSHw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx3okayzUCqE30jzCVcLvcRaVuegroqFSOeeZe3PQ68rX4EkJbr
+	EPe2pylGKae+9I7nyEBJQR70VcOD/iLT1z3lJKADif/aXl0zejS2G4kEbVz+iw==
+X-Gm-Gg: ASbGncsI281srxpum9KIVb5Z9SCYRIK32AV5wlhB2U2lmwMHxTtGvuY2xOiA5UdfI3D
+	/FZssZo5gm4Sig+RGjY6yg8jvsBBUjKbm1EYnKip9qgL4P2kTjwOtDtED7d/s+i0676jrVCNRh6
+	zWGsXlyAyfnoEqExdTlKgMBeI/5RpN0iehddYhDKIADQ01utq/Q0SiFKwQ9kvOUP0LU+zk3anYL
+	LU2/PatjtUjZlsmAn5bp97MFMpuLe0PQiDxysSRA/cgt+U+mds/pEDi897Vp6v8INNgVI9F7Rod
+	3OyVrTHNkZlyVGPTkWw/t1E63SAXLlvLndq+rJZPXjJv6SfIem/Ib9RDrQSDCY+HUMxTVq9xyQN
+	s
+X-Google-Smtp-Source: AGHT+IFDb//GADJLgJfhpbk0axnAhGmPvMIypVwD8KDVome2Esuc1rSh0soeGBryvDomynbBsk4mRw==
+X-Received: by 2002:a17:906:f581:b0:ab6:b9d9:818d with SMTP id a640c23a62f3a-ab7480ff212mr547245866b.0.1738681054453;
+        Tue, 04 Feb 2025 06:57:34 -0800 (PST)
+Message-ID: <b6418443-adc2-4ab4-911e-a196a1f59f5d@suse.com>
+Date: Tue, 4 Feb 2025 15:57:33 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] xen/riscv: update mfn calculation in
+ pt_mapping_level()
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1738587493.git.oleksii.kurochko@gmail.com>
+ <133526ddccc22ab39dd6841038157d48bd35da81.1738587493.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <133526ddccc22ab39dd6841038157d48bd35da81.1738587493.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hello Stefano,
+On 03.02.2025 14:12, Oleksii Kurochko wrote:
+> --- a/xen/arch/riscv/include/asm/page.h
+> +++ b/xen/arch/riscv/include/asm/page.h
+> @@ -55,6 +55,22 @@
+>  #define PTE_SMALL       BIT(10, UL)
+>  #define PTE_POPULATE    BIT(11, UL)
+>  
+> +/*
+> + * In the case when modifying or destroying a mapping, it is necessary to
+> + * search until a leaf node is found, instead of searching for a page table
+> + * entry based on the precalculated `level` and `order` (look at pt_update()).
+> + * This is because when `mfn` == INVALID_MFN, the `mask`(in pt_mapping_level())
+> + * will take into account only `vfn`, which could accidentally return an
+> + * incorrect level, leading to the discovery of an incorrect page table entry.
+> + *
+> + * For example, if `vfn` is page table level 1 aligned, but it was mapped as
+> + * page table level 0, then pt_mapping_level() will return `level` = 1,
+> + * since only `vfn` (which is page table level 1 aligned) is taken into account
+> + * when `mfn` == INVALID_MFN (look at pt_mapping_level()).
+> + */
+> +
+> +#define PTE_LEAF_SEARCH BIT(12, UL)
 
-Le 03/02/2025 =C3=A0 18:47, Stefano Stabellini a =C3=A9crit=C2=A0:
-> On Mon, 3 Feb 2025, Teddy Astie wrote:
->> Hello Jason,
->>
->> Le 30/01/2025 =C3=A0 21:17, Jason Andryuk a =C3=A9crit=C2=A0:
->>> Hi Teddy,
->>>
->>> Thanks for working on this.=C2=A0 I'm curious about your plans for this=
-:
->>>
->>> On 2025-01-21 11:13, Teddy Astie wrote:
->>>> +/**
->>>> + * IOMMU_alloc_nested
->>>> + * Create a nested IOMMU context (needs IOMMUCAP_nested).
->>>> + *
->>>> + * This context uses a platform-specific page table from domain
->>>> address space
->>>> + * specified in pgtable_gfn and use it for nested translations.
->>>> + *
->>>> + * Explicit flushes needs to be submited with IOMMU_flush_nested on
->>>> + * modification of the nested pagetable to ensure coherency between
->>>> IOTLB and
->>>> + * nested page table.
->>>> + *
->>>> + * This context can be destroyed using IOMMU_free_context.
->>>> + * This context cannot be modified using map_pages, unmap_pages.
->>>> + */
->>>> +struct pv_iommu_alloc_nested {
->>>> +=C2=A0=C2=A0=C2=A0 /* OUT: allocated IOMMU context number */
->>>> +=C2=A0=C2=A0=C2=A0 uint16_t ctx_no;
->>>> +
->>>> +=C2=A0=C2=A0=C2=A0 /* IN: guest frame number of the nested page table=
- */
->>>> +=C2=A0=C2=A0=C2=A0 uint64_aligned_t pgtable_gfn;
->>>> +
->>>> +=C2=A0=C2=A0=C2=A0 /* IN: nested mode flags */
->>>> +=C2=A0=C2=A0=C2=A0 uint64_aligned_t nested_flags;
->>>> +};
->>>> +typedef struct pv_iommu_alloc_nested pv_iommu_alloc_nested_t;
->>>> +DEFINE_XEN_GUEST_HANDLE(pv_iommu_alloc_nested_t);
->>>
->>> Is this command intended to be used for GVA -> GPA translation?=C2=A0 W=
-ould
->>> you need some way to associate with another iommu context for GPA -> HP=
-A
->>> translation?
->>>
->>
->> It's intended to be used for accelerating IOMMU emulation for the guest.
->> So in this case the other GPA->HPA translation is domain's p2m
->> page-table (or something similar) such as the translations made from
->> this nested context is meaningful from guest point of view.
->>
->> The idea to use it is to use the "remote_op" sub-command to let the
->> device model (e.g QEMU) alter the IOMMU behavior for the affected domain
->> (e.g by reattaching devices, making new IOMMU contexts, ...).
->>
->> I think it can also be used for virtio-iommu pagetable.
->>
->>> Maybe more broadly, what are your goals for enabling PV-IOMMU?=C2=A0 Th=
-e
->>> examples on your blog post cover a domain restrict device access to
->>> specific portions of the the GPA space.=C2=A0 Are you also interested i=
-n GVA
->>> -> GPA?=C2=A0 Does VFIO required GVA -> GPA?
->>>
->>
->> The current way of enabling and using PV-IOMMU is with the dedicated
->> Linux IOMMU driver [1] that implements Linux's IOMMU subsystem with this
->> proposed interface.
->> This in practice in the PV case replaces the xen-swiotlb with dma-iommu
->> and do all DMA through the paravirtualized IOMMU (e.g creating DMA
->> domains, moving devices to it).
->>
->> Regarding GVA->GPA, this is what this interface provides, and
->> restricting device access to memory is one way of using it. This is a
->> requirement for VFIO (as it is also one for Linux IOMMU), and I managed
->> to make SPDK and DPDK work in Dom0 using VFIO and these patches [2].
-> 
-> Thanks for the explanation, Teddy. It certainly seems that this work is
-> moving in the right direction. However, I have a couple of questions on
-> this point, as I admit that I have not fully understood it.
-> 
-> Modern IOMMUs support two stages of translation. Using ARM terminology,
-> these are referred to as stage2 and stage1. The stage2 translation is
-> used by Xen for the domain's GPA->PA (p2m) mapping. The pagetable used
-> for stage2 could potentially be shared with the pagetable used by Xen
-> for the p2m. Stage1 is typically controlled by the guest for its own
-> address translations, mapping guest virtual addresses (GVA) to guest
-> physical addresses (GPA).
-> 
-> I can see that this patch series introduces an interface that allows
-> Dom0 to modify its own stage2 mappings.
-> 
-> My question is: how do we allow the domain to also set up stage1
-> mappings? I would assume that the interface would take the form of a
-> hypercall that allows a domain to pass a stage1 pagetable pointer, which
-> Xen would then use to configure the IOMMU stage1. However, I do not see
-> such a hypercall in your series. I was under the impression that
-> GVA-to-GPA translation was left as future work, so I am confused by your
-> statement that this patch series already provides it.
-> 
+Is it intended for callers outside of pt.c to make use of this? If not,
+it better wouldn't be globally exposed.
 
-There are 2 interfaces for the guest (and device model) to configure its 
-GVA-to-GPA mappings. There are map/unmap subcommands and (depending on 
-hardware support) nested iommu contexts where the guest/device model 
-provides the GPA of the stage1 pagetable (this is meant to be a way of 
-accelerating IOMMU emulation through QEMU).
+Furthermore, this isn't a property of the PTE(s) to be created, so is
+likely wrong to mix with PTE_* flags. (PTE_POPULATE is on the edge of
+also falling in this category, btw.) Perhaps ...
 
-Here is the hypercall subcommands for map/unmap where you can map and 
-unmap pages to the "paravirtualized IOMMU context" (making the mapped 
-region visible to devices of the context attached through reattach_device).
+> --- a/xen/arch/riscv/pt.c
+> +++ b/xen/arch/riscv/pt.c
+> @@ -187,11 +187,10 @@ static int pt_next_level(bool alloc_tbl, pte_t **table, unsigned int offset)
+>  
+>  /* Update an entry at the level @target. */
+>  static int pt_update_entry(mfn_t root, vaddr_t virt,
+> -                           mfn_t mfn, unsigned int target,
+> +                           mfn_t mfn, unsigned int *target,
 
-/**
-  * IOMMU_map_pages
-  * Map pages on a IOMMU context.
-  *
-  * pgsize must be supported by pgsize_mask.
-  * Fails with -EINVAL if mapping on top of another mapping.
-  * Report actually mapped page count in mapped field (regardless of 
-failure).
-  */
-struct pv_iommu_map_pages {
-     /* IN: IOMMU context number */
-     uint16_t ctx_no;
+... you instead want to have callers of this function preset *target
+to a special value (e.g. UINT_MAX or CONFIG_PAGING_LEVELS) indicating
+the level is wanted as an output.
 
-     /* IN: Guest frame number */
-     uint64_aligned_t gfn;
+> @@ -205,39 +204,48 @@ static int pt_update_entry(mfn_t root, vaddr_t virt,
+>      bool alloc_tbl = !mfn_eq(mfn, INVALID_MFN) || (flags & PTE_POPULATE);
+>      pte_t pte, *entry;
+>  
+> -    /* convenience aliases */
+> -    DECLARE_OFFSETS(offsets, virt);
+> -
+> -    table = map_table(root);
+> -    for ( ; level > target; level-- )
+> +    if ( flags & PTE_LEAF_SEARCH )
+>      {
+> -        rc = pt_next_level(alloc_tbl, &table, offsets[level]);
+> -        if ( rc == XEN_TABLE_MAP_NOMEM )
+> +        entry = pt_walk(virt, target);
+> +        BUG_ON(!pte_is_mapping(*entry));
 
-     /* IN: Device frame number */
-     uint64_aligned_t dfn;
+Is this really necessarily a bug? Can't one want to determine how deep
+the (populated) page tables are for a given VA?
 
-     /* IN: Map flags */
-     uint32_t map_flags;
+Hmm, here I can see why you have pt_walk() return a pointer. As per the
+comment on the earlier patch, I don't think this is a good idea. You
+may want to have
 
-     /* IN: Size of pages to map */
-     uint32_t pgsize;
+static pte_t *_pt_walk(...)
+{
+    ...
+}
 
-     /* IN: Number of pages to map */
-     uint32_t nr_pages;
+pte_t pt_walk(...)
+{
+    return *_pt_walk(...);
+}
 
-     /* OUT: Number of pages actually mapped */
-     uint32_t mapped;
-};
-typedef struct pv_iommu_map_pages pv_iommu_map_pages_t;
-DEFINE_XEN_GUEST_HANDLE(pv_iommu_map_pages_t);
+> @@ -345,9 +353,6 @@ static int pt_mapping_level(unsigned long vfn, mfn_t mfn, unsigned long nr,
+>          return level;
+>  
+>      /*
+> -     * Don't take into account the MFN when removing mapping (i.e
+> -     * MFN_INVALID) to calculate the correct target order.
+> -     *
+>       * `vfn` and `mfn` must be both superpage aligned.
+>       * They are or-ed together and then checked against the size of
+>       * each level.
 
-/**
-  * IOMMU_unmap_pages
-  * Unmap pages on a IOMMU context.
-  *
-  * pgsize must be supported by pgsize_mask.
-  * Report actually unmapped page count in mapped field (regardless of 
-failure).
-  * Fails with -ENOENT when attempting to unmap a page without any mapping
-  */
-struct pv_iommu_unmap_pages {
-     /* IN: IOMMU context number */
-     uint16_t ctx_no;
+You drop part of the comment without altering the code being commented.
+What's the deal?
 
-     /* IN: Device frame number */
-     uint64_aligned_t dfn;
+> @@ -415,19 +420,33 @@ static int pt_update(vaddr_t virt, mfn_t mfn,
+>  
+>      spin_lock(&pt_lock);
+>  
+> -    while ( left )
+> +    /* look at the comment above the definition of PTE_LEAF_SEARCH */
+> +    if ( mfn_eq(mfn, INVALID_MFN) && !(flags & PTE_POPULATE) )
+>      {
+> -        unsigned int order, level;
+> +        flags |= PTE_LEAF_SEARCH;
+> +    }
 
-     /* IN: Size of pages to unmap */
-     uint32_t pgsize;
+For readability I think it would be better if the figure braces were
+dropped.
 
-     /* IN: Number of pages to unmap */
-     uint32_t nr_pages;
+> -        level = pt_mapping_level(vfn, mfn, left, flags);
+> -        order = XEN_PT_LEVEL_ORDER(level);
+> +    while ( left )
+> +    {
+> +        unsigned int order = 0, level;
+>  
+> -        ASSERT(left >= BIT(order, UL));
+> +        if ( !(flags & PTE_LEAF_SEARCH) )
+> +        {
+> +            level = pt_mapping_level(vfn, mfn, left, flags);
+> +            order = XEN_PT_LEVEL_ORDER(level);
+> +            ASSERT(left >= BIT(order, UL));
 
-     /* OUT: Number of pages actually unmapped */
-     uint32_t unmapped;
-};
-typedef struct pv_iommu_unmap_pages pv_iommu_unmap_pages_t;
-DEFINE_XEN_GUEST_HANDLE(pv_iommu_unmap_pages_t);
+Assignment to order and assertion are ...
 
-If the hardware supports it, there is a alternative (still being 
-drafted) interface to allow the guest to directly provide native pagetables=
-.
+> +        }
+>  
+> -        rc = pt_update_entry(root, vfn << PAGE_SHIFT, mfn, level, flags);
+> +        rc = pt_update_entry(root, vfn << PAGE_SHIFT, mfn, &level, flags);
+>          if ( rc )
+>              break;
+>  
+> +        if ( flags & PTE_LEAF_SEARCH )
+> +        {
+> +            order = XEN_PT_LEVEL_ORDER(level);
+> +            ASSERT(left >= BIT(order, UL));
+> +        }
 
-This is exposed through the "_nested" subcommands, there is no 
-implementation of this feature in this patch series yet.
+... repeated here, with neither left nor order being passed into
+pt_update_entry(). Does this really need doing twice? (I have to
+admit that I have trouble determining what the assertion is about.
+For order alone it clearly could be done centrally after the call.)
 
-/**
-  * IOMMU_alloc_nested
-  * Create a nested IOMMU context (needs IOMMUCAP_nested).
-  *
-  * This context uses a platform-specific page table from domain address 
-space
-  * specified in pgtable_gfn and use it for nested translations.
-  *
-  * Explicit flushes needs to be submited with IOMMU_flush_nested on
-  * modification of the nested pagetable to ensure coherency between 
-IOTLB and
-  * nested page table.
-  *
-  * This context can be destroyed using IOMMU_free_context.
-  * This context cannot be modified using map_pages, unmap_pages.
-  */
-struct pv_iommu_alloc_nested {
-     /* OUT: allocated IOMMU context number */
-     uint16_t ctx_no;
-
-     /* IN: guest frame number of the nested page table */
-     uint64_aligned_t pgtable_gfn;
-
-     /* IN: nested mode flags */
-     uint64_aligned_t nested_flags;
-};
-typedef struct pv_iommu_alloc_nested pv_iommu_alloc_nested_t;
-DEFINE_XEN_GUEST_HANDLE(pv_iommu_alloc_nested_t);
-
-/**
-  * IOMMU_flush_nested (needs IOMMUCAP_nested)
-  * Flush the IOTLB for nested translation.
-  */
-struct pv_iommu_flush_nested {
-     /* TODO */
-};
-typedef struct pv_iommu_flush_nested pv_iommu_flush_nested_t;
-DEFINE_XEN_GUEST_HANDLE(pv_iommu_flush_nested_t);
-
-
-> 
-> 
-> 
->> [1] Originally
->> https://lists.xen.org/archives/html/xen-devel/2024-06/msg01145.html but
->> this patch got quite old and probably doesn't work anymore with this new
->> Xen patch series.
->> I have a updated patch in my xen-pviommu branch
->> https://gitlab.com/xen-project/people/tsnake41/linux/-/commit/125d67a09f=
-a9f66a32f9175641cfccca22dbbdb6
->>
->> [2] You also need to set "vfio_iommu_type1.allow_unsafe_interrupts=3D1" =
-to
->> make VFIO work for now.
-
-Thanks
-Teddy
-
-
-
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+Jan
 
