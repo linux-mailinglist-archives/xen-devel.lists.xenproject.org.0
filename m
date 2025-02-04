@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A532A26946
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 02:16:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.881025.1291138 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28C4EA2694A
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 02:17:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.881026.1291150 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tf7YP-00063e-LZ; Tue, 04 Feb 2025 01:16:41 +0000
+	id 1tf7Yb-0006MX-VZ; Tue, 04 Feb 2025 01:16:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 881025.1291138; Tue, 04 Feb 2025 01:16:41 +0000
+Received: by outflank-mailman (output) from mailman id 881026.1291150; Tue, 04 Feb 2025 01:16:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tf7YP-000618-Ib; Tue, 04 Feb 2025 01:16:41 +0000
-Received: by outflank-mailman (input) for mailman id 881025;
- Tue, 04 Feb 2025 01:16:40 +0000
+	id 1tf7Yb-0006Ji-Pz; Tue, 04 Feb 2025 01:16:53 +0000
+Received: by outflank-mailman (input) for mailman id 881026;
+ Tue, 04 Feb 2025 01:16:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=v9a5=U3=kernel.org=sashal@srs-se1.protection.inumbo.net>)
- id 1tf7YO-000612-HX
- for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 01:16:40 +0000
+ id 1tf7Ya-000612-8X
+ for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 01:16:52 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id aea610a0-e295-11ef-a0e7-8be0dac302b0;
- Tue, 04 Feb 2025 02:16:39 +0100 (CET)
+ id b62216bf-e295-11ef-a0e7-8be0dac302b0;
+ Tue, 04 Feb 2025 02:16:51 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 4572F5C6A91;
- Tue,  4 Feb 2025 01:15:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9594DC4CEE0;
- Tue,  4 Feb 2025 01:16:35 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 523835C6A96;
+ Tue,  4 Feb 2025 01:16:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC201C4CEE0;
+ Tue,  4 Feb 2025 01:16:48 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aea610a0-e295-11ef-a0e7-8be0dac302b0
+X-Inumbo-ID: b62216bf-e295-11ef-a0e7-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1738631796;
+	s=k20201202; t=1738631810;
 	bh=K/4z85s58YJ+HgdW8rRTJolzJXQ4p1WGU3yjVlV5G90=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Bt6ElgmriqLfDJRXCZ1ZnA260iRai7Xfaa1992bT3/ZW0aP+GKvJZ8ajEhvWNAwfL
-	 FjSBb/lk8F0IUeA8xOG7ibtdQ1+sX+BMAafUnQNk0471/KSAoeC2Nfd55AkEQ6ExnR
-	 uYuF/K9qKdc8UoZ89yvbz7gHzA0f4G3Pg7aVtWqS5HHhZAZOeHcXvJEAZbZN5q0qoO
-	 RWTvTIvu5hi+wLxo01YLFy3PAb5x3GIxjNo0U9rCpvv51QZzHq397Knd8Qz6yquSFC
-	 Q8vWgAOUejmfGzhzgM+uwkm4KCXaq1wAa0zrADqGFegFsO9IUdwzFTCUFMzzOrDZxX
-	 vLdrsqbtCb1+Q==
+	b=I0K9mLaHE7avdCS2MastLTjTmEZV6p5Mr6GvJuJ8PuVQ9xisdxi/iS7Lpblf0U+Xo
+	 979r32tywfQv5/3BnSVXFo1XN33GdmDyGCAZIP84WhS9NxN69FKejoQc99VpCQkp+A
+	 il/8/wJkaszGICX7C3zEi9kbCa8VG1vBv33lg3J87Rk0AldssxnWSUSzvb0bS8EVLZ
+	 chxxzppkIkHb9kwUm96e0b/FtbTYnYwy0RhRvjQMI6MHMqxEpYXEyg+OTtjZv7HBRK
+	 6zw4Iouo+pu+4JN6OCIaR5f38NBTDBF9TPpEGWEEEG+ypzTEQu6Mzc7tSXecBjg/Mj
+	 7mZfAome9fh7Q==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -64,16 +64,16 @@ Cc: Maksym Planeta <maksym@exostellar.io>,
 	dave.hansen@linux.intel.com,
 	x86@kernel.org,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH AUTOSEL 6.13 3/5] Grab mm lock before grabbing pt lock
-Date: Mon,  3 Feb 2025 20:16:25 -0500
-Message-Id: <20250204011627.2206261-3-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.12 2/4] Grab mm lock before grabbing pt lock
+Date: Mon,  3 Feb 2025 20:16:40 -0500
+Message-Id: <20250204011643.2206417-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250204011627.2206261-1-sashal@kernel.org>
-References: <20250204011627.2206261-1-sashal@kernel.org>
+In-Reply-To: <20250204011643.2206417-1-sashal@kernel.org>
+References: <20250204011643.2206417-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.13.1
+X-stable-base: Linux 6.12.12
 Content-Transfer-Encoding: 8bit
 
 From: Maksym Planeta <maksym@exostellar.io>
