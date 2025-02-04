@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D64F8A274F8
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 15:58:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.881668.1291827 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6843FA2755B
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 16:08:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.881677.1291837 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfKMs-0004tu-AV; Tue, 04 Feb 2025 14:57:38 +0000
+	id 1tfKWW-0007BA-5M; Tue, 04 Feb 2025 15:07:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 881668.1291827; Tue, 04 Feb 2025 14:57:38 +0000
+Received: by outflank-mailman (output) from mailman id 881677.1291837; Tue, 04 Feb 2025 15:07:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfKMs-0004rJ-7T; Tue, 04 Feb 2025 14:57:38 +0000
-Received: by outflank-mailman (input) for mailman id 881668;
- Tue, 04 Feb 2025 14:57:37 +0000
+	id 1tfKWW-00079a-24; Tue, 04 Feb 2025 15:07:36 +0000
+Received: by outflank-mailman (input) for mailman id 881677;
+ Tue, 04 Feb 2025 15:07:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=yELw=U3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tfKMr-0004qx-Cl
- for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 14:57:37 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ id 1tfKWU-00079U-MG
+ for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 15:07:34 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5e3516cc-e308-11ef-99a4-01e77a169b0f;
- Tue, 04 Feb 2025 15:57:35 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-ab7157cf352so611411666b.0
- for <xen-devel@lists.xenproject.org>; Tue, 04 Feb 2025 06:57:35 -0800 (PST)
+ id c1e473fb-e309-11ef-99a4-01e77a169b0f;
+ Tue, 04 Feb 2025 16:07:32 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5dccc90a4f1so1177371a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 04 Feb 2025 07:07:31 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab6e4a56103sm948184766b.171.2025.02.04.06.57.33
+ 4fb4d7f45d1cf-5dcd3156ec7sm476838a12.67.2025.02.04.07.07.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 04 Feb 2025 06:57:34 -0800 (PST)
+ Tue, 04 Feb 2025 07:07:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e3516cc-e308-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: c1e473fb-e309-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738681054; x=1739285854; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1738681651; x=1739286451; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=oI7i2Lc8c4/rS/rHo8tJd5JjFJK4E5iI/R4Wy8KOfdk=;
-        b=SWVOAE6Ir8SASAIdUZdxahYRHqWM7f5YBp8wAZ8Z9I5AIdz21NbzU2VZIPrPfZ39ga
-         RCfGC1LvOhv4oApNLaCigSc2i14Fw/MJ6Td+8yBL1rX11gMOS4VaEjZbJ1Fh2p6NdXuG
-         sHvP1FPm5bykuMVK/x+fN7HTAd5wsxolwRbjeLpHrTbN2DQiwnJt6CUksbJIFPU5mixm
-         UaF3f8n73BVuff6aVyo4H7fM7kvgDIjkeCcFbfe5zpf38egKjfFmrnT9dxA6lrTfTPXG
-         1uIW3JPT9kJDsXpoNwxDgQOQsA98BwkmR0Qz8anETTQFU/4bwq/y7tNj2cEcZkKHJULK
-         IoUg==
+        bh=7A2qzFrTRxecRAB0/ggoUA0ui5P1oO9sih50GdLQyvs=;
+        b=JkOCdSYlyeeIENDCBeMfEHrb4jUBcrw0p61XG+P9zpBh0TES3sBlCrwQLdyeFgmMbl
+         WURQHJGM0+MDe/NVxzS5RYUeXH6nBiphHt/SDZf1YIEf8sBcFuZmwgT44jZ64et8WMEZ
+         ULoubK/0RlzSt6HE17vdEtDozZw4VjhYWAhvhb16pb4t18tclgzTTGurCE8Ivuad0CKz
+         QV5JP0jeV1KQTtvT1tFMAkZxbBuKv/ZzY3matgzcWsO3Blh+znPiE1u9n1Jvfvfz+yLq
+         3kXzxFvdq0p5u5lOmXnSWsjpKGCueua06/GUW4tE39JxGlAz/6XePqHJZS81rb7Vq9ha
+         CNWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738681054; x=1739285854;
+        d=1e100.net; s=20230601; t=1738681651; x=1739286451;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=oI7i2Lc8c4/rS/rHo8tJd5JjFJK4E5iI/R4Wy8KOfdk=;
-        b=LOaTmR1VqkfMWghCA7LDKylvwv/0XvTc2t2dyeu7VTE3Q5DVyxEVViX/kKH1879kDz
-         yetmtUB9UesUSnVo2bNvYyNfzNIYYYec3iZJBN8ZCJWzvhjE+G+9+Aon+3xAdnVLLS0J
-         /NRBzzChmByLddkqal/Y24aAjrcKc71+zDIw1i2yXroBPkbEL6WlVNj1Tor3GLQILUBu
-         ApuxA+6Hoi/r329sO4r72NVhXteyXuRi8TbHIHnRxjS6ezm8jQnZ6ezqgJq45W6cYi4/
-         zIJTkr+rl7Qv+F53GDBXJOyC7GgTbS/7unmW+T4kFN1hzEba/Z3wKmHZiUAe1uJ2MDYK
-         sPXw==
-X-Forwarded-Encrypted: i=1; AJvYcCUGB11AXX5XG2YrvAefwwiFiwd8w3GluwqTHWz5gFqTdyNwzky3eZE6Cv9M63WC7mT9IrQ2xzwKSHw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx3okayzUCqE30jzCVcLvcRaVuegroqFSOeeZe3PQ68rX4EkJbr
-	EPe2pylGKae+9I7nyEBJQR70VcOD/iLT1z3lJKADif/aXl0zejS2G4kEbVz+iw==
-X-Gm-Gg: ASbGncsI281srxpum9KIVb5Z9SCYRIK32AV5wlhB2U2lmwMHxTtGvuY2xOiA5UdfI3D
-	/FZssZo5gm4Sig+RGjY6yg8jvsBBUjKbm1EYnKip9qgL4P2kTjwOtDtED7d/s+i0676jrVCNRh6
-	zWGsXlyAyfnoEqExdTlKgMBeI/5RpN0iehddYhDKIADQ01utq/Q0SiFKwQ9kvOUP0LU+zk3anYL
-	LU2/PatjtUjZlsmAn5bp97MFMpuLe0PQiDxysSRA/cgt+U+mds/pEDi897Vp6v8INNgVI9F7Rod
-	3OyVrTHNkZlyVGPTkWw/t1E63SAXLlvLndq+rJZPXjJv6SfIem/Ib9RDrQSDCY+HUMxTVq9xyQN
-	s
-X-Google-Smtp-Source: AGHT+IFDb//GADJLgJfhpbk0axnAhGmPvMIypVwD8KDVome2Esuc1rSh0soeGBryvDomynbBsk4mRw==
-X-Received: by 2002:a17:906:f581:b0:ab6:b9d9:818d with SMTP id a640c23a62f3a-ab7480ff212mr547245866b.0.1738681054453;
-        Tue, 04 Feb 2025 06:57:34 -0800 (PST)
-Message-ID: <b6418443-adc2-4ab4-911e-a196a1f59f5d@suse.com>
-Date: Tue, 4 Feb 2025 15:57:33 +0100
+        bh=7A2qzFrTRxecRAB0/ggoUA0ui5P1oO9sih50GdLQyvs=;
+        b=wF7kMSlWZT5ZT7+r0eHLGbRtmCB2ehs6FLgnvjAGTX8DWCmSg0M8Dy8KAxbxYIdNoH
+         6cviAYIIbcfa7FMTSL4RRvkQ4ZJflA88QJ0Ua+BzABVNJqvv/ZUprUYZvy8pF+jwnYY2
+         0rgYtfccVtvyKrM2iPHI/sKyLGrdU4EJJCMMgVPP1PWWwYktYNX1+HWqTEMRbyO32d6g
+         hLD+sHy06KwdipW2VRbxzjv+/EWxwpXNSMxhxRlYZ0D81eG7g/MS0V4pBG90LwUR9mNn
+         sJGxYfF+BHAjde5bhIiDERaosX+ZIRydX+lAP03NaO11KIqBzEMLSc2RMgaWGqCoZxGb
+         RpqQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXTRGflsIM5bh2HDky6oUELr6ot2Drj/ygG+CY3JKYbcTQFxmX/tajfZrS99IQ4HB3xVoZi+NRtwTE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywnb4qgndf4Neo6oyzYHb9FVC/6ceu50JEvTG/udRCSqjFkUvBN
+	9Yq4rRZUhA6fjMlL8vQt6ZJseh1WPvojlVTIeu82i3aqomNEpaIje4i1z8VuYYtVeksVC2uDzSA
+	=
+X-Gm-Gg: ASbGncst5gn9xA0EZ4MCzuxa+dc+wKLRKQ4zu31yliFzU7obCrVnWIHLiI7QxuaIVRg
+	XHuLd2uX3t1IE3GU21conQDfPlP6gWEh/9zGFpgu1MGv31ZMlcS52Yvba56UfRQ3CuW/LMi8ho4
+	UKInUBtISMFqTx33/xc8tOJDMLt9voNCtHBzpvunD2NSqC22JJEcJcxvlKFjzxAlrQ1ntsfB7qt
+	48Jv+dV6q6IgttAtC4J1Z5CvItJeB124vsRrDDcuvlYpbiJkcgAaLP/UL3+oEmv/lOAxrXkAJ0x
+	UwczBFmGrvAoKCDRvjezDGmFIpTLT32d+IritmHSCqFzDJNmuUQhL3m269dgZLqnXc7jXPwQ8gb
+	V
+X-Google-Smtp-Source: AGHT+IEhEvWS+O+u7AohAvRPdk5Goe402RdOFCIQVoA7nHd8qJiDzvXeiWuacgvPcvWq3Dx7RrvZkA==
+X-Received: by 2002:a05:6402:d09:b0:5db:fc7c:be43 with SMTP id 4fb4d7f45d1cf-5dc5effb6b1mr28148716a12.32.1738681651207;
+        Tue, 04 Feb 2025 07:07:31 -0800 (PST)
+Message-ID: <84c8d20e-b9f1-4593-b5df-86cc00ff33b5@suse.com>
+Date: Tue, 4 Feb 2025 16:07:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] xen/riscv: update mfn calculation in
- pt_mapping_level()
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH v2 2/2] tools/hvmloader: Replace LAPIC_ID() with
+ cpu_to_apicid[]
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1738587493.git.oleksii.kurochko@gmail.com>
- <133526ddccc22ab39dd6841038157d48bd35da81.1738587493.git.oleksii.kurochko@gmail.com>
+ Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+References: <20250204144542.7399-1-alejandro.vallejo@cloud.com>
+ <20250204144542.7399-3-alejandro.vallejo@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,147 +121,25 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <133526ddccc22ab39dd6841038157d48bd35da81.1738587493.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <20250204144542.7399-3-alejandro.vallejo@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 03.02.2025 14:12, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/include/asm/page.h
-> +++ b/xen/arch/riscv/include/asm/page.h
-> @@ -55,6 +55,22 @@
->  #define PTE_SMALL       BIT(10, UL)
->  #define PTE_POPULATE    BIT(11, UL)
+On 04.02.2025 15:45, Alejandro Vallejo wrote:
+> --- a/tools/firmware/hvmloader/config.h
+> +++ b/tools/firmware/hvmloader/config.h
+> @@ -48,8 +48,9 @@ extern uint8_t ioapic_version;
 >  
-> +/*
-> + * In the case when modifying or destroying a mapping, it is necessary to
-> + * search until a leaf node is found, instead of searching for a page table
-> + * entry based on the precalculated `level` and `order` (look at pt_update()).
-> + * This is because when `mfn` == INVALID_MFN, the `mask`(in pt_mapping_level())
-> + * will take into account only `vfn`, which could accidentally return an
-> + * incorrect level, leading to the discovery of an incorrect page table entry.
-> + *
-> + * For example, if `vfn` is page table level 1 aligned, but it was mapped as
-> + * page table level 0, then pt_mapping_level() will return `level` = 1,
-> + * since only `vfn` (which is page table level 1 aligned) is taken into account
-> + * when `mfn` == INVALID_MFN (look at pt_mapping_level()).
-> + */
-> +
-> +#define PTE_LEAF_SEARCH BIT(12, UL)
-
-Is it intended for callers outside of pt.c to make use of this? If not,
-it better wouldn't be globally exposed.
-
-Furthermore, this isn't a property of the PTE(s) to be created, so is
-likely wrong to mix with PTE_* flags. (PTE_POPULATE is on the edge of
-also falling in this category, btw.) Perhaps ...
-
-> --- a/xen/arch/riscv/pt.c
-> +++ b/xen/arch/riscv/pt.c
-> @@ -187,11 +187,10 @@ static int pt_next_level(bool alloc_tbl, pte_t **table, unsigned int offset)
+>  #define IOAPIC_ID           0x01
 >  
->  /* Update an entry at the level @target. */
->  static int pt_update_entry(mfn_t root, vaddr_t virt,
-> -                           mfn_t mfn, unsigned int target,
-> +                           mfn_t mfn, unsigned int *target,
+> +extern uint32_t *cpu_to_apicid;
 
-... you instead want to have callers of this function preset *target
-to a special value (e.g. UINT_MAX or CONFIG_PAGING_LEVELS) indicating
-the level is wanted as an output.
+Strictly speaking this ought to be part of the earlier patch. If hvmloader
+was Misra-checked, this would be a (transient) violation.
 
-> @@ -205,39 +204,48 @@ static int pt_update_entry(mfn_t root, vaddr_t virt,
->      bool alloc_tbl = !mfn_eq(mfn, INVALID_MFN) || (flags & PTE_POPULATE);
->      pte_t pte, *entry;
->  
-> -    /* convenience aliases */
-> -    DECLARE_OFFSETS(offsets, virt);
-> -
-> -    table = map_table(root);
-> -    for ( ; level > target; level-- )
-> +    if ( flags & PTE_LEAF_SEARCH )
->      {
-> -        rc = pt_next_level(alloc_tbl, &table, offsets[level]);
-> -        if ( rc == XEN_TABLE_MAP_NOMEM )
-> +        entry = pt_walk(virt, target);
-> +        BUG_ON(!pte_is_mapping(*entry));
-
-Is this really necessarily a bug? Can't one want to determine how deep
-the (populated) page tables are for a given VA?
-
-Hmm, here I can see why you have pt_walk() return a pointer. As per the
-comment on the earlier patch, I don't think this is a good idea. You
-may want to have
-
-static pte_t *_pt_walk(...)
-{
-    ...
-}
-
-pte_t pt_walk(...)
-{
-    return *_pt_walk(...);
-}
-
-> @@ -345,9 +353,6 @@ static int pt_mapping_level(unsigned long vfn, mfn_t mfn, unsigned long nr,
->          return level;
->  
->      /*
-> -     * Don't take into account the MFN when removing mapping (i.e
-> -     * MFN_INVALID) to calculate the correct target order.
-> -     *
->       * `vfn` and `mfn` must be both superpage aligned.
->       * They are or-ed together and then checked against the size of
->       * each level.
-
-You drop part of the comment without altering the code being commented.
-What's the deal?
-
-> @@ -415,19 +420,33 @@ static int pt_update(vaddr_t virt, mfn_t mfn,
->  
->      spin_lock(&pt_lock);
->  
-> -    while ( left )
-> +    /* look at the comment above the definition of PTE_LEAF_SEARCH */
-> +    if ( mfn_eq(mfn, INVALID_MFN) && !(flags & PTE_POPULATE) )
->      {
-> -        unsigned int order, level;
-> +        flags |= PTE_LEAF_SEARCH;
-> +    }
-
-For readability I think it would be better if the figure braces were
-dropped.
-
-> -        level = pt_mapping_level(vfn, mfn, left, flags);
-> -        order = XEN_PT_LEVEL_ORDER(level);
-> +    while ( left )
-> +    {
-> +        unsigned int order = 0, level;
->  
-> -        ASSERT(left >= BIT(order, UL));
-> +        if ( !(flags & PTE_LEAF_SEARCH) )
-> +        {
-> +            level = pt_mapping_level(vfn, mfn, left, flags);
-> +            order = XEN_PT_LEVEL_ORDER(level);
-> +            ASSERT(left >= BIT(order, UL));
-
-Assignment to order and assertion are ...
-
-> +        }
->  
-> -        rc = pt_update_entry(root, vfn << PAGE_SHIFT, mfn, level, flags);
-> +        rc = pt_update_entry(root, vfn << PAGE_SHIFT, mfn, &level, flags);
->          if ( rc )
->              break;
->  
-> +        if ( flags & PTE_LEAF_SEARCH )
-> +        {
-> +            order = XEN_PT_LEVEL_ORDER(level);
-> +            ASSERT(left >= BIT(order, UL));
-> +        }
-
-... repeated here, with neither left nor order being passed into
-pt_update_entry(). Does this really need doing twice? (I have to
-admit that I have trouble determining what the assertion is about.
-For order alone it clearly could be done centrally after the call.)
+config.h is also somewhat odd a place to put this declaration, yet then I
+can't really suggest anything better.
 
 Jan
+
 
