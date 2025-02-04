@@ -2,49 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28A47A26F2B
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 11:17:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.881225.1291348 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 101E4A26F77
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 11:45:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.881233.1291358 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfFz1-00068p-1A; Tue, 04 Feb 2025 10:16:43 +0000
+	id 1tfGQ5-0001gQ-1W; Tue, 04 Feb 2025 10:44:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 881225.1291348; Tue, 04 Feb 2025 10:16:43 +0000
+Received: by outflank-mailman (output) from mailman id 881233.1291358; Tue, 04 Feb 2025 10:44:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfFz0-00066p-Us; Tue, 04 Feb 2025 10:16:42 +0000
-Received: by outflank-mailman (input) for mailman id 881225;
- Tue, 04 Feb 2025 10:16:40 +0000
+	id 1tfGQ4-0001eT-VH; Tue, 04 Feb 2025 10:44:40 +0000
+Received: by outflank-mailman (input) for mailman id 881233;
+ Tue, 04 Feb 2025 10:44:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sPqb=U3=amd.com=nikunj.dadhania@srs-se1.protection.inumbo.net>)
- id 1tfFyy-00066i-TI
- for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 10:16:40 +0000
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2060e.outbound.protection.outlook.com
- [2a01:111:f403:240a::60e])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=uBag=U3=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1tfGQ3-0001eN-N9
+ for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 10:44:39 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1ed662bb-e2e1-11ef-99a4-01e77a169b0f;
- Tue, 04 Feb 2025 11:16:38 +0100 (CET)
-Received: from CH2PR08CA0024.namprd08.prod.outlook.com (2603:10b6:610:5a::34)
- by IA1PR12MB6020.namprd12.prod.outlook.com (2603:10b6:208:3d4::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8398.24; Tue, 4 Feb
- 2025 10:16:32 +0000
-Received: from CH2PEPF00000140.namprd02.prod.outlook.com
- (2603:10b6:610:5a:cafe::5) by CH2PR08CA0024.outlook.office365.com
- (2603:10b6:610:5a::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8398.27 via Frontend Transport; Tue,
- 4 Feb 2025 10:16:32 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH2PEPF00000140.mail.protection.outlook.com (10.167.244.72) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8398.14 via Frontend Transport; Tue, 4 Feb 2025 10:16:32 +0000
-Received: from BLR-L1-NDADHANI (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 4 Feb
- 2025 04:16:24 -0600
+ id 07cba812-e2e5-11ef-99a4-01e77a169b0f;
+ Tue, 04 Feb 2025 11:44:38 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-435f8f29f8aso39930815e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 04 Feb 2025 02:44:37 -0800 (PST)
+Received: from [10.53.21.213] (88.171.88.92.rev.sfr.net. [92.88.171.88])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38c5c1b547csm15581169f8f.62.2025.02.04.02.44.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 04 Feb 2025 02:44:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,170 +45,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1ed662bb-e2e1-11ef-99a4-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sdI+DsqcdvqSXA9zIj3r8YBkur/gf2oFLacX2KbQaugQ+ZQoYcIqemoWPL3gNjmd6zsMw0GZp6SlKvFF+yApyydqaHNZP16QU4SNGpiQEjm3kjqjVw7GLZr/yOwPUg3ZQnZhXrPSPqR+ivL6vOvs2FjyaGnXD/Liw/CtpEEK7BsWOPGIxb698Md7LQKNjSg9bmVqKoPbEw1gaRo3X/ptHOQ3a9cquiII2KIu5vCNK44bxkbQwEQtTjeogVkzeMy91wSTzlVCBfDuhG7UugjE5QKTm/e7veqrlnTrSI0P+51xUprS0520QE2nEJ7B0r1jy6Y3k1EwbILj5qlpcXIg6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PYQPtGe3YL7mSqevDlxs0Eh/1R6bR/R1bDkYQ9bo7b8=;
- b=amphElKyq4jYfC7uvGY3e6MNv2O4rkLDeXoAHV4ZHrkkfqCckqtsBW8kkECQbe+2HYkLllUQ9TvwFou3ZuQ1ijZUqMRsnyuTD00cG5mkOd4OabYNFjDQ/j1nsu2kWjPxT/6aFnzU7cyhrN2363zKWRkU2xOMAPrTjdYoJI7qembIrj/DbLZZ/u0BDa4PP78AZzSHEfGc609eHKB7cH/Cy90jMTWQiI30ntSar//1q3o5SWDDZ5VjVMKcEAzep/Cejlp61rKa74anHDMMSnfRh+TN5nt4L3rAVBC19oBEa9a2f4lAijkelMGWXVhYapjTbYdhYJ5+/UbfCj5L/c/RPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PYQPtGe3YL7mSqevDlxs0Eh/1R6bR/R1bDkYQ9bo7b8=;
- b=wN7Sl9Bfn73RYQ5bhJZu0apyNVM5M8oNLLKoFLBKRCxl9awNmhpNrySfmQuy6rT3L5pZUFDLj8Ets/nIl2/dN6++4LBCuRQGph4GF5PKfEWsNAAOKn8yO6BsCxZKrvGwmSDSzT+HS74FkUbaqMMdvvRqGoiNl6RWvCw8e/2BznE=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Nikunj A Dadhania <nikunj@amd.com>
-To: Sean Christopherson <seanjc@google.com>, Thomas Gleixner
-	<tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
-	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, <x86@kernel.org>,
-	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>, Juergen Gross
-	<jgross@suse.com>, "K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang
-	<haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui
-	<decui@microsoft.com>, Ajay Kaher <ajay.kaher@broadcom.com>, "Alexey
- Makhalov" <alexey.amakhalov@broadcom.com>, Jan Kiszka
-	<jan.kiszka@siemens.com>, Paolo Bonzini <pbonzini@redhat.com>, "Andy
- Lutomirski" <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>
-CC: <linux-kernel@vger.kernel.org>, <linux-coco@lists.linux.dev>,
-	<virtualization@lists.linux.dev>, <linux-hyperv@vger.kernel.org>,
-	<jailhouse-dev@googlegroups.com>, <kvm@vger.kernel.org>,
-	<xen-devel@lists.xenproject.org>, Sean Christopherson <seanjc@google.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>
-Subject: Re: [PATCH 06/16] x86/tdx: Override PV calibration routines with
- CPUID-based calibration
-In-Reply-To: <20250201021718.699411-7-seanjc@google.com>
-References: <20250201021718.699411-1-seanjc@google.com>
- <20250201021718.699411-7-seanjc@google.com>
-Date: Tue, 4 Feb 2025 10:16:22 +0000
-Message-ID: <85r04e5821.fsf@amd.com>
+X-Inumbo-ID: 07cba812-e2e5-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1738665877; x=1739270677; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=H5EUMoIVHCS3vQgN/YDOuOuwt4Ov3b7qpf3ilUJq/DA=;
+        b=SOrzecFwsmaYtNoIpk2mlsndCQ7hkJ8qS8eP/imyxGtpJ/5Tv/2xgTVrkXd2bI1I/b
+         iue+oSzYutWDy0A4RwdzKXtG5evJyJmTOgs2qcpmPQOp6hWgHMLx37f8JloWtJAeFwAs
+         RwHO917R6prAvx/BwJhbSNE+N906mly4MJnGweax53MQDu6O2mmJhSCwFvEbzFT+eeeX
+         jKEOjH4UINGVQxsHTLZAyEN3RlCjA9UJORHptrAM6G0UwqbGJckKsVuoY0J8mObYTig8
+         SWkTu5sVfUjrOdQWqUceBnlLkCH1NZo4ME0QnNU4YEBa1BEBuftd682ZB1aBfzCoWN9y
+         2q2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1738665877; x=1739270677;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=H5EUMoIVHCS3vQgN/YDOuOuwt4Ov3b7qpf3ilUJq/DA=;
+        b=iw4TQDzf+aHgyrxJpo6icN1v2RuJTCYbLZPcYyNEjvlb3qoKM+BjNhAwpN4GaC8YHp
+         pPzVCuF+ms0pF8f6UM9ij9X63Gn9WcdO2uXJYtziJ2uumnKcp8JBINZS3WMiZz1JchqG
+         n4Y8riEi31JbIrs/LCy+4/P5x+CbQqNezaOWceD9MRbp7/djj8WIWgy6p277DQLUXyQ6
+         nqyBpW+aAQ+ccr78eZPJDNzJHWAbtRgUuqRHIfB9RZM1ioIZHjYsirbwyFZ4Bln4lvjV
+         dkAq+o0g0lu31QplIlL62QdCwbcoZAgfnruAY9gda7j2/1oKbzC2gnG75NzDE/dmrwYY
+         mFJw==
+X-Forwarded-Encrypted: i=1; AJvYcCVNLW+NAOIJOe2SfEhACzazzgZO/ogd6PPg3AeSFd+c6rSmEPEXAFJdDaLR7VoH6CBPe/+7ryjwaOU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxUDf99hx6pFew+d3IZ/lNHE8PSYR7xeq5Yn/9Ms7jyvORGM7g2
+	F7XN1YdCue79SmrKJn3G0fYCu2yQynmkV1MZv8SgbAjtVRMg0z2h1j/J/aMxE/s=
+X-Gm-Gg: ASbGncuPbCpLLHj9Dwm8bWCMlOhv5Gb0rwLRLmeUG9NwDXRx3jag5aMNdIte8ppQFX9
+	OzMoVGMpbB9vZ8pUz0tmpo4kaoruHIonVEqUkQ6xaYp1YWr2lnhqz7JF6hEG65khBlgaROD97HQ
+	65Tovcsw8gG+Ht2JCof2VUyAorcSVFJRQE57UyRSuT0HvrmHGsUBiaBLSb9aR30oCXiUtzKHE4w
+	r7GxmzsoRbqMa8BQyWEtmu5fkrg4MXKqNunbWoMNkzOtT0g4Nl6asCyUsDjuscDnaR/xKGaOMPa
+	Jg4m/lfmTQFlXxEmo43yTyz4cg0lTjX0ZYJUjUDznX+6YULE7W/NJg==
+X-Google-Smtp-Source: AGHT+IECyT3kjLL2IP8jGp5iNhETRyBtF443agFL3cmw5LXdrgO6uC/CEteXeB9Ebs3gykalTJzOTg==
+X-Received: by 2002:a05:600c:5103:b0:434:f131:1e64 with SMTP id 5b1f17b1804b1-438dc3c241emr203976655e9.9.1738665877025;
+        Tue, 04 Feb 2025 02:44:37 -0800 (PST)
+Message-ID: <c9bc3785-7d0e-493c-99f2-30821dc76b14@linaro.org>
+Date: Tue, 4 Feb 2025 11:44:34 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000140:EE_|IA1PR12MB6020:EE_
-X-MS-Office365-Filtering-Correlation-Id: 819e76c7-674d-420e-8f62-08dd4504ff4f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|82310400026|36860700013|1800799024|7053199007|921020;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?SjVsaXlpb0kwRG85WURkMTM3NmhwN1lJMU56bmIweHhTWDVYMWtJdXhVSkZu?=
- =?utf-8?B?bjZRdnJmSkZuZHI0a2R3bmQzODROSUVGVFlITGU4K3FNdlFwbWE2dXE1U2pS?=
- =?utf-8?B?bDV0U21ZeDNMRFNwU2d5c2c0dDVuY1dFTGxNQUZhbWRFUnRTZUY0dUVwWEo3?=
- =?utf-8?B?QVR5UFJVVUtiRjJCeXUrVWhyMU9jbDBRZEw1N0prNklUL0pDQmNrUkxOVUtM?=
- =?utf-8?B?Uk5najd1a0ZwWTdPbmxxMURtVm5CNGVmMlFLTVgrbzBWSzZ0ZzdMUXR5anhM?=
- =?utf-8?B?U2RMbGxsMkpFWStnZVBBdjFaTzdxM290d2I5RG1mT2NOenZMekRhQXRpV243?=
- =?utf-8?B?VktXNzZUMk1jUkNuMVFJVGlFN2JEQ05ac3cvWWg2ZHhjTWV6WVRUQ1dKMVAx?=
- =?utf-8?B?Y2hiUEJhR3phc0VnSDFJRjJ5dlhja1F5elF1eXltSFlGOWNvbnFSQkhVOWwz?=
- =?utf-8?B?cDhOcmR6Q1M4RldDelJnWUMrSWNzKytLeXhQeGRHV1R1U2J6VFNiYXNpWmJG?=
- =?utf-8?B?dHh4ektlYzZ6bmJzdmlSeG5qdnBxSTJadnZJR3hCVjRMQ1NCczlDbXdHK2Z3?=
- =?utf-8?B?ZFNMMDB6UFAxT2ROREdJU1NOcG1Kc3A1YkMrdmovbE5qN2x6bjFNaVhyc2Zq?=
- =?utf-8?B?QnhFdVJhaERvUWJ3Zk9DK1gxaElSd2d6N244RWFmeFhDWmd5UjI1Z2RTSmFn?=
- =?utf-8?B?UVRNcTd2NjA2TlVrSHR1WjdNTnpNd1UrdmNGWS9FVjdMVVpjald3bUEzaUdK?=
- =?utf-8?B?UStJcU9aQ2lFTkY2VllCdVdjbitVR1JwY3ZQVVNlenVBNHVabkpJQzJ6aThQ?=
- =?utf-8?B?amMra21rbWw1OE1OTUZUbG1hRC9JMXUyR0RGTUJBR3FJL3F1UUFVeU0xWmRo?=
- =?utf-8?B?aWJZczdVZFFQeXlxWlJ4dUhuN05aZS95ZzVqb244dDdHekhzdHRMcUhaL25v?=
- =?utf-8?B?dytLM2NGS05qdlhtRThqY0JVSlc5YXlyNmh6S0ZuL2dJWC96dEpLaWxKUnFL?=
- =?utf-8?B?Qm9QQisvUzV0d0t3NEE5NjhNdmZ6TmtEN2wwdWJOKzYrSTFpOWZwUFQwaSs2?=
- =?utf-8?B?aVZHVUdHN3R6eEtHaVhTajdwdldZOU9HQzZOaERhb0RwdGliVWgyWDUyOU9D?=
- =?utf-8?B?TkxkTUZLb2lyWUpMUzdDZU1uZzJKOFpIblMwbmNlY1paSnBrU2JTUXgybm9L?=
- =?utf-8?B?T1NjVVNoNWhKbU5sUzVmcWVhMGJCa29nenRDdzZ2dVc1SWZNcWw1YVk2dzVX?=
- =?utf-8?B?VzdPUmlGM1pNNFVMTEptZ3JFeXR6T0FnNTJjbW0xeVlGMWZJYmF0VEtzeHBn?=
- =?utf-8?B?ZUpoODFwSXIxTGZrc080TWxPQ1JGMStaRmFNbGdiYkpoSHZXR1U4VzBFUHps?=
- =?utf-8?B?Z0wxalFORS9QdlVOeVprTUFjY0pnbU5mcUZKbW4rSi9DeUJYZDN6ZUxBeCtC?=
- =?utf-8?B?eEh4emY5cm81eHEzdlVBbFZDNUV4OFhWMDVPaXkrbkQ3VmJjWlVZLytJSUIw?=
- =?utf-8?B?SzdSNzVNRXl5SWFMblliMDlwR1ZzTVJPQ01vR0phMUxCKzZNWEFIT3ZtNFBY?=
- =?utf-8?B?UEplRkpJdUNnNDhPTFJ0bHN3TzM2U0pTcUdoMmxxajhOOEhsSUlJZzVLVVBW?=
- =?utf-8?B?TXk4M0J4aXk1VmxFMzlHREtjRkpKUVhRT0luZFZ1Q1Y2VE1ZUkE1MFU3cnR0?=
- =?utf-8?B?R2V4MWJ1MW5oRXkzbFJQODM4Smo0OVFxMlNoaHh3K3R0c2dzNW40bm4ydUx3?=
- =?utf-8?B?cFB0eXVmbi9xb3ZrNG9yaHdiUUczdkhubkdyWGtzNmMxMWdvUHFMRVpwdDVD?=
- =?utf-8?B?S0lCd3haRnQzTmpuS0hvbGZVbE9iTEhFdm4yblBFZ0NGaDJURWNUTzYwYmgv?=
- =?utf-8?B?NGNTVGxXTDVqaDdMREFVc1hrZnRnU3M4T21EZ0NkQ0I5bzlxYmxybDdUMWtB?=
- =?utf-8?B?dXcxaFdRRCtDN0RKbUppVEVNMyt3a0h0eTFuMGdqNnhab1hWVkNBZUVPdTVk?=
- =?utf-8?Q?LyvLuDm9hjr5Fc1WuXL04KCWrDFcKo=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(82310400026)(36860700013)(1800799024)(7053199007)(921020);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Feb 2025 10:16:32.1287
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 819e76c7-674d-420e-8f62-08dd4504ff4f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF00000140.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6020
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 00/14] meson: Deprecate 32-bit host support
+To: Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org,
+ mark.cave-ayland@ilande.co.uk, berrange@redhat.com, thuth@redhat.com,
+ andrew.cooper3@citrix.com, anthony.perard@vates.tech, michal.orzel@amd.com,
+ julien@xen.org, roger.pau@citrix.com, xen-devel@lists.xenproject.org,
+ bertrand.marquis@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Richard Henderson <richard.henderson@linaro.org>
+References: <20250203031821.741477-1-richard.henderson@linaro.org>
+ <467a5a58-952e-4930-8e91-744eda6d87d9@redhat.com>
+ <e40c39d4-425c-4566-af41-373941894045@linaro.org>
+ <alpine.DEB.2.22.394.2502031438170.11632@ubuntu-linux-20-04-desktop>
+ <e7611136-1e90-4f3a-8f37-68244c22c4cc@suse.com>
+ <173d18bf-f68c-4bd5-b822-abb1c1f0c51b@suse.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <173d18bf-f68c-4bd5-b822-abb1c1f0c51b@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Sean Christopherson <seanjc@google.com> writes:
+Hi Jan,
 
-> When running as a TDX guest, explicitly override the TSC frequency
-> calibration routine with CPUID-based calibration instead of potentially
-> relying on a hypervisor-controlled PV routine.  For TDX guests, CPUID.0x15
-> is always emulated by the TDX-Module, i.e. the information from CPUID is
-> more trustworthy than the information provided by the hypervisor.
->
-> To maintain backwards compatibility with TDX guest kernels that use native
-> calibration, and because it's the least awful option, retain
-> native_calibrate_tsc()'s stuffing of the local APIC bus period using the
-> core crystal frequency.  While it's entirely possible for the hypervisor
-> to emulate the APIC timer at a different frequency than the core crystal
-> frequency, the commonly accepted interpretation of Intel's SDM is that AP=
-IC
-> timer runs at the core crystal frequency when that latter is enumerated v=
-ia
-> CPUID:
->
->   The APIC timer frequency will be the processor=E2=80=99s bus clock or c=
-ore
->   crystal clock frequency (when TSC/core crystal clock ratio is enumerated
->   in CPUID leaf 0x15).
->
-> If the hypervisor is malicious and deliberately runs the APIC timer at the
-> wrong frequency, nothing would stop the hypervisor from modifying the
-> frequency at any time, i.e. attempting to manually calibrate the frequency
-> out of paranoia would be futile.
->
-> Deliberately leave the CPU frequency calibration routine as is, since the
-> TDX-Module doesn't provide any guarantees with respect to CPUID.0x16.
+On 4/2/25 10:11, Jan Beulich wrote:
+> On 04.02.2025 09:19, Juergen Gross wrote:
+>> On 03.02.25 23:43, Stefano Stabellini wrote:
+>>> +Xen maintainers
+>>>
+>>>
+>>> On Mon, 3 Feb 2025, Richard Henderson wrote:
+>>>> On 2/3/25 04:54, Paolo Bonzini wrote:
+>>>>> On 2/3/25 04:18, Richard Henderson wrote:
+>>>>>> v1: 20250128004254.33442-1-richard.henderson@linaro.org
+>>>>>>
+>>>>>> For v2, immediately disable 64-on-32 TCG.
+>>>>>>
+>>>>>> I *suspect* that we should disable 64-on-32 for *all* accelerators.
+>>>>>> The idea that an i686 binary on an x86_64 host may be used to spawn
+>>>>>> an x86_64 guest via kvm is silly and a bit more than niche.
+>>>>>
+>>>>> At least Xen used to be commonly used with 32-bit dom0, because it saved
+>>>>> memory and dom0 would map in guest buffers as needed.  I'm not sure how
+>>>>> common that is these days, perhaps Stefano knows.
+>>>>
+>>>> As a data-point, debian does not ship libxen-dev for i686.
+>>>> We cannot build-test this configuration at all.
+>>>>
+>>>> I can build-test Xen for armhf, and I guess it would use i386-softmmu; it's
+>>>> unclear whether x86_64-softmmu and aarch64-softmmu are relevant or useful for
+>>>> an armhf host, or as an armhf binary running on an aarch64 host.
+>>>
+>>>
+>>> On the Xen side, there are two different use cases: x86 32-bit and ARM
+>>> 32-bit.
+>>>
+>>> For x86 32-bit, while it was a very important use case in the past, I
+>>> believe it is far less so now. I will let the x86 maintainers comment on
+>>> how important it is today.
+>>
+>> As dom0 on x86 is a PV guest per default and Linux doesn't support running as a
+>> 32-bit PV guest since a few years now, I guess there is no need to support qemu
+>> as 32-bit on x86 for Xen.
 
-Does TDX use kvmclock? If yes, kvmclock would have registered the CPU
-frequency calibration routine:
+This community disconnection between QEMU and Xen communities is a bit
+unfortunate, as apparently we have been maintaining for some time
+something that isn't used.
 
-	tsc_register_calibration_routines(kvm_get_tsc_khz, kvm_get_cpu_khz,
- 					  tsc_properties);
+> Yet then, just to mention it, you can run a 64-bit PV Dom0 kernel underneath
+> an otherwise 32-bit distro. I've been doing this successfully for very many
+> years (with a very small kernel adjustment, just to work around an apparent
+> shortcoming in system init scripts).
 
-so TDX will use kvm_get_cpu_khz(), which will either use CPUID.0x16 or
-PV clock, is this on the expected line ?
+This discussion is about what is maintained by the mainstream projects.
 
-Regards
-Nikunj
+We don't want to make fork's life harder. If you believe your use case
+is worthwhile, please get it incorporated mainstream so we can test it.
+Otherwise it is too much burden to maintain things we can not even test.
 
-> +
-> +void __init tdx_tsc_init(void)
-> +{
-> +	/* TSC is the only reliable clock in TDX guest */
-> +	setup_force_cpu_cap(X86_FEATURE_TSC_RELIABLE);
-> +	setup_force_cpu_cap(X86_FEATURE_TSC_KNOWN_FREQ);
-> +
-> +	/*
-> +	 * Override the PV calibration routines (if set) with more trustworthy
-> +	 * CPUID-based calibration.  The TDX module emulates CPUID, whereas any
-> +	 * PV information is provided by the hypervisor.
-> +	 */
-> +	tsc_register_calibration_routines(tdx_get_tsc_khz, NULL);
-> +}
+Regards,
+
+Phil.
 
