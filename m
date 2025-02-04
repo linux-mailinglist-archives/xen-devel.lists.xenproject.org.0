@@ -2,49 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 857DFA26D43
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 09:27:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.881168.1291290 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1262AA26D5E
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 09:36:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.881176.1291299 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfEHG-000607-D7; Tue, 04 Feb 2025 08:27:26 +0000
+	id 1tfEPp-0007lb-6l; Tue, 04 Feb 2025 08:36:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 881168.1291290; Tue, 04 Feb 2025 08:27:26 +0000
+Received: by outflank-mailman (output) from mailman id 881176.1291299; Tue, 04 Feb 2025 08:36:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfEHG-0005xM-8z; Tue, 04 Feb 2025 08:27:26 +0000
-Received: by outflank-mailman (input) for mailman id 881168;
- Tue, 04 Feb 2025 08:27:25 +0000
+	id 1tfEPp-0007j2-32; Tue, 04 Feb 2025 08:36:17 +0000
+Received: by outflank-mailman (input) for mailman id 881176;
+ Tue, 04 Feb 2025 08:36:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sPqb=U3=amd.com=nikunj.dadhania@srs-se1.protection.inumbo.net>)
- id 1tfEHE-0005xG-Uk
- for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 08:27:24 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2061b.outbound.protection.outlook.com
- [2a01:111:f403:2415::61b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=yELw=U3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tfEPn-0007iw-W8
+ for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 08:36:15 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id db21a569-e2d1-11ef-99a4-01e77a169b0f;
- Tue, 04 Feb 2025 09:27:22 +0100 (CET)
-Received: from MW4PR03CA0297.namprd03.prod.outlook.com (2603:10b6:303:b5::32)
- by SA1PR12MB5659.namprd12.prod.outlook.com (2603:10b6:806:236::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8398.20; Tue, 4 Feb
- 2025 08:27:19 +0000
-Received: from SJ5PEPF000001F1.namprd05.prod.outlook.com
- (2603:10b6:303:b5:cafe::a) by MW4PR03CA0297.outlook.office365.com
- (2603:10b6:303:b5::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8398.20 via Frontend Transport; Tue,
- 4 Feb 2025 08:27:19 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF000001F1.mail.protection.outlook.com (10.167.242.69) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8398.14 via Frontend Transport; Tue, 4 Feb 2025 08:27:18 +0000
-Received: from BLR-L1-NDADHANI (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 4 Feb
- 2025 02:27:06 -0600
+ id 17fa0bc3-e2d3-11ef-99a4-01e77a169b0f;
+ Tue, 04 Feb 2025 09:36:14 +0100 (CET)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-5da12292b67so8778949a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 04 Feb 2025 00:36:14 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab6e47a7de5sm886951866b.35.2025.02.04.00.36.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 04 Feb 2025 00:36:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,156 +45,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: db21a569-e2d1-11ef-99a4-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=G8QUtWGufmsKxflMLeAa7caiv/ghRg3leOKrTFzPukZ/GeC6THoCoVWx6hyH79V1xWKqnysEV18rnHSCZyiXXdNDZMScecyjmFCV3W55eeCzbqP7o9hgrw9e6d/DHA+8LQNn5bjfeQ66/0jaXW2I9w3/HkNm4aY4fFSclrfLdJpV5lYrf0ZJU/T3d1Q055yTkJ5Ig+a+D1mF8T3xzrqlslkejiIfB7XfFE6mEw3WkZlI2v4HCyoNYn87dxJuZfDWeuOvY6THRRLNayBIScVhL7birWvAk6Uak1vzbO9QnfmCZ6FqiDAZWSpfK7E+qeud9umBD6I+vg9x4q7ls2GQdw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5qTvRc4R7HQtNFKeYPVE6NHVmkklFcpzPun7h3HxzF8=;
- b=YZkpRzua3gSXx9oTdz7PH6ClNOOmuC0FVQeEaKqE3Ej2ZvxvF5M7OjSapWurW3LjX3EiAWNSjJnLsisatlA6X8N7IAnp0u5v77QxoHb9DcHfF2VZpEJxaGHPSq5tO6uU18XwSivgRw1Bdsm8MOOXqSKBOnw7VrNvr4vFbjCqz469U9PVoa6/F2taMc+qya7OncI/NmNEob8zJ0tfayhXUNbgyXD8LrOmDTWcjglvdGtV3cy4m4Tjhhljo50TtR3f/RQrpa9/kPbr5Lnpe10MX+GW1dOBs4olVxhJ7CqlavD7gVKwBoyIFv4Fezcg7DkmoCmrF3Lw7bPEfUr1qsOEoQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5qTvRc4R7HQtNFKeYPVE6NHVmkklFcpzPun7h3HxzF8=;
- b=KVIBnG9/L+UPrDXPjvnYSXRoOLTGnR16l4Vt/uTeMO+a2XjXykYNKDcMdUbsqnfBHNOHjneVkdn0KzZt5FZhIBG1lzOZsgGqBb/TTm4FBhqEW22zsMT8u8x+yKjLo4dpSjFyHm8pPxJFEEF6BSVYI4chQZD04rVsGMW4iGR8YYs=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Nikunj A Dadhania <nikunj@amd.com>
-To: Sean Christopherson <seanjc@google.com>, Thomas Gleixner
-	<tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
-	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, <x86@kernel.org>,
-	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>, Juergen Gross
-	<jgross@suse.com>, "K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang
-	<haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui
-	<decui@microsoft.com>, Ajay Kaher <ajay.kaher@broadcom.com>, "Alexey
- Makhalov" <alexey.amakhalov@broadcom.com>, Jan Kiszka
-	<jan.kiszka@siemens.com>, Paolo Bonzini <pbonzini@redhat.com>, "Andy
- Lutomirski" <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>
-CC: <linux-kernel@vger.kernel.org>, <linux-coco@lists.linux.dev>,
-	<virtualization@lists.linux.dev>, <linux-hyperv@vger.kernel.org>,
-	<jailhouse-dev@googlegroups.com>, <kvm@vger.kernel.org>,
-	<xen-devel@lists.xenproject.org>, Sean Christopherson <seanjc@google.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>
-Subject: Re: [PATCH 05/16] x86/sev: Move check for SNP Secure TSC support to
- tsc_early_init()
-In-Reply-To: <20250201021718.699411-6-seanjc@google.com>
-References: <20250201021718.699411-1-seanjc@google.com>
- <20250201021718.699411-6-seanjc@google.com>
-Date: Tue, 4 Feb 2025 08:27:04 +0000
-Message-ID: <85v7tq5d47.fsf@amd.com>
+X-Inumbo-ID: 17fa0bc3-e2d3-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1738658173; x=1739262973; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=A7W9dNNIJ/E90zFfd3itcAHh0zJAiyR9Ildvu2AFR+I=;
+        b=S8f2vgOLhWcn3tX6CTjMo027WYZMlkSAAuOkjZVPvI4ws51zgrd+jb+Cm5GzcFYrSK
+         TqVztTO4oqZUPUa/SXMgCih5Gxridt8A5BX5WG3PEUOmak/Kxb+RXoYXqkM8n12BVWgm
+         pnRyV09wvmfFddx9kxL7M2T1KoA65ZzzRHlyqyH6qaR+P2TzGd0p8JICRITAUxbnJXsd
+         clTZJ4n4fuIDhZ8o/egorQN0Wezpx+jJeqcjCL/g/a/6PL4a0+EbUydaZj84T0dtiFxz
+         i/PKUptFyi8FJTdMYTMhwEb+iYqirPpxU1OpCLxamWOPmWsZIUW55nkeIiVdDQkNzczd
+         7C5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1738658173; x=1739262973;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=A7W9dNNIJ/E90zFfd3itcAHh0zJAiyR9Ildvu2AFR+I=;
+        b=fjtDO0gifCE73EdAj5d0nfzrZ8jzc56/D3LMHqF4QwE9iPwfPSIBshRIvZ1o0jlpYf
+         uBiLnJR6Rrnv5Y++6LgrUSnXfQkw+jLI//3/joZqYkEWC+jH/F3hHgpgGbuIhGnWl4HT
+         sKfKdpSUt94HuWQGaU3SZ//PGFdNhuaulykbtPo74MXjdov85QAK9jU5oN1HfuqHrQme
+         mGVYhAUZ+V/gY50vrQrYv2/ha7sCXE7UxHrAegVeLBoATVl7Lsa8czCgA9wlFqZoFWIK
+         WXj9L2VCEFT7I77M8Roab397jr8+30P31ORql7UH6gOe6QnxEqWGOOXlXRlMwQcwXeJ+
+         e6EQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWR02N5n3ORMH05kQBNx92XxQJOxyHp9CAb/O5QuYbYz0LadeAeBmzWemo9RmVro6crhlOgtz0QsiI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyV5SGOqvszHnl3/cOFMNLCIP7vQuDy/2QYX0l2BQkNaLKli3ut
+	fE79RM9KX5o5lyCTE2UqVabXhlajKoDrSGQPbPM7EksgLqBQ63jimdEIzo7hYQ==
+X-Gm-Gg: ASbGncsNiEJkLv7Xad5JSgid8rTsrpJzPuHMct2SAUx3nAkFYYbUEfbVksICWnRaYbJ
+	so0BhzfibhBPcBPpdrRdzfL3ocyy0KHQmRSC72Oav3MN1zsR7VIPFaW+lCQhcVhBzPkkVCGHOvm
+	nwyg8ZGrFOYo7sC+Peh21HOp4nCh+BSheom3160JNGqA73CeT0pKSQRmhOUzLYw9H5cwHrm5MR/
+	GHnnB6fptU1zff6K2tAyTSv4bsWnZi3oq5toOzLYku3bzZJwD+l/DdWPOj9h13MglQ6zQbBjI12
+	ptL406HjLrtxj+wWTbU6EQuQGNsHMzJ/dfYLxUR9qeHROop27OwCGWBwq5Zo+mDNkpPsFjX+Crk
+	l
+X-Google-Smtp-Source: AGHT+IEoiJer9Bphde+1vOl48rG2mo++5Mj8/w5sHE06g2IpO9cgSwcPZV/xuejPg6UFjkS6LgXqCA==
+X-Received: by 2002:a05:6402:1f8e:b0:5dc:caab:9447 with SMTP id 4fb4d7f45d1cf-5dccaabca8bmr2603028a12.18.1738658173461;
+        Tue, 04 Feb 2025 00:36:13 -0800 (PST)
+Message-ID: <a75d8a6e-bdb5-4bf9-a94e-073f630d5c69@suse.com>
+Date: Tue, 4 Feb 2025 09:36:12 +0100
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F1:EE_|SA1PR12MB5659:EE_
-X-MS-Office365-Filtering-Correlation-Id: b8f94ebc-b63b-4f10-63a2-08dd44f5bd45
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|82310400026|376014|1800799024|36860700013|7053199007|921020;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?zCJ24BYv/wWLmJTSQQ5/44NJ1N6nC4J5gTEacAoO4zK721UaG+uG1kjsPgZ0?=
- =?us-ascii?Q?TG8nfvPUQEK10C0VXAzMynA7CzZ2nRsbtJLJ8RqVccd98s54MPu/pBDcVyDq?=
- =?us-ascii?Q?FgFPXhxU7955krhe9pmeI0DLkzvJtqyn7Kh8j+1unZzW/NRyfRkIW5BjDQZb?=
- =?us-ascii?Q?/L50Tsd452RoFsRLsA0von92p5TgyXseA3mBTQNfKI6M1bNj1FJJviuIv6pK?=
- =?us-ascii?Q?1FlIIJl3QAwiohghcKk15o5sFCo3dfyBbhH/ekQiSDILJtXyWaSUBbEuTGAE?=
- =?us-ascii?Q?fVyuuVuT+pz0VrNswsgyeaigdZxdK2vntliX0XgUXoEgx90C2f882F3DLfe0?=
- =?us-ascii?Q?az3Y/YhUJaBU3g3MrNsHUt3s4VAJIKvYksxPghAmpd+AzvHwoDdpcG1rPGra?=
- =?us-ascii?Q?4wGkrBPKZEYdIDIVnAvpc3lozU17v/656UnrgKuQU7s5z4JNGaPqufT4hG8B?=
- =?us-ascii?Q?/30f+kiSjhcVl0hqVsqMlf7C27/DXfHc4NpvyGrpyqOfJ9S/kufYi0MAtU6Z?=
- =?us-ascii?Q?danZ15wHLnzk9dcc5i01YZf+638IRbInmPSzPKNvzcd9hsBtj2cJKEk7/4pV?=
- =?us-ascii?Q?u2zjTC4vkSE5yaAGvvsXMzoLNTaLz+V7SwcqQRVkMXcDTWnRLKzBHmyVEGM0?=
- =?us-ascii?Q?IgaE1x8eO1p+fLVcEwmBgwe1YPKMyPZEkjPJZ6QxevZggVUpKe7HIDmIIwMf?=
- =?us-ascii?Q?Y+zgMvId8u4OJIgOv8w8RGK7ROYyFMrcKkkFrwm4ogShZ1y99r/v6Nf9thbQ?=
- =?us-ascii?Q?V7jr2Ql/ZYkxV1O2+ajGIJSw7e7mm08fU0X7VH/tirQLu/5W7a6zz8HOOx+L?=
- =?us-ascii?Q?S8+lkSpoH5Ic7rgEgqlA1nytRku/rs9DoCI/9t8xihd8EESRDcwEq92VJIVx?=
- =?us-ascii?Q?0SVwv2BO3+m1N1L6m2vLzuuWnzuYaTdIPjJ2RYduH3I75UH/WNTpQsjxjjFA?=
- =?us-ascii?Q?Ln32UpYytBMu5qX2t8cSWKx6hDTC924a95Qt/jYRmiTMQ04soDd7AHsE7hQz?=
- =?us-ascii?Q?7yOnNNuQdgn9iJEmMV3ykvrdLyQUD0ybsayPFasTbSdCcFuhCMFkCJjeXXMc?=
- =?us-ascii?Q?nNCRlcvtfTDTflEGS8EEQMjlIU3mhYR4PsTSNdZawrOuePwmMPogUJ5VcqGl?=
- =?us-ascii?Q?r8OptXQXzQPWWPDy9oQrkIk0qTVbJEBue0KbnOy/ES7WcikBgjFuSi7Y/3SV?=
- =?us-ascii?Q?7D5M/s4QFErHs5dS2wnrYLoDNtyPoa9VAQHMzANwksci4EyVqTV4WGdsf+2x?=
- =?us-ascii?Q?tcG5Ly77SAEKMnyRNEaDWigI1G3S9D42y/eiUvl748kG2zn3s3Pny9ICn7hH?=
- =?us-ascii?Q?U7SRhFXwDPgcKMvC3USTPwXSDVTKnbShE+dJFYil4GiwFh8/SY7QUeOD61U5?=
- =?us-ascii?Q?R0jfbipXdw6X2dRBdgpvYQ/iYHkvvF2pbBys30RKKAGyaNGfnVq5q5FPuUDy?=
- =?us-ascii?Q?wtNAtKAPtQPdN2Fheu9CGtrWTaElgaFgJTvg2jolaguqyGGpUwhb6qcWZMOR?=
- =?us-ascii?Q?IGlTfN4G3ANdRs2iE12dLoUlPv4uJc8iG+lB?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(82310400026)(376014)(1800799024)(36860700013)(7053199007)(921020);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Feb 2025 08:27:18.8033
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b8f94ebc-b63b-4f10-63a2-08dd44f5bd45
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001F1.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5659
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 for-4.20? 5/6] radix-tree: introduce
+ RADIX_TREE{,_INIT}()
+From: Jan Beulich <jbeulich@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <30f29dde-15e1-4af9-b86f-0040658c381a@suse.com>
+ <bd8d65e6-e887-4afe-8ff0-df86416fa869@suse.com>
+ <528e3341-45ce-4e82-bdb5-ee3dc72a6925@citrix.com>
+ <3facc3f9-fd75-49f9-aa8e-ecee3c67dc80@suse.com>
+Content-Language: en-US
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <3facc3f9-fd75-49f9-aa8e-ecee3c67dc80@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Sean Christopherson <seanjc@google.com> writes:
+On 03.02.2025 17:58, Jan Beulich wrote:
+> On 03.02.2025 17:48, Andrew Cooper wrote:
+>> On 03/02/2025 4:26 pm, Jan Beulich wrote:
+>>> ... now that static initialization is possible. Use RADIX_TREE() for
+>>> pci_segments and ivrs_maps.
+>>>
+>>> Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>
+>> I'd not considered having RADIX_TREE() but it's nicer than my attempt.
+>>
+>> However,
+>>
+>>> --- a/xen/include/xen/radix-tree.h
+>>> +++ b/xen/include/xen/radix-tree.h
+>>> @@ -72,6 +72,9 @@ struct radix_tree_root {
+>>>   *** radix-tree API starts here **
+>>>   */
+>>>  
+>>> +#define RADIX_TREE_INIT() {}
+>>
+>> ... this ought to be (struct radix_tree_root){} so it can't be used with
+>> other types, and radix_tree_init() wants to become:
+>>
+>> void radix_tree_init(struct radix_tree_root *root)
+>> {
+>>         *root = RADIX_TREE_INIT();
+>> }
+>>
+>> instead of the raw memset(), so the connection is retained.
+> 
+> Can do; in fact I did consider both, but omitted them for simplicity.
 
-> Move the check on having a Secure TSC to the common tsc_early_init() so
-> that it's obvious that having a Secure TSC is conditional, and to prepare
-> for adding TDX to the mix (blindly initializing *both* SNP and TDX TSC
-> logic looks especially weird).
+Sadly I've now learned the hard way that the former can't be done. Gcc
+4.3 complains "initializer element is not constant", which - aiui - is
+correct when considering plain C99 (and apparently the GNU99 extension
+to this was introduced only later).
 
-Agree.
+What I can do is make this compiler version dependent, adding type-
+safety on at least all more modern compilers. Thoughts?
 
->
-> No functional change intended.
->
-> Cc: Nikunj A Dadhania <nikunj@amd.com>
-> Cc: Tom Lendacky <thomas.lendacky@amd.com>
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-
-Reviewed-by: Nikunj A Dadhania <nikunj@amd.com>
-
-> ---
->  arch/x86/coco/sev/core.c | 3 ---
->  arch/x86/kernel/tsc.c    | 3 ++-
->  2 files changed, 2 insertions(+), 4 deletions(-)
->
-> diff --git a/arch/x86/coco/sev/core.c b/arch/x86/coco/sev/core.c
-> index e6ce4ca72465..dab386f782ce 100644
-> --- a/arch/x86/coco/sev/core.c
-> +++ b/arch/x86/coco/sev/core.c
-> @@ -3284,9 +3284,6 @@ void __init snp_secure_tsc_init(void)
->  {
->  	unsigned long long tsc_freq_mhz;
->  
-> -	if (!cc_platform_has(CC_ATTR_GUEST_SNP_SECURE_TSC))
-> -		return;
-> -
->  	setup_force_cpu_cap(X86_FEATURE_TSC_KNOWN_FREQ);
->  	setup_force_cpu_cap(X86_FEATURE_TSC_RELIABLE);
->  
-> diff --git a/arch/x86/kernel/tsc.c b/arch/x86/kernel/tsc.c
-> index 5a16271b7a5c..09ca0cbd4f31 100644
-> --- a/arch/x86/kernel/tsc.c
-> +++ b/arch/x86/kernel/tsc.c
-> @@ -1514,7 +1514,8 @@ void __init tsc_early_init(void)
->  	if (is_early_uv_system())
->  		return;
->  
-> -	snp_secure_tsc_init();
-> +	if (cc_platform_has(CC_ATTR_GUEST_SNP_SECURE_TSC))
-> +		snp_secure_tsc_init();
->  
->  	if (!determine_cpu_tsc_frequencies(true))
->  		return;
-> -- 
-> 2.48.1.362.g079036d154-goog
+Jan
 
