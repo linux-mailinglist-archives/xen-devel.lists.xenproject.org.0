@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F1CEA27264
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 14:04:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.881422.1291562 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E81EDA2726D
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 14:08:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.881434.1291572 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfIbY-0005zh-9G; Tue, 04 Feb 2025 13:04:40 +0000
+	id 1tfIeb-0006aQ-M6; Tue, 04 Feb 2025 13:07:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 881422.1291562; Tue, 04 Feb 2025 13:04:40 +0000
+Received: by outflank-mailman (output) from mailman id 881434.1291572; Tue, 04 Feb 2025 13:07:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfIbY-0005yF-6b; Tue, 04 Feb 2025 13:04:40 +0000
-Received: by outflank-mailman (input) for mailman id 881422;
- Tue, 04 Feb 2025 13:04:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tfIeb-0006YN-JV; Tue, 04 Feb 2025 13:07:49 +0000
+Received: by outflank-mailman (input) for mailman id 881434;
+ Tue, 04 Feb 2025 13:07:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=yELw=U3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tfIbX-0005y7-1E
- for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 13:04:39 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9612616b-e2f8-11ef-99a4-01e77a169b0f;
- Tue, 04 Feb 2025 14:04:37 +0100 (CET)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5d3e6274015so9506695a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 04 Feb 2025 05:04:37 -0800 (PST)
+ id 1tfIeZ-0006YH-Gs
+ for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 13:07:47 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0709703f-e2f9-11ef-a0e7-8be0dac302b0;
+ Tue, 04 Feb 2025 14:07:46 +0100 (CET)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-5dccc90a4f1so894110a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 04 Feb 2025 05:07:46 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5dc724aa1b1sm9133149a12.50.2025.02.04.05.04.35
+ 4fb4d7f45d1cf-5dc723d0d2asm9409838a12.7.2025.02.04.05.07.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 04 Feb 2025 05:04:35 -0800 (PST)
+ Tue, 04 Feb 2025 05:07:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9612616b-e2f8-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 0709703f-e2f9-11ef-a0e7-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738674276; x=1739279076; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LL+AjvDFE1HQ/xW0epZ/WCF9BjnJU7VBrhoI6GIBxOU=;
-        b=IOzkJWQghouo/kOi5vvlTSSz78BLwZrPQdSeQT7sqFw1WBXubJfv/iQAcyGbqVee2q
-         zdFDYFmLTGWHrXYnlQMObSNBD+JAb67Ifwz83lsKaH5100gNXW7njkpVt6gcXr4hK9d2
-         VYVte8YeOgi+COKfKAmgnnzVp+HKmtE3zFlu7V8vJ8m3vn69WWwpRUkY05BH70SOMXvd
-         WQYq8/fIPlAZcoHZwcEJD8ArCwJwRqKY5s8MPx+DDOkRG9pF+59MjCU/Qd9kzhwhGIvE
-         /9+FCtfzAytJEA8YKjQrTRauEF/8Dz8Fwu2wLgJn2PmVliMiV6liK0U+ikyZRwYnEvi9
-         sa3Q==
+        d=suse.com; s=google; t=1738674466; x=1739279266; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=/pfIIxEt/kea+g6WpuobvhtVrbusTaSQJ3Juo/PO2Ek=;
+        b=NQXsMXFmErHQ6lx1ecPHaMx5Bfkh6jlKskhkjE+FfWZfJd7CZuDBXwUJWUObLI6BDr
+         1J6jl09uSm8JkVP92Uk7xZrFgchDSy3K2ddCgv8MWskXQTFdgynzGNnUdc04+YCwRrXq
+         jPS/YgkM+xX2QHwP5lDkkDBfc/ozNG/xUTyLQI+q44whT6KbrpBgnraQ0MM1wcG11WiZ
+         AHJGLYjhBZ5ar8BUsYZ2T8Vvs15NBTyt/ZLcDoGNNEVq90NSHAwcTXQRCVfHsHWLcXqk
+         8u6GGYtWKb3cW1CzP2MWFBffn5sJB+KbQfk97JfW7D1SLGSAjtEJsp4asqM9w1P44g6S
+         69Fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738674276; x=1739279076;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=LL+AjvDFE1HQ/xW0epZ/WCF9BjnJU7VBrhoI6GIBxOU=;
-        b=BHv1cdkcPQYUcFbVjq7/2y2JD5MgZmpTkDr0BXbGRg2sdRQwzGM6HOMfj7bzZC+zXl
-         FDDCv1JfS3AnsmpUQTFTc17S9xETcndWo5WppQH8zwSZZYewJNb16g9YksrHf4rSfhKt
-         eWBsWyNUEJc2SaRmoHXB/PeCkl5xhl1w7p3FR6gpevTcBMXMORpOHgQ7u4WTl7n4eoui
-         EUpqjXsO/kQpx5hImQ0sBVWTIBsfAHRhJb56lKpFuUmidzhe4vOut86Zqg6j4x/Hegff
-         TDXGWgLBO8xudiH/zV/rysdHPBxH821oGzEdomkEIUXJ3fT95T0mgHbvCbAi3KHv+xTy
-         IwXg==
-X-Gm-Message-State: AOJu0Yydj3StNX9K3zopEUtW1WTF7PiHUXpkVr8Y6taeDSF8MgypI7bA
-	a9uKeIyL8G/2ekx5FoxMG2ArVRpvaq/XCA5TlBrdEdrdGrhDia6LV7X+40s4C2QTnXezCpE2GEI
-	=
-X-Gm-Gg: ASbGncs866ge14n8nZYu+JhIUOgblJeqsEgjuQP2d7nrg7DNOzEOyluFqWbjwRvSlju
-	+WBc0dS7VjXclOar34bIubUNTYAhlue5h4vYdjtZ+3PCxGdDRiYYLfJZrvoaEWIFzmWPYvlNGWh
-	kw69INr+6VS4C8QNd5XAfhfVTjm64ihYdg6Ir9x5+NlELfuCGNJxWIX++RrqXNDrxFhQLuW0yZq
-	tqBW+UOXQ1je/zMiLs9XhLMwvv34VJerw1hhttIDTZllegz1VyS2+YVP+7w+14Ns+W574bqTtab
-	zZE+IG6RzMSJqLhgveSiF1Qc6migIdFKZkyTN63Uoyz3Dr97iK91vvdK+Q4IJ/grFKen4DFyizl
-	v
-X-Google-Smtp-Source: AGHT+IHuUn07R6KRj61Y7LFHincz8m7nXSdZ0NZzKE9JyWTxZ42o6ddJEfLF8b9GhRDFnwFrpEMetA==
-X-Received: by 2002:a05:6402:34d3:b0:5d2:8f70:75f6 with SMTP id 4fb4d7f45d1cf-5dc5effcb22mr31410891a12.30.1738674276275;
-        Tue, 04 Feb 2025 05:04:36 -0800 (PST)
-Message-ID: <b7b148fc-ee74-4f02-9dab-f80b1707e44e@suse.com>
-Date: Tue, 4 Feb 2025 14:04:35 +0100
+        d=1e100.net; s=20230601; t=1738674466; x=1739279266;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/pfIIxEt/kea+g6WpuobvhtVrbusTaSQJ3Juo/PO2Ek=;
+        b=u6+N8RR4Fi2grqmiYyeQAR5LaQzs7T+qmcQaVeSjuvuvNQZZDBl+yYwnem7YABflZG
+         TScC5E/J3gL1/0smO0qfaN2aMXzWXbba3qsuWmDQ0Q5WTfAb+1Bkdmks4TcAq0VcUsNJ
+         IkeAAbum0lzStdQraL3Ze/X+guFFYKBEjVLjRQo6o5sWbE47ifUCYf08+IgF9xeUQG6o
+         HrMTqgQ2oe5xldDt1EV2/KJK4cZKOr39QvlSB39Zw6MGBAXe3OZ1LVf3Cj7T812x1NgX
+         KKTGHJ3v7wY3j8CIFbo3HfR2SSovnQGSbpHHQ4xhkv7kXbAlp2saLbh6G1yQoyJ6ezl9
+         x+oQ==
+X-Gm-Message-State: AOJu0YxQyhCGahUBQhltorBx5Ki9dMvY5KikIlyZcfdhK74RISG36XHT
+	8fbELglw9zVqHhXIPr1709xDFFtLe+8dAAS6CphFp4Z6Cp5lTaM8hO0rxsVYsA==
+X-Gm-Gg: ASbGncs9m6pW7gkzrzAxuAaSD4LWVbAMT242P1++PIYvIKfdbdV9X5I0mk5ENl9nCTd
+	ZVGuNgIugC/IFKyh5SUqkrxLS6E60FKgtvxsMPMgmEqFY/DcYFq3R0g9yAQkH+kvVeBJnoWXGN5
+	ty/Zkfwu0JK7AQmoGXcCY8hmkQ81Q48I2Ur7rY6lmMOpr7EYGd732RH8Y0FMfQxuZIV1/MB+36M
+	Si35OlMlg7wN5gLHE+AN+ofLqoBXkT8Lm/Ioh+0lb+7V/HfsmaheHZOnX1d69ZsqzPTFpbRfjKR
+	PfB/bYnrrv6De10byJ9xnOAIuOLnYEh489W7wXPU+86RW7Wj6vwr2hJGrxw98yqXHia2lK0KFsd
+	f
+X-Google-Smtp-Source: AGHT+IE3pJqEsARY+n7sZ9hX+jMZSfq9wlKt0is81mA62aSiHNhW4t7szpBrFKSGAJAx9qUWuAgdjA==
+X-Received: by 2002:a05:6402:2816:b0:5dc:1395:1d3a with SMTP id 4fb4d7f45d1cf-5dc5efa2e79mr28731496a12.1.1738674466000;
+        Tue, 04 Feb 2025 05:07:46 -0800 (PST)
+Message-ID: <9d7b6706-7415-43d5-a66e-650eb67437fa@suse.com>
+Date: Tue, 4 Feb 2025 14:07:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v3 for-4.21 4/4] PCI: drop pci_segments_init()
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>, Julien Grall
- <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
-References: <0a006732-2b6e-46f0-a706-f432abd45d2c@suse.com>
+Subject: Re: [PATCH for-4.20 v5] Avoid crash calling PrintErrMesg from
+ efi_multiboot2
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: xen-devel@lists.xenproject.org,
+ Frediano Ziglio <frediano.ziglio@cloud.com>
+References: <20250122101407.52282-1-frediano.ziglio@cloud.com>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -122,71 +120,56 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0a006732-2b6e-46f0-a706-f432abd45d2c@suse.com>
+In-Reply-To: <20250122101407.52282-1-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Have callers invoke pci_add_segment() directly instead: With radix tree
-initialization moved out of the function, its name isn't quite
-describing anymore what it actually does.
+On 22.01.2025 11:14, Frediano Ziglio wrote:
+> Although code is compiled with -fpic option data is not position
+> independent. This causes data pointer to become invalid if
+> code is not relocated properly which is what happens for
+> efi_multiboot2 which is called by multiboot entry code.
+> 
+> Code tested adding
+>    PrintErrMesg(L"Test message", EFI_BUFFER_TOO_SMALL);
+> in efi_multiboot2 before calling efi_arch_edd (this function
+> can potentially call PrintErrMesg).
+> 
+> Before the patch (XenServer installation on Qemu, xen replaced
+> with vanilla xen.gz):
+>   Booting `XenServer (Serial)'Booting `XenServer (Serial)'
+>   Test message: !!!! X64 Exception Type - 0E(#PF - Page-Fault)  CPU Apic ID - 00000000 !!!!
+>   ExceptionData - 0000000000000000  I:0 R:0 U:0 W:0 P:0 PK:0 SS:0 SGX:0
+>   RIP  - 000000007EE21E9A, CS  - 0000000000000038, RFLAGS - 0000000000210246
+>   RAX  - 000000007FF0C1B5, RCX - 0000000000000050, RDX - 0000000000000010
+>   RBX  - 0000000000000000, RSP - 000000007FF0C180, RBP - 000000007FF0C210
+>   RSI  - FFFF82D040467CE8, RDI - 0000000000000000
+>   R8   - 000000007FF0C1C8, R9  - 000000007FF0C1C0, R10 - 0000000000000000
+>   R11  - 0000000000001020, R12 - FFFF82D040467CE8, R13 - 000000007FF0C1B8
+>   R14  - 000000007EA33328, R15 - 000000007EA332D8
+>   DS   - 0000000000000030, ES  - 0000000000000030, FS  - 0000000000000030
+>   GS   - 0000000000000030, SS  - 0000000000000030
+>   CR0  - 0000000080010033, CR2 - FFFF82D040467CE8, CR3 - 000000007FC01000
+>   CR4  - 0000000000000668, CR8 - 0000000000000000
+>   DR0  - 0000000000000000, DR1 - 0000000000000000, DR2 - 0000000000000000
+>   DR3  - 0000000000000000, DR6 - 00000000FFFF0FF0, DR7 - 0000000000000400
+>   GDTR - 000000007F9DB000 0000000000000047, LDTR - 0000000000000000
+>   IDTR - 000000007F48E018 0000000000000FFF,   TR - 0000000000000000
+>   FXSAVE_STATE - 000000007FF0BDE0
+>   !!!! Find image based on IP(0x7EE21E9A) (No PDB)  (ImageBase=000000007EE20000, EntryPoint=000000007EE23935) !!!!
+> 
+> After the patch:
+>   Booting `XenServer (Serial)'Booting `XenServer (Serial)'
+>   Test message: Buffer too small
+>   BdsDxe: loading Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4AF6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
+>   BdsDxe: starting Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4AF6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
+> 
+> This partially rollback commit 00d5d5ce23e6.
+> 
+> Fixes: 9180f5365524 ("x86: add multiboot2 protocol support for EFI platforms")
+> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-This is entirely optional and up for discussion. There certainly also is
-an argument towards keeping the function.
----
-v3: Adjust description to accont for and re-base over dropped earlier
-    patch.
-v2: New.
+I expect we want this in before the release. Oleksii? Maintainers?
 
---- a/xen/arch/arm/pci/pci.c
-+++ b/xen/arch/arm/pci/pci.c
-@@ -88,7 +88,8 @@ static int __init pci_init(void)
-     if ( !pci_passthrough_enabled )
-         return 0;
- 
--    pci_segments_init();
-+    if ( pci_add_segment(0) )
-+        panic("Could not initialize PCI segment 0\n");
- 
-     if ( acpi_disabled )
-         return dt_pci_init();
---- a/xen/arch/x86/x86_64/mmconfig-shared.c
-+++ b/xen/arch/x86/x86_64/mmconfig-shared.c
-@@ -402,7 +402,8 @@ void __init acpi_mmcfg_init(void)
- {
-     bool valid = true;
- 
--    pci_segments_init();
-+    if ( pci_add_segment(0) )
-+        panic("Could not initialize PCI segment 0\n");
- 
-     /* MMCONFIG disabled */
-     if ((pci_probe & PCI_PROBE_MMCONF) == 0)
---- a/xen/drivers/passthrough/pci.c
-+++ b/xen/drivers/passthrough/pci.c
-@@ -122,12 +122,6 @@ static int pci_segments_iterate(
-     return rc;
- }
- 
--void __init pci_segments_init(void)
--{
--    if ( !alloc_pseg(0) )
--        panic("Could not initialize PCI segment 0\n");
--}
--
- int __init pci_add_segment(u16 seg)
- {
-     return alloc_pseg(seg) ? 0 : -ENOMEM;
---- a/xen/include/xen/pci.h
-+++ b/xen/include/xen/pci.h
-@@ -214,7 +214,6 @@ void setup_hwdom_pci_devices(struct doma
-                              int (*handler)(uint8_t devfn,
-                                             struct pci_dev *pdev));
- int pci_release_devices(struct domain *d);
--void pci_segments_init(void);
- int pci_add_segment(u16 seg);
- const unsigned long *pci_get_ro_map(u16 seg);
- int pci_add_device(u16 seg, u8 bus, u8 devfn,
-
+Jan
 
