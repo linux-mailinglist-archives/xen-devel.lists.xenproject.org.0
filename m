@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AA9AA27872
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 18:31:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.881750.1291928 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51764A27895
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 18:36:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.881772.1291942 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfMlk-0006NI-7W; Tue, 04 Feb 2025 17:31:28 +0000
+	id 1tfMq9-0007gZ-Mm; Tue, 04 Feb 2025 17:36:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 881750.1291928; Tue, 04 Feb 2025 17:31:28 +0000
+Received: by outflank-mailman (output) from mailman id 881772.1291942; Tue, 04 Feb 2025 17:36:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfMlk-0006IN-2Z; Tue, 04 Feb 2025 17:31:28 +0000
-Received: by outflank-mailman (input) for mailman id 881750;
- Tue, 04 Feb 2025 17:31:26 +0000
+	id 1tfMq9-0007ei-Iu; Tue, 04 Feb 2025 17:36:01 +0000
+Received: by outflank-mailman (input) for mailman id 881772;
+ Tue, 04 Feb 2025 17:35:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PXrc=U3=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1tfMli-000612-R1
- for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 17:31:26 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ <SRS0=yR1u=U3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tfMq7-0007ec-Ip
+ for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 17:35:59 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dc3fb122-e31d-11ef-a0e7-8be0dac302b0;
- Tue, 04 Feb 2025 18:31:26 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-38a25d4b9d4so3073283f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 04 Feb 2025 09:31:26 -0800 (PST)
-Received: from CSGPROD108744.Home (0545937c.skybroadband.com. [5.69.147.124])
+ id 7e98a40b-e31e-11ef-a0e7-8be0dac302b0;
+ Tue, 04 Feb 2025 18:35:58 +0100 (CET)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-38da88e6db0so525950f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 04 Feb 2025 09:35:58 -0800 (PST)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38c5c102ac9sm16137748f8f.29.2025.02.04.09.31.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Feb 2025 09:31:23 -0800 (PST)
+ ffacd0b85a97d-38c5c1b578dsm16592203f8f.64.2025.02.04.09.35.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 04 Feb 2025 09:35:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,149 +45,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dc3fb122-e31d-11ef-a0e7-8be0dac302b0
+X-Inumbo-ID: 7e98a40b-e31e-11ef-a0e7-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1738690285; x=1739295085; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xgMGUVDS+iYC3WViwSsK8gEHt5WvmsVZpIvxDEu6Ypk=;
-        b=AGyRW7KgqnmAkbWZhtv0S4vWaclmuciWRuTvJiJwLUTgl3fcbrfXlEoK5Jcvv99Fqq
-         evyg814KXVv64S2AI5jE228oBwq2xa5B3h4+Q8muKfwcYrk/EOiTSBGiJA+oEadYnpBk
-         iJr0nTzl+34V6v9ERRHZ9rNm3Y9eolv4p02jY=
+        d=citrix.com; s=google; t=1738690558; x=1739295358; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=ISaS725U+91vLGWsSGGwQqDRrytBA2ysHNS0ir0reKQ=;
+        b=vXicIRd92ZeX3lELrlgnGZcmcr0EKGnsm6EGZtDTjxXMSwj4z0eCmXQzfkZogLosit
+         D6WUxL1i8+4whqIKZbhqirW6XItAEGt2SIwVYJ6QhLjOhzq8jLP7f/XYASAlyyjoHl/U
+         iR1URxcvVBCvTDw0RFzlUITmZBg1hre41DVP4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738690285; x=1739295085;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=xgMGUVDS+iYC3WViwSsK8gEHt5WvmsVZpIvxDEu6Ypk=;
-        b=RznGl5oTjmcvbwQjyubhXNr+HDozY0VV3AimZIhaOKccDLgcG4+HjLN7nWEpRzWnWj
-         VmURYuDgXuL3lhxtxWZTBImnzQVZ3OlAOUlhUg/pCSj87AB9JLjntnUC89Os4KzAWaof
-         tKD8AApeYq+N1HHFYD38HfjAxMXIse+n3kD5hdRlwW0NWQcFn3mK90bG5V9Nh/Jn876B
-         xl65ZMFf13eUamM/hNr9wa4Sw4TAU6mooAubuXtbTguGPTJ/fFuAerh0XutMkWGaOP+X
-         JJ/2M1oUUihcGRtoVLYr4wZvqNUyJZ+Z7PNZNdRhwIG52Lb9/hwAVNAelAskG6uCplfB
-         q9fA==
-X-Gm-Message-State: AOJu0YwXH22r5VqYvq8uygeH/8CiLjE3SDKE89xwZEea+x6tUSBisK4x
-	ylUf2aKJAuBONZ2x+IkmibHtXAhA6JWaZ2Aaloty7xEI/VoMr4efaKIFsIULv3Xxn+V05Zw92pR
-	ocQQ=
-X-Gm-Gg: ASbGncvEYPl0cpBXPm16kK3SX8jLGVG9sAlVaZCx2pJ2EM4V1TeV+kOHE3Yfvtysqbm
-	v4gImB5MnF0Le1qH8LZP0+Z5il93B+k+yPQImUSaOhyOFju9+YOItum5nTqyRslyEcGJA8P/NEL
-	bkheHBF1ClSkHaDx4Hm1kvGZfKnpsMDFaA5t1MVRkq99krlrWaTKY3KrI/22kjS4Uey1XIwAGo4
-	cy3mPKh7035dmZz0GFe5iDmLNbJ9y1/5QDCZpQy8J4xSb4eK7QyxN/fKciE39KwHV+vGfNzPNhS
-	YLMoId0kwpIJzdzCYSD2yi3nVE6xftTy5iFil7Wd+PUpYl66WxF9ko6Ssg==
-X-Google-Smtp-Source: AGHT+IEXrn3wc5aGCv18hOHhvl082oyjyCUvFY1nYJjuWj0HiME3c+dMjiFm1GSgaRBLjfKH+M2fPw==
-X-Received: by 2002:a5d:5988:0:b0:38b:ed1c:a70d with SMTP id ffacd0b85a97d-38c5167b477mr23844300f8f.0.1738690284442;
-        Tue, 04 Feb 2025 09:31:24 -0800 (PST)
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: [PATCH v3 2/2] tools/hvmloader: Replace LAPIC_ID() with cpu_to_apicid[]
-Date: Tue,  4 Feb 2025 17:31:20 +0000
-Message-ID: <20250204173120.56598-3-alejandro.vallejo@cloud.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250204173120.56598-1-alejandro.vallejo@cloud.com>
-References: <20250204173120.56598-1-alejandro.vallejo@cloud.com>
+        d=1e100.net; s=20230601; t=1738690558; x=1739295358;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ISaS725U+91vLGWsSGGwQqDRrytBA2ysHNS0ir0reKQ=;
+        b=ZM0EoQsYR+0U78JjWfcwZc/U0yeyiodLfi4+CwjTIK19EFb/fj8H73W+O/EAM3N5EF
+         08GYjbdbBfqkhijITUVqf48SKfIYQQSLDTxUsLbZ+Pti/g9emtqFCU400vlkZfvTze0K
+         drT+oxAj9Ea3+vpkLYZzwiHY0Pv4kfkrr2kXZXLHjEpEzesu+L+5NWXnThKeVKLe/t50
+         6i/ZaZdG0vznNX57nrwa48mwKfa4xoT+J0jyZ5eAOOTLBgs1KqkpqMXlfD45IduOpBUc
+         cZlZA43dk5c+EQIEf/+rbG0z7un8Ca5Ov8mdAWCDP19GoqbQz6UZ5YSxfQKPdV5t6sSl
+         0nCA==
+X-Gm-Message-State: AOJu0YxWSX97v20+C5+gEftUcLOEs4jq+6Ls9EqytUTn9zKaS+NwHu+V
+	9jS+lOztXzoFLLwbpQHTIYYSefirc0Eur7eh5kJ1asz5O8bGJJfiP51RKWJIZWU=
+X-Gm-Gg: ASbGncsk177t3iyXG4GYj4K/+95j8WAOMI+Zo5PwTAkLe8CA8HaxSzwppkElIMTGdBR
+	VX+Ll72mONmKdBzyGa+oQMgj842b2qsWaPRYFIizt3bE2IWc0mSqprewhcOoIu+x504CD3AtChF
+	uQKq0PW7Q3HA1L1lYfsVWz1jjUfNMdkb3Af7l7MVAh8V2juMKzIGe1bU4yQzLQ2amjV1JS0MSsv
+	U/ERcEoGsp7yS8MPTA1Ol0r/TjCKMa3zJTJIUrODO1g/ScSdyvgGfS3i7GW5fasSbP0vkWbaq+W
+	lAgfe0fnXCI8vuF6nPdliU9MH7hNzfO2Ndh0KAMv/g47wGcsrhpYF0o=
+X-Google-Smtp-Source: AGHT+IHinhWmSY2KTgb6A6zSKozlXkSHj+/rVz/t4kFB6jJB27EWhjZUqAoZIocLbX2GNOnGCveieg==
+X-Received: by 2002:a5d:64ee:0:b0:38d:a69a:a132 with SMTP id ffacd0b85a97d-38da69aa198mr2694004f8f.32.1738690557952;
+        Tue, 04 Feb 2025 09:35:57 -0800 (PST)
+Message-ID: <79fe5f32-c345-41ee-af29-cbe3c45585e8@citrix.com>
+Date: Tue, 4 Feb 2025 17:35:56 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: Xen panic due to xstate mismatch
+To: Guillaume <thouveng@gmail.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <CACt9=QgsSM18to9M5k8+3N3NvRoNVmAvsQo5oLO5-A0dm7VFNg@mail.gmail.com>
+ <CACBT2OvVcDzoghr5SSjfvA5c9=LDs7DC6Z1Pi0QJ2sv0YFcEfw@mail.gmail.com>
+ <CACt9=QiZhq94_=gSpSs782tM9uYQqvgrmOXeGw47C31-dwcrgw@mail.gmail.com>
+ <4218bce7-b615-40d7-8d40-b2553d8b1662@citrix.com>
+ <CACt9=Qgc=wjyRujFT=T2r1pvpyqWCOwzXw18BLO0uca7KuPKJA@mail.gmail.com>
+ <087acd38-868d-4e1b-ab0f-9dbdb0ceb8a8@citrix.com>
+ <CACt9=Qh0nXr35wx-ce8BC-xHcQjAa5nUdPvsm2K12RusT-wzXg@mail.gmail.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <CACt9=Qh0nXr35wx-ce8BC-xHcQjAa5nUdPvsm2K12RusT-wzXg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Replace uses of the LAPIC_ID() macro with accesses to the
-cpu_to_apicid[] lookup table. This table contains the APIC IDs of each
-vCPU as probed at runtime rather than assuming a predefined relation.
+On 03/02/2025 8:58 am, Guillaume wrote:
+> Oh cool, thanks a lot for the explanation.
+> I added the "vzeroupper" and Xen crashes so it looks like the CPUID
+> emulation is buggy. Also I was able to try it using a VM (same debian
+> testing) running on virt-manager+kvm and it works fine (Xen in debug
+> mode). I will have a look by printing the xstate when running on
+> virt-manager+KVM and I will also run the xen-cpuid command to see the
+> difference just by curiosity as with your test we already spotted the
+> issue.
+> Thanks again for your enlightenment. I will continue my testing later
+> today and if you need me to test something else you are welcome, just
+> ask I will do my best.
 
-Moved smp_initialise() ahead of apic_setup() in order to initialise
-cpu_to_apicid ASAP and avoid using it uninitialised. Note that bringing
-up the APs doesn't need the APIC in hvmloader becasue it always runs
-virtualized and uses the PV interface.
+It sounds like KVM has a better CPUID emulation than VirtualBox.
 
-Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
----
-v2->v3:
-  * Moved extern in config.h to patch1 for (transient) MISRA compliance.
+It would be ideal to report this bug with VirtualBox.
 
-v1->v2:
-  * No changes
+But, as you identified originally, it's not nice that Xen simply like
+this. We should see about what to for Xen, seeing as we're close to the
+line on 4.20.  I'm thinking maybe making the xstate checks non-fatal in
+the cpu_has_hypervisor case.  Thoughts?
 
-Changes wrt original series
-  * No changes (it was wrongly stated in v1 that something did. That was
-part
-    of the following patch)
----
- tools/firmware/hvmloader/config.h    | 1 -
- tools/firmware/hvmloader/hvmloader.c | 6 +++---
- tools/firmware/hvmloader/mp_tables.c | 2 +-
- tools/firmware/hvmloader/util.c      | 2 +-
- 4 files changed, 5 insertions(+), 6 deletions(-)
-
-diff --git a/tools/firmware/hvmloader/config.h b/tools/firmware/hvmloader/config.h
-index b32bcbf4a1f2..6e1da137d779 100644
---- a/tools/firmware/hvmloader/config.h
-+++ b/tools/firmware/hvmloader/config.h
-@@ -51,7 +51,6 @@ extern uint8_t ioapic_version;
- extern uint32_t *cpu_to_apicid;
- 
- #define LAPIC_BASE_ADDRESS  0xfee00000
--#define LAPIC_ID(vcpu_id)   ((vcpu_id) * 2)
- 
- #define PCI_ISA_DEVFN       0x08    /* dev 1, fn 0 */
- #define PCI_ISA_IRQ_MASK    0x0c20U /* ISA IRQs 5,10,11 are PCI connected */
-diff --git a/tools/firmware/hvmloader/hvmloader.c b/tools/firmware/hvmloader/hvmloader.c
-index f8af88fabf24..4e330fc1e241 100644
---- a/tools/firmware/hvmloader/hvmloader.c
-+++ b/tools/firmware/hvmloader/hvmloader.c
-@@ -224,7 +224,7 @@ static void apic_setup(void)
- 
-     /* 8259A ExtInts are delivered through IOAPIC pin 0 (Virtual Wire Mode). */
-     ioapic_write(0x10, APIC_DM_EXTINT);
--    ioapic_write(0x11, SET_APIC_ID(LAPIC_ID(0)));
-+    ioapic_write(0x11, SET_APIC_ID(cpu_to_apicid[0]));
- }
- 
- struct bios_info {
-@@ -341,11 +341,11 @@ int main(void)
- 
-     printf("CPU speed is %u MHz\n", get_cpu_mhz());
- 
-+    smp_initialise();
-+
-     apic_setup();
-     pci_setup();
- 
--    smp_initialise();
--
-     perform_tests();
- 
-     if ( bios->bios_info_setup )
-diff --git a/tools/firmware/hvmloader/mp_tables.c b/tools/firmware/hvmloader/mp_tables.c
-index 77d3010406d0..3c93a5c947d9 100644
---- a/tools/firmware/hvmloader/mp_tables.c
-+++ b/tools/firmware/hvmloader/mp_tables.c
-@@ -199,7 +199,7 @@ static void fill_mp_config_table(struct mp_config_table *mpct, int length)
- static void fill_mp_proc_entry(struct mp_proc_entry *mppe, int vcpu_id)
- {
-     mppe->type = ENTRY_TYPE_PROCESSOR;
--    mppe->lapic_id = LAPIC_ID(vcpu_id);
-+    mppe->lapic_id = cpu_to_apicid[vcpu_id];
-     mppe->lapic_version = 0x11;
-     mppe->cpu_flags = CPU_FLAG_ENABLED;
-     if ( vcpu_id == 0 )
-diff --git a/tools/firmware/hvmloader/util.c b/tools/firmware/hvmloader/util.c
-index d3b3f9038e64..2d07ce129013 100644
---- a/tools/firmware/hvmloader/util.c
-+++ b/tools/firmware/hvmloader/util.c
-@@ -827,7 +827,7 @@ static void acpi_mem_free(struct acpi_ctxt *ctxt,
- 
- static uint32_t acpi_lapic_id(unsigned cpu)
- {
--    return LAPIC_ID(cpu);
-+    return cpu_to_apicid[cpu];
- }
- 
- void hvmloader_acpi_build_tables(struct acpi_config *config,
--- 
-2.48.1
-
+~Andrew
 
