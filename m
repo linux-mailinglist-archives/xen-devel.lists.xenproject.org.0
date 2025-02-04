@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 101E4A26F77
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 11:45:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.881233.1291358 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7082CA27007
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 12:14:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.881242.1291369 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfGQ5-0001gQ-1W; Tue, 04 Feb 2025 10:44:41 +0000
+	id 1tfGrx-0005fh-3G; Tue, 04 Feb 2025 11:13:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 881233.1291358; Tue, 04 Feb 2025 10:44:41 +0000
+Received: by outflank-mailman (output) from mailman id 881242.1291369; Tue, 04 Feb 2025 11:13:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfGQ4-0001eT-VH; Tue, 04 Feb 2025 10:44:40 +0000
-Received: by outflank-mailman (input) for mailman id 881233;
- Tue, 04 Feb 2025 10:44:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tfGrw-0005dA-W5; Tue, 04 Feb 2025 11:13:28 +0000
+Received: by outflank-mailman (input) for mailman id 881242;
+ Tue, 04 Feb 2025 11:13:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=uBag=U3=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1tfGQ3-0001eN-N9
- for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 10:44:39 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 07cba812-e2e5-11ef-99a4-01e77a169b0f;
- Tue, 04 Feb 2025 11:44:38 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-435f8f29f8aso39930815e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 04 Feb 2025 02:44:37 -0800 (PST)
-Received: from [10.53.21.213] (88.171.88.92.rev.sfr.net. [92.88.171.88])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38c5c1b547csm15581169f8f.62.2025.02.04.02.44.35
+ (envelope-from <SRS0=yELw=U3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tfGrv-0005cH-GN
+ for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 11:13:27 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0df8814c-e2e9-11ef-a0e7-8be0dac302b0;
+ Tue, 04 Feb 2025 12:13:26 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5da12292b67so9014165a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 04 Feb 2025 03:13:26 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab6e4a326e6sm899153866b.157.2025.02.04.03.13.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 04 Feb 2025 02:44:36 -0800 (PST)
+ Tue, 04 Feb 2025 03:13:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,124 +45,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 07cba812-e2e5-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 0df8814c-e2e9-11ef-a0e7-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1738665877; x=1739270677; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=H5EUMoIVHCS3vQgN/YDOuOuwt4Ov3b7qpf3ilUJq/DA=;
-        b=SOrzecFwsmaYtNoIpk2mlsndCQ7hkJ8qS8eP/imyxGtpJ/5Tv/2xgTVrkXd2bI1I/b
-         iue+oSzYutWDy0A4RwdzKXtG5evJyJmTOgs2qcpmPQOp6hWgHMLx37f8JloWtJAeFwAs
-         RwHO917R6prAvx/BwJhbSNE+N906mly4MJnGweax53MQDu6O2mmJhSCwFvEbzFT+eeeX
-         jKEOjH4UINGVQxsHTLZAyEN3RlCjA9UJORHptrAM6G0UwqbGJckKsVuoY0J8mObYTig8
-         SWkTu5sVfUjrOdQWqUceBnlLkCH1NZo4ME0QnNU4YEBa1BEBuftd682ZB1aBfzCoWN9y
-         2q2w==
+        d=suse.com; s=google; t=1738667606; x=1739272406; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=PlKE7lYT5NMWicWP8lDNhwLigJPpQkyickNFKIL8Il0=;
+        b=Fco1HYR3GdCKMeHtewQl0Iq37GVsTCMHG9/Fpclf5I8jBTR0SEEg2H6/SUThWBWThT
+         a0MoKS5mjSOXRUK5G7d42mfvL18FKsPn0ZRZ5NMU9zdbpy2FaOclS4WQhKttCCNmnduA
+         rIOBOiP8+eherFKNmfu5MBufXzjs1lhhnuW2lQA63vAZdiecJ3IX8a+/RTeblweJWX/g
+         umi03xLrj/TsystYDFkLT6O427tSiQ9wiVOc3V6yYpfZOML4+rsDxOpjb8mwgokdT7Bc
+         ALrHibNhntYJHbr0dTJ/NsnS4ge5ETuAuyighNfZp3HNbHnvotuiEH8WHauY3Eao0sn1
+         8YzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738665877; x=1739270677;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=H5EUMoIVHCS3vQgN/YDOuOuwt4Ov3b7qpf3ilUJq/DA=;
-        b=iw4TQDzf+aHgyrxJpo6icN1v2RuJTCYbLZPcYyNEjvlb3qoKM+BjNhAwpN4GaC8YHp
-         pPzVCuF+ms0pF8f6UM9ij9X63Gn9WcdO2uXJYtziJ2uumnKcp8JBINZS3WMiZz1JchqG
-         n4Y8riEi31JbIrs/LCy+4/P5x+CbQqNezaOWceD9MRbp7/djj8WIWgy6p277DQLUXyQ6
-         nqyBpW+aAQ+ccr78eZPJDNzJHWAbtRgUuqRHIfB9RZM1ioIZHjYsirbwyFZ4Bln4lvjV
-         dkAq+o0g0lu31QplIlL62QdCwbcoZAgfnruAY9gda7j2/1oKbzC2gnG75NzDE/dmrwYY
-         mFJw==
-X-Forwarded-Encrypted: i=1; AJvYcCVNLW+NAOIJOe2SfEhACzazzgZO/ogd6PPg3AeSFd+c6rSmEPEXAFJdDaLR7VoH6CBPe/+7ryjwaOU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxUDf99hx6pFew+d3IZ/lNHE8PSYR7xeq5Yn/9Ms7jyvORGM7g2
-	F7XN1YdCue79SmrKJn3G0fYCu2yQynmkV1MZv8SgbAjtVRMg0z2h1j/J/aMxE/s=
-X-Gm-Gg: ASbGncuPbCpLLHj9Dwm8bWCMlOhv5Gb0rwLRLmeUG9NwDXRx3jag5aMNdIte8ppQFX9
-	OzMoVGMpbB9vZ8pUz0tmpo4kaoruHIonVEqUkQ6xaYp1YWr2lnhqz7JF6hEG65khBlgaROD97HQ
-	65Tovcsw8gG+Ht2JCof2VUyAorcSVFJRQE57UyRSuT0HvrmHGsUBiaBLSb9aR30oCXiUtzKHE4w
-	r7GxmzsoRbqMa8BQyWEtmu5fkrg4MXKqNunbWoMNkzOtT0g4Nl6asCyUsDjuscDnaR/xKGaOMPa
-	Jg4m/lfmTQFlXxEmo43yTyz4cg0lTjX0ZYJUjUDznX+6YULE7W/NJg==
-X-Google-Smtp-Source: AGHT+IECyT3kjLL2IP8jGp5iNhETRyBtF443agFL3cmw5LXdrgO6uC/CEteXeB9Ebs3gykalTJzOTg==
-X-Received: by 2002:a05:600c:5103:b0:434:f131:1e64 with SMTP id 5b1f17b1804b1-438dc3c241emr203976655e9.9.1738665877025;
-        Tue, 04 Feb 2025 02:44:37 -0800 (PST)
-Message-ID: <c9bc3785-7d0e-493c-99f2-30821dc76b14@linaro.org>
-Date: Tue, 4 Feb 2025 11:44:34 +0100
+        d=1e100.net; s=20230601; t=1738667606; x=1739272406;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PlKE7lYT5NMWicWP8lDNhwLigJPpQkyickNFKIL8Il0=;
+        b=hb4laVjDJhFjVWCznjV5vzJ8OpwoVgHm6n9rXZqtcl/NleyBcFpYK1eADbdulrioPJ
+         Ow+7VsyPfq+iFdMCyaqvfzGOjn6wg17O7Utv8K/f/c2QfVtRuEQycmf5TlNm8Vcuvq7s
+         2N21Yz7oo0bIjK/q7xDeaicXGYtfIqih9dCEtINQbMhDSfoQka4T0YFQw7JjwMKPRA8L
+         11dksSEKmJXw+gnSMmmGM2Xk+E2e8PoCE6MYXE2EKV1gMRgryzVr+Xqh+TKFjcACXPXx
+         5iEyf3TSy3ZPelhzktzNW25BA6ym4PEZtBvtVVMiTdiEq6P/RRqy+w7iTG4C7qrE1Kd3
+         XXFA==
+X-Forwarded-Encrypted: i=1; AJvYcCUt0YbzJDKsgTKSdxtgt2mt0OOosFu2kaj9PCCy4PlrUdgEH0vNuohl9RSYWzHBPIY3gixoFoIELms=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxZOoIv36gomfFIzav1LWmJNIXB7S88IOMciugHNFf3IZMngUjz
+	jc1pEWijchxyChBRjCJP/D7K+l2YtBvln+bfpLT3enVqYcFlZvNKR2VSYvg55g0FHVkgF/1MsLc
+	=
+X-Gm-Gg: ASbGncvvsaLbxt853vV6ij23fdqxQUn3bLukS+06TBSoJRla8NxS/HIwNzVt2+dEPf6
+	wBs/0lk2UXnLHQqFjUmSewXNGvbthKoT3eL7s2jP5EWbRUNcZAoJXLJHDY3IAP67D6tyP45zIyU
+	L9O1f1mOTxVWvf1dISIE6wULlynIa+BeTj5eJxsYkd/fv/DFl6hoo4tI9/oLkO++93hezRXVWRG
+	BJOhXnHAtNfReu311W4o5A1TOlsIPfeBk9kL/pjaOmrEWgn/FXCvvT4uC35FV2nvCUXSo4BKyy9
+	MF3C98/Z8uLfLyTxXENhEIiepjikvEobqPOA1XMx/WTmKOSLKa9dOj9hJ+xlA3bKbWott355dP1
+	2
+X-Google-Smtp-Source: AGHT+IFIh3jwp+GZ/fNInRObUr3TbGJMoxJaxueSHiCdUxZcL7d1GoJz78zIw0+QAuqEw26AsIpU0g==
+X-Received: by 2002:a05:6402:4309:b0:5d0:fb56:3f with SMTP id 4fb4d7f45d1cf-5dc5efbf5d8mr68647389a12.12.1738667605658;
+        Tue, 04 Feb 2025 03:13:25 -0800 (PST)
+Message-ID: <108bc55e-cde6-4a2e-ada2-571c4d72bfa5@suse.com>
+Date: Tue, 4 Feb 2025 12:13:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/14] meson: Deprecate 32-bit host support
-To: Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org,
- mark.cave-ayland@ilande.co.uk, berrange@redhat.com, thuth@redhat.com,
- andrew.cooper3@citrix.com, anthony.perard@vates.tech, michal.orzel@amd.com,
- julien@xen.org, roger.pau@citrix.com, xen-devel@lists.xenproject.org,
- bertrand.marquis@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
- Richard Henderson <richard.henderson@linaro.org>
-References: <20250203031821.741477-1-richard.henderson@linaro.org>
- <467a5a58-952e-4930-8e91-744eda6d87d9@redhat.com>
- <e40c39d4-425c-4566-af41-373941894045@linaro.org>
- <alpine.DEB.2.22.394.2502031438170.11632@ubuntu-linux-20-04-desktop>
- <e7611136-1e90-4f3a-8f37-68244c22c4cc@suse.com>
- <173d18bf-f68c-4bd5-b822-abb1c1f0c51b@suse.com>
+Subject: Re: [PATCH v2 15/15] x86/hyperlaunch: add capabilities to boot domain
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
+ stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20241226165740.29812-1-dpsmith@apertussolutions.com>
+ <20241226165740.29812-16-dpsmith@apertussolutions.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-In-Reply-To: <173d18bf-f68c-4bd5-b822-abb1c1f0c51b@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20241226165740.29812-16-dpsmith@apertussolutions.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Jan,
+On 26.12.2024 17:57, Daniel P. Smith wrote:
+> Introduce the ability to assign capabilities to a domain via its definition in
+> device tree. The first capability enabled to select is the control domain
+> capability.
 
-On 4/2/25 10:11, Jan Beulich wrote:
-> On 04.02.2025 09:19, Juergen Gross wrote:
->> On 03.02.25 23:43, Stefano Stabellini wrote:
->>> +Xen maintainers
->>>
->>>
->>> On Mon, 3 Feb 2025, Richard Henderson wrote:
->>>> On 2/3/25 04:54, Paolo Bonzini wrote:
->>>>> On 2/3/25 04:18, Richard Henderson wrote:
->>>>>> v1: 20250128004254.33442-1-richard.henderson@linaro.org
->>>>>>
->>>>>> For v2, immediately disable 64-on-32 TCG.
->>>>>>
->>>>>> I *suspect* that we should disable 64-on-32 for *all* accelerators.
->>>>>> The idea that an i686 binary on an x86_64 host may be used to spawn
->>>>>> an x86_64 guest via kvm is silly and a bit more than niche.
->>>>>
->>>>> At least Xen used to be commonly used with 32-bit dom0, because it saved
->>>>> memory and dom0 would map in guest buffers as needed.  I'm not sure how
->>>>> common that is these days, perhaps Stefano knows.
->>>>
->>>> As a data-point, debian does not ship libxen-dev for i686.
->>>> We cannot build-test this configuration at all.
->>>>
->>>> I can build-test Xen for armhf, and I guess it would use i386-softmmu; it's
->>>> unclear whether x86_64-softmmu and aarch64-softmmu are relevant or useful for
->>>> an armhf host, or as an armhf binary running on an aarch64 host.
->>>
->>>
->>> On the Xen side, there are two different use cases: x86 32-bit and ARM
->>> 32-bit.
->>>
->>> For x86 32-bit, while it was a very important use case in the past, I
->>> believe it is far less so now. I will let the x86 maintainers comment on
->>> how important it is today.
->>
->> As dom0 on x86 is a PV guest per default and Linux doesn't support running as a
->> 32-bit PV guest since a few years now, I guess there is no need to support qemu
->> as 32-bit on x86 for Xen.
+Hmm, and not at the same time another one to select "hardware domain"?
 
-This community disconnection between QEMU and Xen communities is a bit
-unfortunate, as apparently we have been maintaining for some time
-something that isn't used.
+> --- a/xen/arch/x86/domain-builder/fdt.c
+> +++ b/xen/arch/x86/domain-builder/fdt.c
+> @@ -158,6 +158,18 @@ static int __init process_domain_node(
+>              bd->max_vcpus = val;
+>              printk("  max vcpus: %d\n", bd->max_vcpus);
+>          }
+> +        else if ( strncmp(prop_name, "capabilities", name_len) == 0 )
+> +        {
+> +            if ( fdt_prop_as_u32(prop, &bd->capabilities) != 0 )
+> +            {
+> +                printk("  failed processing domain id for domain %s\n", name);
 
-> Yet then, just to mention it, you can run a 64-bit PV Dom0 kernel underneath
-> an otherwise 32-bit distro. I've been doing this successfully for very many
-> years (with a very small kernel adjustment, just to work around an apparent
-> shortcoming in system init scripts).
+"domain id"?
 
-This discussion is about what is maintained by the mainstream projects.
-
-We don't want to make fork's life harder. If you believe your use case
-is worthwhile, please get it incorporated mainstream so we can test it.
-Otherwise it is too much burden to maintain things we can not even test.
-
-Regards,
-
-Phil.
+Jan
 
