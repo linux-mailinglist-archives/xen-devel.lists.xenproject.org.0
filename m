@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DA9BA27B41
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 20:30:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.881845.1292022 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58699A27CF6
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 21:58:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.881864.1292031 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfOcC-00088Z-6Y; Tue, 04 Feb 2025 19:29:44 +0000
+	id 1tfPzH-0002uQ-0I; Tue, 04 Feb 2025 20:57:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 881845.1292022; Tue, 04 Feb 2025 19:29:44 +0000
+Received: by outflank-mailman (output) from mailman id 881864.1292031; Tue, 04 Feb 2025 20:57:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfOcC-00086I-3V; Tue, 04 Feb 2025 19:29:44 +0000
-Received: by outflank-mailman (input) for mailman id 881845;
- Tue, 04 Feb 2025 19:29:42 +0000
+	id 1tfPzG-0002sJ-Ty; Tue, 04 Feb 2025 20:57:38 +0000
+Received: by outflank-mailman (input) for mailman id 881864;
+ Tue, 04 Feb 2025 20:57:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YD+2=U3=flex--seanjc.bounces.google.com=3o2qiZwYKCUY0mivrkowwotm.kwu5mv-lm3mttq010.5mvxzwrmk1.wzo@srs-se1.protection.inumbo.net>)
- id 1tfOcA-00086C-3h
- for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 19:29:42 +0000
-Received: from mail-pj1-x1049.google.com (mail-pj1-x1049.google.com
- [2607:f8b0:4864:20::1049])
+ <SRS0=84UU=U3=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1tfPzF-0002sB-9I
+ for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 20:57:37 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6098bc66-e32e-11ef-a0e7-8be0dac302b0;
- Tue, 04 Feb 2025 20:29:41 +0100 (CET)
-Received: by mail-pj1-x1049.google.com with SMTP id
- 98e67ed59e1d1-2ef775ec883so11222119a91.1
- for <xen-devel@lists.xenproject.org>; Tue, 04 Feb 2025 11:29:40 -0800 (PST)
+ id a8651530-e33a-11ef-a0e7-8be0dac302b0;
+ Tue, 04 Feb 2025 21:57:35 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id DEF975C6A7B;
+ Tue,  4 Feb 2025 20:56:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51E00C4CEDF;
+ Tue,  4 Feb 2025 20:57:32 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,132 +41,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6098bc66-e32e-11ef-a0e7-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1738697379; x=1739302179; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:from:subject:message-id:references
-         :mime-version:in-reply-to:date:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=5e8UEnGVo+4lDc1cH0GoOuL8F0MUw58BGLx/3p+5fdQ=;
-        b=xlyePdaVDFXm+YqBb+cPX897ZHYQzyeSmuqZQKlt/cG9zlBEtKZRm4p+LU6hiZ0rrX
-         Mp0IJKpp3g4wjPQj7BA/mmZbwh3/A6SVyINDa4bE88tFzkZc8ub/JHKemXO8lzcQY7ge
-         JMcAQC5Zuhy0IXEF5m2Y+SeLRQOi1H0quG9DaKqtj3SVQgf8wqa+jnE5CKZn4W3kZ6qP
-         Uy5slEhAzv1bS8ALCl8UAQR+c3hegn6XNvHd0a/QHPtnjotZZZ3ss2S9i13sUpnRO5/f
-         EHqgplchlNRBdgrMI/lDT4+bdhfdyRaINGI/OfOPozxtnpM+Vez9MMEhCCr16NOrGQeP
-         pTLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738697379; x=1739302179;
-        h=content-transfer-encoding:cc:to:from:subject:message-id:references
-         :mime-version:in-reply-to:date:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=5e8UEnGVo+4lDc1cH0GoOuL8F0MUw58BGLx/3p+5fdQ=;
-        b=li6x/ZixCjbLla853CpD3uUUzwE89aYjDdTjROYz6anTEXej63ccmogODXrVUWQ1WI
-         1PrJmixfV7MQAxLUschIGM9eCXgG2ThP5LkeWgMR/t7/ygcTkpyaT8vIVyd/7qKcUkA6
-         R5RtLWmF4EIHB1vd5cbSEeB6O7TgjnFFosEQ5iCFpIdhwdH/lMGyHMNrwmZSpR50gF1L
-         0PMVOGXPk9sG0io3Xly+XDRH9VDnd5KYTkDRSiA9N7Duyy7xSuWb4pp3e9Xkb6BrZZr3
-         x9QPOSPPAEeDm4/oCzbQk4aOV1Ph3VBpXIxZb86A8KTxYexEHaDilxbK/6xHo/ZK9LqN
-         rTOA==
-X-Forwarded-Encrypted: i=1; AJvYcCWNI/9Q9mfvL/vMJZc6SIXGCXaRVUbiEF8q7EULTaRk942xi/SA6+72k9bUs1aoDtv/D7YyS6lpzx0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy8S90UPWOGzl0/+4IBIoiERfUxyir3UepbSzYTRRr2qTua23fu
-	5gtJ4rwp54EeHE0qgieuhG9cR64uEsPG/B+AcP58f1i3GcH5MGKV5OKfbAeqoFUX9MwqE4V1jKF
-	m2Q==
-X-Google-Smtp-Source: AGHT+IF+/fBR5/RvgfgkW+k0iOimknqvbfTCdp56sFN5T8R+lSkm/qjT6GD7VseImBDz4jdwECu7ieLsEjc=
-X-Received: from pjbsw5.prod.google.com ([2002:a17:90b:2c85:b0:2d3:d4ca:5fb0])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:5245:b0:2ee:ab29:1a65
- with SMTP id 98e67ed59e1d1-2f83abb4f94mr39965711a91.4.1738697379406; Tue, 04
- Feb 2025 11:29:39 -0800 (PST)
-Date: Tue, 4 Feb 2025 11:29:38 -0800
-In-Reply-To: <85r04e5821.fsf@amd.com>
-Mime-Version: 1.0
-References: <20250201021718.699411-1-seanjc@google.com> <20250201021718.699411-7-seanjc@google.com>
- <85r04e5821.fsf@amd.com>
-Message-ID: <Z6JqopU5LkDIZPq6@google.com>
-Subject: Re: [PATCH 06/16] x86/tdx: Override PV calibration routines with
- CPUID-based calibration
-From: Sean Christopherson <seanjc@google.com>
-To: Nikunj A Dadhania <nikunj@amd.com>
-Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>, Juergen Gross <jgross@suse.com>, 
-	"K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
-	Dexuan Cui <decui@microsoft.com>, Ajay Kaher <ajay.kaher@broadcom.com>, 
-	Alexey Makhalov <alexey.amakhalov@broadcom.com>, Jan Kiszka <jan.kiszka@siemens.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Andy Lutomirski <luto@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org, 
-	linux-coco@lists.linux.dev, virtualization@lists.linux.dev, 
-	linux-hyperv@vger.kernel.org, jailhouse-dev@googlegroups.com, 
-	kvm@vger.kernel.org, xen-devel@lists.xenproject.org, 
-	Tom Lendacky <thomas.lendacky@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: a8651530-e33a-11ef-a0e7-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1738702653;
+	bh=le3d9xqWZqvbh0JlZJTPd6ReV8htkYjz699I+f8UycA=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=F02Bv6WJJFdw6qngjbbY3qbgwt2DCZk1ORPGJc6WC98FAv47SZLtEQJu60XL/BUnA
+	 QrJDqnyVs8xYSJCywhJplWcdjhxDvEkEcV7ZAHei0oAKJiiXuBAX9X+BfXCC4cVX/e
+	 YZunJvDB57oPX4KAcrus8QV0MsHbG5LCXWOpeH4L4xyZqbZuadq3MdUpJVPFnxj+PD
+	 5X8TuDTBM0do4LWQuYfAjd3YSIuQzT+5DLdqCthNvGfj6xWfC5nFEeWf5bQEYoZNiQ
+	 lNoQY/hNqsTtH8FOUMl/ztLDmpsmwoc++4JnBtXvKdTEZxKCtDkQJExKojhUM61SZ4
+	 datBk6wNgZfzQ==
+Date: Tue, 4 Feb 2025 12:57:28 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien.grall.oss@gmail.com>
+cc: Teddy Astie <teddy.astie@vates.tech>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: Re: [XEN RFC PATCH v5 3/5] xen/public: Introduce PV-IOMMU hypercall
+ interface
+In-Reply-To: <CAJ=z9a0DxkmeQU4U1sHnqCohrgVBjSOzs=u-x0E_QWAB36yV7w@mail.gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2502041252550.9756@ubuntu-linux-20-04-desktop>
+References: <cover.1737470269.git.teddy.astie@vates.tech> <29f3e87532573bfc4196083ab0291326adae5100.1737470269.git.teddy.astie@vates.tech> <1ea6447c-3451-4aca-8a17-2848acd0868f@amd.com> <c4351594-e394-4949-8dd1-20cce54ec192@vates.tech>
+ <alpine.DEB.2.22.394.2502030939470.11632@ubuntu-linux-20-04-desktop> <07423892-7f23-4e57-b1e9-4ef0fe45d6bc@vates.tech> <CAJ=z9a0DxkmeQU4U1sHnqCohrgVBjSOzs=u-x0E_QWAB36yV7w@mail.gmail.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="8323329-222317454-1738702653=:9756"
 
-On Tue, Feb 04, 2025, Nikunj A Dadhania wrote:
-> Sean Christopherson <seanjc@google.com> writes:
->=20
-> > When running as a TDX guest, explicitly override the TSC frequency
-> > calibration routine with CPUID-based calibration instead of potentially
-> > relying on a hypervisor-controlled PV routine.  For TDX guests, CPUID.0=
-x15
-> > is always emulated by the TDX-Module, i.e. the information from CPUID i=
-s
-> > more trustworthy than the information provided by the hypervisor.
-> >
-> > To maintain backwards compatibility with TDX guest kernels that use nat=
-ive
-> > calibration, and because it's the least awful option, retain
-> > native_calibrate_tsc()'s stuffing of the local APIC bus period using th=
-e
-> > core crystal frequency.  While it's entirely possible for the hyperviso=
-r
-> > to emulate the APIC timer at a different frequency than the core crysta=
-l
-> > frequency, the commonly accepted interpretation of Intel's SDM is that =
-APIC
-> > timer runs at the core crystal frequency when that latter is enumerated=
- via
-> > CPUID:
-> >
-> >   The APIC timer frequency will be the processor=E2=80=99s bus clock or=
- core
-> >   crystal clock frequency (when TSC/core crystal clock ratio is enumera=
-ted
-> >   in CPUID leaf 0x15).
-> >
-> > If the hypervisor is malicious and deliberately runs the APIC timer at =
-the
-> > wrong frequency, nothing would stop the hypervisor from modifying the
-> > frequency at any time, i.e. attempting to manually calibrate the freque=
-ncy
-> > out of paranoia would be futile.
-> >
-> > Deliberately leave the CPU frequency calibration routine as is, since t=
-he
-> > TDX-Module doesn't provide any guarantees with respect to CPUID.0x16.
->=20
-> Does TDX use kvmclock?
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-A TDX guest can.  That's up to the host (expose kvmclock) and the guest (en=
-able
-kvmclock).
+--8323329-222317454-1738702653=:9756
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-> If yes, kvmclock would have registered the CPU frequency calibration rout=
-ine:
->=20
-> 	tsc_register_calibration_routines(kvm_get_tsc_khz, kvm_get_cpu_khz,
->  					  tsc_properties);
->=20
-> so TDX will use kvm_get_cpu_khz(), which will either use CPUID.0x16 or
-> PV clock, is this on the expected line ?
+On Tue, 4 Feb 2025, Julien Grall wrote:
+> On Tue, 4 Feb 2025 at 11:46, Teddy Astie <teddy.astie@vates.tech> wrote:
+>       If the hardware supports it, there is a alternative (still being
+>       drafted) interface to allow the guest to directly provide native pagetables.
+> 
+>       This is exposed through the "_nested" subcommands, there is no
+>       implementation of this feature in this patch series yet.
+> 
+> 
+> Out of interest, if the HW support two stage translations, then why do we need a PV interface? Wouldn’t it be better to exposed an emulated
+> iommu? This would reduce the amount of enlightenment required in the guest OS. In the long run, this would provide some better performance
+>  because some IOMMU HW can now accelerate TLB flush commands (among other things). For instance, see the NVIDIA vIOMMU.
 
-What do you mean by "is this on the expected line"?  If you are asking "is =
-this
-intended", then the answer is "yes, working as intended".  As above, the TD=
-X-Module
-doesn't emulate CPUID.0x16, so no matter what, the guest is relying on the =
-untrusted
-hypervisor to get the CPU frequency.  If someone thinks that TDX guests sho=
-uld
-assume the CPU runs as the same frequency as the TSC, a la SNP's Secure TSC=
-, then
-they are welcome to propose such a change.
+Hi Julien, I am not Teddy, but I have been considering the same
+question, and here are the conclusions I reached.  
+
+A virtual IOMMU of the same type as the underlying IOMMU provides better
+operating system compatibility, particularly for running non-Linux OSes
+such as Windows.  
+
+On the other hand, a PV IOMMU should be faster to develop because there
+is no need to emulate a hardware interface. Additionally, a single PV
+IOMMU implementation could support multiple underlying hardware IOMMUs.
+Specifically, it could be used for both Intel and AMD platforms.
+
+
+
+> 
+>       /**
+>         * IOMMU_alloc_nested
+>         * Create a nested IOMMU context (needs IOMMUCAP_nested).
+>         *
+>         * This context uses a platform-specific page table from domain address
+>       space
+>         * specified in pgtable_gfn and use it for nested translations.
+>         *
+>         * Explicit flushes needs to be submited with IOMMU_flush_nested on
+>         * modification of the nested pagetable to ensure coherency between
+>       IOTLB and
+>         * nested page table.
+>         *
+>         * This context can be destroyed using IOMMU_free_context.
+>         * This context cannot be modified using map_pages, unmap_pages.
+>         */
+>       struct pv_iommu_alloc_nested {
+>            /* OUT: allocated IOMMU context number */
+>            uint16_t ctx_no;
+> 
+>            /* IN: guest frame number of the nested page table */
+>            uint64_aligned_t pgtable_gfn;
+> 
+>            /* IN: nested mode flags */
+>            uint64_aligned_t nested_flags;
+>       };
+>       typedef struct pv_iommu_alloc_nested pv_iommu_alloc_nested_t;
+>       DEFINE_XEN_GUEST_HANDLE(pv_iommu_alloc_nested_t);
+> 
+>       /**
+>         * IOMMU_flush_nested (needs IOMMUCAP_nested)
+>         * Flush the IOTLB for nested translation.
+>         */
+>       struct pv_iommu_flush_nested {
+>            /* TODO */
+>       };
+>       typedef struct pv_iommu_flush_nested pv_iommu_flush_nested_t;
+>       DEFINE_XEN_GUEST_HANDLE(pv_iommu_flush_nested_t);
+> 
+> 
+>       >
+>       >
+>       >
+>       >> [1] Originally
+>       >> https://lists.xen.org/archives/html/xen-devel/2024-06/msg01145.html but
+>       >> this patch got quite old and probably doesn't work anymore with this new
+>       >> Xen patch series.
+>       >> I have a updated patch in my xen-pviommu branch
+>       >> https://gitlab.com/xen-project/people/tsnake41/linux/-/commit/125d67a09fa9f66a32f9175641cfccca22dbbdb6
+>       >>
+>       >> [2] You also need to set "vfio_iommu_type1.allow_unsafe_interrupts=1" to
+>       >> make VFIO work for now.
+> 
+>       Thanks
+>       Teddy
+> 
+> 
+> 
+>       Teddy Astie | Vates XCP-ng Developer
+> 
+>       XCP-ng & Xen Orchestra - Vates solutions
+> 
+>       web: https://vates.tech
+> 
+> 
+> 
+--8323329-222317454-1738702653=:9756--
 
