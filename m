@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51764A27895
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 18:36:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.881772.1291942 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E2CAA27AE8
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 20:11:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.881787.1291953 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfMq9-0007gZ-Mm; Tue, 04 Feb 2025 17:36:01 +0000
+	id 1tfOJ8-0002Vn-UB; Tue, 04 Feb 2025 19:10:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 881772.1291942; Tue, 04 Feb 2025 17:36:01 +0000
+Received: by outflank-mailman (output) from mailman id 881787.1291953; Tue, 04 Feb 2025 19:10:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfMq9-0007ei-Iu; Tue, 04 Feb 2025 17:36:01 +0000
-Received: by outflank-mailman (input) for mailman id 881772;
- Tue, 04 Feb 2025 17:35:59 +0000
+	id 1tfOJ8-0002RF-Qg; Tue, 04 Feb 2025 19:10:02 +0000
+Received: by outflank-mailman (input) for mailman id 881787;
+ Tue, 04 Feb 2025 19:10:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yR1u=U3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tfMq7-0007ec-Ip
- for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 17:35:59 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ <SRS0=2JxC=U3=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1tfOJ6-0002AY-Hu
+ for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 19:10:00 +0000
+Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
+ [2001:4860:4864:20::2d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7e98a40b-e31e-11ef-a0e7-8be0dac302b0;
- Tue, 04 Feb 2025 18:35:58 +0100 (CET)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-38da88e6db0so525950f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 04 Feb 2025 09:35:58 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38c5c1b578dsm16592203f8f.64.2025.02.04.09.35.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 04 Feb 2025 09:35:57 -0800 (PST)
+ id a002059e-e32b-11ef-a0e7-8be0dac302b0;
+ Tue, 04 Feb 2025 20:09:58 +0100 (CET)
+Received: by mail-oa1-x2d.google.com with SMTP id
+ 586e51a60fabf-29ff039dab2so2941227fac.3
+ for <xen-devel@lists.xenproject.org>; Tue, 04 Feb 2025 11:09:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,125 +40,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7e98a40b-e31e-11ef-a0e7-8be0dac302b0
+X-Inumbo-ID: a002059e-e32b-11ef-a0e7-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1738690558; x=1739295358; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ISaS725U+91vLGWsSGGwQqDRrytBA2ysHNS0ir0reKQ=;
-        b=vXicIRd92ZeX3lELrlgnGZcmcr0EKGnsm6EGZtDTjxXMSwj4z0eCmXQzfkZogLosit
-         D6WUxL1i8+4whqIKZbhqirW6XItAEGt2SIwVYJ6QhLjOhzq8jLP7f/XYASAlyyjoHl/U
-         iR1URxcvVBCvTDw0RFzlUITmZBg1hre41DVP4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738690558; x=1739295358;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1738696197; x=1739300997; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ISaS725U+91vLGWsSGGwQqDRrytBA2ysHNS0ir0reKQ=;
-        b=ZM0EoQsYR+0U78JjWfcwZc/U0yeyiodLfi4+CwjTIK19EFb/fj8H73W+O/EAM3N5EF
-         08GYjbdbBfqkhijITUVqf48SKfIYQQSLDTxUsLbZ+Pti/g9emtqFCU400vlkZfvTze0K
-         drT+oxAj9Ea3+vpkLYZzwiHY0Pv4kfkrr2kXZXLHjEpEzesu+L+5NWXnThKeVKLe/t50
-         6i/ZaZdG0vznNX57nrwa48mwKfa4xoT+J0jyZ5eAOOTLBgs1KqkpqMXlfD45IduOpBUc
-         cZlZA43dk5c+EQIEf/+rbG0z7un8Ca5Ov8mdAWCDP19GoqbQz6UZ5YSxfQKPdV5t6sSl
-         0nCA==
-X-Gm-Message-State: AOJu0YxWSX97v20+C5+gEftUcLOEs4jq+6Ls9EqytUTn9zKaS+NwHu+V
-	9jS+lOztXzoFLLwbpQHTIYYSefirc0Eur7eh5kJ1asz5O8bGJJfiP51RKWJIZWU=
-X-Gm-Gg: ASbGncsk177t3iyXG4GYj4K/+95j8WAOMI+Zo5PwTAkLe8CA8HaxSzwppkElIMTGdBR
-	VX+Ll72mONmKdBzyGa+oQMgj842b2qsWaPRYFIizt3bE2IWc0mSqprewhcOoIu+x504CD3AtChF
-	uQKq0PW7Q3HA1L1lYfsVWz1jjUfNMdkb3Af7l7MVAh8V2juMKzIGe1bU4yQzLQ2amjV1JS0MSsv
-	U/ERcEoGsp7yS8MPTA1Ol0r/TjCKMa3zJTJIUrODO1g/ScSdyvgGfS3i7GW5fasSbP0vkWbaq+W
-	lAgfe0fnXCI8vuF6nPdliU9MH7hNzfO2Ndh0KAMv/g47wGcsrhpYF0o=
-X-Google-Smtp-Source: AGHT+IHinhWmSY2KTgb6A6zSKozlXkSHj+/rVz/t4kFB6jJB27EWhjZUqAoZIocLbX2GNOnGCveieg==
-X-Received: by 2002:a5d:64ee:0:b0:38d:a69a:a132 with SMTP id ffacd0b85a97d-38da69aa198mr2694004f8f.32.1738690557952;
-        Tue, 04 Feb 2025 09:35:57 -0800 (PST)
-Message-ID: <79fe5f32-c345-41ee-af29-cbe3c45585e8@citrix.com>
-Date: Tue, 4 Feb 2025 17:35:56 +0000
+        bh=A1BL98YhVzjZUOJcDyNnz80lzI0LA2MZ6DAr5fCSDj0=;
+        b=jFqLaBUIanLOGbJlkXgpse7S7jvHoG9pTNwAfdmp+cbILt8icCuBFE3ndP536H9BlX
+         5zvgXqkz353pyLAFahopYBPK9MSPrc8n6fDQOGnVwiOioH/K45za7wY8P096MEMTl36w
+         yv/cF4YRpJT9uexzkPQH5+gqPwNF9JeryyIK8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1738696197; x=1739300997;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=A1BL98YhVzjZUOJcDyNnz80lzI0LA2MZ6DAr5fCSDj0=;
+        b=e+w8qXkrhxVZDUkGzZx85YOr55K51UzMrsm6G7Pxf8iLZi8c+82qKM4lNbDtY2PvzT
+         hYtosLRtgv8Gf5OCq0K3QolgCjytigqIWaF5tym41PXGv+X4abdsHtYaiahkAW70/qa9
+         20Aqn7dCZL4JGHQJGs5OGokylRjj5O8Jx08XlB6bwUzJDIuURur5XfjMXTrv2lPZ33cL
+         RVP4fnbJTprklZRgZvOuhX5U+rqkDdL22gMLbZZbIMTLcbxHMK35XPXKvdGJPvLmN8Ud
+         zVMpq0ilsp9SyKcVlDIbNenOYhhVRh9WUwVAjxZ1N3cQNYARoqeseQUM2UiMUScGv5kf
+         ra8g==
+X-Gm-Message-State: AOJu0YybzA/YYkNGum9iF+v/gjbFwtIzwxtCt23/EIJOuwmzac2ZiSCD
+	3K+L5gVCqM6Q9HwqGwRiFw9iCa3uNATWEUqZ1AyB5nqeFGQaCs60m9z9yvewxf0QhtHPKDtXl2j
+	j6lwBLR7QI23zBefpKk39EEqKKkA2d/HHhClI5g==
+X-Gm-Gg: ASbGncsahkwmzM2ZRRXaEwAUMp7ti0xBOHvnntn+Kvr8W9eBVI2vz+Ey2LdR+7PVEAy
+	inAUI1ZvEPMixGpU5nVqqIvLi2D06iPdS8OP+55TviynZos8FFFwqex6RRqTrdkVZAQ61Uw==
+X-Google-Smtp-Source: AGHT+IEZYI4ywHhEUqhyvFmnPRCrlsdWHRaSfUKMs93TMQbRqEIz/4TYO9UNa1kqrBzeH1OvkHaHUP6DcmXjB9vVaiU=
+X-Received: by 2002:a05:6870:d10c:b0:297:285e:f9f4 with SMTP id
+ 586e51a60fabf-2b32f2fb7bamr17723991fac.34.1738696197370; Tue, 04 Feb 2025
+ 11:09:57 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Xen panic due to xstate mismatch
-To: Guillaume <thouveng@gmail.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <CACt9=QgsSM18to9M5k8+3N3NvRoNVmAvsQo5oLO5-A0dm7VFNg@mail.gmail.com>
- <CACBT2OvVcDzoghr5SSjfvA5c9=LDs7DC6Z1Pi0QJ2sv0YFcEfw@mail.gmail.com>
- <CACt9=QiZhq94_=gSpSs782tM9uYQqvgrmOXeGw47C31-dwcrgw@mail.gmail.com>
- <4218bce7-b615-40d7-8d40-b2553d8b1662@citrix.com>
- <CACt9=Qgc=wjyRujFT=T2r1pvpyqWCOwzXw18BLO0uca7KuPKJA@mail.gmail.com>
- <087acd38-868d-4e1b-ab0f-9dbdb0ceb8a8@citrix.com>
- <CACt9=Qh0nXr35wx-ce8BC-xHcQjAa5nUdPvsm2K12RusT-wzXg@mail.gmail.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <CACt9=Qh0nXr35wx-ce8BC-xHcQjAa5nUdPvsm2K12RusT-wzXg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20250122101407.52282-1-frediano.ziglio@cloud.com> <e78b9755-76f6-4189-a000-7a7e3588cae9@citrix.com>
+In-Reply-To: <e78b9755-76f6-4189-a000-7a7e3588cae9@citrix.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Tue, 4 Feb 2025 19:09:46 +0000
+X-Gm-Features: AWEUYZmuA8Z4n2bEGXJO-Cg89GupLkmvkW-ldLYkQ3rI7Q-Twr2XOn7CTAVpbV8
+Message-ID: <CACHz=Zga8KdK=im8xH1R4Ft9n8vw6wdOLgS+GPtY+OmafbS2Nw@mail.gmail.com>
+Subject: Re: [PATCH v5] Avoid crash calling PrintErrMesg from efi_multiboot2
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, 
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	Jan Beulich <jbeulich@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 03/02/2025 8:58 am, Guillaume wrote:
-> Oh cool, thanks a lot for the explanation.
-> I added the "vzeroupper" and Xen crashes so it looks like the CPUID
-> emulation is buggy. Also I was able to try it using a VM (same debian
-> testing) running on virt-manager+kvm and it works fine (Xen in debug
-> mode). I will have a look by printing the xstate when running on
-> virt-manager+KVM and I will also run the xen-cpuid command to see the
-> difference just by curiosity as with your test we already spotted the
-> issue.
-> Thanks again for your enlightenment. I will continue my testing later
-> today and if you need me to test something else you are welcome, just
-> ask I will do my best.
+On Tue, Feb 4, 2025 at 4:20=E2=80=AFPM Andrew Cooper <andrew.cooper3@citrix=
+.com> wrote:
+>
+> On 22/01/2025 10:14 am, Frediano Ziglio wrote:
+> > Although code is compiled with -fpic option data is not position
+> > independent.
+>
+> This doesn't parse.  ITYM "Although the code is compiled with -fpic,
+> pointers in data are not position independent."
+>
+> >  This causes data pointer to become invalid if
+> > code is not relocated properly which is what happens for
+> > efi_multiboot2 which is called by multiboot entry code.
+>
+> "efi_multiboot2()" to highlight that you're naming a function.
+>
 
-It sounds like KVM has a better CPUID emulation than VirtualBox.
+Should I post a new version or are you fixing the grammar on commit ?
 
-It would be ideal to report this bug with VirtualBox.
+> >
+> > Code tested adding
+> >    PrintErrMesg(L"Test message", EFI_BUFFER_TOO_SMALL);
+> > in efi_multiboot2 before calling efi_arch_edd (this function
+> > can potentially call PrintErrMesg).
+> >
+> > Before the patch (XenServer installation on Qemu, xen replaced
+> > with vanilla xen.gz):
+> >   Booting `XenServer (Serial)'Booting `XenServer (Serial)'
+> >   Test message: !!!! X64 Exception Type - 0E(#PF - Page-Fault)  CPU Api=
+c ID - 00000000 !!!!
+> >   ExceptionData - 0000000000000000  I:0 R:0 U:0 W:0 P:0 PK:0 SS:0 SGX:0
+> >   RIP  - 000000007EE21E9A, CS  - 0000000000000038, RFLAGS - 00000000002=
+10246
+> >   RAX  - 000000007FF0C1B5, RCX - 0000000000000050, RDX - 00000000000000=
+10
+> >   RBX  - 0000000000000000, RSP - 000000007FF0C180, RBP - 000000007FF0C2=
+10
+> >   RSI  - FFFF82D040467CE8, RDI - 0000000000000000
+> >   R8   - 000000007FF0C1C8, R9  - 000000007FF0C1C0, R10 - 00000000000000=
+00
+> >   R11  - 0000000000001020, R12 - FFFF82D040467CE8, R13 - 000000007FF0C1=
+B8
+> >   R14  - 000000007EA33328, R15 - 000000007EA332D8
+> >   DS   - 0000000000000030, ES  - 0000000000000030, FS  - 00000000000000=
+30
+> >   GS   - 0000000000000030, SS  - 0000000000000030
+> >   CR0  - 0000000080010033, CR2 - FFFF82D040467CE8, CR3 - 000000007FC010=
+00
+> >   CR4  - 0000000000000668, CR8 - 0000000000000000
+> >   DR0  - 0000000000000000, DR1 - 0000000000000000, DR2 - 00000000000000=
+00
+> >   DR3  - 0000000000000000, DR6 - 00000000FFFF0FF0, DR7 - 00000000000004=
+00
+> >   GDTR - 000000007F9DB000 0000000000000047, LDTR - 0000000000000000
+> >   IDTR - 000000007F48E018 0000000000000FFF,   TR - 0000000000000000
+> >   FXSAVE_STATE - 000000007FF0BDE0
+> >   !!!! Find image based on IP(0x7EE21E9A) (No PDB)  (ImageBase=3D000000=
+007EE20000, EntryPoint=3D000000007EE23935) !!!!
+> >
+> > After the patch:
+> >   Booting `XenServer (Serial)'Booting `XenServer (Serial)'
+> >   Test message: Buffer too small
+> >   BdsDxe: loading Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4=
+AF6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
+> >   BdsDxe: starting Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE=
+4AF6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
+> >
+> > This partially rollback commit 00d5d5ce23e6.
+> >
+> > Fixes: 9180f5365524 ("x86: add multiboot2 protocol support for EFI plat=
+forms")
+> > Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+>
+> 00d5d5ce23e6 needs to be a second fixes tag then too.
+>
+> In hindsight, it was a naive fix.  But, by reverting this part of it,
+> you're reintroducing a build breakage on Clang.
+>
+> I wrote that construct because it is what Clang-3.8 generated, albeit
+> with the proper __initconstrel attribute to make the
+> SPEICAL_DATA_SECTIONS check be happy.
+>
+> Anyway, see:
+> https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git/commit/?h=3Dx=
+86/urgent&id=3D1105ab42a84bc11c62597005f78ccad2434fbd66
+>
+> This needs to be paired with an unconditional -fno-jump-tables covering
+> any TU which the MB2+EFI path executes at the wrong address.
+>
 
-But, as you identified originally, it's not nice that Xen simply like
-this. We should see about what to for Xen, seeing as we're close to the
-line on 4.20.  I'm thinking maybe making the xstate checks non-fatal in
-the cpu_has_hypervisor case.  Thoughts?
+Newer compiler versions seem to generate position independent jump
+tables, but it's not guaranteed. So, yes, it would be better to add
+that option.
 
-~Andrew
+> ~Andrew
+
+Frediano
 
