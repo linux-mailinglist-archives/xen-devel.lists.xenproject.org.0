@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E81EDA2726D
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 14:08:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.881434.1291572 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45C9BA27278
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 14:10:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.881441.1291583 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfIeb-0006aQ-M6; Tue, 04 Feb 2025 13:07:49 +0000
+	id 1tfIgx-00084N-2y; Tue, 04 Feb 2025 13:10:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 881434.1291572; Tue, 04 Feb 2025 13:07:49 +0000
+Received: by outflank-mailman (output) from mailman id 881441.1291583; Tue, 04 Feb 2025 13:10:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfIeb-0006YN-JV; Tue, 04 Feb 2025 13:07:49 +0000
-Received: by outflank-mailman (input) for mailman id 881434;
- Tue, 04 Feb 2025 13:07:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=yELw=U3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tfIeZ-0006YH-Gs
- for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 13:07:47 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0709703f-e2f9-11ef-a0e7-8be0dac302b0;
- Tue, 04 Feb 2025 14:07:46 +0100 (CET)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5dccc90a4f1so894110a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 04 Feb 2025 05:07:46 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5dc723d0d2asm9409838a12.7.2025.02.04.05.07.45
+	id 1tfIgx-00081T-0C; Tue, 04 Feb 2025 13:10:15 +0000
+Received: by outflank-mailman (input) for mailman id 881441;
+ Tue, 04 Feb 2025 13:10:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=yR1u=U3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tfIgv-00081N-2s
+ for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 13:10:13 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5d14f6b9-e2f9-11ef-99a4-01e77a169b0f;
+ Tue, 04 Feb 2025 14:10:11 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-4361e89b6daso38285585e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 04 Feb 2025 05:10:10 -0800 (PST)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-438dcc13146sm222900895e9.4.2025.02.04.05.10.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 04 Feb 2025 05:07:45 -0800 (PST)
+ Tue, 04 Feb 2025 05:10:09 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,131 +45,171 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0709703f-e2f9-11ef-a0e7-8be0dac302b0
+X-Inumbo-ID: 5d14f6b9-e2f9-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738674466; x=1739279266; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1738674610; x=1739279410; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/pfIIxEt/kea+g6WpuobvhtVrbusTaSQJ3Juo/PO2Ek=;
-        b=NQXsMXFmErHQ6lx1ecPHaMx5Bfkh6jlKskhkjE+FfWZfJd7CZuDBXwUJWUObLI6BDr
-         1J6jl09uSm8JkVP92Uk7xZrFgchDSy3K2ddCgv8MWskXQTFdgynzGNnUdc04+YCwRrXq
-         jPS/YgkM+xX2QHwP5lDkkDBfc/ozNG/xUTyLQI+q44whT6KbrpBgnraQ0MM1wcG11WiZ
-         AHJGLYjhBZ5ar8BUsYZ2T8Vvs15NBTyt/ZLcDoGNNEVq90NSHAwcTXQRCVfHsHWLcXqk
-         8u6GGYtWKb3cW1CzP2MWFBffn5sJB+KbQfk97JfW7D1SLGSAjtEJsp4asqM9w1P44g6S
-         69Fw==
+        bh=vMH5mtoLnXHJECKB5gH/a3BEvXvqk5p57s/Eb97hodA=;
+        b=JiS2sKJgUWo2HnWUx/MDC+FDmcMpJilqD61vEDBi1nzgfLtuTWbXqikESK+8z29yva
+         vdQbOcsPpsRWVILYWhClxPVRcz4ESCN/h/MiDuodD+oBPmLCDSGZVRLdmTOB0Nh1dvJS
+         aK2IzA1Th8V2OtuGAE2+Kc1DYiyrtzFDgrs4s=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738674466; x=1739279266;
+        d=1e100.net; s=20230601; t=1738674610; x=1739279410;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/pfIIxEt/kea+g6WpuobvhtVrbusTaSQJ3Juo/PO2Ek=;
-        b=u6+N8RR4Fi2grqmiYyeQAR5LaQzs7T+qmcQaVeSjuvuvNQZZDBl+yYwnem7YABflZG
-         TScC5E/J3gL1/0smO0qfaN2aMXzWXbba3qsuWmDQ0Q5WTfAb+1Bkdmks4TcAq0VcUsNJ
-         IkeAAbum0lzStdQraL3Ze/X+guFFYKBEjVLjRQo6o5sWbE47ifUCYf08+IgF9xeUQG6o
-         HrMTqgQ2oe5xldDt1EV2/KJK4cZKOr39QvlSB39Zw6MGBAXe3OZ1LVf3Cj7T812x1NgX
-         KKTGHJ3v7wY3j8CIFbo3HfR2SSovnQGSbpHHQ4xhkv7kXbAlp2saLbh6G1yQoyJ6ezl9
-         x+oQ==
-X-Gm-Message-State: AOJu0YxQyhCGahUBQhltorBx5Ki9dMvY5KikIlyZcfdhK74RISG36XHT
-	8fbELglw9zVqHhXIPr1709xDFFtLe+8dAAS6CphFp4Z6Cp5lTaM8hO0rxsVYsA==
-X-Gm-Gg: ASbGncs9m6pW7gkzrzAxuAaSD4LWVbAMT242P1++PIYvIKfdbdV9X5I0mk5ENl9nCTd
-	ZVGuNgIugC/IFKyh5SUqkrxLS6E60FKgtvxsMPMgmEqFY/DcYFq3R0g9yAQkH+kvVeBJnoWXGN5
-	ty/Zkfwu0JK7AQmoGXcCY8hmkQ81Q48I2Ur7rY6lmMOpr7EYGd732RH8Y0FMfQxuZIV1/MB+36M
-	Si35OlMlg7wN5gLHE+AN+ofLqoBXkT8Lm/Ioh+0lb+7V/HfsmaheHZOnX1d69ZsqzPTFpbRfjKR
-	PfB/bYnrrv6De10byJ9xnOAIuOLnYEh489W7wXPU+86RW7Wj6vwr2hJGrxw98yqXHia2lK0KFsd
-	f
-X-Google-Smtp-Source: AGHT+IE3pJqEsARY+n7sZ9hX+jMZSfq9wlKt0is81mA62aSiHNhW4t7szpBrFKSGAJAx9qUWuAgdjA==
-X-Received: by 2002:a05:6402:2816:b0:5dc:1395:1d3a with SMTP id 4fb4d7f45d1cf-5dc5efa2e79mr28731496a12.1.1738674466000;
-        Tue, 04 Feb 2025 05:07:46 -0800 (PST)
-Message-ID: <9d7b6706-7415-43d5-a66e-650eb67437fa@suse.com>
-Date: Tue, 4 Feb 2025 14:07:44 +0100
+        bh=vMH5mtoLnXHJECKB5gH/a3BEvXvqk5p57s/Eb97hodA=;
+        b=OrvacRstUTi8oHB01B8l3uEDa3Peql84H3r/CrqDIE7oj4x0MhIcxGi+M4fyy7Y+kk
+         C3+d1hsospB0yyaGvtCuIZYvh5J1b4Z5XZtkl00WpoypXIqzYuP//lJNj1156bCBrrza
+         H6leD6nYA99S38GaNGGUsc/2AiQEw/ig8XX3ASEHIGlNRIjrK0btA9ek3oylswxUJWWk
+         vjD850TbuhPRh57YBoe84ndaDfHnemJ2FC5JVVd6Abm25Ny29TnJVk/kZnOMCogUm9yQ
+         SRnm60FctQl9ImopuypGpqQTP23nYK/fnqNIwT5MXLKXnw+D/g1ic0NPXsO6O0XF11Qk
+         BFMA==
+X-Forwarded-Encrypted: i=1; AJvYcCWKwY4Y7yS55anVIQThOz3kt0iYB4VoR4l5FZJq3vQ1lZAHuTPCarok/weLDTkO+V6ae1Xl3NouAt8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxJwZlWCF47DG0ikZx4QAgUKeRyrOb0/odYfJJxi8RZIN7vTt+i
+	c3M5nBehL0a2hWH9xlvEp35xyDtSLqLMYw3kYP/xeJO3aWpYT3jFHnYy5MbheCs=
+X-Gm-Gg: ASbGncuGDHfY/kYPv9Uh4g98FLwc9U5PReGw4il4t2yKCHOaGRcwsvjutYElh1jPmkJ
+	rBUqM9CNjZgtv0MAvTDLa1wDl6T1cgZdZnd8EIoj4ZwsjkfbmYlYr0oaq6Af0aB4B1UW5fkMjz4
+	T3VVTSaxfCVPdmHWTYkoVR1pQsPjF/5l8BWFR4s08Xc4KzJRi2zbrE/K22X0/H0sDk3iDFUPbXs
+	6Jpah7xaHXYLQqH0cjvHk8PaaYnaf1A4oec+mGF956hFRwlfCHLqWiIrRm4D6qYtyD9pC6/BBL9
+	SJSQ2Ty6iLaSiBzhEo5Wfv5IkgJazD11W/Hvthv8/NsUThS2B5nNrJ4=
+X-Google-Smtp-Source: AGHT+IHDoLkePZepuzsWMFBsLvoi3zgc+eo9e5LGB8eYetxiP+iMURnNgbGqziFqxccnzT41jq98zg==
+X-Received: by 2002:a05:600c:3583:b0:42c:bb96:340e with SMTP id 5b1f17b1804b1-438dc4349dbmr220045445e9.31.1738674610333;
+        Tue, 04 Feb 2025 05:10:10 -0800 (PST)
+Message-ID: <8c0dc0bb-0fdc-425d-bbe6-796573bb7f61@citrix.com>
+Date: Tue, 4 Feb 2025 13:10:09 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.20 v5] Avoid crash calling PrintErrMesg from
- efi_multiboot2
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>,
+Subject: Re: [PATCH v3 for-4.20 2/4] radix-tree: introduce
+ RADIX_TREE{,_INIT}()
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: xen-devel@lists.xenproject.org,
- Frediano Ziglio <frediano.ziglio@cloud.com>
-References: <20250122101407.52282-1-frediano.ziglio@cloud.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250122101407.52282-1-frediano.ziglio@cloud.com>
+References: <0a006732-2b6e-46f0-a706-f432abd45d2c@suse.com>
+ <e1114d64-61f9-47b9-a1ed-33b526d40089@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <e1114d64-61f9-47b9-a1ed-33b526d40089@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 22.01.2025 11:14, Frediano Ziglio wrote:
-> Although code is compiled with -fpic option data is not position
-> independent. This causes data pointer to become invalid if
-> code is not relocated properly which is what happens for
-> efi_multiboot2 which is called by multiboot entry code.
-> 
-> Code tested adding
->    PrintErrMesg(L"Test message", EFI_BUFFER_TOO_SMALL);
-> in efi_multiboot2 before calling efi_arch_edd (this function
-> can potentially call PrintErrMesg).
-> 
-> Before the patch (XenServer installation on Qemu, xen replaced
-> with vanilla xen.gz):
->   Booting `XenServer (Serial)'Booting `XenServer (Serial)'
->   Test message: !!!! X64 Exception Type - 0E(#PF - Page-Fault)  CPU Apic ID - 00000000 !!!!
->   ExceptionData - 0000000000000000  I:0 R:0 U:0 W:0 P:0 PK:0 SS:0 SGX:0
->   RIP  - 000000007EE21E9A, CS  - 0000000000000038, RFLAGS - 0000000000210246
->   RAX  - 000000007FF0C1B5, RCX - 0000000000000050, RDX - 0000000000000010
->   RBX  - 0000000000000000, RSP - 000000007FF0C180, RBP - 000000007FF0C210
->   RSI  - FFFF82D040467CE8, RDI - 0000000000000000
->   R8   - 000000007FF0C1C8, R9  - 000000007FF0C1C0, R10 - 0000000000000000
->   R11  - 0000000000001020, R12 - FFFF82D040467CE8, R13 - 000000007FF0C1B8
->   R14  - 000000007EA33328, R15 - 000000007EA332D8
->   DS   - 0000000000000030, ES  - 0000000000000030, FS  - 0000000000000030
->   GS   - 0000000000000030, SS  - 0000000000000030
->   CR0  - 0000000080010033, CR2 - FFFF82D040467CE8, CR3 - 000000007FC01000
->   CR4  - 0000000000000668, CR8 - 0000000000000000
->   DR0  - 0000000000000000, DR1 - 0000000000000000, DR2 - 0000000000000000
->   DR3  - 0000000000000000, DR6 - 00000000FFFF0FF0, DR7 - 0000000000000400
->   GDTR - 000000007F9DB000 0000000000000047, LDTR - 0000000000000000
->   IDTR - 000000007F48E018 0000000000000FFF,   TR - 0000000000000000
->   FXSAVE_STATE - 000000007FF0BDE0
->   !!!! Find image based on IP(0x7EE21E9A) (No PDB)  (ImageBase=000000007EE20000, EntryPoint=000000007EE23935) !!!!
-> 
-> After the patch:
->   Booting `XenServer (Serial)'Booting `XenServer (Serial)'
->   Test message: Buffer too small
->   BdsDxe: loading Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4AF6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
->   BdsDxe: starting Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4AF6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
-> 
-> This partially rollback commit 00d5d5ce23e6.
-> 
-> Fixes: 9180f5365524 ("x86: add multiboot2 protocol support for EFI platforms")
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+On 04/02/2025 1:03 pm, Jan Beulich wrote:
+> ... now that static initialization is possible. Use RADIX_TREE() for
+> pci_segments and ivrs_maps.
+>
+> This then fixes an ordering issue on x86: With the call to
+> radix_tree_init(), acpi_mmcfg_init()'s invocation of pci_segments_init()
+> will zap the possible earlier introduction of segment 0 by
+> amd_iommu_detect_one_acpi()'s call to pci_ro_device(), and thus the
+> write-protection of the PCI devices representing AMD IOMMUs.
+>
+> Fixes: 3950f2485bbc ("x86/x2APIC: defer probe until after IOMMU ACPI table parsing")
+> Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> Sadly gcc below 5.x doesn't support compound literals in static
+> initializers (Clang 3.5 does). Hence the request in response to v2 has
+> to remain un-addressed.
+> ---
+> v3: Extend description and add Fixes: tag.
+> v2: New.
+>
+> --- a/xen/drivers/passthrough/amd/iommu_init.c
+> +++ b/xen/drivers/passthrough/amd/iommu_init.c
+> @@ -31,7 +31,7 @@ static struct tasklet amd_iommu_irq_task
+>  unsigned int __read_mostly amd_iommu_acpi_info;
+>  unsigned int __read_mostly ivrs_bdf_entries;
+>  u8 __read_mostly ivhd_type;
+> -static struct radix_tree_root ivrs_maps;
+> +static RADIX_TREE(ivrs_maps);
+>  LIST_HEAD_RO_AFTER_INIT(amd_iommu_head);
+>  bool iommuv2_enabled;
+>  
+> @@ -1408,7 +1408,6 @@ int __init amd_iommu_prepare(bool xt)
+>          goto error_out;
+>      ivrs_bdf_entries = rc;
+>  
+> -    radix_tree_init(&ivrs_maps);
+>      for_each_amd_iommu ( iommu )
+>      {
+>          rc = amd_iommu_prepare_one(iommu);
+> --- a/xen/drivers/passthrough/pci.c
+> +++ b/xen/drivers/passthrough/pci.c
+> @@ -68,7 +68,7 @@ bool pcidevs_locked(void)
+>      return rspin_is_locked(&_pcidevs_lock);
+>  }
+>  
+> -static struct radix_tree_root pci_segments;
+> +static RADIX_TREE(pci_segments);
+>  
+>  static inline struct pci_seg *get_pseg(u16 seg)
+>  {
+> @@ -124,7 +124,6 @@ static int pci_segments_iterate(
+>  
+>  void __init pci_segments_init(void)
+>  {
+> -    radix_tree_init(&pci_segments);
+>      if ( !alloc_pseg(0) )
+>          panic("Could not initialize PCI segment 0\n");
+>  }
+> --- a/xen/include/xen/radix-tree.h
+> +++ b/xen/include/xen/radix-tree.h
+> @@ -72,6 +72,9 @@ struct radix_tree_root {
+>   *** radix-tree API starts here **
+>   */
+>  
+> +#define RADIX_TREE_INIT() {}
+> +#define RADIX_TREE(name) struct radix_tree_root name = RADIX_TREE_INIT()
 
-I expect we want this in before the release. Oleksii? Maintainers?
+We can still use this form in radix_tree_init(), can't we?
 
-Jan
+~Andrew
 
