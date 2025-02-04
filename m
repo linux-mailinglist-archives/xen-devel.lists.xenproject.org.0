@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7932DA2693A
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 02:09:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.881016.1291128 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A532A26946
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Feb 2025 02:16:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.881025.1291138 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tf7QN-0004Q4-TE; Tue, 04 Feb 2025 01:08:23 +0000
+	id 1tf7YP-00063e-LZ; Tue, 04 Feb 2025 01:16:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 881016.1291128; Tue, 04 Feb 2025 01:08:23 +0000
+Received: by outflank-mailman (output) from mailman id 881025.1291138; Tue, 04 Feb 2025 01:16:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tf7QN-0004O8-QZ; Tue, 04 Feb 2025 01:08:23 +0000
-Received: by outflank-mailman (input) for mailman id 881016;
- Tue, 04 Feb 2025 01:08:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eXmP=U3=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
- id 1tf7QN-0004O2-0z
- for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 01:08:23 +0000
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
- [136.143.188.12]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 83cb885a-e294-11ef-99a4-01e77a169b0f;
- Tue, 04 Feb 2025 02:08:18 +0100 (CET)
-Received: by mx.zohomail.com with SMTPS id 1738631291745282.4803734328266;
- Mon, 3 Feb 2025 17:08:11 -0800 (PST)
-Received: by mail-yw1-f178.google.com with SMTP id
- 00721157ae682-6f9625c0fccso13844507b3.1
- for <xen-devel@lists.xenproject.org>; Mon, 03 Feb 2025 17:08:11 -0800 (PST)
+	id 1tf7YP-000618-Ib; Tue, 04 Feb 2025 01:16:41 +0000
+Received: by outflank-mailman (input) for mailman id 881025;
+ Tue, 04 Feb 2025 01:16:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=v9a5=U3=kernel.org=sashal@srs-se1.protection.inumbo.net>)
+ id 1tf7YO-000612-HX
+ for xen-devel@lists.xenproject.org; Tue, 04 Feb 2025 01:16:40 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id aea610a0-e295-11ef-a0e7-8be0dac302b0;
+ Tue, 04 Feb 2025 02:16:39 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 4572F5C6A91;
+ Tue,  4 Feb 2025 01:15:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9594DC4CEE0;
+ Tue,  4 Feb 2025 01:16:35 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,168 +41,190 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 83cb885a-e294-11ef-99a4-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; t=1738631295; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Mqtjjw4WT/ZT2IjpaWX4TIyLmvQzKPyV4u4j0jefFK07EtL3gz/YJiuYYlkMGm7f+0qPmWHXGoXadxUBHtlArOriL4PK20kAu3RnZIxBaW8JG+dFyHGOnP0ERpZHxeZMc9Ml26lSLHim3bAGDfbX/w8RrVcoT4bPgPQc/fjpq5Y=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1738631295; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=t9OQZAEDF3gVYJ0V4k66wrEvzYSH5auyndHpy3VxpZI=; 
-	b=jEsmWwzBdusZJ1wP7YBbfqtJv/HIssYpp4roLsR7Jkte6tqGw/Z2qnOeIajruPejtcyvI7pHbknSNTTWs7Jv5Cgw+NG6nyEOrpEK2PNMyNAJsGjeEDH0e0nXmJyM5Uesz5JEhBz8ij7qsER0n3c9R06Sq8U6hEH00LGZPh88agU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=tklengyel.com;
-	spf=pass  smtp.mailfrom=tamas@tklengyel.com;
-	dmarc=pass header.from=<tamas@tklengyel.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1738631295;
-	s=zmail; d=tklengyel.com; i=tamas@tklengyel.com;
-	h=MIME-Version:References:In-Reply-To:From:From:Date:Date:Message-ID:Subject:Subject:To:To:Cc:Cc:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=t9OQZAEDF3gVYJ0V4k66wrEvzYSH5auyndHpy3VxpZI=;
-	b=SJ5NDz9iBa+lWmwJcBetOmRz4e1XPXRdlehppKMrYcWOAIyzJzxpEz6k9X71hpTk
-	W8oi75cVaSOL9IkVSA3iZDfD+qf5PgG5EphsrfYnS42sGK6Er3laJG++G7G9DL0nhRe
-	glV9hugf1QiwLHOx0Yc9kauHkoW48P1cld9SqmHI=
-X-Forwarded-Encrypted: i=1; AJvYcCV2PpK6ybet15+4tUL0ITQbj9MQBNx7UABGIVcTh9jxJKbK1CiyMKu6tDOiUoShWv2sbi52BkOw5Y4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz8cw0MjDcxikPIhagghMx861HWh3Hf68ks88+EH/+PZiV1uw5q
-	bKfHsW0KXaw5bH5hO+TD5b7aA2ncgOLDj1JATQczzX6qVbr6eyhw0owlVkMkE9pK273HVwy6ly8
-	MJ9wCBn/Pc8aAeEEtq5y5j++5/cc=
-X-Google-Smtp-Source: AGHT+IFytmffq45x8Wjkq7zdzUGe4kfq9HoBGT6vJpY5lq+0EtYQlO1ouKbSiwBbwsDcw5QoBaPvh3WYM9b4NT3US0s=
-X-Received: by 2002:a05:690c:6e93:b0:6f5:2793:2897 with SMTP id
- 00721157ae682-6f7a8407d9bmr196946377b3.30.1738631291210; Mon, 03 Feb 2025
- 17:08:11 -0800 (PST)
-MIME-Version: 1.0
-References: <cover.1737452864.git.Sergiy_Kibrik@epam.com> <ff22f35dafd04b16165e1caec038e5a5fcf2aeee.1737452864.git.Sergiy_Kibrik@epam.com>
- <c74d334e-6e33-4a58-bf94-936249244cb0@suse.com> <CABfawhm8Cb3xz8Fv=YhA1TSKtvA3ThWHMcqJCFDarwSuYKQ5ZA@mail.gmail.com>
- <b850c2b1-5aa9-4e64-9161-ba55028b43a7@suse.com> <CABfawhn8uhUbr4yRcSb=_Jw3y2Cgsh_ozXotTFkrDt12K8Cyog@mail.gmail.com>
- <02cbd163-9048-45dc-9951-c8f2febb8b5f@suse.com>
-In-Reply-To: <02cbd163-9048-45dc-9951-c8f2febb8b5f@suse.com>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Mon, 3 Feb 2025 20:07:34 -0500
-X-Gmail-Original-Message-ID: <CABfawhnA91Yn4zN2Pz5n0Gengie6Au4zAjxu3_owr-0BAiNZUg@mail.gmail.com>
-X-Gm-Features: AWEUYZnSkfHt_HyjL7i6HsS6-FwSQAPBoU2ZSF0NBdxji8lXXrjLpZrW9zKP9Tg
-Message-ID: <CABfawhnA91Yn4zN2Pz5n0Gengie6Au4zAjxu3_owr-0BAiNZUg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/4] xen: kconfig: rename MEM_ACCESS -> VM_EVENT
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, Julien Grall <julien@xen.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	Anthony PERARD <anthony.perard@vates.tech>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Alexandru Isaila <aisaila@bitdefender.com>, Petre Pircalabu <ppircalabu@bitdefender.com>, 
-	Shawn Anastasio <sanastasio@raptorengineering.com>, 
-	Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, 
-	Connor Davis <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+X-Inumbo-ID: aea610a0-e295-11ef-a0e7-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1738631796;
+	bh=K/4z85s58YJ+HgdW8rRTJolzJXQ4p1WGU3yjVlV5G90=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=Bt6ElgmriqLfDJRXCZ1ZnA260iRai7Xfaa1992bT3/ZW0aP+GKvJZ8ajEhvWNAwfL
+	 FjSBb/lk8F0IUeA8xOG7ibtdQ1+sX+BMAafUnQNk0471/KSAoeC2Nfd55AkEQ6ExnR
+	 uYuF/K9qKdc8UoZ89yvbz7gHzA0f4G3Pg7aVtWqS5HHhZAZOeHcXvJEAZbZN5q0qoO
+	 RWTvTIvu5hi+wLxo01YLFy3PAb5x3GIxjNo0U9rCpvv51QZzHq397Knd8Qz6yquSFC
+	 Q8vWgAOUejmfGzhzgM+uwkm4KCXaq1wAa0zrADqGFegFsO9IUdwzFTCUFMzzOrDZxX
+	 vLdrsqbtCb1+Q==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Cc: Maksym Planeta <maksym@exostellar.io>,
+	Juergen Gross <jgross@suse.com>,
+	Sasha Levin <sashal@kernel.org>,
+	tglx@linutronix.de,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org,
 	xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: [PATCH AUTOSEL 6.13 3/5] Grab mm lock before grabbing pt lock
+Date: Mon,  3 Feb 2025 20:16:25 -0500
+Message-Id: <20250204011627.2206261-3-sashal@kernel.org>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20250204011627.2206261-1-sashal@kernel.org>
+References: <20250204011627.2206261-1-sashal@kernel.org>
+MIME-Version: 1.0
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.13.1
+Content-Transfer-Encoding: 8bit
 
-On Mon, Feb 3, 2025 at 2:36=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wrot=
-e:
->
-> On 01.02.2025 00:36, Tamas K Lengyel wrote:
-> > On Fri, Jan 31, 2025 at 1:30=E2=80=AFAM Jan Beulich <jbeulich@suse.com>=
- wrote:
-> >> On 31.01.2025 01:26, Tamas K Lengyel wrote:
-> >>> On Thu, Jan 30, 2025 at 8:24=E2=80=AFAM Jan Beulich <jbeulich@suse.co=
-m> wrote:
-> >>>> On 21.01.2025 11:19, Sergiy Kibrik wrote:
-> >>>>> Use more generic CONFIG_VM_EVENT name throughout Xen code instead o=
-f
-> >>>>> CONFIG_MEM_ACCESS. This reflects the fact that vm_event is a higher=
- level
-> >>>>> feature, with mem_access & monitor depending on it.
-> >>>>>
-> >>>>> Suggested-by: Jan Beulich <jbeulich@suse.com>
-> >>>>
-> >>>> I don't think this is applicable; my suggestion went in a different =
-direction.
-> >>>>
-> >>>>> Suggested-by: Tamas K Lengyel <tamas@tklengyel.com>
-> >>>>> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-> >>>>
-> >>>> Before considering to ack this, I'd like you, Tamas, to confirm this=
- is really
-> >>>> what you had thought of. In particular ...
-> >>>>
-> >>>>> --- a/xen/arch/arm/Makefile
-> >>>>> +++ b/xen/arch/arm/Makefile
-> >>>>> @@ -37,7 +37,7 @@ obj-y +=3D irq.o
-> >>>>>  obj-y +=3D kernel.init.o
-> >>>>>  obj-$(CONFIG_LIVEPATCH) +=3D livepatch.o
-> >>>>>  obj-$(CONFIG_LLC_COLORING) +=3D llc-coloring.o
-> >>>>> -obj-$(CONFIG_MEM_ACCESS) +=3D mem_access.o
-> >>>>> +obj-$(CONFIG_VM_EVENT) +=3D mem_access.o
-> >>>>
-> >>>> ... changes like this one look somewhat odd to me.
-> >>>>
-> >>>>> --- a/xen/common/Kconfig
-> >>>>> +++ b/xen/common/Kconfig
-> >>>>> @@ -92,7 +92,7 @@ config HAS_VMAP
-> >>>>>  config MEM_ACCESS_ALWAYS_ON
-> >>>>>       bool
-> >>>>>
-> >>>>> -config MEM_ACCESS
-> >>>>> +config VM_EVENT
-> >>>>>       def_bool MEM_ACCESS_ALWAYS_ON
-> >>>>>       prompt "Memory Access and VM events" if !MEM_ACCESS_ALWAYS_ON
-> >>>>>       depends on HVM
-> >>>>
-> >>>> What about MEM_ACCESS_ALWAYS_ON (visible in patch context)? Shouldn'=
-t that
-> >>>> become VM_EVENT_ALWAYS_ON then, too?
-> >>>>
-> >>>> Further, what about MEM_PAGING and MEM_SHARING? Shouldn't those, at =
-least
-> >>>> documentation purposes, then also gain a dependency on VM_EVENT?
-> >>>
-> >>> MEM_PAGING, yes. MEM_SHARING, definitely not. MEM_SHARING is perfectl=
-y
-> >>> functional without vm_event.
-> >>
-> >> Is it? I see e.g.
-> >>
-> >>     if ( sharing_enomem )
-> >>     {
-> >> #ifdef CONFIG_MEM_SHARING
-> >>         if ( !vm_event_check_ring(currd->vm_event_share) )
-> >>         {
-> >>             gprintk(XENLOG_ERR, "Domain %pd attempt to unshare "
-> >>                     "gfn %lx, ENOMEM and no helper\n",
-> >>                     currd, gfn);
-> >>             /* Crash the domain */
-> >>             rc =3D 0;
-> >>         }
-> >> #endif
-> >>     }
-> >
-> > On x86 vm_event is always compiled in as per current setup. If we were
-> > to make that dependent on the now renamed config option this here
-> > should be converted to CONFIG_MEM_SHARING && CONFIG_VM_EVENT. The rest
-> > of the mem_sharing codebase does not require vm_event to function,
-> > this here is used only if there is a subscriber to the enomem
-> > corner-case. It isn't normally used.
->
-> I see.
->
-> >> in hvm_hap_nested_page_fault().
-> >>
-> >> Also - you responded only to a secondary remark here. What about the
-> >> more basic points further up?
-> >
-> > My recommendation to use CONFIG_VM_EVENT for the
-> > vm_event/mem_access/monitor subsystems strictly only applies to ARM
-> > where these three subsystems have a 1:1:1 dependency. On x86 the
-> > dependency between the three can be more complex, I would not change
-> > the x86 side of things unless we want to get the three subsystems
-> > their own kconfig options.
->
-> Then why did you ack the patch, which clearly extends things to x86 as
-> well? Iirc my suggestion was to indeed go with separate options (hence
-> why I think the Suggested-by: here is wrong; see context near the top).
+From: Maksym Planeta <maksym@exostellar.io>
 
-Because I'm fine with the level of impact this single renaming has on
-the x86 codebase. I just don't want to start renaming other x86
-specific config options or combining them into a single one because
-the interactions between the sharing/paging/access/monitor/vm_event is
-fairly tangled and would require a bit more careful consideration.
+[ Upstream commit 6d002348789bc16e9203e9818b7a3688787e3b29 ]
 
-Tamas
+Function xen_pin_page calls xen_pte_lock, which in turn grab page
+table lock (ptlock). When locking, xen_pte_lock expect mm->page_table_lock
+to be held before grabbing ptlock, but this does not happen when pinning
+is caused by xen_mm_pin_all.
+
+This commit addresses lockdep warning below, which shows up when
+suspending a Xen VM.
+
+[ 3680.658422] Freezing user space processes
+[ 3680.660156] Freezing user space processes completed (elapsed 0.001 seconds)
+[ 3680.660182] OOM killer disabled.
+[ 3680.660192] Freezing remaining freezable tasks
+[ 3680.661485] Freezing remaining freezable tasks completed (elapsed 0.001 seconds)
+[ 3680.685254]
+[ 3680.685265] ==================================
+[ 3680.685269] WARNING: Nested lock was not taken
+[ 3680.685274] 6.12.0+ #16 Tainted: G        W
+[ 3680.685279] ----------------------------------
+[ 3680.685283] migration/0/19 is trying to lock:
+[ 3680.685288] ffff88800bac33c0 (ptlock_ptr(ptdesc)#2){+.+.}-{3:3}, at: xen_pin_page+0x175/0x1d0
+[ 3680.685303]
+[ 3680.685303] but this task is not holding:
+[ 3680.685308] init_mm.page_table_lock
+[ 3680.685311]
+[ 3680.685311] stack backtrace:
+[ 3680.685316] CPU: 0 UID: 0 PID: 19 Comm: migration/0 Tainted: G        W          6.12.0+ #16
+[ 3680.685324] Tainted: [W]=WARN
+[ 3680.685328] Stopper: multi_cpu_stop+0x0/0x120 <- __stop_cpus.constprop.0+0x8c/0xd0
+[ 3680.685339] Call Trace:
+[ 3680.685344]  <TASK>
+[ 3680.685347]  dump_stack_lvl+0x77/0xb0
+[ 3680.685356]  __lock_acquire+0x917/0x2310
+[ 3680.685364]  lock_acquire+0xce/0x2c0
+[ 3680.685369]  ? xen_pin_page+0x175/0x1d0
+[ 3680.685373]  _raw_spin_lock_nest_lock+0x2f/0x70
+[ 3680.685381]  ? xen_pin_page+0x175/0x1d0
+[ 3680.685386]  xen_pin_page+0x175/0x1d0
+[ 3680.685390]  ? __pfx_xen_pin_page+0x10/0x10
+[ 3680.685394]  __xen_pgd_walk+0x233/0x2c0
+[ 3680.685401]  ? stop_one_cpu+0x91/0x100
+[ 3680.685405]  __xen_pgd_pin+0x5d/0x250
+[ 3680.685410]  xen_mm_pin_all+0x70/0xa0
+[ 3680.685415]  xen_pv_pre_suspend+0xf/0x280
+[ 3680.685420]  xen_suspend+0x57/0x1a0
+[ 3680.685428]  multi_cpu_stop+0x6b/0x120
+[ 3680.685432]  ? update_cpumasks_hier+0x7c/0xa60
+[ 3680.685439]  ? __pfx_multi_cpu_stop+0x10/0x10
+[ 3680.685443]  cpu_stopper_thread+0x8c/0x140
+[ 3680.685448]  ? smpboot_thread_fn+0x20/0x1f0
+[ 3680.685454]  ? __pfx_smpboot_thread_fn+0x10/0x10
+[ 3680.685458]  smpboot_thread_fn+0xed/0x1f0
+[ 3680.685462]  kthread+0xde/0x110
+[ 3680.685467]  ? __pfx_kthread+0x10/0x10
+[ 3680.685471]  ret_from_fork+0x2f/0x50
+[ 3680.685478]  ? __pfx_kthread+0x10/0x10
+[ 3680.685482]  ret_from_fork_asm+0x1a/0x30
+[ 3680.685489]  </TASK>
+[ 3680.685491]
+[ 3680.685491] other info that might help us debug this:
+[ 3680.685497] 1 lock held by migration/0/19:
+[ 3680.685500]  #0: ffffffff8284df38 (pgd_lock){+.+.}-{3:3}, at: xen_mm_pin_all+0x14/0xa0
+[ 3680.685512]
+[ 3680.685512] stack backtrace:
+[ 3680.685518] CPU: 0 UID: 0 PID: 19 Comm: migration/0 Tainted: G        W          6.12.0+ #16
+[ 3680.685528] Tainted: [W]=WARN
+[ 3680.685531] Stopper: multi_cpu_stop+0x0/0x120 <- __stop_cpus.constprop.0+0x8c/0xd0
+[ 3680.685538] Call Trace:
+[ 3680.685541]  <TASK>
+[ 3680.685544]  dump_stack_lvl+0x77/0xb0
+[ 3680.685549]  __lock_acquire+0x93c/0x2310
+[ 3680.685554]  lock_acquire+0xce/0x2c0
+[ 3680.685558]  ? xen_pin_page+0x175/0x1d0
+[ 3680.685562]  _raw_spin_lock_nest_lock+0x2f/0x70
+[ 3680.685568]  ? xen_pin_page+0x175/0x1d0
+[ 3680.685572]  xen_pin_page+0x175/0x1d0
+[ 3680.685578]  ? __pfx_xen_pin_page+0x10/0x10
+[ 3680.685582]  __xen_pgd_walk+0x233/0x2c0
+[ 3680.685588]  ? stop_one_cpu+0x91/0x100
+[ 3680.685592]  __xen_pgd_pin+0x5d/0x250
+[ 3680.685596]  xen_mm_pin_all+0x70/0xa0
+[ 3680.685600]  xen_pv_pre_suspend+0xf/0x280
+[ 3680.685607]  xen_suspend+0x57/0x1a0
+[ 3680.685611]  multi_cpu_stop+0x6b/0x120
+[ 3680.685615]  ? update_cpumasks_hier+0x7c/0xa60
+[ 3680.685620]  ? __pfx_multi_cpu_stop+0x10/0x10
+[ 3680.685625]  cpu_stopper_thread+0x8c/0x140
+[ 3680.685629]  ? smpboot_thread_fn+0x20/0x1f0
+[ 3680.685634]  ? __pfx_smpboot_thread_fn+0x10/0x10
+[ 3680.685638]  smpboot_thread_fn+0xed/0x1f0
+[ 3680.685642]  kthread+0xde/0x110
+[ 3680.685645]  ? __pfx_kthread+0x10/0x10
+[ 3680.685649]  ret_from_fork+0x2f/0x50
+[ 3680.685654]  ? __pfx_kthread+0x10/0x10
+[ 3680.685657]  ret_from_fork_asm+0x1a/0x30
+[ 3680.685662]  </TASK>
+[ 3680.685267] xen:grant_table: Grant tables using version 1 layout
+[ 3680.685921] OOM killer enabled.
+[ 3680.685934] Restarting tasks ... done.
+
+Signed-off-by: Maksym Planeta <maksym@exostellar.io>
+Reviewed-by: Juergen Gross <jgross@suse.com>
+Message-ID: <20241204103516.3309112-1-maksym@exostellar.io>
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/x86/xen/mmu_pv.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/x86/xen/mmu_pv.c b/arch/x86/xen/mmu_pv.c
+index 55a4996d0c04f..2c70cd35e72c5 100644
+--- a/arch/x86/xen/mmu_pv.c
++++ b/arch/x86/xen/mmu_pv.c
+@@ -781,6 +781,7 @@ void xen_mm_pin_all(void)
+ {
+ 	struct page *page;
+ 
++	spin_lock(&init_mm.page_table_lock);
+ 	spin_lock(&pgd_lock);
+ 
+ 	list_for_each_entry(page, &pgd_list, lru) {
+@@ -791,6 +792,7 @@ void xen_mm_pin_all(void)
+ 	}
+ 
+ 	spin_unlock(&pgd_lock);
++	spin_unlock(&init_mm.page_table_lock);
+ }
+ 
+ static void __init xen_mark_pinned(struct mm_struct *mm, struct page *page,
+@@ -887,6 +889,7 @@ void xen_mm_unpin_all(void)
+ {
+ 	struct page *page;
+ 
++	spin_lock(&init_mm.page_table_lock);
+ 	spin_lock(&pgd_lock);
+ 
+ 	list_for_each_entry(page, &pgd_list, lru) {
+@@ -898,6 +901,7 @@ void xen_mm_unpin_all(void)
+ 	}
+ 
+ 	spin_unlock(&pgd_lock);
++	spin_unlock(&init_mm.page_table_lock);
+ }
+ 
+ static void xen_enter_mmap(struct mm_struct *mm)
+-- 
+2.39.5
+
 
