@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 286D6A2897F
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Feb 2025 12:40:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.882183.1292367 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CB27A28988
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Feb 2025 12:41:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.882190.1292377 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfdls-0006Wd-It; Wed, 05 Feb 2025 11:40:44 +0000
+	id 1tfdma-0007Fo-Pn; Wed, 05 Feb 2025 11:41:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 882183.1292367; Wed, 05 Feb 2025 11:40:44 +0000
+Received: by outflank-mailman (output) from mailman id 882190.1292377; Wed, 05 Feb 2025 11:41:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfdls-0006VE-Fd; Wed, 05 Feb 2025 11:40:44 +0000
-Received: by outflank-mailman (input) for mailman id 882183;
- Wed, 05 Feb 2025 11:40:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tfdma-0007EL-My; Wed, 05 Feb 2025 11:41:28 +0000
+Received: by outflank-mailman (input) for mailman id 882190;
+ Wed, 05 Feb 2025 11:41:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IR4Y=U4=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1tfdlr-0006V6-C3
- for xen-devel@lists.xenproject.org; Wed, 05 Feb 2025 11:40:43 +0000
-Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
- [2607:f8b0:4864:20::235])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 06a797b1-e3b6-11ef-99a4-01e77a169b0f;
- Wed, 05 Feb 2025 12:40:41 +0100 (CET)
-Received: by mail-oi1-x235.google.com with SMTP id
- 5614622812f47-3ebb1652729so3707198b6e.3
- for <xen-devel@lists.xenproject.org>; Wed, 05 Feb 2025 03:40:41 -0800 (PST)
+ <SRS0=ANbf=U4=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tfdmY-0007EA-FZ
+ for xen-devel@lists.xenproject.org; Wed, 05 Feb 2025 11:41:26 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 214265da-e3b6-11ef-a0e7-8be0dac302b0;
+ Wed, 05 Feb 2025 12:41:25 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-ab6ed8a5a04so1115079866b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Feb 2025 03:41:25 -0800 (PST)
+Received: from [10.81.35.177] ([46.149.103.9])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab6e47a7de5sm1089335066b.35.2025.02.05.03.41.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 05 Feb 2025 03:41:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,130 +45,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 06a797b1-e3b6-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 214265da-e3b6-11ef-a0e7-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1738755640; x=1739360440; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0+CwoSfbhVL49OnFHvrIM1Z+kLGoqQwR2M25Xd6bTvw=;
-        b=gs0A7fafI3sYOuy4x0LRTtbzjEicvrxQFaqSr22fel3GP5qBNTETapUUuV762JuIT/
-         yivAjUUZxVq9PJ2rGY2HMAalamhvs8I2zhtbNOcuet+Mr9Wm8bZIJA4za+IE7yErRx6y
-         CXomnVvjP26XyHdmlNhd0Uv+q8qbx4QVoj9fw=
+        d=citrix.com; s=google; t=1738755685; x=1739360485; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=xlF4W3XoYrWSf/kRCkmDrRhe1mWxG7hqTuWID8pFR4o=;
+        b=k3VrgjDUOl1GjfmYcRrcT/0Fivn4DSat8M//qYwUTZGJCmdOFMglm+xpYi+RikT5r+
+         9QYjo9INhJawyxoeaU98dQvTfb4GswaohRIrCTxAgO+4+2Om1V3yXw4WYh77Niosskir
+         +Yf0JthctESrKe0gu5ELfihaf7ZOF12QXvzfs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738755640; x=1739360440;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=0+CwoSfbhVL49OnFHvrIM1Z+kLGoqQwR2M25Xd6bTvw=;
-        b=icCHTl+QGfqX4wTEhiIzqeybyd2+QZPxh+8gztotr+m44q0E3MbDdH6sDEdVlmbLjX
-         uxRfcOIPwib/IgjOMjds2rH7YF+SqeLDKceStegZ0O91RZWd52yBLQVF7GFkW1l58nz1
-         ihtoUEGMI6RkCeANN5RfxmtN4ZJdDkVJaLQ18TnLELtncvbA85PaaGPXuAtHCjKQM1vl
-         PvlJeFTTuj6y0UcQeL5zueVK8m0L0GBUU5xBlgDWAnvPzntUMI4nty8u0ocYmYzo3lQG
-         FrkuxrdbsG+VT3YDDpT2Kf0/WzDaW8UzoDi2tO8RYuOvtuDZLzSaAlT+PUb+Y3fpqirq
-         /+Qw==
-X-Forwarded-Encrypted: i=1; AJvYcCW5DhFmK5nrRSb9LQLIvKtIKc3YBKgxQI4jPRqAGLsIlw1zw/2ZqVaYD6PJqPwtPV43/uUjLvYKKEs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwiqKuhYDkSh/KjAfpfbXDuTf/uIWUf9xIKiEn4SyHAVaL1QAjC
-	jnlmzskQNG6nHOWRTGhfTrmoBMO+DHEDkQ893NsU1lOc+ALxIv9zG1CMBMjQJRCihvoEzW06KOX
-	IVol/E3pbqLjeMZJqlUs5VcOOeWW8R2iQG6Nv0l8nvdiBlmVx7Os=
-X-Gm-Gg: ASbGnctutSm0wcO9OuN3Y0WZ8LmzWnoxgz4vefLx0KV9dxwKpglFi5NUvl638+vnmc3
-	ER5hkSBPmuqar33/J9cDfPxPzD1/2qTKf8jPDJnqW5jywUPMFws6/kwwMHoXsE0HKTHUxOw==
-X-Google-Smtp-Source: AGHT+IFiqFWWAhnl3nT3usnRyvB2DHW1J5/FcRs3ybZJWnxu+rrqybBLDLef+3SnOmrfX0SZQa3bZs/ok5DHLu+NB74=
-X-Received: by 2002:a05:6870:14cd:b0:29e:247b:4f77 with SMTP id
- 586e51a60fabf-2b804fa4050mr1310611fac.20.1738755640068; Wed, 05 Feb 2025
- 03:40:40 -0800 (PST)
+        d=1e100.net; s=20230601; t=1738755685; x=1739360485;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=xlF4W3XoYrWSf/kRCkmDrRhe1mWxG7hqTuWID8pFR4o=;
+        b=kQZ02tMxw8fhgnNCcwB5OzgpDRuUNXsAOlHtfuooR8V8YcXK2oeeCuUPpQUaIbHXX5
+         vkNzaUOitDitDeJOMV5l3bebLJP3Ch5A3YAbwIUaoWzbjt9g0E97QYKxzQzKDg1U5f0I
+         cUawuC415vZ4GEZt5J//MRQk5mVCshwZRJ2Gqafo5NyhEgcXIiNfRyHof5PZNTTl9+4l
+         58ZfTwkGGlHqhWE5hTijkqnYq+3t4aleASuNccOiy319U5p+fP33UYJZRTVHXLDlQ21U
+         SpjjR8Azg+vdJBIjGvfK3HqZGcYoyaKhmLJSn9v0f1h2CBcmdAvsUmvYDxmtcHw8y3VN
+         bnwA==
+X-Forwarded-Encrypted: i=1; AJvYcCWMdEe7IovuqVz/HMmdneZPZPdwnHo6VQe/XCZcetfb/iX+BUP6H7/hQUZJbpVuPLO3khnJNjUQ0as=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyjdQ/XcRxx8a3pXV2FWw5OxQ1mBxbAVI/7P0zZtLvSOnWV79aB
+	bd1t1jF87sqI3tjuDNvxVtzuWo8S1Vx7e691tNJpECnk08toC2vIarB6tVpIWuQ=
+X-Gm-Gg: ASbGncvTKBVdxeCp396zGHZXTJu4CpzZmPmLehXbje40IvU3yOc+2kqcjJ8LJeZY1d7
+	/G8qWXJR9BiU5nzSWDyoKxO++UVjvkJgu2pxFpIxxFcoPZE3uftipGIdEZGfwZYIW2NiPUc5BrT
+	oMv2g5sAs+z4zpRb0xKauZ/KyzO/Mdx1J+ihr66wYW1KLdH6bkvHdAGPq6IyIEZQwpBNTJ9smvx
+	QOOXx5tLVbDN6FfZyPExyBacnPOKBIPsoRn6th+uSTFtyeWp+g/MY2when1sEYhnfMZq8Y73t9U
+	U/sbId5mWjE3MN9YkW3BLRi/
+X-Google-Smtp-Source: AGHT+IGyyeAqC49T09GxEsM+42n43RJ5s2fwXDPrHCHuZikSNgPzcQw+33wDdB5u+t1Yz+id5DU2lA==
+X-Received: by 2002:a17:907:94d5:b0:ab6:dd6c:e30c with SMTP id a640c23a62f3a-ab75e310520mr257819966b.45.1738755684920;
+        Wed, 05 Feb 2025 03:41:24 -0800 (PST)
+Message-ID: <5c6d80bf-f090-4812-9620-5051e8ebb671@citrix.com>
+Date: Wed, 5 Feb 2025 11:41:22 +0000
 MIME-Version: 1.0
-References: <20250122101407.52282-1-frediano.ziglio@cloud.com>
- <9d7b6706-7415-43d5-a66e-650eb67437fa@suse.com> <5c9ab6a7-2095-4f7c-8e5b-1942ad54420d@gmail.com>
-In-Reply-To: <5c9ab6a7-2095-4f7c-8e5b-1942ad54420d@gmail.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Wed, 5 Feb 2025 11:40:29 +0000
-X-Gm-Features: AWEUYZlxxTNrC1APXSby2CtNWZFXoHwRPrYixCcr0S3KFM-McaonywhunuZ5k90
-Message-ID: <CACHz=Zjru+BYnhFz97W1LGpTQNej+SM6-jZ-rqGE=D6x0rt5+A@mail.gmail.com>
-Subject: Re: [PATCH for-4.20 v5] Avoid crash calling PrintErrMesg from efi_multiboot2
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Jan Beulich <jbeulich@suse.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-	xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/3] x86/xen: some xen_hypercall_hvm() fixes
+To: Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org,
+ x86@kernel.org
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org
+References: <20250205110651.26280-1-jgross@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20250205110651.26280-1-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Feb 5, 2025 at 10:24=E2=80=AFAM Oleksii Kurochko
-<oleksii.kurochko@gmail.com> wrote:
+On 05/02/2025 11:06 am, Juergen Gross wrote:
+> 3 fixes of the xen_hypercall_hvm() function, with the last one being
+> probably more a cleanup.
 >
+> Juergen Gross (3):
+>   x86/xen: fix xen_hypercall_hvm() to not clobber %rbx
+>   x86/xen: add FRAME_END to xen_hypercall_hvm()
+>   x86/xen: remove unneeded dummy push from xen_hypercall_hvm()
 >
-> On 2/4/25 2:07 PM, Jan Beulich wrote:
+>  arch/x86/xen/xen-head.S | 11 +++--------
+>  1 file changed, 3 insertions(+), 8 deletions(-)
 >
-> On 22.01.2025 11:14, Frediano Ziglio wrote:
->
-> Although code is compiled with -fpic option data is not position
-> independent. This causes data pointer to become invalid if
-> code is not relocated properly which is what happens for
-> efi_multiboot2 which is called by multiboot entry code.
->
-> Code tested adding
->    PrintErrMesg(L"Test message", EFI_BUFFER_TOO_SMALL);
-> in efi_multiboot2 before calling efi_arch_edd (this function
-> can potentially call PrintErrMesg).
->
-> Before the patch (XenServer installation on Qemu, xen replaced
-> with vanilla xen.gz):
->   Booting `XenServer (Serial)'Booting `XenServer (Serial)'
->   Test message: !!!! X64 Exception Type - 0E(#PF - Page-Fault)  CPU Apic =
-ID - 00000000 !!!!
->   ExceptionData - 0000000000000000  I:0 R:0 U:0 W:0 P:0 PK:0 SS:0 SGX:0
->   RIP  - 000000007EE21E9A, CS  - 0000000000000038, RFLAGS - 0000000000210=
-246
->   RAX  - 000000007FF0C1B5, RCX - 0000000000000050, RDX - 0000000000000010
->   RBX  - 0000000000000000, RSP - 000000007FF0C180, RBP - 000000007FF0C210
->   RSI  - FFFF82D040467CE8, RDI - 0000000000000000
->   R8   - 000000007FF0C1C8, R9  - 000000007FF0C1C0, R10 - 0000000000000000
->   R11  - 0000000000001020, R12 - FFFF82D040467CE8, R13 - 000000007FF0C1B8
->   R14  - 000000007EA33328, R15 - 000000007EA332D8
->   DS   - 0000000000000030, ES  - 0000000000000030, FS  - 0000000000000030
->   GS   - 0000000000000030, SS  - 0000000000000030
->   CR0  - 0000000080010033, CR2 - FFFF82D040467CE8, CR3 - 000000007FC01000
->   CR4  - 0000000000000668, CR8 - 0000000000000000
->   DR0  - 0000000000000000, DR1 - 0000000000000000, DR2 - 0000000000000000
->   DR3  - 0000000000000000, DR6 - 00000000FFFF0FF0, DR7 - 0000000000000400
->   GDTR - 000000007F9DB000 0000000000000047, LDTR - 0000000000000000
->   IDTR - 000000007F48E018 0000000000000FFF,   TR - 0000000000000000
->   FXSAVE_STATE - 000000007FF0BDE0
->   !!!! Find image based on IP(0x7EE21E9A) (No PDB)  (ImageBase=3D00000000=
-7EE20000, EntryPoint=3D000000007EE23935) !!!!
->
-> After the patch:
->   Booting `XenServer (Serial)'Booting `XenServer (Serial)'
->   Test message: Buffer too small
->   BdsDxe: loading Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4AF=
-6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
->   BdsDxe: starting Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4A=
-F6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
->
-> This partially rollback commit 00d5d5ce23e6.
->
-> Fixes: 9180f5365524 ("x86: add multiboot2 protocol support for EFI platfo=
-rms")
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
->
-> I expect we want this in before the release. Oleksii? Maintainers?
->
-> Interesting it is a fix for a ~3 years old bug ( if to look at when 9180f=
-5365524 is introduced ) so it seems it happens not often.
 
-I would say it's quite normal for booting messages, usually we expect
-them to work and not get errors, we are in a pretty "stable" state.
-The problem happens when there are some strange combinations of
-firmware bugs or behavior resulting in errors. There was a bug some
-time ago during the boot phase where a message would be helpful
-instead of a crash, but it exercised a different error path.
-
-> Anyway, I agree that we want this fix before the release:
-> R-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->
-> Thanks.
->
-> ~ Oleksii
->
-> Jan
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
