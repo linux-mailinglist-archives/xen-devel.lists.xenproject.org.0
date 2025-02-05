@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58D08A28718
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Feb 2025 10:55:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.882045.1292216 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F164A28736
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Feb 2025 10:59:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.882053.1292227 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfc7G-0008RO-0v; Wed, 05 Feb 2025 09:54:42 +0000
+	id 1tfcBE-0000b1-Gx; Wed, 05 Feb 2025 09:58:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 882045.1292216; Wed, 05 Feb 2025 09:54:41 +0000
+Received: by outflank-mailman (output) from mailman id 882053.1292227; Wed, 05 Feb 2025 09:58:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfc7F-0008Pf-Tr; Wed, 05 Feb 2025 09:54:41 +0000
-Received: by outflank-mailman (input) for mailman id 882045;
- Wed, 05 Feb 2025 09:54:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tfcBE-0000YU-E9; Wed, 05 Feb 2025 09:58:48 +0000
+Received: by outflank-mailman (input) for mailman id 882053;
+ Wed, 05 Feb 2025 09:58:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1Kcl=U4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tfc7E-0008PZ-JZ
- for xen-devel@lists.xenproject.org; Wed, 05 Feb 2025 09:54:40 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3703adfd-e3a7-11ef-a0e7-8be0dac302b0;
- Wed, 05 Feb 2025 10:54:39 +0100 (CET)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-ab74ecfdae4so221732366b.2
- for <xen-devel@lists.xenproject.org>; Wed, 05 Feb 2025 01:54:39 -0800 (PST)
+ id 1tfcBC-0000YK-7g
+ for xen-devel@lists.xenproject.org; Wed, 05 Feb 2025 09:58:46 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c8ce4a50-e3a7-11ef-99a4-01e77a169b0f;
+ Wed, 05 Feb 2025 10:58:44 +0100 (CET)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-5dce3763140so162082a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Feb 2025 01:58:44 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab6e47f1dcasm1073058966b.79.2025.02.05.01.54.37
+ 4fb4d7f45d1cf-5dc724c9cffsm10990609a12.74.2025.02.05.01.58.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Feb 2025 01:54:38 -0800 (PST)
+ Wed, 05 Feb 2025 01:58:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3703adfd-e3a7-11ef-a0e7-8be0dac302b0
+X-Inumbo-ID: c8ce4a50-e3a7-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738749279; x=1739354079; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1738749523; x=1739354323; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=26+FUsbPIooMUfvZN5cQVmkmpv5qmC1JGNlRzoWOE7s=;
-        b=Ss32KfA3xzKlaKYtAvyUofcKIrULR74sCiuclNK/DFrPB1dQyL8vLBUz/HJ6aIDxqd
-         jUZ/g8HCzuld91kQ+p9sJKSfTkya90Djvk0/tDemYGscKMnUAJxnqTCVy8RrZl2xieWT
-         bzABh2C/038QGj6G8OTqHR/UafObJpxSDMt/XDG2DdzdOgv3F0ymDjQhJWF5v2xyotjG
-         pAiQLsbR97G1PjxvOQw9+j8bTPeIeRkdkWZgmeeqjqQxluJt6RTu2jMtCsvDpOb2CiQo
-         9E6dudp/w4xoiFNkzboiyXQUCAFJAWZZ0ny6UTgNlY3/Zefxcw0BRUKQFBTdZ9sEPPlq
-         9otg==
+        bh=8LnZCcV0mezdMEilxNWYX5DP/LBcOYWwA67reiYfnWU=;
+        b=VSTUaknTNUwgrXQ6/uFqsgP4niMwkiTDNjL7gianf8twwq36yhfbReS9I3A+3GmeUi
+         KTeXTNiu+0jQWb1ZWQ8W2QvffmfZrdEI4C8EITsxIo1mPRzv/uWkHL+wRc0XlZOBFrDg
+         Z8jPB+sc4rktK1dHNpmdtlgYEau/DMknAJGAiQjmtbEMNoT8tnMjMzZKdPEXpKyTKYAT
+         rDuj5C6nI+HyH0rqLsoMMBMzLioAicOMnpCNGpHuqipTbPHqbwX4tR1wtCebQTQROybf
+         jlFiM7ospQ9GapTYo661SJHcfVvL1jd83YAdcIFfL6S/M5t/b5na9mSXm402+V/t3F2M
+         0djA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738749279; x=1739354079;
+        d=1e100.net; s=20230601; t=1738749523; x=1739354323;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=26+FUsbPIooMUfvZN5cQVmkmpv5qmC1JGNlRzoWOE7s=;
-        b=RimFYhcFpvvhcyEzE4C5nzPlCS2t0G78Fo/BlwE9yXN4mp8Y0J8sU5YvRj5bjq5fp1
-         fIMut2h46CdgtCmWmJtAsJQOgKKQpwNU6g1/Y8zZIfVdvrsTMrY9KC5z7nVGcszPT9G5
-         6p9Cs3/QsqRoU1SNTo/XwPTKGnNtYtl7M8cmVL7W4YgsWj6pbPhwwCYfY2ipiIWdbRF7
-         KeEI7mpf+DyMyvoCfJ1pYvU0eyhgoumJF5yaIqYVdY92xpIFmN0aIzreBbbOYcTFOULM
-         jjr/vjTQWEoJpDPy+FkInAg2E5SFu2XTfXx6L1VkmQJQSxBrjeL5IHkcgYKe2rvkQt6Z
-         Lkeg==
-X-Forwarded-Encrypted: i=1; AJvYcCUYDnJJevrwpLfKla1mg4i4on1G0nX0zEx4U9idRkNGQaTwGxCp12SN0A3Joyg7Qd6Ial3MFO2NB0M=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyj+e7qDmONgz2JBKmHUMVy5aZ5g9qKbCe+aZpxCGXXeozI9Fdc
-	PNc3nAqj7kuDoM4ty1SEc3dD+jIRsv+i0ZdSvrC0puUAans/9ypR68SqyjfXUQ==
-X-Gm-Gg: ASbGncsrMbq+one+ek4EKP3UuAdsbPjnEsjvzzdw2doD4n4JwG4RzDAc8Z08gboanSc
-	QweMgwB78jhO7RrDU0wxeAqiAYlqEa9OS5/cfVZsBRvHEgKUm+tcAd8gJGBC3DPb7skXp01TqmF
-	yPrvVyON6L0c63wBMW/+ebaS3vomQXwSPcid2wJT2apP9ebUmFiRC5KtseQAKip043Kj0vDUMfW
-	2Qe1f/68bLwrebMr+cH1LYhsKRSpolLSQMLQ3z+Gz9JbhJ6zo/nqNHNFa4ouArmusrUyw8/4+zz
-	d5ANQ4TXVAzu2uDngB6ivyf3QeA2rHu4LpQELbJW4BD6K/JLcS3gzmQlD/sTPe+9FOk5vUKaR2o
-	O
-X-Google-Smtp-Source: AGHT+IELVJBoh9ZdPEyiDWkaN+/h9BP6aE6Q9sAb3i9RWqC0vw+yNq5Yo+nUVwPqE+xIoZ2Gj1yDIA==
-X-Received: by 2002:a17:906:f59c:b0:ab6:fee1:60e0 with SMTP id a640c23a62f3a-ab75e0cde78mr234595366b.0.1738749278760;
-        Wed, 05 Feb 2025 01:54:38 -0800 (PST)
-Message-ID: <0b094f98-401b-4af6-be41-6cfe1bd91560@suse.com>
-Date: Wed, 5 Feb 2025 10:54:37 +0100
+        bh=8LnZCcV0mezdMEilxNWYX5DP/LBcOYWwA67reiYfnWU=;
+        b=qjiBtI2FzgITZOZ5zx2kCX2IuBZy8cHZKoBJVCy6y4i7ve+ZwM7vhyqp1I8vGOQmeE
+         BRmBETMshWl0XCiAMGgCG2/GbapSFyCGZLMXKMOjOw8i6CkUCkVMQqF84u/163Wdyt3r
+         ctx8nc08yiEugDck3UYXTdaHj802voDSNOrqO+sTzxPjLGUTmaLmBXsNOUsIXm4uQaUh
+         GxhTCQWsXFCydcyALle8fZYpb/iW/A5fgCEm9ofKKx/hMG06rTYyzctfOgL0JWqTgjop
+         J9TK5HFro1KwEck4xD/gamA1UY6VhZB6bASswbjR3cZ4dBF7XZNBWHezONx2qcLxh0Ap
+         fzsw==
+X-Forwarded-Encrypted: i=1; AJvYcCVpjUL47U3tlaFyK2Vo3JNLoF/DdHIX5lopDQNctLr6dZ3cuEe1AYodk0AeRdI0BabjTYkTmEaVsSQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxghiuyWAg48YDIlvueP1SW7OQaGIRSRBNxVbaom9aan8duI6KH
+	EP6vsSqcDLogxRB5zDbPT3hqAig5SrmPCgZSJkqeDN1YW+369Vnas0nl9K8Lag==
+X-Gm-Gg: ASbGncu28Ohho/QwEBD/7i+4bJeNqnTVw3VmRrGdAZ7BWIL2C34bf9r5Df/6gQkSTbx
+	NMf2pgY0KQFnTDGn25/5XrfjZsy9PKr7tdZZjPR2AaUAzeBUO2rfcfMFM9+Rc3quzeqNYEz6phk
+	boZoR5fCPmIa2ODM7LLYuYRDxFxeVo2lLejb7Bib83FZfURUDJ/ukTb4RBP9QKnXLyvv0oT3eE7
+	W5uy3B2NoTj8e/xMhhkhFc62BHYZ3dkJuNcGgYIyOJZnbk4a8V8iZCaH21PJx8+xNtpUdZuzHVp
+	009sSX+uGDQr8QzLzYvEw6IKgbP0u0W6Mlur6/gaZTHh1wZbx5iw4hqKyVPUptEqpWtoqI/MU8W
+	P
+X-Google-Smtp-Source: AGHT+IHzFpZ4pNKnEU6ySaO3b3sygcRkjlrCKCSJITKJG4qL69WQR1srIz69XY3uFss3MsCMuXT7sQ==
+X-Received: by 2002:a05:6402:1d4b:b0:5d2:8f70:75f6 with SMTP id 4fb4d7f45d1cf-5dcdb776f63mr2367176a12.30.1738749523513;
+        Wed, 05 Feb 2025 01:58:43 -0800 (PST)
+Message-ID: <bce9e718-36bd-4bb6-9a9c-97115f453c1a@suse.com>
+Date: Wed, 5 Feb 2025 10:58:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/xen: fix xen_hypercall_hvm() to not clobber %rbx
-To: Juergen Gross <jgross@suse.com>
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org, x86@kernel.org
-References: <20250205091056.17796-1-jgross@suse.com>
+Subject: Re: [PATCH v6] vpci: Add resizable bar support
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, "Huang, Ray"
+ <Ray.Huang@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20250123035003.3797022-1-Jiqian.Chen@amd.com>
+ <2f34ba33-070e-4c02-a7e5-71451553a23e@suse.com>
+ <Z5ebGImjSz-55Nkj@macbook.local>
+ <9a4ed1f8-0cbf-4df5-804e-78cc3ee1d777@suse.com>
+ <Z5ehh9IK3W8fLXIl@macbook.local>
+ <PH7PR12MB5854E7408E3028689450E68DE7F72@PH7PR12MB5854.namprd12.prod.outlook.com>
+ <Z6Mn2pWdp6aquAmY@macbook.local>
+ <PH7PR12MB585419F320DC4EA364EC79ECE7F72@PH7PR12MB5854.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,41 +127,137 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250205091056.17796-1-jgross@suse.com>
+In-Reply-To: <PH7PR12MB585419F320DC4EA364EC79ECE7F72@PH7PR12MB5854.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 05.02.2025 10:10, Juergen Gross wrote:
-> xen_hypercall_hvm(), which is used when running as a Xen PVH guest at
-> most only once during early boot, is clobbering %rbx. Depending on
-> whether the caller relies on %rbx to be preserved across the call or
-> not, this clobbering might result in an early crash of the system.
+On 05.02.2025 10:12, Chen, Jiqian wrote:
+> On 2025/2/5 16:56, Roger Pau Monné wrote:
+>> On Wed, Feb 05, 2025 at 03:42:30AM +0000, Chen, Jiqian wrote:
+>>> On 2025/1/27 23:08, Roger Pau Monné wrote:
+>>>> On Mon, Jan 27, 2025 at 03:52:31PM +0100, Jan Beulich wrote:
+>>>>> On 27.01.2025 15:41, Roger Pau Monné wrote:
+>>>>>> On Mon, Jan 27, 2025 at 03:20:40PM +0100, Jan Beulich wrote:
+>>>>>>> On 23.01.2025 04:50, Jiqian Chen wrote:
+>>>>>>>> v5->v6 changes:
+>>>>>>>> * Changed "1UL" to "1ULL" in PCI_REBAR_CTRL_SIZE idefinition for 32 bit architecture.
+>>>>>>>> * In rebar_ctrl_write used "bar - pdev->vpci->header.bars" to get index instead of reading
+>>>>>>>>   from register.
+>>>>>>>> * Added the index of BAR to error messages.
+>>>>>>>> * Changed to "continue" instead of "return an error" when vpci_add_register failed.
+>>>>>>>
+>>>>>>> I'm not convinced this was a good change to make. While ...
+>>>>>>>
+>>>>>>>> +static int cf_check init_rebar(struct pci_dev *pdev)
+>>>>>>>> +{
+>>>>>>>> +    uint32_t ctrl;
+>>>>>>>> +    unsigned int nbars;
+>>>>>>>> +    unsigned int rebar_offset = pci_find_ext_capability(pdev->sbdf,
+>>>>>>>> +                                                        PCI_EXT_CAP_ID_REBAR);
+>>>>>>>> +
+>>>>>>>> +    if ( !rebar_offset )
+>>>>>>>> +        return 0;
+>>>>>>>> +
+>>>>>>>> +    if ( !is_hardware_domain(pdev->domain) )
+>>>>>>>> +    {
+>>>>>>>> +        printk(XENLOG_ERR "%pp: resizable BARs unsupported for unpriv %pd\n",
+>>>>>>>> +               &pdev->sbdf, pdev->domain);
+>>>>>>>> +        return -EOPNOTSUPP;
+>>>>>>>> +    }
+>>>>>>>> +
+>>>>>>>> +    ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL(0));
+>>>>>>>> +    nbars = MASK_EXTR(ctrl, PCI_REBAR_CTRL_NBAR_MASK);
+>>>>>>>> +    for ( unsigned int i = 0; i < nbars; i++ )
+>>>>>>>> +    {
+>>>>>>>> +        int rc;
+>>>>>>>> +        struct vpci_bar *bar;
+>>>>>>>> +        unsigned int index;
+>>>>>>>> +
+>>>>>>>> +        ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL(i));
+>>>>>>>> +        index = ctrl & PCI_REBAR_CTRL_BAR_IDX;
+>>>>>>>> +        if ( index >= PCI_HEADER_NORMAL_NR_BARS )
+>>>>>>>> +        {
+>>>>>>>> +            printk(XENLOG_ERR "%pd %pp: too big BAR number %u in REBAR_CTRL\n",
+>>>>>>>> +                   pdev->domain, &pdev->sbdf, index);
+>>>>>>>> +            continue;
+>>>>>>>> +        }
+>>>>>>>> +
+>>>>>>>> +        bar = &pdev->vpci->header.bars[index];
+>>>>>>>> +        if ( bar->type != VPCI_BAR_MEM64_LO && bar->type != VPCI_BAR_MEM32 )
+>>>>>>>> +        {
+>>>>>>>> +            printk(XENLOG_ERR "%pd %pp: BAR%u is not in memory space\n",
+>>>>>>>> +                   pdev->domain, &pdev->sbdf, index);
+>>>>>>>> +            continue;
+>>>>>>>> +        }
+>>>>>>>
+>>>>>>> ... for these two cases we can permit Dom0 direct access because the BAR
+>>>>>>> isn't going to work anyway (as far as we can tell), ...
+>>>>>>>
+>>>>>>>> +        rc = vpci_add_register(pdev->vpci, vpci_hw_read32vpci_hw_read32, vpci_hw_write32,
+>>>>>>>> +                               rebar_offset + PCI_REBAR_CAP(i), 4, NULL);
+>>>>>>>> +        if ( rc )
+>>>>>>>> +        {
+>>>>>>>> +            /*
+>>>>>>>> +             * TODO: for failed pathes, need to hide ReBar capability
+>>>>>>>> +             * from hardware domain instead of returning an error.
+>>>>>>>> +             */
+>>>>>>>> +            printk(XENLOG_ERR "%pd %pp: BAR%u fail to add reg of REBAR_CAP rc=%d\n",
+>>>>>>>> +                   pdev->domain, &pdev->sbdf, index, rc);
+>>>>>>>> +            continue;
+>>>>>>>> +        }
+>>>>>>>> +
+>>>>>>>> +        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, rebar_ctrl_write,
+>>>>>>>> +                               rebar_offset + PCI_REBAR_CTRL(i), 4, bar);
+>>>>>>>> +        if ( rc )
+>>>>>>>> +        {
+>>>>>>>> +            printk(XENLOG_ERR "%pd %pp: BAR%u fail to add reg of REBAR_CTRL rc=%d\n",
+>>>>>>>> +                   pdev->domain, &pdev->sbdf, index, rc);
+>>>>>>>> +            continue;
+>>>>>>>> +        }
+>>>>>>>
+>>>>>>> ... in these two cases we had an issue internally, and would hence wrongly
+>>>>>>> allow Dom0 direct access (and in case it's the 2nd one that failed, in fact
+>>>>>>> only partially direct access, with who knows what resulting inconsistencies).
+>>>>>>>
+>>>>>>> Only with this particular change undone:
+>>>>>> R> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>>>>>>>
+>>>>>>> Otherwise you and Roger (who needs to at least ack the change anyway) will
+>>>>>>> need to sort that out, with me merely watching.
+>>>>>>
+>>>>>> Ideally errors here should be dealt with by masking the capability.
+>>>>>> However Xen doesn't yet have that support.  The usage of continue is
+>>>>>> to merely attempt to keep any possible setup hooks working (header,
+>>>>>> MSI, MSI-X). Returning failure from init_rebar() will cause all
+>>>>>> vPCI hooks to be removed, and thus the hardware domain to have
+>>>>>> unmediated access to the device, which is likely worse than just
+>>>>>> continuing here.
+>>>>>
+>>>>> Hmm, true. Maybe with the exception of the case where the first reg
+>>>>> registration works, but the 2nd fails. Since CTRL is writable but
+>>>>> CAP is r/o (and data there is simply being handed through) I wonder
+>>>>> whether we need to intercept CAP at all, and if we do, whether we
+>>>>> wouldn't better try to register CTRL first.
+>>>>
+>>>> Indeed, Jiqian is that a leftover from a previous version when writes
+>>>> to CAP where ignored for being a read-only register?
+>>> Sorry to reply late, I just came back from an annual leave.
+>>> Did you mean: why I added handler vpci_hw_write32 for CAP?
+>>> If so, this is a change since V2, that you suggested to add it because there is no write limitation for dom0.
+>>
+>> Indeed, if there's no write limitation, you can just drop the addition
+>> of the traps, as the hardware domain by default gets read and write
+>> access to all PCI config space.  IOW: there's no need for a
+>> vpci_add_register() call for PCI_REBAR_CAP if the handlers are just
+>> vpci_hw_{read,write}32().
+> OK, I think so.
 > 
-> This can be avoided by not modifying %rbx in xen_hypercall_hvm().
-> 
-> Fixes: b4845bb63838 ("x86/xen: add central hypercall functions")
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
->  arch/x86/xen/xen-head.S | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/arch/x86/xen/xen-head.S b/arch/x86/xen/xen-head.S
-> index 9252652afe59..4378b817ed32 100644
-> --- a/arch/x86/xen/xen-head.S
-> +++ b/arch/x86/xen/xen-head.S
-> @@ -117,8 +117,7 @@ SYM_FUNC_START(xen_hypercall_hvm)
->  	pop %ebx
->  	pop %eax
->  #else
-> -	lea xen_hypercall_amd(%rip), %rbx
-> -	cmp %rax, %rbx
+> Hi Jan, can this change meet your opinion?
+> Not to add register for CAP, and if fail to add register for CTRL, then "continue"
 
-There's no memory access here, but ...
-
-> +	cmp xen_hypercall_amd(%rip), %rax
-
-... you now read from memory here. That can't be right. Afaict the original
-use of LEA needs to stay, just with a different scratch register.
+Well, Roger as the maintainer has indicated to go that route. That's okay
+with me. My only request then is to add a comment there, summarizing what
+he said earlier on.
 
 Jan
 
