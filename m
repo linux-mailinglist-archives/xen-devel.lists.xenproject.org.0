@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16FA1A293F2
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Feb 2025 16:18:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.882227.1292396 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF6B9A296D8
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Feb 2025 17:56:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.882246.1292411 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfh9n-00074W-Q3; Wed, 05 Feb 2025 15:17:39 +0000
+	id 1tfigm-0002Gb-Ky; Wed, 05 Feb 2025 16:55:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 882227.1292396; Wed, 05 Feb 2025 15:17:39 +0000
+Received: by outflank-mailman (output) from mailman id 882246.1292411; Wed, 05 Feb 2025 16:55:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfh9n-00072P-NV; Wed, 05 Feb 2025 15:17:39 +0000
-Received: by outflank-mailman (input) for mailman id 882227;
- Wed, 05 Feb 2025 15:17:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tfigm-0002Ek-IO; Wed, 05 Feb 2025 16:55:48 +0000
+Received: by outflank-mailman (input) for mailman id 882246;
+ Wed, 05 Feb 2025 16:55:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0+fK=U4=kernel.org=helgaas@srs-se1.protection.inumbo.net>)
- id 1tfh9m-00072J-5I
- for xen-devel@lists.xenproject.org; Wed, 05 Feb 2025 15:17:38 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 536e1238-e3d4-11ef-a0e7-8be0dac302b0;
- Wed, 05 Feb 2025 16:17:35 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id C725A5C484A;
- Wed,  5 Feb 2025 15:16:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25130C4CED6;
- Wed,  5 Feb 2025 15:17:33 +0000 (UTC)
+ <SRS0=jnKU=U4=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1tfigl-0002Ec-4B
+ for xen-devel@lists.xenproject.org; Wed, 05 Feb 2025 16:55:47 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0a50fb6f-e3e2-11ef-99a4-01e77a169b0f;
+ Wed, 05 Feb 2025 17:55:44 +0100 (CET)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-5dce3c28889so77635a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Feb 2025 08:55:44 -0800 (PST)
+Received: from [192.168.201.60] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab6e4a2fa09sm1134190866b.140.2025.02.05.08.55.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 05 Feb 2025 08:55:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,255 +45,405 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 536e1238-e3d4-11ef-a0e7-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1738768653;
-	bh=AGMSV6XJS5wPbIAzqbe1aAfwBLkAaQyYlHq8Vt9ZUqM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=K9RZ0k0nHN5W+tFxUtm47PGtEuWd+DqjXl0HUgZ78M00U3dU4Dq4fJJL+Qi7To9cg
-	 +VTY2NxkBsM7QxxkpxyEQZl0N2Cb08NGwPDGzoM01iqUSNmuMv+1PfjYctJ85zp/5k
-	 w0evjjBkVL9xHRq+35wzGWFSlIz/2M5420mqQvzin8bGa1qqyygDP2y/I1AbYtVV+Y
-	 dt+lmOxnlPzxMkybdbjfFNys5delNHm7zMMbMpRZgdOMiQ3Ja6knJQh3XGbwwLTypZ
-	 /5drsY9+vKa61p0BlkS9SWOKLx0YU4KAchrwpCHlY/JAdDqgfwwmlEUNnA2aAfyLJw
-	 ujiXdYdyzruGg==
-Date: Wed, 5 Feb 2025 09:17:31 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
-	linux-pci@vger.kernel.org, Juergen Gross <jgross@suse.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>
-Subject: Re: [PATCH v2 3/3] pci/msi: remove pci_msi_ignore_mask
-Message-ID: <20250205151731.GA915292@bhelgaas>
+X-Inumbo-ID: 0a50fb6f-e3e2-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1738774544; x=1739379344; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GFHbuEltu41OFVqjfHFDXzekZVOA+xhYqgbHPPdipnc=;
+        b=DHVL4OiOkZC347s6NUr3bNHAdr4lHujo2Im6HBLu9TqHEox+cBy38UC1DEFCCZ+qZL
+         Wze5zgq8b3BtCIbJfhbPPBzE7wSDtCuPO0huFDOF1zrR8KesDg1znA3X83sRdkiqkHqS
+         jaD6fNnaJWAAoBfduniL5Rq07uoBCOX7H3ButmuGJw0mLpnscrr5pxWSvp52vJ4o4iQL
+         wBFewgXYSbIf1Tdq9u67gg3JFy1x2zqPIozBRDRWPZ599nz4oPEvF2fV3GEcRPpkYSBS
+         g/mipeZ8n3KMF/6YDJt9/DmEju+ZbkWm4kko7ANbarflXnuf+DFGk8AVSW/HLruW1HII
+         2V8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1738774544; x=1739379344;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=GFHbuEltu41OFVqjfHFDXzekZVOA+xhYqgbHPPdipnc=;
+        b=tOBRZl9ddBgi9lnZJpLmaF54YQ6VM3O8HQark+IxvVRQYhY6xxcpm67lu3F2t1Z8Ie
+         WTTyj4djrOu/uUR/DKXrNLgVdFylMKdUlICDymfmIsZnMWU5p5okBh/yPy6vLlOx/WKl
+         89nZi+5QB31/zeE15TZlGGJETkSPAybLZGdH/cEG51PBcAoFRAZrAa1s6Bkfq76asr2l
+         W7L6OeXUCChoRItiR0XJ9Vv1rdGjdkby2JQbIXvT2f7ULNb5OAmfIoprGg6905tsAMvL
+         CIZLjHGp0icvkDv8qVr+qDGe9EYwpXmHRXlKlYfeZ0tF5FdJuVgpnNrfSp5MrspOcmAH
+         wsww==
+X-Forwarded-Encrypted: i=1; AJvYcCXcS0x63E22Km+YVH0yzIs9M4hkJT2V9Kko6HTL9bwjS8GYAYyN4bG1H1rYFqAYbar8YeR5uCMPFBU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwZ/vS2cHRPPCA/gtC6dCzHJ9BE9VehHC7mH5PMKnKz2HCPSNqN
+	z2nAtnKj2If0QoFnHASzcSeKxb6YjSWRyCcd4sdYknKUpw5gV7DU
+X-Gm-Gg: ASbGncsWDvPte4Ge5IH/hAfnRfEK/m+gOabKFS2KJGxmZL4RcRrvnZRBSwit28LdQS3
+	+HuNxdx7rleZf+OQkioiq+0aJsppHB94UE4Ug35LVd8chLJReJg017rNdxjme7VJughcrW08H7N
+	HwKHgyMSQASEr8U90LqLE9wZUSTuw0Q9ycLLkvCI3XOMfoC+relXpGnH/2BlIsYerHnPGhwdk3z
+	C8T5T3raSGGPhoCCIZQyfMkrRxOp5ju0yWR//TnY9DfejMmWxq6c6b4qNQey1sXOjSmJaA33SjT
+	JOhC05SlrtC2Jcn4oC4uUThAyB0=
+X-Google-Smtp-Source: AGHT+IGl0MKVLcRvT5SaFYbg5psr4jH1CKqO55gThsQ2UQQJIjWtjD6TXX5DUpl28m5wi4zl7kswCw==
+X-Received: by 2002:a17:907:72cd:b0:aae:bd36:b198 with SMTP id a640c23a62f3a-ab75e321e23mr340370566b.47.1738774543844;
+        Wed, 05 Feb 2025 08:55:43 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------AbFcnfhXb2jTV4nSD2k7Gg08"
+Message-ID: <c0d9a023-566b-4559-b6e3-e04cf34c6206@gmail.com>
+Date: Wed, 5 Feb 2025 17:55:42 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 for 4.20? 1/3] xen/riscv: implement software page table
+ walking
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1738587493.git.oleksii.kurochko@gmail.com>
+ <a4f0b312351e5f6a9e57f50ebbc3bda8a72c18bb.1738587493.git.oleksii.kurochko@gmail.com>
+ <475fc7fc-87ab-493e-8bef-eddeaa64aa54@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <475fc7fc-87ab-493e-8bef-eddeaa64aa54@suse.com>
+
+This is a multi-part message in MIME format.
+--------------AbFcnfhXb2jTV4nSD2k7Gg08
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250114103315.51328-4-roger.pau@citrix.com>
 
-Please run git log --oneline and match the subject line capitalization
-style, i.e.,
 
-  PCI/MSI: Remove ...
+On 2/4/25 2:50 PM, Jan Beulich wrote:
+> On 03.02.2025 14:12, Oleksii Kurochko wrote:
+>> --- a/xen/arch/riscv/include/asm/mm.h
+>> +++ b/xen/arch/riscv/include/asm/mm.h
+>> @@ -156,6 +156,10 @@ static inline struct page_info *virt_to_page(const void *v)
+>>       return frametable_virt_start + PFN_DOWN(va - directmap_virt_start);
+>>   }
+>>   
+>> +#include <asm/page.h>
+> asm/page.h already includes asm/mm.h, so you're introducing a circular
+> dependency here (much of which the patch description is about, so it's
+> unclear why you didn't solve this another way). Afaict ...
+>
+>> +pte_t * pt_walk(vaddr_t va, unsigned int *pte_level);
+> ... it's pte_t that presents a problem here. Why not simply put the
+> declaration in asm/page.h (and drop all the secondary changes that
+> don't really belong in this patch anyway)?
 
-But it doesn't look like this actually *removes* the functionality, it
-just implements it differently so it can be applied more selectively.
+In the patch 2 it is used for implementing vmap_to_mfn():
 
-So maybe the subject should say something like "control use of MSI
-masking per IRQ domain, not globally"
+   static inline mfn_t vmap_to_mfn_(vaddr_t va)
+   {
+       pte_t *entry = pt_walk(va, NULL);
 
-On Tue, Jan 14, 2025 at 11:33:13AM +0100, Roger Pau Monne wrote:
-> Setting pci_msi_ignore_mask inhibits the toggling of the mask bit for both
-> MSI and MSI-X entries globally, regardless of the IRQ chip they are using.
-> Only Xen sets the pci_msi_ignore_mask when routing physical interrupts over
-> event channels, to prevent PCI code from attempting to toggle the maskbit,
-> as it's Xen that controls the bit.
-> 
-> However, the pci_msi_ignore_mask being global will affect devices that use
-> MSI interrupts but are not routing those interrupts over event channels
-> (not using the Xen pIRQ chip).  One example is devices behind a VMD PCI
-> bridge.  In that scenario the VMD bridge configures MSI(-X) using the
-> normal IRQ chip (the pIRQ one in the Xen case), and devices behind the
-> bridge configure the MSI entries using indexes into the VMD bridge MSI
-> table.  The VMD bridge then demultiplexes such interrupts and delivers to
-> the destination device(s).  Having pci_msi_ignore_mask set in that scenario
-> prevents (un)masking of MSI entries for devices behind the VMD bridge.
-> 
-> Move the signaling of no entry masking into the MSI domain flags, as that
-> allows setting it on a per-domain basis.  Set it for the Xen MSI domain
-> that uses the pIRQ chip, while leaving it unset for the rest of the
-> cases.
-> 
-> Remove pci_msi_ignore_mask at once, since it was only used by Xen code, and
-> with Xen dropping usage the variable is unneeded.
-> 
-> This fixes using devices behind a VMD bridge on Xen PV hardware domains.
-> 
-> Albeit Devices behind a VMD bridge are not known to Xen, that doesn't mean
-> Linux cannot use them.  By inhibiting the usage of
-> VMD_FEAT_CAN_BYPASS_MSI_REMAP and the removal of the pci_msi_ignore_mask
-> bodge devices behind a VMD bridge do work fine when use from a Linux Xen
-> hardware domain.  That's the whole point of the series.
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+       BUG_ON(!pte_is_mapping(*entry));
 
-Needs an ack from Thomas.
+       return mfn_from_pte(*entry);
+   }
 
-> ---
-> Changes since v1:
->  - Fix build.
->  - Expand commit message.
-> ---
->  arch/x86/pci/xen.c    |  8 ++------
->  drivers/pci/msi/msi.c | 37 +++++++++++++++++++++----------------
->  include/linux/msi.h   |  3 ++-
->  kernel/irq/msi.c      |  2 +-
->  4 files changed, 26 insertions(+), 24 deletions(-)
-> 
-> diff --git a/arch/x86/pci/xen.c b/arch/x86/pci/xen.c
-> index 0f2fe524f60d..b8755cde2419 100644
-> --- a/arch/x86/pci/xen.c
-> +++ b/arch/x86/pci/xen.c
-> @@ -436,7 +436,8 @@ static struct msi_domain_ops xen_pci_msi_domain_ops = {
->  };
->  
->  static struct msi_domain_info xen_pci_msi_domain_info = {
-> -	.flags			= MSI_FLAG_PCI_MSIX | MSI_FLAG_FREE_MSI_DESCS | MSI_FLAG_DEV_SYSFS,
-> +	.flags			= MSI_FLAG_PCI_MSIX | MSI_FLAG_FREE_MSI_DESCS |
-> +				  MSI_FLAG_DEV_SYSFS | MSI_FLAG_NO_MASK,
->  	.ops			= &xen_pci_msi_domain_ops,
->  };
->  
-> @@ -484,11 +485,6 @@ static __init void xen_setup_pci_msi(void)
->  	 * in allocating the native domain and never use it.
->  	 */
->  	x86_init.irqs.create_pci_msi_domain = xen_create_pci_msi_domain;
-> -	/*
-> -	 * With XEN PIRQ/Eventchannels in use PCI/MSI[-X] masking is solely
-> -	 * controlled by the hypervisor.
-> -	 */
-> -	pci_msi_ignore_mask = 1;
->  }
->  
->  #else /* CONFIG_PCI_MSI */
-> diff --git a/drivers/pci/msi/msi.c b/drivers/pci/msi/msi.c
-> index 3a45879d85db..dcbb4f9ac578 100644
-> --- a/drivers/pci/msi/msi.c
-> +++ b/drivers/pci/msi/msi.c
-> @@ -10,12 +10,12 @@
->  #include <linux/err.h>
->  #include <linux/export.h>
->  #include <linux/irq.h>
-> +#include <linux/irqdomain.h>
->  
->  #include "../pci.h"
->  #include "msi.h"
->  
->  int pci_msi_enable = 1;
-> -int pci_msi_ignore_mask;
->  
->  /**
->   * pci_msi_supported - check whether MSI may be enabled on a device
-> @@ -285,6 +285,8 @@ static void pci_msi_set_enable(struct pci_dev *dev, int enable)
->  static int msi_setup_msi_desc(struct pci_dev *dev, int nvec,
->  			      struct irq_affinity_desc *masks)
->  {
-> +	const struct irq_domain *d = dev_get_msi_domain(&dev->dev);
-> +	const struct msi_domain_info *info = d->host_data;
->  	struct msi_desc desc;
->  	u16 control;
->  
-> @@ -295,8 +297,7 @@ static int msi_setup_msi_desc(struct pci_dev *dev, int nvec,
->  	/* Lies, damned lies, and MSIs */
->  	if (dev->dev_flags & PCI_DEV_FLAGS_HAS_MSI_MASKING)
->  		control |= PCI_MSI_FLAGS_MASKBIT;
-> -	/* Respect XEN's mask disabling */
-> -	if (pci_msi_ignore_mask)
-> +	if (info->flags & MSI_FLAG_NO_MASK)
->  		control &= ~PCI_MSI_FLAGS_MASKBIT;
->  
->  	desc.nvec_used			= nvec;
-> @@ -600,12 +601,15 @@ static void __iomem *msix_map_region(struct pci_dev *dev,
->   */
->  void msix_prepare_msi_desc(struct pci_dev *dev, struct msi_desc *desc)
->  {
-> +	const struct irq_domain *d = dev_get_msi_domain(&dev->dev);
-> +	const struct msi_domain_info *info = d->host_data;
-> +
->  	desc->nvec_used				= 1;
->  	desc->pci.msi_attrib.is_msix		= 1;
->  	desc->pci.msi_attrib.is_64		= 1;
->  	desc->pci.msi_attrib.default_irq	= dev->irq;
->  	desc->pci.mask_base			= dev->msix_base;
-> -	desc->pci.msi_attrib.can_mask		= !pci_msi_ignore_mask &&
-> +	desc->pci.msi_attrib.can_mask		= !(info->flags & MSI_FLAG_NO_MASK) &&
->  						  !desc->pci.msi_attrib.is_virtual;
->  
->  	if (desc->pci.msi_attrib.can_mask) {
-> @@ -655,9 +659,6 @@ static void msix_mask_all(void __iomem *base, int tsize)
->  	u32 ctrl = PCI_MSIX_ENTRY_CTRL_MASKBIT;
->  	int i;
->  
-> -	if (pci_msi_ignore_mask)
-> -		return;
-> -
->  	for (i = 0; i < tsize; i++, base += PCI_MSIX_ENTRY_SIZE)
->  		writel(ctrl, base + PCI_MSIX_ENTRY_VECTOR_CTRL);
->  }
-> @@ -710,6 +711,8 @@ static int msix_setup_interrupts(struct pci_dev *dev, struct msix_entry *entries
->  static int msix_capability_init(struct pci_dev *dev, struct msix_entry *entries,
->  				int nvec, struct irq_affinity *affd)
->  {
-> +	const struct irq_domain *d = dev_get_msi_domain(&dev->dev);
-> +	const struct msi_domain_info *info = d->host_data;
->  	int ret, tsize;
->  	u16 control;
->  
-> @@ -740,15 +743,17 @@ static int msix_capability_init(struct pci_dev *dev, struct msix_entry *entries,
->  	/* Disable INTX */
->  	pci_intx_for_msi(dev, 0);
->  
-> -	/*
-> -	 * Ensure that all table entries are masked to prevent
-> -	 * stale entries from firing in a crash kernel.
-> -	 *
-> -	 * Done late to deal with a broken Marvell NVME device
-> -	 * which takes the MSI-X mask bits into account even
-> -	 * when MSI-X is disabled, which prevents MSI delivery.
-> -	 */
-> -	msix_mask_all(dev->msix_base, tsize);
-> +	if (!(info->flags & MSI_FLAG_NO_MASK)) {
-> +		/*
-> +		 * Ensure that all table entries are masked to prevent
-> +		 * stale entries from firing in a crash kernel.
-> +		 *
-> +		 * Done late to deal with a broken Marvell NVME device
-> +		 * which takes the MSI-X mask bits into account even
-> +		 * when MSI-X is disabled, which prevents MSI delivery.
-> +		 */
-> +		msix_mask_all(dev->msix_base, tsize);
-> +	}
->  	pci_msix_clear_and_set_ctrl(dev, PCI_MSIX_FLAGS_MASKALL, 0);
->  
->  	pcibios_free_irq(dev);
-> diff --git a/include/linux/msi.h b/include/linux/msi.h
-> index b10093c4d00e..59a421fc42bf 100644
-> --- a/include/linux/msi.h
-> +++ b/include/linux/msi.h
-> @@ -73,7 +73,6 @@ struct msi_msg {
->  	};
->  };
->  
-> -extern int pci_msi_ignore_mask;
->  /* Helper functions */
->  struct msi_desc;
->  struct pci_dev;
-> @@ -556,6 +555,8 @@ enum {
->  	MSI_FLAG_PCI_MSIX_ALLOC_DYN	= (1 << 20),
->  	/* PCI MSIs cannot be steered separately to CPU cores */
->  	MSI_FLAG_NO_AFFINITY		= (1 << 21),
-> +	/* Inhibit usage of entry masking */
-> +	MSI_FLAG_NO_MASK		= (1 << 22),
->  };
->  
->  /**
-> diff --git a/kernel/irq/msi.c b/kernel/irq/msi.c
-> index 396a067a8a56..7682c36cbccc 100644
-> --- a/kernel/irq/msi.c
-> +++ b/kernel/irq/msi.c
-> @@ -1143,7 +1143,7 @@ static bool msi_check_reservation_mode(struct irq_domain *domain,
->  	if (!(info->flags & MSI_FLAG_MUST_REACTIVATE))
->  		return false;
->  
-> -	if (IS_ENABLED(CONFIG_PCI_MSI) && pci_msi_ignore_mask)
-> +	if (info->flags & MSI_FLAG_NO_MASK)
->  		return false;
->  
->  	/*
-> -- 
-> 2.46.0
-> 
+   #define vmap_to_mfn(va)     vmap_to_mfn_((vaddr_t)va)mfn_from_pte
+
+what leads to including of <asm/page.h> in <asm/mm.h>.
+
+As an option, if to move the following to <asm/page.h>:
+   #define vmap_to_mfn(va)     vmap_to_mfn_((vaddr_t)va)
+   #define vmap_to_page(va)    mfn_to_page(vmap_to_mfn(va))
+the circular dependency could be dropped.
+
+> Also nit: Excess blank after the first *.
+>
+>> --- a/xen/arch/riscv/pt.c
+>> +++ b/xen/arch/riscv/pt.c
+>> @@ -274,6 +274,61 @@ static int pt_update_entry(mfn_t root, vaddr_t virt,
+>>       return rc;
+>>   }
+>>   
+>> +/*
+>> + * pt_walk() performs software page table walking and returns the pte_t of
+>> + * a leaf node or the leaf-most not-present pte_t if no leaf node is found
+>> + * for further analysis.
+>> + * Additionally, pt_walk() returns the level of the found pte.
+>> + */
+>> +pte_t * pt_walk(vaddr_t va, unsigned int *pte_level)
+> See nit above.
+>
+>> +{
+>> +    const mfn_t root = get_root_page();
+>> +    /*
+>> +     * In pt_walk() only XEN_TABLE_MAP_NONE and XEN_TABLE_SUPER_PAGE are
+>> +     * handled (as they are only possible for page table walking), so
+>> +     * initialize `ret` with "impossible" XEN_TABLE_MAP_NOMEM.
+>> +     */
+>> +    int ret = XEN_TABLE_MAP_NOMEM;
+>> +    unsigned int level = HYP_PT_ROOT_LEVEL;
+> With this initialization and ...
+>
+>> +    pte_t *table;
+>> +
+>> +    DECLARE_OFFSETS(offsets, va);
+>> +
+>> +    table = map_table(root);
+>> +
+>> +    /*
+>> +     * Find `table` of an entry which corresponds to `va` by iterating for each
+>> +     * page level and checking if the entry points to a next page table or
+>> +     * to a page.
+>> +     *
+>> +     * Two cases are possible:
+>> +     * - ret == XEN_TABLE_SUPER_PAGE means that the entry was find;
+> (nit: found)
+>
+>> +     *   (Despite the name) XEN_TABLE_SUPER_PAGE also covers 4K mappings. If
+>> +     *   pt_next_level() is called for page table level 0, it results in the
+>> +     *   entry being a pointer to a leaf node, thereby returning
+>> +     *   XEN_TABLE_SUPER_PAGE, despite of the fact this leaf covers 4k mapping.
+>> +     * - ret == XEN_TABLE_MAP_NONE means that requested `va` wasn't actually
+>> +     *   mapped.
+>> +     */
+>> +    while ( (ret != XEN_TABLE_MAP_NONE) && (ret != XEN_TABLE_SUPER_PAGE) )
+>> +    {
+>> +        /*
+>> +         * This case shouldn't really occur as it will mean that for table
+>> +         * level 0 a pointer to next page table has been written, but at
+>> +         * level 0 it could be only a pointer to 4k page.
+>> +         */
+>> +        ASSERT(level <= HYP_PT_ROOT_LEVEL);
+>> +
+>> +        ret = pt_next_level(false, &table, offsets[level]);
+>> +        level--;
+> ... this being the only updating of the variable, what are the assertion and
+> accompanying comment about? What you're rather at risk of is for level to
+> wrap around through 0. In fact I think it does, ...
+>
+>> +    }
+>> +
+>> +    if ( pte_level )
+>> +        *pte_level = level + 1;
+>> +
+>> +    return table + offsets[level + 1];
+>> +}
+> ... which you account for by adding 1 in both of the places here. Don't you
+> think that it would be better to avoid such, e.g.:
+>
+>      for ( level = HYP_PT_ROOT_LEVEL; ; --level )
+>      {
+>          int ret = pt_next_level(false, &table, offsets[level]);
+>
+>          if ( ret == XEN_TABLE_MAP_NONE || ret == XEN_TABLE_SUPER_PAGE )
+>              break;
+>          ASSERT(level);
+>      }
+>
+> or
+>
+>      for ( level = CONFIG_PAGING_LEVELS; level--; )
+>      {
+>          int ret = pt_next_level(false, &table, offsets[level]);
+>
+>          if ( ret == XEN_TABLE_MAP_NONE || ret == XEN_TABLE_SUPER_PAGE )
+>              break;
+>      }
+>
+> This then also avoids the oddity about ret's initializer.
+
+We can do in the way you suggested, it is more clear. I will go with the second option.
+
+Thanks.
+
+~ Oleksii
+
+--------------AbFcnfhXb2jTV4nSD2k7Gg08
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2/4/25 2:50 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:475fc7fc-87ab-493e-8bef-eddeaa64aa54@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 03.02.2025 14:12, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/include/asm/mm.h
++++ b/xen/arch/riscv/include/asm/mm.h
+@@ -156,6 +156,10 @@ static inline struct page_info *virt_to_page(const void *v)
+     return frametable_virt_start + PFN_DOWN(va - directmap_virt_start);
+ }
+ 
++#include &lt;asm/page.h&gt;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+asm/page.h already includes asm/mm.h, so you're introducing a circular
+dependency here (much of which the patch description is about, so it's
+unclear why you didn't solve this another way). Afaict ...
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+pte_t * pt_walk(vaddr_t va, unsigned int *pte_level);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+... it's pte_t that presents a problem here. Why not simply put the
+declaration in asm/page.h (and drop all the secondary changes that
+don't really belong in this patch anyway)?</pre>
+    </blockquote>
+    <pre>In the patch 2 it is used for implementing vmap_to_mfn():</pre>
+    <pre>  static inline mfn_t vmap_to_mfn_(vaddr_t va)
+  {
+      pte_t *entry = pt_walk(va, NULL);
+
+      BUG_ON(!pte_is_mapping(*entry));
+
+      return mfn_from_pte(*entry);
+  }
+
+  #define vmap_to_mfn(va)     vmap_to_mfn_((vaddr_t)va)mfn_from_pte</pre>
+    <pre>what leads to including of &lt;asm/page.h&gt; in &lt;asm/mm.h&gt;.
+
+As an option, if to move the following to &lt;asm/page.h&gt;:
+  #define vmap_to_mfn(va)     vmap_to_mfn_((vaddr_t)va)
+  #define vmap_to_page(va)    mfn_to_page(vmap_to_mfn(va))
+the circular dependency could be dropped.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:475fc7fc-87ab-493e-8bef-eddeaa64aa54@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+Also nit: Excess blank after the first *.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/pt.c
++++ b/xen/arch/riscv/pt.c
+@@ -274,6 +274,61 @@ static int pt_update_entry(mfn_t root, vaddr_t virt,
+     return rc;
+ }
+ 
++/*
++ * pt_walk() performs software page table walking and returns the pte_t of
++ * a leaf node or the leaf-most not-present pte_t if no leaf node is found
++ * for further analysis.
++ * Additionally, pt_walk() returns the level of the found pte.
++ */
++pte_t * pt_walk(vaddr_t va, unsigned int *pte_level)
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+See nit above.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+{
++    const mfn_t root = get_root_page();
++    /*
++     * In pt_walk() only XEN_TABLE_MAP_NONE and XEN_TABLE_SUPER_PAGE are
++     * handled (as they are only possible for page table walking), so
++     * initialize `ret` with "impossible" XEN_TABLE_MAP_NOMEM.
++     */
++    int ret = XEN_TABLE_MAP_NOMEM;
++    unsigned int level = HYP_PT_ROOT_LEVEL;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+With this initialization and ...
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    pte_t *table;
++
++    DECLARE_OFFSETS(offsets, va);
++
++    table = map_table(root);
++
++    /*
++     * Find `table` of an entry which corresponds to `va` by iterating for each
++     * page level and checking if the entry points to a next page table or
++     * to a page.
++     *
++     * Two cases are possible:
++     * - ret == XEN_TABLE_SUPER_PAGE means that the entry was find;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+(nit: found)
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+     *   (Despite the name) XEN_TABLE_SUPER_PAGE also covers 4K mappings. If
++     *   pt_next_level() is called for page table level 0, it results in the
++     *   entry being a pointer to a leaf node, thereby returning
++     *   XEN_TABLE_SUPER_PAGE, despite of the fact this leaf covers 4k mapping.
++     * - ret == XEN_TABLE_MAP_NONE means that requested `va` wasn't actually
++     *   mapped.
++     */
++    while ( (ret != XEN_TABLE_MAP_NONE) &amp;&amp; (ret != XEN_TABLE_SUPER_PAGE) )
++    {
++        /*
++         * This case shouldn't really occur as it will mean that for table
++         * level 0 a pointer to next page table has been written, but at
++         * level 0 it could be only a pointer to 4k page.
++         */
++        ASSERT(level &lt;= HYP_PT_ROOT_LEVEL);
++
++        ret = pt_next_level(false, &amp;table, offsets[level]);
++        level--;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+... this being the only updating of the variable, what are the assertion and
+accompanying comment about? What you're rather at risk of is for level to
+wrap around through 0. In fact I think it does, ...
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    }
++
++    if ( pte_level )
++        *pte_level = level + 1;
++
++    return table + offsets[level + 1];
++}
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+... which you account for by adding 1 in both of the places here. Don't you
+think that it would be better to avoid such, e.g.:
+
+    for ( level = HYP_PT_ROOT_LEVEL; ; --level )
+    {
+        int ret = pt_next_level(false, &amp;table, offsets[level]);
+
+        if ( ret == XEN_TABLE_MAP_NONE || ret == XEN_TABLE_SUPER_PAGE )
+            break;
+        ASSERT(level);
+    } 
+
+or
+
+    for ( level = CONFIG_PAGING_LEVELS; level--; )
+    {
+        int ret = pt_next_level(false, &amp;table, offsets[level]);
+
+        if ( ret == XEN_TABLE_MAP_NONE || ret == XEN_TABLE_SUPER_PAGE )
+            break;
+    } 
+
+This then also avoids the oddity about ret's initializer.</pre>
+    </blockquote>
+    <pre>We can do in the way you suggested, it is more clear. I will go with the second option.
+
+Thanks.
+
+~ Oleksii
+</pre>
+  </body>
+</html>
+
+--------------AbFcnfhXb2jTV4nSD2k7Gg08--
 
