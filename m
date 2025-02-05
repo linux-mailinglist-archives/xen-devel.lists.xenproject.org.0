@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D356A286EC
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Feb 2025 10:48:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.882037.1292206 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58D08A28718
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Feb 2025 10:55:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.882045.1292216 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfc0n-0006bH-Bc; Wed, 05 Feb 2025 09:48:01 +0000
+	id 1tfc7G-0008RO-0v; Wed, 05 Feb 2025 09:54:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 882037.1292206; Wed, 05 Feb 2025 09:48:01 +0000
+Received: by outflank-mailman (output) from mailman id 882045.1292216; Wed, 05 Feb 2025 09:54:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfc0n-0006ZW-8v; Wed, 05 Feb 2025 09:48:01 +0000
-Received: by outflank-mailman (input) for mailman id 882037;
- Wed, 05 Feb 2025 09:48:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tfc7F-0008Pf-Tr; Wed, 05 Feb 2025 09:54:41 +0000
+Received: by outflank-mailman (input) for mailman id 882045;
+ Wed, 05 Feb 2025 09:54:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1Kcl=U4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tfc0m-0006ZQ-GD
- for xen-devel@lists.xenproject.org; Wed, 05 Feb 2025 09:48:00 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4803b4d5-e3a6-11ef-99a4-01e77a169b0f;
- Wed, 05 Feb 2025 10:47:58 +0100 (CET)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5d9837f201aso1322645a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 05 Feb 2025 01:47:58 -0800 (PST)
+ id 1tfc7E-0008PZ-JZ
+ for xen-devel@lists.xenproject.org; Wed, 05 Feb 2025 09:54:40 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3703adfd-e3a7-11ef-a0e7-8be0dac302b0;
+ Wed, 05 Feb 2025 10:54:39 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-ab74ecfdae4so221732366b.2
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Feb 2025 01:54:39 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5dce0a3f2d5sm461608a12.30.2025.02.05.01.47.57
+ a640c23a62f3a-ab6e47f1dcasm1073058966b.79.2025.02.05.01.54.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Feb 2025 01:47:57 -0800 (PST)
+ Wed, 05 Feb 2025 01:54:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4803b4d5-e3a6-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 3703adfd-e3a7-11ef-a0e7-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738748878; x=1739353678; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1738749279; x=1739354079; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=L7+kBy1J7ldgImOVmYM6rBwvgjzh/E61spzVjQqHmoY=;
-        b=HpBJl87dOgrZs/K91cYYcBycGzCScd7yTrWmqkvjotyB1n8AP+mBM6hr7hbPBfhNxg
-         TA2su5LW2jo6PlhxHNfUR0UNjFoaZ9XDYRAQEkaM96qV7pYdsnt9HCGnNUTh8qb1Pu/w
-         +BZWe0OldLxv0M0hU1qqZHXZ+10jIFA48DxlveJ1HNh/mL/g3hHS4XZXG1R2ssrb65HN
-         4LEUe7UVIpeHIVXLd3fl5Ai4c7Va5v6EFuG6ka1UuHZ7d3zvhct933UZfhMMWMikLFHZ
-         2aATVSAcuzZhG2YlTdjm/EQti2p1CszjKccK3bf+AxTWfDCZouFH/+6wQWxgxJvJyOzM
-         d8nQ==
+        bh=26+FUsbPIooMUfvZN5cQVmkmpv5qmC1JGNlRzoWOE7s=;
+        b=Ss32KfA3xzKlaKYtAvyUofcKIrULR74sCiuclNK/DFrPB1dQyL8vLBUz/HJ6aIDxqd
+         jUZ/g8HCzuld91kQ+p9sJKSfTkya90Djvk0/tDemYGscKMnUAJxnqTCVy8RrZl2xieWT
+         bzABh2C/038QGj6G8OTqHR/UafObJpxSDMt/XDG2DdzdOgv3F0ymDjQhJWF5v2xyotjG
+         pAiQLsbR97G1PjxvOQw9+j8bTPeIeRkdkWZgmeeqjqQxluJt6RTu2jMtCsvDpOb2CiQo
+         9E6dudp/w4xoiFNkzboiyXQUCAFJAWZZ0ny6UTgNlY3/Zefxcw0BRUKQFBTdZ9sEPPlq
+         9otg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738748878; x=1739353678;
+        d=1e100.net; s=20230601; t=1738749279; x=1739354079;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=L7+kBy1J7ldgImOVmYM6rBwvgjzh/E61spzVjQqHmoY=;
-        b=qC6InBhyR8jAqMOwQaRBrA3G5x8G/Xoi/Qx+Ro1TkPIcrwMB1AQQ1v3MHg+HsZcQ0P
-         +TTpBkSOUgiUBfqiFDJY1kqDVUI3zT7SBLLluH9haVvxf8KnaUeWtVoEdoDVXopTYiv7
-         Wl3cQRiKnEUEJ/3zcqlkCZSjYx/k2IOyJQCDG+kZeznXwQNGft4qYvi8fsA2q4tP771o
-         cgxo0QvZo6/EeQLK7ks/bBs+ZH0bLNiVpqhGITVFu/2rZ0AZ8GAlZ0l3xE/K/DCDCPyy
-         nTGE0bbL+zohfUbAMdBgXFZs2nBUnPOTrjKMjfbE+9cST65Pw3rjA80cwLUlaXaG3CGA
-         Fg5g==
-X-Gm-Message-State: AOJu0YyGSumxqKl7N7WQ2IzC6j4dkoCfeVJLG//FE967wPdPpoSxlMJu
-	nuI5huNu9RMVoYHrepcr7XdhLURQ71t0mknoeMbUVSH7sTlAGSTaUn0sZGJGRg==
-X-Gm-Gg: ASbGncuf18ebYCY2JIvhqljvXJFpQNdGIdqYAAc3Oni/45B8lINd/W7e5VKGMjxvxXC
-	QjL8prDR177gVWJy3e7+xkQKjiCEumrkv2cq+av+3A6Bv+HYMXT6HJpTHqs53V9Lm4xBg1t5eO8
-	DAPt3FCmjHc5Gg8nrHkEFgjMOT0z5gOBSsiB3Tpx9tgI//WAPXZjvP1JO4zkHRvV0O49H21VUhC
-	nDC9vzywCNsJq+yiYAj845oCPU2ZKP+s7aqFRpAu6S8j05RMe2w271oc9wFyrFxTuuVcGQp0pmN
-	vy8YeuE2VgcNaMOWIAP2E+MFvZOlLHmQwr3mSuWjEg7pfKKXFi4jRa5q+oCyXqSy5VABeiBH69v
-	z
-X-Google-Smtp-Source: AGHT+IEumbSbiVMefaa4V/IC8O3G02qlCPD36fQxYiyo4CEQLPpouWwSdvO9dyPZ/BwaUaZyuExkeA==
-X-Received: by 2002:a05:6402:26d3:b0:5d9:3118:d0b8 with SMTP id 4fb4d7f45d1cf-5dcdc01b8demr1953138a12.8.1738748877996;
-        Wed, 05 Feb 2025 01:47:57 -0800 (PST)
-Message-ID: <e17d6462-1324-47da-b8bc-433f5476fbf6@suse.com>
-Date: Wed, 5 Feb 2025 10:47:56 +0100
+        bh=26+FUsbPIooMUfvZN5cQVmkmpv5qmC1JGNlRzoWOE7s=;
+        b=RimFYhcFpvvhcyEzE4C5nzPlCS2t0G78Fo/BlwE9yXN4mp8Y0J8sU5YvRj5bjq5fp1
+         fIMut2h46CdgtCmWmJtAsJQOgKKQpwNU6g1/Y8zZIfVdvrsTMrY9KC5z7nVGcszPT9G5
+         6p9Cs3/QsqRoU1SNTo/XwPTKGnNtYtl7M8cmVL7W4YgsWj6pbPhwwCYfY2ipiIWdbRF7
+         KeEI7mpf+DyMyvoCfJ1pYvU0eyhgoumJF5yaIqYVdY92xpIFmN0aIzreBbbOYcTFOULM
+         jjr/vjTQWEoJpDPy+FkInAg2E5SFu2XTfXx6L1VkmQJQSxBrjeL5IHkcgYKe2rvkQt6Z
+         Lkeg==
+X-Forwarded-Encrypted: i=1; AJvYcCUYDnJJevrwpLfKla1mg4i4on1G0nX0zEx4U9idRkNGQaTwGxCp12SN0A3Joyg7Qd6Ial3MFO2NB0M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyj+e7qDmONgz2JBKmHUMVy5aZ5g9qKbCe+aZpxCGXXeozI9Fdc
+	PNc3nAqj7kuDoM4ty1SEc3dD+jIRsv+i0ZdSvrC0puUAans/9ypR68SqyjfXUQ==
+X-Gm-Gg: ASbGncsrMbq+one+ek4EKP3UuAdsbPjnEsjvzzdw2doD4n4JwG4RzDAc8Z08gboanSc
+	QweMgwB78jhO7RrDU0wxeAqiAYlqEa9OS5/cfVZsBRvHEgKUm+tcAd8gJGBC3DPb7skXp01TqmF
+	yPrvVyON6L0c63wBMW/+ebaS3vomQXwSPcid2wJT2apP9ebUmFiRC5KtseQAKip043Kj0vDUMfW
+	2Qe1f/68bLwrebMr+cH1LYhsKRSpolLSQMLQ3z+Gz9JbhJ6zo/nqNHNFa4ouArmusrUyw8/4+zz
+	d5ANQ4TXVAzu2uDngB6ivyf3QeA2rHu4LpQELbJW4BD6K/JLcS3gzmQlD/sTPe+9FOk5vUKaR2o
+	O
+X-Google-Smtp-Source: AGHT+IELVJBoh9ZdPEyiDWkaN+/h9BP6aE6Q9sAb3i9RWqC0vw+yNq5Yo+nUVwPqE+xIoZ2Gj1yDIA==
+X-Received: by 2002:a17:906:f59c:b0:ab6:fee1:60e0 with SMTP id a640c23a62f3a-ab75e0cde78mr234595366b.0.1738749278760;
+        Wed, 05 Feb 2025 01:54:38 -0800 (PST)
+Message-ID: <0b094f98-401b-4af6-be41-6cfe1bd91560@suse.com>
+Date: Wed, 5 Feb 2025 10:54:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Xen panic due to xstate mismatch
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>, Guillaume <thouveng@gmail.com>
-References: <CACt9=QgsSM18to9M5k8+3N3NvRoNVmAvsQo5oLO5-A0dm7VFNg@mail.gmail.com>
- <CACBT2OvVcDzoghr5SSjfvA5c9=LDs7DC6Z1Pi0QJ2sv0YFcEfw@mail.gmail.com>
- <CACt9=QiZhq94_=gSpSs782tM9uYQqvgrmOXeGw47C31-dwcrgw@mail.gmail.com>
- <4218bce7-b615-40d7-8d40-b2553d8b1662@citrix.com>
- <CACt9=Qgc=wjyRujFT=T2r1pvpyqWCOwzXw18BLO0uca7KuPKJA@mail.gmail.com>
- <087acd38-868d-4e1b-ab0f-9dbdb0ceb8a8@citrix.com>
- <CACt9=Qh0nXr35wx-ce8BC-xHcQjAa5nUdPvsm2K12RusT-wzXg@mail.gmail.com>
- <79fe5f32-c345-41ee-af29-cbe3c45585e8@citrix.com>
+Subject: Re: [PATCH] x86/xen: fix xen_hypercall_hvm() to not clobber %rbx
+To: Juergen Gross <jgross@suse.com>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org, x86@kernel.org
+References: <20250205091056.17796-1-jgross@suse.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,36 +120,41 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <79fe5f32-c345-41ee-af29-cbe3c45585e8@citrix.com>
+In-Reply-To: <20250205091056.17796-1-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 04.02.2025 18:35, Andrew Cooper wrote:
-> On 03/02/2025 8:58 am, Guillaume wrote:
->> Oh cool, thanks a lot for the explanation.
->> I added the "vzeroupper" and Xen crashes so it looks like the CPUID
->> emulation is buggy. Also I was able to try it using a VM (same debian
->> testing) running on virt-manager+kvm and it works fine (Xen in debug
->> mode). I will have a look by printing the xstate when running on
->> virt-manager+KVM and I will also run the xen-cpuid command to see the
->> difference just by curiosity as with your test we already spotted the
->> issue.
->> Thanks again for your enlightenment. I will continue my testing later
->> today and if you need me to test something else you are welcome, just
->> ask I will do my best.
+On 05.02.2025 10:10, Juergen Gross wrote:
+> xen_hypercall_hvm(), which is used when running as a Xen PVH guest at
+> most only once during early boot, is clobbering %rbx. Depending on
+> whether the caller relies on %rbx to be preserved across the call or
+> not, this clobbering might result in an early crash of the system.
 > 
-> It sounds like KVM has a better CPUID emulation than VirtualBox.
+> This can be avoided by not modifying %rbx in xen_hypercall_hvm().
 > 
-> It would be ideal to report this bug with VirtualBox.
+> Fixes: b4845bb63838 ("x86/xen: add central hypercall functions")
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+>  arch/x86/xen/xen-head.S | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
 > 
-> But, as you identified originally, it's not nice that Xen simply like
-> this. We should see about what to for Xen, seeing as we're close to the
-> line on 4.20.  I'm thinking maybe making the xstate checks non-fatal in
-> the cpu_has_hypervisor case.  Thoughts?
+> diff --git a/arch/x86/xen/xen-head.S b/arch/x86/xen/xen-head.S
+> index 9252652afe59..4378b817ed32 100644
+> --- a/arch/x86/xen/xen-head.S
+> +++ b/arch/x86/xen/xen-head.S
+> @@ -117,8 +117,7 @@ SYM_FUNC_START(xen_hypercall_hvm)
+>  	pop %ebx
+>  	pop %eax
+>  #else
+> -	lea xen_hypercall_amd(%rip), %rbx
+> -	cmp %rax, %rbx
 
-In principle: Yes, that's an option. But then we need to suppress use of
-xstate_{,un}compressed_size() anywhere, perhaps by disabling respective
-features. Not sure whether that is what you meant to imply.
+There's no memory access here, but ...
+
+> +	cmp xen_hypercall_amd(%rip), %rax
+
+... you now read from memory here. That can't be right. Afaict the original
+use of LEA needs to stay, just with a different scratch register.
 
 Jan
 
