@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF6B9A296D8
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Feb 2025 17:56:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.882246.1292411 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 325AEA296E4
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Feb 2025 17:59:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.882257.1292422 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfigm-0002Gb-Ky; Wed, 05 Feb 2025 16:55:48 +0000
+	id 1tfijo-0002sh-5s; Wed, 05 Feb 2025 16:58:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 882246.1292411; Wed, 05 Feb 2025 16:55:48 +0000
+Received: by outflank-mailman (output) from mailman id 882257.1292422; Wed, 05 Feb 2025 16:58:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfigm-0002Ek-IO; Wed, 05 Feb 2025 16:55:48 +0000
-Received: by outflank-mailman (input) for mailman id 882246;
- Wed, 05 Feb 2025 16:55:47 +0000
+	id 1tfijo-0002qt-2r; Wed, 05 Feb 2025 16:58:56 +0000
+Received: by outflank-mailman (input) for mailman id 882257;
+ Wed, 05 Feb 2025 16:58:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jnKU=U4=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tfigl-0002Ec-4B
- for xen-devel@lists.xenproject.org; Wed, 05 Feb 2025 16:55:47 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
+ id 1tfijm-0002qS-Ew
+ for xen-devel@lists.xenproject.org; Wed, 05 Feb 2025 16:58:54 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0a50fb6f-e3e2-11ef-99a4-01e77a169b0f;
- Wed, 05 Feb 2025 17:55:44 +0100 (CET)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-5dce3c28889so77635a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 05 Feb 2025 08:55:44 -0800 (PST)
+ id 7a43c69a-e3e2-11ef-99a4-01e77a169b0f;
+ Wed, 05 Feb 2025 17:58:52 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-ab74ecfdae4so2557366b.2
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Feb 2025 08:58:52 -0800 (PST)
 Received: from [192.168.201.60] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab6e4a2fa09sm1134190866b.140.2025.02.05.08.55.43
+ a640c23a62f3a-ab7613d1ae2sm130378466b.11.2025.02.05.08.58.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Feb 2025 08:55:43 -0800 (PST)
+ Wed, 05 Feb 2025 08:58:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a50fb6f-e3e2-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 7a43c69a-e3e2-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1738774544; x=1739379344; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1738774732; x=1739379532; darn=lists.xenproject.org;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GFHbuEltu41OFVqjfHFDXzekZVOA+xhYqgbHPPdipnc=;
-        b=DHVL4OiOkZC347s6NUr3bNHAdr4lHujo2Im6HBLu9TqHEox+cBy38UC1DEFCCZ+qZL
-         Wze5zgq8b3BtCIbJfhbPPBzE7wSDtCuPO0huFDOF1zrR8KesDg1znA3X83sRdkiqkHqS
-         jaD6fNnaJWAAoBfduniL5Rq07uoBCOX7H3ButmuGJw0mLpnscrr5pxWSvp52vJ4o4iQL
-         wBFewgXYSbIf1Tdq9u67gg3JFy1x2zqPIozBRDRWPZ599nz4oPEvF2fV3GEcRPpkYSBS
-         g/mipeZ8n3KMF/6YDJt9/DmEju+ZbkWm4kko7ANbarflXnuf+DFGk8AVSW/HLruW1HII
-         2V8A==
+        bh=IGpZjlAHu0mD7hqRyQSl0n03cZwCd2zt2V03PgMTddg=;
+        b=FBpxX4BQ4NCbMPX/DU+SwAAJMBo74dWTpvqXPioqJwlzhEqvcv6o1BLwrO80ZLPvQ3
+         zW8CdqwyU8IlkIPLdYuvYYqyfIRDRTbk063OLVDoD98zybRtR8S0GQFB7jp3Acqr6r7q
+         huim8qqXzrHcpw2jUZTNvueLTxnxBHRQCHEqjhWzTGHtt5btCGEFfoZAFN1qSM5BtdK0
+         AKkQr8ptjxE1heC2DJpYjb8OankxGZv/UUx3naAygX9EtFBkkpQpLIgomPuYG1288JAp
+         zszyTffXb7BOucNVQpcPi7A09aO26NTdvEwjeQiB9N5k94G4sGtoBR69b4dkBiWNzIhF
+         qJVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738774544; x=1739379344;
+        d=1e100.net; s=20230601; t=1738774732; x=1739379532;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=GFHbuEltu41OFVqjfHFDXzekZVOA+xhYqgbHPPdipnc=;
-        b=tOBRZl9ddBgi9lnZJpLmaF54YQ6VM3O8HQark+IxvVRQYhY6xxcpm67lu3F2t1Z8Ie
-         WTTyj4djrOu/uUR/DKXrNLgVdFylMKdUlICDymfmIsZnMWU5p5okBh/yPy6vLlOx/WKl
-         89nZi+5QB31/zeE15TZlGGJETkSPAybLZGdH/cEG51PBcAoFRAZrAa1s6Bkfq76asr2l
-         W7L6OeXUCChoRItiR0XJ9Vv1rdGjdkby2JQbIXvT2f7ULNb5OAmfIoprGg6905tsAMvL
-         CIZLjHGp0icvkDv8qVr+qDGe9EYwpXmHRXlKlYfeZ0tF5FdJuVgpnNrfSp5MrspOcmAH
-         wsww==
-X-Forwarded-Encrypted: i=1; AJvYcCXcS0x63E22Km+YVH0yzIs9M4hkJT2V9Kko6HTL9bwjS8GYAYyN4bG1H1rYFqAYbar8YeR5uCMPFBU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwZ/vS2cHRPPCA/gtC6dCzHJ9BE9VehHC7mH5PMKnKz2HCPSNqN
-	z2nAtnKj2If0QoFnHASzcSeKxb6YjSWRyCcd4sdYknKUpw5gV7DU
-X-Gm-Gg: ASbGncsWDvPte4Ge5IH/hAfnRfEK/m+gOabKFS2KJGxmZL4RcRrvnZRBSwit28LdQS3
-	+HuNxdx7rleZf+OQkioiq+0aJsppHB94UE4Ug35LVd8chLJReJg017rNdxjme7VJughcrW08H7N
-	HwKHgyMSQASEr8U90LqLE9wZUSTuw0Q9ycLLkvCI3XOMfoC+relXpGnH/2BlIsYerHnPGhwdk3z
-	C8T5T3raSGGPhoCCIZQyfMkrRxOp5ju0yWR//TnY9DfejMmWxq6c6b4qNQey1sXOjSmJaA33SjT
-	JOhC05SlrtC2Jcn4oC4uUThAyB0=
-X-Google-Smtp-Source: AGHT+IGl0MKVLcRvT5SaFYbg5psr4jH1CKqO55gThsQ2UQQJIjWtjD6TXX5DUpl28m5wi4zl7kswCw==
-X-Received: by 2002:a17:907:72cd:b0:aae:bd36:b198 with SMTP id a640c23a62f3a-ab75e321e23mr340370566b.47.1738774543844;
-        Wed, 05 Feb 2025 08:55:43 -0800 (PST)
+        bh=IGpZjlAHu0mD7hqRyQSl0n03cZwCd2zt2V03PgMTddg=;
+        b=DjzS7bGzJiFHbXCz0TQYSpTgqxowhlpz9yPxU6EVm0bs5yKmUwNEjcUekGnhFgI8F9
+         AbYXfLbXu4lDDfqQHDbFi+cU2XcBh6Xc//C6F4a60bzHNCIB8tINw2D4rojCFzgI6lvH
+         VLa+v4yoBwKKSViqiu4hJqnG0UUnUN3Go6xu/GgSWr2tLef0GyuG64cHPqgAUNA2WJm/
+         /hy0hO6lmm5KU8CBX/37KoZRHQ8bBXTPxFxQv5ykoMrSlbeUBjB2fbehU3VceyrMC6sT
+         ISm4YA10oCPUhcUe+P7ESsEk2Y5mmZRmHwWVCaXITZAUlasNWasuHn6TMlJ5wRcKFjIC
+         I/Pw==
+X-Forwarded-Encrypted: i=1; AJvYcCVq4wfYgV8eh1um0KDgYkD9MDqsGhnDLwAukG8nKpeii/WjvQSyR4GGPvao7IytFxjDm04GFEDEIaA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz6t5ZWru1G8gB02OCdk0sUNsc28uYSBHa1HbRaW/7rXoknKxyT
+	yNbcS5V4EwbKgaKbwmJU2+5w6CzBjac9TjqEPZNPnQ2cf7vH648z
+X-Gm-Gg: ASbGnctK17+Z/HDLlXBk36JUmtI3UkldDfeNs+dvlTdQQ84PRJw5cTnTeckTENEVOTQ
+	21hb1s9kJQrbd168HyUA6SWuULDkMRsWu5Fr+IQVIRBM+ZVvaOuyLaNWdVFVZmroQ5M7ljjWaTj
+	RjPjdjDfjyAOvrW2U3VThy7LV+0zBOJfgx73yRhExORkYr2LQGNdHccm+linNdlVoeQfm6tPBtR
+	myTixeeseSrNQy0DwkQNTk/oEz80WCwkKHwIAAt2Yjx+96KsaCFaVTTCyeFwj54zSf6gI39tqXp
+	huEUHmLr/+4mG/0eoh9YRGkjksE=
+X-Google-Smtp-Source: AGHT+IEHPJNFiPcof7XrywBeXQYR77wf4lLyy+zS5BOonlQ67OT+f98ffZP6/7Wii7asben+NXbOcw==
+X-Received: by 2002:a17:907:9409:b0:ab6:fe30:f48b with SMTP id a640c23a62f3a-ab75e33f6c1mr329867466b.52.1738774731693;
+        Wed, 05 Feb 2025 08:58:51 -0800 (PST)
 Content-Type: multipart/alternative;
- boundary="------------AbFcnfhXb2jTV4nSD2k7Gg08"
-Message-ID: <c0d9a023-566b-4559-b6e3-e04cf34c6206@gmail.com>
-Date: Wed, 5 Feb 2025 17:55:42 +0100
+ boundary="------------nEztVmXJe7zkDbNmlAK9XKYp"
+Message-ID: <171b1291-5ff0-414d-abfe-00ef11152590@gmail.com>
+Date: Wed, 5 Feb 2025 17:58:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 for 4.20? 1/3] xen/riscv: implement software page table
- walking
+Subject: Re: [PATCH v2 for 4.20? 2/3] xen/riscv: update defintion of
+ vmap_to_mfn()
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -98,161 +98,49 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1738587493.git.oleksii.kurochko@gmail.com>
- <a4f0b312351e5f6a9e57f50ebbc3bda8a72c18bb.1738587493.git.oleksii.kurochko@gmail.com>
- <475fc7fc-87ab-493e-8bef-eddeaa64aa54@suse.com>
+ <131ecfd1b39b4ca4fe3e5d7f7e28a130c301e0fd.1738587493.git.oleksii.kurochko@gmail.com>
+ <1223dc81-da85-4616-be12-ad445ad4ca4f@suse.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <475fc7fc-87ab-493e-8bef-eddeaa64aa54@suse.com>
+In-Reply-To: <1223dc81-da85-4616-be12-ad445ad4ca4f@suse.com>
 
 This is a multi-part message in MIME format.
---------------AbFcnfhXb2jTV4nSD2k7Gg08
+--------------nEztVmXJe7zkDbNmlAK9XKYp
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 
-On 2/4/25 2:50 PM, Jan Beulich wrote:
+On 2/4/25 2:56 PM, Jan Beulich wrote:
 > On 03.02.2025 14:12, Oleksii Kurochko wrote:
->> --- a/xen/arch/riscv/include/asm/mm.h
->> +++ b/xen/arch/riscv/include/asm/mm.h
->> @@ -156,6 +156,10 @@ static inline struct page_info *virt_to_page(const void *v)
->>       return frametable_virt_start + PFN_DOWN(va - directmap_virt_start);
->>   }
+>> @@ -160,6 +158,18 @@ static inline struct page_info *virt_to_page(const void *v)
 >>   
->> +#include <asm/page.h>
-> asm/page.h already includes asm/mm.h, so you're introducing a circular
-> dependency here (much of which the patch description is about, so it's
-> unclear why you didn't solve this another way). Afaict ...
->
->> +pte_t * pt_walk(vaddr_t va, unsigned int *pte_level);
-> ... it's pte_t that presents a problem here. Why not simply put the
-> declaration in asm/page.h (and drop all the secondary changes that
-> don't really belong in this patch anyway)?
-
-In the patch 2 it is used for implementing vmap_to_mfn():
-
-   static inline mfn_t vmap_to_mfn_(vaddr_t va)
-   {
-       pte_t *entry = pt_walk(va, NULL);
-
-       BUG_ON(!pte_is_mapping(*entry));
-
-       return mfn_from_pte(*entry);
-   }
-
-   #define vmap_to_mfn(va)     vmap_to_mfn_((vaddr_t)va)mfn_from_pte
-
-what leads to including of <asm/page.h> in <asm/mm.h>.
-
-As an option, if to move the following to <asm/page.h>:
-   #define vmap_to_mfn(va)     vmap_to_mfn_((vaddr_t)va)
-   #define vmap_to_page(va)    mfn_to_page(vmap_to_mfn(va))
-the circular dependency could be dropped.
-
-> Also nit: Excess blank after the first *.
->
->> --- a/xen/arch/riscv/pt.c
->> +++ b/xen/arch/riscv/pt.c
->> @@ -274,6 +274,61 @@ static int pt_update_entry(mfn_t root, vaddr_t virt,
->>       return rc;
->>   }
+>>   pte_t * pt_walk(vaddr_t va, unsigned int *pte_level);
 >>   
->> +/*
->> + * pt_walk() performs software page table walking and returns the pte_t of
->> + * a leaf node or the leaf-most not-present pte_t if no leaf node is found
->> + * for further analysis.
->> + * Additionally, pt_walk() returns the level of the found pte.
->> + */
->> +pte_t * pt_walk(vaddr_t va, unsigned int *pte_level)
-> See nit above.
+>> +static inline mfn_t vmap_to_mfn_(vaddr_t va)
+> Btw., for static functions (and variables) a prefixing underscore is
+> fine to use. Its identifiers that don't have file scope which shouldn't.
+
+Should it be used a single underscore prefixing or a double one?
+
 >
 >> +{
->> +    const mfn_t root = get_root_page();
->> +    /*
->> +     * In pt_walk() only XEN_TABLE_MAP_NONE and XEN_TABLE_SUPER_PAGE are
->> +     * handled (as they are only possible for page table walking), so
->> +     * initialize `ret` with "impossible" XEN_TABLE_MAP_NOMEM.
->> +     */
->> +    int ret = XEN_TABLE_MAP_NOMEM;
->> +    unsigned int level = HYP_PT_ROOT_LEVEL;
-> With this initialization and ...
->
->> +    pte_t *table;
->> +
->> +    DECLARE_OFFSETS(offsets, va);
->> +
->> +    table = map_table(root);
->> +
->> +    /*
->> +     * Find `table` of an entry which corresponds to `va` by iterating for each
->> +     * page level and checking if the entry points to a next page table or
->> +     * to a page.
->> +     *
->> +     * Two cases are possible:
->> +     * - ret == XEN_TABLE_SUPER_PAGE means that the entry was find;
-> (nit: found)
->
->> +     *   (Despite the name) XEN_TABLE_SUPER_PAGE also covers 4K mappings. If
->> +     *   pt_next_level() is called for page table level 0, it results in the
->> +     *   entry being a pointer to a leaf node, thereby returning
->> +     *   XEN_TABLE_SUPER_PAGE, despite of the fact this leaf covers 4k mapping.
->> +     * - ret == XEN_TABLE_MAP_NONE means that requested `va` wasn't actually
->> +     *   mapped.
->> +     */
->> +    while ( (ret != XEN_TABLE_MAP_NONE) && (ret != XEN_TABLE_SUPER_PAGE) )
->> +    {
->> +        /*
->> +         * This case shouldn't really occur as it will mean that for table
->> +         * level 0 a pointer to next page table has been written, but at
->> +         * level 0 it could be only a pointer to 4k page.
->> +         */
->> +        ASSERT(level <= HYP_PT_ROOT_LEVEL);
->> +
->> +        ret = pt_next_level(false, &table, offsets[level]);
->> +        level--;
-> ... this being the only updating of the variable, what are the assertion and
-> accompanying comment about? What you're rather at risk of is for level to
-> wrap around through 0. In fact I think it does, ...
->
->> +    }
->> +
->> +    if ( pte_level )
->> +        *pte_level = level + 1;
->> +
->> +    return table + offsets[level + 1];
->> +}
-> ... which you account for by adding 1 in both of the places here. Don't you
-> think that it would be better to avoid such, e.g.:
->
->      for ( level = HYP_PT_ROOT_LEVEL; ; --level )
->      {
->          int ret = pt_next_level(false, &table, offsets[level]);
->
->          if ( ret == XEN_TABLE_MAP_NONE || ret == XEN_TABLE_SUPER_PAGE )
->              break;
->          ASSERT(level);
->      }
->
-> or
->
->      for ( level = CONFIG_PAGING_LEVELS; level--; )
->      {
->          int ret = pt_next_level(false, &table, offsets[level]);
->
->          if ( ret == XEN_TABLE_MAP_NONE || ret == XEN_TABLE_SUPER_PAGE )
->              break;
->      }
->
-> This then also avoids the oddity about ret's initializer.
+>> +    pte_t *entry = pt_walk(va, NULL);
+> Oh, noticing the anomaly only here: Why would pt_walk() return a pointer
+> to a PTE, rather than the pte_t by value? All this does is encourage
+> open-coded accesses (even writes), when especially writes are supposed
+> to be going through pt_update().
 
-We can do in the way you suggested, it is more clear. I will go with the second option.
+I tried to play with forward declaration of pte_t to not introduce
+circular dependency in the previous patch. It would be really better to return
+pte_t by value, I will update that.
 
 Thanks.
 
-~ Oleksii
+~Oleksii
 
---------------AbFcnfhXb2jTV4nSD2k7Gg08
+--------------nEztVmXJe7zkDbNmlAK9XKYp
 Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 <!DOCTYPE html>
 <html>
@@ -262,188 +150,52 @@ Content-Transfer-Encoding: 8bit
   <body>
     <p><br>
     </p>
-    <div class="moz-cite-prefix">On 2/4/25 2:50 PM, Jan Beulich wrote:<br>
+    <div class="moz-cite-prefix">On 2/4/25 2:56 PM, Jan Beulich wrote:<br>
     </div>
     <blockquote type="cite"
-      cite="mid:475fc7fc-87ab-493e-8bef-eddeaa64aa54@suse.com">
+      cite="mid:1223dc81-da85-4616-be12-ad445ad4ca4f@suse.com">
       <pre wrap="" class="moz-quote-pre">On 03.02.2025 14:12, Oleksii Kurochko wrote:
 </pre>
       <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/include/asm/mm.h
-+++ b/xen/arch/riscv/include/asm/mm.h
-@@ -156,6 +156,10 @@ static inline struct page_info *virt_to_page(const void *v)
-     return frametable_virt_start + PFN_DOWN(va - directmap_virt_start);
- }
+        <pre wrap="" class="moz-quote-pre">@@ -160,6 +158,18 @@ static inline struct page_info *virt_to_page(const void *v)
  
-+#include &lt;asm/page.h&gt;
+ pte_t * pt_walk(vaddr_t va, unsigned int *pte_level);
+ 
++static inline mfn_t vmap_to_mfn_(vaddr_t va)
 </pre>
       </blockquote>
       <pre wrap="" class="moz-quote-pre">
-asm/page.h already includes asm/mm.h, so you're introducing a circular
-dependency here (much of which the patch description is about, so it's
-unclear why you didn't solve this another way). Afaict ...
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+pte_t * pt_walk(vaddr_t va, unsigned int *pte_level);
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-... it's pte_t that presents a problem here. Why not simply put the
-declaration in asm/page.h (and drop all the secondary changes that
-don't really belong in this patch anyway)?</pre>
+Btw., for static functions (and variables) a prefixing underscore is
+fine to use. Its identifiers that don't have file scope which shouldn't.</pre>
     </blockquote>
-    <pre>In the patch 2 it is used for implementing vmap_to_mfn():</pre>
-    <pre>  static inline mfn_t vmap_to_mfn_(vaddr_t va)
-  {
-      pte_t *entry = pt_walk(va, NULL);
-
-      BUG_ON(!pte_is_mapping(*entry));
-
-      return mfn_from_pte(*entry);
-  }
-
-  #define vmap_to_mfn(va)     vmap_to_mfn_((vaddr_t)va)mfn_from_pte</pre>
-    <pre>what leads to including of &lt;asm/page.h&gt; in &lt;asm/mm.h&gt;.
-
-As an option, if to move the following to &lt;asm/page.h&gt;:
-  #define vmap_to_mfn(va)     vmap_to_mfn_((vaddr_t)va)
-  #define vmap_to_page(va)    mfn_to_page(vmap_to_mfn(va))
-the circular dependency could be dropped.
+    <pre>Should it be used a single underscore prefixing or a double one?
 
 </pre>
     <blockquote type="cite"
-      cite="mid:475fc7fc-87ab-493e-8bef-eddeaa64aa54@suse.com">
+      cite="mid:1223dc81-da85-4616-be12-ad445ad4ca4f@suse.com">
       <pre wrap="" class="moz-quote-pre">
-Also nit: Excess blank after the first *.
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/pt.c
-+++ b/xen/arch/riscv/pt.c
-@@ -274,6 +274,61 @@ static int pt_update_entry(mfn_t root, vaddr_t virt,
-     return rc;
- }
- 
-+/*
-+ * pt_walk() performs software page table walking and returns the pte_t of
-+ * a leaf node or the leaf-most not-present pte_t if no leaf node is found
-+ * for further analysis.
-+ * Additionally, pt_walk() returns the level of the found pte.
-+ */
-+pte_t * pt_walk(vaddr_t va, unsigned int *pte_level)
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-See nit above.
 
 </pre>
       <blockquote type="cite">
         <pre wrap="" class="moz-quote-pre">+{
-+    const mfn_t root = get_root_page();
-+    /*
-+     * In pt_walk() only XEN_TABLE_MAP_NONE and XEN_TABLE_SUPER_PAGE are
-+     * handled (as they are only possible for page table walking), so
-+     * initialize `ret` with "impossible" XEN_TABLE_MAP_NOMEM.
-+     */
-+    int ret = XEN_TABLE_MAP_NOMEM;
-+    unsigned int level = HYP_PT_ROOT_LEVEL;
++    pte_t *entry = pt_walk(va, NULL);
 </pre>
       </blockquote>
       <pre wrap="" class="moz-quote-pre">
-With this initialization and ...
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+    pte_t *table;
-+
-+    DECLARE_OFFSETS(offsets, va);
-+
-+    table = map_table(root);
-+
-+    /*
-+     * Find `table` of an entry which corresponds to `va` by iterating for each
-+     * page level and checking if the entry points to a next page table or
-+     * to a page.
-+     *
-+     * Two cases are possible:
-+     * - ret == XEN_TABLE_SUPER_PAGE means that the entry was find;
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-(nit: found)
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+     *   (Despite the name) XEN_TABLE_SUPER_PAGE also covers 4K mappings. If
-+     *   pt_next_level() is called for page table level 0, it results in the
-+     *   entry being a pointer to a leaf node, thereby returning
-+     *   XEN_TABLE_SUPER_PAGE, despite of the fact this leaf covers 4k mapping.
-+     * - ret == XEN_TABLE_MAP_NONE means that requested `va` wasn't actually
-+     *   mapped.
-+     */
-+    while ( (ret != XEN_TABLE_MAP_NONE) &amp;&amp; (ret != XEN_TABLE_SUPER_PAGE) )
-+    {
-+        /*
-+         * This case shouldn't really occur as it will mean that for table
-+         * level 0 a pointer to next page table has been written, but at
-+         * level 0 it could be only a pointer to 4k page.
-+         */
-+        ASSERT(level &lt;= HYP_PT_ROOT_LEVEL);
-+
-+        ret = pt_next_level(false, &amp;table, offsets[level]);
-+        level--;
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-... this being the only updating of the variable, what are the assertion and
-accompanying comment about? What you're rather at risk of is for level to
-wrap around through 0. In fact I think it does, ...
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+    }
-+
-+    if ( pte_level )
-+        *pte_level = level + 1;
-+
-+    return table + offsets[level + 1];
-+}
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-... which you account for by adding 1 in both of the places here. Don't you
-think that it would be better to avoid such, e.g.:
-
-    for ( level = HYP_PT_ROOT_LEVEL; ; --level )
-    {
-        int ret = pt_next_level(false, &amp;table, offsets[level]);
-
-        if ( ret == XEN_TABLE_MAP_NONE || ret == XEN_TABLE_SUPER_PAGE )
-            break;
-        ASSERT(level);
-    } 
-
-or
-
-    for ( level = CONFIG_PAGING_LEVELS; level--; )
-    {
-        int ret = pt_next_level(false, &amp;table, offsets[level]);
-
-        if ( ret == XEN_TABLE_MAP_NONE || ret == XEN_TABLE_SUPER_PAGE )
-            break;
-    } 
-
-This then also avoids the oddity about ret's initializer.</pre>
+Oh, noticing the anomaly only here: Why would pt_walk() return a pointer
+to a PTE, rather than the pte_t by value? All this does is encourage
+open-coded accesses (even writes), when especially writes are supposed
+to be going through pt_update().</pre>
     </blockquote>
-    <pre>We can do in the way you suggested, it is more clear. I will go with the second option.
+    <pre>I tried to play with forward declaration of pte_t to not introduce 
+circular dependency in the previous patch. It would be really better to return
+pte_t by value, I will update that.
 
 Thanks.
 
-~ Oleksii
-</pre>
+~Oleksii</pre>
   </body>
 </html>
 
---------------AbFcnfhXb2jTV4nSD2k7Gg08--
+--------------nEztVmXJe7zkDbNmlAK9XKYp--
 
