@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E05A0A28778
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Feb 2025 11:07:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.882073.1292246 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27F80A287E3
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Feb 2025 11:25:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.882081.1292257 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfcJX-00037a-Jz; Wed, 05 Feb 2025 10:07:23 +0000
+	id 1tfcaT-0006Q9-Vh; Wed, 05 Feb 2025 10:24:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 882073.1292246; Wed, 05 Feb 2025 10:07:23 +0000
+Received: by outflank-mailman (output) from mailman id 882081.1292257; Wed, 05 Feb 2025 10:24:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfcJX-00034s-HM; Wed, 05 Feb 2025 10:07:23 +0000
-Received: by outflank-mailman (input) for mailman id 882073;
- Wed, 05 Feb 2025 10:07:22 +0000
+	id 1tfcaT-0006OI-T1; Wed, 05 Feb 2025 10:24:53 +0000
+Received: by outflank-mailman (input) for mailman id 882081;
+ Wed, 05 Feb 2025 10:24:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=j99B=U4=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1tfcJW-00034k-7w
- for xen-devel@lists.xenproject.org; Wed, 05 Feb 2025 10:07:22 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jnKU=U4=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1tfcaS-0006OC-PF
+ for xen-devel@lists.xenproject.org; Wed, 05 Feb 2025 10:24:52 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fc8f9280-e3a8-11ef-99a4-01e77a169b0f;
- Wed, 05 Feb 2025 11:07:20 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-aaf900cc7fbso1346413166b.3
- for <xen-devel@lists.xenproject.org>; Wed, 05 Feb 2025 02:07:20 -0800 (PST)
-Received: from ?IPV6:2003:e5:8714:500:2aea:6ec9:1d88:c1ef?
- (p200300e5871405002aea6ec91d88c1ef.dip0.t-ipconnect.de.
- [2003:e5:8714:500:2aea:6ec9:1d88:c1ef])
+ id 6e756f7e-e3ab-11ef-99a4-01e77a169b0f;
+ Wed, 05 Feb 2025 11:24:50 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5d9837f201aso1388638a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Feb 2025 02:24:50 -0800 (PST)
+Received: from [192.168.219.191] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab6e47a81adsm1066406866b.36.2025.02.05.02.07.19
+ a640c23a62f3a-ab6e4a5a26bsm1070862666b.183.2025.02.05.02.24.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Feb 2025 02:07:19 -0800 (PST)
+ Wed, 05 Feb 2025 02:24:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,244 +45,206 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fc8f9280-e3a8-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 6e756f7e-e3ab-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738750040; x=1739354840; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=xDqkv78Z4VKlEoX0OV/Gq1LIs7usdjD9zT1QQXDxqgc=;
-        b=PiqzAOZqHyxJ6c8/CO8d1Ek9nNacjqd2x4i1f4wKSySbnR1GIQl3cIuU09nviQ3YV3
-         IWvQvLoII3fvT02YQiZmDh06kOOdmVPWG7lCSIbzN6MQx0c0fy3HzdaXUVkznn/PJQep
-         8pswVItECEywdBoKwXSjJHe4HVb7rmW5mzXtRFMmxa+fxMEfqB9rkMIYzcfYjMGTFSt0
-         MBRDDsBPOnOmuLjEqPS6oOm+fBZuh/KZuauEuJ9TJexyDY+vraDnUZ1GBqXDLRjtmfKY
-         GoisfcJTE8pRz0fkX9rjRQImDH6eHITT5tc081BeIRTLyFr/Omvf3pHEC93IqN/76ACP
-         W8bw==
+        d=gmail.com; s=20230601; t=1738751090; x=1739355890; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/KLeuVEVFXkBnwrVVWHEZJXQGU90Hf4BCsU9AgcjzyU=;
+        b=XNTQSHrUtw2xQXz3fUbxmG59OLRS0KWaBm1mZdXj7KmW/WYwP6St3eRDhudKvqnvbp
+         efRPDDwPSESeuXYz7nu9BYtYeNtng2xsiD+2wMJtA+3hXPBS6Ue+xDMIM/LUTWttI+Tk
+         /p4Q3I1aRrs+UyLv5Hqmpbh+I07NXJU0XNzuAwwr1Al11k1Y+JMOYzXalNk9nkB21eox
+         ag4amibVIMwFwiitHYIKAt603Dag57d+Nk14eeJH4uCuNX4jIAxXEwXgadwOspE21Mj/
+         Hk15xj2mOvr1dL9XiOFsHUX7opCwYVz1uIIgCKyVSxIPVwmLL7iYSMBT6Sn1MZIJ9SEs
+         Dpjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738750040; x=1739354840;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=xDqkv78Z4VKlEoX0OV/Gq1LIs7usdjD9zT1QQXDxqgc=;
-        b=QNGEoNdedY56z84QSUaMenZFcFybqANAFioYnWMrgjfmrN1wC3M7wiUDYQS5UTPJ0u
-         HJ2NrT0by9fn9X+1eh20rwgUWhATMaE/jc+V+35Z9ht4xG51qfv3uSTdkwvcChEDOARc
-         nqP6FLyEefFphFkFqNWzTZYou5brN1ERAYjXGOB2yFaiLa+f1kvDeAOjcq+/KM1+iuXT
-         l0Za5oO7uHGhR15zvmPq3TB5G3wJafGDPNz48oAchDSnW6mS/77B5g5EfRwGQ7jA8Wvd
-         EhvSvxe+M+jW8DHnB0barEDps885TT2fhhellKRrRVDO0yD1i3+SykUdj5WIT0zHrzl6
-         R3dQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUyZxbkNteLoNza0LJYzGg2zAhCNyZThJV+2YWuWCO/LOWS67C3m6giX5IJ2gLoq9IPQ7ODuIo2htc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzFTRCl8fpryt5t0cDQbl1v3cKRwPgl61fAjtqgwkFXeFUse4O2
-	WzCQ1Pa3HMljQehaeEh7NM8luR2BND+Q3hS2W3zZG95IlL2SLrChZSMQfJpsuwM=
-X-Gm-Gg: ASbGncuGYxqJBANIRPRLJSTbMxn67jUwv8erjKtQ/mbMqF9FEzJhA/D6k42OJDSR2FW
-	ee/kw0tG3eSfkc/Rr6GgCejzFpNPFuPEEWFIWeJRSzwO4SZ36loCpx+eMx/b5Qj57xiBHXmvZg5
-	JHGRgtWyZrVD10s9FN8wX+tDsB395tbRODK8zbSks+wOxD+SAUxQbh+49pdX/ivkht/9zKrNzIQ
-	sn3Tt1y6y4E1z7ZV2uSPt1nMg71I4fmIy3+BVJfbswl0yQBaW3epQ5fkOottO2kBDW1Iw421GJE
-	xOSlOvFd6LCtCe+dfiVKaA2sBlbOlGqf7I7FPGHbuC98u+dd325VjXC6iYSlTqh3jHmGN6rhmSl
-	ztgHH8cc1KVGzGqUGUmAqUQEyNR9FalkjvTF4nw==
-X-Google-Smtp-Source: AGHT+IEgbg4/gh5dYIQJjmoAudPWZKM8WAGDorx761jOgtXKUkMAtOVR3jzF6tIE3s9ctNTtKdD46Q==
-X-Received: by 2002:a17:906:4092:b0:ab7:6235:594d with SMTP id a640c23a62f3a-ab7623564c0mr135357466b.41.1738750039772;
-        Wed, 05 Feb 2025 02:07:19 -0800 (PST)
-Message-ID: <3eff3975-ace9-4e09-b160-4330b9695e4c@suse.com>
-Date: Wed, 5 Feb 2025 11:07:18 +0100
+        d=1e100.net; s=20230601; t=1738751090; x=1739355890;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=/KLeuVEVFXkBnwrVVWHEZJXQGU90Hf4BCsU9AgcjzyU=;
+        b=kSu9bD8Ckkl1lSmYvQc2K04nflLas9P98f8nPSBZ0sv+Qt0hmg8fgh8U6ywokoSmlI
+         5wUqT3CXjr9hpwFpcVKVMa1sIjLYi1toFQPmFm466gEs+xACSUj8KvAA2PbqwqEt0sHb
+         MloI9aczw4QQGb9mBzh1s3DCQ/QRmA4HaK8F3Qzx7yYZwfL+2caX6h8k0slndd3vdkCv
+         QvQkoh4FMu1ZHseuj2zP5SUVPQSxbQmq3tx/ejKWmrZMkJd/JQ1YpA7dVVvoxtDxfwRI
+         jRxHtHKnXiw6Ss17mRVwFNppAh2MUalPs+rKWsf24E5FESz4cyqksXKVFaf4PWNZ+/tT
+         BkZA==
+X-Gm-Message-State: AOJu0YywyYFpLYwtGBo9Gc2Agxs4xkik2AiMsoTKBzeXmzo8rQu0/u3j
+	Sukpl9exTibO5yv3Y6wC4NF+ZEbAlKILIm0IFZ53M+0YDZFW5ZU4
+X-Gm-Gg: ASbGncspKLKkuy3VJvM/y9BV47K85ZxWa/KDw9QFsISEH0LT1wMMXS/mmbo9jExhXLL
+	J+RCLod16zQvVXUewk6/smgi34iwErAwj+sHnbFItU4OWlvpr4MemHvV0KPOrMgZv9dmlrZHcc8
+	cobUCNrBWFBCGLFStOoyYsm1XF8zv/YoCFb7xsT+/+F9Pz/rc50pLUm761/hDPYg0TrrRKhBOkk
+	PnyL4liA+2SA7cGI1RTvDVAsxJLxEdVTVGPcu0bUnLaELNPP6aJoBNHixn9pEpGuwdVrJJ0HfBT
+	/cpOnfiTNArWhhCSuS3kaeVpOYtq
+X-Google-Smtp-Source: AGHT+IEE9SyJVGtKMUV8oftz/JCQvj46spRDLlHFJTcd44pyLIp+n2YfLSBH9d19v5cOec0eKUNErA==
+X-Received: by 2002:a17:907:3f86:b0:ab6:f4eb:91aa with SMTP id a640c23a62f3a-ab7483faee0mr885474966b.10.1738751089585;
+        Wed, 05 Feb 2025 02:24:49 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------acMyzx8xKOmOQL7gzEv1lEMU"
+Message-ID: <5c9ab6a7-2095-4f7c-8e5b-1942ad54420d@gmail.com>
+Date: Wed, 5 Feb 2025 11:24:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/xen: fix xen_hypercall_hvm() to not clobber %rbx
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org, x86@kernel.org
-References: <20250205091056.17796-1-jgross@suse.com>
- <0b094f98-401b-4af6-be41-6cfe1bd91560@suse.com>
+Subject: Re: [PATCH for-4.20 v5] Avoid crash calling PrintErrMesg from
+ efi_multiboot2
+To: Jan Beulich <jbeulich@suse.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org,
+ Frediano Ziglio <frediano.ziglio@cloud.com>
+References: <20250122101407.52282-1-frediano.ziglio@cloud.com>
+ <9d7b6706-7415-43d5-a66e-650eb67437fa@suse.com>
 Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <0b094f98-401b-4af6-be41-6cfe1bd91560@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------XxxnyBp1eDAW7yn5i9E9Alz4"
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <9d7b6706-7415-43d5-a66e-650eb67437fa@suse.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------XxxnyBp1eDAW7yn5i9E9Alz4
-Content-Type: multipart/mixed; boundary="------------VpJX8h6sbYwqajezu80uQj8r";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org, x86@kernel.org
-Message-ID: <3eff3975-ace9-4e09-b160-4330b9695e4c@suse.com>
-Subject: Re: [PATCH] x86/xen: fix xen_hypercall_hvm() to not clobber %rbx
-References: <20250205091056.17796-1-jgross@suse.com>
- <0b094f98-401b-4af6-be41-6cfe1bd91560@suse.com>
-In-Reply-To: <0b094f98-401b-4af6-be41-6cfe1bd91560@suse.com>
-Autocrypt-Gossip: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJ3BBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AAIQkQoDSui/t3IH4WIQQ+pJkfkcoLMCa4X6CgNK6L+3cgfgn7AJ9DmMd0SMJE
- ePbc7/m22D2v04iu7ACffXTdZQhNl557tJuDXZSBxDmW/tLOwU0EWTecRBAIAIK5OMKMU5R2
- Lk2bbjgX7vyQuCFFyKf9rC/4itNwhYWFSlKzVj3WJBDsoi2KvPm7AI+XB6NIkNAkshL5C0kd
- pcNd5Xo0jRR5/WE/bT7LyrJ0OJWS/qUit5eNNvsO+SxGAk28KRa1ieVLeZi9D03NL0+HIAtZ
- tecfqwgl3Y72UpLUyt+r7LQhcI/XR5IUUaD4C/chB4Vq2QkDKO7Q8+2HJOrFIjiVli4lU+Sf
- OBp64m//Y1xys++Z4ODoKh7tkh5DxiO3QBHG7bHK0CSQsJ6XUvPVYubAuy1XfSDzSeSBl//C
- v78Fclb+gi9GWidSTG/4hsEzd1fY5XwCZG/XJJY9M/sAAwUH/09Ar9W2U1Qm+DwZeP2ii3Ou
- 14Z9VlVVPhcEmR/AFykL9dw/OV2O/7cdi52+l00reUu6Nd4Dl8s4f5n8b1YFzmkVVIyhwjvU
- jxtPyUgDOt6DRa+RaDlXZZmxQyWcMv2anAgYWGVszeB8Myzsw8y7xhBEVV1S+1KloCzw4V8Z
- DSJrcsZlyMDoiTb7FyqxwQnM0f6qHxWbmOOnbzJmBqpNpFuDcz/4xNsymJylm6oXiucHQBAP
- Xb/cE1YNHpuaH4SRhIxwQilCYEznWowQphNAbJtEKOmcocY7EbSt8VjXTzmYENkIfkrHRyXQ
- dUm5AoL51XZljkCqNwrADGkTvkwsWSvCSQQYEQIACQUCWTecRAIbDAAKCRCgNK6L+3cgfuef
- AJ9wlZQNQUp0KwEf8Tl37RmcxCL4bQCcC5alCSMzUBJ5DBIcR4BY+CyQFAs=
-
---------------VpJX8h6sbYwqajezu80uQj8r
-Content-Type: multipart/mixed; boundary="------------imzL8DZzNZb3kqaqoUbDgxfa"
-
---------------imzL8DZzNZb3kqaqoUbDgxfa
+This is a multi-part message in MIME format.
+--------------acMyzx8xKOmOQL7gzEv1lEMU
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
 
-T24gMDUuMDIuMjUgMTA6NTQsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAwNS4wMi4yMDI1
-IDEwOjEwLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4geGVuX2h5cGVyY2FsbF9odm0oKSwg
-d2hpY2ggaXMgdXNlZCB3aGVuIHJ1bm5pbmcgYXMgYSBYZW4gUFZIIGd1ZXN0IGF0DQo+PiBt
-b3N0IG9ubHkgb25jZSBkdXJpbmcgZWFybHkgYm9vdCwgaXMgY2xvYmJlcmluZyAlcmJ4LiBE
-ZXBlbmRpbmcgb24NCj4+IHdoZXRoZXIgdGhlIGNhbGxlciByZWxpZXMgb24gJXJieCB0byBi
-ZSBwcmVzZXJ2ZWQgYWNyb3NzIHRoZSBjYWxsIG9yDQo+PiBub3QsIHRoaXMgY2xvYmJlcmlu
-ZyBtaWdodCByZXN1bHQgaW4gYW4gZWFybHkgY3Jhc2ggb2YgdGhlIHN5c3RlbS4NCj4+DQo+
-PiBUaGlzIGNhbiBiZSBhdm9pZGVkIGJ5IG5vdCBtb2RpZnlpbmcgJXJieCBpbiB4ZW5faHlw
-ZXJjYWxsX2h2bSgpLg0KPj4NCj4+IEZpeGVzOiBiNDg0NWJiNjM4MzggKCJ4ODYveGVuOiBh
-ZGQgY2VudHJhbCBoeXBlcmNhbGwgZnVuY3Rpb25zIikNCj4+IFNpZ25lZC1vZmYtYnk6IEp1
-ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4NCj4+IC0tLQ0KPj4gICBhcmNoL3g4Ni94
-ZW4veGVuLWhlYWQuUyB8IDMgKy0tDQo+PiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlv
-bigrKSwgMiBkZWxldGlvbnMoLSkNCj4+DQo+PiBkaWZmIC0tZ2l0IGEvYXJjaC94ODYveGVu
-L3hlbi1oZWFkLlMgYi9hcmNoL3g4Ni94ZW4veGVuLWhlYWQuUw0KPj4gaW5kZXggOTI1MjY1
-MmFmZTU5Li40Mzc4YjgxN2VkMzIgMTAwNjQ0DQo+PiAtLS0gYS9hcmNoL3g4Ni94ZW4veGVu
-LWhlYWQuUw0KPj4gKysrIGIvYXJjaC94ODYveGVuL3hlbi1oZWFkLlMNCj4+IEBAIC0xMTcs
-OCArMTE3LDcgQEAgU1lNX0ZVTkNfU1RBUlQoeGVuX2h5cGVyY2FsbF9odm0pDQo+PiAgIAlw
-b3AgJWVieA0KPj4gICAJcG9wICVlYXgNCj4+ICAgI2Vsc2UNCj4+IC0JbGVhIHhlbl9oeXBl
-cmNhbGxfYW1kKCVyaXApLCAlcmJ4DQo+PiAtCWNtcCAlcmF4LCAlcmJ4DQo+IA0KPiBUaGVy
-ZSdzIG5vIG1lbW9yeSBhY2Nlc3MgaGVyZSwgYnV0IC4uLg0KPiANCj4+ICsJY21wIHhlbl9o
-eXBlcmNhbGxfYW1kKCVyaXApLCAlcmF4DQo+IA0KPiAuLi4geW91IG5vdyByZWFkIGZyb20g
-bWVtb3J5IGhlcmUuIFRoYXQgY2FuJ3QgYmUgcmlnaHQuIEFmYWljdCB0aGUgb3JpZ2luYWwN
-Cj4gdXNlIG9mIExFQSBuZWVkcyB0byBzdGF5LCBqdXN0IHdpdGggYSBkaWZmZXJlbnQgc2Ny
-YXRjaCByZWdpc3Rlci4NCg0KT2gsIHJpZ2h0LiBUaGFua3MgZm9yIG5vdGljaW5nLg0KDQoN
-Ckp1ZXJnZW4NCg==
---------------imzL8DZzNZb3kqaqoUbDgxfa
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On 2/4/25 2:07 PM, Jan Beulich wrote:
+> On 22.01.2025 11:14, Frediano Ziglio wrote:
+>> Although code is compiled with -fpic option data is not position
+>> independent. This causes data pointer to become invalid if
+>> code is not relocated properly which is what happens for
+>> efi_multiboot2 which is called by multiboot entry code.
+>>
+>> Code tested adding
+>>     PrintErrMesg(L"Test message", EFI_BUFFER_TOO_SMALL);
+>> in efi_multiboot2 before calling efi_arch_edd (this function
+>> can potentially call PrintErrMesg).
+>>
+>> Before the patch (XenServer installation on Qemu, xen replaced
+>> with vanilla xen.gz):
+>>    Booting `XenServer (Serial)'Booting `XenServer (Serial)'
+>>    Test message: !!!! X64 Exception Type - 0E(#PF - Page-Fault)  CPU Apic ID - 00000000 !!!!
+>>    ExceptionData - 0000000000000000  I:0 R:0 U:0 W:0 P:0 PK:0 SS:0 SGX:0
+>>    RIP  - 000000007EE21E9A, CS  - 0000000000000038, RFLAGS - 0000000000210246
+>>    RAX  - 000000007FF0C1B5, RCX - 0000000000000050, RDX - 0000000000000010
+>>    RBX  - 0000000000000000, RSP - 000000007FF0C180, RBP - 000000007FF0C210
+>>    RSI  - FFFF82D040467CE8, RDI - 0000000000000000
+>>    R8   - 000000007FF0C1C8, R9  - 000000007FF0C1C0, R10 - 0000000000000000
+>>    R11  - 0000000000001020, R12 - FFFF82D040467CE8, R13 - 000000007FF0C1B8
+>>    R14  - 000000007EA33328, R15 - 000000007EA332D8
+>>    DS   - 0000000000000030, ES  - 0000000000000030, FS  - 0000000000000030
+>>    GS   - 0000000000000030, SS  - 0000000000000030
+>>    CR0  - 0000000080010033, CR2 - FFFF82D040467CE8, CR3 - 000000007FC01000
+>>    CR4  - 0000000000000668, CR8 - 0000000000000000
+>>    DR0  - 0000000000000000, DR1 - 0000000000000000, DR2 - 0000000000000000
+>>    DR3  - 0000000000000000, DR6 - 00000000FFFF0FF0, DR7 - 0000000000000400
+>>    GDTR - 000000007F9DB000 0000000000000047, LDTR - 0000000000000000
+>>    IDTR - 000000007F48E018 0000000000000FFF,   TR - 0000000000000000
+>>    FXSAVE_STATE - 000000007FF0BDE0
+>>    !!!! Find image based on IP(0x7EE21E9A) (No PDB)  (ImageBase=000000007EE20000, EntryPoint=000000007EE23935) !!!!
+>>
+>> After the patch:
+>>    Booting `XenServer (Serial)'Booting `XenServer (Serial)'
+>>    Test message: Buffer too small
+>>    BdsDxe: loading Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4AF6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
+>>    BdsDxe: starting Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4AF6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
+>>
+>> This partially rollback commit 00d5d5ce23e6.
+>>
+>> Fixes: 9180f5365524 ("x86: add multiboot2 protocol support for EFI platforms")
+>> Signed-off-by: Frediano Ziglio<frediano.ziglio@cloud.com>
+> I expect we want this in before the release. Oleksii? Maintainers?
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+Interesting it is a fix for a ~3 years old bug ( if to look at when9180f5365524 is introduced ) so it seems it happens not often. Anyway, I 
+agree that we want this fix before the release: R-Acked-by: Oleksii 
+Kurochko <oleksii.kurochko@gmail.com> Thanks. ~ Oleksii
 
---------------imzL8DZzNZb3kqaqoUbDgxfa--
+>
+> Jan
+--------------acMyzx8xKOmOQL7gzEv1lEMU
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---------------VpJX8h6sbYwqajezu80uQj8r--
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2/4/25 2:07 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:9d7b6706-7415-43d5-a66e-650eb67437fa@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 22.01.2025 11:14, Frediano Ziglio wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">Although code is compiled with -fpic option data is not position
+independent. This causes data pointer to become invalid if
+code is not relocated properly which is what happens for
+efi_multiboot2 which is called by multiboot entry code.
 
---------------XxxnyBp1eDAW7yn5i9E9Alz4
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+Code tested adding
+   PrintErrMesg(L"Test message", EFI_BUFFER_TOO_SMALL);
+in efi_multiboot2 before calling efi_arch_edd (this function
+can potentially call PrintErrMesg).
 
------BEGIN PGP SIGNATURE-----
+Before the patch (XenServer installation on Qemu, xen replaced
+with vanilla xen.gz):
+  Booting `XenServer (Serial)'Booting `XenServer (Serial)'
+  Test message: !!!! X64 Exception Type - 0E(#PF - Page-Fault)  CPU Apic ID - 00000000 !!!!
+  ExceptionData - 0000000000000000  I:0 R:0 U:0 W:0 P:0 PK:0 SS:0 SGX:0
+  RIP  - 000000007EE21E9A, CS  - 0000000000000038, RFLAGS - 0000000000210246
+  RAX  - 000000007FF0C1B5, RCX - 0000000000000050, RDX - 0000000000000010
+  RBX  - 0000000000000000, RSP - 000000007FF0C180, RBP - 000000007FF0C210
+  RSI  - FFFF82D040467CE8, RDI - 0000000000000000
+  R8   - 000000007FF0C1C8, R9  - 000000007FF0C1C0, R10 - 0000000000000000
+  R11  - 0000000000001020, R12 - FFFF82D040467CE8, R13 - 000000007FF0C1B8
+  R14  - 000000007EA33328, R15 - 000000007EA332D8
+  DS   - 0000000000000030, ES  - 0000000000000030, FS  - 0000000000000030
+  GS   - 0000000000000030, SS  - 0000000000000030
+  CR0  - 0000000080010033, CR2 - FFFF82D040467CE8, CR3 - 000000007FC01000
+  CR4  - 0000000000000668, CR8 - 0000000000000000
+  DR0  - 0000000000000000, DR1 - 0000000000000000, DR2 - 0000000000000000
+  DR3  - 0000000000000000, DR6 - 00000000FFFF0FF0, DR7 - 0000000000000400
+  GDTR - 000000007F9DB000 0000000000000047, LDTR - 0000000000000000
+  IDTR - 000000007F48E018 0000000000000FFF,   TR - 0000000000000000
+  FXSAVE_STATE - 000000007FF0BDE0
+  !!!! Find image based on IP(0x7EE21E9A) (No PDB)  (ImageBase=000000007EE20000, EntryPoint=000000007EE23935) !!!!
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmejOFYFAwAAAAAACgkQsN6d1ii/Ey/o
-dQf/SGa2i+YR36p0MBaVh1whjl46nYRUBvGG0a7F6H0QgQRnlVUgOHIX2uENKfysq090s4QbvCPb
-q1JRu6n9YXHAbQlTYZ9F88WEq/7d59ZdFOd4CSVEqbfUFS3Js/yNjTXYIetgKZuI59iwwdv93eYQ
-7a91fSltyjz6I+65sHMsAr3b9j8tph9TvCMJ/T9enslkLBqs1Rw0Tt7XpKXRQpbQ8Ubl156dXIvM
-lRRKhPHAc+/8G6RA67fQI7QA4AfdFch8m41yUrSjtm77nuc8ttCZN79JnyFn/VOmg6HBhuhqFHuv
-eHUJ9xyGiYYc3jDqMjroqXGUiTXpcmegYqw6fKb+GQ==
-=/5pX
------END PGP SIGNATURE-----
+After the patch:
+  Booting `XenServer (Serial)'Booting `XenServer (Serial)'
+  Test message: Buffer too small
+  BdsDxe: loading Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4AF6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
+  BdsDxe: starting Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4AF6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
 
---------------XxxnyBp1eDAW7yn5i9E9Alz4--
+This partially rollback commit 00d5d5ce23e6.
+
+Fixes: 9180f5365524 ("x86: add multiboot2 protocol support for EFI platforms")
+Signed-off-by: Frediano Ziglio <a class="moz-txt-link-rfc2396E" href="mailto:frediano.ziglio@cloud.com">&lt;frediano.ziglio@cloud.com&gt;</a>
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+I expect we want this in before the release. Oleksii? Maintainers?</pre>
+    </blockquote>
+    <pre>Interesting it is a fix for a ~3 years old bug ( if to look at when <span
+    style="white-space: pre-wrap">9180f5365524 is introduced ) so it seems it happens not often.
+Anyway, I agree that we want this fix before the release:
+R-Acked-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+
+Thanks.
+
+~ Oleksii
+</span></pre>
+    <p><span style="white-space: pre-wrap">
+</span></p>
+    <blockquote type="cite"
+      cite="mid:9d7b6706-7415-43d5-a66e-650eb67437fa@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+Jan
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------acMyzx8xKOmOQL7gzEv1lEMU--
 
