@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04B36A286B6
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Feb 2025 10:38:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.882023.1292196 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D356A286EC
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Feb 2025 10:48:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.882037.1292206 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfbrV-0004dV-EJ; Wed, 05 Feb 2025 09:38:25 +0000
+	id 1tfc0n-0006bH-Bc; Wed, 05 Feb 2025 09:48:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 882023.1292196; Wed, 05 Feb 2025 09:38:25 +0000
+Received: by outflank-mailman (output) from mailman id 882037.1292206; Wed, 05 Feb 2025 09:48:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfbrV-0004ay-Bh; Wed, 05 Feb 2025 09:38:25 +0000
-Received: by outflank-mailman (input) for mailman id 882023;
- Wed, 05 Feb 2025 09:38:24 +0000
+	id 1tfc0n-0006ZW-8v; Wed, 05 Feb 2025 09:48:01 +0000
+Received: by outflank-mailman (input) for mailman id 882037;
+ Wed, 05 Feb 2025 09:48:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ANbf=U4=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tfbrU-0004as-82
- for xen-devel@lists.xenproject.org; Wed, 05 Feb 2025 09:38:24 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=1Kcl=U4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tfc0m-0006ZQ-GD
+ for xen-devel@lists.xenproject.org; Wed, 05 Feb 2025 09:48:00 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f0552c49-e3a4-11ef-99a4-01e77a169b0f;
- Wed, 05 Feb 2025 10:38:22 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-38da88e6db0so831020f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 05 Feb 2025 01:38:22 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38db0e2f479sm3061238f8f.57.2025.02.05.01.38.20
+ id 4803b4d5-e3a6-11ef-99a4-01e77a169b0f;
+ Wed, 05 Feb 2025 10:47:58 +0100 (CET)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-5d9837f201aso1322645a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Feb 2025 01:47:58 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5dce0a3f2d5sm461608a12.30.2025.02.05.01.47.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Feb 2025 01:38:20 -0800 (PST)
+ Wed, 05 Feb 2025 01:47:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,146 +45,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f0552c49-e3a4-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 4803b4d5-e3a6-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1738748301; x=1739353101; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1738748878; x=1739353678; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7c3hH/C0ty80foBKuB31iqczubI+r+OraZ1ZxIaqE7Y=;
-        b=UjhMkkwySzbNwmnjwx+9I+MRhh7gXQVTNxZjtSweV1YIzLKyPb48KFftpPBBuEaYT0
-         Wjlo3on39tRLg0Diy/5Frhv+BNbNpRcQbSSNo1Qb78fZkqUriFoVlHqZBIaYWX14lJWK
-         /hUxVBiyY82sWgbDENL70uDvN/4Lbh6D8c57I=
+        bh=L7+kBy1J7ldgImOVmYM6rBwvgjzh/E61spzVjQqHmoY=;
+        b=HpBJl87dOgrZs/K91cYYcBycGzCScd7yTrWmqkvjotyB1n8AP+mBM6hr7hbPBfhNxg
+         TA2su5LW2jo6PlhxHNfUR0UNjFoaZ9XDYRAQEkaM96qV7pYdsnt9HCGnNUTh8qb1Pu/w
+         +BZWe0OldLxv0M0hU1qqZHXZ+10jIFA48DxlveJ1HNh/mL/g3hHS4XZXG1R2ssrb65HN
+         4LEUe7UVIpeHIVXLd3fl5Ai4c7Va5v6EFuG6ka1UuHZ7d3zvhct933UZfhMMWMikLFHZ
+         2aATVSAcuzZhG2YlTdjm/EQti2p1CszjKccK3bf+AxTWfDCZouFH/+6wQWxgxJvJyOzM
+         d8nQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738748301; x=1739353101;
+        d=1e100.net; s=20230601; t=1738748878; x=1739353678;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7c3hH/C0ty80foBKuB31iqczubI+r+OraZ1ZxIaqE7Y=;
-        b=UMu2+53W5YS5he10J9WX8xogNKA7IbYwggywLY3bf8Z8mlHB/pC2owUMjm/Qf6ycZi
-         ilPgrffdFtgegFfB0mBw4u4XIMbEyP9sm6cO7c+p9i+1KBJeCtSIp6LmFrjQYz9VMIxr
-         XGmPnWs6Bs2tR8Q9sVabTBOkGf0jG27QEw7pgtR1dQZ2ylSZZWHB6NnlBmjFZAzuRYA5
-         /UKq2tREKoRTdgPoU80+2eMKzRU6EY7e4lBnVpQf4LZfqgjdx84v6uwA12Bm1IP1f5o4
-         awdHbrERGpCKXWNA6AXFEReAntgWCxYt0u/HCnM04PjqOiTIuZNBNainuUm7F+nTvl3X
-         2/pQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWN/FplUA7ZNLzi5PXGS21wg3fSqBIvLA+nqEKWBwQsWpQJfLMHVORe8FXsWcFh86wb2u+YBjW3YQc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw15Yiti5lXSlHMbASew0cue6HzCPhOXOlmj5MPCWQpVNJpUQvr
-	LaTGQT1yoz/ROJX9SRHmHoeoTiiloIVDDx9vxtsPAIevjYnT1LQ3X4Tq+kCW1hE=
-X-Gm-Gg: ASbGnctp99upaz7NyTTMrd5+e/dn2EWkmHbug+2R9o6q+l/SLVWbVwlSJ0Qml/CxlDP
-	yzymLwb1b0AytyYA/+qdMbTk8aFPmy+eOhZ2Taj3nxHfkwYzN8sUiorR8MBokhFD7zJY0WrrzPL
-	W7LfYb/uOwjNJLOoO7uahDsuCpkS0OZZ4DV8xpwJlOByGpARG0GPU06R1zxOcOyYGT+AC6yv2T+
-	WXly7zg2xGe9VZ6OY9XtMyAtDsjunDAC+a5hQUtIlsi6GCTwRh3iHXeFq3cvMcj1UfipL5EykCG
-	cDZRH4RZALYAxEmrUsooa6TMAT9dC0Q4LB5Hn56mLp6A0NeESwC6L4c=
-X-Google-Smtp-Source: AGHT+IGKiCTY7NdXJy7RVGHpio2VSFkQcy1N+pRmbgyKzcOOLI6LKDmi0Hp5/VBrGDDXcgZfdTMBvQ==
-X-Received: by 2002:a5d:47cc:0:b0:38b:ece5:5fe3 with SMTP id ffacd0b85a97d-38db48a3fbdmr1234354f8f.1.1738748301323;
-        Wed, 05 Feb 2025 01:38:21 -0800 (PST)
-Message-ID: <b70e246a-5e5e-431c-9b85-dc4644df7bd9@citrix.com>
-Date: Wed, 5 Feb 2025 09:38:19 +0000
+        bh=L7+kBy1J7ldgImOVmYM6rBwvgjzh/E61spzVjQqHmoY=;
+        b=qC6InBhyR8jAqMOwQaRBrA3G5x8G/Xoi/Qx+Ro1TkPIcrwMB1AQQ1v3MHg+HsZcQ0P
+         +TTpBkSOUgiUBfqiFDJY1kqDVUI3zT7SBLLluH9haVvxf8KnaUeWtVoEdoDVXopTYiv7
+         Wl3cQRiKnEUEJ/3zcqlkCZSjYx/k2IOyJQCDG+kZeznXwQNGft4qYvi8fsA2q4tP771o
+         cgxo0QvZo6/EeQLK7ks/bBs+ZH0bLNiVpqhGITVFu/2rZ0AZ8GAlZ0l3xE/K/DCDCPyy
+         nTGE0bbL+zohfUbAMdBgXFZs2nBUnPOTrjKMjfbE+9cST65Pw3rjA80cwLUlaXaG3CGA
+         Fg5g==
+X-Gm-Message-State: AOJu0YyGSumxqKl7N7WQ2IzC6j4dkoCfeVJLG//FE967wPdPpoSxlMJu
+	nuI5huNu9RMVoYHrepcr7XdhLURQ71t0mknoeMbUVSH7sTlAGSTaUn0sZGJGRg==
+X-Gm-Gg: ASbGncuf18ebYCY2JIvhqljvXJFpQNdGIdqYAAc3Oni/45B8lINd/W7e5VKGMjxvxXC
+	QjL8prDR177gVWJy3e7+xkQKjiCEumrkv2cq+av+3A6Bv+HYMXT6HJpTHqs53V9Lm4xBg1t5eO8
+	DAPt3FCmjHc5Gg8nrHkEFgjMOT0z5gOBSsiB3Tpx9tgI//WAPXZjvP1JO4zkHRvV0O49H21VUhC
+	nDC9vzywCNsJq+yiYAj845oCPU2ZKP+s7aqFRpAu6S8j05RMe2w271oc9wFyrFxTuuVcGQp0pmN
+	vy8YeuE2VgcNaMOWIAP2E+MFvZOlLHmQwr3mSuWjEg7pfKKXFi4jRa5q+oCyXqSy5VABeiBH69v
+	z
+X-Google-Smtp-Source: AGHT+IEumbSbiVMefaa4V/IC8O3G02qlCPD36fQxYiyo4CEQLPpouWwSdvO9dyPZ/BwaUaZyuExkeA==
+X-Received: by 2002:a05:6402:26d3:b0:5d9:3118:d0b8 with SMTP id 4fb4d7f45d1cf-5dcdc01b8demr1953138a12.8.1738748877996;
+        Wed, 05 Feb 2025 01:47:57 -0800 (PST)
+Message-ID: <e17d6462-1324-47da-b8bc-433f5476fbf6@suse.com>
+Date: Wed, 5 Feb 2025 10:47:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/xen: fix xen_hypercall_hvm() to not clobber %rbx
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- linux-kernel@vger.kernel.org, x86@kernel.org
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org
-References: <20250205091056.17796-1-jgross@suse.com>
- <121c5edb-9268-4258-9735-38e4e0f226ad@citrix.com>
- <3bb7aa63-9acd-4142-b7d6-bde3e92325ef@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <3bb7aa63-9acd-4142-b7d6-bde3e92325ef@suse.com>
+Subject: Re: Xen panic due to xstate mismatch
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>, Guillaume <thouveng@gmail.com>
+References: <CACt9=QgsSM18to9M5k8+3N3NvRoNVmAvsQo5oLO5-A0dm7VFNg@mail.gmail.com>
+ <CACBT2OvVcDzoghr5SSjfvA5c9=LDs7DC6Z1Pi0QJ2sv0YFcEfw@mail.gmail.com>
+ <CACt9=QiZhq94_=gSpSs782tM9uYQqvgrmOXeGw47C31-dwcrgw@mail.gmail.com>
+ <4218bce7-b615-40d7-8d40-b2553d8b1662@citrix.com>
+ <CACt9=Qgc=wjyRujFT=T2r1pvpyqWCOwzXw18BLO0uca7KuPKJA@mail.gmail.com>
+ <087acd38-868d-4e1b-ab0f-9dbdb0ceb8a8@citrix.com>
+ <CACt9=Qh0nXr35wx-ce8BC-xHcQjAa5nUdPvsm2K12RusT-wzXg@mail.gmail.com>
+ <79fe5f32-c345-41ee-af29-cbe3c45585e8@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <79fe5f32-c345-41ee-af29-cbe3c45585e8@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 05/02/2025 9:17 am, Jürgen Groß wrote:
-> On 05.02.25 10:16, Andrew Cooper wrote:
->> On 05/02/2025 9:10 am, Juergen Gross wrote:
->>> xen_hypercall_hvm(), which is used when running as a Xen PVH guest at
->>> most only once during early boot, is clobbering %rbx. Depending on
->>> whether the caller relies on %rbx to be preserved across the call or
->>> not, this clobbering might result in an early crash of the system.
->>>
->>> This can be avoided by not modifying %rbx in xen_hypercall_hvm().
->>>
->>> Fixes: b4845bb63838 ("x86/xen: add central hypercall functions")
->>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>> ---
->>>   arch/x86/xen/xen-head.S | 3 +--
->>>   1 file changed, 1 insertion(+), 2 deletions(-)
->>>
->>> diff --git a/arch/x86/xen/xen-head.S b/arch/x86/xen/xen-head.S
->>> index 9252652afe59..4378b817ed32 100644
->>> --- a/arch/x86/xen/xen-head.S
->>> +++ b/arch/x86/xen/xen-head.S
->>> @@ -117,8 +117,7 @@ SYM_FUNC_START(xen_hypercall_hvm)
->>
->> The 32bit case, out of context up here, also clobbers %ebx.
->>
->> ~Andrew
->>
->>>       pop %ebx
->
-> It does not, as this part of the context is showing.
+On 04.02.2025 18:35, Andrew Cooper wrote:
+> On 03/02/2025 8:58 am, Guillaume wrote:
+>> Oh cool, thanks a lot for the explanation.
+>> I added the "vzeroupper" and Xen crashes so it looks like the CPUID
+>> emulation is buggy. Also I was able to try it using a VM (same debian
+>> testing) running on virt-manager+kvm and it works fine (Xen in debug
+>> mode). I will have a look by printing the xstate when running on
+>> virt-manager+KVM and I will also run the xen-cpuid command to see the
+>> difference just by curiosity as with your test we already spotted the
+>> issue.
+>> Thanks again for your enlightenment. I will continue my testing later
+>> today and if you need me to test something else you are welcome, just
+>> ask I will do my best.
+> 
+> It sounds like KVM has a better CPUID emulation than VirtualBox.
+> 
+> It would be ideal to report this bug with VirtualBox.
+> 
+> But, as you identified originally, it's not nice that Xen simply like
+> this. We should see about what to for Xen, seeing as we're close to the
+> line on 4.20.  I'm thinking maybe making the xstate checks non-fatal in
+> the cpu_has_hypervisor case.  Thoughts?
 
-Hmm, so it is, and worse, it can't be changed to match the 64bit side. 
-That's nasty.
+In principle: Yes, that's an option. But then we need to suppress use of
+xstate_{,un}compressed_size() anywhere, perhaps by disabling respective
+features. Not sure whether that is what you meant to imply.
 
-But while I'm here looking at the code, what's up with
-
-#ifdef CONFIG_FRAME_POINTER
-        pushq $0        /* Dummy push for stack alignment. */
-#endif
-
-?
-
-That's covered by FRAME_{START,END} normally, and Linux's preferred
-stack alignment is 8 not 16.
-
-~Andrew
+Jan
 
