@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F164A28736
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Feb 2025 10:59:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.882053.1292227 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3F55A2874B
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Feb 2025 11:04:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.882061.1292236 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfcBE-0000b1-Gx; Wed, 05 Feb 2025 09:58:48 +0000
+	id 1tfcGu-0002WD-4L; Wed, 05 Feb 2025 10:04:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 882053.1292227; Wed, 05 Feb 2025 09:58:48 +0000
+Received: by outflank-mailman (output) from mailman id 882061.1292236; Wed, 05 Feb 2025 10:04:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfcBE-0000YU-E9; Wed, 05 Feb 2025 09:58:48 +0000
-Received: by outflank-mailman (input) for mailman id 882053;
- Wed, 05 Feb 2025 09:58:46 +0000
+	id 1tfcGu-0002Ts-1c; Wed, 05 Feb 2025 10:04:40 +0000
+Received: by outflank-mailman (input) for mailman id 882061;
+ Wed, 05 Feb 2025 10:04:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1Kcl=U4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tfcBC-0000YK-7g
- for xen-devel@lists.xenproject.org; Wed, 05 Feb 2025 09:58:46 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
+ (envelope-from <SRS0=j99B=U4=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1tfcGs-0002Tm-U1
+ for xen-devel@lists.xenproject.org; Wed, 05 Feb 2025 10:04:39 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c8ce4a50-e3a7-11ef-99a4-01e77a169b0f;
- Wed, 05 Feb 2025 10:58:44 +0100 (CET)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-5dce3763140so162082a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 05 Feb 2025 01:58:44 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5dc724c9cffsm10990609a12.74.2025.02.05.01.58.42
+ id 9b327c7a-e3a8-11ef-99a4-01e77a169b0f;
+ Wed, 05 Feb 2025 11:04:37 +0100 (CET)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-38daa53a296so770727f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Feb 2025 02:04:37 -0800 (PST)
+Received: from ?IPV6:2003:e5:8714:500:2aea:6ec9:1d88:c1ef?
+ (p200300e5871405002aea6ec91d88c1ef.dip0.t-ipconnect.de.
+ [2003:e5:8714:500:2aea:6ec9:1d88:c1ef])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38c5c1016easm18276934f8f.24.2025.02.05.02.04.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Feb 2025 01:58:43 -0800 (PST)
+ Wed, 05 Feb 2025 02:04:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,219 +47,235 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c8ce4a50-e3a7-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 9b327c7a-e3a8-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738749523; x=1739354323; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8LnZCcV0mezdMEilxNWYX5DP/LBcOYWwA67reiYfnWU=;
-        b=VSTUaknTNUwgrXQ6/uFqsgP4niMwkiTDNjL7gianf8twwq36yhfbReS9I3A+3GmeUi
-         KTeXTNiu+0jQWb1ZWQ8W2QvffmfZrdEI4C8EITsxIo1mPRzv/uWkHL+wRc0XlZOBFrDg
-         Z8jPB+sc4rktK1dHNpmdtlgYEau/DMknAJGAiQjmtbEMNoT8tnMjMzZKdPEXpKyTKYAT
-         rDuj5C6nI+HyH0rqLsoMMBMzLioAicOMnpCNGpHuqipTbPHqbwX4tR1wtCebQTQROybf
-         jlFiM7ospQ9GapTYo661SJHcfVvL1jd83YAdcIFfL6S/M5t/b5na9mSXm402+V/t3F2M
-         0djA==
+        d=suse.com; s=google; t=1738749876; x=1739354676; darn=lists.xenproject.org;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=zw61F9gNWRDsJgHmwiwLIXpCKfGINWqLRx7Xz0waxKE=;
+        b=bDWDpgntsYc4ADDZ3SEmkgCbU0Kds14ZoVCnzotyIm1bYYIF93drb3ZrTMuXxSDXiZ
+         TjfQVziRhRSrSiachpizCrUWKCttp28d+CdI2G8trSsv4p4wDxhMWaFGcQwHf0dsEMYj
+         EeZX8o06LZoDgcegIiPuei8bM5SgJ2odugTaNRtP8/0cZfgd/q0YC54b9cRIj66sZC4i
+         3ENvu/LFzHOVfWPUxVkgxkdktsegvy3eQodUzpV1YbcrbKIVkfJcjxxs/Pks/+GV9kKG
+         FLUPAXh66RMCl2duvNg+cBi3ygjlX08x0uNHN/tgnWfgxjLiseg1hqP1aQc+tsMqpmXZ
+         MAHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738749523; x=1739354323;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8LnZCcV0mezdMEilxNWYX5DP/LBcOYWwA67reiYfnWU=;
-        b=qjiBtI2FzgITZOZ5zx2kCX2IuBZy8cHZKoBJVCy6y4i7ve+ZwM7vhyqp1I8vGOQmeE
-         BRmBETMshWl0XCiAMGgCG2/GbapSFyCGZLMXKMOjOw8i6CkUCkVMQqF84u/163Wdyt3r
-         ctx8nc08yiEugDck3UYXTdaHj802voDSNOrqO+sTzxPjLGUTmaLmBXsNOUsIXm4uQaUh
-         GxhTCQWsXFCydcyALle8fZYpb/iW/A5fgCEm9ofKKx/hMG06rTYyzctfOgL0JWqTgjop
-         J9TK5HFro1KwEck4xD/gamA1UY6VhZB6bASswbjR3cZ4dBF7XZNBWHezONx2qcLxh0Ap
-         fzsw==
-X-Forwarded-Encrypted: i=1; AJvYcCVpjUL47U3tlaFyK2Vo3JNLoF/DdHIX5lopDQNctLr6dZ3cuEe1AYodk0AeRdI0BabjTYkTmEaVsSQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxghiuyWAg48YDIlvueP1SW7OQaGIRSRBNxVbaom9aan8duI6KH
-	EP6vsSqcDLogxRB5zDbPT3hqAig5SrmPCgZSJkqeDN1YW+369Vnas0nl9K8Lag==
-X-Gm-Gg: ASbGncu28Ohho/QwEBD/7i+4bJeNqnTVw3VmRrGdAZ7BWIL2C34bf9r5Df/6gQkSTbx
-	NMf2pgY0KQFnTDGn25/5XrfjZsy9PKr7tdZZjPR2AaUAzeBUO2rfcfMFM9+Rc3quzeqNYEz6phk
-	boZoR5fCPmIa2ODM7LLYuYRDxFxeVo2lLejb7Bib83FZfURUDJ/ukTb4RBP9QKnXLyvv0oT3eE7
-	W5uy3B2NoTj8e/xMhhkhFc62BHYZ3dkJuNcGgYIyOJZnbk4a8V8iZCaH21PJx8+xNtpUdZuzHVp
-	009sSX+uGDQr8QzLzYvEw6IKgbP0u0W6Mlur6/gaZTHh1wZbx5iw4hqKyVPUptEqpWtoqI/MU8W
-	P
-X-Google-Smtp-Source: AGHT+IHzFpZ4pNKnEU6ySaO3b3sygcRkjlrCKCSJITKJG4qL69WQR1srIz69XY3uFss3MsCMuXT7sQ==
-X-Received: by 2002:a05:6402:1d4b:b0:5d2:8f70:75f6 with SMTP id 4fb4d7f45d1cf-5dcdb776f63mr2367176a12.30.1738749523513;
-        Wed, 05 Feb 2025 01:58:43 -0800 (PST)
-Message-ID: <bce9e718-36bd-4bb6-9a9c-97115f453c1a@suse.com>
-Date: Wed, 5 Feb 2025 10:58:42 +0100
+        d=1e100.net; s=20230601; t=1738749876; x=1739354676;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=zw61F9gNWRDsJgHmwiwLIXpCKfGINWqLRx7Xz0waxKE=;
+        b=uTn++oN/94stkiNQIpiMGoqyO8XdJzK49PWV0Jyb7HlqEE4GnC10OsXKS6jUOOm8oS
+         eytCHVb10CCmyu43X+Zn9lgcEGnO9O3XjjicczAfGu+QvIgV4hbrs5ppUeQCVKYpyju/
+         kX/eKrxOq8JIweE6QSENaxuZ+TSWwzpiJ/QqlK+1pMPQASrmWH3VrgJ4S3BpwIbwZdfF
+         nSUpuk+bTDa3/L9WqoI825YOMItC5rtsRjMVhid8BFjYVE1T2DG/D3ntkXYVA/URclGP
+         wj0Ag8SoI6x3Bucsb05OJEqSj/xpQVRpwH80AePJ3oHd85dLPGvTjH/LMi6A4FiQ688n
+         ddew==
+X-Forwarded-Encrypted: i=1; AJvYcCUSLpzs6VvPAUypPuVOFofn/2hhX09CCdKIkWR+3eyHJ8I8Sx/xyT5+wtk9KHYqpzH+jBYAQbjeJdw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxGR9jiL42mg1irVZ51QLcCtSWjJnL8fufQwbonW9iCVopul6b0
+	Ur5J3f5XFcY2spujsZPJ+wQz0CzP1060tO3UDsPhgt9s07MjDWXcirTR5d9XT7w=
+X-Gm-Gg: ASbGncu9SZizugV1O3H2mz/EyrB8CxqMQA9MTBfU2clMt+z9YL+G/GEN5atVU9AfzIQ
+	R3zBhNAkaVf1WvEIjbcUEJSgHruBbmo0EB357OOkgILI5gxJXaM26+opaXJod++y6a+Ogu5tqXl
+	yvOJqR9zAoDFCKdh0so4FrxLirjyI0rASI4ZV77MPOXABNzRlEt10wAw9D+8ZDKS7pK5rHTBD5n
+	wHFKLmqSe9C8Kkb1sXcD4K+SWJt/mKJxRxU7VkX3hWwDUt6nO3UcBPt5TJ+ccLWv2Rd/Jsc9Tz0
+	vlWNu0daJKnLZUuDnkncID6Ub5nWbcnkwKCOkfKCSIPIM20DYF2qpg/eIg4VkNzEZqB/cQx2Xun
+	4gNUO+LBto4+/qeLUG86ZyzU6m3CidKFa+iSVIA==
+X-Google-Smtp-Source: AGHT+IGwBiFvM0zx5e2BnKoS0Gh/BiImC7t5tJC4F5GEYLIZr9jW2ZYGFNghwc6ar4dzbwT2fO+DJw==
+X-Received: by 2002:a5d:6d0e:0:b0:385:e38f:8cc with SMTP id ffacd0b85a97d-38db490e466mr1721929f8f.38.1738749876111;
+        Wed, 05 Feb 2025 02:04:36 -0800 (PST)
+Message-ID: <a2b93e7c-be69-4cfd-8b34-de22dda4cb6f@suse.com>
+Date: Wed, 5 Feb 2025 11:04:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6] vpci: Add resizable bar support
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, "Huang, Ray"
- <Ray.Huang@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20250123035003.3797022-1-Jiqian.Chen@amd.com>
- <2f34ba33-070e-4c02-a7e5-71451553a23e@suse.com>
- <Z5ebGImjSz-55Nkj@macbook.local>
- <9a4ed1f8-0cbf-4df5-804e-78cc3ee1d777@suse.com>
- <Z5ehh9IK3W8fLXIl@macbook.local>
- <PH7PR12MB5854E7408E3028689450E68DE7F72@PH7PR12MB5854.namprd12.prod.outlook.com>
- <Z6Mn2pWdp6aquAmY@macbook.local>
- <PH7PR12MB585419F320DC4EA364EC79ECE7F72@PH7PR12MB5854.namprd12.prod.outlook.com>
+Subject: Re: [PATCH] x86/xen: fix xen_hypercall_hvm() to not clobber %rbx
+To: Andrew Cooper <andrew.cooper3@citrix.com>, linux-kernel@vger.kernel.org,
+ x86@kernel.org
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org
+References: <20250205091056.17796-1-jgross@suse.com>
+ <121c5edb-9268-4258-9735-38e4e0f226ad@citrix.com>
+ <3bb7aa63-9acd-4142-b7d6-bde3e92325ef@suse.com>
+ <b70e246a-5e5e-431c-9b85-dc4644df7bd9@citrix.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <PH7PR12MB585419F320DC4EA364EC79ECE7F72@PH7PR12MB5854.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <b70e246a-5e5e-431c-9b85-dc4644df7bd9@citrix.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------YVhbn2eiTwP8MwZW1x80b2Pm"
 
-On 05.02.2025 10:12, Chen, Jiqian wrote:
-> On 2025/2/5 16:56, Roger Pau Monné wrote:
->> On Wed, Feb 05, 2025 at 03:42:30AM +0000, Chen, Jiqian wrote:
->>> On 2025/1/27 23:08, Roger Pau Monné wrote:
->>>> On Mon, Jan 27, 2025 at 03:52:31PM +0100, Jan Beulich wrote:
->>>>> On 27.01.2025 15:41, Roger Pau Monné wrote:
->>>>>> On Mon, Jan 27, 2025 at 03:20:40PM +0100, Jan Beulich wrote:
->>>>>>> On 23.01.2025 04:50, Jiqian Chen wrote:
->>>>>>>> v5->v6 changes:
->>>>>>>> * Changed "1UL" to "1ULL" in PCI_REBAR_CTRL_SIZE idefinition for 32 bit architecture.
->>>>>>>> * In rebar_ctrl_write used "bar - pdev->vpci->header.bars" to get index instead of reading
->>>>>>>>   from register.
->>>>>>>> * Added the index of BAR to error messages.
->>>>>>>> * Changed to "continue" instead of "return an error" when vpci_add_register failed.
->>>>>>>
->>>>>>> I'm not convinced this was a good change to make. While ...
->>>>>>>
->>>>>>>> +static int cf_check init_rebar(struct pci_dev *pdev)
->>>>>>>> +{
->>>>>>>> +    uint32_t ctrl;
->>>>>>>> +    unsigned int nbars;
->>>>>>>> +    unsigned int rebar_offset = pci_find_ext_capability(pdev->sbdf,
->>>>>>>> +                                                        PCI_EXT_CAP_ID_REBAR);
->>>>>>>> +
->>>>>>>> +    if ( !rebar_offset )
->>>>>>>> +        return 0;
->>>>>>>> +
->>>>>>>> +    if ( !is_hardware_domain(pdev->domain) )
->>>>>>>> +    {
->>>>>>>> +        printk(XENLOG_ERR "%pp: resizable BARs unsupported for unpriv %pd\n",
->>>>>>>> +               &pdev->sbdf, pdev->domain);
->>>>>>>> +        return -EOPNOTSUPP;
->>>>>>>> +    }
->>>>>>>> +
->>>>>>>> +    ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL(0));
->>>>>>>> +    nbars = MASK_EXTR(ctrl, PCI_REBAR_CTRL_NBAR_MASK);
->>>>>>>> +    for ( unsigned int i = 0; i < nbars; i++ )
->>>>>>>> +    {
->>>>>>>> +        int rc;
->>>>>>>> +        struct vpci_bar *bar;
->>>>>>>> +        unsigned int index;
->>>>>>>> +
->>>>>>>> +        ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL(i));
->>>>>>>> +        index = ctrl & PCI_REBAR_CTRL_BAR_IDX;
->>>>>>>> +        if ( index >= PCI_HEADER_NORMAL_NR_BARS )
->>>>>>>> +        {
->>>>>>>> +            printk(XENLOG_ERR "%pd %pp: too big BAR number %u in REBAR_CTRL\n",
->>>>>>>> +                   pdev->domain, &pdev->sbdf, index);
->>>>>>>> +            continue;
->>>>>>>> +        }
->>>>>>>> +
->>>>>>>> +        bar = &pdev->vpci->header.bars[index];
->>>>>>>> +        if ( bar->type != VPCI_BAR_MEM64_LO && bar->type != VPCI_BAR_MEM32 )
->>>>>>>> +        {
->>>>>>>> +            printk(XENLOG_ERR "%pd %pp: BAR%u is not in memory space\n",
->>>>>>>> +                   pdev->domain, &pdev->sbdf, index);
->>>>>>>> +            continue;
->>>>>>>> +        }
->>>>>>>
->>>>>>> ... for these two cases we can permit Dom0 direct access because the BAR
->>>>>>> isn't going to work anyway (as far as we can tell), ...
->>>>>>>
->>>>>>>> +        rc = vpci_add_register(pdev->vpci, vpci_hw_read32vpci_hw_read32, vpci_hw_write32,
->>>>>>>> +                               rebar_offset + PCI_REBAR_CAP(i), 4, NULL);
->>>>>>>> +        if ( rc )
->>>>>>>> +        {
->>>>>>>> +            /*
->>>>>>>> +             * TODO: for failed pathes, need to hide ReBar capability
->>>>>>>> +             * from hardware domain instead of returning an error.
->>>>>>>> +             */
->>>>>>>> +            printk(XENLOG_ERR "%pd %pp: BAR%u fail to add reg of REBAR_CAP rc=%d\n",
->>>>>>>> +                   pdev->domain, &pdev->sbdf, index, rc);
->>>>>>>> +            continue;
->>>>>>>> +        }
->>>>>>>> +
->>>>>>>> +        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, rebar_ctrl_write,
->>>>>>>> +                               rebar_offset + PCI_REBAR_CTRL(i), 4, bar);
->>>>>>>> +        if ( rc )
->>>>>>>> +        {
->>>>>>>> +            printk(XENLOG_ERR "%pd %pp: BAR%u fail to add reg of REBAR_CTRL rc=%d\n",
->>>>>>>> +                   pdev->domain, &pdev->sbdf, index, rc);
->>>>>>>> +            continue;
->>>>>>>> +        }
->>>>>>>
->>>>>>> ... in these two cases we had an issue internally, and would hence wrongly
->>>>>>> allow Dom0 direct access (and in case it's the 2nd one that failed, in fact
->>>>>>> only partially direct access, with who knows what resulting inconsistencies).
->>>>>>>
->>>>>>> Only with this particular change undone:
->>>>>> R> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->>>>>>>
->>>>>>> Otherwise you and Roger (who needs to at least ack the change anyway) will
->>>>>>> need to sort that out, with me merely watching.
->>>>>>
->>>>>> Ideally errors here should be dealt with by masking the capability.
->>>>>> However Xen doesn't yet have that support.  The usage of continue is
->>>>>> to merely attempt to keep any possible setup hooks working (header,
->>>>>> MSI, MSI-X). Returning failure from init_rebar() will cause all
->>>>>> vPCI hooks to be removed, and thus the hardware domain to have
->>>>>> unmediated access to the device, which is likely worse than just
->>>>>> continuing here.
->>>>>
->>>>> Hmm, true. Maybe with the exception of the case where the first reg
->>>>> registration works, but the 2nd fails. Since CTRL is writable but
->>>>> CAP is r/o (and data there is simply being handed through) I wonder
->>>>> whether we need to intercept CAP at all, and if we do, whether we
->>>>> wouldn't better try to register CTRL first.
->>>>
->>>> Indeed, Jiqian is that a leftover from a previous version when writes
->>>> to CAP where ignored for being a read-only register?
->>> Sorry to reply late, I just came back from an annual leave.
->>> Did you mean: why I added handler vpci_hw_write32 for CAP?
->>> If so, this is a change since V2, that you suggested to add it because there is no write limitation for dom0.
->>
->> Indeed, if there's no write limitation, you can just drop the addition
->> of the traps, as the hardware domain by default gets read and write
->> access to all PCI config space.  IOW: there's no need for a
->> vpci_add_register() call for PCI_REBAR_CAP if the handlers are just
->> vpci_hw_{read,write}32().
-> OK, I think so.
-> 
-> Hi Jan, can this change meet your opinion?
-> Not to add register for CAP, and if fail to add register for CTRL, then "continue"
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------YVhbn2eiTwP8MwZW1x80b2Pm
+Content-Type: multipart/mixed; boundary="------------fN1U4fRxqP8wFGPQ4LS3sYDE";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, linux-kernel@vger.kernel.org,
+ x86@kernel.org
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org
+Message-ID: <a2b93e7c-be69-4cfd-8b34-de22dda4cb6f@suse.com>
+Subject: Re: [PATCH] x86/xen: fix xen_hypercall_hvm() to not clobber %rbx
+References: <20250205091056.17796-1-jgross@suse.com>
+ <121c5edb-9268-4258-9735-38e4e0f226ad@citrix.com>
+ <3bb7aa63-9acd-4142-b7d6-bde3e92325ef@suse.com>
+ <b70e246a-5e5e-431c-9b85-dc4644df7bd9@citrix.com>
+In-Reply-To: <b70e246a-5e5e-431c-9b85-dc4644df7bd9@citrix.com>
 
-Well, Roger as the maintainer has indicated to go that route. That's okay
-with me. My only request then is to add a comment there, summarizing what
-he said earlier on.
+--------------fN1U4fRxqP8wFGPQ4LS3sYDE
+Content-Type: multipart/mixed; boundary="------------TWv0UmArgKymMd90uPhiPDC6"
 
-Jan
+--------------TWv0UmArgKymMd90uPhiPDC6
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+T24gMDUuMDIuMjUgMTA6MzgsIEFuZHJldyBDb29wZXIgd3JvdGU6DQo+IE9uIDA1LzAyLzIw
+MjUgOToxNyBhbSwgSsO8cmdlbiBHcm/DnyB3cm90ZToNCj4+IE9uIDA1LjAyLjI1IDEwOjE2
+LCBBbmRyZXcgQ29vcGVyIHdyb3RlOg0KPj4+IE9uIDA1LzAyLzIwMjUgOToxMCBhbSwgSnVl
+cmdlbiBHcm9zcyB3cm90ZToNCj4+Pj4geGVuX2h5cGVyY2FsbF9odm0oKSwgd2hpY2ggaXMg
+dXNlZCB3aGVuIHJ1bm5pbmcgYXMgYSBYZW4gUFZIIGd1ZXN0IGF0DQo+Pj4+IG1vc3Qgb25s
+eSBvbmNlIGR1cmluZyBlYXJseSBib290LCBpcyBjbG9iYmVyaW5nICVyYnguIERlcGVuZGlu
+ZyBvbg0KPj4+PiB3aGV0aGVyIHRoZSBjYWxsZXIgcmVsaWVzIG9uICVyYnggdG8gYmUgcHJl
+c2VydmVkIGFjcm9zcyB0aGUgY2FsbCBvcg0KPj4+PiBub3QsIHRoaXMgY2xvYmJlcmluZyBt
+aWdodCByZXN1bHQgaW4gYW4gZWFybHkgY3Jhc2ggb2YgdGhlIHN5c3RlbS4NCj4+Pj4NCj4+
+Pj4gVGhpcyBjYW4gYmUgYXZvaWRlZCBieSBub3QgbW9kaWZ5aW5nICVyYnggaW4geGVuX2h5
+cGVyY2FsbF9odm0oKS4NCj4+Pj4NCj4+Pj4gRml4ZXM6IGI0ODQ1YmI2MzgzOCAoIng4Ni94
+ZW46IGFkZCBjZW50cmFsIGh5cGVyY2FsbCBmdW5jdGlvbnMiKQ0KPj4+PiBTaWduZWQtb2Zm
+LWJ5OiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+DQo+Pj4+IC0tLQ0KPj4+PiAg
+wqAgYXJjaC94ODYveGVuL3hlbi1oZWFkLlMgfCAzICstLQ0KPj4+PiAgwqAgMSBmaWxlIGNo
+YW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAyIGRlbGV0aW9ucygtKQ0KPj4+Pg0KPj4+PiBkaWZm
+IC0tZ2l0IGEvYXJjaC94ODYveGVuL3hlbi1oZWFkLlMgYi9hcmNoL3g4Ni94ZW4veGVuLWhl
+YWQuUw0KPj4+PiBpbmRleCA5MjUyNjUyYWZlNTkuLjQzNzhiODE3ZWQzMiAxMDA2NDQNCj4+
+Pj4gLS0tIGEvYXJjaC94ODYveGVuL3hlbi1oZWFkLlMNCj4+Pj4gKysrIGIvYXJjaC94ODYv
+eGVuL3hlbi1oZWFkLlMNCj4+Pj4gQEAgLTExNyw4ICsxMTcsNyBAQCBTWU1fRlVOQ19TVEFS
+VCh4ZW5faHlwZXJjYWxsX2h2bSkNCj4+Pg0KPj4+IFRoZSAzMmJpdCBjYXNlLCBvdXQgb2Yg
+Y29udGV4dCB1cCBoZXJlLCBhbHNvIGNsb2JiZXJzICVlYnguDQo+Pj4NCj4+PiB+QW5kcmV3
+DQo+Pj4NCj4+Pj4gIMKgwqDCoMKgwqAgcG9wICVlYngNCj4+DQo+PiBJdCBkb2VzIG5vdCwg
+YXMgdGhpcyBwYXJ0IG9mIHRoZSBjb250ZXh0IGlzIHNob3dpbmcuDQo+IA0KPiBIbW0sIHNv
+IGl0IGlzLCBhbmQgd29yc2UsIGl0IGNhbid0IGJlIGNoYW5nZWQgdG8gbWF0Y2ggdGhlIDY0
+Yml0IHNpZGUuDQo+IFRoYXQncyBuYXN0eS4NCj4gDQo+IEJ1dCB3aGlsZSBJJ20gaGVyZSBs
+b29raW5nIGF0IHRoZSBjb2RlLCB3aGF0J3MgdXAgd2l0aA0KPiANCj4gI2lmZGVmIENPTkZJ
+R19GUkFNRV9QT0lOVEVSDQo+ICDCoMKgwqDCoMKgwqDCoCBwdXNocSAkMMKgwqDCoMKgwqDC
+oMKgIC8qIER1bW15IHB1c2ggZm9yIHN0YWNrIGFsaWdubWVudC4gKi8NCj4gI2VuZGlmDQo+
+IA0KPiA/DQo+IA0KPiBUaGF0J3MgY292ZXJlZCBieSBGUkFNRV97U1RBUlQsRU5EfSBub3Jt
+YWxseSwgYW5kIExpbnV4J3MgcHJlZmVycmVkDQo+IHN0YWNrIGFsaWdubWVudCBpcyA4IG5v
+dCAxNi4NCg0KSSd2ZSBhZGRlZCB0aGlzIGR1ZSB0byBhIHJldmlldyBjb21tZW50IGJ5IEph
+bi4gQXMgaGUgaXMgbW9yZSBpbnRvIEFCSQ0KbWF0dGVycywgSSBiZWxpZXZlZCBoaW0uDQoN
+Ckdvb2dsZSBpcyB0ZWxsaW5nIG1lIHlvdSBhcmUgcmlnaHQsIHNvIEknbGwgcmVtb3ZlIHRo
+b3NlIGV4dHJhIGh1bmtzIGluDQpWMiBvZiB0aGUgcGF0Y2ggYWRkaW5nIEZSQU1FX0VORC4N
+Cg0KDQpKdWVyZ2VuDQo=
+--------------TWv0UmArgKymMd90uPhiPDC6
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------TWv0UmArgKymMd90uPhiPDC6--
+
+--------------fN1U4fRxqP8wFGPQ4LS3sYDE--
+
+--------------YVhbn2eiTwP8MwZW1x80b2Pm
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmejN7IFAwAAAAAACgkQsN6d1ii/Ey/b
+IAf7BhwOZ8KY8OSd49htfzY9MVWffA7IumpbqDRLgHag1B6nBLXNzSqOW3N1ZPfBiPJc67WeZt0z
+gzqUANh6mMy6ua0pl6nbgZf0c/Mk8BVMdS76EBGdu0GTdBrzbZsRBJcOjlSydM3d8zNGYZqD7SNp
+tJL70aKJuce5uvFQTExj6ETzqQW5BG+fcXfqSH7/jJCooh5Dny0k/K4krvJWhZKOR1dsi3IqxE/N
+gBTsboKbM04JUC7rz6qwtZRBNyyxcYCpTN11F9phXjO8DFlR8YCNmLUG1GEriYZYDrt2I8ZcbsyY
+ndwIY5Ahuld+WBWn5FzZ5AXdozwg1RY1p3amIocJxA==
+=yWB2
+-----END PGP SIGNATURE-----
+
+--------------YVhbn2eiTwP8MwZW1x80b2Pm--
 
