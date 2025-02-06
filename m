@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EFC0A2ADF4
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Feb 2025 17:39:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.883035.1293122 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2214A2AE07
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Feb 2025 17:43:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.883046.1293132 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tg4uF-0005k9-Lw; Thu, 06 Feb 2025 16:39:11 +0000
+	id 1tg4xv-0007Ok-7O; Thu, 06 Feb 2025 16:42:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 883035.1293122; Thu, 06 Feb 2025 16:39:11 +0000
+Received: by outflank-mailman (output) from mailman id 883046.1293132; Thu, 06 Feb 2025 16:42:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tg4uF-0005iT-Ij; Thu, 06 Feb 2025 16:39:11 +0000
-Received: by outflank-mailman (input) for mailman id 883035;
- Thu, 06 Feb 2025 16:39:10 +0000
+	id 1tg4xv-0007Lj-4L; Thu, 06 Feb 2025 16:42:59 +0000
+Received: by outflank-mailman (input) for mailman id 883046;
+ Thu, 06 Feb 2025 16:42:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TFaJ=U5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tg4uE-0005gq-9Q
- for xen-devel@lists.xenproject.org; Thu, 06 Feb 2025 16:39:10 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
+ id 1tg4xt-0007Lc-7a
+ for xen-devel@lists.xenproject.org; Thu, 06 Feb 2025 16:42:57 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e34121b8-e4a8-11ef-a073-877d107080fb;
- Thu, 06 Feb 2025 17:39:09 +0100 (CET)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-5dccc90a52eso2141748a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 06 Feb 2025 08:39:09 -0800 (PST)
+ id 6a7dbce6-e4a9-11ef-a073-877d107080fb;
+ Thu, 06 Feb 2025 17:42:56 +0100 (CET)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-ab7483b9bf7so165729266b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Feb 2025 08:42:56 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab772f485dfsm123048966b.28.2025.02.06.08.39.07
+ a640c23a62f3a-ab784d33c59sm21415066b.183.2025.02.06.08.42.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Feb 2025 08:39:07 -0800 (PST)
+ Thu, 06 Feb 2025 08:42:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e34121b8-e4a8-11ef-a073-877d107080fb
+X-Inumbo-ID: 6a7dbce6-e4a9-11ef-a073-877d107080fb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738859948; x=1739464748; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1738860175; x=1739464975; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4sV9k+175k3msximi4JJcT6AvrgKCiG9eiTcKyYco+w=;
-        b=cg0be1Fda9pVgBpuHStIoVheAqraW7ARjn3/xH5AplgcABg6yM6/BQ3o6K4eN9Qtjh
-         QyJAKi9/xvl9C8wyUpyyuR7oq08X7NreZ1OlVYXoNoYbek2BqB0j5FFy+nzyadvsjkIc
-         Mfvf2YyBlvRtnYxm1UxpxuG4XGGHIf5k36OaukkV6UiXMd+wdNCSlz77K0mXOADlxwiH
-         xF42NOh4lUql1SmJKFDm0woJGsaDSAM0GPn9vZ+xeZNvcFnRenK/nq36QmMLcq4WMLDx
-         9kGcNdxa1hPk/CpvMB2v5Aixo2pGCFmCvRmOYFjsunOmnv1SKUeoksb2IZukZwXAGvvZ
-         Lqzg==
+        bh=2cVdkpZ2F9QYDOhvcsZt7YObcDfPAqcI+3ucQc8CRro=;
+        b=QyV2/1vSpq45SW8+iVkq6CsXLZ1ifXllNQVsvZEgtpj5eb7tEivGL5zWzngdq+toI7
+         /1I9IW7H96lYUmhOdYLDaSIwggvDUkrIv8tk9BSRcIJFQC3NDy5at++r3ZfASAFTeeiT
+         uqxS63Q4KZRVJvZ8N+gyqHcPE4oJ2cLNVHtGFTDnVl2gbcqY/xY2QJ6wNmySzM2SW9ig
+         xw+0jNt6JrHUTzQfpyUcXGkIa7Wii/HDS66ZgtVPHuSrXngCwvszOjpcdzVJmXcexgkU
+         /93vFwUX1p/JWlj1opMBpJ2qjmtpTUPlKfFwVl8P21nT6tl0cnvHV7EqxvCrgYWFGaMt
+         cQrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738859948; x=1739464748;
+        d=1e100.net; s=20230601; t=1738860175; x=1739464975;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4sV9k+175k3msximi4JJcT6AvrgKCiG9eiTcKyYco+w=;
-        b=cIuYDWkay98iON2AiFKcQ073cez8TLlZw56H3UVllR4PLcAjwns6yRCY/v7a5cB8Iv
-         GXQb3TEaz0oTO1TYzH2jvcgeP1QzrXj56PNcW1QICQ7oKvVsBeMK5bZ8FfVUo5PjZOLJ
-         5VKSQ3NTCxuy5t6zm9xjeReADjqMbDvT8mLtzUgPZ8kmaGeeoGLTrdhcr9kZ4TLwJjyr
-         zCycmWPzHZlgSe4O18j6vewqdtuHmUxly/IT5pE0OXmK+G9teALaRJ8Z5C8hWJ7pQY5b
-         fKA8jYv6D8/XXoH1KQ1uBNoVJe8ZjUKiDNDciSjAo7xz/GNyu5a8jsyLFrzL8O7OcD0X
-         hHMw==
-X-Gm-Message-State: AOJu0YwzWkmm5KO+4ovRiu6d8OaOAA3AuJadJgslZb3Be9rNCpvaVNFT
-	y4h9jtX8uPwBCC5kZ4TYyJxfnNi4yojNfJ7Ez48Jusyh9MgtSxvb/s6902n4yw==
-X-Gm-Gg: ASbGncvCh6IF1sZFAsmLKwDWMXxS76fcBAQr52eXRCcPGdPWJaZ+hgPD5yelCCZcfZn
-	kOhOZrSFHMyG7TakM9CU8Fdy6iH1/nMlzhezAc4l8YCx/MlVh0drzHI1QC3hbheFIknU2uwhb1V
-	6jDOoN35JjiikshIj7ZunUy0v0ppSJDSzhko2cmaqkyzQ0cHAoupxYVo4iG6sLM6aQ6oQet+FTY
-	0LKdRURe4SiRC7dvIbqVHAQwYrHcOXJ6N6fIoJ8by9sf5XDKS76v/xUFJaE7a39EqfimPRl+/Wf
-	VyJMLo1eNCpzT4shuyyAc5zF1gCyT3JRvz8yznZYNQahaYFaiDNb4HmzSYSmnKExzD2Aw4p0gXQ
-	X
-X-Google-Smtp-Source: AGHT+IE58PAkOvqkcNPmCxj1nnMVAl+vETxQeLKtsKe4rhguKXu580MKQ5Ir3bVVCj7V2qom9nhEaA==
-X-Received: by 2002:a17:907:26cd:b0:aae:b259:ef63 with SMTP id a640c23a62f3a-ab75e261a2cmr1046277666b.34.1738859948480;
-        Thu, 06 Feb 2025 08:39:08 -0800 (PST)
-Message-ID: <db3edc3d-5d91-4c6a-8b97-52048df9e800@suse.com>
-Date: Thu, 6 Feb 2025 17:39:06 +0100
+        bh=2cVdkpZ2F9QYDOhvcsZt7YObcDfPAqcI+3ucQc8CRro=;
+        b=Dz7VPvT8G3T3ecE7PyemO/ALHfZYBA09r6Etyu8XvhBPCf9a4iERkXxlrFc0z5Iyh0
+         aACkOuz7i+8oYhxhAW+a7h010t2Xvn+BRxTsxKanRKd5TeLVr5dWSlUHL0JHWMns9e/D
+         g5A6st8TxjW2TmZ+ARDla9U9icMkQR2s1CyAZ+MNX816We8feirOXIiWUINBwzMKqfU2
+         CUhgIyc5DtXJ4LO435oLnE8m0HXM1+UYjNNNePoIvDBoJ8fKuLmYITPQkC5cTiSNZVyy
+         W64z0B5dvuYa10muYbYHojbB1m+eYjOY3P3lIKM+A88Jq2EOsESNqADpqZymGWIqBmHh
+         8AbA==
+X-Forwarded-Encrypted: i=1; AJvYcCVuElpMOQAvCBlrZY2ZYy93VBxzeA0NJQa9+oODOG9LTu+ojbxhG3olL/NdVg4VS3+5fkaitmElrhI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzbQQPO/uWcQzP8ZqayiPqTpKPlmd2See0nOkPYEVkN3b9HdjyM
+	2TgIC7mRfW61xtYyofSubrkuhQ04GVSdF95PBRpSQWjvdUg3GhXjBz5d7/Dnnw==
+X-Gm-Gg: ASbGncvhcRRRGIItGYqLDqqRNruiJ2A3Y1wgbpcw4AJr3yjFH6841V/3nlxcdrNiPqf
+	cPsV1LEBuf19qVTRebqa6pxh6ufDroQiO47rAOW1Ufh3V0S8rGMpRYnbkXrBzIcQFHI/sGjr3Z0
+	QRl9ruRSBV6L4zAOkvnVMbXTFAK9Pvwg/c3z5gOxJ4N5oUq8mSVyt7HSBURt/U/nKa6WGHpP4P+
+	NzH59O074P14A/2VaRgZYeRwwUYmevsckQ+mUg5JoumvNFE1ZIwLfblU2ZZ49olXiQNc0uhAKC4
+	6z4nkFc4ZxGFNsgAcexUsLJ4dSUqExyOiaZgwPopl3JSfzuxgVbP31gxuY0N2fprwrJrmDlcFH4
+	n
+X-Google-Smtp-Source: AGHT+IF5JuOcT7UVLeNM78R9awhRkrK0Ox/YhH6lk8PgWa2ixdWvTa1zQU0yCznmo6js3g4PpAX7Sg==
+X-Received: by 2002:a17:907:d88:b0:aa6:9176:61ed with SMTP id a640c23a62f3a-ab75e33cea1mr889537366b.48.1738860175370;
+        Thu, 06 Feb 2025 08:42:55 -0800 (PST)
+Message-ID: <40e0e225-31f9-4668-8d29-90519fd28768@suse.com>
+Date: Thu, 6 Feb 2025 17:42:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] xen/riscv: identify specific ISA supported by cpu
+Subject: Re: [PATCH for 4-21 v4] xen/riscv: identify specific ISA supported by
+ cpu
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: xen-devel@lists.xenproject.org,
- Alistair Francis <alistair.francis@wdc.com>,
+Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
  <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Conor Dooley <conor@kernel.org>
-References: <ddf678bb829003b2c4a0a85166a29b61e75bcea9.1737643226.git.oleksii.kurochko@gmail.com>
- <20250205-chariot-blandness-7e9a791f7f34@spud>
- <585eff97-af33-4bfd-be10-fdacbb9b9069@gmail.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <a63c60c7a97a2b361e3a41f57bed61c0c9a0a89f.1738653407.git.oleksii.kurochko@gmail.com>
+ <ab7077b3-6bef-4025-9389-345a345a141c@suse.com>
+ <6c9baf46-bc0b-49a7-9cdd-bebb0fc71ee7@gmail.com>
+ <4f16a3b9-3759-4bea-89cd-361b492e0133@suse.com>
+ <9a43296c-d78d-49bf-9a94-0b0699e4259d@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,43 +127,167 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <585eff97-af33-4bfd-be10-fdacbb9b9069@gmail.com>
+In-Reply-To: <9a43296c-d78d-49bf-9a94-0b0699e4259d@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 06.02.2025 14:05, Oleksii Kurochko wrote:
-> On 2/5/25 8:07 PM, Conor Dooley wrote:
->> Yo,
->>
->> On Thu, Jan 23, 2025 at 03:46:36PM +0100, Oleksii Kurochko wrote:
->>> Supported ISA extensions are specified in the device tree within the CPU
->>> node, using two properties: `riscv,isa-extensions` and `riscv,isa`.
+On 06.02.2025 16:00, Oleksii Kurochko wrote:
+> 
+> On 2/6/25 12:10 PM, Jan Beulich wrote:
+>>>>> +        case 's':
+>>>>> +            /*
+>>>>> +             * Workaround for invalid single-letter 's' & 'u' (QEMU):
+>>>>> +             *   Before QEMU 7.1 it was an issue with misa to ISA string
+>>>>> +             *   conversion:
+>>>>> +             *https://patchwork.kernel.org/project/qemu-devel/patch/dee09d708405075420b29115c1e9e87910b8da55.1648270894.git.research_trasio@irq.a4lg.com/#24792587
+>>>>> +             *   Additional details of the workaround on Linux kernel side:
+>>>>> +             *https://lore.kernel.org/linux-riscv/ae93358e-e117-b43d-faad-772c529f846c@irq.a4lg.com/#t
+>>>>> +             *
+>>>>> +             * No need to set the bit in riscv_isa as 's' & 'u' are
+>>>>> +             * not valid ISA extensions. It works unless the first
+>>>>> +             * multi-letter extension in the ISA string begins with
+>>>>> +             * "Su" and is not prefixed with an underscore.
+>>>>> +             */
+>>>>> +            if ( ext[-1] != '_' && ext[1] == 'u' )
+>>>>> +            {
+>>>>> +                ++isa;
+>>>>> +                ext_err = true;
+>>>>> +                break;
+>>>>> +            }
+>>>>> +            fallthrough;
+>>>>> +        case 'z':
+>>>>> +            /*
+>>>>> +             * Before attempting to parse the extension itself, we find its end.
+>>>>> +             * As multi-letter extensions must be split from other multi-letter
+>>>>> +             * extensions with an "_", the end of a multi-letter extension will
+>>>>> +             * either be the null character or the "_" at the start of the next
+>>>>> +             * multi-letter extension.
+>>>>> +             *
+>>>>> +             * Next, as the extensions version is currently ignored, we
+>>>>> +             * eliminate that portion. This is done by parsing backwards from
+>>>>> +             * the end of the extension, removing any numbers. This may be a
+>>>>> +             * major or minor number however, so the process is repeated if a
+>>>>> +             * minor number was found.
+>>>>> +             *
+>>>>> +             * ext_end is intended to represent the first character *after* the
+>>>>> +             * name portion of an extension, but will be decremented to the last
+>>>>> +             * character itself while eliminating the extensions version number.
+>>>>> +             * A simple re-increment solves this problem.
+>>>>> +             */
+>>>>> +            for ( ; *isa && *isa != '_'; ++isa )
+>>>>> +                if ( unlikely(!isalnum(*isa)) )
+>>>>> +                    ext_err = true;
+>>>>> +
+>>>>> +            ext_end = isa;
+>>>>> +            if ( unlikely(ext_err) )
+>>>>> +                break;
+>>>> This, otoh, is an error. Which probably shouldn't go silently.
+>>> It is actually not an error, what it means that if version is mentioned or not, so
+>>> (1) rv32..._zbb_zbc
+>>> (2) rv32..._zbb1p2_zbc
 >>>
->>> Currently, Xen does not support the `riscv,isa-extensions` property, as
->>> all available device tree source (DTS) files in the Linux kernel (v6.12-rc3)
->>> and DTBs generated by QEMU use only the `riscv,isa` property.
->> That's not true? The riscv,isa-extensions property went into linux in
->> late 2023 (6.7 or so) and QEMU in v9.0.0 about a year ago, so all source
->> files in linux and blobs generated by QEMU should have both. OpenSBI &
->> U-Boot support both also. Might not affect your decision about what to
->> support here - but the rationale provided for implementing the deprecated
->> (per the binding at least) property isn't accurate.
+>>> For (1), ext_err = true and it means that version isn't mentioned for _zbb and after it
+>>> immediately another extension name is going, so there is no any sense in ignoring (or parsing) version
+>>> numbers.
+>>> For (2), ext_err = false (because it ends on number ) so we have to ignore (or parse) version nubmers.
+>> I don't follow. Why would ext_err be true for (1)? That's a well-formed
+>> specifier, isn't it? rv32..._zbb.zbc (with the last dot meaning a literal
+>> one, unlike the earlier ...) is an example of what would cause ext_err to
+>> be true.
 > 
-> I confused something with Linux kernel sources. Double-check and riscv,isa-extensions
-> is really supported.
+> My fault, you are right, ext_err will be false for (1).
 > 
-> Regarding QEMU, at the momemnt, Xen uses Debian bookworm and the following version
-> is used:
->    QEMU emulator version 7.2.11 (Debian 1:7.2+dfsg-7+deb12u6)
-> 
-> I will update the commit message.
-> 
-> Do you ( Conor and Jan ) think that it makes sense to support deprecated property?
-> Or it would be better start to use QEMU v9.0.0 and just drop support for deprecated property?
+> For your example, rv32..._zbb.zbc we have to do panic(), haven't we?
 
-Unless there's a guarantee that all actual hardware we'd ever run on would
-offer the new property, we might be better off supporting both. In no case
-should we take only qemu into account, imo.
+That's what I was trying to suggest earlier on. From anything we can't parse
+we can't possibly infer whether we're able to run with the properties the
+system has.
+
+>>>>> +        default:
+>>>>> +            /*
+>>>>> +             * Things are a little easier for single-letter extensions, as they
+>>>>> +             * are parsed forwards.
+>>>>> +             *
+>>>>> +             * After checking that our starting position is valid, we need to
+>>>>> +             * ensure that, when isa was incremented at the start of the loop,
+>>>>> +             * that it arrived at the start of the next extension.
+>>>>> +             *
+>>>>> +             * If we are already on a non-digit, there is nothing to do. Either
+>>>>> +             * we have a multi-letter extension's _, or the start of an
+>>>>> +             * extension.
+>>>>> +             *
+>>>>> +             * Otherwise we have found the current extension's major version
+>>>>> +             * number. Parse past it, and a subsequent p/minor version number
+>>>>> +             * if present. The `p` extension must not appear immediately after
+>>>>> +             * a number, so there is no fear of missing it.
+>>>>> +             */
+>>>>> +            if ( unlikely(!isalpha(*ext)) )
+>>>>> +            {
+>>>>> +                ext_err = true;
+>>>>> +                break;
+>>>>> +            }
+>>>> Like above this also looks to be a situation that maybe better would be
+>>>> left go entirely silently. I even wonder whether you can safely continue
+>>>> the parsing in that case: How do you know whether what follows is indeed
+>>>> the start of an extension name?
+>>> Lets consider examples:
+>>> (1) riscv,isa=im
+>>> (2) riscv,isa=i1p2m
+>>> (3) riscv,isa=i1m
+>>>
+>>> (4) riscv,isa=i1_m1
+>>>
+>>> Note: Underscores "_" may be used to separate ISA extensions to improve readability
+>>> and to provide disambiguation, e.g., "RV32I2_M2_A2".
+>>>
+>>> (1) isa="i" so ext = "m" => no minor and major version between "i" and "m" => `ext` contains the name
+>>>       of the next extension name, thereby we will break a loop and go for parsing of the next extension
+>>>       which is "m" in this example
+>>> (2) isa="i" => ext="1" => algorithm will go further and will just skip minor and major version for
+>>>       this extension (1p2 => 1.2 version of extension "i")
+>>> (3) just the same as (2) but will stop earlier as minor version isn't set.
+>>>
+>>> Note: having "_" is legal from specification point of view, but it is illegal to use it between single letter
+>>>         extension from device tree binding point of view.
+>>> (4) just the same as (2) and (3) but using "_" separator, so the if above will just skip "_" and the next
+>>>       after "_" is an extension name again.
+>>>
+>>> Considering that "_" is illegal from device tree point of view between single letter extensions we should have
+>>> ASSERT(*ext != "_") and then only cases (1) - (3) will be possible to have.
+>>> Probably it also will make a sense to have an array with legal single letter extensions and check that *ext is
+>>> in this array.
+>>>
+>>> Interesting that device tree binding doesn't cover this case:
+>>> ```
+>>> Because the "P" extension for Packed SIMD can be confused for the decimal point in a version number,
+>>> it must be preceded by an underscore if it follows a number. For example, "rv32i2p2" means version
+>>> 2.2 of RV32I, whereas "rv32i2_p2" means version 2.0 of RV32I with version 2.0 of the P extension.
+>>> ```
+>>> if I correctly interpreted the pattern:pattern:^rv(?:64|32)imaf?d?q?c?b?k?j?p?v?h?(?:[hsxz](?:[0-9a-z])+)?(?:_[hsxz](?:[0-9a-z])+)*$
+>>> And it also doesn't support versions for single letter extensions.
+>>> So "rv32i2_m2_a2" or with using "p" is impossible?
+>>> Then riscv_isa_parse_string() could be simplified ( probably when it was implemented in Linux kernel they don't have the binding for riscv,isa and they
+>>> just tried to follow RISC-V specification ) for the case of single letter extensions (or just keep it as is to be in sync with Linux kernel).
+>> All fine, but what about e.g.
+>>
+>> (5) riscv,isa=i?m1
+> 
+> It is impossible from device tree point of view:
+> 1. According to DT's patter after single letter extension couldn't be version.
+> 2. Between "ima" can't be anything.
+> 
+> But it shouldn't break an algorithm because:
+> (1) parse "i" and nothing wrong with that.
+> (2) "?" will be ignored because we have a check at the start of single letter extension case:
+>         if ( unlikely(!isalpha(*ext)) )
+>      so ext_err will be set to true
+> (3) "?" will be ignored and go just to "m" because of set ext_err=true at the step (2).
+> (4) Then "m" will be parsed successfully and 1 will be just ignored.
+> 
+> Does it make sense?
+
+See above - I don't think we should continue to run if parsing fails. Of
+course we might, after tainting the system, in a best effort manner.
 
 Jan
 
