@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DD51A29E3A
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E908A29E3C
 	for <lists+xen-devel@lfdr.de>; Thu,  6 Feb 2025 02:09:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.882397.1292590 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.882396.1292586 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfqO6-0000fD-64; Thu, 06 Feb 2025 01:09:02 +0000
+	id 1tfqO5-0000WQ-R4; Thu, 06 Feb 2025 01:09:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 882397.1292590; Thu, 06 Feb 2025 01:09:02 +0000
+Received: by outflank-mailman (output) from mailman id 882396.1292586; Thu, 06 Feb 2025 01:09:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfqO5-0000WO-T1; Thu, 06 Feb 2025 01:09:01 +0000
-Received: by outflank-mailman (input) for mailman id 882397;
- Thu, 06 Feb 2025 01:09:00 +0000
+	id 1tfqO5-0000MK-BD; Thu, 06 Feb 2025 01:09:01 +0000
+Received: by outflank-mailman (input) for mailman id 882396;
+ Thu, 06 Feb 2025 01:08:59 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=3EC/=U5=amd.com=stefano.stabellini@srs-se1.protection.inumbo.net>)
- id 1tfqO4-0007da-3v
- for xen-devel@lists.xenproject.org; Thu, 06 Feb 2025 01:09:00 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20607.outbound.protection.outlook.com
- [2a01:111:f403:200a::607])
+ id 1tfqO3-0007da-3e
+ for xen-devel@lists.xenproject.org; Thu, 06 Feb 2025 01:08:59 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2062f.outbound.protection.outlook.com
+ [2a01:111:f403:2414::62f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f040869d-e426-11ef-99a4-01e77a169b0f;
- Thu, 06 Feb 2025 02:08:57 +0100 (CET)
-Received: from CH2PR11CA0005.namprd11.prod.outlook.com (2603:10b6:610:54::15)
- by SJ1PR12MB6339.namprd12.prod.outlook.com (2603:10b6:a03:454::10)
+ id f009cfc2-e426-11ef-99a4-01e77a169b0f;
+ Thu, 06 Feb 2025 02:08:56 +0100 (CET)
+Received: from CH2PR11CA0017.namprd11.prod.outlook.com (2603:10b6:610:54::27)
+ by MN2PR12MB4125.namprd12.prod.outlook.com (2603:10b6:208:1d9::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.10; Thu, 6 Feb
- 2025 01:08:52 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8398.24; Thu, 6 Feb
+ 2025 01:08:53 +0000
 Received: from CH1PEPF0000AD7A.namprd04.prod.outlook.com
- (2603:10b6:610:54:cafe::29) by CH2PR11CA0005.outlook.office365.com
- (2603:10b6:610:54::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8398.24 via Frontend Transport; Thu,
- 6 Feb 2025 01:08:52 +0000
+ (2603:10b6:610:54:cafe::88) by CH2PR11CA0017.outlook.office365.com
+ (2603:10b6:610:54::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8398.22 via Frontend Transport; Thu,
+ 6 Feb 2025 01:08:53 +0000
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
  CH1PEPF0000AD7A.mail.protection.outlook.com (10.167.244.59) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8398.14 via Frontend Transport; Thu, 6 Feb 2025 01:08:52 +0000
+ 15.20.8398.14 via Frontend Transport; Thu, 6 Feb 2025 01:08:53 +0000
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 5 Feb
- 2025 19:08:51 -0600
+ 2025 19:08:52 -0600
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 5 Feb 2025 19:08:51 -0600
+ Transport; Wed, 5 Feb 2025 19:08:52 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,22 +59,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f040869d-e426-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: f009cfc2-e426-11ef-99a4-01e77a169b0f
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PD624XyZUe+0nx27efOKe5KE1uUdKd4hUTe+jWP15dOaDDk7xAyIW2VYjQr6BQRQ27I55QkQe2fTmgYXGFsD/w1K/TRHNJK7bndrxEWB87rCamY5vU+8TNodYt1iB73ULaG2mPeKAaUIKWRtk+yQK+BfsWndIayAmPFVxqhrQKrPqub6WaaqGbM84zdaxNTUuJ4bVT7xB8eW0ido740/oS/dga++J+SkV9eGUssYLOXxH9/CwxnW/ghm28HDq+qfZqqV+Kiw3pv5CjLqKBCumnM3Ug/pexHZZxIv9aeCNMgtNwmOl9MBqSPPF1hTkHuqhQw6P4gfnHCXqAO+/cdCZA==
+ b=a9LQrdzxCPSOzg+I8gYIyagWiZc1WQTYUPjsIcUrETPtGZ71BLsCrM6XL8b13xUTENUDTL2IDqxCcpwhb2wU80JknSs35d4GFoHwwftDO+IHQz5/hkTiJ5nJ83xnTkyV5KXeFy8eVkN6wTVxGtvgCc73t9tezy+RdNzQYSZ9ANSbHU9SbElc20D6Hwtdm+kzwBX2V2zX6CP+Ng0DuvlI48XS7Qkj0ACR+BYEEM96JiObHtKYYt/UGCeuyODanQRIadXNgNawwmOWXIkn4dHro110rHrm9K3qq+3wSa0x6IYDgsYSN74ZlgBPqiEi+tZ2MqD00wlXMvLsBsG273NyHg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6yE3UkDG2JBxdiFE2UeD3PKz4jv0din3OBPUIrMyGvY=;
- b=lr5duhwALWOUCXDof7xmlC6wkCav/i4Pp1VICXAAFJFzLIwqgoEFcjfpkmF5/skdiO9LjWvrV6Lohmq0ktlIj7myhceDriuiy6hCy3E+cxn7kG2F8PB9M+PAZB6HcmN3xys1umSL4kUCqgn4ineku8S2n8XHM+sgncHvYoeLYcBo5GRtCqspZt47Pj2FqzjuaxVenA7ZWH3cvN1qDa8cRDB3yM10G1ZN4GHUWuTLpu1frHDaR9Cb12DRRJULR3x1cDY9GE/2ktDXpF3Vxwj/3MNi4J5Y9TJycupeUTguorRetHHvdSRr+YN9Tl4sbVSqOIV3agtMA8SxFrBSaofLrA==
+ bh=sZVSMrbZ1nm/qxWuwEbr55z3NXMCsSyc2dendwsVuj4=;
+ b=lFJFi3Htj3DpaoCNl1o98Kl4M2cJAW04fn2Zb9pV40hXb+PYXABzT1ssX09Iyqhp9iOCfQdTA9avPsLFysbMpv7CDs8tqQxuSohdWIWn3mnIpR9GOCS5mA2BijGUFmVX9vZUi4/TCki/krmE5uHdlowGQxNKu0PFIHNJBw3kNuaxXkfPRI249CBgMZoUCWpOdin4FlcMzGPa3pbEa2HlqLeY20jgqF7muF+Pxd481iq2wCAm4iz9PNfmZFSlUJ7IL7eObQCGqKdNVSXmLuJTQjBTD6Y+4RRY69X+kw+NUBRSH5TmKlO8VFJI/MaeKgOz0+6l7ibmC4fgQ3sU6Xkc2A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6yE3UkDG2JBxdiFE2UeD3PKz4jv0din3OBPUIrMyGvY=;
- b=43axQEV5GHwVqcd5z8MenVK952yY+MteaeQeEUmAAOFcfbOP0l9c1rpwBJt1A/3w1Gm7fCaoBwONt+GvM+2JnAUJnpXDMFSoyFm4Nx2NNpTL/uGgxZV/LpCYliutzdu/TkZ0zX+co6yZrNLPrYEXLRB1FfZ8hA0OVHIrGfhGDew=
+ bh=sZVSMrbZ1nm/qxWuwEbr55z3NXMCsSyc2dendwsVuj4=;
+ b=iv0OMJf++KmUb4vrj5DLYFW2qrDaUCSVyzzgUswXxL2P1OVkmcuJUgjt+qX3dHLgvxh4Z1KVNcan4iewWhbfYFwzMFRCGd6jIcF4Tl/NTTRqvLE5uZBcdrFXB3QcvUtHISpGNnvt5ftuYTAn13px8XtaFqEaf5G2nrMflDP2gCs=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -86,9 +86,9 @@ To: <xen-devel@lists.xenproject.org>
 CC: <sstabellini@kernel.org>, <bertrand.marquis@arm.com>, <julien@xen.org>,
 	<michal.orzel@amd.com>, <Volodymyr_Babchuk@epam.com>, Stefano Stabellini
 	<stefano.stabellini@amd.com>
-Subject: [PATCH v5 8/9] xen/arm: introduce legacy dom0less option for xenstore allocation
-Date: Wed, 5 Feb 2025 17:08:42 -0800
-Message-ID: <20250206010843.618280-8-stefano.stabellini@amd.com>
+Subject: [PATCH v5 9/9] [DO NOT COMMIT] automation: add one test using an older unpatched Linux kernel
+Date: Wed, 5 Feb 2025 17:08:43 -0800
+Message-ID: <20250206010843.618280-9-stefano.stabellini@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <alpine.DEB.2.22.394.2502041807070.9756@ubuntu-linux-20-04-desktop>
 References: <alpine.DEB.2.22.394.2502041807070.9756@ubuntu-linux-20-04-desktop>
@@ -99,153 +99,135 @@ Received-SPF: None (SATLEXMB03.amd.com: stefano.stabellini@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7A:EE_|SJ1PR12MB6339:EE_
-X-MS-Office365-Filtering-Correlation-Id: cf99e408-3981-46d8-19c7-08dd464ad26e
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7A:EE_|MN2PR12MB4125:EE_
+X-MS-Office365-Filtering-Correlation-Id: d432965f-7437-4699-50ad-08dd464ad2c6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|36860700013|82310400026;
+	BCL:0;ARA:13230040|82310400026|376014|1800799024|36860700013;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?woA6GVZzx7s7pQuVmsFSiclIgHsul2dDeL8znWdIVuQgELMxV3p8Ss4Lh7dv?=
- =?us-ascii?Q?dMU17bLKdNAnwsJgafgCc9o4WI3xPC649CpCBBpeiC3kNoyXBKZx/cWW5hDT?=
- =?us-ascii?Q?oeoorKcmmq0F9IxTnaU7QnfA4DvRxwK1WJUzp6xvkuBIQxuCnWlDdHUMmSC8?=
- =?us-ascii?Q?kuou3y1EgKLg52hJ0sWVDJoCdOD/FmPekPdyKj2NrRNaRX+mdidlHx/tyjxj?=
- =?us-ascii?Q?65QUqMh/UXRUtn6YyTXv2VaktkfR3GiUl+nmiW+uLFDwYm6JR/5GgQPzOeYI?=
- =?us-ascii?Q?NcAm9GxnPaa6EDPiBoaG4EYpSf3tgcmEB3WeknnaddgRYPVQlrMRmaHzhbqZ?=
- =?us-ascii?Q?+dowUrw+pD/KWQ3Bm7ZNV2roIXik4UuJMisZdDOw7mOeKneSuCSpXx6TE6O5?=
- =?us-ascii?Q?FjzPUv980bS3gMOGH6yderZyS7rLA3LVzWPuA0hxQzzHsEhv/R0QzGlJscXl?=
- =?us-ascii?Q?5OG3/oPBhvcOqfuNJ01zGdIWKCsQh4n3Dj+K2D5LdovbjfHXWzwnIJG47zAU?=
- =?us-ascii?Q?+kVkwT2LuiTpsg0uaz7ATy+aI+2wD8TaiuaHt+y95a1sf70ooe8LeGw2vLLL?=
- =?us-ascii?Q?mznVmqzSIx+3rQVYEIJJUDTrEET6CbdM+/c2k5FvE0Ii7jPYo+DYmEbQ3X4O?=
- =?us-ascii?Q?oQIegiHJXZqfLUYMNGYJAum6wn6QyX5o4gXZSARgT9/OlggNj1yr1uDU2McJ?=
- =?us-ascii?Q?D7G12ENpc5VvQ9i6sI7Oc0+kAeH+lm7T7nuC6TpkcxkuddIjIdjx7lIGtEpZ?=
- =?us-ascii?Q?TSBnIFehQu0sKxEBlNs6PElM4J1HNvEn5lU80y+0I+CRMtQOWzAhjlHSIQMy?=
- =?us-ascii?Q?yoWGRjnoGfBELlPtHtk5us6oSRMF0DyOenvnM1naH/n0ZzOgJRDuWcK7NnQw?=
- =?us-ascii?Q?Hw2+J0A8eDVroCd+TO91LbVP7cZN2HqVlVXAbmR2DxWOxuqJ+BsBtCxyRQuo?=
- =?us-ascii?Q?VK0ZGIZmtUcp4mZqGllsPDHY3n65uhzTL6v7nvfhOXs1O+vlhAwgsjK0BMqe?=
- =?us-ascii?Q?K7hkbJxtwaR2CMqsNOVLvGHjRoqOsF5rgF1gv0KUZhc+OjullZ1xiUoJdKuv?=
- =?us-ascii?Q?vJTYp8O0QHdQPruIFGLH2LIpy854lEYyTuGH1QXrFokHcNLYzEjVsxm5PJ5l?=
- =?us-ascii?Q?a5t6VBSPam1Uyfq4LRtxrUILDJBeU2zNYYAJhVc915oCkHllgd7KDpvHbVUK?=
- =?us-ascii?Q?jh2l5QWgBk6ox5ymgRUYWauQOshRutHt0EHDgntWrg4sMnlZJHct/kgrPNjf?=
- =?us-ascii?Q?Rq97r8SCayVXXfHzDENcVRQoxlVppHYu3cXKEjG02yGe2dmvzhE78TTSTiYv?=
- =?us-ascii?Q?cjaa3xbOYNmaYNqbyAVuF6H6zsff3Sb7uX5TOhwdl+OY7KiHm7F4MCcLdOAY?=
- =?us-ascii?Q?mkrjP76YmPhTN7nR0/+H6iSXU8vubgfecH0q+5DWOAAXSJnVtBWUpLDt6kxF?=
- =?us-ascii?Q?O7w7X7KzvvIn432oVPxQ2gr+JToQY+v2c25IG/C6ACPXX60E9DFHp6IPXi1E?=
- =?us-ascii?Q?x0WWJ12H5kmrCio=3D?=
+	=?us-ascii?Q?32Tl+VJ1GutqiflkWs4BqIVr1QsjxBiGEUNjfEwO6k2Dw9zLZ0cy5pyGdhLN?=
+ =?us-ascii?Q?NN9fmE0C9ZyqviAFV3nVEhPSRnwVRXgJk6aNILzVnliqrWSd5+DRbIpIy8vz?=
+ =?us-ascii?Q?MkaoGLbgw2ZaC3ON6/bdG2o4F+MOQmkU2Hg4C/AdgfgEIc0Zgi3dKEV9flKG?=
+ =?us-ascii?Q?haaCpjBPFXa5v1+ofqbu6EcKwwrTl9I4SuTjB47F8ZX/uEP650OBOKb16NRK?=
+ =?us-ascii?Q?FcUYcDowRHxzvWoqwwKPAyJGHuy06YppxwmudsD9YrBNXoyC+wZkburNp+J1?=
+ =?us-ascii?Q?kWNNRYxABEW0NKqaOMeMZX4Z9tuYUiDEhu+ckrNtOoZaFRRteWbWlGlhfEJl?=
+ =?us-ascii?Q?t+qyJkwlv9UbssTHibw5XJuCqTzhEmPOnSeqTHNNY0rBlm0bGz8KlIR5KiQy?=
+ =?us-ascii?Q?JEIJ0VyjLgRJ07onyhv9K79ymVEmjIOqAKx8RWnXZg7DEFi1uLKfFQiF975V?=
+ =?us-ascii?Q?nnxhNxPhoRrx2HE3GAJKKsnsDdw8oKueA275PyNrL1r9cx9r2LjVYG0abH91?=
+ =?us-ascii?Q?cnGrw43HvccIaYPPgu7OUYuZE1l926wefr9cfMwK1Eo051xVWrBJ8RBRQY2j?=
+ =?us-ascii?Q?h30oGmfjLa8WRl5tWFAK0VyVPwmUwXlSwvZ5bayurHO7VC1yKL1k23PxWnL1?=
+ =?us-ascii?Q?OHnilT9FsgfMcIFKXT1nvHyqUjTsBXxUlTkjg+eDxaFNqVzicIn+5gudmylt?=
+ =?us-ascii?Q?12TviArUfq3tkjwafo6ya3fQEQTGvrsLpiR9eqpJstt6PkgDB5Tgho+3xMp7?=
+ =?us-ascii?Q?PIfReKAz8F39Kpff5RIK+e1oISKkzjhixThuYc6VdmGicr4L26omP+IfxD+W?=
+ =?us-ascii?Q?BW6auQRLOiCweV4PrO2uKAT/d1ViS5krPVkZ7SFey3+vcs7DI4tdN9tsecpG?=
+ =?us-ascii?Q?Dxcy4HkUaJ2xHEgd2w3Nq233/H8F5Ri/xiBu0HZOGeg2m3mtA3ujTjUhkVqE?=
+ =?us-ascii?Q?1Qh5mPIkk7IaskNu15fHVyq6qcMtz6Pviixpn5oksmk81aOWd8WENf+cPHhh?=
+ =?us-ascii?Q?dPwtn1j4wbhcNOlWdDobZ+MJ2y5DlOhA60Cppf36ls0LpZ/ESxvuQA7gD9tR?=
+ =?us-ascii?Q?Gt1esgCt4LlAmd3UN9xdqqrfftplvyXxzgCC5q779qhVXH4g9fD+hveEe3Eq?=
+ =?us-ascii?Q?G4TMuHUD8SRHuxSForfNfr+iWFnd6S9vQowvyNkrq2kvnUGolGbcR/cT558h?=
+ =?us-ascii?Q?hMcqkg68xuioD0XR9ot9avOKZoIvcL8s71dScSxP6rlcRd6eDZINKglVTTtk?=
+ =?us-ascii?Q?iGWzDuhfn7Mb+o5YgPC4PYLoEI7qYu0xDogY5g6iHu7x0kmW1wcAvLdXw/k1?=
+ =?us-ascii?Q?QhDU02FvoK/h4JIM8YVEonhU3Ap6raG+e9vkWALG3qyYTFYBZxUk/GCVuJie?=
+ =?us-ascii?Q?b0jv1lslHI17kuN0iRkaMQuf4DH3+ye7u+turhHSquRzZZYUhGAxnjXLAv+d?=
+ =?us-ascii?Q?2P2yN7wZFx0=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2025 01:08:52.7652
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2025 01:08:53.3433
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf99e408-3981-46d8-19c7-08dd464ad26e
+X-MS-Exchange-CrossTenant-Network-Message-Id: d432965f-7437-4699-50ad-08dd464ad2c6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	CH1PEPF0000AD7A.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6339
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4125
 
-The new xenstore page allocation scheme might break older unpatches
-Linux kernels that do not check for the Xenstore connection status
-before proceeding with Xenstore initialization.
+The original patch series broke compatibility with older Linux kernels.
+In the meantime, Linux backported a fix that improves the general
+behavior and also resolve the problem.
 
-Introduce a dom0less configuration option to retain the older behavior,
-which is not compatible with 1:1 mapped guests, but it will work with
-older legacy kernel versions.
+However, we still want to check Xen against possible regressions, even
+against old unpatches kernels. We can use the older Linux kernel version
+we had to do that.
 
 Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
 ---
- docs/misc/arm/device-tree/booting.txt |  5 +++++
- xen/arch/arm/dom0less-build.c         | 13 ++++++++++++-
- xen/arch/arm/include/asm/kernel.h     | 14 +++++++++++---
- 3 files changed, 28 insertions(+), 4 deletions(-)
+ automation/gitlab-ci/build.yaml                 | 11 +++++++++++
+ automation/gitlab-ci/test.yaml                  | 10 ++++++++++
+ automation/scripts/qemu-smoke-dom0less-arm64.sh |  7 +++++--
+ 3 files changed, 26 insertions(+), 2 deletions(-)
 
-diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
-index ff70d44462..8fa3da95be 100644
---- a/docs/misc/arm/device-tree/booting.txt
-+++ b/docs/misc/arm/device-tree/booting.txt
-@@ -222,6 +222,11 @@ with the following properties:
-     Xen PV interfaces, including grant-table and xenstore, will be
-     enabled for the VM.
+diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+index 411b4902b5..0a867c3ced 100644
+--- a/automation/gitlab-ci/build.yaml
++++ b/automation/gitlab-ci/build.yaml
+@@ -269,6 +269,17 @@ alpine-3.18-arm64-rootfs-export:
+   tags:
+     - arm64
  
-+    - "legacy"
-+    Same as above, but the way the xenstore page is allocated is not
-+    compatible with 1:1 mapped guests. On the other hand, it works with
-+    older Linux kernels.
++kernel-5.19-arm64-export:
++  extends: .test-jobs-artifact-common
++  image: registry.gitlab.com/xen-project/xen/tests-artifacts/kernel:5.19-arm64v8
++  script:
++    - mkdir binaries && cp /Image binaries/Image
++  artifacts:
++    paths:
++      - binaries/Image
++  tags:
++    - arm64
 +
-     - "disabled"
-     Xen PV interfaces are disabled.
+ kernel-6.6.74-arm64-export:
+   extends: .test-jobs-artifact-common
+   image: registry.gitlab.com/xen-project/xen/tests-artifacts/kernel:6.6.74-arm64v8
+diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+index 6ad45269ea..06ee2fcc7e 100644
+--- a/automation/gitlab-ci/test.yaml
++++ b/automation/gitlab-ci/test.yaml
+@@ -335,6 +335,16 @@ qemu-smoke-dom0less-arm64-gcc-debug:
+     - *arm64-test-needs
+     - alpine-3.18-gcc-debug-arm64
  
-diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
-index 046439eb87..9afdbca8b8 100644
---- a/xen/arch/arm/dom0less-build.c
-+++ b/xen/arch/arm/dom0less-build.c
-@@ -799,6 +799,13 @@ static int __init construct_domU(struct domain *d,
-         else
-             panic("At the moment, Xenstore support requires dom0 to be present\n");
-     }
-+    else if ( rc == 0 && !strcmp(dom0less_enhanced, "legacy") )
-+    {
-+        if ( hardware_domain )
-+            kinfo.dom0less_feature = DOM0LESS_ENHANCED_LEGACY;
-+        else
-+            panic("At the moment, Xenstore support requires dom0 to be present\n");
-+    }
-     else if ( rc == 0 && !strcmp(dom0less_enhanced, "no-xenstore") )
-         kinfo.dom0less_feature = DOM0LESS_ENHANCED_NO_XS;
++qemu-smoke-dom0less-arm64-gcc-debug-old:
++  extends: .qemu-arm64
++  script:
++    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh old 2>&1 | tee ${LOGFILE}
++  needs:
++    - alpine-3.18-arm64-rootfs-export
++    - qemu-system-aarch64-6.0.0-arm64-export
++    - alpine-3.18-gcc-debug-arm64
++    - kernel-5.19-arm64-export
++
+ qemu-smoke-dom0less-arm64-gcc-debug-gicv3:
+   extends: .qemu-arm64
+   script:
+diff --git a/automation/scripts/qemu-smoke-dom0less-arm64.sh b/automation/scripts/qemu-smoke-dom0less-arm64.sh
+index f72d209361..ddb158987a 100755
+--- a/automation/scripts/qemu-smoke-dom0less-arm64.sh
++++ b/automation/scripts/qemu-smoke-dom0less-arm64.sh
+@@ -7,7 +7,7 @@ test_variant=$1
+ # Default GIC version
+ gic_version="2"
  
-@@ -848,13 +855,17 @@ static int __init construct_domU(struct domain *d,
-     if ( rc < 0 )
-         return rc;
+-if [ -z "${test_variant}" ]; then
++if [ -z "${test_variant}" -o "${test_variant}" == "old" ]; then
+     passed="ping test passed"
+     domU_check="
+ until ifconfig eth0 192.168.0.2 &> /dev/null && ping -c 10 192.168.0.1; do
+@@ -203,7 +203,10 @@ fi
+ rm -rf imagebuilder
+ git clone --depth 1 https://gitlab.com/xen-project/imagebuilder.git
+ bash imagebuilder/scripts/uboot-script-gen -t tftp -d binaries/ -c binaries/config
+-
++if [ "${test_variant}" == "old" ]; then
++    sed -i "s/enabled/legacy/g" binaries/boot.source
++    mkimage -A arm64 -T script -C none -a 0x40200000 -e 0x40200000 -d binaries/boot.source binaries/boot.scr
++fi
  
--    if ( kinfo.dom0less_feature & DOM0LESS_XENSTORE )
-+    if ( kinfo.dom0less_feature & (DOM0LESS_XENSTORE|DOM0LESS_XS_LEGACY) )
-     {
-         ASSERT(hardware_domain);
-         rc = alloc_xenstore_evtchn(d);
-         if ( rc < 0 )
-             return rc;
-+        d->arch.hvm.params[HVM_PARAM_STORE_PFN] = ~0ULL;
-+    }
- 
-+    if ( kinfo.dom0less_feature & DOM0LESS_XENSTORE )
-+    {
-         rc = alloc_xenstore_page(d);
-         if ( rc < 0 )
-             return rc;
-diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/kernel.h
-index de3f945ae5..4c2ae0b32b 100644
---- a/xen/arch/arm/include/asm/kernel.h
-+++ b/xen/arch/arm/include/asm/kernel.h
-@@ -17,16 +17,24 @@
-  *                          default features (excluding Xenstore) will be
-  *                          available. Note that an OS *must* not rely on the
-  *                          availability of Xen features if this is not set.
-- * DOM0LESS_XENSTORE:       Xenstore will be enabled for the VM. This feature
-- *                          can't be enabled without the
-- *                          DOM0LESS_ENHANCED_NO_XS.
-+ * DOM0LESS_XENSTORE:       Xenstore will be enabled for the VM. The
-+ *                          xenstore page allocation is done by Xen at
-+ *                          domain creation. This feature can't be
-+ *                          enabled without the DOM0LESS_ENHANCED_NO_XS.
-+ * DOM0LESS_XS_LEGACY       Xenstore will be enabled for the VM, the
-+ *                          xenstore page allocation will happen in
-+ *                          init-dom0less. This feature can't be enabled
-+ *                          without the DOM0LESS_ENHANCED_NO_XS.
-  * DOM0LESS_ENHANCED:       Notify the OS it is running on top of Xen. All the
-  *                          default features (including Xenstore) will be
-  *                          available. Note that an OS *must* not rely on the
-  *                          availability of Xen features if this is not set.
-+ * DOM0LESS_ENHANCED_LEGACY:Same as before, but using DOM0LESS_XS_LEGACY.
-  */
- #define DOM0LESS_ENHANCED_NO_XS  BIT(0, U)
- #define DOM0LESS_XENSTORE        BIT(1, U)
-+#define DOM0LESS_XS_LEGACY       BIT(2, U)
-+#define DOM0LESS_ENHANCED_LEGACY (DOM0LESS_ENHANCED_NO_XS | DOM0LESS_XS_LEGACY)
- #define DOM0LESS_ENHANCED        (DOM0LESS_ENHANCED_NO_XS | DOM0LESS_XENSTORE)
- 
- struct kernel_info {
+ # Run the test
+ rm -f smoke.serial
 -- 
 2.25.1
 
