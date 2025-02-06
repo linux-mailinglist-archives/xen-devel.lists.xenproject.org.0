@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 943DAA2A71D
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Feb 2025 12:15:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.882751.1292852 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BFDAA2A732
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Feb 2025 12:17:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.882762.1292861 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfzqj-0007zM-IR; Thu, 06 Feb 2025 11:15:13 +0000
+	id 1tfzsj-00007p-VN; Thu, 06 Feb 2025 11:17:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 882751.1292852; Thu, 06 Feb 2025 11:15:13 +0000
+Received: by outflank-mailman (output) from mailman id 882762.1292861; Thu, 06 Feb 2025 11:17:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tfzqj-0007wg-FT; Thu, 06 Feb 2025 11:15:13 +0000
-Received: by outflank-mailman (input) for mailman id 882751;
- Thu, 06 Feb 2025 11:15:12 +0000
+	id 1tfzsj-00005p-So; Thu, 06 Feb 2025 11:17:17 +0000
+Received: by outflank-mailman (input) for mailman id 882762;
+ Thu, 06 Feb 2025 11:17:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TFaJ=U5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tfzqi-0007wY-1V
- for xen-devel@lists.xenproject.org; Thu, 06 Feb 2025 11:15:12 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ id 1tfzsi-00005j-Fj
+ for xen-devel@lists.xenproject.org; Thu, 06 Feb 2025 11:17:16 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a15a5c6b-e47b-11ef-a073-877d107080fb;
- Thu, 06 Feb 2025 12:15:11 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-38633b5dbcfso706451f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 06 Feb 2025 03:15:11 -0800 (PST)
+ id eb960900-e47b-11ef-a073-877d107080fb;
+ Thu, 06 Feb 2025 12:17:15 +0100 (CET)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-5dce3c28889so1745434a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Feb 2025 03:17:15 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab772f8921bsm84093466b.66.2025.02.06.03.15.09
+ 4fb4d7f45d1cf-5dcf1b80f6bsm733099a12.43.2025.02.06.03.17.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Feb 2025 03:15:09 -0800 (PST)
+ Thu, 06 Feb 2025 03:17:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a15a5c6b-e47b-11ef-a073-877d107080fb
+X-Inumbo-ID: eb960900-e47b-11ef-a073-877d107080fb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738840510; x=1739445310; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1738840635; x=1739445435; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Yb9nXFyTgT3ZoR/VG06jPj7w3dvnWZRkSUGNk4XbJPQ=;
-        b=YO+4cKYJtLXXOwFPvDSD8LUgxyI/QyJ1RQL3sQ0E3is0ZZ6yi292AbJnDeVAG1EShZ
-         Jg8Cl0CCNn+4/4mPg+nB3t3OoFCCGOCiToo9uHOQcDgEj532TMu13KMurfEHSRZZSQEv
-         sUmUCLoWpXIk9q1PcGysiyEM3zvzeLu+KUb4guaChyluC0RbhsKSYVwipyz21dD1/aQ3
-         mPDqIHS913qfldAcwIoqfxIUJV2XU9JbnQgSbFWf+plzUZ6kpnKXyOTSX8a2AO1Ipi1j
-         +lITwxAL9b+sfsZnhIWexzaKfr3+C+Gpm5l/LenbNvUJyNMbFzcAlsJQFLNTYbAdDuLd
-         ki7A==
+        bh=mBEEaVAVR5uzdwrV9n5UKXSQBx6ngCVpVDMfVMR7QnA=;
+        b=cumhdzL53vJsk07ySxAlVRMJlF3Blkw5qUyWU/3zJqJlPWQ6XmsUGF87UEvQzmjINZ
+         JP+VhZ5EurWn/2Caf2q4yq6/+LzM0f9wzMJ8HnJguvZBagzCez0HAZViCRHs5KMEMuUT
+         BpnqnxGGmFrdpkJpC9loLhtdDbSpzilp9Mb12FWJIwL6PqHgEBxAJjNUHkA+Mns09Tjj
+         swDU3qbqt6JIemx08GuwXhFFLCc82N/lFTiyFxzMaXLqPfSAY7k3EYnJd1LcUuPBGOPR
+         aIQjXKLyciUk5ZOvPkC7mduqpDNxKAsg55BnWiHJwvL53PhpypnfELYkCE4OeSdwZtNV
+         ZFAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738840510; x=1739445310;
+        d=1e100.net; s=20230601; t=1738840635; x=1739445435;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Yb9nXFyTgT3ZoR/VG06jPj7w3dvnWZRkSUGNk4XbJPQ=;
-        b=V7OG40kfCtentVNmlzoXnIrKB04T4n0LUtsG4cV5zE8di1zOQt0Lw2GGc6SjywKCwq
-         mSR7hRd+XHYoPfKb61nHV2snlgoTHw8up/5VtwtZYVIniCYGTcprVb7GjCx+SrQkJ6qh
-         BunxiDSWeAzs8ExigXPZjI0V2NdYxG5pZil32bXXj+FfbS5Ji1tdYPoH4tH44S4N17Yr
-         5qQDv52m6gDCgz1m5G81aYHTWwneIfjwfqQpajsigWGmhLJ2/5wM+nv6v4EXhznG/jNf
-         5MUvvWsgA/xSPVggsRxyTa4A8JWDshATEVbtyN7uay7fttPfFNIbkGT63G32JcO83c9m
-         yFHA==
-X-Forwarded-Encrypted: i=1; AJvYcCVudmYaAiqMnMZi8rAAGOj63AHIzMp6mwIL3J96rGGE3I707DaTPH80s6jubQ5pCS9HnLzCE2IAzx0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzaqxJm1FFeBxCq6xpb1ijeZuQZ8CnqOFKnQ+3I0kbazRG7UjaS
-	eGeshlQlJow08Spwpfk+p734HT7u0kqkV10Mk6Mp8Z+ppXzRFeVi/ggowIngjw==
-X-Gm-Gg: ASbGncuZKF93oVoO4T+J3N0QWSLK4Vl0DdWj+ZSkMRFu8LomF0kc++FE2zZPECe+HYH
-	MOdU8oOvhnG9hW38uOXB1rTWoxb8SlF1HrrVRLQ3fmTbLWF+3dClR12ThsFzLk5ajgvS0UtRXGc
-	B3yyMmvZn2XTduB82mZtNDYccOberhs8nz976HG8Pdl4eMi0mIUJ+Es07SrlEfXKTpN4Ma4v1HQ
-	g+6YLmn1XT2yWfxi5CHWTjelVRICMk5vKGdtqX1/IcUEF3NrvNH/iPbyx9Hiz3+nAyKYYyyEt0w
-	60Yj1KtKMjhZgt1W36FhcPQYFOD4oOjZDFYceYzlmB8/i2Gpd4OIeeUTekPZ6HZf/Q9vPY0QtnQ
-	S
-X-Google-Smtp-Source: AGHT+IEDrnz6wB9GaTA+pX6OV9CPASBR0uVHwkLvylhZDQC0ZE8YjH8RuWGl28GkIuRBGbm381oxDA==
-X-Received: by 2002:a5d:588c:0:b0:38d:af14:cb1 with SMTP id ffacd0b85a97d-38db49240camr5904436f8f.54.1738840510489;
-        Thu, 06 Feb 2025 03:15:10 -0800 (PST)
-Message-ID: <1bd07ce5-d5a9-4a60-b703-9861780692c6@suse.com>
-Date: Thu, 6 Feb 2025 12:15:08 +0100
+        bh=mBEEaVAVR5uzdwrV9n5UKXSQBx6ngCVpVDMfVMR7QnA=;
+        b=XnkzfB1RfZ4y0Ornzhshf906pwZo3l6IyRSLIZRPfOukyn6pRO63lhCsQrnG4mMe2H
+         6mIVfI5lDsvRWnIPNCJkcLp0YCRum0FwDyJauh5G+QyS2sgcrvUsjQQzeIqDiPjBWdT2
+         bNADef0hOTo6Zu2Y6dZ+wUTfvPCdgMKVLEaPQXVnJb4TTi/uZyMXH0U/MrpD+MUjuzJ2
+         Z4kB81hPS7Pmm/OY7wTjENEiIKuvWeXNIf6OhsQt8w4x2nvwA/TD7djYpu8EQUXnv/no
+         EkXoASLqAxGAz9lRSEcT3eE+JFx9pFQ+6n6wifnW6EBoV7YBb5QKnq9swKuci6Zt8xHZ
+         16pQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX2T8Ug99HH3ZAKgaUUHyHtdKUGYFRwEt7hDVpyGwfNWNWIAP8hDb1+EjdyYfKnNRGUuHKtQC2Pcvg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwEMfUEfJjhWo5XIvd0r58R2FAgsdB4V1bxR8i10N5y5Ou8I8fH
+	1FaBKFymJUc1DppgGMELLNYZEFq2flt9FV8XDEbSFvGgWv9Z8vGoTJaGvbJWuQ==
+X-Gm-Gg: ASbGncvCke3amSQ3dcw9eo7C3WoBaYoJ3b9oOGLG5kpznSTLKDe1iUPCeJQBjgZ4yXI
+	JQ2ZhGzbtQsRxtgTmF8tgweF42bXU1Qm7tr6TJdSHdZ3cjjwoaMs+eBsNrkG3QNo/ax2ajdJGWj
+	lFve1k9MF6etRSIGjp04qIPisOTj7rlcaQYva/fdaz6owyCS+EDb/qcdyuK+FKqSqiW1q/yMHj3
+	XTbi+ru069iLIaq42pNJVPRsdZxrmCsUyhLPjdlS9K4TifhAzlE5tdd2vc4mEGGRC9kxr7w30IV
+	2VdyWRBLOr6AFfh/v64AJWY+RY7Det3v4/7zC+Rc2stwyHPLAj/lDfaLfYlnMK+r3Gn8MKY+sH4
+	B
+X-Google-Smtp-Source: AGHT+IHXUoIQS9ZC2SVO2tn8UOzvJwFaa85Bd3L5y0+5j1F5FF+jL8ksXoYDljjWSQF+AN9UG5g/+Q==
+X-Received: by 2002:a05:6402:520d:b0:5dc:89e0:8eb3 with SMTP id 4fb4d7f45d1cf-5dcdb717af9mr7058648a12.11.1738840635104;
+        Thu, 06 Feb 2025 03:17:15 -0800 (PST)
+Message-ID: <98b53e49-4b0f-4a25-a164-4e6ac5b305a9@suse.com>
+Date: Thu, 6 Feb 2025 12:17:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 for 4.20? 1/3] xen/riscv: implement software page table
- walking
+Subject: Re: [PATCH v2 for 4.20? 2/3] xen/riscv: update defintion of
+ vmap_to_mfn()
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -98,9 +98,9 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1738587493.git.oleksii.kurochko@gmail.com>
- <a4f0b312351e5f6a9e57f50ebbc3bda8a72c18bb.1738587493.git.oleksii.kurochko@gmail.com>
- <475fc7fc-87ab-493e-8bef-eddeaa64aa54@suse.com>
- <c0d9a023-566b-4559-b6e3-e04cf34c6206@gmail.com>
+ <131ecfd1b39b4ca4fe3e5d7f7e28a130c301e0fd.1738587493.git.oleksii.kurochko@gmail.com>
+ <1223dc81-da85-4616-be12-ad445ad4ca4f@suse.com>
+ <171b1291-5ff0-414d-abfe-00ef11152590@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,53 +126,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c0d9a023-566b-4559-b6e3-e04cf34c6206@gmail.com>
+In-Reply-To: <171b1291-5ff0-414d-abfe-00ef11152590@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 05.02.2025 17:55, Oleksii Kurochko wrote:
-> On 2/4/25 2:50 PM, Jan Beulich wrote:
+On 05.02.2025 17:58, Oleksii Kurochko wrote:
+> 
+> On 2/4/25 2:56 PM, Jan Beulich wrote:
 >> On 03.02.2025 14:12, Oleksii Kurochko wrote:
->>> --- a/xen/arch/riscv/include/asm/mm.h
->>> +++ b/xen/arch/riscv/include/asm/mm.h
->>> @@ -156,6 +156,10 @@ static inline struct page_info *virt_to_page(const void *v)
->>>       return frametable_virt_start + PFN_DOWN(va - directmap_virt_start);
->>>   }
+>>> @@ -160,6 +158,18 @@ static inline struct page_info *virt_to_page(const void *v)
 >>>   
->>> +#include <asm/page.h>
->> asm/page.h already includes asm/mm.h, so you're introducing a circular
->> dependency here (much of which the patch description is about, so it's
->> unclear why you didn't solve this another way). Afaict ...
->>
->>> +pte_t * pt_walk(vaddr_t va, unsigned int *pte_level);
->> ... it's pte_t that presents a problem here. Why not simply put the
->> declaration in asm/page.h (and drop all the secondary changes that
->> don't really belong in this patch anyway)?
+>>>   pte_t * pt_walk(vaddr_t va, unsigned int *pte_level);
+>>>   
+>>> +static inline mfn_t vmap_to_mfn_(vaddr_t va)
+>> Btw., for static functions (and variables) a prefixing underscore is
+>> fine to use. Its identifiers that don't have file scope which shouldn't.
 > 
-> In the patch 2 it is used for implementing vmap_to_mfn():
-> 
->    static inline mfn_t vmap_to_mfn_(vaddr_t va)
->    {
->        pte_t *entry = pt_walk(va, NULL);
-> 
->        BUG_ON(!pte_is_mapping(*entry));
-> 
->        return mfn_from_pte(*entry);
->    }
-> 
->    #define vmap_to_mfn(va)     vmap_to_mfn_((vaddr_t)va)mfn_from_pte
-> 
-> what leads to including of <asm/page.h> in <asm/mm.h>.
-> 
-> As an option, if to move the following to <asm/page.h>:
->    #define vmap_to_mfn(va)     vmap_to_mfn_((vaddr_t)va)
->    #define vmap_to_page(va)    mfn_to_page(vmap_to_mfn(va))
-> the circular dependency could be dropped.
+> Should it be used a single underscore prefixing or a double one?
 
-I wouldn't like that, but it's an option, yes. Alternatives I can think of
-right away:
-- put the helper function an asm/page.h, but keep the macros where they are,
-- convert the helper function to a helper macro.
+Never use double underscores as an identifier prefix of your own. Only the
+compiler (and in principle the library, if there was one) may use such.
 
 Jan
 
