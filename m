@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84B78A2A892
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Feb 2025 13:34:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.882816.1292902 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24A5BA2A89A
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Feb 2025 13:36:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.882823.1292911 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tg157-0003zP-Un; Thu, 06 Feb 2025 12:34:09 +0000
+	id 1tg16w-0004Vw-8V; Thu, 06 Feb 2025 12:36:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 882816.1292902; Thu, 06 Feb 2025 12:34:09 +0000
+Received: by outflank-mailman (output) from mailman id 882823.1292911; Thu, 06 Feb 2025 12:36:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tg157-0003ww-RY; Thu, 06 Feb 2025 12:34:09 +0000
-Received: by outflank-mailman (input) for mailman id 882816;
- Thu, 06 Feb 2025 12:34:08 +0000
+	id 1tg16w-0004Tl-5W; Thu, 06 Feb 2025 12:36:02 +0000
+Received: by outflank-mailman (input) for mailman id 882823;
+ Thu, 06 Feb 2025 12:36:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TFaJ=U5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tg156-0003wq-Ip
- for xen-devel@lists.xenproject.org; Thu, 06 Feb 2025 12:34:08 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
+ id 1tg16u-0004Tc-Cd
+ for xen-devel@lists.xenproject.org; Thu, 06 Feb 2025 12:36:00 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a7dc3827-e486-11ef-b3ef-695165c68f79;
- Thu, 06 Feb 2025 13:34:06 +0100 (CET)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-ab777352df4so77078766b.2
- for <xen-devel@lists.xenproject.org>; Thu, 06 Feb 2025 04:34:06 -0800 (PST)
+ id ea96be28-e486-11ef-b3ef-695165c68f79;
+ Thu, 06 Feb 2025 13:35:58 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-aaec61d0f65so203786666b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Feb 2025 04:35:58 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5de38c0e993sm147132a12.12.2025.02.06.04.34.05
+ a640c23a62f3a-ab772f486e9sm92716466b.35.2025.02.06.04.35.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Feb 2025 04:34:05 -0800 (PST)
+ Thu, 06 Feb 2025 04:35:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a7dc3827-e486-11ef-b3ef-695165c68f79
+X-Inumbo-ID: ea96be28-e486-11ef-b3ef-695165c68f79
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738845246; x=1739450046; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1738845358; x=1739450158; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LzkT0NtpYcF+4nH1QvFLCLq+J2jo2eQ1+tPDA6zqLX4=;
-        b=IkyeUtwMDR/tXH9lIAcwntIGer5DFKDzQLHXwVLxV9A08CL9zN3Ev9ceGpetd9OGna
-         1WVTLbJKT9j4esnGr+cetAGoWr50vPOfsuzssyDJ1jAGh2Y+DYD0vlcuWLmSCJdc6yjj
-         hN4GCxzuJ1ELrtkr3HdiO5Mv94skGs/tPX2TvY+cqSqAD3CxvM2i3uJgn2xImQr9QxIX
-         I5NzOycUIbiNuBMX5xLEN9sxnDG6E5kn0Ff0EO64cq9DoPNsosMK07lljchJhicnd2LH
-         8YBAF64XGV7uUnpT4rzBydMZXE09DaiUQm4tmjY5gozir83aUwbu6CaISieitxHgmvpA
-         ohWw==
+        bh=wmBXYKMKqloqlowmBUqvDbgcuEYSCMe9t9GV6WTK2Pc=;
+        b=SkiiXdQCfGiApCd8lxibpXiUDrM2cbBYKhSB8y0GLBbKMKbLvUgUMgyVobtXYXY9co
+         hGs3QGB9I3t7+VoZj+R1x2J8rxglgzV5EGkTCWcwirM/iF2bDD1u57MP1QOCGdOwxj4/
+         4gGsxOkCdkfxMd7TxlGBxZrSr4ylCH69YX/ql3z3fPoB2FFJrsUI5KUM/pamWJVFDnek
+         E+UiTOtVZYNZtCtSSfglejsoPXdynjcCNAIgeU7dAvurSvSXIQsHvhcD3752Hv7A0iVv
+         CifPGURDSuRyzNnermqdZZHPHY+oGBhGiHDMmyqNmgcjxdWL3J9qbz1djT+9nAF5wso7
+         GujQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738845246; x=1739450046;
+        d=1e100.net; s=20230601; t=1738845358; x=1739450158;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=LzkT0NtpYcF+4nH1QvFLCLq+J2jo2eQ1+tPDA6zqLX4=;
-        b=sm3JIzZ5tiJQ3jDE0pi2rKy3gWCGAxvK8mFHx41/ev0ebtM+CLZa66cF4oZyCOCUnR
-         Rx2DL7to5UpuO4kSLnYcjQV6ddd+qezus3kVclSvIMU7FHZP96Ay9qSxEd5A2y6y2moA
-         zBu+r962QbafmlFwrnY4psS/H1Q3tP2usmN4lX99vSMelEMiBsjoNj1DVQ/sAik2vg6J
-         VJT3cqgQ8Sev9MkvzSIwcKbOvXNKdUbBrkuR3n4WzYf2IMzqXIvDbt/De7fKgTXr0Ih5
-         LzjpugpgYZKCntv4WuyJ7WyykOwjPQC1nICEE2mYMTqYIm1FJaNWok2tth3/cJunmgzX
-         QQVA==
-X-Forwarded-Encrypted: i=1; AJvYcCViS/ed3dWzpodxvw2uOjJfPzO8xHWgegFbkoyu/Dlw2XJ5U7jci/PM+MQwTui3hpOw/07ObqFtNEk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy3uAkbrGRzWl9OK3Abj65Z9IUQES/0DgzLFnBJ+h1EycaeogT0
-	IhOg+GVldHGoqgLkctZ8+h/jq2e/VrxhoI7B37LfTi3eehj4HIGbrqYGe30g1w==
-X-Gm-Gg: ASbGncuIjJuAsncZSkNkxorOTiTvtZipooEgrY6+93QltiJcM42ZoMQqCY+AOemg+2b
-	ekuDx6GdHLKQXLlXLc7Ee1lT2kVS+WmseVU2+AejrnoYP5a7gGakDtNl+fy0eZQ7SxWFJGDHUYM
-	EImIdVvEZbhiR2gzxIi/6kPhIFRz5qDMOmrLh6a4dMYtAR1UJJuERVZBCwHbD/QVggdJP40IAJG
-	3FqnVzXHSikl1QaPIDAHhB+y7AcN84h6wH7sP1lVVhCQlzwBlg9gWPQG2OLZ25HKSkWzwRH5Km4
-	TNG0uuZ8XinIZodK104VvRQz4hRKRkzGhv7eSXeT1deG2JHv2eF09/+WMdol1JVnt2I8ByDpMTs
-	k
-X-Google-Smtp-Source: AGHT+IEzniGlO5CroEOj/20t40UApDH4VxII9TKUd9DZSeyDsK1InhvPlsCitPd3Em92aa1EVhQGCg==
-X-Received: by 2002:a17:907:6d0a:b0:ab7:82d7:3d74 with SMTP id a640c23a62f3a-ab782d740b0mr20204266b.39.1738845246010;
-        Thu, 06 Feb 2025 04:34:06 -0800 (PST)
-Message-ID: <b3459204-fce8-409e-92e8-c4ace443e115@suse.com>
-Date: Thu, 6 Feb 2025 13:34:04 +0100
+        bh=wmBXYKMKqloqlowmBUqvDbgcuEYSCMe9t9GV6WTK2Pc=;
+        b=YKVTXGhYkCChWHOREXzVmS7lQ/Sg8UivoE9XrYhLTOtR0DNJE69tF8R/0zIHsbWI7X
+         eN7i7QYnpZs2JfFn3QA8c8SQ8Os2IoZA+h+5EnoFeHYgxsqrcURr8hN+ul1FBqKbbnv4
+         w7CAPKp140/b6n6Sogla4vdbwvRQJGgpX9jXwBc/0Inqa9lGBWK97kOKxZzfPxK91EUL
+         /0Tk9KwT7XFMCnDSBhExuwjXO8G8gvfJjbeTmjgqPLAIx17xxtxxQtev4/0sjaRiO7K2
+         RFTCCSZHVO7DAJFRDqJLuF3arMdcjTjiSS8Lw8EbcwPwsfd6kEETRsAi1yk/in+ZfREa
+         UadQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUOVovmyN5EvfBJFuKB40fECCuSeq2g6b0ebwXIJjaShSP65SVIy0gkqfXvfrs29PPLpkCFlpUeO+U=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzVPPlRENLzB7dARmiV4aj6AxVwE29lq33gxGWB23IB6Tyu4dzH
+	ju2DIdoShL6SBvFZJfQTv3ajR5jZjYmvbNOqYqF4mh2VtKlE6mEPP8BOMVDqkw==
+X-Gm-Gg: ASbGncsYZxRN9AKpfHjBPw+PspRdIsF0o0wLGL2WNBVy22RU4oXNITiZHT0tKX2gJLP
+	yVrAPS7/gaUrIEtA/E8jLs37QnrERRUkvIR8QPCdneSW3sTIEiZ3y4k/0ZEcsNLkcfqLC/cln9/
+	8JXOZyuwn0ao+YO6zDHXtiGH2p5WCYpSm4wXIzGk1eYAWqHYKRFGi8iBvLjRZYTDzvxlsBQ6Ucb
+	4T2vXD602CdK7WQy92Q/C//ynRSB2arcafq9kCQ2IcccWXW4btJWiEN/oPvkZ96L/WRbXI9bsDG
+	GOtxb1WMD3SgukZK1dhBKtX8Qt7M0Z8ndK5M+OJ81wGBYLIFDxNPhLU6zwjVWOebaeXTQw6iKNS
+	L
+X-Google-Smtp-Source: AGHT+IFQVLhETzZYC/GhLF8G36R+VaheVBBw/kvwoNegHoZiHW6VXb/vWYwvBD7hk0I2yA2K4VUuLg==
+X-Received: by 2002:a17:906:6a1a:b0:ab3:974:3d45 with SMTP id a640c23a62f3a-ab75e24c011mr777721066b.1.1738845358046;
+        Thu, 06 Feb 2025 04:35:58 -0800 (PST)
+Message-ID: <b43ab925-a735-4954-b8b9-1e67419ce7cb@suse.com>
+Date: Thu, 6 Feb 2025 13:35:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/mm: Introduce per-arch pte_attr_t type for PTE
- flags
+Subject: Re: [PATCH v3 for-4.20 0/4] AMD/IOMMU: assorted corrections
+ (leftover)
 From: Jan Beulich <jbeulich@suse.com>
-To: Shawn Anastasio <sanastasio@raptorengineering.com>
-Cc: tpearson@raptorengineering.com, Andrew Cooper
- <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-References: <2b7f3e29fc1790978e2f615ee634f3a84bc340c9.1738789214.git.sanastasio@raptorengineering.com>
- <5a0e26ff-21fa-44c8-a1b2-3775e3ba00d9@suse.com>
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <0a006732-2b6e-46f0-a706-f432abd45d2c@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -125,34 +119,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5a0e26ff-21fa-44c8-a1b2-3775e3ba00d9@suse.com>
+In-Reply-To: <0a006732-2b6e-46f0-a706-f432abd45d2c@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 06.02.2025 13:29, Jan Beulich wrote:
-> On 05.02.2025 22:02, Shawn Anastasio wrote:
->> Xen's memory management APIs map_pages_to_xen, modify_xen_mappings,
->> set_fixmap, ioremap_attr, and __vmap all use an unsigned int to
->> represent architecture-dependent page table entry flags. This assumption
->> is not well-suited for PPC/radix where some flags go past 32-bits, so
->> introduce the pte_attr_t type to allow architectures to opt in to larger
->> types to store PTE flags.
->>
->> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
->> ---
->> Changes in v2:
->>   - Drop Kconfig option and use `#define pte_attr_t pte_attr_t` for arches to
->>   opt-in to defining the type.
->>   - Move default pte_attr_definition to xen/types.h
+Oleksii,
+
+On 04.02.2025 14:00, Jan Beulich wrote:
+> What previously was the main bug fix in this series was dropped for v3. It
+> turns out what is now patch 2 is sufficient to address the issue, while
+> doing the requested tidying. The latter two patches are for 4.21 only, with
+> the final one being up for debate altogether.
 > 
-> I'm unconvinced of types.h being an appropriate place for something mm-
-> related. mm-types.h maybe?
+> 1: radix-tree: purge node allocation override hooks
+> 2: radix-tree: introduce RADIX_TREE{,_INIT}()
+> 3: radix-tree: drop "root" parameters from radix_tree_node_{alloc,free}()
+> 4: PCI: drop pci_segments_init()
 
-To add to this (in an attempt to keep you from introducing a header of this
-name, just to then include it from types.h): I don't think this type wants
-exposing to all CUs. Ones entirely unrelated to mm (take e.g. everything
-that's under lib/) shouldn't get to see it.
+any verdict one way or the other for the first two patches?
 
-Jan
+Thanks, Jan
 
