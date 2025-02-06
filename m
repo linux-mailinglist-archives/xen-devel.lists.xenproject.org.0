@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2214A2AE07
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Feb 2025 17:43:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.883046.1293132 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B47A8A2AEAF
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Feb 2025 18:18:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.883055.1293141 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tg4xv-0007Ok-7O; Thu, 06 Feb 2025 16:42:59 +0000
+	id 1tg5VD-0002yc-Cw; Thu, 06 Feb 2025 17:17:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 883046.1293132; Thu, 06 Feb 2025 16:42:59 +0000
+Received: by outflank-mailman (output) from mailman id 883055.1293141; Thu, 06 Feb 2025 17:17:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tg4xv-0007Lj-4L; Thu, 06 Feb 2025 16:42:59 +0000
-Received: by outflank-mailman (input) for mailman id 883046;
- Thu, 06 Feb 2025 16:42:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=TFaJ=U5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tg4xt-0007Lc-7a
- for xen-devel@lists.xenproject.org; Thu, 06 Feb 2025 16:42:57 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6a7dbce6-e4a9-11ef-a073-877d107080fb;
- Thu, 06 Feb 2025 17:42:56 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-ab7483b9bf7so165729266b.3
- for <xen-devel@lists.xenproject.org>; Thu, 06 Feb 2025 08:42:56 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab784d33c59sm21415066b.183.2025.02.06.08.42.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Feb 2025 08:42:55 -0800 (PST)
+	id 1tg5VD-0002wb-A8; Thu, 06 Feb 2025 17:17:23 +0000
+Received: by outflank-mailman (input) for mailman id 883055;
+ Thu, 06 Feb 2025 17:17:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rEyC=U5=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tg5VB-0002wV-Tp
+ for xen-devel@lists.xenproject.org; Thu, 06 Feb 2025 17:17:21 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3843e757-e4ae-11ef-b3ef-695165c68f79;
+ Thu, 06 Feb 2025 18:17:19 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-43618283dedso11570785e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Feb 2025 09:17:19 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4391dcae129sm25275555e9.17.2025.02.06.09.17.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 06 Feb 2025 09:17:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,249 +44,318 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a7dbce6-e4a9-11ef-a073-877d107080fb
+X-Inumbo-ID: 3843e757-e4ae-11ef-b3ef-695165c68f79
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1738860175; x=1739464975; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2cVdkpZ2F9QYDOhvcsZt7YObcDfPAqcI+3ucQc8CRro=;
-        b=QyV2/1vSpq45SW8+iVkq6CsXLZ1ifXllNQVsvZEgtpj5eb7tEivGL5zWzngdq+toI7
-         /1I9IW7H96lYUmhOdYLDaSIwggvDUkrIv8tk9BSRcIJFQC3NDy5at++r3ZfASAFTeeiT
-         uqxS63Q4KZRVJvZ8N+gyqHcPE4oJ2cLNVHtGFTDnVl2gbcqY/xY2QJ6wNmySzM2SW9ig
-         xw+0jNt6JrHUTzQfpyUcXGkIa7Wii/HDS66ZgtVPHuSrXngCwvszOjpcdzVJmXcexgkU
-         /93vFwUX1p/JWlj1opMBpJ2qjmtpTUPlKfFwVl8P21nT6tl0cnvHV7EqxvCrgYWFGaMt
-         cQrQ==
+        d=citrix.com; s=google; t=1738862239; x=1739467039; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=90kAG+S1f4glylAPfmb8Fw4bMhXPn2Ey2cyUShMslH4=;
+        b=EaQV/WG/piObEW1+ABfKPbhMLVvVOIEfdbcmzPrK3ruP4IitSC1DkiGQdfEedbhPMI
+         iBXzkz2VB/I3LMrMS5O9rktk0v7CLpoNl6/I76LBdiVZg1nYQrLla4p17yEBZDtWK181
+         Y4QZf+/xudfI2I0dmL1tcOHckCw/y1SOhVAhA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738860175; x=1739464975;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1738862239; x=1739467039;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2cVdkpZ2F9QYDOhvcsZt7YObcDfPAqcI+3ucQc8CRro=;
-        b=Dz7VPvT8G3T3ecE7PyemO/ALHfZYBA09r6Etyu8XvhBPCf9a4iERkXxlrFc0z5Iyh0
-         aACkOuz7i+8oYhxhAW+a7h010t2Xvn+BRxTsxKanRKd5TeLVr5dWSlUHL0JHWMns9e/D
-         g5A6st8TxjW2TmZ+ARDla9U9icMkQR2s1CyAZ+MNX816We8feirOXIiWUINBwzMKqfU2
-         CUhgIyc5DtXJ4LO435oLnE8m0HXM1+UYjNNNePoIvDBoJ8fKuLmYITPQkC5cTiSNZVyy
-         W64z0B5dvuYa10muYbYHojbB1m+eYjOY3P3lIKM+A88Jq2EOsESNqADpqZymGWIqBmHh
-         8AbA==
-X-Forwarded-Encrypted: i=1; AJvYcCVuElpMOQAvCBlrZY2ZYy93VBxzeA0NJQa9+oODOG9LTu+ojbxhG3olL/NdVg4VS3+5fkaitmElrhI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzbQQPO/uWcQzP8ZqayiPqTpKPlmd2See0nOkPYEVkN3b9HdjyM
-	2TgIC7mRfW61xtYyofSubrkuhQ04GVSdF95PBRpSQWjvdUg3GhXjBz5d7/Dnnw==
-X-Gm-Gg: ASbGncvhcRRRGIItGYqLDqqRNruiJ2A3Y1wgbpcw4AJr3yjFH6841V/3nlxcdrNiPqf
-	cPsV1LEBuf19qVTRebqa6pxh6ufDroQiO47rAOW1Ufh3V0S8rGMpRYnbkXrBzIcQFHI/sGjr3Z0
-	QRl9ruRSBV6L4zAOkvnVMbXTFAK9Pvwg/c3z5gOxJ4N5oUq8mSVyt7HSBURt/U/nKa6WGHpP4P+
-	NzH59O074P14A/2VaRgZYeRwwUYmevsckQ+mUg5JoumvNFE1ZIwLfblU2ZZ49olXiQNc0uhAKC4
-	6z4nkFc4ZxGFNsgAcexUsLJ4dSUqExyOiaZgwPopl3JSfzuxgVbP31gxuY0N2fprwrJrmDlcFH4
-	n
-X-Google-Smtp-Source: AGHT+IF5JuOcT7UVLeNM78R9awhRkrK0Ox/YhH6lk8PgWa2ixdWvTa1zQU0yCznmo6js3g4PpAX7Sg==
-X-Received: by 2002:a17:907:d88:b0:aa6:9176:61ed with SMTP id a640c23a62f3a-ab75e33cea1mr889537366b.48.1738860175370;
-        Thu, 06 Feb 2025 08:42:55 -0800 (PST)
-Message-ID: <40e0e225-31f9-4668-8d29-90519fd28768@suse.com>
-Date: Thu, 6 Feb 2025 17:42:53 +0100
+        bh=90kAG+S1f4glylAPfmb8Fw4bMhXPn2Ey2cyUShMslH4=;
+        b=h5hqwumvXLp0I1xKim8N0hpmUj0JnCcaKw0tfSQqgtpcCgtz6zT77yRlt4NFuaCui9
+         z3AhHnQHcZFwPYGwsFsnfa5WLbDwGGrHF9HadeQKNAgTr2u+Mczybgi5MLVjg2dlQNHc
+         L1MIVczDlUeUOS1uUg8c6btpJpMOB/h9KS806M5OLPDyzDOPg/ynpcIJMp/Lt0oXKvHZ
+         iy5LcCi0h0FE0Pjg0udbPlYwJ5uXC9OnxcJM3kckc95aS7jTavxZLfEZO2GCX37K3bwV
+         Ay4jH2oHu7Fir4gzvk8nYweSJvaZeAvL6wq///QGW6R1DrNZNmIuvXTWXj1KO4pvUmuc
+         cEUQ==
+X-Gm-Message-State: AOJu0YyZX9WJHwccRAjkVDueZ7hzJzKr5fVto3Fyh8dexuceUMQGGdym
+	DvTm6hSWVR52LAQj1Xk5qWCk2Zg2qKcvFHWrenYBfoe+QnFSSQ2HYyIzICdoU70=
+X-Gm-Gg: ASbGnctX3q+/NN/zF+E7qg/GUR+5ngXmXIoF+jZwQzSNfScevGIqvKwB5gdB9nlSe/1
+	UOcGCdpKJ6XtXnzJ993mivT+Pio9s9lNLVX9AyTZyHJNM6U/iDj0gFED9eYRk5lY2RMj/lt/40S
+	uKZoXgczBC409VbBTbOb1gnmG08s/iS4pu5GcCGSx0EdcN0qOZJ+x3GYS2ukjBXDSw8h2k4T8Wo
+	hyW7JQwhiJbAbU0V14QbPLBnpn7LjJhwyMIlL/t4C5RStNNOPizOqq9uOl73UnTR/+gKXIL3pvx
+	1fUZZHP3PAC3umKuf9FL
+X-Google-Smtp-Source: AGHT+IFsGO5MaCu3lcz6oCW3oVaJ7+mCwfyfBEFNAkseMSPhvBcgCy4CLUGXAIOANXX6qXpk3ECVQw==
+X-Received: by 2002:a05:600c:3c84:b0:435:32e:8270 with SMTP id 5b1f17b1804b1-43924991e0cmr2415995e9.14.1738862238497;
+        Thu, 06 Feb 2025 09:17:18 -0800 (PST)
+Date: Thu, 6 Feb 2025 18:17:17 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Huang Rui <ray.huang@amd.com>
+Subject: Re: [PATCH v7] vpci: Add resizable bar support
+Message-ID: <Z6TunU-OESSdTIMa@macbook.local>
+References: <20250206093900.1410342-1-Jiqian.Chen@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for 4-21 v4] xen/riscv: identify specific ISA supported by
- cpu
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <a63c60c7a97a2b361e3a41f57bed61c0c9a0a89f.1738653407.git.oleksii.kurochko@gmail.com>
- <ab7077b3-6bef-4025-9389-345a345a141c@suse.com>
- <6c9baf46-bc0b-49a7-9cdd-bebb0fc71ee7@gmail.com>
- <4f16a3b9-3759-4bea-89cd-361b492e0133@suse.com>
- <9a43296c-d78d-49bf-9a94-0b0699e4259d@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <9a43296c-d78d-49bf-9a94-0b0699e4259d@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20250206093900.1410342-1-Jiqian.Chen@amd.com>
 
-On 06.02.2025 16:00, Oleksii Kurochko wrote:
-> 
-> On 2/6/25 12:10 PM, Jan Beulich wrote:
->>>>> +        case 's':
->>>>> +            /*
->>>>> +             * Workaround for invalid single-letter 's' & 'u' (QEMU):
->>>>> +             *   Before QEMU 7.1 it was an issue with misa to ISA string
->>>>> +             *   conversion:
->>>>> +             *https://patchwork.kernel.org/project/qemu-devel/patch/dee09d708405075420b29115c1e9e87910b8da55.1648270894.git.research_trasio@irq.a4lg.com/#24792587
->>>>> +             *   Additional details of the workaround on Linux kernel side:
->>>>> +             *https://lore.kernel.org/linux-riscv/ae93358e-e117-b43d-faad-772c529f846c@irq.a4lg.com/#t
->>>>> +             *
->>>>> +             * No need to set the bit in riscv_isa as 's' & 'u' are
->>>>> +             * not valid ISA extensions. It works unless the first
->>>>> +             * multi-letter extension in the ISA string begins with
->>>>> +             * "Su" and is not prefixed with an underscore.
->>>>> +             */
->>>>> +            if ( ext[-1] != '_' && ext[1] == 'u' )
->>>>> +            {
->>>>> +                ++isa;
->>>>> +                ext_err = true;
->>>>> +                break;
->>>>> +            }
->>>>> +            fallthrough;
->>>>> +        case 'z':
->>>>> +            /*
->>>>> +             * Before attempting to parse the extension itself, we find its end.
->>>>> +             * As multi-letter extensions must be split from other multi-letter
->>>>> +             * extensions with an "_", the end of a multi-letter extension will
->>>>> +             * either be the null character or the "_" at the start of the next
->>>>> +             * multi-letter extension.
->>>>> +             *
->>>>> +             * Next, as the extensions version is currently ignored, we
->>>>> +             * eliminate that portion. This is done by parsing backwards from
->>>>> +             * the end of the extension, removing any numbers. This may be a
->>>>> +             * major or minor number however, so the process is repeated if a
->>>>> +             * minor number was found.
->>>>> +             *
->>>>> +             * ext_end is intended to represent the first character *after* the
->>>>> +             * name portion of an extension, but will be decremented to the last
->>>>> +             * character itself while eliminating the extensions version number.
->>>>> +             * A simple re-increment solves this problem.
->>>>> +             */
->>>>> +            for ( ; *isa && *isa != '_'; ++isa )
->>>>> +                if ( unlikely(!isalnum(*isa)) )
->>>>> +                    ext_err = true;
->>>>> +
->>>>> +            ext_end = isa;
->>>>> +            if ( unlikely(ext_err) )
->>>>> +                break;
->>>> This, otoh, is an error. Which probably shouldn't go silently.
->>> It is actually not an error, what it means that if version is mentioned or not, so
->>> (1) rv32..._zbb_zbc
->>> (2) rv32..._zbb1p2_zbc
->>>
->>> For (1), ext_err = true and it means that version isn't mentioned for _zbb and after it
->>> immediately another extension name is going, so there is no any sense in ignoring (or parsing) version
->>> numbers.
->>> For (2), ext_err = false (because it ends on number ) so we have to ignore (or parse) version nubmers.
->> I don't follow. Why would ext_err be true for (1)? That's a well-formed
->> specifier, isn't it? rv32..._zbb.zbc (with the last dot meaning a literal
->> one, unlike the earlier ...) is an example of what would cause ext_err to
->> be true.
-> 
-> My fault, you are right, ext_err will be false for (1).
-> 
-> For your example, rv32..._zbb.zbc we have to do panic(), haven't we?
+On Thu, Feb 06, 2025 at 05:39:00PM +0800, Jiqian Chen wrote:
+> Some devices, like discrete GPU of amd, support resizable bar
+                                     ^ AMD?
 
-That's what I was trying to suggest earlier on. From anything we can't parse
-we can't possibly infer whether we're able to run with the properties the
-system has.
-
->>>>> +        default:
->>>>> +            /*
->>>>> +             * Things are a little easier for single-letter extensions, as they
->>>>> +             * are parsed forwards.
->>>>> +             *
->>>>> +             * After checking that our starting position is valid, we need to
->>>>> +             * ensure that, when isa was incremented at the start of the loop,
->>>>> +             * that it arrived at the start of the next extension.
->>>>> +             *
->>>>> +             * If we are already on a non-digit, there is nothing to do. Either
->>>>> +             * we have a multi-letter extension's _, or the start of an
->>>>> +             * extension.
->>>>> +             *
->>>>> +             * Otherwise we have found the current extension's major version
->>>>> +             * number. Parse past it, and a subsequent p/minor version number
->>>>> +             * if present. The `p` extension must not appear immediately after
->>>>> +             * a number, so there is no fear of missing it.
->>>>> +             */
->>>>> +            if ( unlikely(!isalpha(*ext)) )
->>>>> +            {
->>>>> +                ext_err = true;
->>>>> +                break;
->>>>> +            }
->>>> Like above this also looks to be a situation that maybe better would be
->>>> left go entirely silently. I even wonder whether you can safely continue
->>>> the parsing in that case: How do you know whether what follows is indeed
->>>> the start of an extension name?
->>> Lets consider examples:
->>> (1) riscv,isa=im
->>> (2) riscv,isa=i1p2m
->>> (3) riscv,isa=i1m
->>>
->>> (4) riscv,isa=i1_m1
->>>
->>> Note: Underscores "_" may be used to separate ISA extensions to improve readability
->>> and to provide disambiguation, e.g., "RV32I2_M2_A2".
->>>
->>> (1) isa="i" so ext = "m" => no minor and major version between "i" and "m" => `ext` contains the name
->>>       of the next extension name, thereby we will break a loop and go for parsing of the next extension
->>>       which is "m" in this example
->>> (2) isa="i" => ext="1" => algorithm will go further and will just skip minor and major version for
->>>       this extension (1p2 => 1.2 version of extension "i")
->>> (3) just the same as (2) but will stop earlier as minor version isn't set.
->>>
->>> Note: having "_" is legal from specification point of view, but it is illegal to use it between single letter
->>>         extension from device tree binding point of view.
->>> (4) just the same as (2) and (3) but using "_" separator, so the if above will just skip "_" and the next
->>>       after "_" is an extension name again.
->>>
->>> Considering that "_" is illegal from device tree point of view between single letter extensions we should have
->>> ASSERT(*ext != "_") and then only cases (1) - (3) will be possible to have.
->>> Probably it also will make a sense to have an array with legal single letter extensions and check that *ext is
->>> in this array.
->>>
->>> Interesting that device tree binding doesn't cover this case:
->>> ```
->>> Because the "P" extension for Packed SIMD can be confused for the decimal point in a version number,
->>> it must be preceded by an underscore if it follows a number. For example, "rv32i2p2" means version
->>> 2.2 of RV32I, whereas "rv32i2_p2" means version 2.0 of RV32I with version 2.0 of the P extension.
->>> ```
->>> if I correctly interpreted the pattern:pattern:^rv(?:64|32)imaf?d?q?c?b?k?j?p?v?h?(?:[hsxz](?:[0-9a-z])+)?(?:_[hsxz](?:[0-9a-z])+)*$
->>> And it also doesn't support versions for single letter extensions.
->>> So "rv32i2_m2_a2" or with using "p" is impossible?
->>> Then riscv_isa_parse_string() could be simplified ( probably when it was implemented in Linux kernel they don't have the binding for riscv,isa and they
->>> just tried to follow RISC-V specification ) for the case of single letter extensions (or just keep it as is to be in sync with Linux kernel).
->> All fine, but what about e.g.
->>
->> (5) riscv,isa=i?m1
+> capability, but vpci of Xen doesn't support this feature, so
+> they fail to resize bars and then cause probing failure.
 > 
-> It is impossible from device tree point of view:
-> 1. According to DT's patter after single letter extension couldn't be version.
-> 2. Between "ima" can't be anything.
-> 
-> But it shouldn't break an algorithm because:
-> (1) parse "i" and nothing wrong with that.
-> (2) "?" will be ignored because we have a check at the start of single letter extension case:
->         if ( unlikely(!isalpha(*ext)) )
->      so ext_err will be set to true
-> (3) "?" will be ignored and go just to "m" because of set ext_err=true at the step (2).
-> (4) Then "m" will be parsed successfully and 1 will be just ignored.
-> 
-> Does it make sense?
+> According to PCIe spec, each bar that supports resizing has
+> two registers, PCI_REBAR_CAP and PCI_REBAR_CTRL. So, add
+> handlers for them to support resizing the size of BARs.
 
-See above - I don't think we should continue to run if parsing fails. Of
-course we might, after tainting the system, in a best effort manner.
+You need to update the commit message to note Xen will only trap
+PCI_REBAR_CTRL, as PCI_REBAR_CAP is read-only and the hardware domain
+will already get access to it without needing any setup.
 
-Jan
+> 
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+
+Just one comment about you not needing to introduce vpci_hw_write32()
+anymore.  The rest are nits to comments, which I'm not even sure are
+better than your proposed text.
+
+> ---
+> Hi all,
+> v6->v7 changes:
+> * Deleted codes that add register for PCI_REBAR_CAP, and added comments to explain why.
+> * Added comments to explain why use "continue" when fail to add register for PCI_REBAR_CTRL.
+> 
+> Best regards,
+> Jiqian Chen.
+> 
+> v5->v6 changes:
+> * Changed "1UL" to "1ULL" in PCI_REBAR_CTRL_SIZE idefinition for 32 bit architecture.
+> * In rebar_ctrl_write used "bar - pdev->vpci->header.bars" to get index instead of reading
+>   from register.
+> * Added the index of BAR to error messages.
+> * Changed to "continue" instead of "return an error" when vpci_add_register failed.
+> 
+> v4->v5 changes:
+> * Called pci_size_mem_bar in rebar_ctrl_write to get addr and size of BAR instead of setting
+>   their values directly after writing new size to hardware.
+> * Changed from "return" to "continue" when index/type of BAR are not correct during initializing
+>   BAR.
+> * Corrected the value of PCI_REBAR_CTRL_BAR_SIZE from "0x00001F00" to "0x00003F00".
+> * Renamed PCI_REBAR_SIZE_BIAS to PCI_REBAR_CTRL_SIZE_BIAS.
+> * Re-defined "PCI_REBAR_CAP_SHIFT 4" to "PCI_REBAR_CAP_SIZES_MASK 0xFFFFFFF0U".
+> 
+> v3->v4 changes:
+> * Removed PCI_REBAR_CAP_SIZES since it was not needed, and added
+>   PCI_REBAR_CAP_SHIFT and PCI_REBAR_CTRL_SIZES.
+> * Added parameter resizable_sizes to struct vpci_bar to cache the support resizable sizes and
+>   added the logic in init_rebar().
+> * Changed PCI_REBAR_CAP to PCI_REBAR_CAP(n) (4+8*(n)), changed PCI_REBAR_CTRL to
+>   PCI_REBAR_CTRL(n) (8+8*(n)).
+> * Added domain info of pci_dev to printings of init_rebar().
+> 
+> v2->v3 changes:
+> * Used "bar->enabled" to replace "pci_conf_read16(pdev->sbdf, PCI_COMMAND) & PCI_COMMAND_MEMORY",
+>   and added comments why it needs this check.
+> * Added "!is_hardware_domain(pdev->domain)" check in init_rebar() to return EOPNOTSUPP for domUs.
+> * Moved BAR type and index check into init_rebar(), then only need to check once.
+> * Added 'U' suffix for macro PCI_REBAR_CAP_SIZES.
+> * Added macro PCI_REBAR_SIZE_BIAS to represent 20.
+> TODO: need to hide ReBar capability from hardware domain when init_rebar() fails.
+> 
+> v1->v2 changes:
+> * In rebar_ctrl_write, to check if memory decoding is enabled, and added
+>   some checks for the type of Bar.
+> * Added vpci_hw_write32 to handle PCI_REBAR_CAP's write, since there is
+>   no write limitation of dom0.
+> * And has many other minor modifications as well.
+> ---
+>  xen/drivers/vpci/Makefile  |   2 +-
+>  xen/drivers/vpci/rebar.c   | 136 +++++++++++++++++++++++++++++++++++++
+>  xen/drivers/vpci/vpci.c    |   6 ++
+>  xen/include/xen/pci_regs.h |  15 ++++
+>  xen/include/xen/vpci.h     |   3 +
+>  5 files changed, 161 insertions(+), 1 deletion(-)
+>  create mode 100644 xen/drivers/vpci/rebar.c
+> 
+> diff --git a/xen/drivers/vpci/Makefile b/xen/drivers/vpci/Makefile
+> index 1a1413b93e76..a7c8a30a8956 100644
+> --- a/xen/drivers/vpci/Makefile
+> +++ b/xen/drivers/vpci/Makefile
+> @@ -1,2 +1,2 @@
+> -obj-y += vpci.o header.o
+> +obj-y += vpci.o header.o rebar.o
+>  obj-$(CONFIG_HAS_PCI_MSI) += msi.o msix.o
+> diff --git a/xen/drivers/vpci/rebar.c b/xen/drivers/vpci/rebar.c
+> new file mode 100644
+> index 000000000000..64b56a9567fa
+> --- /dev/null
+> +++ b/xen/drivers/vpci/rebar.c
+> @@ -0,0 +1,136 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+> + *
+> + * Author: Jiqian Chen <Jiqian.Chen@amd.com>
+> + */
+> +
+> +#include <xen/sched.h>
+> +#include <xen/vpci.h>
+> +
+> +static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
+> +                                      unsigned int reg,
+> +                                      uint32_t val,
+> +                                      void *data)
+> +{
+> +    struct vpci_bar *bar = data;
+> +    const unsigned int index = bar - pdev->vpci->header.bars;
+> +    uint64_t size = PCI_REBAR_CTRL_SIZE(val);
+> +
+> +    if ( bar->enabled )
+> +    {
+> +        /*
+> +         * Refuse to resize a BAR while memory decoding is enabled, as
+> +         * otherwise the size of the mapped region in the p2m would become
+> +         * stale with the newly set BAR size, and the position of the BAR
+> +         * would be reset to undefined.  Note the PCIe specification also
+> +         * forbids resizing a BAR with memory decoding enabled.
+> +         */
+> +        if ( size != bar->size )
+> +            gprintk(XENLOG_ERR,
+> +                    "%pp: refuse to resize BAR#%u with memory decoding enabled\n",
+> +                    &pdev->sbdf, index);
+> +        return;
+> +    }
+> +
+> +    if ( !((size >> PCI_REBAR_CTRL_SIZE_BIAS) & bar->resizable_sizes) )
+> +        gprintk(XENLOG_WARNING,
+> +                "%pp: new BAR#%u size %#lx is not supported by hardware\n",
+> +                &pdev->sbdf, index, size);
+> +
+> +    pci_conf_write32(pdev->sbdf, reg, val);
+> +
+> +    pci_size_mem_bar(pdev->sbdf,
+> +                     PCI_BASE_ADDRESS_0 + index * 4,
+> +                     &bar->addr,
+> +                     &bar->size,
+> +                     (index == PCI_HEADER_NORMAL_NR_BARS - 1) ?
+> +                      PCI_BAR_LAST : 0);
+> +    bar->guest_addr = bar->addr;
+> +}
+> +
+> +static int cf_check init_rebar(struct pci_dev *pdev)
+> +{
+> +    uint32_t ctrl;
+> +    unsigned int nbars;
+> +    unsigned int rebar_offset = pci_find_ext_capability(pdev->sbdf,
+> +                                                        PCI_EXT_CAP_ID_REBAR);
+> +
+> +    if ( !rebar_offset )
+> +        return 0;
+> +
+> +    if ( !is_hardware_domain(pdev->domain) )
+> +    {
+> +        printk(XENLOG_ERR "%pp: resizable BARs unsupported for unpriv %pd\n",
+> +               &pdev->sbdf, pdev->domain);
+> +        return -EOPNOTSUPP;
+> +    }
+> +
+> +    ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL(0));
+> +    nbars = MASK_EXTR(ctrl, PCI_REBAR_CTRL_NBAR_MASK);
+> +    for ( unsigned int i = 0; i < nbars; i++ )
+> +    {
+> +        int rc;
+> +        struct vpci_bar *bar;
+> +        unsigned int index;
+> +
+> +        ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL(i));
+> +        index = ctrl & PCI_REBAR_CTRL_BAR_IDX;
+> +        if ( index >= PCI_HEADER_NORMAL_NR_BARS )
+> +        {
+> +            printk(XENLOG_ERR "%pd %pp: too big BAR number %u in REBAR_CTRL\n",
+> +                   pdev->domain, &pdev->sbdf, index);
+> +            continue;
+> +        }
+> +
+> +        bar = &pdev->vpci->header.bars[index];
+> +        if ( bar->type != VPCI_BAR_MEM64_LO && bar->type != VPCI_BAR_MEM32 )
+> +        {
+> +            printk(XENLOG_ERR "%pd %pp: BAR%u is not in memory space\n",
+> +                   pdev->domain, &pdev->sbdf, index);
+> +            continue;
+> +        }
+> +
+> +        /*
+> +         * Here not to add register for PCI_REBAR_CAP since it is read-only
+
+"Here not to add" doesn't read right to me (but I'm not a native
+speaker), I would rather use:
+
+"Don't add a handler for PCI_REBAR_CAP since it is read-only ..."
+
+TBH I would even drop the comment from here, at the end we allow the
+hardware domain unmediated access to a lot of read-only devices, and
+there's no comment for each of them.
+
+> +         * register without other specific operations, and hardware domain
+> +         * has no limitation of read/write access to all PCI config space.
+> +         */
+> +        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, rebar_ctrl_write,
+> +                               rebar_offset + PCI_REBAR_CTRL(i), 4, bar);
+> +        if ( rc )
+> +        {
+> +            printk(XENLOG_ERR "%pd %pp: BAR%u fail to add reg of REBAR_CTRL rc=%d\n",
+> +                   pdev->domain, &pdev->sbdf, index, rc);
+> +            /*
+> +             * Ideally we would hide the ReBar capability here, but code
+> +             * for doing so still needs to be written. And using continue
+> +             * can keep any possible hooks working, instead, returning
+> +             * failure would cause all vPCI hooks down and hardware domain
+> +             * has entirely unmediated access to the device, which is worse.
+> +             */
+
+"Ideally we would hide the ReBar capability on error, but code for
+doing so still needs to be written. Use continue instead to keep any
+already setup register hooks, as returning an error will cause
+the hardware domain to get unmediated access to all device registers."
+
+Seems slightly easier to parse IMO (again I'm not a native speaker, so
+your proposed comment might be better).
+
+> +            continue;
+> +        }
+> +
+> +        bar->resizable_sizes =
+> +            MASK_EXTR(pci_conf_read32(pdev->sbdf,
+> +                                      rebar_offset + PCI_REBAR_CAP(i)),
+> +                      PCI_REBAR_CAP_SIZES_MASK);
+> +        bar->resizable_sizes |=
+> +            (((uint64_t)MASK_EXTR(ctrl, PCI_REBAR_CTRL_SIZES_MASK) << 32) /
+> +             ISOLATE_LSB(PCI_REBAR_CAP_SIZES_MASK));
+> +    }
+> +
+> +    return 0;
+> +}
+> +REGISTER_VPCI_INIT(init_rebar, VPCI_PRIORITY_LOW);
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
+> index 1e6aa5d799b9..3349b98389b8 100644
+> --- a/xen/drivers/vpci/vpci.c
+> +++ b/xen/drivers/vpci/vpci.c
+> @@ -232,6 +232,12 @@ void cf_check vpci_hw_write16(
+>      pci_conf_write16(pdev->sbdf, reg, val);
+>  }
+>  
+> +void cf_check vpci_hw_write32(
+> +    const struct pci_dev *pdev, unsigned int reg, uint32_t val, void *data)
+> +{
+> +    pci_conf_write32(pdev->sbdf, reg, val);
+> +}
+
+I think you now longer need to introduce vpci_hw_write32() since it's
+not used anywhere in this patch.
+
+Thanks, Roger.
 
