@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B6DCA2AC1B
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Feb 2025 16:06:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.882922.1293017 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EFD2A2AC1E
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Feb 2025 16:06:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.882923.1293035 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tg3ST-0003B1-Uy; Thu, 06 Feb 2025 15:06:25 +0000
+	id 1tg3SW-0003cJ-AE; Thu, 06 Feb 2025 15:06:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 882922.1293017; Thu, 06 Feb 2025 15:06:25 +0000
+Received: by outflank-mailman (output) from mailman id 882923.1293035; Thu, 06 Feb 2025 15:06:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tg3ST-00036R-Qh; Thu, 06 Feb 2025 15:06:25 +0000
-Received: by outflank-mailman (input) for mailman id 882922;
- Thu, 06 Feb 2025 15:06:24 +0000
+	id 1tg3SW-0003ZO-1b; Thu, 06 Feb 2025 15:06:28 +0000
+Received: by outflank-mailman (input) for mailman id 882923;
+ Thu, 06 Feb 2025 15:06:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rEyC=U5=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tg3SS-0002qa-T7
- for xen-devel@lists.xenproject.org; Thu, 06 Feb 2025 15:06:24 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ id 1tg3SU-0002qa-If
+ for xen-devel@lists.xenproject.org; Thu, 06 Feb 2025 15:06:26 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id edcfcb7a-e49b-11ef-b3ef-695165c68f79;
- Thu, 06 Feb 2025 16:06:23 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-5dca468c5e4so2189388a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 06 Feb 2025 07:06:23 -0800 (PST)
+ id eecf43c3-e49b-11ef-b3ef-695165c68f79;
+ Thu, 06 Feb 2025 16:06:25 +0100 (CET)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-5dca468c5e4so2189462a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Feb 2025 07:06:25 -0800 (PST)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5dcf1b816basm1008818a12.41.2025.02.06.07.06.21
+ 4fb4d7f45d1cf-5dcf9f952casm1005879a12.81.2025.02.06.07.06.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Feb 2025 07:06:21 -0800 (PST)
+ Thu, 06 Feb 2025 07:06:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,47 +44,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: edcfcb7a-e49b-11ef-b3ef-695165c68f79
+X-Inumbo-ID: eecf43c3-e49b-11ef-b3ef-695165c68f79
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1738854382; x=1739459182; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1738854384; x=1739459184; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hGR2Lv/mW9KuxkkD8t/npxcQHCyRBY4y4xXkUseCwDU=;
-        b=IkncwZP3TwbFqWg02E2sbW8ztYt4EKPFTqGJtEobzDm0P2fbakQtuZwyYpLJt1o1BC
-         N36AcJ6bWdXBmp8WIhpYMnzBY8OcDGPtujlLKAKJo9HI+sbb4o5LZ8EhpP0y12bWiVQZ
-         saD70Xq8V3mVLZrPlNSQ303bP3T7FS7Rad2HQ=
+        bh=xm1F4/LWDRjOr5tGbdwduMf0+aedjlnrUC4bJARj2yg=;
+        b=sFfnaEWLqZLkMDbuQovuPTLXpoGdEffy6RW2iqJEWK4maqzmpxNbAXbkHCPoKDX76H
+         4JOxWMFk9DKq6y8IGJkhyg7+ztR1CAYHc2+Ur2Cb0eRuG06mxy3iETlnibl8oYKtRbhr
+         ehhKIPWq2q7fvwzYvg8eSZgjDpW2RcdiGbdUI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738854382; x=1739459182;
+        d=1e100.net; s=20230601; t=1738854384; x=1739459184;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=hGR2Lv/mW9KuxkkD8t/npxcQHCyRBY4y4xXkUseCwDU=;
-        b=CPMgKpG5WIAHwDL9bMLcNIf8cbK+kxqZ36KZDuZmHx/eAqiUzjKIG7LNa76jGWQomm
-         AgfsXQs7xcbf62Z+ht7ZKq2m/xuh1QRMshDnS7oOFdOJGin+RpwrGDO+TYLP3DsrVpDG
-         lZh05+swp29Fusnr5oz7KpqQT18YuXaNp0W4t+LyH/cvZSepHWoRC/AQwvacH4cDmu39
-         wsTFjSTUuM0iKusR6PfpVvPNlbJ31uOhIwBZR1b8u1Vk13G3X1ZflsEL5AZ7nAnbQ79S
-         iEUPM89OfuZaD0fJRBo24B5Rx0fBw8GF/Rz8VEXksmf+VNWx5dXDm0ei05khI5h3Jgev
-         7HUQ==
-X-Gm-Message-State: AOJu0YwxplqRvXyrm80yOdFGiYqxxFygfTjS1+uPaO4dQyNGwUIUHMwy
-	8g6AGMuEdI5Q5xjLuDEv14y5qEd7SVr5GNO/fHgwe2Wpa2lxNodM+9fUYX3SAvsON7yUW/jaJeR
-	a
-X-Gm-Gg: ASbGnctnXJ5PlpdHxbyEqaNOFH1zfxGk98A1a1wUgRGkV4NOMm4lyIgnxCfbaIFyVG7
-	6Vf2dtdbGf7suTstfHOxjXgK6brduToLSvzaBl0aIR+t7S0ucort42GqvRFhzw/b/zrMV7OkqRq
-	qoIga35n3ET/5meGPgO9jb0koAMdUZl11J1pvwd1xheQXy/gNP3KAndgeJO18iweCLlxAdcdWHo
-	qfzS4buCvFL74mxm7sFhYqKpVNY9rcdk5nqxQV0o9rDCQqhxoztIyJl2bWkrs0UXZ4bmJJuFEdi
-	ArhJtGGu4IikMTr1U5Lj
-X-Google-Smtp-Source: AGHT+IGAQFvH/dEQXRFyJlGVX4PdFvbiKiEftNxUwgnWUyHa10Cm0b86iWTYF5Hdextsdis3g/djew==
-X-Received: by 2002:a05:6402:321e:b0:5dc:88dd:38aa with SMTP id 4fb4d7f45d1cf-5dcdb7329d1mr6755060a12.8.1738854382242;
-        Thu, 06 Feb 2025 07:06:22 -0800 (PST)
+        bh=xm1F4/LWDRjOr5tGbdwduMf0+aedjlnrUC4bJARj2yg=;
+        b=lboFwGo0OaHri52/pWoMXYr4U+CGndHBq1X9GKel60EFu8KpubjiX/Wv1qIgYumzkr
+         Q5ZXii49JPN2bYojLDp6XeAwgRb2zg7nAGk6HFDtdd5BoB1tUY6LbvtjIRe5tm4KvrzD
+         L22g69M82NDy61uVp7UZ+WJz6DkgQmsSYx5te/7qCIiwxD4jUiWM0XrCVVDsp7wSwRin
+         0tnGCnq9o0exP1nR+s837ZIpnNVSnhDYk9i8VOCt11Vhd14hjLTK5HXz9B9b/B8Gfvmw
+         lIQ6ndwsbklh4EFM6SNYcIfLX7SWCf2H0PtrjAGA6qSN0w+gFFcyW6Z5rTGrN2ySUbl6
+         DkoA==
+X-Gm-Message-State: AOJu0YzgBlbHVUMeHYR7mJHzzzOx2Tj0XrUQDchLiWVEm4duzJl03h/R
+	sApKW1yvtuguk6xL+rKmu+RL014FcxCPQPUqmqp9N9J0C/fmgzpkYjuOZq7777YcyF+H2TS0RK/
+	7
+X-Gm-Gg: ASbGnctNbXqdbEFJesdAUc1wniGIHcP2KtuLaf8BWrucf9YSUNHl5VxfMr/dX2QfQ+E
+	F0YdyJJPJqo2imTZ8QSmJQm1M2yf3mnGRtfXmunB9ct3/R1vxUBf5RHzQTTd4awYIAcCJAs+iAZ
+	S084FtdNMZhPduk0vnr3OygYQHNNrxnVvg0iLD0SHr5vzqSEzD88mBIR2BIQggKxeY1OOKZI3DV
+	QOUJAn24K9ip/cXTukRkZu0S899Xt8O3+3KMyy0eM/9qBho5GPoRZsCowudhs2LALC9abUzhCJQ
+	ZyatKWYJYHEhFEA+/9QH
+X-Google-Smtp-Source: AGHT+IEqfzSJcLtiZZ7Gwzgf0wFdVc5OJNyojfhwDjWLvVeRVXVV3uduhSDKDO3D5BHocMUt9AX07g==
+X-Received: by 2002:a05:6402:3707:b0:5db:e7eb:1b4a with SMTP id 4fb4d7f45d1cf-5dcdb732c6amr8066409a12.10.1738854383971;
+        Thu, 06 Feb 2025 07:06:23 -0800 (PST)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH v2 1/5] x86/shutdown: offline APs with interrupts disabled on all CPUs
-Date: Thu,  6 Feb 2025 16:06:11 +0100
-Message-ID: <20250206150615.52052-2-roger.pau@citrix.com>
+Subject: [PATCH v2 2/5] x86/irq: drop fixup_irqs() parameters
+Date: Thu,  6 Feb 2025 16:06:12 +0100
+Message-ID: <20250206150615.52052-3-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20250206150615.52052-1-roger.pau@citrix.com>
 References: <20250206150615.52052-1-roger.pau@citrix.com>
@@ -92,125 +92,141 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The current shutdown logic in smp_send_stop() will disable the APs while
-having interrupts enabled on the BSP or possibly other APs. On AMD systems
-this can lead to local APIC errors:
+The solely remaining caller always passes the same globally available
+parameters.  Drop the parameters and modify fixup_irqs() to use
+cpu_online_map in place of the input mask parameter, and always be verbose
+in its output printing.
 
-APIC error on CPU0: 00(08), Receive accept error
+While there remove some of the checks given the single context where
+fixup_irqs() is now called, which should always be in the CPU offline path,
+after the CPU going offline has been removed from cpu_online_map.
 
-Such error message can be printed in a loop, thus blocking the system from
-rebooting.  I assume this loop is created by the error being triggered by
-the console interrupt, which is further stirred by the ESR handler
-printing to the console.
-
-Intel SDM states:
-
-"Receive Accept Error.
-
-Set when the local APIC detects that the message it received was not
-accepted by any APIC on the APIC bus, including itself. Used only on P6
-family and Pentium processors."
-
-So the error shouldn't trigger on any Intel CPU supported by Xen.
-
-However AMD doesn't make such claims, and indeed the error is broadcasted
-to all local APICs when an interrupt targets a CPU that's already offline.
-
-To prevent the error from stalling the shutdown process perform the
-disabling of APs and the BSP local APIC with interrupts disabled on all
-CPUs in the system, so that by the time interrupts are unmasked on the BSP
-the local APIC is already disabled.  This can still lead to a spurious:
-
-APIC error on CPU0: 00(00)
-
-As a result of an LVT Error getting injected while interrupts are masked on
-the CPU, and the vector only handled after the local APIC is already
-disabled.
-
-Note the NMI crash path doesn't have such issue, because disabling of APs
-and the caller local APIC is already done in the same contiguous region
-with interrupts disabled.  There's a possible window on the NMI crash path
-(nmi_shootdown_cpus()) where some APs might be disabled (and thus
-interrupts targeting them raising "Receive accept error") before others APs
-have interrupts disabled.  However the shutdown NMI will be handled,
-regardless of whether the AP is processing a local APIC error, and hence
-such interrupts will not cause the shutdown process to get stuck.
-
-Remove the call to fixup_irqs() in smp_send_stop(), as it doesn't achieve
-the intended goal of moving all interrupts to the BSP anyway, because when
-called the APs are still set as online in cpu_online_map.
+No functional change intended.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
-Changes since v1:
- - Change the approach and instead rely on having interrupts uniformly
-   disabled when offlining APs.
+There's more cleanup that can likely be done here, but it's best if such
+cleanup is done after the cpu_mask and old_cpu_mask irq_desc fields are
+converted from cpu masks to integers, as logic delivery mode should never
+be used for external interrupts now.
 ---
- xen/arch/x86/smp.c | 27 ++++++++++++++++++++-------
- 1 file changed, 20 insertions(+), 7 deletions(-)
+ xen/arch/x86/include/asm/irq.h |  4 ++--
+ xen/arch/x86/irq.c             | 30 +++++++++++++-----------------
+ xen/arch/x86/smpboot.c         |  2 +-
+ 3 files changed, 16 insertions(+), 20 deletions(-)
 
-diff --git a/xen/arch/x86/smp.c b/xen/arch/x86/smp.c
-index 02a6ed7593f3..074baae2cc3b 100644
---- a/xen/arch/x86/smp.c
-+++ b/xen/arch/x86/smp.c
-@@ -345,6 +345,11 @@ void __stop_this_cpu(void)
+diff --git a/xen/arch/x86/include/asm/irq.h b/xen/arch/x86/include/asm/irq.h
+index d3bc76806808..354868ba31ab 100644
+--- a/xen/arch/x86/include/asm/irq.h
++++ b/xen/arch/x86/include/asm/irq.h
+@@ -168,8 +168,8 @@ void free_domain_pirqs(struct domain *d);
+ int map_domain_emuirq_pirq(struct domain *d, int pirq, int emuirq);
+ int unmap_domain_pirq_emuirq(struct domain *d, int pirq);
  
- static void cf_check stop_this_cpu(void *dummy)
- {
-+    const bool *stop_aps = dummy;
-+
-+    while ( !*stop_aps )
-+        cpu_relax();
-+
-     __stop_this_cpu();
-     for ( ; ; )
-         halt();
-@@ -357,16 +362,25 @@ static void cf_check stop_this_cpu(void *dummy)
- void smp_send_stop(void)
- {
-     unsigned int cpu = smp_processor_id();
-+    bool stop_aps = false;
-+
-+    /*
-+     * Perform AP offlining and disabling of interrupt controllers with all
-+     * CPUs on the system having interrupts disabled to prevent interrupt
-+     * delivery errors.  On AMD systems "Receive accept error" will be
-+     * broadcasted to local APICs if interrupts target CPUs that are offline.
-+     */
-+    if ( num_online_cpus() > 1 )
-+        smp_call_function(stop_this_cpu, &stop_aps, 0);
-+
-+    local_irq_disable();
+-/* Evacuate interrupts assigned to CPUs not present in the input CPU mask. */
+-void fixup_irqs(const cpumask_t *mask, bool verbose);
++/* Evacuate interrupts assigned to CPUs not present in the CPU online map. */
++void fixup_irqs(void);
+ void fixup_eoi(void);
  
-     if ( num_online_cpus() > 1 )
+ int  init_irq_data(void);
+diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
+index e56bacc88d84..ff3ac832f4b9 100644
+--- a/xen/arch/x86/irq.c
++++ b/xen/arch/x86/irq.c
+@@ -2590,17 +2590,21 @@ static int __init cf_check setup_dump_irqs(void)
+ }
+ __initcall(setup_dump_irqs);
+ 
+-/* Evacuate interrupts assigned to CPUs not present in the input CPU mask. */
+-void fixup_irqs(const cpumask_t *mask, bool verbose)
++/* Evacuate interrupts assigned to CPUs not present in the CPU online map. */
++void fixup_irqs(void)
+ {
++    const unsigned int cpu = smp_processor_id();
+     unsigned int irq;
+     static int warned;
+     struct irq_desc *desc;
+ 
++    /* Only to be called from the context of a CPU going offline. */
++    ASSERT(!cpu_online(cpu));
++
+     for ( irq = 0; irq < nr_irqs; irq++ )
      {
-         int timeout = 10;
+         bool break_affinity = false, set_affinity = true, check_irr = false;
+-        unsigned int vector, cpu = smp_processor_id();
++        unsigned int vector;
+         cpumask_t *affinity = this_cpu(scratch_cpumask);
  
--        local_irq_disable();
--        fixup_irqs(cpumask_of(cpu), 0);
--        local_irq_enable();
+         if ( irq == 2 )
+@@ -2644,12 +2648,6 @@ void fixup_irqs(const cpumask_t *mask, bool verbose)
+         }
+ 
+         if ( desc->arch.move_in_progress &&
+-             /*
+-              * Only attempt to adjust the mask if the current CPU is going
+-              * offline, otherwise the whole system is going down and leaving
+-              * stale data in the masks is fine.
+-              */
+-             !cpu_online(cpu) &&
+              cpumask_test_cpu(cpu, desc->arch.old_cpu_mask) )
+         {
+             /*
+@@ -2691,16 +2689,17 @@ void fixup_irqs(const cpumask_t *mask, bool verbose)
+ 
+         /*
+          * Avoid shuffling the interrupt around as long as current target CPUs
+-         * are a subset of the input mask.  What fixup_irqs() cares about is
+-         * evacuating interrupts from CPUs not in the input mask.
++         * are a subset of the online mask.  What fixup_irqs() cares about is
++         * evacuating interrupts from CPUs not in the online mask.
+          */
+-        if ( !desc->action || cpumask_subset(desc->arch.cpu_mask, mask) )
++        if ( !desc->action || cpumask_subset(desc->arch.cpu_mask,
++                                             &cpu_online_map) )
+         {
+             spin_unlock(&desc->lock);
+             continue;
+         }
+ 
+-        if ( !cpumask_intersects(mask, desc->affinity) )
++        if ( !cpumask_intersects(&cpu_online_map, desc->affinity) )
+         {
+             break_affinity = true;
+             cpumask_setall(affinity);
+@@ -2716,7 +2715,7 @@ void fixup_irqs(const cpumask_t *mask, bool verbose)
+          * the interrupt, signal to check whether there are any pending vectors
+          * to be handled in the local APIC after the interrupt has been moved.
+          */
+-        if ( !cpu_online(cpu) && cpumask_test_cpu(cpu, desc->arch.cpu_mask) )
++        if ( cpumask_test_cpu(cpu, desc->arch.cpu_mask) )
+             check_irr = true;
+ 
+         if ( desc->handler->set_affinity )
+@@ -2743,9 +2742,6 @@ void fixup_irqs(const cpumask_t *mask, bool verbose)
+ 
+         spin_unlock(&desc->lock);
+ 
+-        if ( !verbose )
+-            continue;
 -
--        smp_call_function(stop_this_cpu, NULL, 0);
-+        /* Signal APs to stop. */
-+        stop_aps = true;
+         if ( !set_affinity )
+             printk("Cannot set affinity for IRQ%u\n", irq);
+         else if ( break_affinity )
+diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
+index 79a79c54c304..891a29fca146 100644
+--- a/xen/arch/x86/smpboot.c
++++ b/xen/arch/x86/smpboot.c
+@@ -1282,7 +1282,7 @@ void __cpu_disable(void)
  
-         /* Wait 10ms for all other CPUs to go offline. */
-         while ( (num_online_cpus() > 1) && (timeout-- > 0) )
-@@ -375,13 +389,12 @@ void smp_send_stop(void)
- 
-     if ( cpu_online(cpu) )
-     {
--        local_irq_disable();
-         disable_IO_APIC();
-         hpet_disable();
-         __stop_this_cpu();
-         x2apic_enabled = (current_local_apic_mode() == APIC_MODE_X2APIC);
--        local_irq_enable();
-     }
-+    local_irq_enable();
+     /* It's now safe to remove this processor from the online map */
+     cpumask_clear_cpu(cpu, &cpu_online_map);
+-    fixup_irqs(&cpu_online_map, 1);
++    fixup_irqs();
+     fixup_eoi();
  }
  
- void smp_send_nmi_allbutself(void)
 -- 
 2.46.0
 
