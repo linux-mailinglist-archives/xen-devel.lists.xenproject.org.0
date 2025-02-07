@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E28FA2D036
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Feb 2025 23:01:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.884030.1293831 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFF61A2D039
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Feb 2025 23:01:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.884032.1293841 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tgWPj-0003FN-CV; Fri, 07 Feb 2025 22:01:31 +0000
+	id 1tgWPk-0003U5-LE; Fri, 07 Feb 2025 22:01:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 884030.1293831; Fri, 07 Feb 2025 22:01:31 +0000
+Received: by outflank-mailman (output) from mailman id 884032.1293841; Fri, 07 Feb 2025 22:01:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tgWPj-0003DJ-8f; Fri, 07 Feb 2025 22:01:31 +0000
-Received: by outflank-mailman (input) for mailman id 884030;
+	id 1tgWPk-0003Rk-GK; Fri, 07 Feb 2025 22:01:32 +0000
+Received: by outflank-mailman (input) for mailman id 884032;
  Fri, 07 Feb 2025 22:01:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=iVmI=U6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tgWPh-0002x7-UJ
- for xen-devel@lists.xenproject.org; Fri, 07 Feb 2025 22:01:29 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 14b62bcd-e59f-11ef-b3ef-695165c68f79;
- Fri, 07 Feb 2025 23:01:28 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-43624b2d453so30611255e9.2
- for <xen-devel@lists.xenproject.org>; Fri, 07 Feb 2025 14:01:28 -0800 (PST)
+ id 1tgWPi-0002Xy-Rx
+ for xen-devel@lists.xenproject.org; Fri, 07 Feb 2025 22:01:30 +0000
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [2a00:1450:4864:20::444])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 15ad43ed-e59f-11ef-a073-877d107080fb;
+ Fri, 07 Feb 2025 23:01:30 +0100 (CET)
+Received: by mail-wr1-x444.google.com with SMTP id
+ ffacd0b85a97d-388cae9eb9fso1325572f8f.3
+ for <xen-devel@lists.xenproject.org>; Fri, 07 Feb 2025 14:01:30 -0800 (PST)
 Received: from andrewcoop.eng.citrite.net (host-92-26-98-202.as13285.net.
  [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38dcb4410e6sm2636035f8f.8.2025.02.07.14.01.26
+ ffacd0b85a97d-38dcb4410e6sm2636035f8f.8.2025.02.07.14.01.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Feb 2025 14:01:26 -0800 (PST)
+ Fri, 07 Feb 2025 14:01:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,38 +45,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 14b62bcd-e59f-11ef-b3ef-695165c68f79
+X-Inumbo-ID: 15ad43ed-e59f-11ef-a073-877d107080fb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1738965687; x=1739570487; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=ETRIGHhOQudaFGBOvr+95egwtYugvrL3PyDVwQ1dtZQ=;
-        b=VgU2ifiholR3v2enlGhC9j+g75VSb/zz2NxTFrEO/pH5Gxw4i3QvGyqbxK/iV7+LrG
-         EVUpjGIUKLXHlrRWnB84Zpesc/6xNHMIaK/LY7a1fM7ttIAd0t2P+8wfaLMtVfz/N+jD
-         /qXXdm1IR2JpO6Xw26+42XCLzM73e3rxmV0j0=
+        d=citrix.com; s=google; t=1738965689; x=1739570489; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=TnR0HvkJY/eJqC43vEosp5uMlAJboHQ7zF6VK9BRj7w=;
+        b=bDx8sgPQb6paoVJDbN9JEFp4FN4WXM/qwMXTn5F61cctY4+WnjHIcudfu9itbF+xPz
+         bm1Hu/hK/fXHCh8zzpQC3WiDsgaG3ymrz2FJ7R/xUJQvcrUatwQ4hYXycp9nyUimH0xX
+         zmn3ZfvqXox9lP2zQbO9WNAsB2PsFJ9C4yRfQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738965687; x=1739570487;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ETRIGHhOQudaFGBOvr+95egwtYugvrL3PyDVwQ1dtZQ=;
-        b=F1RwClxrrzRI6yW826fy5SAOb023vbNYlhCl3Q4d9YRH7bw9OaTMKmkI1mlvam4Wwq
-         GE9lRFHjVjLBxWWQM7hd3ij7YcfV58jSpvEDGXXtmGfu6zNMn3EFNY2BSX0Gq6W3B9UU
-         pkpgrd9lL7+I5lp4wp6+xgZ92VrdsisBFCIavQqm6KRwx9B6JTJyPnMRounKXglWMHIy
-         J3qHoScgor2SDsQIEy2Qtdl54XtByrE6Vx+CpUG9Ywq2AjCQlAgIuRLne8DqOxza38Zd
-         8ialgQvINwMyWK98576CsINPViRYUCwo0Z3NNu15W1iis6RvbGtwpYoXlEk4dPHe4pz9
-         5mmQ==
-X-Gm-Message-State: AOJu0YxoxUrHVUn/12solvpgzLwuYQe2IMPQZ4r0tPcMavtiYsYHpk88
-	evCqaLtVmsb473IVLxzjFKLq8evP+2GP3PR5lglmslMGNoEjJNrGCy6ameLKpIsk3agjtpa/JK3
-	gm+E=
-X-Gm-Gg: ASbGncs6hZNxg7kk9XJh27OG7IhQ3cLVZZZ/qVpKhdPNghEcklshSBj5C4NukIMjHwY
-	UXit0LFdRBfR6d0BozXYLLgRYEbKPBGrXiG7dLp/z1nB2AU137LUXdWJawsihAge/RqRSzozVPb
-	Re3k1xN0L1geSo6wjJVUBT1J3lhix9Yaeaqc8t5DBTfNjZmuYGUfGJCMcuKK9pkpDHeykKgJ8IS
-	dxnUIwj4uSUwUQGtHwb7H+HnNibPt9MyENlkdvAiwwiXtsnemD8kexfUcUOjVW5f38yvWNyaHgs
-	OHY2PwcePxEuGhiOYTAgq5erHGJVrTs7pNKey+Hs8mZ8+++gpTKFqglyWLAE6hHBfrlHC0Q=
-X-Google-Smtp-Source: AGHT+IF8hvncM2nE5o+lvfUrrz84Si2wuww25Mwdkt8buUV5xM48Zy/nWq/rLzV3LS9I1/1Qezyg1w==
-X-Received: by 2002:a05:600c:4f8e:b0:436:1baa:de1c with SMTP id 5b1f17b1804b1-43924990cdbmr53215365e9.13.1738965687603;
-        Fri, 07 Feb 2025 14:01:27 -0800 (PST)
+        d=1e100.net; s=20230601; t=1738965689; x=1739570489;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=TnR0HvkJY/eJqC43vEosp5uMlAJboHQ7zF6VK9BRj7w=;
+        b=WUTKhfVeOstQWhS9w6fTfeeO20++o3ynTptHnbL/Xyjw93G6BX0woexKBnd604Grlk
+         N6d632lbTNJwc5K0tEVG6Gz3nUEjSuZLtDQLuIu67l1+TG9ZEh0cPrT+9ji51qEUUyoD
+         TL+DYfGo57sKEn8tasF8PkeehyLefinfa2vQVvPu4VPjZUQEoWd7adWqXOUvaMGZJd52
+         3UCzJVyYwx0kTUW3wjChaaJcPcXRa3uJDxSkjPtsHvDdabORoLYPa9C5PEMjzY1XOymh
+         zFyKOaYWbGzJ+kgicr1R6Thjeb2sFFkQw36ZDXsbENln13cOAByL4syZHs6thJZkn/Ne
+         2SiA==
+X-Gm-Message-State: AOJu0YzHX5LN4EkPLWppybLVeo5QHquZlK6WJbnVyr27JWAgyjJ2+hqR
+	mnKjE+Fc6EmdJWTgai3VMSH2esX14h09N3HdJElCkBf83JewpcdGvLaplqizEERD9J0duKh5VLq
+	4nu/ENA==
+X-Gm-Gg: ASbGncsDTCzKvq15BTRnCZWy9SSAVea6r7suBnkwj7fu8/4UfN2f/JyZi5euauLBsak
+	zwJgeASP9K0xgYnhMkskUHxKjAzKQz8LzSb/AAfOPYy+kGvFqf9K/EZ3GsUp85oiLmXPV13HLnT
+	9DhzJ9B1ozypVRL25439eViCleaQGO1YO6zHRBBunOIeJ2/bsZuv+86go2YBas78N3R7I+iXAUP
+	cTeYQZK5S92t2c4YPUa44Ts42gneuo4O5s4GQDnx645iMs83mDZfftn1IajPL3dHLoHDDDIFlzW
+	JTpXRzOgCISI2BCE62e5Cb+LU3556FTY7helmMLUKlqWZpd9VEt6z4tr7CGZr3U/MtwQk+g=
+X-Google-Smtp-Source: AGHT+IGWJmkhy/rD13TuXN52kL9e4wCnNOAkpBtgsdKirkLsXx5VzIY2hCVRx1eStSc2Eb5OO/jguA==
+X-Received: by 2002:a05:6000:1447:b0:38d:b547:6650 with SMTP id ffacd0b85a97d-38dc8fe575emr3520008f8f.27.1738965688993;
+        Fri, 07 Feb 2025 14:01:28 -0800 (PST)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -86,44 +87,51 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>
-Subject: [PATCH for-4.20 0/3] RISCV: Bugfixes and UBSAN
-Date: Fri,  7 Feb 2025 22:01:19 +0000
-Message-Id: <20250207220122.380214-1-andrew.cooper3@citrix.com>
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH for-4.20 1/3] RISCV/boot: Run constructors during setup
+Date: Fri,  7 Feb 2025 22:01:20 +0000
+Message-Id: <20250207220122.380214-2-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20250207220122.380214-1-andrew.cooper3@citrix.com>
+References: <20250207220122.380214-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-One bugfix, and two minor patches to get UBSAN working with RISCV.  They
-should be considered for 4.20 at this juncture.
+Without this, RISC-V isn't running boot time selftests when they're compiled
+in.
 
-I tried to get this working everywhere, but:
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+CC: Anthony PERARD <anthony.perard@vates.tech>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Julien Grall <julien@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
 
-1) ARM32 has some problem with dump_execution_state() and dies with an
-   undefined instruction error.
+https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1660821676
 
-2) PPC doesn't get any console output, and also appears to have no exception
-   handling either.  Also, when it doesn't succeed, it takes ages to fail.
+For-4.20.  Boot selftests are new in 4.20, and work in each other
+archtiecture.
+---
+ xen/arch/riscv/setup.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Andrew Cooper (3):
-  RISCV/boot: Run constructors during setup
-  RISCV/asm: Use CALL rather than JAL
-  RISCV: Activate UBSAN in testing
-
- automation/gitlab-ci/build.yaml        |  3 +++
- xen/arch/riscv/Kconfig                 |  1 +
- xen/arch/riscv/entry.S                 |  2 +-
- xen/arch/riscv/include/asm/processor.h |  2 ++
- xen/arch/riscv/riscv64/head.S          | 12 ++++++------
- xen/arch/riscv/setup.c                 |  2 ++
- xen/arch/riscv/traps.c                 |  2 +-
- xen/common/ubsan/ubsan.c               |  5 ++++-
- 8 files changed, 20 insertions(+), 9 deletions(-)
-
+diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
+index 38ca4f3baa1b..f2b6e684ac69 100644
+--- a/xen/arch/riscv/setup.c
++++ b/xen/arch/riscv/setup.c
+@@ -109,6 +109,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+      */
+     system_state = SYS_STATE_boot;
+ 
++    init_constructors();
++
+     if ( acpi_disabled )
+     {
+         printk("Booting using Device Tree\n");
 -- 
 2.39.5
 
