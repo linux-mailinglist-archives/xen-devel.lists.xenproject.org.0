@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2278A2BDE6
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Feb 2025 09:29:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.883478.1293447 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70EB9A2BE6C
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Feb 2025 09:52:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.883496.1293458 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tgJjC-0007bn-AL; Fri, 07 Feb 2025 08:28:46 +0000
+	id 1tgK5G-00037O-51; Fri, 07 Feb 2025 08:51:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 883478.1293447; Fri, 07 Feb 2025 08:28:46 +0000
+Received: by outflank-mailman (output) from mailman id 883496.1293458; Fri, 07 Feb 2025 08:51:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tgJjC-0007ZB-71; Fri, 07 Feb 2025 08:28:46 +0000
-Received: by outflank-mailman (input) for mailman id 883478;
- Fri, 07 Feb 2025 08:28:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=p4G/=U6=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tgJjA-0007Z5-34
- for xen-devel@lists.xenproject.org; Fri, 07 Feb 2025 08:28:44 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 89a07abf-e52d-11ef-b3ef-695165c68f79;
- Fri, 07 Feb 2025 09:28:41 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-ab78863c312so104991666b.3
- for <xen-devel@lists.xenproject.org>; Fri, 07 Feb 2025 00:28:41 -0800 (PST)
-Received: from [172.20.10.5] (public-gprs377585.centertel.pl. [37.47.106.50])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab78ee9e208sm41583666b.50.2025.02.07.00.28.40
+	id 1tgK5G-00035w-1f; Fri, 07 Feb 2025 08:51:34 +0000
+Received: by outflank-mailman (input) for mailman id 883496;
+ Fri, 07 Feb 2025 08:51:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=YZ94=U6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tgK5F-00035q-G2
+ for xen-devel@lists.xenproject.org; Fri, 07 Feb 2025 08:51:33 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ba880cc2-e530-11ef-a073-877d107080fb;
+ Fri, 07 Feb 2025 09:51:32 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-436202dd7f6so19827325e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 07 Feb 2025 00:51:32 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4391dfd7d7asm46308375e9.36.2025.02.07.00.51.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 07 Feb 2025 00:28:40 -0800 (PST)
+ Fri, 07 Feb 2025 00:51:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,181 +45,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 89a07abf-e52d-11ef-b3ef-695165c68f79
+X-Inumbo-ID: ba880cc2-e530-11ef-a073-877d107080fb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1738916921; x=1739521721; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Gjk1PNnnTasf0kIOVjurGlpnPh1/s8q80mpCwSs991M=;
-        b=bsNlWl5jCM+4ctzeKwBxvII+hBgj4IUrzcIiKbwaDF0zd/hc5YUO4mkJO1a1jSxZ0e
-         gticSBdigh4Waddx2fpcu6EIFtELsghmsBB+FfYIRbqTqSAuVce9JUdMNkEatvqqSuwe
-         nWb4nKJbnv7iEf0ZH9dhHnKq8EVU6rARHLRcuEn2VILRtlA7FuY+0a0YAJOTfqgLnC4r
-         OiytERbELhVUhFre8tKPRkclRy4mCYnXXeg6hWpDJ5K/EMmZa5xPk86YTR6k30/yDPeZ
-         aKOcGZkiZKn5Xw1RT6GY1RhZqy+WkXFtHS+IgkdeBAYrVTvneFN/YcHNJxfu6UM6xtom
-         z5rg==
+        d=suse.com; s=google; t=1738918292; x=1739523092; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=dRc9YTNzuTZdjYtXt3pqobtE26JPtcORUPd5tgPp6F0=;
+        b=Me7H5QOQozb9f9BlQW2bwJITWJj7Onh0N90KzgSzliy7ood2A8A8+i7aV0B77Ymmai
+         nd0BKTTO3GNumasS+MG1o1kOgLTpgReMTfZF45pi05EFYXXl2mCLWP5IS7lTcrmyVQ1Y
+         2O7zWWV75QryBEhh822iftG8VyyZw4Oja0FQ9cC4VX5Czq+7ErV0Ozr7MKAuxkx1TiUD
+         /qrDgEnaeh/2LN93UF0tDIKzoNtgZ1l4qEwfunipSRwHFCRE6T8vE7yupd/8x/o/ehtE
+         PDuBcAYa6c//u1KOOTA923c1E1P0h3KRa1x0/n65Go1DYiDL6gtjeoSKXOB66XaoOpHh
+         w8Ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738916921; x=1739521721;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Gjk1PNnnTasf0kIOVjurGlpnPh1/s8q80mpCwSs991M=;
-        b=TfO9XE3y9zv20M9mR0/83EAA26l5gFhpbXJOr8iCCgR8UDGBnOsV2A9Vpypd8mpp7K
-         3QjVorkkGO/DcYeanLY6X0O3ZdB4yl5SDZCPIg+hXgeRfzrszUUHeNSUS8p1+ZhV4/fX
-         o3R/+VG4UX3qKEXAF7ghWgk1mqVqKvNJAm1bvT7nYDp7yold7nyn8GJxw42Gbv7OSVs3
-         05n9pPDYMpnnBV5QMMbWjoFxBcjbI1K3p1YDiLHAwfb5vUagLMDofzLvqDJrUBTPXI7q
-         YD5lBZiMuJFRWU0tT+upSA5iek3Dkh5MFJVBpW5rxOr0iXW9PPxn32ELtBkA9VGtKyN5
-         FW7A==
-X-Gm-Message-State: AOJu0Yx3OvlJP1qbbe/q7vGNFk6yHhLP9P2DCu9TxVN9uU4qhTjAJkSK
-	MRRsdeoZUcNHC9181b7cmqaHUg0OxGsPOAyOFlneznsAO3Q9Vcbn
-X-Gm-Gg: ASbGncsMiKFdP+pd1wktFGkJb3gTke3lao405qvr6DQ3lJW4pq9vJVuPO+N8E6GCPge
-	pS/abYDEuS/+nKzmc6+LnLsW3rq/jcKKeCdRZXW3f2K3Gr/KD1qmdvcQX9ck/c37rctUbeQm8tM
-	+dXo1plbXKCJW9byn1HdVzNcz+opnYknPskfRp0ARGcfk+qsxUr4jrQfOs9uoZB/M/W53ZDwiiH
-	tUGinvxvmzz8fmAsDq9U2AzCv/doPCuGbcFMy8xkFkslQ8324mj3KrzthtUaPpRAwKwTP2MwsFQ
-	hJWbRgYSZGdUFEWNq88oYaEPDclZTbut2BtYzrD6tmHHXV3AwA2u86gQ
-X-Google-Smtp-Source: AGHT+IF4uLIl9Qsrwm2njExMxbAKqRDfb2k8+hVOv3hc1eUOY61Oe+rhe18RngdXw7RyKm/4Qn9wkA==
-X-Received: by 2002:a17:907:7e9d:b0:ab6:dc00:e2e8 with SMTP id a640c23a62f3a-ab789b2a678mr203665466b.3.1738916921050;
-        Fri, 07 Feb 2025 00:28:41 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------UFzbbZrNcZLDxBr0s0yjSpAU"
-Message-ID: <2069a957-e28c-425d-ad95-e6ecd166be7a@gmail.com>
-Date: Fri, 7 Feb 2025 09:28:39 +0100
+        d=1e100.net; s=20230601; t=1738918292; x=1739523092;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=dRc9YTNzuTZdjYtXt3pqobtE26JPtcORUPd5tgPp6F0=;
+        b=SGymNAvE0dcxD8VXAEOlYq5/SzRZt+TDNKG69gmtCxxiIT5QgEF+HyXTCPJIhTSoIt
+         XWaj13utMd7oloOE2Hr58/Scos0oqqIhpOviLDTjT6/5g6DOtBB19e+jYsp7nQQSCcII
+         779MzGI73wONKaepC0muJ1FJm+KryfSKDVH5mq34p/Ci4EYp2DrSOYtlo3aifoiNNvDG
+         LLL6wm1sZgok+/+fzu0Np06kBG5YteGJ8IIaUvYi45Vu3Py+P2VYIHFPlbmhtHAn0DlA
+         QhM6DqrFrzGiiSdHGMi6Z3WbHSSAasMpkOYXr3H9/eK1Kcw+/lLsjmDuhe74u0BP/UZg
+         zrjA==
+X-Forwarded-Encrypted: i=1; AJvYcCVxMDSX7Gq2k5wC0zSb9r0ZhDqg6tY8R5I5UhTau7H6jiNkVLayWTTNL+a7Zp5EmhDDz10H6S6GEiE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxOg+s74e8bNbK5rGUpyJB+buMeM1uITH0dIySkSLQegAwKwiXR
+	Hw40BoVtanYGMKRSrRFCXGMa/7D5fmyJSwTnxkPOFGhv5byX9gNYM10LvG4XXA==
+X-Gm-Gg: ASbGncu52Yvcu+dvnvlksBL+noMxDow82unbHOrgbCxkzIPapssxfob8xATBY0371MQ
+	wYaUII1FzxJ6Hp1HataqyGTmODgjDbcneyO839hVXfqC8uJbh1Fu46MNK2Elzq3bW5F766h2Mkl
+	KBxNSZOsp0z2n2ojx357+qUyIAWt1fTZ+7498EnoqUXvUoyDNRbuGc9BY+ntxfWOSSfN1yoJ9nQ
+	3w5rT1U/QiOPJErz9bduE18oDQ7w79oCt1m3CdEnT+3aM7gfj9dAHLVP5aD6TAYKrJltIU6wv4j
+	SZvTD0cqlC43UEMldXQtJRZJo64bwjM5FJENx+jzLE0haGKMnFhZqXOwmaM+DtNRaVPm5JyUCwf
+	m
+X-Google-Smtp-Source: AGHT+IE/PwZ5ySxKvaJR+Onw29NT/0GmhRNMXPtyeTsxyFcpZSGT8N+9uK7T9VuCkRDehcaEFuxk4Q==
+X-Received: by 2002:a05:6000:1fac:b0:38d:baf7:8d38 with SMTP id ffacd0b85a97d-38dc8dafc9emr981676f8f.12.1738918291775;
+        Fri, 07 Feb 2025 00:51:31 -0800 (PST)
+Message-ID: <fed6f1dd-8c32-47d7-b879-e38b372bf4eb@suse.com>
+Date: Fri, 7 Feb 2025 09:51:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] automation: enable UBSAN for debug tests
-To: Stefano Stabellini <sstabellini@kernel.org>,
- "Orzel, Michal" <michal.orzel@amd.com>
-Cc: xen-devel@lists.xenproject.org, cardoe@cardoe.com,
- alejandro.vallejo@cloud.com, andrew.cooper3@citrix.com,
- anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org,
- roger.pau@citrix.com, bertrand.marquis@arm.com
-References: <alpine.DEB.2.22.394.2502051756210.619090@ubuntu-linux-20-04-desktop>
- <5053348a-b02e-42b0-b35e-46f087d0d007@amd.com>
- <alpine.DEB.2.22.394.2502061500310.619090@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH] xen/console: introduce is_console_printable()
+To: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, dmukhin@ford.com,
+ julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com,
+ sstabellini@kernel.org, xen-devel@lists.xenproject.org
+References: <20250207005532.345746-1-dmkhn@proton.me>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <alpine.DEB.2.22.394.2502061500310.619090@ubuntu-linux-20-04-desktop>
-
-This is a multi-part message in MIME format.
---------------UFzbbZrNcZLDxBr0s0yjSpAU
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250207005532.345746-1-dmkhn@proton.me>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
+On 07.02.2025 01:58, dmkhn@proton.me wrote:
+> --- a/xen/include/xen/console.h
+> +++ b/xen/include/xen/console.h
+> @@ -8,6 +8,7 @@
+>  #define __CONSOLE_H__
+>  
+>  #include <xen/inttypes.h>
+> +#include <xen/ctype.h>
+>  #include <public/xen.h>
+>  
+>  struct xen_sysctl_readconsole;
+> @@ -50,4 +51,9 @@ void console_serial_puts(const char *s, size_t nr);
+>  
+>  extern int8_t opt_console_xen;
+>  
+> +static inline bool is_console_printable(unsigned char c)
+> +{
+> +	return isprint(c) || c == '\n' || c == '\t';
 
-On 2/7/25 12:03 AM, Stefano Stabellini wrote:
-> On Thu, 6 Feb 2025, Orzel, Michal wrote:
->> On 06/02/2025 03:37, Stefano Stabellini wrote:
->>>
->>> automation: enable UBSAN for debug tests
->>>
->>> Enable CONFIG_UBSAN and CONFIG_UBSAN_FATAL for the ARM64 and x86_64
->>> build jobs, with debug enabled, which are later used for Xen tests on
->>> QEMU and/or real hardware.
->>>
->>> Signed-off-by: Stefano Stabellini<stefano.stabellini@amd.com>
->> Reviewed-by: Michal Orzel<michal.orzel@amd.com>
-> Thanks!
->
->
->> However, I do remember Julien being opposed to this approach in the past, mostly because he did not like
->> the idea of failing on first UB that can possibly hide next UBs (I don't see this as a problem because other
->> UBs will simply be found on the next pipeline or locally when testing the fix).
-> That may have been a problem in the past, but it is no longer an issue
-> now that the pipeline is fully operational with UBSAN enabled on both
-> ARM and x86.
->
-> Andrew also mentioned in chat that he supports enabling UBSAN in the
-> pipeline as soon as possible.
->
-> Since the pipeline remains green with UBSAN enabled and is not expected
-> to suddenly go red before the release, I am requesting a release
-> ack from Oleksii.
+Nit: Unlike ctype.h, console.h has no indication of using Linux style.
+Hence when moving the function here the hard tab should have been
+switched to four blanks. Can likely be adjusted while committing.
 
-Agree, enabling UBSAN support in the pipeline is a good idea, so:
-   R-Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
-
-~ Oleksii
-
->
-> Cheers,
->
-> Stefano
---------------UFzbbZrNcZLDxBr0s0yjSpAU
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2/7/25 12:03 AM, Stefano Stabellini
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:alpine.DEB.2.22.394.2502061500310.619090@ubuntu-linux-20-04-desktop">
-      <pre wrap="" class="moz-quote-pre">On Thu, 6 Feb 2025, Orzel, Michal wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">On 06/02/2025 03:37, Stefano Stabellini wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">
-
-automation: enable UBSAN for debug tests
-
-Enable CONFIG_UBSAN and CONFIG_UBSAN_FATAL for the ARM64 and x86_64
-build jobs, with debug enabled, which are later used for Xen tests on
-QEMU and/or real hardware.
-
-Signed-off-by: Stefano Stabellini <a class="moz-txt-link-rfc2396E" href="mailto:stefano.stabellini@amd.com">&lt;stefano.stabellini@amd.com&gt;</a>
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">Reviewed-by: Michal Orzel <a class="moz-txt-link-rfc2396E" href="mailto:michal.orzel@amd.com">&lt;michal.orzel@amd.com&gt;</a>
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Thanks!
-
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">However, I do remember Julien being opposed to this approach in the past, mostly because he did not like
-the idea of failing on first UB that can possibly hide next UBs (I don't see this as a problem because other
-UBs will simply be found on the next pipeline or locally when testing the fix).
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-That may have been a problem in the past, but it is no longer an issue
-now that the pipeline is fully operational with UBSAN enabled on both
-ARM and x86.
-
-Andrew also mentioned in chat that he supports enabling UBSAN in the
-pipeline as soon as possible.
-
-Since the pipeline remains green with UBSAN enabled and is not expected
-to suddenly go red before the release, I am requesting a release
-ack from Oleksii.</pre>
-    </blockquote>
-    <pre>Agree, enabling UBSAN support in the pipeline is a good idea, so:
-  R-Acked-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-
-~ Oleksii
-</pre>
-    <blockquote type="cite"
-cite="mid:alpine.DEB.2.22.394.2502061500310.619090@ubuntu-linux-20-04-desktop">
-      <pre wrap="" class="moz-quote-pre">
-
-Cheers,
-
-Stefano
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------UFzbbZrNcZLDxBr0s0yjSpAU--
+Jan
 
