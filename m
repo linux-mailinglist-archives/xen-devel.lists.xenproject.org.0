@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F99FA2D035
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Feb 2025 23:01:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.884023.1293821 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E28FA2D036
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Feb 2025 23:01:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.884030.1293831 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tgWOx-0002ZX-48; Fri, 07 Feb 2025 22:00:43 +0000
+	id 1tgWPj-0003FN-CV; Fri, 07 Feb 2025 22:01:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 884023.1293821; Fri, 07 Feb 2025 22:00:43 +0000
+Received: by outflank-mailman (output) from mailman id 884030.1293831; Fri, 07 Feb 2025 22:01:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tgWOx-0002Y4-18; Fri, 07 Feb 2025 22:00:43 +0000
-Received: by outflank-mailman (input) for mailman id 884023;
- Fri, 07 Feb 2025 22:00:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tgWPj-0003DJ-8f; Fri, 07 Feb 2025 22:01:31 +0000
+Received: by outflank-mailman (input) for mailman id 884030;
+ Fri, 07 Feb 2025 22:01:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vEis=U6=kernel.org=helgaas@srs-se1.protection.inumbo.net>)
- id 1tgWOv-0002Xy-KP
- for xen-devel@lists.xenproject.org; Fri, 07 Feb 2025 22:00:41 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f79a04c3-e59e-11ef-a073-877d107080fb;
- Fri, 07 Feb 2025 23:00:40 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id D90405C6605;
- Fri,  7 Feb 2025 21:59:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22FA0C4CED1;
- Fri,  7 Feb 2025 22:00:38 +0000 (UTC)
+ <SRS0=iVmI=U6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tgWPh-0002x7-UJ
+ for xen-devel@lists.xenproject.org; Fri, 07 Feb 2025 22:01:29 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 14b62bcd-e59f-11ef-b3ef-695165c68f79;
+ Fri, 07 Feb 2025 23:01:28 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-43624b2d453so30611255e9.2
+ for <xen-devel@lists.xenproject.org>; Fri, 07 Feb 2025 14:01:28 -0800 (PST)
+Received: from andrewcoop.eng.citrite.net (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38dcb4410e6sm2636035f8f.8.2025.02.07.14.01.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 07 Feb 2025 14:01:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,125 +45,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f79a04c3-e59e-11ef-a073-877d107080fb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1738965638;
-	bh=4PGYM9LPpF81CkP+dcwE5M0h4Uk8y1TRbzHF+S4mrSg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=JgBmDIUSMtN2LUp4JgTti/w5aOvqAfn8tfTr98vk6LzaZOnfHUNZU9uCWEBeHkCAH
-	 PlnjaL1FU/Bx9kYoT/YXSv15Sw2Z+cNYRX+j48aXSBaNerzS+PYhnaBIR6tHMZ7/4N
-	 NwhsetfZvEto2kn+yQC2b3hbn5J/dZreHDW3sDscj2aUxOTxqqUrmnYBXxuSaF6wj2
-	 BeaoetvZyzai1WS3sbTBbnPZ6Cv6660UUqvIR20iaZleZktFnc3pzlYistoJpPnLg6
-	 dpVAeu0IZoRSodWengEdNdqcDW+U9oy9/2RQsK+XxiJ+ojS9HWV9HuPEiQIhmDoIad
-	 XtocnImHdquZw==
-Date: Fri, 7 Feb 2025 16:00:36 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Bjorn Helgaas <bhelgaas@google.com>,
-	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	xen-devel <xen-devel@lists.xenproject.org>,
-	linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
-	Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>
-Subject: Re: Config space access to Mediatek MT7922 doesn't work after device
- reset in Xen PV dom0 (regression, Linux 6.12)
-Message-ID: <20250207220036.GA1018004@bhelgaas>
+X-Inumbo-ID: 14b62bcd-e59f-11ef-b3ef-695165c68f79
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1738965687; x=1739570487; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ETRIGHhOQudaFGBOvr+95egwtYugvrL3PyDVwQ1dtZQ=;
+        b=VgU2ifiholR3v2enlGhC9j+g75VSb/zz2NxTFrEO/pH5Gxw4i3QvGyqbxK/iV7+LrG
+         EVUpjGIUKLXHlrRWnB84Zpesc/6xNHMIaK/LY7a1fM7ttIAd0t2P+8wfaLMtVfz/N+jD
+         /qXXdm1IR2JpO6Xw26+42XCLzM73e3rxmV0j0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1738965687; x=1739570487;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ETRIGHhOQudaFGBOvr+95egwtYugvrL3PyDVwQ1dtZQ=;
+        b=F1RwClxrrzRI6yW826fy5SAOb023vbNYlhCl3Q4d9YRH7bw9OaTMKmkI1mlvam4Wwq
+         GE9lRFHjVjLBxWWQM7hd3ij7YcfV58jSpvEDGXXtmGfu6zNMn3EFNY2BSX0Gq6W3B9UU
+         pkpgrd9lL7+I5lp4wp6+xgZ92VrdsisBFCIavQqm6KRwx9B6JTJyPnMRounKXglWMHIy
+         J3qHoScgor2SDsQIEy2Qtdl54XtByrE6Vx+CpUG9Ywq2AjCQlAgIuRLne8DqOxza38Zd
+         8ialgQvINwMyWK98576CsINPViRYUCwo0Z3NNu15W1iis6RvbGtwpYoXlEk4dPHe4pz9
+         5mmQ==
+X-Gm-Message-State: AOJu0YxoxUrHVUn/12solvpgzLwuYQe2IMPQZ4r0tPcMavtiYsYHpk88
+	evCqaLtVmsb473IVLxzjFKLq8evP+2GP3PR5lglmslMGNoEjJNrGCy6ameLKpIsk3agjtpa/JK3
+	gm+E=
+X-Gm-Gg: ASbGncs6hZNxg7kk9XJh27OG7IhQ3cLVZZZ/qVpKhdPNghEcklshSBj5C4NukIMjHwY
+	UXit0LFdRBfR6d0BozXYLLgRYEbKPBGrXiG7dLp/z1nB2AU137LUXdWJawsihAge/RqRSzozVPb
+	Re3k1xN0L1geSo6wjJVUBT1J3lhix9Yaeaqc8t5DBTfNjZmuYGUfGJCMcuKK9pkpDHeykKgJ8IS
+	dxnUIwj4uSUwUQGtHwb7H+HnNibPt9MyENlkdvAiwwiXtsnemD8kexfUcUOjVW5f38yvWNyaHgs
+	OHY2PwcePxEuGhiOYTAgq5erHGJVrTs7pNKey+Hs8mZ8+++gpTKFqglyWLAE6hHBfrlHC0Q=
+X-Google-Smtp-Source: AGHT+IF8hvncM2nE5o+lvfUrrz84Si2wuww25Mwdkt8buUV5xM48Zy/nWq/rLzV3LS9I1/1Qezyg1w==
+X-Received: by 2002:a05:600c:4f8e:b0:436:1baa:de1c with SMTP id 5b1f17b1804b1-43924990cdbmr53215365e9.13.1738965687603;
+        Fri, 07 Feb 2025 14:01:27 -0800 (PST)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>
+Subject: [PATCH for-4.20 0/3] RISCV: Bugfixes and UBSAN
+Date: Fri,  7 Feb 2025 22:01:19 +0000
+Message-Id: <20250207220122.380214-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <Z6PiuRDjml0UNWd_@mail-itl>
 
-On Wed, Feb 05, 2025 at 11:14:17PM +0100, Marek Marczykowski-Górecki wrote:
-> On Thu, Jan 30, 2025 at 03:31:23PM -0600, Bjorn Helgaas wrote:
-> > On Thu, Jan 30, 2025 at 10:30:33AM +0100, Jan Beulich wrote:
-> > > On 30.01.2025 05:55, Marek Marczykowski-Górecki wrote:
-> > > > I've added logging of all config read/write to this device. Full log at
-> > > > [1].
-> > > ...
+One bugfix, and two minor patches to get UBSAN working with RISCV.  They
+should be considered for 4.20 at this juncture.
 
-> ... Generally it looks like this device has broken FLR, and the
-> reset works due to the fallback to the secondary bus reset on
-> timeout. I repeated the test with my additional "&&
-> !PCI_POSSIBLE_ERROR(id)" and I got this:
-> [2] https://gist.github.com/marmarek/db0808702131b69ea2f66f339a55d71b
-> 
-> The first log is with xen, and the second with native linux (and
-> added PCI config space logging in drivers/pci/access.c).
+I tried to get this working everywhere, but:
 
-This is just to annotate these logs.  Correct me if you see something
-wrong.
+1) ARM32 has some problem with dump_execution_state() and dies with an
+   undefined instruction error.
 
-Both logs include this patch:
+2) PPC doesn't get any console output, and also appears to have no exception
+   handling either.  Also, when it doesn't succeed, it takes ages to fail.
 
-  @@ -1297,7 +1297,8 @@ static int pci_dev_wait(struct pci_dev *dev, char *reset_type, int timeout)
-                  if (root && root->config_rrs_sv) {
-                          pci_read_config_dword(dev, PCI_VENDOR_ID, &id);
-  -                     if (!pci_bus_rrs_vendor_id(id))
-  +                     if (!pci_bus_rrs_vendor_id(id) &&
-  +                         !PCI_POSSIBLE_ERROR(id))
-                                  break;
+Andrew Cooper (3):
+  RISCV/boot: Run constructors during setup
+  RISCV/asm: Use CALL rather than JAL
+  RISCV: Activate UBSAN in testing
 
-I think both logs show this sequence:
+ automation/gitlab-ci/build.yaml        |  3 +++
+ xen/arch/riscv/Kconfig                 |  1 +
+ xen/arch/riscv/entry.S                 |  2 +-
+ xen/arch/riscv/include/asm/processor.h |  2 ++
+ xen/arch/riscv/riscv64/head.S          | 12 ++++++------
+ xen/arch/riscv/setup.c                 |  2 ++
+ xen/arch/riscv/traps.c                 |  2 +-
+ xen/common/ubsan/ubsan.c               |  5 ++++-
+ 8 files changed, 20 insertions(+), 9 deletions(-)
 
-  - Initiate FLR on 01:00.0
+-- 
+2.39.5
 
-  - In pci_dev_wait(), poll PCI_VENDOR_ID, looking for something other
-    than 0x0001 (which would indicate RRS response) or 0xffff (from
-    patch above).
-
-  - Time out after ~70 seconds and return -ENOTTY.
-
-  - Attempt Secondary Bus Reset using 00:02.2, the Root Port leading
-    to 01:00.0.
-
-  - Successfully read PCI_VENDOR_ID.
-
-  - Looks the same, whether linux is running natively or on top of
-    Xen.
-
-Relevant devices (from mediatek-debug-6.12-patch2+bridgelog.log):
-
-  00:02.2 PCI bridge: Advanced Micro Devices, Inc. [AMD] Phoenix GPP Bridge
-    Bus: primary=00, secondary=01, subordinate=01, sec-latency=0
-
-  01:00.0 Network controller: MEDIATEK Corp. MT7922 802.11ax PCI Express Wireless Network Adapter
-    Capabilities: [80] Express (v2) Endpoint, IntMsgNum 0
-
-From mediatek-debug-6.12-patch2+bridgelog.log (from [2] above):
-
-  [anaconda root@test-12 /]# time echo 1 > /sys/bus/pci/devices/0000:01:00.0/reset
-  (XEN) d0v3 conf write cf8 0x80010088 bytes 2 offset 0 data 0xa910      <-- set 01:00.0 FLR
-  (XEN) d0v3 conf read cf8 0x80010000 bytes 4 offset 0 data 0xffffffff
-  ...
-  (XEN) d0v4 conf read cf8 0x80010000 bytes 4 offset 0 data 0xffffffff
-  ...
-  (XEN) d0v4 conf read cf8 0x8000123c bytes 2 offset 2 data 0x2          (0x3c + offset 2 = 0x3e)
-  (XEN) d0v4 conf write cf8 0x8000123c bytes 2 offset 2 data 0x42        <-- set 00:02.2 SBR
-  (XEN) d0v4 conf write cf8 0x8000123c bytes 2 offset 2 data 0x2
-  ...
-  (XEN) d0v4 conf read cf8 0x80010000 bytes 4 offset 0 data 0x61614c3    <-- 01:00.0 VID/DID
-  ...
-  real    1m10.825s
-
-From mediatek-debug-native-6.12-patch2+bridgelog.log (also from [2]
-above):
-
-  [anaconda root@test-12 ~]# time echo 1 > /sys/bus/pci/devices/0000:01:00.0/reset
-  [  240.449215] pciback 0000:01:00.0: resetting
-  [  240.450709] PCI: write bus 0x1 devfn 0x0 pos 0x88 size 2 value 0xa910   <-- set 01:00.0 FLR
-  [  240.553264] PCI: read bus 0x1 devfn 0x0 pos 0x0 size 4 value 0xffffffff
-  ...
-  [  309.481728] PCI: read bus 0x1 devfn 0x0 pos 0x0 size 4 value 0xffffffff
-  [  309.481747] pciback 0000:01:00.0: not ready 65535ms after FLR; giving up
-  ...
-  [  309.482667] PCI: read bus 0x0 devfn 0x12 pos 0x3e size 2 value 0x2      PCI_BRIDGE_CONTROL
-  [  309.482670] PCI: write bus 0x0 devfn 0x12 pos 0x3e size 2 value 0x42    <-- set 00:02.2 SBR
-  [  309.485184] PCI: write bus 0x0 devfn 0x12 pos 0x3e size 2 value 0x2
-
-  ...
-  [  309.617782] PCI: read bus 0x1 devfn 0x0 pos 0x0 size 4 value 0x61614c3  <-- 01:00.0 VID/DID
-  [  309.629234] pciback 0000:01:00.0: reset done
 
