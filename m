@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 784B5A2CB79
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Feb 2025 19:39:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.883888.1293732 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 749DAA2CD5F
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Feb 2025 21:01:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.883909.1293743 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tgTEs-0004wm-MH; Fri, 07 Feb 2025 18:38:06 +0000
+	id 1tgUWg-0007ry-45; Fri, 07 Feb 2025 20:00:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 883888.1293732; Fri, 07 Feb 2025 18:38:06 +0000
+Received: by outflank-mailman (output) from mailman id 883909.1293743; Fri, 07 Feb 2025 20:00:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tgTEs-0004ud-Je; Fri, 07 Feb 2025 18:38:06 +0000
-Received: by outflank-mailman (input) for mailman id 883888;
- Fri, 07 Feb 2025 18:38:04 +0000
+	id 1tgUWg-0007q3-1B; Fri, 07 Feb 2025 20:00:34 +0000
+Received: by outflank-mailman (input) for mailman id 883909;
+ Fri, 07 Feb 2025 20:00:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=D7PW=U6=kernel.org=frederic@srs-se1.protection.inumbo.net>)
- id 1tgTEq-0004uX-Or
- for xen-devel@lists.xenproject.org; Fri, 07 Feb 2025 18:38:04 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ <SRS0=p4G/=U6=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1tgUWe-0007px-Jw
+ for xen-devel@lists.xenproject.org; Fri, 07 Feb 2025 20:00:32 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a901b5ac-e582-11ef-b3ef-695165c68f79;
- Fri, 07 Feb 2025 19:38:02 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id BA41AA439E4;
- Fri,  7 Feb 2025 18:36:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4FB8C4CED1;
- Fri,  7 Feb 2025 18:37:59 +0000 (UTC)
+ id 2e9a8d6b-e58e-11ef-b3ef-695165c68f79;
+ Fri, 07 Feb 2025 21:00:30 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-ab7800d3939so306101966b.2
+ for <xen-devel@lists.xenproject.org>; Fri, 07 Feb 2025 12:00:30 -0800 (PST)
+Received: from [192.168.209.66] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab796babc1dsm54856066b.89.2025.02.07.12.00.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 07 Feb 2025 12:00:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,177 +45,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a901b5ac-e582-11ef-b3ef-695165c68f79
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1738953480;
-	bh=nKtIeXe1WybNWDzZwu5Tk8fpz5emsmZs04c0W6ceGA0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=NlQrJCswb2tfBHdOL//Nqi1duhWdmo0hhnvyFyfXR+kDIctwxBbNZGMh0uVXpdrpn
-	 VtrsS32dlVeABXURIIGFmPTMZ88JEy/aky3D6z70pfkEKIebKtTmA3OIqxmZ3iDcEH
-	 trWQP7mjMuGosKO+a09FIi/HB1+rytKm2YepWGLYPhGRvhc49fQbsTVEVzSz1vy8KY
-	 6YWoxRaVR88tPNIw47TXvof69pWZuIN0NCuUntVn/ixzcMSAUzD+pD+us46BW7ocRi
-	 X6a7pzBJZI/SEPEJ2Eua3jvdWjb6R21icBFzIt4mEif2XISSYrHb7WAcNTWLbqa0Er
-	 f0yIWw7KhrZxA==
-Date: Fri, 7 Feb 2025 19:37:57 +0100
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Valentin Schneider <vschneid@redhat.com>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
-	virtualization@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
-	linux-riscv@lists.infradead.org, linux-perf-users@vger.kernel.org,
-	xen-devel@lists.xenproject.org, kvm@vger.kernel.org,
-	linux-arch@vger.kernel.org, rcu@vger.kernel.org,
-	linux-hardening@vger.kernel.org, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, bpf@vger.kernel.org,
-	bcm-kernel-feedback-list@broadcom.com,
-	Juergen Gross <jgross@suse.com>,
-	Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.amakhalov@broadcom.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	"Liang, Kan" <kan.liang@linux.intel.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Andy Lutomirski <luto@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Jason Baron <jbaron@akamai.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joel@joelfernandes.org>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun.feng@gmail.com>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang1211@gmail.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Clark Williams <williams@redhat.com>,
-	Yair Podemsky <ypodemsk@redhat.com>,
-	Tomas Glozar <tglozar@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Kees Cook <kees@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Christoph Hellwig <hch@infradead.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Miguel Ojeda <ojeda@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Rong Xu <xur@google.com>,
-	Nicolas Saenz Julienne <nsaenzju@redhat.com>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Yosry Ahmed <yosryahmed@google.com>,
-	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
-	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
-	Jinghao Jia <jinghao7@illinois.edu>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Tiezhu Yang <yangtiezhu@loongson.cn>
-Subject: Re: [PATCH v4 22/30] context_tracking: Exit CT_STATE_IDLE upon
- irq/nmi entry
-Message-ID: <Z6ZTBXUiEOLVcSKp@pavilion.home>
-References: <20250114175143.81438-1-vschneid@redhat.com>
- <20250114175143.81438-23-vschneid@redhat.com>
- <Z5A6NPqVGoZ32YsN@pavilion.home>
- <xhsmh5xm0pkuo.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
- <xhsmhbjvdk7kq.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
+X-Inumbo-ID: 2e9a8d6b-e58e-11ef-b3ef-695165c68f79
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1738958430; x=1739563230; darn=lists.xenproject.org;
+        h=in-reply-to:content-language:references:cc:to:from:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Mir1Ng1olTU9eP+vBUu/aILmR+BhN24pu8XSIqi/DVw=;
+        b=Vcx3Swyeel06ph7EsBWqqq/zjAf2C+uA7e2U7hBnVK2UWU81Nd0dzgVstLUteHyLPL
+         v3pIDUi4MFNdqy9RLkwaVxX9tcU8SRjvtGnlagAfF1Lb28H8OQkWSCriyfRnDBqorCk4
+         2M+cXe+2pGiEb8J1XTZ4/vbSivjmrF4cmbYHRAjmF6wwOcwqdKLSu69z9kb4/eD24uuI
+         PYuqAn0wT5j8peKZ/6NE+41ib6E8YjvbZMDYcFCMRnKzOv871GazfFSzczScoDeLTTbM
+         0f1Ad2zWTH4MRSvfcyuxZF04D3P6KKCLnWkoFl9gn1S75g/Me6nulLk/ugcXLvRCtjG4
+         v5Xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1738958430; x=1739563230;
+        h=in-reply-to:content-language:references:cc:to:from:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Mir1Ng1olTU9eP+vBUu/aILmR+BhN24pu8XSIqi/DVw=;
+        b=cHFb5HuooyZa5OCqx9tpF6jzRrcHP5UiU4G0NtfN2KcrpNKnyulQw3y2CV5fZX7Mcs
+         H+W0TsbRd0oFkgkafaPl/yrcpilTuBnBZHZ40MJlNTRgLNAYF2lLT8zWkvz+rdDOAq0G
+         rKQ69OlKcrfI30mSzguLAAIGi65jBV3hkm8lQqmF63c1LAHoSAfdl1HffDQ6H51sGKMf
+         r+jPc1LEBClMDryb65fompJTILZNIoP8qGD7fbUBMCbomaMGhUlZ94cGPnWD9wQToHKY
+         ByuuXfV8ZlbZfd4+zDaKfqxEMGopb28hR46u9SiYP0iHXVagBAcDipbsc/4nNaLWkA7O
+         1Jmw==
+X-Forwarded-Encrypted: i=1; AJvYcCWHwQirPAs8zvdluZMQJlKpYHRfeePSa/sMZE7GpEjGLZDH8ofxhP0z//Qvru0sxQs1D3ExluTiReo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwE0uxxpn+KLnIHZlcAbxtDs1lr0fECbIQ67gX4FbB99ZmC4PPQ
+	gvv+9jlxHzGWTY/lpQqNpHSEw81aIvovKKaLLPrJnvRLBKPZkDPf
+X-Gm-Gg: ASbGncvlf3o0VGnO+GYQpqkM+ylBs1rJji+RKKFAhr4nWWwZ3b5Fw8Vkqi5HBSr91Ma
+	xQZBTTZ1rxaBHNZlkOivGYPh9Kvx42G6lNHdTo6oXrzYAL8K3CEoobtmTKW5NFKANEwZlJPMzal
+	SWW0Ft3yU1/DIEr1X4CXl3rNuaTOj4iyizlAayx8KonJr8tLdYA1a6Kqu4hUQO624YF0rf/5VXD
+	Yn8ktalmE0Jd/wAklwPHqE9iFl/bBE9DEevgh/Nzp4odtaU7m84oCnexy8oDq7m7O3+q8cUH49V
+	0Q7oMYdHRgIIAHTHUelRe/nVmvM=
+X-Google-Smtp-Source: AGHT+IFXRiiNUUY9GoXgP9lSTFKJnlwuy+1i/aSxOi0ChgkbYOmto3lzAmpiOfKFUTP8/DeKAlji7w==
+X-Received: by 2002:a17:907:3e27:b0:aa6:7737:199c with SMTP id a640c23a62f3a-ab789ada791mr462192266b.15.1738958429530;
+        Fri, 07 Feb 2025 12:00:29 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------j0vUaGFwIJv1ZfBjTWvntItU"
+Message-ID: <0e2e03ae-521a-42c4-9538-2c831b74112c@gmail.com>
+Date: Fri, 7 Feb 2025 21:00:28 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <xhsmhbjvdk7kq.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for 4-21 v4] xen/riscv: identify specific ISA supported by
+ cpu
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <a63c60c7a97a2b361e3a41f57bed61c0c9a0a89f.1738653407.git.oleksii.kurochko@gmail.com>
+ <ab7077b3-6bef-4025-9389-345a345a141c@suse.com>
+ <68c8222d-bc5a-4614-bc03-a1ea02693221@gmail.com>
+Content-Language: en-US
+In-Reply-To: <68c8222d-bc5a-4614-bc03-a1ea02693221@gmail.com>
 
-Le Fri, Feb 07, 2025 at 06:06:45PM +0100, Valentin Schneider a écrit :
-> On 27/01/25 12:17, Valentin Schneider wrote:
-> > On 22/01/25 01:22, Frederic Weisbecker wrote:
-> >> And NMIs interrupting userspace don't call
-> >> enter_from_user_mode(). In fact they don't call irqentry_enter_from_user_mode()
-> >> like regular IRQs but irqentry_nmi_enter() instead. Well that's for archs
-> >> implementing common entry code, I can't speak for the others.
-> >>
-> >
-> > That I didn't realize, so thank you for pointing it out. Having another
-> > look now, I mistook DEFINE_IDTENTRY_RAW(exc_int3) for the general case
-> > when it really isn't :(
-> >
-> >> Unifying the behaviour between user and idle such that the IRQs/NMIs exit the
-> >> CT_STATE can be interesting but I fear this may not come for free. You would
-> >> need to save the old state on IRQ/NMI entry and restore it on exit.
-> >>
-> >
-> > That's what I tried to avoid, but it sounds like there's no nice way around it.
-> >
-> >> Do we really need it?
-> >>
-> >
-> > Well, my problem with not doing IDLE->KERNEL transitions on IRQ/NMI is that
-> > this leads the IPI deferral logic to observe a technically-out-of-sync sate
-> > for remote CPUs. Consider:
-> >
-> >   CPUx            CPUy
-> >                     state := CT_STATE_IDLE
-> >                     ...
-> >                     ~>IRQ
-> >                     ...
-> >                     ct_nmi_enter()
-> >                     [in the kernel proper by now]
-> >
-> >   text_poke_bp_batch()
-> >     ct_set_cpu_work(CPUy, CT_WORK_SYNC)
-> >       READ CPUy ct->state
-> >       `-> CT_IDLE_STATE
-> >       `-> defer IPI
-> >
-> >
-> > I thought this meant I would need to throw out the "defer IPIs if CPU is
-> > idle" part, but AIUI this also affects CT_STATE_USER and CT_STATE_GUEST,
-> > which is a bummer :(
-> 
-> Soooo I've been thinking...
-> 
-> Isn't
-> 
->   (context_tracking.state & CT_RCU_WATCHING)
-> 
-> pretty much a proxy for knowing whether a CPU is executing in kernelspace,
-> including NMIs?
+This is a multi-part message in MIME format.
+--------------j0vUaGFwIJv1ZfBjTWvntItU
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-You got it!
 
-> 
-> NMI interrupts userspace/VM/idle -> ct_nmi_enter()   -> it becomes true
-> IRQ interrupts idle              -> ct_irq_enter()   -> it becomes true
-> IRQ interrupts userspace         -> __ct_user_exit() -> it becomes true
-> IRQ interrupts VM                -> __ct_user_exit() -> it becomes true
-> 
-> IOW, if I gate setting deferred work by checking for this instead of
-> explicitely CT_STATE_KERNEL, "it should work" and prevent the
-> aforementioned issue? Or should I be out drinking instead? :-)
+On 2/7/25 5:47 PM, Oleksii Kurochko wrote:
+>
+>
+> On 2/4/25 12:47 PM, Jan Beulich wrote:
+>>> +const struct riscv_isa_ext_data __initconst riscv_isa_ext[] = {
+>>> +    RISCV_ISA_EXT_DATA(i, RISCV_ISA_EXT_i),
+>>> +    RISCV_ISA_EXT_DATA(m, RISCV_ISA_EXT_m),
+>>> +    RISCV_ISA_EXT_DATA(a, RISCV_ISA_EXT_a),
+>>> +    RISCV_ISA_EXT_DATA(f, RISCV_ISA_EXT_f),
+>>> +    RISCV_ISA_EXT_DATA(d, RISCV_ISA_EXT_d),
+>>> +    RISCV_ISA_EXT_DATA(q, RISCV_ISA_EXT_q),
+>>> +    RISCV_ISA_EXT_DATA(h, RISCV_ISA_EXT_h),
+>>> +    RISCV_ISA_EXT_DATA(zicntr, RISCV_ISA_EXT_ZICNTR),
+>>> +    RISCV_ISA_EXT_DATA(zicsr, RISCV_ISA_EXT_ZICSR),
+>>> +    RISCV_ISA_EXT_DATA(zifencei, RISCV_ISA_EXT_ZIFENCEI),
+>>> +    RISCV_ISA_EXT_DATA(zihintpause, RISCV_ISA_EXT_ZIHINTPAUSE),
+>>> +    RISCV_ISA_EXT_DATA(zihpm, RISCV_ISA_EXT_ZIHPM),
+>>> +    RISCV_ISA_EXT_DATA(zbb, RISCV_ISA_EXT_ZBB),
+>>> +    RISCV_ISA_EXT_DATA(smaia, RISCV_ISA_EXT_SMAIA),
+>>> +    RISCV_ISA_EXT_DATA(ssaia, RISCV_ISA_EXT_SSAIA),
+>>> +};
+>>> +
+>>> +static const struct riscv_isa_ext_data __initconst required_extensions[] = {
+>>> +    RISCV_ISA_EXT_DATA(zicsr, RISCV_ISA_EXT_ZICSR),
+>>> +    RISCV_ISA_EXT_DATA(zihintpause, RISCV_ISA_EXT_ZIHINTPAUSE),
+>>> +    RISCV_ISA_EXT_DATA(zbb, RISCV_ISA_EXT_ZBB),
+>>> +};
+>> Coming back to my earlier question regarding the B (pseudo-)extension:
+>> Since riscv_isa_ext[] only contains Zbb, is it precluded anywhere in
+>> the spec that DT may mention just B when all of its constituents are
+>> supported?
+>>
+>> Which gets me on to G, which is somewhat similar in nature to B. We
+>> require G when RISCV_ISA_RV64G=y, yet required_extensions[] doesn't
+>> name it or its constituents. Much like we require C when RISCV_ISA_C=y,
+>> yet it's not in the table.
+> Another one thing I am thinking about if we really need a separate required_extensions[] array.
+>
+> We can leave only riscv_isa_ext[] and then just do a check:
+>   bitmap_weight(riscv_isa, ...) == ARRAY_SIZE(riscv_isa_ext)
 
-Exactly it should work! Now that doesn't mean you can't go out
-for a drink :-)
+It seems like we still need to have two arrays: one for what Xen is supported (and could be passed to guest
+by riscv,isa) and one for what is required for boot.
 
-Thanks.
+~ Oleksii
+
+--------------j0vUaGFwIJv1ZfBjTWvntItU
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2/7/25 5:47 PM, Oleksii Kurochko
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:68c8222d-bc5a-4614-bc03-a1ea02693221@gmail.com">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <p><br>
+      </p>
+      <div class="moz-cite-prefix">On 2/4/25 12:47 PM, Jan Beulich
+        wrote:<br>
+      </div>
+      <blockquote type="cite"
+        cite="mid:ab7077b3-6bef-4025-9389-345a345a141c@suse.com">
+        <pre class="moz-quote-pre" wrap=""><blockquote type="cite"
+        style="color: #007cff;"><pre wrap="" class="moz-quote-pre">+const struct riscv_isa_ext_data __initconst riscv_isa_ext[] = {
++    RISCV_ISA_EXT_DATA(i, RISCV_ISA_EXT_i),
++    RISCV_ISA_EXT_DATA(m, RISCV_ISA_EXT_m),
++    RISCV_ISA_EXT_DATA(a, RISCV_ISA_EXT_a),
++    RISCV_ISA_EXT_DATA(f, RISCV_ISA_EXT_f),
++    RISCV_ISA_EXT_DATA(d, RISCV_ISA_EXT_d),
++    RISCV_ISA_EXT_DATA(q, RISCV_ISA_EXT_q),
++    RISCV_ISA_EXT_DATA(h, RISCV_ISA_EXT_h),
++    RISCV_ISA_EXT_DATA(zicntr, RISCV_ISA_EXT_ZICNTR),
++    RISCV_ISA_EXT_DATA(zicsr, RISCV_ISA_EXT_ZICSR),
++    RISCV_ISA_EXT_DATA(zifencei, RISCV_ISA_EXT_ZIFENCEI),
++    RISCV_ISA_EXT_DATA(zihintpause, RISCV_ISA_EXT_ZIHINTPAUSE),
++    RISCV_ISA_EXT_DATA(zihpm, RISCV_ISA_EXT_ZIHPM),
++    RISCV_ISA_EXT_DATA(zbb, RISCV_ISA_EXT_ZBB),
++    RISCV_ISA_EXT_DATA(smaia, RISCV_ISA_EXT_SMAIA),
++    RISCV_ISA_EXT_DATA(ssaia, RISCV_ISA_EXT_SSAIA),
++};
++
++static const struct riscv_isa_ext_data __initconst required_extensions[] = {
++    RISCV_ISA_EXT_DATA(zicsr, RISCV_ISA_EXT_ZICSR),
++    RISCV_ISA_EXT_DATA(zihintpause, RISCV_ISA_EXT_ZIHINTPAUSE),
++    RISCV_ISA_EXT_DATA(zbb, RISCV_ISA_EXT_ZBB),
++};
+</pre></blockquote><pre wrap="" class="moz-quote-pre">Coming back to my earlier question regarding the B (pseudo-)extension:
+Since riscv_isa_ext[] only contains Zbb, is it precluded anywhere in
+the spec that DT may mention just B when all of its constituents are
+supported?
+
+Which gets me on to G, which is somewhat similar in nature to B. We
+require G when RISCV_ISA_RV64G=y, yet required_extensions[] doesn't
+name it or its constituents. Much like we require C when RISCV_ISA_C=y,
+yet it's not in the table.
+</pre></pre>
+      </blockquote>
+      <pre>Another one thing I am thinking about if we really need a separate required_extensions[] array.
+
+We can leave only riscv_isa_ext[] and then just do a check:
+ bitmap_weight(riscv_isa, ...) == ARRAY_SIZE(riscv_isa_ext)</pre>
+    </blockquote>
+    <pre>It seems like we still need to have two arrays: one for what Xen is supported (and could be passed to guest
+by riscv,isa) and one for what is required for boot.</pre>
+    <pre>
+~ Oleksii
+</pre>
+  </body>
+</html>
+
+--------------j0vUaGFwIJv1ZfBjTWvntItU--
 
