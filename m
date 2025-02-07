@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6ECF1A2CA17
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Feb 2025 18:23:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.883877.1293722 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 784B5A2CB79
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Feb 2025 19:39:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.883888.1293732 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tgS4f-0004GB-Pn; Fri, 07 Feb 2025 17:23:29 +0000
+	id 1tgTEs-0004wm-MH; Fri, 07 Feb 2025 18:38:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 883877.1293722; Fri, 07 Feb 2025 17:23:29 +0000
+Received: by outflank-mailman (output) from mailman id 883888.1293732; Fri, 07 Feb 2025 18:38:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tgS4f-0004EF-NJ; Fri, 07 Feb 2025 17:23:29 +0000
-Received: by outflank-mailman (input) for mailman id 883877;
- Fri, 07 Feb 2025 17:23:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tgTEs-0004ud-Je; Fri, 07 Feb 2025 18:38:06 +0000
+Received: by outflank-mailman (input) for mailman id 883888;
+ Fri, 07 Feb 2025 18:38:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=opty=U6=flex--seanjc.bounces.google.com=3jUGmZwYKCewgSObXQUccUZS.QcalSb-RSjSZZWghg.lSbdfcXSQh.cfU@srs-se1.protection.inumbo.net>)
- id 1tgS4e-0004E7-I3
- for xen-devel@lists.xenproject.org; Fri, 07 Feb 2025 17:23:28 +0000
-Received: from mail-pj1-x104a.google.com (mail-pj1-x104a.google.com
- [2607:f8b0:4864:20::104a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3d972ffb-e578-11ef-a073-877d107080fb;
- Fri, 07 Feb 2025 18:23:27 +0100 (CET)
-Received: by mail-pj1-x104a.google.com with SMTP id
- 98e67ed59e1d1-2fa1a3c0f1bso2926479a91.1
- for <xen-devel@lists.xenproject.org>; Fri, 07 Feb 2025 09:23:27 -0800 (PST)
+ <SRS0=D7PW=U6=kernel.org=frederic@srs-se1.protection.inumbo.net>)
+ id 1tgTEq-0004uX-Or
+ for xen-devel@lists.xenproject.org; Fri, 07 Feb 2025 18:38:04 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a901b5ac-e582-11ef-b3ef-695165c68f79;
+ Fri, 07 Feb 2025 19:38:02 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id BA41AA439E4;
+ Fri,  7 Feb 2025 18:36:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4FB8C4CED1;
+ Fri,  7 Feb 2025 18:37:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,128 +41,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d972ffb-e578-11ef-a073-877d107080fb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1738949006; x=1739553806; darn=lists.xenproject.org;
-        h=to:from:subject:message-id:references:mime-version:in-reply-to:date
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=vOcxbBJpr4MsHRRcCFUSvs0+uPDtrFbSKcqYFX6+hYs=;
-        b=SzNSmHTty0na3p0xpwfaq9JFJXXX2jBQN1tu4yjiXZAV81fLv7GTkQXmTMWC7YaX47
-         kKKkDUAkIyN8AwsAB5jmp8U+Zdq6dqwk1AF5LU/0AJOI5aFOAOL2oMggm2odifRDwKjZ
-         vrSl9QPG9nnSsh+7a/5XFph5sGPAMnqU4KUJnTun5RYgSSPpFMobqt8gMoxgYKuQs0Ml
-         heCcFBevClztMLjv2aD0nBFu2+pzq4WLIQRIOYd0udm0gH9FbT5cAPtP+jHjPfcFhbXO
-         uz3TD55dqAEduksIQI+vsqe4YME7EutTfvKZhII5TDm6QilLGW/Ryb8xnU5fKvN1rgyg
-         DYPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738949006; x=1739553806;
-        h=to:from:subject:message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=vOcxbBJpr4MsHRRcCFUSvs0+uPDtrFbSKcqYFX6+hYs=;
-        b=TvUiOUB0aHdqX68bzpjD0YjABqgWx+68+BweY+VgZipa9Jfhg+kkDk19RTxPQX3ZzM
-         yayNEm8PXL9opRayLdU4iTKowKQUCJaaDQhIoMULkCT730bfuZepC10OxolXa6/6v7Wt
-         5fznNMFajjdagERC6mRWTRQvJ1XVS3Mjtjb5MBvbs0Gdu66R29tJ4d7MTMvPnorSl7Y8
-         i7SQQ/IxA3CO/2kr+fOCzsoor1+QLDVkpDkhToLowqnXbxbWrOE2Rp4Dr7Kq7B1BTJMy
-         Lbnc3H8/30bm8cKSv+8OCGqI0fCCnOHhem5v8lHTfHqLLAj0G0Ege+E/uBxen0/8I3AU
-         onyQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX9aTlLBUf3lFA9obur5zc7y+1cnyc4xl3kkY/QLnxoItxRe+ZdELjz+MODi1p1VtwL7pH4WsKI1Q0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzQ3tanTU9mdLIiM+M4k5W4pjFYpVYQj9wZNqxfHFQlLaJmfqOb
-	jOpo3eBIIADHyMm8HJugKUHtMpajlQr+LQjgA/ypwSSHv0L7bPkH3wq7C5qojCcV/rFeDqSTY2U
-	l9g==
-X-Google-Smtp-Source: AGHT+IHtKk+I6CjiXseOd50XgDWMmjujWmhaISGeVrM7QdPNRD38ZmcvZcY1czgAsTeMYVLsyWS8xRRgOkA=
-X-Received: from pjbsv3.prod.google.com ([2002:a17:90b:5383:b0:2da:5868:311c])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2685:b0:2f5:5bc6:a78d
- with SMTP id 98e67ed59e1d1-2f9ff78641amr13455568a91.3.1738949005804; Fri, 07
- Feb 2025 09:23:25 -0800 (PST)
-Date: Fri, 7 Feb 2025 09:23:24 -0800
-In-Reply-To: <20250201021718.699411-17-seanjc@google.com>
-Mime-Version: 1.0
-References: <20250201021718.699411-1-seanjc@google.com> <20250201021718.699411-17-seanjc@google.com>
-Message-ID: <Z6ZBjNdoULymGgxz@google.com>
-Subject: Re: [PATCH 16/16] x86/kvmclock: Use TSC for sched_clock if it's
- constant and non-stop
-From: Sean Christopherson <seanjc@google.com>
-To: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>, Juergen Gross <jgross@suse.com>, 
-	"K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
-	Dexuan Cui <decui@microsoft.com>, Ajay Kaher <ajay.kaher@broadcom.com>, 
-	Jan Kiszka <jan.kiszka@siemens.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org, 
-	linux-coco@lists.linux.dev, virtualization@lists.linux.dev, 
-	linux-hyperv@vger.kernel.org, kvm@vger.kernel.org, 
-	xen-devel@lists.xenproject.org, Nikunj A Dadhania <nikunj@amd.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>
-Content-Type: text/plain; charset="us-ascii"
+X-Inumbo-ID: a901b5ac-e582-11ef-b3ef-695165c68f79
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1738953480;
+	bh=nKtIeXe1WybNWDzZwu5Tk8fpz5emsmZs04c0W6ceGA0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=NlQrJCswb2tfBHdOL//Nqi1duhWdmo0hhnvyFyfXR+kDIctwxBbNZGMh0uVXpdrpn
+	 VtrsS32dlVeABXURIIGFmPTMZ88JEy/aky3D6z70pfkEKIebKtTmA3OIqxmZ3iDcEH
+	 trWQP7mjMuGosKO+a09FIi/HB1+rytKm2YepWGLYPhGRvhc49fQbsTVEVzSz1vy8KY
+	 6YWoxRaVR88tPNIw47TXvof69pWZuIN0NCuUntVn/ixzcMSAUzD+pD+us46BW7ocRi
+	 X6a7pzBJZI/SEPEJ2Eua3jvdWjb6R21icBFzIt4mEif2XISSYrHb7WAcNTWLbqa0Er
+	 f0yIWw7KhrZxA==
+Date: Fri, 7 Feb 2025 19:37:57 +0100
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Valentin Schneider <vschneid@redhat.com>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
+	virtualization@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+	linux-riscv@lists.infradead.org, linux-perf-users@vger.kernel.org,
+	xen-devel@lists.xenproject.org, kvm@vger.kernel.org,
+	linux-arch@vger.kernel.org, rcu@vger.kernel.org,
+	linux-hardening@vger.kernel.org, linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org, bpf@vger.kernel.org,
+	bcm-kernel-feedback-list@broadcom.com,
+	Juergen Gross <jgross@suse.com>,
+	Ajay Kaher <ajay.kaher@broadcom.com>,
+	Alexey Makhalov <alexey.amakhalov@broadcom.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	"Liang, Kan" <kan.liang@linux.intel.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Andy Lutomirski <luto@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Jason Baron <jbaron@akamai.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joel@joelfernandes.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Boqun Feng <boqun.feng@gmail.com>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang1211@gmail.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Clark Williams <williams@redhat.com>,
+	Yair Podemsky <ypodemsk@redhat.com>,
+	Tomas Glozar <tglozar@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Kees Cook <kees@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Christoph Hellwig <hch@infradead.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Miguel Ojeda <ojeda@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Rong Xu <xur@google.com>,
+	Nicolas Saenz Julienne <nsaenzju@redhat.com>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Yosry Ahmed <yosryahmed@google.com>,
+	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
+	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+	Jinghao Jia <jinghao7@illinois.edu>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Tiezhu Yang <yangtiezhu@loongson.cn>
+Subject: Re: [PATCH v4 22/30] context_tracking: Exit CT_STATE_IDLE upon
+ irq/nmi entry
+Message-ID: <Z6ZTBXUiEOLVcSKp@pavilion.home>
+References: <20250114175143.81438-1-vschneid@redhat.com>
+ <20250114175143.81438-23-vschneid@redhat.com>
+ <Z5A6NPqVGoZ32YsN@pavilion.home>
+ <xhsmh5xm0pkuo.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
+ <xhsmhbjvdk7kq.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <xhsmhbjvdk7kq.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
 
-Dropping a few people/lists whose emails are bouncing.
+Le Fri, Feb 07, 2025 at 06:06:45PM +0100, Valentin Schneider a écrit :
+> On 27/01/25 12:17, Valentin Schneider wrote:
+> > On 22/01/25 01:22, Frederic Weisbecker wrote:
+> >> And NMIs interrupting userspace don't call
+> >> enter_from_user_mode(). In fact they don't call irqentry_enter_from_user_mode()
+> >> like regular IRQs but irqentry_nmi_enter() instead. Well that's for archs
+> >> implementing common entry code, I can't speak for the others.
+> >>
+> >
+> > That I didn't realize, so thank you for pointing it out. Having another
+> > look now, I mistook DEFINE_IDTENTRY_RAW(exc_int3) for the general case
+> > when it really isn't :(
+> >
+> >> Unifying the behaviour between user and idle such that the IRQs/NMIs exit the
+> >> CT_STATE can be interesting but I fear this may not come for free. You would
+> >> need to save the old state on IRQ/NMI entry and restore it on exit.
+> >>
+> >
+> > That's what I tried to avoid, but it sounds like there's no nice way around it.
+> >
+> >> Do we really need it?
+> >>
+> >
+> > Well, my problem with not doing IDLE->KERNEL transitions on IRQ/NMI is that
+> > this leads the IPI deferral logic to observe a technically-out-of-sync sate
+> > for remote CPUs. Consider:
+> >
+> >   CPUx            CPUy
+> >                     state := CT_STATE_IDLE
+> >                     ...
+> >                     ~>IRQ
+> >                     ...
+> >                     ct_nmi_enter()
+> >                     [in the kernel proper by now]
+> >
+> >   text_poke_bp_batch()
+> >     ct_set_cpu_work(CPUy, CT_WORK_SYNC)
+> >       READ CPUy ct->state
+> >       `-> CT_IDLE_STATE
+> >       `-> defer IPI
+> >
+> >
+> > I thought this meant I would need to throw out the "defer IPIs if CPU is
+> > idle" part, but AIUI this also affects CT_STATE_USER and CT_STATE_GUEST,
+> > which is a bummer :(
+> 
+> Soooo I've been thinking...
+> 
+> Isn't
+> 
+>   (context_tracking.state & CT_RCU_WATCHING)
+> 
+> pretty much a proxy for knowing whether a CPU is executing in kernelspace,
+> including NMIs?
 
-On Fri, Jan 31, 2025, Sean Christopherson wrote:
-> @@ -369,6 +369,11 @@ void __init kvmclock_init(void)
->  #ifdef CONFIG_X86_LOCAL_APIC
->  	x86_cpuinit.early_percpu_clock_init = kvm_setup_secondary_clock;
->  #endif
-> +	/*
-> +	 * Save/restore "sched" clock state even if kvmclock isn't being used
-> +	 * for sched_clock, as kvmclock is still used for wallclock and relies
-> +	 * on these hooks to re-enable kvmclock after suspend+resume.
+You got it!
 
-This is wrong, wallclock is a different MSR entirely.
+> 
+> NMI interrupts userspace/VM/idle -> ct_nmi_enter()   -> it becomes true
+> IRQ interrupts idle              -> ct_irq_enter()   -> it becomes true
+> IRQ interrupts userspace         -> __ct_user_exit() -> it becomes true
+> IRQ interrupts VM                -> __ct_user_exit() -> it becomes true
+> 
+> IOW, if I gate setting deferred work by checking for this instead of
+> explicitely CT_STATE_KERNEL, "it should work" and prevent the
+> aforementioned issue? Or should I be out drinking instead? :-)
 
-> +	 */
->  	x86_platform.save_sched_clock_state = kvm_save_sched_clock_state;
->  	x86_platform.restore_sched_clock_state = kvm_restore_sched_clock_state;
+Exactly it should work! Now that doesn't mean you can't go out
+for a drink :-)
 
-And usurping sched_clock save/restore is *really* wrong if kvmclock isn't being
-used as sched_clock, because when TSC is reset on suspend/hiberation, not doing
-tsc_{save,restore}_sched_clock_state() results in time going haywire.
-
-Subtly, that issue goes all the way back to patch "x86/paravirt: Don't use a PV
-sched_clock in CoCo guests with trusted TSC" because pulling the rug out from
-under kvmclock leads to the same problem.
-
-The whole PV sched_clock scheme is a disaster.
-
-Hyper-V overrides the save/restore callbacks, but _also_ runs the old TSC callbacks,
-because Hyper-V doesn't ensure that it's actually using the Hyper-V clock for
-sched_clock.  And the code is all kinds of funky, because it tries to keep the
-x86 code isolated from the generic HV clock code, but (a) there's already x86 PV
-specific code in drivers/clocksource/hyperv_timer.c, and (b) splitting the code
-means that Hyper-V overides the sched_clock save/restore hooks even when PARAVIRT=n,
-i.e. when HV clock can't possibly be used as sched_clock.
-
-VMware appears to be buggy and doesn't do have offset adjustments, and also lets
-the TSC callbacks run.
-
-I can't tell if Xen is broken, or if it's the sanest of the bunch.  Xen does
-save/restore things a la kvmclock, but only in the Xen PV suspend path.  So if
-the "normal" suspend/hibernate paths are unreachable, Xen is sane.  If not, Xen
-is quite broken.
-
-To make matters worse, kvmclock is a mess and has existing bugs.  The BSP's clock
-is disabled during syscore_suspend() (via kvm_suspend()), but only re-enabled in
-the sched_clock callback.  So if suspend is aborted due to a late wakeup, the BSP
-will run without its clock enabled, which "works" only because KVM-the-hypervisor
-is kind enough to not clobber the shared memory when the clock is disabled.  But
-over time, I would expect time on the BSP to drift from APs.
-
-And then there's this crud:
-
-  #ifdef CONFIG_X86_LOCAL_APIC
-	x86_cpuinit.early_percpu_clock_init = kvm_setup_secondary_clock;
-  #endif
-
-which (a) should be guarded by CONFIG_SMP, not X86_LOCAL_APIC, and (b) is only
-actually needed when kvmclock is sched_clock, because timekeeping doesn't actually
-need to start that early.  But of course kvmclock craptastic handling of suspend
-and resume makes untangling that more difficult than it needs to be.
-
-The icing on the cake is that after cleaning up all the hacks, and having
-kvmclock hook clocksource.suspend/resume like it should, suspend/resume under
-kvmclock corrupts wall clock time because timekeeping_resume() reads the persistent
-clock before resuming clocksource clocks, and the stupid kvmclock wall clock subtly
-consumes the clocksource/system clock.  *sigh*
-
-I have yet more patches to clean all of this up.  The series is rather unwieldly,
-as it's now sitting at 38 patches (ugh), but I don't see a way to chunk it up in
-a meaningful way, because everything is so intertwined.  :-/
+Thanks.
 
