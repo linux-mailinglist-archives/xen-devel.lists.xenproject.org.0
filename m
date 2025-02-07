@@ -2,29 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FA71A2CF7F
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Feb 2025 22:34:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.884014.1293810 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F99FA2D035
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Feb 2025 23:01:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.884023.1293821 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tgVyr-0006o1-2h; Fri, 07 Feb 2025 21:33:45 +0000
+	id 1tgWOx-0002ZX-48; Fri, 07 Feb 2025 22:00:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 884014.1293810; Fri, 07 Feb 2025 21:33:45 +0000
+Received: by outflank-mailman (output) from mailman id 884023.1293821; Fri, 07 Feb 2025 22:00:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tgVyq-0006mf-VZ; Fri, 07 Feb 2025 21:33:44 +0000
-Received: by outflank-mailman (input) for mailman id 884014;
- Fri, 07 Feb 2025 21:33:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vKp5=U6=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1tgVyo-0006mZ-Bo
- for xen-devel@lists.xenproject.org; Fri, 07 Feb 2025 21:33:43 +0000
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 30facf80-e59b-11ef-b3ef-695165c68f79;
- Fri, 07 Feb 2025 22:33:38 +0100 (CET)
+	id 1tgWOx-0002Y4-18; Fri, 07 Feb 2025 22:00:43 +0000
+Received: by outflank-mailman (input) for mailman id 884023;
+ Fri, 07 Feb 2025 22:00:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=vEis=U6=kernel.org=helgaas@srs-se1.protection.inumbo.net>)
+ id 1tgWOv-0002Xy-KP
+ for xen-devel@lists.xenproject.org; Fri, 07 Feb 2025 22:00:41 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f79a04c3-e59e-11ef-a073-877d107080fb;
+ Fri, 07 Feb 2025 23:00:40 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id D90405C6605;
+ Fri,  7 Feb 2025 21:59:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22FA0C4CED1;
+ Fri,  7 Feb 2025 22:00:38 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,144 +41,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 30facf80-e59b-11ef-b3ef-695165c68f79
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=cgmrjnyzorh6hbm45sgkzvyage.protonmail; t=1738964017; x=1739223217;
-	bh=fwD4WFli0ZgOIzGAPoTOCvJkemKZxnP2fcVOEw9cuY0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=dE59TH3IuSQyugKzoByWgAQp7KbtKBoBXYK6+yrzt9zNGwtwVOcY3fn+yXXvZRK1f
-	 Gy3AyCIF7gU8ZK1Zev0GZlRF81cMdRuKKvJbE47jWjvhIxwxcl2kk45SomjKi0+QjG
-	 Sh3r9cVTBbwSBnkLYaRKGdQMbEv3b3Inx+80g3ItgLeBIoIV0rCY+EM2Srb3prbrdE
-	 ffJUZDDBZPs1GWSI/KvzYnX9BGJy6mpREpQYawoGRRkcdgOgLpLYkxeiO1g+b2zitT
-	 oyagQFyo1w3JmK/k6wvnkpIS5WU1iCcSBMAAtY5gYVapW6LfUacr6GTWAYeg5o79o2
-	 wTy2gpoPQ5ehQ==
-Date: Fri, 07 Feb 2025 21:33:31 +0000
-To: jbeulich@suse.com
-From: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, dmkhn@proton.me, dmukhin@ford.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, xen-devel@lists.xenproject.org
-Subject: [PATCH] xen/console: introduce is_console_printable()
-Message-ID: <20250207213320.2253618-1-dmukhin@ford.com>
-In-Reply-To: <fed6f1dd-8c32-47d7-b879-e38b372bf4eb@suse.com>
-References: <20250207005532.345746-1-dmkhn@proton.me> <fed6f1dd-8c32-47d7-b879-e38b372bf4eb@suse.com>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: f9c34c957178fa76cdf6836a378ae02d7593230c
+X-Inumbo-ID: f79a04c3-e59e-11ef-a073-877d107080fb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1738965638;
+	bh=4PGYM9LPpF81CkP+dcwE5M0h4Uk8y1TRbzHF+S4mrSg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:From;
+	b=JgBmDIUSMtN2LUp4JgTti/w5aOvqAfn8tfTr98vk6LzaZOnfHUNZU9uCWEBeHkCAH
+	 PlnjaL1FU/Bx9kYoT/YXSv15Sw2Z+cNYRX+j48aXSBaNerzS+PYhnaBIR6tHMZ7/4N
+	 NwhsetfZvEto2kn+yQC2b3hbn5J/dZreHDW3sDscj2aUxOTxqqUrmnYBXxuSaF6wj2
+	 BeaoetvZyzai1WS3sbTBbnPZ6Cv6660UUqvIR20iaZleZktFnc3pzlYistoJpPnLg6
+	 dpVAeu0IZoRSodWengEdNdqcDW+U9oy9/2RQsK+XxiJ+ojS9HWV9HuPEiQIhmDoIad
+	 XtocnImHdquZw==
+Date: Fri, 7 Feb 2025 16:00:36 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: Jan Beulich <jbeulich@suse.com>, Bjorn Helgaas <bhelgaas@google.com>,
+	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
+	Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>
+Subject: Re: Config space access to Mediatek MT7922 doesn't work after device
+ reset in Xen PV dom0 (regression, Linux 6.12)
+Message-ID: <20250207220036.GA1018004@bhelgaas>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <Z6PiuRDjml0UNWd_@mail-itl>
 
-Add is_console_printable() to implement a common check for printable charac=
-ters
-in the UART emulation and guest logging code.
+On Wed, Feb 05, 2025 at 11:14:17PM +0100, Marek Marczykowski-Górecki wrote:
+> On Thu, Jan 30, 2025 at 03:31:23PM -0600, Bjorn Helgaas wrote:
+> > On Thu, Jan 30, 2025 at 10:30:33AM +0100, Jan Beulich wrote:
+> > > On 30.01.2025 05:55, Marek Marczykowski-Górecki wrote:
+> > > > I've added logging of all config read/write to this device. Full log at
+> > > > [1].
+> > > ...
 
-Signed-off-by: Denis Mukhin <dmukhin@ford.com>
----
- xen/arch/arm/vuart.c       | 5 ++---
- xen/arch/x86/hvm/hvm.c     | 5 ++---
- xen/drivers/char/console.c | 3 +--
- xen/include/xen/console.h  | 6 ++++++
- 4 files changed, 11 insertions(+), 8 deletions(-)
+> ... Generally it looks like this device has broken FLR, and the
+> reset works due to the fallback to the secondary bus reset on
+> timeout. I repeated the test with my additional "&&
+> !PCI_POSSIBLE_ERROR(id)" and I got this:
+> [2] https://gist.github.com/marmarek/db0808702131b69ea2f66f339a55d71b
+> 
+> The first log is with xen, and the second with native linux (and
+> added PCI config space logging in drivers/pci/access.c).
 
-diff --git a/xen/arch/arm/vuart.c b/xen/arch/arm/vuart.c
-index d5ba483f1e..bd2f425214 100644
---- a/xen/arch/arm/vuart.c
-+++ b/xen/arch/arm/vuart.c
-@@ -24,7 +24,7 @@
- #include <xen/lib.h>
- #include <xen/sched.h>
- #include <xen/errno.h>
--#include <xen/ctype.h>
-+#include <xen/console.h>
- #include <xen/serial.h>
- #include <asm/mmio.h>
- #include <xen/perfc.h>
-@@ -79,8 +79,7 @@ static void vuart_print_char(struct vcpu *v, char c)
-     struct domain *d =3D v->domain;
-     struct vuart *uart =3D &d->arch.vuart;
-=20
--    /* Accept only printable characters, newline, and horizontal tab. */
--    if ( !isprint(c) && (c !=3D '\n') && (c !=3D '\t') )
-+    if ( !is_console_printable(c) )
-         return ;
-=20
-     spin_lock(&uart->lock);
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 39e39ce4ce..219028969a 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -7,7 +7,6 @@
-  * Copyright (c) 2008, Citrix Systems, Inc.
-  */
-=20
--#include <xen/ctype.h>
- #include <xen/init.h>
- #include <xen/ioreq.h>
- #include <xen/lib.h>
-@@ -30,6 +29,7 @@
- #include <xen/vpci.h>
- #include <xen/nospec.h>
- #include <xen/vm_event.h>
-+#include <xen/console.h>
- #include <asm/shadow.h>
- #include <asm/hap.h>
- #include <asm/current.h>
-@@ -561,8 +561,7 @@ static int cf_check hvm_print_line(
-     if ( dir !=3D IOREQ_WRITE )
-         return X86EMUL_UNHANDLEABLE;
-=20
--    /* Accept only printable characters, newline, and horizontal tab. */
--    if ( !isprint(c) && (c !=3D '\n') && (c !=3D '\t') )
-+    if ( !is_console_printable(c) )
-         return X86EMUL_OKAY;
-=20
-     spin_lock(&cd->pbuf_lock);
-diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index 7da8c5296f..b4cec77247 100644
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -24,7 +24,6 @@
- #include <xen/shutdown.h>
- #include <xen/video.h>
- #include <xen/kexec.h>
--#include <xen/ctype.h>
- #include <xen/warning.h>
- #include <asm/div64.h>
- #include <xen/hypercall.h> /* for do_console_io */
-@@ -674,7 +673,7 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(=
-char) buffer,
-                 c =3D *kin++;
-                 if ( c =3D=3D '\n' )
-                     break;
--                if ( isprint(c) || c =3D=3D '\t' )
-+                if ( is_console_printable(c) )
-                     *kout++ =3D c;
-             } while ( --kcount > 0 );
-=20
-diff --git a/xen/include/xen/console.h b/xen/include/xen/console.h
-index 6dfbade3ec..c4650231be 100644
---- a/xen/include/xen/console.h
-+++ b/xen/include/xen/console.h
-@@ -8,6 +8,7 @@
- #define __CONSOLE_H__
-=20
- #include <xen/inttypes.h>
-+#include <xen/ctype.h>
- #include <public/xen.h>
-=20
- struct xen_sysctl_readconsole;
-@@ -50,4 +51,9 @@ void console_serial_puts(const char *s, size_t nr);
-=20
- extern int8_t opt_console_xen;
-=20
-+static inline bool is_console_printable(unsigned char c)
-+{
-+    return isprint(c) || c =3D=3D '\n' || c =3D=3D '\t';
-+}
-+
- #endif /* __CONSOLE_H__ */
---=20
-2.34.1
+This is just to annotate these logs.  Correct me if you see something
+wrong.
 
+Both logs include this patch:
 
+  @@ -1297,7 +1297,8 @@ static int pci_dev_wait(struct pci_dev *dev, char *reset_type, int timeout)
+                  if (root && root->config_rrs_sv) {
+                          pci_read_config_dword(dev, PCI_VENDOR_ID, &id);
+  -                     if (!pci_bus_rrs_vendor_id(id))
+  +                     if (!pci_bus_rrs_vendor_id(id) &&
+  +                         !PCI_POSSIBLE_ERROR(id))
+                                  break;
+
+I think both logs show this sequence:
+
+  - Initiate FLR on 01:00.0
+
+  - In pci_dev_wait(), poll PCI_VENDOR_ID, looking for something other
+    than 0x0001 (which would indicate RRS response) or 0xffff (from
+    patch above).
+
+  - Time out after ~70 seconds and return -ENOTTY.
+
+  - Attempt Secondary Bus Reset using 00:02.2, the Root Port leading
+    to 01:00.0.
+
+  - Successfully read PCI_VENDOR_ID.
+
+  - Looks the same, whether linux is running natively or on top of
+    Xen.
+
+Relevant devices (from mediatek-debug-6.12-patch2+bridgelog.log):
+
+  00:02.2 PCI bridge: Advanced Micro Devices, Inc. [AMD] Phoenix GPP Bridge
+    Bus: primary=00, secondary=01, subordinate=01, sec-latency=0
+
+  01:00.0 Network controller: MEDIATEK Corp. MT7922 802.11ax PCI Express Wireless Network Adapter
+    Capabilities: [80] Express (v2) Endpoint, IntMsgNum 0
+
+From mediatek-debug-6.12-patch2+bridgelog.log (from [2] above):
+
+  [anaconda root@test-12 /]# time echo 1 > /sys/bus/pci/devices/0000:01:00.0/reset
+  (XEN) d0v3 conf write cf8 0x80010088 bytes 2 offset 0 data 0xa910      <-- set 01:00.0 FLR
+  (XEN) d0v3 conf read cf8 0x80010000 bytes 4 offset 0 data 0xffffffff
+  ...
+  (XEN) d0v4 conf read cf8 0x80010000 bytes 4 offset 0 data 0xffffffff
+  ...
+  (XEN) d0v4 conf read cf8 0x8000123c bytes 2 offset 2 data 0x2          (0x3c + offset 2 = 0x3e)
+  (XEN) d0v4 conf write cf8 0x8000123c bytes 2 offset 2 data 0x42        <-- set 00:02.2 SBR
+  (XEN) d0v4 conf write cf8 0x8000123c bytes 2 offset 2 data 0x2
+  ...
+  (XEN) d0v4 conf read cf8 0x80010000 bytes 4 offset 0 data 0x61614c3    <-- 01:00.0 VID/DID
+  ...
+  real    1m10.825s
+
+From mediatek-debug-native-6.12-patch2+bridgelog.log (also from [2]
+above):
+
+  [anaconda root@test-12 ~]# time echo 1 > /sys/bus/pci/devices/0000:01:00.0/reset
+  [  240.449215] pciback 0000:01:00.0: resetting
+  [  240.450709] PCI: write bus 0x1 devfn 0x0 pos 0x88 size 2 value 0xa910   <-- set 01:00.0 FLR
+  [  240.553264] PCI: read bus 0x1 devfn 0x0 pos 0x0 size 4 value 0xffffffff
+  ...
+  [  309.481728] PCI: read bus 0x1 devfn 0x0 pos 0x0 size 4 value 0xffffffff
+  [  309.481747] pciback 0000:01:00.0: not ready 65535ms after FLR; giving up
+  ...
+  [  309.482667] PCI: read bus 0x0 devfn 0x12 pos 0x3e size 2 value 0x2      PCI_BRIDGE_CONTROL
+  [  309.482670] PCI: write bus 0x0 devfn 0x12 pos 0x3e size 2 value 0x42    <-- set 00:02.2 SBR
+  [  309.485184] PCI: write bus 0x0 devfn 0x12 pos 0x3e size 2 value 0x2
+
+  ...
+  [  309.617782] PCI: read bus 0x1 devfn 0x0 pos 0x0 size 4 value 0x61614c3  <-- 01:00.0 VID/DID
+  [  309.629234] pciback 0000:01:00.0: reset done
 
