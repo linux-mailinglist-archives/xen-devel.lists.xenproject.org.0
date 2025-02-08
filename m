@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50EA0A2D1DE
-	for <lists+xen-devel@lfdr.de>; Sat,  8 Feb 2025 01:05:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.884154.1293971 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9A58A2D1E0
+	for <lists+xen-devel@lfdr.de>; Sat,  8 Feb 2025 01:05:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.884155.1293981 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tgYLM-00024N-DS; Sat, 08 Feb 2025 00:05:08 +0000
+	id 1tgYLN-0002JO-JL; Sat, 08 Feb 2025 00:05:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 884154.1293971; Sat, 08 Feb 2025 00:05:08 +0000
+Received: by outflank-mailman (output) from mailman id 884155.1293981; Sat, 08 Feb 2025 00:05:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tgYLM-00022f-94; Sat, 08 Feb 2025 00:05:08 +0000
-Received: by outflank-mailman (input) for mailman id 884154;
- Sat, 08 Feb 2025 00:05:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tgYLN-0002Hl-Fx; Sat, 08 Feb 2025 00:05:09 +0000
+Received: by outflank-mailman (input) for mailman id 884155;
+ Sat, 08 Feb 2025 00:05:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Lbac=U7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tgYLK-0001YL-Nu
- for xen-devel@lists.xenproject.org; Sat, 08 Feb 2025 00:05:06 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 59589284-e5b0-11ef-b3ef-695165c68f79;
- Sat, 08 Feb 2025 01:05:04 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-436341f575fso31348785e9.1
- for <xen-devel@lists.xenproject.org>; Fri, 07 Feb 2025 16:05:04 -0800 (PST)
+ id 1tgYLM-00022W-8i
+ for xen-devel@lists.xenproject.org; Sat, 08 Feb 2025 00:05:08 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5a9b9d0e-e5b0-11ef-a073-877d107080fb;
+ Sat, 08 Feb 2025 01:05:07 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-38dd0dc21b2so313496f8f.2
+ for <xen-devel@lists.xenproject.org>; Fri, 07 Feb 2025 16:05:07 -0800 (PST)
 Received: from andrewcoop.eng.citrite.net (host-92-26-98-202.as13285.net.
  [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4391da9656fsm72336295e9.3.2025.02.07.16.05.03
+ 5b1f17b1804b1-4391da9656fsm72336295e9.3.2025.02.07.16.05.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Feb 2025 16:05:03 -0800 (PST)
+ Fri, 07 Feb 2025 16:05:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,113 +45,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 59589284-e5b0-11ef-b3ef-695165c68f79
+X-Inumbo-ID: 5a9b9d0e-e5b0-11ef-a073-877d107080fb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1738973104; x=1739577904; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1738973106; x=1739577906; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rTqKadIyN6sdNG1mQTo/PfPx9tGHKvwwDx2zM0f3o6c=;
-        b=s8TX7GSIJOm+EZj9W2M1lMDA5zChEcW7ojw/daUjyVRQsyJ/SjT9L7fMYRjFS6HfC5
-         hCbAPU009+ZiBtJXKl3t169I3ADzxxU6u+nSO+aDMymDBrT6j1EBCYx0a09r+OYr9+hF
-         tZqyUBfTIWxOHRoaj0vSJIna4TbjtKKyc1Vas=
+        bh=k79odjZVJL9qLhOKUcXOXOULzXIyeOuWCwsvg6fXSdI=;
+        b=Ng4y2rot+MBJhxcOO5Y//IPsjLxm8Z2PY80dnPGWb+Z3Fa2CsOdABtld/2lflzb9RD
+         BPhsbu+nSLQQuePBq9Mmne1G2EArK6bHvqKFbrWRHkT+RjlcY080u4I2KJjPREP85jQo
+         3BV5XgpY4yTblw7RBXqLgo6WDVRKLxQSQH4kE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738973104; x=1739577904;
+        d=1e100.net; s=20230601; t=1738973106; x=1739577906;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=rTqKadIyN6sdNG1mQTo/PfPx9tGHKvwwDx2zM0f3o6c=;
-        b=rd2WbxVR0FgR0b9YdolQW2cFZII8WUFNgAfajL+Xb3UFnieSOJ1xl1JODhbIeaBj1/
-         elOeLOYQntO4fWfOo5kfb8qxTds8wlKFHpz5YASONXxJ8baZ9CA9stip3UMa+Zcvf/hj
-         nMdJdrUv4IFMABoI4R4ZLHjZtUMUGfWauSkb6zohJeNhttpDgEXXMlKU7fe1jrwk6JeD
-         fP0B2BHzGz6bP9s0IOu3EG/aPYbtMot1tnPbsSassseHziPyFTGrm1s9zKmzs6WDnTHp
-         JIs+wBz1Q28vfzGEAQz6+74YaIWyEtP+PbXH1Xx5lquBqqJmbSdeF+yUAFqzVqKTNviJ
-         MzuQ==
-X-Gm-Message-State: AOJu0YzTp/e+MIF4McQB8njo/D+bE9bjQdnc24JuDcEeJGxnJtlkXpzF
-	otELJRZGR0P+nmagJnIBcYY+KhBWKD/olvSxvInIA1ByvpUceSecpouZEyC76yHZUi5GzJYClX6
-	bCI0=
-X-Gm-Gg: ASbGncvX3DLZg/ZhQnzSmZVBj7DOxqX3SSjBWbsje3++Ol2QbpMCg/dZu9/Jc69mpHB
-	BPFj1BgMh3mtAXu+nE4u5L8v9ILudwOalBcVPB0JrPetQ6gdCKgdqM8JcBbWb2aJu+Rf+4HbDvW
-	XADXgwMME0IMIfRW3HpS/wxvwVowYNnX6EWWqvm6uEPPh+5bnjVIBKHP7S83+1KrvQjded1YFHd
-	2v7p/b48zj5yZdJqYc8pHlKbt6tFCeSpmKApTh8vN1oHwo0KjrHwJc6q4LoKcpF7y5Mr9ObyU8S
-	53j9HmanSl4QEeJ/u8Qua3Gu9VaPSb8Mck96giEmZ8qvpiouzmzpPxV2UFWUWZ9Aan6B2hU=
-X-Google-Smtp-Source: AGHT+IEI9ETemwVvAetCXftnYLIP2CDAIhNoUpO/d3c9x8BeNctPIDNzf5wh7Jsw4xt2iot2pqKZjw==
-X-Received: by 2002:a5d:6c66:0:b0:38c:5cd0:ecf3 with SMTP id ffacd0b85a97d-38dc8da6393mr4491670f8f.11.1738973104053;
-        Fri, 07 Feb 2025 16:05:04 -0800 (PST)
+        bh=k79odjZVJL9qLhOKUcXOXOULzXIyeOuWCwsvg6fXSdI=;
+        b=CUFiHtXkiNz7/IFleUGvRYttSJVwL7daNJk2WSVeD2oAfIbS8fz9pSQ/76kBnsWxb1
+         5hDdUUXfuNhnoprsmycN+UotBmXDQbUkrqg7IhHs+oe+VbBLr9w26aQg6B+BE4+Tezvi
+         uB4cg5WSABJYw9kZyoFS1Mm4y+cBl5R4hdjKwXPj4mfZ4mPI/NzsXCpkJRiAUH4RIfSe
+         gVSK1aMceO4jQlj34YTbfgeHBEPne+9LC8B6gB0nzKsMH8bVAzE22lDQVNvg8E/H15Uh
+         QT89TBcbUUmkYDdotEib3icz8pKVINlAkRqY1AnvpHt14kOASLvBuwrnjllghN10CanG
+         33HA==
+X-Gm-Message-State: AOJu0YxZudUlNilE3etXdlV5hPT4NwT0VNTFEBbtLqqOX7KN0cHCjHwK
+	LY+23coKDIAOIo+6QRByXInCTaXiRP/vuFBLMPAc18zPHNTrlgnisdQlv+6EqgwEg86smx6pV+G
+	NZkE=
+X-Gm-Gg: ASbGncud6WD42LTF+OyfBqNT2+OmgFX1KdqlvuMlJQF36roQenq7QEQK+bv+7aNb5yF
+	3z46s4F1KvLvM2dCLulQjZoWwWn+OY3oTxOoh3I4V8twe4oO2lgNXbV7OrFcf72PztkKdBwvZjk
+	45mmTMnlc3VrIoaLsuFXJzicl+hj4G/Fx7AzoSnmpGRCgWaJKNODDKDbMrr/A+L1J7ep+Hb6TM1
+	WMalURzv/6MFIn3dOfzBuiVOxGx7vD2yQMVQJpPmSjzvkNpF72ynJ85LzrfYdE3j/s/xKg/kPUd
+	wAYt1yH8yKm6h/4zApc0vBzFUcTbs2qZjEcRe6no/2EHF3zuvW+SyjMCMWIIymI0xtBuNO8=
+X-Google-Smtp-Source: AGHT+IGJkEWOFX5Gjq2VAs2p6GZzpMkyV0TM9zLwmOR59crbwu92jAZYa+h37SfthZDUenAOfcn4Dg==
+X-Received: by 2002:a05:6000:1884:b0:385:e0d6:fb73 with SMTP id ffacd0b85a97d-38dc8dc1f92mr3586402f8f.15.1738973106144;
+        Fri, 07 Feb 2025 16:05:06 -0800 (PST)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [PATCH 2/4] ARM: Fix register constraints in run_in_exception_handler()
-Date: Sat,  8 Feb 2025 00:02:54 +0000
-Message-Id: <20250208000256.431883-3-andrew.cooper3@citrix.com>
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>
+Subject: [PATCH 3/4] xen: Centralise the declaration of dump_execution_state()
+Date: Sat,  8 Feb 2025 00:02:55 +0000
+Message-Id: <20250208000256.431883-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250208000256.431883-1-andrew.cooper3@citrix.com>
 References: <20250208000256.431883-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Right now, run_in_exception_handler() takes an input in an arbitrary register,
-and clobbers BUG_FN_REG.  This causes the compiler to calculate fn in the
-wrong regsiter.
+Three architectures have an identical dump_execution_state(), and PPC has a
+stub for show_execution_state() that just isn't wired up yet.
 
-Instead, use `register asm()` which is the normal way of tying register
-constraints to exact registers.
-
-Bloat-o-meter reports:
-
-  ARM64:
-    Function                                     old     new   delta
-    dump_registers                               356     348      -8
-
-  ARM32:
-    ns16550_poll                                  52      48      -4
-    dump_registers                               432     428      -4
-
-The other instruction dropped in ARM64's dump_registers() is an alignment nop.
+show_execution_state() is declared in a common header, meaning that
+dump_execution_state() really ought to be too.  Move them both into xen/bug.h
+as they're tightly tied to run_in_exception_handler().  Drop the include of
+xen/kernel.h from ubsan.c which was required reviously for RISC-V to compile.
 
 No functional change.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-----
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Stefano Stabellini <sstabellini@kernel.org>
 CC: Julien Grall <julien@xen.org>
 CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 CC: Bertrand Marquis <bertrand.marquis@arm.com>
 CC: Michal Orzel <michal.orzel@amd.com>
 CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+CC: Shawn Anastasio <sanastasio@raptorengineering.com>
 ---
- xen/arch/arm/include/asm/bug.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ xen/arch/arm/include/asm/processor.h   | 2 --
+ xen/arch/riscv/include/asm/processor.h | 2 --
+ xen/arch/x86/include/asm/processor.h   | 1 -
+ xen/common/ubsan/ubsan.c               | 1 -
+ xen/include/xen/bug.h                  | 3 +++
+ xen/include/xen/kernel.h               | 2 --
+ 6 files changed, 3 insertions(+), 8 deletions(-)
 
-diff --git a/xen/arch/arm/include/asm/bug.h b/xen/arch/arm/include/asm/bug.h
-index cacaf014ab09..8bf71587bea1 100644
---- a/xen/arch/arm/include/asm/bug.h
-+++ b/xen/arch/arm/include/asm/bug.h
-@@ -59,15 +59,15 @@ struct bug_frame {
-  * be called function in a fixed register.
-  */
- #define  run_in_exception_handler(fn) do {                                  \
--    asm ("mov " __stringify(BUG_FN_REG) ", %0\n"                            \
--         "1:"BUG_INSTR"\n"                                                  \
-+    register unsigned long _fn asm (STR(BUG_FN_REG)) = (unsigned long)(fn); \
-+    asm ("1:"BUG_INSTR"\n"                                                  \
-          ".pushsection .bug_frames." __stringify(BUGFRAME_run_fn) ","       \
-          "             \"a\", %%progbits\n"                                 \
-          "2:\n"                                                             \
-          ".p2align 2\n"                                                     \
-          ".long (1b - 2b)\n"                                                \
-          ".long 0, 0, 0\n"                                                  \
--         ".popsection" :: "r" (fn) : __stringify(BUG_FN_REG) );             \
-+         ".popsection" :: "r" (_fn) );                                      \
- } while (0)
+diff --git a/xen/arch/arm/include/asm/processor.h b/xen/arch/arm/include/asm/processor.h
+index d80d44aeaa8f..f2c4d990c71c 100644
+--- a/xen/arch/arm/include/asm/processor.h
++++ b/xen/arch/arm/include/asm/processor.h
+@@ -577,8 +577,6 @@ void panic_PAR(uint64_t par);
+ void show_registers(const struct cpu_user_regs *regs);
+ void show_stack(const struct cpu_user_regs *regs);
  
- #define WARN() BUG_FRAME(BUGFRAME_warn, __LINE__, __FILE__, 0, "")
+-#define dump_execution_state() run_in_exception_handler(show_execution_state)
+-
+ #define cpu_relax() barrier() /* Could yield? */
+ 
+ /* All a bit UP for the moment */
+diff --git a/xen/arch/riscv/include/asm/processor.h b/xen/arch/riscv/include/asm/processor.h
+index 39696fb58dc6..90b800956303 100644
+--- a/xen/arch/riscv/include/asm/processor.h
++++ b/xen/arch/riscv/include/asm/processor.h
+@@ -91,8 +91,6 @@ static inline void sfence_vma(void)
+     asm volatile ( "sfence.vma" ::: "memory" );
+ }
+ 
+-#define dump_execution_state() run_in_exception_handler(show_execution_state)
+-
+ #endif /* __ASSEMBLY__ */
+ 
+ #endif /* ASM__RISCV__PROCESSOR_H */
+diff --git a/xen/arch/x86/include/asm/processor.h b/xen/arch/x86/include/asm/processor.h
+index d247ef8dd226..c2eafaecfd40 100644
+--- a/xen/arch/x86/include/asm/processor.h
++++ b/xen/arch/x86/include/asm/processor.h
+@@ -405,7 +405,6 @@ static always_inline void rep_nop(void)
+ void show_code(const struct cpu_user_regs *regs);
+ void show_stack_overflow(unsigned int cpu, const struct cpu_user_regs *regs);
+ void show_registers(const struct cpu_user_regs *regs);
+-#define dump_execution_state() run_in_exception_handler(show_execution_state)
+ void show_page_walk(unsigned long addr);
+ void noreturn fatal_trap(const struct cpu_user_regs *regs, bool show_remote);
+ 
+diff --git a/xen/common/ubsan/ubsan.c b/xen/common/ubsan/ubsan.c
+index e99370322b44..a96153c08078 100644
+--- a/xen/common/ubsan/ubsan.c
++++ b/xen/common/ubsan/ubsan.c
+@@ -11,7 +11,6 @@
+  */
+ 
+ #include <xen/bitops.h>
+-#include <xen/kernel.h>
+ #include <xen/lib.h>
+ #include <xen/percpu.h>
+ #include <xen/spinlock.h>
+diff --git a/xen/include/xen/bug.h b/xen/include/xen/bug.h
+index 99814c4bef36..2325a46e7f61 100644
+--- a/xen/include/xen/bug.h
++++ b/xen/include/xen/bug.h
+@@ -155,6 +155,9 @@ int do_bug_frame(const struct cpu_user_regs *regs, unsigned long pc);
+ 
+ #endif /* CONFIG_GENERIC_BUG_FRAME */
+ 
++void cf_check show_execution_state(const struct cpu_user_regs *regs);
++#define dump_execution_state() run_in_exception_handler(show_execution_state)
++
+ #endif /* !__ASSEMBLY__ */
+ 
+ #endif /* __XEN_BUG_H__ */
+diff --git a/xen/include/xen/kernel.h b/xen/include/xen/kernel.h
+index c5b6cc977772..57a1ef4e17b7 100644
+--- a/xen/include/xen/kernel.h
++++ b/xen/include/xen/kernel.h
+@@ -94,10 +94,8 @@ bool is_active_kernel_text(unsigned long addr);
+ extern const char xen_config_data[];
+ extern const unsigned int xen_config_data_size;
+ 
+-struct cpu_user_regs;
+ struct vcpu;
+ 
+-void cf_check show_execution_state(const struct cpu_user_regs *regs);
+ void vcpu_show_execution_state(struct vcpu *v);
+ 
+ #endif /* _LINUX_KERNEL_H */
 -- 
 2.39.5
 
