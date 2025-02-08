@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEA5AA2D71A
-	for <lists+xen-devel@lfdr.de>; Sat,  8 Feb 2025 16:57:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.884323.1294060 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DCE4A2D7F8
+	for <lists+xen-devel@lfdr.de>; Sat,  8 Feb 2025 19:04:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.884334.1294071 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tgnBn-0003wf-Ab; Sat, 08 Feb 2025 15:56:15 +0000
+	id 1tgpB8-0002MW-3e; Sat, 08 Feb 2025 18:03:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 884323.1294060; Sat, 08 Feb 2025 15:56:15 +0000
+Received: by outflank-mailman (output) from mailman id 884334.1294071; Sat, 08 Feb 2025 18:03:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tgnBn-0003uM-6J; Sat, 08 Feb 2025 15:56:15 +0000
-Received: by outflank-mailman (input) for mailman id 884323;
- Sat, 08 Feb 2025 15:56:13 +0000
+	id 1tgpB8-0002JO-0p; Sat, 08 Feb 2025 18:03:42 +0000
+Received: by outflank-mailman (input) for mailman id 884334;
+ Sat, 08 Feb 2025 18:03:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=M5nI=U7=gmail.com=salvatore.bonaccorso@srs-se1.protection.inumbo.net>)
- id 1tgnBl-0003uG-E4
- for xen-devel@lists.xenproject.org; Sat, 08 Feb 2025 15:56:13 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ <SRS0=0k8z=U7=outlook.com=mhklinux@srs-se1.protection.inumbo.net>)
+ id 1tgpB6-0002JI-Qo
+ for xen-devel@lists.xenproject.org; Sat, 08 Feb 2025 18:03:40 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12olkn20815.outbound.protection.outlook.com
+ [2a01:111:f403:2c18::815])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 36f4d84d-e635-11ef-b3ef-695165c68f79;
- Sat, 08 Feb 2025 16:56:10 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-4361b0ec57aso29565275e9.0
- for <xen-devel@lists.xenproject.org>; Sat, 08 Feb 2025 07:56:10 -0800 (PST)
-Received: from eldamar.lan (c-82-192-244-13.customer.ggaweb.ch.
- [82.192.244.13]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4391dcae129sm88297535e9.17.2025.02.08.07.56.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Feb 2025 07:56:08 -0800 (PST)
-Received: by eldamar.lan (Postfix, from userid 1000)
- id 18929BE2EE7; Sat, 08 Feb 2025 16:56:07 +0100 (CET)
+ id 0504aea2-e647-11ef-b3ef-695165c68f79;
+ Sat, 08 Feb 2025 19:03:38 +0100 (CET)
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
+ by DM8PR02MB8121.namprd02.prod.outlook.com (2603:10b6:8:1a::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.11; Sat, 8 Feb
+ 2025 18:03:35 +0000
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::cedd:1e64:8f61:b9df]) by SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::cedd:1e64:8f61:b9df%4]) with mapi id 15.20.8422.010; Sat, 8 Feb 2025
+ 18:03:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,153 +46,250 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 36f4d84d-e635-11ef-b3ef-695165c68f79
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1739030170; x=1739634970; darn=lists.xenproject.org;
-        h=content-transfer-encoding:content-disposition:mime-version
-         :message-id:subject:cc:to:from:date:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=gghYPUNRCdyG2yLo4ZGDDboCtEVr9fYIBuiGTMEQtB8=;
-        b=R2+jfZNH43kNMtLL08AtiaeQK7HbmZucj9HEySIxXAB9USgBQIdmmW4ISBMurIGqz1
-         JrhI5dZSXIHkhyljEPjO9e0tZZDer7lvJf2RNI8TQpcmI11Slvb/XZvd+Q5o3SJhIz9z
-         bxWrEWbHsog5SWviCzzdJfr9/FSzdsrUFnB6YpOj8lW9ewBS1j9Ezky0OWljYUSR6RNk
-         gstMtm8INTyEZL43Z6QLRp14faOr5j6AEOPRTzWxDuH2SNkdfppcovOug3dWpX3TAtHB
-         UF2zSGS7mHnJIrEKUOY1xJutuUTlwLSHeTRZdNdr1kWP156XL+H8uZbhOvxFlfGM5/Ih
-         XawA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739030170; x=1739634970;
-        h=content-transfer-encoding:content-disposition:mime-version
-         :message-id:subject:cc:to:from:date:sender:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=gghYPUNRCdyG2yLo4ZGDDboCtEVr9fYIBuiGTMEQtB8=;
-        b=PDor9hBU87lF3kbP0J4EUjBbCH5nWoSDQU9YGut/tdlJpXFPzS4N/3BbjYKs4ao0Am
-         hPyTKXf6ExvdqfDKOk9CnVXAPK3pNSW5N5IrhuB6XJBEvWZc5GfRfx1BOdsWWe0H/k+f
-         4U+CIIggGjqbfFCPftMreb75dtVIdxpCSXuKY1Wj2E0JPtuvKS67oviG+5Lgq1pvUSJt
-         BfHo3KxYQEpTPygTpsIAhDKu4VN6kKikWptV/SQ8ENNCbeMNc5dMMcOGZIfCJkJLjgwR
-         RFEoBGGY5/C7wAuN0C64KVX0Cc+BZfBzRTaYLyFoq07mkJvB/pcBjG3iZgVfvPwAVFkN
-         VsVg==
-X-Forwarded-Encrypted: i=1; AJvYcCVyWMiEMyBzuzih3RpIib326nkOpdPdc0QGhCaATKJvZ7P7jDOGZm+l0zzacI5SOYGyll8juKC1ngU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YySt0Z6VT9UyU+/gW2xdgmJOwNgElce6PXNwPQF4AKKQeb6vifr
-	xTkg//2U+SyLjIR2912khDpxY+fUGgY4cw1aYZAFx16KpNVtBmDQ
-X-Gm-Gg: ASbGncsMp3S8nZUQXQH79jJVWy+aqCxNLGkXues2Zt1p0Bu8CVY+ru8sRHEjg9dQ/6F
-	t1rRMh0VHvL8dFcgKTAdZa1pBHsqgMRHANI/n/itwmIPcJKm3sojGJm/1RURg8MvfHMptfA9JGN
-	wfjbjIRRlsNYk3lfFLabTFCAiHiCSoIVio9FOMMjpdKckjTQhLrxw8aX6GMbrU1oFHRGaoFqtA4
-	jcy06+fANxE0YdQIK77gmCBj+7fADfT/cETjN0PEHnsHbS+7NIDbdvwh0zLeZCa7xTvwEXa5Nu3
-	/5DIpQhCjwdLcAgSWeJ40E/p+5DjGkWIoKDQ+jkEfR87CyYV
-X-Google-Smtp-Source: AGHT+IEXT4VHtoN7BWCb9b46QkhkIIkudo6GwKbhv3dYWDQ39vj5aKhwilizZwe5JyZGlUhGnb2oMA==
-X-Received: by 2002:a7b:c001:0:b0:434:f5c0:3288 with SMTP id 5b1f17b1804b1-439250df455mr58897315e9.29.1739030169469;
-        Sat, 08 Feb 2025 07:56:09 -0800 (PST)
-Sender: Salvatore Bonaccorso <salvatore.bonaccorso@gmail.com>
-Date: Sat, 8 Feb 2025 16:56:07 +0100
-From: Salvatore Bonaccorso <carnil@debian.org>
-To: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	xen-devel@lists.xenproject.org, iommu@lists.linux.dev,
-	Radoslav =?iso-8859-1?Q?Bod=F3?= <radoslav.bodo@igalileo.cz>
-Cc: regressions@lists.linux.dev, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [6.1.y] Regression from b1e6e80a1b42 ("xen/swiotlb: add alignment
- check for dma buffers") when booting with Xen and mpt3sas_cm0 _scsih_probe
- failures
-Message-ID: <Z6d-l2nCO1mB4_wx@eldamar.lan>
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+X-Inumbo-ID: 0504aea2-e647-11ef-b3ef-695165c68f79
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=key54UWWIsojX572YapYD9df7hyge/r6VrhzBU8597GbZzJUlG9pkT3L+diEmPch9B5aQRJFlXvZuuePC7fnxan+TZDFNuP3OqploYBTStx/0r9m0QV5IKRhzdjI3gT5LIq/02MxQovO13jNWLiThvssJte1PaXHKvjJ0SLCeYQa2QrHYAxOP1KvqGvGZi7MYiwIxYbpV8XxS1ooQU50sLIOG2D+DHZ298jI58QvF9zi8tRjo6+XgAwQnLog5TQDXEKzZFhXecJnrtZE5ZyKB7SScb26yDsiVcI77QKGzONynRXe3hYInzVZ6345EgM1K1rJvgkxKKt2uaotJ/y6FQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IreEy4vXuUJeFqa2ACjl7G7myB7qeXHyFLg2++BZuMs=;
+ b=iPCqI9kdyEkWFlWyhM183Nvxd1U1xdNkz8EZK8ZUj9Xi9njM4zcznfBg65rP5LWxCVpFZi1CMtbg1sb5Fg+0XRY0/7w0NlZCpg1G3tmZF2cu/LnqJRsPQpfdkUwjQW8k9adDREnuCQcaOyhl0k3b8MAeWtZdTDSbFFsmZ0PyNHhmdRnvPycwTmmIMDa8Xzk8kth7OWPBCFkAJzgLuGFOwko/s4KcQ4C0GsWk0lTmr8kG3sraxJQsP8wBZvh2v2p3wTcICCNJmn4s/RMdAHZutnAIWAXGQhunOt7Q0GByeLv9nG7jljUAqKw9kdfGAfBcBEfj6YWyfIDDNsStsJGM9A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IreEy4vXuUJeFqa2ACjl7G7myB7qeXHyFLg2++BZuMs=;
+ b=VgyUGNLyVmPsof1z7OMSTwlfb6eq0miZkudRYcfYMFGQ42Jfeqg96n58nveDaLe6f5VWIqM+R6eu8utHviEhnXFzmpLwA+jx1Le0kf7O4mIa50kC5VXvbThAm0kEmxiroSsBNm1lG6tnUpifN2rqOop+Jclq+/qyI39juBplShbiohZI2UQTwWwnl+GHG8+gwwqnfyTpGwmidVsPK7Z419r6knzf1jBawzYZAU+ap2IJyYdBaNUCA8DvgQ698/mEdQvfrsx4MycOxB9lcxeMiG4B6aQ0zbbfmDW8q1O8/jgAD7NthEqoCbQZracnwSrbq8Uq9C75gcCm3iAiyErkmQ==
+From: Michael Kelley <mhklinux@outlook.com>
+To: Sean Christopherson <seanjc@google.com>, Thomas Gleixner
+	<tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
+	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "x86@kernel.org"
+	<x86@kernel.org>, "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
+	Juergen Gross <jgross@suse.com>, "K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan
+ Cui <decui@microsoft.com>, Ajay Kaher <ajay.kaher@broadcom.com>, Jan Kiszka
+	<jan.kiszka@siemens.com>, Paolo Bonzini <pbonzini@redhat.com>, Andy
+ Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"virtualization@lists.linux.dev" <virtualization@lists.linux.dev>,
+	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, Nikunj A Dadhania <nikunj@amd.com>, Tom
+ Lendacky <thomas.lendacky@amd.com>
+Subject: RE: [PATCH 16/16] x86/kvmclock: Use TSC for sched_clock if it's
+ constant and non-stop
+Thread-Topic: [PATCH 16/16] x86/kvmclock: Use TSC for sched_clock if it's
+ constant and non-stop
+Thread-Index: AQHbdFA7yP+OKafhs0+Qp+iujFLydbM8IVsAgAGF1cA=
+Date: Sat, 8 Feb 2025 18:03:35 +0000
+Message-ID:
+ <SN6PR02MB4157A85EC0B1B2D45CB611FAD4F02@SN6PR02MB4157.namprd02.prod.outlook.com>
+References: <20250201021718.699411-1-seanjc@google.com>
+ <20250201021718.699411-17-seanjc@google.com> <Z6ZBjNdoULymGgxz@google.com>
+In-Reply-To: <Z6ZBjNdoULymGgxz@google.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|DM8PR02MB8121:EE_
+x-ms-office365-filtering-correlation-id: e5872516-0cd0-4fd1-bf50-08dd486ae7ee
+x-ms-exchange-slblob-mailprops:
+ 0wLWl8rLpvv/dfWT6unGWbRi7AvTEDs/ZGf/ZlgYSBNcMo1bwaYwNaT2UizFYz85L0V/s27agZjOODjxQv8nuNz3o+z3J1lx9t5qqJuaVWcqPgqKvXYydgghhOcpNX67fKMNQBXfCYpAW6jgo4N3ngY2zGxnV/K1P5CTr7lMVhLMKBsA8kmM03tzCq/IKWq8NvY6QzeosXJeB9wEDt89LvWCD6lRbHRNzIVU5jSpS6A50WmfYkLH4N/HKBFAnLptQAQB41RXmTGu7eY0vf4i9ds4ZrTaoyzoP8Ec76JnXnZVdPVDS7e39EEJwbCn9nUS5TjCJfRlDmD+W5nP0ZIt5T8AqmBnwm7L0Hr87/tRlAYh01/IEq/8Ths9/mP6MuoCZtYcSa2bA2/crzYoZJDA1Rq0WSKzXP7d9i4CfBV5bzby3ZmaGMUyzU8BUcXq1b5hgQXly4WRJiOE7U1iXMi8djQRPm54ijg/y2Ejhv1TqyeAxVGbBXF8tjoeqya5TUkle5LpHdtcCOdswjBFI4OB1FP2RltHSsffz4Zh+7YUUyz6F7nMxKiIAFlEhSOS/Y33F/NqBFi5/BVFdPm3BvpTBrAKgurCl0tPYmqcJP2x+wussJ4rLMar5AZY9+ffngPO3wut84or3Z9wEcaW4+edh+/x+AIJZ73HYkz/7e0URGdr+TDNXIS6PE6sm8BheT68cdzMo9hpG9+tTCidTx3YXjSs9UMKQfH5rdsNdqVx6iXb+ir9AEGgrHykfRihblKQKQc7lZJJTF0=
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|461199028|15080799006|8062599003|8060799006|19110799003|102099032|1602099012|3412199025|4302099013|440099028|10035399004|12091999003;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?hUOhQZuPrM+zmuss094Vk4HcA03pmuAnS2xDn1lSEycjjntqAkeKEHJFRSBm?=
+ =?us-ascii?Q?hdgscTmnAas/BjE+UByc+zbdtynnOFEuRfNqmjQoEToxREDh6AEe9GEYxIMJ?=
+ =?us-ascii?Q?WuZzmjW7tJiXr4rdxfS8JpXMCqayahnkoqhHn+fuiVlJ0MSpEbucvEt/mbH0?=
+ =?us-ascii?Q?jjRcuG480VtbXhEwVYGPIVL86VON1FRW/cKOv9VBb4elgvqvODKXwujk76CH?=
+ =?us-ascii?Q?BsI+jnEnEBAmSnD9NXbm9s0lg8CpMIfULyH4hKbfd+op2aWPAPfdtDF9/dCW?=
+ =?us-ascii?Q?jllftKkcCT3GFHv9KDXFCpWCeg6CTWtITCteUHdFxAfulLmBxGRW58VXzS63?=
+ =?us-ascii?Q?L+wZ8ynLNFRC/tK1GMmwJSklETIEQqa06iv4DXOeNwFwGfyydcLq6jZPUQ1d?=
+ =?us-ascii?Q?co/DvS3LA3FR7x9rT4Q0//Ax38HxZVhy2r6e7Bya+3XdXjoLUDbKWI6ixrL8?=
+ =?us-ascii?Q?L29sM0cwks81ya7+HEAlDDHPW4pzHurbpsWsSiYCkLcie+HKHaXx41jjcvRo?=
+ =?us-ascii?Q?wAWNuCxLDSdLBV3ivk8ublOXvykmxpbO/6URq7an5zQMzj89L9bBMdo0MHGC?=
+ =?us-ascii?Q?8lyYkWavvFMW4L8mS76JXPyRFHNMWBwmOFRdron+BbyykC/ygpZW1codMC68?=
+ =?us-ascii?Q?tinKxNlLC42b0OBzT12ahFEmCcXxv1INMFQHnNDVcx+OHP2EBNb1tXypGbaY?=
+ =?us-ascii?Q?mkwykwtH1NDt5OHe+7EYpeE8amenHRKb0yGpjhU75xDRBPIItFhRJS6S2CHV?=
+ =?us-ascii?Q?RWJhXzhuItvz427m2hRMZrKuKZRpls1cTVpy9D0G6wwsRxSzxS7TxCDgPWKS?=
+ =?us-ascii?Q?eMdGT1AoiIlnT+phXkxqPa/x8LrF1cjlzisIGJMESVhfalgnxo6Tq7Dwhg5f?=
+ =?us-ascii?Q?Ls64H/WZVbt/8g+vjeuX7ysRG4zSHCNHcSj/NPG3OPtW2uUXpEfVgtENID/T?=
+ =?us-ascii?Q?XwepSPN2NYf9TEA/zCip/hltoRsvxYwz+xTl24dWCvMX0vIFQo9iwGlqoPKD?=
+ =?us-ascii?Q?FDpsI7CyAecNxGloSX8HqZLAVffWXeZjH8GROomL5Zs0IFavR1aUWoK229Rh?=
+ =?us-ascii?Q?7XymUpIbsCIklx7n9aBAS9WBEi5XJeEaM/9/5F5fqQoxbfdyhNbFvPaJNF+b?=
+ =?us-ascii?Q?HoIbxFC8r75RVB6teH/xfEQmj4zaOOeOUNj23qIjTTT4kLxPSjaF1juTQ2+T?=
+ =?us-ascii?Q?guYpUHgqMkf05jpi?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?+O0u1tGlmuv3hqfcdbPB/P0R2gw2lJ97dh6dhqXl3e24uR8GYGOdK/wZyEVh?=
+ =?us-ascii?Q?+OYwXcocQfUWsyCaxzR8H3RPcChrjvDMAO2TIPJ2lhQUabwo3BEgrapMb3Af?=
+ =?us-ascii?Q?wTNE9MKgjN6Bud150ovN6nZOiWMqHIqjzycX0U8xu49l3Xhc3ypj1NQwYnVC?=
+ =?us-ascii?Q?7jIDM0Ll0x9hxlnnsB8q6gQsY4ovQwDglMRzMT3/kScejkPliNNTfQxPEFDU?=
+ =?us-ascii?Q?u0bM1h+nRzUgdYD15yu/E6w/3XfZuiJAl+etJLdze4KENPDAxJbF7RpPyDkJ?=
+ =?us-ascii?Q?gOp4UM/6sfb340m0YVLMIQXDYF4/LFSnwXRQ6mheU6azbAQV1IH09+CsNLiV?=
+ =?us-ascii?Q?N4JpmAcZCe91mFnyVVjPdbfw4kWsd+JZRCLI/9BKGEe0YFj4dPQWpZa7JISz?=
+ =?us-ascii?Q?Nf7gHe+vX+YXnhXee1q0efwSSNUTn7LVFRS7j5BEcxi2aMRnTXwdbsbw71Fe?=
+ =?us-ascii?Q?450EI349bvkDj/c8GyUUyiUefc2hk8YJSvz6T+oZMYgQY+yKJwR1uzbFXECj?=
+ =?us-ascii?Q?eUgsyvBn2+z/+EL4RgCOOcIHpXAP9vj+RelLY9RqMAV+k8vvNHrbxHMRDZDm?=
+ =?us-ascii?Q?B6wFkZO5Nj3EjFCVqzpEsvsedqW7vM4Z1SwYv2jm3ADycB431uMk2C+4Izv0?=
+ =?us-ascii?Q?G44Ssze6hqwz+wc4Z8elpiw9OwaAvHxz1kpcrnlRfEY00yL/FzSmHVzBKt7F?=
+ =?us-ascii?Q?XDF3T9FZasKZYntnhevN1zxjmfvcCjOm8+QWucI1MAwvpVrL5QHzQ3bgdVL+?=
+ =?us-ascii?Q?yhC+am8O3hprgbpKBFv3UMT4gB8E6/SASxICeuRzXwVXYPWNzzH0X8gaRBa6?=
+ =?us-ascii?Q?Wj5AQeLp6fFRpGE3QNYQn5MX/zrN9oIKzHg59c4bpa1IdTWrAxn8HYYH75BC?=
+ =?us-ascii?Q?0+O04az9l7+Ttf8PcLBYgVBAkuKyJ8kka8ErcGUc0OmwucLU2digOevNE/01?=
+ =?us-ascii?Q?tTDsGA67DFZkqpEGotFy6WdQSQmPfgdjAgeSffMEmJA9kIKTFb72UdMvjRir?=
+ =?us-ascii?Q?VBHhCuFZxuMkqKXveyDzg1hDCGjya04oOJzwJ5KkHBOv1NtooNQP8/zYQxs9?=
+ =?us-ascii?Q?sfepzmJmDYQELtllQVXyZ0C0UP301f/xPATzNTBwCM6re61wAMu99XUjsxRD?=
+ =?us-ascii?Q?ft3bn4Zw509+NN+maExy0Kwhvji7y+NgZSktgubAOvyw7A/vyKa428TvSf9G?=
+ =?us-ascii?Q?rQy+HwGUh9Rfzbq/tPvCIBILzzE4mTW8rUW6RhF5JU1P1LRP9WVi/EWWUkU?=
+ =?us-ascii?Q?=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5872516-0cd0-4fd1-bf50-08dd486ae7ee
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Feb 2025 18:03:35.1205
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR02MB8121
 
-Hi Juergen, hi all,
+From: Sean Christopherson <seanjc@google.com> Sent: Friday, February 7, 202=
+5 9:23 AM
+>=20
+> Dropping a few people/lists whose emails are bouncing.
+>=20
+> On Fri, Jan 31, 2025, Sean Christopherson wrote:
+> > @@ -369,6 +369,11 @@ void __init kvmclock_init(void)
+> >  #ifdef CONFIG_X86_LOCAL_APIC
+> >  	x86_cpuinit.early_percpu_clock_init =3D kvm_setup_secondary_clock;
+> >  #endif
+> > +	/*
+> > +	 * Save/restore "sched" clock state even if kvmclock isn't being used
+> > +	 * for sched_clock, as kvmclock is still used for wallclock and relie=
+s
+> > +	 * on these hooks to re-enable kvmclock after suspend+resume.
+>=20
+> This is wrong, wallclock is a different MSR entirely.
+>=20
+> > +	 */
+> >  	x86_platform.save_sched_clock_state =3D kvm_save_sched_clock_state;
+> >  	x86_platform.restore_sched_clock_state =3D kvm_restore_sched_clock_st=
+ate;
+>=20
+> And usurping sched_clock save/restore is *really* wrong if kvmclock isn't=
+ being
+> used as sched_clock, because when TSC is reset on suspend/hiberation, not=
+ doing
+> tsc_{save,restore}_sched_clock_state() results in time going haywire.
+>=20
+> Subtly, that issue goes all the way back to patch "x86/paravirt: Don't us=
+e a PV
+> sched_clock in CoCo guests with trusted TSC" because pulling the rug out =
+from
+> under kvmclock leads to the same problem.
+>=20
+> The whole PV sched_clock scheme is a disaster.
+>=20
+> Hyper-V overrides the save/restore callbacks, but _also_ runs the old TSC=
+ callbacks,
+> because Hyper-V doesn't ensure that it's actually using the Hyper-V clock=
+ for
+> sched_clock.  And the code is all kinds of funky, because it tries to kee=
+p the
+> x86 code isolated from the generic HV clock code, but (a) there's already=
+ x86 PV
+> specific code in drivers/clocksource/hyperv_timer.c, and (b) splitting th=
+e code
+> means that Hyper-V overides the sched_clock save/restore hooks even when
+> PARAVIRT=3Dn, i.e. when HV clock can't possibly be used as sched_clock.
 
-Radoslav Bodó reported in Debian an issue after updating our kernel
-from 6.1.112 to 6.1.115. His report in full is at:
+Regarding (a), the one occurrence of x86 PV-specific code hyperv_timer.c is
+the call to paravirt_set_sched_clock(), and it's under an #ifdef sequence s=
+o that
+it's not built if targeting some other architecture. Or do you see somethin=
+g else
+that is x86-specific?
 
-https://bugs.debian.org/1088159
+Regarding (b), in drivers/hv/Kconfig, CONFIG_HYPERV always selects PARAVIRT=
+.
+So the #else clause (where PARAVIRT=3Dn) in that #ifdef sequence could argu=
+ably
+have a BUILD_BUG() added. If I recall correctly, other Hyper-V stuff breaks=
+ if
+PARAVIRT is forced to "n". So I don't think there's a current problem with =
+the
+sched_clock save/restore hooks. But I would be good with some restructuring
+so that setting the sched clock save/restore hooks is more closely tied to =
+the
+sched clock choice, as long as the architecture independence of hyperv_time=
+r.c
+is preserved. And maybe there's a better way to handle hv_setup_sched_clock=
+()
+that is less messy with the #ifdef's. I'll think about that too.
 
-He reports that after switching to 6.1.115 (and present in any of the
-later 6.1.y series) booting under xen, the mptsas devices are not
-anymore accessible, the boot shows:
+Michael
 
-mpt3sas version 43.100.00.00 loaded
-mpt3sas_cm0: 63 BIT PCI BUS DMA ADDRESSING SUPPORTED, total mem (8086116 kB)
-mpt3sas_cm0: CurrentHostPageSize is 0: Setting default host page size to 4k
-mpt3sas_cm0: MSI-X vectors supported: 96
-mpt3sas_cm0:  0 40 40
-mpt3sas_cm0: High IOPs queues : disabled
-mpt3sas0-msix0: PCI-MSI-X enabled: IRQ 447
-mpt3sas0-msix1: PCI-MSI-X enabled: IRQ 448
-mpt3sas0-msix2: PCI-MSI-X enabled: IRQ 449
-mpt3sas0-msix3: PCI-MSI-X enabled: IRQ 450
-mpt3sas0-msix4: PCI-MSI-X enabled: IRQ 451
-mpt3sas0-msix5: PCI-MSI-X enabled: IRQ 452
-mpt3sas0-msix6: PCI-MSI-X enabled: IRQ 453
-mpt3sas0-msix7: PCI-MSI-X enabled: IRQ 454
-mpt3sas0-msix8: PCI-MSI-X enabled: IRQ 455
-mpt3sas0-msix9: PCI-MSI-X enabled: IRQ 456
-mpt3sas0-msix10: PCI-MSI-X enabled: IRQ 457
-mpt3sas0-msix11: PCI-MSI-X enabled: IRQ 458
-mpt3sas0-msix12: PCI-MSI-X enabled: IRQ 459
-mpt3sas0-msix13: PCI-MSI-X enabled: IRQ 460
-mpt3sas0-msix14: PCI-MSI-X enabled: IRQ 461
-mpt3sas0-msix15: PCI-MSI-X enabled: IRQ 462
-mpt3sas0-msix16: PCI-MSI-X enabled: IRQ 463
-mpt3sas0-msix17: PCI-MSI-X enabled: IRQ 464
-mpt3sas0-msix18: PCI-MSI-X enabled: IRQ 465
-mpt3sas0-msix19: PCI-MSI-X enabled: IRQ 466
-mpt3sas0-msix20: PCI-MSI-X enabled: IRQ 467
-mpt3sas0-msix21: PCI-MSI-X enabled: IRQ 468
-mpt3sas0-msix22: PCI-MSI-X enabled: IRQ 469
-mpt3sas0-msix23: PCI-MSI-X enabled: IRQ 470
-mpt3sas0-msix24: PCI-MSI-X enabled: IRQ 471
-mpt3sas0-msix25: PCI-MSI-X enabled: IRQ 472
-mpt3sas0-msix26: PCI-MSI-X enabled: IRQ 473
-mpt3sas0-msix27: PCI-MSI-X enabled: IRQ 474
-mpt3sas0-msix28: PCI-MSI-X enabled: IRQ 475
-mpt3sas0-msix29: PCI-MSI-X enabled: IRQ 476
-mpt3sas0-msix30: PCI-MSI-X enabled: IRQ 477
-mpt3sas0-msix31: PCI-MSI-X enabled: IRQ 478
-mpt3sas0-msix32: PCI-MSI-X enabled: IRQ 479
-mpt3sas0-msix33: PCI-MSI-X enabled: IRQ 480
-mpt3sas0-msix34: PCI-MSI-X enabled: IRQ 481
-mpt3sas0-msix35: PCI-MSI-X enabled: IRQ 482
-mpt3sas0-msix36: PCI-MSI-X enabled: IRQ 483
-mpt3sas0-msix37: PCI-MSI-X enabled: IRQ 484
-mpt3sas0-msix38: PCI-MSI-X enabled: IRQ 485
-mpt3sas0-msix39: PCI-MSI-X enabled: IRQ 486
-mpt3sas_cm0: iomem(0x00000000ac400000), mapped(0x00000000d9f45f61), size(65536)
-mpt3sas_cm0: ioport(0x0000000000006000), size(256)
-mpt3sas_cm0: CurrentHostPageSize is 0: Setting default host page size to 4k
-mpt3sas_cm0: scatter gather: sge_in_main_msg(1), sge_per_chain(7), sge_per_io(128), chains_per_io(19)
-mpt3sas_cm0: failure at drivers/scsi/mpt3sas/mpt3sas_scsih.c:12348/_scsih_probe()!
+>=20
+> VMware appears to be buggy and doesn't do have offset adjustments, and al=
+so lets
+> the TSC callbacks run.
+>=20
+> I can't tell if Xen is broken, or if it's the sanest of the bunch.  Xen d=
+oes
+> save/restore things a la kvmclock, but only in the Xen PV suspend path.  =
+So if
+> the "normal" suspend/hibernate paths are unreachable, Xen is sane.  If no=
+t, Xen
+> is quite broken.
+>=20
+> To make matters worse, kvmclock is a mess and has existing bugs.  The BSP=
+'s clock
+> is disabled during syscore_suspend() (via kvm_suspend()), but only re-ena=
+bled in
+> the sched_clock callback.  So if suspend is aborted due to a late wakeup,=
+ the BSP
+> will run without its clock enabled, which "works" only because KVM-the-hy=
+pervisor
+> is kind enough to not clobber the shared memory when the clock is disable=
+d.  But
+> over time, I would expect time on the BSP to drift from APs.
+>=20
+> And then there's this crud:
+>=20
+>   #ifdef CONFIG_X86_LOCAL_APIC
+> 	x86_cpuinit.early_percpu_clock_init =3D kvm_setup_secondary_clock;
+>   #endif
+>=20
+> which (a) should be guarded by CONFIG_SMP, not X86_LOCAL_APIC, and (b) is=
+ only
+> actually needed when kvmclock is sched_clock, because timekeeping doesn't=
+ actually
+> need to start that early.  But of course kvmclock craptastic handling of =
+suspend
+> and resume makes untangling that more difficult than it needs to be.
+>=20
+> The icing on the cake is that after cleaning up all the hacks, and having
+> kvmclock hook clocksource.suspend/resume like it should, suspend/resume u=
+nder
+> kvmclock corrupts wall clock time because timekeeping_resume() reads the =
+persistent
+> clock before resuming clocksource clocks, and the stupid kvmclock wall cl=
+ock subtly
+> consumes the clocksource/system clock.  *sigh*
+>=20
+> I have yet more patches to clean all of this up.  The series is rather un=
+wieldly,
+> as it's now sitting at 38 patches (ugh), but I don't see a way to chunk i=
+t up in
+> a meaningful way, because everything is so intertwined.  :-/
 
-We were able to bissect the changes (see https://bugs.debian.org/1088159#64) down to
-
-b1e6e80a1b42 ("xen/swiotlb: add alignment check for dma buffers")
-
-#regzbot introduced: b1e6e80a1b42
-#regzbot link: https://bugs.debian.org/1088159
-
-reverting the commit resolves the issue.
-
-Does that ring some bells?
-
-In fact we have two more bugs reported with similar symptoms but not
-yet confirmed they are the same, but I'm referencing them here as well
-in case we are able to cross-match to root cause:
-
-https://bugs.debian.org/1093371 (megaraid_sas didn't work anymore with
-Xen)
-
-and
-
-https://bugs.debian.org/1087807 (Unable to boot: i40e swiotlb buffer
-is full)
-
-(but again the these are yet not confirmed to have the same root
-cause).
-
-Thanks in advance,
-
-Regards,
-Salvatore
 
