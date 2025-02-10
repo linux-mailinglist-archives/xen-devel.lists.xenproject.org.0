@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67BF6A2E7A5
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Feb 2025 10:28:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.884497.1294201 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 578ADA2E7F9
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Feb 2025 10:38:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.884504.1294211 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thQ55-0007NB-3C; Mon, 10 Feb 2025 09:27:55 +0000
+	id 1thQEw-00015L-WC; Mon, 10 Feb 2025 09:38:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 884497.1294201; Mon, 10 Feb 2025 09:27:55 +0000
+Received: by outflank-mailman (output) from mailman id 884504.1294211; Mon, 10 Feb 2025 09:38:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thQ55-0007LB-0Q; Mon, 10 Feb 2025 09:27:55 +0000
-Received: by outflank-mailman (input) for mailman id 884497;
- Mon, 10 Feb 2025 09:27:53 +0000
+	id 1thQEw-00013X-TM; Mon, 10 Feb 2025 09:38:06 +0000
+Received: by outflank-mailman (input) for mailman id 884504;
+ Mon, 10 Feb 2025 09:38:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SvFn=VB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1thQ53-0007L5-Ir
- for xen-devel@lists.xenproject.org; Mon, 10 Feb 2025 09:27:53 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
+ id 1thQEv-00013P-V0
+ for xen-devel@lists.xenproject.org; Mon, 10 Feb 2025 09:38:05 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4aead99f-e791-11ef-b3ef-695165c68f79;
- Mon, 10 Feb 2025 10:27:48 +0100 (CET)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-5de6e26db8eso2177565a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 10 Feb 2025 01:27:48 -0800 (PST)
+ id b97a76c2-e792-11ef-b3ef-695165c68f79;
+ Mon, 10 Feb 2025 10:38:03 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5de51a735acso4979259a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Feb 2025 01:38:03 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5de3ca503a2sm6854482a12.72.2025.02.10.01.27.47
+ 4fb4d7f45d1cf-5de5fb0d738sm4361427a12.59.2025.02.10.01.38.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Feb 2025 01:27:47 -0800 (PST)
+ Mon, 10 Feb 2025 01:38:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4aead99f-e791-11ef-b3ef-695165c68f79
+X-Inumbo-ID: b97a76c2-e792-11ef-b3ef-695165c68f79
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739179668; x=1739784468; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739180283; x=1739785083; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Zd8Pt0J200QONaybDrIQPZA/aS2yhRK3Q1g+JZo58mc=;
-        b=F+kRlFMu9k8+aZ0pycv2OG+GaHEIuXzJLPNhQXainl/dlS49ycGnn2cVpHV56Zyyuc
-         8XsJ62k2yewdt5Q+Anlc1UguBLQjsQBLfZ+A9E8Jqm5zVkzjTEEnsJrHGTm4gXgx756B
-         tq8/Wa4oJyo6p+Z9zZbYb1N4CWlxOssH4votw2wNZrbAxR1d61PHIS6nh2cw8aNwtFVk
-         PSL8lhBa+8fIMMlLrUKC793bcv6MGH1mvLXict94oCS9LEur42AXfFfrcv7pUSps1t8T
-         eFfe+WvRllw7VdYVMwYdwONywWPiLpFIwpkQ4avuASN1Q1noa65jH9FEuiEKt8+zw1Ta
-         KibA==
+        bh=OONIJqVMu97Sp9U+NOuTA5Q/9x8uZsL+76w6ZqzFjVA=;
+        b=CnNKu7SBTtXLN9ECI6Br7aKoYIYr9Tfz9cLw/EpvDGqgPmEtJ46TuPqh8A9J3l+9Nm
+         SlNtflEgl2dl255j4iwf31aZ0KFh8hWr7zQap1JujWofgXstUAQ6p6B/gdd0IoiI0eoo
+         z/+HUDQ9KpsHU5f8lumR5NwxPSN7Ajp7cJO1ZoNT7oRzrmMoil7PCj59en7Tmk9ZWgXy
+         vSP6kcv8t78B02BZHbCWw2ECLxNcGfCcrX290CESDVy1ajA0bKZisP0gUjC1HiaufMC0
+         uRub0B/5GA1brg/x4ui7lCM2FQK2R3fruGORKo/rnGtBIDg8B84WNJPsLqJSYbAW2wzK
+         FHmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739179668; x=1739784468;
+        d=1e100.net; s=20230601; t=1739180283; x=1739785083;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Zd8Pt0J200QONaybDrIQPZA/aS2yhRK3Q1g+JZo58mc=;
-        b=Rr6RpZfLpYx1MPY5HLSepuIR7j5SzKYvQ1b4aUIC1ScuBIHX2CukNPjdJPSa9D8ziV
-         63JdcHbjpBzXCzFnat63xp/wI+mvemvbyrxI/xROf8uUjPHzs160QwTNGG4PYmtTNRhC
-         Kigo/d073QzOPFFMbFQjLQHfHARiHhcP85++2GFkkGPuSqb2V6NL/TI83SR0HE2D3brm
-         89UrWt1dPi6Z1z1imKQZqgLajqMOxjE6GhMcvv9xDyk0O4L2kxx/hfoIriVkxs3iDTyY
-         VU3TkpMDftv4JFABV/+eCrx+wkkOo7AtaTJ+juTaEYnBPjBrJJnXlRKKq0ZpYgL0ZAoU
-         VXJA==
-X-Gm-Message-State: AOJu0YwfPUjqhZWXBE1qoTvxlu0AMZf3bvbNvL56YjvmPIrnE1qjMCK8
-	f6wXUTyIAG0lkNSrJQsx60+9QFA18jxei62reGxYigqcv+Al4lx7rUGd6brmwQ==
-X-Gm-Gg: ASbGnct0kJkxag6WtfU496Rg/2uC+w9DHsl6/rGV55A8he4OXBt8Z5se3knpkyNGjHu
-	0kTk0tSVzMlOCbtG9/Z/12Nx9uaht9ettL7ytcaF94OmrtdGeDUkhgzZ867UUrDjEn5vjc9L3CZ
-	lfJ2wKsgoSZf7h1bWvTvAuO8qsoGDH1UwrPjA46T0UCC8uB/cWbmJHRb1jOHAIkEBHgBBnxjbxn
-	It3rJ/LVqZ3vbSaxTG6UeTAT/eYpS91ziageBkoup/5eE7YDZeZLpVLZnRNw/WZk84j1Lmp1Hz5
-	CZ8c2YgnPSRV7LeDd9gx5sCUmK3fI8uR/GM8nxW0dezQnhwdIRYTBNrMUEcjJ5j+9Utu81fB2Sp
-	j
-X-Google-Smtp-Source: AGHT+IE5H1idPqcMZKCT7TxzU4+E1kLWdqFzvTvEquSf78aLWskGgZxnSaiitI9bb20HNQ1OP1vtqQ==
-X-Received: by 2002:a05:6402:4615:b0:5d0:cfdd:2ac1 with SMTP id 4fb4d7f45d1cf-5de44fea418mr15119898a12.6.1739179668129;
-        Mon, 10 Feb 2025 01:27:48 -0800 (PST)
-Message-ID: <a8dcd8a8-8b73-49f1-a030-d9614dc51896@suse.com>
-Date: Mon, 10 Feb 2025 10:27:49 +0100
+        bh=OONIJqVMu97Sp9U+NOuTA5Q/9x8uZsL+76w6ZqzFjVA=;
+        b=op28bzMdwbG3qqKVxXumdoSII5WWEH8abgIt+tLGDj951BG7A7C8zPiobCoBFcV1QA
+         Onj6rCkYNTKthHKi+WFPiv39lvK7Um2Lk2EmH1yq5SB9DKysI8DsOGVRMoO8zAi+kwGx
+         a2GcmX17lOm65v0BoX6IJ2sBOUMgRBW5KfaYrgPsdhc2fe1Pt//RDa0JR0z5/JaLOYNS
+         xR42yq6YlpI74CtzxGOsWNi3v5CU+RJgN8+A3BkmdRH/i62N3PR4zn7b4MCYGTr8RL9q
+         hhExBRDkoI+i7v5MgTw+tYb3PIZdsoM9JyYgggy7BXZ0lVNZWh9wLb0wlOIh7NdllP+n
+         u89A==
+X-Forwarded-Encrypted: i=1; AJvYcCU9xM6vOUGgiDrSyM2dVF+Hy3As/UW+sqFsaySFqddYvtqEH8KMIC1Nezu3JurmaDOpbLHDWFafWb0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwnhBFn8XtnnfueogJD7a9Ov4hFg8mgmT8JxGx3rQy1XS93m2cz
+	UW3+Q/wy+p1v6b6v4QqJE15hlhi9xwKlrrQBIg8in/bHcA2G6YZIPdGLFHXEJw==
+X-Gm-Gg: ASbGncuCuTNJEm0a6C1MnyaL2/hk2PGPn3wlY6yMX/WWFWHvCRCyhT0GIGbiXP+lw8Y
+	+YukMHXDVcgCbJlRWQpQEfAJZXYS+TeATin6faA5Xt++4WZU+KJFZ2tJ5j7+8SgDf0GEHkc5lgP
+	FfMpQk3oUAQ4UedVfz/DF5QlD+e+0RuyiCVrC6KhQOx3Zl6RMT/zTQafxTK30tB4ajwnPd2N0xV
+	tG8OlZPlIUk4igx+RL311Gf/bYSPfwW9i1NMicvIK0R9wHuJ5hieUlt305E/Y0i7XxBgtzGAuth
+	qZk+XbTEIuz21ctOmcMz3/xd+pNQyPvrZ/2U1dikDD2tz4pIkvivwGOxgHOfgH6UpK4Z2r/CQbe
+	B
+X-Google-Smtp-Source: AGHT+IEtQQru0Ur4jb27ScRQH+MLHwcpnGVe9r7Td1pn2CYuEHV4Wbn1VTvo+1lB30yHhZfJyHoHTQ==
+X-Received: by 2002:a05:6402:5cd:b0:5d0:d9e6:fea1 with SMTP id 4fb4d7f45d1cf-5de4503cc06mr14490228a12.19.1739180282973;
+        Mon, 10 Feb 2025 01:38:02 -0800 (PST)
+Message-ID: <972947d5-85a7-4abf-b72d-7b316485d0c0@suse.com>
+Date: Mon, 10 Feb 2025 10:38:04 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/include: introduce resource.h
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
- anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com,
- roger.pau@citrix.com, dmukhin@ford.com, dmkhn@proton.me
-References: <20250207231814.3863449-1-dmukhin@ford.com>
- <alpine.DEB.2.22.394.2502071854231.619090@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH for 4-21 v4] xen/riscv: identify specific ISA supported by
+ cpu
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <a63c60c7a97a2b361e3a41f57bed61c0c9a0a89f.1738653407.git.oleksii.kurochko@gmail.com>
+ <ab7077b3-6bef-4025-9389-345a345a141c@suse.com>
+ <68c8222d-bc5a-4614-bc03-a1ea02693221@gmail.com>
+ <0e2e03ae-521a-42c4-9538-2c831b74112c@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,38 +126,59 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2502071854231.619090@ubuntu-linux-20-04-desktop>
+In-Reply-To: <0e2e03ae-521a-42c4-9538-2c831b74112c@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08.02.2025 03:54, Stefano Stabellini wrote:
-> On Fri, 7 Feb 2025, dmkhn@proton.me wrote:
->> Move resource definitions to a new architecture-agnostic shared header file.
->>
->> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+On 07.02.2025 21:00, Oleksii Kurochko wrote:
 > 
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> On 2/7/25 5:47 PM, Oleksii Kurochko wrote:
+>>
+>>
+>> On 2/4/25 12:47 PM, Jan Beulich wrote:
+>>>> +const struct riscv_isa_ext_data __initconst riscv_isa_ext[] = {
+>>>> +    RISCV_ISA_EXT_DATA(i, RISCV_ISA_EXT_i),
+>>>> +    RISCV_ISA_EXT_DATA(m, RISCV_ISA_EXT_m),
+>>>> +    RISCV_ISA_EXT_DATA(a, RISCV_ISA_EXT_a),
+>>>> +    RISCV_ISA_EXT_DATA(f, RISCV_ISA_EXT_f),
+>>>> +    RISCV_ISA_EXT_DATA(d, RISCV_ISA_EXT_d),
+>>>> +    RISCV_ISA_EXT_DATA(q, RISCV_ISA_EXT_q),
+>>>> +    RISCV_ISA_EXT_DATA(h, RISCV_ISA_EXT_h),
+>>>> +    RISCV_ISA_EXT_DATA(zicntr, RISCV_ISA_EXT_ZICNTR),
+>>>> +    RISCV_ISA_EXT_DATA(zicsr, RISCV_ISA_EXT_ZICSR),
+>>>> +    RISCV_ISA_EXT_DATA(zifencei, RISCV_ISA_EXT_ZIFENCEI),
+>>>> +    RISCV_ISA_EXT_DATA(zihintpause, RISCV_ISA_EXT_ZIHINTPAUSE),
+>>>> +    RISCV_ISA_EXT_DATA(zihpm, RISCV_ISA_EXT_ZIHPM),
+>>>> +    RISCV_ISA_EXT_DATA(zbb, RISCV_ISA_EXT_ZBB),
+>>>> +    RISCV_ISA_EXT_DATA(smaia, RISCV_ISA_EXT_SMAIA),
+>>>> +    RISCV_ISA_EXT_DATA(ssaia, RISCV_ISA_EXT_SSAIA),
+>>>> +};
+>>>> +
+>>>> +static const struct riscv_isa_ext_data __initconst required_extensions[] = {
+>>>> +    RISCV_ISA_EXT_DATA(zicsr, RISCV_ISA_EXT_ZICSR),
+>>>> +    RISCV_ISA_EXT_DATA(zihintpause, RISCV_ISA_EXT_ZIHINTPAUSE),
+>>>> +    RISCV_ISA_EXT_DATA(zbb, RISCV_ISA_EXT_ZBB),
+>>>> +};
+>>> Coming back to my earlier question regarding the B (pseudo-)extension:
+>>> Since riscv_isa_ext[] only contains Zbb, is it precluded anywhere in
+>>> the spec that DT may mention just B when all of its constituents are
+>>> supported?
+>>>
+>>> Which gets me on to G, which is somewhat similar in nature to B. We
+>>> require G when RISCV_ISA_RV64G=y, yet required_extensions[] doesn't
+>>> name it or its constituents. Much like we require C when RISCV_ISA_C=y,
+>>> yet it's not in the table.
+>> Another one thing I am thinking about if we really need a separate required_extensions[] array.
+>>
+>> We can leave only riscv_isa_ext[] and then just do a check:
+>>   bitmap_weight(riscv_isa, ...) == ARRAY_SIZE(riscv_isa_ext)
+> 
+> It seems like we still need to have two arrays: one for what Xen is supported (and could be passed to guest
+> by riscv,isa) and one for what is required for boot.
 
-Hmm, don't you think ...
-
->> @@ -70,22 +71,8 @@
->>  #define of_property_read_u32(np, pname, out) (!dt_property_read_u32(np, pname, out))
->>  #define of_property_read_bool dt_property_read_bool
->>  #define of_parse_phandle_with_args dt_parse_phandle_with_args
->> -
->> -/* Xen: Helpers to get device MMIO and IRQs */
->> -struct resource
->> -{
->> -	paddr_t addr;
->> -	paddr_t size;
->> -	unsigned int type;
->> -};
->> -
->> -#define resource_size(res) (res)->size;
->> -
->>  #define platform_device dt_device_node
-
-... one of the blank lines being removed here would better stay?
+Well, you can get away with just one array, but only if adding a boolean
+to struct riscv_isa_ext_data (indicating whether an extension is required).
+I'm not sure though how well that would work overall.
 
 Jan
 
