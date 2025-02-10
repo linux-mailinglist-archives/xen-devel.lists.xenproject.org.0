@@ -2,43 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B7FFA2F56B
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Feb 2025 18:37:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.884922.1294673 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87971A2F70E
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Feb 2025 19:30:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.884937.1294689 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thXi2-0005If-KW; Mon, 10 Feb 2025 17:36:38 +0000
+	id 1thYXM-0003pW-GP; Mon, 10 Feb 2025 18:29:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 884922.1294673; Mon, 10 Feb 2025 17:36:38 +0000
+Received: by outflank-mailman (output) from mailman id 884937.1294689; Mon, 10 Feb 2025 18:29:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thXi2-0005GR-HM; Mon, 10 Feb 2025 17:36:38 +0000
-Received: by outflank-mailman (input) for mailman id 884922;
- Mon, 10 Feb 2025 17:36:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1thYXM-0003nk-DW; Mon, 10 Feb 2025 18:29:40 +0000
+Received: by outflank-mailman (input) for mailman id 884937;
+ Mon, 10 Feb 2025 18:29:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=y9QN=VB=redhat.com=vschneid@srs-se1.protection.inumbo.net>)
- id 1thXi0-0005GL-N4
- for xen-devel@lists.xenproject.org; Mon, 10 Feb 2025 17:36:36 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8ab2680a-e7d5-11ef-b3ef-695165c68f79;
- Mon, 10 Feb 2025 18:36:22 +0100 (CET)
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-271-NW_eUtOiOMe5am9TLLsLUQ-1; Mon, 10 Feb 2025 12:36:26 -0500
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-38dca55788eso1753068f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 10 Feb 2025 09:36:26 -0800 (PST)
-Received: from vschneid-thinkpadt14sgen2i.remote.csb
- (213-44-141-166.abo.bbox.fr. [213.44.141.166])
+ <SRS0=fMFa=VB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1thYXL-0003ne-3O
+ for xen-devel@lists.xenproject.org; Mon, 10 Feb 2025 18:29:39 +0000
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fbea326d-e7dc-11ef-a075-877d107080fb;
+ Mon, 10 Feb 2025 19:29:37 +0100 (CET)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-545075ff6d5so1981250e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Feb 2025 10:29:37 -0800 (PST)
+Received: from [192.168.209.66] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38dbf2ed900sm12687106f8f.53.2025.02.10.09.36.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 Feb 2025 09:36:24 -0800 (PST)
+ 2adb3069b0e04-5450ab80820sm477065e87.52.2025.02.10.10.29.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 10 Feb 2025 10:29:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,148 +45,228 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8ab2680a-e7d5-11ef-b3ef-695165c68f79
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1739208988;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jmeQoovG0+h8NkGt8mJ7mUN4l2oR44byLjbsSTWDllc=;
-	b=TNVef/C9tVl7GrjDDWrrk4hKqiVtvBdY+TNx20ou+2MVywJjBiuRS+LAdusTTRCqabnRrS
-	2SiqpNifaNfl25SlyrgBFL3GpF+iEYwRuIyGr0R8M3DIJp2CSXAawX3L6JXmi/qYw5Lo2e
-	q6z9McKvrk7zmUsoFCctS6WLdDv4p8Y=
-X-MC-Unique: NW_eUtOiOMe5am9TLLsLUQ-1
-X-Mimecast-MFC-AGG-ID: NW_eUtOiOMe5am9TLLsLUQ
+X-Inumbo-ID: fbea326d-e7dc-11ef-a075-877d107080fb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1739212177; x=1739816977; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=LLf2IMOCuo7mqbuPNM/KTFAUIJKm6lIdCvJHqRSIPyw=;
+        b=bWhG9W0kCmpaER+yPkz6HjEp8dEVO5hoeJ+tv6+qMYkaRjUkmFJmbWW0RjrnSC8/HO
+         xzJ1f8VPhcYZTvVJ6pzPNnlAMvha5pL8rHE6aT4lCYf4vxafd/Yku23EvdcgDtli8TFN
+         cYsHEa3p6I2lYN7TNH9d4y3cVBYvIeUVQFiB6R4fiO7rXSpM+c+H4FekApCMldy6lbJA
+         l88zoOvcrzpDvTTSOvvP6aCgfR2zdtQOO/76KMbqnHfMF8vkAqtZ356hbMjJPL6CDFjN
+         nPg8enRLJrXBCgUlOVYxjWCLPhc3r01w309Sqtkj/LUn14Qfj4aSCoQaAbxpEPtZV5Yn
+         BcMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739208985; x=1739813785;
-        h=content-transfer-encoding:mime-version:message-id:date:references
-         :in-reply-to:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=jmeQoovG0+h8NkGt8mJ7mUN4l2oR44byLjbsSTWDllc=;
-        b=vo3t1gTvtnoRCUZeSrzdnOcChkGWojzzbBIquGMQqEUWZUGaDnTEVo6E7SrnnWniSK
-         xuh8wS8PfLB6yMYKIgTJbogD3Qt3+bv8cdTp1VFEVrpbWS4lck1B2EqMMoQ9kvuxJNXh
-         DZ202oy5x8YfLEUZvfkccQBsiSio3z8zvCdIenCh4HdXAm/ldGqXlxuPdGE8t1bCQp+/
-         zJryGgKANz6uNPLHCY8h4bR997vTi465SFchg5XYWhVsmnGnzynyyLMfhuCs90ISsRPx
-         I1gzQGh478cf5WW11hK2WJ/11PYFvDYeB/SaGDkeafIhK0b+4V2ZoqB9Ze2B11ACr7sT
-         BnIA==
-X-Forwarded-Encrypted: i=1; AJvYcCUdRJYUk9Rd+rqbweZUtn0lkD4MkM2hfCwupMknJOLOCzFoQ/q85BL+QEFmmzAcj3aMhbu1pRPNYZQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyT4RfV/gGWwL5lp4NO9K6FOjSJnXjNiVCLrNC2+AcBDm2S/mh5
-	pgN/Lcjftm4y6rzqAhDUzKkAUI07yo0nCKqnPIYtkVls0ww4/i347Y3iqMJiqRbYdJ7LFcpEg2U
-	9qRMveZ12GOjRAkG0Z2gzoCOWYAP0ZCmNYfjMBDGrKflvIvi5T+6Qz1IkuA/GwCzq
-X-Gm-Gg: ASbGncvqWPb2ETfHCGwaw6MQ2AXy3CnFAWGOIZI0yOU8yN3R2j5zqv1GyuyVr1/2/W3
-	AqMTxMVSh6sXUmJHTtVOibHj9ZaYlrX6x5WK4+/U2u6qrst80HPufTeUIeVcF7+/fXRzD2HSVcy
-	ynEMYk+ZyENPBMUzv0WnCsHfmGaZd9l28BFGwGUoaCaqp0qgZL98Ljo6rFHvtWBAh7LkIzkdDVV
-	r/4LtCqYeYrewkt3berWa/EYu8ivts393CQwC8TsxVfur6DFNgha++yO6dVqV28cZpgJSEE2k8R
-	DKyeJ+psi+c/jPcCksvj7aYUX2OqelD8I3hZHM4Zahk+LN4SXZBAM7KbwBlUq2s/bQ==
-X-Received: by 2002:a5d:598f:0:b0:38d:e250:d953 with SMTP id ffacd0b85a97d-38de250dbabmr3058660f8f.35.1739208985404;
-        Mon, 10 Feb 2025 09:36:25 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFxfTkrMg3Ut4KvVNhGVu91A0XAdGHvAD9T0QbpHzfP2OmSPgOw5f7LxHQ3fWHxL8NqTxJ5mQ==
-X-Received: by 2002:a5d:598f:0:b0:38d:e250:d953 with SMTP id ffacd0b85a97d-38de250dbabmr3058583f8f.35.1739208984820;
-        Mon, 10 Feb 2025 09:36:24 -0800 (PST)
-From: Valentin Schneider <vschneid@redhat.com>
-To: Frederic Weisbecker <frederic@kernel.org>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- virtualization@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
- linux-perf-users@vger.kernel.org, xen-devel@lists.xenproject.org,
- kvm@vger.kernel.org, linux-arch@vger.kernel.org, rcu@vger.kernel.org,
- linux-hardening@vger.kernel.org, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, bpf@vger.kernel.org,
- bcm-kernel-feedback-list@broadcom.com, Juergen Gross <jgross@suse.com>,
- Ajay Kaher <ajay.kaher@broadcom.com>, Alexey Makhalov
- <alexey.amakhalov@broadcom.com>, Russell King <linux@armlinux.org.uk>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, Paul
- Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave
- Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Peter Zijlstra <peterz@infradead.org>, Arnaldo Carvalho de Melo
- <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>, Alexander Shishkin
- <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, Ian
- Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
- "Liang, Kan" <kan.liang@linux.intel.com>, Boris Ostrovsky
- <boris.ostrovsky@oracle.com>, Josh Poimboeuf <jpoimboe@kernel.org>, Pawan
- Gupta <pawan.kumar.gupta@linux.intel.com>, Sean Christopherson
- <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, Andy Lutomirski
- <luto@kernel.org>, Arnd Bergmann <arnd@arndb.de>, "Paul E. McKenney"
- <paulmck@kernel.org>, Jason Baron <jbaron@akamai.com>, Steven Rostedt
- <rostedt@goodmis.org>, Ard Biesheuvel <ardb@kernel.org>, Neeraj Upadhyay
- <neeraj.upadhyay@kernel.org>, Joel Fernandes <joel@joelfernandes.org>,
- Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun.feng@gmail.com>,
- Uladzislau Rezki <urezki@gmail.com>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>,
- Zqiang <qiang.zhang1211@gmail.com>, Juri Lelli <juri.lelli@redhat.com>,
- Clark Williams <williams@redhat.com>, Yair Podemsky <ypodemsk@redhat.com>,
- Tomas Glozar <tglozar@redhat.com>, Vincent Guittot
- <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Kees Cook
- <kees@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Christoph
- Hellwig <hch@infradead.org>, Shuah Khan <shuah@kernel.org>, Sami Tolvanen
- <samitolvanen@google.com>, Miguel Ojeda <ojeda@kernel.org>, Alice Ryhl
- <aliceryhl@google.com>, "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Samuel Holland <samuel.holland@sifive.com>, Rong Xu <xur@google.com>,
- Nicolas Saenz Julienne <nsaenzju@redhat.com>, Geert Uytterhoeven
- <geert@linux-m68k.org>, Yosry Ahmed <yosryahmed@google.com>, "Kirill A.
- Shutemov" <kirill.shutemov@linux.intel.com>, "Masami Hiramatsu (Google)"
- <mhiramat@kernel.org>, Jinghao Jia <jinghao7@illinois.edu>, Luis
- Chamberlain <mcgrof@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
- Tiezhu Yang <yangtiezhu@loongson.cn>
-Subject: Re: [PATCH v4 22/30] context_tracking: Exit CT_STATE_IDLE upon
- irq/nmi entry
-In-Reply-To: <Z6ZTBXUiEOLVcSKp@pavilion.home>
-References: <20250114175143.81438-1-vschneid@redhat.com>
- <20250114175143.81438-23-vschneid@redhat.com>
- <Z5A6NPqVGoZ32YsN@pavilion.home>
- <xhsmh5xm0pkuo.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
- <xhsmhbjvdk7kq.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
- <Z6ZTBXUiEOLVcSKp@pavilion.home>
-Date: Mon, 10 Feb 2025 18:36:20 +0100
-Message-ID: <xhsmh8qqdk8h7.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
+        d=1e100.net; s=20230601; t=1739212177; x=1739816977;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=LLf2IMOCuo7mqbuPNM/KTFAUIJKm6lIdCvJHqRSIPyw=;
+        b=jtrlshNLRM4CU1ZWY8G8H8lxyjBq9yD8zmGMhaP3q07/kwS+brWTQ0YzdMPnY8+2OS
+         C2ezuZca7jFLgRdDlG85k2wuJlKe3Un29v45dAN56Cc5GsvfjCI02B1Pu/YYddvXju+e
+         3AdpmzVEdOW+3QwXvlAq18vzZoV7lgtAaVezxIG5BYOcLSATJsVLGcWQxga1w54C9xkB
+         6BUKDgupgUO/xa+drIhh22z67H1NUm4tevvqB7AxLKxcZKFcQjU+GkkktoZlZ+e+Awal
+         lm6+de317SWbYsJo+unxTq1obn+W7lC4TwdPdyJcAgnkFIcZBHx2WY9aVQzYTDCY8wbs
+         dSVg==
+X-Gm-Message-State: AOJu0YyqlUvXzVg/VS4fK3cDV2+MxV42ojwktssdqiIIfRWo7jmY5dX4
+	gOK5bivRkmZ2FPVJkVaimTmOYt6KodU1yGxZg2Vfw+Vj4BZw+xpJ
+X-Gm-Gg: ASbGncvDveSv7f7uw/qgIQnmyl5ciXmvX7jbz2qVy5BVG4cDMB1q3fdBDhPoICQrjaa
+	BkSwTZR44tvdStHJozKOXUfsEIgHsT0nGKL8xVRH0zSeeuiIwW3vDxI2ClRuT0Y75O0jS9WnXVL
+	QlxZayrdviKVAI2lSb9hhUKGE9nro3Z3hmJdJK/3GSEVzplAEnwHlDPsVgD8rWUcdBHnYWBE8SK
+	NtaXAIxSPkG4BkZXfHtNGx0m6Ob5mmaWYQtg6wdUL8+u35CXp1/YhNs4Ha+UbE1PUEP1ge2sCXy
+	SZTPVQ6WTjI0GXe6Uwriyjuv5Sw=
+X-Google-Smtp-Source: AGHT+IGjkdz7G6OOOVh6bSdBO97SpvcWhWB7lYmQD9yZtlcTS7PrKiGqTdWX+jR1nFOsanNwQRvDug==
+X-Received: by 2002:ac2:568d:0:b0:545:d70:1d1c with SMTP id 2adb3069b0e04-5450d701fe3mr1361840e87.11.1739212176772;
+        Mon, 10 Feb 2025 10:29:36 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------uFL1wE5BEWFfcOK8HHkTlKx2"
+Message-ID: <9f6240b2-009d-46a7-af9f-4944cd9439b1@gmail.com>
+Date: Mon, 10 Feb 2025 19:29:35 +0100
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: m8cSvRQDwN8laHZmp7zgLSmZaLn6XhbKdWPGAc0tcXY_1739208985
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.20? v2 0/5] xen/x86: prevent local APIC errors at
+ shutdown
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20250206150615.52052-1-roger.pau@citrix.com>
+ <Z6nOmwdp8iRNmkzh@macbook.local>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <Z6nOmwdp8iRNmkzh@macbook.local>
 
-On 07/02/25 19:37, Frederic Weisbecker wrote:
-> Le Fri, Feb 07, 2025 at 06:06:45PM +0100, Valentin Schneider a =C3=A9crit=
- :
->>
->> Soooo I've been thinking...
->>
->> Isn't
->>
->>   (context_tracking.state & CT_RCU_WATCHING)
->>
->> pretty much a proxy for knowing whether a CPU is executing in kernelspac=
-e,
->> including NMIs?
+This is a multi-part message in MIME format.
+--------------uFL1wE5BEWFfcOK8HHkTlKx2
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Hello Roger,
+
+On 2/10/25 11:02 AM, Roger Pau Monné wrote:
+> Hello,
 >
-> You got it!
+> This should have had a 'for-4.20?' tag in the subject name, as
+> otherwise we will need to add an errata to the release notes to notice
+> that reboot can sometimes fail on AMD boxes.
 >
+> Also adding Oleksii.
+>
+> Thanks, Roger.
+>
+> On Thu, Feb 06, 2025 at 04:06:10PM +0100, Roger Pau Monne wrote:
+>> Hello,
+>>
+>> The following series aims to prevent local APIC errors from stalling the
+>> shtudown process.  On XenServer testing we have seen reports of AMD
+>> boxes sporadically getting stuck in a spam of:
 
-Yay!
+How often this issue happen?
 
 >>
->> NMI interrupts userspace/VM/idle -> ct_nmi_enter()   -> it becomes true
->> IRQ interrupts idle              -> ct_irq_enter()   -> it becomes true
->> IRQ interrupts userspace         -> __ct_user_exit() -> it becomes true
->> IRQ interrupts VM                -> __ct_user_exit() -> it becomes true
+>> APIC error on CPU0: 00(08), Receive accept error
 >>
->> IOW, if I gate setting deferred work by checking for this instead of
->> explicitely CT_STATE_KERNEL, "it should work" and prevent the
->> aforementioned issue? Or should I be out drinking instead? :-)
->
-> Exactly it should work! Now that doesn't mean you can't go out
-> for a drink :-)
->
+>> Messages during shutdown, as a result of device interrupts targeting
+>> CPUs that are offline (and have the local APIC disabled).
+>>
+>> First patch strictly solves the issue of shutdown getting stuck, further
+>> patches aim to quiesce interrupts from all devices (known by Xen) as an
+>> attempt to prevent a spurious "APIC error on CPU0: 00(00)" plus also
+>> make kexec more reliable.
 
-Well, drinks were had very shortly after sending this email :D
+If the first patch solves does it make sense to consider, at least, it to be merged?
 
-> Thanks.
+~ Oleksii
 
+>>
+>> Thanks, Roger.
+>>
+>> Roger Pau Monne (5):
+>>    x86/shutdown: offline APs with interrupts disabled on all CPUs
+>>    x86/irq: drop fixup_irqs() parameters
+>>    x86/smp: perform disabling on interrupts ahead of AP shutdown
+>>    x86/pci: disable MSI(-X) on all devices at shutdown
+>>    x86/iommu: disable interrupts at shutdown
+>>
+>>   xen/arch/x86/crash.c                        |  2 ++
+>>   xen/arch/x86/include/asm/irq.h              |  4 +--
+>>   xen/arch/x86/include/asm/msi.h              |  1 +
+>>   xen/arch/x86/irq.c                          | 30 ++++++++-----------
+>>   xen/arch/x86/msi.c                          | 18 +++++++++++
+>>   xen/arch/x86/smp.c                          | 33 +++++++++++++++------
+>>   xen/arch/x86/smpboot.c                      |  2 +-
+>>   xen/drivers/passthrough/amd/iommu.h         |  1 +
+>>   xen/drivers/passthrough/amd/iommu_init.c    | 17 +++++++++++
+>>   xen/drivers/passthrough/amd/pci_amd_iommu.c |  1 +
+>>   xen/drivers/passthrough/iommu.c             |  6 ++++
+>>   xen/drivers/passthrough/pci.c               | 33 +++++++++++++++++++++
+>>   xen/drivers/passthrough/vtd/iommu.c         | 19 ++++++++++++
+>>   xen/include/xen/iommu.h                     |  3 ++
+>>   xen/include/xen/pci.h                       |  4 +++
+>>   15 files changed, 145 insertions(+), 29 deletions(-)
+>>
+>> -- 
+>> 2.46.0
+>>
+--------------uFL1wE5BEWFfcOK8HHkTlKx2
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <pre>Hello Roger,</pre>
+    <div class="moz-cite-prefix">On 2/10/25 11:02 AM, Roger Pau Monné
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:Z6nOmwdp8iRNmkzh@macbook.local">
+      <pre wrap="" class="moz-quote-pre">Hello,
+
+This should have had a 'for-4.20?' tag in the subject name, as
+otherwise we will need to add an errata to the release notes to notice
+that reboot can sometimes fail on AMD boxes.
+
+Also adding Oleksii.
+
+Thanks, Roger.
+
+On Thu, Feb 06, 2025 at 04:06:10PM +0100, Roger Pau Monne wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">Hello,
+
+The following series aims to prevent local APIC errors from stalling the
+shtudown process.  On XenServer testing we have seen reports of AMD
+boxes sporadically getting stuck in a spam of:</pre>
+      </blockquote>
+    </blockquote>
+    <pre>How often this issue happen?
+
+</pre>
+    <blockquote type="cite" cite="mid:Z6nOmwdp8iRNmkzh@macbook.local">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+
+APIC error on CPU0: 00(08), Receive accept error
+
+Messages during shutdown, as a result of device interrupts targeting
+CPUs that are offline (and have the local APIC disabled).
+
+First patch strictly solves the issue of shutdown getting stuck, further
+patches aim to quiesce interrupts from all devices (known by Xen) as an
+attempt to prevent a spurious "APIC error on CPU0: 00(00)" plus also
+make kexec more reliable.</pre>
+      </blockquote>
+    </blockquote>
+    <pre>If the first patch solves does it make sense to consider, at least, it to be merged?
+
+~ Oleksii
+</pre>
+    <blockquote type="cite" cite="mid:Z6nOmwdp8iRNmkzh@macbook.local">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+
+Thanks, Roger.
+
+Roger Pau Monne (5):
+  x86/shutdown: offline APs with interrupts disabled on all CPUs
+  x86/irq: drop fixup_irqs() parameters
+  x86/smp: perform disabling on interrupts ahead of AP shutdown
+  x86/pci: disable MSI(-X) on all devices at shutdown
+  x86/iommu: disable interrupts at shutdown
+
+ xen/arch/x86/crash.c                        |  2 ++
+ xen/arch/x86/include/asm/irq.h              |  4 +--
+ xen/arch/x86/include/asm/msi.h              |  1 +
+ xen/arch/x86/irq.c                          | 30 ++++++++-----------
+ xen/arch/x86/msi.c                          | 18 +++++++++++
+ xen/arch/x86/smp.c                          | 33 +++++++++++++++------
+ xen/arch/x86/smpboot.c                      |  2 +-
+ xen/drivers/passthrough/amd/iommu.h         |  1 +
+ xen/drivers/passthrough/amd/iommu_init.c    | 17 +++++++++++
+ xen/drivers/passthrough/amd/pci_amd_iommu.c |  1 +
+ xen/drivers/passthrough/iommu.c             |  6 ++++
+ xen/drivers/passthrough/pci.c               | 33 +++++++++++++++++++++
+ xen/drivers/passthrough/vtd/iommu.c         | 19 ++++++++++++
+ xen/include/xen/iommu.h                     |  3 ++
+ xen/include/xen/pci.h                       |  4 +++
+ 15 files changed, 145 insertions(+), 29 deletions(-)
+
+-- 
+2.46.0
+
+</pre>
+      </blockquote>
+    </blockquote>
+  </body>
+</html>
+
+--------------uFL1wE5BEWFfcOK8HHkTlKx2--
 
