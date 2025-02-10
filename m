@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F3C8A2E6D9
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Feb 2025 09:49:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.884426.1294131 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61A6EA2E719
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Feb 2025 09:58:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.884438.1294140 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thPTp-0006AC-SB; Mon, 10 Feb 2025 08:49:25 +0000
+	id 1thPby-00083y-Ou; Mon, 10 Feb 2025 08:57:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 884426.1294131; Mon, 10 Feb 2025 08:49:25 +0000
+Received: by outflank-mailman (output) from mailman id 884438.1294140; Mon, 10 Feb 2025 08:57:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thPTp-00068j-OV; Mon, 10 Feb 2025 08:49:25 +0000
-Received: by outflank-mailman (input) for mailman id 884426;
- Mon, 10 Feb 2025 08:49:24 +0000
+	id 1thPby-00081F-Lx; Mon, 10 Feb 2025 08:57:50 +0000
+Received: by outflank-mailman (input) for mailman id 884438;
+ Mon, 10 Feb 2025 08:57:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fMFa=VB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1thPTo-00068d-0U
- for xen-devel@lists.xenproject.org; Mon, 10 Feb 2025 08:49:24 +0000
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [2a00:1450:4864:20::12c])
+ id 1thPbx-000819-Oo
+ for xen-devel@lists.xenproject.org; Mon, 10 Feb 2025 08:57:49 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ec140feb-e78b-11ef-b3ef-695165c68f79;
- Mon, 10 Feb 2025 09:49:22 +0100 (CET)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-543e4bbcd86so4661790e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 10 Feb 2025 00:49:22 -0800 (PST)
+ id 193f981c-e78d-11ef-b3ef-695165c68f79;
+ Mon, 10 Feb 2025 09:57:47 +0100 (CET)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-308e3bd8286so13763441fa.1
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Feb 2025 00:57:47 -0800 (PST)
 Received: from [192.168.209.66] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5450c4d4989sm285836e87.192.2025.02.10.00.49.20
+ 2adb3069b0e04-5450c3d1922sm282993e87.3.2025.02.10.00.57.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Feb 2025 00:49:20 -0800 (PST)
+ Mon, 10 Feb 2025 00:57:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ec140feb-e78b-11ef-b3ef-695165c68f79
+X-Inumbo-ID: 193f981c-e78d-11ef-b3ef-695165c68f79
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1739177361; x=1739782161; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1739177867; x=1739782667; darn=lists.xenproject.org;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Kq9KXMaORsH6NPJu+cLjHPa/ww81bQIOsjsLvzAPuTE=;
-        b=BZXQbd+0hq2FciMy5s47fapeqsGDClsepG4jz48cOLJeOs9flVyDNT2ghBSz/YzQip
-         /2NuYr85fh7YCrgnGfpzp8LwZgVFDay3TSkCBoci+SfiazRG0kJsAW+rxrBfCUsOzRq5
-         BOy0t9fX/1dBHQ5bfPejmVIDwkEX3qQwKKORCX8wJLnkOCzmBsdhk1tm5FvzpGpCg734
-         /KPvimRkCGmfdkKUBz0kCR3ZKV74SR1sNINdRtrHoenY7fIzUWAYS3GTgc2koMZN4vDv
-         vTZOUItYHVt7tqRYzscvZH2QCHeSHs5LACofNmbMqMQ9GaSpPMzMR6eK6zwyIFkeVTAI
-         NT3w==
+        bh=58hWoV17xvmWaMeA0pLKuCFSSAnJ6dG0u2Ce61gRp98=;
+        b=kbPuWckNN+N396Qc5Yu91pyEb9cjkWY9b8o1zJe4dP3yPxmOS2VaQvld/wzThO5g2B
+         rePv2VEv6CAuVfT8m5chNTTJITKzhMUKbTGV/I25ykwsbE5TyX9BBac0mdFjdI7aHEzN
+         /sOPOcNvYYaFVP8M/9BPm8DP2QV4JsBwEhWEqURoA3ybS83xgM2Anrdcc5ZKLdKu72VT
+         4jYqMVDVCrfbopl2WJbv9FBVSHaYh5DksMVhAx7QAul1/Mr03T0dywa9SI7XyRbH0K93
+         xiAG2whEouNcRKH5mYLaDeXrq31rg8fmOXMmrmdw1y+riCjYnQ7Hyqhx0AYzxGTpVZ9Z
+         LXzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739177361; x=1739782161;
+        d=1e100.net; s=20230601; t=1739177867; x=1739782667;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=Kq9KXMaORsH6NPJu+cLjHPa/ww81bQIOsjsLvzAPuTE=;
-        b=QNM8/bX4YihTF0BpWffvcSzuOHummghDPisphUAOoxcG16zuZ1dwcoJ2LrXWOTWttH
-         mnmV6VOO3WXUfR8azhsh9aoq7OBN4tkYty7FiiEKWS7PReDY/pFWUcDKpMAx/sqM6Vw/
-         MBhKEAo2rALgNb7psP9x/ucPhxvjCEygl2qZsTjO0P6DegvqVoqLA4AcnmzQW1gqF/qb
-         PivQxnP7eYCJ17QFnXNBnVqlH/UdO2XXbkPzIWnMOOgEk4szqCGM4JVshCpQdAIDakJE
-         N2h7yuLMOmkxKzfqB7Rx/eIcx3G1AsVv7HS3MEuNtqbEjo6cttswIcIqCsthoqoT7eRq
-         dVoA==
-X-Forwarded-Encrypted: i=1; AJvYcCXxJ6G9X0C0jUMj/u+K0sItmCVYuqdYz62+/oZbRV7mhPqyob+BZprLRrm03LBdGEUwsdQeqy2cXFk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxxjdJPo3UqX67BlnmNr9dShBcYV0OAyeD8s1HDYow62rBVScWk
-	DxEL8CxuOZFPHz/XC8i53EBnkCYBigS5/TM6UkmxbpHe18xEBiGb
-X-Gm-Gg: ASbGncvUKkWQkro369E9btD1Lv4pcJwbt1LKx1xwCWMU2ao/kgtPgJRtfN+Jz6JnVbo
-	fnfz+QdAmUrPdL0wj2g5gFoHHnBfttWY6C9p53CHkJP8+zkOEISzw9AA1NK7lIDPEdfI5b7gQJ2
-	+1PubbV4ooDwpXASpVutF7uPovzcRkB4kKmqAu5u+OYwciJOR9YBqRKoY4BKX0NuqjDhZIMJEpw
-	fBl9SK5SVkUd6FvdIvnxiu+UuA/DBc2txPGFzy5R+pUuFw2ifEFdi4wJ3bPI4U+TCPHygEX82uv
-	UrO1E7Zm4LGKzjVow4qmS7Iz/J4=
-X-Google-Smtp-Source: AGHT+IGnfHcs91eSYR3ubXqmsKEailRZmdxvd6AR1gTrOsZGQs1twFz0oS30mxUWkbdYzcOpgelESA==
-X-Received: by 2002:a05:6512:3ba2:b0:545:ebf:145f with SMTP id 2adb3069b0e04-5450ebf1d0dmr305076e87.53.1739177361011;
-        Mon, 10 Feb 2025 00:49:21 -0800 (PST)
+        bh=58hWoV17xvmWaMeA0pLKuCFSSAnJ6dG0u2Ce61gRp98=;
+        b=nFwGdj+uYFl4pQe7Kyie0JgSGkkDaDdZXSBu4OVXpHR+DaR+73eyh36FUOXth93JIa
+         1d1JDrLZuC7aPwBzBNTi8JuxDvWd10idkNB/yYq+ENWGgRzeOdX1ug123/qmMZPp9kB2
+         2wn+KuK9GMCgeQuiY72ARTTqbhMX+DkZRa9F1914nbEpdO9q72coemlh/Z+3pIjN+NTf
+         /0lCFqfTehICMq+Q0j5vcbPr8RZptCRr9QmBWyTVubheUH3efPIoxBzrVTVPlek3wR7C
+         9DWjJ+2CAiwIlGpZVdKWctw2lQQF94rqEfJdQEAjXZSr1LHFakll32gFDnjWmF51Wj8q
+         3umg==
+X-Forwarded-Encrypted: i=1; AJvYcCU+ZyZSAqHYXPbSyQC8sH81yApsTcCQFaVbYiQN8bOR/unZ7UoP7nveMTrIoW4co8Qyy9NKG9KjL0k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YweZfG/CXEuB9EDsNS9bGE7rAcnb7wyVEWH6xToZd7xXE1bmDVx
+	AyDaizE0GhhcoDYbSaTIWXo6TGpJpp8v9KKTkitHGm0ovZ0sbc4i
+X-Gm-Gg: ASbGncuMpMPCxtNXEib+ftcWO07YYBDASOO/A7xfDMZIJk+3+FvemKMIaTXtHc1z82w
+	GzXI6Zqpo3t15ehlqQKhD5zKTmeUsadNqe/tRB3N0xYYKUTJdPp2nL9vSayIG7rtw16OMY2xS0Y
+	b4H+UGVl9luoZNgWX2uauOMLeCTepPm+OX7vSFWga/kmrtMr1RFEsfHlsg0Op/Pt6WQP9Xy8UUS
+	RT77sA4i8Acol1NIKR6wg4Pbkuahlar3Wzk1bDHnMEKH4pLMT0g2UBddtLDfpTjflP6hUsMiBnt
+	fQXgStD2yhRgB9LdEvoZ4dgyZxc=
+X-Google-Smtp-Source: AGHT+IG+NBHxolkPen+4+uAi6ZOGQiSneZ6egMG6xpL8Kb+tO93qYsGbIibSbLMjkCwrg+Y/h+iLfQ==
+X-Received: by 2002:a05:6512:61:b0:545:158:1344 with SMTP id 2adb3069b0e04-54501581440mr2671906e87.49.1739177866502;
+        Mon, 10 Feb 2025 00:57:46 -0800 (PST)
 Content-Type: multipart/alternative;
- boundary="------------t1q0IwALVUg4Ku0CruccBYih"
-Message-ID: <c07c0942-8dce-4ced-91a4-2c84418fbcb3@gmail.com>
-Date: Mon, 10 Feb 2025 09:49:20 +0100
+ boundary="------------18z603VALNf3V00LBwLxskvi"
+Message-ID: <f434e5a7-756f-4d7b-8e0a-bcd5a924a285@gmail.com>
+Date: Mon, 10 Feb 2025 09:57:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.20 1/3] RISCV/boot: Run constructors during setup
+Subject: Re: [PATCH for-4.20 2/3] RISCV/asm: Use CALL rather than JAL
 To: Andrew Cooper <andrew.cooper3@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Anthony PERARD <anthony.perard@vates.tech>,
@@ -95,22 +95,39 @@ Cc: Anthony PERARD <anthony.perard@vates.tech>,
  Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
 References: <20250207220122.380214-1-andrew.cooper3@citrix.com>
- <20250207220122.380214-2-andrew.cooper3@citrix.com>
+ <20250207220122.380214-3-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <20250207220122.380214-2-andrew.cooper3@citrix.com>
+In-Reply-To: <20250207220122.380214-3-andrew.cooper3@citrix.com>
 
 This is a multi-part message in MIME format.
---------------t1q0IwALVUg4Ku0CruccBYih
+--------------18z603VALNf3V00LBwLxskvi
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 
 On 2/7/25 11:01 PM, Andrew Cooper wrote:
-> Without this, RISC-V isn't running boot time selftests when they're compiled
-> in.
+> JAL has a maximium displacement of 2M.  To branch further, it needs pairing
+> with an AUIPC instruction.  CALL is a pseudo-op which allows the linker to
+> pick the appropriate sequence while processing relaxations.
+>
+> This avoids a build failure of the form:
+>
+>    prelink.o: in function `start':
+>    xen/xen/arch/riscv/riscv64/head.S:28:(.text.header+0x2c):
+>    relocation truncated to fit: R_RISCV_JAL against symbol `calc_phys_offset' defined in .init.text section in prelink.o
+>    make[3]: *** [arch/riscv/Makefile:18: xen-syms] Error 1
+>
+> when Xen gets large enough, e.g. with CONFIG_UBSAN enabled.
 >
 > Signed-off-by: Andrew Cooper<andrew.cooper3@citrix.com>
+
+LGTM: Reviewed-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+
+Thanks.
+
+~ Oleksii
+
 > ---
 > CC: Oleksii Kurochko<oleksii.kurochko@gmail.com>
 > CC: Anthony PERARD<anthony.perard@vates.tech>
@@ -119,39 +136,72 @@ On 2/7/25 11:01 PM, Andrew Cooper wrote:
 > CC: Julien Grall<julien@xen.org>
 > CC: Roger Pau Monné<roger.pau@citrix.com>
 > CC: Stefano Stabellini<sstabellini@kernel.org>
->
-> https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1660821676
->
-> For-4.20.  Boot selftests are new in 4.20, and work in each other
-> archtiecture.
-
-LGTM:
-
-Reviewed-By: Oleksii Kurochko<oleksii.kurochko@gmail.com>
-
-Thanks.
-
-~ Oleksii
-
-
 > ---
->   xen/arch/riscv/setup.c | 2 ++
->   1 file changed, 2 insertions(+)
+>   xen/arch/riscv/entry.S        |  2 +-
+>   xen/arch/riscv/riscv64/head.S | 12 ++++++------
+>   2 files changed, 7 insertions(+), 7 deletions(-)
 >
-> diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-> index 38ca4f3baa1b..f2b6e684ac69 100644
-> --- a/xen/arch/riscv/setup.c
-> +++ b/xen/arch/riscv/setup.c
-> @@ -109,6 +109,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
->        */
->       system_state = SYS_STATE_boot;
+> diff --git a/xen/arch/riscv/entry.S b/xen/arch/riscv/entry.S
+> index bf974655f8b3..4db818ba8d24 100644
+> --- a/xen/arch/riscv/entry.S
+> +++ b/xen/arch/riscv/entry.S
+> @@ -49,7 +49,7 @@ save_to_stack:
+>           REG_S   t0, CPU_USER_REGS_SSTATUS(sp)
 >   
-> +    init_constructors();
-> +
->       if ( acpi_disabled )
->       {
->           printk("Booting using Device Tree\n");
---------------t1q0IwALVUg4Ku0CruccBYih
+>           mv      a0, sp
+> -        jal     do_trap
+> +        call    do_trap
+>   
+>   restore_registers:
+>           /* Restore stack_cpu_regs */
+> diff --git a/xen/arch/riscv/riscv64/head.S b/xen/arch/riscv/riscv64/head.S
+> index 2a1b3dad9191..9c40512e612e 100644
+> --- a/xen/arch/riscv/riscv64/head.S
+> +++ b/xen/arch/riscv/riscv64/head.S
+> @@ -28,7 +28,7 @@ FUNC(start)
+>           add     t3, t3, __SIZEOF_POINTER__
+>           bltu    t3, t4, .L_clear_bss
+>   
+> -        jal     reset_stack
+> +        call    reset_stack
+>   
+>           /*
+>            * save hart_id ( bootcpu_id ) and dtb_base as a0 and a1 register can
+> @@ -37,16 +37,16 @@ FUNC(start)
+>           mv      s0, a0
+>           mv      s1, a1
+>   
+> -        jal     calc_phys_offset
+> +        call    calc_phys_offset
+>           mv      s2, a0
+>   
+> -        jal     setup_initial_pagetables
+> +        call    setup_initial_pagetables
+>   
+>           /* Calculate proper VA after jump from 1:1 mapping */
+>           la      a0, .L_primary_switched
+>           sub     a0, a0, s2
+>   
+> -        jal     turn_on_mmu
+> +        call    turn_on_mmu
+>   
+>   .L_primary_switched:
+>           /*
+> @@ -54,11 +54,11 @@ FUNC(start)
+>            * recalculated after jump from 1:1 mapping world as 1:1 mapping
+>            * will be removed soon in start_xen().
+>            */
+> -        jal     reset_stack
+> +        call    reset_stack
+>   
+>           /* Xen's boot cpu id is equal to 0 so setup TP register for it */
+>           li      a0, 0
+> -        jal     setup_tp
+> +        call    setup_tp
+>   
+>           /* restore hart_id ( bootcpu_id ) and dtb address */
+>           mv      a0, s0
+--------------18z603VALNf3V00LBwLxskvi
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
@@ -167,11 +217,31 @@ Content-Transfer-Encoding: 8bit
       wrote:<br>
     </div>
     <blockquote type="cite"
-      cite="mid:20250207220122.380214-2-andrew.cooper3@citrix.com">
-      <pre wrap="" class="moz-quote-pre">Without this, RISC-V isn't running boot time selftests when they're compiled
-in.
+      cite="mid:20250207220122.380214-3-andrew.cooper3@citrix.com">
+      <pre wrap="" class="moz-quote-pre">JAL has a maximium displacement of 2M.  To branch further, it needs pairing
+with an AUIPC instruction.  CALL is a pseudo-op which allows the linker to
+pick the appropriate sequence while processing relaxations.
 
-Signed-off-by: Andrew Cooper <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a>
+This avoids a build failure of the form:
+
+  prelink.o: in function `start':
+  xen/xen/arch/riscv/riscv64/head.S:28:(.text.header+0x2c):
+  relocation truncated to fit: R_RISCV_JAL against symbol `calc_phys_offset' defined in .init.text section in prelink.o
+  make[3]: *** [arch/riscv/Makefile:18: xen-syms] Error 1
+
+when Xen gets large enough, e.g. with CONFIG_UBSAN enabled.
+
+Signed-off-by: Andrew Cooper <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a></pre>
+    </blockquote>
+    <pre>LGTM: Reviewed-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+
+Thanks.
+
+~ Oleksii
+</pre>
+    <blockquote type="cite"
+      cite="mid:20250207220122.380214-3-andrew.cooper3@citrix.com">
+      <pre wrap="" class="moz-quote-pre">
 ---
 CC: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
 CC: Anthony PERARD <a class="moz-txt-link-rfc2396E" href="mailto:anthony.perard@vates.tech">&lt;anthony.perard@vates.tech&gt;</a>
@@ -180,45 +250,75 @@ CC: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com"
 CC: Julien Grall <a class="moz-txt-link-rfc2396E" href="mailto:julien@xen.org">&lt;julien@xen.org&gt;</a>
 CC: Roger Pau Monné <a class="moz-txt-link-rfc2396E" href="mailto:roger.pau@citrix.com">&lt;roger.pau@citrix.com&gt;</a>
 CC: Stefano Stabellini <a class="moz-txt-link-rfc2396E" href="mailto:sstabellini@kernel.org">&lt;sstabellini@kernel.org&gt;</a>
-
-<a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1660821676">https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1660821676</a>
-
-For-4.20.  Boot selftests are new in 4.20, and work in each other
-archtiecture.</pre>
-    </blockquote>
-    <pre>LGTM:
-
-Reviewed-By: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-
-Thanks.
-
-~ Oleksii
-</pre>
-    <br>
-    <blockquote type="cite"
-      cite="mid:20250207220122.380214-2-andrew.cooper3@citrix.com">
-      <pre wrap="" class="moz-quote-pre">
 ---
- xen/arch/riscv/setup.c | 2 ++
- 1 file changed, 2 insertions(+)
+ xen/arch/riscv/entry.S        |  2 +-
+ xen/arch/riscv/riscv64/head.S | 12 ++++++------
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index 38ca4f3baa1b..f2b6e684ac69 100644
---- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -109,6 +109,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
-      */
-     system_state = SYS_STATE_boot;
+diff --git a/xen/arch/riscv/entry.S b/xen/arch/riscv/entry.S
+index bf974655f8b3..4db818ba8d24 100644
+--- a/xen/arch/riscv/entry.S
++++ b/xen/arch/riscv/entry.S
+@@ -49,7 +49,7 @@ save_to_stack:
+         REG_S   t0, CPU_USER_REGS_SSTATUS(sp)
  
-+    init_constructors();
-+
-     if ( acpi_disabled )
-     {
-         printk("Booting using Device Tree\n");
+         mv      a0, sp
+-        jal     do_trap
++        call    do_trap
+ 
+ restore_registers:
+         /* Restore stack_cpu_regs */
+diff --git a/xen/arch/riscv/riscv64/head.S b/xen/arch/riscv/riscv64/head.S
+index 2a1b3dad9191..9c40512e612e 100644
+--- a/xen/arch/riscv/riscv64/head.S
++++ b/xen/arch/riscv/riscv64/head.S
+@@ -28,7 +28,7 @@ FUNC(start)
+         add     t3, t3, __SIZEOF_POINTER__
+         bltu    t3, t4, .L_clear_bss
+ 
+-        jal     reset_stack
++        call    reset_stack
+ 
+         /*
+          * save hart_id ( bootcpu_id ) and dtb_base as a0 and a1 register can
+@@ -37,16 +37,16 @@ FUNC(start)
+         mv      s0, a0
+         mv      s1, a1
+ 
+-        jal     calc_phys_offset
++        call    calc_phys_offset
+         mv      s2, a0
+ 
+-        jal     setup_initial_pagetables
++        call    setup_initial_pagetables
+ 
+         /* Calculate proper VA after jump from 1:1 mapping */
+         la      a0, .L_primary_switched
+         sub     a0, a0, s2
+ 
+-        jal     turn_on_mmu
++        call    turn_on_mmu
+ 
+ .L_primary_switched:
+         /*
+@@ -54,11 +54,11 @@ FUNC(start)
+          * recalculated after jump from 1:1 mapping world as 1:1 mapping
+          * will be removed soon in start_xen().
+          */
+-        jal     reset_stack
++        call    reset_stack
+ 
+         /* Xen's boot cpu id is equal to 0 so setup TP register for it */
+         li      a0, 0
+-        jal     setup_tp
++        call    setup_tp
+ 
+         /* restore hart_id ( bootcpu_id ) and dtb address */
+         mv      a0, s0
 </pre>
     </blockquote>
   </body>
 </html>
 
---------------t1q0IwALVUg4Ku0CruccBYih--
+--------------18z603VALNf3V00LBwLxskvi--
 
