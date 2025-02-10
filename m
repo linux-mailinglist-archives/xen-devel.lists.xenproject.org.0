@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7727EA2E792
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Feb 2025 10:23:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.884477.1294181 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD6D3A2E79D
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Feb 2025 10:25:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.884486.1294191 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thQ0V-0006BV-9q; Mon, 10 Feb 2025 09:23:11 +0000
+	id 1thQ2Y-0006j5-LF; Mon, 10 Feb 2025 09:25:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 884477.1294181; Mon, 10 Feb 2025 09:23:11 +0000
+Received: by outflank-mailman (output) from mailman id 884486.1294191; Mon, 10 Feb 2025 09:25:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thQ0V-00069W-6b; Mon, 10 Feb 2025 09:23:11 +0000
-Received: by outflank-mailman (input) for mailman id 884477;
- Mon, 10 Feb 2025 09:23:09 +0000
+	id 1thQ2Y-0006gn-HW; Mon, 10 Feb 2025 09:25:18 +0000
+Received: by outflank-mailman (input) for mailman id 884486;
+ Mon, 10 Feb 2025 09:25:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fMFa=VB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1thQ0T-00069H-GZ
- for xen-devel@lists.xenproject.org; Mon, 10 Feb 2025 09:23:09 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=SvFn=VB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1thQ2W-0006gh-RV
+ for xen-devel@lists.xenproject.org; Mon, 10 Feb 2025 09:25:16 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a2db36a4-e790-11ef-b3ef-695165c68f79;
- Mon, 10 Feb 2025 10:23:06 +0100 (CET)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-54508b026d1so1021510e87.2
- for <xen-devel@lists.xenproject.org>; Mon, 10 Feb 2025 01:23:06 -0800 (PST)
-Received: from [192.168.209.66] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-545004c07d7sm774125e87.84.2025.02.10.01.23.05
+ id ed41f7d4-e790-11ef-b3ef-695165c68f79;
+ Mon, 10 Feb 2025 10:25:11 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-aaf0f1adef8so770081266b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Feb 2025 01:25:11 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab7ced6fe0dsm52584966b.179.2025.02.10.01.25.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Feb 2025 01:23:05 -0800 (PST)
+ Mon, 10 Feb 2025 01:25:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,326 +45,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a2db36a4-e790-11ef-b3ef-695165c68f79
+X-Inumbo-ID: ed41f7d4-e790-11ef-b3ef-695165c68f79
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1739179386; x=1739784186; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6dZZELp3FT8itXCZjhguUJhrDewyL5mUA6UXiWo2g1I=;
-        b=Y4aFrpoGp20NA3AQVyB3T3+ClaKpnrsfYe0duG8N83fOvLKiw2W4MNt9LLWolfV8RW
-         mPqv7BqGAhdZsSV/xTh1TbTn2fkzjTv2QjeQfBUY/1ZG3ZesPhGtrAsictPHYS0sBxyZ
-         deZ5zHl9DeiXsoJ7uBeiI0zQ9seV8muTVQ5brKFteQqEklX+jXKjIKUrobawckHtrvBc
-         V5fSNEokyYz/7F9L/qGCaQ+14QM/X5wHKCkpsE8TU/kulVBeeZcq1Qws5CYcUpvzyd5l
-         8xjkJvnkSpolObZSVvd7By/7GqbOI2hUQgznqS0hUl4YdxWOI9RLm7gsFj1paWkbZy22
-         3BSg==
+        d=suse.com; s=google; t=1739179511; x=1739784311; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Pvo+E0a0jmGQspmj+sBecBampFq4UbsYgntNElkRm4k=;
+        b=bzWDGqGNl4NzEzhVL/IlY+a28Qf1tfDhBZDf+bf1ZPbdR6sEmEgMcE5g1G+xNtnWnN
+         gkd6O7lQbDEMO5BlqoSc/HVthhFmhdyFI7hC0LxjWBdquCx+5ENNyTxFxydPp/jhaxh8
+         0T2ZGxy7EBus3tR6QyzvipF0M2FgVbQ+bx5E0crVx9++bli5DnllZKpuipKgC7QptiDE
+         L+m+yLSLlSIxYsrOfW60nXV4DOELmniKy/Bv8UTnjy1nvaYjpe33Q5ByxouOyOy/n1Ro
+         hZnRMVFZdV8Cj/5Kwzxeil8HcXg117eCqMf9+1EeooLjSwXkrGYVDkJR/spAr9NVTxct
+         MSXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739179386; x=1739784186;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=6dZZELp3FT8itXCZjhguUJhrDewyL5mUA6UXiWo2g1I=;
-        b=Iu6FZhpP2ur23Yl772Qr/nrYgOPjFbSIpCinEON9Xyf2j6ENyoCiMwe7lTXatNvk+X
-         VSVl9P3E9tcmgZOye/QN6t6jwmqVZGdA3oEE/wpkJKy8cgVrjM9exG8vjuGZmogkeIJL
-         wvL38Zp2LD/zlVJrO/JFoeQxI242/cbgPQvaGjnmR1AmFVmNO3edwnLkcLqrjjTFTh5R
-         LbTrpBAlPDEtWBHVxdafjRXpB4CxkdkFOUAFWt2DwV141r67SdkLc54Y5QqVW5IggGio
-         tkP/GnJ95w0Sg4eCsyIIJr0ej+0pMStP5tHu3qH8hv84kSzlAvsCoe7sWh/QitBadaXM
-         NrQw==
-X-Forwarded-Encrypted: i=1; AJvYcCXJZBZgQkqbgiOdlhVl2BdKssHmFq+FPbkmop0zMDzL20piHN9/+pReUnOdoEWUfF05Ly9Zqs0J50Y=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyTqVjpPvtWT1jeAnX0FtiVlZkgU0raug7SDzIy6S05ycgR63PD
-	Gpm1yn57OXtrCt9C0mV27AJnz7Tzz2loSl/5MZzne0jmMeId+emo
-X-Gm-Gg: ASbGncuFU/q4WHzfQgRRef9hsz/tViN8dGRPypoyri/sopn7rLC7uv4GS9KME6Vrk+q
-	3vRBHQ2PjzostXzE7CpwJJXmXeJtqT0/4P27ZNy88z+xBxiMUqE5J3AdoZvTcTY4kLrq78EobQp
-	gNpiU7lb8et/8bWOUJPm67989n3+UVt3zI5kdVQQBOMCvEVqL4SUzCkpM8pzdAw3RcE555ttK2Z
-	XDx7y2/8NyhApS6AyCO8mRHBRXUsZO/2Fk1/cO9IhgxdGcvtCzV7hAscxz3BzP7PulKwvz05V4A
-	VHGbeNhLks/BOgbU0LfupkVYu4M=
-X-Google-Smtp-Source: AGHT+IEDGrtr1KJf8TSu1CKBrCkceZHALoYFZ1h4Uawuo3OCrjisaDJ9ErNqBTOm3Tb3R3t5BUOsCg==
-X-Received: by 2002:a05:6512:3f6:b0:545:a1a:556b with SMTP id 2adb3069b0e04-5450a1a586amr1008326e87.0.1739179385823;
-        Mon, 10 Feb 2025 01:23:05 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------x0xced3X6o0Ztvjs03JVNd4i"
-Message-ID: <f4dc7fe4-e0ff-40c9-8677-c81a261b6641@gmail.com>
-Date: Mon, 10 Feb 2025 10:23:04 +0100
+        d=1e100.net; s=20230601; t=1739179511; x=1739784311;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Pvo+E0a0jmGQspmj+sBecBampFq4UbsYgntNElkRm4k=;
+        b=bPxM8HSw2vcYuqmL0zO6alT27ByxyCG+uv3Xy/TB0R4oqYFGCMgLkjpMgCvZQ4nElU
+         tlRrGBK2wsAFNV2qEuutqjzVVaX8lqhsMD/cmx2kE39hP939NvJGd8ZHyuyFBimcrEQW
+         SRg18byCQ6UJ4uXc2vMcvoXDgkuvU7IHLMQiUPiL2OuNfFXqvjKCk56gOxao8ggSP4p+
+         Hsezd7UE+0kwNR8dC4smst5Rs1+Nzs03eBVCPxxNJq3a3ZUVphaokY3YmXSfbr9Itmeh
+         Zr9EMuTgBz0T+KF5GRxdws30YGYe0LKGzDn8A0zWeI851HiZxITy7NkcErMXZHfbn+Hg
+         kpew==
+X-Forwarded-Encrypted: i=1; AJvYcCV7Dbbun5+0wocWFFrST1jWL5wzUVr0Y2Af6D1G8PzhklCFqdqZaozG2velgXBPJjGd5wMMUlFHi6c=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzXjEqryUCb4qE2XPWQ3kBrCDUTSDWynb/SQRN//sLamdo2E4eY
+	wMPHcEl04SZdjhQo4CtxwRm7Z7Bus50qwD7HXHaThuETG0oBHFJ9utbgCnVNVQ==
+X-Gm-Gg: ASbGncvszFQTIB+JCptJ/QwLjuuAYtlYriqVyr6+pb0ITRQKZhWM0+Vpx0CpA9K6OCK
+	rgt7EktWaFR7zmrzLoMO9J0hkGMm4XyP71hEZS1TLJbLhIaOA/1h+bQ6ZWDanx3Cfqb9orPEM09
+	/Pb0etv+sipwI9DveyahLth4OCqurGvzUttwcHbCVL1YU0YztT34IGBaHFD9xA58z0wGI56/Svq
+	7ptpYxYxQpUOnkvU9wg4R13Te9sbCUOoUyk1ClrVAod1gV3RSBth4EAWdjybUoNfusP32CxzINu
+	89vLUXomvNPv/wB8Z92rIEw31y+NAPvg5oqnUSm2HPp4gRdZZ70aqOeSXFiTjW2NufRrS+HjtGp
+	n
+X-Google-Smtp-Source: AGHT+IEKUtW6rJEhdeJcIvJUQgbM/JI+VCKrdHgS0gWgLVZ1uHRwkxECyi1lFUUUO9PurYt3b3f7Hw==
+X-Received: by 2002:a17:906:3ad2:b0:ab7:beeb:d1f1 with SMTP id a640c23a62f3a-ab7beebd6e6mr276300066b.51.1739179510931;
+        Mon, 10 Feb 2025 01:25:10 -0800 (PST)
+Message-ID: <b62763a2-899b-4d4d-9c9c-64a2698714e2@suse.com>
+Date: Mon, 10 Feb 2025 10:25:12 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 3/4] xen: Centralise the declaration of
  dump_execution_state()
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250208000256.431883-1-andrew.cooper3@citrix.com>
  <20250208000256.431883-4-andrew.cooper3@citrix.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
 In-Reply-To: <20250208000256.431883-4-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This is a multi-part message in MIME format.
---------------x0xced3X6o0Ztvjs03JVNd4i
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-On 2/8/25 1:02 AM, Andrew Cooper wrote:
+On 08.02.2025 01:02, Andrew Cooper wrote:
 > Three architectures have an identical dump_execution_state(), and PPC has a
 > stub for show_execution_state() that just isn't wired up yet.
->
+> 
 > show_execution_state() is declared in a common header, meaning that
 > dump_execution_state() really ought to be too.  Move them both into xen/bug.h
-> as they're tightly tied to run_in_exception_handler().  Drop the include of
+> as they're tightly tied to run_in_exception_handler().
+
+Hmm, show_execution_state() certainly has wider use than just with
+run_in_exception_handler(). I don't think kernel.h was a great home for its
+decl, but I'm thinking the same of bug.h. Nevertheless (not the least short
+of having any better suggestion) ...
+
+>  Drop the include of
 > xen/kernel.h from ubsan.c which was required reviously for RISC-V to compile.
->
+> 
 > No functional change.
->
-> Signed-off-by: Andrew Cooper<andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich<JBeulich@suse.com>
-> CC: Roger Pau Monné<roger.pau@citrix.com>
-> CC: Stefano Stabellini<sstabellini@kernel.org>
-> CC: Julien Grall<julien@xen.org>
-> CC: Volodymyr Babchuk<Volodymyr_Babchuk@epam.com>
-> CC: Bertrand Marquis<bertrand.marquis@arm.com>
-> CC: Michal Orzel<michal.orzel@amd.com>
-> CC: Oleksii Kurochko<oleksii.kurochko@gmail.com>
-> CC: Shawn Anastasio<sanastasio@raptorengineering.com>
-> ---
->   xen/arch/arm/include/asm/processor.h   | 2 --
->   xen/arch/riscv/include/asm/processor.h | 2 --
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Reviewed-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Thanks.
+Jan
 
-~ Oleksii
-
->   xen/arch/x86/include/asm/processor.h   | 1 -
->   xen/common/ubsan/ubsan.c               | 1 -
->   xen/include/xen/bug.h                  | 3 +++
->   xen/include/xen/kernel.h               | 2 --
->   6 files changed, 3 insertions(+), 8 deletions(-)
->
-> diff --git a/xen/arch/arm/include/asm/processor.h b/xen/arch/arm/include/asm/processor.h
-> index d80d44aeaa8f..f2c4d990c71c 100644
-> --- a/xen/arch/arm/include/asm/processor.h
-> +++ b/xen/arch/arm/include/asm/processor.h
-> @@ -577,8 +577,6 @@ void panic_PAR(uint64_t par);
->   void show_registers(const struct cpu_user_regs *regs);
->   void show_stack(const struct cpu_user_regs *regs);
->   
-> -#define dump_execution_state() run_in_exception_handler(show_execution_state)
-> -
->   #define cpu_relax() barrier() /* Could yield? */
->   
->   /* All a bit UP for the moment */
-> diff --git a/xen/arch/riscv/include/asm/processor.h b/xen/arch/riscv/include/asm/processor.h
-> index 39696fb58dc6..90b800956303 100644
-> --- a/xen/arch/riscv/include/asm/processor.h
-> +++ b/xen/arch/riscv/include/asm/processor.h
-> @@ -91,8 +91,6 @@ static inline void sfence_vma(void)
->       asm volatile ( "sfence.vma" ::: "memory" );
->   }
->   
-> -#define dump_execution_state() run_in_exception_handler(show_execution_state)
-> -
->   #endif /* __ASSEMBLY__ */
->   
->   #endif /* ASM__RISCV__PROCESSOR_H */
-> diff --git a/xen/arch/x86/include/asm/processor.h b/xen/arch/x86/include/asm/processor.h
-> index d247ef8dd226..c2eafaecfd40 100644
-> --- a/xen/arch/x86/include/asm/processor.h
-> +++ b/xen/arch/x86/include/asm/processor.h
-> @@ -405,7 +405,6 @@ static always_inline void rep_nop(void)
->   void show_code(const struct cpu_user_regs *regs);
->   void show_stack_overflow(unsigned int cpu, const struct cpu_user_regs *regs);
->   void show_registers(const struct cpu_user_regs *regs);
-> -#define dump_execution_state() run_in_exception_handler(show_execution_state)
->   void show_page_walk(unsigned long addr);
->   void noreturn fatal_trap(const struct cpu_user_regs *regs, bool show_remote);
->   
-> diff --git a/xen/common/ubsan/ubsan.c b/xen/common/ubsan/ubsan.c
-> index e99370322b44..a96153c08078 100644
-> --- a/xen/common/ubsan/ubsan.c
-> +++ b/xen/common/ubsan/ubsan.c
-> @@ -11,7 +11,6 @@
->    */
->   
->   #include <xen/bitops.h>
-> -#include <xen/kernel.h>
->   #include <xen/lib.h>
->   #include <xen/percpu.h>
->   #include <xen/spinlock.h>
-> diff --git a/xen/include/xen/bug.h b/xen/include/xen/bug.h
-> index 99814c4bef36..2325a46e7f61 100644
-> --- a/xen/include/xen/bug.h
-> +++ b/xen/include/xen/bug.h
-> @@ -155,6 +155,9 @@ int do_bug_frame(const struct cpu_user_regs *regs, unsigned long pc);
->   
->   #endif /* CONFIG_GENERIC_BUG_FRAME */
->   
-> +void cf_check show_execution_state(const struct cpu_user_regs *regs);
-> +#define dump_execution_state() run_in_exception_handler(show_execution_state)
-> +
->   #endif /* !__ASSEMBLY__ */
->   
->   #endif /* __XEN_BUG_H__ */
-> diff --git a/xen/include/xen/kernel.h b/xen/include/xen/kernel.h
-> index c5b6cc977772..57a1ef4e17b7 100644
-> --- a/xen/include/xen/kernel.h
-> +++ b/xen/include/xen/kernel.h
-> @@ -94,10 +94,8 @@ bool is_active_kernel_text(unsigned long addr);
->   extern const char xen_config_data[];
->   extern const unsigned int xen_config_data_size;
->   
-> -struct cpu_user_regs;
->   struct vcpu;
->   
-> -void cf_check show_execution_state(const struct cpu_user_regs *regs);
->   void vcpu_show_execution_state(struct vcpu *v);
->   
->   #endif /* _LINUX_KERNEL_H */
---------------x0xced3X6o0Ztvjs03JVNd4i
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2/8/25 1:02 AM, Andrew Cooper wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:20250208000256.431883-4-andrew.cooper3@citrix.com">
-      <pre wrap="" class="moz-quote-pre">Three architectures have an identical dump_execution_state(), and PPC has a
-stub for show_execution_state() that just isn't wired up yet.
-
-show_execution_state() is declared in a common header, meaning that
-dump_execution_state() really ought to be too.  Move them both into xen/bug.h
-as they're tightly tied to run_in_exception_handler().  Drop the include of
-xen/kernel.h from ubsan.c which was required reviously for RISC-V to compile.
-
-No functional change.
-
-Signed-off-by: Andrew Cooper <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a>
----
-CC: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:JBeulich@suse.com">&lt;JBeulich@suse.com&gt;</a>
-CC: Roger Pau Monné <a class="moz-txt-link-rfc2396E" href="mailto:roger.pau@citrix.com">&lt;roger.pau@citrix.com&gt;</a>
-CC: Stefano Stabellini <a class="moz-txt-link-rfc2396E" href="mailto:sstabellini@kernel.org">&lt;sstabellini@kernel.org&gt;</a>
-CC: Julien Grall <a class="moz-txt-link-rfc2396E" href="mailto:julien@xen.org">&lt;julien@xen.org&gt;</a>
-CC: Volodymyr Babchuk <a class="moz-txt-link-rfc2396E" href="mailto:Volodymyr_Babchuk@epam.com">&lt;Volodymyr_Babchuk@epam.com&gt;</a>
-CC: Bertrand Marquis <a class="moz-txt-link-rfc2396E" href="mailto:bertrand.marquis@arm.com">&lt;bertrand.marquis@arm.com&gt;</a>
-CC: Michal Orzel <a class="moz-txt-link-rfc2396E" href="mailto:michal.orzel@amd.com">&lt;michal.orzel@amd.com&gt;</a>
-CC: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-CC: Shawn Anastasio <a class="moz-txt-link-rfc2396E" href="mailto:sanastasio@raptorengineering.com">&lt;sanastasio@raptorengineering.com&gt;</a>
----
- xen/arch/arm/include/asm/processor.h   | 2 --
- xen/arch/riscv/include/asm/processor.h | 2 --</pre>
-    </blockquote>
-    <pre>Reviewed-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>.
-
-Thanks.
-
-~ Oleksii
-</pre>
-    <blockquote type="cite"
-      cite="mid:20250208000256.431883-4-andrew.cooper3@citrix.com">
-      <pre wrap="" class="moz-quote-pre">
- xen/arch/x86/include/asm/processor.h   | 1 -
- xen/common/ubsan/ubsan.c               | 1 -
- xen/include/xen/bug.h                  | 3 +++
- xen/include/xen/kernel.h               | 2 --
- 6 files changed, 3 insertions(+), 8 deletions(-)
-
-diff --git a/xen/arch/arm/include/asm/processor.h b/xen/arch/arm/include/asm/processor.h
-index d80d44aeaa8f..f2c4d990c71c 100644
---- a/xen/arch/arm/include/asm/processor.h
-+++ b/xen/arch/arm/include/asm/processor.h
-@@ -577,8 +577,6 @@ void panic_PAR(uint64_t par);
- void show_registers(const struct cpu_user_regs *regs);
- void show_stack(const struct cpu_user_regs *regs);
- 
--#define dump_execution_state() run_in_exception_handler(show_execution_state)
--
- #define cpu_relax() barrier() /* Could yield? */
- 
- /* All a bit UP for the moment */
-diff --git a/xen/arch/riscv/include/asm/processor.h b/xen/arch/riscv/include/asm/processor.h
-index 39696fb58dc6..90b800956303 100644
---- a/xen/arch/riscv/include/asm/processor.h
-+++ b/xen/arch/riscv/include/asm/processor.h
-@@ -91,8 +91,6 @@ static inline void sfence_vma(void)
-     asm volatile ( "sfence.vma" ::: "memory" );
- }
- 
--#define dump_execution_state() run_in_exception_handler(show_execution_state)
--
- #endif /* __ASSEMBLY__ */
- 
- #endif /* ASM__RISCV__PROCESSOR_H */
-diff --git a/xen/arch/x86/include/asm/processor.h b/xen/arch/x86/include/asm/processor.h
-index d247ef8dd226..c2eafaecfd40 100644
---- a/xen/arch/x86/include/asm/processor.h
-+++ b/xen/arch/x86/include/asm/processor.h
-@@ -405,7 +405,6 @@ static always_inline void rep_nop(void)
- void show_code(const struct cpu_user_regs *regs);
- void show_stack_overflow(unsigned int cpu, const struct cpu_user_regs *regs);
- void show_registers(const struct cpu_user_regs *regs);
--#define dump_execution_state() run_in_exception_handler(show_execution_state)
- void show_page_walk(unsigned long addr);
- void noreturn fatal_trap(const struct cpu_user_regs *regs, bool show_remote);
- 
-diff --git a/xen/common/ubsan/ubsan.c b/xen/common/ubsan/ubsan.c
-index e99370322b44..a96153c08078 100644
---- a/xen/common/ubsan/ubsan.c
-+++ b/xen/common/ubsan/ubsan.c
-@@ -11,7 +11,6 @@
-  */
- 
- #include &lt;xen/bitops.h&gt;
--#include &lt;xen/kernel.h&gt;
- #include &lt;xen/lib.h&gt;
- #include &lt;xen/percpu.h&gt;
- #include &lt;xen/spinlock.h&gt;
-diff --git a/xen/include/xen/bug.h b/xen/include/xen/bug.h
-index 99814c4bef36..2325a46e7f61 100644
---- a/xen/include/xen/bug.h
-+++ b/xen/include/xen/bug.h
-@@ -155,6 +155,9 @@ int do_bug_frame(const struct cpu_user_regs *regs, unsigned long pc);
- 
- #endif /* CONFIG_GENERIC_BUG_FRAME */
- 
-+void cf_check show_execution_state(const struct cpu_user_regs *regs);
-+#define dump_execution_state() run_in_exception_handler(show_execution_state)
-+
- #endif /* !__ASSEMBLY__ */
- 
- #endif /* __XEN_BUG_H__ */
-diff --git a/xen/include/xen/kernel.h b/xen/include/xen/kernel.h
-index c5b6cc977772..57a1ef4e17b7 100644
---- a/xen/include/xen/kernel.h
-+++ b/xen/include/xen/kernel.h
-@@ -94,10 +94,8 @@ bool is_active_kernel_text(unsigned long addr);
- extern const char xen_config_data[];
- extern const unsigned int xen_config_data_size;
- 
--struct cpu_user_regs;
- struct vcpu;
- 
--void cf_check show_execution_state(const struct cpu_user_regs *regs);
- void vcpu_show_execution_state(struct vcpu *v);
- 
- #endif /* _LINUX_KERNEL_H */
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------x0xced3X6o0Ztvjs03JVNd4i--
 
