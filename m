@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FABBA2E6C4
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Feb 2025 09:46:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.884417.1294121 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F3C8A2E6D9
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Feb 2025 09:49:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.884426.1294131 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thPQt-0005br-EY; Mon, 10 Feb 2025 08:46:23 +0000
+	id 1thPTp-0006AC-SB; Mon, 10 Feb 2025 08:49:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 884417.1294121; Mon, 10 Feb 2025 08:46:23 +0000
+Received: by outflank-mailman (output) from mailman id 884426.1294131; Mon, 10 Feb 2025 08:49:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thPQt-0005Z7-Av; Mon, 10 Feb 2025 08:46:23 +0000
-Received: by outflank-mailman (input) for mailman id 884417;
- Mon, 10 Feb 2025 08:46:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1thPTp-00068j-OV; Mon, 10 Feb 2025 08:49:25 +0000
+Received: by outflank-mailman (input) for mailman id 884426;
+ Mon, 10 Feb 2025 08:49:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fMFa=VB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1thPQr-0005Yz-NJ
- for xen-devel@lists.xenproject.org; Mon, 10 Feb 2025 08:46:21 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 80302715-e78b-11ef-a075-877d107080fb;
- Mon, 10 Feb 2025 09:46:20 +0100 (CET)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-54504f5cfe9so1606557e87.0
- for <xen-devel@lists.xenproject.org>; Mon, 10 Feb 2025 00:46:20 -0800 (PST)
+ id 1thPTo-00068d-0U
+ for xen-devel@lists.xenproject.org; Mon, 10 Feb 2025 08:49:24 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ec140feb-e78b-11ef-b3ef-695165c68f79;
+ Mon, 10 Feb 2025 09:49:22 +0100 (CET)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-543e4bbcd86so4661790e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Feb 2025 00:49:22 -0800 (PST)
 Received: from [192.168.209.66] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5450b29eff6sm322829e87.191.2025.02.10.00.46.19
+ 2adb3069b0e04-5450c4d4989sm285836e87.192.2025.02.10.00.49.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Feb 2025 00:46:19 -0800 (PST)
+ Mon, 10 Feb 2025 00:49:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,132 +45,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 80302715-e78b-11ef-a075-877d107080fb
+X-Inumbo-ID: ec140feb-e78b-11ef-b3ef-695165c68f79
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1739177180; x=1739781980; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1739177361; x=1739782161; darn=lists.xenproject.org;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hEebn1ngqTdBDgjie4K+90PEvpvvHcWRH9GxQ5O8rUE=;
-        b=DoHYyh81VdAx1u2o3RbPV5/ZtzcV/LOikJTefTX0R5r1uNEg49JB5u/0I7jn/kqOWQ
-         mkUTnVeVu0KBPngObzYD+ml1VlaMiIoJy3njtlDEQ1WCXKQi1OAeKmhUyJIFNJu+0PQW
-         uwa+8lIs1fApuQq3LACBlOxTIqlhnI+a3ZHBq2ogWOPt6FKtobsa1GC9LAI3UTUpXtsJ
-         0KVExvlAnH5ZBV3M7zePZNsqsMm8wh64W6phyTU1C+Gs88EdijwPs4vDbfZ5X0VQi8lg
-         Yc8YN1Y5culsjUmu2B6DupSRGB3Rw86QyXUwNNA+2pW5awSmwfmTdfHHWNqZiAhmEPV9
-         sNjA==
+        bh=Kq9KXMaORsH6NPJu+cLjHPa/ww81bQIOsjsLvzAPuTE=;
+        b=BZXQbd+0hq2FciMy5s47fapeqsGDClsepG4jz48cOLJeOs9flVyDNT2ghBSz/YzQip
+         /2NuYr85fh7YCrgnGfpzp8LwZgVFDay3TSkCBoci+SfiazRG0kJsAW+rxrBfCUsOzRq5
+         BOy0t9fX/1dBHQ5bfPejmVIDwkEX3qQwKKORCX8wJLnkOCzmBsdhk1tm5FvzpGpCg734
+         /KPvimRkCGmfdkKUBz0kCR3ZKV74SR1sNINdRtrHoenY7fIzUWAYS3GTgc2koMZN4vDv
+         vTZOUItYHVt7tqRYzscvZH2QCHeSHs5LACofNmbMqMQ9GaSpPMzMR6eK6zwyIFkeVTAI
+         NT3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739177180; x=1739781980;
+        d=1e100.net; s=20230601; t=1739177361; x=1739782161;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=hEebn1ngqTdBDgjie4K+90PEvpvvHcWRH9GxQ5O8rUE=;
-        b=rUEnpOCFixiHR2Ga/ncBcxOWF+AZTVPPcuEyxdrQiiO1OtHwDGH9TeqzfZt0r2FYSV
-         4q4/42aA22uMzP1iuv1mYD8GufLtc7EfUXDFgeYa+StroCxev6OHu/0CUio1r6sq18lA
-         Wv5gRjoSPDrlNCiwOAjdusql9wCddSHl7ULywvzqA+cZRRJNmXlZia+7bWvBTeojQbJv
-         aK1fqcNf8bvoVjCn1rL5D90ws0EKeTXmL9KeHiwVpY9jRtWwDU6bIqHd0bdF3pBu0/MP
-         5o8jk3I9u4GWUF15pjd7hqTOmyfFnP5+nn4tW9uX9wJO64mUX2QhBrj6pAvQiqGaf56a
-         PNRg==
-X-Forwarded-Encrypted: i=1; AJvYcCW/N0B3LWkX4AsmKcGgBbdSppSXYJ71ueJfmcT7GUXHFUgjCtLTv9LVWH3UK98eWsXMFy3KJC6l3m0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzAm9cAF49z2P8WHaRhV4WhFjwkG8fBXBYvFhwu/0lkN2DcSHDL
-	LkmA3bohy7Bu1wV/tdi7/BEx2V+P6EppfUL2K3oZxH9fjryvNMlT
-X-Gm-Gg: ASbGnctvsJbN0uRTgd3xcKGizIlNrCZrLt9df29lG8Omj924Al9aY+SP7oUO7YKoBA9
-	3fS/VcHNUXxfkwzkqL7RVhRjwbHEgLAY0cqkybdIX978flRHi7BDP5kG0ZjLqxLyHlSiYCmV433
-	UOLs4nAZhtK4k/4FUjyQN8u0oFBFVa7WuXgyyAsbtrRN9Bi8mIz3GHRE7uz116Y5fY+md+w9tgP
-	A4GPgMUa1S4egtVbrTy1f66bONYoCozi2KX+moAtLqF0EbWMT58wGCDs74ZzB3wcFW6QWDioSps
-	I7VMeLA8uGuSfwvnSOv1xcX44YI=
-X-Google-Smtp-Source: AGHT+IFu1sBRFdexNvQpat/byr63FSh7VJedK1k/8Vkz4v59S5nHB1ODCw52YCkSJcZC/cq1QS67uw==
-X-Received: by 2002:a05:6512:10cf:b0:545:ec1:9fd3 with SMTP id 2adb3069b0e04-5450ec1a033mr402013e87.9.1739177180003;
-        Mon, 10 Feb 2025 00:46:20 -0800 (PST)
+        bh=Kq9KXMaORsH6NPJu+cLjHPa/ww81bQIOsjsLvzAPuTE=;
+        b=QNM8/bX4YihTF0BpWffvcSzuOHummghDPisphUAOoxcG16zuZ1dwcoJ2LrXWOTWttH
+         mnmV6VOO3WXUfR8azhsh9aoq7OBN4tkYty7FiiEKWS7PReDY/pFWUcDKpMAx/sqM6Vw/
+         MBhKEAo2rALgNb7psP9x/ucPhxvjCEygl2qZsTjO0P6DegvqVoqLA4AcnmzQW1gqF/qb
+         PivQxnP7eYCJ17QFnXNBnVqlH/UdO2XXbkPzIWnMOOgEk4szqCGM4JVshCpQdAIDakJE
+         N2h7yuLMOmkxKzfqB7Rx/eIcx3G1AsVv7HS3MEuNtqbEjo6cttswIcIqCsthoqoT7eRq
+         dVoA==
+X-Forwarded-Encrypted: i=1; AJvYcCXxJ6G9X0C0jUMj/u+K0sItmCVYuqdYz62+/oZbRV7mhPqyob+BZprLRrm03LBdGEUwsdQeqy2cXFk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxxjdJPo3UqX67BlnmNr9dShBcYV0OAyeD8s1HDYow62rBVScWk
+	DxEL8CxuOZFPHz/XC8i53EBnkCYBigS5/TM6UkmxbpHe18xEBiGb
+X-Gm-Gg: ASbGncvUKkWQkro369E9btD1Lv4pcJwbt1LKx1xwCWMU2ao/kgtPgJRtfN+Jz6JnVbo
+	fnfz+QdAmUrPdL0wj2g5gFoHHnBfttWY6C9p53CHkJP8+zkOEISzw9AA1NK7lIDPEdfI5b7gQJ2
+	+1PubbV4ooDwpXASpVutF7uPovzcRkB4kKmqAu5u+OYwciJOR9YBqRKoY4BKX0NuqjDhZIMJEpw
+	fBl9SK5SVkUd6FvdIvnxiu+UuA/DBc2txPGFzy5R+pUuFw2ifEFdi4wJ3bPI4U+TCPHygEX82uv
+	UrO1E7Zm4LGKzjVow4qmS7Iz/J4=
+X-Google-Smtp-Source: AGHT+IGnfHcs91eSYR3ubXqmsKEailRZmdxvd6AR1gTrOsZGQs1twFz0oS30mxUWkbdYzcOpgelESA==
+X-Received: by 2002:a05:6512:3ba2:b0:545:ebf:145f with SMTP id 2adb3069b0e04-5450ebf1d0dmr305076e87.53.1739177361011;
+        Mon, 10 Feb 2025 00:49:21 -0800 (PST)
 Content-Type: multipart/alternative;
- boundary="------------k0PR9etEMrto89tCj6YZ9BCZ"
-Message-ID: <e7e94ad8-cf68-444c-8e09-7c622620a5ee@gmail.com>
-Date: Mon, 10 Feb 2025 09:46:19 +0100
+ boundary="------------t1q0IwALVUg4Ku0CruccBYih"
+Message-ID: <c07c0942-8dce-4ced-91a4-2c84418fbcb3@gmail.com>
+Date: Mon, 10 Feb 2025 09:49:20 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for 4.20? v3 2/3] xen/riscv: update defintion of
- vmap_to_mfn()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1738933678.git.oleksii.kurochko@gmail.com>
- <bbea545c2ca25f5e827e4d3b4cb2466478791480.1738933678.git.oleksii.kurochko@gmail.com>
- <26deedab-b48c-4000-9937-b6b168fd590b@suse.com>
+Subject: Re: [PATCH for-4.20 1/3] RISCV/boot: Run constructors during setup
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20250207220122.380214-1-andrew.cooper3@citrix.com>
+ <20250207220122.380214-2-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <26deedab-b48c-4000-9937-b6b168fd590b@suse.com>
+In-Reply-To: <20250207220122.380214-2-andrew.cooper3@citrix.com>
 
 This is a multi-part message in MIME format.
---------------k0PR9etEMrto89tCj6YZ9BCZ
+--------------t1q0IwALVUg4Ku0CruccBYih
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 
-On 2/7/25 2:30 PM, Jan Beulich wrote:
-> On 07.02.2025 14:13, Oleksii Kurochko wrote:
->> vmap_to_mfn() uses virt_to_maddr(), which is designed to work with VA from
->> either the direct map region or Xen's linkage region (XEN_VIRT_START).
->> An assertion will occur if it is used with other regions, in particular for
->> the VMAP region.
->>
->> Since RISC-V lacks a hardware feature to request the MMU to translate a VA to
->> a PA (as Arm does, for example), software page table walking (pt_walk()) is
->> used for the VMAP region to obtain the mfn from pte_t.
->>
->> To avoid introduce a circular dependency between asm/mm.h and asm/page.h by
->> including each other, the macro _vmap_to_mfn() is introduced in asm/page.h,
->> as it uses struct pte_t and pte_is_mapping() from asm/page.h. _vmap_to_mfn()
->> macro is then reused in the definition of vmap_to_mfn() macro in asm/mm.h.
->>
->> Fixes: 7db8d2bd9b ("xen/riscv: add minimal stuff to mm.h to build full Xen")
->> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
->> ---
->> Changes in v3:
->> - Move vmap_to_mfn_ to asm/page.h to deal with circular dependency.
->> - Convert vmap_to_mfn_() to macros.
-> Why both?
-
-Just for consistency. vmap_to_mfn_() could be defined as static inline, I can
-send the new patch version with such changes, probably, static inline would be
-better in this case.
-
->> --- a/xen/arch/riscv/include/asm/page.h
->> +++ b/xen/arch/riscv/include/asm/page.h
->> @@ -210,6 +210,13 @@ static inline pte_t pte_from_mfn(mfn_t mfn, unsigned int flags)
->>   
->>   pte_t pt_walk(vaddr_t va, unsigned int *pte_level);
->>   
->> +#define _vmap_to_mfn(va)                \
->> +({                                      \
->> +    pte_t entry = pt_walk((va), NULL);  \
-> If this is to remain a macro, va doesn't need parenthesizing (as the argument
-> passed is just the identifier, not an expression.
+On 2/7/25 11:01 PM, Andrew Cooper wrote:
+> Without this, RISC-V isn't running boot time selftests when they're compiled
+> in.
 >
-> Be careful with the naming of macro local variables. Consider a use size (for
-> whatever reason) having
+> Signed-off-by: Andrew Cooper<andrew.cooper3@citrix.com>
+> ---
+> CC: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+> CC: Anthony PERARD<anthony.perard@vates.tech>
+> CC: Michal Orzel<michal.orzel@amd.com>
+> CC: Jan Beulich<jbeulich@suse.com>
+> CC: Julien Grall<julien@xen.org>
+> CC: Roger Pau Monné<roger.pau@citrix.com>
+> CC: Stefano Stabellini<sstabellini@kernel.org>
 >
->      unsigned long entry;
->      ...
->      mfn = vmap_to_mfn(entry);
+> https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1660821676
 >
-> This is where appending an underscore comes into play.
+> For-4.20.  Boot selftests are new in 4.20, and work in each other
+> archtiecture.
 
-This could be another reason to use|static inline _vmap_to_mfn(...)| instead of a macro.
+LGTM:
 
-I think I will rewrite the|_vmap_to_mfn()| macro as a|static inline| function in the next
-patch series version. I'll send it after receiving comments on the entire patch series.
+Reviewed-By: Oleksii Kurochko<oleksii.kurochko@gmail.com>
 
 Thanks.
 
 ~ Oleksii
 
---------------k0PR9etEMrto89tCj6YZ9BCZ
+
+> ---
+>   xen/arch/riscv/setup.c | 2 ++
+>   1 file changed, 2 insertions(+)
+>
+> diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
+> index 38ca4f3baa1b..f2b6e684ac69 100644
+> --- a/xen/arch/riscv/setup.c
+> +++ b/xen/arch/riscv/setup.c
+> @@ -109,6 +109,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+>        */
+>       system_state = SYS_STATE_boot;
+>   
+> +    init_constructors();
+> +
+>       if ( acpi_disabled )
+>       {
+>           printk("Booting using Device Tree\n");
+--------------t1q0IwALVUg4Ku0CruccBYih
 Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 <!DOCTYPE html>
 <html>
@@ -180,83 +163,62 @@ Content-Transfer-Encoding: 7bit
   <body>
     <p><br>
     </p>
-    <div class="moz-cite-prefix">On 2/7/25 2:30 PM, Jan Beulich wrote:<br>
+    <div class="moz-cite-prefix">On 2/7/25 11:01 PM, Andrew Cooper
+      wrote:<br>
     </div>
     <blockquote type="cite"
-      cite="mid:26deedab-b48c-4000-9937-b6b168fd590b@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 07.02.2025 14:13, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">vmap_to_mfn() uses virt_to_maddr(), which is designed to work with VA from
-either the direct map region or Xen's linkage region (XEN_VIRT_START).
-An assertion will occur if it is used with other regions, in particular for
-the VMAP region.
+      cite="mid:20250207220122.380214-2-andrew.cooper3@citrix.com">
+      <pre wrap="" class="moz-quote-pre">Without this, RISC-V isn't running boot time selftests when they're compiled
+in.
 
-Since RISC-V lacks a hardware feature to request the MMU to translate a VA to
-a PA (as Arm does, for example), software page table walking (pt_walk()) is
-used for the VMAP region to obtain the mfn from pte_t.
-
-To avoid introduce a circular dependency between asm/mm.h and asm/page.h by
-including each other, the macro _vmap_to_mfn() is introduced in asm/page.h,
-as it uses struct pte_t and pte_is_mapping() from asm/page.h. _vmap_to_mfn()
-macro is then reused in the definition of vmap_to_mfn() macro in asm/mm.h.
-
-Fixes: 7db8d2bd9b ("xen/riscv: add minimal stuff to mm.h to build full Xen")
-Signed-off-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+Signed-off-by: Andrew Cooper <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a>
 ---
-Changes in v3:
-- Move vmap_to_mfn_ to asm/page.h to deal with circular dependency.
-- Convert vmap_to_mfn_() to macros.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Why both?</pre>
+CC: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+CC: Anthony PERARD <a class="moz-txt-link-rfc2396E" href="mailto:anthony.perard@vates.tech">&lt;anthony.perard@vates.tech&gt;</a>
+CC: Michal Orzel <a class="moz-txt-link-rfc2396E" href="mailto:michal.orzel@amd.com">&lt;michal.orzel@amd.com&gt;</a>
+CC: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
+CC: Julien Grall <a class="moz-txt-link-rfc2396E" href="mailto:julien@xen.org">&lt;julien@xen.org&gt;</a>
+CC: Roger Pau Monné <a class="moz-txt-link-rfc2396E" href="mailto:roger.pau@citrix.com">&lt;roger.pau@citrix.com&gt;</a>
+CC: Stefano Stabellini <a class="moz-txt-link-rfc2396E" href="mailto:sstabellini@kernel.org">&lt;sstabellini@kernel.org&gt;</a>
+
+<a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1660821676">https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1660821676</a>
+
+For-4.20.  Boot selftests are new in 4.20, and work in each other
+archtiecture.</pre>
     </blockquote>
-    <pre>Just for consistency. vmap_to_mfn_() could be defined as static inline, I can
-send the new patch version with such changes, probably, static inline would be
-better in this case.
+    <pre>LGTM:
 
-</pre>
-    <blockquote type="cite"
-      cite="mid:26deedab-b48c-4000-9937-b6b168fd590b@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/include/asm/page.h
-+++ b/xen/arch/riscv/include/asm/page.h
-@@ -210,6 +210,13 @@ static inline pte_t pte_from_mfn(mfn_t mfn, unsigned int flags)
- 
- pte_t pt_walk(vaddr_t va, unsigned int *pte_level);
- 
-+#define _vmap_to_mfn(va)                \
-+({                                      \
-+    pte_t entry = pt_walk((va), NULL);  \
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-If this is to remain a macro, va doesn't need parenthesizing (as the argument
-passed is just the identifier, not an expression.
-
-Be careful with the naming of macro local variables. Consider a use size (for
-whatever reason) having
-
-    unsigned long entry;
-    ...
-    mfn = vmap_to_mfn(entry);
-
-This is where appending an underscore comes into play.</pre>
-    </blockquote>
-    <pre>This could be another reason to use <code>static inline _vmap_to_mfn(...)</code> instead of a macro.
-
-I think I will rewrite the <code>_vmap_to_mfn()</code> macro as a <code>static inline</code> function in the next
-patch series version. I'll send it after receiving comments on the entire patch series.
+Reviewed-By: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
 
 Thanks.
 
 ~ Oleksii
 </pre>
+    <br>
+    <blockquote type="cite"
+      cite="mid:20250207220122.380214-2-andrew.cooper3@citrix.com">
+      <pre wrap="" class="moz-quote-pre">
+---
+ xen/arch/riscv/setup.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
+index 38ca4f3baa1b..f2b6e684ac69 100644
+--- a/xen/arch/riscv/setup.c
++++ b/xen/arch/riscv/setup.c
+@@ -109,6 +109,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+      */
+     system_state = SYS_STATE_boot;
+ 
++    init_constructors();
++
+     if ( acpi_disabled )
+     {
+         printk("Booting using Device Tree\n");
+</pre>
+    </blockquote>
   </body>
 </html>
 
---------------k0PR9etEMrto89tCj6YZ9BCZ--
+--------------t1q0IwALVUg4Ku0CruccBYih--
 
