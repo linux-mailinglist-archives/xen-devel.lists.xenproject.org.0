@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6386AA2EAB2
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Feb 2025 12:09:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.884751.1294496 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFB24A2EB0D
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Feb 2025 12:27:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.884759.1294506 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thRfN-0006Qd-AU; Mon, 10 Feb 2025 11:09:29 +0000
+	id 1thRwO-0002Rn-N6; Mon, 10 Feb 2025 11:27:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 884751.1294496; Mon, 10 Feb 2025 11:09:29 +0000
+Received: by outflank-mailman (output) from mailman id 884759.1294506; Mon, 10 Feb 2025 11:27:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thRfN-0006OW-7U; Mon, 10 Feb 2025 11:09:29 +0000
-Received: by outflank-mailman (input) for mailman id 884751;
- Mon, 10 Feb 2025 11:09:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=SvFn=VB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1thRfL-0006O4-OD
- for xen-devel@lists.xenproject.org; Mon, 10 Feb 2025 11:09:27 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7de542a4-e79f-11ef-a075-877d107080fb;
- Mon, 10 Feb 2025 12:09:27 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-ab795ebaa02so453182466b.1
- for <xen-devel@lists.xenproject.org>; Mon, 10 Feb 2025 03:09:27 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab786ece062sm722806566b.123.2025.02.10.03.09.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Feb 2025 03:09:26 -0800 (PST)
+	id 1thRwO-0002PG-JT; Mon, 10 Feb 2025 11:27:04 +0000
+Received: by outflank-mailman (input) for mailman id 884759;
+ Mon, 10 Feb 2025 11:27:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=F3uS=VB=arm.com=mark.rutland@srs-se1.protection.inumbo.net>)
+ id 1thRwM-0002PA-K8
+ for xen-devel@lists.xenproject.org; Mon, 10 Feb 2025 11:27:02 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id f0746c38-e7a1-11ef-b3ef-695165c68f79;
+ Mon, 10 Feb 2025 12:26:58 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 815791007;
+ Mon, 10 Feb 2025 03:27:19 -0800 (PST)
+Received: from J2N7QTR9R3 (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 03A833F5A1;
+ Mon, 10 Feb 2025 03:26:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,138 +42,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7de542a4-e79f-11ef-a075-877d107080fb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739185766; x=1739790566; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=w8BdkLMLctaOCYXiCqu/UwCIuhH7Oos7NVqS4COtsnA=;
-        b=FiF3CGLL5NRcXz+b+AjzYReVYJWu5qh3F8WHO8mKq7s0K2xyG10EEfndz/2APBb7Oa
-         QWPNh70UFh9J8NOm8vTyuYrIi/g9D+7a9+J8C7xW9bTtLQ6dQWUWNbxpN1FynEOVXNqT
-         DvvukjYL11xMyiThGsk9qSMZnzQC/atGC7MBtR3q4B/qZE5QAmU7QNz5AYof8AS+PEes
-         dcWFq9NV4mnJ6ONvDKYefe2eH9TSGOuU3lwVwdsKoL7eFGfR8ztU4soTD7pFXqBfhc0q
-         hKr3R+W6Op37QpWyi4/Jz4m5XTp70lxm9qolbBa9ErNyUUbV2O47LzVztAVp5/x6SiBq
-         5ULw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739185766; x=1739790566;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=w8BdkLMLctaOCYXiCqu/UwCIuhH7Oos7NVqS4COtsnA=;
-        b=E8xn3kUAyxefb2rZWqT93OUY4Ju8f6fkIE+G8qCMocPrvmo49DKEnUu7TN+IX5YrLr
-         zXvZjZZqGzTlTgLoJWgbS9B8968um7/EQLT8MkVOgMqlEggXtFhjuK1ZmBgXswFFSKlf
-         of2tb7QDkP0K5UvFsKDwFv3u/A+XW7n6Ynu66r2a8tlXSlS6TkMD62aXaxqmv3FkePj+
-         C/3z24wyah0Vfs6/BJAtFK1jrti3yoytLLZdFDAmiHVhbSQuT1gfjS8QPtKwLJkhlwdh
-         x8C5+nOrbk9kjsYNsze/MhOGdgiIn4phHEu0LIuJgYBx5Ugw1ZV0N0I0oLiHoATB4Io7
-         /JXg==
-X-Forwarded-Encrypted: i=1; AJvYcCULqdsqG4fcj5yTfoJEI2OCoKh0SvZI/LhdZdr2tjo3NXUZHpGxIXZJ+OC50Gn/noP5a9b/5NE6gCY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwYrqiehPmzT0HUbDa9C+3IRJ2/kyCsM9h1ibD1B2DNG2VTIea8
-	IMjjOR7AJ1RFVNYvYwHcWkurI6lwzYc5wPkFoE3N3zHY/hqTxuqbfnfkJcipyA==
-X-Gm-Gg: ASbGncuZWDOjnfHfg9q/mNYSwg5ViurzOBrARwZggINO620mqu9LU9lhahNg+UJBle5
-	LQ9Y0U3gl1EkAExFmhJ17hETIHKa0FjhRDweDQEVHGOIVkbsKvf0XfNNqJ1su5OJgvhV6Zk7qXl
-	d5rHYp1Bny82Jm3a1gGCqtyigUT/+dLKvTrUE677FRqsICBgAWRlRcy2IqTiGO0VKWBuBGHUeuL
-	3PyPrB6plv2xCb320NmzM7GVZCwDTzzsP/Ly9SU0cz2uh0RV+Gg+xy2f0xcv+F5MNhyBDVbLDzC
-	Kv81CeXVpC6+pFANwiCx6xNlLABAycOUPvwisVDiKUz0zeqgm8wacAG0zaWOV4y1jTgklCkGHrP
-	+
-X-Google-Smtp-Source: AGHT+IF4XJW9zp4lCfAE5+DE9NCmT0qP+AnO8VsOoTBIIB02l8spu0ZKpgC/Ns0CIIiYjKMWXTCaNg==
-X-Received: by 2002:a17:907:7e9f:b0:aa6:9503:aa73 with SMTP id a640c23a62f3a-ab789c756demr1372456566b.51.1739185766550;
-        Mon, 10 Feb 2025 03:09:26 -0800 (PST)
-Message-ID: <c7e4c760-2a78-4f3e-bbb6-6de8ddb4f491@suse.com>
-Date: Mon, 10 Feb 2025 12:09:28 +0100
+X-Inumbo-ID: f0746c38-e7a1-11ef-b3ef-695165c68f79
+Date: Mon, 10 Feb 2025 11:26:48 +0000
+From: Mark Rutland <mark.rutland@arm.com>
+To: Jinjie Ruan <ruanjinjie@huawei.com>, tglx@linutronix.de
+Cc: catalin.marinas@arm.com, will@kernel.org, oleg@redhat.com,
+	sstabellini@kernel.org, peterz@infradead.org, luto@kernel.org,
+	mingo@redhat.com, juri.lelli@redhat.com, vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+	mgorman@suse.de, vschneid@redhat.com, kees@kernel.org,
+	wad@chromium.org, akpm@linux-foundation.org,
+	samitolvanen@google.com, masahiroy@kernel.org, hca@linux.ibm.com,
+	aliceryhl@google.com, rppt@kernel.org, xur@google.com,
+	paulmck@kernel.org, arnd@arndb.de, mbenes@suse.cz,
+	puranjay@kernel.org, pcc@google.com, ardb@kernel.org,
+	sudeep.holla@arm.com, guohanjun@huawei.com, rafael@kernel.org,
+	liuwei09@cestc.cn, dwmw@amazon.co.uk, Jonathan.Cameron@huawei.com,
+	liaochang1@huawei.com, kristina.martsenko@arm.com, ptosi@google.com,
+	broonie@kernel.org, thiago.bauermann@linaro.org,
+	kevin.brodsky@arm.com, joey.gouly@arm.com, liuyuntao12@huawei.com,
+	leobras@redhat.com, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH -next v5 03/22] arm64: entry: Move
+ arm64_preempt_schedule_irq() into __exit_to_kernel_mode()
+Message-ID: <Z6nieJ2M6Ro7CeO_@J2N7QTR9R3>
+References: <20241206101744.4161990-1-ruanjinjie@huawei.com>
+ <20241206101744.4161990-4-ruanjinjie@huawei.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] x86/shutdown: offline APs with interrupts disabled
- on all CPUs
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250206150615.52052-1-roger.pau@citrix.com>
- <20250206150615.52052-2-roger.pau@citrix.com>
- <2fa4f84e-3773-4bab-9be1-ef068a1cce36@suse.com>
- <Z6nY6WqTstPpEKa9@macbook.local>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Z6nY6WqTstPpEKa9@macbook.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241206101744.4161990-4-ruanjinjie@huawei.com>
 
-On 10.02.2025 11:46, Roger Pau Monné wrote:
-> On Mon, Feb 10, 2025 at 11:20:20AM +0100, Jan Beulich wrote:
->> On 06.02.2025 16:06, Roger Pau Monne wrote:
->>> The current shutdown logic in smp_send_stop() will disable the APs while
->>> having interrupts enabled on the BSP or possibly other APs. On AMD systems
->>> this can lead to local APIC errors:
->>>
->>> APIC error on CPU0: 00(08), Receive accept error
->>>
->>> Such error message can be printed in a loop, thus blocking the system from
->>> rebooting.  I assume this loop is created by the error being triggered by
->>> the console interrupt, which is further stirred by the ESR handler
->>> printing to the console.
->>>
->>> Intel SDM states:
->>>
->>> "Receive Accept Error.
->>>
->>> Set when the local APIC detects that the message it received was not
->>> accepted by any APIC on the APIC bus, including itself. Used only on P6
->>> family and Pentium processors."
->>>
->>> So the error shouldn't trigger on any Intel CPU supported by Xen.
->>>
->>> However AMD doesn't make such claims, and indeed the error is broadcasted
->>> to all local APICs when an interrupt targets a CPU that's already offline.
->>>
->>> To prevent the error from stalling the shutdown process perform the
->>> disabling of APs and the BSP local APIC with interrupts disabled on all
->>> CPUs in the system, so that by the time interrupts are unmasked on the BSP
->>> the local APIC is already disabled.  This can still lead to a spurious:
->>>
->>> APIC error on CPU0: 00(00)
->>>
->>> As a result of an LVT Error getting injected while interrupts are masked on
->>> the CPU, and the vector only handled after the local APIC is already
->>> disabled.
->>
->> Isn't this bogus, too? As in: Error interrupt without any ESR bits set? Since
->> I can already see our QA folks report this as another issue, can we perhaps
->> somehow amend the log message in that case, indicating we think it's bogus?
+On Fri, Dec 06, 2024 at 06:17:25PM +0800, Jinjie Ruan wrote:
+> The generic entry code try to reschedule every time when the kernel
+> mode non-NMI exception return. At the moment, arm64 only reschedule every
+> time when EL1 irq exception return;
+
+I think this is a bit unclear, and should say something like:
+  
+| The arm64 entry code only preempts a kernel context upon a return from
+| a regular IRQ exception. The generic entry code may preempt a kernel
+| context for any exception return where irqentry_exit() is used, and so
+| may preempt other exceptions such as faults.
+
+Thomas, can you confirm that's the *intent* of the generic entry code?
+
+> In preparation for moving arm64 over to the generic entry code, move
+> arm64_preempt_schedule_irq() into exit_to_kernel_mode(), so not
+> only EL1 irq but also all EL1 non-NMI exception return, there is a chance
+> to reschedule. And only if irqs are enabled when the exception trapped,
+> there may be a chance to reschedule after the exceptions have been handled,
+> so move arm64_preempt_schedule_irq() into regs_irqs_disabled()
+> check false block, but it will try to reschedule only when TINY_RCU is
+> enabled or current is not an idle task.
+
+I think the detail is confusing here, and it would be better to say:
+
+| In preparation for moving arm64 over to the generic entry code, align
+| arm64 with the generic behaviour by calling
+| arm64_preempt_schedule_irq() from exit_to_kernel_mode(). To make this
+| possible, arm64_preempt_schedule_irq() and need_irq_preemption() are
+| moved earlier in the file, with no changes.
+
+Mark.
+
+> As Mark pointed out, this change will have the following 2 key impact:
 > 
-> Note that the disable_local_APIC() call in __stop_this_cpu() does also
-> call clear_local_APIC(), which will attempt to clear ESR also.
-
-Hmm, that's odd. I wonder whether we shouldn't suppress this when called
-from disable_local_APIC().
-
-> Further patches in the series prevent the error from triggering in the
-> first place, since an attempt is made to disable or mask all possible
-> external interrupt sources Xen knows about before doing AP shutdown.
-
-Right.
-
-Jan
+> - " We'll preempt even without taking a "real" interrupt. That
+>     shouldn't result in preemption that wasn't possible before,
+>     but it does change the probability of preempting at certain points,
+>     and might have a performance impact, so probably warrants a
+>     benchmark."
+> 
+> - " We will not preempt when taking interrupts from a region of kernel
+>     code where IRQs are enabled but RCU is not watching, matching the
+>     behaviour of the generic entry code.
+> 
+>     This has the potential to introduce livelock if we can ever have a
+>     screaming interrupt in such a region, so we'll need to go figure out
+>     whether that's actually a problem.
+> 
+>     Having this as a separate patch will make it easier to test/bisect
+>     for that specifically."
+> 
+> Suggested-by: Mark Rutland <mark.rutland@arm.com>
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> ---
+>  arch/arm64/kernel/entry-common.c | 88 ++++++++++++++++----------------
+>  1 file changed, 44 insertions(+), 44 deletions(-)
+> 
+> diff --git a/arch/arm64/kernel/entry-common.c b/arch/arm64/kernel/entry-common.c
+> index 1687627b2ecf..7a588515ee07 100644
+> --- a/arch/arm64/kernel/entry-common.c
+> +++ b/arch/arm64/kernel/entry-common.c
+> @@ -75,6 +75,48 @@ static noinstr irqentry_state_t enter_from_kernel_mode(struct pt_regs *regs)
+>  	return state;
+>  }
+>  
+> +#ifdef CONFIG_PREEMPT_DYNAMIC
+> +DEFINE_STATIC_KEY_TRUE(sk_dynamic_irqentry_exit_cond_resched);
+> +#define need_irq_preemption() \
+> +	(static_branch_unlikely(&sk_dynamic_irqentry_exit_cond_resched))
+> +#else
+> +#define need_irq_preemption()	(IS_ENABLED(CONFIG_PREEMPTION))
+> +#endif
+> +
+> +static void __sched arm64_preempt_schedule_irq(void)
+> +{
+> +	if (!need_irq_preemption())
+> +		return;
+> +
+> +	/*
+> +	 * Note: thread_info::preempt_count includes both thread_info::count
+> +	 * and thread_info::need_resched, and is not equivalent to
+> +	 * preempt_count().
+> +	 */
+> +	if (READ_ONCE(current_thread_info()->preempt_count) != 0)
+> +		return;
+> +
+> +	/*
+> +	 * DAIF.DA are cleared at the start of IRQ/FIQ handling, and when GIC
+> +	 * priority masking is used the GIC irqchip driver will clear DAIF.IF
+> +	 * using gic_arch_enable_irqs() for normal IRQs. If anything is set in
+> +	 * DAIF we must have handled an NMI, so skip preemption.
+> +	 */
+> +	if (system_uses_irq_prio_masking() && read_sysreg(daif))
+> +		return;
+> +
+> +	/*
+> +	 * Preempting a task from an IRQ means we leave copies of PSTATE
+> +	 * on the stack. cpufeature's enable calls may modify PSTATE, but
+> +	 * resuming one of these preempted tasks would undo those changes.
+> +	 *
+> +	 * Only allow a task to be preempted once cpufeatures have been
+> +	 * enabled.
+> +	 */
+> +	if (system_capabilities_finalized())
+> +		preempt_schedule_irq();
+> +}
+> +
+>  /*
+>   * Handle IRQ/context state management when exiting to kernel mode.
+>   * After this function returns it is not safe to call regular kernel code,
+> @@ -97,6 +139,8 @@ static __always_inline void __exit_to_kernel_mode(struct pt_regs *regs,
+>  			return;
+>  		}
+>  
+> +		arm64_preempt_schedule_irq();
+> +
+>  		trace_hardirqs_on();
+>  	} else {
+>  		if (state.exit_rcu)
+> @@ -281,48 +325,6 @@ static void noinstr arm64_exit_el1_dbg(struct pt_regs *regs,
+>  		lockdep_hardirqs_on(CALLER_ADDR0);
+>  }
+>  
+> -#ifdef CONFIG_PREEMPT_DYNAMIC
+> -DEFINE_STATIC_KEY_TRUE(sk_dynamic_irqentry_exit_cond_resched);
+> -#define need_irq_preemption() \
+> -	(static_branch_unlikely(&sk_dynamic_irqentry_exit_cond_resched))
+> -#else
+> -#define need_irq_preemption()	(IS_ENABLED(CONFIG_PREEMPTION))
+> -#endif
+> -
+> -static void __sched arm64_preempt_schedule_irq(void)
+> -{
+> -	if (!need_irq_preemption())
+> -		return;
+> -
+> -	/*
+> -	 * Note: thread_info::preempt_count includes both thread_info::count
+> -	 * and thread_info::need_resched, and is not equivalent to
+> -	 * preempt_count().
+> -	 */
+> -	if (READ_ONCE(current_thread_info()->preempt_count) != 0)
+> -		return;
+> -
+> -	/*
+> -	 * DAIF.DA are cleared at the start of IRQ/FIQ handling, and when GIC
+> -	 * priority masking is used the GIC irqchip driver will clear DAIF.IF
+> -	 * using gic_arch_enable_irqs() for normal IRQs. If anything is set in
+> -	 * DAIF we must have handled an NMI, so skip preemption.
+> -	 */
+> -	if (system_uses_irq_prio_masking() && read_sysreg(daif))
+> -		return;
+> -
+> -	/*
+> -	 * Preempting a task from an IRQ means we leave copies of PSTATE
+> -	 * on the stack. cpufeature's enable calls may modify PSTATE, but
+> -	 * resuming one of these preempted tasks would undo those changes.
+> -	 *
+> -	 * Only allow a task to be preempted once cpufeatures have been
+> -	 * enabled.
+> -	 */
+> -	if (system_capabilities_finalized())
+> -		preempt_schedule_irq();
+> -}
+> -
+>  static void do_interrupt_handler(struct pt_regs *regs,
+>  				 void (*handler)(struct pt_regs *))
+>  {
+> @@ -591,8 +593,6 @@ static __always_inline void __el1_irq(struct pt_regs *regs,
+>  	do_interrupt_handler(regs, handler);
+>  	irq_exit_rcu();
+>  
+> -	arm64_preempt_schedule_irq();
+> -
+>  	exit_to_kernel_mode(regs, state);
+>  }
+>  static void noinstr el1_interrupt(struct pt_regs *regs,
+> -- 
+> 2.34.1
+> 
 
