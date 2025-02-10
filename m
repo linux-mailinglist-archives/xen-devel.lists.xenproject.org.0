@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CD04A2E6A7
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Feb 2025 09:42:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.884409.1294111 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FABBA2E6C4
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Feb 2025 09:46:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.884417.1294121 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thPMW-00051C-TK; Mon, 10 Feb 2025 08:41:52 +0000
+	id 1thPQt-0005br-EY; Mon, 10 Feb 2025 08:46:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 884409.1294111; Mon, 10 Feb 2025 08:41:52 +0000
+Received: by outflank-mailman (output) from mailman id 884417.1294121; Mon, 10 Feb 2025 08:46:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thPMW-0004yQ-QS; Mon, 10 Feb 2025 08:41:52 +0000
-Received: by outflank-mailman (input) for mailman id 884409;
- Mon, 10 Feb 2025 08:41:52 +0000
+	id 1thPQt-0005Z7-Av; Mon, 10 Feb 2025 08:46:23 +0000
+Received: by outflank-mailman (input) for mailman id 884417;
+ Mon, 10 Feb 2025 08:46:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=SvFn=VB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1thPMW-0004yK-0e
- for xen-devel@lists.xenproject.org; Mon, 10 Feb 2025 08:41:52 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fMFa=VB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1thPQr-0005Yz-NJ
+ for xen-devel@lists.xenproject.org; Mon, 10 Feb 2025 08:46:21 +0000
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [2a00:1450:4864:20::134])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id de53dc93-e78a-11ef-a075-877d107080fb;
- Mon, 10 Feb 2025 09:41:49 +0100 (CET)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5de594e2555so3755311a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 10 Feb 2025 00:41:49 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab7736439bbsm817609066b.162.2025.02.10.00.41.48
+ id 80302715-e78b-11ef-a075-877d107080fb;
+ Mon, 10 Feb 2025 09:46:20 +0100 (CET)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-54504f5cfe9so1606557e87.0
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Feb 2025 00:46:20 -0800 (PST)
+Received: from [192.168.209.66] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5450b29eff6sm322829e87.191.2025.02.10.00.46.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Feb 2025 00:41:48 -0800 (PST)
+ Mon, 10 Feb 2025 00:46:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,101 +45,218 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: de53dc93-e78a-11ef-a075-877d107080fb
+X-Inumbo-ID: 80302715-e78b-11ef-a075-877d107080fb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739176909; x=1739781709; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=dWVHDGoytW9K5vecFap0KgCNwFDnPipAUxCtH1Ke5tg=;
-        b=D0PpoLpdUkbTPLqXEUVNRhRA1BIjxzt8xRwaLYzDphkY/Nh1l9GcVNkQMuRXvlS7vX
-         /Ug1PBOV7mdOhs8HqSzh5svDeMm9rgdrvS2hbZ2VkkK/nKh4jdPUBFNCf7k9BYQVpXdU
-         k4ai8VIAq1ixeg6FPUiHMnQuSe6KFYMFZCIOL/rANbS7MRELPhKFlc6Uay9IueKlrBQ1
-         iRonqX+fEIxAETFrsU1m86HrRkW1g0fKy1/Rv+o2bqArmUMbwbS6vXmzsE1hhH7XOgMZ
-         ssVJgAld4xGGz7jbgvb0KI7XRHjenjwKZOVjCg+Z7MIZQDXRfwWLyXqC8Fb9oXVQCs1k
-         S98g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739176909; x=1739781709;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1739177180; x=1739781980; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dWVHDGoytW9K5vecFap0KgCNwFDnPipAUxCtH1Ke5tg=;
-        b=OU7qWEJppuTdPr1VjMmZIJecUg6D74bCYlgoQD141qutx5TTwucv3Gt/8I6Jn9tlCP
-         2WJvUkBRTkIrtJ9wDQ3EKbt7uBouVlpyVVXjWz+glHahJEfayXSLa4m0GE+5q9kJ2ysa
-         mW2bci8ZjXsdUiYXZhDPBGkEHf/awgByzvxsUWI1wvWAB4dnzBrima0grKWfS+EeUV6p
-         6EIQjenEKM0DpI4rDIPlBJNxaaQh8bNTIg2tN5DB1cYqpzrnlwZP+UUyyMuGLuZYzP4a
-         5pvKkvXLP7p16HaDSF19mD4kiUx5O3XI3kr4ZrEeA88kMpV3Bowh8rgkXnaVLEWUKFI/
-         UpXg==
-X-Forwarded-Encrypted: i=1; AJvYcCXpGnRcikS8+3UsGKrBsMhprHomgc/4csyEJW9DLPo75B1ogoN3EaKVzyvGASI798rw6PY7/R9/Hsk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxEh5ToWbf5ba0y8yjkY1WBcdUUlXxRifyvenyVoHLIOvMEmQ2w
-	F+BDReC86Fp4SUEUepa6ZKBlJMFUURnkzt10CKGUyf0eiJJ/gaLl/llRX8yvzA==
-X-Gm-Gg: ASbGnctFKzl5BevDqqXSxciIcCjhIsdZjqvRaTpKKmAda229MUHxipt2VaSuF7ezFDU
-	NQKMeX//uJKuhCX2gA14bDzo38YxsZC8phKfbf2UDFMekpRsd7q1EJpt5sA0pS9KSZqbnOkL794
-	EkejGxJPkrdemg5Q6hL1iWU4LR+0430A8P4wGSZxqqlOv17JVzq8S7rEJLLpokMrWNZMqMpQD52
-	hY61Iaztdvvwod5qFVhh4kTY9eqnj1BrDDQxFyGekTGnE9nEHygnILLeyB0mcWJF00Go0pEuJN4
-	1qkxSQIqC3h53n9T7APUy6OX3g/60pKJWWniyBzmKusjtMcZClfjMjSO474RVPLJnsjIYLiNUXS
-	6
-X-Google-Smtp-Source: AGHT+IHwssZ1cfc0ngnAMdM51Mr5nVkaZfdzKkESx+lcL/YpqVixtaA9tS8yOiAwJrXsDLt+LHKxBA==
-X-Received: by 2002:a17:907:3e8d:b0:ab7:6fa9:b0a9 with SMTP id a640c23a62f3a-ab789a9d819mr1270859966b.11.1739176908830;
-        Mon, 10 Feb 2025 00:41:48 -0800 (PST)
-Message-ID: <32de25f6-6c73-4a70-8844-e387d83c2528@suse.com>
-Date: Mon, 10 Feb 2025 09:41:50 +0100
+        bh=hEebn1ngqTdBDgjie4K+90PEvpvvHcWRH9GxQ5O8rUE=;
+        b=DoHYyh81VdAx1u2o3RbPV5/ZtzcV/LOikJTefTX0R5r1uNEg49JB5u/0I7jn/kqOWQ
+         mkUTnVeVu0KBPngObzYD+ml1VlaMiIoJy3njtlDEQ1WCXKQi1OAeKmhUyJIFNJu+0PQW
+         uwa+8lIs1fApuQq3LACBlOxTIqlhnI+a3ZHBq2ogWOPt6FKtobsa1GC9LAI3UTUpXtsJ
+         0KVExvlAnH5ZBV3M7zePZNsqsMm8wh64W6phyTU1C+Gs88EdijwPs4vDbfZ5X0VQi8lg
+         Yc8YN1Y5culsjUmu2B6DupSRGB3Rw86QyXUwNNA+2pW5awSmwfmTdfHHWNqZiAhmEPV9
+         sNjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1739177180; x=1739781980;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=hEebn1ngqTdBDgjie4K+90PEvpvvHcWRH9GxQ5O8rUE=;
+        b=rUEnpOCFixiHR2Ga/ncBcxOWF+AZTVPPcuEyxdrQiiO1OtHwDGH9TeqzfZt0r2FYSV
+         4q4/42aA22uMzP1iuv1mYD8GufLtc7EfUXDFgeYa+StroCxev6OHu/0CUio1r6sq18lA
+         Wv5gRjoSPDrlNCiwOAjdusql9wCddSHl7ULywvzqA+cZRRJNmXlZia+7bWvBTeojQbJv
+         aK1fqcNf8bvoVjCn1rL5D90ws0EKeTXmL9KeHiwVpY9jRtWwDU6bIqHd0bdF3pBu0/MP
+         5o8jk3I9u4GWUF15pjd7hqTOmyfFnP5+nn4tW9uX9wJO64mUX2QhBrj6pAvQiqGaf56a
+         PNRg==
+X-Forwarded-Encrypted: i=1; AJvYcCW/N0B3LWkX4AsmKcGgBbdSppSXYJ71ueJfmcT7GUXHFUgjCtLTv9LVWH3UK98eWsXMFy3KJC6l3m0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzAm9cAF49z2P8WHaRhV4WhFjwkG8fBXBYvFhwu/0lkN2DcSHDL
+	LkmA3bohy7Bu1wV/tdi7/BEx2V+P6EppfUL2K3oZxH9fjryvNMlT
+X-Gm-Gg: ASbGnctvsJbN0uRTgd3xcKGizIlNrCZrLt9df29lG8Omj924Al9aY+SP7oUO7YKoBA9
+	3fS/VcHNUXxfkwzkqL7RVhRjwbHEgLAY0cqkybdIX978flRHi7BDP5kG0ZjLqxLyHlSiYCmV433
+	UOLs4nAZhtK4k/4FUjyQN8u0oFBFVa7WuXgyyAsbtrRN9Bi8mIz3GHRE7uz116Y5fY+md+w9tgP
+	A4GPgMUa1S4egtVbrTy1f66bONYoCozi2KX+moAtLqF0EbWMT58wGCDs74ZzB3wcFW6QWDioSps
+	I7VMeLA8uGuSfwvnSOv1xcX44YI=
+X-Google-Smtp-Source: AGHT+IFu1sBRFdexNvQpat/byr63FSh7VJedK1k/8Vkz4v59S5nHB1ODCw52YCkSJcZC/cq1QS67uw==
+X-Received: by 2002:a05:6512:10cf:b0:545:ec1:9fd3 with SMTP id 2adb3069b0e04-5450ec1a033mr402013e87.9.1739177180003;
+        Mon, 10 Feb 2025 00:46:20 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------k0PR9etEMrto89tCj6YZ9BCZ"
+Message-ID: <e7e94ad8-cf68-444c-8e09-7c622620a5ee@gmail.com>
+Date: Mon, 10 Feb 2025 09:46:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/console: introduce is_console_printable()
-To: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, dmukhin@ford.com,
- julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com,
- sstabellini@kernel.org, xen-devel@lists.xenproject.org
-References: <20250207005532.345746-1-dmkhn@proton.me>
- <fed6f1dd-8c32-47d7-b879-e38b372bf4eb@suse.com>
- <20250207213320.2253618-1-dmukhin@ford.com>
+Subject: Re: [PATCH for 4.20? v3 2/3] xen/riscv: update defintion of
+ vmap_to_mfn()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1738933678.git.oleksii.kurochko@gmail.com>
+ <bbea545c2ca25f5e827e4d3b4cb2466478791480.1738933678.git.oleksii.kurochko@gmail.com>
+ <26deedab-b48c-4000-9937-b6b168fd590b@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250207213320.2253618-1-dmukhin@ford.com>
-Content-Type: text/plain; charset=UTF-8
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <26deedab-b48c-4000-9937-b6b168fd590b@suse.com>
+
+This is a multi-part message in MIME format.
+--------------k0PR9etEMrto89tCj6YZ9BCZ
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 07.02.2025 22:33, dmkhn@proton.me wrote:
-> Add is_console_printable() to implement a common check for printable characters
-> in the UART emulation and guest logging code.
-> 
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> ---
->  xen/arch/arm/vuart.c       | 5 ++---
->  xen/arch/x86/hvm/hvm.c     | 5 ++---
->  xen/drivers/char/console.c | 3 +--
->  xen/include/xen/console.h  | 6 ++++++
->  4 files changed, 11 insertions(+), 8 deletions(-)
 
-Hmm, there being no revision log (nor a version number, btw), I can only guess
-that this addresses my earlier whitespace comment. You've also lost Stefano's
-R-b. Further please send patches To: the list, not individuals; maintainers want
-Cc-ing as appropriate.
+On 2/7/25 2:30 PM, Jan Beulich wrote:
+> On 07.02.2025 14:13, Oleksii Kurochko wrote:
+>> vmap_to_mfn() uses virt_to_maddr(), which is designed to work with VA from
+>> either the direct map region or Xen's linkage region (XEN_VIRT_START).
+>> An assertion will occur if it is used with other regions, in particular for
+>> the VMAP region.
+>>
+>> Since RISC-V lacks a hardware feature to request the MMU to translate a VA to
+>> a PA (as Arm does, for example), software page table walking (pt_walk()) is
+>> used for the VMAP region to obtain the mfn from pte_t.
+>>
+>> To avoid introduce a circular dependency between asm/mm.h and asm/page.h by
+>> including each other, the macro _vmap_to_mfn() is introduced in asm/page.h,
+>> as it uses struct pte_t and pte_is_mapping() from asm/page.h. _vmap_to_mfn()
+>> macro is then reused in the definition of vmap_to_mfn() macro in asm/mm.h.
+>>
+>> Fixes: 7db8d2bd9b ("xen/riscv: add minimal stuff to mm.h to build full Xen")
+>> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+>> ---
+>> Changes in v3:
+>> - Move vmap_to_mfn_ to asm/page.h to deal with circular dependency.
+>> - Convert vmap_to_mfn_() to macros.
+> Why both?
 
-Jan
+Just for consistency. vmap_to_mfn_() could be defined as static inline, I can
+send the new patch version with such changes, probably, static inline would be
+better in this case.
+
+>> --- a/xen/arch/riscv/include/asm/page.h
+>> +++ b/xen/arch/riscv/include/asm/page.h
+>> @@ -210,6 +210,13 @@ static inline pte_t pte_from_mfn(mfn_t mfn, unsigned int flags)
+>>   
+>>   pte_t pt_walk(vaddr_t va, unsigned int *pte_level);
+>>   
+>> +#define _vmap_to_mfn(va)                \
+>> +({                                      \
+>> +    pte_t entry = pt_walk((va), NULL);  \
+> If this is to remain a macro, va doesn't need parenthesizing (as the argument
+> passed is just the identifier, not an expression.
+>
+> Be careful with the naming of macro local variables. Consider a use size (for
+> whatever reason) having
+>
+>      unsigned long entry;
+>      ...
+>      mfn = vmap_to_mfn(entry);
+>
+> This is where appending an underscore comes into play.
+
+This could be another reason to use|static inline _vmap_to_mfn(...)| instead of a macro.
+
+I think I will rewrite the|_vmap_to_mfn()| macro as a|static inline| function in the next
+patch series version. I'll send it after receiving comments on the entire patch series.
+
+Thanks.
+
+~ Oleksii
+
+--------------k0PR9etEMrto89tCj6YZ9BCZ
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2/7/25 2:30 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:26deedab-b48c-4000-9937-b6b168fd590b@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 07.02.2025 14:13, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">vmap_to_mfn() uses virt_to_maddr(), which is designed to work with VA from
+either the direct map region or Xen's linkage region (XEN_VIRT_START).
+An assertion will occur if it is used with other regions, in particular for
+the VMAP region.
+
+Since RISC-V lacks a hardware feature to request the MMU to translate a VA to
+a PA (as Arm does, for example), software page table walking (pt_walk()) is
+used for the VMAP region to obtain the mfn from pte_t.
+
+To avoid introduce a circular dependency between asm/mm.h and asm/page.h by
+including each other, the macro _vmap_to_mfn() is introduced in asm/page.h,
+as it uses struct pte_t and pte_is_mapping() from asm/page.h. _vmap_to_mfn()
+macro is then reused in the definition of vmap_to_mfn() macro in asm/mm.h.
+
+Fixes: 7db8d2bd9b ("xen/riscv: add minimal stuff to mm.h to build full Xen")
+Signed-off-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+---
+Changes in v3:
+- Move vmap_to_mfn_ to asm/page.h to deal with circular dependency.
+- Convert vmap_to_mfn_() to macros.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Why both?</pre>
+    </blockquote>
+    <pre>Just for consistency. vmap_to_mfn_() could be defined as static inline, I can
+send the new patch version with such changes, probably, static inline would be
+better in this case.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:26deedab-b48c-4000-9937-b6b168fd590b@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/include/asm/page.h
++++ b/xen/arch/riscv/include/asm/page.h
+@@ -210,6 +210,13 @@ static inline pte_t pte_from_mfn(mfn_t mfn, unsigned int flags)
+ 
+ pte_t pt_walk(vaddr_t va, unsigned int *pte_level);
+ 
++#define _vmap_to_mfn(va)                \
++({                                      \
++    pte_t entry = pt_walk((va), NULL);  \
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+If this is to remain a macro, va doesn't need parenthesizing (as the argument
+passed is just the identifier, not an expression.
+
+Be careful with the naming of macro local variables. Consider a use size (for
+whatever reason) having
+
+    unsigned long entry;
+    ...
+    mfn = vmap_to_mfn(entry);
+
+This is where appending an underscore comes into play.</pre>
+    </blockquote>
+    <pre>This could be another reason to use <code>static inline _vmap_to_mfn(...)</code> instead of a macro.
+
+I think I will rewrite the <code>_vmap_to_mfn()</code> macro as a <code>static inline</code> function in the next
+patch series version. I'll send it after receiving comments on the entire patch series.
+
+Thanks.
+
+~ Oleksii
+</pre>
+  </body>
+</html>
+
+--------------k0PR9etEMrto89tCj6YZ9BCZ--
 
