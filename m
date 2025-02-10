@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E29FAA2E96D
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Feb 2025 11:31:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.884561.1294295 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E444EA2E972
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Feb 2025 11:31:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.884566.1294329 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thR3z-0004vp-Fk; Mon, 10 Feb 2025 10:30:51 +0000
+	id 1thR4A-0005oC-23; Mon, 10 Feb 2025 10:31:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 884561.1294295; Mon, 10 Feb 2025 10:30:51 +0000
+Received: by outflank-mailman (output) from mailman id 884566.1294329; Mon, 10 Feb 2025 10:31:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thR3z-0004tu-CW; Mon, 10 Feb 2025 10:30:51 +0000
-Received: by outflank-mailman (input) for mailman id 884561;
- Mon, 10 Feb 2025 10:30:49 +0000
+	id 1thR49-0005g6-M0; Mon, 10 Feb 2025 10:31:01 +0000
+Received: by outflank-mailman (input) for mailman id 884566;
+ Mon, 10 Feb 2025 10:31:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=NzWh=VB=epam.com=Mykyta_Poturai@srs-se1.protection.inumbo.net>)
- id 1thR3x-0004Pl-3C
- for xen-devel@lists.xenproject.org; Mon, 10 Feb 2025 10:30:49 +0000
-Received: from DUZPR83CU001.outbound.protection.outlook.com
- (mail-northeuropeazlp170130004.outbound.protection.outlook.com
- [2a01:111:f403:c200::4])
+ id 1thR48-0004Pl-55
+ for xen-devel@lists.xenproject.org; Mon, 10 Feb 2025 10:31:00 +0000
+Received: from EUR02-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur02on20614.outbound.protection.outlook.com
+ [2a01:111:f403:2607::614])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 17edddeb-e79a-11ef-a075-877d107080fb;
- Mon, 10 Feb 2025 11:30:48 +0100 (CET)
+ id 1e01d3ee-e79a-11ef-a075-877d107080fb;
+ Mon, 10 Feb 2025 11:30:58 +0100 (CET)
 Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
- (2603:10a6:102:30d::12) by GVXPR03MB8404.eurprd03.prod.outlook.com
- (2603:10a6:150:6::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.18; Mon, 10 Feb
- 2025 10:30:44 +0000
+ (2603:10a6:102:30d::12) by AS2PR03MB8977.eurprd03.prod.outlook.com
+ (2603:10a6:20b:5f5::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.15; Mon, 10 Feb
+ 2025 10:30:46 +0000
 Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
  ([fe80::35ac:8893:c31c:b971]) by PAVPR03MB10102.eurprd03.prod.outlook.com
  ([fe80::35ac:8893:c31c:b971%3]) with mapi id 15.20.8422.012; Mon, 10 Feb 2025
- 10:30:44 +0000
+ 10:30:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,36 +47,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 17edddeb-e79a-11ef-a075-877d107080fb
+X-Inumbo-ID: 1e01d3ee-e79a-11ef-a075-877d107080fb
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QxMNDv95FbiEhQnwSWZyiXdw5um9rSIfnv4IMaR0/QbNXF7TmGQiP/ySNRYTL+t38WkLriH3y85R+PuaMqhgSUH3mp2LVUY0IzNI7SxaoszuaW2+Ee/KXLTpTe8rEcb1mrB6fpxOpN+Y6kHv/sgtnqLut79vN3tVOH5s5X7sPMyqUrgITNUJX4UI8rkZoh/XwBf6W/aYGIQDVbTNDCzOI9g8OHDMfLfe8VvUPMDrUgM3SapKibmC7B9gfQPKYGcyZR1vsfdvw1SfZCfaWytW9l6djI0S0K2l/iiC9FT9gMMYJL51rzkslOarVCd11/YQ9UNnGRNG60GiKlEFu8gxbg==
+ b=rAzEGYMVo+n/lgBGCaB8GGScLGEPrsKK2a1p50UWl34uVAwp49sUOKKnC6iXA7r+sABEi1wG1GdL6sU6L/Pltf5qyiHjDb1z1v4ekfUzAIWqxQtED/q9ziFmJzdXuI6+PvnHat1SzMv3XxLctLzbidbihA+jlmUdXZMW2pGx/8QM5Rx7IBv+XHJP5JteMXDmof91FCFC6+88a+RI4qjZiwv6g941G9URkVcB1i9HOvchYPaz+LJ/bDgWicu8ZCBZKu5Tf+MwvfkFng6OT54h4yPZpFrgfYl19v5POWxlVdVMZ7gNOHlJA0vOxHTS/ZJJ2gC4PWA5FHlaQOwWrhXDlQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K8ogDqoe1xUm7OYt5C1WUyKhVK0zheAKGwiUfGKwWu0=;
- b=h66695cLCoeMYQxa9vqk3bLJs1aZ5E8KnOfjZthUqtrADkT1LZ8p95gR/bYTjlXm8FuX5Qs83U+p0ErGDcH4ZcVeHswoMckaBF3rJVIrGZXykApsGPzguVzV6gdVZdOOj+cdFV1vz4XNxR0yt3lxXKjDqzICbAUXnC6KNfXVMmId0dEn5AcH5l7+yY4WCq+v5CD+h3KTNy/3TXkRaN6ElQIuOSi1gwNWQP0eHohgj/jI+5rqSV7g/TlWmH14O3dNtFunWMfql6+a7TvYfn6eaWMV/KQruY9K2gLRjK4MmQ4HOe8R7CiFpg3lui0TcUlXNXfge40sDjUEmIt+XoZgQA==
+ bh=60nnA6HGaGxV4w+j+k1w+tAaB6L5I+A7oLDZirmwzsw=;
+ b=qr28qa7rEn0ZF+OoRMxNjrrJ+y1ES2e47c1fwTwUiq/2Iiwn2kyH5givQXjIJPvEURHNxdt5JljEnbNmqjK7ON63q4i3+AsPChyB4qtXYqmZt5k9TzH8RFY3aC/61sswcnVviWWW7jpN+LUebj5jyNvjaed9YMq7gBa9p0lgeGES8CQl08/HK3GOJadEUKupuaS3q+YQqCzxHYasOvkj8zGTIALOKzJr7PzAz5Zh2TmFQvH+cHN7S7WiJ70VPBBEBw/Y6jwIDtF47rZX5NUIoP8Wfa+lTaBbvYSzPGjDkluXcFohFqrYJrXKgizkJmA2tWM/lXvaZrfDsD8az2Ft6A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K8ogDqoe1xUm7OYt5C1WUyKhVK0zheAKGwiUfGKwWu0=;
- b=IY+vQ13/Krn4wdg3K+ihh+TSPulxuKo1mCZ4w9YW9G0D9D6X7CBssYgOF++J0MzgFoYPUFakkM2fMGZ+B7cFc7aFd/T0JJgUulmxrGVEVZCvfd7yI1t8BSB1F9ZKrsiRUb8BEggUaWQd0yiOgESbQI/nwxb0ZZx6HuBUREwu1FQvnNDVVs3Pp9xOXbhCH/O9dnE5ChKFuu0/gS3vPlCVDNBfyIinu3U/KrmBr5JD/Yb+0bOzDAmt28KR/g+6SuGauvcfyYyXFJAZHS1+e4X7tq++oZlnQfu9kpBknyTGSe6GponwlFzgFFXNsZnasrF6WoGLCIEanhlPhpje8bcTfg==
+ bh=60nnA6HGaGxV4w+j+k1w+tAaB6L5I+A7oLDZirmwzsw=;
+ b=ARryWQVewE0fJIEMQ3NNli4ZazKWp+eb9GV0i3AY5jcmWdJA5THER6pupjaW+S/UewKutq/aVbAicScAMJgyElyO4Sx9F4iH9yib8wq2f2FoPPv0LkenKg9qJ/alyeKvb3r6lW3WOUj4lfVcqFgtTwqPpLbc1999lve3nloMKdTK0hyGwUAKkJXYITDa8CupBhbmSgl989+iVO2HlkDR7g++zyyUScdBRYZ1UGtqzqaGt8IJURqrkPukPoF7Aq4bRgInBxWFCRJe10ozDk2yj4pm53R5sJSGtia3RRBo+aTuPbyDDZiH8g6NiBnXXcm4KTIhSWCxeLPXnqXA07nSmw==
 From: Mykyta Poturai <Mykyta_Poturai@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Oleksandr Tyshchenko
-	<Oleksandr_Tyshchenko@epam.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
-	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>, Mykyta Poturai
-	<Mykyta_Poturai@epam.com>
-Subject: [PATCH v8 2/8] iommu/arm: Introduce iommu_add_dt_pci_sideband_ids API
-Thread-Topic: [PATCH v8 2/8] iommu/arm: Introduce
- iommu_add_dt_pci_sideband_ids API
-Thread-Index: AQHbe6bXkeUuupR7FUWii7Y2X2QPjw==
-Date: Mon, 10 Feb 2025 10:30:44 +0000
+CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Rahul Singh
+	<rahul.singh@arm.com>, Stefano Stabellini <sstabellini@kernel.org>, Julien
+ Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal
+ Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Julien Grall <jgrall@amazon.com>
+Subject: [PATCH v8 6/8] xen/arm: Fix mapping for PCI bridge mmio region
+Thread-Topic: [PATCH v8 6/8] xen/arm: Fix mapping for PCI bridge mmio region
+Thread-Index: AQHbe6bYpih0g1hVFU+mNaS3PRj2Mg==
+Date: Mon, 10 Feb 2025 10:30:45 +0000
 Message-ID:
- <67b9bd138c12c0df35e5c4b3137c30ad345097d5.1739182214.git.mykyta_poturai@epam.com>
+ <df3360d212b093852e07afbc80a72c4f37ba8ab3.1739182214.git.mykyta_poturai@epam.com>
 References: <cover.1739182214.git.mykyta_poturai@epam.com>
 In-Reply-To: <cover.1739182214.git.mykyta_poturai@epam.com>
 Accept-Language: en-US
@@ -86,71 +84,70 @@ X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|GVXPR03MB8404:EE_
-x-ms-office365-filtering-correlation-id: fd5751e9-05b1-4c33-f160-08dd49bdf99f
+x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|AS2PR03MB8977:EE_
+x-ms-office365-filtering-correlation-id: 88f718a0-b652-43bf-4165-08dd49bdfa9d
 x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|1800799024|38070700018;
 x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?ZMf/rT7q0qrPOin2aZeSnEzkx5uU1AxYuaSV3VcUxUjxX40emWfQSGkWlU?=
- =?iso-8859-1?Q?619lNJKk6ZrbmsubKFseC85ES2giVStoondvQ5mORkpHSnkTmh2imtLXxn?=
- =?iso-8859-1?Q?h43GFHistqaGumWRCLmPb4tU3xGS7vAUeHUO6TzpMOH65oFcUfcYTRf54n?=
- =?iso-8859-1?Q?0FKcBf1nPdNOKHuHzQGE+waK3pWXiCYzOezsPU1LUMIlcDnHk+qQ+mw8yy?=
- =?iso-8859-1?Q?wyhmU3QzN9AFM1FIabU/xbaZ9zVJppbcGgL9x4ISKOhYprExmlXgNRSyEW?=
- =?iso-8859-1?Q?B/WZ6M5VGDCpeq7N1sW+xWn4XKk+ZfnnFDS58WoZVIi8XuEuZxiEZ5ZPFp?=
- =?iso-8859-1?Q?4JeHJi2JK7sfnirBwH1vp9TfoS3yjZYttGr8K63JZrtl354fMVjHBTLMxU?=
- =?iso-8859-1?Q?gx53cByJLoBUmo/oiMpOH/uq5Ln+M+1IQp0uy+1+BM2oS0oSC7SSSznVX7?=
- =?iso-8859-1?Q?HgwinHcIg/xl+wI/4Xqen+WSYIAV1R9Anx+uJLvgwL3oWWg7e1rLgb1ue2?=
- =?iso-8859-1?Q?yOi/D4bEUHKW6RNfEDt784W0w38+5AeYoNhUwWcwQoP94lEpuprudcze28?=
- =?iso-8859-1?Q?uNUdqyOkX49ZbpNTu4SproG9gEfF3kv+AT0SPQqqk8CizLbSxRwG8BvMOq?=
- =?iso-8859-1?Q?qzCpb6Unn1tf/9VIrHCtve1D5cUzBbjgvFHh+oL29oDF2qWV9vg+UX71yZ?=
- =?iso-8859-1?Q?xApxnRehvktNQbdEXkk3UvE61HKulC/igtOobmwbzEiZQJ9xaNpZQCvF2B?=
- =?iso-8859-1?Q?kUQuhKOwror93j22koFVJcPYbKZGlMmUpQPuw1Br21ar3A/PDQqa0/n5/m?=
- =?iso-8859-1?Q?oLLzglBp5qJud8TbW3FS05/d6HpMxbZ+h7XCNifYID1rTyALUdXK3wdbGr?=
- =?iso-8859-1?Q?3N5ZXfr0OPlMAsDLMSmqk4O3EsmRs8fuFmIY05mruPmHyCl1wJK2tDqXqn?=
- =?iso-8859-1?Q?G89YCmwLmkv1hdCRKNNTau3NAXhQuKDgaDfuRaninHQ8l1xR83moo8uHcR?=
- =?iso-8859-1?Q?/Iiq2jqIs112LLQJQ5wICZv4jFzHTcA2UEIlKBvY8R0CpgBDE4djNe6hLt?=
- =?iso-8859-1?Q?h1eLeOTGiIZBIaOn4cTzwx7FnozpmwR1m9sL3aHnqWogARtmx4IhOVFRFX?=
- =?iso-8859-1?Q?HUEzRqvC1g8CyXq8AkZAMOPBxAeX/+fA0EyvBvufq2w/6x0lygDFpfKUHl?=
- =?iso-8859-1?Q?EP8xGCv+L2KsF0ZChIemuJBVC52OEPWigfFeH7EUx34Kxi2ziGdxzppCoI?=
- =?iso-8859-1?Q?/SlXcwrricdLgiiRoeZywVK3Uf5IHBDBIBPDJpCHQ0oz8TmSQ0+JK9UADe?=
- =?iso-8859-1?Q?txPIDpDgzC9SdzPxuc8EhneY11UcyVdjahAi9vLVf73s7tvHxUP61TqMEM?=
- =?iso-8859-1?Q?B3KWh5inaPKKG0wHGYUd5ErviOGOODYyXtkjeVTvpU/qBjb1GBc1LkH9jw?=
- =?iso-8859-1?Q?WnE5mcOT5tPo9CMWbxtCNRenMVCH+Pw6akf7HyGMpDq37YRW1qjzsghMj2?=
- =?iso-8859-1?Q?bwIOS5KdhfQ+ZrIg1cy7dM?=
+ =?iso-8859-1?Q?dM6lsAe/IQXcVfZ+80dmsRgajtp2IMqp5pLN9CKQ7hoLcuOZT1w1gGErDs?=
+ =?iso-8859-1?Q?ISlhKFpiBiyklQIY/BFDILdkH22WZmOiHVrtmbM5aIhsemvMIqHtRl/U9P?=
+ =?iso-8859-1?Q?btvFimqsf4KtdB6oLZSfzJbPcDxwY8hQOaSnSMACOm48AKzH/f0CXSg/eX?=
+ =?iso-8859-1?Q?lc6mnp1xI3F6CAOD6yLPf11v6DzktG98Orfq2P2EVYDYuv4XL1iitZXuq0?=
+ =?iso-8859-1?Q?lBVme/EfPFqN8OlxoqW90DRdhYFeAHU1ZJPOfQd+kyxxGM+EBbm/zzxDuL?=
+ =?iso-8859-1?Q?LJ5a6IVhvZfLEC5d9C2KN0AGeRgaXElKHGLyJ9w2bP3TBeWDAVdk5kvTto?=
+ =?iso-8859-1?Q?GkAZakc7mCdHU42XNBxfgUE/Cs3DPGaJ4Y5GgPpgp0/IzVc3mjG3iZeF/a?=
+ =?iso-8859-1?Q?SuUaHjMhjegIUgkDXHf6p+1lfYKwX+ahe8k+r0Ok3zhio0tVo04fG/iRKC?=
+ =?iso-8859-1?Q?MnxGH8BVcy9TFHyTmjmvhb06y+sLjC4CDVnI+HUUOJavgP1dzgrnALpobO?=
+ =?iso-8859-1?Q?8/Qbgc5kNKfabnLjH8YBj7N7g93QQua8C8CjfedpcQQXiQoqOaz+kvG5vZ?=
+ =?iso-8859-1?Q?FX4hLD/V5KnBxsiYNS/AtdOlME6WxrMJJphwCvc1b/pSw/kpYH8a4N8YEE?=
+ =?iso-8859-1?Q?w/162ak6YqDH/UWHTv0MVs0FfKNnyyfKMaCdkdnpZtmTdHeSaNdBdBlULz?=
+ =?iso-8859-1?Q?O78LBtbdfZt+RnnDkRtI3u8IOcoZ36+rbU2vy0NzsQGUxgZdSsfKNv+U1F?=
+ =?iso-8859-1?Q?JRITmRJeIp4HQX4RzktG3w9/ob0ZdaSYF0v7ZuZkqxz/r64puLQ+5tnaco?=
+ =?iso-8859-1?Q?W7jt90f0mMH+YtGtYjrLDj91MaloZk/t+B7wB7NiHgu/7JAqH5fDuWERap?=
+ =?iso-8859-1?Q?2O0JlCXe3ZeDTHNwbnz292AXocD6sUXWM71fhWGNzI8VRk5jPXTBelxj0S?=
+ =?iso-8859-1?Q?eb4wOxGdiexrHkXTZFnkOZP9HYdZOYB41yS02gxlers6eLgGwHzey17ROv?=
+ =?iso-8859-1?Q?acvMMlp7iwYIhvyX+KQiw2ij+/6yNawIKgt/GsLyFYO872+lVhLz9ZQslV?=
+ =?iso-8859-1?Q?c1E0dxoMlc/cx6E/rzikI2hNAjmPQOvdGaLpWt/mHuYkhnoPXeQF/Ioqg2?=
+ =?iso-8859-1?Q?t9CPKSpVcwksjWMz1wTzvx4wTarbFfATLd4N2yXPtSIF69TOFpad66V5ct?=
+ =?iso-8859-1?Q?lQFcsiQ2oD0LX6bKOX/KNsyopPMQr5uEuw6/4T6GbZn8+GaZSnSMWOfm0+?=
+ =?iso-8859-1?Q?yip23eEdV6igOrsY0wFQLAkmDA6QLGh1DGivYu5SIArzKqn6vo5vViDajw?=
+ =?iso-8859-1?Q?YmPAgQzMk+O6OldFfPgDnjWxpTY9Y7/Sl3lWpvFzl7nJ+po3sXOD80Bc8R?=
+ =?iso-8859-1?Q?US4DhVBVGRRIvPgX/fUbHIJksPiPoSvW7gz3MzYjET811CML6BWVFFPY4B?=
+ =?iso-8859-1?Q?eYPgd/dNepkarjov/C/g1v7fZEGJoUsQ8oQ9SA=3D=3D?=
 x-forefront-antispam-report:
  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700018);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?sW+V88qhW5NuH4UZWiSaMc/knAtIc+FuSbcAfc17JVD0NvfrRt9NCeMo1U?=
- =?iso-8859-1?Q?eHcJPy43dHaxxqg8luL7TQRfQdP9Eq51HHgc/uT4nDajhOtsDpKbMctZ+R?=
- =?iso-8859-1?Q?8JF7GeYHEmB1VBfYwIf+Dxw6D1ds0JvWH1cQOPOwewYSFQn5y7o+TkYuvF?=
- =?iso-8859-1?Q?80QxPNOGqoRbPPqJuvWC2G1BLCqsq8mKocAheaPaA8Z1UJ0UM5S8sMOAS2?=
- =?iso-8859-1?Q?J45qwkmTQJGsOQfNsSX7fDgf+9mMjcMiUUB6fbgUjk5rojISOtwSZk41Me?=
- =?iso-8859-1?Q?KzKvH87Jxcwg39XPxPjKmjRYE3QZQxN2B0Wv+i8bXiX17Ok69bOdnhSkOh?=
- =?iso-8859-1?Q?iB6na9QAXqK9FqySuT0w3QiDfiQug/xhbJJSW3Dcxpgg4pe+vdJsPggpMu?=
- =?iso-8859-1?Q?Ib0i1tEHyBsErSxG4qM3c4FPs7fcFZZNhzzvRrDipXS+yD4P3XG7IHkD33?=
- =?iso-8859-1?Q?YM5WMfV21Lp5VyFFzJ37rjyQpKPX2OHwk3w0wGYGE7xTG3Ad6UNjzg+/iT?=
- =?iso-8859-1?Q?aWeD0JrJtjMyij/hknC0KDxIOgm2aIJBWmZgjHvFO+7ZHPe7+UTiHb7pky?=
- =?iso-8859-1?Q?GJlbNfEcmCZYv2lxt3ApEh+wb54GjaTtAzIzBr3VJzNh5bIlcAXWMVYUDX?=
- =?iso-8859-1?Q?DnW0++f3gQZauzLo0hLnOxSxtWBrzh8KVQFbiQZT/t5pIGobCTlJJZGmvH?=
- =?iso-8859-1?Q?h8O/KFrheOyCcG9ketpwjWJ/z5p/lcMLjrM71AK/yMiJ69Memr3kl202eF?=
- =?iso-8859-1?Q?zV7XonL0/1/0B3SU+DdvTpSYFCCg44GEmidh15JhQED0pcPy3512hMUwyI?=
- =?iso-8859-1?Q?33IbWA75iPIDWkh7x6h9ljKwKk4pmYi7i6v6ICCh38B2sdL96+CZXkIEK4?=
- =?iso-8859-1?Q?y1lvUQAvCAwWCQQPyhOniZpRV3bBX5jiyIeXbpTBTz4pg0CKyGZUsKXnpe?=
- =?iso-8859-1?Q?qyh4PgqTKNC0A1p4VLizwWdcONge+9kYrnrD6RxHpHyenTOQQwnjylhgoP?=
- =?iso-8859-1?Q?e2Tm3QWdliDIoIGppd6MnPeEEy3z+e6aNNProLP0d0mkx2ZacDQeK1nuiR?=
- =?iso-8859-1?Q?SLQ0c3RPyuTwkS+ofpS65RcQQFjHJaEa5EI5Ep9TJh7rP+xQJiCh1Rk5Tj?=
- =?iso-8859-1?Q?llyKZSo3ifobVB5t7O84KJGrT48L64PlhY1yY67DegSE31Ab167NiNOl54?=
- =?iso-8859-1?Q?51GwBcLSHvVfsKklx38HAli03Lw2F82977per40oNlkYOgnjIttoft9ikc?=
- =?iso-8859-1?Q?n03Oiqr+wepzPYU5iMiEUCgq3zv9V46EssK9/Vd88I7PTwkwWRdUQiZLXx?=
- =?iso-8859-1?Q?G3GRHEmSBLBfgfwrEhoS4782TFXhatYKXQKigYDDjXzxtr4idoPHxKw7Ek?=
- =?iso-8859-1?Q?CzyYlFowk0ewtdpxh28IeV1FfbXNjqUhf9a1GWfFhv40vdHqu+vKQKUGvR?=
- =?iso-8859-1?Q?vILRzUKYIS/jLIv0FbFpSgARJQRAdrrT2vkH1mioPuZMkuXS9ldgPxqMNh?=
- =?iso-8859-1?Q?C9ZO5jnC31MlMIFpYdU3ZSWMwYoqnIQgFIFvr0B9sfZE6YEyKqsoGWq/di?=
- =?iso-8859-1?Q?QOXE+jHVjJahQ+Ouxb78DMIeSj3R9JRa5uHK28t+uqLNvMli02LMN+xTmw?=
- =?iso-8859-1?Q?+iu/h6DD7x/BD6RLVS5NsYsGIkwoLeifeB5N2XSayBbC5dGDC1TRgreA?=
+ =?iso-8859-1?Q?cQlrJlILoER6hNBB4CFcc7CY7gM0wyJ+xKhNrb643i7el2x8MTj/l786JE?=
+ =?iso-8859-1?Q?xB1KEWgdmjcJR/wo5VBlaLleFykYoyLRuFlWgsZV3W9qMmj6K/+acv8CVw?=
+ =?iso-8859-1?Q?WZldr16jvQrcnHyyrTc5dFBmoYyiM9rKQxb/TbWl3mhrKsDPMn41ZqQVop?=
+ =?iso-8859-1?Q?KDE9d6lnwy8t29hBnmHfXdrJY8IuanzZFDAN9YAOAgTImHmWzL/rXqXeJ0?=
+ =?iso-8859-1?Q?/nF0e2+b9WcaGZAZlgGk+2Ul89WDPz3vzvTlEyGp/0F+CUj3sANy7cuzmJ?=
+ =?iso-8859-1?Q?qTPkTTbRJSr7cL0aoDwNbhJx8c8aN+yoqNzamK8mZiOASKmzfVanqCXQbF?=
+ =?iso-8859-1?Q?QX7X47tXUiopBi9VOJ4w2NKrapFL7q0/feSQG3SOiteRbkxmoz1ExsdGPb?=
+ =?iso-8859-1?Q?AqZpAjQuOrBq3DMRUqC5q27NoA1NXzzXCx38veeZ/WVGaOkyqVx3raJk3n?=
+ =?iso-8859-1?Q?xwBpCgZSzIx1FPENOIETIkzWZoLmfMca5uXCT1ZAR3RyMwHxQ/GsuTk1Ii?=
+ =?iso-8859-1?Q?24UvCre7PPaNbRjM0tGxSmseB3jG8Ul/emO5FIWJO5AaILE3FPfYOrma4M?=
+ =?iso-8859-1?Q?8hT6Ie+nxFHCcTWSWGZi7FMgIaiCXTG9jmKOrNCMiNAaiyaD1sKkM2zmvQ?=
+ =?iso-8859-1?Q?EhXGg8ROMjzrW+V3t/ScY6XF9FMKMZGoIIqadf6/THuM43oEKc63pnUqQ2?=
+ =?iso-8859-1?Q?dbH9BI/sYYpsU7u4ULcsl5T3yom/hKZGsMBtlf/8QP92WFjsUBUs4eyc0U?=
+ =?iso-8859-1?Q?Uge+yZ+GOI98X86UA5/CcK3a6MqmT/cjd7xNOfV/uNk9U9fXKSq37+x5FT?=
+ =?iso-8859-1?Q?+mqmpCmtT6M6NpMbandRgRFfr9m+EUl0VmpVc2OhczmU14PAi53IeRBfR6?=
+ =?iso-8859-1?Q?e/znVo6kv5QtPzf/TJa5m3CF3z6VOZ3J7ioz+nUXYYFBRh34BbqMVrDJ4j?=
+ =?iso-8859-1?Q?6/pOIMo/CyHRnZpFx8shkVSGWo+g6zHfD0U3MHP56vdXLzo9BuJR4wWOlE?=
+ =?iso-8859-1?Q?+Z96g5J6/8eWKLr0jIndCbb2fSkAEOYNIIlBTUUcXgKtQuYpGhu7gq2pAJ?=
+ =?iso-8859-1?Q?XWax+KQ6JNj1sj2X9PfdtbctjPc5x6WWJnCbBBipSXaXnC8dQFDwsB9g8J?=
+ =?iso-8859-1?Q?zSQAziJZesj//yipcxpd6A14CDpHSQjpGB7w8L9F8S4bdbxiF+7maP9yuk?=
+ =?iso-8859-1?Q?2qziYmGUT+6pIfoAi1SJ74uCo5Gxaef8imATvTuAvN59dfT0QGpY7YwgfU?=
+ =?iso-8859-1?Q?4bvlcoHNMHdsssSGTQdeCbcxQZp6AQ8Z+1ZpkK0KcLkIoM06eSGqvdGPNi?=
+ =?iso-8859-1?Q?Z2VmjQcqQwAnC+wiDgCSDfRt6JN5Ad1WgmsT3UW3veC70LeS+3lXA2XRGB?=
+ =?iso-8859-1?Q?sSKT6TNEF3ZM4lbPMmKcrYhTlS1kqhlBU4cNqDOGEfqkSdKi8ymUZVDW68?=
+ =?iso-8859-1?Q?cLSaimNpgChSxF0qDXWvI+CyYQljkG7q9OPSOfjqMUrcCsxPE5XAN5ymXw?=
+ =?iso-8859-1?Q?J71F7nsV6SRdnEzfZY0ZQSuAUm6tVmL7iBwB5QtvvKIr+egj3DpvK9d4/5?=
+ =?iso-8859-1?Q?/upnmaAxI+cCaQZk+hRFHwZ2u74Mk+q+tp8S1zXKJRTu4LzFJYMz7uOH8Q?=
+ =?iso-8859-1?Q?0lSp8fkBACioQk8RhYgtzumUsERU5fDIbvj1i5t1j3P5h/T1chD7k6yA?=
  =?iso-8859-1?Q?=3D=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
@@ -158,433 +155,68 @@ MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB10102.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fd5751e9-05b1-4c33-f160-08dd49bdf99f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Feb 2025 10:30:44.1856
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88f718a0-b652-43bf-4165-08dd49bdfa9d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Feb 2025 10:30:45.7704
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 7a6hsZmyz6vMyjn+dI+REXAx+FLDoXkuDyIEqU3A8xM9Je3m+YprI3c5g2D7TipGwzkwuYi4HzziyO4CgUpKYA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR03MB8404
+X-MS-Exchange-CrossTenant-userprincipalname: ga32N/RPANqKlCb7Vq3oqSdXgMm9JgPwPw6hYEc1lffvDvvu4lFDe+bFlQ89ti61iBMp5K/X7D09fODYevpRng==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR03MB8977
 
-From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+From: Rahul Singh <rahul.singh@arm.com>
 
-The main purpose of this patch is to add a way to register PCI device
-(which is behind the IOMMU) using the generic PCI-IOMMU DT bindings [1]
-before assigning that device to a domain.
+Current code skip the mapping for PCI bridge MMIO region to dom0 when
+pci_passthrough_enabled flag is set. Mapping should be skip when
+has_vpci(d) is enabled for the domain, as we need to skip the mapping
+only when VPCI handler are registered for ECAM.
 
-This behaves similarly to the existing iommu_add_dt_device API, except it
-handles PCI devices, and it is to be invoked from the add_device hook in th=
-e
-SMMU driver.
-
-The function dt_map_id to translate an ID through a downstream mapping
-(which is also suitable for mapping Requester ID) was borrowed from Linux
-(v5.10-rc6) and updated according to the Xen code base.
-
-[1] https://www.kernel.org/doc/Documentation/devicetree/bindings/pci/pci-io=
-mmu.txt
-
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+Acked-by: Julien Grall <jgrall@amazon.com>
 ---
-Regarding pci_for_each_dma_alias question: getting host bridge node
-directly seems like a simpler solution with the same result. AFAIU
-with pci_for_each_dma_alias in linux we would arrive to the host brige
-node anyway, but also try to call dt_map_id for each device along the
-way. I am not sure why exactly it is done this way in linux, as
-according to the pci-iommu.txt, iommu-map node can only be present in
-the PCI root.
+This patch was originally picked up from [1]
 
 v7->v8:
-* ENOSYS->EOPNOTSUPP
-* move iommu_add_pci_sideband_ids to iommu.c to fix x86 build
-* simplify iommu_add_pci_sideband_ids
-* add docstrings to iommu_add_{dt_}pci_sideband_ids
+* no change
 
 v6->v7:
-* put iommu_add_pci_sideband_ids under ifdef
-* remove ifdef CONFIG_APCI
-* style: add newline for symmetry
+* add Julien's A-b
 
 v5->v6:
-* pass ops to iommu_dt_xlate()
+* drop unrelated change in xen/arch/arm/domain_build.c:handle_linux_pci_dom=
+ain()
 
 v4->v5:
-* style: add newlines after variable declarations and before return in iomm=
-u.h
-* drop device_is_protected() check in iommu_add_dt_pci_sideband_ids()
-* rebase on top of ("dynamic node programming using overlay dtbo") series
-* fix typo in commit message
-* remove #ifdef around dt_map_id() prototype
-* move dt_map_id() to xen/common/device_tree.c
-* add function name in error prints
-* use dprintk for debug prints
-* use GENMASK and #include <xen/bitops.h>
-* fix typo in comment
-* remove unnecessary (int) cast in loop condition
-* assign *id_out and return success in case of no translation in dt_map_id(=
-)
-* don't initialize local variable unnecessarily
-* return error in case of ACPI/no DT in iommu_add_{dt_}pci_sideband_ids()
+* new patch
 
-v3->v4:
-* wrap #include <asm/acpi.h> and if ( acpi_disabled ) in #ifdef CONFIG_ACPI
-* fix Michal's remarks about style, parenthesis, and print formats
-* remove !ops->dt_xlate check since it is already in iommu_dt_xlate helper
-* rename s/iommu_dt_pci_map_id/dt_map_id/ because it is generic, not specif=
-ic
-  to iommu
-* update commit description
+changes since picking up from [1]:
+* rebase on top of "dynamic node programming using overlay dtbo" series
+* replace !is_pci_passthrough_enabled() check with !IS_ENABLED(CONFIG_HAS_P=
+CI)
+  instead of removing
 
-v2->v3:
-* new patch title (was: iommu/arm: Introduce iommu_add_dt_pci_device API)
-* renamed function
-  from: iommu_add_dt_pci_device
-  to: iommu_add_dt_pci_sideband_ids
-* removed stale ops->add_device check
-* iommu.h: add empty stub iommu_add_dt_pci_sideband_ids for !HAS_DEVICE_TRE=
-E
-* iommu.h: add iommu_add_pci_sideband_ids helper
-* iommu.h: don't wrap prototype in #ifdef CONFIG_HAS_PCI
-* s/iommu_fwspec_free(pci_to_dev(pdev))/iommu_fwspec_free(dev)/
-
-v1->v2:
-* remove extra devfn parameter since pdev fully describes the device
-* remove ops->add_device() call from iommu_add_dt_pci_device(). Instead, re=
-ly on
-  the existing iommu call in iommu_add_device().
-* move the ops->add_device and ops->dt_xlate checks earlier
-
-downstream->v1:
-* rebase
-* add const qualifier to struct dt_device_node *np arg in dt_map_id()
-* add const qualifier to struct dt_device_node *np declaration in iommu_add=
-_pci_device()
-* use stdint.h types instead of u8/u32/etc...
-* rename functions:
-  s/dt_iommu_xlate/iommu_dt_xlate/
-  s/dt_map_id/iommu_dt_pci_map_id/
-  s/iommu_add_pci_device/iommu_add_dt_pci_device/
-* add device_is_protected check in iommu_add_dt_pci_device
-* wrap prototypes in CONFIG_HAS_PCI
-
-(cherry picked from commit 734e3bf6ee77e7947667ab8fa96c25b349c2e1da from
- the downstream branch poc/pci-passthrough from
- https://gitlab.com/xen-project/people/bmarquis/xen-arm-poc.git)
+[1] https://lists.xenproject.org/archives/html/xen-devel/2023-07/msg00483.h=
+tml
 ---
- xen/common/device-tree/device-tree.c  | 91 +++++++++++++++++++++++++++
- xen/drivers/passthrough/device_tree.c | 42 +++++++++++++
- xen/drivers/passthrough/iommu.c       | 13 ++++
- xen/include/xen/device_tree.h         | 23 +++++++
- xen/include/xen/iommu.h               | 32 +++++++++-
- 5 files changed, 200 insertions(+), 1 deletion(-)
+ xen/arch/arm/device.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/xen/common/device-tree/device-tree.c b/xen/common/device-tree/=
-device-tree.c
-index d0528c5825..3de7858df6 100644
---- a/xen/common/device-tree/device-tree.c
-+++ b/xen/common/device-tree/device-tree.c
-@@ -10,6 +10,7 @@
-  * published by the Free Software Foundation.
-  */
-=20
-+#include <xen/bitops.h>
- #include <xen/types.h>
- #include <xen/init.h>
- #include <xen/guest_access.h>
-@@ -2243,6 +2244,96 @@ int dt_get_pci_domain_nr(struct dt_device_node *node=
-)
-     return (u16)domain;
- }
-=20
-+int dt_map_id(const struct dt_device_node *np, uint32_t id,
-+              const char *map_name, const char *map_mask_name,
-+              struct dt_device_node **target, uint32_t *id_out)
-+{
-+    uint32_t map_mask, masked_id, map_len;
-+    const __be32 *map =3D NULL;
-+
-+    if ( !np || !map_name || (!target && !id_out) )
-+        return -EINVAL;
-+
-+    map =3D dt_get_property(np, map_name, &map_len);
-+    if ( !map )
-+    {
-+        if ( target )
-+            return -ENODEV;
-+
-+        /* Otherwise, no map implies no translation */
-+        *id_out =3D id;
-+        return 0;
-+    }
-+
-+    if ( !map_len || (map_len % (4 * sizeof(*map))) )
-+    {
-+        printk(XENLOG_ERR "%s(): %s: Error: Bad %s length: %u\n", __func__=
-,
-+               np->full_name, map_name, map_len);
-+        return -EINVAL;
-+    }
-+
-+    /* The default is to select all bits. */
-+    map_mask =3D GENMASK(31, 0);
-+
-+    /*
-+     * Can be overridden by "{iommu,msi}-map-mask" property.
-+     * If dt_property_read_u32() fails, the default is used.
-+     */
-+    if ( map_mask_name )
-+        dt_property_read_u32(np, map_mask_name, &map_mask);
-+
-+    masked_id =3D map_mask & id;
-+    for ( ; map_len > 0; map_len -=3D 4 * sizeof(*map), map +=3D 4 )
-+    {
-+        struct dt_device_node *phandle_node;
-+        uint32_t id_base =3D be32_to_cpup(map + 0);
-+        uint32_t phandle =3D be32_to_cpup(map + 1);
-+        uint32_t out_base =3D be32_to_cpup(map + 2);
-+        uint32_t id_len =3D be32_to_cpup(map + 3);
-+
-+        if ( id_base & ~map_mask )
-+        {
-+            printk(XENLOG_ERR "%s(): %s: Invalid %s translation - %s-mask =
-(0x%"PRIx32") ignores id-base (0x%"PRIx32")\n",
-+                   __func__, np->full_name, map_name, map_name, map_mask,
-+                   id_base);
-+            return -EFAULT;
-+        }
-+
-+        if ( (masked_id < id_base) || (masked_id >=3D (id_base + id_len)) =
-)
-+            continue;
-+
-+        phandle_node =3D dt_find_node_by_phandle(phandle);
-+        if ( !phandle_node )
-+            return -ENODEV;
-+
-+        if ( target )
-+        {
-+            if ( !*target )
-+                *target =3D phandle_node;
-+
-+            if ( *target !=3D phandle_node )
-+                continue;
-+        }
-+
-+        if ( id_out )
-+            *id_out =3D masked_id - id_base + out_base;
-+
-+        dprintk(XENLOG_DEBUG, "%s: %s, using mask %08"PRIx32", id-base: %0=
-8"PRIx32", out-base: %08"PRIx32", length: %08"PRIx32", id: %08"PRIx32" -> %=
-08"PRIx32"\n",
-+               np->full_name, map_name, map_mask, id_base, out_base, id_le=
-n, id,
-+               masked_id - id_base + out_base);
-+        return 0;
-+    }
-+
-+    dprintk(XENLOG_DEBUG, "%s: no %s translation for id 0x%"PRIx32" on %s\=
-n",
-+           np->full_name, map_name, id,
-+           (target && *target) ? (*target)->full_name : NULL);
-+
-+    if ( id_out )
-+        *id_out =3D id;
-+
-+    return 0;
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/drivers/passthrough/device_tree.c b/xen/drivers/passthroug=
-h/device_tree.c
-index fe2aaef2df..065fbbc0fd 100644
---- a/xen/drivers/passthrough/device_tree.c
-+++ b/xen/drivers/passthrough/device_tree.c
-@@ -161,6 +161,48 @@ static int iommu_dt_xlate(struct device *dev,
-     return ops->dt_xlate(dev, iommu_spec);
- }
-=20
-+#ifdef CONFIG_HAS_PCI
-+int iommu_add_dt_pci_sideband_ids(struct pci_dev *pdev)
-+{
-+    const struct iommu_ops *ops =3D iommu_get_ops();
-+    struct dt_phandle_args iommu_spec =3D { .args_count =3D 1 };
-+    struct device *dev =3D pci_to_dev(pdev);
-+    const struct dt_device_node *np;
-+    int rc;
-+
-+    if ( !iommu_enabled )
-+        return DT_NO_IOMMU;
-+
-+    if ( !ops )
-+        return -EINVAL;
-+
-+    if ( dev_iommu_fwspec_get(dev) )
-+        return -EEXIST;
-+
-+    np =3D pci_find_host_bridge_node(pdev);
-+    if ( !np )
-+        return -ENODEV;
-+
-+    /*
-+     * According to the Documentation/devicetree/bindings/pci/pci-iommu.tx=
-t
-+     * from Linux.
-+     */
-+    rc =3D dt_map_id(np, PCI_BDF(pdev->bus, pdev->devfn), "iommu-map",
-+                   "iommu-map-mask", &iommu_spec.np, iommu_spec.args);
-+    if ( rc )
-+        return (rc =3D=3D -ENODEV) ? DT_NO_IOMMU : rc;
-+
-+    rc =3D iommu_dt_xlate(dev, &iommu_spec, ops);
-+    if ( rc < 0 )
-+    {
-+        iommu_fwspec_free(dev);
-+        return -EINVAL;
-+    }
-+
-+    return rc;
-+}
-+#endif /* CONFIG_HAS_PCI */
-+
- int iommu_remove_dt_device(struct dt_device_node *np)
- {
-     const struct iommu_ops *ops =3D iommu_get_ops();
-diff --git a/xen/drivers/passthrough/iommu.c b/xen/drivers/passthrough/iomm=
-u.c
-index 9e74a1fc72..40c840a4b3 100644
---- a/xen/drivers/passthrough/iommu.c
-+++ b/xen/drivers/passthrough/iommu.c
-@@ -20,6 +20,7 @@
- #include <xen/param.h>
- #include <xen/softirq.h>
- #include <xen/keyhandler.h>
-+#include <xen/acpi.h>
- #include <xsm/xsm.h>
-=20
- #ifdef CONFIG_X86
-@@ -744,6 +745,18 @@ int __init iommu_get_extra_reserved_device_memory(iomm=
-u_grdm_t *func,
-     return 0;
- }
-=20
-+int iommu_add_pci_sideband_ids(struct pci_dev *pdev)
-+{
-+    int ret =3D -EOPNOTSUPP;
-+
-+#ifdef CONFIG_HAS_PCI
-+    if ( acpi_disabled )
-+        ret =3D iommu_add_dt_pci_sideband_ids(pdev);
-+#endif
-+
-+    return ret;
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-index 5ff763bb80..9254204af6 100644
---- a/xen/include/xen/device_tree.h
-+++ b/xen/include/xen/device_tree.h
-@@ -946,6 +946,29 @@ int dt_count_phandle_with_args(const struct dt_device_=
-node *np,
-  */
- int dt_get_pci_domain_nr(struct dt_device_node *node);
-=20
-+/**
-+ * dt_map_id - Translate an ID through a downstream mapping.
-+ * @np: root complex device node.
-+ * @id: device ID to map.
-+ * @map_name: property name of the map to use.
-+ * @map_mask_name: optional property name of the mask to use.
-+ * @target: optional pointer to a target device node.
-+ * @id_out: optional pointer to receive the translated ID.
-+ *
-+ * Given a device ID, look up the appropriate implementation-defined
-+ * platform ID and/or the target device which receives transactions on tha=
-t
-+ * ID, as per the "iommu-map" and "msi-map" bindings. Either of @target or
-+ * @id_out may be NULL if only the other is required. If @target points to
-+ * a non-NULL device node pointer, only entries targeting that node will b=
-e
-+ * matched; if it points to a NULL value, it will receive the device node =
-of
-+ * the first matching target phandle, with a reference held.
-+ *
-+ * Return: 0 on success or a standard error code on failure.
-+ */
-+int dt_map_id(const struct dt_device_node *np, uint32_t id,
-+              const char *map_name, const char *map_mask_name,
-+              struct dt_device_node **target, uint32_t *id_out);
-+
- struct dt_device_node *dt_find_node_by_phandle(dt_phandle handle);
-=20
- #ifdef CONFIG_DEVICE_TREE_DEBUG
-diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
-index 2b6e6e8a3f..15ec261238 100644
---- a/xen/include/xen/iommu.h
-+++ b/xen/include/xen/iommu.h
-@@ -215,7 +215,8 @@ int iommu_dt_domain_init(struct domain *d);
- int iommu_release_dt_devices(struct domain *d);
-=20
- /*
-- * Helper to add master device to the IOMMU using generic IOMMU DT binding=
-s.
-+ * Helpers to add master device to the IOMMU using generic (PCI-)IOMMU
-+ * DT bindings.
-  *
-  * Return values:
-  *  0 : device is protected by an IOMMU
-@@ -225,6 +226,19 @@ int iommu_release_dt_devices(struct domain *d);
-  */
- int iommu_add_dt_device(struct dt_device_node *np);
-=20
-+/*
-+ * Fills out the device's IOMMU fwspec with IOMMU ids from the DT.
-+ * Ids are specified in the iommu-map property in the host bridge node.
-+ * More information on the iommu-map property format can be found in
-+ * Documentation/devicetree/bindings/pci/pci-iommu.txt from Linux.
-+ *
-+ * Return values:
-+ *  0 : iommu_fwspec is filled out successfully.
-+ * <0 : error while filling out the iommu_fwspec.
-+ * >0 : IOMMU is not enabled/present or device is not connected to it.
-+ */
-+int iommu_add_dt_pci_sideband_ids(struct pci_dev *pdev);
-+
- int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
-                        XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl);
-=20
-@@ -246,8 +260,24 @@ int iommu_remove_dt_device(struct dt_device_node *np);
-=20
- #define DT_NO_IOMMU    1
-=20
-+#else /* !HAS_DEVICE_TREE */
-+static inline int iommu_add_dt_pci_sideband_ids(struct pci_dev *pdev)
-+{
-+    return -EOPNOTSUPP;
-+}
-+
- #endif /* HAS_DEVICE_TREE */
-=20
-+/*
-+ * Fills out the device's IOMMU fwspec with IOMMU ids.
-+ *
-+ * Return values:
-+ *  0 : iommu_fwspec is filled out successfully.
-+ * <0 : error while filling out the iommu_fwspec.
-+ * >0 : IOMMU is not enabled/present or device is not connected to it.
-+ */
-+int iommu_add_pci_sideband_ids(struct pci_dev *pdev);
-+
- struct page_info;
-=20
- /*
+diff --git a/xen/arch/arm/device.c b/xen/arch/arm/device.c
+index 5610cddcba..25847d60ee 100644
+--- a/xen/arch/arm/device.c
++++ b/xen/arch/arm/device.c
+@@ -268,7 +268,7 @@ int handle_device(struct domain *d, struct dt_device_no=
+de *dev, p2m_type_t p2mt,
+         .d =3D d,
+         .p2mt =3D p2mt,
+         .skip_mapping =3D !own_device ||
+-                        (is_pci_passthrough_enabled() &&
++                        (has_vpci(d) &&
+                         (device_get_class(dev) =3D=3D DEVICE_PCI_HOSTBRIDG=
+E)),
+         .iomem_ranges =3D iomem_ranges,
+         .irq_ranges =3D irq_ranges
 --=20
 2.34.1
 
