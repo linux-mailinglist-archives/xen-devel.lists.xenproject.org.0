@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98481A2FCAE
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Feb 2025 23:10:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.885006.1294769 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14142A2FCF4
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Feb 2025 23:23:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.885019.1294779 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thbz5-0002LC-3t; Mon, 10 Feb 2025 22:10:31 +0000
+	id 1thcBM-0004py-8C; Mon, 10 Feb 2025 22:23:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 885006.1294769; Mon, 10 Feb 2025 22:10:31 +0000
+Received: by outflank-mailman (output) from mailman id 885019.1294779; Mon, 10 Feb 2025 22:23:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thbz4-0002I6-Vj; Mon, 10 Feb 2025 22:10:30 +0000
-Received: by outflank-mailman (input) for mailman id 885006;
- Mon, 10 Feb 2025 22:10:28 +0000
+	id 1thcBM-0004od-5U; Mon, 10 Feb 2025 22:23:12 +0000
+Received: by outflank-mailman (input) for mailman id 885019;
+ Mon, 10 Feb 2025 22:23:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wHzs=VB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1thbz2-0002Hr-RV
- for xen-devel@lists.xenproject.org; Mon, 10 Feb 2025 22:10:28 +0000
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [2a00:1450:4864:20::341])
+ id 1thcBL-0004oX-9A
+ for xen-devel@lists.xenproject.org; Mon, 10 Feb 2025 22:23:11 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d5705649-e7fb-11ef-a075-877d107080fb;
- Mon, 10 Feb 2025 23:10:27 +0100 (CET)
-Received: by mail-wm1-x341.google.com with SMTP id
- 5b1f17b1804b1-4364a37a1d7so48684355e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 10 Feb 2025 14:10:27 -0800 (PST)
+ id 9bba0480-e7fd-11ef-a075-877d107080fb;
+ Mon, 10 Feb 2025 23:23:10 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-4394c192285so4549015e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Feb 2025 14:23:10 -0800 (PST)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4391dfd8448sm158665005e9.38.2025.02.10.14.10.26
+ 5b1f17b1804b1-4390db1150csm194278055e9.39.2025.02.10.14.23.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Feb 2025 14:10:26 -0800 (PST)
+ Mon, 10 Feb 2025 14:23:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d5705649-e7fb-11ef-a075-877d107080fb
+X-Inumbo-ID: 9bba0480-e7fd-11ef-a075-877d107080fb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1739225427; x=1739830227; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1739226189; x=1739830989; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=lCmXPP/SRDMorkAy5nlfgjxuqK5K8X0YKMp2DhtqBoE=;
-        b=cIjsGiPbIMkdeQECHHIzLWkQTvWoMv9PSiGBGa/uwkZblxDPtEHSBKZn7rI2tXvk9F
-         JYQVJV60oBWyqBs3+mQ24fPyxFMFEVZC9TiX19zocDFk0CmE1S2sNhPyRtu316pJ/d30
-         I+kSgNwQZHHVb1XPop3GPTkWI16BiStuS20wk=
+        bh=2dYN3CSQ3mhneErs+2JeC9dlQzH5HJN51Yksotll/yw=;
+        b=ew/u4e/suG6BBFgMDqlz6S9SOe5y2xXCdAGP3KLmVZlcBC3cemxNJCU56jwm7VFf00
+         Q2scZh3j5TvSWBJ5frmODSF+q/uP2EFjQA1Q6wOvU7ctSMjSu/8Upu3g7GbGWkaXXDFM
+         JGd+TL3WnoFGrJ4UXM2YyyznJL31kRsRKEQLc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739225427; x=1739830227;
+        d=1e100.net; s=20230601; t=1739226189; x=1739830989;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lCmXPP/SRDMorkAy5nlfgjxuqK5K8X0YKMp2DhtqBoE=;
-        b=ZMx6rlzltU8S3faUtt9zOafiu9CrAA+P710UAVteHEr3U0ZWXPi3XCETSpNo0HPFGO
-         noOK7x22UI5uqft1ay1IjOClH2o0OYFRXmPjnip8L3AyHl0DZbvH8FFXu4ebzYppKpe+
-         Wk/sahkPne6/DcBUl6x2M1u8WokhQNMrPzHaTzVXN61IfaQLGWep/RDo6piqnDoJiYYp
-         HIAAPB7Evec3fbZjVLSQp2MGh5aXcrMoUrPM3g21HLa4H3XNMI5MfV7ztYxspcUgJx4F
-         q93p1B9OEn/HSEk/iGDahc5PF+1v1/UeHAieQFFk6k+MTAKkvbcSjqpmTsgGn6rzg3eb
-         2mhQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXc6qlBvzS66HidHRwwcUI3jm/K/Y5YgHqXhMAHfAVf9en7bHvATjE4fgyiw5e5ODHCpFWoZvb7Yg4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzoZd+zj6UcDwgn5hw8TG5amR9hL8ijezmvZ5XlSUbjdamVKoP/
-	74eFEey7Om+B93cmHmnkRN8J1SjcGK3MEDM/p8qA5ablpIUy5yunsa0KSfcxDro=
-X-Gm-Gg: ASbGncu0bYbv1RZervzrITeIl2iJsL9wchGdzSltsJH8N1xqUDt1nBIAX1jhcxKoQd5
-	WN7cKkPgISYNmbtDWCIe+rzuNelqGdLmYH/pw0OgknMEmU3t7QHvE/gI3r5YgXhzuq6WIgE0Tg1
-	yubickUYZCrhclws8CLQRnwXjR4sIpULdLILSZT8o9SyELEMlJQvtNrqJ70pZGsYnpqms/ESt6a
-	aQgsuZ9ZHj7mXd74rEl8cgpvkcHiM6fEG5vOfiBOgjNIyZr+It36Q52iPu/CXsaOx/OOCxDrUIP
-	0dARg8EDvWrXZDNLAre3EXOCQwDNX2vg3lTdY8kT+cdElJW+kii/4SQ=
-X-Google-Smtp-Source: AGHT+IHqLxiEAxNJ3UreZRwS2XiPKHB/0xwaWxU4DH17EPfUuBqt4OsawBMLZMPmGs0KpmZTLgktDQ==
-X-Received: by 2002:a05:600c:1f85:b0:436:30e4:459b with SMTP id 5b1f17b1804b1-4392499962dmr134942205e9.18.1739225427142;
-        Mon, 10 Feb 2025 14:10:27 -0800 (PST)
-Message-ID: <b1f9fdd5-0d5c-4a01-be9c-0ace72d07d9b@citrix.com>
-Date: Mon, 10 Feb 2025 22:10:26 +0000
+        bh=2dYN3CSQ3mhneErs+2JeC9dlQzH5HJN51Yksotll/yw=;
+        b=rH8uA+Q5xerjGzlfdPfl3WpzDH/53haivUhf1RPXlGsrj9lXq19Ky5BYjcEs67eXj4
+         iN6fd/WL1UGxVdZLRh4BWXqp77nvFuq3RACTBsbYSuZpFDozLs8IP+urALDVfdgealYq
+         85U3U0QEEhSJrsEZGf8IQIWlYKD9a1cV8VJqPbbNlD0Sc5ALq7w3eryA5rUdf2/W98cA
+         cfOaHkgIivOSn+WPyErmQjyL6gv5X9CLHMlugrXfMA7P5/JscRnBEuOfr9y4puE1UsTq
+         D8qVql3g6/ZFKsC7RzAQwWGdBz3Wd8BVDPKSo7DX+HNMu+3chKEhvaiP3DSGDNQznAQc
+         zADg==
+X-Forwarded-Encrypted: i=1; AJvYcCUj1kExdRBOSbO3cM7yGvHl9F887HMx+Z2blUKHJbLQsHsV5gZsJ7REo7cRACI3f/BZ6zMO3o7bmDI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwNjPXud87VE1gJKvuW5AJpi67i72e7FCpDi/iYMgAMekhNgw9Z
+	RxGqDOLp4G7MQUK4ZOKYcRBAX26kxUnPuZmhIcWpJssiPYqRJFzPoIhfYAY/wpU=
+X-Gm-Gg: ASbGncvejDVocfmnxPGIT12Ao3n4kz3wTxqq6Pp1SbhUBq274Q+JqxGH2KapmUnd6cV
+	85QkivHePNi+8ggaWq0lIOi8idijU1AtXwRnN0EARHxloOSxO6Tu4fN0aeZiE9eXKNmkurqaMr8
+	wGJbxuC+v5akKJbUOfhFu/jWeHakJYcX39v9KqFjYSCIXn4+YozD9QsITvSGWCixgaCPtBSzLIF
+	gKKe9iy003pbulLqLr96V260qkOj9534C28C7Qv9T4ymK9bXkPoq/C3mAxWXoRQVylSIVwSFykR
+	MqrqKpz5Qvut2k5uMaaKicibZvACA6yzc01MPg0ch9+cEIbWJUTVUVo=
+X-Google-Smtp-Source: AGHT+IF6Lc8c/5boqEjjMTgGXndnKw1ERrd1Lt6+hMDMke76cRIdzL/qGVz/BlZZ/tCE1Lkdr6yVmw==
+X-Received: by 2002:a05:600c:1d0c:b0:42f:7e87:3438 with SMTP id 5b1f17b1804b1-439248c229bmr140937685e9.0.1739226189343;
+        Mon, 10 Feb 2025 14:23:09 -0800 (PST)
+Message-ID: <55f44ab1-25ed-4756-8621-162e02471fda@citrix.com>
+Date: Mon, 10 Feb 2025 22:23:07 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] ARM: Fix register constraints in
- run_in_exception_handler()
+Subject: Re: [PATCH for-4.20? 1/4] ARM32/traps: Fix
+ do_trap_undefined_instruction()'s detection of kernel text
 To: Julien Grall <julien@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
@@ -92,8 +92,8 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
  Michal Orzel <michal.orzel@amd.com>,
  Oleksii Kurochko <oleksii.kurochko@gmail.com>
 References: <20250208000256.431883-1-andrew.cooper3@citrix.com>
- <20250208000256.431883-3-andrew.cooper3@citrix.com>
- <e46af210-4e99-4324-aaae-d531e88c4792@xen.org>
+ <20250208000256.431883-2-andrew.cooper3@citrix.com>
+ <34c2dc12-eb49-4c16-97b5-166b889822a2@xen.org>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -139,47 +139,83 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <e46af210-4e99-4324-aaae-d531e88c4792@xen.org>
+In-Reply-To: <34c2dc12-eb49-4c16-97b5-166b889822a2@xen.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 10/02/2025 9:29 pm, Julien Grall wrote:
-> Hi,
+On 10/02/2025 9:23 pm, Julien Grall wrote:
+> Hi Andrew,
 >
 > On 08/02/2025 00:02, Andrew Cooper wrote:
->> Right now, run_in_exception_handler() takes an input in an arbitrary
->> register,
->> and clobbers BUG_FN_REG.  This causes the compiler to calculate fn in
->> the
->> wrong regsiter.
+>> While fixing some common/arch boundaries for UBSAN support on other
+>> architectures, the following debugging patch:
+>>
+>>    diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+>>    index c1f2d1b89d43..58d1d048d339 100644
+>>    --- a/xen/arch/arm/setup.c
+>>    +++ b/xen/arch/arm/setup.c
+>>    @@ -504,6 +504,8 @@ void asmlinkage __init start_xen(unsigned long
+>> fdt_paddr)
+>>
+>>         system_state = SYS_STATE_active;
+>>
+>>    +    dump_execution_state();
+>>    +
+>>         for_each_domain( d )
+>>             domain_unpause_by_systemcontroller(d);
+>>
+>> fails with:
+>>
+>>    (XEN) *** Serial input to DOM0 (type 'CTRL-a' three times to
+>> switch input)
+>>    (XEN) CPU0: Unexpected Trap: Undefined Instruction
+>>    (XEN) ----[ Xen-4.20-rc  arm32  debug=n  Not tainted ]----
+>>    (XEN) CPU:    0
+>>    <snip>
+>>    (XEN)
+>>    (XEN) ****************************************
+>>    (XEN) Panic on CPU 0:
+>>    (XEN) CPU0: Unexpected Trap: Undefined Instruction
+>>    (XEN) ****************************************
+>>
+>> This is because the condition for init text is wrong.  While there's
+>> nothing
+>> interesting from that point onwards in start_xen(), it's also wrong
+>> for any
+>> livepatch which brings in an adjusted BUG_FRAME().
+>>
+>> Use is_active_kernel_text() which is the correct test for this
+>> purpose, and is
+>> aware of init and livepatch regions too.
+>>
+>> Commit c8d4b6304a5e ("xen/arm: add support for
+>> run_in_exception_handler()"),
+>> made run_in_exception_handler() work, but didn't complete the TODO
+>> left in
+>> commit 3e802c6ca1fb ("xen/arm: Correctly support WARN_ON").  Do so,
+>> to make
+>> ARM consistent with other architectures.
 >
-> Just to confirm, you mean, the compiler is not clever enough to notice
-> that the value should be in the register BUG_FN_REG and therefore, two
-> registers will be clobbered. Is that correct?
+> This was done on purpose. If you look at the current implementation of
+> run_in_exception_handler(), it will clobber some registers.
+>
+> With your patch #2, the function should only clobber one. It is a bit
+> better, but it still not great. So I think we need to stick with
+> WARN() on Arm (+ maybe a comment explaning why it is implemented
+> differently).
 
-Not quite.
+I'm sorry but I don't follow.
 
-The clobbered register set is always disjoint from inputs and outputs,
-so the combination of one clobbered + one input always means two
-different registers.
+run_in_exception_handler() only uses 1 register (after patch 2), but
+it's fully described to the invoking context, so nothing is clobbered
+from the compilers point of view.
 
-For "here's an input but it gets modified", you need to express that as
-an output into a variable which isn't subsequently used.
+Are you concerned about losing r0/x0 in the resulting trace?
 
-For ARM, that is best spelt "+r" (foo) so it can also be used with
-register asm() to tie to a single register.  On x86, you can use "=a"
-(tmp) : "a" (input).  In principle you can do it with named parameters,
-so [fn] "=r" (tmp) : "[fn]" (input) I believe works too.
-
-Here is a contrived example https://godbolt.org/z/WjqTKjWWb showing how
-the output (discard only) is forced into r0, causing the compiler to
-copy a into r3 around the asm block.  Notice that GCC and Clang pick the
-input operand differently, as both r0 and r3 are valid candidates in
-this case.
-
-
-However, for run_in_exception_handler(), "fn" isn't even modified
-(AFAICT), so it's correct to describe it as an input only.
+I can certainly split the patch in half.  The
+do_trap_undefined_instruction() change isn't related, although the
+second hunk is needed for patch 3 to consolidate dump_execution_state()
+across architectures.
 
 ~Andrew
 
