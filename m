@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 578ADA2E7F9
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Feb 2025 10:38:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.884504.1294211 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E244A2E86B
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Feb 2025 11:01:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.884512.1294220 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thQEw-00015L-WC; Mon, 10 Feb 2025 09:38:06 +0000
+	id 1thQbK-0005u1-Nm; Mon, 10 Feb 2025 10:01:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 884504.1294211; Mon, 10 Feb 2025 09:38:06 +0000
+Received: by outflank-mailman (output) from mailman id 884512.1294220; Mon, 10 Feb 2025 10:01:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thQEw-00013X-TM; Mon, 10 Feb 2025 09:38:06 +0000
-Received: by outflank-mailman (input) for mailman id 884504;
- Mon, 10 Feb 2025 09:38:06 +0000
+	id 1thQbK-0005rY-L6; Mon, 10 Feb 2025 10:01:14 +0000
+Received: by outflank-mailman (input) for mailman id 884512;
+ Mon, 10 Feb 2025 10:01:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SvFn=VB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1thQEv-00013P-V0
- for xen-devel@lists.xenproject.org; Mon, 10 Feb 2025 09:38:05 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
+ id 1thQbJ-0005rS-Kl
+ for xen-devel@lists.xenproject.org; Mon, 10 Feb 2025 10:01:13 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b97a76c2-e792-11ef-b3ef-695165c68f79;
- Mon, 10 Feb 2025 10:38:03 +0100 (CET)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-5de51a735acso4979259a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 10 Feb 2025 01:38:03 -0800 (PST)
+ id efc7473f-e795-11ef-b3ef-695165c68f79;
+ Mon, 10 Feb 2025 11:01:03 +0100 (CET)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-5de6c70832bso2326474a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Feb 2025 02:01:03 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5de5fb0d738sm4361427a12.59.2025.02.10.01.38.02
+ 4fb4d7f45d1cf-5dcf9f6c1d6sm7489665a12.65.2025.02.10.02.01.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Feb 2025 01:38:02 -0800 (PST)
+ Mon, 10 Feb 2025 02:01:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b97a76c2-e792-11ef-b3ef-695165c68f79
+X-Inumbo-ID: efc7473f-e795-11ef-b3ef-695165c68f79
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739180283; x=1739785083; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739181663; x=1739786463; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=OONIJqVMu97Sp9U+NOuTA5Q/9x8uZsL+76w6ZqzFjVA=;
-        b=CnNKu7SBTtXLN9ECI6Br7aKoYIYr9Tfz9cLw/EpvDGqgPmEtJ46TuPqh8A9J3l+9Nm
-         SlNtflEgl2dl255j4iwf31aZ0KFh8hWr7zQap1JujWofgXstUAQ6p6B/gdd0IoiI0eoo
-         z/+HUDQ9KpsHU5f8lumR5NwxPSN7Ajp7cJO1ZoNT7oRzrmMoil7PCj59en7Tmk9ZWgXy
-         vSP6kcv8t78B02BZHbCWw2ECLxNcGfCcrX290CESDVy1ajA0bKZisP0gUjC1HiaufMC0
-         uRub0B/5GA1brg/x4ui7lCM2FQK2R3fruGORKo/rnGtBIDg8B84WNJPsLqJSYbAW2wzK
-         FHmQ==
+        bh=AFeaaLw82aP/RpwnG8BuNWwVwlKUr3MQKQwI9cJrh6k=;
+        b=QLpf0V3lDiYaOMOeVH3ChHDbZQFwUQHwSp3FuMdKuUNExebiF528gJjyCKrIRcM1eM
+         yJseJsTT5BjMOGJqvGnM6JERdLC2JkrMfNwkvl6Jkaq6pgFMaVUCO/k+piYV7Q0CjXUG
+         4lv0zHIIf/ZBA0fjDFlI1PEkmEyZQ/cM8gRUDVpOBtL6275XUDZB6wBVNgC1N7wY3tCi
+         XjbioGawZWKD4U+XdMfH5a3DO/QfVaUogvCsQ0QvyGwcME21GMBuFsViXKID0UWlNNL3
+         D1jM3iih88cIfjfnbA34zSq6FnMy/nIUtEFeLcH97u2ssMKqXLUXO400Q7hYIa8w0Y5k
+         CEvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739180283; x=1739785083;
+        d=1e100.net; s=20230601; t=1739181663; x=1739786463;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OONIJqVMu97Sp9U+NOuTA5Q/9x8uZsL+76w6ZqzFjVA=;
-        b=op28bzMdwbG3qqKVxXumdoSII5WWEH8abgIt+tLGDj951BG7A7C8zPiobCoBFcV1QA
-         Onj6rCkYNTKthHKi+WFPiv39lvK7Um2Lk2EmH1yq5SB9DKysI8DsOGVRMoO8zAi+kwGx
-         a2GcmX17lOm65v0BoX6IJ2sBOUMgRBW5KfaYrgPsdhc2fe1Pt//RDa0JR0z5/JaLOYNS
-         xR42yq6YlpI74CtzxGOsWNi3v5CU+RJgN8+A3BkmdRH/i62N3PR4zn7b4MCYGTr8RL9q
-         hhExBRDkoI+i7v5MgTw+tYb3PIZdsoM9JyYgggy7BXZ0lVNZWh9wLb0wlOIh7NdllP+n
-         u89A==
-X-Forwarded-Encrypted: i=1; AJvYcCU9xM6vOUGgiDrSyM2dVF+Hy3As/UW+sqFsaySFqddYvtqEH8KMIC1Nezu3JurmaDOpbLHDWFafWb0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwnhBFn8XtnnfueogJD7a9Ov4hFg8mgmT8JxGx3rQy1XS93m2cz
-	UW3+Q/wy+p1v6b6v4QqJE15hlhi9xwKlrrQBIg8in/bHcA2G6YZIPdGLFHXEJw==
-X-Gm-Gg: ASbGncuCuTNJEm0a6C1MnyaL2/hk2PGPn3wlY6yMX/WWFWHvCRCyhT0GIGbiXP+lw8Y
-	+YukMHXDVcgCbJlRWQpQEfAJZXYS+TeATin6faA5Xt++4WZU+KJFZ2tJ5j7+8SgDf0GEHkc5lgP
-	FfMpQk3oUAQ4UedVfz/DF5QlD+e+0RuyiCVrC6KhQOx3Zl6RMT/zTQafxTK30tB4ajwnPd2N0xV
-	tG8OlZPlIUk4igx+RL311Gf/bYSPfwW9i1NMicvIK0R9wHuJ5hieUlt305E/Y0i7XxBgtzGAuth
-	qZk+XbTEIuz21ctOmcMz3/xd+pNQyPvrZ/2U1dikDD2tz4pIkvivwGOxgHOfgH6UpK4Z2r/CQbe
-	B
-X-Google-Smtp-Source: AGHT+IEtQQru0Ur4jb27ScRQH+MLHwcpnGVe9r7Td1pn2CYuEHV4Wbn1VTvo+1lB30yHhZfJyHoHTQ==
-X-Received: by 2002:a05:6402:5cd:b0:5d0:d9e6:fea1 with SMTP id 4fb4d7f45d1cf-5de4503cc06mr14490228a12.19.1739180282973;
-        Mon, 10 Feb 2025 01:38:02 -0800 (PST)
-Message-ID: <972947d5-85a7-4abf-b72d-7b316485d0c0@suse.com>
-Date: Mon, 10 Feb 2025 10:38:04 +0100
+        bh=AFeaaLw82aP/RpwnG8BuNWwVwlKUr3MQKQwI9cJrh6k=;
+        b=MvjfS/L5Wt8+4Hj4xMFoqRQh6LZb/sbb7yUaMG37lY3Zjggqe4rGvwkzIWlcxtVa9r
+         LepsldhoXJU/PI3pTfdWcfmjkqZrrwXcfobpDOWWhRZqwy+8QF19+Qe9mEAuABlcsgN8
+         9EHSjIdrqSvovgInoAC1MubKmltlDLuxowrFLxx8Q8iwc9ngIBUaxNV3XvK9JbKQxr5d
+         sGhOUacpbO7M+FF1GxJm8/CEeC/05KCSgJR4a8avjyS9KudhwsWfg3QXzmnF0XXaW5aM
+         NX2QuXDSESf06/XpNYt7uAQY25RgM5nmVlwhA37mieFpE512TS4zkfg4Sm5gV9xL6Fdw
+         8lCQ==
+X-Gm-Message-State: AOJu0YxtAUepxZ3nKv7MAhxcA58J/4U2lAIAR9ke9krsDwq99aHH7/a/
+	fdLxVRixwCc4C/1ort5gSr3TcE87SEsaTVrp6+es0HcLMnMTVswlj2mB/EF83Q==
+X-Gm-Gg: ASbGncsF2jtOi786tFZytip6hg9Ko5UKilQ9q6Xfet5JK3mrSsIG4XfgRqgrX0DwqEJ
+	8UwBVLKdLTqEaC0CRPGDcr1vlefkZyb+xraJq+ryOWp0WFyD4xBCKTyLbAIb+42znImI1/sfURI
+	d+K4PuD9SChRhctnf6X0nAzfqFjohngvT/Q73SGwMGqN8vVTRpnq+xOZoLrwjvDrS75cYJ2HZsz
+	6gM3Sr93ufYE03esM2VpM6WfKsKHdAJA6MEn1mz4jc3Pmz9Wf9P+1XHaTuNKcpXigqRLdpQoxvx
+	awCGRFw41xxP6ImbvS8miUnR/NldtOqhfXPwQvJKHtx5RaysfVkNZWpJk8KqAlNvI+zrYa2vkOB
+	2
+X-Google-Smtp-Source: AGHT+IFjztWyCtXrgN4Ffwyl70XiI4RFpBgufGbtPEjYXZZkcRV4MM4OEi2ogROgIeo3Rg+6iR38Ww==
+X-Received: by 2002:a05:6402:26cd:b0:5de:50b4:b71f with SMTP id 4fb4d7f45d1cf-5de50b4b863mr11661075a12.12.1739181662770;
+        Mon, 10 Feb 2025 02:01:02 -0800 (PST)
+Message-ID: <6fb62cba-0f02-4692-b9b1-5b6d3bc00dc1@suse.com>
+Date: Mon, 10 Feb 2025 11:01:04 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for 4-21 v4] xen/riscv: identify specific ISA supported by
- cpu
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <a63c60c7a97a2b361e3a41f57bed61c0c9a0a89f.1738653407.git.oleksii.kurochko@gmail.com>
- <ab7077b3-6bef-4025-9389-345a345a141c@suse.com>
- <68c8222d-bc5a-4614-bc03-a1ea02693221@gmail.com>
- <0e2e03ae-521a-42c4-9538-2c831b74112c@gmail.com>
+Subject: Re: [PATCH v3 for-4.21 4/4] PCI: drop pci_segments_init()
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>, Julien Grall
+ <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>
+References: <0a006732-2b6e-46f0-a706-f432abd45d2c@suse.com>
+ <b7b148fc-ee74-4f02-9dab-f80b1707e44e@suse.com>
+ <Z6TQiP7142UON90W@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,59 +123,37 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0e2e03ae-521a-42c4-9538-2c831b74112c@gmail.com>
+In-Reply-To: <Z6TQiP7142UON90W@macbook.local>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 07.02.2025 21:00, Oleksii Kurochko wrote:
+On 06.02.2025 16:08, Roger Pau Monné wrote:
+> On Tue, Feb 04, 2025 at 02:04:35PM +0100, Jan Beulich wrote:
+>> Have callers invoke pci_add_segment() directly instead: With radix tree
+>> initialization moved out of the function, its name isn't quite
+>> describing anymore what it actually does.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
-> On 2/7/25 5:47 PM, Oleksii Kurochko wrote:
->>
->>
->> On 2/4/25 12:47 PM, Jan Beulich wrote:
->>>> +const struct riscv_isa_ext_data __initconst riscv_isa_ext[] = {
->>>> +    RISCV_ISA_EXT_DATA(i, RISCV_ISA_EXT_i),
->>>> +    RISCV_ISA_EXT_DATA(m, RISCV_ISA_EXT_m),
->>>> +    RISCV_ISA_EXT_DATA(a, RISCV_ISA_EXT_a),
->>>> +    RISCV_ISA_EXT_DATA(f, RISCV_ISA_EXT_f),
->>>> +    RISCV_ISA_EXT_DATA(d, RISCV_ISA_EXT_d),
->>>> +    RISCV_ISA_EXT_DATA(q, RISCV_ISA_EXT_q),
->>>> +    RISCV_ISA_EXT_DATA(h, RISCV_ISA_EXT_h),
->>>> +    RISCV_ISA_EXT_DATA(zicntr, RISCV_ISA_EXT_ZICNTR),
->>>> +    RISCV_ISA_EXT_DATA(zicsr, RISCV_ISA_EXT_ZICSR),
->>>> +    RISCV_ISA_EXT_DATA(zifencei, RISCV_ISA_EXT_ZIFENCEI),
->>>> +    RISCV_ISA_EXT_DATA(zihintpause, RISCV_ISA_EXT_ZIHINTPAUSE),
->>>> +    RISCV_ISA_EXT_DATA(zihpm, RISCV_ISA_EXT_ZIHPM),
->>>> +    RISCV_ISA_EXT_DATA(zbb, RISCV_ISA_EXT_ZBB),
->>>> +    RISCV_ISA_EXT_DATA(smaia, RISCV_ISA_EXT_SMAIA),
->>>> +    RISCV_ISA_EXT_DATA(ssaia, RISCV_ISA_EXT_SSAIA),
->>>> +};
->>>> +
->>>> +static const struct riscv_isa_ext_data __initconst required_extensions[] = {
->>>> +    RISCV_ISA_EXT_DATA(zicsr, RISCV_ISA_EXT_ZICSR),
->>>> +    RISCV_ISA_EXT_DATA(zihintpause, RISCV_ISA_EXT_ZIHINTPAUSE),
->>>> +    RISCV_ISA_EXT_DATA(zbb, RISCV_ISA_EXT_ZBB),
->>>> +};
->>> Coming back to my earlier question regarding the B (pseudo-)extension:
->>> Since riscv_isa_ext[] only contains Zbb, is it precluded anywhere in
->>> the spec that DT may mention just B when all of its constituents are
->>> supported?
->>>
->>> Which gets me on to G, which is somewhat similar in nature to B. We
->>> require G when RISCV_ISA_RV64G=y, yet required_extensions[] doesn't
->>> name it or its constituents. Much like we require C when RISCV_ISA_C=y,
->>> yet it's not in the table.
->> Another one thing I am thinking about if we really need a separate required_extensions[] array.
->>
->> We can leave only riscv_isa_ext[] and then just do a check:
->>   bitmap_weight(riscv_isa, ...) == ARRAY_SIZE(riscv_isa_ext)
-> 
-> It seems like we still need to have two arrays: one for what Xen is supported (and could be passed to guest
-> by riscv,isa) and one for what is required for boot.
+> IMO I would rather not add the segment here, and just make sure that
+> all callers that add segments have proper error reporting when it
+> fails.
 
-Well, you can get away with just one array, but only if adding a boolean
-to struct riscv_isa_ext_data (indicating whether an extension is required).
-I'm not sure though how well that would work overall.
+Maybe. Yet then things may (on x86) work fine with secondary segments not
+properly working. A log from one of the few multi-segment systems that I
+had seen data from suggested that none of the devices on the secondary
+segment were actually used by anything. This was, if I'm not mistaken,
+the underlying reason why (on x86) we demand segment 0 to have proper
+representation, but do things best effort only for other segments. Which
+isn't to say that we can't change things and do better.
+
+>  Maybe alloc_pseg() should gain a printk on failure?
+
+Not sure that would buy us much, especially if (on x86) it's seg 0 which
+is affected.
+
+For the patch at hand - do you then suggest to simply drop it? The plan
+here wasn't to re-work what we do, just tidy slightly how we do things.
 
 Jan
 
