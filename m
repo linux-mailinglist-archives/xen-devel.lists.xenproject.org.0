@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC649A2E9FD
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Feb 2025 11:52:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.884697.1294435 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58EFAA2EA35
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Feb 2025 11:57:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.884707.1294446 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thROW-0000RJ-P8; Mon, 10 Feb 2025 10:52:04 +0000
+	id 1thRSw-0001Yq-94; Mon, 10 Feb 2025 10:56:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 884697.1294435; Mon, 10 Feb 2025 10:52:04 +0000
+Received: by outflank-mailman (output) from mailman id 884707.1294446; Mon, 10 Feb 2025 10:56:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thROW-0000P2-MT; Mon, 10 Feb 2025 10:52:04 +0000
-Received: by outflank-mailman (input) for mailman id 884697;
- Mon, 10 Feb 2025 10:52:03 +0000
+	id 1thRSw-0001WY-6C; Mon, 10 Feb 2025 10:56:38 +0000
+Received: by outflank-mailman (input) for mailman id 884707;
+ Mon, 10 Feb 2025 10:56:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SvFn=VB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1thROV-00087K-3D
- for xen-devel@lists.xenproject.org; Mon, 10 Feb 2025 10:52:03 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
+ id 1thRSv-0001WS-Ay
+ for xen-devel@lists.xenproject.org; Mon, 10 Feb 2025 10:56:37 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0f50b45f-e79d-11ef-a075-877d107080fb;
- Mon, 10 Feb 2025 11:52:02 +0100 (CET)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5de5bf41652so3449239a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 10 Feb 2025 02:52:02 -0800 (PST)
+ id b271e6d9-e79d-11ef-a075-877d107080fb;
+ Mon, 10 Feb 2025 11:56:36 +0100 (CET)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-5de5bf41652so3457502a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Feb 2025 02:56:36 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab7cd4c34e4sm86292466b.14.2025.02.10.02.52.01
+ 4fb4d7f45d1cf-5de50148591sm5713521a12.28.2025.02.10.02.56.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Feb 2025 02:52:01 -0800 (PST)
+ Mon, 10 Feb 2025 02:56:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f50b45f-e79d-11ef-a075-877d107080fb
+X-Inumbo-ID: b271e6d9-e79d-11ef-a075-877d107080fb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739184722; x=1739789522; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739184996; x=1739789796; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=RM3SnGDTPPnteAG6neTDJo2s8eMK7KSDUGKuyIBcGck=;
-        b=Sn3hdf/yXKbrHjmPf+igfan/Quda9Z0Go4dhGI6bvO2Jf2qwkdxJcDfWv/CKiB8E0o
-         Y/LYw4Orp7BbibJ65ZBxVsT/RaAbAoIp0S7knDqGU+RHiGCj983IcGyOPLHWEFjLfB0T
-         eHtk+jvckpfKG1DcueGEW7mC8oi/ntQ6KWkEbnba6qY7MK/O3YNOrtJ1IP/28+65lt0D
-         VXYYuKkNsPBOB964x/YKJ4LrloI03iF+9BVl4V/SBfNB6Gkpur/Q3jwrzXQmR1CINKgK
-         sU9qkX5vuvWJSwJmh938oG1t9fjsSKBKlxiNHVX9cL4JuHXX7EvxhmVgRz9l/XcJB7L8
-         LGCA==
+        bh=zd6PVhPPD416+WA3hM49Kwgw8U4P/Y9132Wq0sUm5mk=;
+        b=ET5CxGa/LMuoiQqiDWwwZFED7p4MOfCz4qLQWx6CLm9McpTkx1dnLrewyhhN5E+Vy4
+         lsSq5qDnczEB7ooB4zIZ9D/YW2bWe1RMPeRxqnUBSy/UAgYLTza4diqOhBqnrBejrA7w
+         0xomdUbom6KYctOSkcXmwyvHnn05lcvxtLOCdGrnj68v6wWCBfk00/pH9oGNFX51Tfw/
+         BCZ8Nc9e7DtvZ4xm+Wxbh/hSae72JRCGU5WWP7sCGFuOkf+ty3iSWo3c0sh5p+BoqLDZ
+         vo53Hjqr6k2iDa3qbTawUQlwxajQqcd9c3ecQIesBtnojIL+S2k/wSuwcOYhcmdoanEQ
+         ctww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739184722; x=1739789522;
+        d=1e100.net; s=20230601; t=1739184996; x=1739789796;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RM3SnGDTPPnteAG6neTDJo2s8eMK7KSDUGKuyIBcGck=;
-        b=EtKuB29kVx/IdkGaVoglv7nd9sCx0TuWKnbsNXgToX0Q1opCbKRhNPW7m0W+vQIp4g
-         TmZ3dEt0CEaSkF/uxsvPNrUKoNCMxUvYfG5ZjhG16vzBY2LbBdbI3znnc4As5cGFNMZI
-         lS3qHSg5F7YqjkBtBKC3M9kbE+rTulT9JzUQmIgu4Ccg0QPATpsazGgTrwoaTllW9IZv
-         Vlis0V4C3n1yGmVaTfcgDpH0Q3h9SlPOreBK4ce9xWTI1fFp9a7CFTW0jVAxyW7OS3La
-         CCuVRVQV24/uyvhxMqW/xsM1q+cLjgpDpgv+iAyQc9svsrtGjpZt/72WN93O15Fcb2Fd
-         9jwg==
-X-Forwarded-Encrypted: i=1; AJvYcCXDvKCmBg8W6WdK2KtIJ4Sxh4AWIk9RszugynibtU8h0tt9sJ0e+QGLAwRkSCNLyz1hWbEHXno284M=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YytTZyaNjgCzTCHmEe7dHKD8KNYuCeZjV6y7SvXt6zWReN1XMq0
-	UmQfLTsuL4RqO6UOyFITpP+gSbBHmTMWVcl8PxJRFWJ3CMrE/gcF1bek+u2H5Q==
-X-Gm-Gg: ASbGncuVscVz/KWdGpBTJIfSgQ4eu0j39mf0Q4pCBBI3XooUbNGgga+x1pZQFL0KmJY
-	2iiFosyaJoElO9U43WPxRecCNm9OGZMXzG5lRijE9L3dDnlDN7F+ZrEZXKlImIQlDOyGODZldqd
-	D3PREBjg23ikkKWA9U4ySpXYjCi2HNYnKN62ghA4Qy0JDXFukdnvYzXhC04hhpYqpm1GA1NznlU
-	rcZ2ZpDViolusSGUQYER8P4AIfVHKxhBrTBPX9H3IcZmXdvw3dKb66p8CnAzUNBaBJn1FY26PaZ
-	+vQpVKLzPme46XQ4/rCAj3bGJ1pjt8pBl44Fz7Ep3nE90l+ao+ch+NLuMngjmuu6WVbvLLFh+Dz
-	t
-X-Google-Smtp-Source: AGHT+IEXLjNX0oSxnTYc9WiZoqMujNLFiJi2KLIl8AwdVaDpgXEUINyrf0rkFExiildI3lfih6TZiQ==
-X-Received: by 2002:a17:907:7216:b0:ab7:c6a5:454b with SMTP id a640c23a62f3a-ab7c6a54814mr284908766b.2.1739184722010;
-        Mon, 10 Feb 2025 02:52:02 -0800 (PST)
-Message-ID: <67c8ce1e-5559-4567-9eed-970d97c29bda@suse.com>
-Date: Mon, 10 Feb 2025 11:52:03 +0100
+        bh=zd6PVhPPD416+WA3hM49Kwgw8U4P/Y9132Wq0sUm5mk=;
+        b=Wui9J/lPR4nPFikeaXs0laVRVP2F/r67uaWfMYgxD/+NmRpZ4cnA3S87dgDmTTvZbn
+         GmLFVa2rHlUI1dbIY0SYDmTL+ZKvxqYKXd5QmdsJ+YnFt5UrZcBtw1NJM251BEJ9vH9x
+         wanysWrK/JjuS5jwqM0XWpmWcK1+0I7Rx4HxhO/wwSVA7BxSnCW0wXMSoXzh1ksJ5w8f
+         KXMLA374L9YY9uGlki0N5XOczCeTXmcrRLgQ74is+JRg5IDXqAECyq4Wg1Ewgnb61UA9
+         xZNBLfAIwsm/Jp0wHAaNKVyi57qNVUwZCxLV4TiaYOrFLrcBD4W9pYwMZQP57LWuEYGu
+         KAog==
+X-Forwarded-Encrypted: i=1; AJvYcCXaSpwd9IRISHTyr1a+7ka0I4jyl8s2oZHVGHAgSpYkGf6JU9WcLsUGqR8blAXP86SGZP9rtiGFr+Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwaFJdd6ejI+D5ATMRg41bM1YJ+EQnxSWGzFbCZc/V9eDfE+H6M
+	EpNMN0HqexR29aG2XQdJ3pxA4NfxQoElWXBHKtrJqHJ/aITIxmACTtjRkXTJag==
+X-Gm-Gg: ASbGnctg3/nBMLd6TlzfBfsaQFSgQiFZWEUTEGA7a3qLlUtThPpxRm6K9DVDfNm8kgR
+	iVHmLJM6zEe48RFm7E1ty05RFg8Ufnsv7fdffgzmTP7SQ1OUigfmA2cRkPxmA0wHSU9uXKerqDA
+	ogmtKDfhcOfK6omgNPlPlRVBjHegf435vuJBNUCN2WaObV3A1mkdafJdU1jkOKqWZw3/pF+Z9Tq
+	k92T2S1/bYPoxSaYN187YddFWEXEVLa99ZCXdF8ar4TEm+aIRY0JsPPiNEJGg6arBfMBsErjj3X
+	km3pvnwwNvMk/tCj2x/rplj2fwXL9GbWQjF2inz76wRNpDuLyFQQy0cEztL3mqgpRoNY5mGOVDX
+	B
+X-Google-Smtp-Source: AGHT+IFqV0yKs8/C2XH1pLvI8sizZrzpGk4xbOYOGuY0ZCgL8umwCeGLvu7DHbqMQUkwmi3H+ydh4A==
+X-Received: by 2002:a05:6402:5252:b0:5dc:5a34:1296 with SMTP id 4fb4d7f45d1cf-5de45022b20mr13855460a12.16.1739184995537;
+        Mon, 10 Feb 2025 02:56:35 -0800 (PST)
+Message-ID: <57a595e3-9b90-41e6-8116-94b77ccba615@suse.com>
+Date: Mon, 10 Feb 2025 11:56:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/8] iommu/arm: Introduce iommu_add_dt_pci_sideband_ids
- API
+Subject: Re: [PATCH v8 7/8] xen/arm: enable dom0 to use PCI devices with
+ pci-passthrough=no
 To: Mykyta Poturai <Mykyta_Poturai@epam.com>
 Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <cover.1739182214.git.mykyta_poturai@epam.com>
- <67b9bd138c12c0df35e5c4b3137c30ad345097d5.1739182214.git.mykyta_poturai@epam.com>
+ <9950eff2f8344c5d658def7d2c6d7fc010607498.1739182214.git.mykyta_poturai@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,40 +126,54 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <67b9bd138c12c0df35e5c4b3137c30ad345097d5.1739182214.git.mykyta_poturai@epam.com>
+In-Reply-To: <9950eff2f8344c5d658def7d2c6d7fc010607498.1739182214.git.mykyta_poturai@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 10.02.2025 11:30, Mykyta Poturai wrote:
-> --- a/xen/drivers/passthrough/iommu.c
-> +++ b/xen/drivers/passthrough/iommu.c
-> @@ -20,6 +20,7 @@
->  #include <xen/param.h>
->  #include <xen/softirq.h>
->  #include <xen/keyhandler.h>
-> +#include <xen/acpi.h>
->  #include <xsm/xsm.h>
->  
->  #ifdef CONFIG_X86
-> @@ -744,6 +745,18 @@ int __init iommu_get_extra_reserved_device_memory(iommu_grdm_t *func,
->      return 0;
->  }
->  
-> +int iommu_add_pci_sideband_ids(struct pci_dev *pdev)
-> +{
-> +    int ret = -EOPNOTSUPP;
-> +
-> +#ifdef CONFIG_HAS_PCI
-> +    if ( acpi_disabled )
-> +        ret = iommu_add_dt_pci_sideband_ids(pdev);
-> +#endif
-> +
-> +    return ret;
-> +}
+> From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> 
+> Enable the use of IOMMU + PCI in dom0 without having to specify
+> "pci-passthrough=yes".
 
-This function has no caller, which violates a Misra rule iirc. Considering
-all information given here it's also unclear why it would gain a caller on
-x86 (at least as long as DT isn't used there).
+Why? It _is_ passing through, even if Dom0 is special.
+
+> @@ -83,9 +84,9 @@ static int __init pci_init(void)
+>  {
+>      /*
+>       * Enable PCI passthrough when has been enabled explicitly
+> -     * (pci-passthrough=on).
+> +     * (pci-passthrough=on) or IOMMU is present and enabled.
+>       */
+> -    if ( !pci_passthrough_enabled )
+> +    if ( !is_pci_passthrough_enabled() && !iommu_enabled )
+>          return 0;
+
+I can't reasonably judge on this adjustment, but ...
+
+> --- a/xen/drivers/pci/physdev.c
+> +++ b/xen/drivers/pci/physdev.c
+> @@ -19,7 +19,7 @@ ret_t pci_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>          struct pci_dev_info pdev_info;
+>          nodeid_t node = NUMA_NO_NODE;
+>  
+> -        if ( !is_pci_passthrough_enabled() )
+> +        if ( !is_pci_passthrough_enabled() && !iommu_enabled )
+>              return -EOPNOTSUPP;
+>  
+>          ret = -EFAULT;
+> @@ -57,7 +57,7 @@ ret_t pci_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>      case PHYSDEVOP_pci_device_remove: {
+>          struct physdev_pci_device dev;
+>  
+> -        if ( !is_pci_passthrough_enabled() )
+> +        if ( !is_pci_passthrough_enabled() && !iommu_enabled )
+>              return -EOPNOTSUPP;
+>  
+>          ret = -EFAULT;
+
+... these two certainly look wrong to be made. If an Arm-specific adjustment
+is needed (and can be justified), a per-arch hook may need introducing.
 
 Jan
 
