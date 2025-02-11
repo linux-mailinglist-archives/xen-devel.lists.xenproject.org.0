@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88468A306F4
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 10:26:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.885216.1295005 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BB21A30727
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 10:31:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.885227.1295014 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thmWy-0006rF-Mq; Tue, 11 Feb 2025 09:26:12 +0000
+	id 1thmcM-0000Yh-8R; Tue, 11 Feb 2025 09:31:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 885216.1295005; Tue, 11 Feb 2025 09:26:12 +0000
+Received: by outflank-mailman (output) from mailman id 885227.1295014; Tue, 11 Feb 2025 09:31:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thmWy-0006o7-JM; Tue, 11 Feb 2025 09:26:12 +0000
-Received: by outflank-mailman (input) for mailman id 885216;
- Tue, 11 Feb 2025 09:26:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hVvi=VC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1thmWx-0006o1-Lz
- for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 09:26:11 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 39d07ecb-e85a-11ef-a075-877d107080fb;
- Tue, 11 Feb 2025 10:26:08 +0100 (CET)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-ab7d3bcf1ceso214037266b.3
- for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 01:26:08 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab7aab8d8fasm596534466b.58.2025.02.11.01.26.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Feb 2025 01:26:07 -0800 (PST)
+	id 1thmcM-0000Vw-50; Tue, 11 Feb 2025 09:31:46 +0000
+Received: by outflank-mailman (input) for mailman id 885227;
+ Tue, 11 Feb 2025 09:31:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jP5V=VC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1thmcL-0000Vo-Cm
+ for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 09:31:45 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 014d740e-e85b-11ef-b3ef-695165c68f79;
+ Tue, 11 Feb 2025 10:31:43 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-ab7c81b8681so272658466b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 01:31:43 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab772f8436dsm1026593766b.54.2025.02.11.01.31.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Feb 2025 01:31:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,114 +44,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 39d07ecb-e85a-11ef-a075-877d107080fb
+X-Inumbo-ID: 014d740e-e85b-11ef-b3ef-695165c68f79
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739265968; x=1739870768; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4AZeMkRTaveX1bjvzLdk0/DeV0XkoW1qKLdYVOG4HdU=;
-        b=LOBmTlGoHsUoW7J99jFU9SMVxHaWjq2jpA/NhNF6OTXl7Mdy76lkzR0nyk246qK4ao
-         epVxCOdi7/M4XLBzvq6jFLHsVuBja6ZAGl+jbAE8mqkkp5P0H2XReggRmihf1jRug8G/
-         IXrz/iv5us7XijRkulB503UdNP8S6So6+yrD4LdEWDegVeltX8u/zdtq5ArJA6c+esPy
-         6BWnitOtZkbCqxqEPdEPQFd/3H0nIEx02HMselQwbV24ci/sbWabInwoH2JIqqnnGmD2
-         MNnsnkY18yydspvfinZ87lNdjKnqInTWlbMdfVdp0CiLm6+OXJS+l5G2i0TM9BEJjd4I
-         g+0w==
+        d=citrix.com; s=google; t=1739266303; x=1739871103; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=A0iPFCM0x7xmTxXtvL/l0nwRIUqjVM6Y/Kts2UgshhE=;
+        b=UFJztw8m0e/0Khd4qese05gvUikMc19b0tIE9DXHvKpl7/ydJ8UTbEAw7/RVe9t+XP
+         SkRQrvfj+uMjaT7m79ZtWA4NCxdDnTKqptqRuLwk4huqQNf8Uio7lwSmOF2ah/+ZI7RN
+         LnYoMiGvNA2X15zhSEwT6rHxyTGTc9xN/g7YY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739265968; x=1739870768;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4AZeMkRTaveX1bjvzLdk0/DeV0XkoW1qKLdYVOG4HdU=;
-        b=bQ3neznIXpu5SG5fAHv2KfRJkZWXhWo+4AYZPMjVp+o6Jn0wWaH1bX8FgGbhC5ClQ7
-         LiU5/IyYjsM0VONghH0fwdUqabmthM5XdvAWKKJPDBGWscxLghq3jmpjGT6onZXQl5XT
-         IzNV7wQEZLZCx6q40+EIowBqQNHmmcNe35Ht3ocW/Ja2sm4iGyYh7dKtcsOyerHAwEpk
-         r7ezCsmqlloiGOK7fgwNnUtp/pk1yvAWPxMh1tVGNgQa6cawhxUledTh5QZ4oFSJAc7P
-         R1EPHT43N+jrYC5awuWV4Hez1YRkq8DfBBU5KqwO89xTSkT4zJPsc0KdcsmI06qHQc/X
-         1Jkg==
-X-Gm-Message-State: AOJu0Yw9WdZCag8Pn0KynavIVufmZxZNNcYBYABoa5BNzpGBmVFrfj1g
-	1DsE7A6BGTIyje4xfWfNxrGI629OpLGARCyHG8NusJS5X6peOaESqAqnEukMtw==
-X-Gm-Gg: ASbGnctVIuKj9EYC70y9E6YG5bdHJTQIRwFfnFqw3ihkfqA/BQ0Hfz0knu+ti5lLMho
-	W/Lq+9IQpEAWyN01yX9m+Zw1dtFc7zcMA4aT+7U578LxpF2aM6IxyYWtACM9zqpMW8JD3uo4Ybo
-	SCBq5v+UFSBeEuxYpcURQIDUudICc7sE6xPopLYNE2dOCHUVh1JOFTfkdPZqNLZ6HfeY3TK84xy
-	ksY3ioZ4z4WTl39CEUOpGGmV1yLQcVc+l3bco3IZdEAEFc431E5ZjhY5iuO//9hmV2GYVQnkHDy
-	x2VkBRGbKJKKnbjGkNbf1BID4rLTTC7L3f/KVE3CCDzk4QZ31bVF1omNOSelRf6SLVNUm1X7VBv
-	J
-X-Google-Smtp-Source: AGHT+IFun8VcfFw3WiYIog+8xNuvcpYTan6HoVIxm6psQEBllBZhqbFBtgnsL4AmhjoBFgBVxqxJ6g==
-X-Received: by 2002:a17:907:c718:b0:aa6:6885:e2fa with SMTP id a640c23a62f3a-ab7da36eaeamr224735366b.14.1739265968259;
-        Tue, 11 Feb 2025 01:26:08 -0800 (PST)
-Message-ID: <70c3456f-7c89-4105-969f-e50cec5b4917@suse.com>
-Date: Tue, 11 Feb 2025 10:26:06 +0100
+        d=1e100.net; s=20230601; t=1739266303; x=1739871103;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=A0iPFCM0x7xmTxXtvL/l0nwRIUqjVM6Y/Kts2UgshhE=;
+        b=Bitgixb46t7yDscLsAUQWbDpJ4BWERuvXfwTPbrrAM8Xjq874IQmkq9tEDKZyx+04K
+         zS4otq6Iw/4Z4ieLRN4Vy6YC/9EDT3YA7zoR8+IxiYdMJLygNDL9x54CGbya7XYMHIPu
+         nzbBjgrNjQSvSimd4leGJgCkYzRuof20Fha4H6XZrbhHgLJbyJ6mb5LGO7TW7ep51iGH
+         yAl5RqDsXvJuPac2Cfah5rVaDphWhvrmy/dTERm8cKAJPECGthcMpzPhrvlDvlIa/1B6
+         iP0qTp5MqTBs0QjHTPQdoRj3h80CN8GDFi193Lcv+JA8pDqrL3tTOCnUKwLTPe7jpjHA
+         0GIA==
+X-Forwarded-Encrypted: i=1; AJvYcCVnjZjsLiFUubcgKKHFBj9bO3I4/MdJwpmizgmB4nrvjAVJT3lYB4O5hdKCSMwUfi5/CLg6xuhcfKE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx0dSNpG3vPf83LMloXYKkQz9avez6fwc3IObOqorxOgLdA68sl
+	Gq92AHc3BaNtBtKBtclbNrnotc1d1KQU3gEvoe0pgQSqdUvvE98tgpcLEmseLws=
+X-Gm-Gg: ASbGncujC0GqZDOouTPXchvNTnYH+uvwvm8wOUZOms3n+FgmcBvQDX/9OVep1dktwTq
+	Br/PSOkOMnaaou2ZVmj/EAOrrTyksTVrDVJ0ngJmC/ey40X8rR/YVsjPZbvm9VMWSTzQHwpQOn0
+	iNyOM7NfuHTNQD+pbbuZ0Wjsbl7SJXJrwle/JSLY5ufwcVaxPbHj8nvy8z/ei+iAezcd4Jh7HF/
+	S4Kz6RERph3gMVu4c2dhXIdzv4y4rmeR51jlxd2s+re8+eDKMupRK0hMiZ9BCqCeiY+Irnek08/
+	L6g4JtGE5zjMZxqYE7Og
+X-Google-Smtp-Source: AGHT+IFY1cjOoEpa2la5u8Dn8ahixy5Qo1ysjdrvnADffw/vNOs5J4AANDOoxL/zok9w6jWZIb7kGw==
+X-Received: by 2002:a17:906:280e:b0:ab7:db70:6f1d with SMTP id a640c23a62f3a-ab7db706fb7mr199631466b.57.1739266302860;
+        Tue, 11 Feb 2025 01:31:42 -0800 (PST)
+Date: Tue, 11 Feb 2025 10:31:41 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: Jan Beulich <jbeulich@suse.com>,
+	Bertrand Marquis <Bertrand.Marquis@arm.com>,
+	Oleksandr Andrushchenko <andr2000@gmail.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Artem Mygaiev <Artem_Mygaiev@epam.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>
+Subject: Re: Coding Style Review and Automation
+Message-ID: <Z6sY_YsjJ6rGi8zS@macbook.local>
+References: <5a15f8e2-079c-405a-95ce-92585ac529cd@gmail.com>
+ <Z6sR87FrKcOhgEqX@macbook.local>
+ <4677686F-97C4-4D35-A113-0D8A1C0BC328@arm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.20? v2 0/5] xen/x86: prevent local APIC errors at
- shutdown
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20250206150615.52052-1-roger.pau@citrix.com>
- <Z6nOmwdp8iRNmkzh@macbook.local>
- <9f6240b2-009d-46a7-af9f-4944cd9439b1@gmail.com>
- <Z6sMbvBS4yB2le7U@macbook.local>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Z6sMbvBS4yB2le7U@macbook.local>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <4677686F-97C4-4D35-A113-0D8A1C0BC328@arm.com>
 
-On 11.02.2025 09:38, Roger Pau Monné wrote:
-> On Mon, Feb 10, 2025 at 07:29:35PM +0100, Oleksii Kurochko wrote:
->> On 2/10/25 11:02 AM, Roger Pau Monné wrote:
->>> This should have had a 'for-4.20?' tag in the subject name, as
->>> otherwise we will need to add an errata to the release notes to notice
->>> that reboot can sometimes fail on AMD boxes.
->>>
->>> Also adding Oleksii.
->>>
->>> Thanks, Roger.
->>>
->>> On Thu, Feb 06, 2025 at 04:06:10PM +0100, Roger Pau Monne wrote:
->>>> Hello,
->>>>
->>>> The following series aims to prevent local APIC errors from stalling the
->>>> shtudown process.  On XenServer testing we have seen reports of AMD
->>>> boxes sporadically getting stuck in a spam of:
->>
->> How often this issue happen?
+On Tue, Feb 11, 2025 at 09:10:38AM +0000, Luca Fancellu wrote:
+> Hi Roger,
 > 
-> Hard to tell, we have certainly hit it more than once on XenRT, but
-> I don't have figures about its probability.  I have at least 14
-> reports from XenRT from the last 6 months, but there's possibly a lot
-> more that could have been classified as a different kind of issue.
+> >> 
+> >> 3) The size of the patch after applying clang-format is huge. Really. Something
+> >> like 9 MB. Even if everyone agrees that the approach is good and we can proceed
+> >> with it, it is highly unlikely anyone will be able to review it. Considering
+> >> that new patches are being added to the upstream during such a review, it may
+> >> also lead to new code style violations or require a new review of that huge
+> >> patch.
+> > 
+> > I think this approach is difficult.  It would likely introduce a lot
+> > of noise when using `git blame` (I know, it's just one extra jump,
+> > but...), plus would likely break every patch that we currently have
+> > in-flight.
+> 
+> I think we already discussed this in the past and having some churn was accepted,
+> also about breaking existing patches, every change merged has the potential to do
+> that, this one is more likely but it’s the game I guess?
 
-Our QA tells me that this is severely hindering their work.
+Hm, maybe, I don't get rebasing issues very often TBH.  Not sure how
+intrusive such patch would be.
 
-Jan
+> > 
+> >> 4) Which clang-format version should we set as the one used by Xen, so it is
+> >> easy for everyone to use it on their hosts?
+> >> 
+> >> 5) You name it. I think many people in the community can name their points for
+> >> and against clang-format.
+> > 
+> > What are the parts of our coding style that clang-format cannot
+> > correctly represent?  Could you make a list of what would need to
+> > change in Xen coding style for it to match perfectly what clang-format
+> > will check?
+> 
+> we already went through that route, there is no checker anywhere that matches
+> the Xen coding style perfectly, so it’s either we change the coding style or we
+> don’t proceed further with any automatic check
+
+I'm probably fine with changing coding style, that's why I'm asking
+for a list of what needs to be changed (unless we switch to a
+completely different coding style).
+
+> > 
+> > Ideally the first step would be to prepare a patch to adjust the
+> > coding style so it's in line with what clang-format will do.
+> 
+> It’s easy to say that, but difficult to implement, if we could accept the clang-format
+> rules it would be easier to adopt the configuration itself as coding style, maybe
+> enhanced with some comments.
+
+I'm kind of lost, why is it difficult to implement?  What I'm asking
+for is a patch to CODING_STYLE that modifies it in a way that we could
+use clang-format.  In any case we need to do that if we want to use
+clang-format.
+
+One question that seems to have been dropped from my previous email:
+would it be feasible to apply the updated style to newly added chunks
+of code only, but not to the (unmodified) surrounding context?
+
+Thanks, Roger.
 
