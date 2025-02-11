@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42088A306C8
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 10:21:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.885182.1294964 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1126A306D0
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 10:22:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.885190.1294973 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thmRr-0004ae-Gf; Tue, 11 Feb 2025 09:20:55 +0000
+	id 1thmSg-00058L-Ne; Tue, 11 Feb 2025 09:21:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 885182.1294964; Tue, 11 Feb 2025 09:20:55 +0000
+Received: by outflank-mailman (output) from mailman id 885190.1294973; Tue, 11 Feb 2025 09:21:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thmRr-0004Wm-D3; Tue, 11 Feb 2025 09:20:55 +0000
-Received: by outflank-mailman (input) for mailman id 885182;
- Tue, 11 Feb 2025 09:20:53 +0000
+	id 1thmSg-00056G-Kn; Tue, 11 Feb 2025 09:21:46 +0000
+Received: by outflank-mailman (input) for mailman id 885190;
+ Tue, 11 Feb 2025 09:21:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hVvi=VC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1thmRp-0004Wg-TD
- for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 09:20:53 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jP5V=VC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1thmSe-0004Wg-NI
+ for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 09:21:44 +0000
+Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
+ [2607:f8b0:4864:20::630])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7b15c864-e859-11ef-b3ef-695165c68f79;
- Tue, 11 Feb 2025 10:20:48 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-ab7d583d2afso192795266b.0
- for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 01:20:48 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab78e561ba0sm849213866b.137.2025.02.11.01.20.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Feb 2025 01:20:47 -0800 (PST)
+ id 9917301e-e859-11ef-b3ef-695165c68f79;
+ Tue, 11 Feb 2025 10:21:39 +0100 (CET)
+Received: by mail-pl1-x630.google.com with SMTP id
+ d9443c01a7336-21f6f18b474so39391105ad.1
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 01:21:39 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-21f3650e6c0sm90842385ad.22.2025.02.11.01.21.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Feb 2025 01:21:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,116 +44,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7b15c864-e859-11ef-b3ef-695165c68f79
+X-Inumbo-ID: 9917301e-e859-11ef-b3ef-695165c68f79
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739265648; x=1739870448; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/uQDz87UrV+YOOitnzmJdYZMPous98Y8ZDBx1Di4Qhc=;
-        b=bHne/00bp6wFyXzW0++gvavflERXvhmR2g3UWgGcGqQZn9iHOGLiz9k0cVH7G8xkFz
-         tI+Vj7u2EyYtSON/9sL2QFNMAxZY8zoAffsYUzwIuP6rzus8fkc+ojGh0yA6Kt+CyZtP
-         2Ea82pN80l0UmPeFkRl5onukxMW2TfFtPHbxyE+ILRzR/enofhxF7asMP47rGbFA57Qn
-         lbk/vxAlef9pVghRED9J55SPejYhZOf6OS+QGIvSxFDvnPYO+e3Pn6YFLSypQSrBTWcw
-         k/J188UC25kqSsShi4LYbNQX/uZUeHYf1RcsxB/Ey4Fbo8f31dIAWuJgJMJ+LKJVjcNT
-         zTDQ==
+        d=citrix.com; s=google; t=1739265698; x=1739870498; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=G6iTFPwrQnvC7Hy2XmcKbbReVWjtB84/Dmlkfgvn7hg=;
+        b=IK76wLJAZZG2pZZYyQdNQhRWz6TrNwWUdlKTeJBY/VaEfRDZk1DxohPq2/IEwZgJgj
+         971cY5qOp+X3bYf+bCw0mkxVJ0Teh9KWjFJ3CIXJhBatP3+2X4mtPsZgUb4DDfQytWZv
+         zgjrjr7yNwwwkUe8cNko8lMWUl+aDUgKa9Cwk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739265648; x=1739870448;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/uQDz87UrV+YOOitnzmJdYZMPous98Y8ZDBx1Di4Qhc=;
-        b=fTnaCiUOozP0c65wYue7lvKUeROA9AFwI7YRhcB4NtlLPCTSejF3PjVXVNLn/zzthw
-         0SMmLzdTUMhSU8QBI66yBO9JljxlFaVgpqRQ2N5+e7+zi6P1hfHI3h7TTBTrPWTD5IJ5
-         L4ectzSakR0BHzC2O9Ns2vTannqLxf4NQE7DosEIot+MxNulAtnbTBt5Yh4QpW8RQFf/
-         rnXm4UtYIuwTgeuQCN2IRbBi+vT3GloG5GLQaKL1T1dBzTGoy6ZUEzIBwgFgsNB2cwij
-         KpVzIP/KbCdzPl3EnHCFtW6y2GlbT4b6xJSu6I5pRfK6UXPwmft7nhw/ss9LGAk7diwa
-         t/XA==
-X-Forwarded-Encrypted: i=1; AJvYcCV0xR4IwKtVK+Q3ir0pJdU4RADXyhUuHo86hakJy9XSF/0ezpUlBfCYzVB5n6j17AVoi94PCn0OgNc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxs0qdoXmWb2aRXkIQ7eYGleJAwH0PxAJ0bsV0JfQybugZeZAfe
-	1Z5nmgmfuOyP4GaT+saC7RxuFZ3tt+fo/QU9OuhiMCwyfFfynb2cd4B0tiITlg==
-X-Gm-Gg: ASbGncuRe6J4ijtNlphQ5kb9ugYWS1P/d9q223mawenbMME/eIZ3aZuacQh2ozkwGH2
-	x8deW54rdRnLFk7EHVEP1rdWcMDEvhCUxzkd1L9wTey/GXa+bAj8KqstAyrE29XQqMQU5P2Q8aw
-	T6tE+Uy2kbr+7/QbbUWXAUPlQqMD06j+hdmwOvTKj6rUM5K2xhdwl8rfIBy9CqbRxqDp8z7LdO/
-	teMCyX3K9UX4dZhijFidgjf1078s1RWvEKmfJT544ThQrOUX9cf3K5KH+2QnFHrsVzvSnjBuDoQ
-	oc9uARhV400N2GdNXHjCiAUY6xCYUBJzEozI9mEUluYKQyd7BQf1y4Bepj1hy+Yf0h7vl6KtoDW
-	n
-X-Google-Smtp-Source: AGHT+IGU5kYrqDvz4Upd9ZtSv6jkw/4qbPvMRkavcKwFWDFabNLQqQfGXiA0Qn2uWzviUBDcBTnQ9Q==
-X-Received: by 2002:a17:907:7d90:b0:ab6:f0d3:9687 with SMTP id a640c23a62f3a-ab7dafc1750mr195037166b.21.1739265648171;
-        Tue, 11 Feb 2025 01:20:48 -0800 (PST)
-Message-ID: <37ae9a7f-5ac7-49fd-975a-2f1bbb788262@suse.com>
-Date: Tue, 11 Feb 2025 10:20:46 +0100
+        d=1e100.net; s=20230601; t=1739265698; x=1739870498;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=G6iTFPwrQnvC7Hy2XmcKbbReVWjtB84/Dmlkfgvn7hg=;
+        b=FWQhrZ7JwkVSlhPb0vGcDq13uoA/SS+kHDV1EUldHFpJbfym4XwiRu88nY0zdCRTRC
+         FX1nZm3Xl3JwS0UVWnSvTbXhQ0MYdgiBs0fpOFTEshVc9MJxB+jXEJVMBzI1hnuo1sQ0
+         UXFvvOmvPVtQdxWP5SYXuyqyZ94S+LQth2SIozgE81KAWvj1iZQqp94FvqrVi8zL+08i
+         BhAWQh2cEymex32aSB9NgYas+9p+eu+XSQWkd6ZX6j+qa2U1Ws61yqV7H7LS5/77kaXs
+         lFqWOyIMYc2uQCiLaEBLbDIe/8F6BJbhKHnP/u3A+DhSSWXiVfxM6jn3Sh5GZEA7txKx
+         jRMQ==
+X-Gm-Message-State: AOJu0Yy8ih4OZnvfLgn9i2f32/XdWW7mCFOUR7QCkyDPTCDKw3SNoSER
+	djD673c3HkjuqfhavwFFNObhJ1umYnRIPc0G4Uj1ZmYmAc9m6+hZe4KxAAGf2XA=
+X-Gm-Gg: ASbGncsJ/ClXpW9Ze5SXEL41e6VMh0rORaJYFE1d0hNv7Rb02x3QuSXpyMswVxJqBzW
+	SONVLkgJBjL1l6cbx7nOqqCHotS2v54CCIbKyYiD52G++msHsoqWEwyV6C7Gwq0mNbQakMGz4Dy
+	Fo9FEa/zFNrQu7jJWnFOJDd08O0qBNt+r8DKApx1zTCsqvbrQIpOGTXDpRcIWCj6fU6iPzu489s
+	IkXqYkBfOanN2OB5Xn9eNvV4Avy7w/tr/DVjfYTekoO7hPLjNLQPTxiLj3CiVweavoziV4UIhn5
+	cPs2WdApU8CqvJTevSto
+X-Google-Smtp-Source: AGHT+IHfarUfwLkABpqKJACCM8PaYufOSiaH09zA1z2XEpebVQmpkVT3dWuIHIOWmD+oISwUotbERA==
+X-Received: by 2002:a17:902:ef09:b0:216:386e:dbc with SMTP id d9443c01a7336-21f4e6c22e7mr243028245ad.13.1739265698351;
+        Tue, 11 Feb 2025 01:21:38 -0800 (PST)
+Date: Tue, 11 Feb 2025 10:21:32 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Huang Rui <ray.huang@amd.com>
+Subject: Re: [PATCH v8] vpci: Add resizable bar support
+Message-ID: <Z6sWnK1BYxArBq--@macbook.local>
+References: <20250211022257.1690366-1-Jiqian.Chen@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/5] xen/x86: prevent local APIC errors at shutdown
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250206150615.52052-1-roger.pau@citrix.com>
- <c9b8ae2c-ed90-4256-8a61-19ed85b1a774@suse.com>
- <Z6sPU2y7qHMjAZ30@macbook.local>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Z6sPU2y7qHMjAZ30@macbook.local>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250211022257.1690366-1-Jiqian.Chen@amd.com>
 
-On 11.02.2025 09:50, Roger Pau Monné wrote:
-> On Tue, Feb 11, 2025 at 07:39:12AM +0100, Jan Beulich wrote:
->> On 06.02.2025 16:06, Roger Pau Monne wrote:
->>> The following series aims to prevent local APIC errors from stalling the
->>> shtudown process.  On XenServer testing we have seen reports of AMD
->>> boxes sporadically getting stuck in a spam of:
->>>
->>> APIC error on CPU0: 00(08), Receive accept error
->>>
->>> Messages during shutdown, as a result of device interrupts targeting
->>> CPUs that are offline (and have the local APIC disabled).
->>
->> One more thought here: Have you/we perhaps discovered the reason why there
->> was that 1ms delay at the end of fixup_irqs() that was badly commented,
->> and that you removed in e2bb28d62158 ("x86/irq: forward pending interrupts
->> to new destination in fixup_irqs()")? May be worth mentioning that by way
->> of a Fixes: tag.
+On Tue, Feb 11, 2025 at 10:22:57AM +0800, Jiqian Chen wrote:
+> Some devices, like AMDGPU, support resizable bar capability,
+> but vpci of Xen doesn't support this feature, so they fail
+> to resize bars and then cause probing failure.
 > 
-> Hm, so you think the delay was added there as a way to ensure any
-> pending interrupts would get drained (ie: serviced) on the old target?
+> According to PCIe spec, each bar that supports resizing has
+> two registers, PCI_REBAR_CAP and PCI_REBAR_CTRL. So, add
+> handlers to support resizing the size of BARs.
+> 
+> Note that Xen will only trap PCI_REBAR_CTRL, as PCI_REBAR_CAP
+> is read-only register and the hardware domain already gets
+> access to it without needing any setup.
+> 
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
 
-So far I didn't have the slightest idea why that call had been there. This
-at least gives a possible reason.
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-> I'm maybe a bit confused, but I don't think the delay would help much
-> with preventing the local APIC errors?  Regardless of the wait, if the
-> interrupts target offline CPUs there's a chance receive accept errors
-> will be triggered on AMD.
+> ---
+> Hi all,
+> v7->v8 changes:
+> * Modified commit message and some comments.
+> * Deleted unused function vpci_hw_write32.
+> 
+> Best regards,
+> Jiqian Chen.
+> 
+> v6->v7 changes:
+> * Deleted codes that add register for PCI_REBAR_CAP, and added comments to explain why.
+> * Added comments to explain why use "continue" when fail to add register for PCI_REBAR_CTRL.
+> 
+> v5->v6 changes:
+> * Changed "1UL" to "1ULL" in PCI_REBAR_CTRL_SIZE idefinition for 32 bit architecture.
+> * In rebar_ctrl_write used "bar - pdev->vpci->header.bars" to get index instead of reading
+>   from register.
+> * Added the index of BAR to error messages.
+> * Changed to "continue" instead of "return an error" when vpci_add_register failed.
+> 
+> v4->v5 changes:
+> * Called pci_size_mem_bar in rebar_ctrl_write to get addr and size of BAR instead of setting
+>   their values directly after writing new size to hardware.
+> * Changed from "return" to "continue" when index/type of BAR are not correct during initializing
+>   BAR.
+> * Corrected the value of PCI_REBAR_CTRL_BAR_SIZE from "0x00001F00" to "0x00003F00".
+> * Renamed PCI_REBAR_SIZE_BIAS to PCI_REBAR_CTRL_SIZE_BIAS.
+> * Re-defined "PCI_REBAR_CAP_SHIFT 4" to "PCI_REBAR_CAP_SIZES_MASK 0xFFFFFFF0U".
+> 
+> v3->v4 changes:
+> * Removed PCI_REBAR_CAP_SIZES since it was not needed, and added
+>   PCI_REBAR_CAP_SHIFT and PCI_REBAR_CTRL_SIZES.
+> * Added parameter resizable_sizes to struct vpci_bar to cache the support resizable sizes and
+>   added the logic in init_rebar().
+> * Changed PCI_REBAR_CAP to PCI_REBAR_CAP(n) (4+8*(n)), changed PCI_REBAR_CTRL to
+>   PCI_REBAR_CTRL(n) (8+8*(n)).
+> * Added domain info of pci_dev to printings of init_rebar().
+> 
+> v2->v3 changes:
+> * Used "bar->enabled" to replace "pci_conf_read16(pdev->sbdf, PCI_COMMAND) & PCI_COMMAND_MEMORY",
+>   and added comments why it needs this check.
+> * Added "!is_hardware_domain(pdev->domain)" check in init_rebar() to return EOPNOTSUPP for domUs.
+> * Moved BAR type and index check into init_rebar(), then only need to check once.
+> * Added 'U' suffix for macro PCI_REBAR_CAP_SIZES.
+> * Added macro PCI_REBAR_SIZE_BIAS to represent 20.
+> TODO: need to hide ReBar capability from hardware domain when init_rebar() fails.
+> 
+> v1->v2 changes:
+> * In rebar_ctrl_write, to check if memory decoding is enabled, and added
+>   some checks for the type of Bar.
+> * Added vpci_hw_write32 to handle PCI_REBAR_CAP's write, since there is
+>   no write limitation of dom0.
+> * And has many other minor modifications as well.
+> ---
+>  xen/drivers/vpci/Makefile  |   2 +-
+>  xen/drivers/vpci/rebar.c   | 131 +++++++++++++++++++++++++++++++++++++
+>  xen/include/xen/pci_regs.h |  15 +++++
+>  xen/include/xen/vpci.h     |   1 +
+>  4 files changed, 148 insertions(+), 1 deletion(-)
+>  create mode 100644 xen/drivers/vpci/rebar.c
+> 
+> diff --git a/xen/drivers/vpci/Makefile b/xen/drivers/vpci/Makefile
+> index 1a1413b93e76..a7c8a30a8956 100644
+> --- a/xen/drivers/vpci/Makefile
+> +++ b/xen/drivers/vpci/Makefile
+> @@ -1,2 +1,2 @@
+> -obj-y += vpci.o header.o
+> +obj-y += vpci.o header.o rebar.o
+>  obj-$(CONFIG_HAS_PCI_MSI) += msi.o msix.o
+> diff --git a/xen/drivers/vpci/rebar.c b/xen/drivers/vpci/rebar.c
+> new file mode 100644
+> index 000000000000..794f1168adf8
+> --- /dev/null
+> +++ b/xen/drivers/vpci/rebar.c
+> @@ -0,0 +1,131 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+> + *
+> + * Author: Jiqian Chen <Jiqian.Chen@amd.com>
+> + */
+> +
+> +#include <xen/sched.h>
+> +#include <xen/vpci.h>
+> +
+> +static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
+> +                                      unsigned int reg,
+> +                                      uint32_t val,
+> +                                      void *data)
+> +{
+> +    struct vpci_bar *bar = data;
+> +    const unsigned int index = bar - pdev->vpci->header.bars;
+> +    uint64_t size = PCI_REBAR_CTRL_SIZE(val);
 
-But fixup_irqs() right now runs ahead of actually offlining the APs.
+Since you define index as const you could also do the same with size.
+Can adjust at commit, but I also don't have a strong opinion about
+it.
 
-Jan
+Thanks, Roger.
 
