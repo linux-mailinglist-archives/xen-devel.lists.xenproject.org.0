@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21083A30A4C
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 12:37:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.885456.1295264 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7160CA30A8F
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 12:44:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.885464.1295275 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thoaH-0008TS-Pn; Tue, 11 Feb 2025 11:37:45 +0000
+	id 1thogW-0002JQ-Ew; Tue, 11 Feb 2025 11:44:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 885456.1295264; Tue, 11 Feb 2025 11:37:45 +0000
+Received: by outflank-mailman (output) from mailman id 885464.1295275; Tue, 11 Feb 2025 11:44:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thoaH-0008Rv-My; Tue, 11 Feb 2025 11:37:45 +0000
-Received: by outflank-mailman (input) for mailman id 885456;
- Tue, 11 Feb 2025 11:37:44 +0000
+	id 1thogW-0002GI-C9; Tue, 11 Feb 2025 11:44:12 +0000
+Received: by outflank-mailman (input) for mailman id 885464;
+ Tue, 11 Feb 2025 11:44:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hVvi=VC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1thoaG-0008Rn-8B
- for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 11:37:44 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=OJrH=VC=huawei.com=ruanjinjie@srs-se1.protection.inumbo.net>)
+ id 1thogU-0002GC-Bc
+ for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 11:44:10 +0000
+Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9b53161d-e86c-11ef-a075-877d107080fb;
- Tue, 11 Feb 2025 12:37:43 +0100 (CET)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-ab7c81b8681so291585066b.0
- for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 03:37:43 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab7cc3c8cccsm293870866b.173.2025.02.11.03.37.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Feb 2025 03:37:42 -0800 (PST)
+ id 78aea2a1-e86d-11ef-a075-877d107080fb;
+ Tue, 11 Feb 2025 12:44:05 +0100 (CET)
+Received: from mail.maildlp.com (unknown [172.19.162.112])
+ by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4Ysfjx48WNz20qDJ;
+ Tue, 11 Feb 2025 19:44:21 +0800 (CST)
+Received: from kwepemg200008.china.huawei.com (unknown [7.202.181.35])
+ by mail.maildlp.com (Postfix) with ESMTPS id 52E87140153;
+ Tue, 11 Feb 2025 19:43:52 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ kwepemg200008.china.huawei.com (7.202.181.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Tue, 11 Feb 2025 19:43:50 +0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,106 +46,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b53161d-e86c-11ef-a075-877d107080fb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739273863; x=1739878663; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BLlwTaPC7KuPjft00eJlb60pFa3vSMVGf5bdi1aQEsw=;
-        b=LBGJpBQnEJySn3merc8R0X+BPKBUyfTVblNyDZsu8MMf55Q+ESEmqnH/nseN/TQEj+
-         zfG5slYwosug6drrGhGi6ungpyyiwjkqSsDUTX7lXPa0o7MC2i67kMYXLzwJvvopQigH
-         0WtCoUrzvSA8IuMZk9oFcZVVIaM5WwlhnD5x4oNkMH+i9/hCShtjgljbNR47S2qDJ7Vb
-         5qCHwmXmVgckuyEeJ370f8ImQoDUF5R/4IFGOOj/jAN2oFAk0m0jhBCH0E6TIqjx3G8N
-         YrN+MTiJwSLQm60dY+xrUmCPkPcxpxIByKUoZ8lmyseADq+2fhLyjvY9wgf8fVI8h8Fm
-         k4kA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739273863; x=1739878663;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=BLlwTaPC7KuPjft00eJlb60pFa3vSMVGf5bdi1aQEsw=;
-        b=tINocBnobhcm4+gSAtmIuKXO6niePTeL/912RZAGqqNJVz7tMBUf/YWVFJHzbY0xFN
-         iSw4EjZTGREWWH0nEJypGkM8HWasT0jqCWUes3omKe6sSS4RIoujqNng+1PG5coTN6S0
-         Sk5fvR+7DbKAwx5fjQ5VqmYwpVdNbDdT0Pti63phFSAc2CApP7cSobbIId7U9ZUYANkX
-         oD1e/shivWxtv6BiQcjaD5+U96LUiyQFC0MI1eQr6FDY1NfM8C/JJolserENYi4M4lTJ
-         b7+cGwpHP7JRdxFrnKtMO3LOx3nIX7Ipnis/3qrlMLUYaAut+C94Hyi8lFaWYOzlzqGV
-         llNw==
-X-Forwarded-Encrypted: i=1; AJvYcCUgTk4bxgYf76Gp6RACUM6mldNPyQB2HJFAEv8IJn0mVja+mFVBkRimJHbbjL0HQfK5CNZSRNg52SI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxYXMPeU0JOMRK79gLqeo7vFnl/XKLuU7hw/LeZjUspxHHf2zBN
-	0I5hmTgCDf6ILWJx5Eo1mnj95lDRhttLlxaem8qPPRqEchTCHykC0kG6oWDtmA==
-X-Gm-Gg: ASbGncux0j/mnvZypxnpuc4epMbIWwvPdb9vypA5FMcPeZRX7pn0iFzvjaZSrwr8h/h
-	5CKraGxGJUQYUlN6DJl9yj7/umXQfvGFeT5JOlnxo/aZ2FPUm3ZTj/eIM7Iu6p8jBn9EXamLMNw
-	TbyDXqlLw1qndGY8demXfSFspTsZ1vCpcFY1rIPeGU3dgA1uuP/PMK5SYrS/Nd0Hpigscd+79Ax
-	VrpRZy4QvfjIkJRzQkaYHN9I+vq6bjTQ1tcWkRm0onlET1xxdSZWQPoq9fCjbJT+RW6cJ1LWfAe
-	6vPyN24EP5JLbJZlzQ4/667shcsCaH1Z4+77nNvIF3z5YpcBNwPsOyFLjCxCpfRvDSsVy8CTb0x
-	G
-X-Google-Smtp-Source: AGHT+IGrhzhmVruVJo3rggFuj5aTMOM0t1YEpGnHfJ6oBCW7cIi63dXqN2Wj+pug0+gZY6b9sbuRtA==
-X-Received: by 2002:a17:906:f597:b0:ab7:6c4b:920a with SMTP id a640c23a62f3a-ab7da33b963mr343986466b.6.1739273862683;
-        Tue, 11 Feb 2025 03:37:42 -0800 (PST)
-Message-ID: <e9c5d9e2-8270-4adc-812f-3f1ed569f975@suse.com>
-Date: Tue, 11 Feb 2025 12:37:41 +0100
+X-Inumbo-ID: 78aea2a1-e86d-11ef-a075-877d107080fb
+Message-ID: <a715dd5d-f353-371c-f542-7430668f2e12@huawei.com>
+Date: Tue, 11 Feb 2025 19:43:50 +0800
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.20 v3 5/5] x86/iommu: disable interrupts at shutdown
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: oleksii.kurochko@gmail.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20250211110209.86974-1-roger.pau@citrix.com>
- <20250211110209.86974-6-roger.pau@citrix.com>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.0
+Subject: Re: [PATCH -next v5 00/22] arm64: entry: Convert to generic entry
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250211110209.86974-6-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+To: Mark Rutland <mark.rutland@arm.com>
+CC: <catalin.marinas@arm.com>, <will@kernel.org>, <oleg@redhat.com>,
+	<sstabellini@kernel.org>, <tglx@linutronix.de>, <peterz@infradead.org>,
+	<luto@kernel.org>, <mingo@redhat.com>, <juri.lelli@redhat.com>,
+	<vincent.guittot@linaro.org>, <dietmar.eggemann@arm.com>,
+	<rostedt@goodmis.org>, <bsegall@google.com>, <mgorman@suse.de>,
+	<vschneid@redhat.com>, <kees@kernel.org>, <wad@chromium.org>,
+	<akpm@linux-foundation.org>, <samitolvanen@google.com>,
+	<masahiroy@kernel.org>, <hca@linux.ibm.com>, <aliceryhl@google.com>,
+	<rppt@kernel.org>, <xur@google.com>, <paulmck@kernel.org>, <arnd@arndb.de>,
+	<mbenes@suse.cz>, <puranjay@kernel.org>, <pcc@google.com>, <ardb@kernel.org>,
+	<sudeep.holla@arm.com>, <guohanjun@huawei.com>, <rafael@kernel.org>,
+	<liuwei09@cestc.cn>, <dwmw@amazon.co.uk>, <Jonathan.Cameron@huawei.com>,
+	<liaochang1@huawei.com>, <kristina.martsenko@arm.com>, <ptosi@google.com>,
+	<broonie@kernel.org>, <thiago.bauermann@linaro.org>, <kevin.brodsky@arm.com>,
+	<joey.gouly@arm.com>, <liuyuntao12@huawei.com>, <leobras@redhat.com>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<xen-devel@lists.xenproject.org>
+References: <20241206101744.4161990-1-ruanjinjie@huawei.com>
+ <c34ebe3f-b78a-1a17-0c6a-48d3874f8be9@huawei.com>
+ <Z6nxWM8cnhd32yfW@J2N7QTR9R3>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <Z6nxWM8cnhd32yfW@J2N7QTR9R3>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.67.109.254]
+X-ClientProxiedBy: dggems706-chm.china.huawei.com (10.3.19.183) To
+ kwepemg200008.china.huawei.com (7.202.181.35)
 
-On 11.02.2025 12:02, Roger Pau Monne wrote:
-> Add a new hook to inhibit interrupt generation by the IOMMU(s).  Note the
-> hook is currently only implemented for x86 IOMMUs.  The purpose is to
-> disable interrupt generation at shutdown so any kexec chained image finds
-> the IOMMU(s) in a quiesced state.
-> 
-> It would also prevent "Receive accept error" being raised as a result of
-> non-disabled interrupts targeting offline CPUs.
-> 
-> Note that the iommu_quiesce() call in nmi_shootdown_cpus() is still
-> required even when there's a preceding iommu_crash_shutdown() call; the
-> later can become a no-op depending on the setting of the "crash-disable"
-> command line option.
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
-> Changes since v1:
->  - New in this version.
->  - Expand commit message.
->  - Check if the hook is implemented before attempting to call it.
 
-The latter two are changes since v2, though, aiui. In any event
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+On 2025/2/10 20:30, Mark Rutland wrote:
+> On Sat, Feb 08, 2025 at 09:15:08AM +0800, Jinjie Ruan wrote:
+>> On 2024/12/6 18:17, Jinjie Ruan wrote:
+>>> Currently, x86, Riscv, Loongarch use the generic entry. Convert arm64
+>>> to use the generic entry infrastructure from kernel/entry/*. The generic
+>>> entry makes maintainers' work easier and codes more elegant, which aslo
+>>> removed a lot of duplicate code.
+>>>
+>>> The main steps are as follows:
+>>> - Make arm64 easier to use irqentry_enter/exit().
+>>> - Make arm64 closer to the PREEMPT_DYNAMIC code of generic entry.
+>>> - Split generic entry into generic irq entry and generic syscall to
+>>>   make the single patch more concentrated in switching to one thing.
+>>> - Switch to generic irq entry.
+>>> - Make arm64 closer to the generic syscall code.
+>>> - Switch to generic entry completely.
+>>>
+>>> Changes in v5:
+>>> - Not change arm32 and keep inerrupts_enabled() macro for gicv3 driver.
+>>> - Move irqentry_state definition into arch/arm64/kernel/entry-common.c.
+>>> - Avoid removing the __enter_from_*() and __exit_to_*() wrappers.
+>>> - Update "irqentry_state_t ret/irq_state" to "state"
+>>>   to keep it consistently.
+>>> - Use generic irq entry header for PREEMPT_DYNAMIC after split
+>>>   the generic entry.
+>>> - Also refactor the ARM64 syscall code.
+>>> - Introduce arch_ptrace_report_syscall_entry/exit(), instead of
+>>>   arch_pre/post_report_syscall_entry/exit() to simplify code.
+>>> - Make the syscall patches clear separation.
+>>> - Update the commit message.
+>>
+>> Gentle Ping.
+> 
+> I've left soem comments.
+> 
+> As I mentioned previously, I'd very much prefer that we do the syscall
+> entry logic changes *later* (i.e. as a follow-up patch series), after
+> we've got the irq/exception entry logic sorted.
+> 
+> I reckon we've got just enough time to get the irq/exception entry
+> changes ready this cycle, with another round or two of review. So can we
+> please put the syscall bits aside for now? ... that and run all the
+> tests you mention in patch 22 on the irq/exception entry changes alone.
+
+Sure, it is ok to put the syscall bits aside and split it out .
+
+> 
+> Mark.
+> 
+> 
 
