@@ -2,37 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CF21A31435
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 19:39:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.885861.1295660 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 192D4A3143F
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 19:41:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.885870.1295669 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thvAe-0004px-1D; Tue, 11 Feb 2025 18:39:44 +0000
+	id 1thvBu-0006Uf-AZ; Tue, 11 Feb 2025 18:41:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 885861.1295660; Tue, 11 Feb 2025 18:39:44 +0000
+Received: by outflank-mailman (output) from mailman id 885870.1295669; Tue, 11 Feb 2025 18:41:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thvAd-0004ng-Ua; Tue, 11 Feb 2025 18:39:43 +0000
-Received: by outflank-mailman (input) for mailman id 885861;
- Tue, 11 Feb 2025 18:39:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jP5V=VC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1thvAd-0004na-9l
- for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 18:39:43 +0000
-Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
- [2607:f8b0:4864:20::629])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8da3c129-e8a7-11ef-b3ef-695165c68f79;
- Tue, 11 Feb 2025 19:39:41 +0100 (CET)
-Received: by mail-pl1-x629.google.com with SMTP id
- d9443c01a7336-21f4af4f9ddso69998645ad.1
- for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 10:39:41 -0800 (PST)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-73048bf143dsm9657721b3a.118.2025.02.11.10.39.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Feb 2025 10:39:39 -0800 (PST)
+	id 1thvBu-0006SI-7N; Tue, 11 Feb 2025 18:41:02 +0000
+Received: by outflank-mailman (input) for mailman id 885870;
+ Tue, 11 Feb 2025 18:41:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=zckm=VC=alien8.de=bp@srs-se1.protection.inumbo.net>)
+ id 1thvBs-0005AE-Fj
+ for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 18:41:00 +0000
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bceaf60f-e8a7-11ef-a075-877d107080fb;
+ Tue, 11 Feb 2025 19:40:59 +0100 (CET)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id F1F5F40E0177; 
+ Tue, 11 Feb 2025 18:40:57 +0000 (UTC)
+Received: from mail.alien8.de ([127.0.0.1])
+ by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id 5Rf2ncew0aZq; Tue, 11 Feb 2025 18:40:54 +0000 (UTC)
+Received: from zn.tnic (pd95303ce.dip0.t-ipconnect.de [217.83.3.206])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
+ SHA256) (No client certificate requested)
+ by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id A9B5340E01A3;
+ Tue, 11 Feb 2025 18:40:27 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,83 +48,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8da3c129-e8a7-11ef-b3ef-695165c68f79
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1739299180; x=1739903980; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=MvOMFGVSXHFORIqeWB79XTPXbin0iZOuP7KRfrKc+JY=;
-        b=t1QaUvHVOMlVdAyTNOI4zV8fsZM9be6T0iMOJpZoWpwi2+tvu2nBVQuCCaaR5tstFH
-         5urvNftO/W1+d6wwuxVTY8VFaR/Gk7rVDIasiJ+AjBb/Pa34hY2wpYaCEaItg2RH60ET
-         ymUXvXQe4LBRDvzhqnwm3xWt1QXsg6SIOmjdY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739299180; x=1739903980;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=MvOMFGVSXHFORIqeWB79XTPXbin0iZOuP7KRfrKc+JY=;
-        b=GCf+AZRFsOpqtmHW9tzY8/rbQSR5H//1UlhJ3O0l8RjVEFv+fpHovp2vHVCimk/mBM
-         WNgd/PAsAmNpI3QxJhSpgmTmIo589Jk3Q9ytP5KMFbVUKk0QRYQ+uo57T1JvHvfkqZpJ
-         7ztj4iUvIGJ4+zLVOfT41Oi3rEA2uXc6ThNxCZOtK42eMrBLSsXp7rlXEp53Or/aXCOJ
-         yIYRX7f6OEUiAK7TDDYllcgJsCNBJoShSISdubtEG11NeNkAfafi0RIaFPgyfS3i5dIQ
-         2wPMRfRa+ZrE1YVTa6/015uh+H+UgeSVGxcHTfBC8ZRR9ymmB/nWFcpdA6Kh4VgQ3DfG
-         FFTw==
-X-Gm-Message-State: AOJu0YwwhBAhe1Hvd4tVG52XN7pVsPnTWfPXqDrBxWKHqlpOVrioU0j1
-	VJ8P9RQxeLWP1WyavYr2YiGMA0wPZlxX41fpHnxJUPz4vAp31Fhb3jS0PaVmLfI=
-X-Gm-Gg: ASbGncsmG6g53LpoyIGbr0Ykrk/XMrXbIe+MDb54gCVdSDrK4ELKlPchlgFW4HEUY8L
-	PDhwRI88SGNy04ba2hslkEFPuo0cAcOZo+xcsZeAtrMM7cEVbZdBOcfRa5ICwI5j38KEhedxBmO
-	M5fPrbQ8+7gpt+CXHS2407etedJZ1KULrEB5GIrjYmjMhtmcJr51L061fFhwd4P9cJanhuoozGz
-	eL6HXYe/olPhO/1uhJZXKBKi3O8yqT17iYcuhl0uULNYLAd5p86qEm6rZPy7HkSpItRFJfsrTLm
-	3W8NVuV4K0X9rfFCQgk423up0A==
-X-Google-Smtp-Source: AGHT+IF6ywFrmytxCSsAeLA9ObMFCFPtz6DnS6JtMAT9ZsPK1l58IDcGh5U135kEtNqpIFEUa+xruw==
-X-Received: by 2002:a05:6a00:2348:b0:725:e37d:cd36 with SMTP id d2e1a72fcca58-7322c3719dbmr50936b3a.2.1739299179931;
-        Tue, 11 Feb 2025 10:39:39 -0800 (PST)
-Date: Tue, 11 Feb 2025 19:39:34 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: oleksii.kurochko@gmail.com
-Cc: xen-devel@lists.xenproject.org, oleksii.kurochko@gmail.com,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH for-4.20 v3 0/5] xen/x86: prevent local APIC errors at
- shutdown
-Message-ID: <Z6uZZrR9XvTFjtO9@macbook.local>
-References: <20250211110209.86974-1-roger.pau@citrix.com>
+X-Inumbo-ID: bceaf60f-e8a7-11ef-a075-877d107080fb
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1739299254; bh=92xrLsP+k3VhCc+TsKTBqWx5JTdBo52z09H/w8PE7O4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dSWlJrICaWCIUzx8rfOK7k5chJur4bbdDfnuElowBNGfqm3bDAhDLXewRAWwDF+tc
+	 o7Wllb4REZqBOVVeoVYaI47p8W9YpEo44jm7XvLpVoaj6I9984HLZzM3xx5RvcoSJa
+	 ZCKcXGDiKvcpEVpntKsZt8dgBoz5kEAgxdd4ukYL2PIZZ20SwQLd21MC6Y7etN/TO5
+	 Z72SWn+Nf1tMGD9p7Dg4DiGT1oRMhBwUJku3WLYMuVFq7+hfB8b0qIdfa/vSASaI2G
+	 +iOgSXQANQmSV75kQ3CfiyPicE0lTjP0uo8qIKjUt0pAtD6v0a2wYsgXYQKj4vMZyg
+	 fal2owI4xDoKeuuxfxGyGOrMTYw26eQ/izbZqlJN8CXwYxgcQeTbNqoxDRtpqyd9mM
+	 EAJIH/HYVDSuoRb2nNxFKm99Occfe9DCM5apE1E3+VqZwRyFz1/gTwCnUT2D5Z1UVe
+	 yFl392I+SmTcDDbJqhEB8jFn/dKcoFekGgU8qDOxPobsVD3I8qaQ/AiTRDQFN6EVGB
+	 7kDuTcarQLnP9upD9/lZBlWWDz2f7OEfeG9AQgOcPBRzAs2rE0WVXfhIDksbGmcI4Y
+	 9vOHSFnwx4nm0Fa2NpJ4hYHGiOrd1NQJ4ATLHurBnv/QowW5RdKISyvVwVYFhrzZvT
+	 0HwTWcvM5ahVB6HzEDwuvqKI=
+Date: Tue, 11 Feb 2025 19:40:21 +0100
+From: Borislav Petkov <bp@alien8.de>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
+	Juergen Gross <jgross@suse.com>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+	Ajay Kaher <ajay.kaher@broadcom.com>,
+	Alexey Makhalov <alexey.amakhalov@broadcom.com>,
+	Jan Kiszka <jan.kiszka@siemens.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
+	linux-coco@lists.linux.dev, virtualization@lists.linux.dev,
+	linux-hyperv@vger.kernel.org, jailhouse-dev@googlegroups.com,
+	kvm@vger.kernel.org, xen-devel@lists.xenproject.org,
+	Nikunj A Dadhania <nikunj@amd.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>
+Subject: Re: [PATCH 01/16] x86/tsc: Add a standalone helpers for getting TSC
+ info from CPUID.0x15
+Message-ID: <20250211184021.GFZ6uZlZWPVTI5qO1_@fat_crate.local>
+References: <20250201021718.699411-1-seanjc@google.com>
+ <20250201021718.699411-2-seanjc@google.com>
+ <20250211150114.GCZ6tmOqV4rI04HVuY@fat_crate.local>
+ <Z6uIGwxx9HzZQ-N7@google.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20250211110209.86974-1-roger.pau@citrix.com>
+In-Reply-To: <Z6uIGwxx9HzZQ-N7@google.com>
 
-On Tue, Feb 11, 2025 at 12:02:04PM +0100, Roger Pau Monne wrote:
-> Hello,
-> 
-> The following series aims to prevent local APIC errors from stalling the
-> shtudown process.  On XenServer testing we have seen reports of AMD
-> boxes sporadically getting stuck in a spam of:
-> 
-> APIC error on CPU0: 00(08), Receive accept error
-> 
-> Messages during shutdown, as a result of device interrupts targeting
-> CPUs that are offline (and have the local APIC disabled).
-> 
-> First patch strictly solves the issue of shutdown getting stuck, further
-> patches aim to quiesce interrupts from all devices (known by Xen) as an
-> attempt to prevent a spurious "APIC error on CPU0: 00(00)" plus also
-> make kexec more reliable.
-> 
-> Thanks, Roger.
-> 
-> Roger Pau Monne (5):
->   x86/shutdown: offline APs with interrupts disabled on all CPUs
->   x86/irq: drop fixup_irqs() parameters
->   x86/smp: perform disabling on interrupts ahead of AP shutdown
->   x86/pci: disable MSI(-X) on all devices at shutdown
->   x86/iommu: disable interrupts at shutdown
+On Tue, Feb 11, 2025 at 09:25:47AM -0800, Sean Christopherson wrote:
+> Because obviously optimizing code that's called once during boot is super
+> critical?
 
-This is now fully reviewed, can I get your opinion (and
-release-acked-by) on which patches we should take for 4.20?
+Because let's stick 'em where they belong and keep headers containing only
+small, trivial and inlineable functions. Having unusually big functions in
+a header triggers my weird code patterns detector. :)
 
-Thanks, Roger.
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
 
