@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE385A30DDB
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 15:13:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.885590.1295394 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E074A30E0F
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 15:20:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.885599.1295404 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thr0P-0003fG-AB; Tue, 11 Feb 2025 14:12:53 +0000
+	id 1thr7K-0004UT-Tl; Tue, 11 Feb 2025 14:20:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 885590.1295394; Tue, 11 Feb 2025 14:12:53 +0000
+Received: by outflank-mailman (output) from mailman id 885599.1295404; Tue, 11 Feb 2025 14:20:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thr0P-0003cx-7O; Tue, 11 Feb 2025 14:12:53 +0000
-Received: by outflank-mailman (input) for mailman id 885590;
- Tue, 11 Feb 2025 14:12:52 +0000
+	id 1thr7K-0004RQ-Pr; Tue, 11 Feb 2025 14:20:02 +0000
+Received: by outflank-mailman (input) for mailman id 885599;
+ Tue, 11 Feb 2025 14:20:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jP5V=VC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1thr0O-0003cr-FY
- for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 14:12:52 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
+ id 1thr7J-0004F5-1Q
+ for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 14:20:01 +0000
+Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
+ [2607:f8b0:4864:20::1029])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 474ef06d-e882-11ef-a075-877d107080fb;
- Tue, 11 Feb 2025 15:12:51 +0100 (CET)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-ab7c07e8b9bso377198366b.1
- for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 06:12:51 -0800 (PST)
+ id 4664631b-e883-11ef-a075-877d107080fb;
+ Tue, 11 Feb 2025 15:20:00 +0100 (CET)
+Received: by mail-pj1-x1029.google.com with SMTP id
+ 98e67ed59e1d1-2fa1e25e337so7109822a91.1
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 06:19:59 -0800 (PST)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab79fea9e06sm750568066b.60.2025.02.11.06.12.50
+ 98e67ed59e1d1-2fa2f54880dsm8365728a91.11.2025.02.11.06.19.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Feb 2025 06:12:50 -0800 (PST)
+ Tue, 11 Feb 2025 06:19:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,147 +44,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 474ef06d-e882-11ef-a075-877d107080fb
+X-Inumbo-ID: 4664631b-e883-11ef-a075-877d107080fb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1739283171; x=1739887971; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=GUPJNtsDweTz/6hP6s9qntf+qWOyZVtgiIjTSqAiugU=;
-        b=FY2zfUYYrib9k5Omwiy8XzLjIWg5XRQkvENtGaA9/1ABGUfXbSRkuZcNmpFRXWMTV5
-         dxffqzaSwfti1irPNCySfCVuswPrhoe7Sjd20v42ToOd4ocQrO7I1ReeFazUWJTMd+Rr
-         FYc6F9TdpWO0Or0vYk3t03neHIGodcKTGttSc=
+        d=citrix.com; s=google; t=1739283598; x=1739888398; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=GJS28p912xovLWtmoEKwAYTGIZPOs5u3PJFMUlcCJKo=;
+        b=S6rmUyJrGKXXW0RhRMA028v40t2CsyTxjl7Bx0PTY8tQDJo0KErdFXmGsUNgtJdfR6
+         Hwx1yNo5CH7y3wiBSfWF2z8ZM4Fwaddky5HxFRMn1QEHuV53d9Y9gdnlVjy+6ZxbdEEM
+         8Z7Z+2LgbV4BXwHVfRgJzbZ79nR1VtFrCFQHU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739283171; x=1739887971;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=GUPJNtsDweTz/6hP6s9qntf+qWOyZVtgiIjTSqAiugU=;
-        b=ve7vfkvrNQrxybCX5ag4nQQzaFfJymHDaGxw8rteM4B91/8bEo137OaGUQzxFL6O+N
-         3uVfl3oD6VF5DZvFTNvKx3njVaqftsaYqMqN06/54P8qXwYoQ2rcXl0g11auGM+1AlVU
-         tver+TFMZt2TPNACIHv/2m115QXTzy4mNYpqlDSyIUHwtqdhLLFMI6Y06sFCYQmxTR+9
-         NLEk+O1iIb8QvohC7MOGdo/KRfIOBubhTmgdNtdtrYDexLOhkFMKgNw5vilV4xPT88HO
-         O2tIPVlOgPyOxR9nGG/PH5+IznsCG/L0LxXPJbv/AfOP6+O9Mp+3dNhNrfRjD4ylh6ok
-         Mgrw==
-X-Forwarded-Encrypted: i=1; AJvYcCX1DaAw4rC3SVMq1GfKvJdrL0+UD8HERQ/CtMPGx4J1AIe2YZM7fkPICB6g5dbDIWPKx58E/tR5diw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw0PHG+FpjyiXEkWui+Un4t9/YCHdiRP2wgXnjKOJUmm+DA5h81
-	sYda4A+gvBnNJwKaP/wxfSOvxCL6uIGvEGgmUIFV6zjAxw0MPMvUrGFUZ8etSbE=
-X-Gm-Gg: ASbGncvigt4TrKqXJ0YwDbN9Mj+ZrEi/qpELKbVPgJ1AdTEavvADOXkSGSylxqTvkL8
-	ruFbB6w5pIJ8wmL3QMxS2pi9I5ee//GpJ+JA7iLgK53ADQ/atq2JIi3596+FVukj1xz3+80deyC
-	k2Wkkq+Xvgvu0lXIGy+2Jl8r7pSxgHATLYom399sp+sKIH5TjqTU0sRrnfIW+PWYpB4LX3ij2mD
-	gLc7B0pTHtcRQaGkmyCtMOWJlMJccgAxA8qwlYL95LF0xIB5kiqfqVIuI3kf9bQIcrPqHMnRJ1c
-	e6+Q3ZqHp0R2ngOykCcA8ta/Qg==
-X-Google-Smtp-Source: AGHT+IFAOLTgLpRFtblgVzgiUAozegscTfJI1YrCNNLCWZ17gTJ92J1L8RNTylrcpSx9U9sUQ19Lgg==
-X-Received: by 2002:a17:907:c91e:b0:ab7:94ee:eebb with SMTP id a640c23a62f3a-ab794eeefabmr1139028966b.14.1739283170564;
-        Tue, 11 Feb 2025 06:12:50 -0800 (PST)
-Date: Tue, 11 Feb 2025 15:12:49 +0100
+        d=1e100.net; s=20230601; t=1739283598; x=1739888398;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GJS28p912xovLWtmoEKwAYTGIZPOs5u3PJFMUlcCJKo=;
+        b=LQG7l8ifNq+387AxUqQ5Nd2Ivw3EG9E4zkDwbtZw5tnUAcRg1zXCANEjmq8WyWj17n
+         AHpI9FqFGNRQh64YoEBaNRNfc2gcW52WutDLOHG1AD4MB7ZiDz2cZKAsqHy3201/QTTq
+         Qf/ZaHJQ/DvJ18vdJf0Uc/4yxz1pnLQwzg2Vrr+PBRIs95BSZ7ZIOMSmYz2jA0SY2bZq
+         PG4Sd/wnQFGp7veDQQpNIv9NA0HM53qlWCtztc9vt+Mlu4+L2nddj/h3um1r3uv8Q8bg
+         e0VxiAWziDVdb06sEdBghYaNlAbkJM5MfGfXQY06UUebtIeUB9+VaTU7q8gwSmlj0ik2
+         TY7w==
+X-Forwarded-Encrypted: i=1; AJvYcCUYzZp86SQ/MNFwdpbEUPdub5BWZxN+xydHFtJFEB3JLJl4edoLEEeENkjLlSMwr4F0vvM+N529uCo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyJkIz9+DJV6534ZaMW99bGTQJOTAYVORMxXBj3iUgcMdfFFiLv
+	7+yBIqo9Ci8JueovdNntG8MN+N1CBNXU9PEe3UHvdudis6HXGMiZyBf8a95XYMk=
+X-Gm-Gg: ASbGnct/G5D5AmbeYtqH2t6c7cYQtB7W59lvZbZm6lZhuW6rUjWuZjy1APL7qlK3ff0
+	RLyw/ocSLSMsvbh1QSzFGsrvP0FjYuUyfDVa/grr+6nJb2bu+LhLqwxu2McQr0Z+PC9RlIxH5Mq
+	toqZTVgbj012jDjfhbhXrPU+d6/YIjtxCFVfR1zAte/57ZFTDA69pTWBDNwDU5WBHxpJLH131wE
+	S9Dtnth5r7G56013JI6fHC98XULLHfRE/bo7dU8WbyhfU2oCq08zmzPhZL6mjl2dK86G1kNTlco
+	7T6W9D2siwa7qnpW34F3FkvVnQ==
+X-Google-Smtp-Source: AGHT+IFKnsdGgCr51iV7FCFjqRUATwjTmQxaYolgVqCZpqBfMMw0NxA6lUDndHs/pE0exKFavZK1YA==
+X-Received: by 2002:a17:90b:4b8c:b0:2fa:f8d:65e7 with SMTP id 98e67ed59e1d1-2fa23f43a0emr29113049a91.2.1739283598452;
+        Tue, 11 Feb 2025 06:19:58 -0800 (PST)
+Date: Tue, 11 Feb 2025 15:19:52 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
 Cc: oleksii.kurochko@gmail.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
 	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH for-4.20 v3 1/5] x86/shutdown: offline APs with
- interrupts disabled on all CPUs
-Message-ID: <Z6ta4baJLZIZAnpB@macbook.local>
+Subject: Re: [PATCH for-4.20 v3 4/5] x86/pci: disable MSI(-X) on all devices
+ at shutdown
+Message-ID: <Z6tciLmjLJt1Qs0o@macbook.local>
 References: <20250211110209.86974-1-roger.pau@citrix.com>
- <20250211110209.86974-2-roger.pau@citrix.com>
- <a0ea8bdb-4168-4b0b-895b-ba0fcf1caf79@suse.com>
+ <20250211110209.86974-5-roger.pau@citrix.com>
+ <604fd3cd-6542-4776-b06b-1191c6a11b31@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <a0ea8bdb-4168-4b0b-895b-ba0fcf1caf79@suse.com>
+In-Reply-To: <604fd3cd-6542-4776-b06b-1191c6a11b31@suse.com>
 
-On Tue, Feb 11, 2025 at 12:23:56PM +0100, Jan Beulich wrote:
+On Tue, Feb 11, 2025 at 12:34:41PM +0100, Jan Beulich wrote:
 > On 11.02.2025 12:02, Roger Pau Monne wrote:
-> > The current shutdown logic in smp_send_stop() will disable the APs while
-> > having interrupts enabled on the BSP or possibly other APs. On AMD systems
-> > this can lead to local APIC errors:
-> > 
-> > APIC error on CPU0: 00(08), Receive accept error
-> > 
-> > Such error message can be printed in a loop, thus blocking the system from
-> > rebooting.  I assume this loop is created by the error being triggered by
-> > the console interrupt, which is further stirred by the ESR handler
-> > printing to the console.
-> > 
-> > Intel SDM states:
-> > 
-> > "Receive Accept Error.
-> > 
-> > Set when the local APIC detects that the message it received was not
-> > accepted by any APIC on the APIC bus, including itself. Used only on P6
-> > family and Pentium processors."
-> > 
-> > So the error shouldn't trigger on any Intel CPU supported by Xen.
-> > 
-> > However AMD doesn't make such claims, and indeed the error is broadcast to
-> > all local APICs when an interrupt targets a CPU that's already offline.
-> > 
-> > To prevent the error from stalling the shutdown process perform the
-> > disabling of APs and the BSP local APIC with interrupts disabled on all
-> > CPUs in the system, so that by the time interrupts are unmasked on the BSP
-> > the local APIC is already disabled.  This can still lead to a spurious:
-> > 
-> > APIC error on CPU0: 00(00)
-> > 
-> > As a result of an LVT Error getting injected while interrupts are masked on
-> > the CPU, and the vector only handled after the local APIC is already
-> > disabled.  ESR reports 0 because as part of disable_local_APIC() the ESR
-> > register is cleared.
-> > 
-> > Note the NMI crash path doesn't have such issue, because disabling of APs
-> > and the caller local APIC is already done in the same contiguous region
-> > with interrupts disabled.  There's a possible window on the NMI crash path
-> > (nmi_shootdown_cpus()) where some APs might be disabled (and thus
-> > interrupts targeting them raising "Receive accept error") before others APs
-> > have interrupts disabled.  However the shutdown NMI will be handled,
-> > regardless of whether the AP is processing a local APIC error, and hence
-> > such interrupts will not cause the shutdown process to get stuck.
-> > 
-> > Remove the call to fixup_irqs() in smp_send_stop(): it doesn't achieve the
-> > intended goal of moving all interrupts to the BSP anyway.  The logic in
-> > fixup_irqs() will move interrupts whose affinity doesn't overlap with the
-> > passed mask, but the movement of interrupts is done to any CPU set in
-> > cpu_online_map.  As in the shutdown path fixup_irqs() is called before APs
-> > are cleared from cpu_online_map this leads to interrupts being shuffled
-> > around, but not assigned to the BSP exclusively.
+> > --- a/xen/arch/x86/crash.c
+> > +++ b/xen/arch/x86/crash.c
+> > @@ -175,6 +175,13 @@ static void nmi_shootdown_cpus(void)
+> >           */
+> >          x2apic_enabled = (current_local_apic_mode() == APIC_MODE_X2APIC);
+> >  
+> > +        if ( !pcidevs_locked() )
+> > +            /*
+> > +             * Assume the PCI device list to be in a consistent state if the
+> > +             * lock is not held when the crash happened.
+> > +             */
+> > +            pci_disable_msi_all();
 > 
-> Which would have been possible to address by changing to something like
-> 
->         if ( !cpumask_intersects(mask, desc->affinity) )
->         {
->             break_affinity = true;
->             cpumask_copy(affinity, mask);
->         }
->         else
->             cpumask_and(affinity, mask, desc->affinity);
-> 
-> there, I guess.
+> Hmm, I really meant try-lock to be used here. For recursive locks
+> rspin_is_locked() tells you only whether the local CPU owns the lock,
+> whereas here you want to know whether anyone owns it.
 
-Possibly, but note _assign_irq_vector() could also refuse to move the
-interrupts if there's a pending movement and the current target CPU is
-still set as online in cpu_online_map.  Overall I think going down
-that route is way more complex.
+Indeed, I always forget about this quirk of recursive locks.  I will
+need to introduce a new pcidevs_trylock() helper then.
 
+> > --- a/xen/drivers/passthrough/pci.c
+> > +++ b/xen/drivers/passthrough/pci.c
+> > @@ -1802,6 +1802,45 @@ int iommu_do_pci_domctl(
+> >      return ret;
+> >  }
+> >  
+> > +struct segment_iter {
+> > +    int (*handler)(struct pci_dev *pdev, void *arg);
+> > +    void *arg;
+> > +    int rc;
+> > +};
+> > +
+> > +static int cf_check iterate_all(struct pci_seg *pseg, void *arg)
+> > +{
+> > +    struct segment_iter *iter = arg;
+> > +    struct pci_dev *pdev;
+> > +
+> > +    list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
+> > +    {
+> > +        int rc = iter->handler(pdev, iter->arg);
+> > +
+> > +        if ( !iter->rc )
+> > +            iter->rc = rc;
+> > +    }
+> > +
+> > +    return 0;
+> > +}
+> > +
+> > +/*
+> > + * Iterate without locking or preemption over all PCI devices known by Xen.
+> > + * Expected to be called with interrupts disabled.
+> > + */
+> > +int pci_iterate_devices(int (*handler)(struct pci_dev *pdev, void *arg),
+> > +                        void *arg)
+> > +{
+> > +    struct segment_iter iter = {
+> > +        .handler = handler,
+> > +        .arg = arg,
+> > +    };
+> > +
+> > +    ASSERT(!local_irq_is_enabled());
 > 
-> > The Fixes tag is more of a guess than a certainty; it's possible the
-> > previous sleep window in fixup_irqs() allowed any in-flight interrupt to be
-> > delivered before APs went offline.  However fixup_irqs() was still
-> > incorrectly used, as it didn't (and still doesn't) move all interrupts to
-> > target the provided cpu mask.
-> 
-> Plus there's the vector shortage aspect, if everything was moved to the
-> BSP. I don't think that's possible to get past without doing what you
-> do.
+> I'm not sure we want to go this far. Maybe my earlier comment was ambiguous
+> though. What I meant is that the function needs to be documented to be
+> prepared to be called with IRQs off. I didn't mean that to be a requirement
+> to call the function (as there's no dependency on that, afaics).
 
-Indeed, and the interrupt movement was IMO way more complex than what
-I'm proposing (even with the followup patches that attempt to  silence
-device interrupts).
+Well, I mostly did this because the function is traversing the list of
+PCI devices list without any locking, and wanted to make it clear
+interrupts might not be safe in case they perform modifications to the
+list of PCI devices (I don't think we have such usage).
 
-> > Fixes: e2bb28d62158 ('x86/irq: forward pending interrupts to new destination in fixup_irqs()')
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Since I need to do a v4 of this one I don't mind dropping the assert.
 
 Thanks, Roger.
 
