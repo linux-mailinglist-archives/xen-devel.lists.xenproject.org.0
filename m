@@ -2,36 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07DE3A31278
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 18:12:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.885807.1295609 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA7FAA312DC
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 18:26:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.885817.1295620 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thtnc-0007XY-W4; Tue, 11 Feb 2025 17:11:52 +0000
+	id 1thu1E-0001Nj-49; Tue, 11 Feb 2025 17:25:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 885807.1295609; Tue, 11 Feb 2025 17:11:52 +0000
+Received: by outflank-mailman (output) from mailman id 885817.1295620; Tue, 11 Feb 2025 17:25:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thtnc-0007W5-T4; Tue, 11 Feb 2025 17:11:52 +0000
-Received: by outflank-mailman (input) for mailman id 885807;
- Tue, 11 Feb 2025 17:11:21 +0000
+	id 1thu1E-0001La-1C; Tue, 11 Feb 2025 17:25:56 +0000
+Received: by outflank-mailman (input) for mailman id 885817;
+ Tue, 11 Feb 2025 17:25:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hORk=VC=bounce.vates.tech=bounce-md_30504962.67ab84b2.v1-99c1cc8962d44f57aed95356c8770e37@srs-se1.protection.inumbo.net>)
- id 1thtn7-0007KR-G0
- for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 17:11:21 +0000
-Received: from mail179-38.suw41.mandrillapp.com
- (mail179-38.suw41.mandrillapp.com [198.2.179.38])
+ <SRS0=iZ/x=VC=flex--seanjc.bounces.google.com=3HIirZwYKCR8N95IE7BJJBG9.7JHS9I-89Q9GGDNON.S9IKMJE97O.JMB@srs-se1.protection.inumbo.net>)
+ id 1thu1C-0001LU-Vm
+ for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 17:25:54 +0000
+Received: from mail-pj1-x104a.google.com (mail-pj1-x104a.google.com
+ [2607:f8b0:4864:20::104a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 334cd139-e89b-11ef-b3ef-695165c68f79;
- Tue, 11 Feb 2025 18:11:15 +0100 (CET)
-Received: from pmta12.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail179-38.suw41.mandrillapp.com (Mailchimp) with ESMTP id
- 4Ysnz63VQ3z2K1rkQ
- for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 17:11:14 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 99c1cc8962d44f57aed95356c8770e37; Tue, 11 Feb 2025 17:11:14 +0000
+ id 3c458bcf-e89d-11ef-b3ef-695165c68f79;
+ Tue, 11 Feb 2025 18:25:50 +0100 (CET)
+Received: by mail-pj1-x104a.google.com with SMTP id
+ 98e67ed59e1d1-2f83e54432dso18341306a91.2
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 09:25:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,146 +40,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 334cd139-e89b-11ef-b3ef-695165c68f79
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1739293874; x=1739563874;
-	bh=DVo+Uu+LqFv/lyxEybYNv2OHESBnq0EWV4fgZ9LnomE=;
-	h=From:Subject:To:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=UrFAnWRNhrixWRDT4kj0HE9SKicrR4oboiaGXZE3D04DeGnU/iiGfUBOpjaX3eMNi
-	 wZCt+h2mRSo4bJaIL4tjldE6/d/lcGqY7Bro5RQ1+sxobSklMvKpJsSxCz1co0G/e1
-	 E4pPDJlZ15veqnAHoUxm9C9RIWetfMlyzYhgBAuWwdAFrL4X74XpMx9gz6HBpH8/YV
-	 4r5M5l4NxG03MvsrutAGg+OtuKRBq4pJpREOjMwQXAUsvsgEDO81EZaE96Ab60XXAB
-	 mM0ePMFcX8+E1XmU82C5apHe3XyAbeCdYnKpH/Ws0EdIu2syTwMIqkLtjwel6pl2vl
-	 bUq7L06msqLqg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1739293874; x=1739554374; i=samuel.verschelde@vates.tech;
-	bh=DVo+Uu+LqFv/lyxEybYNv2OHESBnq0EWV4fgZ9LnomE=;
-	h=From:Subject:To:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=ZMMgp7siwbbdeoxJQ1uUOJMhfHhL3loBqQhftkqCH4dm6aaZgewbWIXTglWXERxAc
-	 DGxwJjMvuubEfkGOujAJtS6F7KbEJQma7lABHBmVwi6O6tyGgutcMDPLVA4+1XQEkx
-	 /eyIANfGEX+q3RVTv5BSMd1w92aIr4XZbx1EMXxSXv/fSqyZsoqJhlP46tbMiQEUJE
-	 +c1Af+NqCJl3X9+OSES3N2M3RbFhNsGQVlyjieOMzKz57oVAjUHCr2VN+5wC8QkkdB
-	 jFA0jmo62Q34OLUfMzKvTZasQL4cCj2ehLauzvv8GlmCgg8ertMCVlZnbt8WJrMWr+
-	 B/Xwdkei/y99w==
-From: "Samuel Verschelde" <samuel.verschelde@vates.tech>
-Subject: =?utf-8?Q?Xen=20Winter=20Meetup=202025=20design=20session=20notes:=20PVH?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1739293873640
-To: xen-devel@lists.xenproject.org
-Message-Id: <f83b99b0-bdb8-7c36-843d-907dafa22e2b@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.99c1cc8962d44f57aed95356c8770e37?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250211:md
-Date: Tue, 11 Feb 2025 17:11:14 +0000
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+X-Inumbo-ID: 3c458bcf-e89d-11ef-b3ef-695165c68f79
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1739294748; x=1739899548; darn=lists.xenproject.org;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:from:to:cc:subject:date:message-id:reply-to;
+        bh=fehn8/FKPdzBZiJ7SaATTiqPDXAlgIYGKuuyWYqseyE=;
+        b=ti7jpWSjW9/UMLCX1qZmqk9BUYqg+WiB8rxpPUjf8GJxMYhVUOpy3XEt8v/5bs0RhJ
+         yujb3eCAdGc8VdM7vwgRF7a/jPh31+NjdJQHKYkl/Pl+VidfuxKApYwBZLNdLFu9hmkT
+         VewiSal9grsCXlMf1HbEzirsWPfgNbsnVEruXi75CgFatgz46YjacY+Nab0iClB0+Dbj
+         xpS9pfBhTfHJ5BjR8a3Gry6U5BHVtR9vclOXgBi6DuWR4i0ZKl54zbOUfdSc/oc0mVz2
+         4NZI64PmBxQSnQJiYFFANM0p8GGKcWUPZ9XBnBX+2mPD6lTaSkhGgdrDH7T9Yjs92v08
+         my3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1739294748; x=1739899548;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=fehn8/FKPdzBZiJ7SaATTiqPDXAlgIYGKuuyWYqseyE=;
+        b=byBcFRjP+ken6ReTKdv7GDcZHunTCAE2c+9mWmI7y7zicNlUmTaHb6znVKu7YmO7n9
+         z+BtU66Dq7tPKQgqD31UrrAqPQy5Djbm0NcYV9U0eYcUCCYYqkeF1vKDKv8oaLkv2bnL
+         8SiaAMh+IjkS3G5sAzAn0a2eq7WYraUo3o6ciOX1k+17DVGewBT6n0+oYUbs2M+PMKZW
+         VugCMtvmMxMb2mVZQVsiS9SgiobZeeo8lG0q+oVbx4Jg/AP/ADIsy564BtB8HqjfcNTp
+         JuldsnSx4MyIqXqjpt1HdvcNoB9xLBr4r3xlDGbrEM2M/q3C8jHKdhhu5FQeXCQ3T74S
+         I1EQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXNrjZQNcqU1gTrXbcnpdDxRbDwGM6FwAfx303pS89mo/dxD6bym4qpfl+lAAzt6CO4ao26Rjr09ls=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywz3w74gMWswOtQ+F643re82KKYZXsR2g0GHpOsw9UG2LO1FwWO
+	QhNZFAid9oo99+8sBXtkvKZBw9Fk25SEr33h6WSNG1ZjFkd71dM3FrcdU7HZ/PQxyRenrw/rbRE
+	Qvw==
+X-Google-Smtp-Source: AGHT+IFueIXltnSm3F29jVZndsq5T+j40lmj4UcIsQhmLdRSEShGqUPy9fjOgqE9JAinoOmES588AgdHP5k=
+X-Received: from pjyf5.prod.google.com ([2002:a17:90a:ec85:b0:2fa:1481:81f5])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:184d:b0:2ea:4c8d:c7a2
+ with SMTP id 98e67ed59e1d1-2fa243db893mr28913562a91.24.1739294748442; Tue, 11
+ Feb 2025 09:25:48 -0800 (PST)
+Date: Tue, 11 Feb 2025 09:25:47 -0800
+In-Reply-To: <20250211150114.GCZ6tmOqV4rI04HVuY@fat_crate.local>
+Mime-Version: 1.0
+References: <20250201021718.699411-1-seanjc@google.com> <20250201021718.699411-2-seanjc@google.com>
+ <20250211150114.GCZ6tmOqV4rI04HVuY@fat_crate.local>
+Message-ID: <Z6uIGwxx9HzZQ-N7@google.com>
+Subject: Re: [PATCH 01/16] x86/tsc: Add a standalone helpers for getting TSC
+ info from CPUID.0x15
+From: Sean Christopherson <seanjc@google.com>
+To: Borislav Petkov <bp@alien8.de>
+Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>, Juergen Gross <jgross@suse.com>, 
+	"K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
+	Dexuan Cui <decui@microsoft.com>, Ajay Kaher <ajay.kaher@broadcom.com>, 
+	Alexey Makhalov <alexey.amakhalov@broadcom.com>, Jan Kiszka <jan.kiszka@siemens.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Andy Lutomirski <luto@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org, 
+	linux-coco@lists.linux.dev, virtualization@lists.linux.dev, 
+	linux-hyperv@vger.kernel.org, jailhouse-dev@googlegroups.com, 
+	kvm@vger.kernel.org, xen-devel@lists.xenproject.org, 
+	Nikunj A Dadhania <nikunj@amd.com>, Tom Lendacky <thomas.lendacky@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 
-The description of the design session was:
+On Tue, Feb 11, 2025, Borislav Petkov wrote:
+> On Fri, Jan 31, 2025 at 06:17:03PM -0800, Sean Christopherson wrote:
+> > Extract retrieval of TSC frequency information from CPUID into standalone
+> > helpers so that TDX guest support and kvmlock can reuse the logic.  Provide
+> > a version that includes the multiplier math as TDX in particular does NOT
+> > want to use native_calibrate_tsc()'s fallback logic that derives the TSC
+> > frequency based on CPUID.0x16 when the core crystal frequency isn't known.
+> > 
+> > No functional change intended.
+> > 
+> > Signed-off-by: Sean Christopherson <seanjc@google.com>
+> > ---
+> >  arch/x86/include/asm/tsc.h | 41 ++++++++++++++++++++++++++++++++++++++
+> >  arch/x86/kernel/tsc.c      | 14 ++-----------
+> >  2 files changed, 43 insertions(+), 12 deletions(-)
+> > 
+> > diff --git a/arch/x86/include/asm/tsc.h b/arch/x86/include/asm/tsc.h
+> > index 94408a784c8e..14a81a66b37c 100644
+> > --- a/arch/x86/include/asm/tsc.h
+> > +++ b/arch/x86/include/asm/tsc.h
+> 
+> Bah, why in the header as inlines?
 
-PVH: limitations, requirements & future considerations
+Because obviously optimizing code that's called once during boot is super
+critical?
 
-A general discussion on PVH from both guest and Dom0 perspectives, covering:
+> Just leave them in tsc.c and call them...
+> 
+> > @@ -28,6 +28,47 @@ static inline cycles_t get_cycles(void)
+> >  }
+> >  #define get_cycles get_cycles
+> >  
+> > +static inline int cpuid_get_tsc_info(unsigned int *crystal_khz,
+> > +				     unsigned int *denominator,
+> > +				     unsigned int *numerator)
+> 
+> Can we pls do a
+> 
+> struct cpuid_tsc_info {
+> 	unsigned int denominator;
+> 	unsigned int numerator;
+> 	unsigned int crystal_khz;
+> 	unsigned int tsc_khz;
+> }
+> 
+> and hand that around instead of those I/O pointers?
 
-     Trade-offs and key limitations
-     Required work for PCI passthrough and SR-IOV support
-     Dom0 feasibility: kernel requirements and long-term viability
-     Impact on end users compared to HVM simplicity
-
-This session aims to clarify open questions and guide future development
-priorities.
-
----
-
-Rather than an actual design session, we had a Q&A session regarding
-PVH, to "keep the ball rolling", with Roger and Andrew answering the
-questions.
-
-I will reference these notes in the gitlab EPIC related to full PVH
-support: https://gitlab.com/groups/xen-project/-/epics/2
-
-First, see Roger's presentation for PVH:
-https://www.youtube.com/watch?v=J4qA-efLXJo
-
-We discussed the advantages and tradeoffs of PVH.
-
-Advantages:
-- HVM guests without Qemu (lower attack surface, less usage)
-- Reduction of attack surface in the hypervisor too, no HPET...
-
-Neutral:
-- No difference between modes for the Hypervisor
-
-Tradeoffs / challenges (for guests):
-- Biggest differences => no emulated VGA, text console that can be
-turned into VNC but no GUI.
-- No QEMU => no clipboard "hack" as exists in XenServer and XCP-ng.
-- No device emulator, can't boot other kernel than Linux at the moment.
-- PVH DomU no passthrough
-- PVH DomU PCIe passthrough => should be priority
-
-Tradeoffs / challenges (for dom0)
-- PVH Dom0 is a lot of problems
-- PVH Dom0 no passthrough for any guests
-
-There's work from AMD on SR-IOV for PVH guests.
-
-Roger: has a branch mostly working, should not be used with security in mind
-
-x86 needs a root complex exposed to guest, needs Q35 support.
-Minimal emulation of a PCIe root complex to attach SR-IOV to PVH guests.
-Could be another emulator in Dom0 but some people don't want Dom0 (dom0less)
-Emulator in the hypervisor needed in this case
-
-Question: difference between normal root complex for SR-IOV and normal
-devices?
-=> Need IOAPIC for normal devices (SRIOV doesn't use IOAPIC, no legacy
-PCI interrupt)
-=> SR-IOV first is because it has more restrictions on things it can do
-=> Since it needs some kind of logic to trap weird accesses (work
-already done in Qemu that need to be added to the Xen emulator)
-==> Roger's post-session addition, when we had trouble understanding the
-notes: "SR-IOV VF have less registers implemented by the hardware, and
-it requires a bit more emulation on QEMU (or vPCI) to work.  I think
-that's the point of Andrew's remark."
-
-=> Root complex is not that different for SR-IOV and normal devices
-==> Roger's post-session addition: "root complex emulation should likely
-be the same whether it's VFs or regular PCI devices that are exposed."
-
-There's a plan to make Windows work: PVH OVMF
-Plan to Windows install driver thanks to UEFI interface to ask it to
-install drivers
-Should be faster, can boot on PV device directly
-
-Question: How does a PVH guest boot?
-=> It's complicated, wait for documentation entries about this.
-
-Question: When will PCIe passthrough for PVH guests happen?
-=> Patches welcomed
-
-Question: Is IOAPIC needed for devices doing MSI?
-=> Yes, because line interrupt are the only needing things for a normal
-PCIe while MSI are not needed. SR-IOV devices don't need legacy PCI
-interrupts.
-Windows does message on a bus saying that devices won't do line interrupt.
-
-Question: What if a driver disables legacy interrupt?
-=> Would work only until one device does a line interrupt. And some
-devices would do legacy interrupt if MSI are masked.
-
-Viridian and VMBUS are not the same thing, VMBUS is not a open
-interface, one implementation might become available in Linux soon.
-
-
-
-Samuel Verschelde | Vates XCP-ng Lead Maintainer / Release Manager / Technical Product Manager
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
+Ah, yeah, that's way better.
 
