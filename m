@@ -2,29 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F816A30501
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 08:57:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.885122.1294901 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD816A305F5
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 09:39:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.885133.1294911 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thl8o-00071d-2N; Tue, 11 Feb 2025 07:57:10 +0000
+	id 1thlme-00049T-6b; Tue, 11 Feb 2025 08:38:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 885122.1294901; Tue, 11 Feb 2025 07:57:10 +0000
+Received: by outflank-mailman (output) from mailman id 885133.1294911; Tue, 11 Feb 2025 08:38:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thl8n-0006yp-Vc; Tue, 11 Feb 2025 07:57:09 +0000
-Received: by outflank-mailman (input) for mailman id 885122;
- Tue, 11 Feb 2025 07:57:08 +0000
+	id 1thlme-000481-3P; Tue, 11 Feb 2025 08:38:20 +0000
+Received: by outflank-mailman (input) for mailman id 885133;
+ Tue, 11 Feb 2025 08:38:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ER+F=VC=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1thl8l-0006yg-8t
- for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 07:57:08 +0000
-Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch
- [79.135.106.28]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c8c54ff6-e84d-11ef-b3ef-695165c68f79;
- Tue, 11 Feb 2025 08:57:05 +0100 (CET)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jP5V=VC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1thlmc-00047t-Mq
+ for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 08:38:18 +0000
+Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
+ [2607:f8b0:4864:20::102a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8759589d-e853-11ef-b3ef-695165c68f79;
+ Tue, 11 Feb 2025 09:38:13 +0100 (CET)
+Received: by mail-pj1-x102a.google.com with SMTP id
+ 98e67ed59e1d1-2fa1d9fb990so8312463a91.2
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 00:38:13 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-2fa09c19a3csm9989660a91.47.2025.02.11.00.38.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Feb 2025 00:38:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,149 +44,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c8c54ff6-e84d-11ef-b3ef-695165c68f79
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=kxixwlq73rclxeddrljktctjou.protonmail; t=1739260624; x=1739519824;
-	bh=tDYcyVZNLKXQ68nFYI3D4n0NhXqSlRJBgo0oMk+nPbc=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector:
-	 List-Unsubscribe:List-Unsubscribe-Post;
-	b=f7pwvhIvq5VhkVQPmW50BDHBvmmv/gd9rktPc6pRJKPcrcdmOI7dgtZ3rPK4qjwNl
-	 bC9n7+7xu6YigECa0DFVBaLlK0TayEA1I4dCor00IIEHQGhx7W+ItaY0fGDRI44A30
-	 MSSBaU2+y0zihp+KSDw5RJ3FhlcjbMrLEEe0B14/YHzqWYA3AZ8bZ6wYDyh3XEgJJ0
-	 n7QJUnBi7mjq5Ony5L3CH6BCM4mvzJpNwWBxF1LI9c1zdFFAyZ+/BuMntlmp1559S7
-	 BduTc6OcthLv8pA9zqRfoVlkGGUDm6kaXpTMnjUM9Zoyg0OKh43UrTWVezKEJbmNf7
-	 pO2NGJMVBlLkQ==
-Date: Tue, 11 Feb 2025 07:56:58 +0000
-To: xen-devel@lists.xenproject.org
-From: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: [PATCH] arm/vuart: move vpl011-related code to vpl011 emulator
-Message-ID: <20250211075405.191144-1-dmkhn@proton.me>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 79a84fc07217747927fc96e766727ba23063c3d3
+X-Inumbo-ID: 8759589d-e853-11ef-b3ef-695165c68f79
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1739263091; x=1739867891; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=msVESuDHG1ZpM2IJbITotM4OwVMr1Jw9KRFXgp4Gqnw=;
+        b=DtLBswzyC5L6vGnMt0LVSDMy3Oo+5HxAltBXJH8cZm50esHo/BEj6LztOOBdvzKNyv
+         ZHrOmuaXT38wTY00zuN23kC1QZXxb/gf11XHIjJOdxYedvY+LjZatd6DaS956R5TeJA1
+         UBW+rO83ppgW1qB8W7amYYuOyhbYwNbJ5lUCs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1739263091; x=1739867891;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=msVESuDHG1ZpM2IJbITotM4OwVMr1Jw9KRFXgp4Gqnw=;
+        b=CWZwiIOju0ld/NQyeaBiZU/U7PUfWCsRvib1guWJg+DRqWfj/Ft43QYtTeMy4FE1eI
+         XLseBJHJr11BpLuHVh4/SlvNQhhwTLsC+mq93VxRKlCwgRHYjxUNmdcC+Lggc36GsJl0
+         CEeKsAZiHL1Lw4M9XEkPL04tF3tjORHTx85XQMGEkGhh8frHZFCuvXTYa8Cy4UDnapgt
+         5bJo0g4s883U8yTqTfB0m3LuaG0VzW6wQp5QBU4WT7GRU3jsdmeytCUFN6zNO0Kiseg8
+         Kpx+4uH2R/dwvATNV2eoPqe7iUauH4MEa5tclW3gf1Cblot5eeScH2f+Q36MHC1AO0By
+         fFzQ==
+X-Gm-Message-State: AOJu0YxI4xWfuodO+xf1wTBuJQZN3RtpBEkYD011JODnK3wUcbKJfqQM
+	ARaB45vZAEXdrvKmbbnYwRTO4PiDnNKALZhjELfZphF3r+zy+53obLInhMA+2FA=
+X-Gm-Gg: ASbGncuYotlinghPEMrSVzc7vyz1ZeFe83FVZ0enSzjSSl5uPnQAlb0YsV/rY+mhvFI
+	hErlHMScgf7Jwsk2HH8cZgTPLsUg7t+w1wThyh7DaBLxjSLltpRJT3tmld5BVndLuZUrrf57l+z
+	S4FYlqamumV50xXQTabVdUZnafdWXvHskDtUOytlgFzzf0k2CmJCby4usFqR+MVp8cOhqLsjl2k
+	plkAwV5t1jQlbghu1bh7LZhN1uausTGc7prLMRdQv37B/B54vKL1gpPPXS5sDViS3da8ABtxEBN
+	udbUL3lKab6LbumAsk8i
+X-Google-Smtp-Source: AGHT+IG8MhovgWvv4gJyj87SzsbmVvlQ+095wlIvxbnCsYGx5giPqDCC8N6clluNbPALv97NlYf4iA==
+X-Received: by 2002:a17:90b:3558:b0:2f9:9ddd:689c with SMTP id 98e67ed59e1d1-2fa243f031fmr27143311a91.25.1739263091631;
+        Tue, 11 Feb 2025 00:38:11 -0800 (PST)
+Date: Tue, 11 Feb 2025 09:38:06 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH for-4.20? v2 0/5] xen/x86: prevent local APIC errors at
+ shutdown
+Message-ID: <Z6sMbvBS4yB2le7U@macbook.local>
+References: <20250206150615.52052-1-roger.pau@citrix.com>
+ <Z6nOmwdp8iRNmkzh@macbook.local>
+ <9f6240b2-009d-46a7-af9f-4944cd9439b1@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <9f6240b2-009d-46a7-af9f-4944cd9439b1@gmail.com>
 
-From: Denis Mukhin <dmukhin@ford.com>
+On Mon, Feb 10, 2025 at 07:29:35PM +0100, Oleksii Kurochko wrote:
+> Hello Roger,
+> 
+> On 2/10/25 11:02 AM, Roger Pau Monné wrote:
+> > Hello,
+> > 
+> > This should have had a 'for-4.20?' tag in the subject name, as
+> > otherwise we will need to add an errata to the release notes to notice
+> > that reboot can sometimes fail on AMD boxes.
+> > 
+> > Also adding Oleksii.
+> > 
+> > Thanks, Roger.
+> > 
+> > On Thu, Feb 06, 2025 at 04:06:10PM +0100, Roger Pau Monne wrote:
+> > > Hello,
+> > > 
+> > > The following series aims to prevent local APIC errors from stalling the
+> > > shtudown process.  On XenServer testing we have seen reports of AMD
+> > > boxes sporadically getting stuck in a spam of:
+> 
+> How often this issue happen?
 
-Xen console driver has vpl011-related logic which shall belong vpl011 emula=
-tor
-code (Arm port). Move vpl011-related code from arch-independent console dri=
-ver
-to Arm's vpl011.c.
+Hard to tell, we have certainly hit it more than once on XenRT, but
+I don't have figures about its probability.  I have at least 14
+reports from XenRT from the last 6 months, but there's possibly a lot
+more that could have been classified as a different kind of issue.
 
-Signed-off-by: Denis Mukhin <dmukhin@ford.com>
----
-Link to the original patch:
-  https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v3-v1-2-c5d36b31d=
-66c@ford.com/
----
- xen/arch/arm/include/asm/vpl011.h |  2 +-
- xen/arch/arm/vpl011.c             | 15 +++++++++++----
- xen/drivers/char/console.c        | 21 +++++++--------------
- 3 files changed, 19 insertions(+), 19 deletions(-)
+> > > 
+> > > APIC error on CPU0: 00(08), Receive accept error
+> > > 
+> > > Messages during shutdown, as a result of device interrupts targeting
+> > > CPUs that are offline (and have the local APIC disabled).
+> > > 
+> > > First patch strictly solves the issue of shutdown getting stuck, further
+> > > patches aim to quiesce interrupts from all devices (known by Xen) as an
+> > > attempt to prevent a spurious "APIC error on CPU0: 00(00)" plus also
+> > > make kexec more reliable.
+> 
+> If the first patch solves does it make sense to consider, at least, it to be merged?
 
-diff --git a/xen/arch/arm/include/asm/vpl011.h b/xen/arch/arm/include/asm/v=
-pl011.h
-index c09abcd7a9..cc83868281 100644
---- a/xen/arch/arm/include/asm/vpl011.h
-+++ b/xen/arch/arm/include/asm/vpl011.h
-@@ -69,7 +69,7 @@ struct vpl011_init_info {
- int domain_vpl011_init(struct domain *d,
-                        struct vpl011_init_info *info);
- void domain_vpl011_deinit(struct domain *d);
--void vpl011_rx_char_xen(struct domain *d, char c);
-+int vpl011_rx_char_xen(struct domain *d, char c);
- #else
- static inline int domain_vpl011_init(struct domain *d,
-                                      struct vpl011_init_info *info)
-diff --git a/xen/arch/arm/vpl011.c b/xen/arch/arm/vpl011.c
-index 1fc3114cce..c72f3778bf 100644
---- a/xen/arch/arm/vpl011.c
-+++ b/xen/arch/arm/vpl011.c
-@@ -567,16 +567,21 @@ static void vpl011_data_avail(struct domain *d,
-=20
- /*
-  * vpl011_rx_char_xen adds a char to a domain's vpl011 receive buffer.
-- * It is only used when the vpl011 backend is in Xen.
-  */
--void vpl011_rx_char_xen(struct domain *d, char c)
-+int vpl011_rx_char_xen(struct domain *d, char c)
- {
-     unsigned long flags;
-     struct vpl011 *vpl011 =3D &d->arch.vpl011;
-     struct vpl011_xen_backend *intf =3D vpl011->backend.xen;
-     XENCONS_RING_IDX in_cons, in_prod, in_fifo_level;
-=20
--    ASSERT(!vpl011->backend_in_domain);
-+    /* Forward input iff the vpl011 backend is in Xen. */
-+    if ( vpl011->backend_in_domain )
-+        return -ENODEV;
-+
-+    if ( intf =3D=3D NULL )
-+        return -ENODEV;
-+
-     VPL011_LOCK(d, flags);
-=20
-     in_cons =3D intf->in_cons;
-@@ -584,7 +589,7 @@ void vpl011_rx_char_xen(struct domain *d, char c)
-     if ( xencons_queued(in_prod, in_cons, sizeof(intf->in)) =3D=3D sizeof(=
-intf->in) )
-     {
-         VPL011_UNLOCK(d, flags);
--        return;
-+        return -ENOSPC;
-     }
-=20
-     intf->in[xencons_mask(in_prod, sizeof(intf->in))] =3D c;
-@@ -596,6 +601,8 @@ void vpl011_rx_char_xen(struct domain *d, char c)
-=20
-     vpl011_data_avail(d, in_fifo_level, sizeof(intf->in), 0, SBSA_UART_FIF=
-O_SIZE);
-     VPL011_UNLOCK(d, flags);
-+
-+    return 0;
- }
-=20
- static void vpl011_notification(struct vcpu *v, unsigned int port)
-diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index b4cec77247..5e6f0fb062 100644
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -553,21 +553,14 @@ static void __serial_rx(char c)
-     {
-         struct domain *d =3D rcu_lock_domain_by_id(console_rx - 1);
-=20
--        /*
--         * If we have a properly initialized vpl011 console for the
--         * domain, without a full PV ring to Dom0 (in that case input
--         * comes from the PV ring), then send the character to it.
--         */
--        if ( d !=3D NULL &&
--             !d->arch.vpl011.backend_in_domain &&
--             d->arch.vpl011.backend.xen !=3D NULL )
--            vpl011_rx_char_xen(d, c);
--        else
--            printk("Cannot send chars to Dom%d: no UART available\n",
--                   console_rx - 1);
--
--        if ( d !=3D NULL )
-+        if ( d )
-+        {
-+            int rc =3D vpl011_rx_char_xen(d, c);
-+            if ( rc )
-+                printk(KERN_WARNING "%pd: failed to process console input:=
- %d\n",
-+                       d, rc);
-             rcu_unlock_domain(d);
-+        }
-=20
-         break;
-     }
---=20
-2.34.1
+First one sure, the rest I think are also worth considering.  They get
+rid of the resulting innocuous "APIC error on CPU0: 00(00)" message.
+Also remaining patches are likely to provide the kexec kernel with a
+better context, as they quiesce interrupts from devices.
 
+I will send a new version soon, hopefully we can discuss over that one
+which patches we want to pick.  With my XenServer hat on I plan to
+backport the whole series into our patch queue.
 
+Thanks, Roger.
 
