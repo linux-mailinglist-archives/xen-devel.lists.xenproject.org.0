@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A5BDA304E5
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 08:52:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.885113.1294890 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F816A30501
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 08:57:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.885122.1294901 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thl3j-0006GT-GU; Tue, 11 Feb 2025 07:51:55 +0000
+	id 1thl8o-00071d-2N; Tue, 11 Feb 2025 07:57:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 885113.1294890; Tue, 11 Feb 2025 07:51:55 +0000
+Received: by outflank-mailman (output) from mailman id 885122.1294901; Tue, 11 Feb 2025 07:57:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thl3j-0006Ea-Du; Tue, 11 Feb 2025 07:51:55 +0000
-Received: by outflank-mailman (input) for mailman id 885113;
- Tue, 11 Feb 2025 07:51:54 +0000
+	id 1thl8n-0006yp-Vc; Tue, 11 Feb 2025 07:57:09 +0000
+Received: by outflank-mailman (input) for mailman id 885122;
+ Tue, 11 Feb 2025 07:57:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ER+F=VC=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1thl3i-0006EU-0F
- for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 07:51:54 +0000
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0dba1f75-e84d-11ef-b3ef-695165c68f79;
- Tue, 11 Feb 2025 08:51:51 +0100 (CET)
+ id 1thl8l-0006yg-8t
+ for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 07:57:08 +0000
+Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch
+ [79.135.106.28]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c8c54ff6-e84d-11ef-b3ef-695165c68f79;
+ Tue, 11 Feb 2025 08:57:05 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,148 +36,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0dba1f75-e84d-11ef-b3ef-695165c68f79
+X-Inumbo-ID: c8c54ff6-e84d-11ef-b3ef-695165c68f79
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1739260310; x=1739519510;
-	bh=oIrwSdoAyq9/6GETWOeNvgz1vMONiOtKEzqIzC/YIY0=;
+	s=kxixwlq73rclxeddrljktctjou.protonmail; t=1739260624; x=1739519824;
+	bh=tDYcyVZNLKXQ68nFYI3D4n0NhXqSlRJBgo0oMk+nPbc=;
 	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
 	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector:
 	 List-Unsubscribe:List-Unsubscribe-Post;
-	b=EVjqpTFIdrSwSWMomV4ZHhIwP+rTsoY8rblk59Yp2T4CsNxUzz4h6vSFqAxHumluR
-	 frCGehd1YPy4bwmsHUM5AbvTZIShf7Wcqwpb8v1/nIzqOi+sCeC2vlB1VDKNWtqR9n
-	 iHF4IcqpGi0IMBPUwGfFRxCE2niHoJCdahawL5e0cTC+V6Hxe9nXNV4JDaJzn1BoIn
-	 cSQkBvzK97nBPoSNdogirWPsCUvy4n8/TB0f/G2g/hgH98aKSJnhb5hNf/mKghVl1M
-	 +Tm2tpHYCDJ1VOhdAy0E0n+XoTuUp2Cr5YVmph+pAxIPz3yawfK/pMMawdNyGLv+S2
-	 vt6OzTEhLMNIA==
-Date: Tue, 11 Feb 2025 07:51:46 +0000
+	b=f7pwvhIvq5VhkVQPmW50BDHBvmmv/gd9rktPc6pRJKPcrcdmOI7dgtZ3rPK4qjwNl
+	 bC9n7+7xu6YigECa0DFVBaLlK0TayEA1I4dCor00IIEHQGhx7W+ItaY0fGDRI44A30
+	 MSSBaU2+y0zihp+KSDw5RJ3FhlcjbMrLEEe0B14/YHzqWYA3AZ8bZ6wYDyh3XEgJJ0
+	 n7QJUnBi7mjq5Ony5L3CH6BCM4mvzJpNwWBxF1LI9c1zdFFAyZ+/BuMntlmp1559S7
+	 BduTc6OcthLv8pA9zqRfoVlkGGUDm6kaXpTMnjUM9Zoyg0OKh43UrTWVezKEJbmNf7
+	 pO2NGJMVBlLkQ==
+Date: Tue, 11 Feb 2025 07:56:58 +0000
 To: xen-devel@lists.xenproject.org
 From: dmkhn@proton.me
 Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: [PATCH v2] xen/console: introduce is_console_printable()
-Message-ID: <20250211074911.190636-1-dmkhn@proton.me>
+Subject: [PATCH] arm/vuart: move vpl011-related code to vpl011 emulator
+Message-ID: <20250211075405.191144-1-dmkhn@proton.me>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 93408087f4939b63eb85eafabbc5b4a9e6aaf7a6
+X-Pm-Message-ID: 79a84fc07217747927fc96e766727ba23063c3d3
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
 From: Denis Mukhin <dmukhin@ford.com>
 
-Add is_console_printable() to implement a common check for printable charac=
-ters
-in the UART emulation and guest logging code.
+Xen console driver has vpl011-related logic which shall belong vpl011 emula=
+tor
+code (Arm port). Move vpl011-related code from arch-independent console dri=
+ver
+to Arm's vpl011.c.
 
 Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
-Changes in v2:
-- switched from tabs to 4 spaces
-- Link to v1: https://lore.kernel.org/xen-devel/20250207005532.345746-1-dmk=
-hn@proton.me/
+Link to the original patch:
+  https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v3-v1-2-c5d36b31d=
+66c@ford.com/
 ---
- xen/arch/arm/vuart.c       | 5 ++---
- xen/arch/x86/hvm/hvm.c     | 5 ++---
- xen/drivers/char/console.c | 3 +--
- xen/include/xen/console.h  | 6 ++++++
- 4 files changed, 11 insertions(+), 8 deletions(-)
+ xen/arch/arm/include/asm/vpl011.h |  2 +-
+ xen/arch/arm/vpl011.c             | 15 +++++++++++----
+ xen/drivers/char/console.c        | 21 +++++++--------------
+ 3 files changed, 19 insertions(+), 19 deletions(-)
 
-diff --git a/xen/arch/arm/vuart.c b/xen/arch/arm/vuart.c
-index d5ba483f1e..bd2f425214 100644
---- a/xen/arch/arm/vuart.c
-+++ b/xen/arch/arm/vuart.c
-@@ -24,7 +24,7 @@
- #include <xen/lib.h>
- #include <xen/sched.h>
- #include <xen/errno.h>
--#include <xen/ctype.h>
-+#include <xen/console.h>
- #include <xen/serial.h>
- #include <asm/mmio.h>
- #include <xen/perfc.h>
-@@ -79,8 +79,7 @@ static void vuart_print_char(struct vcpu *v, char c)
-     struct domain *d =3D v->domain;
-     struct vuart *uart =3D &d->arch.vuart;
+diff --git a/xen/arch/arm/include/asm/vpl011.h b/xen/arch/arm/include/asm/v=
+pl011.h
+index c09abcd7a9..cc83868281 100644
+--- a/xen/arch/arm/include/asm/vpl011.h
++++ b/xen/arch/arm/include/asm/vpl011.h
+@@ -69,7 +69,7 @@ struct vpl011_init_info {
+ int domain_vpl011_init(struct domain *d,
+                        struct vpl011_init_info *info);
+ void domain_vpl011_deinit(struct domain *d);
+-void vpl011_rx_char_xen(struct domain *d, char c);
++int vpl011_rx_char_xen(struct domain *d, char c);
+ #else
+ static inline int domain_vpl011_init(struct domain *d,
+                                      struct vpl011_init_info *info)
+diff --git a/xen/arch/arm/vpl011.c b/xen/arch/arm/vpl011.c
+index 1fc3114cce..c72f3778bf 100644
+--- a/xen/arch/arm/vpl011.c
++++ b/xen/arch/arm/vpl011.c
+@@ -567,16 +567,21 @@ static void vpl011_data_avail(struct domain *d,
 =20
--    /* Accept only printable characters, newline, and horizontal tab. */
--    if ( !isprint(c) && (c !=3D '\n') && (c !=3D '\t') )
-+    if ( !is_console_printable(c) )
-         return ;
-=20
-     spin_lock(&uart->lock);
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 39e39ce4ce..219028969a 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -7,7 +7,6 @@
-  * Copyright (c) 2008, Citrix Systems, Inc.
+ /*
+  * vpl011_rx_char_xen adds a char to a domain's vpl011 receive buffer.
+- * It is only used when the vpl011 backend is in Xen.
   */
+-void vpl011_rx_char_xen(struct domain *d, char c)
++int vpl011_rx_char_xen(struct domain *d, char c)
+ {
+     unsigned long flags;
+     struct vpl011 *vpl011 =3D &d->arch.vpl011;
+     struct vpl011_xen_backend *intf =3D vpl011->backend.xen;
+     XENCONS_RING_IDX in_cons, in_prod, in_fifo_level;
 =20
--#include <xen/ctype.h>
- #include <xen/init.h>
- #include <xen/ioreq.h>
- #include <xen/lib.h>
-@@ -30,6 +29,7 @@
- #include <xen/vpci.h>
- #include <xen/nospec.h>
- #include <xen/vm_event.h>
-+#include <xen/console.h>
- #include <asm/shadow.h>
- #include <asm/hap.h>
- #include <asm/current.h>
-@@ -561,8 +561,7 @@ static int cf_check hvm_print_line(
-     if ( dir !=3D IOREQ_WRITE )
-         return X86EMUL_UNHANDLEABLE;
+-    ASSERT(!vpl011->backend_in_domain);
++    /* Forward input iff the vpl011 backend is in Xen. */
++    if ( vpl011->backend_in_domain )
++        return -ENODEV;
++
++    if ( intf =3D=3D NULL )
++        return -ENODEV;
++
+     VPL011_LOCK(d, flags);
 =20
--    /* Accept only printable characters, newline, and horizontal tab. */
--    if ( !isprint(c) && (c !=3D '\n') && (c !=3D '\t') )
-+    if ( !is_console_printable(c) )
-         return X86EMUL_OKAY;
+     in_cons =3D intf->in_cons;
+@@ -584,7 +589,7 @@ void vpl011_rx_char_xen(struct domain *d, char c)
+     if ( xencons_queued(in_prod, in_cons, sizeof(intf->in)) =3D=3D sizeof(=
+intf->in) )
+     {
+         VPL011_UNLOCK(d, flags);
+-        return;
++        return -ENOSPC;
+     }
 =20
-     spin_lock(&cd->pbuf_lock);
+     intf->in[xencons_mask(in_prod, sizeof(intf->in))] =3D c;
+@@ -596,6 +601,8 @@ void vpl011_rx_char_xen(struct domain *d, char c)
+=20
+     vpl011_data_avail(d, in_fifo_level, sizeof(intf->in), 0, SBSA_UART_FIF=
+O_SIZE);
+     VPL011_UNLOCK(d, flags);
++
++    return 0;
+ }
+=20
+ static void vpl011_notification(struct vcpu *v, unsigned int port)
 diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index 7da8c5296f..b4cec77247 100644
+index b4cec77247..5e6f0fb062 100644
 --- a/xen/drivers/char/console.c
 +++ b/xen/drivers/char/console.c
-@@ -24,7 +24,6 @@
- #include <xen/shutdown.h>
- #include <xen/video.h>
- #include <xen/kexec.h>
--#include <xen/ctype.h>
- #include <xen/warning.h>
- #include <asm/div64.h>
- #include <xen/hypercall.h> /* for do_console_io */
-@@ -674,7 +673,7 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(=
-char) buffer,
-                 c =3D *kin++;
-                 if ( c =3D=3D '\n' )
-                     break;
--                if ( isprint(c) || c =3D=3D '\t' )
-+                if ( is_console_printable(c) )
-                     *kout++ =3D c;
-             } while ( --kcount > 0 );
+@@ -553,21 +553,14 @@ static void __serial_rx(char c)
+     {
+         struct domain *d =3D rcu_lock_domain_by_id(console_rx - 1);
 =20
-diff --git a/xen/include/xen/console.h b/xen/include/xen/console.h
-index 6dfbade3ec..c4650231be 100644
---- a/xen/include/xen/console.h
-+++ b/xen/include/xen/console.h
-@@ -8,6 +8,7 @@
- #define __CONSOLE_H__
+-        /*
+-         * If we have a properly initialized vpl011 console for the
+-         * domain, without a full PV ring to Dom0 (in that case input
+-         * comes from the PV ring), then send the character to it.
+-         */
+-        if ( d !=3D NULL &&
+-             !d->arch.vpl011.backend_in_domain &&
+-             d->arch.vpl011.backend.xen !=3D NULL )
+-            vpl011_rx_char_xen(d, c);
+-        else
+-            printk("Cannot send chars to Dom%d: no UART available\n",
+-                   console_rx - 1);
+-
+-        if ( d !=3D NULL )
++        if ( d )
++        {
++            int rc =3D vpl011_rx_char_xen(d, c);
++            if ( rc )
++                printk(KERN_WARNING "%pd: failed to process console input:=
+ %d\n",
++                       d, rc);
+             rcu_unlock_domain(d);
++        }
 =20
- #include <xen/inttypes.h>
-+#include <xen/ctype.h>
- #include <public/xen.h>
-=20
- struct xen_sysctl_readconsole;
-@@ -50,4 +51,9 @@ void console_serial_puts(const char *s, size_t nr);
-=20
- extern int8_t opt_console_xen;
-=20
-+static inline bool is_console_printable(unsigned char c)
-+{
-+    return isprint(c) || c =3D=3D '\n' || c =3D=3D '\t';
-+}
-+
- #endif /* __CONSOLE_H__ */
+         break;
+     }
 --=20
 2.34.1
 
