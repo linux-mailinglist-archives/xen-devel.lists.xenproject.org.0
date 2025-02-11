@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1126A306D0
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 10:22:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.885190.1294973 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A964A306D5
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 10:22:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.885196.1294983 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thmSg-00058L-Ne; Tue, 11 Feb 2025 09:21:46 +0000
+	id 1thmTE-0005ao-VJ; Tue, 11 Feb 2025 09:22:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 885190.1294973; Tue, 11 Feb 2025 09:21:46 +0000
+Received: by outflank-mailman (output) from mailman id 885196.1294983; Tue, 11 Feb 2025 09:22:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thmSg-00056G-Kn; Tue, 11 Feb 2025 09:21:46 +0000
-Received: by outflank-mailman (input) for mailman id 885190;
- Tue, 11 Feb 2025 09:21:44 +0000
+	id 1thmTE-0005Yr-S7; Tue, 11 Feb 2025 09:22:20 +0000
+Received: by outflank-mailman (input) for mailman id 885196;
+ Tue, 11 Feb 2025 09:22:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jP5V=VC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1thmSe-0004Wg-NI
- for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 09:21:44 +0000
-Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
- [2607:f8b0:4864:20::630])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=hVvi=VC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1thmTD-0004Wg-8N
+ for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 09:22:19 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9917301e-e859-11ef-b3ef-695165c68f79;
- Tue, 11 Feb 2025 10:21:39 +0100 (CET)
-Received: by mail-pl1-x630.google.com with SMTP id
- d9443c01a7336-21f6f18b474so39391105ad.1
- for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 01:21:39 -0800 (PST)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-21f3650e6c0sm90842385ad.22.2025.02.11.01.21.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Feb 2025 01:21:37 -0800 (PST)
+ id afea29ba-e859-11ef-b3ef-695165c68f79;
+ Tue, 11 Feb 2025 10:22:17 +0100 (CET)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-aaf3c3c104fso930934866b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 01:22:17 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab7dc2943c2sm112394466b.168.2025.02.11.01.22.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 11 Feb 2025 01:22:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,169 +45,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9917301e-e859-11ef-b3ef-695165c68f79
+X-Inumbo-ID: afea29ba-e859-11ef-b3ef-695165c68f79
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1739265698; x=1739870498; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=G6iTFPwrQnvC7Hy2XmcKbbReVWjtB84/Dmlkfgvn7hg=;
-        b=IK76wLJAZZG2pZZYyQdNQhRWz6TrNwWUdlKTeJBY/VaEfRDZk1DxohPq2/IEwZgJgj
-         971cY5qOp+X3bYf+bCw0mkxVJ0Teh9KWjFJ3CIXJhBatP3+2X4mtPsZgUb4DDfQytWZv
-         zgjrjr7yNwwwkUe8cNko8lMWUl+aDUgKa9Cwk=
+        d=suse.com; s=google; t=1739265737; x=1739870537; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=gD8HEq5tm6mag5YOyqyHzIA4+bxaK5MK3Qq1OXPOkrs=;
+        b=NdSfD1Wi8OSieph3Kh99BMtAtL5JONRaYRZBKp0/9YOEqul6Mj/LoMdn4/THAzVKOS
+         jCy3dor0G+v9F9hNaSz7mL7m6cCqNrFu+Ww9JvvAGlyeZ8OxHNfyC5Z3FvP+bdMJVJt9
+         FhootX0XejvwMOg5M8IxZXWLIuAJv4D45FJhT0ihxHHRDDGMs+t8NFenuaWb98n9wV7R
+         PuRg21jEr8DyFoAj///sA6X7VLR/5muoWSe0CFk7gCxhXblsMM2EfKKE2PMJ8omVb87q
+         igmuZ2l7icOj2DeSNcyvmHeLQLM3rLX+iposxhwxT4Dad2bgl2czUo0YKBwRXZ0R5g8B
+         37YA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739265698; x=1739870498;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=G6iTFPwrQnvC7Hy2XmcKbbReVWjtB84/Dmlkfgvn7hg=;
-        b=FWQhrZ7JwkVSlhPb0vGcDq13uoA/SS+kHDV1EUldHFpJbfym4XwiRu88nY0zdCRTRC
-         FX1nZm3Xl3JwS0UVWnSvTbXhQ0MYdgiBs0fpOFTEshVc9MJxB+jXEJVMBzI1hnuo1sQ0
-         UXFvvOmvPVtQdxWP5SYXuyqyZ94S+LQth2SIozgE81KAWvj1iZQqp94FvqrVi8zL+08i
-         BhAWQh2cEymex32aSB9NgYas+9p+eu+XSQWkd6ZX6j+qa2U1Ws61yqV7H7LS5/77kaXs
-         lFqWOyIMYc2uQCiLaEBLbDIe/8F6BJbhKHnP/u3A+DhSSWXiVfxM6jn3Sh5GZEA7txKx
-         jRMQ==
-X-Gm-Message-State: AOJu0Yy8ih4OZnvfLgn9i2f32/XdWW7mCFOUR7QCkyDPTCDKw3SNoSER
-	djD673c3HkjuqfhavwFFNObhJ1umYnRIPc0G4Uj1ZmYmAc9m6+hZe4KxAAGf2XA=
-X-Gm-Gg: ASbGncsJ/ClXpW9Ze5SXEL41e6VMh0rORaJYFE1d0hNv7Rb02x3QuSXpyMswVxJqBzW
-	SONVLkgJBjL1l6cbx7nOqqCHotS2v54CCIbKyYiD52G++msHsoqWEwyV6C7Gwq0mNbQakMGz4Dy
-	Fo9FEa/zFNrQu7jJWnFOJDd08O0qBNt+r8DKApx1zTCsqvbrQIpOGTXDpRcIWCj6fU6iPzu489s
-	IkXqYkBfOanN2OB5Xn9eNvV4Avy7w/tr/DVjfYTekoO7hPLjNLQPTxiLj3CiVweavoziV4UIhn5
-	cPs2WdApU8CqvJTevSto
-X-Google-Smtp-Source: AGHT+IHfarUfwLkABpqKJACCM8PaYufOSiaH09zA1z2XEpebVQmpkVT3dWuIHIOWmD+oISwUotbERA==
-X-Received: by 2002:a17:902:ef09:b0:216:386e:dbc with SMTP id d9443c01a7336-21f4e6c22e7mr243028245ad.13.1739265698351;
-        Tue, 11 Feb 2025 01:21:38 -0800 (PST)
-Date: Tue, 11 Feb 2025 10:21:32 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Huang Rui <ray.huang@amd.com>
-Subject: Re: [PATCH v8] vpci: Add resizable bar support
-Message-ID: <Z6sWnK1BYxArBq--@macbook.local>
-References: <20250211022257.1690366-1-Jiqian.Chen@amd.com>
+        d=1e100.net; s=20230601; t=1739265737; x=1739870537;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=gD8HEq5tm6mag5YOyqyHzIA4+bxaK5MK3Qq1OXPOkrs=;
+        b=KJ+Fuhn5fG5XfX1Ft3j7C0Q4cwWTfup92ZSjG8RMmsoa4KJMtn12npktsfF7SBk2EE
+         uUtTDlhJNbjivnXLejqn/BT6SoZMX4c3zcJTx5EFgiOtOzHLTv7l8uxdzFpnjBMv0o5s
+         6NZRwO5CYRHjZdyaVz1YzgbHLxaDZwUgsEVVwzy4+tdfIYeIOlDApPfSYfT2v0mpb4/q
+         Twtj7wzPpRu8yrQ1b4RO+2dky1QYpIgiUQeEdg8MaIrfqXcjx5Wq99A03z/Apm4hOc48
+         24Fjzv56MiY8wX1AaSELlnnkUvA8euHkNAePbcOLAMvkDF2Tquz/YMMOVWOApXyWI8h6
+         o4hw==
+X-Forwarded-Encrypted: i=1; AJvYcCXwfIvHF//TjvBRquskuXrBDuWk9fErmBDYK/GEhXx6qSm/Kte3XBsGS6YZe688qqKsxZC3pTxvNGM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyR9pF86B14lnYY+1LplqmSiu+w0a/UtOUDhPOR/hSCQB551bjq
+	3DyYaeCaN8JGBF4vwkia0yw+HY3t1NpOoUsAS+p9cw3USaQfqQxi3PkaOFv8aA==
+X-Gm-Gg: ASbGnctTPscdKw8dR0PWFbGYeyQhQnbt5mw7Kz+wq5xLWM2phOBCfb5CL2iA/nB3o6V
+	hCeDapwxOoN77Ud3bzLFfyphxhOUQBcyORcEBEwJMqW0L6C8M044Yvl9DF0oN7/WYCNI0Mm31Z+
+	wHFnoy6GeuMLRmqCyzCalOfF3YohWSFaLS4P5BePj/em+uE8lixY9lx1Vz6gaCo8EdxErGNF6Lo
+	ssjQDsXTU9QqsnAWA35QY3aBUND/agZiEuXU4NraYGgEsN7+Q3cUWJnSOOshNT5Lo8xwSBJCook
+	GWyiEeZFKYnJR0wA5kVnutYJTmyJ2spAc4qDiMgoX1sGa/uqLAj4D3fsqt7LKzwXmq3uaDaW3VH
+	M
+X-Google-Smtp-Source: AGHT+IEQXAw4rj6cSMsFIwqtfyRCKMizbNQuVmW4v33Xe9Nfugk7f2FmGXBJWdEsy4K6qCB7WRAvGw==
+X-Received: by 2002:a17:907:1c22:b0:ab7:647:d52d with SMTP id a640c23a62f3a-ab789c6e8c9mr1715597866b.51.1739265736822;
+        Tue, 11 Feb 2025 01:22:16 -0800 (PST)
+Message-ID: <ba937c72-b894-4e27-a730-d1ccf4e00174@suse.com>
+Date: Tue, 11 Feb 2025 10:22:15 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250211022257.1690366-1-Jiqian.Chen@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/include: introduce resource.h
+To: Denis Mukhin <dmkhn@proton.me>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
+ anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com,
+ roger.pau@citrix.com, dmukhin@ford.com
+References: <20250207231814.3863449-1-dmukhin@ford.com>
+ <alpine.DEB.2.22.394.2502071854231.619090@ubuntu-linux-20-04-desktop>
+ <a8dcd8a8-8b73-49f1-a030-d9614dc51896@suse.com>
+ <Ko-G31widhmIv5ESo26CR7Pt0D5th5XG_jfm1eORblFZav8mMWP5G3UWNfqrrRiI0ttw7-nUhU7glYoAX1jHrmcQtZRxSCRMt5AzCpQjIbc=@proton.me>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <Ko-G31widhmIv5ESo26CR7Pt0D5th5XG_jfm1eORblFZav8mMWP5G3UWNfqrrRiI0ttw7-nUhU7glYoAX1jHrmcQtZRxSCRMt5AzCpQjIbc=@proton.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Feb 11, 2025 at 10:22:57AM +0800, Jiqian Chen wrote:
-> Some devices, like AMDGPU, support resizable bar capability,
-> but vpci of Xen doesn't support this feature, so they fail
-> to resize bars and then cause probing failure.
+On 11.02.2025 08:43, Denis Mukhin wrote:
+>> On 08.02.2025 03:54, Stefano Stabellini wrote:
+>>> On Fri, 7 Feb 2025, dmkhn@proton.me wrote:
+>>>
+>>>> Move resource definitions to a new architecture-agnostic shared header file.
+>>>>
+>>>> Signed-off-by: Denis Mukhin dmukhin@ford.com
+>>>
+>>> Reviewed-by: Stefano Stabellini sstabellini@kernel.org
+>>
+>>
+>> Hmm, don't you think ...
+>>
+>>>> @@ -70,22 +71,8 @@
+>>>> #define of_property_read_u32(np, pname, out) (!dt_property_read_u32(np, pname, out))
+>>>> #define of_property_read_bool dt_property_read_bool
+>>>> #define of_parse_phandle_with_args dt_parse_phandle_with_args
+>>>> -
+>>>> -/* Xen: Helpers to get device MMIO and IRQs */
+>>>> -struct resource
+>>>> -{
+>>>> - paddr_t addr;
+>>>> - paddr_t size;
+>>>> - unsigned int type;
+>>>> -};
+>>>> -
+>>>> -#define resource_size(res) (res)->size;
+>>>> -
+>>>> #define platform_device dt_device_node
+>>
+>>
+>> ... one of the blank lines being removed here would better stay?
 > 
-> According to PCIe spec, each bar that supports resizing has
-> two registers, PCI_REBAR_CAP and PCI_REBAR_CTRL. So, add
-> handlers to support resizing the size of BARs.
+> I think the block of assorted macros (the first macro is not of not of_xxx() type)
+> does not need an extra newline.
 > 
-> Note that Xen will only trap PCI_REBAR_CTRL, as PCI_REBAR_CAP
-> is read-only register and the hardware domain already gets
-> access to it without needing any setup.
+> The resulting block of macros looks like the following:
+> [[
 > 
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> /* Alias to Xen device tree helpers */
+> #define device_node dt_device_node
+> #define of_phandle_args dt_phandle_args
+> #define of_device_id dt_device_match
+> #define of_match_node dt_match_node
+> #define of_property_read_u32(np, pname, out) (!dt_property_read_u32(np, pname, out))
+> #define of_property_read_bool dt_property_read_bool
+> #define of_parse_phandle_with_args dt_parse_phandle_with_args
+> #define platform_device dt_device_node
+> 
+> ]]
 
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+And I think the of_* ones would better be separated by blank lines
+from the others. Arguably platform_device might then want to move up,
+immediately next to device_node.
 
-> ---
-> Hi all,
-> v7->v8 changes:
-> * Modified commit message and some comments.
-> * Deleted unused function vpci_hw_write32.
-> 
-> Best regards,
-> Jiqian Chen.
-> 
-> v6->v7 changes:
-> * Deleted codes that add register for PCI_REBAR_CAP, and added comments to explain why.
-> * Added comments to explain why use "continue" when fail to add register for PCI_REBAR_CTRL.
-> 
-> v5->v6 changes:
-> * Changed "1UL" to "1ULL" in PCI_REBAR_CTRL_SIZE idefinition for 32 bit architecture.
-> * In rebar_ctrl_write used "bar - pdev->vpci->header.bars" to get index instead of reading
->   from register.
-> * Added the index of BAR to error messages.
-> * Changed to "continue" instead of "return an error" when vpci_add_register failed.
-> 
-> v4->v5 changes:
-> * Called pci_size_mem_bar in rebar_ctrl_write to get addr and size of BAR instead of setting
->   their values directly after writing new size to hardware.
-> * Changed from "return" to "continue" when index/type of BAR are not correct during initializing
->   BAR.
-> * Corrected the value of PCI_REBAR_CTRL_BAR_SIZE from "0x00001F00" to "0x00003F00".
-> * Renamed PCI_REBAR_SIZE_BIAS to PCI_REBAR_CTRL_SIZE_BIAS.
-> * Re-defined "PCI_REBAR_CAP_SHIFT 4" to "PCI_REBAR_CAP_SIZES_MASK 0xFFFFFFF0U".
-> 
-> v3->v4 changes:
-> * Removed PCI_REBAR_CAP_SIZES since it was not needed, and added
->   PCI_REBAR_CAP_SHIFT and PCI_REBAR_CTRL_SIZES.
-> * Added parameter resizable_sizes to struct vpci_bar to cache the support resizable sizes and
->   added the logic in init_rebar().
-> * Changed PCI_REBAR_CAP to PCI_REBAR_CAP(n) (4+8*(n)), changed PCI_REBAR_CTRL to
->   PCI_REBAR_CTRL(n) (8+8*(n)).
-> * Added domain info of pci_dev to printings of init_rebar().
-> 
-> v2->v3 changes:
-> * Used "bar->enabled" to replace "pci_conf_read16(pdev->sbdf, PCI_COMMAND) & PCI_COMMAND_MEMORY",
->   and added comments why it needs this check.
-> * Added "!is_hardware_domain(pdev->domain)" check in init_rebar() to return EOPNOTSUPP for domUs.
-> * Moved BAR type and index check into init_rebar(), then only need to check once.
-> * Added 'U' suffix for macro PCI_REBAR_CAP_SIZES.
-> * Added macro PCI_REBAR_SIZE_BIAS to represent 20.
-> TODO: need to hide ReBar capability from hardware domain when init_rebar() fails.
-> 
-> v1->v2 changes:
-> * In rebar_ctrl_write, to check if memory decoding is enabled, and added
->   some checks for the type of Bar.
-> * Added vpci_hw_write32 to handle PCI_REBAR_CAP's write, since there is
->   no write limitation of dom0.
-> * And has many other minor modifications as well.
-> ---
->  xen/drivers/vpci/Makefile  |   2 +-
->  xen/drivers/vpci/rebar.c   | 131 +++++++++++++++++++++++++++++++++++++
->  xen/include/xen/pci_regs.h |  15 +++++
->  xen/include/xen/vpci.h     |   1 +
->  4 files changed, 148 insertions(+), 1 deletion(-)
->  create mode 100644 xen/drivers/vpci/rebar.c
-> 
-> diff --git a/xen/drivers/vpci/Makefile b/xen/drivers/vpci/Makefile
-> index 1a1413b93e76..a7c8a30a8956 100644
-> --- a/xen/drivers/vpci/Makefile
-> +++ b/xen/drivers/vpci/Makefile
-> @@ -1,2 +1,2 @@
-> -obj-y += vpci.o header.o
-> +obj-y += vpci.o header.o rebar.o
->  obj-$(CONFIG_HAS_PCI_MSI) += msi.o msix.o
-> diff --git a/xen/drivers/vpci/rebar.c b/xen/drivers/vpci/rebar.c
-> new file mode 100644
-> index 000000000000..794f1168adf8
-> --- /dev/null
-> +++ b/xen/drivers/vpci/rebar.c
-> @@ -0,0 +1,131 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
-> + *
-> + * Author: Jiqian Chen <Jiqian.Chen@amd.com>
-> + */
-> +
-> +#include <xen/sched.h>
-> +#include <xen/vpci.h>
-> +
-> +static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
-> +                                      unsigned int reg,
-> +                                      uint32_t val,
-> +                                      void *data)
-> +{
-> +    struct vpci_bar *bar = data;
-> +    const unsigned int index = bar - pdev->vpci->header.bars;
-> +    uint64_t size = PCI_REBAR_CTRL_SIZE(val);
-
-Since you define index as const you could also do the same with size.
-Can adjust at commit, but I also don't have a strong opinion about
-it.
-
-Thanks, Roger.
+Jan
 
