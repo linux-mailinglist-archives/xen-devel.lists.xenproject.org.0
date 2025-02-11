@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E96F2A31243
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 17:59:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.885784.1295586 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 509CCA3124A
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 18:00:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.885795.1295596 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thtbe-0003Y8-JM; Tue, 11 Feb 2025 16:59:30 +0000
+	id 1thtcn-00058k-Vc; Tue, 11 Feb 2025 17:00:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 885784.1295586; Tue, 11 Feb 2025 16:59:30 +0000
+Received: by outflank-mailman (output) from mailman id 885795.1295596; Tue, 11 Feb 2025 17:00:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thtbe-0003WO-FY; Tue, 11 Feb 2025 16:59:30 +0000
-Received: by outflank-mailman (input) for mailman id 885784;
- Tue, 11 Feb 2025 16:59:29 +0000
+	id 1thtcn-000569-SA; Tue, 11 Feb 2025 17:00:41 +0000
+Received: by outflank-mailman (input) for mailman id 885795;
+ Tue, 11 Feb 2025 17:00:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hVvi=VC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1thtbd-0003WI-8J
- for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 16:59:29 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ id 1thtcm-0003WI-GT
+ for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 17:00:40 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 868e9efe-e899-11ef-a075-877d107080fb;
- Tue, 11 Feb 2025 17:59:16 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-5de3c29ebaeso7072279a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 08:59:15 -0800 (PST)
+ id b8c1c94c-e899-11ef-a075-877d107080fb;
+ Tue, 11 Feb 2025 18:00:40 +0100 (CET)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-5de56ff9851so7278942a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 09:00:40 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5de525f35b7sm7645044a12.53.2025.02.11.08.59.14
+ 4fb4d7f45d1cf-5dcf1b7b089sm9908463a12.29.2025.02.11.09.00.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Feb 2025 08:59:14 -0800 (PST)
+ Tue, 11 Feb 2025 09:00:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 868e9efe-e899-11ef-a075-877d107080fb
+X-Inumbo-ID: b8c1c94c-e899-11ef-a075-877d107080fb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739293155; x=1739897955; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739293239; x=1739898039; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UFtCCseT9ZuSN+w/4VJdWHADAqu8GLy8ymRf81z7L4w=;
-        b=UnRV46LiXucknxpVE/oafC1ZzAtIZg+RYxyt9l2whDl6PpjHqWR15yioNfZgrfkuk6
-         sLn9WcnS/Zun1sU1xcFl1gea+nNar3AK54qc4h86po9bFwe/GpFKy2dPzCIqDeOwXsq5
-         1XFo1WcHJcmPsmycsXm9f/m+X6cdH8xfriMCpWD5zHEY41utpp38OPLiRiUBkMLSvTbL
-         RoZwiPUduFUCZ2xPC/Z4QzlkT/sm+28lkUiavQAfVUvosO6xWJxTYHgDrbCGoP5Q8Uxk
-         eU33QmuiQZmCTLSJ82csPLupl9uH2v0nsy924l64mJAn3qDvrok1FIr5DB9T03Ym+iVQ
-         kwhQ==
+        bh=9t92GOMEBUVRyFzPtbwXnq6lhwLQQ0wTj+8ntf07+Nk=;
+        b=YhUBUSHO1U0X9WztRalIGKNd3OcmpfPERobZwaedLeXuJmfZ+CKKawWJ4GpGYn1BDC
+         Yr5HNnuN5weVK+vg6HrWHcCTniOaYACK2dt3w4nNC7p/ngkbtOD2TUssHvT62IAAaBEx
+         kN9HthiL4DVV8nL4Yh3vaG0CP4ckZZz2gPe2Vlet0MS3Y6L4f2KmoyHTFiGnPpygKS68
+         jx3eBPKTdcYjMDSM0Ss27oz0plCC3Cv18jNQU3DIIln7zdGYj0J2M5fs/+enBryukgmE
+         3kATpPYKCvbBRIhWGZl4GGP4PD49BPbJT+V79QCbVxdS8O/KMfYR9IRrelyMAsdjdI91
+         YmtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739293155; x=1739897955;
+        d=1e100.net; s=20230601; t=1739293239; x=1739898039;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UFtCCseT9ZuSN+w/4VJdWHADAqu8GLy8ymRf81z7L4w=;
-        b=YtZrgs6J/GNB2zrUzsO7kRZhtgRArcIoCLAheiPwfn42knX4x+BenMEvoQ5eVl7wmJ
-         x/ft3t0VUttsGLaIa+ogqKPqKitbf13DS16ya2HmodIfkO0A7GsprXCiKp0Mzn4vkAyq
-         dmb5jydobIIf8q3A9GldHdG1r4b0L5TmJHS4A6edZ2GhLg5v7rfAD6Q2oWoC9JHr7O+s
-         R6cC0MWZgprPavXSrX8K516nb66XSOv7pWi7AlOKgDRMzG16kInfrd+ngd0BaLSv19IF
-         11nWHzspMxwd7yhuDGak9E/S3yvyHk1gJlR9XMbhFmlkmbSuZernGB9U+NcO5WgqbisX
-         +pMQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUfop6yS4fneqL1Hu+c4h3KqALaKpRPmZHcpQ943V8Rro/debKf6yrgbYW68avI4Yv3CXvFMjU5il8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwYYnJp6HbUOoINvrAGBiRckJwk2b6JYNLOMTNhxSA8OdkkO1zH
-	0OLrIeI0s4lIk7LX7ki0EFeQ/53iffa/0yAbGf+3otpfU3KA1PbSBskKK/QDPQ==
-X-Gm-Gg: ASbGncvDs4l0DyDz3LPOKOkVsoDBIgynsxAI693kkkErSNrQozjYSjDsNibcGyt8POw
-	pCnaYhGA94Ca74YWs6GBId9qKj6zLeitedMLfEbwhL2Spj+lcHSsQ/ey2u3XUQyebbJZyBIio9H
-	ifr63syNd1FyfY0toCPjlsMt32H99aJiEmcZFz9v8bO6m67kFkh/qTfdIN+XavdzQeBazcAPAGj
-	pN/X/8SXR3LnYx/n+2tJNQ7K4MjbK63Fpml0SzHYCf4ijEE3c2lUHe/8SRjsl45y8zx7n7kWciW
-	9s4jRUZY3u9kowVlWmQZcnpmXb6hk2bpjN+XTcKCmzJ08WTzHMUE+Skv9Ms/H/Dsm9a8M8azhaL
-	6
-X-Google-Smtp-Source: AGHT+IFrz71Hm8TXfphTbSvx1KyVWCFZLl5AvnVLZCVZdWm2SecZIzRJqztmDAiYI4MFWgp0+qgYpA==
-X-Received: by 2002:a05:6402:380e:b0:5d3:ce7f:abee with SMTP id 4fb4d7f45d1cf-5de450734abmr18965235a12.25.1739293155207;
-        Tue, 11 Feb 2025 08:59:15 -0800 (PST)
-Message-ID: <7befbc91-6d0a-47cc-8fe5-509b90e55103@suse.com>
-Date: Tue, 11 Feb 2025 17:59:13 +0100
+        bh=9t92GOMEBUVRyFzPtbwXnq6lhwLQQ0wTj+8ntf07+Nk=;
+        b=DN+Dq7NxS4gKEWwHis+gBNq2sJ8cbP+sdbZo+Lrlkg+iPIo2negJgJrczaJMuWKTaj
+         F5E9HuQZlc01/A8dOz07ylGCSgHUsn1c+VhOdlj9SBFD95BRgNBzsrbaeQlMeHYEoGkP
+         27G8Lljiyg7GAfPJyiLemC2dGMOSgzppF7rtsRDd9wYtNKXlsNYfwpCYlf8cGtCWrKHe
+         Q8LfrSDoPxIuJowUMhKhiEO6q6/jsGrH/29URMxmKGU9J6Z8TTBn70F7PmS5/dLb0Aqy
+         i+wqM2M4Sg+vyHuTyiAONmyylyYbQPsSAGGtzJdVfkfx6Il+dkH+8VLkzqo+f7g+4py5
+         FJmQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUhQM92KTFq6NhvT26R/8c15gtFEh//iDwrxzdeOOpFrCZvIkXyqkVFTg08YER3MvHDTPpDyT5ZB/Q=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YySd+N6UvwRIFLX+iDlKbyRMTnIBSyaPKoM6xrQmYnDw4jvz/+g
+	61xwBf5EDI4+fZAbf4AQrxQ0VuebL56sBa/WWFLn6zz4SzwOFXpTkzPrz/Vy7Q==
+X-Gm-Gg: ASbGnct2ru1sBpu30g6Xwpnjof92MkA85ZgkZFr3877NjUrkkBVrMR9bpgzBUoG0xks
+	ou8r5WmgDENCCTEWbSY3iyjtN68zA3Kd+5+W/975IZM1jGuoAgFSf4fQttiXQnjvq2jOqXmXeI6
+	8t9qD9omYYCvegi0qIt0FWkuX3K9cuas5Qn1IoX3nEI0bWr8sE1Dk1UMVU/q6xRjEx/VPv7YRoL
+	hPaqD6bFOhRV8ClI+MqKV61VZmJ9BLK4OQLbmKP+4ao0f8PJUFnVpmtNeNo55H0J4x6EA8R9trM
+	F3O7vH396Wecsu3q0EbdDiftz/n+LfF/H8oN/RCNJ3Q+sgVCwZrovSAIYBJm9tCK2GZ7wBUJmsC
+	R
+X-Google-Smtp-Source: AGHT+IHwg/KFqRs0xLgUo7xxqwaDn8IcdpIb0YEW4L2I2iNAg2n0VqZ64d3BDdo2JOLrPRZ3tWeHRg==
+X-Received: by 2002:a05:6402:27d4:b0:5dc:1173:bfa3 with SMTP id 4fb4d7f45d1cf-5de9a4c86f0mr4714946a12.29.1739293239444;
+        Tue, 11 Feb 2025 09:00:39 -0800 (PST)
+Message-ID: <5d964e15-e146-4d03-9129-bb0cb43ac4ab@suse.com>
+Date: Tue, 11 Feb 2025 18:00:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for 4.21 v5] xen/riscv: identify specific ISA supported by
- cpu
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH for-4.20 v4 4/5] x86/pci: disable MSI(-X) on all devices
+ at shutdown
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: oleksii.kurochko@gmail.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <39eacdb6312988fb746e3dff7e29db2f9fcef614.1738958635.git.oleksii.kurochko@gmail.com>
- <18030e36-ac28-42e0-9bcb-2457c0281273@suse.com>
- <279e70a8-ad09-46bc-a1f9-7aa6707d3974@gmail.com>
- <417b456f-77b9-4e8f-9641-2ac8e2fb9cda@suse.com>
- <cf11e1a6-6b89-4eca-b13c-d8b9b81262e4@gmail.com>
- <6e6ac5b5-82ad-4bf0-bbd8-55dd075cf268@suse.com>
- <bdc0a943-45f3-41fc-902e-b6fe0e12965b@gmail.com>
+References: <20250211110209.86974-5-roger.pau@citrix.com>
+ <20250211144813.89137-1-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,144 +121,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <bdc0a943-45f3-41fc-902e-b6fe0e12965b@gmail.com>
+In-Reply-To: <20250211144813.89137-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11.02.2025 17:50, Oleksii Kurochko wrote:
-> On 2/11/25 4:47 PM, Jan Beulich wrote:
->> On 11.02.2025 16:28, Oleksii Kurochko wrote:
->>> On 2/11/25 11:01 AM, Jan Beulich wrote:
->>>> On 11.02.2025 10:53, Oleksii Kurochko wrote:
->>>>> On 2/10/25 5:19 PM, Jan Beulich wrote:
->>>>>> On 07.02.2025 21:07, Oleksii Kurochko wrote:
->>>>>>> +/*
->>>>>>> + * The canonical order of ISA extension names in the ISA string is defined in
->>>>>>> + * chapter 27 of the unprivileged specification.
->>>>>>> + *
->>>>>>> + * The specification uses vague wording, such as should, when it comes to
->>>>>>> + * ordering, so for our purposes the following rules apply:
->>>>>>> + *
->>>>>>> + * 1. All multi-letter extensions must be separated from other extensions by an
->>>>>>> + *    underscore.
->>>>>>> + *
->>>>>>> + * 2. Additional standard extensions (starting with 'Z') must be sorted after
->>>>>>> + *    single-letter extensions and before any higher-privileged extensions.
->>>>>>> + *
->>>>>>> + * 3. The first letter following the 'Z' conventionally indicates the most
->>>>>>> + *    closely related alphabetical extension category, IMAFDQLCBKJTPVH.
->>>>>>> + *    If multiple 'Z' extensions are named, they must be ordered first by
->>>>>>> + *    category, then alphabetically within a category.
->>>>>>> + *
->>>>>>> + * 4. Standard supervisor-level extensions (starting with 'S') must be listed
->>>>>>> + *    after standard unprivileged extensions.  If multiple supervisor-level
->>>>>>> + *    extensions are listed, they must be ordered alphabetically.
->>>>>>> + *
->>>>>>> + * 5. Standard machine-level extensions (starting with 'Zxm') must be listed
->>>>>>> + *    after any lower-privileged, standard extensions.  If multiple
->>>>>>> + *    machine-level extensions are listed, they must be ordered
->>>>>>> + *    alphabetically.
->>>>>>> + *
->>>>>>> + * 6. Non-standard extensions (starting with 'X') must be listed after all
->>>>>>> + *    standard extensions. If multiple non-standard extensions are listed, they
->>>>>>> + *    must be ordered alphabetically.
->>>>>>> + *
->>>>>>> + * An example string following the order is:
->>>>>>> + *    rv64imadc_zifoo_zigoo_zafoo_sbar_scar_zxmbaz_xqux_xrux
->>>>>>> + *
->>>>>>> + * New entries to this struct should follow the ordering rules described above.
->>>>>>> + *
->>>>>>> + * Extension name must be all lowercase (according to device-tree binding)
->>>>>>> + * and strncmp() is used in match_isa_ext() to compare extension names instead
->>>>>>> + * of strncasecmp().
->>>>>>> + */
->>>>>>> +const struct riscv_isa_ext_data __initconst riscv_isa_ext[] = {
->>>>>>> +    RISCV_ISA_EXT_DATA(i, RISCV_ISA_EXT_i),
->>>>>>> +    RISCV_ISA_EXT_DATA(m, RISCV_ISA_EXT_m),
->>>>>>> +    RISCV_ISA_EXT_DATA(a, RISCV_ISA_EXT_a),
->>>>>>> +    RISCV_ISA_EXT_DATA(f, RISCV_ISA_EXT_f),
->>>>>>> +    RISCV_ISA_EXT_DATA(d, RISCV_ISA_EXT_d),
->>>>>>> +    RISCV_ISA_EXT_DATA(q, RISCV_ISA_EXT_q),
->>>>>>> +    RISCV_ISA_EXT_DATA(c, RISCV_ISA_EXT_c),
->>>>>>> +    RISCV_ISA_EXT_DATA(h, RISCV_ISA_EXT_h),
->>>>>>> +    RISCV_ISA_EXT_DATA(zicntr, RISCV_ISA_EXT_ZICNTR),
->>>>>>> +    RISCV_ISA_EXT_DATA(zicsr, RISCV_ISA_EXT_ZICSR),
->>>>>>> +    RISCV_ISA_EXT_DATA(zifencei, RISCV_ISA_EXT_ZIFENCEI),
->>>>>>> +    RISCV_ISA_EXT_DATA(zihintpause, RISCV_ISA_EXT_ZIHINTPAUSE),
->>>>>>> +    RISCV_ISA_EXT_DATA(zihpm, RISCV_ISA_EXT_ZIHPM),
->>>>>>> +    RISCV_ISA_EXT_DATA(zbb, RISCV_ISA_EXT_ZBB),
->>>>>>> +    RISCV_ISA_EXT_DATA(smaia, RISCV_ISA_EXT_SMAIA),
->>>>>>> +    RISCV_ISA_EXT_DATA(ssaia, RISCV_ISA_EXT_SSAIA),
->>>>>>> +};
->>>>>>> +
->>>>>>> +static const struct riscv_isa_ext_data __initconst required_extensions[] = {
->>>>>>> +    RISCV_ISA_EXT_DATA(i, RISCV_ISA_EXT_i),
->>>>>>> +    RISCV_ISA_EXT_DATA(m, RISCV_ISA_EXT_m),
->>>>>>> +    RISCV_ISA_EXT_DATA(a, RISCV_ISA_EXT_a),
->>>>>>> +    RISCV_ISA_EXT_DATA(f, RISCV_ISA_EXT_f),
->>>>>>> +    RISCV_ISA_EXT_DATA(d, RISCV_ISA_EXT_d),
->>>>>> Why would these last four (Zifencei below) not be included in #ifdef
->>>>>> CONFIG_RISCV_ISA_RV64G, just like ...
->>>>>>
->>>>>>> +#ifdef CONFIG_RISCV_ISA_C
->>>>>>> +    RISCV_ISA_EXT_DATA(c, RISCV_ISA_EXT_c),
->>>>>>> +#endif
->>>>>> .. this one is?
->>>>> I'm not sure if it was the best decision, but I did it this way because
->>>>> I believe other bitnesses (32, 128) will also need G. So, I left them
->>>>> without|#ifdef| to avoid adding|#ifdef CONFIG_RV{32,128}G| in the future.
->>>> That's fine, but then imo RISCV_ISA_RV64G ought to be dropped, and we use
->>>> G unconditionally. Whether that's a good move I don't know. I could
->>>> imagine embedded use cases which want to run an very simple processors.
->>>>
->>>>> I also spent some time considering whether 'f' and 'd' are necessary
->>>>> for Xen. In the end, I decided that if they aren't needed for Xen,
->>>>> it might be better not to use "G" for compilation and instead explicitly
->>>>> specify "ima". But it will be better to do as a separate patch (if it
->>>>> makes sense).
->>>> That's certainly an option; use of floating point registers / insns will
->>>> need suppressing one way or another anyway, sooner or later. And yes, I
->>>> agree this wants to be a separate change. Even their relative order is
->>>> not important, as long as things remain consistent at any point in time.
->>> Actually, I think that we should drop 'f' and 'd' from required_extensions[]
->>> array as they aren't really needed for Xen. Or make them conditional just to
->>> be sure that if "G" was used for compilation and the code with using of them
->>> was generated then they are really supported by a h/w.
->> As said, that's okay. But as also said you then need to also keep the
->> compiler from potentially using F or D insns / registers.
->>
->>> Regarding #ifdef-ing with RISCV_ISA_RV64G, I think that we have to keep them
->>> mentioned unconditionally as 'i', 'm', 'a', 'zicsr' and 'zifencei' which are
->>> part of 'G' as all of them are needed by Xen to work.
->> Yet then why do we have CONFIG_RISCV_ISA_RV64G?
+On 11.02.2025 15:48, Roger Pau Monne wrote:
+> Attempt to disable MSI(-X) capabilities on all PCI devices know by Xen at
+> shutdown.  Doing such disabling should facilitate kexec chained kernel from
+> booting more reliably, as device MSI(-X) interrupt generation should be
+> quiesced.
 > 
-> Several reasons come to my mind:
-> 1. We still need to specify the architecture's bitness (rv32, rv64, etc.) in|march|.
-
-Of course.
-
-> 2. It was more convenient to write just "G" instead of "ima_zicsr_zifencei".
-
-Convenience can only matter when correctness isn't affected. Allowing
-floating point registers to be used (when they're not aliases of the
-integer ones) can end in crashes or even data corruption.
-
-> Perhaps it would be better to have separate configs (similar to what Linux uses):
-> |1. ||riscv-march-$(CONFIG_ARCH_RV32I) := rv32ima 2. 
-> riscv-march-$(CONFIG_ARCH_RV64I) := rv64ima 3. riscv-march-$(CONFIG_FPU) 
-> := $(riscv-march-y)fd |
+> Only attempt to disable MSI(-X) on all devices in the crash context if the
+> PCI lock is not taken, otherwise the PCI device list could be in an
+> inconsistent state.  This requires introducing a new pcidevs_trylock()
+> helper to check whether the lock is currently taken.
 > 
-> For now, we can skip option 3 until|CONFIG_FPU| is actually needed.
+> Disabling MSI(-X) should prevent "Receive accept error" being raised as a
+> result of non-disabled interrupts targeting offline CPUs.
 > 
-> Introduce only options 1 and 2, probably reusing|CONFIG_RISCV_32| and|CONFIG_RISCV_64|:
-> 1.|riscv-march-$(CONFIG_RISCV_32) := rv32ima 
-> 2.riscv-march-$(CONFIG_RISCV_64) := rv64ima |
-> 
-> Then, explicitly add|_zicsr| and|_zifencei|:
-> |||riscv-march-y := $(riscv-march-y)_zicsr_zifencei|
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Sounds reasonable, albeit the formatting of your email was somewhat screwed,
-hampering readability (which may well be an effect of the MUI I'm using).
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+
 
