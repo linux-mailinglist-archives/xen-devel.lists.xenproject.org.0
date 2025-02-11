@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28EA3A3186A
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 23:14:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.885975.1295740 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F9B4A318A7
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 23:33:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.885985.1295749 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thyVT-0001Jm-6a; Tue, 11 Feb 2025 22:13:27 +0000
+	id 1thyoh-00041a-NT; Tue, 11 Feb 2025 22:33:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 885975.1295740; Tue, 11 Feb 2025 22:13:27 +0000
+Received: by outflank-mailman (output) from mailman id 885985.1295749; Tue, 11 Feb 2025 22:33:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thyVT-0001HC-3A; Tue, 11 Feb 2025 22:13:27 +0000
-Received: by outflank-mailman (input) for mailman id 885975;
- Tue, 11 Feb 2025 22:13:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1thyoh-0003ze-Kl; Tue, 11 Feb 2025 22:33:19 +0000
+Received: by outflank-mailman (input) for mailman id 885985;
+ Tue, 11 Feb 2025 22:33:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YqFZ=VC=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1thyVR-0001H6-Iv
- for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 22:13:25 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 688a0cd4-e8c5-11ef-a075-877d107080fb;
- Tue, 11 Feb 2025 23:13:23 +0100 (CET)
+ id 1thyog-0003zW-7B
+ for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 22:33:18 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2cfbc5e0-e8c8-11ef-b3ef-695165c68f79;
+ Tue, 11 Feb 2025 23:33:12 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 31CACA40433;
- Tue, 11 Feb 2025 22:11:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C5E6C4CEDD;
- Tue, 11 Feb 2025 22:13:20 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 5A9F55C540D;
+ Tue, 11 Feb 2025 22:32:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BD01C4CEDD;
+ Tue, 11 Feb 2025 22:33:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,178 +41,185 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 688a0cd4-e8c5-11ef-a075-877d107080fb
+X-Inumbo-ID: 2cfbc5e0-e8c8-11ef-b3ef-695165c68f79
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739312002;
-	bh=lIFIkDT/zbbUxb7mpR22q7vFnsyKNuSSZdkEe7dJvUI=;
+	s=k20201202; t=1739313190;
+	bh=5ZLvwaFeehLasjvJgs+CyQNTW8x2wlO1eLnNv82/pGs=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=I34gPA9a91Rh8Sqj6iX+KjOcFWXklrXLDBLgrbwHtWYFrUBM8nnXXHWHCqT29RrBi
-	 9d0VQUmtjW6Y80YCqL8BgBw42xrQ1h7tzMGXksvbQrjekw0As12BxKK19LJT5p6H0Z
-	 XBzwqb56/TCEXa/ql+AR3jPwaJFA1hBFOe3aSr8pWykzLa6zUcFzaTGemSyx7wXq7o
-	 q/UUM/yA4v/Ejpz/R2RYCV4gv7w/O0l+HTxVFLzrYv03fzWXIwFsBmSm4QuUpvV9/v
-	 0q6vtIPsR4xTmXbjC5kWHlvq+8+kSFjg/u2kC48IN84mMKiBPc76Tt9IKJj/QnfkZ/
-	 tS6r9xN7z2qxg==
-Date: Tue, 11 Feb 2025 14:13:19 -0800 (PST)
+	b=W1p/1c9WROahDcZ3x6OgzuuZKvIAOYC7OVYPA0vtMRGfz9klYtpn90syrKdsTUDGB
+	 pVXbaGnm2rUAGYoxd2RDR/Chg56T2GQLGg+EePYwl9K4YMVhM8kFUvMkPj0DXcZP6C
+	 Di4GMUTwy3UBhSLyjXzIPJdnBm7LkdRlctGjeqGft7POZsPzkFVisS6zlRzGU0vk9R
+	 gPyNtr++ozvarMFyqPufR+EsMma10a/m0cbZL+ti/tpfrxB7MjMzs/4Jv86i4qvofx
+	 1MdvI1vbLMt9rrbw2QStgPhHAmiFd2Gy4Akf8y0HkmpYDQruz3C+2p8FMH32sKu+aK
+	 J7Corhwp5XFVw==
+Date: Tue, 11 Feb 2025 14:33:08 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: dmkhn@proton.me
-cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, 
-    anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, 
-    michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, 
-    dmukhin@ford.com
-Subject: Re: [PATCH v2] xen/include: introduce resource.h
-In-Reply-To: <20250211155517.237048-1-dmkhn@proton.me>
-Message-ID: <alpine.DEB.2.22.394.2502111413140.619090@ubuntu-linux-20-04-desktop>
-References: <20250211155517.237048-1-dmkhn@proton.me>
+To: Oleksandr Andrushchenko <andr2000@gmail.com>
+cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Artem Mygaiev <Artem_Mygaiev@epam.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: Coding Style Review and Automation
+In-Reply-To: <5a15f8e2-079c-405a-95ce-92585ac529cd@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2502111426380.619090@ubuntu-linux-20-04-desktop>
+References: <5a15f8e2-079c-405a-95ce-92585ac529cd@gmail.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Tue, 11 Feb 2025, dmkhn@proton.me wrote:
-> From: Denis Mukhin <dmukhin@ford.com>
-> 
-> Move resource definitions to a new architecture-agnostic shared header file.
-> 
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+Hi Oleksandr,
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+This morning, we had a discussion among maintainers, and the suggested
+approach moving forward is as follows:
+
+- First, it would be helpful to see a sample of the proposed changes
+  applied to a single source file as an example. If you could provide
+  such a patch, it would help advance the discussion.
+
+- If the changes are acceptable, we need to properly document the new
+  coding style in xen.git. If not, we will need to iterate again. We may
+  also need to add a "xen" template to clang-format.
+
+- Once finalized, we will proceed by making changes to the Xen source
+  code piece by piece, as you suggested, rather than applying a single
+  large patch.
+
+Let me know your thoughts.
+
+Cheers,
+Stefano
 
 
-> ---
-> Changes in v2:
-> - Formatting fixes
-> - Link to v1: https://lore.kernel.org/xen-devel/20250207231814.3863449-1-dmukhin@ford.com/
-> ---
->  xen/common/device-tree/device-tree.c | 21 +----------------
->  xen/drivers/passthrough/arm/smmu.c   | 18 +++------------
->  xen/include/xen/resource.h           | 34 ++++++++++++++++++++++++++++
->  3 files changed, 38 insertions(+), 35 deletions(-)
->  create mode 100644 xen/include/xen/resource.h
+On Mon, 10 Feb 2025, Oleksandr Andrushchenko wrote:
+> Hello, everybody!
 > 
-> diff --git a/xen/common/device-tree/device-tree.c b/xen/common/device-tree/device-tree.c
-> index d0528c5825..e8f810b2fe 100644
-> --- a/xen/common/device-tree/device-tree.c
-> +++ b/xen/common/device-tree/device-tree.c
-> @@ -24,6 +24,7 @@
->  #include <xen/ctype.h>
->  #include <asm/setup.h>
->  #include <xen/err.h>
-> +#include <xen/resource.h>
->  
->  const void *device_tree_flattened;
->  dt_irq_xlate_func dt_irq_xlate;
-> @@ -535,26 +536,6 @@ int dt_child_n_size_cells(const struct dt_device_node *parent)
->      return __dt_n_size_cells(parent, true);
->  }
->  
-> -/*
-> - * These are defined in Linux where much of this code comes from, but
-> - * are currently unused outside this file in the context of Xen.
-> - */
-> -#define IORESOURCE_BITS         0x000000ff      /* Bus-specific bits */
-> -
-> -#define IORESOURCE_TYPE_BITS    0x00001f00      /* Resource type */
-> -#define IORESOURCE_IO           0x00000100      /* PCI/ISA I/O ports */
-> -#define IORESOURCE_MEM          0x00000200
-> -#define IORESOURCE_REG          0x00000300      /* Register offsets */
-> -#define IORESOURCE_IRQ          0x00000400
-> -#define IORESOURCE_DMA          0x00000800
-> -#define IORESOURCE_BUS          0x00001000
-> -
-> -#define IORESOURCE_PREFETCH     0x00002000      /* No side effects */
-> -#define IORESOURCE_READONLY     0x00004000
-> -#define IORESOURCE_CACHEABLE    0x00008000
-> -#define IORESOURCE_RANGELENGTH  0x00010000
-> -#define IORESOURCE_SHADOWABLE   0x00020000
-> -
->  /*
->   * Default translator (generic bus)
->   */
-> diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
-> index 03d22bce1e..0f8d47dc98 100644
-> --- a/xen/drivers/passthrough/arm/smmu.c
-> +++ b/xen/drivers/passthrough/arm/smmu.c
-> @@ -50,6 +50,7 @@
->  #include <xen/rbtree.h>
->  #include <xen/sched.h>
->  #include <xen/sizes.h>
-> +#include <xen/resource.h>
->  #include <asm/atomic.h>
->  #include <asm/device.h>
->  #include <asm/io.h>
-> @@ -64,6 +65,8 @@
->  
->  /* Alias to Xen device tree helpers */
->  #define device_node dt_device_node
-> +#define platform_device dt_device_node
-> +
->  #define of_phandle_args dt_phandle_args
->  #define of_device_id dt_device_match
->  #define of_match_node dt_match_node
-> @@ -71,21 +74,6 @@
->  #define of_property_read_bool dt_property_read_bool
->  #define of_parse_phandle_with_args dt_parse_phandle_with_args
->  
-> -/* Xen: Helpers to get device MMIO and IRQs */
-> -struct resource
-> -{
-> -	paddr_t addr;
-> -	paddr_t size;
-> -	unsigned int type;
-> -};
-> -
-> -#define resource_size(res) (res)->size;
-> -
-> -#define platform_device dt_device_node
-> -
-> -#define IORESOURCE_MEM 0
-> -#define IORESOURCE_IRQ 1
-> -
->  static struct resource *platform_get_resource(struct platform_device *pdev,
->  					      unsigned int type,
->  					      unsigned int num)
-> diff --git a/xen/include/xen/resource.h b/xen/include/xen/resource.h
-> new file mode 100644
-> index 0000000000..5d10363128
-> --- /dev/null
-> +++ b/xen/include/xen/resource.h
-> @@ -0,0 +1,34 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * System resource description.
-> + */
-> +#ifndef XEN__RESOURCE_H
-> +#define XEN__RESOURCE_H
-> +
-> +#define IORESOURCE_BITS         0x000000FFU      /* Bus-specific bits */
-> +
-> +#define IORESOURCE_TYPE_BITS    0x00001F00U      /* Resource type */
-> +#define IORESOURCE_IO           0x00000100U      /* PCI/ISA I/O ports */
-> +#define IORESOURCE_MEM          0x00000200U
-> +#define IORESOURCE_REG          0x00000300U      /* Register offsets */
-> +#define IORESOURCE_IRQ          0x00000400U
-> +#define IORESOURCE_DMA          0x00000800U
-> +#define IORESOURCE_BUS          0x00001000U
-> +
-> +#define IORESOURCE_PREFETCH     0x00002000U      /* No side effects */
-> +#define IORESOURCE_READONLY     0x00004000U
-> +#define IORESOURCE_CACHEABLE    0x00008000U
-> +#define IORESOURCE_RANGELENGTH  0x00010000U
-> +#define IORESOURCE_SHADOWABLE   0x00020000U
-> +
-> +#define IORESOURCE_UNKNOWN      (~0U)
-> +
-> +struct resource {
-> +    paddr_t addr;
-> +    paddr_t size;
-> +    unsigned int type;
-> +};
-> +
-> +#define resource_size(res)      ((res)->size)
-> +
-> +#endif /* XEN__RESOURCE_H */
-> -- 
-> 2.34.1
+> What is the rationale behind introducing a tool to help with coding style
+> verification? I will partially quote Viktor Mitin here [2]:
 > 
+> "The Xen Project has a coding standard in place, but like many projects, the
+> standard is only enforced through peer review. Such mistakes slip through and
+> code is imported from other projects which may not follow the same standard.
+> The
+> goal would be to come up with a tool that can audit the code base as part of a
+> CI loop for code style inconsistencies and potentially provide corrections.
+> This
+> tool is to embed as a part of the continuous integration loop."
+> 
+> I would add that it would better reflect reality to say that Xen's coding
+> style
+> is quite incomplete to become a standard and needs some improvement to achieve
+> that.
+> 
+> Here, I would like to provide a bit of history and acknowledge those brave
+> individuals who dared and tried to introduce to Xen coding style checking and
+> formatting support with clang-format.
+> 
+> Year 2017, Ishani Chugh.
+> ---------------------------------------------------------------------
+> This journey began with a request from an Outreachy program member [1].
+> Then came the first patches by Ishani Chugh [2]
+> Status: *busted*.
+> 
+> Year 2019, Viktor Mitin
+> ---------------------------------------------------------------------
+> Then picked up by Viktor Mitin, EPAM's first attempt [3].
+> Status: *busted*.
+> 
+> Year 2020, Anastasiia Lukianenko
+> ---------------------------------------------------------------------
+> Continued by Anastasiia Lukianenko, EPAM's second attempt [4], [5].
+> Some contributions were made to LLVM to make clang-format a better fit for
+> Xen [6].
+> Xen-summit and presentation [7] and the summary document [8].
+> Status: *busted*.
+> 
+> Year 2023, Luca Fancellu
+> ---------------------------------------------------------------------
+> Luca restarted it, first ARM attempt [9], [10], [11].
+> Status: *busted*.
+> 
+> That's all for now, but it is still impressive as of 2025.
+> 
+> So, in my opinion, what were the main issues with all these attempts? There
+> are
+> many different views, but I would emphasize the following:
+> 
+> 1) clang-format doesn't perfectly fit Xen's code style as some rules it
+> applies
+> are not liked by the community or it applies rules that Xen's coding style
+> doesn't define (those Luca described in his .clang-format for every clang
+> option).
+> 
+> 2) clang-format doesn't work in a "one-option-at-a-time" mode [12]: clang
+> maintainers strongly oppose requests to allow turning off all options except
+> some. Believe it or not, other maintainers also have strong opinions on what
+> is
+> right and what is not for their projects, and this is one area where they will
+> not compromise.
+> 
+> 3) The size of the patch after applying clang-format is huge. Really.
+> Something
+> like 9 MB. Even if everyone agrees that the approach is good and we can
+> proceed
+> with it, it is highly unlikely anyone will be able to review it. Considering
+> that new patches are being added to the upstream during such a review, it may
+> also lead to new code style violations or require a new review of that huge
+> patch.
+> 
+> 4) Which clang-format version should we set as the one used by Xen, so it is
+> easy for everyone to use it on their hosts?
+> 
+> 5) You name it. I think many people in the community can name their points for
+> and against clang-format.
+> 
+> So, in this attempt, I would suggest the following approach:
+> I think that I could start sending patches after the latest .clang-format 21
+> for
+> some part of Xen, ARM code base for example, using work already done by Luca.
+> This way:
+> 
+> 1) Patches are formatted with clang-format, which is a strong plus.
+> 2) The diff is well maintained and I can still alter it by hand if there are
+> comments or dislikes.
+> 3) Finally, when the patch is accepted, we can be more confident that
+> clang-format will find far fewer inconsistencies than if it were just applied
+> to
+> the "raw" code. Thus, the next time clang-format runs, it will produce a much
+> smaller patch than before.
+> 4) Finally, introduce clang-format and run it on the leftovers: at this stage,
+> it would be much easier to discuss every option clang has and the resulting
+> output it produces.
+> 5) Update existing/add new rules to the Xen coding style based on community
+> agreements and the results of this activity.
+> 
+> We may define the subsystems to start this activity on and also define an
+> acceptable size of the patch for review, say 100K. Considering that the longer
+> the review, the more outdated the patch becomes and will require a new round
+> as
+> new code comes in.
+> 
+> I would love to hear from the community on this approach and finally get it
+> done. Not busted.
+> 
+> Stay safe,
+> Oleksandr Andrushchenko
+> 
+> [1]
+> https://lore.kernel.org/xen-devel/1130763396.5603480.1492372859631.JavaMail.zimbra@research.iiit.ac.in/T/#m1db2521362edd286875acf10296873993226dcf2
+> [2] https://lists.xenproject.org/archives/html/xen-devel/2017-04/msg01739.html
+> [3] https://lists.xenproject.org/archives/html/xen-devel/2019-07/msg01862.html
+> [4] https://lists.xenproject.org/archives/html/xen-devel/2020-09/msg02157.html
+> [5] https://lists.xenproject.org/archives/html/xen-devel/2020-10/msg00022.html
+> [6] https://reviews.llvm.org/D91950
+> [7]
+> https://xenproject.org/blog/clang-format-for-xen-coding-style-checking-scheduled/
+> [8]
+> https://docs.google.com/document/d/1MDzYkPgfVpI_UuO_3NRXsRLAXqIZ6pj2btF7vsMYj8o
+> [9] https://lists.xenproject.org/archives/html/xen-devel/2023-10/msg02294.html
+> [10]
+> https://lists.xenproject.org/archives/html/xen-devel/2023-11/msg00498.html
+> [11]
+> https://lists.xenproject.org/archives/html/xen-devel/2023-11/msg01993.html
+> [12] https://github.com/llvm/llvm-project/issues/54137#issuecomment-1058564570
 > 
 
