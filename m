@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12B89A309D9
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 12:24:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.885425.1295233 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC0AFA309FD
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 12:33:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.885436.1295244 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thoMz-00058j-8X; Tue, 11 Feb 2025 11:24:01 +0000
+	id 1thoVx-0007Kf-0s; Tue, 11 Feb 2025 11:33:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 885425.1295233; Tue, 11 Feb 2025 11:24:01 +0000
+Received: by outflank-mailman (output) from mailman id 885436.1295244; Tue, 11 Feb 2025 11:33:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thoMz-00056S-5m; Tue, 11 Feb 2025 11:24:01 +0000
-Received: by outflank-mailman (input) for mailman id 885425;
- Tue, 11 Feb 2025 11:24:00 +0000
+	id 1thoVw-0007Il-UG; Tue, 11 Feb 2025 11:33:16 +0000
+Received: by outflank-mailman (input) for mailman id 885436;
+ Tue, 11 Feb 2025 11:33:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hVvi=VC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1thoMy-00056M-Jt
- for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 11:24:00 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=OJrH=VC=huawei.com=ruanjinjie@srs-se1.protection.inumbo.net>)
+ id 1thoVv-0007Ia-Kw
+ for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 11:33:15 +0000
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id afb8238a-e86a-11ef-b3ef-695165c68f79;
- Tue, 11 Feb 2025 12:23:58 +0100 (CET)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-ab7e9254bb6so36901566b.1
- for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 03:23:58 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab7c520a3a2sm355586166b.158.2025.02.11.03.23.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Feb 2025 03:23:57 -0800 (PST)
+ id f47a879a-e86b-11ef-b3ef-695165c68f79;
+ Tue, 11 Feb 2025 12:33:06 +0100 (CET)
+Received: from mail.maildlp.com (unknown [172.19.88.105])
+ by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4YsfPX61twzRmPj;
+ Tue, 11 Feb 2025 19:30:08 +0800 (CST)
+Received: from kwepemg200008.china.huawei.com (unknown [7.202.181.35])
+ by mail.maildlp.com (Postfix) with ESMTPS id CA848140159;
+ Tue, 11 Feb 2025 19:33:00 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ kwepemg200008.china.huawei.com (7.202.181.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Tue, 11 Feb 2025 19:32:59 +0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,165 +46,168 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: afb8238a-e86a-11ef-b3ef-695165c68f79
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739273038; x=1739877838; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=WAbxDbRvwrExYaBtP87EYTRbvoBDZ1Y0Jhg17boEwYc=;
-        b=Qa5HL3BYoczZAzH2M3oyszgkcxHJC1Ne9aOnv4UlI9KR1ay0b3MnsQkz2vJDneMl+e
-         Uu/0IS9D8tgYuHNwzDqhyqoFTMl7a4ULPa1n2nHKbjtw/VxfmQ0mxdyNAySiTWIujn3e
-         BIcxQSG/217GZkt5dWcwPZjVLyMWD2ACn81YVckd0Dh3noasoEyNu5h9U5vrMTafSVzD
-         3KSC1ySM3g5Pdw9QjszARqC1eqjqsqdMptBn4aGJOBtsRbXHYXjRPjG8sfC/T+ytGP07
-         a4gc0vO5SXIz7akvunkLQ7hMCE0s7aowv/t+7EfLLSixKTtS3dqwrKNwDCbYgbJJy2HO
-         y3Gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739273038; x=1739877838;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=WAbxDbRvwrExYaBtP87EYTRbvoBDZ1Y0Jhg17boEwYc=;
-        b=wyM07ZA9I6BWQ9cDcKwE/b35qq2ltd2cMkWL8kSAI6m6jD9QY4xetxy0cuGrpge2Z+
-         xLapZgby4h5JcrhDz8cvm+Zh4D6FR8vkec1frkS0GzIWVtp/sU6gQlw1/U4EMFHXDtBc
-         Cg864CrqUAFPtAZroLdv7aKbysKxgOg5uUlNPpUh+qTTKxy/hk77cXA9NRP9QBEUlcNH
-         GZrTUgLwsRNs7QKvK9+B3e8By7KmEo9HKxGr5TSwe+FFR4ZZGQsQbpvoV2KbsNlTG4ZZ
-         uRZbnYrWbbH+NfpmqbReNWAM/VKGI4P+YpzjTP7qyR0wzncPBz99f9Sqv2pZl/UtQR09
-         Tcew==
-X-Forwarded-Encrypted: i=1; AJvYcCXiitleRO/+2EJd27Fl+ksBWQMdw+vEV0TdCQdflTC5J7by5ucxTpVkJjhhSbHyX/UT3Ah18H2xxls=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxEoDTcjWaE7UbSBqmvcNxYZoMidGGVAOPsiPD2d/UVSjiGg7WC
-	GfQQtAE8pgYh28FD84ar6tYF16jsWftvsJV2enCkx1gZKm7A87e/vbO7/lGSjgA117LItCsR4Pg
-	=
-X-Gm-Gg: ASbGncuRdAScpTtq+DjPISLD0+Zywk8wtwMMG2XSp6bQEa6Q6sjJWtwLk/V6McRuXAq
-	jGx/MdP9ekFgN7JvYmGexsSIEUZtoYu3YXjxIkdBa8ImIpmmgc6uZz0nsmMmNQ66xEDJ1481bW5
-	FNz7lhbBa/cHJ3hNTsN0GXBzkfr9B/3n3avDStqVl69QU3q5PnkT9+cIHBMFO7mqq118jVeeO1r
-	h93RY9Hqoc7aScMvaWJQnjt0wqcvWHAkeLn7xFiOzAyj5Eg5EIrAYUS9nfu1Kha44IcseKmSRh0
-	d6aDYXaFqGzjAZH3G21w31Jds2TQTDGsiVGtfPzotE0oqQpPcJ0bXl5GzeKhgIYSvcrxGw7El+0
-	t
-X-Google-Smtp-Source: AGHT+IGsFciMtf64JJzIw7UhLKf7RPTG/oh6MyD6FIGuTVbGWPlymxFyuI9NpbNTbPfvDnY7OUSBqQ==
-X-Received: by 2002:a17:907:d40f:b0:ab7:dec1:b353 with SMTP id a640c23a62f3a-ab7dec1cf1bmr250221666b.49.1739273037940;
-        Tue, 11 Feb 2025 03:23:57 -0800 (PST)
-Message-ID: <a0ea8bdb-4168-4b0b-895b-ba0fcf1caf79@suse.com>
-Date: Tue, 11 Feb 2025 12:23:56 +0100
+X-Inumbo-ID: f47a879a-e86b-11ef-b3ef-695165c68f79
+Message-ID: <b54bae8c-5106-41aa-60ab-27146660a16e@huawei.com>
+Date: Tue, 11 Feb 2025 19:32:58 +0800
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.20 v3 1/5] x86/shutdown: offline APs with interrupts
- disabled on all CPUs
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: oleksii.kurochko@gmail.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20250211110209.86974-1-roger.pau@citrix.com>
- <20250211110209.86974-2-roger.pau@citrix.com>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.0
+Subject: Re: [PATCH -next v5 11/22] arm64: entry: Switch to generic IRQ entry
+To: Mark Rutland <mark.rutland@arm.com>
+CC: <catalin.marinas@arm.com>, <will@kernel.org>, <oleg@redhat.com>,
+	<sstabellini@kernel.org>, <tglx@linutronix.de>, <peterz@infradead.org>,
+	<luto@kernel.org>, <mingo@redhat.com>, <juri.lelli@redhat.com>,
+	<vincent.guittot@linaro.org>, <dietmar.eggemann@arm.com>,
+	<rostedt@goodmis.org>, <bsegall@google.com>, <mgorman@suse.de>,
+	<vschneid@redhat.com>, <kees@kernel.org>, <wad@chromium.org>,
+	<akpm@linux-foundation.org>, <samitolvanen@google.com>,
+	<masahiroy@kernel.org>, <hca@linux.ibm.com>, <aliceryhl@google.com>,
+	<rppt@kernel.org>, <xur@google.com>, <paulmck@kernel.org>, <arnd@arndb.de>,
+	<mbenes@suse.cz>, <puranjay@kernel.org>, <pcc@google.com>, <ardb@kernel.org>,
+	<sudeep.holla@arm.com>, <guohanjun@huawei.com>, <rafael@kernel.org>,
+	<liuwei09@cestc.cn>, <dwmw@amazon.co.uk>, <Jonathan.Cameron@huawei.com>,
+	<liaochang1@huawei.com>, <kristina.martsenko@arm.com>, <ptosi@google.com>,
+	<broonie@kernel.org>, <thiago.bauermann@linaro.org>, <kevin.brodsky@arm.com>,
+	<joey.gouly@arm.com>, <liuyuntao12@huawei.com>, <leobras@redhat.com>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<xen-devel@lists.xenproject.org>
+References: <20241206101744.4161990-1-ruanjinjie@huawei.com>
+ <20241206101744.4161990-12-ruanjinjie@huawei.com>
+ <Z6nv9SLi0za8tE69@J2N7QTR9R3>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250211110209.86974-2-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <Z6nv9SLi0za8tE69@J2N7QTR9R3>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.67.109.254]
+X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
+ kwepemg200008.china.huawei.com (7.202.181.35)
 
-On 11.02.2025 12:02, Roger Pau Monne wrote:
-> The current shutdown logic in smp_send_stop() will disable the APs while
-> having interrupts enabled on the BSP or possibly other APs. On AMD systems
-> this can lead to local APIC errors:
-> 
-> APIC error on CPU0: 00(08), Receive accept error
-> 
-> Such error message can be printed in a loop, thus blocking the system from
-> rebooting.  I assume this loop is created by the error being triggered by
-> the console interrupt, which is further stirred by the ESR handler
-> printing to the console.
-> 
-> Intel SDM states:
-> 
-> "Receive Accept Error.
-> 
-> Set when the local APIC detects that the message it received was not
-> accepted by any APIC on the APIC bus, including itself. Used only on P6
-> family and Pentium processors."
-> 
-> So the error shouldn't trigger on any Intel CPU supported by Xen.
-> 
-> However AMD doesn't make such claims, and indeed the error is broadcast to
-> all local APICs when an interrupt targets a CPU that's already offline.
-> 
-> To prevent the error from stalling the shutdown process perform the
-> disabling of APs and the BSP local APIC with interrupts disabled on all
-> CPUs in the system, so that by the time interrupts are unmasked on the BSP
-> the local APIC is already disabled.  This can still lead to a spurious:
-> 
-> APIC error on CPU0: 00(00)
-> 
-> As a result of an LVT Error getting injected while interrupts are masked on
-> the CPU, and the vector only handled after the local APIC is already
-> disabled.  ESR reports 0 because as part of disable_local_APIC() the ESR
-> register is cleared.
-> 
-> Note the NMI crash path doesn't have such issue, because disabling of APs
-> and the caller local APIC is already done in the same contiguous region
-> with interrupts disabled.  There's a possible window on the NMI crash path
-> (nmi_shootdown_cpus()) where some APs might be disabled (and thus
-> interrupts targeting them raising "Receive accept error") before others APs
-> have interrupts disabled.  However the shutdown NMI will be handled,
-> regardless of whether the AP is processing a local APIC error, and hence
-> such interrupts will not cause the shutdown process to get stuck.
-> 
-> Remove the call to fixup_irqs() in smp_send_stop(): it doesn't achieve the
-> intended goal of moving all interrupts to the BSP anyway.  The logic in
-> fixup_irqs() will move interrupts whose affinity doesn't overlap with the
-> passed mask, but the movement of interrupts is done to any CPU set in
-> cpu_online_map.  As in the shutdown path fixup_irqs() is called before APs
-> are cleared from cpu_online_map this leads to interrupts being shuffled
-> around, but not assigned to the BSP exclusively.
 
-Which would have been possible to address by changing to something like
 
-        if ( !cpumask_intersects(mask, desc->affinity) )
-        {
-            break_affinity = true;
-            cpumask_copy(affinity, mask);
-        }
-        else
-            cpumask_and(affinity, mask, desc->affinity);
+On 2025/2/10 20:24, Mark Rutland wrote:
+> On Fri, Dec 06, 2024 at 06:17:33PM +0800, Jinjie Ruan wrote:
+>> Currently, x86, Riscv, Loongarch use the generic entry. Convert arm64
+>> to use the generic entry infrastructure from kernel/entry/*.
+>> The generic entry makes maintainers' work easier and codes
+>> more elegant.
+>>
+>> Switch arm64 to generic IRQ entry first, which removed duplicate 100+
+>> LOC, and it will switch to generic entry completely later. Switch to
+>> generic entry in two steps according to Mark's suggestion will make
+>> it easier to review.
+>>
+>> The changes are below:
+>>  - Remove *enter_from/exit_to_kernel_mode(), and wrap with generic
+>>    irqentry_enter/exit(). Also remove *enter_from/exit_to_user_mode(),
+>>    and wrap with generic enter_from/exit_to_user_mode() because they
+>>    are exactly the same so far.
+>>
+>>  - Remove arm64_enter/exit_nmi() and use generic irqentry_nmi_enter/exit()
+>>    because they're exactly the same, so the temporary arm64 version
+>>    irqentry_state can also be removed.
+>>
+>>  - Remove PREEMPT_DYNAMIC code, as generic entry do the same thing
+>>    if arm64 implement arch_irqentry_exit_need_resched().
+>>
+>> Suggested-by: Mark Rutland <mark.rutland@arm.com>
+>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+>> ---
+>>  arch/arm64/Kconfig                    |   1 +
+>>  arch/arm64/include/asm/entry-common.h |  64 ++++++
+>>  arch/arm64/include/asm/preempt.h      |   6 -
+>>  arch/arm64/kernel/entry-common.c      | 307 ++++++--------------------
+>>  arch/arm64/kernel/signal.c            |   3 +-
+>>  5 files changed, 129 insertions(+), 252 deletions(-)
+>>  create mode 100644 arch/arm64/include/asm/entry-common.h
+> 
+> Superficially this looks nice, but to be clear I have *not* looked at
+> this in great detail; minor comments below.
+> 
+> [...]
+> 
+>> +static inline void arch_exit_to_user_mode_prepare(struct pt_regs *regs,
+>> +						  unsigned long ti_work)
+>> +{
+>> +	local_daif_mask();
+>> +}
+>> +
+>> +#define arch_exit_to_user_mode_prepare arch_exit_to_user_mode_prepare
+> 
+> I'm a little worried that this may be fragile having been hidden in the
+> common code, as it's not clear exactly when this will occur during the
+> return sequence, and the ordering requirements could easily be broken by
+> refactoring there.
+> 
+> I suspect we'll want to pull this later in the arm64 exit sequence so
+> that we can have it explicit in entry-common.c.
 
-there, I guess.
+Yes, this key function is hidden in generic entry code and is not easy
+to clear and see when it is executed. But placing it directly in
+entry-common.c in arm64 may change the order in which lockdep_sys_exit()
+and local_daif_mask() are called, it's not clear what the potential
+impact is.
 
-> The Fixes tag is more of a guess than a certainty; it's possible the
-> previous sleep window in fixup_irqs() allowed any in-flight interrupt to be
-> delivered before APs went offline.  However fixup_irqs() was still
-> incorrectly used, as it didn't (and still doesn't) move all interrupts to
-> target the provided cpu mask.
+Before:
+   exit_to_user_mode_prepare()
+      ...
+      -> local_daif_mask()
+      -> lockdep_sys_exit()
 
-Plus there's the vector shortage aspect, if everything was moved to the
-BSP. I don't think that's possible to get past without doing what you
-do.
 
-> Fixes: e2bb28d62158 ('x86/irq: forward pending interrupts to new destination in fixup_irqs()')
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+arm64_exit_to_user_mode()
+  ...
+  -> exit_to_user_mode_prepare()
+     -> lockdep_sys_exit()
+  -> local_daif_mask()
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> 
+> [...]
+> 
+>> index 14ac6fdb872b..84b6628647c7 100644
+>> --- a/arch/arm64/kernel/signal.c
+>> +++ b/arch/arm64/kernel/signal.c
+>> @@ -9,6 +9,7 @@
+>>  #include <linux/cache.h>
+>>  #include <linux/compat.h>
+>>  #include <linux/errno.h>
+>> +#include <linux/irq-entry-common.h>
+>>  #include <linux/kernel.h>
+>>  #include <linux/signal.h>
+>>  #include <linux/freezer.h>
+>> @@ -1603,7 +1604,7 @@ static void handle_signal(struct ksignal *ksig, struct pt_regs *regs)
+>>   * the kernel can handle, and then we build all the user-level signal handling
+>>   * stack-frames in one go after that.
+>>   */
+>> -void do_signal(struct pt_regs *regs)
+>> +void arch_do_signal_or_restart(struct pt_regs *regs)
+>>  {
+>>  	unsigned long continue_addr = 0, restart_addr = 0;
+>>  	int retval = 0;
+> 
+> Is the expected semantic the same here, or is those more than just a
+> name change?
 
-Jan
+Yes, the expected semantic is the same here, they both handle
+_TIF_SIGPENDING and _TIF_NOTIFY_SIGNAL thread flags before
+exit to user.
+
+In arm64 the code call sequence is:
+
+  exit_to_user_mode()
+     -> exit_to_user_mode_prepare()
+        -> do_notify_resume(regs, flags)
+           -> if (thread_flags & (_TIF_SIGPENDING | _TIF_NOTIFY_SIGNAL))
+                 do_signal(regs)
+
+In generic entry code, the logic is the same:
+
+  exit_to_user_mode_prepare()
+      -> exit_to_user_mode_loop()
+          -> if (ti_work & (_TIF_SIGPENDING | _TIF_NOTIFY_SIGNAL))
+                 arch_do_signal_or_restart(regs)
+
+> 
+> Mark.
+> 
 
