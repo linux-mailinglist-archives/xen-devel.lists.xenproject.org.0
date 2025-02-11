@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91A86A3064F
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 09:51:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.885144.1294920 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2464A3068F
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 10:02:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.885153.1294932 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thlyV-0006pn-Cx; Tue, 11 Feb 2025 08:50:35 +0000
+	id 1thm9J-0000KG-Dl; Tue, 11 Feb 2025 09:01:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 885144.1294920; Tue, 11 Feb 2025 08:50:35 +0000
+Received: by outflank-mailman (output) from mailman id 885153.1294932; Tue, 11 Feb 2025 09:01:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thlyV-0006ne-AD; Tue, 11 Feb 2025 08:50:35 +0000
-Received: by outflank-mailman (input) for mailman id 885144;
- Tue, 11 Feb 2025 08:50:33 +0000
+	id 1thm9J-0000Gc-B1; Tue, 11 Feb 2025 09:01:45 +0000
+Received: by outflank-mailman (input) for mailman id 885153;
+ Tue, 11 Feb 2025 09:01:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jP5V=VC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1thlyT-0006nY-TC
- for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 08:50:33 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ id 1thm9H-0000G4-NK
+ for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 09:01:43 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3e8dc558-e855-11ef-a075-877d107080fb;
- Tue, 11 Feb 2025 09:50:29 +0100 (CET)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5d9837f201aso12210299a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 00:50:29 -0800 (PST)
+ id cf9cae50-e856-11ef-a075-877d107080fb;
+ Tue, 11 Feb 2025 10:01:42 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-ab7e80c4b55so35958766b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 01:01:42 -0800 (PST)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5de61657531sm5811854a12.52.2025.02.11.00.50.28
+ 4fb4d7f45d1cf-5de59f893ebsm6621219a12.45.2025.02.11.01.01.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Feb 2025 00:50:28 -0800 (PST)
+ Tue, 11 Feb 2025 01:01:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,79 +44,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e8dc558-e855-11ef-a075-877d107080fb
+X-Inumbo-ID: cf9cae50-e856-11ef-a075-877d107080fb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1739263829; x=1739868629; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1739264501; x=1739869301; darn=lists.xenproject.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=4wqNUzCdc9QtU9G8322+wrH+hK3LuhUTXI0jZXL0dHI=;
-        b=umNzrMZaQD6zKvOb7Jg3aQNJ1vy2WiqIOWGNEZZJBDwmWY3ykae0HQor++dR1nsoE4
-         z10RhADvLsSQgW2CTjOwKIlcmmOG9X+HRvSI1hA4q8RwDVrK8yqmqyhFMjnJP/3kgLd1
-         XakIyQL6KcrHGri8V9rILkZzRL/WvAW8jSACA=
+        bh=ZtqJY5Ibx/lvkqcUODKvXfScDCKtMqVuB9CA4GaRJe8=;
+        b=ns5ivmBlkuRynRBW5BjjHOoTzpArjxDHH0u+VCFJLtEh3IS6C1oihFg12zPBOsY55e
+         3Apr+STw76x3BWe9zGIsju5B2QJZ59C/fuT6kt8kOnCg3PC8M4dfoOBYTaYeRVtIiY4B
+         ovOgJYu5IXBryOksFaipRHGzipqpEnfZt6UtI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739263829; x=1739868629;
+        d=1e100.net; s=20230601; t=1739264501; x=1739869301;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4wqNUzCdc9QtU9G8322+wrH+hK3LuhUTXI0jZXL0dHI=;
-        b=sNKkHlrz2P28LHi30YO5wYWa9RN+2L8gZl8slL1+P+AG1KLxAli2M3BO/CnRT0mBaP
-         PkDZMY5DnVUKA7hryPaOOzARh++HW22m3c2Ov1yAv0Uov+tPBPDbS9tz0QjP/tZdlUaa
-         1ExDJccesNmLsDzzgVFm1VBpFHaaEKsJCQgJRNqY7Htesf5Zvrq4K2H+Pn9upXeB4YVR
-         SNRQnfJAxbq6bpmnk+B3IN10c/KqdVK6IgbgQXwD130xjv5MJmT4J1c4SYbLJCm+V5ph
-         Gn1p/34MpBJKeLWuk2DmG0oB7iPPAeStk+vQllziwa3Q1pkXnLU+XjUZYs8egNroFxqD
-         lLoQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWx+l5R7sLm8cvmScsc5C4Mu8KGWD2FVzcBpL37RJHPrhMK3y6lfd5vcMmDokR46Vl/9QYXQfacUmw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxn4JXxEjaGL2EeBukOyN4JkCrzBimp5ktNbaB5nocF5do/dVXE
-	VIY1nSP6LzAVupU9X0ImWtb7mVRY/Wh20wclwrWFou+8gGu+zdhBgyqwU/D9X/4=
-X-Gm-Gg: ASbGnctrASHvfTFwSgHk3WzCknuYu63KnYoXDe6DhszVl07WkJUY60a3KcmrNTR5cWs
-	C/+kteDg4Nk+6tssYg4rld2EPtu8UZJBkQPPO8vEMv4yEgUdRSwg9ZXs08bwOvQWIIJABLQRakP
-	h90a2iFngg7UzmMaY4oP2NwBsYoxWJ678vCVw0K4Smp9Mz7sLmQIUCjOn/jMe2+DPSSLXheU0Ux
-	GrNithQSoB4xz0MSdt12Pul2/7Vg+y2Phc+OZrwvA6vyYj14YxGBu//WSiP9ZJT8wszjnwzyNyX
-	mW/kZeBXw4/0tlfknKp+
-X-Google-Smtp-Source: AGHT+IHbJHwLFwKcWOFSHl3Pw9/tFM2I8XIGu2EzST7Z2j5bJlomAWe23aWi5QWzvNZi6a+OC2o6lA==
-X-Received: by 2002:a05:6402:254e:b0:5de:5857:1fef with SMTP id 4fb4d7f45d1cf-5de9b9dc42bmr2458110a12.13.1739263828630;
-        Tue, 11 Feb 2025 00:50:28 -0800 (PST)
-Date: Tue, 11 Feb 2025 09:50:27 +0100
+        bh=ZtqJY5Ibx/lvkqcUODKvXfScDCKtMqVuB9CA4GaRJe8=;
+        b=dxTbuAdDrky7WLvUiFVqHzxsZBG3V0Hny+ZHdRVQFyNfcJxV8ZUsVc+pCQXPdUBCTm
+         +eAtbDIlUQzOlTB3LvwSG7ny8ar/hG6KqHCZfuZvAMPvStPms1ijL3d4ZJVCWwF0f3zT
+         X0DV1hmWwKUoh5Zl5odnhjzBjg/82hRGjp1ibshpZcFsw8ozXX+RF7+/NKsb2EpRKqP9
+         J+K0XGLD8VfxYcOf9kufo5GoFfVRd4J0avfI/8BnPelYwdd8gEX4nmmXCG/FkikY+S4X
+         o0YMffAyluBIvWAf6tzItnDRVtmpjwGIWlaeQAOQ6BvKQC8gO8swfdkihcV+0tOS9BSH
+         8KfQ==
+X-Gm-Message-State: AOJu0YyUWGvxOVRNNv92Ni9Yz2tbtSfRLWJaRY7fHY9eUBxnpsWnPGPz
+	CjxzT7FVKbHKEgb2pg+8L1JXPN0ezq+cn6DgaaweMV7FOyIycXUDf9tobkQQGO5EOd+f48FiYLZ
+	Q
+X-Gm-Gg: ASbGnct16IC0CQ/mguS5hf1C2PDLyECor088wqlIgqmsiht99JxEPNEofz2bxNubnSr
+	W32S7j6dXrU2lF/RET8XQkYGmGkIRLHKEjf1qHwVkYKZsYab8F2QhMOUbOpb1gCgPgC/vAm2kDt
+	WG0VmwPLJRNeEjMccS/7CnLwDLOieT7X2xnp/5M3yBovELIN+/61rE4iB0i8fkxj9c2nzMdfcAp
+	4LJxfOmkuYA/eo7YQtwpBaOeHIm23mmpa8+TqfXAIgPkFtvOxF1cRjWqe2j0sDK4fBfPCb+hbjI
+	Smz9K478urFclXOnp4bN
+X-Google-Smtp-Source: AGHT+IHEmdUkio6P+GX5Iq9/dnea3FIPoOVhEdalULIYHqHUYQdzovkF2+nxfP+YFr93gT6ZLPyzcA==
+X-Received: by 2002:a17:907:3e02:b0:ab7:6c4a:6a74 with SMTP id a640c23a62f3a-ab789b7c402mr1772480766b.16.1739264501330;
+        Tue, 11 Feb 2025 01:01:41 -0800 (PST)
+Date: Tue, 11 Feb 2025 10:01:39 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 0/5] xen/x86: prevent local APIC errors at shutdown
-Message-ID: <Z6sPU2y7qHMjAZ30@macbook.local>
-References: <20250206150615.52052-1-roger.pau@citrix.com>
- <c9b8ae2c-ed90-4256-8a61-19ed85b1a774@suse.com>
+To: Oleksandr Andrushchenko <andr2000@gmail.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Artem Mygaiev <Artem_Mygaiev@epam.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: Coding Style Review and Automation
+Message-ID: <Z6sR87FrKcOhgEqX@macbook.local>
+References: <5a15f8e2-079c-405a-95ce-92585ac529cd@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <c9b8ae2c-ed90-4256-8a61-19ed85b1a774@suse.com>
+In-Reply-To: <5a15f8e2-079c-405a-95ce-92585ac529cd@gmail.com>
 
-On Tue, Feb 11, 2025 at 07:39:12AM +0100, Jan Beulich wrote:
-> On 06.02.2025 16:06, Roger Pau Monne wrote:
-> > The following series aims to prevent local APIC errors from stalling the
-> > shtudown process.  On XenServer testing we have seen reports of AMD
-> > boxes sporadically getting stuck in a spam of:
-> > 
-> > APIC error on CPU0: 00(08), Receive accept error
-> > 
-> > Messages during shutdown, as a result of device interrupts targeting
-> > CPUs that are offline (and have the local APIC disabled).
+On Mon, Feb 10, 2025 at 11:16:09PM +0200, Oleksandr Andrushchenko wrote:
+> Hello, everybody!
 > 
-> One more thought here: Have you/we perhaps discovered the reason why there
-> was that 1ms delay at the end of fixup_irqs() that was badly commented,
-> and that you removed in e2bb28d62158 ("x86/irq: forward pending interrupts
-> to new destination in fixup_irqs()")? May be worth mentioning that by way
-> of a Fixes: tag.
+> What is the rationale behind introducing a tool to help with coding style
+> verification? I will partially quote Viktor Mitin here [2]:
+> 
+> "The Xen Project has a coding standard in place, but like many projects, the
+> standard is only enforced through peer review. Such mistakes slip through and
+> code is imported from other projects which may not follow the same standard. The
+> goal would be to come up with a tool that can audit the code base as part of a
+> CI loop for code style inconsistencies and potentially provide corrections. This
+> tool is to embed as a part of the continuous integration loop."
+> 
+> I would add that it would better reflect reality to say that Xen's coding style
+> is quite incomplete to become a standard and needs some improvement to achieve
+> that.
+> 
+> Here, I would like to provide a bit of history and acknowledge those brave
+> individuals who dared and tried to introduce to Xen coding style checking and
+> formatting support with clang-format.
+> 
+> Year 2017, Ishani Chugh.
+> ---------------------------------------------------------------------
+> This journey began with a request from an Outreachy program member [1].
+> Then came the first patches by Ishani Chugh [2]
+> Status: *busted*.
+> 
+> Year 2019, Viktor Mitin
+> ---------------------------------------------------------------------
+> Then picked up by Viktor Mitin, EPAM's first attempt [3].
+> Status: *busted*.
+> 
+> Year 2020, Anastasiia Lukianenko
+> ---------------------------------------------------------------------
+> Continued by Anastasiia Lukianenko, EPAM's second attempt [4], [5].
+> Some contributions were made to LLVM to make clang-format a better fit for
+> Xen [6].
+> Xen-summit and presentation [7] and the summary document [8].
+> Status: *busted*.
+> 
+> Year 2023, Luca Fancellu
+> ---------------------------------------------------------------------
+> Luca restarted it, first ARM attempt [9], [10], [11].
+> Status: *busted*.
+> 
+> That's all for now, but it is still impressive as of 2025.
+> 
+> So, in my opinion, what were the main issues with all these attempts? There are
+> many different views, but I would emphasize the following:
+> 
+> 1) clang-format doesn't perfectly fit Xen's code style as some rules it applies
+> are not liked by the community or it applies rules that Xen's coding style
+> doesn't define (those Luca described in his .clang-format for every clang
+> option).
+> 
+> 2) clang-format doesn't work in a "one-option-at-a-time" mode [12]: clang
+> maintainers strongly oppose requests to allow turning off all options except
+> some. Believe it or not, other maintainers also have strong opinions on what is
+> right and what is not for their projects, and this is one area where they will
+> not compromise.
+> 
+> 3) The size of the patch after applying clang-format is huge. Really. Something
+> like 9 MB. Even if everyone agrees that the approach is good and we can proceed
+> with it, it is highly unlikely anyone will be able to review it. Considering
+> that new patches are being added to the upstream during such a review, it may
+> also lead to new code style violations or require a new review of that huge
+> patch.
 
-Hm, so you think the delay was added there as a way to ensure any
-pending interrupts would get drained (ie: serviced) on the old target?
+I think this approach is difficult.  It would likely introduce a lot
+of noise when using `git blame` (I know, it's just one extra jump,
+but...), plus would likely break every patch that we currently have
+in-flight.
 
-I'm maybe a bit confused, but I don't think the delay would help much
-with preventing the local APIC errors?  Regardless of the wait, if the
-interrupts target offline CPUs there's a chance receive accept errors
-will be triggered on AMD.
+> 4) Which clang-format version should we set as the one used by Xen, so it is
+> easy for everyone to use it on their hosts?
+> 
+> 5) You name it. I think many people in the community can name their points for
+> and against clang-format.
+
+What are the parts of our coding style that clang-format cannot
+correctly represent?  Could you make a list of what would need to
+change in Xen coding style for it to match perfectly what clang-format
+will check?
+
+Ideally the first step would be to prepare a patch to adjust the
+coding style so it's in line with what clang-format will do.
+
+Is it possible for clang-format to be applied exclusively to newly
+added chunks of code, while keeping the surroundings untouched?
 
 Thanks, Roger.
 
