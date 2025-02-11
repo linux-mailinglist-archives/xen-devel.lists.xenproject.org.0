@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35302A3148E
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 20:03:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.885893.1295689 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 095CFA31531
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 20:27:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.885901.1295699 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thvXn-0001rE-AL; Tue, 11 Feb 2025 19:03:39 +0000
+	id 1thvu5-0004w8-16; Tue, 11 Feb 2025 19:26:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 885893.1295689; Tue, 11 Feb 2025 19:03:39 +0000
+Received: by outflank-mailman (output) from mailman id 885901.1295699; Tue, 11 Feb 2025 19:26:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thvXn-0001p6-7d; Tue, 11 Feb 2025 19:03:39 +0000
-Received: by outflank-mailman (input) for mailman id 885893;
- Tue, 11 Feb 2025 19:03:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1thvu4-0004to-UU; Tue, 11 Feb 2025 19:26:40 +0000
+Received: by outflank-mailman (input) for mailman id 885901;
+ Tue, 11 Feb 2025 19:26:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MMBD=VC=flex--seanjc.bounces.google.com=3BZ-rZwYKCTYkWSfbUYggYdW.UgepWf-VWnWddaklk.pWfhjgbWUl.gjY@srs-se1.protection.inumbo.net>)
- id 1thvXk-0001p0-Ud
- for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 19:03:36 +0000
-Received: from mail-pl1-x649.google.com (mail-pl1-x649.google.com
- [2607:f8b0:4864:20::649])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e40f22a5-e8aa-11ef-b3ef-695165c68f79;
- Tue, 11 Feb 2025 20:03:35 +0100 (CET)
-Received: by mail-pl1-x649.google.com with SMTP id
- d9443c01a7336-21f6cb3097bso94463245ad.3
- for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 11:03:34 -0800 (PST)
+ <SRS0=MtP9=VC=gmail.com=salvatore.bonaccorso@srs-se1.protection.inumbo.net>)
+ id 1thvu3-0004ti-Hm
+ for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 19:26:39 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1d13cea8-e8ae-11ef-a075-877d107080fb;
+ Tue, 11 Feb 2025 20:26:38 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-38dcc6bfbccso2591486f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 11:26:38 -0800 (PST)
+Received: from eldamar.lan (c-82-192-244-13.customer.ggaweb.ch.
+ [82.192.244.13]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38dcd0fac67sm12549012f8f.54.2025.02.11.11.26.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Feb 2025 11:26:36 -0800 (PST)
+Received: by eldamar.lan (Postfix, from userid 1000)
+ id 1230DBE2EE7; Tue, 11 Feb 2025 20:26:36 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,72 +46,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e40f22a5-e8aa-11ef-b3ef-695165c68f79
+X-Inumbo-ID: 1d13cea8-e8ae-11ef-a075-877d107080fb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1739300613; x=1739905413; darn=lists.xenproject.org;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=X6RZHwu8fSUx1PRlASdGoMqhsw6pMz1JSKazfVdmFy0=;
-        b=j3E3QBTQvQNAzt2C+D49qcxjnxMogIW1A5HyN5rHOpHly9YP22jvSkj6bPxyNINkLK
-         6PVgPTZ28X3h/IIBmT4avhEYeRY+yMtbqyU1OZKjQQfmr2aGF0iRrh+gv+SYwhQTh5SB
-         mYoFjIi5kxxY3M1banB6+QKk0wu9fqwCWsiFPcB5jh7BCjYgxGC9Qyj1cZxuFP/IWkZ3
-         OYcJN/7ZD96mtHcgLkG+JrbEuxpp2HDopUockiJ8DTLkeeNbUGjOIZ9PIO/iatmdqxte
-         YL0zsUNq4IYaAggs/PXBX8LUdWLMuFYQGZ5eJqT2Em8mEEW5A3Fqs8oAcVVPlOhpemKD
-         HyiA==
+        d=gmail.com; s=20230601; t=1739301998; x=1739906798; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:sender
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=iHUiGt2p3SNBSvSE4F77dmu0tTDl367av9kzRSudXp4=;
+        b=c9eQ7tSu9HVOwrqxKZj1qlHUKGB0AOOie0C4KBNFD8ODuW9zOK7BQNFojh65MrNWFf
+         +yZqZCPx+nrAqh9TyIdGSaBqibqA4mVePa8sucAUvSIDCl55QoKiFDfT7Dtpm7St8T3f
+         0thbBQRerJdwIpoOcKAMwb9vNpwg6ZaV5pE8QIg6nc4qmZIsgEQorNXGVHV2U4nAmvCu
+         ouu+AlOTo1oJpQLCYlN+BtWApVHa5KYXK5SN2/rK0Tz5HUgNhNGlGShVKU13WZum1lJP
+         b8NF9P+OaoozlWfA4mJPYFDRt3lizF/fkZuDtwlbNb7WxK+8u/gtsJJy+qooFeltABSQ
+         +yLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739300613; x=1739905413;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=X6RZHwu8fSUx1PRlASdGoMqhsw6pMz1JSKazfVdmFy0=;
-        b=pIAYgkcizdE96VfX5bmNMj0MJBHW3rwsV0SbElLIfZJBTEPTpIcZjbK9fM9dTUUNvc
-         chRsKhq0KOJnIOQsnRV4C5qYfO7zKlLP3Bpfnx0Q1uuKdbaaFpe2WZDUPhO41Ez5Fxd1
-         Y3qa0JHrw9CkWNdNfRp8cQ3jpORq9IlHbjMhZ1mSQ58V7GnvRaQcppnxjS3m/cy9U4lz
-         0fJjwnPYK8fIERCzoF2IKdxMNhHFo53KYCzw8E3+WJWHQ7A7BnOyMjbIysOWiVKrxmYu
-         t0Ln2pxsRQUvb1CK6W0KKfLM1179ZcZ3efULKz71W0Zk/rGkJC/ruKxHah+8xnIEC6h0
-         6Pbw==
-X-Forwarded-Encrypted: i=1; AJvYcCVq5DxAj8bBN1TPvFXsea1ZauWNSyfcEqzXQiNfN0dJu91MQvEhWvR58GH480J+0sdC/XzFL+Mwc+s=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxfWe/qVWOIlIDH+71ui28Wd8TnI1flL39BnKcAEN63v1+lJ9S4
-	8gYvjuD7SyFf4/vpd0lpyuJr5hEJhereQaVjkKT91H2cXU7JPxVITz0+4CSaGZn67RP+0OIZ+j0
-	RMg==
-X-Google-Smtp-Source: AGHT+IF83FAVS6JbAJzhSAAsNQR7sGHkfYmlENylg6JcCsQBTAIdcwm5DyQRH0pv2Gc0GyUcz7M5iSbKK64=
-X-Received: from pfbbh7.prod.google.com ([2002:a05:6a00:3087:b0:730:7b6c:d5d1])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:258e:b0:1e0:d6ef:521a
- with SMTP id adf61e73a8af0-1ee5c732f01mr650938637.1.1739300613311; Tue, 11
- Feb 2025 11:03:33 -0800 (PST)
-Date: Tue, 11 Feb 2025 11:03:32 -0800
-In-Reply-To: <20250211184021.GFZ6uZlZWPVTI5qO1_@fat_crate.local>
-Mime-Version: 1.0
-References: <20250201021718.699411-1-seanjc@google.com> <20250201021718.699411-2-seanjc@google.com>
- <20250211150114.GCZ6tmOqV4rI04HVuY@fat_crate.local> <Z6uIGwxx9HzZQ-N7@google.com>
- <20250211184021.GFZ6uZlZWPVTI5qO1_@fat_crate.local>
-Message-ID: <Z6ufBMy4u0jcmIl0@google.com>
-Subject: Re: [PATCH 01/16] x86/tsc: Add a standalone helpers for getting TSC
- info from CPUID.0x15
-From: Sean Christopherson <seanjc@google.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>, Juergen Gross <jgross@suse.com>, 
-	"K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
-	Dexuan Cui <decui@microsoft.com>, Ajay Kaher <ajay.kaher@broadcom.com>, 
-	Alexey Makhalov <alexey.amakhalov@broadcom.com>, Jan Kiszka <jan.kiszka@siemens.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Andy Lutomirski <luto@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org, 
-	linux-coco@lists.linux.dev, virtualization@lists.linux.dev, 
-	linux-hyperv@vger.kernel.org, jailhouse-dev@googlegroups.com, 
-	kvm@vger.kernel.org, xen-devel@lists.xenproject.org, 
-	Nikunj A Dadhania <nikunj@amd.com>, Tom Lendacky <thomas.lendacky@amd.com>
-Content-Type: text/plain; charset="us-ascii"
+        d=1e100.net; s=20230601; t=1739301998; x=1739906798;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:sender
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=iHUiGt2p3SNBSvSE4F77dmu0tTDl367av9kzRSudXp4=;
+        b=c9Q4RlfU7RyPiOAJRJP0SY570r/O7DHUPwl8yIlc5rsU6wQvaXTWqDpoIE80CmVn/D
+         z84Sy4+VyXNhVfiEvZJFccxBA5XSJgDvrKFxNrDbJZET9JSgnhELvWKByBwUDTVcVkfW
+         ATN+JIh2QzQkPZ+AlwCdojzhYHzOPb/3q35I0Xd3Jpg5LuyJXjtNw1SU+nnktqP2w0tN
+         jV/wMIXV55LbhknCDmeVHAxm7RJYnGz8bgmpAycGRi4E2ACShiSq0om2dY86EDYKb/Nf
+         sPlbrcyGmmHY9EqY8FBI7rWgwoWpYjonVvg6lcfzrolNWUiFSh8jdjoutLOV1DHGCWs7
+         ve6w==
+X-Forwarded-Encrypted: i=1; AJvYcCUavRDMl3bPRbOEUPloyfOXU1KglrG5zhv8H0OmSxahic9LoC6zamP1ukmbYWYe9b4nS5rv+tUXAnY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwD9CGwoE95LVoWeryQ4Q3Vu0Om5V3LPvdoUSK+7m8QdyhTqzdw
+	b2krIzxOfJpehFSNLaEdxbpY6LiJVUZlFhEIcwkDPWRNmwE/+mQ8
+X-Gm-Gg: ASbGncvk4jo3TAqvaLtxqbs3A89y7/am7SIWg5/itBfanQtIJwVnUfrTrAt1Psf+bQN
+	NNmQsQMuhmDSsWNZbSYf3faw3uEz+rE0CLVzTipwNpG151UeHKkL/VxM9K0lUT0RmEyYIe6u5O+
+	vHVV43vPzSIIxB75n7lprC8USorayoaiguJsxT3YznqqDpgIBARof5bMku8zVssB60Cl5JCRlpG
+	nluoybNa7crdSaeFHQ8nCfa+dICMTrSzO4tzApEKMuIl1pLH6yQLkvDJ3LHD0samBrqAUZ3lTDs
+	DVBUd0MZnL7EwH/5sAknuupAY63lyqD7gSAscqHrlJnPB3vG
+X-Google-Smtp-Source: AGHT+IGyH6u7C+JHOMK24CSqsOZoQFhGFN1iCccM/JmeDZM3j0hw0pWZnQFg6iEPrhN9OMVzP5k3xA==
+X-Received: by 2002:adf:cd87:0:b0:38d:cd8f:db00 with SMTP id ffacd0b85a97d-38dea28e259mr153109f8f.32.1739301997477;
+        Tue, 11 Feb 2025 11:26:37 -0800 (PST)
+Sender: Salvatore Bonaccorso <salvatore.bonaccorso@gmail.com>
+Date: Tue, 11 Feb 2025 20:26:36 +0100
+From: Salvatore Bonaccorso <carnil@debian.org>
+To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Cc: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	xen-devel@lists.xenproject.org, iommu@lists.linux.dev,
+	Radoslav =?iso-8859-1?Q?Bod=F3?= <radoslav.bodo@igalileo.cz>,
+	regressions@lists.linux.dev, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Harshvardhan Jha <harshvardhan.j.jha@oracle.com>
+Subject: Re: [6.1.y] Regression from b1e6e80a1b42 ("xen/swiotlb: add
+ alignment check for dma buffers") when booting with Xen and mpt3sas_cm0
+ _scsih_probe failures
+Message-ID: <Z6ukbNnyQVdw4kh0@eldamar.lan>
+References: <Z6d-l2nCO1mB4_wx@eldamar.lan>
+ <fd650c88-9888-46bc-a448-9c1ddcf2b066@oracle.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <fd650c88-9888-46bc-a448-9c1ddcf2b066@oracle.com>
 
-On Tue, Feb 11, 2025, Borislav Petkov wrote:
-> On Tue, Feb 11, 2025 at 09:25:47AM -0800, Sean Christopherson wrote:
-> > Because obviously optimizing code that's called once during boot is super
-> > critical?
+Hi Harshit,
+
+On Sun, Feb 09, 2025 at 01:45:38AM +0530, Harshit Mogalapalli wrote:
+> Hi Salvatore,
 > 
-> Because let's stick 'em where they belong and keep headers containing only
-> small, trivial and inlineable functions.
+> On 08/02/25 21:26, Salvatore Bonaccorso wrote:
+> > Hi Juergen, hi all,
+> > 
+> > Radoslav Bodó reported in Debian an issue after updating our kernel
+> > from 6.1.112 to 6.1.115. His report in full is at:
+> > 
+> > https://bugs.debian.org/1088159
+> > 
+> 
+> Note:
+> We have seen this on 5.4.y kernel: More details here:
+> https://lore.kernel.org/all/9dd91f6e-1c66-4961-994e-dbda87d69dad@oracle.com/
 
-LOL, sorry, I was being sarcastic and poking fun at myself.  I completely agree
-there's no reason to make them inline.
+Thanks for the pointer, so looking at that thread I suspect the three
+referenced bugs in Debian are in the end all releated. We have one as
+well relating to the megasas_sas driver, this one for the mpt3sas
+driver and one for the i40e driver).
+
+AFAICS, there is not yet a patch which has landed upstream which I can
+redirect to a affected user to test?
+
+Regards,
+Salvatore
 
