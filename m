@@ -2,41 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 192D4A3143F
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 19:41:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.885870.1295669 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B314A3147A
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 19:55:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.885880.1295680 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thvBu-0006Uf-AZ; Tue, 11 Feb 2025 18:41:02 +0000
+	id 1thvPW-0008Mc-EZ; Tue, 11 Feb 2025 18:55:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 885870.1295669; Tue, 11 Feb 2025 18:41:02 +0000
+Received: by outflank-mailman (output) from mailman id 885880.1295680; Tue, 11 Feb 2025 18:55:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thvBu-0006SI-7N; Tue, 11 Feb 2025 18:41:02 +0000
-Received: by outflank-mailman (input) for mailman id 885870;
- Tue, 11 Feb 2025 18:41:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=zckm=VC=alien8.de=bp@srs-se1.protection.inumbo.net>)
- id 1thvBs-0005AE-Fj
- for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 18:41:00 +0000
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bceaf60f-e8a7-11ef-a075-877d107080fb;
- Tue, 11 Feb 2025 19:40:59 +0100 (CET)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id F1F5F40E0177; 
- Tue, 11 Feb 2025 18:40:57 +0000 (UTC)
-Received: from mail.alien8.de ([127.0.0.1])
- by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id 5Rf2ncew0aZq; Tue, 11 Feb 2025 18:40:54 +0000 (UTC)
-Received: from zn.tnic (pd95303ce.dip0.t-ipconnect.de [217.83.3.206])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
- SHA256) (No client certificate requested)
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id A9B5340E01A3;
- Tue, 11 Feb 2025 18:40:27 +0000 (UTC)
+	id 1thvPW-0008L1-Am; Tue, 11 Feb 2025 18:55:06 +0000
+Received: by outflank-mailman (input) for mailman id 885880;
+ Tue, 11 Feb 2025 18:55:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=wx1N=VC=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1thvPU-0008Kv-Sv
+ for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 18:55:05 +0000
+Received: from fout-b2-smtp.messagingengine.com
+ (fout-b2-smtp.messagingengine.com [202.12.124.145])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b10c6673-e8a9-11ef-b3ef-695165c68f79;
+ Tue, 11 Feb 2025 19:54:59 +0100 (CET)
+Received: from phl-compute-09.internal (phl-compute-09.phl.internal
+ [10.202.2.49])
+ by mailfout.stl.internal (Postfix) with ESMTP id 2BC33114015D;
+ Tue, 11 Feb 2025 13:54:58 -0500 (EST)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-09.internal (MEProxy); Tue, 11 Feb 2025 13:54:58 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 11 Feb 2025 13:54:55 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,68 +45,174 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bceaf60f-e8a7-11ef-a075-877d107080fb
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1739299254; bh=92xrLsP+k3VhCc+TsKTBqWx5JTdBo52z09H/w8PE7O4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dSWlJrICaWCIUzx8rfOK7k5chJur4bbdDfnuElowBNGfqm3bDAhDLXewRAWwDF+tc
-	 o7Wllb4REZqBOVVeoVYaI47p8W9YpEo44jm7XvLpVoaj6I9984HLZzM3xx5RvcoSJa
-	 ZCKcXGDiKvcpEVpntKsZt8dgBoz5kEAgxdd4ukYL2PIZZ20SwQLd21MC6Y7etN/TO5
-	 Z72SWn+Nf1tMGD9p7Dg4DiGT1oRMhBwUJku3WLYMuVFq7+hfB8b0qIdfa/vSASaI2G
-	 +iOgSXQANQmSV75kQ3CfiyPicE0lTjP0uo8qIKjUt0pAtD6v0a2wYsgXYQKj4vMZyg
-	 fal2owI4xDoKeuuxfxGyGOrMTYw26eQ/izbZqlJN8CXwYxgcQeTbNqoxDRtpqyd9mM
-	 EAJIH/HYVDSuoRb2nNxFKm99Occfe9DCM5apE1E3+VqZwRyFz1/gTwCnUT2D5Z1UVe
-	 yFl392I+SmTcDDbJqhEB8jFn/dKcoFekGgU8qDOxPobsVD3I8qaQ/AiTRDQFN6EVGB
-	 7kDuTcarQLnP9upD9/lZBlWWDz2f7OEfeG9AQgOcPBRzAs2rE0WVXfhIDksbGmcI4Y
-	 9vOHSFnwx4nm0Fa2NpJ4hYHGiOrd1NQJ4ATLHurBnv/QowW5RdKISyvVwVYFhrzZvT
-	 0HwTWcvM5ahVB6HzEDwuvqKI=
-Date: Tue, 11 Feb 2025 19:40:21 +0100
-From: Borislav Petkov <bp@alien8.de>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
-	Juergen Gross <jgross@suse.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
-	Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.amakhalov@broadcom.com>,
-	Jan Kiszka <jan.kiszka@siemens.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
-	linux-coco@lists.linux.dev, virtualization@lists.linux.dev,
-	linux-hyperv@vger.kernel.org, jailhouse-dev@googlegroups.com,
-	kvm@vger.kernel.org, xen-devel@lists.xenproject.org,
-	Nikunj A Dadhania <nikunj@amd.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>
-Subject: Re: [PATCH 01/16] x86/tsc: Add a standalone helpers for getting TSC
- info from CPUID.0x15
-Message-ID: <20250211184021.GFZ6uZlZWPVTI5qO1_@fat_crate.local>
-References: <20250201021718.699411-1-seanjc@google.com>
- <20250201021718.699411-2-seanjc@google.com>
- <20250211150114.GCZ6tmOqV4rI04HVuY@fat_crate.local>
- <Z6uIGwxx9HzZQ-N7@google.com>
+X-Inumbo-ID: b10c6673-e8a9-11ef-b3ef-695165c68f79
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1739300098;
+	 x=1739386498; bh=9y+mjVW5GHKOBd3NRWoZ1PeRpYeJSaSg/rs9IIXw0Tg=; b=
+	X6a3IKncyvC+dBbx8kpO9uk8cRv+j6iiZvHu/mBzm6Z0R9gNdec7bWThYotQddyO
+	HjyFVNMJYAfa6elTp2wM2TDRAHjjPO39STyOdXU1FFiH4pUVo3Rmd5+G47Ewks2t
+	fNlelFnS4ivDwTWYLsyIpPxGyLlshVQyOG/v/O9VBgC/gEmVsKz3EN1yGgn8NX+O
+	26awqspdB3PMpwiGQgJ3GpJQy07Xxdua3D6XirjQx+Ta6baL/iT5bBXJ/O9QIGfr
+	QHhnjKu77Xm3sDNzJn5xHNZuWLsD0oM12OqITsxqxktv6qbXKmJEN0BMGCdnLtgv
+	G3MHaQk1R/5fdIsANnvDAQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1739300098; x=1739386498; bh=9y+mjVW5GHKOBd3NRWoZ1PeRpYeJSaSg/rs
+	9IIXw0Tg=; b=o4/7yG5pU+CfXKwiUlqdgswV6mBxCqhauknZB3mwhxqTDVg8zN9
+	tMx5+Rk52l3fdZtOvbiM7Hud/HilJi8LHcIoRELEZaNT9w55b3KQ+9a6z/iYqo3Y
+	tEaGOMABlvUkgk5ykhBi6NFj3ZPIMnlC1xoOTAv5oK3otdzh8eUAQwCWjzHN8JJO
+	oiHX3iE11vYcapbgTgR7anRjw8KuhRbFTJxdpBgTi8XugLpQUUxwBTHquKp/SJFX
+	WwM9IjI1fKgmHgOYrcRHn7xDmV/5Dz91dH4nooOtA9hxIJFAHPDqaMB7VfKCjiH7
+	LxNnWQ+WSYOWdWpJsbVzOdjIGDlpo7tbq7g==
+X-ME-Sender: <xms:AZ2rZ9UYheulBthviwS2cP0o3v3zM6AGMgEl77Pde1ypuz312jDJIg>
+    <xme:AZ2rZ9kMTb4ke59yeY4o-XF8Jhgs10wnZau6f70v2Vp0swjddWVHb49UG2_o2UE-z
+    sQ2fsRjlaHvOQ>
+X-ME-Received: <xmr:AZ2rZ5bGxT3WHtbJxQo17uEmQ1qB2ccXiMyPe5g_plRAlb88XqoFHDHN6uVUBQ0XRWpw8qJ79Tp-hfJ2EkUoPHHDJZe13J_kWA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdegudejkecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdp
+    uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivg
+    hnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdej
+    necuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoe
+    hmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucgg
+    tffrrghtthgvrhhnpefgudelteefvefhfeehieetleeihfejhfeludevteetkeevtedtvd
+    egueetfeejudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhr
+    ohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpd
+    hnsggprhgtphhtthhopeduvddpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtoheprhho
+    ghgvrhdrphgruhestghithhrihigrdgtohhmpdhrtghpthhtohepjhgsvghulhhitghhse
+    hsuhhsvgdrtghomhdprhgtphhtthhopehluhgtrgdrfhgrnhgtvghllhhusegrrhhmrdgt
+    ohhmpdhrtghpthhtohepsggvrhhtrhgrnhgurdhmrghrqhhuihhssegrrhhmrdgtohhmpd
+    hrtghpthhtoheprghnughrvddttddtsehgmhgrihhlrdgtohhmpdhrtghpthhtohepgigv
+    nhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtoh
+    eprghrthgvmhgpmhihghgrihgvvhesvghprghmrdgtohhmpdhrtghpthhtohepshhsthgr
+    sggvlhhlihhniheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepjhhulhhivghnseigvg
+    hnrdhorhhg
+X-ME-Proxy: <xmx:AZ2rZwW-y2jYBix4Phh_N8XwnbqOxVF4fosbRW7Oi5ViNiEQuZY03A>
+    <xmx:AZ2rZ3kqWGrhaT2jK9e6kcy82zhkWwwdNWEXsEDeAIdCLXKO1ykG8g>
+    <xmx:AZ2rZ9dnJRQtEIFy3ae8L7gfwwGK1x1ZRx2xHT8N7JjKRX4bBHR5GA>
+    <xmx:AZ2rZxHyCc7n9baB8-HXp8r2wPLR3AEGeUGKELvLveNauAWpmw_6tA>
+    <xmx:Ap2rZ6-Yyho5-qxpsFZJbABbFrE_xAcMvwmcKSeja40tYUpkZGzN0WdV>
+Feedback-ID: i1568416f:Fastmail
+Date: Tue, 11 Feb 2025 19:54:52 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>, Luca Fancellu <Luca.Fancellu@arm.com>,
+	Bertrand Marquis <Bertrand.Marquis@arm.com>,
+	Oleksandr Andrushchenko <andr2000@gmail.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Artem Mygaiev <Artem_Mygaiev@epam.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>
+Subject: Re: Coding Style Review and Automation
+Message-ID: <Z6uc_eN-LLmgOmxJ@mail-itl>
+References: <5a15f8e2-079c-405a-95ce-92585ac529cd@gmail.com>
+ <Z6sR87FrKcOhgEqX@macbook.local>
+ <4677686F-97C4-4D35-A113-0D8A1C0BC328@arm.com>
+ <55c4d9e0-77b2-408b-9bb1-8efed95891c1@suse.com>
+ <Z6tZUKiqYARWuk8N@macbook.local>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="CvuhJgxd2R/raIEn"
 Content-Disposition: inline
-In-Reply-To: <Z6uIGwxx9HzZQ-N7@google.com>
+In-Reply-To: <Z6tZUKiqYARWuk8N@macbook.local>
 
-On Tue, Feb 11, 2025 at 09:25:47AM -0800, Sean Christopherson wrote:
-> Because obviously optimizing code that's called once during boot is super
-> critical?
 
-Because let's stick 'em where they belong and keep headers containing only
-small, trivial and inlineable functions. Having unusually big functions in
-a header triggers my weird code patterns detector. :)
+--CvuhJgxd2R/raIEn
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 11 Feb 2025 19:54:52 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>, Luca Fancellu <Luca.Fancellu@arm.com>,
+	Bertrand Marquis <Bertrand.Marquis@arm.com>,
+	Oleksandr Andrushchenko <andr2000@gmail.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Artem Mygaiev <Artem_Mygaiev@epam.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>
+Subject: Re: Coding Style Review and Automation
 
--- 
-Regards/Gruss,
-    Boris.
+On Tue, Feb 11, 2025 at 03:06:08PM +0100, Roger Pau Monn=C3=A9 wrote:
+> On Tue, Feb 11, 2025 at 11:19:23AM +0100, Jan Beulich wrote:
+> > On 11.02.2025 10:10, Luca Fancellu wrote:
+> > >>> 3) The size of the patch after applying clang-format is huge. Reall=
+y. Something
+> > >>> like 9 MB. Even if everyone agrees that the approach is good and we=
+ can proceed
+> > >>> with it, it is highly unlikely anyone will be able to review it. Co=
+nsidering
+> > >>> that new patches are being added to the upstream during such a revi=
+ew, it may
+> > >>> also lead to new code style violations or require a new review of t=
+hat huge
+> > >>> patch.
+> > >>
+> > >> I think this approach is difficult.  It would likely introduce a lot
+> > >> of noise when using `git blame` (I know, it's just one extra jump,
+> > >> but...), plus would likely break every patch that we currently have
+> > >> in-flight.
+> > >=20
+> > > I think we already discussed this in the past and having some churn w=
+as accepted,
+> > > also about breaking existing patches, every change merged has the pot=
+ential to do
+> > > that, this one is more likely but it=E2=80=99s the game I guess?
+> >=20
+> > That's easy to say if you have just a few patches in flight, yet I'm wo=
+rried
+> > about this when considering the hundreds of mine that are awaiting revi=
+ew.
+>=20
+> There are also downstreams (including distros) with varying length of
+> patch queues on top of Xen.  Arguably they have to rebase the queue
+> every time they update, but a wide change in coding style will likely
+> be fairly disruptive to them.
+>=20
+> Don't take this as a reason to reject clang-format.  As mentioned
+> elsewhere I think the format supported by clang-format would need to
+> be fairly similar to the current Xen one (up to the point that chunks
+> of code using the new and the old style could live together).  Then we
+> would enforce it only for newly added chunks of code initially IMO.
 
-https://people.kernel.org/tglx/notes-about-netiquette
+While clang-format surely will force some changes (the earlier 9MB patch
+is a data point here...), I generally expect it should match fairly
+close to the current code style, and so the rebase shouldn't be _that_
+painful. In some cases git likely will handle large part of the work
+already.
+
+It surely is a cost of introducing such a change, but IMO it's a cost
+worth paying.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--CvuhJgxd2R/raIEn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmernP0ACgkQ24/THMrX
+1yzKoQf9H++0A91uQUqa32YbCIqAAs8Ytkrnp9gVilCKlrDA6fviJ6kIngO9zgjl
+MNrWIocbPR8hUB9o+TEkfOpOnkd07aKFdc5DcHGDO0kETGEwV/bZY2LPnjxuqBFK
+0m7zqWXE97t49g1lJCPrgluyaSl/z4vsHAvH0FARzzauyvSSecRC7f0Ao54B6UOm
+WC+xu/r4e61lTyi04fGq72Zi1sbhmLYUt0v4O13L4bn9OI78sVcdyK/IYYYyOeUH
+YKrx8w/rrQzr4v61SvAKP38Tib1zi0lEoMDmc5QigsAIish6LOrunWuOqcBFgRl5
+uC5AOZt7O6h8q1vpnAe4oinB0zMrtw==
+=Y5vq
+-----END PGP SIGNATURE-----
+
+--CvuhJgxd2R/raIEn--
 
