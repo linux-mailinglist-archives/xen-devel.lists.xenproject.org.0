@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12E0EA30F64
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 16:14:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.885673.1295485 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 723CBA30FC4
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 16:29:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.885693.1295505 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thry1-00087R-55; Tue, 11 Feb 2025 15:14:29 +0000
+	id 1thsBs-0002UU-NL; Tue, 11 Feb 2025 15:28:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 885673.1295485; Tue, 11 Feb 2025 15:14:29 +0000
+Received: by outflank-mailman (output) from mailman id 885693.1295505; Tue, 11 Feb 2025 15:28:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thry1-00084r-2U; Tue, 11 Feb 2025 15:14:29 +0000
-Received: by outflank-mailman (input) for mailman id 885673;
- Tue, 11 Feb 2025 15:14:27 +0000
+	id 1thsBs-0002T4-KD; Tue, 11 Feb 2025 15:28:48 +0000
+Received: by outflank-mailman (input) for mailman id 885693;
+ Tue, 11 Feb 2025 15:28:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=13Uh=VC=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1thrxz-00084Q-9E
- for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 15:14:27 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on20607.outbound.protection.outlook.com
- [2a01:111:f403:2613::607])
+ <SRS0=GN4I=VC=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1thsBq-0002Sy-Rl
+ for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 15:28:47 +0000
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [2a00:1450:4864:20::12e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id df15c211-e88a-11ef-b3ef-695165c68f79;
- Tue, 11 Feb 2025 16:14:22 +0100 (CET)
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
- by DU7PR03MB10996.eurprd03.prod.outlook.com (2603:10a6:10:5b1::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8398.24; Tue, 11 Feb
- 2025 15:14:18 +0000
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593%7]) with mapi id 15.20.8422.012; Tue, 11 Feb 2025
- 15:14:18 +0000
+ id df6e2587-e88c-11ef-b3ef-695165c68f79;
+ Tue, 11 Feb 2025 16:28:41 +0100 (CET)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-5450abbdce0so2442395e87.3
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 07:28:41 -0800 (PST)
+Received: from [192.168.209.66] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-54506c6b218sm958984e87.222.2025.02.11.07.28.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 11 Feb 2025 07:28:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,216 +45,323 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: df15c211-e88a-11ef-b3ef-695165c68f79
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R33IvxjS6HQziYXUDc0ayjszOyeNRldkeoyPYDQmqCPTJRYNZaLiibwAXUa8gJCdO7slpm7HQYloWRWqcBpd0yk6NYNNZD3uMBKHmeFVwNVxq0bWZnl8zlbokUw96mrOFmrcbM/su8Wv/TXuGnr3J/+q+FTTEsTQL1P2NymHk9GYsR3kLm0zCNZoGnpePCB6f/QgklvHJ4L4xn1b5/NPAOzmo6mKc8fRFjaJU6K+DnEPYhjLGAaOoWONkXuqq5TSg0BjO+PrEJw3IogYmrRhVBYhlhcblFKxfWa0YvagTo7GxNX+l5lLPgbj3k6cB0vvJr4fr0z1LHhHFhvhJ24jfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Zq1PPGWo3WTS5hanvL/19/0BsAOccZqedVYvymPfnxs=;
- b=UebLA9LFDlUV3KoDyovlwnQ1VBXbmwKygY4Svu9FWyUAUIeBfyg9t7ly51syZ5BipS/m7rC/L2qDRzVSWMgpfZRDjJga/LRWR7Bkr1PCBwTftqLTSN/w49dMOLmIEcGg4oWKB+DGuAa6VAH1+AtwO6WHpqAXtjkS+p+rShXGJm2yujr3Bm71BDLEwCXFmHuuvyX/hITpXrwEI5ZeFHUXxd7SIDD1ZuGujhB8zYVLY0V1tMSMbRPDnJZgTB2g7SGTuRjg0K16fpAovSmMmWt/ZntSHkYi6U/P08SytKDwZG4ddCNdL66hIPvpdxcTUhG5cYbBAXy/Si6+6A2qm2lR2g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Zq1PPGWo3WTS5hanvL/19/0BsAOccZqedVYvymPfnxs=;
- b=MCi/mKhRJLcZYItX4FyhT9iYzgF/wdMKqZWWcedDS7jmGHpt5OqE8UuODDFAg2X2wMKuvDjCruinw6fbBqQNIR0klj15GJPEacxO1+PiAXBZ/ycse2FV683bzUu0tv7+4IpfRRdUcAS63g1xNGHGkFtnE7Hnpq/ccWGrRp1vxAPnm5AlH+csb4UPmfRygWYMTy6d/R4XmlZgdx5fH+Ps0jcHbBmpA3vdzLC8g8PjjdpF6CONVRj4IC+XPW7ic858K2+dvv6VfcrjHmksIuMJgIPGTMSEBUgx/3TbMBlQKrWiPSeP2/ojj7eioe+VVLgDS49tqstE7xUuzXyI0kHPXA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-Message-ID: <dece6a9e-21c6-4f2e-ba53-337c5855f88d@epam.com>
-Date: Tue, 11 Feb 2025 17:14:15 +0200
+X-Inumbo-ID: df6e2587-e88c-11ef-b3ef-695165c68f79
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1739287721; x=1739892521; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kiS3cBfzou9rO47HcJmBS77eN8im0c0nuVZztpoPt4I=;
+        b=H9zvE01Mcp/cQkFcuo4AUxxsrcqzWsCZwnLQ9x2KxSgGZvCl4ktfauSOR3zHkQlBhw
+         D1A9FRu0c7s1sT1CpJ5oXzia8ThtjdhGtgwowRz49iFb7kfSQ8Lxv7sj8rTu+AyWhJlU
+         doCJuCzNG92SaJhXpsKBlQGntAfKSOcW0mfwT8ynyr4zg+t5GI0/fqpbYJ7iHzBhDm5S
+         bEq6yPL87kJjeJcKubCZGevl7S1FywKHNl0GpDaSTfy2uyuANJaTyuGHV71b2hma9fUn
+         tjfnx1aQsFFKOnEsx/Xc6re4ziFRdV6FSVR4PdGYt0aqwEqqX+1Z9TktcTNBRnp12qbg
+         r0kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1739287721; x=1739892521;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=kiS3cBfzou9rO47HcJmBS77eN8im0c0nuVZztpoPt4I=;
+        b=TKFgY80o+4fNGZoXnsVKbsTanMNdwSSzD7t/bUFN4QXpJDWV3QcoN9LtH8g15pfO/v
+         7JkbfrXkmDUpJ1AI4l/sWXNIpP03yQofbUST9sy6vE7qM/U5v1bNrCgkrc6mc5xC01TC
+         Tblpu79z3v8NDTpuSj6jQiZcacMI1htW5YTdg0H9fs+8gJtVk2+X24UL5CloZTFUr5Ou
+         PwhrXvArY6MuXSYzq1dltTABfMzqaonsX03mx+Di/l1+DEZe+ns+CTPKMtZXdzQOlWjK
+         jEyMRziNxz4TwW1JlFGeS1hQOjFNkW/fjBnH7F2Kius4gkN2pZ0K4EKMi7PHwVb09CC6
+         hrGA==
+X-Forwarded-Encrypted: i=1; AJvYcCXS4mrbg8T8L/g6Zl2axrVHi7VkUnCb3etkh3SHE2DQQ+z0rXWyLZ7PVc5pquLXuSpf0BI9L7P/LXc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwwIwrz+56LpESxRqu4DUKCE0iPU98P+ls1BQdLz6SfSaTFbFEj
+	SJVvBdUPFXrmNhux8RkJ0m0xbX4x6KIemQgUJTj2h486ptKWZ3vP
+X-Gm-Gg: ASbGncsot321AeE9hOkr9ONSSpvSe9jTLC6I8diuclygivaAaPr6BGth+WLurdsBh5U
+	J7rBgALDFVU8trZ6U1o0Q/VfAf25rq5qNCvRyzQ8Yhp29x2wVQ+klYugBv8+ykLpQGE0SfXCjE9
+	caEZal6cqBmMFutA8fkOyxpNmujIRvzULjpheOSWxg0/8+reTG/3GiJKoot2x2E8NLm0DdTK3Lc
+	TDZ/FUcXYxrfNEhghQyO9CfJmsSpkQy3K/Z5trRXS29rvg38lb+8ryJKvP8XmmX8VpOhUdVtQu+
+	6mpvQ6QC25+skky0NcwrwkJT9YU=
+X-Google-Smtp-Source: AGHT+IEcebum+DWnNSU7BgyT+4Nj8QftnCb47EuWePbX6T/xo0k0KikzFf9B+9mfJOWQxt820vOk6A==
+X-Received: by 2002:a05:6512:118f:b0:545:a1a:556f with SMTP id 2adb3069b0e04-545118767edmr1320343e87.50.1739287720416;
+        Tue, 11 Feb 2025 07:28:40 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------FElgY7kss6sQyEaaJQXXc02P"
+Message-ID: <cf11e1a6-6b89-4eca-b13c-d8b9b81262e4@gmail.com>
+Date: Tue, 11 Feb 2025 16:28:39 +0100
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] device-tree: optimize dt_device_for_passthrough()
-To: Julien Grall <julien@xen.org>, "Orzel, Michal" <michal.orzel@amd.com>,
- Grygorii Strashko <gragst.linux@gmail.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>
-References: <20250211111853.2199764-1-grygorii_strashko@epam.com>
- <d5f00c3a-81a8-4221-acc2-de90fb92deee@amd.com>
- <e1c5fcb3-4647-483f-b600-deae9f68da78@xen.org>
+Subject: Re: [PATCH for 4.21 v5] xen/riscv: identify specific ISA supported by
+ cpu
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <39eacdb6312988fb746e3dff7e29db2f9fcef614.1738958635.git.oleksii.kurochko@gmail.com>
+ <18030e36-ac28-42e0-9bcb-2457c0281273@suse.com>
+ <279e70a8-ad09-46bc-a1f9-7aa6707d3974@gmail.com>
+ <417b456f-77b9-4e8f-9641-2ac8e2fb9cda@suse.com>
 Content-Language: en-US
-From: Grygorii Strashko <grygorii_strashko@epam.com>
-In-Reply-To: <e1c5fcb3-4647-483f-b600-deae9f68da78@xen.org>
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <417b456f-77b9-4e8f-9641-2ac8e2fb9cda@suse.com>
+
+This is a multi-part message in MIME format.
+--------------FElgY7kss6sQyEaaJQXXc02P
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0129.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b9::12) To AS2PR03MB8907.eurprd03.prod.outlook.com
- (2603:10a6:20b:5e4::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|DU7PR03MB10996:EE_
-X-MS-Office365-Filtering-Correlation-Id: 590e18bf-3b38-4bb7-b816-08dd4aaec0f7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?TGs0anl3NURNUVh6ZjdmYkdDTithSGVXNVpTVlJFRTU5NXVUQXkzcU43Zkp0?=
- =?utf-8?B?S2lVVytIMkNnZjFhdjhHSFBNN3lDRjZ0SGw4WUphN3VqL2ZYTDFTMVpwVXgr?=
- =?utf-8?B?QlNKRzFJeWJRdSt5SDkzcUtGK0cxc29sd1hLUWJPNDFmdHI0Yng1U1haUWJl?=
- =?utf-8?B?R0VPbzBRRHZLTGF0N3FJY1V0NlhBTGhwbU1PNlZjaVZkYzBWL3V2bjUrWWV6?=
- =?utf-8?B?UUdGU3h0czV0UithUlhmSEJ1cjZqU2NLTnpSdDFnRHhkdUxVaUJjd1d1em0x?=
- =?utf-8?B?eXk5Vmkyam4zc1FNY3VROFAwelpDU2ZDNGxHRjNLY0lWcmdYUjVFWkJEZ3Zr?=
- =?utf-8?B?S21iNFYwNWZKMEpGbWlIbzNMckJmZmR5am42bi9jR0oydzh4SjBPUWFsWitx?=
- =?utf-8?B?alhpSFNwOTFKdzNDb2N2OURrTzUra1gwQTFOMjA3L0FlelJodnhJOTVPRUlp?=
- =?utf-8?B?SE4rVzE3MmNmQ0ZEU2QvUitJdWUzV1pRVC9tR3I1ZWJ2bytrWmdoZ0w2SUlF?=
- =?utf-8?B?L3JIZlRFWDJrZURSOXJiVDZFRmI3aTU1VzJha1IxUkVvUFZEdk03UTRMS3hn?=
- =?utf-8?B?SGpveFYxM3BmclBWdS9rdXpPdXZacDZxK1ZJNGc1c0ZNcjhiTEhvVm8zeGlY?=
- =?utf-8?B?ZVZmdmkvTlp0ZTBqdGxnbngrRmpVTHFuM3Rqakh2MFloTkVCQ3N1S2ZLcWIw?=
- =?utf-8?B?QkNHN2M2MnVWZitnSzFrM1lucGlqc0NPSFp0ZTJ6NEtWVGxCN3FNLzZXSndS?=
- =?utf-8?B?L2p1U3d5QXVobUpCQmcrOFVUWFg5UWo0NUJSK29HMlpmR0FMcTZWOG83ZEVM?=
- =?utf-8?B?ZWQrODJzMy91WEx1TXZGR3Q4N09hNGc5YWJSZkZZVEhnUFpjSFdnS2hEWTVz?=
- =?utf-8?B?Ym9TUmxzaTEvZTNWMmJGNkI1cDJmY3NPNncvdW02Y0wvNVdwL2tPWGxIdnN0?=
- =?utf-8?B?VjN3bDR3SllNVGZkUEk2SWZLOC8xbzVsN0JJVlAyNHRWSmpLVW5EQ3hMMXUy?=
- =?utf-8?B?SHNCdmp1RE9Rbzg0RlRweUFNek0xdmFKOElPOGhFRmVoNUt3eG9LaHUyT3ZD?=
- =?utf-8?B?NWxKOGwrUitwT3dzSndySlNHbExYZGNPRzRoazI1TmUvcVBrSCszRlN5dEI5?=
- =?utf-8?B?TzVPVjdrVE1LelJaZ1pJa3Z5NWN5QWFLeDZoL01oRXZkZm1VTG0xWWhmOVd3?=
- =?utf-8?B?bUYzSVZKOUF1YjEzaS9pbkdMclZ4OENDMmFiSkMvaFhKOHhreUdYUzByL2xY?=
- =?utf-8?B?K3MxemJxdVIrYVRiVzRXc05QZU9Nc3NvOFVBN0ZlS0tTUlpxZThQK0ZEbWdp?=
- =?utf-8?B?dXFoSktoNnZwS1VMYmJWYVAvekdpTkRsUmErL1kvOGZUYUlRb0ZPMlBna3lE?=
- =?utf-8?B?dktHMDFGcHR2RU83TEZMUHNadVQ0aVhQQ1kyRVdqWXY0RXhpK2YrTW5nWmlh?=
- =?utf-8?B?UDhoYk5GN3ZZMXRrSmVmc3A0andCSFQyTFB3YWR1QmVqNlltZDQxaC9vL215?=
- =?utf-8?B?NEgvMDN3cWlraUpuOVBZazBtZDhjM2pnU1NSUi9LaWdhdGJJejZvbVVmdGg5?=
- =?utf-8?B?ZUxZU1pUSHNwRTZoNnZaVXlxQ0x5Uytta2dxeittWHNqVkRXSWVSYXorYnY0?=
- =?utf-8?B?aGRUT2RZM3VXck01eHVMNkFLaFJpY2ZoZy9sYkNERllwNXVGaTBDdkZtVXhL?=
- =?utf-8?B?S0ZrcThCSXRVaTY3RElvYlRzQUoweXZPN0FTaEJONmsvbThkeGdOelduRG9x?=
- =?utf-8?B?bmZld0E3TG1zZW5mWld4NUV5amovRmJmMG5mR2ZDeit6RVdDUTRsRTNwUlpS?=
- =?utf-8?B?TWdHazVaRE9CeWRVOVVvU2kwdnJrbU1hMnQ1blNXdFUrS0JCWDM4cTNyU1B6?=
- =?utf-8?Q?G6UJPk61DJvpD?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Ynd2OVV4bThFWUQwUEtjcDM2blFwdUVYZmFuandiSGxob2RWNU5iRXNLZTEy?=
- =?utf-8?B?ZWNoSFAzUVo0M1pua2MvRUd1bnNRUGptMXIzZWVPT0hxdzJDSVUrSHozTEEz?=
- =?utf-8?B?WkxCWWlBbFE4ZWttODN6bVhQSE1CaW1YMnFQdzh2U3dONDVJUndaajlpYTh1?=
- =?utf-8?B?ZDFLd1JFeGlRcXZLOTRyRVpKOVRYZzV6UWZxWGhHMnVaRnR5RVVWcnFQWGw4?=
- =?utf-8?B?QklIbFhKbHFtSkVHS3BOZ2t1MVhnWWZVTmFrcXFvTnVFRk85OTI0QlV5UHp3?=
- =?utf-8?B?cTNEcVlCZFZwa2V6d3ZXSmVJQUVSQXFHbGwwaytrRlk2WXhuWUt5SGZZNm5h?=
- =?utf-8?B?RzdoY21WejNxSjcxR0xUQ3c3dWVYTU9kZG9zcW16Wks4azJzWi93cUhxK2VS?=
- =?utf-8?B?RUhMNy91b3BpMmozbHBJRFJ4L3QrcGNoZUIwNzhWcXFvZkVTRXR5VktBQXFN?=
- =?utf-8?B?QVFzWUFQYVBkRlY3SnJtWXloTlJjNThlc1cycHdPcjBtRmIzRXdRUUpGYitV?=
- =?utf-8?B?Z2RndlR2Vi83ZitTc1h6VG4xb2FLb1g0SUVERlBRU29JNmE0VHBmQjVZMVUw?=
- =?utf-8?B?UE4rTXJrVDdwTWZoN0ljMHg1NGNHSTlHRExySjZyUExobW53Yy9vbDdNbzQz?=
- =?utf-8?B?WlQ2dFV0Vjlnc085aDBLQjNaUU1reG9jT05JY0RPTEFRb3NnczdiTk04SzdD?=
- =?utf-8?B?YmQ4bVBhN21XeWtnZDd4ZVgybXR5b0dxVTRuL0xnanB4K3hpVHFsTTJmZkY4?=
- =?utf-8?B?M0lPMXMwYy9qa1ZHaXR4NmhTSFc4eEJ4c3FIQ3kzS0FSdmp4eUlzRDV0RzR2?=
- =?utf-8?B?a0RXdzlKRTBCN0Z1bXZzeHp3UVY5Lzg3M2l6UkpZMVBqK0M2eGVBaFdKY3c2?=
- =?utf-8?B?d2NhakI0OG52QndPV1VwWHh0bGZJL1dKblB6dFA4RXczOXNwVkVtVDYybGFx?=
- =?utf-8?B?Mm9KWXhLUFdJbnJ3aHVzNW1ZdVE2YXRodjRlN0hXS3lNSUlEYVZzalRWZHlJ?=
- =?utf-8?B?UzJLQnVBbGxSWVhRWDF6d08zMnEyZVlkRGdnNXBWQ1RnOTBYd3lSZllBSEZR?=
- =?utf-8?B?NkpDUXVoS1pGVGJoS3BZcU9PZ3dzNHhBWFNqM2g5ZSs2OUNIeXc3emkyc2Ix?=
- =?utf-8?B?TFViZUR6Nit1dTBrRUxmellHS2oyRVViZTk4NWt5SFlsTVUzbnlYcCthdmYy?=
- =?utf-8?B?SUFtNGovcHVKcVRES2JiaVhYU3hnVnZNUlRUTDVrQ2JUeW1FdEN6Zk8xcVNG?=
- =?utf-8?B?MEh4UWZ3QWkrUmU1Tkx0TzYrY0NIYXNRcWo0U2h0NmVXQmtMYlh1ZjFLcUsv?=
- =?utf-8?B?by8wZEFkamp4Y1puTExBT3lCeEd5TUxFOVZUbjNrM3FVVGFtM0tOd0E4ME0x?=
- =?utf-8?B?eUptTG9GMzBBTkFlUTNjQXN2VkRuWjkxMFFsM3E4OGdJT1FnQmtTRUZwczIw?=
- =?utf-8?B?ekYzdTkzRXpJTHQvWmltMjdMZlJUdXdiMGlObEx5OGhhQkJDTCtWWk94eWV5?=
- =?utf-8?B?NG8xM2VLVkRVN2dBSWdsczJRNlpZbVlqVUo2L1F3TTE2eUt4Vk1oOGlxbGg2?=
- =?utf-8?B?SHlYQmFIOGdBV0ZndWdiOVZGeTZ6aDhoQmRIYWVzTjgxdGxUOUFCUmtWVElR?=
- =?utf-8?B?eXd1QVZVT05qNWZvMkFtMTJmU0VPNWxnSjR5NS9VYTJqZTl0YTJzTzZ1aUor?=
- =?utf-8?B?NXAyV1IzN2NTYzRxc25KSWhET1cxY3lxNTNFSTZLcWw5UlZpV2dJZ0tYYjlk?=
- =?utf-8?B?Z0JIWjZ6OCt4N0FPME1SYnNlSFN0R2cwVG1HSTVDTURNSGNxeENmeEFvY0dZ?=
- =?utf-8?B?VTdDSlFYeXVZdWdISFlnMTZFZUNYbjlzR2Z2ekRpUzFpNlI1TWE4RndXYnRo?=
- =?utf-8?B?Z0QzWVJGWHZubXVYL29TS1NGWlR0VmNzUm82UzlSK2ZSbFg2aXFUY2NVdEhk?=
- =?utf-8?B?QmZEbGs5OWRyRXNUejBVTXFXV3YrcTYxVkRCWlJkM3ZmQ0dESjR1cStPSjZG?=
- =?utf-8?B?Sndsa2JmVGdjcVoycG1ycURJNDBtWU81NXJtRlBuY3ZPVG9GT2gxQ3lVNVdn?=
- =?utf-8?B?Uy9mRThzWG5WVEt2ZUlkblNSckREMGhzNDZhRDdsZ1h1M3cvSzdCZHRkSnZY?=
- =?utf-8?B?NXVNU3ZzMjZBRDJRV0ZqWHgyQXFwOFlKanU1NFZQWDR4KzJHQWpsWDg4MndR?=
- =?utf-8?B?R1E9PQ==?=
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 590e18bf-3b38-4bb7-b816-08dd4aaec0f7
-X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2025 15:14:18.0245
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9YYkCSWqEop+jpLvdcfDHFBSzEGjZV6VQVsYpUqwuB8Sus2A1CU4+D7lRBrexOevTwUoWw/9onHnhJMheFLiLxbFy6By7vwDj17xfvGj5dg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU7PR03MB10996
 
 
-
-On 11.02.25 14:32, Julien Grall wrote:
-> 
-> 
-> On 11/02/2025 11:57, Orzel, Michal wrote:
->> On 11/02/2025 12:18, Grygorii Strashko wrote:
+On 2/11/25 11:01 AM, Jan Beulich wrote:
+> On 11.02.2025 10:53, Oleksii Kurochko wrote:
+>> On 2/10/25 5:19 PM, Jan Beulich wrote:
+>>> On 07.02.2025 21:07, Oleksii Kurochko wrote:
+>>>> +/*
+>>>> + * The canonical order of ISA extension names in the ISA string is defined in
+>>>> + * chapter 27 of the unprivileged specification.
+>>>> + *
+>>>> + * The specification uses vague wording, such as should, when it comes to
+>>>> + * ordering, so for our purposes the following rules apply:
+>>>> + *
+>>>> + * 1. All multi-letter extensions must be separated from other extensions by an
+>>>> + *    underscore.
+>>>> + *
+>>>> + * 2. Additional standard extensions (starting with 'Z') must be sorted after
+>>>> + *    single-letter extensions and before any higher-privileged extensions.
+>>>> + *
+>>>> + * 3. The first letter following the 'Z' conventionally indicates the most
+>>>> + *    closely related alphabetical extension category, IMAFDQLCBKJTPVH.
+>>>> + *    If multiple 'Z' extensions are named, they must be ordered first by
+>>>> + *    category, then alphabetically within a category.
+>>>> + *
+>>>> + * 4. Standard supervisor-level extensions (starting with 'S') must be listed
+>>>> + *    after standard unprivileged extensions.  If multiple supervisor-level
+>>>> + *    extensions are listed, they must be ordered alphabetically.
+>>>> + *
+>>>> + * 5. Standard machine-level extensions (starting with 'Zxm') must be listed
+>>>> + *    after any lower-privileged, standard extensions.  If multiple
+>>>> + *    machine-level extensions are listed, they must be ordered
+>>>> + *    alphabetically.
+>>>> + *
+>>>> + * 6. Non-standard extensions (starting with 'X') must be listed after all
+>>>> + *    standard extensions. If multiple non-standard extensions are listed, they
+>>>> + *    must be ordered alphabetically.
+>>>> + *
+>>>> + * An example string following the order is:
+>>>> + *    rv64imadc_zifoo_zigoo_zafoo_sbar_scar_zxmbaz_xqux_xrux
+>>>> + *
+>>>> + * New entries to this struct should follow the ordering rules described above.
+>>>> + *
+>>>> + * Extension name must be all lowercase (according to device-tree binding)
+>>>> + * and strncmp() is used in match_isa_ext() to compare extension names instead
+>>>> + * of strncasecmp().
+>>>> + */
+>>>> +const struct riscv_isa_ext_data __initconst riscv_isa_ext[] = {
+>>>> +    RISCV_ISA_EXT_DATA(i, RISCV_ISA_EXT_i),
+>>>> +    RISCV_ISA_EXT_DATA(m, RISCV_ISA_EXT_m),
+>>>> +    RISCV_ISA_EXT_DATA(a, RISCV_ISA_EXT_a),
+>>>> +    RISCV_ISA_EXT_DATA(f, RISCV_ISA_EXT_f),
+>>>> +    RISCV_ISA_EXT_DATA(d, RISCV_ISA_EXT_d),
+>>>> +    RISCV_ISA_EXT_DATA(q, RISCV_ISA_EXT_q),
+>>>> +    RISCV_ISA_EXT_DATA(c, RISCV_ISA_EXT_c),
+>>>> +    RISCV_ISA_EXT_DATA(h, RISCV_ISA_EXT_h),
+>>>> +    RISCV_ISA_EXT_DATA(zicntr, RISCV_ISA_EXT_ZICNTR),
+>>>> +    RISCV_ISA_EXT_DATA(zicsr, RISCV_ISA_EXT_ZICSR),
+>>>> +    RISCV_ISA_EXT_DATA(zifencei, RISCV_ISA_EXT_ZIFENCEI),
+>>>> +    RISCV_ISA_EXT_DATA(zihintpause, RISCV_ISA_EXT_ZIHINTPAUSE),
+>>>> +    RISCV_ISA_EXT_DATA(zihpm, RISCV_ISA_EXT_ZIHPM),
+>>>> +    RISCV_ISA_EXT_DATA(zbb, RISCV_ISA_EXT_ZBB),
+>>>> +    RISCV_ISA_EXT_DATA(smaia, RISCV_ISA_EXT_SMAIA),
+>>>> +    RISCV_ISA_EXT_DATA(ssaia, RISCV_ISA_EXT_SSAIA),
+>>>> +};
+>>>> +
+>>>> +static const struct riscv_isa_ext_data __initconst required_extensions[] = {
+>>>> +    RISCV_ISA_EXT_DATA(i, RISCV_ISA_EXT_i),
+>>>> +    RISCV_ISA_EXT_DATA(m, RISCV_ISA_EXT_m),
+>>>> +    RISCV_ISA_EXT_DATA(a, RISCV_ISA_EXT_a),
+>>>> +    RISCV_ISA_EXT_DATA(f, RISCV_ISA_EXT_f),
+>>>> +    RISCV_ISA_EXT_DATA(d, RISCV_ISA_EXT_d),
+>>> Why would these last four (Zifencei below) not be included in #ifdef
+>>> CONFIG_RISCV_ISA_RV64G, just like ...
 >>>
->>>
->>> The dt_device_for_passthrough() is called many times during Xen
->>> initialization and Dom0 creation. On every call it traverses struct
->>> dt_device_node properties list and compares compares properties name with
->> double "compares"
+>>>> +#ifdef CONFIG_RISCV_ISA_C
+>>>> +    RISCV_ISA_EXT_DATA(c, RISCV_ISA_EXT_c),
+>>>> +#endif
+>>> .. this one is?
+>> I'm not sure if it was the best decision, but I did it this way because
+>> I believe other bitnesses (32, 128) will also need G. So, I left them
+>> without|#ifdef| to avoid adding|#ifdef CONFIG_RV{32,128}G| in the future.
+> That's fine, but then imo RISCV_ISA_RV64G ought to be dropped, and we use
+> G unconditionally. Whether that's a good move I don't know. I could
+> imagine embedded use cases which want to run an very simple processors.
+>
+>> I also spent some time considering whether 'f' and 'd' are necessary
+>> for Xen. In the end, I decided that if they aren't needed for Xen,
+>> it might be better not to use "G" for compilation and instead explicitly
+>> specify "ima". But it will be better to do as a separate patch (if it
+>> makes sense).
+> That's certainly an option; use of floating point registers / insns will
+> need suppressing one way or another anyway, sooner or later. And yes, I
+> agree this wants to be a separate change. Even their relative order is
+> not important, as long as things remain consistent at any point in time.
 
-10x
+Actually, I think that we should drop 'f' and 'd' from required_extensions[]
+array as they aren't really needed for Xen. Or make them conditional just to
+be sure that if "G" was used for compilation and the code with using of them
+was generated then they are really supported by a h/w.
 
->>
->>> "xen,passthrough" which is runtime overhead. This can be optimized by
->> Are you sure? Looking at the calls, it's almost only used at boot except for dt
->> overlay.
->>
->>> marking dt_device_node as passthrough while unflattening DT.
->>>
->>> This patch introduced new struct dt_device_node property "is_passthrough"
->>> which is filled if "xen,passthrough" property is present while unflattening
->>> DT and dt_device_for_passthrough() just return it's value.
->> In the past we were skeptical about adding new fields to the dt_device_node
->> structure for use cases like this one. I would say this optimization is not
->> worth it. Also, why would you optimize dt_device_for_passthrough but not
->> e.g. dt_device_is_available.
-> 
-> So we are trading speed with memory usage. It looks like we may be using a padding, although I didn't check whether the existing structure could be packed...
+Regarding #ifdef-ing with RISCV_ISA_RV64G, I think that we have to keep them
+mentioned unconditionally as 'i', 'm', 'a', 'zicsr' and 'zifencei' which are
+part of 'G' as all of them are needed by Xen to work.
 
-Actually I see it consumes nothing due to alignments:
-- before sizeof(dt_device_node)=144
-- after sizeof(dt_device_node)=144
-
-But it could be made bool is_passthrough:1; together with other bools, and probably moved at the end of struct dt_device_node.
-
-By the way, below diff can save 8 bytes on arm64 per struct dt_device_node.
-
-> 
->>
->> You can check with other Arm maintainers.
-> 
-> Before forging an opinion, I'd like to see some numbers showing the performance improvement. Also, is this impacting only boot?
-
-Sry, indeed only boot, need to be more specific.
-
-My DT: ~700 nodes
-Number of calls till the end of create_dom0():
-(XEN) =============== dt_device_for_passthrough=2684 dt_device_is_available=1429.
-
-I've enabled console_timestamps=boot and did 5 boots and calculated average - it gives ~20 microseconds improvement.
+~ Oleksii
 
 
-> 
-> Also, I agree with Michal, if this is a concern for dt_device_device_for_passthrough(). Then it would be a concern for a few others calls using dt_find_property(). Are you going to modify all of them?
+--------------FElgY7kss6sQyEaaJQXXc02P
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-I follow the rule one patch one functional change. Regarding further optimization - I think only generic properties can be optimized and personally I see now only "xen,passthrough" and may be "status".
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2/11/25 11:01 AM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:417b456f-77b9-4e8f-9641-2ac8e2fb9cda@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 11.02.2025 10:53, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">On 2/10/25 5:19 PM, Jan Beulich wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On 07.02.2025 21:07, Oleksii Kurochko wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">+/*
++ * The canonical order of ISA extension names in the ISA string is defined in
++ * chapter 27 of the unprivileged specification.
++ *
++ * The specification uses vague wording, such as should, when it comes to
++ * ordering, so for our purposes the following rules apply:
++ *
++ * 1. All multi-letter extensions must be separated from other extensions by an
++ *    underscore.
++ *
++ * 2. Additional standard extensions (starting with 'Z') must be sorted after
++ *    single-letter extensions and before any higher-privileged extensions.
++ *
++ * 3. The first letter following the 'Z' conventionally indicates the most
++ *    closely related alphabetical extension category, IMAFDQLCBKJTPVH.
++ *    If multiple 'Z' extensions are named, they must be ordered first by
++ *    category, then alphabetically within a category.
++ *
++ * 4. Standard supervisor-level extensions (starting with 'S') must be listed
++ *    after standard unprivileged extensions.  If multiple supervisor-level
++ *    extensions are listed, they must be ordered alphabetically.
++ *
++ * 5. Standard machine-level extensions (starting with 'Zxm') must be listed
++ *    after any lower-privileged, standard extensions.  If multiple
++ *    machine-level extensions are listed, they must be ordered
++ *    alphabetically.
++ *
++ * 6. Non-standard extensions (starting with 'X') must be listed after all
++ *    standard extensions. If multiple non-standard extensions are listed, they
++ *    must be ordered alphabetically.
++ *
++ * An example string following the order is:
++ *    rv64imadc_zifoo_zigoo_zafoo_sbar_scar_zxmbaz_xqux_xrux
++ *
++ * New entries to this struct should follow the ordering rules described above.
++ *
++ * Extension name must be all lowercase (according to device-tree binding)
++ * and strncmp() is used in match_isa_ext() to compare extension names instead
++ * of strncasecmp().
++ */
++const struct riscv_isa_ext_data __initconst riscv_isa_ext[] = {
++    RISCV_ISA_EXT_DATA(i, RISCV_ISA_EXT_i),
++    RISCV_ISA_EXT_DATA(m, RISCV_ISA_EXT_m),
++    RISCV_ISA_EXT_DATA(a, RISCV_ISA_EXT_a),
++    RISCV_ISA_EXT_DATA(f, RISCV_ISA_EXT_f),
++    RISCV_ISA_EXT_DATA(d, RISCV_ISA_EXT_d),
++    RISCV_ISA_EXT_DATA(q, RISCV_ISA_EXT_q),
++    RISCV_ISA_EXT_DATA(c, RISCV_ISA_EXT_c),
++    RISCV_ISA_EXT_DATA(h, RISCV_ISA_EXT_h),
++    RISCV_ISA_EXT_DATA(zicntr, RISCV_ISA_EXT_ZICNTR),
++    RISCV_ISA_EXT_DATA(zicsr, RISCV_ISA_EXT_ZICSR),
++    RISCV_ISA_EXT_DATA(zifencei, RISCV_ISA_EXT_ZIFENCEI),
++    RISCV_ISA_EXT_DATA(zihintpause, RISCV_ISA_EXT_ZIHINTPAUSE),
++    RISCV_ISA_EXT_DATA(zihpm, RISCV_ISA_EXT_ZIHPM),
++    RISCV_ISA_EXT_DATA(zbb, RISCV_ISA_EXT_ZBB),
++    RISCV_ISA_EXT_DATA(smaia, RISCV_ISA_EXT_SMAIA),
++    RISCV_ISA_EXT_DATA(ssaia, RISCV_ISA_EXT_SSAIA),
++};
++
++static const struct riscv_isa_ext_data __initconst required_extensions[] = {
++    RISCV_ISA_EXT_DATA(i, RISCV_ISA_EXT_i),
++    RISCV_ISA_EXT_DATA(m, RISCV_ISA_EXT_m),
++    RISCV_ISA_EXT_DATA(a, RISCV_ISA_EXT_a),
++    RISCV_ISA_EXT_DATA(f, RISCV_ISA_EXT_f),
++    RISCV_ISA_EXT_DATA(d, RISCV_ISA_EXT_d),
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">Why would these last four (Zifencei below) not be included in #ifdef
+CONFIG_RISCV_ISA_RV64G, just like ...
 
-Ok. 20 microseconds. it's probably more like a measurement error margin.
-Please advice if i should continue or drop?
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">+#ifdef CONFIG_RISCV_ISA_C
++    RISCV_ISA_EXT_DATA(c, RISCV_ISA_EXT_c),
++#endif
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">.. this one is?
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+I'm not sure if it was the best decision, but I did it this way because
+I believe other bitnesses (32, 128) will also need G. So, I left them
+without|#ifdef| to avoid adding|#ifdef CONFIG_RV{32,128}G| in the future.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+That's fine, but then imo RISCV_ISA_RV64G ought to be dropped, and we use
+G unconditionally. Whether that's a good move I don't know. I could
+imagine embedded use cases which want to run an very simple processors.
 
-Thank you for you comments.
--grygorii
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">I also spent some time considering whether 'f' and 'd' are necessary
+for Xen. In the end, I decided that if they aren't needed for Xen,
+it might be better not to use "G" for compilation and instead explicitly
+specify "ima". But it will be better to do as a separate patch (if it
+makes sense).
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+That's certainly an option; use of floating point registers / insns will
+need suppressing one way or another anyway, sooner or later. And yes, I
+agree this wants to be a separate change. Even their relative order is
+not important, as long as things remain consistent at any point in time.</pre>
+    </blockquote>
+    <pre>Actually, I think that we should drop 'f' and 'd' from required_extensions[]
+array as they aren't really needed for Xen. Or make them conditional just to
+be sure that if "G" was used for compilation and the code with using of them
+was generated then they are really supported by a h/w.
+
+Regarding #ifdef-ing with RISCV_ISA_RV64G, I think that we have to keep them
+mentioned unconditionally as 'i', 'm', 'a', 'zicsr' and 'zifencei' which are
+part of 'G' as all of them are needed by Xen to work.
+
+~ Oleksii
 
 
----
-diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-index 96001d5b7843..0448cc297445 100644
---- a/xen/include/xen/device_tree.h
-+++ b/xen/include/xen/device_tree.h
-@@ -81,8 +81,8 @@ struct dt_property {
-  struct dt_device_node {
-      const char *name;
-      const char *type;
--    dt_phandle phandle;
-      char *full_name;
-+    dt_phandle phandle;
-      domid_t used_by; /* By default it's used by dom0 */
-  
-      struct dt_property *properties;
+</pre>
+  </body>
+</html>
+
+--------------FElgY7kss6sQyEaaJQXXc02P--
 
