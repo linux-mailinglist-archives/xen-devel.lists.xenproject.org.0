@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9E35A30BCC
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 13:35:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.885523.1295333 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF235A30C2B
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 13:57:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.885538.1295345 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thpUN-0004W1-EQ; Tue, 11 Feb 2025 12:35:43 +0000
+	id 1thpp0-0007sH-6p; Tue, 11 Feb 2025 12:57:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 885523.1295333; Tue, 11 Feb 2025 12:35:43 +0000
+Received: by outflank-mailman (output) from mailman id 885538.1295345; Tue, 11 Feb 2025 12:57:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thpUN-0004Tn-Bh; Tue, 11 Feb 2025 12:35:43 +0000
-Received: by outflank-mailman (input) for mailman id 885523;
- Tue, 11 Feb 2025 12:35:42 +0000
+	id 1thpp0-0007pB-3l; Tue, 11 Feb 2025 12:57:02 +0000
+Received: by outflank-mailman (input) for mailman id 885538;
+ Tue, 11 Feb 2025 12:57:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GN4I=VC=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1thpUM-0004Te-2D
- for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 12:35:42 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
+ <SRS0=p4Ra=VC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1thpoz-0007p5-8Z
+ for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 12:57:01 +0000
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [2a00:1450:4864:20::341])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b4481f6b-e874-11ef-a075-877d107080fb;
- Tue, 11 Feb 2025 13:35:41 +0100 (CET)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-545074b88aaso2803023e87.3
- for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 04:35:41 -0800 (PST)
-Received: from [192.168.209.66] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5441053ed31sm1505086e87.2.2025.02.11.04.35.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Feb 2025 04:35:39 -0800 (PST)
+ id a7831a28-e877-11ef-a075-877d107080fb;
+ Tue, 11 Feb 2025 13:56:48 +0100 (CET)
+Received: by mail-wm1-x341.google.com with SMTP id
+ 5b1f17b1804b1-4361b0ec57aso55591235e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 04:56:48 -0800 (PST)
+Received: from andrewcoop.eng.citrite.net (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38dd4764880sm9119649f8f.25.2025.02.11.04.56.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Feb 2025 04:56:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,165 +45,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b4481f6b-e874-11ef-a075-877d107080fb
+X-Inumbo-ID: a7831a28-e877-11ef-a075-877d107080fb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1739277340; x=1739882140; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=80myv50D9AEhFLFa2N6MAvizzw7aZNCwmtsr34wjeXI=;
-        b=OuTOMg4xtPEjIJvmMeaJ0Kz+bWyUGtDiEFNalYT7T9Ftwl9J3RVFTU7lMA0AC/633e
-         +GnEbvGq38S+jwx/HEb3HEvJH9F0RO1+SgFRK495lBmSuqENL6DlcFfk4W1aXQLwp0tP
-         VOeRfH/DExLTiv3XfaTOb7oZHHI4bas3rl0WbhN3TPqfC+X16p719QAx6QxG5MYv61ya
-         hXWE/u46xEu3z1M4qcoe7M7cQ98N6yhcKOrJhU146pF7Mu3gLHaLUYYJ+Oax+A0Q/CUa
-         lfI2pNQR9I/OlWpGW3oS7cOAhDZMITcUL6mmeAq4GyGqjJDkKlg7NOl6UGJ+GR5ej4HI
-         smQQ==
+        d=citrix.com; s=google; t=1739278607; x=1739883407; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=EKXLk1cBEFjFk8YPWoCq+dEoG+Q+E/kzyDR7vByhp8I=;
+        b=e89WULg7t+lV3kOIJqzaEUg02I9jpgbnnaQhnACwBpktRffSTReRhnXV10T1JbrbH1
+         3QC5Q/6i2PvML2Y/QIRh7mE43Z6m7ccMM1dOe9nSFBtGBJkk6GH6slUJtj/66xM3eyOs
+         GCeqRXad7UIc9JYNZAUWWjdJrwbr4sB564bMc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739277340; x=1739882140;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=80myv50D9AEhFLFa2N6MAvizzw7aZNCwmtsr34wjeXI=;
-        b=UZQjEOaJYZ01gmvO2YXtpTGuodehd/2qjyrXHyYjQrpOue5YG4ng9ywa5Z1sQnrVFM
-         WDwfY616Bll84lBQ8coyHKdF3QfcqgbDTwg6UrIAEdl17Fb1tIP3KkIJ3+bx4hxsi4/q
-         xCl7CfT4VWAmiSRC+eNB1wtQX4gKg6HxAByDY0gWYPzYRPUgV8RysIHckf7s/sKdiVfW
-         iXRNBITzJXFLYggyNhnz9fkqfWSrKr6cokcGSxbr7mOBVOlSPa9g+x+nYmHNo50d15ni
-         sAwHw/TqLVLfCnxnWewvX100VBESN2sDjEPAJdnQNIVDTi365nw4zgEEopT7J4TXM42U
-         t4LQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXzk1tfHzTy7855GT/hkCktUOPGl2GjRQkFXHjqxCvFMqC5wREqZ31huhXlSNdHjeiFmO6ujQGmi9A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywx82wpLcHqige2fPWk4zPn1P/jO5FoZW9qLsIUsjoll3vRsryU
-	zdm2vmo6w704P7405qcNd4blPnjnMRR3xxQLOLbhyFBfLTy4ZaQh
-X-Gm-Gg: ASbGncs07/xTb2dR2QdYwMLJ0bpBjhGy77ve9FC4BTFTMPVPXDxrGll+Mbuj04ygXyE
-	sYoYXYxkyUFiAv4rn+zRfY5lwzFK5prUUj0AyCGkJArWFZeSXW090DrJBMoiIgD6RqpdvQZCfBr
-	oAONIsO1tne9zNqQiV3TEfv8J2BHYMSUHmvQ1AlrTSqc22aB0SmET2iNEJKq3lZE2qh8kid8p2A
-	twkM+mtooTFRjARYwJNjbfFLl/9PKjz6gJMu7sIGl3WoC1u1IHqnGBmYUVBQgTDGT1k4sPzEQ3x
-	19Ml0f0+EFfgQl3NJcNX0oY2FPg=
-X-Google-Smtp-Source: AGHT+IExhA15BM3wbM76XsMGKqy7zNiYXOl7Ll/O8EMJrTeu5u2ZZS1tOfQEshJsuIcO6dFWOe6YwA==
-X-Received: by 2002:a05:6512:2355:b0:540:2da2:f282 with SMTP id 2adb3069b0e04-54414ae0c64mr5452877e87.42.1739277340187;
-        Tue, 11 Feb 2025 04:35:40 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------sEbBGbL7P9mICWVnUSgKHJLf"
-Message-ID: <7826fa17-f0db-40f2-8d82-c50a466cfedf@gmail.com>
-Date: Tue, 11 Feb 2025 13:35:39 +0100
+        d=1e100.net; s=20230601; t=1739278607; x=1739883407;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=EKXLk1cBEFjFk8YPWoCq+dEoG+Q+E/kzyDR7vByhp8I=;
+        b=p9VhTJj/XxMufPTH9C/9bSWUf8bmfL78298c7iUsm5k9eljIyauz0TyvVb5HDjRv5Y
+         EeBgdpdmeGlnEI0/k3nAIH+uSBienOm5cwAhg4rqlDB/bIgyPf1fNFhXczljOA6BaC4T
+         jT2WxMVntt/VgAtm3ifRtKeK5oLxmjfZFXAGU5lTSNxpqcbZY3lbceA6vdZTMKZnj6qK
+         8oFhcdWYcvvtqrMKXBZ/15Xkhfb+84ohIir84QpJhqA52ono56B+fXx85ygE9FY/zeVb
+         AF6PPEKeQUVveeGk1yxHauLQq2t5aSmRHtNO8OsvYEAWzpQs5r9hcr3ouKQMn7Cq0hc2
+         mmrQ==
+X-Gm-Message-State: AOJu0YzPdsklyJQ8fOW4GWSz7gh/YP9rhHaETI/6rvaKqGvuoAbiMEph
+	Rh6AJWkMWp9WhYTo1ZDgIogyuXMTRf5pFoJ/ykcRtTvf35gAOTX6ySGb78SWqI9W1fsdZpFtRaU
+	YkdnV3A==
+X-Gm-Gg: ASbGncsmAYNKzMgz0WcRayig7c6CW+shqHRTmlpSLkKBqMWibkR/nwSYWaHOt6l2bBt
+	vaB1jfv0f1nn9UqKuC6umfUD7Y2ZLu96RVZFkU26i1gIwY+GXi76brl5oz3PqP877DaoJZA/JHI
+	GGlyFjv2vE8UyAQHrGc+cmH2PV/ifb3rcHimaQn5rqGh8V6QYNxn36qswXXuoHog9QSCKEkbhU8
+	wGoYOarLHpaY01LxF6+h/f5dv/gve1u3jTEXMRzMI14NU0C+YimXaXIzU0FtYBvj6QK2qMvudjE
+	CllPBPoOfTOeAGkiadLI2Lt3haVCBWlP2WBdb6GRKLS/ZqHiVbLuau7ZMLfgtaBGQ3I0+h0=
+X-Google-Smtp-Source: AGHT+IHLOsq8VS7FattEtktpiZoC9gJS3QFghBl9fiYuTgsz9mnHDdpt/HlNIbo8TYaDd3ZolT3ptw==
+X-Received: by 2002:a05:6000:402b:b0:385:fa26:f0d9 with SMTP id ffacd0b85a97d-38dc89171f9mr13515075f8f.0.1739278607350;
+        Tue, 11 Feb 2025 04:56:47 -0800 (PST)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [PATCH for-4.20 v2] ARM32/traps: Fix do_trap_undefined_instruction()'s detection of kernel text
+Date: Tue, 11 Feb 2025 12:54:45 +0000
+Message-Id: <20250211125445.451805-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.20] tools: fix typo in sysconfig.xencommons.in
-To: Andrew Cooper <andrew.cooper3@citrix.com>, dmkhn@proton.me,
- xen-devel@lists.xenproject.org
-Cc: anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org,
- michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
- dmukhin@ford.com
-References: <20250211073106.189350-1-dmkhn@proton.me>
- <6565b1e3-1e7e-4534-a8ab-88c7abb8abd0@citrix.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <6565b1e3-1e7e-4534-a8ab-88c7abb8abd0@citrix.com>
+Content-Transfer-Encoding: 8bit
 
-This is a multi-part message in MIME format.
---------------sEbBGbL7P9mICWVnUSgKHJLf
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+While fixing some common/arch boundaries for UBSAN support on other
+architectures, the following debugging patch:
 
+  diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+  index c1f2d1b89d43..58d1d048d339 100644
+  --- a/xen/arch/arm/setup.c
+  +++ b/xen/arch/arm/setup.c
+  @@ -504,6 +504,8 @@ void asmlinkage __init start_xen(unsigned long fdt_paddr)
 
-On 2/11/25 1:23 PM, Andrew Cooper wrote:
-> On 11/02/2025 7:31 am,dmkhn@proton.me wrote:
->> From: Denis Mukhin<dmukhin@ford.com>
->>
->> Signed-off-by: Denis Mukhin<dmukhin@ford.com>
-> Acked-by: Andrew Cooper<andrew.cooper3@citrix.com>
->
-> CC Oleksii for 4.20 consideration.
+       system_state = SYS_STATE_active;
 
-Release-Acked-By: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+  +    dump_execution_state();
+  +
+       for_each_domain( d )
+           domain_unpause_by_systemcontroller(d);
 
-Thanks.
+failed with:
 
-~ Oleksii
+  (XEN) *** Serial input to DOM0 (type 'CTRL-a' three times to switch input)
+  (XEN) CPU0: Unexpected Trap: Undefined Instruction
+  (XEN) ----[ Xen-4.20-rc  arm32  debug=n  Not tainted ]----
+  (XEN) CPU:    0
+  <snip>
+  (XEN)
+  (XEN) ****************************************
+  (XEN) Panic on CPU 0:
+  (XEN) CPU0: Unexpected Trap: Undefined Instruction
+  (XEN) ****************************************
 
->
->> ---
->>   tools/hotplug/Linux/init.d/sysconfig.xencommons.in | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/tools/hotplug/Linux/init.d/sysconfig.xencommons.in b/tools/hotplug/Linux/init.d/sysconfig.xencommons.in
->> index 1bdd830d8a..1720a9b075 100644
->> --- a/tools/hotplug/Linux/init.d/sysconfig.xencommons.in
->> +++ b/tools/hotplug/Linux/init.d/sysconfig.xencommons.in
->> @@ -8,7 +8,7 @@
->>   ## Type: string
->>   ## Default: daemon
->>   #
->> -# Select type of xentore service.
->> +# Select type of xenstore service.
->>   #
->>   # This can be either of:
->>   #  * daemon
---------------sEbBGbL7P9mICWVnUSgKHJLf
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+This is because the condition for init text is wrong.  While there's nothing
+interesting from that point onwards in start_xen(), it's also wrong for
+livepatches too.
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2/11/25 1:23 PM, Andrew Cooper
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:6565b1e3-1e7e-4534-a8ab-88c7abb8abd0@citrix.com">
-      <pre wrap="" class="moz-quote-pre">On 11/02/2025 7:31 am, <a class="moz-txt-link-abbreviated" href="mailto:dmkhn@proton.me">dmkhn@proton.me</a> wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">From: Denis Mukhin <a class="moz-txt-link-rfc2396E" href="mailto:dmukhin@ford.com">&lt;dmukhin@ford.com&gt;</a>
+Use is_active_kernel_text() which is the correct test for this purpose, and is
+aware of init and livepatch regions as well as their lifetimes.
 
-Signed-off-by: Denis Mukhin <a class="moz-txt-link-rfc2396E" href="mailto:dmukhin@ford.com">&lt;dmukhin@ford.com&gt;</a>
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Acked-by: Andrew Cooper <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a>
+Fixes: 3e802c6ca1fb ("xen/arm: Correctly support WARN_ON")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>
+CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+CC: Bertrand Marquis <bertrand.marquis@arm.com>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-CC Oleksii for 4.20 consideration.</pre>
-    </blockquote>
-    <pre>Release-Acked-By: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+v2:
+ * Split out change to dump_execution_state()
 
-Thanks.
+Sample run going wrong:
+  https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/9078570105
 
-~ Oleksii
-</pre>
-    <blockquote type="cite"
-      cite="mid:6565b1e3-1e7e-4534-a8ab-88c7abb8abd0@citrix.com">
-      <pre wrap="" class="moz-quote-pre">
+Sample run with dump_execution_state() working:
+  https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/9079185111
+---
+ xen/arch/arm/arm32/traps.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">---
- tools/hotplug/Linux/init.d/sysconfig.xencommons.in | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/xen/arch/arm/arm32/traps.c b/xen/arch/arm/arm32/traps.c
+index a2fc1c22cbc9..b88d41811b49 100644
+--- a/xen/arch/arm/arm32/traps.c
++++ b/xen/arch/arm/arm32/traps.c
+@@ -36,8 +36,7 @@ void do_trap_undefined_instruction(struct cpu_user_regs *regs)
+     uint32_t pc = regs->pc;
+     uint32_t instr;
+ 
+-    if ( !is_kernel_text(pc) &&
+-         (system_state >= SYS_STATE_active || !is_kernel_inittext(pc)) )
++    if ( !is_active_kernel_text(pc) )
+         goto die;
+ 
+     /* PC should be always a multiple of 4, as Xen is using ARM instruction set */
+-- 
+2.39.5
 
-diff --git a/tools/hotplug/Linux/init.d/sysconfig.xencommons.in b/tools/hotplug/Linux/init.d/sysconfig.xencommons.in
-index 1bdd830d8a..1720a9b075 100644
---- a/tools/hotplug/Linux/init.d/sysconfig.xencommons.in
-+++ b/tools/hotplug/Linux/init.d/sysconfig.xencommons.in
-@@ -8,7 +8,7 @@
- ## Type: string
- ## Default: daemon
- #
--# Select type of xentore service.
-+# Select type of xenstore service.
- #
- # This can be either of:
- #  * daemon
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------sEbBGbL7P9mICWVnUSgKHJLf--
 
