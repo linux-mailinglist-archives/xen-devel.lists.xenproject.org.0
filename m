@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DBBFA30A1F
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 12:35:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.885448.1295254 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21083A30A4C
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 12:37:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.885456.1295264 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thoXN-0007tr-EW; Tue, 11 Feb 2025 11:34:45 +0000
+	id 1thoaH-0008TS-Pn; Tue, 11 Feb 2025 11:37:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 885448.1295254; Tue, 11 Feb 2025 11:34:45 +0000
+Received: by outflank-mailman (output) from mailman id 885456.1295264; Tue, 11 Feb 2025 11:37:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thoXN-0007sO-Ad; Tue, 11 Feb 2025 11:34:45 +0000
-Received: by outflank-mailman (input) for mailman id 885448;
- Tue, 11 Feb 2025 11:34:44 +0000
+	id 1thoaH-0008Rv-My; Tue, 11 Feb 2025 11:37:45 +0000
+Received: by outflank-mailman (input) for mailman id 885456;
+ Tue, 11 Feb 2025 11:37:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hVvi=VC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1thoXM-0007sG-8s
- for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 11:34:44 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
+ id 1thoaG-0008Rn-8B
+ for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 11:37:44 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2ff7fc1e-e86c-11ef-a075-877d107080fb;
- Tue, 11 Feb 2025 12:34:43 +0100 (CET)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-aaeec07b705so857545866b.2
- for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 03:34:43 -0800 (PST)
+ id 9b53161d-e86c-11ef-a075-877d107080fb;
+ Tue, 11 Feb 2025 12:37:43 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-ab7c81b8681so291585066b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 03:37:43 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab7a697c2besm664109866b.151.2025.02.11.03.34.42
+ a640c23a62f3a-ab7cc3c8cccsm293870866b.173.2025.02.11.03.37.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Feb 2025 03:34:42 -0800 (PST)
+ Tue, 11 Feb 2025 03:37:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2ff7fc1e-e86c-11ef-a075-877d107080fb
+X-Inumbo-ID: 9b53161d-e86c-11ef-a075-877d107080fb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739273683; x=1739878483; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739273863; x=1739878663; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=y9B9OvYDa++PLZSL5jQC2Awo871iSKB91/2bUskdaDc=;
-        b=AsY2Bt1XMvmwX5v002gGDLXteEcrh8oNdc2fG+cizDRYxs+z6ydqbsjoFsMlbPIil2
-         4BjEPszZua4piV+1t3yJaaKZTYuk7Pk3xRsSOtBenTaU/ULcep5Mwt5pViqnNiGZi5YM
-         4+yPbveHGFfAHWYIONu9dhmeOY0ikL6JHH5Cdwh6xYU5gDQeANAGU2U+ZwL4k5DUpOb4
-         pI7rLL3C+/cQg7vdZYSzw4QvSUObo6DMUYiunBY/eupRPrmtUlqv5o4sACLE4jalLGxQ
-         w8L9YiLBbsPvQqiIEQvTWJ/E/n8i+sAnjiwZQTmIAUuuznaa0Ngk6SKBt758OZ+3FCQi
-         TZTw==
+        bh=BLlwTaPC7KuPjft00eJlb60pFa3vSMVGf5bdi1aQEsw=;
+        b=LBGJpBQnEJySn3merc8R0X+BPKBUyfTVblNyDZsu8MMf55Q+ESEmqnH/nseN/TQEj+
+         zfG5slYwosug6drrGhGi6ungpyyiwjkqSsDUTX7lXPa0o7MC2i67kMYXLzwJvvopQigH
+         0WtCoUrzvSA8IuMZk9oFcZVVIaM5WwlhnD5x4oNkMH+i9/hCShtjgljbNR47S2qDJ7Vb
+         5qCHwmXmVgckuyEeJ370f8ImQoDUF5R/4IFGOOj/jAN2oFAk0m0jhBCH0E6TIqjx3G8N
+         YrN+MTiJwSLQm60dY+xrUmCPkPcxpxIByKUoZ8lmyseADq+2fhLyjvY9wgf8fVI8h8Fm
+         k4kA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739273683; x=1739878483;
+        d=1e100.net; s=20230601; t=1739273863; x=1739878663;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=y9B9OvYDa++PLZSL5jQC2Awo871iSKB91/2bUskdaDc=;
-        b=TJ4Ad5Uv0j0ym5NnnSWYJWn82At98xw4zYBS5KJgD88YD1UadKntkSIS/1TTxUMqk/
-         X+vBGTjf5+d8FdLyGn2iJeE1q4Vtsh0zYVAhOaRre+kPB03943e0WVDio5iNWBIfoV+8
-         WeP3gxGBlg5zAixSKhKBRFhLXfK4f1ju87+wuAHZx8/sjL+1EiUCZ9wcw+YrMdU7db4h
-         lqX2tWiLCE4x7/sX9D32rYeWCZ5q1REILFkPIkNyh0vamtV2AKaLIYG1xRlyPA57tk13
-         INs1cRp29b16YP8DQQRA0O59LX2d28i78BLF7EfDZa7guG6BVHiR1l4G04gmSE7MsHxy
-         BaKw==
-X-Forwarded-Encrypted: i=1; AJvYcCXJESJ62+Hv6vVRR/o1LTlg1bUn6aVQm60sdAQ/7nxOp2mkBNxE8fBt6ZvG5ZZGHf+a8CjIDtsKRf0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxXmrvVz0f3ZL16fAaiB2129biVyetyqx50wi+8xT9BmMgD7fAy
-	X6osZAbAK/PAKMHW/uTciZYL79D/X6uf6s0fwAObR0dvmhTgeFhr+2IL5QWojg==
-X-Gm-Gg: ASbGncvlqEDV5kARXE7d/rMbfmOfcvldLM7vStoxdG6mpddxCcLBplZTjtRwT6erj1q
-	SLp9UZQwjeLzKbGsGua9MU3DD1RvVEXoaqTJII5cg8q5FHwmMT4PfTjh9LeBTC2bYXwEWcUaZKt
-	HbR9/gXhgwPnqQ0dvyeZsMT3C88U+fUuGPajkkJqYBPzjqorTT+lVv4qBSZcFodrpk+9rKBXpI2
-	HLoZi5GGFcmEnso0ifHutdQKXwnO/nzTpNjZjVF2lpZ4qUW4wvMltAacRrcEJycLoar9//Kmb3F
-	Jw7xEhTDD333RXTg+aNvRA0v3emu9JLBG5lcXTDFQXdAWa/hW8J3gadQN1fgL3Zfsw4EsecdukQ
-	l
-X-Google-Smtp-Source: AGHT+IHZGeAh5s59RjionI6u2UBIwTLmWOSlSjJodojnREfADmba1HnGYG6mD/BGoOwaX8qb4HxHzg==
-X-Received: by 2002:a17:907:d40f:b0:ab7:dec1:b353 with SMTP id a640c23a62f3a-ab7dec1cf1bmr253890966b.49.1739273682616;
-        Tue, 11 Feb 2025 03:34:42 -0800 (PST)
-Message-ID: <604fd3cd-6542-4776-b06b-1191c6a11b31@suse.com>
-Date: Tue, 11 Feb 2025 12:34:41 +0100
+        bh=BLlwTaPC7KuPjft00eJlb60pFa3vSMVGf5bdi1aQEsw=;
+        b=tINocBnobhcm4+gSAtmIuKXO6niePTeL/912RZAGqqNJVz7tMBUf/YWVFJHzbY0xFN
+         iSw4EjZTGREWWH0nEJypGkM8HWasT0jqCWUes3omKe6sSS4RIoujqNng+1PG5coTN6S0
+         Sk5fvR+7DbKAwx5fjQ5VqmYwpVdNbDdT0Pti63phFSAc2CApP7cSobbIId7U9ZUYANkX
+         oD1e/shivWxtv6BiQcjaD5+U96LUiyQFC0MI1eQr6FDY1NfM8C/JJolserENYi4M4lTJ
+         b7+cGwpHP7JRdxFrnKtMO3LOx3nIX7Ipnis/3qrlMLUYaAut+C94Hyi8lFaWYOzlzqGV
+         llNw==
+X-Forwarded-Encrypted: i=1; AJvYcCUgTk4bxgYf76Gp6RACUM6mldNPyQB2HJFAEv8IJn0mVja+mFVBkRimJHbbjL0HQfK5CNZSRNg52SI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxYXMPeU0JOMRK79gLqeo7vFnl/XKLuU7hw/LeZjUspxHHf2zBN
+	0I5hmTgCDf6ILWJx5Eo1mnj95lDRhttLlxaem8qPPRqEchTCHykC0kG6oWDtmA==
+X-Gm-Gg: ASbGncux0j/mnvZypxnpuc4epMbIWwvPdb9vypA5FMcPeZRX7pn0iFzvjaZSrwr8h/h
+	5CKraGxGJUQYUlN6DJl9yj7/umXQfvGFeT5JOlnxo/aZ2FPUm3ZTj/eIM7Iu6p8jBn9EXamLMNw
+	TbyDXqlLw1qndGY8demXfSFspTsZ1vCpcFY1rIPeGU3dgA1uuP/PMK5SYrS/Nd0Hpigscd+79Ax
+	VrpRZy4QvfjIkJRzQkaYHN9I+vq6bjTQ1tcWkRm0onlET1xxdSZWQPoq9fCjbJT+RW6cJ1LWfAe
+	6vPyN24EP5JLbJZlzQ4/667shcsCaH1Z4+77nNvIF3z5YpcBNwPsOyFLjCxCpfRvDSsVy8CTb0x
+	G
+X-Google-Smtp-Source: AGHT+IGrhzhmVruVJo3rggFuj5aTMOM0t1YEpGnHfJ6oBCW7cIi63dXqN2Wj+pug0+gZY6b9sbuRtA==
+X-Received: by 2002:a17:906:f597:b0:ab7:6c4b:920a with SMTP id a640c23a62f3a-ab7da33b963mr343986466b.6.1739273862683;
+        Tue, 11 Feb 2025 03:37:42 -0800 (PST)
+Message-ID: <e9c5d9e2-8270-4adc-812f-3f1ed569f975@suse.com>
+Date: Tue, 11 Feb 2025 12:37:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.20 v3 4/5] x86/pci: disable MSI(-X) on all devices
- at shutdown
+Subject: Re: [PATCH for-4.20 v3 5/5] x86/iommu: disable interrupts at shutdown
 To: Roger Pau Monne <roger.pau@citrix.com>
 Cc: oleksii.kurochko@gmail.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+ xen-devel@lists.xenproject.org
 References: <20250211110209.86974-1-roger.pau@citrix.com>
- <20250211110209.86974-5-roger.pau@citrix.com>
+ <20250211110209.86974-6-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,74 +118,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250211110209.86974-5-roger.pau@citrix.com>
+In-Reply-To: <20250211110209.86974-6-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 11.02.2025 12:02, Roger Pau Monne wrote:
-> --- a/xen/arch/x86/crash.c
-> +++ b/xen/arch/x86/crash.c
-> @@ -175,6 +175,13 @@ static void nmi_shootdown_cpus(void)
->           */
->          x2apic_enabled = (current_local_apic_mode() == APIC_MODE_X2APIC);
->  
-> +        if ( !pcidevs_locked() )
-> +            /*
-> +             * Assume the PCI device list to be in a consistent state if the
-> +             * lock is not held when the crash happened.
-> +             */
-> +            pci_disable_msi_all();
+> Add a new hook to inhibit interrupt generation by the IOMMU(s).  Note the
+> hook is currently only implemented for x86 IOMMUs.  The purpose is to
+> disable interrupt generation at shutdown so any kexec chained image finds
+> the IOMMU(s) in a quiesced state.
+> 
+> It would also prevent "Receive accept error" being raised as a result of
+> non-disabled interrupts targeting offline CPUs.
+> 
+> Note that the iommu_quiesce() call in nmi_shootdown_cpus() is still
+> required even when there's a preceding iommu_crash_shutdown() call; the
+> later can become a no-op depending on the setting of the "crash-disable"
+> command line option.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+> Changes since v1:
+>  - New in this version.
+>  - Expand commit message.
+>  - Check if the hook is implemented before attempting to call it.
 
-Hmm, I really meant try-lock to be used here. For recursive locks
-rspin_is_locked() tells you only whether the local CPU owns the lock,
-whereas here you want to know whether anyone owns it.
-
-> --- a/xen/drivers/passthrough/pci.c
-> +++ b/xen/drivers/passthrough/pci.c
-> @@ -1802,6 +1802,45 @@ int iommu_do_pci_domctl(
->      return ret;
->  }
->  
-> +struct segment_iter {
-> +    int (*handler)(struct pci_dev *pdev, void *arg);
-> +    void *arg;
-> +    int rc;
-> +};
-> +
-> +static int cf_check iterate_all(struct pci_seg *pseg, void *arg)
-> +{
-> +    struct segment_iter *iter = arg;
-> +    struct pci_dev *pdev;
-> +
-> +    list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
-> +    {
-> +        int rc = iter->handler(pdev, iter->arg);
-> +
-> +        if ( !iter->rc )
-> +            iter->rc = rc;
-> +    }
-> +
-> +    return 0;
-> +}
-> +
-> +/*
-> + * Iterate without locking or preemption over all PCI devices known by Xen.
-> + * Expected to be called with interrupts disabled.
-> + */
-> +int pci_iterate_devices(int (*handler)(struct pci_dev *pdev, void *arg),
-> +                        void *arg)
-> +{
-> +    struct segment_iter iter = {
-> +        .handler = handler,
-> +        .arg = arg,
-> +    };
-> +
-> +    ASSERT(!local_irq_is_enabled());
-
-I'm not sure we want to go this far. Maybe my earlier comment was ambiguous
-though. What I meant is that the function needs to be documented to be
-prepared to be called with IRQs off. I didn't mean that to be a requirement
-to call the function (as there's no dependency on that, afaics).
+The latter two are changes since v2, though, aiui. In any event
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
