@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A700A30835
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 11:15:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.885284.1295074 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AF57A30856
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 11:19:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.885291.1295084 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thnIC-0001yx-MY; Tue, 11 Feb 2025 10:15:00 +0000
+	id 1thnMY-0002ZR-5r; Tue, 11 Feb 2025 10:19:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 885284.1295074; Tue, 11 Feb 2025 10:15:00 +0000
+Received: by outflank-mailman (output) from mailman id 885291.1295084; Tue, 11 Feb 2025 10:19:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thnIC-0001xK-IZ; Tue, 11 Feb 2025 10:15:00 +0000
-Received: by outflank-mailman (input) for mailman id 885284;
- Tue, 11 Feb 2025 10:14:58 +0000
+	id 1thnMY-0002Xy-2C; Tue, 11 Feb 2025 10:19:30 +0000
+Received: by outflank-mailman (input) for mailman id 885291;
+ Tue, 11 Feb 2025 10:19:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hVvi=VC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1thnIA-0001xE-UC
- for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 10:14:58 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ id 1thnMW-0002Xs-Kb
+ for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 10:19:28 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0b99567d-e861-11ef-a075-877d107080fb;
- Tue, 11 Feb 2025 11:14:58 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-ab7e80c4b55so49878166b.0
- for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 02:14:58 -0800 (PST)
+ id ab415b4b-e861-11ef-a075-877d107080fb;
+ Tue, 11 Feb 2025 11:19:25 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-ab7a342ef4eso611454266b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 02:19:25 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab7e0a6af6bsm97719166b.99.2025.02.11.02.14.56
+ a640c23a62f3a-ab7c3c5c77bsm360981066b.74.2025.02.11.02.19.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Feb 2025 02:14:56 -0800 (PST)
+ Tue, 11 Feb 2025 02:19:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b99567d-e861-11ef-a075-877d107080fb
+X-Inumbo-ID: ab415b4b-e861-11ef-a075-877d107080fb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739268897; x=1739873697; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739269165; x=1739873965; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=aHYl7eYE6wufgRmIXTc/astSC5E89JjInHJZoEyF1UA=;
-        b=Tw54lBGW0mvLeCehwpfxrb/JoVmA2BHSPfJezwpA36C/7nGRw3SLTWQZ3QL9TgB9BT
-         MKvKw1cHb1UGFVUJx+wtpzyI2BrYafgON9nCi2SAL+jO6Bar8kY8JRVgVIlJ5RryCZZF
-         LfJ+wbTs6g5K/X03GPA5xEwSs6xWvBnmDJVyqZab32txzQGNdUAS0XWE1CxpH+MKPqP3
-         aSbfa5Xl0grTf/OlgfhTKwPS+150NlUADkOjayiBwknBTpBT5z8da0ZAqT6Va7H3lnqY
-         GefrkB86uTNR9tdaOpxWhiEmmx8RGAxtW/4v5G2twEupOIoqXc7mJg+BXAH86JFcaY25
-         wotw==
+        bh=M9fWU03JggM6nQWL5oL+G8twbZz3fh//TiwLK7au5q0=;
+        b=P/JHysykdSw6/VzLlrberjDs73SlyRzfQUxK5eaNbr8jwnboiLD7LKIeS9qJiC6HoQ
+         Ib4f4oeIH5bNXWGpY2VDXJEmCUGmAKYY4t5NYiSagsq3Nhqe57FHgWwvfdR8DS0Ce223
+         BfUmeL38cArmHxNu6VTRRPdux+qDoU3rF1F3WtBH8/FBRX64ctYjw7CFGqfMh8Ev8GfJ
+         jDS6dImbBIcWdg6bkJKn4p5fi2wLDP/Ie4fBzIhNcGUAoJg7S7ujaQZeiFx4+8AV76q6
+         qv15poYega1HO2KDHS6IKLpRSILMqFxkbXcwUYwb/3O9ZzAYE7aVzaIc5E5mveFAxFUq
+         qBjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739268897; x=1739873697;
+        d=1e100.net; s=20230601; t=1739269165; x=1739873965;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=aHYl7eYE6wufgRmIXTc/astSC5E89JjInHJZoEyF1UA=;
-        b=Jh1tcayF3fxY9Wd8ZSAhhPjebiaugbnU4p1aCLQFgP05XRpCHQUV1QeQgrmPb1ZLzr
-         nkWPkINuvy/Vk+v0ifZtVA/5xZv1DcaENf6G2fIeYygeqIireHhFGhGRA/aoXabXdSZC
-         s05X4lMt/BbeHnR2FQMjm3EdSejPY1UQex3Chk/TbjddIZh73wZJx21xloqs6VFTdcY1
-         CoE/dPS09fUtdcvVd+5jWWTB/HVsr1k8ne6MnUSSSA35Oh5Lesu8IOv5RKvp9lnzJDbG
-         UILivlV4frOFJ+misNaGU//KYflEtZ6EXXKXIrvvvb2szO2pAKsqIXHA+8GYhziSWvW7
-         LbGg==
-X-Gm-Message-State: AOJu0Yz/4SPbi0YNF/CeCdeN7HWccT+cyOjuIaVUwin1SRvJFI2c/XFw
-	avbkcHDE+gHbB815r/de/Mm3Jb60m4mANWutw37yF4NH2o0WUPUeO3nXwalSbw==
-X-Gm-Gg: ASbGncsQe7NOlwjMkeNOMe5y5IZMCoi5JXB+/JcyoJ6rOfJN5hiSBkc3l/PieoMdAKU
-	tk5tfxGIq+DKyVDpCqFufSWHxiQnGvI1JgD3Aihz5a15szx5vHIwolK6il02B0MytnJvxD6/DW5
-	13mgBDeMtqqF5AkNcumDVxx+SA/sfutp5shb0w2JwKT3MuCApLsHPRGUS6CtrTD01Tf+zV2DOE2
-	GImi9rhYHelRWLu1+HwEe/qLCyNraZbfHLMxEA+ftHJ4RezsDBH3b+eOJgB7hBEcUOm994vEsCP
-	VtYtFA8PKA7QFg9fenahrFU1kbtdMYz8l2QCtmib4vqgR3lp3aLsYAEJ6oRuMJBAEaC/QRZDi99
-	1
-X-Google-Smtp-Source: AGHT+IGxxzze3tNsxb+HVVrTwN+GLPoHIudi2YUqR+YdX03itlLI5kXP0L/rLd1g6JdeaXcTxa/41g==
-X-Received: by 2002:a17:907:7d8d:b0:ab7:9a65:bb56 with SMTP id a640c23a62f3a-ab79a65bd0cmr1427322366b.48.1739268897045;
-        Tue, 11 Feb 2025 02:14:57 -0800 (PST)
-Message-ID: <e70af3df-d581-4f6e-bfc1-55484eff5d40@suse.com>
-Date: Tue, 11 Feb 2025 11:14:55 +0100
+        bh=M9fWU03JggM6nQWL5oL+G8twbZz3fh//TiwLK7au5q0=;
+        b=nkoPZRB8iun0xVI9gyO/KxMTZ3WPoKLk6qSowAg0zytwFAwJWzEs68ucTXibtJQgKh
+         tK6WKNdmIkxVIr4Hp42U6LW8cgOsoMHj/955vXBM7HmTfQB1ILTulg+hzDojBCe+wpE1
+         /yKkDjVW5s1QWcWSl+SHn8JGWK4pEbmE+TI/dNu/O4AswHO6YqB0cTcZJSRBgOiOnwNJ
+         4/mZwNK02uW4TcUNqyX81m5Y6uuh1ubn6VqOrRa2VokDX9K8XpPs0octsolQqxLhaHZq
+         g3qis7cQzwJypu2PFpqEf2zaJqnsS/u5RYOG/9O0uD2jYbjV1aVGFQXxHCipCgDDyVE/
+         l6vQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVryAoJA49QWy25eXlqRNMA9i+fHMDK0ZJXkUuZuK7qOc0DwkG4LeGVTObChcjVQkJ6vxggeRm0r94=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwoDmtX4n6/QzuLf0vxgo3CFV2ohbxEiN6ZjFyIxQ+wFiiogMpL
+	bv32+cYO3LRKUV7qH8fl/+feRtUfREzvg2UlKkHOfYj8tZiwIh16RGWIWbqwJg==
+X-Gm-Gg: ASbGncsXqVaDYs9eYx/X4TGgrTFhlSTNIrqFzrjrrXvzf5AY7k0IdRbitHO+1OdKmYg
+	IL//f73fHAYgQvc0Okho/x//lCwn+Ae0EvUoFcLD2yYA+AkPAZWC/CZIBql+C17LM8u5h2r3WQ3
+	q2wEwet2dN27Rvmc8fVg0MLnhtosKQdTObPDAEwkDxEn69UYcEUfP/M0V2VyFHyW9yA46DoEHwP
+	pzRfRt0++RFZAOZk9ZZsmd5pqXBgbAyxotAVYn7g8tZrvTnrX9FPp/4RONUtX+iuEwXfPAVaaUl
+	tL+XK9UGCnSbGLNbmHKlgyJL2+TUMjn3V3dyt1sC+gk0wK7LsWg3k+j0T7aYho27G5NwIEbNEca
+	t
+X-Google-Smtp-Source: AGHT+IHh/qiIdALMoL+ty9fOl0NCNLQdhSi2zS0++s8w//YpEhDOOZVPsTFrTBA/QoKPb0SR6B/IWw==
+X-Received: by 2002:a17:907:94d2:b0:aa6:a87e:f2e1 with SMTP id a640c23a62f3a-ab789c7735bmr1682058866b.56.1739269165029;
+        Tue, 11 Feb 2025 02:19:25 -0800 (PST)
+Message-ID: <55c4d9e0-77b2-408b-9bb1-8efed95891c1@suse.com>
+Date: Tue, 11 Feb 2025 11:19:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: Coding Style Review and Automation
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Oleksandr Andrushchenko <andr2000@gmail.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Artem Mygaiev <Artem_Mygaiev@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Andrushchenko <andr2000@gmail.com>
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
 References: <5a15f8e2-079c-405a-95ce-92585ac529cd@gmail.com>
  <Z6sR87FrKcOhgEqX@macbook.local>
+ <4677686F-97C4-4D35-A113-0D8A1C0BC328@arm.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,18 +126,34 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Z6sR87FrKcOhgEqX@macbook.local>
+In-Reply-To: <4677686F-97C4-4D35-A113-0D8A1C0BC328@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11.02.2025 10:01, Roger Pau Monné wrote:
-> Is it possible for clang-format to be applied exclusively to newly
-> added chunks of code, while keeping the surroundings untouched?
+On 11.02.2025 10:10, Luca Fancellu wrote:
+>>> 3) The size of the patch after applying clang-format is huge. Really. Something
+>>> like 9 MB. Even if everyone agrees that the approach is good and we can proceed
+>>> with it, it is highly unlikely anyone will be able to review it. Considering
+>>> that new patches are being added to the upstream during such a review, it may
+>>> also lead to new code style violations or require a new review of that huge
+>>> patch.
+>>
+>> I think this approach is difficult.  It would likely introduce a lot
+>> of noise when using `git blame` (I know, it's just one extra jump,
+>> but...), plus would likely break every patch that we currently have
+>> in-flight.
+> 
+> I think we already discussed this in the past and having some churn was accepted,
+> also about breaking existing patches, every change merged has the potential to do
+> that, this one is more likely but it’s the game I guess?
 
-I, too, was wondering about this, at least as a data point. However,
-especially for files that aren't in a single style (e.g. where we're
-slowly transitioning from Linux to Xen style) this would then mean
-(at least) three styles in a single file.
+That's easy to say if you have just a few patches in flight, yet I'm worried
+about this when considering the hundreds of mine that are awaiting review.
+Of course this would be of almost no concern (to me) if for the experimental
+phase it was only Arm code that was converted. Yet even then the plan is going
+to be to later do a full conversion (to whatever the worked out final style
+is), and I don't foresee the review situation to get any better. It'll be only
+yet more patches then that will need re-basing.
 
 Jan
 
