@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EA42A304B7
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 08:44:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.885104.1294881 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A5BDA304E5
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 08:52:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.885113.1294890 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thkvi-0004Z8-Pr; Tue, 11 Feb 2025 07:43:38 +0000
+	id 1thl3j-0006GT-GU; Tue, 11 Feb 2025 07:51:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 885104.1294881; Tue, 11 Feb 2025 07:43:38 +0000
+Received: by outflank-mailman (output) from mailman id 885113.1294890; Tue, 11 Feb 2025 07:51:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thkvi-0004Ws-MX; Tue, 11 Feb 2025 07:43:38 +0000
-Received: by outflank-mailman (input) for mailman id 885104;
- Tue, 11 Feb 2025 07:43:37 +0000
+	id 1thl3j-0006Ea-Du; Tue, 11 Feb 2025 07:51:55 +0000
+Received: by outflank-mailman (input) for mailman id 885113;
+ Tue, 11 Feb 2025 07:51:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ER+F=VC=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1thkvh-0004Wk-JT
- for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 07:43:37 +0000
-Received: from mail-40133.protonmail.ch (mail-40133.protonmail.ch
- [185.70.40.133]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e3671133-e84b-11ef-b3ef-695165c68f79;
- Tue, 11 Feb 2025 08:43:31 +0100 (CET)
+ id 1thl3i-0006EU-0F
+ for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 07:51:54 +0000
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0dba1f75-e84d-11ef-b3ef-695165c68f79;
+ Tue, 11 Feb 2025 08:51:51 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,93 +36,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e3671133-e84b-11ef-b3ef-695165c68f79
+X-Inumbo-ID: 0dba1f75-e84d-11ef-b3ef-695165c68f79
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1739259810; x=1739519010;
-	bh=j0KpxK4DDGMhgKEK6RuF2vyRaLE4RfnZrTQaAqVi8XM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=R+w00fk79J0kKXP9NgbLQfIPuyjz05onIdRrXK5fX99XvB7928hs4RXTIGaZRgGJT
-	 xrBNhN0+P+maGRirFkpXOQ3+eZok7Ci49FNOorse6YxnfOEeTDcaWUraz3A+KzawBb
-	 /V8vuXGqmWn4KPmvIwU2fcMxC63XKuD/Z4obRhPnP8MIIKlbQrwXDf1OwQgXxF/r93
-	 DFnBH7n1BvDuwePDgeySzCm+5/ynFzi3Cjw6fH3f9RdI/3Ct8Ii81xfu8COk0BBa6/
-	 mSAj+/eRpj/23XwZW0x6iBv7x933QmO10Vr5KoRfZoBbHZ54Ms9tj2BcSaBWBjmoGC
-	 k1H0OnC+n2myg==
-Date: Tue, 11 Feb 2025 07:43:25 +0000
-To: Jan Beulich <jbeulich@suse.com>
-From: Denis Mukhin <dmkhn@proton.me>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, dmukhin@ford.com
-Subject: Re: [PATCH] xen/include: introduce resource.h
-Message-ID: <Ko-G31widhmIv5ESo26CR7Pt0D5th5XG_jfm1eORblFZav8mMWP5G3UWNfqrrRiI0ttw7-nUhU7glYoAX1jHrmcQtZRxSCRMt5AzCpQjIbc=@proton.me>
-In-Reply-To: <a8dcd8a8-8b73-49f1-a030-d9614dc51896@suse.com>
-References: <20250207231814.3863449-1-dmukhin@ford.com> <alpine.DEB.2.22.394.2502071854231.619090@ubuntu-linux-20-04-desktop> <a8dcd8a8-8b73-49f1-a030-d9614dc51896@suse.com>
+	s=protonmail; t=1739260310; x=1739519510;
+	bh=oIrwSdoAyq9/6GETWOeNvgz1vMONiOtKEzqIzC/YIY0=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector:
+	 List-Unsubscribe:List-Unsubscribe-Post;
+	b=EVjqpTFIdrSwSWMomV4ZHhIwP+rTsoY8rblk59Yp2T4CsNxUzz4h6vSFqAxHumluR
+	 frCGehd1YPy4bwmsHUM5AbvTZIShf7Wcqwpb8v1/nIzqOi+sCeC2vlB1VDKNWtqR9n
+	 iHF4IcqpGi0IMBPUwGfFRxCE2niHoJCdahawL5e0cTC+V6Hxe9nXNV4JDaJzn1BoIn
+	 cSQkBvzK97nBPoSNdogirWPsCUvy4n8/TB0f/G2g/hgH98aKSJnhb5hNf/mKghVl1M
+	 +Tm2tpHYCDJ1VOhdAy0E0n+XoTuUp2Cr5YVmph+pAxIPz3yawfK/pMMawdNyGLv+S2
+	 vt6OzTEhLMNIA==
+Date: Tue, 11 Feb 2025 07:51:46 +0000
+To: xen-devel@lists.xenproject.org
+From: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
+Subject: [PATCH v2] xen/console: introduce is_console_printable()
+Message-ID: <20250211074911.190636-1-dmkhn@proton.me>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: d4e6ccc9f22b7412d5636125dd2e43e40921484e
+X-Pm-Message-ID: 93408087f4939b63eb85eafabbc5b4a9e6aaf7a6
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Monday, February 10th, 2025 at 1:27 AM, Jan Beulich <jbeulich@suse.com> =
-wrote:
+From: Denis Mukhin <dmukhin@ford.com>
 
->=20
->=20
-> On 08.02.2025 03:54, Stefano Stabellini wrote:
->=20
-> > On Fri, 7 Feb 2025, dmkhn@proton.me wrote:
-> >=20
-> > > Move resource definitions to a new architecture-agnostic shared heade=
-r file.
-> > >=20
-> > > Signed-off-by: Denis Mukhin dmukhin@ford.com
-> >=20
-> > Reviewed-by: Stefano Stabellini sstabellini@kernel.org
->=20
->=20
-> Hmm, don't you think ...
->=20
-> > > @@ -70,22 +71,8 @@
-> > > #define of_property_read_u32(np, pname, out) (!dt_property_read_u32(n=
-p, pname, out))
-> > > #define of_property_read_bool dt_property_read_bool
-> > > #define of_parse_phandle_with_args dt_parse_phandle_with_args
-> > > -
-> > > -/* Xen: Helpers to get device MMIO and IRQs */
-> > > -struct resource
-> > > -{
-> > > - paddr_t addr;
-> > > - paddr_t size;
-> > > - unsigned int type;
-> > > -};
-> > > -
-> > > -#define resource_size(res) (res)->size;
-> > > -
-> > > #define platform_device dt_device_node
->=20
->=20
-> ... one of the blank lines being removed here would better stay?
+Add is_console_printable() to implement a common check for printable charac=
+ters
+in the UART emulation and guest logging code.
 
-I think the block of assorted macros (the first macro is not of not of_xxx(=
-) type)
-does not need an extra newline.
+Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+---
+Changes in v2:
+- switched from tabs to 4 spaces
+- Link to v1: https://lore.kernel.org/xen-devel/20250207005532.345746-1-dmk=
+hn@proton.me/
+---
+ xen/arch/arm/vuart.c       | 5 ++---
+ xen/arch/x86/hvm/hvm.c     | 5 ++---
+ xen/drivers/char/console.c | 3 +--
+ xen/include/xen/console.h  | 6 ++++++
+ 4 files changed, 11 insertions(+), 8 deletions(-)
 
-The resulting block of macros looks like the following:
-[[
+diff --git a/xen/arch/arm/vuart.c b/xen/arch/arm/vuart.c
+index d5ba483f1e..bd2f425214 100644
+--- a/xen/arch/arm/vuart.c
++++ b/xen/arch/arm/vuart.c
+@@ -24,7 +24,7 @@
+ #include <xen/lib.h>
+ #include <xen/sched.h>
+ #include <xen/errno.h>
+-#include <xen/ctype.h>
++#include <xen/console.h>
+ #include <xen/serial.h>
+ #include <asm/mmio.h>
+ #include <xen/perfc.h>
+@@ -79,8 +79,7 @@ static void vuart_print_char(struct vcpu *v, char c)
+     struct domain *d =3D v->domain;
+     struct vuart *uart =3D &d->arch.vuart;
+=20
+-    /* Accept only printable characters, newline, and horizontal tab. */
+-    if ( !isprint(c) && (c !=3D '\n') && (c !=3D '\t') )
++    if ( !is_console_printable(c) )
+         return ;
+=20
+     spin_lock(&uart->lock);
+diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+index 39e39ce4ce..219028969a 100644
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -7,7 +7,6 @@
+  * Copyright (c) 2008, Citrix Systems, Inc.
+  */
+=20
+-#include <xen/ctype.h>
+ #include <xen/init.h>
+ #include <xen/ioreq.h>
+ #include <xen/lib.h>
+@@ -30,6 +29,7 @@
+ #include <xen/vpci.h>
+ #include <xen/nospec.h>
+ #include <xen/vm_event.h>
++#include <xen/console.h>
+ #include <asm/shadow.h>
+ #include <asm/hap.h>
+ #include <asm/current.h>
+@@ -561,8 +561,7 @@ static int cf_check hvm_print_line(
+     if ( dir !=3D IOREQ_WRITE )
+         return X86EMUL_UNHANDLEABLE;
+=20
+-    /* Accept only printable characters, newline, and horizontal tab. */
+-    if ( !isprint(c) && (c !=3D '\n') && (c !=3D '\t') )
++    if ( !is_console_printable(c) )
+         return X86EMUL_OKAY;
+=20
+     spin_lock(&cd->pbuf_lock);
+diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+index 7da8c5296f..b4cec77247 100644
+--- a/xen/drivers/char/console.c
++++ b/xen/drivers/char/console.c
+@@ -24,7 +24,6 @@
+ #include <xen/shutdown.h>
+ #include <xen/video.h>
+ #include <xen/kexec.h>
+-#include <xen/ctype.h>
+ #include <xen/warning.h>
+ #include <asm/div64.h>
+ #include <xen/hypercall.h> /* for do_console_io */
+@@ -674,7 +673,7 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(=
+char) buffer,
+                 c =3D *kin++;
+                 if ( c =3D=3D '\n' )
+                     break;
+-                if ( isprint(c) || c =3D=3D '\t' )
++                if ( is_console_printable(c) )
+                     *kout++ =3D c;
+             } while ( --kcount > 0 );
+=20
+diff --git a/xen/include/xen/console.h b/xen/include/xen/console.h
+index 6dfbade3ec..c4650231be 100644
+--- a/xen/include/xen/console.h
++++ b/xen/include/xen/console.h
+@@ -8,6 +8,7 @@
+ #define __CONSOLE_H__
+=20
+ #include <xen/inttypes.h>
++#include <xen/ctype.h>
+ #include <public/xen.h>
+=20
+ struct xen_sysctl_readconsole;
+@@ -50,4 +51,9 @@ void console_serial_puts(const char *s, size_t nr);
+=20
+ extern int8_t opt_console_xen;
+=20
++static inline bool is_console_printable(unsigned char c)
++{
++    return isprint(c) || c =3D=3D '\n' || c =3D=3D '\t';
++}
++
+ #endif /* __CONSOLE_H__ */
+--=20
+2.34.1
 
-/* Alias to Xen device tree helpers */
-#define device_node dt_device_node
-#define of_phandle_args dt_phandle_args
-#define of_device_id dt_device_match
-#define of_match_node dt_match_node
-#define of_property_read_u32(np, pname, out) (!dt_property_read_u32(np, pna=
-me, out))
-#define of_property_read_bool dt_property_read_bool
-#define of_parse_phandle_with_args dt_parse_phandle_with_args
-#define platform_device dt_device_node
 
-]]
-
->=20
-> Jan
 
