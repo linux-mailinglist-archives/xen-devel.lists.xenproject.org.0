@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54E3CA30DBB
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 15:06:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.885580.1295384 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE385A30DDB
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 15:13:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.885590.1295394 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thqu0-0001lT-MK; Tue, 11 Feb 2025 14:06:16 +0000
+	id 1thr0P-0003fG-AB; Tue, 11 Feb 2025 14:12:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 885580.1295384; Tue, 11 Feb 2025 14:06:16 +0000
+Received: by outflank-mailman (output) from mailman id 885590.1295394; Tue, 11 Feb 2025 14:12:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thqu0-0001je-Jh; Tue, 11 Feb 2025 14:06:16 +0000
-Received: by outflank-mailman (input) for mailman id 885580;
- Tue, 11 Feb 2025 14:06:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1thr0P-0003cx-7O; Tue, 11 Feb 2025 14:12:53 +0000
+Received: by outflank-mailman (input) for mailman id 885590;
+ Tue, 11 Feb 2025 14:12:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jP5V=VC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1thqtz-0001jY-EH
- for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 14:06:15 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5851ca2a-e881-11ef-b3ef-695165c68f79;
- Tue, 11 Feb 2025 15:06:10 +0100 (CET)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-ab744d5e567so1089136066b.1
- for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 06:06:10 -0800 (PST)
+ id 1thr0O-0003cr-FY
+ for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 14:12:52 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 474ef06d-e882-11ef-a075-877d107080fb;
+ Tue, 11 Feb 2025 15:12:51 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-ab7c07e8b9bso377198366b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 06:12:51 -0800 (PST)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab7878b18a9sm931203666b.167.2025.02.11.06.06.08
+ a640c23a62f3a-ab79fea9e06sm750568066b.60.2025.02.11.06.12.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Feb 2025 06:06:09 -0800 (PST)
+ Tue, 11 Feb 2025 06:12:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,94 +44,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5851ca2a-e881-11ef-b3ef-695165c68f79
+X-Inumbo-ID: 474ef06d-e882-11ef-a075-877d107080fb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1739282770; x=1739887570; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1739283171; x=1739887971; darn=lists.xenproject.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=YFQx9stmaU3WBlIvnOVEQLak5f4yeuAXt1PhXK/fw2k=;
-        b=vINyt72uYzMt8TJkgzARGmi1BdUADc0LNY3ky1p6Jrl467w6nmvB1uYpRvnzrhObLU
-         RZq29xIl3voHYQamOdWLlHjgkGIZcDKXlhNWfKntjo96juWBZrL9wzW/oSW4otLn268X
-         j1/oQitsFtYfW7KVqCWe3/Y815XHitIQ2VIF4=
+        bh=GUPJNtsDweTz/6hP6s9qntf+qWOyZVtgiIjTSqAiugU=;
+        b=FY2zfUYYrib9k5Omwiy8XzLjIWg5XRQkvENtGaA9/1ABGUfXbSRkuZcNmpFRXWMTV5
+         dxffqzaSwfti1irPNCySfCVuswPrhoe7Sjd20v42ToOd4ocQrO7I1ReeFazUWJTMd+Rr
+         FYc6F9TdpWO0Or0vYk3t03neHIGodcKTGttSc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739282770; x=1739887570;
+        d=1e100.net; s=20230601; t=1739283171; x=1739887971;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=YFQx9stmaU3WBlIvnOVEQLak5f4yeuAXt1PhXK/fw2k=;
-        b=JSKmSkUiH64jD26QE7U5xBatITI54dd0duuuBkVb8QadaKnbk4FFhGlqozZqjf3sg4
-         wEK3mGY6jjBKpdhat5kGN+9njgrFUg1N3yFCc5b0SApaUufloeGBpPneb1DuLpsL5PUi
-         OJXvT8l+CvpSQ6QEvE5UC1Ft/36QWPnTq8JVfjL8diH8Ojk3vuNetRYLNzbYEgJ4EUnW
-         dHqtFjEhOIyUJUdTE+Ns1vqOu1dh+Rhjy4Ex8sl9MutylWICEJFTeOCnp4SSMdkmSR0B
-         IHybfssHP7VBOz5Gy/v70+Ykiq3mkBnPA1HewkUtbFBpLi4hU8NVXwNpxfDAhaXU29XI
-         tuAQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWSSdWk6kFLjos1pm8jeSP8C0+0diOwX998wpWtrC0xUQCVnoNI8xEoabnXWvKpWNLYTAyuYYQ4KDo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw9Duw9PYsKXw4vVg+Kow7IIhzoeRGDx46g8+KbjRE2W4BiCM5g
-	babYUNNpC+n5MtM+2wcuJQZyOXHJkIlhQC+Gv+JuouTr2tCpgIB3UVQs46PROJ8=
-X-Gm-Gg: ASbGncv8I3PQCdZ19WNAxRljcaIov7zjrOtrrVJo9iVNvSD9VFSgxbFfHDy9LxYQlOU
-	cmjPjVNZdbMg44BBDohPAivxAM6pkyeBJcS0NiZk7ft7NyBk2Rn9WCX5Vp0/1RnZZubRET6DINS
-	aTqQeok18EBZm1DJv3fOXZyB3oFxhrp2SE/5AO1AaAfrUO742hqJ9jKLhY5ocfaBWVHTg2mrCz3
-	AzvxgjyVUJVEHxV/PkTjMYrRJyUqBLYnntAwEgnwzUdUPmNuqY7WeLeoQTEUHsdvh7dy4SSzNr8
-	M/jx7LA4tAbEPcLb1eE9QBk4kw==
-X-Google-Smtp-Source: AGHT+IH8EaI9iviDGuZnBCkoTJCxp7hJL2kLYow7eISzAIlJTd2r9VUaWxLn6kNzH2nS8UadaEp5SA==
-X-Received: by 2002:a17:906:f597:b0:ab6:eec7:e2e2 with SMTP id a640c23a62f3a-ab7db035f02mr327441466b.30.1739282769716;
-        Tue, 11 Feb 2025 06:06:09 -0800 (PST)
-Date: Tue, 11 Feb 2025 15:06:08 +0100
+        bh=GUPJNtsDweTz/6hP6s9qntf+qWOyZVtgiIjTSqAiugU=;
+        b=ve7vfkvrNQrxybCX5ag4nQQzaFfJymHDaGxw8rteM4B91/8bEo137OaGUQzxFL6O+N
+         3uVfl3oD6VF5DZvFTNvKx3njVaqftsaYqMqN06/54P8qXwYoQ2rcXl0g11auGM+1AlVU
+         tver+TFMZt2TPNACIHv/2m115QXTzy4mNYpqlDSyIUHwtqdhLLFMI6Y06sFCYQmxTR+9
+         NLEk+O1iIb8QvohC7MOGdo/KRfIOBubhTmgdNtdtrYDexLOhkFMKgNw5vilV4xPT88HO
+         O2tIPVlOgPyOxR9nGG/PH5+IznsCG/L0LxXPJbv/AfOP6+O9Mp+3dNhNrfRjD4ylh6ok
+         Mgrw==
+X-Forwarded-Encrypted: i=1; AJvYcCX1DaAw4rC3SVMq1GfKvJdrL0+UD8HERQ/CtMPGx4J1AIe2YZM7fkPICB6g5dbDIWPKx58E/tR5diw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw0PHG+FpjyiXEkWui+Un4t9/YCHdiRP2wgXnjKOJUmm+DA5h81
+	sYda4A+gvBnNJwKaP/wxfSOvxCL6uIGvEGgmUIFV6zjAxw0MPMvUrGFUZ8etSbE=
+X-Gm-Gg: ASbGncvigt4TrKqXJ0YwDbN9Mj+ZrEi/qpELKbVPgJ1AdTEavvADOXkSGSylxqTvkL8
+	ruFbB6w5pIJ8wmL3QMxS2pi9I5ee//GpJ+JA7iLgK53ADQ/atq2JIi3596+FVukj1xz3+80deyC
+	k2Wkkq+Xvgvu0lXIGy+2Jl8r7pSxgHATLYom399sp+sKIH5TjqTU0sRrnfIW+PWYpB4LX3ij2mD
+	gLc7B0pTHtcRQaGkmyCtMOWJlMJccgAxA8qwlYL95LF0xIB5kiqfqVIuI3kf9bQIcrPqHMnRJ1c
+	e6+Q3ZqHp0R2ngOykCcA8ta/Qg==
+X-Google-Smtp-Source: AGHT+IFAOLTgLpRFtblgVzgiUAozegscTfJI1YrCNNLCWZ17gTJ92J1L8RNTylrcpSx9U9sUQ19Lgg==
+X-Received: by 2002:a17:907:c91e:b0:ab7:94ee:eebb with SMTP id a640c23a62f3a-ab794eeefabmr1139028966b.14.1739283170564;
+        Tue, 11 Feb 2025 06:12:50 -0800 (PST)
+Date: Tue, 11 Feb 2025 15:12:49 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>, Luca Fancellu <Luca.Fancellu@arm.com>
-Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>,
-	Oleksandr Andrushchenko <andr2000@gmail.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Artem Mygaiev <Artem_Mygaiev@epam.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>
-Subject: Re: Coding Style Review and Automation
-Message-ID: <Z6tZUKiqYARWuk8N@macbook.local>
-References: <5a15f8e2-079c-405a-95ce-92585ac529cd@gmail.com>
- <Z6sR87FrKcOhgEqX@macbook.local>
- <4677686F-97C4-4D35-A113-0D8A1C0BC328@arm.com>
- <55c4d9e0-77b2-408b-9bb1-8efed95891c1@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: oleksii.kurochko@gmail.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH for-4.20 v3 1/5] x86/shutdown: offline APs with
+ interrupts disabled on all CPUs
+Message-ID: <Z6ta4baJLZIZAnpB@macbook.local>
+References: <20250211110209.86974-1-roger.pau@citrix.com>
+ <20250211110209.86974-2-roger.pau@citrix.com>
+ <a0ea8bdb-4168-4b0b-895b-ba0fcf1caf79@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <55c4d9e0-77b2-408b-9bb1-8efed95891c1@suse.com>
+In-Reply-To: <a0ea8bdb-4168-4b0b-895b-ba0fcf1caf79@suse.com>
 
-On Tue, Feb 11, 2025 at 11:19:23AM +0100, Jan Beulich wrote:
-> On 11.02.2025 10:10, Luca Fancellu wrote:
-> >>> 3) The size of the patch after applying clang-format is huge. Really. Something
-> >>> like 9 MB. Even if everyone agrees that the approach is good and we can proceed
-> >>> with it, it is highly unlikely anyone will be able to review it. Considering
-> >>> that new patches are being added to the upstream during such a review, it may
-> >>> also lead to new code style violations or require a new review of that huge
-> >>> patch.
-> >>
-> >> I think this approach is difficult.  It would likely introduce a lot
-> >> of noise when using `git blame` (I know, it's just one extra jump,
-> >> but...), plus would likely break every patch that we currently have
-> >> in-flight.
+On Tue, Feb 11, 2025 at 12:23:56PM +0100, Jan Beulich wrote:
+> On 11.02.2025 12:02, Roger Pau Monne wrote:
+> > The current shutdown logic in smp_send_stop() will disable the APs while
+> > having interrupts enabled on the BSP or possibly other APs. On AMD systems
+> > this can lead to local APIC errors:
 > > 
-> > I think we already discussed this in the past and having some churn was accepted,
-> > also about breaking existing patches, every change merged has the potential to do
-> > that, this one is more likely but it’s the game I guess?
+> > APIC error on CPU0: 00(08), Receive accept error
+> > 
+> > Such error message can be printed in a loop, thus blocking the system from
+> > rebooting.  I assume this loop is created by the error being triggered by
+> > the console interrupt, which is further stirred by the ESR handler
+> > printing to the console.
+> > 
+> > Intel SDM states:
+> > 
+> > "Receive Accept Error.
+> > 
+> > Set when the local APIC detects that the message it received was not
+> > accepted by any APIC on the APIC bus, including itself. Used only on P6
+> > family and Pentium processors."
+> > 
+> > So the error shouldn't trigger on any Intel CPU supported by Xen.
+> > 
+> > However AMD doesn't make such claims, and indeed the error is broadcast to
+> > all local APICs when an interrupt targets a CPU that's already offline.
+> > 
+> > To prevent the error from stalling the shutdown process perform the
+> > disabling of APs and the BSP local APIC with interrupts disabled on all
+> > CPUs in the system, so that by the time interrupts are unmasked on the BSP
+> > the local APIC is already disabled.  This can still lead to a spurious:
+> > 
+> > APIC error on CPU0: 00(00)
+> > 
+> > As a result of an LVT Error getting injected while interrupts are masked on
+> > the CPU, and the vector only handled after the local APIC is already
+> > disabled.  ESR reports 0 because as part of disable_local_APIC() the ESR
+> > register is cleared.
+> > 
+> > Note the NMI crash path doesn't have such issue, because disabling of APs
+> > and the caller local APIC is already done in the same contiguous region
+> > with interrupts disabled.  There's a possible window on the NMI crash path
+> > (nmi_shootdown_cpus()) where some APs might be disabled (and thus
+> > interrupts targeting them raising "Receive accept error") before others APs
+> > have interrupts disabled.  However the shutdown NMI will be handled,
+> > regardless of whether the AP is processing a local APIC error, and hence
+> > such interrupts will not cause the shutdown process to get stuck.
+> > 
+> > Remove the call to fixup_irqs() in smp_send_stop(): it doesn't achieve the
+> > intended goal of moving all interrupts to the BSP anyway.  The logic in
+> > fixup_irqs() will move interrupts whose affinity doesn't overlap with the
+> > passed mask, but the movement of interrupts is done to any CPU set in
+> > cpu_online_map.  As in the shutdown path fixup_irqs() is called before APs
+> > are cleared from cpu_online_map this leads to interrupts being shuffled
+> > around, but not assigned to the BSP exclusively.
 > 
-> That's easy to say if you have just a few patches in flight, yet I'm worried
-> about this when considering the hundreds of mine that are awaiting review.
+> Which would have been possible to address by changing to something like
+> 
+>         if ( !cpumask_intersects(mask, desc->affinity) )
+>         {
+>             break_affinity = true;
+>             cpumask_copy(affinity, mask);
+>         }
+>         else
+>             cpumask_and(affinity, mask, desc->affinity);
+> 
+> there, I guess.
 
-There are also downstreams (including distros) with varying length of
-patch queues on top of Xen.  Arguably they have to rebase the queue
-every time they update, but a wide change in coding style will likely
-be fairly disruptive to them.
+Possibly, but note _assign_irq_vector() could also refuse to move the
+interrupts if there's a pending movement and the current target CPU is
+still set as online in cpu_online_map.  Overall I think going down
+that route is way more complex.
 
-Don't take this as a reason to reject clang-format.  As mentioned
-elsewhere I think the format supported by clang-format would need to
-be fairly similar to the current Xen one (up to the point that chunks
-of code using the new and the old style could live together).  Then we
-would enforce it only for newly added chunks of code initially IMO.
+> 
+> > The Fixes tag is more of a guess than a certainty; it's possible the
+> > previous sleep window in fixup_irqs() allowed any in-flight interrupt to be
+> > delivered before APs went offline.  However fixup_irqs() was still
+> > incorrectly used, as it didn't (and still doesn't) move all interrupts to
+> > target the provided cpu mask.
+> 
+> Plus there's the vector shortage aspect, if everything was moved to the
+> BSP. I don't think that's possible to get past without doing what you
+> do.
+
+Indeed, and the interrupt movement was IMO way more complex than what
+I'm proposing (even with the followup patches that attempt to  silence
+device interrupts).
+
+> > Fixes: e2bb28d62158 ('x86/irq: forward pending interrupts to new destination in fixup_irqs()')
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Thanks, Roger.
 
