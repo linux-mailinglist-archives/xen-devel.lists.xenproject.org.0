@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC0AFA309FD
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 12:33:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.885436.1295244 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DBBFA30A1F
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 12:35:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.885448.1295254 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thoVx-0007Kf-0s; Tue, 11 Feb 2025 11:33:17 +0000
+	id 1thoXN-0007tr-EW; Tue, 11 Feb 2025 11:34:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 885436.1295244; Tue, 11 Feb 2025 11:33:16 +0000
+Received: by outflank-mailman (output) from mailman id 885448.1295254; Tue, 11 Feb 2025 11:34:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thoVw-0007Il-UG; Tue, 11 Feb 2025 11:33:16 +0000
-Received: by outflank-mailman (input) for mailman id 885436;
- Tue, 11 Feb 2025 11:33:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OJrH=VC=huawei.com=ruanjinjie@srs-se1.protection.inumbo.net>)
- id 1thoVv-0007Ia-Kw
- for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 11:33:15 +0000
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f47a879a-e86b-11ef-b3ef-695165c68f79;
- Tue, 11 Feb 2025 12:33:06 +0100 (CET)
-Received: from mail.maildlp.com (unknown [172.19.88.105])
- by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4YsfPX61twzRmPj;
- Tue, 11 Feb 2025 19:30:08 +0800 (CST)
-Received: from kwepemg200008.china.huawei.com (unknown [7.202.181.35])
- by mail.maildlp.com (Postfix) with ESMTPS id CA848140159;
- Tue, 11 Feb 2025 19:33:00 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- kwepemg200008.china.huawei.com (7.202.181.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Tue, 11 Feb 2025 19:32:59 +0800
+	id 1thoXN-0007sO-Ad; Tue, 11 Feb 2025 11:34:45 +0000
+Received: by outflank-mailman (input) for mailman id 885448;
+ Tue, 11 Feb 2025 11:34:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=hVvi=VC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1thoXM-0007sG-8s
+ for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 11:34:44 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2ff7fc1e-e86c-11ef-a075-877d107080fb;
+ Tue, 11 Feb 2025 12:34:43 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-aaeec07b705so857545866b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 03:34:43 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab7a697c2besm664109866b.151.2025.02.11.03.34.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 11 Feb 2025 03:34:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,168 +45,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f47a879a-e86b-11ef-b3ef-695165c68f79
-Message-ID: <b54bae8c-5106-41aa-60ab-27146660a16e@huawei.com>
-Date: Tue, 11 Feb 2025 19:32:58 +0800
+X-Inumbo-ID: 2ff7fc1e-e86c-11ef-a075-877d107080fb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1739273683; x=1739878483; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=y9B9OvYDa++PLZSL5jQC2Awo871iSKB91/2bUskdaDc=;
+        b=AsY2Bt1XMvmwX5v002gGDLXteEcrh8oNdc2fG+cizDRYxs+z6ydqbsjoFsMlbPIil2
+         4BjEPszZua4piV+1t3yJaaKZTYuk7Pk3xRsSOtBenTaU/ULcep5Mwt5pViqnNiGZi5YM
+         4+yPbveHGFfAHWYIONu9dhmeOY0ikL6JHH5Cdwh6xYU5gDQeANAGU2U+ZwL4k5DUpOb4
+         pI7rLL3C+/cQg7vdZYSzw4QvSUObo6DMUYiunBY/eupRPrmtUlqv5o4sACLE4jalLGxQ
+         w8L9YiLBbsPvQqiIEQvTWJ/E/n8i+sAnjiwZQTmIAUuuznaa0Ngk6SKBt758OZ+3FCQi
+         TZTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1739273683; x=1739878483;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=y9B9OvYDa++PLZSL5jQC2Awo871iSKB91/2bUskdaDc=;
+        b=TJ4Ad5Uv0j0ym5NnnSWYJWn82At98xw4zYBS5KJgD88YD1UadKntkSIS/1TTxUMqk/
+         X+vBGTjf5+d8FdLyGn2iJeE1q4Vtsh0zYVAhOaRre+kPB03943e0WVDio5iNWBIfoV+8
+         WeP3gxGBlg5zAixSKhKBRFhLXfK4f1ju87+wuAHZx8/sjL+1EiUCZ9wcw+YrMdU7db4h
+         lqX2tWiLCE4x7/sX9D32rYeWCZ5q1REILFkPIkNyh0vamtV2AKaLIYG1xRlyPA57tk13
+         INs1cRp29b16YP8DQQRA0O59LX2d28i78BLF7EfDZa7guG6BVHiR1l4G04gmSE7MsHxy
+         BaKw==
+X-Forwarded-Encrypted: i=1; AJvYcCXJESJ62+Hv6vVRR/o1LTlg1bUn6aVQm60sdAQ/7nxOp2mkBNxE8fBt6ZvG5ZZGHf+a8CjIDtsKRf0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxXmrvVz0f3ZL16fAaiB2129biVyetyqx50wi+8xT9BmMgD7fAy
+	X6osZAbAK/PAKMHW/uTciZYL79D/X6uf6s0fwAObR0dvmhTgeFhr+2IL5QWojg==
+X-Gm-Gg: ASbGncvlqEDV5kARXE7d/rMbfmOfcvldLM7vStoxdG6mpddxCcLBplZTjtRwT6erj1q
+	SLp9UZQwjeLzKbGsGua9MU3DD1RvVEXoaqTJII5cg8q5FHwmMT4PfTjh9LeBTC2bYXwEWcUaZKt
+	HbR9/gXhgwPnqQ0dvyeZsMT3C88U+fUuGPajkkJqYBPzjqorTT+lVv4qBSZcFodrpk+9rKBXpI2
+	HLoZi5GGFcmEnso0ifHutdQKXwnO/nzTpNjZjVF2lpZ4qUW4wvMltAacRrcEJycLoar9//Kmb3F
+	Jw7xEhTDD333RXTg+aNvRA0v3emu9JLBG5lcXTDFQXdAWa/hW8J3gadQN1fgL3Zfsw4EsecdukQ
+	l
+X-Google-Smtp-Source: AGHT+IHZGeAh5s59RjionI6u2UBIwTLmWOSlSjJodojnREfADmba1HnGYG6mD/BGoOwaX8qb4HxHzg==
+X-Received: by 2002:a17:907:d40f:b0:ab7:dec1:b353 with SMTP id a640c23a62f3a-ab7dec1cf1bmr253890966b.49.1739273682616;
+        Tue, 11 Feb 2025 03:34:42 -0800 (PST)
+Message-ID: <604fd3cd-6542-4776-b06b-1191c6a11b31@suse.com>
+Date: Tue, 11 Feb 2025 12:34:41 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.0
-Subject: Re: [PATCH -next v5 11/22] arm64: entry: Switch to generic IRQ entry
-To: Mark Rutland <mark.rutland@arm.com>
-CC: <catalin.marinas@arm.com>, <will@kernel.org>, <oleg@redhat.com>,
-	<sstabellini@kernel.org>, <tglx@linutronix.de>, <peterz@infradead.org>,
-	<luto@kernel.org>, <mingo@redhat.com>, <juri.lelli@redhat.com>,
-	<vincent.guittot@linaro.org>, <dietmar.eggemann@arm.com>,
-	<rostedt@goodmis.org>, <bsegall@google.com>, <mgorman@suse.de>,
-	<vschneid@redhat.com>, <kees@kernel.org>, <wad@chromium.org>,
-	<akpm@linux-foundation.org>, <samitolvanen@google.com>,
-	<masahiroy@kernel.org>, <hca@linux.ibm.com>, <aliceryhl@google.com>,
-	<rppt@kernel.org>, <xur@google.com>, <paulmck@kernel.org>, <arnd@arndb.de>,
-	<mbenes@suse.cz>, <puranjay@kernel.org>, <pcc@google.com>, <ardb@kernel.org>,
-	<sudeep.holla@arm.com>, <guohanjun@huawei.com>, <rafael@kernel.org>,
-	<liuwei09@cestc.cn>, <dwmw@amazon.co.uk>, <Jonathan.Cameron@huawei.com>,
-	<liaochang1@huawei.com>, <kristina.martsenko@arm.com>, <ptosi@google.com>,
-	<broonie@kernel.org>, <thiago.bauermann@linaro.org>, <kevin.brodsky@arm.com>,
-	<joey.gouly@arm.com>, <liuyuntao12@huawei.com>, <leobras@redhat.com>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<xen-devel@lists.xenproject.org>
-References: <20241206101744.4161990-1-ruanjinjie@huawei.com>
- <20241206101744.4161990-12-ruanjinjie@huawei.com>
- <Z6nv9SLi0za8tE69@J2N7QTR9R3>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.20 v3 4/5] x86/pci: disable MSI(-X) on all devices
+ at shutdown
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: oleksii.kurochko@gmail.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250211110209.86974-1-roger.pau@citrix.com>
+ <20250211110209.86974-5-roger.pau@citrix.com>
 Content-Language: en-US
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <Z6nv9SLi0za8tE69@J2N7QTR9R3>
-Content-Type: text/plain; charset="UTF-8"
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250211110209.86974-5-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.67.109.254]
-X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
- kwepemg200008.china.huawei.com (7.202.181.35)
 
+On 11.02.2025 12:02, Roger Pau Monne wrote:
+> --- a/xen/arch/x86/crash.c
+> +++ b/xen/arch/x86/crash.c
+> @@ -175,6 +175,13 @@ static void nmi_shootdown_cpus(void)
+>           */
+>          x2apic_enabled = (current_local_apic_mode() == APIC_MODE_X2APIC);
+>  
+> +        if ( !pcidevs_locked() )
+> +            /*
+> +             * Assume the PCI device list to be in a consistent state if the
+> +             * lock is not held when the crash happened.
+> +             */
+> +            pci_disable_msi_all();
 
+Hmm, I really meant try-lock to be used here. For recursive locks
+rspin_is_locked() tells you only whether the local CPU owns the lock,
+whereas here you want to know whether anyone owns it.
 
-On 2025/2/10 20:24, Mark Rutland wrote:
-> On Fri, Dec 06, 2024 at 06:17:33PM +0800, Jinjie Ruan wrote:
->> Currently, x86, Riscv, Loongarch use the generic entry. Convert arm64
->> to use the generic entry infrastructure from kernel/entry/*.
->> The generic entry makes maintainers' work easier and codes
->> more elegant.
->>
->> Switch arm64 to generic IRQ entry first, which removed duplicate 100+
->> LOC, and it will switch to generic entry completely later. Switch to
->> generic entry in two steps according to Mark's suggestion will make
->> it easier to review.
->>
->> The changes are below:
->>  - Remove *enter_from/exit_to_kernel_mode(), and wrap with generic
->>    irqentry_enter/exit(). Also remove *enter_from/exit_to_user_mode(),
->>    and wrap with generic enter_from/exit_to_user_mode() because they
->>    are exactly the same so far.
->>
->>  - Remove arm64_enter/exit_nmi() and use generic irqentry_nmi_enter/exit()
->>    because they're exactly the same, so the temporary arm64 version
->>    irqentry_state can also be removed.
->>
->>  - Remove PREEMPT_DYNAMIC code, as generic entry do the same thing
->>    if arm64 implement arch_irqentry_exit_need_resched().
->>
->> Suggested-by: Mark Rutland <mark.rutland@arm.com>
->> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
->> ---
->>  arch/arm64/Kconfig                    |   1 +
->>  arch/arm64/include/asm/entry-common.h |  64 ++++++
->>  arch/arm64/include/asm/preempt.h      |   6 -
->>  arch/arm64/kernel/entry-common.c      | 307 ++++++--------------------
->>  arch/arm64/kernel/signal.c            |   3 +-
->>  5 files changed, 129 insertions(+), 252 deletions(-)
->>  create mode 100644 arch/arm64/include/asm/entry-common.h
-> 
-> Superficially this looks nice, but to be clear I have *not* looked at
-> this in great detail; minor comments below.
-> 
-> [...]
-> 
->> +static inline void arch_exit_to_user_mode_prepare(struct pt_regs *regs,
->> +						  unsigned long ti_work)
->> +{
->> +	local_daif_mask();
->> +}
->> +
->> +#define arch_exit_to_user_mode_prepare arch_exit_to_user_mode_prepare
-> 
-> I'm a little worried that this may be fragile having been hidden in the
-> common code, as it's not clear exactly when this will occur during the
-> return sequence, and the ordering requirements could easily be broken by
-> refactoring there.
-> 
-> I suspect we'll want to pull this later in the arm64 exit sequence so
-> that we can have it explicit in entry-common.c.
+> --- a/xen/drivers/passthrough/pci.c
+> +++ b/xen/drivers/passthrough/pci.c
+> @@ -1802,6 +1802,45 @@ int iommu_do_pci_domctl(
+>      return ret;
+>  }
+>  
+> +struct segment_iter {
+> +    int (*handler)(struct pci_dev *pdev, void *arg);
+> +    void *arg;
+> +    int rc;
+> +};
+> +
+> +static int cf_check iterate_all(struct pci_seg *pseg, void *arg)
+> +{
+> +    struct segment_iter *iter = arg;
+> +    struct pci_dev *pdev;
+> +
+> +    list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
+> +    {
+> +        int rc = iter->handler(pdev, iter->arg);
+> +
+> +        if ( !iter->rc )
+> +            iter->rc = rc;
+> +    }
+> +
+> +    return 0;
+> +}
+> +
+> +/*
+> + * Iterate without locking or preemption over all PCI devices known by Xen.
+> + * Expected to be called with interrupts disabled.
+> + */
+> +int pci_iterate_devices(int (*handler)(struct pci_dev *pdev, void *arg),
+> +                        void *arg)
+> +{
+> +    struct segment_iter iter = {
+> +        .handler = handler,
+> +        .arg = arg,
+> +    };
+> +
+> +    ASSERT(!local_irq_is_enabled());
 
-Yes, this key function is hidden in generic entry code and is not easy
-to clear and see when it is executed. But placing it directly in
-entry-common.c in arm64 may change the order in which lockdep_sys_exit()
-and local_daif_mask() are called, it's not clear what the potential
-impact is.
+I'm not sure we want to go this far. Maybe my earlier comment was ambiguous
+though. What I meant is that the function needs to be documented to be
+prepared to be called with IRQs off. I didn't mean that to be a requirement
+to call the function (as there's no dependency on that, afaics).
 
-Before:
-   exit_to_user_mode_prepare()
-      ...
-      -> local_daif_mask()
-      -> lockdep_sys_exit()
-
-
-arm64_exit_to_user_mode()
-  ...
-  -> exit_to_user_mode_prepare()
-     -> lockdep_sys_exit()
-  -> local_daif_mask()
-
-> 
-> [...]
-> 
->> index 14ac6fdb872b..84b6628647c7 100644
->> --- a/arch/arm64/kernel/signal.c
->> +++ b/arch/arm64/kernel/signal.c
->> @@ -9,6 +9,7 @@
->>  #include <linux/cache.h>
->>  #include <linux/compat.h>
->>  #include <linux/errno.h>
->> +#include <linux/irq-entry-common.h>
->>  #include <linux/kernel.h>
->>  #include <linux/signal.h>
->>  #include <linux/freezer.h>
->> @@ -1603,7 +1604,7 @@ static void handle_signal(struct ksignal *ksig, struct pt_regs *regs)
->>   * the kernel can handle, and then we build all the user-level signal handling
->>   * stack-frames in one go after that.
->>   */
->> -void do_signal(struct pt_regs *regs)
->> +void arch_do_signal_or_restart(struct pt_regs *regs)
->>  {
->>  	unsigned long continue_addr = 0, restart_addr = 0;
->>  	int retval = 0;
-> 
-> Is the expected semantic the same here, or is those more than just a
-> name change?
-
-Yes, the expected semantic is the same here, they both handle
-_TIF_SIGPENDING and _TIF_NOTIFY_SIGNAL thread flags before
-exit to user.
-
-In arm64 the code call sequence is:
-
-  exit_to_user_mode()
-     -> exit_to_user_mode_prepare()
-        -> do_notify_resume(regs, flags)
-           -> if (thread_flags & (_TIF_SIGPENDING | _TIF_NOTIFY_SIGNAL))
-                 do_signal(regs)
-
-In generic entry code, the logic is the same:
-
-  exit_to_user_mode_prepare()
-      -> exit_to_user_mode_loop()
-          -> if (ti_work & (_TIF_SIGPENDING | _TIF_NOTIFY_SIGNAL))
-                 arch_do_signal_or_restart(regs)
-
-> 
-> Mark.
-> 
+Jan
 
