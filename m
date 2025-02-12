@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA724A31FAF
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 08:12:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.886147.1295831 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBE50A3200F
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 08:38:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.886162.1295845 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ti6uL-0008Fu-NI; Wed, 12 Feb 2025 07:11:41 +0000
+	id 1ti7K4-0002jE-QZ; Wed, 12 Feb 2025 07:38:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 886147.1295831; Wed, 12 Feb 2025 07:11:41 +0000
+Received: by outflank-mailman (output) from mailman id 886162.1295845; Wed, 12 Feb 2025 07:38:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ti6uL-0008Do-Jp; Wed, 12 Feb 2025 07:11:41 +0000
-Received: by outflank-mailman (input) for mailman id 886147;
- Wed, 12 Feb 2025 07:07:00 +0000
+	id 1ti7K4-0002hc-NZ; Wed, 12 Feb 2025 07:38:16 +0000
+Received: by outflank-mailman (input) for mailman id 886162;
+ Wed, 12 Feb 2025 07:38:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=izbI=VD=cyient.com=Suryaprakash.Shukla@srs-se1.protection.inumbo.net>)
- id 1ti6po-0007A2-3U
- for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 07:07:00 +0000
-Received: from APC01-PSA-obe.outbound.protection.outlook.com
- (mail-psaapc01on2060b.outbound.protection.outlook.com
- [2a01:111:f403:200e::60b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=OfhB=VD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ti7K2-0002hP-NZ
+ for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 07:38:14 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id edc36c5c-e90f-11ef-a075-877d107080fb;
- Wed, 12 Feb 2025 08:06:51 +0100 (CET)
-Received: from TY0PR03MB6428.apcprd03.prod.outlook.com (2603:1096:400:1ac::10)
- by SEZPR03MB8486.apcprd03.prod.outlook.com (2603:1096:101:220::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.18; Wed, 12 Feb
- 2025 07:06:42 +0000
-Received: from TY0PR03MB6428.apcprd03.prod.outlook.com
- ([fe80::ec07:9ccb:1772:102a]) by TY0PR03MB6428.apcprd03.prod.outlook.com
- ([fe80::ec07:9ccb:1772:102a%4]) with mapi id 15.20.8445.008; Wed, 12 Feb 2025
- 07:06:42 +0000
+ id 509d210d-e914-11ef-a075-877d107080fb;
+ Wed, 12 Feb 2025 08:38:13 +0100 (CET)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-ab7c501bbecso465842866b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 23:38:13 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab7d243bba5sm394894666b.71.2025.02.11.23.38.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 11 Feb 2025 23:38:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,226 +45,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: edc36c5c-e90f-11ef-a075-877d107080fb
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VIivQKxm55KUSotR4kPOhcPVTm4muLTK6ebjW0Osb1ZlPqHhIjaZmc0LDOO56nm4lz1TVPsEFNXSGBaJzDiK7Ytkj3p5F/p2Wzuwre7FsclaFFTx/KZHuhXL2TkJpnH+Jg3vDAm73w0PQtEYvilf26cvxNnm10VSz0XtZwu0v2n4FigIsLB7tXnQDOkSqHbICUnCmC2M0Q2pcZOFaEz1C72a6w4K39I/o7vEhYHfJmjtwavzukb4qEk7xS84kd/v8kb6lwvyVfqK/DTXsfr5/XEjDBGnGi2TAGoiqsklHBoyg+nVLOG2bq7P9ioVYS1mS0dPHGQ5o3H6jEdISoRKqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CCE4+/WS/IPjOmONO0UvygehZJuAMOxZ5RIwkdaeYh8=;
- b=i6ZLuFpI+wpIuDCuqFZvY4PIKLwqtAWvv/sU9tS/XT0MH9BYOzIYYhWiOA82k1kxXaMZfLWfe9oOqpqAi24p9NwrtJJFbUJ6udn4JNwa9HYqmII0QpLb+hLM8gFtFxpB6+bAzyXuZf5PYOsDcLv1xRKAcv9pcPr2fu0nL1e/53Tx8445agL/x/aZY/NXRAG7Dy2cJZSZPmdZWQuv5dzutcdVSW9fNZLEsPXnWbM5A7UaywSX6pEsquDc5xPQXtWqMM37rC/8Q3loHKNBDczp2eTQ7cgBORh1RbFrvdo/+CZd0tOby4vI7qO/frFcC8PKFQBB5fkbMCVgB573DNnHrQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=cyient.com; dmarc=pass action=none header.from=cyient.com;
- dkim=pass header.d=cyient.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyient.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CCE4+/WS/IPjOmONO0UvygehZJuAMOxZ5RIwkdaeYh8=;
- b=dYNIQwYrB+jlW8Q647UgPGCS7CtM482arjWGH2TXYFD0zKxVX5zMYvRQWO1gffgUFnAIEkHgKNsWWnvgS/fWdF6o5prOIWTKKxCr3sUhFP8oPkiLUuQnvE4CoUMjEyAMg89pGlzn052D2tuZ37xGDkcC/z6d6vNcmkb/tqDJkeqzGYu+3IyAFgCW2jYg53bFcmHuQUkVWVENrLhRmTqSqxA51KudRtxPAqAZbGRQrvgK8FaTMtM2RelyndB/kXZ8QRTcFH2yRD3iA8+xkytN9uPmzZHEqc6bL/qxUNGuemdHms1QClzrJJjxpfwG/L2rzJQJiRSGHPt6agrnMrBwlg==
-From: Surya prakash Shukla <Suryaprakash.Shukla@cyient.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Collaboration on Android Trout Development with Xen Hypervisor
-Thread-Topic: Collaboration on Android Trout Development with Xen Hypervisor
-Thread-Index: AQHbfRx77LX00vjSEEe5N3vp1E6OQA==
-Date: Wed, 12 Feb 2025 07:06:42 +0000
-Message-ID:
- <TY0PR03MB6428732CFA2292AE5411838481FC2@TY0PR03MB6428.apcprd03.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_0cb49050-d2ca-4b82-83d8-3fed8b20fa0b_Enabled=True;MSIP_Label_0cb49050-d2ca-4b82-83d8-3fed8b20fa0b_SiteId=2d6b0cf3-57fa-4619-abf9-d13e1ef2352a;MSIP_Label_0cb49050-d2ca-4b82-83d8-3fed8b20fa0b_SetDate=2025-02-12T07:06:42.023Z;MSIP_Label_0cb49050-d2ca-4b82-83d8-3fed8b20fa0b_Name=Public
- Unrestricted;MSIP_Label_0cb49050-d2ca-4b82-83d8-3fed8b20fa0b_ContentBits=0;MSIP_Label_0cb49050-d2ca-4b82-83d8-3fed8b20fa0b_Method=Standard;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=cyient.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY0PR03MB6428:EE_|SEZPR03MB8486:EE_
-x-ms-office365-filtering-correlation-id: 748a91f8-a9a8-40c7-774b-08dd4b33cd8c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|10070799003|366016|1800799024|38070700018|8096899003;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?d04RpFBzrJiSX5v2XmS4C8ZB/ePldnUslygxOh6vofKuEhD+k73w9jFBi2?=
- =?iso-8859-1?Q?wbYd52z7a3V7Xx24XH0Gb1RKB6xnRlrFbyt6yS+/uWYn2k/17NPsslsS7z?=
- =?iso-8859-1?Q?DvaLZkallg0Wz9XCldwHOmToYsnmh007dmNzd5d0lbaKglIYidlB1AbBPj?=
- =?iso-8859-1?Q?lYRCKfyfDx069IQ8pMeo3x0kjCtpnRbcqZhVMzOWjKj1iBNgOQ5enrzLOF?=
- =?iso-8859-1?Q?Hw8jlYfzTK8qa7+angim+BArk0RYmYIRo05kqRuJYotzJPgtyHngpBgPdE?=
- =?iso-8859-1?Q?e+zJsS/MZQngRpqfuLwm9K+C7FSYbv7WqsVFx8dvAlRKKj4WAG11vyVs7L?=
- =?iso-8859-1?Q?yoO06OQYKyoMa/RMkzVxg7uKiT0Oouj+Ld0lpCvIIG65eoxLNtJLNkx5Iw?=
- =?iso-8859-1?Q?J/Fr+lBka8+LxbeNs2+F4UITrnxqMn2PP0R4VJugHpteJPdpW+mmOQ2EmI?=
- =?iso-8859-1?Q?zItJ4BAyloomwWHCiyU4iucVs2M9+b3uE+kt1w5qMQZZzLWbPZKp+CzxyN?=
- =?iso-8859-1?Q?Zc09pOhJmNJjLYFKVJ8B8fbvHGbgM0wUr9cWGG7etBeO9+YNjq0irfom7t?=
- =?iso-8859-1?Q?JylNnSmt4sh6MlNn9dZOXlRYPwMbTQ0F9Ws8dtjOnE1h2iU0wqsdchlqvG?=
- =?iso-8859-1?Q?iJcwS+QlOkXJNjnop7xfRQ+Nbi94CAxmc1zgfBSjq7A9vcKdkWRz6qMJrU?=
- =?iso-8859-1?Q?dTr96l6UvCimn2iNJ+SMFZBJ5MTaXmex39Co7YqpyXHw0cTaRkoBNQBJGF?=
- =?iso-8859-1?Q?hlPfped/bIGV+tbQ+/XTK7DtZ5r+4818NsJ4uEtyU19n1uOz5oX8u6to4s?=
- =?iso-8859-1?Q?qP1GaoBbYFW9i8nVroNGaUc951aEHVPEip5XHOpwEkcP9pSkPFpx1cCvmh?=
- =?iso-8859-1?Q?s2Liht+jUYKCPfGzcMcTSwThagbTz20DCLmhEvlDPQeojjH3BqXlNZT5L2?=
- =?iso-8859-1?Q?hsH8uRBoYTyJCXVkMMCszdABjSeHwsRSuq1yz9YuTwSjMEU4oUOMQ4N8MZ?=
- =?iso-8859-1?Q?UULQZsnU6DtMilvZztNh3lcf86lfiVNUkV8iMFWisSJY9KEjAurmwpGKGW?=
- =?iso-8859-1?Q?6/MDBdqeabGo7bH8WTMQZtiTRfMwekf+wJ3KbK79fk/YIrCSUNJhpbNecQ?=
- =?iso-8859-1?Q?RerCuKHd2qsy3q+zJPYY0m6zqLGL1h0rOjwOU+hp0NMnI/qMTVim3rK5j/?=
- =?iso-8859-1?Q?wUlpY3wDZ6QwOjIOSHHyOPvXut/ilH0r2N/AQF02cUBj5JvEVwz7IrG/mF?=
- =?iso-8859-1?Q?cxJg15AXRrNiM/UQiXwlcg9hOzAB4iVtE//A7ot//Ku794L++n5HcyRoUl?=
- =?iso-8859-1?Q?RGqnRvj6cMOu7CgQarkTxP69UQ41gh1AScDHSIDOF/tnwqDhRKv9eCs3uh?=
- =?iso-8859-1?Q?lIPt9zGA+Gpp0iJSJguuAe6xw4FE23xn/6IskroQSBAfyg6L3gFS9ARn40?=
- =?iso-8859-1?Q?geDnQ5XmvPz1Q9pv2Z1p1EP07FFYdAuu9/LaR01UepPSNaOvWVhvPYpmSk?=
- =?iso-8859-1?Q?xdT+sRozpOwKw/ZPMTCYhO?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY0PR03MB6428.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(10070799003)(366016)(1800799024)(38070700018)(8096899003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?c0yFaaDUMptsTpSdWcXBBceytfPERz3OAR3znK1fJHyMSYD8XiaS4ja3Bf?=
- =?iso-8859-1?Q?ST/S2nb7J/uvbRFnwd9BUleGpgb5EEN4f08UmvEGx5r9IWGylowb9k/qRN?=
- =?iso-8859-1?Q?Qg2HQBZmTqCvtb1HU2onCfP4ZWfj6OMS0eSS9Lx9eXkV4c3FOKrI+SGUu+?=
- =?iso-8859-1?Q?JE5No5n/To2Vyl+qE0wQ3rAP/fiFk5lvsqYzLkSx3GPZ8VNXva3flGB0HO?=
- =?iso-8859-1?Q?gt0pFT1j7jw+ZMI01tfeP1oXAUFaJvLwrxBGOjaoNsLHLnD/0ezYM2D428?=
- =?iso-8859-1?Q?4XyKj72F+Aj6ZuqcfDnGe/y0AMmQ1IE+GUoWzOVbwlbC8jKbXOeJvlOulu?=
- =?iso-8859-1?Q?R1p0Vm0TUa2Hy4A8ZmSFdHIb7k1bF5X54i39YLTec4EpmIYF0+8CzyEcUr?=
- =?iso-8859-1?Q?QquNateJERv3ivl40rHnr3anGAx19HSYkHc6vZTGHcBhkyUso1nbQvmHOK?=
- =?iso-8859-1?Q?CkV+5hFr1T/bBFMoeJqgC+nRuQhpCvNI0hC3WVJtXzuHNGHI5TRthlTW7h?=
- =?iso-8859-1?Q?pIDRsIfgYBcvn22eEdsAOFUKw5lSzR6wNOfaXeRLxmpTXJzVvq1EPY8ecN?=
- =?iso-8859-1?Q?ddFNrJ5CmMhhYlfjvOqc5/y5+mRlqfHkCVTU3DiSegat2xLGc1yxWHb0v6?=
- =?iso-8859-1?Q?adR9FYL/mlI0dXEYsmbknlC+4VBhcfVbx43cm8jC8Wuam/XAdBfXiCNfbv?=
- =?iso-8859-1?Q?1b29cVXIaCWg/ZAF12K6ii7qtY+vHT8E6ai2QU9Zx2+vMgFvqmtvTWsxuO?=
- =?iso-8859-1?Q?ZQJdXkV1QhWNlhuacIGwDDqvjlQg24ejnYsfM9HgBDGyNfmwirYyJA4AVM?=
- =?iso-8859-1?Q?NEc9Q/FGs0MhNsOWAe2xSENAB7Yp8dVhjl7YITpW0ogYSeEfHzXrUlvTvv?=
- =?iso-8859-1?Q?V45qK3DhKkCmdoeOReKDCYDVtnCFq41D4m4DanS3kVkNul8AO0n0bEQKuf?=
- =?iso-8859-1?Q?x8o5T3En81kjogAX+SbdlGoLXYhYL4mgCx4Q1+K/KAlk33otOnWClQ+9IJ?=
- =?iso-8859-1?Q?WIFt3TA1XtaqW6H+1RkqxR4SUS24G3TF056UvCJ7D64sDen0MRdwxiFZsK?=
- =?iso-8859-1?Q?CdPgHoXKrP6559VmELoGo+ZPfEW/dlb4oXQPVoNGnYbM8GFF/wxgpyg1fc?=
- =?iso-8859-1?Q?HMHWpnux4zbp8JSrHCelIE/N7UtzV9zTuTRJtH2O2jy9QCGKGWZzOIqwm6?=
- =?iso-8859-1?Q?roq5iK8Bm/xl4jR20dMWoj+hr7/id++rx923I5F63eB9tBJVlfw/pncTd/?=
- =?iso-8859-1?Q?hVScPFrgTPZpLiFmCOmTB/K8m4tKayPFhf9XDpPiyCxf7JOjvQ7LbJW2BG?=
- =?iso-8859-1?Q?mNXjyIm/Mt+c0JXw6R6tRhAxp2engxQZzYpP56DG2O7wEo9feS3Kh9QKbx?=
- =?iso-8859-1?Q?jYs1/Oc91UguC6V+znSutchFktJKrj+1qjip2kbMy26awJHZMukO6HdTac?=
- =?iso-8859-1?Q?7fisEF2osiMdO9pu4OS46Ayc5rCw5d0cMyAfFfSWPWt75cdvxoSbU/WHZ7?=
- =?iso-8859-1?Q?2e8DTnDeZroeNb3y4ABZs8fTfNfmQxOhln+qU1FqUT29jcLWb0Oz3lq3oQ?=
- =?iso-8859-1?Q?B9OUa+Xjetg+2egbDDPP3r1zCkzewaPc1+M8KPKZjoBEUG1VKhqCukn+tM?=
- =?iso-8859-1?Q?lYW04z1EO4aWR7MrTM79w2spgMlO8AHXHPkzW0/4/IQpW9LBWadtDcGQYn?=
- =?iso-8859-1?Q?hl4h98CTuPUPZpEt3CITudKAFWtoTvqAvtZPoTcK+w9NNGIca0SFjdvc/W?=
- =?iso-8859-1?Q?GpFA=3D=3D?=
-Content-Type: multipart/alternative;
-	boundary="_000_TY0PR03MB6428732CFA2292AE5411838481FC2TY0PR03MB6428apcp_"
+X-Inumbo-ID: 509d210d-e914-11ef-a075-877d107080fb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1739345893; x=1739950693; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=wLjQan+KyC+EpAJYQuttIKXaoxesdXErEUY1UHSBnrM=;
+        b=cjao93XdrXmggpOYoHag86ATwLwRfxs6vW86+LAyVCnZz2Eki28FYSbiTxpgXIqdBk
+         NerI6dTNF4LEMrvu0FuiJWMVttoBDpEqGYgMFrytmtaqhT/53y94OOefHtY+Q0+ws/z5
+         7Gtx0RClxY2LT6RDUeAgmKGoMw3a1+zvY0dM9zmot+kFOpIXnUkEcIplsPknlhamwbDt
+         vc+wHyOgd/Zqav4AK/rIYDeEIMqfbkU5hknE1f6atS0Vrd1T2XADILbIgZqln9W4mJ2B
+         TuacACAvl79ISKMB3qCZ30mLajTXE2JHg9+FC6fndJdT+lLSAAToajnUHbjRMcVVkq7X
+         bk/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1739345893; x=1739950693;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wLjQan+KyC+EpAJYQuttIKXaoxesdXErEUY1UHSBnrM=;
+        b=JLSN6LTtIvy+OTbhDxSgwmhJU7PFRU4wFbOqY/Sf4DTHiiNP+qMmy2asAEVrbNL+TR
+         qVvROd9BRExZirL1h2HogaHH8xC6kpkhQv9sTxeftWImR7uDQPfn/SGgtQouy3J8nh4z
+         w3nUFv6TRXJiwd01JMHsxXZjaSsbVnecwuiyjw2sFpWLaD3FHCRE/FMv9EAyH/lJcCfL
+         Gvhs4vof+YBBDqxNsAR46la2WAK/cBca+nWDSo+5fWGEopLzf043qveGrUewNhSBu4Fg
+         64DD1FjJVROxLkXf3vbEXpvZHuI4eTAbz5qoDBJKjPzVA/ggzW7shlNEVt2CSlFRIMen
+         gM5w==
+X-Forwarded-Encrypted: i=1; AJvYcCX+FRLN8olb2X7g6ox8HNuwzEkmbpdhAWHlhBZihLfIU1vW1hQCHfSLLzMuHgAv+3lwgfbAhTnY7E4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy9MtuE4+qFF/n+3U/NFvbK7yBbr+fEJhic6gBVTTmAlX4raWG8
+	rRPatDbXjUB+BTg2a5pW0zDzYMd1oTyhWM0fnzURa+Xg1XVbfARgx7b1E5CVrA==
+X-Gm-Gg: ASbGncvB7s+jwCNWq1/fTvthTiKkXfQesa1/JAb9sR7iaLTOGOYwq1albp3kNNUgVNt
+	kxxBac918dJZ9YLInDyB7QSnD3n/mO83wW7Sz3jXC5eJsZqQ6WrYi/Pl8pZI4xrDGp3lgpCcJVG
+	nA11fVweKIYAcPrD2pSvBdeY/EXXL/887/+M31xIFYTBuQ2Bd+v63QbctjkgAqlK2FO1R6fEYXo
+	ZMZ6Ws2plO79ybvkbOPq0QrByVi+EB7rijFEl9ygfdzQsQKBZAimQFxfs6kj2kRtbTjCkBDYkZ5
+	Bsaw9XQQ6RAJyUbFmHGoABgFzws2AFB7k4vmbZvtYsJ2TR1ZetZZG8AhlVUhDRs9CghxSxJaGsZ
+	A
+X-Google-Smtp-Source: AGHT+IEFvNs8uOtbXE41Ln0wTMYaIqbADY6HMkDnwvoMjcBj/NSWHknj+g9ufEucmWh6ko9ZNtziNA==
+X-Received: by 2002:a17:907:7d88:b0:ab7:8d23:1fef with SMTP id a640c23a62f3a-ab7f334583amr189319666b.9.1739345892840;
+        Tue, 11 Feb 2025 23:38:12 -0800 (PST)
+Message-ID: <abe2138d-b1a7-4e53-ae5f-ea3c393d50c5@suse.com>
+Date: Wed, 12 Feb 2025 08:38:11 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: cyient.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY0PR03MB6428.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 748a91f8-a9a8-40c7-774b-08dd4b33cd8c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Feb 2025 07:06:42.0306
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 2d6b0cf3-57fa-4619-abf9-d13e1ef2352a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: VtUMSDWlkvAuR+u9469VubRsOWYpTvtYgFfNVBetKHJF1VKTOkv5eA4uiafnjQVaVnzhWVnASLM7Bvmg5gzvpvIKIs+pOKaLcz3pqkCL6ac=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR03MB8486
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] xen/swiotlb: don't destroy contiguous region in all
+ cases
+To: Juergen Gross <jgross@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ x86@kernel.org, iommu@lists.linux.dev
+References: <20250211120432.29493-1-jgross@suse.com>
+ <20250211120432.29493-3-jgross@suse.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250211120432.29493-3-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---_000_TY0PR03MB6428732CFA2292AE5411838481FC2TY0PR03MB6428apcp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+On 11.02.2025 13:04, Juergen Gross wrote:
+> In case xen_swiotlb_alloc_coherent() needed to create a contiguous
+> region only for other reason than the memory not being compliant with
+> the device's DMA mask, there is no reason why this contiguous region
+> should be destroyed by xen_swiotlb_free_coherent() later. Destroying
+> this region should be done only, if the memory of the region was
+> allocated with more stringent placement requirements than the memory
+> it did replace.
 
-Hi,
-I hope this email finds you well.
+I'm not convinced of this: Even the mere property of being contiguous
+may already be enough to warrant freeing when possible. The hypervisor
+may not have that many contiguous areas available. The bigger the
+chunk, the more important to give it back once no longer needed in
+this shape.
 
-My name is Surya Prakash Shukla, and I am currently working on a project in=
-volving the development of Android Trout on the Xen Hypervisor. I have been=
- exploring various aspects of virtualization and have found the Xen Project=
- to be an invaluable resource in my endeavors.
+Plus also take into account how Xen behaves here: It specifically tries
+to hold back, during boot, lower addressed memory to later satisfy such
+requests. Hence even if you don't ask for address restricted memory,
+you may get back such. You'd need to compare input and output addresses,
+not input addresses and requested restriction to alleviate this.
 
-Given the complexity and potential of this project, I am seeking guidance a=
-nd collaboration opportunities with the Xen Project community. Specifically=
-, I am interested in understanding the best practices for integrating Andro=
-id Trout with the Xen Hypervisor, as well as any existing tools, documentat=
-ion, or support channels that could assist in this process.
+> --- a/arch/x86/xen/mmu_pv.c
+> +++ b/arch/x86/xen/mmu_pv.c
+> @@ -2208,19 +2208,22 @@ void __init xen_init_mmu_ops(void)
+>  static unsigned long discontig_frames[1<<MAX_CONTIG_ORDER];
+>  
+>  #define VOID_PTE (mfn_pte(0, __pgprot(0)))
+> -static void xen_zap_pfn_range(unsigned long vaddr, unsigned int order,
+> -				unsigned long *in_frames,
+> -				unsigned long *out_frames)
+> +static int xen_zap_pfn_range(unsigned long vaddr, unsigned int order,
+> +			     unsigned long *in_frames,
+> +			     unsigned long *out_frames)
+>  {
+>  	int i;
+> +	u64 address_bits = 0;
 
+First I was inclined to suggest to use paddr_t here, but ...
 
-Best regards,
-Surya Prakash Shukla
+>  	struct multicall_space mcs;
+>  
+>  	xen_mc_batch();
+>  	for (i = 0; i < (1UL<<order); i++, vaddr += PAGE_SIZE) {
+>  		mcs = __xen_mc_entry(0);
+>  
+> -		if (in_frames)
+> +		if (in_frames) {
+>  			in_frames[i] = virt_to_mfn((void *)vaddr);
+> +			address_bits |= in_frames[i] << PAGE_SHIFT;
 
+... why do a shift on every loop iteration when you can ...
 
---_000_TY0PR03MB6428732CFA2292AE5411838481FC2TY0PR03MB6428apcp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+> +		}
+>  
+>  		MULTI_update_va_mapping(mcs.mc, vaddr, VOID_PTE, 0);
+>  		__set_phys_to_machine(virt_to_pfn((void *)vaddr), INVALID_P2M_ENTRY);
+> @@ -2229,6 +2232,8 @@ static void xen_zap_pfn_range(unsigned long vaddr, unsigned int order,
+>  			out_frames[i] = virt_to_pfn((void *)vaddr);
+>  	}
+>  	xen_mc_issue(0);
+> +
+> +	return fls64(address_bits);
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Hi,</div>
-<div class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; =
-background-color: rgb(255, 255, 255); margin: 0px; font-family: Aptos, Apto=
-s_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-s=
-ize: 12pt; color: black;">
-I hope this email finds you well.</div>
-<div style=3D"text-align: left; text-indent: 0px; background-color: rgb(255=
-, 255, 255); margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSF=
-ontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: black;"=
->
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; =
-background-color: rgb(255, 255, 255); margin: 0px; font-family: Aptos, Apto=
-s_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-s=
-ize: 12pt; color: black;">
-My name is Surya Prakash Shukla, and I am currently working on a project in=
-volving the development of Android Trout on the Xen Hypervisor. I have been=
- exploring various aspects of virtualization and have found the Xen Project=
- to be an invaluable resource&nbsp;in
- my endeavors.</div>
-<div style=3D"text-align: left; text-indent: 0px; background-color: rgb(255=
-, 255, 255); margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSF=
-ontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: black;"=
->
-<br>
-</div>
-<div style=3D"text-align: left; text-indent: 0px; background-color: rgb(255=
-, 255, 255); margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSF=
-ontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: black;"=
->
-Given the complexity and potential of this project, I am seeking guidance a=
-nd collaboration opportunities with the Xen Project community. Specifically=
-, I am interested in understanding the best practices for integrating Andro=
-id Trout with the Xen Hypervisor,
- as well as any existing tools, documentation, or support channels that cou=
-ld assist in this process.</div>
-<div style=3D"text-align: left; text-indent: 0px; background-color: rgb(255=
-, 255, 255); margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSF=
-ontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: black;"=
->
-<br>
-</div>
-<div style=3D"text-align: left; text-indent: 0px; background-color: rgb(255=
-, 255, 255); margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSF=
-ontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: black;"=
->
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; =
-background-color: rgb(255, 255, 255); margin: 0px; font-family: Aptos, Apto=
-s_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-s=
-ize: 12pt; color: black;">
-Best regards,</div>
-<div style=3D"text-align: left; text-indent: 0px; background-color: rgb(255=
-, 255, 255); margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSF=
-ontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: black;"=
->
-Surya Prakash Shukla</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-</body>
-</html>
+... simply add in PAGE_SHIFT here, once?
 
---_000_TY0PR03MB6428732CFA2292AE5411838481FC2TY0PR03MB6428apcp_--
+> @@ -2321,7 +2326,8 @@ static int xen_exchange_memory(unsigned long extents_in, unsigned int order_in,
+>  
+>  int xen_create_contiguous_region(phys_addr_t pstart, unsigned int order,
+>  				 unsigned int address_bits,
+> -				 dma_addr_t *dma_handle)
+> +				 dma_addr_t *dma_handle,
+> +				 unsigned int *address_bits_in)
+>  {
+>  	unsigned long *in_frames = discontig_frames, out_frame;
+>  	unsigned long  flags;
+> @@ -2336,7 +2342,7 @@ int xen_create_contiguous_region(phys_addr_t pstart, unsigned int order,
+>  	spin_lock_irqsave(&xen_reservation_lock, flags);
+>  
+>  	/* 1. Zap current PTEs, remembering MFNs. */
+> -	xen_zap_pfn_range(vstart, order, in_frames, NULL);
+> +	*address_bits_in = xen_zap_pfn_range(vstart, order, in_frames, NULL);
+
+Nit: Converting plain int to unsigned int, when there's no real reason
+to do any conversion. Since xen_zap_pfn_range() can't return a negative
+value for the caller caring about the return value (yet more obviously
+so with the suggested adjustment, and then true for both callers), the
+function could easily return unsigned int.
+
+Jan
 
