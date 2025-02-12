@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E7B1A32573
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 12:54:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.886394.1296058 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E149A325B7
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 13:15:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.886413.1296068 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiBK1-0003yg-E1; Wed, 12 Feb 2025 11:54:29 +0000
+	id 1tiBe9-0007S4-Bq; Wed, 12 Feb 2025 12:15:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 886394.1296058; Wed, 12 Feb 2025 11:54:29 +0000
+Received: by outflank-mailman (output) from mailman id 886413.1296068; Wed, 12 Feb 2025 12:15:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiBK1-0003wJ-Au; Wed, 12 Feb 2025 11:54:29 +0000
-Received: by outflank-mailman (input) for mailman id 886394;
- Wed, 12 Feb 2025 11:54:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tiBe9-0007Ps-8a; Wed, 12 Feb 2025 12:15:17 +0000
+Received: by outflank-mailman (input) for mailman id 886413;
+ Wed, 12 Feb 2025 12:15:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=r9o/=VD=cloud.com=edwin.torok@srs-se1.protection.inumbo.net>)
- id 1tiBK0-0003wD-4N
- for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 11:54:28 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1c0cf90a-e938-11ef-a075-877d107080fb;
- Wed, 12 Feb 2025 12:54:27 +0100 (CET)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-ab7cb1154abso386638066b.0
- for <xen-devel@lists.xenproject.org>; Wed, 12 Feb 2025 03:54:27 -0800 (PST)
-Received: from smtpclient.apple ([217.155.175.161])
+ <SRS0=mGeD=VD=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1tiBe8-0007Pk-4U
+ for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 12:15:16 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 026e795c-e93b-11ef-b3ef-695165c68f79;
+ Wed, 12 Feb 2025 13:15:12 +0100 (CET)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-5439a6179a7so788803e87.1
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Feb 2025 04:15:12 -0800 (PST)
+Received: from [192.168.209.66] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab7d9601161sm357368766b.183.2025.02.12.03.54.25
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 12 Feb 2025 03:54:26 -0800 (PST)
+ 2adb3069b0e04-545049343adsm1334859e87.166.2025.02.12.04.15.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 12 Feb 2025 04:15:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,231 +45,308 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1c0cf90a-e938-11ef-a075-877d107080fb
+X-Inumbo-ID: 026e795c-e93b-11ef-b3ef-695165c68f79
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1739361266; x=1739966066; darn=lists.xenproject.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1739362512; x=1739967312; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hZxZ+luaSKxTZWj3oHWYAhNexkiUh6j9g8peGDMJr80=;
-        b=Rl2lWJPWZN/eUC1nOXORHzIE4GG51gDOEJsSSYtCN9ZsIsNEPUAkiD/DVDkKtPWOH9
-         DsNGokKy2xC/WPcxkQwkPf1IFOYk1gdU4aRoIePoYCQYxuM6Fncze3Y7biw9P7sy2s/R
-         AyZIoPyTWmhD5fUo7VVdaePE1T7BjXluC90QY=
+        bh=iPdLZD5ivIZZb/+0mtABuC2A/9i3q/jJKrJuPST0F2Q=;
+        b=lpIP3FS25vEzpEllnvdaUHlCcgL3RoGdeEz2Zbu206w5EliHzjRzKtNbRstAkZt9bG
+         0DMndpIErH5YID+9vNW0FTF0ddMWJ4YhHePvBU+F6ZEwheahBhf3wj+q0XPHYVx8KkST
+         ExO1pNfj/QuyoYL9tl60j6vAjlEIHgT7l1FU3GRpURPibt9ORGLT4q2zbWqeBw7K912q
+         hY5tgMp+voZgnM+ObKU4x9JoYO2Qs0YP5SxS3cjS0m9HtoYfQ6bggQ6OS6KOeTAoxvX9
+         VX/rzj7SoneJIofVaYxPxcrijc8crJlyT28cJxOZ7dKkpOz0y39m9cVK+4dFfzt3YU5Y
+         B77A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739361266; x=1739966066;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=hZxZ+luaSKxTZWj3oHWYAhNexkiUh6j9g8peGDMJr80=;
-        b=geVhuHzTq2375rxoVH+XAPHLuQd8iZr6mNaE5CLEQd/yAbyGuqA99NmBIzDt11NT1I
-         Pm+lxxXyO3ejeS+EmuJ4A5IkSrY1Fxqaxb7eiUvuQi4I9YH9Y+vlZKprgIgPC7jNnN3a
-         X5grFW2BNOBF1WEmXwqNcsfDAQ2q18F/LkkcLbfH1DeDWE8HN5+RGYvBzYt4BeR3hOU/
-         3769isiEWiCJ/eU7kJL6sgiSbLIJG3FN2ri2CvdgyPMMosw7kHr75//9PYKnx91PMdpT
-         Du4iBwLfwVSMT/XOxabEWy8kAtXgEKSJeNtcyol1sGBnZdhBmp7rtJujyYThOkCyez99
-         o1iA==
-X-Forwarded-Encrypted: i=1; AJvYcCUG75D0/svk+wdmYWcKqv7kxiNjTC9iNm1sp3dzNc9ttkddsUR71gzyipkqS7zmBZVPKw+/SHMuof0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzE3AlEMDRsIYNOpkKwU8NLwJVHFVdaiVpXIRi+npmesDfz0PrN
-	09zmU5PPnWwDYBdhzWtEhhJpS2cJGWtVrxUtl9tcsGFwVAa3gNEhSDz9h18CoVQ=
-X-Gm-Gg: ASbGncut7k5UqOdDvQlgRPeV1T5cZEiXiO86htXTzkOVAWUc/mfAzpxrn0Uph/J7+Np
-	mtFtDCzzRds8My7oH/i/lxFl/69tFZ4xPKIsTq4ADb+NEiBY/SqjZ7T6UwdqQmjRnPArRvE6+bY
-	3diN+7KgYLBnKYVOHXwC7WWNdufPqNwyul/ggQ67wZIwKqS8P1mcaJrkjJhndxrN/0bpi9vzKHV
-	T2cGqS5q58vulTgHfgsveXI7bECGkoO2VWbVzL2YPhoJ23mLqE/BpnOXsaeQMmJG20GAtI4x1gt
-	JHohi9ZoLR5MEsl9TTAcVYRArmtCWyX0HkH+
-X-Google-Smtp-Source: AGHT+IHhs5qz6manLw+O3E4ijtWUesBdST/iNxeMvCRIlwBJaZh7IYMrGZz7/UsY8f2c4iRkfYNusg==
-X-Received: by 2002:a05:6402:13cc:b0:5dc:caab:9447 with SMTP id 4fb4d7f45d1cf-5deadd9d336mr7204325a12.18.1739361266489;
-        Wed, 12 Feb 2025 03:54:26 -0800 (PST)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.400.131.1.6\))
-Subject: Re: Coding Style Review and Automation
-From: Edwin Torok <edwin.torok@cloud.com>
-In-Reply-To: <Z6uc_eN-LLmgOmxJ@mail-itl>
-Date: Wed, 12 Feb 2025 11:54:13 +0000
-Cc: =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jan Beulich <jbeulich@suse.com>,
- Luca Fancellu <Luca.Fancellu@arm.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Oleksandr Andrushchenko <andr2000@gmail.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Artem Mygaiev <Artem_Mygaiev@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+        d=1e100.net; s=20230601; t=1739362512; x=1739967312;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=iPdLZD5ivIZZb/+0mtABuC2A/9i3q/jJKrJuPST0F2Q=;
+        b=v3V73A/O5IN3t8LXoCf0QfOlRfqHg3oVm9zgnzCpXksW7aOE8Iy42B9NQfO1m/pER2
+         n/P/g7BQLZkLv/yC8f+W2nHjdP1mPXb/SEQEumJI6SftadDzpVEaIel3QSomlDrmz1uQ
+         cZ2T9DAN5JaqcfqoU/uRitWZo0MeBeaNc2fsiervyHEtYGtRFZ5Xv3aL3IyRcloWImc5
+         76S7blgoRC/7lBn5JrF315awMai+Gt0vNKjwiDC0s2mkkgqJ2QCVbDlMrH+AW/UYdds1
+         DWuwXPw89R8wRZRVBKL2ph73rdPEAgFWIlXJTWmSQFjj9wo7IDcJriNBQgBzhXg3VYm8
+         /SnA==
+X-Forwarded-Encrypted: i=1; AJvYcCVaZkJkEB4ozPeM/lrHJLZP1xJkvevrbVjEYJXU7+gU6HOU12Ztec/L/MsToyS7rSOfiBItkzu6K9A=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywd+fKWaT0fqg+2PtQ/CkCqqptXqy35bSLOA2RXKVGPQxcZMexS
+	twz3wRo9C6UQX00y1pJInzi0VLwxu2SzkDoelfhX3syCFUlxNR64
+X-Gm-Gg: ASbGncszkzwQxdGluw21m33rbgNhEVCRlvXVp4/OhrWx0QwGQ1ElOgFOU1rjf95P9vq
+	sdiCpRVtoQygJ4jnu1QuP9XI/jvCjLqQ3auJVaGps+9WcuUHu+zdegf/YIsnVEmaufDAz979v9j
+	y3Gtup6p+EGdTYujGQLJGnjPHTyf8Sw6k3W/RD3Hc/vf9gFI+0aPKze4n8o88pDzAsULEs8+j7d
+	iPQRzJ2Oybk5CttfDJz3Q2hAT/cVNZB27Niy1BktJJSlW/gkG20pUdTQgXl2F9bPpfBPyDbgHmi
+	u9ssQgVt38JpX1TJAA9xS61XWbI=
+X-Google-Smtp-Source: AGHT+IFW85AMLsUjxYGfxd3KaPDVNS+7tp9RsTZKlQLwB+IB+Mtvz1ajejvKhlwgILx9yp6kRS+wsA==
+X-Received: by 2002:a05:6512:3e0b:b0:545:56f:385e with SMTP id 2adb3069b0e04-54511c45525mr2260698e87.14.1739362511680;
+        Wed, 12 Feb 2025 04:15:11 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------lMYEln0v04R91NK5OUhujhG3"
+Message-ID: <11d69cd5-e24a-45f1-ae12-6d8dc6769aaa@gmail.com>
+Date: Wed, 12 Feb 2025 13:15:10 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for 4.20? v3 1/3] xen/riscv: implement software page table
+ walking
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <C958B4D5-BCD0-4534-A9F8-E4B06ED7B258@cloud.com>
-References: <5a15f8e2-079c-405a-95ce-92585ac529cd@gmail.com>
- <Z6sR87FrKcOhgEqX@macbook.local>
- <4677686F-97C4-4D35-A113-0D8A1C0BC328@arm.com>
- <55c4d9e0-77b2-408b-9bb1-8efed95891c1@suse.com>
- <Z6tZUKiqYARWuk8N@macbook.local> <Z6uc_eN-LLmgOmxJ@mail-itl>
-To: =?utf-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-X-Mailer: Apple Mail (2.3826.400.131.1.6)
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1738933678.git.oleksii.kurochko@gmail.com>
+ <e78679b00df63bde40eb3a4d97e3ab9d1faf9382.1738933678.git.oleksii.kurochko@gmail.com>
+ <c6916159-d314-4121-b1aa-f5fd26bdb7b1@suse.com>
+ <78b67cb7-5bc0-4292-987f-d22e199d83ae@gmail.com>
+ <e7d67dd8-5ec1-43e5-b0a1-58302bc67fa0@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <e7d67dd8-5ec1-43e5-b0a1-58302bc67fa0@suse.com>
 
-On 11 Feb 2025, at 18:54, Marek Marczykowski-G=C3=B3recki =
-<marmarek@invisiblethingslab.com> wrote:
->=20
-> On Tue, Feb 11, 2025 at 03:06:08PM +0100, Roger Pau Monn=C3=A9 wrote:
->> On Tue, Feb 11, 2025 at 11:19:23AM +0100, Jan Beulich wrote:
->>> On 11.02.2025 10:10, Luca Fancellu wrote:
->>>>>> 3) The size of the patch after applying clang-format is huge. =
-Really. Something
->>>>>> like 9 MB. Even if everyone agrees that the approach is good and =
-we can proceed
->>>>>> with it, it is highly unlikely anyone will be able to review it. =
-Considering
->>>>>> that new patches are being added to the upstream during such a =
-review, it may
->>>>>> also lead to new code style violations or require a new review of =
-that huge
->>>>>> patch.
->>>>>=20
->>>>> I think this approach is difficult.  It would likely introduce a =
-lot
->>>>> of noise when using `git blame` (I know, it's just one extra jump,
->>>>> but...), plus would likely break every patch that we currently =
-have
->>>>> in-flight.
->>>>=20
->>>> I think we already discussed this in the past and having some churn =
-was accepted,
->>>> also about breaking existing patches, every change merged has the =
-potential to do
->>>> that, this one is more likely but it=E2=80=99s the game I guess?
->>>=20
->>> That's easy to say if you have just a few patches in flight, yet I'm =
-worried
->>> about this when considering the hundreds of mine that are awaiting =
-review.
->>=20
->> There are also downstreams (including distros) with varying length of
->> patch queues on top of Xen.  Arguably they have to rebase the queue
->> every time they update, but a wide change in coding style will likely
->> be fairly disruptive to them.
->>=20
->> Don't take this as a reason to reject clang-format.  As mentioned
->> elsewhere I think the format supported by clang-format would need to
->> be fairly similar to the current Xen one (up to the point that chunks
->> of code using the new and the old style could live together).  Then =
-we
->> would enforce it only for newly added chunks of code initially IMO.
->=20
-> While clang-format surely will force some changes (the earlier 9MB =
-patch
-> is a data point here...)
-
-Here is an example of how reformatting the OCaml C stubs would look like =
-based on an earlier attempt:
-=
-https://github.com/edwintorok/xen/commit/7ad754fcfb490954f7f01f788893f5c4b=
-77fdc9a
-=
-https://github.com/edwintorok/xen/commit/41155c78cc95fd66fe2ed0d1634b0e59f=
-cc3a3b2
-
-In this case switching those files to Linux coding style results in a =
-smaller diff, and might help reduce that 9MB a little bit.
-Those files didn=E2=80=99t follow either the Xen or Linux coding style =
-previously, seems to have been a mix of styles,
-which is very confusing because it is not documented anywhere what style =
-they are supposed to be, so everyone is left guessing as to
-how to best preserve the style of existing code.
+This is a multi-part message in MIME format.
+--------------lMYEln0v04R91NK5OUhujhG3
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-> , I generally expect it should match fairly
-> close to the current code style, and so the rebase shouldn't be _that_
-> painful. In some cases git likely will handle large part of the work
-> already.
+On 2/12/25 12:27 PM, Jan Beulich wrote:
+> On 12.02.2025 12:13, Oleksii Kurochko wrote:
+>> On 2/10/25 5:32 PM, Jan Beulich wrote:
+>>> On 07.02.2025 14:13, Oleksii Kurochko wrote:
+>>>> --- a/xen/arch/riscv/pt.c
+>>>> +++ b/xen/arch/riscv/pt.c
+>>>> @@ -185,6 +185,57 @@ static int pt_next_level(bool alloc_tbl, pte_t **table, unsigned int offset)
+>>>>        return XEN_TABLE_NORMAL;
+>>>>    }
+>>>>    
+>>>> +/*
+>>>> + * _pt_walk() performs software page table walking and returns the pte_t of
+>>>> + * a leaf node or the leaf-most not-present pte_t if no leaf node is found
+>>>> + * for further analysis.
+>>>> + * Additionally, _pt_walk() returns the level of the found pte.
+>>> That's optional, which I think wants expressing here.
+>>>
+>>>> + */
+>>>> +static pte_t *_pt_walk(vaddr_t va, unsigned int *pte_level)
+>>>> +{
+>>>> +    const mfn_t root = get_root_page();
+>>>> +    unsigned int level;
+>>>> +    pte_t *table;
+>>>> +
+>>>> +    DECLARE_OFFSETS(offsets, va);
+>>>> +
+>>>> +    table = map_table(root);
+>>> This mapping operation doesn't look to have a counterpart. Aiui ...
+>>>
+>>>> +    /*
+>>>> +     * Find `table` of an entry which corresponds to `va` by iterating for each
+>>>> +     * page level and checking if the entry points to a next page table or
+>>>> +     * to a page.
+>>>> +     *
+>>>> +     * Two cases are possible:
+>>>> +     * - ret == XEN_TABLE_SUPER_PAGE means that the entry was found;
+>>>> +     *   (Despite the name) XEN_TABLE_SUPER_PAGE also covers 4K mappings. If
+>>>> +     *   pt_next_level() is called for page table level 0, it results in the
+>>>> +     *   entry being a pointer to a leaf node, thereby returning
+>>>> +     *   XEN_TABLE_SUPER_PAGE, despite of the fact this leaf covers 4k mapping.
+>>>> +     * - ret == XEN_TABLE_MAP_NONE means that requested `va` wasn't actually
+>>>> +     *   mapped.
+>>>> +     */
+>>>> +    for ( level = HYP_PT_ROOT_LEVEL; ; --level )
+>>>> +    {
+>>>> +        int ret = pt_next_level(false, &table, offsets[level]);
+>>> ... the mapping may be replaced here, but a new mapping will then still
+>>> be held by this function and ...
+>>>
+>>>> +        if ( ret == XEN_TABLE_MAP_NONE || ret == XEN_TABLE_SUPER_PAGE )
+>>>> +            break;
+>>>> +
+>>>> +        ASSERT(level);
+>>>> +    }
+>>>> +
+>>>> +    if ( pte_level )
+>>>> +        *pte_level = level;
+>>>> +
+>>>> +    return table + offsets[level];
+>>>> +}
+>>> ... the final one then be transferred to the caller.
+>>>
+>>>> +pte_t pt_walk(vaddr_t va, unsigned int *pte_level)
+>>>> +{
+>>>> +    return *_pt_walk(va, pte_level);
+>>>> +}
+>>> Hence aiui there needs to be an unmap operation here.
+>> As _pt_walk() returns page table entry, it is needed to transform entry to table.
+>>
+>> Do we have any function in Xen for that?
+> I don't understand. Both unmap_domain_page() and pmap_unmap() ignore
+> the low bits of the passed in address.
+
+Missed that. Then it is safe to use unmap_table() with page table entry.
+
+Thanks.
+
+~ Oleksii
+
+>> Or the best I can do is:
+>>     pte_t *table = *_pt_walk(va, pte_level) - TABLE_OFFSET(pt_linear_offset(*pte_level, va)
+>> (of course, it is needed to check if pte_level isn't null and do some extra actions if it is NULL)
+>>
+>> As an option, as all page tables are PAGE_SIZE aligned, we could use PAGE_OFFSET():
+>>    pte_t *entry = _pt_walk(va, pte_level);
+>>    pte_t *table = PAGE_OFFSET(entry);
+>>
+>> ~ Oleksii
+>>
+>>
+--------------lMYEln0v04R91NK5OUhujhG3
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2/12/25 12:27 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:e7d67dd8-5ec1-43e5-b0a1-58302bc67fa0@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 12.02.2025 12:13, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+On 2/10/25 5:32 PM, Jan Beulich wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On 07.02.2025 14:13, Oleksii Kurochko wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/pt.c
++++ b/xen/arch/riscv/pt.c
+@@ -185,6 +185,57 @@ static int pt_next_level(bool alloc_tbl, pte_t **table, unsigned int offset)
+      return XEN_TABLE_NORMAL;
+  }
+  
++/*
++ * _pt_walk() performs software page table walking and returns the pte_t of
++ * a leaf node or the leaf-most not-present pte_t if no leaf node is found
++ * for further analysis.
++ * Additionally, _pt_walk() returns the level of the found pte.
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">That's optional, which I think wants expressing here.
+
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">+ */
++static pte_t *_pt_walk(vaddr_t va, unsigned int *pte_level)
++{
++    const mfn_t root = get_root_page();
++    unsigned int level;
++    pte_t *table;
++
++    DECLARE_OFFSETS(offsets, va);
++
++    table = map_table(root);
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">This mapping operation doesn't look to have a counterpart. Aiui ...
+
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">+    /*
++     * Find `table` of an entry which corresponds to `va` by iterating for each
++     * page level and checking if the entry points to a next page table or
++     * to a page.
++     *
++     * Two cases are possible:
++     * - ret == XEN_TABLE_SUPER_PAGE means that the entry was found;
++     *   (Despite the name) XEN_TABLE_SUPER_PAGE also covers 4K mappings. If
++     *   pt_next_level() is called for page table level 0, it results in the
++     *   entry being a pointer to a leaf node, thereby returning
++     *   XEN_TABLE_SUPER_PAGE, despite of the fact this leaf covers 4k mapping.
++     * - ret == XEN_TABLE_MAP_NONE means that requested `va` wasn't actually
++     *   mapped.
++     */
++    for ( level = HYP_PT_ROOT_LEVEL; ; --level )
++    {
++        int ret = pt_next_level(false, &amp;table, offsets[level]);
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">... the mapping may be replaced here, but a new mapping will then still
+be held by this function and ...
+
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">+        if ( ret == XEN_TABLE_MAP_NONE || ret == XEN_TABLE_SUPER_PAGE )
++            break;
++
++        ASSERT(level);
++    }
++
++    if ( pte_level )
++        *pte_level = level;
++
++    return table + offsets[level];
++}
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">... the final one then be transferred to the caller.
+
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">+pte_t pt_walk(vaddr_t va, unsigned int *pte_level)
++{
++    return *_pt_walk(va, pte_level);
++}
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">Hence aiui there needs to be an unmap operation here.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+As _pt_walk() returns page table entry, it is needed to transform entry to table.
+
+Do we have any function in Xen for that?
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+I don't understand. Both unmap_domain_page() and pmap_unmap() ignore
+the low bits of the passed in address.</pre>
+    </blockquote>
+    <pre>Missed that. Then it is safe to use unmap_table() with page table entry.
+
+Thanks.
+
+~ Oleksii</pre>
+    <blockquote type="cite"
+      cite="mid:e7d67dd8-5ec1-43e5-b0a1-58302bc67fa0@suse.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">Or the best I can do is:
+   pte_t *table = *_pt_walk(va, pte_level) - TABLE_OFFSET(pt_linear_offset(*pte_level, va)
+(of course, it is needed to check if pte_level isn't null and do some extra actions if it is NULL)
+
+As an option, as all page tables are PAGE_SIZE aligned, we could use PAGE_OFFSET():
+  pte_t *entry = _pt_walk(va, pte_level);
+  pte_t *table = PAGE_OFFSET(entry);
+
+~ Oleksii
 
 
-There are a few tools that might help with this.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+    </blockquote>
+  </body>
+</html>
 
-This would reformat only diffs/commits:
-=
-https://github.com/llvm/llvm-project/blob/main/clang/tools/clang-format/gi=
-t-clang-format
-
-These are git merge drivers for clang-format that can help automatically =
-solve most conflicts that a patch rebase would create:
-=
-https://github.com/llvm/llvm-project/blob/c174cc48401292e2eb9317128f56fd22=
-af2f4848/libcxx/utils/clang-format-merge-driver.sh#L4
-https://github.com/emilio/clang-format-merge
-As you can see the implementation is very simple: you use clang-format =
-on all 3 sides during a conflict, and then attempt to merge again. If =
-that has solved the conflict there is nothing more to do, if it hasn=E2=80=
-=99t you get the usual conflict markers to solve it, but this time on =
-the reformatted code.
-
-If you are looking for something more automated to handle your =
-work-in-progress patches, then there are 2 other tools that can help:
-
-Jujutsu=E2=80=99s =E2=80=98fix=E2=80=99 command which goes through all =
-(or subset) of your local and mutable commits (not part of upstream =
-repo) and reformats each change individually (which is useful if your =
-base is already well-formatted, and you=E2=80=99ve made a lot of changes =
-to split/reorder/rebase your patches and didn=E2=80=99t use clang-format =
-during development): https://jj-vcs.github.io/jj/latest/
-(JJ can be used in =E2=80=98git=E2=80=99 colocation/compatibility mode, =
-and I=E2=80=99ve actually switched to using it on a daily basis, because =
-it enables a mega-merge workflow, where you can create a merge commit of =
-all your in-flight branches that gets automatically rebased whenever one =
-of your branches gets rebased, and with jj=E2=80=99s way of deferring =
-conflict resolution you don=E2=80=99t even need to immediately fix the =
-conflicts, which is very useful for =E2=80=9Cparallelising=E2=80=9D =
-patches, i.e. splitting out commits that are independent.
-And =E2=80=98jj fix=E2=80=99 can keep up with formatting changes during =
-that workflow too)
-
-If JJ isn=E2=80=99t your cup of tea, then there are other tools that can =
-help too, e.g. =E2=80=98git-branchless=E2=80=99 has a =E2=80=98git test =
-run=E2=80=99 command that can be used to run a formatter on all commits, =
-see https://github.com/arxanas/git-branchless/discussions/803 (using =
-=E2=80=98rustfmt=E2=80=99 as an example, but it should work in similarly =
-with =E2=80=98clang-format=E2=80=99)
-
-Also if you are worried about git blame then you can create a list of =
-commits to ignore that were due to formatting, here is an example of how =
-that looked like in the XAPI project:
-=
-https://github.com/xapi-project/xen-api/blob/master/.git-blame-ignore-revs=
-
-
-We went through a similar process in the XAPI project when we introduced =
-`ocamlformat`, and had similar concerns over back-portability / =
-in-flight work / etc.
-But at least for me the equivalent to the above tools for =
-=E2=80=98ocamlformat=E2=80=99 made it a fairly smooth process =
-(https://ocaml.org/p/merge-fmt/0.3), and even if the coding style may =
-not suit everyone=E2=80=99s tastes, it is at least *consistent*,
- which is more important than what the coding style actually is (e.g. it =
-prevents many mistakes where incorrect indentation or understanding of =
-precedence leads to incorrect code that looks deceptively correct, but =
-when run through the formatter the bug is immediately obvious)
-It also allows the reviews to focus on the contents of the change, =
-rather than nitpicking on style.
-
-Reviewing the initial changes can indeed be difficult, but if the patch =
-submitter specifies the exact version and command they used to create =
-the re-formatting commit in the commit message itself, then reviewers =
-can rerun that command on the parent commit,
-and verify that they get the same (or equivalent) outcome.
-(This requires the tool to be deterministic of course and always produce =
-the same output given the same inputs).
-
-
-
-Best regards,
-=E2=80=94Edwin
-
->=20
-> It surely is a cost of introducing such a change, but IMO it's a cost
-> worth paying.
->=20
-> --=20
-> Best Regards,
-> Marek Marczykowski-G=C3=B3recki
-> Invisible Things Lab
-
+--------------lMYEln0v04R91NK5OUhujhG3--
 
