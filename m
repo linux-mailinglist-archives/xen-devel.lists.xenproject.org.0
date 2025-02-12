@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F9B4A318A7
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2025 23:33:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.885985.1295749 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7E82A31B22
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 02:24:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.886046.1295775 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thyoh-00041a-NT; Tue, 11 Feb 2025 22:33:19 +0000
+	id 1ti1Tc-0007rP-SU; Wed, 12 Feb 2025 01:23:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 885985.1295749; Tue, 11 Feb 2025 22:33:19 +0000
+Received: by outflank-mailman (output) from mailman id 886046.1295775; Wed, 12 Feb 2025 01:23:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1thyoh-0003ze-Kl; Tue, 11 Feb 2025 22:33:19 +0000
-Received: by outflank-mailman (input) for mailman id 885985;
- Tue, 11 Feb 2025 22:33:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ti1Tc-0007pP-Ob; Wed, 12 Feb 2025 01:23:44 +0000
+Received: by outflank-mailman (input) for mailman id 886046;
+ Wed, 12 Feb 2025 01:23:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YqFZ=VC=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1thyog-0003zW-7B
- for xen-devel@lists.xenproject.org; Tue, 11 Feb 2025 22:33:18 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2cfbc5e0-e8c8-11ef-b3ef-695165c68f79;
- Tue, 11 Feb 2025 23:33:12 +0100 (CET)
+ <SRS0=xJ3x=VD=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1ti1Ta-0007pJ-E2
+ for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 01:23:42 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org
+ [2604:1380:45d1:ec00::3])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fd28b8fc-e8df-11ef-a075-877d107080fb;
+ Wed, 12 Feb 2025 02:23:40 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 5A9F55C540D;
- Tue, 11 Feb 2025 22:32:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BD01C4CEDD;
- Tue, 11 Feb 2025 22:33:10 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 5FCFDA40C7A;
+ Wed, 12 Feb 2025 01:21:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1FD4C4CEDD;
+ Wed, 12 Feb 2025 01:23:37 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,185 +42,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2cfbc5e0-e8c8-11ef-b3ef-695165c68f79
+X-Inumbo-ID: fd28b8fc-e8df-11ef-a075-877d107080fb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739313190;
-	bh=5ZLvwaFeehLasjvJgs+CyQNTW8x2wlO1eLnNv82/pGs=;
+	s=k20201202; t=1739323418;
+	bh=NxZg3s6KMEv9gnhHvHFUocnGM1b/XIp3StXzcFhH2Xo=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=W1p/1c9WROahDcZ3x6OgzuuZKvIAOYC7OVYPA0vtMRGfz9klYtpn90syrKdsTUDGB
-	 pVXbaGnm2rUAGYoxd2RDR/Chg56T2GQLGg+EePYwl9K4YMVhM8kFUvMkPj0DXcZP6C
-	 Di4GMUTwy3UBhSLyjXzIPJdnBm7LkdRlctGjeqGft7POZsPzkFVisS6zlRzGU0vk9R
-	 gPyNtr++ozvarMFyqPufR+EsMma10a/m0cbZL+ti/tpfrxB7MjMzs/4Jv86i4qvofx
-	 1MdvI1vbLMt9rrbw2QStgPhHAmiFd2Gy4Akf8y0HkmpYDQruz3C+2p8FMH32sKu+aK
-	 J7Corhwp5XFVw==
-Date: Tue, 11 Feb 2025 14:33:08 -0800 (PST)
+	b=oVWLqG08PSOIXVkoGpvBSiL9K4kGQ1GwdmXPtyeAygaJn0meND1EiB2qktwJ22JVf
+	 go66AHTs0Cf3DuR6GsEFGt6bRYNSBNihzJP+6imQsIeJ8y+jU2ux129YLsrqJeegRJ
+	 RVmCgUnBlcMePi+eTjrQoAcpuPanxmZHoJFoTk4RjKV9Lf9v7lqoH7puNadklMKJr5
+	 eE+1NSuNulTWL95rJw8t2pmoJsp5RU/ZkWGjmj1ouBSSb1TujhysaTM2fFu38UHGgU
+	 b/slIh2skJHM9AGoogbS0SBO79NplryENo8z6B8yjdmhnjczivKwoL2/TN9DkcYDSi
+	 8LD8TglJLq9fg==
+Date: Tue, 11 Feb 2025 17:23:36 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Oleksandr Andrushchenko <andr2000@gmail.com>
-cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Artem Mygaiev <Artem_Mygaiev@epam.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: Coding Style Review and Automation
-In-Reply-To: <5a15f8e2-079c-405a-95ce-92585ac529cd@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2502111426380.619090@ubuntu-linux-20-04-desktop>
-References: <5a15f8e2-079c-405a-95ce-92585ac529cd@gmail.com>
+To: Juergen Gross <jgross@suse.com>
+cc: linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    xen-devel@lists.xenproject.org, 
+    Jan Vejvalka <jan.vejvalka@lfmotol.cuni.cz>
+Subject: Re: [PATCH 1/2] xen/swiotlb: relax alignment requirements
+In-Reply-To: <20250211120432.29493-2-jgross@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2502111723280.619090@ubuntu-linux-20-04-desktop>
+References: <20250211120432.29493-1-jgross@suse.com> <20250211120432.29493-2-jgross@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-Hi Oleksandr,
+On Tue, 11 Feb 2025, Juergen Gross wrote:
+> When mapping a buffer for DMA via .map_page or .map_sg DMA operations,
+> there is no need to check the machine frames to be aligned according
+> to the mapped areas size. All what is needed in these cases is that the
+> buffer is contiguous at machine level.
+> 
+> So carve out the alignment check from range_straddles_page_boundary()
+> and move it to a helper called by xen_swiotlb_alloc_coherent() and
+> xen_swiotlb_free_coherent() directly.
+> 
+> Fixes: 9f40ec84a797 ("xen/swiotlb: add alignment check for dma buffers")
+> Reported-by: Jan Vejvalka <jan.vejvalka@lfmotol.cuni.cz>
+> Tested-by: Jan Vejvalka <jan.vejvalka@lfmotol.cuni.cz>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-This morning, we had a discussion among maintainers, and the suggested
-approach moving forward is as follows:
-
-- First, it would be helpful to see a sample of the proposed changes
-  applied to a single source file as an example. If you could provide
-  such a patch, it would help advance the discussion.
-
-- If the changes are acceptable, we need to properly document the new
-  coding style in xen.git. If not, we will need to iterate again. We may
-  also need to add a "xen" template to clang-format.
-
-- Once finalized, we will proceed by making changes to the Xen source
-  code piece by piece, as you suggested, rather than applying a single
-  large patch.
-
-Let me know your thoughts.
-
-Cheers,
-Stefano
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-On Mon, 10 Feb 2025, Oleksandr Andrushchenko wrote:
-> Hello, everybody!
+> ---
+>  drivers/xen/swiotlb-xen.c | 20 ++++++++++++--------
+>  1 file changed, 12 insertions(+), 8 deletions(-)
 > 
-> What is the rationale behind introducing a tool to help with coding style
-> verification? I will partially quote Viktor Mitin here [2]:
-> 
-> "The Xen Project has a coding standard in place, but like many projects, the
-> standard is only enforced through peer review. Such mistakes slip through and
-> code is imported from other projects which may not follow the same standard.
-> The
-> goal would be to come up with a tool that can audit the code base as part of a
-> CI loop for code style inconsistencies and potentially provide corrections.
-> This
-> tool is to embed as a part of the continuous integration loop."
-> 
-> I would add that it would better reflect reality to say that Xen's coding
-> style
-> is quite incomplete to become a standard and needs some improvement to achieve
-> that.
-> 
-> Here, I would like to provide a bit of history and acknowledge those brave
-> individuals who dared and tried to introduce to Xen coding style checking and
-> formatting support with clang-format.
-> 
-> Year 2017, Ishani Chugh.
-> ---------------------------------------------------------------------
-> This journey began with a request from an Outreachy program member [1].
-> Then came the first patches by Ishani Chugh [2]
-> Status: *busted*.
-> 
-> Year 2019, Viktor Mitin
-> ---------------------------------------------------------------------
-> Then picked up by Viktor Mitin, EPAM's first attempt [3].
-> Status: *busted*.
-> 
-> Year 2020, Anastasiia Lukianenko
-> ---------------------------------------------------------------------
-> Continued by Anastasiia Lukianenko, EPAM's second attempt [4], [5].
-> Some contributions were made to LLVM to make clang-format a better fit for
-> Xen [6].
-> Xen-summit and presentation [7] and the summary document [8].
-> Status: *busted*.
-> 
-> Year 2023, Luca Fancellu
-> ---------------------------------------------------------------------
-> Luca restarted it, first ARM attempt [9], [10], [11].
-> Status: *busted*.
-> 
-> That's all for now, but it is still impressive as of 2025.
-> 
-> So, in my opinion, what were the main issues with all these attempts? There
-> are
-> many different views, but I would emphasize the following:
-> 
-> 1) clang-format doesn't perfectly fit Xen's code style as some rules it
-> applies
-> are not liked by the community or it applies rules that Xen's coding style
-> doesn't define (those Luca described in his .clang-format for every clang
-> option).
-> 
-> 2) clang-format doesn't work in a "one-option-at-a-time" mode [12]: clang
-> maintainers strongly oppose requests to allow turning off all options except
-> some. Believe it or not, other maintainers also have strong opinions on what
-> is
-> right and what is not for their projects, and this is one area where they will
-> not compromise.
-> 
-> 3) The size of the patch after applying clang-format is huge. Really.
-> Something
-> like 9 MB. Even if everyone agrees that the approach is good and we can
-> proceed
-> with it, it is highly unlikely anyone will be able to review it. Considering
-> that new patches are being added to the upstream during such a review, it may
-> also lead to new code style violations or require a new review of that huge
-> patch.
-> 
-> 4) Which clang-format version should we set as the one used by Xen, so it is
-> easy for everyone to use it on their hosts?
-> 
-> 5) You name it. I think many people in the community can name their points for
-> and against clang-format.
-> 
-> So, in this attempt, I would suggest the following approach:
-> I think that I could start sending patches after the latest .clang-format 21
-> for
-> some part of Xen, ARM code base for example, using work already done by Luca.
-> This way:
-> 
-> 1) Patches are formatted with clang-format, which is a strong plus.
-> 2) The diff is well maintained and I can still alter it by hand if there are
-> comments or dislikes.
-> 3) Finally, when the patch is accepted, we can be more confident that
-> clang-format will find far fewer inconsistencies than if it were just applied
-> to
-> the "raw" code. Thus, the next time clang-format runs, it will produce a much
-> smaller patch than before.
-> 4) Finally, introduce clang-format and run it on the leftovers: at this stage,
-> it would be much easier to discuss every option clang has and the resulting
-> output it produces.
-> 5) Update existing/add new rules to the Xen coding style based on community
-> agreements and the results of this activity.
-> 
-> We may define the subsystems to start this activity on and also define an
-> acceptable size of the patch for review, say 100K. Considering that the longer
-> the review, the more outdated the patch becomes and will require a new round
-> as
-> new code comes in.
-> 
-> I would love to hear from the community on this approach and finally get it
-> done. Not busted.
-> 
-> Stay safe,
-> Oleksandr Andrushchenko
-> 
-> [1]
-> https://lore.kernel.org/xen-devel/1130763396.5603480.1492372859631.JavaMail.zimbra@research.iiit.ac.in/T/#m1db2521362edd286875acf10296873993226dcf2
-> [2] https://lists.xenproject.org/archives/html/xen-devel/2017-04/msg01739.html
-> [3] https://lists.xenproject.org/archives/html/xen-devel/2019-07/msg01862.html
-> [4] https://lists.xenproject.org/archives/html/xen-devel/2020-09/msg02157.html
-> [5] https://lists.xenproject.org/archives/html/xen-devel/2020-10/msg00022.html
-> [6] https://reviews.llvm.org/D91950
-> [7]
-> https://xenproject.org/blog/clang-format-for-xen-coding-style-checking-scheduled/
-> [8]
-> https://docs.google.com/document/d/1MDzYkPgfVpI_UuO_3NRXsRLAXqIZ6pj2btF7vsMYj8o
-> [9] https://lists.xenproject.org/archives/html/xen-devel/2023-10/msg02294.html
-> [10]
-> https://lists.xenproject.org/archives/html/xen-devel/2023-11/msg00498.html
-> [11]
-> https://lists.xenproject.org/archives/html/xen-devel/2023-11/msg01993.html
-> [12] https://github.com/llvm/llvm-project/issues/54137#issuecomment-1058564570
+> diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
+> index a337edcf8faf..26c62e0d34e9 100644
+> --- a/drivers/xen/swiotlb-xen.c
+> +++ b/drivers/xen/swiotlb-xen.c
+> @@ -74,19 +74,21 @@ static inline phys_addr_t xen_dma_to_phys(struct device *dev,
+>  	return xen_bus_to_phys(dev, dma_to_phys(dev, dma_addr));
+>  }
+>  
+> +static inline bool range_requires_alignment(phys_addr_t p, size_t size)
+> +{
+> +	phys_addr_t algn = 1ULL << (get_order(size) + PAGE_SHIFT);
+> +	phys_addr_t bus_addr = pfn_to_bfn(XEN_PFN_DOWN(p)) << XEN_PAGE_SHIFT;
+> +
+> +	return IS_ALIGNED(p, algn) && !IS_ALIGNED(bus_addr, algn);
+> +}
+> +
+>  static inline int range_straddles_page_boundary(phys_addr_t p, size_t size)
+>  {
+>  	unsigned long next_bfn, xen_pfn = XEN_PFN_DOWN(p);
+>  	unsigned int i, nr_pages = XEN_PFN_UP(xen_offset_in_page(p) + size);
+> -	phys_addr_t algn = 1ULL << (get_order(size) + PAGE_SHIFT);
+>  
+>  	next_bfn = pfn_to_bfn(xen_pfn);
+>  
+> -	/* If buffer is physically aligned, ensure DMA alignment. */
+> -	if (IS_ALIGNED(p, algn) &&
+> -	    !IS_ALIGNED((phys_addr_t)next_bfn << XEN_PAGE_SHIFT, algn))
+> -		return 1;
+> -
+>  	for (i = 1; i < nr_pages; i++)
+>  		if (pfn_to_bfn(++xen_pfn) != ++next_bfn)
+>  			return 1;
+> @@ -156,7 +158,8 @@ xen_swiotlb_alloc_coherent(struct device *dev, size_t size,
+>  
+>  	*dma_handle = xen_phys_to_dma(dev, phys);
+>  	if (*dma_handle + size - 1 > dma_mask ||
+> -	    range_straddles_page_boundary(phys, size)) {
+> +	    range_straddles_page_boundary(phys, size) ||
+> +	    range_requires_alignment(phys, size)) {
+>  		if (xen_create_contiguous_region(phys, order, fls64(dma_mask),
+>  				dma_handle) != 0)
+>  			goto out_free_pages;
+> @@ -182,7 +185,8 @@ xen_swiotlb_free_coherent(struct device *dev, size_t size, void *vaddr,
+>  	size = ALIGN(size, XEN_PAGE_SIZE);
+>  
+>  	if (WARN_ON_ONCE(dma_handle + size - 1 > dev->coherent_dma_mask) ||
+> -	    WARN_ON_ONCE(range_straddles_page_boundary(phys, size)))
+> +	    WARN_ON_ONCE(range_straddles_page_boundary(phys, size) ||
+> +			 range_requires_alignment(phys, size)))
+>  	    	return;
+>  
+>  	if (TestClearPageXenRemapped(virt_to_page(vaddr)))
+> -- 
+> 2.43.0
 > 
 
