@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D3C9A32AB5
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 16:52:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.886554.1296201 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8924AA32B26
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 17:08:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.886569.1296210 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiF2X-00066U-QV; Wed, 12 Feb 2025 15:52:41 +0000
+	id 1tiFHP-000055-4B; Wed, 12 Feb 2025 16:08:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 886554.1296201; Wed, 12 Feb 2025 15:52:41 +0000
+Received: by outflank-mailman (output) from mailman id 886569.1296210; Wed, 12 Feb 2025 16:08:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiF2X-00063s-MF; Wed, 12 Feb 2025 15:52:41 +0000
-Received: by outflank-mailman (input) for mailman id 886554;
- Wed, 12 Feb 2025 15:52:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=OfhB=VD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tiF2V-00063k-MC
- for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 15:52:39 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6254037e-e959-11ef-a075-877d107080fb;
- Wed, 12 Feb 2025 16:52:38 +0100 (CET)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-aaec111762bso91144966b.2
- for <xen-devel@lists.xenproject.org>; Wed, 12 Feb 2025 07:52:38 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab7bc28c58csm692750566b.135.2025.02.12.07.52.37
+	id 1tiFHP-0008Uq-0t; Wed, 12 Feb 2025 16:08:03 +0000
+Received: by outflank-mailman (input) for mailman id 886569;
+ Wed, 12 Feb 2025 16:08:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mGeD=VD=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1tiFHN-0008Uk-N9
+ for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 16:08:01 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 87620151-e95b-11ef-b3ef-695165c68f79;
+ Wed, 12 Feb 2025 17:07:59 +0100 (CET)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-5450cc1669eso3143894e87.3
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Feb 2025 08:07:59 -0800 (PST)
+Received: from [192.168.209.66] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-54502a4efa2sm1498367e87.195.2025.02.12.08.07.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Feb 2025 07:52:37 -0800 (PST)
+ Wed, 12 Feb 2025 08:07:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,128 +45,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6254037e-e959-11ef-a075-877d107080fb
+X-Inumbo-ID: 87620151-e95b-11ef-b3ef-695165c68f79
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739375558; x=1739980358; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZTZ8H7XpQ0ZAjp2/uvEwrHuLYuu4yt0uT9N6L18MMBI=;
-        b=GJTN9ZbqghGwUnLLzXAXyf3Zzpiswt+hEmG1d79turedb2gNmsJrd1R56b85lKmEho
-         BiS05Bj5b8+HQ9mBCPIjwJfloyyZ3OhZT3M5uo0v3eosKEYTXaLVAQtggIJcxKiRE7+b
-         9PX8RAD6Gvhx9okKcKBv807wlPFiILWba5zOuHmcLze+/h1N9+GcRWEUTzWO2pTMb7AS
-         A3iFYe0LfUBbzcAPomkv0ga/8liMQo7TLSpoTtS66z5rOQjWnNN9HQxWkrLkJXlhOUv9
-         6U1CpcIBOdFjoOb/k3Ahtab5R6hzBNNHuBs+GFpZCX0oAAfEoxlDg23OD7qWG5HeRivC
-         5b9w==
+        d=gmail.com; s=20230601; t=1739376479; x=1739981279; darn=lists.xenproject.org;
+        h=subject:from:to:content-language:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=SafShQb/+Zot3C1SV9vTHm2HPGULg8fweX5eQhSvIYI=;
+        b=NC5B7wJL7HjFPFrbsyhr7q+Q388lIq+U4dHLHSyhTyr8PqxmAreeBmgiAPhzcK8lxm
+         q4/P1oEj5324tTzL/5htB8mIYrl+AAfP7sEfCJLSyLucSJybfHewlwR7g3IxF49gr/eo
+         /Ox37XUp49DUXJcTM6SYGJWpNOR8FSIOIeFtYrq2IzHHTBWgz2jQdtsHsLYGWZUNbZTY
+         MstHl9O3PUxyOca76duK9jT0EoK7aLfqph9hvVvijzion+vij7EPgXZsFIyvsEukBoO9
+         OdCH05EdlcnGOiMaFisqZ8+JDJ2CS7o4jmr7+59HvYTHmP2PG99aRpSRZsSAm+WAb9FO
+         mKLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739375558; x=1739980358;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ZTZ8H7XpQ0ZAjp2/uvEwrHuLYuu4yt0uT9N6L18MMBI=;
-        b=JrKYjEQFIcVpd3j2Yv9VDLp9xhSONLW65O8s30VgzszLQ14gPStV7rrBihgdlAcPvu
-         0eOF/mANaxMGDDxCjpQ3aLBSLK9V6U+Y8MwHpdRDNVCSaUa1Vb4SOTqWBsCvPBOSxry4
-         oAUvlwur/bR1PE259hoTMF5yNO6BHvz9e3OCoRG0DpA6JYWjbMnx4hRfHADSKPoip1HW
-         Co8FrQ0+Atj3otNmF6Cv+kVtpGNMhOo+oAUo/2IVQh4ZQ6or9r8Gys1FHLUE3/14HkKa
-         x5/7QH+feqILPg7Si/A7S5W6ksI6pF+YCmQvkyRW4nMmtpd7zEcTo2Vv6S0HCCvYCR1/
-         gnRQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXy+N4MJ2v3rCuv+1n3Uh7ZXN2JfTwLKgZr7/V/y/IuhUhxRYh6pGAvo8hVk0d9T1kr2CeZiZJPCC8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy8/+AyS07AoTtiKJJ4g8T5JS55ZjYLV1ZgC0lnabr+pBgh71Db
-	zgMrYbRyqMMCasQkOBSZEYJ/jR9NlyhAQ+zdI0jDR/sTLoFeDKq8l/xM2uMN5g==
-X-Gm-Gg: ASbGncuG4CH7f9O/yOc2nXs0SbFadkW0/RU372Z7XjBxZdpWsoH5XsXcXfLerkoqm89
-	cTbzFTWwYr9R1Vb03l+Tw2Ubx3FVibYXJTpDsvn9LPzN3J6TeqJDxb5lsjtWToQsOdXVBA4WXPm
-	bsZSQWPyaYTmGjNIRKProwyNdiGaIJ39tnzbOassmGCDS+MkJdCZjg/YgZzuBoz+MSre8Qh5/Ul
-	FVoSALjcRzGp3bA+jWRrEekBdJZI6HYiEBv0ZFRJ/HaT/kM1NfTLRVEZKrvupQHCvAfjzkunF8G
-	qBp2MPc/6NrkEDvIBZSb22FJolz0Mjy5NvVOVeh2xFTX2YuaOCASdVZ0ov112tzvToe91c5HcPp
-	F
-X-Google-Smtp-Source: AGHT+IESNtcX9uVhGmYXXPg6yuJYYYqPPsXUOh8+wgdpP+f8aAfnFm+Eg1rNWmQmfQ4q07trwzu/LA==
-X-Received: by 2002:a17:907:2d12:b0:ab7:a39:db4 with SMTP id a640c23a62f3a-ab7f34ac985mr328907966b.57.1739375557843;
-        Wed, 12 Feb 2025 07:52:37 -0800 (PST)
-Message-ID: <c0d43969-45c5-4ed0-8ebf-7aa3f3c6fd28@suse.com>
-Date: Wed, 12 Feb 2025 16:52:36 +0100
+        d=1e100.net; s=20230601; t=1739376479; x=1739981279;
+        h=subject:from:to:content-language:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=SafShQb/+Zot3C1SV9vTHm2HPGULg8fweX5eQhSvIYI=;
+        b=iDT1Or20bk51NlbV9jDIAhyGnIWqJORtvlVUTLA+AOQbnz0R2oaL5ZYdOGtG8RjOGN
+         hFlkmiOCPE8EMyToXhRvqJJYbUquyzH9xzIrmETEaMC1FmTO8pss2g1Lxxsc+coGFVCk
+         Qd5InJ5J43Q0okYFCk1huZTRfCXtAqd69b2ml+cEscq/JVGoMtkUe5F3fAO6jL5PK4sW
+         KztEiWx60osJ33mt68p8tvPrn4B4JKDKuBJrvk7/a9EISFBzuI1oj81tzY1FQX2M9rD3
+         GgUZqC1weWy/xXGpaoDVI71vSEK5GmHzbOMVESu8qB3x8w36OKCFnuPNuN4u3iF+UxGh
+         wErQ==
+X-Gm-Message-State: AOJu0YzOtNEzrp+RmYveolVYKJlXh1wB1gIxshRo8YD3z1P37YHBdl3b
+	3lHyDtd5XbSx0PkP99ZLj0pTEqaNQIjnC4fJsJUh/RYLR1EqqBAP7FB/yA==
+X-Gm-Gg: ASbGncv7HFIWuhQ/kKgdBGpPp4L5CSkm7xZjJUyD5a6wQGzu3ys6NH1O2+2KQejdp9E
+	BEEhTUFMirSP/7CYewYvNV87qLRFsKAl2ivf1cvYtx6WCH/RJ5BwPizlVl28HpPCpRhetttwz30
+	x4bckxJ37Po0zBtptT7vN8iMYUNWVbTG8vCbPY7QYUJ2oFGYjzHMZJ6/9L8EKeImYqcYmizI8KI
+	xmZ9R6FuIJEI71CB6bmrNGI6fX0njSgBeDoeFvhZvxq6tDPofqFpKN5zlv1qu5HHmM4sd9r3rVL
+	8pAqKKmBjl90hLNOoY3df2n5lgw=
+X-Google-Smtp-Source: AGHT+IF9XSP7mq3qhZazJnBFSLV9T+m+eLpj+oKmpap4UjgBpQ/pzsiZxkedhSW9hC6daaQfnWjRaQ==
+X-Received: by 2002:a05:6512:3b97:b0:545:102f:87a4 with SMTP id 2adb3069b0e04-5451810d0admr1380536e87.17.1739376478198;
+        Wed, 12 Feb 2025 08:07:58 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------NPc0QU0lnmeR6UpaoKHEGLL3"
+Message-ID: <69a52464-4e2e-43fc-9792-46d7a9614a80@gmail.com>
+Date: Wed, 12 Feb 2025 17:07:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 07/11] x86/cpufreq: add "cpufreq=amd-cppc,active" para
-To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: Ray.Huang@amd.com, Jason.Andryuk@amd.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250206083255.1296363-1-Penny.Zheng@amd.com>
- <20250206083255.1296363-8-Penny.Zheng@amd.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250206083255.1296363-8-Penny.Zheng@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+To: Xen-devel <xen-devel@lists.xenproject.org>, committers@xenproject.org
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [BUG?] Wrong RC reported during 'make install'
 
-On 06.02.2025 09:32, Penny Zheng wrote:
-> --- a/docs/misc/xen-command-line.pandoc
-> +++ b/docs/misc/xen-command-line.pandoc
-> @@ -515,7 +515,7 @@ If set, force use of the performance counters for oprofile, rather than detectin
->  available support.
->  
->  ### cpufreq
-> -> `= none | {{ <boolean> | xen } { [:[powersave|performance|ondemand|userspace][,[<maxfreq>]][,[<minfreq>]]] } [,verbose]} | dom0-kernel | hwp[:[<hdc>][,verbose]] | amd-cppc[:[verbose]]`
-> +> `= none | {{ <boolean> | xen } { [:[powersave|performance|ondemand|userspace][,[<maxfreq>]][,[<minfreq>]]] } [,verbose]} | dom0-kernel | hwp[:[<hdc>][,verbose]] | amd-cppc[:[active][,verbose]]`
->  
->  > Default: `xen`
->  
-> @@ -538,6 +538,12 @@ choice of `dom0-kernel` is deprecated and not supported by all Dom0 kernels.
->    on supported AMD hardware to provide finer grained frequency control mechanism.
->    The default is disabled. If `amd-cppc` is selected, but hardware support
->    is not available, Xen will fallback to cpufreq=xen.
-> +* `active` is a boolean to enable amd-cppc driver in active(autonomous) mode.
-> +  In this mode, users could provide a hint with energy performance preference
-> +  register to the hardware if they want to bias toward performance(0x0) or
-> +  energy efficiency(0xff), then CPPC power algorithm will calculate the runtime
-> +  workload and adjust the realtime cores frequency according to the power supply
-> +  and thermal, core voltage and some other hardware conditions.
+This is a multi-part message in MIME format.
+--------------NPc0QU0lnmeR6UpaoKHEGLL3
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-All the option offers to the user is a boolean. The description wants to be
-written based on that; to be honest, with what is there and with the new
-variable not actually consumed anywhere, I have no real idea what this is
-about. Hex numbers in particular don't belong here at all, imo. And "users
-could provide a hint" needs to be more practical: Users don't directly write
-to the "energy performance preference register" (or any other one).
+Hello everyone,
 
-> --- a/xen/arch/x86/acpi/cpufreq/amd-cppc.c
-> +++ b/xen/arch/x86/acpi/cpufreq/amd-cppc.c
-> @@ -33,6 +33,8 @@
->  #define amd_cppc_warn(fmt, args...)                         \
->      printk(XENLOG_WARNING "AMD_CPPC: CPU%u warning: " fmt, cpu, ## args)
->  
-> +static bool __ro_after_init opt_cpufreq_active;
+During the installation of Xen on an ARM server machine from the source code,
+I found that the wrong release candidate (rc) is being used:
+   $ make install
+     install -m0644 -p xen //boot/xen-4.20-rc
+     install: cannot remove ‘//boot/xen-4.20-rc’: Permission denied
+     make[1]: *** [Makefile:507: _install] Error 1
+My expectation is that it should be xen-4.20-rc4.
 
-The name is ambiguous. It reads as if this was a global enable/disable for
-the cpufreq subsystem. opt_active_mode perhaps, seeing this is local to
-the CPPC driver?
+I'm not sure if this behavior is intentional or if users are expected to set
+the|XEN_VENDORVERSION| variable manually to ensure the correct release
+candidate number.
 
-Jan
+In my opinion, we should set the proper release candidate number after
+"xen-4.20-rc" automatically.
+
+Does anyone have any thoughts or suggestions on how to resolve this issue?
+
+Thanks in advance.
+
+Best regards,
+  Oleksii
+
+
+
+
+--------------NPc0QU0lnmeR6UpaoKHEGLL3
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <pre data-start="0" data-end="17">Hello everyone,
+
+During the installation of Xen on an ARM server machine from the source code,
+I found that the wrong release candidate (rc) is being used:
+  $ make install  
+    install -m0644 -p xen //boot/xen-4.20-rc  
+    install: cannot remove ‘//boot/xen-4.20-rc’: Permission denied  
+    make[1]: *** [Makefile:507: _install] Error 1
+My expectation is that it should be xen-4.20-rc4.
+
+I'm not sure if this behavior is intentional or if users are expected to set
+the <code data-start="426" data-end="445">XEN_VENDORVERSION</code> variable manually to ensure the correct release
+candidate number.</pre>
+    <pre data-start="515" data-end="616">In my opinion, we should set the proper release candidate number after
+"xen-4.20-rc" automatically.</pre>
+    <pre data-start="618" data-end="694">Does anyone have any thoughts or suggestions on how to resolve this issue?
+</pre>
+    <pre data-start="696" data-end="716">Thanks in advance.
+</pre>
+    <pre data-start="718" data-end="741" data-is-last-node="">Best regards,
+ Oleksii</pre>
+    <pre>
+
+</pre>
+    <p><br>
+    </p>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------NPc0QU0lnmeR6UpaoKHEGLL3--
 
