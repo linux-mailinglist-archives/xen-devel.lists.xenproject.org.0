@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09158A32D42
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 18:21:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.886701.1296320 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D1BFA32FD9
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 20:36:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.886730.1296351 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiGPr-0008OK-E8; Wed, 12 Feb 2025 17:20:51 +0000
+	id 1tiIWA-00086Z-QN; Wed, 12 Feb 2025 19:35:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 886701.1296320; Wed, 12 Feb 2025 17:20:51 +0000
+Received: by outflank-mailman (output) from mailman id 886730.1296351; Wed, 12 Feb 2025 19:35:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiGPr-0008MV-BM; Wed, 12 Feb 2025 17:20:51 +0000
-Received: by outflank-mailman (input) for mailman id 886701;
- Wed, 12 Feb 2025 17:20:49 +0000
+	id 1tiIWA-00083c-Mz; Wed, 12 Feb 2025 19:35:30 +0000
+Received: by outflank-mailman (input) for mailman id 886730;
+ Wed, 12 Feb 2025 19:35:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=p9NR=VD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tiGPp-0008Ke-55
- for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 17:20:49 +0000
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [2a00:1450:4864:20::343])
+ <SRS0=MJhV=VD=kernel.org=helgaas@srs-se1.protection.inumbo.net>)
+ id 1tiIW9-00083W-NE
+ for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 19:35:29 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id adb98e19-e965-11ef-b3ef-695165c68f79;
- Wed, 12 Feb 2025 18:20:38 +0100 (CET)
-Received: by mail-wm1-x343.google.com with SMTP id
- 5b1f17b1804b1-4394a0c65fcso35529735e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 12 Feb 2025 09:20:38 -0800 (PST)
-Received: from [10.81.43.157] ([46.149.103.11])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4395a04f217sm25337795e9.1.2025.02.12.09.20.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Feb 2025 09:20:37 -0800 (PST)
+ id 81667a15-e978-11ef-b3ef-695165c68f79;
+ Wed, 12 Feb 2025 20:35:25 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id A2D035C61E3;
+ Wed, 12 Feb 2025 19:34:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A419C4CEDF;
+ Wed, 12 Feb 2025 19:35:23 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,164 +41,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: adb98e19-e965-11ef-b3ef-695165c68f79
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1739380838; x=1739985638; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=HdkkOFQw/ilOoO1aY89tYbviAs4hXdDnJpnRD3O4cOQ=;
-        b=Pj08JnKVVv97rLGv4lNYHiDorzVZ2yWdTr3S+JJE+UmIWW00vFiQQpyob/UDhuSa8v
-         c6KLTCnUtIhs+Ak0SzhqBYc2I71mwYLRjf9NTzqQJaKEBfLTipjxoU51N+CLYNdSJ/P/
-         AFDcDxu5BMqJc0SnbVT/kqq0oGu54KgIHlCDM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739380838; x=1739985638;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=HdkkOFQw/ilOoO1aY89tYbviAs4hXdDnJpnRD3O4cOQ=;
-        b=NLphm7I0aLANISHdiX6Bl5ol+ZS2d24EUmF4+A6ikJvF7SCOAcsTuzlmIFCKW5E7/N
-         ofIz/aGegiaxvTKh3OPEmsHsL1PcutzdmDsiT7XfDnuqnoeUQTDcd0kW7gHG1q0vGeLl
-         Wtlgz7Rim2odTeT475r1gnjO5kK/LiUCdpE9MYJqeiwJZuMyPe15s5Rtrc2Dib5GJGX8
-         X6itWxGJsC9ZRBArfJ8VICQkriQrzORSwjhoNeK+FM3YAgUG1t1lrQyOsJx35QnBpCg7
-         BL0Xq0F/qS5hJ0CZ870BEOmEu/9r0DyKMQaph0t1yj+wbqWXLFZB7wP01IfsFHHKivXZ
-         5eow==
-X-Gm-Message-State: AOJu0YyGtMaVIn9cVBNYWDWI799FKmV3GLjjSIo5Uv+ricSQ/GjWvCCW
-	M3JAf+e8PEepYeWgry+FuUHqUXhk2SP108yFcqB/U2bToVE6Za5h7OXpsfLfblluX2q0LvJpi0r
-	imJ3Z1A==
-X-Gm-Gg: ASbGncvpqSL2uofqYhfy3DZVSgXKxW//oHYe/i24kKUrjSBIthusSj7W4PGJU9omxp5
-	UydkoFt5ws4T86aptcEMJtMWsvFFNR8K1u/qp0K5SNVvEGUEhIxZEgE6i2qXaIDWJsCAQswYS42
-	jMu1+suqpZtA/NxGQRXb+AJBrri2pEEXrcF4yZMflYzeOKDscTlWbQCAoyb5w/XsTxCSfNHlpcO
-	DrVv3S1TeI/7/H309nROU8sozgK4xl0VjZALP2r9L1XktkyS8432vPkelxnHAdAYTCLU1hxNfcT
-	29xWakDzUBkd3ldppuBgcmtvwA==
-X-Google-Smtp-Source: AGHT+IFC2BGDg9/vLp/FoTQVxT6Vxaf+uam+TeBMu2IQ6upuudgctC/Xrm3jP+F24XWVZJXG32Fvgw==
-X-Received: by 2002:a05:600c:870a:b0:439:554f:f64f with SMTP id 5b1f17b1804b1-439601202c1mr4935715e9.0.1739380837892;
-        Wed, 12 Feb 2025 09:20:37 -0800 (PST)
-Message-ID: <65338578-dd6c-4f01-807e-da389cc60cb8@citrix.com>
-Date: Wed, 12 Feb 2025 17:20:36 +0000
+X-Inumbo-ID: 81667a15-e978-11ef-b3ef-695165c68f79
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1739388923;
+	bh=Ugf2g2Yhg5Aw7lvSOZInqiVQU41aKtxd+Iq+ubuXWEg=;
+	h=From:To:Cc:Subject:Date:From;
+	b=uI3m2wF4Xy0uTW4CBkbjuWo3J7yN1REN3JcZj1mpdYXFEtL7T88sdAvRnb1/MVrU0
+	 HXdV7MmRBPS0YI+UXLj+AvaYht9/ohnRiXQU3tnh31cN9WYwW57S2uZmvTjg7rm4nw
+	 oekL0p384QdGbuQvSSCQ4s6AWgb+kU89zVwLeZbeYvUmavrBOZlotZjvR2VO6YQqbK
+	 jnZncsAC7MCaP/DmaCPaN/jfVVcmZLr2Ce+PLa8l2dk3LIQ9d3K2s21TZcme6sYMx0
+	 L0TcvYDJaO9zmPCvT39dPi7GgTfEVyAn7Q5nPyLTrcmfn28Vm+FuSEJlJBot2Lv4D7
+	 65O8+aKHg5kaw==
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	linux-pci@vger.kernel.org
+Cc: =?UTF-8?q?J=C3=BCrgen=20Gro=C3=9F?= <jgross@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Alex Williamson <alex.williamson@redhat.com>,
+	Deren Wu <Deren.Wu@mediatek.com>,
+	Kai-Heng Feng <kai.heng.feng@canonical.com>,
+	Shayne Chen <Shayne.Chen@mediatek.com>,
+	Sean Wang <Sean.Wang@mediatek.com>,
+	Leon Yen <Leon.Yen@mediatek.com>,
+	linux-mediatek@lists.infradead.org,
+	regressions@lists.linux.dev,
+	xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org,
+	Bjorn Helgaas <bhelgaas@google.com>
+Subject: [PATCH] PCI: Avoid FLR for Mediatek MT7922 WiFi
+Date: Wed, 12 Feb 2025 13:35:16 -0600
+Message-Id: <20250212193516.88741-1-helgaas@kernel.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-GB
-To: xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: blowfish failure to compile
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-I've noticed the following failure in XenServer's build environment
+From: Bjorn Helgaas <bhelgaas@google.com>
 
-> make[6]: Leaving directory
-> '/builddir/build/BUILD/xen-4.19.1/tools/tests/x86_emulator'
-> In file included from /usr/include/features.h:535,
->                  from /usr/include/bits/libc-header-start.h:33,
->                  from /usr/include/stdint.h:26,
->                  from
-> /usr/lib/gcc/x86_64-xenserver-linux/12/include/stdint.h:9,
->                  from blowfish.c:18:
-> /usr/include/gnu/stubs.h:7:11: fatal error: gnu/stubs-32.h: No such
-> file or directory
->     7 | # include <gnu/stubs-32.h>
->       |           ^~~~~~~~~~~~~~~~
-> compilation terminated.
-> make[6]: *** [testcase.mk:15: blowfish.bin] Error 1
+The Mediatek MT7922 WiFi device advertises FLR support, but it apparently
+does not work, and all subsequent config reads return ~0:
 
-It's non-fatal, but it reduces the content in test_x86_emulator which we
-do care about running.
+  pci 0000:01:00.0: [14c3:0616] type 00 class 0x028000 PCIe Endpoint
+  pciback 0000:01:00.0: not ready 65535ms after FLR; giving up
 
-Elsewhere in the tree we fix this with -ffreestanding -nostdinc
--I$(XEN_ROOT)/tools/firmware/include but that isn't an option for
-test_x86_emulator in general which is hosted.
+After an FLR, pci_dev_wait() waits for the device to become ready.  Prior
+to d591f6804e7e ("PCI: Wait for device readiness with Configuration RRS"),
+it polls PCI_COMMAND until it is something other that PCI_POSSIBLE_ERROR
+(~0).  If it times out, pci_dev_wait() returns -ENOTTY and
+__pci_reset_function_locked() tries the next available reset method.
+Typically this is Secondary Bus Reset, which does work, so the MT7922 is
+eventually usable.
 
-However, it is an option for blowfish.c specifically which is
-freestanding, and for which we build a 32bit form in an otherwise 64bit
-build.
+After d591f6804e7e, if Configuration Request Retry Status Software
+Visibility (RRS SV) is enabled, pci_dev_wait() polls PCI_VENDOR_ID until it
+is something other than the special 0x0001 Vendor ID that indicates a
+completion with RRS status.
 
-Therefore, it stands to reason that:
+When RRS SV is enabled, reads of PCI_VENDOR_ID should return either 0x0001,
+i.e., the config read was completed with RRS, or a valid Vendor ID.  On the
+MT7922, it seems that all config reads after FLR return ~0 indefinitely.
+When pci_dev_wait() reads PCI_VENDOR_ID and gets 0xffff, it assumes that's
+a valid Vendor ID and the device is now ready, so it returns with success.
 
-diff --git a/tools/tests/x86_emulator/Makefile
-b/tools/tests/x86_emulator/Makefile
-index 294d27ebaa08..e46fd8becb96 100644
---- a/tools/tests/x86_emulator/Makefile
-+++ b/tools/tests/x86_emulator/Makefile
-@@ -33,8 +33,8 @@ HOSTCFLAGS += -m32 -I..
- 
- else
- 
--blowfish-cflags := ""
--blowfish-cflags-x86_32 := "-mno-accumulate-outgoing-args -Dstatic="
-+blowfish-cflags := "-ffreestanding -nostdinc
--I$(XEN_ROOT)/tools/firmware/include "
-+blowfish-cflags-x86_32 := "$(blowfish-cflags)
--mno-accumulate-outgoing-args -Dstatic="
- 
- 3dnow-vecs := 8
- 3dnow-ints :=
+After pci_dev_wait() returns success, we restore config space and continue.
+Since the MT7922 is not actually ready after the FLR, the restore fails and
+the device is unusable.
 
-should do what we want, except it doesn't.  Somehow this is getting
-injected the intermediate blowfish.h:
+We considered changing pci_dev_wait() to continue polling if a
+PCI_VENDOR_ID read returns either 0x0001 or 0xffff.  This "works" as it did
+before d591f6804e7e, although we have to wait for the timeout and then fall
+back to SBR.  But it doesn't work for SR-IOV VFs, which *always* return
+0xffff as the Vendor ID.
 
-> blowfish.h:617:99: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or
-> ‘__attribute__’ before ‘/’ token
->   617 | static const unsigned int __attribute__((section(".test,
-> \"ax\", @progbits #")))
-> blowfish_x86_32_I/local/xen.spec/scm/tools/tests/x86_emulator/../../../tools/firmware/include[]
-> = {
->      
-> |                                                                                                  
-> ^
+Mark Mediatek MT7922 WiFi devices to avoid the use of FLR completely.  This
+will cause fallback to another reset method, such as SBR.
 
-and at this point I've got completely lost in this build system.  The .h
-generation seems to loop over each cflag, and while that looks plausible
-for vector generation, I can't see how it works (except by accident) for
-blowfish.
+Fixes: d591f6804e7e ("PCI: Wait for device readiness with Configuration RRS")
+Link: https://github.com/QubesOS/qubes-issues/issues/9689#issuecomment-2582927149
+Link: https://lore.kernel.org/r/Z4pHll_6GX7OUBzQ@mail-itl
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+---
+ drivers/pci/quirks.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-The problem is the generation of $flavor, but this logic is completely
-opaque.
+diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+index b84ff7bade82..82b21e34c545 100644
+--- a/drivers/pci/quirks.c
++++ b/drivers/pci/quirks.c
+@@ -5522,7 +5522,7 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x443, quirk_intel_qat_vf_cap);
+  * AMD Matisse USB 3.0 Host Controller 0x149c
+  * Intel 82579LM Gigabit Ethernet Controller 0x1502
+  * Intel 82579V Gigabit Ethernet Controller 0x1503
+- *
++ * Mediatek MT7922 802.11ax PCI Express Wireless Network Adapter
+  */
+ static void quirk_no_flr(struct pci_dev *dev)
+ {
+@@ -5534,6 +5534,7 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMD, 0x149c, quirk_no_flr);
+ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMD, 0x7901, quirk_no_flr);
+ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1502, quirk_no_flr);
+ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1503, quirk_no_flr);
++DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_MEDIATEK, 0x0616, quirk_no_flr);
+ 
+ /* FLR may cause the SolidRun SNET DPU (rev 0x1) to hang */
+ static void quirk_no_flr_snet(struct pci_dev *dev)
+-- 
+2.34.1
 
-~Andrew
 
