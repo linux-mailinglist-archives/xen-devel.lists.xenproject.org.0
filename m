@@ -2,34 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 726F5A3322D
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 23:13:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.886832.1296431 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEFBBA332B3
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 23:32:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.886842.1296440 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiKyc-0004tl-Id; Wed, 12 Feb 2025 22:13:02 +0000
+	id 1tiLGz-0008Hb-0M; Wed, 12 Feb 2025 22:32:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 886832.1296431; Wed, 12 Feb 2025 22:13:02 +0000
+Received: by outflank-mailman (output) from mailman id 886842.1296440; Wed, 12 Feb 2025 22:32:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiKyc-0004rO-Eq; Wed, 12 Feb 2025 22:13:02 +0000
-Received: by outflank-mailman (input) for mailman id 886832;
- Wed, 12 Feb 2025 22:13:01 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xJ3x=VD=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tiKyb-0004rI-RA
- for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 22:13:01 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 847636a5-e98e-11ef-b3ef-695165c68f79;
- Wed, 12 Feb 2025 23:12:59 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 0F5AC5C626C;
- Wed, 12 Feb 2025 22:12:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 120FDC4CEDF;
- Wed, 12 Feb 2025 22:12:56 +0000 (UTC)
+	id 1tiLGy-0008G7-U0; Wed, 12 Feb 2025 22:32:00 +0000
+Received: by outflank-mailman (input) for mailman id 886842;
+ Wed, 12 Feb 2025 22:31:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=O++Y=VD=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1tiLGw-0008G1-Cu
+ for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 22:31:59 +0000
+Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch
+ [79.135.106.28]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 276f6a53-e991-11ef-a075-877d107080fb;
+ Wed, 12 Feb 2025 23:31:51 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,153 +36,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 847636a5-e98e-11ef-b3ef-695165c68f79
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739398378;
-	bh=Piy9TaO9UjKJunWphyNEgKTVq+mDecr0XBSscHTLya0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=n3Ee8lh5P2uTZExnCtUlwZQ314dXkcJU8kWIz3mpqGunjJiVyCOgiJ/vG0S/tdwmX
-	 mvuWffiWfrF9NE8CXRqQxZpdNiv4UbYcR2bU8TgKvErS5Tbet58+qtJNypctkPAX6w
-	 sczTNTuoRPGQYzdBqYQ21/Vj0qOiHzd8XIas93QkbIatbadAMN737juCv2BdBsxKRl
-	 mllRwd4MD65gDzN8ug7Q0oPcsCt+gE2jlxs/QrGsmgv+xpn4oEOaxcVvLX9Y43nvno
-	 rqHhj3RA+lHQoyoQGolZw3LRiKtEM69wGe+WjzrFy4UkwgYRa+2+HN4cCRrZMxkSNu
-	 gdUDbOCzZ5oBQ==
-Date: Wed, 12 Feb 2025 14:12:55 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: dmkhn@proton.me
-cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, 
-    anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, 
-    michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, 
-    dmukhin@ford.com
-Subject: Re: [PATCH v2] arm/vuart: move vpl011-related code to vpl011
- emulator
-In-Reply-To: <20250212211802.1669675-1-dmukhin@ford.com>
-Message-ID: <alpine.DEB.2.22.394.2502121412500.619090@ubuntu-linux-20-04-desktop>
-References: <20250212211802.1669675-1-dmukhin@ford.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 276f6a53-e991-11ef-a075-877d107080fb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=5ig5yxswovhypfy36x7oyogvya.protonmail; t=1739399509; x=1739658709;
+	bh=NcTEam6sIrhUBFNWA2/AK3cNU0wcb1PeuB8hUMRu4Aw=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector:
+	 List-Unsubscribe:List-Unsubscribe-Post;
+	b=Rd5M4kc46F6nzEXKUAybEbl7BFnj6DKlrc/WiUIFItJRBFtc1lZWlCiJTnDG9VRws
+	 Ao9UZVbVPBCT7nGfEsr9twUfbEmUTu/gy2Pkkf2VPSemvUX00/M/oGpTtCgAlUgMD/
+	 AFYBmb8ucg2OeucnfcaANphEAaApi1CB1FF1NGQikMZXBnyLeMaF7vxxt76SF67poy
+	 rvZhtBWGaroCn9OYoV4ihaWjk45B4XM7iYXMu6uEjo1aDO2khm5qAmPfXwQZarDWXu
+	 zD++j7ztMBX8Zu2tRcE/E4/JN5ImXcfi9Id5UfNon28TAbNUS2DTqZ8z9TBgepPh4I
+	 +gIal8pUWcRMQ==
+Date: Wed, 12 Feb 2025 22:31:46 +0000
+To: xen-devel@lists.xenproject.org
+From: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
+Subject: [PATCH] xen/console: make console buffer size configurable
+Message-ID: <20250212222157.2974150-1-dmukhin@ford.com>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: fac4097c759e401774d13273c38d5e8bb05c641c
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 12 Feb 2025, dmkhn@proton.me wrote:
-> Xen console driver has vpl011-related logic which shall belong vpl011 emulator
-> code (Arm port). Move vpl011-related code from arch-independent console driver
-> to Arm's vpl011.c.
-> 
-> Use rate-limiting guest_printk() for error logging in console driver in case
-> vpl011 cannot handle the console input.
-> 
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+Add new CONRING_SIZE Kconfig parameter to specify the boot console buffer s=
+ize
+in bytes. The value is rounded to the nearest power of 2 to match existing
+conring_size=3D behavior.
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+The supported range is [16KiB..128MiB].
+
+Bump default size to 32 KiB.
+
+Link: https://gitlab.com/xen-project/xen/-/issues/185
+Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+---
+Link to the original change:
+- https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v3-v1-15-c5d36b31=
+d66c@ford.com/
+---
+ docs/misc/xen-command-line.pandoc |  5 ++++-
+ xen/drivers/char/Kconfig          | 12 ++++++++++++
+ xen/drivers/char/console.c        |  6 +++---
+ 3 files changed, 19 insertions(+), 4 deletions(-)
+
+diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line=
+.pandoc
+index 9bbd00baef..563cdbdd49 100644
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -425,10 +425,13 @@ The following are examples of correct specifications:
+ ### conring_size
+ > `=3D <size>`
+=20
+-> Default: `conring_size=3D16k`
++> Default: `conring_size=3D32k`
+=20
+ Specify the size of the console ring buffer.
+=20
++The console ring buffer size can be selected at build time via
++CONFIG_CONRING_SIZE.
++
+ ### console
+ > `=3D List of [ vga | com1[H,L] | com2[H,L] | pv | dbgp | ehci | xhci | n=
+one ]`
+=20
+diff --git a/xen/drivers/char/Kconfig b/xen/drivers/char/Kconfig
+index e6e12bb413..54a3a79da3 100644
+--- a/xen/drivers/char/Kconfig
++++ b/xen/drivers/char/Kconfig
+@@ -96,6 +96,18 @@ config SERIAL_TX_BUFSIZE
+=20
+ =09  Default value is 32768 (32KiB).
+=20
++config CONRING_SIZE
++=09int "Console buffer size"
++=09default 32768
++=09range 16384 134217728
++=09help
++=09  Select the boot console buffer size (in bytes).
++=09  Note, the value provided will be rounded down to the nearest power of=
+ 2.
++=09  Run-time console buffer size is the same as the boot console size,
++=09  unless overridden via 'conring_size=3D' boot parameter.
++
++=09  Default value is 32768 (32KiB).
++
+ config XHCI
+ =09bool "XHCI DbC UART driver"
+ =09depends on X86
+diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+index ee5f720de4..73d24a7821 100644
+--- a/xen/drivers/char/console.c
++++ b/xen/drivers/char/console.c
+@@ -101,12 +101,12 @@ static int cf_check parse_console_timestamps(const ch=
+ar *s);
+ custom_runtime_param("console_timestamps", parse_console_timestamps,
+                      con_timestamp_mode_upd);
+=20
+-/* conring_size: allows a large console ring than default (16kB). */
++/* conring_size: override build-time CONRING_SIZE setting. */
+ static uint32_t __initdata opt_conring_size;
+ size_param("conring_size", opt_conring_size);
+=20
+-#define _CONRING_SIZE 16384
+-#define CONRING_IDX_MASK(i) ((i)&(conring_size-1))
++#define _CONRING_SIZE       (1UL << (31 - __builtin_clz(CONFIG_CONRING_SIZ=
+E)))
++#define CONRING_IDX_MASK(i) ((i) & (conring_size - 1))
+ static char __initdata _conring[_CONRING_SIZE];
+ static char *__read_mostly conring =3D _conring;
+ static uint32_t __read_mostly conring_size =3D _CONRING_SIZE;
+--=20
+2.34.1
 
 
-> ---
-> Changes in v2:
-> - switched to rate-limited guest_printk()
-> - Link to v1: https://lore.kernel.org/xen-devel/20250211075405.191144-1-dmkhn@proton.me/
-> - Link to CI: https://gitlab.com/xen-project/people/dmukhin/xen/-/pipelines/1668396058
-> ---
->  xen/arch/arm/include/asm/vpl011.h |  2 +-
->  xen/arch/arm/vpl011.c             | 15 +++++++++++----
->  xen/drivers/char/console.c        | 21 +++++++--------------
->  3 files changed, 19 insertions(+), 19 deletions(-)
-> 
-> diff --git a/xen/arch/arm/include/asm/vpl011.h b/xen/arch/arm/include/asm/vpl011.h
-> index c09abcd7a9..cc83868281 100644
-> --- a/xen/arch/arm/include/asm/vpl011.h
-> +++ b/xen/arch/arm/include/asm/vpl011.h
-> @@ -69,7 +69,7 @@ struct vpl011_init_info {
->  int domain_vpl011_init(struct domain *d,
->                         struct vpl011_init_info *info);
->  void domain_vpl011_deinit(struct domain *d);
-> -void vpl011_rx_char_xen(struct domain *d, char c);
-> +int vpl011_rx_char_xen(struct domain *d, char c);
->  #else
->  static inline int domain_vpl011_init(struct domain *d,
->                                       struct vpl011_init_info *info)
-> diff --git a/xen/arch/arm/vpl011.c b/xen/arch/arm/vpl011.c
-> index 1fc3114cce..c72f3778bf 100644
-> --- a/xen/arch/arm/vpl011.c
-> +++ b/xen/arch/arm/vpl011.c
-> @@ -567,16 +567,21 @@ static void vpl011_data_avail(struct domain *d,
->  
->  /*
->   * vpl011_rx_char_xen adds a char to a domain's vpl011 receive buffer.
-> - * It is only used when the vpl011 backend is in Xen.
->   */
-> -void vpl011_rx_char_xen(struct domain *d, char c)
-> +int vpl011_rx_char_xen(struct domain *d, char c)
->  {
->      unsigned long flags;
->      struct vpl011 *vpl011 = &d->arch.vpl011;
->      struct vpl011_xen_backend *intf = vpl011->backend.xen;
->      XENCONS_RING_IDX in_cons, in_prod, in_fifo_level;
->  
-> -    ASSERT(!vpl011->backend_in_domain);
-> +    /* Forward input iff the vpl011 backend is in Xen. */
-> +    if ( vpl011->backend_in_domain )
-> +        return -ENODEV;
-> +
-> +    if ( intf == NULL )
-> +        return -ENODEV;
-> +
->      VPL011_LOCK(d, flags);
->  
->      in_cons = intf->in_cons;
-> @@ -584,7 +589,7 @@ void vpl011_rx_char_xen(struct domain *d, char c)
->      if ( xencons_queued(in_prod, in_cons, sizeof(intf->in)) == sizeof(intf->in) )
->      {
->          VPL011_UNLOCK(d, flags);
-> -        return;
-> +        return -ENOSPC;
->      }
->  
->      intf->in[xencons_mask(in_prod, sizeof(intf->in))] = c;
-> @@ -596,6 +601,8 @@ void vpl011_rx_char_xen(struct domain *d, char c)
->  
->      vpl011_data_avail(d, in_fifo_level, sizeof(intf->in), 0, SBSA_UART_FIFO_SIZE);
->      VPL011_UNLOCK(d, flags);
-> +
-> +    return 0;
->  }
->  
->  static void vpl011_notification(struct vcpu *v, unsigned int port)
-> diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-> index b4cec77247..ee5f720de4 100644
-> --- a/xen/drivers/char/console.c
-> +++ b/xen/drivers/char/console.c
-> @@ -553,21 +553,14 @@ static void __serial_rx(char c)
->      {
->          struct domain *d = rcu_lock_domain_by_id(console_rx - 1);
->  
-> -        /*
-> -         * If we have a properly initialized vpl011 console for the
-> -         * domain, without a full PV ring to Dom0 (in that case input
-> -         * comes from the PV ring), then send the character to it.
-> -         */
-> -        if ( d != NULL &&
-> -             !d->arch.vpl011.backend_in_domain &&
-> -             d->arch.vpl011.backend.xen != NULL )
-> -            vpl011_rx_char_xen(d, c);
-> -        else
-> -            printk("Cannot send chars to Dom%d: no UART available\n",
-> -                   console_rx - 1);
-> -
-> -        if ( d != NULL )
-> +        if ( d )
-> +        {
-> +            int rc = vpl011_rx_char_xen(d, c);
-> +            if ( rc )
-> +                guest_printk(d, XENLOG_G_WARNING
-> +                                "failed to process console input: %d\n", rc);
->              rcu_unlock_domain(d);
-> +        }
->  
->          break;
->      }
-> -- 
-> 2.34.1
-> 
-> 
 
