@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78258A32A59
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 16:44:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.886544.1296191 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D3C9A32AB5
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 16:52:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.886554.1296201 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiEuD-0004T8-VK; Wed, 12 Feb 2025 15:44:05 +0000
+	id 1tiF2X-00066U-QV; Wed, 12 Feb 2025 15:52:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 886544.1296191; Wed, 12 Feb 2025 15:44:05 +0000
+Received: by outflank-mailman (output) from mailman id 886554.1296201; Wed, 12 Feb 2025 15:52:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiEuD-0004Qm-SR; Wed, 12 Feb 2025 15:44:05 +0000
-Received: by outflank-mailman (input) for mailman id 886544;
- Wed, 12 Feb 2025 15:44:04 +0000
+	id 1tiF2X-00063s-MF; Wed, 12 Feb 2025 15:52:41 +0000
+Received: by outflank-mailman (input) for mailman id 886554;
+ Wed, 12 Feb 2025 15:52:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2a2H=VD=gmail.com=gragst.linux@srs-se1.protection.inumbo.net>)
- id 1tiEuC-0004Qg-Jl
- for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 15:44:04 +0000
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [2a00:1450:4864:20::12c])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=OfhB=VD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tiF2V-00063k-MC
+ for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 15:52:39 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2f8adca7-e958-11ef-a075-877d107080fb;
- Wed, 12 Feb 2025 16:44:03 +0100 (CET)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-54506b54268so3840209e87.3
- for <xen-devel@lists.xenproject.org>; Wed, 12 Feb 2025 07:44:03 -0800 (PST)
-Received: from epuakyiw0a98.kyiv.epam.com (ll-74.141.223.85.sovam.net.ua.
- [85.223.141.74]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54508285451sm1248039e87.0.2025.02.12.07.44.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Feb 2025 07:44:01 -0800 (PST)
+ id 6254037e-e959-11ef-a075-877d107080fb;
+ Wed, 12 Feb 2025 16:52:38 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-aaec111762bso91144966b.2
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Feb 2025 07:52:38 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab7bc28c58csm692750566b.135.2025.02.12.07.52.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 12 Feb 2025 07:52:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,129 +45,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2f8adca7-e958-11ef-a075-877d107080fb
+X-Inumbo-ID: 6254037e-e959-11ef-a075-877d107080fb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1739375043; x=1739979843; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=aG3oJWrd82/99x1ETlLtHy5/+jXBIhstzSiAOcp9oOQ=;
-        b=JTw0xAUuOHiV18W5Y50LgyYEpfujeqCjDWjfjR49MHuhjPNQ3PbhRBJb6fq5N0eE8h
-         j4UG0PRNaPEg9df1r8JAIC+mDSd7ybqBdTmSK+CkKUYZRPt44CXOoyYDOnCgm6spfH/D
-         WstfxrPLzEW4amf+AwhWt0RSDVFQMphUYGWV0ssiOM0yogUAlui+aiLSQlnmGByUrI/5
-         sPTcZzQ8094LM3r5IRznUQ6MaEzWU2nXQftYfBykTC7Qc0BZ/JCZ5mTJoPhPThwUUFNM
-         wMP4GsZY5dk4i5XR++CEDqJaTaFvJ2VA9sHYCrsGNVTD/rEfh2ghUMzTm0VdPyQuMOOn
-         fJbg==
+        d=suse.com; s=google; t=1739375558; x=1739980358; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZTZ8H7XpQ0ZAjp2/uvEwrHuLYuu4yt0uT9N6L18MMBI=;
+        b=GJTN9ZbqghGwUnLLzXAXyf3Zzpiswt+hEmG1d79turedb2gNmsJrd1R56b85lKmEho
+         BiS05Bj5b8+HQ9mBCPIjwJfloyyZ3OhZT3M5uo0v3eosKEYTXaLVAQtggIJcxKiRE7+b
+         9PX8RAD6Gvhx9okKcKBv807wlPFiILWba5zOuHmcLze+/h1N9+GcRWEUTzWO2pTMb7AS
+         A3iFYe0LfUBbzcAPomkv0ga/8liMQo7TLSpoTtS66z5rOQjWnNN9HQxWkrLkJXlhOUv9
+         6U1CpcIBOdFjoOb/k3Ahtab5R6hzBNNHuBs+GFpZCX0oAAfEoxlDg23OD7qWG5HeRivC
+         5b9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739375043; x=1739979843;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=aG3oJWrd82/99x1ETlLtHy5/+jXBIhstzSiAOcp9oOQ=;
-        b=h+v7+I7thbT/EeCbT1Smg2yM7niI840sMB37KZarUBhgM4sdNZMR4WT72nrNCXvaib
-         d02muqsBlMTeJetJ0jjTFnGPRiLSW3QqfsLmHAZI8qbvKTzwJq5Am2jTv5L3mOHxjRB3
-         ektaXSxu6NExXTHexIkUryLNwcnsphoIVa0cv43ckLoQOzTVCd0+m2pZnkLJt5WobxwC
-         pYCGW0678LmeAIyXwKu5A5I/IVQtVpfHQpPtmuTLMazpnpugx4fMLmBihak0HfcIqC+J
-         J7Pg2PInupzyDdpkElZdvqFOehTqyB9Bp00GheGdWNjiNo8EDm2ZhPHi0IlQZs6o+kOF
-         mw0w==
-X-Gm-Message-State: AOJu0YxTZLtwO4+h6Hy26OioZZUsZAAWgr7iPD9eyiU+cfCkrw3s8vH2
-	2Ud9ybB6DfDnNlnt9HInQS5JqzIxC9S0ixNFT7NsaGxuSswkoU7t8yB6dA==
-X-Gm-Gg: ASbGnctF+wIKru30fAw4bEihHX+GuZNZ1iwdm5wDsfqOU/HT4yeahRgc0r2QXy36MFC
-	F6tnRKZ/BJr0BCCvIVpu83ZgYXhKLuUP25rAYgsEB8nSZkgwVA7jjC+NR/OO9F5uaseIC0IL7cv
-	uHkb6TbiU4JvWCcgsqV1mzJ0KaBE7yG7vZCUhd8ufUHIQp9NPqQFWEuPDbO00rouk88AIt8SKgJ
-	CY5/29d0L3/vNIZNcH3BRHZdVJRM79BHZDntBNHl/kw5V1iv576EXMIbQYWGQySpDhYOHOKgRyu
-	B9ud+a88Y9Qr1p/JUvwlQBspqt7+vk9VOePFWxIPy17owH/UYyuZqyoDFXTCgyHd3nGUAP8Cfg=
-	=
-X-Google-Smtp-Source: AGHT+IGmQjirC+k+iTTqrc4/5BriQ++5o6B1Cuo+UI7y4P4XsSsmXUQKWb+URh62tdMk1wPt2vbTWQ==
-X-Received: by 2002:ac2:4ec6:0:b0:545:532:fd2f with SMTP id 2adb3069b0e04-545181095a9mr948364e87.12.1739375042387;
-        Wed, 12 Feb 2025 07:44:02 -0800 (PST)
-From: Grygorii Strashko <gragst.linux@gmail.com>
-X-Google-Original-From: Grygorii Strashko <grygorii_strashko@epam.com>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Grygorii Strashko <grygorii_strashko@epam.com>
-Subject: [PATCH] device-tree: optimize size of struct dt_device_node
-Date: Wed, 12 Feb 2025 17:43:58 +0200
-Message-Id: <20250212154358.2540389-1-grygorii_strashko@epam.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20230601; t=1739375558; x=1739980358;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ZTZ8H7XpQ0ZAjp2/uvEwrHuLYuu4yt0uT9N6L18MMBI=;
+        b=JrKYjEQFIcVpd3j2Yv9VDLp9xhSONLW65O8s30VgzszLQ14gPStV7rrBihgdlAcPvu
+         0eOF/mANaxMGDDxCjpQ3aLBSLK9V6U+Y8MwHpdRDNVCSaUa1Vb4SOTqWBsCvPBOSxry4
+         oAUvlwur/bR1PE259hoTMF5yNO6BHvz9e3OCoRG0DpA6JYWjbMnx4hRfHADSKPoip1HW
+         Co8FrQ0+Atj3otNmF6Cv+kVtpGNMhOo+oAUo/2IVQh4ZQ6or9r8Gys1FHLUE3/14HkKa
+         x5/7QH+feqILPg7Si/A7S5W6ksI6pF+YCmQvkyRW4nMmtpd7zEcTo2Vv6S0HCCvYCR1/
+         gnRQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXy+N4MJ2v3rCuv+1n3Uh7ZXN2JfTwLKgZr7/V/y/IuhUhxRYh6pGAvo8hVk0d9T1kr2CeZiZJPCC8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy8/+AyS07AoTtiKJJ4g8T5JS55ZjYLV1ZgC0lnabr+pBgh71Db
+	zgMrYbRyqMMCasQkOBSZEYJ/jR9NlyhAQ+zdI0jDR/sTLoFeDKq8l/xM2uMN5g==
+X-Gm-Gg: ASbGncuG4CH7f9O/yOc2nXs0SbFadkW0/RU372Z7XjBxZdpWsoH5XsXcXfLerkoqm89
+	cTbzFTWwYr9R1Vb03l+Tw2Ubx3FVibYXJTpDsvn9LPzN3J6TeqJDxb5lsjtWToQsOdXVBA4WXPm
+	bsZSQWPyaYTmGjNIRKProwyNdiGaIJ39tnzbOassmGCDS+MkJdCZjg/YgZzuBoz+MSre8Qh5/Ul
+	FVoSALjcRzGp3bA+jWRrEekBdJZI6HYiEBv0ZFRJ/HaT/kM1NfTLRVEZKrvupQHCvAfjzkunF8G
+	qBp2MPc/6NrkEDvIBZSb22FJolz0Mjy5NvVOVeh2xFTX2YuaOCASdVZ0ov112tzvToe91c5HcPp
+	F
+X-Google-Smtp-Source: AGHT+IESNtcX9uVhGmYXXPg6yuJYYYqPPsXUOh8+wgdpP+f8aAfnFm+Eg1rNWmQmfQ4q07trwzu/LA==
+X-Received: by 2002:a17:907:2d12:b0:ab7:a39:db4 with SMTP id a640c23a62f3a-ab7f34ac985mr328907966b.57.1739375557843;
+        Wed, 12 Feb 2025 07:52:37 -0800 (PST)
+Message-ID: <c0d43969-45c5-4ed0-8ebf-7aa3f3c6fd28@suse.com>
+Date: Wed, 12 Feb 2025 16:52:36 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 07/11] x86/cpufreq: add "cpufreq=amd-cppc,active" para
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: Ray.Huang@amd.com, Jason.Andryuk@amd.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250206083255.1296363-1-Penny.Zheng@amd.com>
+ <20250206083255.1296363-8-Penny.Zheng@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250206083255.1296363-8-Penny.Zheng@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Michal Orzel <michal.orzel@amd.com>
+On 06.02.2025 09:32, Penny Zheng wrote:
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -515,7 +515,7 @@ If set, force use of the performance counters for oprofile, rather than detectin
+>  available support.
+>  
+>  ### cpufreq
+> -> `= none | {{ <boolean> | xen } { [:[powersave|performance|ondemand|userspace][,[<maxfreq>]][,[<minfreq>]]] } [,verbose]} | dom0-kernel | hwp[:[<hdc>][,verbose]] | amd-cppc[:[verbose]]`
+> +> `= none | {{ <boolean> | xen } { [:[powersave|performance|ondemand|userspace][,[<maxfreq>]][,[<minfreq>]]] } [,verbose]} | dom0-kernel | hwp[:[<hdc>][,verbose]] | amd-cppc[:[active][,verbose]]`
+>  
+>  > Default: `xen`
+>  
+> @@ -538,6 +538,12 @@ choice of `dom0-kernel` is deprecated and not supported by all Dom0 kernels.
+>    on supported AMD hardware to provide finer grained frequency control mechanism.
+>    The default is disabled. If `amd-cppc` is selected, but hardware support
+>    is not available, Xen will fallback to cpufreq=xen.
+> +* `active` is a boolean to enable amd-cppc driver in active(autonomous) mode.
+> +  In this mode, users could provide a hint with energy performance preference
+> +  register to the hardware if they want to bias toward performance(0x0) or
+> +  energy efficiency(0xff), then CPPC power algorithm will calculate the runtime
+> +  workload and adjust the realtime cores frequency according to the power supply
+> +  and thermal, core voltage and some other hardware conditions.
 
-The current placement of fields in struct dt_device_node is not optimal and
-introduces holes due to fields alignment.
+All the option offers to the user is a boolean. The description wants to be
+written based on that; to be honest, with what is there and with the new
+variable not actually consumed anywhere, I have no real idea what this is
+about. Hex numbers in particular don't belong here at all, imo. And "users
+could provide a hint" needs to be more practical: Users don't directly write
+to the "energy performance preference register" (or any other one).
 
-Checked with "'pahole xen-syms -C dt_device_node"
+> --- a/xen/arch/x86/acpi/cpufreq/amd-cppc.c
+> +++ b/xen/arch/x86/acpi/cpufreq/amd-cppc.c
+> @@ -33,6 +33,8 @@
+>  #define amd_cppc_warn(fmt, args...)                         \
+>      printk(XENLOG_WARNING "AMD_CPPC: CPU%u warning: " fmt, cpu, ## args)
+>  
+> +static bool __ro_after_init opt_cpufreq_active;
 
-ARM64 size 144B, 16B holes:
-	/* size: 144, cachelines: 3, members: 15 */
-	/* sum members: 128, holes: 3, sum holes: 16 */
-	/* last cacheline: 16 bytes */
-ARM32 size 72B, 4B holes
-	/* size: 72, cachelines: 2, members: 15 */
-	/* sum members: 68, holes: 2, sum holes: 4 */
-	/* last cacheline: 8 bytes */
+The name is ambiguous. It reads as if this was a global enable/disable for
+the cpufreq subsystem. opt_active_mode perhaps, seeing this is local to
+the CPPC driver?
 
-This patch optimizes size of struct dt_device_node by rearranging its
-field, which eliminates holes and reduces structure size by 16B(ARM64) and
-4B(ARM32).
-
-After ARM64 size 128B, no holes (-16B):
-	/* size: 128, cachelines: 2, members: 15 */
-After ARM32 size 68B, no holes (-4B)
-	/* size: 68, cachelines: 2, members: 15 */
-	/* last cacheline: 4 bytes */
-
-Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
----
-This patch follows discussion in [1]
-[1] https://patchwork.kernel.org/comment/26239672/
-
- xen/include/xen/device_tree.h | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-index 5ff763bb80bb..0ff80fda04da 100644
---- a/xen/include/xen/device_tree.h
-+++ b/xen/include/xen/device_tree.h
-@@ -81,17 +81,10 @@ struct dt_property {
- struct dt_device_node {
-     const char *name;
-     const char *type;
--    dt_phandle phandle;
-     char *full_name;
-+    dt_phandle phandle;
-     domid_t used_by; /* By default it's used by dom0 */
- 
--    struct dt_property *properties;
--    struct dt_device_node *parent;
--    struct dt_device_node *child;
--    struct dt_device_node *sibling;
--    struct dt_device_node *next; /* TODO: Remove it. Only use to know the last children */
--    struct dt_device_node *allnext;
--
-     /* IOMMU specific fields */
-     bool is_protected;
- 
-@@ -100,6 +93,13 @@ struct dt_device_node {
-     bool static_evtchn_created;
- #endif
- 
-+    struct dt_property *properties;
-+    struct dt_device_node *parent;
-+    struct dt_device_node *child;
-+    struct dt_device_node *sibling;
-+    struct dt_device_node *next; /* TODO: Remove it. Only use to know the last children */
-+    struct dt_device_node *allnext;
-+
-     /*
-      * The main purpose of this list is to link the structure in the list
-      * of devices assigned to domain.
--- 
-2.34.1
-
+Jan
 
