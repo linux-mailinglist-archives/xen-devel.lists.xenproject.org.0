@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20DE2A31B2E
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 02:31:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.886055.1295786 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA6C6A31B46
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 02:41:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.886065.1295796 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ti1ae-00010a-Hf; Wed, 12 Feb 2025 01:31:00 +0000
+	id 1ti1kU-0002dH-Cd; Wed, 12 Feb 2025 01:41:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 886055.1295786; Wed, 12 Feb 2025 01:31:00 +0000
+Received: by outflank-mailman (output) from mailman id 886065.1295796; Wed, 12 Feb 2025 01:41:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ti1ae-0000xj-EV; Wed, 12 Feb 2025 01:31:00 +0000
-Received: by outflank-mailman (input) for mailman id 886055;
- Wed, 12 Feb 2025 01:30:59 +0000
+	id 1ti1kU-0002bp-9u; Wed, 12 Feb 2025 01:41:10 +0000
+Received: by outflank-mailman (input) for mailman id 886065;
+ Wed, 12 Feb 2025 01:41:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=xJ3x=VD=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1ti1ad-0000xd-RE
- for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 01:30:59 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ id 1ti1kT-0002Xb-48
+ for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 01:41:09 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 002ec0ad-e8e1-11ef-b3ef-695165c68f79;
- Wed, 12 Feb 2025 02:30:54 +0100 (CET)
+ id 683660d9-e8e2-11ef-b3ef-695165c68f79;
+ Wed, 12 Feb 2025 02:40:59 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 097B5A40C48;
- Wed, 12 Feb 2025 01:29:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AEBDC4CEDD;
- Wed, 12 Feb 2025 01:30:51 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id C85F25C5661;
+ Wed, 12 Feb 2025 01:40:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3FAEC4CEDD;
+ Wed, 12 Feb 2025 01:40:55 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,183 +41,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 002ec0ad-e8e1-11ef-b3ef-695165c68f79
+X-Inumbo-ID: 683660d9-e8e2-11ef-b3ef-695165c68f79
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739323853;
-	bh=HQf8dfo48FofBSjJRGEQY2VVU3sygOXQ3hfOtk3uHOg=;
+	s=k20201202; t=1739324457;
+	bh=Ti7M/+g/3zd39wxXNA7rjLA5dMH7lE3Mz46f1KkCMOw=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=L/lubwuxS/wZLQk3opIaTgjL/mZX8uoFYduxsrNuieo4LASvARhwT+6smdT0+hqBa
-	 Ttp0urx+Cro8mxexdMdMx0tjp2rySoP/byCO4rFx7JaDtaC+U0eJ1WYUqLEII1si5W
-	 LTUkQxi80e/mww5HPhqoYM9m4uP0gtLcar0M6MHq4kr6kW8uKuKcvtcWcBnG6YrVdY
-	 d7DG2e7zrIGhk9UgStpJxbegPrfC6gv0vpzGq4rIjFL+9Hle0PYsRwoMW5vJRGdRLH
-	 3Pbwr63WG1yQarX1QhvFrXYn839XLHBrihENQ4+tVsTp3EE2u78bYR/LnlPN+lCBSy
-	 ZIp0QVJtp6Paw==
-Date: Tue, 11 Feb 2025 17:30:50 -0800 (PST)
+	b=pDv6uM6ho1+ngoY6t5rnW4wWNRZGqbsZG2m0OgFbdZ2eM/qTSEsOsFiLF63231AzE
+	 QzOZr2mM6AFaO2d+WBblXqUkl+Ifje+PSafdKg4BOJgk0wnLuvbzhbVpOn7OELgS2f
+	 KoI3iWN3sVaUElYOHHnZlAj7+E9pZzpXgRFKg7STgkurLviR6inP0yT4PfYkKgELkF
+	 W1mseUEx1BBsUxofLP4dMxWHZ3sKF9gFLTfOZg0OTV3cZGrlWIL2Z58UKzJ5k6cOK1
+	 U+w3wvw1iy+ieJ3tyy6I759bGEQ9W6yHJeA9yQiTne50se5woF/Hd9ijYZ+LltJfAp
+	 T4Zm3+gAcfHgg==
+Date: Tue, 11 Feb 2025 17:40:54 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Juergen Gross <jgross@suse.com>
-cc: linux-kernel@vger.kernel.org, x86@kernel.org, iommu@lists.linux.dev, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-    Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, 
-    Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
-    "H. Peter Anvin" <hpa@zytor.com>, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-    xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 2/2] xen/swiotlb: don't destroy contiguous region in all
- cases
-In-Reply-To: <20250211120432.29493-3-jgross@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2502111728560.619090@ubuntu-linux-20-04-desktop>
-References: <20250211120432.29493-1-jgross@suse.com> <20250211120432.29493-3-jgross@suse.com>
+To: dmkhn@proton.me
+cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, 
+    anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, 
+    michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, 
+    dmukhin@ford.com
+Subject: Re: [PATCH] arm/vuart: move vpl011-related code to vpl011 emulator
+In-Reply-To: <20250211075405.191144-1-dmkhn@proton.me>
+Message-ID: <alpine.DEB.2.22.394.2502111739010.619090@ubuntu-linux-20-04-desktop>
+References: <20250211075405.191144-1-dmkhn@proton.me>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Tue, 11 Feb 2025, Juergen Gross wrote:
-> In case xen_swiotlb_alloc_coherent() needed to create a contiguous
-> region only for other reason than the memory not being compliant with
-> the device's DMA mask, there is no reason why this contiguous region
-> should be destroyed by xen_swiotlb_free_coherent() later. Destroying
-> this region should be done only, if the memory of the region was
-> allocated with more stringent placement requirements than the memory
-> it did replace.
+On Tue, 11 Feb 2025, dmkhn@proton.me wrote:
+> From: Denis Mukhin <dmukhin@ford.com>
 > 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+> Xen console driver has vpl011-related logic which shall belong vpl011 emulator
+> code (Arm port). Move vpl011-related code from arch-independent console driver
+> to Arm's vpl011.c.
+> 
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 > ---
->  arch/x86/include/asm/xen/swiotlb-xen.h |  5 +++--
->  arch/x86/xen/mmu_pv.c                  | 18 ++++++++++++------
->  drivers/xen/swiotlb-xen.c              | 11 +++++++----
->  3 files changed, 22 insertions(+), 12 deletions(-)
+> Link to the original patch:
+>   https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v3-v1-2-c5d36b31d66c@ford.com/
+> ---
+>  xen/arch/arm/include/asm/vpl011.h |  2 +-
+>  xen/arch/arm/vpl011.c             | 15 +++++++++++----
+>  xen/drivers/char/console.c        | 21 +++++++--------------
+>  3 files changed, 19 insertions(+), 19 deletions(-)
 > 
-> diff --git a/arch/x86/include/asm/xen/swiotlb-xen.h b/arch/x86/include/asm/xen/swiotlb-xen.h
-> index abde0f44df57..a353f20c7e79 100644
-> --- a/arch/x86/include/asm/xen/swiotlb-xen.h
-> +++ b/arch/x86/include/asm/xen/swiotlb-xen.h
-> @@ -4,8 +4,9 @@
->  
->  int xen_swiotlb_fixup(void *buf, unsigned long nslabs);
->  int xen_create_contiguous_region(phys_addr_t pstart, unsigned int order,
-> -				unsigned int address_bits,
-> -				dma_addr_t *dma_handle);
-> +				 unsigned int address_bits,
-> +				 dma_addr_t *dma_handle,
-> +				 unsigned int *address_bits_in);
->  void xen_destroy_contiguous_region(phys_addr_t pstart, unsigned int order);
->  
->  #endif /* _ASM_X86_SWIOTLB_XEN_H */
-> diff --git a/arch/x86/xen/mmu_pv.c b/arch/x86/xen/mmu_pv.c
-> index 2c70cd35e72c..fb586238f7c4 100644
-> --- a/arch/x86/xen/mmu_pv.c
-> +++ b/arch/x86/xen/mmu_pv.c
-> @@ -2208,19 +2208,22 @@ void __init xen_init_mmu_ops(void)
->  static unsigned long discontig_frames[1<<MAX_CONTIG_ORDER];
->  
->  #define VOID_PTE (mfn_pte(0, __pgprot(0)))
-> -static void xen_zap_pfn_range(unsigned long vaddr, unsigned int order,
-> -				unsigned long *in_frames,
-> -				unsigned long *out_frames)
-> +static int xen_zap_pfn_range(unsigned long vaddr, unsigned int order,
-> +			     unsigned long *in_frames,
-> +			     unsigned long *out_frames)
->  {
->  	int i;
-> +	u64 address_bits = 0;
->  	struct multicall_space mcs;
->  
->  	xen_mc_batch();
->  	for (i = 0; i < (1UL<<order); i++, vaddr += PAGE_SIZE) {
->  		mcs = __xen_mc_entry(0);
->  
-> -		if (in_frames)
-> +		if (in_frames) {
->  			in_frames[i] = virt_to_mfn((void *)vaddr);
-> +			address_bits |= in_frames[i] << PAGE_SHIFT;
-> +		}
->  
->  		MULTI_update_va_mapping(mcs.mc, vaddr, VOID_PTE, 0);
->  		__set_phys_to_machine(virt_to_pfn((void *)vaddr), INVALID_P2M_ENTRY);
-> @@ -2229,6 +2232,8 @@ static void xen_zap_pfn_range(unsigned long vaddr, unsigned int order,
->  			out_frames[i] = virt_to_pfn((void *)vaddr);
->  	}
->  	xen_mc_issue(0);
-> +
-> +	return fls64(address_bits);
->  }
+> diff --git a/xen/arch/arm/include/asm/vpl011.h b/xen/arch/arm/include/asm/vpl011.h
+> index c09abcd7a9..cc83868281 100644
+> --- a/xen/arch/arm/include/asm/vpl011.h
+> +++ b/xen/arch/arm/include/asm/vpl011.h
+> @@ -69,7 +69,7 @@ struct vpl011_init_info {
+>  int domain_vpl011_init(struct domain *d,
+>                         struct vpl011_init_info *info);
+>  void domain_vpl011_deinit(struct domain *d);
+> -void vpl011_rx_char_xen(struct domain *d, char c);
+> +int vpl011_rx_char_xen(struct domain *d, char c);
+>  #else
+>  static inline int domain_vpl011_init(struct domain *d,
+>                                       struct vpl011_init_info *info)
+> diff --git a/xen/arch/arm/vpl011.c b/xen/arch/arm/vpl011.c
+> index 1fc3114cce..c72f3778bf 100644
+> --- a/xen/arch/arm/vpl011.c
+> +++ b/xen/arch/arm/vpl011.c
+> @@ -567,16 +567,21 @@ static void vpl011_data_avail(struct domain *d,
 >  
 >  /*
-> @@ -2321,7 +2326,8 @@ static int xen_exchange_memory(unsigned long extents_in, unsigned int order_in,
->  
->  int xen_create_contiguous_region(phys_addr_t pstart, unsigned int order,
->  				 unsigned int address_bits,
-> -				 dma_addr_t *dma_handle)
-> +				 dma_addr_t *dma_handle,
-> +				 unsigned int *address_bits_in)
+>   * vpl011_rx_char_xen adds a char to a domain's vpl011 receive buffer.
+> - * It is only used when the vpl011 backend is in Xen.
+>   */
+> -void vpl011_rx_char_xen(struct domain *d, char c)
+> +int vpl011_rx_char_xen(struct domain *d, char c)
 >  {
->  	unsigned long *in_frames = discontig_frames, out_frame;
->  	unsigned long  flags;
-> @@ -2336,7 +2342,7 @@ int xen_create_contiguous_region(phys_addr_t pstart, unsigned int order,
->  	spin_lock_irqsave(&xen_reservation_lock, flags);
+>      unsigned long flags;
+>      struct vpl011 *vpl011 = &d->arch.vpl011;
+>      struct vpl011_xen_backend *intf = vpl011->backend.xen;
+>      XENCONS_RING_IDX in_cons, in_prod, in_fifo_level;
 >  
->  	/* 1. Zap current PTEs, remembering MFNs. */
-> -	xen_zap_pfn_range(vstart, order, in_frames, NULL);
-> +	*address_bits_in = xen_zap_pfn_range(vstart, order, in_frames, NULL);
+> -    ASSERT(!vpl011->backend_in_domain);
+> +    /* Forward input iff the vpl011 backend is in Xen. */
+> +    if ( vpl011->backend_in_domain )
+> +        return -ENODEV;
+> +
+> +    if ( intf == NULL )
+> +        return -ENODEV;
+> +
+>      VPL011_LOCK(d, flags);
 >  
->  	/* 2. Get a new contiguous memory extent. */
->  	out_frame = virt_to_pfn((void *)vstart);
-> diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
-> index 26c62e0d34e9..3f3724f53914 100644
-> --- a/drivers/xen/swiotlb-xen.c
-> +++ b/drivers/xen/swiotlb-xen.c
-> @@ -118,6 +118,7 @@ int xen_swiotlb_fixup(void *buf, unsigned long nslabs)
->  	int rc;
->  	unsigned int order = get_order(IO_TLB_SEGSIZE << IO_TLB_SHIFT);
->  	unsigned int i, dma_bits = order + PAGE_SHIFT;
-> +	unsigned int dummy;
->  	dma_addr_t dma_handle;
->  	phys_addr_t p = virt_to_phys(buf);
+>      in_cons = intf->in_cons;
+> @@ -584,7 +589,7 @@ void vpl011_rx_char_xen(struct domain *d, char c)
+>      if ( xencons_queued(in_prod, in_cons, sizeof(intf->in)) == sizeof(intf->in) )
+>      {
+>          VPL011_UNLOCK(d, flags);
+> -        return;
+> +        return -ENOSPC;
+
+Everything else looks fine. I am a bit unsure about this -ENOSPC return
+because...
+
+
+>      }
 >  
-> @@ -129,7 +130,7 @@ int xen_swiotlb_fixup(void *buf, unsigned long nslabs)
->  		do {
->  			rc = xen_create_contiguous_region(
->  				p + (i << IO_TLB_SHIFT), order,
-> -				dma_bits, &dma_handle);
-> +				dma_bits, &dma_handle, &dummy);
->  		} while (rc && dma_bits++ < MAX_DMA_BITS);
->  		if (rc)
->  			return rc;
-> @@ -144,6 +145,7 @@ xen_swiotlb_alloc_coherent(struct device *dev, size_t size,
->  		dma_addr_t *dma_handle, gfp_t flags, unsigned long attrs)
->  {
->  	u64 dma_mask = dev->coherent_dma_mask;
-> +	unsigned int address_bits = fls64(dma_mask), address_bits_in;
->  	int order = get_order(size);
->  	phys_addr_t phys;
->  	void *ret;
-> @@ -160,10 +162,11 @@ xen_swiotlb_alloc_coherent(struct device *dev, size_t size,
->  	if (*dma_handle + size - 1 > dma_mask ||
->  	    range_straddles_page_boundary(phys, size) ||
->  	    range_requires_alignment(phys, size)) {
-> -		if (xen_create_contiguous_region(phys, order, fls64(dma_mask),
-> -				dma_handle) != 0)
-> +		if (xen_create_contiguous_region(phys, order, address_bits,
-> +						 dma_handle, &address_bits_in))
->  			goto out_free_pages;
-> -		SetPageXenRemapped(virt_to_page(ret));
-> +		if (address_bits_in > address_bits)
-> +			SetPageXenRemapped(virt_to_page(ret));
-
-This has the unfortunate side effect of making "PageXenRemapped"
-unreliable as an indicator of whether a page has been remapped. A page
-could still be remapped without the "PageXenRemapped" bit being set.  
-
-I recommend adding an in-code comment to clarify this behavior.
-
-
-
->  	}
+>      intf->in[xencons_mask(in_prod, sizeof(intf->in))] = c;
+> @@ -596,6 +601,8 @@ void vpl011_rx_char_xen(struct domain *d, char c)
 >  
->  	memset(ret, 0, size);
+>      vpl011_data_avail(d, in_fifo_level, sizeof(intf->in), 0, SBSA_UART_FIFO_SIZE);
+>      VPL011_UNLOCK(d, flags);
+> +
+> +    return 0;
+>  }
+>  
+>  static void vpl011_notification(struct vcpu *v, unsigned int port)
+> diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+> index b4cec77247..5e6f0fb062 100644
+> --- a/xen/drivers/char/console.c
+> +++ b/xen/drivers/char/console.c
+> @@ -553,21 +553,14 @@ static void __serial_rx(char c)
+>      {
+>          struct domain *d = rcu_lock_domain_by_id(console_rx - 1);
+>  
+> -        /*
+> -         * If we have a properly initialized vpl011 console for the
+> -         * domain, without a full PV ring to Dom0 (in that case input
+> -         * comes from the PV ring), then send the character to it.
+> -         */
+> -        if ( d != NULL &&
+> -             !d->arch.vpl011.backend_in_domain &&
+> -             d->arch.vpl011.backend.xen != NULL )
+> -            vpl011_rx_char_xen(d, c);
+> -        else
+> -            printk("Cannot send chars to Dom%d: no UART available\n",
+> -                   console_rx - 1);
+> -
+> -        if ( d != NULL )
+> +        if ( d )
+> +        {
+> +            int rc = vpl011_rx_char_xen(d, c);
+> +            if ( rc )
+> +                printk(KERN_WARNING "%pd: failed to process console input: %d\n",
+> +                       d, rc);
+
+... it could trigger a warning here. And any prink triggerable by the
+guest should be rate limited. We already have a function for that which
+is guest_printk. So I think we should probably change this warning to be
+guest_printk. Or change return -ENODEV into return 0.
+
+
+>              rcu_unlock_domain(d);
+> +        }
+>  
+>          break;
+>      }
 > -- 
-> 2.43.0
+> 2.34.1
+> 
 > 
 
