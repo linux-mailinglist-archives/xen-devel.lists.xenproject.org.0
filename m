@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59288A31F81
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 07:54:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.886137.1295822 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA724A31FAF
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 08:12:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.886147.1295831 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ti6cd-0005Ra-80; Wed, 12 Feb 2025 06:53:23 +0000
+	id 1ti6uL-0008Fu-NI; Wed, 12 Feb 2025 07:11:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 886137.1295822; Wed, 12 Feb 2025 06:53:23 +0000
+Received: by outflank-mailman (output) from mailman id 886147.1295831; Wed, 12 Feb 2025 07:11:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ti6cd-0005Q1-44; Wed, 12 Feb 2025 06:53:23 +0000
-Received: by outflank-mailman (input) for mailman id 886137;
- Wed, 12 Feb 2025 06:53:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=OfhB=VD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ti6cc-0005Pv-3o
- for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 06:53:22 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 08b539da-e90e-11ef-b3ef-695165c68f79;
- Wed, 12 Feb 2025 07:53:15 +0100 (CET)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-ab7e9254bb6so172346066b.1
- for <xen-devel@lists.xenproject.org>; Tue, 11 Feb 2025 22:53:15 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab7cae13326sm458952566b.115.2025.02.11.22.53.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Feb 2025 22:53:14 -0800 (PST)
+	id 1ti6uL-0008Do-Jp; Wed, 12 Feb 2025 07:11:41 +0000
+Received: by outflank-mailman (input) for mailman id 886147;
+ Wed, 12 Feb 2025 07:07:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=izbI=VD=cyient.com=Suryaprakash.Shukla@srs-se1.protection.inumbo.net>)
+ id 1ti6po-0007A2-3U
+ for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 07:07:00 +0000
+Received: from APC01-PSA-obe.outbound.protection.outlook.com
+ (mail-psaapc01on2060b.outbound.protection.outlook.com
+ [2a01:111:f403:200e::60b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id edc36c5c-e90f-11ef-a075-877d107080fb;
+ Wed, 12 Feb 2025 08:06:51 +0100 (CET)
+Received: from TY0PR03MB6428.apcprd03.prod.outlook.com (2603:1096:400:1ac::10)
+ by SEZPR03MB8486.apcprd03.prod.outlook.com (2603:1096:101:220::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.18; Wed, 12 Feb
+ 2025 07:06:42 +0000
+Received: from TY0PR03MB6428.apcprd03.prod.outlook.com
+ ([fe80::ec07:9ccb:1772:102a]) by TY0PR03MB6428.apcprd03.prod.outlook.com
+ ([fe80::ec07:9ccb:1772:102a%4]) with mapi id 15.20.8445.008; Wed, 12 Feb 2025
+ 07:06:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,97 +47,226 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 08b539da-e90e-11ef-b3ef-695165c68f79
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739343195; x=1739947995; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3zUdjh6v2wfB250eT8s3roIt8Qtd79xlup5Duj+e/Gc=;
-        b=BLj0/UclEOkpX/gTefHoNAoGG9ijHLnJXTqAdc9bcTWeCTzazEW58ouASHlGiLPjGb
-         f19S3fi1NW+3I2Cu5qCY77lkPsw71Cm+9hX52b7r5wa2iBzBuyn09thsgbdFTKwRRQUq
-         QjxU9F2+T6St7La78CxDXuEk5QI0ab8J/+iNVm0S5mmv88lvdswlj7qCPUZRPK8ZLOzt
-         KOoFfu4mxDqhzmV44+XsBPcSt2aC+2zBUPlFwMoLo0Pv7wDn0CUzZRVpkqRZSD0ijPfn
-         joPWDyKadJKXuzFb/6CxIwMimtcnwH8nQ3X0uBVb+2C8ZUaDDeABNKX0oftGMD6j+c40
-         8qrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739343195; x=1739947995;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3zUdjh6v2wfB250eT8s3roIt8Qtd79xlup5Duj+e/Gc=;
-        b=OwkdSgluIW1sUoHlFBvKdEZG1Ry/H/rvTp8Gx72udgxVb6zLayZka2gK9eACKAU+wR
-         f8TkcnomC4XLC1HtO20dL1AKOBEtSZQV95pUkXYYhF4biwumEhiEWX4fxA+o5KNxm6EU
-         X2U/r4zTXkNnnRZ31FFaljEZoHLsB0VUEqxJJ7j2bxCm3hV8n43WHE2KnWogaC2C221K
-         hJQXEr1MsCooxbrjHrTB5pDyy5J5m+Jh/2FfXg53FLpctYXmJsuac8vIDchwLzVo+KoF
-         HMCpxqd5iqH2ZYWfad+olOlINMJXYVJz69q7hGGBkrnlt05j4ti5fSJwm5nvXFY/dNzt
-         saEg==
-X-Forwarded-Encrypted: i=1; AJvYcCViYqzC3Uc/igMAWuEWmojvhcl6MyMQXy8+LhKhDwqgj5pvbd2bzxAdp+GJqhK/k6ckYpW+59yQCnY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzHNHEAmm/dYdu3y8BwHUYrIuFArheVKWFQRdTQpS50arLfFgLM
-	CuHPgZ50qy11EHX9JMLQB4VIxfS6rYbYE5hUnVISe2bBkZCSkF199s2Ire1PuQ==
-X-Gm-Gg: ASbGnctD0Rn0zZ53jYIESigLiUTEErbK9p1ZNZcaCdhgGKFFfX2y3bpz7KG3h66tnxs
-	obUGts42nQ3DN1b95gAzOfjY3fo0CXFWniaeScVZGsfDAI3t3q7D+rhrQl69nFDLegIIYlbMDiF
-	aVBHaPezCRq4KmW2Y7NJaRuq4kqfj7QRBMtCVYNddTvhV66LwbBLMMVx0qdKZCSshWfh1vDfyni
-	8a/IAnzrQ4XvTSTHdy8V8IjSI9IqeAzPjfFic5npN1oa6OhXZ3WIWufN5OpbsslypK4HFjbYJ8f
-	rWaTk6lzAbDwdRyBJYJHwtmEiAo+PlanYD081rdLpAVefqTLc74xETBWM2EFhRs7w33UOW3new7
-	I
-X-Google-Smtp-Source: AGHT+IH7szDJ7r/FLs7HCSZgQOG6ClTKkQlnfHrZmIaLFikv1S6Fh81Vo5LwUTuyR2T+FFP/nHdGEw==
-X-Received: by 2002:a17:907:2da1:b0:ab6:f06b:4a26 with SMTP id a640c23a62f3a-ab7f33e0e2amr203666266b.34.1739343195217;
-        Tue, 11 Feb 2025 22:53:15 -0800 (PST)
-Message-ID: <5255102c-de9f-4cd8-8311-5d5b5eb26832@suse.com>
-Date: Wed, 12 Feb 2025 07:53:13 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] xen/swiotlb: relax alignment requirements
-To: Juergen Gross <jgross@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- xen-devel@lists.xenproject.org, Jan Vejvalka <jan.vejvalka@lfmotol.cuni.cz>,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev
-References: <20250211120432.29493-1-jgross@suse.com>
- <20250211120432.29493-2-jgross@suse.com>
+X-Inumbo-ID: edc36c5c-e90f-11ef-a075-877d107080fb
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VIivQKxm55KUSotR4kPOhcPVTm4muLTK6ebjW0Osb1ZlPqHhIjaZmc0LDOO56nm4lz1TVPsEFNXSGBaJzDiK7Ytkj3p5F/p2Wzuwre7FsclaFFTx/KZHuhXL2TkJpnH+Jg3vDAm73w0PQtEYvilf26cvxNnm10VSz0XtZwu0v2n4FigIsLB7tXnQDOkSqHbICUnCmC2M0Q2pcZOFaEz1C72a6w4K39I/o7vEhYHfJmjtwavzukb4qEk7xS84kd/v8kb6lwvyVfqK/DTXsfr5/XEjDBGnGi2TAGoiqsklHBoyg+nVLOG2bq7P9ioVYS1mS0dPHGQ5o3H6jEdISoRKqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CCE4+/WS/IPjOmONO0UvygehZJuAMOxZ5RIwkdaeYh8=;
+ b=i6ZLuFpI+wpIuDCuqFZvY4PIKLwqtAWvv/sU9tS/XT0MH9BYOzIYYhWiOA82k1kxXaMZfLWfe9oOqpqAi24p9NwrtJJFbUJ6udn4JNwa9HYqmII0QpLb+hLM8gFtFxpB6+bAzyXuZf5PYOsDcLv1xRKAcv9pcPr2fu0nL1e/53Tx8445agL/x/aZY/NXRAG7Dy2cJZSZPmdZWQuv5dzutcdVSW9fNZLEsPXnWbM5A7UaywSX6pEsquDc5xPQXtWqMM37rC/8Q3loHKNBDczp2eTQ7cgBORh1RbFrvdo/+CZd0tOby4vI7qO/frFcC8PKFQBB5fkbMCVgB573DNnHrQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=cyient.com; dmarc=pass action=none header.from=cyient.com;
+ dkim=pass header.d=cyient.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyient.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CCE4+/WS/IPjOmONO0UvygehZJuAMOxZ5RIwkdaeYh8=;
+ b=dYNIQwYrB+jlW8Q647UgPGCS7CtM482arjWGH2TXYFD0zKxVX5zMYvRQWO1gffgUFnAIEkHgKNsWWnvgS/fWdF6o5prOIWTKKxCr3sUhFP8oPkiLUuQnvE4CoUMjEyAMg89pGlzn052D2tuZ37xGDkcC/z6d6vNcmkb/tqDJkeqzGYu+3IyAFgCW2jYg53bFcmHuQUkVWVENrLhRmTqSqxA51KudRtxPAqAZbGRQrvgK8FaTMtM2RelyndB/kXZ8QRTcFH2yRD3iA8+xkytN9uPmzZHEqc6bL/qxUNGuemdHms1QClzrJJjxpfwG/L2rzJQJiRSGHPt6agrnMrBwlg==
+From: Surya prakash Shukla <Suryaprakash.Shukla@cyient.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Collaboration on Android Trout Development with Xen Hypervisor
+Thread-Topic: Collaboration on Android Trout Development with Xen Hypervisor
+Thread-Index: AQHbfRx77LX00vjSEEe5N3vp1E6OQA==
+Date: Wed, 12 Feb 2025 07:06:42 +0000
+Message-ID:
+ <TY0PR03MB6428732CFA2292AE5411838481FC2@TY0PR03MB6428.apcprd03.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250211120432.29493-2-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_0cb49050-d2ca-4b82-83d8-3fed8b20fa0b_Enabled=True;MSIP_Label_0cb49050-d2ca-4b82-83d8-3fed8b20fa0b_SiteId=2d6b0cf3-57fa-4619-abf9-d13e1ef2352a;MSIP_Label_0cb49050-d2ca-4b82-83d8-3fed8b20fa0b_SetDate=2025-02-12T07:06:42.023Z;MSIP_Label_0cb49050-d2ca-4b82-83d8-3fed8b20fa0b_Name=Public
+ Unrestricted;MSIP_Label_0cb49050-d2ca-4b82-83d8-3fed8b20fa0b_ContentBits=0;MSIP_Label_0cb49050-d2ca-4b82-83d8-3fed8b20fa0b_Method=Standard;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=cyient.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY0PR03MB6428:EE_|SEZPR03MB8486:EE_
+x-ms-office365-filtering-correlation-id: 748a91f8-a9a8-40c7-774b-08dd4b33cd8c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|10070799003|366016|1800799024|38070700018|8096899003;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?d04RpFBzrJiSX5v2XmS4C8ZB/ePldnUslygxOh6vofKuEhD+k73w9jFBi2?=
+ =?iso-8859-1?Q?wbYd52z7a3V7Xx24XH0Gb1RKB6xnRlrFbyt6yS+/uWYn2k/17NPsslsS7z?=
+ =?iso-8859-1?Q?DvaLZkallg0Wz9XCldwHOmToYsnmh007dmNzd5d0lbaKglIYidlB1AbBPj?=
+ =?iso-8859-1?Q?lYRCKfyfDx069IQ8pMeo3x0kjCtpnRbcqZhVMzOWjKj1iBNgOQ5enrzLOF?=
+ =?iso-8859-1?Q?Hw8jlYfzTK8qa7+angim+BArk0RYmYIRo05kqRuJYotzJPgtyHngpBgPdE?=
+ =?iso-8859-1?Q?e+zJsS/MZQngRpqfuLwm9K+C7FSYbv7WqsVFx8dvAlRKKj4WAG11vyVs7L?=
+ =?iso-8859-1?Q?yoO06OQYKyoMa/RMkzVxg7uKiT0Oouj+Ld0lpCvIIG65eoxLNtJLNkx5Iw?=
+ =?iso-8859-1?Q?J/Fr+lBka8+LxbeNs2+F4UITrnxqMn2PP0R4VJugHpteJPdpW+mmOQ2EmI?=
+ =?iso-8859-1?Q?zItJ4BAyloomwWHCiyU4iucVs2M9+b3uE+kt1w5qMQZZzLWbPZKp+CzxyN?=
+ =?iso-8859-1?Q?Zc09pOhJmNJjLYFKVJ8B8fbvHGbgM0wUr9cWGG7etBeO9+YNjq0irfom7t?=
+ =?iso-8859-1?Q?JylNnSmt4sh6MlNn9dZOXlRYPwMbTQ0F9Ws8dtjOnE1h2iU0wqsdchlqvG?=
+ =?iso-8859-1?Q?iJcwS+QlOkXJNjnop7xfRQ+Nbi94CAxmc1zgfBSjq7A9vcKdkWRz6qMJrU?=
+ =?iso-8859-1?Q?dTr96l6UvCimn2iNJ+SMFZBJ5MTaXmex39Co7YqpyXHw0cTaRkoBNQBJGF?=
+ =?iso-8859-1?Q?hlPfped/bIGV+tbQ+/XTK7DtZ5r+4818NsJ4uEtyU19n1uOz5oX8u6to4s?=
+ =?iso-8859-1?Q?qP1GaoBbYFW9i8nVroNGaUc951aEHVPEip5XHOpwEkcP9pSkPFpx1cCvmh?=
+ =?iso-8859-1?Q?s2Liht+jUYKCPfGzcMcTSwThagbTz20DCLmhEvlDPQeojjH3BqXlNZT5L2?=
+ =?iso-8859-1?Q?hsH8uRBoYTyJCXVkMMCszdABjSeHwsRSuq1yz9YuTwSjMEU4oUOMQ4N8MZ?=
+ =?iso-8859-1?Q?UULQZsnU6DtMilvZztNh3lcf86lfiVNUkV8iMFWisSJY9KEjAurmwpGKGW?=
+ =?iso-8859-1?Q?6/MDBdqeabGo7bH8WTMQZtiTRfMwekf+wJ3KbK79fk/YIrCSUNJhpbNecQ?=
+ =?iso-8859-1?Q?RerCuKHd2qsy3q+zJPYY0m6zqLGL1h0rOjwOU+hp0NMnI/qMTVim3rK5j/?=
+ =?iso-8859-1?Q?wUlpY3wDZ6QwOjIOSHHyOPvXut/ilH0r2N/AQF02cUBj5JvEVwz7IrG/mF?=
+ =?iso-8859-1?Q?cxJg15AXRrNiM/UQiXwlcg9hOzAB4iVtE//A7ot//Ku794L++n5HcyRoUl?=
+ =?iso-8859-1?Q?RGqnRvj6cMOu7CgQarkTxP69UQ41gh1AScDHSIDOF/tnwqDhRKv9eCs3uh?=
+ =?iso-8859-1?Q?lIPt9zGA+Gpp0iJSJguuAe6xw4FE23xn/6IskroQSBAfyg6L3gFS9ARn40?=
+ =?iso-8859-1?Q?geDnQ5XmvPz1Q9pv2Z1p1EP07FFYdAuu9/LaR01UepPSNaOvWVhvPYpmSk?=
+ =?iso-8859-1?Q?xdT+sRozpOwKw/ZPMTCYhO?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY0PR03MB6428.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(10070799003)(366016)(1800799024)(38070700018)(8096899003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?c0yFaaDUMptsTpSdWcXBBceytfPERz3OAR3znK1fJHyMSYD8XiaS4ja3Bf?=
+ =?iso-8859-1?Q?ST/S2nb7J/uvbRFnwd9BUleGpgb5EEN4f08UmvEGx5r9IWGylowb9k/qRN?=
+ =?iso-8859-1?Q?Qg2HQBZmTqCvtb1HU2onCfP4ZWfj6OMS0eSS9Lx9eXkV4c3FOKrI+SGUu+?=
+ =?iso-8859-1?Q?JE5No5n/To2Vyl+qE0wQ3rAP/fiFk5lvsqYzLkSx3GPZ8VNXva3flGB0HO?=
+ =?iso-8859-1?Q?gt0pFT1j7jw+ZMI01tfeP1oXAUFaJvLwrxBGOjaoNsLHLnD/0ezYM2D428?=
+ =?iso-8859-1?Q?4XyKj72F+Aj6ZuqcfDnGe/y0AMmQ1IE+GUoWzOVbwlbC8jKbXOeJvlOulu?=
+ =?iso-8859-1?Q?R1p0Vm0TUa2Hy4A8ZmSFdHIb7k1bF5X54i39YLTec4EpmIYF0+8CzyEcUr?=
+ =?iso-8859-1?Q?QquNateJERv3ivl40rHnr3anGAx19HSYkHc6vZTGHcBhkyUso1nbQvmHOK?=
+ =?iso-8859-1?Q?CkV+5hFr1T/bBFMoeJqgC+nRuQhpCvNI0hC3WVJtXzuHNGHI5TRthlTW7h?=
+ =?iso-8859-1?Q?pIDRsIfgYBcvn22eEdsAOFUKw5lSzR6wNOfaXeRLxmpTXJzVvq1EPY8ecN?=
+ =?iso-8859-1?Q?ddFNrJ5CmMhhYlfjvOqc5/y5+mRlqfHkCVTU3DiSegat2xLGc1yxWHb0v6?=
+ =?iso-8859-1?Q?adR9FYL/mlI0dXEYsmbknlC+4VBhcfVbx43cm8jC8Wuam/XAdBfXiCNfbv?=
+ =?iso-8859-1?Q?1b29cVXIaCWg/ZAF12K6ii7qtY+vHT8E6ai2QU9Zx2+vMgFvqmtvTWsxuO?=
+ =?iso-8859-1?Q?ZQJdXkV1QhWNlhuacIGwDDqvjlQg24ejnYsfM9HgBDGyNfmwirYyJA4AVM?=
+ =?iso-8859-1?Q?NEc9Q/FGs0MhNsOWAe2xSENAB7Yp8dVhjl7YITpW0ogYSeEfHzXrUlvTvv?=
+ =?iso-8859-1?Q?V45qK3DhKkCmdoeOReKDCYDVtnCFq41D4m4DanS3kVkNul8AO0n0bEQKuf?=
+ =?iso-8859-1?Q?x8o5T3En81kjogAX+SbdlGoLXYhYL4mgCx4Q1+K/KAlk33otOnWClQ+9IJ?=
+ =?iso-8859-1?Q?WIFt3TA1XtaqW6H+1RkqxR4SUS24G3TF056UvCJ7D64sDen0MRdwxiFZsK?=
+ =?iso-8859-1?Q?CdPgHoXKrP6559VmELoGo+ZPfEW/dlb4oXQPVoNGnYbM8GFF/wxgpyg1fc?=
+ =?iso-8859-1?Q?HMHWpnux4zbp8JSrHCelIE/N7UtzV9zTuTRJtH2O2jy9QCGKGWZzOIqwm6?=
+ =?iso-8859-1?Q?roq5iK8Bm/xl4jR20dMWoj+hr7/id++rx923I5F63eB9tBJVlfw/pncTd/?=
+ =?iso-8859-1?Q?hVScPFrgTPZpLiFmCOmTB/K8m4tKayPFhf9XDpPiyCxf7JOjvQ7LbJW2BG?=
+ =?iso-8859-1?Q?mNXjyIm/Mt+c0JXw6R6tRhAxp2engxQZzYpP56DG2O7wEo9feS3Kh9QKbx?=
+ =?iso-8859-1?Q?jYs1/Oc91UguC6V+znSutchFktJKrj+1qjip2kbMy26awJHZMukO6HdTac?=
+ =?iso-8859-1?Q?7fisEF2osiMdO9pu4OS46Ayc5rCw5d0cMyAfFfSWPWt75cdvxoSbU/WHZ7?=
+ =?iso-8859-1?Q?2e8DTnDeZroeNb3y4ABZs8fTfNfmQxOhln+qU1FqUT29jcLWb0Oz3lq3oQ?=
+ =?iso-8859-1?Q?B9OUa+Xjetg+2egbDDPP3r1zCkzewaPc1+M8KPKZjoBEUG1VKhqCukn+tM?=
+ =?iso-8859-1?Q?lYW04z1EO4aWR7MrTM79w2spgMlO8AHXHPkzW0/4/IQpW9LBWadtDcGQYn?=
+ =?iso-8859-1?Q?hl4h98CTuPUPZpEt3CITudKAFWtoTvqAvtZPoTcK+w9NNGIca0SFjdvc/W?=
+ =?iso-8859-1?Q?GpFA=3D=3D?=
+Content-Type: multipart/alternative;
+	boundary="_000_TY0PR03MB6428732CFA2292AE5411838481FC2TY0PR03MB6428apcp_"
+MIME-Version: 1.0
+X-OriginatorOrg: cyient.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY0PR03MB6428.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 748a91f8-a9a8-40c7-774b-08dd4b33cd8c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Feb 2025 07:06:42.0306
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 2d6b0cf3-57fa-4619-abf9-d13e1ef2352a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: VtUMSDWlkvAuR+u9469VubRsOWYpTvtYgFfNVBetKHJF1VKTOkv5eA4uiafnjQVaVnzhWVnASLM7Bvmg5gzvpvIKIs+pOKaLcz3pqkCL6ac=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR03MB8486
 
-On 11.02.2025 13:04, Juergen Gross wrote:
-> When mapping a buffer for DMA via .map_page or .map_sg DMA operations,
-> there is no need to check the machine frames to be aligned according
-> to the mapped areas size. All what is needed in these cases is that the
-> buffer is contiguous at machine level.
+--_000_TY0PR03MB6428732CFA2292AE5411838481FC2TY0PR03MB6428apcp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-Is this really true in all cases? Can't e.g. compound pages make it here,
-with the caller then still being permitted to assume higher than page
-alignment? Alignment checking in xen_swiotlb_map_page() would perhaps
-need doing with the base address of the incoming page, i.e. excluding
-the incoming offset.
+Hi,
+I hope this email finds you well.
 
-Jan
+My name is Surya Prakash Shukla, and I am currently working on a project in=
+volving the development of Android Trout on the Xen Hypervisor. I have been=
+ exploring various aspects of virtualization and have found the Xen Project=
+ to be an invaluable resource in my endeavors.
 
+Given the complexity and potential of this project, I am seeking guidance a=
+nd collaboration opportunities with the Xen Project community. Specifically=
+, I am interested in understanding the best practices for integrating Andro=
+id Trout with the Xen Hypervisor, as well as any existing tools, documentat=
+ion, or support channels that could assist in this process.
+
+
+Best regards,
+Surya Prakash Shukla
+
+
+--_000_TY0PR03MB6428732CFA2292AE5411838481FC2TY0PR03MB6428apcp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Hi,</div>
+<div class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; =
+background-color: rgb(255, 255, 255); margin: 0px; font-family: Aptos, Apto=
+s_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-s=
+ize: 12pt; color: black;">
+I hope this email finds you well.</div>
+<div style=3D"text-align: left; text-indent: 0px; background-color: rgb(255=
+, 255, 255); margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSF=
+ontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: black;"=
+>
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; =
+background-color: rgb(255, 255, 255); margin: 0px; font-family: Aptos, Apto=
+s_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-s=
+ize: 12pt; color: black;">
+My name is Surya Prakash Shukla, and I am currently working on a project in=
+volving the development of Android Trout on the Xen Hypervisor. I have been=
+ exploring various aspects of virtualization and have found the Xen Project=
+ to be an invaluable resource&nbsp;in
+ my endeavors.</div>
+<div style=3D"text-align: left; text-indent: 0px; background-color: rgb(255=
+, 255, 255); margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSF=
+ontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: black;"=
+>
+<br>
+</div>
+<div style=3D"text-align: left; text-indent: 0px; background-color: rgb(255=
+, 255, 255); margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSF=
+ontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: black;"=
+>
+Given the complexity and potential of this project, I am seeking guidance a=
+nd collaboration opportunities with the Xen Project community. Specifically=
+, I am interested in understanding the best practices for integrating Andro=
+id Trout with the Xen Hypervisor,
+ as well as any existing tools, documentation, or support channels that cou=
+ld assist in this process.</div>
+<div style=3D"text-align: left; text-indent: 0px; background-color: rgb(255=
+, 255, 255); margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSF=
+ontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: black;"=
+>
+<br>
+</div>
+<div style=3D"text-align: left; text-indent: 0px; background-color: rgb(255=
+, 255, 255); margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSF=
+ontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: black;"=
+>
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; =
+background-color: rgb(255, 255, 255); margin: 0px; font-family: Aptos, Apto=
+s_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-s=
+ize: 12pt; color: black;">
+Best regards,</div>
+<div style=3D"text-align: left; text-indent: 0px; background-color: rgb(255=
+, 255, 255); margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSF=
+ontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: black;"=
+>
+Surya Prakash Shukla</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+</body>
+</html>
+
+--_000_TY0PR03MB6428732CFA2292AE5411838481FC2TY0PR03MB6428apcp_--
 
