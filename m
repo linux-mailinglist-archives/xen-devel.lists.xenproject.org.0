@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FEEAA32C66
+	by mail.lfdr.de (Postfix) with ESMTPS id 35FB5A32C63
 	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 17:50:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.886618.1296288 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.886619.1296301 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiFwL-0000KU-Eb; Wed, 12 Feb 2025 16:50:21 +0000
+	id 1tiFwM-0000jU-OA; Wed, 12 Feb 2025 16:50:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 886618.1296288; Wed, 12 Feb 2025 16:50:21 +0000
+Received: by outflank-mailman (output) from mailman id 886619.1296301; Wed, 12 Feb 2025 16:50:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiFwL-0000AY-8s; Wed, 12 Feb 2025 16:50:21 +0000
-Received: by outflank-mailman (input) for mailman id 886618;
- Wed, 12 Feb 2025 16:50:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tiFwM-0000cF-Jt; Wed, 12 Feb 2025 16:50:22 +0000
+Received: by outflank-mailman (input) for mailman id 886619;
+ Wed, 12 Feb 2025 16:50:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mGeD=VD=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tiFwJ-0006SU-2R
- for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 16:50:19 +0000
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [2a00:1450:4864:20::12c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 70c0b136-e961-11ef-a075-877d107080fb;
- Wed, 12 Feb 2025 17:50:18 +0100 (CET)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-54505c79649so3957637e87.3
- for <xen-devel@lists.xenproject.org>; Wed, 12 Feb 2025 08:50:18 -0800 (PST)
+ id 1tiFwL-0007h7-JA
+ for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 16:50:21 +0000
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [2a00:1450:4864:20::136])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 71b25ebd-e961-11ef-b3ef-695165c68f79;
+ Wed, 12 Feb 2025 17:50:20 +0100 (CET)
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-5450cf0cb07so2977493e87.0
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Feb 2025 08:50:20 -0800 (PST)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54504fc26b3sm1409118e87.44.2025.02.12.08.50.16
+ 2adb3069b0e04-54504fc26b3sm1409118e87.44.2025.02.12.08.50.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Feb 2025 08:50:17 -0800 (PST)
+ Wed, 12 Feb 2025 08:50:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,41 +44,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 70c0b136-e961-11ef-a075-877d107080fb
+X-Inumbo-ID: 71b25ebd-e961-11ef-b3ef-695165c68f79
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1739379018; x=1739983818; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1739379019; x=1739983819; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XZglyTF5aSK1PQF3xSDMCmREAlwhg0rWO/2AwCX9UHU=;
-        b=lBgE5lDMOsZN4PTsmvYHBlj7nZplJReIlwFO23ZLYmetPEC8ENkJBrDJ06j8/vNwNr
-         QbRbSfTDo/v+iTF+25ah+BmufEOpg9aqFjfSlGBnkodQ1SDU2ZnkjnslYZ+gz5X4Cnk7
-         1ac8uPVV44dEjtBXeGxuGqcjG6Z1F9zDOu9iwbtRu2FFPFKFeFdDDnUhDExlqL7cGc5r
-         5K/+bwvzylVNuV6sDEnJp0QW0oNXAwH5HmlS6qydsgFULlZ/QhuAESF2hsW/snbqTIKc
-         Pqrxl+30hFNgbPyvCm/uqoFp6dLsYLNr+DJ/FCdJLBqHwSFsMzkmO+pbkLact/7eH4NR
-         pjCw==
+        bh=T+n6oADRrQ8i7LaTPgH/X75bMuImDuCw7dC3gadSd7I=;
+        b=CBJOxyWofPS1A6jr1CyfmlREaOPPY2AalyaFdEFPDPn3jrTtQYKeUsdXpa0WcrKMYP
+         y8V0AX73HndYzsn8SJMh04Mae9QKR1gcw7PnIdUooV/4ktQhzsUHiQP54Y3on54smoxH
+         AJmxRJEUOzDI8e40jzdA1erf5Jyxc8KLmDroIpQUjFTxjH3/M84C3Wgkaiu6zRt1JyOh
+         M5t3ErVtz4CKVkXK/a23gd9qu66C4nnOQg6KcHCXF3+sebSgHfj8M8sPYAff+cGK9SR5
+         aBWEyQprJXm+seu5wxNkQ11Ct/hcBXYDZfXoP676V+LA/788vwrV2GG9Q1VAtswM47Jn
+         xVYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739379018; x=1739983818;
+        d=1e100.net; s=20230601; t=1739379019; x=1739983819;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=XZglyTF5aSK1PQF3xSDMCmREAlwhg0rWO/2AwCX9UHU=;
-        b=bdVN6rInoAgqNxYP9zIEtBJUn31piw3NLmTrMsgVR6DjTxy95VuRS92q1C/GJmjxaj
-         UX3xqJPYJxuBESGTGw1Lqj31umFPWZr/YeOLKmYoPAkl/ls8tLRCPceEZjD7Re5H+Yid
-         oRB5XtnE+lEbbq6bPgZ+ot/VV5+22kuyDyoxeSleMrC09tzaqMg7oERhClQ1Tr6q+3iM
-         F1FGMsDWUw6IQp5w/LCXBFMV8jNAQBC1ZMdFIq58rEDWTn4192kc4ElA1M3PYOICrBnD
-         nKo+F6XBrP/EvyDUUXwXqeNhb5A2QD4Syfgibhfn7Ho8xvzQQKbnHkpNhhdUPq3iAqBE
-         QbQg==
-X-Gm-Message-State: AOJu0Ywn3+nov1pDCc7Oqzg3JCAM4irpzQCF6qFa3jyC0kNeJ7+3Da52
-	f5fGTvdXpuNJmv+VlAbBIzZi/f5xISO/iARGDvm9l+JNdaPr+z3CV6it4Q==
-X-Gm-Gg: ASbGncvSd2wzuCjnAyaTW0zGSYPVjAxGiCzOuYVKgsHpFnqz7vUaAumvlcwogtjPNeV
-	yt5jRuwSR+b8S6kCHmLMzE6BlU7NWIK8F29xTqYPg6v94nhJ7qA3TRauiQl4ovN0Hn3QjlWQD1a
-	sCo0lyCcsytIotZQP7afoTTt3Xh+gDzzZiacEk9FPmErmQ1UWDTIog4gm6JNZBAS42sQmdhLnGK
-	Ai8YD+zcn9p5g4Gi8S0Vv3aPbLd+uqvjdtzeayvXElwwlqRjkmlA6aWs7uqn38O/yoIeuyq1fXq
-	RRTmvcUetzdLAthg
-X-Google-Smtp-Source: AGHT+IFYjpJP/yAIrQ/eL69OEeqiM2eJhz9ML9Gulz7tQDtWpcrF+3nQtNWweR6KkokxAs+ptE+ehg==
-X-Received: by 2002:a05:6512:124c:b0:545:353:4d46 with SMTP id 2adb3069b0e04-545181148dfmr1184237e87.25.1739379017456;
-        Wed, 12 Feb 2025 08:50:17 -0800 (PST)
+        bh=T+n6oADRrQ8i7LaTPgH/X75bMuImDuCw7dC3gadSd7I=;
+        b=cgOPK+ba7Cyi1aMaVZD0RVDW/3xOyQnxurf/Sqle2Z5BAcZ5qQa1bdVoLRzKDjmIOK
+         QXTN4xKEwuAw6hBVA7AuzIzkBdaI1yatx8E99GiWl8FVbjhQG9X69CwZTjcsek7MfhSJ
+         cxhZrQ57Nx/ucne7NkXxHJZ9hldzgNEBejT022+9IbTsCM7FiRycNdkLlDIGRJV8OMJm
+         ZHmRoc3SVpVKFwQ+azBvwEqJ7U816xsM9sF5six+X8QN3bh+qMJolCHe9ACK5Q0X8CxL
+         S5sojnqO1n5ersa1jHJaamPsxxzaAVqAcGDa0X3go1xx8OsOHqXB86Y5ZLbzHoIurldm
+         V35g==
+X-Gm-Message-State: AOJu0YwTxrdZ0jx9uUczCk2UyxdZVvYa5HdR2cb4l67zZ6u/F5yknaQq
+	g0Dvjqhv3vOpnvkUazkFrXD9Ov9CXr15tselDwHlLJ8yRti6un7EHcEfMg==
+X-Gm-Gg: ASbGncvKQtheqW/cik5Yc/+pm93nGETCJALFWcYcDssr1JRAC/EquKX3TVBPDsgqCB5
+	5pBsKG/xJrP84z8PDzBpynPtawt1MY5tPslwujR/U6lodhUVIFPcT8UoWEpiMKyVKj3++RrhomJ
+	gmQmBwir2v1u2PSoWwDle1wHL3XK5qzdEYOQv11kt0rlijD/FZ5nShGHP7mpe429YzrLiD/f7z2
+	gYLVWdPgjoikLLJZaNgaK3QMTn21mELNWD+rwe+oXTHJhJRvWsVanFPFVvA7WZi7hxq0sZVuJR5
+	l2dzYfYeMoO0vHgu
+X-Google-Smtp-Source: AGHT+IEWO5cM5QRrUrpjHA5E/Edd6WQtBeoKODdO/q2MX6j1JVPB///ibyED7OqqoxrImtU0BsfEpQ==
+X-Received: by 2002:a05:6512:2394:b0:545:e2e:843f with SMTP id 2adb3069b0e04-5451810bd21mr1224552e87.13.1739379018619;
+        Wed, 12 Feb 2025 08:50:18 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -92,156 +92,86 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH for 4.20? v4 1/3] xen/riscv: implement software page table walking
-Date: Wed, 12 Feb 2025 17:50:11 +0100
-Message-ID: <9f1fbf84a82fd141f40428993106f0672d6d8c4c.1739363240.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH for 4.20? v4 2/3] xen/riscv: update defintion of vmap_to_mfn()
+Date: Wed, 12 Feb 2025 17:50:12 +0100
+Message-ID: <aba5cd4c47cc7d9be55fd255b5b60664b6a0ddf6.1739363240.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <cover.1739363240.git.oleksii.kurochko@gmail.com>
 References: <cover.1739363240.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-RISC-V doesn't have hardware feature to ask MMU to translate
-virtual address to physical address ( like Arm has, for example ),
-so software page table walking is implemented.
+vmap_to_mfn() uses virt_to_maddr(), which is designed to work with VA from
+either the direct map region or Xen's linkage region (XEN_VIRT_START).
+An assertion will occur if it is used with other regions, in particular for
+the VMAP region.
 
+Since RISC-V lacks a hardware feature to request the MMU to translate a VA to
+a PA (as Arm does, for example), software page table walking (pt_walk()) is
+used for the VMAP region to obtain the mfn from pte_t.
+
+To avoid introduce a circular dependency between asm/mm.h and asm/page.h by
+including each other, the static inline function  _vmap_to_mfn() is introduced
+in asm/page.h, as it uses struct pte_t and pte_is_mapping() from asm/page.h.
+_vmap_to_mfn() is then reused in the definition of vmap_to_mfn() macro in
+asm/mm.h.
+
+Fixes: 7db8d2bd9b ("xen/riscv: add minimal stuff to mm.h to build full Xen")
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in v4:
- - Update the comment message above _pt_walk(): add information that
-   `pte_level` is optional and add a note that `table` should be
-   unmapped by a caller.
- - Unmap `table` in pt_walk().
+- Convert _vmap_to_mfn() macro to static inline function.
+- Update the commit message: change macro to static inline function for
+  _vmap_to_mfn().
 ---
 Changes in v3:
- - Remove circular dependency.
- - Move declaration of pt_walk() to asm/page.h.
- - Revert other not connected to pt_walk() changes.
- - Update the commit message.
- - Drop unnessary anymore local variables of pt_walk().
- - Refactor pt_walk() to use for() loop instead of while() loop
-   as it was suggested by Jan B.
- - Introduce _pt_walk() which returns pte_t * and update prototype
-   of pt_walk() to return pte_t by value.
+- Move vmap_to_mfn_ to asm/page.h to deal with circular dependency.
+- Convert vmap_to_mfn_() to macros.
+- Rename vmap_to_mfn_ to _vmap_to_mfn.
+- Update _vmap_to_mfn() to work with pte_t instead of pte_t*.
+- Add parentheses around va argument for macros vmap_to_mfn().
+- Updated the commit message.
 ---
 Changes in v2:
- - Update the code of pt_walk() to return pte_t instead of paddr_t.
- - Fix typos and drop blankets inside parentheses in the comment.
- - Update the `ret` handling; there is no need for `mfn` calculation
-   anymore as pt_walk() returns or pte_t of a leaf node or non-present
-   pte_t.
- - Drop the comment before unmap_table().
- - Drop local variable `pa` as pt_walk() is going to return pte_t
+ - Update defintion of vmap_to_mfn() as pt_walk() now returns pte_t
    instead of paddr_t.
- - Add the comment above pt_walk() to explain what it does and returns.
- - Add additional explanation about possible return values of pt_next_level()
-   used inside while loop in pt_walk().
- - Change `pa` to `table` in the comment before while loop in pt_walk()
-   as actually this loop finds a page table where paga table entry for `va`
-   is located.
- - After including <asm/page.h> in <asm/mm.h>, the following compilation
-   error occurs:
-    ./arch/riscv/include/asm/cmpxchg.h:56:9: error: implicit declaration of
-    function 'GENMASK'
-   To resolve this, <xen/bitops.h> needs to be included at the top of
-   <asm/cmpxchg.h>.
- - To avoid an issue with the implicit declaration of map_domain_page() and
-   unmap_domain_page() after including <asm/page.h> in <asm/mm.h>, the
-   implementation of flush_page_to_ram() has been moved to mm.c. (look for
-   more detailed explanation in the commit message) As a result drop
-   inclusion of <xen/domain.h> in <asm/page.h>.
  - Update the commit message.
 ---
- xen/arch/riscv/include/asm/page.h |  2 +
- xen/arch/riscv/pt.c               | 62 +++++++++++++++++++++++++++++++
- 2 files changed, 64 insertions(+)
+ xen/arch/riscv/include/asm/mm.h   | 2 +-
+ xen/arch/riscv/include/asm/page.h | 7 +++++++
+ 2 files changed, 8 insertions(+), 1 deletion(-)
 
+diff --git a/xen/arch/riscv/include/asm/mm.h b/xen/arch/riscv/include/asm/mm.h
+index 292aa48fc1..4035cd400a 100644
+--- a/xen/arch/riscv/include/asm/mm.h
++++ b/xen/arch/riscv/include/asm/mm.h
+@@ -23,7 +23,7 @@ extern vaddr_t directmap_virt_start;
+ #define gaddr_to_gfn(ga)    _gfn(paddr_to_pfn(ga))
+ #define mfn_to_maddr(mfn)   pfn_to_paddr(mfn_x(mfn))
+ #define maddr_to_mfn(ma)    _mfn(paddr_to_pfn(ma))
+-#define vmap_to_mfn(va)     maddr_to_mfn(virt_to_maddr((vaddr_t)(va)))
++#define vmap_to_mfn(va)     _vmap_to_mfn((vaddr_t)(va))
+ #define vmap_to_page(va)    mfn_to_page(vmap_to_mfn(va))
+ 
+ static inline void *maddr_to_virt(paddr_t ma)
 diff --git a/xen/arch/riscv/include/asm/page.h b/xen/arch/riscv/include/asm/page.h
-index 7a6174a109..0439a1a9ee 100644
+index 0439a1a9ee..6ed570b478 100644
 --- a/xen/arch/riscv/include/asm/page.h
 +++ b/xen/arch/riscv/include/asm/page.h
-@@ -208,6 +208,8 @@ static inline pte_t pte_from_mfn(mfn_t mfn, unsigned int flags)
-     return (pte_t){ .pte = pte };
- }
+@@ -210,6 +210,13 @@ static inline pte_t pte_from_mfn(mfn_t mfn, unsigned int flags)
  
-+pte_t pt_walk(vaddr_t va, unsigned int *pte_level);
+ pte_t pt_walk(vaddr_t va, unsigned int *pte_level);
+ 
++static inline mfn_t _vmap_to_mfn(vaddr_t va)
++{
++    pte_t entry = pt_walk(va, NULL);
++    BUG_ON(!pte_is_mapping(entry));
++    return mfn_from_pte(entry);
++}
 +
  #endif /* __ASSEMBLY__ */
  
  #endif /* ASM__RISCV__PAGE_H */
-diff --git a/xen/arch/riscv/pt.c b/xen/arch/riscv/pt.c
-index a703e0f1bd..260a3a9699 100644
---- a/xen/arch/riscv/pt.c
-+++ b/xen/arch/riscv/pt.c
-@@ -185,6 +185,68 @@ static int pt_next_level(bool alloc_tbl, pte_t **table, unsigned int offset)
-     return XEN_TABLE_NORMAL;
- }
- 
-+/*
-+ * _pt_walk() performs software page table walking and returns the pte_t of
-+ * a leaf node or the leaf-most not-present pte_t if no leaf node is found
-+ * for further analysis.
-+ *
-+ * Additionally, _pt_walk() returns the level of the found pte by using
-+ * `pte_level` argument.
-+ * `pte_level` is optional, set `pte_level`=NULL if a caller doesn't need
-+ * the level of the found pte.
-+ *
-+ * Note: unmapping of final `table` should be done by a caller.
-+ */
-+static pte_t *_pt_walk(vaddr_t va, unsigned int *pte_level)
-+{
-+    const mfn_t root = get_root_page();
-+    unsigned int level;
-+    pte_t *table;
-+
-+    DECLARE_OFFSETS(offsets, va);
-+
-+    table = map_table(root);
-+
-+    /*
-+     * Find `table` of an entry which corresponds to `va` by iterating for each
-+     * page level and checking if the entry points to a next page table or
-+     * to a page.
-+     *
-+     * Two cases are possible:
-+     * - ret == XEN_TABLE_SUPER_PAGE means that the entry was found;
-+     *   (Despite the name) XEN_TABLE_SUPER_PAGE also covers 4K mappings. If
-+     *   pt_next_level() is called for page table level 0, it results in the
-+     *   entry being a pointer to a leaf node, thereby returning
-+     *   XEN_TABLE_SUPER_PAGE, despite of the fact this leaf covers 4k mapping.
-+     * - ret == XEN_TABLE_MAP_NONE means that requested `va` wasn't actually
-+     *   mapped.
-+     */
-+    for ( level = HYP_PT_ROOT_LEVEL; ; --level )
-+    {
-+        int ret = pt_next_level(false, &table, offsets[level]);
-+
-+        if ( ret == XEN_TABLE_MAP_NONE || ret == XEN_TABLE_SUPER_PAGE )
-+            break;
-+
-+        ASSERT(level);
-+    }
-+
-+    if ( pte_level )
-+        *pte_level = level;
-+
-+    return table + offsets[level];
-+}
-+
-+pte_t pt_walk(vaddr_t va, unsigned int *pte_level)
-+{
-+    pte_t *entry = _pt_walk(va, pte_level);
-+    pte_t pte = *entry;
-+
-+    unmap_table(entry);
-+
-+    return pte;
-+}
-+
- /* Update an entry at the level @target. */
- static int pt_update_entry(mfn_t root, vaddr_t virt,
-                            mfn_t mfn, unsigned int target,
 -- 
 2.48.1
 
