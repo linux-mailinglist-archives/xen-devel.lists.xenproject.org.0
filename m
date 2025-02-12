@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C8BDA32C65
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 17:50:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.886620.1296311 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09158A32D42
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 18:21:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.886701.1296320 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiFwO-00012u-1J; Wed, 12 Feb 2025 16:50:24 +0000
+	id 1tiGPr-0008OK-E8; Wed, 12 Feb 2025 17:20:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 886620.1296311; Wed, 12 Feb 2025 16:50:24 +0000
+Received: by outflank-mailman (output) from mailman id 886701.1296320; Wed, 12 Feb 2025 17:20:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiFwN-0000yh-TR; Wed, 12 Feb 2025 16:50:23 +0000
-Received: by outflank-mailman (input) for mailman id 886620;
- Wed, 12 Feb 2025 16:50:22 +0000
+	id 1tiGPr-0008MV-BM; Wed, 12 Feb 2025 17:20:51 +0000
+Received: by outflank-mailman (input) for mailman id 886701;
+ Wed, 12 Feb 2025 17:20:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mGeD=VD=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tiFwM-0007h7-26
- for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 16:50:22 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
+ <SRS0=p9NR=VD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tiGPp-0008Ke-55
+ for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 17:20:49 +0000
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [2a00:1450:4864:20::343])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 71e6e335-e961-11ef-b3ef-695165c68f79;
- Wed, 12 Feb 2025 17:50:20 +0100 (CET)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-5450cf3ebc2so3595799e87.2
- for <xen-devel@lists.xenproject.org>; Wed, 12 Feb 2025 08:50:20 -0800 (PST)
-Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54504fc26b3sm1409118e87.44.2025.02.12.08.50.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Feb 2025 08:50:19 -0800 (PST)
+ id adb98e19-e965-11ef-b3ef-695165c68f79;
+ Wed, 12 Feb 2025 18:20:38 +0100 (CET)
+Received: by mail-wm1-x343.google.com with SMTP id
+ 5b1f17b1804b1-4394a0c65fcso35529735e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Feb 2025 09:20:38 -0800 (PST)
+Received: from [10.81.43.157] ([46.149.103.11])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4395a04f217sm25337795e9.1.2025.02.12.09.20.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 12 Feb 2025 09:20:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,258 +45,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 71e6e335-e961-11ef-b3ef-695165c68f79
+X-Inumbo-ID: adb98e19-e965-11ef-b3ef-695165c68f79
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1739379020; x=1739983820; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=w6Ju1c/EKr8BS6g8kPT3M1roaRELu8awq2bLgFaPOzY=;
-        b=mtW3D7lkN7xnrc5XqJlDn94EbwxIcItWg8ejQ9lhA9cE4nKqM/h4DdU0ze+sCj3nNL
-         0vgo3H65W+D9zWg77mgN6xM6ucI2UpkOBxW1nobXirFH2OtzFwZFObQdjFGOCX7jkU5n
-         jfv1SWOg9Ri5jLAy18X+r6d+h2NFcNV4C4Hl8km1B+PKUAwNSoXIZCqKaPxO1I5/wqDJ
-         B8CXsOD/yACD1PzJ0LSqCiWUbnGj3cb3nLMtzWCxb/gwZnZTNln3EqtCDUIp4o40gDU2
-         w5lgRPV28eafnsKE1nawTkwQph4YPXkJaBb0ru2tfhZDYFBH09/aehxF6mKZUhJC1FEK
-         bG1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739379020; x=1739983820;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+        d=citrix.com; s=google; t=1739380838; x=1739985638; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=w6Ju1c/EKr8BS6g8kPT3M1roaRELu8awq2bLgFaPOzY=;
-        b=Z6wzx8DlGh/TByXUm+WeDflOobugE/q9xfFSNCUv50XSUDTF/iCkSyjX6pDhbxddf5
-         cDVga1Khf5rZZ0fAZ+OU7o+60FSix+vyAIj3QAW9hNN8k7CMmVZUZeUplb61bc7K7noA
-         nhK+pAfH3RBiO/qBh+sE3wVHMju0qlUa/rqRJtrViZi8jSVoyWLAWgRa0MPEsALS+cu5
-         FQQs/t5abIRrxtfXyZ8Tud3TK80+GIQP+v7M5wRn93EbM0a6EyNgL8HIS/6XvOxxDjnA
-         ghYRC62ZKS/vwnZ0LNeNwiW1wtVMlXer/dLZt/O3gMYBop/T+6Dur3t9d+uKN87hWVLq
-         NrZA==
-X-Gm-Message-State: AOJu0YzGC4vlUqUNgVmJ9PEBe8Wa7UkpUBwasiZECd1hacQtaALzRt0C
-	ajO7v4f0kiP+T4K5uM9L5Pj0Pvd+0UdsoMrcjQbNxm30ab+WQdh4BO6iBA==
-X-Gm-Gg: ASbGncvrXDyuAkG1Jnyh7xsgZC8E7HyYyhNV7qA80fWdkilXxB3BHXig6CnTCtylCJ/
-	YJtlJpBYFUBMBKCd0Af5ASwKnUpvyb9T3VfNM+8Q8/qBJJT5Ux4eHZyhnBXO7vmzWpYN9vqOY0I
-	AvhgWOqqtZgQVz/dXab6SrYhkRZAbTqK7hP6qliclfJ/ZWSBZ9e2clL5XrhQjUQD9iBhz91GqgK
-	K60DZCuPChAaN9zUNNULnNMnTv+E8U965ZgjrQ2Ju21odDClafv148dcWzE3mBIOqHWr6XAh6T6
-	5nfNFdTDc3V2KlkQ
-X-Google-Smtp-Source: AGHT+IF49H77zg0gqFLnPXN29InT0mAjlfxNZqmf8Rjnu9yg4fuqcu0t8647RlM+JI6hTu6BbC3b+A==
-X-Received: by 2002:a05:6512:2247:b0:545:1098:88db with SMTP id 2adb3069b0e04-545180ea954mr1122217e87.11.1739379019478;
-        Wed, 12 Feb 2025 08:50:19 -0800 (PST)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH for 4.20? v4 3/3] xen/riscv: update mfn calculation in pt_mapping_level()
-Date: Wed, 12 Feb 2025 17:50:13 +0100
-Message-ID: <38093d9843afbba9dda7326ee6e8cc3c99343cf6.1739363240.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <cover.1739363240.git.oleksii.kurochko@gmail.com>
-References: <cover.1739363240.git.oleksii.kurochko@gmail.com>
+        bh=HdkkOFQw/ilOoO1aY89tYbviAs4hXdDnJpnRD3O4cOQ=;
+        b=Pj08JnKVVv97rLGv4lNYHiDorzVZ2yWdTr3S+JJE+UmIWW00vFiQQpyob/UDhuSa8v
+         c6KLTCnUtIhs+Ak0SzhqBYc2I71mwYLRjf9NTzqQJaKEBfLTipjxoU51N+CLYNdSJ/P/
+         AFDcDxu5BMqJc0SnbVT/kqq0oGu54KgIHlCDM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1739380838; x=1739985638;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=HdkkOFQw/ilOoO1aY89tYbviAs4hXdDnJpnRD3O4cOQ=;
+        b=NLphm7I0aLANISHdiX6Bl5ol+ZS2d24EUmF4+A6ikJvF7SCOAcsTuzlmIFCKW5E7/N
+         ofIz/aGegiaxvTKh3OPEmsHsL1PcutzdmDsiT7XfDnuqnoeUQTDcd0kW7gHG1q0vGeLl
+         Wtlgz7Rim2odTeT475r1gnjO5kK/LiUCdpE9MYJqeiwJZuMyPe15s5Rtrc2Dib5GJGX8
+         X6itWxGJsC9ZRBArfJ8VICQkriQrzORSwjhoNeK+FM3YAgUG1t1lrQyOsJx35QnBpCg7
+         BL0Xq0F/qS5hJ0CZ870BEOmEu/9r0DyKMQaph0t1yj+wbqWXLFZB7wP01IfsFHHKivXZ
+         5eow==
+X-Gm-Message-State: AOJu0YyGtMaVIn9cVBNYWDWI799FKmV3GLjjSIo5Uv+ricSQ/GjWvCCW
+	M3JAf+e8PEepYeWgry+FuUHqUXhk2SP108yFcqB/U2bToVE6Za5h7OXpsfLfblluX2q0LvJpi0r
+	imJ3Z1A==
+X-Gm-Gg: ASbGncvpqSL2uofqYhfy3DZVSgXKxW//oHYe/i24kKUrjSBIthusSj7W4PGJU9omxp5
+	UydkoFt5ws4T86aptcEMJtMWsvFFNR8K1u/qp0K5SNVvEGUEhIxZEgE6i2qXaIDWJsCAQswYS42
+	jMu1+suqpZtA/NxGQRXb+AJBrri2pEEXrcF4yZMflYzeOKDscTlWbQCAoyb5w/XsTxCSfNHlpcO
+	DrVv3S1TeI/7/H309nROU8sozgK4xl0VjZALP2r9L1XktkyS8432vPkelxnHAdAYTCLU1hxNfcT
+	29xWakDzUBkd3ldppuBgcmtvwA==
+X-Google-Smtp-Source: AGHT+IFC2BGDg9/vLp/FoTQVxT6Vxaf+uam+TeBMu2IQ6upuudgctC/Xrm3jP+F24XWVZJXG32Fvgw==
+X-Received: by 2002:a05:600c:870a:b0:439:554f:f64f with SMTP id 5b1f17b1804b1-439601202c1mr4935715e9.0.1739380837892;
+        Wed, 12 Feb 2025 09:20:37 -0800 (PST)
+Message-ID: <65338578-dd6c-4f01-807e-da389cc60cb8@citrix.com>
+Date: Wed, 12 Feb 2025 17:20:36 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-GB
+To: xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: blowfish failure to compile
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-When pt_update() is called with arguments (..., INVALID_MFN, ..., 0 or 1),
-it indicates that a mapping is being destroyed/modifyed.
+I've noticed the following failure in XenServer's build environment
 
-In the case when modifying or destroying a mapping, it is necessary to
-search until a leaf node is found, instead of searching for a page table
-entry based on the precalculated `level` and `order`(look at pt_update()).
-This is because when `mfn` == INVALID_MFN, the `mask` (in pt_mapping_level())
-will take into account only `vfn`, which could accidentally return an
-incorrect level, leading to the discovery of an incorrect page table entry.
+> make[6]: Leaving directory
+> '/builddir/build/BUILD/xen-4.19.1/tools/tests/x86_emulator'
+> In file included from /usr/include/features.h:535,
+>                  from /usr/include/bits/libc-header-start.h:33,
+>                  from /usr/include/stdint.h:26,
+>                  from
+> /usr/lib/gcc/x86_64-xenserver-linux/12/include/stdint.h:9,
+>                  from blowfish.c:18:
+> /usr/include/gnu/stubs.h:7:11: fatal error: gnu/stubs-32.h: No such
+> file or directory
+>     7 | # include <gnu/stubs-32.h>
+>       |           ^~~~~~~~~~~~~~~~
+> compilation terminated.
+> make[6]: *** [testcase.mk:15: blowfish.bin] Error 1
 
-For example, if `vfn` is page table level 1 aligned, but it was mapped as
-page table level 0, then pt_mapping_level() will return `level` = 1, since
-only `vfn` (which is page table level 1 aligned) is taken into account when
-`mfn` == INVALID_MFN (look at pt_mapping_level()).
+It's non-fatal, but it reduces the content in test_x86_emulator which we
+do care about running.
 
-Fixes: c2f1ded524 ("xen/riscv: page table handling")
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
-Changes in v4:
-- Move defintion of local variable table inside `else` case as it is
-  used only there.
-- Change unmap_table(table) to unmap_table(entry) for unifying both
-  cases when _pt_walk() is used and when pte is seached on the specified
-  level.
-- Initialize local variable `entry` to avoid compilation error caused by
-  uninitialized variable.
----
-Changes in v3:
-- Drop ASSERT() for order as it isn't needed anymore.
-- Drop PTE_LEAF_SEARCH and use instead level=CONFIG_PAGING_LEVELS;
-  refactor connected code correspondingly.
-- Calculate order once.
-- Drop initializer for local variable order.
-- Drop BUG_ON(!pte_is_mapping(*entry)) for the case when leaf searching
-  happens as there is a similar check in pt_check_entry(). Look at
-  pt.c:41 and pt.c:75.
----
-Changes in v2:
- - Introduce PTE_LEAF_SEARCH to tell page table update operation to
-   walk down to wherever the leaf entry is.
- - Use introduced PTE_LEAF_SEARCH to not searching pte_t entry twice.
- - Update the commit message.
----
- xen/arch/riscv/pt.c | 97 +++++++++++++++++++++++++++++----------------
- 1 file changed, 63 insertions(+), 34 deletions(-)
+Elsewhere in the tree we fix this with -ffreestanding -nostdinc
+-I$(XEN_ROOT)/tools/firmware/include but that isn't an option for
+test_x86_emulator in general which is hosted.
 
-diff --git a/xen/arch/riscv/pt.c b/xen/arch/riscv/pt.c
-index 260a3a9699..ed0587d58b 100644
---- a/xen/arch/riscv/pt.c
-+++ b/xen/arch/riscv/pt.c
-@@ -249,12 +249,10 @@ pte_t pt_walk(vaddr_t va, unsigned int *pte_level)
- 
- /* Update an entry at the level @target. */
- static int pt_update_entry(mfn_t root, vaddr_t virt,
--                           mfn_t mfn, unsigned int target,
-+                           mfn_t mfn, unsigned int *target,
-                            unsigned int flags)
- {
-     int rc;
--    unsigned int level = HYP_PT_ROOT_LEVEL;
--    pte_t *table;
-     /*
-      * The intermediate page table shouldn't be allocated when MFN isn't
-      * valid and we are not populating page table.
-@@ -265,41 +263,48 @@ static int pt_update_entry(mfn_t root, vaddr_t virt,
-      * combinations of (mfn, flags).
-     */
-     bool alloc_tbl = !mfn_eq(mfn, INVALID_MFN) || (flags & PTE_POPULATE);
--    pte_t pte, *entry;
--
--    /* convenience aliases */
--    DECLARE_OFFSETS(offsets, virt);
-+    pte_t pte, *entry = NULL;
- 
--    table = map_table(root);
--    for ( ; level > target; level-- )
-+    if ( *target == CONFIG_PAGING_LEVELS )
-+        entry = _pt_walk(virt, target);
-+    else
-     {
--        rc = pt_next_level(alloc_tbl, &table, offsets[level]);
--        if ( rc == XEN_TABLE_MAP_NOMEM )
-+        pte_t *table;
-+        unsigned int level = HYP_PT_ROOT_LEVEL;
-+        /* convenience aliases */
-+        DECLARE_OFFSETS(offsets, virt);
-+
-+        table = map_table(root);
-+        for ( ; level > *target; level-- )
-         {
--            rc = -ENOMEM;
--            goto out;
-+            rc = pt_next_level(alloc_tbl, &table, offsets[level]);
-+            if ( rc == XEN_TABLE_MAP_NOMEM )
-+            {
-+                rc = -ENOMEM;
-+                goto out;
-+            }
-+
-+            if ( rc == XEN_TABLE_MAP_NONE )
-+            {
-+                rc = 0;
-+                goto out;
-+            }
-+
-+            if ( rc != XEN_TABLE_NORMAL )
-+                break;
-         }
- 
--        if ( rc == XEN_TABLE_MAP_NONE )
-+        if ( level != *target )
-         {
--            rc = 0;
-+            dprintk(XENLOG_ERR,
-+                    "%s: Shattering superpage is not supported\n", __func__);
-+            rc = -EOPNOTSUPP;
-             goto out;
-         }
- 
--        if ( rc != XEN_TABLE_NORMAL )
--            break;
--    }
--
--    if ( level != target )
--    {
--        dprintk(XENLOG_ERR,
--                "%s: Shattering superpage is not supported\n", __func__);
--        rc = -EOPNOTSUPP;
--        goto out;
-+        entry = table + offsets[level];
-     }
- 
--    entry = table + offsets[level];
--
-     rc = -EINVAL;
-     if ( !pt_check_entry(*entry, mfn, flags) )
-         goto out;
-@@ -331,7 +336,8 @@ static int pt_update_entry(mfn_t root, vaddr_t virt,
-     rc = 0;
- 
-  out:
--    unmap_table(table);
-+    if ( entry )
-+        unmap_table(entry);
- 
-     return rc;
- }
-@@ -424,17 +430,40 @@ static int pt_update(vaddr_t virt, mfn_t mfn,
- 
-     while ( left )
-     {
--        unsigned int order, level;
--
--        level = pt_mapping_level(vfn, mfn, left, flags);
--        order = XEN_PT_LEVEL_ORDER(level);
-+        unsigned int order, level = CONFIG_PAGING_LEVELS;
- 
--        ASSERT(left >= BIT(order, UL));
-+        /*
-+         * In the case when modifying or destroying a mapping, it is necessary
-+         * to search until a leaf node is found, instead of searching for
-+         * a page table entry based on the precalculated `level` and `order`
-+         * (look at pt_update()).
-+         * This is because when `mfn` == INVALID_MFN, the `mask`(in
-+         * pt_mapping_level()) will take into account only `vfn`, which could
-+         * accidentally return an incorrect level, leading to the discovery of
-+         * an incorrect page table entry.
-+         *
-+         * For example, if `vfn` is page table level 1 aligned, but it was
-+         * mapped as page table level 0, then pt_mapping_level() will return
-+         * `level` = 1, since only `vfn` (which is page table level 1 aligned)
-+         * is taken into account when `mfn` == INVALID_MFN
-+         * (look at pt_mapping_level()).
-+         *
-+         * To force searching until a leaf node is found is necessary to have
-+         * `level` == CONFIG_PAGING_LEVELS which is a default value for
-+         * `level`.
-+         *
-+         * For other cases (when a mapping is not being modified or destroyed),
-+         * pt_mapping_level() should be used.
-+         */
-+        if ( !mfn_eq(mfn, INVALID_MFN) || (flags & PTE_POPULATE) )
-+            level = pt_mapping_level(vfn, mfn, left, flags);
- 
--        rc = pt_update_entry(root, vfn << PAGE_SHIFT, mfn, level, flags);
-+        rc = pt_update_entry(root, vfn << PAGE_SHIFT, mfn, &level, flags);
-         if ( rc )
-             break;
- 
-+        order = XEN_PT_LEVEL_ORDER(level);
-+
-         vfn += 1UL << order;
-         if ( !mfn_eq(mfn, INVALID_MFN) )
-             mfn = mfn_add(mfn, 1UL << order);
--- 
-2.48.1
+However, it is an option for blowfish.c specifically which is
+freestanding, and for which we build a 32bit form in an otherwise 64bit
+build.
 
+Therefore, it stands to reason that:
+
+diff --git a/tools/tests/x86_emulator/Makefile
+b/tools/tests/x86_emulator/Makefile
+index 294d27ebaa08..e46fd8becb96 100644
+--- a/tools/tests/x86_emulator/Makefile
++++ b/tools/tests/x86_emulator/Makefile
+@@ -33,8 +33,8 @@ HOSTCFLAGS += -m32 -I..
+ 
+ else
+ 
+-blowfish-cflags := ""
+-blowfish-cflags-x86_32 := "-mno-accumulate-outgoing-args -Dstatic="
++blowfish-cflags := "-ffreestanding -nostdinc
+-I$(XEN_ROOT)/tools/firmware/include "
++blowfish-cflags-x86_32 := "$(blowfish-cflags)
+-mno-accumulate-outgoing-args -Dstatic="
+ 
+ 3dnow-vecs := 8
+ 3dnow-ints :=
+
+should do what we want, except it doesn't.  Somehow this is getting
+injected the intermediate blowfish.h:
+
+> blowfish.h:617:99: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or
+> ‘__attribute__’ before ‘/’ token
+>   617 | static const unsigned int __attribute__((section(".test,
+> \"ax\", @progbits #")))
+> blowfish_x86_32_I/local/xen.spec/scm/tools/tests/x86_emulator/../../../tools/firmware/include[]
+> = {
+>      
+> |                                                                                                  
+> ^
+
+and at this point I've got completely lost in this build system.  The .h
+generation seems to loop over each cflag, and while that looks plausible
+for vector generation, I can't see how it works (except by accident) for
+blowfish.
+
+The problem is the generation of $flavor, but this logic is completely
+opaque.
+
+~Andrew
 
