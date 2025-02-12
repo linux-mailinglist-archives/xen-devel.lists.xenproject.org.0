@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6085AA32A39
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 16:39:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.886535.1296181 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78258A32A59
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 16:44:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.886544.1296191 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiEpJ-0002nL-EM; Wed, 12 Feb 2025 15:39:01 +0000
+	id 1tiEuD-0004T8-VK; Wed, 12 Feb 2025 15:44:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 886535.1296181; Wed, 12 Feb 2025 15:39:01 +0000
+Received: by outflank-mailman (output) from mailman id 886544.1296191; Wed, 12 Feb 2025 15:44:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiEpJ-0002ls-B6; Wed, 12 Feb 2025 15:39:01 +0000
-Received: by outflank-mailman (input) for mailman id 886535;
- Wed, 12 Feb 2025 15:39:00 +0000
+	id 1tiEuD-0004Qm-SR; Wed, 12 Feb 2025 15:44:05 +0000
+Received: by outflank-mailman (input) for mailman id 886544;
+ Wed, 12 Feb 2025 15:44:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=OfhB=VD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tiEpI-0002YI-Ey
- for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 15:39:00 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=2a2H=VD=gmail.com=gragst.linux@srs-se1.protection.inumbo.net>)
+ id 1tiEuC-0004Qg-Jl
+ for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 15:44:04 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 79e5ddb9-e957-11ef-a075-877d107080fb;
- Wed, 12 Feb 2025 16:38:59 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-aaf3c3c104fso1189431966b.1
- for <xen-devel@lists.xenproject.org>; Wed, 12 Feb 2025 07:38:59 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab7ca66cc36sm547946966b.155.2025.02.12.07.38.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Feb 2025 07:38:58 -0800 (PST)
+ id 2f8adca7-e958-11ef-a075-877d107080fb;
+ Wed, 12 Feb 2025 16:44:03 +0100 (CET)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-54506b54268so3840209e87.3
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Feb 2025 07:44:03 -0800 (PST)
+Received: from epuakyiw0a98.kyiv.epam.com (ll-74.141.223.85.sovam.net.ua.
+ [85.223.141.74]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-54508285451sm1248039e87.0.2025.02.12.07.44.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 12 Feb 2025 07:44:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,98 +45,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 79e5ddb9-e957-11ef-a075-877d107080fb
+X-Inumbo-ID: 2f8adca7-e958-11ef-a075-877d107080fb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739374738; x=1739979538; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XL6+tYU62YjJvSZoE5PNyFtfn9iBTvtAs+5Z5WpKIaM=;
-        b=SDReSVWZGRoXPmnRhEg6Fn++lobyH/dHHHAYCh0P2ymrquVmEu3QZgCOUR0x3aDvbA
-         iy3CQVEYDp9yM3xqaAuH2BtBSQIXuWEkh7VT36UqirqnfH/d+IoNSUEH6ZVftVgCJBLI
-         P1Db9scdPPORrCae0suIaXNygp9izuH7y1etUBxxK5iZql0xKkds9Mw24UZCmHRkbgfc
-         1e6zoOB0WuhfPTSBplhJrx/RMUiOvuBTIy3llLLycg2GRD6+2G9FvD6bZ+116LHoFBIm
-         f2kMNxakdcNVFsBescKB5rv5mytVC6IYP5MyJuwyAEQolY4iBUQGGmIUqtJvo7is28sI
-         Uf9w==
+        d=gmail.com; s=20230601; t=1739375043; x=1739979843; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=aG3oJWrd82/99x1ETlLtHy5/+jXBIhstzSiAOcp9oOQ=;
+        b=JTw0xAUuOHiV18W5Y50LgyYEpfujeqCjDWjfjR49MHuhjPNQ3PbhRBJb6fq5N0eE8h
+         j4UG0PRNaPEg9df1r8JAIC+mDSd7ybqBdTmSK+CkKUYZRPt44CXOoyYDOnCgm6spfH/D
+         WstfxrPLzEW4amf+AwhWt0RSDVFQMphUYGWV0ssiOM0yogUAlui+aiLSQlnmGByUrI/5
+         sPTcZzQ8094LM3r5IRznUQ6MaEzWU2nXQftYfBykTC7Qc0BZ/JCZ5mTJoPhPThwUUFNM
+         wMP4GsZY5dk4i5XR++CEDqJaTaFvJ2VA9sHYCrsGNVTD/rEfh2ghUMzTm0VdPyQuMOOn
+         fJbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739374738; x=1739979538;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XL6+tYU62YjJvSZoE5PNyFtfn9iBTvtAs+5Z5WpKIaM=;
-        b=aahBJKnxU6ajEB5VAS9BYsTuN1tO0CTZiL/37Rz1X8FQH9zveQpP7YPoHoa3K2RXmG
-         Rz6xpFTkAFi2KJ6x75DzbJm59yVx9plO8JWD0L5pxCFM1rUOgZs3pVzuVOiN/2l1jkQm
-         ygwLu3ujUv48cPZLZtIdkcsHSKMnJtIiptiQ6Rh/9OwuB+PVuza1HOX2YySVZgIXGd7x
-         n8miBdyNKSK9Htxx6g+sEzXuukX7LbFRZfQZ+sQZYNWtbnOk+uu2WWGdScwYcecUZJvk
-         MmGX8tK9YLfmacyINYmStuSS+NH6O9ExO/ynFSwC6x/TIYvFCF8V0w8L5N6sJ66hHKQP
-         Q8NA==
-X-Forwarded-Encrypted: i=1; AJvYcCV4vbBKUHBtQKoohSCb7PtdkleeNbtqxTs2FXdWqd8NxtyfBMeGh/y33dGEz9PDqIA737n3TqGJfpo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz5XzHnl6YrkA25yE11oynFRdY88CI6IOH2f2DDuOdlLswkP/Iq
-	sf1U1oZmUGXfzXQuNQy0H/wTXe0H8ehz8kT+MckrkcO690U/YySQNxx6PFgMQA==
-X-Gm-Gg: ASbGncu9rX2m3Rm0hzJsFUIEaHQx7Ie6exF7qOO+9Kqu9b71SMsi9jTwbx+W+ApCkQe
-	pCvjloZvrwRjGZNBDxmsdVQh/mqegT8gjZgckQ89Qcob3uDoms7uW5P5DMeFFcQm5kwEvgVaC8z
-	jdTGTc3gkQmjz4YgyVYNjxk+awSxzo1QIGnoyIDyWp7aAsAnmY8LtLTq2Dd1aMszI1T9gma3T7s
-	MSqwT/d6jZ4L4MErxg27/eCiIzUI+VEB64AFQuxqV3J7w6jYTvMSt86V7x4ttVYYmgt+HgmjCZv
-	pA36P44X55eANx79eaBb0YeHO04DBVOU7f3ddKGHpIeNcFsHvuqWV54dEjYiJACEXPqMLErpXPM
-	Z
-X-Google-Smtp-Source: AGHT+IHuw57fQGdGl08ghHLMHSqMauecV23ZQ2UOpXJjagmL2tBTmSxGesqy5isFYM/6Ixr9j0+IEw==
-X-Received: by 2002:a17:907:7f27:b0:ab7:da06:a372 with SMTP id a640c23a62f3a-ab7f334aca3mr346872266b.10.1739374738457;
-        Wed, 12 Feb 2025 07:38:58 -0800 (PST)
-Message-ID: <826429ed-06b3-4efb-9328-4e3de0484963@suse.com>
-Date: Wed, 12 Feb 2025 16:38:57 +0100
+        d=1e100.net; s=20230601; t=1739375043; x=1739979843;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=aG3oJWrd82/99x1ETlLtHy5/+jXBIhstzSiAOcp9oOQ=;
+        b=h+v7+I7thbT/EeCbT1Smg2yM7niI840sMB37KZarUBhgM4sdNZMR4WT72nrNCXvaib
+         d02muqsBlMTeJetJ0jjTFnGPRiLSW3QqfsLmHAZI8qbvKTzwJq5Am2jTv5L3mOHxjRB3
+         ektaXSxu6NExXTHexIkUryLNwcnsphoIVa0cv43ckLoQOzTVCd0+m2pZnkLJt5WobxwC
+         pYCGW0678LmeAIyXwKu5A5I/IVQtVpfHQpPtmuTLMazpnpugx4fMLmBihak0HfcIqC+J
+         J7Pg2PInupzyDdpkElZdvqFOehTqyB9Bp00GheGdWNjiNo8EDm2ZhPHi0IlQZs6o+kOF
+         mw0w==
+X-Gm-Message-State: AOJu0YxTZLtwO4+h6Hy26OioZZUsZAAWgr7iPD9eyiU+cfCkrw3s8vH2
+	2Ud9ybB6DfDnNlnt9HInQS5JqzIxC9S0ixNFT7NsaGxuSswkoU7t8yB6dA==
+X-Gm-Gg: ASbGnctF+wIKru30fAw4bEihHX+GuZNZ1iwdm5wDsfqOU/HT4yeahRgc0r2QXy36MFC
+	F6tnRKZ/BJr0BCCvIVpu83ZgYXhKLuUP25rAYgsEB8nSZkgwVA7jjC+NR/OO9F5uaseIC0IL7cv
+	uHkb6TbiU4JvWCcgsqV1mzJ0KaBE7yG7vZCUhd8ufUHIQp9NPqQFWEuPDbO00rouk88AIt8SKgJ
+	CY5/29d0L3/vNIZNcH3BRHZdVJRM79BHZDntBNHl/kw5V1iv576EXMIbQYWGQySpDhYOHOKgRyu
+	B9ud+a88Y9Qr1p/JUvwlQBspqt7+vk9VOePFWxIPy17owH/UYyuZqyoDFXTCgyHd3nGUAP8Cfg=
+	=
+X-Google-Smtp-Source: AGHT+IGmQjirC+k+iTTqrc4/5BriQ++5o6B1Cuo+UI7y4P4XsSsmXUQKWb+URh62tdMk1wPt2vbTWQ==
+X-Received: by 2002:ac2:4ec6:0:b0:545:532:fd2f with SMTP id 2adb3069b0e04-545181095a9mr948364e87.12.1739375042387;
+        Wed, 12 Feb 2025 07:44:02 -0800 (PST)
+From: Grygorii Strashko <gragst.linux@gmail.com>
+X-Google-Original-From: Grygorii Strashko <grygorii_strashko@epam.com>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Grygorii Strashko <grygorii_strashko@epam.com>
+Subject: [PATCH] device-tree: optimize size of struct dt_device_node
+Date: Wed, 12 Feb 2025 17:43:58 +0200
+Message-Id: <20250212154358.2540389-1-grygorii_strashko@epam.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/11] xen/cpufreq: only set gov NULL when
- cpufreq_driver.setpolicy is NULL
-To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: Ray.Huang@amd.com, Jason.Andryuk@amd.com, xen-devel@lists.xenproject.org
-References: <20250206083255.1296363-1-Penny.Zheng@amd.com>
- <20250206083255.1296363-7-Penny.Zheng@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250206083255.1296363-7-Penny.Zheng@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 06.02.2025 09:32, Penny Zheng wrote:
-> From: Penny Zheng <penny.zheng@amd.com>
-> 
-> amd-cppc on active mode bypasses the scaling governor layer, and
-> provides its own P-state selection algorithms in hardware. Consequently,
-> when it is used, the driver's -> setpolicy() callback is invoked
-> to register per-CPU utilization update callbacks, not the ->target()
-> callback.
-> 
-> So, only when cpufreq_driver.setpolicy is NULL, we need to deliberately
-> set old gov as NULL to trigger the according gov starting.
-> 
-> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+From: Michal Orzel <michal.orzel@amd.com>
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+The current placement of fields in struct dt_device_node is not optimal and
+introduces holes due to fields alignment.
 
+Checked with "'pahole xen-syms -C dt_device_node"
+
+ARM64 size 144B, 16B holes:
+	/* size: 144, cachelines: 3, members: 15 */
+	/* sum members: 128, holes: 3, sum holes: 16 */
+	/* last cacheline: 16 bytes */
+ARM32 size 72B, 4B holes
+	/* size: 72, cachelines: 2, members: 15 */
+	/* sum members: 68, holes: 2, sum holes: 4 */
+	/* last cacheline: 8 bytes */
+
+This patch optimizes size of struct dt_device_node by rearranging its
+field, which eliminates holes and reduces structure size by 16B(ARM64) and
+4B(ARM32).
+
+After ARM64 size 128B, no holes (-16B):
+	/* size: 128, cachelines: 2, members: 15 */
+After ARM32 size 68B, no holes (-4B)
+	/* size: 68, cachelines: 2, members: 15 */
+	/* last cacheline: 4 bytes */
+
+Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+---
+This patch follows discussion in [1]
+[1] https://patchwork.kernel.org/comment/26239672/
+
+ xen/include/xen/device_tree.h | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
+index 5ff763bb80bb..0ff80fda04da 100644
+--- a/xen/include/xen/device_tree.h
++++ b/xen/include/xen/device_tree.h
+@@ -81,17 +81,10 @@ struct dt_property {
+ struct dt_device_node {
+     const char *name;
+     const char *type;
+-    dt_phandle phandle;
+     char *full_name;
++    dt_phandle phandle;
+     domid_t used_by; /* By default it's used by dom0 */
+ 
+-    struct dt_property *properties;
+-    struct dt_device_node *parent;
+-    struct dt_device_node *child;
+-    struct dt_device_node *sibling;
+-    struct dt_device_node *next; /* TODO: Remove it. Only use to know the last children */
+-    struct dt_device_node *allnext;
+-
+     /* IOMMU specific fields */
+     bool is_protected;
+ 
+@@ -100,6 +93,13 @@ struct dt_device_node {
+     bool static_evtchn_created;
+ #endif
+ 
++    struct dt_property *properties;
++    struct dt_device_node *parent;
++    struct dt_device_node *child;
++    struct dt_device_node *sibling;
++    struct dt_device_node *next; /* TODO: Remove it. Only use to know the last children */
++    struct dt_device_node *allnext;
++
+     /*
+      * The main purpose of this list is to link the structure in the list
+      * of devices assigned to domain.
+-- 
+2.34.1
 
 
