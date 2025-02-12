@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2614A33161
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 22:20:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.886771.1296381 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4A9AA331C1
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 22:53:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.886784.1296390 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiK9S-0004tA-RD; Wed, 12 Feb 2025 21:20:10 +0000
+	id 1tiKfK-0000Ww-8U; Wed, 12 Feb 2025 21:53:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 886771.1296381; Wed, 12 Feb 2025 21:20:10 +0000
+Received: by outflank-mailman (output) from mailman id 886784.1296390; Wed, 12 Feb 2025 21:53:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiK9S-0004r9-OP; Wed, 12 Feb 2025 21:20:10 +0000
-Received: by outflank-mailman (input) for mailman id 886771;
- Wed, 12 Feb 2025 21:20:09 +0000
+	id 1tiKfK-0000Uv-5z; Wed, 12 Feb 2025 21:53:06 +0000
+Received: by outflank-mailman (input) for mailman id 886784;
+ Wed, 12 Feb 2025 21:53:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=O++Y=VD=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1tiK9Q-0004r3-TH
- for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 21:20:09 +0000
-Received: from mail-40131.protonmail.ch (mail-40131.protonmail.ch
- [185.70.40.131]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 219addf9-e987-11ef-a075-877d107080fb;
- Wed, 12 Feb 2025 22:20:06 +0100 (CET)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=xJ3x=VD=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1tiKfJ-0000Up-93
+ for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 21:53:05 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bb53fad0-e98b-11ef-a075-877d107080fb;
+ Wed, 12 Feb 2025 22:53:04 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 37D215C5E87;
+ Wed, 12 Feb 2025 21:52:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65994C4CEDF;
+ Wed, 12 Feb 2025 21:53:00 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,154 +42,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 219addf9-e987-11ef-a075-877d107080fb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1739395205; x=1739654405;
-	bh=J2WfQrdU0PwDMKqPh75FDhHhfpCLofz8P3p5kVqzYZg=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector:
-	 List-Unsubscribe:List-Unsubscribe-Post;
-	b=WcExuEjpBDhhZnoV5jlhx79XXc7jOI66Gsn7KMIOpWRdQ8IZVz/jwnWPxwMKcw+iZ
-	 MN1xwfGsK634tP0z15kDGyWpOlprdrxfEPiZ1XjnjPVF/B2boBtKir5DrH2mavMWIm
-	 CNxDMIq4bbvAOPGVnTho0Wjwg3phWyKs44ywrxPFCotbVmcgtbCUu7s+Ao5rYjnkPf
-	 wi9eWwu/+wJakzuevlnpRvAcyi697JoJyyngPVCJCykB/1pKkI4sieoZxFPemQJ+CY
-	 txHB6lS0NpNy+yfFOYabFCsRJ2pwHb2b1UGPuzIPmqNHcLDp74mi3Qf25Yqleg6ZEx
-	 qzH3+ECH8kPnw==
-Date: Wed, 12 Feb 2025 21:19:58 +0000
-To: xen-devel@lists.xenproject.org
-From: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: [PATCH v2] arm/vuart: move vpl011-related code to vpl011 emulator
-Message-ID: <20250212211802.1669675-1-dmukhin@ford.com>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 6ef1d6b61b77607d65e7537261c9ca8dc5b1ef54
+X-Inumbo-ID: bb53fad0-e98b-11ef-a075-877d107080fb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1739397181;
+	bh=5lteKVHFadi6Om/Oxk+1cqTB22Bq7SMwpbiDayLzqhM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=Zdlod3RXvQQKQCjpLpyvEZMT0OYLSW/NQi0TEK+LuL5UZMlkV7T8Aj8n8uYIq/zNW
+	 ys7766yvLh/x0Un5IsZ8GBEbuscrG2RnxmKnVY5xhbH6ZAwcFabXSBydhChoZoKgN4
+	 XdCttJynBG33DN9dflOF90YlZDr/hRuFeizY2DncdGLnTI4y/BJElnNcmRqgtaEP2Y
+	 0TgL8N3qj7TrPBx/7KcCa9EK42mwiXVRHXVdr+iKumKiIHTlLnBcWVDjQn9T0E5oVJ
+	 e5Sfn2xykb1NWDA7LQdXIPD2Y72Vvo0P/DLQlMQCYWul22KyQiYT4YHgxhhJTe2+fI
+	 qEC2ddtZxCSxQ==
+Date: Wed, 12 Feb 2025 13:52:59 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+cc: Xen-devel <xen-devel@lists.xenproject.org>, committers@xenproject.org, 
+    Jan Beulich <jbeulich@suse.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>
+Subject: Re: [BUG?] Wrong RC reported during 'make install'
+In-Reply-To: <69a52464-4e2e-43fc-9792-46d7a9614a80@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2502121347430.619090@ubuntu-linux-20-04-desktop>
+References: <69a52464-4e2e-43fc-9792-46d7a9614a80@gmail.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/mixed; boundary="8323329-1386328416-1739397181=:619090"
 
-Xen console driver has vpl011-related logic which shall belong vpl011 emula=
-tor
-code (Arm port). Move vpl011-related code from arch-independent console dri=
-ver
-to Arm's vpl011.c.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Use rate-limiting guest_printk() for error logging in console driver in cas=
-e
-vpl011 cannot handle the console input.
+--8323329-1386328416-1739397181=:619090
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+On Wed, 12 Feb 2025, Oleksii Kurochko wrote:
+> Hello everyone,
+> 
+> During the installation of Xen on an ARM server machine from the source code,
+> I found that the wrong release candidate (rc) is being used:
+>   $ make install  
+>     install -m0644 -p xen //boot/xen-4.20-rc  
+>     install: cannot remove ‘//boot/xen-4.20-rc’: Permission denied  
+>     make[1]: *** [Makefile:507: _install] Error 1
+> My expectation is that it should be xen-4.20-rc4.
+> 
+> I'm not sure if this behavior is intentional or if users are expected to set
+> the XEN_VENDORVERSION variable manually to ensure the correct release
+> candidate number.
+> 
+> In my opinion, we should set the proper release candidate number after
+> "xen-4.20-rc" automatically.
+> 
+> Does anyone have any thoughts or suggestions on how to resolve this issue?
+
+Hi Oleksii,
+
+I did a quick test and I see exactly the same on x86 as well. This patch
+fixes it, but then it would need someone to update the RC number in
+xen/Makefile every time a new RC is made.
+
 ---
-Changes in v2:
-- switched to rate-limited guest_printk()
-- Link to v1: https://lore.kernel.org/xen-devel/20250211075405.191144-1-dmk=
-hn@proton.me/
-- Link to CI: https://gitlab.com/xen-project/people/dmukhin/xen/-/pipelines=
-/1668396058
----
- xen/arch/arm/include/asm/vpl011.h |  2 +-
- xen/arch/arm/vpl011.c             | 15 +++++++++++----
- xen/drivers/char/console.c        | 21 +++++++--------------
- 3 files changed, 19 insertions(+), 19 deletions(-)
+xen: add RC version number to xen filename
 
-diff --git a/xen/arch/arm/include/asm/vpl011.h b/xen/arch/arm/include/asm/v=
-pl011.h
-index c09abcd7a9..cc83868281 100644
---- a/xen/arch/arm/include/asm/vpl011.h
-+++ b/xen/arch/arm/include/asm/vpl011.h
-@@ -69,7 +69,7 @@ struct vpl011_init_info {
- int domain_vpl011_init(struct domain *d,
-                        struct vpl011_init_info *info);
- void domain_vpl011_deinit(struct domain *d);
--void vpl011_rx_char_xen(struct domain *d, char c);
-+int vpl011_rx_char_xen(struct domain *d, char c);
- #else
- static inline int domain_vpl011_init(struct domain *d,
-                                      struct vpl011_init_info *info)
-diff --git a/xen/arch/arm/vpl011.c b/xen/arch/arm/vpl011.c
-index 1fc3114cce..c72f3778bf 100644
---- a/xen/arch/arm/vpl011.c
-+++ b/xen/arch/arm/vpl011.c
-@@ -567,16 +567,21 @@ static void vpl011_data_avail(struct domain *d,
-=20
- /*
-  * vpl011_rx_char_xen adds a char to a domain's vpl011 receive buffer.
-- * It is only used when the vpl011 backend is in Xen.
-  */
--void vpl011_rx_char_xen(struct domain *d, char c)
-+int vpl011_rx_char_xen(struct domain *d, char c)
- {
-     unsigned long flags;
-     struct vpl011 *vpl011 =3D &d->arch.vpl011;
-     struct vpl011_xen_backend *intf =3D vpl011->backend.xen;
-     XENCONS_RING_IDX in_cons, in_prod, in_fifo_level;
-=20
--    ASSERT(!vpl011->backend_in_domain);
-+    /* Forward input iff the vpl011 backend is in Xen. */
-+    if ( vpl011->backend_in_domain )
-+        return -ENODEV;
-+
-+    if ( intf =3D=3D NULL )
-+        return -ENODEV;
-+
-     VPL011_LOCK(d, flags);
-=20
-     in_cons =3D intf->in_cons;
-@@ -584,7 +589,7 @@ void vpl011_rx_char_xen(struct domain *d, char c)
-     if ( xencons_queued(in_prod, in_cons, sizeof(intf->in)) =3D=3D sizeof(=
-intf->in) )
-     {
-         VPL011_UNLOCK(d, flags);
--        return;
-+        return -ENOSPC;
-     }
-=20
-     intf->in[xencons_mask(in_prod, sizeof(intf->in))] =3D c;
-@@ -596,6 +601,8 @@ void vpl011_rx_char_xen(struct domain *d, char c)
-=20
-     vpl011_data_avail(d, in_fifo_level, sizeof(intf->in), 0, SBSA_UART_FIF=
-O_SIZE);
-     VPL011_UNLOCK(d, flags);
-+
-+    return 0;
- }
-=20
- static void vpl011_notification(struct vcpu *v, unsigned int port)
-diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index b4cec77247..ee5f720de4 100644
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -553,21 +553,14 @@ static void __serial_rx(char c)
-     {
-         struct domain *d =3D rcu_lock_domain_by_id(console_rx - 1);
-=20
--        /*
--         * If we have a properly initialized vpl011 console for the
--         * domain, without a full PV ring to Dom0 (in that case input
--         * comes from the PV ring), then send the character to it.
--         */
--        if ( d !=3D NULL &&
--             !d->arch.vpl011.backend_in_domain &&
--             d->arch.vpl011.backend.xen !=3D NULL )
--            vpl011_rx_char_xen(d, c);
--        else
--            printk("Cannot send chars to Dom%d: no UART available\n",
--                   console_rx - 1);
--
--        if ( d !=3D NULL )
-+        if ( d )
-+        {
-+            int rc =3D vpl011_rx_char_xen(d, c);
-+            if ( rc )
-+                guest_printk(d, XENLOG_G_WARNING
-+                                "failed to process console input: %d\n", r=
-c);
-             rcu_unlock_domain(d);
-+        }
-=20
-         break;
-     }
---=20
-2.34.1
+Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
 
-
+commit 319ac724748f2f03a5cc6e9648c9151f519eaeac
+diff --git a/xen/Makefile b/xen/Makefile
+index 65b460e2b4..3b395e1ead 100644
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -6,6 +6,7 @@ this-makefile := $(call lastword,$(MAKEFILE_LIST))
+ # All other places this is stored (eg. compile.h) should be autogenerated.
+ export XEN_VERSION       = 4
+ export XEN_SUBVERSION    = 20
++export XEN_VENDORVERSION = 4
+ export XEN_EXTRAVERSION ?= -rc$(XEN_VENDORVERSION)
+ export XEN_FULLVERSION   = $(XEN_VERSION).$(XEN_SUBVERSION)$(XEN_EXTRAVERSION)
+ -include xen-version
+--8323329-1386328416-1739397181=:619090--
 
