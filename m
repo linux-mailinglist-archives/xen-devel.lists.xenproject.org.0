@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1A04A321ED
+	by mail.lfdr.de (Postfix) with ESMTPS id B9B74A321E9
 	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 10:19:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.886227.1295914 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.886228.1295925 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ti8tp-0001Yx-Ai; Wed, 12 Feb 2025 09:19:17 +0000
+	id 1ti8tq-0001nd-Ip; Wed, 12 Feb 2025 09:19:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 886227.1295914; Wed, 12 Feb 2025 09:19:17 +0000
+Received: by outflank-mailman (output) from mailman id 886228.1295925; Wed, 12 Feb 2025 09:19:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ti8tp-0001Wj-7R; Wed, 12 Feb 2025 09:19:17 +0000
-Received: by outflank-mailman (input) for mailman id 886227;
- Wed, 12 Feb 2025 09:19:16 +0000
+	id 1ti8tq-0001ld-EC; Wed, 12 Feb 2025 09:19:18 +0000
+Received: by outflank-mailman (input) for mailman id 886228;
+ Wed, 12 Feb 2025 09:19:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=F151=VD=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
- id 1ti8to-0001Ij-Bw
- for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 09:19:16 +0000
+ id 1ti8tp-0001Ij-GU
+ for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 09:19:17 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 6d4a4730-e922-11ef-b3ef-695165c68f79;
- Wed, 12 Feb 2025 10:19:14 +0100 (CET)
+ id 6dfc30cc-e922-11ef-b3ef-695165c68f79;
+ Wed, 12 Feb 2025 10:19:15 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1224016F8;
- Wed, 12 Feb 2025 01:19:35 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 552A713D5;
+ Wed, 12 Feb 2025 01:19:36 -0800 (PST)
 Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.43])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AE6153F58B;
- Wed, 12 Feb 2025 01:19:12 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3B5CE3F58B;
+ Wed, 12 Feb 2025 01:19:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,150 +42,199 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d4a4730-e922-11ef-b3ef-695165c68f79
+X-Inumbo-ID: 6dfc30cc-e922-11ef-b3ef-695165c68f79
 From: Luca Fancellu <luca.fancellu@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 1/2] xen/passthrough: Provide stub functions when !HAS_PASSTHROUGH
-Date: Wed, 12 Feb 2025 09:18:59 +0000
-Message-Id: <20250212091900.1515563-2-luca.fancellu@arm.com>
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH 2/2] xen/arm: Move early mapping operations to new function
+Date: Wed, 12 Feb 2025 09:19:00 +0000
+Message-Id: <20250212091900.1515563-3-luca.fancellu@arm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250212091900.1515563-1-luca.fancellu@arm.com>
 References: <20250212091900.1515563-1-luca.fancellu@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When Xen is built without HAS_PASSTHROUGH, there are some parts
-in arm and x86 where iommu_* functions are called in the codebase,
-but their implementation is under xen/drivers/passthrough that is
-not built.
+Currently start_xen() is performing some early operations using
+the boot page tables that are configured during early asm boot,
+before setting up the runtime page tables that might also use
+the cache coloring feature.
 
-So provide some stub for these functions in order to build Xen
-when !HAS_PASSTHROUGH, which is the case for example on systems
-with MPU support.
+On an MPU system the cache coloring feature is not applicable,
+also before using any early mapping function, the MPU data
+structure needs to be initialised.
+Another thing that is redundant is mapping the DTB twice, since
+cache coloring is not applicable.
+
+Because of the above reason, isolate the early mapping code into
+a function called 'setup_early_mappings' that is defined under
+the MMU module, an MPU system will need to implement such function
+to perform the operation needed for early mapping that will be
+in part different from an MMU system.
+
+Moved the 'HAS_LLC_COLORING' Kconfig symbol into the MMU one,
+selected only when system is Arm64 and not numa.
+Now setup_pagetables() is called only in the mmu/setup.c module,
+limit its visibility and remove it from mm.h header.
 
 Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 ---
- xen/arch/arm/include/asm/grant_table.h |  8 ++++++
- xen/include/xen/iommu.h                | 40 +++++++++++++++++++++++---
- 2 files changed, 44 insertions(+), 4 deletions(-)
+ xen/arch/arm/Kconfig          |  2 +-
+ xen/arch/arm/include/asm/mm.h |  4 ++--
+ xen/arch/arm/mmu/setup.c      | 35 ++++++++++++++++++++++++++++++++++-
+ xen/arch/arm/setup.c          | 30 +-----------------------------
+ 4 files changed, 38 insertions(+), 33 deletions(-)
 
-diff --git a/xen/arch/arm/include/asm/grant_table.h b/xen/arch/arm/include/asm/grant_table.h
-index d3c518a926b9..e21634b752df 100644
---- a/xen/arch/arm/include/asm/grant_table.h
-+++ b/xen/arch/arm/include/asm/grant_table.h
-@@ -73,9 +73,17 @@ int replace_grant_host_mapping(uint64_t gpaddr, mfn_t frame,
- #define gnttab_status_gfn(d, t, i)                                       \
-     page_get_xenheap_gfn(gnttab_status_page(t, i))
+diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+index a26d3e11827c..91f838a32bc6 100644
+--- a/xen/arch/arm/Kconfig
++++ b/xen/arch/arm/Kconfig
+@@ -8,7 +8,6 @@ config ARM_64
+ 	depends on !ARM_32
+ 	select 64BIT
+ 	select HAS_FAST_MULTIPLY
+-	select HAS_LLC_COLORING if !NUMA
  
-+#ifdef CONFIG_HAS_PASSTHROUGH
-+
- #define gnttab_need_iommu_mapping(d)                    \
-     (is_domain_direct_mapped(d) && is_iommu_enabled(d))
+ config ARM
+ 	def_bool y
+@@ -76,6 +75,7 @@ choice
  
-+#else
-+
-+#define gnttab_need_iommu_mapping(d) (false)
-+
-+#endif
-+
- #endif /* __ASM_GRANT_TABLE_H__ */
- /*
-  * Local variables:
-diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
-index b928c67e1995..0ddea755b1c0 100644
---- a/xen/include/xen/iommu.h
-+++ b/xen/include/xen/iommu.h
-@@ -110,6 +110,8 @@ extern int8_t iommu_hwdom_reserved;
+ config MMU
+ 	bool "MMU"
++	select HAS_LLC_COLORING if !NUMA && ARM64
+ 	select HAS_PMAP
+ 	select HAS_VMAP
+ 	select HAS_PASSTHROUGH
+diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
+index a0d8e5afe977..d4b6daa85aa0 100644
+--- a/xen/arch/arm/include/asm/mm.h
++++ b/xen/arch/arm/include/asm/mm.h
+@@ -203,8 +203,8 @@ extern unsigned long frametable_base_pdx;
  
- extern unsigned int iommu_dev_iotlb_timeout;
+ #define PDX_GROUP_SHIFT SECOND_SHIFT
  
-+#ifdef CONFIG_HAS_PASSTHROUGH
-+
- int iommu_setup(void);
- int iommu_hardware_setup(void);
- 
-@@ -122,6 +124,24 @@ int arch_iommu_domain_init(struct domain *d);
- void arch_iommu_check_autotranslated_hwdom(struct domain *d);
- void arch_iommu_hwdom_init(struct domain *d);
- 
-+#else
-+
-+static inline int iommu_setup(void)
-+{
-+    return -ENODEV;
-+}
-+
-+static inline int iommu_domain_init(struct domain *d, unsigned int opts)
-+{
-+    return 0;
-+}
-+
-+static inline void iommu_hwdom_init(struct domain *d) {}
-+
-+static inline void iommu_domain_destroy(struct domain *d) {}
-+
-+#endif /* HAS_PASSTHROUGH */
-+
- /*
-  * The following flags are passed to map (applicable ones also to unmap)
-  * operations, while some are passed back by lookup operations.
-@@ -206,7 +226,7 @@ struct msi_msg;
- #define PT_IRQ_TIME_OUT MILLISECS(8)
- #endif /* HAS_PCI */
- 
--#ifdef CONFIG_HAS_DEVICE_TREE
-+#if defined(CONFIG_HAS_DEVICE_TREE) && defined(CONFIG_HAS_PASSTHROUGH)
- #include <xen/device_tree.h>
- 
- int iommu_assign_dt_device(struct domain *d, struct dt_device_node *dev);
-@@ -238,7 +258,17 @@ int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
+-/* Boot-time pagetable setup */
+-extern void setup_pagetables(void);
++/* Setup early mappings */
++extern void setup_early_mappings(paddr_t fdt_paddr);
+ /* Map FDT in boot pagetable */
+ extern void *early_fdt_map(paddr_t fdt_paddr);
+ /* Remove early mappings */
+diff --git a/xen/arch/arm/mmu/setup.c b/xen/arch/arm/mmu/setup.c
+index 30afe9778194..f7862d0bafd3 100644
+--- a/xen/arch/arm/mmu/setup.c
++++ b/xen/arch/arm/mmu/setup.c
+@@ -354,7 +354,7 @@ static void __init create_llc_coloring_mappings(void)
+  * Boot-time pagetable setup.
+  * Changes here may need matching changes in head.S
   */
- int iommu_remove_dt_device(struct dt_device_node *np);
+-void __init setup_pagetables(void)
++static void __init setup_pagetables(void)
+ {
+     uint64_t ttbr;
+     lpae_t pte, *p;
+@@ -469,6 +469,39 @@ void __init setup_pagetables(void)
+     xen_pt_enforce_wnx();
+ }
  
--#endif /* HAS_DEVICE_TREE */
-+#else
-+
-+#define iommu_assign_dt_device(d, dev) (-EINVAL)
-+#define iommu_add_dt_device(np)        (1)
-+
-+static inline int iommu_release_dt_devices(struct domain *d)
++void __init setup_early_mappings(paddr_t fdt_paddr)
 +{
-+    return 0;
++    const char *cmdline;
++    struct bootmodule *xen_bootmodule;
++
++    device_tree_flattened = early_fdt_map(fdt_paddr);
++    if ( !device_tree_flattened )
++        panic("Invalid device tree blob at physical address %#"PRIpaddr".\n"
++              "The DTB must be 8-byte aligned and must not exceed 2 MB in size.\n\n"
++              "Please check your bootloader.\n",
++              fdt_paddr);
++
++    /* Register Xen's load address as a boot module. */
++    xen_bootmodule = add_boot_module(BOOTMOD_XEN,
++                             virt_to_maddr(_start),
++                             (paddr_t)(uintptr_t)(_end - _start), false);
++    BUG_ON(!xen_bootmodule);
++
++    cmdline = boot_fdt_cmdline(device_tree_flattened);
++    printk("Command line: %s\n", cmdline);
++    cmdline_parse(cmdline);
++
++    llc_coloring_init();
++
++    /*
++     * Page tables must be setup after LLC coloring initialization because
++     * coloring info are required in order to create colored mappings
++     */
++    setup_pagetables();
++    /* Device-tree was mapped in boot page tables, remap it in the new tables */
++    device_tree_flattened = early_fdt_map(fdt_paddr);
 +}
 +
-+#endif /* HAS_DEVICE_TREE && HAS_PASSTHROUGH */
+ void *__init arch_vmap_virt_end(void)
+ {
+     return (void *)(VMAP_VIRT_START + VMAP_VIRT_SIZE);
+diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+index c1f2d1b89d43..b2f34ba2a873 100644
+--- a/xen/arch/arm/setup.c
++++ b/xen/arch/arm/setup.c
+@@ -12,7 +12,6 @@
+ #include <xen/device_tree.h>
+ #include <xen/domain_page.h>
+ #include <xen/grant_table.h>
+-#include <xen/llc-coloring.h>
+ #include <xen/types.h>
+ #include <xen/string.h>
+ #include <xen/serial.h>
+@@ -300,8 +299,6 @@ size_t __read_mostly dcache_line_bytes;
+ void asmlinkage __init start_xen(unsigned long fdt_paddr)
+ {
+     size_t fdt_size;
+-    const char *cmdline;
+-    struct bootmodule *xen_bootmodule;
+     struct domain *d;
+     int rc, i;
  
- struct page_info;
+@@ -315,35 +312,10 @@ void asmlinkage __init start_xen(unsigned long fdt_paddr)
  
-@@ -381,17 +411,19 @@ struct domain_iommu {
- #define iommu_set_feature(d, f)   set_bit(f, dom_iommu(d)->features)
- #define iommu_clear_feature(d, f) clear_bit(f, dom_iommu(d)->features)
+     smp_clear_cpu_maps();
  
-+/* Does the IOMMU pagetable need to be kept synchronized with the P2M */
-+#ifdef CONFIG_HAS_PASSTHROUGH
- /* Are we using the domain P2M table as its IOMMU pagetable? */
- #define iommu_use_hap_pt(d)       (IS_ENABLED(CONFIG_HVM) && \
-                                    dom_iommu(d)->hap_pt_share)
+-    device_tree_flattened = early_fdt_map(fdt_paddr);
+-    if ( !device_tree_flattened )
+-        panic("Invalid device tree blob at physical address %#lx.\n"
+-              "The DTB must be 8-byte aligned and must not exceed 2 MB in size.\n\n"
+-              "Please check your bootloader.\n",
+-              fdt_paddr);
+-
+-    /* Register Xen's load address as a boot module. */
+-    xen_bootmodule = add_boot_module(BOOTMOD_XEN,
+-                             virt_to_maddr(_start),
+-                             (paddr_t)(uintptr_t)(_end - _start), false);
+-    BUG_ON(!xen_bootmodule);
++    setup_early_mappings(fdt_paddr);
  
--/* Does the IOMMU pagetable need to be kept synchronized with the P2M */
--#ifdef CONFIG_HAS_PASSTHROUGH
- #define need_iommu_pt_sync(d)     (dom_iommu(d)->need_sync)
+     fdt_size = boot_fdt_info(device_tree_flattened, fdt_paddr);
  
- int iommu_do_domctl(struct xen_domctl *domctl, struct domain *d,
-                     XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl);
- #else
-+#define iommu_use_hap_pt(d)       (false)
-+
- #define need_iommu_pt_sync(d)     ({ (void)(d); false; })
+-    cmdline = boot_fdt_cmdline(device_tree_flattened);
+-    printk("Command line: %s\n", cmdline);
+-    cmdline_parse(cmdline);
+-
+-    llc_coloring_init();
+-
+-    /*
+-     * Page tables must be setup after LLC coloring initialization because
+-     * coloring info are required in order to create colored mappings
+-     */
+-    setup_pagetables();
+-    /* Device-tree was mapped in boot page tables, remap it in the new tables */
+-    device_tree_flattened = early_fdt_map(fdt_paddr);
+-
+     setup_mm();
  
- static inline int iommu_do_domctl(struct xen_domctl *domctl, struct domain *d,
+     vm_init();
 -- 
 2.34.1
 
