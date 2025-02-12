@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50CCCA32674
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 14:01:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.886450.1296097 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16D9AA32859
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2025 15:26:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.886473.1296107 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiCN2-0006c8-5j; Wed, 12 Feb 2025 13:01:40 +0000
+	id 1tiDgS-0008CH-12; Wed, 12 Feb 2025 14:25:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 886450.1296097; Wed, 12 Feb 2025 13:01:40 +0000
+Received: by outflank-mailman (output) from mailman id 886473.1296107; Wed, 12 Feb 2025 14:25:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiCN2-0006ag-2r; Wed, 12 Feb 2025 13:01:40 +0000
-Received: by outflank-mailman (input) for mailman id 886450;
- Wed, 12 Feb 2025 13:01:38 +0000
+	id 1tiDgR-0008A3-UC; Wed, 12 Feb 2025 14:25:47 +0000
+Received: by outflank-mailman (input) for mailman id 886473;
+ Wed, 12 Feb 2025 14:25:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YVo3=VD=bounce.vates.tech=bounce-md_30504962.67ac9bae.v1-13bb57b742854ec2be1d703d0dff5ce6@srs-se1.protection.inumbo.net>)
- id 1tiCN0-0006aY-0k
- for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 13:01:38 +0000
-Received: from mail180-4.suw31.mandrillapp.com
- (mail180-4.suw31.mandrillapp.com [198.2.180.4])
+ <SRS0=mGeD=VD=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1tiDgQ-00089x-JR
+ for xen-devel@lists.xenproject.org; Wed, 12 Feb 2025 14:25:46 +0000
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [2a00:1450:4864:20::12e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7cd8df16-e941-11ef-b3ef-695165c68f79;
- Wed, 12 Feb 2025 14:01:35 +0100 (CET)
-Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail180-4.suw31.mandrillapp.com (Mailchimp) with ESMTP id 4YtJNZ132rzlfq6m
- for <xen-devel@lists.xenproject.org>; Wed, 12 Feb 2025 13:01:34 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 13bb57b742854ec2be1d703d0dff5ce6; Wed, 12 Feb 2025 13:01:34 +0000
+ id 3eb50a0c-e94d-11ef-b3ef-695165c68f79;
+ Wed, 12 Feb 2025 15:25:44 +0100 (CET)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-545039b6a67so4231440e87.0
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Feb 2025 06:25:44 -0800 (PST)
+Received: from [192.168.209.66] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-54504b0c280sm1411686e87.137.2025.02.12.06.25.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 12 Feb 2025 06:25:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,150 +45,231 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7cd8df16-e941-11ef-b3ef-695165c68f79
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1739365294; x=1739635294;
-	bh=rbr7B/D3HYLY+1GjmivtuL4307pH7nNxAI0LWUhgo5I=;
-	h=From:Subject:To:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=1vWCjVw5SeV/bACUXHR59mdvdW5GARouPU10pI5+RvGLI4Vgw31kqOpMOTCUVzfom
-	 dpeyeMHjGaGnCZRph1tJkQzRzKlsj9qysqUF9aSOMoJ80jr9z/vuYg8PlGIZtAVMNx
-	 yCqoDBAqO5q19QwkkqOvWDUd0s/d1b2szCWnaF/FQmVvsTKcMt8Ryk0FJn5e4cs03s
-	 N4CbLEzb9xGPONn/Iw4KlhhvoDJ6k6iXB0kQ9T6uVJxUBJF2bt+A6hbPoKwWnOD+Zg
-	 YodOIyjY5IghiIo9QDUV+lgPGG4TycC2TezMI+eb6YAIHcpE5xqqp6GegxvWMN0P8Y
-	 xIgE55az7CMqw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1739365294; x=1739625794; i=samuel.verschelde@vates.tech;
-	bh=rbr7B/D3HYLY+1GjmivtuL4307pH7nNxAI0LWUhgo5I=;
-	h=From:Subject:To:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=GntrCc/20Tkhlx5E45L1BZWkqu+b34Qss+cvANUEizGpf2xHFzTp/kglnWYN3DCLb
-	 1CR+4tTWDm4FiEpc/lOqR4I6zVA9KDGXZwlnFja+BXuRNx3mfGsDTTrBqJgLsJ7D4p
-	 RpeqOOOkhFgbIUeovD+3gIxYZJ8K2qjBRRKsLDf25HG0JOvej6b/3IrNPW9f9RCapQ
-	 6eX2uaRANq/uoVWmS+tlT2zf5DsvwYUiVo7db/YaarcZEF4SarP9AOhksWXuKt3128
-	 qdkncc2/iCILekfd4f87VBagToVwiMWgD3IBqVh7g1qi6/K0M7yKTlU68u7rQ3kC1J
-	 8rFRh3Uls4nQg==
-From: "Samuel Verschelde" <samuel.verschelde@vates.tech>
-Subject: =?utf-8?Q?Xen=20Winter=20Meetup=202025=20design=20session=20notes:=20Nested=20Virt?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1739365293592
-To: xen-devel@lists.xenproject.org
-Message-Id: <87477722-899c-5e6d-b1f0-b4099546817b@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.13bb57b742854ec2be1d703d0dff5ce6?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250212:md
-Date: Wed, 12 Feb 2025 13:01:34 +0000
+X-Inumbo-ID: 3eb50a0c-e94d-11ef-b3ef-695165c68f79
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1739370344; x=1739975144; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=JcTHL77+repIi4UKSMu9IWPGTJ7f083fYMJ7Nto208Y=;
+        b=Qschaw0jAfoRGBez6rR/e5NiijXn5LU+cN8wnFYJAim5OW0QYR7Pn+4UB8jZHi3vaQ
+         PZhbDL+fUCYGMSH/FiEDWtatNxH7M9NCv9GHYzrNZcXxGAxoWiL4t76O3whVdiq/ZUNF
+         /wbgLw5344I4nauA2hRxVqSPcaX3mWNvRNsfiqIH+HgrhWJbSZSl8sDqfEO7vZzQ9N7l
+         KbSSyHdD9vFaXYDRyUZSyL3nKzQeGS4siqI03uUFKznKKVkAyY1VJyaWL2W+wkwB9Rf/
+         MulSdbbMzep1PvTwvR6mHjMfO4PMF1gDndejjgrc1lsY6bnkk/DrQ3s+Bvqna2wtdpxm
+         n+hA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1739370344; x=1739975144;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=JcTHL77+repIi4UKSMu9IWPGTJ7f083fYMJ7Nto208Y=;
+        b=liacMSmW7jUYg09edM6eOjEOrf4B3mccWBDUYazGdGiaVWkEyWGeI46I+n2/7FRCZ9
+         0pHKT2NDl1S9MZbbam7mc5vVrjlcaNSrqqYkrEMwPGOu8N20npE60Vx/DhXxpOUAHtW6
+         /r9vPjf0E89HnAh2l3zcuJ691fFxottFwRZGTtJoOvEmv7b42ew+aI0/VMQiZRINITwX
+         78+IHfzwdb4WZ1kioccUj3Ykpr/MUbRPN2TPb+5K4Qb/SaYed/PsVm9JhUB5bGMxTf6C
+         Va+IAz0wmr4EUifqPO4Clj6urks5i/WVrpJlByxzdSU2X+zgs2vy7pHo2aASARUeawVZ
+         BQPg==
+X-Gm-Message-State: AOJu0Yxi3V8DvZhVwxHsU4mdr/WEeYXCO5/6LZN70AEKLG4RmiDsJ1sE
+	u9oTvxHqEF75ifVoIv0r/toaDXzIZWeNm6QDLzxvyuDlcYDAhLxMZTbqFA==
+X-Gm-Gg: ASbGncvI/BpSRxIAuOJrVLAz6cYE7lgewZEwy+29u+KAKmCu0YTIwygcgwjKYvxAf6+
+	3w2M0hchst+dDygIIym8eMBZ24e93jz8KFGsaR+oLl/rk4/fzf9Wh3yVzT+JA3bE0rx43cLLc9w
+	flHgQmc2nTif2zR3eUQwWocVFwI40Ts/EsYJwmWL2zFtQrqnC+ZPSx0OPT5rxEsl0r4DcqSdQ2d
+	Fo328pyJ4EcBEsbWiVDJSVH5GhFwufpQmhn+4ua51gJpYe7CqMB2wxdgT7bsrGFD9qXAxZs/FOF
+	oNlc/VTn+U16cjjmZJekkQAVbww=
+X-Google-Smtp-Source: AGHT+IEXao6YK8OfDQTgRzRleWK2eZsjnMQltJzTUKv1n028LaAlsxyuRg4a4BriQubo2tovNG2nxQ==
+X-Received: by 2002:a05:6512:1288:b0:545:f9c:a825 with SMTP id 2adb3069b0e04-545180e9111mr911581e87.2.1739370343604;
+        Wed, 12 Feb 2025 06:25:43 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------vjubAoRcbhX0UsEiNAZuek2b"
+Message-ID: <3aec69ed-c78d-46ed-a60f-88f260c71ce9@gmail.com>
+Date: Wed, 12 Feb 2025 15:25:42 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.20 v3 0/5] xen/x86: prevent local APIC errors at
+ shutdown
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20250211110209.86974-1-roger.pau@citrix.com>
+ <Z6uZZrR9XvTFjtO9@macbook.local>
+ <30b4c319-64fc-4a8f-bc8d-a60e10831357@gmail.com>
+ <6191ed5b-ec66-4054-a6bc-173ab578aa54@suse.com>
+ <Z6xo7Us0LiJqiEi1@macbook.local>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <Z6xo7Us0LiJqiEi1@macbook.local>
 
-Description: this session will focus on discussing the current state and 
-key challenges of Nested Virtualization in Xen.
-
----
-
-I'm going to reference this message to the mailing list in the related 
-Gitlab epic:
-https://gitlab.com/groups/xen-project/-/epics/25
-
-References: George Dunlap's two part talk in the previous Xen Summit:
-- https://www.youtube.com/watch?v=8jKGYY1Bi_o
-- https://www.youtube.com/watch?v=3MxWvVTmY1s&t=1564s
-
-Andrew Cooper reminded us of the nested virtualization challenges,
-
-What is needed to make nested virt work again?
-
-Andrew:
-Xen does have some nested virt implementation
-from 2009/2010, bitrotting since then and weren't production quality 
-since day one.
-Intel took care to virtualize everything relevant => confusing aspects 
-that are not documented enough
-AMD took a more simpler route, but things don't quite work right.
-VMX/SVM are different pieces of work.
-Interrupt shadows : disabling interrupt is different for VMX/SVM
-Important to reduce the scope of the problem.
-Both Intel and AMD dropped support for 32bits virtualization.
-Bunch of features can be dropped for limiting the scope
-Still need to trap them but can say not implemented.
-Depend on the L2 guests: Windows with VBS is expecting different features
-Missing non-nested features for VBS that need to be implemented first 
-before nested one.
-
-VM configuration is hard to change during run time because the 
-configuration set was static
-Xen has a model where it expects one model set of what it expect a guest 
-to run.
-
-First task: Change implementation of Xen to have one configuration per 
-VM of the configuration instead of a global
-Meaning having different configuration to other VM.
-
-HW only has root and non-root mode (strictly x86)
-
-Nested virt need to implement L2 guest in non-root mode of L0
-Xen usually has one VMCS/VMCB per vCPU
-L1 HV will have one VMCS/VMCB per L2 vCPU
-
-VMCS are a bunch of configuration, some exposed to guests others to 
-control guests behavior.
-VMCS for L2 guests are merged from Xen, from L1 info called VMCS02.
-Drop host state from the L1 guests and use Xen host state.
-Features can be mutually exclusive.
-
-L2 guest will trap to Xen (L0) and Xen then needs to know if the VMEXIT 
-is for it, L1 or both.
-Virtual VM entry, need to merge VMCS from exit and merge info about host 
-part of L1.
-If it is correctly implemented, it can scale infinitely. L>3 guests.
-
-Alain Tchana: VMCS shadowing, is it needed?
-Andrew: It's complicated, it's a giant security hole since you can audit 
-guest state
-
-VMCS (Intel) opaque memory needed a special instruction to READ/WRITE
-VMCB (AMD) a page of memory you can write/read to directly
-Easier for AMD to copy in/out large amount of memory.
-
-Yann: What is the current state in Xen implementation?
-Andrew: There is some, with known security issues and unknown ones.
-
-Marek: If you run KVM in a Xen guests, you have an instant crash.
-
-Yann: What are the plans to fix it?
-Andrew: The L1 VMCS configuration can be completely different from the 
-one Xen will use, and need to modify this so Xen can have multiple 
-guests configuration.
-
-See paper called Turtle for nested virtualization with VMCS merging.
-
-Need to store VMCS/VMCB state somewhere (easy with VMCB since it's just 
-a mapped page)
-
-A bit of work from Andrew and Roger is needed before it can worked on by 
-multiple people in parallel.
-
-Next course of action:
-
-- Wait for Andrew and Roger to fix MSR configuration from the toolstack. 
-They're halfway through. According to them, that's sadly not a task we 
-can really parallelize.
-- When it is ready more people can then participate by implementing 
-missing features one by one (with unit tests) (There will be a suggested 
-order of things that need to be implemented) Can't predict when features 
-will intersect with existing bugs.
+This is a multi-part message in MIME format.
+--------------vjubAoRcbhX0UsEiNAZuek2b
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
-A big thanks to Damien Thenot and Benjamin Reis for all the note taking, 
-and of course to Andrew Cooper for most of the explaining.
+On 2/12/25 10:25 AM, Roger Pau Monné wrote:
+> On Wed, Feb 12, 2025 at 09:51:16AM +0100, Jan Beulich wrote:
+>> On 12.02.2025 09:33, Oleksii Kurochko wrote:
+>>> On 2/11/25 7:39 PM, Roger Pau Monné wrote:
+>>>> On Tue, Feb 11, 2025 at 12:02:04PM +0100, Roger Pau Monne wrote:
+>>>>> Hello,
+>>>>>
+>>>>> The following series aims to prevent local APIC errors from stalling the
+>>>>> shtudown process.  On XenServer testing we have seen reports of AMD
+>>>>> boxes sporadically getting stuck in a spam of:
+>>>>>
+>>>>> APIC error on CPU0: 00(08), Receive accept error
+>>>>>
+>>>>> Messages during shutdown, as a result of device interrupts targeting
+>>>>> CPUs that are offline (and have the local APIC disabled).
+>>>>>
+>>>>> First patch strictly solves the issue of shutdown getting stuck, further
+>>>>> patches aim to quiesce interrupts from all devices (known by Xen) as an
+>>>>> attempt to prevent a spurious "APIC error on CPU0: 00(00)" plus also
+>>>>> make kexec more reliable.
+>>>>>
+>>>>> Thanks, Roger.
+>>>>>
+>>>>> Roger Pau Monne (5):
+>>>>>     x86/shutdown: offline APs with interrupts disabled on all CPUs
+>>>>>     x86/irq: drop fixup_irqs() parameters
+>>>>>     x86/smp: perform disabling on interrupts ahead of AP shutdown
+>>>>>     x86/pci: disable MSI(-X) on all devices at shutdown
+>>>>>     x86/iommu: disable interrupts at shutdown
+>>>> This is now fully reviewed, can I get your opinion (and
+>>>> release-acked-by) on which patches we should take for 4.20?
+>>> If my understanding is correct to unblock shutdown process, it is enough just
+>>> to have only first patch merged, correct? So the first patch should be merged.
+>>>
+>>> As second patch doesn't have functional changes, IMO, it could be merged to
+>>> despite of the fact we have Hard code freeze period.
+>>>
+>>> All other patches, I would like to ask additional opinion (as I am an expert in x86),
+>>> at first glance it looks like an absence of these patches in staging branch will
+>>> lead only to triggering "Receive accept error" which I believe won't block shutdown
+>>> process, so these patches could be postponed until 4.21. On other side, if it is
+>>> low-risk fixes then we could consider to merge them now.
+> I expect the following patches might make kexec'ing from Xen a bit
+> more reliable, as the kexec'ed kernel should find an environment with
+> interrupts from all Xen known devices quiesced.
+>
+>> I'm not Roger, but as a data point: While I'm uncertain about patch 2, all
+>> others in this series will very likely be backported anyway.
+> I plan to backport the series to the XenServer patch queue also when it
+> goes in.
 
+If it is likely to be backported anyway, then let's merge the patch series now:
+   Release-Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
 
-Samuel Verschelde | Vates XCP-ng Lead Maintainer / Release Manager / Technical Product Manager
+~Oleksii
 
-XCP-ng & Xen Orchestra - Vates solutions
+>
+> Thanks, Roger.
+--------------vjubAoRcbhX0UsEiNAZuek2b
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-web: https://vates.tech
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2/12/25 10:25 AM, Roger Pau Monné
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:Z6xo7Us0LiJqiEi1@macbook.local">
+      <pre wrap="" class="moz-quote-pre">On Wed, Feb 12, 2025 at 09:51:16AM +0100, Jan Beulich wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">On 12.02.2025 09:33, Oleksii Kurochko wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">
+On 2/11/25 7:39 PM, Roger Pau Monné wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">On Tue, Feb 11, 2025 at 12:02:04PM +0100, Roger Pau Monne wrote:
+</pre>
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">Hello,
+
+The following series aims to prevent local APIC errors from stalling the
+shtudown process.  On XenServer testing we have seen reports of AMD
+boxes sporadically getting stuck in a spam of:
+
+APIC error on CPU0: 00(08), Receive accept error
+
+Messages during shutdown, as a result of device interrupts targeting
+CPUs that are offline (and have the local APIC disabled).
+
+First patch strictly solves the issue of shutdown getting stuck, further
+patches aim to quiesce interrupts from all devices (known by Xen) as an
+attempt to prevent a spurious "APIC error on CPU0: 00(00)" plus also
+make kexec more reliable.
+
+Thanks, Roger.
+
+Roger Pau Monne (5):
+   x86/shutdown: offline APs with interrupts disabled on all CPUs
+   x86/irq: drop fixup_irqs() parameters
+   x86/smp: perform disabling on interrupts ahead of AP shutdown
+   x86/pci: disable MSI(-X) on all devices at shutdown
+   x86/iommu: disable interrupts at shutdown
+</pre>
+            </blockquote>
+            <pre wrap="" class="moz-quote-pre">This is now fully reviewed, can I get your opinion (and
+release-acked-by) on which patches we should take for 4.20?
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">
+If my understanding is correct to unblock shutdown process, it is enough just
+to have only first patch merged, correct? So the first patch should be merged.
+
+As second patch doesn't have functional changes, IMO, it could be merged to
+despite of the fact we have Hard code freeze period.
+
+All other patches, I would like to ask additional opinion (as I am an expert in x86),
+at first glance it looks like an absence of these patches in staging branch will
+lead only to triggering "Receive accept error" which I believe won't block shutdown
+process, so these patches could be postponed until 4.21. On other side, if it is
+low-risk fixes then we could consider to merge them now.
+</pre>
+        </blockquote>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+I expect the following patches might make kexec'ing from Xen a bit
+more reliable, as the kexec'ed kernel should find an environment with
+interrupts from all Xen known devices quiesced.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">I'm not Roger, but as a data point: While I'm uncertain about patch 2, all
+others in this series will very likely be backported anyway.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+I plan to backport the series to the XenServer patch queue also when it
+goes in.</pre>
+    </blockquote>
+    <pre>If it is likely to be backported anyway, then let's merge the patch series now:
+  Release-Acked-by: Oleksii Kurochko <a data-start="117" data-end="145"
+    data-is-last-node="" rel="noopener">&lt;oleksii.kurochko@gmail.com&gt;</a>
+
+~Oleksii
+</pre>
+    <blockquote type="cite" cite="mid:Z6xo7Us0LiJqiEi1@macbook.local">
+      <pre wrap="" class="moz-quote-pre">
+
+Thanks, Roger.
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------vjubAoRcbhX0UsEiNAZuek2b--
 
