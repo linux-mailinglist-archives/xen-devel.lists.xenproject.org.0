@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB1ADA338C7
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2025 08:26:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.887136.1296681 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2F6FA338EB
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2025 08:35:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.887146.1296690 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiTbj-0001NZ-4Q; Thu, 13 Feb 2025 07:25:59 +0000
+	id 1tiTkG-00030Q-Sx; Thu, 13 Feb 2025 07:34:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 887136.1296681; Thu, 13 Feb 2025 07:25:59 +0000
+Received: by outflank-mailman (output) from mailman id 887146.1296690; Thu, 13 Feb 2025 07:34:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiTbj-0001L5-0v; Thu, 13 Feb 2025 07:25:59 +0000
-Received: by outflank-mailman (input) for mailman id 887136;
- Thu, 13 Feb 2025 07:25:57 +0000
+	id 1tiTkG-0002xo-Pk; Thu, 13 Feb 2025 07:34:48 +0000
+Received: by outflank-mailman (input) for mailman id 887146;
+ Thu, 13 Feb 2025 07:34:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=urB8=VE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tiTbh-0001Ku-C0
- for xen-devel@lists.xenproject.org; Thu, 13 Feb 2025 07:25:57 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ id 1tiTkF-0002xi-6F
+ for xen-devel@lists.xenproject.org; Thu, 13 Feb 2025 07:34:47 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id be24ac25-e9db-11ef-b3ef-695165c68f79;
- Thu, 13 Feb 2025 08:25:47 +0100 (CET)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-ab7cb1154abso77593866b.0
- for <xen-devel@lists.xenproject.org>; Wed, 12 Feb 2025 23:25:47 -0800 (PST)
+ id fef75835-e9dc-11ef-b3ef-695165c68f79;
+ Thu, 13 Feb 2025 08:34:45 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-ab7c14b880dso128258866b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Feb 2025 23:34:45 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aba53258215sm72944166b.53.2025.02.12.23.25.45
+ a640c23a62f3a-aba533bdc41sm72592466b.162.2025.02.12.23.34.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Feb 2025 23:25:46 -0800 (PST)
+ Wed, 12 Feb 2025 23:34:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: be24ac25-e9db-11ef-b3ef-695165c68f79
+X-Inumbo-ID: fef75835-e9dc-11ef-b3ef-695165c68f79
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739431546; x=1740036346; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739432085; x=1740036885; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=s0oOULasIBlVVJd3pdARmSql3HfuUjAhusOiWfyafKs=;
-        b=Ldbs+5cXbaN8sc3pEw6WUW/lGrgmu+hGzxYIi9fePloBZJAz5ek+3BwgeEvW2O1ni2
-         /4hWL+upnkR7IHWNaSq/JRbdskRrPqMjv2JzVHzS1p963vU38tQcioSmNDoy1jws9kqf
-         R8cSymY881UMTGUhEI75dv+/mVabCptmWmRkKduhyrm2RSlQj1GbaxS5qVttQCxkmN6F
-         iklR4RsnnQdUFbDVs7XgmdYw1qHYX7GAwlHiqCid5BOhsyge/Gsz/wiMgoxIq+BGwssq
-         vJ5ODtDgdL4h0LyQ+tUPObExGqkd9Q3CNCaYJ/AIHip0WNj/LsCOLpi/Wg/Fk7VWT4Rm
-         x96A==
+        bh=nMltGQY2Z8jsduwdhmwiqc7dfrH+IZJ+zwiu/ZrWgUs=;
+        b=GWu/OmvJvwnFArOGF5QH+b8dkxJ8cOA4kLe6TzYjnaqmugtGFhHbFieR/LCrY0+tYw
+         e7xX4etDAaU88M3fpqlPTGS8Dh5aDgWN65CT/Cz6p+qlEVHXzXL/h9bqG9dcQ/Zatc8/
+         L6969e5QArJxSq4SpiJyjAutgV6A/xqiyZZiKXRi+o2JSI5XPHKdLLFyOyj70WPweGZ4
+         DJu1KM4rKlu3Nf8CBxfxtk37KDUdFA1g0r/cl5yOtSZLg71uHSc2WjAlT1op44WQ4Op7
+         IcRvHgrXXKpkrmtFq1FdaCP+N5xdW1RkbJQysgRauAoEGquzrbLZCsXeFQz4z1Vi5fNx
+         MLEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739431546; x=1740036346;
+        d=1e100.net; s=20230601; t=1739432085; x=1740036885;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=s0oOULasIBlVVJd3pdARmSql3HfuUjAhusOiWfyafKs=;
-        b=niazcaU9reNrfAvvBXaLo5ZHw3rQdMKQKuJRvx2yzX+RQaDNPnHNQkOKypABdta6w4
-         gR/YTdCGEdl+VoLrXV2yPchYJNW1RmWTKLXjEncf49oC/w4dZzz/OMhKRUXJRAbilzWW
-         n4OeC5914VMudIy3nE25YDgYshIAkJ1ybWD4Q+DuDh/3sfV8+HAYnexQEDmeVwh+ZH3i
-         llTzHaKJu5MNUtK9wSuaVHkYQ7vKWOoZdGhGRlz/1DzCL0s2pKE1Sswwl9V81FlzhAwD
-         k5Vj9QJGfStszYdanswp6pgS/ELVP4lHfjF7nmwn0uOeKQXjGyn8t8yY7cc1UQZZ1uQn
-         aE1Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUJZUDXhohztRCHTrWnfE1K0Y6U6fLrfMVqMaIRsG9vWGoYeMMIwSfJQE1WgWO9ptbCialTKqeTWSo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx8vvTL7SraHlb3+mKx/0DxMTm93C/M2rPqPyedNut3n8UjDHGl
-	H1lqkkA6eEKxOkWNhYfs3HzDYDOik7oCNULjP99tE5bjtvz9uEk3EUECh7nyvA==
-X-Gm-Gg: ASbGncvxtQT8ouzutNnmJSHdApd+e+mbHg6IgdjxGQCanTzkbpH9sB/p6/ufoCLAPId
-	WWcw9IrbKW5BoYfeBkY7kePovbq/uOjgPo//nhfnY8S02v9NjLRs6qX4xBxpaOadnwQHk3LjZKe
-	/asH19Owt5QV2eIjun4/Z0j+sVBhl0blXD8sEu4VgsMHmrDfZdKDOD50qvgrqpIBOgtIa65AcxF
-	WXnGeyNBr65g5WaSv+aCda/SugSUAHy6vBXyryW9O6xotxOoAhklEV5NKiMGkz6XcIcJcPSrFjm
-	b6TKthmdbsozEFQfxgCG9sV7zLFpuJRn0SJEpMv0/9E47zylTGx680+zqmD3YXFbo+pJeATC6cf
-	m
-X-Google-Smtp-Source: AGHT+IGt2Xo0NrSYd9Al4gUUYatrjA2wTq/SRwsznG5VTo6iof10oJhDEPkCrNKqhNAMRpGuFYBa9A==
-X-Received: by 2002:a05:6402:40c9:b0:5de:a6a8:5ec6 with SMTP id 4fb4d7f45d1cf-5dec9d393f8mr4982607a12.10.1739431546469;
-        Wed, 12 Feb 2025 23:25:46 -0800 (PST)
-Message-ID: <ed268817-8120-4d83-9a6b-0c9bfa9fe728@suse.com>
-Date: Thu, 13 Feb 2025 08:25:44 +0100
+        bh=nMltGQY2Z8jsduwdhmwiqc7dfrH+IZJ+zwiu/ZrWgUs=;
+        b=hQTT+co6loMM4BINstOsgEz2l8Am6FtP7x35iMP0vv2q62uIO1sCTDRcGgWUwZsAl0
+         tOZHlmbPWtb7ojpB6Wfoj0ExJKg22aM8TpV9MBepLDZj+FMo38USoXXq32OmAWBeRSxW
+         iHkhqe+4QGvzKSxkBZ9l7w1XvkJUB+WCY91zViSl2F7KsnOy3AoVmN0UVXvg8NGm2pul
+         kuMhYCLOSwDYdFazmciUanZisN6WlAadQYI4nY8Rj6QSnao03PzdeoykrhWe3WXciQD+
+         9w2z+sCeTijwkWxLDFu2qzEHcaHt+IG//IPLt5QTYqJlhIUjAKNUd/ObJa7/6CbC/+zC
+         dizA==
+X-Forwarded-Encrypted: i=1; AJvYcCWxYhQ+iMHtSPxZBR/d7sTUu2usXqVtxoo2FQoH1ItFomBSZw4ePGN9zE9e5ydji47ve4ge15mXGMM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyufT3Zre0vYAybredU+uiT1GC1U8uGUl8rAPUqylfGDXqyyq5N
+	mhwYP5kyYwxbUl3YRdoIOEOcEwym5UZdc5wBXzUz9G7zK+2EUvnMbkd0qSgFew==
+X-Gm-Gg: ASbGnctjbbkWWfhNb0gvGnZQ4apvYBAavd2/EOFuaijMuFJulkQdhPT1beA21NUBfsC
+	Y1zra6ECJEBxzwTAYtV5R+2/EUi0BKUE322MxVOyU1Jt51YqoKvlW+RuIVrnClhoj3eq6k3vXUT
+	6PelaLcqxQCKkvMzVeepuFTSnhJ5QWdNkumoxsaMlGNdyVnL/GvNLOBcSi2ih6Ajo1Eg1yQxjPL
+	pkMIhqf+7q17oPcsseaD+iWx1Q9SIhC+k7bDRNl9c4fbukrYTNZhaEb6UryaasBWG1PKIVgYD81
+	fHVOCy+VWOwBHw5O9Yk3oAe/efeLNK/dSxeaMXhyju8V5IqbDDYnvVCWZF8xqHzJ8ypDsiVRYPc
+	G
+X-Google-Smtp-Source: AGHT+IEStBwUZhen1h0GPiHDLjKsArrXu855raIGPEG92YaMkC6u9wzuHPsDUHtiFyOe12sjCgro5Q==
+X-Received: by 2002:a17:906:6a0e:b0:ab7:aaf2:f7f9 with SMTP id a640c23a62f3a-ab7f38768b2mr644182166b.42.1739432084721;
+        Wed, 12 Feb 2025 23:34:44 -0800 (PST)
+Message-ID: <5f99204e-fcf2-408a-8182-f73f6ecdf56f@suse.com>
+Date: Thu, 13 Feb 2025 08:34:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/console: add keyhandler to print Xen version
-To: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
- michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
- dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20250212235754.3686278-1-dmukhin@ford.com>
+Subject: Re: struct mctelem_cookie missing definition
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2502121721490.619090@ubuntu-linux-20-04-desktop>
+ <1823d604-aa29-4828-a954-b8a08fbdbda7@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,65 +118,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250212235754.3686278-1-dmukhin@ford.com>
+In-Reply-To: <1823d604-aa29-4828-a954-b8a08fbdbda7@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 13.02.2025 00:58, dmkhn@proton.me wrote:
-> Add Xen version printout via keyhandler mechanism.
+On 13.02.2025 02:34, Andrew Cooper wrote:
+> On 13/02/2025 1:25 am, Stefano Stabellini wrote:
+>> Hi all,
+>>
+>> I am looking through the few remaining MISRA violations that we have
+>> left.  One of them is R11.2:
+>>
+>> https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/hardware/xen/ECLAIR_normal/staging/X86_64/9118578464/PROJECT.ecd;/by_service/MC3A2.R11.2.html#{%22select%22:true,%22selection%22:{%22hiddenAreaKinds%22:[],%22hiddenSubareaKinds%22:[],%22show%22:false,%22selector%22:{%22enabled%22:true,%22negated%22:true,%22kind%22:0,%22domain%22:%22kind%22,%22inputs%22:[{%22enabled%22:true,%22text%22:%22violation%22}]}}}
+>>
+>> Specifically, mctelem_cookie_t is a pointer to incomplete type and
+>> therefore COOKIE2MCTE triggers a "conversion between a pointer to an
+>> incomplete type and any other type".
+>>
+>> mctelem_cookie_t is defined as:
+>>
+>> typedef struct mctelem_cookie *mctelem_cookie_t;
+>>
+>> I am looking through the code and I genuinely cannot find the definition
+>> of struct mctelem_cookie.
+>>
+>> If mctelem_cookie_t is only used as a pointer, wouldn't it make more
+>> sense to do:
+>>
+>> typedef struct mctelem_ent *mctelem_cookie_t;
+>>
+>> ?
+>>
+>> What am I missing?
 > 
-> That is useful for debugging systems that have been left intact for a long
-> time.
+> Nothing.  Or perhaps the twisted thinking of the original author.
 > 
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> It is genuinely a pointer type (== known size) which you can't deference
+> (because there is no definition), and can only operate on by casting to
+> an integer.  Except the code also requires it to be a uint64_t which is
+> why there's some fun disabling of relevant hypercalls for compat guests.
 
-First, +1 to what Andrew said.
-
-> --- a/xen/drivers/char/console.c
-> +++ b/xen/drivers/char/console.c
-> @@ -974,6 +974,28 @@ void guest_printk(const struct domain *d, const char *fmt, ...)
->      va_end(args);
->  }
->  
-> +static void xen_print_version(void)
-> +{
-> +    const char *str = NULL;
-> +    unsigned int str_len;
-> +
-> +    printk("Xen version %d.%d%s (%s@%s) (%s) %s %s\n",
-> +           xen_major_version(), xen_minor_version(), xen_extra_version(),
-> +           xen_compile_by(), xen_compile_domain(), xen_compiler(),
-> +           xen_build_info(), xen_compile_date());
-> +
-> +    printk("Latest ChangeSet: %s\n", xen_changeset());
-> +
-> +    if ( !xen_build_id((const void **)&str, &str_len) )
-
-Why the cast? What wrong with "str" being const void *? The only thing
-is that it's then not really a good name for the variable, but that it
-isn't anyway. It's not really a string you get back.
-
-> @@ -1024,15 +1046,12 @@ void __init console_init_preirq(void)
->      nrspin_lock(&console_lock);
->      __putstr(xen_banner());
->      nrspin_unlock(&console_lock);
-> -    printk("Xen version %d.%d%s (%s@%s) (%s) %s %s\n",
-> -           xen_major_version(), xen_minor_version(), xen_extra_version(),
-> -           xen_compile_by(), xen_compile_domain(), xen_compiler(),
-> -           xen_build_info(), xen_compile_date());
-> -    printk("Latest ChangeSet: %s\n", xen_changeset());
->  
->      /* Locate and print the buildid, if applicable. */
->      xen_build_init();
->  
-> +    xen_print_version();
-
-It may seem minor, but I'm not happy about the reordering. What's logged
-would better really be directly after the banner. Any present or future
-output from xen_build_init() should come afterwards. Simply add
-xen_print_buildid() along with xen_print_version()? And then have it in
-version.c, where you can use build_id_{p,len} directly, eliminating the
-point above regarding casts and naming.
+That "fun disabling" is for the COMPAT=n case afaics, not for compat guests.
+Or else I screwed up in d23d792478db.
 
 Jan
 
