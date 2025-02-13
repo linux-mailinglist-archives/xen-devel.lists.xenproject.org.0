@@ -2,40 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C99E9A33F66
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2025 13:45:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.887437.1296916 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03C08A33FC0
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2025 14:02:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.887447.1296927 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiYaN-0006Wi-HB; Thu, 13 Feb 2025 12:44:55 +0000
+	id 1tiYqb-0000xx-T2; Thu, 13 Feb 2025 13:01:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 887437.1296916; Thu, 13 Feb 2025 12:44:55 +0000
+Received: by outflank-mailman (output) from mailman id 887447.1296927; Thu, 13 Feb 2025 13:01:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiYaN-0006V5-EK; Thu, 13 Feb 2025 12:44:55 +0000
-Received: by outflank-mailman (input) for mailman id 887437;
- Thu, 13 Feb 2025 12:44:54 +0000
+	id 1tiYqb-0000w8-Pd; Thu, 13 Feb 2025 13:01:41 +0000
+Received: by outflank-mailman (input) for mailman id 887447;
+ Thu, 13 Feb 2025 13:01:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mCGg=VE=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1tiYaM-0006Uz-1S
- for xen-devel@lists.xenproject.org; Thu, 13 Feb 2025 12:44:54 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on20629.outbound.protection.outlook.com
- [2a01:111:f403:2614::629])
+ <SRS0=pLs0=VE=huawei.com=ruanjinjie@srs-se1.protection.inumbo.net>)
+ id 1tiYqa-0000vx-RT
+ for xen-devel@lists.xenproject.org; Thu, 13 Feb 2025 13:01:40 +0000
+Received: from szxga07-in.huawei.com (szxga07-in.huawei.com [45.249.212.35])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 51c3289f-ea08-11ef-a075-877d107080fb;
- Thu, 13 Feb 2025 13:44:52 +0100 (CET)
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
- by GVXPR03MB10312.eurprd03.prod.outlook.com (2603:10a6:150:155::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8445.12; Thu, 13 Feb
- 2025 12:44:50 +0000
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593%7]) with mapi id 15.20.8445.011; Thu, 13 Feb 2025
- 12:44:49 +0000
+ id a7de2ccd-ea0a-11ef-a075-877d107080fb;
+ Thu, 13 Feb 2025 14:01:38 +0100 (CET)
+Received: from mail.maildlp.com (unknown [172.19.88.163])
+ by szxga07-in.huawei.com (SkyGuard) with ESMTP id 4YtwFk0ckFz1V6dk;
+ Thu, 13 Feb 2025 20:57:46 +0800 (CST)
+Received: from kwepemg200008.china.huawei.com (unknown [7.202.181.35])
+ by mail.maildlp.com (Postfix) with ESMTPS id E5DB3180042;
+ Thu, 13 Feb 2025 21:01:33 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemg200008.china.huawei.com
+ (7.202.181.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Thu, 13 Feb
+ 2025 21:01:32 +0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,192 +46,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 51c3289f-ea08-11ef-a075-877d107080fb
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TfkwLe36EGHRf8GzP9tpAJLsN6TBzEK2XXtugYoeLSPn+/PtGclija1CgagHBjD34NoIS8erZmEXAnIArDXCcaxnjfE74rUoM3dDUwEKl7rJ7kMWycOrSm1V+IqOilYhUgrdX/4IPFICO49XUEv05aj0hCN92QEZmZjNQyFEALwvdM9aT1kQh6XrvG/r6+1PIt89N64eIOD3uYXci+uKdGpl5YwLhiuLpZ+4W1PoHWirkl59zZt+W+Bu6pQG5jfl5Dmo2fIsZuZ8gM9Drs8QeXB2GbqIOUU67qqlJ1NxNdZThLG5nTWBsSHtXIvVNdVCcKp3w6mXjCFgZ4VD3FYuJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PiG66uH0/z/6vqrr9eh80FHBTCFe9vyffTGTu5hp834=;
- b=ry7XuQC9qJ2YL/9vyv6g8jqAxSYpEHB6xSP7NU/dN8UDExGqvQ6RSSaqONlYRkAaTDQo8KJp0pHp+TD/IbIxoCe0tzwvXqljPy2j7YVyA2YiVCY5XVTyZnX1e0tK7dmptof+LeDT9efNdfVnCNSyKPuqwk613uSW0TNyJqYPt/a84DF+nER/SOIJtiN3Al3DBRAhrs87sXKzzYWkrmmhy5jTnO0PLK+sbfWX7iyE4U/gPLvoIuyCRR8443sBC2iJHtZaIf0nEaAvNOUE25nO3+GyEhTSeex2NBNkLFBGktNJrCvn3wNt6xHp67VnP/CsNrxHmTe4MBs0FJYgjHZKfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PiG66uH0/z/6vqrr9eh80FHBTCFe9vyffTGTu5hp834=;
- b=GVd8yX5H4MOTR48rmmi0nKb/DGlKpIao3lGNC1XVB+ozPKkIiazEAnnc3YLUjh6mXFdDK0j4nkDij9bhhS0830Z3iSvr6tB1IWZfYoXB3Ew/zO0J4uyhQ1w3PofrmBFcFkkr/zCLmuf6UNLv5ZXexSLrkMVtX+U7T3mdIXzfsBWqMHrmsibehrZGxyoV2O+U/rvi/2ai4ZsIDSsDvU3Gxh2YvR0h7LK/5kTdzg0Vceb3a4calWuOeCNISy1lV/fKt2YWgGcsVUBFNmJK845fhM9rJjSBOzzn3Iw/qqNKuydyGIkgY4fonrdBQ9ILEWrNZE2NoCDpeM+CPOZyW5c9KA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-Message-ID: <6120fd47-7fd1-4e42-8aa3-3ee858fdc70d@epam.com>
-Date: Thu, 13 Feb 2025 14:44:46 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] arm: dom0: allow static memory configuration
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Grygorii Strashko <gragst.linux@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Jason.Andryuk@amd.com
-References: <20250212164724.2575624-1-grygorii_strashko@epam.com>
- <alpine.DEB.2.22.394.2502121407330.619090@ubuntu-linux-20-04-desktop>
-Content-Language: en-US
-From: Grygorii Strashko <grygorii_strashko@epam.com>
-In-Reply-To: <alpine.DEB.2.22.394.2502121407330.619090@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0068.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:49::13) To AS2PR03MB8907.eurprd03.prod.outlook.com
- (2603:10a6:20b:5e4::22)
+X-Inumbo-ID: a7de2ccd-ea0a-11ef-a075-877d107080fb
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <catalin.marinas@arm.com>, <will@kernel.org>, <oleg@redhat.com>,
+	<sstabellini@kernel.org>, <tglx@linutronix.de>, <peterz@infradead.org>,
+	<luto@kernel.org>, <mingo@redhat.com>, <juri.lelli@redhat.com>,
+	<vincent.guittot@linaro.org>, <dietmar.eggemann@arm.com>,
+	<rostedt@goodmis.org>, <bsegall@google.com>, <mgorman@suse.de>,
+	<vschneid@redhat.com>, <kees@kernel.org>, <aliceryhl@google.com>,
+	<ojeda@kernel.org>, <samitolvanen@google.com>, <masahiroy@kernel.org>,
+	<rppt@kernel.org>, <xur@google.com>, <paulmck@kernel.org>, <arnd@arndb.de>,
+	<mark.rutland@arm.com>, <puranjay@kernel.org>, <broonie@kernel.org>,
+	<mbenes@suse.cz>, <sudeep.holla@arm.com>, <guohanjun@huawei.com>,
+	<prarit@redhat.com>, <liuwei09@cestc.cn>, <Jonathan.Cameron@huawei.com>,
+	<dwmw@amazon.co.uk>, <kristina.martsenko@arm.com>, <liaochang1@huawei.com>,
+	<ptosi@google.com>, <thiago.bauermann@linaro.org>, <kevin.brodsky@arm.com>,
+	<Dave.Martin@arm.com>, <joey.gouly@arm.com>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <xen-devel@lists.xenproject.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [PATCH -next v6 0/8] arm64: entry: Convert to generic irq entry
+Date: Thu, 13 Feb 2025 20:59:59 +0800
+Message-ID: <20250213130007.1418890-1-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|GVXPR03MB10312:EE_
-X-MS-Office365-Filtering-Correlation-Id: a6d3240c-c695-4fcc-3498-08dd4c2c3404
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?UWYwa1EzeGY3V0pUM1JmSFVibG5UUlJ2bGFUQ1JmdSt2Wnlwa09iZVZ3bHBS?=
- =?utf-8?B?bmtINHpkV2RCbTBqVVh5Zi8zUnhpQW8zdWxEdDhxa1FqVG1KSzdtdkRUeGMv?=
- =?utf-8?B?cnV5Z3RFWFRNSGVZazB0eUU3UEowam1XTDJlMEpQaTNpUWlnSDZtYVMwRWJ4?=
- =?utf-8?B?YU9Va25HWVh5eUE4bXhYakFkS0EwcjlLMVVYeSt5a0JTeG5FUU5CeWU4bCtN?=
- =?utf-8?B?RzF4SzloRlFMMURFZ2ttbDhScWZlS0dkMVYxUjAwMUxQZlQ4ekdlVlBiaWMz?=
- =?utf-8?B?OFdpaFpBREdFRThBSlkwR1IxTmhEWFV4S0R1TXNkVUY0amZrb2l0bDAxUlRl?=
- =?utf-8?B?WW1KUG5XMnRiRko2ZnphenlxUndSdEpHTG5LOU5LTTF3eVRzdHgxUmxUL1FL?=
- =?utf-8?B?NFg3akk4UE4rQzJ3Z3FqZjZuK1FFY3Z1THFXQnB6Y3JVeXV4dW51dE4rdlUx?=
- =?utf-8?B?cEdCZm9YNjBmV0xiaklGYmtTalVMZXdpRUJRb29SalZpcmdqck5jd3FYQmZP?=
- =?utf-8?B?NVdjQ0t3c3NvbDlyWTVkTGZQMzMxTmZ2eWxNR1FvSmZRWHU0ZmxVQUNBeCs1?=
- =?utf-8?B?ZURlaHZqYVd5QTFDY1NvNm1iZWNkY2F3b2loL3MvWWZkQXlKS3JSNGw0Qktq?=
- =?utf-8?B?VjBxb1F0NmMxVUZrU3B3YjZMc1dURmZkaFE0dVVKMjRJaWwrTXo4Tm5tRHVG?=
- =?utf-8?B?VjdoSlFVMEFPdXNsT2c5ZTl6aE5HdTZrZ3JZdGZsZmk2bVJVTFhXeXhjLzAr?=
- =?utf-8?B?R0U1T0dDN1J1N2pUTy9uVVltZGt2c3l2c0Zzd2RWWktUVUpUd1pjT0pBZ2lp?=
- =?utf-8?B?ZDhlTnNUQSs1QitwSS9vR1dlMWtzaHdkUlF0WU5qOTc2U29YR3Y1YkE2TUxi?=
- =?utf-8?B?bzVKWmVKWkJyVFM4TFNncnBDWDlnMkc0UDFkY3N0d3l2a1hZWWFJTzZ1dUNS?=
- =?utf-8?B?Qk1GQnF5bFgxdlNzTnROQWh4bXFEa0paZk1KZG9oaDY4NXk0VzRVYUNuZTZE?=
- =?utf-8?B?ZW01QW1wLzBkZUxHRlU5NUtOUFVrb0cwaTZGS0FZV25yQVZxODRTK1Vndkxv?=
- =?utf-8?B?Z2N0bmJyUXZVYUV2K1JERjhMT1VxR0duTXJzbXFPciswajhNUEQ2aU96M0Mx?=
- =?utf-8?B?cDdJYWxKN25zQnBCR3ZidnNkcFdwZEM5VUhvTTlUS0FJTE9sUDVaVFNBUTRs?=
- =?utf-8?B?RmJrcUpWUDlkWHNkTkpEY055WFBDU3RmS21xMUhPNjVwcDJucG0xaGxpZW9a?=
- =?utf-8?B?a3Z5eWg5dVBEb01DNHZNK1JnU1FpSUVJdVNsakxNS2dxWkh0eTA4dkNLQVln?=
- =?utf-8?B?RkwyT3lTMDA4ekFMUnpOclNMdWljaGsxK3ZkaVdlanlOVzlnak9DVDMra1FP?=
- =?utf-8?B?Y0lHRHorMVJqWXlBcEw3K0x6MnR2UDNrdUZLUlVrc2JDQ2dhK08wVGd6dVJF?=
- =?utf-8?B?alZkMmdyOTZENVdPT1l6eTk5WVJOd2dUU3hRdENvQzkwZThhTGh0M0l4eTRm?=
- =?utf-8?B?a1pnMVM4TW9aWnZnSkJVR3d3Z05IclFkYzVmMzdTck9aZkh1aXgyL29SVDMv?=
- =?utf-8?B?SWlrZjVmNzl4bXp1SE5abUpNNFAzRktJSXE4RlV1UVpOUnZmT0ZoOU9wNlBE?=
- =?utf-8?B?eDJOb0YvT1BKVTJySGlKTW1PdUU5VTRKcHVEdHE5NG5ONEZ6TWNLRGJQQXhn?=
- =?utf-8?B?RG83QVNLNGNmakhjR0d6KzE3WXplT3BJZ2xwR0ZEcWhLUmpOV0M0SXNhZFVV?=
- =?utf-8?B?NUhqTUVFY0l3WUd2YzlWZzF2WWtxblZpOG9HTHJhMW1IT1dhT0tpY1FidGxp?=
- =?utf-8?B?My93SWZaeEFZbktrUEFPaEdWUzRJSUphK2NFbWg2dkVIdlNzSGIvbjdObHJV?=
- =?utf-8?Q?Zxcryf5LWHay4?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cGpTSloydERvd3AzUHJ1RU53WWdWc05HN2dwK3k2ZmwySXVhRzhCaERVYVJq?=
- =?utf-8?B?MkxoVTBXQTBNQy92cXRxVGdtMW9zQ253QmZld09JOFJ2Wmd0RGo4d014ck1F?=
- =?utf-8?B?eGFKUytPWUV5VFB2VjM4d3dzY1d0L2N2V0I1VzFaczk2WmxqSWU0TjNCWVRq?=
- =?utf-8?B?WWs4eUQ4ckdOR2JISy9rbHB0TzNOYkhyMjFmSG5FcE9QZTY2a0oxZHZnQ3U1?=
- =?utf-8?B?YzQ1eHdmUGR4NjNBVWRkMk1ncnpXTjlDTmdBdjdCQ1FLR2NuSXRRYXVBYkFN?=
- =?utf-8?B?WmYzQVl4c00zbTRzVGFDczhZR3pISUt4R1BEV01uT0hjcUVCMG1ZQkNrTEc3?=
- =?utf-8?B?eGo1MmM3V0hpVTZFYW84a0E1dk1ld2l4RG4yQkVIWTlJN0FIRU1nVEZXTDdh?=
- =?utf-8?B?NWxFM1cyY1dHcUwxR1BxS09xb09aY1A3MThjTXdVSTNQRnlmRWpZY25udmFU?=
- =?utf-8?B?eEp2cmpXTlBZckJXYkpSMzhJcXQ5ZkZUanppUEluSlh4VGhCc0V5MEptWVlu?=
- =?utf-8?B?ZUxnTDZaY2o4VmUrVXFxTlowZE5URXRQamI0NDF4UGowUWZIUzlhQmNaT1lq?=
- =?utf-8?B?WkQxemVId3diY3FGOVQxZ2kxU2lWNkZ2NzhSOHNGSXlLTkx2RWtNbnY1YW91?=
- =?utf-8?B?VzB5cTA4QUtCT1ZYSk55L1FHM3RyMVA5eUZSMzdlcWVXdVVFYVovT3ViTFVj?=
- =?utf-8?B?eW9jU3lDWC9EejNQUzJDUDlQWGFNbElKUHpzdFlVdGFJZG9ERlZDcnVBZDZs?=
- =?utf-8?B?cW1QNGJhZ3ViWDdlTWxvWjM2aFpOOXErOHYzM29sSE1PV3ZseFVjTS8wRTI5?=
- =?utf-8?B?UTVGMkFNaVpRUWF2b29jUWg5WWtnc2RWNjA2V1VGYzNyNENVUzVHaHFmb092?=
- =?utf-8?B?QkQrSmpEcVRMUUgxNVJGQWlNVXYzUWJiOUZuMUd5UFRtZ0RCNHdORW5LNDlz?=
- =?utf-8?B?dkw1L285SDZFMVZDZ3BPZE0zNzdDRXdZbGlRY3dXbUg5STE5Y09FTVBKeXZY?=
- =?utf-8?B?Q0ptMHZXajlGeGExd1NpY0dEbzhMcGFsRFpIc0VhZ3lRSnVYeTFiZWN3Z2hO?=
- =?utf-8?B?Y2NtTFNGaXhIUzZFaEU4dktycm9VVS9xVVN6UE9CdjlsMFdKTW1oTTRoby95?=
- =?utf-8?B?N0MrZWRlZmJhWGFqeXJmdnZGUXVjU0EvZ2lYWit0TGJtRTJwaFBsVzZPYTRI?=
- =?utf-8?B?eTlCWTZTU0JSc2t4d0pYSVFjbjg4WFpqQVVOMXlJZlJNMXJaSnJ2ME1XVHRE?=
- =?utf-8?B?S3o2cjVUUFF5TjZ6dW1CRHQzM3FwalM2OGM5NzZNMmVmZ1Qva2tER1pxTXZC?=
- =?utf-8?B?dkVLNklYVXNIZE1rekdSUm4vVFhwR3dLb0RlNFZubmZzU3Z6MFZYcm1zQTNl?=
- =?utf-8?B?TjVjNFozRHRuRjduYi84dU9LUDBmUlJmVHM2V0dFbW1HS2RaY2xmN1J3T0Zv?=
- =?utf-8?B?NG42M1BtU21ISG5RTndVUFhCVmo4VGVyMzhZU2N5aFhYYlZGNlBWVXZ2TENT?=
- =?utf-8?B?WDZoNXdmdU0rSnVOYms0WjBkWFhrTmZxMVVaR1JjZmdaWFhVM3BaSVJRM2Z4?=
- =?utf-8?B?cGdGQkRIWXp4akh3SjdiUE1YWDNjNGwzTzh6NXF1dGw2b2svNkJQVmt4R2VN?=
- =?utf-8?B?NkpTOURyOHEvZ2VYejk1QlppTXBISFZ0Z3BMWDc3Z1owUVR6NGhpc0tEK2Fq?=
- =?utf-8?B?aWJnZFYwQmNtVE9vbGl2d3RNdmM4eS91c2RpZ2h1T0Z3WlZEQ2hWb2QyckQ5?=
- =?utf-8?B?TmNWZnBaY2l0dmM0WEwzTmt4SzIxb3h3WkNsOHBVRU5jLzJ6ck8zL0tJaSs0?=
- =?utf-8?B?bjMwaVBjek5ENVFIZldqYVIyalNVS2d5Q1Y4NS8yL0Q4ZlJGaDhIWW1zZEQy?=
- =?utf-8?B?TjQxaDhWK2pDNHh1U0c1b0toZUNkWkxMYmVhdGFXVjdXaEJ0cGtEMnkrUGdE?=
- =?utf-8?B?akJ3OGRuNitTN2s2RjZxUmc3bit1bDZ2RXhnMlhGc084cVVJS0dxQUJVNFVL?=
- =?utf-8?B?eFp2dnYrc2V1akpJb05vd2QxUnBlVlNKZy9zY1g5RDcydEROVmJ6M0tVRUN4?=
- =?utf-8?B?TmVTdEJPU2pQdDZhTjU5SWtuaE50R1JoZ0VOZHNlZ1d4dWlFNnRyWjd2Z1kx?=
- =?utf-8?B?RlcvYjNubmdMaE9HS1dHOE0vVHZEMFlJT29oSDcySWt3KzNqblZOR092b09v?=
- =?utf-8?B?aXc9PQ==?=
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6d3240c-c695-4fcc-3498-08dd4c2c3404
-X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Feb 2025 12:44:49.3050
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DjT49LRfoX0m1A6Dl4DnNnEb+A+Cv0Ku5q0r9UwcangEdLGVpnW+/rcz989MDqZpHKYU+Hpxj0LfE73KpYuoFHZZL+TLcbYs3gUBYt+MzE0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR03MB10312
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.90.53.73]
+X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
+ kwepemg200008.china.huawei.com (7.202.181.35)
 
-Hi Stefano,
+Currently, x86, Riscv, Loongarch use the generic entry. Convert arm64
+to use the generic entry infrastructure from kernel/entry/*. The generic
+entry makes maintainers' work easier and codes more elegant, which will
+make PREEMPT_DYNAMIC and PREEMPT_LAZY available and remove a lot of
+duplicate code.
 
-On 13.02.25 00:11, Stefano Stabellini wrote:
-> On Wed, 12 Feb 2025, Grygorii Strashko wrote:
->> The Arm Xen allocates memory to place Dom0 following the logic described in
->> allocate_memory_11() function which is a bit complicated with major
->> requirement to place Dom0 within the first 128MB of RAM and below 4G. But
->> this doesn't guarantee it will be placed at the same physical base address
->> even between two boots with different configuration (changing the Kernel
->> image size or Initrd size may cause Dom0 base address to change).
->>
->> In case of "thin Dom0" use case, when Dom0 implemented with RTOS like
->> Zephyr, which doesn't use dynamic device-tree parsing, such behavior
->> causes a lot of inconvenience as it is required to perform modification and
->> recompiling of Zephyr image to adjust memory layout.
->>
->> It also prevents from using Initrd with Zephyr, for example, as it's
->> expected to be placed at known, fixed address in memory.
->>
->> This RFC patch introduces the possibility to place Dom0 at fixed physical
->> base address, by checking if "chosen" node contains property
->> "xen,static-mem" and places Dom0 exactly at the specified memory chunk.
->>
->> The implementation follows the same approach as for the static, direct-mapped
->> guest domain in case of dom0less boot.
->>
->> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
-> 
-> I fully support this idea and the addition of static memory support to
-> Dom0. However, I would suggest a different approach regarding the device
-> tree binding. Specifically, I would prefer to avoid introducing
-> additional top-level properties for Dom0 under /chosen.
+This patch series split the generic entry into generic irq entry and
+generic syscall entry first, and then convert arm64 to use the generic
+irq entry. arm64 will be completely converted to generic entry in another
+patch series.
 
-That's was major point declaring it RFC.
+The main convert steps are as follows:
+- Split generic entry into generic irq entry and generic syscall to
+  make the single patch more concentrated in switching to one thing.
+- Make arm64 easier to use irqentry_enter/exit().
+- Make arm64 closer to the PREEMPT_DYNAMIC code of generic entry.
+- Switch to generic irq entry.
 
-> 
-> Instead, we should create a domain node for Dom0 under /chosen, like we
-> do for other DomUs. Jason is currently working on adding a capability
-> properties to the Dom0less domain nodes, allowing us to specify whether
-> a domain is the hardware domain, the control domain, or both
-> (effectively making it Dom0). Once this is in place, we can use
-> static-mem for Dom0 in the same way as always.
+Changes in v6:
+- Rebased on 6.14 rc2 next.
+- Put the syscall bits aside and split it out.
+- Have the split patch before the arm64 changes.
+- Merge some tightly coupled patches.
+- Adjust the order of some patches to make them more reasonable.
+- Define regs_irqs_disabled() by inline function.
+- Define interrupts_enabled() in terms of regs_irqs_disabled().
+- Delete the fast_interrupts_enabled() macro.
+- irqentry_state_t -> arm64_irqentry_state_t.
+- Remove arch_exit_to_user_mode_prepare() and pull local_daif_mask() later
+  in the arm64 exit sequence
+- Update the commit message.
 
-Good to here that, I assume it can wait (a bit) then.
+Changes in v5:
+- Not change arm32 and keep inerrupts_enabled() macro for gicv3 driver.
+- Move irqentry_state definition into arch/arm64/kernel/entry-common.c.
+- Avoid removing the __enter_from_*() and __exit_to_*() wrappers.
+- Update "irqentry_state_t ret/irq_state" to "state"
+  to keep it consistently.
+- Use generic irq entry header for PREEMPT_DYNAMIC after split
+  the generic entry.
+- Also refactor the ARM64 syscall code.
+- Introduce arch_ptrace_report_syscall_entry/exit(), instead of
+  arch_pre/post_report_syscall_entry/exit() to simplify code.
+- Make the syscall patches clear separation.
+- Update the commit message.
 
-But please note that our requirement here to allow static memory for both dom0less and
-non-dom0less boot, so here is the question - will bindings and dom0/hwdom/control
-domain setup be generic?
+Changes in v4:
+- Rework/cleanup split into a few patches as Mark suggested.
+- Replace interrupts_enabled() macro with regs_irqs_disabled(), instead
+  of left it here.
+- Remove rcu and lockdep state in pt_regs by using temporary
+  irqentry_state_t as Mark suggested.
+- Remove some unnecessary intermediate functions to make it clear.
+- Rework preempt irq and PREEMPT_DYNAMIC code
+  to make the switch more clear.
+- arch_prepare_*_entry/exit() -> arch_pre_*_entry/exit().
+- Expand the arch functions comment.
+- Make arch functions closer to its caller.
+- Declare saved_reg in for block.
+- Remove arch_exit_to_kernel_mode_prepare(), arch_enter_from_kernel_mode().
+- Adjust "Add few arch functions to use generic entry" patch to be
+  the penultimate.
+- Update the commit message.
+- Add suggested-by.
 
-Honestly, for ARM, the discrepancies between boot modes and Xen DT definitions
-(and actually toolstack) are very confusing :( And now there is also
-hyperlaunch on the horizon :(
+Changes in v3:
+- Test the MTE test cases.
+- Handle forget_syscall() in arch_post_report_syscall_entry()
+- Make the arch funcs not use __weak as Thomas suggested, so move
+  the arch funcs to entry-common.h, and make arch_forget_syscall() folded
+  in arch_post_report_syscall_entry() as suggested.
+- Move report_single_step() to thread_info.h for arm64
+- Change __always_inline() to inline, add inline for the other arch funcs.
+- Remove unused signal.h for entry-common.h.
+- Add Suggested-by.
+- Update the commit message.
 
-[...]
+Changes in v2:
+- Add tested-by.
+- Fix a bug that not call arch_post_report_syscall_entry() in
+  syscall_trace_enter() if ptrace_report_syscall_entry() return not zero.
+- Refactor report_syscall().
+- Add comment for arch_prepare_report_syscall_exit().
+- Adjust entry-common.h header file inclusion to alphabetical order.
+- Update the commit message.
 
-BR,
--grygorii
+Jinjie Ruan (8):
+  entry: Split generic entry into generic exception and syscall entry
+  arm64: ptrace: Replace interrupts_enabled() with regs_irqs_disabled()
+  arm64: entry: Refactor the entry and exit for exceptions from EL1
+  arm64: entry: Rework arm64_preempt_schedule_irq()
+  arm64: entry: Use preempt_count() and need_resched() helper
+  arm64: entry: Refactor preempt_schedule_irq() check code
+  arm64: entry: Move arm64_preempt_schedule_irq() into
+    __exit_to_kernel_mode()
+  arm64: entry: Switch to generic IRQ entry
+
+ MAINTAINERS                           |   1 +
+ arch/Kconfig                          |   9 +
+ arch/arm64/Kconfig                    |   1 +
+ arch/arm64/include/asm/daifflags.h    |   2 +-
+ arch/arm64/include/asm/entry-common.h |  56 ++++
+ arch/arm64/include/asm/preempt.h      |   2 -
+ arch/arm64/include/asm/ptrace.h       |  13 +-
+ arch/arm64/include/asm/xen/events.h   |   2 +-
+ arch/arm64/kernel/acpi.c              |   2 +-
+ arch/arm64/kernel/debug-monitors.c    |   2 +-
+ arch/arm64/kernel/entry-common.c      | 378 ++++++++-----------------
+ arch/arm64/kernel/sdei.c              |   2 +-
+ arch/arm64/kernel/signal.c            |   3 +-
+ include/linux/entry-common.h          | 382 +------------------------
+ include/linux/irq-entry-common.h      | 389 ++++++++++++++++++++++++++
+ kernel/entry/Makefile                 |   3 +-
+ kernel/entry/common.c                 | 176 ++----------
+ kernel/entry/syscall-common.c         | 159 +++++++++++
+ kernel/sched/core.c                   |   8 +-
+ 19 files changed, 766 insertions(+), 824 deletions(-)
+ create mode 100644 arch/arm64/include/asm/entry-common.h
+ create mode 100644 include/linux/irq-entry-common.h
+ create mode 100644 kernel/entry/syscall-common.c
+
+-- 
+2.34.1
+
 
