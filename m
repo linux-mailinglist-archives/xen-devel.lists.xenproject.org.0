@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78790A33518
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2025 03:01:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.887070.1296641 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AA20A33520
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2025 03:07:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.887082.1296650 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiOXH-0003P9-5l; Thu, 13 Feb 2025 02:01:03 +0000
+	id 1tiOdk-00041M-Qq; Thu, 13 Feb 2025 02:07:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 887070.1296641; Thu, 13 Feb 2025 02:01:03 +0000
+Received: by outflank-mailman (output) from mailman id 887082.1296650; Thu, 13 Feb 2025 02:07:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiOXH-0003M5-3A; Thu, 13 Feb 2025 02:01:03 +0000
-Received: by outflank-mailman (input) for mailman id 887070;
- Thu, 13 Feb 2025 02:01:01 +0000
+	id 1tiOdk-0003zT-OL; Thu, 13 Feb 2025 02:07:44 +0000
+Received: by outflank-mailman (input) for mailman id 887082;
+ Thu, 13 Feb 2025 02:07:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=IJm2=VE=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tiOXF-0003Lt-OH
- for xen-devel@lists.xenproject.org; Thu, 13 Feb 2025 02:01:01 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1tiOdj-0003z3-L9
+ for xen-devel@lists.xenproject.org; Thu, 13 Feb 2025 02:07:43 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5e0b56c8-e9ae-11ef-b3ef-695165c68f79;
- Thu, 13 Feb 2025 03:00:59 +0100 (CET)
+ id 4de6bf98-e9af-11ef-b3ef-695165c68f79;
+ Thu, 13 Feb 2025 03:07:41 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 03C7A5C6360;
- Thu, 13 Feb 2025 02:00:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 898C6C4CEDF;
- Thu, 13 Feb 2025 02:00:56 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 76BA65C488F;
+ Thu, 13 Feb 2025 02:07:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 292E9C4CEE2;
+ Thu, 13 Feb 2025 02:07:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,95 +42,251 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e0b56c8-e9ae-11ef-b3ef-695165c68f79
+X-Inumbo-ID: 4de6bf98-e9af-11ef-b3ef-695165c68f79
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739412057;
-	bh=Y1CyGsIKBcC4YkxO17OYLpZEGZd5CX6PBzVrnAjtwFk=;
+	s=k20201202; t=1739412459;
+	bh=s7OJzVFiYldzhEg99TaM0akaHE3EtiJ9UsugA4zjsqc=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=ZErjP0ZQRrqT/VcfhyBPevL+Ds9R30rACe7hpI+apxzPh+9MmxxW+dSIYo0twmYUq
-	 Lw85qy35KoQ4ArypBTn6/z/YdL8UXpKzmeDxXqVy0+yhchoPCry9jYCBEDM0qTobAe
-	 AFp/FsA0nHQZeXKArHgHM5Myjilql3AZ1PBODvPsKuSJcBPpBu5bOEuqEl0kOKPRxn
-	 tgQ5k9/7Ihtj6ZSkVveEc76pln+slyf1ju9iwss36gkBFM7KVmx2Omx1mmidrAJ6rS
-	 uu1T7+Qj1u8rJnEJkEdQPCUIR38KL10z08ldXVpTsZJIddk43JpkJ1wPEAE39JYgVJ
-	 +ouhBf4ya+FwA==
-Date: Wed, 12 Feb 2025 18:00:55 -0800 (PST)
+	b=aM9l+BWEBzMrrDCADFavcN6aXGTgtflZuWL6dF6mG33pHXNh5QCGK+rftHuAMOVTe
+	 GEABWmX2456OAnCsuxu035qAeqxUV2kgleuNnpVssNBBWkjWra5GG9uIeg5O/aN30S
+	 j4DouXvm1e6K+8iD+xMEvKjaTIZn+++BgpkA4CE3Zn4j9oKB9loPDhSP0BFkKuHstw
+	 cOMBTfZvCAbLjJpRABKbGnQ04RfKoAcZ9OlvcdHQGb7Z+vYcdbr0PBgzgjyPiYUjIC
+	 CoU/rnMlmtk2eqsK9IhVGvzh5jfkyesbhhWIVYcS5+cQc+Gp1lnDM8l9Lf2roBVn/P
+	 Wef9o7R+k7Zlw==
+Date: Wed, 12 Feb 2025 18:07:37 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Stefano Stabellini <sstabellini@kernel.org>
-cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org, 
-    Jan Beulich <jbeulich@suse.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: struct mctelem_cookie missing definition
-In-Reply-To: <alpine.DEB.2.22.394.2502121738440.619090@ubuntu-linux-20-04-desktop>
-Message-ID: <alpine.DEB.2.22.394.2502121800190.619090@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2502121721490.619090@ubuntu-linux-20-04-desktop> <1823d604-aa29-4828-a954-b8a08fbdbda7@citrix.com> <alpine.DEB.2.22.394.2502121738440.619090@ubuntu-linux-20-04-desktop>
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v1 2/3] automation: add jobs running tests from
+ tools/tests/*
+In-Reply-To: <3fbb4c6be9d9190bb2bd6427ab0f0a933c95dde1.1739409822.git-series.marmarek@invisiblethingslab.com>
+Message-ID: <alpine.DEB.2.22.394.2502121802540.619090@ubuntu-linux-20-04-desktop>
+References: <cover.068c7421003863de7fca1cbe6aed2af000f061a7.1739409822.git-series.marmarek@invisiblethingslab.com> <3fbb4c6be9d9190bb2bd6427ab0f0a933c95dde1.1739409822.git-series.marmarek@invisiblethingslab.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-675548614-1739412057=:619090"
+Content-Type: multipart/mixed; boundary="8323329-2005664794-1739412459=:619090"
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-675548614-1739412057=:619090
+--8323329-2005664794-1739412459=:619090
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8BIT
 
-On Wed, 12 Feb 2025, Stefano Stabellini wrote:
-> On Thu, 13 Feb 2025, Andrew Cooper wrote:
-> > On 13/02/2025 1:25 am, Stefano Stabellini wrote:
-> > > Hi all,
-> > >
-> > > I am looking through the few remaining MISRA violations that we have
-> > > left.  One of them is R11.2:
-> > >
-> > > https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/hardware/xen/ECLAIR_normal/staging/X86_64/9118578464/PROJECT.ecd;/by_service/MC3A2.R11.2.html#{%22select%22:true,%22selection%22:{%22hiddenAreaKinds%22:[],%22hiddenSubareaKinds%22:[],%22show%22:false,%22selector%22:{%22enabled%22:true,%22negated%22:true,%22kind%22:0,%22domain%22:%22kind%22,%22inputs%22:[{%22enabled%22:true,%22text%22:%22violation%22}]}}}
-> > >
-> > > Specifically, mctelem_cookie_t is a pointer to incomplete type and
-> > > therefore COOKIE2MCTE triggers a "conversion between a pointer to an
-> > > incomplete type and any other type".
-> > >
-> > > mctelem_cookie_t is defined as:
-> > >
-> > > typedef struct mctelem_cookie *mctelem_cookie_t;
-> > >
-> > > I am looking through the code and I genuinely cannot find the definition
-> > > of struct mctelem_cookie.
-> > >
-> > > If mctelem_cookie_t is only used as a pointer, wouldn't it make more
-> > > sense to do:
-> > >
-> > > typedef struct mctelem_ent *mctelem_cookie_t;
-> > >
-> > > ?
-> > >
-> > > What am I missing?
-> > 
-> > Nothing.  Or perhaps the twisted thinking of the original author.
-> > 
-> > It is genuinely a pointer type (== known size) which you can't deference
-> > (because there is no definition), and can only operate on by casting to
-> > an integer.  Except the code also requires it to be a uint64_t which is
-> > why there's some fun disabling of relevant hypercalls for compat guests.
-> > 
-> > If someone could find the time to file it in /dev/null and replace it
-> > with literally anything else, I'd be very thankful.
+On Thu, 13 Feb 2025, Marek Marczykowski-Górecki wrote:
+> There are a bunch of tests in tools/tests/, let them run in CI.
+> For each subdirectory expect "make run" will run the test, and observe
+> its exit code. This way, adding new tests is easy, and they will be
+> automatically picked up.
 > 
-> Are you OK with typedefing mctelem_cookie_t to uint64_t instead?
+> For better visibility, log test output to junit xml format, and let
+> gitlab ingest it. Set SUT_ADDR variable with name/address of the system
+> under test, so a network can be used to extract the file. The actual
+> address is set using DHCP. And for the test internal network, still add
+> the 192.168.0.1 IP (but don't replace the DHCP-provided one).
+> 
+> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
-I confirm that the following resolves the MISRA violations
+Very nice!!
 
-diff --git a/xen/arch/x86/cpu/mcheck/mctelem.h b/xen/arch/x86/cpu/mcheck/mctelem.h
-index f4c5ff848d..2ccd490e5d 100644
---- a/xen/arch/x86/cpu/mcheck/mctelem.h
-+++ b/xen/arch/x86/cpu/mcheck/mctelem.h
-@@ -52,7 +52,7 @@
-  * the element from the processing list.
-  */
- 
--typedef struct mctelem_cookie *mctelem_cookie_t;
-+typedef uint64_t *mctelem_cookie_t;
- 
- typedef enum mctelem_class {
-     MC_URGENT,
---8323329-675548614-1739412057=:619090--
+Only one comment below
+
+
+> ---
+>  automation/gitlab-ci/test.yaml     | 23 +++++++++++++++-
+>  automation/scripts/build           |  1 +-
+>  automation/scripts/qubes-x86-64.sh | 27 +++++++++++++++++-
+>  automation/scripts/run-tools-tests | 47 +++++++++++++++++++++++++++++++-
+>  4 files changed, 97 insertions(+), 1 deletion(-)
+>  create mode 100755 automation/scripts/run-tools-tests
+> 
+> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+> index 1822e3ea5fd7..c21a37933881 100644
+> --- a/automation/gitlab-ci/test.yaml
+> +++ b/automation/gitlab-ci/test.yaml
+> @@ -130,6 +130,7 @@
+>      PCIDEV: "03:00.0"
+>      PCIDEV_INTR: "MSI-X"
+>      CONSOLE_OPTS: "console=com1 com1=115200,8n1"
+> +    SUT_ADDR: test-2.testnet
+>    artifacts:
+>      paths:
+>        - smoke.serial
+> @@ -263,6 +264,28 @@ adl-pvshim-x86-64-gcc-debug:
+>      - *x86-64-test-needs
+>      - alpine-3.18-gcc-debug
+>  
+> +adl-tools-tests-pv-x86-64-gcc-debug:
+> +  extends: .adl-x86-64
+> +  script:
+> +    - ./automation/scripts/qubes-x86-64.sh tools-tests-pv 2>&1 | tee ${LOGFILE}
+> +  artifacts:
+> +    reports:
+> +      junit: tests-junit.xml
+> +  needs:
+> +    - *x86-64-test-needs
+> +    - alpine-3.18-gcc-debug
+> +
+> +adl-tools-tests-pvh-x86-64-gcc-debug:
+> +  extends: .adl-x86-64
+> +  script:
+> +    - ./automation/scripts/qubes-x86-64.sh tools-tests-pvh 2>&1 | tee ${LOGFILE}
+> +  artifacts:
+> +    reports:
+> +      junit: tests-junit.xml
+> +  needs:
+> +    - *x86-64-test-needs
+> +    - alpine-3.18-gcc-debug
+> +
+>  zen3p-smoke-x86-64-gcc-debug:
+>    extends: .zen3p-x86-64
+>    script:
+> diff --git a/automation/scripts/build b/automation/scripts/build
+> index 952599cc25c2..522efe774ef3 100755
+> --- a/automation/scripts/build
+> +++ b/automation/scripts/build
+> @@ -109,5 +109,6 @@ else
+>      # even though dist/ contains everything, while some containers don't even
+>      # build Xen
+>      cp -r dist binaries/
+> +    cp -r tools/tests binaries/
+>      collect_xen_artefacts
+>  fi
+> diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qubes-x86-64.sh
+> index 7eb3ce1bf703..81d239cc8b75 100755
+> --- a/automation/scripts/qubes-x86-64.sh
+> +++ b/automation/scripts/qubes-x86-64.sh
+> @@ -10,6 +10,8 @@ set -ex
+>  #  - pci-pv         PV dom0,  PV domU + PCI Passthrough
+>  #  - pvshim         PV dom0,  PVSHIM domU
+>  #  - s3             PV dom0,  S3 suspend/resume
+> +#  - tools-tests-pv PV dom0, run tests from tools/tests/*
+> +#  - tools-tests-pvh PVH dom0, run tests from tools/tests/*
+>  test_variant=$1
+>  
+>  ### defaults
+> @@ -19,6 +21,7 @@ timeout=120
+>  domU_type="pvh"
+>  domU_vif="'bridge=xenbr0',"
+>  domU_extra_config=
+> +retrieve_xml=
+>  
+>  case "${test_variant}" in
+>      ### test: smoke test & smoke test PVH & smoke test HVM & smoke test PVSHIM
+> @@ -126,6 +129,21 @@ done
+>  "
+>          ;;
+>  
+> +    ### tests: tools-tests-pv, tools-tests-pvh
+> +    "tools-tests-pv"|"tools-tests-pvh")
+> +        retrieve_xml=1
+> +        passed="test passed"
+> +        domU_check=""
+> +        dom0_check="
+> +/tests/run-tools-tests /tests /tmp/tests-junit.xml && echo \"${passed}\"
+> +nc -l -p 8080 < /tmp/tests-junit.xml >/dev/null &
+> +"
+> +        if [ "${test_variant}" = "tools-tests-pvh" ]; then
+> +            extra_xen_opts="dom0=pvh"
+> +        fi
+> +
+> +        ;;
+> +
+>      *)
+>          echo "Unrecognised test_variant '${test_variant}'" >&2
+>          exit 1
+> @@ -178,6 +196,8 @@ mkdir srv
+>  mkdir sys
+>  rm var/run
+>  cp -ar ../binaries/dist/install/* .
+> +cp -ar ../binaries/tests .
+> +cp -a ../automation/scripts/run-tools-tests tests/
+>  
+>  echo "#!/bin/bash
+>  
+> @@ -188,7 +208,8 @@ brctl addbr xenbr0
+>  brctl addif xenbr0 eth0
+>  ifconfig eth0 up
+>  ifconfig xenbr0 up
+> -ifconfig xenbr0 192.168.0.1
+> +timeout 30s udhcpc -i xenbr0
+> +ip addr add dev xenbr0 192.168.0.1/24
+>  
+>  " > etc/local.d/xen.start
+>  
+> @@ -272,6 +293,10 @@ if [ $timeout -le 0 ]; then
+>      exit 1
+>  fi
+>  
+> +if [ -n "$retrieve_xml" ]; then
+> +    nc -w 10 "$SUT_ADDR" 8080 > tests-junit.xml </dev/null
+> +fi
+> +
+>  sleep 1
+>  
+>  (grep -q "^Welcome to Alpine Linux" smoke.serial && grep -q "${passed}" smoke.serial) || exit 1
+> diff --git a/automation/scripts/run-tools-tests b/automation/scripts/run-tools-tests
+> new file mode 100755
+> index 000000000000..242a9edad941
+> --- /dev/null
+> +++ b/automation/scripts/run-tools-tests
+> @@ -0,0 +1,47 @@
+> +#!/bin/sh
+
+It should be /bin/bash
+
+You could also consider -e and maybe -x
+
+
+> +usage() {
+> +    echo "Usage: $0 tests-dir xml-out"
+> +}
+> +
+> +xml_out=$2
+> +if [ -z "$xml_out" ]; then
+> +  xml_out=/dev/null
+> +fi
+> +printf '<?xml version="1.0" encoding="UTF-8"?>\n' > "$xml_out"
+> +printf '<testsuites name="tools.tests">\n' >> "$xml_out"
+> +printf ' <testsuite name="tools.tests">\n' >> "$xml_out"
+> +failed=
+> +for dir in "$1"/*; do
+> +    [ -d "$dir" ] || continue
+> +    echo "Running test in $dir"
+> +    printf '  <testcase name="%s">\n' "$dir" >> "$xml_out"
+> +    ret=
+> +    for f in "$dir"/*; do
+> +        [ -f "$f" ] || continue
+> +        [ -x "$f" ] || continue
+> +        "$f" 2>&1 | tee /tmp/out
+> +        ret=$?
+> +        if [ "$ret" -ne 0 ]; then
+> +            echo "FAILED"
+> +            failed+=" $dir"
+> +            printf '   <failure type="failure" message="binary %s exited with code %d">\n' "$f" "$ret" >> "$xml_out"
+> +            # TODO: could use xml escaping... but current tests seems to
+> +            # produce sane output
+> +            cat /tmp/out >> "$xml_out"
+> +            printf '   </failure>\n' "$f" "$ret" >> "$xml_out"
+> +        else
+> +            echo "PASSED"
+> +        fi
+> +    done
+> +    if [ -z "$ret" ]; then
+> +        printf '   <skipped type="skipped" message="test not found"/>\n' >> "$xml_out"
+> +    fi
+> +    printf '  </testcase>\n' "$dir" >> "$xml_out"
+> +done
+> +printf ' </testsuite>\n' >> "$xml_out"
+> +printf '</testsuites>\n' >> "$xml_out"
+> +
+> +if [ -n "$failed" ]; then
+> +    exit 1
+> +fi
+> -- 
+> git-series 0.9.1
+> 
+--8323329-2005664794-1739412459=:619090--
 
