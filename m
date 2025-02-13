@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 959DEA34DC7
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2025 19:33:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.887925.1297355 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB5DFA34DCD
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2025 19:37:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.887937.1297365 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tie16-0003F0-A7; Thu, 13 Feb 2025 18:32:52 +0000
+	id 1tie55-0003rY-Sz; Thu, 13 Feb 2025 18:36:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 887925.1297355; Thu, 13 Feb 2025 18:32:52 +0000
+Received: by outflank-mailman (output) from mailman id 887937.1297365; Thu, 13 Feb 2025 18:36:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tie16-0003CD-6x; Thu, 13 Feb 2025 18:32:52 +0000
-Received: by outflank-mailman (input) for mailman id 887925;
- Thu, 13 Feb 2025 18:32:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tie55-0003pD-QF; Thu, 13 Feb 2025 18:36:59 +0000
+Received: by outflank-mailman (input) for mailman id 887937;
+ Thu, 13 Feb 2025 18:36:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Q8TG=VE=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tie15-0003C7-8T
- for xen-devel@lists.xenproject.org; Thu, 13 Feb 2025 18:32:51 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ed036439-ea38-11ef-abfc-e33de0ed8607;
- Thu, 13 Feb 2025 19:32:48 +0100 (CET)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5ded1395213so1535509a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 13 Feb 2025 10:32:48 -0800 (PST)
-Received: from [10.81.43.157] ([46.149.103.8])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5dedc94688bsm21776a12.50.2025.02.13.10.32.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Feb 2025 10:32:47 -0800 (PST)
+ <SRS0=IJm2=VE=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1tie54-0003p7-Db
+ for xen-devel@lists.xenproject.org; Thu, 13 Feb 2025 18:36:58 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8058d832-ea39-11ef-88c1-8ba37f82fa57;
+ Thu, 13 Feb 2025 19:36:57 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 7DE865C5619;
+ Thu, 13 Feb 2025 18:36:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8D20C4CEE7;
+ Thu, 13 Feb 2025 18:36:53 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,265 +42,432 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ed036439-ea38-11ef-abfc-e33de0ed8607
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1739471568; x=1740076368; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Uu1U5YR++DcyNOE30oaIcO9JH/nSavqGiLmUpQMjlYU=;
-        b=DMvtZE/seIUFU/sB09GW9Z2Repo74G9RzG75VrjOGOljZagnqR0w+DoC9vreOh9e/d
-         dDFZh2XQs1WjwfinZRpgwfEN7ZkAXZBRnB3XEwz1Et55iwq7I3Tad/IALdpgLqSMtJNI
-         h6rlPSDlEHFauArhPTFe59ItZFyb9kfc6GMWM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739471568; x=1740076368;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Uu1U5YR++DcyNOE30oaIcO9JH/nSavqGiLmUpQMjlYU=;
-        b=cDuR7mMrngjiQ/Mp0ff+EuFRK4dnMQMdpySIQSJRIMD1XTsaApIxto6ddm8N2rRfsJ
-         Y20TzI+33vj3XA8tpRDlONPsyKSgmuCQQMP25ibxsOFJ22JlrRT6j2q/4gfQpb7JBF/K
-         XjdIeKWJ15b6MdBoGcZ+Qe9SdzLIT5FxO4PSXR6+dKeI21u9WorBFsjKxrU96thX0c6U
-         TgXL1pa7Z5KZw0sDH7fzzQH+tSq7NZMHJmPI5qbyVIMXd/3z6jProPLx8Ql+GFKwx7ok
-         Ka+RjUSSEDB8WgFpX6ApV14EHUbCWi20mii2zP0gZuSpkHXYmxC4WoAzdEXmcymVl3iY
-         3ENA==
-X-Forwarded-Encrypted: i=1; AJvYcCXm9S5VWqr1dp7PL2zFCAkLMT3G4ELgXa4Nfnf802etPMiMK7Z0BGgpON0AB33+fm+ydPdB8XoXT6Y=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwGa3XR8t82aDCliuQWUnHVuXpWc7/dFcLbF8WgTV3PzmaCtOYR
-	nzzq0jrRLDyfSU0Z9esKRyJOXUc2ue17Ptpz7gXnbtmstuZeMvkSXcaYQHqh1MI=
-X-Gm-Gg: ASbGnctr/FM2KzIZszzH+U+e9/jJ0hGnz5yejzri2HLuU67V4FZFBcij9wBnqc1WnKP
-	FJoc+fbgWJS/MC0jZGSmEZwTbPR18XXqpF4DrqqGDUzQBQkgkffN4Hmob22L2sVnioJUOw6ccs/
-	YQ1kz4/iw378fb3N2lE7WWRiZy6l3nlwjqM3cqsalzdiam+eYq/xIqhEndZfh2kTm9q5PMJRCZn
-	KiA5CxlhDEUTx2HJIvXsXIfOqKl2Y/Kx9KB04dy0pfxDDBrMalfvXyfnyraca2r03a4B1Aj9k1e
-	O8ZVpHfofXlTHSN6f9E4hWHp
-X-Google-Smtp-Source: AGHT+IE4VE07GgSxbHdJ2m0p8dlRkrPqnqQNmUfUSiYjBsBMK2HGTS2ZF95VWtkOpYVwimPE6XlzfQ==
-X-Received: by 2002:a05:6402:3606:b0:5dc:7fbe:730a with SMTP id 4fb4d7f45d1cf-5dec9b70130mr4671610a12.0.1739471568174;
-        Thu, 13 Feb 2025 10:32:48 -0800 (PST)
-Message-ID: <a8df54e6-1fef-4eff-9846-d24bcfdd5bd4@citrix.com>
-Date: Thu, 13 Feb 2025 18:32:45 +0000
+X-Inumbo-ID: 8058d832-ea39-11ef-88c1-8ba37f82fa57
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1739471814;
+	bh=Snzq+Su5PiVY6TVQKTGwA4OYuu/qp020uTmHoot8VSI=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=HNQKqHOll/jiElmV+TtnBIFcoOEEH3Zy3t8Et8CzkKP/OFfLKhDdaehGXaYDADDr+
+	 gpdge2iCNZyGIQlPKN3lEH8CEsbKcjvZ0CN6lJVV0GgBQbS/L1a4zqjAWUh18T8FwU
+	 3TElAm3V7YXylwQ35TQKIZ2ct78ClTOqZr9BpdwMe3cEX+27mYeS6g1qZXzt5mYvoM
+	 5Wf1yxx8wb0dfbtmqNVni2B0ORcRHKaY/AzZg/o+GWj/3DXPwOAkoI1mPX+9yeSWZZ
+	 PC7k+BBZcz08HFd+yGIR0q1BAIHakKmHHJ08xQAtas/XI5+qFI4BoOk2DgtO/cgEMJ
+	 y3LZPC7xg3N4g==
+Date: Thu, 13 Feb 2025 10:36:52 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>
+Subject: Re: [PATCH v2 1/2] arch: arm64: always set IL=1 when injecting
+ undefined exception
+In-Reply-To: <20250213153748.2869989-2-volodymyr_babchuk@epam.com>
+Message-ID: <alpine.DEB.2.22.394.2502131036470.619090@ubuntu-linux-20-04-desktop>
+References: <20250213153748.2869989-1-volodymyr_babchuk@epam.com> <20250213153748.2869989-2-volodymyr_babchuk@epam.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: blowfish failure to compile
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel <xen-devel@lists.xenproject.org>
-References: <65338578-dd6c-4f01-807e-da389cc60cb8@citrix.com>
- <a2ef5618-b719-4c7b-ac6c-6861ba146ce2@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <a2ef5618-b719-4c7b-ac6c-6861ba146ce2@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 13/02/2025 10:06 am, Jan Beulich wrote:
-> On 12.02.2025 18:20, Andrew Cooper wrote:
->> I've noticed the following failure in XenServer's build environment
->>
->>> make[6]: Leaving directory
->>> '/builddir/build/BUILD/xen-4.19.1/tools/tests/x86_emulator'
->>> In file included from /usr/include/features.h:535,
->>>                  from /usr/include/bits/libc-header-start.h:33,
->>>                  from /usr/include/stdint.h:26,
->>>                  from
->>> /usr/lib/gcc/x86_64-xenserver-linux/12/include/stdint.h:9,
->>>                  from blowfish.c:18:
->>> /usr/include/gnu/stubs.h:7:11: fatal error: gnu/stubs-32.h: No such
->>> file or directory
->>>     7 | # include <gnu/stubs-32.h>
->>>       |           ^~~~~~~~~~~~~~~~
->>> compilation terminated.
->>> make[6]: *** [testcase.mk:15: blowfish.bin] Error 1
->> It's non-fatal, but it reduces the content in test_x86_emulator which we
->> do care about running.
-> Hmm, yes, I did see such in the past, and solved it by putting the seemingly
-> missing header in place on the distro.
+On Thu, 13 Feb 2025, Volodymyr Babchuk wrote:
+> ARM Architecture Reference Manual states that IL field of ESR_EL1
+> register should be 1 when EC is 0b000000 aka HSR_EC_UNKNOWN.
+> 
+> Section D24.2.40, page D24-7337 of ARM DDI 0487L:
+> 
+>   IL, bit [25]
+>   Instruction Length for synchronous exceptions. Possible values of this bit are:
+> 
+>   [...]
+> 
+>   0b1 - 32-bit instruction trapped.
+>   This value is also used when the exception is one of the following:
+>   [...]
+>    - An exception reported using EC value 0b000000.
+> 
+> To align code with the specification, set .len field to 1 in
+> inject_undef64_exception() and remove unneeded second parameter.
+> 
+> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 
-It's awkward.  With glibc, it's the glibc-i386-devel headers you need,
-but this doesn't work in clean-64bit-only build environments, or in
-Alpine where Musl has Opinions on how glibc works, and they go as far as
-patching gcc to behave differently.
-
-Alpine is what caused us to finally stop trying to use the compiler stdint.h
-
->
->> Elsewhere in the tree we fix this with -ffreestanding -nostdinc
->> -I$(XEN_ROOT)/tools/firmware/include but that isn't an option for
->> test_x86_emulator in general which is hosted.
->>
->> However, it is an option for blowfish.c specifically which is
->> freestanding, and for which we build a 32bit form in an otherwise 64bit
->> build.
->>
->> Therefore, it stands to reason that:
->>
->> diff --git a/tools/tests/x86_emulator/Makefile
->> b/tools/tests/x86_emulator/Makefile
->> index 294d27ebaa08..e46fd8becb96 100644
->> --- a/tools/tests/x86_emulator/Makefile
->> +++ b/tools/tests/x86_emulator/Makefile
->> @@ -33,8 +33,8 @@ HOSTCFLAGS += -m32 -I..
->>  
->>  else
->>  
->> -blowfish-cflags := ""
->> -blowfish-cflags-x86_32 := "-mno-accumulate-outgoing-args -Dstatic="
->> +blowfish-cflags := "-ffreestanding -nostdinc
->> -I$(XEN_ROOT)/tools/firmware/include "
->> +blowfish-cflags-x86_32 := "$(blowfish-cflags)
->> -mno-accumulate-outgoing-args -Dstatic="
-> What this does is request the shared (between 32- and 64-bit)) flavor to
-> be built differently, with the options "-ffreestanding -nostdinc
-> -I$(XEN_ROOT)/tools/firmware/include". And then the (kind of) nested use
-> of double quotes in blowfish-cflags-x86_32 ends up asking for several
-> 32-bit flavors: One with -ffreestanding, one with -nostdinc, one with
-> -I$(XEN_ROOT)/tools/firmware/include (which is what causes the
-> strangeness you saw), and the pre-existing one with
-> "-mno-accumulate-outgoing-args -Dstatic=".
->
-> Every set of options grouped together by double quotes (or any unquoted
-> option) designates a flavor (while the quotation isn't meaningful to
-> make aiui, its use is in a shell construct, where those quotes play
-> their usual role). That is,
->
-> blowfish-cflags := ""
->
-> designates a flavor without any special options. What I understand you
-> want, though, is to have these flags passed to all of the blowfish
-> flavors.
->
-> What complicates things slightly is that the first of the options names
-> the flavor (i.e. prior to your change, but with my APX changes in place,
-> we have
->
-> blowfish_x86_32[]
-> blowfish_x86_32_mno_accumulate_outgoing_args[]
-> blowfish_x86_64[]
-> blowfish_x86_64_DREX2[]
-> blowfish_x86_64_mapxf[]
->
-> resulting from
->
-> blowfish-cflags := ""
-> blowfish-cflags-x86_32 := "-mno-accumulate-outgoing-args -Dstatic="
-> blowfish-cflags-x86_64 := "-DREX2 -Dstatic=" "-mapxf -Dstatic="
->
-> . I think you can see now how the compiler ends up choking on
->
-> blowfish_x86_32_I/local/xen.spec/scm/tools/tests/x86_emulator/../../../tools/firmware/include[]
->
-> .) Surely we could accommodate for the added options by changing the
-> references from test_x86_emulator.c, but maybe there's a better way
-> (and also potentially useful for other test blobs going forward),
-> modifying the .h generator rule(s):
->
-> 		$(MAKE) -f testcase.mk TESTCASE=$* XEN_TARGET_ARCH=$(arch) $*-cflags="$$cflags $($*-cflags-common)" all; \
->
-> and then the needed addition simply being
->
-> blowfish-cflags-common := -ffreestanding -nostdinc -I$(XEN_ROOT)/tools/firmware/include
->
-> Entirely untested, though, for now.
->
-> However, further: The freestanding-ness does apply to all of the test
-> blobs, doesn't it? Why don't we alter
->
-> CFLAGS += -fno-builtin -g0 $($(TESTCASE)-cflags) $(CFLAGS-VSZ)
->
-> in testcase.mk to become
->
-> CFLAGS += -ffreestanding -nostdinc -I$(XEN_ROOT)/tools/firmware/include
-> CFLAGS += -g0 $($(TESTCASE)-cflags) $(CFLAGS-VSZ)
->
-> (which doesn't appear to become dependent upon anything we don't already
-> have available in this file, i.e. in particular $(XEN_ROOT) is already
-> used elsewhere), seeing that -ffreestanding implies -fno-builtin?
-
--ffreestanding seems fine.
-
-And while -nostdinc -I... works for the 32bit builds, they break the
-64bit builds.
-
-> In file included from blowfish.c:18:
-> /builddir/build/BUILD/xen-4.20.0/tools/tests/x86_emulator/../../../tools/firmware/include/stdint.h:5:2:
-> error: #error "32bit only header"
->     5 | #error "32bit only header"
->       |  ^~~~~
-> make[6]: *** [testcase.mk:16: blowfish.bin] Error 1
-
-which is because we've only provided half a stdint.h
-
-I think that means we only want the -nostdinc -I... in the cross-build
-case, which I guess means searching CFLAGS for `-m32`.
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-
-
->
->>> blowfish.h:617:99: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or
->>> ‘__attribute__’ before ‘/’ token
->>>   617 | static const unsigned int __attribute__((section(".test,
->>> \"ax\", @progbits #")))
->>> blowfish_x86_32_I/local/xen.spec/scm/tools/tests/x86_emulator/../../../tools/firmware/include[]
->>> = {
->>>      
->>> |                                                                                                  
->>> ^
->> and at this point I've got completely lost in this build system.  The .h
->> generation seems to loop over each cflag, and while that looks plausible
->> for vector generation, I can't see how it works (except by accident) for
->> blowfish.
->>
->> The problem is the generation of $flavor, but this logic is completely
->> opaque.
-> Can you suggest how to achieve the same in a less opaque way? (Surely it
-> having grown over time has made quite a bit worse what may have been
-> okay-ish in the beginning.)
-
-I don't have a good suggestion.  More an observation than this is too
-complicated for me to figure out how it works with half an hour of trying?
-
-~Andrew
+> ---
+> 
+> Changes in v2:
+>  - Removed unused parameter from p2m_set_way_flush()
+> ---
+>  xen/arch/arm/arm64/vsysreg.c           | 10 +++++-----
+>  xen/arch/arm/include/asm/arm64/traps.h |  2 +-
+>  xen/arch/arm/include/asm/p2m.h         |  3 +--
+>  xen/arch/arm/include/asm/traps.h       |  2 +-
+>  xen/arch/arm/p2m.c                     |  5 ++---
+>  xen/arch/arm/traps.c                   | 24 ++++++++++++------------
+>  xen/arch/arm/vcpreg.c                  | 26 +++++++++++++-------------
+>  xen/arch/arm/vsmc.c                    |  6 ++----
+>  8 files changed, 37 insertions(+), 41 deletions(-)
+> 
+> diff --git a/xen/arch/arm/arm64/vsysreg.c b/xen/arch/arm/arm64/vsysreg.c
+> index c73b2c95ce..d14258290f 100644
+> --- a/xen/arch/arm/arm64/vsysreg.c
+> +++ b/xen/arch/arm/arm64/vsysreg.c
+> @@ -95,7 +95,7 @@ void do_sysreg(struct cpu_user_regs *regs,
+>       */
+>      case HSR_SYSREG_ACTLR_EL1:
+>          if ( regs_mode_is_user(regs) )
+> -            return inject_undef_exception(regs, hsr);
+> +            return inject_undef_exception(regs);
+>          if ( hsr.sysreg.read )
+>              set_user_reg(regs, regidx, v->arch.actlr);
+>          break;
+> @@ -109,7 +109,7 @@ void do_sysreg(struct cpu_user_regs *regs,
+>      case HSR_SYSREG_DCCSW:
+>      case HSR_SYSREG_DCCISW:
+>          if ( !hsr.sysreg.read )
+> -            p2m_set_way_flush(current, regs, hsr);
+> +            p2m_set_way_flush(current, regs);
+>          break;
+>  
+>      /*
+> @@ -267,7 +267,7 @@ void do_sysreg(struct cpu_user_regs *regs,
+>      case HSR_SYSREG_CNTP_TVAL_EL0:
+>      case HSR_SYSREG_CNTP_CVAL_EL0:
+>          if ( !vtimer_emulate(regs, hsr) )
+> -            return inject_undef_exception(regs, hsr);
+> +            return inject_undef_exception(regs);
+>          break;
+>  
+>      /*
+> @@ -280,7 +280,7 @@ void do_sysreg(struct cpu_user_regs *regs,
+>      case HSR_SYSREG_ICC_SGI0R_EL1:
+>  
+>          if ( !vgic_emulate(regs, hsr) )
+> -            return inject_undef64_exception(regs, hsr.len);
+> +            return inject_undef64_exception(regs);
+>          break;
+>  
+>      /*
+> @@ -440,7 +440,7 @@ void do_sysreg(struct cpu_user_regs *regs,
+>      gdprintk(XENLOG_ERR,
+>               "unhandled 64-bit sysreg access %#"PRIregister"\n",
+>               hsr.bits & HSR_SYSREG_REGS_MASK);
+> -    inject_undef_exception(regs, hsr);
+> +    inject_undef_exception(regs);
+>  }
+>  
+>  /*
+> diff --git a/xen/arch/arm/include/asm/arm64/traps.h b/xen/arch/arm/include/asm/arm64/traps.h
+> index a347cb13d6..3be2fa69ee 100644
+> --- a/xen/arch/arm/include/asm/arm64/traps.h
+> +++ b/xen/arch/arm/include/asm/arm64/traps.h
+> @@ -1,7 +1,7 @@
+>  #ifndef __ASM_ARM64_TRAPS__
+>  #define __ASM_ARM64_TRAPS__
+>  
+> -void inject_undef64_exception(struct cpu_user_regs *regs, int instr_len);
+> +void inject_undef64_exception(struct cpu_user_regs *regs);
+>  
+>  void do_sysreg(struct cpu_user_regs *regs,
+>                 const union hsr hsr);
+> diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
+> index 4818dd4b6a..594dc40041 100644
+> --- a/xen/arch/arm/include/asm/p2m.h
+> +++ b/xen/arch/arm/include/asm/p2m.h
+> @@ -298,8 +298,7 @@ void p2m_domain_creation_finished(struct domain *d);
+>   */
+>  int p2m_cache_flush_range(struct domain *d, gfn_t *pstart, gfn_t end);
+>  
+> -void p2m_set_way_flush(struct vcpu *v, struct cpu_user_regs *regs,
+> -                       const union hsr hsr);
+> +void p2m_set_way_flush(struct vcpu *v, struct cpu_user_regs *regs);
+>  
+>  void p2m_toggle_cache(struct vcpu *v, bool was_enabled);
+>  
+> diff --git a/xen/arch/arm/include/asm/traps.h b/xen/arch/arm/include/asm/traps.h
+> index 9a60dbf70e..3b40afe262 100644
+> --- a/xen/arch/arm/include/asm/traps.h
+> +++ b/xen/arch/arm/include/asm/traps.h
+> @@ -44,7 +44,7 @@ int check_conditional_instr(struct cpu_user_regs *regs, const union hsr hsr);
+>  
+>  void advance_pc(struct cpu_user_regs *regs, const union hsr hsr);
+>  
+> -void inject_undef_exception(struct cpu_user_regs *regs, const union hsr hsr);
+> +void inject_undef_exception(struct cpu_user_regs *regs);
+>  
+>  /* read as zero and write ignore */
+>  void handle_raz_wi(struct cpu_user_regs *regs, int regidx, bool read,
+> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+> index 65b70955e3..ef8bd4b6ab 100644
+> --- a/xen/arch/arm/p2m.c
+> +++ b/xen/arch/arm/p2m.c
+> @@ -428,8 +428,7 @@ int p2m_cache_flush_range(struct domain *d, gfn_t *pstart, gfn_t end)
+>   *
+>   *  - Once the caches are enabled, we stop trapping VM ops.
+>   */
+> -void p2m_set_way_flush(struct vcpu *v, struct cpu_user_regs *regs,
+> -                       const union hsr hsr)
+> +void p2m_set_way_flush(struct vcpu *v, struct cpu_user_regs *regs)
+>  {
+>      /* This function can only work with the current vCPU. */
+>      ASSERT(v == current);
+> @@ -438,7 +437,7 @@ void p2m_set_way_flush(struct vcpu *v, struct cpu_user_regs *regs,
+>      {
+>          gprintk(XENLOG_ERR,
+>                  "The cache should be flushed by VA rather than by set/way.\n");
+> -        inject_undef_exception(regs, hsr);
+> +        inject_undef_exception(regs);
+>          return;
+>      }
+>  
+> diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+> index 737f4d65e3..5338d5c033 100644
+> --- a/xen/arch/arm/traps.c
+> +++ b/xen/arch/arm/traps.c
+> @@ -533,12 +533,12 @@ static vaddr_t exception_handler64(struct cpu_user_regs *regs, vaddr_t offset)
+>  }
+>  
+>  /* Inject an undefined exception into a 64 bit guest */
+> -void inject_undef64_exception(struct cpu_user_regs *regs, int instr_len)
+> +void inject_undef64_exception(struct cpu_user_regs *regs)
+>  {
+>      vaddr_t handler;
+>      const union hsr esr = {
+>          .iss = 0,
+> -        .len = instr_len,
+> +        .len = 1,
+>          .ec = HSR_EC_UNKNOWN,
+>      };
+>  
+> @@ -606,13 +606,13 @@ static void inject_iabt64_exception(struct cpu_user_regs *regs,
+>  
+>  #endif
+>  
+> -void inject_undef_exception(struct cpu_user_regs *regs, const union hsr hsr)
+> +void inject_undef_exception(struct cpu_user_regs *regs)
+>  {
+>          if ( is_32bit_domain(current->domain) )
+>              inject_undef32_exception(regs);
+>  #ifdef CONFIG_ARM_64
+>          else
+> -            inject_undef64_exception(regs, hsr.len);
+> +            inject_undef64_exception(regs);
+>  #endif
+>  }
+>  
+> @@ -1418,7 +1418,7 @@ static void do_trap_hypercall(struct cpu_user_regs *regs, register_t *nr,
+>      if ( hsr.iss != XEN_HYPERCALL_TAG )
+>      {
+>          gprintk(XENLOG_WARNING, "Invalid HVC imm 0x%x\n", hsr.iss);
+> -        return inject_undef_exception(regs, hsr);
+> +        return inject_undef_exception(regs);
+>      }
+>  
+>      curr->hcall_preempted = false;
+> @@ -1655,7 +1655,7 @@ void handle_raz_wi(struct cpu_user_regs *regs,
+>      ASSERT((min_el == 0) || (min_el == 1));
+>  
+>      if ( min_el > 0 && regs_mode_is_user(regs) )
+> -        return inject_undef_exception(regs, hsr);
+> +        return inject_undef_exception(regs);
+>  
+>      if ( read )
+>          set_user_reg(regs, regidx, 0);
+> @@ -1674,10 +1674,10 @@ void handle_wo_wi(struct cpu_user_regs *regs,
+>      ASSERT((min_el == 0) || (min_el == 1));
+>  
+>      if ( min_el > 0 && regs_mode_is_user(regs) )
+> -        return inject_undef_exception(regs, hsr);
+> +        return inject_undef_exception(regs);
+>  
+>      if ( read )
+> -        return inject_undef_exception(regs, hsr);
+> +        return inject_undef_exception(regs);
+>      /* else: ignore */
+>  
+>      advance_pc(regs, hsr);
+> @@ -1694,10 +1694,10 @@ void handle_ro_read_val(struct cpu_user_regs *regs,
+>      ASSERT((min_el == 0) || (min_el == 1));
+>  
+>      if ( min_el > 0 && regs_mode_is_user(regs) )
+> -        return inject_undef_exception(regs, hsr);
+> +        return inject_undef_exception(regs);
+>  
+>      if ( !read )
+> -        return inject_undef_exception(regs, hsr);
+> +        return inject_undef_exception(regs);
+>  
+>      set_user_reg(regs, regidx, val);
+>  
+> @@ -2147,7 +2147,7 @@ void asmlinkage do_trap_guest_sync(struct cpu_user_regs *regs)
+>      case HSR_EC_SVE:
+>          GUEST_BUG_ON(regs_mode_is_32bit(regs));
+>          gprintk(XENLOG_WARNING, "Domain tried to use SVE while not allowed\n");
+> -        inject_undef_exception(regs, hsr);
+> +        inject_undef_exception(regs);
+>          break;
+>  #endif
+>  
+> @@ -2164,7 +2164,7 @@ void asmlinkage do_trap_guest_sync(struct cpu_user_regs *regs)
+>          gprintk(XENLOG_WARNING,
+>                  "Unknown Guest Trap. HSR=%#"PRIregister" EC=0x%x IL=%x Syndrome=0x%"PRIx32"\n",
+>                  hsr.bits, hsr.ec, hsr.len, hsr.iss);
+> -        inject_undef_exception(regs, hsr);
+> +        inject_undef_exception(regs);
+>          break;
+>      }
+>  }
+> diff --git a/xen/arch/arm/vcpreg.c b/xen/arch/arm/vcpreg.c
+> index 0b336875a4..e7c484f2c1 100644
+> --- a/xen/arch/arm/vcpreg.c
+> +++ b/xen/arch/arm/vcpreg.c
+> @@ -206,7 +206,7 @@ void do_cp15_32(struct cpu_user_regs *regs, const union hsr hsr)
+>      case HSR_CPREG32(CNTP_CTL):
+>      case HSR_CPREG32(CNTP_TVAL):
+>          if ( !vtimer_emulate(regs, hsr) )
+> -            return inject_undef_exception(regs, hsr);
+> +            return inject_undef_exception(regs);
+>          break;
+>  
+>      /*
+> @@ -217,7 +217,7 @@ void do_cp15_32(struct cpu_user_regs *regs, const union hsr hsr)
+>       */
+>      case HSR_CPREG32(ACTLR):
+>          if ( regs_mode_is_user(regs) )
+> -            return inject_undef_exception(regs, hsr);
+> +            return inject_undef_exception(regs);
+>          if ( cp32.read )
+>              set_user_reg(regs, regidx, v->arch.actlr);
+>          break;
+> @@ -232,7 +232,7 @@ void do_cp15_32(struct cpu_user_regs *regs, const union hsr hsr)
+>      case HSR_CPREG32(DCCSW):
+>      case HSR_CPREG32(DCCISW):
+>          if ( !cp32.read )
+> -            p2m_set_way_flush(current, regs, hsr);
+> +            p2m_set_way_flush(current, regs);
+>          break;
+>  
+>      /*
+> @@ -397,7 +397,7 @@ void do_cp15_32(struct cpu_user_regs *regs, const union hsr hsr)
+>                   cp32.op1, cp32.reg, cp32.crn, cp32.crm, cp32.op2, regs->pc);
+>          gdprintk(XENLOG_ERR, "unhandled 32-bit CP15 access %#"PRIregister"\n",
+>                   hsr.bits & HSR_CP32_REGS_MASK);
+> -        inject_undef_exception(regs, hsr);
+> +        inject_undef_exception(regs);
+>          return;
+>      }
+>      advance_pc(regs, hsr);
+> @@ -421,7 +421,7 @@ void do_cp15_64(struct cpu_user_regs *regs, const union hsr hsr)
+>       */
+>      case HSR_CPREG64(CNTP_CVAL):
+>          if ( !vtimer_emulate(regs, hsr) )
+> -            return inject_undef_exception(regs, hsr);
+> +            return inject_undef_exception(regs);
+>          break;
+>  
+>      /*
+> @@ -433,7 +433,7 @@ void do_cp15_64(struct cpu_user_regs *regs, const union hsr hsr)
+>      case HSR_CPREG64(ICC_ASGI1R):
+>      case HSR_CPREG64(ICC_SGI0R):
+>          if ( !vgic_emulate(regs, hsr) )
+> -            return inject_undef_exception(regs, hsr);
+> +            return inject_undef_exception(regs);
+>          break;
+>  
+>      GENERATE_CASE(TTBR0, 64)
+> @@ -467,7 +467,7 @@ void do_cp15_64(struct cpu_user_regs *regs, const union hsr hsr)
+>              gdprintk(XENLOG_ERR,
+>                       "unhandled 64-bit CP15 access %#"PRIregister"\n",
+>                       hsr.bits & HSR_CP64_REGS_MASK);
+> -            inject_undef_exception(regs, hsr);
+> +            inject_undef_exception(regs);
+>              return;
+>          }
+>      }
+> @@ -532,7 +532,7 @@ void do_cp14_32(struct cpu_user_regs *regs, const union hsr hsr)
+>           * is set to 0, which we emulated below.
+>           */
+>          if ( !cp32.read )
+> -            return inject_undef_exception(regs, hsr);
+> +            return inject_undef_exception(regs);
+>  
+>          /* Implement the minimum requirements:
+>           *  - Number of watchpoints: 1
+> @@ -631,7 +631,7 @@ void do_cp14_32(struct cpu_user_regs *regs, const union hsr hsr)
+>               cp32.op1, cp32.reg, cp32.crn, cp32.crm, cp32.op2, regs->pc);
+>      gdprintk(XENLOG_ERR, "unhandled 32-bit cp14 access %#"PRIregister"\n",
+>               hsr.bits & HSR_CP32_REGS_MASK);
+> -    inject_undef_exception(regs, hsr);
+> +    inject_undef_exception(regs);
+>  }
+>  
+>  void do_cp14_64(struct cpu_user_regs *regs, const union hsr hsr)
+> @@ -669,7 +669,7 @@ void do_cp14_64(struct cpu_user_regs *regs, const union hsr hsr)
+>               cp64.op1, cp64.reg1, cp64.reg2, cp64.crm, regs->pc);
+>      gdprintk(XENLOG_ERR, "unhandled 64-bit CP14 access %#"PRIregister"\n",
+>               hsr.bits & HSR_CP64_REGS_MASK);
+> -    inject_undef_exception(regs, hsr);
+> +    inject_undef_exception(regs);
+>  }
+>  
+>  void do_cp14_dbg(struct cpu_user_regs *regs, const union hsr hsr)
+> @@ -698,7 +698,7 @@ void do_cp14_dbg(struct cpu_user_regs *regs, const union hsr hsr)
+>      gdprintk(XENLOG_ERR, "unhandled 64-bit CP14 DBG access %#"PRIregister"\n",
+>               hsr.bits & HSR_CP64_REGS_MASK);
+>  
+> -    inject_undef_exception(regs, hsr);
+> +    inject_undef_exception(regs);
+>  }
+>  
+>  void do_cp10(struct cpu_user_regs *regs, const union hsr hsr)
+> @@ -731,7 +731,7 @@ void do_cp10(struct cpu_user_regs *regs, const union hsr hsr)
+>                   cp32.op1, cp32.reg, cp32.crn, cp32.crm, cp32.op2, regs->pc);
+>          gdprintk(XENLOG_ERR, "unhandled 32-bit CP10 access %#"PRIregister"\n",
+>                   hsr.bits & HSR_CP32_REGS_MASK);
+> -        inject_undef_exception(regs, hsr);
+> +        inject_undef_exception(regs);
+>          return;
+>      }
+>      
+> @@ -756,7 +756,7 @@ void do_cp(struct cpu_user_regs *regs, const union hsr hsr)
+>  
+>      ASSERT(!cp.tas); /* We don't trap SIMD instruction */
+>      gdprintk(XENLOG_ERR, "unhandled CP%d access\n", cp.coproc);
+> -    inject_undef_exception(regs, hsr);
+> +    inject_undef_exception(regs);
+>  }
+>  
+>  /*
+> diff --git a/xen/arch/arm/vsmc.c b/xen/arch/arm/vsmc.c
+> index 62d8117a12..e253865b6c 100644
+> --- a/xen/arch/arm/vsmc.c
+> +++ b/xen/arch/arm/vsmc.c
+> @@ -346,13 +346,11 @@ void do_trap_smc(struct cpu_user_regs *regs, const union hsr hsr)
+>      if ( vsmccc_handle_call(regs) )
+>          advance_pc(regs, hsr);
+>      else
+> -        inject_undef_exception(regs, hsr);
+> +        inject_undef_exception(regs);
+>  }
+>  
+>  void do_trap_hvc_smccc(struct cpu_user_regs *regs)
+>  {
+> -    const union hsr hsr = { .bits = regs->hsr };
+> -
+>      /*
+>       * vsmccc_handle_call() will return false if this call is not
+>       * SMCCC compatible (e.g. immediate value != 0). As it is not
+> @@ -360,7 +358,7 @@ void do_trap_hvc_smccc(struct cpu_user_regs *regs)
+>       * ARM_SMCCC_ERR_UNKNOWN_FUNCTION.
+>       */
+>      if ( !vsmccc_handle_call(regs) )
+> -        inject_undef_exception(regs, hsr);
+> +        inject_undef_exception(regs);
+>  }
+>  
+>  /*
+> -- 
+> 2.47.1
+> 
 
