@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10286A341F4
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2025 15:28:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.887690.1297158 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D997A34209
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2025 15:31:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.887710.1297171 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiaCm-0007iL-Vj; Thu, 13 Feb 2025 14:28:40 +0000
+	id 1tiaEw-0001Pg-9n; Thu, 13 Feb 2025 14:30:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 887690.1297158; Thu, 13 Feb 2025 14:28:40 +0000
+Received: by outflank-mailman (output) from mailman id 887710.1297171; Thu, 13 Feb 2025 14:30:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiaCm-0007cU-S2; Thu, 13 Feb 2025 14:28:40 +0000
-Received: by outflank-mailman (input) for mailman id 887690;
- Thu, 13 Feb 2025 14:28:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tiaEw-0001OE-6k; Thu, 13 Feb 2025 14:30:54 +0000
+Received: by outflank-mailman (input) for mailman id 887710;
+ Thu, 13 Feb 2025 14:30:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=urB8=VE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tiaCl-0007Zw-Ev
- for xen-devel@lists.xenproject.org; Thu, 13 Feb 2025 14:28:39 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d0d7cc72-ea16-11ef-88c1-8ba37f82fa57;
- Thu, 13 Feb 2025 15:28:38 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-ab7d583d2afso381929766b.0
- for <xen-devel@lists.xenproject.org>; Thu, 13 Feb 2025 06:28:38 -0800 (PST)
+ id 1tiaEv-0001O8-FV
+ for xen-devel@lists.xenproject.org; Thu, 13 Feb 2025 14:30:53 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1da16939-ea17-11ef-abfc-e33de0ed8607;
+ Thu, 13 Feb 2025 15:30:47 +0100 (CET)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-5de594e2555so1512177a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Feb 2025 06:30:47 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aba53257694sm141667966b.49.2025.02.13.06.28.37
+ 4fb4d7f45d1cf-5dece1eb69bsm1336336a12.48.2025.02.13.06.30.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Feb 2025 06:28:37 -0800 (PST)
+ Thu, 13 Feb 2025 06:30:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d0d7cc72-ea16-11ef-88c1-8ba37f82fa57
+X-Inumbo-ID: 1da16939-ea17-11ef-abfc-e33de0ed8607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739456918; x=1740061718; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=upo9G1oAKXT11pLqifh/sKlayg9aSBoAcvrDZi7IqNw=;
-        b=CqINZylvjXclHJ1TBt6ViV96BXlco2QB4DLdwEFEaQlidDmQ/Ob+yve0w5OZTlpXO+
-         Zv5zM3m5gIPDCU3g92y5JLcz3kUovcSWQdfZjMko8vt8D0pJMQ/Gmowqfbs5Z6FUjcE2
-         HnIQWqCfnjQh+1OI/AUb89qzuNzFI2QAD9gA8FqMy5hWJyD0v5de+5O5Rkrvct4efmp7
-         nY2QCkwUmlRlGnxc+dLtHQMRC/rNojq2ElRJvXqjmaHZCTD8ZkxppucwPEr/g8dygLBA
-         sIB9AoN4HdOxZww1lSeA+BU40L9ofTb7WcKpiqDbj31prkBGGqAp6PKcJVm986ceGV7q
-         vFEA==
+        d=suse.com; s=google; t=1739457047; x=1740061847; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=GwfOWqkdSAQByn/59MaSxRc3LKlCXcaw1IkI3MuOOOY=;
+        b=YGkewoRVDa2NtFxhj3OWsGGC5dXQF2+itA1nrHGFieCq9FMg0F2F9ZhP24qdVTnUfU
+         yELFdgqAnorxrL6Sw+UVf05/098ypunEN628ZuDP2jICCZ18NLDwIwQxFsaMcHoYkj6w
+         nV1h9vdkuRBCljpu61nnT2+IVvqW93aIIDZPrWiY1OUMcXSFYjUkwjzva2KZKGXprfhh
+         vhLpw1+o6sD6N7sQpw+KjIzjjWJlapoZPtlxqabS6jmZ0+G2xFbsaERij9DwD0yiYjjY
+         tGYpsehCdqXRSWLzmLCF1CkMHpM0xoUV6dXArgSq621LIFgfwqrglqC307la57adJpc0
+         e7lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739456918; x=1740061718;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=upo9G1oAKXT11pLqifh/sKlayg9aSBoAcvrDZi7IqNw=;
-        b=IDOV0I9XK92CVndNXyn8Q7fZ3aYvLAqk/tCluGbclBHs4+NEmM6zGLXwgqtGwlNjZP
-         eqzeEbRydSCFYi8yXhWpXfwTBjPfEmWx08BdZlBDAlc19QmAJx6TqKgi7f1rzyk8iCIj
-         4/LYfB8xVqEvO6Dvi3ZNgcPKePdIv9ZmU+I0JEqkEFNGTEl/tqWNjJK0ctQlCGWPw1vf
-         rgx76kyMc26q/ALBiFvG2EMkqtkuBxBsyA678tznt7JbGf7boefzWVgZ5TBbcELLebc1
-         mH4Y0GpCEsW+IOkGDiPlrwP53ZwLYK+eu00cZNiAUx2fjool5yhrusKBzmATa3YViEh8
-         Ob+w==
-X-Gm-Message-State: AOJu0YxDH+GYfBZWACAhyKFdmULM1Qpjb1ibVvD4BgoccDjfL/kYOG2/
-	VRDGNCeBqvy/xQIWdoDa52Tg9iPWmJD6fLA9sSu+OeHmMljidWb2HuA8DF2/ezi5Fk/pBlYy5EY
-	=
-X-Gm-Gg: ASbGncvHG4JWkAOd9zz9k7/K6Pl2PQbPDq29tk0sBRnMZLCeq5SkhxjYESWZWX83Ag9
-	23pXHkCAWdkZ+RzslH21xVJfjTpfK88J9VlXS2OhfOFjPgHYrxXXCCxRfPToKN0oP0thBpdyTcm
-	f9t0UvG89ZIiFlJ4HxmVvIX9+HknvHIdI9ki3N9+d7ebSrw+FymKWa/YXFkiLW1rhve2TMQdlB0
-	MtQMzk5cbHrmPYgFLBxuueF5uVzbCrJAl+6eDZrrHcfnGgpQ7sa+dvTv0G65dv9eRgQqjnrugI+
-	lIJQeyhca98visYLhMw/4nGzxGooFFzyQyvKX0DVF++jgrdk/iXEO3HEL9VuiPPo7c8KjgwS5UR
-	+
-X-Google-Smtp-Source: AGHT+IH3/MLcEWwqh8YhUQkL+jQCF+G567XYAn6t+vEA50WJHl2wdl8WdaZ+oQdmizNGBhm/xlr/yg==
-X-Received: by 2002:a17:907:3f1f:b0:ab7:bba7:b758 with SMTP id a640c23a62f3a-aba510aedd3mr240166766b.20.1739456918039;
-        Thu, 13 Feb 2025 06:28:38 -0800 (PST)
-Message-ID: <35e47b81-7a87-4e8e-b8de-ec37a5ea984a@suse.com>
-Date: Thu, 13 Feb 2025 15:28:36 +0100
+        d=1e100.net; s=20230601; t=1739457047; x=1740061847;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GwfOWqkdSAQByn/59MaSxRc3LKlCXcaw1IkI3MuOOOY=;
+        b=nZBq0MOlsbWpSTxH7eenW/inCll3t8TB/tbIB8io/fvkaPNFu2xUf8DqO+I1dOZ4YB
+         Poa+A5lcIw0oy3SvrC6L6fu5W9/uedn61nAKu4UeoIxURpfXIRDu8AY+5L7WdVDpHqkL
+         N3hC6IhyT4dVDWLGmQHvQIukfaxL5QpdgbrmodAidhHnml1uTnl2ytoxg+KF1YLDRfnv
+         K9ezfFTRn96KJ8sThcprhfbnq/SFcnjjLEaW5wqEr7JP/+g2oU9dZgESa57jdzJbvQEU
+         6ePW1aw1aL2nFHeW28A5jTvfr+vDDG7iQfBxq1x/xeObY8bNDFTorOiEhVTGkUU6+Krz
+         WNMQ==
+X-Gm-Message-State: AOJu0Yy9nB7sAwy9Xwm89XXlEGyqCiENyOOXy2CfGnwYjRDMNdTZw3Tc
+	gvZalZkQYMLySkOK3rim2z3tlnZrnK8Po2lpyo6szLj5uRuWxC2NlNBMtQp14w==
+X-Gm-Gg: ASbGnct9ldDYRGE/Xvr1z9BY2/9Sq+WL6ADr59QaOG7083fXwfSl7dWFo88F8YXOilF
+	tLk06pNCTpCHfiPaltKBaA1S1iHTU8IAdCfqPADn+drcmjqZRyE5Ge/cyIowZQXSXpoTWLTFkCL
+	NLJ222daJKZ9idedbGs9jQ/5Y0BMBKt59Ou8GVBm2mJPpJSrujJoDLTFLTwXRH0n2hdNyx6D6yh
+	/4o2/E9GONot3itYZlNV839hcQzJ0ZVW7wRB9vsU4ljHq7BIpOsV6SM+ksN9ouehrr4YbgqS8lR
+	kXFkm8TTx5SDeGvcnvDkwnE4sygOox8g+ZKDrHRJdFxgZAUWx0XG/gcEHUmoDt7j0G9atKHJ0Bd
+	h
+X-Google-Smtp-Source: AGHT+IHqbhVGN7CTIjWUNJ1vkO+ZNyoZIedy3gZ625hPvKjBMd44c02YGyak9cjLtjCVJkLjWKJmXw==
+X-Received: by 2002:a05:6402:40d1:b0:5dc:4f4:74c3 with SMTP id 4fb4d7f45d1cf-5deadd8362cmr5829352a12.4.1739457046621;
+        Thu, 13 Feb 2025 06:30:46 -0800 (PST)
+Message-ID: <1f481ef9-3a47-4222-a143-b9e6585d382b@suse.com>
+Date: Thu, 13 Feb 2025 15:30:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: xen | Failed pipeline for staging | b5b2f987
-To: Stefano Stabellini <sstabellini@kernel.org>
-References: <67adff3bd57c7_2ec97344998c@gitlab-sidekiq-catchall-v2-74bbd94c4d-5p8wh.mail>
+Subject: Re: [PATCH v4 for-4.20(?) 0/4] Add/enable stack protector
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Community Manager <community.manager@xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20250114042553.1624831-1-volodymyr_babchuk@epam.com>
+ <5b6b1ad2-c0cd-454c-aa7c-b6de37ab39df@citrix.com> <87pljmymos.fsf@epam.com>
+ <e692db7a-c457-445e-befa-96702b512b13@citrix.com>
+ <402c93ec-9cb0-41e0-b1c8-eca321140ad6@gmail.com>
+ <50d8f989-2512-4414-b12c-a9cb33c675b7@gmail.com>
 Content-Language: en-US
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,33 +128,43 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <67adff3bd57c7_2ec97344998c@gitlab-sidekiq-catchall-v2-74bbd94c4d-5p8wh.mail>
+In-Reply-To: <50d8f989-2512-4414-b12c-a9cb33c675b7@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 13.02.2025 15:18, GitLab wrote:
+On 13.02.2025 15:26, Oleksii Kurochko wrote:
 > 
+> On 2/13/25 3:21 PM, Oleksii Kurochko wrote:
+>>
+>>
+>> On 2/13/25 3:07 PM, Andrew Cooper wrote:
+>>> On 13/02/2025 1:54 pm, Volodymyr Babchuk wrote:
+>>>> Hi Andrew,
+>>>>
+>>>> Andrew Cooper<andrew.cooper3@citrix.com> writes:
+>>>>
+>>>>> On 14/01/2025 4:25 am, Volodymyr Babchuk wrote:
+>>>>>> Volodymyr Babchuk (4):
+>>>>>>    common: remove -fno-stack-protector from EMBEDDED_EXTRA_CFLAGS
+>>>>>>    xen: common: add ability to enable stack protector
+>>>>>>    xen: arm: enable stack protector feature
+>>>>>>    CHANGELOG.md: Mention stack-protector feature
+>>>>> Reviewed-by: Andrew Cooper<andrew.cooper3@citrix.com>
+>>>>>
+>>>>> There's one minor formatting error which can be fixed on commit.
+>>>>>
+>>>>> ~Andrew
+>>>> Thanks for the review. I noticed that this series is not committed. Is
+>>>> there anything else required from my side?
+>>>>
+>>> You need an ARM Ack on patch 3.  [EDIT], no you don't, my R-by is good
+>>> enough.
 > 
-> Pipeline #1669696445 has failed!
-> 
-> Project: xen ( https://gitlab.com/xen-project/hardware/xen )
-> Branch: staging ( https://gitlab.com/xen-project/hardware/xen/-/commits/staging )
-> 
-> Commit: b5b2f987 ( https://gitlab.com/xen-project/hardware/xen/-/commit/b5b2f9877a8777af6b78944407527e0a450389a2 )
-> Commit Message: x86/HVM: use XVFREE() in hvmemul_cache_destroy(...
-> Commit Author: Jan Beulich ( https://gitlab.com/jbeulich )
-> 
-> 
-> Pipeline #1669696445 ( https://gitlab.com/xen-project/hardware/xen/-/pipelines/1669696445 ) triggered by Jan Beulich ( https://gitlab.com/jbeulich )
-> had 1 failed job.
-> 
-> Job #9129817480 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/9129817480/raw )
-> 
-> Stage: test
-> Name: xilinx-smoke-dom0less-arm64-gcc-debug-gem-passthrough
+> Andrew, why it is enough your R-by for patch 3? It seems like it is fully Arm related patch
+> and I expect to see Ack from Arm maintainers. Also, there is some comments from Julien.
 
-From the log I can't spot what it is that failed. Stefano, given it's a
-Xilinx test, any idea or hint?
+At a guess Andrew found Volodymyr in the ARM section of maintainers, but
+then didn't pay close attention to the R: (rather than M:).
 
 Jan
 
