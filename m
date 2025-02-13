@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A49D6A33580
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2025 03:29:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.887098.1296662 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0C1BA3381D
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2025 07:44:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.887122.1296670 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiOxp-0008EF-G6; Thu, 13 Feb 2025 02:28:29 +0000
+	id 1tiSwn-0004mE-3h; Thu, 13 Feb 2025 06:43:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 887098.1296662; Thu, 13 Feb 2025 02:28:29 +0000
+Received: by outflank-mailman (output) from mailman id 887122.1296670; Thu, 13 Feb 2025 06:43:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiOxp-0008B7-D3; Thu, 13 Feb 2025 02:28:29 +0000
-Received: by outflank-mailman (input) for mailman id 887098;
- Thu, 13 Feb 2025 02:28:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tiSwn-0004kE-0v; Thu, 13 Feb 2025 06:43:41 +0000
+Received: by outflank-mailman (input) for mailman id 887122;
+ Thu, 13 Feb 2025 06:43:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZTDb=VE=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1tiOxn-0008B1-Go
- for xen-devel@lists.xenproject.org; Thu, 13 Feb 2025 02:28:27 +0000
-Received: from fout-b5-smtp.messagingengine.com
- (fout-b5-smtp.messagingengine.com [202.12.124.148])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 32b09d05-e9b2-11ef-a075-877d107080fb;
- Thu, 13 Feb 2025 03:28:24 +0100 (CET)
-Received: from phl-compute-12.internal (phl-compute-12.phl.internal
- [10.202.2.52])
- by mailfout.stl.internal (Postfix) with ESMTP id E751711400CA;
- Wed, 12 Feb 2025 21:28:22 -0500 (EST)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-12.internal (MEProxy); Wed, 12 Feb 2025 21:28:23 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 12 Feb 2025 21:28:21 -0500 (EST)
+ <SRS0=0fPX=VE=gmail.com=andr2000@srs-se1.protection.inumbo.net>)
+ id 1tiSwl-0004k8-Nf
+ for xen-devel@lists.xenproject.org; Thu, 13 Feb 2025 06:43:39 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d9e6ed3e-e9d5-11ef-b3ef-695165c68f79;
+ Thu, 13 Feb 2025 07:43:36 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-ab7f2b3d563so106948266b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Feb 2025 22:43:36 -0800 (PST)
+Received: from [10.23.200.101] ([194.183.181.59])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aba5339d9cfsm65533466b.139.2025.02.12.22.43.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 12 Feb 2025 22:43:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,340 +45,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32b09d05-e9b2-11ef-a075-877d107080fb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1739413702;
-	 x=1739500102; bh=Ahlt6x8O+dGNnrAwMVQFXZY4p8B9aOQcVRSj37rgRsA=; b=
-	LE1x8jsbw23cJq2CwRJ9QJH4DqwxncxEXxUZPMrGi3PuodJ06KIlrAkU+pwAb5OC
-	4XsBF9ebHqPeYGaXnZojypO2rsxIN+xC8EuWNNCw4L7LCpOE9Ao4vgnaL0uAvcNs
-	NmEk1jsPP4mdhSpDcCfBdK7i6l9+9fynsTdgrtrx6//ShbROLRT9TydfMhx9RCBI
-	Nco1gYojzmooVCqhyeZuX7VQPljm6nrJdhE93eErwR+DhU/XcQC4Qg8DUNnyQlTI
-	3VkelqSLM1SrKQTi+EejtVjhEFE2fSUDrE7ETxipfLHAVt8zJeG8JfeZFQU5lpvU
-	wQOjiifKTYf2r2/fmeZL0g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1739413702; x=1739500102; bh=Ahlt6x8O+dGNnrAwMVQFXZY4p8B9aOQcVRS
-	j37rgRsA=; b=zndymUIPcFG7sEBgAztO6M0VzFPj0Tz55cgUW1lLplgpleAZWaV
-	zmmUPreDuBQXIx0q8NonYWsUoU+UTkYEW37HtgOFvfxR829zOcxIbSmxLBrUmNWg
-	/SQevZhdXJa4qaHNJSWCKXswuhqDOwXFtcMDmArAlybRYo6m26waSXRdjG81ADt6
-	dBPJuBHwhEY7BjVuxRPRmlAx3/8QtheNme7YWsGNYBDH6YDLE1Nnft2mKIIokMhy
-	cvQFcbOytIkNFiLEpYzhDz0eL8XPdxj5bK252UTvE40L9oVCisWZc5CZ3roTKcy/
-	M3/HOKKobzgntnV9A4RFuCI85V7j8lznYOA==
-X-ME-Sender: <xms:xlitZ_jI8dKhmm5cNS1NXBaTfO7ysyXFBwhlldrCdpaua1s5fyXQsw>
-    <xme:xlitZ8B9F6jcn6MxbWt_Fbhm89mo5ZOYIbeMS_HKjMv1qhlwdvARyK76xuV2oRBqX
-    jW71AEkcQLjEw>
-X-ME-Received: <xmr:xlitZ_FiWxEWWs2v8hdO7W544e0SRN8BGYQatkSyXreCWp63xNPSoTQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdegheehjecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdp
-    uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivg
-    hnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdej
-    necuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoe
-    hmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucgg
-    tffrrghtthgvrhhnpefgudelteefvefhfeehieetleeihfejhfeludevteetkeevtedtvd
-    egueetfeejudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhr
-    ohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpd
-    hnsggprhgtphhtthhopeefpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopehsshht
-    rggsvghllhhinhhisehkvghrnhgvlhdrohhrghdprhgtphhtthhopeigvghnqdguvghvvg
-    hlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhopegtrghrugho
-    vgestggrrhguohgvrdgtohhm
-X-ME-Proxy: <xmx:xlitZ8QS3fd2bpdYBdJzBbn31z86KIf9nM2VG8oxS4upR0LHKunb0Q>
-    <xmx:xlitZ8zZ8Kjj05o6FfHSr7YG-1Y3qhxRLbOA6yM8CxoIJqEAI3qAyA>
-    <xmx:xlitZy6gMIN3lQT4JX07haa-pdUvXfIZzepPRJQiTqYqlipe2_UKhA>
-    <xmx:xlitZxwZo4xOBm6xM-910EkrF1vJzMgoBdGMKsRTr65uHGCxogOXJg>
-    <xmx:xlitZ4-dD7uIwjtQSypDjAOdYyJVLQBnk8cHXt3UFGLpuMWd3PRDSbdW>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 13 Feb 2025 03:28:19 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [PATCH v1 2/3] automation: add jobs running tests from
- tools/tests/*
-Message-ID: <Z61Yw50tlX-xH9b6@mail-itl>
-References: <cover.068c7421003863de7fca1cbe6aed2af000f061a7.1739409822.git-series.marmarek@invisiblethingslab.com>
- <3fbb4c6be9d9190bb2bd6427ab0f0a933c95dde1.1739409822.git-series.marmarek@invisiblethingslab.com>
- <alpine.DEB.2.22.394.2502121802540.619090@ubuntu-linux-20-04-desktop>
+X-Inumbo-ID: d9e6ed3e-e9d5-11ef-b3ef-695165c68f79
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1739429016; x=1740033816; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=JnEEDszUw8seYdhnlvB3w4Do0d17BoYLpMn4byUCCSs=;
+        b=jdQQTK7IYJqaiB7xlpIrHurlrkT6zjybohMGEkjbvdAEFi3s4aUJAxqzgCqsGxSkWu
+         hHBoAgUBSclpOC7LVefGlae/YOWuik8Hf7DrLAwS+JlU9G1DtD8Ku2lS8KWQykTTItDl
+         O8BmE8oB2HAHjhpNo00oNzJbAxZISBfg1H+FxuQZxn3AbTWlaVA+1cWOXEXJrKezNX+o
+         0EdWmZskbrXkLTCG8OcDmz0w506qyipPGdm+qPUkXlj3QRgm9pOrSW/mYD0bHFBr8cCW
+         WZ1CF0ck0CL88YNwmaPwgwzqkoSZF4j9DLb3X07H9iYZTbKm6JXPp0VpfvmM2dY6sQmc
+         HCyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1739429016; x=1740033816;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=JnEEDszUw8seYdhnlvB3w4Do0d17BoYLpMn4byUCCSs=;
+        b=pCtpMf6OpvbGQOnjZTUgrd37qmLTPY/kpfA/nCP8940MFcqknJr2onXLVm4wyWjans
+         Kddrhv7aP7kVpAaBd08WiIO/LeDMMxPaLcUWEbvo8vMM2ozkp2XKtVjlBx/cnjRyQgqR
+         i2lAccsNJ86Cqz+UFmb11Ep6kbSx3P+3QXVjAwnITt0SrKlmqtS2a1SuTGE1bT/F07er
+         69k95YW/lw1xcX6h6hMIeoHBInM8UsIWg51d1Po+RYUvL9Is/agvDlVKivso7cKyJjAQ
+         rqePtah4El51SV94yDxlAafyGQ+XM2Yfop3JbrsBgF3X6hqM85zrorBHOIz6BdBBySsn
+         LXaw==
+X-Gm-Message-State: AOJu0YwAuyjeyXebFa+bewuaCFAYdNEWBrbIYwcAmizJWOwd2dVM+qHu
+	g8M2bSdoZFAc2M87FBLhn0A3y2fbpQWrPxGCOleC4ZPuZ9Vd5kTR
+X-Gm-Gg: ASbGncsUrqYF/TWV1ahpW3t+sGUNCkKBygo8Ui/voHSJduijm0ehnW0F91uU8xb1u2l
+	TmBcCer8xx2rkFy9BtsH1dg4URnWDfFbQ/gYfLE65GNaqkGElFrYnVevpQkj3lw+evhq+Gfnaml
+	+Eqa5l1sFDOMsSiKphy1RbehlmeB0xOLH0dWdA9Q3U5saq0ubTOQiOERChy2ZBHF1tkcNQcrKHR
+	awVbcsvfkrt73XiNzhh7OudtcqRgPLGhEyeuWTO6liYeycl/g3MnlY+yGKqbpKPhUAs5RrGhuvP
+	8yO5daxahS3OeuADezg=
+X-Google-Smtp-Source: AGHT+IEfKoY8g2Vz6J7c4Act7zl4lY5ANkFSRh0bPSRKSbvq1rTqFxaVWsrfZ8rCKEgphKcxyqHwLA==
+X-Received: by 2002:a17:907:a07:b0:ab6:dd24:3338 with SMTP id a640c23a62f3a-aba5018d16dmr162546466b.37.1739429015790;
+        Wed, 12 Feb 2025 22:43:35 -0800 (PST)
+Message-ID: <d9d216c2-14a0-4d99-b79e-c67dcbd3fcc7@gmail.com>
+Date: Thu, 13 Feb 2025 08:43:23 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="RY3QQ9LXq8Kb+OmG"
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.22.394.2502121802540.619090@ubuntu-linux-20-04-desktop>
+User-Agent: Mozilla Thunderbird
+Subject: Re: Coding Style Review and Automation
+To: Grygorii Strashko <grygorii_strashko@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Artem Mygaiev <Artem_Mygaiev@epam.com>
+References: <5a15f8e2-079c-405a-95ce-92585ac529cd@gmail.com>
+ <alpine.DEB.2.22.394.2502111426380.619090@ubuntu-linux-20-04-desktop>
+ <Z6xma27ZxfeHK6Y0@macbook.local>
+ <65fcc449-3b15-4e14-995a-ddd3bec9f3d0@epam.com>
+Content-Language: en-US
+From: Oleksandr Andrushchenko <andr2000@gmail.com>
+In-Reply-To: <65fcc449-3b15-4e14-995a-ddd3bec9f3d0@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
+Hi, Grygorii,
 
---RY3QQ9LXq8Kb+OmG
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 13 Feb 2025 03:28:19 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [PATCH v1 2/3] automation: add jobs running tests from
- tools/tests/*
-
-On Wed, Feb 12, 2025 at 06:07:37PM -0800, Stefano Stabellini wrote:
-> On Thu, 13 Feb 2025, Marek Marczykowski-G=C3=B3recki wrote:
-> > There are a bunch of tests in tools/tests/, let them run in CI.
-> > For each subdirectory expect "make run" will run the test, and observe
-> > its exit code. This way, adding new tests is easy, and they will be
-> > automatically picked up.
-> >=20
-> > For better visibility, log test output to junit xml format, and let
-> > gitlab ingest it. Set SUT_ADDR variable with name/address of the system
-> > under test, so a network can be used to extract the file. The actual
-> > address is set using DHCP. And for the test internal network, still add
-> > the 192.168.0.1 IP (but don't replace the DHCP-provided one).
-> >=20
-> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
-slab.com>
->=20
-> Very nice!!
->=20
-> Only one comment below
->=20
->=20
-> > ---
-> >  automation/gitlab-ci/test.yaml     | 23 +++++++++++++++-
-> >  automation/scripts/build           |  1 +-
-> >  automation/scripts/qubes-x86-64.sh | 27 +++++++++++++++++-
-> >  automation/scripts/run-tools-tests | 47 ++++++++++++++++++++++++++++++=
-+-
-> >  4 files changed, 97 insertions(+), 1 deletion(-)
-> >  create mode 100755 automation/scripts/run-tools-tests
-> >=20
-> > diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test=
-=2Eyaml
-> > index 1822e3ea5fd7..c21a37933881 100644
-> > --- a/automation/gitlab-ci/test.yaml
-> > +++ b/automation/gitlab-ci/test.yaml
-> > @@ -130,6 +130,7 @@
-> >      PCIDEV: "03:00.0"
-> >      PCIDEV_INTR: "MSI-X"
-> >      CONSOLE_OPTS: "console=3Dcom1 com1=3D115200,8n1"
-> > +    SUT_ADDR: test-2.testnet
-> >    artifacts:
-> >      paths:
-> >        - smoke.serial
-> > @@ -263,6 +264,28 @@ adl-pvshim-x86-64-gcc-debug:
-> >      - *x86-64-test-needs
-> >      - alpine-3.18-gcc-debug
-> > =20
-> > +adl-tools-tests-pv-x86-64-gcc-debug:
-> > +  extends: .adl-x86-64
-> > +  script:
-> > +    - ./automation/scripts/qubes-x86-64.sh tools-tests-pv 2>&1 | tee $=
-{LOGFILE}
-> > +  artifacts:
-> > +    reports:
-> > +      junit: tests-junit.xml
-> > +  needs:
-> > +    - *x86-64-test-needs
-> > +    - alpine-3.18-gcc-debug
-> > +
-> > +adl-tools-tests-pvh-x86-64-gcc-debug:
-> > +  extends: .adl-x86-64
-> > +  script:
-> > +    - ./automation/scripts/qubes-x86-64.sh tools-tests-pvh 2>&1 | tee =
-${LOGFILE}
-> > +  artifacts:
-> > +    reports:
-> > +      junit: tests-junit.xml
-> > +  needs:
-> > +    - *x86-64-test-needs
-> > +    - alpine-3.18-gcc-debug
-> > +
-> >  zen3p-smoke-x86-64-gcc-debug:
-> >    extends: .zen3p-x86-64
-> >    script:
-> > diff --git a/automation/scripts/build b/automation/scripts/build
-> > index 952599cc25c2..522efe774ef3 100755
-> > --- a/automation/scripts/build
-> > +++ b/automation/scripts/build
-> > @@ -109,5 +109,6 @@ else
-> >      # even though dist/ contains everything, while some containers don=
-'t even
-> >      # build Xen
-> >      cp -r dist binaries/
-> > +    cp -r tools/tests binaries/
-> >      collect_xen_artefacts
-> >  fi
-> > diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qu=
-bes-x86-64.sh
-> > index 7eb3ce1bf703..81d239cc8b75 100755
-> > --- a/automation/scripts/qubes-x86-64.sh
-> > +++ b/automation/scripts/qubes-x86-64.sh
-> > @@ -10,6 +10,8 @@ set -ex
-> >  #  - pci-pv         PV dom0,  PV domU + PCI Passthrough
-> >  #  - pvshim         PV dom0,  PVSHIM domU
-> >  #  - s3             PV dom0,  S3 suspend/resume
-> > +#  - tools-tests-pv PV dom0, run tests from tools/tests/*
-> > +#  - tools-tests-pvh PVH dom0, run tests from tools/tests/*
-> >  test_variant=3D$1
-> > =20
-> >  ### defaults
-> > @@ -19,6 +21,7 @@ timeout=3D120
-> >  domU_type=3D"pvh"
-> >  domU_vif=3D"'bridge=3Dxenbr0',"
-> >  domU_extra_config=3D
-> > +retrieve_xml=3D
-> > =20
-> >  case "${test_variant}" in
-> >      ### test: smoke test & smoke test PVH & smoke test HVM & smoke tes=
-t PVSHIM
-> > @@ -126,6 +129,21 @@ done
-> >  "
-> >          ;;
-> > =20
-> > +    ### tests: tools-tests-pv, tools-tests-pvh
-> > +    "tools-tests-pv"|"tools-tests-pvh")
-> > +        retrieve_xml=3D1
-> > +        passed=3D"test passed"
-> > +        domU_check=3D""
-> > +        dom0_check=3D"
-> > +/tests/run-tools-tests /tests /tmp/tests-junit.xml && echo \"${passed}=
-\"
-> > +nc -l -p 8080 < /tmp/tests-junit.xml >/dev/null &
-> > +"
-> > +        if [ "${test_variant}" =3D "tools-tests-pvh" ]; then
-> > +            extra_xen_opts=3D"dom0=3Dpvh"
-> > +        fi
-> > +
-> > +        ;;
-> > +
-> >      *)
-> >          echo "Unrecognised test_variant '${test_variant}'" >&2
-> >          exit 1
-> > @@ -178,6 +196,8 @@ mkdir srv
-> >  mkdir sys
-> >  rm var/run
-> >  cp -ar ../binaries/dist/install/* .
-> > +cp -ar ../binaries/tests .
-> > +cp -a ../automation/scripts/run-tools-tests tests/
-> > =20
-> >  echo "#!/bin/bash
-> > =20
-> > @@ -188,7 +208,8 @@ brctl addbr xenbr0
-> >  brctl addif xenbr0 eth0
-> >  ifconfig eth0 up
-> >  ifconfig xenbr0 up
-> > -ifconfig xenbr0 192.168.0.1
-> > +timeout 30s udhcpc -i xenbr0
-
-This is actually wrong with tests doing passthrough. I'll send v2 that
-limits it.
-
-> > +ip addr add dev xenbr0 192.168.0.1/24
-> > =20
-> >  " > etc/local.d/xen.start
-> > =20
-> > @@ -272,6 +293,10 @@ if [ $timeout -le 0 ]; then
-> >      exit 1
-> >  fi
-> > =20
-> > +if [ -n "$retrieve_xml" ]; then
-> > +    nc -w 10 "$SUT_ADDR" 8080 > tests-junit.xml </dev/null
-> > +fi
-> > +
-> >  sleep 1
-> > =20
-> >  (grep -q "^Welcome to Alpine Linux" smoke.serial && grep -q "${passed}=
-" smoke.serial) || exit 1
-> > diff --git a/automation/scripts/run-tools-tests b/automation/scripts/ru=
-n-tools-tests
-> > new file mode 100755
-> > index 000000000000..242a9edad941
-> > --- /dev/null
-> > +++ b/automation/scripts/run-tools-tests
-> > @@ -0,0 +1,47 @@
-> > +#!/bin/sh
->=20
-> It should be /bin/bash
-
-That script is running inside SUT (started from initramfs) which is
-rather minimal. I think it currently has bash, but with the initramfs at
-over 200MB (compressed) I can see trimming it in the future...
-
-> You could also consider -e and maybe -x
-
-That is a good idea (but also failures need to not break the XML
-structure, so it will clutter the script a bit).
-
-> > +usage() {
-> > +    echo "Usage: $0 tests-dir xml-out"
-> > +}
-> > +
-> > +xml_out=3D$2
-> > +if [ -z "$xml_out" ]; then
-> > +  xml_out=3D/dev/null
-> > +fi
-> > +printf '<?xml version=3D"1.0" encoding=3D"UTF-8"?>\n' > "$xml_out"
-> > +printf '<testsuites name=3D"tools.tests">\n' >> "$xml_out"
-> > +printf ' <testsuite name=3D"tools.tests">\n' >> "$xml_out"
-> > +failed=3D
-> > +for dir in "$1"/*; do
-> > +    [ -d "$dir" ] || continue
-> > +    echo "Running test in $dir"
-> > +    printf '  <testcase name=3D"%s">\n' "$dir" >> "$xml_out"
-> > +    ret=3D
-> > +    for f in "$dir"/*; do
-> > +        [ -f "$f" ] || continue
-> > +        [ -x "$f" ] || continue
-> > +        "$f" 2>&1 | tee /tmp/out
-> > +        ret=3D$?
-> > +        if [ "$ret" -ne 0 ]; then
-> > +            echo "FAILED"
-> > +            failed+=3D" $dir"
-> > +            printf '   <failure type=3D"failure" message=3D"binary %s =
-exited with code %d">\n' "$f" "$ret" >> "$xml_out"
-> > +            # TODO: could use xml escaping... but current tests seems =
-to
-> > +            # produce sane output
-> > +            cat /tmp/out >> "$xml_out"
-> > +            printf '   </failure>\n' "$f" "$ret" >> "$xml_out"
-> > +        else
-> > +            echo "PASSED"
-> > +        fi
-> > +    done
-> > +    if [ -z "$ret" ]; then
-> > +        printf '   <skipped type=3D"skipped" message=3D"test not found=
-"/>\n' >> "$xml_out"
-> > +    fi
-> > +    printf '  </testcase>\n' "$dir" >> "$xml_out"
-> > +done
-> > +printf ' </testsuite>\n' >> "$xml_out"
-> > +printf '</testsuites>\n' >> "$xml_out"
-> > +
-> > +if [ -n "$failed" ]; then
-> > +    exit 1
-> > +fi
-> > --=20
-> > git-series 0.9.1
-> >=20
-
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---RY3QQ9LXq8Kb+OmG
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmetWMMACgkQ24/THMrX
-1ywI/gf+KR1E5sgQzA3kTET3cy+7RWRGlvNA9Z/zePf8nrBXOKR0oTmr2/ojvkOF
-4cXZ53p7sn4dBdJrOmeYyQ8q48tHt+e+t4L+J+zRXE/SoviizadAO1L2/7O8CH1H
-BkLOJREfticEYQs/9mEVJQkJ4yUScsBTdyabdmXU1lIqyeWlUDs7IP19RJQ+wvZE
-NWEME9iBmWcgPV2dEGOp6zlslB+MSJzIyTDBXIt3kqk3w0qIYTbkMMUDp05iOhDx
-WgU0dYM64OtG7ck4sX82iK8qsZ95SENHUCy68PLdKfju5PD2IDrafsXOvZ3MIC6c
-w+2dZokFJR1ucxq5sBdWhjYyNCYfsg==
-=wWww
------END PGP SIGNATURE-----
-
---RY3QQ9LXq8Kb+OmG--
+On 12.02.25 13:14, Grygorii Strashko wrote:
+> Hi
+>
+> On 12.02.25 11:14, Roger Pau Monné wrote:
+>> On Tue, Feb 11, 2025 at 02:33:08PM -0800, Stefano Stabellini wrote:
+>>> Hi Oleksandr,
+>>>
+>>> This morning, we had a discussion among maintainers, and the suggested
+>>> approach moving forward is as follows:
+>>>
+>>> - First, it would be helpful to see a sample of the proposed changes
+>>>    applied to a single source file as an example. If you could provide
+>>>    such a patch, it would help advance the discussion.
+>>>
+>>> - If the changes are acceptable, we need to properly document the new
+>>>    coding style in xen.git. If not, we will need to iterate again. 
+>>> We may
+>>>    also need to add a "xen" template to clang-format.
+>>>
+>>> - Once finalized, we will proceed by making changes to the Xen source
+>>>    code piece by piece, as you suggested, rather than applying a single
+>>>    large patch.
+>>
+>> No objections, just wandering myself whether it was considered to
+>> initially only apply the new style to new chunks of code?  Using
+>> `git-clang-format` or similar as suggested by Anthony.
+>>
+>> Is the adjusted style expected to be too different from the current
+>> one as such approach would lead to hard to read code due to the mixed
+>> styles?
+>
+> Sorry for may be dumb question, but wouldn't it be reasonable to consider
+> adding just .clang-format specification to the Xen code base without
+> automation features?
+>
+> For example, I've downloaded .clang-format from [1] and using it with 
+> my editor
+> which supports clang-format integration. So, I can just select chunk 
+> of code and
+> do auto-format on it. It speed ups my work very much and results make 
+> me happy more
+> than 90% of the times.
+>
+> So, it would be nice to have it out of the box while cloning Xen code 
+> instead
+> of searching for it, even if it's not perfect for now.
+>
+> Unhappy: it's probably "known" things - identification of complex 
+> defines and
+> static struct/arrays declarations.
+>
+> For example original code:
+> DT_DEVICE_START(ipmmu, "Renesas IPMMU-VMSA", DEVICE_IOMMU)
+>     .dt_match = ipmmu_dt_match,
+>     .init = ipmmu_init,
+> DT_DEVICE_END
+>
+> And after auto format (me, personally, unhappy):
+> DT_DEVICE_START(ipmmu, "Renesas IPMMU-VMSA", DEVICE_IOMMU)
+>     .dt_match = ipmmu_dt_match, .init = ipmmu_init,
+> DT_DEVICE_END
+>
+This is covered by [1]
+> Best regards,
+> -grygorii
+[1] https://github.com/andr2000/xen/blob/clang/xen/.clang-format#L859
 
