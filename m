@@ -2,35 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB5DFA34DCD
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2025 19:37:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.887937.1297365 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E47CA34E10
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2025 19:51:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.887951.1297374 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tie55-0003rY-Sz; Thu, 13 Feb 2025 18:36:59 +0000
+	id 1tieIx-0006tM-24; Thu, 13 Feb 2025 18:51:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 887937.1297365; Thu, 13 Feb 2025 18:36:59 +0000
+Received: by outflank-mailman (output) from mailman id 887951.1297374; Thu, 13 Feb 2025 18:51:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tie55-0003pD-QF; Thu, 13 Feb 2025 18:36:59 +0000
-Received: by outflank-mailman (input) for mailman id 887937;
- Thu, 13 Feb 2025 18:36:58 +0000
+	id 1tieIw-0006rC-VX; Thu, 13 Feb 2025 18:51:18 +0000
+Received: by outflank-mailman (input) for mailman id 887951;
+ Thu, 13 Feb 2025 18:51:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IJm2=VE=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tie54-0003p7-Db
- for xen-devel@lists.xenproject.org; Thu, 13 Feb 2025 18:36:58 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ <SRS0=lRuD=VE=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1tieIv-0006r6-UO
+ for xen-devel@lists.xenproject.org; Thu, 13 Feb 2025 18:51:18 +0000
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on20625.outbound.protection.outlook.com
+ [2a01:111:f403:240a::625])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8058d832-ea39-11ef-88c1-8ba37f82fa57;
- Thu, 13 Feb 2025 19:36:57 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 7DE865C5619;
- Thu, 13 Feb 2025 18:36:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8D20C4CEE7;
- Thu, 13 Feb 2025 18:36:53 +0000 (UTC)
+ id 7b9d9565-ea3b-11ef-88c1-8ba37f82fa57;
+ Thu, 13 Feb 2025 19:51:07 +0100 (CET)
+Received: from DM6PR11CA0018.namprd11.prod.outlook.com (2603:10b6:5:190::31)
+ by SN7PR12MB7130.namprd12.prod.outlook.com (2603:10b6:806:2a2::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8445.16; Thu, 13 Feb
+ 2025 18:51:00 +0000
+Received: from DS1PEPF0001708E.namprd03.prod.outlook.com
+ (2603:10b6:5:190:cafe::e5) by DM6PR11CA0018.outlook.office365.com
+ (2603:10b6:5:190::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8445.13 via Frontend Transport; Thu,
+ 13 Feb 2025 18:51:00 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DS1PEPF0001708E.mail.protection.outlook.com (10.167.17.134) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8445.10 via Frontend Transport; Thu, 13 Feb 2025 18:50:59 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 13 Feb
+ 2025 12:50:59 -0600
+Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Thu, 13 Feb 2025 12:50:58 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,432 +59,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8058d832-ea39-11ef-88c1-8ba37f82fa57
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739471814;
-	bh=Snzq+Su5PiVY6TVQKTGwA4OYuu/qp020uTmHoot8VSI=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=HNQKqHOll/jiElmV+TtnBIFcoOEEH3Zy3t8Et8CzkKP/OFfLKhDdaehGXaYDADDr+
-	 gpdge2iCNZyGIQlPKN3lEH8CEsbKcjvZ0CN6lJVV0GgBQbS/L1a4zqjAWUh18T8FwU
-	 3TElAm3V7YXylwQ35TQKIZ2ct78ClTOqZr9BpdwMe3cEX+27mYeS6g1qZXzt5mYvoM
-	 5Wf1yxx8wb0dfbtmqNVni2B0ORcRHKaY/AzZg/o+GWj/3DXPwOAkoI1mPX+9yeSWZZ
-	 PC7k+BBZcz08HFd+yGIR0q1BAIHakKmHHJ08xQAtas/XI5+qFI4BoOk2DgtO/cgEMJ
-	 y3LZPC7xg3N4g==
-Date: Thu, 13 Feb 2025 10:36:52 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Michal Orzel <michal.orzel@amd.com>
-Subject: Re: [PATCH v2 1/2] arch: arm64: always set IL=1 when injecting
- undefined exception
-In-Reply-To: <20250213153748.2869989-2-volodymyr_babchuk@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2502131036470.619090@ubuntu-linux-20-04-desktop>
-References: <20250213153748.2869989-1-volodymyr_babchuk@epam.com> <20250213153748.2869989-2-volodymyr_babchuk@epam.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 7b9d9565-ea3b-11ef-88c1-8ba37f82fa57
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=egboLFpNsPK6IbL8mbtc/9JAhJsOmik7wQCLGLQWkw4k79A2gf+dk5Z3GGUUD+a8cVnkY0ccRv1ZOTDpm7D9xTu+3hsqggHfy65V3WtNbyM/c+AF5KVBTrXV1RcyPt+xjwFilFqv/Jhi4/ZD4vV59Oo0O7Q8lycPX8qho45v9JkOQlTbebpvaALAqDXXRVY2A7dvsOiwklE22k9ufp1VL5G3qsWOQNY0bwM2iwyOuvbwJkHe7aAImXOuuU4SBZ8Sa4CdA7sRGqkKWVOyI7nxVeLAP3U0zF4e+EPm0YFbYVvsvL5etzB2RDi3N1hxW+BXjbGznzQAqjsz7KFc5E4y9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=b/uhVK9NgT8GwhuKpNpJ8pSi1VhbJT7goWnfz7eyFlY=;
+ b=o5Tz+7eUJSLIkHtwdlRClT8dIPiLgQ6i+wh2q1vv9xQQeDNEluyNdWEWQhhOSKB0fGlDtim/q1MrzgpO/fftmzxWa7F6fsjTSlvjJap4go2mtLn2A5BX+SN7heQK5vLqWurgA0dxTyz8eT3OVZi4J8RRcL32XiciaEH+29PFKhLcPIfFgpbcrcVDIh244CUYdeB50ikJ9KZkKsEY7eyuPKJrweJLRvwODRB0+4M9ly9037uhP71f0WMDTh/4khS7+TVO9uWcasSDBXEApJA8mjd3OCfOGMZc1tvUGr2BZuCG/flqPnexctGQapbtugdBSW1b4lG03qRzX2WEbW9/Xw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=b/uhVK9NgT8GwhuKpNpJ8pSi1VhbJT7goWnfz7eyFlY=;
+ b=ZbBzLpIysT/BHjkefiXku60ck83e9B/4KFynW6AeTGT4Y6VDRLOA2YF1XRtpglq8mC0XibjLUvPbdkSZBPHAw5qWAvadC/FbI3eWPQewf5zYCdUaMXz362GDlDbDm4QMIBC11qmKU+lY1PJPq5P/iRSSZBPb31eR3MOzFnd2euM=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Oleksii Kurochko
+	<oleksii.kurochko@gmail.com>
+Subject: [PATCH] xen/x86: fix build with CONFIG_HVM=n and -Og
+Date: Thu, 13 Feb 2025 13:50:54 -0500
+Message-ID: <20250213185055.711703-1-stewart.hildebrand@amd.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB03.amd.com: stewart.hildebrand@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001708E:EE_|SN7PR12MB7130:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4db3c4f2-17cb-4f76-0d14-08dd4c5f5ba8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700013|376014|82310400026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?MBZN/qcjCx4aWfT6dua2jEl4LjtuDj11YJpYpY9DgMjDcWh16VxQtCNncKWk?=
+ =?us-ascii?Q?MfKJ2BZxv3fVy7+lEXt6TZOGk8z4gqlMzcnZnEyYuMP0gJCRZDKWl7pqKpfU?=
+ =?us-ascii?Q?G9/vcKsm0DXRMyiHe3gmAQkfxThJszYOB9ZBlaVWW+gPv+2YhQVqje+M1AvD?=
+ =?us-ascii?Q?IQ6Q5HmZ8hhJerWWJAEQgSEhEb1gBQvXSfCxByMQmo78OUkgGStF8EmL5M4p?=
+ =?us-ascii?Q?NYm/tBSXjcUBLsUReZVQ1pR9ACyZuvILBaXDklRQxwO0Wu96PV+zmzfXOAlm?=
+ =?us-ascii?Q?qz/D52D7/ZpGyv0m0ZBGt0ir1iQGti0KhgEs90ry2U4SCoM3fUER+XCEGsh6?=
+ =?us-ascii?Q?s3tT3Yye/+7V3cqd8NxmhjGnU42ClhSCwJFeCeY84jGgE5rVoxK3Z3h0GAds?=
+ =?us-ascii?Q?oFQTKQfmVkl9pKazwXitDaCXUR114DOL/b0e9gBIEsZhZIzIjOXegsiHPp+N?=
+ =?us-ascii?Q?UNqqoe7o4IXDE0pJiURNCRTmwFsVnB7KhJduiQ8J9ezhYvvN14c34gKfX3yF?=
+ =?us-ascii?Q?+tlC55OT+G8/TgbDnVsKR8w6d9bZ1qau1ylFiLpYOJ8vNWnpNJaKEkLxSRaH?=
+ =?us-ascii?Q?KZ50ZuYBlJc4zCMEFQDagNdxgHWA9D8xtLO2uXZZYEODKBv2oYmaI2GUTIWi?=
+ =?us-ascii?Q?z76prpM/F/wKxjuDD3S5X3lRr0Joik+DnrwsB5eUtJ9k1OLtknJfJtl7uxwL?=
+ =?us-ascii?Q?lwMBls3ZM8kU7HEXDx92Ziysfmg1Qi0qulIrjMtbSb1JJknKHDNPz7iFUdRk?=
+ =?us-ascii?Q?e3mc8YYCovpQ9zbcISLrYNihOV967wyv18HS9/p/Tm0E9TW2Zrushlm1lyZP?=
+ =?us-ascii?Q?mGaYn3Q+J3rwSeN42hINSvIeemq96b6USq3dOH1/3E8DTmVHWFh0SwII/kM3?=
+ =?us-ascii?Q?Kid44OnTRvDawEX+TV5Bdl2g1cykbVOJge1KhnIYMi2dWBPpQOzq8tPvptsB?=
+ =?us-ascii?Q?Ih0jOxTPacvAltReCrrE5xScIRXcB9dmYEFtWsBvZcqH4rMDIsyGY5xtUJGl?=
+ =?us-ascii?Q?Qn7YQvUwRbs+GuHs61Q2MLCyv82ECEgRM2NHApwIYuDeMoJQBp04bfkYqCas?=
+ =?us-ascii?Q?K3QP0GxQnq+SRKLdtOMuMYYpjB+2IHyBUSZVR74fpC15+kmQZRY9iFpvZCPp?=
+ =?us-ascii?Q?zA+lnc+TdBXlW3/BfZkNxhsBZ5RfaIHEizdb/UbdqXVpxKhRx98PPyYlT1d1?=
+ =?us-ascii?Q?dLCWbFQ4ZAEWb3JeYixaSOQHWQI9EqMA6ejCPOHWnVZe3UMErxT8yQnkmyCU?=
+ =?us-ascii?Q?X89YOupKpx+mWDdNcayWUr53/uT8Ci/67bu5VuNq3XH+a2Uos/u78YFG7HZL?=
+ =?us-ascii?Q?ZI6jq9a7PEaLNt6nwHyU1gqu3Q4Gc4/VrIa//WJkfL9q/TGE9PLZu0UA2c2a?=
+ =?us-ascii?Q?wN34iUUAd7gy+kF/ZioTdVNQ+zdglUCToI8k7qlAVwGLzhZ2PptWYifRp3du?=
+ =?us-ascii?Q?kTWoyAQh/gAIOcvxjp4TecrTu7QdZc/UjdH3kXMJLILtIAQZrNafFQtyzAdP?=
+ =?us-ascii?Q?tpzX2lT654CCWdQ=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Feb 2025 18:50:59.8728
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4db3c4f2-17cb-4f76-0d14-08dd4c5f5ba8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF0001708E.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7130
 
-On Thu, 13 Feb 2025, Volodymyr Babchuk wrote:
-> ARM Architecture Reference Manual states that IL field of ESR_EL1
-> register should be 1 when EC is 0b000000 aka HSR_EC_UNKNOWN.
-> 
-> Section D24.2.40, page D24-7337 of ARM DDI 0487L:
-> 
->   IL, bit [25]
->   Instruction Length for synchronous exceptions. Possible values of this bit are:
-> 
->   [...]
-> 
->   0b1 - 32-bit instruction trapped.
->   This value is also used when the exception is one of the following:
->   [...]
->    - An exception reported using EC value 0b000000.
-> 
-> To align code with the specification, set .len field to 1 in
-> inject_undef64_exception() and remove unneeded second parameter.
-> 
-> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+When building with CONFIG_HVM=n and -Og, we encounter:
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+prelink.o: in function `pit_set_gate':
+xen/xen/arch/x86/emul-i8254.c:195: undefined reference to `destroy_periodic_time'
 
+Add an IS_ENABLED(CONFIG_HVM) check to assist with dead code
+elimination.
 
-> ---
-> 
-> Changes in v2:
->  - Removed unused parameter from p2m_set_way_flush()
-> ---
->  xen/arch/arm/arm64/vsysreg.c           | 10 +++++-----
->  xen/arch/arm/include/asm/arm64/traps.h |  2 +-
->  xen/arch/arm/include/asm/p2m.h         |  3 +--
->  xen/arch/arm/include/asm/traps.h       |  2 +-
->  xen/arch/arm/p2m.c                     |  5 ++---
->  xen/arch/arm/traps.c                   | 24 ++++++++++++------------
->  xen/arch/arm/vcpreg.c                  | 26 +++++++++++++-------------
->  xen/arch/arm/vsmc.c                    |  6 ++----
->  8 files changed, 37 insertions(+), 41 deletions(-)
-> 
-> diff --git a/xen/arch/arm/arm64/vsysreg.c b/xen/arch/arm/arm64/vsysreg.c
-> index c73b2c95ce..d14258290f 100644
-> --- a/xen/arch/arm/arm64/vsysreg.c
-> +++ b/xen/arch/arm/arm64/vsysreg.c
-> @@ -95,7 +95,7 @@ void do_sysreg(struct cpu_user_regs *regs,
->       */
->      case HSR_SYSREG_ACTLR_EL1:
->          if ( regs_mode_is_user(regs) )
-> -            return inject_undef_exception(regs, hsr);
-> +            return inject_undef_exception(regs);
->          if ( hsr.sysreg.read )
->              set_user_reg(regs, regidx, v->arch.actlr);
->          break;
-> @@ -109,7 +109,7 @@ void do_sysreg(struct cpu_user_regs *regs,
->      case HSR_SYSREG_DCCSW:
->      case HSR_SYSREG_DCCISW:
->          if ( !hsr.sysreg.read )
-> -            p2m_set_way_flush(current, regs, hsr);
-> +            p2m_set_way_flush(current, regs);
->          break;
->  
->      /*
-> @@ -267,7 +267,7 @@ void do_sysreg(struct cpu_user_regs *regs,
->      case HSR_SYSREG_CNTP_TVAL_EL0:
->      case HSR_SYSREG_CNTP_CVAL_EL0:
->          if ( !vtimer_emulate(regs, hsr) )
-> -            return inject_undef_exception(regs, hsr);
-> +            return inject_undef_exception(regs);
->          break;
->  
->      /*
-> @@ -280,7 +280,7 @@ void do_sysreg(struct cpu_user_regs *regs,
->      case HSR_SYSREG_ICC_SGI0R_EL1:
->  
->          if ( !vgic_emulate(regs, hsr) )
-> -            return inject_undef64_exception(regs, hsr.len);
-> +            return inject_undef64_exception(regs);
->          break;
->  
->      /*
-> @@ -440,7 +440,7 @@ void do_sysreg(struct cpu_user_regs *regs,
->      gdprintk(XENLOG_ERR,
->               "unhandled 64-bit sysreg access %#"PRIregister"\n",
->               hsr.bits & HSR_SYSREG_REGS_MASK);
-> -    inject_undef_exception(regs, hsr);
-> +    inject_undef_exception(regs);
->  }
->  
->  /*
-> diff --git a/xen/arch/arm/include/asm/arm64/traps.h b/xen/arch/arm/include/asm/arm64/traps.h
-> index a347cb13d6..3be2fa69ee 100644
-> --- a/xen/arch/arm/include/asm/arm64/traps.h
-> +++ b/xen/arch/arm/include/asm/arm64/traps.h
-> @@ -1,7 +1,7 @@
->  #ifndef __ASM_ARM64_TRAPS__
->  #define __ASM_ARM64_TRAPS__
->  
-> -void inject_undef64_exception(struct cpu_user_regs *regs, int instr_len);
-> +void inject_undef64_exception(struct cpu_user_regs *regs);
->  
->  void do_sysreg(struct cpu_user_regs *regs,
->                 const union hsr hsr);
-> diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
-> index 4818dd4b6a..594dc40041 100644
-> --- a/xen/arch/arm/include/asm/p2m.h
-> +++ b/xen/arch/arm/include/asm/p2m.h
-> @@ -298,8 +298,7 @@ void p2m_domain_creation_finished(struct domain *d);
->   */
->  int p2m_cache_flush_range(struct domain *d, gfn_t *pstart, gfn_t end);
->  
-> -void p2m_set_way_flush(struct vcpu *v, struct cpu_user_regs *regs,
-> -                       const union hsr hsr);
-> +void p2m_set_way_flush(struct vcpu *v, struct cpu_user_regs *regs);
->  
->  void p2m_toggle_cache(struct vcpu *v, bool was_enabled);
->  
-> diff --git a/xen/arch/arm/include/asm/traps.h b/xen/arch/arm/include/asm/traps.h
-> index 9a60dbf70e..3b40afe262 100644
-> --- a/xen/arch/arm/include/asm/traps.h
-> +++ b/xen/arch/arm/include/asm/traps.h
-> @@ -44,7 +44,7 @@ int check_conditional_instr(struct cpu_user_regs *regs, const union hsr hsr);
->  
->  void advance_pc(struct cpu_user_regs *regs, const union hsr hsr);
->  
-> -void inject_undef_exception(struct cpu_user_regs *regs, const union hsr hsr);
-> +void inject_undef_exception(struct cpu_user_regs *regs);
->  
->  /* read as zero and write ignore */
->  void handle_raz_wi(struct cpu_user_regs *regs, int regidx, bool read,
-> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
-> index 65b70955e3..ef8bd4b6ab 100644
-> --- a/xen/arch/arm/p2m.c
-> +++ b/xen/arch/arm/p2m.c
-> @@ -428,8 +428,7 @@ int p2m_cache_flush_range(struct domain *d, gfn_t *pstart, gfn_t end)
->   *
->   *  - Once the caches are enabled, we stop trapping VM ops.
->   */
-> -void p2m_set_way_flush(struct vcpu *v, struct cpu_user_regs *regs,
-> -                       const union hsr hsr)
-> +void p2m_set_way_flush(struct vcpu *v, struct cpu_user_regs *regs)
->  {
->      /* This function can only work with the current vCPU. */
->      ASSERT(v == current);
-> @@ -438,7 +437,7 @@ void p2m_set_way_flush(struct vcpu *v, struct cpu_user_regs *regs,
->      {
->          gprintk(XENLOG_ERR,
->                  "The cache should be flushed by VA rather than by set/way.\n");
-> -        inject_undef_exception(regs, hsr);
-> +        inject_undef_exception(regs);
->          return;
->      }
->  
-> diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
-> index 737f4d65e3..5338d5c033 100644
-> --- a/xen/arch/arm/traps.c
-> +++ b/xen/arch/arm/traps.c
-> @@ -533,12 +533,12 @@ static vaddr_t exception_handler64(struct cpu_user_regs *regs, vaddr_t offset)
->  }
->  
->  /* Inject an undefined exception into a 64 bit guest */
-> -void inject_undef64_exception(struct cpu_user_regs *regs, int instr_len)
-> +void inject_undef64_exception(struct cpu_user_regs *regs)
->  {
->      vaddr_t handler;
->      const union hsr esr = {
->          .iss = 0,
-> -        .len = instr_len,
-> +        .len = 1,
->          .ec = HSR_EC_UNKNOWN,
->      };
->  
-> @@ -606,13 +606,13 @@ static void inject_iabt64_exception(struct cpu_user_regs *regs,
->  
->  #endif
->  
-> -void inject_undef_exception(struct cpu_user_regs *regs, const union hsr hsr)
-> +void inject_undef_exception(struct cpu_user_regs *regs)
->  {
->          if ( is_32bit_domain(current->domain) )
->              inject_undef32_exception(regs);
->  #ifdef CONFIG_ARM_64
->          else
-> -            inject_undef64_exception(regs, hsr.len);
-> +            inject_undef64_exception(regs);
->  #endif
->  }
->  
-> @@ -1418,7 +1418,7 @@ static void do_trap_hypercall(struct cpu_user_regs *regs, register_t *nr,
->      if ( hsr.iss != XEN_HYPERCALL_TAG )
->      {
->          gprintk(XENLOG_WARNING, "Invalid HVC imm 0x%x\n", hsr.iss);
-> -        return inject_undef_exception(regs, hsr);
-> +        return inject_undef_exception(regs);
->      }
->  
->      curr->hcall_preempted = false;
-> @@ -1655,7 +1655,7 @@ void handle_raz_wi(struct cpu_user_regs *regs,
->      ASSERT((min_el == 0) || (min_el == 1));
->  
->      if ( min_el > 0 && regs_mode_is_user(regs) )
-> -        return inject_undef_exception(regs, hsr);
-> +        return inject_undef_exception(regs);
->  
->      if ( read )
->          set_user_reg(regs, regidx, 0);
-> @@ -1674,10 +1674,10 @@ void handle_wo_wi(struct cpu_user_regs *regs,
->      ASSERT((min_el == 0) || (min_el == 1));
->  
->      if ( min_el > 0 && regs_mode_is_user(regs) )
-> -        return inject_undef_exception(regs, hsr);
-> +        return inject_undef_exception(regs);
->  
->      if ( read )
-> -        return inject_undef_exception(regs, hsr);
-> +        return inject_undef_exception(regs);
->      /* else: ignore */
->  
->      advance_pc(regs, hsr);
-> @@ -1694,10 +1694,10 @@ void handle_ro_read_val(struct cpu_user_regs *regs,
->      ASSERT((min_el == 0) || (min_el == 1));
->  
->      if ( min_el > 0 && regs_mode_is_user(regs) )
-> -        return inject_undef_exception(regs, hsr);
-> +        return inject_undef_exception(regs);
->  
->      if ( !read )
-> -        return inject_undef_exception(regs, hsr);
-> +        return inject_undef_exception(regs);
->  
->      set_user_reg(regs, regidx, val);
->  
-> @@ -2147,7 +2147,7 @@ void asmlinkage do_trap_guest_sync(struct cpu_user_regs *regs)
->      case HSR_EC_SVE:
->          GUEST_BUG_ON(regs_mode_is_32bit(regs));
->          gprintk(XENLOG_WARNING, "Domain tried to use SVE while not allowed\n");
-> -        inject_undef_exception(regs, hsr);
-> +        inject_undef_exception(regs);
->          break;
->  #endif
->  
-> @@ -2164,7 +2164,7 @@ void asmlinkage do_trap_guest_sync(struct cpu_user_regs *regs)
->          gprintk(XENLOG_WARNING,
->                  "Unknown Guest Trap. HSR=%#"PRIregister" EC=0x%x IL=%x Syndrome=0x%"PRIx32"\n",
->                  hsr.bits, hsr.ec, hsr.len, hsr.iss);
-> -        inject_undef_exception(regs, hsr);
-> +        inject_undef_exception(regs);
->          break;
->      }
->  }
-> diff --git a/xen/arch/arm/vcpreg.c b/xen/arch/arm/vcpreg.c
-> index 0b336875a4..e7c484f2c1 100644
-> --- a/xen/arch/arm/vcpreg.c
-> +++ b/xen/arch/arm/vcpreg.c
-> @@ -206,7 +206,7 @@ void do_cp15_32(struct cpu_user_regs *regs, const union hsr hsr)
->      case HSR_CPREG32(CNTP_CTL):
->      case HSR_CPREG32(CNTP_TVAL):
->          if ( !vtimer_emulate(regs, hsr) )
-> -            return inject_undef_exception(regs, hsr);
-> +            return inject_undef_exception(regs);
->          break;
->  
->      /*
-> @@ -217,7 +217,7 @@ void do_cp15_32(struct cpu_user_regs *regs, const union hsr hsr)
->       */
->      case HSR_CPREG32(ACTLR):
->          if ( regs_mode_is_user(regs) )
-> -            return inject_undef_exception(regs, hsr);
-> +            return inject_undef_exception(regs);
->          if ( cp32.read )
->              set_user_reg(regs, regidx, v->arch.actlr);
->          break;
-> @@ -232,7 +232,7 @@ void do_cp15_32(struct cpu_user_regs *regs, const union hsr hsr)
->      case HSR_CPREG32(DCCSW):
->      case HSR_CPREG32(DCCISW):
->          if ( !cp32.read )
-> -            p2m_set_way_flush(current, regs, hsr);
-> +            p2m_set_way_flush(current, regs);
->          break;
->  
->      /*
-> @@ -397,7 +397,7 @@ void do_cp15_32(struct cpu_user_regs *regs, const union hsr hsr)
->                   cp32.op1, cp32.reg, cp32.crn, cp32.crm, cp32.op2, regs->pc);
->          gdprintk(XENLOG_ERR, "unhandled 32-bit CP15 access %#"PRIregister"\n",
->                   hsr.bits & HSR_CP32_REGS_MASK);
-> -        inject_undef_exception(regs, hsr);
-> +        inject_undef_exception(regs);
->          return;
->      }
->      advance_pc(regs, hsr);
-> @@ -421,7 +421,7 @@ void do_cp15_64(struct cpu_user_regs *regs, const union hsr hsr)
->       */
->      case HSR_CPREG64(CNTP_CVAL):
->          if ( !vtimer_emulate(regs, hsr) )
-> -            return inject_undef_exception(regs, hsr);
-> +            return inject_undef_exception(regs);
->          break;
->  
->      /*
-> @@ -433,7 +433,7 @@ void do_cp15_64(struct cpu_user_regs *regs, const union hsr hsr)
->      case HSR_CPREG64(ICC_ASGI1R):
->      case HSR_CPREG64(ICC_SGI0R):
->          if ( !vgic_emulate(regs, hsr) )
-> -            return inject_undef_exception(regs, hsr);
-> +            return inject_undef_exception(regs);
->          break;
->  
->      GENERATE_CASE(TTBR0, 64)
-> @@ -467,7 +467,7 @@ void do_cp15_64(struct cpu_user_regs *regs, const union hsr hsr)
->              gdprintk(XENLOG_ERR,
->                       "unhandled 64-bit CP15 access %#"PRIregister"\n",
->                       hsr.bits & HSR_CP64_REGS_MASK);
-> -            inject_undef_exception(regs, hsr);
-> +            inject_undef_exception(regs);
->              return;
->          }
->      }
-> @@ -532,7 +532,7 @@ void do_cp14_32(struct cpu_user_regs *regs, const union hsr hsr)
->           * is set to 0, which we emulated below.
->           */
->          if ( !cp32.read )
-> -            return inject_undef_exception(regs, hsr);
-> +            return inject_undef_exception(regs);
->  
->          /* Implement the minimum requirements:
->           *  - Number of watchpoints: 1
-> @@ -631,7 +631,7 @@ void do_cp14_32(struct cpu_user_regs *regs, const union hsr hsr)
->               cp32.op1, cp32.reg, cp32.crn, cp32.crm, cp32.op2, regs->pc);
->      gdprintk(XENLOG_ERR, "unhandled 32-bit cp14 access %#"PRIregister"\n",
->               hsr.bits & HSR_CP32_REGS_MASK);
-> -    inject_undef_exception(regs, hsr);
-> +    inject_undef_exception(regs);
->  }
->  
->  void do_cp14_64(struct cpu_user_regs *regs, const union hsr hsr)
-> @@ -669,7 +669,7 @@ void do_cp14_64(struct cpu_user_regs *regs, const union hsr hsr)
->               cp64.op1, cp64.reg1, cp64.reg2, cp64.crm, regs->pc);
->      gdprintk(XENLOG_ERR, "unhandled 64-bit CP14 access %#"PRIregister"\n",
->               hsr.bits & HSR_CP64_REGS_MASK);
-> -    inject_undef_exception(regs, hsr);
-> +    inject_undef_exception(regs);
->  }
->  
->  void do_cp14_dbg(struct cpu_user_regs *regs, const union hsr hsr)
-> @@ -698,7 +698,7 @@ void do_cp14_dbg(struct cpu_user_regs *regs, const union hsr hsr)
->      gdprintk(XENLOG_ERR, "unhandled 64-bit CP14 DBG access %#"PRIregister"\n",
->               hsr.bits & HSR_CP64_REGS_MASK);
->  
-> -    inject_undef_exception(regs, hsr);
-> +    inject_undef_exception(regs);
->  }
->  
->  void do_cp10(struct cpu_user_regs *regs, const union hsr hsr)
-> @@ -731,7 +731,7 @@ void do_cp10(struct cpu_user_regs *regs, const union hsr hsr)
->                   cp32.op1, cp32.reg, cp32.crn, cp32.crm, cp32.op2, regs->pc);
->          gdprintk(XENLOG_ERR, "unhandled 32-bit CP10 access %#"PRIregister"\n",
->                   hsr.bits & HSR_CP32_REGS_MASK);
-> -        inject_undef_exception(regs, hsr);
-> +        inject_undef_exception(regs);
->          return;
->      }
->      
-> @@ -756,7 +756,7 @@ void do_cp(struct cpu_user_regs *regs, const union hsr hsr)
->  
->      ASSERT(!cp.tas); /* We don't trap SIMD instruction */
->      gdprintk(XENLOG_ERR, "unhandled CP%d access\n", cp.coproc);
-> -    inject_undef_exception(regs, hsr);
-> +    inject_undef_exception(regs);
->  }
->  
->  /*
-> diff --git a/xen/arch/arm/vsmc.c b/xen/arch/arm/vsmc.c
-> index 62d8117a12..e253865b6c 100644
-> --- a/xen/arch/arm/vsmc.c
-> +++ b/xen/arch/arm/vsmc.c
-> @@ -346,13 +346,11 @@ void do_trap_smc(struct cpu_user_regs *regs, const union hsr hsr)
->      if ( vsmccc_handle_call(regs) )
->          advance_pc(regs, hsr);
->      else
-> -        inject_undef_exception(regs, hsr);
-> +        inject_undef_exception(regs);
->  }
->  
->  void do_trap_hvc_smccc(struct cpu_user_regs *regs)
->  {
-> -    const union hsr hsr = { .bits = regs->hsr };
-> -
->      /*
->       * vsmccc_handle_call() will return false if this call is not
->       * SMCCC compatible (e.g. immediate value != 0). As it is not
-> @@ -360,7 +358,7 @@ void do_trap_hvc_smccc(struct cpu_user_regs *regs)
->       * ARM_SMCCC_ERR_UNKNOWN_FUNCTION.
->       */
->      if ( !vsmccc_handle_call(regs) )
-> -        inject_undef_exception(regs, hsr);
-> +        inject_undef_exception(regs);
->  }
->  
->  /*
-> -- 
-> 2.47.1
-> 
+Fixes: 14f42af3f52d ("x86/vPIT: account for "counter stopped" time")
+Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+---
+ xen/arch/x86/emul-i8254.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/xen/arch/x86/emul-i8254.c b/xen/arch/x86/emul-i8254.c
+index 144aa168a3f0..7bc4b31b2894 100644
+--- a/xen/arch/x86/emul-i8254.c
++++ b/xen/arch/x86/emul-i8254.c
+@@ -191,7 +191,7 @@ static void pit_set_gate(PITState *pit, int channel, int val)
+         case 3:
+         case 4:
+             /* Disable counting. */
+-            if ( !channel )
++            if ( IS_ENABLED(CONFIG_HVM) && !channel )
+                 destroy_periodic_time(&pit->pt0);
+             pit->count_stop_time[channel] = get_guest_time(v);
+             break;
+
+base-commit: b5b2f9877a8777af6b78944407527e0a450389a2
+-- 
+2.48.1
+
 
