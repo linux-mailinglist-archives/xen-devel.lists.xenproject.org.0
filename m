@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1555A3341D
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2025 01:39:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.886958.1296541 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24910A33448
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2025 01:52:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.886972.1296551 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiNFW-0004Wh-5S; Thu, 13 Feb 2025 00:38:38 +0000
+	id 1tiNSB-0007Bt-8E; Thu, 13 Feb 2025 00:51:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 886958.1296541; Thu, 13 Feb 2025 00:38:38 +0000
+Received: by outflank-mailman (output) from mailman id 886972.1296551; Thu, 13 Feb 2025 00:51:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiNFW-0004VE-2O; Thu, 13 Feb 2025 00:38:38 +0000
-Received: by outflank-mailman (input) for mailman id 886958;
- Thu, 13 Feb 2025 00:38:35 +0000
+	id 1tiNSB-00079J-5X; Thu, 13 Feb 2025 00:51:43 +0000
+Received: by outflank-mailman (input) for mailman id 886972;
+ Thu, 13 Feb 2025 00:51:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Q8TG=VE=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tiNFT-0004Tn-SU
- for xen-devel@lists.xenproject.org; Thu, 13 Feb 2025 00:38:35 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ id 1tiNS9-00079D-Ml
+ for xen-devel@lists.xenproject.org; Thu, 13 Feb 2025 00:51:41 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dafe3764-e9a2-11ef-a075-877d107080fb;
- Thu, 13 Feb 2025 01:38:34 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-43956fcd608so1869365e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 12 Feb 2025 16:38:34 -0800 (PST)
+ id afc076e1-e9a4-11ef-a075-877d107080fb;
+ Thu, 13 Feb 2025 01:51:40 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-4394036c0efso1915625e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Feb 2025 16:51:40 -0800 (PST)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4395a04f217sm33120955e9.1.2025.02.12.16.38.32
+ 5b1f17b1804b1-4395a04f8c1sm34115635e9.8.2025.02.12.16.51.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Feb 2025 16:38:32 -0800 (PST)
+ Wed, 12 Feb 2025 16:51:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dafe3764-e9a2-11ef-a075-877d107080fb
+X-Inumbo-ID: afc076e1-e9a4-11ef-a075-877d107080fb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1739407113; x=1740011913; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1739407900; x=1740012700; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=VWOl8grIGHAHpzUFKphtTwGDs2JamBDaC8tsHAx0lzI=;
-        b=SILANtqqxMNZoP1GP2SgzJKlNH9RZxq0Hfoqr4v/AeY598s9jAMa4UFNGnyjScxzZ2
-         OcpfP/GpUZ7XByXk1ne8vbS5fSZ7UDTuxTfEQREAgUPNXFjBVGQbBKMsVFffJB01TM6T
-         oNJ7aiqsHfPa9UwkzQCmpp7Y+oO7SytKIgm5s=
+        bh=6IF8SPUYrIpIZBpYmbl2K7ITwIDK9Ps0skgmUs0R2tI=;
+        b=MEGNVAADO2W5ZL6LDjtOUsqxpSMMvrfA5tasNgdex3+6SKWJTjFIF5vCU5hS+ZEUTP
+         pEZcmZJoct+dtF2HVy0sTGj+I6awwSaPKpLiS9d/ZW8/oihbLshExyf0EdoU1moMcSqM
+         A6Nesw5oPNuw/BLn99QFbNyWXb6ReKPyvWyPE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739407113; x=1740011913;
+        d=1e100.net; s=20230601; t=1739407900; x=1740012700;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VWOl8grIGHAHpzUFKphtTwGDs2JamBDaC8tsHAx0lzI=;
-        b=wu6GxWKihQedhSm3+oaq5sSruR+AF8jxK1GquyjoS+/5GCu5tF9REl+XB5L/MGc+7h
-         IlbK7yzvkA7kr0caYWMv4Y7o09WShEhQFhWb2qFnj6j411l/c31m03Pg+y2cVjhVT1se
-         x4JDfG/jSsKYT5S1XcNStpwyg4xXCGYXqmwTWo8mzNnUryb6o9AouHwpN3bsrwrW6X6q
-         jAhSxGoMFurU7Gsw0JUd+3hR3Uk4C0db3B/vIkCHiEN4fGY6lkGiPwbXWNS0IVbXVVKI
-         HurOLpUlb/kfmBqxhb9pJXynmsStNIt+BLRGnkzxb7BrQ+jcDAcgPgT40Ne9SsavjmGl
-         3p1g==
-X-Forwarded-Encrypted: i=1; AJvYcCWNiwkM+3FnKW37YwBQJCQaAFw+knOupMIutnJ57y0PobCIaTCdIhicMHAdFY+ZTFwtS/w4oCJJWog=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw+RsgQQasKIh0MZqASDQWmNPvmVjwr8Pfm9JdP+V2o8lj9wxVc
-	QdYzwKEl7uY7EkF8yrHCT8VRufW75uieIJ1pbIymcVQ/V7vkSc03q7ctKfkkokQ=
-X-Gm-Gg: ASbGncu0cEsOtX40T94mdFOXefu2Nvb9yk2ZwR9AhpIp9hO6R8o2CyOs6FcVaTuwSuX
-	CI6LgJFWfgWNe538cMDqJjIKvYuUIP8Tq5ATHbHFL5WgHrnVdNJaDaWgk8LaYGJ6OsHAYVjU0tu
-	JWNVS8JOVz2mRiNoKb5frUsSwBbdIjUu4GazyueOSCW8gpEDdiPj2eTJinGdueExNxjB2ri1Jli
-	YWK2CAaX+oIOas2uphT26h646sen4nHNGHWW4hCB7eWS5G9nw4pzn0jBibQwsp2e2hfgpvnrLJH
-	UBinKs9rfjnea89RxpgDYX59rIWw4gUK4K4pS0M3UvZvqLpUbG2t1oo=
-X-Google-Smtp-Source: AGHT+IF5Gpd4UMrB/ndwLdIOYi9e4UWO0PnnA00+sHp5HIbBzMhWi0feooEu4KwqdmMAU0dPfbszuw==
-X-Received: by 2002:a5d:5f45:0:b0:38d:e092:3d0b with SMTP id ffacd0b85a97d-38dea2d680amr4690857f8f.39.1739407113596;
-        Wed, 12 Feb 2025 16:38:33 -0800 (PST)
-Message-ID: <9229184a-a97f-4d36-a21b-3fc4e61cdaa6@citrix.com>
-Date: Thu, 13 Feb 2025 00:38:31 +0000
+        bh=6IF8SPUYrIpIZBpYmbl2K7ITwIDK9Ps0skgmUs0R2tI=;
+        b=RD8U6b9T5C31yL6oDgcxcjPIrsBrBdJAjTqnwvxtm3CiRwzASnv4VWH94a01jTK4Ll
+         3isLes/ni0Cu1DEqLaN0z10+lwNx8nQKXo0Rrqptyj++hTIGr5cdxYp0b6D+sulGp2hd
+         8YlKYzrayhl59eZ5GrzgLXgugFSFm8XxjS/7TRb5eYucepesgDk2Z8LHkrU1jygKBI9h
+         WF3owzoE4i/K+8HABj1YwvwPtySkrpJjZKNBCn/8DC1XTKf5LqBuj+PbkFuzTEZjMfzR
+         j9uqt+e7wxS7pdTHTlRKpYMX+u2e5j6yiwEI17AhmNt60SiB92ndNTgdOHt8kqlPDF7H
+         26rg==
+X-Gm-Message-State: AOJu0YxLYoMilfH37ps/OZuKHsu6ZL4Dcwq7+KamZCNmc1T5WvfDLvAS
+	+xwR64j3qOH/C+kTpSJYpmXDn/F0OKgK8E7W/CJ4pgPBGiqLvaqqVthtuAxpEK0=
+X-Gm-Gg: ASbGncsjM1WKWbUCyC+r1m+nimVa/w07FTocPBij6nEFH3+A5OoM330jodC6QzhdgFv
+	pF52ebrNtYJf1XTPLkOojP2v2bFfk1vVhgYBlPOAOYwaeG9tkTEaPaRIFtJIVbSsFuJUKJgt8kE
+	EIf9xevGgnFIVhwq2xXwIsOTw6vNc9UdKk1PCv21l8U4p8qALYHDd1yMTjdmSAXB+YfTJmjU/6g
+	uikPgYT81c9wcQydFxGOX7nX/Eui9CnX0YaHAJDVnCe0uXlCP0b0So++LHCWb/PQuV26bfOg44j
+	99oAj0erXldhJIIFxO8bPubT9SbUP7HCxJN8fm7CtBIh5T+2US/KEUo=
+X-Google-Smtp-Source: AGHT+IErefip8VZU1K3/LXlUx+hHU11GbgEhByS5JMBmBvVbXaU+MstvkfzVbRaQSRWtfT12PgbUYw==
+X-Received: by 2002:a05:600c:4e16:b0:439:3050:1abc with SMTP id 5b1f17b1804b1-4395817a5edmr53206305e9.15.1739407900023;
+        Wed, 12 Feb 2025 16:51:40 -0800 (PST)
+Message-ID: <4d53aa6e-640d-4b49-9e45-0684fb263833@citrix.com>
+Date: Thu, 13 Feb 2025 00:51:38 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/console: add keyhandler to print Xen version
-To: dmkhn@proton.me, xen-devel@lists.xenproject.org
-Cc: anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org,
- michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
- dmukhin@ford.com
-References: <20250212235754.3686278-1-dmukhin@ford.com>
+Subject: Re: [BUG?] Wrong RC reported during 'make install'
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, committers@xenproject.org,
+ Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>
+References: <69a52464-4e2e-43fc-9792-46d7a9614a80@gmail.com>
+ <alpine.DEB.2.22.394.2502121347430.619090@ubuntu-linux-20-04-desktop>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -134,22 +137,55 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250212235754.3686278-1-dmukhin@ford.com>
+In-Reply-To: <alpine.DEB.2.22.394.2502121347430.619090@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 12/02/2025 11:58 pm, dmkhn@proton.me wrote:
-> Add Xen version printout via keyhandler mechanism.
+On 12/02/2025 9:52 pm, Stefano Stabellini wrote:
+> On Wed, 12 Feb 2025, Oleksii Kurochko wrote:
+>> Hello everyone,
+>>
+>> During the installation of Xen on an ARM server machine from the source code,
+>> I found that the wrong release candidate (rc) is being used:
+>>   $ make install  
+>>     install -m0644 -p xen //boot/xen-4.20-rc  
+>>     install: cannot remove ‘//boot/xen-4.20-rc’: Permission denied  
+>>     make[1]: *** [Makefile:507: _install] Error 1
+>> My expectation is that it should be xen-4.20-rc4.
+>>
+>> I'm not sure if this behavior is intentional or if users are expected to set
+>> the XEN_VENDORVERSION variable manually to ensure the correct release
+>> candidate number.
+>>
+>> In my opinion, we should set the proper release candidate number after
+>> "xen-4.20-rc" automatically.
+>>
+>> Does anyone have any thoughts or suggestions on how to resolve this issue?
+> Hi Oleksii,
 >
-> That is useful for debugging systems that have been left intact for a long
-> time.
+> I did a quick test and I see exactly the same on x86 as well. This patch
+> fixes it, but then it would need someone to update the RC number in
+> xen/Makefile every time a new RC is made.
 >
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> ---
+> xen: add RC version number to xen filename
+>
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
 
-Hmm, it's a good point, but can't we add this to the top of the 'h'
-(help) key rather than adding a(nother) handler?
+This is a direct consequence of the request to keep XEN_EXTRAVERSION at
+"-rc" throughout the release cycle.
 
-Amongst other things, ~ is going to be problematic for any connection
-serial running over SSH (usually IPMI), as it's the SSH escape
-character, and use on Xen's console expects ~ with no following keypress.
+I'm having to manually edit that simply to create the tarballs
+correctly, which in turn means that the tarball isn't a byte-for-byte
+identical `git archive` of the tag it purports to be.
+
+I'd not twigged that it mean the builds from the tarballs reported false
+information too.
+
+While I appreciate the wish to not have a commit per RC bumping
+XEN_EXTRAVERSION, I think the avoidance of doing so is creating more
+problems than it solves, and we should revert back to the prior way of
+doing things.
+
+~Andrew
 
