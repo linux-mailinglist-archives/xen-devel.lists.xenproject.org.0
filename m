@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0ED05A33E6E
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2025 12:49:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.887370.1296881 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D272A33F2D
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2025 13:30:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.887425.1296908 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiXiS-0004Zv-RE; Thu, 13 Feb 2025 11:49:12 +0000
+	id 1tiYKv-0003cq-8z; Thu, 13 Feb 2025 12:28:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 887370.1296881; Thu, 13 Feb 2025 11:49:12 +0000
+Received: by outflank-mailman (output) from mailman id 887425.1296908; Thu, 13 Feb 2025 12:28:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiXiS-0004YT-OO; Thu, 13 Feb 2025 11:49:12 +0000
-Received: by outflank-mailman (input) for mailman id 887370;
- Thu, 13 Feb 2025 11:49:11 +0000
+	id 1tiYKv-0003a5-5A; Thu, 13 Feb 2025 12:28:57 +0000
+Received: by outflank-mailman (input) for mailman id 887425;
+ Thu, 13 Feb 2025 12:28:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rl8u=VE=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
- id 1tiXiR-0004YN-SB
- for xen-devel@lists.xenproject.org; Thu, 13 Feb 2025 11:49:11 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
+ <SRS0=horU=VE=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1tiYKt-0003Zg-Pu
+ for xen-devel@lists.xenproject.org; Thu, 13 Feb 2025 12:28:55 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 894b855e-ea00-11ef-b3ef-695165c68f79;
- Thu, 13 Feb 2025 12:49:09 +0100 (CET)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-5deb956aa5eso1015492a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 13 Feb 2025 03:49:09 -0800 (PST)
+ id 163a6ae6-ea06-11ef-b3ef-695165c68f79;
+ Thu, 13 Feb 2025 13:28:53 +0100 (CET)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-5450cf3ef63so822777e87.1
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Feb 2025 04:28:53 -0800 (PST)
+Received: from [192.168.209.66] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5451f09aad5sm163757e87.75.2025.02.13.04.28.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 13 Feb 2025 04:28:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,84 +45,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 894b855e-ea00-11ef-b3ef-695165c68f79
+X-Inumbo-ID: 163a6ae6-ea06-11ef-b3ef-695165c68f79
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1739447348; x=1740052148; darn=lists.xenproject.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=H83yssLGj/mw91cTXVc34PsEHsxcHkf8r6f9NG5d544=;
-        b=Z3nEAolXyqhqGwu2kxTdKgsSGGirzeMt+H2+uCzZEVGq5Q+C+BNC4ScFY9ayG3hK85
-         jLrT0Nu2MxZ1NUgNd66ENOHyPsy3yFSr5uf+pK2qmxB8NkSrasTVCfmsWDIZqa18vmJr
-         6BriHwpYyWvnaeZQxpicMavjlanPt7+vLQxl0=
+        d=gmail.com; s=20230601; t=1739449733; x=1740054533; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Zq9RrKVmskIpH3BGvMZgfoQajWg2j6S9frUbtWyidWY=;
+        b=SnkWc+CIv/bbEpv04es1zW1IRTsEkiCoew9pIGENIDpoEwlMt8MtShld2MLuCxcpCi
+         wCQVhxeMzumzXqeC6qfiU3RJxPchrc7r21N+IkddWuLUvc9EBDbKFpZV/qZ2VXnQVyka
+         oLVmKdqupfatfzjt74eXZE6acAep7V5Zcf9rJCLVIAjb2nVdtXXbsOvwEm8GCl/rc9O0
+         H95bAI2P49HAaqP9J3YGImjcxYAfaDpuem5Vmyf9L1VpbMw6hLZKj10ccXZZfNQ1bBtg
+         MKtKQnIjdYCE3551g36hY2zR+mygQf/PpiIKrv70sa2+Uk0MYD5OAbJhLiqIxyHtYA7e
+         rOlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739447348; x=1740052148;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=H83yssLGj/mw91cTXVc34PsEHsxcHkf8r6f9NG5d544=;
-        b=vhYxDXbqsxRkNPH7PwNRU/3hoiOE1vp2j8qskn83Xgx9Yh+4csoRHqktOscXCt+xd8
-         sxMUyvJ8ZqKNGtnZYMiL7AidSTFDEAv3y/0/eKMiBTSsLL6swscILeSWhvRojKnHy+Cd
-         Qauqxhnrnszz9W01eMsnmwzYdzgQPb/+nmzxggNxvK0MA+QPYR8C4IHc2XPXfPFqEypr
-         XIPSifNbzVQLDdmFkZf/S6Xgyhg3WKyzI+c1UrQAwYXOBNBAwNko/fUXDLu+TB5uxK87
-         cP+7CFdeP7gVRKjtSXvS7vC6Vqj0LyZx4yz4ZGWwi+Qic/EMIQ3/vFHiIi8s33yOcvaO
-         xjTA==
-X-Gm-Message-State: AOJu0YyhoREH91Xc7M9fUFsjJ5NhCcsMOIx7t0ybK8PlHw8Hg7w4W4AD
-	3xnqrbLTJKGEuY+Gi+0RbGJUe68mFYu9YH148ezlozbRNreDWUczG2iBleK0Z9LpSXUOpnp1umR
-	xFe+AaAaTLCHZ219Qk72cvqkiSRcgVN4jbmTA+0Jlj0lPUalAoo8=
-X-Gm-Gg: ASbGncs/L/XxvF8a/eRwnjZiezrcxz8DVhLpeu+1RnIeXycWVrjKX3C8qpSeSIcZ+q9
-	8O7ZS/cZesTdJW+1d4a8knMwEb5DvhqJPQJOQG+DidXI5MIrlVcy6NSesVZgv8fCNREYIiTPdnh
-	KjB+nY+LoapTiuIJq+gOWDEnQUShcEiQ==
-X-Google-Smtp-Source: AGHT+IFdEWPiHAACIA2OOPDzhyR5CdxcrgUos/IO6QLMWdCzdETM4M3+0EMakFQB9JlqtvAwD+oF5bnxegIsu9n3GTQ=
-X-Received: by 2002:a05:6402:3818:b0:5de:bcdf:bf3e with SMTP id
- 4fb4d7f45d1cf-5dec9a7a413mr7506807a12.0.1739447348126; Thu, 13 Feb 2025
- 03:49:08 -0800 (PST)
+        d=1e100.net; s=20230601; t=1739449733; x=1740054533;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Zq9RrKVmskIpH3BGvMZgfoQajWg2j6S9frUbtWyidWY=;
+        b=SFLkoe9pU9uEmqshE1qA67uwaoJpbrwax6PPnKcpstO/3jiSEP20ooltBmPv/blRWy
+         otoW74+WCe1+74TfjRP5vD/PBF1ZJUVpcnlHJnD+CVzROqVa7uNrPZFnUFe1vYmz+BiY
+         iQ2MzcfxvMCVebLuouQOvEEpLTdMCeOt7ixh7Tt6F74C7jVgYpxfiGP5aR/U9Xt9SiQd
+         UWLWfxBU31GK2HUPyaog7akx/4BfCtq23OtkAS/LDgxUY331qx1+9mOXwoqN82IXJmbn
+         mvRRyjuJCm7indiouUhIuapcIHiFfQx08E3QbmfSE8W/s6vIEfA+nJ03N62hGIfy0JdX
+         xSEw==
+X-Forwarded-Encrypted: i=1; AJvYcCUaovgOeNpQNMO+G6E4NPd8tN5F13EazA2/JepNOhnqkCcoeC8O+4ohebASycPdbNTTXyu/nJq41fQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwiVTVYQiO5t8j0siRHIsfvJRInMElRpyKV/VWhSCdr6cn8SRBO
+	OgcRQilEuSldQIT5zXRl9dsyD5u/B7HbQ1syDnS3mamXVTzZrLmi
+X-Gm-Gg: ASbGnctLa0ePoPmzMFaRkshnm/F0C5h7WMlB0IswIZpFy0axiMlaGDY+uOWNNsY5Bav
+	/lhck8Mo8boOBALHiYU7acM+XxPojeozf6P9KxGSNPBz0uUV0hDaWqZXQnocRWxyaZgPefSN3j8
+	0+kJnJE/Yj/iNOORo9Wns9umdLRJkfQmYy7C03GL9ELHa5r35QUU4Ri8mRA8st31IZ256dGING6
+	Gpx0MNlzNHSsJ306WJXksSj2tXu1tdC4S4BbLVEKC46Wq2WFA+mPWUOROyweZskSCrs1Cg8a6qx
+	co2LcSK+JBJMFf655uF4kRU+v2Q=
+X-Google-Smtp-Source: AGHT+IGCAusv0DJ0m+Q90d0KIVg+uuNVQIXNNwf3QjGg/W30OpVP6LOnmhtTjjGu8pdGJu/B5+Z38w==
+X-Received: by 2002:a05:6512:318c:b0:545:e19:ba1c with SMTP id 2adb3069b0e04-5451dd95435mr1017624e87.19.1739449732698;
+        Thu, 13 Feb 2025 04:28:52 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------0dGxOqihbg1tziqw8hTB4x6N"
+Message-ID: <3862c852-7493-4955-a94b-ba44a9485c1c@gmail.com>
+Date: Thu, 13 Feb 2025 13:28:51 +0100
 MIME-Version: 1.0
-From: Kelly Choi <kelly.choi@cloud.com>
-Date: Thu, 13 Feb 2025 11:48:31 +0000
-X-Gm-Features: AWEUYZnLafnLPTCpXhHe2blT06ENEUvUhT1VNSXjpDSlnR2ohBrVU5KZATsaWRg
-Message-ID: <CAO-mL=wQ25iWr9Gk1pcCf56EZDw0HDi9U26wp3-Zd_ca859mOQ@mail.gmail.com>
-Subject: REMINDER: Xen Project Annual Survey
-To: xen-devel <xen-devel@lists.xenproject.org>, xen-users@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="0000000000004a81a7062e04a504"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.20] x86/HVM: use XVFREE() in hvmemul_cache_destroy()
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <96c4125e-1d40-4e79-838d-852517b9d5f4@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <96c4125e-1d40-4e79-838d-852517b9d5f4@suse.com>
 
---0000000000004a81a7062e04a504
-Content-Type: text/plain; charset="UTF-8"
+This is a multi-part message in MIME format.
+--------------0dGxOqihbg1tziqw8hTB4x6N
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi everyone,
 
-As we start the New Year, I'd like to ask you to reflect on how the project
-went in 2024. This will help us track the health of the community and also
-give you a chance to express your ideas and feedback.
+On 2/13/25 12:10 PM, Jan Beulich wrote:
+> My adjustments to move from xmalloc() et al to respective xvmalloc()
+> flavors was flawed - a freeing instance wasn't converted.
+>
+> Fixes: 23d60dbb0493 ("x86/HVM: allocate emulation cache entries dynamically")
+> Signed-off-by: Jan Beulich<jbeulich@suse.com>
+> ---
+> Noticed while backporting, where the conversion needs undoing.
 
-The survey can be answered anonymously and should take less than 10 minutes.
+Release-Acked-By: Oleksii Kurochko<oleksii.kurochko@gmail.com>
 
-*Link: https://cryptpad.fr/form/#/2/form/view/dGiaMnO4J56m29UHjJc8Ai2IzZM6deWNOOatz5eGOaU/
-<https://cryptpad.fr/form/#/2/form/view/dGiaMnO4J56m29UHjJc8Ai2IzZM6deWNOOatz5eGOaU/>*
-*Deadline: 28th February 2025. *
+~ Oleksii
 
-Thanks,
-Kelly Choi
-Community Manager
-Xen Project <https://xenproject.org/>
+>
+> --- a/xen/arch/x86/include/asm/hvm/emulate.h
+> +++ b/xen/arch/x86/include/asm/hvm/emulate.h
+> @@ -123,7 +123,7 @@ static inline void hvmemul_cache_destroy(struct vcpu *v)
+>       unsigned int i;
+>   
+>       for ( i = 0; i < ARRAY_SIZE(v->arch.hvm.hvm_io.mmio_cache); ++i )
+> -        XFREE(v->arch.hvm.hvm_io.mmio_cache[i]);
+> +        XVFREE(v->arch.hvm.hvm_io.mmio_cache[i]);
+>       XVFREE(v->arch.hvm.hvm_io.cache);
+>   }
+>   bool hvmemul_read_cache(const struct vcpu *v, paddr_t gpa,
+--------------0dGxOqihbg1tziqw8hTB4x6N
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---0000000000004a81a7062e04a504
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2/13/25 12:10 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:96c4125e-1d40-4e79-838d-852517b9d5f4@suse.com">
+      <pre wrap="" class="moz-quote-pre">My adjustments to move from xmalloc() et al to respective xvmalloc()
+flavors was flawed - a freeing instance wasn't converted.
 
-<div dir=3D"ltr"><div><div>Hi everyone,</div><div><br></div><div><div>As we=
- start the New Year, I&#39;d like to ask you to reflect on how the project =
-went in=C2=A02024. This will help us track the health of the community and =
-also give you a chance to express your ideas and feedback.=C2=A0</div><div>=
-<br></div><div>The=C2=A0<span class=3D"gmail-il">survey</span>=C2=A0can be =
-answered anonymously and should take less than 10 minutes.</div><div><br></=
-div><div><b>Link:=C2=A0<a href=3D"https://cryptpad.fr/form/#/2/form/view/dG=
-iaMnO4J56m29UHjJc8Ai2IzZM6deWNOOatz5eGOaU/" target=3D"_blank">https://crypt=
-pad.fr/form/#/2/form/view/dGiaMnO4J56m29UHjJc8Ai2IzZM6deWNOOatz5eGOaU/</a><=
-/b></div><div><b>Deadline: 28th February 2025.=C2=A0</b></div><div><br></di=
-v></div></div><div><div dir=3D"ltr" class=3D"gmail_signature" data-smartmai=
-l=3D"gmail_signature"><div dir=3D"ltr"><div>Thanks,</div><div>Kelly Choi<br=
-></div><div><div style=3D"color:rgb(136,136,136)">Community Manager</div><d=
-iv style=3D"color:rgb(136,136,136)"><a href=3D"https://xenproject.org/" tar=
-get=3D"_blank">Xen Project</a><br></div></div></div></div></div></div>
+Fixes: 23d60dbb0493 ("x86/HVM: allocate emulation cache entries dynamically")
+Signed-off-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
+---
+Noticed while backporting, where the conversion needs undoing.</pre>
+    </blockquote>
+    <pre>Release-Acked-By: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a></pre>
+    <pre>~ Oleksii
+</pre>
+    <blockquote type="cite"
+      cite="mid:96c4125e-1d40-4e79-838d-852517b9d5f4@suse.com">
+      <pre wrap="" class="moz-quote-pre">
 
---0000000000004a81a7062e04a504--
+--- a/xen/arch/x86/include/asm/hvm/emulate.h
++++ b/xen/arch/x86/include/asm/hvm/emulate.h
+@@ -123,7 +123,7 @@ static inline void hvmemul_cache_destroy(struct vcpu *v)
+     unsigned int i;
+ 
+     for ( i = 0; i &lt; ARRAY_SIZE(v-&gt;arch.hvm.hvm_io.mmio_cache); ++i )
+-        XFREE(v-&gt;arch.hvm.hvm_io.mmio_cache[i]);
++        XVFREE(v-&gt;arch.hvm.hvm_io.mmio_cache[i]);
+     XVFREE(v-&gt;arch.hvm.hvm_io.cache);
+ }
+ bool hvmemul_read_cache(const struct vcpu *v, paddr_t gpa,
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------0dGxOqihbg1tziqw8hTB4x6N--
 
