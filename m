@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A484A350A6
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2025 22:47:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.888068.1297485 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC09DA350A7
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2025 22:47:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.888073.1297494 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tih36-0000Ep-Qj; Thu, 13 Feb 2025 21:47:08 +0000
+	id 1tih3G-0000eH-5o; Thu, 13 Feb 2025 21:47:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 888068.1297485; Thu, 13 Feb 2025 21:47:08 +0000
+Received: by outflank-mailman (output) from mailman id 888073.1297494; Thu, 13 Feb 2025 21:47:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tih36-0000DN-Nq; Thu, 13 Feb 2025 21:47:08 +0000
-Received: by outflank-mailman (input) for mailman id 888068;
- Thu, 13 Feb 2025 21:47:07 +0000
+	id 1tih3G-0000bV-33; Thu, 13 Feb 2025 21:47:18 +0000
+Received: by outflank-mailman (input) for mailman id 888073;
+ Thu, 13 Feb 2025 21:47:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IJm2=VE=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tih35-0000Bj-AN
- for xen-devel@lists.xenproject.org; Thu, 13 Feb 2025 21:47:07 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ <SRS0=ZTDb=VE=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1tih3E-0000Bj-Ez
+ for xen-devel@lists.xenproject.org; Thu, 13 Feb 2025 21:47:16 +0000
+Received: from fout-a7-smtp.messagingengine.com
+ (fout-a7-smtp.messagingengine.com [103.168.172.150])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 108a2fc4-ea54-11ef-9896-31a8f345e629;
- Thu, 13 Feb 2025 22:47:05 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 210EFA420AE;
- Thu, 13 Feb 2025 21:45:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 616D3C4CED1;
- Thu, 13 Feb 2025 21:47:03 +0000 (UTC)
+ id 14db0f9a-ea54-11ef-9896-31a8f345e629;
+ Thu, 13 Feb 2025 22:47:13 +0100 (CET)
+Received: from phl-compute-04.internal (phl-compute-04.phl.internal
+ [10.202.2.44])
+ by mailfout.phl.internal (Postfix) with ESMTP id 6540B13808C7;
+ Thu, 13 Feb 2025 16:47:11 -0500 (EST)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-04.internal (MEProxy); Thu, 13 Feb 2025 16:47:11 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 13 Feb 2025 16:47:10 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,121 +45,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 108a2fc4-ea54-11ef-9896-31a8f345e629
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739483224;
-	bh=4+KLx3CK73Q/uF3YueFqe+YbwNrB0T6+t3G2XYAFxIM=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=JwngfL5loJim41GDGJz42xjlHBFtGCdcc26Xl9eVXqM3QNFihsP23rtlaZQTwNYPK
-	 1FxBzmhoRbW5eo5vECdXJwsB3CcMvxNCa/Iujn+pnT6s1tMDNCmcx36GYRUK/eciM8
-	 1JG4WcfL5dmpgjIJ+Wmzaw4xswef65Dy98O8gycu9ZyzqVUQxEeUbGPwERS2YCB4V0
-	 hKQuOpE4PKWTp6mTYqcdt1GGkbnVL6fsXeMdU+BnQqG7NdawYWiZmMbbGXm5K/Jenh
-	 rMcXBFW4ajj1Sfo84jv4MoRLP/+/Wt+z0yTypWmYyUrJLKRZu2Frxpud0uBlUyLX4M
-	 DwIunKechgc2A==
-Date: Thu, 13 Feb 2025 13:47:02 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: struct mctelem_cookie missing definition
-In-Reply-To: <eccc2a63-9678-4675-8a7b-7c8e94206cb8@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2502131326440.619090@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2502121721490.619090@ubuntu-linux-20-04-desktop> <1823d604-aa29-4828-a954-b8a08fbdbda7@citrix.com> <alpine.DEB.2.22.394.2502121738440.619090@ubuntu-linux-20-04-desktop> <alpine.DEB.2.22.394.2502121800190.619090@ubuntu-linux-20-04-desktop>
- <eccc2a63-9678-4675-8a7b-7c8e94206cb8@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 14db0f9a-ea54-11ef-9896-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1739483231;
+	 x=1739569631; bh=xK7Pt+3W6XZk8NbFglBV9FHAhrFxeAunneR2aVlHslo=; b=
+	mrcKCMQmzygWl50XxBmUVy6jBUFDns9Q1oKX+fhBGIOkD+FLNvn8ydE8PhvtZxkE
+	3X69k+4tVaudtMlvZDhbACr3GYgv4lqtPEsJpRqnSj8y6LIq3fjkzvgYaysiB7le
+	bWjAITOg4v6CTsFDY/a4FxxOk17CQ9XGN1kcD4xDkmWhAquBCwTRjoku3hBNloSP
+	gezEd/d74j+uaCeMTygMTMWtUDGt55CgBB0qINjHFfRirKtvadvuhnjcFpQygW3O
+	GTBBB0UE1cJueyMdZGLClwAYX8h4ZrYyhYz6qlYK2AlHV4NYSaTc8ABX6enbBMRq
+	SWiUa/mOZ4rcJ2hJNraohg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1739483231; x=1739569631; bh=xK7Pt+3W6XZk8NbFglBV9FHAhrFxeAunneR
+	2aVlHslo=; b=mkBRZaDdpY927iGOGy4nJehlLDHgk7Jh6UYmFwmncxDgaGTgSWJ
+	lOuNIWfuRvB9W2Z26HqHb4Yf+tXzRKdj5EUKIXtv+pMUICxXDJRYPnuSzalnLbGf
+	Sa9FnXzo6bINI7p29Z3YXg24LG45SOYq8dkRr+aijUnn3ze+8rmKk1LEkIMzv/US
+	ETrFkoTpfjF92L6VJqB/H6KA06Ul3eOkhHxsrVLT9hevgXb5q9vaLUL7GOYCSihH
+	XAH+bAlU2JWY56HbvuajnsWb1ZwOTpau1r4+1Zt4Mg3zMZDjZm3OOsxGAuqXGbxV
+	BuDVXnlF2YhIeUNixkRXMkWhCzM7shbffRQ==
+X-ME-Sender: <xms:X2iuZ5KByZz7gSYLW3pKKrWYyCol0Zfxq3vu0spxFPpZ3wWAgWTCfA>
+    <xme:X2iuZ1JzwyJa-vpjc6gKW4-KDoHwa0eV_eodn1jCkWW3IBEfCNYEiW-O4uh7KGyLr
+    0KU4KZwHjrGNQ>
+X-ME-Received: <xmr:X2iuZxsezMlfEtqlDCJkTbAf8GmCOoV8yKEXUemz4ykWQ4qfBYlZWoIzWKIGHsBuZN-414GKhxJ3NLVubzQrMb9UNaD2upNXYQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdegjeekkecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdp
+    uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivg
+    hnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdej
+    necuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoe
+    hmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucgg
+    tffrrghtthgvrhhnpefgudelteefvefhfeehieetleeihfejhfeludevteetkeevtedtvd
+    egueetfeejudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhr
+    ohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpd
+    hnsggprhgtphhtthhopeefpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopehsshht
+    rggsvghllhhinhhisehkvghrnhgvlhdrohhrghdprhgtphhtthhopeigvghnqdguvghvvg
+    hlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhopegtrghrugho
+    vgestggrrhguohgvrdgtohhm
+X-ME-Proxy: <xmx:X2iuZ6Z_vL7uPF6UaFGz3CBLAtIGCtN1vLmf1zIVBo9i6dil8yt7qA>
+    <xmx:X2iuZwZCPW7lXP8LLiLgmTmyz4_u0fDElECzlHnaRLKoFYjuiFYMeA>
+    <xmx:X2iuZ-Ac1YuTnaX-tp1JqKyeOsMXdvXhSmO2PDFX-kWB_To2hFN_Yg>
+    <xmx:X2iuZ-YczFLefANQSj0LcDU9MCusUUuJ2AxnN0GV-5Qqqy1josZ5qg>
+    <xmx:X2iuZ4E-cJXDYjhm8d6QBlQnzsPTeyxXDvBZVvyylBVRf-YFb6OxLir1>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 13 Feb 2025 22:47:07 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [PATCH v1 2/3] automation: add jobs running tests from
+ tools/tests/*
+Message-ID: <Z65oW7N64mfdKC44@mail-itl>
+References: <cover.068c7421003863de7fca1cbe6aed2af000f061a7.1739409822.git-series.marmarek@invisiblethingslab.com>
+ <3fbb4c6be9d9190bb2bd6427ab0f0a933c95dde1.1739409822.git-series.marmarek@invisiblethingslab.com>
+ <alpine.DEB.2.22.394.2502121802540.619090@ubuntu-linux-20-04-desktop>
+ <Z61Yw50tlX-xH9b6@mail-itl>
+ <alpine.DEB.2.22.394.2502131111030.619090@ubuntu-linux-20-04-desktop>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-957282637-1739482437=:619090"
-Content-ID: <alpine.DEB.2.22.394.2502131334000.619090@ubuntu-linux-20-04-desktop>
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-957282637-1739482437=:619090
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2502131334001.619090@ubuntu-linux-20-04-desktop>
-
-On Thu, 13 Feb 2025, Jan Beulich wrote:
-> On 13.02.2025 03:00, Stefano Stabellini wrote:
-> > On Wed, 12 Feb 2025, Stefano Stabellini wrote:
-> >> On Thu, 13 Feb 2025, Andrew Cooper wrote:
-> >>> On 13/02/2025 1:25 am, Stefano Stabellini wrote:
-> >>>> Hi all,
-> >>>>
-> >>>> I am looking through the few remaining MISRA violations that we have
-> >>>> left.  One of them is R11.2:
-> >>>>
-> >>>> https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/hardware/xen/ECLAIR_normal/staging/X86_64/9118578464/PROJECT.ecd;/by_service/MC3A2.R11.2.html#{%22select%22:true,%22selection%22:{%22hiddenAreaKinds%22:[],%22hiddenSubareaKinds%22:[],%22show%22:false,%22selector%22:{%22enabled%22:true,%22negated%22:true,%22kind%22:0,%22domain%22:%22kind%22,%22inputs%22:[{%22enabled%22:true,%22text%22:%22violation%22}]}}}
-> >>>>
-> >>>> Specifically, mctelem_cookie_t is a pointer to incomplete type and
-> >>>> therefore COOKIE2MCTE triggers a "conversion between a pointer to an
-> >>>> incomplete type and any other type".
-> >>>>
-> >>>> mctelem_cookie_t is defined as:
-> >>>>
-> >>>> typedef struct mctelem_cookie *mctelem_cookie_t;
-> >>>>
-> >>>> I am looking through the code and I genuinely cannot find the definition
-> >>>> of struct mctelem_cookie.
-> >>>>
-> >>>> If mctelem_cookie_t is only used as a pointer, wouldn't it make more
-> >>>> sense to do:
-> >>>>
-> >>>> typedef struct mctelem_ent *mctelem_cookie_t;
-> >>>>
-> >>>> ?
-> >>>>
-> >>>> What am I missing?
-> >>>
-> >>> Nothing.  Or perhaps the twisted thinking of the original author.
-> >>>
-> >>> It is genuinely a pointer type (== known size) which you can't deference
-> >>> (because there is no definition), and can only operate on by casting to
-> >>> an integer.  Except the code also requires it to be a uint64_t which is
-> >>> why there's some fun disabling of relevant hypercalls for compat guests.
-> >>>
-> >>> If someone could find the time to file it in /dev/null and replace it
-> >>> with literally anything else, I'd be very thankful.
-> >>
-> >> Are you OK with typedefing mctelem_cookie_t to uint64_t instead?
-> > 
-> > I confirm that the following resolves the MISRA violations
-> > 
-> > diff --git a/xen/arch/x86/cpu/mcheck/mctelem.h b/xen/arch/x86/cpu/mcheck/mctelem.h
-> > index f4c5ff848d..2ccd490e5d 100644
-> > --- a/xen/arch/x86/cpu/mcheck/mctelem.h
-> > +++ b/xen/arch/x86/cpu/mcheck/mctelem.h
-> > @@ -52,7 +52,7 @@
-> >   * the element from the processing list.
-> >   */
-> >  
-> > -typedef struct mctelem_cookie *mctelem_cookie_t;
-> > +typedef uint64_t *mctelem_cookie_t;
-> 
-> Yet that makes it possible to de-reference the pointer. Which, as Andrew
-> explained, is intended to be impossible. If this could be properly
-> replaced (not exactly what Andrew indicated by "file it in /dev/null"),
-> fine. Truly purging the code (i.e. as Andrew suggests) may still be an
-> option, with appropriate justification. But simply adjusting the type
-> and then moving on is too little, imo. Even if you used void * (to make
-> de-referencing impossible) I'd view it as largely papering over an issue;
-> then converting to other pointers (without explicit cast, and hence
-> without making apparent the badness of doing so) would become possible.
-
-What about converting to uintptr_t (not a pointer)?
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="vQDT042XrlGx+RJx"
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.22.394.2502131111030.619090@ubuntu-linux-20-04-desktop>
 
 
-In general, there are quite a few MISRA rules that we could mark as
-blocking (clean) in our GitLab scan with just a few code changes like
-this one. My goal is to make these rules blocking as soon as possible.
-If I can improve the code in the process, that is even better, but it is
-not mandatory. And I would rather spend one more hour marking a second
-rule as blocking instead. 
+--vQDT042XrlGx+RJx
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 13 Feb 2025 22:47:07 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [PATCH v1 2/3] automation: add jobs running tests from
+ tools/tests/*
 
-What I mean is that I believe it would be acceptable to make some
-compromises and accept non-perfect changes to the code if it helps us
-enforce more rules as blocking in GitLab CI.
---8323329-957282637-1739482437=:619090--
+On Thu, Feb 13, 2025 at 11:14:43AM -0800, Stefano Stabellini wrote:
+> On Thu, 13 Feb 2025, Marek Marczykowski-G=C3=B3recki wrote:
+> > > > diff --git a/automation/scripts/run-tools-tests b/automation/script=
+s/run-tools-tests
+> > > > new file mode 100755
+> > > > index 000000000000..242a9edad941
+> > > > --- /dev/null
+> > > > +++ b/automation/scripts/run-tools-tests
+> > > > @@ -0,0 +1,47 @@
+> > > > +#!/bin/sh
+> > >=20
+> > > It should be /bin/bash
+> >=20
+> > That script is running inside SUT (started from initramfs) which is
+> > rather minimal. I think it currently has bash, but with the initramfs at
+> > over 200MB (compressed) I can see trimming it in the future...
+>=20
+> Hi Marek, let me clarify a bit more my comment.
+>=20
+> While I have a preference for bash because that is what we are using for
+> all the other shell scripts, it is OK to use /bin/sh but then we need to
+> make sure the script is actually /bin/sh compatible and doesn't have any
+> bash-isms. Eye-balling the script I had the impression it was using
+> bash-isms, so I made the comment about using /bin/bash.
+
+Indeed +=3D is bash-ism. But since I generate xml report now, I don't even
+need it anymore.
+
+> But in my experience most /bin/sh implementations today they are
+> actually somewhat bash compatible, so in general it is easier to declare
+> /bin/bash instead of /bin/sh.
+
+I guess that's fine with the current initramfs. If somebody wants to
+reduce it, this can be changed later.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--vQDT042XrlGx+RJx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmeuaFsACgkQ24/THMrX
+1yxsswf8CArtNXunNm+pcVqlUB+DtSbHIx2ylgpgUiNlIQjg9Ts/Rt/BPuupNN45
+fvanYeKyzF2riMo0w3b4FWi2d4sEFPk4Tm4hr9dyVJ+ZhCwn+wZunWSlg9ZWrsiA
+BkPe9wNewrnS82RLY3KCiTBKtIKY074SB48fBYJJjz5Io1sT7HBeSkUnMfU2AaNz
+3PhFOO9Zozmrtzm/QGRK/zilT0QUEPeRyFUMmLB4te8ftgmUW69Sp7DQpK0XSnSk
+ow7TeZP5nVf7wfXNibLtBtTzHwbnnJWOa8CSpQLcdg2kILkmDtXDTL8xosp2NrJE
+eiaXnefaGb1jXcdjmJSTyGsfd1VWdA==
+=OY1T
+-----END PGP SIGNATURE-----
+
+--vQDT042XrlGx+RJx--
 
