@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED615A3439C
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2025 15:53:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.887766.1297220 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F796A3441B
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2025 16:00:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.887778.1297231 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiaau-0006bj-T0; Thu, 13 Feb 2025 14:53:36 +0000
+	id 1tiahb-0000uX-Mi; Thu, 13 Feb 2025 15:00:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 887766.1297220; Thu, 13 Feb 2025 14:53:36 +0000
+Received: by outflank-mailman (output) from mailman id 887778.1297231; Thu, 13 Feb 2025 15:00:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiaau-0006Zw-QP; Thu, 13 Feb 2025 14:53:36 +0000
-Received: by outflank-mailman (input) for mailman id 887766;
- Thu, 13 Feb 2025 14:53:35 +0000
+	id 1tiahb-0000sJ-Jn; Thu, 13 Feb 2025 15:00:31 +0000
+Received: by outflank-mailman (input) for mailman id 887778;
+ Thu, 13 Feb 2025 15:00:30 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Q8TG=VE=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tiaat-0006Zq-LY
- for xen-devel@lists.xenproject.org; Thu, 13 Feb 2025 14:53:35 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ id 1tiaha-0000s9-JW
+ for xen-devel@lists.xenproject.org; Thu, 13 Feb 2025 15:00:30 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4bf28908-ea1a-11ef-abfc-e33de0ed8607;
- Thu, 13 Feb 2025 15:53:33 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-38dc6d55ebaso1396199f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 13 Feb 2025 06:53:33 -0800 (PST)
-Received: from [10.81.43.157] ([46.149.103.12])
+ id 43430971-ea1b-11ef-abfc-e33de0ed8607;
+ Thu, 13 Feb 2025 16:00:28 +0100 (CET)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-38ddc36b81dso616382f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Feb 2025 07:00:28 -0800 (PST)
+Received: from [10.81.43.157] ([46.149.103.10])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4395aef82edsm47520605e9.38.2025.02.13.06.53.31
+ ffacd0b85a97d-38f259fe1efsm2126867f8f.97.2025.02.13.07.00.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Feb 2025 06:53:32 -0800 (PST)
+ Thu, 13 Feb 2025 07:00:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4bf28908-ea1a-11ef-abfc-e33de0ed8607
+X-Inumbo-ID: 43430971-ea1b-11ef-abfc-e33de0ed8607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1739458413; x=1740063213; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=jTlOB+moc8I9Zqyx+dKBCE7xnrACQIl41klTAVfCukU=;
-        b=ELZNK5BNNZdvaoUbp9ddr90iS1JBy4N/ZDrpOHoKzJQU8oFwtWy0FnS65P/4YjsOoY
-         3RjhXk92cvXW3H27GBFEd8F/AYqw/pyESo/MTm6TstAhG09eK7oSVBV0yi9sPcYc3at/
-         po1gPRyMXl674Cn+Nio5uvPmA/Vr7Aa3r0HGw=
+        d=citrix.com; s=google; t=1739458828; x=1740063628; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=vipp5V3btlLrSYy9bAPKbAcQ6COFlBkrWszUGXCfANM=;
+        b=DcKl4sNfMW1eb++agdAw3ApcomuM8uK0TI41wWWSOaHrujHj82bfcKR9eWZ8lZkN+Y
+         Dhj5zDCf7KO8Sox341kHXvcMvscv2IIVUkTUZil7Jy0HJlmJQ4q90Ffuw7irOf+53E6f
+         ekLklInq7mMsaxSFpydkMXx7adTSSQ1d7/3ko=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739458413; x=1740063213;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=jTlOB+moc8I9Zqyx+dKBCE7xnrACQIl41klTAVfCukU=;
-        b=Bz5JOuW2WM+8wlaiDrg6RwRU5KhpG0xt2BTmnYPO4EDIXTzPHf/kAj5XihHg174aGu
-         4jf9D3TMPKL2z5ctEtvbNaNb1WWPuwR84XjY+HHZX87REciJ7SkvkLTd/hk3j9XNmtO0
-         QjSsjmpLjE3gJwn8T6vERYs1es3IWuDwSAOa+ppqaFuG+sSH98g1yLfjlKhbqiK0wc9N
-         eBaUtPTF+KrxP4ZYsWgRO/j4TVB68CBWy4RWaUEdG+V0Va1LGKLrJfkEgEs6dMbisesC
-         n1jwhwP+3oPK0z00/Y5d45ui1vK5sJDttGxY1/FYcoeg3nWPCoe1HewKL10TLr3DrFKa
-         oYsA==
-X-Forwarded-Encrypted: i=1; AJvYcCUkmyrXyUgxN0M0F63u1OebpDEfNDZk5NsG2bqaOaX6t5szkRFc2zD5+nTe4PkYVLuFWnO7RjeqWgk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx60ZTpcXaTyIfLc54+BU2tlYhGdTwx9oNi1qtaqwHUFl2Up+Yj
-	xUAuxZj/zrvGJpEJLidkJCqvSETEMetjUSbPmbQpxMQlRQreO9vRkp98STEEnNw=
-X-Gm-Gg: ASbGncscZYm7i+cqQGjz0KRBr4P/vWLyeNPv2m16PUhHs+5/oV5mku1FBlOFuULYdK5
-	bqY2V3u8wSJJ4zHLYGq8a9MkrRGLA2EAQYEXusxUM5gRMAQBsLHagvZIP3DlNj4VWZjFsIs0wrT
-	z/kbXXShct+gjGNpZoo0O4EdpdUOJD0XG2dGkbQEiWU6qnxC3XmTlZ0TQRtHTkcgQFvEgodkCal
-	4wqFqRwUARwN+ovqkJigyj7okn5VY7IQqjzWHmfWdCEEVEdquyeIo8ESnR6sZj8U54x/b6cFhLd
-	ozlVgK9bqnY6fjeYUb98sAZNJA==
-X-Google-Smtp-Source: AGHT+IEUiXuOIjsoerYbAhxUwNDGxazLzyxrb+cmRAx4SJpQvpbzFif/3MqH5OuTs8AZTmWXua004g==
-X-Received: by 2002:a05:6000:4024:b0:38d:afc8:954e with SMTP id ffacd0b85a97d-38f24cfa3dbmr3713162f8f.11.1739458413062;
-        Thu, 13 Feb 2025 06:53:33 -0800 (PST)
-Message-ID: <6b174729-1c74-4258-9107-6099ade97e15@citrix.com>
-Date: Thu, 13 Feb 2025 14:53:31 +0000
+        d=1e100.net; s=20230601; t=1739458828; x=1740063628;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vipp5V3btlLrSYy9bAPKbAcQ6COFlBkrWszUGXCfANM=;
+        b=aVpqrZIbMc1raY6uWgLuy6mn4XXCYNaViNoP19KYKqRREkT+bkEdCnuyO/bLWFGWfT
+         kURevcorv+dXlrtIX+0mvlq2N6+5xUdUJLPBFowM+lHLXyFX1zk/Ee2opilxtbbSC8uL
+         +0dbEGLL9QrX1sRTXfraK62zQ/VvRwyO10oJ25s5pcXYuvGqZKP9rrfhGYOqvthkaVQE
+         IyrhwSaqV1dr3Oi4QkfhwP6t7IZQK6uLQeQGrSlqAJPn/gsnpe/swf33Hx5o+KneHvSQ
+         R9sBoJ2bnBfwfleugKHgUj7sFQPn07g/qiOdlGrJ+T7oLmfwKdTdxYEx3y0P2SINsYyt
+         UBaA==
+X-Gm-Message-State: AOJu0YwUr0Kx3/BqdfpO8djEAlcbDNjy7aD07oskI5noaI+HMNMpvSOj
+	WCqqt878M87ggKayEYVIieS8jRXgztbP0IFvHeBff3CZKTRRT1WG6rYpGSyDbwQ=
+X-Gm-Gg: ASbGnctvAXAi2uJzQQ+2837RU/1EagEsqbelQy+4NyemUCryUgSAuKWSNM3WL21XZMx
+	DaUb6MNazNqEZnsfGgwlKZjXDiS8kTfVaqpoy5mNxLq5qdYEP87Hq6LxZ5xdsBBzKMajHAARbp9
+	OrTNUsPCgQ2/+IVwAsS3jIJ38CWpqMAJ9dfn1s7mAJrr8SRy4znKcth5iHqsXBn7WxF27qyzuBA
+	uFWXI0YCmIoXGtR43iayMxTVLTtGm735YYtfUO9Y9DAMpeFPS7uucv8iBR5forZ+jp5qSUPlnZc
+	RsOCvtElud8l6/ZKel4m/iRoKg==
+X-Google-Smtp-Source: AGHT+IEOTmyLVb4RqrTmRGqnq+M3H9tBpUSGGdOEQygGB1V4eum1/V6X0hnQA4KaoMMmhJ40+q49lw==
+X-Received: by 2002:a05:6000:2ac:b0:38d:d5bf:5189 with SMTP id ffacd0b85a97d-38f24d11d24mr3477778f8f.16.1739458826739;
+        Thu, 13 Feb 2025 07:00:26 -0800 (PST)
+Message-ID: <f642b899-3e6e-4efb-9385-b5af76d42b82@citrix.com>
+Date: Thu, 13 Feb 2025 15:00:25 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Andrew Cooper <andrew.cooper3@citrix.com>
 Subject: Re: [PATCH] radix-tree: don't left-shift negative values
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>, Teddy Astie <teddy.astie@vates.tech>
 References: <70ebba90-59a8-4224-b67c-b9eb373684b4@suse.com>
+ <0de3a7e8c55af172e7260f8bb22949b4@bugseng.com>
 Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -136,24 +137,49 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <70ebba90-59a8-4224-b67c-b9eb373684b4@suse.com>
+In-Reply-To: <0de3a7e8c55af172e7260f8bb22949b4@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 13/02/2025 2:22 pm, Jan Beulich wrote:
-> Any (signed) integer is okay to pass into radix_tree_int_to_ptr(), yet
-> left shifting negative values is UB. Use an unsigned intermediate type,
-> reducing the impact to implementation defined behavior (for the
-> unsigned->signed conversion).
+On 13/02/2025 2:52 pm, Nicola Vetrini wrote:
+> On 2025-02-13 15:22, Jan Beulich wrote:
+>> Any (signed) integer is okay to pass into radix_tree_int_to_ptr(), yet
+>> left shifting negative values is UB. Use an unsigned intermediate type,
+>> reducing the impact to implementation defined behavior (for the
+>> unsigned->signed conversion).
+>>
+>> Also please Misra C:2012 rule 7.3 by dropping the lower case numeric 'l'
+>> tag.
+>>
+>> No difference in generated code, at least on x86.
+>>
+>> Fixes: b004883e29bb ("Simplify and build-fix (for some gcc versions)
+>> radix_tree_int_to_ptr()")
+>> Reported-by: Teddy Astie <teddy.astie@vates.tech>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> Bugseng: Why was the 7.3 violation not spotted by Eclair? According to
+>>          tagging.ecl the codebase is clean for this rule, aiui.
+>>
 >
-> Also please Misra C:2012 rule 7.3 by dropping the lower case numeric 'l'
-> tag.
+> radix-tree.{c,h} is out of scope:
 >
-> No difference in generated code, at least on x86.
+> automation/eclair_analysis/ECLAIR/out_of_scope.ecl:32:-file_tag+={out_of_scope,"^xen/include/xen/radix-tree\\.h$"}
 >
-> Fixes: b004883e29bb ("Simplify and build-fix (for some gcc versions) radix_tree_int_to_ptr()")
-> Reported-by: Teddy Astie <teddy.astie@vates.tech>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> docs/misra/exclude-list.json:153:            "rel_path":
+> "common/radix-tree.c",
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Why was this deemed out of scope?
+
+Mostly rhetorical, as I expect the answer is "because this was vendored
+from Linux".
+
+And yet, it's still code in our project, buggy in genuine ways, and it's
+perhaps escaped peoples notice that the TMEM subsystem (now deleted)
+made largescale deviations to radix-tree, compared to its Linux
+origins.  The fact we're deleting these to fix another bug is incidental.
+
+tl;dr radix-tree is in scope and needs examining.
+
+~Andrew
 
