@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C4F1A340DD
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2025 14:55:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.887605.1297070 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43CD2A3414E
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2025 15:07:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.887614.1297081 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiZg4-0007N1-JB; Thu, 13 Feb 2025 13:54:52 +0000
+	id 1tiZrw-0000c0-It; Thu, 13 Feb 2025 14:07:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 887605.1297070; Thu, 13 Feb 2025 13:54:52 +0000
+Received: by outflank-mailman (output) from mailman id 887614.1297081; Thu, 13 Feb 2025 14:07:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiZg4-0007Kk-GT; Thu, 13 Feb 2025 13:54:52 +0000
-Received: by outflank-mailman (input) for mailman id 887605;
- Thu, 13 Feb 2025 13:54:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tiZrw-0000aJ-GB; Thu, 13 Feb 2025 14:07:08 +0000
+Received: by outflank-mailman (input) for mailman id 887614;
+ Thu, 13 Feb 2025 14:07:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bb01=VE=epam.com=Volodymyr_Babchuk@srs-se1.protection.inumbo.net>)
- id 1tiZg3-0007Ke-NI
- for xen-devel@lists.xenproject.org; Thu, 13 Feb 2025 13:54:51 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on20615.outbound.protection.outlook.com
- [2a01:111:f403:2613::615])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 17800a2d-ea12-11ef-abfc-e33de0ed8607;
- Thu, 13 Feb 2025 14:54:49 +0100 (CET)
-Received: from GV1PR03MB10456.eurprd03.prod.outlook.com
- (2603:10a6:150:16a::21) by DU0PR03MB9660.eurprd03.prod.outlook.com
- (2603:10a6:10:42c::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.18; Thu, 13 Feb
- 2025 13:54:44 +0000
-Received: from GV1PR03MB10456.eurprd03.prod.outlook.com
- ([fe80::a41e:5aa8:e298:757e]) by GV1PR03MB10456.eurprd03.prod.outlook.com
- ([fe80::a41e:5aa8:e298:757e%4]) with mapi id 15.20.8445.013; Thu, 13 Feb 2025
- 13:54:44 +0000
+ <SRS0=Q8TG=VE=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tiZrv-0000aA-4r
+ for xen-devel@lists.xenproject.org; Thu, 13 Feb 2025 14:07:07 +0000
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [2a00:1450:4864:20::343])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cdf7c6e9-ea13-11ef-88c1-8ba37f82fa57;
+ Thu, 13 Feb 2025 15:07:05 +0100 (CET)
+Received: by mail-wm1-x343.google.com with SMTP id
+ 5b1f17b1804b1-4395b367329so5971015e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Feb 2025 06:07:05 -0800 (PST)
+Received: from [10.81.43.157] ([46.149.103.9])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4395a1b84bcsm51984885e9.40.2025.02.13.06.07.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 13 Feb 2025 06:07:04 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,149 +45,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 17800a2d-ea12-11ef-abfc-e33de0ed8607
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dlFumUkv0l2wke5d1/IgotEOJBFvlwZQZM/M2yTni9Z6/VbjEzop+dyUiD/XvnXMoWb+EBJy60PeHFoI8HzVkukocMgmzu8lAoULy4NifufaaW4zzMIBpcy0AWvOzfGH0DW2MSstx/vLlJHo/46AvZL1hniAiByCKkEzIzp5QyfMqTBXXisw82BiQuJHIV1AlgRt0PI32gG8o2T0x7m6PnfdH7ONl2fKLG0WAv1qbFqoKw9FePsyKjcpwqpPti0hnyDK4hc0yCZCYruRY40JgadFCKY97NkTEORRlg0Hu+E/UPdm0ApaCJKIJcd9Z0pEiCyyonNwv6rhVZIHUHFCLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fFcx6vx2UPOZ6eTOWkl/n8AP9GIOB/UFi8cB3Hqkzb0=;
- b=c1WhZruQaakZV6oguHciuIeNrTNJD3PQf2Nhb4/MM54UtNo+0irBz1h3m1h9l2i7D6I9/MvmmphHE2vW+q+JRnEo+B8MHkbJUJFtPZERnJs6YUvEkExzgO297u/byDUGIkI0JMhTU4j4Ah+YoVMUeE35c9b+F94byQMPunxBGcS7T5Kdt5NL9E4dltrWNpXwZDu/S5aZupX+wd1wJ73DlGq5xJvEYwws37mv1A5Ti0zsCbPM3LYrAn3oY2yUlL2KdYk0HdT2mlx6R1u5kCza54YucKaUmlPtTnDCUYvKGOsMRxFzNXuczheRKtobuhNFQDI9HIPyilzX5LwZ2yTc3Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fFcx6vx2UPOZ6eTOWkl/n8AP9GIOB/UFi8cB3Hqkzb0=;
- b=eRcEZhhqZsJ4KntYzZZg3JN4q4mT/3SeqBtrxAMjQBZJsxRbQsFB4mTBttJWmFFl7xhTmmMxkrlpIrl2zC8ypwj5CDsPl84ykkFpzHsKgBp4lT8Q0NoJ4zSuDMPjttuz6XaLnF7G0y8M/nrdUWj4DqQNuPCniKnXP7tn9gqA4coS8eDy890ODcExo1rZHvTaEc3bmfSa8edfgdyUZfpbb30H8Ncet3MDsTJXMiPGdpWFyNiMkwZcsRuMukvOYxIcnNV8ycXvFudaTFWigSEYExYMQyHx8SFQzCg+YAAEaYmG7O1Gezoi60eGpCVUpNvbYfYyP93SrBEc1tIbb9wg2Q==
-From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Anthony
- PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Jan
- Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>, Oleksii Kurochko
-	<oleksii.kurochko@gmail.com>, Community Manager
-	<community.manager@xenproject.org>
-Subject: Re: [PATCH v4 0/4] Add/enable stack protector
-Thread-Topic: [PATCH v4 0/4] Add/enable stack protector
-Thread-Index: AQHbZmdIqFRlN4liEkCW5YXjsR8R9A==
-Date: Thu, 13 Feb 2025 13:54:44 +0000
-Message-ID: <87pljmymos.fsf@epam.com>
-References: <20250114042553.1624831-1-volodymyr_babchuk@epam.com>
-	<5b6b1ad2-c0cd-454c-aa7c-b6de37ab39df@citrix.com>
-In-Reply-To: <5b6b1ad2-c0cd-454c-aa7c-b6de37ab39df@citrix.com> (Andrew
-	Cooper's message of "Tue, 14 Jan 2025 09:32:45 +0000")
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV1PR03MB10456:EE_|DU0PR03MB9660:EE_
-x-ms-office365-filtering-correlation-id: 5935b4aa-14c4-4faf-1d8e-08dd4c35f895
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|7416014|376014|366016|38070700018;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?ekgpAhMrM6ZmnNAqN93a8JT82IcpTYMMJ012sMOqQeojQC1LY8UIXpB8fx?=
- =?iso-8859-1?Q?vXTywwON2pAvG0CeI5ul0FbTze4IDjBF7YTJOJg2CNf/EItNiJ5XLHpo4F?=
- =?iso-8859-1?Q?lEz+LKxIaIvzDDq/j6wrrgDl7NiTHjtpTMsUZ9NHJfZuvYs0NLBzBGhASD?=
- =?iso-8859-1?Q?3nDkrgd4xtK0e0Q2FIZq0ZRKrPQ1Ajad78HxkDVCfX2elJ+fpr4ns1DjU2?=
- =?iso-8859-1?Q?xAKCK4uISnSX0Q3oH0S46Ch/oth4h0evvqIcFmS1XxM+t/lCUZQlB9GkuM?=
- =?iso-8859-1?Q?lAQhxbAMPpAIaXzqpOdFwgJSTs8ShPA9UXi5l0nig6Juaf46ERdwTTB2WH?=
- =?iso-8859-1?Q?QXojj0esICOEj9zWII4az2ExZKi3VJar0TvhWolNsOEXmAwODnVXwf3KHb?=
- =?iso-8859-1?Q?tb7RwrCSkbErhIaTdp8D6oeTSQ4uW/6pRsrSSIorjEfq00N1UNzxJ1akwD?=
- =?iso-8859-1?Q?A9iZuniiCaT0P1lUrpDOW/MFJz67GyF8QWmd3ZLz2lW8r01Bem7YTlBQIa?=
- =?iso-8859-1?Q?b2TmZC1aQrvlZmJBnEB2zFi2r2VULN7zbzVKQRUKNpium5pqsxxIqu/nth?=
- =?iso-8859-1?Q?393B045jE0rvTc8ttXLIMYbyq8RhksRxZGy/+u2UaAA6J280K16m3ux4of?=
- =?iso-8859-1?Q?ijr9YFOih2IglwFzR/spcGvuVm5QjNnmZP8NYBZSWJZNzPLkSqtQQCBWJ2?=
- =?iso-8859-1?Q?w+geAKOh6d5bRgqqfh5WRFLTd9sx9cSFE+l+WGOFjxu+giPAGu5FwPYYs3?=
- =?iso-8859-1?Q?0wjKp3MwKPWSd/POzqgy6Zx3OGOWrTcoLbOW6bNaamKtaUtPobVDrAGRX/?=
- =?iso-8859-1?Q?xjEVFh1YdXYKWfm2xW4i14G2qIClzUQC1WPn6MT+8ix9LMtuWMgxzmwU7k?=
- =?iso-8859-1?Q?+3sJC+7f3u+wZ02uO9gGUOpAhY8oGH2m2B9PAhQhcx3nV3DeL7719vT8Tq?=
- =?iso-8859-1?Q?lHQovcEoV7M0Yg7kuUezQoV5KYqk3Gl68v9KtQeifCC5fo0MPxGFBrZtF6?=
- =?iso-8859-1?Q?s3SlDl+R1QapyfYIRetYka4bAoRsXKyc5i4S0eIHtt0XPTd6MnxssHH8no?=
- =?iso-8859-1?Q?mEwBg3w4f9Gu36jPquEq35fG0DcRxqkVVHeWqhjZE7j6uogIkS0SPpS4NA?=
- =?iso-8859-1?Q?/zV7snOy5M5WG+2wJwoC+y9zmPF85EbXAQJwcw2KbJNqTyFAKBD1Miu3Yc?=
- =?iso-8859-1?Q?sffv4qPnvDU0eWuxeCruJ8WYs29KaG6G7oSkdo+OKHUI3KSErcHDpp9zDu?=
- =?iso-8859-1?Q?rat6iIaXzVz5gfxg/fAKsnz1khYsaj2vw6tNlQ4sNceGTixNixZ4cHwKDU?=
- =?iso-8859-1?Q?dfR8iCwpzi8qmaCAQLhwz6GMF7c2TVVeS8lzgd6Bm5QuvQ186XRVz8vMb4?=
- =?iso-8859-1?Q?KDR9v/QvyewHucn2x+h46w5H5euSEH5GBPhGZe06tLKUH/fRe2lPwUDOak?=
- =?iso-8859-1?Q?MzUBLhLFOAJRS2QhqN2nRBRGA+L8xMf8BSj1uurrTra0pLVr5zhGTnX7MU?=
- =?iso-8859-1?Q?zuajdxNvd/CjlAl5W5IQBh?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV1PR03MB10456.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?7VppSIMtp1rIjZt7yA7vTJnu4Ics9SnSgJelWrNw5gxSmm6oJFpL3m2vne?=
- =?iso-8859-1?Q?ymDVSxdwUwkTk+3kIrsEA8/k7dNZEXN4NpSO3h8GRh156Dgvk1Te6+uls1?=
- =?iso-8859-1?Q?bVlR9+SEY1yOBzA9R+IwbtLCl9zqd+LCrEjkG/9pMlDV6MTVynG3m8ebXT?=
- =?iso-8859-1?Q?bOEGQYwn94bpdN3kzEs9PLcOUebHcJJAHwCfedDVej7yVstpmEGanwZcKE?=
- =?iso-8859-1?Q?VxBCt4/Ss3in8RT/F6fPHuZ8t7QDt5VpNEVXm/3AvWv5jJm723fIFG+Z0P?=
- =?iso-8859-1?Q?QQ+xF3pYdsiM8Z8BDe5XMtVB9QV5rQNEMb4r2DiNGZtFwZ+JGaKhb6iHhi?=
- =?iso-8859-1?Q?Ht03fZJqZ7E+tHlkLkcuwvTWSNCY1RbTBzLGJSAlaQa6mFYVBAentqZRXB?=
- =?iso-8859-1?Q?QOMf3XywfY+fuvCs9HXfqVXpFUHDbQ2Owj1hTjn2oPcnjjjrSr35mZ1lJ0?=
- =?iso-8859-1?Q?zuknap06lwf6l6nI9gZT/N1ETKcvoGNWDIBzSCaf9AGiEimRi1rEkr5eOe?=
- =?iso-8859-1?Q?5VQVO8Sn06vgHSkUJeEHdACc/jWOZ6CDLPGdMcbrhGEZYFYgj+u/mxFJyt?=
- =?iso-8859-1?Q?6C7+DSZND6zUCZtvthIVbIWfksSYH3tpzX1fr3tTTLR0eOF1FVaZyUf0Zh?=
- =?iso-8859-1?Q?c+A3jtEHb/9z7ZvHPRzCabv66Gt+DwbxV5KgiNJPx6oN6M1OU6mq50mohX?=
- =?iso-8859-1?Q?G2ZZYMUVvVnsovBoeF3uKSj+MGbLFy7nDwZLNCYueVgFGWIfyWcdB9shFI?=
- =?iso-8859-1?Q?37uy8sMr/JGhD7L6iMCM4WKhueBehYTRLZVR8JvCeGW5mYkPdvKJC7732l?=
- =?iso-8859-1?Q?2+KF6zU/ZbHsBP8hVWzDeUCwMBbOMRBdUaZvN2oAeHOXs34hs85N62ty0/?=
- =?iso-8859-1?Q?bB3QvEYERtXi0iVmqfmWAR/p4/Pjbk66dBqFaBKjUBYrruuNdUzlap1QYM?=
- =?iso-8859-1?Q?reaSX6wPVijCiIxt629hCBYwJBSebc1znlMNai3SUO6ENO1su8mwksasfW?=
- =?iso-8859-1?Q?RthznFgCgkXR6hnRazawk+zwq2bhmydN/4WoXCgQlLoM/dIdQBUASRLLK/?=
- =?iso-8859-1?Q?gmoArDlXzfPfXl350W/642eCNSSPFaD0XIn5IDUc1vCnN140u4NRHs7ClD?=
- =?iso-8859-1?Q?aspcJe1z75t0vXYWtNX11wfSyAmBnw6+yG16oLSivIuqiuCfAcPYDuafb7?=
- =?iso-8859-1?Q?/cW5+7UZnkFm0ao+rFOhV3jhbwEzNrejqyR7FC0cee+IRcPD3eq7TQxN6f?=
- =?iso-8859-1?Q?0LmxhezJHsQg3BAg9B9zLSQAuXoeoD+hw1r+FYCr42SH5jCG/03V2inoUO?=
- =?iso-8859-1?Q?lO4j96nfCaaVKN8ra4Hcbr6bRuVdN4N8v6ocZeTQjm09YN6uMJnZuOpi63?=
- =?iso-8859-1?Q?oEEcOb2+1PrafIka4gKHihL+MiZs38vovQxV/kYF8/JuPQjAtHIYtx2fdj?=
- =?iso-8859-1?Q?Y0g86cnfaJcsanGJ9y4BJ+K2MYfgsf0jEuMraVCnOqgygNdNdKd8FAcJga?=
- =?iso-8859-1?Q?wbmbfvXsYjmC2veaME85WOSnVlK0zqZc3ZyjYwyzwVgMl0iyXc3j7D/STT?=
- =?iso-8859-1?Q?L5lsqbHY9IoZlgXjct4u8O2kaFxL+45yI6EOnpFUVuEc5Mk7dXxq89Sf0c?=
- =?iso-8859-1?Q?7DXFvxIDwGNekjwtt1YIfETrjJqpz06PEh5NvcVsk34KKAPXMJ7879dA?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: cdf7c6e9-ea13-11ef-88c1-8ba37f82fa57
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1739455625; x=1740060425; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=uMGKozZbmksH6NcYyZ3sQe0C0IObT9sTguRPL9ibJEU=;
+        b=ST4xjPFh4w33wiPWw24ga7rL6PO0/UZN/0C1gqGcjd2Q3jOjDzBy/9AHkEZ+LGW3KS
+         IKV6S1fFglUUDjU6Xx8bBxETO2lqp9J9UoEf6KV/jHl2FVAw6rJxTPHTxZj3eDNS4OeT
+         gp9mzRUHbeYLECLAVJh2C9mW2naxKU4iiHnTE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1739455625; x=1740060425;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uMGKozZbmksH6NcYyZ3sQe0C0IObT9sTguRPL9ibJEU=;
+        b=IyFWYOczw7KEUeVea6GOn20TS6hIQbzru4pd2EhWaubu+HyjkyCI7iw06w1j2ddL6d
+         KXnPg6EcU1EzVnKEHhPsE2f6Z+NViLXpfuZniCquLPPe7cWjhiRsjJ5IYNf3iaLp0JA/
+         rggJRyyFAEZgC2PYIZKAvyPWsMIkVd2kQXrJzVUCL60CTYN3ti7DILL1WV7fk8EqiHFQ
+         HTgUjTiXtf1cAOgZLJEl5Fu5i0NTq+VJMlu024N89qxsqQn6XGmrJWQoWU3thzfM68pi
+         /fmqs+ZVVeEXrCXeXJFIcfmqCZzma285qGBkKnFY4xdKUCAU1fDJ5CpW4R1edQTugdYD
+         Ca9Q==
+X-Gm-Message-State: AOJu0YzBwwMzk+L/A0WTKqcw/+DcxLRYU1I6/57pjqDp5UiEeAaMmign
+	UUbhmRNMWxCRa5qb3t7jpYZecj0QiIsDVbypLBieG31YEit42BZ53+LL/cmkhEQ=
+X-Gm-Gg: ASbGncvt+jpL7siukvYSuyIoKC8J/rrqqQzMdciIJcYg6emK35Nh1rsTLT6dM94j4D4
+	MpnddNdargF1SDeXKY4+T7ZUmhUbuf5LPAD4kaC/GNp3dlNmCviC5dRz7ImmPSwHHJRgHT8HEKZ
+	AnT8D6aH7l7sKfPxi7zRB8NOZOgcm3L4kH8ZCiGOzWIdXN4xXtfzfFEcApGrlgxQQsWwhxFXSuv
+	tlMXqlHWhdkZKduSkz84mo5aafwrm1aoocXdxsAaltSTJSLE+a9EdHflpMH0pi9g6/WV3uOoSqy
+	rGvYrR4CJNDWv6wWbOejVUQf
+X-Google-Smtp-Source: AGHT+IHTtn8Ygrd8tvhp3u/nsPmsHUp1YVUTFiUOrmPXJXuvl8ZEEpVTHeC68a51nGu9Lv4vyKtdtg==
+X-Received: by 2002:a05:600c:8509:b0:439:3d72:8705 with SMTP id 5b1f17b1804b1-439601a0681mr40484115e9.20.1739455624549;
+        Thu, 13 Feb 2025 06:07:04 -0800 (PST)
+Message-ID: <e692db7a-c457-445e-befa-96702b512b13@citrix.com>
+Date: Thu, 13 Feb 2025 14:07:02 +0000
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV1PR03MB10456.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5935b4aa-14c4-4faf-1d8e-08dd4c35f895
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Feb 2025 13:54:44.3400
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: HO5z75q9CnbuUOLVfWlmHtLXWDb3jGq5saM6kYw+nwx2vn1HkFN2fJkVyA5/Q3DAgEhSyFBv1DGCTkeG3GTHPlMv8tz2YUYSlaV3aDl5Iso=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR03MB9660
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 for-4.20(?) 0/4] Add/enable stack protector
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Community Manager <community.manager@xenproject.org>
+References: <20250114042553.1624831-1-volodymyr_babchuk@epam.com>
+ <5b6b1ad2-c0cd-454c-aa7c-b6de37ab39df@citrix.com> <87pljmymos.fsf@epam.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <87pljmymos.fsf@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-
-Hi Andrew,
-
-Andrew Cooper <andrew.cooper3@citrix.com> writes:
-
-> On 14/01/2025 4:25 am, Volodymyr Babchuk wrote:
->> Volodymyr Babchuk (4):
->>   common: remove -fno-stack-protector from EMBEDDED_EXTRA_CFLAGS
->>   xen: common: add ability to enable stack protector
->>   xen: arm: enable stack protector feature
->>   CHANGELOG.md: Mention stack-protector feature
+On 13/02/2025 1:54 pm, Volodymyr Babchuk wrote:
+> Hi Andrew,
 >
-> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Andrew Cooper <andrew.cooper3@citrix.com> writes:
 >
-> There's one minor formatting error which can be fixed on commit.
+>> On 14/01/2025 4:25 am, Volodymyr Babchuk wrote:
+>>> Volodymyr Babchuk (4):
+>>>   common: remove -fno-stack-protector from EMBEDDED_EXTRA_CFLAGS
+>>>   xen: common: add ability to enable stack protector
+>>>   xen: arm: enable stack protector feature
+>>>   CHANGELOG.md: Mention stack-protector feature
+>> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>
+>> There's one minor formatting error which can be fixed on commit.
+>>
+>> ~Andrew
+> Thanks for the review. I noticed that this series is not committed. Is
+> there anything else required from my side?
 >
-> ~Andrew
 
-Thanks for the review. I noticed that this series is not committed. Is
-there anything else required from my side?
+You need an ARM Ack on patch 3.  [EDIT], no you don't, my R-by is good
+enough.
 
---=20
-WBR, Volodymyr=
+And at this point at rc4, you'll need to persuade Oleksii to take it for
+4.20.
+
+Personally I think it's low risk and worthwhile to take for 4.20, and it
+was technically completed in time - it just fell between the cracks.
+
+~Andrew
 
