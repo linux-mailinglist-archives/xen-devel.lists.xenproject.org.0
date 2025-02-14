@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5934A3728D
-	for <lists+xen-devel@lfdr.de>; Sun, 16 Feb 2025 09:08:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.888713.1298597 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FB7FA35C6E
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 12:24:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.888724.1298035 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tjZgS-0007q0-Sy; Sun, 16 Feb 2025 08:07:24 +0000
+	id 1titn7-0005nQ-GC; Fri, 14 Feb 2025 11:23:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 888713.1298597; Sun, 16 Feb 2025 08:07:24 +0000
+Received: by outflank-mailman (output) from mailman id 888724.1298035; Fri, 14 Feb 2025 11:23:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tjZgS-0007n4-QG; Sun, 16 Feb 2025 08:07:24 +0000
-Received: by outflank-mailman (input) for mailman id 888713;
- Fri, 14 Feb 2025 10:55:50 +0000
+	id 1titn7-0005ly-D7; Fri, 14 Feb 2025 11:23:29 +0000
+Received: by outflank-mailman (input) for mailman id 888724;
+ Fri, 14 Feb 2025 11:23:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Dhx7=VF=gmail.com=adam.qushenghui@srs-se1.protection.inumbo.net>)
- id 1titMM-000254-2T
- for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 10:55:50 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=PTsb=VF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1titn5-0005ls-Ur
+ for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 11:23:27 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3ff20d7d-eac2-11ef-9aa4-95dc52dad729;
- Fri, 14 Feb 2025 11:55:49 +0100 (CET)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-5deb956aa5eso2466183a12.2
- for <xen-devel@lists.xenproject.org>; Fri, 14 Feb 2025 02:55:49 -0800 (PST)
+ id 1ba971ee-eac6-11ef-9aa4-95dc52dad729;
+ Fri, 14 Feb 2025 12:23:26 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-ab78e6edb99so299007266b.2
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Feb 2025 03:23:26 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aba53231798sm323435666b.16.2025.02.14.03.23.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 14 Feb 2025 03:23:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,174 +45,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3ff20d7d-eac2-11ef-9aa4-95dc52dad729
+X-Inumbo-ID: 1ba971ee-eac6-11ef-9aa4-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1739530548; x=1740135348; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=pH6kCEfTESLgjmQrK1iqqnv7HKIidTwDbPpmtfCYHnQ=;
-        b=S6DDli8D8vO86ZYSWOnskVTfq8IUjLk6F0yoAo35hiHDjJnItSsctPVlhQdUmWSR9p
-         FEeUO+Kqrq8cBZOmT5Bz+ErT+nH664Bob8DGUUt9Q8bW44ljuUsoRK+8ZaALqzTY5Ntc
-         sJPdwB5nyEtZnYJQ6W2MqhpuhwuzAxscWRCSec9UHKBfm9wY82C4POUfn5CNDXWZeyvB
-         cU0AjjSojQyvKA47i8WjknV8gIHzp03QKprrpthaIPI1FbeGCZRqLpmUbyHyS/NGs0z6
-         2tAj5X0U1M4pJ1oxV8/gSFOtlpL7j1UW1EIlt5FAM49pcumN8UXhacTSJo8kM004F91a
-         O0jQ==
+        d=suse.com; s=google; t=1739532205; x=1740137005; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Mig9rnQAw8ZgeVM6HufpbH99C9Z8cTSeVuHOlqVvcvs=;
+        b=br079Qc7Fyn+VujUTMm6ouugyQWhDPPpOJtCJbXSJXcCD+ETvrPsLBa7RAVygw1hXD
+         mXC/3OF2RA5TmrJHU8ERJmwgs9pqicQksgpBm4qTlGHq5yq8wCE7sHm3hYZHcyAVgdNk
+         0SdstzztabXdvPdsgOATm6mjoT/BtZAWx7gKQfwQz5tWVQN7cW+inyFX0DH+C/qAAEmA
+         9+FouqFqKeJLDY8h0b0qnjaRCjhmEeJzBtA1JKzuR/uLMORoB6Cl8Guk0fj2FOUNZPwc
+         kMD13UHGi0jdATs4iafLFYW21vsWXPU32U/j8HWRkSt3+r+UgMgF8FTUztm1NRq/8xq2
+         Y+iQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739530548; x=1740135348;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=pH6kCEfTESLgjmQrK1iqqnv7HKIidTwDbPpmtfCYHnQ=;
-        b=K1BJ/WmWKHGD/puj8R3HaSajNkCU5Ul6vxlZfDjMdBZCJZRjihf7tFqy+S1pXFQOmz
-         jZ4TULqA2cg1ajo5O8l30cgimZ8jsDwu3XTQkJvTq/ITBgVAkAhbBtWWcVpp2MOGCNkw
-         jxYbm7m6pemdb4u0eU2qFH7RhxfEdODS3fjKCmEI83/pIVymo8VQvAIWW+KJlRnkeY6H
-         abxDMuuVHrwkhvz2k69VDM2cOuiPpabEHx99Kr3HXCjPEgGswPIzqMyvkoHFV0o7mOlP
-         Vx/7Z+0YepcueiEOE3sQbmkzDubDAqj0XaGO7zht6MN2ZcGqlI3IfYNtd1ZyNO+W7vUL
-         prSQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXWFIkyxXNmo7x10/IFKEAEkbX8BwBlu+2Qw5nUkfLm+nO75ZPlW2e70BY0kyfQjXJ1UaOj1knmJC8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz3eH8nT+exgeouUi41zmmOz7GiDu3U6hYg9rsHhTwxmGMhckIA
-	8rbPbJt990EGcs69q5lMQ2pKh0vCbVO4mDthsM/W6JU4vQgnnfJkDAtBTm1uqKyVtkYSvfW7gyq
-	CyMYFqd/cSlG50QCnSqGjFKe5G4c=
-X-Gm-Gg: ASbGncv0xUBURv+Q10u75LLFT+PIUvS3+4RpR99Xg/BoxRpRCbwaFcZZYhFwjDzXpVc
-	s/IUdbtkahhIBDdtVs6hFsINdzH/zfgwkEv5jsi8CasBFz0obdjkEwyxTyXyxJnV+/lNJBLNj
-X-Google-Smtp-Source: AGHT+IG0agN7fA0s1q9VxJDIlMRCLjNCjyXA84WBOpudkhFBuGpCeuwg6TrMqIzKj4krf7uGXxVyk8tI0NnxPY4lVuc=
-X-Received: by 2002:a05:6402:40c9:b0:5de:a6a8:5ec6 with SMTP id
- 4fb4d7f45d1cf-5dec9d393f8mr15895742a12.10.1739530548303; Fri, 14 Feb 2025
- 02:55:48 -0800 (PST)
+        d=1e100.net; s=20230601; t=1739532205; x=1740137005;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Mig9rnQAw8ZgeVM6HufpbH99C9Z8cTSeVuHOlqVvcvs=;
+        b=T5aXfkR9srKXaAEyCVmFU+5q9V1sR/xxzF/BBjo8W3LCrb7LjyvsfQZiOoYoHCcLh8
+         3XKJ4H8oWeAjQ7t1aQY/5KfkaeESzt3xh3BFNUDYPxH0MqAOlqYL7y3G2ZsoOteGrIS5
+         KR1UefhUKsRGhTSfeHsHhPdgfcaXY44JyqSrjOxyTg3xUNTmznwGy/fOHv6seWFlLHA1
+         rVfDI3ZAM3wfQBsRu9hlHzuukp1e5WugaGxXORNLZAoBrwBKEpJgqtUGQts5lnaiEhAJ
+         IvsVNtd02HzRelKxXpZIa1/fW5tZ+xh7QnA0xVK9fojXCvIrA8cTuI+KzY19tM9+tP2d
+         eTcw==
+X-Forwarded-Encrypted: i=1; AJvYcCUqaB/5jwpM8xZF1i8yjqamLNKPC7aRzzQeI3TNQxDP8GXrYW8JjZYQ1bGr6I1ZNNuR9Pgg7tWu7wY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw/7Sd/AesvsV91ukSr7VprX0dCb3Km5u2dYEKvcV0l0ZeIdez2
+	xQf+NMUTaNKTinafnt8UcSnvdU8bzyJQ6GIqJoZLJYgi6zov0YDkQ8/HwFZiMuC/ycEGgb8sKYc
+	=
+X-Gm-Gg: ASbGnctozoD+N5BXZnMPxqkIU2FKO2SyNuxs9bRtmDsdbWpGvA+wpgFUKBs/FN9zSwm
+	H7T5Q73b6XTT0AJlip/j+iEhtNrIEcPud6+7pE3JwWxuV4UpxOyHpCfqwg1nxMm7Lcdia6nWzIl
+	gxiqx+hnHVVlLBEyAA11x3Pab4CQzDphTvz9QDva3pGYfwty5C6AZkXyGpTFLG95qdH+PvCTPMB
+	ZhTkW+AhT3o5Iq1qJf/e2o+eWQ3ByYW/AxC7F36kjfMOAMwjbs+p2U74lk2up62ME2VNvMQo/4c
+	yzziGia6D+cuaCXXV05iaPmPZ/5pdoXJLaDVrVHH6TR340NeR8pLVK3yewZTHxpQ1aARG4pEwqb
+	d
+X-Google-Smtp-Source: AGHT+IEeHJJyP8o9BaAigrO0GHUjOpLgFgvS8PdpKOwzaLZk3lS7vWlc6khf+XO3p3KmIz+VIPTfzw==
+X-Received: by 2002:a17:907:2d93:b0:ab7:def3:ca1d with SMTP id a640c23a62f3a-ab7f34e71d8mr1020894666b.49.1739532205585;
+        Fri, 14 Feb 2025 03:23:25 -0800 (PST)
+Message-ID: <aa2cb2e6-410c-420e-a004-bf57f9c295af@suse.com>
+Date: Fri, 14 Feb 2025 12:23:23 +0100
 MIME-Version: 1.0
-References: <CAHfJC1=gH7tm3V922+5Nqz76mB_iSeiTjU1rwKAVOzaj6B9LJw@mail.gmail.com>
- <alpine.DEB.2.22.394.2502131211100.619090@ubuntu-linux-20-04-desktop>
-In-Reply-To: <alpine.DEB.2.22.394.2502131211100.619090@ubuntu-linux-20-04-desktop>
-From: shenghui qu <adam.qushenghui@gmail.com>
-Date: Fri, 14 Feb 2025 18:55:37 +0800
-X-Gm-Features: AWEUYZk4cZSKvVJmJJ8ikeXKPDAGkDzpRdtNt7MEwwCPgpkpnRqaZqX29LXi-FU
-Message-ID: <CAHfJC1mW7UXeuSyRFB6TpJctS8g5wgX35FnAa3D0jaB1NhW2dA@mail.gmail.com>
-Subject: Re: Inquiry About PCI Passthrough Development and Testing Patches on ARM
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, xen-devel@lists.xenproject.org, 
-	Stewart.Hildebrand@amd.com, Mykyta_Poturai@epam.com
-Content-Type: multipart/alternative; boundary="000000000000685f5d062e1804dd"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] x86/emul: dump unhandled memory accesses for PVH dom0
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20250214092928.28932-1-roger.pau@citrix.com>
+ <20250214092928.28932-2-roger.pau@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250214092928.28932-2-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
---000000000000685f5d062e1804dd
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 14.02.2025 10:29, Roger Pau Monne wrote:
+> A PV dom0 can map any host memory as long as it's allowed by the IO
+> capability range in d->iomem_caps.  On the other hand, a PVH dom0 has no
+> way to populate MMIO region onto it's p2m, so it's limited to what Xen
+> initially populates on the p2m based on the host memory map and the enabled
+> device BARs.
+> 
+> Introduce a new debug build only printk that reports attempts by dom0 to
+> access addresses not populated on the p2m, and not handled by any emulator.
+> This is for information purposes only, but might allow getting an idea of
+> what MMIO ranges might be missing on the p2m.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Dear Stewart
+Hmm, yes, why not:
+Acked-by: Jan Beulich <jbeulich@suse.com>
+with one suggestion:
 
-Thank you for being looped into this discussion.
-Following Stefano=E2=80=99s guidance, I=E2=80=99d like to seek further clar=
-ity on the
-current development of PCI Passthrough support for Xen/ARM.
-Specifically, I have two questions:
-1.Roadmap: Are there clear milestones or a timeline for completing PCI
-Passthrough support on ARM? For instance, is this feature targeted for
-inclusion in Xen 4.20 or later releases=EF=BC=9F
-2.Current Status: Could you elaborate on the technical progress so far?
+> --- a/xen/arch/x86/hvm/emulate.c
+> +++ b/xen/arch/x86/hvm/emulate.c
+> @@ -337,6 +337,9 @@ static int hvmemul_do_io(
+>          /* If there is no suitable backing DM, just ignore accesses */
+>          if ( !s )
+>          {
+> +            if ( is_mmio && is_hardware_domain(currd) )
+> +                gdprintk(XENLOG_DEBUG, "unhandled memory %s to %#lx size %u\n",
+> +                         dir ? "read" : "write", addr, size);
 
-Looking forward to your insights.
+Can we make it "read from" and "write to"?
 
-Best regards,
-Shenghui Qu
+Jan
 
-Stefano Stabellini <sstabellini@kernel.org> =E4=BA=8E2025=E5=B9=B42=E6=9C=
-=8814=E6=97=A5=E5=91=A8=E4=BA=94 04:14=E5=86=99=E9=81=93=EF=BC=9A
-
-> Hi Shenghui,
->
-> Thank you for your interest in Xen! Let me add Stewart, who can provide
-> you with an overview of the latest status of PCI Passthrough on ARM.
->
-> Among the various items in progress, I would like to highlight this
-> series from Mykyta, which is currently under review:
->
-> https://marc.info/?l=3Dxen-devel&m=3D173918318831281
->
-> Cheers,
->
-> Stefano
->
-> On Thu, 13 Feb 2025, shenghui qu wrote:
-> > Dear Maintainers,
-> >
-> > I hope this email finds you well.
-> >
-> > I recently came across the Xen Project 4.19 Feature List, which mention=
-s
-> that PCI passthrough work on ARM is ongoing, including some
-> > refactoring and improvements of the existing code. It also states that
-> this work will be included in the next few releases.
-> > I am very interested in the current development plan and progress of PC=
-I
-> passthrough on ARM. Could you kindly provide an update on this?
-> >
-> > Additionally, I would like to know how I can access any available
-> testing patches related to this work.
-> >
-> > I appreciate your time and effort in maintaining and improving the Xen
-> Project. Looking forward to your response.
-> >
-> > Best regards,Shenghui Qu
-> >
-> >
-
---000000000000685f5d062e1804dd
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Dear Stewart<br><br>Thank you for being looped into this d=
-iscussion. <br>Following Stefano=E2=80=99s guidance, I=E2=80=99d like to se=
-ek further clarity on the current development of PCI Passthrough support fo=
-r Xen/ARM. <br>Specifically, I have two questions:<br>1.Roadmap: Are there =
-clear milestones or a timeline for completing PCI Passthrough support on AR=
-M? For instance, is this feature targeted for inclusion in Xen 4.20 or late=
-r releases=EF=BC=9F<br>2.Current Status: Could you elaborate on the technic=
-al progress so far? <br><br><span style=3D"white-space:pre">Looking forward=
- to your insights.</span><div><span style=3D"white-space:pre"><br></span>Be=
-st regards,<br>Shenghui Qu<br></div></div><br><div class=3D"gmail_quote gma=
-il_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">Stefano Stabellin=
-i &lt;<a href=3D"mailto:sstabellini@kernel.org">sstabellini@kernel.org</a>&=
-gt; =E4=BA=8E2025=E5=B9=B42=E6=9C=8814=E6=97=A5=E5=91=A8=E4=BA=94 04:14=E5=
-=86=99=E9=81=93=EF=BC=9A<br></div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex">Hi Shenghui,<br>
-<br>
-Thank you for your interest in Xen! Let me add Stewart, who can provide<br>
-you with an overview of the latest status of PCI Passthrough on ARM. <br>
-<br>
-Among the various items in progress, I would like to highlight this<br>
-series from Mykyta, which is currently under review:<br>
-<br>
-<a href=3D"https://marc.info/?l=3Dxen-devel&amp;m=3D173918318831281" rel=3D=
-"noreferrer" target=3D"_blank">https://marc.info/?l=3Dxen-devel&amp;m=3D173=
-918318831281</a><br>
-<br>
-Cheers,<br>
-<br>
-Stefano<br>
-<br>
-On Thu, 13 Feb 2025, shenghui qu wrote:<br>
-&gt; Dear Maintainers,<br>
-&gt; <br>
-&gt; I hope this email finds you well.<br>
-&gt; <br>
-&gt; I recently came across the Xen Project 4.19 Feature List, which mentio=
-ns that PCI passthrough work on ARM is ongoing, including some<br>
-&gt; refactoring and improvements of the existing code. It also states that=
- this work will be included in the next few releases.<br>
-&gt; I am very interested in the current development plan and progress of P=
-CI passthrough on ARM. Could you kindly provide an update on this?=C2=A0<br=
->
-&gt; <br>
-&gt; Additionally, I would like to know how I can access any available test=
-ing patches related to this work.<br>
-&gt; <br>
-&gt; I appreciate your time and effort in maintaining and improving the Xen=
- Project. Looking forward to your response.<br>
-&gt; <br>
-&gt; Best regards,Shenghui Qu<br>
-&gt; <br>
-&gt; </blockquote></div>
-
---000000000000685f5d062e1804dd--
 
