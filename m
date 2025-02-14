@@ -2,38 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C90A3A3584D
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 08:59:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.888519.1297872 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA677A35851
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 09:00:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.888528.1297882 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiqb6-00089U-9g; Fri, 14 Feb 2025 07:58:52 +0000
+	id 1tiqcC-0000Fj-IF; Fri, 14 Feb 2025 08:00:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 888519.1297872; Fri, 14 Feb 2025 07:58:52 +0000
+Received: by outflank-mailman (output) from mailman id 888528.1297882; Fri, 14 Feb 2025 08:00:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiqb6-00087K-6q; Fri, 14 Feb 2025 07:58:52 +0000
-Received: by outflank-mailman (input) for mailman id 888519;
- Fri, 14 Feb 2025 07:58:50 +0000
+	id 1tiqcC-0000DQ-Fe; Fri, 14 Feb 2025 08:00:00 +0000
+Received: by outflank-mailman (input) for mailman id 888528;
+ Fri, 14 Feb 2025 07:59:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=PTsb=VF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tiqb4-00087E-U5
- for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 07:58:50 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
+ (envelope-from <SRS0=1GEo=VF=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1tiqcA-0000DI-TS
+ for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 07:59:58 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [2a07:de40:b251:101:10:150:64:2])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 869417ac-eaa9-11ef-9aa4-95dc52dad729;
- Fri, 14 Feb 2025 08:58:50 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-ab7c501bbecso257739066b.2
- for <xen-devel@lists.xenproject.org>; Thu, 13 Feb 2025 23:58:50 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aba9cf8a262sm12600466b.22.2025.02.13.23.58.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Feb 2025 23:58:49 -0800 (PST)
+ id aedd68ac-eaa9-11ef-9aa4-95dc52dad729;
+ Fri, 14 Feb 2025 08:59:57 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 390351F451;
+ Fri, 14 Feb 2025 07:59:56 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0177413285;
+ Fri, 14 Feb 2025 07:59:55 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id L8g3Ovv3rmdXHAAAD6G6ig
+ (envelope-from <jgross@suse.com>); Fri, 14 Feb 2025 07:59:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,105 +53,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 869417ac-eaa9-11ef-9aa4-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739519929; x=1740124729; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=NpHc/B1t76opVQ4PmDElWBiDGfmXOUXfg/n4pcM2u0s=;
-        b=a1MiVPo9hhI6UpSxcqWRYmFlfAiXjpMJlqKH7VEMIXVbKteADK+xRFRA5eeUdFauJs
-         o5njhig/6B8Yho9bRnwI/RUatzCkVMPBsa7azXVo54MGzt7CVtO8gq/cqAFyEpD2PBtU
-         dOtMCArCl66HFOt7qHxZSOyfWCkeTfuLvrsvUgKfL7tru3y1fHOmqjKdIaxXF5icei7X
-         VLveB5Whpy34vO3iZ/R5rtRqDVgAa8DXdYX098k+VDaR52QO89PaISmrOQp/dcWJN57B
-         5g/hgs0MToUhLsgE2f4K+zFl9PevAVOhiRl5OYWGTAqF8iOAjkIt/GD5x052Tv7O2/NQ
-         3xFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739519929; x=1740124729;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=NpHc/B1t76opVQ4PmDElWBiDGfmXOUXfg/n4pcM2u0s=;
-        b=L/9pp8Oui5XNHPqjjXRTgba7h8N++4JAOUOhZCMBouWK5pem9bJAlcNcjehje0VjeR
-         liKy2Oi/TTOoSYZGRPJ+RhIE+AEMEm4h2dKYq/f5eKMRUZVMue0yT0bIwOlg/8ERHQD+
-         a5DIt7kSCTVDl/YZRqcLSD0lBRChVGd4sJNUN1IuYHFAkzjOR+73pv4z0Pja3YoA30BS
-         B1x4fDcJZFwjTBFWEp72+7QWdm6VlrGnKyv8s1ifXNNOSKT5AyJS0jjFNdB2ll4NQq5O
-         QCfjM1efPcsj5JRaCpJ7eFACPzAxUdXtW1qFYk/QfXkAa6H3DBCFYfDIH7kZwNyZTJBK
-         bHRg==
-X-Forwarded-Encrypted: i=1; AJvYcCWgXzzMK1rvoNJWGgx04/BfJEFHCn6lhf0/yiKtheXGXNdUXKwbvh5Qrvw8Dfg5PrgUjugvAB1FdnU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwVkTXFFiqZKerm/uFfiqrx7r4OD9kFqEz80jTczPUwckCIaEst
-	cm3Cy6mm3x7M3lSaHIDFHCMevM2ec/nzOw2Lr86gH/OCh+vN3DdAHGqAlQkF4A==
-X-Gm-Gg: ASbGnctjwetsaev5Km6a98SAuUjR/75flk15qUssjxLLxuLFYmRKS4I7omJJopCAMuv
-	qRbsMPjKBrM7VeZVaoQ6tnGe4EptEHH0HKXt/OgzqHzt6Wcd3MF7qK9y37nqA2m9sfs2lP3J0qC
-	GtpNZY9ZAaYTazI7YQk4Kw23+6H564JtjrWPVr2D7jbgMnbYEtYLn1J0/CqodO5E5oJQjdte+FU
-	LgnIGiaf/pwG19UzvJGfWaaWVWuTg/jkmNoSxecE9LBQbTiUU7tsMNgEZN392LZ9GVewIA/Cqiv
-	hNxKk7WHcwy/pEAshUGIUk818HiqRAQ2o8CJhMIXaXJUroAclEhfKy1cdNIpUbbOUjyHAU/Jsqy
-	s
-X-Google-Smtp-Source: AGHT+IG8orHiwvL/HevS35S3hahEQJzRdW6+toofHxXy8SxNlIE/l9Y31y/imGdhDq1IwI2muH2yCg==
-X-Received: by 2002:a17:907:962a:b0:aa6:9624:78f7 with SMTP id a640c23a62f3a-ab7f3391b09mr1022414366b.17.1739519929628;
-        Thu, 13 Feb 2025 23:58:49 -0800 (PST)
-Message-ID: <8cfbd5f2-580f-417c-8596-1a1b994f5155@suse.com>
-Date: Fri, 14 Feb 2025 08:58:47 +0100
+X-Inumbo-ID: aedd68ac-eaa9-11ef-9aa4-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1739519997; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=vl42sO+5tmTPqeo1iMS87UANmhyjUCvI0bsY48G3xH8=;
+	b=NaxdaKETD89REe6+zWdTKRrZKJfxGwWBd1s0J2O8nqi4oi82y0Uj69jiadBW5WcVZgXG6b
+	jQr6vDFKxJr0FKpUMq3UY0N67EevVoMemWMXVkwCDNJ/u5WTkDEXNmXcLN421R40gzxSTx
+	AE9U5n0dKSa4w1KPI5ig5Nk/pBTfwkc=
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=DDwhNG9o
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1739519996; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=vl42sO+5tmTPqeo1iMS87UANmhyjUCvI0bsY48G3xH8=;
+	b=DDwhNG9oNfUmq8eCdhdieU+vhk41r8ul7PAso9e/ktTQHDcuNx8ftuYovRuh1tZjmZCvFh
+	bLVSceznziO1updZV2ERfD9elmWiQ+Aqu4BoQDxRkoNm24V1SDFYKY+KkojTRKpZSst9/g
+	vhKzegdr1UmcQqhrCp7YbCrSWYwR//g=
+From: Juergen Gross <jgross@suse.com>
+To: torvalds@linux-foundation.org
+Cc: linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	sstabellini@kernel.org
+Subject: [GIT PULL] xen: branch for v6.14-rc3
+Date: Fri, 14 Feb 2025 08:59:55 +0100
+Message-ID: <20250214075955.17913-1-jgross@suse.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/console: pre-compute domain prefix for printouts
-To: Andrew Cooper <andrew.cooper3@citrix.com>, dmukhin@ford.com
-Cc: anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com,
- roger.pau@citrix.com, sstabellini@kernel.org, dmkhn@proton.me,
- xen-devel@lists.xenproject.org
-References: <20250213214350.1745843-1-dmukhin@ford.com>
- <30dbb0ca-33d8-40fa-9c98-9ea266ff44c2@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <30dbb0ca-33d8-40fa-9c98-9ea266ff44c2@citrix.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 390351F451
+X-Spam-Score: -3.01
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_TRACE(0.00)[suse.com:+];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_THREE(0.00)[4];
+	ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:mid,suse.com:dkim]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Flag: NO
+X-Spam-Level: 
 
-On 14.02.2025 00:28, Andrew Cooper wrote:
-> On 13/02/2025 10:35 pm, dmkhn@proton.me wrote:
->> Every guest_printk() call computes "(d%d) " prefix on every call.
->> Move prefix generation to the domain creation time.
->>
->> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> 
-> I'm on the fence here.
-> 
-> Part of that is speaking as someone who has had to shrink struct domain
-> several times to keep it fitting within 1 page.
+Linus,
 
-Just wanted to mention exactly this as well. I'm pretty strongly against
-us doing anything like this. If we started here, likely other things
-possible to "cache" would show up.
+Please git pull the following tag:
 
-> But as to calculating it every time, does that matter?  In production
-> environments, we get a handful of print lines per domain across their
-> lifetime.  Is the saving really worth it?
+ git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.14-rc3-tag
 
-+1
+xen: branch for v6.14-rc3
 
-Jan
+It contains 3 patches related to the xen-swiotlb driver:
+
+- 2 fixes for issues coming up due to another fix in 6.12
+- 1 addition of an __init annotation
+
+
+Thanks.
+
+Juergen
+
+ arch/x86/xen/mmu_pv.c     | 71 +++++++++++++++++++++++++++++++++++++++++------
+ drivers/xen/swiotlb-xen.c | 22 +++++++++------
+ 2 files changed, 75 insertions(+), 18 deletions(-)
+
+Jan Beulich (1):
+      Xen/swiotlb: mark xen_swiotlb_fixup() __init
+
+Juergen Gross (2):
+      xen/swiotlb: relax alignment requirements
+      x86/xen: allow larger contiguous memory regions in PV guests
 
