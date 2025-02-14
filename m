@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B8B5A36206
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 16:43:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.888925.1298192 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6265A36226
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 16:47:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.888934.1298202 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tixq6-0006Cf-GN; Fri, 14 Feb 2025 15:42:50 +0000
+	id 1tixuT-00072y-2N; Fri, 14 Feb 2025 15:47:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 888925.1298192; Fri, 14 Feb 2025 15:42:50 +0000
+Received: by outflank-mailman (output) from mailman id 888934.1298202; Fri, 14 Feb 2025 15:47:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tixq6-0006Ay-DT; Fri, 14 Feb 2025 15:42:50 +0000
-Received: by outflank-mailman (input) for mailman id 888925;
- Fri, 14 Feb 2025 15:42:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tixuS-00070D-Us; Fri, 14 Feb 2025 15:47:20 +0000
+Received: by outflank-mailman (input) for mailman id 888934;
+ Fri, 14 Feb 2025 15:47:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5vTB=VF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tixq4-0006Ar-BW
- for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 15:42:48 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 56df30c3-eaea-11ef-9aa4-95dc52dad729;
- Fri, 14 Feb 2025 16:42:47 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-438a3216fc2so23409985e9.1
- for <xen-devel@lists.xenproject.org>; Fri, 14 Feb 2025 07:42:47 -0800 (PST)
-Received: from [10.81.43.157] ([46.149.103.14])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-439618a9970sm47264215e9.33.2025.02.14.07.42.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Feb 2025 07:42:45 -0800 (PST)
+ <SRS0=iCm0=VF=cloud.com=andrii.sultanov@srs-se1.protection.inumbo.net>)
+ id 1tixuQ-000706-UE
+ for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 15:47:18 +0000
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [2a00:1450:4864:20::22e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f7891cbf-eaea-11ef-9896-31a8f345e629;
+ Fri, 14 Feb 2025 16:47:16 +0100 (CET)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-308f71d5efcso21801811fa.3
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Feb 2025 07:47:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,151 +40,228 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 56df30c3-eaea-11ef-9aa4-95dc52dad729
+X-Inumbo-ID: f7891cbf-eaea-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1739547767; x=1740152567; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=nwQlDzJ3dFbHgTvWxvyjKoFzJ2Qr6hXd9xtRvxXk5L8=;
-        b=R5xNJBUbI1kbHqwGwaSFQeW8d/dl5/K5TF6AE6AlGqm6LjW5uEJUxPCDmkybQt+d5V
-         4zRU8pjL1j3S6s5LpxEnjEeZroVAHi6xMDKVF+Om14aSyzdUtwlmhz7LzCIzlbkkOE2Y
-         FZSqcJaPDDLzl1mbkQeNbV8Gp758aY5gqTBGM=
+        d=cloud.com; s=cloud; t=1739548036; x=1740152836; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=u/4Px52YWadeojR7NgmOLbLRpKX9OaBtemLD0xvlLQ8=;
+        b=e5tqxwLgIwhyyPe4uTWGXSEZ5KaOUY0C3EEL4YwCUlK44kqjOjt+JwcucS4yGt/4iI
+         khmVuZ5/sWefR7HLBSD+dYtPKtkpBA8QRGLe0cXDcNyD7HDjpZfGjqcUFzMpp07TMvDY
+         Q6t0t1Re+AaLlsR+Iqo6x5ddjkDVM/OwHwLHs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739547767; x=1740152567;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nwQlDzJ3dFbHgTvWxvyjKoFzJ2Qr6hXd9xtRvxXk5L8=;
-        b=Vk3uWNdLLIG2/OLKG8EKzxF8EYqHzZUY/JjmWOgMBU2A6hpe+QH1NVzjYZlLuwaDlG
-         mlIx6AUhc58OJylCgASg1Z+3hF4WEqkRyXm9N0w6cLCU+TMUOa6oyXPdcEsoOQYEx1G6
-         RUOwRqe6jnNj5JnL2E1WXTnKtXVKalYxPlCombe/jtWLxE5nkP0Xtb2+ZxW3ugRm5wLc
-         2tvuxBWoJu5BXEkUKikszC97Jej0KaJLQuMev5d0Ct+JMfDZ0/n1neQc711Iu3JQvvyv
-         Tbk0/xQu2FN7SBkTz5IHyB4bqhLlSaJQqz/a3n0gtJeLj0KUQYUQ9TgAgANYqZTCDY5Y
-         sswQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWo4rB7gNBdD8Qpwd5IxOJBW0Sq24F2CM2TIPtLMr3RLYVDgInfG1iJaf8taJQnMWTMEFC6M2XZaTg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwDgnnQgkZa3ndIOBVM7/cQirbiG66CY4K0+W/LQi32hBHQ1goA
-	XvDgyZP58ge1iHjfxshblkINsAXLQ644rxlz9h5KqWbONTA+rhXMUcb+2F0XlBg=
-X-Gm-Gg: ASbGncsIMBYV5uFkyVZfhgjVC8PJsEGVhxmKfANDGd9KgsL5sQ/2vt/9ioiSuLIKM8L
-	oeJua32pZTxlx4qcSv8bfjbHl0rOR/U2f39jA8CBL/OwlESdonBKfRbZcSl17Lbl/+cbyHg7wKG
-	6Je30M9uzDIp82TszzOc7MTkhzKYQOQ+UfZI+gOUTHKdbVRrN3LRANXeHbmr4jedIF5eoelA8JQ
-	2aya9xVjuotW0kdu+V60sOnoA3AN3I2TNpvElzdTHKh/Z5c9wyBWNYniK3irb2EgAqlFw7dB2dZ
-	Syiie0mCrlVm1EcXLE49Mxh3fA==
-X-Google-Smtp-Source: AGHT+IGINvGpJzn64Kfsohnx1u41JJIedkrrVteE4lN2N9xZ71a1PVuwf8OXY2Sb18rqr7tEG4PXQQ==
-X-Received: by 2002:a05:600c:1c06:b0:439:6a40:4860 with SMTP id 5b1f17b1804b1-4396a404d25mr24828685e9.28.1739547766749;
-        Fri, 14 Feb 2025 07:42:46 -0800 (PST)
-Message-ID: <850c2854-17ee-42d7-856a-44604f755941@citrix.com>
-Date: Fri, 14 Feb 2025 15:42:44 +0000
+        d=1e100.net; s=20230601; t=1739548036; x=1740152836;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=u/4Px52YWadeojR7NgmOLbLRpKX9OaBtemLD0xvlLQ8=;
+        b=pBrJjM1UHpiO1hxv1XerPX6buhqo2j4Wc9YW1M51HxMtubPOIhUTLHgbClOHCdRx44
+         Qrh1NdEfuiAhh7mOgH6CAR9yxwUVLCdCC5Xgozxbqe+/Pko83VlauoYpt5S8bv7G5P2U
+         3uq8+noiQemgTKz3+KN/M2zFAG+NRFVxtqXMSV5xIXXb3pyCkVftJxOupGi3/g3/fqmZ
+         rMDrN+41BN6rhcb2PkPYPaNJxghLtFhmm/2v4okyKe3UP683d1+cVllDWFNjT8lWnokl
+         2eZmQuWJn+IIJCcDUuE/9JMo8SMghaZ8ng/dOUoAqRwBAyf0hCmiA/TROU8OqFHvRkwh
+         AN4g==
+X-Gm-Message-State: AOJu0YwWkc/JtoENBL8ffEqT14crFMR6kNg9+Ry5aWTtLQwk7VIIeWWW
+	vzYIAs2f7gGS+oCK8OGwNu/QGP6A52EhagXBymdnlFPtQFkRJsovlHGlANDYwIZvOLcwzgeUBcP
+	N3ZZbjsin0oqPi+1AtGo0xTGDwSkCSSH5/Rdf6w==
+X-Gm-Gg: ASbGncvLPGCrMbHPocjBNP/sEtqUI0VLLSjcxub2rOtmfhFqiPvx+yV3dqmMHuhhCCn
+	X9dk3Yx3y+6SY5udV4L4DlHt2C8xkpWyyswG42snqMJoYM3JoFy5oosFAKr4hjnZnJF8tFro=
+X-Google-Smtp-Source: AGHT+IG5hm5jZac9fwbXAQpFuLXJBHwmDRevCXFq44tyvBaez7irUbSiU65dTl6bX4RHaWrHUk0u6WStXFu26wwblcY=
+X-Received: by 2002:a05:651c:542:b0:308:e9ae:b5a9 with SMTP id
+ 38308e7fff4ca-3090379da66mr43891821fa.6.1739548036153; Fri, 14 Feb 2025
+ 07:47:16 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/1] tools/ocaml: Fix oxenstored build warning
-To: Andrii Sultanov <andrii.sultanov@cloud.com>,
- xen-devel@lists.xenproject.org
-Cc: Christian Lindig <christian.lindig@citrix.com>,
- David Scott <dave@recoil.org>, Anthony PERARD <anthony.perard@vates.tech>,
- Christian Lindig <christian.lindig@cloud.com>
 References: <cover.1739546412.git.andrii.sultanov@cloud.com>
  <0545259ba8f7c54b6fd6c82b185bdee475694747.1739546412.git.andrii.sultanov@cloud.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <0545259ba8f7c54b6fd6c82b185bdee475694747.1739546412.git.andrii.sultanov@cloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ <850c2854-17ee-42d7-856a-44604f755941@citrix.com>
+In-Reply-To: <850c2854-17ee-42d7-856a-44604f755941@citrix.com>
+From: Andrii Sultanov <andrii.sultanov@cloud.com>
+Date: Fri, 14 Feb 2025 15:47:04 +0000
+X-Gm-Features: AWEUYZl6jAAAM9zBqHZQePt0bb1wtmRJ0vLMFfnfcvZx-UaD0fRm2bFUpGZsUwo
+Message-ID: <CAAa3AOOYpak4987-7H71CpaBcHyHOOYUL0w6rqVDM17yTvTYJg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/1] tools/ocaml: Fix oxenstored build warning
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Christian Lindig <christian.lindig@citrix.com>, David Scott <dave@recoil.org>, 
+	Anthony PERARD <anthony.perard@vates.tech>, Christian Lindig <christian.lindig@cloud.com>
+Content-Type: multipart/alternative; boundary="000000000000c3e0cc062e1c16d8"
 
-On 14/02/2025 3:24 pm, Andrii Sultanov wrote:
-> OCaml, in preparation for a renaming of the error string associated with
-> conversion failure in 'int_of_string' functions, started to issue this
-> warning:
-> ```
-> File "process.ml", line 440, characters 13-28:
-> 440 |   | (Failure "int_of_string")    -> reply_error "EINVAL"
->                    ^^^^^^^^^^^^^^^
-> Warning 52 [fragile-literal-pattern]: Code should not depend on the actual values of
-> this constructor's arguments. They are only for information
-> and may change in future versions. (See manual section 11.5)
-> ```
+--000000000000c3e0cc062e1c16d8
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+> What's this hunk for?  There's a change in poll.ml, but I don't see why
+> it would need to change this list.
+
+Otherwise Poll doesn't pick up Utils as its dependency - I guess before it
+was always independent and didn't need anything like that
+
+
+On Fri, Feb 14, 2025 at 3:42=E2=80=AFPM Andrew Cooper <andrew.cooper3@citri=
+x.com>
+wrote:
+
+> On 14/02/2025 3:24 pm, Andrii Sultanov wrote:
+> > OCaml, in preparation for a renaming of the error string associated wit=
+h
+> > conversion failure in 'int_of_string' functions, started to issue this
+> > warning:
+> > ```
+> > File "process.ml", line 440, characters 13-28:
+> > 440 |   | (Failure "int_of_string")    -> reply_error "EINVAL"
+> >                    ^^^^^^^^^^^^^^^
+> > Warning 52 [fragile-literal-pattern]: Code should not depend on the
+> actual values of
+> > this constructor's arguments. They are only for information
+> > and may change in future versions. (See manual section 11.5)
+> > ```
+> >
+> > Deal with this at the source, and instead create our own stable
+> > ConversionFailure exception that's raised on the None case in
+> > 'int_of_string_opt'.
+> >
+> > 'c_int_of_string' is safe and does not raise such exceptions.
+> >
+> > Signed-off-by: Andrii Sultanov <andrii.sultanov@cloud.com>
+> > Acked-by: Christian Lindig <christian.lindig@cloud.com>
+> > ---
+> > Changes since v1:
+> > * Revert logging added to error handling in process.ml, return just
+> "EINVAL"
 >
-> Deal with this at the source, and instead create our own stable
-> ConversionFailure exception that's raised on the None case in
-> 'int_of_string_opt'.
+> Thanks.  This looks better.  One quick question.
 >
-> 'c_int_of_string' is safe and does not raise such exceptions.
+> > ---
+> >  tools/ocaml/xenstored/Makefile     |  1 +
+> >  tools/ocaml/xenstored/perms.ml     |  2 +-
+> >  tools/ocaml/xenstored/poll.ml      |  2 +-
+> >  tools/ocaml/xenstored/process.ml   | 18 +++++++++---------
+> >  tools/ocaml/xenstored/utils.ml     | 10 ++++++++--
+> >  tools/ocaml/xenstored/xenstored.ml | 16 ++++++++--------
+> >  6 files changed, 28 insertions(+), 21 deletions(-)
+> >
+> > diff --git a/tools/ocaml/xenstored/Makefile
+> b/tools/ocaml/xenstored/Makefile
+> > index 5e8210a906..c333394a34 100644
+> > --- a/tools/ocaml/xenstored/Makefile
+> > +++ b/tools/ocaml/xenstored/Makefile
+> > @@ -54,6 +54,7 @@ OBJS =3D paths \
+> >       history \
+> >       parse_arg \
+> >       process \
+> > +     poll \
+> >       xenstored
+> >
 >
-> Signed-off-by: Andrii Sultanov <andrii.sultanov@cloud.com>
-> Acked-by: Christian Lindig <christian.lindig@cloud.com>
-> ---
-> Changes since v1:
-> * Revert logging added to error handling in process.ml, return just "EINVAL"
-
-Thanks.  This looks better.  One quick question.
-
-> ---
->  tools/ocaml/xenstored/Makefile     |  1 +
->  tools/ocaml/xenstored/perms.ml     |  2 +-
->  tools/ocaml/xenstored/poll.ml      |  2 +-
->  tools/ocaml/xenstored/process.ml   | 18 +++++++++---------
->  tools/ocaml/xenstored/utils.ml     | 10 ++++++++--
->  tools/ocaml/xenstored/xenstored.ml | 16 ++++++++--------
->  6 files changed, 28 insertions(+), 21 deletions(-)
+> What's this hunk for?  There's a change in poll.ml, but I don't see why
+> it would need to change this list.
 >
-> diff --git a/tools/ocaml/xenstored/Makefile b/tools/ocaml/xenstored/Makefile
-> index 5e8210a906..c333394a34 100644
-> --- a/tools/ocaml/xenstored/Makefile
-> +++ b/tools/ocaml/xenstored/Makefile
-> @@ -54,6 +54,7 @@ OBJS = paths \
->  	history \
->  	parse_arg \
->  	process \
-> +	poll \
->  	xenstored
->  
+> ~Andrew
+>
 
-What's this hunk for?  There's a change in poll.ml, but I don't see why
-it would need to change this list.
+--000000000000c3e0cc062e1c16d8
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-~Andrew
+<div dir=3D"ltr"><div class=3D"gmail-c-message_kit__blocks gmail-c-message_=
+kit__blocks--rich_text" style=3D"box-sizing:inherit;max-width:none;margin-b=
+ottom:4px"><div class=3D"gmail-c-message__message_blocks gmail-c-message__m=
+essage_blocks--rich_text" style=3D"box-sizing:inherit;max-width:none"><div =
+class=3D"gmail-p-block_kit_renderer" style=3D"box-sizing:inherit;width:1169=
+.01px"><div class=3D"gmail-p-block_kit_renderer__block_wrapper gmail-p-bloc=
+k_kit_renderer__block_wrapper--first" style=3D"box-sizing:inherit;display:f=
+lex"><div class=3D"gmail-p-rich_text_block" dir=3D"auto" style=3D"box-sizin=
+g:inherit;text-align:left;width:1169.01px;font-size:15px;line-height:1.4666=
+8"><div class=3D"gmail-p-rich_text_section" style=3D"box-sizing:inherit">&g=
+t;=20
+What&#39;s this hunk for?=C2=A0 There&#39;s a change in <a href=3D"http://p=
+oll.ml" rel=3D"noreferrer" target=3D"_blank">poll.ml</a>, but I don&#39;t s=
+ee why<br>
+&gt; it would need to change this list.<font color=3D"#888888"><br></font>
+
+<br></div><div class=3D"gmail-p-rich_text_section" style=3D"box-sizing:inhe=
+rit">Otherwise Poll doesn&#39;t pick up Utils as its dependency - I guess b=
+efore it was always independent and didn&#39;t need anything like that</div=
+></div></div></div></div></div><br></div><br><div class=3D"gmail_quote gmai=
+l_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Feb 14, 20=
+25 at 3:42=E2=80=AFPM Andrew Cooper &lt;<a href=3D"mailto:andrew.cooper3@ci=
+trix.com">andrew.cooper3@citrix.com</a>&gt; wrote:<br></div><blockquote cla=
+ss=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid =
+rgb(204,204,204);padding-left:1ex">On 14/02/2025 3:24 pm, Andrii Sultanov w=
+rote:<br>
+&gt; OCaml, in preparation for a renaming of the error string associated wi=
+th<br>
+&gt; conversion failure in &#39;int_of_string&#39; functions, started to is=
+sue this<br>
+&gt; warning:<br>
+&gt; ```<br>
+&gt; File &quot;<a href=3D"http://process.ml" rel=3D"noreferrer" target=3D"=
+_blank">process.ml</a>&quot;, line 440, characters 13-28:<br>
+&gt; 440 |=C2=A0 =C2=A0| (Failure &quot;int_of_string&quot;)=C2=A0 =C2=A0 -=
+&gt; reply_error &quot;EINVAL&quot;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ^=
+^^^^^^^^^^^^^^<br>
+&gt; Warning 52 [fragile-literal-pattern]: Code should not depend on the ac=
+tual values of<br>
+&gt; this constructor&#39;s arguments. They are only for information<br>
+&gt; and may change in future versions. (See manual section 11.5)<br>
+&gt; ```<br>
+&gt;<br>
+&gt; Deal with this at the source, and instead create our own stable<br>
+&gt; ConversionFailure exception that&#39;s raised on the None case in<br>
+&gt; &#39;int_of_string_opt&#39;.<br>
+&gt;<br>
+&gt; &#39;c_int_of_string&#39; is safe and does not raise such exceptions.<=
+br>
+&gt;<br>
+&gt; Signed-off-by: Andrii Sultanov &lt;<a href=3D"mailto:andrii.sultanov@c=
+loud.com" target=3D"_blank">andrii.sultanov@cloud.com</a>&gt;<br>
+&gt; Acked-by: Christian Lindig &lt;<a href=3D"mailto:christian.lindig@clou=
+d.com" target=3D"_blank">christian.lindig@cloud.com</a>&gt;<br>
+&gt; ---<br>
+&gt; Changes since v1:<br>
+&gt; * Revert logging added to error handling in <a href=3D"http://process.=
+ml" rel=3D"noreferrer" target=3D"_blank">process.ml</a>, return just &quot;=
+EINVAL&quot;<br>
+<br>
+Thanks.=C2=A0 This looks better.=C2=A0 One quick question.<br>
+<br>
+&gt; ---<br>
+&gt;=C2=A0 tools/ocaml/xenstored/Makefile=C2=A0 =C2=A0 =C2=A0|=C2=A0 1 +<br=
+>
+&gt;=C2=A0 tools/ocaml/xenstored/<a href=3D"http://perms.ml" rel=3D"norefer=
+rer" target=3D"_blank">perms.ml</a>=C2=A0 =C2=A0 =C2=A0|=C2=A0 2 +-<br>
+&gt;=C2=A0 tools/ocaml/xenstored/<a href=3D"http://poll.ml" rel=3D"noreferr=
+er" target=3D"_blank">poll.ml</a>=C2=A0 =C2=A0 =C2=A0 |=C2=A0 2 +-<br>
+&gt;=C2=A0 tools/ocaml/xenstored/<a href=3D"http://process.ml" rel=3D"noref=
+errer" target=3D"_blank">process.ml</a>=C2=A0 =C2=A0| 18 +++++++++---------=
+<br>
+&gt;=C2=A0 tools/ocaml/xenstored/<a href=3D"http://utils.ml" rel=3D"norefer=
+rer" target=3D"_blank">utils.ml</a>=C2=A0 =C2=A0 =C2=A0| 10 ++++++++--<br>
+&gt;=C2=A0 tools/ocaml/xenstored/<a href=3D"http://xenstored.ml" rel=3D"nor=
+eferrer" target=3D"_blank">xenstored.ml</a> | 16 ++++++++--------<br>
+&gt;=C2=A0 6 files changed, 28 insertions(+), 21 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/tools/ocaml/xenstored/Makefile b/tools/ocaml/xenstored/Ma=
+kefile<br>
+&gt; index 5e8210a906..c333394a34 100644<br>
+&gt; --- a/tools/ocaml/xenstored/Makefile<br>
+&gt; +++ b/tools/ocaml/xenstored/Makefile<br>
+&gt; @@ -54,6 +54,7 @@ OBJS =3D paths \<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0history \<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0parse_arg \<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0process \<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0poll \<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0xenstored<br>
+&gt;=C2=A0 <br>
+<br>
+What&#39;s this hunk for?=C2=A0 There&#39;s a change in <a href=3D"http://p=
+oll.ml" rel=3D"noreferrer" target=3D"_blank">poll.ml</a>, but I don&#39;t s=
+ee why<br>
+it would need to change this list.<br>
+<br>
+~Andrew<br>
+</blockquote></div>
+
+--000000000000c3e0cc062e1c16d8--
 
