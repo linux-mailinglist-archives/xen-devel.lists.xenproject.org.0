@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 603AFA357C4
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 08:20:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.888399.1297762 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FDC2A357E8
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 08:31:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.888411.1297772 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiq0D-0006Nl-4i; Fri, 14 Feb 2025 07:20:45 +0000
+	id 1tiq9v-00080K-11; Fri, 14 Feb 2025 07:30:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 888399.1297762; Fri, 14 Feb 2025 07:20:45 +0000
+Received: by outflank-mailman (output) from mailman id 888411.1297772; Fri, 14 Feb 2025 07:30:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiq0D-0006LI-1x; Fri, 14 Feb 2025 07:20:45 +0000
-Received: by outflank-mailman (input) for mailman id 888399;
- Fri, 14 Feb 2025 07:20:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tiq9u-0007xn-UQ; Fri, 14 Feb 2025 07:30:46 +0000
+Received: by outflank-mailman (input) for mailman id 888411;
+ Fri, 14 Feb 2025 07:30:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PTsb=VF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tiq0C-0006LC-5k
- for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 07:20:44 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 32bfb55c-eaa4-11ef-9896-31a8f345e629;
- Fri, 14 Feb 2025 08:20:42 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-ab7ca64da5dso329532466b.0
- for <xen-devel@lists.xenproject.org>; Thu, 13 Feb 2025 23:20:42 -0800 (PST)
+ id 1tiq9t-0007xg-Bi
+ for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 07:30:45 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 99a09a00-eaa5-11ef-9aa4-95dc52dad729;
+ Fri, 14 Feb 2025 08:30:44 +0100 (CET)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-ab7c14b880dso369791466b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Feb 2025 23:30:44 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aba53231e04sm283292366b.28.2025.02.13.23.20.40
+ a640c23a62f3a-aba53280ee4sm285049766b.78.2025.02.13.23.30.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Feb 2025 23:20:41 -0800 (PST)
+ Thu, 13 Feb 2025 23:30:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32bfb55c-eaa4-11ef-9896-31a8f345e629
+X-Inumbo-ID: 99a09a00-eaa5-11ef-9aa4-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739517641; x=1740122441; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739518243; x=1740123043; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UEgsYjI3OF+cEJb/ua4djCBTTOdsUQgIH0NTlD96UoI=;
-        b=LOew6t3NHI8wrs96nS8PRxqbsz+gL6pTkHA/zMVTetKXA+trrMyjcSjob3pBbU0e3B
-         pzScOoOUi+rMOzwlZo51Bjbau+erpkZ4FbIARFwFlWVhi540qnE1b1sLkzKsUcgtLvUQ
-         v1oYUz33xCi+uVQvg8LWL5svJZ10SQRkMt3WIFQ/+1b+eJej1MQim2MKKS7S0KOMK1Ro
-         iv7BwpHEXnsEKWgasDtAX0csZh20gE50mhhaK9FS7Gmxyof61oGYFsAFmr6KLVF9KK3w
-         4Qm0fiMQ84pdEluZLIe8yfWAai3vrfXZ58D6L+7fmZECzuXM0mHf1OLvuvzi/8o54eMy
-         4uvg==
+        bh=4Zao28lBkXvJxk0fI2Vjr62Sq7NctLSbKgwxN7Jtr7Q=;
+        b=AzAzgc1DHKOCZ91QuQuH/lQ+D+bOhmZAJdmEKA04hB+3o3vyqEBx71A+qxXDxbFkNY
+         QkBi7jTltu1hophZUjDSPVHf5VBXaQL6YV+ksc7L8Db1C68ZPuJ5LIjbwU7cjdW/EZyU
+         ePudgNw2BdEnjZIAMGRDp/A5f1R3gu4PLIlCGftBLv869L5kgNjhmXZ7OfxNcT132Vek
+         Y6WKoUp+peIZAu1yHom8BOAMbA8pNnfl4JoGVRQJrM07ygVByRQkmTWw48etmcYALtky
+         /IGX9iiJOo7BzJPyISRwJ57KfoPmKhLaxAg1f8we9GmlVLT5CgpwD3Vza5gUlRZoqw8r
+         tMOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739517641; x=1740122441;
+        d=1e100.net; s=20230601; t=1739518243; x=1740123043;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UEgsYjI3OF+cEJb/ua4djCBTTOdsUQgIH0NTlD96UoI=;
-        b=R1Ki/CTbMuFsVQB0AQLLFqTp4xLMsc43DZq+TjXIwbyi5Yjs6jINYqYeOVliErJ06I
-         4ZTLxE7x4jUVrYSPBK52uSv4oKLgyWdEjBrzrXiBHPckIf5/WaBOAu1+fi8tWh9wHUPu
-         9nv3MESJ8CAi4H+qH3XLUxbkUGV+RfFBYXNQVMJBSwCTh05G81ohIrFJyXd/Mr4PpajA
-         AlZrHcm8pNs/Q3BfhOQ/3CR+o3WVELyHvD1r0WK2LjHP4Zn3Fq8KUuTzbqaqc+Ae+qLp
-         cPo2SoXvdJReXeu7i2Cfto57tyodUIcOFYhHnlSjdq2tQBpnJ4VP8Acw5t5HFQA9CpQG
-         bJ1Q==
-X-Forwarded-Encrypted: i=1; AJvYcCXj86rejfcchDlDLcf5nx1L80OtVsOhj/SX72HdVRhTigyuF94zyj9IXiA3FhcogV/hRqTVkWppxio=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxgo2nV3c3IMOqLVJBkgfh3XgDYOClYBMnceLxCeamAeZceY2c0
-	TUsvYnMZY8DZSSNi+JQ96aOO+yb4reagJS4Fldai+F2opAbWtLXJeNuoZQq1qg==
-X-Gm-Gg: ASbGncsT4WK55nPgZghyzrI+QHFXNg1rbWK28EY/d5/ZYU1stTkURyXXK/i5pOX4OAj
-	0COiDbx52l9tEVrL+61b9UilWq3x7L/x4T6UmgfEo8gNmQr8VJkq4eeMeaa3cAx4Javww+tkLXH
-	QYmI5D/EMh3LPfQ2NYAkDpdPqCF93KgPXfb7eECsuDVwQM9uFYHqQiSkC1ZHnt95hQFRhUhBhcZ
-	gc7ilybkMwfErErkteBsekrhiMEXZ8hFCEoS9u5nQUlNSBCF0MwuOD0L1+EC8+B1mC24MfLXsca
-	R7gQgsykCDHCcYczZMmpke4PeVGNnfW/9dbN0bGi6lYsmYqn7wTZLwUh21SDAC+y4tDOuTPe+Uz
-	7
-X-Google-Smtp-Source: AGHT+IERlpJ/zlC4aJdLn5mZg/YjpMO4HfvONfrnT3G7RkRsnvODkbQW0DGcrZEWNa6g+nZkDEe+yA==
-X-Received: by 2002:a17:907:7d91:b0:ab7:9101:e480 with SMTP id a640c23a62f3a-aba50fa0cabmr543655166b.11.1739517641429;
-        Thu, 13 Feb 2025 23:20:41 -0800 (PST)
-Message-ID: <7f174822-9016-40e7-96bd-5a1e1f7121a6@suse.com>
-Date: Fri, 14 Feb 2025 08:20:39 +0100
+        bh=4Zao28lBkXvJxk0fI2Vjr62Sq7NctLSbKgwxN7Jtr7Q=;
+        b=fIYBLcpCK1pUgvsIYbhpNbAvPxjbCpyy1iC0WEKRlMa5ze1meotGCvyQtowx976eBD
+         ykA8NjxfyuZXf/T/a0XCQZiHq5TPlSDnTEx7aNW3QHuJlJ4l/lu6bIyDVFgmPD2iDTwf
+         zrPUpZwsMa752loOYTmE1Mrkp7lwTzUSL77fDPM6/tWgxu1gZLNVWMCIeXMvizXxdhO6
+         RTpZ1AG0mty2fYwa8kSsUmzAl2dwM1HdpikQTzMwzqOGr5XkrjIiIlh7bIlDGTG+97qa
+         aG4s+QPtklBWIw0wVkBhnMWA68tI3o9J0Gw2esuFP2Xmn3gy5PhMQAkFuDbNdWogI6yb
+         Yb2A==
+X-Forwarded-Encrypted: i=1; AJvYcCWwLiwItbeNGxKzCpmt5uUDZPfHiTbucIiQaK5HZGs4W6MR0g7h2C0pTzODUlLwNBBmgD5U+2/tG1o=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw1jwomuysqYRJC/qHxMzxZCl/ithwpJncSiOWRAl2hv7NOpMu6
+	Fn6SbP17vAaXoaDirWTVxIDRwkQ16cGNc2wTZBgLa/T7s+pjdCgqM0DHcFfNPQ==
+X-Gm-Gg: ASbGnctzt2LIvOhS1aVk88GVPTsecUeyQdlonFfgDt3CnaclPiy5ASLCOrXUyO16QPQ
+	wAZsqfwDGZj2ZktIQ36rYZzY20aLkox5VTKXS2WgbLCkVFxthQUJWOUdUcnkstMyNNp342o+hrJ
+	m6cS6iJzTgtJHluo08uuoKNoGFuh9hAouKFlbmKzzXNIY4UQre+7xlXnvKQr5DsAuDe5eFhfiH8
+	QU4LXT2Kx4TiBGalJ421lfAOn99yT9B4TaXrWpUCj1HcDMlNj3eYG5ZQoGFaWX9ZQPEOerOibex
+	rgaNwRq7QNxEJmCnhb4b1SkOJ/drrUH2LR9VtvkQiSinBA4NoacKdn2W1V6ULry1ssl+uFYN7Sr
+	n
+X-Google-Smtp-Source: AGHT+IE1p/GhN+49xhzw1Ga0Ig0m/irc6otuTKUpoaGBjdQjriIVRpLwQTR0O2qmwlIXt9JfwhRUOA==
+X-Received: by 2002:a17:907:1c85:b0:aa6:9624:78f1 with SMTP id a640c23a62f3a-ab7f3714978mr1079717966b.9.1739518243487;
+        Thu, 13 Feb 2025 23:30:43 -0800 (PST)
+Message-ID: <e58bfb67-1a6e-46cb-9b5d-435eca5cd842@suse.com>
+Date: Fri, 14 Feb 2025 08:30:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/mm: Introduce per-arch pte_attr_t type for PTE
- flags
-To: Shawn Anastasio <sanastasio@raptorengineering.com>
-Cc: tpearson@raptorengineering.com, Andrew Cooper
- <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-References: <2b7f3e29fc1790978e2f615ee634f3a84bc340c9.1738789214.git.sanastasio@raptorengineering.com>
- <5a0e26ff-21fa-44c8-a1b2-3775e3ba00d9@suse.com>
- <a6abb79a-6d98-4cb5-ba45-4530ea30735e@raptorengineering.com>
+Subject: Re: blowfish failure to compile
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
+References: <65338578-dd6c-4f01-807e-da389cc60cb8@citrix.com>
+ <a2ef5618-b719-4c7b-ac6c-6861ba146ce2@suse.com>
+ <a8df54e6-1fef-4eff-9846-d24bcfdd5bd4@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,56 +119,124 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a6abb79a-6d98-4cb5-ba45-4530ea30735e@raptorengineering.com>
+In-Reply-To: <a8df54e6-1fef-4eff-9846-d24bcfdd5bd4@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 14.02.2025 00:05, Shawn Anastasio wrote:
-> On 2/6/25 6:29 AM, Jan Beulich wrote:
->> On 05.02.2025 22:02, Shawn Anastasio wrote:
->>> Xen's memory management APIs map_pages_to_xen, modify_xen_mappings,
->>> set_fixmap, ioremap_attr, and __vmap all use an unsigned int to
->>> represent architecture-dependent page table entry flags. This assumption
->>> is not well-suited for PPC/radix where some flags go past 32-bits, so
->>> introduce the pte_attr_t type to allow architectures to opt in to larger
->>> types to store PTE flags.
+On 13.02.2025 19:32, Andrew Cooper wrote:
+> On 13/02/2025 10:06 am, Jan Beulich wrote:
+>> On 12.02.2025 18:20, Andrew Cooper wrote:
+>>> Elsewhere in the tree we fix this with -ffreestanding -nostdinc
+>>> -I$(XEN_ROOT)/tools/firmware/include but that isn't an option for
+>>> test_x86_emulator in general which is hosted.
 >>>
->>> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
->>> ---
->>> Changes in v2:
->>>   - Drop Kconfig option and use `#define pte_attr_t pte_attr_t` for arches to
->>>   opt-in to defining the type.
->>>   - Move default pte_attr_definition to xen/types.h
->>>[...]
->>>   - Update commit message to reflect that this change isn't strictly
->>>   necessary for arches w/ >32bit pte flags
+>>> However, it is an option for blowfish.c specifically which is
+>>> freestanding, and for which we build a 32bit form in an otherwise 64bit
+>>> build.
+>>>
+>>> Therefore, it stands to reason that:
+>>>
+>>> diff --git a/tools/tests/x86_emulator/Makefile
+>>> b/tools/tests/x86_emulator/Makefile
+>>> index 294d27ebaa08..e46fd8becb96 100644
+>>> --- a/tools/tests/x86_emulator/Makefile
+>>> +++ b/tools/tests/x86_emulator/Makefile
+>>> @@ -33,8 +33,8 @@ HOSTCFLAGS += -m32 -I..
+>>>  
+>>>  else
+>>>  
+>>> -blowfish-cflags := ""
+>>> -blowfish-cflags-x86_32 := "-mno-accumulate-outgoing-args -Dstatic="
+>>> +blowfish-cflags := "-ffreestanding -nostdinc
+>>> -I$(XEN_ROOT)/tools/firmware/include "
+>>> +blowfish-cflags-x86_32 := "$(blowfish-cflags)
+>>> -mno-accumulate-outgoing-args -Dstatic="
+>> What this does is request the shared (between 32- and 64-bit)) flavor to
+>> be built differently, with the options "-ffreestanding -nostdinc
+>> -I$(XEN_ROOT)/tools/firmware/include". And then the (kind of) nested use
+>> of double quotes in blowfish-cflags-x86_32 ends up asking for several
+>> 32-bit flavors: One with -ffreestanding, one with -nostdinc, one with
+>> -I$(XEN_ROOT)/tools/firmware/include (which is what causes the
+>> strangeness you saw), and the pre-existing one with
+>> "-mno-accumulate-outgoing-args -Dstatic=".
 >>
->> I can't seem to be able to associate this with anything in the commit
->> message. The comment here to me reads as if this was optional (but then
->> for arches with <=32-bit PTE flags), yet in the description I can't spot
->> anything to the same effect. Recall that it was said before that on x86
->> we also have flags extending beyond bit 31, just that we pass them
->> around in a compacted manner (which, as Andrew has been suggesting, may
->> be undue extra overhead).
+>> Every set of options grouped together by double quotes (or any unquoted
+>> option) designates a flavor (while the quotation isn't meaningful to
+>> make aiui, its use is in a shell construct, where those quotes play
+>> their usual role). That is,
 >>
+>> blowfish-cflags := ""
+>>
+>> designates a flavor without any special options. What I understand you
+>> want, though, is to have these flags passed to all of the blowfish
+>> flavors.
+>>
+>> What complicates things slightly is that the first of the options names
+>> the flavor (i.e. prior to your change, but with my APX changes in place,
+>> we have
+>>
+>> blowfish_x86_32[]
+>> blowfish_x86_32_mno_accumulate_outgoing_args[]
+>> blowfish_x86_64[]
+>> blowfish_x86_64_DREX2[]
+>> blowfish_x86_64_mapxf[]
+>>
+>> resulting from
+>>
+>> blowfish-cflags := ""
+>> blowfish-cflags-x86_32 := "-mno-accumulate-outgoing-args -Dstatic="
+>> blowfish-cflags-x86_64 := "-DREX2 -Dstatic=" "-mapxf -Dstatic="
+>>
+>> . I think you can see now how the compiler ends up choking on
+>>
+>> blowfish_x86_32_I/local/xen.spec/scm/tools/tests/x86_emulator/../../../tools/firmware/include[]
+>>
+>> .) Surely we could accommodate for the added options by changing the
+>> references from test_x86_emulator.c, but maybe there's a better way
+>> (and also potentially useful for other test blobs going forward),
+>> modifying the .h generator rule(s):
+>>
+>> 		$(MAKE) -f testcase.mk TESTCASE=$* XEN_TARGET_ARCH=$(arch) $*-cflags="$$cflags $($*-cflags-common)" all; \
+>>
+>> and then the needed addition simply being
+>>
+>> blowfish-cflags-common := -ffreestanding -nostdinc -I$(XEN_ROOT)/tools/firmware/include
+>>
+>> Entirely untested, though, for now.
+>>
+>> However, further: The freestanding-ness does apply to all of the test
+>> blobs, doesn't it? Why don't we alter
+>>
+>> CFLAGS += -fno-builtin -g0 $($(TESTCASE)-cflags) $(CFLAGS-VSZ)
+>>
+>> in testcase.mk to become
+>>
+>> CFLAGS += -ffreestanding -nostdinc -I$(XEN_ROOT)/tools/firmware/include
+>> CFLAGS += -g0 $($(TESTCASE)-cflags) $(CFLAGS-VSZ)
+>>
+>> (which doesn't appear to become dependent upon anything we don't already
+>> have available in this file, i.e. in particular $(XEN_ROOT) is already
+>> used elsewhere), seeing that -ffreestanding implies -fno-builtin?
 > 
-> Admittedly the change was subtle, but I changed the wording in the
-> commit message as follows:
+> -ffreestanding seems fine.
 > 
-> - This assumption does not work on PPC/radix where some flags go past
->   32-bits, so [...]
-> + This assumption is not well-suited for PPC/radix where some flags go
->   past 32-bits, so [...]
+> And while -nostdinc -I... works for the 32bit builds, they break the
+> 64bit builds.
 > 
+>> In file included from blowfish.c:18:
+>> /builddir/build/BUILD/xen-4.20.0/tools/tests/x86_emulator/../../../tools/firmware/include/stdint.h:5:2:
+>> error: #error "32bit only header"
+>>     5 | #error "32bit only header"
+>>       |  ^~~~~
+>> make[6]: *** [testcase.mk:16: blowfish.bin] Error 1
 > 
-> The softening of "does not work" to "is not well-suited" was meant to
-> address your earlier comment and clarify that the change is not strictly
-> necessary. Though as you and Andrew pointed out x86_64 is able to make
-> do with the 32 bits, I would still argue that the hardcoded `unsigned
-> int` flags type is still not well-suited to that application.
+> which is because we've only provided half a stdint.h
+> 
+> I think that means we only want the -nostdinc -I... in the cross-build
+> case, which I guess means searching CFLAGS for `-m32`.
 
-Oh, okay, fair enough then.
+This or make the 64-bit case work in tools/firmware/include/stdint.h.
+At some point that may end up being necessary anyway.
 
 Jan
 
