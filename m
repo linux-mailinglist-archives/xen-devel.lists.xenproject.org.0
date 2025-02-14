@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC9A4A35308
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 01:38:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.888233.1297625 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C47EEA35378
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 02:05:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.888246.1297638 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tijib-0006R5-01; Fri, 14 Feb 2025 00:38:09 +0000
+	id 1tik8g-0001p7-1T; Fri, 14 Feb 2025 01:05:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 888233.1297625; Fri, 14 Feb 2025 00:38:08 +0000
+Received: by outflank-mailman (output) from mailman id 888246.1297638; Fri, 14 Feb 2025 01:05:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tijia-0006Pa-Tc; Fri, 14 Feb 2025 00:38:08 +0000
-Received: by outflank-mailman (input) for mailman id 888233;
- Fri, 14 Feb 2025 00:38:08 +0000
+	id 1tik8f-0001nb-V5; Fri, 14 Feb 2025 01:05:05 +0000
+Received: by outflank-mailman (input) for mailman id 888246;
+ Fri, 14 Feb 2025 01:05:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5vTB=VF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tijia-0006PS-BS
- for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 00:38:08 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ id 1tik8e-0001nA-JU
+ for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 01:05:04 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f51a95ae-ea6b-11ef-9aa4-95dc52dad729;
- Fri, 14 Feb 2025 01:38:07 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-38f2b7ce2f3so242599f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 13 Feb 2025 16:38:07 -0800 (PST)
+ id b850d308-ea6f-11ef-9aa4-95dc52dad729;
+ Fri, 14 Feb 2025 02:05:02 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-43932b9b09aso16733765e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Feb 2025 17:05:02 -0800 (PST)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38f258ddbe0sm3237131f8f.39.2025.02.13.16.38.04
+ 5b1f17b1804b1-4396180f199sm30675425e9.15.2025.02.13.17.05.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Feb 2025 16:38:05 -0800 (PST)
+ Thu, 13 Feb 2025 17:05:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f51a95ae-ea6b-11ef-9aa4-95dc52dad729
+X-Inumbo-ID: b850d308-ea6f-11ef-9aa4-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1739493486; x=1740098286; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1739495102; x=1740099902; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3je17fgFGvz7DofY2wzNcVsy5GmcTpCrsti6gBsfL4Q=;
-        b=hH2aM0hqNFzCm90tPGDsq83xJDcSa1cyyE6YI9+tGzNnEeDbjuu+P41ODWbOqam30j
-         irg8TY7BzeYpIskqVE+3mi2sgW1n0UTfW2XqxUHPfula/6+Z/1iqogs9owGBYuFJzBEW
-         zazu1sedSxILoyfBnf2t+T8OaGGBBhm8v18us=
+        bh=P/DRgaTQfFfnR5FRYvXUPQ8pkxQ8pYwXp6/1cHfSeGc=;
+        b=Uw7tf3Bn7KZiaGFIbgIVtIw6uVDq8mZZl/l8+Cs67IjLyUjra59n7o6WGyE9Ciiz55
+         ZKTh0i/EOaUD6ockio5rOWEPoOK38FWgKrEgVmPiYdjC3baPJ/fJagV55iFwH2VlMLib
+         hzkQVyYwXHB1vj9SI6pJOqHREa5Bz+/U9TjU4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739493486; x=1740098286;
+        d=1e100.net; s=20230601; t=1739495102; x=1740099902;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3je17fgFGvz7DofY2wzNcVsy5GmcTpCrsti6gBsfL4Q=;
-        b=QApu9RKspn8NinbyRkCUGdGwmBeJCtXi0B3GIVZVvZvxsTaolMUhzqLhCqMdiQk2ER
-         KE0vTweI8vtYUgVmA8WuMNId5I4kYor+WIS2VcDFnofXMjJSmJTZoY1Sh7TTTwI/fjGD
-         BmNB53DFHFdKVd0xqP/BjU2g9R+ZjJhO7D0B8gK42GOVHKSIkMnEljBg847wEUH7K6vO
-         GDI+wZ/2PVuoCfFH5x2UXb6+XeEXvVnYeWJgTgB+Co7kjMund7hSVTwjkTBd/3Sahmo7
-         FPtThPIsaIZXyvIKapFTLkediB8McgYDOdlM4udsYsyD2aFzas9zmQRFzYCk3r+ARVwW
-         gyPg==
-X-Gm-Message-State: AOJu0YwTjHWab4doixHWWEhPsVVzBs7mWIqg5tI10MNBGaZBz0IzU1Xm
-	qGhvBU+CaNof4ogLgh7f2bvbNW9Q3f3VjHgjYgWCppCwGamPIimYHqKd/IjYJj0=
-X-Gm-Gg: ASbGnct3e/Q913zD2Jeby8mndaoYiWpaDtTYDf5FXwBalivRQjyHGiB9TBGqxOmxdO1
-	vYG4r/roBcWlUVZiGdxBfmwVlLjr78VOBnYwA2K/H6uv/JpyCF5vzBDMgfjAIX/CB/gu+KMe+HW
-	I+tkMQYve/zuar/VfK82EViIzNDyrPnaxqpJKnHZMyq209SgXMMrLuOalusNsPXi2kPprpAlpq3
-	QKf9yyo4k0wjAJDwyqJK9Pi3lL82RuOxleZ0PCUYlVqZ/6z2VbQdfQyuWl1FkrBfmG6ceC1lyKd
-	WLQcL+fvpPYTkHqFjLb4M5eeE/rWkczneYRJf7bNyyhqgNL5NF8MjAw=
-X-Google-Smtp-Source: AGHT+IHWS+KxvJA7/GXk2+LvWVr2wwwr3cKMtDh2u8iH/8v3879Lcr2eGpRkmnRnugJ6vfUu/h+vuQ==
-X-Received: by 2002:a05:6000:d0e:b0:38f:2481:a6a3 with SMTP id ffacd0b85a97d-38f2481a8c3mr4413428f8f.18.1739493486229;
-        Thu, 13 Feb 2025 16:38:06 -0800 (PST)
-Message-ID: <b1af4f09-cdb4-48fa-bc17-b5bd724dc53e@citrix.com>
-Date: Fri, 14 Feb 2025 00:38:03 +0000
+        bh=P/DRgaTQfFfnR5FRYvXUPQ8pkxQ8pYwXp6/1cHfSeGc=;
+        b=Z3uFvChRtBCgHEV+Cg307lMyddnFO9jw6dhHtETt4DQE7nams98Lrqoj+kgzvTAKdT
+         Z+47ztpOoQErRv7RXzSg2tpIbDy8RjNL2t9xphaWZM5N8Y5MFBtI443iSENT+KJQD5pR
+         csWKKKtMH8Y1YugopQz1zaBhaa0aE2c4qNfTXgEyR4aC8tvhNHvGkBkZkcyiqE+5Utcl
+         /yBY4oy8vQaUqSKRDDLuBoEhysViOypjffIUnoulI/E/zYcWKQuWhZY5jCD9SLuqlNY6
+         A8n6tm7ZG2OzwoY44qnwCzT7hReyHOV14XNzVDrpqDwWoW98RXDMQepqKqh0mRVDUA4u
+         pGDw==
+X-Forwarded-Encrypted: i=1; AJvYcCVnjV/QaM4JgGNNH4pAdmCF14HQOQ2B1bR2ZnlCDWUTcy8cQVuUfqkEKuL6p2ybesTaqPI4taBgSxc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy7c1kb1cYkbf5i8oYIkfOZXtfcguWBKe82Y64pmeO5nzvreD4W
+	PlaFMyMPuPnM0E8CiGEDD07omQ0bdQIH2TQUc/ufKcBOG5J7dga26UoHT7DHnWo=
+X-Gm-Gg: ASbGncsJYjtr2gEfRdLq1SS7ZLAjcaTjvLNEf8+6HPKYahf03AHjqwitt8qIRYcYjvs
+	T8efRZYMzMHHDnQRw30IosQ2+T/Dv6ajyP0tLvpm2tKOO91S73tYUWekUzhj4IJVw4V0yovu+5o
+	zhUJzbYx1VcIhXz9mAF7t+gzp1jTKCpbmPQ+5ev6HyA1w3rdiitHl7FWpdNQEJZLFPGBaEz3GY9
+	lb422cyoqwP0HmjTHUaSIqjMGzxSTBLMdYv06Fz7HJUkAUfuoaHEM1+7dUBAkD2i+zGYkOhMPno
+	zZlVZ7GTLvgOyoTk38L0rU0E0u5hYeff2mQrPsku1Ut//N9QdGzrevk=
+X-Google-Smtp-Source: AGHT+IFF79qu8IrDPb8UJ1s8Z5XvGu9KV0bV83T2Nt8aVJKmRVRZJaz8UQFDWkuKiU6nle72utMS1g==
+X-Received: by 2002:a05:600c:3485:b0:439:5a37:8140 with SMTP id 5b1f17b1804b1-439601b7addmr72604295e9.22.1739495102226;
+        Thu, 13 Feb 2025 17:05:02 -0800 (PST)
+Message-ID: <f5deca6a-313f-4daf-b774-cc05223ab034@citrix.com>
+Date: Fri, 14 Feb 2025 01:05:00 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 for-4.20(?) 0/4] Add/enable stack protector
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Community Manager <community.manager@xenproject.org>
-References: <20250213220021.2897526-1-volodymyr_babchuk@epam.com>
- <2af57b53-5b01-4435-a134-a3dc00a3d3a4@citrix.com> <87jz9tz7nn.fsf@epam.com>
+Subject: Re: [PATCH] xen/x86: fix build with CONFIG_HVM=n and -Og
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <20250213185055.711703-1-stewart.hildebrand@amd.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -140,33 +134,45 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <87jz9tz7nn.fsf@epam.com>
+In-Reply-To: <20250213185055.711703-1-stewart.hildebrand@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 14/02/2025 12:34 am, Volodymyr Babchuk wrote:
-> Hi Andrew,
+On 13/02/2025 6:50 pm, Stewart Hildebrand wrote:
+> When building with CONFIG_HVM=n and -Og, we encounter:
 >
-> Andrew Cooper <andrew.cooper3@citrix.com> writes:
+> prelink.o: in function `pit_set_gate':
+> xen/xen/arch/x86/emul-i8254.c:195: undefined reference to `destroy_periodic_time'
 >
->> On 13/02/2025 10:00 pm, Volodymyr Babchuk wrote:
->>> Volodymyr Babchuk (4):
->>>   common: remove -fno-stack-protector from EMBEDDED_EXTRA_CFLAGS
->>>   xen: common: add ability to enable stack protector
->>>   xen: arm: enable stack protector feature
->>>   CHANGELOG.md: Mention stack-protector feature
->> Given the last minute observation on v4, I ran this through GitlabCI
->> with STACK_PROTECTOR forced on.
->>
->> https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1670468808
->> is the full run.
-> I noticed that you enabled both UBSAN and STACK_PROTECTOR for
-> arm32. Have you tried to run arm32 test with UBSAN only?
+> Add an IS_ENABLED(CONFIG_HVM) check to assist with dead code
+> elimination.
+>
+> Fixes: 14f42af3f52d ("x86/vPIT: account for "counter stopped" time")
+> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 
-No, but I'm also confident that the UBSAN failure is unrelated to
-STACK_PROTECTOR.
+While I appreciate the effort to get -Og working (I tried and gave up
+due to frustration), this is gnarly.
 
-It turns out it's very gnarly to fix.
+PIT emulation is used by both PV and HVM guests.  All other uses of
+{create,destroy}_periodic_time() are behind something that explicitly
+short-circuits in !HVM cases (usually an is_hvm_*() predicate).
+
+The PV path would normally passes 2 for the channel, which would
+normally get const-propagated and trigger DCE here.
+
+One option might be to make pit_set_gate() be __always_inline.  It only
+has a single caller, and it's only because of -Og that it doesn't get
+inlined.  Then again, this is arguably more subtle than the fix
+presented here.
+
+A preferable fix (but one that really won't get into 4.20 at this point)
+would be to genuinely compile pit->pt0 out in !HVM builds.  That would
+save structure space, but would also force the use of full #ifdef-ary
+across this file.
+
+Is this the singular failure with -Og, or are there others?  I never got
+it working, and there were quite a few failures that failed to get a
+resolution.
 
 ~Andrew
 
