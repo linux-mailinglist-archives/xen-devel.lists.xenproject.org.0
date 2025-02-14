@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 911C4A357F6
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 08:35:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.888421.1297783 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EC99A357FD
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 08:39:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.888434.1297793 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiqEJ-00009H-Ii; Fri, 14 Feb 2025 07:35:19 +0000
+	id 1tiqIJ-0000ke-5Q; Fri, 14 Feb 2025 07:39:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 888421.1297783; Fri, 14 Feb 2025 07:35:19 +0000
+Received: by outflank-mailman (output) from mailman id 888434.1297793; Fri, 14 Feb 2025 07:39:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiqEJ-00006H-FA; Fri, 14 Feb 2025 07:35:19 +0000
-Received: by outflank-mailman (input) for mailman id 888421;
- Fri, 14 Feb 2025 07:35:17 +0000
+	id 1tiqIJ-0000jC-2F; Fri, 14 Feb 2025 07:39:27 +0000
+Received: by outflank-mailman (input) for mailman id 888434;
+ Fri, 14 Feb 2025 07:39:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PTsb=VF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tiqEH-00006B-QT
- for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 07:35:17 +0000
+ id 1tiqIH-0000j6-Jk
+ for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 07:39:25 +0000
 Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
  [2a00:1450:4864:20::62e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3c2e64c3-eaa6-11ef-9aa4-95dc52dad729;
- Fri, 14 Feb 2025 08:35:16 +0100 (CET)
+ id cffdddd3-eaa6-11ef-9aa4-95dc52dad729;
+ Fri, 14 Feb 2025 08:39:24 +0100 (CET)
 Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-ab7fa1bc957so323669166b.2
- for <xen-devel@lists.xenproject.org>; Thu, 13 Feb 2025 23:35:16 -0800 (PST)
+ a640c23a62f3a-ab7c07e8b9bso303192966b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Feb 2025 23:39:24 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aba53376ba4sm286225666b.106.2025.02.13.23.35.15
+ a640c23a62f3a-aba5339d96dsm286201866b.153.2025.02.13.23.39.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Feb 2025 23:35:15 -0800 (PST)
+ Thu, 13 Feb 2025 23:39:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c2e64c3-eaa6-11ef-9aa4-95dc52dad729
+X-Inumbo-ID: cffdddd3-eaa6-11ef-9aa4-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739518516; x=1740123316; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739518764; x=1740123564; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8PI07fGs6Z5nSIPWBumR8ahBk0npDTIKeDmWfwGTztQ=;
-        b=U1lUPZvctrV34LMmb0oDMBYJHJpJfZWfZpmWnDWnuWx9XGhp+xtTqzjQLNBNV4B5gc
-         dY+UFJASbE2ZkXrG3Wixd1ZfCYnt8Hqraa2XPDjEkNGnhJtxs+v2V1s8rMn+jhN3wafq
-         d/ruYBUNYBHrxi3LQtpdQEmB4J9TKsbDuUrpda5HMEMhpEIkc49k/rSAveBUKIsTgxBN
-         G91SWatC/HXx7tOH2rYZ4pzTNIgzGEKI61wWgZn/8hazva4X9+3kpiAXqG1HTwJBbp3e
-         +uBSyDvqFc0N40OemNt+UoQ9owYw66bTZrg9+Q3RreFURS/+GhAjxgNZKE4bKqZSEOsv
-         pZrA==
+        bh=m8rCWxaVIZFSBDuBVkEj7l1v/IsQcdzLce2cjtusYlw=;
+        b=ThFDKQWuGzPu6zLbhC+VcSNgM1Hv6c8WnDtUj69tTuUAbQy9geul5BNchEAuG/daGh
+         o9MkwgcuivA43BO8UspbR3Uoo8oy4h3j/CM+Op9Zv1vI/HVRQz7U7gosjVSYsETs+Wj1
+         qNaIDMt8gBmD/agbrO/+qUm3LdemG0h+ia2PJVA0zMxNvnbJF2qfXkJq8xyrjkZmbcU/
+         RX7zIBD8AUKpPsw7cUq9lmZCsm8yGCU+DxyQAqqXzXHcIU262OeHnCxVmZPzunL1dN1W
+         CWmcQMdjrdDA/BlMHuwfRHB8nxpUP46J273tRBsbdfEp6GbDOVKz4mg0NJQk97n3D19c
+         3OOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739518516; x=1740123316;
+        d=1e100.net; s=20230601; t=1739518764; x=1740123564;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8PI07fGs6Z5nSIPWBumR8ahBk0npDTIKeDmWfwGTztQ=;
-        b=jdwFc7D9JEQ8ZSI6RYoqYRlIb4kCExiO5DENQlE2JeOC6BP5d+kKuyFroVoJcFW9vZ
-         0rrJytzOHXdKC6HZ8Gb86V4pR4vyq+wLSodKjheisQuXODn+iKImN4l4dBRXmrfWx1Z+
-         2W78wR1gtgkm5Al29mOzK5CuOLxkU3WoenJwAnts3Nolw6kHUpqx83v0bBipZnCfmZP6
-         yyaFTE7WJjLbItl4c2wgyeSxr9kGnicep+yM/KqkTwyyj62DzTy7vCxSeOV0W7UVniTr
-         MEVkGhctmSh81U/bdATkcVu5lbh/tqF7xtVl/Hv2uxrY1wqKlxbcapdtTgwr/AsEm3Ca
-         SGdg==
-X-Gm-Message-State: AOJu0YyJKxbzeIYVyIcqAkuQ3GXUsbbk7UYK3qM+rkfc5sgCi+xNODI9
-	6j6z/16UgAzCrwdmG+KlGrlOs8Ivt3sVfDqr/Mt+63BSJo5YrNTlC9VAclPa3m/E/alsmU3vNgE
-	=
-X-Gm-Gg: ASbGncvDWP6tIdsiyWeAIh1nWPx5K/gRgvQGfuWfjqPcbBGq/10cT+aH/SyrisN0iYR
-	rM5bNFK+GkXXWmBMiuq5EaAlll3cCM2QCdAMP76brklXbAVRS6a3QuCerdJV8e9UUig+SpAcnqb
-	hpZdZOZ5Pog5PLKez1UAsaF7fD8TMflNWViCFHY+JVAWloHgAk+l7eUI+RvOylV/bKIYXYZt1t7
-	iBFPURwdRJOYM9ntqOgAIb/fF129hsL8AisBk4brpY6XaSLUqGChVNkTmRBHxha2C1bAojhVGFm
-	hUoLA/d4Ia5+KMRXQfrzLZFQw1Tvl8SLMevaRJ0ocqRLFMWa7/SxAMKJ1WoXw/Pb5YPQdZqq4cO
-	a
-X-Google-Smtp-Source: AGHT+IEp3BaTOi3eqkV9+FOM+eSS15oM6HYIPsGyyDy8fuG4iwhkuH5W527CHd5XfiumJJOfKIyw5Q==
-X-Received: by 2002:a17:907:d24:b0:aa6:9198:75a2 with SMTP id a640c23a62f3a-aba5017f149mr609722166b.44.1739518516237;
-        Thu, 13 Feb 2025 23:35:16 -0800 (PST)
-Message-ID: <ba93bd05-4cf6-405a-9e07-29d681076bdd@suse.com>
-Date: Fri, 14 Feb 2025 08:35:14 +0100
+        bh=m8rCWxaVIZFSBDuBVkEj7l1v/IsQcdzLce2cjtusYlw=;
+        b=lSkzyp/Vuula4O3YvMoSwvteD3hDnfRP4h5J6FDRarRJ7OI0VjvBKgqKe6F4FgdZJm
+         4a1lbIjBuwqRnM8Js0qMEBfvRg56ypqRZkK13wTZo4QAYxxbOfRYAwKulHU52M4U27tG
+         Q9G2kt7KSQqj6qUdYKNOzuPiyERH3Qk0CIk57x/YPyjZqFvKLJb+WI6smKjWN0aNTOHe
+         EOpsvrN74XIzeqid54xr1zTJ0IYpI+rE1pdX5ABrE00Eh5PXSmzeBn2KDBXE9aq/KaU4
+         rT4tZLlPZtTebYb8PlSryBRiP8wsLrGf5iwXYipooleKmPlNhztw+Ub9lpFXK+lPzWqS
+         Maxg==
+X-Forwarded-Encrypted: i=1; AJvYcCX677aEiLYmSrjuu0RGTyw2S3pezlYz3oSgQuPPoWB6QgKF6FwFQ8fSLbqVRkYGC97/HmeSss6QzYI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz+CCowKVFGg5eH4/gAcYf8+RjX6rXelgi4OZmJs4oVFt8KYkj4
+	Y3g7rFkAK2jyjK0s8Ir6mTfId4bvBKUPhIIVNeZqA7VSzaRi9Ju4V94o0BBY9A==
+X-Gm-Gg: ASbGnctsSLBq/qF8uSe2QB+VqaH5VvzW/Z85sNLguY4ZoHyBo/QYCdk/Ow8PqyqFkBF
+	hzb6qawdRYCTS8zDvzG+Stc42vwH6D0z20dDP7aWgCgUZ8wtepQ1RQiCjE3NThl4HX/Bphb2bxe
+	wTBwtF+cm3aUaDQzfo69lXummsrI9Acusl1AdxWzeQUGaU8QfhQeP9tTwFcM90GmkVG3tl6iCB7
+	45ZTn1GC76NkhiAjj+k5DIccp9nX17zpNhePJ8E0EHzmsBuoNcQa6wDhV7QU4WblCTcwo9z195S
+	10ttVzDR3StlB9c9BzAuItpVuGXd9u3ZPYwdvodrRCbexCuHKObYFdcFCqfDYGqlEY+hLbVy7oQ
+	G
+X-Google-Smtp-Source: AGHT+IHotd4GbHrXlkfd9CvSyLwOcyrJbNh+knbt9TFPjhD1+Sr+hHvve+8BclByxEcTcLFR7dmFpg==
+X-Received: by 2002:a17:906:c14c:b0:ab6:362c:a8ab with SMTP id a640c23a62f3a-ab7f33f651fmr1027479466b.29.1739518764183;
+        Thu, 13 Feb 2025 23:39:24 -0800 (PST)
+Message-ID: <c2e8a794-d7a0-47b8-b93a-a65a72f7a89b@suse.com>
+Date: Fri, 14 Feb 2025 08:39:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8] vpci: Add resizable bar support
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, "Huang, Ray"
- <Ray.Huang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <20250211022257.1690366-1-Jiqian.Chen@amd.com>
- <Z6sWnK1BYxArBq--@macbook.local>
- <BL1PR12MB5849CF146DFA8BD2761D1F4EE7FE2@BL1PR12MB5849.namprd12.prod.outlook.com>
+Subject: Re: struct mctelem_cookie missing definition
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, nicola.vetrini@bugseng.com
+References: <alpine.DEB.2.22.394.2502121721490.619090@ubuntu-linux-20-04-desktop>
+ <1823d604-aa29-4828-a954-b8a08fbdbda7@citrix.com>
+ <alpine.DEB.2.22.394.2502121738440.619090@ubuntu-linux-20-04-desktop>
+ <alpine.DEB.2.22.394.2502121800190.619090@ubuntu-linux-20-04-desktop>
+ <eccc2a63-9678-4675-8a7b-7c8e94206cb8@suse.com>
+ <alpine.DEB.2.22.394.2502131326440.619090@ubuntu-linux-20-04-desktop>
+ <alpine.DEB.2.22.394.2502131804510.619090@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,33 +124,75 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <BL1PR12MB5849CF146DFA8BD2761D1F4EE7FE2@BL1PR12MB5849.namprd12.prod.outlook.com>
+In-Reply-To: <alpine.DEB.2.22.394.2502131804510.619090@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 14.02.2025 04:32, Chen, Jiqian wrote:
-> On 2025/2/11 17:21, Roger Pau Monné wrote:
->> On Tue, Feb 11, 2025 at 10:22:57AM +0800, Jiqian Chen wrote:
->>> Some devices, like AMDGPU, support resizable bar capability,
->>> but vpci of Xen doesn't support this feature, so they fail
->>> to resize bars and then cause probing failure.
+On 14.02.2025 04:00, Stefano Stabellini wrote:
+> On Thu, 13 Feb 2025, Stefano Stabellini wrote:
+>>>> diff --git a/xen/arch/x86/cpu/mcheck/mctelem.h b/xen/arch/x86/cpu/mcheck/mctelem.h
+>>>> index f4c5ff848d..2ccd490e5d 100644
+>>>> --- a/xen/arch/x86/cpu/mcheck/mctelem.h
+>>>> +++ b/xen/arch/x86/cpu/mcheck/mctelem.h
+>>>> @@ -52,7 +52,7 @@
+>>>>   * the element from the processing list.
+>>>>   */
+>>>>  
+>>>> -typedef struct mctelem_cookie *mctelem_cookie_t;
+>>>> +typedef uint64_t *mctelem_cookie_t;
 >>>
->>> According to PCIe spec, each bar that supports resizing has
->>> two registers, PCI_REBAR_CAP and PCI_REBAR_CTRL. So, add
->>> handlers to support resizing the size of BARs.
->>>
->>> Note that Xen will only trap PCI_REBAR_CTRL, as PCI_REBAR_CAP
->>> is read-only register and the hardware domain already gets
->>> access to it without needing any setup.
->>>
->>> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+>>> Yet that makes it possible to de-reference the pointer. Which, as Andrew
+>>> explained, is intended to be impossible. If this could be properly
+>>> replaced (not exactly what Andrew indicated by "file it in /dev/null"),
+>>> fine. Truly purging the code (i.e. as Andrew suggests) may still be an
+>>> option, with appropriate justification. But simply adjusting the type
+>>> and then moving on is too little, imo. Even if you used void * (to make
+>>> de-referencing impossible) I'd view it as largely papering over an issue;
+>>> then converting to other pointers (without explicit cast, and hence
+>>> without making apparent the badness of doing so) would become possible.
 >>
->> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-> Thank you!
-> May I know whether this can be merged in Xen version 4.20?
+>> What about converting to uintptr_t (not a pointer)?
+>>
+>>
+>> In general, there are quite a few MISRA rules that we could mark as
+>> blocking (clean) in our GitLab scan with just a few code changes like
+>> this one. My goal is to make these rules blocking as soon as possible.
+>> If I can improve the code in the process, that is even better, but it is
+>> not mandatory. And I would rather spend one more hour marking a second
+>> rule as blocking instead. 
+>>
+>> What I mean is that I believe it would be acceptable to make some
+>> compromises and accept non-perfect changes to the code if it helps us
+>> enforce more rules as blocking in GitLab CI.
+> 
+> After briefly speaking with Andrew about this, and re-reading Jan's
+> email above, I think it is best to resolve this as a deviation.
+> 
+> Would this deviation work for you? Please suggest a better wording if
+> you prefer.
 
-That's a question Oleksii would have to answer. My take is that it's (far)
-too late in the cycle for a feature addition.
+Sounds reasonable to me; one nit below.
+
+> Nicola, in reality I think it would be better to use deviations.rst
+> because the SAF comment below would need to be replicated at every call
+> side, if I am not mistaken.
+
+If replication indeed would be needed, I agree doing it the other way
+might be better.
+
+> --- a/docs/misra/safe.json
+> +++ b/docs/misra/safe.json
+> @@ -92,6 +92,14 @@
+>          },
+>          {
+>              "id": "SAF-11-safe",
+> +            "analyser": {
+> +                "eclair": "MC3A2.R11.2"
+> +            },
+> +            "name": "Rule 11.2: purposely impossible to dereference",
+> +            "text": "Certain pointers points to incomplete types purposely so that they are impossible to dereference."
+
+Nit: s/ points / point /
 
 Jan
 
