@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36984A35841
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 08:55:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.888496.1297853 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE623A35845
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 08:56:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.888506.1297863 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiqXG-0006Y6-HC; Fri, 14 Feb 2025 07:54:54 +0000
+	id 1tiqYL-0007JD-Q9; Fri, 14 Feb 2025 07:56:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 888496.1297853; Fri, 14 Feb 2025 07:54:54 +0000
+Received: by outflank-mailman (output) from mailman id 888506.1297863; Fri, 14 Feb 2025 07:56:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiqXG-0006VP-EK; Fri, 14 Feb 2025 07:54:54 +0000
-Received: by outflank-mailman (input) for mailman id 888496;
- Fri, 14 Feb 2025 07:54:52 +0000
+	id 1tiqYL-0007Gj-NU; Fri, 14 Feb 2025 07:56:01 +0000
+Received: by outflank-mailman (input) for mailman id 888506;
+ Fri, 14 Feb 2025 07:56:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PTsb=VF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tiqXE-0006VJ-GS
- for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 07:54:52 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ id 1tiqYK-0007Gd-M6
+ for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 07:56:00 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f84b4b08-eaa8-11ef-9aa4-95dc52dad729;
- Fri, 14 Feb 2025 08:54:51 +0100 (CET)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-5dca468c5e4so3093613a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 13 Feb 2025 23:54:51 -0800 (PST)
+ id 20a1bde5-eaa9-11ef-9aa4-95dc52dad729;
+ Fri, 14 Feb 2025 08:55:59 +0100 (CET)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-5de38c3d2acso2856432a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Feb 2025 23:55:59 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5dece1b4ed9sm2451513a12.10.2025.02.13.23.54.50
+ 4fb4d7f45d1cf-5dece1c4483sm2495651a12.25.2025.02.13.23.55.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Feb 2025 23:54:50 -0800 (PST)
+ Thu, 13 Feb 2025 23:55:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f84b4b08-eaa8-11ef-9aa4-95dc52dad729
+X-Inumbo-ID: 20a1bde5-eaa9-11ef-9aa4-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739519691; x=1740124491; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739519758; x=1740124558; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=MxJ6+hrC5aQmR09kOzZCFeCaUAqDNEI/voafl5ZNDq0=;
-        b=RoE6j35CUj6t5Fgj/11CcjUA4r5R+OZCC+MipoLcI73l0r5wrwI2Dn+nBTp7W1ZCd4
-         S7Ng3tO/3pqcSx6EMzxQMs+Gub4bIHf/HxlHx9kG4ZKNBuCHZCrNduR9kXIZLQHxJcl/
-         AsnxMK+aSXCkw8KEpGIIzJv+vSwqF5R3PgSoer/q3LgXVUWMTGcB2cVl6GM1+VvEXhyh
-         2uW29vCIM8eChD0/mtYCN7aSENpKGIPPkZJWBUPLMf1WFUt4A8XKmxhTdowb50FTpiBD
-         ygbY4vXTajIRqN04kgS9T9+VxvoC5XTujxcq3KpURVDXVD5PywOkvKYMyyRRpCTEJig6
-         m23A==
+        bh=CCGh84ZN2xXKk/UyoXbMjlWvMV+1BtvDjcadgg3L+bE=;
+        b=CX4zj+2bdpR+B6Y2zGRnASlUS+YfAhp5pzdMVp+zpMPeW000/brbvNoUh6QFbHi9c8
+         VazcgnPcelRrm2UG50G7kJJ8+Gdc/AgDbH6U3g4Kfz1A9dRdM9aaVrZPKxspZZpLYKdb
+         Id+pNMiltaDMQOcCNCCviGGlgR5/ddca14aaBC1GRX/c6COay0OqklTFthYojkQgCo0u
+         xkmKD7F8tDVBqVJbjIoyEMBa4lE+wh0ehecsxlCCwHpFBcjYq+hu2ROsQgIphS9hrioG
+         YyE/xhNanTYlkzuITWmGEAXm0CBBvRqZlJukGDMO0z1nChR0GKoXvXI+5MCc8DR8xWlE
+         KXBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739519691; x=1740124491;
+        d=1e100.net; s=20230601; t=1739519758; x=1740124558;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=MxJ6+hrC5aQmR09kOzZCFeCaUAqDNEI/voafl5ZNDq0=;
-        b=D0Gqspqz2TQ7BzV8Wja8GJFAvhENm7bw9RCCVlS+BSNdNQH6FSMXJVfSxHORbzuvgR
-         eFwQDQ9tn+FDiFxfL08dmhOmmRo1yiuIpcslaFIzJrPHnZ1alNa7yIozxpWTTSh6+iqU
-         /SiK3zlevMKzQplzliSGEKcWPACqFAE6aCQELzuQ8hpdvCmcwGradLS7JdetFo7poEEb
-         XLYf2Ma8rcK0WNU2pfj2Ai/DlEP9+8eXAt0KZLngrqyTjgH7NphHUHV+2J8rqFClqhGq
-         BKWCXNIOxf6ZmjpjPKiyn4Kx1/9mr6z4KLIl0I0357i2lIQgvQZmmI7csqWKSUESIhFZ
-         4iEw==
-X-Forwarded-Encrypted: i=1; AJvYcCV91pL/XFr8hw7qDfdMT5UVjT4vj6579N6yYF69H+XklvFGL966Cz3mY7fvz/EOui7n5rT7nxh9OK0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxozGHmX1n2RlATOdBErdsh5JRq/gq7fFrxeASR70q4IVXoFgOq
-	+C6CAUjFAxjkSockzhnaeys5bVUBTt5ai6qsvphiyTZ65WH3worjDNb0LbsVAQ==
-X-Gm-Gg: ASbGncvE+psq6SgeHnMKRcV9G6AJwOTVshS2j7pwp8L9DxRmLQkkeJlX4CPIjzP3wqP
-	3/dhjyhpq5SbdCQgwI9r2/N2TDwsCHWoCBpo0bXso+IJDkZYmrequuzZwYuPr0wLL+igJg5tPdW
-	31NhxirEFkxJfZNP2D4+yxW87LdhyuBXEC3xF8KzLnayol8u8zBfUS50qYry0nJZFwBQhObSuqN
-	J1UKggjR6s28OgeYo6uRTn6Q6HOVxZHblwhO9OcUgmUFXU1VTk1RxLEfHQyR/w7yXx30dmyAwjR
-	fjgjwG1L2E8owXIHD2+lBJdj6kl4Oh5OQyN+i+CsZ960UUaTj8OSD0jvhIrVrHCKhSqRYjdIYxh
-	m
-X-Google-Smtp-Source: AGHT+IFLAGy2BJDVCcw8ebgQtDZaEtXXQbaQmGuWF88SRPB9HI2zO8bx5sIkijYts5jAt8lh0sKadA==
-X-Received: by 2002:a05:6402:34d2:b0:5dc:a44f:6ec4 with SMTP id 4fb4d7f45d1cf-5dec9e7baf8mr5668034a12.13.1739519690844;
-        Thu, 13 Feb 2025 23:54:50 -0800 (PST)
-Message-ID: <e80d6139-b918-4830-9db9-aac297446e7e@suse.com>
-Date: Fri, 14 Feb 2025 08:54:48 +0100
+        bh=CCGh84ZN2xXKk/UyoXbMjlWvMV+1BtvDjcadgg3L+bE=;
+        b=aH9iUrWFk6PZ/Kvo9CfD52NPHhYw55OtG01pxN6IsJXt2Vvi9UgfnyC+OXT9Z/3IOI
+         oRuGkx7FLQuO9q+7z4HK1+zGFshIXNsAXqe17OSgNnn/qODy0huwjpV9oNbWvLw1iFrI
+         KDLQnDbxm8DyAttMzn+itokRLu/oOWocARkOINd3vwJ/V5IJ3DaJyhXGfaFNNdjuw+Iw
+         i7QazTVfS/bAyeHdqrBqHhpBPOO4LnQwuPLEsbFO0LOSCRPRpzaTagmhBN/oOEB4ciig
+         E4KGKajAgjibXepEWuatOdenPMwYCLlKr4+FHuMyKUfPFcn+iky1o73NO6m2jFFavqT+
+         9IgA==
+X-Forwarded-Encrypted: i=1; AJvYcCXKmMKhgNJPX0z2hN2O7hkxiY22UwODyriclS7H0yAiYmKjX6khw9yadrdE0O6g3xoCctGKrGyRclo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzEHvT9ZJjFizI2Da+vjLeDuMtMwqf+DE83Kz28JwKJSpBo39cP
+	0keJHO4QMVFf1O/x7sPUsAPcz7kTfo/9Tp1mZSBVsp6H0usmr2Y41kahcJzlKA==
+X-Gm-Gg: ASbGnctTBJsAT7LmidOAkgPREKAacngJGqgefGb5lS3yIUDgD3mBrPwKggbIRkVJCOp
+	e7NCYeXZnudmabunqTdJZbQ8xPa7i7rYeFbP6jUBxAwPHu9j3g9uGQqlAtQg0hROkf2EkPFg6tf
+	mhRUHSf0RFAIAhU8YvhMe5DSzzh5SNV5SLPkaZ4NhsBSuF12iPJW8g1/4YWkrjfCKV23+oJFfOA
+	P+gScZjeweF5gWCBP64qRQoKDGo+Jvi1vy0maaJYJ5OOg7mVVUxHhwofsEk3CD/SkkCbmQ5n5Yq
+	5vvWM5fq10cIKx0W+3sU9J1+f+Vo7kGe+n6ambv5nm3S5l0ogxycgx2EobFBH4kP0cq31VMbjmP
+	x
+X-Google-Smtp-Source: AGHT+IH6JEkrcue2ZNnkarn1/5bZyvIKnuCtWASpoayR+VuV/+LohxRWTVGhuZNpxT8sgrgx3anpCg==
+X-Received: by 2002:a05:6402:35c4:b0:5de:39fd:b2f5 with SMTP id 4fb4d7f45d1cf-5deadd7b82bmr8026977a12.1.1739519758548;
+        Thu, 13 Feb 2025 23:55:58 -0800 (PST)
+Message-ID: <69a70bfa-203c-44f9-99ea-60a674e36442@suse.com>
+Date: Fri, 14 Feb 2025 08:55:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] xen/console: print Xen version via keyhandler
-To: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
- michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
- dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20250213214054.1745501-1-dmukhin@ford.com>
+Subject: Re: struct mctelem_cookie missing definition
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+References: <alpine.DEB.2.22.394.2502121721490.619090@ubuntu-linux-20-04-desktop>
+ <1823d604-aa29-4828-a954-b8a08fbdbda7@citrix.com>
+ <alpine.DEB.2.22.394.2502121738440.619090@ubuntu-linux-20-04-desktop>
+ <alpine.DEB.2.22.394.2502121800190.619090@ubuntu-linux-20-04-desktop>
+ <eccc2a63-9678-4675-8a7b-7c8e94206cb8@suse.com>
+ <alpine.DEB.2.22.394.2502131326440.619090@ubuntu-linux-20-04-desktop>
+ <alpine.DEB.2.22.394.2502131804510.619090@ubuntu-linux-20-04-desktop>
+ <3c883b4587d750c2723637a037fb46b4@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,87 +125,70 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250213214054.1745501-1-dmukhin@ford.com>
+In-Reply-To: <3c883b4587d750c2723637a037fb46b4@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 13.02.2025 22:41, dmkhn@proton.me wrote:
-> Add Xen version printout to 'h' keyhandler output.
+On 14.02.2025 08:46, Nicola Vetrini wrote:
+> On 2025-02-14 04:00, Stefano Stabellini wrote:
+>> On Thu, 13 Feb 2025, Stefano Stabellini wrote:
+>>>>> diff --git a/xen/arch/x86/cpu/mcheck/mctelem.h b/xen/arch/x86/cpu/mcheck/mctelem.h
+>>>>> index f4c5ff848d..2ccd490e5d 100644
+>>>>> --- a/xen/arch/x86/cpu/mcheck/mctelem.h
+>>>>> +++ b/xen/arch/x86/cpu/mcheck/mctelem.h
+>>>>> @@ -52,7 +52,7 @@
+>>>>>   * the element from the processing list.
+>>>>>   */
+>>>>>
+>>>>> -typedef struct mctelem_cookie *mctelem_cookie_t;
+>>>>> +typedef uint64_t *mctelem_cookie_t;
+>>>>
+>>>> Yet that makes it possible to de-reference the pointer. Which, as Andrew
+>>>> explained, is intended to be impossible. If this could be properly
+>>>> replaced (not exactly what Andrew indicated by "file it in /dev/null"),
+>>>> fine. Truly purging the code (i.e. as Andrew suggests) may still be an
+>>>> option, with appropriate justification. But simply adjusting the type
+>>>> and then moving on is too little, imo. Even if you used void * (to make
+>>>> de-referencing impossible) I'd view it as largely papering over an issue;
+>>>> then converting to other pointers (without explicit cast, and hence
+>>>> without making apparent the badness of doing so) would become possible.
+>>>
+>>> What about converting to uintptr_t (not a pointer)?
+>>>
+>>>
+>>> In general, there are quite a few MISRA rules that we could mark as
+>>> blocking (clean) in our GitLab scan with just a few code changes like
+>>> this one. My goal is to make these rules blocking as soon as possible.
+>>> If I can improve the code in the process, that is even better, but it 
+>>> is
+>>> not mandatory. And I would rather spend one more hour marking a second
+>>> rule as blocking instead.
+>>>
+>>> What I mean is that I believe it would be acceptable to make some
+>>> compromises and accept non-perfect changes to the code if it helps us
+>>> enforce more rules as blocking in GitLab CI.
+>>
+>> After briefly speaking with Andrew about this, and re-reading Jan's
+>> email above, I think it is best to resolve this as a deviation.
+>>
+>> Would this deviation work for you? Please suggest a better wording if
+>> you prefer.
+>>
+>> Nicola, in reality I think it would be better to use deviations.rst
+>> because the SAF comment below would need to be replicated at every call
+>> side, if I am not mistaken.
+>>
 > 
-> That is useful for debugging systems that have been left intact for a long
-> time.
-> 
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> ---
-> Changes since v2:
-> - moved new function declarations to xen/lib.h
-> - dropped xen_ prefix in new functions
-> ---
->  xen/common/keyhandler.c    |  4 ++++
->  xen/common/version.c       | 20 ++++++++++++++++++--
->  xen/drivers/char/console.c |  8 +++-----
->  xen/include/xen/lib.h      |  3 +++
->  4 files changed, 28 insertions(+), 7 deletions(-)
-> 
-> diff --git a/xen/common/keyhandler.c b/xen/common/keyhandler.c
-> index 6ea54838d4..0bb842ec00 100644
-> --- a/xen/common/keyhandler.c
-> +++ b/xen/common/keyhandler.c
-> @@ -129,6 +129,10 @@ static void cf_check show_handlers(unsigned char key)
->      unsigned int i;
->  
->      printk("'%c' pressed -> showing installed handlers\n", key);
-> +
-> +    print_version();
-> +    print_build_id();
-> +
->      for ( i = 0; i < ARRAY_SIZE(key_table); i++ )
->          if ( key_table[i].fn )
->              printk(" key '%c' (ascii '%02x') => %s\n",
-> diff --git a/xen/common/version.c b/xen/common/version.c
-> index bc3714b45f..8672d5544e 100644
-> --- a/xen/common/version.c
-> +++ b/xen/common/version.c
-> @@ -210,9 +210,25 @@ void __init xen_build_init(void)
->          }
->      }
->  #endif /* CONFIG_X86 */
-> -    if ( !rc )
-> -        printk(XENLOG_INFO "build-id: %*phN\n", build_id_len, build_id_p);
->  }
-> +
-> +void print_version(void)
-> +{
-> +    printk("Xen version %d.%d%s (%s@%s) (%s) %s %s\n",
-> +           xen_major_version(), xen_minor_version(), xen_extra_version(),
-> +           xen_compile_by(), xen_compile_domain(), xen_compiler(),
-> +           xen_build_info(), xen_compile_date());
-> +
-> +    printk("Latest ChangeSet: %s\n", xen_changeset());
-> +}
-> +
-> +void print_build_id(void)
-> +{
-> +    BUG_ON(!build_id_p);
-> +    BUG_ON(!build_id_len);
+> Would deviating macros "COOKIE2MCTE" and "MCTE2COOKIE" work?
 
-Technically one of the two would likely suffice, if we need such checks
-at all. Question is why you added them. After all ...
-
-> +    printk(XENLOG_INFO "build-id: %*phN\n", build_id_len, build_id_p);
-
-... this isn't supposed to malfunction when passed a NULL pointer (with
-zero length). If it can malfunction, it wants fixing there imo. And that
-extends to the case of non-zero length as well: Any extensions to %p
-that we add would better retain the basic property of %p printing when
-NULL is passed as argument. (I'm sorry for not paying enough attention
-to this on v2 already.)
-
-(Later) Oh, actually these BUG_ON() are both wrong. They would trigger
-when building with a build-id-incapable linker. See the detection logic
-in the top level Makefile (search for XEN_HAS_BUILD_ID). To retain
-original behavior you will want to make the printk() conditional upon
-e.g. build_id_len being non-zero.
+If it did, COOKIE2ID and ID2COOKIE would likely need including as well.
 
 Jan
+
+> In that case, that is a simple configuration tweak which then will be 
+> justified in deviations.rst.
+> 
+> Thanks,
+>   Nicola
+
 
