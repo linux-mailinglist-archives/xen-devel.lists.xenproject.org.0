@@ -2,37 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D18CA3661F
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 20:29:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.889014.1298251 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24093A366A8
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 21:06:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.889023.1298262 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tj1NB-0005B9-Kl; Fri, 14 Feb 2025 19:29:13 +0000
+	id 1tj1wU-0002Fr-95; Fri, 14 Feb 2025 20:05:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 889014.1298251; Fri, 14 Feb 2025 19:29:13 +0000
+Received: by outflank-mailman (output) from mailman id 889023.1298262; Fri, 14 Feb 2025 20:05:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tj1NB-000592-Hy; Fri, 14 Feb 2025 19:29:13 +0000
-Received: by outflank-mailman (input) for mailman id 889014;
- Fri, 14 Feb 2025 19:29:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MF/a=VF=kernel.org=pr-tracker-bot@srs-se1.protection.inumbo.net>)
- id 1tj1NA-00058u-3w
- for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 19:29:12 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f656883c-eb09-11ef-9896-31a8f345e629;
- Fri, 14 Feb 2025 20:29:09 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 587C7A433E4;
- Fri, 14 Feb 2025 19:27:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E5E9C4CED1;
- Fri, 14 Feb 2025 19:29:08 +0000 (UTC)
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- EAF9F380CEE8; Fri, 14 Feb 2025 19:29:38 +0000 (UTC)
+	id 1tj1wU-0002Dt-5k; Fri, 14 Feb 2025 20:05:42 +0000
+Received: by outflank-mailman (input) for mailman id 889023;
+ Fri, 14 Feb 2025 20:05:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=w5DB=VF=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1tj1wR-0002Dn-Id
+ for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 20:05:40 +0000
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0e35d140-eb0f-11ef-9aa4-95dc52dad729;
+ Fri, 14 Feb 2025 21:05:37 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,43 +36,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f656883c-eb09-11ef-9896-31a8f345e629
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739561348;
-	bh=+7VksNpa/3dm1L9BXsVMsG9uSGO5yzfD5zy/e98F5Qc=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
-	b=WVo93mP+Gq1VLD80oxxdl1UoOYzCJaDpFAoMRwJdfhVrbLKdx1hMe/zO3EWs5HVJS
-	 BnZ5Emzzqy9CzQaYLwDUpA1JpGX5lag1jdI0aHWtsnvRMkrXAgTg+rjkGrTi97/Jbl
-	 0C9/70kYaN6js1GQ22GT0RjQZsO64kp6aQrwY24OyD0yzfcp9emD4yDiil7G5RjXeW
-	 T1HuIJxL7YSZR5DOn8pu2gcF+H32NNuNwSimJM2pmg8hHnBi3OWe5xb/95nwoxFmdE
-	 y/ydsWI+9OYIMIaP4iLllEYrTvr24lZDKYjQgwfX8c3iAMEEFeUgZtCwd6ti9z1w0e
-	 H2Gm5Opc3GRgA==
-Subject: Re: [GIT PULL] xen: branch for v6.14-rc3
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20250214075955.17913-1-jgross@suse.com>
-References: <20250214075955.17913-1-jgross@suse.com>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20250214075955.17913-1-jgross@suse.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.14-rc3-tag
-X-PR-Tracked-Commit-Id: 75ad02318af2e4ae669e26a79f001bd5e1f97472
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: fd31a1bea3c94e01cb7b998485d2d7b14bdc8101
-Message-Id: <173956137749.2081923.16521924563935375721.pr-tracker-bot@kernel.org>
-Date: Fri, 14 Feb 2025 19:29:37 +0000
-To: Juergen Gross <jgross@suse.com>
-Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, sstabellini@kernel.org
+X-Inumbo-ID: 0e35d140-eb0f-11ef-9aa4-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1739563535; x=1739822735;
+	bh=4Af2BwETEsgb4ThII3LKOhXNdPRxjI14cuaRBdfuuhs=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector:
+	 List-Unsubscribe:List-Unsubscribe-Post;
+	b=HZVcuTFhOd584/CcnbJ6ZjrBkSAEFDjITvghrj8MjlS+6yMNJDRQWVWaUrMi9STaO
+	 270YZKCILL/1hezY54TTNK+I5ljI/XUlJKoddLqVE2QcRNCYtQUC28hi0v0epMv+fr
+	 i659oRYPDccUP8ut0CH3VwVnx2UDmvF1/qgargDPRzorDjNhhwzcNWZwt2Qf/BGcOB
+	 wkidG0kGE1/bHnJsrk1lVCOX/FpVQU5AkxjECbvBBIJ1WdiuiMeVBnmnaYt2ubHL4G
+	 93gw3n0jIdJvLzPBlSvoWol594b6a1TQbAjf8dY+rsu7IXHQdvNICl/sEOPc8l2dzr
+	 agtKg1173DTLw==
+Date: Fri, 14 Feb 2025 20:05:30 +0000
+To: xen-devel@lists.xenproject.org
+From: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
+Subject: [PATCH v4] xen/console: print Xen version via keyhandler
+Message-ID: <20250214193615.1812503-1-dmukhin@ford.com>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: 0df6e225f49559340ff6acfe10de9d6556ef875f
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-The pull request you sent on Fri, 14 Feb 2025 08:59:55 +0100:
+Add Xen version printout to 'h' keyhandler output.
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.14-rc3-tag
+That is useful for debugging systems that have been left intact for a long
+time.
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/fd31a1bea3c94e01cb7b998485d2d7b14bdc8101
+Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+---
+Changes since v3:
+- Dropped assertions for build_id_p
+---
+ xen/common/keyhandler.c    |  4 ++++
+ xen/common/version.c       | 23 +++++++++++++++++++++--
+ xen/drivers/char/console.c |  8 +++-----
+ xen/include/xen/lib.h      |  3 +++
+ 4 files changed, 31 insertions(+), 7 deletions(-)
 
-Thank you!
+diff --git a/xen/common/keyhandler.c b/xen/common/keyhandler.c
+index 6ea54838d4..0bb842ec00 100644
+--- a/xen/common/keyhandler.c
++++ b/xen/common/keyhandler.c
+@@ -129,6 +129,10 @@ static void cf_check show_handlers(unsigned char key)
+     unsigned int i;
+=20
+     printk("'%c' pressed -> showing installed handlers\n", key);
++
++    print_version();
++    print_build_id();
++
+     for ( i =3D 0; i < ARRAY_SIZE(key_table); i++ )
+         if ( key_table[i].fn )
+             printk(" key '%c' (ascii '%02x') =3D> %s\n",
+diff --git a/xen/common/version.c b/xen/common/version.c
+index bc3714b45f..ca1f262a12 100644
+--- a/xen/common/version.c
++++ b/xen/common/version.c
+@@ -210,9 +210,28 @@ void __init xen_build_init(void)
+         }
+     }
+ #endif /* CONFIG_X86 */
+-    if ( !rc )
+-        printk(XENLOG_INFO "build-id: %*phN\n", build_id_len, build_id_p);
+ }
++
++void print_version(void)
++{
++    printk("Xen version %d.%d%s (%s@%s) (%s) %s %s\n",
++           xen_major_version(), xen_minor_version(), xen_extra_version(),
++           xen_compile_by(), xen_compile_domain(), xen_compiler(),
++           xen_build_info(), xen_compile_date());
++
++    printk("Latest ChangeSet: %s\n", xen_changeset());
++}
++
++void print_build_id(void)
++{
++    /*
++     * NB: build_id_p may be NULL if XEN_HAS_BUILD_ID=3Dn.
++     * Do not print empty build-id.
++     */
++    if ( build_id_p )
++        printk("build-id: %*phN\n", build_id_len, build_id_p);
++}
++
+ #endif /* BUILD_ID */
+ /*
+  * Local variables:
+diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+index 07b14b7b3f..2e23910dfa 100644
+--- a/xen/drivers/char/console.c
++++ b/xen/drivers/char/console.c
+@@ -1020,14 +1020,12 @@ void __init console_init_preirq(void)
+     nrspin_lock(&console_lock);
+     __putstr(xen_banner());
+     nrspin_unlock(&console_lock);
+-    printk("Xen version %d.%d%s (%s@%s) (%s) %s %s\n",
+-           xen_major_version(), xen_minor_version(), xen_extra_version(),
+-           xen_compile_by(), xen_compile_domain(), xen_compiler(),
+-           xen_build_info(), xen_compile_date());
+-    printk("Latest ChangeSet: %s\n", xen_changeset());
++
++    print_version();
+=20
+     /* Locate and print the buildid, if applicable. */
+     xen_build_init();
++    print_build_id();
+=20
+     if ( opt_sync_console )
+     {
+diff --git a/xen/include/xen/lib.h b/xen/include/xen/lib.h
+index 81b722ea3e..686899a63e 100644
+--- a/xen/include/xen/lib.h
++++ b/xen/include/xen/lib.h
+@@ -47,6 +47,9 @@ int parse_signed_integer(const char *name, const char *s,=
+ const char *e,
+  */
+ int cmdline_strcmp(const char *frag, const char *name);
+=20
++void print_version(void);
++void print_build_id(void);
++
+ #ifdef CONFIG_DEBUG_TRACE
+ extern void debugtrace_dump(void);
+ extern void debugtrace_printk(const char *fmt, ...)
+--=20
+2.34.1
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+
 
