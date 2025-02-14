@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAA2AA35A62
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 10:30:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.888665.1298017 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5934A3728D
+	for <lists+xen-devel@lfdr.de>; Sun, 16 Feb 2025 09:08:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.888713.1298597 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tis1I-0005EO-RB; Fri, 14 Feb 2025 09:30:00 +0000
+	id 1tjZgS-0007q0-Sy; Sun, 16 Feb 2025 08:07:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 888665.1298017; Fri, 14 Feb 2025 09:30:00 +0000
+Received: by outflank-mailman (output) from mailman id 888713.1298597; Sun, 16 Feb 2025 08:07:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tis1I-0005C6-O7; Fri, 14 Feb 2025 09:30:00 +0000
-Received: by outflank-mailman (input) for mailman id 888665;
- Fri, 14 Feb 2025 09:29:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tjZgS-0007n4-QG; Sun, 16 Feb 2025 08:07:24 +0000
+Received: by outflank-mailman (input) for mailman id 888713;
+ Fri, 14 Feb 2025 10:55:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Zro/=VF=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tis1G-0004wC-Qd
- for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 09:29:58 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 413460ee-eab6-11ef-9896-31a8f345e629;
- Fri, 14 Feb 2025 10:29:57 +0100 (CET)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-5de5a853090so4115459a12.3
- for <xen-devel@lists.xenproject.org>; Fri, 14 Feb 2025 01:29:57 -0800 (PST)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aba53259546sm307975666b.64.2025.02.14.01.29.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Feb 2025 01:29:55 -0800 (PST)
+ <SRS0=Dhx7=VF=gmail.com=adam.qushenghui@srs-se1.protection.inumbo.net>)
+ id 1titMM-000254-2T
+ for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 10:55:50 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3ff20d7d-eac2-11ef-9aa4-95dc52dad729;
+ Fri, 14 Feb 2025 11:55:49 +0100 (CET)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-5deb956aa5eso2466183a12.2
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Feb 2025 02:55:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,278 +40,174 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 413460ee-eab6-11ef-9896-31a8f345e629
+X-Inumbo-ID: 3ff20d7d-eac2-11ef-9aa4-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1739525396; x=1740130196; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hFfu24KhrvaQp0fxJDrznaHKB4GavpmxXNs5QOAkgRM=;
-        b=bMKnMfp2/MHzqMJYWrOrIjb0ilQedvnmNixJH14LVK8MzgmjfNC+tsQ3zFJOBLNAHs
-         k4BEylztFVw1mt+wsteCikruSaTsbtpFwnXxGAlL2jNw4Tor6B1f5wwJkfMzL71yvBSs
-         RtI4jKfzZ/q7ZqKI+ENWJPXStKIVCgSof3FCg=
+        d=gmail.com; s=20230601; t=1739530548; x=1740135348; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=pH6kCEfTESLgjmQrK1iqqnv7HKIidTwDbPpmtfCYHnQ=;
+        b=S6DDli8D8vO86ZYSWOnskVTfq8IUjLk6F0yoAo35hiHDjJnItSsctPVlhQdUmWSR9p
+         FEeUO+Kqrq8cBZOmT5Bz+ErT+nH664Bob8DGUUt9Q8bW44ljuUsoRK+8ZaALqzTY5Ntc
+         sJPdwB5nyEtZnYJQ6W2MqhpuhwuzAxscWRCSec9UHKBfm9wY82C4POUfn5CNDXWZeyvB
+         cU0AjjSojQyvKA47i8WjknV8gIHzp03QKprrpthaIPI1FbeGCZRqLpmUbyHyS/NGs0z6
+         2tAj5X0U1M4pJ1oxV8/gSFOtlpL7j1UW1EIlt5FAM49pcumN8UXhacTSJo8kM004F91a
+         O0jQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739525396; x=1740130196;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=hFfu24KhrvaQp0fxJDrznaHKB4GavpmxXNs5QOAkgRM=;
-        b=JgWDmzjNw31LuZn5kMs/+uXhkKs9Op55Wjio12x97DZPMmQG40APhqM2Py1XzZs1EJ
-         6BN550ad/rUE1JcZQExJALUrc4pBBMbtZdd9l+b2/ynUjW7XvGmJ9QunaZsrvTx0sgzH
-         oHjdEDssMczk24NRIznrzBrXsBH5dZAJquWxIUoZSAAj8H86cpq5pYTp5gKZEtN/L2Th
-         3LhgLgZxwgWoyR9RKuZTcds3mX/s7hz+J5JEY89kUtstTWrGuSrAGhsRR1JtW2Yu2+Rt
-         eTWcaOtxPvFeqBpMTMtcGalCLHU2ydBUoy+dcui4uwkeeSz8TMwwwCzkAl43Uwlk6W/2
-         qNQQ==
-X-Gm-Message-State: AOJu0YztEEO7uUiCayxoMuOpTajeuPIcT270MrX+/PMhGZsDhkGSMEMJ
-	1DPzwu3mdgu+Sl/+FXyZbw7+X0miL0K2l/Y4W7CESOXLoJXXlpL4CHHFSo3L4s49kVC5qB1QzP1
-	6
-X-Gm-Gg: ASbGncv1SfNaLsYWkFQ6oAz8H0QZsYkvvJ6BODWJg6jPLcO6iZ3ZDuTbfYYj6WqpQ/U
-	KRtow7uBSX7inFthWhTqKYDvUMvN6qMVnLLcL0oNUacfWZszMvFanMcXYe2EOZL+KHgB7WkQ5d0
-	UECvMGUcVycJjc3w3l2ddX+DfieXfiyeJq7/e0I9QMtOn6tBV6GLJBuCOHf4mmijZ9RACWSUc6E
-	9ZMuCI9HOykU0NnugkGCtfix9uzpbWTNqGwYWeHgJpYbtZexMbr6gLpOXuPjvsKZ6cDYuwFQ16g
-	u2Z931AKlvkOzn5kCm///qUpVw==
-X-Google-Smtp-Source: AGHT+IFoDXYBli37uyiAtAYfJjPrhGbpUc723Gn08G5ekilp+ywEwkwnBv/9HoNwSrqDUNfrYD5uYQ==
-X-Received: by 2002:a17:907:3daa:b0:ab7:b250:aaa with SMTP id a640c23a62f3a-ab7f34d5051mr1084325566b.54.1739525396104;
-        Fri, 14 Feb 2025 01:29:56 -0800 (PST)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Community Manager <community.manager@xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH 2/2] x86/dom0: attempt to fixup p2m page-faults for PVH dom0
-Date: Fri, 14 Feb 2025 10:29:28 +0100
-Message-ID: <20250214092928.28932-3-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20250214092928.28932-1-roger.pau@citrix.com>
-References: <20250214092928.28932-1-roger.pau@citrix.com>
+        d=1e100.net; s=20230601; t=1739530548; x=1740135348;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=pH6kCEfTESLgjmQrK1iqqnv7HKIidTwDbPpmtfCYHnQ=;
+        b=K1BJ/WmWKHGD/puj8R3HaSajNkCU5Ul6vxlZfDjMdBZCJZRjihf7tFqy+S1pXFQOmz
+         jZ4TULqA2cg1ajo5O8l30cgimZ8jsDwu3XTQkJvTq/ITBgVAkAhbBtWWcVpp2MOGCNkw
+         jxYbm7m6pemdb4u0eU2qFH7RhxfEdODS3fjKCmEI83/pIVymo8VQvAIWW+KJlRnkeY6H
+         abxDMuuVHrwkhvz2k69VDM2cOuiPpabEHx99Kr3HXCjPEgGswPIzqMyvkoHFV0o7mOlP
+         Vx/7Z+0YepcueiEOE3sQbmkzDubDAqj0XaGO7zht6MN2ZcGqlI3IfYNtd1ZyNO+W7vUL
+         prSQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXWFIkyxXNmo7x10/IFKEAEkbX8BwBlu+2Qw5nUkfLm+nO75ZPlW2e70BY0kyfQjXJ1UaOj1knmJC8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz3eH8nT+exgeouUi41zmmOz7GiDu3U6hYg9rsHhTwxmGMhckIA
+	8rbPbJt990EGcs69q5lMQ2pKh0vCbVO4mDthsM/W6JU4vQgnnfJkDAtBTm1uqKyVtkYSvfW7gyq
+	CyMYFqd/cSlG50QCnSqGjFKe5G4c=
+X-Gm-Gg: ASbGncv0xUBURv+Q10u75LLFT+PIUvS3+4RpR99Xg/BoxRpRCbwaFcZZYhFwjDzXpVc
+	s/IUdbtkahhIBDdtVs6hFsINdzH/zfgwkEv5jsi8CasBFz0obdjkEwyxTyXyxJnV+/lNJBLNj
+X-Google-Smtp-Source: AGHT+IG0agN7fA0s1q9VxJDIlMRCLjNCjyXA84WBOpudkhFBuGpCeuwg6TrMqIzKj4krf7uGXxVyk8tI0NnxPY4lVuc=
+X-Received: by 2002:a05:6402:40c9:b0:5de:a6a8:5ec6 with SMTP id
+ 4fb4d7f45d1cf-5dec9d393f8mr15895742a12.10.1739530548303; Fri, 14 Feb 2025
+ 02:55:48 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <CAHfJC1=gH7tm3V922+5Nqz76mB_iSeiTjU1rwKAVOzaj6B9LJw@mail.gmail.com>
+ <alpine.DEB.2.22.394.2502131211100.619090@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2502131211100.619090@ubuntu-linux-20-04-desktop>
+From: shenghui qu <adam.qushenghui@gmail.com>
+Date: Fri, 14 Feb 2025 18:55:37 +0800
+X-Gm-Features: AWEUYZk4cZSKvVJmJJ8ikeXKPDAGkDzpRdtNt7MEwwCPgpkpnRqaZqX29LXi-FU
+Message-ID: <CAHfJC1mW7UXeuSyRFB6TpJctS8g5wgX35FnAa3D0jaB1NhW2dA@mail.gmail.com>
+Subject: Re: Inquiry About PCI Passthrough Development and Testing Patches on ARM
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, xen-devel@lists.xenproject.org, 
+	Stewart.Hildebrand@amd.com, Mykyta_Poturai@epam.com
+Content-Type: multipart/alternative; boundary="000000000000685f5d062e1804dd"
 
-When building a PVH dom0 Xen attempts to map all (relevant) MMIO regions
-into the p2m for dom0 access.  However the information Xen has about the
-host memory map is limited.  Xen doesn't have access to any resources
-described in ACPI dynamic tables, and hence the p2m mappings provided might
-not be complete.
+--000000000000685f5d062e1804dd
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-PV doesn't suffer from this issue because a PV dom0 is capable of mapping
-into it's page-tables any address not explicitly banned in d->iomem_caps.
+Dear Stewart
 
-Introduce a new command line options that allows Xen to attempt to fixup
-the p2m page-faults, by creating p2m identity maps in response to p2m
-page-faults.
+Thank you for being looped into this discussion.
+Following Stefano=E2=80=99s guidance, I=E2=80=99d like to seek further clar=
+ity on the
+current development of PCI Passthrough support for Xen/ARM.
+Specifically, I have two questions:
+1.Roadmap: Are there clear milestones or a timeline for completing PCI
+Passthrough support on ARM? For instance, is this feature targeted for
+inclusion in Xen 4.20 or later releases=EF=BC=9F
+2.Current Status: Could you elaborate on the technical progress so far?
 
-This is aimed as a workaround to small ACPI regions Xen doesn't know about.
-Note that missing large MMIO regions mapped in this way will lead to
-slowness due to the VM exit processing, plus the mappings will always use
-small pages.
+Looking forward to your insights.
 
-The ultimate aim is to attempt to bring better parity with a classic PV
-dom0.
+Best regards,
+Shenghui Qu
 
-Note such fixup rely on the CPU doing the access to the unpopulated
-address.  If the access is attempted from a device instead there's no
-possible way to fixup, as IOMMU page-fault are asynchronous.
+Stefano Stabellini <sstabellini@kernel.org> =E4=BA=8E2025=E5=B9=B42=E6=9C=
+=8814=E6=97=A5=E5=91=A8=E4=BA=94 04:14=E5=86=99=E9=81=93=EF=BC=9A
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Only slightly tested on my local PVH dom0 deployment.
----
- CHANGELOG.md                       | 10 +++++++++
- docs/misc/xen-command-line.pandoc  | 16 +++++++++++++-
- xen/arch/x86/dom0_build.c          |  4 ++++
- xen/arch/x86/hvm/emulate.c         | 34 ++++++++++++++++++++++++++++--
- xen/arch/x86/hvm/hvm.c             | 31 +++++++++++++++++++++++++++
- xen/arch/x86/include/asm/hvm/hvm.h |  5 +++++
- 6 files changed, 97 insertions(+), 3 deletions(-)
+> Hi Shenghui,
+>
+> Thank you for your interest in Xen! Let me add Stewart, who can provide
+> you with an overview of the latest status of PCI Passthrough on ARM.
+>
+> Among the various items in progress, I would like to highlight this
+> series from Mykyta, which is currently under review:
+>
+> https://marc.info/?l=3Dxen-devel&m=3D173918318831281
+>
+> Cheers,
+>
+> Stefano
+>
+> On Thu, 13 Feb 2025, shenghui qu wrote:
+> > Dear Maintainers,
+> >
+> > I hope this email finds you well.
+> >
+> > I recently came across the Xen Project 4.19 Feature List, which mention=
+s
+> that PCI passthrough work on ARM is ongoing, including some
+> > refactoring and improvements of the existing code. It also states that
+> this work will be included in the next few releases.
+> > I am very interested in the current development plan and progress of PC=
+I
+> passthrough on ARM. Could you kindly provide an update on this?
+> >
+> > Additionally, I would like to know how I can access any available
+> testing patches related to this work.
+> >
+> > I appreciate your time and effort in maintaining and improving the Xen
+> Project. Looking forward to your response.
+> >
+> > Best regards,Shenghui Qu
+> >
+> >
 
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index 1de1d1eca17f..e5e6ab3a8902 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -4,6 +4,16 @@ Notable changes to Xen will be documented in this file.
- 
- The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
- 
-+## [4.21.0 UNRELEASED](https://xenbits.xenproject.org/gitweb/?p=xen.git;a=shortlog;h=staging) - TBD
-+
-+### Changed
-+
-+### Added
-+ - On x86:
-+   - Option to attempt to fixup p2m page-faults on PVH dom0.
-+
-+### Removed
-+
- ## [4.20.0 UNRELEASED](https://xenbits.xenproject.org/gitweb/?p=xen.git;a=shortlog;h=staging) - TBD
- 
- ### Changed
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index 9bbd00baef91..e9884de07e9e 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -822,7 +822,8 @@ Specify the bit width of the DMA heap.
- 
- ### dom0
-     = List of [ pv | pvh, shadow=<bool>, verbose=<bool>,
--                cpuid-faulting=<bool>, msr-relaxed=<bool> ] (x86)
-+                cpuid-faulting=<bool>, msr-relaxed=<bool>,
-+                pf-fixup=<bool> ] (x86)
- 
-     = List of [ sve=<integer> ] (Arm64)
- 
-@@ -883,6 +884,19 @@ Controls for how dom0 is constructed on x86 systems.
- 
-     If using this option is necessary to fix an issue, please report a bug.
- 
-+*   The `pf-fixup` boolean is only applicable when using a PVH dom0 and
-+    defaults to false.
-+
-+    When running dom0 in PVH mode the dom0 kernel has no way to map MMIO
-+    regions into the p2m, such mode relies on Xen dom0 builder populating
-+    the p2m with all MMIO regions that dom0 should access.  However Xen
-+    doesn't have a complete picture of the host memory map, due to not
-+    being able to process ACPI dynamic tables.
-+
-+    The `pf-fixup` option allows Xen to attempt to add missing MMIO regions
-+    to the p2m in response to page-faults generated by dom0 trying to access
-+    unpopulated entries in the p2m.
-+
- Enables features on dom0 on Arm systems.
- 
- *   The `sve` integer parameter enables Arm SVE usage for Dom0 and sets the
-diff --git a/xen/arch/x86/dom0_build.c b/xen/arch/x86/dom0_build.c
-index d1b4ef83b2d0..34b6166f4922 100644
---- a/xen/arch/x86/dom0_build.c
-+++ b/xen/arch/x86/dom0_build.c
-@@ -286,6 +286,10 @@ int __init parse_arch_dom0_param(const char *s, const char *e)
-         opt_dom0_cpuid_faulting = val;
-     else if ( (val = parse_boolean("msr-relaxed", s, e)) >= 0 )
-         opt_dom0_msr_relaxed = val;
-+#ifdef CONFIG_HVM
-+    else if ( (val = parse_boolean("pf-fixup", s, e)) >= 0 )
-+        opt_dom0_pf_fixup = val;
-+#endif
-     else
-         return -EINVAL;
- 
-diff --git a/xen/arch/x86/hvm/emulate.c b/xen/arch/x86/hvm/emulate.c
-index 8aa7e49c056c..aa16ed0e9cac 100644
---- a/xen/arch/x86/hvm/emulate.c
-+++ b/xen/arch/x86/hvm/emulate.c
-@@ -338,8 +338,38 @@ static int hvmemul_do_io(
-         if ( !s )
-         {
-             if ( is_mmio && is_hardware_domain(currd) )
--                gdprintk(XENLOG_DEBUG, "unhandled memory %s to %#lx size %u\n",
--                         dir ? "read" : "write", addr, size);
-+            {
-+                /*
-+                 * PVH dom0 is likely missing MMIO mappings on the p2m, due to
-+                 * the incomplete information Xen has about the memory layout.
-+                 *
-+                 * Either print a message to note dom0 attempted to access an
-+                 * unpopulated GPA, or try to fixup the p2m by creating an
-+                 * identity mapping for the faulting GPA.
-+                 */
-+                if ( opt_dom0_pf_fixup )
-+                {
-+                    int inner_rc = hvm_hwdom_fixup_p2m(addr);
-+
-+                    if ( !inner_rc )
-+                    {
-+                        gdprintk(XENLOG_DEBUG,
-+                                 "fixup p2m mapping for page %lx added\n",
-+                                 paddr_to_pfn(addr));
-+                        rc = X86EMUL_RETRY;
-+                        vio->req.state = STATE_IOREQ_NONE;
-+                        break;
-+                    }
-+
-+                    gprintk(XENLOG_WARNING,
-+                            "unable to fixup memory %s to %#lx size %u: %d\n",
-+                            dir ? "read" : "write", addr, size, inner_rc);
-+                }
-+                else
-+                    gdprintk(XENLOG_DEBUG,
-+                             "unhandled memory %s to %#lx size %u\n",
-+                             dir ? "read" : "write", addr, size);
-+            }
-             rc = hvm_process_io_intercept(&null_handler, &p);
-             vio->req.state = STATE_IOREQ_NONE;
-         }
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 39e39ce4ce36..4505868f025c 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -13,6 +13,7 @@
- #include <xen/lib.h>
- #include <xen/trace.h>
- #include <xen/sched.h>
-+#include <xen/iocap.h>
- #include <xen/irq.h>
- #include <xen/softirq.h>
- #include <xen/domain.h>
-@@ -5458,6 +5459,36 @@ int hvm_copy_context_and_params(struct domain *dst, struct domain *src)
-     return rc;
- }
- 
-+bool __ro_after_init opt_dom0_pf_fixup;
-+int hvm_hwdom_fixup_p2m(paddr_t addr)
-+{
-+    unsigned long gfn = paddr_to_pfn(addr);
-+    struct domain *currd = current->domain;
-+    p2m_type_t type;
-+    mfn_t mfn;
-+    int rc;
-+
-+    ASSERT(is_hardware_domain(currd));
-+    ASSERT(!altp2m_active(currd));
-+
-+    /*
-+     * Fixups are only applied for MMIO holes, and rely on the hardware domain
-+     * having identity mappings for non RAM regions (gfn == mfn).
-+     */
-+    if ( !iomem_access_permitted(currd, gfn, gfn) ||
-+         !is_memory_hole(_mfn(gfn), _mfn(gfn)) )
-+        return -EPERM;
-+
-+    mfn = get_gfn(currd, gfn, &type);
-+    if ( !mfn_eq(mfn, INVALID_MFN) || !p2m_is_hole(type) )
-+        rc = mfn_eq(mfn, _mfn(gfn)) ? 0 : -EEXIST;
-+    else
-+        rc = set_mmio_p2m_entry(currd, _gfn(gfn), _mfn(gfn), 0);
-+    put_gfn(currd, gfn);
-+
-+    return rc;
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/hvm/hvm.h
-index cad3a9427801..e084e1c7d665 100644
---- a/xen/arch/x86/include/asm/hvm/hvm.h
-+++ b/xen/arch/x86/include/asm/hvm/hvm.h
-@@ -772,6 +772,11 @@ static inline int hvm_vmtrace_reset(struct vcpu *v)
-     return -EOPNOTSUPP;
- }
- 
-+/* For PVH dom0: signal whether to attempt fixup of p2m page-faults. */
-+extern bool opt_dom0_pf_fixup;
-+/* Attempt to fixup a p2m page-fault by adding an identity mapping entry. */
-+int hvm_hwdom_fixup_p2m(paddr_t addr);
-+
- /*
-  * Accessors for registers which have per-guest-type or per-vendor locations
-  * (e.g. VMCS, msr load/save lists, VMCB, VMLOAD lazy, etc).
--- 
-2.46.0
+--000000000000685f5d062e1804dd
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr">Dear Stewart<br><br>Thank you for being looped into this d=
+iscussion. <br>Following Stefano=E2=80=99s guidance, I=E2=80=99d like to se=
+ek further clarity on the current development of PCI Passthrough support fo=
+r Xen/ARM. <br>Specifically, I have two questions:<br>1.Roadmap: Are there =
+clear milestones or a timeline for completing PCI Passthrough support on AR=
+M? For instance, is this feature targeted for inclusion in Xen 4.20 or late=
+r releases=EF=BC=9F<br>2.Current Status: Could you elaborate on the technic=
+al progress so far? <br><br><span style=3D"white-space:pre">Looking forward=
+ to your insights.</span><div><span style=3D"white-space:pre"><br></span>Be=
+st regards,<br>Shenghui Qu<br></div></div><br><div class=3D"gmail_quote gma=
+il_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">Stefano Stabellin=
+i &lt;<a href=3D"mailto:sstabellini@kernel.org">sstabellini@kernel.org</a>&=
+gt; =E4=BA=8E2025=E5=B9=B42=E6=9C=8814=E6=97=A5=E5=91=A8=E4=BA=94 04:14=E5=
+=86=99=E9=81=93=EF=BC=9A<br></div><blockquote class=3D"gmail_quote" style=
+=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
+-left:1ex">Hi Shenghui,<br>
+<br>
+Thank you for your interest in Xen! Let me add Stewart, who can provide<br>
+you with an overview of the latest status of PCI Passthrough on ARM. <br>
+<br>
+Among the various items in progress, I would like to highlight this<br>
+series from Mykyta, which is currently under review:<br>
+<br>
+<a href=3D"https://marc.info/?l=3Dxen-devel&amp;m=3D173918318831281" rel=3D=
+"noreferrer" target=3D"_blank">https://marc.info/?l=3Dxen-devel&amp;m=3D173=
+918318831281</a><br>
+<br>
+Cheers,<br>
+<br>
+Stefano<br>
+<br>
+On Thu, 13 Feb 2025, shenghui qu wrote:<br>
+&gt; Dear Maintainers,<br>
+&gt; <br>
+&gt; I hope this email finds you well.<br>
+&gt; <br>
+&gt; I recently came across the Xen Project 4.19 Feature List, which mentio=
+ns that PCI passthrough work on ARM is ongoing, including some<br>
+&gt; refactoring and improvements of the existing code. It also states that=
+ this work will be included in the next few releases.<br>
+&gt; I am very interested in the current development plan and progress of P=
+CI passthrough on ARM. Could you kindly provide an update on this?=C2=A0<br=
+>
+&gt; <br>
+&gt; Additionally, I would like to know how I can access any available test=
+ing patches related to this work.<br>
+&gt; <br>
+&gt; I appreciate your time and effort in maintaining and improving the Xen=
+ Project. Looking forward to your response.<br>
+&gt; <br>
+&gt; Best regards,Shenghui Qu<br>
+&gt; <br>
+&gt; </blockquote></div>
+
+--000000000000685f5d062e1804dd--
 
