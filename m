@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8455EA353B5
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 02:28:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.888256.1297648 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46A7BA353B4
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 02:28:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.888257.1297659 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tikVQ-0005Q5-Pp; Fri, 14 Feb 2025 01:28:36 +0000
+	id 1tikVT-0005e3-3q; Fri, 14 Feb 2025 01:28:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 888256.1297648; Fri, 14 Feb 2025 01:28:36 +0000
+Received: by outflank-mailman (output) from mailman id 888257.1297659; Fri, 14 Feb 2025 01:28:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tikVQ-0005O0-N8; Fri, 14 Feb 2025 01:28:36 +0000
-Received: by outflank-mailman (input) for mailman id 888256;
- Fri, 14 Feb 2025 01:28:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tikVT-0005cX-0p; Fri, 14 Feb 2025 01:28:39 +0000
+Received: by outflank-mailman (input) for mailman id 888257;
+ Fri, 14 Feb 2025 01:28:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kkdH=VF=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1tikVP-0005Nm-Lv
- for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 01:28:35 +0000
+ id 1tikVQ-0005Nw-R6
+ for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 01:28:36 +0000
 Received: from fhigh-a4-smtp.messagingengine.com
  (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0035c39b-ea73-11ef-9896-31a8f345e629;
- Fri, 14 Feb 2025 02:28:32 +0100 (CET)
-Received: from phl-compute-01.internal (phl-compute-01.phl.internal
- [10.202.2.41])
- by mailfhigh.phl.internal (Postfix) with ESMTP id 45FB11140207;
- Thu, 13 Feb 2025 20:28:31 -0500 (EST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 00f53b3d-ea73-11ef-9aa4-95dc52dad729;
+ Fri, 14 Feb 2025 02:28:34 +0100 (CET)
+Received: from phl-compute-09.internal (phl-compute-09.phl.internal
+ [10.202.2.49])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id CA92011401EC;
+ Thu, 13 Feb 2025 20:28:32 -0500 (EST)
 Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-01.internal (MEProxy); Thu, 13 Feb 2025 20:28:31 -0500
+ by phl-compute-09.internal (MEProxy); Thu, 13 Feb 2025 20:28:32 -0500
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 13 Feb 2025 20:28:30 -0500 (EST)
+ 13 Feb 2025 20:28:31 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,84 +45,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0035c39b-ea73-11ef-9896-31a8f345e629
+X-Inumbo-ID: 00f53b3d-ea73-11ef-9aa4-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:from:from:in-reply-to
-	:message-id:mime-version:reply-to:subject:subject:to:to; s=fm3;
-	 t=1739496511; x=1739582911; bh=NeHin5JG6Si9esGXudiDoBFJ3y2RoVdG
-	BkdNyJRtT18=; b=Le9qvFYqu8+VF0uDlHnIW+yUbwxjeEtykHUdM+gcXp2fPzv+
-	ZWZTGm6gMQC92+FsKteOdW9MyqiRpMeXIdPDPAiLV+RQ37cO3PKZETQdfV/bNDqP
-	8Hp8LWdG6ju9JqGyv6QynA/MqW1b8xr6ZPRBLZE3QCSiaqeYJks+cnABodFGo3Wx
-	hVD7YfqLSWYDLsz2O/andDwVzEfvLRpzG1Ja7b5hDaOCnXo45fZSVW09Esqfim1m
-	RP2gan9BqhnZX1xjSmsoF2D3ouYlYjhECFI6qhWWDOU+T2fEcLAXZet3MkULRHHf
-	xPAr7D/jiezC7c1HvwfPiCg0wbO2e8ttRIDBPA==
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm3; t=1739496512; x=1739582912; bh=qEM2A4la9R
+	xFkprKX9G/QxR7b4Sa8TkAC496vEy+pno=; b=Xp9POxlKeHX0cgV7pNJPWg/U4v
+	Sd6J2dv1RYM57gboEeUaJIO0VJLU1VnciLK8SpnRBQSMcC3O306cTAtbMjVuIWI5
+	l3zNcrtTAMzrkgp+IGWf/GDQdVJwGyeXUVt4ee7/6KNuBOnWpoUzTB8Dg9zmNl0b
+	7WIcCm1ZuGjzbfrhw7r4oyeSN7Vrm8kSixh/hdo4rTPYJNL1KK0JaSraVK5Ha/xi
+	/qxq5Ddq2dUqZjn6hr3nPWpg5ccSo3rJ4A5w/mfigMQ/FOp9HLKFQJN1NofH8P6d
+	JpJwcvhIPrGHe0ftNpxw+Wcuqex9Aqt6apiKsTDypWUz6yD3zWc8yG3R4ANg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm3; t=1739496511; x=1739582911; bh=NeHin5JG6Si9esGXudiDoBFJ3y2R
-	oVdGBkdNyJRtT18=; b=Cw3/n7Em2EKQ47YG5ySjAlx4MxglZI429sqg/JYU1ij1
-	ZQYG/OQ6ygZtLd2xQDSU/CXzbQ+wTFNWSd9Rbs0UB/ETgPr2fJOS6TDv375wKg9v
-	MiG+iKGJp5amC9asZGAGK6jt4D8a8vM+hJC2p5//RcUNVn0Gxzblt8G1G8WO7ypd
-	zt7hvXmHHtouBnAqRmCXfWTCXjvgoYAAIeEg3c69xXcEh/nZFJtKvFrCvdjkCe2j
-	YhNmlgsWtKCy8IlgVpUya+vV64s2h+iLnELFBNCgg7fHnVNppBMucieFhIe0wwwP
-	UnR0E7Rxq5wkN+nT4bfxRGoJZK4BmMF1t5qD/xDn9w==
-X-ME-Sender: <xms:PpyuZ_iEaScILeFoqOv_A4ehYA2jvww6w6I38BCoSGtZJ4s7XUGk4w>
-    <xme:PpyuZ8CJ-oG-GzlbOc-nimS_PNGOrqnMnE3MZTe_l69LEVet-ijb-evE5m2ANg0XC
-    td4AmS3yGZf6g>
-X-ME-Received: <xmr:PpyuZ_F-z-Mp1ZGwlTQonmvzpyU3zquJNpps2MTIglitWYrHAiRO12PVKFR1gg6yJRGjySPY>
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1739496512; x=
+	1739582912; bh=qEM2A4la9RxFkprKX9G/QxR7b4Sa8TkAC496vEy+pno=; b=c
+	12i4Rf/OV+Il/+fJWNLLizwNWOjmW8dRaEyXkPqZ6br5Ho2oA3miNoZVy64mgmIb
+	SA2XRnb19TmzFDwQyTIn9sDdjfIZjsnYBRqckT4M1omsWFtXPM64ybFSXmrOc7QL
+	GkRnQA0fmU73zTdsWIdFCAj6E8CYIuXFuS0CeYVuCVi7FZ4yfy/M3K0ox6kvg+Vi
+	BlhPVvU+LTfGBLe8V17qdyKwzA0ykht6IZ3foKMCjYDMVSP1oBjojpZZ5G55v+Ud
+	diPh7/wkwoBtKvzC0X2+Og/IdrjccszDkRbmSH6Eii5Gmhv+KfxwA6bOuqLNGAY9
+	c6OY2g5kJIKd+R560RrPw==
+X-ME-Sender: <xms:QJyuZ1utWEJmFTrlKcSqwuochf2RDQZ-HfTAzfghMLtjwEQNcNPZ4A>
+    <xme:QJyuZ-etW-1y1b-UsSifjINki6oJ6jD8vJ-Ph-YZa0pOz3dTuT9RipUETfp3796ce
+    jeI6PjKUbP1DQ>
+X-ME-Received: <xmr:QJyuZ4ztmgjGwpZZKmWCB4xP7d0X1CFl1EqjNLu-r6U28f8w3Zd41WR0_Pg8gzid3akJfO06>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdegkeeffecutefuodetggdotefrod
     ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdp
-    uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecunecujfgurhephffvve
-    fufffkofggtgfgsehtkeertdertdejnecuhfhrohhmpeforghrvghkucforghrtgiihihk
-    ohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthh
-    hinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeelkefhudelteelleelteet
-    veeffeetffekteetjeehlefggeekleeghefhtdehvdenucevlhhushhtvghrufhiiigvpe
-    dtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghl
-    vghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopedvpdhmohguvgepshhmth
-    hpohhuthdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhj
-    vggtthdrohhrghdprhgtphhtthhopehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthh
-    hinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:PpyuZ8T-dLSnhHJCq0yhBEoo3lU6cIrWyw2v6W5i8DKigtpPxhP4pw>
-    <xmx:PpyuZ8xVqAMxeCdjF5VU8FPEhGwcVw5TcRuaMDq6eCDQ3-XXVxruUg>
-    <xmx:PpyuZy5suEyj8_DPXJSum3gXKW3Dvfaz2L--tM0mEFig2UVRd4Ayew>
-    <xmx:PpyuZxz1vGz3OrSJzKYlbP1RgaKAXfcXDZv7_ulNPMmpTJ5ycCNrqw>
-    <xmx:P5yuZ3_QQ93o5umvMgxbHaOOMl6Ra-2hzfAuVXs2d1eAF3qXl_9dc5LD>
+    uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivg
+    hnthhsucdlqddutddtmdenucfjughrpefhvfevufffkffojghfgggtgfesthekredtredt
+    jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
+    eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
+    ggftrfgrthhtvghrnhepgfeuudehgfdvfeehhedujeehfeduveeugefhkefhheelgeevud
+    etueeiudfggfffnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhf
+    rhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+    dpnhgspghrtghpthhtohephedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepgigv
+    nhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtoh
+    epmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdprhgt
+    phhtthhopehsthgvfhgrnhhordhsthgrsggvlhhlihhnihesrghmugdrtghomhdprhgtph
+    htthhopegtrghrughovgestggrrhguohgvrdgtohhmpdhrtghpthhtohepshhsthgrsggv
+    lhhlihhniheskhgvrhhnvghlrdhorhhg
+X-ME-Proxy: <xmx:QJyuZ8NYVoVV4uQ5gRszl_YaJnb_Znj_07sI9StASGKk4dJ4ZABoMQ>
+    <xmx:QJyuZ1_BioM5j1YEJI29D_107OJw8cok4IE2d5BXp3PPpd2hTKXNRA>
+    <xmx:QJyuZ8VLStLFAE3tRieHglJLFzXgC1mX-O48pKKuwMA-IMpb4aB3Pg>
+    <xmx:QJyuZ2fS7msP0CleVXqGve4sYED2AOILvIAzIFiOuKpNzI4VD_7mgQ>
+    <xmx:QJyuZ4ne5LnoSCKpc7d64mru-J-0cdBJ6cLuYcUheucBQf_ERaON_6F7>
 Feedback-ID: i1568416f:Fastmail
 From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
-Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: [PATCH v2 0/4] Few CI improvements
-Date: Fri, 14 Feb 2025 02:28:06 +0100
-Message-ID: <cover.36ee649a8537af1a5fb5b3c5b7ffc0d8a1369969.1739496480.git-series.marmarek@invisiblethingslab.com>
+Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Stefano Stabellini <stefano.stabellini@amd.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v2 1/4] automation: skip building domU if there is no test defined for it
+Date: Fri, 14 Feb 2025 02:28:07 +0100
+Message-ID: <1bcb6bea13c964df6119ae04502e0fee3c928052.1739496480.git-series.marmarek@invisiblethingslab.com>
 X-Mailer: git-send-email 2.48.0
+In-Reply-To: <cover.36ee649a8537af1a5fb5b3c5b7ffc0d8a1369969.1739496480.git-series.marmarek@invisiblethingslab.com>
+References: <cover.36ee649a8537af1a5fb5b3c5b7ffc0d8a1369969.1739496480.git-series.marmarek@invisiblethingslab.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-- Add some more test jobs
-- Allow selecting individual jobs, without editing yaml files
+This will be useful for later tests not using generic domU (unit tests,
+xtf etc).
 
-I don't think it needs to be included in 4.20, but may be considered later for
-backporting.
+Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Reviewed-by: Stefano Stabellini <stefano.stabellini@amd.com>
+---
+ automation/scripts/qubes-x86-64.sh | 50 +++++++++++++++++++------------
+ 1 file changed, 31 insertions(+), 19 deletions(-)
 
-Marek Marczykowski-Górecki (4):
-  automation: skip building domU if there is no test defined for it
-  automation: add jobs running tests from tools/tests/*
-  automation: allow selecting individual jobs via CI variables
-  automation: add tools/tests jobs on the AMD Zen3+ runner too
-
- automation/gitlab-ci/build.yaml    |  6 ++-
- automation/gitlab-ci/test.yaml     | 60 ++++++++++++++++++++++++-
- automation/scripts/build           |  1 +-
- automation/scripts/qubes-x86-64.sh | 78 +++++++++++++++++++++++--------
- automation/scripts/run-tools-tests | 47 +++++++++++++++++++-
- 5 files changed, 173 insertions(+), 19 deletions(-)
- create mode 100755 automation/scripts/run-tools-tests
-
-base-commit: 819c3cb186a86ef3e04fb5af4d9f9f6de032c3ee
+diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qubes-x86-64.sh
+index 8a0b7bfbc0d0..7eb3ce1bf703 100755
+--- a/automation/scripts/qubes-x86-64.sh
++++ b/automation/scripts/qubes-x86-64.sh
+@@ -144,26 +144,28 @@ disk = [ ]
+ ${domU_extra_config}
+ "
+ 
+-# DomU
+-mkdir -p rootfs
+-cd rootfs
+-# fakeroot is needed to preserve device nodes in rootless podman container
+-fakeroot -s ../fakeroot-save tar xzf ../binaries/initrd.tar.gz
+-mkdir proc
+-mkdir run
+-mkdir srv
+-mkdir sys
+-rm var/run
+-echo "#!/bin/sh
++if [ -n "$domU_check" ]; then
++    # DomU
++    mkdir -p rootfs
++    cd rootfs
++    # fakeroot is needed to preserve device nodes in rootless podman container
++    fakeroot -s ../fakeroot-save tar xzf ../binaries/initrd.tar.gz
++    mkdir proc
++    mkdir run
++    mkdir srv
++    mkdir sys
++    rm var/run
++    echo "#!/bin/sh
+ 
+ ${domU_check}
+ " > etc/local.d/xen.start
+-chmod +x etc/local.d/xen.start
+-echo "rc_verbose=yes" >> etc/rc.conf
+-sed -i -e 's/^Welcome/domU \0/' etc/issue
+-find . | fakeroot -i ../fakeroot-save cpio -H newc -o | gzip > ../binaries/domU-rootfs.cpio.gz
+-cd ..
+-rm -rf rootfs
++    chmod +x etc/local.d/xen.start
++    echo "rc_verbose=yes" >> etc/rc.conf
++    sed -i -e 's/^Welcome/domU \0/' etc/issue
++    find . | fakeroot -i ../fakeroot-save cpio -H newc -o | gzip > ../binaries/domU-rootfs.cpio.gz
++    cd ..
++    rm -rf rootfs
++fi
+ 
+ # DOM0 rootfs
+ mkdir -p rootfs
+@@ -188,11 +190,19 @@ ifconfig eth0 up
+ ifconfig xenbr0 up
+ ifconfig xenbr0 192.168.0.1
+ 
++" > etc/local.d/xen.start
++
++if [ -n "$domU_check" ]; then
++    echo "
+ # get domU console content into test log
+ tail -F /var/log/xen/console/guest-domU.log 2>/dev/null | sed -e \"s/^/(domU) /\" &
+ xl create /etc/xen/domU.cfg
+ ${dom0_check}
+-" > etc/local.d/xen.start
++" >> etc/local.d/xen.start
++else
++    echo "${dom0_check}" >> etc/local.d/xen.start
++fi
++
+ chmod +x etc/local.d/xen.start
+ echo "$domU_config" > etc/xen/domU.cfg
+ 
+@@ -201,7 +211,9 @@ echo "XENCONSOLED_TRACE=all" >> etc/default/xencommons
+ echo "QEMU_XEN=/bin/false" >> etc/default/xencommons
+ mkdir -p var/log/xen/console
+ cp ../binaries/bzImage boot/vmlinuz
+-cp ../binaries/domU-rootfs.cpio.gz boot/initrd-domU
++if [ -n "$domU_check" ]; then
++    cp ../binaries/domU-rootfs.cpio.gz boot/initrd-domU
++fi
+ find . | fakeroot -i ../fakeroot-save cpio -H newc -o | gzip > ../binaries/dom0-rootfs.cpio.gz
+ cd ..
+ 
 -- 
 git-series 0.9.1
 
