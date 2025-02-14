@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FDC2A357E8
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 08:31:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.888411.1297772 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 911C4A357F6
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 08:35:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.888421.1297783 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiq9v-00080K-11; Fri, 14 Feb 2025 07:30:47 +0000
+	id 1tiqEJ-00009H-Ii; Fri, 14 Feb 2025 07:35:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 888411.1297772; Fri, 14 Feb 2025 07:30:46 +0000
+Received: by outflank-mailman (output) from mailman id 888421.1297783; Fri, 14 Feb 2025 07:35:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiq9u-0007xn-UQ; Fri, 14 Feb 2025 07:30:46 +0000
-Received: by outflank-mailman (input) for mailman id 888411;
- Fri, 14 Feb 2025 07:30:45 +0000
+	id 1tiqEJ-00006H-FA; Fri, 14 Feb 2025 07:35:19 +0000
+Received: by outflank-mailman (input) for mailman id 888421;
+ Fri, 14 Feb 2025 07:35:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PTsb=VF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tiq9t-0007xg-Bi
- for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 07:30:45 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1tiqEH-00006B-QT
+ for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 07:35:17 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 99a09a00-eaa5-11ef-9aa4-95dc52dad729;
- Fri, 14 Feb 2025 08:30:44 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-ab7c14b880dso369791466b.1
- for <xen-devel@lists.xenproject.org>; Thu, 13 Feb 2025 23:30:44 -0800 (PST)
+ id 3c2e64c3-eaa6-11ef-9aa4-95dc52dad729;
+ Fri, 14 Feb 2025 08:35:16 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-ab7fa1bc957so323669166b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Feb 2025 23:35:16 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aba53280ee4sm285049766b.78.2025.02.13.23.30.43
+ a640c23a62f3a-aba53376ba4sm286225666b.106.2025.02.13.23.35.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Feb 2025 23:30:43 -0800 (PST)
+ Thu, 13 Feb 2025 23:35:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 99a09a00-eaa5-11ef-9aa4-95dc52dad729
+X-Inumbo-ID: 3c2e64c3-eaa6-11ef-9aa4-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739518243; x=1740123043; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739518516; x=1740123316; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4Zao28lBkXvJxk0fI2Vjr62Sq7NctLSbKgwxN7Jtr7Q=;
-        b=AzAzgc1DHKOCZ91QuQuH/lQ+D+bOhmZAJdmEKA04hB+3o3vyqEBx71A+qxXDxbFkNY
-         QkBi7jTltu1hophZUjDSPVHf5VBXaQL6YV+ksc7L8Db1C68ZPuJ5LIjbwU7cjdW/EZyU
-         ePudgNw2BdEnjZIAMGRDp/A5f1R3gu4PLIlCGftBLv869L5kgNjhmXZ7OfxNcT132Vek
-         Y6WKoUp+peIZAu1yHom8BOAMbA8pNnfl4JoGVRQJrM07ygVByRQkmTWw48etmcYALtky
-         /IGX9iiJOo7BzJPyISRwJ57KfoPmKhLaxAg1f8we9GmlVLT5CgpwD3Vza5gUlRZoqw8r
-         tMOg==
+        bh=8PI07fGs6Z5nSIPWBumR8ahBk0npDTIKeDmWfwGTztQ=;
+        b=U1lUPZvctrV34LMmb0oDMBYJHJpJfZWfZpmWnDWnuWx9XGhp+xtTqzjQLNBNV4B5gc
+         dY+UFJASbE2ZkXrG3Wixd1ZfCYnt8Hqraa2XPDjEkNGnhJtxs+v2V1s8rMn+jhN3wafq
+         d/ruYBUNYBHrxi3LQtpdQEmB4J9TKsbDuUrpda5HMEMhpEIkc49k/rSAveBUKIsTgxBN
+         G91SWatC/HXx7tOH2rYZ4pzTNIgzGEKI61wWgZn/8hazva4X9+3kpiAXqG1HTwJBbp3e
+         +uBSyDvqFc0N40OemNt+UoQ9owYw66bTZrg9+Q3RreFURS/+GhAjxgNZKE4bKqZSEOsv
+         pZrA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739518243; x=1740123043;
+        d=1e100.net; s=20230601; t=1739518516; x=1740123316;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4Zao28lBkXvJxk0fI2Vjr62Sq7NctLSbKgwxN7Jtr7Q=;
-        b=fIYBLcpCK1pUgvsIYbhpNbAvPxjbCpyy1iC0WEKRlMa5ze1meotGCvyQtowx976eBD
-         ykA8NjxfyuZXf/T/a0XCQZiHq5TPlSDnTEx7aNW3QHuJlJ4l/lu6bIyDVFgmPD2iDTwf
-         zrPUpZwsMa752loOYTmE1Mrkp7lwTzUSL77fDPM6/tWgxu1gZLNVWMCIeXMvizXxdhO6
-         RTpZ1AG0mty2fYwa8kSsUmzAl2dwM1HdpikQTzMwzqOGr5XkrjIiIlh7bIlDGTG+97qa
-         aG4s+QPtklBWIw0wVkBhnMWA68tI3o9J0Gw2esuFP2Xmn3gy5PhMQAkFuDbNdWogI6yb
-         Yb2A==
-X-Forwarded-Encrypted: i=1; AJvYcCWwLiwItbeNGxKzCpmt5uUDZPfHiTbucIiQaK5HZGs4W6MR0g7h2C0pTzODUlLwNBBmgD5U+2/tG1o=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw1jwomuysqYRJC/qHxMzxZCl/ithwpJncSiOWRAl2hv7NOpMu6
-	Fn6SbP17vAaXoaDirWTVxIDRwkQ16cGNc2wTZBgLa/T7s+pjdCgqM0DHcFfNPQ==
-X-Gm-Gg: ASbGnctzt2LIvOhS1aVk88GVPTsecUeyQdlonFfgDt3CnaclPiy5ASLCOrXUyO16QPQ
-	wAZsqfwDGZj2ZktIQ36rYZzY20aLkox5VTKXS2WgbLCkVFxthQUJWOUdUcnkstMyNNp342o+hrJ
-	m6cS6iJzTgtJHluo08uuoKNoGFuh9hAouKFlbmKzzXNIY4UQre+7xlXnvKQr5DsAuDe5eFhfiH8
-	QU4LXT2Kx4TiBGalJ421lfAOn99yT9B4TaXrWpUCj1HcDMlNj3eYG5ZQoGFaWX9ZQPEOerOibex
-	rgaNwRq7QNxEJmCnhb4b1SkOJ/drrUH2LR9VtvkQiSinBA4NoacKdn2W1V6ULry1ssl+uFYN7Sr
-	n
-X-Google-Smtp-Source: AGHT+IE1p/GhN+49xhzw1Ga0Ig0m/irc6otuTKUpoaGBjdQjriIVRpLwQTR0O2qmwlIXt9JfwhRUOA==
-X-Received: by 2002:a17:907:1c85:b0:aa6:9624:78f1 with SMTP id a640c23a62f3a-ab7f3714978mr1079717966b.9.1739518243487;
-        Thu, 13 Feb 2025 23:30:43 -0800 (PST)
-Message-ID: <e58bfb67-1a6e-46cb-9b5d-435eca5cd842@suse.com>
-Date: Fri, 14 Feb 2025 08:30:41 +0100
+        bh=8PI07fGs6Z5nSIPWBumR8ahBk0npDTIKeDmWfwGTztQ=;
+        b=jdwFc7D9JEQ8ZSI6RYoqYRlIb4kCExiO5DENQlE2JeOC6BP5d+kKuyFroVoJcFW9vZ
+         0rrJytzOHXdKC6HZ8Gb86V4pR4vyq+wLSodKjheisQuXODn+iKImN4l4dBRXmrfWx1Z+
+         2W78wR1gtgkm5Al29mOzK5CuOLxkU3WoenJwAnts3Nolw6kHUpqx83v0bBipZnCfmZP6
+         yyaFTE7WJjLbItl4c2wgyeSxr9kGnicep+yM/KqkTwyyj62DzTy7vCxSeOV0W7UVniTr
+         MEVkGhctmSh81U/bdATkcVu5lbh/tqF7xtVl/Hv2uxrY1wqKlxbcapdtTgwr/AsEm3Ca
+         SGdg==
+X-Gm-Message-State: AOJu0YyJKxbzeIYVyIcqAkuQ3GXUsbbk7UYK3qM+rkfc5sgCi+xNODI9
+	6j6z/16UgAzCrwdmG+KlGrlOs8Ivt3sVfDqr/Mt+63BSJo5YrNTlC9VAclPa3m/E/alsmU3vNgE
+	=
+X-Gm-Gg: ASbGncvDWP6tIdsiyWeAIh1nWPx5K/gRgvQGfuWfjqPcbBGq/10cT+aH/SyrisN0iYR
+	rM5bNFK+GkXXWmBMiuq5EaAlll3cCM2QCdAMP76brklXbAVRS6a3QuCerdJV8e9UUig+SpAcnqb
+	hpZdZOZ5Pog5PLKez1UAsaF7fD8TMflNWViCFHY+JVAWloHgAk+l7eUI+RvOylV/bKIYXYZt1t7
+	iBFPURwdRJOYM9ntqOgAIb/fF129hsL8AisBk4brpY6XaSLUqGChVNkTmRBHxha2C1bAojhVGFm
+	hUoLA/d4Ia5+KMRXQfrzLZFQw1Tvl8SLMevaRJ0ocqRLFMWa7/SxAMKJ1WoXw/Pb5YPQdZqq4cO
+	a
+X-Google-Smtp-Source: AGHT+IEp3BaTOi3eqkV9+FOM+eSS15oM6HYIPsGyyDy8fuG4iwhkuH5W527CHd5XfiumJJOfKIyw5Q==
+X-Received: by 2002:a17:907:d24:b0:aa6:9198:75a2 with SMTP id a640c23a62f3a-aba5017f149mr609722166b.44.1739518516237;
+        Thu, 13 Feb 2025 23:35:16 -0800 (PST)
+Message-ID: <ba93bd05-4cf6-405a-9e07-29d681076bdd@suse.com>
+Date: Fri, 14 Feb 2025 08:35:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: blowfish failure to compile
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel <xen-devel@lists.xenproject.org>
-References: <65338578-dd6c-4f01-807e-da389cc60cb8@citrix.com>
- <a2ef5618-b719-4c7b-ac6c-6861ba146ce2@suse.com>
- <a8df54e6-1fef-4eff-9846-d24bcfdd5bd4@citrix.com>
+Subject: Re: [PATCH v8] vpci: Add resizable bar support
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, "Huang, Ray"
+ <Ray.Huang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <20250211022257.1690366-1-Jiqian.Chen@amd.com>
+ <Z6sWnK1BYxArBq--@macbook.local>
+ <BL1PR12MB5849CF146DFA8BD2761D1F4EE7FE2@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,124 +122,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a8df54e6-1fef-4eff-9846-d24bcfdd5bd4@citrix.com>
+In-Reply-To: <BL1PR12MB5849CF146DFA8BD2761D1F4EE7FE2@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 13.02.2025 19:32, Andrew Cooper wrote:
-> On 13/02/2025 10:06 am, Jan Beulich wrote:
->> On 12.02.2025 18:20, Andrew Cooper wrote:
->>> Elsewhere in the tree we fix this with -ffreestanding -nostdinc
->>> -I$(XEN_ROOT)/tools/firmware/include but that isn't an option for
->>> test_x86_emulator in general which is hosted.
+On 14.02.2025 04:32, Chen, Jiqian wrote:
+> On 2025/2/11 17:21, Roger Pau Monné wrote:
+>> On Tue, Feb 11, 2025 at 10:22:57AM +0800, Jiqian Chen wrote:
+>>> Some devices, like AMDGPU, support resizable bar capability,
+>>> but vpci of Xen doesn't support this feature, so they fail
+>>> to resize bars and then cause probing failure.
 >>>
->>> However, it is an option for blowfish.c specifically which is
->>> freestanding, and for which we build a 32bit form in an otherwise 64bit
->>> build.
+>>> According to PCIe spec, each bar that supports resizing has
+>>> two registers, PCI_REBAR_CAP and PCI_REBAR_CTRL. So, add
+>>> handlers to support resizing the size of BARs.
 >>>
->>> Therefore, it stands to reason that:
+>>> Note that Xen will only trap PCI_REBAR_CTRL, as PCI_REBAR_CAP
+>>> is read-only register and the hardware domain already gets
+>>> access to it without needing any setup.
 >>>
->>> diff --git a/tools/tests/x86_emulator/Makefile
->>> b/tools/tests/x86_emulator/Makefile
->>> index 294d27ebaa08..e46fd8becb96 100644
->>> --- a/tools/tests/x86_emulator/Makefile
->>> +++ b/tools/tests/x86_emulator/Makefile
->>> @@ -33,8 +33,8 @@ HOSTCFLAGS += -m32 -I..
->>>  
->>>  else
->>>  
->>> -blowfish-cflags := ""
->>> -blowfish-cflags-x86_32 := "-mno-accumulate-outgoing-args -Dstatic="
->>> +blowfish-cflags := "-ffreestanding -nostdinc
->>> -I$(XEN_ROOT)/tools/firmware/include "
->>> +blowfish-cflags-x86_32 := "$(blowfish-cflags)
->>> -mno-accumulate-outgoing-args -Dstatic="
->> What this does is request the shared (between 32- and 64-bit)) flavor to
->> be built differently, with the options "-ffreestanding -nostdinc
->> -I$(XEN_ROOT)/tools/firmware/include". And then the (kind of) nested use
->> of double quotes in blowfish-cflags-x86_32 ends up asking for several
->> 32-bit flavors: One with -ffreestanding, one with -nostdinc, one with
->> -I$(XEN_ROOT)/tools/firmware/include (which is what causes the
->> strangeness you saw), and the pre-existing one with
->> "-mno-accumulate-outgoing-args -Dstatic=".
+>>> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
 >>
->> Every set of options grouped together by double quotes (or any unquoted
->> option) designates a flavor (while the quotation isn't meaningful to
->> make aiui, its use is in a shell construct, where those quotes play
->> their usual role). That is,
->>
->> blowfish-cflags := ""
->>
->> designates a flavor without any special options. What I understand you
->> want, though, is to have these flags passed to all of the blowfish
->> flavors.
->>
->> What complicates things slightly is that the first of the options names
->> the flavor (i.e. prior to your change, but with my APX changes in place,
->> we have
->>
->> blowfish_x86_32[]
->> blowfish_x86_32_mno_accumulate_outgoing_args[]
->> blowfish_x86_64[]
->> blowfish_x86_64_DREX2[]
->> blowfish_x86_64_mapxf[]
->>
->> resulting from
->>
->> blowfish-cflags := ""
->> blowfish-cflags-x86_32 := "-mno-accumulate-outgoing-args -Dstatic="
->> blowfish-cflags-x86_64 := "-DREX2 -Dstatic=" "-mapxf -Dstatic="
->>
->> . I think you can see now how the compiler ends up choking on
->>
->> blowfish_x86_32_I/local/xen.spec/scm/tools/tests/x86_emulator/../../../tools/firmware/include[]
->>
->> .) Surely we could accommodate for the added options by changing the
->> references from test_x86_emulator.c, but maybe there's a better way
->> (and also potentially useful for other test blobs going forward),
->> modifying the .h generator rule(s):
->>
->> 		$(MAKE) -f testcase.mk TESTCASE=$* XEN_TARGET_ARCH=$(arch) $*-cflags="$$cflags $($*-cflags-common)" all; \
->>
->> and then the needed addition simply being
->>
->> blowfish-cflags-common := -ffreestanding -nostdinc -I$(XEN_ROOT)/tools/firmware/include
->>
->> Entirely untested, though, for now.
->>
->> However, further: The freestanding-ness does apply to all of the test
->> blobs, doesn't it? Why don't we alter
->>
->> CFLAGS += -fno-builtin -g0 $($(TESTCASE)-cflags) $(CFLAGS-VSZ)
->>
->> in testcase.mk to become
->>
->> CFLAGS += -ffreestanding -nostdinc -I$(XEN_ROOT)/tools/firmware/include
->> CFLAGS += -g0 $($(TESTCASE)-cflags) $(CFLAGS-VSZ)
->>
->> (which doesn't appear to become dependent upon anything we don't already
->> have available in this file, i.e. in particular $(XEN_ROOT) is already
->> used elsewhere), seeing that -ffreestanding implies -fno-builtin?
-> 
-> -ffreestanding seems fine.
-> 
-> And while -nostdinc -I... works for the 32bit builds, they break the
-> 64bit builds.
-> 
->> In file included from blowfish.c:18:
->> /builddir/build/BUILD/xen-4.20.0/tools/tests/x86_emulator/../../../tools/firmware/include/stdint.h:5:2:
->> error: #error "32bit only header"
->>     5 | #error "32bit only header"
->>       |  ^~~~~
->> make[6]: *** [testcase.mk:16: blowfish.bin] Error 1
-> 
-> which is because we've only provided half a stdint.h
-> 
-> I think that means we only want the -nostdinc -I... in the cross-build
-> case, which I guess means searching CFLAGS for `-m32`.
+>> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+> Thank you!
+> May I know whether this can be merged in Xen version 4.20?
 
-This or make the 64-bit case work in tools/firmware/include/stdint.h.
-At some point that may end up being necessary anyway.
+That's a question Oleksii would have to answer. My take is that it's (far)
+too late in the cycle for a feature addition.
 
 Jan
 
