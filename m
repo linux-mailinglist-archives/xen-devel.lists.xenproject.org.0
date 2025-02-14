@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24FEAA357B3
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 08:17:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.888377.1297742 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33655A357B9
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 08:18:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.888390.1297752 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tipvW-0003qw-9L; Fri, 14 Feb 2025 07:15:54 +0000
+	id 1tipxd-0004RD-O8; Fri, 14 Feb 2025 07:18:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 888377.1297742; Fri, 14 Feb 2025 07:15:54 +0000
+Received: by outflank-mailman (output) from mailman id 888390.1297752; Fri, 14 Feb 2025 07:18:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tipvW-0003oR-6A; Fri, 14 Feb 2025 07:15:54 +0000
-Received: by outflank-mailman (input) for mailman id 888377;
- Fri, 14 Feb 2025 07:15:52 +0000
+	id 1tipxd-0004Oe-LL; Fri, 14 Feb 2025 07:18:05 +0000
+Received: by outflank-mailman (input) for mailman id 888390;
+ Fri, 14 Feb 2025 07:18:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PTsb=VF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tipvU-0003oK-IO
- for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 07:15:52 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ id 1tipxc-0004OY-6s
+ for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 07:18:04 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 855775eb-eaa3-11ef-9aa4-95dc52dad729;
- Fri, 14 Feb 2025 08:15:51 +0100 (CET)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5de594e2555so2696680a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 13 Feb 2025 23:15:51 -0800 (PST)
+ id d421ab1e-eaa3-11ef-9aa4-95dc52dad729;
+ Fri, 14 Feb 2025 08:18:03 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-ab7f9d87b96so263270866b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Feb 2025 23:18:03 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5dece270cbcsm2546241a12.49.2025.02.13.23.15.49
+ a640c23a62f3a-aba530a34edsm285762066b.0.2025.02.13.23.18.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Feb 2025 23:15:49 -0800 (PST)
+ Thu, 13 Feb 2025 23:18:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 855775eb-eaa3-11ef-9aa4-95dc52dad729
+X-Inumbo-ID: d421ab1e-eaa3-11ef-9aa4-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739517350; x=1740122150; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739517483; x=1740122283; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=uxGqufVzJPtAlS6cZ1BTFa9hSMaEMdvIrtI+divWp+o=;
-        b=EP37eMhexzReSFDB9/t4WavlFrRbR7ZJCJHQ+ZObIJhAqY7T78/1OsuX78O+v3dZFP
-         Kw3NccvHbtPBBy02y+Whvf96XDhUxrC8sBqhag7H14LQcgIHwOSYCBClsfyhHYH6LoUh
-         uD1gxlQaVevK7DJoEQXAxh2NG3mW9oBwV3DGk6KK5ekmUawo8lTgXvjuSQlGNj7s0+E7
-         bPrkjkXIYE4iu1xvVxiZdiY5vKNz6dhbHuCGkqhGdG7d1uSRPJD80GRGLfMaBfpDxaml
-         7ePV2yHKGn1KS4gGKHkraYN2yLR0Y65QELFmUs4YHTjsniHBd8bBK7dlztcG+kGzNPPJ
-         Dzdw==
+        bh=FcfnmALDWBSdRTH0D3LIJY3zsVXIKafpZ+hgDxWmemY=;
+        b=OGqCtIu0dWaSBpDQzkf7vtGBewpG17Mju/xPt00BewNojiz6foiU2Fes3z0c5p76U/
+         x9b+2s6vj44bkRDziG69t91yMv2nnheE2AIFkoI2V9IdBMPkha0mR/5JCQkUsaV1Yh+W
+         auSkgQ4TwCgxt+adHKa86HuCOMibRt2BEqqo8CB4MnK7isoNBc1sLDo0TPmbxoJurUoR
+         VF9RyeOIxaE/wP6Y/RZ7sLjKXw1PuisIlKQhZQZgmxX+HZ5C8kj/A+1AfN9aCH/6qBLG
+         kMGzDe8T05gVRIdd6a4dVMkp86y/BK/iZgZKAg8VBT1wkcf3jk3E3VcCF/LQ2DlCfLtO
+         19gQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739517350; x=1740122150;
+        d=1e100.net; s=20230601; t=1739517483; x=1740122283;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uxGqufVzJPtAlS6cZ1BTFa9hSMaEMdvIrtI+divWp+o=;
-        b=cZyIS/lcSfQJ8fuw6rAZdikgaoybDjOI34r6lKj0bpgAimSv47BPH44bGcHMXDJJ3n
-         RCmM+/Vgh/D2moQeUKAphuEWturbwH8mv9KElGS49JVQzsiqwVvQJ9xXUL2mtE0wW3t5
-         3qi84FpUb9wRAhk9+vAX00s017FRw9deKYsO7MRk/79lvxKTEprskqo1PS3D+2rnR97J
-         cp6ua0EJkpwzK9/md0PLAXUPeKr/9lZ3aVIoCdrVEe8faNse1DDmQXMJieP5eRRhiAL/
-         R6KD0UW7yu7MoIUillhcuuvENywGeGG0WW6YYUO9wlNUQyF9M4pXnJNm37cY6vI84tj2
-         JG2A==
-X-Forwarded-Encrypted: i=1; AJvYcCUf3Wg3N7+VTAXc3qi0+J7fHKAfJRZ9L6BVosonTW6+GFCXgU9lxe/3veUMQajTdJKIswn2BX/ABKI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwpAhsRYmny++iB6QTPN3s6uknjtl13bBx+7GZTyseSWKjk/V1n
-	RET2PlOTmrMBnCuMoTrUrfQ81fkff+joQVuMN4El1pWDumQAAzLODt6b0gcvyg==
-X-Gm-Gg: ASbGncvaEfqjW9mHOhWizFMrdU4I3Xy9GUaVpm4LRaX5vV16hpOhwp30tDqxHL9SaHG
-	cGPmt3ur84VCjVloZApwwcvmnvZ/jV/jjYYXVLsde6SthS9IgghCmdoRCApHu+kOPnZTqIIkxXl
-	SRWgD4EZeZdluYOc8t+RA9U1KV01eCoFt22pub1sA3cKZzt/s2RgDBW906udK2x6isGNhDeuI20
-	LS9x6jA0lhtwv65uSf3FcyrZ4+6wHAd0IDuLiItuWfbY45d7vWRq9SbFysXz6Wj9/FZJhKPF4XU
-	b4RLTgIau6WJQffO4bkAC4cc5p7b1wJfKUSM04F1XyGDXvV6he9+KMINylJh/B3HcjyltBs1RTC
-	Z
-X-Google-Smtp-Source: AGHT+IGTy6VjcPvudUW+ka2Xr7hTxyVBs1f+TVfUIBl3qxltW99mcfnVX8aLghcHct+ptNIauOrmbg==
-X-Received: by 2002:a17:907:94c5:b0:ab7:c6f4:9529 with SMTP id a640c23a62f3a-ab7f33781f4mr1163296966b.7.1739517349883;
-        Thu, 13 Feb 2025 23:15:49 -0800 (PST)
-Message-ID: <f66556b9-1777-44c6-a086-320f65454021@suse.com>
-Date: Fri, 14 Feb 2025 08:15:48 +0100
+        bh=FcfnmALDWBSdRTH0D3LIJY3zsVXIKafpZ+hgDxWmemY=;
+        b=ciqgMqwxr4lB9XQSt4MDqE//gY//D2TcCTso4nYYdlwwnRbIp3ohqsefT27JQHR/Lm
+         OMZEJuVZmXFztPZ1lbFE3RyD379y8beOfjq0NXauaRJagzkpWDSWnMFCmh/IlPoikO39
+         ZAcjNC/jtohupANdnGBfr3C7ZvosUlSWj79ic8/ttEAHnnmAisymLHCLs1eDUU8URocY
+         QAMy6u2uixBQm1/JoaQSGcTtJGBgeWJHH/zCCqQYOT3dxjOGJkAiHwog8cbl1PMl/ZFI
+         CRjyG3iSh6Znx0Q/iPndNEXvzJ8p4eysZ8Cs1HY0P6CegvnNQN1zHKvGPbfUsR98WgeF
+         JWMA==
+X-Forwarded-Encrypted: i=1; AJvYcCVXy8s4JEmqDxZ27xOhjz86Es5xcbpVNGZccluDIeHrC8lbGoGoEdHEPbNRJ7ERG6s5VxtRVbqY2Yw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxs6nqUqfAvsG1/HJpTHQVR0Ey0TUvXWE4W6R/bR06qkYGm8Ei9
+	gO2T/nXL1jcSkVDwibU7Uc4BjxAUBcTCqauXvGxvPqmuemPN1gwBZwLEBTEH4w==
+X-Gm-Gg: ASbGncte0AZmPa/iOpULX3jdnEXA0G/0oF9kjLii/6qEbbZ0Gu6tgxI4m3E4xrEXuI9
+	J6JhKll7rgxUj492DoIHJrNqNiuTyAxr/mi7YB9KOMSc721oP9IP3pIP8o4v6PopjHopoZDesxN
+	ru9NGIxLLnU8vwyIg19R4+REXhmgg8lgppF7rznw7IVMPqU5nA6Qzpbg9XBjvr2T3n9DF+IqPEV
+	Cw9OTtMww46tVmAEAdxPXcIGz6RzH9Dzn/nEnaAdmnCsXc3Nb1ARZ2Rjt1uND38mHGrLEENc/UH
+	fgq5stseWk4sei+f3mu0WmN1PuNfUJykrWAJQNkJkPLK4Gb2I0lFx4i2dYRahboWMZskTIzV78d
+	S
+X-Google-Smtp-Source: AGHT+IHinrEAIeEFbj0vTx3BjI+wcHYQSF448LVo5JCvBZ3x7wAkTHXGz2PereM8h3LMJ74yIl58rg==
+X-Received: by 2002:a17:906:ee87:b0:ab7:d77b:43a3 with SMTP id a640c23a62f3a-ab7f33f6df6mr908224766b.32.1739517482653;
+        Thu, 13 Feb 2025 23:18:02 -0800 (PST)
+Message-ID: <c82e1088-f789-43d4-a56e-72d0d1d1c170@suse.com>
+Date: Fri, 14 Feb 2025 08:18:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG?] Wrong RC reported during 'make install'
+Subject: Re: struct mctelem_cookie missing definition
 To: Stefano Stabellini <sstabellini@kernel.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>, committers@xenproject.org,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <69a52464-4e2e-43fc-9792-46d7a9614a80@gmail.com>
- <alpine.DEB.2.22.394.2502121347430.619090@ubuntu-linux-20-04-desktop>
- <4d53aa6e-640d-4b49-9e45-0684fb263833@citrix.com>
- <a92378ca-ba24-4332-897c-9cb072fdebc8@suse.com>
- <alpine.DEB.2.22.394.2502131103300.619090@ubuntu-linux-20-04-desktop>
+ xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <alpine.DEB.2.22.394.2502121721490.619090@ubuntu-linux-20-04-desktop>
+ <1823d604-aa29-4828-a954-b8a08fbdbda7@citrix.com>
+ <alpine.DEB.2.22.394.2502121738440.619090@ubuntu-linux-20-04-desktop>
+ <alpine.DEB.2.22.394.2502121800190.619090@ubuntu-linux-20-04-desktop>
+ <eccc2a63-9678-4675-8a7b-7c8e94206cb8@suse.com>
+ <alpine.DEB.2.22.394.2502131326440.619090@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,75 +123,82 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2502131103300.619090@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2502131326440.619090@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 13.02.2025 20:09, Stefano Stabellini wrote:
+On 13.02.2025 22:47, Stefano Stabellini wrote:
 > On Thu, 13 Feb 2025, Jan Beulich wrote:
->> On 13.02.2025 01:51, Andrew Cooper wrote:
->>> On 12/02/2025 9:52 pm, Stefano Stabellini wrote:
->>>> On Wed, 12 Feb 2025, Oleksii Kurochko wrote:
->>>>> Hello everyone,
+>> On 13.02.2025 03:00, Stefano Stabellini wrote:
+>>> On Wed, 12 Feb 2025, Stefano Stabellini wrote:
+>>>> On Thu, 13 Feb 2025, Andrew Cooper wrote:
+>>>>> On 13/02/2025 1:25 am, Stefano Stabellini wrote:
+>>>>>> Hi all,
+>>>>>>
+>>>>>> I am looking through the few remaining MISRA violations that we have
+>>>>>> left.  One of them is R11.2:
+>>>>>>
+>>>>>> https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/hardware/xen/ECLAIR_normal/staging/X86_64/9118578464/PROJECT.ecd;/by_service/MC3A2.R11.2.html#{%22select%22:true,%22selection%22:{%22hiddenAreaKinds%22:[],%22hiddenSubareaKinds%22:[],%22show%22:false,%22selector%22:{%22enabled%22:true,%22negated%22:true,%22kind%22:0,%22domain%22:%22kind%22,%22inputs%22:[{%22enabled%22:true,%22text%22:%22violation%22}]}}}
+>>>>>>
+>>>>>> Specifically, mctelem_cookie_t is a pointer to incomplete type and
+>>>>>> therefore COOKIE2MCTE triggers a "conversion between a pointer to an
+>>>>>> incomplete type and any other type".
+>>>>>>
+>>>>>> mctelem_cookie_t is defined as:
+>>>>>>
+>>>>>> typedef struct mctelem_cookie *mctelem_cookie_t;
+>>>>>>
+>>>>>> I am looking through the code and I genuinely cannot find the definition
+>>>>>> of struct mctelem_cookie.
+>>>>>>
+>>>>>> If mctelem_cookie_t is only used as a pointer, wouldn't it make more
+>>>>>> sense to do:
+>>>>>>
+>>>>>> typedef struct mctelem_ent *mctelem_cookie_t;
+>>>>>>
+>>>>>> ?
+>>>>>>
+>>>>>> What am I missing?
 >>>>>
->>>>> During the installation of Xen on an ARM server machine from the source code,
->>>>> I found that the wrong release candidate (rc) is being used:
->>>>>   $ make install  
->>>>>     install -m0644 -p xen //boot/xen-4.20-rc  
->>>>>     install: cannot remove ‘//boot/xen-4.20-rc’: Permission denied  
->>>>>     make[1]: *** [Makefile:507: _install] Error 1
->>>>> My expectation is that it should be xen-4.20-rc4.
+>>>>> Nothing.  Or perhaps the twisted thinking of the original author.
 >>>>>
->>>>> I'm not sure if this behavior is intentional or if users are expected to set
->>>>> the XEN_VENDORVERSION variable manually to ensure the correct release
->>>>> candidate number.
+>>>>> It is genuinely a pointer type (== known size) which you can't deference
+>>>>> (because there is no definition), and can only operate on by casting to
+>>>>> an integer.  Except the code also requires it to be a uint64_t which is
+>>>>> why there's some fun disabling of relevant hypercalls for compat guests.
 >>>>>
->>>>> In my opinion, we should set the proper release candidate number after
->>>>> "xen-4.20-rc" automatically.
->>>>>
->>>>> Does anyone have any thoughts or suggestions on how to resolve this issue?
->>>> Hi Oleksii,
+>>>>> If someone could find the time to file it in /dev/null and replace it
+>>>>> with literally anything else, I'd be very thankful.
 >>>>
->>>> I did a quick test and I see exactly the same on x86 as well. This patch
->>>> fixes it, but then it would need someone to update the RC number in
->>>> xen/Makefile every time a new RC is made.
->>>>
->>>> ---
->>>> xen: add RC version number to xen filename
->>>>
->>>> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+>>>> Are you OK with typedefing mctelem_cookie_t to uint64_t instead?
 >>>
->>> This is a direct consequence of the request to keep XEN_EXTRAVERSION at
->>> "-rc" throughout the release cycle.
+>>> I confirm that the following resolves the MISRA violations
 >>>
->>> I'm having to manually edit that simply to create the tarballs
->>> correctly, which in turn means that the tarball isn't a byte-for-byte
->>> identical `git archive` of the tag it purports to be.
+>>> diff --git a/xen/arch/x86/cpu/mcheck/mctelem.h b/xen/arch/x86/cpu/mcheck/mctelem.h
+>>> index f4c5ff848d..2ccd490e5d 100644
+>>> --- a/xen/arch/x86/cpu/mcheck/mctelem.h
+>>> +++ b/xen/arch/x86/cpu/mcheck/mctelem.h
+>>> @@ -52,7 +52,7 @@
+>>>   * the element from the processing list.
+>>>   */
+>>>  
+>>> -typedef struct mctelem_cookie *mctelem_cookie_t;
+>>> +typedef uint64_t *mctelem_cookie_t;
 >>
->> Just for my understanding - may I ask why this editing is necessary?
->> Other release technicians never mentioned the (indeed undesirable)
->> need to do so.
+>> Yet that makes it possible to de-reference the pointer. Which, as Andrew
+>> explained, is intended to be impossible. If this could be properly
+>> replaced (not exactly what Andrew indicated by "file it in /dev/null"),
+>> fine. Truly purging the code (i.e. as Andrew suggests) may still be an
+>> option, with appropriate justification. But simply adjusting the type
+>> and then moving on is too little, imo. Even if you used void * (to make
+>> de-referencing impossible) I'd view it as largely papering over an issue;
+>> then converting to other pointers (without explicit cast, and hence
+>> without making apparent the badness of doing so) would become possible.
 > 
-> This is not an answer to Jan's question, more me highlighting
-> priorities.
-> 
-> While having the appropriate RC version in the Xen name during the RC
-> phase of the release process would be nice, I do not believe it is
-> mandatory. We do need it in the official release tarballs though.
-> 
-> So the most important consideration for me is making the release
-> technician's job easier and less error-prone. Therefore, I believe we
-> should follow Andrew and Julien's recommendation on this.
-> 
-> Andrew, just to be clear, are you recommending to go with a patch
-> similar to the one I posted, and then update the XEN_VENDORVERSION
-> with a new commit every time there is a new RC? Or are you suggesting
-> something else? I wasn't certain reading your reply.
+> What about converting to uintptr_t (not a pointer)?
 
-Just one point here: I don't think we ought to be playing with
-XEN_VENDORVERSION. If we switch, we ought to switch back to how it
-was long ago - the RC number being part of XEN_EXTRAVERSION.
-XEN_VENDORVERSION really should be left to vendors.
+That'll lose type checking the compiler does. A type-safe wrapper struct
+(like we have for mfn_t and alike in debug builds) may do.
 
 Jan
 
