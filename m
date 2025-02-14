@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FD0DA3679D
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 22:37:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.889112.1298332 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67B2DA368E4
+	for <lists+xen-devel@lfdr.de>; Sat, 15 Feb 2025 00:05:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.889128.1298342 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tj3NR-0000mS-5e; Fri, 14 Feb 2025 21:37:37 +0000
+	id 1tj4jO-0004Bj-0G; Fri, 14 Feb 2025 23:04:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 889112.1298332; Fri, 14 Feb 2025 21:37:37 +0000
+Received: by outflank-mailman (output) from mailman id 889128.1298342; Fri, 14 Feb 2025 23:04:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tj3NR-0000js-2i; Fri, 14 Feb 2025 21:37:37 +0000
-Received: by outflank-mailman (input) for mailman id 889112;
- Fri, 14 Feb 2025 21:37:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tj4jN-00049H-T4; Fri, 14 Feb 2025 23:04:21 +0000
+Received: by outflank-mailman (input) for mailman id 889128;
+ Fri, 14 Feb 2025 23:04:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=83Ve=VF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tj3NP-0000jm-TW
- for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 21:37:35 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e60a553c-eb1b-11ef-9aa4-95dc52dad729;
- Fri, 14 Feb 2025 22:37:34 +0100 (CET)
+ id 1tj4jM-00048v-Ar
+ for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 23:04:20 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 02b1945b-eb28-11ef-9896-31a8f345e629;
+ Sat, 15 Feb 2025 00:04:17 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 7CAA65C5ADD;
- Fri, 14 Feb 2025 21:36:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16AF6C4CED1;
- Fri, 14 Feb 2025 21:37:30 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 21977A41DDC;
+ Fri, 14 Feb 2025 23:02:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FEB0C4CEE2;
+ Fri, 14 Feb 2025 23:04:13 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,132 +41,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e60a553c-eb1b-11ef-9aa4-95dc52dad729
+X-Inumbo-ID: 02b1945b-eb28-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739569051;
-	bh=d4YvmSmJTJlzXxhbmrNdspDmut7IkB9sy+vtVLBKyTA=;
+	s=k20201202; t=1739574254;
+	bh=sWlm91Ip/2lWKBEjXE+scOhVRsme0hZnZEEz5DNnNEc=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=iPudCJvdPh8ogNmIpjjPYCK0eMTppsjVN5ul0Z72tv67msw9FBsvZmn9FbOFi3BFG
-	 0b4Pv9+AJQmT5FJZAPWh+bonOy9yXp4zgPOHDfDmgI6AKt4nB6W5l7V2wE+0Btmvo9
-	 cfcaL1SeZAZ+7jFQFTdixWbA4JeWikSvHrYLm5wOCqkWpZWRnV030bnRxi7SwkP1gu
-	 em/2XdAyZNXH+Opgp+8V5pYlCbd8Y5n5t2zpqRR5Z+n1vVmK56rF+VPG6j+W13LfY5
-	 zqa3zbD3B3QTr3chiaDWcUHz9U01sjpRrIe7cU6yWbj5LaCY/snrpXSVyj8bAwXBuI
-	 ZDP7bhedfp7xg==
-Date: Fri, 14 Feb 2025 13:37:29 -0800 (PST)
+	b=f1MxI9jNN3BgtnezkwguNiatrHiiEH7BPsvCg0mPGegcN1LQyWrDrFGAVfMyOioTy
+	 AyYKvJBiMnjd8rXSRRupXOwJfel0IGcf4QHWx/2kbpU8xEZF1r/beqCriIyP/+6qG7
+	 mr692kpuFQCZ81UUxqrONbOIGdMCYwmLu35h9s8RM5mSoyhDm+b+EcwpLSpd2wvBlw
+	 uUGDQU1C8gKEXCROSUhkbJ5oIC1k9nRfHF1ft/t+8pmnt9TCNh6loNocbAywWTlF+o
+	 X9N2c0O01Uc6F9qlo4HmIBCjqVfhAc8EpfKB6l9hqDPwX8ee8ro9f9xXqwHs6CYXNb
+	 zBY3fbVOtqojg==
+Date: Fri, 14 Feb 2025 15:04:11 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Stefano Stabellini <sstabellini@kernel.org>
-cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-    xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [PATCH v1 3/3] automation: allow selecting individual jobs via
- CI variables
-In-Reply-To: <alpine.DEB.2.22.394.2502141325030.3858257@ubuntu-linux-20-04-desktop>
-Message-ID: <alpine.DEB.2.22.394.2502141336320.3858257@ubuntu-linux-20-04-desktop>
-References: <cover.068c7421003863de7fca1cbe6aed2af000f061a7.1739409822.git-series.marmarek@invisiblethingslab.com> <90a256242870d1772bade171a7171d4e889f4e02.1739409822.git-series.marmarek@invisiblethingslab.com> <alpine.DEB.2.22.394.2502131727580.619090@ubuntu-linux-20-04-desktop>
- <Z66rSEWUZT2OXWBU@mail-itl> <alpine.DEB.2.22.394.2502141325030.3858257@ubuntu-linux-20-04-desktop>
+To: Jan Beulich <jbeulich@suse.com>
+cc: Nicola Vetrini <nicola.vetrini@bugseng.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: struct mctelem_cookie missing definition
+In-Reply-To: <69a70bfa-203c-44f9-99ea-60a674e36442@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2502141245150.3858257@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2502121721490.619090@ubuntu-linux-20-04-desktop> <1823d604-aa29-4828-a954-b8a08fbdbda7@citrix.com> <alpine.DEB.2.22.394.2502121738440.619090@ubuntu-linux-20-04-desktop> <alpine.DEB.2.22.394.2502121800190.619090@ubuntu-linux-20-04-desktop>
+ <eccc2a63-9678-4675-8a7b-7c8e94206cb8@suse.com> <alpine.DEB.2.22.394.2502131326440.619090@ubuntu-linux-20-04-desktop> <alpine.DEB.2.22.394.2502131804510.619090@ubuntu-linux-20-04-desktop> <3c883b4587d750c2723637a037fb46b4@bugseng.com>
+ <69a70bfa-203c-44f9-99ea-60a674e36442@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-38153445-1739569051=:3858257"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Fri, 14 Feb 2025, Jan Beulich wrote:
+> > Would deviating macros "COOKIE2MCTE" and "MCTE2COOKIE" work?
+> 
+> If it did, COOKIE2ID and ID2COOKIE would likely need including as well.
 
---8323329-38153445-1739569051=:3858257
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+I wrote this patch. Nicola, can you please check the changes to
+deviations.ecl, this is the first time I try to write the deviation
+myself :-)
 
-On Fri, 14 Feb 2025, Stefano Stabellini wrote:
-> On Fri, 14 Feb 2025, Marek Marczykowski-Górecki wrote:
-> > On Thu, Feb 13, 2025 at 05:36:47PM -0800, Stefano Stabellini wrote:
-> > > On Thu, 13 Feb 2025, Marek Marczykowski-Górecki wrote:
-> > > > Debugging sometimes involves running specific jobs on different
-> > > > versions. It's useful to easily avoid running all of the not interesting
-> > > > ones (for given case) to save both time and CI resources. Doing so used
-> > > > to require changing the yaml files, usually in several places.
-> > > > Ease this step by adding SELECTED_JOBS_ONLY variable that takes a regex.
-> > > > Note that one needs to satisfy job dependencies on their own (for
-> > > > example if a test job needs a build job, that specific build job
-> > > > needs to be included too).
-> > > > 
-> > > > The variable can be specified via Gitlab web UI when scheduling a
-> > > > pipeline, but it can be also set when doing git push directly:
-> > > > 
-> > > >     git push -o ci.variable=SELECTED_JOBS_ONLY="/job1|job2/"
-> > > > 
-> > > > More details at https://docs.gitlab.co.jp/ee/user/project/push_options.html
-> > > > 
-> > > > The variable needs to include regex for selecting jobs, including
-> > > > enclosing slashes.
-> > > > A coma/space separated list of jobs to select would be friendlier UX,
-> > > > but unfortunately that is not supported:
-> > > > https://gitlab.com/gitlab-org/gitlab/-/issues/209904 (note the proposed
-> > > > workaround doesn't work for job-level CI_JOB_NAME).
-> > > > On the other hand, the regex is more flexible (one can select for
-> > > > example all arm32 jobs).
-> > > 
-> > > I was trying to find workarounds so that we could also support the
-> > > simple list of comma-separated jobs you mentioned, but I couldn't find
-> > > an easy way to do that.
-> > > 
-> > > However, one thing we can do is to support writing SELECTED_JOBS_ONLY in
-> > > .gitlab-ci.yml as a commit in xen.git, for people that don't know or
-> > > don't remember how to set ci.variable using the git command line.
-> > 
-> > You can always do it, in `variables` setting AFAIR.
-> > 
-> > > Given that this is for testing, I think it would be no problem to adding
-> > > a special commit on top of your tree. We are just trying to make it
-> > > easier compared to having to manually delete the list of jobs we don't
-> > > need.
-> > 
-> > Yes, manually delete was awful. In practice I usually added always-false
-> > rules, but still.
-> > 
-> > > But even with the special commit, I couldn't think of an easy way to
-> > > achieve the nicer comma-separated list of jobs...
-> > > 
-> > > 
-> > > > Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> > > > ---
-> > > > This probably wants documenting beyond this commit message. I don't
-> > > > think we have any CI-related docs anywhere, do we? Some new file in
-> > > > docs/misc?
-> > > 
-> > > Yes please :-)
-> > > 
-> > > It would be also worth documenting how to create a simple pipeline by
-> > > removing everything that you don't need for a single test
-> > 
-> > You mean how to find what jobs you need?
-> > 
-> > > > And also, it's possible to extend web ui for starting pipelines to
-> > > > include pre-defined variables. I use it in qubes here if you want to
-> > > > see:
-> > > > https://gitlab.com/QubesOS/qubes-continuous-integration/-/pipelines/new
-> > > 
-> > > I don't have access to this
-> > 
-> > Oh, sorry. Screenshot attached.
-> > 
-> > And its definition looks like this:
-> > https://gitlab.com/QubesOS/qubes-continuous-integration/-/blob/main/.gitlab-ci.yml?ref_type=heads#L15-26
-> 
-> Actually this gave me an idea. What if we flip the default? Normally we
-> want to run all the jobs.
-> 
-> When doing development, we typically want to run one specific job
-> attached to the work we are currently doing. This patch introduces a
-> blacklist, but it looks like we want a whitelist instead?
-> 
-> Wouldn't it be easier to say: "delete everything except for
-> adl-smoke-x86-64-dom0pvh-hvm-gcc-debug"
-> 
-> Then we can arrange it so adl-smoke-x86-64-dom0pvh-hvm-gcc-debug and its
-> dependencies are left enabled. Everything else is disabled?
+---
+misra: add 11.2 deviation for incomplete types
 
-Sorry I sent it too fast without thinking. This patch is already
-implementing the whitelist. The only thing we are really missing is the
-automatic dependency enablement, but I don't know how that could be
-implemented.
---8323329-38153445-1739569051=:3858257--
+struct mctelem_cookie* is used exactly because it is an incomplete type
+so the pointer cannot be dereferenced. This is deliberate. So add a
+deviation for it.
+
+In deviations.ecl, add the list of macros that do the conversions to and
+from struct mctelem_cookie*.
+
+Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+
+diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
+index a28eb0ae76..87bfd2160c 100644
+--- a/automation/eclair_analysis/ECLAIR/deviations.ecl
++++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+@@ -366,6 +366,14 @@ constant expressions are required.\""
+ }
+ -doc_end
+ 
++-doc_begin="Certain pointers point to incomplete types purposely so that they are impossible to dereference."
++-config=MC3A2.R11.2,reports+={deliberate, "any_area(any_loc(any_exp(macro(^COOKIE2MCTE$))))"}
++-config=MC3A2.R11.2,reports+={deliberate, "any_area(any_loc(any_exp(macro(^MCTE2COOKIE$))))"}
++-config=MC3A2.R11.2,reports+={deliberate, "any_area(any_loc(any_exp(macro(^COOKIE2ID$))))"}
++-config=MC3A2.R11.2,reports+={deliberate, "any_area(any_loc(any_exp(macro(^ID2COOKIE$))))"}
++}
++-doc_end
++
+ -doc_begin="Conversions to object pointers that have a pointee type with a smaller (i.e., less strict) alignment requirement are safe."
+ -config=MC3A2.R11.3,casts+={safe,
+   "!relation(more_aligned_pointee)"
+diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+index fe0b1e10a2..f3004d6023 100644
+--- a/docs/misra/deviations.rst
++++ b/docs/misra/deviations.rst
+@@ -324,6 +324,12 @@ Deviations related to MISRA C:2012 Rules:
+        semantics that do not lead to unexpected behaviour.
+      - Tagged as `safe` for ECLAIR.
+ 
++   * - R11.2
++     - Certain pointers point to incomplete types purposely so that they
++       are impossible to dereference.
++     - Tagged as `deliberate` for ECLAIR. Such pointer is struct
++       mctelem_cookie \*.
++
+    * - R11.2
+      - The conversion from a pointer to an incomplete type to unsigned long
+        does not lose any information, provided that the target type has enough
 
