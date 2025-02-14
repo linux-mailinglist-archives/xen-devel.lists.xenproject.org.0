@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53961A3618E
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 16:24:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.888903.1298181 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B8B5A36206
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 16:43:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.888925.1298192 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tixYR-0002Ob-29; Fri, 14 Feb 2025 15:24:35 +0000
+	id 1tixq6-0006Cf-GN; Fri, 14 Feb 2025 15:42:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 888903.1298181; Fri, 14 Feb 2025 15:24:35 +0000
+Received: by outflank-mailman (output) from mailman id 888925.1298192; Fri, 14 Feb 2025 15:42:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tixYQ-0002Ms-VQ; Fri, 14 Feb 2025 15:24:34 +0000
-Received: by outflank-mailman (input) for mailman id 888903;
- Fri, 14 Feb 2025 15:24:33 +0000
+	id 1tixq6-0006Ay-DT; Fri, 14 Feb 2025 15:42:50 +0000
+Received: by outflank-mailman (input) for mailman id 888925;
+ Fri, 14 Feb 2025 15:42:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iCm0=VF=cloud.com=andrii.sultanov@srs-se1.protection.inumbo.net>)
- id 1tixYP-00028r-Ej
- for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 15:24:33 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ <SRS0=5vTB=VF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tixq4-0006Ar-BW
+ for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 15:42:48 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ca6ee228-eae7-11ef-9aa4-95dc52dad729;
- Fri, 14 Feb 2025 16:24:32 +0100 (CET)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5ded69e6134so2734736a12.0
- for <xen-devel@lists.xenproject.org>; Fri, 14 Feb 2025 07:24:32 -0800 (PST)
-Received: from CSGPROD238885.citrite.net
- (cpc92320-cmbg19-2-0-cust1786.5-4.cable.virginm.net. [82.13.70.251])
+ id 56df30c3-eaea-11ef-9aa4-95dc52dad729;
+ Fri, 14 Feb 2025 16:42:47 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-438a3216fc2so23409985e9.1
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Feb 2025 07:42:47 -0800 (PST)
+Received: from [10.81.43.157] ([46.149.103.14])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5dece287c7fsm3040608a12.70.2025.02.14.07.24.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Feb 2025 07:24:31 -0800 (PST)
+ 5b1f17b1804b1-439618a9970sm47264215e9.33.2025.02.14.07.42.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 14 Feb 2025 07:42:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,282 +45,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca6ee228-eae7-11ef-9aa4-95dc52dad729
+X-Inumbo-ID: 56df30c3-eaea-11ef-9aa4-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1739546672; x=1740151472; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=woWxc9kp8yBtz5vZ91LiRNGKXCo0bpkeXP1Q8zpuOSI=;
-        b=kUqPaTdLmF3vL0+Zmtj5iGX8hSWZqm0UKF2uZPUmPdct/aFU9tj2HrBjD+IMNRURh3
-         UJC/eJBpeCq1I5dGacGPR9cKwz1gKhpB3QPvscTL7vhCQsAZJXKr4Uqy9KreF9ULb+0T
-         r1sxFFvH4av1uEs0eh7mDSPzd52Fsv7SdSHvQ=
+        d=citrix.com; s=google; t=1739547767; x=1740152567; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=nwQlDzJ3dFbHgTvWxvyjKoFzJ2Qr6hXd9xtRvxXk5L8=;
+        b=R5xNJBUbI1kbHqwGwaSFQeW8d/dl5/K5TF6AE6AlGqm6LjW5uEJUxPCDmkybQt+d5V
+         4zRU8pjL1j3S6s5LpxEnjEeZroVAHi6xMDKVF+Om14aSyzdUtwlmhz7LzCIzlbkkOE2Y
+         FZSqcJaPDDLzl1mbkQeNbV8Gp758aY5gqTBGM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739546672; x=1740151472;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=woWxc9kp8yBtz5vZ91LiRNGKXCo0bpkeXP1Q8zpuOSI=;
-        b=ZAkS/hUOOTdE62oBWvUMOyNUXrbX8zcLX08KF5l5RaGOhVNnVQcnQkbo/3XSp+35I7
-         2unyFlUYdYBtJ96LRvsq43T2yPgwaHk1suDzGd6bgEwglYq7ffWrQ2lzVCiRRrFFmLS2
-         vMsShLU14WbdyOP1LbgkMF7CvfJwidxBCn15D1M6I3x5IErSk9mXuRnIcGokHFx9Rxqd
-         IrmO1/Mk3gLMMYEPHDRgi5M0lEHuMF2gnElxMdWnudglgmG8MPEpZ2gORNP1EF2vzHLM
-         GoLJFDS1+5h948cYJlTZD40y08rzFMlXtUHPfM/B0W5JGN5kur40O31mtfOko7qNVbHy
-         QAQw==
-X-Gm-Message-State: AOJu0YyFRCJPbsVZepzeIxXhZ+VZ0yj/rjn2ukWNZ61r7zzfgJli0nnY
-	2u626iMkFDau1AGDRLDq9pm4NL61uBvqs4MQR8nqdoW5C76ZTY3X0x46gQOEDBPS3Lg7Mf9BaDj
-	I
-X-Gm-Gg: ASbGncsk61zMmmblk8z2cpQA4A02pyMA1o2d/JuKbBH3f7E5CVUPqCIa/Pl3F27jbzp
-	bhUjw01GtOEROfxGGd0Xsih7ZdU2n9Vp9lU0e8GfqK/CjdUj4JzjQT7myaVd8uy+Yg/L6VuTDYA
-	dNwKAq+E18rTtmqKpEso+Lc+tV6RuFz2p2yTagXXAeSqmmwAnLHVc4qGH8EdbElAC+EANY5tAU4
-	XnJhCfnb9jEO0kzuJ0PHd/Q3sKyHZlLjzNUxvorAGPVfgpf7NTJj4ZO8S1VP4pfIeR9lMpbWDDL
-	KSisvpcoNlzJWDy9Zl+H+CvNG39PDHjstd8ZhGtIeXD3NkldFxsZQRa21YUIcDpx4LTESwboui9
-	w/IOhSTm1rdSVa6yv8eaiYw==
-X-Google-Smtp-Source: AGHT+IGi4M69OpVHSHBJJqod2T8e91L37p01TZpSUPrrQg584ptamACceaA4YZGsJkiVwUklgj7T6w==
-X-Received: by 2002:a05:6402:2791:b0:5dc:91c6:8096 with SMTP id 4fb4d7f45d1cf-5deade07fbamr12504451a12.30.1739546671866;
-        Fri, 14 Feb 2025 07:24:31 -0800 (PST)
-From: Andrii Sultanov <andrii.sultanov@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: Andrii Sultanov <andrii.sultanov@cloud.com>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Christian Lindig <christian.lindig@cloud.com>
-Subject: [PATCH v2 1/1] tools/ocaml: Fix oxenstored build warning
-Date: Fri, 14 Feb 2025 15:24:27 +0000
-Message-Id: <0545259ba8f7c54b6fd6c82b185bdee475694747.1739546412.git.andrii.sultanov@cloud.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <cover.1739546412.git.andrii.sultanov@cloud.com>
-References: <cover.1739546412.git.andrii.sultanov@cloud.com>
+        d=1e100.net; s=20230601; t=1739547767; x=1740152567;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nwQlDzJ3dFbHgTvWxvyjKoFzJ2Qr6hXd9xtRvxXk5L8=;
+        b=Vk3uWNdLLIG2/OLKG8EKzxF8EYqHzZUY/JjmWOgMBU2A6hpe+QH1NVzjYZlLuwaDlG
+         mlIx6AUhc58OJylCgASg1Z+3hF4WEqkRyXm9N0w6cLCU+TMUOa6oyXPdcEsoOQYEx1G6
+         RUOwRqe6jnNj5JnL2E1WXTnKtXVKalYxPlCombe/jtWLxE5nkP0Xtb2+ZxW3ugRm5wLc
+         2tvuxBWoJu5BXEkUKikszC97Jej0KaJLQuMev5d0Ct+JMfDZ0/n1neQc711Iu3JQvvyv
+         Tbk0/xQu2FN7SBkTz5IHyB4bqhLlSaJQqz/a3n0gtJeLj0KUQYUQ9TgAgANYqZTCDY5Y
+         sswQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWo4rB7gNBdD8Qpwd5IxOJBW0Sq24F2CM2TIPtLMr3RLYVDgInfG1iJaf8taJQnMWTMEFC6M2XZaTg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwDgnnQgkZa3ndIOBVM7/cQirbiG66CY4K0+W/LQi32hBHQ1goA
+	XvDgyZP58ge1iHjfxshblkINsAXLQ644rxlz9h5KqWbONTA+rhXMUcb+2F0XlBg=
+X-Gm-Gg: ASbGncsIMBYV5uFkyVZfhgjVC8PJsEGVhxmKfANDGd9KgsL5sQ/2vt/9ioiSuLIKM8L
+	oeJua32pZTxlx4qcSv8bfjbHl0rOR/U2f39jA8CBL/OwlESdonBKfRbZcSl17Lbl/+cbyHg7wKG
+	6Je30M9uzDIp82TszzOc7MTkhzKYQOQ+UfZI+gOUTHKdbVRrN3LRANXeHbmr4jedIF5eoelA8JQ
+	2aya9xVjuotW0kdu+V60sOnoA3AN3I2TNpvElzdTHKh/Z5c9wyBWNYniK3irb2EgAqlFw7dB2dZ
+	Syiie0mCrlVm1EcXLE49Mxh3fA==
+X-Google-Smtp-Source: AGHT+IGINvGpJzn64Kfsohnx1u41JJIedkrrVteE4lN2N9xZ71a1PVuwf8OXY2Sb18rqr7tEG4PXQQ==
+X-Received: by 2002:a05:600c:1c06:b0:439:6a40:4860 with SMTP id 5b1f17b1804b1-4396a404d25mr24828685e9.28.1739547766749;
+        Fri, 14 Feb 2025 07:42:46 -0800 (PST)
+Message-ID: <850c2854-17ee-42d7-856a-44604f755941@citrix.com>
+Date: Fri, 14 Feb 2025 15:42:44 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/1] tools/ocaml: Fix oxenstored build warning
+To: Andrii Sultanov <andrii.sultanov@cloud.com>,
+ xen-devel@lists.xenproject.org
+Cc: Christian Lindig <christian.lindig@citrix.com>,
+ David Scott <dave@recoil.org>, Anthony PERARD <anthony.perard@vates.tech>,
+ Christian Lindig <christian.lindig@cloud.com>
+References: <cover.1739546412.git.andrii.sultanov@cloud.com>
+ <0545259ba8f7c54b6fd6c82b185bdee475694747.1739546412.git.andrii.sultanov@cloud.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <0545259ba8f7c54b6fd6c82b185bdee475694747.1739546412.git.andrii.sultanov@cloud.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-OCaml, in preparation for a renaming of the error string associated with
-conversion failure in 'int_of_string' functions, started to issue this
-warning:
-```
-File "process.ml", line 440, characters 13-28:
-440 |   | (Failure "int_of_string")    -> reply_error "EINVAL"
-                   ^^^^^^^^^^^^^^^
-Warning 52 [fragile-literal-pattern]: Code should not depend on the actual values of
-this constructor's arguments. They are only for information
-and may change in future versions. (See manual section 11.5)
-```
+On 14/02/2025 3:24 pm, Andrii Sultanov wrote:
+> OCaml, in preparation for a renaming of the error string associated with
+> conversion failure in 'int_of_string' functions, started to issue this
+> warning:
+> ```
+> File "process.ml", line 440, characters 13-28:
+> 440 |   | (Failure "int_of_string")    -> reply_error "EINVAL"
+>                    ^^^^^^^^^^^^^^^
+> Warning 52 [fragile-literal-pattern]: Code should not depend on the actual values of
+> this constructor's arguments. They are only for information
+> and may change in future versions. (See manual section 11.5)
+> ```
+>
+> Deal with this at the source, and instead create our own stable
+> ConversionFailure exception that's raised on the None case in
+> 'int_of_string_opt'.
+>
+> 'c_int_of_string' is safe and does not raise such exceptions.
+>
+> Signed-off-by: Andrii Sultanov <andrii.sultanov@cloud.com>
+> Acked-by: Christian Lindig <christian.lindig@cloud.com>
+> ---
+> Changes since v1:
+> * Revert logging added to error handling in process.ml, return just "EINVAL"
 
-Deal with this at the source, and instead create our own stable
-ConversionFailure exception that's raised on the None case in
-'int_of_string_opt'.
+Thanks.  This looks better.  One quick question.
 
-'c_int_of_string' is safe and does not raise such exceptions.
+> ---
+>  tools/ocaml/xenstored/Makefile     |  1 +
+>  tools/ocaml/xenstored/perms.ml     |  2 +-
+>  tools/ocaml/xenstored/poll.ml      |  2 +-
+>  tools/ocaml/xenstored/process.ml   | 18 +++++++++---------
+>  tools/ocaml/xenstored/utils.ml     | 10 ++++++++--
+>  tools/ocaml/xenstored/xenstored.ml | 16 ++++++++--------
+>  6 files changed, 28 insertions(+), 21 deletions(-)
+>
+> diff --git a/tools/ocaml/xenstored/Makefile b/tools/ocaml/xenstored/Makefile
+> index 5e8210a906..c333394a34 100644
+> --- a/tools/ocaml/xenstored/Makefile
+> +++ b/tools/ocaml/xenstored/Makefile
+> @@ -54,6 +54,7 @@ OBJS = paths \
+>  	history \
+>  	parse_arg \
+>  	process \
+> +	poll \
+>  	xenstored
+>  
 
-Signed-off-by: Andrii Sultanov <andrii.sultanov@cloud.com>
-Acked-by: Christian Lindig <christian.lindig@cloud.com>
----
-Changes since v1:
-* Revert logging added to error handling in process.ml, return just "EINVAL"
----
- tools/ocaml/xenstored/Makefile     |  1 +
- tools/ocaml/xenstored/perms.ml     |  2 +-
- tools/ocaml/xenstored/poll.ml      |  2 +-
- tools/ocaml/xenstored/process.ml   | 18 +++++++++---------
- tools/ocaml/xenstored/utils.ml     | 10 ++++++++--
- tools/ocaml/xenstored/xenstored.ml | 16 ++++++++--------
- 6 files changed, 28 insertions(+), 21 deletions(-)
+What's this hunk for?  There's a change in poll.ml, but I don't see why
+it would need to change this list.
 
-diff --git a/tools/ocaml/xenstored/Makefile b/tools/ocaml/xenstored/Makefile
-index 5e8210a906..c333394a34 100644
---- a/tools/ocaml/xenstored/Makefile
-+++ b/tools/ocaml/xenstored/Makefile
-@@ -54,6 +54,7 @@ OBJS = paths \
- 	history \
- 	parse_arg \
- 	process \
-+	poll \
- 	xenstored
- 
- INTF = symbol.cmi trie.cmi syslog.cmi systemd.cmi poll.cmi
-diff --git a/tools/ocaml/xenstored/perms.ml b/tools/ocaml/xenstored/perms.ml
-index 14f8e334fe..2c4ee9e617 100644
---- a/tools/ocaml/xenstored/perms.ml
-+++ b/tools/ocaml/xenstored/perms.ml
-@@ -70,7 +70,7 @@ struct
- 
-   let perm_of_string s =
-     let ty = permty_of_char s.[0]
--    and id = int_of_string (String.sub s 1 (String.length s - 1)) in
-+    and id = Utils.int_of_string_exn (String.sub s 1 (String.length s - 1)) in
-     (id, ty)
- 
-   let of_strings ls =
-diff --git a/tools/ocaml/xenstored/poll.ml b/tools/ocaml/xenstored/poll.ml
-index fefaa6e74c..f8571e4590 100644
---- a/tools/ocaml/xenstored/poll.ml
-+++ b/tools/ocaml/xenstored/poll.ml
-@@ -30,7 +30,7 @@ external set_fd_limit: int -> unit = "stub_set_fd_limit"
- let get_sys_fs_nr_open () =
-   try
-     let ch = open_in "/proc/sys/fs/nr_open" in
--    let v = int_of_string (input_line ch) in
-+    let v = Utils.int_of_string_exn (input_line ch) in
-     close_in_noerr ch; v
-   with _ -> 1024 * 1024
- 
-diff --git a/tools/ocaml/xenstored/process.ml b/tools/ocaml/xenstored/process.ml
-index 432d66321c..0c9c460a99 100644
---- a/tools/ocaml/xenstored/process.ml
-+++ b/tools/ocaml/xenstored/process.ml
-@@ -229,7 +229,7 @@ let do_debug con t _domains cons data =
-       Logging.xb_op ~tid:0 ~ty:Xenbus.Xb.Op.Debug ~con:"=======>" msg;
-       None
-     | "quota" :: domid :: _ ->
--      let domid = int_of_string domid in
-+      let domid = Utils.int_of_string_exn domid in
-       let quota = (Store.get_quota t.Transaction.store) in
-       Some (Quota.to_string quota domid ^ "\000")
-     | "watches" :: _ ->
-@@ -242,7 +242,7 @@ let do_debug con t _domains cons data =
-       History.trim ();
-       Some "trimmed"
-     | "txn" :: domid :: _ ->
--      let domid = int_of_string domid in
-+      let domid = Utils.int_of_string_exn domid in
-       let con = Connections.find_domain cons domid in
-       let b = Buffer.create 128 in
-       let () = con.transactions |> Hashtbl.iter @@ fun id tx ->
-@@ -253,7 +253,7 @@ let do_debug con t _domains cons data =
-       in
-       Some (Buffer.contents b)
-     | "xenbus" :: domid :: _ ->
--      let domid = int_of_string domid in
-+      let domid = Utils.int_of_string_exn domid in
-       let con = Connections.find_domain cons domid in
-       let s = Printf.sprintf "xenbus: %s; overflow queue length: %d, can_input: %b, has_more_input: %b, has_old_output: %b, has_new_output: %b, has_more_work: %b. pending: %s"
-           (Xenbus.Xb.debug con.xb)
-@@ -267,7 +267,7 @@ let do_debug con t _domains cons data =
-       in
-       Some s
-     | "mfn" :: domid :: _ ->
--      let domid = int_of_string domid in
-+      let domid = Utils.int_of_string_exn domid in
-       let con = Connections.find_domain cons domid in
-       may (fun dom -> Printf.sprintf "%nd\000" (Domain.get_mfn dom)) (Connection.get_domain con)
-     | _ -> None
-@@ -340,7 +340,7 @@ let do_isintroduced con _t domains _cons data =
-   then raise Define.Permission_denied;
-   let domid =
-     match (split None '\000' data) with
--    | domid :: _ -> int_of_string domid
-+    | domid :: _ -> Utils.int_of_string_exn domid
-     | _          -> raise Invalid_Cmd_Args
-   in
-   if domid = Define.domid_self || Domains.exist domains domid then "T\000" else "F\000"
-@@ -437,7 +437,7 @@ let input_handle_error ~cons ~doms ~fct ~con ~t ~req =
-   | Quota.Limit_reached          -> reply_error "EQUOTA"
-   | Quota.Data_too_big           -> reply_error "E2BIG"
-   | Quota.Transaction_opened     -> reply_error "EQUOTA"
--  | (Failure "int_of_string")    -> reply_error "EINVAL"
-+  | Utils.ConversionFailed s     -> reply_error "EINVAL"
-   | Define.Unknown_operation     -> reply_error "ENOSYS"
- 
- let write_access_log ~ty ~tid ~con ~data =
-@@ -578,7 +578,7 @@ let do_introduce con t domains cons data =
-   let (domid, mfn, remote_port) =
-     match (split None '\000' data) with
-     | domid :: mfn :: remote_port :: _ ->
--      int_of_string domid, Nativeint.of_string mfn, int_of_string remote_port
-+      Utils.int_of_string_exn domid, Nativeint.of_string mfn, Utils.int_of_string_exn remote_port
-     | _                         -> raise Invalid_Cmd_Args;
-   in
-   let dom =
-@@ -604,7 +604,7 @@ let do_release con t domains cons data =
-   then raise Define.Permission_denied;
-   let domid =
-     match (split None '\000' data) with
--    | [domid;""] -> int_of_string domid
-+    | [domid;""] -> Utils.int_of_string_exn domid
-     | _          -> raise Invalid_Cmd_Args
-   in
-   let fire_spec_watches = Domains.exist domains domid in
-@@ -620,7 +620,7 @@ let do_resume con _t domains _cons data =
-   then raise Define.Permission_denied;
-   let domid =
-     match (split None '\000' data) with
--    | domid :: _ -> int_of_string domid
-+    | domid :: _ -> Utils.int_of_string_exn domid
-     | _          -> raise Invalid_Cmd_Args
-   in
-   if Domains.exist domains domid
-diff --git a/tools/ocaml/xenstored/utils.ml b/tools/ocaml/xenstored/utils.ml
-index 48d84ef7d3..7a556bce75 100644
---- a/tools/ocaml/xenstored/utils.ml
-+++ b/tools/ocaml/xenstored/utils.ml
-@@ -53,8 +53,14 @@ let hexify s =
-     ) s;
-   Bytes.unsafe_to_string hs
- 
-+exception ConversionFailed of string
-+let int_of_string_exn s =
-+  match int_of_string_opt s with
-+  | Some x -> x
-+  | None -> raise (ConversionFailed s)
-+
- let unhexify hs =
--  let char_of_hexseq seq0 seq1 = Char.chr (int_of_string (sprintf "0x%c%c" seq0 seq1)) in
-+  let char_of_hexseq seq0 seq1 = Char.chr (int_of_string_exn (sprintf "0x%c%c" seq0 seq1)) in
-   let b = Bytes.create (String.length hs / 2) in
-   for i = 0 to Bytes.length b - 1
-   do
-@@ -86,7 +92,7 @@ let read_file_single_integer filename =
-   let buf = Bytes.make 20 '\000' in
-   let sz = Unix.read fd buf 0 20 in
-   Unix.close fd;
--  int_of_string (Bytes.sub_string buf 0 sz)
-+  int_of_string_exn (Bytes.sub_string buf 0 sz)
- 
- (* @path may be guest data and needs its length validating.  @connection_path
-  * is generated locally in xenstored and always of the form "/local/domain/$N/" *)
-diff --git a/tools/ocaml/xenstored/xenstored.ml b/tools/ocaml/xenstored/xenstored.ml
-index 1aaa3e995e..84dee622ea 100644
---- a/tools/ocaml/xenstored/xenstored.ml
-+++ b/tools/ocaml/xenstored/xenstored.ml
-@@ -167,20 +167,20 @@ module DB = struct
-                					   e.g. a RO socket from a previous version: ignore it *)
-             global_f ~rw
-           | "evtchn-dev" :: fd :: domexc_port :: [] ->
--            evtchn_f ~fd:(int_of_string fd)
--              ~domexc_port:(int_of_string domexc_port)
-+            evtchn_f ~fd:(Utils.int_of_string_exn fd)
-+              ~domexc_port:(Utils.int_of_string_exn domexc_port)
-           | "socket" :: fd :: [] ->
--            socket_f ~fd:(int_of_string fd)
-+            socket_f ~fd:(Utils.int_of_string_exn fd)
-           | "dom" :: domid :: mfn :: remote_port :: rest ->
-             let local_port = match rest with
-               | [] -> None (* backward compat: old version didn't have it *)
--              | local_port :: _ -> Some (int_of_string local_port) in
-+              | local_port :: _ -> Some (Utils.int_of_string_exn local_port) in
-             domain_f ?local_port
--              ~remote_port:(int_of_string remote_port)
--              (int_of_string domid)
-+              ~remote_port:(Utils.int_of_string_exn remote_port)
-+              (Utils.int_of_string_exn domid)
-               (Nativeint.of_string mfn)
-           | "watch" :: domid :: path :: token :: [] ->
--            watch_f (int_of_string domid)
-+            watch_f (Utils.int_of_string_exn domid)
-               (unhexify path) (unhexify token)
-           | "store" :: path :: perms :: value :: [] ->
-             store_f (getpath path)
-@@ -214,7 +214,7 @@ module DB = struct
-     in
-     let global_f ~rw =
-       let get_listen_sock sockfd =
--        let fd = sockfd |> int_of_string |> Utils.FD.of_int in
-+        let fd = sockfd |> Utils.int_of_string_exn |> Utils.FD.of_int in
-         Unix.listen fd 1;
-         Some fd
-       in
--- 
-2.39.5
-
+~Andrew
 
