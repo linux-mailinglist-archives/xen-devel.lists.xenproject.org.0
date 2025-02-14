@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07A37A36052
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 15:25:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.888858.1298142 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACB2CA360B0
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 15:43:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.888871.1298152 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiwcu-0000P3-6b; Fri, 14 Feb 2025 14:25:08 +0000
+	id 1tiwuD-0004DK-Mc; Fri, 14 Feb 2025 14:43:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 888858.1298142; Fri, 14 Feb 2025 14:25:08 +0000
+Received: by outflank-mailman (output) from mailman id 888871.1298152; Fri, 14 Feb 2025 14:43:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tiwcu-0000Ma-3t; Fri, 14 Feb 2025 14:25:08 +0000
-Received: by outflank-mailman (input) for mailman id 888858;
- Fri, 14 Feb 2025 14:25:07 +0000
+	id 1tiwuD-0004B3-Ju; Fri, 14 Feb 2025 14:43:01 +0000
+Received: by outflank-mailman (input) for mailman id 888871;
+ Fri, 14 Feb 2025 14:43:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5vTB=VF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tiwct-0000MU-4T
- for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 14:25:07 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ id 1tiwuC-0004As-Jw
+ for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 14:43:00 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7bf2258b-eadf-11ef-9896-31a8f345e629;
- Fri, 14 Feb 2025 15:25:05 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-4396a82daf5so5320425e9.1
- for <xen-devel@lists.xenproject.org>; Fri, 14 Feb 2025 06:25:05 -0800 (PST)
-Received: from [10.81.43.157] ([46.149.103.9])
+ id fbbc784c-eae1-11ef-9896-31a8f345e629;
+ Fri, 14 Feb 2025 15:42:58 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-4395b367329so14000345e9.3
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Feb 2025 06:42:58 -0800 (PST)
+Received: from [10.81.43.157] ([46.149.103.13])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4395a04f208sm76559295e9.6.2025.02.14.06.25.03
+ 5b1f17b1804b1-4395a04ee2fsm76706805e9.4.2025.02.14.06.42.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Feb 2025 06:25:04 -0800 (PST)
+ Fri, 14 Feb 2025 06:42:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7bf2258b-eadf-11ef-9896-31a8f345e629
+X-Inumbo-ID: fbbc784c-eae1-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1739543104; x=1740147904; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1739544178; x=1740148978; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=NQgD3D60ZisPIM4d1cACCq/0XM7+fhDehTgDmkTr4xk=;
-        b=ca9NLYLLfJXEotWRgjz7n+MZXMAtDxlzPhp1N1kdPLwOV+uXogJbQ5ZIEj3kGYCeZS
-         8XSkJtdpsbdUWnOCpjR05QTHT2QvjENyJrwUhWtTWniYHf6OfJUz9xY5YgOSNpTd3sND
-         31Q4ghGrHvQY+pOVfuQZIvS6GklYETc8PIho0=
+        bh=VYLQT9TxpgHKaRALOlEE56qzjUJXkso4DZc6ueWpfSQ=;
+        b=OJ5S7/UojFixXor4HnJkyhIHHSUqQ2KdsHnAhzPrFRC+QdwqTlrehdt6184hPEtb/4
+         2tOobbwNFj2/KhuegfzctHLBUkwZ2Qgc7FL7V0Q0whdTQtOJR5wYouIZBrPG3TCdPtZm
+         e7LyF0raS1bJkOt+d381ybGP9xd6OTgmLO68E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739543104; x=1740147904;
+        d=1e100.net; s=20230601; t=1739544178; x=1740148978;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=NQgD3D60ZisPIM4d1cACCq/0XM7+fhDehTgDmkTr4xk=;
-        b=ue+aF13rnEQNnifdkGtbNofjkVcYxdPveiFpjb0+SCMPpHKiIBbKkAwL3zJJ5Beuay
-         Z/qUsCQcHW++e0OyRxV4p3vTbwbs2Lai0ZzR25aJeprrOAHOJWQAriW6BB9AZVzg6v1A
-         FipplIYYZbDGUNU3yVLTJtRY77xGLVeykbq/PZ3VRIZ3mM91myeFCuau2HqlPs+xFVuM
-         cVLEsdOgRflfSAlFa/tkocZxEuRs9gHcayklYxfPsouQFQw9i7wW6pfcsOBlENeWVUgr
-         SXfQJ/ef6WS8BP+Q/0pbwzV9TV6IYIWVYfDQdDd8NWtPOJDhnVTdKSIwQySB//7a12N/
-         kDIg==
-X-Forwarded-Encrypted: i=1; AJvYcCWJszdYCCFeU9AG0QEzSLOpm38HUtxhMKjAHI3cKtWDVdVrqiA7ryi+pF3mi+vmvmclDiff1sQbOfk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwtVG6plDstFt84YGn68SZ2FPAA2COa9iUqns8MnMPf2mEWl5Rz
-	khO9jKCm//PcV/JMS1RahrT5naRI/r5Kw/UeHh3I5QCpbO0VP811KmhwGty/Wnzn1uYD1byDQLj
-	O
-X-Gm-Gg: ASbGncvcJ8z39Llf1XyQQ96FKXbs/aK0XQ3vFN4FfZmasBvBdiEEnRvoXRncjPMMgti
-	XomA8rJuy35MXuNK6Xre4HzDtnVo9JeqZSQSHQrankjNcfxhWHoDhhio9BlUMXMNjLD6GWQOJ6W
-	61eP9hyMbDsjRipASMYHtGxlUe/k/O9vuV4Y/EMUWL+Gk2AKYRpJgxpZQFpoiGfX8wavxKWW6lr
-	NEnftTdHtw45sLG2/zt/LSFRXczZNVSg6BqaUGFEdGSeayXIY7Z1nQkZ3VEzci6UIjZ0TfG0mdx
-	e1wjfvt6jtGJI5GorR9Dettw
-X-Google-Smtp-Source: AGHT+IHFhP38TDCyTh1Dt4lXsUW+8o0t2KAZRxvH8rRbw7SIU4DhAB5alfx3EMMAKs2d7l1RD/CcPg==
-X-Received: by 2002:a05:600c:3d99:b0:439:614b:1c15 with SMTP id 5b1f17b1804b1-439614b1f2emr92005795e9.13.1739543104573;
-        Fri, 14 Feb 2025 06:25:04 -0800 (PST)
-Message-ID: <a3e9f238-2a19-4015-8443-113f22ffbbf7@citrix.com>
-Date: Fri, 14 Feb 2025 14:25:03 +0000
+        bh=VYLQT9TxpgHKaRALOlEE56qzjUJXkso4DZc6ueWpfSQ=;
+        b=Ke4iscm2+TDltSVa85LrQ4uoK8FZ1F8Y9G4uRnY6bhGBuI+Fc92A0w7bZkSbv4p3Vt
+         9zMh3zW85ARU8U3MJjRMXEUXOc7F1cK8nxuEd9dXXt1wFYuIrFn8O73JnSyQVSb6rL2B
+         hkhPcVVmswV9QKUEYLtQ5Bnt10wC1XKdB/nuZYDCWNl0AZb3QDowhDtqxjGl6HWaLSyP
+         QJ9UAGZNTGbCS+R5NG3s4KZXOw88576/f5jfHMjijPMcraQs+0Zrk9dYXfMdJgwy2LAe
+         50D/PA+ev/MqkIHXJo3Ij6TLRJ+9ZDNgldHACNW4sZWJgqVHd9mYDwyrpzsQkqiLZ/e2
+         pJKw==
+X-Forwarded-Encrypted: i=1; AJvYcCUeF17YBySTFlbSpuKz9cGls2yCLIaYlLiAoOMnz3+Sgbpiv/1wo7b/ukO/1wanoXhR9E8sV1kAMEc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxgUyNdmONzg/jlXeRoaRUB2AcA78FBfKliUkzwYzkXyk5Ofc4M
+	XbwBNRo+Hqmpfls9lxhtB8M2ZyBeoxPmfo5/apTfClNvNlDxO8Hl+ia3B9RvTpA=
+X-Gm-Gg: ASbGncvqe51VOMAfarDwB/ae9LWvTuYx7lPty+mbY4vKfwA7O5v4m4RJ8M5tg03AtmF
+	yM+zIMpYfFij5G0gZsAlvE0EF/RcZctpm7ByM3PMef8qJOdhRMo9t4KSgZ2uRelyT/tELasX7RX
+	gnciImQtQy+AZI2uoHHWtkVUwXnPKKSwp9vCbNnRCypkX1kwteSgRb/edqJzqp+djr7ey7bcWy9
+	m4F74zRnu7gZA0Iovt6ImhSrCdGq1x5FyOktRz6+cn9JIFAnzFvyKQf3OjNIXXJzmmJxoq9digp
+	eTcANTlQOiBXWG+Fatu6o6CKfg==
+X-Google-Smtp-Source: AGHT+IFdHRff+uP42opu5FYGCbpQSOoHiUtmNh4fq/P3gQm4yGRcN8EEqqT23ZUqlyDEggAJxIkauw==
+X-Received: by 2002:a05:600c:4fc6:b0:434:a734:d268 with SMTP id 5b1f17b1804b1-43960185baemr110837765e9.14.1739544177929;
+        Fri, 14 Feb 2025 06:42:57 -0800 (PST)
+Message-ID: <d43ac0d4-1d58-4cfe-a777-fb4ac3b34a81@citrix.com>
+Date: Fri, 14 Feb 2025 14:42:56 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/arm: fix iomem_ranges cfg in map_range_to_domain()
-To: Grygorii Strashko <grygorii_strashko@epam.com>,
- Julien Grall <julien@xen.org>, Grygorii Strashko <gragst.linux@gmail.com>,
- xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20250214125505.2862809-1-grygorii_strashko@epam.com>
- <deb84d7f-d335-4976-9f5f-6a5fa74b386e@xen.org>
- <e5c63216-d22f-429c-b6c3-082e0984a9a3@epam.com>
+Subject: Re: [PATCH 2/2] x86/dom0: attempt to fixup p2m page-faults for PVH
+ dom0
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Community Manager <community.manager@xenproject.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20250214092928.28932-1-roger.pau@citrix.com>
+ <20250214092928.28932-3-roger.pau@citrix.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -140,35 +138,28 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <e5c63216-d22f-429c-b6c3-082e0984a9a3@epam.com>
+In-Reply-To: <20250214092928.28932-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 14/02/2025 2:10 pm, Grygorii Strashko wrote:
->>>
->>> For example, requested range:
->>>    00e6140000 - 00e6141004 should set e6140:e6141 nr=2, but will
->>> configure
->>> e6140 e6142 nr=3 instead.
->>
->> I am not sure what 'nr' is referring to here.
->
-> Sorry, will change to "num_pages"?
+On 14/02/2025 9:29 am, Roger Pau Monne wrote:
+> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+> index 9bbd00baef91..e9884de07e9e 100644
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -822,7 +822,8 @@ Specify the bit width of the DMA heap.
+>  
+>  ### dom0
+>      = List of [ pv | pvh, shadow=<bool>, verbose=<bool>,
+> -                cpuid-faulting=<bool>, msr-relaxed=<bool> ] (x86)
+> +                cpuid-faulting=<bool>, msr-relaxed=<bool>,
+> +                pf-fixup=<bool> ] (x86)
+>  
+>      = List of [ sve=<integer> ] (Arm64)
+>  
 
-I agree Xen needs to be better (and by that, I mean consistent and
-clear), but there are subtle bugs with most approaches like this.
-
-Any exclusive bound, as well as counts like this need $n+1 bits of
-arithmetic when you want to describe the boundaries of the space.
-
-There is also a boundary condition for counts.  What map_foo(x, 0) mean?
-
-Real hardware uses "last" for describing boundaries (x86 specifically
-calls this "limit" in the ISA, but it's a trick used by other
-architectures too).  Unlike "end", it's clearly an inclusive bound.
-
-Personally, I'd like to see Xen switch to "start, last" pairs.  It's
-unambiguous and has fewest boundary cases.
+Looking at this, we need to make dom0= disjoint between architectures
+like we do for other options.  I'll do a patch.
 
 ~Andrew
 
