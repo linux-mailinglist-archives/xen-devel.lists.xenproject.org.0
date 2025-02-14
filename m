@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE466A368E5
-	for <lists+xen-devel@lfdr.de>; Sat, 15 Feb 2025 00:05:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.889133.1298372 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2660A3691B
+	for <lists+xen-devel@lfdr.de>; Sat, 15 Feb 2025 00:37:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.889181.1298381 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tj4jf-00052d-Rj; Fri, 14 Feb 2025 23:04:39 +0000
+	id 1tj5EY-0002oc-3F; Fri, 14 Feb 2025 23:36:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 889133.1298372; Fri, 14 Feb 2025 23:04:39 +0000
+Received: by outflank-mailman (output) from mailman id 889181.1298381; Fri, 14 Feb 2025 23:36:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tj4jf-00050N-NW; Fri, 14 Feb 2025 23:04:39 +0000
-Received: by outflank-mailman (input) for mailman id 889133;
- Fri, 14 Feb 2025 23:04:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tj5EY-0002mw-0Q; Fri, 14 Feb 2025 23:36:34 +0000
+Received: by outflank-mailman (input) for mailman id 889181;
+ Fri, 14 Feb 2025 23:36:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=83Ve=VF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tj4jd-0004Nq-Tj
- for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 23:04:38 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0f75e25c-eb28-11ef-9aa4-95dc52dad729;
- Sat, 15 Feb 2025 00:04:36 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 929F2A44C19;
- Fri, 14 Feb 2025 23:02:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 541E3C4CED1;
- Fri, 14 Feb 2025 23:04:34 +0000 (UTC)
+ <SRS0=5vTB=VF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tj5EW-0002mq-TH
+ for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 23:36:32 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 846f34b0-eb2c-11ef-9896-31a8f345e629;
+ Sat, 15 Feb 2025 00:36:30 +0100 (CET)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-38de17a5fc9so1359429f8f.3
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Feb 2025 15:36:30 -0800 (PST)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38f258b4335sm5932369f8f.15.2025.02.14.15.36.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 14 Feb 2025 15:36:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,477 +45,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f75e25c-eb28-11ef-9aa4-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739574275;
-	bh=VIqc2oOFFmnyGBW+HIzkhxKFdAZXy8iVjv4FbjE8kAs=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=QEPBVEJVE19an+78AwCk0ThdcNvotMan7Dweqhaj7mzeJ29mGIQfE4v+5r2lg2kzK
-	 UfJf7emcCc6vzQPDgTFXqsQFsGeYYQiv1hAcAY5msxdewGru/Hg9T9Rspe2IPWGBzR
-	 si0BjBbv9auUmetVj1WY71JE/aF5IpKaJd6B9fP0avEEbLAoH0jF6tZ1FbNV7zyMy/
-	 pAUY45R46WqM8wn2GF9Hj7RdzfPPbih99D5pMcsHU0Ck9r74neW8uy417JClBQ40AE
-	 jgTda6LUFSGeU+PPebTItHv66pBOS7bv2kqK/qjLu1lRbUTbj8m3XJ7V5ZfYxU2y83
-	 vPcBa041tAG1Q==
-Date: Fri, 14 Feb 2025 15:04:32 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
-    michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
-    consulting@bugseng.com, Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [XEN PATCH 3/3] automation: Update ECLAIR analysis
- configuration
-In-Reply-To: <31d13d891b26cdc03c85ed8fc01dea8bee505f1c.1739564781.git.nicola.vetrini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2502141306100.3858257@ubuntu-linux-20-04-desktop>
-References: <cover.1739564781.git.nicola.vetrini@bugseng.com> <31d13d891b26cdc03c85ed8fc01dea8bee505f1c.1739564781.git.nicola.vetrini@bugseng.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 846f34b0-eb2c-11ef-9896-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1739576190; x=1740180990; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=xYgDDL+7h3Ynk231V7nkSwhljdJvwi6AzXDua/Ub3mU=;
+        b=NGU9jpHUCOpMKZ2mSRJLFxjaY+ZOQ4bv4Ha9fsiEj5NVJGFa+W9ci2w2aW2UorWSQU
+         a79Wr4+wMQ2YqDJajNK0CF31oZoi/BL2BUY2vcWor8fX8hoDxadIZsCiip21osvAZXfJ
+         m0ikb7BVnyVytftK45BSRDaOm4NfHs+dCZuhc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1739576190; x=1740180990;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=xYgDDL+7h3Ynk231V7nkSwhljdJvwi6AzXDua/Ub3mU=;
+        b=jFemn9CezG7LtcqGznQzf0TXcmTHy77l4qP1iX8zBsQi3BukW/kIJBwYUy+ovxTYqs
+         JveTxv0GAcUgg1qAYAfy8RlMGB0t9RMEDhPejq19hpFXn5BVfkz0FO5JcNHrxXvMHt3U
+         506Kk5QZyFfyf5/NIeQIM/SaV0XijtKWINvtrahTSxb6ynj4HqBcUaCK/6ZKCFwTA2R9
+         auL7Wm4rcbyfiEsnMkfz7v++gicbwdM2A62+T06MH8Ke9DZW8LqBhlrnKKxctkUbHniW
+         c3TCq2sz0HYp0yNWTqjxxpYbqua4mC3jWNxo1zPLaTkGXCg+Xb78nu4Qa2msF8CCHA6T
+         TdMQ==
+X-Gm-Message-State: AOJu0YxjNTCoQeTq1R50x9J9+mjcfqPf6UnGI0YMtGJ5Yr6pimRSoy0s
+	RGKDn6oNQERIPi2f6AE1GBzj9W5YxVBMOx9fC7Qz+iL8hZHFd3n078dxEETnT7g01mpAniM1NE1
+	v
+X-Gm-Gg: ASbGnctnD3EBqSl/C4Pj9FS5Dp1SlhzUS5s8Yu7nRK8Vd4WODby1MGiIralsrRd1iZk
+	9KkFgXPZeMLCS2TGyBugubjnq/9d9YHPE5C4WSX3vAeGw0Trx9XV14msANi7FY223hOQHsWTXKs
+	FNiV1f6Bo3QZuwjFC5P4hTYZDOYQERMDjckfEghv++LntD7CrTvRZEtDiW/G581d3106r1avx0B
+	WgK7aSJHdChu6TlOeveYY0eX560g7c4yuk7mkymulJnBHLDiG1RobMER8Z1UQ07hYMF1eyuD/VO
+	E+XawQioKsmWnSx6Va0UJ9JTmM23/r6wXrav9Syd76zrD1Fv9uXZaRc=
+X-Google-Smtp-Source: AGHT+IF/rjmICln15SmPK+zhuT0hNqgDXgrDGKlzAgw997LjbFj/UpcBsAsaKYJGwlUZV6i1GAdpqw==
+X-Received: by 2002:a05:6000:4021:b0:38f:355b:13e9 with SMTP id ffacd0b85a97d-38f355b15b9mr327969f8f.15.1739576189724;
+        Fri, 14 Feb 2025 15:36:29 -0800 (PST)
+Message-ID: <9c2c6099-9399-4607-9533-4d2f6aa1afc8@citrix.com>
+Date: Fri, 14 Feb 2025 23:36:27 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Content-Language: en-GB
+To: xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>, Juergen Gross
+ <jgross@suse.com>, Dario Faggioli <dfaggioli@suse.com>,
+ George Dunlap <gwd@xenproject.org>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: ARM32 UBSAN failure in credit2
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, 14 Feb 2025, Nicola Vetrini wrote:
-> The Xen configurations for the ARM64 and X86_64 ECLAIR analyses
-> is currently held in fixed files under
-> 'automation/eclair_analysis/xen_{arm,x86}_config'. The values
-> of the configuration options there are susceptible to going stale
-> due to configuration option changes.
-> 
-> To enhance maintainability, the configuration under analysis is
-> derived from the respective architecture's defconfig, with suitable
-> changes added via EXTRA_XEN_CONFIG.
-> 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+This is nasty.
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/9137008215
+
+When preprocessed, we get:
+
+diff --git a/xen/common/sched/credit2.c b/xen/common/sched/credit2.c
+index 0a83f237259f..6b8d3660240a 100644
+--- a/xen/common/sched/credit2.c
++++ b/xen/common/sched/credit2.c
+@@ -958,7 +958,28 @@ cpu_add_to_runqueue(const struct scheduler *ops,
+unsigned int cpu)
+     write_lock_irqsave(&prv->lock, flags);
+ 
+     rqd_ins = &prv->rql;
++
++#if 0
+     list_for_each_entry ( rqd, &prv->rql, rql )
++#else
++    for ( (rqd) = ({
++                typeof(((typeof(*(rqd)) *)((void*)0))->rql) *__mptr =
++                    ((&prv->rql)->next);
++                (typeof(*(rqd)) *)
++                    ((char *)__mptr -
++                     __builtin_offsetof(typeof(*(rqd)),rql) );
++            });
++          &(rqd)->rql != // <-- problem expression
++              (&prv->rql);
++          (rqd) = ({
++                  typeof(((typeof(*(rqd)) *)((void*)0))->rql) *__mptr =
++                      ((rqd)->rql.next);
++                  (typeof(*(rqd)) *)
++                      ((char *)__mptr -
++                       __builtin_offsetof(typeof(*(rqd)),rql) );
++              })
++        )
++#endif
+     {
+         /* Remember first unused queue index. */
+         if ( !rqi_unused && rqd->id > rqi )
 
 
-> ---
-> This patch should be applied on top of the other two in the series to
-> ensure that the CI has no failures related to clean guidelines.
-> 
-> Note that any out of date values taken by configuration options
-> currently in xen_*_config were determined to be benign with respect to
-> the analysis results, but this wasn't the right approach in the long
-> term.
-> ---
->  automation/eclair_analysis/prepare.sh     |   8 +-
->  automation/eclair_analysis/xen_arm_config | 141 ---------------------
->  automation/eclair_analysis/xen_x86_config | 143 ----------------------
->  automation/gitlab-ci/analyze.yaml         |  68 ++++++++++
->  4 files changed, 73 insertions(+), 287 deletions(-)
->  delete mode 100644 automation/eclair_analysis/xen_arm_config
->  delete mode 100644 automation/eclair_analysis/xen_x86_config
-> 
-> diff --git a/automation/eclair_analysis/prepare.sh b/automation/eclair_analysis/prepare.sh
-> index 3a646414a392..4285ff26de54 100755
-> --- a/automation/eclair_analysis/prepare.sh
-> +++ b/automation/eclair_analysis/prepare.sh
-> @@ -25,18 +25,20 @@ fi
->  export XEN_TARGET_ARCH
->  
->  if [ "$1" = "X86_64" ]; then
-> -  CONFIG_FILE="${script_dir}/xen_x86_config"
->    XEN_TARGET_ARCH=x86_64
->  elif [ "$1" = "ARM64" ]; then
-> -  CONFIG_FILE="${script_dir}/xen_arm_config"
->    XEN_TARGET_ARCH=arm64
->  else
->    fatal "Unknown configuration: $1"
->  fi
->  
->  (
-> +    make -C xen defconfig
-> +    if [[ -n "${EXTRA_XEN_CONFIG}" ]]; then
-> +        echo "${EXTRA_XEN_CONFIG}" >> xen/.config
-> +    fi
-> +
->      ./configure
-> -    cp "${CONFIG_FILE}" xen/.config
->      make clean
->      find . -type f -name "*.safparse" -print -delete
->      "${script_dir}/build.sh" "$1"
-> diff --git a/automation/eclair_analysis/xen_arm_config b/automation/eclair_analysis/xen_arm_config
-> deleted file mode 100644
-> index ef140ceb7383..000000000000
-> --- a/automation/eclair_analysis/xen_arm_config
-> +++ /dev/null
-> @@ -1,141 +0,0 @@
-> -CONFIG_CC_IS_GCC=y
-> -CONFIG_GCC_VERSION=90400
-> -CONFIG_CLANG_VERSION=0
-> -CONFIG_LD_IS_GNU=y
-> -CONFIG_CC_HAS_VISIBILITY_ATTRIBUTE=y
-> -CONFIG_ARM_64=y
-> -CONFIG_ARM=y
-> -CONFIG_ARCH_DEFCONFIG="arch/arm/configs/arm64_defconfig"
-> -
-> -# UBSAN
-> -CONFIG_UBSAN=n
-> -
-> -#
-> -# Architecture Features
-> -#
-> -CONFIG_ARM64_SVE=n
-> -CONFIG_64BIT=y
-> -CONFIG_NR_CPUS=4
-> -# CONFIG_ACPI is not set
-> -CONFIG_ARM_EFI=y
-> -CONFIG_GICV3=y
-> -CONFIG_HAS_ITS=y
-> -CONFIG_HVM=y
-> -# CONFIG_NEW_VGIC is not set
-> -CONFIG_SBSA_VUART_CONSOLE=y
-> -CONFIG_ARM_SSBD=y
-> -CONFIG_HARDEN_BRANCH_PREDICTOR=y
-> -CONFIG_TEE=n
-> -CONFIG_OPTEE=n
-> -CONFIG_FFA=n
-> -# CONFIG_STATIC_SHM is not set
-> -# end of Architecture Features
-> -
-> -#
-> -# ARM errata workaround via the alternative framework
-> -#
-> -CONFIG_ARM64_ERRATUM_827319=y
-> -CONFIG_ARM64_ERRATUM_824069=y
-> -CONFIG_ARM64_ERRATUM_819472=y
-> -CONFIG_ARM64_ERRATUM_843419=y
-> -CONFIG_ARM64_ERRATUM_832075=y
-> -CONFIG_ARM64_ERRATUM_834220=y
-> -CONFIG_ARM64_ERRATUM_1508412=y
-> -CONFIG_ARM_ERRATUM_858921=y
-> -CONFIG_ARM64_WORKAROUND_REPEAT_TLBI=y
-> -CONFIG_ARM64_ERRATUM_1286807=y
-> -# end of ARM errata workaround via the alternative framework
-> -
-> -CONFIG_ARM64_HARDEN_BRANCH_PREDICTOR=y
-> -# CONFIG_ALL_PLAT is not set
-> -# CONFIG_QEMU is not set
-> -# CONFIG_RCAR3 is not set
-> -CONFIG_MPSOC=y
-> -# CONFIG_NO_PLAT is not set
-> -CONFIG_MPSOC_PLATFORM=y
-> -
-> -#
-> -# Common Features
-> -#
-> -CONFIG_GRANT_TABLE=y
-> -CONFIG_HAS_ALTERNATIVE=y
-> -CONFIG_HAS_DEVICE_TREE=y
-> -CONFIG_HAS_FAST_MULTIPLY=y
-> -CONFIG_HAS_PDX=y
-> -CONFIG_HAS_PMAP=y
-> -# CONFIG_MEM_ACCESS is not set
-> -CONFIG_STATIC_MEMORY=y
-> -
-> -#
-> -# Speculative hardening
-> -#
-> -CONFIG_SPECULATIVE_HARDEN_ARRAY=y
-> -# end of Speculative hardening
-> -
-> -# CONFIG_HYPFS is not set
-> -CONFIG_IOREQ_SERVER=y
-> -# CONFIG_EFI_SET_VIRTUAL_ADDRESS_MAP is not set
-> -# CONFIG_XSM is not set
-> -# CONFIG_ARGO is not set
-> -
-> -#
-> -# Schedulers
-> -#
-> -# CONFIG_SCHED_CREDIT is not set
-> -CONFIG_SCHED_CREDIT2=y
-> -# CONFIG_SCHED_RTDS is not set
-> -# CONFIG_SCHED_ARINC653 is not set
-> -CONFIG_SCHED_NULL=y
-> -CONFIG_SCHED_CREDIT2_DEFAULT=y
-> -# CONFIG_SCHED_NULL_DEFAULT is not set
-> -CONFIG_SCHED_DEFAULT="credit2"
-> -# end of Schedulers
-> -
-> -CONFIG_BOOT_TIME_CPUPOOLS=y
-> -# CONFIG_LIVEPATCH is not set
-> -# CONFIG_ENFORCE_UNIQUE_SYMBOLS is not set
-> -CONFIG_SUPPRESS_DUPLICATE_SYMBOL_WARNINGS=y
-> -CONFIG_CMDLINE=""
-> -CONFIG_DOM0_MEM=""
-> -CONFIG_DTB_FILE=""
-> -# CONFIG_TRACEBUFFER is not set
-> -# end of Common Features
-> -
-> -#
-> -# Device Drivers
-> -#
-> -# CONFIG_HAS_NS16550 is not set
-> -CONFIG_HAS_CADENCE_UART=y
-> -# CONFIG_HAS_IMX_LPUART is not set
-> -# CONFIG_HAS_MVEBU is not set
-> -# CONFIG_HAS_MESON is not set
-> -CONFIG_HAS_PL011=y
-> -# CONFIG_HAS_SCIF is not set
-> -CONFIG_SERIAL_TX_BUFSIZE=16384
-> -CONFIG_HAS_PASSTHROUGH=y
-> -CONFIG_ARM_SMMU=y
-> -CONFIG_ARM_SMMU_V3=y
-> -# CONFIG_IPMMU_VMSA is not set
-> -CONFIG_IOMMU_FORCE_PT_SHARE=y
-> -# end of Device Drivers
-> -
-> -CONFIG_EXPERT=y
-> -CONFIG_UNSUPPORTED=y
-> -
-> -#
-> -# Debugging Options
-> -#
-> -CONFIG_DEBUG=y
-> -CONFIG_FRAME_POINTER=y
-> -CONFIG_COVERAGE=y
-> -CONFIG_DEBUG_LOCK_PROFILE=y
-> -CONFIG_DEBUG_LOCKS=y
-> -CONFIG_PERF_COUNTERS=y
-> -CONFIG_PERF_ARRAYS=y
-> -CONFIG_VERBOSE_DEBUG=y
-> -CONFIG_DEVICE_TREE_DEBUG=y
-> -CONFIG_SCRUB_DEBUG=y
-> -CONFIG_DEBUG_TRACE=y
-> -CONFIG_XMEM_POOL_POISON=y
-> -CONFIG_DEBUG_INFO=y
-> -# end of Debugging Options
-> diff --git a/automation/eclair_analysis/xen_x86_config b/automation/eclair_analysis/xen_x86_config
-> deleted file mode 100644
-> index abc44d43e108..000000000000
-> --- a/automation/eclair_analysis/xen_x86_config
-> +++ /dev/null
-> @@ -1,143 +0,0 @@
-> -CONFIG_CC_IS_GCC=y
-> -CONFIG_GCC_VERSION=90400
-> -CONFIG_CLANG_VERSION=0
-> -CONFIG_LD_IS_GNU=y
-> -CONFIG_CC_HAS_VISIBILITY_ATTRIBUTE=y
-> -CONFIG_X86_64=y
-> -CONFIG_X86=y
-> -CONFIG_ARCH_DEFCONFIG="arch/x86/configs/x86_64_defconfig"
-> -CONFIG_CC_HAS_INDIRECT_THUNK=y
-> -CONFIG_HAS_AS_CET_SS=y
-> -CONFIG_HAS_CC_CET_IBT=y
-> -
-> -CONFIG_REQUIRE_NX=n
-> -
-> -#
-> -# Architecture Features
-> -#
-> -CONFIG_64BIT=y
-> -CONFIG_NR_CPUS=16
-> -CONFIG_NR_NUMA_NODES=2
-> -# CONFIG_PV is not set
-> -CONFIG_HVM=y
-> -# CONFIG_XEN_SHSTK is not set
-> -# CONFIG_XEN_IBT is not set
-> -# CONFIG_SHADOW_PAGING is not set
-> -# CONFIG_BIGMEM is not set
-> -# CONFIG_HVM_FEP is not set
-> -# CONFIG_TBOOT is not set
-> -CONFIG_XEN_ALIGN_DEFAULT=y
-> -# CONFIG_XEN_ALIGN_2M is not set
-> -CONFIG_X2APIC_PHYSICAL=y
-> -# CONFIG_XEN_GUEST is not set
-> -# CONFIG_HYPERV_GUEST is not set
-> -# CONFIG_MEM_PAGING is not set
-> -# CONFIG_MEM_SHARING is not set
-> -# end of Architecture Features
-> -
-> -#
-> -# Common Features
-> -#
-> -CONFIG_COMPAT=y
-> -CONFIG_CORE_PARKING=y
-> -CONFIG_GRANT_TABLE=y
-> -CONFIG_ALTERNATIVE_CALL=y
-> -CONFIG_ARCH_MAP_DOMAIN_PAGE=y
-> -CONFIG_GENERIC_BUG_FRAME=y
-> -CONFIG_HAS_ALTERNATIVE=y
-> -CONFIG_HAS_COMPAT=y
-> -CONFIG_HAS_EX_TABLE=y
-> -CONFIG_HAS_FAST_MULTIPLY=y
-> -CONFIG_HAS_IOPORTS=y
-> -CONFIG_HAS_KEXEC=y
-> -CONFIG_HAS_PDX=y
-> -CONFIG_HAS_SCHED_GRANULARITY=y
-> -CONFIG_HAS_UBSAN=y
-> -CONFIG_MEM_ACCESS_ALWAYS_ON=y
-> -CONFIG_MEM_ACCESS=y
-> -CONFIG_NEEDS_LIBELF=y
-> -CONFIG_NUMA=y
-> -
-> -#
-> -# Speculative hardening
-> -#
-> -CONFIG_INDIRECT_THUNK=y
-> -CONFIG_SPECULATIVE_HARDEN_ARRAY=y
-> -CONFIG_SPECULATIVE_HARDEN_BRANCH=y
-> -# end of Speculative hardening
-> -
-> -# CONFIG_HYPFS is not set
-> -CONFIG_IOREQ_SERVER=y
-> -# CONFIG_KEXEC is not set
-> -# CONFIG_EFI_SET_VIRTUAL_ADDRESS_MAP is not set
-> -# CONFIG_XENOPROF is not set
-> -# CONFIG_XSM is not set
-> -# CONFIG_ARGO is not set
-> -
-> -#
-> -# Schedulers
-> -#
-> -# CONFIG_SCHED_CREDIT is not set
-> -CONFIG_SCHED_CREDIT2=y
-> -# CONFIG_SCHED_RTDS is not set
-> -# CONFIG_SCHED_ARINC653 is not set
-> -CONFIG_SCHED_NULL=y
-> -CONFIG_SCHED_CREDIT2_DEFAULT=y
-> -# CONFIG_SCHED_NULL_DEFAULT is not set
-> -CONFIG_SCHED_DEFAULT="credit2"
-> -# end of Schedulers
-> -
-> -# CONFIG_LIVEPATCH is not set
-> -# CONFIG_ENFORCE_UNIQUE_SYMBOLS is not set
-> -# CONFIG_SUPPRESS_DUPLICATE_SYMBOL_WARNINGS is not set
-> -CONFIG_CMDLINE=""
-> -CONFIG_DOM0_MEM=""
-> -# CONFIG_TRACEBUFFER is not set
-> -# end of Common Features
-> -
-> -#
-> -# Device Drivers
-> -#
-> -CONFIG_ACPI=y
-> -CONFIG_ACPI_LEGACY_TABLES_LOOKUP=y
-> -CONFIG_ACPI_NUMA=y
-> -CONFIG_HAS_NS16550=y
-> -CONFIG_HAS_EHCI=y
-> -CONFIG_SERIAL_TX_BUFSIZE=16384
-> -# CONFIG_XHCI is not set
-> -CONFIG_HAS_CPUFREQ=y
-> -CONFIG_HAS_PASSTHROUGH=y
-> -CONFIG_AMD_IOMMU=y
-> -# CONFIG_INTEL_IOMMU is not set
-> -# CONFIG_IOMMU_QUARANTINE_NONE is not set
-> -CONFIG_IOMMU_QUARANTINE_BASIC=y
-> -# CONFIG_IOMMU_QUARANTINE_SCRATCH_PAGE is not set
-> -CONFIG_HAS_PCI=y
-> -CONFIG_HAS_PCI_MSI=y
-> -CONFIG_VIDEO=y
-> -CONFIG_VGA=y
-> -CONFIG_HAS_VPCI=y
-> -# end of Device Drivers
-> -
-> -CONFIG_EXPERT=y
-> -CONFIG_UNSUPPORTED=y
-> -CONFIG_ARCH_SUPPORTS_INT128=y
-> -
-> -#
-> -# Debugging Options
-> -#
-> -CONFIG_DEBUG=y
-> -# CONFIG_CRASH_DEBUG is not set
-> -CONFIG_GDBSX=y
-> -CONFIG_FRAME_POINTER=y
-> -# CONFIG_COVERAGE is not set
-> -# CONFIG_DEBUG_LOCK_PROFILE is not set
-> -CONFIG_DEBUG_LOCKS=y
-> -# CONFIG_PERF_COUNTERS is not set
-> -CONFIG_VERBOSE_DEBUG=y
-> -CONFIG_SCRUB_DEBUG=y
-> -# CONFIG_UBSAN is not set
-> -# CONFIG_DEBUG_TRACE is not set
-> -CONFIG_XMEM_POOL_POISON=y
-> -CONFIG_DEBUG_INFO=y
-> -# end of Debugging Options
-> diff --git a/automation/gitlab-ci/analyze.yaml b/automation/gitlab-ci/analyze.yaml
-> index 02e0ea692c66..35ff3620cf8e 100644
-> --- a/automation/gitlab-ci/analyze.yaml
-> +++ b/automation/gitlab-ci/analyze.yaml
-> @@ -40,6 +40,36 @@ eclair-x86_64:
->      LOGFILE: "eclair-x86_64.log"
->      VARIANT: "X86_64"
->      RULESET: "monitored"
-> +    EXTRA_XEN_CONFIG: |
-> +      CONFIG_AMD=y
-> +      CONFIG_INTEL=n
-> +      CONFIG_AMD_SVM=y
-> +      CONFIG_INTEL_VMX=n
-> +      CONFIG_NR_CPUS=16
-> +      CONFIG_NR_NUMA_NODES=2
-> +      CONFIG_PV=n
-> +      CONFIG_XEN_IBT=n
-> +      CONFIG_XEN_SHSTK=n
-> +      CONFIG_SHADOW_PAGING=n
-> +      CONFIG_HVM_FEP=n
-> +      CONFIG_TBOOT=n
-> +      CONFIG_HYPFS=n
-> +      CONFIG_KEXEC=n
-> +      CONFIG_ARGO=y
-> +      CONFIG_SCHED_CREDIT=n
-> +      CONFIG_SCHED_RTDS=n
-> +      CONFIG_SCHED_ARINC653=n
-> +      CONFIG_LIVEPATCH=n
-> +      CONFIG_TRACEBUFFER=n
-> +      CONFIG_INTEL_IOMMU=n
-> +      CONFIG_EXPERT=y
-> +      CONFIG_DEBUG=y
-> +      CONFIG_GDBSX=n
-> +      CONFIG_FRAME_POINTER=n
-> +      CONFIG_SELF_TESTS=n
-> +      CONFIG_DEBUG_LOCKS=n
-> +      CONFIG_SCRUB_DEBUG=n
-> +      CONFIG_XMEM_POOL_POISON=n
->  
->  eclair-ARM64:
->    extends: .eclair-analysis:triggered
-> @@ -47,6 +77,44 @@ eclair-ARM64:
->      LOGFILE: "eclair-ARM64.log"
->      VARIANT: "ARM64"
->      RULESET: "monitored"
-> +    EXTRA_XEN_CONFIG: |
-> +      CONFIG_NR_CPUS=16
-> +      CONFIG_GICV2=n
-> +      CONFIG_GICV3=y
-> +      CONFIG_VGICV2=n
-> +      CONFIG_HAS_ITS=y
-> +      CONFIG_HWDOM_VUART=n
-> +      CONFIG_STATIC_SHM=y
-> +      CONFIG_STATIC_EVTCHN=y
-> +      CONFIG_STATIC_MEMORY=y
-> +      CONFIG_SCMI_SMC=n
-> +      CONFIG_PARTIAL_EMULATION=n
-> +      CONFIG_HYPFS=n
-> +      CONFIG_IOREQ_SERVER=y
-> +      CONFIG_XSM=n
-> +      CONFIG_ARGO=y
-> +      CONFIG_SCHED_CREDIT=n
-> +      CONFIG_SCHED_RTDS=n
-> +      CONFIG_SCHED_ARINC653=n
-> +      CONFIG_BOOT_TIME_CPUPOOLS=y
-> +      CONFIG_TRACEBUFFER=n
-> +      CONFIG_HAS_CADENCE_UART=n
-> +      CONFIG_HAS_NS16550=n
-> +      CONFIG_HAS_IMX_LPUART=n
-> +      CONFIG_HAS_MVEBU=n
-> +      CONFIG_HAS_MESON=n
-> +      CONFIG_HAS_OMAP=n
-> +      CONFIG_HAS_SCIF=n
-> +      CONFIG_HAS_LINFLEX=n
-> +      CONFIG_ARM_SMMU=n
-> +      CONFIG_ARM_SMMU_V3=y
-> +      CONFIG_EXPERT=y
-> +      CONFIG_DEBUG=y
-> +      CONFIG_FRAME_POINTER=n
-> +      CONFIG_SELF_TESTS=n
-> +      CONFIG_DEBUG_LOCKS=n
-> +      CONFIG_SCRUB_DEBUG=n
-> +      CONFIG_XMEM_POOL_POISON=n
->  
->  .eclair-analysis:on-schedule:
->    extends: .eclair-analysis
-> -- 
-> 2.43.0
-> 
+The alignment of csched2_runqueue_data is 8, while csched2_private is 4.
+
+priv's list_head for rql is at +28 (+0x1c), and list_for_each_entry()
+performs a buggily-typed container_of(), treating a csched2_private as
+if it were csched2_runqueue_data.
+
+It functions because it's only an address equality check, but it's also
+why UBSAN objects.
+
+This seems to fix the issue:
+
+diff --git a/xen/common/sched/credit2.c b/xen/common/sched/credit2.c
+index 6b8d3660240a..ab938942d75f 100644
+--- a/xen/common/sched/credit2.c
++++ b/xen/common/sched/credit2.c
+@@ -537,7 +537,8 @@ struct csched2_private {
+     unsigned int ratelimit_us;         /* Rate limiting for this
+scheduler   */
+ 
+     unsigned int active_queues;        /* Number of active
+runqueues         */
+-    struct list_head rql;              /* List of
+runqueues                  */
++    struct list_head rql               /* List of
+runqueues                  */
++    __aligned(alignof(struct csched2_runqueue_data));
+ 
+     cpumask_t initialized;             /* CPUs part of this
+scheduler        */
+     struct list_head sdom;             /* List of domains (for debug
+key)    */
+
+but it's obviously not a viable fix.  I can't help feeling that the bug
+is really in the list macros.
+
+~Andrew
 
