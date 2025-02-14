@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33655A357B9
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 08:18:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.888390.1297752 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 603AFA357C4
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Feb 2025 08:20:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.888399.1297762 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tipxd-0004RD-O8; Fri, 14 Feb 2025 07:18:05 +0000
+	id 1tiq0D-0006Nl-4i; Fri, 14 Feb 2025 07:20:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 888390.1297752; Fri, 14 Feb 2025 07:18:05 +0000
+Received: by outflank-mailman (output) from mailman id 888399.1297762; Fri, 14 Feb 2025 07:20:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tipxd-0004Oe-LL; Fri, 14 Feb 2025 07:18:05 +0000
-Received: by outflank-mailman (input) for mailman id 888390;
- Fri, 14 Feb 2025 07:18:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tiq0D-0006LI-1x; Fri, 14 Feb 2025 07:20:45 +0000
+Received: by outflank-mailman (input) for mailman id 888399;
+ Fri, 14 Feb 2025 07:20:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PTsb=VF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tipxc-0004OY-6s
- for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 07:18:04 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d421ab1e-eaa3-11ef-9aa4-95dc52dad729;
- Fri, 14 Feb 2025 08:18:03 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-ab7f9d87b96so263270866b.3
- for <xen-devel@lists.xenproject.org>; Thu, 13 Feb 2025 23:18:03 -0800 (PST)
+ id 1tiq0C-0006LC-5k
+ for xen-devel@lists.xenproject.org; Fri, 14 Feb 2025 07:20:44 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 32bfb55c-eaa4-11ef-9896-31a8f345e629;
+ Fri, 14 Feb 2025 08:20:42 +0100 (CET)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-ab7ca64da5dso329532466b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Feb 2025 23:20:42 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aba530a34edsm285762066b.0.2025.02.13.23.18.02
+ a640c23a62f3a-aba53231e04sm283292366b.28.2025.02.13.23.20.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Feb 2025 23:18:02 -0800 (PST)
+ Thu, 13 Feb 2025 23:20:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d421ab1e-eaa3-11ef-9aa4-95dc52dad729
+X-Inumbo-ID: 32bfb55c-eaa4-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739517483; x=1740122283; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739517641; x=1740122441; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=FcfnmALDWBSdRTH0D3LIJY3zsVXIKafpZ+hgDxWmemY=;
-        b=OGqCtIu0dWaSBpDQzkf7vtGBewpG17Mju/xPt00BewNojiz6foiU2Fes3z0c5p76U/
-         x9b+2s6vj44bkRDziG69t91yMv2nnheE2AIFkoI2V9IdBMPkha0mR/5JCQkUsaV1Yh+W
-         auSkgQ4TwCgxt+adHKa86HuCOMibRt2BEqqo8CB4MnK7isoNBc1sLDo0TPmbxoJurUoR
-         VF9RyeOIxaE/wP6Y/RZ7sLjKXw1PuisIlKQhZQZgmxX+HZ5C8kj/A+1AfN9aCH/6qBLG
-         kMGzDe8T05gVRIdd6a4dVMkp86y/BK/iZgZKAg8VBT1wkcf3jk3E3VcCF/LQ2DlCfLtO
-         19gQ==
+        bh=UEgsYjI3OF+cEJb/ua4djCBTTOdsUQgIH0NTlD96UoI=;
+        b=LOew6t3NHI8wrs96nS8PRxqbsz+gL6pTkHA/zMVTetKXA+trrMyjcSjob3pBbU0e3B
+         pzScOoOUi+rMOzwlZo51Bjbau+erpkZ4FbIARFwFlWVhi540qnE1b1sLkzKsUcgtLvUQ
+         v1oYUz33xCi+uVQvg8LWL5svJZ10SQRkMt3WIFQ/+1b+eJej1MQim2MKKS7S0KOMK1Ro
+         iv7BwpHEXnsEKWgasDtAX0csZh20gE50mhhaK9FS7Gmxyof61oGYFsAFmr6KLVF9KK3w
+         4Qm0fiMQ84pdEluZLIe8yfWAai3vrfXZ58D6L+7fmZECzuXM0mHf1OLvuvzi/8o54eMy
+         4uvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739517483; x=1740122283;
+        d=1e100.net; s=20230601; t=1739517641; x=1740122441;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FcfnmALDWBSdRTH0D3LIJY3zsVXIKafpZ+hgDxWmemY=;
-        b=ciqgMqwxr4lB9XQSt4MDqE//gY//D2TcCTso4nYYdlwwnRbIp3ohqsefT27JQHR/Lm
-         OMZEJuVZmXFztPZ1lbFE3RyD379y8beOfjq0NXauaRJagzkpWDSWnMFCmh/IlPoikO39
-         ZAcjNC/jtohupANdnGBfr3C7ZvosUlSWj79ic8/ttEAHnnmAisymLHCLs1eDUU8URocY
-         QAMy6u2uixBQm1/JoaQSGcTtJGBgeWJHH/zCCqQYOT3dxjOGJkAiHwog8cbl1PMl/ZFI
-         CRjyG3iSh6Znx0Q/iPndNEXvzJ8p4eysZ8Cs1HY0P6CegvnNQN1zHKvGPbfUsR98WgeF
-         JWMA==
-X-Forwarded-Encrypted: i=1; AJvYcCVXy8s4JEmqDxZ27xOhjz86Es5xcbpVNGZccluDIeHrC8lbGoGoEdHEPbNRJ7ERG6s5VxtRVbqY2Yw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxs6nqUqfAvsG1/HJpTHQVR0Ey0TUvXWE4W6R/bR06qkYGm8Ei9
-	gO2T/nXL1jcSkVDwibU7Uc4BjxAUBcTCqauXvGxvPqmuemPN1gwBZwLEBTEH4w==
-X-Gm-Gg: ASbGncte0AZmPa/iOpULX3jdnEXA0G/0oF9kjLii/6qEbbZ0Gu6tgxI4m3E4xrEXuI9
-	J6JhKll7rgxUj492DoIHJrNqNiuTyAxr/mi7YB9KOMSc721oP9IP3pIP8o4v6PopjHopoZDesxN
-	ru9NGIxLLnU8vwyIg19R4+REXhmgg8lgppF7rznw7IVMPqU5nA6Qzpbg9XBjvr2T3n9DF+IqPEV
-	Cw9OTtMww46tVmAEAdxPXcIGz6RzH9Dzn/nEnaAdmnCsXc3Nb1ARZ2Rjt1uND38mHGrLEENc/UH
-	fgq5stseWk4sei+f3mu0WmN1PuNfUJykrWAJQNkJkPLK4Gb2I0lFx4i2dYRahboWMZskTIzV78d
-	S
-X-Google-Smtp-Source: AGHT+IHinrEAIeEFbj0vTx3BjI+wcHYQSF448LVo5JCvBZ3x7wAkTHXGz2PereM8h3LMJ74yIl58rg==
-X-Received: by 2002:a17:906:ee87:b0:ab7:d77b:43a3 with SMTP id a640c23a62f3a-ab7f33f6df6mr908224766b.32.1739517482653;
-        Thu, 13 Feb 2025 23:18:02 -0800 (PST)
-Message-ID: <c82e1088-f789-43d4-a56e-72d0d1d1c170@suse.com>
-Date: Fri, 14 Feb 2025 08:18:01 +0100
+        bh=UEgsYjI3OF+cEJb/ua4djCBTTOdsUQgIH0NTlD96UoI=;
+        b=R1Ki/CTbMuFsVQB0AQLLFqTp4xLMsc43DZq+TjXIwbyi5Yjs6jINYqYeOVliErJ06I
+         4ZTLxE7x4jUVrYSPBK52uSv4oKLgyWdEjBrzrXiBHPckIf5/WaBOAu1+fi8tWh9wHUPu
+         9nv3MESJ8CAi4H+qH3XLUxbkUGV+RfFBYXNQVMJBSwCTh05G81ohIrFJyXd/Mr4PpajA
+         AlZrHcm8pNs/Q3BfhOQ/3CR+o3WVELyHvD1r0WK2LjHP4Zn3Fq8KUuTzbqaqc+Ae+qLp
+         cPo2SoXvdJReXeu7i2Cfto57tyodUIcOFYhHnlSjdq2tQBpnJ4VP8Acw5t5HFQA9CpQG
+         bJ1Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXj86rejfcchDlDLcf5nx1L80OtVsOhj/SX72HdVRhTigyuF94zyj9IXiA3FhcogV/hRqTVkWppxio=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxgo2nV3c3IMOqLVJBkgfh3XgDYOClYBMnceLxCeamAeZceY2c0
+	TUsvYnMZY8DZSSNi+JQ96aOO+yb4reagJS4Fldai+F2opAbWtLXJeNuoZQq1qg==
+X-Gm-Gg: ASbGncsT4WK55nPgZghyzrI+QHFXNg1rbWK28EY/d5/ZYU1stTkURyXXK/i5pOX4OAj
+	0COiDbx52l9tEVrL+61b9UilWq3x7L/x4T6UmgfEo8gNmQr8VJkq4eeMeaa3cAx4Javww+tkLXH
+	QYmI5D/EMh3LPfQ2NYAkDpdPqCF93KgPXfb7eECsuDVwQM9uFYHqQiSkC1ZHnt95hQFRhUhBhcZ
+	gc7ilybkMwfErErkteBsekrhiMEXZ8hFCEoS9u5nQUlNSBCF0MwuOD0L1+EC8+B1mC24MfLXsca
+	R7gQgsykCDHCcYczZMmpke4PeVGNnfW/9dbN0bGi6lYsmYqn7wTZLwUh21SDAC+y4tDOuTPe+Uz
+	7
+X-Google-Smtp-Source: AGHT+IERlpJ/zlC4aJdLn5mZg/YjpMO4HfvONfrnT3G7RkRsnvODkbQW0DGcrZEWNa6g+nZkDEe+yA==
+X-Received: by 2002:a17:907:7d91:b0:ab7:9101:e480 with SMTP id a640c23a62f3a-aba50fa0cabmr543655166b.11.1739517641429;
+        Thu, 13 Feb 2025 23:20:41 -0800 (PST)
+Message-ID: <7f174822-9016-40e7-96bd-5a1e1f7121a6@suse.com>
+Date: Fri, 14 Feb 2025 08:20:39 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: struct mctelem_cookie missing definition
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <alpine.DEB.2.22.394.2502121721490.619090@ubuntu-linux-20-04-desktop>
- <1823d604-aa29-4828-a954-b8a08fbdbda7@citrix.com>
- <alpine.DEB.2.22.394.2502121738440.619090@ubuntu-linux-20-04-desktop>
- <alpine.DEB.2.22.394.2502121800190.619090@ubuntu-linux-20-04-desktop>
- <eccc2a63-9678-4675-8a7b-7c8e94206cb8@suse.com>
- <alpine.DEB.2.22.394.2502131326440.619090@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH v2] xen/mm: Introduce per-arch pte_attr_t type for PTE
+ flags
+To: Shawn Anastasio <sanastasio@raptorengineering.com>
+Cc: tpearson@raptorengineering.com, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+References: <2b7f3e29fc1790978e2f615ee634f3a84bc340c9.1738789214.git.sanastasio@raptorengineering.com>
+ <5a0e26ff-21fa-44c8-a1b2-3775e3ba00d9@suse.com>
+ <a6abb79a-6d98-4cb5-ba45-4530ea30735e@raptorengineering.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,82 +126,56 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2502131326440.619090@ubuntu-linux-20-04-desktop>
+In-Reply-To: <a6abb79a-6d98-4cb5-ba45-4530ea30735e@raptorengineering.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 13.02.2025 22:47, Stefano Stabellini wrote:
-> On Thu, 13 Feb 2025, Jan Beulich wrote:
->> On 13.02.2025 03:00, Stefano Stabellini wrote:
->>> On Wed, 12 Feb 2025, Stefano Stabellini wrote:
->>>> On Thu, 13 Feb 2025, Andrew Cooper wrote:
->>>>> On 13/02/2025 1:25 am, Stefano Stabellini wrote:
->>>>>> Hi all,
->>>>>>
->>>>>> I am looking through the few remaining MISRA violations that we have
->>>>>> left.  One of them is R11.2:
->>>>>>
->>>>>> https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/hardware/xen/ECLAIR_normal/staging/X86_64/9118578464/PROJECT.ecd;/by_service/MC3A2.R11.2.html#{%22select%22:true,%22selection%22:{%22hiddenAreaKinds%22:[],%22hiddenSubareaKinds%22:[],%22show%22:false,%22selector%22:{%22enabled%22:true,%22negated%22:true,%22kind%22:0,%22domain%22:%22kind%22,%22inputs%22:[{%22enabled%22:true,%22text%22:%22violation%22}]}}}
->>>>>>
->>>>>> Specifically, mctelem_cookie_t is a pointer to incomplete type and
->>>>>> therefore COOKIE2MCTE triggers a "conversion between a pointer to an
->>>>>> incomplete type and any other type".
->>>>>>
->>>>>> mctelem_cookie_t is defined as:
->>>>>>
->>>>>> typedef struct mctelem_cookie *mctelem_cookie_t;
->>>>>>
->>>>>> I am looking through the code and I genuinely cannot find the definition
->>>>>> of struct mctelem_cookie.
->>>>>>
->>>>>> If mctelem_cookie_t is only used as a pointer, wouldn't it make more
->>>>>> sense to do:
->>>>>>
->>>>>> typedef struct mctelem_ent *mctelem_cookie_t;
->>>>>>
->>>>>> ?
->>>>>>
->>>>>> What am I missing?
->>>>>
->>>>> Nothing.  Or perhaps the twisted thinking of the original author.
->>>>>
->>>>> It is genuinely a pointer type (== known size) which you can't deference
->>>>> (because there is no definition), and can only operate on by casting to
->>>>> an integer.  Except the code also requires it to be a uint64_t which is
->>>>> why there's some fun disabling of relevant hypercalls for compat guests.
->>>>>
->>>>> If someone could find the time to file it in /dev/null and replace it
->>>>> with literally anything else, I'd be very thankful.
->>>>
->>>> Are you OK with typedefing mctelem_cookie_t to uint64_t instead?
+On 14.02.2025 00:05, Shawn Anastasio wrote:
+> On 2/6/25 6:29 AM, Jan Beulich wrote:
+>> On 05.02.2025 22:02, Shawn Anastasio wrote:
+>>> Xen's memory management APIs map_pages_to_xen, modify_xen_mappings,
+>>> set_fixmap, ioremap_attr, and __vmap all use an unsigned int to
+>>> represent architecture-dependent page table entry flags. This assumption
+>>> is not well-suited for PPC/radix where some flags go past 32-bits, so
+>>> introduce the pte_attr_t type to allow architectures to opt in to larger
+>>> types to store PTE flags.
 >>>
->>> I confirm that the following resolves the MISRA violations
->>>
->>> diff --git a/xen/arch/x86/cpu/mcheck/mctelem.h b/xen/arch/x86/cpu/mcheck/mctelem.h
->>> index f4c5ff848d..2ccd490e5d 100644
->>> --- a/xen/arch/x86/cpu/mcheck/mctelem.h
->>> +++ b/xen/arch/x86/cpu/mcheck/mctelem.h
->>> @@ -52,7 +52,7 @@
->>>   * the element from the processing list.
->>>   */
->>>  
->>> -typedef struct mctelem_cookie *mctelem_cookie_t;
->>> +typedef uint64_t *mctelem_cookie_t;
+>>> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+>>> ---
+>>> Changes in v2:
+>>>   - Drop Kconfig option and use `#define pte_attr_t pte_attr_t` for arches to
+>>>   opt-in to defining the type.
+>>>   - Move default pte_attr_definition to xen/types.h
+>>>[...]
+>>>   - Update commit message to reflect that this change isn't strictly
+>>>   necessary for arches w/ >32bit pte flags
 >>
->> Yet that makes it possible to de-reference the pointer. Which, as Andrew
->> explained, is intended to be impossible. If this could be properly
->> replaced (not exactly what Andrew indicated by "file it in /dev/null"),
->> fine. Truly purging the code (i.e. as Andrew suggests) may still be an
->> option, with appropriate justification. But simply adjusting the type
->> and then moving on is too little, imo. Even if you used void * (to make
->> de-referencing impossible) I'd view it as largely papering over an issue;
->> then converting to other pointers (without explicit cast, and hence
->> without making apparent the badness of doing so) would become possible.
+>> I can't seem to be able to associate this with anything in the commit
+>> message. The comment here to me reads as if this was optional (but then
+>> for arches with <=32-bit PTE flags), yet in the description I can't spot
+>> anything to the same effect. Recall that it was said before that on x86
+>> we also have flags extending beyond bit 31, just that we pass them
+>> around in a compacted manner (which, as Andrew has been suggesting, may
+>> be undue extra overhead).
+>>
 > 
-> What about converting to uintptr_t (not a pointer)?
+> Admittedly the change was subtle, but I changed the wording in the
+> commit message as follows:
+> 
+> - This assumption does not work on PPC/radix where some flags go past
+>   32-bits, so [...]
+> + This assumption is not well-suited for PPC/radix where some flags go
+>   past 32-bits, so [...]
+> 
+> 
+> The softening of "does not work" to "is not well-suited" was meant to
+> address your earlier comment and clarify that the change is not strictly
+> necessary. Though as you and Andrew pointed out x86_64 is able to make
+> do with the 32 bits, I would still argue that the hardcoded `unsigned
+> int` flags type is still not well-suited to that application.
 
-That'll lose type checking the compiler does. A type-safe wrapper struct
-(like we have for mfn_t and alike in debug builds) may do.
+Oh, okay, fair enough then.
 
 Jan
 
