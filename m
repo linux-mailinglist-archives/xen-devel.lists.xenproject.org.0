@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71AB2A369DA
-	for <lists+xen-devel@lfdr.de>; Sat, 15 Feb 2025 01:18:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.889195.1298392 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0A28A369F7
+	for <lists+xen-devel@lfdr.de>; Sat, 15 Feb 2025 01:27:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.889209.1298401 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tj5ro-0000ru-4x; Sat, 15 Feb 2025 00:17:08 +0000
+	id 1tj61T-0002at-2U; Sat, 15 Feb 2025 00:27:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 889195.1298392; Sat, 15 Feb 2025 00:17:08 +0000
+Received: by outflank-mailman (output) from mailman id 889209.1298401; Sat, 15 Feb 2025 00:27:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tj5ro-0000pp-04; Sat, 15 Feb 2025 00:17:08 +0000
-Received: by outflank-mailman (input) for mailman id 889195;
- Sat, 15 Feb 2025 00:17:06 +0000
+	id 1tj61S-0002YZ-WB; Sat, 15 Feb 2025 00:27:06 +0000
+Received: by outflank-mailman (input) for mailman id 889209;
+ Sat, 15 Feb 2025 00:27:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=NTp2=VG=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tj5rm-0000pg-FP
- for xen-devel@lists.xenproject.org; Sat, 15 Feb 2025 00:17:06 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [2604:1380:45d1:ec00::3])
+ id 1tj61R-0002YT-My
+ for xen-devel@lists.xenproject.org; Sat, 15 Feb 2025 00:27:05 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2f17afc1-eb32-11ef-9aa4-95dc52dad729;
- Sat, 15 Feb 2025 01:17:05 +0100 (CET)
+ id 9363c0ed-eb33-11ef-9aa4-95dc52dad729;
+ Sat, 15 Feb 2025 01:27:03 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 8D95CA44C86;
- Sat, 15 Feb 2025 00:15:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48F5BC4CEE2;
- Sat, 15 Feb 2025 00:17:02 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 08F925C57BF;
+ Sat, 15 Feb 2025 00:26:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C932C4CED1;
+ Sat, 15 Feb 2025 00:27:00 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,173 +42,251 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2f17afc1-eb32-11ef-9aa4-95dc52dad729
+X-Inumbo-ID: 9363c0ed-eb33-11ef-9aa4-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739578623;
-	bh=iyD/f/7fF6oVnVGs6M1iHbJK8GQDwrbZdVUoLjORj9o=;
-	h=Date:From:To:cc:Subject:From;
-	b=H71mJE6er12a3O3AwP9+6b+FK40069P4FWz90wRzLG+PH7hX0mWtuuD6VeBTek4+/
-	 o2MYZEfHY9p0hXeuMPM+yIqlMoKvK3CZvluwu2186L6k23+tOthY6t3M8QygQswXGz
-	 0RwnaYwctzuYJ1Z7fdJ1Wt4f0+flByzFii1BdNXjgA5jtkV+MHhod5zyF0OUapKdo/
-	 ChG3yi+NDUwZUYopEIThyPsisaIaMidwuElOx+KReBT9LzZc/23FVgTgwrDja9nn79
-	 Mxud0E/Md9zZxIiKpq9bHsAt3v3SHliXckYfzMmZSxk7x10dN1yLEJDAp+jU0rCXn7
-	 sWfZdRfDB34nw==
-Date: Fri, 14 Feb 2025 16:17:00 -0800 (PST)
+	s=k20201202; t=1739579221;
+	bh=AWcH0MzwTuHQXnL1k5O6biFxgBtSkxpAY8FAxo0gvms=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=arPGypIFWwSHz8TseMFim5c+bLSt537yfmfX3ZI0d4skMVuYMq/82v3/IilvC+zKv
+	 d9y9GmPpoaaTKEZLw7Jz5spqjONFD50vUGaKLMF6fCqgxevmUsCNBB7XeubhUKGxRZ
+	 0mwdhjV6iqKXAyfV72xUBvgJYxkmKE4YKk/l/qxTEBwgIvCQI5qcHVj4PxuWCVlNu2
+	 HPxGoGTFMo6NU1kwfhBBTuBJq5K4OblzTMWL4sN2YzPW/MEwPWHC4YIiBvHVvNYIiM
+	 KTfFPj/bZqOsxwIP1B/paKpczJar7IbO+a08I588DSiDRzAIlv3gkpzvkvZA6jsclf
+	 kaE8ng/yxx00Q==
+Date: Fri, 14 Feb 2025 16:26:59 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: xen-devel@lists.xenproject.org
-cc: sstabellini@kernel.org, Julien Grall <julien@xen.org>, 
-    bertrand.marquis@arm.com, michal.orzel@amd.com, Volodymyr_Babchuk@epam.com, 
-    dpsmith@apertussolutions.com, xenia.ragiadakou@amd.com
-Subject: [PATCH v2] xen/dom0less: support for vcpu affinity
-Message-ID: <alpine.DEB.2.22.394.2502141615050.3858257@ubuntu-linux-20-04-desktop>
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2 2/4] automation: add jobs running tests from
+ tools/tests/*
+In-Reply-To: <cafc69b6c01805e7ccc0fcd6ccebe0b7088c4bd5.1739496480.git-series.marmarek@invisiblethingslab.com>
+Message-ID: <alpine.DEB.2.22.394.2502141626510.3858257@ubuntu-linux-20-04-desktop>
+References: <cover.36ee649a8537af1a5fb5b3c5b7ffc0d8a1369969.1739496480.git-series.marmarek@invisiblethingslab.com> <cafc69b6c01805e7ccc0fcd6ccebe0b7088c4bd5.1739496480.git-series.marmarek@invisiblethingslab.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; boundary="8323329-1347266580-1739579221=:3858257"
 
-Add vcpu affinity to the dom0less bindings. Example:
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-                         dom1 {
-                                 ...
-                                 cpus = <4>;
-                                 vcpu0 {
-                                        compatible = "xen,vcpu-affinity";
-                                        id = <0>;
-                                        hard-affinity = "4-7";
-                                 };
-                                 vcpu1 {
-                                        compatible = "xen,vcpu-affinity";
-                                        id = <1>;
-                                        hard-affinity = "0-3";
-                                 };
-                                 vcpu2 {
-                                        compatible = "xen,vcpu-affinity";
-                                        id = <2>;
-                                        hard-affinity = "1,6";
-                                 };
-                                 ...
-                         }
+--8323329-1347266580-1739579221=:3858257
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-Note that the property hard-affinity is optional. It is possible to add
-other properties in the future not only to specify soft affinity, but
-also to provide more precise methods for configuring affinity. For
-instance, on ARM the MPIDR could be use to specify the pCPU. For now, it
-is left to the future.
+On Fri, 14 Feb 2025, Marek Marczykowski-Górecki wrote:
+> There are a bunch of tests in tools/tests/, let them run in CI.
+> For each subdirectory expect "make run" will run the test, and observe
+> its exit code. This way, adding new tests is easy, and they will be
+> automatically picked up.
+> 
+> For better visibility, log test output to junit xml format, and let
+> gitlab ingest it. Set SUT_ADDR variable with name/address of the system
+> under test, so a network can be used to extract the file. The actual
+> address is set using DHCP. And for the test internal network, still add
+> the 192.168.0.1 IP (but don't replace the DHCP-provided one).
+> 
+> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
-Signed-off-by: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
-Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
----
-Changes in v2:
-- code style
-- add binding description to docs/misc/arm/device-tree/booting.txt
----
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
- docs/misc/arm/device-tree/booting.txt | 21 +++++++++++
- xen/arch/arm/dom0less-build.c         | 51 +++++++++++++++++++++++++++
- 2 files changed, 72 insertions(+)
 
-diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
-index 9c881baccc..6a2abbef4e 100644
---- a/docs/misc/arm/device-tree/booting.txt
-+++ b/docs/misc/arm/device-tree/booting.txt
-@@ -324,6 +324,27 @@ The ramdisk sub-node has the following properties:
-     property because it will be created by the UEFI stub on boot.
-     This option is needed only when UEFI boot is used.
- 
-+Under the "xen,domain" compatible node, it is possible optionally to add
-+one or more sub-nodes to configure vCPU affinity. The vCPU affinity
-+sub-node has the following properties:
-+
-+- compatible
-+
-+    "xen,vcpu-affinity"
-+
-+- id
-+
-+    A 32-bit integer that specifies the vCPU id. 0 is the first vCPU.
-+    The last vCPU is cpus-1, where "cpus" is the number of vCPUs
-+    specified with the "cpus" property under the "xen,domain" node.
-+
-+- hard-affinity
-+
-+    Optional. A string specifying the hard affinity configuration for the
-+    vCPU: a comma-separated list of pCPUs or ranges of pCPUs is used.
-+    Ranges are hyphen-separated intervals (such as `0-4`) and are inclusive
-+    on both sides.
-+
- 
- Example
- =======
-diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
-index 49d1f14d65..35d02689e7 100644
---- a/xen/arch/arm/dom0less-build.c
-+++ b/xen/arch/arm/dom0less-build.c
-@@ -818,6 +818,8 @@ void __init create_domUs(void)
-     const struct dt_device_node *cpupool_node,
-                                 *chosen = dt_find_node_by_path("/chosen");
-     const char *llc_colors_str = NULL;
-+    const char *hard_affinity_str = NULL;
-+    struct dt_device_node *np;
- 
-     BUG_ON(chosen == NULL);
-     dt_for_each_child_node(chosen, node)
-@@ -992,6 +994,55 @@ void __init create_domUs(void)
-         if ( rc )
-             panic("Could not set up domain %s (rc = %d)\n",
-                   dt_node_name(node), rc);
-+
-+        dt_for_each_child_node(node, np)
-+        {
-+            const char *s;
-+            struct vcpu *v;
-+            cpumask_t affinity;
-+
-+            if ( !dt_device_is_compatible(np, "xen,vcpu-affinity") )
-+                continue;
-+
-+            if ( !dt_property_read_u32(np, "id", &val) )
-+                continue;
-+            if ( val >= d->max_vcpus )
-+                panic("Invalid vcpu_id %u for domain %s\n", val, dt_node_name(node));
-+
-+            v = d->vcpu[val];
-+            rc = dt_property_read_string(np, "hard-affinity", &hard_affinity_str);
-+            if ( rc < 0 )
-+                continue;
-+
-+            s = hard_affinity_str;
-+            cpumask_clear(&affinity);
-+            while ( *s != '\0' )
-+            {
-+                unsigned int start, end;
-+
-+                start = simple_strtoul(s, &s, 0);
-+
-+                if ( *s == '-' )    /* Range */
-+                {
-+                    s++;
-+                    end = simple_strtoul(s, &s, 0);
-+                }
-+                else                /* Single value */
-+                    end = start;
-+
-+                for ( ; start <= end; start++ )
-+                    cpumask_set_cpu(start, &affinity);
-+
-+                if ( *s == ',' )
-+                    s++;
-+                else if ( *s != '\0' )
-+                    break;
-+            }
-+
-+            rc = vcpu_set_hard_affinity(v, &affinity);
-+            if ( rc )
-+                panic("vcpu%d: failed to set hard affinity\n", v->vcpu_id);
-+        }
-     }
- }
- 
--- 
-2.25.1
-
+> ---
+> Changes in v2:
+>  - use bash shebang
+>  - clarify skipped message
+>  - cleanup extra printf params
+>  - limit calling DHCP in dom0 to only tests that need it
+> ---
+>  automation/gitlab-ci/test.yaml     | 23 +++++++++++++++-
+>  automation/scripts/build           |  1 +-
+>  automation/scripts/qubes-x86-64.sh | 28 ++++++++++++++++++-
+>  automation/scripts/run-tools-tests | 47 +++++++++++++++++++++++++++++++-
+>  4 files changed, 99 insertions(+)
+>  create mode 100755 automation/scripts/run-tools-tests
+> 
+> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+> index 1822e3ea5fd7..c21a37933881 100644
+> --- a/automation/gitlab-ci/test.yaml
+> +++ b/automation/gitlab-ci/test.yaml
+> @@ -130,6 +130,7 @@
+>      PCIDEV: "03:00.0"
+>      PCIDEV_INTR: "MSI-X"
+>      CONSOLE_OPTS: "console=com1 com1=115200,8n1"
+> +    SUT_ADDR: test-2.testnet
+>    artifacts:
+>      paths:
+>        - smoke.serial
+> @@ -263,6 +264,28 @@ adl-pvshim-x86-64-gcc-debug:
+>      - *x86-64-test-needs
+>      - alpine-3.18-gcc-debug
+>  
+> +adl-tools-tests-pv-x86-64-gcc-debug:
+> +  extends: .adl-x86-64
+> +  script:
+> +    - ./automation/scripts/qubes-x86-64.sh tools-tests-pv 2>&1 | tee ${LOGFILE}
+> +  artifacts:
+> +    reports:
+> +      junit: tests-junit.xml
+> +  needs:
+> +    - *x86-64-test-needs
+> +    - alpine-3.18-gcc-debug
+> +
+> +adl-tools-tests-pvh-x86-64-gcc-debug:
+> +  extends: .adl-x86-64
+> +  script:
+> +    - ./automation/scripts/qubes-x86-64.sh tools-tests-pvh 2>&1 | tee ${LOGFILE}
+> +  artifacts:
+> +    reports:
+> +      junit: tests-junit.xml
+> +  needs:
+> +    - *x86-64-test-needs
+> +    - alpine-3.18-gcc-debug
+> +
+>  zen3p-smoke-x86-64-gcc-debug:
+>    extends: .zen3p-x86-64
+>    script:
+> diff --git a/automation/scripts/build b/automation/scripts/build
+> index 952599cc25c2..522efe774ef3 100755
+> --- a/automation/scripts/build
+> +++ b/automation/scripts/build
+> @@ -109,5 +109,6 @@ else
+>      # even though dist/ contains everything, while some containers don't even
+>      # build Xen
+>      cp -r dist binaries/
+> +    cp -r tools/tests binaries/
+>      collect_xen_artefacts
+>  fi
+> diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qubes-x86-64.sh
+> index 7eb3ce1bf703..7c80e0c23318 100755
+> --- a/automation/scripts/qubes-x86-64.sh
+> +++ b/automation/scripts/qubes-x86-64.sh
+> @@ -10,6 +10,8 @@ set -ex
+>  #  - pci-pv         PV dom0,  PV domU + PCI Passthrough
+>  #  - pvshim         PV dom0,  PVSHIM domU
+>  #  - s3             PV dom0,  S3 suspend/resume
+> +#  - tools-tests-pv PV dom0, run tests from tools/tests/*
+> +#  - tools-tests-pvh PVH dom0, run tests from tools/tests/*
+>  test_variant=$1
+>  
+>  ### defaults
+> @@ -19,6 +21,7 @@ timeout=120
+>  domU_type="pvh"
+>  domU_vif="'bridge=xenbr0',"
+>  domU_extra_config=
+> +retrieve_xml=
+>  
+>  case "${test_variant}" in
+>      ### test: smoke test & smoke test PVH & smoke test HVM & smoke test PVSHIM
+> @@ -126,6 +129,21 @@ done
+>  "
+>          ;;
+>  
+> +    ### tests: tools-tests-pv, tools-tests-pvh
+> +    "tools-tests-pv"|"tools-tests-pvh")
+> +        retrieve_xml=1
+> +        passed="test passed"
+> +        domU_check=""
+> +        dom0_check="
+> +/tests/run-tools-tests /tests /tmp/tests-junit.xml && echo \"${passed}\"
+> +nc -l -p 8080 < /tmp/tests-junit.xml >/dev/null &
+> +"
+> +        if [ "${test_variant}" = "tools-tests-pvh" ]; then
+> +            extra_xen_opts="dom0=pvh"
+> +        fi
+> +
+> +        ;;
+> +
+>      *)
+>          echo "Unrecognised test_variant '${test_variant}'" >&2
+>          exit 1
+> @@ -178,6 +196,8 @@ mkdir srv
+>  mkdir sys
+>  rm var/run
+>  cp -ar ../binaries/dist/install/* .
+> +cp -ar ../binaries/tests .
+> +cp -a ../automation/scripts/run-tools-tests tests/
+>  
+>  echo "#!/bin/bash
+>  
+> @@ -192,6 +212,10 @@ ifconfig xenbr0 192.168.0.1
+>  
+>  " > etc/local.d/xen.start
+>  
+> +if [ -n "$retrieve_xml" ]; then
+> +    echo "timeout 30s udhcpc -i xenbr0" >> etc/local.d/xen.start
+> +fi
+> +
+>  if [ -n "$domU_check" ]; then
+>      echo "
+>  # get domU console content into test log
+> @@ -272,6 +296,10 @@ if [ $timeout -le 0 ]; then
+>      exit 1
+>  fi
+>  
+> +if [ -n "$retrieve_xml" ]; then
+> +    nc -w 10 "$SUT_ADDR" 8080 > tests-junit.xml </dev/null
+> +fi
+> +
+>  sleep 1
+>  
+>  (grep -q "^Welcome to Alpine Linux" smoke.serial && grep -q "${passed}" smoke.serial) || exit 1
+> diff --git a/automation/scripts/run-tools-tests b/automation/scripts/run-tools-tests
+> new file mode 100755
+> index 000000000000..770e97c3e943
+> --- /dev/null
+> +++ b/automation/scripts/run-tools-tests
+> @@ -0,0 +1,47 @@
+> +#!/bin/bash
+> +
+> +usage() {
+> +    echo "Usage: $0 tests-dir xml-out"
+> +}
+> +
+> +xml_out=$2
+> +if [ -z "$xml_out" ]; then
+> +  xml_out=/dev/null
+> +fi
+> +printf '<?xml version="1.0" encoding="UTF-8"?>\n' > "$xml_out"
+> +printf '<testsuites name="tools.tests">\n' >> "$xml_out"
+> +printf ' <testsuite name="tools.tests">\n' >> "$xml_out"
+> +failed=
+> +for dir in "$1"/*; do
+> +    [ -d "$dir" ] || continue
+> +    echo "Running test in $dir"
+> +    printf '  <testcase name="%s">\n' "$dir" >> "$xml_out"
+> +    ret=
+> +    for f in "$dir"/*; do
+> +        [ -f "$f" ] || continue
+> +        [ -x "$f" ] || continue
+> +        "$f" 2>&1 | tee /tmp/out
+> +        ret=$?
+> +        if [ "$ret" -ne 0 ]; then
+> +            echo "FAILED: $ret"
+> +            failed+=" $dir"
+> +            printf '   <failure type="failure" message="binary %s exited with code %d">\n' "$f" "$ret" >> "$xml_out"
+> +            # TODO: could use xml escaping... but current tests seems to
+> +            # produce sane output
+> +            cat /tmp/out >> "$xml_out"
+> +            printf '   </failure>\n' >> "$xml_out"
+> +        else
+> +            echo "PASSED"
+> +        fi
+> +    done
+> +    if [ -z "$ret" ]; then
+> +        printf '   <skipped type="skipped" message="no executable test found in %s"/>\n' "$dir" >> "$xml_out"
+> +    fi
+> +    printf '  </testcase>\n' >> "$xml_out"
+> +done
+> +printf ' </testsuite>\n' >> "$xml_out"
+> +printf '</testsuites>\n' >> "$xml_out"
+> +
+> +if [ -n "$failed" ]; then
+> +    exit 1
+> +fi
+> -- 
+> git-series 0.9.1
+> 
+--8323329-1347266580-1739579221=:3858257--
 
