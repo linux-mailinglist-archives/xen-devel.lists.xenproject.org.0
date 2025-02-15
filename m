@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C330A36B60
-	for <lists+xen-devel@lfdr.de>; Sat, 15 Feb 2025 03:17:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.889275.1298452 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21D0FA36B63
+	for <lists+xen-devel@lfdr.de>; Sat, 15 Feb 2025 03:17:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.889284.1298462 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tj7jI-0003Sl-Di; Sat, 15 Feb 2025 02:16:28 +0000
+	id 1tj7kZ-0003x7-ND; Sat, 15 Feb 2025 02:17:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 889275.1298452; Sat, 15 Feb 2025 02:16:28 +0000
+Received: by outflank-mailman (output) from mailman id 889284.1298462; Sat, 15 Feb 2025 02:17:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tj7jI-0003QB-AH; Sat, 15 Feb 2025 02:16:28 +0000
-Received: by outflank-mailman (input) for mailman id 889275;
- Sat, 15 Feb 2025 02:16:27 +0000
+	id 1tj7kZ-0003u5-Kc; Sat, 15 Feb 2025 02:17:47 +0000
+Received: by outflank-mailman (input) for mailman id 889284;
+ Sat, 15 Feb 2025 02:17:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=NTp2=VG=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tj7jH-0003Q5-4U
- for xen-devel@lists.xenproject.org; Sat, 15 Feb 2025 02:16:27 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ id 1tj7kY-0003tt-NL
+ for xen-devel@lists.xenproject.org; Sat, 15 Feb 2025 02:17:46 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id da9acf09-eb42-11ef-9896-31a8f345e629;
- Sat, 15 Feb 2025 03:16:24 +0100 (CET)
+ id 0a27fd7a-eb43-11ef-9896-31a8f345e629;
+ Sat, 15 Feb 2025 03:17:44 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 5D31AA44DCD;
- Sat, 15 Feb 2025 02:14:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D8EAC4CED1;
- Sat, 15 Feb 2025 02:16:21 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id B08DD5C5ECE;
+ Sat, 15 Feb 2025 02:17:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9DBBC4CEEF;
+ Sat, 15 Feb 2025 02:17:41 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,99 +41,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: da9acf09-eb42-11ef-9896-31a8f345e629
+X-Inumbo-ID: 0a27fd7a-eb43-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739585783;
-	bh=Tt4zFsPSSdzWpok1ed/XizN/m8V02W9TBbyagaXU23c=;
-	h=Date:From:To:cc:Subject:From;
-	b=ZfU/VUXh6721YczvSeiypEMSk2FDKqFpzeK6yTFfDQ6ZDiR+Xc/9Fj1gTAn6TRMMl
-	 343TinB6oKjid10zvBO7O3MDkrc3ig8H3QVLrJsbV+N0BXrUPLZEN9P7V5cmBObFpm
-	 x14wt/OYbo16DWas2Pch5WR64ckxrDaIMxSTzdTlM9cB1X34Artqo5JwoBldYGc5Xs
-	 6mkDAGoEJlmJ7AZjXmjcFX5A2kPaQ9ophREcTcsEQQrl9ObroSLsPNKtLR3HLmhLj0
-	 NzvrWiDUkn5SdqNwRS23VLQh88Z34p/3ipEL6wBNc1o/r8+BGPiligjZQAx6dkoYS1
-	 XnuPKHQREwmWg==
-Date: Fri, 14 Feb 2025 18:16:20 -0800 (PST)
+	s=k20201202; t=1739585862;
+	bh=16f5NDk6p22buPZZt6NNciV07oJCR4OqzwqSoR4InH4=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=NSS28Ck+N48VV+jW2TvKDHUXUW0gHi3FcM75uRz7n4WSHh+uidxonRmjBfLz6goGI
+	 M5WtKl2l6TvFkc/3qDqq+oG5MI6RCAAXEnDrUL4MwTU+ZSHbcvSWxG1TzjzvmbGvuy
+	 lMmLX+jBlKfNWmJyV52ziZc1H4891QOYsWHDSeAxa1gKX+q3K/62QWPV8AeMp0h5hW
+	 dF8VpRsfIHJ68vrBgmTRakm31BOROgf4yHEhoisuokoFxBb90vQSEp48Kb43NRAQRe
+	 7DNq7Y74WLiofoAZPzAiTjJ6lIhgk2w/4QSMgYGwgTrD6fsehNLczIBf2KsXDGy3LR
+	 D8i8miSr+o5iA==
+Date: Fri, 14 Feb 2025 18:17:40 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: xen-devel@lists.xenproject.org
-cc: sstabellini@kernel.org, Jan Beulich <jbeulich@suse.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Nicola Vetrini <nicola.vetrini@bugseng.com>, consulting@bugseng.com
-Subject: xen/x86: resolve the last 3 MISRA R16.6 violations 
-Message-ID: <alpine.DEB.2.22.394.2502141811180.3858257@ubuntu-linux-20-04-desktop>
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [PATCH v2 4/4] automation: add tools/tests jobs on the AMD Zen3+
+ runner too
+In-Reply-To: <Z6_lt1Kd9ELpmv5e@mail-itl>
+Message-ID: <alpine.DEB.2.22.394.2502141817181.3858257@ubuntu-linux-20-04-desktop>
+References: <cover.36ee649a8537af1a5fb5b3c5b7ffc0d8a1369969.1739496480.git-series.marmarek@invisiblethingslab.com> <82cb819ef4d54705b3a79ce5b77003380382ebbf.1739496480.git-series.marmarek@invisiblethingslab.com> <alpine.DEB.2.22.394.2502141629420.3858257@ubuntu-linux-20-04-desktop>
+ <Z6_lt1Kd9ELpmv5e@mail-itl>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; boundary="8323329-145994227-1739585862=:3858257"
 
-MISRA R16.6 states that "Every switch statement shall have at least two
-switch-clauses". There are only 3 violations left on x86 (zero on ARM).
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Two of them can be simply fixed.
+--8323329-145994227-1739585862=:3858257
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-One of them is only a violation depending on the kconfig configuration.
-So deviate it instead with a SAF comment.
+On Sat, 15 Feb 2025, Marek Marczykowski-Górecki wrote:
+> On Fri, Feb 14, 2025 at 04:33:07PM -0800, Stefano Stabellini wrote:
+> > On Fri, 14 Feb 2025, Marek Marczykowski-Górecki wrote:
+> > > Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> > > ---
+> > > new in v2
+> > > If those tests are sensitive to underlying hardware, I guess it makes
+> > > sense to run them on other runners too. Are they?
+> > > Similarly - does it matter if dom0 is PV or PVH for those tests? If not,
+> > > probably better to put just one of those jobs (PV?) to save CI
+> > > time.
+> > 
+> > It should make a difference for the vpci test probably. I think we
+> > should keep both a PV and a PVH test of it. I think it is less important
+> > to run them on multiple runners, but it cannot hurt.
+> > 
+> > > ---
+> > >  automation/gitlab-ci/test.yaml | 23 +++++++++++++++++++++++
+> > >  1 file changed, 23 insertions(+)
+> > > 
+> > > diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+> > > index 93632f1f9204..fc7663e3367a 100644
+> > > --- a/automation/gitlab-ci/test.yaml
+> > > +++ b/automation/gitlab-ci/test.yaml
+> > > @@ -162,6 +162,7 @@
+> > >      PCIDEV: "01:00.0"
+> > >      PCIDEV_INTR: "MSI-X"
+> > >      CONSOLE_OPTS: "console=com1 com1=115200,8n1,pci,msi"
+> > > +    SUT_ADDR: test-11.testnet
+> > >    tags:
+> > >      - qubes-hw11
+> > 
+> > Is this a spurious change?
+> 
+> No, the SUT_ADDR variable is used by the test script to extract the
+> junit xml file via network.
 
-Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+Ah yes, I only looked at the patch without the context.
 
-diff --git a/docs/misra/safe.json b/docs/misra/safe.json
-index b8a4f878ea..e1f950f7b1 100644
---- a/docs/misra/safe.json
-+++ b/docs/misra/safe.json
-@@ -92,6 +92,14 @@
-         },
-         {
-             "id": "SAF-11-safe",
-+            "analyser": {
-+                "eclair": "MC3A2.R16.6"
-+            },
-+            "name": "Rule 16.6: single clause due to kconfig",
-+            "text": "A switch statement with a single switch clause because other switch clauses are disabled in a given kconfig is allowed."
-+        },
-+        {
-+            "id": "SAF-12-safe",
-             "analyser": {},
-             "name": "Sentinel",
-             "text": "Next ID to be used"
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 39e39ce4ce..c10c6bd833 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -3797,22 +3797,14 @@ uint64_t hvm_get_reg(struct vcpu *v, unsigned int reg)
- {
-     ASSERT(v == current || !vcpu_runnable(v));
- 
--    switch ( reg )
--    {
--    default:
--        return alternative_call(hvm_funcs.get_reg, v, reg);
--    }
-+    return alternative_call(hvm_funcs.get_reg, v, reg);
- }
- 
- void hvm_set_reg(struct vcpu *v, unsigned int reg, uint64_t val)
- {
-     ASSERT(v == current || !vcpu_runnable(v));
- 
--    switch ( reg )
--    {
--    default:
--        return alternative_vcall(hvm_funcs.set_reg, v, reg, val);
--    }
-+    return alternative_vcall(hvm_funcs.set_reg, v, reg, val);
- }
- 
- static bool cf_check is_sysdesc_access(
-diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-index 87b30ce4df..dca11a613d 100644
---- a/xen/arch/x86/traps.c
-+++ b/xen/arch/x86/traps.c
-@@ -436,6 +436,7 @@ unsigned long get_stack_trace_bottom(unsigned long sp)
- 
- static unsigned long get_shstk_bottom(unsigned long sp)
- {
-+    /* SAF-11-safe */
-     switch ( get_stack_page(sp) )
-     {
- #ifdef CONFIG_XEN_SHSTK
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+--8323329-145994227-1739585862=:3858257--
 
