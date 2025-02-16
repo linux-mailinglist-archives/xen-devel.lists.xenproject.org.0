@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4298A373C9
-	for <lists+xen-devel@lfdr.de>; Sun, 16 Feb 2025 11:24:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.889559.1298647 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B725AA373CA
+	for <lists+xen-devel@lfdr.de>; Sun, 16 Feb 2025 11:24:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.889560.1298658 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tjbom-0008Kl-OR; Sun, 16 Feb 2025 10:24:08 +0000
+	id 1tjbor-0000BH-W9; Sun, 16 Feb 2025 10:24:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 889559.1298647; Sun, 16 Feb 2025 10:24:08 +0000
+Received: by outflank-mailman (output) from mailman id 889560.1298658; Sun, 16 Feb 2025 10:24:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tjbom-0008I1-LU; Sun, 16 Feb 2025 10:24:08 +0000
-Received: by outflank-mailman (input) for mailman id 889559;
- Sun, 16 Feb 2025 10:24:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tjbor-00008p-SI; Sun, 16 Feb 2025 10:24:13 +0000
+Received: by outflank-mailman (input) for mailman id 889560;
+ Sun, 16 Feb 2025 10:24:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6kBj=VH=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1tjbol-00083Q-Bf
- for xen-devel@lists.xenproject.org; Sun, 16 Feb 2025 10:24:07 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [2a07:de40:b251:101:10:150:64:1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 264b0b4d-ec50-11ef-9896-31a8f345e629;
- Sun, 16 Feb 2025 11:24:05 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ id 1tjboq-00007l-Fz
+ for xen-devel@lists.xenproject.org; Sun, 16 Feb 2025 10:24:12 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 29ad1798-ec50-11ef-9aa5-95dc52dad729;
+ Sun, 16 Feb 2025 11:24:11 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3BDF52115F;
- Sun, 16 Feb 2025 10:24:05 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 04EAD1F37E;
+ Sun, 16 Feb 2025 10:24:11 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D0629136AD;
- Sun, 16 Feb 2025 10:24:04 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A50A8136AD;
+ Sun, 16 Feb 2025 10:24:10 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id uHQQMcS8sWfDVQAAD6G6ig
- (envelope-from <jgross@suse.com>); Sun, 16 Feb 2025 10:24:04 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id PqC8Jsq8sWfKVQAAD6G6ig
+ (envelope-from <jgross@suse.com>); Sun, 16 Feb 2025 10:24:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,27 +52,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 264b0b4d-ec50-11ef-9896-31a8f345e629
+X-Inumbo-ID: 29ad1798-ec50-11ef-9aa5-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1739701445; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1739701451; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=rMfhHc8OcBMynqiMBgDjOfMr+fPHZk/oop8YZ+vVWZI=;
-	b=BVB7Lwe71CgiwKqisO4xiboZwxIrEXzYbcweOaPLlbAv4XpJx1AqsSYzoCivclDVk3dESK
-	Q1+fLwi03LO183OQAnNLiNnBaah6PK9ZE1+kuke7+ovc3GvdCrVJXjgNQrZ/Ey3JQ661AM
-	CtyxmoFpHM6gwSJ+7lu1wxXj97EYjjE=
-Authentication-Results: smtp-out1.suse.de;
-	none
+	bh=R2qGdWe7POlFskuJ7EcrRsYztKPnOOgfbknkxdVFKfA=;
+	b=ctDQgcyPnKbx1A5XOjfLKI6Q/NNbs+NwJjheLRY1oJO1OSvGeZd3/UCaJFH9tAKSQtOb+Q
+	BgQTbjYdz1uefI3cGT2gCSQHQOZR8/EHiLF45r8xQh4QoPm8eKx5ID4MlAxF5I2yzcMB71
+	JgyvIejTmRdOYgd561xVET8PsPsPaso=
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=ctDQgcyP
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1739701445; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1739701451; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=rMfhHc8OcBMynqiMBgDjOfMr+fPHZk/oop8YZ+vVWZI=;
-	b=BVB7Lwe71CgiwKqisO4xiboZwxIrEXzYbcweOaPLlbAv4XpJx1AqsSYzoCivclDVk3dESK
-	Q1+fLwi03LO183OQAnNLiNnBaah6PK9ZE1+kuke7+ovc3GvdCrVJXjgNQrZ/Ey3JQ661AM
-	CtyxmoFpHM6gwSJ+7lu1wxXj97EYjjE=
+	bh=R2qGdWe7POlFskuJ7EcrRsYztKPnOOgfbknkxdVFKfA=;
+	b=ctDQgcyPnKbx1A5XOjfLKI6Q/NNbs+NwJjheLRY1oJO1OSvGeZd3/UCaJFH9tAKSQtOb+Q
+	BgQTbjYdz1uefI3cGT2gCSQHQOZR8/EHiLF45r8xQh4QoPm8eKx5ID4MlAxF5I2yzcMB71
+	JgyvIejTmRdOYgd561xVET8PsPsPaso=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: oleksii.kurochko@gmail.com,
@@ -84,263 +84,213 @@ Cc: oleksii.kurochko@gmail.com,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH 1/2] xen/list: avoid UB in list iterators
-Date: Sun, 16 Feb 2025 11:23:55 +0100
-Message-ID: <20250216102356.18801-2-jgross@suse.com>
+Subject: [PATCH 2/2] xen/list: fix comments in include/xen/list.h
+Date: Sun, 16 Feb 2025 11:23:56 +0100
+Message-ID: <20250216102356.18801-3-jgross@suse.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250216102356.18801-1-jgross@suse.com>
 References: <20250216102356.18801-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spamd-Result: default: False [-1.30 / 50.00];
+X-Rspamd-Queue-Id: 04EAD1F37E
+X-Spam-Score: -1.51
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-1.51 / 50.00];
 	BAYES_HAM(-3.00)[100.00%];
 	SUSPICIOUS_RECIPS(1.50)[];
 	MID_CONTAINS_FROM(1.00)[];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
 	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
 	NEURAL_HAM_SHORT(-0.20)[-1.000];
 	MIME_GOOD(-0.10)[text/plain];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid];
-	FREEMAIL_CC(0.00)[gmail.com,suse.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org];
-	TAGGED_RCPT(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MX_GOOD(-0.01)[];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	RCVD_COUNT_TWO(0.00)[2];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
+	ARC_NA(0.00)[];
 	FUZZY_BLOCKED(0.00)[rspamd.com];
-	TO_DN_SOME(0.00)[];
 	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,suse.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,suse.com:email];
+	TAGGED_RCPT(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	DKIM_TRACE(0.00)[suse.com:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Spam-Score: -1.30
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spam-Flag: NO
+X-Spam-Level: 
 
-The list_for_each_entry*() iterators are testing for having reached the
-end of the list in a way which relies on undefined behavior: the
-iterator (being a pointer to the struct of a list element) is advanced
-and only then tested to have reached not the next element, but the list
-head. This results in the list head being addressed via a list element
-pointer, which is undefined, in case the list elements have a higher
-alignment then the list head.
+There are several places in list.h where "list_struct" is used instead
+of "struct list_head". Fix that.
 
-Avoid that by testing for the end of the list before advancing the
-iterator. In case of having reached the end of the list, set the
-iterator to NULL and use that for stopping the loop. This has the
-additional advantage of not leaking the iterator pointing to something
-which isn't a list element past the loop.
-
-Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
-No proper Fixes: tag, as this bug predates Xen's git and mercurial
-history.
----
- xen/include/xen/list.h | 110 +++++++++++++++++++++++++++--------------
- 1 file changed, 72 insertions(+), 38 deletions(-)
+ xen/include/xen/list.h | 34 +++++++++++++++++-----------------
+ 1 file changed, 17 insertions(+), 17 deletions(-)
 
 diff --git a/xen/include/xen/list.h b/xen/include/xen/list.h
-index 62169f4674..e6ece77225 100644
+index e6ece77225..e87a433a1d 100644
 --- a/xen/include/xen/list.h
 +++ b/xen/include/xen/list.h
-@@ -291,6 +291,17 @@ static inline void list_move_tail(struct list_head *list,
-     list_add_tail(list, head);
- }
- 
-+/**
-+ * list_is_first - tests whether @list is the first entry in list @head
-+ * @list: the entry to test
-+ * @head: the head of the list
-+ */
-+static inline int list_is_first(const struct list_head *list,
-+                                const struct list_head *head)
-+{
-+    return list->prev == head;
-+}
-+
+@@ -395,7 +395,7 @@ static inline void list_splice_init(struct list_head *list,
+  * list_entry - get the struct for this entry
+  * @ptr:    the &struct list_head pointer.
+  * @type:    the type of the struct this is embedded in.
+- * @member:    the name of the list_struct within the struct.
++ * @member:    the name of the struct list_head within the struct.
+  */
+ #define list_entry(ptr, type, member) \
+     container_of(ptr, type, member)
+@@ -404,7 +404,7 @@ static inline void list_splice_init(struct list_head *list,
+  * list_first_entry - get the first element from a list
+  * @ptr:        the list head to take the element from.
+  * @type:       the type of the struct this is embedded in.
+- * @member:     the name of the list_struct within the struct.
++ * @member:     the name of the struct list_head within the struct.
+  *
+  * Note, that list is expected to be not empty.
+  */
+@@ -415,7 +415,7 @@ static inline void list_splice_init(struct list_head *list,
+  * list_last_entry - get the last element from a list
+  * @ptr:        the list head to take the element from.
+  * @type:       the type of the struct this is embedded in.
+- * @member:     the name of the list_struct within the struct.
++ * @member:     the name of the struct list_head within the struct.
+  *
+  * Note, that list is expected to be not empty.
+  */
+@@ -426,7 +426,7 @@ static inline void list_splice_init(struct list_head *list,
+  * list_first_entry_or_null - get the first element from a list
+  * @ptr:        the list head to take the element from.
+  * @type:       the type of the struct this is embedded in.
+- * @member:     the name of the list_struct within the struct.
++ * @member:     the name of the struct list_head within the struct.
+  *
+  * Note that if the list is empty, it returns NULL.
+  */
+@@ -437,7 +437,7 @@ static inline void list_splice_init(struct list_head *list,
+  * list_last_entry_or_null - get the last element from a list
+  * @ptr:        the list head to take the element from.
+  * @type:       the type of the struct this is embedded in.
+- * @member:     the name of the list_struct within the struct.
++ * @member:     the name of the struct list_head within the struct.
+  *
+  * Note that if the list is empty, it returns NULL.
+  */
+@@ -447,7 +447,7 @@ static inline void list_splice_init(struct list_head *list,
  /**
-  * list_is_last - tests whether @list is the last entry in list @head
-  * @list: the entry to test
-@@ -440,7 +451,19 @@ static inline void list_splice_init(struct list_head *list,
+   * list_next_entry - get the next element in list
+   * @pos:        the type * to cursor
+-  * @member:     the name of the list_struct within the struct.
++  * @member:     the name of the struct list_head within the struct.
    */
  #define list_next_entry(pos, member) \
          list_entry((pos)->member.next, typeof(*(pos)), member)
-- 
-+
-+/**
-+  * list_next_entry_or_null - get the next element in list
-+  * @pos:        the type * to cursor
-+  * @member:     the name of the struct list_head  within the struct.
-+  *
-+  * Note that if the end of the list is reached, it returns NULL.
-+  */
-+#define list_next_entry_or_null(head, pos, member)               \
-+        list_is_last(&(pos)->member, head)                       \
-+        ? NULL                                                   \
-+        : list_entry((pos)->member.next, typeof(*(pos)), member)
-+
+@@ -467,7 +467,7 @@ static inline void list_splice_init(struct list_head *list,
  /**
    * list_prev_entry - get the prev element in list
    * @pos:        the type * to cursor
-@@ -449,6 +472,18 @@ static inline void list_splice_init(struct list_head *list,
+-  * @member:     the name of the list_struct within the struct.
++  * @member:     the name of the struct list_head within the struct.
+   */
  #define list_prev_entry(pos, member) \
          list_entry((pos)->member.prev, typeof(*(pos)), member)
- 
-+/**
-+  * list_prev_entry_or_null - get the prev element in list
-+  * @pos:        the type * to cursor
-+  * @member:     the name of the struct list_head within the struct.
-+  *
-+  * Note that if the start of the list is reached, it returns NULL.
-+  */
-+#define list_prev_entry_or_null(head, pos, member)               \
-+        list_is_first(&(pos)->member, head)                      \
-+        ? NULL                                                   \
-+        : list_entry((pos)->member.prev, typeof(*(pos)), member)
-+
- /**
-  * list_for_each    -    iterate over a list
-  * @pos:    the &struct list_head to use as a loop cursor.
-@@ -492,10 +527,10 @@ static inline void list_splice_init(struct list_head *list,
+@@ -525,7 +525,7 @@ static inline void list_splice_init(struct list_head *list,
+  * list_for_each_entry - iterate over list of given type
+  * @pos:    the type * to use as a loop cursor.
   * @head:   the head for your list.
-  * @member: the name of the list_struct within the struct.
+- * @member: the name of the list_struct within the struct.
++ * @member: the name of the struct list_head within the struct.
   */
--#define list_for_each_entry(pos, head, member)                          \
--    for ((pos) = list_entry((head)->next, typeof(*(pos)), member);      \
--         &(pos)->member != (head);                                      \
--         (pos) = list_entry((pos)->member.next, typeof(*(pos)), member))
-+#define list_for_each_entry(pos, head, member)                            \
-+    for ( (pos) = list_first_entry_or_null(head, typeof(*(pos)), member); \
-+          pos;                                                            \
-+          (pos) = list_next_entry_or_null(head, pos, member) )
- 
- /**
+ #define list_for_each_entry(pos, head, member)                            \
+     for ( (pos) = list_first_entry_or_null(head, typeof(*(pos)), member); \
+@@ -536,7 +536,7 @@ static inline void list_splice_init(struct list_head *list,
   * list_for_each_entry_reverse - iterate backwards over list of given type.
-@@ -503,10 +538,10 @@ static inline void list_splice_init(struct list_head *list,
+  * @pos:    the type * to use as a loop cursor.
   * @head:   the head for your list.
-  * @member: the name of the list_struct within the struct.
+- * @member: the name of the list_struct within the struct.
++ * @member: the name of the struct list_head within the struct.
   */
--#define list_for_each_entry_reverse(pos, head, member)                  \
--    for ((pos) = list_entry((head)->prev, typeof(*(pos)), member);      \
--         &(pos)->member != (head);                                      \
--         (pos) = list_entry((pos)->member.prev, typeof(*(pos)), member))
-+#define list_for_each_entry_reverse(pos, head, member)                   \
-+    for ( (pos) = list_last_entry_or_null(head, typeof(*(pos)), member); \
-+          pos;                                                           \
-+          (pos) = list_prev_entry_or_null(head, pos, member) )
- 
- /**
-  * list_prepare_entry - prepare a pos entry for use in
-@@ -530,10 +565,10 @@ static inline void list_splice_init(struct list_head *list,
+ #define list_for_each_entry_reverse(pos, head, member)                   \
+     for ( (pos) = list_last_entry_or_null(head, typeof(*(pos)), member); \
+@@ -548,7 +548,7 @@ static inline void list_splice_init(struct list_head *list,
+  *                      list_for_each_entry_continue
+  * @pos:    the type * to use as a start point
+  * @head:   the head of the list
+- * @member: the name of the list_struct within the struct.
++ * @member: the name of the struct list_head within the struct.
+  *
+  * Prepares a pos entry for use as a start point in
+  * list_for_each_entry_continue.
+@@ -560,7 +560,7 @@ static inline void list_splice_init(struct list_head *list,
+  * list_for_each_entry_continue - continue iteration over list of given type
+  * @pos:    the type * to use as a loop cursor.
+  * @head:   the head for your list.
+- * @member: the name of the list_struct within the struct.
++ * @member: the name of the struct list_head within the struct.
+  *
   * Continue to iterate over list of given type, continuing after
   * the current position.
-  */
--#define list_for_each_entry_continue(pos, head, member)                   \
--    for ((pos) = list_entry((pos)->member.next, typeof(*(pos)), member);  \
--         &(pos)->member != (head);                                        \
--         (pos) = list_entry((pos)->member.next, typeof(*(pos)), member))
-+#define list_for_each_entry_continue(pos, head, member)        \
-+    for ( (pos) = list_next_entry_or_null(head, pos, member);  \
-+          pos;                                                 \
-+          (pos) = list_next_entry_or_null(head, pos, member) )
- 
- /**
-  * list_for_each_entry_from - iterate over list of given type from the
-@@ -544,9 +579,8 @@ static inline void list_splice_init(struct list_head *list,
+@@ -575,7 +575,7 @@ static inline void list_splice_init(struct list_head *list,
+  *                            current point
+  * @pos:    the type * to use as a loop cursor.
+  * @head:   the head for your list.
+- * @member: the name of the list_struct within the struct.
++ * @member: the name of the struct list_head within the struct.
   *
   * Iterate over list of given type, continuing from current position.
   */
--#define list_for_each_entry_from(pos, head, member)                     \
--    for (; &(pos)->member != (head);                                    \
--         (pos) = list_entry((pos)->member.next, typeof(*(pos)), member))
-+#define list_for_each_entry_from(pos, head, member)            \
-+    for ( ; pos; (pos) = list_next_entry_or_null(head, pos, member) )
- 
- /**
-  * list_for_each_entry_safe - iterate over list of given type safe
-@@ -556,11 +590,11 @@ static inline void list_splice_init(struct list_head *list,
+@@ -588,7 +588,7 @@ static inline void list_splice_init(struct list_head *list,
+  * @pos:    the type * to use as a loop cursor.
+  * @n:      another type * to use as temporary storage
   * @head:   the head for your list.
-  * @member: the name of the list_struct within the struct.
+- * @member: the name of the list_struct within the struct.
++ * @member: the name of the struct list_head within the struct.
   */
--#define list_for_each_entry_safe(pos, n, head, member)                  \
--    for ((pos) = list_entry((head)->next, typeof(*(pos)), member),      \
--         (n) = list_entry((pos)->member.next, typeof(*(pos)), member);  \
--         &(pos)->member != (head);                                      \
--         (pos) = (n), (n) = list_entry((n)->member.next, typeof(*(n)), member))
-+#define list_for_each_entry_safe(pos, n, head, member)                     \
-+    for ( (pos) = list_first_entry_or_null(head, typeof(*(pos)), member),  \
-+          (n) = (pos) ? list_next_entry_or_null(head, pos, member) : NULL; \
-+          pos;                                                             \
-+          (pos) = (n), (n) = list_next_entry_or_null(head, n, member) )
- 
- /**
-  * list_for_each_entry_safe_continue
-@@ -572,11 +606,11 @@ static inline void list_splice_init(struct list_head *list,
+ #define list_for_each_entry_safe(pos, n, head, member)                     \
+     for ( (pos) = list_first_entry_or_null(head, typeof(*(pos)), member),  \
+@@ -601,7 +601,7 @@ static inline void list_splice_init(struct list_head *list,
+  * @pos:    the type * to use as a loop cursor.
+  * @n:      another type * to use as temporary storage
+  * @head:   the head for your list.
+- * @member: the name of the list_struct within the struct.
++ * @member: the name of the struct list_head within the struct.
+  *
   * Iterate over list of given type, continuing after current point,
   * safe against removal of list entry.
-  */
--#define list_for_each_entry_safe_continue(pos, n, head, member)           \
--    for ((pos) = list_entry((pos)->member.next, typeof(*(pos)), member),  \
--         (n) = list_entry((pos)->member.next, typeof(*(pos)), member);    \
--         &(pos)->member != (head);                                        \
--         (pos) = (n), (n) = list_entry((n)->member.next, typeof(*(n)), member))
-+#define list_for_each_entry_safe_continue(pos, n, head, member)            \
-+    for ( (pos) = list_next_entry_or_null(head, pos, member),              \
-+          (n) = (pos) ? list_next_entry_or_null(head, pos, member) : NULL; \
-+          pos;                                                             \
-+          (pos) = (n), (n) = list_next_entry_or_null(head, n, member) )
- 
- /**
-  * list_for_each_entry_safe_from
-@@ -589,9 +623,9 @@ static inline void list_splice_init(struct list_head *list,
+@@ -617,7 +617,7 @@ static inline void list_splice_init(struct list_head *list,
+  * @pos:    the type * to use as a loop cursor.
+  * @n:      another type * to use as temporary storage
+  * @head:   the head for your list.
+- * @member: the name of the list_struct within the struct.
++ * @member: the name of the struct list_head within the struct.
+  *
+  * Iterate over list of given type from current point, safe against
   * removal of list entry.
-  */
- #define list_for_each_entry_safe_from(pos, n, head, member)             \
--    for ((n) = list_entry((pos)->member.next, typeof(*(pos)), member);  \
--         &(pos)->member != (head);                                      \
--         (pos) = (n), (n) = list_entry((n)->member.next, typeof(*(n)), member))
-+    for ( (n) = list_next_entry_or_null(head, pos, member);             \
-+          pos;                                                          \
-+          (pos) = (n), (n) = list_next_entry_or_null(head, n, member) )
- 
- /**
-  * list_for_each_entry_safe_reverse
-@@ -603,11 +637,11 @@ static inline void list_splice_init(struct list_head *list,
+@@ -632,7 +632,7 @@ static inline void list_splice_init(struct list_head *list,
+  * @pos:    the type * to use as a loop cursor.
+  * @n:      another type * to use as temporary storage
+  * @head:   the head for your list.
+- * @member: the name of the list_struct within the struct.
++ * @member: the name of the struct list_head within the struct.
+  *
   * Iterate backwards over list of given type, safe against removal
   * of list entry.
-  */
--#define list_for_each_entry_safe_reverse(pos, n, head, member)          \
--    for ((pos) = list_entry((head)->prev, typeof(*(pos)), member),      \
--         (n) = list_entry((pos)->member.prev, typeof(*(pos)), member);  \
--         &(pos)->member != (head);                                      \
--         (pos) = (n), (n) = list_entry((n)->member.prev, typeof(*(n)), member))
-+#define list_for_each_entry_safe_reverse(pos, n, head, member)             \
-+    for ( (pos) = list_last_entry_or_null(head, typeof(*(pos)), member),   \
-+          (n) = (pos) ? list_prev_entry_or_null(head, pos, member) : NULL; \
-+          pos;                                                             \
-+          (pos) = (n), (n) = list_prev_entry_or_null(head, n, member) )
- 
- /**
-  * list_for_each_rcu - iterate over an rcu-protected list
-@@ -655,10 +689,10 @@ static inline void list_splice_init(struct list_head *list,
+@@ -683,7 +683,7 @@ static inline void list_splice_init(struct list_head *list,
+  * list_for_each_entry_rcu - iterate over rcu list of given type
+  * @pos:    the type * to use as a loop cursor.
+  * @head:   the head for your list.
+- * @member: the name of the list_struct within the struct.
++ * @member: the name of the struct list_head within the struct.
+  *
+  * This list-traversal primitive may safely run concurrently with
   * the _rcu list-mutation primitives such as list_add_rcu()
-  * as long as the traversal is guarded by rcu_read_lock().
-  */
--#define list_for_each_entry_rcu(pos, head, member)                      \
--    for ((pos) = list_entry((head)->next, typeof(*(pos)), member);      \
--         &rcu_dereference(pos)->member != (head);                       \
--         (pos) = list_entry((pos)->member.next, typeof(*(pos)), member))
-+#define list_for_each_entry_rcu(pos, head, member)                        \
-+    for ( (pos) = list_first_entry_or_null(head, typeof(*(pos)), member); \
-+          rcu_dereference(pos);                                           \
-+          (pos) = list_next_entry_or_null(head, pos, member) )
- 
- /**
-  * list_for_each_continue_rcu
 -- 
 2.43.0
 
