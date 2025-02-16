@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79B3AA37634
-	for <lists+xen-devel@lfdr.de>; Sun, 16 Feb 2025 18:12:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.889613.1298677 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 950E1A377C3
+	for <lists+xen-devel@lfdr.de>; Sun, 16 Feb 2025 22:20:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.889627.1298689 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tjiBC-0005sZ-Sl; Sun, 16 Feb 2025 17:11:42 +0000
+	id 1tjm2s-00073P-BR; Sun, 16 Feb 2025 21:19:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 889613.1298677; Sun, 16 Feb 2025 17:11:42 +0000
+Received: by outflank-mailman (output) from mailman id 889627.1298689; Sun, 16 Feb 2025 21:19:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tjiBC-0005pX-PU; Sun, 16 Feb 2025 17:11:42 +0000
-Received: by outflank-mailman (input) for mailman id 889613;
- Sun, 16 Feb 2025 17:11:41 +0000
+	id 1tjm2s-00070Z-83; Sun, 16 Feb 2025 21:19:22 +0000
+Received: by outflank-mailman (input) for mailman id 889627;
+ Sun, 16 Feb 2025 21:19:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xtIa=VH=gmail.com=andr2000@srs-se1.protection.inumbo.net>)
- id 1tjiBB-0005pR-ST
- for xen-devel@lists.xenproject.org; Sun, 16 Feb 2025 17:11:41 +0000
+ <SRS0=R1X1=VH=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1tjm2q-00070T-Aq
+ for xen-devel@lists.xenproject.org; Sun, 16 Feb 2025 21:19:20 +0000
 Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
  [2a00:1450:4864:20::132])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 156406f0-ec89-11ef-9aa5-95dc52dad729;
- Sun, 16 Feb 2025 18:11:38 +0100 (CET)
+ id af0dec50-ecab-11ef-9aa5-95dc52dad729;
+ Sun, 16 Feb 2025 22:19:19 +0100 (CET)
 Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-5439e331cceso4325918e87.1
- for <xen-devel@lists.xenproject.org>; Sun, 16 Feb 2025 09:11:38 -0800 (PST)
-Received: from [192.168.10.20] ([185.199.97.5])
+ 2adb3069b0e04-5461b5281bcso733211e87.3
+ for <xen-devel@lists.xenproject.org>; Sun, 16 Feb 2025 13:19:19 -0800 (PST)
+Received: from EPUAKYIW03DD.. ([91.123.151.154])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5461cfdd5a2sm295605e87.39.2025.02.16.09.11.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 16 Feb 2025 09:11:37 -0800 (PST)
+ 38308e7fff4ca-30a28000328sm3658801fa.66.2025.02.16.13.19.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 16 Feb 2025 13:19:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,77 +45,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 156406f0-ec89-11ef-9aa5-95dc52dad729
+X-Inumbo-ID: af0dec50-ecab-11ef-9aa5-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1739725898; x=1740330698; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=P5bPpUhIsfcQ4o6q8G649M7V+gaMZ3fueq0GYvyu/so=;
-        b=WEOebzUnh/RROG7C/I7qdGBu3wnBEuYqeudZiym+ROoaUBopbCIj11Fyohg4Z5sjYk
-         q5fbErfWmJ1GKuQu1s4lVfZ1Hdbx2070VVYR9rPwcAj994SS0BuZ7uMqOnSn61g2qrUN
-         mpIj4ezsr53MOEEYkyaK9lAGColVLRn9CyCQZjQ0oGold9x3RqIwTlbfsrmWZsnY4Iqm
-         1qeFMcPZ46xbalhiYk0rbe8eY8g1hfhumxgckSHeYQ3hjmxuV2Hv5knaGKQnKnK04dYs
-         Co1U7XPAwXSGAlzRBcfaMFWMAZmsGnTxDSC+oxSw9MiIXMm01zTiDuvbqfy24G3wUNri
-         o2Cw==
+        d=gmail.com; s=20230601; t=1739740758; x=1740345558; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=DygvENVbFrhexFyjzDq9AcmiXxF9RvTULW05F+o5r9o=;
+        b=b6RAgsSkMsIG0Bi2JvQI7+XUL8FFZALpHIvdimjMjB90mlcNJv9XAPxSom+ZRZ5FJ1
+         19seHOl2/k4mZf5gNbdQ716hL9a5/7F3U86aYsxnLkIanyOeB8rhtCnKuHo+rlHe1u78
+         qlIBUV0hiIG7wUcsqjVDkvTVM566chaI+o9B435MkPcQE76h/fZ31F4grZ6do1BW+Rgm
+         398cUT9MxIga3/2f2oYSXWYIGtuvA7JZULHNcv8Alvc2cFn0zzPIqhfxodVEORPc4oM9
+         YrUAubZCbSbNx1r6NFnDNmjE5PnIyAQlzJeg05oFcTAjTWqJd7dg0upnkERIfsAfc3NJ
+         Ejww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739725898; x=1740330698;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=P5bPpUhIsfcQ4o6q8G649M7V+gaMZ3fueq0GYvyu/so=;
-        b=FZufWRGD++c2GTKTDsE/B6aUYEtnwvXP1Hvg8qOTzX0jkbKzrzXKCEMaMjDdCHVw5v
-         ZqY7yNoeI1sY4JkW7MN5tO7oHbQAxh7Gqr50hDHjbJfkQpCAPnlBN/XYs7YCKpYC5+47
-         TIvtvGywAfGXEgt/xyrlhaRfiQayYWubkHvK3I9HJDGugSo+qn142EEAUtCylRzMcNrS
-         r2aLhFBK7jfZ/2sDPK7M9uX0LIiIvB8XDtOHlTI1LyXRB0kz8a1lFObe9qSnpdtCooRC
-         IkkSVqMQ253nZoOyxa0ymEZdIGyAQEPbaV+wqCXVXxphkCP1xxtixPLsyWooU6V1TH1v
-         qFEg==
-X-Forwarded-Encrypted: i=1; AJvYcCVGGS8MwHgmJq1ESFGY3KYVD8F4nQfA6nG6tr2i5CpxV873xDCDDRUTVllSa2ejN4S1nxeqeeMlbj4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzIHXiEhnCzk0Oh8ZnRJ+3wgdz19ZlLDp41+K8t3uA8r9w30FFA
-	SpBwM7XrdWFw1jSfRRyn6tP7lPa6kl5g2EBBGJke9PyZ6lzwDZhv
-X-Gm-Gg: ASbGncsSkrwZaX7eGIypJMkUGLg4dB883eAMZv84aOwVBQ41YPgOwBUJbAw4qoY9ScI
-	clyvuMQIhCEFCwl15BMwr+qChKjI73f0918Tvo39aLgv6NMl+1kCKtzqrun5eZegK2PcLtN0t4u
-	xRa3krInnasvV3isammWZyvHlwSpqFqormzuvx8Udi/4IA9UfBZHDtAcQIXHZa9DRvdV28FoXp+
-	gz7M01MUhN5rsz2IXYR+cuW3jn0dcK0NL9/vEZ6+SQfjxn+36XhAm4582gGa3IFsx+tPmAhoJqx
-	CcuL7uRizGGFHyWn
-X-Google-Smtp-Source: AGHT+IGprJ5562UJxsxoiz3h8kFieWTusPEmkwT4SGUbH0NfOo4fE2VQdziignHfAwVSBCecLGSpTA==
-X-Received: by 2002:a05:6512:1194:b0:545:a89:4dc7 with SMTP id 2adb3069b0e04-5452feab102mr1794228e87.52.1739725897756;
-        Sun, 16 Feb 2025 09:11:37 -0800 (PST)
-Message-ID: <ba3a8d0c-bc05-4d62-9c56-fc77d5969070@gmail.com>
-Date: Sun, 16 Feb 2025 19:11:35 +0200
+        d=1e100.net; s=20230601; t=1739740758; x=1740345558;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=DygvENVbFrhexFyjzDq9AcmiXxF9RvTULW05F+o5r9o=;
+        b=NRNPv/LtyMFncHN2+rYgV5gwHJmXQEgmygIDcl6p5qMg6tJUhQesnTn54mbxwcgtaI
+         iq2W3tAZTUXfzp9m1bIG6y94OOrTGOoDgefYJFuMLrVzNulp4s82X/qVozQkJx4HOl4w
+         Dek3y4uer35x9bFL3Hpi+HIlne/+wMHw8L0C906iBEUcYB6k+p8bqA6ukOvfs4vSNBc/
+         KBQwadcgsEibKBmE60GmiStenRDsJWpjdI2IsRXvhPBwaKZCdhuBlZEhSzbTyVg2XVBK
+         fgUZmb0oMg2yminpKOBvsrQrShnaLnVUz2jIK3BtqHSwrLXg4M8mlKPt36nIaWQwFdXL
+         rLCw==
+X-Gm-Message-State: AOJu0YycSvblffaDSE5lKal/6rfiDLSjcFfBb9tQwHiBc5Ezav/Pmy8I
+	T57c2Wa0jtwPEZWgXjk7/ZFHfZORKkCfyLP5mtw6zVy9exm/DiPObMIjwQ==
+X-Gm-Gg: ASbGncuk/dZN8T0PnAowruYeSQSB281Ye6d9QuJW6y2GO8fdVLwktvp1rvBcAz4RgHK
+	xQikKKZPFldN+iO1Cr+wD76XdQ/N6Nim6NgeenJ6B1xzfav0nCThU3yQ8eTs/zB/UJYY7cDQEvd
+	KNh8AMVxfHuEGnhMu3yAm9e3dBE0yzmR7J2iAF7Bp9UkubeCZpovJejg+UkdD2d+tdkMPwSK9EG
+	4pSF+hs+KANfTuACTlW9su8hFm2c+84wDaUUOfT21bUpTLbdiojwtTAMkvz5K+SRx2DKvhPEtal
+	4nszYC0T6TXKgmT4EHY=
+X-Google-Smtp-Source: AGHT+IHYn8N2Uh3lUC2c6NDQ9mVT5laBtdmrsp5ZzwxqZbp28KIslujfOFYvi063cBvNtNO5quDsaQ==
+X-Received: by 2002:a05:6512:110b:b0:544:ca1:da41 with SMTP id 2adb3069b0e04-5452fea5190mr1947470e87.44.1739740757905;
+        Sun, 16 Feb 2025 13:19:17 -0800 (PST)
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH] xen/memory: Make resource_max_frames() to return 0 on unknown type
+Date: Sun, 16 Feb 2025 23:19:15 +0200
+Message-Id: <20250216211915.3891185-1-olekstysh@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] code style exercise: Drivers folder samples
-To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, Artem_Mygaiev@epam.com, jbeulich@suse.com,
- Luca.Fancellu@arm.com, roger.pau@citrix.com,
- marmarek@invisiblethingslab.com, anthony.perard@vates.tech
-References: <20250216102108.2665222-1-andr2000@gmail.com>
- <b3f7614b-3a2b-4f17-be23-aa69c9f8e065@citrix.com>
-Content-Language: en-US
-From: Oleksandr Andrushchenko <andr2000@gmail.com>
-In-Reply-To: <b3f7614b-3a2b-4f17-be23-aa69c9f8e065@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hello, Roger!
+From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-Please find the branch with all the conversions [1].
-Unfortunately I cannot provide a branch as seen with
-diff --ignore-all-space as such a patch will not simply apply.
+This is actually what the caller acquire_resource() expects on any kind
+of error (the comment on top of resource_max_frames() also suggests that).
+Otherwise, the caller will treat -errno as a valid value and propagate incorrect
+nr_frames to the VM. As a possible consequence, a VM trying to query a resource
+size of an unknown type will get the success result from the hypercall and obtain
+nr_frames 4294967201.
 
-Stay safe,
-Oleksandr Andrushchenko
+Fixes: 9244528955de ("xen/memory: Fix acquire_resource size semantics")
+Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+---
+I am not aware of any real issues with that. I just spotted that when looking
+into the code. Also, I don't think there is a similar issue with acquiring
+resource of an unknown type.
 
-On 16.02.25 13:58, Andrew Cooper wrote:
-> On 16/02/2025 10:21 am, Oleksandr Andrushchenko wrote:
->> There are two diff files which show what happens in case the same is
->> applied to the whole xen/drivers directory:
->> - first one is the result of the "git diff" command, 1.2M [3]
->> - the second one is for "git diff --ignire-all-space", 600K [4]
-> Please can you format everything, and put it on a branch somewhere, so
-> people can browse.
->
-> ~Andrew
-[1] https://github.com/andr2000/xen/tree/clang_ml_drivers_v002_diff
+Another possible more invasive solution could be to make resource_max_frames()
+return int (+ clarify a comment on top of it) and teach the caller to also deal with -errno
+returned on error (in addition to 0). This way we can propagate an exact error (-EOPNOTSUPP)
+to the VM on an unknown type. The cons are that we limit max_frames, but it seems
+to me that nr_frames is limited even harder anyway down the code to fit into high-order
+bits of the cmd parameter to be able to properly encode a continuation.
+---
+---
+ xen/common/memory.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/xen/common/memory.c b/xen/common/memory.c
+index a6f2f6d1b3..6ec471237b 100644
+--- a/xen/common/memory.c
++++ b/xen/common/memory.c
+@@ -1157,7 +1157,7 @@ static unsigned int resource_max_frames(const struct domain *d,
+         return d->vmtrace_size >> PAGE_SHIFT;
+ 
+     default:
+-        return -EOPNOTSUPP;
++        return 0;
+     }
+ }
+ 
+-- 
+2.34.1
+
 
