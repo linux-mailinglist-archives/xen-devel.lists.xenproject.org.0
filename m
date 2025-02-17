@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F29EEA37F24
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Feb 2025 11:01:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.889968.1298998 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45340A37F65
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Feb 2025 11:08:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.889978.1299007 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tjxvo-0004fe-PE; Mon, 17 Feb 2025 10:00:52 +0000
+	id 1tjy3G-0005nV-Gk; Mon, 17 Feb 2025 10:08:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 889968.1298998; Mon, 17 Feb 2025 10:00:52 +0000
+Received: by outflank-mailman (output) from mailman id 889978.1299007; Mon, 17 Feb 2025 10:08:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tjxvo-0004da-Lw; Mon, 17 Feb 2025 10:00:52 +0000
-Received: by outflank-mailman (input) for mailman id 889968;
- Mon, 17 Feb 2025 10:00:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=o9S/=VI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tjxvn-0004dP-O2
- for xen-devel@lists.xenproject.org; Mon, 17 Feb 2025 10:00:51 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1160895d-ed16-11ef-9aa6-95dc52dad729;
- Mon, 17 Feb 2025 11:00:50 +0100 (CET)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5dea50ee572so6135430a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 17 Feb 2025 02:00:50 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aba5337673dsm850860566b.89.2025.02.17.02.00.48
+	id 1tjy3G-0005lF-Dm; Mon, 17 Feb 2025 10:08:34 +0000
+Received: by outflank-mailman (input) for mailman id 889978;
+ Mon, 17 Feb 2025 10:08:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=kh3E=VI=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1tjy3F-0005l9-HM
+ for xen-devel@lists.xenproject.org; Mon, 17 Feb 2025 10:08:33 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 239ee8e6-ed17-11ef-9896-31a8f345e629;
+ Mon, 17 Feb 2025 11:08:31 +0100 (CET)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-30a2f240156so7085351fa.3
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Feb 2025 02:08:31 -0800 (PST)
+Received: from [192.168.0.110] ([91.123.151.154])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-30920af25d6sm12128831fa.6.2025.02.17.02.08.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Feb 2025 02:00:48 -0800 (PST)
+ Mon, 17 Feb 2025 02:08:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,114 +45,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1160895d-ed16-11ef-9aa6-95dc52dad729
+X-Inumbo-ID: 239ee8e6-ed17-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739786450; x=1740391250; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=wZZJVFvAHlVFfT94nBBtsI/noYRNDq6tw/8AapIG+TI=;
-        b=IbnhrmTqa0na00YckNc8DgvMQuXoWGjgBAyVT/VVFSH8VKhSxwGL3cMHfNu81tN9lC
-         gN1AuUxxonXpOjA4r4b8aguPKsQrS5tCq0Ll9QyAKbrRyQ5P/6e6f3saA07HNr60GAgK
-         vQDNAXWPxcHxywT+WQZAj53OajEd7zyylAV7JCdFv3Q2mG9mNS+ZZ5cImXm+TdIwAWAL
-         ufefaVmM1Ty1BoH7EIaR9t4FQD580ZwdnxIV1hFIlvWdTHiX49xteA0T7PIosVjq4Any
-         PoqPqtR9kai/mJbxQMxad/0rgBfCh0oADQDoH037VHGpzUp2SK/ttd2Cam01RjMSYmZ5
-         7BVw==
+        d=gmail.com; s=20230601; t=1739786911; x=1740391711; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=P5t6aafMCCQ8Lx2bi4pupQQMGzMcyidCDI6/CAVIBxM=;
+        b=FAkADKz0h6rzq7RLrsYWZ271xqXv9sr50uS8A/0NiVZOsFsORXHayWp90aqVqRvWcq
+         KBxORyjSLqHB9Vkvaz6xCRfRNIdLsW7bWFY6WIfJXXf2/Kd9ESLt6nfCdz4jWh/XAk1Q
+         7ZB5Atq1XL9d2Wg+lZqsz/C5tV1xVdinZkx0W+pkcI9RnuKqLDdPTdSflJ710UbJAhDO
+         n/TinKCPXqDGo0ATarNifnnPHihPzHzaxtV+I2o7fuJK+SDcy5QEt4Gkcd/Q5Npcqbk6
+         0pIuR1qS/2YNscpK3pkJctVrFEPCBEy+DQbnfrOlyvuh4CGGNegjH19bwBTOI1d4Pfsw
+         j/TQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739786450; x=1740391250;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wZZJVFvAHlVFfT94nBBtsI/noYRNDq6tw/8AapIG+TI=;
-        b=fz+2aikgwaSNwQyRLjNC/4JYx2CzZry98dhW+P1sVeIr6Yxk3wntWdKae7i1EKN/AJ
-         riNEcV4B9xDCodSta8HxFqbUkr5R4+gKZbpRCeemUY1u41Ub705E6M6itU7hXji8L/Wy
-         vJKC0JVHBSmg5by44wy7wGbv7nkhWl09BxM/4s3ngpKWtahOk3LxbyKaFOEbZTC1tvqg
-         ree3XgiUZ2WIcBO7cQodK5d5K17dddqk/txYh85jUIjvWbLu5kwDZOFnjr6txHQEbv9r
-         a7MDREIVMImTv3+nz6PbExZGYIU87epYZsxcm8CR/UG/N0YoGVeXgfxQvPhl7VcyrXeR
-         tmFQ==
-X-Forwarded-Encrypted: i=1; AJvYcCW/2bErFbPl7qUYsDf49sBm3J/612rmnFd0WszOuPJAV8YK9DpRsHnWD5IDtKOGoml2pzIsY3XZjmg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyiTrZ7FvutqUNNVgWX/C8WWL9RLbRfUSS9WbE5oAUgYXxnKQ57
-	SYJR3UUpEMmdfMGxnQdEvH6Xaicc+vkImRAAiByDNUpel9XwoPHUqI3M4GY8ORYACH1S5sK8Cac
-	=
-X-Gm-Gg: ASbGncuhmw8AmuTOFfc32Tx/ORWGiKP3vwk+yoA+627csG2JtgSQLStVGpETDNur2kn
-	uEb3EB6tRcl8ukS9/ELQmKdoMIMyvricOG9w2MY7v3CRDXc2SJfGAcuLDOs0tQqkP6KV9Y8c/Zd
-	7n9aOGzaAbfVqi5qYY+htaNercaLNj3yvZNQ+Oi4LmO+6+dgegkCnAyHOPgz4bSOBHFC8ynS/3q
-	NACQthdWyn+L/ABb+VPtqZgN3t+hN+AV0GXcsepV91sqKQWWLCaP9EPrFoEpxuVxhrlkD5lFVHg
-	0PJai9RevTajNJtPN9iYOxHFXwHgJwXLWaTfJRQ5XatAAf1DeCjQThu4wUW69IjoScX7O2Afp2q
-	E
-X-Google-Smtp-Source: AGHT+IH+7oVgv4gPfuzt5xC0evdzcKPrjmvQLZ04bgt8eCQ9HsE/t4Rn0kIDfVQCDC91F6XWvA1keg==
-X-Received: by 2002:a17:907:7716:b0:aa6:6c46:7ca1 with SMTP id a640c23a62f3a-abb7091d089mr917670366b.10.1739786449332;
-        Mon, 17 Feb 2025 02:00:49 -0800 (PST)
-Message-ID: <daaf4284-102c-4fc4-819c-2231705ab572@suse.com>
-Date: Mon, 17 Feb 2025 11:00:49 +0100
+        d=1e100.net; s=20230601; t=1739786911; x=1740391711;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=P5t6aafMCCQ8Lx2bi4pupQQMGzMcyidCDI6/CAVIBxM=;
+        b=U612bUUN7uL4dzMy5mCifyA8XU4Hyet+kxXGX0bASquK8OWMZ6Y2VasNNAIfPBXccP
+         C49Yf97sH+xzA+UFQvMPPNC9dhx5vp8NMbbIAK9CYjV3ZBgrhl3Szs88WijF1wjvtXAt
+         BwP6z1O0lVyW3/n2NxNW45wrt/rRi/egchOdcaamIH/84LKmu4VhHpupg2cZO5To9ZtM
+         N7tkIIgKxI5btEtfuGGc9z6lYB9m4DH6bHDIpYomdwAaxfyIvu4p2jQweqONtpXTWxsz
+         m2CqRJ0aRgDkM1mIYqn4lm2MzMpRVOhsLvYJZrY9f9RmvwHJA8rJzAju2XTkSrbDmdj7
+         Pb+A==
+X-Forwarded-Encrypted: i=1; AJvYcCVnk9+zsLoOCiFdLPNZv777i26RpSeFMi2LEwV2lSpLb4Az77MET+y1bHnQ/Ab7O0NDDm4U6HHUfs8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxnkugYo1gxzuHYXVFYuXktG3wKAhiqUib6/HvZrPBV4PNa4x2L
+	y2ldqB+kQphHdBRraPpGuyhA0z6yIK6ytHhTOVllnDO4v9R4p288
+X-Gm-Gg: ASbGncuwuH2jL1feJVMI5qu7rdHkWpR4CBEMm9iAz/h1aV5VVAkPuHOjWh4yCczwUCs
+	AI76f+05QEiivcm/LK2yZ9tedS5+JAe8ywumMUvpoYDPeR+A4Yg4JI1qh3in7Vp9lpzOXWac9Sa
+	PHoYU42ckstTPB6ER7on9Pay9WuAJaPi854XSyWndl/VGs/87NTNcWXmwX3I96Z1FEvfFnyY5N5
+	E9kYZydGfCizt/8zw8+/u2cNLhH9DSjSD3v1EikgFkL4UdXIsGOwFSkkpN4War640EqZDEKaYpF
+	OMVsjWMV5/S8WNJPinRn
+X-Google-Smtp-Source: AGHT+IGr64CrBOcs7UEqTlYLy3/GXzTHe+/NB4ynD7A6XK5UrgbFX/IPyDcfsKsUccm0HcA9d64Zjw==
+X-Received: by 2002:a2e:9209:0:b0:307:dc28:7508 with SMTP id 38308e7fff4ca-30927ad54bamr20702871fa.27.1739786910544;
+        Mon, 17 Feb 2025 02:08:30 -0800 (PST)
+Message-ID: <4ae4997c-7920-4f8c-b861-ffdea33fea0f@gmail.com>
+Date: Mon, 17 Feb 2025 12:08:27 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: xen/x86: resolve the last 3 MISRA R16.6 violations
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH] xen/memory: Make resource_max_frames() to return 0 on
+ unknown type
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>, consulting@bugseng.com,
- xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2502141811180.3858257@ubuntu-linux-20-04-desktop>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250216211915.3891185-1-olekstysh@gmail.com>
+ <95d6fcfd-6ff2-4b88-973a-1bfb29c8d5e4@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2502141811180.3858257@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+In-Reply-To: <95d6fcfd-6ff2-4b88-973a-1bfb29c8d5e4@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 15.02.2025 03:16, Stefano Stabellini wrote:
-> --- a/xen/arch/x86/hvm/hvm.c
-> +++ b/xen/arch/x86/hvm/hvm.c
-> @@ -3797,22 +3797,14 @@ uint64_t hvm_get_reg(struct vcpu *v, unsigned int reg)
->  {
->      ASSERT(v == current || !vcpu_runnable(v));
->  
-> -    switch ( reg )
-> -    {
-> -    default:
-> -        return alternative_call(hvm_funcs.get_reg, v, reg);
-> -    }
-> +    return alternative_call(hvm_funcs.get_reg, v, reg);
->  }
->  
->  void hvm_set_reg(struct vcpu *v, unsigned int reg, uint64_t val)
->  {
->      ASSERT(v == current || !vcpu_runnable(v));
->  
-> -    switch ( reg )
-> -    {
-> -    default:
-> -        return alternative_vcall(hvm_funcs.set_reg, v, reg, val);
-> -    }
-> +    return alternative_vcall(hvm_funcs.set_reg, v, reg, val);
->  }
 
-Both of these were, iirc, deliberately written using switch(), to ease
-possible future changes.
 
-Jan
+On 17.02.25 11:18, Jan Beulich wrote:
+
+
+Hello Jan
+
+> On 16.02.2025 22:19, Oleksandr Tyshchenko wrote:
+>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>
+>> This is actually what the caller acquire_resource() expects on any kind
+>> of error (the comment on top of resource_max_frames() also suggests that).
+>> Otherwise, the caller will treat -errno as a valid value and propagate incorrect
+>> nr_frames to the VM. As a possible consequence, a VM trying to query a resource
+>> size of an unknown type will get the success result from the hypercall and obtain
+>> nr_frames 4294967201.
+>>
+>> Fixes: 9244528955de ("xen/memory: Fix acquire_resource size semantics")
+>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> 
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+
+Thanks.
+
+> albeit preferably with an addition:
+> 
+>> --- a/xen/common/memory.c
+>> +++ b/xen/common/memory.c
+>> @@ -1157,7 +1157,7 @@ static unsigned int resource_max_frames(const struct domain *d,
+>>           return d->vmtrace_size >> PAGE_SHIFT;
+>>   
+>>       default:
+>> -        return -EOPNOTSUPP;
+>> +        return 0;
+>>       }
+>>   }
+> 
+> Wouldn't we better accompany this by an ASSERT_UNREACHABLE() in the default
+> case of _acquire_resource()?
+
+
+Maybe yes, as I understand, normally we won't get to this point, as an 
+unknown type will always be rejected earlier in resource_max_frames().
+Will add.
+
+
+
+> 
+> Jan
 
