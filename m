@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F4A4A38045
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Feb 2025 11:34:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.890223.1299228 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4DCAA380B3
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Feb 2025 11:51:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.890236.1299238 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tjySE-00063K-8M; Mon, 17 Feb 2025 10:34:22 +0000
+	id 1tjyiC-0001iS-Hs; Mon, 17 Feb 2025 10:50:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 890223.1299228; Mon, 17 Feb 2025 10:34:22 +0000
+Received: by outflank-mailman (output) from mailman id 890236.1299238; Mon, 17 Feb 2025 10:50:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tjySE-00060o-4k; Mon, 17 Feb 2025 10:34:22 +0000
-Received: by outflank-mailman (input) for mailman id 890223;
- Mon, 17 Feb 2025 10:34:19 +0000
+	id 1tjyiC-0001g6-FC; Mon, 17 Feb 2025 10:50:52 +0000
+Received: by outflank-mailman (input) for mailman id 890236;
+ Mon, 17 Feb 2025 10:50:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=o9S/=VI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tjySB-0005zN-R5
- for xen-devel@lists.xenproject.org; Mon, 17 Feb 2025 10:34:19 +0000
+ id 1tjyiB-0001g0-8U
+ for xen-devel@lists.xenproject.org; Mon, 17 Feb 2025 10:50:51 +0000
 Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
  [2a00:1450:4864:20::62c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bd5f9412-ed1a-11ef-9aa6-95dc52dad729;
- Mon, 17 Feb 2025 11:34:17 +0100 (CET)
+ id 083a30eb-ed1d-11ef-9aa6-95dc52dad729;
+ Mon, 17 Feb 2025 11:50:42 +0100 (CET)
 Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-aaedd529ba1so494056166b.1
- for <xen-devel@lists.xenproject.org>; Mon, 17 Feb 2025 02:34:17 -0800 (PST)
+ a640c23a62f3a-ab7c07e8b9bso716636366b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Feb 2025 02:50:42 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5dece2880fasm6982099a12.78.2025.02.17.02.34.16
+ a640c23a62f3a-aba53397f47sm860281466b.127.2025.02.17.02.50.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Feb 2025 02:34:16 -0800 (PST)
+ Mon, 17 Feb 2025 02:50:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bd5f9412-ed1a-11ef-9aa6-95dc52dad729
+X-Inumbo-ID: 083a30eb-ed1d-11ef-9aa6-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739788457; x=1740393257; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739789441; x=1740394241; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0n25mWO5jBj2QD65+o8vD3wBpXAZTNgg2wmzbRQ4L/w=;
-        b=UhX/0rg/zbZZsYDKgDnSLQMBHS1x6oFLJ/GyApZNzAzUZCfrMkvds4le0+ps0CH1cT
-         8X8eTKlSaz4WnOg5GDHrJdDYnJ5SXsYLOmmWOMdRC0hWnk+nCJta0rIbsH/VJ3KdGjew
-         3u+QxHWoHcFClLrC9kCPqAIxPyM6O9OnusQqA/BV4dAA3DKRoCXqiKLKTzpdIRN4gj3I
-         xuRBtURFIP16k2aZet/CgTueEk6VHqqsnc32TYi+asr5TQF14gyTYjFwIyYad7WmTlE5
-         ThTDOwgND/OvNa+oM9ktg2AQPfgkazPvluqaVJM/1rwbDyGkzO9OpYXWZCoGCPGlfFzz
-         IBxQ==
+        bh=ryqH+nXNJtMUcBUF3RpLG2s2qtxhzwk5xPDxjiunRnI=;
+        b=YoHjLmisRWDRtP7BOBTU0Y0aDKU33OaLKVEk4SsxvdHErivw+pDyKBqHQZU6OlIvNS
+         zBz8WR+E7TBCUw0hj90TuCC5+eN/mdZjKfEHV16CSfI55TOlhNfVqQy28NaDmF0xSp3e
+         1cAMbfsUt+nXeuACRD4ZbMEfI+GWGViXD/+SQdutkSKd1mkz4fKeEU+ipevWStE6pQBO
+         3wSJBKTfTrOpWuni6lP8mpJBf+GvIZBLEp3MrL9B/WdEXRoAdwi/nkftiJB35JeyWkJH
+         HgPWbM64/82aRSRo6FP+pDyQ882LlXJNHIjofs1kPazEAh2C3rUuXPRUeKuSVQESKbgp
+         mfcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739788457; x=1740393257;
+        d=1e100.net; s=20230601; t=1739789441; x=1740394241;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0n25mWO5jBj2QD65+o8vD3wBpXAZTNgg2wmzbRQ4L/w=;
-        b=wsAvdsHXVllFhz+LdEERBWAWEt0+jTM/S3v24fVkf/lFG+sYStPC4EqmwUBDMF/u+m
-         HKDxzBtS9Cd3oOlJ3VshSzJ5Vhufe7KeoxJRJrCU3aRGi32OyV4BALxVPn8rQPE5oKzt
-         gtF3NATC/yha7Nwg5FZqNx+RES22DDK6KJMbWIXhP4Embxo2rxqT1IjbFxMwP4z8GUGv
-         zoZBv0g8qVmvaJ9XiKzaCZcR1pWL9DcWPlq7wH3c2hGO6yk/2VW+JqHzqw+CJC+ggdtk
-         WdpnAvh8cAVWEUl0A4O2ANpCtWslSULEol1L67JWjRU6bw+GFOH4xF9a+/C2b+CDHNON
-         1nkA==
-X-Forwarded-Encrypted: i=1; AJvYcCUqJ95t6N5MFcuYVv0HwwTz0895Sgh/oO0tUk0o+sL4bktRrwXkax2LwQDnrLpKrwzFU+DWOEe/eoQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzALlUO7tfnApAd6GVv4CkgzpaehZNyYvdsXyy43toW/rJ5X5ND
-	ISGhdFFyKu2ajC4EEIh+Jli83i1QIrIBqUBnRCqMrAQE/bqQfqA0Mr5hIjR7FA==
-X-Gm-Gg: ASbGnctw1JXDIBzDM16wFRgYYp6WzCuURCZ/MdrLMmKh6Px86zU/oYLtmQLzc48e3+i
-	QjmN1bd7jdBFHeo27IVQf81MR6HppMZYDkkeetiMeknVCG9kjAadTH5egEEN8OX+zZZxj23/UPD
-	I/cvNLKn6YwhX0a2hdiG7AstHL4sbsCskGR0l6h7NMDbF1qAHeoR6BYTT623v0EyL3zeCfUZ8Nc
-	8Mr4KYxd9es17PScERjlBYi5nACBJXamImrsol3r/+E9EZSHiVw4iDWgrXIdImQxn8arcxZglob
-	UdY6Bzlppvi2h7MW+ZkunVsGHomxszBqRqTVVEIVXEPxgipuerbepQ0uhqKNGj3FtVnwXp8aagC
-	u
-X-Google-Smtp-Source: AGHT+IHyzQSU48k7p9kO1Wc+bXjzhLyAVUxMMGMGDUYvyzF5Mju/S9wZfy5JZ1AJbtvYM+dx7S8a/A==
-X-Received: by 2002:a05:6402:234f:b0:5de:a6a8:5ec6 with SMTP id 4fb4d7f45d1cf-5e03602e275mr26442258a12.10.1739788456902;
-        Mon, 17 Feb 2025 02:34:16 -0800 (PST)
-Message-ID: <f9dccb9b-24e9-416f-bfd7-787b8df4b617@suse.com>
-Date: Mon, 17 Feb 2025 11:34:17 +0100
+        bh=ryqH+nXNJtMUcBUF3RpLG2s2qtxhzwk5xPDxjiunRnI=;
+        b=v0DUMyUBdlJ9dQCgDCEuPsL5M2bCZjvzx8Bxj9VE5dwJY1KXzuc7EulMFkrS9Dxzu7
+         LtvJWXOVGR4IYSvWODUhhjyiccI8mdSHeWLDJLhLxDvf78Dk6DARzd4Upa+1T/rU3B/v
+         UnUA15ClMBtL6T1Ixb2tCHSLBiYXbQLsHr7wzAGeGpjdVaJR3FxgTqFAKVafwaKlExR8
+         Q2AdUhtIk2PD78yLX2XsVZD5BHuGNFd6zadQ1ZerB+feHmUKMcTzdRhUfMlSKvOB5xK5
+         lpwPckwUuJPU5CDstmU/TzrsWzAa3dYiuSRFWQXMRetojTmM+yT6Ngga5i5v8kQYfK1b
+         Lg7g==
+X-Forwarded-Encrypted: i=1; AJvYcCX1Sor84I/o2JMRdTrjIb2PreX44rN8PgOTGFdGs/YFFoyAuxFpvCuziQAnC5InGNfau94wHIDzsS4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzE/KjEZE3euvRIEj5L7zaEUA2b8jWOY3q45qlazAiy19CwpJAc
+	QWXv4zIiin9HhriYVe7Sls1896JJklSg6PsGCEmSYMkvObxJb2BZny1d/BLpJQ==
+X-Gm-Gg: ASbGncs9Kmc28OFJRViaR20645n+nInRZsrllGciSVOWvAauIUC7DV+iMuB0YPXnYU4
+	YLd3/KZEgemT7t0/BfixlAdjzlo+IQarqz4OGftPV/xjDcvuWLfBRTQOydWb5ZoiD49kuc9EePP
+	nVXU1b26/1YN0FzzMbrHopYNpzRQfJLqmPvOYOgUUtXd8VFquUGZJazCumCk2OnCgPn9viXfZY5
+	cwgLTGZAn+k4UzLLvL4sptNzuUPyT40LpIicH5UclaSYOkBerTT5qasfXFko3J5Gh/uQQm1kfJa
+	tVr4Pj3gzQyLuZgVvwxYmr4chx/l3jLX0J/KiyMilEtfspdeTlKcYoswcRnccwNGCAR0TcfQ5fZ
+	7
+X-Google-Smtp-Source: AGHT+IG97OgE+q5CtVvLLkc3GStHfAQajLG8u2Sh+0CNzYVzhtjYMYNKfFyLNZpjjubaxC18HGjbIA==
+X-Received: by 2002:a17:907:6d08:b0:ab7:d87f:665a with SMTP id a640c23a62f3a-abb70dc5897mr1122564066b.46.1739789441522;
+        Mon, 17 Feb 2025 02:50:41 -0800 (PST)
+Message-ID: <cbea397a-e919-4b00-a56a-f706ddc13e53@suse.com>
+Date: Mon, 17 Feb 2025 11:50:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 03/11] xen/x86: introduce "cpufreq=amd-cppc" xen
- cmdline
-To: "Penny, Zheng" <penny.zheng@amd.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>, "Andryuk, Jason"
- <Jason.Andryuk@amd.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH v2 1/2] xen/passthrough: Provide stub functions when
+ !HAS_PASSTHROUGH
+To: Luca Fancellu <luca.fancellu@arm.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250206083255.1296363-1-Penny.Zheng@amd.com>
- <20250206083255.1296363-4-Penny.Zheng@amd.com>
- <ed8af131-7f1b-47db-8d28-553977a4f3cd@suse.com>
- <DM4PR12MB8451A3D08427CDD412AA650DE1FB2@DM4PR12MB8451.namprd12.prod.outlook.com>
+ xen-devel@lists.xenproject.org
+References: <20250217102732.2343729-1-luca.fancellu@arm.com>
+ <20250217102732.2343729-2-luca.fancellu@arm.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,122 +123,91 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DM4PR12MB8451A3D08427CDD412AA650DE1FB2@DM4PR12MB8451.namprd12.prod.outlook.com>
+In-Reply-To: <20250217102732.2343729-2-luca.fancellu@arm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 17.02.2025 11:17, Penny, Zheng wrote:
-> [AMD Official Use Only - AMD Internal Distribution Only]
-> 
-> Hi,
-> 
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Tuesday, February 11, 2025 8:09 PM
->> To: Penny, Zheng <penny.zheng@amd.com>
->> Cc: Huang, Ray <Ray.Huang@amd.com>; Andryuk, Jason
->> <Jason.Andryuk@amd.com>; Andrew Cooper <andrew.cooper3@citrix.com>;
->> Anthony PERARD <anthony.perard@vates.tech>; Orzel, Michal
->> <Michal.Orzel@amd.com>; Julien Grall <julien@xen.org>; Roger Pau Monné
->> <roger.pau@citrix.com>; Stefano Stabellini <sstabellini@kernel.org>; xen-
->> devel@lists.xenproject.org
->> Subject: Re: [PATCH v2 03/11] xen/x86: introduce "cpufreq=amd-cppc" xen cmdline
->>
->> On 06.02.2025 09:32, Penny Zheng wrote:
->>> --- a/xen/arch/x86/acpi/cpufreq/cpufreq.c
->>> +++ b/xen/arch/x86/acpi/cpufreq/cpufreq.c
->>> @@ -148,6 +148,9 @@ static int __init cf_check cpufreq_driver_init(void)
->>>                  case CPUFREQ_none:
->>>                      ret = 0;
->>>                      break;
->>> +                default:
->>> +                    printk(XENLOG_WARNING "Unsupported cpufreq driver
->>> + for vendor Intel\n");
->>
->> Same here. The string along overruning line length is fine. But this cal then still be
->> wrapped as
->>
->>                     printk(XENLOG_WARNING
->>                            "Unsupported cpufreq driver for vendor Intel\n");
->>
->> to respect the line length limit as much as possible.
->>
->>> @@ -131,6 +131,15 @@ static int __init cf_check setup_cpufreq_option(const
->> char *str)
->>>              if ( arg[0] && arg[1] )
->>>                  ret = hwp_cmdline_parse(arg + 1, end);
->>>          }
->>> +        else if ( choice < 0 && !cmdline_strcmp(str, "amd-cppc") )
->>> +        {
->>> +            xen_processor_pmbits |= XEN_PROCESSOR_PM_CPPC;
->>> +            cpufreq_controller = FREQCTL_xen;
->>> +            cpufreq_xen_opts[cpufreq_xen_cnt++] = CPUFREQ_amd_cppc;
->>
->> While apparently again a pre-existing problem, the risk of array overrun will become
->> more manifest with this addition: People may plausibly want to pass a universal
->> option to Xen on all their instances:
->> "cpufreq=hwp,amd-cppc,xen". I think this wants taking care of in a prereq patch, i.e.
->> before you further extend it. Here you will then further want to bump
->> cpufreq_xen_opts[]'es dimension, to account for the now sensible three-fold option.
->>
-> 
-> Correct me if I'm wrong, We are missing dealing the scenario which looks like the following:
-> "cpufreq=amd-cppc,hwp,verbose".
+On 17.02.2025 11:27, Luca Fancellu wrote:
+> When Xen is built without HAS_PASSTHROUGH, there are some parts
+> in arm and x86 where iommu_* functions are called in the codebase,
+> but their implementation is under xen/drivers/passthrough that is
+> not built.
 
-Not so much this one (can it even overflow). It's "cpufreq=amd-cppc,hwp,xen"
-that I'm concerned about (or, prior to your change something redundant like
-"cpufreq=hwp,hwp,xen").
+Why the mention of x86, where HAS_PASSTHROUGH is always selected?
 
-> `verbose` is an overrun flag when parsing amd-cppc.
-> I've written the following fix:
-> ```
-> diff --git a/xen/drivers/cpufreq/cpufreq.c b/xen/drivers/cpufreq/cpufreq.c
-> index 860ae32c8a..0fe633d4bc 100644
-> --- a/xen/drivers/cpufreq/cpufreq.c
-> +++ b/xen/drivers/cpufreq/cpufreq.c
-> @@ -71,6 +71,22 @@ unsigned int __initdata cpufreq_xen_cnt = 1;
+> So provide some stub for these functions in order to build Xen
+> when !HAS_PASSTHROUGH, which is the case for example on systems
+> with MPU support.
+
+Is this fixing a build issue when MPU=y? If so, ...
+
+> For gnttab_need_iommu_mapping() in the Arm part, modify the macro
+> to use IS_ENABLED for the HAS_PASSTHROUGH Kconfig.
 > 
->  static int __init cpufreq_cmdline_parse(const char *s, const char *e);
-> 
-> +static int __initdata nr_cpufreq_avail_opts = 3;
-> +static const char * __initdata cpufreq_avail_opts[nr_cpufreq_avail_opts] = { "xen", "hwp", "amd-cppc" };
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 
-Does this even build? If it does, it likely won't be what you mean. You
-want a constant array dimension (which could actually be omitted, given
-the initializer), as ...
+... is there a Fixes: tag missing?
 
-> +static void __init cpufreq_cmdline_trim(const char *s)
+> --- a/xen/include/xen/iommu.h
+> +++ b/xen/include/xen/iommu.h
+> @@ -110,6 +110,8 @@ extern int8_t iommu_hwdom_reserved;
+>  
+>  extern unsigned int iommu_dev_iotlb_timeout;
+>  
+> +#ifdef CONFIG_HAS_PASSTHROUGH
+> +
+>  int iommu_setup(void);
+>  int iommu_hardware_setup(void);
+>  
+> @@ -122,6 +124,24 @@ int arch_iommu_domain_init(struct domain *d);
+>  void arch_iommu_check_autotranslated_hwdom(struct domain *d);
+>  void arch_iommu_hwdom_init(struct domain *d);
+>  
+> +#else
+> +
+> +static inline int iommu_setup(void)
 > +{
-> +    unsigned int i = 0;
-> +
-> +    do
-> +    {
-> +        if ( strncmp(s, cpufreq_avail_opts[i], strlen(cpufreq_avail_opts[i] - 1) == 0 )
-> +            return false;
-> +    } while ( ++i < nr_cpufreq_avail_opts )
-
-... you can use ARRAY_SIZE() here. (Style note: "do {" goes on a single line.)
-
-> +
-> +    return true;
+> +    return -ENODEV;
 > +}
 > +
->  static int __init cf_check setup_cpufreq_option(const char *str)
->  {
->      const char *arg = strpbrk(str, ",:;");
-> @@ -118,7 +134,7 @@ static int __init cf_check setup_cpufreq_option(const char *str)
->              cpufreq_controller = FREQCTL_xen;
->              cpufreq_xen_opts[cpufreq_xen_cnt++] = CPUFREQ_xen;
->              ret = 0;
-> -            if ( arg[0] && arg[1] )
-> +            if ( arg[0] && arg[1] && cpufreq_cmdline_trim(arg + 1) )
->                  ret = cpufreq_cmdline_parse(arg + 1, end);
->          }
->          else if ( IS_ENABLED(CONFIG_INTEL) && choice < 0 &&
-> ```
+> +static inline int iommu_domain_init(struct domain *d, unsigned int opts)
+> +{
+> +    return 0;
 
-For the rest of this, I guess I'd prefer to see this in context. Also with
-regard to the helper function's name.
+Shouldn't this fail when is_iommu_enabled(d) is true? (The use of the
+predicate here as well as in the real function is slightly strange, but
+that's the way it is.)
+
+> @@ -381,17 +423,19 @@ struct domain_iommu {
+>  #define iommu_set_feature(d, f)   set_bit(f, dom_iommu(d)->features)
+>  #define iommu_clear_feature(d, f) clear_bit(f, dom_iommu(d)->features)
+>  
+> +/* Does the IOMMU pagetable need to be kept synchronized with the P2M */
+
+This comment belongs to just ...
+
+> +#ifdef CONFIG_HAS_PASSTHROUGH
+>  /* Are we using the domain P2M table as its IOMMU pagetable? */
+>  #define iommu_use_hap_pt(d)       (IS_ENABLED(CONFIG_HVM) && \
+>                                     dom_iommu(d)->hap_pt_share)
+>  
+> -/* Does the IOMMU pagetable need to be kept synchronized with the P2M */
+> -#ifdef CONFIG_HAS_PASSTHROUGH
+>  #define need_iommu_pt_sync(d)     (dom_iommu(d)->need_sync)
+
+... this, not also iommu_use_hap_pt(). There's a connection between the
+two, but that is unrelated to what the comment says. I'm also not clear
+about the need for ...
+
+>  int iommu_do_domctl(struct xen_domctl *domctl, struct domain *d,
+>                      XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl);
+>  #else
+> +#define iommu_use_hap_pt(d)       ({ (void)(d); false; })
+> +
+>  #define need_iommu_pt_sync(d)     ({ (void)(d); false; })
+
+... this change, i.e. the need for a stub. Afaics there's nothing in the
+description to help understanding this need.
 
 Jan
 
