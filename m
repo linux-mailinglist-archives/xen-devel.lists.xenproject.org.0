@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A28DA37E45
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Feb 2025 10:18:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.889884.1298918 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4905EA37EE5
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Feb 2025 10:47:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.889893.1298928 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tjxGT-0002Nb-0f; Mon, 17 Feb 2025 09:18:09 +0000
+	id 1tjxig-0006sh-7N; Mon, 17 Feb 2025 09:47:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 889884.1298918; Mon, 17 Feb 2025 09:18:08 +0000
+Received: by outflank-mailman (output) from mailman id 889893.1298928; Mon, 17 Feb 2025 09:47:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tjxGS-0002LR-UI; Mon, 17 Feb 2025 09:18:08 +0000
-Received: by outflank-mailman (input) for mailman id 889884;
- Mon, 17 Feb 2025 09:18:07 +0000
+	id 1tjxig-0006rC-30; Mon, 17 Feb 2025 09:47:18 +0000
+Received: by outflank-mailman (input) for mailman id 889893;
+ Mon, 17 Feb 2025 09:47:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=o9S/=VI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tjxGR-0002LL-HU
- for xen-devel@lists.xenproject.org; Mon, 17 Feb 2025 09:18:07 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ id 1tjxie-0006r4-4C
+ for xen-devel@lists.xenproject.org; Mon, 17 Feb 2025 09:47:16 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1811a716-ed10-11ef-9896-31a8f345e629;
- Mon, 17 Feb 2025 10:18:05 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-5e0373c7f55so3028964a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 17 Feb 2025 01:18:05 -0800 (PST)
+ id 2614fa93-ed14-11ef-9896-31a8f345e629;
+ Mon, 17 Feb 2025 10:47:06 +0100 (CET)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-5e04cb346eeso2330514a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Feb 2025 01:47:07 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5e02ebeaaa1sm4085335a12.5.2025.02.17.01.18.03
+ 4fb4d7f45d1cf-5dece270a7fsm6974333a12.58.2025.02.17.01.47.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Feb 2025 01:18:03 -0800 (PST)
+ Mon, 17 Feb 2025 01:47:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1811a716-ed10-11ef-9896-31a8f345e629
+X-Inumbo-ID: 2614fa93-ed14-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739783885; x=1740388685; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739785626; x=1740390426; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vSPXwcIzhK+NcSfudJnXSMNHK03Wd8hAcEOOekprhXQ=;
-        b=XB5ceHxYTPGsof6cS6euNLzkQ9uihfe7tzkvCwgPtQg0GLxMX7IBj/kJI3yz381l7o
-         v9XYPLsKXZrrDX8WMafKoMprm838gXsdo4WUUyoxOuKytYNZnfNXoJQSJx+mGDalANKK
-         ayUepIL2X42NfoahlfvroqXP25mheupXWv7+mTxNckuFchawrzbNMvnbLNnsjZH5pasp
-         EQ4ROf3c1iEXQ3Hfj6NCmTwRyxROiOCDYyQ/++RQsyKM92Khs3txFSTX8JRbcnXmJn35
-         ebFFnzOdzHtYez+v6uJDjqGS3SwBoB/qvvzpxhHH3Uk0taIVBkBDvlBLmCE7JBmOs8o5
-         Ry8A==
+        bh=11j2ytVisNDAl9nKWgwVPnP1QyQ7uwpvDb4jJHLbbKE=;
+        b=RvGQUJaSNSi5c4AUnZ3CDhjfa1KvJ7Yp4LKQSfFuh99iqolfgEnju1c7+TJJD5q7jV
+         3Xng7pl+A1Mjf75L02PdJ+obodEr4uDfQQ/Tk5KQm5dSIuqzRzQIUH0XxTCUlR64G0Rr
+         5UHB1kp40fkChuoF5UC3odBB2wqGRFlVeeiesqmc0ZF6ByFOlhWVeJfn6eM8cpOo9bGl
+         Vb/O7lF4svkEmBGFgVyV6OigqM0DjKfQyExVmUU3SgJJJEk32E3BzQk5HZje1vtHamfq
+         0AIapPpOc/TXaqwcVVtLyKi9ve/476TCW5lhZXVsCso4x6xnFvtMwX8q4hE+f3ecvjob
+         JbEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739783885; x=1740388685;
+        d=1e100.net; s=20230601; t=1739785626; x=1740390426;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vSPXwcIzhK+NcSfudJnXSMNHK03Wd8hAcEOOekprhXQ=;
-        b=lNd/jDQUmF/AmRrX+9uQsemufwAai5PF1vC37PM4/SoQ+CzEKPjSj+lecUMyJPb0bR
-         7ZhZYzAhPfJq2eXuUggtuV7RwQIeKhZcuvFZzehQXgRPvkAGyHQWh03lbt0Um6wjOwgB
-         xEcbo0gCHcTCZPFIC6aqt48a/1Qw3ktnp06/nj4vKXCITOFoKZr68cYnEF/VrSluzOD6
-         dpku4tT+uEBdVJ1O/tR+LC74VqjGP35Wk0yJwWgU2FD31iL+ugUxMEg4onv6+uZx4Y8z
-         3TllUmIWzOWLp3NJqJ3I0x7FNxJGt40xUO0KLZn6VAzskvLkTofIhntjNgn+vT7/cunK
-         SwVg==
-X-Forwarded-Encrypted: i=1; AJvYcCW+g1PnvNnlcgOrpXeLRu/YsLx7P2n0woG4EA5JBYTcj5Vr72vgU7lwHdm4M6AhAUm9aU35E6qiU8k=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx6FK3a8emkYv3568WDzCEFmwG02Zn+Y8KVCa2u6h6IPn2m1IwH
-	rKPr+P2V3fpW1Zt+3ZXJMbqqRenTRkqz9YH5FJjSeySdJijoKJL5eCE2T3H2Yg==
-X-Gm-Gg: ASbGnctJ5MSRGxDIrP5tfXbjZ35BcLtYcx29XqdF7Jjc4Y3rRN6BjGQ3yDNXsZMPbEX
-	us7T4+v2Yyp7ustBE78Nj6YuGluD0+s7jUA/STvnTgFYjSNZ79nVCPiTicbjbfnWtVxEQRGpo0o
-	12PDZT1cr54eUj96qkzojCpzI+zLcWtLBS2j1XLd88U9cK1mLXolIFsAy5Bxmt3KIMviUJF8yf8
-	UwwkBpIsuLSmT/qZvMsNBj3LwrmKmO7PT9YTPC6JxshJ1PdewZntAMN8ASrqQU0aE6+H2w8/QUr
-	68MdPTL5jwXIoSLjUPpxEtV300sDZeapTnxxa8bEEetvcNa57rcRPq9GzVccsCpy9xSwJZfc14S
-	Z
-X-Google-Smtp-Source: AGHT+IGKrbvRj8AQJAef33r767igMJc3Y7obIMqBWaWJWv7QLA+e0OIojPcAXLR6v/a1K3QS3KOjAg==
-X-Received: by 2002:a05:6402:2393:b0:5e0:4c04:4186 with SMTP id 4fb4d7f45d1cf-5e04c04428emr3795459a12.24.1739783884658;
-        Mon, 17 Feb 2025 01:18:04 -0800 (PST)
-Message-ID: <95d6fcfd-6ff2-4b88-973a-1bfb29c8d5e4@suse.com>
-Date: Mon, 17 Feb 2025 10:18:04 +0100
+        bh=11j2ytVisNDAl9nKWgwVPnP1QyQ7uwpvDb4jJHLbbKE=;
+        b=ZX82EDzh+yBBi6BzdblQHcJFriEbRLVrBGmoV2UItkU0gWwQQYz7PgHHPHgxw1B/yi
+         uf4K1wNFxP9nq+gxccsWFjeJfuhsiqRLgJsCisbkcMBJLCCDl9scALCJdcytTEFNINUo
+         flHjRY1AgKWIqBZGpeoGBMarTZ30mEvI/pbSHmgzd8tMXneI/+Fiab23H7oWVE/CPDQr
+         mrQEGdDMop4RMBED8+tOAt5nG/UXp7/dTHuTUF+vz5xBX11G5/21YCOn+YwGSr3c0dTS
+         Z7jEZdL2oKQ0z/tqcQ6/NSkGMH0sTNPmXb+ByN8OjO/13LYpcq5p6gm4qE//niSvXTT0
+         wRzQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUflgbhWeZx7eWfFirf3AxK0zD0FPbcSoJrq1cjEYM0sSez+6sR9ChlpCRbCZnyrOuheni1FzNDBdg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyW+CSpG4bwMySSSO/+R1fZAiXsCcPvJQYj1NIp/GttknlTZEPJ
+	HpUjN/pNWylfUHtkPD7xFlf7tUXhFOx54O0HzFb1p2dF0E9phzSpdXp7vMTYFQ==
+X-Gm-Gg: ASbGncuBIzSSwn8YMBCrH/f9QpTl3gGYlTmuyj3++pImWfKBNUadbaJPvhTUqodfd+j
+	zUhqA8s5Qj4Oeqon53YtGkPYoU7yNxyyw8UWGrl5A/PqxZW1UAE6gItTz/UA+JYBnHrbVomd/Ke
+	qodMR30gff1J2IHx6/NipWa8xYu0cujwZy9WFvhvVB2JWCXdSCAt83CZ5p8eUhGlds/AHqBYmFq
+	RFALAyVuAwZfY/CBFSAbiIu8+viwuXYm/2ObvcpjahzwBTO4cuwWViVOYN3kKPnnY15n32h6mcw
+	jS4nHCiRkMOA1SYKP728DrRYyb+FLzLzrP3X2dHLB1obbED+rP1Lig47dhsFNDPDpdgei1Kot/u
+	L
+X-Google-Smtp-Source: AGHT+IFRInmDkdDHFRpjcXqhIRhIe3DframHmOBhQGHb5KHy6rpe1qDbiVtFC47koBkAD8Kg4ZSLzw==
+X-Received: by 2002:a05:6402:280a:b0:5de:6486:3f52 with SMTP id 4fb4d7f45d1cf-5e036070696mr8399305a12.9.1739785626468;
+        Mon, 17 Feb 2025 01:47:06 -0800 (PST)
+Message-ID: <6e429c09-7f45-4bf6-b5b9-5d4b8885620c@suse.com>
+Date: Mon, 17 Feb 2025 10:47:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/memory: Make resource_max_frames() to return 0 on
- unknown type
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH 1/2] xen/list: avoid UB in list iterators
+To: Juergen Gross <jgross@suse.com>
+Cc: oleksii.kurochko@gmail.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250216211915.3891185-1-olekstysh@gmail.com>
+References: <20250216102356.18801-1-jgross@suse.com>
+ <20250216102356.18801-2-jgross@suse.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,39 +121,112 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250216211915.3891185-1-olekstysh@gmail.com>
+In-Reply-To: <20250216102356.18801-2-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16.02.2025 22:19, Oleksandr Tyshchenko wrote:
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> 
-> This is actually what the caller acquire_resource() expects on any kind
-> of error (the comment on top of resource_max_frames() also suggests that).
-> Otherwise, the caller will treat -errno as a valid value and propagate incorrect
-> nr_frames to the VM. As a possible consequence, a VM trying to query a resource
-> size of an unknown type will get the success result from the hypercall and obtain
-> nr_frames 4294967201.
-> 
-> Fixes: 9244528955de ("xen/memory: Fix acquire_resource size semantics")
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+On 16.02.2025 11:23, Juergen Gross wrote:
+> The list_for_each_entry*() iterators are testing for having reached the
+> end of the list in a way which relies on undefined behavior: the
+> iterator (being a pointer to the struct of a list element) is advanced
+> and only then tested to have reached not the next element, but the list
+> head. This results in the list head being addressed via a list element
+> pointer, which is undefined, in case the list elements have a higher
+> alignment then the list head.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-albeit preferably with an addition:
+Nit: s/then/than/
 
-> --- a/xen/common/memory.c
-> +++ b/xen/common/memory.c
-> @@ -1157,7 +1157,7 @@ static unsigned int resource_max_frames(const struct domain *d,
->          return d->vmtrace_size >> PAGE_SHIFT;
->  
->      default:
-> -        return -EOPNOTSUPP;
-> +        return 0;
->      }
+> --- a/xen/include/xen/list.h
+> +++ b/xen/include/xen/list.h
+> @@ -291,6 +291,17 @@ static inline void list_move_tail(struct list_head *list,
+>      list_add_tail(list, head);
 >  }
+>  
+> +/**
+> + * list_is_first - tests whether @list is the first entry in list @head
+> + * @list: the entry to test
+> + * @head: the head of the list
+> + */
+> +static inline int list_is_first(const struct list_head *list,
 
-Wouldn't we better accompany this by an ASSERT_UNREACHABLE() in the default
-case of _acquire_resource()?
+bool?
+
+> +                                const struct list_head *head)
+> +{
+> +    return list->prev == head;
+> +}
+
+"list" is ambiguous, as it could also mean the start of the list. Maybe
+better "entry"? (I understand that'll be inconsistent with the subsequent
+list_is_last(), but what do you do.)
+
+> @@ -440,7 +451,19 @@ static inline void list_splice_init(struct list_head *list,
+>    */
+>  #define list_next_entry(pos, member) \
+>          list_entry((pos)->member.next, typeof(*(pos)), member)
+> - 
+> +
+> +/**
+> +  * list_next_entry_or_null - get the next element in list
+> +  * @pos:        the type * to cursor
+> +  * @member:     the name of the struct list_head  within the struct.
+
+Nit: Stray 2nd blank before "within"
+
+> @@ -492,10 +527,10 @@ static inline void list_splice_init(struct list_head *list,
+>   * @head:   the head for your list.
+>   * @member: the name of the list_struct within the struct.
+>   */
+> -#define list_for_each_entry(pos, head, member)                          \
+> -    for ((pos) = list_entry((head)->next, typeof(*(pos)), member);      \
+> -         &(pos)->member != (head);                                      \
+> -         (pos) = list_entry((pos)->member.next, typeof(*(pos)), member))
+> +#define list_for_each_entry(pos, head, member)                            \
+> +    for ( (pos) = list_first_entry_or_null(head, typeof(*(pos)), member); \
+> +          pos;                                                            \
+
+I suspect Misra would demand pos to be parenthesized here (and in similar
+places elsewhere), too.
+
+> @@ -556,11 +590,11 @@ static inline void list_splice_init(struct list_head *list,
+>   * @head:   the head for your list.
+>   * @member: the name of the list_struct within the struct.
+>   */
+> -#define list_for_each_entry_safe(pos, n, head, member)                  \
+> -    for ((pos) = list_entry((head)->next, typeof(*(pos)), member),      \
+> -         (n) = list_entry((pos)->member.next, typeof(*(pos)), member);  \
+> -         &(pos)->member != (head);                                      \
+> -         (pos) = (n), (n) = list_entry((n)->member.next, typeof(*(n)), member))
+> +#define list_for_each_entry_safe(pos, n, head, member)                     \
+> +    for ( (pos) = list_first_entry_or_null(head, typeof(*(pos)), member),  \
+> +          (n) = (pos) ? list_next_entry_or_null(head, pos, member) : NULL; \
+
+n can end up being NULL here even if pos isn't. Then ...
+
+> +          pos;                                                             \
+> +          (pos) = (n), (n) = list_next_entry_or_null(head, n, member) )
+
+... you can't use list_next_entry_or_null() on it.
+
+> @@ -655,10 +689,10 @@ static inline void list_splice_init(struct list_head *list,
+>   * the _rcu list-mutation primitives such as list_add_rcu()
+>   * as long as the traversal is guarded by rcu_read_lock().
+>   */
+> -#define list_for_each_entry_rcu(pos, head, member)                      \
+> -    for ((pos) = list_entry((head)->next, typeof(*(pos)), member);      \
+> -         &rcu_dereference(pos)->member != (head);                       \
+> -         (pos) = list_entry((pos)->member.next, typeof(*(pos)), member))
+> +#define list_for_each_entry_rcu(pos, head, member)                        \
+> +    for ( (pos) = list_first_entry_or_null(head, typeof(*(pos)), member); \
+> +          rcu_dereference(pos);                                           \
+> +          (pos) = list_next_entry_or_null(head, pos, member) )
+
+Don't you need a list_next_entry_or_null_rcu() flavor here, using
+rcu_dereference() on the passed in pos for the (pos)->member.next deref?
+
+Question on the patch as a whole: Since I have a vague recollection that we
+may have a use or two of one of these iterator macros which actually make
+assumptions on the state of pos upon loop exit, did you audit all use sites?
 
 Jan
 
