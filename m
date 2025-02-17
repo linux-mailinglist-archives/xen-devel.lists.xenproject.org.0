@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 218CEA388FD
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Feb 2025 17:18:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.890629.1299771 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1315DA38904
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Feb 2025 17:22:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.890639.1299781 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tk3ou-0002fD-4Q; Mon, 17 Feb 2025 16:18:08 +0000
+	id 1tk3sZ-0004AA-Is; Mon, 17 Feb 2025 16:21:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 890629.1299771; Mon, 17 Feb 2025 16:18:08 +0000
+Received: by outflank-mailman (output) from mailman id 890639.1299781; Mon, 17 Feb 2025 16:21:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tk3ou-0002c9-1p; Mon, 17 Feb 2025 16:18:08 +0000
-Received: by outflank-mailman (input) for mailman id 890629;
- Mon, 17 Feb 2025 16:18:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=o9S/=VI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tk3os-0002c3-Q9
- for xen-devel@lists.xenproject.org; Mon, 17 Feb 2025 16:18:06 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c42c6577-ed4a-11ef-9aa6-95dc52dad729;
- Mon, 17 Feb 2025 17:18:04 +0100 (CET)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-abb705e7662so398623566b.0
- for <xen-devel@lists.xenproject.org>; Mon, 17 Feb 2025 08:18:04 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aba53398364sm905259266b.128.2025.02.17.08.18.03
+	id 1tk3sZ-000497-GG; Mon, 17 Feb 2025 16:21:55 +0000
+Received: by outflank-mailman (input) for mailman id 890639;
+ Mon, 17 Feb 2025 16:21:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=xGAw=VI=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tk3sX-000491-Io
+ for xen-devel@lists.xenproject.org; Mon, 17 Feb 2025 16:21:53 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4995c70e-ed4b-11ef-9896-31a8f345e629;
+ Mon, 17 Feb 2025 17:21:48 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-43967004304so21512835e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Feb 2025 08:21:48 -0800 (PST)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4398a64febasm18875315e9.1.2025.02.17.08.21.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Feb 2025 08:18:03 -0800 (PST)
+ Mon, 17 Feb 2025 08:21:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,111 +45,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c42c6577-ed4a-11ef-9aa6-95dc52dad729
+X-Inumbo-ID: 4995c70e-ed4b-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739809084; x=1740413884; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1739809308; x=1740414108; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6qttb6E1+vaxV7b553I7Jykq54aC5IObXNkwXrXX1NM=;
-        b=DIed5z9a6IMiZsQwqKVLAP9pNkBxqqn7BLjC4D9ViS4nD34/8GnXcHMQhnEx1GH2zL
-         Z0wWealK+BaBOF3BX11AGGCZafltX2ejRY1a1RXBfLXUFWbXuBm/n0oqQ2zFLwJzuH05
-         yw30LvMzK30jIZBF3MKc0kUjJ3scwbK/nlRbSaKDJp1+QRrq2cVfjIkJc7ea5bLWrE6t
-         sa1spVDIdVUF+lP0uCe/O7w8SnP+C65Q0HKddagOBeOPhY0StDP+v7YnVuG6lZcb+uVw
-         oqIOLHSvtnFaPg2HBz1uXQyqbhzcxOTAnFAUZDTVGanpTN2C+/WnvUlqe80KxEUV2oZK
-         CTrw==
+        bh=vXrdYPv2/LleVJp730elhgBpqwjFwXRO3KAxyuuSej4=;
+        b=EM+QqoCUeN3EBsursbYA1GSZyRi03wpL5on9zEdZ4fWWv0/B2dYVOJH0gfXb8YeqqD
+         hi+a9tinEHQnVnXzTE1O6uEA7W/yZvyZt/Ac7BWhwEJ0rWuQpxmOW4g0h7UuMIq6izJt
+         UPrdpxTjErU4Qt+M7CfFgYhzX1Vo14V+GBdhA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739809084; x=1740413884;
+        d=1e100.net; s=20230601; t=1739809308; x=1740414108;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6qttb6E1+vaxV7b553I7Jykq54aC5IObXNkwXrXX1NM=;
-        b=kixrpPYZnW6sWFUKN1cgY/cE0BYa9eVykv1NzSxkgZCut+HcrbMytpz6Jbpdy14mGp
-         NjGEq4joLgqZR36P0peUIC/Fy1G2sZnbcNzWA5T+LOhlLuoPfl2baeoOoQFR08XZ32CZ
-         6IxABLj1rvnaOLHp4H7DzlkyvoSqABgtCdYBj6GQATacrceRQIF31GBN0oG0Mxjs36Pd
-         RdjYyzNnvfdAZwQgz5vbqOImTS43BlKj0x4UXG930aueO6n3ZqqrqXkJjZrbXVQwyjiA
-         Rpy5Oa5IcIbEnuFl/+ztZBpIZXtaEk6DOF7qYMlJFfPXK1KZ9YEVPI1hAGa94tfCEgMC
-         TFqw==
-X-Gm-Message-State: AOJu0Yyeo3A/FAl0m3y2zH8rjHGmFqOtExHEa8Uvrpdgth14APlFfAjL
-	KmLDTGagzQh/R9P3NY21pAZvXpXbrgmaPXaX3yQns/0igZbVoudfgd6Y06ZY8xio9hBdKKcoDIA
-	=
-X-Gm-Gg: ASbGncuvsCPfSWW68+NhVfsM4kV/TTYAv16v1fuVkk+Tn/3VzUpmQCHHVrtuvOsgsGo
-	nx55WOc7WV5yehjNRjAId1gOC78yUrf7B0Ak2O3l79Cz+AZGeYymGFGSFIIInuR2fVVsk5Eh7ZL
-	XBm8Pr1+IYt9o+kWeuJiQV5WDpSWOOkfK+IXSW0vRm+kH3/yyVgnJybp0hOs6MwhxEem35XWL7Y
-	PmAVC2uomItwry31Rxi50qaPBqznSUsofQ2Y+UYzq0ywwwC7tpu1+pAyQt64CLhO7EArQXkW73d
-	YgMEgFWURXZzBE2G/Ip9JZNbkCaSd1+17worfWfUDa04I/OAxX2hJU9EWEJFOIqffSLW0Eo9bq2
-	N
-X-Google-Smtp-Source: AGHT+IELbZqn7QQuH9lJuVHNi6HfGS04LK+jIdpQ43acvdZG03ScoRkCcGEcVtkoRidf18hM/JWKeA==
-X-Received: by 2002:a17:907:8326:b0:abb:b24d:c63e with SMTP id a640c23a62f3a-abbb24dc7e8mr62041266b.16.1739809084187;
-        Mon, 17 Feb 2025 08:18:04 -0800 (PST)
-Message-ID: <6cf4fc56-5798-468c-b1c5-9ca7c5398503@suse.com>
-Date: Mon, 17 Feb 2025 17:18:03 +0100
+        bh=vXrdYPv2/LleVJp730elhgBpqwjFwXRO3KAxyuuSej4=;
+        b=TIwBBRp2rmV0QplPWTEWfzeGbphpkp3yECJFwhcGl/EDGL0B0/dcc+2SUQBN6pGZ6D
+         LbACZgqRl//0dAMGutIBdgjCi/LM3NI9uuI0GsiWN0j7qCM4AEyhgwTiaZLj7qjpwbsa
+         Bq0q8gM4sFXiArFP4pE5I4w332xZfzAqYMQeovBjSDZ1maN3PRIMRYp40mVTXfpU6c1D
+         QtJG5kJ2KWViuHPSTyVYj6Z59Fq5lGi9rr09JQbPwRJ+m4vKN9xU0ivnp/yx7g8PqSoq
+         8zybehsJYcmgBvIE+/AWM3qBYihA19bCXiDtVeY1YTMX7HHcpnAX7SpFAZgMYJGGvAMu
+         7dNg==
+X-Gm-Message-State: AOJu0YziWbbKWH9tFGJCzRP1ref0bVCcFVu7yzjM3gx8gtMwEtU/Zj+e
+	eimecTrW4iXTClgt/zWUnt8zr6cKv2uTakDqNgcKt7EoQpRir702b87eTYWyNSU=
+X-Gm-Gg: ASbGncsyyhFl852TqYItj5nmbRQbn1yPGQfIS7+XUGokNQw/aEIgK4Q3l/JPonGyF1B
+	WUXLXz0LUfh3Q+wsqwnTG6HHB0G3gH1fVS+bc0+6uwyDmIifg7aMUjzHolBwposwdH06HsRE294
+	Cc5ItexvNTbdvKQpJxhj23g2lXNj8E6WzKFmRdqVVxWX2aYTfsTVc64xgeZfR2bzL0oYGxrS3z2
+	L6dS+Sban/WjXWQk41aREEJjCn7K1Y5KL62uYAwrrdp2iSVXbz3kZ78dGYu5u0r5+G2Rmak5YYO
+	tj9/nhHUn4XzQ5ovMKIHaMrIehGo/GMqgR9XEhXVJ1uIJuy2C7QXqGo=
+X-Google-Smtp-Source: AGHT+IG+8E1+DUOgRCFgh2GhzHZuoFQQPuhDXWgR6W+hJ9IftfsPfvE4dArYgnVu0VehsTrB4Q1SHQ==
+X-Received: by 2002:a05:600c:a4e:b0:439:88bb:d035 with SMTP id 5b1f17b1804b1-43988bbd4bemr28986495e9.5.1739809307957;
+        Mon, 17 Feb 2025 08:21:47 -0800 (PST)
+Message-ID: <d4608684-d476-45ae-bd1a-c007cd9e4b14@citrix.com>
+Date: Mon, 17 Feb 2025 16:21:46 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] x86/ucode: Add option to scan microcode by default
-To: Ross Lagerwall <ross.lagerwall@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+To: Jan Beulich <jbeulich@suse.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>
+Cc: xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>
 References: <20250217160844.3164003-1-ross.lagerwall@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250217160844.3164003-1-ross.lagerwall@citrix.com>
+ <6cf4fc56-5798-468c-b1c5-9ca7c5398503@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <6cf4fc56-5798-468c-b1c5-9ca7c5398503@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 17.02.2025 17:08, Ross Lagerwall wrote:
-> A lot of systems automatically add microcode to the initrd so it can be
-> useful as a vendor policy to always scan for microcode. Add a Kconfig
-> option to allow setting the default behaviour.
-> 
-> The default behaviour is unchanged since the new option defaults to
-> "no".
-> 
-> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
-> ---
->  xen/arch/x86/Kconfig              | 11 +++++++++++
->  xen/arch/x86/cpu/microcode/core.c |  2 +-
->  2 files changed, 12 insertions(+), 1 deletion(-)
+On 17/02/2025 4:18 pm, Jan Beulich wrote:
+> On 17.02.2025 17:08, Ross Lagerwall wrote:
+>> A lot of systems automatically add microcode to the initrd so it can be
+>> useful as a vendor policy to always scan for microcode. Add a Kconfig
+>> option to allow setting the default behaviour.
+>>
+>> The default behaviour is unchanged since the new option defaults to
+>> "no".
+>>
+>> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+>> ---
+>>  xen/arch/x86/Kconfig              | 11 +++++++++++
+>>  xen/arch/x86/cpu/microcode/core.c |  2 +-
+>>  2 files changed, 12 insertions(+), 1 deletion(-)
+> Please also update the command line doc accordingly.
 
-Please also update the command line doc accordingly.
+I've got an open task to fix both the cmdline and sphinx docs WRT
+changes in 4.20.  I could do this too.
 
-> --- a/xen/arch/x86/Kconfig
-> +++ b/xen/arch/x86/Kconfig
-> @@ -383,6 +383,17 @@ config ALTP2M
->  
->  	  If unsure, stay with defaults.
->  
-> +config UCODE_SCAN_DEFAULT
-> +	def_bool n
-
-Just "bool" will suffice.
-
-Also can you please send patches To: the list, with maintainers Cc:-ed?
-
-Jan
+~Andrew
 
