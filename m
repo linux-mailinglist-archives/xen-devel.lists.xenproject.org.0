@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A45A7A38914
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Feb 2025 17:27:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.890657.1299801 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C894AA38929
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Feb 2025 17:31:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.890683.1299822 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tk3xY-0005ZT-GO; Mon, 17 Feb 2025 16:27:04 +0000
+	id 1tk41Q-0007pw-AW; Mon, 17 Feb 2025 16:31:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 890657.1299801; Mon, 17 Feb 2025 16:27:04 +0000
+Received: by outflank-mailman (output) from mailman id 890683.1299822; Mon, 17 Feb 2025 16:31:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tk3xY-0005X0-DW; Mon, 17 Feb 2025 16:27:04 +0000
-Received: by outflank-mailman (input) for mailman id 890657;
- Mon, 17 Feb 2025 16:27:03 +0000
+	id 1tk41Q-0007mo-7F; Mon, 17 Feb 2025 16:31:04 +0000
+Received: by outflank-mailman (input) for mailman id 890683;
+ Mon, 17 Feb 2025 16:31:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=o9S/=VI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tk3xX-000531-Em
- for xen-devel@lists.xenproject.org; Mon, 17 Feb 2025 16:27:03 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
+ id 1tk41O-0007l1-H7
+ for xen-devel@lists.xenproject.org; Mon, 17 Feb 2025 16:31:02 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 04d90c92-ed4c-11ef-9aa6-95dc52dad729;
- Mon, 17 Feb 2025 17:27:02 +0100 (CET)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-abadccdfe5aso514576866b.0
- for <xen-devel@lists.xenproject.org>; Mon, 17 Feb 2025 08:27:02 -0800 (PST)
+ id 9330c8c9-ed4c-11ef-9aa6-95dc52dad729;
+ Mon, 17 Feb 2025 17:31:01 +0100 (CET)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-5e04cb346eeso3077707a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Feb 2025 08:31:01 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abbaa99f283sm99712866b.32.2025.02.17.08.27.01
+ a640c23a62f3a-aba5323202dsm903093266b.6.2025.02.17.08.31.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Feb 2025 08:27:01 -0800 (PST)
+ Mon, 17 Feb 2025 08:31:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 04d90c92-ed4c-11ef-9aa6-95dc52dad729
+X-Inumbo-ID: 9330c8c9-ed4c-11ef-9aa6-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739809622; x=1740414422; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739809861; x=1740414661; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=w7HUjlX9eZLcBQksWU+wLQFj/8UI0v19Zjwf/FT6UtE=;
-        b=Gb+EWGb3ZbnmWMVa0BkLXImpNdwpdhIDhgaOtNB4Te8F7/jKntEosYFtVUC3DQo6Eh
-         0yRPYYE3hIQtNUCWPg1+UCCftJJSL+5BXuw/qtcFk3k56ROs55T29vpns6Wmsqz6Gc0H
-         W2hSGFYzXZCx+3EE+284Hgp8O/l3GLIZn7yn9JhRAtYEQBz0zl26cMWAVIYi6oOhUl3W
-         h3X96uWCHPOl0BEfwT2i50kGSfbZlN1cvPc81uywYWr1Qnykkmj6uLMt5yUY4JVaP0mK
-         6f0Fp7u2sr+oMz04dnVMtZo2i1R6Wn/23MfluPKSfatipRbggA5uZuvU9RUpGHMhVMJv
-         p+pQ==
+        bh=mQ2IeoO+WiJD99KVpVcsiVOIBnIP72sXFe1+iuF2U88=;
+        b=emTLeHDdWL7wuGy+d8aqsuMw3C9+169f+Nqa//wjrHKCHLoUn7+WconLkD3tTjZsnR
+         PKZnX9c/bq/Je1oz0BqqKGQLw0mCJusxYqoiO4RgFC/Yx57MIV+FY7PMyHYFrjl/xz22
+         y4+cSGhpGbua+G6sgQS+7NX8Xn7k237GN4jpzEA6bo1CLYUeZzATfTLqcKNBxvtm9OkD
+         pEMbA1dz12xVKr7PBWBuzoF56z2CYNMM0uNAgmzY/ZEVHfG0xdUxr+A2ox2QzLICK1SD
+         PAapZwatrvvFjW4JKLs0vvwpmMICtcwYxJnBPJ2wh0lHHAUZ713v/6nTN97RJ8gEWibE
+         9CLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739809622; x=1740414422;
+        d=1e100.net; s=20230601; t=1739809861; x=1740414661;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=w7HUjlX9eZLcBQksWU+wLQFj/8UI0v19Zjwf/FT6UtE=;
-        b=pyLqoK+LXdhagJenMAKEtzr9RSsBcUYpzxmO9zX6rzCE3FLbQRjptdY53Ic4lIF7su
-         PVVEJtybqpSabZMA25fXU1ZhcUltgMiWrSSzdOAZMtC8k26882qjO3/7lj94/q8UooOr
-         3AFlDNqNZliCUN9yNttPVSFp05H9iohT1NtKXenmvi9jdE/BP86lwYl/XZUV7ALjK6oF
-         HNpAVQrp54ISoJ8lNXGeGC+1gzGhUD4Wj+ei35Iqski2twJCyd0yyhW1EDW+NTHbxfG8
-         wM+0s0Yl2oWPQF8UOgYf+FbpyMaaB6ttlXtogE+jfwda2ubAREXQoyCJDvzNq1lCWLW8
-         LH0w==
-X-Forwarded-Encrypted: i=1; AJvYcCVxgn2fj27ke4OBnbc2xb64SYupkjG0i/sckiE6bAbunhJhscK9sg5FQ08iuM7Pzvn36T9zrp0sT6Y=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyRusC2IgD+GafERr4TGb8Q6AH1swEZnLjZ8OoObO1NZW6v0ERJ
-	vBRtk6CY8Id7Ki7b7uvUFYCNTO5YkljGXeLLqHuFM2od4kpjcuQFsboGXzorAg==
-X-Gm-Gg: ASbGnctj2BWLFeUEWoH35q5q5RkEnJNubvag58bFDJpWNXr3GazTWMuuMnFID6EOUC/
-	m+94hKgacgObNaVyzTO0DR/jXr8YnAm0T/u3gRlXcj3gdxKPCY+fKi/DyefHRoTYrNdC17odjVe
-	aSynvjQsbtt127pEZlCNiZV9w90hl9cYLAXo9nXuLCf8DtXoDIE981Zecni3NDH/ektuOJ0hVCw
-	X9vA2im3W4B+yHODCP8AXU0sEtuDlybDFMuST+OO+s0qhWpWO3CroWiuD/Ze10WThRysoT51+ik
-	Lstd+PLtKeqWSDpFwuxdGl1qsqsdfGrS8USHjFZW3G6CZTbdDLY5DBCfruv+7QLLGCNHOhnsrM9
-	q
-X-Google-Smtp-Source: AGHT+IFXGntu55XuQh2yxE7jyqQiYWZWovJaGYZsx9CI1m6wA1SkZDUofmeaY4wrBFAykDqZl1OboA==
-X-Received: by 2002:a17:906:4fd5:b0:ab7:fc9a:28e1 with SMTP id a640c23a62f3a-abb70db75f4mr1049457666b.52.1739809622182;
-        Mon, 17 Feb 2025 08:27:02 -0800 (PST)
-Message-ID: <6bf1d945-e9c1-4e90-aced-cb52ab8e93e3@suse.com>
-Date: Mon, 17 Feb 2025 17:27:01 +0100
+        bh=mQ2IeoO+WiJD99KVpVcsiVOIBnIP72sXFe1+iuF2U88=;
+        b=PeGN9YXrBJj/zU0o9LTwGrvH9ZdAS7YdtY1vcTSDEBk5MnP5tRIYJLWhQAxCBN1ZgB
+         t37vWu8TaxzKkvlAwpFOhefawkIVephRDfFYoYuNuCZcYiKxO5sj3TlDjhXqFyW5PuAX
+         zWvM3o1W7Zhf+Jv0JqOsoF0rjeKPhBkhHF6N5DT2MYEo0TEippXknhvdLk5HUpP5XR49
+         kOtNsWB/T9RQ8L3iMuQv86SYg7XoLdIpy+UoYYm5y2IEtu1/L/3NlxHDzgtkyPs+Wdo3
+         khqMsZppbyI6HcGI+MbYLHYKssEuQti/36zcxDxIfRfEGQElkJqmqHYE7gmUZNK5pC6L
+         DRDA==
+X-Forwarded-Encrypted: i=1; AJvYcCWAX9OY8NzREtzcIYZkMbGQayskdKQcHGO6PqbiA6rlsdDM1R9B4mko+KaIGA9hFJ98mO5ierm1mW0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzGZvDzDbewB6Iul1ZdRXSnctUKrY6UcCACNQGlCjKYH7tFyFd2
+	YaXZmcxIEW8g2Gz/Qtb5MskvCfTDP0iYP9d7vwI6LIwgvVSRzLJ1yvVWjILDIKKrbLLfXsSTi5Y
+	=
+X-Gm-Gg: ASbGnctWi7zagDVejadh1guoGcUdZgRRcZsnTu5vr/CVjFdHBFHCAdsBFlFnp9irw2i
+	qz9i5GYDjjk9ALiV8e9Mjs2bgtdENzzogtpWzckH0Sd9h7OeQqlPoEMJAY2eYe9HLc/FVaAAvdh
+	5iGqHaug8LLyAlh8+xUaoJl8h3Zy67EJ5lrpT18pOvrfwOWpDaqSoJAWf+lrvOLRc9kfHh+q8z2
+	qZ6qYqQudWs3Yq+Hd20uVMZos6eH9jfC+/2JVIP7c9o3QiopTtZMflk1Zj7GKAw5FD5y/nb2dz+
+	f4lNAb7x1LohHDcRoz3no8SDk7enweFeMXDCK7lmjJPWgLwKAlzOJm6Xe3xrm2WMslqwYelncVV
+	K
+X-Google-Smtp-Source: AGHT+IGysohYYbQO+Nwqn9uMLSNZbM2fhXDFhJ5OW7Il9JXOJyFBZIUuC2IEXGXvtmcqCGS8rHuS+w==
+X-Received: by 2002:a17:907:3e02:b0:ab6:d4d0:2be9 with SMTP id a640c23a62f3a-abb70e67725mr1137594666b.56.1739809861002;
+        Mon, 17 Feb 2025 08:31:01 -0800 (PST)
+Message-ID: <77eb149c-bb1e-4f77-85ba-c44b173a5c1e@suse.com>
+Date: Mon, 17 Feb 2025 17:31:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] xen/passthrough: Provide stub functions when
- !HAS_PASSTHROUGH
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250217102732.2343729-1-luca.fancellu@arm.com>
- <20250217102732.2343729-2-luca.fancellu@arm.com>
- <cbea397a-e919-4b00-a56a-f706ddc13e53@suse.com>
- <5CB44FBF-09A3-4587-B5A5-3D4BBB9D58A5@arm.com>
- <51ebbaee-7927-488c-b69c-2bec1ba3b34c@suse.com>
- <6B58EB7A-1A39-40FC-94CF-C871AA3AE06C@arm.com>
+Subject: Re: [PATCH v6] Avoid crash calling PrintErrMesg from efi_multiboot2
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+References: <20250217162659.151232-1-frediano.ziglio@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,79 +119,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6B58EB7A-1A39-40FC-94CF-C871AA3AE06C@arm.com>
+In-Reply-To: <20250217162659.151232-1-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 17.02.2025 17:14, Luca Fancellu wrote:
->>
->>>>> --- a/xen/include/xen/iommu.h
->>>>> +++ b/xen/include/xen/iommu.h
->>>>> @@ -110,6 +110,8 @@ extern int8_t iommu_hwdom_reserved;
->>>>>
->>>>> extern unsigned int iommu_dev_iotlb_timeout;
->>>>>
->>>>> +#ifdef CONFIG_HAS_PASSTHROUGH
->>>>> +
->>>>> int iommu_setup(void);
->>>>> int iommu_hardware_setup(void);
->>>>>
->>>>> @@ -122,6 +124,24 @@ int arch_iommu_domain_init(struct domain *d);
->>>>> void arch_iommu_check_autotranslated_hwdom(struct domain *d);
->>>>> void arch_iommu_hwdom_init(struct domain *d);
->>>>>
->>>>> +#else
->>>>> +
->>>>> +static inline int iommu_setup(void)
->>>>> +{
->>>>> +    return -ENODEV;
->>>>> +}
->>>>> +
->>>>> +static inline int iommu_domain_init(struct domain *d, unsigned int opts)
->>>>> +{
->>>>> +    return 0;
->>>>
->>>> Shouldn't this fail when is_iommu_enabled(d) is true? (The use of the
->>>> predicate here as well as in the real function is slightly strange, but
->>>> that's the way it is.)
->>>
->>> Right, probably you know better this code than me, I started from the assumption
->>> that when !HAS_PASSTHROUGH, 'iommu_enabled' is false.
->>>
->>> is_iommu_enabled(d) checks if the domain structure ‘options’ field has
->>> XEN_DOMCTL_CDF_iommu, this flag is set on domain creation when ‘iommu_enabled'
->>> is true on arm and x86.
->>>
->>> So when !HAS_PASSTHROUGH can we assume is_iommu_enabled(d) give false?
->>> Or shall we return for example the value of is_iommu_enabled(d)?
->>
->> Since HAS_PASSTHROUGH being selected conditionally a (pretty) new, I
->> fear that assumptions shouldn't be made. It's possible the stub could
->> remain as is, yet even then - if only for documentation purposes - I'd
->> suggest to have some ASSERT() there. In the end it all depends on how
->> XEN_DOMCTL_CDF_iommu is handled when !HAS_PASSTHROUGH.
-> 
-> I’ve tried to add an ASSERT(!is_iommu_enabled(d)); but it’s not building, I’m starting to think there
-> is some reason why I can’t do that but I didn’t figure out why, I’ve added the inclusion for xen/sched.h,
-> but it still says implicit declaration of function ‘is_iommu_enabled’…
+On 17.02.2025 17:26, Frediano Ziglio wrote:
+> --- a/xen/common/efi/efi-common.mk
+> +++ b/xen/common/efi/efi-common.mk
+> @@ -2,6 +2,7 @@ EFIOBJ-y := boot.init.o pe.init.o ebmalloc.o runtime.o
+>  EFIOBJ-$(CONFIG_COMPAT) += compat.o
+>  
+>  CFLAGS-y += -fshort-wchar
+> +CFLAGS-y += -fno-jump-tables
+>  CFLAGS-y += -iquote $(srctree)/common/efi
+>  CFLAGS-y += -iquote $(srcdir)
 
-Well, xen/sched.h includes xen/iommu.h. Hence when you make the latter
-include xen/sched.h, that'll have a meaningful effect on use sites
-of xen/iommu.h; wherever xen/sched.h is used the nested #include will
-do nothing due to the include guard.
-
-> But I could assert for !iommu_enabled: I checked into common/domain.c, sanitise_domain_config,
-> if a domain is called with XEN_DOMCTL_CDF_iommu set, the function would fail if !iommu_enabled,
-> so I would say that the stub returns the expected value (0) since for sure iommu_enabled is false and
-> there cannot be a domain with that flag set that has the iommu_enabled=true under !HAS_PASSTHROUGH.
-> 
-> But would it be ok to add this assert (ASSERT(!iommu_enabled);) even if we know that iommu_enabled
-> is false, since !HAS_PASSTHROUGH ?
-
-Such an assertion then isn't very useful, imo. Since, as you say,
-sanitise_domain_config() properly covers the !HAS_PASSTHROUGH case even
-for cases like the MPU one, I think the code is fine then. A brief
-comment might be nice ...
+Do source files other than boot.c really need this? Do any other files outside
+of efi/ maybe also need this (iirc this point was made along with the v5 comment
+you got)?
 
 Jan
 
