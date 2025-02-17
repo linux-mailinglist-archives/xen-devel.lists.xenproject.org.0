@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2293A37F16
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Feb 2025 10:59:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.889958.1298988 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F29EEA37F24
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Feb 2025 11:01:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.889968.1298998 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tjxu0-00036N-Ez; Mon, 17 Feb 2025 09:59:00 +0000
+	id 1tjxvo-0004fe-PE; Mon, 17 Feb 2025 10:00:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 889958.1298988; Mon, 17 Feb 2025 09:59:00 +0000
+Received: by outflank-mailman (output) from mailman id 889968.1298998; Mon, 17 Feb 2025 10:00:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tjxu0-00034U-CA; Mon, 17 Feb 2025 09:59:00 +0000
-Received: by outflank-mailman (input) for mailman id 889958;
- Mon, 17 Feb 2025 09:58:58 +0000
+	id 1tjxvo-0004da-Lw; Mon, 17 Feb 2025 10:00:52 +0000
+Received: by outflank-mailman (input) for mailman id 889968;
+ Mon, 17 Feb 2025 10:00:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=o9S/=VI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tjxty-000346-Bg
- for xen-devel@lists.xenproject.org; Mon, 17 Feb 2025 09:58:58 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
+ id 1tjxvn-0004dP-O2
+ for xen-devel@lists.xenproject.org; Mon, 17 Feb 2025 10:00:51 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cc8075b7-ed15-11ef-9aa6-95dc52dad729;
- Mon, 17 Feb 2025 10:58:55 +0100 (CET)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-abadccdfe5aso441709266b.0
- for <xen-devel@lists.xenproject.org>; Mon, 17 Feb 2025 01:58:55 -0800 (PST)
+ id 1160895d-ed16-11ef-9aa6-95dc52dad729;
+ Mon, 17 Feb 2025 11:00:50 +0100 (CET)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-5dea50ee572so6135430a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Feb 2025 02:00:50 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abba9657276sm62043166b.51.2025.02.17.01.58.54
+ a640c23a62f3a-aba5337673dsm850860566b.89.2025.02.17.02.00.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Feb 2025 01:58:54 -0800 (PST)
+ Mon, 17 Feb 2025 02:00:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc8075b7-ed15-11ef-9aa6-95dc52dad729
+X-Inumbo-ID: 1160895d-ed16-11ef-9aa6-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739786335; x=1740391135; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739786450; x=1740391250; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=54kinxxO/2wSUSkYgxVdbTRtg83EDNkQH0DTjuvhbdU=;
-        b=V/yoxT6LKS4T0QuVNV7WEynhwrSq+7Ue1SyxarLDPBOc3ypeIcedNY1HJeLwNDwmi/
-         D6Qof9cEcNVSjO1ELgkT6bFTzmkJX55SLSsS6WLC4hb8iCHjZiLGPWW05P3TCDuuzIf+
-         ufSVbs6uCR9yQNo0uZGZ04iCOEF2Npz9pWC0Ijmc98cwdcp7NfpF9JmKN5GIIGdwEbIs
-         6O+bWkRpUWdlkOdi+eJGGJCF5zA6y0alZ33aTJZR7e6IwJ6rPqjbziUWVulPXHEAzPUM
-         qMPXnNqWL156SLTW0LYPYwcUW3SHlXQHIdZ/E4bg4rzM5SBdy6YTJ9PPVP57uF8jfXCA
-         ZW0A==
+        bh=wZZJVFvAHlVFfT94nBBtsI/noYRNDq6tw/8AapIG+TI=;
+        b=IbnhrmTqa0na00YckNc8DgvMQuXoWGjgBAyVT/VVFSH8VKhSxwGL3cMHfNu81tN9lC
+         gN1AuUxxonXpOjA4r4b8aguPKsQrS5tCq0Ll9QyAKbrRyQ5P/6e6f3saA07HNr60GAgK
+         vQDNAXWPxcHxywT+WQZAj53OajEd7zyylAV7JCdFv3Q2mG9mNS+ZZ5cImXm+TdIwAWAL
+         ufefaVmM1Ty1BoH7EIaR9t4FQD580ZwdnxIV1hFIlvWdTHiX49xteA0T7PIosVjq4Any
+         PoqPqtR9kai/mJbxQMxad/0rgBfCh0oADQDoH037VHGpzUp2SK/ttd2Cam01RjMSYmZ5
+         7BVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739786335; x=1740391135;
+        d=1e100.net; s=20230601; t=1739786450; x=1740391250;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=54kinxxO/2wSUSkYgxVdbTRtg83EDNkQH0DTjuvhbdU=;
-        b=nwFZuHvONT2IkGdnFIuSEdEvZTzVQ+2WTGMzuDYTZxIWuNSl52kYKdWDMz1RvfkLV8
-         fBmt5AIOK2BYFMNp/GdBWhvODaDEf300y+GfezqOb5vkX5OKNwtOTnjv6E3x5J5xYhac
-         /XDqwzRk3pXwFCoBYTk5R2ZDOXJ0JpL5jnpeYvPT4TZ7EgfWO1UPv3T0B78DjyBpeY5q
-         9+c3tmKXNNsHSc4tgm5/9mwz15CGprdEzO54BctLxVo2RkyzctQUsVpU06YBq01rvWBo
-         DMeBm0xrRJjKq7oVyxQty9sNyxyCclWuyHboSDw8uMtaS8I9kfTnwLOJrVkkv03JolcN
-         ReUQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVWiDjYfNqkbS8y2jCiIWUV/XeuGnCZbhTyOIBzPPUY4OTAT//axabN+ZeFePoUAcCggEShuPFil1w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzdNHfgKJBFL3eSCtRWbQp8ShQKFngIyDMHCXbzK1MegwcHA34X
-	mywry4eQZOWY5OeBMgR/rd8CLCYjyXWuHCUWpD9N6aGQo6eamtfPtugJ5kgvQA==
-X-Gm-Gg: ASbGncuoMBRvFhAQa+zd27/hCB2MRPi4vusY3xtAcpKEOjIsVCGlApLkCkJXAoca5SN
-	mqMQ8okrAGUFOaLUMIrL3i68Q88/RcZm4DPFolPW2Xp6VII2jb1VNKr5cXLPlh94+oVmNRxYHgH
-	nuQkoElHh3rLZKDc8RKTbK4X897uuUTO5QkkdupBVYngZEMR4gVeh48HbOolhnj2CEFYXREIfLi
-	LIVO0g4rEiGHBmZtq41/OFU3QuJhBmSMl5igifwKKGQBSe7ZRsZrMud6SPG7YwnZ1S4zRJyoUfY
-	Taxvwl6RqAs3JZNVrRM3GnquJxmUGwwopTia6wXARCbjqHlr382rdaItP7y14WaBNlI7YFmeokW
-	a
-X-Google-Smtp-Source: AGHT+IHvz8L+1QYKfR1oKZJdjG5+WI61glUr+dL2ybkQdMJ1DakA4RNxE3ToGHg5BohG3/N75Rzs4w==
-X-Received: by 2002:a17:907:9615:b0:aae:85a9:e2d with SMTP id a640c23a62f3a-abb70d69a51mr861073566b.45.1739786334875;
-        Mon, 17 Feb 2025 01:58:54 -0800 (PST)
-Message-ID: <3f60b7e4-cee0-4681-aa40-63736d44244d@suse.com>
-Date: Mon, 17 Feb 2025 10:58:55 +0100
+        bh=wZZJVFvAHlVFfT94nBBtsI/noYRNDq6tw/8AapIG+TI=;
+        b=fz+2aikgwaSNwQyRLjNC/4JYx2CzZry98dhW+P1sVeIr6Yxk3wntWdKae7i1EKN/AJ
+         riNEcV4B9xDCodSta8HxFqbUkr5R4+gKZbpRCeemUY1u41Ub705E6M6itU7hXji8L/Wy
+         vJKC0JVHBSmg5by44wy7wGbv7nkhWl09BxM/4s3ngpKWtahOk3LxbyKaFOEbZTC1tvqg
+         ree3XgiUZ2WIcBO7cQodK5d5K17dddqk/txYh85jUIjvWbLu5kwDZOFnjr6txHQEbv9r
+         a7MDREIVMImTv3+nz6PbExZGYIU87epYZsxcm8CR/UG/N0YoGVeXgfxQvPhl7VcyrXeR
+         tmFQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW/2bErFbPl7qUYsDf49sBm3J/612rmnFd0WszOuPJAV8YK9DpRsHnWD5IDtKOGoml2pzIsY3XZjmg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyiTrZ7FvutqUNNVgWX/C8WWL9RLbRfUSS9WbE5oAUgYXxnKQ57
+	SYJR3UUpEMmdfMGxnQdEvH6Xaicc+vkImRAAiByDNUpel9XwoPHUqI3M4GY8ORYACH1S5sK8Cac
+	=
+X-Gm-Gg: ASbGncuhmw8AmuTOFfc32Tx/ORWGiKP3vwk+yoA+627csG2JtgSQLStVGpETDNur2kn
+	uEb3EB6tRcl8ukS9/ELQmKdoMIMyvricOG9w2MY7v3CRDXc2SJfGAcuLDOs0tQqkP6KV9Y8c/Zd
+	7n9aOGzaAbfVqi5qYY+htaNercaLNj3yvZNQ+Oi4LmO+6+dgegkCnAyHOPgz4bSOBHFC8ynS/3q
+	NACQthdWyn+L/ABb+VPtqZgN3t+hN+AV0GXcsepV91sqKQWWLCaP9EPrFoEpxuVxhrlkD5lFVHg
+	0PJai9RevTajNJtPN9iYOxHFXwHgJwXLWaTfJRQ5XatAAf1DeCjQThu4wUW69IjoScX7O2Afp2q
+	E
+X-Google-Smtp-Source: AGHT+IH+7oVgv4gPfuzt5xC0evdzcKPrjmvQLZ04bgt8eCQ9HsE/t4Rn0kIDfVQCDC91F6XWvA1keg==
+X-Received: by 2002:a17:907:7716:b0:aa6:6c46:7ca1 with SMTP id a640c23a62f3a-abb7091d089mr917670366b.10.1739786449332;
+        Mon, 17 Feb 2025 02:00:49 -0800 (PST)
+Message-ID: <daaf4284-102c-4fc4-819c-2231705ab572@suse.com>
+Date: Mon, 17 Feb 2025 11:00:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/4] xen: common: add ability to enable stack protector
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: xen/x86: resolve the last 3 MISRA R16.6 violations
+To: Stefano Stabellini <sstabellini@kernel.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250217024848.3059635-1-volodymyr_babchuk@epam.com>
- <20250217024848.3059635-3-volodymyr_babchuk@epam.com>
+ Nicola Vetrini <nicola.vetrini@bugseng.com>, consulting@bugseng.com,
+ xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2502141811180.3858257@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,62 +120,39 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250217024848.3059635-3-volodymyr_babchuk@epam.com>
+In-Reply-To: <alpine.DEB.2.22.394.2502141811180.3858257@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 17.02.2025 03:49, Volodymyr Babchuk wrote:> --- /dev/null
-> +++ b/xen/include/xen/stack-protector.h
-> @@ -0,0 +1,43 @@
-> +#ifndef __XEN_STACK_PROTECTOR_H__
-> +#define __XEN_STACK_PROTECTOR_H__
-> +
-> +#ifdef CONFIG_STACK_PROTECTOR
-> +
-> +extern unsigned long __stack_chk_guard;
-> +
-> +/*
-> + * This function should be called from a C function that escapes stack
-> + * canary tracking (by calling reset_stack_and_jump() for example).
-> + */
-> +static inline void boot_stack_chk_guard_setup(void)
+On 15.02.2025 03:16, Stefano Stabellini wrote:
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -3797,22 +3797,14 @@ uint64_t hvm_get_reg(struct vcpu *v, unsigned int reg)
+>  {
+>      ASSERT(v == current || !vcpu_runnable(v));
+>  
+> -    switch ( reg )
+> -    {
+> -    default:
+> -        return alternative_call(hvm_funcs.get_reg, v, reg);
+> -    }
+> +    return alternative_call(hvm_funcs.get_reg, v, reg);
+>  }
+>  
+>  void hvm_set_reg(struct vcpu *v, unsigned int reg, uint64_t val)
+>  {
+>      ASSERT(v == current || !vcpu_runnable(v));
+>  
+> -    switch ( reg )
+> -    {
+> -    default:
+> -        return alternative_vcall(hvm_funcs.set_reg, v, reg, val);
+> -    }
+> +    return alternative_vcall(hvm_funcs.set_reg, v, reg, val);
+>  }
 
-As was requested in v5 review, this needs to be always_inline. You cannot
-chance the compiler deciding to make an out-of-line function.
-
-> +{
-> +    /*
-> +     * Linear congruent generator (X_n+1 = X_n * a + c).
-> +     *
-> +     * Constant is taken from "Tables Of Linear Congruential
-> +     * Generators Of Different Sizes And Good Lattice Structure" by
-> +     * Pierre L’Ecuyer.
-> +     */
-> +#if BITS_PER_LONG == 32
-> +    const unsigned long a = 2891336453UL;
-> +#else
-> +    const unsigned long a = 2862933555777941757UL;
-> +#endif
-> +    const unsigned long c = 1;
-> +
-> +    unsigned long cycles = get_cycles();
-> +
-> +    /* Use the initial value if we can't generate random one */
-> +    if ( !cycles )
-> +        return;
-> +
-> +    __stack_chk_guard = cycles * a + c;
-> +}
-> +
-> +#else
-> +
-> +static inline void boot_stack_chk_guard_setup(void) {};
-> +
-> +#endif
-
-Overall I think it would be neater (less redundancy) if the #ifdef lived inside
-the body of the function. Having the decl of __stack_chk_guard always visible
-isn't a major concern, imo.
+Both of these were, iirc, deliberately written using switch(), to ease
+possible future changes.
 
 Jan
 
