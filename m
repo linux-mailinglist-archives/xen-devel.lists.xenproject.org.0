@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAFECA37C94
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Feb 2025 08:54:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.889763.1298807 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 117B5A37CA6
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Feb 2025 09:01:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.889775.1298818 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tjvxW-0001ez-PP; Mon, 17 Feb 2025 07:54:30 +0000
+	id 1tjw4Q-000411-I8; Mon, 17 Feb 2025 08:01:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 889763.1298807; Mon, 17 Feb 2025 07:54:30 +0000
+Received: by outflank-mailman (output) from mailman id 889775.1298818; Mon, 17 Feb 2025 08:01:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tjvxW-0001d1-Mk; Mon, 17 Feb 2025 07:54:30 +0000
-Received: by outflank-mailman (input) for mailman id 889763;
- Mon, 17 Feb 2025 07:54:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tjw4Q-0003yi-FH; Mon, 17 Feb 2025 08:01:38 +0000
+Received: by outflank-mailman (input) for mailman id 889775;
+ Mon, 17 Feb 2025 08:01:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=o9S/=VI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tjvxW-0001cv-3J
- for xen-devel@lists.xenproject.org; Mon, 17 Feb 2025 07:54:30 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6a487b10-ed04-11ef-9aa6-95dc52dad729;
- Mon, 17 Feb 2025 08:54:29 +0100 (CET)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-ab7430e27b2so692037666b.3
- for <xen-devel@lists.xenproject.org>; Sun, 16 Feb 2025 23:54:29 -0800 (PST)
+ id 1tjw4P-0003yB-0X
+ for xen-devel@lists.xenproject.org; Mon, 17 Feb 2025 08:01:37 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 680f0e78-ed05-11ef-9896-31a8f345e629;
+ Mon, 17 Feb 2025 09:01:35 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-aaee2c5ee6eso627137966b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Feb 2025 00:01:34 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abb948b4978sm219299966b.151.2025.02.16.23.54.27
+ a640c23a62f3a-abb4d3ef3c0sm499040866b.41.2025.02.17.00.01.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 16 Feb 2025 23:54:28 -0800 (PST)
+ Mon, 17 Feb 2025 00:01:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a487b10-ed04-11ef-9aa6-95dc52dad729
+X-Inumbo-ID: 680f0e78-ed05-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739778868; x=1740383668; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739779294; x=1740384094; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fOXLupMIaHUXojOwhOzbm9B4gskNHn9Q4RNcv+Q5kqk=;
-        b=Aa1E4aOlrwC0dipS8UJyxhofqCq7/Dc9Jp5cVi4xg5tlP6TZb978EG8yRjmq3Yodfy
-         EZFBNPCBJi+E/b8G5UuZ4Gf4O1qPHzl7eH4jcnn1OTsGXBaA5B0r8C2vfzBvU5xUKC12
-         StjxpwxYjp6zuuEo9r5rSDMEG7IRJaha0HjZEHyxWGdvK/PsgFXjGqN368lGBiBLPkdI
-         jwduNswjpik5wJeUF+Q+qRAYf/Ir2vU2YizTUmQh9o0uPQbXLcwUe5y2mWUn9RBnCY2u
-         Eb8sCluXsMsTcWRF0HJbFT6bAUle8/aESuU9/nrHJxOIBuIjzNjjrK3eSz/xubT3V8+8
-         tiUw==
+        bh=TXqkrsf2vEkpxJmMI1/U1j3ju4Vj7fD+V1swLMcZRwg=;
+        b=c72o5q/UVVgYwSYQ9OTp/tyklFhYsFApPBia4gVhxpWpfmO3rkCBn0rNO08woyPV/U
+         mvKLroUI6DNACmi7snX8SmG805pyrAuyCNYfuAGvrzTFRv84T9eze6RJbZXjs3GAh7fT
+         Z+6FZXpyUzwzp10IRZ/5ZlkTod7NOx1LNc/aBUbOofeHLlOjBHDsbwFpFHwgW1J4HlvU
+         YIZpCysI4AK5ApPCeOqU/0qWYGLjvtZP+Ryxdz5bi3F82bWHiqd4SFrM09ZVlPxoC63e
+         LdPfblW0Uw3jGUb9DE2wUcpdFsZ9nHtiO1lgl6DccLJTQpK1veNx/yWgO3o/uA8lKxcZ
+         Bqog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739778868; x=1740383668;
+        d=1e100.net; s=20230601; t=1739779294; x=1740384094;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fOXLupMIaHUXojOwhOzbm9B4gskNHn9Q4RNcv+Q5kqk=;
-        b=Sn89MXo9b7WdXV+MWQy1xLCTpwOwLNVFeTU94CuvBJYYLeGb8mzOLjdiYLePTA0tX3
-         HEYY1yiCqApl5mbtTvVsGI6K2MRm2dwtrfmc++5o8o1aHy9/GxEDksas4CTtOI3tnqpX
-         pGOdIllLLG/x+r3VZI8GHyP96RU3p5RqEmCIw9QvQMecjnkucb/EPuSNbwzXfD+Td/4U
-         L+0xMA4IPT9IY4nV5XZ6BsITDr7vZmiRu86kfCiuwNjy/J1oWzI2g1Km8kZJmNr4KlaL
-         MW5IFKqZDJzNym/W7gTg4kG79N9O1MjRwLv3BPVWo5SD3TEfjdD470+XbCuEj624g0In
-         PQqw==
-X-Gm-Message-State: AOJu0YzDpkW+7ZdRGlkY74OkIOW22NPO3khiUkVRCiMRbF6Ohs3oX7RZ
-	JLXaInQ9rYCFEsDXk4ih/MvfwquUuCLNYRT4zETgdKPzbC335qJdm61XmaNa3Q==
-X-Gm-Gg: ASbGnctv03vbbKAAzY2f/OiaqcdU+RF6J3ljO1cpWAS2jEBOqYUYrZmHQgUr4S1c4qo
-	Tv3SBwBWqPntoiXka+fl5FYCwSFJ16Rq5NKY206btzbeoo+5+a9QEe64qMOx/sewEd61ETOvoVo
-	AzGdox3IDPTWxvnvZLk2oSHZGiGyFiMo6jhWxcjyTekhowjrbfJ8qaQ1Prg2Qg5yp0GQJIqFF+8
-	aSNWof4lVLisNK05YAif0fayHI2hsB+21j++IbfMn7P/GxaygRbVfqSyhWX6ctWxetkT7tdz7/k
-	wrVVuaK2bvDxuGZZzTaREYUedWXZnxQAo2tydbTTaRoL4pDVZGNHwa5sCo4u5uf/8yd9hH25DF1
-	f
-X-Google-Smtp-Source: AGHT+IFO5H3MxI9dkxrakEj5eyV8xZCzOrxxC9vhAjDdChdluGGg0/gjJ6ZJuAKO+OBtJEoSxglOIA==
-X-Received: by 2002:a17:906:f0c9:b0:abb:a88d:ddaf with SMTP id a640c23a62f3a-abba88dde9cmr77274966b.55.1739778868552;
-        Sun, 16 Feb 2025 23:54:28 -0800 (PST)
-Message-ID: <180090ff-f0c1-4040-8c42-6ded7536a527@suse.com>
-Date: Mon, 17 Feb 2025 08:54:28 +0100
+        bh=TXqkrsf2vEkpxJmMI1/U1j3ju4Vj7fD+V1swLMcZRwg=;
+        b=aUbvbBSyOZzepTlSnwHFFu4eQQfQpZyY9F2DQh9qY/OKSorBzk7lwwgzNQivys2sON
+         +ZEA0pn/tgYQyhBWlk/piZv/JlWTv5iXXc9saboHUNNWJ9mnvuujvojF97Im+ywonAxe
+         Tf0XmEYDEEMXxw7onJXDuP2/gtSJ0uQRj4Rg8sFBlMpCENsTGZ1gxZqWHw0JKDQy480o
+         +roWA42bJGwUzoeo29+LUjLEQOJK/jWLT6ZyE35GYqMrwEmxfY5sPqNRpRrRFzqyUbZ+
+         vKjoKqX8kU9pb4CFc4v1CdYEGTz3yZr8iPi3PVspgdO+pMAb1YIZP2a4kjLE9Go7ED7d
+         /RRw==
+X-Forwarded-Encrypted: i=1; AJvYcCVIuojPx8ai5e3yvOR7FvLrVokEfD5TK6BjPg6IB7+WAcXFa8FGKAMTRtyCeEvv24ph49Eu9+DWbwM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YznIcMCTJMi/8YYkwPoOVBakgDkrfneM5MYrS42rhkORdubXWe/
+	cbw2St02p1R7sxCIurfc+g2QYmHPGcAUoix3QlgabYelLRcMYHy96l7UyCrmkA==
+X-Gm-Gg: ASbGnctSoI7Rp4Sfp+4tr3SPDsgW68ip09DEsIrsd0m2ULt8vXHjKtfJwx/ebJIEEDL
+	OcLeJoRNybEGc931JwFK++qBki3ee1+VX4op3QowCIsHderNcevnGDkqSB2RrALrYoiG2FQycLM
+	AfhizDFxTldJL9e7EXWiTgR3T15gxVW4DpHsX5OjV4N7KiTA2HAxXr+gdDxriDF5WCLVfRvCk3R
+	Iur/h74b9obLweCn1SD2TwQRG+1ET9XM78DtED4k/YD+cjv3qk1j6f7xP1pEpwuPEusA5HPJqyd
+	WMXk4L4ESBP1R0mSu3YeOVZd1DEzjoXWEOJura1Sp5HaoWtqVxGEioeXPws4rGtJRs+GvRu9MPk
+	R
+X-Google-Smtp-Source: AGHT+IHqxu6tbQ2J/pTR3j20sIyLsbkxxqXQEO+nE/45qJyqvnoZutgvGhjm1trwINshWMIxzz8fog==
+X-Received: by 2002:a17:907:6d08:b0:ab7:d87f:6662 with SMTP id a640c23a62f3a-abb70e421cbmr832488366b.52.1739779294402;
+        Mon, 17 Feb 2025 00:01:34 -0800 (PST)
+Message-ID: <98f7e1a6-4684-43df-8ce1-0f5f6ef866f7@suse.com>
+Date: Mon, 17 Feb 2025 09:01:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 2/3] xen/sched: address violation of MISRA C Rule 8.2
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: xen-devel@lists.xenproject.org, michal.orzel@amd.com,
- xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
- Dario Faggioli <dfaggioli@suse.com>, Meng Xu <mengxu@cis.upenn.edu>,
- Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>
-References: <cover.1739564781.git.nicola.vetrini@bugseng.com>
- <36cd255a8d4068a66ad8cf45060d60b84b9d4c6d.1739564781.git.nicola.vetrini@bugseng.com>
- <alpine.DEB.2.22.394.2502141303380.3858257@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH v4] xen/console: print Xen version via keyhandler
+To: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com, xen-devel@lists.xenproject.org
+References: <20250214193615.1812503-1-dmukhin@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,49 +118,50 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2502141303380.3858257@ubuntu-linux-20-04-desktop>
+In-Reply-To: <20250214193615.1812503-1-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15.02.2025 00:04, Stefano Stabellini wrote:
-> On Fri, 14 Feb 2025, Nicola Vetrini wrote:
->> Rule 8.2 states: "Function types shall be in prototype form with
->> named parameters".
->>
->> The parameter name is missing from the function pointer type
->> that constitutes the first parameter.
->>
->> No functional change.
->>
->> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->> ---
->> This small fix is needed in order to keep the rule clean in the
->> follow-up patch that changes the Xen configuration under static
->> analysis.
->>
->> I wasn't really certain about the right name to give to the parameter,
->> so if there are better options I'd be happy to accept them.
->> ---
->>  xen/common/sched/rt.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
+On 14.02.2025 21:05, dmkhn@proton.me wrote:
+> --- a/xen/common/version.c
+> +++ b/xen/common/version.c
+> @@ -210,9 +210,28 @@ void __init xen_build_init(void)
+>          }
+>      }
+>  #endif /* CONFIG_X86 */
+> -    if ( !rc )
+> -        printk(XENLOG_INFO "build-id: %*phN\n", build_id_len, build_id_p);
+>  }
+> +
+> +void print_version(void)
+> +{
+> +    printk("Xen version %d.%d%s (%s@%s) (%s) %s %s\n",
+> +           xen_major_version(), xen_minor_version(), xen_extra_version(),
+> +           xen_compile_by(), xen_compile_domain(), xen_compiler(),
+> +           xen_build_info(), xen_compile_date());
+> +
+> +    printk("Latest ChangeSet: %s\n", xen_changeset());
+> +}
+> +
+> +void print_build_id(void)
+> +{
+> +    /*
+> +     * NB: build_id_p may be NULL if XEN_HAS_BUILD_ID=n.
+> +     * Do not print empty build-id.
+> +     */
+> +    if ( build_id_p )
+> +        printk("build-id: %*phN\n", build_id_len, build_id_p);
+> +}
 
-This is a specific scheduler you touch, which I think wants expressing
-somehow (e.g. via an adjusted prefix) in the patch subject.
+In my reply to v3 I specifically suggested to use build_id_len in the if().
+Why did you choose to use build_id_p instead? Yes, if all works correctly
+both should be (non-)zero/NULL at the same time, but please also consider
+the case of things not working correctly. When len is zero, there's nothing
+there, no matter what the pointer. When len is non-zero and the pointer is
+NULL, it would be quite nice to have a trace thereof in the log.
 
->> --- a/xen/common/sched/rt.c
->> +++ b/xen/common/sched/rt.c
->> @@ -500,7 +500,7 @@ deadline_queue_remove(struct list_head *queue, struct list_head *elem)
->>  }
->>  
->>  static inline bool
->> -deadline_queue_insert(struct rt_unit * (*qelem)(struct list_head *),
->> +deadline_queue_insert(struct rt_unit * (*qelem)(struct list_head *q_iter),
-> 
-> I think it should be "elem" instead of "q_iter"
-
-Why would it matter what the name is? There's no separate decl to stay in
-sync with. (That said, I'd be happy with "elem"; it'll be a matter of the
-maintainers to judge.)
+Preferably with the adjustment (which I'd be happy to make while committing)
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
