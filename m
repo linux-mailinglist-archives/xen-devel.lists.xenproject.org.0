@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4DCAA380B3
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Feb 2025 11:51:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.890236.1299238 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C63A6A380B8
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Feb 2025 11:51:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.890245.1299248 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tjyiC-0001iS-Hs; Mon, 17 Feb 2025 10:50:52 +0000
+	id 1tjyiz-0002Sy-Ro; Mon, 17 Feb 2025 10:51:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 890236.1299238; Mon, 17 Feb 2025 10:50:52 +0000
+Received: by outflank-mailman (output) from mailman id 890245.1299248; Mon, 17 Feb 2025 10:51:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tjyiC-0001g6-FC; Mon, 17 Feb 2025 10:50:52 +0000
-Received: by outflank-mailman (input) for mailman id 890236;
- Mon, 17 Feb 2025 10:50:51 +0000
+	id 1tjyiz-0002Qh-O7; Mon, 17 Feb 2025 10:51:41 +0000
+Received: by outflank-mailman (input) for mailman id 890245;
+ Mon, 17 Feb 2025 10:51:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=o9S/=VI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tjyiB-0001g0-8U
- for xen-devel@lists.xenproject.org; Mon, 17 Feb 2025 10:50:51 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=glRE=VI=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tjyiy-0001g0-6i
+ for xen-devel@lists.xenproject.org; Mon, 17 Feb 2025 10:51:40 +0000
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
+ [2607:f8b0:4864:20::636])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 083a30eb-ed1d-11ef-9aa6-95dc52dad729;
- Mon, 17 Feb 2025 11:50:42 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-ab7c07e8b9bso716636366b.1
- for <xen-devel@lists.xenproject.org>; Mon, 17 Feb 2025 02:50:42 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aba53397f47sm860281466b.127.2025.02.17.02.50.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Feb 2025 02:50:41 -0800 (PST)
+ id 29f208e3-ed1d-11ef-9aa6-95dc52dad729;
+ Mon, 17 Feb 2025 11:51:39 +0100 (CET)
+Received: by mail-pl1-x636.google.com with SMTP id
+ d9443c01a7336-220dc3831e3so59028195ad.0
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Feb 2025 02:51:39 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-73242546177sm7804600b3a.5.2025.02.17.02.51.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Feb 2025 02:51:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,169 +44,203 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 083a30eb-ed1d-11ef-9aa6-95dc52dad729
+X-Inumbo-ID: 29f208e3-ed1d-11ef-9aa6-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739789441; x=1740394241; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ryqH+nXNJtMUcBUF3RpLG2s2qtxhzwk5xPDxjiunRnI=;
-        b=YoHjLmisRWDRtP7BOBTU0Y0aDKU33OaLKVEk4SsxvdHErivw+pDyKBqHQZU6OlIvNS
-         zBz8WR+E7TBCUw0hj90TuCC5+eN/mdZjKfEHV16CSfI55TOlhNfVqQy28NaDmF0xSp3e
-         1cAMbfsUt+nXeuACRD4ZbMEfI+GWGViXD/+SQdutkSKd1mkz4fKeEU+ipevWStE6pQBO
-         3wSJBKTfTrOpWuni6lP8mpJBf+GvIZBLEp3MrL9B/WdEXRoAdwi/nkftiJB35JeyWkJH
-         HgPWbM64/82aRSRo6FP+pDyQ882LlXJNHIjofs1kPazEAh2C3rUuXPRUeKuSVQESKbgp
-         mfcg==
+        d=citrix.com; s=google; t=1739789498; x=1740394298; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Y8dC9p4svHiFijmD8hyBT+hfc7pbkqoi4+ANqjmMaP0=;
+        b=lItXLR621pHb6icHTdBpLedqfBAoG0N1SrCNSRg9vesNpLmDBR5kz0EVIesPcqSU5N
+         Z8gJ/Iyz4HGeXnxZ49IX6QwScxzFaoycAnLU2Kq2z7HVaFBFfXSLVISI2BcUQl6J4Tz5
+         zV83j3+2ZWc2Ym6nR/9QyrbcGUB6ElmiFH17E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739789441; x=1740394241;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ryqH+nXNJtMUcBUF3RpLG2s2qtxhzwk5xPDxjiunRnI=;
-        b=v0DUMyUBdlJ9dQCgDCEuPsL5M2bCZjvzx8Bxj9VE5dwJY1KXzuc7EulMFkrS9Dxzu7
-         LtvJWXOVGR4IYSvWODUhhjyiccI8mdSHeWLDJLhLxDvf78Dk6DARzd4Upa+1T/rU3B/v
-         UnUA15ClMBtL6T1Ixb2tCHSLBiYXbQLsHr7wzAGeGpjdVaJR3FxgTqFAKVafwaKlExR8
-         Q2AdUhtIk2PD78yLX2XsVZD5BHuGNFd6zadQ1ZerB+feHmUKMcTzdRhUfMlSKvOB5xK5
-         lpwPckwUuJPU5CDstmU/TzrsWzAa3dYiuSRFWQXMRetojTmM+yT6Ngga5i5v8kQYfK1b
-         Lg7g==
-X-Forwarded-Encrypted: i=1; AJvYcCX1Sor84I/o2JMRdTrjIb2PreX44rN8PgOTGFdGs/YFFoyAuxFpvCuziQAnC5InGNfau94wHIDzsS4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzE/KjEZE3euvRIEj5L7zaEUA2b8jWOY3q45qlazAiy19CwpJAc
-	QWXv4zIiin9HhriYVe7Sls1896JJklSg6PsGCEmSYMkvObxJb2BZny1d/BLpJQ==
-X-Gm-Gg: ASbGncs9Kmc28OFJRViaR20645n+nInRZsrllGciSVOWvAauIUC7DV+iMuB0YPXnYU4
-	YLd3/KZEgemT7t0/BfixlAdjzlo+IQarqz4OGftPV/xjDcvuWLfBRTQOydWb5ZoiD49kuc9EePP
-	nVXU1b26/1YN0FzzMbrHopYNpzRQfJLqmPvOYOgUUtXd8VFquUGZJazCumCk2OnCgPn9viXfZY5
-	cwgLTGZAn+k4UzLLvL4sptNzuUPyT40LpIicH5UclaSYOkBerTT5qasfXFko3J5Gh/uQQm1kfJa
-	tVr4Pj3gzQyLuZgVvwxYmr4chx/l3jLX0J/KiyMilEtfspdeTlKcYoswcRnccwNGCAR0TcfQ5fZ
-	7
-X-Google-Smtp-Source: AGHT+IG97OgE+q5CtVvLLkc3GStHfAQajLG8u2Sh+0CNzYVzhtjYMYNKfFyLNZpjjubaxC18HGjbIA==
-X-Received: by 2002:a17:907:6d08:b0:ab7:d87f:665a with SMTP id a640c23a62f3a-abb70dc5897mr1122564066b.46.1739789441522;
-        Mon, 17 Feb 2025 02:50:41 -0800 (PST)
-Message-ID: <cbea397a-e919-4b00-a56a-f706ddc13e53@suse.com>
-Date: Mon, 17 Feb 2025 11:50:42 +0100
+        d=1e100.net; s=20230601; t=1739789498; x=1740394298;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Y8dC9p4svHiFijmD8hyBT+hfc7pbkqoi4+ANqjmMaP0=;
+        b=VLqXrLeERY24cqVHb/Vuu4sf/b/1CIayxcD/4qTwEbShJZCgMQVEPkWLbwMfVN9Mpo
+         jJL0gwe8mfaXOeBFqidaXkri6ZrzgK32MnClUoRpiMUUpTMkT2NaX/RTySUvsLJOWYGI
+         fboEVvra6ftW6+uFEE5IlbxLIEm+MzazcRNhmxHetnlxKZp3IcgfBaw0IUz4983tVfOK
+         wiHt3qvxeDVivIzRl4oXcc/NZyoEhl2WAOBUiUxWLrtQSeu0ydhZfl6kd6GG81Gx6vT6
+         DZV4OR7FAB1vjED5rzRbrRUoWstBjCXtei07UYMPOADaTsDRQGwJQzj6GjvySVMV47j5
+         2fgg==
+X-Forwarded-Encrypted: i=1; AJvYcCVlmh14MQ5DEQltDace9MFaEIAp2XDrnMSZfacQAHK4O4n+LOe4ucROr6kWCL5tE5tKLvi9ZKMmxc8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw3N8VNI65DI6AmegAZ0m4Mo5OrX9CgR3qjDjhJ19rPKcA7+FP8
+	KAlAN18f2XFU7fERX+SubfsXprohrQ1TFXoBHvuRZIoA+83XPfLfA9+DYZNS0yM=
+X-Gm-Gg: ASbGncv9XcntUo2o0uLOUl7HezFXawvf2zVqMkAnTvx5veo7HiIwzxZOgmfstBXCVQQ
+	1uejy3dP4UuXI/0e0m8YqeOTUYpNhr6rFUMbC3JdRHmjGnQPNJDakM0ZdxvizjMs7f5CwD5rYrw
+	bOnpQZ+6WBswB0OYJ4VEk0FUkHPcZgUd0M0hm1JT053Lrid709xBlfQ4SyxZEBaGaFYs2/UsxQM
+	/TDGKByxjyG4gPaIFPya4nVC7RZMXVuXNTuhfgzuCQbVuynj+K4ZoUkCC+Gub8EJg5a3Am8LhER
+	ZNeJUkgiom0OPt4JqG9r
+X-Google-Smtp-Source: AGHT+IFeOrZunyrkHH7q3makjqZy9eGUOuTLF63j/ObPjZ0PicgtRlu/BD30iFrnKhJhDPmYTqstOw==
+X-Received: by 2002:a05:6a21:6b04:b0:1e1:a48f:1212 with SMTP id adf61e73a8af0-1ee8d67ee5amr16505977637.4.1739789497858;
+        Mon, 17 Feb 2025 02:51:37 -0800 (PST)
+Date: Mon, 17 Feb 2025 11:51:32 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Community Manager <community.manager@xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 2/2] x86/dom0: attempt to fixup p2m page-faults for PVH
+ dom0
+Message-ID: <Z7MUtN2J6juBSCnZ@macbook.local>
+References: <20250214092928.28932-1-roger.pau@citrix.com>
+ <20250214092928.28932-3-roger.pau@citrix.com>
+ <a5c763da-c38c-465d-afac-08785cd733ef@suse.com>
+ <Z685StmNlL2d8iQT@macbook.local>
+ <b1e87068-977d-45a6-b61f-e3c40876b947@suse.com>
+ <Z7LyXcuTfuQpRPBd@macbook.local>
+ <c5135f33-7e60-4195-80ad-cd6bc36b6321@suse.com>
+ <Z7MNi7bBdyAdMtQ6@macbook.local>
+ <a8816d5e-dea5-4267-a6f4-d4d2aa9daad7@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] xen/passthrough: Provide stub functions when
- !HAS_PASSTHROUGH
-To: Luca Fancellu <luca.fancellu@arm.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20250217102732.2343729-1-luca.fancellu@arm.com>
- <20250217102732.2343729-2-luca.fancellu@arm.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250217102732.2343729-2-luca.fancellu@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <a8816d5e-dea5-4267-a6f4-d4d2aa9daad7@suse.com>
 
-On 17.02.2025 11:27, Luca Fancellu wrote:
-> When Xen is built without HAS_PASSTHROUGH, there are some parts
-> in arm and x86 where iommu_* functions are called in the codebase,
-> but their implementation is under xen/drivers/passthrough that is
-> not built.
-
-Why the mention of x86, where HAS_PASSTHROUGH is always selected?
-
-> So provide some stub for these functions in order to build Xen
-> when !HAS_PASSTHROUGH, which is the case for example on systems
-> with MPU support.
-
-Is this fixing a build issue when MPU=y? If so, ...
-
-> For gnttab_need_iommu_mapping() in the Arm part, modify the macro
-> to use IS_ENABLED for the HAS_PASSTHROUGH Kconfig.
+On Mon, Feb 17, 2025 at 11:27:52AM +0100, Jan Beulich wrote:
+> On 17.02.2025 11:20, Roger Pau Monné wrote:
+> > On Mon, Feb 17, 2025 at 09:44:28AM +0100, Jan Beulich wrote:
+> >> On 17.02.2025 09:25, Roger Pau Monné wrote:
+> >>> On Fri, Feb 14, 2025 at 02:07:05PM +0100, Jan Beulich wrote:
+> >>>> On 14.02.2025 13:38, Roger Pau Monné wrote:
+> >>>>> On Fri, Feb 14, 2025 at 12:53:01PM +0100, Jan Beulich wrote:
+> >>>>>> On 14.02.2025 10:29, Roger Pau Monne wrote:
+> >>>>>>> +{
+> >>>>>>> +    unsigned long gfn = paddr_to_pfn(addr);
+> >>>>>>> +    struct domain *currd = current->domain;
+> >>>>>>> +    p2m_type_t type;
+> >>>>>>> +    mfn_t mfn;
+> >>>>>>> +    int rc;
+> >>>>>>> +
+> >>>>>>> +    ASSERT(is_hardware_domain(currd));
+> >>>>>>> +    ASSERT(!altp2m_active(currd));
+> >>>>>>> +
+> >>>>>>> +    /*
+> >>>>>>> +     * Fixups are only applied for MMIO holes, and rely on the hardware domain
+> >>>>>>> +     * having identity mappings for non RAM regions (gfn == mfn).
+> >>>>>>> +     */
+> >>>>>>> +    if ( !iomem_access_permitted(currd, gfn, gfn) ||
+> >>>>>>> +         !is_memory_hole(_mfn(gfn), _mfn(gfn)) )
+> >>>>>>> +        return -EPERM;
+> >>>>>>> +
+> >>>>>>> +    mfn = get_gfn(currd, gfn, &type);
+> >>>>>>> +    if ( !mfn_eq(mfn, INVALID_MFN) || !p2m_is_hole(type) )
+> >>>>>>> +        rc = mfn_eq(mfn, _mfn(gfn)) ? 0 : -EEXIST;
+> >>>>>>
+> >>>>>> I understand this is to cover the case where two vCPU-s access the same GFN
+> >>>>>> at about the same time. However, the "success" log message at the call site
+> >>>>>> being debug-only means we may be silently hiding bugs in release builds, if
+> >>>>>> e.g. we get here despite the GFN having had an identity mapping already for
+> >>>>>> ages.
+> >>>>>
+> >>>>> Possibly, but what would be your suggestion to fix this?  I will think
+> >>>>> about it, but I can't immediately see a solution that's not simply to
+> >>>>> make the message printed by the caller to be gprintk() instead of
+> >>>>> gdprintk() so catch such bugs.  Would you agree to that?
+> >>>>
+> >>>> My thinking was that it might be best to propagate a distinguishable error
+> >>>> code (perhaps -EEXIST, with its present use then replaced) out of the function,
+> >>>> and make the choice of gprintk() vs gdprintk() depend on that. Accompanied by a
+> >>>> comment explaining things a little.
+> >>>
+> >>> I think it would be easier if I just made those gprintk() instead of
+> >>> gdprintk(), all with severity XENLOG_DEBUG except for the one that
+> >>> reports the failure of the fixup function that is XENLOG_WARNING.
+> >>> Would you be OK with that?
+> >>
+> >> Hmm. Okay-ish at best. Even if debug+guest-level messages are suppressed by
+> >> default, I think it wouldn't be nice if many of them might appear in release
+> >> builds with guest_loglevel=all. What I find difficult is to predict how high
+> >> the chances are to see any of them (and then possibly multiple times).
+> > 
+> > I think getting those messages even in non-debug builds might be
+> > helpful for debugging purposes.  Sometimes it's difficult for users to
+> > switch to a debug build of Xen if not provided by their upstream.
+> > 
+> > FWIW, on my Intel NUC I see three of those:
+> > 
+> > (XEN) [    5.418855] arch/x86/hvm/emulate.c:391:d0v0 fixup p2m mapping for page fedc7 added
+> > (XEN) [    5.474574] arch/x86/hvm/emulate.c:391:d0v0 fixup p2m mapping for page fd6a0 added
+> > (XEN) [    8.712784] arch/x86/hvm/emulate.c:391:d0v2 fixup p2m mapping for page fe410 added
 > 
-> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> For my understanding: Did Xen with a PVH Dom0 not work on the NUC before? Or
+> else how come it survived without this fixing up of mappings?
 
-... is there a Fixes: tag missing?
+I've got no idea what's in those addresses.  It did survive and seems
+to work fine without those identity mappings in the p2m.  I assume
+that returning ~0 for reads and ignoring writes what good enough.
 
-> --- a/xen/include/xen/iommu.h
-> +++ b/xen/include/xen/iommu.h
-> @@ -110,6 +110,8 @@ extern int8_t iommu_hwdom_reserved;
->  
->  extern unsigned int iommu_dev_iotlb_timeout;
->  
-> +#ifdef CONFIG_HAS_PASSTHROUGH
-> +
->  int iommu_setup(void);
->  int iommu_hardware_setup(void);
->  
-> @@ -122,6 +124,24 @@ int arch_iommu_domain_init(struct domain *d);
->  void arch_iommu_check_autotranslated_hwdom(struct domain *d);
->  void arch_iommu_hwdom_init(struct domain *d);
->  
-> +#else
-> +
-> +static inline int iommu_setup(void)
-> +{
-> +    return -ENODEV;
-> +}
-> +
-> +static inline int iommu_domain_init(struct domain *d, unsigned int opts)
-> +{
-> +    return 0;
+> 
+> > Would you be fine with this approach:
+> > 
+> > bool __ro_after_init opt_dom0_pf_fixup;
+> > static int hwdom_fixup_p2m(paddr_t addr)
+> > {
+> >     unsigned long gfn = paddr_to_pfn(addr);
+> >     struct domain *currd = current->domain;
+> >     p2m_type_t type;
+> >     mfn_t mfn;
+> >     int rc;
+> > 
+> >     ASSERT(is_hardware_domain(currd));
+> >     ASSERT(!altp2m_active(currd));
+> > 
+> >     /*
+> >      * Fixups are only applied for MMIO holes, and rely on the hardware domain
+> >      * having identity mappings for non RAM regions (gfn == mfn).
+> >      */
+> >     if ( !iomem_access_permitted(currd, gfn, gfn) ||
+> >          !is_memory_hole(_mfn(gfn), _mfn(gfn)) )
+> >         return -EPERM;
+> > 
+> >     mfn = get_gfn(currd, gfn, &type);
+> >     if ( !mfn_eq(mfn, INVALID_MFN) || !p2m_is_hole(type) )
+> >         rc = mfn_eq(mfn, _mfn(gfn)) ? -EEXIST : -ENOTEMPTY;
+> >     else
+> >         rc = set_mmio_p2m_entry(currd, _gfn(gfn), _mfn(gfn), 0);
+> >     put_gfn(currd, gfn);
+> > 
+> >     return rc;
+> > }
+> > [...]
+> >                     int inner_rc = hwdom_fixup_p2m(addr);
+> > 
+> >                     if ( !inner_rc || inner_rc == -EEXIST )
+> >                     {
+> >                         gdprintk(XENLOG_DEBUG,
+> >                                  "fixup p2m mapping for page %lx %s\n",
+> >                                  paddr_to_pfn(addr),
+> >                                  !inner_rc ? "added" : "already present");
+> 
+> As before, I think the "already present" message wants to be present also in
+> release build logs. As opposed to the "added" one. Yet at the same time, if
+> e.g. you and Andrew agree on the shape above, I won't stand in the way.
 
-Shouldn't this fail when is_iommu_enabled(d) is true? (The use of the
-predicate here as well as in the real function is slightly strange, but
-that's the way it is.)
+I didn't want to add yet another level of indentation, as it then
+becomes:
 
-> @@ -381,17 +423,19 @@ struct domain_iommu {
->  #define iommu_set_feature(d, f)   set_bit(f, dom_iommu(d)->features)
->  #define iommu_clear_feature(d, f) clear_bit(f, dom_iommu(d)->features)
->  
-> +/* Does the IOMMU pagetable need to be kept synchronized with the P2M */
+                    int inner_rc = hwdom_fixup_p2m(addr);
 
-This comment belongs to just ...
+                    if ( !inner_rc || inner_rc == -EEXIST )
+                    {
+                        if ( !inner_rc )
+                            gdprintk(XENLOG_DEBUG,
+                                     "fixup p2m mapping for page %lx added\n",
+                                     paddr_to_pfn(addr));
+                        else
+                            gprintk(XENLOG_INFO,
+                                     "fixup p2m mapping for page %lx already present\n",
+                                     paddr_to_pfn(addr));
 
-> +#ifdef CONFIG_HAS_PASSTHROUGH
->  /* Are we using the domain P2M table as its IOMMU pagetable? */
->  #define iommu_use_hap_pt(d)       (IS_ENABLED(CONFIG_HVM) && \
->                                     dom_iommu(d)->hap_pt_share)
->  
-> -/* Does the IOMMU pagetable need to be kept synchronized with the P2M */
-> -#ifdef CONFIG_HAS_PASSTHROUGH
->  #define need_iommu_pt_sync(d)     (dom_iommu(d)->need_sync)
+Would you be OK with the above proposal then?
 
-... this, not also iommu_use_hap_pt(). There's a connection between the
-two, but that is unrelated to what the comment says. I'm also not clear
-about the need for ...
-
->  int iommu_do_domctl(struct xen_domctl *domctl, struct domain *d,
->                      XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl);
->  #else
-> +#define iommu_use_hap_pt(d)       ({ (void)(d); false; })
-> +
->  #define need_iommu_pt_sync(d)     ({ (void)(d); false; })
-
-... this change, i.e. the need for a stub. Afaics there's nothing in the
-description to help understanding this need.
-
-Jan
+Thanks, Roger.
 
