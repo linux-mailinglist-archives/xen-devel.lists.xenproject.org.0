@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29A9AA38A63
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Feb 2025 18:11:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.890758.1299895 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDB78A38A7A
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Feb 2025 18:20:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.890767.1299905 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tk4eb-0000q1-Ja; Mon, 17 Feb 2025 17:11:33 +0000
+	id 1tk4mi-0001gO-C0; Mon, 17 Feb 2025 17:19:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 890758.1299895; Mon, 17 Feb 2025 17:11:33 +0000
+Received: by outflank-mailman (output) from mailman id 890767.1299905; Mon, 17 Feb 2025 17:19:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tk4eb-0000nP-G3; Mon, 17 Feb 2025 17:11:33 +0000
-Received: by outflank-mailman (input) for mailman id 890758;
- Mon, 17 Feb 2025 17:11:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0TS9=VI=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tk4eZ-0000nJ-4d
- for xen-devel@lists.xenproject.org; Mon, 17 Feb 2025 17:11:31 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3a3acce2-ed52-11ef-9896-31a8f345e629;
- Mon, 17 Feb 2025 18:11:29 +0100 (CET)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-543e49a10f5so4884267e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 17 Feb 2025 09:11:29 -0800 (PST)
-Received: from [172.24.85.51] ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-545294727f3sm1320451e87.229.2025.02.17.09.11.27
+	id 1tk4mi-0001dl-97; Mon, 17 Feb 2025 17:19:56 +0000
+Received: by outflank-mailman (input) for mailman id 890767;
+ Mon, 17 Feb 2025 17:19:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=bxB9=VI=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1tk4mh-0001df-9p
+ for xen-devel@lists.xenproject.org; Mon, 17 Feb 2025 17:19:55 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 669cb96b-ed53-11ef-9aa6-95dc52dad729;
+ Mon, 17 Feb 2025 18:19:53 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-439350f1a0bso27658275e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Feb 2025 09:19:53 -0800 (PST)
+Received: from [192.168.1.121] ([176.167.144.216])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4395a1b83a3sm157295295e9.33.2025.02.17.09.19.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Feb 2025 09:11:27 -0800 (PST)
+ Mon, 17 Feb 2025 09:19:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,130 +45,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3a3acce2-ed52-11ef-9896-31a8f345e629
+X-Inumbo-ID: 669cb96b-ed53-11ef-9aa6-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1739812289; x=1740417089; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IQ9/J9h35ilWXRxsKVW+JVYYvP7a3v8B/uJdQKMSq/Y=;
-        b=hOxm9zBAzaUfp0USBIVZIBoDnu7fFaDJ9TpkUda+WnrrZujcSF/SfGYARpp08Zq8iz
-         SI44p8b7Z0AJ18eiQUYhNy+gGY1/TT4nlvM4D8DcNSx1akccwqpm3PUCOcoPq5ZpFl1L
-         ZO9mw8BMrq9GfeKg5fpv96UXNB3ZDK3OPn9sdramYpjbSPOgy71MJY3BO38jLDNTgrpG
-         XAipkYNm6QaafCWuajcXgPM25n276jdyhvbNoBtbvJM1jUD9qCxlvm7tTaaPlz5IvsfT
-         ACzq08XZ0yCLVtywsz8gp7FWX/TSuUIXi/vdINvOe8XZfk5cPcGR/jAAuabaGlY0gxbj
-         zusw==
+        d=linaro.org; s=google; t=1739812793; x=1740417593; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=iQ6iKHAl4GiTXceekAQxS3dDYx6wGvfJgfBKoYsDbfU=;
+        b=atFFUBG5NX3bIaVItS3CeePxC1xHg8BnOlz7LkY39c5NGQHbQhl7ncf55+EtwhpBrh
+         rYKijcwOvxuCtFwze80fuEILLXE+hOir2BEAhGOaoSFBz1GGSdv1XpQYnYnnxJ+ANF1B
+         DRWXoVUNMmEjkaAK2qVXlWs7ow7FpYId5zXz/fKPJ0so1umLSbiR9+N7EJm+aGLiybhQ
+         UEWLxepnsz+k3gxGHLqGfa52uOaxPy9YH03JKNCOdS0KCRxb8vfF9ujUndgoQVS0phyy
+         aJtdfjCe0yUAWB9shMj3EjoMCj+lFRZS6j9SuwtYGoh6OobYCDABjnG8PNuhZWOT8bT2
+         DDDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739812289; x=1740417089;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=IQ9/J9h35ilWXRxsKVW+JVYYvP7a3v8B/uJdQKMSq/Y=;
-        b=VjlzIAe5f3pRk3/C9WZQhE/Umv+04hCYAkwGXXZDQHJRTKHXyQOiUWvIO4BlCmRJiH
-         R5runeiIypVaLNcjtGG7e6to6aW1itaVDDJOMNxNPab5n63EQhim+kvEl+HLHuhgMLAl
-         Oyz1+tYEsWX6kl9xFBBJ8WABIJgGy+zuCDQ5UICtnZ8+Me7OaePXolwalkQk1mSG4KUH
-         BrYovsCADRdWynf5K2oslGwGhoV/T1BrNLu4pCsPs79+wCqqt4TQS2QjgeH3i578KGB/
-         s0pag5LTkMx96CgW9cwDuzU6nID/Udqjosta55T9gNoUltW/lGkvgiDx9+9aSxS6w3TE
-         WdVA==
-X-Forwarded-Encrypted: i=1; AJvYcCVoaAUbz27l9/lO5P5AaqDVVDBJ3Q4bJyQzAy/epLfi1AeqCWkZ6QbzA7v922Iddzx9ny4t4AEJl8c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwMc9LROZ1fKiii+Z7Hai0BWFNO3GQ7AAEVtcl7rOUAptthhdrZ
-	IaYq51DjHFZhtVBAjRWe3NfQPh8yK2brVO2yR6/La7FjjnfC3vpq
-X-Gm-Gg: ASbGncsHJXJEmMiAXT1wu8H0dm3S/M4tkCIq/jB5+7NhFX+kJFR0JQApSbjsNsas4FX
-	mTTKDT/RMJWj7GCi7QuqVsULaijJwWCW6RLcai2z7iV07+sqeWJRDomkouLGNz6gg7C8+U6i037
-	FD5CtoEqak9Gsj02XikJ+k+SwJ6MRkF1IENZgPb+k0zdyCqMgPf6lj2PHeHY+6fuuDIs21cWDqh
-	9liVfFTv0jymUoqoppk7+tezkUCAdKeIWm9taP+40Rv14y1DWAIPO2Rl2jR6JfLrdD2mgk44WD8
-	UhMk+MTwz4Jwzaf6EHYPWcl9
-X-Google-Smtp-Source: AGHT+IHM3D31s3wMtCwLIi+psAVJmigcdRyMHlAGT5z+7EDvmn7M5PDslQZEm1ou902E8++1ynfuWA==
-X-Received: by 2002:a05:6512:3996:b0:545:81b:1514 with SMTP id 2adb3069b0e04-5452fe271fbmr2508105e87.9.1739812288182;
-        Mon, 17 Feb 2025 09:11:28 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------i9fcqK3E0ZyrZPwcIBNcPaNR"
-Message-ID: <05cc15ee-fb2b-450b-9188-8ece65b353b0@gmail.com>
-Date: Mon, 17 Feb 2025 18:11:27 +0100
+        d=1e100.net; s=20230601; t=1739812793; x=1740417593;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=iQ6iKHAl4GiTXceekAQxS3dDYx6wGvfJgfBKoYsDbfU=;
+        b=CM8qq43d3PmUgEjibPcYLjKYSxO8Ai7O9vX2WDhcmB1e3fXGnW1JxcoohfgIwwUD+M
+         2/eeeCk8MDaQLApnr0QmiwjbUD/kp0DFliEcHG65hRtJhHO6el8ysFiAu4HUf8MbUx83
+         pfO3LUz6kU5ciyYHTlqpSxMLcLONKcJpa+B0XeqFgw/U5RXjMnPD174FABg6OYQJBF/Q
+         LO/+1wVLicqLWeFkCRy21l4mZQ1ZUhFpgrpWEvXPf34cNmB0z8ZIVg+R+il0pyVz2Vu2
+         TUROdWlBtpGzet+qfUKjwmexMVLVnnOXLxiUoHG2z5GDm7MpbyO9bDxMPX7WzlsXbIz9
+         nl0g==
+X-Forwarded-Encrypted: i=1; AJvYcCXkG8OQeZu8/ioaP0p5/dynouAp4RBt0eDUxcZS48w1t3sk+IBrfvcp/P0hLNdqVXFMivClLNFGtDk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyb6OiwrDjn4qd0VRTyUf2j+X6bP5879yeoOD/yIx8Ffaa7TdJn
+	GR2+o9Az6cyfuqe2KuznwFij413NlU3af0Scnb0A2ZGI7g7OWTtcIY8Uaki0Ut4=
+X-Gm-Gg: ASbGncshQgBrnZ2tY+m1vrQu7Yri4XFzbK4PyBxDpHep5lDKquejUpDmdJa8RuJ+78a
+	QMEkMfecZ8PLsILeej6WWVBuWg5pWsyfEnhN6IYTxLiljKOKO/8h0kXIJZFRtLXNgE8kImSaRLp
+	aWbBwl4IMC4OzanpE9oWT5ZSnBmaCQs4gH205NxpKXx5qkNY8jZc/i4/wHx8HBM+E8C91ekUili
+	W+fJ04mz4Z8PYtvEGzkIkmqdeDSrOazKiQX6rh77JTh70dxp8JnstidUI0gcLmqumpXYtMaSP4K
+	WoL4tPO9y6XZBhottb549qR5rqZqQg==
+X-Google-Smtp-Source: AGHT+IEgo1pk8uQGUSG6ebpaxNPekQ6qVjpVo6fgVMW/kIFnegEFZYxMbxaDbrxa4QtPRDs+dN9QbQ==
+X-Received: by 2002:a05:600c:3396:b0:439:8439:de7e with SMTP id 5b1f17b1804b1-4398439dfdamr42175065e9.15.1739812792683;
+        Mon, 17 Feb 2025 09:19:52 -0800 (PST)
+Message-ID: <a8be34a4-c157-4a5f-99bc-50c87c1330b1@linaro.org>
+Date: Mon, 17 Feb 2025 18:19:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.20 v5] Avoid crash calling PrintErrMesg from
- efi_multiboot2
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-References: <20250122101407.52282-1-frediano.ziglio@cloud.com>
- <9d7b6706-7415-43d5-a66e-650eb67437fa@suse.com>
- <5c9ab6a7-2095-4f7c-8e5b-1942ad54420d@gmail.com>
- <CACHz=Zjru+BYnhFz97W1LGpTQNej+SM6-jZ-rqGE=D6x0rt5+A@mail.gmail.com>
- <CACHz=ZghOk1EET3_N3Rn-1+0anZ7e702cKux7U5bBf862fDfQw@mail.gmail.com>
- <f4f93da6-42e1-4a9d-b638-e44560f84408@citrix.com>
+Subject: Re: [PATCH 16/20] cpus: Restrict cpu_common_post_load() code to TCG
+To: Richard Henderson <richard.henderson@linaro.org>, qemu-devel@nongnu.org
+Cc: Peter Maydell <peter.maydell@linaro.org>,
+ Paolo Bonzini <pbonzini@redhat.com>, qemu-arm@nongnu.org,
+ Igor Mammedov <imammedo@redhat.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
+ <alex.bennee@linaro.org>, kvm@vger.kernel.org, qemu-ppc@nongnu.org,
+ qemu-riscv@nongnu.org, David Hildenbrand <david@redhat.com>,
+ qemu-s390x@nongnu.org, xen-devel@lists.xenproject.org
+References: <20250123234415.59850-1-philmd@linaro.org>
+ <20250123234415.59850-17-philmd@linaro.org>
+ <e52485c5-122a-4a95-928f-08fcd17cd772@linaro.org>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <f4f93da6-42e1-4a9d-b638-e44560f84408@citrix.com>
-
-This is a multi-part message in MIME format.
---------------i9fcqK3E0ZyrZPwcIBNcPaNR
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <e52485c5-122a-4a95-928f-08fcd17cd772@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hello Frediano,
+On 26/1/25 22:16, Richard Henderson wrote:
+> On 1/23/25 15:44, Philippe Mathieu-Daudé wrote:
+>> CPU_INTERRUPT_EXIT was removed in commit 3098dba01c7
+>> ("Use a dedicated function to request exit from execution
+>> loop"), tlb_flush() and tb_flush() are related to TCG
+>> accelerator.
+>>
+>> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+>> ---
+>>   cpu-target.c | 33 +++++++++++++++++++--------------
+>>   1 file changed, 19 insertions(+), 14 deletions(-)
+>>
+>> diff --git a/cpu-target.c b/cpu-target.c
+>> index a2999e7c3c0..c05ef1ff096 100644
+>> --- a/cpu-target.c
+>> +++ b/cpu-target.c
+>> @@ -45,22 +45,27 @@
+>>   #ifndef CONFIG_USER_ONLY
+>>   static int cpu_common_post_load(void *opaque, int version_id)
+>>   {
+>> -    CPUState *cpu = opaque;
+>> +#ifdef CONFIG_TCG
+>> +    if (tcg_enabled()) {
+> 
+> Why do you need both ifdef and tcg_enabled()?  I would have thought just 
+> tcg_enabled().
+> 
+> Are there declarations that are (unnecessarily?) protected?
 
-On 2/17/25 3:45 PM, Andrew Cooper wrote:
-> On 17/02/2025 1:55 pm, Frediano Ziglio wrote:
->> ping
-> Ping what?
->
-> You have no maintainer ack, an outstanding bug raised against this
-> version, and a suggestion on how to address it.
->
-> I'd really like to see this in 4.20 too, but this needs a v6 before it's
-> going to progress any further.
+No, you are right, tcg_enabled() is sufficient, I don't remember why
+I added the #ifdef.
 
-As I mentioned in one of my previous replies to this patch, I'm giving
-Release-Acked with the expectation that a proper maintainer's acknowledgment
-will be obtained.
-
-~ Oleksii
-
---------------i9fcqK3E0ZyrZPwcIBNcPaNR
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <pre>Hello Frediano,
-</pre>
-    <div class="moz-cite-prefix">On 2/17/25 3:45 PM, Andrew Cooper
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:f4f93da6-42e1-4a9d-b638-e44560f84408@citrix.com">
-      <pre wrap="" class="moz-quote-pre">On 17/02/2025 1:55 pm, Frediano Ziglio wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">ping
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Ping what?
-
-You have no maintainer ack, an outstanding bug raised against this
-version, and a suggestion on how to address it.
-
-I'd really like to see this in 4.20 too, but this needs a v6 before it's
-going to progress any further.</pre>
-    </blockquote>
-    <pre>As I mentioned in one of my previous replies to this patch, I'm giving
-Release-Acked with the expectation that a proper maintainer's acknowledgment
-will be obtained.
-
-~ Oleksii
-</pre>
-  </body>
-</html>
-
---------------i9fcqK3E0ZyrZPwcIBNcPaNR--
+Could I include your R-b tag without the #ifdef lines?
 
