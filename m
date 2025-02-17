@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03E68A38524
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Feb 2025 14:52:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.890463.1299578 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 780A6A38531
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Feb 2025 14:56:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.890477.1299612 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tk1Xj-0003B8-M3; Mon, 17 Feb 2025 13:52:15 +0000
+	id 1tk1bK-0003w9-EP; Mon, 17 Feb 2025 13:55:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 890463.1299578; Mon, 17 Feb 2025 13:52:15 +0000
+Received: by outflank-mailman (output) from mailman id 890477.1299612; Mon, 17 Feb 2025 13:55:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tk1Xj-000383-It; Mon, 17 Feb 2025 13:52:15 +0000
-Received: by outflank-mailman (input) for mailman id 890463;
- Mon, 17 Feb 2025 13:52:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tk1bK-0003uc-A6; Mon, 17 Feb 2025 13:55:58 +0000
+Received: by outflank-mailman (input) for mailman id 890477;
+ Mon, 17 Feb 2025 13:55:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xGAw=VI=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tk1Xh-00037x-VJ
- for xen-devel@lists.xenproject.org; Mon, 17 Feb 2025 13:52:14 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 60db927b-ed36-11ef-9896-31a8f345e629;
- Mon, 17 Feb 2025 14:52:08 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-38dcac27bcbso3277367f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 17 Feb 2025 05:52:08 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38f259f7998sm12137146f8f.82.2025.02.17.05.52.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Feb 2025 05:52:07 -0800 (PST)
+ <SRS0=IPKs=VI=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1tk1bI-0003uF-Cd
+ for xen-devel@lists.xenproject.org; Mon, 17 Feb 2025 13:55:56 +0000
+Received: from mail-oo1-xc34.google.com (mail-oo1-xc34.google.com
+ [2607:f8b0:4864:20::c34])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e7ebde64-ed36-11ef-9aa6-95dc52dad729;
+ Mon, 17 Feb 2025 14:55:55 +0100 (CET)
+Received: by mail-oo1-xc34.google.com with SMTP id
+ 006d021491bc7-5f6b65c89c4so1096565eaf.2
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Feb 2025 05:55:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,219 +40,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 60db927b-ed36-11ef-9896-31a8f345e629
+X-Inumbo-ID: e7ebde64-ed36-11ef-9aa6-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1739800328; x=1740405128; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zNCnSWfrK5gc4Vqa6c7Hh48agLbjcdskizJnPXr8rIw=;
-        b=GxxHT1MOicK3QILlYkDFzMriH66129EbVNQPC3t0sKmJgRCjpecQvmwbCo3EBZFP9i
-         H1BjHipCR4yYwe/BuSA4p5ZDHMx8R/fa/BGh3dskoZk961QYkMU2mGhlI2HBnNww15op
-         8RQF4lIY6AJDCiNXoSLxJtmCkTHtvDWQTjxIM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739800328; x=1740405128;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1739800554; x=1740405354; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=zNCnSWfrK5gc4Vqa6c7Hh48agLbjcdskizJnPXr8rIw=;
-        b=QeNhiQrFq/25pDgUcWZkzWFQKbU4L51DP8BK5xj5gnHbwf0lK8QcryTILQzPJ4bzd0
-         wCSqKozAwUr63QpxBNKHAmBJMvOSOJUcUnehjZcLcKwgi/269sEEB02XDDRvDLEprFYY
-         eK4NaW+PEmX6DwlFc7kkrDzMW1allUfoWtkACNoW+PxOLY5FzIWWldUzJ2R102l2FGQY
-         ilQldeha+4XwjbdrfyFH8hsjgDAghcrj+9ITlK1N1Xqveb6eLxB1WJiar8oecUWwCd9c
-         p1HnrV7Ti6S/PalBmZnKu2MC4BBHM5rx9MY5UlZyi7Byx8jVsCX/z2hzhbc9l1qhaMJ+
-         t/xg==
-X-Forwarded-Encrypted: i=1; AJvYcCWqfKf464J+l3hsdY2loaDp0nJS6KpCF+Pi1Jm3bLwp1mp5q+/SCDMquGfgpV2HY3c34NlfKYENHPo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzfLBXPm/5YmjXHo6MGUDoblionyB4SqQFQxlfUZezQxTZ6j/HZ
-	OvTFeI8imnpmMDlhaQHbms37JD0c5JXZ1Z3vCmIiBeO8X9CYLbU4LjucQ6py8cY=
-X-Gm-Gg: ASbGncsNms6CP3C3c6o15VIyY5d906Ok0NaS03CjCrBK72VvHLgAZyZmn3dfdAZdOma
-	zoLLEO/C0apnLy5/N66JkunxgtQtySZhVEkT/JXKu8XN7sMTHXubRD8P2DkDZGurUXqRTuJqGzF
-	yWvpUvQMTJSKdfUgxgUJ6M07hnWHJY+QodCF9JYcz7wyvu2DEQyTTNbUZqYmHdTLe7wXbmB/ckE
-	CMuzAu3sE0NjotNZmjqWZ7BZijL8mv1xrUYRWtsd8K31DrEegrijX7nJVXBeIzCISazLX9cNvlz
-	sy1kJu4w/Rk31Hf+naLCuoiJSDqR0v5zlVTOJ4qd7rDcbMYS1Ok+rGo=
-X-Google-Smtp-Source: AGHT+IHHDRnSTZsF7wBnRjshrly/evJU5s/wRx2Hee7WKEsGBCLaD/lys4rEvzgvAbDnAEactc/rnQ==
-X-Received: by 2002:a5d:5888:0:b0:38d:c6b8:9fe1 with SMTP id ffacd0b85a97d-38f33c28898mr9290878f8f.24.1739800327748;
-        Mon, 17 Feb 2025 05:52:07 -0800 (PST)
-Message-ID: <f3c0d480-e0cc-469d-8d7f-5e2402e48f8d@citrix.com>
-Date: Mon, 17 Feb 2025 13:52:06 +0000
+        bh=xYKrB7dx7auYQhnj9zMIveyfTzRyDwAPCIrD+9oIFOk=;
+        b=BXkXPRXrdYKqGj6/RmrL6cUyzAkdoNYgwSDd9xyKDH9O0Q4hKAN6RYMnq2V2nVKrDE
+         mDCZXQ+hX5iYYSt5VwPanczWE33S3Ca7CZ7A8HYy/BpNtKKs/cDLheBwc0e+ISf230Ke
+         RVCPsvQZXC/TD6tQSVfiguqGuG3bcPD5us+9s=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1739800554; x=1740405354;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=xYKrB7dx7auYQhnj9zMIveyfTzRyDwAPCIrD+9oIFOk=;
+        b=mAQLQMvNMuOoR081yIJ+virrLk1oh9iXD6/TRes+djG6zMx1qmYVBVwPH/CahcF9fp
+         kv2O1mujkWbwI6OTtc7weW8Vgmz3BSQYhMJr6YT7vA9oJuz1Bxx1foE0H84Ur0n3y+cj
+         pOvQTrnTu5i61jKGp86qhf4cOdXYu+Wq+dKvtOYx2j0UE6DxlmETvM+Zqyrr3ibaaQss
+         83NpJw/Z9dyKAA5oibDK0evyRySujb5FjJYyvA1kyAnXF02L9oBE3X0B94pNQsfBOEec
+         80IMolHOWkp+wk7hon2ynyYRdXvId6iF3guSNOGQeQAe/68+Kp3/oGBQrqKG/AemnLGO
+         gaWA==
+X-Forwarded-Encrypted: i=1; AJvYcCVIiSH2AtpdsaeLI+Knct3u8DNOjGp7+wVAlapnM28Z89By5g87i2jx5/OAYIDx3lBtShJ9LTXJR34=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwVhpJOyLMYXVFoxrz4EEEF0O7S5QrlHBKzpxcgENmK1SMMKX0I
+	j3orVGiLjLl+jj43OsaCwJDzOFY10X2csQrQdQNuDI1AUfgubVWHhCawstUxn9JaIvBLnvTtmC1
+	GUqcdA1CDfGw7m9GNTJvWzyv22fxOdgQLJeEHiw==
+X-Gm-Gg: ASbGnct4m6qchWt/PFP2VB27Rwlp/RGKix8KddPRe27AcTtPF8xgabsrlRLFCZ0woHx
+	cRxCfYK+hz5/SowIGnYApmqn3edTtYAfCJCadJQSPW242YgQo1KiVvjPXZhvZIjakSuLmrQ==
+X-Google-Smtp-Source: AGHT+IE8HcXeCQam/AnvgXSewiRnlnBhaUFb/74Nl2jHh6/P9LHrUjR1ugmprts1YaWPOXEg5HejULUHkXoEBibb35E=
+X-Received: by 2002:a05:6870:e0c8:b0:29e:290f:7aea with SMTP id
+ 586e51a60fabf-2bc99d8fcaemr5949577fac.34.1739800554123; Mon, 17 Feb 2025
+ 05:55:54 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2] xen/memory: Make resource_max_frames() to return 0 on
- unknown type
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>, xen-devel@lists.xenproject.org
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20250217102741.4122367-1-olekstysh@gmail.com>
- <24e6c348-a5c3-415e-a5b9-69d948eb15c2@citrix.com>
- <ab9ac9b5-2d2f-469a-83dc-304c880cbf55@gmail.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <ab9ac9b5-2d2f-469a-83dc-304c880cbf55@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20250122101407.52282-1-frediano.ziglio@cloud.com>
+ <9d7b6706-7415-43d5-a66e-650eb67437fa@suse.com> <5c9ab6a7-2095-4f7c-8e5b-1942ad54420d@gmail.com>
+ <CACHz=Zjru+BYnhFz97W1LGpTQNej+SM6-jZ-rqGE=D6x0rt5+A@mail.gmail.com>
+In-Reply-To: <CACHz=Zjru+BYnhFz97W1LGpTQNej+SM6-jZ-rqGE=D6x0rt5+A@mail.gmail.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Mon, 17 Feb 2025 13:55:43 +0000
+X-Gm-Features: AWEUYZm7ex6ZWOpVg2QoyeOMTB8W7cBWrrCLnzbdIfvom_cKsZGzPxKJDeLK7YA
+Message-ID: <CACHz=ZghOk1EET3_N3Rn-1+0anZ7e702cKux7U5bBf862fDfQw@mail.gmail.com>
+Subject: Re: [PATCH for-4.20 v5] Avoid crash calling PrintErrMesg from efi_multiboot2
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Jan Beulich <jbeulich@suse.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 17/02/2025 1:11 pm, Oleksandr Tyshchenko wrote:
->
->
-> On 17.02.25 13:09, Andrew Cooper wrote:
->
->
-> Hello Andrew
->
->
->> On 17/02/2025 10:27 am, Oleksandr Tyshchenko wrote:
->>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>>
->>> This is actually what the caller acquire_resource() expects on any kind
->>> of error (the comment on top of resource_max_frames() also suggests
->>> that).
->>
->> :(
->>
->> So it broke somewhere between v3 and v8 of the original patch series,
->> but I can't seem to find the intervening series on lore.
->>
->> Given the comment, I suspect I got inadvertently-reviewed into this bug.
->>
->>> Otherwise, the caller will treat -errno as a valid value and
->>> propagate incorrect
->>> nr_frames to the VM. As a possible consequence, a VM trying to query
->>> a resource
->>> size of an unknown type will get the success result from the
->>> hypercall and obtain
->>> nr_frames 4294967201.
->>
->> This is one of the few interfaces we have low level testing for.
->>
->> tools/tests/resource/test-resource.c
->
-> yes
->
->>
->> Please could you add a step looking for an invalid resource id and check
->> you get 0 back?
->
->
->
-> Sure. I was thinking where to add this step and propose the following
-> change. I will send a formal patch once I find a way how to easily
-> test this change.
->
+ping
 
-https://lore.kernel.org/xen-devel/cover.36ee649a8537af1a5fb5b3c5b7ffc0d8a1369969.1739496480.git-series.marmarek@invisiblethingslab.com
-
-
-wires these tests up in Gitlab CI.
-
+On Wed, Feb 5, 2025 at 11:40=E2=80=AFAM Frediano Ziglio
+<frediano.ziglio@cloud.com> wrote:
 >
+> On Wed, Feb 5, 2025 at 10:24=E2=80=AFAM Oleksii Kurochko
+> <oleksii.kurochko@gmail.com> wrote:
+> >
+> >
+> > On 2/4/25 2:07 PM, Jan Beulich wrote:
+> >
+> > On 22.01.2025 11:14, Frediano Ziglio wrote:
+> >
+> > Although code is compiled with -fpic option data is not position
+> > independent. This causes data pointer to become invalid if
+> > code is not relocated properly which is what happens for
+> > efi_multiboot2 which is called by multiboot entry code.
+> >
+> > Code tested adding
+> >    PrintErrMesg(L"Test message", EFI_BUFFER_TOO_SMALL);
+> > in efi_multiboot2 before calling efi_arch_edd (this function
+> > can potentially call PrintErrMesg).
+> >
+> > Before the patch (XenServer installation on Qemu, xen replaced
+> > with vanilla xen.gz):
+> >   Booting `XenServer (Serial)'Booting `XenServer (Serial)'
+> >   Test message: !!!! X64 Exception Type - 0E(#PF - Page-Fault)  CPU Api=
+c ID - 00000000 !!!!
+> >   ExceptionData - 0000000000000000  I:0 R:0 U:0 W:0 P:0 PK:0 SS:0 SGX:0
+> >   RIP  - 000000007EE21E9A, CS  - 0000000000000038, RFLAGS - 00000000002=
+10246
+> >   RAX  - 000000007FF0C1B5, RCX - 0000000000000050, RDX - 00000000000000=
+10
+> >   RBX  - 0000000000000000, RSP - 000000007FF0C180, RBP - 000000007FF0C2=
+10
+> >   RSI  - FFFF82D040467CE8, RDI - 0000000000000000
+> >   R8   - 000000007FF0C1C8, R9  - 000000007FF0C1C0, R10 - 00000000000000=
+00
+> >   R11  - 0000000000001020, R12 - FFFF82D040467CE8, R13 - 000000007FF0C1=
+B8
+> >   R14  - 000000007EA33328, R15 - 000000007EA332D8
+> >   DS   - 0000000000000030, ES  - 0000000000000030, FS  - 00000000000000=
+30
+> >   GS   - 0000000000000030, SS  - 0000000000000030
+> >   CR0  - 0000000080010033, CR2 - FFFF82D040467CE8, CR3 - 000000007FC010=
+00
+> >   CR4  - 0000000000000668, CR8 - 0000000000000000
+> >   DR0  - 0000000000000000, DR1 - 0000000000000000, DR2 - 00000000000000=
+00
+> >   DR3  - 0000000000000000, DR6 - 00000000FFFF0FF0, DR7 - 00000000000004=
+00
+> >   GDTR - 000000007F9DB000 0000000000000047, LDTR - 0000000000000000
+> >   IDTR - 000000007F48E018 0000000000000FFF,   TR - 0000000000000000
+> >   FXSAVE_STATE - 000000007FF0BDE0
+> >   !!!! Find image based on IP(0x7EE21E9A) (No PDB)  (ImageBase=3D000000=
+007EE20000, EntryPoint=3D000000007EE23935) !!!!
+> >
+> > After the patch:
+> >   Booting `XenServer (Serial)'Booting `XenServer (Serial)'
+> >   Test message: Buffer too small
+> >   BdsDxe: loading Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4=
+AF6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
+> >   BdsDxe: starting Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE=
+4AF6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
+> >
+> > This partially rollback commit 00d5d5ce23e6.
+> >
+> > Fixes: 9180f5365524 ("x86: add multiboot2 protocol support for EFI plat=
+forms")
+> > Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+> >
+> > I expect we want this in before the release. Oleksii? Maintainers?
+> >
+> > Interesting it is a fix for a ~3 years old bug ( if to look at when 918=
+0f5365524 is introduced ) so it seems it happens not often.
 >
-> From 872565da55b7e87e1664714bb1b3ee84245db4a5 Mon Sep 17 00:00:00 2001
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> Date: Mon, 17 Feb 2025 14:16:50 +0200
-> Subject: [PATCH] tests/resource: Verify that Xen can deal with invalid
->  resource type
+> I would say it's quite normal for booting messages, usually we expect
+> them to work and not get errors, we are in a pretty "stable" state.
+> The problem happens when there are some strange combinations of
+> firmware bugs or behavior resulting in errors. There was a bug some
+> time ago during the boot phase where a message would be helpful
+> instead of a crash, but it exercised a different error path.
 >
-> The sign of the presence of a corresponding bugfix is an error
-> returned on querying the size of an unknown for Xen resource type.
->
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> ---
->  tools/tests/resource/test-resource.c | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
->
-> diff --git a/tools/tests/resource/test-resource.c
-> b/tools/tests/resource/test-resource.c
-> index 1b10be16a6..197477c3f3 100644
-> --- a/tools/tests/resource/test-resource.c
-> +++ b/tools/tests/resource/test-resource.c
-> @@ -123,6 +123,22 @@ static void test_gnttab(uint32_t domid, unsigned
-> int nr_frames,
->          fail("    Fail: Managed to map gnttab v2 status frames in v1
-> mode\n");
->          xenforeignmemory_unmap_resource(fh, res);
->      }
-> +
-> +    /*
-> +     * While at it, verify that an attempt to query the size of an
-> unknown
-> +     * for Xen resource type fails. Use the highest possible value
-> for variable
-
-s/for //, I think?
-
-> +     * of uint16_t type.
-> +     */
-> +    rc = xenforeignmemory_resource_size(
-> +        fh, domid, 65535,
-> +        XENMEM_resource_grant_table_id_shared, &size);
-
-XENMEM_resource_grant_table_id_shared should probably be 0 here.
-
-But, I'd suggest choosing 3 (literal 3, not some kind of constant from
-the headers) for the major resource number.  That has the side effect of
-forcing people to extend this test case when they add a new resource type.
-
-> +
-> +    /*
-> +     * Success here indicates that Xen is missing the bugfix to make
-> size
-> +     * requests return an error on an invalid resource type.
-> +     */
-> +    if ( !rc )
-> +        fail("    Fail: Expected error on an invalid resource type,
-> got success\n");
-
-I'd phrase this differently.  "Check that Xen rejected the resource type."
-
-"avoid this bug we already fixed" won't be useful to people reading this
-code in the future.  It's in the commit message.
-
-~Andrew
+> > Anyway, I agree that we want this fix before the release:
+> > R-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> >
+> > Thanks.
+> >
+> > ~ Oleksii
+> >
+> > Jan
 
