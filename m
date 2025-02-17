@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E3CEA37EF7
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Feb 2025 10:53:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.889924.1298957 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F8F2A37EFD
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Feb 2025 10:54:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.889935.1298968 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tjxnd-0001P5-92; Mon, 17 Feb 2025 09:52:25 +0000
+	id 1tjxpN-0001vV-KZ; Mon, 17 Feb 2025 09:54:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 889924.1298957; Mon, 17 Feb 2025 09:52:25 +0000
+Received: by outflank-mailman (output) from mailman id 889935.1298968; Mon, 17 Feb 2025 09:54:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tjxnd-0001N3-6O; Mon, 17 Feb 2025 09:52:25 +0000
-Received: by outflank-mailman (input) for mailman id 889924;
- Mon, 17 Feb 2025 09:52:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tjxpN-0001tf-HT; Mon, 17 Feb 2025 09:54:13 +0000
+Received: by outflank-mailman (input) for mailman id 889935;
+ Mon, 17 Feb 2025 09:54:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=o9S/=VI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tjxnb-0001Mx-Gv
- for xen-devel@lists.xenproject.org; Mon, 17 Feb 2025 09:52:23 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e1900144-ed14-11ef-9896-31a8f345e629;
- Mon, 17 Feb 2025 10:52:21 +0100 (CET)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-abb7a6ee2deso236831266b.0
- for <xen-devel@lists.xenproject.org>; Mon, 17 Feb 2025 01:52:21 -0800 (PST)
+ id 1tjxpM-0001tX-3V
+ for xen-devel@lists.xenproject.org; Mon, 17 Feb 2025 09:54:12 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2312e765-ed15-11ef-9aa6-95dc52dad729;
+ Mon, 17 Feb 2025 10:54:11 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-38f22fe889aso3162982f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Feb 2025 01:54:11 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aba532322f1sm863485766b.19.2025.02.17.01.52.20
+ a640c23a62f3a-aba53376326sm850593166b.87.2025.02.17.01.54.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Feb 2025 01:52:20 -0800 (PST)
+ Mon, 17 Feb 2025 01:54:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1900144-ed14-11ef-9896-31a8f345e629
+X-Inumbo-ID: 2312e765-ed15-11ef-9aa6-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739785941; x=1740390741; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739786050; x=1740390850; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LZ+XS35lrocKtw6M0fc3h1T8JAkfEB0FBfUbdr0Z998=;
-        b=TydmRfRbPIm92Wb5fOXUXzTBQ3yGCVPCTOqzbGnQfeA9fqGNQ7ScYM0f9U3Gzi8d2v
-         1a5Uk9O2yEbXt5zaxCgBfEgpYSuKtjrvGCXzURX82GDCTtNBoHrXbodD5FTNOcbQUEef
-         UlVJjkPRp1b/+PxPjhyLNAgD9ulN+jBgMD+9lKjTVGskTlVUw+iXI/iISuEk9OPB+B2r
-         4Imu5XGAPA0YQ0d8zTVIKt5vCiq5UcFdu+emz2yK1yrX2iv82dL3XQz8XSBwXFfk3csZ
-         5zJP9jlkuAZr6Iv4m0h3r1xN1JjN5dSeXMDQD9xQk7J1ZUDIIP+lFRNIOzyM5FGbKJpZ
-         qdIQ==
+        bh=jofhTv9sBRV2I8DdS1izomuH3go92ahQThPVnLHH9DU=;
+        b=g5PGcJvVpqizOguBzUjd+5GDvoPriS+a9KUp81f7QHeAscfRF4IKjRVUrgHxqewmzf
+         nGVbDi+4xZAqsANdplZUdD5ZwKjn8OyUnTNvdMkZ1MnhyHl8ghFMghBFTqWj+GOMr/Wm
+         j+tNtO27+SFLnD6IoUofKzxncVWtJ0vxPwTzwU5PKCCZIo8I5S9ec5IdRsomjKz43c2w
+         KnbLwXjy+i684MRC0e13eHt3oI1NjS0t+1BwBhFo1NhjXyg3lP2hYSs5qcl96P997E/+
+         rt+bJi+KFmDWVROj7Yegu563MwDaF224oxrR1Lfw8sB3HeewfbdbxmDNGni/vRCXro3e
+         s8ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739785941; x=1740390741;
+        d=1e100.net; s=20230601; t=1739786050; x=1740390850;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LZ+XS35lrocKtw6M0fc3h1T8JAkfEB0FBfUbdr0Z998=;
-        b=OuPQz4WKFGlMo6Ue9Y4hxZbrlo29ij60efW7P4pVwo6AcPzXdLfzv8gvkfBEcusvBq
-         3ZzutgN5rVf/KVGgoATEpZ4bCueBGZ0R4UkxTntGsPhvH3rCkvf16FEC5gDGpqESj2TG
-         m4eBKXJk0m9UOp+t/jqFDcqoKWt1maJTYndS8RA/KAlvE2q2CKJMhVc2IJg256cUAL4y
-         K3SzYMGPQMMaC21EcRIIVOQFyu4ygV066vDDWpfaF8mvHdnwgaGF+V1/RGwe87nA9EHy
-         Flk/HaeCCMCjR9L1A6hAOsXQwCw+lsSKQOwE9ctS7+CnQ6IPr38kEOBVoxWtBIzEvkOM
-         wBnw==
-X-Forwarded-Encrypted: i=1; AJvYcCW04/HaMo5CUx4tTnAJJa6CiqJKgOGGXPh9hzNW+qWk5bWwaAf0ptQDDxY9jq+vatcmtvz+slVV75o=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw0kMM3b/8UN2EO/HDxVQowjakUEtncLUCB4FFI7m5tCNb1zlos
-	pbOQWXmDJ6Zf+VzwL01QW7VoInFAf88eIHUg2zQdAtbkK1Mxstl3krLbcgUJOA==
-X-Gm-Gg: ASbGnctGv3MT7X3tzXR9WDDfiIpsX1WZUl/CKLF32O+kEQTh/lk+1SYO0BPSLp5F8dL
-	kP6GSlWGf+d/0DFz2/TWl/sJc/JZNwycXnscPRlGQuiy1aRHXUJ/6IdPG4EkYdp5aMSeSXRlLKB
-	PG3gdF3Ypu4tQQ10ohn2FpUtmkqd4lcJRisbOfGbDbmKrJrSPZwZx+QMeullXyKGTGaE8n0KvIs
-	4/NCre0Vf6XFuaRQZCyhFgNc/xHBP9E4Jnn7POguhPeT9S2XQZ5inLIK9pmIVZC6dRcP7QRDrY4
-	3uVFE31JjXbM16ckOZVRAPXQ+8BbWoTBHL76CBylcVH9e8unzUsezBz2e6OFqGJ4dwkYyi+Lgwf
-	/
-X-Google-Smtp-Source: AGHT+IFFDTcUBzMSBME97gM2CdFUb7awzyTsAhI8ChX3pyGoRzQ6Fca0e2jnzhI3CqMM8IGTD259OQ==
-X-Received: by 2002:a17:907:1b12:b0:ab7:bfb1:99c3 with SMTP id a640c23a62f3a-abb70e323cdmr981955166b.53.1739785940882;
-        Mon, 17 Feb 2025 01:52:20 -0800 (PST)
-Message-ID: <d9375868-c3e9-4b07-820b-d46a7b0275e3@suse.com>
-Date: Mon, 17 Feb 2025 10:52:21 +0100
+        bh=jofhTv9sBRV2I8DdS1izomuH3go92ahQThPVnLHH9DU=;
+        b=GNcRe2fiSSJK5w9bnEKZ+xSx/t6AnzMHrNgM2omV4ywigSlvjj1QEZme6ru2Leh5xR
+         f2tbI6vLIC4RhyvOuwkoz/kYT7oI5zSlJcmiX8kQlqJGj+/KzAKLzayEfp8rMVBEFdgG
+         BswzZ4Na6MjXkG0bwJuCZetLQ6WEwly81g0WdXeJJCOt1BCLSAHLC63/CLcRrGkH0hik
+         kctNb1iNt32z5MySoyZmlyzETgLIXtlH3zJk+oLk1sN9PmPWWrbjwIuQU535hoa8svmr
+         ZUYioeuK8vy6zWZepPBk3kH5xCVOw/JYR0xXGSueESxjICFpeDMtk6VJdWBErcuM2UUC
+         l9nQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUaFc6RS8zbq4VNNM9rHcn10IDQJJOtgiP81h7GepzfNVbH0KzyYsJ7SP+0Bzs2emS/yuA9Z4tQtgM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyW985QfzBhCG9Q8KBdB0k7CCxObFTmUMde96Eaz5C48nlOl6hz
+	UCzjFyjF1tsrQn0o68k74Ylp6fUPlXcreKKbcSG8DHs80aQCwEswgCNsRpA+Pw==
+X-Gm-Gg: ASbGncukAiTFiLBRH6Hz0lMjeiBiuaD4HLKPBehJK09DIPY3zql2QofZeOQDKUW+9zE
+	0l8AJggr32iILUfimoBaNE4xLl1jEoywid8sccgWNqP6QWqmEVkgPSKeyocex3ZwX2xaQm/3waZ
+	BGTf76n6Fs8UMwmqNxGlLdZv7LjHbMf3u6LLfxG13VfXwYsEcKLF40VPKuHzfEyqkPwfuASiVS4
+	KtYDDM84NDWOUb6HG2RoheZMFhJhR99n592j6aZj2DASt1nlP70DjoVrklSebl3KcGhsNrqNm7q
+	34zSLMr4j/TSn12LaefTrziKoASWInN9NRtS843cdNuGyTQVnYeyJuddxMyDf6uwXljtDbhLKap
+	C
+X-Google-Smtp-Source: AGHT+IHuuPhPqDKW+E1QB8obYf6VkHOPmn4JrkFmTF+XdrBMsvJV4lLBPWIfVn7pbRE8kcG/SzUaMQ==
+X-Received: by 2002:a05:6000:1a8e:b0:38e:d026:820 with SMTP id ffacd0b85a97d-38f33f28f6emr10480096f8f.16.1739786050574;
+        Mon, 17 Feb 2025 01:54:10 -0800 (PST)
+Message-ID: <7789a11a-15ef-4bfe-9cc5-aa9a447749b4@suse.com>
+Date: Mon, 17 Feb 2025 10:54:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] xen/list: some fixes in list.h
-To: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH for-4.20?] x86/dom0: be less restrictive with the
+ Interrupt Address Range
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Cc: oleksii.kurochko@gmail.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250216102356.18801-1-jgross@suse.com>
+ =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ xen-devel@lists.xenproject.org
+References: <20250212153800.5159-1-roger.pau@citrix.com>
+ <5bd90a77-eb82-438f-8f78-bfcf98507d58@suse.com>
+ <Z69Ltd5cvwMuoYVa@macbook.local>
+ <dc2bf5f6-d6cd-4f54-b981-5c44b72be57d@suse.com>
+ <Z7MFoZAJw3ITRtUK@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,38 +123,103 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250216102356.18801-1-jgross@suse.com>
+In-Reply-To: <Z7MFoZAJw3ITRtUK@macbook.local>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 16.02.2025 11:23, Juergen Gross wrote:
-> Patch 1 is a fix for an undefined behavior reported by Andrew. I think
-> this patch should be considered for 4.20.
+On 17.02.2025 10:47, Roger Pau Monné wrote:
+> On Mon, Feb 17, 2025 at 09:49:18AM +0100, Jan Beulich wrote:
+>> On 14.02.2025 14:57, Roger Pau Monné wrote:
+>>> On Fri, Feb 14, 2025 at 02:01:09PM +0100, Jan Beulich wrote:
+>>>> On 12.02.2025 16:38, Roger Pau Monne wrote:
+>>>>> There's also the following restriction noted in Intel VT-d:
+>>>>>
+>>>>>> Software must not program paging-structure entries to remap any address to
+>>>>>> the interrupt address range. Untranslated requests and translation requests
+>>>>>> that result in an address in the interrupt range will be blocked with
+>>>>>> condition code LGN.4 or SGN.8. Translated requests with an address in the
+>>>>>> interrupt address range are treated as Unsupported Request (UR).
+>>>>>
+>>>>> However this restriction doesn't apply to the identity mappings possibly
+>>>>> created for dom0, since the interrupt address range is never subject to DMA
+>>>>> remapping.
+>>>>
+>>>> Coming back to this also with your on-demand-p2m-populating patch in mind:
+>>>> I'm having some trouble following your comment on this quotation. The doc
+>>>> text is quite clear that page table entries must not point at the interrupt
+>>>> address range. They don't make an exception for identity mappings. And we
+>>>> don't know how the IOMMUs internally work, e.g. what sanity checks they do
+>>>> (and what failure thereof would result in).
+>>>
+>>> My understanding is that address translation will never happen for the
+>>> interrupt address range, so whatever gets mapped on that range will
+>>> never be translated by the IOMMU.  Hence for the specific case here,
+>>> there will never be untranslated request that result in an address in
+>>> the interrupt address range, because translation is not done for input
+>>> addresses in the interrupt address range.
+>>>
+>>> Sorry, hope the above makes sense, I'm having a hard time trying to
+>>> write down what I understand happens when the IOMMU handles accesses
+>>> to the interrupt address range.
+>>>
+>>> Maybe a diagram would be easier.  This is my understanding of how
+>>> translation works in the IOMMU:
+>>>
+>>>  input address -> translation -> output address
+>>>
+>>> However input addresses that are in the interrupt address range are
+>>> not subject to translation, and hence there's no output address that
+>>> can be subject to the quoted VT-d paragraph.
+>>
+>> I agree this is a possible (and plausible) interpretation of that text.
+>> I'm merely unconvinced it's the only possible one.
 > 
-> Patch 2 is fixing wrong comments in list.h I stumbled over when doing
-> patch 1. As it is absolutely no risk involved with this patch, I think
-> it should be 4.20 material, too.
+> The AMD-Vi specification mentions the following regarding the
+> interrupt address range:
 > 
-> There are some additional cleanups possible in list.h, which I can do
-> for 4.21 when wanted:
+>> 2.1.4.2 Interrupt Address Range
+>>
+>> Accesses to the interrupt address range (Table 3) are defined to go
+>> through the interrupt remapping portion of the IOMMU and not through
+>> address translation processing. Therefore, when a transaction is being
+>> processed as an interrupt remapping operation, the transaction
+>> attribute of pretranslated or untranslated is ignored.
+>>
+>> Software Note: The IOMMU should not be configured such that an address
+>> translation results in a special address such as the interrupt address
+>> range.
 > 
-> - Removal of list_prepare_entry(), which seems to be unused since
->   some time now (and it seems to be thought of as a list.h internal
->   macro only).
+> Which I interpret in the same way as VT-d: input addresses that belong
+> to the interrupt address range are not subject to translation.  Output
+> addresses that belong to the interrupt address range are not allowed,
+> otherwise the IOMMU will raise a fault.
 > 
-> - More questionable: removal of unused iterators, like e.g.
->   list_for_each_entry_continue() or list_for_each_entry_from(). The main
->   idea to keep list.h in sync with the Linux version would be violated
->   by this removal, though.
+> I've added the following chunk to Xen:
+> 
+> diff --git a/xen/drivers/passthrough/x86/iommu.c b/xen/drivers/passthrough/x86/iommu.c
+> index 8b1e0596b84a..20aa46e305a3 100644
+> --- a/xen/drivers/passthrough/x86/iommu.c
+> +++ b/xen/drivers/passthrough/x86/iommu.c
+> @@ -480,6 +480,9 @@ void __hwdom_init arch_iommu_hwdom_init(struct domain *d)
+>      if ( rc )
+>          panic("IOMMU failed to remove Interrupt Address Range: %d\n", rc);
+>  
+> +    rc = rangeset_add_range(map, 0xfee01, 0xfeeff);
+> +    BUG_ON(rc);
+> +
+>      /* If emulating IO-APIC(s) make sure the base address is unmapped. */
+>      if ( has_vioapic(d) )
+>      {
+> 
+> And run a basic test on each server microarchitecture (AMD Naples to
+> Genoa, Intel Haswell to Emerald Rapids) available on XenRT, everything
+> seems to be OK, no IOMMU faults, but still running.
+> 
+> Would you agree to allowing mappings to the interrupt address range if
+> the above test raises no issues?  I know it's not every possible piece
+> of hardware out there, but it's quite good coverage.
 
-That's true for the unused list_prepare_entry(), too, isn't it? Which in
-turn is coupled with list_for_each_entry_continue().
-
-> OTOH with patch 1 they are out of sync anyway
->   now, but I'm planning to submit a Linux kernel patch fixing the UB in
->   the Linux variant, too.
-
-I'd go with whatever the Linux side is going accept.
+Yeah, I think that ought to be good enough.
 
 Jan
 
