@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5775A38913
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Feb 2025 17:26:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.890651.1299793 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 861DBA38915
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Feb 2025 17:27:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.890662.1299811 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tk3x6-00056F-7y; Mon, 17 Feb 2025 16:26:36 +0000
+	id 1tk3xf-0005rG-Np; Mon, 17 Feb 2025 16:27:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 890651.1299793; Mon, 17 Feb 2025 16:26:36 +0000
+Received: by outflank-mailman (output) from mailman id 890662.1299811; Mon, 17 Feb 2025 16:27:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tk3x6-000537-4p; Mon, 17 Feb 2025 16:26:36 +0000
-Received: by outflank-mailman (input) for mailman id 890651;
- Mon, 17 Feb 2025 16:26:34 +0000
+	id 1tk3xf-0005pC-Ka; Mon, 17 Feb 2025 16:27:11 +0000
+Received: by outflank-mailman (input) for mailman id 890662;
+ Mon, 17 Feb 2025 16:27:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yBk9=VI=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1tk3x4-000531-3c
- for xen-devel@lists.xenproject.org; Mon, 17 Feb 2025 16:26:34 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20621.outbound.protection.outlook.com
- [2a01:111:f403:2009::621])
+ <SRS0=IPKs=VI=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1tk3xe-000531-TP
+ for xen-devel@lists.xenproject.org; Mon, 17 Feb 2025 16:27:10 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f208eff3-ed4b-11ef-9aa6-95dc52dad729;
- Mon, 17 Feb 2025 17:26:32 +0100 (CET)
-Received: from PH8PR12MB7326.namprd12.prod.outlook.com (2603:10b6:510:216::7)
- by IA1PR12MB7520.namprd12.prod.outlook.com (2603:10b6:208:42f::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8445.19; Mon, 17 Feb
- 2025 16:26:28 +0000
-Received: from PH8PR12MB7326.namprd12.prod.outlook.com
- ([fe80::6d76:9c33:d230:8264]) by PH8PR12MB7326.namprd12.prod.outlook.com
- ([fe80::6d76:9c33:d230:8264%5]) with mapi id 15.20.8445.015; Mon, 17 Feb 2025
- 16:26:28 +0000
+ id 094bb192-ed4c-11ef-9aa6-95dc52dad729;
+ Mon, 17 Feb 2025 17:27:10 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-43984e9cc90so6396725e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Feb 2025 08:27:10 -0800 (PST)
+Received: from localhost.localdomain (172.74.6.51.dyn.plus.net. [51.6.74.172])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38f259d5ef9sm12651334f8f.76.2025.02.17.08.27.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Feb 2025 08:27:09 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,349 +45,205 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f208eff3-ed4b-11ef-9aa6-95dc52dad729
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rJx/9gmYrOBUreSEALGJusJq5gG+K1izSvgCbRvOEywe6KKg7A6A1A7lkmUY0DrxhlRszXqxmQSHULW+K17SCqC68B1+gzo7PVraS6h4+7garQN2jI1xxRoT1vtVsJtY9yLgqOXwn3azP+agFTKNactZz+Ai4gyJL5qGSAIfecSubrD8INOkyKqwRnLH/garMyKEU3E95+E77wSXIP69n2Eff7mkjrUnsRmyhV/2+5d/B+j49HyUDfsuliZbvqcAR3FkWq0/TnQLigqVCxaIsQikGT10EIrmg4OxZeg6Ea81TayhOefSj8pkuycqxwBTBqakCl6vuW1zGx33jHlOEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s8zSyCpVM/nla7T7tFdWBv8Qx83dfLgaw/dM1BOIwsg=;
- b=w2oF+wl5w7yHK8XrXmrda5ph49b4s9HktGat1T/ng+HyIe5mVPTwm6oIhQc8o0K34WRKiGhvx1Vctu0SWOuGCvhvn0ieXy8zDSIWDmszdZt84EFZcS3QKC/mBhI1+Sx5fPc7HSVU+FLxcn9pUWFJG/Rzv5CLCOLA4PHZkTd93VHCiAk2I+obwMYE4bQVuUVP2bDV+IBTlgvNEUiiKGxXSCNHNpNfbKw36TuIwLS4JWY0JCMOxy9AP4d7ISvDVx0YdkdjAtKcopY4QTUH7oc6Ag2fqbhznvYL6g5syM14WDYeq63+qVxH6Wk7+uHnC8aS0R5N7F2P0ZQOz+Bx0NAyPg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s8zSyCpVM/nla7T7tFdWBv8Qx83dfLgaw/dM1BOIwsg=;
- b=AegIPzS06lyKuKYnh1XSdsCSzrQ3JOqWdRETDWV6lrtH+qKP6Hd0aAIeIsjlm9PCL8BAwPPA7846dZcrYzCHSHC80H9mq4sAljGsqGQ6WXRCH9iwybuE+ATVmkmBdh9TMlWt1lgezhI2XnX95F7kGwXMy5JDMPjNIb5ZJnxPGEc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <34b229d2-e61d-4779-a07a-024eea81ee4e@amd.com>
-Date: Mon, 17 Feb 2025 16:26:18 +0000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] docs: fusa: Define the requirements for
- XEN_VERSION hypercall.
-Content-Language: en-GB
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>, Artem Mygaiev <artem_mygaiev@epam.com>
-References: <20250114195010.3409094-1-ayan.kumar.halder@amd.com>
- <65584EA7-9B46-40E9-AFD8-B7C8F77A5DA0@arm.com>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <65584EA7-9B46-40E9-AFD8-B7C8F77A5DA0@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DX2P273CA0022.AREP273.PROD.OUTLOOK.COM
- (2603:1086:300:8::34) To PH8PR12MB7326.namprd12.prod.outlook.com
- (2603:10b6:510:216::7)
+X-Inumbo-ID: 094bb192-ed4c-11ef-9aa6-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1739809629; x=1740414429; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=d6mmCdnEK4WLbCua9qHCvfFVcXpvOHJMVDWGCqinwp8=;
+        b=F2LbYCGTj5zFtNsX+6QGvAVlg9Ilm4mjo+vB4DwCILPslzo50n7zWZpRKiUYsXUI0F
+         tQ5F5DJYjvJPyABbr3a6wzFvEiQ5ZSrifvCRqY6usjrBlmg6CorKRlix8lLz7z1Yp3FD
+         6vBdMOp+oXHHC0froD9vjuGIEkdrO1kePQT34=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1739809629; x=1740414429;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=d6mmCdnEK4WLbCua9qHCvfFVcXpvOHJMVDWGCqinwp8=;
+        b=xEpAw9qhVF6Hf3dRxeaIUGEl6LPs+7oouKeO+TVcjusIyY7aINU/NbIGGg3MJ7N2/V
+         y9OMVSoagvBjUDZCT2FO+brEapN6hwMv8HHxx/xcGtBhzFm0xX1q4ZOtZKCEilV/YL7U
+         b/KWnXVw6keW9FyWaLIvciH8xH+8JGh8l8SLuXA/syrvNINCjFnHaS1e9KmHd+r82OyH
+         M7gVqEGF/JS0AzU6O5IQg4bGjNpiIHW7DScMrO56MLqZQOJROB5GMGGHQ1Brogi3d8+i
+         mAZeN8pjdwYcKAaMq8IJf0YWjC2xTCREbXsd67krvQewMvlmNpTXpEhrmiwd6MfO3tRO
+         3pFg==
+X-Gm-Message-State: AOJu0YyjMttojaWIgOGMObbe4davAWZ+D/XthkcdPNOYuSRJ111XVojh
+	JeXIq5EGxr9glSmtSOCSznZxbazZcvYTsL8A89wnfP2RnqXINQffqcLNtYdn8RKZnFKvrrsSSCU
+	Y
+X-Gm-Gg: ASbGncsmLyddg6Wv7j32ml1A80yWtyrAvy8dV/yUBGm81LZ8WaquXYb+DCG4UjpwxhV
+	RV0iQmrGqtu5HSn8qQRTeggw+F1xI0EOlMKB3DRuZcCTWujcpFGAiv8IIC72VYzy9wSRf5gOQ5o
+	m4nLuO4NzJb3PrACEut+sBVmn01Z4iC/npnD4skyDaLYDD+pvtM1RUkMoqyZP0jf1rtvudHr192
+	GeoVxSouiwz0Y7FDDFfsku8HsmYOqMU6Gwkkjry3BcLCYTzsc2nXvT3+hjcobHf2IsLM1hcAQ65
+	6pctqjPY95+FtYravHJPu5miGIF6LZtT5BPyPhAp1YND2dv/O6nHLjZb
+X-Google-Smtp-Source: AGHT+IHLO/8WOm2XzsbHdshyqk+1zpOW9OvRO63dLt/8AVw1vcT/P4NdQEHiwdwCG1hXG7KJmdJjZw==
+X-Received: by 2002:a5d:64e6:0:b0:38d:e3da:8b4f with SMTP id ffacd0b85a97d-38f3398735amr10222788f8f.0.1739809629395;
+        Mon, 17 Feb 2025 08:27:09 -0800 (PST)
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v6] Avoid crash calling PrintErrMesg from efi_multiboot2
+Date: Mon, 17 Feb 2025 16:26:59 +0000
+Message-Id: <20250217162659.151232-1-frediano.ziglio@cloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7326:EE_|IA1PR12MB7520:EE_
-X-MS-Office365-Filtering-Correlation-Id: 471450ba-5fd5-418a-dd2b-08dd4f6fd464
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?OVcxUU9ndXJ6NE5sQmwrQ013MmlKL1owN1BVVHg5NmdOeElEZEV5ZW5BMzNM?=
- =?utf-8?B?NTNYQzUzQk1CT1pKRytrUlJpTlZrV2NmWUN5ZFFRY1hJOEJydSs1eEhGK3Bn?=
- =?utf-8?B?czF1SlRqeE8vYndXTUxRdlg0Z2tMSm4xRTU0cFh0SG5lcFpqLzdBeHdSamJE?=
- =?utf-8?B?M3Zhc3VsOGZLQUFxVU5NbXlqWUNOUU1rbktjNldlNko1c3NTQ214STU0ZExo?=
- =?utf-8?B?emowZTdQS001OHFScTYzbnZxekxsSWRlK1IrMzVqRE9xVUtWcnkwMjVSMUY2?=
- =?utf-8?B?TDRXcVBJTlpEdnovazZWblBab3lJQzZZcktVSDFsd080aTNRNmFweElkK2I3?=
- =?utf-8?B?RUlyZEVsTkpKN3VKSHJFSEFCM0phWGxTSnh3MFlsVmVsVmFtT0hEbktjSzVq?=
- =?utf-8?B?U0Ribmtab0RtN1RrV3Z2dmtQWWJOUElYTk5xbjdudlJIZ0lXWHpSRFYzL2pZ?=
- =?utf-8?B?Nk9xNmZYeVplYlVranFvYkNyRFJXbGcrUlNLQVVkRGFPWnJKaVZvQlhFQi9p?=
- =?utf-8?B?NVV3dFNOdVI3MStNOVdSU0Nnd2tGODZpRk1ENUtSK04yTnZwV3lvOU1aRUhY?=
- =?utf-8?B?QTlnY3JlbWJPM0JmQlhHNmswMHJlMUkzK3U1dmMrWWxRa09IV3I5YU1DcmpJ?=
- =?utf-8?B?dCtBbko3bHdiYzFDUzVHUFNCby9EQlU3S29wRTNKRGdpWSsrS2VES0pMQkVN?=
- =?utf-8?B?MkM0aEF4T3g2eEhXR2E3WlRsWkh6N1dIb3BUSTNUWXRGNDRGWU54eHUxYkVQ?=
- =?utf-8?B?ZTI4cTBsRWZLQTNmUHg2a1kwT1hFbDRzYTFXVVRvUEd0NG4vQWFxSHNwNE9L?=
- =?utf-8?B?eFh4RENkOXJCWXJYaGpMVjNVcm8vbWxrWnRwbkd6YlQ2dUJFV29WWTJUZ1Ft?=
- =?utf-8?B?cFU4cFh6cVJNL1Q5SWhrTUc5L1VDaStPYnhyZ2kvNUMrT1hVeXlKYlpwNmZw?=
- =?utf-8?B?Vmw0TW41M2JwYWNZQ3NWWUFscklSSFpsS0ZBWTEvQnd6RHpjTS9Yem9FM0lP?=
- =?utf-8?B?WVFIaGszOTI2bHNYWms4cHBPNlJmUHBudEtsbXREVGFpa21uZytaRTNFZ0U2?=
- =?utf-8?B?OFpjYmlDY1BDSzBkaDFBeGR2cE9rcXk0UGN1Y1pSZEFZOHJkdldpZ2lrQU5J?=
- =?utf-8?B?QjNFTGsrNW5DSUpxZk0zMUFtNEEzbWxuNEVZeDhPUXM4NHFCRWhzbGJzQzFr?=
- =?utf-8?B?RDl6OGZwRk1LZXkvWmROOEdWZGhNc0h6UXRhWmltRmhoQ2w0bnhicm1kT2Ey?=
- =?utf-8?B?c05oems0cm8xZS9CYk9BS091Z1VUeTJEYmVIM2J1QUpKWU9aalJZQi9NYURy?=
- =?utf-8?B?RjBxUmlUc2l6VWh4N2hKSmZaWWFZY3phak02VjU0VjlNcVFOUGlwR1B1bU9L?=
- =?utf-8?B?YjM0Um4vR1dicjNFWElDbjQrY2dDTGpYd240Y0hNOTZ4TmVaR0NCSkp5VlMw?=
- =?utf-8?B?Q2dhck5HVkxsZkhhZDFwaVJIUENMRHBuRWQrRFF6ZUgxZ2xqVUFaQ1BTejA3?=
- =?utf-8?B?WEZlaTJEbnZiS0Y2Uk04VzZYUHllMXQrL2Q1K3FxbUFOT1lXMmZqNUZBbW9L?=
- =?utf-8?B?N1ZFc3lZU1BIcTJYeURBTUprWXVsQWhrL1BBOUZ1cHhaNnpLaURSN0hnNGhr?=
- =?utf-8?B?dGk1ZlM1aWQra1l5TVNISTFGNGN5cU12eUFlRG0zS3F5OEkzYmR0UlMxelBS?=
- =?utf-8?B?Y3djME5lUmxSNm8wbkUzUC9IMWptaFZZNkl6bnoyTFQwVHFBanJ4U3ZBcTI3?=
- =?utf-8?B?QXo5MzFXQkxYYS9GZk9WNU1meEdPMGNJQ0d6WjlqTDZSNWp0S0FzYyt5Mjlk?=
- =?utf-8?B?SUZOanFZSFg2Uk0wcFo5Qmhsd1dYcTdSMzVRNEpFck9wWWJlWWJDQVEwUFBi?=
- =?utf-8?Q?69EqKZGLJVtTl?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7326.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZU5vdVpVSmYvdlZZbVRRNjhGeHE1endpdWhmSXozMU00b2Nqd3IxR3JiVElU?=
- =?utf-8?B?aUQzWjJRRnVIYzBYWkl5a2ZZRmN4cUxsMDdjME9pQ0NmSXloNEozYU5nUU41?=
- =?utf-8?B?RWQ1MGJ5RWRGSnl1Vzc3RENKMFBYbG41Vk1UL2RLMDFPZTJmVkpyclY0UXlJ?=
- =?utf-8?B?eXZhSSs5RGtqYjFNd0JLcXV1V1JpNGNNa1BHMmgyOWUyOWRaN3ZBZndpSktQ?=
- =?utf-8?B?T0RKbWtENEwyRWdFcGVCbTNFeDl0b2N0VHNyc0hkaEg2eituRlo3bEFudWFY?=
- =?utf-8?B?VDFoOWVHaFpUY1E0czZES2RnUW51OWE4NGxDTmZ5c1B2Mi82andINkVoWE9p?=
- =?utf-8?B?a2ZVTVhiVldUUThlMisxUG4xc1VEdHdabGpoZjJHVE5TeFJES1ZSY0t1Um9X?=
- =?utf-8?B?bGlXcGFGT2JMbVJlclo3cnFPYnhyZWxPNkd2K2pFd080eTdaY3RiK3YxcjZW?=
- =?utf-8?B?QmV1SWo2M2thVlVzK01ORGE2MWczUzZnb1ZSOUZ5QXd6aHVSY0w0Q1pjODYw?=
- =?utf-8?B?eS9kOERBZVFqa0ZUSXRsSlhBb2VyUjFYRUUreGFOaU54SWFHTUFBa2EvL0Rs?=
- =?utf-8?B?VktWOStMVnpPWmpCZlloU3RzTjJ2VTU5emFTdEZseWN0TFVLOHRQN0ExUjBy?=
- =?utf-8?B?ckJabmdTSzlzZ3lGOWdLazY1V0JZZjZxZnphVDRhZFVjNmQzd2FNamQzWUo3?=
- =?utf-8?B?QjhReE02VXVmVHBLV0tuOCtZQmtxNU9ITHlyQjlQVUtnWUdWT2RBM3dFbUY2?=
- =?utf-8?B?MEJSS0VmbW12L2xFTmhLMUw4UnFkQzNHUHhDSlg2bDE4cTdTdFI5Z3p0bXE3?=
- =?utf-8?B?TUhRVFhMTVNWcXpJWGROVFRFK21uMTRjUC9zNHdQMHdmQ1EyeTh5WXZHMnBv?=
- =?utf-8?B?VVRUTHcyK014dmtPMUY0RXJxUjFGSEI0NC9mRVZZUnJ1cGhkbndJNUhyS2Zh?=
- =?utf-8?B?S0loZm1DallOdE5PU25TanJ3cmVkcngwMXNxOWZ2TmFCYmZ6WGpWeEtyRFAr?=
- =?utf-8?B?Y09jZ1lUYzVtTU9RVG5hZ2NzdjJ5SHFXMEIwa1c3VGRSMUlUL3EyVHVCYTY1?=
- =?utf-8?B?ekN2TkpLZFRRZDFSTDdNaVk3ZjgxUU9OMmNMM3BtUWdPeG9YKyt1VGtpdHZw?=
- =?utf-8?B?enpTRm1GcVpzeG9td1FuZG9lVWRsRVZFdXM2Wmd5VUtJN3lxck1oaHVoZ3hx?=
- =?utf-8?B?OG1DK3FqUklPYUdpbXBUcENraG12NVRNMXNNRlFFcmpxMkhiai9RYTZsS0da?=
- =?utf-8?B?ODBhZWc3Qkduek1xcUtJUHpURWlyQU9VVHpMSlQyQzYwQlkybzh5S3JxdkxK?=
- =?utf-8?B?a1lNMVdkMVJBLzh6VElYUU8vSkhIcjFBdEpCTGZiMmUrQVdhTVlvMSttbWRU?=
- =?utf-8?B?K3p2em9GVmFOa0dEVE0wTm9zR0J3aVlnNFU1UHg5MnlwdmpaVStOQ203SXBR?=
- =?utf-8?B?QmdBZXA5aTZYaUxaSHJBbVRsT25FTDlkRzMrZVhuTU92MGMvcnNwU1JMcjdZ?=
- =?utf-8?B?d0tzRGdwTU5LeXZ4TTFsMHdkdU9BWFpSY2sxVGEwUzNJQUhPU0k4cUdiSmZV?=
- =?utf-8?B?eDhEQ2x5ei84WFFWWGFqTk4zaDNuL0tmM0JqRWJFSXlVL2hEbW1SWlExSmsx?=
- =?utf-8?B?TzVNV2JiQ2ZLOENEK25uaDdHRjdmUWxkTnZhK3F6amRpM0JhYmhLdDlzZjJk?=
- =?utf-8?B?N2o1QkViUytKQW03Q3dGbzZUek5GRGc5eGtUUXVxdjRQVmVkOHgrTkNMWmln?=
- =?utf-8?B?L1Z3cUZXVGhiNHRiYVorckFyWlRZNGIyZlh2VWMyc1dvMnNtdnhORDVSMlZn?=
- =?utf-8?B?ZzBBMFgyUTNyRXdwREVUQm5yNUM0VllLNGxFZ1haWlVFQTNsUFRiSGhMRWpv?=
- =?utf-8?B?d0I4bTMwenYwWmFGbHoyMWdYNWpVUHRhUFNoWGIzK05hN3I2Sm5uNUtJWkl3?=
- =?utf-8?B?SnJ2OEJsaVNNY2FuK0daZlJCdUgzeGxIQmh4RDRXa2NnOVQ4ODBIQklEL21M?=
- =?utf-8?B?NHRPNGFNSk5xREhRT1BWTXJNL2FjUFIxU2JrYS84NHhSUUJWSEpyY2hkSDdP?=
- =?utf-8?B?ZnVia29PSUE3VTBPdkoxVkZ4WDhXcEt4YXh0b0dwQ2FYbkRvRWpjUEExczVm?=
- =?utf-8?Q?b7rNvQGwtn0cyVTsuHNScLrmU?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 471450ba-5fd5-418a-dd2b-08dd4f6fd464
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Feb 2025 16:26:28.3761
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 10XPGM/56zlBhdh7RQVGmG/lIOeyN0zszTp+Z1uS1fA3CJf1M3EzFh93Hm+zs/G2m1aywPLcLeYB8fiNXvXeDQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7520
+Content-Transfer-Encoding: 8bit
 
+Although code is compiled with -fpic option data is not position
+independent. This causes data pointer to become invalid if
+code is not relocated properly which is what happens for
+efi_multiboot2 which is called by multiboot entry code.
 
-On 29/01/2025 08:27, Bertrand Marquis wrote:
-> Hi Ayan,
+Code tested adding
+   PrintErrMesg(L"Test message", EFI_BUFFER_TOO_SMALL);
+in efi_multiboot2 before calling efi_arch_edd (this function
+can potentially call PrintErrMesg).
 
-Hi Bertrand,
+Before the patch (XenServer installation on Qemu, xen replaced
+with vanilla xen.gz):
+  Booting `XenServer (Serial)'Booting `XenServer (Serial)'
+  Test message: !!!! X64 Exception Type - 0E(#PF - Page-Fault)  CPU Apic ID - 00000000 !!!!
+  ExceptionData - 0000000000000000  I:0 R:0 U:0 W:0 P:0 PK:0 SS:0 SGX:0
+  RIP  - 000000007EE21E9A, CS  - 0000000000000038, RFLAGS - 0000000000210246
+  RAX  - 000000007FF0C1B5, RCX - 0000000000000050, RDX - 0000000000000010
+  RBX  - 0000000000000000, RSP - 000000007FF0C180, RBP - 000000007FF0C210
+  RSI  - FFFF82D040467CE8, RDI - 0000000000000000
+  R8   - 000000007FF0C1C8, R9  - 000000007FF0C1C0, R10 - 0000000000000000
+  R11  - 0000000000001020, R12 - FFFF82D040467CE8, R13 - 000000007FF0C1B8
+  R14  - 000000007EA33328, R15 - 000000007EA332D8
+  DS   - 0000000000000030, ES  - 0000000000000030, FS  - 0000000000000030
+  GS   - 0000000000000030, SS  - 0000000000000030
+  CR0  - 0000000080010033, CR2 - FFFF82D040467CE8, CR3 - 000000007FC01000
+  CR4  - 0000000000000668, CR8 - 0000000000000000
+  DR0  - 0000000000000000, DR1 - 0000000000000000, DR2 - 0000000000000000
+  DR3  - 0000000000000000, DR6 - 00000000FFFF0FF0, DR7 - 0000000000000400
+  GDTR - 000000007F9DB000 0000000000000047, LDTR - 0000000000000000
+  IDTR - 000000007F48E018 0000000000000FFF,   TR - 0000000000000000
+  FXSAVE_STATE - 000000007FF0BDE0
+  !!!! Find image based on IP(0x7EE21E9A) (No PDB)  (ImageBase=000000007EE20000, EntryPoint=000000007EE23935) !!!!
 
-I need some clarifications.
+After the patch:
+  Booting `XenServer (Serial)'Booting `XenServer (Serial)'
+  Test message: Buffer too small
+  BdsDxe: loading Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4AF6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
+  BdsDxe: starting Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4AF6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
 
->
->> On 14 Jan 2025, at 20:50, Ayan Kumar Halder <ayan.kumar.halder@amd.com> wrote:
->>
->> In the current patch, we have defined the requirements which are common for
->> all the commands.
->>
->> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->> ---
->> .../fusa/reqs/design-reqs/arm64/hypercall.rst | 52 ++++++++++++++++
->> docs/fusa/reqs/index.rst                      |  2 +
->> docs/fusa/reqs/market-reqs/reqs.rst           | 16 +++++
->> .../reqs/product-reqs/version_hypercall.rst   | 61 +++++++++++++++++++
->> 4 files changed, 131 insertions(+)
->> create mode 100644 docs/fusa/reqs/design-reqs/arm64/hypercall.rst
->> create mode 100644 docs/fusa/reqs/product-reqs/version_hypercall.rst
->>
->> diff --git a/docs/fusa/reqs/design-reqs/arm64/hypercall.rst b/docs/fusa/reqs/design-reqs/arm64/hypercall.rst
->> new file mode 100644
->> index 0000000000..66dbcc3026
->> --- /dev/null
->> +++ b/docs/fusa/reqs/design-reqs/arm64/hypercall.rst
->> @@ -0,0 +1,52 @@
->> +.. SPDX-License-Identifier: CC-BY-4.0
->> +
->> +Hypercall
->> +=========
->> +
->> +Instruction
->> +-----------
->> +
->> +`XenSwdgn~arm64_hyp_instr~1`
->> +
->> +Description:
->> +Domains shall use the Arm instruction 'hvc' to interact with Xen.
-> Why are those requirements defining what "Domains" should do ?
-> Shouldn't we define them as what Xen shall do ?
-> Something around:
-> Xen shall treat Domain hypercall exceptions and hypercall requests from Domains.
->
-> Or something around this idea.
-Xen shall treat domain hypercall exception as hypercall requests.
->
->> +
->> +Rationale:
->> +
->> +Comments:
-Hypercall is one of the communication mechanism between Xen and domains.
-Domains use hypercalls for various requests to Xen.
-Domains use 'hvc' instruction to invoke hypercalls.
->> +
->> +Covers:
->> + - `XenProd~version_hyp_first_param~1`
->> + - `XenProd~version_hyp_second_param~1`
->> +
->> +Parameters
->> +----------
->> +
->> +`XenSwdgn~arm64_hyp_param~1`
->> +
->> +Description:
->> +Domains shall use register x0 to pass first parameter, x1 to pass second
->> +parameter and so on.
-> Same
-Xen shall use the register 0 to read the first parameter, register 1
-for second parameter and so on, for domain hypercall requests.
->
->> +
->> +Rationale:
->> +
->> +Comments:
->> +
->> +Covers:
->> + - `XenProd~version_hyp_first_param~1`
->> + - `XenProd~version_hyp_second_param~1`
->> +
->> +Return value
->> +------------
->> +
->> +`XenSwdgn~arm64_ret_val~1`
->> +
->> +Description:
->> +Xen shall store the return value in x0 register.
->> +
->> +Rationale:
->> +
->> +Comments:
->> +
->> +Covers:
->> + - `XenProd~version_hyp_ret_val~1`
->> diff --git a/docs/fusa/reqs/index.rst b/docs/fusa/reqs/index.rst
->> index 1088a51d52..d8683edce7 100644
->> --- a/docs/fusa/reqs/index.rst
->> +++ b/docs/fusa/reqs/index.rst
->> @@ -10,5 +10,7 @@ Requirements documentation
->>     market-reqs/reqs
->>     product-reqs/reqs
->>     product-reqs/arm64/reqs
->> +   product-reqs/version_hypercall
->>     design-reqs/arm64/generic-timer
->>     design-reqs/arm64/sbsa-uart
->> +   design-reqs/arm64/hypercall
->> diff --git a/docs/fusa/reqs/market-reqs/reqs.rst b/docs/fusa/reqs/market-reqs/reqs.rst
->> index 2d297ecc13..0e29fe5362 100644
->> --- a/docs/fusa/reqs/market-reqs/reqs.rst
->> +++ b/docs/fusa/reqs/market-reqs/reqs.rst
->> @@ -79,3 +79,19 @@ Comments:
->>
->> Needs:
->>   - XenProd
->> +
->> +Version hypercall
->> +-----------------
->> +
->> +`XenMkt~version_hypercall~1`
->> +
->> +Description:
->> +Xen shall provide an interface for the domains to retrieve Xen's version, type
->> +and compilation information.
->> +
->> +Rationale:
->> +
->> +Comments:
->> +
->> +Needs:
->> + - XenProd
->> diff --git a/docs/fusa/reqs/product-reqs/version_hypercall.rst b/docs/fusa/reqs/product-reqs/version_hypercall.rst
->> new file mode 100644
->> index 0000000000..fdb8da04e1
->> --- /dev/null
->> +++ b/docs/fusa/reqs/product-reqs/version_hypercall.rst
->> @@ -0,0 +1,61 @@
->> +.. SPDX-License-Identifier: CC-BY-4.0
->> +
->> +Version hypercall
->> +=================
->> +
->> +First Parameter
->> +---------------
->> +
->> +`XenProd~version_hyp_first_param~1`
->> +
->> +Description:
->> +Domain shall pass the first argument (as an integer) to denote the command
->> +number for the hypercall.
-> Same here should be turned as Xen shall.
-Xen shall treat the first argument (as an integer) to denote the command 
-number
-for the hypercall.
->
->> +
->> +Rationale:
->> +
->> +Comments:
->> +
->> +Covers:
->> + - `XenMkt~version_hypercall~1`
->> +
->> +Needs:
->> + - XenSwdgn
->> +
->> +Second Parameter
->> +----------------
->> +
->> +`XenProd~version_hyp_second_param~1`
->> +
->> +Description:
->> +Domain shall pass the second argument as a pointer to buffer in guest memory.
->> +
-> Ditto
-Xen shall treat the second argument as a pointer to buffer in guest memory.
-- Ayan
->
->> +Rationale:
->> +
->> +Comments:
->> +
->> +Covers:
->> + - `XenMkt~version_hypercall~1`
->> +
->> +Needs:
->> + - XenSwdgn
->> +
->> +Return Value
->> +------------
->> +
->> +`XenProd~version_hyp_ret_val~1`
->> +
->> +Description:
->> +Xen shall return 0 in case of success or one of the error codes as defined in
->> +https://man7.org/linux/man-pages/man3/errno.3.html.
->> +
->> +Rationale:
->> +
->> +Comments:
->> +
->> +Covers:
->> + - `XenMkt~version_hypercall~1`
->> +
->> +Needs:
->> + - XenSwdgn
->> +
->> -- 
->> 2.25.1
->>
-> Cheers
-> Bertrand
->
->
+This partially rollback commit 00d5d5ce23e6.
+
+Fixes: 9180f5365524 ("x86: add multiboot2 protocol support for EFI platforms")
+Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+---
+Changes since v1:
+- added "Fixes:" tag;
+- fixed cast style change.
+
+Changes since v2:
+- wrap long line.
+
+Changes since v3:
+- fixed "Fixes:" tag.
+
+Changes since v4:
+- use switch instead of tables.
+
+Changes since v5:
+- added -fno-jump-tables option.
+---
+ xen/common/efi/boot.c        | 58 ++++++++++++++++++++++++------------
+ xen/common/efi/efi-common.mk |  1 +
+ 2 files changed, 40 insertions(+), 19 deletions(-)
+
+diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+index efbec00af9..143b5681ba 100644
+--- a/xen/common/efi/boot.c
++++ b/xen/common/efi/boot.c
+@@ -287,33 +287,53 @@ static bool __init match_guid(const EFI_GUID *guid1, const EFI_GUID *guid2)
+ /* generic routine for printing error messages */
+ static void __init PrintErrMesg(const CHAR16 *mesg, EFI_STATUS ErrCode)
+ {
+-    static const CHAR16* const ErrCodeToStr[] __initconstrel = {
+-        [~EFI_ERROR_MASK & EFI_NOT_FOUND]           = L"Not found",
+-        [~EFI_ERROR_MASK & EFI_NO_MEDIA]            = L"The device has no media",
+-        [~EFI_ERROR_MASK & EFI_MEDIA_CHANGED]       = L"Media changed",
+-        [~EFI_ERROR_MASK & EFI_DEVICE_ERROR]        = L"Device error",
+-        [~EFI_ERROR_MASK & EFI_VOLUME_CORRUPTED]    = L"Volume corrupted",
+-        [~EFI_ERROR_MASK & EFI_ACCESS_DENIED]       = L"Access denied",
+-        [~EFI_ERROR_MASK & EFI_OUT_OF_RESOURCES]    = L"Out of resources",
+-        [~EFI_ERROR_MASK & EFI_VOLUME_FULL]         = L"Volume is full",
+-        [~EFI_ERROR_MASK & EFI_SECURITY_VIOLATION]  = L"Security violation",
+-        [~EFI_ERROR_MASK & EFI_CRC_ERROR]           = L"CRC error",
+-        [~EFI_ERROR_MASK & EFI_COMPROMISED_DATA]    = L"Compromised data",
+-        [~EFI_ERROR_MASK & EFI_BUFFER_TOO_SMALL]    = L"Buffer too small",
+-    };
+-    EFI_STATUS ErrIdx = ErrCode & ~EFI_ERROR_MASK;
+-
+     StdOut = StdErr;
+     PrintErr(mesg);
+     PrintErr(L": ");
+ 
+-    if( (ErrIdx < ARRAY_SIZE(ErrCodeToStr)) && ErrCodeToStr[ErrIdx] )
+-        mesg = ErrCodeToStr[ErrIdx];
+-    else
++    switch (ErrCode)
+     {
++    case EFI_NOT_FOUND:
++        mesg = L"Not found";
++        break;
++    case EFI_NO_MEDIA:
++        mesg = L"The device has no media";
++        break;
++    case EFI_MEDIA_CHANGED:
++        mesg = L"Media changed";
++        break;
++    case EFI_DEVICE_ERROR:
++        mesg = L"Device error";
++        break;
++    case EFI_VOLUME_CORRUPTED:
++        mesg = L"Volume corrupted";
++        break;
++    case EFI_ACCESS_DENIED:
++        mesg = L"Access denied";
++        break;
++    case EFI_OUT_OF_RESOURCES:
++        mesg = L"Out of resources";
++        break;
++    case EFI_VOLUME_FULL:
++        mesg = L"Volume is full";
++        break;
++    case EFI_SECURITY_VIOLATION:
++        mesg = L"Security violation";
++        break;
++    case EFI_CRC_ERROR:
++        mesg = L"CRC error";
++        break;
++    case EFI_COMPROMISED_DATA:
++        mesg = L"Compromised data";
++        break;
++    case EFI_BUFFER_TOO_SMALL:
++        mesg = L"Buffer too small";
++        break;
++    default:
+         PrintErr(L"ErrCode: ");
+         DisplayUint(ErrCode, 0);
+         mesg = NULL;
++        break;
+     }
+     blexit(mesg);
+ }
+diff --git a/xen/common/efi/efi-common.mk b/xen/common/efi/efi-common.mk
+index 23cafcf20c..06b1c19674 100644
+--- a/xen/common/efi/efi-common.mk
++++ b/xen/common/efi/efi-common.mk
+@@ -2,6 +2,7 @@ EFIOBJ-y := boot.init.o pe.init.o ebmalloc.o runtime.o
+ EFIOBJ-$(CONFIG_COMPAT) += compat.o
+ 
+ CFLAGS-y += -fshort-wchar
++CFLAGS-y += -fno-jump-tables
+ CFLAGS-y += -iquote $(srctree)/common/efi
+ CFLAGS-y += -iquote $(srcdir)
+ 
+-- 
+2.34.1
+
 
