@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E83EA37C37
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Feb 2025 08:30:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.889730.1298777 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CBD3A37C61
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Feb 2025 08:38:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.889740.1298787 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tjvaO-0005lO-Jd; Mon, 17 Feb 2025 07:30:36 +0000
+	id 1tjvi7-0006V8-BG; Mon, 17 Feb 2025 07:38:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 889730.1298777; Mon, 17 Feb 2025 07:30:36 +0000
+Received: by outflank-mailman (output) from mailman id 889740.1298787; Mon, 17 Feb 2025 07:38:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tjvaO-0005jp-GI; Mon, 17 Feb 2025 07:30:36 +0000
-Received: by outflank-mailman (input) for mailman id 889730;
- Mon, 17 Feb 2025 07:30:35 +0000
+	id 1tjvi7-0006Sc-8M; Mon, 17 Feb 2025 07:38:35 +0000
+Received: by outflank-mailman (input) for mailman id 889740;
+ Mon, 17 Feb 2025 07:38:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=o9S/=VI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tjvaN-0005jj-BH
- for xen-devel@lists.xenproject.org; Mon, 17 Feb 2025 07:30:35 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
+ id 1tjvi5-0006SW-S7
+ for xen-devel@lists.xenproject.org; Mon, 17 Feb 2025 07:38:33 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 12e858bc-ed01-11ef-9aa6-95dc52dad729;
- Mon, 17 Feb 2025 08:30:34 +0100 (CET)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-5deb956aa5eso5719709a12.2
- for <xen-devel@lists.xenproject.org>; Sun, 16 Feb 2025 23:30:34 -0800 (PST)
+ id 30443d75-ed02-11ef-9aa6-95dc52dad729;
+ Mon, 17 Feb 2025 08:38:32 +0100 (CET)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-5e058ca6806so1502808a12.3
+ for <xen-devel@lists.xenproject.org>; Sun, 16 Feb 2025 23:38:32 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abb86c9320csm322926266b.55.2025.02.16.23.30.32
+ a640c23a62f3a-aba533bf307sm847874866b.176.2025.02.16.23.38.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 16 Feb 2025 23:30:32 -0800 (PST)
+ Sun, 16 Feb 2025 23:38:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 12e858bc-ed01-11ef-9aa6-95dc52dad729
+X-Inumbo-ID: 30443d75-ed02-11ef-9aa6-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739777433; x=1740382233; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739777912; x=1740382712; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1dB6GYxS2tKjf9rcRkoOWyUEXTyn6febSZyf6qkZAK8=;
-        b=Mtw/LYy6Oy8aHB5zfHaDyojkxMMBSLlc91otFVInRnZMQdpqfzffBKZEpUTd48wqCX
-         dpuUEDewAkvLhhhEr2AXQy4u/vp+wVSkMRanI1nDA1LT3Jfc3ERGlNOdbGolQqEL0xQp
-         EiPANTEQRLzu19wty8xTu0yR3UyKLGtvkKCloEM8Qop5aV73ZIsiSq/ndE1fJUAiVpyE
-         OrFjgSYQWaC7fcJ6qyw66j79+q6fqvlQlueRGQVW5sLorlEjzi+/gEXEv7AhjuUFp2o4
-         3hzMVA5Q9pxMEgT/i6DHmPwzCkfv9UgVBzinXyiIZpvwqKM6dgb8vUh3sSnxuECsoF4g
-         s/Vg==
+        bh=LRPGlYSSR5aCT1DF3zZVycnmTlCM+fNTDqvv26hqEg4=;
+        b=dLnajRA9v6yLMrWgUifXF1QSmsDr8K655XHh4E2rx/MYYOyYA6jL2khyTwi0DE3YA/
+         r6daoEkiJ19Xw07vQPuX0Dtp+naMdGEJNH6A+Gu9MAGYOZXU19wOLO6raANgcvwYRbnW
+         SLDZ+K/Kgw5WUvKhlazTNq4WOsEMiNCt/c76bsjo48aQIQIbws3603zHs0W75HD0XyU2
+         OZEjpFb4nkWjI8Wk+BVvfY+2SjEmT7v95kCuzd2ulQhevudfy4naF0jxjg59Ne25biO3
+         FTyAFm6hJtn/46ck+dLaJBrYVSh8zERFJ7PZPCeHXU70qGoNfBb3dq7rwFo1Ue8jsP3l
+         EWHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739777433; x=1740382233;
+        d=1e100.net; s=20230601; t=1739777912; x=1740382712;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1dB6GYxS2tKjf9rcRkoOWyUEXTyn6febSZyf6qkZAK8=;
-        b=Z/yg4Wj307dUwsygx3U+zg5+vQLt6K+ZwamCdbXzGa7SZKDN3QzZvqBnTERDZGpYmb
-         gRb7MOUS8DjEyHs/bbuXsCD0PifdFzsw1WU5rxu6WWFQujxww/eXo0fNbXnrZOuNjX09
-         9ydEg+z7PbhhFIgCjpU0ZJLS+mg3UY1mmjEzHi6jjCK432h5XHCkyQix1GxwEnOgLI2C
-         lHDBi8kiQI+wvu3vRRmMoeZH+ZN3opARxLqiEo0c5UfMeX23Keyvy9v9YSrlVqSIy9Hs
-         f4PPdikDhRypRYLLXhxPmWb7GazmsNYIpiHO0HkojYbEw75qULPV5aei1YoAyTml01A+
-         zDwQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUZ0ZijuubFfEnmuJmt/Cf4itNP0/Mo42DD86V0HqtN23He5sCkcJ7YlS86wqdapQgx1qaRe0vlTeE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy5BPktHZBbyMXFjLGuSVCuCcKpmBidJ98pAurXUEC6vpz15W/z
-	6gZtUNSWZgwMUP1mQ7PP++ogfZICPu79p80PcFGtA1XBXs+Qi+9lg44rApUK7g==
-X-Gm-Gg: ASbGncvVXs5Pgzd5sbQEonCgyYycvPQNtnMp8CptN5eRNYws3DrcyZ0qItx7C25MPFA
-	lKltzMu2srmUn1UT8C7VjczlAtfszp/lSjLw7cYBhOd3yHfWTP0k+pv/9IUrwpSWVLARN5PijcR
-	6UhhsUcntecxRq/dYrIZRA3EIxxvmiwuYrEnlKRWlI42q6fz+T3P1X5w3jkjqlLkaBGHbN2vHaj
-	EzJtTe5xHeRiFWx9BrRNc1MrMYr8o13lzyswRp5ZS3YUZPLh8P/kAaS6y/ns14B7MfQBeUsKAQ5
-	wacmnCjLalKLRsR+cajtoldGL7lMoTDOXm+Ujrp/7FrVBl5CDrmtN/6uSQNEZhxytVxDeo2rTFk
-	P
-X-Google-Smtp-Source: AGHT+IEfq0+0kv3U5mi+6ik+Eymqac7vPPrz7xvExPotzRGboOjXpIK15fmewsAHbHo3BdB58T39YA==
-X-Received: by 2002:a05:6402:5186:b0:5de:dfde:c8b1 with SMTP id 4fb4d7f45d1cf-5e036003fecmr22928496a12.4.1739777433246;
-        Sun, 16 Feb 2025 23:30:33 -0800 (PST)
-Message-ID: <a8df35bd-cd87-4dd7-9841-a0a7469524ed@suse.com>
-Date: Mon, 17 Feb 2025 08:30:33 +0100
+        bh=LRPGlYSSR5aCT1DF3zZVycnmTlCM+fNTDqvv26hqEg4=;
+        b=IRR1ZGU2Zp1iaqm6yXZsACGSd+nNfxQZBBJf1I6MI/HpwBaHFz7M2zYVFebeQ27eyJ
+         DanmRzEmZUqmcMa0XoDRV2Z+wQylvsFa21s23QdD7s2Eti8H6iSyI6AK3Jg0tj3VivE9
+         gHZbbcnmHqw1X44a/Jb7Ruz0DBviGC5hm8PXZOlRAaXbUdt53bI7ewv13+mOiK4r5/sm
+         x+0/6mRfywPQ7lG+9tY0vze0VwxnseeO2zuio8sZYmjhBjQMZXdMIuc4NUII8i18vyQu
+         eaJ0eB0MpG+C+uU7TCtVE41v2TDtsHS/WSgRVDSLaXhbsCimMGxgtNGl/y5pa7jfHsco
+         Fjow==
+X-Forwarded-Encrypted: i=1; AJvYcCUQ36/4ky/nkY90G6OK08fYCtndCiulfiWtLd+a0JfnYgxzAKw+PyYnLFDcnyCICPU9RFlT6Ey/Uro=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz1FL6H6msQV47meK7B9kCGZL+SnHA2iP4EveMm0q3xolgCa4ys
+	JUpuMa5C+XAaxYc4RnrOgcfYiFap6093YBzl/8Y5DTGTWfrzszDNeKDxcZ1EUA==
+X-Gm-Gg: ASbGncvYOPnovPDcG20eKVRSDK3HcjrOFCbNPByg/s3ODEC7NX3n1TuvsBQN37Y8aG2
+	QlK08qo8VBKRIWNTgpj3nvXReLpnxT+EMuZFkGC6H28QqPi1uu3sHcBgSxsjzKHpMhjBVyaGpQa
+	FvlrRFX2yhj0DCGcjYF4BCpx5yMaQ43DIOhSMDw8Kt0YIo+ozLW5y5hCrioM62462zlxTk6u5Wz
+	eJlYjK1sg+SoLcrQ5qp0NlYMHa2KsR/RHRsDz+dEcDloIXrRV7ZB3GTw1D3hFoWhfm1a70vn+mC
+	iKupp7+Vie1uOKKBghiGC5oX/A7RTxBi9VesMozweMa6PuUCvW7ZV+0TEPk1PTUgnXjo4wRrP4E
+	v
+X-Google-Smtp-Source: AGHT+IHwXLAfvcraVqqmYpusbdDmD0J8pu1yLwpMYNixGF90CWnJXH82sjh6qTbAtXNM13v5b2aSIA==
+X-Received: by 2002:a17:907:3d8e:b0:ab7:462f:647f with SMTP id a640c23a62f3a-abb70b35f1amr859532966b.25.1739777912301;
+        Sun, 16 Feb 2025 23:38:32 -0800 (PST)
+Message-ID: <7a0d4cab-188d-41de-ac32-b307109cb0dc@suse.com>
+Date: Mon, 17 Feb 2025 08:38:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/watchdog: Identify which domain watchdog fired
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH v2 02/11] xen/x86: introduce new sub-hypercall to
+ propagate CPPC data
+To: "Penny, Zheng" <penny.zheng@amd.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>, "Andryuk, Jason"
+ <Jason.Andryuk@amd.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250213164618.38167-1-andrew.cooper3@citrix.com>
- <7f105533-f80c-41f3-bf3b-8cf8dabdf02c@suse.com>
- <3e4f1f62-137a-48c9-a402-cb6017ed440d@citrix.com>
+ Anthony PERARD <anthony.perard@vates.tech>,
+ "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20250206083255.1296363-1-Penny.Zheng@amd.com>
+ <20250206083255.1296363-3-Penny.Zheng@amd.com>
+ <d3198e8c-2723-484c-b305-822a681d544b@suse.com>
+ <DM4PR12MB8451A5DC8E389ECA2D8A3E1AE1FB2@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,53 +126,95 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3e4f1f62-137a-48c9-a402-cb6017ed440d@citrix.com>
+In-Reply-To: <DM4PR12MB8451A5DC8E389ECA2D8A3E1AE1FB2@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 14.02.2025 16:09, Andrew Cooper wrote:
-> On 13/02/2025 5:00 pm, Jan Beulich wrote:
->> On 13.02.2025 17:46, Andrew Cooper wrote:
->>> @@ -1593,7 +1598,17 @@ void watchdog_domain_init(struct domain *d)
->>>      d->watchdog_inuse_map = 0;
->>>  
->>>      for ( i = 0; i < NR_DOMAIN_WATCHDOG_TIMERS; i++ )
->>> -        init_timer(&d->watchdog_timer[i], domain_watchdog_timeout, d, 0);
+On 17.02.2025 08:20, Penny, Zheng wrote:
+> [AMD Official Use Only - AMD Internal Distribution Only]
+
+Btw, boiler plates like this aren't really liked on public mailing lists,
+for being contrary to the purpose of such lists.
+
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: Tuesday, February 11, 2025 7:10 PM
+>>
+>> On 06.02.2025 09:32, Penny Zheng wrote:
+>>> +{
+>>> +    int ret = 0, cpuid;
+>>> +    struct processor_pminfo *pm_info;
+>>> +
+>>> +    cpuid = get_cpu_id(acpi_id);
+>>> +    if ( cpuid < 0 || !cppc_data )
 >>> +    {
->>> +        void *data = d;
->>> +
->>> +        BUILD_BUG_ON(NR_DOMAIN_WATCHDOG_TIMERS >= PAGE_SIZE);
->>> +
->>> +        /*
->>> +         * For the timer callback parameter, encode the watchdog id in
->>> +         * the low bits of the domain pointer.
->>> +         */
->>> +        init_timer(&d->watchdog_timer[i], domain_watchdog_timeout, data + i, 0);
+>>> +        ret = -EINVAL;
+>>> +        goto out;
 >>> +    }
->> This way we'll be promising to ourselves that we're never going to alter
->> the allocation mechanism of struct domain instances, always requiring
->> them to have at least page alignment. If someone wanted to change that,
->> they'll have a hard time spotting the logic here. Sadly I have no good
->> suggestion towards improving the situation.
+>>> +    if ( cpufreq_verbose )
+>>> +        printk("Set CPU acpi_id(%d) cpuid(%d) CPPC State info:\n",
+>>> +               acpi_id, cpuid);
+>>> +
+>>> +    pm_info = processor_pminfo[cpuid];
+>>> +    if ( !pm_info )
+>>> +    {
+>>> +        pm_info = xvzalloc(struct processor_pminfo);
+>>> +        if ( !pm_info )
+>>> +        {
+>>> +            ret = -ENOMEM;
+>>> +            goto out;
+>>> +        }
+>>> +        processor_pminfo[cpuid] = pm_info;
+>>> +    }
+>>> +    pm_info->acpi_id = acpi_id;
+>>> +    pm_info->id = cpuid;
+>>> +    pm_info->cppc_data = *cppc_data;
+>>> +
+>>> +    if ( cpufreq_verbose )
+>>> +        print_CPPC(&pm_info->cppc_data);
+>>> +
+>>> + out:
+>>> +    return ret;
+>>> +}
+>>
+>> What's the interaction between the data set by set_px_pminfo() and the data set
+>> here? In particular, what's going to happen if both functions come into play for the
+>> same CPU? Shouldn't there be some sanity checks?
 > 
-> I wasn't terribly happy either, but something has occurred to me.
-> 
-> For both struct domain and vcpu, we could have an __aligned(PAGE_SIZE)
-> attribute.  It's accurate and unlikely to change (and helps x86 code
-> generation at least).
-> 
-> Then, we can use:
-> 
->     BUILD_BUG_ON((NR_DOMAIN_WATCHDOG_TIMERS > alignof(d));
-> 
-> which should trigger cleanly if the precondition is violated.
+> Yes, I've considered this and checked ACPI spec. I'll refer them here:
+> ```
+> If the platform supports CPPC, the _CPC object must exist under all processor objects.
+> That is, OSPM is not expected to support mixed mode (CPPC & legacy PSS, _PCT, _PPC) operation.
+> ```
+> See https://uefi.org/specs/ACPI/6.5/08_Processor_Configuration_and_Control.html?highlight=cppc#power-performance-and-throttling-state-dependencies
+> So CPUs could have both _CPC and legacy P-state info in ACPI for each entry, they just can't have mixed-mode
+> Maybe we shall add sanity check to see if _CPC exists, it shall exist for all pcpus?
 
-Hmm, yes, why not. That would establish the missing link.
+Maybe, but that wasn't the point of my remark.
 
-> For watchdog specifically, we only actually need uint16_t alignment to
-> be safe, and there's no way that's going to break in practice.
+Properly behaving Dom0 should probably be passing only one of the two
+possible pieces of information. Yet maybe we'd better sanity check _that_?
+(I don't recall seeing Linux kernel side patches yet; if they were posted
+somewhere, they may at least partly address my concern.)
 
-Right.
+>> Will consumers be able to tell which of the two were correctly invoked, before using
+>> respective data? Even in the event of no code changes at all to address this, it will
+>> want discussing in the patch description.
+>>
+> 
+> I have checked the relevant spec. it shall be the following logic:
+> ```
+> Software enables Collaborative Processor Performance Control by setting
+> CPPC_ENABLE[CPPC_En] (bit 0) = 1. Once it gets enabled, the processor ignores the legacy P-state control interface.
+> ```
+> Hmmm, I shall add relevant comment in Doc?
+
+Mentioning this in the description would help. Yet the processor ignoring
+the other P-state control interface shouldn't mean we can nevertheless try
+to drive it. It has to be clear (and at least halfway obvious) internally
+to Xen that we only ever use one of the two. My present reading of the
+patches suggests that this is all implicit (and maybe not even guaranteed)
+right now.
 
 Jan
 
