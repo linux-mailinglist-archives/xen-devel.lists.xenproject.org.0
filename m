@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD2D2A39D3F
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Feb 2025 14:20:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.891406.1300451 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CF2EA39DCF
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Feb 2025 14:45:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.891422.1300460 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkNWg-0007c9-Tt; Tue, 18 Feb 2025 13:20:38 +0000
+	id 1tkNu5-0002NJ-O7; Tue, 18 Feb 2025 13:44:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 891406.1300451; Tue, 18 Feb 2025 13:20:38 +0000
+Received: by outflank-mailman (output) from mailman id 891422.1300460; Tue, 18 Feb 2025 13:44:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkNWg-0007Zt-RG; Tue, 18 Feb 2025 13:20:38 +0000
-Received: by outflank-mailman (input) for mailman id 891406;
- Tue, 18 Feb 2025 13:20:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tkNu5-0002Kp-LQ; Tue, 18 Feb 2025 13:44:49 +0000
+Received: by outflank-mailman (input) for mailman id 891422;
+ Tue, 18 Feb 2025 13:44:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vlVU=VJ=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1tkNWf-0007Zf-6C
- for xen-devel@lists.xenproject.org; Tue, 18 Feb 2025 13:20:37 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 22fba048-edfb-11ef-9896-31a8f345e629;
- Tue, 18 Feb 2025 14:20:35 +0100 (CET)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-38f3486062eso2419284f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 18 Feb 2025 05:20:35 -0800 (PST)
-Received: from [192.168.69.196] (88-187-86-199.subs.proxad.net.
- [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4395a1b824dsm181005315e9.34.2025.02.18.05.20.32
+ (envelope-from <SRS0=X4Dy=VJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tkNu3-0002Kj-TZ
+ for xen-devel@lists.xenproject.org; Tue, 18 Feb 2025 13:44:47 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 841f3c64-edfe-11ef-9aa7-95dc52dad729;
+ Tue, 18 Feb 2025 14:44:46 +0100 (CET)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-aba868c6e88so631850666b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Feb 2025 05:44:46 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-abb9de73d1csm356626366b.140.2025.02.18.05.44.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Feb 2025 05:20:33 -0800 (PST)
+ Tue, 18 Feb 2025 05:44:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,122 +45,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 22fba048-edfb-11ef-9896-31a8f345e629
+X-Inumbo-ID: 841f3c64-edfe-11ef-9aa7-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1739884835; x=1740489635; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=vC3MmtES1R3kkG1nVWHLeiRBuKWybO9xGwH1FF01u2M=;
-        b=kXhLxT61ufRgXYjPYO/PEFOrRSdiaa7MdsC5LxeGKvYVzw5LpX3ehUWWVVdy2ojZll
-         r1QP80//bWejAdHCyVFAcbjaFclYoS+rA6Tq15RUoi8DMAjGVZT7UCYdEhEb23iGKPMi
-         DBWfrMwQ5ErM2L1CtvfFmPiCurNYdyCWQHpJF2G9CF6I39pN5IWLeoOPugLDoOVDSrM4
-         kSLaNTFaC0yXXD8CB1SM9QDPDDiMMpQqzkI7AfLDsp4n/nSkrFyd7Vq90Pm0hVaYB3Mb
-         L31cwO5ymXcMisPsDn3yki7WUo1NT2AyhwSPdzTSKmDlbrQzd3DIxXagCbl0cD92hE74
-         PqXA==
+        d=suse.com; s=google; t=1739886286; x=1740491086; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=a6lkndWmlTqOYtjwmAomI5r7H1IbesB69ghHcPWMbFk=;
+        b=SF9JK4yDyfQNwGc+Y0Su8lqEJOs1CIm5U5rUads1S0p645SJUBFijTwtqms7V1wsiM
+         FwVGShCVljN5tkOYbdsQ9GnXImf4dTkYBtZhQBg+eMHPEgDqsMqOByFOxgAGQ71rIOEu
+         vbnYcO8pUs53wyEr67sFlzi5B0mDFPH9qhYu3hHlXGblqf0cXl0gs1rVT+n1bKXfItnd
+         opv0w7dN6mNv20lt81lyKDE0mkVmczMHGEeUKMK3o3Ci+1TRlU+1OzeQHvBT/B8PmlFy
+         9gkOWsJazZZoDjibidPzyuMTyMGgbLdPjOKUuD8k2quneI3YcIkB7XG2cDNBVrxheBnQ
+         xnXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739884835; x=1740489635;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=vC3MmtES1R3kkG1nVWHLeiRBuKWybO9xGwH1FF01u2M=;
-        b=vF2OivuVrqudQ9bWYfE927UeRd8xHOS0zUnSYjKgcpuA/MNl5K/IC5lCAdV2jmwKpK
-         zaG/2aexd1xr0CCaN2Ea0XHQXfJsuOUoS1mw0z37bTzFJ6PJITKhbAbW+RUBLl53cAaM
-         Q/dDVVwcZRaOjZuvrNloihTQzlJyzxfq4/KV96KuQO/3ilyaRdKsWXYnYK0U2zwAruKV
-         21MkJ5ljs3wPYd+VAQ2sA0mwJmSeJbriuBCBentN8wP5rFXb0HAcnnF6tcWnfvJ91qF+
-         BTnW+HIo9lO8SkDSLKWIyrCk8tfW9DXNyCi51sKeIxfyuKB7uu6pQZDRbwwgWzGLSCcw
-         O2rw==
-X-Forwarded-Encrypted: i=1; AJvYcCUDkmj8K0FtG1N08lkicRexBfJVat1j4ljEI0nE7Q5lH57Y/EVyoTlKeCDVXT9LSbj4ZGoeVkNw+SE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzaMuIctY/oRXV/n4BFdGTX/u9B28PspaQ2mKEJK7GYGP3GqQBx
-	atV11V6go63IiENEJ7fWQ3LQQkPxd1g1alv/XmnLdnAQvQJEZqlHKyMasCpDBXE=
-X-Gm-Gg: ASbGncuviMSMT6+V1Tg+J1izIyBE/nfiZmM6LEUYxeBhkmt8OY7i3Hl4uRJVjW1Ni44
-	g3Hywo2dGohzrzSOf/EicDoDiXtLbUEfC0s98VWocvmcLq9nfJywRQuau2Ib3IlXzCIOHOR3AiZ
-	4xydSYjO3XR+YC8PbCOJL/PyJS07W4TvKjtIe8L/PwkEitBK7LwPCU1S7D1gAgQEwt6ek3obkm0
-	SPlqjiEIeE+LYpFicPgPYTr1bgFHjOZQvzrKy4YN+SuDTUeNU3y5XJF+h0q8GVhyqb3hOkNAJvu
-	tTlL4MmhFzAdUUvVN29NLvLnWi4T5/JQ/1RNeXdu4dVW/pVIb+suvgB/CoM=
-X-Google-Smtp-Source: AGHT+IForCtadydOvVhTNjd9ECIey58DSMhrG0QgWU5N7F/lu9Reb+pwn3DxvYQ/N+/It+4SLbTErg==
-X-Received: by 2002:a05:6000:156c:b0:38f:2ddd:a1bb with SMTP id ffacd0b85a97d-38f33f10603mr11940369f8f.8.1739884834689;
-        Tue, 18 Feb 2025 05:20:34 -0800 (PST)
-Message-ID: <2691328e-09db-496f-975a-c4f61e358f92@linaro.org>
-Date: Tue, 18 Feb 2025 14:20:32 +0100
+        d=1e100.net; s=20230601; t=1739886286; x=1740491086;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=a6lkndWmlTqOYtjwmAomI5r7H1IbesB69ghHcPWMbFk=;
+        b=e4Qi1AcQrpaIiSUQML06bVBkRCiqvp1HOSHx8BzTMXtC2ZsxclKb2iVB7LSN6g10JH
+         PVW7Iur2xihS3rDvmF3cr7pGhSbllYrrqqfJnLyJ/gXNMexxKFNxjPVt8KqsIHv6NAyo
+         jc6vNwyJ1+AYYXOScgI7ABb4tf6wmVA+Hfu4QqC1R3AVoDtj2uRKV0AEjDK9vhwoCd/t
+         8j3AVAD/QIH5O4/EDkx12tFB/ssgg3Trh01MuxpzWrbVM3dlMqDt9c2ESluZ75Xq2VJB
+         bkTpmoe0fGndqgwd+G4uj2T8tj06ZOnAncNqTcVzam+7b8zjc3ZmAaAwvg1R35y9Z7Te
+         OGHA==
+X-Forwarded-Encrypted: i=1; AJvYcCUndoNR2M1Y/XZyVcwHmHz0gb6jQ78H4QG8ryTCOTW3TnC1nJMki/lZJdAqUJYJ+Vjk2Y3/LeQhmhY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxqVJ0jGTdZz5+D920z9BnVeJFNzyUMXY7C6JNqZQ7PeHNsYtBW
+	pRwbMjfLq6P1yvuw7S0EvJi7vjo7HYeq6JB3UpzewyF8Fl3C2dusc7lnJbkIiQ==
+X-Gm-Gg: ASbGncsNyusKZusUQnfp47u0aTxkbCDul/I7oWNxYeR6GyZBQ6kl1H9LBAvCnduIA1o
+	M61zGso6vppTGM5uz3JKDqZylJz0VjzMJKdnqzjCcLcktsIz1+EcTGoCFneIdldaUa6rNKHGj4H
+	hiv9KV4HjkP/G83UtSZHdNuDeTjFlmXigIRIkz5B1+DvM/1zyQGvIW9Fph84I9XIXSuSHy4HKuH
+	XIfdpNJWNfLVRfRfjdg1DqLXrpBtP15Ky0OwTMkVj6LJohbdW1jvhKlxbN63xJ0mV0ELSr4KUJc
+	F5pd4iGiyhNQzqhwC55sOJcrBr0AJvByjnqWwe11g20pS/H5m5ivKDtc5Xveqj8sgY+tYeHRlSg
+	K
+X-Google-Smtp-Source: AGHT+IGNfQ9O0MQwTPicIuC8AFtqjTFgm7S+pmKMKGZGyHRnQ6IYuimlh4nwWK3IOisvlgLx7EEcWA==
+X-Received: by 2002:a17:906:c154:b0:aaf:74dc:5dbc with SMTP id a640c23a62f3a-abb70bbe128mr1564509666b.29.1739886286082;
+        Tue, 18 Feb 2025 05:44:46 -0800 (PST)
+Message-ID: <eeb91fb4-ef2e-4f07-a1b8-1812f0371113@suse.com>
+Date: Tue, 18 Feb 2025 14:44:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PULL 3/9] meson: Disallow 64-bit on 32-bit Xen emulation
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-To: qemu-devel@nongnu.org, David Woodhouse <dwmw2@infradead.org>,
- "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>,
- Paul Durrant <paul@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony@xenproject.org>,
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-Cc: Thomas Huth <thuth@redhat.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- qemu-arm <qemu-arm@nongnu.org>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
- <alex.bennee@linaro.org>, =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?=
- <berrange@redhat.com>
-References: <20250208205725.568631-1-richard.henderson@linaro.org>
- <20250208205725.568631-4-richard.henderson@linaro.org>
- <aeaf0f19-0f14-4a02-9c51-09521e7c75e1@linaro.org>
- <dc24cf43-b6a1-42b6-ac93-4128f2c03684@linaro.org>
+Subject: Re: [PATCH v3 2/2] xen/arm: Restrict Kconfig configuration for LLC
+ coloring
+To: Luca Fancellu <luca.fancellu@arm.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20250218095130.2666580-1-luca.fancellu@arm.com>
+ <20250218095130.2666580-3-luca.fancellu@arm.com>
 Content-Language: en-US
-In-Reply-To: <dc24cf43-b6a1-42b6-ac93-4128f2c03684@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250218095130.2666580-3-luca.fancellu@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 18/2/25 14:19, Philippe Mathieu-Daudé wrote:
-> On 18/2/25 12:20, Philippe Mathieu-Daudé wrote:
->> Hi,
->>
->> Adding Xen community.
->>
->> On 8/2/25 21:57, Richard Henderson wrote:
->>> Require a 64-bit host binary to spawn a 64-bit guest.
->>>
->>> Reviewed-by: Thomas Huth <thuth@redhat.com>
->>> Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
->>> Signed-off-by: Richard Henderson <richard.henderson@linaro.org>
->>> ---
->>>   meson.build | 9 +++++++--
->>>   1 file changed, 7 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/meson.build b/meson.build
->>> index 1af8aeb194..911955cfa8 100644
->>> --- a/meson.build
->>> +++ b/meson.build
->>> @@ -304,9 +304,14 @@ else
->>>   endif
->>>   accelerator_targets = { 'CONFIG_KVM': kvm_targets }
->>> -if cpu in ['x86', 'x86_64']
->>> +if cpu == 'x86'
->>> +  xen_targets = ['i386-softmmu']
->>> +elif cpu == 'x86_64'
->>>     xen_targets = ['i386-softmmu', 'x86_64-softmmu']
->>> -elif cpu in ['arm', 'aarch64']
->>> +elif cpu == 'arm'
->>> +  # i386 emulator provides xenpv machine type for multiple 
->>> architectures
->>> +  xen_targets = ['i386-softmmu']
->>
->> Is actually someone *testing* this config? I'm having hard time building
->> it, so am very suspicious about how it runs, and start to wonder if I'm
->> not just wasting my time (as could be our CI).
-> 
-> This config is not tested and not functional. I'll post a patch
-> removing it.
+On 18.02.2025 10:51, Luca Fancellu wrote:
+> LLC coloring can be used only on MMU system,
 
-(thus no need to follow the deprecation policy).
+Just for my own education: Why is this?
 
-> 
->>
->>> +elif cpu == 'aarch64'
->>>     # i386 emulator provides xenpv machine type for multiple 
->>> architectures
->>>     xen_targets = ['i386-softmmu', 'x86_64-softmmu', 'aarch64-softmmu']
->>>   else
->>
->> Regards,
->>
->> Phil.
->>
-> 
-
+Jan
 
