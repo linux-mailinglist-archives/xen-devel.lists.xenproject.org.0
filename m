@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2259A3A1E4
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Feb 2025 16:57:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.891953.1300959 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D1B6A3A1E6
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Feb 2025 16:58:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.891971.1300978 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkPyI-0004vD-0u; Tue, 18 Feb 2025 15:57:18 +0000
+	id 1tkPzN-0006BU-GF; Tue, 18 Feb 2025 15:58:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 891953.1300959; Tue, 18 Feb 2025 15:57:18 +0000
+Received: by outflank-mailman (output) from mailman id 891971.1300978; Tue, 18 Feb 2025 15:58:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkPyH-0004s3-U7; Tue, 18 Feb 2025 15:57:17 +0000
-Received: by outflank-mailman (input) for mailman id 891953;
- Tue, 18 Feb 2025 15:57:16 +0000
+	id 1tkPzN-00068t-DO; Tue, 18 Feb 2025 15:58:25 +0000
+Received: by outflank-mailman (input) for mailman id 891971;
+ Tue, 18 Feb 2025 15:58:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=X4Dy=VJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tkPyG-0004rx-BZ
- for xen-devel@lists.xenproject.org; Tue, 18 Feb 2025 15:57:16 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ id 1tkPzL-0004rx-FC
+ for xen-devel@lists.xenproject.org; Tue, 18 Feb 2025 15:58:23 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 05308b42-ee11-11ef-9896-31a8f345e629;
- Tue, 18 Feb 2025 16:57:14 +0100 (CET)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-abb7f539c35so642749166b.1
- for <xen-devel@lists.xenproject.org>; Tue, 18 Feb 2025 07:57:14 -0800 (PST)
+ id 2d8b1ecb-ee11-11ef-9896-31a8f345e629;
+ Tue, 18 Feb 2025 16:58:21 +0100 (CET)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-5deb1266031so10041162a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Feb 2025 07:58:21 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abb961594absm454785766b.111.2025.02.18.07.57.12
+ a640c23a62f3a-aba53232039sm1082376466b.9.2025.02.18.07.58.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Feb 2025 07:57:13 -0800 (PST)
+ Tue, 18 Feb 2025 07:58:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05308b42-ee11-11ef-9896-31a8f345e629
+X-Inumbo-ID: 2d8b1ecb-ee11-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739894234; x=1740499034; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739894301; x=1740499101; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=A7N9A36/htFLzAYOHrv1EF02gvrGCDgUztfOt7BT75A=;
-        b=BdCOXy5XjVy9uhfo1PspfkB+11t4fHdt0yoIvZzeVRLBkVpEMWz/hAbhHUQ7RdERGs
-         iA51OuN0y0JVkIE8emtTa7HYx092A34xNKkwiEEsC+8yQVDcBhmLFxTIXC0qgfBNlP9h
-         qyXLkPA6PRPQFWR9/N1jSAldZaSgsR2M2Case3WOSAOaXIgaG3S2hUYDQPr/45oVgm9P
-         23IzzBiC85BT+UKtRIRERePlJoybz22yGBTAqgPP5fWD7PpvEK/B1Xa1conj4PMT3bF3
-         6DQ8AehBz10WQhVJBi9Bx1YX3zZG+6h7qGGLxH68SfU0CZ5wn0o2rr5goewpSCOAOVB7
-         LcEQ==
+        bh=keJpOkJI/SZSeQsFY2/E2yV+wluNgLR7CM9pKD8X+j8=;
+        b=f6Guzxu3M065iuDt0wK2fYvAf2Bmqsf1L/xoYEQIR4I2ClTb/fvr7okhuHtLEPaR2P
+         8woj4AVZgH+5ecpRjkccGejXtdADkMUfWqq/56bze+9zHnxFzdG/Owe3VHYm0IEKs3O6
+         A6w7kjFOuGlgYl5fpJG5xhG22dKqvVg6obRFTvmsJrqd05O57p7lP1qE7fe/odTeDAZR
+         lVFeyba8AvljPtsmZWTyIqqpSy1yErRqFDd5TZ9OQEqCDmCLoNKdL9tHvry0nGvBzU1u
+         lTOoZkr3PWO4LUo+Cfm8gS4ZJcFH4orz4X+oTBIP2+UtvohuWgvxbzz1ByfSC7YGBxRR
+         MXkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739894234; x=1740499034;
+        d=1e100.net; s=20230601; t=1739894301; x=1740499101;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=A7N9A36/htFLzAYOHrv1EF02gvrGCDgUztfOt7BT75A=;
-        b=YLoE3ryHwoIdVm/GX1Blh9GNIk8D++htZstItYByrARpXMyajRvQOWwLTktkwTLkgB
-         uktyNAxhoVZxw0Dr/HFi5dRK0PpLRgLfARQ5Uy142oSaEoPYL5jzaRIj/IwpOByWnWfK
-         zt2ivomIGh5doBh7jiYQgxZFuh3L1tCWcYvvZS08wTC8y0AiU1qJijZS1aakYJnL2qIS
-         0QJviu4uAfODyVbQve7oly42mQnxMOtedQdpwUdOAOqlYwDjf5DKrCE9/cWnX9fKFSCJ
-         8a40fvIQBRdvRQonmtNXNAwr64WLDo+57z7ECtupFjvqcJEjbuaYU8GxNsgooTOzsQcp
-         rrLg==
-X-Forwarded-Encrypted: i=1; AJvYcCXyBD68u+YKTAK4R1tVeT6OIIRQr4tSlT19eAZ6b8EM7E8kpSj7Li0AH6XldPdIgfjxli7P1Fg6KAI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwpdFrogJAMUkR7Thf7jFo8dUlqRXIdLi3klgE/zvA5WUjkFNWs
-	41RIEVoysNvk9rEB9ntKLmLKKJmTtEO/D+DGJYzeWHnTCojw8FLEsgvOgvNdPw==
-X-Gm-Gg: ASbGnctEQ656irycaRqnaiAOrtphsf/Cs24sP6QH9Bt2dxJ37jKyCh+U3LGhax/ovU5
-	lgps2zNyWuWejzSKeMDc48OmGNPAsEjWzwBiqkZkefcqD75hqP0Zlwn5GLJB846rdWb1liWjvVE
-	P5l5roxOUqHiUiI/i/KQMQqD29cjAO8jF4IG7OsUNGsTcMGplsnB8jzqbtpIM7+vBYBGJRMEAAt
-	ZWCNBUGk83jeuzhl/qlRLA3n3XOX7dWy/+sG+XXedUezzS2gI6YDYBgTlwO5h6xwFc69YliuwHg
-	vofAKqZp6lxWlOSWbhqcvZR3emcZ2ZRnO6dywMsJlGXrObShvPI151N6JCXkTH5BIrXy2jaXv+w
-	P
-X-Google-Smtp-Source: AGHT+IERSoj1bgThvpbHIp+crMSazmUYNPnM1+63KK0BnT3svP3xCr5+vlYdaYcPVxak7EDGcdiNJw==
-X-Received: by 2002:a17:906:7312:b0:ab6:ed9e:9739 with SMTP id a640c23a62f3a-abb70d9ecc3mr1465601066b.42.1739894233578;
-        Tue, 18 Feb 2025 07:57:13 -0800 (PST)
-Message-ID: <dc48b962-b156-41b3-8951-af1df9c82ba0@suse.com>
-Date: Tue, 18 Feb 2025 16:57:12 +0100
+        bh=keJpOkJI/SZSeQsFY2/E2yV+wluNgLR7CM9pKD8X+j8=;
+        b=OX6En1QB4y1rWnI5bdKlb8cumiB73ZPgMrRKpGTX1JBpiGHiGVkrtdgwy3gjj5h9TS
+         3e87SIWgwLPddeC89wgB07GarhNVPaW525uBZytvxmjmqTsEujwQ+N4Ke93IAtA1Jz9V
+         0yp+pvXjyGJmWY3xAF2AV6MxdI+NLUl0zxCC65hoW0j4G2+5SklOWjfq26ly2HRBOwQA
+         sXproUB4mIpL2VHMKZZqMEa4uLl5zbt/T6Twc7TMTPIonUFcPUFqIAij1mQAOc8Z22GJ
+         kqT7rm8o3y3Sk7lVpb1gPjtTD4WS+VJX0+iG6tcJ+BSP9ieIYIru6BnMfg2yHqFJA6U9
+         MDbw==
+X-Forwarded-Encrypted: i=1; AJvYcCXCJKtVBK9eGtEtZcs5iM2GSU4ZX8XG9B/LDo/7H76TQyhkDKzjVhdZMg3xV5k91ZTvkrT5oJhx5O8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzTDtVBeAtbBVj11E2jNsJ0IarbU9kLil2N7cr+mmWVI50U817N
+	8ITQr67Gq40G7WHMaiTDbKDQGXSDl2SvTCMFVc5w4uy9q0sjQ5an2ENOjHgbgg==
+X-Gm-Gg: ASbGnctkboCVzf2CwxP5Qso7TbvXqzwPXWH9LStJhrOt9QTwPeDlGtU0ASr0x1l4TYf
+	wVrcG48qOy6SeFmBYLD7GIFstgFgCw2WSr8XheplDpunmhVpVcUthIdYGjGmh0LFZYtc49PjuzD
+	GwMWI1xOd6h9LIl4/OUzmeUhVXFxyAJT7kfqNcak0FlRT+lxeZyKtkuaRNlSBnNBZwhh4UFc5vM
+	7c36KRbeT7mBTY9ESxcrurjWmFYLuE/MDEGi/OrFzXfHAf3q3TpCLBZfOTnMhEahkn06WQXkd/a
+	/SkakK0ZCKbnGk0H1woi69yTD97kf2ly1FRX3tCjkxNX5ocSIlHfPOXr/NOd7A2gSfkoNxCP1/5
+	U
+X-Google-Smtp-Source: AGHT+IHiDA8pK4OTZ1tdSoWZnNI1+lXBcGulFxpDaPVphFmd50xFe/3JLrTAwPzcDGXHa679fj1aVQ==
+X-Received: by 2002:a17:906:314f:b0:abb:6b1a:7b22 with SMTP id a640c23a62f3a-abb70b3b6f4mr1391598366b.29.1739894301284;
+        Tue, 18 Feb 2025 07:58:21 -0800 (PST)
+Message-ID: <eb003947-612e-475f-911c-f42e45d552da@suse.com>
+Date: Tue, 18 Feb 2025 16:58:20 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 2/2] x86/dom0: attempt to fixup p2m page-faults for PVH
  dom0
-To: Roger Pau Monne <roger.pau@citrix.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
  Community Manager <community.manager@xenproject.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>
 References: <20250218143504.77638-1-roger.pau@citrix.com>
  <20250218143504.77638-3-roger.pau@citrix.com>
+ <Z7Sq4wXr3nqQpdMk@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,38 +125,36 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250218143504.77638-3-roger.pau@citrix.com>
+In-Reply-To: <Z7Sq4wXr3nqQpdMk@macbook.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 18.02.2025 15:35, Roger Pau Monne wrote:
-> When building a PVH dom0 Xen attempts to map all (relevant) MMIO regions
-> into the p2m for dom0 access.  However the information Xen has about the
-> host memory map is limited.  Xen doesn't have access to any resources
-> described in ACPI dynamic tables, and hence the p2m mappings provided might
-> not be complete.
+On 18.02.2025 16:44, Roger Pau Monné wrote:
+> On Tue, Feb 18, 2025 at 03:35:04PM +0100, Roger Pau Monne wrote:
+>> --- a/docs/misc/xen-command-line.pandoc
+>> +++ b/docs/misc/xen-command-line.pandoc
+>> @@ -822,7 +822,8 @@ Specify the bit width of the DMA heap.
+>>  
+>>  ### dom0
+>>      = List of [ pv | pvh, shadow=<bool>, verbose=<bool>,
+>> -                cpuid-faulting=<bool>, msr-relaxed=<bool> ] (x86)
+>> +                cpuid-faulting=<bool>, msr-relaxed=<bool>,
+>> +                pf-fixup=<bool> ] (x86)
+>>  
+>>      = List of [ sve=<integer> ] (Arm64)
+>>  
+>> @@ -883,6 +884,19 @@ Controls for how dom0 is constructed on x86 systems.
+>>  
+>>      If using this option is necessary to fix an issue, please report a bug.
+>>  
+>> +*   The `pf-fixup` boolean is only applicable when using a PVH dom0 and
+>> +    defaults to false.
 > 
-> PV doesn't suffer from this issue because a PV dom0 is capable of mapping
-> into it's page-tables any address not explicitly banned in d->iomem_caps.
-> 
-> Introduce a new command line options that allows Xen to attempt to fixup
-> the p2m page-faults, by creating p2m identity maps in response to p2m
-> page-faults.
-> 
-> This is aimed as a workaround to small ACPI regions Xen doesn't know about.
-> Note that missing large MMIO regions mapped in this way will lead to
-> slowness due to the VM exit processing, plus the mappings will always use
-> small pages.
-> 
-> The ultimate aim is to attempt to bring better parity with a classic PV
-> dom0.
-> 
-> Note such fixup rely on the CPU doing the access to the unpopulated
-> address.  If the access is attempted from a device instead there's no
-> possible way to fixup, as IOMMU page-fault are asynchronous.
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> I'm considering whether the default should instead be true, so that
+> PVH is closer to what which regions a classic PV dom0 gets access to.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+I was wondering about this too, but then thought that we may want to do
+this in a separate step, once we've had some more coverage.
 
+Jan
 
