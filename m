@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CF2EA39DCF
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Feb 2025 14:45:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.891422.1300460 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94E7CA39DE7
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Feb 2025 14:48:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.891432.1300470 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkNu5-0002NJ-O7; Tue, 18 Feb 2025 13:44:49 +0000
+	id 1tkNxk-0002wd-6i; Tue, 18 Feb 2025 13:48:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 891422.1300460; Tue, 18 Feb 2025 13:44:49 +0000
+Received: by outflank-mailman (output) from mailman id 891432.1300470; Tue, 18 Feb 2025 13:48:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkNu5-0002Kp-LQ; Tue, 18 Feb 2025 13:44:49 +0000
-Received: by outflank-mailman (input) for mailman id 891422;
- Tue, 18 Feb 2025 13:44:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tkNxk-0002ux-3b; Tue, 18 Feb 2025 13:48:36 +0000
+Received: by outflank-mailman (input) for mailman id 891432;
+ Tue, 18 Feb 2025 13:48:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=X4Dy=VJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tkNu3-0002Kj-TZ
- for xen-devel@lists.xenproject.org; Tue, 18 Feb 2025 13:44:47 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 841f3c64-edfe-11ef-9aa7-95dc52dad729;
- Tue, 18 Feb 2025 14:44:46 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-aba868c6e88so631850666b.2
- for <xen-devel@lists.xenproject.org>; Tue, 18 Feb 2025 05:44:46 -0800 (PST)
+ id 1tkNxj-0002ur-7C
+ for xen-devel@lists.xenproject.org; Tue, 18 Feb 2025 13:48:35 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0b3329b6-edff-11ef-9896-31a8f345e629;
+ Tue, 18 Feb 2025 14:48:33 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-abadccdfe5aso681001966b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Feb 2025 05:48:33 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abb9de73d1csm356626366b.140.2025.02.18.05.44.45
+ a640c23a62f3a-abba278e1b1sm322089666b.99.2025.02.18.05.48.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Feb 2025 05:44:45 -0800 (PST)
+ Tue, 18 Feb 2025 05:48:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 841f3c64-edfe-11ef-9aa7-95dc52dad729
+X-Inumbo-ID: 0b3329b6-edff-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739886286; x=1740491086; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739886513; x=1740491313; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=a6lkndWmlTqOYtjwmAomI5r7H1IbesB69ghHcPWMbFk=;
-        b=SF9JK4yDyfQNwGc+Y0Su8lqEJOs1CIm5U5rUads1S0p645SJUBFijTwtqms7V1wsiM
-         FwVGShCVljN5tkOYbdsQ9GnXImf4dTkYBtZhQBg+eMHPEgDqsMqOByFOxgAGQ71rIOEu
-         vbnYcO8pUs53wyEr67sFlzi5B0mDFPH9qhYu3hHlXGblqf0cXl0gs1rVT+n1bKXfItnd
-         opv0w7dN6mNv20lt81lyKDE0mkVmczMHGEeUKMK3o3Ci+1TRlU+1OzeQHvBT/B8PmlFy
-         9gkOWsJazZZoDjibidPzyuMTyMGgbLdPjOKUuD8k2quneI3YcIkB7XG2cDNBVrxheBnQ
-         xnXQ==
+        bh=IE/MJCEzIFlukpkN370O/1jijH/ouFB7dZXgc9B6vD8=;
+        b=gy0RV8QPJ0E0rOV2inWHyRRpJFKxfPM2Fsl+pMKrbfAZfA9et4yyvyAyTCPws6FSmn
+         GzRSndcdyMZsF2CZ/6uAeq9MKaPkjFOeqW9H8mxTOSoTZe8TkYDlZut6x5ZrfaoCjpww
+         oWE+vowBJ9QOZZiEphmRRoDDHWNDK1YBB/+dLZdl8nX1BHsZL3Y7U8GUa2DRPB8+JzW9
+         xTfai+CVayzZDhly4J6VS8gxg4yC3KLJZhws3rOalhyikLys9DDZpSZ9BkdxdmJBaTKL
+         WI5j6uVYQHINkPSDLp+2DQJrsPJ8rc7fMrsKOzJWX2OdubTbI4aCd0oY6NMrwiIk/0tu
+         2qBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739886286; x=1740491086;
+        d=1e100.net; s=20230601; t=1739886513; x=1740491313;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=a6lkndWmlTqOYtjwmAomI5r7H1IbesB69ghHcPWMbFk=;
-        b=e4Qi1AcQrpaIiSUQML06bVBkRCiqvp1HOSHx8BzTMXtC2ZsxclKb2iVB7LSN6g10JH
-         PVW7Iur2xihS3rDvmF3cr7pGhSbllYrrqqfJnLyJ/gXNMexxKFNxjPVt8KqsIHv6NAyo
-         jc6vNwyJ1+AYYXOScgI7ABb4tf6wmVA+Hfu4QqC1R3AVoDtj2uRKV0AEjDK9vhwoCd/t
-         8j3AVAD/QIH5O4/EDkx12tFB/ssgg3Trh01MuxpzWrbVM3dlMqDt9c2ESluZ75Xq2VJB
-         bkTpmoe0fGndqgwd+G4uj2T8tj06ZOnAncNqTcVzam+7b8zjc3ZmAaAwvg1R35y9Z7Te
-         OGHA==
-X-Forwarded-Encrypted: i=1; AJvYcCUndoNR2M1Y/XZyVcwHmHz0gb6jQ78H4QG8ryTCOTW3TnC1nJMki/lZJdAqUJYJ+Vjk2Y3/LeQhmhY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxqVJ0jGTdZz5+D920z9BnVeJFNzyUMXY7C6JNqZQ7PeHNsYtBW
-	pRwbMjfLq6P1yvuw7S0EvJi7vjo7HYeq6JB3UpzewyF8Fl3C2dusc7lnJbkIiQ==
-X-Gm-Gg: ASbGncsNyusKZusUQnfp47u0aTxkbCDul/I7oWNxYeR6GyZBQ6kl1H9LBAvCnduIA1o
-	M61zGso6vppTGM5uz3JKDqZylJz0VjzMJKdnqzjCcLcktsIz1+EcTGoCFneIdldaUa6rNKHGj4H
-	hiv9KV4HjkP/G83UtSZHdNuDeTjFlmXigIRIkz5B1+DvM/1zyQGvIW9Fph84I9XIXSuSHy4HKuH
-	XIfdpNJWNfLVRfRfjdg1DqLXrpBtP15Ky0OwTMkVj6LJohbdW1jvhKlxbN63xJ0mV0ELSr4KUJc
-	F5pd4iGiyhNQzqhwC55sOJcrBr0AJvByjnqWwe11g20pS/H5m5ivKDtc5Xveqj8sgY+tYeHRlSg
-	K
-X-Google-Smtp-Source: AGHT+IGNfQ9O0MQwTPicIuC8AFtqjTFgm7S+pmKMKGZGyHRnQ6IYuimlh4nwWK3IOisvlgLx7EEcWA==
-X-Received: by 2002:a17:906:c154:b0:aaf:74dc:5dbc with SMTP id a640c23a62f3a-abb70bbe128mr1564509666b.29.1739886286082;
-        Tue, 18 Feb 2025 05:44:46 -0800 (PST)
-Message-ID: <eeb91fb4-ef2e-4f07-a1b8-1812f0371113@suse.com>
-Date: Tue, 18 Feb 2025 14:44:45 +0100
+        bh=IE/MJCEzIFlukpkN370O/1jijH/ouFB7dZXgc9B6vD8=;
+        b=kvZZXF1zXHpGrvEW0tPKkAcUTyCZGZ+KVNMyof+tMcGcAprAU7YfsK0zNOrhMzoOh6
+         VYFIeF/uNm9EuEcbDH9m9GGrsfajvdQpKPoGlsCV3fAv0d7nwIJqauj4k0rM64DZaels
+         OVzCceP8OUBbiy2lDnMTPoCphXWah6Y6zjI2H44eWjVJSqPHk5BrzsdBdXYA9v3eTh3v
+         M/79YYwMDStwpLhH0CzrIQW7Hd1NfPWlqaqk4Mu68APXQYHt5WZCg/goXAHPy//dZ9EP
+         m1rel45aqTVjBQ6hUfy3v1Kke8ppsx3oyQ6BNHp7grwFE30klexlOVW5VMLcpOtCfKhq
+         a4Xw==
+X-Forwarded-Encrypted: i=1; AJvYcCWSQ8KxHPhxkDiy54KbgerzrWTVm2MA28fi4/0zf1aMu1C96Il+9kBpokc6duvXwMCRYyZTqFLQQhE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzP2nacJl+bVbtxB2/sN7HNzz4SyUvvjSaFeP0ePWVXJhoaktJ7
+	0C+u5zAISWzAGmWwFyQdlvIDds20Kc55NbKS4utxNLF5i3MFRXsKjy5M9m5DTg==
+X-Gm-Gg: ASbGncszZAZbhDXhPhkzrJR8HJwabSVipcXTvikMR+Rfi7ex9rPHI6ooycEw/buXzWa
+	pFgnnF4ffIDD8ETgGjBUJY4YSo50ao2n/I6r6DdgpXpHWQ0WAXzKqg/jLAvbNoQ9AkQMvvTollV
+	l2ffrmU1RHM174s/u/NEJ6C/VNZ4uJ5N37/hjMqW9463RF1Md8YaaQaqiWXhKDqhHQP7QBYZyaV
+	vu5z8VR5qhVw+HLbdQ95B0fVDp8/udfJ5vxzIzaQYS/2MHF9hu2m56etrqo/2LQtYYOi19hf4gr
+	5oX/Wbo1FpVIGhfsCDOkC3ikRDD4yuZLkq1PHiI/idNDuxrAt2R0RO5jUqxCbmXx2UFE7e3d4GB
+	v
+X-Google-Smtp-Source: AGHT+IH3jZGe5qPp7zeXQoFqkVQEoiV1ooAUkxtKkMhTcAz0yvCGit2CS27lmieQXSIM/Bwo4u/qnQ==
+X-Received: by 2002:a17:907:981:b0:ab7:b250:aaa with SMTP id a640c23a62f3a-abb70dd65dfmr1285667166b.54.1739886512663;
+        Tue, 18 Feb 2025 05:48:32 -0800 (PST)
+Message-ID: <83d25745-f385-492f-9482-05dc9e701a1d@suse.com>
+Date: Tue, 18 Feb 2025 14:48:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] xen/arm: Restrict Kconfig configuration for LLC
- coloring
-To: Luca Fancellu <luca.fancellu@arm.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
+Subject: Re: [PATCH for-4.21 3/3] xen/ACPI: Drop local acpi_os_{v,}printf()
+ and use plain {v,}printk()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
-References: <20250218095130.2666580-1-luca.fancellu@arm.com>
- <20250218095130.2666580-3-luca.fancellu@arm.com>
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250217194421.601813-1-andrew.cooper3@citrix.com>
+ <20250217194421.601813-4-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,14 +125,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250218095130.2666580-3-luca.fancellu@arm.com>
+In-Reply-To: <20250217194421.601813-4-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18.02.2025 10:51, Luca Fancellu wrote:
-> LLC coloring can be used only on MMU system,
+On 17.02.2025 20:44, Andrew Cooper wrote:
+> Now that Xen has a real vprintk(), there's no need to opencode it locally with
+> vsnprintf().  Redirect the debug routines to the real {v,}printk() and drop
+> the local acpi_os_{v,}printf() implementations.
+> 
+> Amongst other things, this removes one arbitrary limit on message size, as
+> well as removing a 512 byte static buffer that ought to have been in
+> __initdata given that is private to an __init function.
+> 
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Just for my own education: Why is this?
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+
 
