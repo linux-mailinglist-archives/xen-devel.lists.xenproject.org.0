@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 393A1A39AB0
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Feb 2025 12:25:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.891298.1300361 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94294A39ADA
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Feb 2025 12:29:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.891310.1300371 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkLiy-0003KC-V3; Tue, 18 Feb 2025 11:25:12 +0000
+	id 1tkLn6-0003vX-De; Tue, 18 Feb 2025 11:29:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 891298.1300361; Tue, 18 Feb 2025 11:25:12 +0000
+Received: by outflank-mailman (output) from mailman id 891310.1300371; Tue, 18 Feb 2025 11:29:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkLiy-0003Hc-Rg; Tue, 18 Feb 2025 11:25:12 +0000
-Received: by outflank-mailman (input) for mailman id 891298;
- Tue, 18 Feb 2025 11:25:11 +0000
+	id 1tkLn6-0003tk-Ap; Tue, 18 Feb 2025 11:29:28 +0000
+Received: by outflank-mailman (input) for mailman id 891310;
+ Tue, 18 Feb 2025 11:29:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=X4Dy=VJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tkLix-0003HW-8L
- for xen-devel@lists.xenproject.org; Tue, 18 Feb 2025 11:25:11 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
+ id 1tkLn4-0003te-NS
+ for xen-devel@lists.xenproject.org; Tue, 18 Feb 2025 11:29:26 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0320bbfe-edeb-11ef-9aa7-95dc52dad729;
- Tue, 18 Feb 2025 12:25:09 +0100 (CET)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-abbae92be71so142688066b.2
- for <xen-devel@lists.xenproject.org>; Tue, 18 Feb 2025 03:25:10 -0800 (PST)
+ id 9b59e4a0-edeb-11ef-9aa7-95dc52dad729;
+ Tue, 18 Feb 2025 12:29:25 +0100 (CET)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-abb7aecd39fso500887966b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Feb 2025 03:29:25 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5dece1d354bsm8671273a12.45.2025.02.18.03.25.09
+ a640c23a62f3a-abb9b1871a6sm354614466b.74.2025.02.18.03.29.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Feb 2025 03:25:09 -0800 (PST)
+ Tue, 18 Feb 2025 03:29:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0320bbfe-edeb-11ef-9aa7-95dc52dad729
+X-Inumbo-ID: 9b59e4a0-edeb-11ef-9aa7-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739877909; x=1740482709; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739878165; x=1740482965; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8tudUaU8dYAATPJvT/x5yvyh34+Toyj54VNuehLi+HA=;
-        b=JC8n3qIsFEVRnjYi1o0KGfL2GjW4hk/S/k+Yb3q4V56VYNdiqDDtkKZnQzorDs8rjn
-         Iyfviwf5JVLcyUDNTPo/NGkvXV4IerbEebD+LbubfSdv/iDdXjzfwG4vgjnoj1AoYKSW
-         tszuhJ0MxomaD5jBFxIC7AJfLg3jRuSSeT+e8LIG0apctnsLIigp10DekqK+lpD8qxs8
-         OnjjoCYn9UPDa1H9q1x471OlqtYtMN0VXqBAk4T2ZqCd9r3IbCXMpLBLuyRjTwdXGoBT
-         UEiyyqYWQwS7jd6udR1I+LvI5MhndNXqSDFMm0ZWwOtfGs5TDDQioIsSZE9jooOCKtFA
-         0ctA==
+        bh=hkVVvlmqown/dubGUQPDr9F8/yw8cSv7QnFRfkAbheo=;
+        b=MmmDFFGDMztbM3B6DiueBgE/IDXaGRA9CKda4VqIPb6kde7dWfYKInP+JedaXKgR5M
+         HErcrtuCq0dS8i3i5L2+PedvKkssdEGynQBiHDABKA4cLE7kbffq8GB5PaF2ignKMpBs
+         60HhrMZwuj9PHBv7PJfAl9Xz2XfJRMlidJ4VZ2VEEy3bT7Qj5dnUQzbFuIg1dVrHs+Ei
+         4fioL7nEQZnfcTNcRyOlavbIWk8gxOt6rYylJb75T1jk2Wkc9vr7IZW9sWHS0dcAihfR
+         CGviWp0qo2x2pDnWOpOOJsRe+xi/delCUrBQBv7gHP1RARh/lKXcPg3gkCDlmDdFMTZS
+         ETGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739877909; x=1740482709;
+        d=1e100.net; s=20230601; t=1739878165; x=1740482965;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8tudUaU8dYAATPJvT/x5yvyh34+Toyj54VNuehLi+HA=;
-        b=n6lZLlvyAUQY2XHAQx8GqnPTQwWIvcrY85zbLn0EiJ+s+a1lc8LL+rFLW6vA4haQ/Y
-         vEwYIAP/x2JdDnccbgchSdzCmjNqzED23W3/hiX9Kl1IT1WoJmuYpz/CNp0SGk1iggJ8
-         VcfnzHbtD9FlyH0IysdaeTp7Az1VrohJ5aeWFulJrnDdzY7bEEfyYLVdXAWHvI54o+Gz
-         VrPdJmHXTYAVQKiX3cfrmzEHIOTeMSc+rW9L62+E/qosKL/g0+0ai7+f3sNKYTdir1c4
-         q63PlWX5K27+ya0LQENz/3GMhY8BtGJJ9jnvaUN83yGoPlwwl6FV28QtHhpWk5ZLxXTk
-         kOcA==
-X-Forwarded-Encrypted: i=1; AJvYcCWZr9u2Mb7Q8Ub6lOB3dCmZ9WPcCrGE9fy14nMCRwBR1HXQGrcw9Ohb1RoCljyTPI7P/bIONbDZ3Bw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyfXqjwTHDfsQAjbKCM7v5DcMulvx4HGpIbhjGmNnRMzeew/zVX
-	dfPZKKU6RojYScSgU0N3QBa79MZgaLi/e6ZjPyx8xGKx75pMZegKe0dJNd9XrC5qfEpAQwRNncM
-	=
-X-Gm-Gg: ASbGnctj9Z8dhqI0iyC6p4mHjavIBpuWCG+BCEOF3GD8BaZruFnfCuybevnEn9bCYRF
-	FGYkpRYMM9FrtS5r0W5FpG538xyEQHJMu4AR/GKdYHefIaybZ4XafAVWVoJ21HUVLb6Rodbkt7x
-	hKzn2/bVXpRUUIbpz0yRex3In8lko6sQioiwu6Xwe+kh1P8EBkBVf1tfsWAsmS4Y7ton8NnSs4r
-	JvanoEJyLteibolDdpzBPKncEcRBwmG6qaGICGGewWoPLwWhGFjWgHkfzIprg1s5zYGIrhnMaRR
-	U8HOaUbDF2eZPKJCng2CPugiF+jDDZ/u4eDdepI70AoZ1HQq5fpiq0GUWtQtWSrM7/3zr0dwrza
-	T
-X-Google-Smtp-Source: AGHT+IG/W8tTjO+cBLvtCQ3JJEWeS2NisdgsYbx1d1HQ0GM2mieTlIMvKsr2GfvM9L362QeKOZtRZA==
-X-Received: by 2002:a05:6402:5253:b0:5d0:bf5e:eb8 with SMTP id 4fb4d7f45d1cf-5e036139caamr28465235a12.23.1739877909506;
-        Tue, 18 Feb 2025 03:25:09 -0800 (PST)
-Message-ID: <960870ad-3c72-4075-a97d-6504e0cad548@suse.com>
-Date: Tue, 18 Feb 2025 12:25:08 +0100
+        bh=hkVVvlmqown/dubGUQPDr9F8/yw8cSv7QnFRfkAbheo=;
+        b=iKvV6cN7NzeJMu/hr/+lus1ER/jL90uTb5Gljc5dmvxgR+J/8OEzjMtbApw0OxgHru
+         4THKht/qfIO4xu/lSR0xpEY2uT3J/VjKOqLZ2vxJL4+BljRwWh6V/sWD7/7dWjpTLzBd
+         FORjSSR1KN08l9EWeas+YMRbNalmtXK8Uob1VslhunurBR7EYNF+zaaPl3y0NW0dU4vW
+         lrpnvf95/Id0Y6vp9bspgeCSPz5nTALL+JmdhrFnlBUjwGF/cdz0CfhEJL+NEk3FS/TW
+         cEsiDxR5qu852un0I3cj/lHidC0kqJrBhQoGXp1VawIW9XRm0KYIPUK6Jldfe70/R0lq
+         DkvQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVDoPrjmZ4cWZACDNeT38plGHyvk0zNcZNYwhX831eqdBEEzbJoH27KYuYU6xomBedUBdEne9xDg/M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxSu8Yn3QtDmQfJrxhKhZPLfV/PYcdWGXFUU8KAzdIOx3Ewv8Hr
+	mdUSuvg7LcuwSgKqiz5dYgoOjOodmByQUMcUAHlPvBsxGMrw0z7HPTuyL1GbRw==
+X-Gm-Gg: ASbGnctxxfQL7LcUjLXukeaSNrH7qYuWEHiehFLvEM1WJviZcbiMvtgYwkALleism3q
+	TIiuQhmor6ag9MUpJbexY9TWdH2i8LiQjray8897FskwhvbrHYlvtOdZB8WtRqzec5+2J9ocjQF
+	gm1C12kOXK5ZCaJIr23723ilmRq53o4wFjrPt4XNPMf5dOPnpH3L+RAeD++aGcKtfyL13p2Jle5
+	gAYs3p5MDqn8mUQRqSseFEOLeenheRhH2lcXm4TEFzU/0kDxLgG/btxTPu5vYWrVjTEg2Dhisys
+	1SmcSL9KQM4UWKo9f8Oeubj62wh6o3GRtpY+yYnMEsFjnjDXqStcbLrObTSyJv3glKO+4SjalDV
+	2
+X-Google-Smtp-Source: AGHT+IGIcqGaRM9VVFgDzAuOCiOAfUuSUNX/N0I1Y6kMoH+zdPmnuswxezqogavO6pZbBOcxTaC9/Q==
+X-Received: by 2002:a17:907:7d8b:b0:ab3:3b92:8ca5 with SMTP id a640c23a62f3a-aba50fa0db1mr2029354766b.12.1739878164903;
+        Tue, 18 Feb 2025 03:29:24 -0800 (PST)
+Message-ID: <9d966b20-18c4-49ac-8007-95bac3a95b51@suse.com>
+Date: Tue, 18 Feb 2025 12:29:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/svm: Separate STI and VMRUN instructions in
- svm_asm_do_resume()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250217161241.537168-1-andrew.cooper3@citrix.com>
- <7763e57c-a2d2-4642-b613-8628ae4c55da@suse.com>
- <8edb290a-ed47-42c5-b809-5ec73fb2bd3e@citrix.com>
+Subject: Re: struct mctelem_cookie missing definition
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <alpine.DEB.2.22.394.2502121721490.619090@ubuntu-linux-20-04-desktop>
+ <1823d604-aa29-4828-a954-b8a08fbdbda7@citrix.com>
+ <alpine.DEB.2.22.394.2502121738440.619090@ubuntu-linux-20-04-desktop>
+ <alpine.DEB.2.22.394.2502121800190.619090@ubuntu-linux-20-04-desktop>
+ <eccc2a63-9678-4675-8a7b-7c8e94206cb8@suse.com>
+ <alpine.DEB.2.22.394.2502131326440.619090@ubuntu-linux-20-04-desktop>
+ <alpine.DEB.2.22.394.2502131804510.619090@ubuntu-linux-20-04-desktop>
+ <3c883b4587d750c2723637a037fb46b4@bugseng.com>
+ <69a70bfa-203c-44f9-99ea-60a674e36442@suse.com>
+ <alpine.DEB.2.22.394.2502141245150.3858257@ubuntu-linux-20-04-desktop>
+ <c7f35e1a8a14eb5ffb19d67bbc63036b@bugseng.com>
+ <cc9d0a73-f189-403e-9ea4-bcd961ce3c44@suse.com>
+ <alpine.DEB.2.22.394.2502171837170.1085376@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,56 +130,104 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <8edb290a-ed47-42c5-b809-5ec73fb2bd3e@citrix.com>
+In-Reply-To: <alpine.DEB.2.22.394.2502171837170.1085376@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 17.02.2025 18:40, Andrew Cooper wrote:
-> On 17/02/2025 4:51 pm, Jan Beulich wrote:
->> On 17.02.2025 17:12, Andrew Cooper wrote:
->>> There is a corner case in the VMRUN instruction where its INTR_SHADOW state
->>> leaks into guest state if a VMExit occurs before the VMRUN is complete.  An
->>> example of this could be taking #NPF due to event injection.
->> Ouch.
-> 
-> Yeah.  Intel go out of their way to make VM{LAUNCH,RESUME} fail if
-> they're executed in a shadow.
-> 
+On 18.02.2025 03:45, Stefano Stabellini wrote:
+> On Mon, 17 Feb 2025, Jan Beulich wrote:
+>> On 15.02.2025 09:59, Nicola Vetrini wrote:
+>>> On 2025-02-15 00:04, Stefano Stabellini wrote:
+>>>> On Fri, 14 Feb 2025, Jan Beulich wrote:
+>>>>>> Would deviating macros "COOKIE2MCTE" and "MCTE2COOKIE" work?
+>>>>>
+>>>>> If it did, COOKIE2ID and ID2COOKIE would likely need including as 
+>>>>> well.
+>>>>
+>>>> I wrote this patch. Nicola, can you please check the changes to
+>>>> deviations.ecl, this is the first time I try to write the deviation
+>>>> myself :-)
+>>>>
+>>>> ---
+>>>> misra: add 11.2 deviation for incomplete types
+>>>>
+>>>> struct mctelem_cookie* is used exactly because it is an incomplete type
+>>>> so the pointer cannot be dereferenced. This is deliberate. So add a
+>>>> deviation for it.
+>>>>
+>>>> In deviations.ecl, add the list of macros that do the conversions to 
+>>>> and
+>>>> from struct mctelem_cookie*.
+>>>>
+>>>> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+>>>>
+>>>> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl 
+>>>> b/automation/eclair_analysis/ECLAIR/deviations.ecl
+>>>> index a28eb0ae76..87bfd2160c 100644
+>>>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+>>>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+>>>> @@ -366,6 +366,14 @@ constant expressions are required.\""
+>>>>  }
+>>>>  -doc_end
+>>>>
+>>>> +-doc_begin="Certain pointers point to incomplete types purposely so 
+>>>> that they are impossible to dereference."
+>>>> +-config=MC3A2.R11.2,reports+={deliberate, 
+>>>> "any_area(any_loc(any_exp(macro(^COOKIE2MCTE$))))"}
+>>>> +-config=MC3A2.R11.2,reports+={deliberate, 
+>>>> "any_area(any_loc(any_exp(macro(^MCTE2COOKIE$))))"}
+>>>> +-config=MC3A2.R11.2,reports+={deliberate, 
+>>>> "any_area(any_loc(any_exp(macro(^COOKIE2ID$))))"}
+>>>> +-config=MC3A2.R11.2,reports+={deliberate, 
+>>>> "any_area(any_loc(any_exp(macro(^ID2COOKIE$))))"}
+>>>> +}
+>>>
+>>> -config=MC3A2.R11.2,reports+={deliberate, 
+>>> "any_area(any_loc(any_exp(macro(name(COOKIE2MCTE||MCTE2COOKIE||COOKIE2ID||ID2COOKIE)))))"}
+>>>
+>>> Note however that there is also this deviation in place
+>>>
+>>> -doc_begin="The conversion from a pointer to an incomplete type to 
+>>> unsigned long does not lose any information, provided that the target 
+>>> type has enough bits to store it."
+>>> -config=MC3A2.R11.2,casts+={safe,
+>>>    "from(type(any()))
+>>>     &&to(type(canonical(builtin(unsigned long))))
+>>>     &&relation(definitely_preserves_value)"
+>>> }
+>>> -doc_end
+>>>
+>>> I was a bit confused by Jan's remark, which seemed correct, but I 
+>>> couldn't see any violations in the report, so I dug a bit deeper. 
+>>> ID2COOKIE and COOKIE2ID, which operate to/from unsigned long are already 
+>>> excluded due to being safe. If you envision those macros to be used with 
+>>> other types, then your deviation should mention them, otherwise they are 
+>>> already handled.
 >>
->>> --- a/xen/arch/x86/hvm/svm/entry.S
->>> +++ b/xen/arch/x86/hvm/svm/entry.S
->>> @@ -57,6 +57,14 @@ __UNLIKELY_END(nsvm_hap)
->>>  
->>>          clgi
->>>  
->>> +        /*
->>> +         * Set EFLAGS.IF, after CLGI covers us from real interrupts, but not
->>> +         * immediately prior to VMRUN.  AMD CPUs leak Xen's INTR_SHADOW from
->>> +         * the STI into guest state if a VMExit occurs during VMEntry
->>> +         * (e.g. taking #NPF during event injecting.)
->>> +         */
->>> +        sti
->>> +
->>>          /* WARNING! `ret`, `call *`, `jmp *` not safe beyond this point. */
->>>          /* SPEC_CTRL_EXIT_TO_SVM       Req: b=curr %rsp=regs/cpuinfo, Clob: acd */
->>>          .macro svm_vmentry_spec_ctrl
->> I'm mildly worried to see it moved this high up. Any exception taken in
->> this exit code would consider the system to have interrupts enabled, when
->> we have more restrictive handling for the IF=0 case. Could we meet in the
->> middle and have STI before we start popping registers off the stack, but
->> after all the speculation machinery?
+>> Yet then can't we leverage that deviation to also make the other two
+>> covered:
+>>
+>> #define	COOKIE2MCTE(c)		((struct mctelem_ent *)(unsigned long)(c))
+>> #define	MCTE2COOKIE(tep)	((mctelem_cookie_t)(unsigned long)(tep))
 > 
-> Any exception taken here is fatal, and going to fail in weird ways. 
-> e.g. we don't clean up GIF before entering the crash kernel.
+> Jan is asking why ID2COOKIE and COOKIE2ID are considered safe, while
+> COOKIE2MCTE and MCTE2COOKIE are not. I think the reason is that
+> ID2COOKIE and COOKIE2ID convert to/from unsigned long and that falls
+> under the other deviation we already have:
 > 
-> But yes, we probably should take steps to avoid the interrupted context
-> from looking even more weird than usual.
+> -doc_begin="The conversion from a pointer to an incomplete type to 
+> unsigned long does not lose any information, provided that the target 
+> type has enough bits to store it."
+> -config=MC3A2.R11.2,casts+={safe,
+>    "from(type(any()))
+>     &&to(type(canonical(builtin(unsigned long))))
+>     &&relation(definitely_preserves_value)"
 > 
-> I'll put it above the line of pops.  They're going to turn into a single
-> macro when I can dust off that series.
+> On the other hand COOKIE2MCTE and MCTE2COOKIE convert to/from another
+> pointer type, so they don't fall under the same deviation.
 
-Then:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+And then the adjusted forms suggested above ought to also be covered,
+I would have thought.
 
 Jan
 
