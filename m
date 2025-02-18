@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50AE6A3A8FD
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Feb 2025 21:30:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.892249.1301239 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A38B1A3A8F2
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Feb 2025 21:29:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.892239.1301229 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkUEr-0001Mh-6z; Tue, 18 Feb 2025 20:30:41 +0000
+	id 1tkUDi-0008FX-Uo; Tue, 18 Feb 2025 20:29:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 892249.1301239; Tue, 18 Feb 2025 20:30:41 +0000
+Received: by outflank-mailman (output) from mailman id 892239.1301229; Tue, 18 Feb 2025 20:29:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkUEr-0001Kh-3X; Tue, 18 Feb 2025 20:30:41 +0000
-Received: by outflank-mailman (input) for mailman id 892249;
- Tue, 18 Feb 2025 20:30:39 +0000
+	id 1tkUDi-0008D2-RL; Tue, 18 Feb 2025 20:29:30 +0000
+Received: by outflank-mailman (input) for mailman id 892239;
+ Tue, 18 Feb 2025 20:29:30 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=j/lP=VJ=kernel.org=sashal@srs-se1.protection.inumbo.net>)
- id 1tkUD3-0006Vx-LY
- for xen-devel@lists.xenproject.org; Tue, 18 Feb 2025 20:28:49 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Qrz8=VJ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1tkUDi-0008Cw-4o
+ for xen-devel@lists.xenproject.org; Tue, 18 Feb 2025 20:29:30 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f4a6c4c4-ee36-11ef-9896-31a8f345e629;
- Tue, 18 Feb 2025 21:28:48 +0100 (CET)
+ id 0c6143b4-ee37-11ef-9896-31a8f345e629;
+ Tue, 18 Feb 2025 21:29:27 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id A4F135C0397;
- Tue, 18 Feb 2025 20:28:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1EA5C4CEE4;
- Tue, 18 Feb 2025 20:28:45 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 76B875C4B0E;
+ Tue, 18 Feb 2025 20:28:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DAFEC4CEE2;
+ Tue, 18 Feb 2025 20:29:25 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,68 +41,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f4a6c4c4-ee36-11ef-9896-31a8f345e629
+X-Inumbo-ID: 0c6143b4-ee37-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739910526;
-	bh=bQdm91Yl1iqCE5K3ojwjgZipgckujmqzZusDskuX2rA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=i5AHp70jgOYoxE505706KtLUT7SOzZzDxz4VaRixpXU5TnXmvJb7cWmPPX7kcxAT1
-	 nadjVDUJk2RQi3OKbzTGUPUpkQb3U0Kxu7Yzi6r+DRkShL5Typsp+BgQk+v8Hh5X1I
-	 tWeAIuDGPp8D7LaS+NKH6+WfW9uxhT1zv4W8Uex3R59asHGJ/KRBZ9OfnrhIUD3g66
-	 jZYXCM7R9RrX6RKR73p8mrGevROdpJ6N0KOyO7vp0TKZWNZSo5Ouwl6RO33Ft8Bb76
-	 OiFI0ZFbgBdZt5o7gVWofEnDPFCwJRlWB+QUex7JU7cnRpCtsmpeKofvihCEr/L6FG
-	 H1w+phMDXjCaw==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Juergen Gross <jgross@suse.com>,
-	Sasha Levin <sashal@kernel.org>,
-	xen-devel@lists.xenproject.org,
-	iommu@lists.linux.dev
-Subject: [PATCH AUTOSEL 6.1 13/13] Xen/swiotlb: mark xen_swiotlb_fixup() __init
-Date: Tue, 18 Feb 2025 15:28:17 -0500
-Message-Id: <20250218202819.3593598-13-sashal@kernel.org>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250218202819.3593598-1-sashal@kernel.org>
-References: <20250218202819.3593598-1-sashal@kernel.org>
+	s=k20201202; t=1739910566;
+	bh=UNatw6mN/MSuadmYX0vRKq+ma8MumYtube41N/9BiyM=;
+	h=Date:From:To:cc:Subject:From;
+	b=HOaHEJxE2ahkdDWi5jWQwOyUA5Q8wEyKVrqqUm0YDGiUzns+HLFwzCP3wXIQ+kdzi
+	 h+wL+aeAlu5QCpo+DMN+wYe1oVMWwa6dUrwC+1rOecs8zgXg73BlqllgtEKZ+iNGnY
+	 oxqNN1efh5xgdilVrxg9rPDNx2VRSB5vZ4CXBbmrg3xnF8SB+UCtrRMBrWLdQ0HIT5
+	 9tykEOc+JbHKjBy4vrskbvNmau0s7UHn80UHAKM8t7J7wTMK4Q/h7RnmrzfYgm8VsF
+	 NgqYmzcXPqCjMtno9Q1G4AeY3tWMjI4Vs1CknU6WNkY5nRsHyHFcGihSNJIDfE27BW
+	 ZNJeVjv4GcYOA==
+Date: Tue, 18 Feb 2025 12:29:24 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: xen-devel@lists.xenproject.org
+cc: sstabellini@kernel.org, Julien Grall <julien@xen.org>, 
+    bertrand.marquis@arm.com, michal.orzel@amd.com, Volodymyr_Babchuk@epam.com, 
+    dpsmith@apertussolutions.com, xenia.ragiadakou@amd.com
+Subject: [PATCH v3] xen/dom0less: support for vcpu affinity
+Message-ID: <alpine.DEB.2.22.394.2502181227580.1085376@ubuntu-linux-20-04-desktop>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.1.128
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-From: Jan Beulich <jbeulich@suse.com>
+Add vcpu affinity to the dom0less bindings. Example:
 
-[ Upstream commit 75ad02318af2e4ae669e26a79f001bd5e1f97472 ]
+    dom1 {
+            ...
+            cpus = <4>;
+            vcpu0 {
+                   compatible = "xen,vcpu-affinity";
+                   id = <0>;
+                   hard-affinity = "4-7";
+            };
+            vcpu1 {
+                   compatible = "xen,vcpu-affinity";
+                   id = <1>;
+                   hard-affinity = "0-3";
+            };
+            vcpu2 {
+                   compatible = "xen,vcpu-affinity";
+                   id = <2>;
+                   hard-affinity = "1,6";
+            };
+            ...
 
-It's sole user (pci_xen_swiotlb_init()) is __init, too.
+Note that the property hard-affinity is optional. It is possible to add
+other properties in the future not only to specify soft affinity, but
+also to provide more precise methods for configuring affinity. For
+instance, on ARM the MPIDR could be use to specify the pCPU. For now, it
+is left to the future.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-Message-ID: <e1198286-99ec-41c1-b5ad-e04e285836c9@suse.com>
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
 ---
- drivers/xen/swiotlb-xen.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v3:
+- improve commit message
+- improve binding doc
+- add panic on invalid pCPU
+- move parsing to a separate function
 
-diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
-index 0451e6ebc21a3..71ce0cd9e83de 100644
---- a/drivers/xen/swiotlb-xen.c
-+++ b/drivers/xen/swiotlb-xen.c
-@@ -110,7 +110,7 @@ static int is_xen_swiotlb_buffer(struct device *dev, dma_addr_t dma_addr)
+diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+index 9c881baccc..10e55c825c 100644
+--- a/docs/misc/arm/device-tree/booting.txt
++++ b/docs/misc/arm/device-tree/booting.txt
+@@ -324,6 +324,27 @@ The ramdisk sub-node has the following properties:
+     property because it will be created by the UEFI stub on boot.
+     This option is needed only when UEFI boot is used.
+ 
++Under the "xen,domain" compatible node, it is possible optionally to add
++one or more sub-nodes to configure vCPU affinity. The vCPU affinity
++sub-node has the following properties:
++
++- compatible
++
++    "xen,vcpu-affinity"
++
++- id
++
++    A 32-bit integer that specifies the vCPU id. 0 is the first vCPU.
++    The last vCPU is cpus-1, where "cpus" is the number of vCPUs
++    specified with the "cpus" property under the "xen,domain" node.
++
++- hard-affinity
++
++    Optional. A string specifying the hard affinity configuration for the
++    vCPU: a comma-separated list of pCPUs or ranges of pCPUs is used.
++    Ranges are hyphen-separated intervals (such as `0-4`) and are inclusive
++    on both sides. The numbers refer to pCPU ids.
++
+ 
+ Example
+ =======
+diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
+index 49d1f14d65..e364820189 100644
+--- a/xen/arch/arm/dom0less-build.c
++++ b/xen/arch/arm/dom0less-build.c
+@@ -810,6 +810,68 @@ static int __init construct_domU(struct domain *d,
+     return rc;
  }
  
- #ifdef CONFIG_X86
--int xen_swiotlb_fixup(void *buf, unsigned long nslabs)
-+int __init xen_swiotlb_fixup(void *buf, unsigned long nslabs)
++static void __init domain_vcpu_affinity(struct domain *d,
++                                        const struct dt_device_node *node)
++{
++    const char *hard_affinity_str = NULL;
++    struct dt_device_node *np;
++    uint32_t val;
++    int rc;
++
++    dt_for_each_child_node(node, np)
++    {
++        const char *s;
++        struct vcpu *v;
++        cpumask_t affinity;
++
++        if ( !dt_device_is_compatible(np, "xen,vcpu-affinity") )
++            continue;
++
++        if ( !dt_property_read_u32(np, "id", &val) )
++            continue;
++
++        if ( val >= d->max_vcpus )
++            panic("Invalid vcpu_id %u for domain %s\n", val, dt_node_name(node));
++
++        v = d->vcpu[val];
++        rc = dt_property_read_string(np, "hard-affinity", &hard_affinity_str);
++        if ( rc < 0 )
++            continue;
++
++        s = hard_affinity_str;
++        cpumask_clear(&affinity);
++        while ( *s != '\0' )
++        {
++            unsigned int start, end;
++
++            start = simple_strtoul(s, &s, 0);
++
++            if ( *s == '-' )    /* Range */
++            {
++                s++;
++                end = simple_strtoul(s, &s, 0);
++            }
++            else                /* Single value */
++                end = start;
++
++            if ( end >= nr_cpu_ids )
++                panic("Invalid pCPU %u for domain %s\n", end, dt_node_name(node));
++
++            for ( ; start <= end; start++ )
++                cpumask_set_cpu(start, &affinity);
++
++            if ( *s == ',' )
++                s++;
++            else if ( *s != '\0' )
++                break;
++        }
++
++        rc = vcpu_set_hard_affinity(v, &affinity);
++        if ( rc )
++            panic("vcpu%d: failed to set hard affinity\n", v->vcpu_id);
++    }
++}
++
+ void __init create_domUs(void)
  {
- 	int rc;
- 	unsigned int order = get_order(IO_TLB_SEGSIZE << IO_TLB_SHIFT);
--- 
-2.39.5
-
+     struct dt_device_node *node;
+@@ -992,6 +1054,8 @@ void __init create_domUs(void)
+         if ( rc )
+             panic("Could not set up domain %s (rc = %d)\n",
+                   dt_node_name(node), rc);
++
++        domain_vcpu_affinity(d, node);
+     }
+ }
+ 
 
