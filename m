@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84584A3A8D9
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Feb 2025 21:27:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.892208.1301198 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3954EA3A8E1
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Feb 2025 21:27:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.892211.1301208 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkUBg-0006Xl-17; Tue, 18 Feb 2025 20:27:24 +0000
+	id 1tkUBt-0006uu-AB; Tue, 18 Feb 2025 20:27:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 892208.1301198; Tue, 18 Feb 2025 20:27:24 +0000
+Received: by outflank-mailman (output) from mailman id 892211.1301208; Tue, 18 Feb 2025 20:27:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkUBf-0006W9-Uo; Tue, 18 Feb 2025 20:27:23 +0000
-Received: by outflank-mailman (input) for mailman id 892208;
- Tue, 18 Feb 2025 20:27:22 +0000
+	id 1tkUBt-0006rh-72; Tue, 18 Feb 2025 20:27:37 +0000
+Received: by outflank-mailman (input) for mailman id 892211;
+ Tue, 18 Feb 2025 20:27:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=j/lP=VJ=kernel.org=sashal@srs-se1.protection.inumbo.net>)
- id 1tkUBe-0006Vx-6x
- for xen-devel@lists.xenproject.org; Tue, 18 Feb 2025 20:27:22 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [2604:1380:45d1:ec00::3])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Qrz8=VJ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1tkUBr-0006Vx-QH
+ for xen-devel@lists.xenproject.org; Tue, 18 Feb 2025 20:27:35 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c0358c1e-ee36-11ef-9896-31a8f345e629;
- Tue, 18 Feb 2025 21:27:20 +0100 (CET)
+ id c8a1bba3-ee36-11ef-9896-31a8f345e629;
+ Tue, 18 Feb 2025 21:27:34 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id D4C33A41B38;
- Tue, 18 Feb 2025 20:25:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ACA1C4CEE2;
- Tue, 18 Feb 2025 20:27:17 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id C71955C4E46;
+ Tue, 18 Feb 2025 20:26:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4D36C4CEE2;
+ Tue, 18 Feb 2025 20:27:31 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,68 +41,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0358c1e-ee36-11ef-9896-31a8f345e629
+X-Inumbo-ID: c8a1bba3-ee36-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1739910438;
-	bh=M0IrEwfhk3Ww4fkOJEqrwcuhSN2tamd0Xb8zp06AIgo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=odgzPJA4hOn4TeEDrEys2logFdXZGa0Y2cgk11TPkdsFzYboiVlJPHaqRXvkMZ/ia
-	 wdTixwikhXfGxxineqcjJrOCG7/TDyfuf8E2vITdZyWqwJeveGs4xXBvilr7q8Q2bx
-	 owcVRcI542xo2Ql4e0UEelcCgXZBJPzZK5Ucu3PGmADI/zcoAp6oZNwb4ngNm03/MF
-	 SORyR1Z1X6Zi+Q2X4ZFUcni61aTqCbglZkGVVlbeHj5j2fNAjLcoDIUIWt3GN78Czd
-	 H77+tsBzDVw8n9EL1GEVIIgR4r6gLTcTLMuYySDEmAohdhA3YAd0h6BD7Xe/POJ6+p
-	 nRMZcJg4jQKHQ==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Juergen Gross <jgross@suse.com>,
-	Sasha Levin <sashal@kernel.org>,
-	xen-devel@lists.xenproject.org,
-	iommu@lists.linux.dev
-Subject: [PATCH AUTOSEL 6.12 27/31] Xen/swiotlb: mark xen_swiotlb_fixup() __init
-Date: Tue, 18 Feb 2025 15:26:13 -0500
-Message-Id: <20250218202619.3592630-27-sashal@kernel.org>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250218202619.3592630-1-sashal@kernel.org>
-References: <20250218202619.3592630-1-sashal@kernel.org>
+	s=k20201202; t=1739910452;
+	bh=uXDGA3xnRoOmLT4DG/v0+KWXRj5Ygiokjl555/5XjQI=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=b+GQhvm7ssk2m4RlNVdSd9B9aeJaGbl592wowYSYPyFCEPxvlOnutmajEan4Syt60
+	 GHaQYeHi+TZmu+OVga+yX5h+BoszncX01l0IdRptDNbjuOQJi5EzrU/CIbbb7QV5fh
+	 Mk3S0inCppSgWBj3tOtH2FpyGIB4sc4yzijSQgYN+Td20aiEAsSJDbMK1fneZD9uxr
+	 +Ig988A/nb9od1EvONF29uO25JA2Ebl/GLkH4n/gIEQ1dqEAEcXxMRr6b1JCG0pepG
+	 2ciGDoEZfLSA6EdkfvyLVOHZV6UJXaXKdycu9s2zFZVrcFDJXvY6FePpgoNHDLoigI
+	 +UgZLYd/I7I6g==
+Date: Tue, 18 Feb 2025 12:27:30 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: "Orzel, Michal" <michal.orzel@amd.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>, 
+    bertrand.marquis@arm.com, Volodymyr_Babchuk@epam.com, 
+    dpsmith@apertussolutions.com, xenia.ragiadakou@amd.com
+Subject: Re: [PATCH v2] xen/dom0less: support for vcpu affinity
+In-Reply-To: <b70bcaca-ff7a-4635-bd5c-7c64768286d5@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2502181225550.1085376@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2502141615050.3858257@ubuntu-linux-20-04-desktop> <b70bcaca-ff7a-4635-bd5c-7c64768286d5@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.12.15
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-From: Jan Beulich <jbeulich@suse.com>
+On Mon, 17 Feb 2025, Orzel, Michal wrote:
+> On 15/02/2025 01:17, Stefano Stabellini wrote:
+> > 
+> > 
+> > Add vcpu affinity to the dom0less bindings. Example:
+> > 
+> >                          dom1 {
+> >                                  ...
+> >                                  cpus = <4>;
+> >                                  vcpu0 {
+> >                                         compatible = "xen,vcpu-affinity";
+> >                                         id = <0>;
+> >                                         hard-affinity = "4-7";
+> >                                  };
+> >                                  vcpu1 {
+> >                                         compatible = "xen,vcpu-affinity";
+> >                                         id = <1>;
+> >                                         hard-affinity = "0-3";
+> >                                  };
+> >                                  vcpu2 {
+> >                                         compatible = "xen,vcpu-affinity";
+> >                                         id = <2>;
+> >                                         hard-affinity = "1,6";
+> >                                  };
+> >                                  ...
+> >                          }
+> What is this indentation for? It reads strangely.
+> 
+> > 
+> > Note that the property hard-affinity is optional. It is possible to add
+> If it's optional, then this node does not make sense anymore...
 
-[ Upstream commit 75ad02318af2e4ae669e26a79f001bd5e1f97472 ]
+The idea is that at least one of the ways to specify affinity should be
+present, otherwise like you wrote, it is useless. But the property
+itself I think should be marked as optional (otherwise it would have to
+be always present.)
 
-It's sole user (pci_xen_swiotlb_init()) is __init, too.
-
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-Message-ID: <e1198286-99ec-41c1-b5ad-e04e285836c9@suse.com>
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/xen/swiotlb-xen.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
-index a337edcf8faf7..5efc53475f039 100644
---- a/drivers/xen/swiotlb-xen.c
-+++ b/drivers/xen/swiotlb-xen.c
-@@ -111,7 +111,7 @@ static struct io_tlb_pool *xen_swiotlb_find_pool(struct device *dev,
- }
- 
- #ifdef CONFIG_X86
--int xen_swiotlb_fixup(void *buf, unsigned long nslabs)
-+int __init xen_swiotlb_fixup(void *buf, unsigned long nslabs)
- {
- 	int rc;
- 	unsigned int order = get_order(IO_TLB_SEGSIZE << IO_TLB_SHIFT);
--- 
-2.39.5
-
+I addressed all other comments, I'll send a v3.
 
