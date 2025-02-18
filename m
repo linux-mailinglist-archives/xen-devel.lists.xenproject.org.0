@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C330A3A148
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Feb 2025 16:32:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.891910.1300919 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6E77A3A166
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Feb 2025 16:36:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.891919.1300928 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkPaQ-0007ML-En; Tue, 18 Feb 2025 15:32:38 +0000
+	id 1tkPeA-0001Lm-SO; Tue, 18 Feb 2025 15:36:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 891910.1300919; Tue, 18 Feb 2025 15:32:38 +0000
+Received: by outflank-mailman (output) from mailman id 891919.1300928; Tue, 18 Feb 2025 15:36:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkPaQ-0007Jt-BW; Tue, 18 Feb 2025 15:32:38 +0000
-Received: by outflank-mailman (input) for mailman id 891910;
- Tue, 18 Feb 2025 15:32:36 +0000
+	id 1tkPeA-0001JS-Pi; Tue, 18 Feb 2025 15:36:30 +0000
+Received: by outflank-mailman (input) for mailman id 891919;
+ Tue, 18 Feb 2025 15:36:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=X4Dy=VJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tkPaO-0007Jn-Mf
- for xen-devel@lists.xenproject.org; Tue, 18 Feb 2025 15:32:36 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
+ id 1tkPe8-0001I6-Ov
+ for xen-devel@lists.xenproject.org; Tue, 18 Feb 2025 15:36:28 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9352f222-ee0d-11ef-9896-31a8f345e629;
- Tue, 18 Feb 2025 16:32:34 +0100 (CET)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-ab771575040so1287850566b.1
- for <xen-devel@lists.xenproject.org>; Tue, 18 Feb 2025 07:32:34 -0800 (PST)
+ id 1daaf0ab-ee0e-11ef-9896-31a8f345e629;
+ Tue, 18 Feb 2025 16:36:26 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-4396a4d5e3bso41318115e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Feb 2025 07:36:26 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aba53232282sm1090194566b.12.2025.02.18.07.32.33
+ a640c23a62f3a-abb7a04f8e6sm661216366b.177.2025.02.18.07.35.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Feb 2025 07:32:33 -0800 (PST)
+ Tue, 18 Feb 2025 07:35:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9352f222-ee0d-11ef-9896-31a8f345e629
+X-Inumbo-ID: 1daaf0ab-ee0e-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739892754; x=1740497554; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739892986; x=1740497786; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3ydgtmOQYlZluKBJ65YENpIYQDqoG+Szcfc42JStPsw=;
-        b=cNzEiy4TUD/83qPhISAzlTZf6rGLfq1P4girmBry2Id7F8shFuu3hr0gkEGINZ8xHj
-         iK0mNNAeTY8exKlW5phJpCD4AQcVjKnT/FEQualA/mF/be6JhcheLv4vgUjHjRvK6wJo
-         rcycRuC27h7gmO3904K0GL2zHt2dalGm3ZjjoMsw27gATaIEIBBJc44c+aCmBh6nW3Be
-         /+X1MN2VUVJonbr00YQ8M9qWLV/psNDcStX/8DPr7jd//Xy8c9cIFImimwIBZtDKnGwM
-         3QHAkkl5afan8fUIq98PdydTv0s2+jpeYsruCTYE7rVVQn1ybdQKSJAv19SWYCjhB79T
-         XRiw==
+        bh=DXYWc2/187WBJPoHh+iJ69Ps33SC+olVmqYwWKvLcuo=;
+        b=eFwVILtOOJgjQDEZtTKzkWd5VydvNoixZ5ylVOiOF7XlzyqJAE2ecwN4zRbtdTuaiF
+         ed3vrmcPAImYmqN+YvqkcQGlieBU8mtJfWK3HLLWsyIlAS7dLu2otJLHExXBf7+p9/jg
+         ATxbSiSNrsuasVqTbqd1oXhnuT5Z3Hp6QSfFXzWtS2fTgzPWoIWtM93m4oSUv/3ScKsE
+         vZbiJvF++WTLawsouGcfl45zmJUFUxj43brntB8LVLGiCP2U7kH1mOAJ4hL2I1iXqkly
+         wXKGk74SFNuSYpPpJmAtzmQxmcaFytpZxPe03sDSz2yS2el3PJGQU55u/+VmdB3Daaj1
+         3j5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739892754; x=1740497554;
+        d=1e100.net; s=20230601; t=1739892986; x=1740497786;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3ydgtmOQYlZluKBJ65YENpIYQDqoG+Szcfc42JStPsw=;
-        b=Rhmlaq6K+Sl/N8084YhowksZX8MV0TZDcDRQ9z2XVbsJ15P62NcMiVIdOZcE2L0QxT
-         YRz4i42u5VhvTi8beip8jnD7/tMZXpemJMStGHKpWJB5fc+t/9Zulh+tHqHoHM86D1w/
-         cjj4aG7OTJuQ1IdnPjfv3z4rSs+efHSLDdQ/izp7ySKxON1WLDmFMurgU1kM/x2zF+QG
-         xUESpbbG68iMr/wMTTqw5jiS7Lu1wp8VxZw7MqdLDTK1svC4roYvUQO3kiK5WcNsmf3R
-         AbPKKXfhLSXr2RnQhZKDGXi//M3TRgB/CYG3z7/r4enu1oX3ww0HAZLrwiEzs6QCALb3
-         EHEQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWKMnGUQJFz3PR3KpkUPQ5ZoG0y/Aa7z6BnrBC8BqEHp6bdYMv0U4vBexzxKDOju+RNHZc+RGbe4VQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyvaUNDf4Fi3/SUGluIuuPSNUzCpRuC7BtkE2TG1QRsSDVo5zfH
-	mq9vmsIei6H/9DnQTuXFV49TmDGqIRx9R2TMV4t4PmQEoHhRKSxmOp85DADTmA==
-X-Gm-Gg: ASbGncugqXHnALYgcSnt4aBlxxqkO5zdjYf9aZP2f8nk9nVyAmos3cYi4Azu9wshKHd
-	Lv3xQqoGFTm4WPsA5OfVe1PhPqMnjQuw/J74zcMPE7rRhtS7r0iDluE7j6YL4aAHlcRwoxftua6
-	avuUVjg4rKUCWFLlCh9JXQgijqKHEsLlECkpN/1/e+wg2M/Id5G5IX1JZIJ9B5f4cttVI8lK3Eo
-	/Q79tEweKuefHN0xY/M4VErGhO5GnQpicu+nAriNQnTTQDz3eaGpB+ieTt0D4hiECsZzUCaqnIb
-	qk1b8blnDXPboAkAw1Xz3W/R4IRcY51E/DmNxAi8zFk4G+sKyz0FZh/brUE5iu76uS3Cf9S2puq
-	N
-X-Google-Smtp-Source: AGHT+IEPbm7PrZl45BSPII379V2i9cv4f3C0Rqfjrn3RxwRl+38HWmi0rxrC1HPmDuYhFpz8kDFq2A==
-X-Received: by 2002:a17:907:d509:b0:abb:b666:8e4e with SMTP id a640c23a62f3a-abbcc7f2dcdmr13912966b.26.1739892753978;
-        Tue, 18 Feb 2025 07:32:33 -0800 (PST)
-Message-ID: <19888001-ceac-44a8-8d14-cb0dd6d19b2c@suse.com>
-Date: Tue, 18 Feb 2025 16:32:33 +0100
+        bh=DXYWc2/187WBJPoHh+iJ69Ps33SC+olVmqYwWKvLcuo=;
+        b=F6d2UfTJL7JtdxCMsmt2t90XBD73di8DeX1LB3Sm6+y5MHR3fyEdOcsaIK81XPcZ+s
+         JP9BDP3OSFOIlKwFm7yPy5nDqLHkOIbKxuIMxnc4PSQWIx/wXQiHxDVJEMJ8q4Orn/5n
+         /uM4m25h7RcYMR5ySf5hcT9Ay92RutO5A+81UH7QPxovngDFmluQ68PsH+7JUu7DnWzU
+         ZUsxvuBGB0HqPwcwvcWX/yTdTYSGPyGGNToUCtT4SLcBKQDCNJK41OIGIezZX2umvH7W
+         ZSvrh9lvWy7fEkA1TOjDGtWy0v4nS7e0Bu7vY0szHM+b4QGMz88HYyWhY+84jW8drMCT
+         bG3g==
+X-Forwarded-Encrypted: i=1; AJvYcCUNiOTRxGCP+RABVnfV332dtRYIL3moks8gOm02XJW+gtuUlr14boJUwpGcLlWaEMbLA9T0MwC8TvA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywsi3NhyhwpyeuMxuj5maxX1exaomXLG4iZYZKfG9RhZxCBLbVi
+	Czf1mfeM0wOq4Q85NTqGDGE//ZLjv3pt3/jRK36IBWm6OncnlLpEe60Erf7VP63hBVT9Fxr0oQc
+	=
+X-Gm-Gg: ASbGncsLcKOWkZt58CCbrS9D5hiUtcGeifo2L2rHAeV06kojz1fxiZxe8i7J0MpHAUd
+	WiWyKqazrOXiqGXWbbsROHGLKGQMy+r/YawUIr14H+uZrDVbOTrJt8DEEKH2pYNzhHaQye1a02b
+	T64lJCLjCcjofmbwJuom2akeQJ0QWmCCnoixuwwS6dK/qCV5qqcSyyH0BaVuMInUov3XvKOGOe7
+	MwZd97qrnvM+S13uDwtKrJFmzGFp29z7tofWlGKxy/rGrjmjIaav0V0uC0FQLoCFtyiiQWMJaT/
+	ifNX3d4dQ6XPTilFRT38J8SYCXy3vGDC3ArrExxeIgLMtO7yosldMTl1vY0bl5vRWQ3rYh4Dl3c
+	8
+X-Google-Smtp-Source: AGHT+IH3iU11Y3J+zm6VGuJZijwclKxXZFpL0jqVTyg0QtBeBcHe5bC9MHA40VNGN6hRYSs5sY5sxA==
+X-Received: by 2002:a17:906:794d:b0:ab7:b0e4:aa93 with SMTP id a640c23a62f3a-abbcce19ac5mr9646666b.13.1739892944771;
+        Tue, 18 Feb 2025 07:35:44 -0800 (PST)
+Message-ID: <0c835059-d8ce-4776-b53f-e98fc0224be9@suse.com>
+Date: Tue, 18 Feb 2025 16:35:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] x86/iommu: account for IOMEM caps when populating
- dom0 IOMMU page-tables
+Subject: Re: [PATCH v2 2/2] x86/dom0: be less restrictive with the Interrupt
+ Address Range
 To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?B?SsO8cmdlbiBHcm8=?=
+ =?UTF-8?B?w58=?= <jgross@suse.com>, xen-devel@lists.xenproject.org
 References: <20250217141602.64014-1-roger.pau@citrix.com>
- <20250217141602.64014-2-roger.pau@citrix.com>
+ <20250217141602.64014-3-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,112 +120,99 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250217141602.64014-2-roger.pau@citrix.com>
+In-Reply-To: <20250217141602.64014-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 17.02.2025 15:16, Roger Pau Monne wrote:
-> The current code in arch_iommu_hwdom_init() kind of open-codes the same
-> MMIO permission ranges that are added to the hardware domain ->iomem_caps.
-> Avoid this duplication and use ->iomem_caps in arch_iommu_hwdom_init() to
-> filter which memory regions should be added to the dom0 IOMMU page-tables.
+> Xen currently prevents dom0 from creating CPU or IOMMU page-table mappings
+> into the interrupt address range [0xfee00000, 0xfeefffff].  This range has
+> two different purposes.  For accesses from the CPU is contains the default
+> position of local APIC page at 0xfee00000.  For accesses from devices
+> it's the MSI address range, so the address field in the MSI entries
+> (usually) point to an address on that range to trigger an interrupt.
 > 
-> This should result in no change in the memory regions that end up identity
-> mapped in the domain IOMMU page tables.
+> There are reports of Lenovo Thinkpad devices placing what seems to be the
+> UCSI shared mailbox at address 0xfeec2000 in the interrupt address range.
+> Attempting to use that device with a Linux PV dom0 leads to an error when
+> Linux kernel maps 0xfeec2000:
 > 
-> Note the IO-APIC and MCFG page(s) must be set as not accessible for a PVH
-> dom0, otherwise the internal Xen emulation for those ranges won't work.
-> This requires an adjustment in dom0_setup_permissions().
+> RIP: e030:xen_mc_flush+0x1e8/0x2b0
+>  xen_leave_lazy_mmu+0x15/0x60
+>  vmap_range_noflush+0x408/0x6f0
+>  __ioremap_caller+0x20d/0x350
+>  acpi_os_map_iomem+0x1a3/0x1c0
+>  acpi_ex_system_memory_space_handler+0x229/0x3f0
+>  acpi_ev_address_space_dispatch+0x17e/0x4c0
+>  acpi_ex_access_region+0x28a/0x510
+>  acpi_ex_field_datum_io+0x95/0x5c0
+>  acpi_ex_extract_from_field+0x36b/0x4e0
+>  acpi_ex_read_data_from_field+0xcb/0x430
+>  acpi_ex_resolve_node_to_value+0x2e0/0x530
+>  acpi_ex_resolve_to_value+0x1e7/0x550
+>  acpi_ds_evaluate_name_path+0x107/0x170
+>  acpi_ds_exec_end_op+0x392/0x860
+>  acpi_ps_parse_loop+0x268/0xa30
+>  acpi_ps_parse_aml+0x221/0x5e0
+>  acpi_ps_execute_method+0x171/0x3e0
+>  acpi_ns_evaluate+0x174/0x5d0
+>  acpi_evaluate_object+0x167/0x440
+>  acpi_evaluate_dsm+0xb6/0x130
+>  ucsi_acpi_dsm+0x53/0x80
+>  ucsi_acpi_read+0x2e/0x60
+>  ucsi_register+0x24/0xa0
+>  ucsi_acpi_probe+0x162/0x1e3
+>  platform_probe+0x48/0x90
+>  really_probe+0xde/0x340
+>  __driver_probe_device+0x78/0x110
+>  driver_probe_device+0x1f/0x90
+>  __driver_attach+0xd2/0x1c0
+>  bus_for_each_dev+0x77/0xc0
+>  bus_add_driver+0x112/0x1f0
+>  driver_register+0x72/0xd0
+>  do_one_initcall+0x48/0x300
+>  do_init_module+0x60/0x220
+>  __do_sys_init_module+0x17f/0x1b0
+>  do_syscall_64+0x82/0x170
 > 
-> Also the special casing of E820_UNUSABLE regions no longer needs to be done
-> in arch_iommu_hwdom_init(), as those regions are already blocked in
-> ->iomem_caps and thus would be removed from the rangeset as part of
-> ->iomem_caps processing in arch_iommu_hwdom_init().
+> Remove the restrictions to create mappings the interrupt address range for
+> dom0.  Note that the restriction to map the local APIC page is enforced
+> separately, and that continues to be present.
+> 
+> Note that even if the interrupt address range entries are populated in the
+> IOMMU page-tables no device access will reach those pages.  Device accesses
+> to the Interrupt Address Range will always be converted into Interrupt
+> Messages and are not subject to DMA remapping.
+> 
+> There's also the following restriction noted in Intel VT-d:
+> 
+>> Software must not program paging-structure entries to remap any address to
+>> the interrupt address range. Untranslated requests and translation requests
+>> that result in an address in the interrupt range will be blocked with
+>> condition code LGN.4 or SGN.8. Translated requests with an address in the
+>> interrupt address range are treated as Unsupported Request (UR).
+> 
+> Similarly for AMD-Vi:
+> 
+>> Accesses to the interrupt address range (Table 3) are defined to go through
+>> the interrupt remapping portion of the IOMMU and not through address
+>> translation processing. Therefore, when a transaction is being processed as
+>> an interrupt remapping operation, the transaction attribute of
+>> pretranslated or untranslated is ignored.
+>>
+>> Software Note: The IOMMU should
+>> not be configured such that an address translation results in a special
+>> address such as the interrupt address range.
+> 
+> However those restrictions don't apply to the identity mappings possibly
+> created for dom0, since the interrupt address range is never subject to DMA
+> remapping, and hence there's no output address after translation that
+> belongs to the interrupt address range.
+> 
+> Reported-by: Jürgen Groß <jgross@suse.com>
+> Link: https://lore.kernel.org/xen-devel/baade0a7-e204-4743-bda1-282df74e5f89@suse.com/
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Only almost: ->iomem_caps has them removed only for addresses 1Mb and up.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> --- a/xen/arch/x86/dom0_build.c
-> +++ b/xen/arch/x86/dom0_build.c
-> @@ -552,7 +552,8 @@ int __init dom0_setup_permissions(struct domain *d)
->      for ( i = 0; i < nr_ioapics; i++ )
->      {
->          mfn = paddr_to_pfn(mp_ioapics[i].mpc_apicaddr);
-> -        if ( !rangeset_contains_singleton(mmio_ro_ranges, mfn) )
-> +        if ( is_hvm_domain(d) ||
-> +             !rangeset_contains_singleton(mmio_ro_ranges, mfn) )
->              rc |= iomem_deny_access(d, mfn, mfn);
->      }
-
-The original code used has_vioapic() and had a comment. At least one of#
-the two would better be transplanted here, I think.
-
-> @@ -593,6 +594,22 @@ int __init dom0_setup_permissions(struct domain *d)
->              rc |= rangeset_add_singleton(mmio_ro_ranges, mfn);
->      }
->  
-> +    /* For PVH dom0 prevent access to MCFG, it's emulated by Xen. */
-> +    if ( is_hvm_domain(d) )
-> +    {
-> +        for ( i = 0; i < pci_mmcfg_config_num; i++ )
-> +        {
-> +            const unsigned long s =
-> +                PFN_DOWN(pci_mmcfg_config[i].address) +
-> +                PCI_BDF(pci_mmcfg_config[i].start_bus_number, 0, 0);
-> +            const unsigned long e =
-> +                PFN_DOWN(pci_mmcfg_config[i].address) +
-> +                PCI_BDF(pci_mmcfg_config[i].end_bus_number, ~0, ~0);
-> +
-> +            rc |= iomem_deny_access(d, s, e);
-> +        }
-> +    }
-
-Similarly here, the original code used has_vpci() and also had a comment.
-Is there actually a strong reason to replace the original MCFG code?
-
-> --- a/xen/drivers/passthrough/x86/iommu.c
-> +++ b/xen/drivers/passthrough/x86/iommu.c
-> @@ -320,6 +320,26 @@ static int __hwdom_init cf_check map_subtract(unsigned long s, unsigned long e,
->      return rangeset_remove_range(map, s, e);
->  }
->  
-> +struct handle_iomemcap {
-> +    struct rangeset *r;
-> +    unsigned long last;
-> +};
-> +static int __hwdom_init cf_check map_subtract_iomemcap(unsigned long s,
-> +                                                       unsigned long e,
-> +                                                       void *data)
-> +{
-> +    struct handle_iomemcap *h = data;
-> +    int rc = 0;
-> +
-> +    if ( h->last != s )
-> +        rc = rangeset_remove_range(h->r, h->last, s - 1);
-> +
-> +    /* Be careful with overflows. */
-> +    h->last = max(e + 1, e);
-
-What overflow could occur here? Addresses are limited to 52 bits; frame
-numbers are limited to 40 bits. And ->iomem_caps starts out with a range
-ending at the last address permitted by paddr_bits.
-
-> @@ -475,22 +488,13 @@ void __hwdom_init arch_iommu_hwdom_init(struct domain *d)
->      if ( rc )
->          panic("IOMMU failed to remove Xen ranges: %d\n", rc);
->  
-> -    /* Remove any overlap with the Interrupt Address Range. */
-> -    rc = rangeset_remove_range(map, 0xfee00, 0xfeeff);
-> +    iomem.r = map;
-> +    rc = rangeset_report_ranges(d->iomem_caps, 0, ~0UL, map_subtract_iomemcap,
-> +                                &iomem);
-> +    if ( !rc && iomem.last < ~0UL )
-> +        rc = rangeset_remove_range(map, iomem.last, ~0UL);
-
-Similarly here I'm wondering about the upper bound of ~0UL. Is this just
-to be on the safe side? And/or just because it's simpler than calculating
-the actual upper bound? No ranges above the system physical address width
-should ever be entered into the rangeset. Kind of as an implication
-iomem.last also is guaranteed to be below ~0UL when making it here.
-
-Jan
 
