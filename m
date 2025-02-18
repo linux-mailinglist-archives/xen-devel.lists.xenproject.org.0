@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A924A3A123
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Feb 2025 16:26:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.891897.1300909 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C330A3A148
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Feb 2025 16:32:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.891910.1300919 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkPU2-0003nT-Ly; Tue, 18 Feb 2025 15:26:02 +0000
+	id 1tkPaQ-0007ML-En; Tue, 18 Feb 2025 15:32:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 891897.1300909; Tue, 18 Feb 2025 15:26:02 +0000
+Received: by outflank-mailman (output) from mailman id 891910.1300919; Tue, 18 Feb 2025 15:32:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkPU2-0003ly-IM; Tue, 18 Feb 2025 15:26:02 +0000
-Received: by outflank-mailman (input) for mailman id 891897;
- Tue, 18 Feb 2025 15:26:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tkPaQ-0007Jt-BW; Tue, 18 Feb 2025 15:32:38 +0000
+Received: by outflank-mailman (input) for mailman id 891910;
+ Tue, 18 Feb 2025 15:32:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vlVU=VJ=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1tkPU0-0003ls-Ql
- for xen-devel@lists.xenproject.org; Tue, 18 Feb 2025 15:26:00 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a6a5832f-ee0c-11ef-9aa7-95dc52dad729;
- Tue, 18 Feb 2025 16:25:57 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-43937cf2131so38029425e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 18 Feb 2025 07:25:57 -0800 (PST)
-Received: from [192.168.69.196] (88-187-86-199.subs.proxad.net.
- [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43996aa820dsm16090465e9.5.2025.02.18.07.25.55
+ (envelope-from <SRS0=X4Dy=VJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tkPaO-0007Jn-Mf
+ for xen-devel@lists.xenproject.org; Tue, 18 Feb 2025 15:32:36 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9352f222-ee0d-11ef-9896-31a8f345e629;
+ Tue, 18 Feb 2025 16:32:34 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-ab771575040so1287850566b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Feb 2025 07:32:34 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aba53232282sm1090194566b.12.2025.02.18.07.32.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Feb 2025 07:25:56 -0800 (PST)
+ Tue, 18 Feb 2025 07:32:33 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,165 +45,185 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6a5832f-ee0c-11ef-9aa7-95dc52dad729
+X-Inumbo-ID: 9352f222-ee0d-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1739892357; x=1740497157; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=kO8ZjQjaFKbnEHTOpCzz+11SR4934oDmM1CC/TSqYe0=;
-        b=PTcWFleqs7z3pfZTgOE7OLFN4uHVkykbbtByghc+XMufk9rZSU/ZDnYEC9UK/cRdVv
-         XOxv0dRONGXXLyjeefbSoNO2wrmeB9iJA3JbxrDjlrhoqd1lo72d0q8eioBgirVIM4Pa
-         ezXpyso7uT40nAJK9kCIFFy7/vn7O+uM8GnaVPTk/oUD2+WYJxcJPCBHezEPGq83U2zm
-         U+9im+TmoQ4eXErMlOH5KDjfTxW14x3nVY7PWfCS2m8p0AyC7otKa2Zh/IeELcebCKrI
-         0royiqpJzff6ppEODtw9CociiCVm+qVt3YLa18f4nW4+MwdNBpa3hkdSs1nlWbYx1+j5
-         yPhA==
+        d=suse.com; s=google; t=1739892754; x=1740497554; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=3ydgtmOQYlZluKBJ65YENpIYQDqoG+Szcfc42JStPsw=;
+        b=cNzEiy4TUD/83qPhISAzlTZf6rGLfq1P4girmBry2Id7F8shFuu3hr0gkEGINZ8xHj
+         iK0mNNAeTY8exKlW5phJpCD4AQcVjKnT/FEQualA/mF/be6JhcheLv4vgUjHjRvK6wJo
+         rcycRuC27h7gmO3904K0GL2zHt2dalGm3ZjjoMsw27gATaIEIBBJc44c+aCmBh6nW3Be
+         /+X1MN2VUVJonbr00YQ8M9qWLV/psNDcStX/8DPr7jd//Xy8c9cIFImimwIBZtDKnGwM
+         3QHAkkl5afan8fUIq98PdydTv0s2+jpeYsruCTYE7rVVQn1ybdQKSJAv19SWYCjhB79T
+         XRiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739892357; x=1740497157;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=kO8ZjQjaFKbnEHTOpCzz+11SR4934oDmM1CC/TSqYe0=;
-        b=GkycNiJOkBBHWjLBw8TaEJkxVp1SMqc6G4G4ND0be/8jPV7wi1s0qGLpG/+bmDfAin
-         UcdWl33ZCyQuocSSFx7z55nY4eRmY82c1JvJ2G8ehSAAaO+mxUfziSN3BwcutCLOtoLS
-         cpnIO9T3Zt+mLZLc89cO6RO7rGswuYGiNm0nlBd8XvdnnqQ50Y+xLjKxFq23y5tkBgkx
-         jFM2l3M6+GE7fdIsQy/5skDAQGDvq6ZMPgSCVylnqmCmFdhzVI9nFs2i/z9Eb8d9bK5F
-         IyDfAWncI7kWOclr400r3FWt2kACYE3kVd3cRL6Qh5w+TKEFrl/iy2g1lQQr04n1an/y
-         d6OA==
-X-Forwarded-Encrypted: i=1; AJvYcCVM/vKnL5G3/9vf3bSZ9Zv/z33yYI0JNMM8ovFekPv+JauPe54kDNjhfH70U4wVOQC8E/zVV/LLZtc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YypDCdPVVJ05A7juDq+RsmXayK/Q4bwyU+7iBn9ZEgLi1H0nim3
-	ncx12xw5n8PSmZAXX3i8Ho8m/o+T/SZ+hv3kmUix7VDUMY+Ytrkzm++R5v5mm+c=
-X-Gm-Gg: ASbGnctbF9KW392uoldl2pbpDByF8uoL81lT7yNT6eIetOs7o8LwOIQ08L8wsuzhNLi
-	OQBQOcdeKNwbtLkONi0ypR8odPTHSvTK22ajyNq64YuN5yjNIID4lVkSnyVQjFffgoPMmZHaVxl
-	tjdbZcbPVsyTgebz4TNJOmi3rg+qVBD4wsZs8oDurb5lKfHr2BjMpHmGTwm5dkuVBp/GOH0tXbe
-	G2PVChUDD4sYhdR08VUS4/5mQIa+PbaMcxh+/WIT6FeDopgmKGvD9VHoQiOYTFSUmIdHRtrMJy0
-	vQUb0fmPjBpFfJtBmDmeFmLpVTqmz05LeCEJSbraUZCDPTxupiDrNN6T0FQ=
-X-Google-Smtp-Source: AGHT+IEfQkZCEMZr8K3W+1iS/umucsBFRf5X6CifaRXiFtiDEf5G7/tN5hMhY5suxFVLoEfx6kpx6w==
-X-Received: by 2002:a05:600c:1552:b0:439:90f5:3942 with SMTP id 5b1f17b1804b1-43990f53d17mr32639405e9.25.1739892356885;
-        Tue, 18 Feb 2025 07:25:56 -0800 (PST)
-Message-ID: <3fb630f4-ebd2-4f14-a1fe-4e84786a1400@linaro.org>
-Date: Tue, 18 Feb 2025 16:25:55 +0100
+        d=1e100.net; s=20230601; t=1739892754; x=1740497554;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3ydgtmOQYlZluKBJ65YENpIYQDqoG+Szcfc42JStPsw=;
+        b=Rhmlaq6K+Sl/N8084YhowksZX8MV0TZDcDRQ9z2XVbsJ15P62NcMiVIdOZcE2L0QxT
+         YRz4i42u5VhvTi8beip8jnD7/tMZXpemJMStGHKpWJB5fc+t/9Zulh+tHqHoHM86D1w/
+         cjj4aG7OTJuQ1IdnPjfv3z4rSs+efHSLDdQ/izp7ySKxON1WLDmFMurgU1kM/x2zF+QG
+         xUESpbbG68iMr/wMTTqw5jiS7Lu1wp8VxZw7MqdLDTK1svC4roYvUQO3kiK5WcNsmf3R
+         AbPKKXfhLSXr2RnQhZKDGXi//M3TRgB/CYG3z7/r4enu1oX3ww0HAZLrwiEzs6QCALb3
+         EHEQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWKMnGUQJFz3PR3KpkUPQ5ZoG0y/Aa7z6BnrBC8BqEHp6bdYMv0U4vBexzxKDOju+RNHZc+RGbe4VQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyvaUNDf4Fi3/SUGluIuuPSNUzCpRuC7BtkE2TG1QRsSDVo5zfH
+	mq9vmsIei6H/9DnQTuXFV49TmDGqIRx9R2TMV4t4PmQEoHhRKSxmOp85DADTmA==
+X-Gm-Gg: ASbGncugqXHnALYgcSnt4aBlxxqkO5zdjYf9aZP2f8nk9nVyAmos3cYi4Azu9wshKHd
+	Lv3xQqoGFTm4WPsA5OfVe1PhPqMnjQuw/J74zcMPE7rRhtS7r0iDluE7j6YL4aAHlcRwoxftua6
+	avuUVjg4rKUCWFLlCh9JXQgijqKHEsLlECkpN/1/e+wg2M/Id5G5IX1JZIJ9B5f4cttVI8lK3Eo
+	/Q79tEweKuefHN0xY/M4VErGhO5GnQpicu+nAriNQnTTQDz3eaGpB+ieTt0D4hiECsZzUCaqnIb
+	qk1b8blnDXPboAkAw1Xz3W/R4IRcY51E/DmNxAi8zFk4G+sKyz0FZh/brUE5iu76uS3Cf9S2puq
+	N
+X-Google-Smtp-Source: AGHT+IEPbm7PrZl45BSPII379V2i9cv4f3C0Rqfjrn3RxwRl+38HWmi0rxrC1HPmDuYhFpz8kDFq2A==
+X-Received: by 2002:a17:907:d509:b0:abb:b666:8e4e with SMTP id a640c23a62f3a-abbcc7f2dcdmr13912966b.26.1739892753978;
+        Tue, 18 Feb 2025 07:32:33 -0800 (PST)
+Message-ID: <19888001-ceac-44a8-8d14-cb0dd6d19b2c@suse.com>
+Date: Tue, 18 Feb 2025 16:32:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PULL 3/9] meson: Disallow 64-bit on 32-bit Xen emulation
-To: Andrew Cooper <andrew.cooper3@citrix.com>, qemu-devel@nongnu.org,
- David Woodhouse <dwmw2@infradead.org>,
- "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>,
- Paul Durrant <paul@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony@xenproject.org>,
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
- Vikram Garhwal <vikram.garhwal@bytedance.com>
-Cc: Thomas Huth <thuth@redhat.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- qemu-arm <qemu-arm@nongnu.org>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
- <alex.bennee@linaro.org>, =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?=
- <berrange@redhat.com>
-References: <20250208205725.568631-1-richard.henderson@linaro.org>
- <20250208205725.568631-4-richard.henderson@linaro.org>
- <aeaf0f19-0f14-4a02-9c51-09521e7c75e1@linaro.org>
- <9b22d0ff-5902-4ec7-ae54-e974482ebd87@citrix.com>
+Subject: Re: [PATCH v2 1/2] x86/iommu: account for IOMEM caps when populating
+ dom0 IOMMU page-tables
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20250217141602.64014-1-roger.pau@citrix.com>
+ <20250217141602.64014-2-roger.pau@citrix.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-In-Reply-To: <9b22d0ff-5902-4ec7-ae54-e974482ebd87@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250217141602.64014-2-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-+Vikram
-
-On 18/2/25 15:10, Andrew Cooper wrote:
-> On 18/02/2025 11:20 am, Philippe Mathieu-Daudé wrote:
->> Hi,
->>
->> Adding Xen community.
->>
->> On 8/2/25 21:57, Richard Henderson wrote:
->>> Require a 64-bit host binary to spawn a 64-bit guest.
->>>
->>> Reviewed-by: Thomas Huth <thuth@redhat.com>
->>> Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
->>> Signed-off-by: Richard Henderson <richard.henderson@linaro.org>
->>> ---
->>>    meson.build | 9 +++++++--
->>>    1 file changed, 7 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/meson.build b/meson.build
->>> index 1af8aeb194..911955cfa8 100644
->>> --- a/meson.build
->>> +++ b/meson.build
->>> @@ -304,9 +304,14 @@ else
->>>    endif
->>>    accelerator_targets = { 'CONFIG_KVM': kvm_targets }
->>>    -if cpu in ['x86', 'x86_64']
->>> +if cpu == 'x86'
->>> +  xen_targets = ['i386-softmmu']
->>> +elif cpu == 'x86_64'
->>>      xen_targets = ['i386-softmmu', 'x86_64-softmmu']
->>> -elif cpu in ['arm', 'aarch64']
->>> +elif cpu == 'arm'
->>> +  # i386 emulator provides xenpv machine type for multiple
->>> architectures
->>> +  xen_targets = ['i386-softmmu']
->>
->> Is actually someone *testing* this config? I'm having hard time building
->> it, so am very suspicious about how it runs, and start to wonder if I'm
->> not just wasting my time (as could be our CI).
+On 17.02.2025 15:16, Roger Pau Monne wrote:
+> The current code in arch_iommu_hwdom_init() kind of open-codes the same
+> MMIO permission ranges that are added to the hardware domain ->iomem_caps.
+> Avoid this duplication and use ->iomem_caps in arch_iommu_hwdom_init() to
+> filter which memory regions should be added to the dom0 IOMMU page-tables.
 > 
-> It was intentional.  I believe it was Stefano (CC'd) who introduced it.
-
-In the introduction commit, "ARM targets" is used, so apparently both
-32/64bit were picked deliberately:
-
----
-commit aaea616d54317b8a0154adf52303a51da2d8d56f
-Author: Vikram Garhwal <vikram.garhwal@amd.com>
-Date:   Wed Jun 14 17:03:38 2023 -0700
-
-     meson.build: enable xenpv machine build for ARM
-
-     Add CONFIG_XEN for aarch64 device to support build for ARM targets.
-
-     Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
-     Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-     Reviewed-by: Alex Bennée <alex.bennee@linaro.org>
-
-diff --git a/meson.build b/meson.build
-index 481865bfa97..cfa98e9e25f 100644
---- a/meson.build
-+++ b/meson.build
-@@ -136,7 +136,7 @@ endif
-  if cpu in ['x86', 'x86_64', 'arm', 'aarch64']
-    # i386 emulator provides xenpv machine type for multiple architectures
-    accelerator_targets += {
--    'CONFIG_XEN': ['i386-softmmu', 'x86_64-softmmu'],
-+    'CONFIG_XEN': ['i386-softmmu', 'x86_64-softmmu', 'aarch64-softmmu'],
-    }
-  endif
-  if cpu in ['x86', 'x86_64']
----
-
-> Xen uses qemu-system-i386 everywhere because qemu-system-x86_64 doesn't
-> make compatible VMs.  I'm not sure why; I suspect it's bugs in the Xen
-> machine types, but I don't know QEMU well enough to be sure.
+> This should result in no change in the memory regions that end up identity
+> mapped in the domain IOMMU page tables.
 > 
-> Another thing that (at least, was) tied to qemu-system-i386 was using
-> Qemu as a XenBlk <-> QCOW adapter, at which point it wasn't even really
-> a system emulator, just a paravirtual disk implementation.
+> Note the IO-APIC and MCFG page(s) must be set as not accessible for a PVH
+> dom0, otherwise the internal Xen emulation for those ranges won't work.
+> This requires an adjustment in dom0_setup_permissions().
 > 
-> This is, AIUI, what ARM wants with the xenpv machine.  If there's a
-> better way to do this, please do say.
+> Also the special casing of E820_UNUSABLE regions no longer needs to be done
+> in arch_iommu_hwdom_init(), as those regions are already blocked in
+> ->iomem_caps and thus would be removed from the rangeset as part of
+> ->iomem_caps processing in arch_iommu_hwdom_init().
 
-No, I concur.
+Only almost: ->iomem_caps has them removed only for addresses 1Mb and up.
 
-> Looking through Xen's CI, I can't see any of the ARM builds building
-> QEMU at all.  I think it's quite possible it's not tested any more.
+> --- a/xen/arch/x86/dom0_build.c
+> +++ b/xen/arch/x86/dom0_build.c
+> @@ -552,7 +552,8 @@ int __init dom0_setup_permissions(struct domain *d)
+>      for ( i = 0; i < nr_ioapics; i++ )
+>      {
+>          mfn = paddr_to_pfn(mp_ioapics[i].mpc_apicaddr);
+> -        if ( !rangeset_contains_singleton(mmio_ro_ranges, mfn) )
+> +        if ( is_hvm_domain(d) ||
+> +             !rangeset_contains_singleton(mmio_ro_ranges, mfn) )
+>              rc |= iomem_deny_access(d, mfn, mfn);
+>      }
 
-We only cross-build, see our cross-arm64-xen-only job:
-https://gitlab.com/qemu-project/qemu/-/jobs/9165958873
+The original code used has_vioapic() and had a comment. At least one of#
+the two would better be transplanted here, I think.
 
-Note, if it is not clear, the problem I have is to test Xen on
-32-bit ARM hosts; I don't have any problem with 64-bit ones.
+> @@ -593,6 +594,22 @@ int __init dom0_setup_permissions(struct domain *d)
+>              rc |= rangeset_add_singleton(mmio_ro_ranges, mfn);
+>      }
+>  
+> +    /* For PVH dom0 prevent access to MCFG, it's emulated by Xen. */
+> +    if ( is_hvm_domain(d) )
+> +    {
+> +        for ( i = 0; i < pci_mmcfg_config_num; i++ )
+> +        {
+> +            const unsigned long s =
+> +                PFN_DOWN(pci_mmcfg_config[i].address) +
+> +                PCI_BDF(pci_mmcfg_config[i].start_bus_number, 0, 0);
+> +            const unsigned long e =
+> +                PFN_DOWN(pci_mmcfg_config[i].address) +
+> +                PCI_BDF(pci_mmcfg_config[i].end_bus_number, ~0, ~0);
+> +
+> +            rc |= iomem_deny_access(d, s, e);
+> +        }
+> +    }
 
-Regards,
+Similarly here, the original code used has_vpci() and also had a comment.
+Is there actually a strong reason to replace the original MCFG code?
 
-Phil.
+> --- a/xen/drivers/passthrough/x86/iommu.c
+> +++ b/xen/drivers/passthrough/x86/iommu.c
+> @@ -320,6 +320,26 @@ static int __hwdom_init cf_check map_subtract(unsigned long s, unsigned long e,
+>      return rangeset_remove_range(map, s, e);
+>  }
+>  
+> +struct handle_iomemcap {
+> +    struct rangeset *r;
+> +    unsigned long last;
+> +};
+> +static int __hwdom_init cf_check map_subtract_iomemcap(unsigned long s,
+> +                                                       unsigned long e,
+> +                                                       void *data)
+> +{
+> +    struct handle_iomemcap *h = data;
+> +    int rc = 0;
+> +
+> +    if ( h->last != s )
+> +        rc = rangeset_remove_range(h->r, h->last, s - 1);
+> +
+> +    /* Be careful with overflows. */
+> +    h->last = max(e + 1, e);
+
+What overflow could occur here? Addresses are limited to 52 bits; frame
+numbers are limited to 40 bits. And ->iomem_caps starts out with a range
+ending at the last address permitted by paddr_bits.
+
+> @@ -475,22 +488,13 @@ void __hwdom_init arch_iommu_hwdom_init(struct domain *d)
+>      if ( rc )
+>          panic("IOMMU failed to remove Xen ranges: %d\n", rc);
+>  
+> -    /* Remove any overlap with the Interrupt Address Range. */
+> -    rc = rangeset_remove_range(map, 0xfee00, 0xfeeff);
+> +    iomem.r = map;
+> +    rc = rangeset_report_ranges(d->iomem_caps, 0, ~0UL, map_subtract_iomemcap,
+> +                                &iomem);
+> +    if ( !rc && iomem.last < ~0UL )
+> +        rc = rangeset_remove_range(map, iomem.last, ~0UL);
+
+Similarly here I'm wondering about the upper bound of ~0UL. Is this just
+to be on the safe side? And/or just because it's simpler than calculating
+the actual upper bound? No ranges above the system physical address width
+should ever be entered into the rangeset. Kind of as an implication
+iomem.last also is guaranteed to be below ~0UL when making it here.
+
+Jan
 
