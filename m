@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D17C8A3A022
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Feb 2025 15:39:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.891731.1300785 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E9B3A3A01F
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Feb 2025 15:39:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.891721.1300774 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkOlF-0001xG-JZ; Tue, 18 Feb 2025 14:39:45 +0000
+	id 1tkOkT-0001S4-9J; Tue, 18 Feb 2025 14:38:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 891731.1300785; Tue, 18 Feb 2025 14:39:45 +0000
+Received: by outflank-mailman (output) from mailman id 891721.1300774; Tue, 18 Feb 2025 14:38:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkOlF-0001un-Fz; Tue, 18 Feb 2025 14:39:45 +0000
-Received: by outflank-mailman (input) for mailman id 891731;
- Tue, 18 Feb 2025 14:39:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tkOkT-0001QM-6i; Tue, 18 Feb 2025 14:38:57 +0000
+Received: by outflank-mailman (input) for mailman id 891721;
+ Tue, 18 Feb 2025 14:38:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=J6eQ=VJ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tkOlD-0001uS-CD
- for xen-devel@lists.xenproject.org; Tue, 18 Feb 2025 14:39:43 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 309b8f9d-ee06-11ef-9aa7-95dc52dad729;
- Tue, 18 Feb 2025 15:39:42 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-38f325ddbc2so2701451f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 18 Feb 2025 06:39:42 -0800 (PST)
-Received: from andrewcoop.eng.citrite.net (host-92-26-98-202.as13285.net.
- [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38f259f771dsm15014318f8f.81.2025.02.18.06.39.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Feb 2025 06:39:41 -0800 (PST)
+ id 1tkOkR-0001QG-R1
+ for xen-devel@lists.xenproject.org; Tue, 18 Feb 2025 14:38:55 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 138d266b-ee06-11ef-9896-31a8f345e629;
+ Tue, 18 Feb 2025 15:38:53 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-4395f81db4dso33646675e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Feb 2025 06:38:53 -0800 (PST)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4395a0558e2sm183826145e9.11.2025.02.18.06.38.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 18 Feb 2025 06:38:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,107 +45,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 309b8f9d-ee06-11ef-9aa7-95dc52dad729
+X-Inumbo-ID: 138d266b-ee06-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1739889582; x=1740494382; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=yru+sjmSJ302ywgbFqZJaJTPd2E0qtSFc5YX3HWppXA=;
-        b=uvuaXY02zJU+F69AGJNSpcdkTE6c68iZG//J+iqWmzmgMYbwLaI2sBHx6nH6kfdEs+
-         n6dJrbTfiVPbbW1c3cEdR87ChK5J5iA+5o4ihpyBkde5wfHb9vY73DpGkeZdPPOajaEH
-         2Du/V5AzJpUdcC0tBt4WNXFJT3xjfu0LV/wPQ=
+        d=citrix.com; s=google; t=1739889533; x=1740494333; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=6dZgVe8Q3pUjMU+Nfk+MsaSEUwQM2cCyHwNGXoPYzpA=;
+        b=BjhoEEaDlZMfqJsekKw6eak2pTs5bmwKE3pftFn4V82NIjyftJXtOXH6PmJlZ5Xx5w
+         S+htjQefb9i/UbO3enVyPuzAkNpbfsfJBNpmSwW5w+FvtXlz+b47DGLnNYrosPWYWECZ
+         K5is79MKBSD/+I5vMwT01d6Bgf0H6ILnL6kCw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739889582; x=1740494382;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=yru+sjmSJ302ywgbFqZJaJTPd2E0qtSFc5YX3HWppXA=;
-        b=iz1ioL6Llsi6m3n2WZG9yigdtDwhSVCM5a5W0Rm3TVDJw1Ltlh2TGyCL5DJWY2Osh0
-         vzx2bIaZKjDRUgmd4jT17T8j/owEgWTIlKs7Sbya0exVgwZ/6UhgSu/a+5AbKKP7O4bg
-         0YDk+pDKC/23/r2TMWvOh4boE7km5GMD6GdnUvKqLe2NAZql5Sea2rLmk7v4Pc+E7wPE
-         DoxiaRhqQ2hmKTRljPMyAqh7S0PmLj+F0MNtmKA4k9pf0/s+FOHgomkW7BOm/lFv1fuN
-         h5WGiXWKXs1mqs8Ji94/u0CCoFr8yrKKHE+iIadjhgsTLeXkp03zepPOhNfUn0Zdb5Yl
-         MZsg==
-X-Gm-Message-State: AOJu0YxgKtuCW0+8stFpytkIB2VFhFDnektcVzuIC2cYuI1hmr8h/kT+
-	LeKeDP+QN/p1NWOSfs9JuifJNzag9j4ulfIBqS/iPOtYRCrDGXqJEeUAAQnYQuGKJKBGZLQdQtn
-	n
-X-Gm-Gg: ASbGncsw/bYyBNSDbCOoB1u47nAONVfQICTqDVwDlDxpCgNh6gLWee38bHDPNYvja7U
-	DA4zgQCi72MWwo6vG/a1oxYMRC/JxEDfBVgVkeStPxdJSudNJy8vgktLjrd3nCVdWmojz8wj+la
-	UmOeclDBQlBITEOl5CpSNydoxDol+Nq90xWIvWaVMtR0mwwjNdo6hB8N+hoiNDQxmMCMzsm8so3
-	EofrGoqAW40wGv+1FHCrP8R/3Zo+LpVg/5eXODZICGGvB91/T14pDPPxEdrxfcQ5AAzhX2+meDs
-	NZs1JFQ0WdaNgnJECMDc/R1TzMEOzuI0KHvmITXaisCiN7C+rbCAMviT/ge/vHAKnEb9wdw=
-X-Google-Smtp-Source: AGHT+IHo663xprWKWWEZV41hVIx9OjeJkdnWMku00pu99sWeEpZ3/cDN/7am+xdInZU/3wnBBKU3Cg==
-X-Received: by 2002:adf:ef46:0:b0:38d:badf:9df5 with SMTP id ffacd0b85a97d-38f33f39223mr8904837f8f.17.1739889581749;
-        Tue, 18 Feb 2025 06:39:41 -0800 (PST)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v2] x86/svm: Separate STI and VMRUN instructions in svm_asm_do_resume()
-Date: Tue, 18 Feb 2025 14:37:39 +0000
-Message-Id: <20250218143739.623451-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250217161241.537168-1-andrew.cooper3@citrix.com>
-References: <20250217161241.537168-1-andrew.cooper3@citrix.com>
+        d=1e100.net; s=20230601; t=1739889533; x=1740494333;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6dZgVe8Q3pUjMU+Nfk+MsaSEUwQM2cCyHwNGXoPYzpA=;
+        b=Z1Tg02s01buJeHFJaFo26Ke3QYGGb9ynPGfIu2ccd5apG7mTe/v/BEi8HnNR0DLDkS
+         ILjn5avi+WM8gds/Ffyd/D6eJKhcnZiNU9cvfbamuio8ZKwRzTODFSx+KqJPjDLkqZOf
+         L6lLc9eKnVEFvig8VLwdSwaEq/MZNU+7znxjX7lYj4LXqZypoI+2veJyePToHuGwccB4
+         cr1DELqYod4f+QxUk7Jz/SIdAbD8Y84O8SxMDr9W42XZBPCsAPB/ePC3SXQrls6dg/9C
+         ZgsAcG+AQZqe0SvgvhPkui4WMbaWzgJ4V7p10v2hysF22sbge6jFdG/dk5uoQTekP65X
+         G5vg==
+X-Gm-Message-State: AOJu0YyDbrs1jrXgzD/y9cBa8p7PEpcspeh+SigDjY9lEqCr7n4cNM2B
+	qntN+BabOlZ4ZjgtQSK9aMkA30k1VuPSnWPCvoWFHpsggU7pk9Rmmj6pCm35Wkw=
+X-Gm-Gg: ASbGncu7ayAMUEkB8eDokYF8HDGF6mSD4qh+ulzpxVR/O6yb9B7NiDgUu5uPPFqRFG0
+	1nHZIWfCdtytCFRSUpvjglzdRbNVDQhJh0v+cUTyH56nv9FlunjEBKb6Bunl0skqIqZE/DzkHgk
+	8bCoUeAU0isLEMR4GPjbukMMEidK8Jtp8D4Iv/QsPBMGBRdkcnh4lrmkDApXrcEvVaAD094q4Ed
+	Bxs1hewrkmO4FOWgfdjL8H2tNbqCmP6Ht7bwu+aElvElkS5WFNBy9uWYYC5PctQ8rBhJIcU7kRS
+	GGvg/OYshRx+aHybs98o6WvrMayvuhoH3IxST8nZZLZ3PPJclV+fPKc=
+X-Google-Smtp-Source: AGHT+IHwtoDoUxgncHmK57cdoMTTnP6z/kwbdnzkBSO+H9c/bmqs3v8DR4uSyudwhD+9MFZGCwI58Q==
+X-Received: by 2002:a05:600c:46ce:b0:439:5fbd:19d2 with SMTP id 5b1f17b1804b1-4396ec7c92amr121807475e9.10.1739889533249;
+        Tue, 18 Feb 2025 06:38:53 -0800 (PST)
+Message-ID: <5d518271-17d3-474e-b27e-d553f5004d84@citrix.com>
+Date: Tue, 18 Feb 2025 14:38:51 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/1] tools/ocaml: Fix oxenstored build warning
+To: Andrii Sultanov <andrii.sultanov@cloud.com>
+Cc: xen-devel@lists.xenproject.org,
+ Christian Lindig <christian.lindig@citrix.com>, David Scott
+ <dave@recoil.org>, Anthony PERARD <anthony.perard@vates.tech>,
+ Christian Lindig <christian.lindig@cloud.com>
+References: <cover.1739546412.git.andrii.sultanov@cloud.com>
+ <0545259ba8f7c54b6fd6c82b185bdee475694747.1739546412.git.andrii.sultanov@cloud.com>
+ <850c2854-17ee-42d7-856a-44604f755941@citrix.com>
+ <CAAa3AOOYpak4987-7H71CpaBcHyHOOYUL0w6rqVDM17yTvTYJg@mail.gmail.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <CAAa3AOOYpak4987-7H71CpaBcHyHOOYUL0w6rqVDM17yTvTYJg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-There is a corner case in the VMRUN instruction where its INTR_SHADOW state
-leaks into guest state if a VMExit occurs before the VMRUN is complete.  An
-example of this could be taking #NPF due to event injection.
+On 14/02/2025 3:47 pm, Andrii Sultanov wrote:
+> > What's this hunk for?  There's a change in poll.ml <http://poll.ml>,
+> but I don't see why
+> > it would need to change this list.
+>
+> Otherwise Poll doesn't pick up Utils as its dependency - I guess
+> before it was always independent and didn't need anything like that
 
-Xen can safely execute STI anywhere between CLGI and VMRUN, as CLGI blocks
-external interrupts too.  However, an exception (while fatal) will appear to
-be in an irqs-on region (as GIF isn't considered), so position the STI after
-the speculation actions but prior to the GPR pops.
+Ok.  R-by and queued for 4.21.
 
-Link: https://lore.kernel.org/all/CADH9ctBs1YPmE4aCfGPNBwA10cA8RuAk2gO7542DjMZgs4uzJQ@mail.gmail.com/
-Fixes: 66b245d9eaeb ("SVM: limit GIF=0 region")
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
----
-v2:
- * Move after the speculation actions.
-
-Emailed out just for completeness.  I've queued it in my for-4.21 branch.
----
- xen/arch/x86/hvm/svm/entry.S | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/xen/arch/x86/hvm/svm/entry.S b/xen/arch/x86/hvm/svm/entry.S
-index 6fd9652c04a1..91edb3345938 100644
---- a/xen/arch/x86/hvm/svm/entry.S
-+++ b/xen/arch/x86/hvm/svm/entry.S
-@@ -74,6 +74,14 @@ __UNLIKELY_END(nsvm_hap)
-         ALTERNATIVE "", svm_vmentry_spec_ctrl, X86_FEATURE_SC_MSR_HVM
-         ALTERNATIVE "", DO_SPEC_CTRL_DIV, X86_FEATURE_SC_DIV
- 
-+        /*
-+         * Set EFLAGS.IF after CLGI covers us from real interrupts, but not
-+         * immediately prior to VMRUN.  The VMRUN instruction leaks it's
-+         * INTR_SHADOW into guest state if a VMExit occurs before VMRUN
-+         * completes (e.g. taking #NPF during event injecting.)
-+         */
-+        sti
-+
-         pop  %r15
-         pop  %r14
-         pop  %r13
-@@ -91,7 +99,6 @@ __UNLIKELY_END(nsvm_hap)
-         pop  %rsi
-         pop  %rdi
- 
--        sti
-         vmrun
- 
-         SAVE_ALL
-
-base-commit: 81f8b1dd9407e4a3d9dc058b7fbbc591168649ad
-prerequisite-patch-id: 838271a62e35fbc5b6696a9d331ba09fd1b54328
-prerequisite-patch-id: e597e6f0f303962d4829ab0b8601daa5db15a9e6
-prerequisite-patch-id: 2d19885bdacc98098fc44caf68fcd25ac1f19596
--- 
-2.39.5
-
+~Andrew
 
