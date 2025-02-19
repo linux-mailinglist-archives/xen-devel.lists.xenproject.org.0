@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94A06A3C235
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 15:34:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.893042.1301975 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75C02A3C26D
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 15:46:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.893052.1301985 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkl8v-0003e0-Rh; Wed, 19 Feb 2025 14:33:41 +0000
+	id 1tklL2-0005Xb-Up; Wed, 19 Feb 2025 14:46:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 893042.1301975; Wed, 19 Feb 2025 14:33:41 +0000
+Received: by outflank-mailman (output) from mailman id 893052.1301985; Wed, 19 Feb 2025 14:46:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkl8v-0003b7-P2; Wed, 19 Feb 2025 14:33:41 +0000
-Received: by outflank-mailman (input) for mailman id 893042;
- Wed, 19 Feb 2025 14:33:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tklL2-0005UT-Ry; Wed, 19 Feb 2025 14:46:12 +0000
+Received: by outflank-mailman (input) for mailman id 893052;
+ Wed, 19 Feb 2025 14:46:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=GJ0s=VK=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tkl8u-0003b1-Pv
- for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 14:33:40 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 82b9912b-eece-11ef-9aa8-95dc52dad729;
- Wed, 19 Feb 2025 15:33:39 +0100 (CET)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-54524740032so5996729e87.3
- for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 06:33:39 -0800 (PST)
+ id 1tklL1-0005UN-So
+ for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 14:46:11 +0000
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [2a00:1450:4864:20::12d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 41ba3199-eed0-11ef-9896-31a8f345e629;
+ Wed, 19 Feb 2025 15:46:09 +0100 (CET)
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-5452ed5b5b2so4954398e87.0
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 06:46:09 -0800 (PST)
 Received: from [172.24.85.51] ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5452d9cd8a2sm1738025e87.76.2025.02.19.06.33.37
+ 2adb3069b0e04-5462ff361ebsm219698e87.187.2025.02.19.06.46.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Feb 2025 06:33:38 -0800 (PST)
+ Wed, 19 Feb 2025 06:46:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,50 +44,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 82b9912b-eece-11ef-9aa8-95dc52dad729
+X-Inumbo-ID: 41ba3199-eed0-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1739975619; x=1740580419; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1739976369; x=1740581169; darn=lists.xenproject.org;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=djw16h++tioF4+ERRAhJ8rRPM+INlvR1+36Ihf30IvM=;
-        b=KE3tYIhggH+ecmZFNWNDcrbJEutzJ0JSScQmP8jAssgSYf5CM1i1Y62Cwu1MY3D1iG
-         34KAzGCspniuMktx9FnLpgDah4QDRDGFjNXoSUFXOR94t2X3RJsUf7OCh0D5CCm8HcqU
-         KCZAYaBe5/hqKxsQtMy/ZYmCPrGxdLoVe2j4jsYSAOsj1qkt5hdQY6zLgZWaa5qHyG4A
-         63YQxxtDJwxxqWKA+ft8suQYmn3pOO8ow1CapXK5zz4R3xVz+h8CXZNjw/JjH9MjfkxU
-         PyNEx1zaon26ejOH7R/p0umMjn4cFaBaVQDWl5xbpFxDaFShW4dSbhpNo+8Br0oU4WVA
-         FuLA==
+        bh=z2F5t3qJz1OOjynsRlU6ICnHq9JKzdjSjRBTCUncKzs=;
+        b=mP+1yPNZhWyAkZRavSUGXO+HiKkgFuJXwU/9B00EHDsygkaGOgEtxlrsH2GyGEaQis
+         J2s3UsJ+09ZK5kwVPLzQfbkVjoyGd1qULTu41n0zudCuqhZ/JsG0I4HVtRF4cV1+y/om
+         zqnumXBisvo5HcdUJ394HiUch2jj7YjA3Hkk1BbfvbByL4PNu/u9YZF/vC3bHyvopnBe
+         ShgyZ1XKiPcmFRDmnsJu30Kb9P21D1KBn33vr6+aF/Li/fRDBHxe+CkUbl0HLtynSEZy
+         T1HYowAlWtA2F77LqXj8zu94p3QeM83dxz9o1H5vcl2aRCV3m+BB37YGVgGGeSLoUwak
+         /E1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739975619; x=1740580419;
+        d=1e100.net; s=20230601; t=1739976369; x=1740581169;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=djw16h++tioF4+ERRAhJ8rRPM+INlvR1+36Ihf30IvM=;
-        b=Q7aUgmc5VRN7LBnptL1e4X3Ft7EriunPyO9IQvnwdIsvqSSnw9slfWLrAs6KkOR+PG
-         0cmTCXWmGuu+Lulrw5tTqH3bwzTwZT13ALSr/N5TK0n+FfFh6A1A9zAXUeJGzH667ShF
-         kCOwhUri4dto4fQ217OxswGTOpBrtugHBf7JNcvAtW+CsfFD9xld4UkXVtaUPk3cBIXe
-         lfbusI3SjcBG9nwFlMHptHD1i46aSj02K9wg1EsiC+s7ZofJBJdxNaB0ps0WXy9tLNKC
-         apDMmkSCxFWsOrWwTwTg2nQngxMvF0aiv3FEBmzzdN573AwgqykT4ShCZviLArYHVFB4
-         cZvA==
-X-Forwarded-Encrypted: i=1; AJvYcCVa1/z6Nw2S89y0HVfA8lIkMRMGd9vTCCXFoU3CwJbHsMyB8VSFXhyewhaFdyo5VjE2xOmBUlHbAbE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyVtR8lq/flTim7uaMc588p4QTrarkVtuxIs1vGpsFLm29d/pmh
-	J2RVE/wb6xvZCrpCE1rXYlw941RhjBN6OXpBcwh8cNhyVpIXRr+4
-X-Gm-Gg: ASbGnct6gefa+vLnXdhDB8vC3SrkMn8/urL3Z+hPOiiY+SA+qY7oVb8zFVhWrHN55CP
-	1xp+ufbT6HN9/8AAf4CNI+BHEZY4zhnfjE1g2vjCVmWUdKpFcthFNbF9UPYK8WD2D45ST+ia2pw
-	ElEXpM3G63+f/gNoLqQZfRs/rTxUX0ZuGwHlkAHPF7kMLAbKQuqYaNHBeGAXbHsGAD4eFdgTOl0
-	c22/Rq8z6PqmhA6PUAzEizeBWG64kAP/TBI/Z+Qq35uz0O4ctxPIx6lxxru0k/HiFKgQYBLI0Q1
-	66/7djKFTQhlRsD0Qmt3U1sO
-X-Google-Smtp-Source: AGHT+IG8HnDTH/IhBMla/6hFvegTAJ3rcI/0EXXWltlbnhcMfS+Ltt4LOYXNvGys0V363+MkirXbug==
-X-Received: by 2002:a05:6512:104e:b0:545:2b24:c714 with SMTP id 2adb3069b0e04-5452fe56d73mr7538795e87.18.1739975618643;
-        Wed, 19 Feb 2025 06:33:38 -0800 (PST)
+        bh=z2F5t3qJz1OOjynsRlU6ICnHq9JKzdjSjRBTCUncKzs=;
+        b=ZgTjs0Yd90zGsBwOTD2hCZtOaCLEv+YaOxU3HwgMU52k5l7c9Kb1bvPliEdzGXnEL2
+         z4XTOMKRVqcNpBcRt6E6XHpBWwe4HAupt/0YyBTKWcutrqR9om0ddsnAJGY3c3nCI9UM
+         s8ySWDaKZuh8cUIATIBz2NDOMBRiG7X0zbSxY/rWSGldo269dzYEMyObB+aJlwo0N3tO
+         8MzGRfUhoXWqfCkPHY3CbrVavWB6uzfbLUVYaQ1doVhPi4eyxTL4gnEQiENkK49Lgoq1
+         9Si98YXrfYPA9kMxoZamIOLN9OVHOfXWpJqWHb24Ex8V38zZqdyQ5gw7T3ZU7BlYp4d0
+         XR7g==
+X-Forwarded-Encrypted: i=1; AJvYcCWe0/WWOO+Vc4fcc2/O7d365JkbIQnD2Kxgakgucmrq1Xv/2WDQAkNHLTJQbzO6o2OSRnLraEcIu0k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw+N7lhSQuErpQXCiB282V0PW8Vkqp8beIXSxCPNgeyyTp1lsrS
+	bDXhs6IJXlRGdlTNlqLeGB6uzbrll5kDg5TLhil52VSRq/QXQUxx
+X-Gm-Gg: ASbGncvfa6SOy5skBZavoPuxU+4wWJI0UTabAToqq7qbRD+F8QtK0q1/cR5fBXG/k53
+	7ykjF61OU3PKzqlmO2PMkk6cyw0GJlqbD8Z6MtbXQ4S5rf52sTndInQE3KL0KK9517xJG2tZpXX
+	JmEyGmqoXEPf6DiUIniqPpEFy+m9jUpkoC2lNzQIpouRZhBfi8mG0ePEWgkaKoQGVLz+3RALpRt
+	75nwoKycxNj+vyUmsWfIcS1MYhTA6VGDXvUVADTyJ6Ezo+2lf42VH0AQJSGefaiis3YuRwsBTx9
+	rsotF+zYXAxDc2zvB5/afgXn
+X-Google-Smtp-Source: AGHT+IHseUSOjZYXmPSHRXyQcFPWzRWTHu3coLZqGkG0OHkt0Im+gtxHutzlCl26SSkNPLmqA209wQ==
+X-Received: by 2002:a19:5f1e:0:b0:546:2ea4:8e72 with SMTP id 2adb3069b0e04-5462ea490bamr1655045e87.49.1739976368777;
+        Wed, 19 Feb 2025 06:46:08 -0800 (PST)
 Content-Type: multipart/alternative;
- boundary="------------XUSiONVSkpK6sxYPfu7e86kw"
-Message-ID: <45cc5337-be6b-4bfb-b968-56dc98bad249@gmail.com>
-Date: Wed, 19 Feb 2025 15:33:37 +0100
+ boundary="------------hni79qEeg8gBYAtWvKtzMPPh"
+Message-ID: <d398d595-74b3-424a-bab9-992653cdca95@gmail.com>
+Date: Wed, 19 Feb 2025 15:46:07 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for 4.20? v4 1/3] xen/riscv: implement software page table
- walking
+Subject: Re: [PATCH for 4.20? v4 3/3] xen/riscv: update mfn calculation in
+ pt_mapping_level()
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -97,71 +97,86 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1739363240.git.oleksii.kurochko@gmail.com>
- <9f1fbf84a82fd141f40428993106f0672d6d8c4c.1739363240.git.oleksii.kurochko@gmail.com>
- <5c56ef1f-1a13-4a2e-9317-0cc90e93d479@suse.com>
+ <38093d9843afbba9dda7326ee6e8cc3c99343cf6.1739363240.git.oleksii.kurochko@gmail.com>
+ <2cee5ebc-cae7-4da8-9b7d-bb55cc907570@suse.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <5c56ef1f-1a13-4a2e-9317-0cc90e93d479@suse.com>
+In-Reply-To: <2cee5ebc-cae7-4da8-9b7d-bb55cc907570@suse.com>
 
 This is a multi-part message in MIME format.
---------------XUSiONVSkpK6sxYPfu7e86kw
+--------------hni79qEeg8gBYAtWvKtzMPPh
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
-On 2/19/25 12:14 PM, Jan Beulich wrote:
+On 2/19/25 12:28 PM, Jan Beulich wrote:
 > On 12.02.2025 17:50, Oleksii Kurochko wrote:
 >> --- a/xen/arch/riscv/pt.c
 >> +++ b/xen/arch/riscv/pt.c
->> @@ -185,6 +185,68 @@ static int pt_next_level(bool alloc_tbl, pte_t **table, unsigned int offset)
->>       return XEN_TABLE_NORMAL;
->>   }
+>> @@ -249,12 +249,10 @@ pte_t pt_walk(vaddr_t va, unsigned int *pte_level)
 >>   
->> +/*
->> + * _pt_walk() performs software page table walking and returns the pte_t of
->> + * a leaf node or the leaf-most not-present pte_t if no leaf node is found
->> + * for further analysis.
->> + *
->> + * Additionally, _pt_walk() returns the level of the found pte by using
->> + * `pte_level` argument.
->> + * `pte_level` is optional, set `pte_level`=NULL if a caller doesn't need
->> + * the level of the found pte.
-> How about this, reducing redundancy a little?
+>>   /* Update an entry at the level @target. */
+>>   static int pt_update_entry(mfn_t root, vaddr_t virt,
+>> -                           mfn_t mfn, unsigned int target,
+>> +                           mfn_t mfn, unsigned int *target,
+>>                              unsigned int flags)
+>>   {
+>>       int rc;
+>> -    unsigned int level = HYP_PT_ROOT_LEVEL;
+>> -    pte_t *table;
+>>       /*
+>>        * The intermediate page table shouldn't be allocated when MFN isn't
+>>        * valid and we are not populating page table.
+>> @@ -265,41 +263,48 @@ static int pt_update_entry(mfn_t root, vaddr_t virt,
+>>        * combinations of (mfn, flags).
+>>       */
+>>       bool alloc_tbl = !mfn_eq(mfn, INVALID_MFN) || (flags & PTE_POPULATE);
+>> -    pte_t pte, *entry;
+>> -
+>> -    /* convenience aliases */
+>> -    DECLARE_OFFSETS(offsets, virt);
+>> +    pte_t pte, *entry = NULL;
+> With there also being "table" below, "entry" isn't quite as bad as in the
+> other patch. Yet I'd still like to ask that you consider renaming.
 >
->   * _pt_walk() can optionally return the level of the found pte. Pass NULL
->   * for `pte_level` if this information isn't needed.
+>> -    table = map_table(root);
+>> -    for ( ; level > target; level-- )
+>> +    if ( *target == CONFIG_PAGING_LEVELS )
+>> +        entry = _pt_walk(virt, target);
+> Imo it's quite important for the comment ahead of the function to be updated
+> to mention this special case.
 >
->> +pte_t pt_walk(vaddr_t va, unsigned int *pte_level)
->> +{
->> +    pte_t *entry = _pt_walk(va, pte_level);
->> +    pte_t pte = *entry;
->> +
->> +    unmap_table(entry);
->> +
->> +    return pte;
->> +}
-> "entry" especially in this context is ambiguous. I would expect a variable of
-> this name to be of type pte_t, not pte_t *. How about "ptep"?
+>> +    else
+>>       {
+>> -        rc = pt_next_level(alloc_tbl, &table, offsets[level]);
+>> -        if ( rc == XEN_TABLE_MAP_NOMEM )
+>> +        pte_t *table;
+>> +        unsigned int level = HYP_PT_ROOT_LEVEL;
+>> +        /* convenience aliases */
+> Nit: Style.
 
-Agree with both your suggestions, it would be better to use `ptep instead of `entry`
-and rephrase the comment.
+ From the 'Comments' section of CODING_STYLE, I see that the comment should start
+with capital letter. Do you mean that?
 
 >
-> Preferably with these adjustments, which I'd be fine making while committing,
-> Reviewed-by: Jan Beulich<jbeulich@suse.com>
->
-> Considering the 4.20? tag you'll need to decide whether you still want this
-> in before the release.
+>> @@ -331,7 +336,8 @@ static int pt_update_entry(mfn_t root, vaddr_t virt,
+>>       rc = 0;
+>>   
+>>    out:
+>> -    unmap_table(table);
+>> +    if ( entry )
+>> +        unmap_table(entry);
+> Would it perhaps be worth for unmap_table() to gracefully handle being passed
+> NULL, to avoid such conditionals (there may be more in the future)?
 
-Considering that it is still needed a new version for patch3 of this patch series and
-that the mentioned issues aren't affected no one, lets consider the full patch series for
-4.21.
+Agree, it would be more safe to move this check inside unmap_table(). I will update
+that.
 
 Thanks.
 
 ~ Oleksii
 
---------------XUSiONVSkpK6sxYPfu7e86kw
+--------------hni79qEeg8gBYAtWvKtzMPPh
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
@@ -173,77 +188,100 @@ Content-Transfer-Encoding: 7bit
   <body>
     <p><br>
     </p>
-    <div class="moz-cite-prefix">On 2/19/25 12:14 PM, Jan Beulich wrote:<br>
+    <div class="moz-cite-prefix">On 2/19/25 12:28 PM, Jan Beulich wrote:<br>
     </div>
     <blockquote type="cite"
-      cite="mid:5c56ef1f-1a13-4a2e-9317-0cc90e93d479@suse.com">
+      cite="mid:2cee5ebc-cae7-4da8-9b7d-bb55cc907570@suse.com">
       <pre wrap="" class="moz-quote-pre">On 12.02.2025 17:50, Oleksii Kurochko wrote:
 </pre>
       <blockquote type="cite">
         <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/pt.c
 +++ b/xen/arch/riscv/pt.c
-@@ -185,6 +185,68 @@ static int pt_next_level(bool alloc_tbl, pte_t **table, unsigned int offset)
-     return XEN_TABLE_NORMAL;
- }
+@@ -249,12 +249,10 @@ pte_t pt_walk(vaddr_t va, unsigned int *pte_level)
  
-+/*
-+ * _pt_walk() performs software page table walking and returns the pte_t of
-+ * a leaf node or the leaf-most not-present pte_t if no leaf node is found
-+ * for further analysis.
-+ *
-+ * Additionally, _pt_walk() returns the level of the found pte by using
-+ * `pte_level` argument.
-+ * `pte_level` is optional, set `pte_level`=NULL if a caller doesn't need
-+ * the level of the found pte.
+ /* Update an entry at the level @target. */
+ static int pt_update_entry(mfn_t root, vaddr_t virt,
+-                           mfn_t mfn, unsigned int target,
++                           mfn_t mfn, unsigned int *target,
+                            unsigned int flags)
+ {
+     int rc;
+-    unsigned int level = HYP_PT_ROOT_LEVEL;
+-    pte_t *table;
+     /*
+      * The intermediate page table shouldn't be allocated when MFN isn't
+      * valid and we are not populating page table.
+@@ -265,41 +263,48 @@ static int pt_update_entry(mfn_t root, vaddr_t virt,
+      * combinations of (mfn, flags).
+     */
+     bool alloc_tbl = !mfn_eq(mfn, INVALID_MFN) || (flags &amp; PTE_POPULATE);
+-    pte_t pte, *entry;
+-
+-    /* convenience aliases */
+-    DECLARE_OFFSETS(offsets, virt);
++    pte_t pte, *entry = NULL;
 </pre>
       </blockquote>
       <pre wrap="" class="moz-quote-pre">
-How about this, reducing redundancy a little?
-
- * _pt_walk() can optionally return the level of the found pte. Pass NULL
- * for `pte_level` if this information isn't needed.
+With there also being "table" below, "entry" isn't quite as bad as in the
+other patch. Yet I'd still like to ask that you consider renaming.
 
 </pre>
       <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+pte_t pt_walk(vaddr_t va, unsigned int *pte_level)
-+{
-+    pte_t *entry = _pt_walk(va, pte_level);
-+    pte_t pte = *entry;
-+
-+    unmap_table(entry);
-+
-+    return pte;
-+}
+        <pre wrap="" class="moz-quote-pre">-    table = map_table(root);
+-    for ( ; level &gt; target; level-- )
++    if ( *target == CONFIG_PAGING_LEVELS )
++        entry = _pt_walk(virt, target);
 </pre>
       </blockquote>
       <pre wrap="" class="moz-quote-pre">
-"entry" especially in this context is ambiguous. I would expect a variable of
-this name to be of type pte_t, not pte_t *. How about "ptep"?</pre>
+Imo it's quite important for the comment ahead of the function to be updated
+to mention this special case.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    else
+     {
+-        rc = pt_next_level(alloc_tbl, &amp;table, offsets[level]);
+-        if ( rc == XEN_TABLE_MAP_NOMEM )
++        pte_t *table;
++        unsigned int level = HYP_PT_ROOT_LEVEL;
++        /* convenience aliases */
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Nit: Style.</pre>
     </blockquote>
-    <pre>Agree with both your suggestions, it would be better to use `ptep instead of `entry`
-and rephrase the comment.
+    <pre>From the 'Comments' section of CODING_STYLE, I see that the comment should start
+with capital letter. Do you mean that?
 
 </pre>
     <blockquote type="cite"
-      cite="mid:5c56ef1f-1a13-4a2e-9317-0cc90e93d479@suse.com">
+      cite="mid:2cee5ebc-cae7-4da8-9b7d-bb55cc907570@suse.com">
       <pre wrap="" class="moz-quote-pre">
 
-Preferably with these adjustments, which I'd be fine making while committing,
-Reviewed-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
-
-Considering the 4.20? tag you'll need to decide whether you still want this
-in before the release.</pre>
-    </blockquote>
-    <pre>Considering that it is still needed a new version for patch3 of this patch series and
-that the mentioned issues aren't affected no one, lets consider the full patch series for
-4.21.
-
-Thanks.
-
-~ Oleksii
 </pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">@@ -331,7 +336,8 @@ static int pt_update_entry(mfn_t root, vaddr_t virt,
+     rc = 0;
+ 
+  out:
+-    unmap_table(table);
++    if ( entry )
++        unmap_table(entry);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Would it perhaps be worth for unmap_table() to gracefully handle being passed
+NULL, to avoid such conditionals (there may be more in the future)?</pre>
+    </blockquote>
+    <pre>Agree, it would be more safe to move this check inside unmap_table(). I will update
+that.
+
+Thanks.</pre>
+    <pre>~ Oleksii</pre>
   </body>
 </html>
 
---------------XUSiONVSkpK6sxYPfu7e86kw--
+--------------hni79qEeg8gBYAtWvKtzMPPh--
 
