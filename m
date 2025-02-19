@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75C02A3C26D
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 15:46:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.893052.1301985 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46F11A3C2BF
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 15:55:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.893066.1301995 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tklL2-0005Xb-Up; Wed, 19 Feb 2025 14:46:12 +0000
+	id 1tklTs-0007Qf-VE; Wed, 19 Feb 2025 14:55:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 893052.1301985; Wed, 19 Feb 2025 14:46:12 +0000
+Received: by outflank-mailman (output) from mailman id 893066.1301995; Wed, 19 Feb 2025 14:55:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tklL2-0005UT-Ry; Wed, 19 Feb 2025 14:46:12 +0000
-Received: by outflank-mailman (input) for mailman id 893052;
- Wed, 19 Feb 2025 14:46:11 +0000
+	id 1tklTs-0007OM-Rz; Wed, 19 Feb 2025 14:55:20 +0000
+Received: by outflank-mailman (input) for mailman id 893066;
+ Wed, 19 Feb 2025 14:55:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=GJ0s=VK=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tklL1-0005UN-So
- for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 14:46:11 +0000
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [2a00:1450:4864:20::12d])
+ id 1tklTr-0007OG-Cz
+ for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 14:55:19 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 41ba3199-eed0-11ef-9896-31a8f345e629;
- Wed, 19 Feb 2025 15:46:09 +0100 (CET)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-5452ed5b5b2so4954398e87.0
- for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 06:46:09 -0800 (PST)
+ id 883608a0-eed1-11ef-9896-31a8f345e629;
+ Wed, 19 Feb 2025 15:55:17 +0100 (CET)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-3098088c630so39958441fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 06:55:17 -0800 (PST)
 Received: from [172.24.85.51] ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5462ff361ebsm219698e87.187.2025.02.19.06.46.08
+ 2adb3069b0e04-54523070a9csm2005069e87.5.2025.02.19.06.55.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Feb 2025 06:46:08 -0800 (PST)
+ Wed, 19 Feb 2025 06:55:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,50 +44,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 41ba3199-eed0-11ef-9896-31a8f345e629
+X-Inumbo-ID: 883608a0-eed1-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1739976369; x=1740581169; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1739976917; x=1740581717; darn=lists.xenproject.org;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=z2F5t3qJz1OOjynsRlU6ICnHq9JKzdjSjRBTCUncKzs=;
-        b=mP+1yPNZhWyAkZRavSUGXO+HiKkgFuJXwU/9B00EHDsygkaGOgEtxlrsH2GyGEaQis
-         J2s3UsJ+09ZK5kwVPLzQfbkVjoyGd1qULTu41n0zudCuqhZ/JsG0I4HVtRF4cV1+y/om
-         zqnumXBisvo5HcdUJ394HiUch2jj7YjA3Hkk1BbfvbByL4PNu/u9YZF/vC3bHyvopnBe
-         ShgyZ1XKiPcmFRDmnsJu30Kb9P21D1KBn33vr6+aF/Li/fRDBHxe+CkUbl0HLtynSEZy
-         T1HYowAlWtA2F77LqXj8zu94p3QeM83dxz9o1H5vcl2aRCV3m+BB37YGVgGGeSLoUwak
-         /E1w==
+        bh=XBHrm6CUu/QxlYRbxU91CMyCvNw/y/8KnZwkolXjx1c=;
+        b=QFZjtcZjuhY8p6sRFd9H7FEfGRktAwBDPx1rkLxCgMIqL3RAhihy2pBYw5O+MkHRgw
+         uD1PJrO+SxA9HutQnk0JRoOLVMZDdos28SSqRV0IKR+Ujgu552WJgtyGI8wfVJI8V0Y/
+         CmmzE0c5ljwN5nA8ZIoXi/bcHN0xV+iEtdjdSv+hB6QZXqjkgoW9yINZH47SlpE4kkkN
+         3IhqUqGBiQE0seIKwrzdmB5+pl+QWzGMhDOq5wQEU2ZjOWJxsRttWZbrLg+XnGB+Vre0
+         LOj3NglW1c10jpbndW0UyImL6Dy/TMnXZ6O3VcZQWDD3rQxNsnwTJDUtVyaHGG+wlUaV
+         siqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739976369; x=1740581169;
+        d=1e100.net; s=20230601; t=1739976917; x=1740581717;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=z2F5t3qJz1OOjynsRlU6ICnHq9JKzdjSjRBTCUncKzs=;
-        b=ZgTjs0Yd90zGsBwOTD2hCZtOaCLEv+YaOxU3HwgMU52k5l7c9Kb1bvPliEdzGXnEL2
-         z4XTOMKRVqcNpBcRt6E6XHpBWwe4HAupt/0YyBTKWcutrqR9om0ddsnAJGY3c3nCI9UM
-         s8ySWDaKZuh8cUIATIBz2NDOMBRiG7X0zbSxY/rWSGldo269dzYEMyObB+aJlwo0N3tO
-         8MzGRfUhoXWqfCkPHY3CbrVavWB6uzfbLUVYaQ1doVhPi4eyxTL4gnEQiENkK49Lgoq1
-         9Si98YXrfYPA9kMxoZamIOLN9OVHOfXWpJqWHb24Ex8V38zZqdyQ5gw7T3ZU7BlYp4d0
-         XR7g==
-X-Forwarded-Encrypted: i=1; AJvYcCWe0/WWOO+Vc4fcc2/O7d365JkbIQnD2Kxgakgucmrq1Xv/2WDQAkNHLTJQbzO6o2OSRnLraEcIu0k=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw+N7lhSQuErpQXCiB282V0PW8Vkqp8beIXSxCPNgeyyTp1lsrS
-	bDXhs6IJXlRGdlTNlqLeGB6uzbrll5kDg5TLhil52VSRq/QXQUxx
-X-Gm-Gg: ASbGncvfa6SOy5skBZavoPuxU+4wWJI0UTabAToqq7qbRD+F8QtK0q1/cR5fBXG/k53
-	7ykjF61OU3PKzqlmO2PMkk6cyw0GJlqbD8Z6MtbXQ4S5rf52sTndInQE3KL0KK9517xJG2tZpXX
-	JmEyGmqoXEPf6DiUIniqPpEFy+m9jUpkoC2lNzQIpouRZhBfi8mG0ePEWgkaKoQGVLz+3RALpRt
-	75nwoKycxNj+vyUmsWfIcS1MYhTA6VGDXvUVADTyJ6Ezo+2lf42VH0AQJSGefaiis3YuRwsBTx9
-	rsotF+zYXAxDc2zvB5/afgXn
-X-Google-Smtp-Source: AGHT+IHseUSOjZYXmPSHRXyQcFPWzRWTHu3coLZqGkG0OHkt0Im+gtxHutzlCl26SSkNPLmqA209wQ==
-X-Received: by 2002:a19:5f1e:0:b0:546:2ea4:8e72 with SMTP id 2adb3069b0e04-5462ea490bamr1655045e87.49.1739976368777;
-        Wed, 19 Feb 2025 06:46:08 -0800 (PST)
+        bh=XBHrm6CUu/QxlYRbxU91CMyCvNw/y/8KnZwkolXjx1c=;
+        b=u9SWvEFLmLUgj+3JoAJUcCv1DvOQnClMRxaMsc3HQAxOKYHoPXXBAMxIG8TwWf4mZB
+         M07xYevlWZeBgOqQH3E2bLSBDZqA0zcTTab2HKTS4tPLWtpl5yYzMh9PSjXTTAvrk5G6
+         Tvd1C5Uy4e58Wr3HhSmz7znnEsarO6UtGEKlr10vvzfkftGMdwREKgrTjbi0VVu7whoz
+         DKkoiCb/MJEVWamZr/iDUXYENZ+IQJ8sYX3y3rjQtK3bJwbAIYO1dV8ybe+s4cbK+ppO
+         9as7qgkA+tB5TsZ0Kc/TyRhDQAJvlzgV6RQzcbCg0yjQR7ki9oZAfEsZ5v/dj5V0Nm0M
+         v1BQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUJe5lSMAxQNXHv4QtxElrP2hRVP26L1AMfPEH5vgfZIa9scZTWo59nQ6dB+Lz4UihaPK0uo+QAkA8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw1CdF0g7OKkpCn5iHiNtsgMJFWDTcCuwKTCOxKWVnMigxOr8NV
+	zYjaU89FhaUgZPNigYF4ji5UUDORGUOrs3rhk1BZ44/dkD/vo0hn
+X-Gm-Gg: ASbGncv/mLD3QuPzezuz1XPSq3STAjFuhw8AsebjElzfQ/kKFLQayz6ONTI0SWR9G4w
+	8I2OAupcy8fJ1GyXwYo7ypvu3mUPctiZjOrO+Qk4nGwxbOh1geDNYu1f4ooCSobQOv1fziKXexh
+	A6BY3oTxLxh4wo5Zvex7ByW0D18hcwRivitx4Yn58vucV4RRWu/ADsLxGZIFqgQdhR0pAJoieJN
+	vE7cgy/1CXhIMyLqYpnlhGXVFoko6ayOa/921FPo8l0HqW3DMb/qfncAGPP/PCdwjv7bXdt2UBk
+	CvUNXFmE++VSxrxUJ0lTiU6b
+X-Google-Smtp-Source: AGHT+IEzTlmpFQ1LO3dBmkquQRvEHCUStZL6tKrmS/tpGPmN4f6/nacg23gotXFX14S5pirYclKe0Q==
+X-Received: by 2002:a05:6512:1054:b0:545:6a2:e56 with SMTP id 2adb3069b0e04-5452fe904efmr5317283e87.37.1739976916317;
+        Wed, 19 Feb 2025 06:55:16 -0800 (PST)
 Content-Type: multipart/alternative;
- boundary="------------hni79qEeg8gBYAtWvKtzMPPh"
-Message-ID: <d398d595-74b3-424a-bab9-992653cdca95@gmail.com>
-Date: Wed, 19 Feb 2025 15:46:07 +0100
+ boundary="------------GCdqRDqW3Na6Ukg8f2T9FYZ8"
+Message-ID: <16b2411c-9d5d-4c54-a4bd-f2d7215688c1@gmail.com>
+Date: Wed, 19 Feb 2025 15:55:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for 4.20? v4 3/3] xen/riscv: update mfn calculation in
- pt_mapping_level()
+Subject: Re: [PATCH for 4.21 v6 1/2] xen/riscv: drop CONFIG_RISCV_ISA_RV64G
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -96,89 +95,87 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1739363240.git.oleksii.kurochko@gmail.com>
- <38093d9843afbba9dda7326ee6e8cc3c99343cf6.1739363240.git.oleksii.kurochko@gmail.com>
- <2cee5ebc-cae7-4da8-9b7d-bb55cc907570@suse.com>
+References: <cover.1739355004.git.oleksii.kurochko@gmail.com>
+ <82c9611b923170b0525a7b76337ef067e359dc96.1739355004.git.oleksii.kurochko@gmail.com>
+ <10155bb3-20c8-4d08-aafc-df41112c91c9@suse.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <2cee5ebc-cae7-4da8-9b7d-bb55cc907570@suse.com>
+In-Reply-To: <10155bb3-20c8-4d08-aafc-df41112c91c9@suse.com>
 
 This is a multi-part message in MIME format.
---------------hni79qEeg8gBYAtWvKtzMPPh
+--------------GCdqRDqW3Na6Ukg8f2T9FYZ8
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 
-On 2/19/25 12:28 PM, Jan Beulich wrote:
+On 2/18/25 6:03 PM, Jan Beulich wrote:
 > On 12.02.2025 17:50, Oleksii Kurochko wrote:
->> --- a/xen/arch/riscv/pt.c
->> +++ b/xen/arch/riscv/pt.c
->> @@ -249,12 +249,10 @@ pte_t pt_walk(vaddr_t va, unsigned int *pte_level)
+>> --- a/xen/arch/riscv/Kconfig
+>> +++ b/xen/arch/riscv/Kconfig
+>> @@ -28,16 +28,6 @@ choice
+>>   	help
+>>   	  This selects the base ISA extensions that Xen will target.
 >>   
->>   /* Update an entry at the level @target. */
->>   static int pt_update_entry(mfn_t root, vaddr_t virt,
->> -                           mfn_t mfn, unsigned int target,
->> +                           mfn_t mfn, unsigned int *target,
->>                              unsigned int flags)
->>   {
->>       int rc;
->> -    unsigned int level = HYP_PT_ROOT_LEVEL;
->> -    pte_t *table;
->>       /*
->>        * The intermediate page table shouldn't be allocated when MFN isn't
->>        * valid and we are not populating page table.
->> @@ -265,41 +263,48 @@ static int pt_update_entry(mfn_t root, vaddr_t virt,
->>        * combinations of (mfn, flags).
->>       */
->>       bool alloc_tbl = !mfn_eq(mfn, INVALID_MFN) || (flags & PTE_POPULATE);
->> -    pte_t pte, *entry;
+>> -config RISCV_ISA_RV64G
+>> -	bool "RV64G"
+>> -	help
+>> -	  Use the RV64I base ISA, plus
+>> -	  "M" for multiply/divide,
+>> -	  "A" for atomic instructions,
+>> -	  “F”/"D" for  {single/double}-precision floating-point instructions,
+>> -	  "Zicsr" for control and status register access,
+>> -	  "Zifencei" for instruction-fetch fence.
 >> -
->> -    /* convenience aliases */
->> -    DECLARE_OFFSETS(offsets, virt);
->> +    pte_t pte, *entry = NULL;
-> With there also being "table" below, "entry" isn't quite as bad as in the
-> other patch. Yet I'd still like to ask that you consider renaming.
->
->> -    table = map_table(root);
->> -    for ( ; level > target; level-- )
->> +    if ( *target == CONFIG_PAGING_LEVELS )
->> +        entry = _pt_walk(virt, target);
-> Imo it's quite important for the comment ahead of the function to be updated
-> to mention this special case.
->
->> +    else
->>       {
->> -        rc = pt_next_level(alloc_tbl, &table, offsets[level]);
->> -        if ( rc == XEN_TABLE_MAP_NOMEM )
->> +        pte_t *table;
->> +        unsigned int level = HYP_PT_ROOT_LEVEL;
->> +        /* convenience aliases */
-> Nit: Style.
+>>   endchoice
+> Shouldn't the choice be removed altogether then, for now being empty?
 
- From the 'Comments' section of CODING_STYLE, I see that the comment should start
-with capital letter. Do you mean that?
+Overlooked that, "Base ISA" choice could be removed too then. or just change to:
+choice
+	prompt "Base ISA"
+	default "ima" if RISCV_64
+	help
+	  This selects the base ISA extensions that Xen will target.
+
+endchoice
 
 >
->> @@ -331,7 +336,8 @@ static int pt_update_entry(mfn_t root, vaddr_t virt,
->>       rc = 0;
+>> --- a/xen/arch/riscv/arch.mk
+>> +++ b/xen/arch/riscv/arch.mk
+>> @@ -6,8 +6,13 @@ $(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
+>>   riscv-abi-$(CONFIG_RISCV_32) := -mabi=ilp32
+>>   riscv-abi-$(CONFIG_RISCV_64) := -mabi=lp64
 >>   
->>    out:
->> -    unmap_table(table);
->> +    if ( entry )
->> +        unmap_table(entry);
-> Would it perhaps be worth for unmap_table() to gracefully handle being passed
-> NULL, to avoid such conditionals (there may be more in the future)?
+>> -riscv-march-$(CONFIG_RISCV_ISA_RV64G) := rv64g
+>> -riscv-march-$(CONFIG_RISCV_ISA_C)       := $(riscv-march-y)c
+>> +riscv-march-$(CONFIG_RISCV_64) := rv64
+>> +
+>> +riscv-march-y := $(riscv-march-y)ima
+>> +
+>> +riscv-march-$(CONFIG_RISCV_ISA_C) := $(riscv-march-y)c
+>> +
+>> +riscv-march-y := $(riscv-march-y)_zicsr_zifencei
+> The repeated use of := makes this longer than necessary, and hence harder to
+> read. I understand using += isn't exactly ideal either, because then on the rhs
+> no blanks may appear (aiui), being kind of against our style and potentially
+> hampering readability. Still maybe:
+>
+> riscv-march-$(CONFIG_RISCV_64) := rv64
+> riscv-march-y+=ima
+> riscv-march-$(CONFIG_RISCV_ISA_C)+=c
+> riscv-march-y+=_zicsr_zifencei
+>
+> ?
 
-Agree, it would be more safe to move this check inside unmap_table(). I will update
-that.
+ From my point of view both options hard to read but `+=`, at the moment, look a
+little bit better. I will update correspondingly.
 
 Thanks.
 
 ~ Oleksii
 
---------------hni79qEeg8gBYAtWvKtzMPPh
+--------------GCdqRDqW3Na6Ukg8f2T9FYZ8
 Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 <!DOCTYPE html>
 <html>
@@ -188,100 +185,90 @@ Content-Transfer-Encoding: 7bit
   <body>
     <p><br>
     </p>
-    <div class="moz-cite-prefix">On 2/19/25 12:28 PM, Jan Beulich wrote:<br>
+    <div class="moz-cite-prefix">On 2/18/25 6:03 PM, Jan Beulich wrote:<br>
     </div>
     <blockquote type="cite"
-      cite="mid:2cee5ebc-cae7-4da8-9b7d-bb55cc907570@suse.com">
+      cite="mid:10155bb3-20c8-4d08-aafc-df41112c91c9@suse.com">
       <pre wrap="" class="moz-quote-pre">On 12.02.2025 17:50, Oleksii Kurochko wrote:
 </pre>
       <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/pt.c
-+++ b/xen/arch/riscv/pt.c
-@@ -249,12 +249,10 @@ pte_t pt_walk(vaddr_t va, unsigned int *pte_level)
+        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/Kconfig
++++ b/xen/arch/riscv/Kconfig
+@@ -28,16 +28,6 @@ choice
+ 	help
+ 	  This selects the base ISA extensions that Xen will target.
  
- /* Update an entry at the level @target. */
- static int pt_update_entry(mfn_t root, vaddr_t virt,
--                           mfn_t mfn, unsigned int target,
-+                           mfn_t mfn, unsigned int *target,
-                            unsigned int flags)
- {
-     int rc;
--    unsigned int level = HYP_PT_ROOT_LEVEL;
--    pte_t *table;
-     /*
-      * The intermediate page table shouldn't be allocated when MFN isn't
-      * valid and we are not populating page table.
-@@ -265,41 +263,48 @@ static int pt_update_entry(mfn_t root, vaddr_t virt,
-      * combinations of (mfn, flags).
-     */
-     bool alloc_tbl = !mfn_eq(mfn, INVALID_MFN) || (flags &amp; PTE_POPULATE);
--    pte_t pte, *entry;
+-config RISCV_ISA_RV64G
+-	bool "RV64G"
+-	help
+-	  Use the RV64I base ISA, plus
+-	  "M" for multiply/divide,
+-	  "A" for atomic instructions,
+-	  “F”/"D" for  {single/double}-precision floating-point instructions,
+-	  "Zicsr" for control and status register access,
+-	  "Zifencei" for instruction-fetch fence.
 -
--    /* convenience aliases */
--    DECLARE_OFFSETS(offsets, virt);
-+    pte_t pte, *entry = NULL;
+ endchoice
 </pre>
       </blockquote>
       <pre wrap="" class="moz-quote-pre">
-With there also being "table" below, "entry" isn't quite as bad as in the
-other patch. Yet I'd still like to ask that you consider renaming.
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">-    table = map_table(root);
--    for ( ; level &gt; target; level-- )
-+    if ( *target == CONFIG_PAGING_LEVELS )
-+        entry = _pt_walk(virt, target);
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Imo it's quite important for the comment ahead of the function to be updated
-to mention this special case.
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+    else
-     {
--        rc = pt_next_level(alloc_tbl, &amp;table, offsets[level]);
--        if ( rc == XEN_TABLE_MAP_NOMEM )
-+        pte_t *table;
-+        unsigned int level = HYP_PT_ROOT_LEVEL;
-+        /* convenience aliases */
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Nit: Style.</pre>
+Shouldn't the choice be removed altogether then, for now being empty?</pre>
     </blockquote>
-    <pre>From the 'Comments' section of CODING_STYLE, I see that the comment should start
-with capital letter. Do you mean that?
+    <pre>Overlooked that, "Base ISA" choice could be removed too then. or just change to:
+choice
+	prompt "Base ISA"
+	default "ima" if RISCV_64
+	help
+	  This selects the base ISA extensions that Xen will target.
+
+endchoice
 
 </pre>
     <blockquote type="cite"
-      cite="mid:2cee5ebc-cae7-4da8-9b7d-bb55cc907570@suse.com">
+      cite="mid:10155bb3-20c8-4d08-aafc-df41112c91c9@suse.com">
       <pre wrap="" class="moz-quote-pre">
 
 </pre>
       <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">@@ -331,7 +336,8 @@ static int pt_update_entry(mfn_t root, vaddr_t virt,
-     rc = 0;
+        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/arch.mk
++++ b/xen/arch/riscv/arch.mk
+@@ -6,8 +6,13 @@ $(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
+ riscv-abi-$(CONFIG_RISCV_32) := -mabi=ilp32
+ riscv-abi-$(CONFIG_RISCV_64) := -mabi=lp64
  
-  out:
--    unmap_table(table);
-+    if ( entry )
-+        unmap_table(entry);
+-riscv-march-$(CONFIG_RISCV_ISA_RV64G) := rv64g
+-riscv-march-$(CONFIG_RISCV_ISA_C)       := $(riscv-march-y)c
++riscv-march-$(CONFIG_RISCV_64) := rv64
++
++riscv-march-y := $(riscv-march-y)ima
++
++riscv-march-$(CONFIG_RISCV_ISA_C) := $(riscv-march-y)c
++
++riscv-march-y := $(riscv-march-y)_zicsr_zifencei
 </pre>
       </blockquote>
       <pre wrap="" class="moz-quote-pre">
-Would it perhaps be worth for unmap_table() to gracefully handle being passed
-NULL, to avoid such conditionals (there may be more in the future)?</pre>
-    </blockquote>
-    <pre>Agree, it would be more safe to move this check inside unmap_table(). I will update
-that.
+The repeated use of := makes this longer than necessary, and hence harder to
+read. I understand using += isn't exactly ideal either, because then on the rhs
+no blanks may appear (aiui), being kind of against our style and potentially
+hampering readability. Still maybe:
 
-Thanks.</pre>
-    <pre>~ Oleksii</pre>
+riscv-march-$(CONFIG_RISCV_64) := rv64
+riscv-march-y+=ima
+riscv-march-$(CONFIG_RISCV_ISA_C)+=c
+riscv-march-y+=_zicsr_zifencei
+
+?</pre>
+    </blockquote>
+    <pre>From my point of view both options hard to read but `+=`, at the moment, look a
+little bit better. I will update correspondingly.
+
+Thanks.
+
+~ Oleksii
+</pre>
   </body>
 </html>
 
---------------hni79qEeg8gBYAtWvKtzMPPh--
+--------------GCdqRDqW3Na6Ukg8f2T9FYZ8--
 
