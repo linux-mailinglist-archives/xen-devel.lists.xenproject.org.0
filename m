@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46F11A3C2BF
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 15:55:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.893066.1301995 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AED00A3C2D7
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 15:59:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.893076.1302005 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tklTs-0007Qf-VE; Wed, 19 Feb 2025 14:55:20 +0000
+	id 1tklXL-00080t-Cp; Wed, 19 Feb 2025 14:58:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 893066.1301995; Wed, 19 Feb 2025 14:55:20 +0000
+Received: by outflank-mailman (output) from mailman id 893076.1302005; Wed, 19 Feb 2025 14:58:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tklTs-0007OM-Rz; Wed, 19 Feb 2025 14:55:20 +0000
-Received: by outflank-mailman (input) for mailman id 893066;
- Wed, 19 Feb 2025 14:55:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GJ0s=VK=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tklTr-0007OG-Cz
- for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 14:55:19 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 883608a0-eed1-11ef-9896-31a8f345e629;
- Wed, 19 Feb 2025 15:55:17 +0100 (CET)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-3098088c630so39958441fa.1
- for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 06:55:17 -0800 (PST)
-Received: from [172.24.85.51] ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54523070a9csm2005069e87.5.2025.02.19.06.55.15
+	id 1tklXL-0007yW-9d; Wed, 19 Feb 2025 14:58:55 +0000
+Received: by outflank-mailman (input) for mailman id 893076;
+ Wed, 19 Feb 2025 14:58:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=EceQ=VK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tklXJ-0007yQ-RE
+ for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 14:58:53 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 08abc20a-eed2-11ef-9aa8-95dc52dad729;
+ Wed, 19 Feb 2025 15:58:52 +0100 (CET)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-5dedae49c63so2923169a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 06:58:52 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5dedc94688bsm9216939a12.50.2025.02.19.06.58.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Feb 2025 06:55:16 -0800 (PST)
+ Wed, 19 Feb 2025 06:58:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,231 +45,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 883608a0-eed1-11ef-9896-31a8f345e629
+X-Inumbo-ID: 08abc20a-eed2-11ef-9aa8-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1739976917; x=1740581717; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XBHrm6CUu/QxlYRbxU91CMyCvNw/y/8KnZwkolXjx1c=;
-        b=QFZjtcZjuhY8p6sRFd9H7FEfGRktAwBDPx1rkLxCgMIqL3RAhihy2pBYw5O+MkHRgw
-         uD1PJrO+SxA9HutQnk0JRoOLVMZDdos28SSqRV0IKR+Ujgu552WJgtyGI8wfVJI8V0Y/
-         CmmzE0c5ljwN5nA8ZIoXi/bcHN0xV+iEtdjdSv+hB6QZXqjkgoW9yINZH47SlpE4kkkN
-         3IhqUqGBiQE0seIKwrzdmB5+pl+QWzGMhDOq5wQEU2ZjOWJxsRttWZbrLg+XnGB+Vre0
-         LOj3NglW1c10jpbndW0UyImL6Dy/TMnXZ6O3VcZQWDD3rQxNsnwTJDUtVyaHGG+wlUaV
-         siqw==
+        d=suse.com; s=google; t=1739977132; x=1740581932; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=QXYyMgXWP4s7LeELnzMyd3+0mGyjlCEWYJ+F5ELMrDE=;
+        b=ZqZLA3zcwr63mJHAPSSThGmq1L/aAeslqX0QCMkEre4OB7CLopC6vKjDzc6sghfHyS
+         7EVx7lAm2XejOZ4gNPQEOeCare9foQz8K6lzoWIlgnBQH7bYWb/NGUTeeRXQzgUBE80S
+         +MWYmdUT8UJ/oOz5Lh76ueI6T+vh8f04ovOzHXUVKMMvpI2jd1zquy/RauTd+HxR/oSj
+         h12WqIrskXC2y6d/xbP5qpJz3nfse+huTRUJu5eEak7RSjv3OsvKDvjUa9ytmvvzjFoq
+         0LfhnwHFyPNaKIOHiqdnZzHR/kC3BQDhWZDACK+ng/pIjfSFGr977/kgG6Qaz/YIeDEV
+         tRmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739976917; x=1740581717;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=XBHrm6CUu/QxlYRbxU91CMyCvNw/y/8KnZwkolXjx1c=;
-        b=u9SWvEFLmLUgj+3JoAJUcCv1DvOQnClMRxaMsc3HQAxOKYHoPXXBAMxIG8TwWf4mZB
-         M07xYevlWZeBgOqQH3E2bLSBDZqA0zcTTab2HKTS4tPLWtpl5yYzMh9PSjXTTAvrk5G6
-         Tvd1C5Uy4e58Wr3HhSmz7znnEsarO6UtGEKlr10vvzfkftGMdwREKgrTjbi0VVu7whoz
-         DKkoiCb/MJEVWamZr/iDUXYENZ+IQJ8sYX3y3rjQtK3bJwbAIYO1dV8ybe+s4cbK+ppO
-         9as7qgkA+tB5TsZ0Kc/TyRhDQAJvlzgV6RQzcbCg0yjQR7ki9oZAfEsZ5v/dj5V0Nm0M
-         v1BQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUJe5lSMAxQNXHv4QtxElrP2hRVP26L1AMfPEH5vgfZIa9scZTWo59nQ6dB+Lz4UihaPK0uo+QAkA8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw1CdF0g7OKkpCn5iHiNtsgMJFWDTcCuwKTCOxKWVnMigxOr8NV
-	zYjaU89FhaUgZPNigYF4ji5UUDORGUOrs3rhk1BZ44/dkD/vo0hn
-X-Gm-Gg: ASbGncv/mLD3QuPzezuz1XPSq3STAjFuhw8AsebjElzfQ/kKFLQayz6ONTI0SWR9G4w
-	8I2OAupcy8fJ1GyXwYo7ypvu3mUPctiZjOrO+Qk4nGwxbOh1geDNYu1f4ooCSobQOv1fziKXexh
-	A6BY3oTxLxh4wo5Zvex7ByW0D18hcwRivitx4Yn58vucV4RRWu/ADsLxGZIFqgQdhR0pAJoieJN
-	vE7cgy/1CXhIMyLqYpnlhGXVFoko6ayOa/921FPo8l0HqW3DMb/qfncAGPP/PCdwjv7bXdt2UBk
-	CvUNXFmE++VSxrxUJ0lTiU6b
-X-Google-Smtp-Source: AGHT+IEzTlmpFQ1LO3dBmkquQRvEHCUStZL6tKrmS/tpGPmN4f6/nacg23gotXFX14S5pirYclKe0Q==
-X-Received: by 2002:a05:6512:1054:b0:545:6a2:e56 with SMTP id 2adb3069b0e04-5452fe904efmr5317283e87.37.1739976916317;
-        Wed, 19 Feb 2025 06:55:16 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------GCdqRDqW3Na6Ukg8f2T9FYZ8"
-Message-ID: <16b2411c-9d5d-4c54-a4bd-f2d7215688c1@gmail.com>
-Date: Wed, 19 Feb 2025 15:55:15 +0100
+        d=1e100.net; s=20230601; t=1739977132; x=1740581932;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QXYyMgXWP4s7LeELnzMyd3+0mGyjlCEWYJ+F5ELMrDE=;
+        b=wPH2F9ONsktlLkXk0QW3TnNkDyedhMEO2+X2+E6KPpTmwlDHye6Qr2Nqduvf01N5aA
+         7dSglsLpON94z4uYBIrRQ5Ly9X0tuQVcua2G0UvYXPV3bpR2ZAi6Ihip/ptqiJhamTEu
+         Pjf5srEuGknG2JIXwgYc9xoBIVMYmZQoFeq8z11H9i31A3tRqjavqTsD8ATNzkm6c3qe
+         Qdd49UG0+GKvN1B1+cHlG8kgx0fy2LE+/uTPIdbeQoKrALUStWlVz6ddLf7FHTHwRAT7
+         M5bezoe7dN2/pTTCMqLczbiYTNLFPmINwxdvxD9m9sbEs/kPXweF8AbBAG+5XDFBgded
+         BWAQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVPZAnsQq5anged7aCsXfFO60WAbwVVQI+EEhBKlnzE8hcJS4Ou5537zdcB2SF/X7QPXVkcKSvyOf0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxfgsrqrwHKQPg8WsZCioknCE9G1v0w/RXOqF0689nEcohIf/Hb
+	+Xw+AnOSFGe1OLEGX18GoMEbqcnuUBiP+p//jqXaHhWt/vNh632z/5T+fOhTig==
+X-Gm-Gg: ASbGnctlQ7SromMZvCFT6inEkm4eR4jaLz7EgNruIyL0M1lKCJYOArz4ZtFbm7Meddz
+	NoUjXgW7zH3ViEK9tYm+Z0pukxylrUWg0WuegalUbLInmytumTAM/++LBoEJanu58VlMchBw/Lf
+	kQ2MW4CFkeUYM8fNeFspisApg1NwMmR4HZFgyZ8gbQaevPwOKsMfYtxmTXZ1WbTsdfmaxejdWP0
+	FWEbwW7rAUwaAc8LmyAl8hXnmjTB5PeWPMSvY7KpWh99qiLv6QZkZmEQc6D8JCUO9AlAJIjk7DB
+	Wqv1VF4S/P6FgmysBmy9F1ysqStBcFv48VqNCX1hyTcYBjWi8hBifbkBaA9EkmUPQQOr8Wz58nw
+	L
+X-Google-Smtp-Source: AGHT+IEpUh2KXEdycGeyDRUCHqmkhg11R1n2c8dtZUQZ6xZfQYlEWuHUuhJ0KNzJ/NyY9mWh1m0b7w==
+X-Received: by 2002:a05:6402:a001:b0:5e0:52df:d569 with SMTP id 4fb4d7f45d1cf-5e052dfd7e2mr12470282a12.28.1739977132290;
+        Wed, 19 Feb 2025 06:58:52 -0800 (PST)
+Message-ID: <f731f532-ce35-414d-b7e9-7f61d4cbceb8@suse.com>
+Date: Wed, 19 Feb 2025 15:58:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for 4.21 v6 1/2] xen/riscv: drop CONFIG_RISCV_ISA_RV64G
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1739355004.git.oleksii.kurochko@gmail.com>
- <82c9611b923170b0525a7b76337ef067e359dc96.1739355004.git.oleksii.kurochko@gmail.com>
- <10155bb3-20c8-4d08-aafc-df41112c91c9@suse.com>
+Subject: Re: [PATCH 1/2] code style: Format ns16550 driver
+To: Oleksandr Andrushchenko <andr2000@gmail.com>
+Cc: sstabellini@kernel.org, Artem_Mygaiev@epam.com, Luca.Fancellu@arm.com,
+ roger.pau@citrix.com, marmarek@invisiblethingslab.com,
+ andrew.cooper3@citrix.com, anthony.perard@vates.tech,
+ xen-devel@lists.xenproject.org
+References: <20250216102108.2665222-1-andr2000@gmail.com>
+ <20250216102108.2665222-2-andr2000@gmail.com>
+ <5ed54fcf-d4fd-4ec0-8c40-1e50d9b16ae2@suse.com>
+ <6f133e51-17b5-4edf-8db3-5c9b91028898@gmail.com>
+ <ced01825-caf5-456f-adc9-2208d3a075aa@gmail.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <10155bb3-20c8-4d08-aafc-df41112c91c9@suse.com>
-
-This is a multi-part message in MIME format.
---------------GCdqRDqW3Na6Ukg8f2T9FYZ8
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ced01825-caf5-456f-adc9-2208d3a075aa@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+On 19.02.2025 15:23, Oleksandr Andrushchenko wrote:
+> On 19.02.25 14:39, Oleksandr Andrushchenko wrote:
+>> On 17.02.25 12:20, Jan Beulich wrote:
+>>> On 16.02.2025 11:21, Oleksandr Andrushchenko wrote:
+>>>> --- a/xen/drivers/char/ns16550.c
+>>>> +++ b/xen/drivers/char/ns16550.c
+>>>> @@ -14,7 +14,7 @@
+>>>>    * abstracted.
+>>>>    */
+>>>>   #if defined(CONFIG_HAS_PCI) && defined(CONFIG_X86)
+>>>> -# define NS16550_PCI
+>>>> +#define NS16550_PCI
+>>>>   #endif
+>>> Hmm. Either form ought to be okay, so the line would want leaving untouched.
+> It seems this can actually have 3 forms under IndentPPDirectives control
+> Please see [1].
 
-On 2/18/25 6:03 PM, Jan Beulich wrote:
-> On 12.02.2025 17:50, Oleksii Kurochko wrote:
->> --- a/xen/arch/riscv/Kconfig
->> +++ b/xen/arch/riscv/Kconfig
->> @@ -28,16 +28,6 @@ choice
->>   	help
->>   	  This selects the base ISA extensions that Xen will target.
->>   
->> -config RISCV_ISA_RV64G
->> -	bool "RV64G"
->> -	help
->> -	  Use the RV64I base ISA, plus
->> -	  "M" for multiply/divide,
->> -	  "A" for atomic instructions,
->> -	  “F”/"D" for  {single/double}-precision floating-point instructions,
->> -	  "Zicsr" for control and status register access,
->> -	  "Zifencei" for instruction-fetch fence.
->> -
->>   endchoice
-> Shouldn't the choice be removed altogether then, for now being empty?
+I saw that. None of the three variants matches the original above, i.e.
+here we're again observing a change just for the sake of making a change.
+The style used is conforming, after all.
 
-Overlooked that, "Base ISA" choice could be removed too then. or just change to:
-choice
-	prompt "Base ISA"
-	default "ima" if RISCV_64
-	help
-	  This selects the base ISA extensions that Xen will target.
+Jan
 
-endchoice
+> I would go with BeforeHash personally
+> 
+> [1] https://clang.llvm.org/docs/ClangFormatStyleOptions.html#indentppdirectives
+> 
+> 
 
->
->> --- a/xen/arch/riscv/arch.mk
->> +++ b/xen/arch/riscv/arch.mk
->> @@ -6,8 +6,13 @@ $(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
->>   riscv-abi-$(CONFIG_RISCV_32) := -mabi=ilp32
->>   riscv-abi-$(CONFIG_RISCV_64) := -mabi=lp64
->>   
->> -riscv-march-$(CONFIG_RISCV_ISA_RV64G) := rv64g
->> -riscv-march-$(CONFIG_RISCV_ISA_C)       := $(riscv-march-y)c
->> +riscv-march-$(CONFIG_RISCV_64) := rv64
->> +
->> +riscv-march-y := $(riscv-march-y)ima
->> +
->> +riscv-march-$(CONFIG_RISCV_ISA_C) := $(riscv-march-y)c
->> +
->> +riscv-march-y := $(riscv-march-y)_zicsr_zifencei
-> The repeated use of := makes this longer than necessary, and hence harder to
-> read. I understand using += isn't exactly ideal either, because then on the rhs
-> no blanks may appear (aiui), being kind of against our style and potentially
-> hampering readability. Still maybe:
->
-> riscv-march-$(CONFIG_RISCV_64) := rv64
-> riscv-march-y+=ima
-> riscv-march-$(CONFIG_RISCV_ISA_C)+=c
-> riscv-march-y+=_zicsr_zifencei
->
-> ?
-
- From my point of view both options hard to read but `+=`, at the moment, look a
-little bit better. I will update correspondingly.
-
-Thanks.
-
-~ Oleksii
-
---------------GCdqRDqW3Na6Ukg8f2T9FYZ8
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2/18/25 6:03 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:10155bb3-20c8-4d08-aafc-df41112c91c9@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 12.02.2025 17:50, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/Kconfig
-+++ b/xen/arch/riscv/Kconfig
-@@ -28,16 +28,6 @@ choice
- 	help
- 	  This selects the base ISA extensions that Xen will target.
- 
--config RISCV_ISA_RV64G
--	bool "RV64G"
--	help
--	  Use the RV64I base ISA, plus
--	  "M" for multiply/divide,
--	  "A" for atomic instructions,
--	  “F”/"D" for  {single/double}-precision floating-point instructions,
--	  "Zicsr" for control and status register access,
--	  "Zifencei" for instruction-fetch fence.
--
- endchoice
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Shouldn't the choice be removed altogether then, for now being empty?</pre>
-    </blockquote>
-    <pre>Overlooked that, "Base ISA" choice could be removed too then. or just change to:
-choice
-	prompt "Base ISA"
-	default "ima" if RISCV_64
-	help
-	  This selects the base ISA extensions that Xen will target.
-
-endchoice
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:10155bb3-20c8-4d08-aafc-df41112c91c9@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/arch.mk
-+++ b/xen/arch/riscv/arch.mk
-@@ -6,8 +6,13 @@ $(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
- riscv-abi-$(CONFIG_RISCV_32) := -mabi=ilp32
- riscv-abi-$(CONFIG_RISCV_64) := -mabi=lp64
- 
--riscv-march-$(CONFIG_RISCV_ISA_RV64G) := rv64g
--riscv-march-$(CONFIG_RISCV_ISA_C)       := $(riscv-march-y)c
-+riscv-march-$(CONFIG_RISCV_64) := rv64
-+
-+riscv-march-y := $(riscv-march-y)ima
-+
-+riscv-march-$(CONFIG_RISCV_ISA_C) := $(riscv-march-y)c
-+
-+riscv-march-y := $(riscv-march-y)_zicsr_zifencei
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-The repeated use of := makes this longer than necessary, and hence harder to
-read. I understand using += isn't exactly ideal either, because then on the rhs
-no blanks may appear (aiui), being kind of against our style and potentially
-hampering readability. Still maybe:
-
-riscv-march-$(CONFIG_RISCV_64) := rv64
-riscv-march-y+=ima
-riscv-march-$(CONFIG_RISCV_ISA_C)+=c
-riscv-march-y+=_zicsr_zifencei
-
-?</pre>
-    </blockquote>
-    <pre>From my point of view both options hard to read but `+=`, at the moment, look a
-little bit better. I will update correspondingly.
-
-Thanks.
-
-~ Oleksii
-</pre>
-  </body>
-</html>
-
---------------GCdqRDqW3Na6Ukg8f2T9FYZ8--
 
