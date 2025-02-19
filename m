@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F5FEA3B43E
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 09:37:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.892456.1301427 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FC33A3B449
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 09:38:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.892466.1301437 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkfZD-00072G-AH; Wed, 19 Feb 2025 08:36:27 +0000
+	id 1tkfbD-0007bq-LD; Wed, 19 Feb 2025 08:38:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 892456.1301427; Wed, 19 Feb 2025 08:36:27 +0000
+Received: by outflank-mailman (output) from mailman id 892466.1301437; Wed, 19 Feb 2025 08:38:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkfZD-0006zN-7J; Wed, 19 Feb 2025 08:36:27 +0000
-Received: by outflank-mailman (input) for mailman id 892456;
- Wed, 19 Feb 2025 08:36:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tkfbD-0007ZQ-Ig; Wed, 19 Feb 2025 08:38:31 +0000
+Received: by outflank-mailman (input) for mailman id 892466;
+ Wed, 19 Feb 2025 08:38:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ODj2=VK=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1tkfZB-0006zE-24
- for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 08:36:25 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20623.outbound.protection.outlook.com
- [2a01:111:f403:2413::623])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 95e2bc46-ee9c-11ef-9896-31a8f345e629;
- Wed, 19 Feb 2025 09:36:18 +0100 (CET)
-Received: from DM4PR12MB8451.namprd12.prod.outlook.com (2603:10b6:8:182::7) by
- SN7PR12MB8003.namprd12.prod.outlook.com (2603:10b6:806:32a::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8445.19; Wed, 19 Feb
- 2025 08:36:14 +0000
-Received: from DM4PR12MB8451.namprd12.prod.outlook.com
- ([fe80::b04e:2da5:7189:4c4d]) by DM4PR12MB8451.namprd12.prod.outlook.com
- ([fe80::b04e:2da5:7189:4c4d%6]) with mapi id 15.20.8466.013; Wed, 19 Feb 2025
- 08:36:14 +0000
+ <SRS0=GJ0s=VK=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1tkfbC-0007ZK-Jg
+ for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 08:38:30 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e3b084e4-ee9c-11ef-9aa8-95dc52dad729;
+ Wed, 19 Feb 2025 09:38:27 +0100 (CET)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-5452efeb87aso5063563e87.3
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 00:38:27 -0800 (PST)
+Received: from [172.24.85.51] ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-54531333200sm1418344e87.259.2025.02.19.00.38.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 19 Feb 2025 00:38:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,232 +44,411 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95e2bc46-ee9c-11ef-9896-31a8f345e629
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JqUGFYF+VCvmhiETahrfSCGVlQjyhYIWkNbxNcrkZ/C7JZ1a/L+xPf823c1AMW5W5boQHOvyhcD2OAesRkR2RWdkFjXrjuXINLjrYmPtU83eDZsBy6HQQpc8NVh08QD8vE+zBQzEVRdf68vxaMPAxNteajMG0/XIxXS73ALqSgTgZ6Q6MP1Fb9mBfsKScfSTagcIdSd9zKBqIQeAyq4wrxNAwdl3EJQTRy8W67f89qTIYE9pf+Fz6AlMPlan75/DXU8WTk9+bXGX8zp/93gm9oiQfc3zdTYPBhYOBLxNvu2fz5Kjj0vSa56vdHebQKkjfHtlYHo//bTyEIpVNodJuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VB/TA3OeBD8KhXeJNBobDTci58Uvfg/YEaXX3/Bg/UQ=;
- b=XzFeFFJrS8y4T4wq5KfcI1oEQZkhp6SMvSfKcQp096kjUPLi7Ri9kvrCcatqfBDkYHoLirK4L+FXC7V9ZPyYWdxGsnPkqSAtdPsj2VqJK9S9ungnC+szzUzIbrAclXkQhzx+nbI3My8F8GIBPm5RJf9VOPbedBzWl5C0cK8w0v67gWHqYRV96GX7SmI6E0y4ubuOALefj9cQFAnL21QWHIwlr7jq8i+YoV4vip16y78gfBGKXMYhBg96Ku8+GjdeRoDFcWGJD1X450lZWkdpwr9TQcG77BhCYigjIlInXwWkzvR61XmCsoyuwYSsBi7Uq0qV/nc8Bcljyk07+4JPvg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VB/TA3OeBD8KhXeJNBobDTci58Uvfg/YEaXX3/Bg/UQ=;
- b=JdTsNQUvoob3jxkgVKHi7JThV4Rcz9oCXCRUCpUaTl27sT28RJ6mjsz183+T08APmd9UdGqGVUS7vJRlkZdOQfndLgtqDjtX1ONMYiIjOjTb4uAHroMWm/ZezlsBSGjKoiH/VXV6xuPUeGCN6jYudIC+M4BtjekkPgQjPH9FfpE=
-From: "Penny, Zheng" <penny.zheng@amd.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "Huang, Ray" <Ray.Huang@amd.com>, "Andryuk, Jason"
-	<Jason.Andryuk@amd.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, "Orzel, Michal" <Michal.Orzel@amd.com>, Julien
- Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: RE: [PATCH v2 02/11] xen/x86: introduce new sub-hypercall to
- propagate CPPC data
-Thread-Topic: [PATCH v2 02/11] xen/x86: introduce new sub-hypercall to
- propagate CPPC data
-Thread-Index:
- AQHbeHHLxWVIgPijWEedM19MLd/Q4rNB+imAgAj8gkCAADZUAIABdSLggACVbwCAASX4EA==
-Date: Wed, 19 Feb 2025 08:36:14 +0000
-Message-ID:
- <DM4PR12MB8451F9B2CDFB20783A3B78E7E1C52@DM4PR12MB8451.namprd12.prod.outlook.com>
-References: <20250206083255.1296363-1-Penny.Zheng@amd.com>
- <20250206083255.1296363-3-Penny.Zheng@amd.com>
- <d3198e8c-2723-484c-b305-822a681d544b@suse.com>
- <DM4PR12MB8451A5DC8E389ECA2D8A3E1AE1FB2@DM4PR12MB8451.namprd12.prod.outlook.com>
- <7a0d4cab-188d-41de-ac32-b307109cb0dc@suse.com>
- <DM4PR12MB8451E14BD7539A3A2C565C0DE1FA2@DM4PR12MB8451.namprd12.prod.outlook.com>
- <8a5071fc-7948-43aa-82e1-9dde9b0fcc24@suse.com>
-In-Reply-To: <8a5071fc-7948-43aa-82e1-9dde9b0fcc24@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=2ec6ee6b-a274-4804-be78-a86a8a9aeffc;MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only;MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-02-19T08:21:01Z;MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10,
- 3, 0, 1;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB8451:EE_|SN7PR12MB8003:EE_
-x-ms-office365-filtering-correlation-id: 5787ab8a-4f59-41e7-1817-08dd50c07874
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|1800799024|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?eEp4WlRXaTBVbHhBVk5jTzZiMlMvQ2ZnakNzVlJiUWNPOHdVUE9kMlk0cWd6?=
- =?utf-8?B?a3JEbU10c1lDY2t0a0tGSmVFeUZwRFdzak45ZW5Ub29wZ3pIelExNHVaUFR1?=
- =?utf-8?B?Wi8vYTFFYlh3V2ExYVczeDkrNkd5M0ZCUi94VWZOazQvalQyUlBGdTQvRGtB?=
- =?utf-8?B?VlM2OEZENlNlY05wVzl5NWpnZksyVW5IN2ZPOXQva3lMbWZkUkExc3h1SXY3?=
- =?utf-8?B?cFpPYU4zUklrZ2V5UFBQdE1idlRkUURDdEtHWWZxQk1pckUvUWtONi9BOE5L?=
- =?utf-8?B?bHEvd2ZCRklKVUY1NDNaemphUkQrM2NQZ0hhWWZ2bHJQcXpNY05IVnZCZlJw?=
- =?utf-8?B?d2NSV1ZWRys5YzFCeXozVkQ2V2VGa1BvMis4T1hQZDNscmEyeGs2QkpueXZH?=
- =?utf-8?B?V05OalEvQnhRdm0xSjhuK0wxNndrT3BMN2lwaE1vbDBVZ08wR2NTU1A4ZUI2?=
- =?utf-8?B?YzhIcjl6VEMyRmZtUFVLVTVUS0FBN0xJK1pMR3F4L0hiZHp1bXNsTHhlUVBP?=
- =?utf-8?B?eUQzU2JhK1ZURGtacHQzS1VTaVRSTGRzK3BCT3ZYdEkrYnYyUEdVekVRQ2tM?=
- =?utf-8?B?eGE2Z09La2U5MnZ6bFZaNlZBOG5Bakd6V2RINFNoTCtCR2F5c0RUa3R1VUFD?=
- =?utf-8?B?aHhmUTVmTTFYUzJkU1hzZEoreEMyZTRiaTlGMmdiaDJINUdIandReGZwN0lR?=
- =?utf-8?B?aGZreGc4YXBqZHg3aEJoYUwzYzRVekxXeFpYbkRZdmVtd2JoenJkazlzWWhh?=
- =?utf-8?B?Zm1pRmIvSTRSWjcxdVNvTGlMY0hNZnA3aFFTRHVBS2pYc3ZqZmpoTHpyK0tv?=
- =?utf-8?B?ZUhvNm53WFpWYlp4VkVJUUVKZFJXR3dhb3cyVHhoQzREeEptWnVTSC9qWkpR?=
- =?utf-8?B?d3I2SEhIazlHTlhyVm94S2oyempBSnBiL1oxK3pGajhUS0c1Q2JYbERrZXA3?=
- =?utf-8?B?RHpyT3lvU1JOLzg1dGM3YWM3eWx3M1NtR0Fkc3RUeVU3VXRqM3pqWEFJN1Y0?=
- =?utf-8?B?NHlCNWRzNk1OQVJsdDMrY0p3MUdTL01nZGxFTGJCOU12dWNLbUxKQ2MyZ3ov?=
- =?utf-8?B?M2h3VFpmRHNwOGhiYmxwb2tpTFdXQmNJWHh1Qko5ekV1RHJDQjQvVWtYbjl3?=
- =?utf-8?B?NDcyZVpUWUxMVDZKL1JhU0hqNGxUYUVNT05pbVU1Tkl3YkFxRGhMRnQvYXpi?=
- =?utf-8?B?UTZiUXQyd082dElNbWN6UVRZbW5rcjZyUmZvVHlpcXlydmhBejg3Qi83R1lC?=
- =?utf-8?B?YTFXTjlUTnRDcUpKTGZoZmZWVFUvRXprbjZNUTRaZVdoeit4WEM3aE1MVTdP?=
- =?utf-8?B?UEY2U0dKME9vNTYyVVo1TzNTSHI2WHJQRXAzTDBjZzM4Vk1BeXE5NlBJYjdG?=
- =?utf-8?B?WURRMkNyN2ZwZkQ4TlFEcEFKRHk3eWFOc2lyRkVoN1BoTHo0NHo4U1JzakEw?=
- =?utf-8?B?bGJUdU1ONGNxMUp4ZlRSTElRc09EOFRZOStoUmVpM0I3T1ZsYXl2SzJhSjBL?=
- =?utf-8?B?ck02VGdiYTlHYXE3bTNxRVZ6NzdCcW5JYjc2UDYyaHdPN0NlYk5qOXRmNFJp?=
- =?utf-8?B?bzU0MVlvL0ZFZTFWN0tFMHVweUdETit1Q3huTDdTWDUyRXNJd1NlaEJSK25y?=
- =?utf-8?B?MnQ1MW9RS3B6WWRkNHhxem5QelZ0WDZER210ZEVweVhremNRZXBSMnlZUlRJ?=
- =?utf-8?B?Y3pxT1hkSHJ3NjdWU1pCRk95MjVqdXB3ZFFzVmpKbGx0N3Bha3gyL0pGbVA5?=
- =?utf-8?B?ZmtxNE9URG5tS2lHQlZwN1NMK21nSCs5S1lqb25acTRnQTZZUitsYWd2eXBH?=
- =?utf-8?B?eS9qblNybC9sMHNGRVZrdWR1aFR5ZzRXT25vWXI4MjhmclBzRFFsbTVsb1JF?=
- =?utf-8?B?MGhzaUppU2VZUDhGOW1GVU5OcVIzaDREa3A1dVJORlFaeWc9PQ==?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB8451.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?ejJ0U1JEMkcyaE5uVkpCWFduUEdJSDYvQTN6Si8xWlJPZmRyRFVhbWVxODZy?=
- =?utf-8?B?VEpsOStHMTRhdGFDVWhGdlBzSVEzajdscjNqZTBjbFBncmhUdDl4QlVvR3Qy?=
- =?utf-8?B?dzBDUXQydU1XMkZVRUxhdGM0MDlzSTJ1OENFRDlwdzNTY0pJN01Pc3JXZWtK?=
- =?utf-8?B?RDJDcnNIT3VYNjkwUWhqSVUzNnBmcjVRQUhVR0t4N3NTY2xnc29MbFJGZXpI?=
- =?utf-8?B?Y01BV1hhY2lYVWhlWjdOMkxGTHBrMkRLU3dSMlkxdFQ2MkVSMnU5SEV2MW9Y?=
- =?utf-8?B?R3Vob2pZZGJGbkxvcnRVSFZHMSs5WWo5NEFjMDVvOEJId0pEdHBvdEM2a3J0?=
- =?utf-8?B?eEFaS21yS2hldDNhUWlNaXp2RVNFSWZWOU41QVB0dVM3TldhVXgyRzRXS3Nk?=
- =?utf-8?B?UmQxbGhRaWc0QVRkRnB1L2o1dnlURUZOTVZNTFVHVXZzMHlHcnhLMzdwclk1?=
- =?utf-8?B?NDNBZUFCY2xRbXBwM3FobEpKSHczTUlIbTFXbnFZYzNaTS9BNDEzUHBoYVBC?=
- =?utf-8?B?ZElHMWdYY0hzOE5MMGJGalJPVjlzdFc0YmFxQTB2SVh4VmhOVnFDL3paaWVP?=
- =?utf-8?B?N29WZUY4R1pRa1RMMDVuNkcxNitWOGpNaGJid0FtN0RRRGNHSTcwS2dJNTVD?=
- =?utf-8?B?UGNZQ2ZHVHBGVmFONTRkZ1lNUGxiRlhmVDF0S3M0cGNKdXllOHZ5TkNKaENj?=
- =?utf-8?B?T3hVV3EvTGJ6ZTRYWmtvc2N0RTlhc3l0NmRKQS9UUWV3SVVGbmZ2UEd6TGdt?=
- =?utf-8?B?K2xFWmdRemtyY2pKUFVjWi9FN2tNUFJvVG1ZdVY2OXV3Y2RKdmozRlYrUHF4?=
- =?utf-8?B?Z1pXV3A5TW1Mc3pTSkFxMFdoQlBsQncya0xva0lkNzZvaUxxYnQ5WEZmYUtT?=
- =?utf-8?B?WkJXa09MRVNzNnZpN2xNUnRwQnAvMWxQQTNBcjVBUU5ERTZiQ3p4bWpEN0ZI?=
- =?utf-8?B?bTFBckxOUGZrRENtQ0dFUkhxSFhDNFVRdDJEUXhTUHRRVUpqWWx2VFVzd2sz?=
- =?utf-8?B?OWhkQVcrTkkxbWt1NmhIbkk0SWJOd1RQVGNON1pqNlo2VGFrMHJuSUdqQm9X?=
- =?utf-8?B?cEVabURzNHdJZisxU1lCd3FHMW5MSTdISTlSbHM1Q2dpQlFPT3UzQUhwYzMx?=
- =?utf-8?B?RHdtRFYvOGFqNFhITjdjQXRBSWYwK2hmaDJlRDlzZ2lSVTN0M3pXdHBvVFZ4?=
- =?utf-8?B?WkdkR2pOSVc2WDBvOXloeEFiYlNuWlpzYXZQKzEvWUFBNUtGaDJzWTBrTDZR?=
- =?utf-8?B?MndTYU1rQkZBQVQ4S3pJOUw2TVRsR0tYTTNTdmNkL2d5ZC96M01ZU2hGYlo3?=
- =?utf-8?B?Q2IwUFRWWWZoVm1lVGdCZHAvbDJqaWx4cGwyVWdTbktZaU1CRks1MFZHRnNp?=
- =?utf-8?B?Sm5GY2dGTlhzZXB6bXJReGo4Ykw0RzFVWTlsZUg5OTNqeHc1a0VLa1dqeGZh?=
- =?utf-8?B?Skl1T1dIMytHbnVmWDBsdEt2bUYwOGZGUFkxSkZHYmI5bko4TlZRRUFUbDUy?=
- =?utf-8?B?ckVrZkJKUWNXSFVHMVVPMFA0LzBmK0NJZjdGWWZid0g0MHBwSVRqeStRdnZQ?=
- =?utf-8?B?eTZyb0lXaEh1UjRoTkVyRG45M0M3dXRwcHk4WmlBQU83TWVNNHV4Sk5jWTBs?=
- =?utf-8?B?QlZUd0pQZWM2bjdHajVsKytKRnpudEx2NDdVWk00L3I0TXh0UGN2TXFJdThw?=
- =?utf-8?B?YUs3VDBleEdxS2thdUFPZ2xvZ29raUQ4Qjc3RGlCNVZGQVZTWHhkSVFTaWY5?=
- =?utf-8?B?NmVQeUtCbDl0TmdEK0d4VzNVRFVFeFhBajdBRVF5R01yM0xwaklXdW1iMUlh?=
- =?utf-8?B?Skx5K3FidjY2ZDQzaUZRcDdPb3E2U2RReWdySmNhdERocWRZZnZwcHYydm93?=
- =?utf-8?B?UXhRNGc3aEhLS3B1TXE2MEpZb0V1bDZRRXZmU2lUdTE5T3RYMFUyUjVwNDBq?=
- =?utf-8?B?UFF6ZHpOOVRXREZBcDR5SitSYkJUSXZiRFdnOFNmMFcvNkNHZk1wR3BtWDZK?=
- =?utf-8?B?VGNjdStZSDU2akR6SkhoQ3Ztb0Y5Lyt5MkhLcVdyYktDQjlNQ2JkNVV3ZVM3?=
- =?utf-8?B?S2preDZFOEdWellQN0RBczY2NllpVGo5TlVhNUhHdVk3SzAySVNEZm55dTRZ?=
- =?utf-8?Q?FD3A=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: e3b084e4-ee9c-11ef-9aa8-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1739954307; x=1740559107; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=unuvCriN5RlwNxJV2//ulu/6r4DgFkOTyWOIkoxNnZc=;
+        b=EMelHKIb7qV44b82SxpyimO0A67fOZTnW+FsRCyYGcbVvYTW9g0RzTud7KFHREcXpc
+         K8wOU+SAWE78sxUZjNvoVtvNowaMThpd13d6Wz6/Licnm7d5v/KtUH1JhwQWwFbBF7+Q
+         OhDc8E27YpDe0JT9FkvLebiLUFBBXtG1iH7vp5C8AQmV9llWKAXsg3ZReVjOgs3RhLFq
+         Q8ueXtis8YWnomDMz6ddT4XIwjN8jevvQ9byLvnMro6YhI6PzKdckzJahVf8P6qeZJoO
+         O0MdVZ+ZDl/5icCUY9UBMxYqxYQYUwcB9hX0qSdg/q4xSjLjOYX6G1D569bBo7lhGtaQ
+         OICA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1739954307; x=1740559107;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=unuvCriN5RlwNxJV2//ulu/6r4DgFkOTyWOIkoxNnZc=;
+        b=D4YDPYPJssCjj651bxx9l3/e3v/bqJeONM6huwXe0csZhKvcZazdyM/Hp+8SX9dfai
+         00Srgb0GyewT721CMqvhhFFI/5djxZ63oR3OljJy/3idiAii+DmngKs5WPXBJ0yb7Fjq
+         aFrBy4ixd/W6A7lLSaoofrvo1ghFXpFRUu+g/pmAQJp+RVVEh/UC2TxoEUEEP8BiJzZ4
+         EICl0r6RKpnfyDRjoSGscM9u0IW9E7QzKlQCbi6nqcM6EovXJ+T6lxKhlll8/WsR+X7w
+         OtcOg483h+8dNh8Wm0N+k9/Z661/24WaJeBNMuqz/F1qXDHuiIIExhUIFRt9NFChdOrj
+         AIHQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWqDrpYpAdikAxRz7gS7BkTgNiJZHUVXzUsFzWaWdbRDZ1T+ik/f0fHZ7ow79nRBf7/eqe/BuqicUQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy444wx22+nl8A3hyB96tk2ryR41OS5KAFcr+DQYLQjhX4dORjr
+	LJpxATDdzOk2JHJDq/jPhJR0U+MVtJJt2B4t8gcoWYMNtxddVfE8
+X-Gm-Gg: ASbGncv+L3Dq9EhEU85wD87JPrR6OyUkfKolDmL5yD2dh/Pd42W8xMbk3A7O9o2bH+N
+	Pfo2lMoOc8M7SoGu/PSU28cFHwhBiZc5TgGYptgEnM+OnLy0IbfohtNcKgGzMxtvjBE7wUcsQGo
+	USITLDlKK6E4d8+yjHroiYs06crN7869jPaqCrgGXYJghqjl0VRt0ts3u55PFKcQT0XEDfMTYD3
+	7sYCMYmDY2vx21MlFPoKbry1TtRVJM6Gn/RtvxaXry5TDz2XsDe9dA4B6RUqhGl4uT4tSCkULNU
+	BGcL2yUTs8Zfq1N4T2DemUCs
+X-Google-Smtp-Source: AGHT+IFgr0Je8SnXC0f3VuOVdqjWKtHW62CoaYzSy9SJ0VW13/zj+simUV6C6Ys/sr/f2d7AfxKtRQ==
+X-Received: by 2002:a05:6512:110a:b0:545:27af:f2d1 with SMTP id 2adb3069b0e04-5462ef23975mr1179228e87.44.1739954306576;
+        Wed, 19 Feb 2025 00:38:26 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------K7dtozMUn7RB80nP5ka4NHFE"
+Message-ID: <9a56dca4-5d19-4e95-820e-b8b361d4c1c3@gmail.com>
+Date: Wed, 19 Feb 2025 09:38:25 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8451.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5787ab8a-4f59-41e7-1817-08dd50c07874
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Feb 2025 08:36:14.1143
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 5+GRebjmv/v4vswYW4r1IntQkUC14FZT0A6c+wi9cQhOFJK856VLinbg+znvJRcPBVeZVrx5A8r0D9exOaC4Mw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8003
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] xen/dom0less: support for vcpu affinity
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+Cc: Julien Grall <julien@xen.org>, bertrand.marquis@arm.com,
+ michal.orzel@amd.com, Volodymyr_Babchuk@epam.com,
+ dpsmith@apertussolutions.com, xenia.ragiadakou@amd.com
+References: <alpine.DEB.2.22.394.2502181227580.1085376@ubuntu-linux-20-04-desktop>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <alpine.DEB.2.22.394.2502181227580.1085376@ubuntu-linux-20-04-desktop>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
-Cg0KSGksDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogSmFuIEJldWxp
-Y2ggPGpiZXVsaWNoQHN1c2UuY29tPg0KPiBTZW50OiBUdWVzZGF5LCBGZWJydWFyeSAxOCwgMjAy
-NSAxMDo0OSBQTQ0KPiBUbzogUGVubnksIFpoZW5nIDxwZW5ueS56aGVuZ0BhbWQuY29tPg0KPiBD
-YzogSHVhbmcsIFJheSA8UmF5Lkh1YW5nQGFtZC5jb20+OyBBbmRyeXVrLCBKYXNvbg0KPiA8SmFz
-b24uQW5kcnl1a0BhbWQuY29tPjsgQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4
-LmNvbT47DQo+IFJvZ2VyIFBhdSBNb25uw6kgPHJvZ2VyLnBhdUBjaXRyaXguY29tPjsgQW50aG9u
-eSBQRVJBUkQNCj4gPGFudGhvbnkucGVyYXJkQHZhdGVzLnRlY2g+OyBPcnplbCwgTWljaGFsIDxN
-aWNoYWwuT3J6ZWxAYW1kLmNvbT47IEp1bGllbg0KPiBHcmFsbCA8anVsaWVuQHhlbi5vcmc+OyBT
-dGVmYW5vIFN0YWJlbGxpbmkgPHNzdGFiZWxsaW5pQGtlcm5lbC5vcmc+OyB4ZW4tDQo+IGRldmVs
-QGxpc3RzLnhlbnByb2plY3Qub3JnDQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggdjIgMDIvMTFdIHhl
-bi94ODY6IGludHJvZHVjZSBuZXcgc3ViLWh5cGVyY2FsbCB0byBwcm9wYWdhdGUNCj4gQ1BQQyBk
-YXRhDQo+DQo+IE9uIDE4LjAyLjIwMjUgMDc6MDUsIFBlbm55LCBaaGVuZyB3cm90ZToNCj4gPj4g
-LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gPj4gRnJvbTogSmFuIEJldWxpY2ggPGpiZXVs
-aWNoQHN1c2UuY29tPg0KPiA+PiBTZW50OiBNb25kYXksIEZlYnJ1YXJ5IDE3LCAyMDI1IDM6Mzkg
-UE0NCj4gPj4NCj4gPj4gT24gMTcuMDIuMjAyNSAwODoyMCwgUGVubnksIFpoZW5nIHdyb3RlOg0K
-PiA+Pj4gW0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24g
-T25seV0NCj4gPj4NCj4gPj4gQnR3LCBib2lsZXIgcGxhdGVzIGxpa2UgdGhpcyBhcmVuJ3QgcmVh
-bGx5IGxpa2VkIG9uIHB1YmxpYyBtYWlsaW5nDQo+ID4+IGxpc3RzLCBmb3IgYmVpbmcgY29udHJh
-cnkgdG8gdGhlIHB1cnBvc2Ugb2Ygc3VjaCBsaXN0cy4NCj4NCj4gWW91IGRpZCByZWFkIHRoaXMs
-IGRpZG4ndCB5b3U/IEkgYXNrIGJlY2F1c2UgdGhlIHNhbWUgYm9pbGVycGxhdGUga2VlcHMgYXBw
-ZWFyaW5nIGluDQo+IHlvdXIgbWFpbHMuDQo+DQo+ID4+Pj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdl
-LS0tLS0NCj4gPj4+PiBGcm9tOiBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+DQo+ID4+
-Pj4gU2VudDogVHVlc2RheSwgRmVicnVhcnkgMTEsIDIwMjUgNzoxMCBQTQ0KPiA+Pj4+DQo+ID4+
-Pj4gT24gMDYuMDIuMjAyNSAwOTozMiwgUGVubnkgWmhlbmcgd3JvdGU6DQo+ID4+Pj4+ICt7DQo+
-ID4+Pj4+ICsgICAgaW50IHJldCA9IDAsIGNwdWlkOw0KPiA+Pj4+PiArICAgIHN0cnVjdCBwcm9j
-ZXNzb3JfcG1pbmZvICpwbV9pbmZvOw0KPiA+Pj4+PiArDQo+ID4+Pj4+ICsgICAgY3B1aWQgPSBn
-ZXRfY3B1X2lkKGFjcGlfaWQpOw0KPiA+Pj4+PiArICAgIGlmICggY3B1aWQgPCAwIHx8ICFjcHBj
-X2RhdGEgKQ0KPiA+Pj4+PiArICAgIHsNCj4gPj4+Pj4gKyAgICAgICAgcmV0ID0gLUVJTlZBTDsN
-Cj4gPj4+Pj4gKyAgICAgICAgZ290byBvdXQ7DQo+ID4+Pj4+ICsgICAgfQ0KPiA+Pj4+PiArICAg
-IGlmICggY3B1ZnJlcV92ZXJib3NlICkNCj4gPj4+Pj4gKyAgICAgICAgcHJpbnRrKCJTZXQgQ1BV
-IGFjcGlfaWQoJWQpIGNwdWlkKCVkKSBDUFBDIFN0YXRlIGluZm86XG4iLA0KPiA+Pj4+PiArICAg
-ICAgICAgICAgICAgYWNwaV9pZCwgY3B1aWQpOw0KPiA+Pj4+PiArDQo+ID4+Pj4+ICsgICAgcG1f
-aW5mbyA9IHByb2Nlc3Nvcl9wbWluZm9bY3B1aWRdOw0KPiA+Pj4+PiArICAgIGlmICggIXBtX2lu
-Zm8gKQ0KPiA+Pj4+PiArICAgIHsNCj4gPj4+Pj4gKyAgICAgICAgcG1faW5mbyA9IHh2emFsbG9j
-KHN0cnVjdCBwcm9jZXNzb3JfcG1pbmZvKTsNCj4gPj4+Pj4gKyAgICAgICAgaWYgKCAhcG1faW5m
-byApDQo+ID4+Pj4+ICsgICAgICAgIHsNCj4gPj4+Pj4gKyAgICAgICAgICAgIHJldCA9IC1FTk9N
-RU07DQo+ID4+Pj4+ICsgICAgICAgICAgICBnb3RvIG91dDsNCj4gPj4+Pj4gKyAgICAgICAgfQ0K
-PiA+Pj4+PiArICAgICAgICBwcm9jZXNzb3JfcG1pbmZvW2NwdWlkXSA9IHBtX2luZm87DQo+ID4+
-Pj4+ICsgICAgfQ0KPiA+Pj4+PiArICAgIHBtX2luZm8tPmFjcGlfaWQgPSBhY3BpX2lkOw0KPiA+
-Pj4+PiArICAgIHBtX2luZm8tPmlkID0gY3B1aWQ7DQo+ID4+Pj4+ICsgICAgcG1faW5mby0+Y3Bw
-Y19kYXRhID0gKmNwcGNfZGF0YTsNCj4gPj4+Pj4gKw0KPiA+Pj4+PiArICAgIGlmICggY3B1ZnJl
-cV92ZXJib3NlICkNCj4gPj4+Pj4gKyAgICAgICAgcHJpbnRfQ1BQQygmcG1faW5mby0+Y3BwY19k
-YXRhKTsNCj4gPj4+Pj4gKw0KPiA+Pj4+PiArIG91dDoNCj4gPj4+Pj4gKyAgICByZXR1cm4gcmV0
-Ow0KPiA+Pj4+PiArfQ0KPiA+Pj4+DQo+ID4+Pj4gV2hhdCdzIHRoZSBpbnRlcmFjdGlvbiBiZXR3
-ZWVuIHRoZSBkYXRhIHNldCBieSBzZXRfcHhfcG1pbmZvKCkgYW5kDQo+ID4+Pj4gdGhlIGRhdGEg
-c2V0IGhlcmU/IEluIHBhcnRpY3VsYXIsIHdoYXQncyBnb2luZyB0byBoYXBwZW4gaWYgYm90aA0K
-PiA+Pj4+IGZ1bmN0aW9ucyBjb21lIGludG8gcGxheSBmb3IgdGhlIHNhbWUgQ1BVPyBTaG91bGRu
-J3QgdGhlcmUgYmUgc29tZQ0KPiA+Pj4+IHNhbml0eQ0KPiA+PiBjaGVja3M/DQo+ID4+Pg0KPiA+
-Pj4gWWVzLCBJJ3ZlIGNvbnNpZGVyZWQgdGhpcyBhbmQgY2hlY2tlZCBBQ1BJIHNwZWMuIEknbGwg
-cmVmZXIgdGhlbSBoZXJlOg0KPiA+Pj4gYGBgDQo+ID4+PiBJZiB0aGUgcGxhdGZvcm0gc3VwcG9y
-dHMgQ1BQQywgdGhlIF9DUEMgb2JqZWN0IG11c3QgZXhpc3QgdW5kZXIgYWxsDQo+ID4+PiBwcm9j
-ZXNzb3INCj4gPj4gb2JqZWN0cy4NCj4gPj4+IFRoYXQgaXMsIE9TUE0gaXMgbm90IGV4cGVjdGVk
-IHRvIHN1cHBvcnQgbWl4ZWQgbW9kZSAoQ1BQQyAmIGxlZ2FjeQ0KPiA+Pj4gUFNTLA0KPiA+PiBf
-UENULCBfUFBDKSBvcGVyYXRpb24uDQo+ID4+PiBgYGANCj4gPj4+IFNlZQ0KPiA+Pj4gaHR0cHM6
-Ly91ZWZpLm9yZy9zcGVjcy9BQ1BJLzYuNS8wOF9Qcm9jZXNzb3JfQ29uZmlndXJhdGlvbl9hbmRf
-Q29udHINCj4gPj4+IG9sDQo+ID4+PiAuaHRtbD9oaWdobGlnaHQ9Y3BwYyNwb3dlci1wZXJmb3Jt
-YW5jZS1hbmQtdGhyb3R0bGluZy1zdGF0ZS1kZXBlbmRlbg0KPiA+Pj4gY2kgZXMgU28gQ1BVcyBj
-b3VsZCBoYXZlIGJvdGggX0NQQyBhbmQgbGVnYWN5IFAtc3RhdGUgaW5mbyBpbiBBQ1BJDQo+ID4+
-PiBmb3IgZWFjaCBlbnRyeSwgdGhleSBqdXN0IGNhbid0IGhhdmUgbWl4ZWQtbW9kZSBNYXliZSB3
-ZSBzaGFsbCBhZGQNCj4gPj4+IHNhbml0eSBjaGVjayB0byBzZWUgaWYgX0NQQyBleGlzdHMsIGl0
-IHNoYWxsIGV4aXN0IGZvciBhbGwgcGNwdXM/DQo+ID4+DQo+ID4+IE1heWJlLCBidXQgdGhhdCB3
-YXNuJ3QgdGhlIHBvaW50IG9mIG15IHJlbWFyay4NCj4gPj4NCj4gPj4gUHJvcGVybHkgYmVoYXZp
-bmcgRG9tMCBzaG91bGQgcHJvYmFibHkgYmUgcGFzc2luZyBvbmx5IG9uZSBvZiB0aGUgdHdvDQo+
-ID4+IHBvc3NpYmxlIHBpZWNlcyBvZiBpbmZvcm1hdGlvbi4gWWV0IG1heWJlIHdlJ2QgYmV0dGVy
-IHNhbml0eSBjaGVjayBfdGhhdF8/DQo+ID4+IChJIGRvbid0IHJlY2FsbCBzZWVpbmcgTGludXgg
-a2VybmVsIHNpZGUgcGF0Y2hlcyB5ZXQ7IGlmIHRoZXkgd2VyZQ0KPiA+PiBwb3N0ZWQgc29tZXdo
-ZXJlLCB0aGV5IG1heSBhdCBsZWFzdCBwYXJ0bHkgYWRkcmVzcyBteSBjb25jZXJuLikNCj4gPj4N
-Cj4gPg0KPiA+IEluIG15IGxpbnV4IHBhdGNoLA0KPiA+IGh0dHBzOi8vbG9yZS5rZXJuZWwub3Jn
-L2xrbWwvMjAyNDEyMDQwODI0MzAuNDY5MDkyLTEtUGVubnkuWmhlbmdAYW1kLmMNCj4gPiBvbS9U
-LyBJIG9ubHkgZGlkIHplcm8tdmFsdWUgY2hlY2sgaW4geGVuX3Byb2Nlc3Nvcl9nZXRfcGVyZl9j
-YXBzKCksIERvDQo+ID4geW91IHRoaW5rIGluIHRoYXQgcGxhY2UsIEkgc2hhbGwgYWRkIG1vcmUg
-c3RyaWN0IHNhbml0eSBjaGVjaywgbGlrZQ0KPiA+IHRoZSByZWdpc3RlciB2YWx1ZSBzaGFsbCBu
-b3QgYmUgemVybyBhbmQgYWxzbyBtdXN0IHNtYWxsZXIgdGhhbiBVSU5UOF9UPw0KPiA+IE9yIHdl
-IGp1c3QgZG8gdGhlIGFib3ZlIGNoZWNrIGluIFhlbiBwYXJ0IHdoZW4gcmVjZWl2aW5nIHRoZSBk
-YXRhPw0KPg0KPiBWYWx1ZSByYW5nZSBjaGVja2luZyBpcyBuaWNlIHRvIGhhdmUgaW4gRG9tMCwg
-YnV0IHRoZSBzYW1lIGNoZWNraW5nIG5lZWRzIGRvaW5nDQo+IGluIHRoZSBoeXBlcnZpc29yIGFu
-eXdheS4gQnV0IHRoYXQgaXNuJ3Qgd2hhdCBteSBjb21tZW50IHdhcyBhYm91dC4gV2hhdCBJJ20N
-Cj4gYXNraW5nIGlzIGhvdyBpdCBpcyBiZWluZyBtYWRlIHN1cmUgdGhhdCB3ZSB3b24ndCBoYXZl
-IHRvIGRlYWwgd2l0aCBhIG1peCBvZg0KPiB0cmFkaXRpb25hbCBhbmQgQ1BQQyBkYXRhIGluIHRo
-ZSBoeXBlcnZpc29yLg0KPg0KDQpBcmUgeW91IHN1Z2dlc3RpbmcgdGhhdCB3ZSBvbmx5IGRvIGVp
-dGhlciBzZXRfY3BwY19wbWluZm8gb3Igc2V0X3B4X3BtaW5mbz8NCk9ubHkgb25lIHNpZGUgZGF0
-YSBnZXQgc2V0IHRvIGF2b2lkIHRoZSBjb25zZXF1ZW5jZSBvZiBtaXh0dXJlLg0KDQo+IEphbg0K
+This is a multi-part message in MIME format.
+--------------K7dtozMUn7RB80nP5ka4NHFE
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+
+On 2/18/25 9:29 PM, Stefano Stabellini wrote:
+> Add vcpu affinity to the dom0less bindings. Example:
+>
+>      dom1 {
+>              ...
+>              cpus = <4>;
+>              vcpu0 {
+>                     compatible = "xen,vcpu-affinity";
+>                     id = <0>;
+>                     hard-affinity = "4-7";
+>              };
+>              vcpu1 {
+>                     compatible = "xen,vcpu-affinity";
+>                     id = <1>;
+>                     hard-affinity = "0-3";
+>              };
+>              vcpu2 {
+>                     compatible = "xen,vcpu-affinity";
+>                     id = <2>;
+>                     hard-affinity = "1,6";
+>              };
+>              ...
+>
+> Note that the property hard-affinity is optional. It is possible to add
+> other properties in the future not only to specify soft affinity, but
+> also to provide more precise methods for configuring affinity. For
+> instance, on ARM the MPIDR could be use to specify the pCPU. For now, it
+> is left to the future.
+
+I think we want this to add to CHANGELOG.
+
+Thanks.
+
+~ Oleksii
+
+
+>
+> Signed-off-by: Xenia Ragiadakou<xenia.ragiadakou@amd.com>
+> Signed-off-by: Stefano Stabellini<stefano.stabellini@amd.com>
+> ---
+> Changes in v3:
+> - improve commit message
+> - improve binding doc
+> - add panic on invalid pCPU
+> - move parsing to a separate function
+>
+> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+> index 9c881baccc..10e55c825c 100644
+> --- a/docs/misc/arm/device-tree/booting.txt
+> +++ b/docs/misc/arm/device-tree/booting.txt
+> @@ -324,6 +324,27 @@ The ramdisk sub-node has the following properties:
+>       property because it will be created by the UEFI stub on boot.
+>       This option is needed only when UEFI boot is used.
+>   
+> +Under the "xen,domain" compatible node, it is possible optionally to add
+> +one or more sub-nodes to configure vCPU affinity. The vCPU affinity
+> +sub-node has the following properties:
+> +
+> +- compatible
+> +
+> +    "xen,vcpu-affinity"
+> +
+> +- id
+> +
+> +    A 32-bit integer that specifies the vCPU id. 0 is the first vCPU.
+> +    The last vCPU is cpus-1, where "cpus" is the number of vCPUs
+> +    specified with the "cpus" property under the "xen,domain" node.
+> +
+> +- hard-affinity
+> +
+> +    Optional. A string specifying the hard affinity configuration for the
+> +    vCPU: a comma-separated list of pCPUs or ranges of pCPUs is used.
+> +    Ranges are hyphen-separated intervals (such as `0-4`) and are inclusive
+> +    on both sides. The numbers refer to pCPU ids.
+> +
+>   
+>   Example
+>   =======
+> diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
+> index 49d1f14d65..e364820189 100644
+> --- a/xen/arch/arm/dom0less-build.c
+> +++ b/xen/arch/arm/dom0less-build.c
+> @@ -810,6 +810,68 @@ static int __init construct_domU(struct domain *d,
+>       return rc;
+>   }
+>   
+> +static void __init domain_vcpu_affinity(struct domain *d,
+> +                                        const struct dt_device_node *node)
+> +{
+> +    const char *hard_affinity_str = NULL;
+> +    struct dt_device_node *np;
+> +    uint32_t val;
+> +    int rc;
+> +
+> +    dt_for_each_child_node(node, np)
+> +    {
+> +        const char *s;
+> +        struct vcpu *v;
+> +        cpumask_t affinity;
+> +
+> +        if ( !dt_device_is_compatible(np, "xen,vcpu-affinity") )
+> +            continue;
+> +
+> +        if ( !dt_property_read_u32(np, "id", &val) )
+> +            continue;
+> +
+> +        if ( val >= d->max_vcpus )
+> +            panic("Invalid vcpu_id %u for domain %s\n", val, dt_node_name(node));
+> +
+> +        v = d->vcpu[val];
+> +        rc = dt_property_read_string(np, "hard-affinity", &hard_affinity_str);
+> +        if ( rc < 0 )
+> +            continue;
+> +
+> +        s = hard_affinity_str;
+> +        cpumask_clear(&affinity);
+> +        while ( *s != '\0' )
+> +        {
+> +            unsigned int start, end;
+> +
+> +            start = simple_strtoul(s, &s, 0);
+> +
+> +            if ( *s == '-' )    /* Range */
+> +            {
+> +                s++;
+> +                end = simple_strtoul(s, &s, 0);
+> +            }
+> +            else                /* Single value */
+> +                end = start;
+> +
+> +            if ( end >= nr_cpu_ids )
+> +                panic("Invalid pCPU %u for domain %s\n", end, dt_node_name(node));
+> +
+> +            for ( ; start <= end; start++ )
+> +                cpumask_set_cpu(start, &affinity);
+> +
+> +            if ( *s == ',' )
+> +                s++;
+> +            else if ( *s != '\0' )
+> +                break;
+> +        }
+> +
+> +        rc = vcpu_set_hard_affinity(v, &affinity);
+> +        if ( rc )
+> +            panic("vcpu%d: failed to set hard affinity\n", v->vcpu_id);
+> +    }
+> +}
+> +
+>   void __init create_domUs(void)
+>   {
+>       struct dt_device_node *node;
+> @@ -992,6 +1054,8 @@ void __init create_domUs(void)
+>           if ( rc )
+>               panic("Could not set up domain %s (rc = %d)\n",
+>                     dt_node_name(node), rc);
+> +
+> +        domain_vcpu_affinity(d, node);
+>       }
+>   }
+>   
+>
+--------------K7dtozMUn7RB80nP5ka4NHFE
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2/18/25 9:29 PM, Stefano Stabellini
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:alpine.DEB.2.22.394.2502181227580.1085376@ubuntu-linux-20-04-desktop">
+      <pre wrap="" class="moz-quote-pre">Add vcpu affinity to the dom0less bindings. Example:
+
+    dom1 {
+            ...
+            cpus = &lt;4&gt;;
+            vcpu0 {
+                   compatible = "xen,vcpu-affinity";
+                   id = &lt;0&gt;;
+                   hard-affinity = "4-7";
+            };
+            vcpu1 {
+                   compatible = "xen,vcpu-affinity";
+                   id = &lt;1&gt;;
+                   hard-affinity = "0-3";
+            };
+            vcpu2 {
+                   compatible = "xen,vcpu-affinity";
+                   id = &lt;2&gt;;
+                   hard-affinity = "1,6";
+            };
+            ...
+
+Note that the property hard-affinity is optional. It is possible to add
+other properties in the future not only to specify soft affinity, but
+also to provide more precise methods for configuring affinity. For
+instance, on ARM the MPIDR could be use to specify the pCPU. For now, it
+is left to the future.</pre>
+    </blockquote>
+    <pre>I think we want this to add to CHANGELOG.
+
+Thanks.
+
+~ Oleksii
+</pre>
+    <p><br>
+    </p>
+    <blockquote type="cite"
+cite="mid:alpine.DEB.2.22.394.2502181227580.1085376@ubuntu-linux-20-04-desktop">
+      <pre wrap="" class="moz-quote-pre">
+
+Signed-off-by: Xenia Ragiadakou <a class="moz-txt-link-rfc2396E" href="mailto:xenia.ragiadakou@amd.com">&lt;xenia.ragiadakou@amd.com&gt;</a>
+Signed-off-by: Stefano Stabellini <a class="moz-txt-link-rfc2396E" href="mailto:stefano.stabellini@amd.com">&lt;stefano.stabellini@amd.com&gt;</a>
+---
+Changes in v3:
+- improve commit message
+- improve binding doc
+- add panic on invalid pCPU
+- move parsing to a separate function
+
+diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+index 9c881baccc..10e55c825c 100644
+--- a/docs/misc/arm/device-tree/booting.txt
++++ b/docs/misc/arm/device-tree/booting.txt
+@@ -324,6 +324,27 @@ The ramdisk sub-node has the following properties:
+     property because it will be created by the UEFI stub on boot.
+     This option is needed only when UEFI boot is used.
+ 
++Under the "xen,domain" compatible node, it is possible optionally to add
++one or more sub-nodes to configure vCPU affinity. The vCPU affinity
++sub-node has the following properties:
++
++- compatible
++
++    "xen,vcpu-affinity"
++
++- id
++
++    A 32-bit integer that specifies the vCPU id. 0 is the first vCPU.
++    The last vCPU is cpus-1, where "cpus" is the number of vCPUs
++    specified with the "cpus" property under the "xen,domain" node.
++
++- hard-affinity
++
++    Optional. A string specifying the hard affinity configuration for the
++    vCPU: a comma-separated list of pCPUs or ranges of pCPUs is used.
++    Ranges are hyphen-separated intervals (such as `0-4`) and are inclusive
++    on both sides. The numbers refer to pCPU ids.
++
+ 
+ Example
+ =======
+diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
+index 49d1f14d65..e364820189 100644
+--- a/xen/arch/arm/dom0less-build.c
++++ b/xen/arch/arm/dom0less-build.c
+@@ -810,6 +810,68 @@ static int __init construct_domU(struct domain *d,
+     return rc;
+ }
+ 
++static void __init domain_vcpu_affinity(struct domain *d,
++                                        const struct dt_device_node *node)
++{
++    const char *hard_affinity_str = NULL;
++    struct dt_device_node *np;
++    uint32_t val;
++    int rc;
++
++    dt_for_each_child_node(node, np)
++    {
++        const char *s;
++        struct vcpu *v;
++        cpumask_t affinity;
++
++        if ( !dt_device_is_compatible(np, "xen,vcpu-affinity") )
++            continue;
++
++        if ( !dt_property_read_u32(np, "id", &amp;val) )
++            continue;
++
++        if ( val &gt;= d-&gt;max_vcpus )
++            panic("Invalid vcpu_id %u for domain %s\n", val, dt_node_name(node));
++
++        v = d-&gt;vcpu[val];
++        rc = dt_property_read_string(np, "hard-affinity", &amp;hard_affinity_str);
++        if ( rc &lt; 0 )
++            continue;
++
++        s = hard_affinity_str;
++        cpumask_clear(&amp;affinity);
++        while ( *s != '\0' )
++        {
++            unsigned int start, end;
++
++            start = simple_strtoul(s, &amp;s, 0);
++
++            if ( *s == '-' )    /* Range */
++            {
++                s++;
++                end = simple_strtoul(s, &amp;s, 0);
++            }
++            else                /* Single value */
++                end = start;
++
++            if ( end &gt;= nr_cpu_ids )
++                panic("Invalid pCPU %u for domain %s\n", end, dt_node_name(node));
++
++            for ( ; start &lt;= end; start++ )
++                cpumask_set_cpu(start, &amp;affinity);
++
++            if ( *s == ',' )
++                s++;
++            else if ( *s != '\0' )
++                break;
++        }
++
++        rc = vcpu_set_hard_affinity(v, &amp;affinity);
++        if ( rc )
++            panic("vcpu%d: failed to set hard affinity\n", v-&gt;vcpu_id);
++    }
++}
++
+ void __init create_domUs(void)
+ {
+     struct dt_device_node *node;
+@@ -992,6 +1054,8 @@ void __init create_domUs(void)
+         if ( rc )
+             panic("Could not set up domain %s (rc = %d)\n",
+                   dt_node_name(node), rc);
++
++        domain_vcpu_affinity(d, node);
+     }
+ }
+ 
+
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------K7dtozMUn7RB80nP5ka4NHFE--
 
