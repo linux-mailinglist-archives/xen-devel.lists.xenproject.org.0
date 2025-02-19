@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F9FAA3C1FC
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 15:24:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.893032.1301964 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94A06A3C235
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 15:34:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.893042.1301975 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkkz8-0001bU-VJ; Wed, 19 Feb 2025 14:23:34 +0000
+	id 1tkl8v-0003e0-Rh; Wed, 19 Feb 2025 14:33:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 893032.1301964; Wed, 19 Feb 2025 14:23:34 +0000
+Received: by outflank-mailman (output) from mailman id 893042.1301975; Wed, 19 Feb 2025 14:33:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkkz8-0001ZA-S9; Wed, 19 Feb 2025 14:23:34 +0000
-Received: by outflank-mailman (input) for mailman id 893032;
- Wed, 19 Feb 2025 14:23:33 +0000
+	id 1tkl8v-0003b7-P2; Wed, 19 Feb 2025 14:33:41 +0000
+Received: by outflank-mailman (input) for mailman id 893042;
+ Wed, 19 Feb 2025 14:33:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HVer=VK=gmail.com=andr2000@srs-se1.protection.inumbo.net>)
- id 1tkkz7-0001Yo-4X
- for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 14:23:33 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
+ <SRS0=GJ0s=VK=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1tkl8u-0003b1-Pv
+ for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 14:33:40 +0000
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [2a00:1450:4864:20::134])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 181adcf4-eecd-11ef-9aa8-95dc52dad729;
- Wed, 19 Feb 2025 15:23:31 +0100 (CET)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-30a36eecb9dso31971841fa.2
- for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 06:23:31 -0800 (PST)
-Received: from [192.168.10.20] ([185.199.97.5])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-30a2a668ad9sm12666161fa.10.2025.02.19.06.23.27
+ id 82b9912b-eece-11ef-9aa8-95dc52dad729;
+ Wed, 19 Feb 2025 15:33:39 +0100 (CET)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-54524740032so5996729e87.3
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 06:33:39 -0800 (PST)
+Received: from [172.24.85.51] ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5452d9cd8a2sm1738025e87.76.2025.02.19.06.33.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Feb 2025 06:23:29 -0800 (PST)
+ Wed, 19 Feb 2025 06:33:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,85 +44,206 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 181adcf4-eecd-11ef-9aa8-95dc52dad729
+X-Inumbo-ID: 82b9912b-eece-11ef-9aa8-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1739975011; x=1740579811; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=JYx+IQ6WBbanlJBV2Mo8c2gdS/x7/7AbRFKDM6QTTeM=;
-        b=YZRDMObfg/hG/iQTXFyw3BMaWAzrc/24OUUilH2ufqSkKuvxysVFbbZqihIatYZCZD
-         icVU0GyTJbvM69wzuShDrZOq9k+NTu6wCqp9giMro1PE8RWoOQS0rxQ21YWA8EZ67Z0H
-         rN7enSkBQVPpaOQoXEDDlgdGqwV6Zg0ej/UvA6WtpgJNFauNo+vPT8X/fQdcTBdWZD7K
-         p5k0Wn0Ps2aSPKyPIwBcg/yurzrj83kk2pPuHdrikYBpM/fNeq4GJGljbSu6yywraocC
-         pBsVsFe6U8YoETiantcedfAGY1+tn9onCIkt66z/JiH4e223K6XT3lWsVrbuLWYCPZvw
-         zePg==
+        d=gmail.com; s=20230601; t=1739975619; x=1740580419; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=djw16h++tioF4+ERRAhJ8rRPM+INlvR1+36Ihf30IvM=;
+        b=KE3tYIhggH+ecmZFNWNDcrbJEutzJ0JSScQmP8jAssgSYf5CM1i1Y62Cwu1MY3D1iG
+         34KAzGCspniuMktx9FnLpgDah4QDRDGFjNXoSUFXOR94t2X3RJsUf7OCh0D5CCm8HcqU
+         KCZAYaBe5/hqKxsQtMy/ZYmCPrGxdLoVe2j4jsYSAOsj1qkt5hdQY6zLgZWaa5qHyG4A
+         63YQxxtDJwxxqWKA+ft8suQYmn3pOO8ow1CapXK5zz4R3xVz+h8CXZNjw/JjH9MjfkxU
+         PyNEx1zaon26ejOH7R/p0umMjn4cFaBaVQDWl5xbpFxDaFShW4dSbhpNo+8Br0oU4WVA
+         FuLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739975011; x=1740579811;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=JYx+IQ6WBbanlJBV2Mo8c2gdS/x7/7AbRFKDM6QTTeM=;
-        b=mU5j4nKW79JNMSipKEdRRCqCKQfRQ66bu3Kigw5F/sVEbTpoqMJ1URzaC5lQFTdiee
-         pd6HdXsEGtcgMx/1b+CWedQJUhRoOONmV3qoZH8LaCuW4FeN5vkuK+hqz7d5+3mPrpvU
-         EqZGAHUEBiyiSiXbSaVrLK+NXOuqxaq8ZELB/3o7Vpiu2B6on1ZZ3K5h+8DDDWm5aYz4
-         nwyqYaGEl0141smUGIlUf2Iw/mMOB3gx/S/RJvGojocw/ionMLbJjg5R/IcsJk0wKu0s
-         AI3C/EDlM94OgSNi3jM/iSJiuZd1OK+GvxOhkbMGgMAWQ9MLlt5fdUKqg4xQ3t1FDRJA
-         72YQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVVwlZSySwrEva17qlqgmX0FPlyoYz4eaErHEitahBJq6eBXnSPvgvsCQEf7LxKimRakKBl2/li1lc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwG9olard3Z0kQ038iS75Vkn9Hbb6TObW9SWGjK/S9eMKzWPAqA
-	3+kFwWttuwWVwNqzJ9Ioni1iuGG1ECr+ervQP7KspPHGDu5SBC/l
-X-Gm-Gg: ASbGncswhWveKycEkkXqHAbSusvbh/nQgouWXkbPTGIc6Vls9GXzWYDPCjhEgVKMgqt
-	djCScA6CbJ1h4yWfaMAHHr+9rCDpAPzgZ3LnU7rXL5YSU17pJO3gc9m9YSFr+FjRYx9+/6rALLT
-	L2Stqagah/n5Y5Drjg5nYcLbOajnh2u2ZeURscJ3p8MmOgr7QfWgdtRPKb0VXBaQ0g+lzsBv7+7
-	J6wQhIv0VmIsctoKqD5oZPAHkOjl26+nahoFtY7RYX6VVWWYhYfBEiFyP7DNSkuv45Y8medkf9O
-	m3jkhuYdgUdwR6su
-X-Google-Smtp-Source: AGHT+IF9gd8j1nTL1wM/zUTfVWebtRHyZtqUxY+DC189ACZzQIOXf3jhaq6UkouLN78xmw6V+o9vPQ==
-X-Received: by 2002:a2e:80d8:0:b0:302:5391:3faf with SMTP id 38308e7fff4ca-30927a64bebmr58361941fa.17.1739975010432;
-        Wed, 19 Feb 2025 06:23:30 -0800 (PST)
-Message-ID: <ced01825-caf5-456f-adc9-2208d3a075aa@gmail.com>
-Date: Wed, 19 Feb 2025 16:23:27 +0200
+        d=1e100.net; s=20230601; t=1739975619; x=1740580419;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=djw16h++tioF4+ERRAhJ8rRPM+INlvR1+36Ihf30IvM=;
+        b=Q7aUgmc5VRN7LBnptL1e4X3Ft7EriunPyO9IQvnwdIsvqSSnw9slfWLrAs6KkOR+PG
+         0cmTCXWmGuu+Lulrw5tTqH3bwzTwZT13ALSr/N5TK0n+FfFh6A1A9zAXUeJGzH667ShF
+         kCOwhUri4dto4fQ217OxswGTOpBrtugHBf7JNcvAtW+CsfFD9xld4UkXVtaUPk3cBIXe
+         lfbusI3SjcBG9nwFlMHptHD1i46aSj02K9wg1EsiC+s7ZofJBJdxNaB0ps0WXy9tLNKC
+         apDMmkSCxFWsOrWwTwTg2nQngxMvF0aiv3FEBmzzdN573AwgqykT4ShCZviLArYHVFB4
+         cZvA==
+X-Forwarded-Encrypted: i=1; AJvYcCVa1/z6Nw2S89y0HVfA8lIkMRMGd9vTCCXFoU3CwJbHsMyB8VSFXhyewhaFdyo5VjE2xOmBUlHbAbE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyVtR8lq/flTim7uaMc588p4QTrarkVtuxIs1vGpsFLm29d/pmh
+	J2RVE/wb6xvZCrpCE1rXYlw941RhjBN6OXpBcwh8cNhyVpIXRr+4
+X-Gm-Gg: ASbGnct6gefa+vLnXdhDB8vC3SrkMn8/urL3Z+hPOiiY+SA+qY7oVb8zFVhWrHN55CP
+	1xp+ufbT6HN9/8AAf4CNI+BHEZY4zhnfjE1g2vjCVmWUdKpFcthFNbF9UPYK8WD2D45ST+ia2pw
+	ElEXpM3G63+f/gNoLqQZfRs/rTxUX0ZuGwHlkAHPF7kMLAbKQuqYaNHBeGAXbHsGAD4eFdgTOl0
+	c22/Rq8z6PqmhA6PUAzEizeBWG64kAP/TBI/Z+Qq35uz0O4ctxPIx6lxxru0k/HiFKgQYBLI0Q1
+	66/7djKFTQhlRsD0Qmt3U1sO
+X-Google-Smtp-Source: AGHT+IG8HnDTH/IhBMla/6hFvegTAJ3rcI/0EXXWltlbnhcMfS+Ltt4LOYXNvGys0V363+MkirXbug==
+X-Received: by 2002:a05:6512:104e:b0:545:2b24:c714 with SMTP id 2adb3069b0e04-5452fe56d73mr7538795e87.18.1739975618643;
+        Wed, 19 Feb 2025 06:33:38 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------XUSiONVSkpK6sxYPfu7e86kw"
+Message-ID: <45cc5337-be6b-4bfb-b968-56dc98bad249@gmail.com>
+Date: Wed, 19 Feb 2025 15:33:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] code style: Format ns16550 driver
-From: Oleksandr Andrushchenko <andr2000@gmail.com>
+Subject: Re: [PATCH for 4.20? v4 1/3] xen/riscv: implement software page table
+ walking
 To: Jan Beulich <jbeulich@suse.com>
-Cc: sstabellini@kernel.org, Artem_Mygaiev@epam.com, Luca.Fancellu@arm.com,
- roger.pau@citrix.com, marmarek@invisiblethingslab.com,
- andrew.cooper3@citrix.com, anthony.perard@vates.tech,
- xen-devel@lists.xenproject.org
-References: <20250216102108.2665222-1-andr2000@gmail.com>
- <20250216102108.2665222-2-andr2000@gmail.com>
- <5ed54fcf-d4fd-4ec0-8c40-1e50d9b16ae2@suse.com>
- <6f133e51-17b5-4edf-8db3-5c9b91028898@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1739363240.git.oleksii.kurochko@gmail.com>
+ <9f1fbf84a82fd141f40428993106f0672d6d8c4c.1739363240.git.oleksii.kurochko@gmail.com>
+ <5c56ef1f-1a13-4a2e-9317-0cc90e93d479@suse.com>
 Content-Language: en-US
-In-Reply-To: <6f133e51-17b5-4edf-8db3-5c9b91028898@gmail.com>
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <5c56ef1f-1a13-4a2e-9317-0cc90e93d479@suse.com>
+
+This is a multi-part message in MIME format.
+--------------XUSiONVSkpK6sxYPfu7e86kw
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hello, Jan!
 
-On 19.02.25 14:39, Oleksandr Andrushchenko wrote:
-> Hello, Jan!
+On 2/19/25 12:14 PM, Jan Beulich wrote:
+> On 12.02.2025 17:50, Oleksii Kurochko wrote:
+>> --- a/xen/arch/riscv/pt.c
+>> +++ b/xen/arch/riscv/pt.c
+>> @@ -185,6 +185,68 @@ static int pt_next_level(bool alloc_tbl, pte_t **table, unsigned int offset)
+>>       return XEN_TABLE_NORMAL;
+>>   }
+>>   
+>> +/*
+>> + * _pt_walk() performs software page table walking and returns the pte_t of
+>> + * a leaf node or the leaf-most not-present pte_t if no leaf node is found
+>> + * for further analysis.
+>> + *
+>> + * Additionally, _pt_walk() returns the level of the found pte by using
+>> + * `pte_level` argument.
+>> + * `pte_level` is optional, set `pte_level`=NULL if a caller doesn't need
+>> + * the level of the found pte.
+> How about this, reducing redundancy a little?
 >
-> On 17.02.25 12:20, Jan Beulich wrote:
->> On 16.02.2025 11:21, Oleksandr Andrushchenko wrote:
->>> --- a/xen/drivers/char/ns16550.c
->>> +++ b/xen/drivers/char/ns16550.c
->>> @@ -14,7 +14,7 @@
->>>    * abstracted.
->>>    */
->>>   #if defined(CONFIG_HAS_PCI) && defined(CONFIG_X86)
->>> -# define NS16550_PCI
->>> +#define NS16550_PCI
->>>   #endif
->> Hmm. Either form ought to be okay, so the line would want leaving untouched.
-It seems this can actually have 3 forms under IndentPPDirectives control
-Please see [1].
+>   * _pt_walk() can optionally return the level of the found pte. Pass NULL
+>   * for `pte_level` if this information isn't needed.
+>
+>> +pte_t pt_walk(vaddr_t va, unsigned int *pte_level)
+>> +{
+>> +    pte_t *entry = _pt_walk(va, pte_level);
+>> +    pte_t pte = *entry;
+>> +
+>> +    unmap_table(entry);
+>> +
+>> +    return pte;
+>> +}
+> "entry" especially in this context is ambiguous. I would expect a variable of
+> this name to be of type pte_t, not pte_t *. How about "ptep"?
 
-I would go with BeforeHash personally
+Agree with both your suggestions, it would be better to use `ptep instead of `entry`
+and rephrase the comment.
 
-[1] https://clang.llvm.org/docs/ClangFormatStyleOptions.html#indentppdirectives
+>
+> Preferably with these adjustments, which I'd be fine making while committing,
+> Reviewed-by: Jan Beulich<jbeulich@suse.com>
+>
+> Considering the 4.20? tag you'll need to decide whether you still want this
+> in before the release.
 
+Considering that it is still needed a new version for patch3 of this patch series and
+that the mentioned issues aren't affected no one, lets consider the full patch series for
+4.21.
 
+Thanks.
+
+~ Oleksii
+
+--------------XUSiONVSkpK6sxYPfu7e86kw
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2/19/25 12:14 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:5c56ef1f-1a13-4a2e-9317-0cc90e93d479@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 12.02.2025 17:50, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/pt.c
++++ b/xen/arch/riscv/pt.c
+@@ -185,6 +185,68 @@ static int pt_next_level(bool alloc_tbl, pte_t **table, unsigned int offset)
+     return XEN_TABLE_NORMAL;
+ }
+ 
++/*
++ * _pt_walk() performs software page table walking and returns the pte_t of
++ * a leaf node or the leaf-most not-present pte_t if no leaf node is found
++ * for further analysis.
++ *
++ * Additionally, _pt_walk() returns the level of the found pte by using
++ * `pte_level` argument.
++ * `pte_level` is optional, set `pte_level`=NULL if a caller doesn't need
++ * the level of the found pte.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+How about this, reducing redundancy a little?
+
+ * _pt_walk() can optionally return the level of the found pte. Pass NULL
+ * for `pte_level` if this information isn't needed.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+pte_t pt_walk(vaddr_t va, unsigned int *pte_level)
++{
++    pte_t *entry = _pt_walk(va, pte_level);
++    pte_t pte = *entry;
++
++    unmap_table(entry);
++
++    return pte;
++}
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+"entry" especially in this context is ambiguous. I would expect a variable of
+this name to be of type pte_t, not pte_t *. How about "ptep"?</pre>
+    </blockquote>
+    <pre>Agree with both your suggestions, it would be better to use `ptep instead of `entry`
+and rephrase the comment.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:5c56ef1f-1a13-4a2e-9317-0cc90e93d479@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+Preferably with these adjustments, which I'd be fine making while committing,
+Reviewed-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
+
+Considering the 4.20? tag you'll need to decide whether you still want this
+in before the release.</pre>
+    </blockquote>
+    <pre>Considering that it is still needed a new version for patch3 of this patch series and
+that the mentioned issues aren't affected no one, lets consider the full patch series for
+4.21.
+
+Thanks.
+
+~ Oleksii
+</pre>
+  </body>
+</html>
+
+--------------XUSiONVSkpK6sxYPfu7e86kw--
 
