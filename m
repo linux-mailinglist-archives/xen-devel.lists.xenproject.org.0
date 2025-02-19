@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5E63A3BE8E
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 13:50:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.892846.1301796 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4C3AA3BEAF
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 13:52:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.892862.1301806 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkjWf-0003ih-R9; Wed, 19 Feb 2025 12:50:05 +0000
+	id 1tkjYP-00057r-5I; Wed, 19 Feb 2025 12:51:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 892846.1301796; Wed, 19 Feb 2025 12:50:05 +0000
+Received: by outflank-mailman (output) from mailman id 892862.1301806; Wed, 19 Feb 2025 12:51:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkjWf-0003ee-OC; Wed, 19 Feb 2025 12:50:05 +0000
-Received: by outflank-mailman (input) for mailman id 892846;
- Wed, 19 Feb 2025 12:50:04 +0000
+	id 1tkjYP-00055j-2i; Wed, 19 Feb 2025 12:51:53 +0000
+Received: by outflank-mailman (input) for mailman id 892862;
+ Wed, 19 Feb 2025 12:51:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HVer=VK=gmail.com=andr2000@srs-se1.protection.inumbo.net>)
- id 1tkjWe-000261-NL
- for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 12:50:04 +0000
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [2a00:1450:4864:20::234])
+ id 1tkjYN-00055b-4U
+ for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 12:51:51 +0000
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [2a00:1450:4864:20::131])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 09f4bb12-eec0-11ef-9aa8-95dc52dad729;
- Wed, 19 Feb 2025 13:50:04 +0100 (CET)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-30795988ebeso69469121fa.3
- for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 04:50:04 -0800 (PST)
+ id 494aecfc-eec0-11ef-9aa8-95dc52dad729;
+ Wed, 19 Feb 2025 13:51:50 +0100 (CET)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-5452d9d0d47so4269457e87.1
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 04:51:50 -0800 (PST)
 Received: from [192.168.10.20] ([185.199.97.5])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-309221d7074sm18431661fa.102.2025.02.19.04.50.02
+ 2adb3069b0e04-5461d6f3301sm1173837e87.169.2025.02.19.04.51.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Feb 2025 04:50:02 -0800 (PST)
+ Wed, 19 Feb 2025 04:51:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,185 +45,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 09f4bb12-eec0-11ef-9aa8-95dc52dad729
+X-Inumbo-ID: 494aecfc-eec0-11ef-9aa8-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1739969403; x=1740574203; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1739969510; x=1740574310; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=s4G7gk522e8bmGNzP+nxylmwifT4pfCnD3JkwT6gmrs=;
-        b=kNoyGHBtPuSo0szvYfpPNjmfBKSqUskC4rQ0SJcX+hKQHQLCq3+9U7IQlWRl11R28o
-         I64iyEi+DF8F/s58Fc4hJUhZrg21Vay48fjdya5FTqx6bmCvCOJKD+B3lWeipiSUqv7d
-         E9S1H51Vbkd/u73ZI8FQNSB1SwD92tSVAqfzt8XrFgv519NA30RGcvnWmqQv2mvJTmgq
-         YHHeUXBzJiscHfi31jvq/YLeyB4qIiKPDKixzeWMpFszl4m6sSYXxmS4ky/RdMXkoKjS
-         mCLtN8QImVmf/QzKMFU8mtjm0w5sb0GgDb2SE87xx8uVsYUzJhJn0fIFGEbI3G/fmca5
-         KKhw==
+        bh=xByK1DUN20ib3COmVHZDbxvbYEbVi1fKT3rapH315Jw=;
+        b=XMzMFIEQaVdml7ACMyw/j9xkkB590Il01yyKOudmBZ953CFMJuhtLOUA+MRQ8C4VEm
+         cZS9GTIg+N4BE8RlaG0kpC6S84BxPRSCF9IezyRMi4k+swpxIB7GcbAF1++eeH33p6Xx
+         I6FsM69zsBiOZLsyFRSA7IemViLD10gxk0sy1XtdgwEN9g78TrfXeopmbhBul+6Z/tjC
+         Sg4yPdeDxwpnDqiAncZO9UiEN6788n946Mc4vwbzJFP+pAkgauuC7nmNHNB1WIEXQIB2
+         XxWrw4Yk5VyvknT/sOpx7G8FCq5FUofkeHcx7ie1/V9WjO2w1cmuAIwYQIoRoq89UalQ
+         19KQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739969403; x=1740574203;
+        d=1e100.net; s=20230601; t=1739969510; x=1740574310;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=s4G7gk522e8bmGNzP+nxylmwifT4pfCnD3JkwT6gmrs=;
-        b=OhOhWRDdWV/WsiNpur9UpxcoPYohFfmC7ghbrekEC9hIfXPsgx15VMTNaKi/E7MvU8
-         1gVB75VMAyQC8hSVhnBf9mh8tGUcwZ4N49nrpcw3j17DrYsdDg1G0nGyF03PfOp6b6qB
-         zFb9vfMrd1qMPPoS9xDa1ZiqTRLSpdwECe5lFPf8SPCwYml/l2rDBxgfHBXTOSLOuUXU
-         WMR5T3UzPPD94x31tLL8t/kle4h/Xx4j/mBzN2dAOwhkxtuE09gV/qIEGbDLrvREpdAs
-         Y8Fpan0+MID7yqF6kIoAG4tQc8LpNdBQl3lQ2iZRTqGzp4WRmmNaNhlwMqcHcCIsSmEz
-         FxJQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVdSBWASK2j0ljR1n3tA5lKvoRK6XmKy95x1pJAryVGQ9JBuhPk4czx2rIeyvk0Lj13Eq65L5/+T68=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx9+ZSXUmge6STxhyRmfiZTAOrWZocAFiGL9HOlBXXntptiBVzr
-	1RaC2ylZwbwNogrzOZA+VJE1HFk6InqE521jroOzI842vd4oGQG9
-X-Gm-Gg: ASbGncvZBkLd104tw+8m0TZ+cMhhv3zNVmLL6somQFkTRkU+k8O01mNuQwHk2529cJT
-	mi+OI14lvYcs6RCGSiIS8mWLfg2gf9qhDSanKhNt2SRYOJXgJ4UQ7F+WYRh+vSs+3c7v/QlDGsA
-	VdNCggx5AAQ6Vjqoxhr2gA9IKnG+BKf8xBYQfQb13WipZyPE4yvPBmHO1EHLCi2lrf25/oXRYgO
-	FJ8bTJX5/bjdReyaRsmah49uKz7OJakVL7GQquuvSlm+YleRfrClk1SVQxAvCIHsNHvLigSaaw/
-	GggiHcvT+QaKrR/z
-X-Google-Smtp-Source: AGHT+IHJXHyPueDursJ3qg5xafYwyM6WPyA6AZINtIckdFX/BSN1M3NobbZ+peK0bViTK6nTpRqGbQ==
-X-Received: by 2002:a2e:87ca:0:b0:309:2012:cc59 with SMTP id 38308e7fff4ca-30927ad5181mr57987151fa.26.1739969403082;
-        Wed, 19 Feb 2025 04:50:03 -0800 (PST)
-Message-ID: <bd009e11-d7f3-42e7-8807-af4846e6ee8c@gmail.com>
-Date: Wed, 19 Feb 2025 14:50:01 +0200
+        bh=xByK1DUN20ib3COmVHZDbxvbYEbVi1fKT3rapH315Jw=;
+        b=qsZpGZKbwE4jAK8/rjTG2Mx8PEHrFnzmKbeSvVt9Ssdzpmg0Mpn0bga2iJBxvdarmy
+         QmyjXDRcRZXjRQnHFtQx49KCl8nEgLDchoYQEY1hxWO6weqBo0EjsvDfddboyJwhlOvQ
+         fq+wM3z4EpibLggU2fecg65V7qpuAeLzmydTGHqA7myBWAjMkDXZI9dx9eSj6Fn8dK5G
+         pUlFqhXBPKEi2htCGaP/p84WqG633PoypSxFNOTQNhKqUhrOF0RbAEa1xAKzU8uOfvNn
+         c/+wYiaPKEJ8LZnfBwuMELt7S3YoH/mPTJBPZb3y5pB72kk/GjCEaVt+/c/JUaiL0c5q
+         vuZg==
+X-Forwarded-Encrypted: i=1; AJvYcCWZ42ds9SYNRxt0BWmV/NOdtx5pcOKUDu9Ok8p8PFj2tw8LzAEBTpZlDbSne2lYPV5lEx3b9N9oiEQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyE1wTh++kmv6LF4qvT/wk7Lv+ShT8T6VgjZLvvMBh13qMWeArS
+	TA0J7knIeMlnPgwQIdCl7eGGpoRznZMohp3kWLqYJTGsL5GGkYsI
+X-Gm-Gg: ASbGncsQPFSYY+CaCy/Vfimbs7rmah6rvk14BQaE45mlg3KILe/wWH5WtKud3zDWGYS
+	6dnyNOSwpkRWUtPX2eZALzuV3VjWiNCCIS+AgUPo0AmlRswbYhfy/YgeHDcXI8v+30K2VFASCZY
+	z0oJ8lRP1x9qmu36pQg81xlyoWUF2rWameQrE2KCcl17k8A52Rih78ggp6BXQiQbFf1o7qgsAxv
+	Y8BErWRmidthBXgsAbARjQ4QtjHl/R5ZH9EU8Fxn9WHoUo5xmfxd0NtURgREYz6DMFn3vbR1GaB
+	aMsQF8M/18/Ii7b7
+X-Google-Smtp-Source: AGHT+IGpGtdr6sYIrK6LpYffeItXlyiCoV8wg+GcW2Sc5OoIw0seQ7uLyWBF+6oYHSm6+L4NPTKpew==
+X-Received: by 2002:a05:6512:1088:b0:545:102f:8788 with SMTP id 2adb3069b0e04-5462eee6f47mr1349449e87.19.1739969509478;
+        Wed, 19 Feb 2025 04:51:49 -0800 (PST)
+Message-ID: <013ab6c2-65af-4dd7-8796-ac5178a7e600@gmail.com>
+Date: Wed, 19 Feb 2025 14:51:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 0/2] code style exercise: Drivers folder samples
-To: Grygorii Strashko <grygorii_strashko@epam.com>,
- xen-devel@lists.xenproject.org
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org, Artem_Mygaiev@epam.com, jbeulich@suse.com,
  Luca.Fancellu@arm.com, roger.pau@citrix.com,
- marmarek@invisiblethingslab.com, andrew.cooper3@citrix.com,
- anthony.perard@vates.tech
+ marmarek@invisiblethingslab.com, anthony.perard@vates.tech
 References: <20250216102108.2665222-1-andr2000@gmail.com>
- <6c25b6fb-989c-4788-9f3f-c2e309bec4ba@epam.com>
+ <b3f7614b-3a2b-4f17-be23-aa69c9f8e065@citrix.com>
+ <ba3a8d0c-bc05-4d62-9c56-fc77d5969070@gmail.com>
+ <ded403ff-b12b-4794-bbad-f4726a132ada@citrix.com>
 Content-Language: en-US
 From: Oleksandr Andrushchenko <andr2000@gmail.com>
-In-Reply-To: <6c25b6fb-989c-4788-9f3f-c2e309bec4ba@epam.com>
+In-Reply-To: <ded403ff-b12b-4794-bbad-f4726a132ada@citrix.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hello, Grygorii!
+Hello, Andrew!
 
-On 18.02.25 11:56, Grygorii Strashko wrote:
->
->
-> On 16.02.25 12:21, Oleksandr Andrushchenko wrote:
->> Hello, everybody!
+On 19.02.25 14:49, Andrew Cooper wrote:
+> On 16/02/2025 5:11 pm, Oleksandr Andrushchenko wrote:
+>> Hello, Roger!
 >>
->> As agreed before [1] I am sending a series to show two samples of the
->> formatting done with clang-format. The clang-format configuration can be
->> found at [2]. It already has some notes on previous discussions when
->> Luca presented his version of that configuration and which I used to
->> start from.
->>
->> There are two diff files which show what happens in case the same is
->> applied to the whole xen/drivers directory:
->> - first one is the result of the "git diff" command, 1.2M [3]
->> - the second one is for "git diff --ignire-all-space", 600K [4]
->>
->> This is not to limit the reviewers from seeing a bigger picture and not
->> only the files in this series.
->> N.B. xen/drivers uses tabs a lot, so this is no surprise the size
->> difference is big enough: roughly space conversion is half of the changes.
->>
->> While reviewing the changes I have collected some of the unexpected things
->> done by clang-format and some interesting pieces. You can find those
->> below. For some of those I have filed an issue on clang-format and hope the
->> community will lead me in resolving those. Of course what I collected is
->> not the complete list of such changes, so I hope we can discuss missed
->> ones here.
->>
->>  From this exercise I can definitely tell that clang-format does help a
->> lot and has potential to be employed as a code formatting tool for Xen.
->> Of course it cannot be used as is now and will require discussions on the
->> Xen coding style and possibly submitting patches to clang-format to
->> satisfy those which cannot be handled by the tool now.
+>> Please find the branch with all the conversions [1].
+>> Unfortunately I cannot provide a branch as seen with
+>> diff --ignore-all-space as such a patch will not simply apply.
 >>
 >> Stay safe,
 >> Oleksandr Andrushchenko
 >>
->> 1. Const string arrays reformatting
->> In case the length of items change we might need to introduce a bigger
->> change wrt new formatting of unaffected lines
->> ==============================================================================
->>
->> --- a/xen/drivers/acpi/tables.c
->> +++ b/xen/drivers/acpi/tables.c
->> @@ -38,10 +38,10 @@
->> -static const char *__initdata
->> -mps_inti_flags_polarity[] = { "dfl", "high", "res", "low" };
->> -static const char *__initdata
->> -mps_inti_flags_trigger[] = { "dfl", "edge", "res", "level" };
->> +static const char *__initdata mps_inti_flags_polarity[] = { "dfl", "high",
->> + "res", "low" };
->> +static const char *__initdata mps_inti_flags_trigger[] = { "dfl", "edge", "res",
->>
->> --- a/xen/drivers/acpi/utilities/utglobal.c
->> +++ b/xen/drivers/acpi/utilities/utglobal.c
->>   static const char *const acpi_gbl_region_types[ACPI_NUM_PREDEFINED_REGIONS] = {
->> -    "SystemMemory",
->> -    "SystemIO",
->> -    "PCI_Config",
->> -    "EmbeddedControl",
->> -    "SMBus",
->> -    "CMOS",
->> -    "PCIBARTarget",
->> -    "DataTable"
->> +    "SystemMemory", "SystemIO", "PCI_Config", "EmbeddedControl",
->> +    "SMBus",        "CMOS",     "PCIBARTarget", "DataTable"
->>   };
->>
->> 2. Long strings in ptintk violations
->> I filed an issue on printk format strings [5]
->> ==============================================================================
->> @@ -225,9 +231,9 @@ void __init acpi_table_print_madt_entry(struct acpi_subtable_header *header)
->>           printk(KERN_DEBUG PREFIX
->> -                   "GIC Distributor (gic_id[0x%04x] address[0x%"PRIx64"] gsi_base[%d])\n",
->> -                   p->gic_id, p->base_address,
->> -                   p->global_irq_base);
->> +               "GIC Distributor (gic_id[0x%04x] address[0x%" PRIx64
->> +               "] gsi_base[%d])\n",
->> +               p->gic_id, p->base_address, p->global_irq_base);
->>
->> @@ -629,12 +628,14 @@ acpi_parse_one_rmrr(struct acpi_dmar_header *header)
->> -           printk(XENLOG_ERR VTDPREFIX
->> -                  "Overlapping RMRRs [%"PRIx64",%"PRIx64"] and [%"PRIx64",%"PRIx64"]\n",
->> -                  rmrru->base_address, rmrru->end_address,
->> -                  base_addr, end_addr);
->> +            printk(XENLOG_ERR VTDPREFIX "Overlapping RMRRs [%" PRIx64
->> +                                        ",%" PRIx64 "] and [%" PRIx64
->> +                                        ",%" PRIx64 "]\n",
->> +                   rmrru->base_address, rmrru->end_address, base_addr,
->> +                   end_addr);
+>> On 16.02.25 13:58, Andrew Cooper wrote:
+>>> On 16/02/2025 10:21 am, Oleksandr Andrushchenko wrote:
+>>>> There are two diff files which show what happens in case the same is
+>>>> applied to the whole xen/drivers directory:
+>>>> - first one is the result of the "git diff" command, 1.2M [3]
+>>>> - the second one is for "git diff --ignire-all-space", 600K [4]
+>>> Please can you format everything, and put it on a branch somewhere, so
+>>> people can browse.
+>>>
+>>> ~Andrew
+>> [1] https://github.com/andr2000/xen/tree/clang_ml_drivers_v002_diff
+> That appears to only be drivers/
+I thought that was the agreement, so we start from the drivers first
 >
-> It doesn't understand properly things like "PRIx64" :(
+> Please do *everything*.  I want to see what this does to files I
+> consider to be pretty clean Xen-style.
+Sure
 >
-> Most of other items, I've mentioned already,
->> Unhappy: it's probably "known" things - identification of complex defines and
->> static struct/arrays declarations. 
+> ~Andrew
 >
-> And for them, probably, no magic automation tools exist which will satisfy everybody as,
-> at least static definitions are usually formatted to achieve better readability
-> which is always subjective.
-Strongly agree
->
-> The tags /* clang-format off/clang-format on */ might be useful.
->
-Yes, I guess we will be forced to use those
-> [..]
->
-> Honestly, It looks a bit strange that Xen community is considering batch automated code formatting,
-> For example Linux kernel cleanly rejected such approach.
-> Linux kernel docs "4.1.1. Coding style" section [1].
->
-> Another thing, checking the new code and accepting code style violations (if any) on per-patch basis.
-The main difference, and it was brought by Jan before [1], the possible existence
-of  the three different code styles in a single patch: xen, libxl and Linux...
-Not sure that such a case can be handled. Of course we may require that no such
-patch should exist, but it does depend on the change being made.
-Thus, no guarantee
->
-> [1] https://docs.kernel.org/process/4.Coding.html
->
-> BR,
-> -grygorii
-[1] https://old-list-archives.xen.org/archives/html/xen-devel/2025-02/msg00464.html
+Thank you,
+Oleksandr
 
