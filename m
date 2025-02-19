@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E14E7A3BB03
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 11:01:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.892551.1301517 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D623A3BB04
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 11:01:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.892562.1301526 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkgsa-00075H-WF; Wed, 19 Feb 2025 10:00:33 +0000
+	id 1tkgtM-0007ku-Bt; Wed, 19 Feb 2025 10:01:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 892551.1301517; Wed, 19 Feb 2025 10:00:32 +0000
+Received: by outflank-mailman (output) from mailman id 892562.1301526; Wed, 19 Feb 2025 10:01:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkgsa-00072Z-Ru; Wed, 19 Feb 2025 10:00:32 +0000
-Received: by outflank-mailman (input) for mailman id 892551;
- Wed, 19 Feb 2025 10:00:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tkgtM-0007jS-8b; Wed, 19 Feb 2025 10:01:20 +0000
+Received: by outflank-mailman (input) for mailman id 892562;
+ Wed, 19 Feb 2025 10:01:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EceQ=VK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tkgsZ-00072L-Ef
- for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 10:00:31 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 593d9294-eea8-11ef-9aa8-95dc52dad729;
- Wed, 19 Feb 2025 11:00:30 +0100 (CET)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-abb79af88afso731451066b.1
- for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 02:00:29 -0800 (PST)
+ id 1tkgtL-0007W7-9M
+ for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 10:01:19 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7624daa9-eea8-11ef-9896-31a8f345e629;
+ Wed, 19 Feb 2025 11:01:17 +0100 (CET)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-5e0939c6456so492791a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 02:01:17 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abbdac1015dsm77931966b.127.2025.02.19.02.00.28
+ a640c23a62f3a-abb94329614sm621543166b.180.2025.02.19.02.01.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Feb 2025 02:00:28 -0800 (PST)
+ Wed, 19 Feb 2025 02:01:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 593d9294-eea8-11ef-9aa8-95dc52dad729
+X-Inumbo-ID: 7624daa9-eea8-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739959229; x=1740564029; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739959277; x=1740564077; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Q54kk/YpdGy7079R78TQsMLAvnDD4zErmsQgZMVm6KI=;
-        b=RgrjhMxanAdjjuNCwLV/Wju1gEk1NOAsw0bE1NjzZN65tEGsSLQ54HakisaYqszgeD
-         d9jsWo1HmpfkQlQ3Z7QbBR0XoxdSfZAY3voCLAUJSmX2rCktznrGFKq0+Nw9JtzsNAOg
-         5/+7ImRpVTj0HY149TvLHHC4XQqtHw4Ju+LRyRHuBwMnKtYK81VTw1rxSkDdGAgS0Uim
-         kxv7oQsjQ+r8jdV791qyTkjU8+ycpHMsgJ5vPsrTthCsrzaIlBzIzh+atDg0HpXMKkRN
-         KQ32ie85G1M6Pghpu5UK+WTLumCtJzmO4HbR6kZ020vQ7QTUFPk/eTygdraOtd8GpZqe
-         axlA==
+        bh=yyClBG9zxex79n1kYGadDtuH3MJRoTans7HwlEjL4Qc=;
+        b=CgmczSZ0q2SrRa4Hb7KeTa/r1NbGB5U2Kt0x2ThXxQXykQUnztYIJ3n14raQfh3gPH
+         mTYc2O1O2SxcSVqJA5ORtRSRdi1j/XSH1Pa3wZqEZhBzv/1RTPCSQFwwdHPN0cSkzwB9
+         L95Dfhs50Yn80XLkrMCc2bvE/EYvwbzDTeZLMd4QSJeP1P0mcKJHyz3EIaHECzuFN7M3
+         zCmg6k8B1u/DPAMZxaQWqmvzmINReDCWP3y8I7QL06x7Vj6sKfVAwqPWmfZZWFqrHflc
+         gOQ9YB9C6T0sYAGsRzUnfNhDRsuJGL3iyINhn60PS3CiZJ55hLzkQB8q7OK/Hop+ZoCT
+         m0Tg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739959229; x=1740564029;
+        d=1e100.net; s=20230601; t=1739959277; x=1740564077;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Q54kk/YpdGy7079R78TQsMLAvnDD4zErmsQgZMVm6KI=;
-        b=WpJzQF9ly/gjX7PHgZGm707cpPoniQPHGi6AkI8eE66X3d14mkhQ9HpZ2gTljQuHzR
-         1oTcLRhG1pb2EvME2RKlfjP63KqZJFYNNQyvV+gy6PV+24X73PrQJnCVAa0fEvaZuHQd
-         Uf7dg00/v3yJaFL1wNXoaIW0kmSkmzFIISobIzuajaElXaXJ1vV8nWKsvES2e2M7/R6Z
-         vHT884iA5C2mIC2MRswJ8uvj4F9loaFqRSKC5lAGlwP/+lSXkWU3F9b++OQ2B2MfYRgB
-         pGjBLLmLRtc3k9rnhDfN16wy7gzzOljI3TLvLuhxMDlUKjTwvm6BE3iyfxNPu83alawR
-         YYKw==
-X-Gm-Message-State: AOJu0YwHSbjcw5S0kA496nXCDEMUTUhtWiESurNTEotv3Kv3STbD0yhH
-	uExeOHPwwNmZ4Y6FJ3wJKEF+/uM66e3Mj37OWQ5b1jTs2z8KRd9EuyIme/XlY58jr7Tqj90W2ec
+        bh=yyClBG9zxex79n1kYGadDtuH3MJRoTans7HwlEjL4Qc=;
+        b=DTSc/0aTi6glZgSeBSt8HpfMFrodnoDPOxdZ5xCjpG+DVvQq/bG3DVKCSCZKnvDTEg
+         +p4eBsXZd+t0Ow7fpOoll0Nx18FQJCYzDa9fpt+TCmTOXcOYn8bSPrT11HsN1oFWal/K
+         5lO5k/mMQ1ITKdhWEDdsWpukMw83gsCF56fHicU6gl2SsjoIXNYkKArPMskvxmRrD112
+         c83MWYi/4G8OEcM/uBLqpgoefHD9CXyPiUiIvjiO3QHPEMvoPjCh4GrCzC7Km63cNlG+
+         MrL1nQ7/R5nIZHlSaNcQy10WajArj8oKBOplesDxK4Pk9jiU8tcb+YQMr0y/kjZSry42
+         IgFg==
+X-Gm-Message-State: AOJu0Yy8eG8plr7VOWDAPqFXrNRx36I9KbB701QvUzWHnTpz1XrQYcOC
+	HePkV5re4c7BYEYmzSJP0WwpMAPSKVOQUYLlJ5H4gpk3LGBUkXrY8rx9CTMWYWGiaFz7gxdo0aY
 	=
-X-Gm-Gg: ASbGncsgKSMpRQCumTOKNfsVCJGnyONiqrHgpVxHsA/Q71YiC0gxoXsB/6A82paDlG5
-	NHdJVcEwK5TyVs4Rft6+yC07NRsbLYOKU78UDzL/18RkvSlhhyHcW2M5xe/aYyCpaJ/WuBtH1bd
-	X6ZrPjujuAQ+kE3i8B7ST0D/Yiujsqe+K9HU57u6+FGJr/n/T+DNp4yh0fO3Ml7HU5ghL0T7wcJ
-	AKoIa8LD+7oGscCoi+dXnjnMAaiHtP+emZjnkISBSz9KPrhwKP6JIvrMwiOnrubnIAqa0MWVSWe
-	fMhnBfCdLFyh3jtsWlC2HcE6+omL6fci1uzcNBrzpIwfTBdGgeSHz0s1Ss1GVIgDn7sTBTynsnD
-	E
-X-Google-Smtp-Source: AGHT+IHj7RM7oYv8CAP9L6kG4UojxzqPS9rmiKaglu6TUVx/+oFVELO0Qo+ExyfHVWSfF8eNh49yVQ==
-X-Received: by 2002:a17:906:6a0c:b0:ab6:621a:f87e with SMTP id a640c23a62f3a-abb70de28e8mr1750521766b.41.1739959228636;
-        Wed, 19 Feb 2025 02:00:28 -0800 (PST)
-Message-ID: <bd74b357-b254-4c43-a417-f26434361340@suse.com>
-Date: Wed, 19 Feb 2025 11:00:27 +0100
+X-Gm-Gg: ASbGncsFdYaCeCsQx2F3uMoQ5Y7R3jJGQATFJBO3eCEUdHxS36RFXLHJs4RdJ3Mj9r4
+	eiQQnmaVp499dqXwDbJNqTNScAsLR5f9HOGFnzKrnZYKeB3BsWuTPHbqpomJ4mI0bxjKttk5fci
+	paYytqp8KWoYL6UFLJqjprIw+8HX7OHSKZdOV7n1ps/kYLk2Pe7DTKjLK8zkHxIIkCz5Ey2iDNs
+	Jq+guEQ4RWJ6NEN+Sno5JO6TdX8SFk1ph8AE5FNEnR2ldOh80AzVmzHAhqLeBlUq0H4tloVuiFe
+	18EcbrowmeVqoKn38yAO1ggF5SESeZm5+aAF2eceeSLutbOSrI7vjR4XwcUMHuRoeTkkTEsDx5U
+	M
+X-Google-Smtp-Source: AGHT+IHq8TB8I/quCGV+CCtQemyk1zRtb5GI0YrG/ooLoyUx/BSvJ83nXOoYq7e8UElEMM4kLnmn4A==
+X-Received: by 2002:a17:907:7b83:b0:ab7:eda3:3612 with SMTP id a640c23a62f3a-abb70de2909mr1922159866b.50.1739959277129;
+        Wed, 19 Feb 2025 02:01:17 -0800 (PST)
+Message-ID: <01d5464f-81c3-4b5d-92b6-08d9e22201ef@suse.com>
+Date: Wed, 19 Feb 2025 11:01:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <stefano@stabellini.net>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/MCE-telem: adjust cookie definition
+Subject: [PATCH] x86/MCE-telem: drop unnecessary per-CPU field
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -120,13 +118,12 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-struct mctelem_ent is opaque outside of mcetelem.c; the cookie
-abstraction exists - afaict - just to achieve this opaqueness. Then it
-is irrelevant though which kind of pointer mctelem_cookie_t resolves to.
-IOW we can as well use struct mctelem_ent there, allowing to remove the
-casts from COOKIE2MCTE() and MCTE2COOKIE(). Their removal addresses
-Misra C:2012 rule 11.2 ("Conversions shall not be performed between a
-pointer to an incomplete type and any other type") violations.
+struct mc_telem_cpu_ctl's processing field is used solely in
+mctelem_process_deferred(), where the local variable can as well be used
+directly when retrieving the head of the list to process. This then also
+eliminates the field holding a dangling pointer once the processing of
+the list finished, in particular when the entry is handed to
+mctelem_dismiss().
 
 No functional change intended.
 
@@ -134,26 +131,23 @@ Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 --- a/xen/arch/x86/cpu/mcheck/mctelem.c
 +++ b/xen/arch/x86/cpu/mcheck/mctelem.c
-@@ -64,8 +64,8 @@ struct mctelem_ent {
+@@ -122,7 +122,6 @@ struct mc_telem_cpu_ctl {
+ 	 * to guarantee the above mutual exclusivity.
+ 	 */
+ 	struct mctelem_ent *pending, *lmce_pending;
+-	struct mctelem_ent *processing;
+ };
+ static DEFINE_PER_CPU(struct mc_telem_cpu_ctl, mctctl);
  
- #define MC_NENT (MC_URGENT_NENT + MC_NONURGENT_NENT)
+@@ -233,9 +232,7 @@ void mctelem_process_deferred(unsigned i
+ 	 * handled by another round of MCE softirq.
+ 	 */
+ 	mctelem_xchg_head(lmce ? &ctl->lmce_pending : &ctl->pending,
+-			  &this_cpu(mctctl.processing), NULL);
+-
+-	head = this_cpu(mctctl.processing);
++			  &head, NULL);
  
--#define	COOKIE2MCTE(c)		((struct mctelem_ent *)(c))
--#define	MCTE2COOKIE(tep)	((mctelem_cookie_t)(tep))
-+#define	COOKIE2MCTE(c)		(c)
-+#define	MCTE2COOKIE(tep)	(tep)
- 
- static struct mc_telem_ctl {
- 	/* Linked lists that thread the array members together.
---- a/xen/arch/x86/cpu/mcheck/mctelem.h
-+++ b/xen/arch/x86/cpu/mcheck/mctelem.h
-@@ -52,7 +52,7 @@
-  * the element from the processing list.
-  */
- 
--typedef struct mctelem_cookie *mctelem_cookie_t;
-+typedef struct mctelem_ent *mctelem_cookie_t;
- 
- typedef enum mctelem_class {
-     MC_URGENT,
+ 	/*
+ 	 * Then, fix up the list to include prev pointers, to make
 
