@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DAE7A3BBB0
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 11:30:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.892592.1301556 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2F93A3BBB7
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 11:34:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.892605.1301567 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkhLi-0004jW-Rt; Wed, 19 Feb 2025 10:30:38 +0000
+	id 1tkhPC-0005f2-Cf; Wed, 19 Feb 2025 10:34:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 892592.1301556; Wed, 19 Feb 2025 10:30:38 +0000
+Received: by outflank-mailman (output) from mailman id 892605.1301567; Wed, 19 Feb 2025 10:34:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkhLi-0004hH-OX; Wed, 19 Feb 2025 10:30:38 +0000
-Received: by outflank-mailman (input) for mailman id 892592;
- Wed, 19 Feb 2025 10:30:37 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1tkhPC-0005cd-9Z; Wed, 19 Feb 2025 10:34:14 +0000
+Received: by outflank-mailman (input) for mailman id 892605;
+ Wed, 19 Feb 2025 10:34:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1tkhLh-0004fy-3d
- for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 10:30:37 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tkhLg-00AZrs-2U;
- Wed, 19 Feb 2025 10:30:36 +0000
-Received: from [15.248.2.31] (helo=[10.24.66.255])
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tkhLg-0021Gf-0h;
- Wed, 19 Feb 2025 10:30:36 +0000
+ (envelope-from <SRS0=EceQ=VK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tkhPA-0005cX-9p
+ for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 10:34:12 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0df913d6-eead-11ef-9896-31a8f345e629;
+ Wed, 19 Feb 2025 11:34:10 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-abbdc4a0b5aso65210366b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 02:34:10 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-abb6c312637sm873298566b.45.2025.02.19.02.34.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 19 Feb 2025 02:34:09 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,243 +45,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=Mm9yWofGMymIIA37T/XSzMaufetZUNbiMpifKmaXhl4=; b=sHefF+xWZBYc8U5kvg/NzLFjjc
-	oFwvj+e1aLvvIqH9z3COiL9J/XVeTrqDIU0R/+moNslU/XM22DKjSO6SwzeWCPs7OvRieZSSJc8fk
-	aZHVAG4Qd0NWTBmdZZZJvO9K2TuzgOadIDVh+aiTqzWPO329cB50pOyc2SueLOxW3seU=;
-Message-ID: <921bd786-f0d1-4c3f-ba3f-8a9e6c517572@xen.org>
-Date: Wed, 19 Feb 2025 10:30:34 +0000
+X-Inumbo-ID: 0df913d6-eead-11ef-9896-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1739961250; x=1740566050; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=tiFvo6BP7tq+zLOSoUWnYap+VQ7CqT+99pA7HqPO+Rc=;
+        b=ML5S32GacCx/9LFTIqlGzyQjDvlJRXHUXu4X+IXh2D0K1JqTtax3+6QaJeQNR8/sk1
+         bWYrHQ2f25jypdtXanQYw24W8AIlSQlpPlcTC0YnUxVgc/ko9PZGh2FPyo4cMOwwHpjT
+         IeVWkSh5kPiGzjtYINR32zAyP4cd4zacel0W2SYhpdkrNJMh22x4zAfsIluqV16PWZ6K
+         vDciSAA0U/wkNeQ/FwbQ2h/0BQQ3qJvrtH0mJ6zQyvbCeyBHxzpMFAxWSEr7NHCcjEOb
+         jg8S6JyKW1I8hPatyVpcHBmGEMwNxjKgXM2B/gY84yejeqpeu4FQxpzn/Bwp2Dd+mgNV
+         DWlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1739961250; x=1740566050;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tiFvo6BP7tq+zLOSoUWnYap+VQ7CqT+99pA7HqPO+Rc=;
+        b=wUWEzxnNb9DtIUV4gLyPmoBHB/G6XEYCLMLasqk6WkkH9oOmegfy45jc/OrgDJ7jIn
+         V7SWxQ5NPaW+xWXje0YTFLId3DaNUPlnFcTIxoVmWDHH9yul6mnAvvVOXdjCiATdlDQT
+         jS5wda77XgCBSGy7XpEFI4ksC08g76hrQmKszAuRlDuJ8QFiBgKlL566cbI8dMHM/1Av
+         EKG8DDZ3sTxZbEY317HEZ9pByaNFOtB75GLUuOwxD2cOLW1RDjXwYn0zFdxe4/shHhwR
+         uqxzDVcPjj3aBhxaezTgsYxcb4d/0nruEhwF/WFhGjXBJs3VOSlXPT/caJzwO/FyZxKh
+         RY8g==
+X-Forwarded-Encrypted: i=1; AJvYcCW2fzJE8dpVMcOOQvHc98UgyyamqsKjmbWHMgp5QXU66gEkQG3hrV6i7JAW8R/m6R+zo6I0WMFZVUc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw8rDbmygCbXDbEkv3JmPW4rr5KxbzgNcFXXgsM3bwda75xb7uw
+	V93oq8qKEoVFFt9+WJYTKXczBTWEUOMVALdg3RYAYFoCd1SSWCeCotE/6eQ2hA==
+X-Gm-Gg: ASbGnctGmveTUhNFnrNpJ2vpjxYRUAJ4YHENVV+T0goIfXEmMASIzKZQGQUG5kWXjt/
+	NJG2JlfC9UVC8a3GJIT+HSIqpKRRs+x/gttvCnSWr3UnKDQydrKprqFyOyQ61d0TF6/qWsjJHFa
+	wfxyaX/nF0WwWjqC+I5ezbltXRoa1JJHy3thkEVpw85dcoT6iEJjXMhjNw9U6hYLlcLoQPAiwWj
+	q6t2RMF+TRgbVoN6oZ0wJKW1oJw2qqsFP5jOTR6XyXA+vkuXp3gDQQEe5ouiQ5DGjWUSlnG2n6e
+	jv4+Po2YEfkLwHk4G26rnUdUkXbhO12+Os5LbDyVbx43a961cS9L9l4uX24eIySOsmss/jB1x9w
+	6
+X-Google-Smtp-Source: AGHT+IF+0WKu013y5SBC9gN4yQeKnbbarkd1t9ndBxLVEdI3zCcyg75CEymTIO+olsN+ohz3sav8iQ==
+X-Received: by 2002:a17:907:3907:b0:abb:daa7:f769 with SMTP id a640c23a62f3a-abbdaa86e30mr137483066b.0.1739961249648;
+        Wed, 19 Feb 2025 02:34:09 -0800 (PST)
+Message-ID: <4e8aa6cc-022d-4924-bb83-a52b2e96ac82@suse.com>
+Date: Wed, 19 Feb 2025 11:34:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] xen/dom0less: support for vcpu affinity
-Content-Language: en-GB
-To: Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com, michal.orzel@amd.com,
- Volodymyr_Babchuk@epam.com, dpsmith@apertussolutions.com,
- xenia.ragiadakou@amd.com
-References: <alpine.DEB.2.22.394.2502181227580.1085376@ubuntu-linux-20-04-desktop>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.22.394.2502181227580.1085376@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] x86/PV: don't half-open-code SIF_PM_MASK
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <42688c2b-9f11-4c52-b83a-607374a858fd@suse.com>
+ <dc14cb80-29db-47ca-b03c-e8fa370279d3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <dc14cb80-29db-47ca-b03c-e8fa370279d3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Stefano,
-
-On 18/02/2025 20:29, Stefano Stabellini wrote:
-> Add vcpu affinity to the dom0less bindings. Example:
+On 19.02.2025 11:29, Andrew Cooper wrote:
+> On 19/02/2025 10:02 am, Jan Beulich wrote:
+>> Avoid using the same literal number (8) in two distinct places.
 > 
->      dom1 {
->              ...
->              cpus = <4>;
->              vcpu0 {
->                     compatible = "xen,vcpu-affinity";
+> You say two places but this is only one hunk.  I presume you mean
+> SIF_PM_MASK as the other place.
 
-I would prefer if the compatible is "xen,vcpu". This would allow us to 
-extend for anything that vCPU specific. I would also look less odd if 
-someone ...
+Indeed. Somewhere there needs to be a literal number. Just that it should
+be only one place rather than two. Obviously that other place isn't
+touched, and hence isn't visible in the patch itself.
 
->                     id = <0>;
->                     hard-affinity = "4-7";
+> In which case I'd suggest that this would be clearer if phrased as "Use
+> MASK_INTR() to avoid opencoding the literal 8."
 
-... doesn't specify hard-affinity which is optional.
+I've appended this to the sentence there was, i.e "..., using MASK_INTR()
+...". To be honest, given the simplicity of the code change, I didn't
+think it would be necessary to also say this verbally.
 
->              };
->              vcpu1 {
->                     compatible = "xen,vcpu-affinity";
->                     id = <1>;
->                     hard-affinity = "0-3";
-
-NIT: This example is exactly the same as vcpu0. How about changing to a 
-list of range/single value? This would make clear that a mix is possible.
-
->              };
->              vcpu2 {
->                     compatible = "xen,vcpu-affinity";
->                     id = <2>;
->                     hard-affinity = "1,6";
->              };
->              ...
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
-> Note that the property hard-affinity is optional. It is possible to add
-> other properties in the future not only to specify soft affinity, but
-> also to provide more precise methods for configuring affinity. For
-> instance, on ARM the MPIDR could be use to specify the pCPU. For now, it
-> is left to the future.
-> 
-> Signed-off-by: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> ---
-> Changes in v3:
-> - improve commit message
-> - improve binding doc
-> - add panic on invalid pCPU
-> - move parsing to a separate function
-> 
-> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
-> index 9c881baccc..10e55c825c 100644
-> --- a/docs/misc/arm/device-tree/booting.txt
-> +++ b/docs/misc/arm/device-tree/booting.txt
-> @@ -324,6 +324,27 @@ The ramdisk sub-node has the following properties:
->       property because it will be created by the UEFI stub on boot.
->       This option is needed only when UEFI boot is used.
->   
-> +Under the "xen,domain" compatible node, it is possible optionally to add
-> +one or more sub-nodes to configure vCPU affinity. The vCPU affinity
-> +sub-node has the following properties:
-> +
-> +- compatible
-> +
-> +    "xen,vcpu-affinity"
-> +
-> +- id
-> +
-> +    A 32-bit integer that specifies the vCPU id. 0 is the first vCPU.
-> +    The last vCPU is cpus-1, where "cpus" is the number of vCPUs
-> +    specified with the "cpus" property under the "xen,domain" node.
+> Preferably with some kind of adjustment to the commit message, Acked-by:
+> Andrew Cooper <andrew.cooper3@citrix.com>
 
-I think it would be worth mentioning that each node must have a unique 
-ID. It is not necessary to check in the code, but it would avoid the 
-question of what happen if someone specify twice the VCPU with different 
-affinity.
+Thanks.
 
-> +
-> +- hard-affinity
-> +
-> +    Optional. A string specifying the hard affinity configuration for the
-> +    vCPU: a comma-separated list of pCPUs or ranges of pCPUs is used.
-> +    Ranges are hyphen-separated intervals (such as `0-4`) and are inclusive
-> +    on both sides. The numbers refer to pCPU ids.
-
-Technically MPIDRs are pCPUs ID. So I would add "logical" in front of 
-pCPU ids to make clear what IDs are we talking about
-
-> +
->   
->   Example
->   =======
-
-No update to the example?
-
-> diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
-> index 49d1f14d65..e364820189 100644
-> --- a/xen/arch/arm/dom0less-build.c
-> +++ b/xen/arch/arm/dom0less-build.c
-> @@ -810,6 +810,68 @@ static int __init construct_domU(struct domain *d,
->       return rc;
->   }
->   
-> +static void __init domain_vcpu_affinity(struct domain *d,
-> +                                        const struct dt_device_node *node)
- > +{> +    const char *hard_affinity_str = NULL;
-> +    struct dt_device_node *np;
-> +    uint32_t val;
-> +    int rc;
-
-Can you expain why 'rc', 'val', 'hard_affinity_str' are defined outside 
-of the loop when ...
-
-> +
-> +    dt_for_each_child_node(node, np)
-> +    {
-> +        const char *s;
-> +        struct vcpu *v;
-> +        cpumask_t affinity;
-
-... they are not? Yet they have the same property (i.e. only called 
-within the loop).
-
-> +
-> +        if ( !dt_device_is_compatible(np, "xen,vcpu-affinity") )
-> +            continue;
-> +
-> +        if ( !dt_property_read_u32(np, "id", &val) )
-
-Looking at the binding you wrote, "id" is mandatory. So I think we 
-should throw an error if it is not present.
-
-> +            continue;
- > +> +        if ( val >= d->max_vcpus )
-> +            panic("Invalid vcpu_id %u for domain %s\n", val, dt_node_name(node));
-
-NIT: Maybe print the maximum number of vCPUs? This would make easier to 
-know what's wrong with the ID.
-
-> +
-> +        v = d->vcpu[val];
-> +        rc = dt_property_read_string(np, "hard-affinity", &hard_affinity_str);
-> +        if ( rc < 0 )
-> +            continue;
-> +
-> +        s = hard_affinity_str;
-
-OOI, you don't seem to use hard_affinity_str afterwards, so why can't we 
-use 'hard_affinity_str' directly and avoid an extra variable?
-
-> +        cpumask_clear(&affinity);
-> +        while ( *s != '\0' )
-> +        {
-> +            unsigned int start, end;
-> +
-> +            start = simple_strtoul(s, &s, 0);
-> +
-> +            if ( *s == '-' )    /* Range */
-> +            {
-> +                s++;
-> +                end = simple_strtoul(s, &s, 0);
-> +            }
-> +            else                /* Single value */
-> +                end = start;
-> +
-> +            if ( end >= nr_cpu_ids )
-> +                panic("Invalid pCPU %u for domain %s\n", end, dt_node_name(node));
-> +
-> +            for ( ; start <= end; start++ )
-> +                cpumask_set_cpu(start, &affinity);
-> +
-> +            if ( *s == ',' )
-> +                s++;
-> +            else if ( *s != '\0' )
-> +                break;
-
-NIT: We seem to have various place in Xen parsing range (e.g. 
-init_boot_pages()). Could we provide an helper to avoid duplicating the 
-code?
-
-> +        }
-> +
-> +        rc = vcpu_set_hard_affinity(v, &affinity);
-> +        if ( rc )
-> +            panic("vcpu%d: failed to set hard affinity\n", v->vcpu_id);
-
-Can we print the domain name like you do before and also 'rc'? This 
-would help any debugging.
-
-
-> +    }
-> +}
-> +
->   void __init create_domUs(void)
->   {
->       struct dt_device_node *node;
-> @@ -992,6 +1054,8 @@ void __init create_domUs(void)
->           if ( rc )
->               panic("Could not set up domain %s (rc = %d)\n",
->                     dt_node_name(node), rc);
-> +
-> +        domain_vcpu_affinity(d, node);
-
-Shouldn't this call be part of construct_domU?
-
->       }
->   }
->   
-
-Cheers,
-
--- 
-Julien Grall
-
+Jan
 
