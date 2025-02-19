@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6D4AA3BFF5
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 14:30:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.892919.1301861 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54740A3C033
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 14:42:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.892934.1301874 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkk9u-0005cS-0M; Wed, 19 Feb 2025 13:30:38 +0000
+	id 1tkkKq-0007ct-3D; Wed, 19 Feb 2025 13:41:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 892919.1301861; Wed, 19 Feb 2025 13:30:37 +0000
+Received: by outflank-mailman (output) from mailman id 892934.1301874; Wed, 19 Feb 2025 13:41:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkk9t-0005Zh-TI; Wed, 19 Feb 2025 13:30:37 +0000
-Received: by outflank-mailman (input) for mailman id 892919;
- Wed, 19 Feb 2025 13:30:36 +0000
+	id 1tkkKq-0007bN-0O; Wed, 19 Feb 2025 13:41:56 +0000
+Received: by outflank-mailman (input) for mailman id 892934;
+ Wed, 19 Feb 2025 13:41:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EceQ=VK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tkk9s-0005ZZ-D7
- for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 13:30:36 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
+ id 1tkkKo-0007bF-13
+ for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 13:41:54 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b2f2d87e-eec5-11ef-9aa8-95dc52dad729;
- Wed, 19 Feb 2025 14:30:35 +0100 (CET)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-5e04f2b1685so5038520a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 05:30:35 -0800 (PST)
+ id 46e2ad9b-eec7-11ef-9aa8-95dc52dad729;
+ Wed, 19 Feb 2025 14:41:52 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-abbda4349e9so92455066b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 05:41:52 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5e05168c467sm5749481a12.48.2025.02.19.05.30.33
+ a640c23a62f3a-abb9da9f0desm576190966b.105.2025.02.19.05.41.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Feb 2025 05:30:34 -0800 (PST)
+ Wed, 19 Feb 2025 05:41:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b2f2d87e-eec5-11ef-9aa8-95dc52dad729
+X-Inumbo-ID: 46e2ad9b-eec7-11ef-9aa8-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739971834; x=1740576634; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739972512; x=1740577312; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kMVrgTisSgGUlMUXcIA14e35QYBNYIWn+8/J00yr9cE=;
-        b=CDip8rNSnmUIFo+AsoLMZ8o78o08H8CAF4QpElPm11HN+isjC1TFdwmv+5SmTgw7+Y
-         iSgOq6yFoKYWtKvm6qs0Sx9imMRvh83CrAIa1ceCINSMNpRQj3h/T2nJPYRJNLDSVoWi
-         6MFJdFEDRg/tQ32cv4YR/K6z6S68aW1io+h3JaIDeDde05uhORuNeD3/eV9UlBfJLl2+
-         J21VYp+fR2yuqx/xlodQSXpJ0PukVi4Md0wvGHsCmKfSn+/4jG5kASc6wIzH726kekrk
-         FkciAZSZ/qyBLsb5QOFT6gWSKSEiDeCmoAIw96los9Daej7plrJYfa2VUcKyTbMufn1c
-         yaEg==
+        bh=KRcmevJQB1pwsT/GUlPR0h4DVWUa2zdjfeLcLS27WK0=;
+        b=VF5xU4isO4c6i6i9WZqBmSoIT32hj3ILveJpGP4XeCGJ6E/nyGKCz2Awn1Y8dXS/K1
+         OrxrDcjXkIZ3Ws6cAbp0Mh2J+iwhZ8EqFI8YriwgnMeUWzHgQsJOCeHcZt71fK9hrIZg
+         lqmo89FwtUd4MoPHzGTstCEwEi1r3FqUD7kFevyC/50NiLHjMMfev90AXrgDsNSX/i7Y
+         Whj5fugEED76boIr6RS0uFCGKTVhDw7KeO12AymJMeM9tbtXlfUa52IQ7VXboLIHVgcx
+         uuLsCfOmi5Q1z7JV6zb0FG0PX5YHz9Rnu+GXDG5ifh7y5aRPaypNLhJ6uGFRGAUD/Yqo
+         r6tQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739971834; x=1740576634;
+        d=1e100.net; s=20230601; t=1739972512; x=1740577312;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kMVrgTisSgGUlMUXcIA14e35QYBNYIWn+8/J00yr9cE=;
-        b=HA66y7AFaR08Rs+k9/eumTdKO0ILtawkPejQTYCL6fhkJ/0hff+9HC/+m+GKtQRdsF
-         vzomrLeTEN7ngzB2MJwPt+7wjed2QHBOG+/cJkPPrWlXzR6+LeMd0Ud9erqzbdKAnOyb
-         KVNmEqIFkGJ38bMytk7/4jdN0+9GwBLvPej6rxSXpuY0w5yIsjElU2XklI86u9batkec
-         VYTniY7+n5LfQT0+fBVgbXHDJY3OGZbLSRleLH3A8KB0hJub/7+lOeL7ENUf231GwqSv
-         DP56v73dUov5NaKMWwjtWvtF5lPLS+nDcwvtsEjBPGX6zq/xIuU9je3ejnHwdAvfhsD/
-         xF3g==
-X-Forwarded-Encrypted: i=1; AJvYcCVPJJReD7ZkUMYsYovALa8gR+f9mDwOVR/Tm3V7tZw+Se4+D4p10S/nrpYj6AihHmeY+p89lRVX70s=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyTNFm/SFnb6M5EVMwlU1Bw75UnjI77deDqqFDo4Spfeky4NqSo
-	BAPvZ1DkzeVZG/ilu76ZuhHVuIlYh+SjAB3kENG5Mmvwrrx+YmV0F5Qi9QSPAg==
-X-Gm-Gg: ASbGncshz/gJAfJTo7NvgvacggLC+VrmCqUhi8tXwo6BMmuGwnBRRd+oI58EyJLJCed
-	9H0GFR8ddsq5myIxRqSEG85zOS+oJswpyPXiTXcxnVAUgAAO1PMMBsFwtwUHcuSjYBBXgLxffG5
-	1E2nL2vEtfWkfwLGumyZXjf8h3Qu/0sG5JZ6tU0S7ciEa92+7yZiygdtt7mnBuWJyGVcjrjZYAH
-	nXR2dIeE7FtaOuxpCLMCpW2nrOIYx9ZGsU1Ch4uTKudaufIvpXPyZgz6t8FAp8vbkVZyaDti0Yk
-	AwIXpVHuit+BZ7tZeym6ZjE99cpBvjnYPWAoUBicfzWfTuF+XVAE/3PMld6E9zGCkyjcJR4/Hnr
-	u
-X-Google-Smtp-Source: AGHT+IEidzYkCzd8fR/r14dDz5QhqknsqRg+pvamW0xHpdWmi+3nFmT/mVBGdFZEkgbFeahvqbtsQg==
-X-Received: by 2002:a05:6402:430f:b0:5df:b6e1:4690 with SMTP id 4fb4d7f45d1cf-5e03602e5eemr48342656a12.12.1739971834429;
-        Wed, 19 Feb 2025 05:30:34 -0800 (PST)
-Message-ID: <cc864728-0302-4ddc-88e0-c5330e3dc409@suse.com>
-Date: Wed, 19 Feb 2025 14:30:33 +0100
+        bh=KRcmevJQB1pwsT/GUlPR0h4DVWUa2zdjfeLcLS27WK0=;
+        b=G8cJaDU1ct/29KhlxLTQ4vbf/MHevNuRCb1Q7mGieUNPRwIJfRgzSztP2gUQiw5xlL
+         EiS5CtD4h0Q0w82G+pZoL4bFrw66EL0aj0ZJm11c7hZe/9TODH/Lq8OHV9wmfMPylbyD
+         ynXUQLbEuh5lxbW9hjaeHcLoFKDKhpRoh9/Xnw0UW8RCJozem7ZeEvxH+dSQw/GtTQ+i
+         qojBaZGHGkw/X9HChuAno92b29wMj2UAfs2fY6iN4+WV1I+78+rvUCg+2vPlXdDtOT8p
+         sk8eflSUJqLQR99c566riT98mjj7RrHDqBtIwImmKYhj7Wq4gFxs+HLldNzeL2T5YKGk
+         Y1ZQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUcQIg7uHrc8FoRM/GK/UDAeV2IfH/JrP692dMSqStvKElvXzailKMXxjvrnpSO/EJ8X5jbkvRNreY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwqvwFc+VuNRjsR9/LaoOx2ZpxOdKyTVOFOAPdOPfcdmGnMVtIy
+	0AJQVtKNcOsIRLAlo5BawYcKgX+azBvK/4AZDiq9bIynxnuKUCgLG2vzqLQrlQ==
+X-Gm-Gg: ASbGncvBF4aN4WrnMuDLG9MrWAAFqomVEH0IDdunwg1ZyL6zaHAUeEamWtEeWPjzOxm
+	MHPSNHfC1p8iiunK/YInzu7OqeBFmBCR642f2vLPm9FcmV3YJL8JRx6Vm62WpNYrSKkXaOndo5A
+	OybNTH5NunguyofM1ADewrdK2knMVXBygJyr/isayEvuvc5m3S5sR8c4iBP5+sjWOyYLStnftHX
+	Fj83kVGqEBBTrr4s7XUP6mgi/EMefmCqlSnGdCFTJKHlRr8Q+jF4y4kcrjxzhuehJvMzg2OcNPA
+	/XJEZNeKCp7svwU5ourqB6dFhsbUCmNdyJbOpreyHsDuaahzilVUmf/7BHGuRztY1cQNz/uFPQh
+	4
+X-Google-Smtp-Source: AGHT+IENbUvC3tRLoI/Kn9wUK+IyVSRQAtDdUeeIWARnZtDcdemdlhwLWzKwE4EqEuigmD8Cw3fnxg==
+X-Received: by 2002:a17:907:2d22:b0:ab7:dec1:b353 with SMTP id a640c23a62f3a-abb70de289amr2089809566b.49.1739972512165;
+        Wed, 19 Feb 2025 05:41:52 -0800 (PST)
+Message-ID: <cdcdab1c-f19f-42a4-820a-bd35dbf4ab28@suse.com>
+Date: Wed, 19 Feb 2025 14:41:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] xen/passthrough: Provide stub functions when
- !HAS_PASSTHROUGH
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250218095130.2666580-1-luca.fancellu@arm.com>
- <20250218095130.2666580-2-luca.fancellu@arm.com>
- <bc6b785c-627e-4185-aa02-b90b9e592d08@suse.com>
- <E6E21F32-EA02-4DE1-80CC-98D3A21FBF79@arm.com>
+Subject: Re: [PATCH v5] xen/console: print Xen version via keyhandler
+To: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com, xen-devel@lists.xenproject.org
+References: <20250217213253.2067015-1-dmukhin@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,118 +118,70 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <E6E21F32-EA02-4DE1-80CC-98D3A21FBF79@arm.com>
+In-Reply-To: <20250217213253.2067015-1-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 19.02.2025 14:06, Luca Fancellu wrote:
->> On 19 Feb 2025, at 12:45, Jan Beulich <jbeulich@suse.com> wrote:
->> On 18.02.2025 10:51, Luca Fancellu wrote:
->>> --- a/xen/include/xen/iommu.h
->>> +++ b/xen/include/xen/iommu.h
->>> @@ -110,6 +110,8 @@ extern int8_t iommu_hwdom_reserved;
->>>
->>> extern unsigned int iommu_dev_iotlb_timeout;
->>>
->>> +#ifdef CONFIG_HAS_PASSTHROUGH
->>> +
->>> int iommu_setup(void);
->>> int iommu_hardware_setup(void);
->>>
->>> @@ -122,6 +124,28 @@ int arch_iommu_domain_init(struct domain *d);
->>> void arch_iommu_check_autotranslated_hwdom(struct domain *d);
->>> void arch_iommu_hwdom_init(struct domain *d);
->>>
->>> +#else
->>> +
->>> +static inline int iommu_setup(void)
->>> +{
->>> +    return -ENODEV;
->>> +}
->>> +
->>> +static inline int iommu_domain_init(struct domain *d, unsigned int opts)
->>> +{
->>> +    /*
->>> +     * When !HAS_PASSTHROUGH, iommu_enabled is set to false and the expected
->>> +     * behaviour of this function is to return success in that case.
->>> +     */
->>> +    return 0;
->>> +}
->>
->> Hmm. Would the function be anywhere near likely to do anything else than
->> what it's expected to do? My original concern here was with "opts"
->> perhaps asking for something that cannot be supported. But that was wrong
->> thinking on my part. Here what you do is effectively open-code what the
->> real iommu_domain_init() would do: Return success when !is_iommu_enabled().
->> Which in turn follows from !iommu_enabled when !HAS_PASSTHROUGH.
->>
->> On that basis I'd be okay if the comment was dropped again. Else it imo
->> wants re-wording to get closer to the explanation above.
+On 17.02.2025 22:33, dmkhn@proton.me wrote:
+> Add Xen version printout to 'h' keyhandler output.
 > 
-> Would it be ok for you a comment saying:
-> “This stub returns the same as the real iommu_domain_init()
->  function: success when !is_iommu_enabled(), which value is based on iommu_enabled
-> that is false when !HAS_PASSTHROUGH"
-
-I'm sorry, but this is too verbose for my taste. What's wrong with the more
-terse
-
-"Return as the real iommu_domain_init() would: Success when
- !is_iommu_enabled(), following from !iommu_enabled when !HAS_PASSTHROUGH"
-
-?
-
->>> @@ -383,12 +429,12 @@ struct domain_iommu {
->>> #define iommu_set_feature(d, f)   set_bit(f, dom_iommu(d)->features)
->>> #define iommu_clear_feature(d, f) clear_bit(f, dom_iommu(d)->features)
->>>
->>> +#ifdef CONFIG_HAS_PASSTHROUGH
->>> /* Are we using the domain P2M table as its IOMMU pagetable? */
->>> #define iommu_use_hap_pt(d)       (IS_ENABLED(CONFIG_HVM) && \
->>>                                    dom_iommu(d)->hap_pt_share)
->>>
->>> /* Does the IOMMU pagetable need to be kept synchronized with the P2M */
->>> -#ifdef CONFIG_HAS_PASSTHROUGH
->>> #define need_iommu_pt_sync(d)     (dom_iommu(d)->need_sync)
->>>
->>> int iommu_do_domctl(struct xen_domctl *domctl, struct domain *d,
->>
->> Coming back to my v2 comment: Why exactly is this change needed here? If
->> things build fine without the macro being defined when !HAS_PASSTHROUGH,
->> surely they will also build fine with it being defined?
+> That is useful for debugging systems that have been left intact for a long
+> time.
 > 
-> I’ve defined an empty stub on an header included only on MPU systems for the
-> p2m module, this is why it is building
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-But that wasn't part of the patch, was it? I.e. with this series alone
-applied, things still don't build?
+Hmm, wait - there's yet another issue:
 
-> I didn’t modify p2m_set_way_flush() which lives in arm common code, because
-> it will be used also on MPU systems (R82 has MPU at EL2 but MMU/MPU at EL1)
-> and I would like to stay the same and be used by MMU/MPU subsystems.
-> 
->> As per the
->> respective revlog entry, this change looks to belong into whatever is
->> going to be done to deal with the one Arm use of the macro. Or maybe
->> it's unneeded altogether.
-> 
-> I didn’t understand that you were opposing to protecting iommu_use_hap_pt() when
-> !HAS_PASSTHROUGH, I thought you were referring only to the stub in the #else
-> branch.
-> Can I ask why?
+> --- a/xen/common/keyhandler.c
+> +++ b/xen/common/keyhandler.c
+> @@ -129,6 +129,10 @@ static void cf_check show_handlers(unsigned char key)
+>      unsigned int i;
+>  
+>      printk("'%c' pressed -> showing installed handlers\n", key);
+> +
+> +    print_version();
+> +    print_build_id();
 
-Sure. And no, I'm not against the extra protection. I'm against unnecessary
-code churn. That is, any such a re-arrangement wants to have some kind of
-justification.
+Here and in console_init_preirq() you expect to be able to call the two
+functions, no matter what the tool chain. Then ...
 
-> in any case when !HAS_PASSTHROUGH, this macro is not usable
-> since dom_iommu() is resolved to a membed that doesn’t exist in the configuration,
-> am I missing something?
+> --- a/xen/common/version.c
+> +++ b/xen/common/version.c
+> @@ -210,9 +210,28 @@ void __init xen_build_init(void)
+>          }
+>      }
+>  #endif /* CONFIG_X86 */
+> -    if ( !rc )
+> -        printk(XENLOG_INFO "build-id: %*phN\n", build_id_len, build_id_p);
+>  }
+> +
+> +void print_version(void)
+> +{
+> +    printk("Xen version %d.%d%s (%s@%s) (%s) %s %s\n",
+> +           xen_major_version(), xen_minor_version(), xen_extra_version(),
+> +           xen_compile_by(), xen_compile_domain(), xen_compiler(),
+> +           xen_build_info(), xen_compile_date());
+> +
+> +    printk("Latest ChangeSet: %s\n", xen_changeset());
+> +}
+> +
+> +void print_build_id(void)
+> +{
+> +    /*
+> +     * NB: build_id_len may be 0 if XEN_HAS_BUILD_ID=n.
+> +     * Do not print empty build-id.
+> +     */
+> +    if ( build_id_len )
+> +        printk("build-id: %*phN\n", build_id_len, build_id_p);
+> +}
+> +
+>  #endif /* BUILD_ID */
 
-You very likely aren't, yet the macro's presence also does no harm. We
-have lots of macros and declarations which are usable only in certain
-configurations. Sometimes this just happens to be that way, sometimes it's
-actually deliberate (e.g. to facilitate DCE).
+... their definitions cannot be inside an #ifdef. They want to move up:
+- print_build_id() between xen_build_id() and the #ifdef BUILD_ID,
+- print_version() yet higher up, perhaps after xen_build_info().
+I guess I can do so while committing.
 
 Jan
 
