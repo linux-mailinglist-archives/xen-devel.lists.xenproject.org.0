@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEE62A3B836
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 10:22:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.892511.1301487 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A68EA3B83C
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 10:22:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.892519.1301497 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkgHZ-0008QO-Pb; Wed, 19 Feb 2025 09:22:17 +0000
+	id 1tkgHu-0000UO-1p; Wed, 19 Feb 2025 09:22:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 892511.1301487; Wed, 19 Feb 2025 09:22:17 +0000
+Received: by outflank-mailman (output) from mailman id 892519.1301497; Wed, 19 Feb 2025 09:22:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkgHZ-0008Og-MQ; Wed, 19 Feb 2025 09:22:17 +0000
-Received: by outflank-mailman (input) for mailman id 892511;
- Wed, 19 Feb 2025 09:22:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tkgHt-0000Se-U3; Wed, 19 Feb 2025 09:22:37 +0000
+Received: by outflank-mailman (input) for mailman id 892519;
+ Wed, 19 Feb 2025 09:22:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bQLC=VK=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tkgHY-00082q-Eu
- for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 09:22:16 +0000
-Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
- [2607:f8b0:4864:20::62c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 01d368d1-eea3-11ef-9aa8-95dc52dad729;
- Wed, 19 Feb 2025 10:22:15 +0100 (CET)
-Received: by mail-pl1-x62c.google.com with SMTP id
- d9443c01a7336-220bff984a0so116188365ad.3
- for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 01:22:15 -0800 (PST)
+ id 1tkgHs-0000F4-UX
+ for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 09:22:36 +0000
+Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com
+ [2607:f8b0:4864:20::62b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0b991080-eea3-11ef-9896-31a8f345e629;
+ Wed, 19 Feb 2025 10:22:32 +0100 (CET)
+Received: by mail-pl1-x62b.google.com with SMTP id
+ d9443c01a7336-21c2f1b610dso164346425ad.0
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 01:22:32 -0800 (PST)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-220d5348e68sm101300795ad.28.2025.02.19.01.22.12
+ d9443c01a7336-220d545d621sm100543165ad.136.2025.02.19.01.22.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Feb 2025 01:22:13 -0800 (PST)
+ Wed, 19 Feb 2025 01:22:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,49 +44,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 01d368d1-eea3-11ef-9aa8-95dc52dad729
+X-Inumbo-ID: 0b991080-eea3-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1739956934; x=1740561734; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1739956951; x=1740561751; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7ZJg6bVS4EQSvqcvYB18UYZOZ9WdLOPfmEHjgud3AfI=;
-        b=vsFlE8k6dfFN8uEkx8rfLF+cVkGYb+3AQtDtEBe7wUq07MEPlH7fyy4rafS9xldvaS
-         JKji4HPGSDklymQDdt9KgHtpKBNO/aMVE73jn9cGNC/ysLyoaMvsOgQSyISo/tZU5GPd
-         Y56VMmTbBEB4WidBSp0R2lxNtsFU+73ZtQcJA=
+        bh=zjpV/rOsBTZhvMzmuINLNFZE/6rbEow5DAVU2rYU1PQ=;
+        b=XEnyaCUfIjFXll9bREoZGqfc4z9/J7rgCRy454ENM6JpQTlrvF3okEDKQAgZSVqv+S
+         psYHHMLV/miaJ+YwNM9iypsvkxhL3mEcwpM0T/dOfWAxSy+TjzgqWRxoC50z4SG8QL72
+         1m5BQEi1RKKlqcYq2l2zvUvnAl7eB442M6m8U=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739956934; x=1740561734;
+        d=1e100.net; s=20230601; t=1739956951; x=1740561751;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=7ZJg6bVS4EQSvqcvYB18UYZOZ9WdLOPfmEHjgud3AfI=;
-        b=t8h6poOyDEgfoMdRSnhhkjs77MoDFq9sq+sLp2IJPnIMJZa7gptANtSOuBIIyQILDd
-         JCkewBA1JoJw5lQjf5T9v5fUAOG0r7SVqSv3VWF3Gl/mMkV+YvRiMUyBPGpVhVygvkVG
-         zoF9zvRr/E3t7YNAstLytLWtxXgL9AVEhURvtRAMWnargzxw0VaBhPlTS35O/u/GEvAZ
-         cz1kEMN0cUH1jRMsqOYx1l4Z5A6DOgJ9sKOX6Z8d3RbLGjp8YGbfJ45LW8SxdrZXQJcJ
-         1ws95ognKKpD7j3DG1+tmrhrsRlMUP6zzHVfo4LGH0xUkY00q3LWCGPlNG1kpN0tW97T
-         3MMA==
-X-Forwarded-Encrypted: i=1; AJvYcCVpObdthNtDMa3Kx+AGbE6izksgpvXc/AjcR7kMr1xa/MQFtLaRucsU+3xbtNb5cjJz3UzqVSmnvC0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxooO+MqISSjCkshM9dLkG7CuaEsDbf5l7smBjxvVmubz8/cZqz
-	EP6X+UK3IpE8e5KT8p6/klrz6pmvugZXSqM93/GekEQMDhR7eNFBhsNHdSZ08/8=
-X-Gm-Gg: ASbGnctw7Dyhzi5fErLkMCY1yeGVhpuZ8a3S6BHn/O4i5dZIw2n0gY4I9r2g0eIV7Z+
-	6GXNnO9zCGd6GIdmJArCP5QO3tF/ruzyHkuVT4TKmF9dN/zXgmpzXIejQ+cTkqufFhRb2n2ikSD
-	kxJsTD6hVjNHofjwVbXm7VGHCC3AYUEhmJW4Q/HjDE1lqlh+hvXQtdd/gpwDpo++H6Z3uM8xk+a
-	oEHtGbDTFl7/Klt85xu0W18t6mCAbfZ303I+29G2lAKegFntcKepGGHR0BvbJtffGxImgnUr/Q2
-	5+VOLUlDMschQm9HHMr+
-X-Google-Smtp-Source: AGHT+IH2CJE5OkGckIlv4JN5MuajJLAOUuGuc18ZFqOtmBHZImObUq5mVTJXCcZHX2k+NCDuJBVy7A==
-X-Received: by 2002:a17:903:41c8:b0:215:853d:38 with SMTP id d9443c01a7336-2210405d2ffmr289308605ad.25.1739956934306;
-        Wed, 19 Feb 2025 01:22:14 -0800 (PST)
+        bh=zjpV/rOsBTZhvMzmuINLNFZE/6rbEow5DAVU2rYU1PQ=;
+        b=RmITKc0LiI9e/FU/SzUUxNNI5TKEBt7BHcF7NHlr2JT/yCtTP2IEk+yljA2mO15xl/
+         bmXf4pUJpH2QATBsG24UUGdFyZkoSauqPrQfdOelALE6OLroRpUsLeMTjLbUluHerENT
+         ZA+I9fHzO5a2ZMlvZgOvHRiIGAYinHOgsI6L99ps74/K1OWZhhxk2CXHrqCeZnP7ZkQ8
+         azFiXFrGE53Z/MTD8o+7HrqevasGXZRl2/R98bFFwsB4B1wGpVE74/BJXHFLbPyZ66n8
+         4+7GJH7yB0+1FBawub9JuwmZ3ZorAn+8ztTMz6xZUSPf13TECpujcjvNmzwqRTd7dbkn
+         glCg==
+X-Forwarded-Encrypted: i=1; AJvYcCXmP74j4w9nq0UshI8zgPHGy1bOhwfg75wYnvbLM87SOE7CTJse5xvY7IzgkOIXNevUeQPkBShnolk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwByYsLaiTcoaterswnKsX+hZiONmfvx3yqsfx7B1hvu2wGQU1t
+	Y/j8x/hE4h+lhmVHQg3paosIiFMmMt0iZJvh57ob/2C3N+/hyAulaT5/GcUbsHc=
+X-Gm-Gg: ASbGncu6D1hSpitAvSkdYtmQ1E4JO8O+Cq0wZLzZdOojhxXVPjDEsnOlVsaQIlwJc0P
+	mJQPP1TO1IrbY8Y4JpMxMS8/OpGKSqbaZSPPkxgQZWaT07i1raO4Cv2Y8CPa0wm6U3mGRJpRh9W
+	WZEgKPuQToe4ALvAQEwULb/M63RvYqXQDKV4f3RNl+Yhal66//gc7XjgCdPMpYCN9ID5+5D0D2d
+	Y/pkAxsa8UrA346zX7ievlGiM3wz1eLzKRUfEJzdKVmji+kUOv8oflmjYEc921DdPHmCdxMLIDT
+	pV6DeDH6FiZPYF5uJjNm
+X-Google-Smtp-Source: AGHT+IEJm44nEb0TxcOjkAjrcsD0xsD/CPlwgrhHME8dtzpc5/4Onda8YE7jAeRTGmWr+ZG5phmDmw==
+X-Received: by 2002:a17:902:ce87:b0:21f:85ee:f2df with SMTP id d9443c01a7336-22103f16b56mr276089045ad.15.1739956950796;
+        Wed, 19 Feb 2025 01:22:30 -0800 (PST)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org
+	xen-devel@lists.xenproject.org,
+	linux-pci@vger.kernel.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: [PATCH v3 1/3] xen/pci: Do not register devices with segments >= 0x10000
-Date: Wed, 19 Feb 2025 10:20:55 +0100
-Message-ID: <20250219092059.90850-2-roger.pau@citrix.com>
+	Nirmal Patel <nirmal.patel@linux.intel.com>,
+	Jonathan Derrick <jonathan.derrick@linux.dev>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>
+Subject: [PATCH v3 2/3] PCI: vmd: Disable MSI remapping bypass under Xen
+Date: Wed, 19 Feb 2025 10:20:56 +0100
+Message-ID: <20250219092059.90850-3-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20250219092059.90850-1-roger.pau@citrix.com>
 References: <20250219092059.90850-1-roger.pau@citrix.com>
@@ -94,94 +99,73 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The current hypercall interface for doing PCI device operations always uses
-a segment field that has a 16 bit width.  However on Linux there are buses
-like VMD that hook up devices into the PCI hierarchy at segment >= 0x10000,
-after the maximum possible segment enumerated in ACPI.
+MSI remapping bypass (directly configuring MSI entries for devices on the
+VMD bus) won't work under Xen, as Xen is not aware of devices in such bus,
+and hence cannot configure the entries using the pIRQ interface in the PV
+case, and in the PVH case traps won't be setup for MSI entries for such
+devices.
 
-Attempting to register or manage those devices with Xen would result in
-errors at best, or overlaps with existing devices living on the truncated
-equivalent segment values.  Note also that the VMD segment numbers are
-arbitrarily assigned by the OS, and hence there would need to be some
-negotiation between Xen and the OS to agree on how to enumerate VMD
-segments and devices behind them.
+Until Xen is aware of devices in the VMD bus prevent the
+VMD_FEAT_CAN_BYPASS_MSI_REMAP capability from being used when running as
+any kind of Xen guest.
 
-Skip notifying Xen about those devices.  Given how VMD bridges can
-multiplex interrupts on behalf of devices behind them there's no need for
-Xen to be aware of such devices for them to be usable by Linux.
+The MSI remapping bypass is an optional feature of VMD bridges, and hence
+when running under Xen it will be masked and devices will be forced to
+redirect its interrupts from the VMD bridge.  That mode of operation must
+always be supported by VMD bridges and works when Xen is not aware of
+devices behind the VMD bridge.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-Acked-by: Juergen Gross <jgross@suse.com>
 ---
 Changes since v2:
- - Capitalize subject.
- - Add extra comments to note thet 16bit segments value hypercall interface
-   limitation.
+ - Adjust patch subject.
+ - Adjust code comment.
 
 Changes since v1:
- - Adjust commit message width to 75 columns.
- - Expand commit message.
+ - Add xen header.
+ - Expand comment.
 ---
- drivers/xen/pci.c | 32 ++++++++++++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
+ drivers/pci/controller/vmd.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/drivers/xen/pci.c b/drivers/xen/pci.c
-index 416f231809cb..bfe07adb3e3a 100644
---- a/drivers/xen/pci.c
-+++ b/drivers/xen/pci.c
-@@ -43,6 +43,18 @@ static int xen_add_device(struct device *dev)
- 		pci_mcfg_reserved = true;
- 	}
- #endif
+diff --git a/drivers/pci/controller/vmd.c b/drivers/pci/controller/vmd.c
+index 9d9596947350..e619accca49d 100644
+--- a/drivers/pci/controller/vmd.c
++++ b/drivers/pci/controller/vmd.c
+@@ -17,6 +17,8 @@
+ #include <linux/rculist.h>
+ #include <linux/rcupdate.h>
+ 
++#include <xen/xen.h>
 +
-+	if (pci_domain_nr(pci_dev->bus) >> 16) {
+ #include <asm/irqdomain.h>
+ 
+ #define VMD_CFGBAR	0
+@@ -970,6 +972,24 @@ static int vmd_probe(struct pci_dev *dev, const struct pci_device_id *id)
+ 	struct vmd_dev *vmd;
+ 	int err;
+ 
++	if (xen_domain()) {
 +		/*
-+		 * The hypercall interface is limited to 16bit PCI segment
-+		 * values, do not attempt to register devices with Xen in
-+		 * segments greater or equal than 0x10000.
++		 * Xen doesn't have knowledge about devices in the VMD bus
++		 * because the config space of devices behind the VMD bridge is
++		 * not known to Xen, and hence Xen cannot discover or configure
++		 * them in any way.
++		 *
++		 * Bypass of MSI remapping won't work in that case as direct
++		 * write by Linux to the MSI entries won't result in functional
++		 * interrupts, as Xen is the entity that manages the host
++		 * interrupt controller and must configure interrupts.  However
++		 * multiplexing of interrupts by the VMD bridge will work under
++		 * Xen, so force the usage of that mode which must always be
++		 * supported by VMD bridges.
 +		 */
-+		dev_info(dev,
-+			 "not registering with Xen: invalid PCI segment\n");
-+		return 0;
++		features &= ~VMD_FEAT_CAN_BYPASS_MSI_REMAP;
 +	}
 +
- 	if (pci_seg_supported) {
- 		DEFINE_RAW_FLEX(struct physdev_pci_device_add, add, optarr, 1);
+ 	if (resource_size(&dev->resource[VMD_CFGBAR]) < (1 << 20))
+ 		return -ENOMEM;
  
-@@ -149,6 +161,16 @@ static int xen_remove_device(struct device *dev)
- 	int r;
- 	struct pci_dev *pci_dev = to_pci_dev(dev);
- 
-+	if (pci_domain_nr(pci_dev->bus) >> 16) {
-+		/*
-+		 * The hypercall interface is limited to 16bit PCI segment
-+		 * values.
-+		 */
-+		dev_info(dev,
-+			 "not unregistering with Xen: invalid PCI segment\n");
-+		return 0;
-+	}
-+
- 	if (pci_seg_supported) {
- 		struct physdev_pci_device device = {
- 			.seg = pci_domain_nr(pci_dev->bus),
-@@ -182,6 +204,16 @@ int xen_reset_device(const struct pci_dev *dev)
- 		.flags = PCI_DEVICE_RESET_FLR,
- 	};
- 
-+	if (pci_domain_nr(dev->bus) >> 16) {
-+		/*
-+		 * The hypercall interface is limited to 16bit PCI segment
-+		 * values.
-+		 */
-+		dev_info(&dev->dev,
-+			 "unable to notify Xen of device reset: invalid PCI segment\n");
-+		return 0;
-+	}
-+
- 	return HYPERVISOR_physdev_op(PHYSDEVOP_pci_device_reset, &device);
- }
- EXPORT_SYMBOL_GPL(xen_reset_device);
 -- 
 2.46.0
 
