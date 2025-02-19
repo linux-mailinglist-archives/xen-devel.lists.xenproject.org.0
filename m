@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1B77A3BC60
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 12:05:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.892667.1301626 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1A59A3BC65
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 12:06:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.892675.1301636 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkhtU-0004xZ-S6; Wed, 19 Feb 2025 11:05:32 +0000
+	id 1tkhtz-0005Rv-4g; Wed, 19 Feb 2025 11:06:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 892667.1301626; Wed, 19 Feb 2025 11:05:32 +0000
+Received: by outflank-mailman (output) from mailman id 892675.1301636; Wed, 19 Feb 2025 11:06:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkhtU-0004vT-PT; Wed, 19 Feb 2025 11:05:32 +0000
-Received: by outflank-mailman (input) for mailman id 892667;
- Wed, 19 Feb 2025 11:05:31 +0000
+	id 1tkhtz-0005QQ-1S; Wed, 19 Feb 2025 11:06:03 +0000
+Received: by outflank-mailman (input) for mailman id 892675;
+ Wed, 19 Feb 2025 11:06:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jbWK=VK=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1tkhtT-0004p6-Ax
- for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 11:05:31 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=EceQ=VK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tkhty-0004p6-0G
+ for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 11:06:02 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6e0bd842-eeb1-11ef-9aa8-95dc52dad729;
- Wed, 19 Feb 2025 12:05:30 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id 509A44EF40C8;
- Wed, 19 Feb 2025 12:05:29 +0100 (CET)
+ id 80d8f0d7-eeb1-11ef-9aa8-95dc52dad729;
+ Wed, 19 Feb 2025 12:06:01 +0100 (CET)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-abb79af88afso742531566b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 03:06:01 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-abb978e2c9dsm605615866b.65.2025.02.19.03.05.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 19 Feb 2025 03:06:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,247 +45,321 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e0bd842-eeb1-11ef-9aa8-95dc52dad729
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1739963129;
-	b=fenD8PJxLdgdC0HKSveWJeys4vUsE36or2wnkBEVELyk2r6HjYAFC/rUl9QT82Mz8rN7
-	 BE6qMODzj/+pay79jiMInQtJXgo9vxYNbdNL5vBRs23IYRmrz3j4wxS7vAfmf3CBfjVqp
-	 u3er8sZah5jJiMlDwHZmx7U/JfoADharr6pJfvisUjYyQytBuihCXiY0t/3GceLakYZU9
-	 47lTO5vNjyTbRHpqEjLwrHDw6KAiw/GwW2n09aJyBGe3Vm+szvXixnzIugxmUrfbweSCS
-	 UQl0zHBqBB8c2Jr2qU+xOqLOIB6Y6Mrkt/W0LN1a7RIIEUf5YMETyoMQz+40Em3yxo+Rw
-	 5dHq8cAunR+j14imau+UO1mdGJYI4/+fRX1cOQaFyEXrd8Q+XuiMtcLaVT99G+ZGjq+54
-	 67BPIsAGwkYi7g+2Z5FXWD8bMNz9aQ/vUbIIy1zzyv2q+ijYmwjJpPYOnxhxCorP0KKS1
-	 fnBIkMkmq13Zn5nVXDPyPsYIP4MQs2eyj+2RziuBIpM1d1ZXhcZKcCr4EQxlOissUpq/B
-	 kLNErnnuNJNNp4UjmFf2ub4juUDTA0fv2I+eyDOIrRYdwtmtvuf/SXoBqZbKfnLszrT6J
-	 LZGZ2HsVLD2TEUtTUC/BQLfp1P1/rLVKFc5Vuq6mCAiCk1IvPmI9yNGo3vAXh/s=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1739963129;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=aTPvMzyPiaSGWHn90YGHNUYH02p239jA7/gQGM5p1TQ=;
-	b=36jHj1moNWiw6lTwwhd1j+MOruCxwCIWPTLHM0sSwflqCJCaHadgzKasdymhrRh1tqVr
-	 jl1flsrj8O/vymGN2TEaZwA3JnTaVgpoDmObL+jsn0PN5g9bgA45YeLfwIhqCkN4Xg+2m
-	 f3++34NxFTvKVQN6BUsJb3YXwS7I1vjZrrcR+H8ofQeRlNntsfpcogJ5gyIlTrijxkmId
-	 vDyaa1XXhVDavVg/sqNOGK0iA9E8dOUuB40aRKYWpGkJiGbS7wxEXNroD/UKjX9g/8eV1
-	 pLMcmLKPf8sRDaT2IoGEWQ7AQgOmOcE/wiz0NPrRYrWnbhAD3TKkH5CntHzeaZwV7xX0O
-	 ILyi0TsbncQ3ecHsbtLZeYHQLUbej1Q+bul4qqNfvzIolPLm5Yutl4I+Fknvq6Q1DIrdh
-	 Z720h0/6Dx93dYgeyB1vyruFkZp8B/Nxew+3XQ/wl391AOeog0Zt2P76sr090ZDD/ODNU
-	 XppUPAd1DLSlyQFhnh7oNJ9YEiIgwSBTYEXIfE+TKJwegpkMghZmGMYpV7QFECeg/iUih
-	 p1pu6sYifu2zfeEoNgT7ibbw9TLntjaNM+OOVRXwEgZngzUfCbImj/E9mIzvx7RAk+UT9
-	 pyST0UlllB/CyYZcmRfbt/EOSiJ1j5AJxLgg9x9dVlR2TVwzSOP4/JUnnz5j+R8=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1739963129; bh=6lZ3UB6RU6sRFrvfo107k53vORWltXw1FwtTNRpQEzE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=zP6Baq1cOFUitVP4wM9u/PVoPYTg0Pe7HJZljha38ezpsRBFxkwao0EHeL3iveXCr
-	 KVwhCUJmZ4i+Ha1x9vbwmkTM+JDfDsRcsKsClFjrNUZKffQNmpwwX+BVxUzPJ+CS92
-	 U6A2CFfFw03FLV/WMAlluPOJ3YKa0VRjYh7taJ+eS4jQpMI+aAvcXqPFNsCAbu0/IL
-	 wyCo7cO1MW0djGuWYVzmdW92vUuMseCcbgtQ9ylGv4OnL0ED+qy7iDR6yOSale613T
-	 DBxGfhzwe+37Rdu0baKFKw3bHXNWk8JV9yUVG6kcowRqz9wwMd6+QWHFKZySzZzXhj
-	 ZWacf5xn5sVyA==
+X-Inumbo-ID: 80d8f0d7-eeb1-11ef-9aa8-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1739963160; x=1740567960; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=v2+1lCsmLlAghm4OPxcl1LkLd5EV5z/M5o3igrrNvx0=;
+        b=QCqgIMEMHTuclwP4zA5xXa7e2Yr97G/wCfy/KWMEDMI1AH9gn9c7kwF8YPZC9KOwAU
+         rxUmTz8XPTrMccfxkHq08dSB76eMSrAGHEfLCJjI+QzSaSXSf9IYCd62Fk1m6cfOetXP
+         Lnsq8o149qf960ykV4EKxGE1idtwAgvnd6Tt8oAi54Ai+7sAuVGIUqCzu0MsDW8U7QYY
+         /iYjbw+Q6rGbb1agL0zRQ6ntkJBLWl1D9g0DBgDEktFt/Hdhntd8t3Q0IrOXIqJc+w/k
+         leKRPmyoDMgsclteo2dGHK2+IfBzxhTiN/7eik59seaI3etLfC0ACDqg3ruJZDp3LQJO
+         nntw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1739963160; x=1740567960;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=v2+1lCsmLlAghm4OPxcl1LkLd5EV5z/M5o3igrrNvx0=;
+        b=Uwc7+EMGf6H1gDqk2n357LfM8M5/M9sDeq7LMbWNvzCKDeFH0xezfJdJlbJnx9baj5
+         QH5agtVamrxCseAuIDc9/Cb/7dtZZha8S9vDyQKsUq2XPBqpDcqpNXn9i982CHN1Bfig
+         fCPMNOR9EP7CmCt3XwtuBay8giEaK14zm8PnU5Y8F9yAUJ208uqAdWetmr+ZzbY8x77M
+         KpzM+g249/BPZv+ILugGBlOaffMPVWmDpU94e/Q9sZsoYDu18DJKsTXXF/zXGFoiiXhL
+         N0L1zAjhmesNG9s+VQoGZnnwe2Pt2gTQOo0GCB8HheMN5oH8S3JULSPNRbWjFD+ZhjuZ
+         urtA==
+X-Forwarded-Encrypted: i=1; AJvYcCUZLxXkFFsAX/eFpqY4itJZWcamYDEqEqwKSPNQ4AJeaJa1lC0TYNtTMG+8M7jJs3eJxPHIuL+Js6g=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyWP7ifWlfa/ZNZJzDDhFpJzGPVYhkmOPRunTe+Z61vUTaKZq6j
+	01gZuGQAB/VACKlZJct+D4e2RTD5c2/tsOoTHR9pWnuLeM5OaMw5WGIIjLNT5g==
+X-Gm-Gg: ASbGncus2Eztu2dfe77DIO+lTeUQpbtC4YpVXlpddc0jk+raGK4KosyDzlMY8+nA/Qn
+	7dleeY0syaUggLcY9uk571rhxXPHi2qrZC6h+oOSb7ohKTgSmnjCGO8qpoI7GnPmIY0/TchYpyZ
+	GNnqmQlzvjcv4cQeELU8zRuvkT/8dpmRanYmOS2hyAtPaZg+Q/l9oQKBzVTg1J6tSA3NfkkVryB
+	616qyD2RNQAlofJNV3nAe9MSA5FSJiH+UPqKeOaF+ei8fN4JtmkcEUHRHh5yEx9aRGGxXrjLkEd
+	X58bXhqsmVJnMvQdaTXoLBpyt71VElod+qiIL8Zp3DxdEeimEX2JE25Opwme0W7j5VEoNLODk+A
+	Q
+X-Google-Smtp-Source: AGHT+IG3LDOvS065Q/w6Yn70qCR/Hr3aRlxhrekRJQHoiQQXv1Ib4qtBloSc/1TgfRBhcXpwWdSn1w==
+X-Received: by 2002:a17:906:dc8e:b0:ab7:aaf2:f7f9 with SMTP id a640c23a62f3a-abb70de28d4mr1901901566b.42.1739963160458;
+        Wed, 19 Feb 2025 03:06:00 -0800 (PST)
+Message-ID: <51a514cc-3247-4c0d-bc16-821c251c416d@suse.com>
+Date: Wed, 19 Feb 2025 12:05:59 +0100
 MIME-Version: 1.0
-Date: Wed, 19 Feb 2025 12:05:29 +0100
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: struct mctelem_cookie missing definition
-In-Reply-To: <alpine.DEB.2.22.394.2502181330360.1085376@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2502121721490.619090@ubuntu-linux-20-04-desktop>
- <1823d604-aa29-4828-a954-b8a08fbdbda7@citrix.com>
- <alpine.DEB.2.22.394.2502121738440.619090@ubuntu-linux-20-04-desktop>
- <alpine.DEB.2.22.394.2502121800190.619090@ubuntu-linux-20-04-desktop>
- <eccc2a63-9678-4675-8a7b-7c8e94206cb8@suse.com>
- <alpine.DEB.2.22.394.2502131326440.619090@ubuntu-linux-20-04-desktop>
- <alpine.DEB.2.22.394.2502131804510.619090@ubuntu-linux-20-04-desktop>
- <3c883b4587d750c2723637a037fb46b4@bugseng.com>
- <69a70bfa-203c-44f9-99ea-60a674e36442@suse.com>
- <alpine.DEB.2.22.394.2502141245150.3858257@ubuntu-linux-20-04-desktop>
- <c7f35e1a8a14eb5ffb19d67bbc63036b@bugseng.com>
- <cc9d0a73-f189-403e-9ea4-bcd961ce3c44@suse.com>
- <alpine.DEB.2.22.394.2502171837170.1085376@ubuntu-linux-20-04-desktop>
- <9d966b20-18c4-49ac-8007-95bac3a95b51@suse.com>
- <alpine.DEB.2.22.394.2502181330360.1085376@ubuntu-linux-20-04-desktop>
-Message-ID: <67f796ff8151fde3791154e23dc5c7c1@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for 4.21 v6 2/2] xen/riscv: identify specific ISA
+ supported by cpu
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1739355004.git.oleksii.kurochko@gmail.com>
+ <8aa59f23aa5ef551344f75889b6cf3d871e35278.1739355004.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <8aa59f23aa5ef551344f75889b6cf3d871e35278.1739355004.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 2025-02-18 22:37, Stefano Stabellini wrote:
-> On Tue, 18 Feb 2025, Jan Beulich wrote:
->> On 18.02.2025 03:45, Stefano Stabellini wrote:
->> > On Mon, 17 Feb 2025, Jan Beulich wrote:
->> >> On 15.02.2025 09:59, Nicola Vetrini wrote:
->> >>> On 2025-02-15 00:04, Stefano Stabellini wrote:
->> >>>> On Fri, 14 Feb 2025, Jan Beulich wrote:
->> >>>>>> Would deviating macros "COOKIE2MCTE" and "MCTE2COOKIE" work?
->> >>>>>
->> >>>>> If it did, COOKIE2ID and ID2COOKIE would likely need including as
->> >>>>> well.
->> >>>>
->> >>>> I wrote this patch. Nicola, can you please check the changes to
->> >>>> deviations.ecl, this is the first time I try to write the deviation
->> >>>> myself :-)
->> >>>>
->> >>>> ---
->> >>>> misra: add 11.2 deviation for incomplete types
->> >>>>
->> >>>> struct mctelem_cookie* is used exactly because it is an incomplete type
->> >>>> so the pointer cannot be dereferenced. This is deliberate. So add a
->> >>>> deviation for it.
->> >>>>
->> >>>> In deviations.ecl, add the list of macros that do the conversions to
->> >>>> and
->> >>>> from struct mctelem_cookie*.
->> >>>>
->> >>>> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
->> >>>>
->> >>>> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl
->> >>>> b/automation/eclair_analysis/ECLAIR/deviations.ecl
->> >>>> index a28eb0ae76..87bfd2160c 100644
->> >>>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
->> >>>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
->> >>>> @@ -366,6 +366,14 @@ constant expressions are required.\""
->> >>>>  }
->> >>>>  -doc_end
->> >>>>
->> >>>> +-doc_begin="Certain pointers point to incomplete types purposely so
->> >>>> that they are impossible to dereference."
->> >>>> +-config=MC3A2.R11.2,reports+={deliberate,
->> >>>> "any_area(any_loc(any_exp(macro(^COOKIE2MCTE$))))"}
->> >>>> +-config=MC3A2.R11.2,reports+={deliberate,
->> >>>> "any_area(any_loc(any_exp(macro(^MCTE2COOKIE$))))"}
->> >>>> +-config=MC3A2.R11.2,reports+={deliberate,
->> >>>> "any_area(any_loc(any_exp(macro(^COOKIE2ID$))))"}
->> >>>> +-config=MC3A2.R11.2,reports+={deliberate,
->> >>>> "any_area(any_loc(any_exp(macro(^ID2COOKIE$))))"}
->> >>>> +}
->> >>>
->> >>> -config=MC3A2.R11.2,reports+={deliberate,
->> >>> "any_area(any_loc(any_exp(macro(name(COOKIE2MCTE||MCTE2COOKIE||COOKIE2ID||ID2COOKIE)))))"}
->> >>>
->> >>> Note however that there is also this deviation in place
->> >>>
->> >>> -doc_begin="The conversion from a pointer to an incomplete type to
->> >>> unsigned long does not lose any information, provided that the target
->> >>> type has enough bits to store it."
->> >>> -config=MC3A2.R11.2,casts+={safe,
->> >>>    "from(type(any()))
->> >>>     &&to(type(canonical(builtin(unsigned long))))
->> >>>     &&relation(definitely_preserves_value)"
->> >>> }
->> >>> -doc_end
->> >>>
->> >>> I was a bit confused by Jan's remark, which seemed correct, but I
->> >>> couldn't see any violations in the report, so I dug a bit deeper.
->> >>> ID2COOKIE and COOKIE2ID, which operate to/from unsigned long are already
->> >>> excluded due to being safe. If you envision those macros to be used with
->> >>> other types, then your deviation should mention them, otherwise they are
->> >>> already handled.
->> >>
->> >> Yet then can't we leverage that deviation to also make the other two
->> >> covered:
->> >>
->> >> #define	COOKIE2MCTE(c)		((struct mctelem_ent *)(unsigned long)(c))
->> >> #define	MCTE2COOKIE(tep)	((mctelem_cookie_t)(unsigned long)(tep))
->> >
->> > Jan is asking why ID2COOKIE and COOKIE2ID are considered safe, while
->> > COOKIE2MCTE and MCTE2COOKIE are not. I think the reason is that
->> > ID2COOKIE and COOKIE2ID convert to/from unsigned long and that falls
->> > under the other deviation we already have:
->> >
->> > -doc_begin="The conversion from a pointer to an incomplete type to
->> > unsigned long does not lose any information, provided that the target
->> > type has enough bits to store it."
->> > -config=MC3A2.R11.2,casts+={safe,
->> >    "from(type(any()))
->> >     &&to(type(canonical(builtin(unsigned long))))
->> >     &&relation(definitely_preserves_value)"
->> >
->> > On the other hand COOKIE2MCTE and MCTE2COOKIE convert to/from another
->> > pointer type, so they don't fall under the same deviation.
->> 
->> And then the adjusted forms suggested above ought to also be covered,
->> I would have thought.
-> 
-> I understand your point. I tried it, but it does not work. I do not 
-> know
-> why. Someone with more knowledge of ECLAIR internals than I have might
-> be able to explain.
-> 
-> https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/sstabellini/xen/ECLAIR_normal/my-eclair-11.2-4-1/X86_64/9176469474/PROJECT.ecd;/by_service/MC3A2.R11.2.html#{%22select%22:true,%22selection%22:{%22hiddenAreaKinds%22:[],%22hiddenSubareaKinds%22:[],%22show%22:false,%22selector%22:{%22enabled%22:true,%22negated%22:true,%22kind%22:0,%22domain%22:%22kind%22,%22inputs%22:[{%22enabled%22:true,%22text%22:%22violation%22}]}}}
-> 
-
-The reason is quite simple: the deviation is for casts from any type to 
-unsigned long. It would need a similar configuration 
-from(type(canonical(builtin(unsigned long)))) to(any()) in order to 
-catch those.
-
-> 
-> I suggest we go with this patch instead.
-> 
-> ---
-> misra: add 11.2 deviation for incomplete types
-> 
-> struct mctelem_cookie* is used exactly because it is an incomplete type
-> so the pointer cannot be dereferenced. This is deliberate. So add a
-> deviation for it.
-> 
-> In deviations.ecl, add the list of macros that do the conversions to 
-> and
-> from struct mctelem_cookie*.
-> 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> 
-> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl 
-> b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> index a28eb0ae76..d33b777e6a 100644
-> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> @@ -366,6 +366,10 @@ constant expressions are required.\""
->  }
->  -doc_end
-> 
-> +-doc_begin="Certain pointers point to incomplete types purposely so 
-> that they are impossible to dereference."
-> +-config=MC3A2.R11.2,reports+={deliberate, 
-> "any_area(any_loc(any_exp(macro(name(COOKIE2MCTE||MCTE2COOKIE||COOKIE2ID||ID2COOKIE)))))"}
-> +-doc_end
+On 12.02.2025 17:50, Oleksii Kurochko wrote:
+> --- /dev/null
+> +++ b/xen/arch/riscv/cpufeature.c
+> @@ -0,0 +1,502 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Originally taken for Linux kernel v6.12-rc3.
+> + *
+> + * Copyright (C) 2015 ARM Ltd.
+> + * Copyright (C) 2017 SiFive
+> + * Copyright (C) 2024 Vates
+> + */
 > +
->  -doc_begin="Conversions to object pointers that have a pointee type 
-> with a smaller (i.e., less strict) alignment requirement are safe."
->  -config=MC3A2.R11.3,casts+={safe,
->    "!relation(more_aligned_pointee)"
-> diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-> index fe0b1e10a2..04ffc62f44 100644
-> --- a/docs/misra/deviations.rst
-> +++ b/docs/misra/deviations.rst
-> @@ -324,6 +324,13 @@ Deviations related to MISRA C:2012 Rules:
->         semantics that do not lead to unexpected behaviour.
->       - Tagged as `safe` for ECLAIR.
-> 
-> +   * - R11.2
-> +     - Certain pointers point to incomplete types purposely so that 
-> they
-> +       are impossible to dereference, since they cannot be 
-> dereferenced,
-> +       pointers alignments considerations do not apply.
-> +     - Tagged as `deliberate` for ECLAIR. Such pointer is struct
-> +       mctelem_cookie \*.
+> +#include <xen/bitmap.h>
+> +#include <xen/ctype.h>
+> +#include <xen/device_tree.h>
+> +#include <xen/errno.h>
+> +#include <xen/init.h>
+> +#include <xen/lib.h>
+> +#include <xen/sections.h>
 > +
->     * - R11.2
->       - The conversion from a pointer to an incomplete type to unsigned 
-> long
->         does not lose any information, provided that the target type 
-> has enough
+> +#include <asm/cpufeature.h>
+> +
+> +#ifdef CONFIG_ACPI
+> +# error "cpufeature.c functions should be updated to support ACPI"
+> +#endif
+> +
+> +struct riscv_isa_ext_data {
+> +    unsigned int id;
+> +    const char *name;
+> +};
+> +
+> +#define RISCV_ISA_EXT_DATA(ext_name)            \
+> +{                                               \
+> +    .id = RISCV_ISA_EXT_##ext_name,             \
 
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+Nit: ## being a binary operator (just for the pre-processor) we prefer
+it, too, to be framed by blanks.
+
+> +/*
+> + * The canonical order of ISA extension names in the ISA string is defined in
+> + * chapter 27 of the unprivileged specification.
+> + *
+> + * The specification uses vague wording, such as should, when it comes to
+> + * ordering, so for our purposes the following rules apply:
+> + *
+> + * 1. All multi-letter extensions must be separated from other extensions by an
+> + *    underscore.
+> + *
+> + * 2. Additional standard extensions (starting with 'Z') must be sorted after
+> + *    single-letter extensions and before any higher-privileged extensions.
+> + *
+> + * 3. The first letter following the 'Z' conventionally indicates the most
+> + *    closely related alphabetical extension category, IMAFDQLCBKJTPVH.
+> + *    If multiple 'Z' extensions are named, they must be ordered first by
+> + *    category, then alphabetically within a category.
+> + *
+> + * 4. Standard supervisor-level extensions (starting with 'S') must be listed
+> + *    after standard unprivileged extensions.  If multiple supervisor-level
+> + *    extensions are listed, they must be ordered alphabetically.
+> + *
+> + * 5. Standard machine-level extensions (starting with 'Zxm') must be listed
+> + *    after any lower-privileged, standard extensions.  If multiple
+> + *    machine-level extensions are listed, they must be ordered
+> + *    alphabetically.
+> + *
+> + * 6. Non-standard extensions (starting with 'X') must be listed after all
+> + *    standard extensions. If multiple non-standard extensions are listed, they
+> + *    must be ordered alphabetically.
+> + *
+> + * An example string following the order is:
+> + *    rv64imadc_zifoo_zigoo_zafoo_sbar_scar_zxmbaz_xqux_xrux
+> + *
+> + * New entries to this struct should follow the ordering rules described above.
+> + *
+> + * Extension name must be all lowercase (according to device-tree binding)
+> + * and strncmp() is used in match_isa_ext() to compare extension names instead
+> + * of strncasecmp().
+> + */
+> +const struct riscv_isa_ext_data __initconst riscv_isa_ext[] = {
+> +    RISCV_ISA_EXT_DATA(i),
+> +    RISCV_ISA_EXT_DATA(m),
+> +    RISCV_ISA_EXT_DATA(a),
+> +    RISCV_ISA_EXT_DATA(f),
+> +    RISCV_ISA_EXT_DATA(d),
+> +    RISCV_ISA_EXT_DATA(q),
+> +    RISCV_ISA_EXT_DATA(c),
+> +    RISCV_ISA_EXT_DATA(h),
+> +    RISCV_ISA_EXT_DATA(zicntr),
+> +    RISCV_ISA_EXT_DATA(zicsr),
+> +    RISCV_ISA_EXT_DATA(zifencei),
+> +    RISCV_ISA_EXT_DATA(zihintpause),
+> +    RISCV_ISA_EXT_DATA(zihpm),
+> +    RISCV_ISA_EXT_DATA(zbb),
+
+No Zba and Zbs here, despite there now being enumerators for them?
+
+> +static int __init riscv_isa_parse_string(const char *isa,
+> +                                         unsigned long *out_bitmap)
+> +{
+> +    if ( (isa[0] != 'r') && (isa[1] != 'v') )
+> +        return -EINVAL;
+> +
+> +#if defined(CONFIG_RISCV_32)
+> +    if ( isa[2] != '3' && isa[3] != '2' )
+> +        return -EINVAL;
+> +#elif defined(CONFIG_RISCV_64)
+> +    if ( isa[2] != '6' && isa[3] != '4' )
+> +        return -EINVAL;
+> +#else
+> +# error "unsupported RISC-V bitness"
+> +#endif
+> +
+> +    /*
+> +     * In unpriv. specification (*_20240411) is mentioned the following:
+> +     * (1) A RISC-V ISA is defined as a base integer ISA, which must be
+> +     *     present in any implementation, plus optional extensions to
+> +     *     the base ISA.
+> +     * (2) Chapter 6 describes the RV32E and RV64E subset variants of
+> +     *     the RV32I or RV64I base instruction sets respectively, which
+> +     *     have been added to support small microcontrollers, and which
+> +     *     have half the number of integer registers.
+> +     *
+> +     * What means that isa should contain, at least, I or E.
+> +     *
+> +     * As Xen isn't expected to be run on microcontrollers and according
+> +     * to device tree binding the first extension should be "i".
+> +     */
+> +    if ( isa[4] != 'i' )
+> +        return -EINVAL;
+> +
+> +    isa += 4;
+> +
+> +    while ( *isa )
+> +    {
+> +        const char *ext = isa++;
+> +        const char *ext_end = isa;
+> +
+> +        switch ( *ext )
+> +        {
+> +        case 'x':
+> +            printk_once("Vendor extensions are ignored in riscv,isa\n");
+> +            /*
+> +             * To skip an extension, we find its end.
+> +             * As multi-letter extensions must be split from other multi-letter
+> +             * extensions with an "_", the end of a multi-letter extension will
+> +             * either be the null character or the "_" at the start of the next
+> +             * multi-letter extension.
+> +             */
+> +            for ( ; *isa && *isa != '_'; ++isa )
+> +                if ( unlikely(!isalnum(*isa)) )
+> +                    goto riscv_isa_parse_string_err;
+> +
+> +            ext_end = NULL;
+> +            break;
+> +
+> +        case 's':
+> +            /*
+> +             * Workaround for invalid single-letter 's' & 'u' (QEMU):
+> +             *   Before QEMU 7.1 it was an issue with misa to ISA string
+> +             *   conversion:
+> +             *     https://patchwork.kernel.org/project/qemu-devel/patch/dee09d708405075420b29115c1e9e87910b8da55.1648270894.git.research_trasio@irq.a4lg.com/#24792587
+> +             *   Additional details of the workaround on Linux kernel side:
+> +             *     https://lore.kernel.org/linux-riscv/ae93358e-e117-b43d-faad-772c529f846c@irq.a4lg.com/#t
+> +             *
+> +             * No need to set the bit in riscv_isa as 's' & 'u' are
+> +             * not valid ISA extensions. It works unless the first
+> +             * multi-letter extension in the ISA string begins with
+> +             * "Su" and is not prefixed with an underscore.
+> +             */
+> +            if ( ext[-1] != '_' && ext[1] == 'u' )
+> +            {
+> +                ++isa;
+> +                ext_end = NULL;
+> +                break;
+> +            }
+> +            fallthrough;
+> +        case 'z':
+> +            /*
+> +             * Before attempting to parse the extension itself, we find its end.
+> +             * As multi-letter extensions must be split from other multi-letter
+> +             * extensions with an "_", the end of a multi-letter extension will
+> +             * either be the null character or the "_" at the start of the next
+> +             * multi-letter extension.
+> +             *
+> +             * Next, as the extensions version is currently ignored, we
+> +             * eliminate that portion. This is done by parsing backwards from
+> +             * the end of the extension, removing any numbers. This may be a
+> +             * major or minor number however, so the process is repeated if a
+> +             * minor number was found.
+> +             *
+> +             * ext_end is intended to represent the first character *after* the
+> +             * name portion of an extension, but will be decremented to the last
+> +             * character itself while eliminating the extensions version number.
+> +             * A simple re-increment solves this problem.
+> +             */
+> +            for ( ; *isa && *isa != '_'; ++isa )
+> +                if ( unlikely(!isalnum(*isa)) )
+> +                    goto riscv_isa_parse_string_err;
+> +
+> +            ext_end = isa;
+> +
+> +            if ( !isdigit(ext_end[-1]) )
+> +                break;
+> +
+> +            while ( isdigit(*--ext_end) )
+> +                ;
+> +
+> +            if ( ext_end[0] != 'p' || !isdigit(ext_end[-1]) )
+> +            {
+> +                ++ext_end;
+> +                break;
+> +            }
+> +
+> +            while ( isdigit(*--ext_end) )
+> +                ;
+> +
+> +            ++ext_end;
+> +            break;
+> +
+> +        /*
+> +         * if someone mentioned `b` extension in riscv,isa instead of Zb{a,b,s}
+> +         * explicitly then set bits exlicitly in out_bitmap to satisfy
+> +         * requirement of Zbb (mentioned in required_extensions[]).
+> +         */
+
+Nit (style): Comments want to start with a captial letter.
+
+With the two nits addressed and the Zba/Zbs question sorted (all
+adjustments could be done while committing, albeit the disposition of
+patch 1 isn't clear yet, so a v7 may be needed anyway):
+Acked-by: Jan Beulich <jbeulich@suse.com>
+
+Jan
 
