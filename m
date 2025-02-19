@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4C3AA3BEAF
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 13:52:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.892862.1301806 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AE47A3BED6
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 13:54:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.892872.1301817 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkjYP-00057r-5I; Wed, 19 Feb 2025 12:51:53 +0000
+	id 1tkjap-0005hD-Ha; Wed, 19 Feb 2025 12:54:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 892862.1301806; Wed, 19 Feb 2025 12:51:53 +0000
+Received: by outflank-mailman (output) from mailman id 892872.1301817; Wed, 19 Feb 2025 12:54:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkjYP-00055j-2i; Wed, 19 Feb 2025 12:51:53 +0000
-Received: by outflank-mailman (input) for mailman id 892862;
- Wed, 19 Feb 2025 12:51:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tkjap-0005et-EA; Wed, 19 Feb 2025 12:54:23 +0000
+Received: by outflank-mailman (input) for mailman id 892872;
+ Wed, 19 Feb 2025 12:54:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HVer=VK=gmail.com=andr2000@srs-se1.protection.inumbo.net>)
- id 1tkjYN-00055b-4U
- for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 12:51:51 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 494aecfc-eec0-11ef-9aa8-95dc52dad729;
- Wed, 19 Feb 2025 13:51:50 +0100 (CET)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-5452d9d0d47so4269457e87.1
- for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 04:51:50 -0800 (PST)
+ id 1tkjao-0005en-2E
+ for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 12:54:22 +0000
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [2a00:1450:4864:20::22e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a2080303-eec0-11ef-9896-31a8f345e629;
+ Wed, 19 Feb 2025 13:54:19 +0100 (CET)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-307bc125e2eso64140591fa.3
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 04:54:19 -0800 (PST)
 Received: from [192.168.10.20] ([185.199.97.5])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5461d6f3301sm1173837e87.169.2025.02.19.04.51.47
+ 38308e7fff4ca-309302c7477sm15555631fa.85.2025.02.19.04.54.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Feb 2025 04:51:49 -0800 (PST)
+ Wed, 19 Feb 2025 04:54:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,94 +45,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 494aecfc-eec0-11ef-9aa8-95dc52dad729
+X-Inumbo-ID: a2080303-eec0-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1739969510; x=1740574310; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1739969659; x=1740574459; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=xByK1DUN20ib3COmVHZDbxvbYEbVi1fKT3rapH315Jw=;
-        b=XMzMFIEQaVdml7ACMyw/j9xkkB590Il01yyKOudmBZ953CFMJuhtLOUA+MRQ8C4VEm
-         cZS9GTIg+N4BE8RlaG0kpC6S84BxPRSCF9IezyRMi4k+swpxIB7GcbAF1++eeH33p6Xx
-         I6FsM69zsBiOZLsyFRSA7IemViLD10gxk0sy1XtdgwEN9g78TrfXeopmbhBul+6Z/tjC
-         Sg4yPdeDxwpnDqiAncZO9UiEN6788n946Mc4vwbzJFP+pAkgauuC7nmNHNB1WIEXQIB2
-         XxWrw4Yk5VyvknT/sOpx7G8FCq5FUofkeHcx7ie1/V9WjO2w1cmuAIwYQIoRoq89UalQ
-         19KQ==
+        bh=kOwG4XJAMytdKClHhzBObOxRfesB510ILtAQ8R5Q4xI=;
+        b=FcTfhDSVyGqvsP7RzGd6llWJ5EraOeN6mASUeJom0iqM/iHrS3sYZ8qmUrkrpv6Z24
+         2m6E2bvA0lhwlaHyfJRpDRvAXDaSVEYGAQJIPyAsWIngQw4G4gE8HyfMBROAWaXJuM/z
+         6pbJwkS37zsT7eSUUJA/KZ3raa2ujpsCAH9WenI5nVSLVh2xCQLOepZUSI7hDk2p4ADA
+         T192vw+hihGCt2T2bBy6MkaCxymXdsM8ja4ruxrvlkCe2KylQU8uUtQyffMp6+wvJ79+
+         MhiFIO8amlVR5HHBbOQ5C/byS+szFlWtFU0JmMXaJtqq7NCIaSw4ako3n8mZ405Z9gBW
+         P2/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739969510; x=1740574310;
+        d=1e100.net; s=20230601; t=1739969659; x=1740574459;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=xByK1DUN20ib3COmVHZDbxvbYEbVi1fKT3rapH315Jw=;
-        b=qsZpGZKbwE4jAK8/rjTG2Mx8PEHrFnzmKbeSvVt9Ssdzpmg0Mpn0bga2iJBxvdarmy
-         QmyjXDRcRZXjRQnHFtQx49KCl8nEgLDchoYQEY1hxWO6weqBo0EjsvDfddboyJwhlOvQ
-         fq+wM3z4EpibLggU2fecg65V7qpuAeLzmydTGHqA7myBWAjMkDXZI9dx9eSj6Fn8dK5G
-         pUlFqhXBPKEi2htCGaP/p84WqG633PoypSxFNOTQNhKqUhrOF0RbAEa1xAKzU8uOfvNn
-         c/+wYiaPKEJ8LZnfBwuMELt7S3YoH/mPTJBPZb3y5pB72kk/GjCEaVt+/c/JUaiL0c5q
-         vuZg==
-X-Forwarded-Encrypted: i=1; AJvYcCWZ42ds9SYNRxt0BWmV/NOdtx5pcOKUDu9Ok8p8PFj2tw8LzAEBTpZlDbSne2lYPV5lEx3b9N9oiEQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyE1wTh++kmv6LF4qvT/wk7Lv+ShT8T6VgjZLvvMBh13qMWeArS
-	TA0J7knIeMlnPgwQIdCl7eGGpoRznZMohp3kWLqYJTGsL5GGkYsI
-X-Gm-Gg: ASbGncsQPFSYY+CaCy/Vfimbs7rmah6rvk14BQaE45mlg3KILe/wWH5WtKud3zDWGYS
-	6dnyNOSwpkRWUtPX2eZALzuV3VjWiNCCIS+AgUPo0AmlRswbYhfy/YgeHDcXI8v+30K2VFASCZY
-	z0oJ8lRP1x9qmu36pQg81xlyoWUF2rWameQrE2KCcl17k8A52Rih78ggp6BXQiQbFf1o7qgsAxv
-	Y8BErWRmidthBXgsAbARjQ4QtjHl/R5ZH9EU8Fxn9WHoUo5xmfxd0NtURgREYz6DMFn3vbR1GaB
-	aMsQF8M/18/Ii7b7
-X-Google-Smtp-Source: AGHT+IGpGtdr6sYIrK6LpYffeItXlyiCoV8wg+GcW2Sc5OoIw0seQ7uLyWBF+6oYHSm6+L4NPTKpew==
-X-Received: by 2002:a05:6512:1088:b0:545:102f:8788 with SMTP id 2adb3069b0e04-5462eee6f47mr1349449e87.19.1739969509478;
-        Wed, 19 Feb 2025 04:51:49 -0800 (PST)
-Message-ID: <013ab6c2-65af-4dd7-8796-ac5178a7e600@gmail.com>
-Date: Wed, 19 Feb 2025 14:51:47 +0200
+        bh=kOwG4XJAMytdKClHhzBObOxRfesB510ILtAQ8R5Q4xI=;
+        b=XNNCvWpQ5w81yFeDFTCuc08rdyyZYLcf5B2pzNKpcOCvZQimaM0BXq4i6XlM4/dSjB
+         ugnwleaKYmweCG8r2rGH9lr7dLxGCpAC/dDy5G0Bo5QMmVVEWXF1iVUcvgflNa/Df8AS
+         vPynVVnRgYQ+gM6win+3IKnY53RVPsVOUdAI0oqp/eYb+YwFQSARKh0FezwYykcPOVgy
+         KppFE31iBrcCEMaod/kEddb10NucZr6Ofv+x1mKo+j7HdEQ5iConWfDlMqKVeN7kDlnN
+         15WmU6bF7Mb/JRzhsqlr3CfHgHe3cWf1c8kUXMprOwUFZxUv1bQxZ8TuBWNsXcxaPXDG
+         ruRQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUGapyvBxHX0INT5t3WAG73J2EsFc+5gGebA3BnmP2FKpTKVb73RX4/v9ei1jC1rtBqh99pdHM5YAE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YynfgnHZm7RcWjLTIun+jBf94F/Uz7pyA/EV0I5moJbXGJRx6j6
+	XwLsvRlbCFLRmqC14M8gNLSNlkMN/n95jJLtbFDmhPkmbY+u572+
+X-Gm-Gg: ASbGnctbJp7jMTV06anSCmWNyD80Q30q2aWX/ABFo0sdPVuTHXOa1dDHniWnosyAVuP
+	7prUt1X4Pevm5ZCs28q0UxGL+xVVPg66g1Eu8FZ9P4bpsKz/SbT9tw8JAgn/osE2EzmnJ+W/Hto
+	90fLV+KBrtCoPJ1YPEk/vvXgLzhObr4WDu7toviTO5Wbc11hgTJypO7QZoB2AYQ0X6V+tuz9AWr
+	UpgdSJ0uUehq09d42VLyfeFDPxWCNUHeRPubGntJaI/3TG5y1XyeHngj8BrT4MRmpS3tVDOCULj
+	3cc8tFMKSKFDwJAN
+X-Google-Smtp-Source: AGHT+IG8xYoSoFCUBFfFSQegXYFEUZyOOa55Mc8FzFcDDpJgOHxV+UTmIomRHhrw8E07sQQf31ralw==
+X-Received: by 2002:a2e:a0cf:0:b0:308:f6cf:362e with SMTP id 38308e7fff4ca-30927a578efmr54139471fa.4.1739969658484;
+        Wed, 19 Feb 2025 04:54:18 -0800 (PST)
+Message-ID: <924753a2-8abc-4d49-84f9-6f4677bf76f1@gmail.com>
+Date: Wed, 19 Feb 2025 14:54:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 0/2] code style exercise: Drivers folder samples
-To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, Artem_Mygaiev@epam.com, jbeulich@suse.com,
- Luca.Fancellu@arm.com, roger.pau@citrix.com,
- marmarek@invisiblethingslab.com, anthony.perard@vates.tech
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Artem_Mygaiev@epam.com, Luca.Fancellu@arm.com, roger.pau@citrix.com,
+ marmarek@invisiblethingslab.com, andrew.cooper3@citrix.com,
+ anthony.perard@vates.tech, xen-devel@lists.xenproject.org,
+ Stefano Stabellini <sstabellini@kernel.org>
 References: <20250216102108.2665222-1-andr2000@gmail.com>
- <b3f7614b-3a2b-4f17-be23-aa69c9f8e065@citrix.com>
- <ba3a8d0c-bc05-4d62-9c56-fc77d5969070@gmail.com>
- <ded403ff-b12b-4794-bbad-f4726a132ada@citrix.com>
+ <4f1fcad5-dd6c-471f-9496-023973fa8857@suse.com>
+ <alpine.DEB.2.22.394.2502171833370.1085376@ubuntu-linux-20-04-desktop>
+ <f6db4e23-8c6e-43a5-a90a-ea3526f88b23@suse.com>
+ <26cfd51b-123f-48e7-9911-2c96b48abdfe@gmail.com>
+ <f0a4af56-016f-4ea7-92a8-6f6f4a62809a@suse.com>
 Content-Language: en-US
 From: Oleksandr Andrushchenko <andr2000@gmail.com>
-In-Reply-To: <ded403ff-b12b-4794-bbad-f4726a132ada@citrix.com>
+In-Reply-To: <f0a4af56-016f-4ea7-92a8-6f6f4a62809a@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hello, Andrew!
+Hello, Jan!
 
-On 19.02.25 14:49, Andrew Cooper wrote:
-> On 16/02/2025 5:11 pm, Oleksandr Andrushchenko wrote:
->> Hello, Roger!
+On 19.02.25 14:49, Jan Beulich wrote:
+> On 19.02.2025 13:43, Oleksandr Andrushchenko wrote:
+>> Hello, Jan, Stefano!
 >>
->> Please find the branch with all the conversions [1].
->> Unfortunately I cannot provide a branch as seen with
->> diff --ignore-all-space as such a patch will not simply apply.
->>
->> Stay safe,
->> Oleksandr Andrushchenko
->>
->> On 16.02.25 13:58, Andrew Cooper wrote:
->>> On 16/02/2025 10:21 am, Oleksandr Andrushchenko wrote:
->>>> There are two diff files which show what happens in case the same is
->>>> applied to the whole xen/drivers directory:
->>>> - first one is the result of the "git diff" command, 1.2M [3]
->>>> - the second one is for "git diff --ignire-all-space", 600K [4]
->>> Please can you format everything, and put it on a branch somewhere, so
->>> people can browse.
->>>
->>> ~Andrew
->> [1] https://github.com/andr2000/xen/tree/clang_ml_drivers_v002_diff
-> That appears to only be drivers/
-I thought that was the agreement, so we start from the drivers first
+>> On 18.02.25 13:34, Jan Beulich wrote:
+>>> On 18.02.2025 03:36, Stefano Stabellini wrote:
+>>>> On Mon, 17 Feb 2025, Jan Beulich wrote:
+>>>>> On 16.02.2025 11:21, Oleksandr Andrushchenko wrote:
+>>>>>> 1. Const string arrays reformatting
+>>>>>> In case the length of items change we might need to introduce a bigger
+>>>>>> change wrt new formatting of unaffected lines
+>>>>>> ==============================================================================
+>>>>>>
+>>>>>> --- a/xen/drivers/acpi/tables.c
+>>>>>> +++ b/xen/drivers/acpi/tables.c
+>>>>>> @@ -38,10 +38,10 @@
+>>>>>> -static const char *__initdata
+>>>>>> -mps_inti_flags_polarity[] = { "dfl", "high", "res", "low" };
+>>>>>> -static const char *__initdata
+>>>>>> -mps_inti_flags_trigger[] = { "dfl", "edge", "res", "level" };
+>>>>>> +static const char *__initdata mps_inti_flags_polarity[] = { "dfl", "high",
+>>>>>> +                                                            "res", "low" };
+>>>>>> +static const char *__initdata mps_inti_flags_trigger[] = { "dfl", "edge", "res",
+>>>>>>
+>>>>>> --- a/xen/drivers/acpi/utilities/utglobal.c
+>>>>>> +++ b/xen/drivers/acpi/utilities/utglobal.c
+>>>>>>    static const char *const acpi_gbl_region_types[ACPI_NUM_PREDEFINED_REGIONS] = {
+>>>>>> -	"SystemMemory",
+>>>>>> -	"SystemIO",
+>>>>>> -	"PCI_Config",
+>>>>>> -	"EmbeddedControl",
+>>>>>> -	"SMBus",
+>>>>>> -	"CMOS",
+>>>>>> -	"PCIBARTarget",
+>>>>>> -	"DataTable"
+>>>>>> +    "SystemMemory", "SystemIO", "PCI_Config",   "EmbeddedControl",
+>>>>>> +    "SMBus",        "CMOS",     "PCIBARTarget", "DataTable"
+>>>>>>    };
+>>>>> Why in the world would a tool need to touch anything like the two examples
+>>>>> above? My take is that the code is worse readability-wise afterwards.
+>>>> I think the output is acceptable: not necessarily better than before,
+>>>> but also not significantly worse.
+>>> Hmm, for the change to xen/drivers/acpi/tables.c I wouldn't agree with this
+>>> statement. And for xen/drivers/acpi/utilities/utglobal.c remember that this
+>>> is code taken from ACPI CA, which we may better not re-format.
+>> We can use /* clang-format off */ constructs to protect those lines we
+>> do not want to be touched by clang-format [1]. This is what Grygprii
+>> mentioned in some other e-mail.
+> We have fall-through comments. We have SAF comments. Yet another flavor to
+> keep some external tool happy. If everyone else thinks this is a good idea,
+> I'm not intending to stand in the way. Yet I don't like this as a workaround.
+> Instead I think the tool's going too far.
+Yes, I do agree. But only if we talk about having an automated
+code style check now (which is definitely the goal at some time).
+Before that we could still use the tool to take all that good that
+it does and manually prepare a set of patches to fix those
+code style issues which we like.
 >
-> Please do *everything*.  I want to see what this does to files I
-> consider to be pretty clean Xen-style.
-Sure
->
-> ~Andrew
->
-Thank you,
-Oleksandr
+> Jan
+
 
