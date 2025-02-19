@@ -2,45 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A883EA3B350
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 09:10:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.892423.1301396 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFF3FA3B362
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 09:13:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.892433.1301406 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkf9d-0001Qs-UG; Wed, 19 Feb 2025 08:10:01 +0000
+	id 1tkfCZ-0003AX-Ar; Wed, 19 Feb 2025 08:13:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 892423.1301396; Wed, 19 Feb 2025 08:10:01 +0000
+Received: by outflank-mailman (output) from mailman id 892433.1301406; Wed, 19 Feb 2025 08:13:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkf9d-0001Nt-QZ; Wed, 19 Feb 2025 08:10:01 +0000
-Received: by outflank-mailman (input) for mailman id 892423;
- Wed, 19 Feb 2025 08:10:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tkfCZ-00039Q-7a; Wed, 19 Feb 2025 08:13:03 +0000
+Received: by outflank-mailman (input) for mailman id 892433;
+ Wed, 19 Feb 2025 08:13:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8j9k=VK=suse.de=tzimmermann@srs-se1.protection.inumbo.net>)
- id 1tkf9c-0001Nf-KX
- for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 08:10:00 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e9ab7639-ee98-11ef-9aa8-95dc52dad729;
- Wed, 19 Feb 2025 09:09:59 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1D76821940;
- Wed, 19 Feb 2025 08:09:59 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 93F3213806;
- Wed, 19 Feb 2025 08:09:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id p5PBItaRtWd5FwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 19 Feb 2025 08:09:58 +0000
+ <SRS0=jbWK=VK=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1tkfCW-00039F-TL
+ for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 08:13:01 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 52333eaa-ee99-11ef-9896-31a8f345e629;
+ Wed, 19 Feb 2025 09:12:55 +0100 (CET)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPA id 407054EF40C8;
+ Wed, 19 Feb 2025 09:12:54 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,157 +40,207 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e9ab7639-ee98-11ef-9aa8-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1739952599; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=7n22irSeGWIqSBNiIIhY8dUu78jzeyktmwLlH058QWI=;
-	b=dKPf/W8OQXbxt6ftlFfGpxSgQu7gVp2dstzZ3XzqVgl5Z357Tinp+N+mnS5eZMNrmbpIct
-	ERkIgZLFbCqLer2bR/7cT4Nal5dezMobDUN5PBm/4ffPV3aQDn17w9FIeMBLCA5L6STVWi
-	Fu675OecpkfIKo5+vbkkfz5g/IUDu/c=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1739952599;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=7n22irSeGWIqSBNiIIhY8dUu78jzeyktmwLlH058QWI=;
-	b=MeWi0m6iVBnfg747H1LUoCuWVrL86D9smnRpv47ULAXeqgfodW1nBInmL14qgH8vx7K4fX
-	EIRt6Mg5pinhPRCA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="dKPf/W8O";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=MeWi0m6i
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1739952599; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=7n22irSeGWIqSBNiIIhY8dUu78jzeyktmwLlH058QWI=;
-	b=dKPf/W8OQXbxt6ftlFfGpxSgQu7gVp2dstzZ3XzqVgl5Z357Tinp+N+mnS5eZMNrmbpIct
-	ERkIgZLFbCqLer2bR/7cT4Nal5dezMobDUN5PBm/4ffPV3aQDn17w9FIeMBLCA5L6STVWi
-	Fu675OecpkfIKo5+vbkkfz5g/IUDu/c=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1739952599;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=7n22irSeGWIqSBNiIIhY8dUu78jzeyktmwLlH058QWI=;
-	b=MeWi0m6iVBnfg747H1LUoCuWVrL86D9smnRpv47ULAXeqgfodW1nBInmL14qgH8vx7K4fX
-	EIRt6Mg5pinhPRCA==
-Message-ID: <0b68b63f-a826-45f5-8845-11db9b46757d@suse.de>
-Date: Wed, 19 Feb 2025 09:09:58 +0100
+X-Inumbo-ID: 52333eaa-ee99-11ef-9896-31a8f345e629
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1739952774;
+	b=FtlSVLhm3JldDkIEw2GFY8i//lUvNbmBx4Izioi/YviG0HWEwr8S2p7JQgJ0Hww/MIwz
+	 iMhmYg6jsNJ+OTLtHjn25QZ9JnsISlvp5eWOsghSbxLKJnKQq/9KFQMlNBF4U3W4NBQSd
+	 tbE9sHE8NrtquMr0wjbQ06/7S2C2z44I4YOfT+vxm9alA2KRYkE7ViFSihjmFou/YO5++
+	 ZAUNYALF+xS47KnAtedHw+GxJ9/GVpWN7WN7eUOw/gIUGYaidUK7XPZPbvLnhqwGqansQ
+	 ve3Q3d9bAqjf5+MfXJfA9oQxNu+5xObL4r7M143bz98rxCfeLkSgmc6b/x/kQjO0kdm/E
+	 TZHx1qjIv3e25g0BgMwKEEh49pUqW1tc1kC0SXsiRjri3EmiJhy6iF5LQUsdNtIqA7h/V
+	 k4YaNDWyTlVuFFQBjk5MIFeHj9Z2FfeNl0xvR+tOOXvex3o40JBikEcMFbOdEY3AdYZXc
+	 ov4YbFOgy+I6KZ7ND5b/tpRJWY93akdYwcp0ImoQNB17WAIZ4k7zQ9tOKSzkOA35D/feO
+	 ThK+anUKD3xAo0kKH3ceT6tX6VESbgjhn+eb1YSiQtNT7x0Xpc5Ycn7blqlGD//sdJf/M
+	 v3zyaAdXReJm5mJ4Luh4RSHSe8awAoBk0AJbGLs8/YWTGoRwvSE8/RepPnsctIU=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1739952774;
+	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
+	 References:Message-ID:X-Sender:Organization:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=4+oBlGhxBJ5EysxRzPH7bUEWF7p3IETPBaawTZhOMgs=;
+	b=0l0JrErnnCvJHYYdaaO/SxMZljBA3U5zsVx2BkEgM54Qg9zfLF8BSIgcdMck9aTtkapB
+	 80U+FYW0IUuNVscg35/JiijdnfUgWXVu1ssyJJLZBYH2dfsh7JLvbFG/5vBiqSc0K6Bvt
+	 WI5htmJOMq0Xz4UA3qw2CJBOxkbBJ7hyuwatUIjqH8VcqYkvtJ560qzsDTIn0nAeJfPnM
+	 sOT5xPyybekvyAEQrW2HzZtVxUOm8+P+X2uX6Uer+xTGTMkEdeVpJGGwTyeFN+eH8xJ/Y
+	 kX/uFsKSV5iyV8D7hQlQCjd2NR5g6vCjnHqsy4jXt3ZQj/gawlf7hOtEH5AvMItv9fzyf
+	 x5rAmTnihYt/aIuquLRxHZqDeSMhsPYYPJGifq9brjISzyCW1888SqZqgGtLCHe7eofRQ
+	 h6OHKiBsQz0Cb6dUuYvEOgjmQt3NrxNRxF3bKc6y50F7vP7my3fZe680tWDIAIbk6tpWQ
+	 Z8xwEza7DS3zdbuXMHeC86BaDKljLHV0bDE131SkYaVNJk/PAPjivPxjjVFIBa75/0sdi
+	 EyX6sgIrtM2YGtDZ9hoIQUc5rMotucAJd19NG0wFre9EK9LLUi8JdPe3xDB/FwSZd8bfa
+	 AyIZnVqCrCO53UcaK2S6GDNHAZaz3GE8zDjiGUtjiJV+0GsJ/WZyD8PONWDO9Ng=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1739952774; bh=ToAywkZNjAkdEnKErPdkz4qjyB7Foj22xaeeHEQY3co=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=qvYNUNIGlNH5jjtfR/K/MCI1Ja99RfQ397Vj7H+tAlGtx0vETyN566NhmS5/u8rfN
+	 9b9bNAP9+cczQX7uuXROaiP0Ft9k0QgGERGeDuKvrMlsSIU1T9AlACIDmlVc+BnsmY
+	 RG3rXvlZ7uBNgTsJoVPZaxBDnkoqnMrA6Tg8L0B1gJK5y7FtKgWJh0swCWCF92BkmR
+	 HA24/MnlezDu7z3tHBvtI503iAtjWfM8UGdgIaMBdt1HPbGQUxEDpt0YgtOcH3MLng
+	 fZ18rhn0E8lMPYbSEaUo/8/D36yL2wfKoc2MKjbPcDp8UNanq66R79fv0kl3kvZXKj
+	 dzhqblx3Pk89A==
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 06/25] drm/armada: Compute dumb-buffer sizes with
- drm_mode_size_dumb()
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-mediatek@lists.infradead.org, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, imx@lists.linux.dev,
- linux-samsung-soc@vger.kernel.org, nouveau@lists.freedesktop.org,
- virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-tegra@vger.kernel.org, intel-xe@lists.freedesktop.org,
+Date: Wed, 19 Feb 2025 09:12:54 +0100
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, consulting@bugseng.com,
  xen-devel@lists.xenproject.org
-References: <20250218142542.438557-1-tzimmermann@suse.de>
- <20250218142542.438557-7-tzimmermann@suse.de>
- <Z7St0O3A_mXEYK49@shell.armlinux.org.uk>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <Z7St0O3A_mXEYK49@shell.armlinux.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: xen/x86: resolve the last 3 MISRA R16.6 violations
+In-Reply-To: <alpine.DEB.2.22.394.2502181338150.1085376@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2502141811180.3858257@ubuntu-linux-20-04-desktop>
+ <daaf4284-102c-4fc4-819c-2231705ab572@suse.com>
+ <alpine.DEB.2.22.394.2502171509330.1085376@ubuntu-linux-20-04-desktop>
+ <c24f9d41-1cf4-4cfc-ba11-6ad1d1223e9f@suse.com>
+ <alpine.DEB.2.22.394.2502181338150.1085376@ubuntu-linux-20-04-desktop>
+Message-ID: <1abbfc57051e7e4c0ff803d138c9c494@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 1D76821940
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[19];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_ALL(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,lists.freedesktop.org,lists.infradead.org,vger.kernel.org,lists.linux.dev,lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,suse.de:mid];
-	RCVD_COUNT_TWO(0.00)[2];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -3.01
-X-Spam-Flag: NO
 
-Hi
+On 2025-02-18 22:42, Stefano Stabellini wrote:
+> On Tue, 18 Feb 2025, Jan Beulich wrote:
+>> On 18.02.2025 00:12, Stefano Stabellini wrote:
+>> > On Mon, 17 Feb 2025, Jan Beulich wrote:
+>> >> On 15.02.2025 03:16, Stefano Stabellini wrote:
+>> >>> --- a/xen/arch/x86/hvm/hvm.c
+>> >>> +++ b/xen/arch/x86/hvm/hvm.c
+>> >>> @@ -3797,22 +3797,14 @@ uint64_t hvm_get_reg(struct vcpu *v, unsigned int reg)
+>> >>>  {
+>> >>>      ASSERT(v == current || !vcpu_runnable(v));
+>> >>>
+>> >>> -    switch ( reg )
+>> >>> -    {
+>> >>> -    default:
+>> >>> -        return alternative_call(hvm_funcs.get_reg, v, reg);
+>> >>> -    }
+>> >>> +    return alternative_call(hvm_funcs.get_reg, v, reg);
+>> >>>  }
+>> >>>
+>> >>>  void hvm_set_reg(struct vcpu *v, unsigned int reg, uint64_t val)
+>> >>>  {
+>> >>>      ASSERT(v == current || !vcpu_runnable(v));
+>> >>>
+>> >>> -    switch ( reg )
+>> >>> -    {
+>> >>> -    default:
+>> >>> -        return alternative_vcall(hvm_funcs.set_reg, v, reg, val);
+>> >>> -    }
+>> >>> +    return alternative_vcall(hvm_funcs.set_reg, v, reg, val);
+>> >>>  }
+>> >>
+>> >> Both of these were, iirc, deliberately written using switch(), to ease
+>> >> possible future changes.
+>> >
+>> > To be honest, I do not see any value in the way they are currently
+>> > written. However, if you prefer, I can add a deviation for this, with
+>> > one SAF comment for each of these two. The reason for the deviation
+>> > would be "deliberate to ease possible future change". Please let me know
+>> > how you would like to proceed.
+>> 
+>> Well, best next thing you can do is seek input from the person who has
+>> written that code, i.e. Andrew.
+> 
+> Andrew wrote in chat that he is OK with a deviation and he can live 
+> with
+> a SAF deviation. Here is the patch.
+> 
+> 
+> ---
+> xen/x86: resolve the last 3 MISRA R16.6 violations
+> 
+> MISRA R16.6 states that "Every switch statement shall have at least two
+> switch-clauses". There are only 3 violations left on x86 (zero on ARM).
+> 
+> One of them is only a violation depending on the kconfig configuration.
+> So deviate it instead with a SAF comment.
+> 
+> Two of them are deliberate to enable future additions. Deviate them as
+> such.
+> 
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> 
 
-Am 18.02.25 um 16:57 schrieb Russell King (Oracle):
-> On Tue, Feb 18, 2025 at 03:23:29PM +0100, Thomas Zimmermann wrote:
->> Call drm_mode_size_dumb() to compute dumb-buffer scanline pitch and
->> buffer size. No alignment required.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Cc: Russell King <linux@armlinux.org.uk>
-> armada_pitch() does have some special alignment (it aligns the pitch to
-> 128 bytes). I've no idea what drm_mode_size_dumb() does. Can you check
-> whether it does the same please?
->
-> If it doesn't, then this patch is incorrect.
+Looks good to me, from an ECLAIR point of view. Did you have a chance to 
+run a pipeline on it to confirm that the SAF comments are recognized 
+correctly?
 
-Indeed, I should have noticed. Will be fixed in the next iteration. 
-Thanks for the review.
+With that,
 
-Best regards
-Thomas
+Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
->
+> diff --git a/docs/misra/safe.json b/docs/misra/safe.json
+> index b8a4f878ea..3d68b59169 100644
+> --- a/docs/misra/safe.json
+> +++ b/docs/misra/safe.json
+> @@ -92,6 +92,22 @@
+>          },
+>          {
+>              "id": "SAF-11-safe",
+> +            "analyser": {
+> +                "eclair": "MC3A2.R16.6"
+> +            },
+> +            "name": "Rule 16.6: single clause due to kconfig",
+> +            "text": "A switch statement with a single switch clause 
+> because other switch clauses are disabled in a given kconfig is safe."
+> +        },
+> +        {
+> +            "id": "SAF-12-safe",
+> +            "analyser": {
+> +                "eclair": "MC3A2.R16.6"
+> +            },
+> +            "name": "Rule 16.6: single clause due to future 
+> expansion",
+> +            "text": "A switch statement with a single switch clause to 
+> purposely enable future additions of new cases is safe."
+> +        },
+> +        {
+> +            "id": "SAF-13-safe",
+>              "analyser": {},
+>              "name": "Sentinel",
+>              "text": "Next ID to be used"
+> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> index 39e39ce4ce..0f0630769b 100644
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -3797,6 +3797,7 @@ uint64_t hvm_get_reg(struct vcpu *v, unsigned int 
+> reg)
+>  {
+>      ASSERT(v == current || !vcpu_runnable(v));
+> 
+> +    /* SAF-12-safe */
+>      switch ( reg )
+>      {
+>      default:
+> @@ -3808,6 +3809,7 @@ void hvm_set_reg(struct vcpu *v, unsigned int 
+> reg, uint64_t val)
+>  {
+>      ASSERT(v == current || !vcpu_runnable(v));
+> 
+> +    /* SAF-12-safe */
+>      switch ( reg )
+>      {
+>      default:
+> diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+> index 87b30ce4df..dca11a613d 100644
+> --- a/xen/arch/x86/traps.c
+> +++ b/xen/arch/x86/traps.c
+> @@ -436,6 +436,7 @@ unsigned long get_stack_trace_bottom(unsigned long 
+> sp)
+> 
+>  static unsigned long get_shstk_bottom(unsigned long sp)
+>  {
+> +    /* SAF-11-safe */
+>      switch ( get_stack_page(sp) )
+>      {
+>  #ifdef CONFIG_XEN_SHSTK
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstrasse 146, 90461 Nuernberg, Germany
-GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-HRB 36809 (AG Nuernberg)
-
+Nicola Vetrini, B.Sc.
+Software Engineer
+BUGSENG (https://bugseng.com)
+LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
 
