@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D623A3BB04
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 11:01:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.892562.1301526 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9805FA3BB15
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 11:02:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.892572.1301537 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkgtM-0007ku-Bt; Wed, 19 Feb 2025 10:01:20 +0000
+	id 1tkguf-0008Jt-KY; Wed, 19 Feb 2025 10:02:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 892562.1301526; Wed, 19 Feb 2025 10:01:20 +0000
+Received: by outflank-mailman (output) from mailman id 892572.1301537; Wed, 19 Feb 2025 10:02:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkgtM-0007jS-8b; Wed, 19 Feb 2025 10:01:20 +0000
-Received: by outflank-mailman (input) for mailman id 892562;
- Wed, 19 Feb 2025 10:01:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tkguf-0008He-Hv; Wed, 19 Feb 2025 10:02:41 +0000
+Received: by outflank-mailman (input) for mailman id 892572;
+ Wed, 19 Feb 2025 10:02:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EceQ=VK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tkgtL-0007W7-9M
- for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 10:01:19 +0000
+ id 1tkgue-0008Gq-Ta
+ for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 10:02:40 +0000
 Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
  [2a00:1450:4864:20::52f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7624daa9-eea8-11ef-9896-31a8f345e629;
- Wed, 19 Feb 2025 11:01:17 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a76f3afe-eea8-11ef-9aa8-95dc52dad729;
+ Wed, 19 Feb 2025 11:02:40 +0100 (CET)
 Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5e0939c6456so492791a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 02:01:17 -0800 (PST)
+ 4fb4d7f45d1cf-5e04861e7a6so6469766a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 02:02:40 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abb94329614sm621543166b.180.2025.02.19.02.01.16
+ 4fb4d7f45d1cf-5dece1d369esm10052897a12.37.2025.02.19.02.02.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Feb 2025 02:01:16 -0800 (PST)
+ Wed, 19 Feb 2025 02:02:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7624daa9-eea8-11ef-9896-31a8f345e629
+X-Inumbo-ID: a76f3afe-eea8-11ef-9aa8-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1739959277; x=1740564077; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1739959360; x=1740564160; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=yyClBG9zxex79n1kYGadDtuH3MJRoTans7HwlEjL4Qc=;
-        b=CgmczSZ0q2SrRa4Hb7KeTa/r1NbGB5U2Kt0x2ThXxQXykQUnztYIJ3n14raQfh3gPH
-         mTYc2O1O2SxcSVqJA5ORtRSRdi1j/XSH1Pa3wZqEZhBzv/1RTPCSQFwwdHPN0cSkzwB9
-         L95Dfhs50Yn80XLkrMCc2bvE/EYvwbzDTeZLMd4QSJeP1P0mcKJHyz3EIaHECzuFN7M3
-         zCmg6k8B1u/DPAMZxaQWqmvzmINReDCWP3y8I7QL06x7Vj6sKfVAwqPWmfZZWFqrHflc
-         gOQ9YB9C6T0sYAGsRzUnfNhDRsuJGL3iyINhn60PS3CiZJ55hLzkQB8q7OK/Hop+ZoCT
-         m0Tg==
+        bh=huuHSTKz6FBv2yxIimfejyNJTPN9uGmFSxcsvfxxhg0=;
+        b=PEHuxhilNFZMCjcCLOKstjPd7gpHoT3eO60FGjwR+JuEmxPg/YAQjTpT1AdZRXwmoq
+         ofuV3hzXLgZmjG54RJHfBKR56Z5etedaotU3sF9Cy/PWCYVfCwa2noVZDrhvoRjf6Cnm
+         71CgiT0mjWvHdrJQlWBFmssN6vEuU6TYPrRx6qsx9jWdYw8UkWWJXUUrkQfd8TsUAVSS
+         qV1DyOpiTEQgeVRJSmIYO8mzxPSmHOhG9iKZVObDSGdUUuyE/Ao1lxNMDYlfeJmaHZIb
+         sBFXnJv58b2FCbmUYJhf1zw2bJs2wLiYXMurjGHCgMEyU3JbyQEpXPPsEwT6AItuS6P4
+         SoqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739959277; x=1740564077;
+        d=1e100.net; s=20230601; t=1739959360; x=1740564160;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=yyClBG9zxex79n1kYGadDtuH3MJRoTans7HwlEjL4Qc=;
-        b=DTSc/0aTi6glZgSeBSt8HpfMFrodnoDPOxdZ5xCjpG+DVvQq/bG3DVKCSCZKnvDTEg
-         +p4eBsXZd+t0Ow7fpOoll0Nx18FQJCYzDa9fpt+TCmTOXcOYn8bSPrT11HsN1oFWal/K
-         5lO5k/mMQ1ITKdhWEDdsWpukMw83gsCF56fHicU6gl2SsjoIXNYkKArPMskvxmRrD112
-         c83MWYi/4G8OEcM/uBLqpgoefHD9CXyPiUiIvjiO3QHPEMvoPjCh4GrCzC7Km63cNlG+
-         MrL1nQ7/R5nIZHlSaNcQy10WajArj8oKBOplesDxK4Pk9jiU8tcb+YQMr0y/kjZSry42
-         IgFg==
-X-Gm-Message-State: AOJu0Yy8eG8plr7VOWDAPqFXrNRx36I9KbB701QvUzWHnTpz1XrQYcOC
-	HePkV5re4c7BYEYmzSJP0WwpMAPSKVOQUYLlJ5H4gpk3LGBUkXrY8rx9CTMWYWGiaFz7gxdo0aY
+        bh=huuHSTKz6FBv2yxIimfejyNJTPN9uGmFSxcsvfxxhg0=;
+        b=CiqAVd3fzbpGtZFDi/4holvsWdHrCnZBtlm8azaDN+YNOhhCi3yV7H/qhO94jI67k4
+         PKy7IBI4knN/PkavLR4OiiR8q0+7T+AfzsawRONoVXwwg8azUSu9N1niXLzJUg43tuXc
+         iDKlPOrUy7gfGZw4Q3e4s25y3ISJKvipVu1fpY7ktI+BgyCc5HJsIcegMT4lEXid7oAj
+         8RpzRLQwvH4XhRB5L0qD+O8p8GSTrhN9C81MeN/3oyzB1UeGbJt4InjJWKq++UP4JAcl
+         V4B+4ZprjsQeGeFhM0fxSvLEPh0zGia7H30Vc4jCLhNIbz30UFBXlpF1HiwuyEwGCMPo
+         2Lzw==
+X-Gm-Message-State: AOJu0YzkzPM77S+BPZfdnqEU9k5aLw/IjLObp/wRI4NvXbSu4tXSvLY4
+	qs/Z1ohFbecXWushTglOaYoE/VQ+jBCvSPzJ/rVOfLXLL5+yZ8KuoMoNParKy1BYoDiDMigLkbA
 	=
-X-Gm-Gg: ASbGncsFdYaCeCsQx2F3uMoQ5Y7R3jJGQATFJBO3eCEUdHxS36RFXLHJs4RdJ3Mj9r4
-	eiQQnmaVp499dqXwDbJNqTNScAsLR5f9HOGFnzKrnZYKeB3BsWuTPHbqpomJ4mI0bxjKttk5fci
-	paYytqp8KWoYL6UFLJqjprIw+8HX7OHSKZdOV7n1ps/kYLk2Pe7DTKjLK8zkHxIIkCz5Ey2iDNs
-	Jq+guEQ4RWJ6NEN+Sno5JO6TdX8SFk1ph8AE5FNEnR2ldOh80AzVmzHAhqLeBlUq0H4tloVuiFe
-	18EcbrowmeVqoKn38yAO1ggF5SESeZm5+aAF2eceeSLutbOSrI7vjR4XwcUMHuRoeTkkTEsDx5U
-	M
-X-Google-Smtp-Source: AGHT+IHq8TB8I/quCGV+CCtQemyk1zRtb5GI0YrG/ooLoyUx/BSvJ83nXOoYq7e8UElEMM4kLnmn4A==
-X-Received: by 2002:a17:907:7b83:b0:ab7:eda3:3612 with SMTP id a640c23a62f3a-abb70de2909mr1922159866b.50.1739959277129;
-        Wed, 19 Feb 2025 02:01:17 -0800 (PST)
-Message-ID: <01d5464f-81c3-4b5d-92b6-08d9e22201ef@suse.com>
-Date: Wed, 19 Feb 2025 11:01:16 +0100
+X-Gm-Gg: ASbGnctUgL4bf6LyhSpMxabvE4Hs/PcSXEdMIkKt7PjjbxlpQKhBcAEWcga8fYTsfAf
+	YuRcDSnR9V9MboVf4oe9gVosp61a2DLHJgVvVhFYKkEdRpeWhW0ATGt5wu+KbVgO0nR2b/AXgnV
+	4bXySrUWIduZRL00DEZV/8SoiGf2/IQjr6aa5ZY+rfqb9DRIJhQgqE1PuGSRSnGKVbLNPfUuAj5
+	WF3lvT6EdabGUj/CJrUe1dX9hAB6sVQHT+QviqIzJhisixTes9bKuXIdNPFTsMFUabQT3fZCn44
+	cSMplWhMkQaCQZx8+TafQqv41NUpTqcxB8f3ux4agDTBUC/C4o/7rwAo9KZfeW1wkWiWJpc/yHW
+	T
+X-Google-Smtp-Source: AGHT+IFkfLmqUQ7vMP1tFDa+3ugkuyAHKT+NUgu91S3jBN1sLdqryjYTluJg7kqwQBxnqeuBeiwTlw==
+X-Received: by 2002:a05:6402:2548:b0:5e0:3567:8077 with SMTP id 4fb4d7f45d1cf-5e0360440abmr15905946a12.4.1739959359872;
+        Wed, 19 Feb 2025 02:02:39 -0800 (PST)
+Message-ID: <42688c2b-9f11-4c52-b83a-607374a858fd@suse.com>
+Date: Wed, 19 Feb 2025 11:02:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -91,7 +91,7 @@ To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/MCE-telem: drop unnecessary per-CPU field
+Subject: [PATCH] x86/PV: don't half-open-code SIF_PM_MASK
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -118,36 +118,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-struct mc_telem_cpu_ctl's processing field is used solely in
-mctelem_process_deferred(), where the local variable can as well be used
-directly when retrieving the head of the list to process. This then also
-eliminates the field holding a dangling pointer once the processing of
-the list finished, in particular when the entry is handed to
-mctelem_dismiss().
-
-No functional change intended.
+Avoid using the same literal number (8) in two distinct places.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
---- a/xen/arch/x86/cpu/mcheck/mctelem.c
-+++ b/xen/arch/x86/cpu/mcheck/mctelem.c
-@@ -122,7 +122,6 @@ struct mc_telem_cpu_ctl {
- 	 * to guarantee the above mutual exclusivity.
- 	 */
- 	struct mctelem_ent *pending, *lmce_pending;
--	struct mctelem_ent *processing;
- };
- static DEFINE_PER_CPU(struct mc_telem_cpu_ctl, mctctl);
- 
-@@ -233,9 +232,7 @@ void mctelem_process_deferred(unsigned i
- 	 * handled by another round of MCE softirq.
- 	 */
- 	mctelem_xchg_head(lmce ? &ctl->lmce_pending : &ctl->pending,
--			  &this_cpu(mctctl.processing), NULL);
--
--	head = this_cpu(mctctl.processing);
-+			  &head, NULL);
- 
- 	/*
- 	 * Then, fix up the list to include prev pointers, to make
+--- a/xen/arch/x86/pv/dom0_build.c
++++ b/xen/arch/x86/pv/dom0_build.c
+@@ -886,7 +886,7 @@ static int __init dom0_construct(struct
+         si->flags    = SIF_PRIVILEGED | SIF_INITDOMAIN;
+     if ( !vinitrd_start && initrd_len )
+         si->flags   |= SIF_MOD_START_PFN;
+-    si->flags       |= (xen_processor_pmbits << 8) & SIF_PM_MASK;
++    si->flags       |= MASK_INSR(xen_processor_pmbits, SIF_PM_MASK);
+     si->pt_base      = vpt_start;
+     si->nr_pt_frames = nr_pt_pages;
+     si->mfn_list     = vphysmap_start;
 
