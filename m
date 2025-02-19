@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41D53A3AFD8
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 03:58:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.892314.1301317 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48D1CA3AFD4
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 03:58:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.892316.1301332 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkaHO-0002W1-1m; Wed, 19 Feb 2025 02:57:42 +0000
+	id 1tkaHP-0002pN-Kj; Wed, 19 Feb 2025 02:57:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 892314.1301317; Wed, 19 Feb 2025 02:57:42 +0000
+Received: by outflank-mailman (output) from mailman id 892316.1301332; Wed, 19 Feb 2025 02:57:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkaHN-0002TD-Sp; Wed, 19 Feb 2025 02:57:41 +0000
-Received: by outflank-mailman (input) for mailman id 892314;
- Wed, 19 Feb 2025 02:57:40 +0000
+	id 1tkaHP-0002jp-G4; Wed, 19 Feb 2025 02:57:43 +0000
+Received: by outflank-mailman (input) for mailman id 892316;
+ Wed, 19 Feb 2025 02:57:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rZvE=VK=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1tkaHM-00020f-94
- for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 02:57:40 +0000
-Received: from fout-a4-smtp.messagingengine.com
- (fout-a4-smtp.messagingengine.com [103.168.172.147])
+ id 1tkaHO-00020f-Iy
+ for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 02:57:42 +0000
+Received: from fhigh-a7-smtp.messagingengine.com
+ (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 477ca3c0-ee6d-11ef-9aa8-95dc52dad729;
- Wed, 19 Feb 2025 03:57:39 +0100 (CET)
+ id 48a9ebc6-ee6d-11ef-9aa8-95dc52dad729;
+ Wed, 19 Feb 2025 03:57:41 +0100 (CET)
 Received: from phl-compute-02.internal (phl-compute-02.phl.internal
  [10.202.2.42])
- by mailfout.phl.internal (Postfix) with ESMTP id E0B9C13809B8;
- Tue, 18 Feb 2025 21:57:38 -0500 (EST)
+ by mailfhigh.phl.internal (Postfix) with ESMTP id D80C11140205;
+ Tue, 18 Feb 2025 21:57:40 -0500 (EST)
 Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-02.internal (MEProxy); Tue, 18 Feb 2025 21:57:38 -0500
+ by phl-compute-02.internal (MEProxy); Tue, 18 Feb 2025 21:57:40 -0500
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 18 Feb 2025 21:57:37 -0500 (EST)
+ 18 Feb 2025 21:57:39 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,67 +45,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 477ca3c0-ee6d-11ef-9aa8-95dc52dad729
+X-Inumbo-ID: 48a9ebc6-ee6d-11ef-9aa8-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:from:from:in-reply-to
 	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm3; t=1739933858; x=1740020258; bh=do5qlXv4Af
-	CHjiJyaew1l6a1bkT7B3D+R0jIARcUMHQ=; b=hjGqFdqXPoFCMdQm5RfLItOLd1
-	K8tOlW1MEJHtjf/SpX5AUAFjsRJcCEZ9ZYup9mQv0rDLlUAwNLMs5vDUC507iUaT
-	gM6b4pizdneFaOY7Ga2rvsmHtVpjU1/PSQhSx67F2CJMyxSJVaUrqfuwExTZAvBD
-	xQ+aIcKgza62gEnuMXncSf26sHBNaIWlfsmziU6jW0F4Ev8JIar1NeBnB09Ajqyd
-	ZF71Gz1P+lb9SD2CD7TavNKWLleeR7XmepGbnASw0VTmjpf4vVAl9kSM8xK7Ou0x
-	5l5fhck34g31ssMyPtcDLqyY23F7DUpx/4N8DxstgY+nZXoBSACHpeVm3x4g==
+	:subject:to:to; s=fm3; t=1739933860; x=1740020260; bh=/fLCth7Q/1
+	XRFnTxMsuFuruQj9l16HRepoNJ35BBnDA=; b=Jbf588YMjIlXs75RSWZRfr5EsR
+	fGmEtntAgJh174aHoVQPB1/fXE7lP+7/BVyXwBGWlB+HCEduozMgWsFuEYT8htYu
+	VUGmzjBEvU1F7wOJoXitXBfmasMLuyXRRrji44ZzdIRs5mGdDh3EiQJdvdOJCIBn
+	h++yu+cUhuBbh8xSCVmw/c3FLsgHLXFrcSrfAMzFUtowTgeFcEMXWNkZmKGzCX0g
+	cGt/sa0fevkCDhTyPwUUxX8iAoXtXBjZHVXh+pYaWiItGuvJj4bt1NmGRSOviwN+
+	D+IXkLOkSu4aNTaz6IGU9rPWVCi4/Tqp+iHwGh8dtF7jWiVE+wFAfZCExArw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1739933858; x=
-	1740020258; bh=do5qlXv4AfCHjiJyaew1l6a1bkT7B3D+R0jIARcUMHQ=; b=U
-	7CXIpBWYAS7SpKo4sxWfsk4oY0nOstgtNVAmrIbCPJQXnJxVVAddoxPUijAoSL1C
-	BL1LByks53sLV3em9sl+vn71kP4c59XAnVqjIENB2GEK9BuAJp8MMsGL7YiPRBQj
-	yVx3I4qmBtCrM5Qgh/MwUk7ALDsZHZo3KGSGkp9VqdClom+hHOOpPlXOj7MHkgHY
-	hmCnm0IlaVJffKKw3b8e74G3b0f+Psx+8VKGRR/uIktEtPjB8bHb5Tceyzs+KaZ6
-	50KI/19iTXBPXVGHBJ7Hd3GmCX2jtZV+2UPLkSiYyqqX256+L521HeuHdr+yJoa8
-	sc3V/dsnWFa+YQ9Fno9JQ==
-X-ME-Sender: <xms:oki1Z8U2-TKD-U1OwaFx6nX7r8A7HSX5HTVS6049kwc5730nkEr-0g>
-    <xme:oki1Zwls4zbq2I_WCnjakJs_ey44coXNE9Hn5MJfFnIZbr3ITL_eGjvxxODLyf7Zf
-    roDfGrMDSSkJw>
-X-ME-Received: <xmr:oki1ZwZukQ-NV4Z6pqNlYEpRYDAvrh_2fg5jnMT9jkyWSttPx9ay1MkSmz8po0KsrY1bCDp4QClvEqNNKMSqyi7qblh5q64HjaepcCizzKVSxtSkQ1I>
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1739933860; x=
+	1740020260; bh=/fLCth7Q/1XRFnTxMsuFuruQj9l16HRepoNJ35BBnDA=; b=Y
+	dE9G14zx4ysIsJPxLKdgqG8rBmPijE4Hpw/SI7iPaHniD68MXTn4Q77m/QOjGgXo
+	UV6Ph/eIpn41j2kfoXqNDGj1mZxvZuWYl8wMH8wQGYCYuXriaqGp0kNQVm07V7rD
+	qTOzUvctAcu4xMZyol9VOK332vrcZHs+1ZwxzPzM0t5O4Brt+edvxQRpqTZdIr6v
+	h/bGUssoTyfLrGa0Khpp3wKmQ0j7x3O4V6GwvoW/ygRNeNQgB5SG+1s3yPcCCERN
+	JVSDubA2lIOoRyE0cnGNu2eH1Woe2JJjA9X44rH8E5Hw4Lk3jJaLi3sU+0Shqf8t
+	Cy+tQOaN9eQtuFECwQc4Q==
+X-ME-Sender: <xms:pEi1Z0oGfcPEr-MW8A6XXYWp9c6H18cxF4xdNZ0R7PuCNWKFsJaLGQ>
+    <xme:pEi1Z6pFENBT-AAUw7hzxZxcdrCJjaBqGfLSml6sM-s3KpvcJJuiEdPbu1IOzaxYQ
+    irJIuMHlyS_AA>
+X-ME-Received: <xmr:pEi1Z5O9nNHkAjnFotIS3MWMM64ITxGryCqMkJOlrNOAE6glRjxCfwG2LsFEs5X_XoNlMYoW3lTHw6vzrneMCtEZTxeakR_6c0tmshXroFc7n8kuiHg>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdeifedtjecutefuodetggdotefrod
     ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdp
     uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivg
     hnthhsucdlqddutddtmdenucfjughrpefhvfevufffkffojghfgggtgfesthekredtredt
     jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
     eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
-    ggftrfgrthhtvghrnhepgfeuudehgfdvfeehhedujeehfeduveeugefhkefhheelgeevud
-    etueeiudfggfffnecuvehluhhsthgvrhfuihiivgepudenucfrrghrrghmpehmrghilhhf
-    rhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-    dpnhgspghrtghpthhtohepiedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepgigv
-    nhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtoh
-    eprghnughrvgifrdgtohhophgvrhefsegtihhtrhhigidrtghomhdprhgtphhtthhopehm
-    rghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhrtghpth
-    htohepshhtvghfrghnohdrshhtrggsvghllhhinhhisegrmhgurdgtohhmpdhrtghpthht
-    oheptggrrhguohgvsegtrghrughovgdrtghomhdprhgtphhtthhopehsshhtrggsvghllh
-    hinhhisehkvghrnhgvlhdrohhrgh
-X-ME-Proxy: <xmx:oki1Z7WoMDB8g3Z1DNynQ3Uhz-VTQDFUs8v5gY3PSr5yOh8vt7Gbsg>
-    <xmx:oki1Z2k3avVNO6at3DtEZ39LeqJUZA4Cxtf3AynP5TSYGkZUY0Rr5Q>
-    <xmx:oki1ZweKtI-zB3yL7960hrHg6UkV5HpBgICRJPUfTI9un06SYdkNUQ>
-    <xmx:oki1Z4Gg8iawjVb0PuDY3CSASgMnK9S0hxwDe12OxS32uAho3OI1cQ>
-    <xmx:oki1Z0bXZUA_Vuk3pAEMmyxR_O3oCDNg2XlTG9q_qp9OzaaWmSGS6zBZ>
+    ggftrfgrthhtvghrnhepfeefjeeglefgtdefleevtdegtdegudelffetffeufeejveeife
+    ejveefhfeikeevnecuffhomhgrihhnpehgihhtlhgrsgdrtghomhdpghhithhlrggsrdgt
+    ohdrjhhpnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomh
+    epmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgs
+    pghrtghpthhtohepledpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepgigvnhdqug
+    gvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtoheprghn
+    ughrvgifrdgtohhophgvrhefsegtihhtrhhigidrtghomhdprhgtphhtthhopehmrghrmh
+    grrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhrtghpthhtohep
+    rghnthhhohhnhidrphgvrhgrrhgusehvrghtvghsrdhtvggthhdprhgtphhtthhopehmih
+    gthhgrlhdrohhriigvlhesrghmugdrtghomhdprhgtphhtthhopehjsggvuhhlihgthhes
+    shhushgvrdgtohhmpdhrtghpthhtohepjhhulhhivghnseigvghnrdhorhhgpdhrtghpth
+    htoheprhhoghgvrhdrphgruhestghithhrihigrdgtohhmpdhrtghpthhtohepshhsthgr
+    sggvlhhlihhniheskhgvrhhnvghlrdhorhhg
+X-ME-Proxy: <xmx:pEi1Z741dpQaOcjCafcRu0xxutCLWj0Mx-TLk3iib_JvzTBgO15y2g>
+    <xmx:pEi1Zz5aCfZMfREn1R_3cGCzjELzbgcI_-HUONlJEA3FBIWyjXMyVg>
+    <xmx:pEi1Z7i8HZ-IztiBENFai-JxzOKn3c07rzXMPlAyQxMGSbDhSYF60A>
+    <xmx:pEi1Z947dHPrXACGD0mRYe3gpGW05rfUCS5sHYfaywrUvvm_pR2d5A>
+    <xmx:pEi1ZwFCnFXVQyIlpH6DtF5u6k2Aq9vlATcjfXSEAWXXWdiJqPXq8hQE>
 Feedback-ID: i1568416f:Fastmail
 From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Stefano Stabellini <stefano.stabellini@amd.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v3 4/5] automation: add tools/tests jobs on the AMD Zen3+ runner too
-Date: Wed, 19 Feb 2025 03:56:54 +0100
-Message-ID: <4aa64c6e2393c66b9310b29b8be03c15b7e59c27.1739933790.git-series.marmarek@invisiblethingslab.com>
+Subject: [PATCH v3 5/5] docs: add basic CI documentation
+Date: Wed, 19 Feb 2025 03:56:55 +0100
+Message-ID: <f5fd85826a24bb6d7048d2db1c9c8417bf13c026.1739933790.git-series.marmarek@invisiblethingslab.com>
 X-Mailer: git-send-email 2.48.0
 In-Reply-To: <cover.0fd3c8fb7cf6db337edfd5c5d6ea18bcc44bdef3.1739933790.git-series.marmarek@invisiblethingslab.com>
 References: <cover.0fd3c8fb7cf6db337edfd5c5d6ea18bcc44bdef3.1739933790.git-series.marmarek@invisiblethingslab.com>
@@ -113,55 +119,72 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Reviewed-by: Stefano Stabellini <stefano.stabellini@amd.com>
----
-new in v2
----
- automation/gitlab-ci/test.yaml | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+Include info how to get access/enable hardware runners and how to select
+individual jobs.
 
-diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-index 93632f1f9204..fc7663e3367a 100644
---- a/automation/gitlab-ci/test.yaml
-+++ b/automation/gitlab-ci/test.yaml
-@@ -162,6 +162,7 @@
-     PCIDEV: "01:00.0"
-     PCIDEV_INTR: "MSI-X"
-     CONSOLE_OPTS: "console=com1 com1=115200,8n1,pci,msi"
-+    SUT_ADDR: test-11.testnet
-   tags:
-     - qubes-hw11
+Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+---
+new in v3
+Definitely there can be more content here, but lets start somewhere.
+---
+ docs/index.rst   |  1 +
+ docs/misc/ci.rst | 35 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 36 insertions(+)
+ create mode 100644 docs/misc/ci.rst
+
+diff --git a/docs/index.rst b/docs/index.rst
+index 1bb8d02ea357..bd87d736b9c3 100644
+--- a/docs/index.rst
++++ b/docs/index.rst
+@@ -51,6 +51,7 @@ kind of development environment.
+    :maxdepth: 2
  
-@@ -340,6 +341,28 @@ zen3p-pvshim-x86-64-gcc-debug:
-     - *x86-64-test-needs
-     - alpine-3.18-gcc-debug
+    hypervisor-guide/index
++   misc/ci
  
-+zen3p-tools-tests-pv-x86-64-gcc-debug:
-+  extends: .zen3p-x86-64
-+  script:
-+    - ./automation/scripts/qubes-x86-64.sh tools-tests-pv 2>&1 | tee ${LOGFILE}
-+  artifacts:
-+    reports:
-+      junit: tests-junit.xml
-+  needs:
-+    - *x86-64-test-needs
-+    - alpine-3.18-gcc-debug
+ 
+ Unsorted documents
+diff --git a/docs/misc/ci.rst b/docs/misc/ci.rst
+new file mode 100644
+index 000000000000..2803574fa2c0
+--- /dev/null
++++ b/docs/misc/ci.rst
+@@ -0,0 +1,35 @@
++.. SPDX-License-Identifier: CC-BY-4.0
 +
-+zen3p-tools-tests-pvh-x86-64-gcc-debug:
-+  extends: .zen3p-x86-64
-+  script:
-+    - ./automation/scripts/qubes-x86-64.sh tools-tests-pvh 2>&1 | tee ${LOGFILE}
-+  artifacts:
-+    reports:
-+      junit: tests-junit.xml
-+  needs:
-+    - *x86-64-test-needs
-+    - alpine-3.18-gcc-debug
++Continuous Integration
++======================
 +
- qemu-smoke-dom0-arm64-gcc:
-   extends: .qemu-arm64
-   script:
++Xen Project uses Gitlab-CI for automated testing. Test pipelines for official
++staging branches are at
++`<https://gitlab.com/xen-project/hardware/xen/-/pipelines>`_. Developers can
++schedule test pipelines in their repositories under
++`<https://gitlab.com/xen-project/people/>`_.
++
++Hardware runners
++****************
++
++Some of the tests are using dedicated hardware runners. Those are not available freely, but the access is granted to individual developers. To get access to them, ask on the ``#XenDevel:matrix.org`` Matrix channel.
++After getting access to relevant runners, few extra changes are necessary in settings of the relevant "xen" gitlab project (under your `<https://gitlab.com/xen-project/people/>`_ namespace):
++
++1. Go to Settings -> CI/CD, expand the "Runners" section and enable relevant runners for your project.
++2. Expand "Variables" section and add ``QUBES_JOBS=true`` variable for Qubes runners, and ``XILINX_JOBS=true`` for Xilinx runners.
++3. Go to Settings -> Repository, expand "Branch rules" section and add a rule for protected branches - only those branches will get tests on the hardware runners. It's okay to use a pattern for branch name, and it's okay to allow force push.
++
++Selecting individual tests
++**************************
++
++Normally, all build and test jobs are scheduled in a pipeline. When working on a specific patches, it is sometimes useful to run only jobs relevant for the current work - both to save time and to save CI resources. This can be done by seeting ``SELECTED_JOBS_ONLY`` variable when starting the pipeline. The variable holds a regular expression, enclosed with ``/`` that matches jobs to be included. The variable can be set via the gitlab.com web UI or directly when pushing changes to gitlab::
++
++   git push -o ci.variable=SELECTED_JOBS_ONLY="/job1|job2/"
++
++Note if a test job requires some build job, both need to be included in the regex. For example, ``adl-smoke-x86-64-gcc-debug`` requires ``alpine-3.18-gcc-debug``, so to run just this test the command will look like this::
++
++   git push -o ci.variable=SELECTED_JOBS_ONLY="/adl-smoke-x86-64-gcc-debug|alpine-3.18-gcc-debug/"
++
++More details at `<https://docs.gitlab.co.jp/ee/user/project/push_options.html>`_.
++
++Alternatively, irrelevant jobs can be removed from respective yaml files in ``automation/gitlab-ci`` by adding temporary commit on top of the branch.
 -- 
 git-series 0.9.1
 
