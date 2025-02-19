@@ -2,43 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2551FA3C33E
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 16:13:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.893140.1302065 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FC2AA3C361
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 16:17:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.893150.1302074 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkll8-0005h6-UR; Wed, 19 Feb 2025 15:13:10 +0000
+	id 1tklpL-0006E2-EU; Wed, 19 Feb 2025 15:17:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 893140.1302065; Wed, 19 Feb 2025 15:13:10 +0000
+Received: by outflank-mailman (output) from mailman id 893150.1302074; Wed, 19 Feb 2025 15:17:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkll8-0005eT-Rk; Wed, 19 Feb 2025 15:13:10 +0000
-Received: by outflank-mailman (input) for mailman id 893140;
- Wed, 19 Feb 2025 15:13:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tklpL-0006CN-Bs; Wed, 19 Feb 2025 15:17:31 +0000
+Received: by outflank-mailman (input) for mailman id 893150;
+ Wed, 19 Feb 2025 15:17:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ETXj=VK=redhat.com=vschneid@srs-se1.protection.inumbo.net>)
- id 1tkll7-0005cq-Ly
- for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 15:13:09 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 05e0e1cc-eed4-11ef-9aa8-95dc52dad729;
- Wed, 19 Feb 2025 16:13:08 +0100 (CET)
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-356--brYs2PVN5ajwtPRdAfvow-1; Wed, 19 Feb 2025 10:13:05 -0500
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-4394c747c72so34917395e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 07:13:05 -0800 (PST)
-Received: from vschneid-thinkpadt14sgen2i.remote.csb
- (213-44-141-166.abo.bbox.fr. [213.44.141.166])
+ <SRS0=CKsl=VK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tklpK-0006CH-Fp
+ for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 15:17:30 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9fc3fa09-eed4-11ef-9896-31a8f345e629;
+ Wed, 19 Feb 2025 16:17:25 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-38f2b7ce2f3so4557267f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 07:17:25 -0800 (PST)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-439858ec5fasm88121225e9.29.2025.02.19.07.13.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Feb 2025 07:13:02 -0800 (PST)
+ ffacd0b85a97d-38f259f8217sm18370515f8f.90.2025.02.19.07.17.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 19 Feb 2025 07:17:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,142 +45,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05e0e1cc-eed4-11ef-9aa8-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1739977986;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YEDFkhBYjRhP5Z93Fy/FXNH8qcO0tYdixMhBiEsACWQ=;
-	b=GW9GPyekQTHonsiuL57zD47+u+pvv3Zl7lMu41Z4O6mg0ReVmlHevyBl3eQBcru2N3jwZu
-	k9R27JRRiNS53QWSMhSBaGNB9Ms8uh7mZTmLrVdVRZfz0VvxIJoPta3YcWzLr6/O0bp4GK
-	9E3HzKLwpohKweKhoeD8s1HfvoR3VBA=
-X-MC-Unique: -brYs2PVN5ajwtPRdAfvow-1
-X-Mimecast-MFC-AGG-ID: -brYs2PVN5ajwtPRdAfvow_1739977984
+X-Inumbo-ID: 9fc3fa09-eed4-11ef-9896-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1739978245; x=1740583045; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=a2DjL1RHaZZfTDzhdv67S3OWeIG+QluMf3VbOCB2Mao=;
+        b=cfFXS+cYafNDtXfzRYhF+ZP6ZPuVzyBtbKtJ/qMmkQA+QbLgWxNJmz8faORcnWlj+e
+         5u9x27do0JcfwvGi6fwtTE+7i0D+bMRlemPDCvvFDQDH8HP5ERnCwIPezvs/dvXrRRZI
+         AAmI9BsLKNlhm9lgfYvixe7Fh+TcotT1FjV1w=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739977984; x=1740582784;
-        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
-         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=YEDFkhBYjRhP5Z93Fy/FXNH8qcO0tYdixMhBiEsACWQ=;
-        b=aBdYDMCDz1Wzdd0y9zi3wS7HKk2vcO6fvy+70r4p0AsSoGLbkbmpiXhmWNn+51VS/r
-         1xV4NIeZ7Wb1N+z/8czQAa1V3hI7MA3J9wfISix2bQdqgC01r5RfOJuaA3c0DnHwqxzC
-         DGhe3at+1gjZDh4Wqn87MxrAbJgu/aCeltIJY3gV4Q4yENKWinP4CoINORwYBDf/PUYc
-         3YgxIEOnXTLX9/+QX8+KuOcJe1M+sZMJVAUPLag8hwolSQVjUCuFPLdSmfMEAyIhCUm+
-         z+2mtuXk0uzuGPjDl6U+DvlIknCq7nWsmE6v7kM/zQlnyfi5GKrsr0VVCcjF5rzjSSAu
-         OCHA==
-X-Forwarded-Encrypted: i=1; AJvYcCUwgrZlSBC2mgRO1Y4Ls4gdKbq1M/0mDqlH/ryy6U/sShHZpFeYN0YWPdQ9gc6cTo6T0saumxenKkA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzdkfw2bDol580brp0/PHlHIZ8ZMWYGf8+AYr4VP8ADZ11Ale7N
-	JTMdx4V4IHHznQNc63wS8jkURB+dpfMPuAeKMNn4ms/C6OK0MFLlCIn1JLFWR9aq5BGcBFwr28p
-	XpxlTiPwRP8/lrXFzx6YN5wfEvFupXcAEiIEbQHOe7WsfKqoji6562OQw9PAiti2F
-X-Gm-Gg: ASbGncuEScpB4yPI5JnAKCsDlqEd5e9zKqjojEPywjt9cAFIqW9EMg4mGICutGellXJ
-	aF18X55kudIejeWitC3KgV4ZERZDjpWfvgIAmOTqOlf7IRm5DHXY9DoH+w0YMy4Wyrv+e8IANBl
-	JvwYVD1eMaj/iRF6UoVtBy4BTb+TF4xIrhaodFilNPJOw9Pnrc+3zQyq+G2v3EYwhLFmwEbeAbP
-	MrW/bG0HjuYLdgcC4MDq9/znwT4SDkt2lk+nvNH1o+sHT2WrIWeZImMQnygCkFqD5QByuijcF9C
-	2N18prQem7EBC4GBVkSTSOnqs67UZ32gSCW/UxCKZUODaroUiOJwBagEPQ5J7KJSrw==
-X-Received: by 2002:a05:600c:3d0b:b0:439:88bb:d02d with SMTP id 5b1f17b1804b1-43988bbd322mr97619305e9.2.1739977984084;
-        Wed, 19 Feb 2025 07:13:04 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHqXB0SvUjV4zwF8A6smqwc0vRSLTkn6r2mJurV/wBBuDlOIkQeOJi/olfCVvoVfIVGXKI8cw==
-X-Received: by 2002:a05:600c:3d0b:b0:439:88bb:d02d with SMTP id 5b1f17b1804b1-43988bbd322mr97618455e9.2.1739977983617;
-        Wed, 19 Feb 2025 07:13:03 -0800 (PST)
-From: Valentin Schneider <vschneid@redhat.com>
-To: Dave Hansen <dave.hansen@intel.com>, Jann Horn <jannh@google.com>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- virtualization@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
- linux-perf-users@vger.kernel.org, xen-devel@lists.xenproject.org,
- kvm@vger.kernel.org, linux-arch@vger.kernel.org, rcu@vger.kernel.org,
- linux-hardening@vger.kernel.org, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, bpf@vger.kernel.org,
- bcm-kernel-feedback-list@broadcom.com, Juergen Gross <jgross@suse.com>,
- Ajay Kaher <ajay.kaher@broadcom.com>, Alexey Makhalov
- <alexey.amakhalov@broadcom.com>, Russell King <linux@armlinux.org.uk>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, Paul
- Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave
- Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Peter Zijlstra <peterz@infradead.org>, Arnaldo Carvalho de Melo
- <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>, Alexander Shishkin
- <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, Ian
- Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
- "Liang, Kan" <kan.liang@linux.intel.com>, Boris Ostrovsky
- <boris.ostrovsky@oracle.com>, Josh Poimboeuf <jpoimboe@kernel.org>, Pawan
- Gupta <pawan.kumar.gupta@linux.intel.com>, Sean Christopherson
- <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, Andy Lutomirski
- <luto@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Frederic Weisbecker
- <frederic@kernel.org>, "Paul E. McKenney" <paulmck@kernel.org>, Jason
- Baron <jbaron@akamai.com>, Steven Rostedt <rostedt@goodmis.org>, Ard
- Biesheuvel <ardb@kernel.org>, Neeraj Upadhyay
- <neeraj.upadhyay@kernel.org>, Joel Fernandes <joel@joelfernandes.org>,
- Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun.feng@gmail.com>,
- Uladzislau Rezki <urezki@gmail.com>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>,
- Zqiang <qiang.zhang1211@gmail.com>, Juri Lelli <juri.lelli@redhat.com>,
- Clark Williams <williams@redhat.com>, Yair Podemsky <ypodemsk@redhat.com>,
- Tomas Glozar <tglozar@redhat.com>, Vincent Guittot
- <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Kees Cook
- <kees@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Christoph
- Hellwig <hch@infradead.org>, Shuah Khan <shuah@kernel.org>, Sami Tolvanen
- <samitolvanen@google.com>, Miguel Ojeda <ojeda@kernel.org>, Alice Ryhl
- <aliceryhl@google.com>, "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Samuel Holland <samuel.holland@sifive.com>, Rong Xu <xur@google.com>,
- Nicolas Saenz Julienne <nsaenzju@redhat.com>, Geert Uytterhoeven
- <geert@linux-m68k.org>, Yosry Ahmed <yosryahmed@google.com>, "Kirill A.
- Shutemov" <kirill.shutemov@linux.intel.com>, "Masami Hiramatsu (Google)"
- <mhiramat@kernel.org>, Jinghao Jia <jinghao7@illinois.edu>, Luis
- Chamberlain <mcgrof@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
- Tiezhu Yang <yangtiezhu@loongson.cn>
-Subject: Re: [PATCH v4 29/30] x86/mm, mm/vmalloc: Defer
- flush_tlb_kernel_range() targeting NOHZ_FULL CPUs
-In-Reply-To: <d0450bc8-6585-49ca-9cad-49e65934bd5c@intel.com>
-References: <20250114175143.81438-1-vschneid@redhat.com>
- <20250114175143.81438-30-vschneid@redhat.com>
- <CAG48ez1Mh+DOy0ysOo7Qioxh1W7xWQyK9CLGNU9TGOsLXbg=gQ@mail.gmail.com>
- <xhsmh34hhh37q.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
- <CAG48ez3H8OVP1GxBLdmFgusvT1gQhwu2SiXbgi8T9uuCYVK52w@mail.gmail.com>
- <xhsmh5xlhk5p2.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
- <CAG48ez1EAATYcX520Nnw=P8XtUDSr5pe+qGH1YVNk3xN2LE05g@mail.gmail.com>
- <xhsmh34gkk3ls.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
- <352317e3-c7dc-43b4-b4cb-9644489318d0@intel.com>
- <xhsmhjz9mj2qo.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
- <d0450bc8-6585-49ca-9cad-49e65934bd5c@intel.com>
-Date: Wed, 19 Feb 2025 16:13:00 +0100
-Message-ID: <xhsmhh64qhssj.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
+        d=1e100.net; s=20230601; t=1739978245; x=1740583045;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=a2DjL1RHaZZfTDzhdv67S3OWeIG+QluMf3VbOCB2Mao=;
+        b=rQxI3gxMIz54Wu2flQ3poVPJ16OZVW+4oNEqBFDk8p56K3bgM9qjXjDueiy/4+fEsD
+         2xyNxKTyjBTy+mpzJkjwuhepoQlw9fMRdqcsC8pS0uBu4A70nV1mxtxHUY930EHzt0bo
+         90YP1lJyyTWMB63FCt92yXBaZfRxl0lXNAQD2RO7RcFQmveBZqARfQUvpFD7HpdXjtKZ
+         qFgehyaZoGjZGx0A2IcxEYqTQzEhoOWiFBBleT5dUpucZ361kZjpHrsZwexorGErFfkP
+         KtWFBa1Nkl6pujbs0nPl8SSEyw6Jyk7KGiZv62wCCppZ9U7SccyAMrK8eBQ2U88h9r4B
+         Xhig==
+X-Forwarded-Encrypted: i=1; AJvYcCUelSBPFlyAn+paWWbZPDngDdklxsQz53TgN+s6DkDStPMNWmmetd9CCWUg6wt5bs2sseGaYFjRDHQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwNLABxim1xrX67vfaa7X5pITm1Dsl8hUt4ow20EcXsh6zp5N5M
+	4Ic7wAwlADFLr++EnSDF1+L6hr5JtEROAiNdKnXxynzgGm/4C8EL7IimFd3hEvw=
+X-Gm-Gg: ASbGncsLJJja1wA1f55YDc6wg5vq8qLf1XoyqTO6o2gPA1OEV8tiTW1cszSpjBde+iq
+	7f4iBzRtr33QuofMrbM55K6NWMSBlJfvxJCvlfKguU/RHal2CZYavyeChHKpJ0ZF82rVEjnnBk9
+	/lZdJbw8Li+k/KfDDlQlJtd+b/QPVFzfS/1dd2VsL+4P0TK29ZMcYsVxbJ77fNiyKk5j+JNzA/8
+	cYCIwIMvcrjfiLn5YM/GXtocV2GXb9/tPmT6CX6HNN0Jl0Hd8t/Qi1ejdGvyla0Pv69BwQ1EC9n
+	sN3xGCuxbwJEKYg4l6IU6sz07xi6RBGNVSd3TgC5acZ3TG4WxLlD9NU=
+X-Google-Smtp-Source: AGHT+IESWF/uZKczvzRY32mTELJfSGO5EwUTf5MQe3CUtJvDYN2fQFDLmCJtbHNN89Rdnih3SxI2kA==
+X-Received: by 2002:a5d:5262:0:b0:38f:20bc:7df0 with SMTP id ffacd0b85a97d-38f33f45412mr12738867f8f.26.1739978244792;
+        Wed, 19 Feb 2025 07:17:24 -0800 (PST)
+Message-ID: <ec9c4937-f39f-47cb-a436-ca2250bc7679@citrix.com>
+Date: Wed, 19 Feb 2025 15:17:23 +0000
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: _rXpKad7OqOgStp7I1OYoZ_XnajUZc_DudiznU-P6uY_1739977984
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] xen/list: avoid UB in list iterators
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: oleksii.kurochko@gmail.com, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20250219141818.8789-1-jgross@suse.com>
+ <20250219141818.8789-2-jgross@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
+ VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
+ srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
+ Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
+ ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
+ YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
+ LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
+ e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
+ gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
+ ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
+ cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
+ CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
+ 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
+ IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
+ SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
+ JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
+ mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
+ ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
+ RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
+ dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
+ /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
+ TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
+ Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
+ 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
+ vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
+ g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
+ wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
+ 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
+ kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
+ bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
+ uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
+ XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
+ HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
+ pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
+ vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
+ b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
+ 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
+ 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
+ nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
+ B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
+ d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
+ 6+ahAA==
+In-Reply-To: <20250219141818.8789-2-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 18/02/25 16:39, Dave Hansen wrote:
-> On 2/18/25 14:40, Valentin Schneider wrote:
->>> In practice, it's mostly limited like that.
->>>
->>> Architecturally, there are no promises from the CPU. It is within its
->>> rights to cache anything from the page tables at any time. If it's in
->>> the CR3 tree, it's fair game.
->>>
->> So what if the VMEMMAP range *isn't* in the CR3 tree when a CPU is
->> executing in userspace?
->>
->> AIUI that's the case with kPTI - the remaining kernel pages should mostly
->> be .entry.text and cpu_entry_area, at least for x86.
+On 19/02/2025 2:18 pm, Juergen Gross wrote:
+> The list_for_each_entry*() iterators are testing for having reached the
+> end of the list in a way which relies on undefined behavior: the
+> iterator (being a pointer to the struct of a list element) is advanced
+> and only then tested to have reached not the next element, but the list
+> head. This results in the list head being addressed via a list element
+> pointer, which is undefined, in case the list elements have a higher
+> alignment than the list head.
 >
-> Having part of VMEMMAP not in the CR3 tree should be harmless while
-> running userspace. VMEMMAP is a purely software structure; the hardware
-> doesn't do implicit supervisor accesses to it. It's also not needed in
-> super early entry.
+> Avoid that by testing for the end of the list before advancing the
+> iterator. In case of having reached the end of the list, set the
+> iterator to NULL and use that for stopping the loop. This has the
+> additional advantage of not leaking the iterator pointing to something
+> which isn't a list element past the loop.
 >
-> Maybe I missed part of the discussion though. Is VMEMMAP your only
-> concern? I would have guessed that the more generic vmalloc()
-> functionality would be harder to pin down.
+> There is one case in the Xen code where the iterator is used after
+> the loop: it is tested to be non-NULL to indicate the loop has run
+> until reaching the end of the list. This case is modified to use the
+> iterator being NULL for indicating the end of the list has been
+> reached.
+>
+> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Urgh, that'll teach me to send emails that late - I did indeed mean the
-vmalloc() range, not at all VMEMMAP. IIUC *neither* are present in the user
-kPTI page table and AFAICT the page table swap is done before the actual vmap'd
-stack (CONFIG_VMAP_STACK=y) gets used.
+I agree there's an issue here, but as said before, I do not agree with
+this patch.
 
+For starters, bloat-o-meter on a random top-of-tree build says
+
+    add/remove: 8/1 grow/shrink: 112/68 up/down: 4314/-2855 (1459)
+
+which is a horrible overhead for a case where the sequence of
+instructions are correct (only the C level types are a problem) and ...
+
+> ---
+> No proper Fixes: tag, as this bug predates Xen's git and mercurial
+> history.
+> V2:
+> - fix one use case (Jan Beulich)
+> - let list_is_first() return bool, rename parameter (Jan Beulich)
+> - paranthesize iterator when used as non-NULL test (Jan Beulich)
+> - avoid dereferencing NULL in the safe iterators (Jan Beulich)
+> ---
+>  xen/drivers/passthrough/x86/hvm.c |   3 +-
+
+... the need for this adjustment being discovered after-the-fact means
+it's a very risky change at this juncture in the release.
+
+~Andrew
 
