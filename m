@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFE1AA3D261
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 08:34:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.893543.1302414 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 566B3A3D294
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 08:47:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.893557.1302426 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tl157-000215-Sk; Thu, 20 Feb 2025 07:34:49 +0000
+	id 1tl1HM-0003s1-8o; Thu, 20 Feb 2025 07:47:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 893543.1302414; Thu, 20 Feb 2025 07:34:49 +0000
+Received: by outflank-mailman (output) from mailman id 893557.1302426; Thu, 20 Feb 2025 07:47:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tl157-0001zW-PP; Thu, 20 Feb 2025 07:34:49 +0000
-Received: by outflank-mailman (input) for mailman id 893543;
- Thu, 20 Feb 2025 07:34:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tl1HM-0003pY-6D; Thu, 20 Feb 2025 07:47:28 +0000
+Received: by outflank-mailman (input) for mailman id 893557;
+ Thu, 20 Feb 2025 07:47:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YfIj=VL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tl156-0001zO-Jr
- for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 07:34:48 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 28b17dac-ef5d-11ef-9896-31a8f345e629;
- Thu, 20 Feb 2025 08:34:46 +0100 (CET)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-5ded6c31344so916461a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 23:34:46 -0800 (PST)
+ id 1tl1HL-0003pS-7Q
+ for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 07:47:27 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ed19a782-ef5e-11ef-9aa8-95dc52dad729;
+ Thu, 20 Feb 2025 08:47:26 +0100 (CET)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-5e04064af07so1133109a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 23:47:26 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abbe1326bd1sm209547666b.172.2025.02.19.23.34.45
+ a640c23a62f3a-abb6c312637sm1039939766b.45.2025.02.19.23.47.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Feb 2025 23:34:45 -0800 (PST)
+ Wed, 19 Feb 2025 23:47:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 28b17dac-ef5d-11ef-9896-31a8f345e629
+X-Inumbo-ID: ed19a782-ef5e-11ef-9aa8-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740036886; x=1740641686; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1740037645; x=1740642445; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=TXlCZTREg30Phv/VcStZrdn5eMccFmVey7/j5JQkYLo=;
-        b=HZk82w0kgiSZWlTFeQzSvan1Goevta0BPwCH+eWqz5MZbSZvFoCQArfBWdZbGk2JPW
-         Vo5en4Xg4hrp+922L+qzi94Rxh5veHabeiFV+jq//c3pnNFIcMuTIsdqmMxgV1UrUyaL
-         artDH17Y0Xpf++hbNHZ2Zg6bTECOdPFmoDq++o8KgPZVvKP+yQ5SYj3V7wRytE2DH2ud
-         KBGp3gMTLQL9EI/YXYKQPC/oypTVqBVx9gYz4/Dql01xdTLECqtomIf3TT0HiTzidtm/
-         wijv5F6pPf3k12vx21kWktxoYmd48PI/RKrfJBg3NB1HwXH0o0Y1FqVR7bVD0TJq3jNM
-         GPNw==
+        bh=Z4XUiIH3+osX9uuxbkddDFicHl7BxRbrNbxMyVtFG4A=;
+        b=KDHdoBo9oqqd9xaWfNjWEoOSh/1pNAs46plUzu0TTjTu4VAKwtv9k+DdGuj7VH7m5V
+         yGEM92l5NxhQZehQUQrimjeyXs4pQjTYDBUfNUZ6ki2boTzOlGriRnkGabiOgQhXrrde
+         9g8nYRyla5/GkzABYUtclOtOXKjiXEBFxHaZEayouubE7c1CxY6RQ0J8n8/S5NfBN+gb
+         uwSb3ZDJzLr5q2xa285AD19sBk12c0HNWpV1snaxbNbo/D3kTOIhRH3Iz0H7GM9TcjS/
+         kBRn/xXnI7UfNRMH5gbhc+DpCbPHzzYLoFr8hkvfQloWyS3GMMDmLJIxJ+Gu6DIrWpBN
+         cOjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740036886; x=1740641686;
+        d=1e100.net; s=20230601; t=1740037645; x=1740642445;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=TXlCZTREg30Phv/VcStZrdn5eMccFmVey7/j5JQkYLo=;
-        b=qRlnRSndbjOLLKn/4OJQRTV8SrDkPF0GOUIlPEljagLf9IEUkBj/GYIqb4iJF3g7pk
-         WQSURvby7jt+XDjTOLDJi02BKaKfva9Uyz3O5q6UIRu0E3/3Y9SSnqDrD4QAg/4MT+Q5
-         v165vsRctVqyfIpOR5eyrwK/3SvsmNKrQo4u098IA5w5Ri6nSCfOyZQepsBvwL3Z9XTZ
-         I3xyZwJRdx3YiSyiwNRi1g417VhcF7E1+ZmLtNvC/+jc1IQKOlNnxt8tJeJ7sMRBT5jR
-         wAwtkXUq0nBtZauy/lgyGzK1iKOp3fb+rtB0XELLytLy5LPOcO7T29hTILpvf+EgbCtZ
-         qPrQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVrbJnbM5k9OL7pVqKOzD35At7iMs/LVv67eWoa3MF+gNW5z67grl/XtuYnymkRxpvpKdl8zXqXlCk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyS5Afv5KHBfB1gMZd+fvYxSh0KtQUUAU6bxaFHFswr0isy9FR5
-	50GdkYQpvtQWu9Z7k/WJOrkA3QlAO3vkSVgAt67gAdefZSaUi6OThSD+un0bkA==
-X-Gm-Gg: ASbGncvyMreOVtJ6gjlnxzYT1L5wf1dgjqP2A4Wa7L7O8ukFgc0XyDti7V6n4MD64xk
-	otYpIY1EnfvncbuDb/9rHP68f8rK1kpxDWBY/GplKrZ3mBfx30bHI3xy9kAAAYjTWFfe6CK0n+P
-	thvHOWXmqtA3bcD4OfNLqTYcPa54pMNYy2ly0CP07/w7C6+yZHsM2/XaZOt0CO0OHaqCe1eOYrd
-	7XAduMwioGA/7psN6sjjdhy5TqFPZH11+QvMhGnmBzUvtihG9ctsrA95zOn3hvnYltHP7vWpjz8
-	d+rD355CMt5zLD3Ih74O1bxR+y6Nf7c1KerQmuG/SDVgMcYmMKM6qZjvSBnpYdJ5Io3WPpiKg76
-	K
-X-Google-Smtp-Source: AGHT+IEMuXMJGPPT2Ws4wg8HQb+QDkVYZPR6uezyXiyYJrxl+rZP2W8apIJFF3KDAGe7Ai0KwhFwKw==
-X-Received: by 2002:a05:6402:2347:b0:5e0:8c55:50d with SMTP id 4fb4d7f45d1cf-5e08c5514bbmr13252311a12.14.1740036886140;
-        Wed, 19 Feb 2025 23:34:46 -0800 (PST)
-Message-ID: <792cb63d-35b3-4a8d-a1f2-25592e6c1bac@suse.com>
-Date: Thu, 20 Feb 2025 08:34:45 +0100
+        bh=Z4XUiIH3+osX9uuxbkddDFicHl7BxRbrNbxMyVtFG4A=;
+        b=vuDRtWhUa72NcKf6kAwItWWWoqY4CIfOiB80DgUbXarW9bsLdU8CIJz2baZJ0eCgGi
+         yHDXLUvCN0vAQ+X0xc78NNTogS1WOyfYcwRMoGF/lnIdYpshVWtLJGzNnLs7GMz8iRiW
+         x2CaQS5wMy4p/VcZhgn8wnDzdTkGkveLmMIayc4OpUSMZCmTELKdcjoswCE/j3LcLyy2
+         Olbwm1pLlwxF0EuKJm1mc4/J4Thw/6AJxcFaV1ruXPpdvaQfFaHkDSswFYeVJHCrXtow
+         4UV69cVUOgIyrJH/EfBAnxIdKHW9CVfUxZHcmWJMWs6fOZw7c6p1sm6/6ZRnrm3WIuKZ
+         +W2g==
+X-Gm-Message-State: AOJu0YxiR0kYjeNtnvkplBo14JwxmX0Jqz0mLjJIJUCoW2rChEO/zr8l
+	dZnIWLyi+H0tTo56oq9Y5A2Snt3dPOUnXZrP77k4XD775yBLJiTGCbRJi3PwTw==
+X-Gm-Gg: ASbGnctYLvvWuyR3CSqvM/Yh//W2FUdf/zzSrxG1waXdorY3kIGEbSIRScarvX9Rhoc
+	IotmTD7LD9BtfzM8FG5Z5bVazStmuA4iQ7yvMhZQ19hHh2F8dY+zrcIvVv16XnAJIyk+ezEx1+f
+	/qk0kYU3pLz/75nFXBDyPesXZMf1FNdM/r3lFgReRCHQWOH4V75IMP9+G7x6LhMyDeVNLgOlD4q
+	8HB5lqse0a7SSivSaf40SzgBBEEfsJU6tIZpV3iXJyo7c6TOCfW3zlHUQWcqu0x9AAhkk4Aiw+E
+	NyeBvzRmtbPq9jnzZS5gC7KrWcnF4wcYmA1ECI4rSD1kmIGbrLjdMwv8J3yzQHVrNQe12ImElXX
+	R
+X-Google-Smtp-Source: AGHT+IHWysOcT+dyxmcSemA73O4d/7a1PtOTDFX29fOXmpIfzaOgNo3o3KuDm9nw3AmNacTZxqQkDw==
+X-Received: by 2002:a17:907:930a:b0:ab7:bc17:b3a4 with SMTP id a640c23a62f3a-abb70de2878mr2121513866b.34.1740037645341;
+        Wed, 19 Feb 2025 23:47:25 -0800 (PST)
+Message-ID: <b8f7b0c9-e7b1-43c6-a314-6cafaaa9c9a3@suse.com>
+Date: Thu, 20 Feb 2025 08:47:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for 4.21 v6 1/2] xen/riscv: drop CONFIG_RISCV_ISA_RV64G
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [BUG?] Wrong RC reported during 'make install'
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, committers@xenproject.org,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1739355004.git.oleksii.kurochko@gmail.com>
- <82c9611b923170b0525a7b76337ef067e359dc96.1739355004.git.oleksii.kurochko@gmail.com>
- <10155bb3-20c8-4d08-aafc-df41112c91c9@suse.com>
- <bc198221-7a98-4f61-af75-01decaebbdb7@gmail.com>
+ Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <69a52464-4e2e-43fc-9792-46d7a9614a80@gmail.com>
+ <alpine.DEB.2.22.394.2502121347430.619090@ubuntu-linux-20-04-desktop>
+ <4d53aa6e-640d-4b49-9e45-0684fb263833@citrix.com>
+ <a92378ca-ba24-4332-897c-9cb072fdebc8@suse.com>
+ <c75a1003-5035-4ba5-a65d-d9e5f9dc5624@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,54 +124,34 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <bc198221-7a98-4f61-af75-01decaebbdb7@gmail.com>
+In-Reply-To: <c75a1003-5035-4ba5-a65d-d9e5f9dc5624@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 19.02.2025 18:56, Oleksii Kurochko wrote:
+On 19.02.2025 19:04, Andrew Cooper wrote:
+> Oleksii has asked for RC5, and we're overdue.  I'm intending to commit:
 > 
-> On 2/18/25 6:03 PM, Jan Beulich wrote:
->>> --- a/xen/arch/riscv/arch.mk
->>> +++ b/xen/arch/riscv/arch.mk
->>> @@ -6,8 +6,13 @@ $(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
->>>   riscv-abi-$(CONFIG_RISCV_32) := -mabi=ilp32
->>>   riscv-abi-$(CONFIG_RISCV_64) := -mabi=lp64
->>>   
->>> -riscv-march-$(CONFIG_RISCV_ISA_RV64G) := rv64g
->>> -riscv-march-$(CONFIG_RISCV_ISA_C)       := $(riscv-march-y)c
->>> +riscv-march-$(CONFIG_RISCV_64) := rv64
->>> +
->>> +riscv-march-y := $(riscv-march-y)ima
->>> +
->>> +riscv-march-$(CONFIG_RISCV_ISA_C) := $(riscv-march-y)c
->>> +
->>> +riscv-march-y := $(riscv-march-y)_zicsr_zifencei
->> The repeated use of := makes this longer than necessary, and hence harder to
->> read. I understand using += isn't exactly ideal either, because then on the rhs
->> no blanks may appear (aiui), being kind of against our style and potentially
->> hampering readability. Still maybe:
->>
->> riscv-march-$(CONFIG_RISCV_64) := rv64
->> riscv-march-y+=ima
->> riscv-march-$(CONFIG_RISCV_ISA_C)+=c
->> riscv-march-y+=_zicsr_zifencei
->>
->> ?
+> diff --git a/xen/Makefile b/xen/Makefile
+> index 65b460e2b480..4e37fff92514 100644
+> --- a/xen/Makefile
+> +++ b/xen/Makefile
+> @@ -6,7 +6,7 @@ this-makefile := $(call lastword,$(MAKEFILE_LIST))
+>  # All other places this is stored (eg. compile.h) should be autogenerated.
+>  export XEN_VERSION       = 4
+>  export XEN_SUBVERSION    = 20
+> -export XEN_EXTRAVERSION ?= -rc$(XEN_VENDORVERSION)
+> +export XEN_EXTRAVERSION ?= .0-rc5$(XEN_VENDORVERSION)
+>  export XEN_FULLVERSION   =
+> $(XEN_VERSION).$(XEN_SUBVERSION)$(XEN_EXTRAVERSION)
+>  -include xen-version
+>  
+> in order to make that happen properly, and finally have the tarball be a
+> straight `git archive` invocation.
 > 
-> Btw, I think that we will still anyway strip spaces added by '+='. So it will also need to do something like:
->    [1] riscv-generic-flags := $(riscv-abi-y) -march=$(subst $(space),,$(riscv-march-y))
-> 
-> As without this I expect that -march will look like:
->    -march=rv64 ima c _zicsr_zifencei
-> 
-> With the change [1] we could have spaces around "+=":
->    riscv-march-y += ima
->    riscv-march-$(CONFIG_RISCV_ISA_C) += c
->    riscv-march-y += _zicsr_zifencei
-> 
->    riscv-generic-flags := $(riscv-abi-y) -march=$(subst $(space),,$(riscv-march-y))
+> Does this sound acceptable?
 
-That would be fine with me of course, for being yet tidier (imo).
+Yes. It's not optimal that the file then needs touching for every RC, but
+then again it's also no different from what we do on every stable release.
 
 Jan
 
