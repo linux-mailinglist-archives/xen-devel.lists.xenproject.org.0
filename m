@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0040A3CEEB
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 02:50:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.893468.1302345 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F09F4A3CEEC
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 02:52:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.893476.1302354 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkvht-0000Ww-V4; Thu, 20 Feb 2025 01:50:29 +0000
+	id 1tkvjl-0001H5-9H; Thu, 20 Feb 2025 01:52:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 893468.1302345; Thu, 20 Feb 2025 01:50:29 +0000
+Received: by outflank-mailman (output) from mailman id 893476.1302354; Thu, 20 Feb 2025 01:52:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkvht-0000Ts-Rk; Thu, 20 Feb 2025 01:50:29 +0000
-Received: by outflank-mailman (input) for mailman id 893468;
- Thu, 20 Feb 2025 01:50:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tkvjl-0001Ex-5k; Thu, 20 Feb 2025 01:52:25 +0000
+Received: by outflank-mailman (input) for mailman id 893476;
+ Thu, 20 Feb 2025 01:52:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/j1Y=VL=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tkvhs-0000Tm-Eb
- for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 01:50:28 +0000
+ id 1tkvjk-0001Er-15
+ for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 01:52:24 +0000
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0b99cbcc-ef2d-11ef-9896-31a8f345e629;
- Thu, 20 Feb 2025 02:50:22 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 530a6794-ef2d-11ef-9aa8-95dc52dad729;
+ Thu, 20 Feb 2025 02:52:22 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id D946761254;
- Thu, 20 Feb 2025 01:50:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15B30C4CED1;
- Thu, 20 Feb 2025 01:50:19 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id F3DF561267;
+ Thu, 20 Feb 2025 01:52:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18FF5C4CED1;
+ Thu, 20 Feb 2025 01:52:19 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,61 +41,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b99cbcc-ef2d-11ef-9896-31a8f345e629
+X-Inumbo-ID: 530a6794-ef2d-11ef-9aa8-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1740016221;
-	bh=qNuJM83904KqbX1uIS9/5U2LNQUWnjQU+xLe0odq8W0=;
+	s=k20201202; t=1740016341;
+	bh=+6oF7PEiwsgBWgBilxqkv2gJhiLYfNL5KPnqgDpLpyY=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=nw5fXF6ov8D12i4TWU9WO6THZD/+gOQkIN7biCUA0mOj3LVGKMADV4qdynSA7Qims
-	 ia7VNZA0DpcUaujaiE587q6CaDlKlEh+Ahb4B8Bu+qqAUqddb3n+oruTKW9dReVL2z
-	 u4+TuFPqA19gYNenxTa9qNvisaWpJs2EWudHd7GvaDS2p5PV4Qa43zGo9wzedWCV34
-	 Yen6A8csZcC6oEKOqkF5NarhtN7kTRWQhnlhxcuzpZNd07jEmtZachkWZhwWVYOqHP
-	 82iAr5r93Piw1PTglzJ7po/GX+QSuN1DgtyuBTix2c16ykZTo0YNev3UfDT0V0mdBI
-	 bzrqBwGE8SRiA==
-Date: Wed, 19 Feb 2025 17:50:18 -0800 (PST)
+	b=GWAYUhFlle38er42bg8P5+j+ZwDluRV/d3dIoevA2RZEQ+Q48boHLgXDmM1kRrbQt
+	 48NDrEIRigWMiMb2+EEl6MvkQTi2w1udqGyA/mAZfsNnkhG5RPbFAW2te/y8BWMBuI
+	 65/lIUV+iqSD4wuDEg3OcLgHO32bhmbM0QZdAhXLY9pOQdG38MZyy2ajDd0F/lh1Hd
+	 MkOmq3GSBQdUhmUSFSQnfx4zGloGhnte2XVCz+uIpW8vzoiUiroeWcXmD3333KqxJ8
+	 6bHipWloqLNw2zdKaXctWf/dhi+NbahD4u3Wuf43EsH7Ib5yK3cIK/uSqlzyhd2QCy
+	 c5qifQsQ53V6A==
+Date: Wed, 19 Feb 2025 17:52:18 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: Jan Beulich <jbeulich@suse.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
     =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Stefano Stabellini <stefano@stabellini.net>, 
-    Nicola Vetrini <nicola.vetrini@bugseng.com>, oleksii.kurochko@gmail.com
-Subject: Re: [PATCH] x86/MCE-telem: adjust cookie definition
-In-Reply-To: <84298eb0-42cb-4967-b382-71cb309a7359@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2502191748470.1791669@ubuntu-linux-20-04-desktop>
-References: <bd74b357-b254-4c43-a417-f26434361340@suse.com> <84298eb0-42cb-4967-b382-71cb309a7359@citrix.com>
+    Nicola Vetrini <nicola.vetrini@bugseng.com>, consulting@bugseng.com, 
+    xen-devel@lists.xenproject.org, oleksii.kurochko@gmail.com
+Subject: Re: xen/x86: resolve the last 3 MISRA R16.6 violations
+In-Reply-To: <4e084d1c-93c0-4148-b12c-27f56f678a74@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2502191751350.1791669@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2502141811180.3858257@ubuntu-linux-20-04-desktop> <daaf4284-102c-4fc4-819c-2231705ab572@suse.com> <alpine.DEB.2.22.394.2502171509330.1085376@ubuntu-linux-20-04-desktop> <c24f9d41-1cf4-4cfc-ba11-6ad1d1223e9f@suse.com>
+ <alpine.DEB.2.22.394.2502181338150.1085376@ubuntu-linux-20-04-desktop> <4e084d1c-93c0-4148-b12c-27f56f678a74@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 19 Feb 2025, Andrew Cooper wrote:
-> On 19/02/2025 10:00 am, Jan Beulich wrote:
-> > struct mctelem_ent is opaque outside of mcetelem.c; the cookie
-> > abstraction exists - afaict - just to achieve this opaqueness. Then it
-> > is irrelevant though which kind of pointer mctelem_cookie_t resolves to.
-> > IOW we can as well use struct mctelem_ent there, allowing to remove the
-> > casts from COOKIE2MCTE() and MCTE2COOKIE(). Their removal addresses
-> > Misra C:2012 rule 11.2 ("Conversions shall not be performed between a
-> > pointer to an incomplete type and any other type") violations.
-> >
-> > No functional change intended.
-> >
-> > Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On Wed, 19 Feb 2025, Jan Beulich wrote:
+> On 18.02.2025 22:42, Stefano Stabellini wrote:
+> > On Tue, 18 Feb 2025, Jan Beulich wrote:
+> >> On 18.02.2025 00:12, Stefano Stabellini wrote:
+> >>> On Mon, 17 Feb 2025, Jan Beulich wrote:
+> >>>> On 15.02.2025 03:16, Stefano Stabellini wrote:
+> >>>>> --- a/xen/arch/x86/hvm/hvm.c
+> >>>>> +++ b/xen/arch/x86/hvm/hvm.c
+> >>>>> @@ -3797,22 +3797,14 @@ uint64_t hvm_get_reg(struct vcpu *v, unsigned int reg)
+> >>>>>  {
+> >>>>>      ASSERT(v == current || !vcpu_runnable(v));
+> >>>>>  
+> >>>>> -    switch ( reg )
+> >>>>> -    {
+> >>>>> -    default:
+> >>>>> -        return alternative_call(hvm_funcs.get_reg, v, reg);
+> >>>>> -    }
+> >>>>> +    return alternative_call(hvm_funcs.get_reg, v, reg);
+> >>>>>  }
+> >>>>>  
+> >>>>>  void hvm_set_reg(struct vcpu *v, unsigned int reg, uint64_t val)
+> >>>>>  {
+> >>>>>      ASSERT(v == current || !vcpu_runnable(v));
+> >>>>>  
+> >>>>> -    switch ( reg )
+> >>>>> -    {
+> >>>>> -    default:
+> >>>>> -        return alternative_vcall(hvm_funcs.set_reg, v, reg, val);
+> >>>>> -    }
+> >>>>> +    return alternative_vcall(hvm_funcs.set_reg, v, reg, val);
+> >>>>>  }
+> >>>>
+> >>>> Both of these were, iirc, deliberately written using switch(), to ease
+> >>>> possible future changes.
+> >>>
+> >>> To be honest, I do not see any value in the way they are currently
+> >>> written. However, if you prefer, I can add a deviation for this, with
+> >>> one SAF comment for each of these two. The reason for the deviation
+> >>> would be "deliberate to ease possible future change". Please let me know
+> >>> how you would like to proceed.
+> >>
+> >> Well, best next thing you can do is seek input from the person who has
+> >> written that code, i.e. Andrew.
+> > 
+> > Andrew wrote in chat that he is OK with a deviation and he can live with
+> > a SAF deviation. Here is the patch.
+> > 
+> > 
+> > ---
+> > xen/x86: resolve the last 3 MISRA R16.6 violations
+> > 
+> > MISRA R16.6 states that "Every switch statement shall have at least two
+> > switch-clauses". There are only 3 violations left on x86 (zero on ARM).
+> > 
+> > One of them is only a violation depending on the kconfig configuration.
+> > So deviate it instead with a SAF comment.
+> > 
+> > Two of them are deliberate to enable future additions. Deviate them as
+> > such.
+> > 
+> > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
 > 
-> https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/9181587757
-> 
-> Eclair does appear to be happy with this approach (assuming I stripped
-> down to only checking R11.2 correctly, and making it fatal).
-> 
-> For the change itself, it's an almost identical binary, differing only
-> in the string section which I expect means some embedded line numbers.
-> 
-> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Thank you very much Jan for writing the patch, and thank you Andrew for
-running the pipeline. It is great that resolves all the 11.2 issues!
+Thanks!
 
-Oleksii, may I ask for a release-ack? I'll follow up with a patch to
-mark 11.2 as clean.
+Oleksii, may I ask for a release-ack?
 
