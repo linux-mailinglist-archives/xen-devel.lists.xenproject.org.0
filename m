@@ -2,36 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C261A3C9E1
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2025 21:33:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.893409.1302291 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17BBCA3CE89
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 02:21:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.893434.1302314 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkqkK-0004IF-I2; Wed, 19 Feb 2025 20:32:40 +0000
+	id 1tkvEL-0002yv-86; Thu, 20 Feb 2025 01:19:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 893409.1302291; Wed, 19 Feb 2025 20:32:40 +0000
+Received: by outflank-mailman (output) from mailman id 893434.1302314; Thu, 20 Feb 2025 01:19:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkqkK-0004Gj-Ec; Wed, 19 Feb 2025 20:32:40 +0000
-Received: by outflank-mailman (input) for mailman id 893409;
- Wed, 19 Feb 2025 20:32:39 +0000
+	id 1tkvEL-0002we-44; Thu, 20 Feb 2025 01:19:57 +0000
+Received: by outflank-mailman (input) for mailman id 893434;
+ Thu, 20 Feb 2025 01:19:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iUzg=VK=intel.com=dave.hansen@srs-se1.protection.inumbo.net>)
- id 1tkqkI-0004Gd-DW
- for xen-devel@lists.xenproject.org; Wed, 19 Feb 2025 20:32:38 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ <SRS0=/j1Y=VL=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1tkvEJ-0002wY-IO
+ for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 01:19:55 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a655ddda-ef00-11ef-9aa8-95dc52dad729;
- Wed, 19 Feb 2025 21:32:35 +0100 (CET)
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Feb 2025 12:32:33 -0800
-Received: from kinlongk-mobl1.amr.corp.intel.com (HELO [10.125.109.250])
- ([10.125.109.250])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Feb 2025 12:32:30 -0800
+ id c9c26fef-ef28-11ef-9aa8-95dc52dad729;
+ Thu, 20 Feb 2025 02:19:54 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6E65B61253;
+ Thu, 20 Feb 2025 01:19:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CDE0C4CED1;
+ Thu, 20 Feb 2025 01:19:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,169 +41,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a655ddda-ef00-11ef-9aa8-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1739997156; x=1771533156;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=Zm4WQFfWOxnGe6yT6xbnXs6NIEcXQhce3hpE1nVfn3Y=;
-  b=AxuN1f+rvFsKu35yXHDb+FhhSAQ4NWf5Gul2jaJQLbep1Yttb0Q2aVqt
-   G9k++8DtbL0kb+DH2h5AW7jeiizdDPuC4PjkhpddfIhC5eHG+9s44iGL/
-   /Wgt6maiaEAfWSaNolUuShBo2qOSj89bNXOmYUSkDKDQtWuVr8Am4ou0Z
-   qsPWx21atxUHQvuDM175sCgeggvNbhWQZHRXiGuixtIVm3hSXE1WsvN4K
-   nGFe24dM1uYjaL+4vYe2PEyWv8s5f6HS0jojtc0wOIqCy3vNeuh45yxED
-   I7o2YN5osAJjewyvfQp0qVAlkJNWVjt9JPLwpgtXI28sCT9XUJ/TPppsF
-   w==;
-X-CSE-ConnectionGUID: Vu894TWYRnu/Csf/2eYkkQ==
-X-CSE-MsgGUID: DRPtNVvOQZ6bJ5trdctPMQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11350"; a="40673954"
-X-IronPort-AV: E=Sophos;i="6.13,299,1732608000"; 
-   d="scan'208";a="40673954"
-X-CSE-ConnectionGUID: AzBw8FYiRHWSsjqY9yxeAA==
-X-CSE-MsgGUID: 5DkJqu/uRduefdPohtMHYg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,299,1732608000"; 
-   d="scan'208";a="114770563"
-Message-ID: <e03a8e82-af4c-40fb-bd91-f268206f1d93@intel.com>
-Date: Wed, 19 Feb 2025 12:32:30 -0800
+X-Inumbo-ID: c9c26fef-ef28-11ef-9aa8-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1740014392;
+	bh=gtYdHdQ+TYt60YIyrZB5MFa89sm7LBdAz7JyRSuCGP0=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=C81tl+p4M78fSYaAgL9piSM92NTrsNN3AG+esTS8fjSHB1+3MXJl9OnZMXP3gXLaD
+	 hZgwOHA7AnhCvOcytgzF/IHvEgQiaBHRTzNH3oqftMuIhl1xleXQigTJxYcTEjw05s
+	 RGtmChKUC0Rxx+5gsQncyOcyHCUhaXJdI6QK9ZN+O6JNIuX9G2ywOfDK60clGN5fAl
+	 3vnnXr8ibboGM5PUrzRuJLeWnvGgidRxQgig/V3M6t9RcBtdwdjSAy4Qv7fnTvaHUB
+	 4HeTEOuqkizwsqd8bFxDqn0H7/rXlHw//V+bLJpz+xdO8+Yg1xRB6hlm45tOmKfFlM
+	 IcV4IZHL/RKnw==
+Date: Wed, 19 Feb 2025 17:19:46 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+cc: Jan Beulich <jbeulich@suse.com>, 
+    Xen-devel <xen-devel@lists.xenproject.org>, committers@xenproject.org, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [BUG?] Wrong RC reported during 'make install'
+In-Reply-To: <c75a1003-5035-4ba5-a65d-d9e5f9dc5624@citrix.com>
+Message-ID: <alpine.DEB.2.22.394.2502191719280.1791669@ubuntu-linux-20-04-desktop>
+References: <69a52464-4e2e-43fc-9792-46d7a9614a80@gmail.com> <alpine.DEB.2.22.394.2502121347430.619090@ubuntu-linux-20-04-desktop> <4d53aa6e-640d-4b49-9e45-0684fb263833@citrix.com> <a92378ca-ba24-4332-897c-9cb072fdebc8@suse.com>
+ <c75a1003-5035-4ba5-a65d-d9e5f9dc5624@citrix.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 29/30] x86/mm, mm/vmalloc: Defer
- flush_tlb_kernel_range() targeting NOHZ_FULL CPUs
-To: Joel Fernandes <joelagnelf@nvidia.com>,
- Valentin Schneider <vschneid@redhat.com>
-Cc: Jann Horn <jannh@google.com>, linux-kernel@vger.kernel.org,
- x86@kernel.org, virtualization@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
- linux-riscv@lists.infradead.org, linux-perf-users@vger.kernel.org,
- xen-devel@lists.xenproject.org, kvm@vger.kernel.org,
- linux-arch@vger.kernel.org, rcu@vger.kernel.org,
- linux-hardening@vger.kernel.org, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, bpf@vger.kernel.org,
- bcm-kernel-feedback-list@broadcom.com, Juergen Gross <jgross@suse.com>,
- Ajay Kaher <ajay.kaher@broadcom.com>,
- Alexey Makhalov <alexey.amakhalov@broadcom.com>,
- Russell King <linux@armlinux.org.uk>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
- Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt
- <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- "Liang, Kan" <kan.liang@linux.intel.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Josh Poimboeuf <jpoimboe@kernel.org>,
- Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
- Sean Christopherson <seanjc@google.com>, Paolo Bonzini
- <pbonzini@redhat.com>, Andy Lutomirski <luto@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, Frederic Weisbecker <frederic@kernel.org>,
- "Paul E. McKenney" <paulmck@kernel.org>, Jason Baron <jbaron@akamai.com>,
- Steven Rostedt <rostedt@goodmis.org>, Ard Biesheuvel <ardb@kernel.org>,
- Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
- Joel Fernandes <joel@joelfernandes.org>,
- Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun.feng@gmail.com>,
- Uladzislau Rezki <urezki@gmail.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang1211@gmail.com>,
- Juri Lelli <juri.lelli@redhat.com>, Clark Williams <williams@redhat.com>,
- Yair Podemsky <ypodemsk@redhat.com>, Tomas Glozar <tglozar@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>, Ben Segall
- <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
- Kees Cook <kees@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Christoph Hellwig <hch@infradead.org>, Shuah Khan <shuah@kernel.org>,
- Sami Tolvanen <samitolvanen@google.com>, Miguel Ojeda <ojeda@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>,
- "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Samuel Holland <samuel.holland@sifive.com>, Rong Xu <xur@google.com>,
- Nicolas Saenz Julienne <nsaenzju@redhat.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Yosry Ahmed <yosryahmed@google.com>,
- "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
- "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
- Jinghao Jia <jinghao7@illinois.edu>, Luis Chamberlain <mcgrof@kernel.org>,
- Randy Dunlap <rdunlap@infradead.org>, Tiezhu Yang <yangtiezhu@loongson.cn>
-References: <20250114175143.81438-1-vschneid@redhat.com>
- <20250114175143.81438-30-vschneid@redhat.com>
- <CAG48ez1Mh+DOy0ysOo7Qioxh1W7xWQyK9CLGNU9TGOsLXbg=gQ@mail.gmail.com>
- <xhsmh34hhh37q.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
- <CAG48ez3H8OVP1GxBLdmFgusvT1gQhwu2SiXbgi8T9uuCYVK52w@mail.gmail.com>
- <xhsmhzfjpfkky.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
- <20250219145302.GA480110@joelnvbox>
- <xhsmhecztj4c9.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
- <adcf012e-57ef-4b54-8b19-2273aca41ec6@nvidia.com>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <adcf012e-57ef-4b54-8b19-2273aca41ec6@nvidia.com>
+Content-Type: multipart/mixed; boundary="8323329-1061183623-1740014392=:1791669"
+
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1061183623-1740014392=:1791669
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 8BIT
 
-On 2/19/25 09:08, Joel Fernandes wrote:
->> Pretty much so yeah. That is, *if* there such a vmalloc'd address access in
->> early entry code - testing says it's not the case, but I haven't found a
->> way to instrumentally verify this.
-> Ok, thanks for confirming. Maybe there is an address sanitizer way of verifying,
-> but yeah it is subtle and there could be more than one way of solving it. Too
-> much 'fun' 😉
-For debugging, you could just make a copy of part or all of the page
-tables and run the NOHZ_FULL tasks from those while they're in
-userspace. Then, instead of flushing the TLB in the deferred work, you
-switch over to the "real" page tables.
+On Wed, 19 Feb 2025, Andrew Cooper wrote:
+> On 13/02/2025 7:54 am, Jan Beulich wrote:
+> > On 13.02.2025 01:51, Andrew Cooper wrote:
+> >> On 12/02/2025 9:52 pm, Stefano Stabellini wrote:
+> >>> On Wed, 12 Feb 2025, Oleksii Kurochko wrote:
+> >>>> Hello everyone,
+> >>>>
+> >>>> During the installation of Xen on an ARM server machine from the source code,
+> >>>> I found that the wrong release candidate (rc) is being used:
+> >>>>   $ make install  
+> >>>>     install -m0644 -p xen //boot/xen-4.20-rc  
+> >>>>     install: cannot remove ‘//boot/xen-4.20-rc’: Permission denied  
+> >>>>     make[1]: *** [Makefile:507: _install] Error 1
+> >>>> My expectation is that it should be xen-4.20-rc4.
+> >>>>
+> >>>> I'm not sure if this behavior is intentional or if users are expected to set
+> >>>> the XEN_VENDORVERSION variable manually to ensure the correct release
+> >>>> candidate number.
+> >>>>
+> >>>> In my opinion, we should set the proper release candidate number after
+> >>>> "xen-4.20-rc" automatically.
+> >>>>
+> >>>> Does anyone have any thoughts or suggestions on how to resolve this issue?
+> >>> Hi Oleksii,
+> >>>
+> >>> I did a quick test and I see exactly the same on x86 as well. This patch
+> >>> fixes it, but then it would need someone to update the RC number in
+> >>> xen/Makefile every time a new RC is made.
+> >>>
+> >>> ---
+> >>> xen: add RC version number to xen filename
+> >>>
+> >>> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> >> This is a direct consequence of the request to keep XEN_EXTRAVERSION at
+> >> "-rc" throughout the release cycle.
+> >>
+> >> I'm having to manually edit that simply to create the tarballs
+> >> correctly, which in turn means that the tarball isn't a byte-for-byte
+> >> identical `git archive` of the tag it purports to be.
+> > Just for my understanding - may I ask why this editing is necessary?
+> > Other release technicians never mentioned the (indeed undesirable)
+> > need to do so.
+> 
+> I did point it out.  I also needed to get RC1 cut and everyone had left
+> the office.
+> 
+> xen.git$ make src-tarball-release && tar tf dist/xen-4.20-rc.tar.gz | head
+> <snip>
+> Source tarball in /home/andrew/xen.git/dist/xen-4.20-rc.tar.gz
+> xen-4.20-rc/
+> xen-4.20-rc/.github/
+> xen-4.20-rc/.github/workflows/
+> xen-4.20-rc/.github/workflows/coverity.yml
+> xen-4.20-rc/.gitarchive-info
+> xen-4.20-rc/Makefile
+> xen-4.20-rc/stubdom/
+> xen-4.20-rc/stubdom/Makefile
+> xen-4.20-rc/stubdom/grub/
+> xen-4.20-rc/stubdom/grub/Makefile
+> 
+> mktarball uses `$(MAKE) -C xen xenversion` which uses XEN_EXTRAVERSION.
+> 
+> XEN_EXTRAVERSION needs both the .0 and the RC number in order to make
+> the tarball with the correct name and correct top directory.
+> 
+> What I didn't anticipate was that, while editing XEN_EXTRAVERSION
+> locally gets a proper tarball, the contents within the tarball are
+> nonspecific as to the RC, hence Oleksii's observation.
+> 
+> It also means the tarball wasn't a straight `git archive` of the tree,
+> which is one of the reasons behind taking out the sub-repos.
+> >> I'd not twigged that it mean the builds from the tarballs reported false
+> >> information too.
+> >>
+> >> While I appreciate the wish to not have a commit per RC bumping
+> >> XEN_EXTRAVERSION, I think the avoidance of doing so is creating more
+> >> problems than it solves, and we should revert back to the prior way of
+> >> doing things.
+> > Sure, if it truly is getting in the way, then it needs re-considering.
+> > Just to mention it: Then the question is going to be though whether
+> > really to merely adjust XEN_EXTRAVERSION, or whether instead to do
+> > this consistently in all (three?) places.
+> 
+> It's only XEN_EXTRAVERSION which needs to change (I think).
+> 
+> I think README and SUPPORT.md are fine to say as they are, for
+> generically -rc.
+> 
+> 
+> Oleksii has asked for RC5, and we're overdue.  I'm intending to commit:
+> 
+> diff --git a/xen/Makefile b/xen/Makefile
+> index 65b460e2b480..4e37fff92514 100644
+> --- a/xen/Makefile
+> +++ b/xen/Makefile
+> @@ -6,7 +6,7 @@ this-makefile := $(call lastword,$(MAKEFILE_LIST))
+>  # All other places this is stored (eg. compile.h) should be autogenerated.
+>  export XEN_VERSION       = 4
+>  export XEN_SUBVERSION    = 20
+> -export XEN_EXTRAVERSION ?= -rc$(XEN_VENDORVERSION)
+> +export XEN_EXTRAVERSION ?= .0-rc5$(XEN_VENDORVERSION)
+>  export XEN_FULLVERSION   =
+> $(XEN_VERSION).$(XEN_SUBVERSION)$(XEN_EXTRAVERSION)
+>  -include xen-version
+>  
+> in order to make that happen properly, and finally have the tarball be a
+> straight `git archive` invocation.
+> 
+> Does this sound acceptable?
 
-That would _behave_ like a CPU with a big TLB and really old, crusty TLB
-entries from the last time the kernel ran.
-
-BTW, the other option for all of this is just to say that if you want
-IPI-free TLB flushing that you need to go buy some hardware with it as
-opposed to all of this complexity.
+Yes, looks fine. Please go ahead.
+--8323329-1061183623-1740014392=:1791669--
 
