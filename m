@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3140EA3CF57
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 03:28:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.893497.1302373 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95DA1A3CF67
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 03:35:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.893506.1302383 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkwHL-0006nd-4K; Thu, 20 Feb 2025 02:27:07 +0000
+	id 1tkwP3-0000Bt-Rg; Thu, 20 Feb 2025 02:35:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 893497.1302373; Thu, 20 Feb 2025 02:27:07 +0000
+Received: by outflank-mailman (output) from mailman id 893506.1302383; Thu, 20 Feb 2025 02:35:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkwHL-0006l7-1N; Thu, 20 Feb 2025 02:27:07 +0000
-Received: by outflank-mailman (input) for mailman id 893497;
- Thu, 20 Feb 2025 02:27:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tkwP3-00009P-Ow; Thu, 20 Feb 2025 02:35:05 +0000
+Received: by outflank-mailman (input) for mailman id 893506;
+ Thu, 20 Feb 2025 02:35:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/j1Y=VL=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tkwHJ-0006l1-9T
- for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 02:27:05 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2b9d7e90-ef32-11ef-9aa8-95dc52dad729;
- Thu, 20 Feb 2025 03:27:03 +0100 (CET)
+ id 1tkwP2-00009J-Gh
+ for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 02:35:04 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4693fff4-ef33-11ef-9896-31a8f345e629;
+ Thu, 20 Feb 2025 03:34:58 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id EDF3E61293;
- Thu, 20 Feb 2025 02:27:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C7ABC4CED1;
- Thu, 20 Feb 2025 02:27:01 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id EDE8D5C5AAC;
+ Thu, 20 Feb 2025 02:34:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DE18C4CED1;
+ Thu, 20 Feb 2025 02:34:55 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,89 +42,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b9d7e90-ef32-11ef-9aa8-95dc52dad729
+X-Inumbo-ID: 4693fff4-ef33-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1740018422;
-	bh=f84/9/uWuBGzCG/MZKiRyDn/KHwHnz3TREzDZvbgWV8=;
+	s=k20201202; t=1740018896;
+	bh=wTRnj8YnQXN4HGzIHwGyWTKVaAODtEsZ4abb26MWWCs=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=a44kizdwrAyaKbbX/t2yS8Ph20Q6rLFko41L/I5bHJn7KMiHBtXdKwVAkPtnHC74p
-	 2OuJ1lv3ZyHfEdgSWO8j0ROSEtnncZoIaEoL7At6Z790fFwxFI+80tXsoHCSOIbjZc
-	 mmlz49yTzsIGnDLb4Az3KVWNd3spHG97ZJ/IDrba5WX2TMcUrOyXdPln0ZDKjA2lxJ
-	 qAv/w9B6X3Lv/Zt7wtX46Mk4BH/Wv5wD7sphvW5vSR3YQ1T0oJ9e7HoMJlJaNbvZvh
-	 mUAxKrDwpFZ9AeekAw/iEepYacUx6A7dm6cdievDvZCsWSGQm3Z2DzApqbZwyBjmoH
-	 LHeCkAECHna3g==
-Date: Wed, 19 Feb 2025 18:26:59 -0800 (PST)
+	b=C99ICg+XvflWjxyOr/1xOqSDp1992iIvamG+fPc8aJCI3SqkBlAtO4djw/BkqGAsv
+	 07Fwi0O97DldsntPV2KOkzA/E/rYPn38k0qAh38EH5iUknzaibGxLzvJv2+2mKrY4A
+	 Ztf9wheIbc+dF/9tA3NRCloIM9VxHsOuomQiMvUsfU4VtRaK2Cb+O921VHuPXboHH9
+	 y05dFvyYtYiSuE8Jhq+NCgEK+AwejwOea+cQiXAZD+y2qkBwPWvd7tpil/Y9Ms3am7
+	 oM8SXfFzdxqtIDjEsyVHcO3KkGh3gUWcSdXCcqGr+FN+k5EyQ5KH9077zz8zjDcJSB
+	 pRH0ghFO9E7bw==
+Date: Wed, 19 Feb 2025 18:34:54 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Michal Orzel <michal.orzel@amd.com>
-cc: xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, oleksii.kurochko@gmail.com
-Subject: Re: [PATCH] xen/arm: Create GIC node using the node name from host
- dt
-In-Reply-To: <20250219172946.359234-1-michal.orzel@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2502191825060.1791669@ubuntu-linux-20-04-desktop>
-References: <20250219172946.359234-1-michal.orzel@amd.com>
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Doug Goldstein <cardoe@cardoe.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v3 3/5] automation: allow selecting individual jobs via
+ CI variables
+In-Reply-To: <95088c06171ce140caf48029118dcb6fd2ac8d99.1739933790.git-series.marmarek@invisiblethingslab.com>
+Message-ID: <alpine.DEB.2.22.394.2502191833090.1791669@ubuntu-linux-20-04-desktop>
+References: <cover.0fd3c8fb7cf6db337edfd5c5d6ea18bcc44bdef3.1739933790.git-series.marmarek@invisiblethingslab.com> <95088c06171ce140caf48029118dcb6fd2ac8d99.1739933790.git-series.marmarek@invisiblethingslab.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; boundary="8323329-1452106152-1740018896=:1791669"
 
-On Wed, 19 Feb 2025, Michal Orzel wrote:
-> At the moment the GIC node we create for hwdom has a name
-> "interrupt-controller". Change it so that we use the same name as the
-> GIC node from host device tree. This is done for at least 2 purposes:
-> 1) The convention in DT spec is that a node name with "reg" property
-> is formed "node-name@unit-address".
-> 2) With DT overlay feature, many overlays refer to the GIC node using
-> the symbol under __symbols__ that we copy to hwdom 1:1. With the name
-> changed, the symbol is no longer valid and requires error prone manual
-> change by the user.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1452106152-1740018896=:1791669
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Wed, 19 Feb 2025, Marek Marczykowski-Górecki wrote:
+> Debugging sometimes involves running specific jobs on different
+> versions. It's useful to easily avoid running all of the not interesting
+> ones (for given case) to save both time and CI resources. Doing so used
+> to require changing the yaml files, usually in several places.
+> Ease this step by adding SELECTED_JOBS_ONLY variable that takes a regex.
+> Note that one needs to satisfy job dependencies on their own (for
+> example if a test job needs a build job, that specific build job
+> needs to be included too).
 > 
-> The unit-address part of the node name always refers to the first
-> address in the "reg" property which in case of GIC, always refers to
-> GICD and hwdom uses host memory layout.
+> The variable can be specified via Gitlab web UI when scheduling a
+> pipeline, but it can be also set when doing git push directly:
 > 
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+>     git push -o ci.variable=SELECTED_JOBS_ONLY="/job1|job2/"
+> 
+> More details at https://docs.gitlab.co.jp/ee/user/project/push_options.html
+> 
+> The variable needs to include regex for selecting jobs, including
+> enclosing slashes.
+> A coma/space separated list of jobs to select would be friendlier UX,
+> but unfortunately that is not supported:
+> https://gitlab.com/gitlab-org/gitlab/-/issues/209904 (note the proposed
+> workaround doesn't work for job-level CI_JOB_NAME).
+> On the other hand, the regex is more flexible (one can select for
+> example all arm32 jobs).
+> 
+> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+While I am not super happy about this (it is not your fault, it is due
+to the limitations of the Gitlab YAML languange) and I don't think I
+would use SELECTED_JOBS_ONLY probably, if you find it useful maybe
+others will too. It is not a big maintenance burden. So:
 
-While this fix changes behavior for everyone, so it is risky at RC5, it
-also fixes bugs with DT overlays, but that is an experimental feature. I
-am in two minds whether it should go in right now or not. Maybe I would
-wait until 4.20 is out and commit when the tree reopens.
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
->  xen/arch/arm/domain_build.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
+> Changes in v3:
+> - include variable in Web UI for starting pipeline
+> ---
+>  .gitlab-ci.yml                  |  2 ++
+>  automation/gitlab-ci/build.yaml |  6 ++++++
+>  automation/gitlab-ci/test.yaml  | 14 ++++++++++++++
+>  3 files changed, 22 insertions(+)
 > 
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index 7b47abade196..e760198d8609 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -1615,6 +1615,7 @@ static int __init make_gic_node(const struct domain *d, void *fdt,
->      int res = 0;
->      const void *addrcells, *sizecells;
->      u32 addrcells_len, sizecells_len;
-> +    const char *name;
+> diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
+> index 5a9b8b722838..b3beb2ff9ddf 100644
+> --- a/.gitlab-ci.yml
+> +++ b/.gitlab-ci.yml
+> @@ -1,5 +1,7 @@
+>  variables:
+>    XEN_REGISTRY: registry.gitlab.com/xen-project/xen
+> +  SELECTED_JOBS_ONLY:
+> +    description: "Regex to select only some jobs, must be enclosed with /. For example /job1|job2/"
 >  
->      /*
->       * Xen currently supports only a single GIC. Discard any secondary
-> @@ -1628,7 +1629,11 @@ static int __init make_gic_node(const struct domain *d, void *fdt,
+>  workflow:
+>    rules:
+> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+> index 35e224366f62..f12de00a164a 100644
+> --- a/automation/gitlab-ci/build.yaml
+> +++ b/automation/gitlab-ci/build.yaml
+> @@ -12,6 +12,12 @@
+>        - '*/*.log'
+>      when: always
+>    needs: []
+> +  rules:
+> +  - if: $SELECTED_JOBS_ONLY && $CI_JOB_NAME =~ $SELECTED_JOBS_ONLY
+> +    when: always
+> +  - if: $SELECTED_JOBS_ONLY
+> +    when: never
+> +  - when: on_success
 >  
->      dt_dprintk("Create gic node\n");
+>  .gcc-tmpl:
+>    variables: &gcc
+> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+> index c21a37933881..93632f1f9204 100644
+> --- a/automation/gitlab-ci/test.yaml
+> +++ b/automation/gitlab-ci/test.yaml
+> @@ -1,6 +1,11 @@
+>  .test-jobs-common:
+>    stage: test
+>    image: ${XEN_REGISTRY}/${CONTAINER}
+> +  rules:
+> +  - if: $SELECTED_JOBS_ONLY && $CI_JOB_NAME =~ $SELECTED_JOBS_ONLY
+> +  - if: $SELECTED_JOBS_ONLY
+> +    when: never
+> +  - when: on_success
 >  
-> -    res = fdt_begin_node(fdt, "interrupt-controller");
-> +    /* Use the same name as the GIC node in host device tree */
-> +    name = strrchr(gic->full_name, '/');
-> +    name = name ? name + 1 : gic->full_name;
-> +
-> +    res = fdt_begin_node(fdt, name);
->      if ( res )
->          return res;
->  
+>  .arm64-test-needs: &arm64-test-needs
+>    - alpine-3.18-arm64-rootfs-export
+> @@ -99,6 +104,9 @@
+>        - '*.dtb'
+>      when: always
+>    rules:
+> +    - if: $SELECTED_JOBS_ONLY && $CI_JOB_NAME =~ $SELECTED_JOBS_ONLY
+> +    - if: $SELECTED_JOBS_ONLY
+> +      when: never
+>      - if: $XILINX_JOBS == "true" && $CI_COMMIT_REF_PROTECTED == "true"
+>    tags:
+>      - xilinx
+> @@ -117,6 +125,9 @@
+>        - '*.log'
+>      when: always
+>    rules:
+> +    - if: $SELECTED_JOBS_ONLY && $CI_JOB_NAME =~ $SELECTED_JOBS_ONLY
+> +    - if: $SELECTED_JOBS_ONLY
+> +      when: never
+>      - if: $XILINX_JOBS == "true" && $CI_COMMIT_REF_PROTECTED == "true"
+>    tags:
+>      - xilinx
+> @@ -137,6 +148,9 @@
+>        - '*.log'
+>      when: always
+>    rules:
+> +    - if: $SELECTED_JOBS_ONLY && $CI_JOB_NAME =~ $SELECTED_JOBS_ONLY
+> +    - if: $SELECTED_JOBS_ONLY
+> +      when: never
+>      - if: $QUBES_JOBS == "true" && $CI_COMMIT_REF_PROTECTED == "true"
+>    tags:
+>      - qubes-hw2
 > -- 
-> 2.25.1
+> git-series 0.9.1
 > 
+--8323329-1452106152-1740018896=:1791669--
 
