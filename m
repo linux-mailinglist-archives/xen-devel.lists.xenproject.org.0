@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7CECA3DEE7
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 16:41:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.893935.1302767 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C47EA3DFC6
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 17:06:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.893951.1302786 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tl8fs-0008Og-7Y; Thu, 20 Feb 2025 15:41:16 +0000
+	id 1tl93e-0003sb-5N; Thu, 20 Feb 2025 16:05:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 893935.1302767; Thu, 20 Feb 2025 15:41:16 +0000
+Received: by outflank-mailman (output) from mailman id 893951.1302786; Thu, 20 Feb 2025 16:05:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tl8fs-0008MN-3t; Thu, 20 Feb 2025 15:41:16 +0000
-Received: by outflank-mailman (input) for mailman id 893935;
- Thu, 20 Feb 2025 15:41:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zkM0=VL=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tl8fr-0008MF-E9
- for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 15:41:15 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1d6d11a3-efa1-11ef-9896-31a8f345e629;
- Thu, 20 Feb 2025 16:41:13 +0100 (CET)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-54527a7270eso1168334e87.0
- for <xen-devel@lists.xenproject.org>; Thu, 20 Feb 2025 07:41:13 -0800 (PST)
-Received: from [172.24.85.51] ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5452c855259sm2051025e87.242.2025.02.20.07.41.11
+	id 1tl93e-0003r9-2G; Thu, 20 Feb 2025 16:05:50 +0000
+Received: by outflank-mailman (input) for mailman id 893951;
+ Thu, 20 Feb 2025 16:05:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=YfIj=VL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tl93c-0003qn-AJ
+ for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 16:05:48 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8bae3e3b-efa4-11ef-9aa9-95dc52dad729;
+ Thu, 20 Feb 2025 17:05:47 +0100 (CET)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-38f22fe889aso943502f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Feb 2025 08:05:47 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aba53231fcasm1475408166b.25.2025.02.20.08.05.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Feb 2025 07:41:12 -0800 (PST)
+ Thu, 20 Feb 2025 08:05:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,210 +45,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1d6d11a3-efa1-11ef-9896-31a8f345e629
+X-Inumbo-ID: 8bae3e3b-efa4-11ef-9aa9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1740066073; x=1740670873; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ymUZyOi1fGAnlByb8BUOiiL/GTOhD+LMoLo9rSOc1Rc=;
-        b=ZR+f2KHhJJiycAQIxWXXoC7qC2bt3Ct9xULIY6Fd/cxB2sL+TLtlHPuFvIlnaVZFOG
-         CZxnWmjT0bkbfm7q7ep0tw+hZdlNAyARAwdq9OgIqs0msxUHllYT4ewtJtkRbOPvMGxt
-         UTcpKBLwS4rdoYdiJPjpVWnclKyi5Y8DoVqK2wNbhbno5LvmIvSGoZGo4lz1Z1A4+8sM
-         H6fgc2Tu4GwgO/dpjYyBW8O/WUiWx3w0Chij0ycHCnaJEG/bFy/32sJ4edxNREJS4EHb
-         D+Gveo45rmdfl+snRd9ZcjSzUBmqgt+12Lm/gti0JUgblXjOs1lKfo2wXzeoPqWbE7J0
-         3kkQ==
+        d=suse.com; s=google; t=1740067546; x=1740672346; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=HgAhPK/b66R88d8YNqM5nW3LNXL65DCGx2FSCqoZZk4=;
+        b=Pj2zUcsueKukzLnVSNN1ZquzmBr3Ebmyo1C8Ib4BXKUyB/8Jr4PiVERfKiLaPuNB5R
+         nG7Vcyi31sQszoY3cmko4ehUb6hwxvHhzDdiJJBb95FsUe3vVa0Gq+nwkFOsC4oEZMm6
+         /KzmmvieE0Efj1rNGywfVk777Q5KjEEaJ3eXw/q6vV3cD9GaYjI/q3fkhQV5nBgCqNHF
+         0ZDfxcMKadccM7pIpambShomLgF6BHZcUbiEr8PWhB5+dP0Trr0XO7N6jsvyteAAZTzH
+         K/TlQxx+oI9FM1d+sKck3ZLCqmwG8EzT2X8yJPAZb7qrmdN4sbgwXYsg5BJMEKRqaWF2
+         SR/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740066073; x=1740670873;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=ymUZyOi1fGAnlByb8BUOiiL/GTOhD+LMoLo9rSOc1Rc=;
-        b=SZjWeO4fnOCW407HI3eTqqR5QAiSeLDuygHBga43nRl+Lb3w6xXJZZ8BfoaIHrd7sI
-         OzhEh9OwXnmdx5m3q54IIDvNL3S7A/1pZCgy2zjpInkMmLfXetPeOo1k0Yew8jJ1bCCV
-         +s//wvfDK77jW/DjRy7G+mkLHoDkxb6Cbfhx3N4nXUxrF2GBrSh11WckYUaldEm5qpe3
-         crxIo9Vktb7F5l3zMginQ6jE/OusKyzcdBGD0uLrAMCImmfSmrRTdwEPx1BLcBC9sHQF
-         zOYRGoCU8WcS59pSZJjxGyVqof7+G53y1eqajAfxMzfKMVmR6IUO91rti+oT5QPxSEJV
-         i5ew==
-X-Gm-Message-State: AOJu0YyjoPfBFrnMyv8f0W0YUfzvUB/l0mRrVyb+lOabx2cwh7Q27HIA
-	av0LYoYQVBl/1D4gZUqG1i9D7aPynjd66Z8gvj9UJj2KE7CWWgu3
-X-Gm-Gg: ASbGncsTJnC5uKGpWXbtKcEl0qWWKGr4cEDP7XPAMkiTWYZVu4obZVRv588zse7FXrM
-	GCr0oB2mVsYtT/R6gb1tPrkl+A9h0Sx77lRi0IiTEk6jjcYOtiLbwdylMd7Q6o8OWNMt1qzV1P6
-	GrteKHUUlXSc3M4kTDz1tco7BX0FvJ2LjoSwSiZBQ5iLpuO1LNczSOXwwCcJT3M6hONVui9ukm6
-	gjwECmOnZtv+59uN3dIz6hGoIWv2HMFN2aaD5Jab2ilb0skcOnuOYhIetTKb7ohMAUkqx0cgWsj
-	xl8a+PYshr7tRrihg1uVo2TZ
-X-Google-Smtp-Source: AGHT+IE1UluJn9ZHWh9qcOmEQwN74yqYcVpJKIAS1ZC44eAHu34OmMfFBHjhmGbv9rlbMqJgjmG4YA==
-X-Received: by 2002:a05:6512:114e:b0:545:b9a:b4b4 with SMTP id 2adb3069b0e04-5452fe8fd01mr8741978e87.52.1740066072562;
-        Thu, 20 Feb 2025 07:41:12 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------UGtR0Hcn38OGMkVtrnFmLnol"
-Message-ID: <6f5d76a4-4b2e-4999-8478-f4e7d1555583@gmail.com>
-Date: Thu, 20 Feb 2025 16:41:11 +0100
+        d=1e100.net; s=20230601; t=1740067546; x=1740672346;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=HgAhPK/b66R88d8YNqM5nW3LNXL65DCGx2FSCqoZZk4=;
+        b=AeC/xG++xt3zX/1TIQrkgYO//AGav43r+CSsfj/KpFibFTB1LPngZFrCUrUtN1Nlg+
+         lnvAHbzm8GowLsEpRSP6h58G7A366GjmDxgvnP4B8+zkAKkppZZZeTu8H8kZqxt4I70F
+         fzsHS6ZSLrkwsg6RqOj/cPvmIVy4I2jAFYhF3/I87jRmtatnhZCsFwikoHwmujWHtDTW
+         YIF+Pbw8XqERsZEGXZ0u8MnemybNbx9qrSjDyywxwCrzo3LX4sUzG7x+HNC0Ba+KlRwI
+         PDV/MYNiAD8J2MF6aoeJvYcdTzKl8CxkV33jg8gEiBR1TnXwFpft/AM/qPiHW2O8psIR
+         OLkw==
+X-Forwarded-Encrypted: i=1; AJvYcCUziQ81gem62Sw3aZTQCSTECJmFqm6CXd2wR+4rhTd/ln2pyTN+xqpf9/0WCiNsAz1yMF8Lgu9dLnw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YySpk6BRIptuh8HolJ1roRHWBJ9y9m/5nkhLv0yGd6ch2GMTCbB
+	NotUNALunTtIG9JgMV+6J6IpYzPezKuMl4n+H35T2iHQGa9rAKCh6E2xU1m7gQ==
+X-Gm-Gg: ASbGncs9WHDxWxxaCyb9Tf3u8tXiLmPHopCagzlI5tUDRHvlNHffUO2+AcExs2YibEQ
+	PPMcZnt/Z/cfsW0ocMkd/jZxHexLnqrWJlfKViqzQObggBRUC4ReCrQI6Cc8ReSnS2DOTw4ARed
+	qJdvaDdkLuf1h10XzOOWENi/29uQ5E536TQ3SI0RVf4ZUY61LnBkNxwk9btWUFo3dShjPgIntuZ
+	whLybSSs1hmWisQdpW/727D3iehRxqphrBFApLHqw+Wbm2JuSmjs6Epf7fqACSlGLWefmczOYSI
+	NW/gFBhh6RLZegVnBAiz8dULcxpnuJAssNfmgkc64lPZQAES18yqw4q6JaKCagM49sm0/Dxt5WT
+	v
+X-Google-Smtp-Source: AGHT+IEtNvdGYmHqIcIfHgSee3Wb+2PzBT2uCDcJ4LIRFblOcR7NWJnxHL8yQdwYNstgeY3HYnEhBQ==
+X-Received: by 2002:a05:6000:11d0:b0:38d:af14:cb1 with SMTP id ffacd0b85a97d-38f33f58dbdmr17916843f8f.54.1740067545762;
+        Thu, 20 Feb 2025 08:05:45 -0800 (PST)
+Message-ID: <7fe59f29-34b9-4404-9634-3604b78e1df5@suse.com>
+Date: Thu, 20 Feb 2025 17:05:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.20] CI: Mark MISRA Rule 11.2 as clean
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20250220125354.869062-1-andrew.cooper3@citrix.com>
- <a0859957bacfbed1a880e55da12fae6f@bugseng.com>
+Subject: Re: [PATCH v3 3/3] x86/dom0: be less restrictive with the Interrupt
+ Address Range
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?B?SsO8cmdlbiBHcm8=?=
+ =?UTF-8?B?w58=?= <jgross@suse.com>, xen-devel@lists.xenproject.org
+References: <20250219164840.94803-1-roger.pau@citrix.com>
+ <20250219164840.94803-4-roger.pau@citrix.com>
+ <1e8ef6d3-09db-4d53-b7c8-4b10a7f5d8f0@suse.com>
+ <Z7buBc4yLtf-UpmB@macbook.local>
+ <c8ce79c1-0d8a-45b3-868a-2b67b05d6aee@suse.com>
+ <Z7dM5_X4OEHk5gn1@macbook.local>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <a0859957bacfbed1a880e55da12fae6f@bugseng.com>
-
-This is a multi-part message in MIME format.
---------------UGtR0Hcn38OGMkVtrnFmLnol
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <Z7dM5_X4OEHk5gn1@macbook.local>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-
-On 2/20/25 2:12 PM, Nicola Vetrini wrote:
-> On 2025-02-20 13:53, Andrew Cooper wrote:
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Anthony PERARD <anthony.perard@vates.tech>
->> CC: Michal Orzel <michal.orzel@amd.com>
->> CC: Jan Beulich <jbeulich@suse.com>
->> CC: Julien Grall <julien@xen.org>
->> CC: Roger Pau Monné <roger.pau@citrix.com>
->> CC: Stefano Stabellini <sstabellini@kernel.org>
->> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->> CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
+On 20.02.2025 16:40, Roger Pau Monné wrote:
+> On Thu, Feb 20, 2025 at 02:30:38PM +0100, Jan Beulich wrote:
+>> On 20.02.2025 09:55, Roger Pau Monné wrote:
+>>> On Thu, Feb 20, 2025 at 09:33:46AM +0100, Jan Beulich wrote:
+>>>> On 19.02.2025 17:48, Roger Pau Monne wrote:
+>>>>> Note that the restriction to map the local APIC page is enforced
+>>>>> separately, and that continues to be present.  Additionally make sure the
+>>>>> emulated local APIC page is also not mapped, in case dom0 is using it.
+>>>>
+>>>> But that's in GFN space, not in MFN one. Why would that matter for iomem_caps?
+>>>
+>>> It's required to avoid arch_iommu_hwdom_init() creating an identity
+>>> mapping for APIC_DEFAULT_PHYS_BASE, which would prevent the local APIC
+>>> emulation from being used.
 >>
->> For 4.20.  I want to include the fix and this patch ahead of RC5 to 
->> avoid
->> backporting.
->> ---
->>  automation/eclair_analysis/ECLAIR/tagging.ecl | 1 +
->>  1 file changed, 1 insertion(+)
->>
->
-> Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>> Hmm, yes, on one hand such a mapping would be created by default, as we
+>> default to "dom0-iommu=map-reserved". Otoh that mapping would be replaced
+>> before Dom0 is actually started, via the domain_creation_finished() hook.
+>> On (modern) VMX that is. So yes, on old VMX and on SVM the slot would need
+>> to remain unpopulated. Otoh, when the physical LAPICs are elsewhere and
+>> when the domain is in x2APIC mode, there would be no reason to disallow
+>> Dom0 access to that page.
+> 
+> Right, but that's now how dom0 is started ATM, as the local APIC is
+> unconditionally started in xAPIC mode and at APIC_DEFAULT_PHYS_BASE.
+> 
+> I could use vlapic_base_address() against vCPU#0 vlapic, but even in
+> guest_wrmsr_apic_base() we don't allow moving the local APIC MMIO
+> region, and hence I assumed it was fine to just use
+> APIC_DEFAULT_PHYS_BASE here.  Note in pvh_setup_acpi_madt() Xen also
+> hardcodes the local APIC address to APIC_DEFAULT_PHYS_BASE.
+> 
+> Would you be fine if I expand the comment so it's:
+> 
+>     /* If using an emulated local APIC make sure its MMIO is unpopulated. */
+>     if ( has_vlapic(d) )
+>     {
+>         /* Xen doesn't allow changing the local APIC MMIO window position. */
+>         mfn = paddr_to_pfn(APIC_DEFAULT_PHYS_BASE);
+>         rc |= iomem_deny_access(d, mfn, mfn);
+>     }
 
-Release-Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+That will do, I think. Then:
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-~Oleksii
+>> That would apparently mean fiddling with
+>> iomem_caps once all vCPU-s have entered x2APIC mode.
+> 
+> Urg, that seems ugly.  It would also need undoing if the APICs are
+> reverted to xAPIC mode?
 
->
->> diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl 
->> b/automation/eclair_analysis/ECLAIR/tagging.ecl
->> index 491625e84c27..66698b4bfffb 100644
->> --- a/automation/eclair_analysis/ECLAIR/tagging.ecl
->> +++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
->> @@ -58,6 +58,7 @@ MC3A2.R9.2||
->>  MC3A2.R9.3||
->>  MC3A2.R9.4||
->>  MC3A2.R10.2||
->> +MC3A2.R11.2||
->>  MC3A2.R11.6||
->>  MC3A2.R11.7||
->>  MC3A2.R11.9||
->>
->> base-commit: c989ff614f6bad48b3bd4b32694f711b31c7b2d6
->
---------------UGtR0Hcn38OGMkVtrnFmLnol
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Right.
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2/20/25 2:12 PM, Nicola Vetrini
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:a0859957bacfbed1a880e55da12fae6f@bugseng.com">On
-      2025-02-20 13:53, Andrew Cooper wrote:
-      <br>
-      <blockquote type="cite">Signed-off-by: Andrew Cooper
-        <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a>
-        <br>
-        ---
-        <br>
-        CC: Anthony PERARD <a class="moz-txt-link-rfc2396E" href="mailto:anthony.perard@vates.tech">&lt;anthony.perard@vates.tech&gt;</a>
-        <br>
-        CC: Michal Orzel <a class="moz-txt-link-rfc2396E" href="mailto:michal.orzel@amd.com">&lt;michal.orzel@amd.com&gt;</a>
-        <br>
-        CC: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
-        <br>
-        CC: Julien Grall <a class="moz-txt-link-rfc2396E" href="mailto:julien@xen.org">&lt;julien@xen.org&gt;</a>
-        <br>
-        CC: Roger Pau Monné <a class="moz-txt-link-rfc2396E" href="mailto:roger.pau@citrix.com">&lt;roger.pau@citrix.com&gt;</a>
-        <br>
-        CC: Stefano Stabellini <a class="moz-txt-link-rfc2396E" href="mailto:sstabellini@kernel.org">&lt;sstabellini@kernel.org&gt;</a>
-        <br>
-        CC: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-        <br>
-        CC: Nicola Vetrini <a class="moz-txt-link-rfc2396E" href="mailto:nicola.vetrini@bugseng.com">&lt;nicola.vetrini@bugseng.com&gt;</a>
-        <br>
-        <br>
-        For 4.20.  I want to include the fix and this patch ahead of RC5
-        to avoid
-        <br>
-        backporting.
-        <br>
-        ---
-        <br>
-         automation/eclair_analysis/ECLAIR/tagging.ecl | 1 +
-        <br>
-         1 file changed, 1 insertion(+)
-        <br>
-        <br>
-      </blockquote>
-      <br>
-      Reviewed-by: Nicola Vetrini <a class="moz-txt-link-rfc2396E" href="mailto:nicola.vetrini@bugseng.com">&lt;nicola.vetrini@bugseng.com&gt;</a>
-      <br>
-    </blockquote>
-    <pre>Release-Acked-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+>> With LAPICs not
+>> normally being elsewhere, question is whether this corner case actually
+>> needs dealing with. Yet even if not, commentary may want extending, just
+>> to make clear the case was considered?
+> 
+> As said above, for both HVM and PVH Xen doesn't allow moving the APIC
+> MMIO window to anything different than APIC_DEFAULT_PHYS_BASE.
 
-</pre>
-    <pre>~Oleksii</pre>
-    <blockquote type="cite"
-      cite="mid:a0859957bacfbed1a880e55da12fae6f@bugseng.com">
-      <br>
-      <blockquote type="cite">diff --git
-        a/automation/eclair_analysis/ECLAIR/tagging.ecl
-        b/automation/eclair_analysis/ECLAIR/tagging.ecl
-        <br>
-        index 491625e84c27..66698b4bfffb 100644
-        <br>
-        --- a/automation/eclair_analysis/ECLAIR/tagging.ecl
-        <br>
-        +++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
-        <br>
-        @@ -58,6 +58,7 @@ MC3A2.R9.2||
-        <br>
-         MC3A2.R9.3||
-        <br>
-         MC3A2.R9.4||
-        <br>
-         MC3A2.R10.2||
-        <br>
-        +MC3A2.R11.2||
-        <br>
-         MC3A2.R11.6||
-        <br>
-         MC3A2.R11.7||
-        <br>
-         MC3A2.R11.9||
-        <br>
-        <br>
-        base-commit: c989ff614f6bad48b3bd4b32694f711b31c7b2d6
-        <br>
-      </blockquote>
-      <br>
-    </blockquote>
-  </body>
-</html>
+I was talking about the real one Xen uses.
 
---------------UGtR0Hcn38OGMkVtrnFmLnol--
+Jan
 
