@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A9F4A3D308
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 09:22:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.893597.1302467 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 801CAA3D329
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 09:29:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.893607.1302477 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tl1pU-00032E-Iw; Thu, 20 Feb 2025 08:22:44 +0000
+	id 1tl1ve-0003f8-7H; Thu, 20 Feb 2025 08:29:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 893597.1302467; Thu, 20 Feb 2025 08:22:44 +0000
+Received: by outflank-mailman (output) from mailman id 893607.1302477; Thu, 20 Feb 2025 08:29:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tl1pU-000304-Ft; Thu, 20 Feb 2025 08:22:44 +0000
-Received: by outflank-mailman (input) for mailman id 893597;
- Thu, 20 Feb 2025 08:22:43 +0000
+	id 1tl1ve-0003d6-45; Thu, 20 Feb 2025 08:29:06 +0000
+Received: by outflank-mailman (input) for mailman id 893607;
+ Thu, 20 Feb 2025 08:29:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YfIj=VL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tl1pS-0002zf-Vm
- for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 08:22:42 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
+ id 1tl1vc-0003d0-HZ
+ for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 08:29:04 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id da55c820-ef63-11ef-9aa8-95dc52dad729;
- Thu, 20 Feb 2025 09:22:41 +0100 (CET)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-5e04f2b1685so947707a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 20 Feb 2025 00:22:41 -0800 (PST)
+ id bdcccb09-ef64-11ef-9aa8-95dc52dad729;
+ Thu, 20 Feb 2025 09:29:03 +0100 (CET)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-abb79af88afso134886766b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Feb 2025 00:29:03 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abb9bc1c667sm728742566b.131.2025.02.20.00.22.40
+ a640c23a62f3a-abb9723a559sm785445666b.96.2025.02.20.00.29.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Feb 2025 00:22:41 -0800 (PST)
+ Thu, 20 Feb 2025 00:29:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: da55c820-ef63-11ef-9aa8-95dc52dad729
+X-Inumbo-ID: bdcccb09-ef64-11ef-9aa8-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740039761; x=1740644561; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1740040143; x=1740644943; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fysTGy9a1x7nJr5pHJVQI9i2RjY5JgZjV5r3+UQUJvQ=;
-        b=WK0O8YufAyopNgqfxzzhfSpsG2/mUtHn2f/AjQWebt/PeuMOumWSCZpYkK92FUpiNE
-         L2eNAqVy5KRRqJm5ZktL1TVO14zscD7s7vhd8DYsxieNE7E9mWM0KVIgmxdV5f0i3ajD
-         27bz00uJTzKhOv5Fy4mOhisC2jvo9cOug+Dio+eInrWwfdrOmjsBMxpTKgC9i5Tvmtg3
-         hzz5LThWxgJ1ZidcK7HYba61+kiPgXzBI1af3Rm8k/jVvS6VOQ3KXKDvM2UuePjBPTkW
-         hSlU34vjvz9gk920h7B9nnjoGsZwfyPNXdCSOzAxUA+Xy/qDcQpZMMFsqbxHj43ZC/2e
-         Vv2w==
+        bh=Dq2V6GXJF4MDdwuOmjhcPL68D7DgUe7g9wfH/S43AYg=;
+        b=IsVkMM8kTKWvHVvw7WyfIYPEcYm1N/BbWHum7I79EqhLuY2bZOBgvDrJi7lSUWGPZ6
+         ZdxDe4opJgkcYhyuZybXdvBaTm1nB53MVIAGjhO3/hMGtXr+k26cPGgGTmE35iBANcPv
+         X5ELgxD17T3M0OjoUnTD135dUoS97Zm9dfxnAgzb9/ycuMyzZmJcyeW7799Op91+lD59
+         MSH6nbGYeoBE3ED5sIqamvA+OMT4VUJLxtH9A0eEYCUYCrBBZuiOcO7JRIHXZu2JtcGu
+         UaJqT1TFgpBiQtDaPh91jFazOxYuHMyzmoGPGh/+qFA7XAyZcKLDCmT71RhDq8bnbadG
+         g3Jw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740039761; x=1740644561;
+        d=1e100.net; s=20230601; t=1740040143; x=1740644943;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fysTGy9a1x7nJr5pHJVQI9i2RjY5JgZjV5r3+UQUJvQ=;
-        b=tCJV1r3GkViAWSfyjxfm8nSZ9PcWkqDVfdltHyuYT90Ev9BK8kfrAYtH2aatVp/o/e
-         XRxoKVFYcXs7pGm4riPiZTnzbpMBPbLdX8nBmo5AcJPz/SNiHuv9wRDbXkhOvVFwDbrB
-         E5BKY3hSFEJlt8c7x0MJ+aNT0k51Enu7LIrLu54FunNUqHdz5+1Fz+1Q1FrPVG25hQ3k
-         GatoNG2MLbgyAHQ4xu6Je10DakwS68aRQKsQfVqtheHbmm0zLfbcIgRIynCM1STZtyCd
-         Apk9myqgzmvu+YuBT7zZ4EqJfJ5XLs0GyxEinvOs9Y9YpS1HL1Al3kvOPF48qpQ/Q8hi
-         oNqg==
-X-Forwarded-Encrypted: i=1; AJvYcCWbq9ACN3zoAuc63R3Qp9D9UgYlZOK3V328+SDz8x0xUg+jVLKtJfKos5dKTRS5lNEPkWFksH8jPbA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwlUTBdaaR697BmL0SJ4NjMSEIHcFy2tj2HqVzZNp5/sGxxCudD
-	lmRqeb4y4fXpblSJHuKr6o8thIMcG9ibkYLMNUwJKgJm4XqbMY8G0W8a6FYVhg==
-X-Gm-Gg: ASbGncuWRSTFAc0YH5kI/uzdMtDI3dwNYGpSWi3+PwJCevu8Cfp1XgM7ZmuIKe/rz/j
-	lrQ9AsA8hugXUzRUJ8cW5mkECk3pCE+XoaQHrYb4o3B32x1ZjayrY4GvmT/U6j726g6ymamJdAt
-	CLdG8b17GOheohnbiZ0cK2NNFOACT5GnLOX6z6l2TGaNNrhMJ3Z4ccemyRFQ4B7QQ0SZhNWU59L
-	k3GjaqS6FZ5/Et+0mhxHIrUdZ11bCyKpEzgssbc+QNHS0XDY//s+G2Ab6UjXq2HYSIUBOtvGkRW
-	etPWYm/oqMMYHbPwlFlSbv88uWFkguNxrmt0uYXEkZFrH1ZltlCLNSQsKJrUAkYYOdkYl0QEqgr
-	S
-X-Google-Smtp-Source: AGHT+IFxdKOdnlPbl4eIF45kBlGoLvrEZTfxs6GRORpkyRQnTd+TcmP3Y+T5K5fa/62jrhjgYPw/aw==
-X-Received: by 2002:a05:6402:254a:b0:5de:b438:1fdb with SMTP id 4fb4d7f45d1cf-5e036174763mr50124806a12.30.1740039761391;
-        Thu, 20 Feb 2025 00:22:41 -0800 (PST)
-Message-ID: <6b0eb8ba-f42c-4a24-9dbd-3e6f78b818c1@suse.com>
-Date: Thu, 20 Feb 2025 09:22:40 +0100
+        bh=Dq2V6GXJF4MDdwuOmjhcPL68D7DgUe7g9wfH/S43AYg=;
+        b=dxb754oGRrvCploArwKr+ZK6tyrdXSd3FwCqX2pYFMMDgUcR7nOBrtj68BxyXe5kPg
+         5/kkJbzpoif50Oc9NyvhEuNE87qsWFaVC6CpiBh7IMFEQCiXS9LzVSitCwSezGpyb9Iv
+         WJJhP5lvHDofZZfwKNfZ8A9hcpOH6QWAg/Lf4oCvQJ6H5ooxv8yk+/LNRxJMPuEIi51b
+         zQq7RL12Cnym7/Mop7zIQeclLlAyxtHQwTHcqMEjr7yWsbakhH3C2rbiQtwYks3m88KQ
+         V/i7BrqdFPkBpRI5/7/IgXNvk9IcTOiQSBRh9XtXvdtCG9jaXz8oOpu5kuHdvN0enH2s
+         nVnw==
+X-Forwarded-Encrypted: i=1; AJvYcCVzAfHx8JOkuNcVSua9YRL9v4SFYLds/ginwbgmXSnPKLKtSIH1VHA7TkTc29WO48saaZZ0i7jXkX4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyFNJbtBnNVV9SwLyYB/BE5Zkd96zTVo6tzIVQPDaRyHHZeWMcK
+	fnrvby7yxE+/7BfA2hWmQSSJlIVxkRR4XuxLUCKO2CenVtOoCEfWq4nHF54Mrw==
+X-Gm-Gg: ASbGnctGmDrv8Ienr7MDWWpbl/QFY1xEXXDw2DGhZU1jr77DMBXC46CPvpYKhzxv2Vh
+	MtCvb+ldnjj+Od5UUSGf8PGAbfuHEBeYIRmjDuR6tHCU+jgeNcHC1kveHo4uJCC7/Avw55BGLxe
+	w9ynnYewhS3fhCcRhNThG3BMELRPP7Qsid5DNh39Q+NUQitaMvYewkEXwzZXcWCeF8DXDE1nhrh
+	aZ9FQeXuYPMmbf63gxBwHfH3jxtJMQv41AKnYYgBnDdHbmTn/of8b0BJ4OS0zFZ5kcpU/voipq1
+	8VX/VDtijVnD+K0VjIldV0TveOeGPJ5wC6KJLl2xuQPGI3YgK25x9uLrYOgyA5i18pBjoCtChcs
+	e
+X-Google-Smtp-Source: AGHT+IFUfj3TyCrFutu553UQOEib7hMxBjRWs1iYI4Rx2JSgQkGoeQOxJ7nIxI49ynBzuMcSdaD3tA==
+X-Received: by 2002:a17:907:7d8f:b0:aba:5f40:75e1 with SMTP id a640c23a62f3a-abbf3d4820cmr120617966b.57.1740040142735;
+        Thu, 20 Feb 2025 00:29:02 -0800 (PST)
+Message-ID: <0160ad32-3ff8-4e92-b571-6272497d1e13@suse.com>
+Date: Thu, 20 Feb 2025 09:29:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] x86/dom0: correctly set the maximum ->iomem_caps
- bound for PVH
+Subject: Re: [PATCH v3 2/3] x86/iommu: account for IOMEM caps when populating
+ dom0 IOMMU page-tables
 To: Roger Pau Monne <roger.pau@citrix.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 References: <20250219164840.94803-1-roger.pau@citrix.com>
- <20250219164840.94803-2-roger.pau@citrix.com>
+ <20250219164840.94803-3-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,41 +118,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250219164840.94803-2-roger.pau@citrix.com>
+In-Reply-To: <20250219164840.94803-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 19.02.2025 17:48, Roger Pau Monne wrote:
-> The logic in dom0_setup_permissions() sets the maximum bound in
-> ->iomem_caps unconditionally using paddr_bits, which is not correct for HVM
-> based domains.  Instead use domain_max_paddr_bits() to get the correct
-> maximum paddr bits for each possible domain type.
+> The current code in arch_iommu_hwdom_init() kind of open-codes the same
+> MMIO permission ranges that are added to the hardware domain ->iomem_caps.
+> Avoid this duplication and use ->iomem_caps in arch_iommu_hwdom_init() to
+> filter which memory regions should be added to the dom0 IOMMU page-tables.
 > 
-> Switch to using PFN_DOWN() instead of PAGE_SHIFT, as that's shorter.
+> Note the IO-APIC and MCFG page(s) must be set as not accessible for a PVH
+> dom0, otherwise the internal Xen emulation for those ranges won't work.
+> This requires adjustments in dom0_setup_permissions().
 > 
-> Fixes: 53de839fb409 ('x86: constrain MFN range Dom0 may access')
+> The call to pvh_setup_mmcfg() in dom0_construct_pvh() must now strictly be
+> done ahead of setting up dom0 permissions, so take the opportunity to also
+> put it inside the existing is_hardware_domain() region.
+> 
+> Also the special casing of E820_UNUSABLE regions no longer needs to be done
+> in arch_iommu_hwdom_init(), as those regions are already blocked in
+> ->iomem_caps and thus would be removed from the rangeset as part of
+> ->iomem_caps processing in arch_iommu_hwdom_init().  The E820_UNUSABLE
+> regions below 1Mb are not removed from ->iomem_caps, that's a slight
+> difference for the IOMMU created page-tables, but the aim is to allow
+> access to the same memory either from the CPU or the IOMMU page-tables.
+> 
+> Since ->iomem_caps already takes into account the domain max paddr, there's
+> no need to remove any regions past the last address addressable by the
+> domain, as applying ->iomem_caps would have already taken care of that.
+> 
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
 > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
-> The fixes tag might be dubious, IIRC at that time we had PVHv1 dom0, which
-> would likely also need such adjustment, but not the current PVHv2.
 
-Probably better to omit it then. It would be one of the changes moving to
-PVHv2 that missed making the adjustment.
-
-> --- a/xen/arch/x86/dom0_build.c
-> +++ b/xen/arch/x86/dom0_build.c
-> @@ -481,7 +481,8 @@ int __init dom0_setup_permissions(struct domain *d)
->  
->      /* The hardware domain is initially permitted full I/O capabilities. */
->      rc = ioports_permit_access(d, 0, 0xFFFF);
-> -    rc |= iomem_permit_access(d, 0UL, (1UL << (paddr_bits - PAGE_SHIFT)) - 1);
-> +    rc |= iomem_permit_access(d, 0UL,
-> +                              PFN_DOWN(1UL << domain_max_paddr_bits(d)) - 1);
-
-Why PFN_DOWN() rather than subtracting PAGE_SHIFT? That's two shifts rather
-than just one. Personally I'd prefer if we continued using the subtraction,
-but either way:
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+
 
