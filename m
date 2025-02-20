@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68E27A3D762
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 11:53:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.893791.1302650 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D73D0A3DA36
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 13:38:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.893813.1302659 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tl4B5-0000cZ-T3; Thu, 20 Feb 2025 10:53:11 +0000
+	id 1tl5ni-00054w-1G; Thu, 20 Feb 2025 12:37:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 893791.1302650; Thu, 20 Feb 2025 10:53:11 +0000
+Received: by outflank-mailman (output) from mailman id 893813.1302659; Thu, 20 Feb 2025 12:37:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tl4B5-0000aC-QA; Thu, 20 Feb 2025 10:53:11 +0000
-Received: by outflank-mailman (input) for mailman id 893791;
- Thu, 20 Feb 2025 10:53:09 +0000
+	id 1tl5nh-00052r-UT; Thu, 20 Feb 2025 12:37:09 +0000
+Received: by outflank-mailman (input) for mailman id 893813;
+ Thu, 20 Feb 2025 12:37:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=r0o3=VL=ideasonboard.com=tomi.valkeinen@srs-se1.protection.inumbo.net>)
- id 1tl4B3-0000a6-Nz
- for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 10:53:09 +0000
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id de7899f5-ef78-11ef-9aa8-95dc52dad729;
- Thu, 20 Feb 2025 11:53:08 +0100 (CET)
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
- [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id C69249FC;
- Thu, 20 Feb 2025 11:51:42 +0100 (CET)
+ <SRS0=ie4y=VL=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tl5nh-00052l-0J
+ for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 12:37:09 +0000
+Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
+ [2607:f8b0:4864:20::634])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 64f66467-ef87-11ef-9aa8-95dc52dad729;
+ Thu, 20 Feb 2025 13:37:07 +0100 (CET)
+Received: by mail-pl1-x634.google.com with SMTP id
+ d9443c01a7336-220d601886fso12161245ad.1
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Feb 2025 04:37:07 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-220d545d0a9sm118109075ad.151.2025.02.20.04.37.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 Feb 2025 04:37:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,149 +44,168 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: de7899f5-ef78-11ef-9aa8-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1740048703;
-	bh=cGmqrMQrzQNKvOYoVbXWr6Lo7FskS49XuKpEvHODBjA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=wF6C4CGDoP+/HkpCLJaEAJQ5SUDGi9n0fFlEojmHm56G4KxPszUsR/q+aXtSRtihR
-	 AQoXwkJ+zXwR8f+vg71cO6pL6HL787yGlQcQZD3c6z5sRdwltXCONK8mS2/SPW2eEM
-	 lzKYZgKG0aXbNUjO1esnvXLsAJsX44MVKluFgT40=
-Message-ID: <596b960e-71f8-4c2c-9abe-058206df1dfb@ideasonboard.com>
-Date: Thu, 20 Feb 2025 12:53:03 +0200
+X-Inumbo-ID: 64f66467-ef87-11ef-9aa8-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1740055026; x=1740659826; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=tV5gknVESYVQ9d2LTtWONne+cfL3ZiDSeiDQ7lEQ3TA=;
+        b=jRl+Z+PVhQMrLdiouFgUM5Y1A2O5M7bOpRP4kXOg3yLypHLcIrBlZWRciOKFHwNJQr
+         X5vmV7wB4AAebo1ALNrPnkLEO0qI2dJhR1c9LXQ2tPl9ARnac1bNya848BLTdFuAd+fI
+         zt/CYx+Erq/S1Hop+fUJDkw0G3ZUsRUSxuG4k=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1740055026; x=1740659826;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=tV5gknVESYVQ9d2LTtWONne+cfL3ZiDSeiDQ7lEQ3TA=;
+        b=ok0KyHxD9FXfDWM274/NTVgxa+cCdH9Ku/6hnZR+tAdH8jRqGqML27OaiK2bzkqDub
+         lkFHVO7edLU+jDSIbV5dxfLBGk7rsGYhZFema85TQAkdkLrIHBH+LchyhpJawW6oDZW6
+         L6aSZF2WD85GkCdhHM68nfl9y0zhzXQOonshumVWJxnxWO2yvikJcLxGhSpD/MRqnpH8
+         vXGAGSuvEOKxDRujNDpvXL31LvHQOX65Vh7BdVKkbPpggG/zVAR/4MTdn2CuFjL1b0CH
+         BTTuJj2V030i7ADc9WPr2PJqBZafAZ+ksu7yy969OfZg2BH1VcsQtMwKJ6pt4xF9CGm9
+         rn0A==
+X-Forwarded-Encrypted: i=1; AJvYcCUylOC00rDLyzKvuCtvxb68WtoBaN/4AihUy7bL4ncEFHVPZtfqPFs36fvS9bLRp5dRKgW6ZB0htkw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwJNRsyXWtIx1fhHcuG4fqM3s34Ys4oZUbZm7HXRCmIX4ics7YO
+	G4GwbouLNR1XrO+dHgF9JC5QTejlPSWR3Qahf8vvigOdWedbimZH4BV1dKV3pK4=
+X-Gm-Gg: ASbGnct1dX2FKldVikPB2rQ8GYhfvCeQ+H24dcv+f9LVCCMgW6YvFfLN8ii+4BID/Iq
+	ArWLL//HFKYFPF12UK6pT9Cp79/ZUd/yC7jZ3E73DSaeFZqY98NQ9k7Aq6ytscKq5fXVlBXmTAn
+	lmb5BL81/JH0wQyFRCW/Mx6W8VG/et9r/T2gOotOf/6YID2pyjkif2AR+WxcFE2n/+7OM6+ylVJ
+	mijCwn2RKUIodKwFTQ2Ekkv6bzSJhXawBjrUWsr7YPJGTwQrqajTvERY0rUH++uX1nuugiRQI/K
+	4GJs7ZK+tY9MvMbG6Kc+
+X-Google-Smtp-Source: AGHT+IGnLfiN+9OyVcdiQQ7iTJn8jKRXGmncdQ0RmQiAzknf3bUN4IczClWpWXLQ+u35kGtMrJAeoQ==
+X-Received: by 2002:a17:902:ce03:b0:215:b1a3:4701 with SMTP id d9443c01a7336-22103f16850mr337065795ad.13.1740055026018;
+        Thu, 20 Feb 2025 04:37:06 -0800 (PST)
+Date: Thu, 20 Feb 2025 13:37:00 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: =?utf-8?B?UGF3ZcWC?= Srokosz <pawel.srokosz@cert.pl>,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	andrew cooper3 <andrew.cooper3@citrix.com>, JBeulich@suse.com
+Subject: Re: Memory corruption bug with Xen PV Dom0 and BOSS-S1 RAID card
+Message-ID: <Z7ch7Nk4Skibj-CN@macbook.local>
+References: <1050214476.1105853.1739823581696.JavaMail.zimbra@cert.pl>
+ <Z7RWdPpUde9ZoaZu@macbook.local>
+ <1001969494.1457790.1739990267113.JavaMail.zimbra@cert.pl>
+ <Z7bzAeb4UQTQUOsk@macbook.local>
+ <23b12ff3-717f-4321-b3be-9c39367b8d14@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/25] drm/dumb-buffers: Provide helper to set pitch
- and size
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-References: <20250218142542.438557-1-tzimmermann@suse.de>
- <20250218142542.438557-3-tzimmermann@suse.de>
- <dcd59a75-7945-4a2e-99f9-3abbb3e9de14@ideasonboard.com>
- <355ed315-61fa-4a9d-b72b-8d5bc7b5a16c@suse.de>
-Content-Language: en-US
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
- 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
-In-Reply-To: <355ed315-61fa-4a9d-b72b-8d5bc7b5a16c@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <23b12ff3-717f-4321-b3be-9c39367b8d14@suse.com>
 
-Hi,
-
-On 20/02/2025 12:05, Thomas Zimmermann wrote:
-> Hi
+On Thu, Feb 20, 2025 at 10:31:02AM +0100, Jürgen Groß wrote:
+> On 20.02.25 10:16, Roger Pau Monné wrote:
+> > On Wed, Feb 19, 2025 at 07:37:47PM +0100, Paweł Srokosz wrote:
+> > > Hello,
+> > > 
+> > > > So the issue doesn't happen on debug=y builds? That's unexpected.  I would
+> > > > expect the opposite, that some code in Linux assumes that pfn + 1 == mfn +
+> > > > 1, and hence breaks when the relation is reversed.
+> > > 
+> > > It was also surprising for me but I think the key thing is that debug=y
+> > > causes whole mapping to be reversed so each PFN lands on completely different
+> > > MFN e.g. MFN=0x1300000 is mapped to PFN=0x20e50c in ndebug, but in debug
+> > > it's mapped to PFN=0x5FFFFF. I guess that's why I can't reproduce the
+> > > problem.
+> > > 
+> > > > Can you see if you can reproduce with dom0-iommu=strict in the Xen command
+> > > > line?
+> > > 
+> > > Unfortunately, it doesn't help. But I have few more observations.
+> > > 
+> > > Firstly, I checked the "xen-mfndump dump-m2p" output and found that misread
+> > > blocks are mapped to suspiciously round MFNs. I have different versions of
+> > > Xen and Linux kernel on each machine and I see some coincidence.
+> > > 
+> > > I'm writing few huge files without Xen to ensure that they have been written
+> > > correctly (because under Xen both read and writeback is affected). Then I'm
+> > > booting to Xen, memory-mapping the files and reading each page. I see that when
+> > > block is corrupted, it is mapped on round MFN e.g. pfn=0x5095d9/mfn=0x1600000,
+> > > another on pfn=0x4095d9/mfn=0x1500000 etc.
+> > > 
+> > > On another machine with different Linux/Xen version these faults appear on
+> > > pfn=0x20e50c/mfn=0x1300000, pfn=0x30e50c/mfn=0x1400000 etc.
+> > > 
+> > > I also noticed that during read of page that is mapped to
+> > > pfn=0x20e50c/mfn=0x1300000, I'm getting these faults from DMAR:
+> > > 
+> > > ```
+> > > (XEN) [VT-D]DMAR:[DMA Write] Request device [0000:65:00.0] fault addr 1200000000
+> > > (XEN) [VT-D]DMAR: reason 05 - PTE Write access is not set
+> > > (XEN) [VT-D]DMAR:[DMA Write] Request device [0000:65:00.0] fault addr 1200001000
+> > > (XEN) [VT-D]DMAR: reason 05 - PTE Write access is not set
+> > > (XEN) [VT-D]DMAR:[DMA Write] Request device [0000:65:00.0] fault addr 1200006000
+> > > (XEN) [VT-D]DMAR: reason 05 - PTE Write access is not set
+> > > (XEN) [VT-D]DMAR:[DMA Write] Request device [0000:65:00.0] fault addr 1200008000
+> > > (XEN) [VT-D]DMAR: reason 05 - PTE Write access is not set
+> > > (XEN) [VT-D]DMAR:[DMA Write] Request device [0000:65:00.0] fault addr 1200009000
+> > > (XEN) [VT-D]DMAR: reason 05 - PTE Write access is not set
+> > > (XEN) [VT-D]DMAR:[DMA Write] Request device [0000:65:00.0] fault addr 120000a000
+> > > (XEN) [VT-D]DMAR: reason 05 - PTE Write access is not set
+> > > (XEN) [VT-D]DMAR:[DMA Write] Request device [0000:65:00.0] fault addr 120000c000
+> > > (XEN) [VT-D]DMAR: reason 05 - PTE Write access is not set
+> > > ```
+> > 
+> > That's interesting, it seems to me that Linux is assuming that pages
+> > at certain boundaries are superpages, and thus it can just increase
+> > the mfn to get the next physical page.
 > 
-> Am 20.02.25 um 10:18 schrieb Tomi Valkeinen:
-> [...]
->>> + * Color modes of 10, 12, 15, 30 and 64 are only supported for use by
->>> + * legacy user space. Please don't use them in new code. Other modes
->>> + * are not support.
->>> + *
->>> + * Do not attempt to allocate anything but linear framebuffer memory
->>> + * with single-plane RGB data. Allocation of other framebuffer
->>> + * layouts requires dedicated ioctls in the respective DRM driver.
->>
->> According to this, every driver that supports, say, NV12, should 
->> implement their own custom ioctl to do the exact same thing? And, of 
->> course, every userspace app that uses, say, NV12, should then add code 
->> for all these platforms to call the custom ioctls?
+> I'm not sure this is true. See below.
 > 
-> Yes, that's exactly the current status.
+> > > and every time I'm dropping the cache and reading this region, I'm getting
+> > > DMAR faults on few random addresses from 1200000000-120000f000 range (I guess
+> > > MFNs 0x1200000-120000f). MFNs 0x1200000-0x12000ff are not mapped to any PFN in
+> > > Dom0 (based on xen-mfndump output.).
+> > 
+> > It would be very interesting to figure out where those requests
+> > originate, iow: which entity in Linux creates the bios with the
+> > faulting address(es).
 > 
-> There has been discussion about a new dumb-create ioctl that takes a DRM 
-> format as parameter. I'm all for it, but it's out of the scope for this 
-> series.
+> I _think_ this is related to the kernel trying to get some contiguous areas
+> for the buffers used by the I/Os. As those areas are being given back after
+> the I/O, they don't appear in the mfndump.
 > 
->>
->> As libdrm's modetest currently supports YUV formats with dumb buffers, 
->> should we remove that code, as it's not correct and I'm sure people 
->> use libdrm code as a reference?
+> > It's a wild guess, but could you try to boot Linux with swiotlb=force
+> > on the command line and attempt to trigger the issue?  I wonder
+> > whether imposing the usage of the swiotlb will surface the issues as
+> > CPU accesses, rather then IOMMU faults, and that could get us a trace
+> > inside Linux of how those requests are generated.
+> > 
+> > > On the other hand, I'm not getting these DMAR faults while reading other regions.
+> > > Also I can't trigger the bug with reversed Dom0 mapping, even if I fill the page
+> > > cache with reads.
+> > 
+> > There's possibly some condition we are missing that causes a component
+> > in Linux to assume the next address is mfn + 1, instead of doing the
+> > full address translation from the linear or pfn space.
 > 
-> Of course not.
+> My theory is:
 > 
->>
->> Well, I'm not serious above, but I think all my points from the 
->> earlier version are still valid. I don't like this. It changes the 
->> parameters of the ioctl (bpp used to be bits-per-pixel, not it's 
->> "color mode"), and the behavior of the ioctl, behavior that we've had 
->> for a very long time, and we have no idea how many users there are 
->> that will break (could be none, of course). And the documentation 
->> changes make the current behavior and uses wrong or legacy.
+> The kernel is seeing the used buffer to be a physically contiguous area,
+> so it is _not_ using a scatter-gather list (it does in the debug Xen case,
+> resulting in it not to show any errors). Unfortunately the buffer is not
+> aligned to its size, so swiotlb-xen will remap the buffer to a suitably
+> aligned one. The driver will then use the returned machine address for
+> I/Os to both the devices of the RAID configuration. When the first I/O is
+> done, the driver probably is calling the DMA unmap or device sync function
+> already, causing the intermediate contiguous region to be destroyed again
+> (this is the time when the DMAR errors should show up for the 2nd I/O still
+> running).
 > 
-> Before I go into details about this statement, what use case exactly are 
-> you referring to when you say that behavior changes?
+> So the main issue IMHO is, that a DMA buffer mapped for one device is used
+> for 2 devices instead.
 
-For every dumb_buffer allocation with bpp that is not divisible by 8, 
-the result is different, i.e. instead of DIV_ROUND_UP(width * bpp, 8), 
-we now have width * DIV_ROUND_UP(bpp, 8). This, of course, depends on 
-the driver implementation. Some already do the latter.
+But that won't cause IOMMU faults?  Because the memory used by the
+bounce buffer would still be owned by dom0 (and thus part of it's IOMMU
+page-tables), just probably re-written to contain different data.
 
-This change also first calls the drm_driver_color_mode_format(), which 
-could change the behavior even more, but afaics at the moment does not. 
-Although, maybe some platform does width * DIV_ROUND_UP(bpp, 8) even for 
-bpp < 8, and then this series changes it for 1, 2 and 4 bpps (but not 
-for 3, 5, 6, 7, if I'm not mistaken).
+Or is the swiotlb contiguous region torn down after every operation?
+That would seem extremely wasteful to me, I assume the buffer is
+allocated during device init, and stays the same until the device is
+detached.
 
-However, as the bpp is getting rounded up, this probably won't break any 
-user. But it _is_ a change in the behavior of a uapi, and every time we 
-change a uapi that's been out there for a long time, I'm getting 
-slightly uncomfortable.
-
-So, as a summary, I have a feeling that nothing will break, but I can't 
-say for sure. And as I'm having trouble seeing the benefit of this 
-change for the user, I get even more uncomfortable.
-
-  Tomi
-
+Thanks, Roger.
 
