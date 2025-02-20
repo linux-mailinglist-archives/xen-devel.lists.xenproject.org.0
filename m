@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1714EA3D260
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 08:33:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.893534.1302404 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFE1AA3D261
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 08:34:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.893543.1302414 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tl13B-0001UT-Ks; Thu, 20 Feb 2025 07:32:49 +0000
+	id 1tl157-000215-Sk; Thu, 20 Feb 2025 07:34:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 893534.1302404; Thu, 20 Feb 2025 07:32:49 +0000
+Received: by outflank-mailman (output) from mailman id 893543.1302414; Thu, 20 Feb 2025 07:34:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tl13B-0001SU-GJ; Thu, 20 Feb 2025 07:32:49 +0000
-Received: by outflank-mailman (input) for mailman id 893534;
- Thu, 20 Feb 2025 07:32:47 +0000
+	id 1tl157-0001zW-PP; Thu, 20 Feb 2025 07:34:49 +0000
+Received: by outflank-mailman (input) for mailman id 893543;
+ Thu, 20 Feb 2025 07:34:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YfIj=VL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tl139-0001SO-Ni
- for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 07:32:47 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
+ id 1tl156-0001zO-Jr
+ for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 07:34:48 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e05863f6-ef5c-11ef-9896-31a8f345e629;
- Thu, 20 Feb 2025 08:32:45 +0100 (CET)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-5e0939c6456so936940a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 23:32:45 -0800 (PST)
+ id 28b17dac-ef5d-11ef-9896-31a8f345e629;
+ Thu, 20 Feb 2025 08:34:46 +0100 (CET)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-5ded6c31344so916461a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2025 23:34:46 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aba5337673dsm1398890266b.89.2025.02.19.23.32.44
+ a640c23a62f3a-abbe1326bd1sm209547666b.172.2025.02.19.23.34.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Feb 2025 23:32:44 -0800 (PST)
+ Wed, 19 Feb 2025 23:34:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e05863f6-ef5c-11ef-9896-31a8f345e629
+X-Inumbo-ID: 28b17dac-ef5d-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740036765; x=1740641565; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1740036886; x=1740641686; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4vdhKcv7rCfTYirP7UrIts9AOx7kf+Za9cZERXyjJNc=;
-        b=crHFtzTYx4+m6WUI5fu5+oVQfeJXPjNJClm9f065RmjkQhKzfOc3YIIEEsPt8F8/Cc
-         M0QDRc+fsWNb5G+BBdpZZcJE4Ru6R6hl36xTXj/R6l6E8O7bLlZpv2Y9rKeaDqXC2pvM
-         +3evalXDtiid0zsPck+gztJ5vS2Si5ysB/wb9+7L/7ygDq9Imx1N66XF/YpR/v9BQX7j
-         /AowJnc7XkfBXTMJPU3hUhqL0sFn57FNto7FfKYonv0gqJDCsvwRiTZ7rey8ttAv7+Qc
-         V7lsStck+XBywT/9nnY4yYpwNDe7mBX6AwfcgREOplKbauw8Ot3lUKXD6lFx+Rn1+/Et
-         ha1g==
+        bh=TXlCZTREg30Phv/VcStZrdn5eMccFmVey7/j5JQkYLo=;
+        b=HZk82w0kgiSZWlTFeQzSvan1Goevta0BPwCH+eWqz5MZbSZvFoCQArfBWdZbGk2JPW
+         Vo5en4Xg4hrp+922L+qzi94Rxh5veHabeiFV+jq//c3pnNFIcMuTIsdqmMxgV1UrUyaL
+         artDH17Y0Xpf++hbNHZ2Zg6bTECOdPFmoDq++o8KgPZVvKP+yQ5SYj3V7wRytE2DH2ud
+         KBGp3gMTLQL9EI/YXYKQPC/oypTVqBVx9gYz4/Dql01xdTLECqtomIf3TT0HiTzidtm/
+         wijv5F6pPf3k12vx21kWktxoYmd48PI/RKrfJBg3NB1HwXH0o0Y1FqVR7bVD0TJq3jNM
+         GPNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740036765; x=1740641565;
+        d=1e100.net; s=20230601; t=1740036886; x=1740641686;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4vdhKcv7rCfTYirP7UrIts9AOx7kf+Za9cZERXyjJNc=;
-        b=X7qAkJ3KwWTIjSfZe3w3znrqIoWJU4ky5XDaeTeBNBQUzpQh+j9a7kL0Afze3MIuNN
-         ACKP2n4OcLO86+O+oOp1QSKWBpS5q++isM7cKh7WwETUYWHfJuVTIJ6L1a9a2DVg7FDt
-         X28xnKICe7Ns4Ia64yT7hw7WEx6WADBJzRMMExQbsoW0X3kZ8vteR6/aTObQ9vKvAeR0
-         4JFTGS0xtiKSAS/4gu8/68WmGD93sphAt/AeMEPDUso3KY5qnv1LJR8x2h9mSEt1ei+c
-         OGvd+C3ntSfsc+W/K1tdJDVnOLixBbeEdQrKJxO999Lx0nckwBek4WAycdbMRBXQyjX+
-         MrFA==
-X-Forwarded-Encrypted: i=1; AJvYcCU7GqWd5OKv43d/mrbOJqcJbIyLZZSpTG57NNchwQhFk7kRZL+aRHkkzxmvE5AfyjElsDs5p6Bq4RI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwVa+c/ZuzrOmtl6NYNEmGi0xyW4JXDV0EETdg71p1+nwzHOR1F
-	g6D8gKCLI4xCLvbKaG/PcivaMC4vXW+QcIGPTVal9bAHIYW4PJESnp6Ze//ULQ==
-X-Gm-Gg: ASbGncvZssWzrIAZtuwrxeFXoCURHsv54gY+ttAVakY3Lwqq8m55XwUEsIURp2ROZ4+
-	WN9MljFtZFmsnmvTFFPANFTjX61OowZoHpGpUq6LmmACGONwTOalpsAkPkKl7xh2xhNPZWce4/I
-	qLRAQMqWw7iQT80HUBIYa1VMZ6c1FCmG2xJ7vVVsJn14Q+sBuCnX0R8j0r63gNTxuUNzRcIRaJ9
-	mL13VsFUmlf+wF4LyeBhdkGsfR/6/vK+w8LW+Mhy5rHTxqRVBojz0jhR8qiPaSyWEsGYt4lVSWA
-	LpFaUKueBSfVwB6k8/YVXisLsUGYCOdvi7qpXUUX/wgB2zAtus5w6LB6oqDtnFiPVT5nJF3w2hj
-	1
-X-Google-Smtp-Source: AGHT+IGl/gsoR7VGPP5O7iiUy8GP+nSG+ZPwXOxWirmUO1+B0uXT5S7EXX+n84iKVK4lAPSQtgqvUw==
-X-Received: by 2002:a17:907:930a:b0:ab7:e7c5:b373 with SMTP id a640c23a62f3a-abb70e3b378mr1980231166b.55.1740036764613;
-        Wed, 19 Feb 2025 23:32:44 -0800 (PST)
-Message-ID: <f35ef066-2829-46c3-a65a-97436d8b39e2@suse.com>
-Date: Thu, 20 Feb 2025 08:32:43 +0100
+        bh=TXlCZTREg30Phv/VcStZrdn5eMccFmVey7/j5JQkYLo=;
+        b=qRlnRSndbjOLLKn/4OJQRTV8SrDkPF0GOUIlPEljagLf9IEUkBj/GYIqb4iJF3g7pk
+         WQSURvby7jt+XDjTOLDJi02BKaKfva9Uyz3O5q6UIRu0E3/3Y9SSnqDrD4QAg/4MT+Q5
+         v165vsRctVqyfIpOR5eyrwK/3SvsmNKrQo4u098IA5w5Ri6nSCfOyZQepsBvwL3Z9XTZ
+         I3xyZwJRdx3YiSyiwNRi1g417VhcF7E1+ZmLtNvC/+jc1IQKOlNnxt8tJeJ7sMRBT5jR
+         wAwtkXUq0nBtZauy/lgyGzK1iKOp3fb+rtB0XELLytLy5LPOcO7T29hTILpvf+EgbCtZ
+         qPrQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVrbJnbM5k9OL7pVqKOzD35At7iMs/LVv67eWoa3MF+gNW5z67grl/XtuYnymkRxpvpKdl8zXqXlCk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyS5Afv5KHBfB1gMZd+fvYxSh0KtQUUAU6bxaFHFswr0isy9FR5
+	50GdkYQpvtQWu9Z7k/WJOrkA3QlAO3vkSVgAt67gAdefZSaUi6OThSD+un0bkA==
+X-Gm-Gg: ASbGncvyMreOVtJ6gjlnxzYT1L5wf1dgjqP2A4Wa7L7O8ukFgc0XyDti7V6n4MD64xk
+	otYpIY1EnfvncbuDb/9rHP68f8rK1kpxDWBY/GplKrZ3mBfx30bHI3xy9kAAAYjTWFfe6CK0n+P
+	thvHOWXmqtA3bcD4OfNLqTYcPa54pMNYy2ly0CP07/w7C6+yZHsM2/XaZOt0CO0OHaqCe1eOYrd
+	7XAduMwioGA/7psN6sjjdhy5TqFPZH11+QvMhGnmBzUvtihG9ctsrA95zOn3hvnYltHP7vWpjz8
+	d+rD355CMt5zLD3Ih74O1bxR+y6Nf7c1KerQmuG/SDVgMcYmMKM6qZjvSBnpYdJ5Io3WPpiKg76
+	K
+X-Google-Smtp-Source: AGHT+IEMuXMJGPPT2Ws4wg8HQb+QDkVYZPR6uezyXiyYJrxl+rZP2W8apIJFF3KDAGe7Ai0KwhFwKw==
+X-Received: by 2002:a05:6402:2347:b0:5e0:8c55:50d with SMTP id 4fb4d7f45d1cf-5e08c5514bbmr13252311a12.14.1740036886140;
+        Wed, 19 Feb 2025 23:34:46 -0800 (PST)
+Message-ID: <792cb63d-35b3-4a8d-a1f2-25592e6c1bac@suse.com>
+Date: Thu, 20 Feb 2025 08:34:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6] Avoid crash calling PrintErrMesg from efi_multiboot2
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20250217162659.151232-1-frediano.ziglio@cloud.com>
- <77eb149c-bb1e-4f77-85ba-c44b173a5c1e@suse.com>
- <ddfee078-409e-4253-9d51-b2f512b41e63@citrix.com>
- <CACHz=ZhuOL3Le=+y0zFRaWBDEdLO_faLKZ83072Z0e88wZMpPw@mail.gmail.com>
- <1923357b-c303-4900-9e2a-be4328ae4dc3@suse.com>
- <CACHz=Zhv5jnQ-amWwcjxOD0L+vNXFHbhs+qUkJp53MqUuwvQ1g@mail.gmail.com>
+Subject: Re: [PATCH for 4.21 v6 1/2] xen/riscv: drop CONFIG_RISCV_ISA_RV64G
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1739355004.git.oleksii.kurochko@gmail.com>
+ <82c9611b923170b0525a7b76337ef067e359dc96.1739355004.git.oleksii.kurochko@gmail.com>
+ <10155bb3-20c8-4d08-aafc-df41112c91c9@suse.com>
+ <bc198221-7a98-4f61-af75-01decaebbdb7@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,51 +125,54 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CACHz=Zhv5jnQ-amWwcjxOD0L+vNXFHbhs+qUkJp53MqUuwvQ1g@mail.gmail.com>
+In-Reply-To: <bc198221-7a98-4f61-af75-01decaebbdb7@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 19.02.2025 17:34, Frediano Ziglio wrote:
-> On Mon, Feb 17, 2025 at 4:56 PM Jan Beulich <jbeulich@suse.com> wrote:
->> On 17.02.2025 17:52, Frediano Ziglio wrote:
->>> On Mon, Feb 17, 2025 at 4:41 PM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
->>>> On 17/02/2025 4:31 pm, Jan Beulich wrote:
->>>>> On 17.02.2025 17:26, Frediano Ziglio wrote:
->>>>>> --- a/xen/common/efi/efi-common.mk
->>>>>> +++ b/xen/common/efi/efi-common.mk
->>>>>> @@ -2,6 +2,7 @@ EFIOBJ-y := boot.init.o pe.init.o ebmalloc.o runtime.o
->>>>>>  EFIOBJ-$(CONFIG_COMPAT) += compat.o
->>>>>>
->>>>>>  CFLAGS-y += -fshort-wchar
->>>>>> +CFLAGS-y += -fno-jump-tables
->>>>>>  CFLAGS-y += -iquote $(srctree)/common/efi
->>>>>>  CFLAGS-y += -iquote $(srcdir)
->>>>> Do source files other than boot.c really need this? Do any other files outside
->>>>> of efi/ maybe also need this (iirc this point was made along with the v5 comment
->>>>> you got)?
->>>>
->>>> Every TU reachable from efi_multiboot2() needs this, because all of
->>>> those have logic executed at an incorrect virtual address.
->>>
->>> I assume all the files in efi directory will deal with EFI boot so
->>> it's good to have the option enabled for the files inside the
->>> directory. The only exception seems runtime.c file.
->>
->> And compat.c, being a wrapper around runtime.c.
->>
->>> About external dependencies not sure how to detect them (beside
->>> looking at all symbols).
->>
->> Which raises the question whether we don't need to turn on that option
->> globally, without (as we have it now) any condition.
+On 19.02.2025 18:56, Oleksii Kurochko wrote:
 > 
-> I would avoid adding a potential option that could affect performances
-> so badly at the moment.
-> These changes are pretty contained.
-> I would merge this patch and check any external dependencies as a follow up.
+> On 2/18/25 6:03 PM, Jan Beulich wrote:
+>>> --- a/xen/arch/riscv/arch.mk
+>>> +++ b/xen/arch/riscv/arch.mk
+>>> @@ -6,8 +6,13 @@ $(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
+>>>   riscv-abi-$(CONFIG_RISCV_32) := -mabi=ilp32
+>>>   riscv-abi-$(CONFIG_RISCV_64) := -mabi=lp64
+>>>   
+>>> -riscv-march-$(CONFIG_RISCV_ISA_RV64G) := rv64g
+>>> -riscv-march-$(CONFIG_RISCV_ISA_C)       := $(riscv-march-y)c
+>>> +riscv-march-$(CONFIG_RISCV_64) := rv64
+>>> +
+>>> +riscv-march-y := $(riscv-march-y)ima
+>>> +
+>>> +riscv-march-$(CONFIG_RISCV_ISA_C) := $(riscv-march-y)c
+>>> +
+>>> +riscv-march-y := $(riscv-march-y)_zicsr_zifencei
+>> The repeated use of := makes this longer than necessary, and hence harder to
+>> read. I understand using += isn't exactly ideal either, because then on the rhs
+>> no blanks may appear (aiui), being kind of against our style and potentially
+>> hampering readability. Still maybe:
+>>
+>> riscv-march-$(CONFIG_RISCV_64) := rv64
+>> riscv-march-y+=ima
+>> riscv-march-$(CONFIG_RISCV_ISA_C)+=c
+>> riscv-march-y+=_zicsr_zifencei
+>>
+>> ?
+> 
+> Btw, I think that we will still anyway strip spaces added by '+='. So it will also need to do something like:
+>    [1] riscv-generic-flags := $(riscv-abi-y) -march=$(subst $(space),,$(riscv-march-y))
+> 
+> As without this I expect that -march will look like:
+>    -march=rv64 ima c _zicsr_zifencei
+> 
+> With the change [1] we could have spaces around "+=":
+>    riscv-march-y += ima
+>    riscv-march-$(CONFIG_RISCV_ISA_C) += c
+>    riscv-march-y += _zicsr_zifencei
+> 
+>    riscv-generic-flags := $(riscv-abi-y) -march=$(subst $(space),,$(riscv-march-y))
 
-Well. It's a judgement call to the maintainers. If I were them, I'd demand
-that Andrew's remark be addressed, one way or another.
+That would be fine with me of course, for being yet tidier (imo).
 
 Jan
 
