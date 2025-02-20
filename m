@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5B8BA3D460
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 10:17:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.893652.1302520 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 571F0A3D465
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 10:18:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.893661.1302529 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tl2g2-0004T5-GN; Thu, 20 Feb 2025 09:17:02 +0000
+	id 1tl2hU-0004yv-QA; Thu, 20 Feb 2025 09:18:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 893652.1302520; Thu, 20 Feb 2025 09:17:02 +0000
+Received: by outflank-mailman (output) from mailman id 893661.1302529; Thu, 20 Feb 2025 09:18:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tl2g2-0004Q4-DJ; Thu, 20 Feb 2025 09:17:02 +0000
-Received: by outflank-mailman (input) for mailman id 893652;
- Thu, 20 Feb 2025 09:17:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tl2hU-0004w4-NM; Thu, 20 Feb 2025 09:18:32 +0000
+Received: by outflank-mailman (input) for mailman id 893661;
+ Thu, 20 Feb 2025 09:18:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ie4y=VL=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tl2g0-0004Py-Uj
- for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 09:17:00 +0000
-Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
- [2607:f8b0:4864:20::1033])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6d77b441-ef6b-11ef-9896-31a8f345e629;
- Thu, 20 Feb 2025 10:16:55 +0100 (CET)
-Received: by mail-pj1-x1033.google.com with SMTP id
- 98e67ed59e1d1-2fc32756139so1092665a91.1
- for <xen-devel@lists.xenproject.org>; Thu, 20 Feb 2025 01:16:55 -0800 (PST)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7327eb20b98sm7282833b3a.147.2025.02.20.01.16.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Feb 2025 01:16:53 -0800 (PST)
+ <SRS0=zkM0=VL=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1tl2hT-0004vv-SC
+ for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 09:18:31 +0000
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [2a00:1450:4864:20::22e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a6af59ec-ef6b-11ef-9aa8-95dc52dad729;
+ Thu, 20 Feb 2025 10:18:30 +0100 (CET)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-3076262bfc6so6665681fa.3
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Feb 2025 01:18:30 -0800 (PST)
+Received: from [172.24.85.51] ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3092b270c73sm17255441fa.9.2025.02.20.01.18.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 20 Feb 2025 01:18:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,131 +44,168 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d77b441-ef6b-11ef-9896-31a8f345e629
+X-Inumbo-ID: a6af59ec-ef6b-11ef-9aa8-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1740043014; x=1740647814; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=pQONPwbTG+QYAIKUBVC8gCShzCoUPb7Ok01XCRCbOPg=;
-        b=oyKz1YdI+MF9SuOLgQKceBP596ZjTuK5chkpsObucIB4BFUTW5VU3GNLYkCALVcKmL
-         5e8XuopNpKzl1akHa3DwEmPkw+FpQaRAWIY3A+NSUSXW/ev+CDQ3pZh+wLuOevCRseNa
-         88K6h7e94fmH9cf2yqShRa4BgrnDL7qBjcpBU=
+        d=gmail.com; s=20230601; t=1740043110; x=1740647910; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=HjOac9/ho41mGe3aAgNT6sndPVOIr+U0FOWtJH6Asvc=;
+        b=hF4HDNAZ/7iYu2ltOArTtR6zeGgLtLdrKuTieYW8lcv8OJ0ju6I+BpuO9ZYSc54W74
+         5SWJW0Tw3z2+PI2XwUDbn4Jspk873SkM+VXMPi/7p/wH6689GUv2moLQHq0A01oIWxlY
+         8QHdLiZy3Nmwx7Li1/D6iAspRDRuwqo4uGf89/DMnX7hBkJUnXXGjk/ZyC1IcwmlMInf
+         PgRDoOMnOsaSxOKKlLKhSNfgUX0MIE4UOSWw+n2/hZiFTnndu37kmdMrh0PBse0H4MTQ
+         GTbaApmdXz4BDeqJb0Xsi836/fJ23MOVPLDj7XO2vZof7wpTFcnhHl3Gwzx1yXNFOzRE
+         If2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740043014; x=1740647814;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=pQONPwbTG+QYAIKUBVC8gCShzCoUPb7Ok01XCRCbOPg=;
-        b=KqDzebYr8CJ1sFdkTL/3eycH38z6GDdt+6R5BRF6mBtzFpxe4FZVZwX9GvtdodqXk8
-         yNIuvKYMQvqt88Ar2yVF1x/HUUb6mEKv1PE/b8/nZ3eiUWrX+FssPO1eQu44QaSHk2mv
-         6528LRKxKswMKJSaaaUXHZVAt1B3h2jHuoRd8xm4lCoCoiIUL2BxSlVMMs184hkFFt0d
-         UADsifP4IHfc8v1GTDu26E9ETIyFN/h643OQ1ugSKp/6gtXCaZPLMU8UEpYDZvB/lt5T
-         e9bnoVeObV6kokPUZ1gDmtcOU9AXVDJ801Pe0XVp4Uu0JAY0LVibhAVsPFRv31jr6ylB
-         2GOA==
-X-Gm-Message-State: AOJu0YzObz9TgyoYaPHGLw0vQpmPsFV6+4+E1h3wTazPAgHwJoGlTA+B
-	6LXn24Wi7RfSzYA/XQrY5vDsyXmzK4TT/eQKRBi9W4hXLUh1zFREdDiKf4UmcTg=
-X-Gm-Gg: ASbGncuhdvAiZdtpUsQi3Ueh1cpNnbpl+X9awtryCvv5zxH/ZIsw8EtCjPEHYCm74Tr
-	etFf1VAr0EJ9FE59eQOkOqLrCOBzaqpiYsBgrNsqGDYFvQsIjP/IdrN7llKK5a7HwBn0uLly8Ds
-	ZT2l+LCAuuIGv8DekTsCu5OwXIogbev3IqKA6BK5h3dxkkm00vZcRItxjS8uS8SnCSnVTEb9WrD
-	CM2VawrmOs27o73TGaq9VwbyKQ8O/dfNqujMdSe3AN54jlUEbGuPFJujBfmjRzmG0Wv0ipCqN3J
-	430NlvbRkefDxl3z2E1oOKdVFQ==
-X-Google-Smtp-Source: AGHT+IFLFZSvkaGiBv4PilracK41xrFGvOHQSmC334ppuPZ8SH0dVkpHSO2Md2qXa0jGz7UGsrQqWA==
-X-Received: by 2002:a05:6a00:124e:b0:732:23ed:9470 with SMTP id d2e1a72fcca58-73261901144mr30979194b3a.23.1740043014156;
-        Thu, 20 Feb 2025 01:16:54 -0800 (PST)
-Date: Thu, 20 Feb 2025 10:16:49 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: =?utf-8?B?UGF3ZcWC?= Srokosz <pawel.srokosz@cert.pl>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, jgross@suse.com,
-	andrew cooper3 <andrew.cooper3@citrix.com>, JBeulich@suse.com
-Subject: Re: Re: Memory corruption bug with Xen PV Dom0 and BOSS-S1 RAID card
-Message-ID: <Z7bzAeb4UQTQUOsk@macbook.local>
-References: <1050214476.1105853.1739823581696.JavaMail.zimbra@cert.pl>
- <Z7RWdPpUde9ZoaZu@macbook.local>
- <1001969494.1457790.1739990267113.JavaMail.zimbra@cert.pl>
+        d=1e100.net; s=20230601; t=1740043110; x=1740647910;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=HjOac9/ho41mGe3aAgNT6sndPVOIr+U0FOWtJH6Asvc=;
+        b=bsC86MR4xNrJerp1qXFYupnrF8zsKItMKH42fPReaWekSQr7n4it/K0yQkQMIQV8fU
+         IJfdWlP0vLn9NhztqrosKQXrD/EapL31tHM8YOEQfQIUCGmnS0Te2kPKKVTsTWyoPlIB
+         sSkrpZVJPQKw2JSBokRv8kopSrV1qDcXpLPcTFamkjnw4Wjttx6XRXJHNp4kxx093giL
+         1lGP3psaM0yFqtluYgT8weoMDqy0SPFydd8w0YeQ5SI9fqWrGKhRcKgYFudFKLtX0Of9
+         bWC6t5L77t3teSayprA1GVOS1/sOuz2HHahHmC6L1f7rq4Y9UIEJ4+BPYuJyhbXeOeYd
+         GPDA==
+X-Forwarded-Encrypted: i=1; AJvYcCXbOGo62Oo5iImQgfCAo3yOAs2Nl9jhDTMI3l0HzNmHXvuc4bCvJ9uhQlo4VSJCT+wTBBaeNIDNJb8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw0sY5/Opq77m3Z4Ygo3mUj1r/SzijLtx2yOe6dMP+KeDMa7z67
+	qhw5WOLdlRQq5VmPqpE4jJnx3vz9eNRRR3goTCh92fTdBr8Su+d0
+X-Gm-Gg: ASbGncvHCgVqgIQ/qOzRmZy+zdDBeV7Gw4GWcQXbI00fz7OppWhHxFZZ+mG6rY057JC
+	vu3PAI7Ij7iA99gdhVpg9cd+f6e0cZirpom7i+gRjYyA69BK6Ze3HJ1U9hCOlUDlK7lYKs8d5Ce
+	FOL1UkeY4na6NdXTmwFs0CoIMayFOIXZCZRx0ayxR9EPaonIdPlRa5SJbz4qmjM035Cnft0DEPN
+	b/aVOFEn0w47bwV1mmn8bybytL2BTv/bQzIT+q6IH+FNmxel6GgkoUp2aaBUh6JX9NBRlw1+dKM
+	USHhIZgGUcMAyZD0h8DMceNo
+X-Google-Smtp-Source: AGHT+IFRP3Mw0MwPB4QtD5OTTVLL0sQY/YY/OdSb+KGhWccKes/T9MwtkTlkWfYsTFRCAaG+DKod3w==
+X-Received: by 2002:a2e:95c4:0:b0:309:1d34:1089 with SMTP id 38308e7fff4ca-3092796aa74mr70931881fa.0.1740043109859;
+        Thu, 20 Feb 2025 01:18:29 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------R0CrVUIZo0TDrRbCu5D2gGCO"
+Message-ID: <86730a83-2044-4fbb-9600-aee19668f13a@gmail.com>
+Date: Thu, 20 Feb 2025 10:18:28 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <1001969494.1457790.1739990267113.JavaMail.zimbra@cert.pl>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/MCE-telem: adjust cookie definition
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <stefano@stabellini.net>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>
+References: <bd74b357-b254-4c43-a417-f26434361340@suse.com>
+ <84298eb0-42cb-4967-b382-71cb309a7359@citrix.com>
+ <alpine.DEB.2.22.394.2502191748470.1791669@ubuntu-linux-20-04-desktop>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <alpine.DEB.2.22.394.2502191748470.1791669@ubuntu-linux-20-04-desktop>
 
-On Wed, Feb 19, 2025 at 07:37:47PM +0100, Paweł Srokosz wrote:
-> Hello,
-> 
-> > So the issue doesn't happen on debug=y builds? That's unexpected.  I would
-> > expect the opposite, that some code in Linux assumes that pfn + 1 == mfn +
-> > 1, and hence breaks when the relation is reversed.
-> 
-> It was also surprising for me but I think the key thing is that debug=y
-> causes whole mapping to be reversed so each PFN lands on completely different
-> MFN e.g. MFN=0x1300000 is mapped to PFN=0x20e50c in ndebug, but in debug
-> it's mapped to PFN=0x5FFFFF. I guess that's why I can't reproduce the
-> problem.
-> 
-> > Can you see if you can reproduce with dom0-iommu=strict in the Xen command
-> > line?
-> 
-> Unfortunately, it doesn't help. But I have few more observations.
-> 
-> Firstly, I checked the "xen-mfndump dump-m2p" output and found that misread
-> blocks are mapped to suspiciously round MFNs. I have different versions of
-> Xen and Linux kernel on each machine and I see some coincidence.
-> 
-> I'm writing few huge files without Xen to ensure that they have been written
-> correctly (because under Xen both read and writeback is affected). Then I'm
-> booting to Xen, memory-mapping the files and reading each page. I see that when 
-> block is corrupted, it is mapped on round MFN e.g. pfn=0x5095d9/mfn=0x1600000, 
-> another on pfn=0x4095d9/mfn=0x1500000 etc.
-> 
-> On another machine with different Linux/Xen version these faults appear on
-> pfn=0x20e50c/mfn=0x1300000, pfn=0x30e50c/mfn=0x1400000 etc.
-> 
-> I also noticed that during read of page that is mapped to
-> pfn=0x20e50c/mfn=0x1300000, I'm getting these faults from DMAR:
-> 
-> ```
-> (XEN) [VT-D]DMAR:[DMA Write] Request device [0000:65:00.0] fault addr 1200000000
-> (XEN) [VT-D]DMAR: reason 05 - PTE Write access is not set
-> (XEN) [VT-D]DMAR:[DMA Write] Request device [0000:65:00.0] fault addr 1200001000
-> (XEN) [VT-D]DMAR: reason 05 - PTE Write access is not set
-> (XEN) [VT-D]DMAR:[DMA Write] Request device [0000:65:00.0] fault addr 1200006000
-> (XEN) [VT-D]DMAR: reason 05 - PTE Write access is not set
-> (XEN) [VT-D]DMAR:[DMA Write] Request device [0000:65:00.0] fault addr 1200008000
-> (XEN) [VT-D]DMAR: reason 05 - PTE Write access is not set
-> (XEN) [VT-D]DMAR:[DMA Write] Request device [0000:65:00.0] fault addr 1200009000
-> (XEN) [VT-D]DMAR: reason 05 - PTE Write access is not set
-> (XEN) [VT-D]DMAR:[DMA Write] Request device [0000:65:00.0] fault addr 120000a000
-> (XEN) [VT-D]DMAR: reason 05 - PTE Write access is not set
-> (XEN) [VT-D]DMAR:[DMA Write] Request device [0000:65:00.0] fault addr 120000c000
-> (XEN) [VT-D]DMAR: reason 05 - PTE Write access is not set
-> ```
+This is a multi-part message in MIME format.
+--------------R0CrVUIZo0TDrRbCu5D2gGCO
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-That's interesting, it seems to me that Linux is assuming that pages
-at certain boundaries are superpages, and thus it can just increase
-the mfn to get the next physical page.
 
-> and every time I'm dropping the cache and reading this region, I'm getting
-> DMAR faults on few random addresses from 1200000000-120000f000 range (I guess 
-> MFNs 0x1200000-120000f). MFNs 0x1200000-0x12000ff are not mapped to any PFN in
-> Dom0 (based on xen-mfndump output.). 
+On 2/20/25 2:50 AM, Stefano Stabellini wrote:
+> On Wed, 19 Feb 2025, Andrew Cooper wrote:
+>> On 19/02/2025 10:00 am, Jan Beulich wrote:
+>>> struct mctelem_ent is opaque outside of mcetelem.c; the cookie
+>>> abstraction exists - afaict - just to achieve this opaqueness. Then it
+>>> is irrelevant though which kind of pointer mctelem_cookie_t resolves to.
+>>> IOW we can as well use struct mctelem_ent there, allowing to remove the
+>>> casts from COOKIE2MCTE() and MCTE2COOKIE(). Their removal addresses
+>>> Misra C:2012 rule 11.2 ("Conversions shall not be performed between a
+>>> pointer to an incomplete type and any other type") violations.
+>>>
+>>> No functional change intended.
+>>>
+>>> Signed-off-by: Jan Beulich<jbeulich@suse.com>
+>> https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/9181587757
+>>
+>> Eclair does appear to be happy with this approach (assuming I stripped
+>> down to only checking R11.2 correctly, and making it fatal).
+>>
+>> For the change itself, it's an almost identical binary, differing only
+>> in the string section which I expect means some embedded line numbers.
+>>
+>> Reviewed-by: Andrew Cooper<andrew.cooper3@citrix.com>
+> Thank you very much Jan for writing the patch, and thank you Andrew for
+> running the pipeline. It is great that resolves all the 11.2 issues!
+>
+> Oleksii, may I ask for a release-ack? I'll follow up with a patch to
+> mark 11.2 as clean.
 
-It would be very interesting to figure out where those requests
-originate, iow: which entity in Linux creates the bios with the
-faulting address(es).
+Release-Acked-By: Oleksii Kurochko<oleksii.kurochko@gmail.com>
 
-It's a wild guess, but could you try to boot Linux with swiotlb=force
-on the command line and attempt to trigger the issue?  I wonder
-whether imposing the usage of the swiotlb will surface the issues as
-CPU accesses, rather then IOMMU faults, and that could get us a trace
-inside Linux of how those requests are generated.
+~ Oleksii
 
-> On the other hand, I'm not getting these DMAR faults while reading other regions.
-> Also I can't trigger the bug with reversed Dom0 mapping, even if I fill the page
-> cache with reads.
+--------------R0CrVUIZo0TDrRbCu5D2gGCO
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-There's possibly some condition we are missing that causes a component
-in Linux to assume the next address is mfn + 1, instead of doing the
-full address translation from the linear or pfn space.
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2/20/25 2:50 AM, Stefano Stabellini
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:alpine.DEB.2.22.394.2502191748470.1791669@ubuntu-linux-20-04-desktop">
+      <pre wrap="" class="moz-quote-pre">On Wed, 19 Feb 2025, Andrew Cooper wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">On 19/02/2025 10:00 am, Jan Beulich wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">struct mctelem_ent is opaque outside of mcetelem.c; the cookie
+abstraction exists - afaict - just to achieve this opaqueness. Then it
+is irrelevant though which kind of pointer mctelem_cookie_t resolves to.
+IOW we can as well use struct mctelem_ent there, allowing to remove the
+casts from COOKIE2MCTE() and MCTE2COOKIE(). Their removal addresses
+Misra C:2012 rule 11.2 ("Conversions shall not be performed between a
+pointer to an incomplete type and any other type") violations.
 
-Thanks, Roger.
+No functional change intended.
+
+Signed-off-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+<a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/9181587757">https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/9181587757</a>
+
+Eclair does appear to be happy with this approach (assuming I stripped
+down to only checking R11.2 correctly, and making it fatal).
+
+For the change itself, it's an almost identical binary, differing only
+in the string section which I expect means some embedded line numbers.
+
+Reviewed-by: Andrew Cooper <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a>
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Thank you very much Jan for writing the patch, and thank you Andrew for
+running the pipeline. It is great that resolves all the 11.2 issues!
+
+Oleksii, may I ask for a release-ack? I'll follow up with a patch to
+mark 11.2 as clean.</pre>
+    </blockquote>
+    <pre>Release-Acked-By: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+
+~ Oleksii
+</pre>
+    <blockquote type="cite"
+cite="mid:alpine.DEB.2.22.394.2502191748470.1791669@ubuntu-linux-20-04-desktop">
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------R0CrVUIZo0TDrRbCu5D2gGCO--
 
