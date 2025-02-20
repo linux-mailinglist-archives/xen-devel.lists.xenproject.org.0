@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95DA1A3CF67
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 03:35:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.893506.1302383 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E4D8A3CF6B
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 03:36:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.893515.1302393 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkwP3-0000Bt-Rg; Thu, 20 Feb 2025 02:35:05 +0000
+	id 1tkwQ0-0000hn-4S; Thu, 20 Feb 2025 02:36:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 893506.1302383; Thu, 20 Feb 2025 02:35:05 +0000
+Received: by outflank-mailman (output) from mailman id 893515.1302393; Thu, 20 Feb 2025 02:36:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkwP3-00009P-Ow; Thu, 20 Feb 2025 02:35:05 +0000
-Received: by outflank-mailman (input) for mailman id 893506;
- Thu, 20 Feb 2025 02:35:04 +0000
+	id 1tkwQ0-0000fA-1c; Thu, 20 Feb 2025 02:36:04 +0000
+Received: by outflank-mailman (input) for mailman id 893515;
+ Thu, 20 Feb 2025 02:36:02 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/j1Y=VL=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tkwP2-00009J-Gh
- for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 02:35:04 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ id 1tkwPy-00009J-EI
+ for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 02:36:02 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4693fff4-ef33-11ef-9896-31a8f345e629;
- Thu, 20 Feb 2025 03:34:58 +0100 (CET)
+ id 6b9b98b4-ef33-11ef-9896-31a8f345e629;
+ Thu, 20 Feb 2025 03:36:00 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id EDE8D5C5AAC;
- Thu, 20 Feb 2025 02:34:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DE18C4CED1;
- Thu, 20 Feb 2025 02:34:55 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D8C1361188;
+ Thu, 20 Feb 2025 02:35:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA320C4CED1;
+ Thu, 20 Feb 2025 02:35:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,162 +41,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4693fff4-ef33-11ef-9896-31a8f345e629
+X-Inumbo-ID: 6b9b98b4-ef33-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1740018896;
-	bh=wTRnj8YnQXN4HGzIHwGyWTKVaAODtEsZ4abb26MWWCs=;
+	s=k20201202; t=1740018959;
+	bh=SbdckdtBaY7sQw0fKLiRRYUV7d0n/yW4ACz8pU4Weo0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=C99ICg+XvflWjxyOr/1xOqSDp1992iIvamG+fPc8aJCI3SqkBlAtO4djw/BkqGAsv
-	 07Fwi0O97DldsntPV2KOkzA/E/rYPn38k0qAh38EH5iUknzaibGxLzvJv2+2mKrY4A
-	 Ztf9wheIbc+dF/9tA3NRCloIM9VxHsOuomQiMvUsfU4VtRaK2Cb+O921VHuPXboHH9
-	 y05dFvyYtYiSuE8Jhq+NCgEK+AwejwOea+cQiXAZD+y2qkBwPWvd7tpil/Y9Ms3am7
-	 oM8SXfFzdxqtIDjEsyVHcO3KkGh3gUWcSdXCcqGr+FN+k5EyQ5KH9077zz8zjDcJSB
-	 pRH0ghFO9E7bw==
-Date: Wed, 19 Feb 2025 18:34:54 -0800 (PST)
+	b=WdTb3wwtkwDt3q84+wUJEhJIuizf4YoLWDszC2HP/PTdIIY68zT9/Te+YJRlDQR68
+	 sC7BfWAWk0z0MFXHFbrR7PzeBPB21E1mDnImolUYwh+Xf9kBEfUxtgyjalGnQnf67u
+	 ix+kxbURig3HN5LUauL0gPDPTovN74M9iiTdcg8U43ZagVJRWtCRRKyTnFvGif+B+R
+	 Lo7UUPsQRBqhoPRH6OEaCO8CqylPJpvM4K77+FouVE6q3eNH2zaLzDRKGmBt5xmltI
+	 i+Fw95vFWGZnlFnJzQY2F6pWGdenSqyAF2NjXV47EEtiTfuLi8dkTHU4/fquQcPNL6
+	 Sz7TEEBdJGNoA==
+Date: Wed, 19 Feb 2025 18:35:56 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Doug Goldstein <cardoe@cardoe.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
     Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v3 3/5] automation: allow selecting individual jobs via
- CI variables
-In-Reply-To: <95088c06171ce140caf48029118dcb6fd2ac8d99.1739933790.git-series.marmarek@invisiblethingslab.com>
-Message-ID: <alpine.DEB.2.22.394.2502191833090.1791669@ubuntu-linux-20-04-desktop>
-References: <cover.0fd3c8fb7cf6db337edfd5c5d6ea18bcc44bdef3.1739933790.git-series.marmarek@invisiblethingslab.com> <95088c06171ce140caf48029118dcb6fd2ac8d99.1739933790.git-series.marmarek@invisiblethingslab.com>
+Subject: Re: [PATCH v3 5/5] docs: add basic CI documentation
+In-Reply-To: <f5fd85826a24bb6d7048d2db1c9c8417bf13c026.1739933790.git-series.marmarek@invisiblethingslab.com>
+Message-ID: <alpine.DEB.2.22.394.2502191835010.1791669@ubuntu-linux-20-04-desktop>
+References: <cover.0fd3c8fb7cf6db337edfd5c5d6ea18bcc44bdef3.1739933790.git-series.marmarek@invisiblethingslab.com> <f5fd85826a24bb6d7048d2db1c9c8417bf13c026.1739933790.git-series.marmarek@invisiblethingslab.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1452106152-1740018896=:1791669"
+Content-Type: multipart/mixed; boundary="8323329-926116134-1740018958=:1791669"
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-1452106152-1740018896=:1791669
+--8323329-926116134-1740018958=:1791669
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8BIT
 
 On Wed, 19 Feb 2025, Marek Marczykowski-Górecki wrote:
-> Debugging sometimes involves running specific jobs on different
-> versions. It's useful to easily avoid running all of the not interesting
-> ones (for given case) to save both time and CI resources. Doing so used
-> to require changing the yaml files, usually in several places.
-> Ease this step by adding SELECTED_JOBS_ONLY variable that takes a regex.
-> Note that one needs to satisfy job dependencies on their own (for
-> example if a test job needs a build job, that specific build job
-> needs to be included too).
-> 
-> The variable can be specified via Gitlab web UI when scheduling a
-> pipeline, but it can be also set when doing git push directly:
-> 
->     git push -o ci.variable=SELECTED_JOBS_ONLY="/job1|job2/"
-> 
-> More details at https://docs.gitlab.co.jp/ee/user/project/push_options.html
-> 
-> The variable needs to include regex for selecting jobs, including
-> enclosing slashes.
-> A coma/space separated list of jobs to select would be friendlier UX,
-> but unfortunately that is not supported:
-> https://gitlab.com/gitlab-org/gitlab/-/issues/209904 (note the proposed
-> workaround doesn't work for job-level CI_JOB_NAME).
-> On the other hand, the regex is more flexible (one can select for
-> example all arm32 jobs).
+> Include info how to get access/enable hardware runners and how to select
+> individual jobs.
 > 
 > Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-
-While I am not super happy about this (it is not your fault, it is due
-to the limitations of the Gitlab YAML languange) and I don't think I
-would use SELECTED_JOBS_ONLY probably, if you find it useful maybe
-others will too. It is not a big maintenance burden. So:
-
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
 > ---
-> Changes in v3:
-> - include variable in Web UI for starting pipeline
+> new in v3
+> Definitely there can be more content here, but lets start somewhere.
 > ---
->  .gitlab-ci.yml                  |  2 ++
->  automation/gitlab-ci/build.yaml |  6 ++++++
->  automation/gitlab-ci/test.yaml  | 14 ++++++++++++++
->  3 files changed, 22 insertions(+)
+>  docs/index.rst   |  1 +
+>  docs/misc/ci.rst | 35 +++++++++++++++++++++++++++++++++++
+>  2 files changed, 36 insertions(+)
+>  create mode 100644 docs/misc/ci.rst
 > 
-> diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
-> index 5a9b8b722838..b3beb2ff9ddf 100644
-> --- a/.gitlab-ci.yml
-> +++ b/.gitlab-ci.yml
-> @@ -1,5 +1,7 @@
->  variables:
->    XEN_REGISTRY: registry.gitlab.com/xen-project/xen
-> +  SELECTED_JOBS_ONLY:
-> +    description: "Regex to select only some jobs, must be enclosed with /. For example /job1|job2/"
+> diff --git a/docs/index.rst b/docs/index.rst
+> index 1bb8d02ea357..bd87d736b9c3 100644
+> --- a/docs/index.rst
+> +++ b/docs/index.rst
+> @@ -51,6 +51,7 @@ kind of development environment.
+>     :maxdepth: 2
 >  
->  workflow:
->    rules:
-> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-> index 35e224366f62..f12de00a164a 100644
-> --- a/automation/gitlab-ci/build.yaml
-> +++ b/automation/gitlab-ci/build.yaml
-> @@ -12,6 +12,12 @@
->        - '*/*.log'
->      when: always
->    needs: []
-> +  rules:
-> +  - if: $SELECTED_JOBS_ONLY && $CI_JOB_NAME =~ $SELECTED_JOBS_ONLY
-> +    when: always
-> +  - if: $SELECTED_JOBS_ONLY
-> +    when: never
-> +  - when: on_success
+>     hypervisor-guide/index
+> +   misc/ci
 >  
->  .gcc-tmpl:
->    variables: &gcc
-> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-> index c21a37933881..93632f1f9204 100644
-> --- a/automation/gitlab-ci/test.yaml
-> +++ b/automation/gitlab-ci/test.yaml
-> @@ -1,6 +1,11 @@
->  .test-jobs-common:
->    stage: test
->    image: ${XEN_REGISTRY}/${CONTAINER}
-> +  rules:
-> +  - if: $SELECTED_JOBS_ONLY && $CI_JOB_NAME =~ $SELECTED_JOBS_ONLY
-> +  - if: $SELECTED_JOBS_ONLY
-> +    when: never
-> +  - when: on_success
 >  
->  .arm64-test-needs: &arm64-test-needs
->    - alpine-3.18-arm64-rootfs-export
-> @@ -99,6 +104,9 @@
->        - '*.dtb'
->      when: always
->    rules:
-> +    - if: $SELECTED_JOBS_ONLY && $CI_JOB_NAME =~ $SELECTED_JOBS_ONLY
-> +    - if: $SELECTED_JOBS_ONLY
-> +      when: never
->      - if: $XILINX_JOBS == "true" && $CI_COMMIT_REF_PROTECTED == "true"
->    tags:
->      - xilinx
-> @@ -117,6 +125,9 @@
->        - '*.log'
->      when: always
->    rules:
-> +    - if: $SELECTED_JOBS_ONLY && $CI_JOB_NAME =~ $SELECTED_JOBS_ONLY
-> +    - if: $SELECTED_JOBS_ONLY
-> +      when: never
->      - if: $XILINX_JOBS == "true" && $CI_COMMIT_REF_PROTECTED == "true"
->    tags:
->      - xilinx
-> @@ -137,6 +148,9 @@
->        - '*.log'
->      when: always
->    rules:
-> +    - if: $SELECTED_JOBS_ONLY && $CI_JOB_NAME =~ $SELECTED_JOBS_ONLY
-> +    - if: $SELECTED_JOBS_ONLY
-> +      when: never
->      - if: $QUBES_JOBS == "true" && $CI_COMMIT_REF_PROTECTED == "true"
->    tags:
->      - qubes-hw2
+>  Unsorted documents
+> diff --git a/docs/misc/ci.rst b/docs/misc/ci.rst
+> new file mode 100644
+> index 000000000000..2803574fa2c0
+> --- /dev/null
+> +++ b/docs/misc/ci.rst
+> @@ -0,0 +1,35 @@
+> +.. SPDX-License-Identifier: CC-BY-4.0
+> +
+> +Continuous Integration
+> +======================
+> +
+> +Xen Project uses Gitlab-CI for automated testing. Test pipelines for official
+> +staging branches are at
+> +`<https://gitlab.com/xen-project/hardware/xen/-/pipelines>`_. Developers can
+> +schedule test pipelines in their repositories under
+> +`<https://gitlab.com/xen-project/people/>`_.
+> +
+> +Hardware runners
+> +****************
+> +
+> +Some of the tests are using dedicated hardware runners. Those are not available freely, but the access is granted to individual developers. To get access to them, ask on the ``#XenDevel:matrix.org`` Matrix channel.
+> +After getting access to relevant runners, few extra changes are necessary in settings of the relevant "xen" gitlab project (under your `<https://gitlab.com/xen-project/people/>`_ namespace):
+> +
+> +1. Go to Settings -> CI/CD, expand the "Runners" section and enable relevant runners for your project.
+> +2. Expand "Variables" section and add ``QUBES_JOBS=true`` variable for Qubes runners, and ``XILINX_JOBS=true`` for Xilinx runners.
+
+Let's not mention XILINX_JOBS=true as Xilinx runners are not generally
+available. I can fix on commit.
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
+
+> +3. Go to Settings -> Repository, expand "Branch rules" section and add a rule for protected branches - only those branches will get tests on the hardware runners. It's okay to use a pattern for branch name, and it's okay to allow force push.
+> +
+> +Selecting individual tests
+> +**************************
+> +
+> +Normally, all build and test jobs are scheduled in a pipeline. When working on a specific patches, it is sometimes useful to run only jobs relevant for the current work - both to save time and to save CI resources. This can be done by seeting ``SELECTED_JOBS_ONLY`` variable when starting the pipeline. The variable holds a regular expression, enclosed with ``/`` that matches jobs to be included. The variable can be set via the gitlab.com web UI or directly when pushing changes to gitlab::
+> +
+> +   git push -o ci.variable=SELECTED_JOBS_ONLY="/job1|job2/"
+> +
+> +Note if a test job requires some build job, both need to be included in the regex. For example, ``adl-smoke-x86-64-gcc-debug`` requires ``alpine-3.18-gcc-debug``, so to run just this test the command will look like this::
+> +
+> +   git push -o ci.variable=SELECTED_JOBS_ONLY="/adl-smoke-x86-64-gcc-debug|alpine-3.18-gcc-debug/"
+> +
+> +More details at `<https://docs.gitlab.co.jp/ee/user/project/push_options.html>`_.
+> +
+> +Alternatively, irrelevant jobs can be removed from respective yaml files in ``automation/gitlab-ci`` by adding temporary commit on top of the branch.
 > -- 
 > git-series 0.9.1
 > 
---8323329-1452106152-1740018896=:1791669--
+--8323329-926116134-1740018958=:1791669--
 
