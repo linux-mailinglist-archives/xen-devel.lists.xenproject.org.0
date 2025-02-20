@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 801CAA3D329
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 09:29:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.893607.1302477 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89B7FA3D349
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 09:34:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.893617.1302487 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tl1ve-0003f8-7H; Thu, 20 Feb 2025 08:29:06 +0000
+	id 1tl20G-0005cI-NK; Thu, 20 Feb 2025 08:33:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 893607.1302477; Thu, 20 Feb 2025 08:29:06 +0000
+Received: by outflank-mailman (output) from mailman id 893617.1302487; Thu, 20 Feb 2025 08:33:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tl1ve-0003d6-45; Thu, 20 Feb 2025 08:29:06 +0000
-Received: by outflank-mailman (input) for mailman id 893607;
- Thu, 20 Feb 2025 08:29:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tl20G-0005aE-Kd; Thu, 20 Feb 2025 08:33:52 +0000
+Received: by outflank-mailman (input) for mailman id 893617;
+ Thu, 20 Feb 2025 08:33:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YfIj=VL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tl1vc-0003d0-HZ
- for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 08:29:04 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bdcccb09-ef64-11ef-9aa8-95dc52dad729;
- Thu, 20 Feb 2025 09:29:03 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-abb79af88afso134886766b.1
- for <xen-devel@lists.xenproject.org>; Thu, 20 Feb 2025 00:29:03 -0800 (PST)
+ id 1tl20F-0005a8-6T
+ for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 08:33:51 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 682f9415-ef65-11ef-9896-31a8f345e629;
+ Thu, 20 Feb 2025 09:33:49 +0100 (CET)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-5e0373c7f55so949057a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Feb 2025 00:33:49 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abb9723a559sm785445666b.96.2025.02.20.00.29.02
+ 4fb4d7f45d1cf-5dece1b4e02sm11595739a12.3.2025.02.20.00.33.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Feb 2025 00:29:02 -0800 (PST)
+ Thu, 20 Feb 2025 00:33:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bdcccb09-ef64-11ef-9aa8-95dc52dad729
+X-Inumbo-ID: 682f9415-ef65-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740040143; x=1740644943; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1740040429; x=1740645229; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Dq2V6GXJF4MDdwuOmjhcPL68D7DgUe7g9wfH/S43AYg=;
-        b=IsVkMM8kTKWvHVvw7WyfIYPEcYm1N/BbWHum7I79EqhLuY2bZOBgvDrJi7lSUWGPZ6
-         ZdxDe4opJgkcYhyuZybXdvBaTm1nB53MVIAGjhO3/hMGtXr+k26cPGgGTmE35iBANcPv
-         X5ELgxD17T3M0OjoUnTD135dUoS97Zm9dfxnAgzb9/ycuMyzZmJcyeW7799Op91+lD59
-         MSH6nbGYeoBE3ED5sIqamvA+OMT4VUJLxtH9A0eEYCUYCrBBZuiOcO7JRIHXZu2JtcGu
-         UaJqT1TFgpBiQtDaPh91jFazOxYuHMyzmoGPGh/+qFA7XAyZcKLDCmT71RhDq8bnbadG
-         g3Jw==
+        bh=k3bYMmNeHJ9PscYp3QuB38RM4PVnzTEWZBmoj30cBuI=;
+        b=AISvM9St0EYzprWfCIkuDOJUlEp3qNoqCBkxq1eZAzITKsF5usoHUOGTH7EltMt9qo
+         ivT+vfNo4ZB/BMX++U97y3EN/EV7cQv9I5xX/vMr/B2lJxbUMaym4DSyCQdJz6aQi4j1
+         2Ct1GwPnlJWfw16Z0OSoeMA4yO03tmlxKVFrP/LWKH1oK8zNDRi6Em64Jrk5JsM36Rul
+         XIsHQ52E6ruoaa74g981NB84KweHHUoBROGr+z80EmbFVyJqADqH0wjUgpT5DUvJYNnC
+         u+oNR6noPr/tvX63jHqFdFQjaLlXU2CBzLyEGgYIAuyZiGJLWcPIVjTwdjWRA+qJ7Ktz
+         T+Nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740040143; x=1740644943;
+        d=1e100.net; s=20230601; t=1740040429; x=1740645229;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Dq2V6GXJF4MDdwuOmjhcPL68D7DgUe7g9wfH/S43AYg=;
-        b=dxb754oGRrvCploArwKr+ZK6tyrdXSd3FwCqX2pYFMMDgUcR7nOBrtj68BxyXe5kPg
-         5/kkJbzpoif50Oc9NyvhEuNE87qsWFaVC6CpiBh7IMFEQCiXS9LzVSitCwSezGpyb9Iv
-         WJJhP5lvHDofZZfwKNfZ8A9hcpOH6QWAg/Lf4oCvQJ6H5ooxv8yk+/LNRxJMPuEIi51b
-         zQq7RL12Cnym7/Mop7zIQeclLlAyxtHQwTHcqMEjr7yWsbakhH3C2rbiQtwYks3m88KQ
-         V/i7BrqdFPkBpRI5/7/IgXNvk9IcTOiQSBRh9XtXvdtCG9jaXz8oOpu5kuHdvN0enH2s
-         nVnw==
-X-Forwarded-Encrypted: i=1; AJvYcCVzAfHx8JOkuNcVSua9YRL9v4SFYLds/ginwbgmXSnPKLKtSIH1VHA7TkTc29WO48saaZZ0i7jXkX4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyFNJbtBnNVV9SwLyYB/BE5Zkd96zTVo6tzIVQPDaRyHHZeWMcK
-	fnrvby7yxE+/7BfA2hWmQSSJlIVxkRR4XuxLUCKO2CenVtOoCEfWq4nHF54Mrw==
-X-Gm-Gg: ASbGnctGmDrv8Ienr7MDWWpbl/QFY1xEXXDw2DGhZU1jr77DMBXC46CPvpYKhzxv2Vh
-	MtCvb+ldnjj+Od5UUSGf8PGAbfuHEBeYIRmjDuR6tHCU+jgeNcHC1kveHo4uJCC7/Avw55BGLxe
-	w9ynnYewhS3fhCcRhNThG3BMELRPP7Qsid5DNh39Q+NUQitaMvYewkEXwzZXcWCeF8DXDE1nhrh
-	aZ9FQeXuYPMmbf63gxBwHfH3jxtJMQv41AKnYYgBnDdHbmTn/of8b0BJ4OS0zFZ5kcpU/voipq1
-	8VX/VDtijVnD+K0VjIldV0TveOeGPJ5wC6KJLl2xuQPGI3YgK25x9uLrYOgyA5i18pBjoCtChcs
-	e
-X-Google-Smtp-Source: AGHT+IFUfj3TyCrFutu553UQOEib7hMxBjRWs1iYI4Rx2JSgQkGoeQOxJ7nIxI49ynBzuMcSdaD3tA==
-X-Received: by 2002:a17:907:7d8f:b0:aba:5f40:75e1 with SMTP id a640c23a62f3a-abbf3d4820cmr120617966b.57.1740040142735;
-        Thu, 20 Feb 2025 00:29:02 -0800 (PST)
-Message-ID: <0160ad32-3ff8-4e92-b571-6272497d1e13@suse.com>
-Date: Thu, 20 Feb 2025 09:29:01 +0100
+        bh=k3bYMmNeHJ9PscYp3QuB38RM4PVnzTEWZBmoj30cBuI=;
+        b=G66D8ODdrJc8panRxFjbZGp7tsGN1G9tvChKuUiJaOGWuXHK7JFCL+X6PvgqUaxNwr
+         Wlpf1IxvM5UPivnlrodThAgfndqDojlraA2uKOTjuuVJjHPLIKAGnmdZHOTwvrRCIW5M
+         WFjI0PH8pdjjPcA11Gauoe3GU8HT4U6HISOOedEBxybwLaby7CWlv6HICKczM3luS74s
+         6b4lnq3VEochP5niWgsELKcYgNyuyfsPOMHCgeXUorhX9BbS3ZUMdviETyvc39ssiAKP
+         pO7yCNNIwE9Gh/cdQdvuxo8PDr2JW8CXfAHtdfGrsaSaVDuvxYElbzTvli/v2BJPz5BE
+         dgBQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWyF64/DxOGJIEhrBFwgWXyfkPdCujj8mGfUNVngVwbKqzeTfEtjgDHCLrf/b6PcVT/GPhF5cdyOxQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwDI+T9AzNx+9XjTgi8xQVglsp+6S6zmdo0APEDLXgY/GttZrYL
+	eKJUtyXDFcBPGEVbRs8tqgfFecpwB6pCi71+z7QZ5diBxh7SaLmWlQSY/YAeVgpyx0SePFaL4vA
+	=
+X-Gm-Gg: ASbGncvpeWScorBCjj63QwhQW76w7JhRGr9mtGsnfTNrzuHP+FVaJdecZ20OzydqTQg
+	5qfz071NgMBjX5NJtZNkvjLeVhiMT0KvlJz+BDqEEmrgpx736imzhTNrPrNxakAtxKzCoHk5t2k
+	gwg7YjaG/ya098ylHZcwqHvGRzQQjr8Dyyjc810jHkHBZGWLC4GwOKPdJcrjFOO4OsQkaMO+guy
+	2gRv2qWhDXvstc+HHx5hf0fsErwmXJXq4i1bQQz1vrhli0p+0qTU+Z5yQo6GA4AouHuXpK1RpT0
+	j4TpnT00wOS5A52ublGl7lM6Z3Zz7TFdF5S1AeSOFLwU3MXPg3DgY5xj5VPiCER62IvrCB1A3Sk
+	h
+X-Google-Smtp-Source: AGHT+IHG0Nn7OO0y17ODiEhiZtvqPzMNHTmKSf/wSaMrVxiJjeI26fqeF38WKqVkGciTCee3nBgnzA==
+X-Received: by 2002:a05:6402:35c9:b0:5e0:5605:211a with SMTP id 4fb4d7f45d1cf-5e089524014mr7564410a12.18.1740040428118;
+        Thu, 20 Feb 2025 00:33:48 -0800 (PST)
+Message-ID: <1e8ef6d3-09db-4d53-b7c8-4b10a7f5d8f0@suse.com>
+Date: Thu, 20 Feb 2025 09:33:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] x86/iommu: account for IOMEM caps when populating
- dom0 IOMMU page-tables
+Subject: Re: [PATCH v3 3/3] x86/dom0: be less restrictive with the Interrupt
+ Address Range
 To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?B?SsO8cmdlbiBHcm8=?=
+ =?UTF-8?B?w58=?= <jgross@suse.com>, xen-devel@lists.xenproject.org
 References: <20250219164840.94803-1-roger.pau@citrix.com>
- <20250219164840.94803-3-roger.pau@citrix.com>
+ <20250219164840.94803-4-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,40 +120,70 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250219164840.94803-3-roger.pau@citrix.com>
+In-Reply-To: <20250219164840.94803-4-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 19.02.2025 17:48, Roger Pau Monne wrote:
-> The current code in arch_iommu_hwdom_init() kind of open-codes the same
-> MMIO permission ranges that are added to the hardware domain ->iomem_caps.
-> Avoid this duplication and use ->iomem_caps in arch_iommu_hwdom_init() to
-> filter which memory regions should be added to the dom0 IOMMU page-tables.
+> Xen currently prevents dom0 from creating CPU or IOMMU page-table mappings
+> into the interrupt address range [0xfee00000, 0xfeefffff].  This range has
+> two different purposes.  For accesses from the CPU is contains the default
+> position of local APIC page at 0xfee00000.  For accesses from devices
+> it's the MSI address range, so the address field in the MSI entries
+> (usually) point to an address on that range to trigger an interrupt.
 > 
-> Note the IO-APIC and MCFG page(s) must be set as not accessible for a PVH
-> dom0, otherwise the internal Xen emulation for those ranges won't work.
-> This requires adjustments in dom0_setup_permissions().
+> There are reports of Lenovo Thinkpad devices placing what seems to be the
+> UCSI shared mailbox at address 0xfeec2000 in the interrupt address range.
+> Attempting to use that device with a Linux PV dom0 leads to an error when
+> Linux kernel maps 0xfeec2000:
 > 
-> The call to pvh_setup_mmcfg() in dom0_construct_pvh() must now strictly be
-> done ahead of setting up dom0 permissions, so take the opportunity to also
-> put it inside the existing is_hardware_domain() region.
+> RIP: e030:xen_mc_flush+0x1e8/0x2b0
+>  xen_leave_lazy_mmu+0x15/0x60
+>  vmap_range_noflush+0x408/0x6f0
+>  __ioremap_caller+0x20d/0x350
+>  acpi_os_map_iomem+0x1a3/0x1c0
+>  acpi_ex_system_memory_space_handler+0x229/0x3f0
+>  acpi_ev_address_space_dispatch+0x17e/0x4c0
+>  acpi_ex_access_region+0x28a/0x510
+>  acpi_ex_field_datum_io+0x95/0x5c0
+>  acpi_ex_extract_from_field+0x36b/0x4e0
+>  acpi_ex_read_data_from_field+0xcb/0x430
+>  acpi_ex_resolve_node_to_value+0x2e0/0x530
+>  acpi_ex_resolve_to_value+0x1e7/0x550
+>  acpi_ds_evaluate_name_path+0x107/0x170
+>  acpi_ds_exec_end_op+0x392/0x860
+>  acpi_ps_parse_loop+0x268/0xa30
+>  acpi_ps_parse_aml+0x221/0x5e0
+>  acpi_ps_execute_method+0x171/0x3e0
+>  acpi_ns_evaluate+0x174/0x5d0
+>  acpi_evaluate_object+0x167/0x440
+>  acpi_evaluate_dsm+0xb6/0x130
+>  ucsi_acpi_dsm+0x53/0x80
+>  ucsi_acpi_read+0x2e/0x60
+>  ucsi_register+0x24/0xa0
+>  ucsi_acpi_probe+0x162/0x1e3
+>  platform_probe+0x48/0x90
+>  really_probe+0xde/0x340
+>  __driver_probe_device+0x78/0x110
+>  driver_probe_device+0x1f/0x90
+>  __driver_attach+0xd2/0x1c0
+>  bus_for_each_dev+0x77/0xc0
+>  bus_add_driver+0x112/0x1f0
+>  driver_register+0x72/0xd0
+>  do_one_initcall+0x48/0x300
+>  do_init_module+0x60/0x220
+>  __do_sys_init_module+0x17f/0x1b0
+>  do_syscall_64+0x82/0x170
 > 
-> Also the special casing of E820_UNUSABLE regions no longer needs to be done
-> in arch_iommu_hwdom_init(), as those regions are already blocked in
-> ->iomem_caps and thus would be removed from the rangeset as part of
-> ->iomem_caps processing in arch_iommu_hwdom_init().  The E820_UNUSABLE
-> regions below 1Mb are not removed from ->iomem_caps, that's a slight
-> difference for the IOMMU created page-tables, but the aim is to allow
-> access to the same memory either from the CPU or the IOMMU page-tables.
-> 
-> Since ->iomem_caps already takes into account the domain max paddr, there's
-> no need to remove any regions past the last address addressable by the
-> domain, as applying ->iomem_caps would have already taken care of that.
-> 
-> Suggested-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> Remove the restrictions to create mappings the interrupt address range for
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Nit: Missing "in"?
 
+> dom0.  Note that the restriction to map the local APIC page is enforced
+> separately, and that continues to be present.  Additionally make sure the
+> emulated local APIC page is also not mapped, in case dom0 is using it.
 
+But that's in GFN space, not in MFN one. Why would that matter for iomem_caps?
+
+Jan
 
