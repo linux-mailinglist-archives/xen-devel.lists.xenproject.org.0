@@ -2,40 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DA00A3D4CA
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 10:31:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.893716.1302579 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE72DA3D57F
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 10:55:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.893726.1302590 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tl2tg-0001vp-VE; Thu, 20 Feb 2025 09:31:08 +0000
+	id 1tl3GL-0005iN-DR; Thu, 20 Feb 2025 09:54:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 893716.1302579; Thu, 20 Feb 2025 09:31:08 +0000
+Received: by outflank-mailman (output) from mailman id 893726.1302590; Thu, 20 Feb 2025 09:54:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tl2tg-0001tE-SZ; Thu, 20 Feb 2025 09:31:08 +0000
-Received: by outflank-mailman (input) for mailman id 893716;
- Thu, 20 Feb 2025 09:31:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=2YGB=VL=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1tl2tf-0001t8-Ju
- for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 09:31:07 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 67c76d41-ef6d-11ef-9896-31a8f345e629;
- Thu, 20 Feb 2025 10:31:04 +0100 (CET)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-38f5fc33602so378743f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 20 Feb 2025 01:31:04 -0800 (PST)
-Received: from ?IPV6:2003:e5:8714:500:2aea:6ec9:1d88:c1ef?
- (p200300e5871405002aea6ec91d88c1ef.dip0.t-ipconnect.de.
- [2003:e5:8714:500:2aea:6ec9:1d88:c1ef])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38f561bee3esm5475183f8f.21.2025.02.20.01.31.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Feb 2025 01:31:03 -0800 (PST)
+	id 1tl3GL-0005fk-AM; Thu, 20 Feb 2025 09:54:33 +0000
+Received: by outflank-mailman (input) for mailman id 893726;
+ Thu, 20 Feb 2025 09:54:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=gblN=VL=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
+ id 1tl3GJ-0005fY-FE
+ for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 09:54:31 +0000
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on20622.outbound.protection.outlook.com
+ [2a01:111:f403:2407::622])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ad3e8c42-ef70-11ef-9aa8-95dc52dad729;
+ Thu, 20 Feb 2025 10:54:29 +0100 (CET)
+Received: from DM5PR07CA0108.namprd07.prod.outlook.com (2603:10b6:4:ae::37) by
+ SJ2PR12MB8977.namprd12.prod.outlook.com (2603:10b6:a03:539::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8445.19; Thu, 20 Feb
+ 2025 09:54:23 +0000
+Received: from DS1PEPF00017091.namprd03.prod.outlook.com
+ (2603:10b6:4:ae:cafe::d1) by DM5PR07CA0108.outlook.office365.com
+ (2603:10b6:4:ae::37) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8466.15 via Frontend Transport; Thu,
+ 20 Feb 2025 09:54:22 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS1PEPF00017091.mail.protection.outlook.com (10.167.17.133) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8466.11 via Frontend Transport; Thu, 20 Feb 2025 09:54:22 +0000
+Received: from cjq-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 20 Feb
+ 2025 03:54:19 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,315 +56,225 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 67c76d41-ef6d-11ef-9896-31a8f345e629
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740043864; x=1740648664; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=VQ/ALFaUGsiEPcBiB66l7a73T8RnpBsIO148PHgRdvs=;
-        b=cM9E4GOn28eD8JAN07OKJk12HrCVXJbr0Du/3e6bTNlBaxfLPeFxDCFjyqN4cxV2qz
-         dlhfLMoeiQQOb1h6ERF8QYTg6OnOdkH2q+Voh4D/iEvIrh3knnTsG8MoRQW/tpsnLh2D
-         7Tp9qKMcyBimeckjRheVQTyoT491Uv7R8gdtLgSRKTKbNaRP5tltzauiEdrRzEJcCcuZ
-         Fqykg2bWmoT26h9EHF9X71kxxdd+pq3Bwv3w3Rn8EiQrCV7KIeoB1utMMnvE7DUCndb9
-         qLKHWfZSXO+4690otsrfkA0yyahm7Fg6KtzBwU+OKKCknniQ/lFU9fgDqB9bduH8NrYq
-         raCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740043864; x=1740648664;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=VQ/ALFaUGsiEPcBiB66l7a73T8RnpBsIO148PHgRdvs=;
-        b=edGY58D0waY/Q4xDIUOhyl1NDujJrQJQcUJE9xf2x0khdqqELvgLFE5Qb7cD4v5EXN
-         qUsAiG6c4f77Yx0xgUUZwFN+0cQ9PR1dgM8ggo/xkrL6owiGWVDkb5PgP9ErEThzqhny
-         fTDQ9xNKPgkdOdEaEjFjbwx+tFCvlBvH6VSpojIMQs9mX5h9262Lt/p5t2T+SnfsrXFS
-         R9og2yzpPPvYj0Wf9O6dIyRWMi8PGgIaIqUH2qRV5B0JW3EcIFHk+6zj0Xku3213VyWv
-         0OKlJamoPBDfDG2ih0AWNjawPWZjfdY7spFsCHNLg/fmw0OfpAPWmmf5EV4R1LGkSW7k
-         +wYA==
-X-Gm-Message-State: AOJu0YxGBWObkzR7fEbN91tSVF/BhtkYKX50c1YI1khpd9b0FfSCQiaQ
-	06t6KfOy9jquba2Zs+QUbQ7foE7BOXhnW/0fEv4n0CuRrVVnAsEURKnf/xh3PBU=
-X-Gm-Gg: ASbGncs6fy3KgQ+w74mkch769IDvkxeM1X0wgjmqhz9DGxRm31RKl0NA0FQRORX9UiC
-	xlLaZ7Z7tHK6kz4WRJmk9iJnlhjd8efXUoN0ecgEtHF0cHZZTXSHAiNIo4YE1UbuWPD/Own+DyH
-	Th3bwUYKGG1w8er6wa2EPCGuEA80wo98QfT2uyEjKyWiUt5FR8WsEDUGHj9DgsqIqOql3cwvBmY
-	84nK73GwSbiq6qR1lvJ7Qaw6RrQ94Nq/thC3vxWEWLafDUhbIFeF3jGat+hsmrP7+GnVm41c2H1
-	jRF6TtqBVwM+nnBK3nza0rruRsHTI2XuHd60bJjYCBeoULtAGFCDc3mqMvZSy0FIC9xsJM+JNd6
-	GSAubWafqUHNxEkyN6t8bNxf0drwJRb9W1oMNNA==
-X-Google-Smtp-Source: AGHT+IHwdS3MhicFemhlxRQN/7w9QRq+24gM4Yolc9lln0damLtXK9mRUZtYHtmVlmP5Mql6ouZ65g==
-X-Received: by 2002:a5d:6c63:0:b0:38f:64da:99fe with SMTP id ffacd0b85a97d-38f64da9d3dmr1217471f8f.29.1740043863778;
-        Thu, 20 Feb 2025 01:31:03 -0800 (PST)
-Message-ID: <23b12ff3-717f-4321-b3be-9c39367b8d14@suse.com>
-Date: Thu, 20 Feb 2025 10:31:02 +0100
+X-Inumbo-ID: ad3e8c42-ef70-11ef-9aa8-95dc52dad729
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IDqMY78f7/YpH8rG1+o5yzcMkO3g4kSWtfWOV+iA/MuvOYRSGlUpqyEi4qtm3vyD9NCCOChV1+WQxPRYR6YcgfjdWwyzYK6H2GD3FNHFs5lZdNGsrbzDOj/fKOB8nb7yVMHrpvNZGTbL8qEMly8+/WRnAYsMj4ed5oKGLJyMI1+YPzrP9MZbjabgzxHiU7VNsVpnmTEFl98KJXUJ46pKZ2j2aZgFebetiDNbp7gOHF17d0SdLJXA1J3s6PhFuQtS6leJpQd2cc2WVc/+nMuFO0kT0mP2T+P7LqRI3frFCoRw/LV1wpnDYj5BJ11HgfjilzUq3M/2JFjAZ6ZkYsQsKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jguRpQumSYfrCTS3CNMWJUYQXN7iVHAgzHE7mZNL2Eo=;
+ b=rbFjmJ3O0mdgTSgZUdnbHzjlGY0Gg14N/Vs4v+ppNM14IZ0Qi3ENiAKgH8EiqC1P7Ld++mONwEfNT0g4oPFNecZdEnWmmIyVGULblbnDSHm0c8GL+yNFtGOzCgtblqo1eiygKC/1AUN6iB9mW0zp/bsU7kTfVOFA0Z9AD/KZ543E2d2RCY+qV6n8xCc99QhSVjWZ86v7ffusMVVa2qoEH52LbYSJsRLGVQPHZf3rqHIMJS3nY5UaB3KAg5xu0pJ8fA2ifZ8Wzp7D1iOcnFrBs8STPkpfVjwQ6SMDOOlRrPKTSqXKw1Zy8U7gSz7DJXI2mWSdwJ5/R8VNX/a1LYkBZw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jguRpQumSYfrCTS3CNMWJUYQXN7iVHAgzHE7mZNL2Eo=;
+ b=C728JsQlx7iSnI078/4lWp6LhvgdiQa/5WXWkLHQoaK5yO+p7s145SsVY3NoJexiYiloAZ2fhHUxtDvyJ852K+4wAuMEq1TaJRuHeIPmL4/E4+vr5z1NkBJTgd6rTrDIZKD8BaiJjQndh7+fyFfyRsk4BNlUgkk4IZ+HvyOpTx4=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Jiqian Chen <Jiqian.Chen@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, "Sergiy
+ Kibrik" <Sergiy_Kibrik@epam.com>, Huang Rui <ray.huang@amd.com>, Jiqian Chen
+	<Jiqian.Chen@amd.com>
+Subject: [PATCH v2 1/2] x86/hvm: make stdvga support optional
+Date: Thu, 20 Feb 2025 17:53:48 +0800
+Message-ID: <20250220095349.1823593-1-Jiqian.Chen@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Memory corruption bug with Xen PV Dom0 and BOSS-S1 RAID card
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- =?UTF-8?Q?Pawe=C5=82_Srokosz?= <pawel.srokosz@cert.pl>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- andrew cooper3 <andrew.cooper3@citrix.com>, JBeulich@suse.com
-References: <1050214476.1105853.1739823581696.JavaMail.zimbra@cert.pl>
- <Z7RWdPpUde9ZoaZu@macbook.local>
- <1001969494.1457790.1739990267113.JavaMail.zimbra@cert.pl>
- <Z7bzAeb4UQTQUOsk@macbook.local>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <Z7bzAeb4UQTQUOsk@macbook.local>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------NKz8LUeziTkm2OsVi0ywJEf0"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017091:EE_|SJ2PR12MB8977:EE_
+X-MS-Office365-Filtering-Correlation-Id: 69852a51-fb9c-44e2-8b02-08dd51948d53
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|36860700013|1800799024|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?aLBW+Hqk4Vkgz7LZ7bVLMBzTCnnluqCJOi13OMZl2vaCf5ZdAwzICm+RrKFU?=
+ =?us-ascii?Q?QSSU5xDeEwMQO24X1JvIRPlNRORBRazUpdPziPzI40OGaH68qONs9OoBo6Fb?=
+ =?us-ascii?Q?aAKcd2ceCF7408yHWrhpD+M8pkGRy2vnMLtxhEGvugbz+3b7knwsqhIwjFwP?=
+ =?us-ascii?Q?yozj2sKjzwFbr95M/D2EVqUT1L8qINYxaRS4QHixg+KGjCoXpYtoqpudCo5n?=
+ =?us-ascii?Q?NLkCOeUFxzlXpRvGr6VTIkFT5AvVQM6pZpE7gVGrjKpkdUwb0GjYQKwmg6iL?=
+ =?us-ascii?Q?/g7KhaMJTVR0H5AfayV7FQzmnFdtDPbkOR57hyowZ87uo1NGICuKsGrGghx2?=
+ =?us-ascii?Q?ThUcx5dngscna1NeC87BqRIn+PlDl+/Z05ciDkVkyFez60bwRZ6q+ug7rYnh?=
+ =?us-ascii?Q?MEkm8xtgRQAqcT0nrGLc5mcyTGnfIbLosVtDYfImQBvV2Eozmk/6uHBd27Cx?=
+ =?us-ascii?Q?yZdwqW+tQkZsas8iFUa4qa1i1jjdlgYKfGADuRT5xr1MZL3vmB6xsyI33pxN?=
+ =?us-ascii?Q?9RyoyLT4lp/1YNgnCj8SI0cNQ2Bts7u8+ROszghowIDTmA7VuvxY+XNFLbeP?=
+ =?us-ascii?Q?jPzzOaOG9yyVCysrABPaae6fHfGeS2SCW2HbBjDfp9UfCSCIKlAeFC2Y3ioN?=
+ =?us-ascii?Q?clWym8qD8sPSAOizJcwLVFPDrYP6PkU0IWMYrnVW65sY19gNk7o+nw+ntlVJ?=
+ =?us-ascii?Q?uEDdt+FfDuUayHsUsBGobe25edKC6hf70jsMCQD9zbKjUy0syX1UicpMtJBg?=
+ =?us-ascii?Q?vZgozdQ7IjpRkt9oPARvkYYXXfo1gHl9WGk/oSpkJXDyYcFR4yJpvmvLTUcd?=
+ =?us-ascii?Q?Ah9dHjJlGB9AZPPyfTUmFjMA6inGpk1au9cLAYaLx/u8+lShrgC/PD+hNeDU?=
+ =?us-ascii?Q?QkzMejYS/iT9/bCTS6xfxxD6vAT5qU++nv8Iv+17QjZOltoYPRJHmVh68mqF?=
+ =?us-ascii?Q?yHXwYVDDuuK9mCe2aYEb26iytPHfAVxlQM7qhuJDu/vTt0GoVHW+YJwn6v1v?=
+ =?us-ascii?Q?EdxCS7DTZvsqDw5Nr57mHRAMspHPkO9xNdX70Sr++TTlDRzVj8j5Lf751lBK?=
+ =?us-ascii?Q?yrIJWPh+YkbQJp513iyLmohCXdgANtlb+cNSgDTjbU7N9sCqe5KZYdIS9K4Y?=
+ =?us-ascii?Q?UjaNU4URY7cQHs6vjv96Zo+i88FO01TlMDlu5lZL0vlNuhMMVlRoJOnlZStR?=
+ =?us-ascii?Q?06z6glYuUrWOqbcQcnrygN1f/Vh8dgftM8lCTEpOyY9+IHYUNqF6kDdgX4ad?=
+ =?us-ascii?Q?Osww8KW+c2/mQOc1VDRhiWyj9p6SDSfvPTubRcBL3cWMhGpVUTSzAYGG8cti?=
+ =?us-ascii?Q?6MI/pgshlZb16LDIcKZONcKabA2uVvVCeWzkTR0lQa6xdyG9aLlrlAMo3B/I?=
+ =?us-ascii?Q?ENzr3c/gOTySvMC4iJqRcEHv+RH4Ub/tdfk1X2t2Kxu77F5H4Ugg5SYXsORD?=
+ =?us-ascii?Q?uenY/RIqgCo=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024)(13003099007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Feb 2025 09:54:22.3613
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 69852a51-fb9c-44e2-8b02-08dd51948d53
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF00017091.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8977
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------NKz8LUeziTkm2OsVi0ywJEf0
-Content-Type: multipart/mixed; boundary="------------hrTawuapCD0YcgN83pb5DJ2S";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- =?UTF-8?Q?Pawe=C5=82_Srokosz?= <pawel.srokosz@cert.pl>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- andrew cooper3 <andrew.cooper3@citrix.com>, JBeulich@suse.com
-Message-ID: <23b12ff3-717f-4321-b3be-9c39367b8d14@suse.com>
-Subject: Re: Memory corruption bug with Xen PV Dom0 and BOSS-S1 RAID card
-References: <1050214476.1105853.1739823581696.JavaMail.zimbra@cert.pl>
- <Z7RWdPpUde9ZoaZu@macbook.local>
- <1001969494.1457790.1739990267113.JavaMail.zimbra@cert.pl>
- <Z7bzAeb4UQTQUOsk@macbook.local>
-In-Reply-To: <Z7bzAeb4UQTQUOsk@macbook.local>
-Autocrypt-Gossip: addr=JBeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJ3BBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AAIQkQoDSui/t3IH4WIQQ+pJkfkcoLMCa4X6CgNK6L+3cgfgn7AJ9DmMd0SMJE
- ePbc7/m22D2v04iu7ACffXTdZQhNl557tJuDXZSBxDmW/tLOwU0EWTecRBAIAIK5OMKMU5R2
- Lk2bbjgX7vyQuCFFyKf9rC/4itNwhYWFSlKzVj3WJBDsoi2KvPm7AI+XB6NIkNAkshL5C0kd
- pcNd5Xo0jRR5/WE/bT7LyrJ0OJWS/qUit5eNNvsO+SxGAk28KRa1ieVLeZi9D03NL0+HIAtZ
- tecfqwgl3Y72UpLUyt+r7LQhcI/XR5IUUaD4C/chB4Vq2QkDKO7Q8+2HJOrFIjiVli4lU+Sf
- OBp64m//Y1xys++Z4ODoKh7tkh5DxiO3QBHG7bHK0CSQsJ6XUvPVYubAuy1XfSDzSeSBl//C
- v78Fclb+gi9GWidSTG/4hsEzd1fY5XwCZG/XJJY9M/sAAwUH/09Ar9W2U1Qm+DwZeP2ii3Ou
- 14Z9VlVVPhcEmR/AFykL9dw/OV2O/7cdi52+l00reUu6Nd4Dl8s4f5n8b1YFzmkVVIyhwjvU
- jxtPyUgDOt6DRa+RaDlXZZmxQyWcMv2anAgYWGVszeB8Myzsw8y7xhBEVV1S+1KloCzw4V8Z
- DSJrcsZlyMDoiTb7FyqxwQnM0f6qHxWbmOOnbzJmBqpNpFuDcz/4xNsymJylm6oXiucHQBAP
- Xb/cE1YNHpuaH4SRhIxwQilCYEznWowQphNAbJtEKOmcocY7EbSt8VjXTzmYENkIfkrHRyXQ
- dUm5AoL51XZljkCqNwrADGkTvkwsWSvCSQQYEQIACQUCWTecRAIbDAAKCRCgNK6L+3cgfuef
- AJ9wlZQNQUp0KwEf8Tl37RmcxCL4bQCcC5alCSMzUBJ5DBIcR4BY+CyQFAs=
+From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 
---------------hrTawuapCD0YcgN83pb5DJ2S
-Content-Type: multipart/mixed; boundary="------------u5nTJ0Jt00MjlbmowM3feHkz"
+Introduce config option X86_STDVGA so that stdvga driver can be
+disabled on systems that don't need it.
 
---------------u5nTJ0Jt00MjlbmowM3feHkz
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+What's more, in function emulation_flags_ok, to check if toolstack
+pass any emulation flag that disabled in building time.
 
-T24gMjAuMDIuMjUgMTA6MTYsIFJvZ2VyIFBhdSBNb25uw6kgd3JvdGU6DQo+IE9uIFdlZCwg
-RmViIDE5LCAyMDI1IGF0IDA3OjM3OjQ3UE0gKzAxMDAsIFBhd2XFgiBTcm9rb3N6IHdyb3Rl
-Og0KPj4gSGVsbG8sDQo+Pg0KPj4+IFNvIHRoZSBpc3N1ZSBkb2Vzbid0IGhhcHBlbiBvbiBk
-ZWJ1Zz15IGJ1aWxkcz8gVGhhdCdzIHVuZXhwZWN0ZWQuICBJIHdvdWxkDQo+Pj4gZXhwZWN0
-IHRoZSBvcHBvc2l0ZSwgdGhhdCBzb21lIGNvZGUgaW4gTGludXggYXNzdW1lcyB0aGF0IHBm
-biArIDEgPT0gbWZuICsNCj4+PiAxLCBhbmQgaGVuY2UgYnJlYWtzIHdoZW4gdGhlIHJlbGF0
-aW9uIGlzIHJldmVyc2VkLg0KPj4NCj4+IEl0IHdhcyBhbHNvIHN1cnByaXNpbmcgZm9yIG1l
-IGJ1dCBJIHRoaW5rIHRoZSBrZXkgdGhpbmcgaXMgdGhhdCBkZWJ1Zz15DQo+PiBjYXVzZXMg
-d2hvbGUgbWFwcGluZyB0byBiZSByZXZlcnNlZCBzbyBlYWNoIFBGTiBsYW5kcyBvbiBjb21w
-bGV0ZWx5IGRpZmZlcmVudA0KPj4gTUZOIGUuZy4gTUZOPTB4MTMwMDAwMCBpcyBtYXBwZWQg
-dG8gUEZOPTB4MjBlNTBjIGluIG5kZWJ1ZywgYnV0IGluIGRlYnVnDQo+PiBpdCdzIG1hcHBl
-ZCB0byBQRk49MHg1RkZGRkYuIEkgZ3Vlc3MgdGhhdCdzIHdoeSBJIGNhbid0IHJlcHJvZHVj
-ZSB0aGUNCj4+IHByb2JsZW0uDQo+Pg0KPj4+IENhbiB5b3Ugc2VlIGlmIHlvdSBjYW4gcmVw
-cm9kdWNlIHdpdGggZG9tMC1pb21tdT1zdHJpY3QgaW4gdGhlIFhlbiBjb21tYW5kDQo+Pj4g
-bGluZT8NCj4+DQo+PiBVbmZvcnR1bmF0ZWx5LCBpdCBkb2Vzbid0IGhlbHAuIEJ1dCBJIGhh
-dmUgZmV3IG1vcmUgb2JzZXJ2YXRpb25zLg0KPj4NCj4+IEZpcnN0bHksIEkgY2hlY2tlZCB0
-aGUgInhlbi1tZm5kdW1wIGR1bXAtbTJwIiBvdXRwdXQgYW5kIGZvdW5kIHRoYXQgbWlzcmVh
-ZA0KPj4gYmxvY2tzIGFyZSBtYXBwZWQgdG8gc3VzcGljaW91c2x5IHJvdW5kIE1GTnMuIEkg
-aGF2ZSBkaWZmZXJlbnQgdmVyc2lvbnMgb2YNCj4+IFhlbiBhbmQgTGludXgga2VybmVsIG9u
-IGVhY2ggbWFjaGluZSBhbmQgSSBzZWUgc29tZSBjb2luY2lkZW5jZS4NCj4+DQo+PiBJJ20g
-d3JpdGluZyBmZXcgaHVnZSBmaWxlcyB3aXRob3V0IFhlbiB0byBlbnN1cmUgdGhhdCB0aGV5
-IGhhdmUgYmVlbiB3cml0dGVuDQo+PiBjb3JyZWN0bHkgKGJlY2F1c2UgdW5kZXIgWGVuIGJv
-dGggcmVhZCBhbmQgd3JpdGViYWNrIGlzIGFmZmVjdGVkKS4gVGhlbiBJJ20NCj4+IGJvb3Rp
-bmcgdG8gWGVuLCBtZW1vcnktbWFwcGluZyB0aGUgZmlsZXMgYW5kIHJlYWRpbmcgZWFjaCBw
-YWdlLiBJIHNlZSB0aGF0IHdoZW4NCj4+IGJsb2NrIGlzIGNvcnJ1cHRlZCwgaXQgaXMgbWFw
-cGVkIG9uIHJvdW5kIE1GTiBlLmcuIHBmbj0weDUwOTVkOS9tZm49MHgxNjAwMDAwLA0KPj4g
-YW5vdGhlciBvbiBwZm49MHg0MDk1ZDkvbWZuPTB4MTUwMDAwMCBldGMuDQo+Pg0KPj4gT24g
-YW5vdGhlciBtYWNoaW5lIHdpdGggZGlmZmVyZW50IExpbnV4L1hlbiB2ZXJzaW9uIHRoZXNl
-IGZhdWx0cyBhcHBlYXIgb24NCj4+IHBmbj0weDIwZTUwYy9tZm49MHgxMzAwMDAwLCBwZm49
-MHgzMGU1MGMvbWZuPTB4MTQwMDAwMCBldGMuDQo+Pg0KPj4gSSBhbHNvIG5vdGljZWQgdGhh
-dCBkdXJpbmcgcmVhZCBvZiBwYWdlIHRoYXQgaXMgbWFwcGVkIHRvDQo+PiBwZm49MHgyMGU1
-MGMvbWZuPTB4MTMwMDAwMCwgSSdtIGdldHRpbmcgdGhlc2UgZmF1bHRzIGZyb20gRE1BUjoN
-Cj4+DQo+PiBgYGANCj4+IChYRU4pIFtWVC1EXURNQVI6W0RNQSBXcml0ZV0gUmVxdWVzdCBk
-ZXZpY2UgWzAwMDA6NjU6MDAuMF0gZmF1bHQgYWRkciAxMjAwMDAwMDAwDQo+PiAoWEVOKSBb
-VlQtRF1ETUFSOiByZWFzb24gMDUgLSBQVEUgV3JpdGUgYWNjZXNzIGlzIG5vdCBzZXQNCj4+
-IChYRU4pIFtWVC1EXURNQVI6W0RNQSBXcml0ZV0gUmVxdWVzdCBkZXZpY2UgWzAwMDA6NjU6
-MDAuMF0gZmF1bHQgYWRkciAxMjAwMDAxMDAwDQo+PiAoWEVOKSBbVlQtRF1ETUFSOiByZWFz
-b24gMDUgLSBQVEUgV3JpdGUgYWNjZXNzIGlzIG5vdCBzZXQNCj4+IChYRU4pIFtWVC1EXURN
-QVI6W0RNQSBXcml0ZV0gUmVxdWVzdCBkZXZpY2UgWzAwMDA6NjU6MDAuMF0gZmF1bHQgYWRk
-ciAxMjAwMDA2MDAwDQo+PiAoWEVOKSBbVlQtRF1ETUFSOiByZWFzb24gMDUgLSBQVEUgV3Jp
-dGUgYWNjZXNzIGlzIG5vdCBzZXQNCj4+IChYRU4pIFtWVC1EXURNQVI6W0RNQSBXcml0ZV0g
-UmVxdWVzdCBkZXZpY2UgWzAwMDA6NjU6MDAuMF0gZmF1bHQgYWRkciAxMjAwMDA4MDAwDQo+
-PiAoWEVOKSBbVlQtRF1ETUFSOiByZWFzb24gMDUgLSBQVEUgV3JpdGUgYWNjZXNzIGlzIG5v
-dCBzZXQNCj4+IChYRU4pIFtWVC1EXURNQVI6W0RNQSBXcml0ZV0gUmVxdWVzdCBkZXZpY2Ug
-WzAwMDA6NjU6MDAuMF0gZmF1bHQgYWRkciAxMjAwMDA5MDAwDQo+PiAoWEVOKSBbVlQtRF1E
-TUFSOiByZWFzb24gMDUgLSBQVEUgV3JpdGUgYWNjZXNzIGlzIG5vdCBzZXQNCj4+IChYRU4p
-IFtWVC1EXURNQVI6W0RNQSBXcml0ZV0gUmVxdWVzdCBkZXZpY2UgWzAwMDA6NjU6MDAuMF0g
-ZmF1bHQgYWRkciAxMjAwMDBhMDAwDQo+PiAoWEVOKSBbVlQtRF1ETUFSOiByZWFzb24gMDUg
-LSBQVEUgV3JpdGUgYWNjZXNzIGlzIG5vdCBzZXQNCj4+IChYRU4pIFtWVC1EXURNQVI6W0RN
-QSBXcml0ZV0gUmVxdWVzdCBkZXZpY2UgWzAwMDA6NjU6MDAuMF0gZmF1bHQgYWRkciAxMjAw
-MDBjMDAwDQo+PiAoWEVOKSBbVlQtRF1ETUFSOiByZWFzb24gMDUgLSBQVEUgV3JpdGUgYWNj
-ZXNzIGlzIG5vdCBzZXQNCj4+IGBgYA0KPiANCj4gVGhhdCdzIGludGVyZXN0aW5nLCBpdCBz
-ZWVtcyB0byBtZSB0aGF0IExpbnV4IGlzIGFzc3VtaW5nIHRoYXQgcGFnZXMNCj4gYXQgY2Vy
-dGFpbiBib3VuZGFyaWVzIGFyZSBzdXBlcnBhZ2VzLCBhbmQgdGh1cyBpdCBjYW4ganVzdCBp
-bmNyZWFzZQ0KPiB0aGUgbWZuIHRvIGdldCB0aGUgbmV4dCBwaHlzaWNhbCBwYWdlLg0KDQpJ
-J20gbm90IHN1cmUgdGhpcyBpcyB0cnVlLiBTZWUgYmVsb3cuDQoNCj4+IGFuZCBldmVyeSB0
-aW1lIEknbSBkcm9wcGluZyB0aGUgY2FjaGUgYW5kIHJlYWRpbmcgdGhpcyByZWdpb24sIEkn
-bSBnZXR0aW5nDQo+PiBETUFSIGZhdWx0cyBvbiBmZXcgcmFuZG9tIGFkZHJlc3NlcyBmcm9t
-IDEyMDAwMDAwMDAtMTIwMDAwZjAwMCByYW5nZSAoSSBndWVzcw0KPj4gTUZOcyAweDEyMDAw
-MDAtMTIwMDAwZikuIE1GTnMgMHgxMjAwMDAwLTB4MTIwMDBmZiBhcmUgbm90IG1hcHBlZCB0
-byBhbnkgUEZOIGluDQo+PiBEb20wIChiYXNlZCBvbiB4ZW4tbWZuZHVtcCBvdXRwdXQuKS4N
-Cj4gDQo+IEl0IHdvdWxkIGJlIHZlcnkgaW50ZXJlc3RpbmcgdG8gZmlndXJlIG91dCB3aGVy
-ZSB0aG9zZSByZXF1ZXN0cw0KPiBvcmlnaW5hdGUsIGlvdzogd2hpY2ggZW50aXR5IGluIExp
-bnV4IGNyZWF0ZXMgdGhlIGJpb3Mgd2l0aCB0aGUNCj4gZmF1bHRpbmcgYWRkcmVzcyhlcyku
-DQoNCkkgX3RoaW5rXyB0aGlzIGlzIHJlbGF0ZWQgdG8gdGhlIGtlcm5lbCB0cnlpbmcgdG8g
-Z2V0IHNvbWUgY29udGlndW91cyBhcmVhcw0KZm9yIHRoZSBidWZmZXJzIHVzZWQgYnkgdGhl
-IEkvT3MuIEFzIHRob3NlIGFyZWFzIGFyZSBiZWluZyBnaXZlbiBiYWNrIGFmdGVyDQp0aGUg
-SS9PLCB0aGV5IGRvbid0IGFwcGVhciBpbiB0aGUgbWZuZHVtcC4NCg0KPiBJdCdzIGEgd2ls
-ZCBndWVzcywgYnV0IGNvdWxkIHlvdSB0cnkgdG8gYm9vdCBMaW51eCB3aXRoIHN3aW90bGI9
-Zm9yY2UNCj4gb24gdGhlIGNvbW1hbmQgbGluZSBhbmQgYXR0ZW1wdCB0byB0cmlnZ2VyIHRo
-ZSBpc3N1ZT8gIEkgd29uZGVyDQo+IHdoZXRoZXIgaW1wb3NpbmcgdGhlIHVzYWdlIG9mIHRo
-ZSBzd2lvdGxiIHdpbGwgc3VyZmFjZSB0aGUgaXNzdWVzIGFzDQo+IENQVSBhY2Nlc3Nlcywg
-cmF0aGVyIHRoZW4gSU9NTVUgZmF1bHRzLCBhbmQgdGhhdCBjb3VsZCBnZXQgdXMgYSB0cmFj
-ZQ0KPiBpbnNpZGUgTGludXggb2YgaG93IHRob3NlIHJlcXVlc3RzIGFyZSBnZW5lcmF0ZWQu
-DQo+IA0KPj4gT24gdGhlIG90aGVyIGhhbmQsIEknbSBub3QgZ2V0dGluZyB0aGVzZSBETUFS
-IGZhdWx0cyB3aGlsZSByZWFkaW5nIG90aGVyIHJlZ2lvbnMuDQo+PiBBbHNvIEkgY2FuJ3Qg
-dHJpZ2dlciB0aGUgYnVnIHdpdGggcmV2ZXJzZWQgRG9tMCBtYXBwaW5nLCBldmVuIGlmIEkg
-ZmlsbCB0aGUgcGFnZQ0KPj4gY2FjaGUgd2l0aCByZWFkcy4NCj4gDQo+IFRoZXJlJ3MgcG9z
-c2libHkgc29tZSBjb25kaXRpb24gd2UgYXJlIG1pc3NpbmcgdGhhdCBjYXVzZXMgYSBjb21w
-b25lbnQNCj4gaW4gTGludXggdG8gYXNzdW1lIHRoZSBuZXh0IGFkZHJlc3MgaXMgbWZuICsg
-MSwgaW5zdGVhZCBvZiBkb2luZyB0aGUNCj4gZnVsbCBhZGRyZXNzIHRyYW5zbGF0aW9uIGZy
-b20gdGhlIGxpbmVhciBvciBwZm4gc3BhY2UuDQoNCk15IHRoZW9yeSBpczoNCg0KVGhlIGtl
-cm5lbCBpcyBzZWVpbmcgdGhlIHVzZWQgYnVmZmVyIHRvIGJlIGEgcGh5c2ljYWxseSBjb250
-aWd1b3VzIGFyZWEsDQpzbyBpdCBpcyBfbm90XyB1c2luZyBhIHNjYXR0ZXItZ2F0aGVyIGxp
-c3QgKGl0IGRvZXMgaW4gdGhlIGRlYnVnIFhlbiBjYXNlLA0KcmVzdWx0aW5nIGluIGl0IG5v
-dCB0byBzaG93IGFueSBlcnJvcnMpLiBVbmZvcnR1bmF0ZWx5IHRoZSBidWZmZXIgaXMgbm90
-DQphbGlnbmVkIHRvIGl0cyBzaXplLCBzbyBzd2lvdGxiLXhlbiB3aWxsIHJlbWFwIHRoZSBi
-dWZmZXIgdG8gYSBzdWl0YWJseQ0KYWxpZ25lZCBvbmUuIFRoZSBkcml2ZXIgd2lsbCB0aGVu
-IHVzZSB0aGUgcmV0dXJuZWQgbWFjaGluZSBhZGRyZXNzIGZvcg0KSS9PcyB0byBib3RoIHRo
-ZSBkZXZpY2VzIG9mIHRoZSBSQUlEIGNvbmZpZ3VyYXRpb24uIFdoZW4gdGhlIGZpcnN0IEkv
-TyBpcw0KZG9uZSwgdGhlIGRyaXZlciBwcm9iYWJseSBpcyBjYWxsaW5nIHRoZSBETUEgdW5t
-YXAgb3IgZGV2aWNlIHN5bmMgZnVuY3Rpb24NCmFscmVhZHksIGNhdXNpbmcgdGhlIGludGVy
-bWVkaWF0ZSBjb250aWd1b3VzIHJlZ2lvbiB0byBiZSBkZXN0cm95ZWQgYWdhaW4NCih0aGlz
-IGlzIHRoZSB0aW1lIHdoZW4gdGhlIERNQVIgZXJyb3JzIHNob3VsZCBzaG93IHVwIGZvciB0
-aGUgMm5kIEkvTyBzdGlsbA0KcnVubmluZykuDQoNClNvIHRoZSBtYWluIGlzc3VlIElNSE8g
-aXMsIHRoYXQgYSBETUEgYnVmZmVyIG1hcHBlZCBmb3Igb25lIGRldmljZSBpcyB1c2VkDQpm
-b3IgMiBkZXZpY2VzIGluc3RlYWQuDQoNCg0KSnVlcmdlbg0K
---------------u5nTJ0Jt00MjlbmowM3feHkz
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+---
+Hi all,
+this is a rework for https://lore.kernel.org/xen-devel/20240912085709.858052-1-Sergiy_Kibrik@epam.com/T/#u.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+v1->v2 changes:
+* For emulation flags, added a new file "arch/x86/hvm/Kconfig.emu" to be a separate seletion,
+  and moved definition of "config X86_STDVGA" into it.
+* Added a new macro "#define DISABLED_EMU_MASK (!IS_ENABLED(CONFIG_X86_STDVGA) ? X86_EMU_VGA : 0)",
+  and checked it in function emulation_flags_ok.
+* Adjusted macro "has_vvga".
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+Best regards,
+Jiqian Chen.
+---
+ xen/arch/x86/Kconfig              |  2 ++
+ xen/arch/x86/domain.c             |  2 ++
+ xen/arch/x86/hvm/Kconfig.emu      | 14 ++++++++++++++
+ xen/arch/x86/hvm/Makefile         |  2 +-
+ xen/arch/x86/include/asm/domain.h |  6 +++++-
+ xen/arch/x86/include/asm/hvm/io.h |  4 ++++
+ 6 files changed, 28 insertions(+), 2 deletions(-)
+ create mode 100644 xen/arch/x86/hvm/Kconfig.emu
 
---------------u5nTJ0Jt00MjlbmowM3feHkz--
+diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+index 9cdd04721afa..e4fedf7e54d8 100644
+--- a/xen/arch/x86/Kconfig
++++ b/xen/arch/x86/Kconfig
+@@ -123,6 +123,8 @@ config HVM
+ 
+ 	  If unsure, say Y.
+ 
++source "arch/x86/hvm/Kconfig.emu"
++
+ config AMD_SVM
+ 	bool "AMD-V" if EXPERT
+ 	depends on HVM
+diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+index 78a13e6812c9..289c91459470 100644
+--- a/xen/arch/x86/domain.c
++++ b/xen/arch/x86/domain.c
+@@ -758,6 +758,8 @@ static bool emulation_flags_ok(const struct domain *d, uint32_t emflags)
+              (X86_EMU_ALL & ~(X86_EMU_VPCI | X86_EMU_USE_PIRQ)) &&
+              emflags != X86_EMU_LAPIC )
+             return false;
++        if ( emflags & DISABLED_EMU_MASK )
++            return false;
+     }
+     else if ( emflags != 0 && emflags != X86_EMU_PIT )
+     {
+diff --git a/xen/arch/x86/hvm/Kconfig.emu b/xen/arch/x86/hvm/Kconfig.emu
+new file mode 100644
+index 000000000000..aa60b6227036
+--- /dev/null
++++ b/xen/arch/x86/hvm/Kconfig.emu
+@@ -0,0 +1,14 @@
++menu "Emulated device support"
++	visible if EXPERT
++
++config X86_STDVGA
++	bool "Standard VGA card emulation support" if EXPERT
++	default y
++	depends on HVM
++	help
++	  Build stdvga driver that emulates standard VGA card with VESA BIOS
++	  Extensions for HVM guests.
++
++	  If unsure, say Y.
++
++endmenu
+diff --git a/xen/arch/x86/hvm/Makefile b/xen/arch/x86/hvm/Makefile
+index 4c1fa5c6c2bf..4d1f8e00eb68 100644
+--- a/xen/arch/x86/hvm/Makefile
++++ b/xen/arch/x86/hvm/Makefile
+@@ -22,7 +22,7 @@ obj-y += pmtimer.o
+ obj-y += quirks.o
+ obj-y += rtc.o
+ obj-y += save.o
+-obj-y += stdvga.o
++obj-$(CONFIG_X86_STDVGA) += stdvga.o
+ obj-y += vioapic.o
+ obj-y += vlapic.o
+ obj-y += vm_event.o
+diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
+index b79d6badd71c..68be23bf3bf4 100644
+--- a/xen/arch/x86/include/asm/domain.h
++++ b/xen/arch/x86/include/asm/domain.h
+@@ -494,13 +494,17 @@ struct arch_domain
+                                  X86_EMU_PIT | X86_EMU_USE_PIRQ |       \
+                                  X86_EMU_VPCI)
+ 
++#define DISABLED_EMU_MASK \
++    (!IS_ENABLED(CONFIG_X86_STDVGA) ? X86_EMU_VGA : 0)
++
+ #define has_vlapic(d)      (!!((d)->arch.emulation_flags & X86_EMU_LAPIC))
+ #define has_vhpet(d)       (!!((d)->arch.emulation_flags & X86_EMU_HPET))
+ #define has_vpm(d)         (!!((d)->arch.emulation_flags & X86_EMU_PM))
+ #define has_vrtc(d)        (!!((d)->arch.emulation_flags & X86_EMU_RTC))
+ #define has_vioapic(d)     (!!((d)->arch.emulation_flags & X86_EMU_IOAPIC))
+ #define has_vpic(d)        (!!((d)->arch.emulation_flags & X86_EMU_PIC))
+-#define has_vvga(d)        (!!((d)->arch.emulation_flags & X86_EMU_VGA))
++#define has_vvga(d)        (IS_ENABLED(CONFIG_X86_STDVGA) && \
++                            !!((d)->arch.emulation_flags & X86_EMU_VGA))
+ #define has_viommu(d)      (!!((d)->arch.emulation_flags & X86_EMU_IOMMU))
+ #define has_vpit(d)        (!!((d)->arch.emulation_flags & X86_EMU_PIT))
+ #define has_pirq(d)        (!!((d)->arch.emulation_flags & X86_EMU_USE_PIRQ))
+diff --git a/xen/arch/x86/include/asm/hvm/io.h b/xen/arch/x86/include/asm/hvm/io.h
+index f2b8431facb0..32a2490fbcb2 100644
+--- a/xen/arch/x86/include/asm/hvm/io.h
++++ b/xen/arch/x86/include/asm/hvm/io.h
+@@ -108,7 +108,11 @@ struct vpci_arch_msix_entry {
+     int pirq;
+ };
+ 
++#ifdef CONFIG_X86_STDVGA
+ void stdvga_init(struct domain *d);
++#else
++static inline void stdvga_init(struct domain *d) {}
++#endif
+ 
+ extern void hvm_dpci_msi_eoi(struct domain *d, int vector);
+ 
+-- 
+2.34.1
 
---------------hrTawuapCD0YcgN83pb5DJ2S--
-
---------------NKz8LUeziTkm2OsVi0ywJEf0
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAme29lYFAwAAAAAACgkQsN6d1ii/Ey8I
-3gf/QTZ3/sPeb03verM36gKJMZkXUJIePKKGMlcNB2FHTjsPbrguzvE2wzZedsWfTS3osXubot6g
-R2pvCuOqyyU1djjdGe/o4nZKM+TTsXHEH9VkIdwMgfDN2XLvR749nZrLUX/wJGUutckxhYSA4eJV
-jt064wd78s13Nzd2PMrMss7HPPB7+amxxap5y7K0SSTe+zvYtW7b8AzTIEQ5uUjIsJSIF3U8hHaX
-Xx7l0sjDzmhtUha/gFsjUgrq6ntSpSeBU5RzxPlylo4PPSeuv03IGtnePs8xwsfV1j1kVrB2gSQB
-4oZ5hlKDSrawDGtBcmCiVOPy1DAAaDRAv6Q7JGhatg==
-=6VLR
------END PGP SIGNATURE-----
-
---------------NKz8LUeziTkm2OsVi0ywJEf0--
 
