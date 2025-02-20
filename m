@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88FFAA3D486
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 10:22:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.893691.1302559 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1C50A3D491
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 10:23:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.893701.1302570 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tl2ke-0007zD-PJ; Thu, 20 Feb 2025 09:21:48 +0000
+	id 1tl2mR-00004x-41; Thu, 20 Feb 2025 09:23:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 893691.1302559; Thu, 20 Feb 2025 09:21:48 +0000
+Received: by outflank-mailman (output) from mailman id 893701.1302570; Thu, 20 Feb 2025 09:23:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tl2ke-0007xn-Mh; Thu, 20 Feb 2025 09:21:48 +0000
-Received: by outflank-mailman (input) for mailman id 893691;
- Thu, 20 Feb 2025 09:21:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tl2mR-0008UQ-1C; Thu, 20 Feb 2025 09:23:39 +0000
+Received: by outflank-mailman (input) for mailman id 893701;
+ Thu, 20 Feb 2025 09:23:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zkM0=VL=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tl2ke-0007xh-2P
- for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 09:21:48 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1b408ec8-ef6c-11ef-9aa8-95dc52dad729;
- Thu, 20 Feb 2025 10:21:46 +0100 (CET)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-5452ed5b5b2so788265e87.0
- for <xen-devel@lists.xenproject.org>; Thu, 20 Feb 2025 01:21:46 -0800 (PST)
-Received: from [172.24.85.51] ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-545637f0e14sm1599363e87.86.2025.02.20.01.21.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Feb 2025 01:21:45 -0800 (PST)
+ <SRS0=/p1y=VL=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1tl2mP-0008TC-IK
+ for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 09:23:37 +0000
+Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
+ [2001:4860:4864:20::2f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5bf289a9-ef6c-11ef-9896-31a8f345e629;
+ Thu, 20 Feb 2025 10:23:35 +0100 (CET)
+Received: by mail-oa1-x2f.google.com with SMTP id
+ 586e51a60fabf-2a88c7fabdeso401048fac.1
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Feb 2025 01:23:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,245 +40,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1b408ec8-ef6c-11ef-9aa8-95dc52dad729
+X-Inumbo-ID: 5bf289a9-ef6c-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1740043306; x=1740648106; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1740043414; x=1740648214; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3hHh7WNv2GKgw/2U5zj0LlpXMq2VUhBTHIQKbEWWS/8=;
-        b=VdP/sgRuAXFHKyY+pg2HhneGDivQb8lXhPJVpOYzSnIjUUInZQvRpuMXALZbHapYd7
-         OR37C6Ev0htUc2IRjCF6Jf4K7CI0L9qiq4lHU1vF4LP3dGk0OGeM/1i/bFj709F2GkrE
-         9b43HWKstVoEvDHImLM+hHx4sWziU/bTELYMNVS+Qu7zcgjl+Tq7y/2GDBgrkaFdj91G
-         n08l9xlYtBimLZ30/wtldHwKc3M+RB0iIAZTWgvratLg689VczMNd+nhdVExHm3U5Rdo
-         a8Vgr2hKD4e6qPkkkWOxfFE4mdjQffeMWrtfioZCYC3oYzz8Ul9BjzI8VLezUmlV9Dcp
-         VdXA==
+        bh=Tu1aEYq+gu82IXUKKSw8630FuxQHjJTMJLXRL2Ov1so=;
+        b=CJxa0W5v1we6zxynqG9PStwm3+RN6e8RLgOj07wKKr1PDv/VcUQ+glWuihVGBi6RWn
+         /eKGWFnWjryDxZCnrbUU9y0ptK/HLSXLPNtdWHUwIObKd8zwyGX3/LCup5/vHppuWrkB
+         MrjP0D3xzgSZLZcyzS09/ln5giKeYXGxP/u3U=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740043306; x=1740648106;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=3hHh7WNv2GKgw/2U5zj0LlpXMq2VUhBTHIQKbEWWS/8=;
-        b=c9gDAIQe9u6Gu2YCbZvyU+vXf5l8aexabsh0UH19Fc5U3Jwcp9lIqd9Bq8JDqGIp+E
-         QrT5vkIcB4+zCbuSFtL0ouVAKc90GaTtq59TWJY5QiR211u10UiCMB+tu43PsNWqxfuA
-         XmEZv+KZK3N1xag7R/4dGI06+uNgN4iJT8sZr561I/o3rqpnvc9mOKVvoVo9TB3hEGaQ
-         AdTkxUmhQ9X8XoOfV/WMPzKTtX0UswaxPwaP9J6LwRmEI3qhzzkKw+7L2PWsu+FmQl7s
-         gEdUIh2SQAFaXV52yNoLWlqYn3YaUr2/eYt/oKYz7z5iM3CpfezuuJuQiSsQB1uGcXO7
-         46IA==
-X-Gm-Message-State: AOJu0YwG1ZnLhS9pTx3yiWJ8Gt4Nw5lYUTLI+ICpWKMinJI96rphItMG
-	R3iS9Mi1gCA33bsvF/xcImY73kyzHJ0frdW3tSlodGvVq57xQu3f
-X-Gm-Gg: ASbGncvRLQAHpbapc7AZx/ybYAh8Hi+HbV2w+71O/wO9TbjwMA8lask/kT58/vAzmAc
-	/EwtjVcaE0+U06+oWyTb+0idK4Vq94p5VLbHQOFH/pcJtF6P2EDToP9EiHvVh1C6N0K2xMUVR+r
-	LBuqqG2g8ucvyywl5CRKbnSE80iDZyA4tQzduVwSSCrsU7WwU7lUy1TPOwRYyFJG6BZrlm9wHvH
-	xyaaz0InG8mjCqHaoRRJU26bVHHx+5Rpd7bJMzix0X58CLmBKcfQsv3QVdoK+xfdl1WsavacQQy
-	nn0fCKcb8Hg8R6+4jcdtvkqg
-X-Google-Smtp-Source: AGHT+IFbRRMzw373tm1TDU3t/tmjkb7Ygv4n5Zu3Do+OKUuonwez027rBSaowUNJv/Vjyh4eSRGBrg==
-X-Received: by 2002:a05:6512:33ca:b0:545:16d3:3bd4 with SMTP id 2adb3069b0e04-5452fe79c0cmr6611912e87.53.1740043305560;
-        Thu, 20 Feb 2025 01:21:45 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------OkksGcV0VroETC0R1ZAy6ScI"
-Message-ID: <6dda7f58-ca4f-4cd9-b2fb-e1adf711951b@gmail.com>
-Date: Thu, 20 Feb 2025 10:21:44 +0100
+        d=1e100.net; s=20230601; t=1740043414; x=1740648214;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Tu1aEYq+gu82IXUKKSw8630FuxQHjJTMJLXRL2Ov1so=;
+        b=ljhNV+OdtvUzLpUSJ5+XajRq61qZuQ7wy4Opk2VFE+oY4sZySX4FDXwcoDmUnPRItC
+         Vr7F218S8RzGglnVyRdIPZlCmfnpzeIUl9u5YLBDwKE9jw+YTAymVbbKnVo70gbSX66s
+         WjkMo640CV6lZNEMJmNQouWmF/9u0bHSHqfusyuV6loMvdMM7dvUlnUaNgrgiu8EUUAQ
+         efoEKRSFKoY0mf2mWmXSkRWDSQBUiwRvRlzlI4g1C+Wa8uLnJ0bj1XsjmktnDPDemSvP
+         FYgAL+bnvHKTd7QHMF9IvEHvqYYtVTyAiGbyq6Cj2P2GgiIHmMGLyvnFWNgdonHF70wo
+         IfyQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVip4AnfhkaY81FzBUSjuIjZZfut7s+l0Rwrx3xu3GewIsTOOu9UdL36dTaLCmdrC3jvetx0mt1CY4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyQBd/Rb98ZeL/XY8DeKa7hs+3xVt1TevLn72hxyjuALixKIAm2
+	+N/QbepGmJKZDZM8R1BqqQeETazDTvauPgCSgMg1b9R5Rz7aHloFLZbN0sPWh4Oc15UXIvby/X6
+	+xtO7i1kQvGKGAaauBcEx35kgpo2joJIBIyD3XSSy6H7Nayx5
+X-Gm-Gg: ASbGncuuQZI2BX2I7CRaVTnx/5wOcpcKR5jliecjqtE0Rr+LeejNVv+upHX4hLyyUWG
+	LMUOgxYrq3GHkAZrin+2MtKpZO7wZQ+I3lBmGFWLPRQPGH2tDr/eW6ZpcQFtlvPUu/Daj0A==
+X-Google-Smtp-Source: AGHT+IHBLdL6J6fnBV2dgGuXQ0PZZmQMm5xbiSDroJyKjjMGJ2MphAZHv6qBP1AgenJaosgJIY5txDrHFr8BIBhr0oM=
+X-Received: by 2002:a05:6870:8a0c:b0:29f:b1d4:7710 with SMTP id
+ 586e51a60fabf-2bc99d3fba2mr14144082fac.24.1740043414449; Thu, 20 Feb 2025
+ 01:23:34 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/arm: Create GIC node using the node name from host dt
-To: "Orzel, Michal" <michal.orzel@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20250219172946.359234-1-michal.orzel@amd.com>
- <alpine.DEB.2.22.394.2502191825060.1791669@ubuntu-linux-20-04-desktop>
- <18e030b4-8268-497e-b42c-f0d920fcb9c7@amd.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <18e030b4-8268-497e-b42c-f0d920fcb9c7@amd.com>
+References: <20250217162659.151232-1-frediano.ziglio@cloud.com>
+ <77eb149c-bb1e-4f77-85ba-c44b173a5c1e@suse.com> <ddfee078-409e-4253-9d51-b2f512b41e63@citrix.com>
+ <CACHz=ZhuOL3Le=+y0zFRaWBDEdLO_faLKZ83072Z0e88wZMpPw@mail.gmail.com>
+ <1923357b-c303-4900-9e2a-be4328ae4dc3@suse.com> <CACHz=Zhv5jnQ-amWwcjxOD0L+vNXFHbhs+qUkJp53MqUuwvQ1g@mail.gmail.com>
+ <f35ef066-2829-46c3-a65a-97436d8b39e2@suse.com>
+In-Reply-To: <f35ef066-2829-46c3-a65a-97436d8b39e2@suse.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Thu, 20 Feb 2025 09:23:23 +0000
+X-Gm-Features: AWEUYZncnjLwTZoPE9ZVz904CadSobtwv83yqaDA1fdJu8_Hj-FpNEXVcfZscTM
+Message-ID: <CACHz=ZjzNcV=eeN44_fJ=aeH-ymFs9xKewTiaR4VWgkOZ68RUg@mail.gmail.com>
+Subject: Re: [PATCH v6] Avoid crash calling PrintErrMesg from efi_multiboot2
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This is a multi-part message in MIME format.
---------------OkksGcV0VroETC0R1ZAy6ScI
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-
-On 2/20/25 9:00 AM, Orzel, Michal wrote:
+On Thu, Feb 20, 2025 at 7:32=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
+te:
 >
-> On 20/02/2025 03:26, Stefano Stabellini wrote:
->>
->> On Wed, 19 Feb 2025, Michal Orzel wrote:
->>> At the moment the GIC node we create for hwdom has a name
->>> "interrupt-controller". Change it so that we use the same name as the
->>> GIC node from host device tree. This is done for at least 2 purposes:
->>> 1) The convention in DT spec is that a node name with "reg" property
->>> is formed "node-name@unit-address".
->>> 2) With DT overlay feature, many overlays refer to the GIC node using
->>> the symbol under __symbols__ that we copy to hwdom 1:1. With the name
->>> changed, the symbol is no longer valid and requires error prone manual
->>> change by the user.
->>>
->>> The unit-address part of the node name always refers to the first
->>> address in the "reg" property which in case of GIC, always refers to
->>> GICD and hwdom uses host memory layout.
->>>
->>> Signed-off-by: Michal Orzel<michal.orzel@amd.com>
->> Reviewed-by: Stefano Stabellini<sstabellini@kernel.org>
->>
->> While this fix changes behavior for everyone, so it is risky at RC5, it
->> also fixes bugs with DT overlays, but that is an experimental feature. I
->> am in two minds whether it should go in right now or not. Maybe I would
->> wait until 4.20 is out and commit when the tree reopens.
-> Technically this is not a bug, hence no Fixes tag. I'm fine with this patch not
-> landing in 4.20. That said, I don't agree with what you wrote about a change in
-> behavior. There is no functional change at all. Only the node name change. It
-> could impact only those OSes that parse by the exact name which would be super
-> irrational and wrong. The only way one should parse intc is by searching for
-> "interrupt-controller" property as written in DT spec.
+> On 19.02.2025 17:34, Frediano Ziglio wrote:
+> > On Mon, Feb 17, 2025 at 4:56=E2=80=AFPM Jan Beulich <jbeulich@suse.com>=
+ wrote:
+> >> On 17.02.2025 17:52, Frediano Ziglio wrote:
+> >>> On Mon, Feb 17, 2025 at 4:41=E2=80=AFPM Andrew Cooper <andrew.cooper3=
+@citrix.com> wrote:
+> >>>> On 17/02/2025 4:31 pm, Jan Beulich wrote:
+> >>>>> On 17.02.2025 17:26, Frediano Ziglio wrote:
+> >>>>>> --- a/xen/common/efi/efi-common.mk
+> >>>>>> +++ b/xen/common/efi/efi-common.mk
+> >>>>>> @@ -2,6 +2,7 @@ EFIOBJ-y :=3D boot.init.o pe.init.o ebmalloc.o run=
+time.o
+> >>>>>>  EFIOBJ-$(CONFIG_COMPAT) +=3D compat.o
+> >>>>>>
+> >>>>>>  CFLAGS-y +=3D -fshort-wchar
+> >>>>>> +CFLAGS-y +=3D -fno-jump-tables
+> >>>>>>  CFLAGS-y +=3D -iquote $(srctree)/common/efi
+> >>>>>>  CFLAGS-y +=3D -iquote $(srcdir)
+> >>>>> Do source files other than boot.c really need this? Do any other fi=
+les outside
+> >>>>> of efi/ maybe also need this (iirc this point was made along with t=
+he v5 comment
+> >>>>> you got)?
+> >>>>
+> >>>> Every TU reachable from efi_multiboot2() needs this, because all of
+> >>>> those have logic executed at an incorrect virtual address.
+> >>>
+> >>> I assume all the files in efi directory will deal with EFI boot so
+> >>> it's good to have the option enabled for the files inside the
+> >>> directory. The only exception seems runtime.c file.
+> >>
+> >> And compat.c, being a wrapper around runtime.c.
+> >>
+> >>> About external dependencies not sure how to detect them (beside
+> >>> looking at all symbols).
+> >>
+> >> Which raises the question whether we don't need to turn on that option
+> >> globally, without (as we have it now) any condition.
+> >
+> > I would avoid adding a potential option that could affect performances
+> > so badly at the moment.
+> > These changes are pretty contained.
+> > I would merge this patch and check any external dependencies as a follo=
+w up.
+>
+> Well. It's a judgement call to the maintainers. If I were them, I'd deman=
+d
+> that Andrew's remark be addressed, one way or another.
+>
+> Jan
 
-I would prefer to have this changes when the tree reopens.
+I think I did, but only Andres can confirm it.
 
-~ Oleksii
-
->>
->>> ---
->>>   xen/arch/arm/domain_build.c | 7 ++++++-
->>>   1 file changed, 6 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
->>> index 7b47abade196..e760198d8609 100644
->>> --- a/xen/arch/arm/domain_build.c
->>> +++ b/xen/arch/arm/domain_build.c
->>> @@ -1615,6 +1615,7 @@ static int __init make_gic_node(const struct domain *d, void *fdt,
->>>       int res = 0;
->>>       const void *addrcells, *sizecells;
->>>       u32 addrcells_len, sizecells_len;
->>> +    const char *name;
->>>
->>>       /*
->>>        * Xen currently supports only a single GIC. Discard any secondary
->>> @@ -1628,7 +1629,11 @@ static int __init make_gic_node(const struct domain *d, void *fdt,
->>>
->>>       dt_dprintk("Create gic node\n");
->>>
->>> -    res = fdt_begin_node(fdt, "interrupt-controller");
->>> +    /* Use the same name as the GIC node in host device tree */
->>> +    name = strrchr(gic->full_name, '/');
->>> +    name = name ? name + 1 : gic->full_name;
->>> +
->>> +    res = fdt_begin_node(fdt, name);
->>>       if ( res )
->>>           return res;
->>>
->>> --
->>> 2.25.1
->>>
---------------OkksGcV0VroETC0R1ZAy6ScI
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2/20/25 9:00 AM, Orzel, Michal
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:18e030b4-8268-497e-b42c-f0d920fcb9c7@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-
-On 20/02/2025 03:26, Stefano Stabellini wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">
-
-On Wed, 19 Feb 2025, Michal Orzel wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">At the moment the GIC node we create for hwdom has a name
-"interrupt-controller". Change it so that we use the same name as the
-GIC node from host device tree. This is done for at least 2 purposes:
-1) The convention in DT spec is that a node name with "reg" property
-is formed "node-name@unit-address".
-2) With DT overlay feature, many overlays refer to the GIC node using
-the symbol under __symbols__ that we copy to hwdom 1:1. With the name
-changed, the symbol is no longer valid and requires error prone manual
-change by the user.
-
-The unit-address part of the node name always refers to the first
-address in the "reg" property which in case of GIC, always refers to
-GICD and hwdom uses host memory layout.
-
-Signed-off-by: Michal Orzel <a class="moz-txt-link-rfc2396E" href="mailto:michal.orzel@amd.com">&lt;michal.orzel@amd.com&gt;</a>
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-Reviewed-by: Stefano Stabellini <a class="moz-txt-link-rfc2396E" href="mailto:sstabellini@kernel.org">&lt;sstabellini@kernel.org&gt;</a>
-
-While this fix changes behavior for everyone, so it is risky at RC5, it
-also fixes bugs with DT overlays, but that is an experimental feature. I
-am in two minds whether it should go in right now or not. Maybe I would
-wait until 4.20 is out and commit when the tree reopens.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">Technically this is not a bug, hence no Fixes tag. I'm fine with this patch not
-landing in 4.20. That said, I don't agree with what you wrote about a change in
-behavior. There is no functional change at all. Only the node name change. It
-could impact only those OSes that parse by the exact name which would be super
-irrational and wrong. The only way one should parse intc is by searching for
-"interrupt-controller" property as written in DT spec.</pre>
-    </blockquote>
-    <pre>I would prefer to have this changes when the tree reopens.</pre>
-    <pre>~ Oleksii</pre>
-    <blockquote type="cite"
-      cite="mid:18e030b4-8268-497e-b42c-f0d920fcb9c7@amd.com">
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">
-
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">---
- xen/arch/arm/domain_build.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 7b47abade196..e760198d8609 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -1615,6 +1615,7 @@ static int __init make_gic_node(const struct domain *d, void *fdt,
-     int res = 0;
-     const void *addrcells, *sizecells;
-     u32 addrcells_len, sizecells_len;
-+    const char *name;
-
-     /*
-      * Xen currently supports only a single GIC. Discard any secondary
-@@ -1628,7 +1629,11 @@ static int __init make_gic_node(const struct domain *d, void *fdt,
-
-     dt_dprintk("Create gic node\n");
-
--    res = fdt_begin_node(fdt, "interrupt-controller");
-+    /* Use the same name as the GIC node in host device tree */
-+    name = strrchr(gic-&gt;full_name, '/');
-+    name = name ? name + 1 : gic-&gt;full_name;
-+
-+    res = fdt_begin_node(fdt, name);
-     if ( res )
-         return res;
-
---
-2.25.1
-
-</pre>
-        </blockquote>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------OkksGcV0VroETC0R1ZAy6ScI--
+Frediano
 
