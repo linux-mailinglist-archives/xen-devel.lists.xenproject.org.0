@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73E18A3CF42
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 03:14:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.893485.1302364 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3140EA3CF57
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2025 03:28:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.893497.1302373 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkw4t-0004vE-UQ; Thu, 20 Feb 2025 02:14:15 +0000
+	id 1tkwHL-0006nd-4K; Thu, 20 Feb 2025 02:27:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 893485.1302364; Thu, 20 Feb 2025 02:14:15 +0000
+Received: by outflank-mailman (output) from mailman id 893497.1302373; Thu, 20 Feb 2025 02:27:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tkw4t-0004sx-Rg; Thu, 20 Feb 2025 02:14:15 +0000
-Received: by outflank-mailman (input) for mailman id 893485;
- Thu, 20 Feb 2025 02:14:15 +0000
+	id 1tkwHL-0006l7-1N; Thu, 20 Feb 2025 02:27:07 +0000
+Received: by outflank-mailman (input) for mailman id 893497;
+ Thu, 20 Feb 2025 02:27:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/j1Y=VL=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tkw4t-0004sr-0T
- for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 02:14:15 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ id 1tkwHJ-0006l1-9T
+ for xen-devel@lists.xenproject.org; Thu, 20 Feb 2025 02:27:05 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 60414696-ef30-11ef-9aa8-95dc52dad729;
- Thu, 20 Feb 2025 03:14:13 +0100 (CET)
+ id 2b9d7e90-ef32-11ef-9aa8-95dc52dad729;
+ Thu, 20 Feb 2025 03:27:03 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 89AE25C5CEC;
- Thu, 20 Feb 2025 02:13:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 596DAC4CED1;
- Thu, 20 Feb 2025 02:14:10 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id EDF3E61293;
+ Thu, 20 Feb 2025 02:27:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C7ABC4CED1;
+ Thu, 20 Feb 2025 02:27:01 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,217 +41,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 60414696-ef30-11ef-9aa8-95dc52dad729
+X-Inumbo-ID: 2b9d7e90-ef32-11ef-9aa8-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1740017651;
-	bh=MRJq2zg9E8wmWnDf/vhHiy5lAkRI8EN83XewubXrA6Q=;
+	s=k20201202; t=1740018422;
+	bh=f84/9/uWuBGzCG/MZKiRyDn/KHwHnz3TREzDZvbgWV8=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=tPx65FPg/uw0/VronzkWUj4N2goLBk9XEAcVqedCkScsh+McGKGVNk2gf+EGA7SDe
-	 Yp6kEQqpfAmBpZQuqDp9vuN4EzqR3EHeAiMsKY2rd6sFJvT/ciMtiJJQftznhqDfuq
-	 NQaY62ydu2+lLEg13u/fFRWDPLu+dQHQtPP0HshvrEQSLAR2AeIZbX8dChbCDeWMWB
-	 i6rHhmDH0qRC7EP6nCUldD0FYFbEJAV3Lk8v7QBSV6ChA0PaUcUyh6ogVPQ56hK1ho
-	 yRjmefXgGV6umyLqPcO/YugM3nmXJoZKXZfYrznUZiW50BQKla1OMd9N5bI3DGwZrE
-	 EiQBS3RxNIaHA==
-Date: Wed, 19 Feb 2025 18:14:08 -0800 (PST)
+	b=a44kizdwrAyaKbbX/t2yS8Ph20Q6rLFko41L/I5bHJn7KMiHBtXdKwVAkPtnHC74p
+	 2OuJ1lv3ZyHfEdgSWO8j0ROSEtnncZoIaEoL7At6Z790fFwxFI+80tXsoHCSOIbjZc
+	 mmlz49yTzsIGnDLb4Az3KVWNd3spHG97ZJ/IDrba5WX2TMcUrOyXdPln0ZDKjA2lxJ
+	 qAv/w9B6X3Lv/Zt7wtX46Mk4BH/Wv5wD7sphvW5vSR3YQ1T0oJ9e7HoMJlJaNbvZvh
+	 mUAxKrDwpFZ9AeekAw/iEepYacUx6A7dm6cdievDvZCsWSGQm3Z2DzApqbZwyBjmoH
+	 LHeCkAECHna3g==
+Date: Wed, 19 Feb 2025 18:26:59 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
-    michal.orzel@amd.com, Volodymyr_Babchuk@epam.com, 
-    dpsmith@apertussolutions.com, xenia.ragiadakou@amd.com
-Subject: Re: [PATCH v3] xen/dom0less: support for vcpu affinity
-In-Reply-To: <921bd786-f0d1-4c3f-ba3f-8a9e6c517572@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2502191813390.1791669@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2502181227580.1085376@ubuntu-linux-20-04-desktop> <921bd786-f0d1-4c3f-ba3f-8a9e6c517572@xen.org>
+To: Michal Orzel <michal.orzel@amd.com>
+cc: xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, oleksii.kurochko@gmail.com
+Subject: Re: [PATCH] xen/arm: Create GIC node using the node name from host
+ dt
+In-Reply-To: <20250219172946.359234-1-michal.orzel@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2502191825060.1791669@ubuntu-linux-20-04-desktop>
+References: <20250219172946.359234-1-michal.orzel@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 19 Feb 2025, Julien Grall wrote:
-> Hi Stefano,
+On Wed, 19 Feb 2025, Michal Orzel wrote:
+> At the moment the GIC node we create for hwdom has a name
+> "interrupt-controller". Change it so that we use the same name as the
+> GIC node from host device tree. This is done for at least 2 purposes:
+> 1) The convention in DT spec is that a node name with "reg" property
+> is formed "node-name@unit-address".
+> 2) With DT overlay feature, many overlays refer to the GIC node using
+> the symbol under __symbols__ that we copy to hwdom 1:1. With the name
+> changed, the symbol is no longer valid and requires error prone manual
+> change by the user.
 > 
-> On 18/02/2025 20:29, Stefano Stabellini wrote:
-> > Add vcpu affinity to the dom0less bindings. Example:
-> > 
-> >      dom1 {
-> >              ...
-> >              cpus = <4>;
-> >              vcpu0 {
-> >                     compatible = "xen,vcpu-affinity";
+> The unit-address part of the node name always refers to the first
+> address in the "reg" property which in case of GIC, always refers to
+> GICD and hwdom uses host memory layout.
 > 
-> I would prefer if the compatible is "xen,vcpu". This would allow us to extend
-> for anything that vCPU specific. I would also look less odd if someone ...
-> 
-> >                     id = <0>;
-> >                     hard-affinity = "4-7";
-> 
-> ... doesn't specify hard-affinity which is optional.
-> 
-> >              };
-> >              vcpu1 {
-> >                     compatible = "xen,vcpu-affinity";
-> >                     id = <1>;
-> >                     hard-affinity = "0-3";
-> 
-> NIT: This example is exactly the same as vcpu0. How about changing to a list
-> of range/single value? This would make clear that a mix is possible.
-> 
-> >              };
-> >              vcpu2 {
-> >                     compatible = "xen,vcpu-affinity";
-> >                     id = <2>;
-> >                     hard-affinity = "1,6";
-> >              };
-> >              ...
-> > 
-> > Note that the property hard-affinity is optional. It is possible to add
-> > other properties in the future not only to specify soft affinity, but
-> > also to provide more precise methods for configuring affinity. For
-> > instance, on ARM the MPIDR could be use to specify the pCPU. For now, it
-> > is left to the future.
-> > 
-> > Signed-off-by: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
-> > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> > ---
-> > Changes in v3:
-> > - improve commit message
-> > - improve binding doc
-> > - add panic on invalid pCPU
-> > - move parsing to a separate function
-> > 
-> > diff --git a/docs/misc/arm/device-tree/booting.txt
-> > b/docs/misc/arm/device-tree/booting.txt
-> > index 9c881baccc..10e55c825c 100644
-> > --- a/docs/misc/arm/device-tree/booting.txt
-> > +++ b/docs/misc/arm/device-tree/booting.txt
-> > @@ -324,6 +324,27 @@ The ramdisk sub-node has the following properties:
-> >       property because it will be created by the UEFI stub on boot.
-> >       This option is needed only when UEFI boot is used.
-> >   +Under the "xen,domain" compatible node, it is possible optionally to add
-> > +one or more sub-nodes to configure vCPU affinity. The vCPU affinity
-> > +sub-node has the following properties:
-> > +
-> > +- compatible
-> > +
-> > +    "xen,vcpu-affinity"
-> > +
-> > +- id
-> > +
-> > +    A 32-bit integer that specifies the vCPU id. 0 is the first vCPU.
-> > +    The last vCPU is cpus-1, where "cpus" is the number of vCPUs
-> > +    specified with the "cpus" property under the "xen,domain" node.
-> 
-> I think it would be worth mentioning that each node must have a unique ID. It
-> is not necessary to check in the code, but it would avoid the question of what
-> happen if someone specify twice the VCPU with different affinity.
-> 
-> > +
-> > +- hard-affinity
-> > +
-> > +    Optional. A string specifying the hard affinity configuration for the
-> > +    vCPU: a comma-separated list of pCPUs or ranges of pCPUs is used.
-> > +    Ranges are hyphen-separated intervals (such as `0-4`) and are inclusive
-> > +    on both sides. The numbers refer to pCPU ids.
-> 
-> Technically MPIDRs are pCPUs ID. So I would add "logical" in front of pCPU ids
-> to make clear what IDs are we talking about
-> 
-> > +
-> >     Example
-> >   =======
-> 
-> No update to the example?
-> 
-> > diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
-> > index 49d1f14d65..e364820189 100644
-> > --- a/xen/arch/arm/dom0less-build.c
-> > +++ b/xen/arch/arm/dom0less-build.c
-> > @@ -810,6 +810,68 @@ static int __init construct_domU(struct domain *d,
-> >       return rc;
-> >   }
-> >   +static void __init domain_vcpu_affinity(struct domain *d,
-> > +                                        const struct dt_device_node *node)
-> > +{> +    const char *hard_affinity_str = NULL;
-> > +    struct dt_device_node *np;
-> > +    uint32_t val;
-> > +    int rc;
-> 
-> Can you expain why 'rc', 'val', 'hard_affinity_str' are defined outside of the
-> loop when ...
-> 
-> > +
-> > +    dt_for_each_child_node(node, np)
-> > +    {
-> > +        const char *s;
-> > +        struct vcpu *v;
-> > +        cpumask_t affinity;
-> 
-> ... they are not? Yet they have the same property (i.e. only called within the
-> loop).
-> 
-> > +
-> > +        if ( !dt_device_is_compatible(np, "xen,vcpu-affinity") )
-> > +            continue;
-> > +
-> > +        if ( !dt_property_read_u32(np, "id", &val) )
-> 
-> Looking at the binding you wrote, "id" is mandatory. So I think we should
-> throw an error if it is not present.
-> 
-> > +            continue;
-> > +> +        if ( val >= d->max_vcpus )
-> > +            panic("Invalid vcpu_id %u for domain %s\n", val,
-> > dt_node_name(node));
-> 
-> NIT: Maybe print the maximum number of vCPUs? This would make easier to know
-> what's wrong with the ID.
-> 
-> > +
-> > +        v = d->vcpu[val];
-> > +        rc = dt_property_read_string(np, "hard-affinity",
-> > &hard_affinity_str);
-> > +        if ( rc < 0 )
-> > +            continue;
-> > +
-> > +        s = hard_affinity_str;
-> 
-> OOI, you don't seem to use hard_affinity_str afterwards, so why can't we use
-> 'hard_affinity_str' directly and avoid an extra variable?
-> 
-> > +        cpumask_clear(&affinity);
-> > +        while ( *s != '\0' )
-> > +        {
-> > +            unsigned int start, end;
-> > +
-> > +            start = simple_strtoul(s, &s, 0);
-> > +
-> > +            if ( *s == '-' )    /* Range */
-> > +            {
-> > +                s++;
-> > +                end = simple_strtoul(s, &s, 0);
-> > +            }
-> > +            else                /* Single value */
-> > +                end = start;
-> > +
-> > +            if ( end >= nr_cpu_ids )
-> > +                panic("Invalid pCPU %u for domain %s\n", end,
-> > dt_node_name(node));
-> > +
-> > +            for ( ; start <= end; start++ )
-> > +                cpumask_set_cpu(start, &affinity);
-> > +
-> > +            if ( *s == ',' )
-> > +                s++;
-> > +            else if ( *s != '\0' )
-> > +                break;
-> 
-> NIT: We seem to have various place in Xen parsing range (e.g.
-> init_boot_pages()). Could we provide an helper to avoid duplicating the code?
+> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 
-Hi Julien,
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Many thanks for the review, I addressed all the comments, except for
-this NIT
+While this fix changes behavior for everyone, so it is risky at RC5, it
+also fixes bugs with DT overlays, but that is an experimental feature. I
+am in two minds whether it should go in right now or not. Maybe I would
+wait until 4.20 is out and commit when the tree reopens.
 
+
+> ---
+>  xen/arch/arm/domain_build.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 7b47abade196..e760198d8609 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -1615,6 +1615,7 @@ static int __init make_gic_node(const struct domain *d, void *fdt,
+>      int res = 0;
+>      const void *addrcells, *sizecells;
+>      u32 addrcells_len, sizecells_len;
+> +    const char *name;
+>  
+>      /*
+>       * Xen currently supports only a single GIC. Discard any secondary
+> @@ -1628,7 +1629,11 @@ static int __init make_gic_node(const struct domain *d, void *fdt,
+>  
+>      dt_dprintk("Create gic node\n");
+>  
+> -    res = fdt_begin_node(fdt, "interrupt-controller");
+> +    /* Use the same name as the GIC node in host device tree */
+> +    name = strrchr(gic->full_name, '/');
+> +    name = name ? name + 1 : gic->full_name;
+> +
+> +    res = fdt_begin_node(fdt, name);
+>      if ( res )
+>          return res;
+>  
+> -- 
+> 2.25.1
+> 
 
