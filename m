@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A81C7A40077
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Feb 2025 21:11:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.894595.1303311 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29698A40079
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Feb 2025 21:11:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.894598.1303333 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tlZMP-0006wH-8m; Fri, 21 Feb 2025 20:10:57 +0000
+	id 1tlZMY-0007Uf-Qy; Fri, 21 Feb 2025 20:11:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 894595.1303311; Fri, 21 Feb 2025 20:10:57 +0000
+Received: by outflank-mailman (output) from mailman id 894598.1303333; Fri, 21 Feb 2025 20:11:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tlZMP-0006uB-5j; Fri, 21 Feb 2025 20:10:57 +0000
-Received: by outflank-mailman (input) for mailman id 894595;
- Fri, 21 Feb 2025 20:10:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tlZMY-0007RE-Nr; Fri, 21 Feb 2025 20:11:06 +0000
+Received: by outflank-mailman (input) for mailman id 894598;
+ Fri, 21 Feb 2025 20:11:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7TFm=VM=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tlZMO-0006u0-0d
- for xen-devel@lists.xenproject.org; Fri, 21 Feb 2025 20:10:56 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f464915b-f08f-11ef-9aa9-95dc52dad729;
- Fri, 21 Feb 2025 21:10:54 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-4394036c0efso16354555e9.2
- for <xen-devel@lists.xenproject.org>; Fri, 21 Feb 2025 12:10:54 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-439b030b2c8sm27288135e9.25.2025.02.21.12.10.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 Feb 2025 12:10:53 -0800 (PST)
+ <SRS0=VJx0=VM=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1tlZMX-0007PL-Aa
+ for xen-devel@lists.xenproject.org; Fri, 21 Feb 2025 20:11:05 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f8ff787d-f08f-11ef-9896-31a8f345e629;
+ Fri, 21 Feb 2025 21:11:02 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id C16E58287A06;
+ Fri, 21 Feb 2025 14:11:01 -0600 (CST)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id yLelyzfeWX9y; Fri, 21 Feb 2025 14:11:00 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 29A328287311;
+ Fri, 21 Feb 2025 14:11:00 -0600 (CST)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id eO_TZkpEai9p; Fri, 21 Feb 2025 14:11:00 -0600 (CST)
+Received: from raptor-ewks-026.2lan (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id CECEC8287A06;
+ Fri, 21 Feb 2025 14:10:58 -0600 (CST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,156 +51,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f464915b-f08f-11ef-9aa9-95dc52dad729
+X-Inumbo-ID: f8ff787d-f08f-11ef-9896-31a8f345e629
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 29A328287311
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1740168654; x=1740773454; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+/xroZ04c6IBTc3KK0k0oGHEGo/2zVmblhre1A047jQ=;
-        b=Tq/EyEHFDVSaw/Dd6/23B4HSc4H1XnqKvBbH6h2IQIKTl1YIwBJA9mFn8QdIY8kUbQ
-         mOa7KtGaGdpNVRhiIgOiG4I9CfPQinqbhPIUuEzleOdnPy+UifiDoUiWUrPhDVn+d+AA
-         bvSP3eeA0JPIygwzaqMTWu+kBnVCfUK4BZpRk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740168654; x=1740773454;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+/xroZ04c6IBTc3KK0k0oGHEGo/2zVmblhre1A047jQ=;
-        b=WOq/OoRIboJ8FI3apKBBeEciqjoMRQYdJq1yC+jaWBW0kRtB64+/1DoH9zzWxNRczH
-         mAhBfBU2PZN/E0KQW7qdXcmPXn1my/RpV6RSZIgYekvLCKpkp72/0Z1jjEe9MOX0rIB9
-         6+wbGIN6Sim1o7yIajcHZZQ/uq4q6SrfWPAAFrkoBAcSXcOMcREjgzRg1U7dOj41fm/L
-         u79YAY4lYQal0gcS0k/D56dcjphrLz3qsOX2g9DCa1wC7Y4IAMO+FTWI5gXJDbu268J7
-         Qn2Qt050+2IawBkc6rqkMdVmNBYilkYv/99BBPIqpQ/P3twD2qSSSyjXuNW6mcfg/61S
-         W8wQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWksLe6oJaLEHU0pMCd7SWzPqmnauCXl0PUtp2raHqWOCKGbUtAN481WcGFApUXA0Y5jHCmRFZtQIk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzPInPxdu93G/nGi+K2xCjpogUEx2zkH0CalGXiC31om3j5bEjc
-	04Mjagi2An5ugiYWW2t4LBb7ixEP2l0/fUZFT3cj8usYnpm08pqn8eMEQ4sfniyialblt1CwLwJ
-	9
-X-Gm-Gg: ASbGncte4Y8n6RQ9Jx6WjBnyQuY2VNWVymRvG/qTvaNbS1hscBuEVAQzAv3d5hDVuPT
-	eSt3J/n7M60wtsCy6LrgA8kHH7HLuLoRNwXqJ0bF/2EeRGSrVEqRmxK/r3tz8oZGVvMN4WY0q1q
-	/RaG+JNwfE82ZVHzqiiXeEj04y51P9PKrNdk54/ek/BOB8IF5Bnc24AKuDFlI88I5xmU+i/Rp5B
-	ueRKtx50lbFllsQki7ibd4rwjhkDCFAMFrvgYJ4FxcIZaU+R4G+p2Wu1rsLyLB0jG4Rgp47n7uN
-	PTOtI1YPrvnAfznDcKtVBMshlCGRvFjt07POqJ2OuR16xJPPM8fyWvxerqUb53eEAQ==
-X-Google-Smtp-Source: AGHT+IH+unkF2giBrB/sPOpbOgT8FeadxItWc/E+Z1yAkhU1VIAnFMFp5Jb8t9LmCLMTR+knKXk7gA==
-X-Received: by 2002:a05:600c:5125:b0:439:9951:1220 with SMTP id 5b1f17b1804b1-439ae1f1415mr40341705e9.13.1740168654176;
-        Fri, 21 Feb 2025 12:10:54 -0800 (PST)
-Message-ID: <9cb2f3e5-5523-4b02-b8df-9975dab7c015@citrix.com>
-Date: Fri, 21 Feb 2025 20:10:52 +0000
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1740168660; bh=m43n8JQoxt7cBKsoDBjjQtEo/wuJipJu678wJzv9lS8=;
+	h=From:To:Date:Message-Id:MIME-Version;
+	b=WKTrUnZ9ntiHURoeN6gg29XkURDCHJ6ldyFZuk1EkjOw1JFVztSqRSeh8kPZABeI2
+	 q+//IPTnhoMUKU/Pn+I1Fo0e6AGJ+B/Rv5GUpYo/FPwIHPFZKnUHaqL6RIVhEet9UD
+	 OtdmtTx505kEYUuLX0iFQ7mJWOo1l0GUPGRyeB4w=
+X-Virus-Scanned: amavisd-new at rptsys.com
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+To: xen-devel@lists.xenproject.org
+Cc: tpearson@raptorengineering.com,
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: [PATCH v3 2/2] xen/mm: Introduce per-arch pte_attr_t type for PTE flags
+Date: Fri, 21 Feb 2025 14:10:53 -0600
+Message-Id: <ca31107923a8794f8752e65b5c3ad14bd2f326cf.1739488487.git.sanastasio@raptorengineering.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <1d0826e88e95357979d74fb3702b35fdb0b75151.1739488487.git.sanastasio@raptorengineering.com>
+References: <1d0826e88e95357979d74fb3702b35fdb0b75151.1739488487.git.sanastasio@raptorengineering.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] xen/ppc: Fix opal.c's misaligned DT reads to avoid
- tripping UBSAN
-To: Shawn Anastasio <sanastasio@raptorengineering.com>,
- xen-devel@lists.xenproject.org
-Cc: tpearson@raptorengineering.com
-References: <cover.1740168326.git.sanastasio@raptorengineering.com>
- <f0b1f299d793c4302ee1b4c6a9c99057f924d4f4.1740168326.git.sanastasio@raptorengineering.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <f0b1f299d793c4302ee1b4c6a9c99057f924d4f4.1740168326.git.sanastasio@raptorengineering.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 21/02/2025 8:08 pm, Shawn Anastasio wrote:
-> Fix two misaligned reads from the FDT in the opal setup code to avoid
-> tripping UBSAN failures. Without this change, UBSAN-enabled builds on
-> PPC will fail on boot before the serial console is even initialized.
->
-> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
-> ---
->  xen/arch/ppc/opal.c | 18 +++++++++++-------
->  1 file changed, 11 insertions(+), 7 deletions(-)
->
-> diff --git a/xen/arch/ppc/opal.c b/xen/arch/ppc/opal.c
-> index 1183b7d5ef..3d0e4daf27 100644
-> --- a/xen/arch/ppc/opal.c
-> +++ b/xen/arch/ppc/opal.c
-> @@ -34,8 +34,9 @@ static void opal_putchar(char c)
->  void __init boot_opal_init(const void *fdt)
->  {
->      int opal_node;
-> -    const __be64 *opal_base;
-> -    const __be64 *opal_entry;
-> +    const __be64 *opal_base_p;
-> +    const __be64 *opal_entry_p;
-> +    __be64 opal_base, opal_entry;
->  
->      if ( fdt_check_header(fdt) < 0 )
->      {
-> @@ -54,17 +55,20 @@ void __init boot_opal_init(const void *fdt)
->          die();
->      }
->  
-> -    opal_base = fdt_getprop(fdt, opal_node, "opal-base-address", NULL);
-> -    opal_entry = fdt_getprop(fdt, opal_node, "opal-entry-address", NULL);
-> -    if ( !opal_base || !opal_entry )
-> +    opal_base_p = fdt_getprop(fdt, opal_node, "opal-base-address", NULL);
-> +    opal_entry_p = fdt_getprop(fdt, opal_node, "opal-entry-address", NULL);
-> +    if ( !opal_base_p || !opal_entry_p )
->      {
->          early_printk("Failed to get opal-base-address/opal-entry-address "
->                       "property from DT!\n");
->          die();
->      }
->  
-> -    opal.base = be64_to_cpu(*opal_base);
-> -    opal.entry = be64_to_cpu(*opal_entry);
-> +    memcpy(&opal_base, opal_base_p, sizeof(opal_base));
-> +    memcpy(&opal_entry, opal_entry_p, sizeof(opal_entry));
-> +
-> +    opal.base = be64_to_cpu(opal_base);
-> +    opal.entry = be64_to_cpu(opal_entry);
+Xen's memory management APIs map_pages_to_xen, modify_xen_mappings,
+set_fixmap, ioremap_attr, and __vmap all use an unsigned int to
+represent architecture-dependent page table entry flags. This assumption
+is not well-suited for PPC/radix where some flags go past 32-bits, so
+introduce the pte_attr_t type to allow architectures to opt in to larger
+types to store PTE flags.
 
-Thanks for getting to the bottom of this.
+Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+---
+Changes in v3:
+  - Use new asm/mm-types.h to pull in pte_attr_t definition when
+  necessary.
+  - Drop define+ifdef since pte_attr_t is now always defined.
 
-However, you can use get_unaligned_*() and friends which is probably a
-bit nicer, and doesn't involve the extra local variables.
+Changes in v2:
+  - Drop Kconfig option and use `#define pte_attr_t pte_attr_t` for arches to
+  opt-in to defining the type.
+  - Move default pte_attr_definition to xen/types.h
+  - Update commit message to reflect that this change isn't strictly
+  necessary for arches w/ >32bit pte flags
 
-~Andrew
+ xen/arch/ppc/include/asm/Makefile   | 1 -
+ xen/arch/ppc/include/asm/mm-types.h | 7 +++++++
+ xen/arch/ppc/mm-radix.c             | 2 +-
+ xen/common/efi/boot.c               | 5 +++--
+ xen/common/vmap.c                   | 2 +-
+ xen/include/asm-generic/mm-types.h  | 2 ++
+ xen/include/xen/mm.h                | 5 +++--
+ xen/include/xen/vmap.h              | 4 +++-
+ 8 files changed, 20 insertions(+), 8 deletions(-)
+ create mode 100644 xen/arch/ppc/include/asm/mm-types.h
+
+diff --git a/xen/arch/ppc/include/asm/Makefile b/xen/arch/ppc/include/asm/Makefile
+index c0dbc68ac6..c989a7f89b 100644
+--- a/xen/arch/ppc/include/asm/Makefile
++++ b/xen/arch/ppc/include/asm/Makefile
+@@ -5,7 +5,6 @@ generic-y += div64.h
+ generic-y += hardirq.h
+ generic-y += hypercall.h
+ generic-y += iocap.h
+-generic-y += mm-types.h
+ generic-y += paging.h
+ generic-y += percpu.h
+ generic-y += perfc_defn.h
+diff --git a/xen/arch/ppc/include/asm/mm-types.h b/xen/arch/ppc/include/asm/mm-types.h
+new file mode 100644
+index 0000000000..0cb850f4f6
+--- /dev/null
++++ b/xen/arch/ppc/include/asm/mm-types.h
+@@ -0,0 +1,7 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef __ASM_PPC_MM_TYPES_H__
++#define __ASM_PPC_MM_TYPES_H__
++
++typedef unsigned long pte_attr_t;
++
++#endif /* __ASM_PPC_MM_TYPES_H__ */
+diff --git a/xen/arch/ppc/mm-radix.c b/xen/arch/ppc/mm-radix.c
+index 24232f3907..e02dffa7c5 100644
+--- a/xen/arch/ppc/mm-radix.c
++++ b/xen/arch/ppc/mm-radix.c
+@@ -265,7 +265,7 @@ int destroy_xen_mappings(unsigned long s, unsigned long e)
+ int map_pages_to_xen(unsigned long virt,
+                      mfn_t mfn,
+                      unsigned long nr_mfns,
+-                     unsigned int flags)
++                     pte_attr_t flags)
+ {
+     BUG_ON("unimplemented");
+ }
+diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+index efbec00af9..999dbce4dc 100644
+--- a/xen/common/efi/boot.c
++++ b/xen/common/efi/boot.c
+@@ -1,4 +1,5 @@
+ #include "efi.h"
++#include <asm/mm-types.h>
+ #include <efi/efiprot.h>
+ #include <efi/efipciio.h>
+ #include <public/xen.h>
+@@ -1656,7 +1657,7 @@ void __init efi_init_memory(void)
+     struct rt_extra {
+         struct rt_extra *next;
+         unsigned long smfn, emfn;
+-        unsigned int prot;
++        pte_attr_t prot;
+     } *extra, *extra_head = NULL;
+
+     free_ebmalloc_unused_mem();
+@@ -1671,7 +1672,7 @@ void __init efi_init_memory(void)
+         EFI_MEMORY_DESCRIPTOR *desc = efi_memmap + i;
+         u64 len = desc->NumberOfPages << EFI_PAGE_SHIFT;
+         unsigned long smfn, emfn;
+-        unsigned int prot = PAGE_HYPERVISOR_RWX;
++        pte_attr_t prot = PAGE_HYPERVISOR_RWX;
+         paddr_t mem_base;
+         unsigned long mem_npages;
+
+diff --git a/xen/common/vmap.c b/xen/common/vmap.c
+index 47225fecc0..d6991421f3 100644
+--- a/xen/common/vmap.c
++++ b/xen/common/vmap.c
+@@ -222,7 +222,7 @@ static void vm_free(const void *va)
+ }
+
+ void *__vmap(const mfn_t *mfn, unsigned int granularity,
+-             unsigned int nr, unsigned int align, unsigned int flags,
++             unsigned int nr, unsigned int align, pte_attr_t flags,
+              enum vmap_region type)
+ {
+     void *va = vm_alloc(nr * granularity, align, type);
+diff --git a/xen/include/asm-generic/mm-types.h b/xen/include/asm-generic/mm-types.h
+index 26490e48db..9eb3cba698 100644
+--- a/xen/include/asm-generic/mm-types.h
++++ b/xen/include/asm-generic/mm-types.h
+@@ -2,4 +2,6 @@
+ #ifndef __ASM_GENERIC_MM_TYPES_H__
+ #define __ASM_GENERIC_MM_TYPES_H__
+
++typedef unsigned int pte_attr_t;
++
+ #endif /* __ASM_GENERIC_MM_TYPES_H__ */
+diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
+index 16f733281a..bdb71a99ca 100644
+--- a/xen/include/xen/mm.h
++++ b/xen/include/xen/mm.h
+@@ -69,6 +69,7 @@
+ #include <xen/spinlock.h>
+ #include <xen/perfc.h>
+ #include <public/memory.h>
++#include <asm/mm-types.h>
+
+ struct page_info;
+
+@@ -113,9 +114,9 @@ int map_pages_to_xen(
+     unsigned long virt,
+     mfn_t mfn,
+     unsigned long nr_mfns,
+-    unsigned int flags);
++    pte_attr_t flags);
+ /* Alter the permissions of a range of Xen virtual address space. */
+-int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf);
++int modify_xen_mappings(unsigned long s, unsigned long e, pte_attr_t nf);
+ void modify_xen_mappings_lite(unsigned long s, unsigned long e,
+                               unsigned int nf);
+ int destroy_xen_mappings(unsigned long s, unsigned long e);
+diff --git a/xen/include/xen/vmap.h b/xen/include/xen/vmap.h
+index 26c831757a..e1155ed14a 100644
+--- a/xen/include/xen/vmap.h
++++ b/xen/include/xen/vmap.h
+@@ -8,8 +8,10 @@
+ #ifndef __XEN_VMAP_H__
+ #define __XEN_VMAP_H__
+
++#include <xen/mm.h>
+ #include <xen/mm-frame.h>
+ #include <xen/page-size.h>
++#include <asm/mm-types.h>
+
+ /* Identifiers for the linear ranges tracked by vmap */
+ enum vmap_region {
+@@ -57,7 +59,7 @@ void vm_init_type(enum vmap_region type, void *start, void *end);
+  * @return Pointer to the mapped area on success; NULL otherwise.
+  */
+ void *__vmap(const mfn_t *mfn, unsigned int granularity, unsigned int nr,
+-             unsigned int align, unsigned int flags, enum vmap_region type);
++             unsigned int align, pte_attr_t flags, enum vmap_region type);
+
+ /*
+  * Map an array of pages contiguously into the VMAP_DEFAULT vmap region
+--
+2.30.2
+
 
