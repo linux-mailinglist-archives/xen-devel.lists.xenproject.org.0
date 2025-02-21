@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B71A8A3F67B
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Feb 2025 14:53:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.894485.1303186 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18AEDA3F6C7
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Feb 2025 15:06:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.894495.1303196 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tlTSb-0000Fz-Ey; Fri, 21 Feb 2025 13:52:57 +0000
+	id 1tlTf5-0002Dz-Hs; Fri, 21 Feb 2025 14:05:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 894485.1303186; Fri, 21 Feb 2025 13:52:57 +0000
+Received: by outflank-mailman (output) from mailman id 894495.1303196; Fri, 21 Feb 2025 14:05:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tlTSb-0000Dl-C8; Fri, 21 Feb 2025 13:52:57 +0000
-Received: by outflank-mailman (input) for mailman id 894485;
- Fri, 21 Feb 2025 13:52:55 +0000
+	id 1tlTf5-0002BP-Eh; Fri, 21 Feb 2025 14:05:51 +0000
+Received: by outflank-mailman (input) for mailman id 894495;
+ Fri, 21 Feb 2025 14:05:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RQ+l=VM=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tlTSZ-0000Df-Qm
- for xen-devel@lists.xenproject.org; Fri, 21 Feb 2025 13:52:55 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ id 1tlTf3-0002BJ-Lp
+ for xen-devel@lists.xenproject.org; Fri, 21 Feb 2025 14:05:49 +0000
+Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
+ [2607:f8b0:4864:20::633])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 258376ab-f05b-11ef-9896-31a8f345e629;
- Fri, 21 Feb 2025 14:52:53 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-aaf3c3c104fso375524166b.1
- for <xen-devel@lists.xenproject.org>; Fri, 21 Feb 2025 05:52:53 -0800 (PST)
+ id f125ccc7-f05c-11ef-9896-31a8f345e629;
+ Fri, 21 Feb 2025 15:05:45 +0100 (CET)
+Received: by mail-pl1-x633.google.com with SMTP id
+ d9443c01a7336-220ecbdb4c2so57286425ad.3
+ for <xen-devel@lists.xenproject.org>; Fri, 21 Feb 2025 06:05:45 -0800 (PST)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abbb860fc11sm726812466b.124.2025.02.21.05.52.52
+ d2e1a72fcca58-73268d7d8b9sm11955138b3a.133.2025.02.21.06.05.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 Feb 2025 05:52:52 -0800 (PST)
+ Fri, 21 Feb 2025 06:05:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,59 +44,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 258376ab-f05b-11ef-9896-31a8f345e629
+X-Inumbo-ID: f125ccc7-f05c-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1740145973; x=1740750773; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=GwMTn584G9HE74yTNEdXOe+qvf1KyC0S+GD83xNay8I=;
-        b=YU4jfmsW/D5iuQxyBwIWefDlln7saLFuFnyKDS5oWA55v6YhPBZjiwRVl1YfwtCGNe
-         a4xQ14jUpqJUykeuK3/18MvdaGI688g/UrkSZAZfdCh630fC8taq49u3/ijJwqMMeSz+
-         yBZpRlkfT2LaEFplIRQ2cvPiHYwvc1ppEDhX4=
+        d=citrix.com; s=google; t=1740146744; x=1740751544; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=fp30YvI6z2n7371TX0k71IiT76YP/Dc383I7XeFcYQk=;
+        b=qKNHOJNtSyDktYjsgSyMIYJXniZdFpBSHWaUk7G0fyBSPPX/LNTO+KRgaMjL0dwbCY
+         Dfd/NWQGEkjgWi9rio1fkkBEEo3Wip2lcRk3cZQ0XhBkq8hOxooCajeGPydrSZ89Q9gC
+         JZjsY3zAiIU7F9nRNPSPI3IizsoPWUVVGkid4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740145973; x=1740750773;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=GwMTn584G9HE74yTNEdXOe+qvf1KyC0S+GD83xNay8I=;
-        b=jJRZJ4Cakc/v0tWKh+P0EM8YqurdRx8LkatmmjdB7zTnnq1DDHFXTyzSlYjEx9H+22
-         D0FhIKh8RFtQ4FvsbOsSmetk9BUyk1W42sDSFnhXu3Ru3K6bA2PYzhz9tlHLw7+N4El0
-         7OOJzTDG78jlI3XbpiL0qp7Ze7r5FB2MZ28iJ7oBuIUzr1XV4WYzE4dbRyJX8N1S3RvG
-         Vr+2FYJ5WLLL9n7gtKlzutq8LK/idvYYIYMqQNkkrBY46PCt7C+HI6tPNe4LpGLMc8X9
-         a9902XgFM3BWs9+ytK04D2zN0iFyZkIYVlTUJzE3zQr0lU7YiElqBApRLhimBtwe33xh
-         MH+g==
-X-Gm-Message-State: AOJu0Yzd1One66P8KY5RBOinteVa/BSgJzvJ400TniFqFXnaoAL7qo/m
-	8s05h29DGPVReFY6ZU1hTMm+mozaWdZPHnX2qqyCP1I+g/wqiPvfpKHRxUbXxvg=
-X-Gm-Gg: ASbGncsH+2T32eyanAewGeW4ueZ5Vp0kGSGXpsjZrnFT8im7RFX2OMpDQdKbsUPpC18
-	UwbnKjokvqKQtNDk6YbMPSmUOS5+lef408ZK53CNeb95LpiL5LisBSpnvmN4ZWOndnWvZj/Fi+H
-	Vywx33jCTCvq7L7nGkqjQ9xGSYZf0BtfD64boeBMlBKKzC3lC+3Rqu+UzT8S2VyP9HvFp1241Gx
-	5VxyuVl5I6zfn5kGuPY9T1ziht6HCtgkoM7KCut/7596s7aXFgGgPLcv6X5HbPVGATzg0Nh6M6i
-	Y0cY2uxWwq39CtyfxpF9XM5Mg8KzsWI=
-X-Google-Smtp-Source: AGHT+IHEDYW13KcET6JqPXYaRPatfFvN4sh12rUZD4uKTs9DAoCyl5MqD0oU/YgNapqch7RGMLREOg==
-X-Received: by 2002:a17:907:3f20:b0:ab7:b928:1e05 with SMTP id a640c23a62f3a-abc0d997aafmr291266766b.4.1740145972898;
-        Fri, 21 Feb 2025 05:52:52 -0800 (PST)
-Date: Fri, 21 Feb 2025 14:52:51 +0100
+        d=1e100.net; s=20230601; t=1740146744; x=1740751544;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fp30YvI6z2n7371TX0k71IiT76YP/Dc383I7XeFcYQk=;
+        b=TKIhDoi60cLSHZSuS/W4uK7F9EVTkhdfMLVyam/+efFcQolHUp8Vgn5CrLUjQ6qmEf
+         Q38V2xRezuelSbpJeRdsz68Qn1JIvECvy226/QezkYLzhieE4l6Z+afStPg+zeIBcgYP
+         NC08rocp27b10/Wp2Oa0LOZ4YfM40hAF6zZc19fm1vUDxZsmm1RuohCZ86n1zj+QIhAX
+         APa6IRuGtapJigiCaD5s0P45iUBsMU4eZsH1vLCx9g3WhmulDzOoPlPP8tEq9JdFMNcs
+         TKFdXLadF/yJ3RbZWlRZh+sCLPGADJJOOYmpUfufR5/pJ8FuPFUXNQpfSvA00W4V9vuW
+         Qf8g==
+X-Forwarded-Encrypted: i=1; AJvYcCU538eoZbkyBqv0kzpJqdroCjplDBEWxKzg+OKPFOvEroNDoteTcutb0FvsSXokbsVIsjUEN4K7KaI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxy2CBOVbTKrgGffituqvHczvuXIpOnJbCDhGOBb7Nhg6XzvDZY
+	4wEkd/zgz2/rtjImOhS2XEonDbZ27x/FE8rZre3+Lu5O1eJHg+7ELF3/8fNiaBo=
+X-Gm-Gg: ASbGncsbcM56t/712a1pX1d9H16s1mrx8WyHWDsC2PSVWqMPEZnPHmaWvfpDUA70lAm
+	sxaM783+2/JmS0wtsIyMXfOLcRZczUYMthJdNPkJV7ZgdQpJsNUJkqWlK5ySKug8TiGsc0AtIqK
+	E33AQ8SDBTXE24vKf3Xtclxz8rFwI9E1vXMuArnSrM8ibmlp965qSLZANDR8wHJUAWzCTSHDRlW
+	XPE4lf6F+LduVRdM+e3bg9EtDwWTQSFaeHAlYyLjW9fxPfAPWlhXXslkxkknDYZyWjd3+PaQ/rh
+	23pm3rY10e5n5nwEjG/0qlA/HuHEPYo=
+X-Google-Smtp-Source: AGHT+IHbcyQBIITODPWByQlNHrsYaSvGX054aYB5T+wKR+9Os9Kuz7fVoMhkkATpr5mPovoMenTABg==
+X-Received: by 2002:a05:6a00:14cb:b0:732:516f:21fa with SMTP id d2e1a72fcca58-73426cf11f6mr5309998b3a.14.1740146743820;
+        Fri, 21 Feb 2025 06:05:43 -0800 (PST)
+Date: Fri, 21 Feb 2025 15:05:38 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	xen-devel@lists.xenproject.org
 Subject: Re: [PATCH] x86/msr: expose MSR_FAM10H_MMIO_CONF_BASE on AMD
-Message-ID: <Z7iFM_49F47St5gZ@macbook.local>
+Message-ID: <Z7iIMgnBKwzYkYwq@macbook.local>
 References: <20250221120417.20431-1-roger.pau@citrix.com>
- <30a21ae6-14a0-4069-a715-e8b906169199@citrix.com>
+ <6e24ee01-9b07-4180-9430-7b5ce949d140@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <30a21ae6-14a0-4069-a715-e8b906169199@citrix.com>
+In-Reply-To: <6e24ee01-9b07-4180-9430-7b5ce949d140@suse.com>
 
-On Fri, Feb 21, 2025 at 12:34:21PM +0000, Andrew Cooper wrote:
-> On 21/02/2025 12:04 pm, Roger Pau Monne wrote:
+On Fri, Feb 21, 2025 at 01:44:00PM +0100, Jan Beulich wrote:
+> On 21.02.2025 13:04, Roger Pau Monne wrote:
 > > The MMIO_CONF_BASE reports the base of the MCFG range on AMD systems.
 > > Currently Linux is unconditionally attempting to read the MSR without a
 > > safe MSR accessor, and since Xen doesn't allow access to it Linux reports
 > > the following error:
-> >
+> > 
 > > unchecked MSR access error: RDMSR from 0xc0010058 at rIP: 0xffffffff8101d19f (xen_do_read_msr+0x7f/0xa0)
 > > Call Trace:
 > >  <TASK>
@@ -135,65 +135,38 @@ On Fri, Feb 21, 2025 at 12:34:21PM +0000, Andrew Cooper wrote:
 > >  ? __pfx_kernel_init+0x10/0x10
 > >  ret_from_fork_asm+0x1b/0x30
 > >  </TASK>
-> >
+> 
+> Across all the halfway recent Linux versions I've never seen this. The MSR
+> access therefore can't be entirely unconditional, I expect. Or is this new
+> in 6.14, which I haven't tried yet?
+
+Hm, no, the above report is from 6.6.  It is gated on the presence of
+a device with PnP ID "PNP0c01", which triggers the execution of the
+quirk_amd_mmconfig_area() function.  Such PnP ID seems to be "System
+Board".  The system is currently busy, so I can't gather more
+information about the device that triggers it.  The issue was
+originally seem on a Dell system with AMD Naples (Zen) CPU (possibly
+other CPUs also, that's the one I tested the fix on).
+
 > > Fix by allowing access to the MSR on AMD systems, returning 0 for
 > > unprivileged domains (MMIO configuration space disabled), and the native
 > > value for the hardware domain.
-> >
+> > 
 > > The non hardware domain logic will need to be adjusted if in the future we
 > > expose an MCFG region to such domains.
-> >
+> > 
 > > Write attempts to the MSR will still result in #GP for all domain types.
-> >
+> > 
 > > Fixes: 84e848fd7a16 ('x86/hvm: disallow access to unknown MSRs')
 > > Fixes: 322ec7c89f66 ('x86/pv: disallow access to unknown MSRs')
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > ---
-> >  xen/arch/x86/msr.c | 15 +++++++++++++++
-> >  1 file changed, 15 insertions(+)
-> >
-> > diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
-> > index 289cf10b783a..c588c9131337 100644
-> > --- a/xen/arch/x86/msr.c
-> > +++ b/xen/arch/x86/msr.c
-> > @@ -245,6 +245,21 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
-> >          *val = 0;
-> >          break;
-> >  
-> > +    case MSR_FAM10H_MMIO_CONF_BASE:
-> > +        if ( !(cp->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON)) )
-> > +            goto gp_fault;
-> > +
-> > +        /*
-> > +         * Report MMIO configuration space is disabled unconditionally for
-> > +         * domUs, as the emulated chipset doesn't support ECAM.  For dom0
-> > +         * return the hardware value.
-> > +         */
-> > +        *val = 0;
-> > +        if ( is_hardware_domain(d) && rdmsr_safe(msr, *val) )
-> > +            goto gp_fault;
-> > +
-> > +        break;
-> > +
-> >      case MSR_VIRT_SPEC_CTRL:
-> >          if ( !cp->extd.virt_ssbd )
-> >              goto gp_fault;
 > 
-> Looking at the linux code, can we not fix this just by turning it into a
-> rdmsr_safe(), noting that not all hypervisors virtualise this MSR?
+> Hmm, if we consider this a bug fix, then perhaps we'd need to go quite a bit
+> farther with what MSRs we permit at least read access for. More generally in
+> this event I'd wonder whether for any MSR that's in principle writable we
+> shouldn't silently ignore same-value writes.
 
-Well, for dom0 it would be best if we expose it.  For domU it would be
-fine to use rdmsr_safe() in Linux.
-
-> Given the number of VMs which genuinely don't have PCI (emulated or
-> otherwise), it's a buggy assumption in Linux.
-
-I think we need to expose for the hardware domain, at which point
-returning all 0s for domUs is kind of a very small nit.
-
-I agree that Linux should use rdmsr_safe(), I can send a patch to that
-effect, but I still think there's no harm in returning all 0s on domUs
-instead of #GP.
+Yeah, I also wondered whether to silently ignore writes of the same
+value.  I would initially leave as-is initially.
 
 Thanks, Roger.
 
