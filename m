@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18AEDA3F6C7
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Feb 2025 15:06:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.894495.1303196 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6DA6A3F869
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Feb 2025 16:25:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.894509.1303209 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tlTf5-0002Dz-Hs; Fri, 21 Feb 2025 14:05:51 +0000
+	id 1tlUt2-0003c5-Vp; Fri, 21 Feb 2025 15:24:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 894495.1303196; Fri, 21 Feb 2025 14:05:51 +0000
+Received: by outflank-mailman (output) from mailman id 894509.1303209; Fri, 21 Feb 2025 15:24:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tlTf5-0002BP-Eh; Fri, 21 Feb 2025 14:05:51 +0000
-Received: by outflank-mailman (input) for mailman id 894495;
- Fri, 21 Feb 2025 14:05:49 +0000
+	id 1tlUt2-0003a2-TC; Fri, 21 Feb 2025 15:24:20 +0000
+Received: by outflank-mailman (input) for mailman id 894509;
+ Fri, 21 Feb 2025 15:24:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RQ+l=VM=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tlTf3-0002BJ-Lp
- for xen-devel@lists.xenproject.org; Fri, 21 Feb 2025 14:05:49 +0000
-Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
- [2607:f8b0:4864:20::633])
+ <SRS0=7TFm=VM=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tlUt1-0003Zw-Ht
+ for xen-devel@lists.xenproject.org; Fri, 21 Feb 2025 15:24:19 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f125ccc7-f05c-11ef-9896-31a8f345e629;
- Fri, 21 Feb 2025 15:05:45 +0100 (CET)
-Received: by mail-pl1-x633.google.com with SMTP id
- d9443c01a7336-220ecbdb4c2so57286425ad.3
- for <xen-devel@lists.xenproject.org>; Fri, 21 Feb 2025 06:05:45 -0800 (PST)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-73268d7d8b9sm11955138b3a.133.2025.02.21.06.05.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 Feb 2025 06:05:43 -0800 (PST)
+ id e9039423-f067-11ef-9896-31a8f345e629;
+ Fri, 21 Feb 2025 16:24:15 +0100 (CET)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-38f1e8efef5so1354270f8f.1
+ for <xen-devel@lists.xenproject.org>; Fri, 21 Feb 2025 07:24:15 -0800 (PST)
+Received: from [10.81.43.157] ([46.149.103.9])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38f259f771dsm23466161f8f.81.2025.02.21.07.24.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 21 Feb 2025 07:24:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,129 +45,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f125ccc7-f05c-11ef-9896-31a8f345e629
+X-Inumbo-ID: e9039423-f067-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1740146744; x=1740751544; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=fp30YvI6z2n7371TX0k71IiT76YP/Dc383I7XeFcYQk=;
-        b=qKNHOJNtSyDktYjsgSyMIYJXniZdFpBSHWaUk7G0fyBSPPX/LNTO+KRgaMjL0dwbCY
-         Dfd/NWQGEkjgWi9rio1fkkBEEo3Wip2lcRk3cZQ0XhBkq8hOxooCajeGPydrSZ89Q9gC
-         JZjsY3zAiIU7F9nRNPSPI3IizsoPWUVVGkid4=
+        d=citrix.com; s=google; t=1740151455; x=1740756255; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=dJDBAxBXXq6N1wJrQCZ0JFw2XU1ubq2LliR2HN8OwHs=;
+        b=pH7xZWR+qUf3ryQEtIz7xZbsu+TgyJ3DyJPqhPF1RVPpV706whJTuIObT4g9r2/sra
+         cURLUFPAMc1znExVOPyEl1ZryfReXnCgaFv+3qSp/gx4TiJhHtvKGCWWZ2buTroZYlHU
+         7w5WN6hYq3nj3h5Deq+i1/n77CzY8L6+y2mV4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740146744; x=1740751544;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1740151455; x=1740756255;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fp30YvI6z2n7371TX0k71IiT76YP/Dc383I7XeFcYQk=;
-        b=TKIhDoi60cLSHZSuS/W4uK7F9EVTkhdfMLVyam/+efFcQolHUp8Vgn5CrLUjQ6qmEf
-         Q38V2xRezuelSbpJeRdsz68Qn1JIvECvy226/QezkYLzhieE4l6Z+afStPg+zeIBcgYP
-         NC08rocp27b10/Wp2Oa0LOZ4YfM40hAF6zZc19fm1vUDxZsmm1RuohCZ86n1zj+QIhAX
-         APa6IRuGtapJigiCaD5s0P45iUBsMU4eZsH1vLCx9g3WhmulDzOoPlPP8tEq9JdFMNcs
-         TKFdXLadF/yJ3RbZWlRZh+sCLPGADJJOOYmpUfufR5/pJ8FuPFUXNQpfSvA00W4V9vuW
-         Qf8g==
-X-Forwarded-Encrypted: i=1; AJvYcCU538eoZbkyBqv0kzpJqdroCjplDBEWxKzg+OKPFOvEroNDoteTcutb0FvsSXokbsVIsjUEN4K7KaI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxy2CBOVbTKrgGffituqvHczvuXIpOnJbCDhGOBb7Nhg6XzvDZY
-	4wEkd/zgz2/rtjImOhS2XEonDbZ27x/FE8rZre3+Lu5O1eJHg+7ELF3/8fNiaBo=
-X-Gm-Gg: ASbGncsbcM56t/712a1pX1d9H16s1mrx8WyHWDsC2PSVWqMPEZnPHmaWvfpDUA70lAm
-	sxaM783+2/JmS0wtsIyMXfOLcRZczUYMthJdNPkJV7ZgdQpJsNUJkqWlK5ySKug8TiGsc0AtIqK
-	E33AQ8SDBTXE24vKf3Xtclxz8rFwI9E1vXMuArnSrM8ibmlp965qSLZANDR8wHJUAWzCTSHDRlW
-	XPE4lf6F+LduVRdM+e3bg9EtDwWTQSFaeHAlYyLjW9fxPfAPWlhXXslkxkknDYZyWjd3+PaQ/rh
-	23pm3rY10e5n5nwEjG/0qlA/HuHEPYo=
-X-Google-Smtp-Source: AGHT+IHbcyQBIITODPWByQlNHrsYaSvGX054aYB5T+wKR+9Os9Kuz7fVoMhkkATpr5mPovoMenTABg==
-X-Received: by 2002:a05:6a00:14cb:b0:732:516f:21fa with SMTP id d2e1a72fcca58-73426cf11f6mr5309998b3a.14.1740146743820;
-        Fri, 21 Feb 2025 06:05:43 -0800 (PST)
-Date: Fri, 21 Feb 2025 15:05:38 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] x86/msr: expose MSR_FAM10H_MMIO_CONF_BASE on AMD
-Message-ID: <Z7iIMgnBKwzYkYwq@macbook.local>
-References: <20250221120417.20431-1-roger.pau@citrix.com>
- <6e24ee01-9b07-4180-9430-7b5ce949d140@suse.com>
+        bh=dJDBAxBXXq6N1wJrQCZ0JFw2XU1ubq2LliR2HN8OwHs=;
+        b=ibbIrvXCpMkO0q/mNqzSuY9YgYMRey5eZ4boAZKQN2vWwm6MgzEye7hGssxSw9v9UC
+         x8q07aGCfhLTeIURglrTPZ4iGyjTNWzIfiXAB9VkE+YcK2hBYObRmfFP/Ap8bn/oGh1g
+         HR2ZHS5kA998XXU19wriPhcaWqjaK4tIehpYvpLEE3/9ag/TUP7vJqBQ+cbn5OS8rOx2
+         bUrTXe22i1URn27kVDk9YHmoHGhKN3VwR1tOjCPq9sAzzZGPjL0fGJiVo9uNGcsO27fq
+         2h0G2HcdgmFyUIr17Ss3sFghPOnW6d0rT63hESemt6Vsemd8MmslEgIW7hcHCetWaJV7
+         4OEQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVmnu4cbBZSHcqhmMmltWXMAe8DfQ0Ydm+LVd3+Zopa2Wi2ndxxkikFaz4coApU/i/DPhXoMmimPjw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwBye+2kBp0XYxeajU86ob0dWKVWnzNBIJoN3a3h4EBKTtAMieY
+	DxOdxj/WkjF5lC7ee/sdYZqeZcsvV3WNDZsBV+XseNRoeyEgHNtnD25rY8kHcs0=
+X-Gm-Gg: ASbGncuqjNxgNzlOVlxdKfkLOYSU7k/uI5nibAtRLMSrmc/NFrtwIm2ALdRx3OcyNSC
+	+U/GXZnpozqduGwDCpQ9E66q9YQtUoZ6bejWs3UPn/gI2g2MzjTefNyvP93UQWkuL79ltPbOCB7
+	v6Y4FVRqUN55dC8808FMk67e+nX5HshBeIDdFILFSiyhPt0JNFeWgjj8WEcz7n9kPGxSR1ylrrG
+	vjMTt8QPQ+9PvCB0LzvaI9irUKUsDS+7UDxaxDBugo5HtPb63XbV7fu18D0XbrlV3qa6mtYS+Oy
+	+LnSNqGJy7Xj1yuytgC9oRorF2YPY34u5BE=
+X-Google-Smtp-Source: AGHT+IExDMKsBEQ9f21JE6JN43WVIHZ+1B2Q1ebRycRrdtbuIHDa150HauOAPp8BRWsunRR6UCe88A==
+X-Received: by 2002:a5d:6482:0:b0:38d:de45:bf98 with SMTP id ffacd0b85a97d-38f6e755ebdmr3441895f8f.8.1740151454803;
+        Fri, 21 Feb 2025 07:24:14 -0800 (PST)
+Message-ID: <5bcd5f0c-e9b6-46ae-a6a9-dac00ae15c43@citrix.com>
+Date: Fri, 21 Feb 2025 15:24:13 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <6e24ee01-9b07-4180-9430-7b5ce949d140@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] automation: upgrade arm32 kernel from bullseye to
+ bookworm
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+Cc: Doug Goldstein <cardoe@cardoe.com>, Michal Orzel <michal.orzel@amd.com>
+References: <alpine.DEB.2.22.394.2502201453560.1791669@ubuntu-linux-20-04-desktop>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <alpine.DEB.2.22.394.2502201453560.1791669@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Feb 21, 2025 at 01:44:00PM +0100, Jan Beulich wrote:
-> On 21.02.2025 13:04, Roger Pau Monne wrote:
-> > The MMIO_CONF_BASE reports the base of the MCFG range on AMD systems.
-> > Currently Linux is unconditionally attempting to read the MSR without a
-> > safe MSR accessor, and since Xen doesn't allow access to it Linux reports
-> > the following error:
-> > 
-> > unchecked MSR access error: RDMSR from 0xc0010058 at rIP: 0xffffffff8101d19f (xen_do_read_msr+0x7f/0xa0)
-> > Call Trace:
-> >  <TASK>
-> >  ? ex_handler_msr+0x11e/0x150
-> >  ? fixup_exception+0x81/0x300
-> >  ? exc_general_protection+0x138/0x410
-> >  ? asm_exc_general_protection+0x22/0x30
-> >  ? xen_do_read_msr+0x7f/0xa0
-> >  xen_read_msr+0x1e/0x30
-> >  amd_get_mmconfig_range+0x2b/0x80
-> >  quirk_amd_mmconfig_area+0x28/0x100
-> >  ? quirk_system_pci_resources+0x2b/0x150
-> >  pnp_fixup_device+0x39/0x50
-> >  __pnp_add_device+0xf/0x150
-> >  pnp_add_device+0x3d/0x100
-> >  ? __pfx_pnpacpi_allocated_resource+0x10/0x10
-> >  ? __pfx_pnpacpi_allocated_resource+0x10/0x10
-> >  ? acpi_walk_resources+0xbb/0xd0
-> >  pnpacpi_add_device_handler+0x1f9/0x280
-> >  acpi_ns_get_device_callback+0x104/0x1c0
-> >  ? _raw_spin_unlock_irqrestore+0x18/0x20
-> >  ? down_timeout+0x3a/0x60
-> >  ? _raw_spin_lock_irqsave+0x14/0x40
-> >  acpi_ns_walk_namespace+0x1d0/0x260
-> >  ? _raw_spin_unlock_irqrestore+0x18/0x20
-> >  ? __pfx_acpi_ns_get_device_callback+0x10/0x10
-> >  acpi_get_devices+0x8a/0xb0
-> >  ? __pfx_pnpacpi_add_device_handler+0x10/0x10
-> >  ? __pfx_pnpacpi_init+0x10/0x10
-> >  pnpacpi_init+0x50/0x80
-> >  do_one_initcall+0x46/0x2e0
-> >  kernel_init_freeable+0x1da/0x2f0
-> >  ? __pfx_kernel_init+0x10/0x10
-> >  kernel_init+0x16/0x1b0
-> >  ret_from_fork+0x30/0x50
-> >  ? __pfx_kernel_init+0x10/0x10
-> >  ret_from_fork_asm+0x1b/0x30
-> >  </TASK>
-> 
-> Across all the halfway recent Linux versions I've never seen this. The MSR
-> access therefore can't be entirely unconditional, I expect. Or is this new
-> in 6.14, which I haven't tried yet?
+On 20/02/2025 10:56 pm, Stefano Stabellini wrote:
+> automation: upgrade arm32 kernel from bullseye to bookworm
+>
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+>
+> diff --git a/automation/scripts/qemu-smoke-dom0less-arm32.sh b/automation/scripts/qemu-smoke-dom0less-arm32.sh
+> index 41f6e5d8e6..0c94e662aa 100755
+> --- a/automation/scripts/qemu-smoke-dom0less-arm32.sh
+> +++ b/automation/scripts/qemu-smoke-dom0less-arm32.sh
+> @@ -11,7 +11,7 @@ serial_log="$(pwd)/smoke.serial"
+>  
+>  cd binaries
+>  # Use the kernel from Debian
+> -curl --fail --silent --show-error --location --output vmlinuz https://deb.debian.org/debian/dists/bullseye/main/installer-armhf/current/images/netboot/vmlinuz
+> +curl --fail --silent --show-error --location --output vmlinuz https://deb.debian.org/debian/dists/bookworm/main/installer-armhf/current/images/netboot/vmlinuz
+>  # Use a tiny initrd based on busybox from Alpine Linux
+>  curl --fail --silent --show-error --location --output initrd.tar.gz https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/armhf/alpine-minirootfs-3.15.1-armhf.tar.gz
 
-Hm, no, the above report is from 6.6.  It is gated on the presence of
-a device with PnP ID "PNP0c01", which triggers the execution of the
-quirk_amd_mmconfig_area() function.  Such PnP ID seems to be "System
-Board".  The system is currently busy, so I can't gather more
-information about the device that triggers it.  The issue was
-originally seem on a Dell system with AMD Naples (Zen) CPU (possibly
-other CPUs also, that's the one I tested the fix on).
 
-> > Fix by allowing access to the MSR on AMD systems, returning 0 for
-> > unprivileged domains (MMIO configuration space disabled), and the native
-> > value for the hardware domain.
-> > 
-> > The non hardware domain logic will need to be adjusted if in the future we
-> > expose an MCFG region to such domains.
-> > 
-> > Write attempts to the MSR will still result in #GP for all domain types.
-> > 
-> > Fixes: 84e848fd7a16 ('x86/hvm: disallow access to unknown MSRs')
-> > Fixes: 322ec7c89f66 ('x86/pv: disallow access to unknown MSRs')
-> 
-> Hmm, if we consider this a bug fix, then perhaps we'd need to go quite a bit
-> farther with what MSRs we permit at least read access for. More generally in
-> this event I'd wonder whether for any MSR that's in principle writable we
-> shouldn't silently ignore same-value writes.
+This isn't even deterministic, because it's always taking the latest
+debian kernel.  Can we please get this into test-artefacts so it becomes
+stable.
 
-Yeah, I also wondered whether to silently ignore writes of the same
-value.  I would initially leave as-is initially.
+Also, do we really want to be mixing an up-to-date debian kernel with a
+very obsolete Alpine initrd?
 
-Thanks, Roger.
+~Andrew
 
