@@ -2,38 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C8EEA3EECE
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Feb 2025 09:37:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.894322.1303042 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22AECA3EFE1
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Feb 2025 10:20:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.894330.1303051 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tlOW0-00047h-1c; Fri, 21 Feb 2025 08:36:08 +0000
+	id 1tlPCC-0000jt-2E; Fri, 21 Feb 2025 09:19:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 894322.1303042; Fri, 21 Feb 2025 08:36:08 +0000
+Received: by outflank-mailman (output) from mailman id 894330.1303051; Fri, 21 Feb 2025 09:19:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tlOVz-00046A-TJ; Fri, 21 Feb 2025 08:36:07 +0000
-Received: by outflank-mailman (input) for mailman id 894322;
- Fri, 21 Feb 2025 08:36:06 +0000
+	id 1tlPCB-0000hR-Vn; Fri, 21 Feb 2025 09:19:43 +0000
+Received: by outflank-mailman (input) for mailman id 894330;
+ Fri, 21 Feb 2025 09:19:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=IBxS=VM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tlOVy-000462-CZ
- for xen-devel@lists.xenproject.org; Fri, 21 Feb 2025 08:36:06 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=oqCi=VM=suse.de=tzimmermann@srs-se1.protection.inumbo.net>)
+ id 1tlPCA-0000hL-UJ
+ for xen-devel@lists.xenproject.org; Fri, 21 Feb 2025 09:19:43 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e0e549e8-f02e-11ef-9896-31a8f345e629;
- Fri, 21 Feb 2025 09:36:03 +0100 (CET)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5debbced002so3420015a12.1
- for <xen-devel@lists.xenproject.org>; Fri, 21 Feb 2025 00:36:00 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5dece2880e1sm13262157a12.76.2025.02.21.00.35.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 Feb 2025 00:35:59 -0800 (PST)
+ id fa816641-f034-11ef-9896-31a8f345e629;
+ Fri, 21 Feb 2025 10:19:40 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 016201F38C;
+ Fri, 21 Feb 2025 09:19:38 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7780C13806;
+ Fri, 21 Feb 2025 09:19:37 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id hlHRGylFuGdGIwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 21 Feb 2025 09:19:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,91 +52,283 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e0e549e8-f02e-11ef-9896-31a8f345e629
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740126960; x=1740731760; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kMrXNW8HxQBUMeJzkvoTSkC+YfC+XrODqs3MmBkblPw=;
-        b=KuVvG+hTpq911Romm0b/PrniVGgs1OPpbZxrFPXYKnKSPEBnXY+lXx6LK5iCpRiU96
-         nXx3/bgrXJyVst6Gm943ASlyoWhkXmMwGyldEZswE2sUq9xvuwEXA+xtDleur3K9beJ+
-         9uKFgQwOXubUK43ICEKJE38h6jCs154HE9p+sqMnWV50IC7UYiOdLhQhkUeE30W8J4uP
-         cdvSbTekzKOhT4kC+aHiPbdAeyqLujYKU+3sQ3KB8K7QSD60/MOxoYw7jEamaDtzVouh
-         IMCsfTB0WxXbubBm64gtWTUnAGHkd3EfipiGniA77aUXi/WwjmdEXZdOzaT4/UdNeVth
-         QoRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740126960; x=1740731760;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kMrXNW8HxQBUMeJzkvoTSkC+YfC+XrODqs3MmBkblPw=;
-        b=QFxaaucLniBM9VDyAWigB3f2uBYMPwoHg4cOL6kaarwxWVawi3xOlw0w31/UfQI8o1
-         AcQY+vkEs56sHx8YmghJGtcg+VnOjFI+ZvfhC5DvUJKxlKPKm17ZOep0GYBqLGdXahdc
-         u4hGHahKCv1WcblAoYjLFdoWzzINjCaLafuCg+xItw5mYEfu8WaZeFYm8z+JkjMroq99
-         edFEVXLBqPGgHIkk4Oj4+QCfSFRxLVGoVnsSOX8fxl/BItIHh8+rPi7jg8BVjXutjpOT
-         mmh6GT2fZy9rqs8i2BoERmwf0Qa5Rl30roUtpmwjRQ3UVD+DWB+fJ79dnuq/2USeRkRh
-         SLLQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVhrg8rXCCgoG+xIlnoV8rLT7n9dyCQd6U3DU/Hj6WdHZmwwHadtaKzx91r8dHN1l3ZQOx0PhoyAGc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyPFpCkb+fdeSgyvkr1oWZhvn67c0ND8AhD7gDctOyAjXQ01nLc
-	qDd4TkimNd8ZrImpqske9ZNHA1MXJIsuKdwRWiKTyIHVFsgfykfO269k0nwjvQ==
-X-Gm-Gg: ASbGncvDDkVoRKiz8iVPNMABTsA8/JLVacvzVRyo67rO9Mx+XzpLJKe5NdiE4yoS0bI
-	J6hKgQ9ilTOApj+qmXTKwEV4CTC+ZMGczXp1k5b1CNeW6j2Tp5q5pic8uRyMXlgZ1lNIiELxmSg
-	lC4h9lNvOVfIHPm5nnq82/TfFleXtmcUnSlHnARqM54jTI8UKNZ5QBPvwuDa893fzkJ8cnVo7nZ
-	8+q/1p2bd5ygJZ73ni4T7PJBy6ScLwikTqbISokyyyYQ+HPdFwgeI97qqa5UiN39UKn2FjEE7yq
-	9zvJAQc3r+CLdPldUlOAS7c0ZGoaGS6AXkcMzBNx/oK4CsGNmJOPRo4UT3lEe06HvePyv/JKDAF
-	BJ82LwYgu1zI=
-X-Google-Smtp-Source: AGHT+IFomF/OlsGomfWEuJSF+rbEHy0IspXPgZJ3260Nk1IibMFUk+75nfgbltB+cOWKDPy31htG+w==
-X-Received: by 2002:a05:6402:524b:b0:5de:50b4:b71f with SMTP id 4fb4d7f45d1cf-5e0a12baa86mr5118019a12.12.1740126960034;
-        Fri, 21 Feb 2025 00:36:00 -0800 (PST)
-Message-ID: <d2a9d3f1-0584-4c9c-95c5-5babf0ffde06@suse.com>
-Date: Fri, 21 Feb 2025 09:35:58 +0100
+X-Inumbo-ID: fa816641-f034-11ef-9896-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1740129579; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=XEszpDYKL3MVEwZqleFHNbIiqH/hiHMJcxYVx498oDU=;
+	b=Y5OD0ODW05Ir6K44W9oHAHrgQsGFXLTe2qXLi/jaIBFZ8ei3bph+xdvoGyv2xycuuIUEmU
+	lfhDd0FD0MKqUsASX/kbFrYVayo06HxIfkIBglJZ5y6xJsUEh1UQO7cOjfhKiWv2u8LZKu
+	ovMgo9SssgX3HXtwBDBEB/mDQQQS6Mk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1740129579;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=XEszpDYKL3MVEwZqleFHNbIiqH/hiHMJcxYVx498oDU=;
+	b=apiGdSL53jreK8uUb7XtKwQfvrR9lvbOm4fC4bhVEsCnP7K54jIhH0RLvsx+aZh30OOeHO
+	abABtQE13t+7TJAg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Ix9uY6zy;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=GXuVcphr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1740129578; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=XEszpDYKL3MVEwZqleFHNbIiqH/hiHMJcxYVx498oDU=;
+	b=Ix9uY6zyz6ad3maDw2OFPsPm2XBJ85n9s/O4q80iEfN1M4Sjj0LK+j1n5z0I0DOmlcCTU0
+	QX+/2L+jPArpkRRDyHTlwd8SaIdpzIX1XprnwUzKPIITRhTlNeFlUdbbne1BuTtAlKMruC
+	phhskGETcHdVTLH59sXknrkluxvm0jQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1740129578;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=XEszpDYKL3MVEwZqleFHNbIiqH/hiHMJcxYVx498oDU=;
+	b=GXuVcphrlbiIlthAB83vu/yp4aJDLPDw8m4egDsZDmriwuukeFiXh2qEeTFvm8HWr1Utjp
+	69K/s2r3yTN1o+Bg==
+Message-ID: <87ca2b81-a67a-468b-ae2b-30d02a3a64bc@suse.de>
+Date: Fri, 21 Feb 2025 10:19:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for 4.21 v7 1/4] automation: drop debian:11-riscv64
- container
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1740071755.git.oleksii.kurochko@gmail.com>
- <659bd8c00e79be1a47fc2aae75accd69b3bedaf4.1740071755.git.oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v3 02/25] drm/dumb-buffers: Provide helper to set pitch
+ and size
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+References: <20250218142542.438557-1-tzimmermann@suse.de>
+ <20250218142542.438557-3-tzimmermann@suse.de>
+ <dcd59a75-7945-4a2e-99f9-3abbb3e9de14@ideasonboard.com>
+ <355ed315-61fa-4a9d-b72b-8d5bc7b5a16c@suse.de>
+ <596b960e-71f8-4c2c-9abe-058206df1dfb@ideasonboard.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <659bd8c00e79be1a47fc2aae75accd69b3bedaf4.1740071755.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <596b960e-71f8-4c2c-9abe-058206df1dfb@ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 016201F38C
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-0.998];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCPT_COUNT_TWELVE(0.00)[20];
+	ARC_NA(0.00)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	FREEMAIL_TO(0.00)[ideasonboard.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+	MIME_TRACE(0.00)[0:+];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid,bootlin.com:url]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -3.01
+X-Spam-Flag: NO
 
-On 20.02.2025 18:44, Oleksii Kurochko wrote:
-> There are two reasons for that:
-> 1. In the README, GCC baseline is chosen to be 12.2, whereas Debian 11
->    uses GCC 10.2.1.
+Hi
 
-Which README is this? Not the one at the root of the tree, afaics, which
-continues to mention only x86 and Arm.
+Am 20.02.25 um 11:53 schrieb Tomi Valkeinen:
+> Hi,
+>
+> On 20/02/2025 12:05, Thomas Zimmermann wrote:
+>> Hi
+>>
+>> Am 20.02.25 um 10:18 schrieb Tomi Valkeinen:
+>> [...]
+>>>> + * Color modes of 10, 12, 15, 30 and 64 are only supported for use by
+>>>> + * legacy user space. Please don't use them in new code. Other modes
+>>>> + * are not support.
+>>>> + *
+>>>> + * Do not attempt to allocate anything but linear framebuffer memory
+>>>> + * with single-plane RGB data. Allocation of other framebuffer
+>>>> + * layouts requires dedicated ioctls in the respective DRM driver.
+>>>
+>>> According to this, every driver that supports, say, NV12, should 
+>>> implement their own custom ioctl to do the exact same thing? And, of 
+>>> course, every userspace app that uses, say, NV12, should then add 
+>>> code for all these platforms to call the custom ioctls?
+>>
+>> Yes, that's exactly the current status.
+>>
+>> There has been discussion about a new dumb-create ioctl that takes a 
+>> DRM format as parameter. I'm all for it, but it's out of the scope 
+>> for this series.
+>>
+>>>
+>>> As libdrm's modetest currently supports YUV formats with dumb 
+>>> buffers, should we remove that code, as it's not correct and I'm 
+>>> sure people use libdrm code as a reference?
+>>
+>> Of course not.
+>>
+>>>
+>>> Well, I'm not serious above, but I think all my points from the 
+>>> earlier version are still valid. I don't like this. It changes the 
+>>> parameters of the ioctl (bpp used to be bits-per-pixel, not it's 
+>>> "color mode"), and the behavior of the ioctl, behavior that we've 
+>>> had for a very long time, and we have no idea how many users there 
+>>> are that will break (could be none, of course). And the 
+>>> documentation changes make the current behavior and uses wrong or 
+>>> legacy.
+>>
+>> Before I go into details about this statement, what use case exactly 
+>> are you referring to when you say that behavior changes?
+>
+> For every dumb_buffer allocation with bpp that is not divisible by 8, 
+> the result is different, i.e. instead of DIV_ROUND_UP(width * bpp, 8), 
+> we now have width * DIV_ROUND_UP(bpp, 8). This, of course, depends on 
+> the driver implementation. Some already do the latter.
 
-Jan
+The current dumb-buffer code does a stride computation at [1], which is 
+correct for all cases; although over-allocates sometimes. It's the one 
+you describe as "width * DIV_ROUND_UP(bpp, 8)". It's in the ioctl entry 
+point, so it's somewhat authoritative for all driver's implementations. 
+It's also used by several drivers.
+
+The other variant, "DIV_ROUND_UP(width * bpp, 8)", is used by gem-dma, 
+gem-shmem and others. It can give incorrect results and possibly OOBs. 
+To give a simple example, let's allocate 15-bit XRGB1555. Bpp is 15. 
+With a width of 1024, that would result in 1920 bytes per scanline. But 
+because XRGB1555 has a filler bit, so the pixel is actually 16 bit and a 
+scanline needs to be 2048 bytes. The new code fixes that. This is not 
+just a hypothetical scenario: we do have drivers that support XRGB1555 
+and some of them also export a preferred_depth of 15 to userspace. [2]  
+In the nearby comment, you'll see that this value is meant for dumb buffers.
+
+Rounding up the depth value in user space is possible for RGB, but not 
+for YUV. Here different pixel planes have a different number of bits. 
+Sometimes pixels are sharing bits. The value of bits-per-pixel becomes 
+meaningless. That's why it's also deprecated in struct drm_format_info. 
+The struct instead uses a more complicated per-plane calculation to 
+compute the number of bits per plane. [3] The user-space code currently 
+doing YUV on dumb buffers simply got lucky.
+
+[1] 
+https://elixir.bootlin.com/linux/v6.13.3/source/drivers/gpu/drm/drm_dumb_buffers.c#L77
+[2] 
+https://elixir.bootlin.com/linux/v6.13.3/source/include/drm/drm_mode_config.h#L885
+[3] 
+https://elixir.bootlin.com/linux/v6.13.3/source/include/drm/drm_fourcc.h#L83
+
+>
+> This change also first calls the drm_driver_color_mode_format(), which 
+> could change the behavior even more, but afaics at the moment does not. 
+
+Because currently each driver does its own thing, it can be hard to 
+write user space that reliably allocates on all drivers. That's why it's 
+important that parameters are not just raw numbers, but have 
+well-defined semantics. The raw bpp is meaningless; it's also important 
+to know which formats are associated with each value. Otherwise, you 
+might get a dumb buffer with a bpp of 15, but it will be displayed 
+incorrectly. This patch series finally implements this and clearly 
+documents the assumptions behind the interfaces. The assumptions 
+themselves have always existed.
+
+The color modes in drm_driver_color_mode_format() are set in stone and 
+will not change incompatibly. It's already a user interface. I've taken 
+care that the results do not change incompatibly compared to what the 
+dumb-buffer ioctl currently assumes. (C1-C4 are special, see below.)
+
+> Although, maybe some platform does width * DIV_ROUND_UP(bpp, 8) even 
+> for bpp < 8, and then this series changes it for 1, 2 and 4 bpps (but 
+> not for 3, 5, 6, 7, if I'm not mistaken).
+
+True. 1, 2 and 4 would currently over-allocate significantly on some 
+drivers and the series will reduce this to actual requirements. Yet our 
+most common memory managers, gem-dma and gem-shmem, compute the sizes 
+correctly.
+
+But there are currently no drivers that support C4, C2 or C1 formats; 
+hence there's likely no user space either. I know that Geert is 
+interested in making a driver that uses these formats on very low-end 
+hardware (something Atari or Amiga IIRC). Over-allocating on such 
+hardware is likely not an option.
+
+The other values (3, 5, 6, 7) have no meaning I know of. 6 could be 
+XRGB2222, but I not aware of anything using that. We don't even have a 
+format constant for this.
+
+>
+> However, as the bpp is getting rounded up, this probably won't break 
+> any user. But it _is_ a change in the behavior of a uapi, and every 
+> time we change a uapi that's been out there for a long time, I'm 
+> getting slightly uncomfortable.
+
+As I tried to explain, we currently have both versions in drivers: 
+rounding up bpp and rounding up (bpp*width). User-space code already has 
+to deal with both cases.
+
+Best regards
+Thomas
+
+>
+> So, as a summary, I have a feeling that nothing will break, but I 
+> can't say for sure. And as I'm having trouble seeing the benefit of 
+> this change for the user, I get even more uncomfortable.
+>
+>  Tomi
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstrasse 146, 90461 Nuernberg, Germany
+GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+HRB 36809 (AG Nuernberg)
+
 
