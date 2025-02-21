@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD945A40081
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Feb 2025 21:15:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.894621.1303342 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1ACCA400A3
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Feb 2025 21:20:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.894633.1303352 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tlZQS-00007v-9T; Fri, 21 Feb 2025 20:15:08 +0000
+	id 1tlZVW-0001p1-UA; Fri, 21 Feb 2025 20:20:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 894621.1303342; Fri, 21 Feb 2025 20:15:08 +0000
+Received: by outflank-mailman (output) from mailman id 894633.1303352; Fri, 21 Feb 2025 20:20:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tlZQS-00005i-6L; Fri, 21 Feb 2025 20:15:08 +0000
-Received: by outflank-mailman (input) for mailman id 894621;
- Fri, 21 Feb 2025 20:15:07 +0000
+	id 1tlZVW-0001mv-RC; Fri, 21 Feb 2025 20:20:22 +0000
+Received: by outflank-mailman (input) for mailman id 894633;
+ Fri, 21 Feb 2025 20:20:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7TFm=VM=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tlZQR-00005G-DF
- for xen-devel@lists.xenproject.org; Fri, 21 Feb 2025 20:15:07 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ <SRS0=RpDQ=VM=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1tlZVV-0001mp-68
+ for xen-devel@lists.xenproject.org; Fri, 21 Feb 2025 20:20:21 +0000
+Received: from fout-a4-smtp.messagingengine.com
+ (fout-a4-smtp.messagingengine.com [103.168.172.147])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8a8b38c9-f090-11ef-9aa9-95dc52dad729;
- Fri, 21 Feb 2025 21:15:06 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-43998deed24so24454915e9.2
- for <xen-devel@lists.xenproject.org>; Fri, 21 Feb 2025 12:15:06 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-439b02ce336sm27289855e9.2.2025.02.21.12.15.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 Feb 2025 12:15:04 -0800 (PST)
+ id 440f4a2f-f091-11ef-9aa9-95dc52dad729;
+ Fri, 21 Feb 2025 21:20:18 +0100 (CET)
+Received: from phl-compute-06.internal (phl-compute-06.phl.internal
+ [10.202.2.46])
+ by mailfout.phl.internal (Postfix) with ESMTP id CED981380A34;
+ Fri, 21 Feb 2025 15:20:16 -0500 (EST)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-06.internal (MEProxy); Fri, 21 Feb 2025 15:20:16 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 21 Feb 2025 15:20:15 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,164 +45,292 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8a8b38c9-f090-11ef-9aa9-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1740168906; x=1740773706; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=omctX7ACvK3rfUgb6UxzOMqgFDybp3F9t0iaxFd8X0s=;
-        b=OP6lvTQbs+/gqQuHx3Lsoaq8/7sQ2HHWJ/AoIIVK/owuYgN2jf/gOPN46OeJq2pqwj
-         qhQ+8TJTNf60IJCIMSXmDBwmhH8QA1x/eEt8/O452O6fKDeJRnSBJE15pAnekDvLgRA2
-         XE4xcCr4J8A389PB/G512WhM+DuhIgWsKV4sc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740168906; x=1740773706;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=omctX7ACvK3rfUgb6UxzOMqgFDybp3F9t0iaxFd8X0s=;
-        b=G6CpFDWJYQOcxRYLqbSu6PUfJyn/TO1C7QIz4fJi+ZfDnAK9UFdw1dijFA2y8MaVLN
-         E75nnGi0gqQ+CHsQMjYFwOk8IQVK+a0smncL8jyhC8MRIMxqJuickADwZI2ACl28UKH/
-         +ztJbj5c0PKchGAuRFF8dGTs1Oiub7Nhf2ggUbYThXil+FqZvhAsMPuiKKVa80d/V7sD
-         VqrBDftBXf1PaIxNneP4M0q1Wl3XnVgx8KJUuZ/YQM56DlUncJAPexR9Oz3egxXRHjwI
-         TaNGUHTsH0ppa0/jsITB0IdD/dXqt1nHSW2sA+udzNKE8DsjYTqM8+KqRUkIjeUPvS/l
-         mHXA==
-X-Forwarded-Encrypted: i=1; AJvYcCVUG6EPO0dbMG0+XoaQ+Ta5gQVdiUd/f+22AF3yIT0REkf065wmHlsyjhuDVtMZlFUgk0oIBd7Vv0Y=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxkq2w1BpVtVHzXPzQV0+S7yanBn/eFzdIJFhlALm+4YbOaUYfI
-	7BvehJfGpovDpW6vljRDUUpytN2rDKIqveYewWenJu75WMYPPR5ojCDusw8EThr1MJ3f28OwgUW
-	w
-X-Gm-Gg: ASbGncuc8IEbzFcy3CRtFfJKrY4x4aOjYjaaO9C8riNEkCXII2KztD1IAB/bMuybmFp
-	QTNZOlAZb4EAVG3khTcwEG/FHmCbX8CIBFISuAblaIkFfdG6T0JseRunJgz7/gDLcYQJJ1hGhoB
-	emvzHryUsDiacBJikXKqvvUzDxbSKRaiS1h1TMZGfmMObTozRlyrgY64uvxy5GfPRdoqBoOKcCm
-	+iWO0AS/PMb+bWRlmy5g2/VNfNlmtnVCd4aHVh5er2l+aZcKkO6TyViIjW27zkBmg2W695mhfUs
-	gQu9MOCd6BTxIwFNPnTTL+tOB3PBOq5bWB6TCUZUNq5OutEKEn6VdpdAmuYP8mqjMA==
-X-Google-Smtp-Source: AGHT+IFipZ5PgxYB6Tvd//HlzIAU+1/6ECm+26Ey582sheXSN5kt8/2piZm3u+LVoi4NEn9qzW1CuA==
-X-Received: by 2002:a05:600c:5487:b0:439:9ce4:7c35 with SMTP id 5b1f17b1804b1-439aebcf8femr35366225e9.27.1740168905758;
-        Fri, 21 Feb 2025 12:15:05 -0800 (PST)
-Message-ID: <4b9002fe-1e39-4ee9-a4fd-fc91cd0562d5@citrix.com>
-Date: Fri, 21 Feb 2025 20:15:04 +0000
+X-Inumbo-ID: 440f4a2f-f091-11ef-9aa9-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1740169216;
+	 x=1740255616; bh=4nx5OsEQ1aCYueNT1AuN3Ch8m17bxtEXktqO1d3x9Hc=; b=
+	HyRc0jDfpWVBgpNPtua5AEqZbCxYjoiJ9vgG3Z233RSzjUmd2mNiHJw/ElOnQe8c
+	RTXWiTqgAL7q/tgt8AqY9lnAP/xi+/b4kBNqGV+tO6xLOfbeP2rORTyr39uoN7dW
+	6aI+auDjL86I7Kgt1s2t/+L1mHetW0ZzfXI39TbR7PkpylQOxdowt5k802+j9GCL
+	9islfUT3SqB8kdUtIJUb2gD2Fg4yAeIBiKfdmL5z6q4sEB7JUPePdMWPgMy196CH
+	Gu7WwSv1YyfwuTyKw9PxNvgmKJVBO+SsdxxsHG5wxtGZSMETdFnTghnoZXj4SFwU
+	zUo8K1NY6fdYUsXN8OzwfQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1740169216; x=1740255616; bh=4nx5OsEQ1aCYueNT1AuN3Ch8m17bxtEXktq
+	O1d3x9Hc=; b=Y4IGkbN/TxsoFZT2+pTlpkBaCz7sK6MLTmk94mMRJp8XrGa1tFZ
+	bGmKf5SYT9JirbVDSoAgEFs+7cQG6uTHDA8fxFWs69HG5AN+A5RuWyboChVOK3WM
+	x8zRVGW6sr4AZzikAysxRahvLJ+Y3cSKcUpoTDxNv8cEJDBwilWQPhZr7iAb46KX
+	w1R54UxUzM5bzR5OIKPatk9LRhCAvzLTCFxEKxYj3l/yqIMoAMJzQNKu1GMSblvG
+	Zov/RrVKRbGkLszHNANyhzmiRyAXT2qYWA3RcSCNyoracYJf4+Tm4HauFEFWL0nl
+	WSTi29Ft+h0w48dPsRMmE9Ty5GyPi3Jyu7w==
+X-ME-Sender: <xms:AOC4Z7ETOdUSlPvwK-ZtpFHKdGsMhG0zvIvu4INfZ-hEDcVcYEjnCA>
+    <xme:AOC4Z4WEIP6ntLWGnjQDBGTsn7lgvlcnhaUSR2MYfqazgw8hWuF16jGNud7lDxt_n
+    I4TI94eKwsgvA>
+X-ME-Received: <xmr:AOC4Z9JC5OKbuA8DOzKHxxAA8PXTMPgcTOXeWTFiJn132RTE_MnNT5JJay9e1_AG5klg4PCLte3WZpkD0jC85GYdF_9pnwVBgQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdejtdelhecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdp
+    uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivg
+    hnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdej
+    necuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoe
+    hmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucgg
+    tffrrghtthgvrhhnpeevueejteegleelteduueevhfetgfffjeevtddvgfeiveehteehle
+    egueelvdejveenucffohhmrghinhepghhithhlrggsrdgtohhmnecuvehluhhsthgvrhfu
+    ihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvih
+    hsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepgedpmhhouggv
+    pehsmhhtphhouhhtpdhrtghpthhtohepfhhrvgguihgrnhhordiiihhglhhiohestghloh
+    huugdrtghomhdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhr
+    ohhjvggtthdrohhrghdprhgtphhtthhopeguphhsmhhithhhsegrphgvrhhtuhhsshholh
+    huthhiohhnshdrtghomhdprhgtphhtthhopehjsggvuhhlihgthhesshhushgvrdgtohhm
+X-ME-Proxy: <xmx:AOC4Z5GLtKlmGiBFvoZUpl4c48PHrtZXWy5_kBC5mK0hEw4OAXqs-Q>
+    <xmx:AOC4ZxV3MxuMS4eYegCTu_D_HjKIJkc6815JVZknkKWFP-59IOu79w>
+    <xmx:AOC4Z0MuKVDSwBoa3y2zD7vU339afGviaEHg8nfEwwQTIVGeehk6Iw>
+    <xmx:AOC4Zw12elPd9xiLe2gUI-QwBcagoKx7fnngX6BJGKJhRKt_ds1G6A>
+    <xmx:AOC4Z3zZ7UkbaURBWItLPzZlVqgRrGjp3_-BV3of30Oast2qginU98Y3>
+Feedback-ID: i1568416f:Fastmail
+Date: Fri, 21 Feb 2025 21:20:13 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: xen-devel@lists.xenproject.org,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH v6] Avoid crash calling PrintErrMesg from efi_multiboot2
+Message-ID: <Z7jf_YojU9tQ1Or7@mail-itl>
+References: <20250217162659.151232-1-frediano.ziglio@cloud.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] xen/ppc: Fix opal.c's misaligned DT reads to avoid
- tripping UBSAN
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Shawn Anastasio <sanastasio@raptorengineering.com>,
- xen-devel@lists.xenproject.org
-Cc: tpearson@raptorengineering.com
-References: <cover.1740168326.git.sanastasio@raptorengineering.com>
- <f0b1f299d793c4302ee1b4c6a9c99057f924d4f4.1740168326.git.sanastasio@raptorengineering.com>
- <9cb2f3e5-5523-4b02-b8df-9975dab7c015@citrix.com>
-Content-Language: en-GB
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <9cb2f3e5-5523-4b02-b8df-9975dab7c015@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="P6iS3y5q3eGVPXcj"
+Content-Disposition: inline
+In-Reply-To: <20250217162659.151232-1-frediano.ziglio@cloud.com>
 
-On 21/02/2025 8:10 pm, Andrew Cooper wrote:
-> On 21/02/2025 8:08 pm, Shawn Anastasio wrote:
->> Fix two misaligned reads from the FDT in the opal setup code to avoid
->> tripping UBSAN failures. Without this change, UBSAN-enabled builds on
->> PPC will fail on boot before the serial console is even initialized.
->>
->> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
->> ---
->>  xen/arch/ppc/opal.c | 18 +++++++++++-------
->>  1 file changed, 11 insertions(+), 7 deletions(-)
->>
->> diff --git a/xen/arch/ppc/opal.c b/xen/arch/ppc/opal.c
->> index 1183b7d5ef..3d0e4daf27 100644
->> --- a/xen/arch/ppc/opal.c
->> +++ b/xen/arch/ppc/opal.c
->> @@ -34,8 +34,9 @@ static void opal_putchar(char c)
->>  void __init boot_opal_init(const void *fdt)
->>  {
->>      int opal_node;
->> -    const __be64 *opal_base;
->> -    const __be64 *opal_entry;
->> +    const __be64 *opal_base_p;
->> +    const __be64 *opal_entry_p;
->> +    __be64 opal_base, opal_entry;
->>  
->>      if ( fdt_check_header(fdt) < 0 )
->>      {
->> @@ -54,17 +55,20 @@ void __init boot_opal_init(const void *fdt)
->>          die();
->>      }
->>  
->> -    opal_base = fdt_getprop(fdt, opal_node, "opal-base-address", NULL);
->> -    opal_entry = fdt_getprop(fdt, opal_node, "opal-entry-address", NULL);
->> -    if ( !opal_base || !opal_entry )
->> +    opal_base_p = fdt_getprop(fdt, opal_node, "opal-base-address", NULL);
->> +    opal_entry_p = fdt_getprop(fdt, opal_node, "opal-entry-address", NULL);
->> +    if ( !opal_base_p || !opal_entry_p )
->>      {
->>          early_printk("Failed to get opal-base-address/opal-entry-address "
->>                       "property from DT!\n");
->>          die();
->>      }
->>  
->> -    opal.base = be64_to_cpu(*opal_base);
->> -    opal.entry = be64_to_cpu(*opal_entry);
->> +    memcpy(&opal_base, opal_base_p, sizeof(opal_base));
->> +    memcpy(&opal_entry, opal_entry_p, sizeof(opal_entry));
->> +
->> +    opal.base = be64_to_cpu(opal_base);
->> +    opal.entry = be64_to_cpu(opal_entry);
-> Thanks for getting to the bottom of this.
->
-> However, you can use get_unaligned_*() and friends which is probably a
-> bit nicer, and doesn't involve the extra local variables.
 
-Sorry, the other thing to say is that if PPC is generally fine with
-unaligned accesses, then you might want to follow what x86 does.
+--P6iS3y5q3eGVPXcj
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 21 Feb 2025 21:20:13 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: xen-devel@lists.xenproject.org,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH v6] Avoid crash calling PrintErrMesg from efi_multiboot2
 
-We use -fno-sanitize=alignment generally, because there's a whole pile
-of things which are misaigned and spec'd that way for backwards
-compatibility.
+On Mon, Feb 17, 2025 at 04:26:59PM +0000, Frediano Ziglio wrote:
+> Although code is compiled with -fpic option data is not position
+> independent. This causes data pointer to become invalid if
+> code is not relocated properly which is what happens for
+> efi_multiboot2 which is called by multiboot entry code.
+>=20
+> Code tested adding
+>    PrintErrMesg(L"Test message", EFI_BUFFER_TOO_SMALL);
+> in efi_multiboot2 before calling efi_arch_edd (this function
+> can potentially call PrintErrMesg).
+>=20
+> Before the patch (XenServer installation on Qemu, xen replaced
+> with vanilla xen.gz):
+>   Booting `XenServer (Serial)'Booting `XenServer (Serial)'
+>   Test message: !!!! X64 Exception Type - 0E(#PF - Page-Fault)  CPU Apic =
+ID - 00000000 !!!!
+>   ExceptionData - 0000000000000000  I:0 R:0 U:0 W:0 P:0 PK:0 SS:0 SGX:0
+>   RIP  - 000000007EE21E9A, CS  - 0000000000000038, RFLAGS - 0000000000210=
+246
+>   RAX  - 000000007FF0C1B5, RCX - 0000000000000050, RDX - 0000000000000010
+>   RBX  - 0000000000000000, RSP - 000000007FF0C180, RBP - 000000007FF0C210
+>   RSI  - FFFF82D040467CE8, RDI - 0000000000000000
+>   R8   - 000000007FF0C1C8, R9  - 000000007FF0C1C0, R10 - 0000000000000000
+>   R11  - 0000000000001020, R12 - FFFF82D040467CE8, R13 - 000000007FF0C1B8
+>   R14  - 000000007EA33328, R15 - 000000007EA332D8
+>   DS   - 0000000000000030, ES  - 0000000000000030, FS  - 0000000000000030
+>   GS   - 0000000000000030, SS  - 0000000000000030
+>   CR0  - 0000000080010033, CR2 - FFFF82D040467CE8, CR3 - 000000007FC01000
+>   CR4  - 0000000000000668, CR8 - 0000000000000000
+>   DR0  - 0000000000000000, DR1 - 0000000000000000, DR2 - 0000000000000000
+>   DR3  - 0000000000000000, DR6 - 00000000FFFF0FF0, DR7 - 0000000000000400
+>   GDTR - 000000007F9DB000 0000000000000047, LDTR - 0000000000000000
+>   IDTR - 000000007F48E018 0000000000000FFF,   TR - 0000000000000000
+>   FXSAVE_STATE - 000000007FF0BDE0
+>   !!!! Find image based on IP(0x7EE21E9A) (No PDB)  (ImageBase=3D00000000=
+7EE20000, EntryPoint=3D000000007EE23935) !!!!
+>=20
+> After the patch:
+>   Booting `XenServer (Serial)'Booting `XenServer (Serial)'
+>   Test message: Buffer too small
+>   BdsDxe: loading Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4AF=
+6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
+>   BdsDxe: starting Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4A=
+F6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
+>=20
+> This partially rollback commit 00d5d5ce23e6.
+>=20
+> Fixes: 9180f5365524 ("x86: add multiboot2 protocol support for EFI platfo=
+rms")
+> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
 
-~Andrew
+I tried testing this patch, but it seems I cannot reproduce the original
+failure...
+
+I did as the commit message suggests here:
+https://gitlab.com/xen-project/people/marmarek/xen/-/commit/ca3d6911c448eb8=
+86990f33d4380b5646617a982
+
+With blexit() in PrintErrMesg(), it went back to the bootloader, so I'm
+sure this code path was reached. But with blexit() commented out, Xen
+started correctly both with and without this patch... The branch I used
+is here:
+https://gitlab.com/xen-project/people/marmarek/xen/-/commits/automation-tes=
+ts?ref_type=3Dheads
+
+Are there some extra condition to reproduce the issue? Maybe it depends
+on the compiler version? I guess I can try also on QEMU, but based on
+the description, I would expect it to crash in any case.
+
+> ---
+> Changes since v1:
+> - added "Fixes:" tag;
+> - fixed cast style change.
+>=20
+> Changes since v2:
+> - wrap long line.
+>=20
+> Changes since v3:
+> - fixed "Fixes:" tag.
+>=20
+> Changes since v4:
+> - use switch instead of tables.
+>=20
+> Changes since v5:
+> - added -fno-jump-tables option.
+> ---
+>  xen/common/efi/boot.c        | 58 ++++++++++++++++++++++++------------
+>  xen/common/efi/efi-common.mk |  1 +
+>  2 files changed, 40 insertions(+), 19 deletions(-)
+>=20
+> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+> index efbec00af9..143b5681ba 100644
+> --- a/xen/common/efi/boot.c
+> +++ b/xen/common/efi/boot.c
+> @@ -287,33 +287,53 @@ static bool __init match_guid(const EFI_GUID *guid1=
+, const EFI_GUID *guid2)
+>  /* generic routine for printing error messages */
+>  static void __init PrintErrMesg(const CHAR16 *mesg, EFI_STATUS ErrCode)
+>  {
+> -    static const CHAR16* const ErrCodeToStr[] __initconstrel =3D {
+> -        [~EFI_ERROR_MASK & EFI_NOT_FOUND]           =3D L"Not found",
+> -        [~EFI_ERROR_MASK & EFI_NO_MEDIA]            =3D L"The device has=
+ no media",
+> -        [~EFI_ERROR_MASK & EFI_MEDIA_CHANGED]       =3D L"Media changed",
+> -        [~EFI_ERROR_MASK & EFI_DEVICE_ERROR]        =3D L"Device error",
+> -        [~EFI_ERROR_MASK & EFI_VOLUME_CORRUPTED]    =3D L"Volume corrupt=
+ed",
+> -        [~EFI_ERROR_MASK & EFI_ACCESS_DENIED]       =3D L"Access denied",
+> -        [~EFI_ERROR_MASK & EFI_OUT_OF_RESOURCES]    =3D L"Out of resourc=
+es",
+> -        [~EFI_ERROR_MASK & EFI_VOLUME_FULL]         =3D L"Volume is full=
+",
+> -        [~EFI_ERROR_MASK & EFI_SECURITY_VIOLATION]  =3D L"Security viola=
+tion",
+> -        [~EFI_ERROR_MASK & EFI_CRC_ERROR]           =3D L"CRC error",
+> -        [~EFI_ERROR_MASK & EFI_COMPROMISED_DATA]    =3D L"Compromised da=
+ta",
+> -        [~EFI_ERROR_MASK & EFI_BUFFER_TOO_SMALL]    =3D L"Buffer too sma=
+ll",
+> -    };
+> -    EFI_STATUS ErrIdx =3D ErrCode & ~EFI_ERROR_MASK;
+> -
+>      StdOut =3D StdErr;
+>      PrintErr(mesg);
+>      PrintErr(L": ");
+> =20
+> -    if( (ErrIdx < ARRAY_SIZE(ErrCodeToStr)) && ErrCodeToStr[ErrIdx] )
+> -        mesg =3D ErrCodeToStr[ErrIdx];
+> -    else
+> +    switch (ErrCode)
+>      {
+> +    case EFI_NOT_FOUND:
+> +        mesg =3D L"Not found";
+> +        break;
+> +    case EFI_NO_MEDIA:
+> +        mesg =3D L"The device has no media";
+> +        break;
+> +    case EFI_MEDIA_CHANGED:
+> +        mesg =3D L"Media changed";
+> +        break;
+> +    case EFI_DEVICE_ERROR:
+> +        mesg =3D L"Device error";
+> +        break;
+> +    case EFI_VOLUME_CORRUPTED:
+> +        mesg =3D L"Volume corrupted";
+> +        break;
+> +    case EFI_ACCESS_DENIED:
+> +        mesg =3D L"Access denied";
+> +        break;
+> +    case EFI_OUT_OF_RESOURCES:
+> +        mesg =3D L"Out of resources";
+> +        break;
+> +    case EFI_VOLUME_FULL:
+> +        mesg =3D L"Volume is full";
+> +        break;
+> +    case EFI_SECURITY_VIOLATION:
+> +        mesg =3D L"Security violation";
+> +        break;
+> +    case EFI_CRC_ERROR:
+> +        mesg =3D L"CRC error";
+> +        break;
+> +    case EFI_COMPROMISED_DATA:
+> +        mesg =3D L"Compromised data";
+> +        break;
+> +    case EFI_BUFFER_TOO_SMALL:
+> +        mesg =3D L"Buffer too small";
+> +        break;
+> +    default:
+>          PrintErr(L"ErrCode: ");
+>          DisplayUint(ErrCode, 0);
+>          mesg =3D NULL;
+> +        break;
+>      }
+>      blexit(mesg);
+>  }
+> diff --git a/xen/common/efi/efi-common.mk b/xen/common/efi/efi-common.mk
+> index 23cafcf20c..06b1c19674 100644
+> --- a/xen/common/efi/efi-common.mk
+> +++ b/xen/common/efi/efi-common.mk
+> @@ -2,6 +2,7 @@ EFIOBJ-y :=3D boot.init.o pe.init.o ebmalloc.o runtime.o
+>  EFIOBJ-$(CONFIG_COMPAT) +=3D compat.o
+> =20
+>  CFLAGS-y +=3D -fshort-wchar
+> +CFLAGS-y +=3D -fno-jump-tables
+>  CFLAGS-y +=3D -iquote $(srctree)/common/efi
+>  CFLAGS-y +=3D -iquote $(srcdir)
+> =20
+> --=20
+> 2.34.1
+>=20
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--P6iS3y5q3eGVPXcj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAme43/0ACgkQ24/THMrX
+1yzwMQf+Ix3Nt+8oiBRKW/DBPwaCCvWZwXbn0vH4cHwvJew99bfVHIZOYMDZamK6
+sp8uPk3RMYrXC3XRQCVpl93/RSuuJdJnvsqu0WHEOm3KBIgcIxEAeUglkAS4Wy5g
+qXKRWQBvW+zHWMvRI+o3n2aMbL1zo9lFC1yi2uHcTKx7v8qPOQc/EhucD/DMHf1O
+HhqKe0QiI8q2SYXJTVmlVLKFjq1Da+ZMAvY4I1JX1ceAbihhi5vvK77wN7UJOCNe
+Ne4sRCu5sCUXg00vf/xIv/Z+vNZG1A0QBzOYU1/jqgomX2FUa+fz2IA//LRh9d81
+gvpNyAAMHtIDMI2EErtlqPsoOAF6wQ==
+=cPSM
+-----END PGP SIGNATURE-----
+
+--P6iS3y5q3eGVPXcj--
 
