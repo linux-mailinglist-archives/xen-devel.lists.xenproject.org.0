@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59582A3F478
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Feb 2025 13:34:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.894456.1303161 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C6F8A3F4A2
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Feb 2025 13:44:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.894469.1303171 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tlSEb-00069w-QO; Fri, 21 Feb 2025 12:34:25 +0000
+	id 1tlSNy-0007uy-OC; Fri, 21 Feb 2025 12:44:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 894456.1303161; Fri, 21 Feb 2025 12:34:25 +0000
+Received: by outflank-mailman (output) from mailman id 894469.1303171; Fri, 21 Feb 2025 12:44:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tlSEb-000681-Ml; Fri, 21 Feb 2025 12:34:25 +0000
-Received: by outflank-mailman (input) for mailman id 894456;
- Fri, 21 Feb 2025 12:34:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7TFm=VM=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tlSEa-00067v-GU
- for xen-devel@lists.xenproject.org; Fri, 21 Feb 2025 12:34:24 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2e162c42-f050-11ef-9aa9-95dc52dad729;
- Fri, 21 Feb 2025 13:34:23 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-38f3486062eso1683936f8f.0
- for <xen-devel@lists.xenproject.org>; Fri, 21 Feb 2025 04:34:23 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38f25a0fa1esm23065612f8f.100.2025.02.21.04.34.22
+	id 1tlSNy-0007tV-LY; Fri, 21 Feb 2025 12:44:06 +0000
+Received: by outflank-mailman (input) for mailman id 894469;
+ Fri, 21 Feb 2025 12:44:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=IBxS=VM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tlSNx-0007tP-5H
+ for xen-devel@lists.xenproject.org; Fri, 21 Feb 2025 12:44:05 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 87709409-f051-11ef-9896-31a8f345e629;
+ Fri, 21 Feb 2025 13:44:02 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-aaec111762bso458433766b.2
+ for <xen-devel@lists.xenproject.org>; Fri, 21 Feb 2025 04:44:02 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-abb8d7d3035sm1079616166b.83.2025.02.21.04.44.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 Feb 2025 04:34:22 -0800 (PST)
+ Fri, 21 Feb 2025 04:44:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,104 +45,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2e162c42-f050-11ef-9aa9-95dc52dad729
+X-Inumbo-ID: 87709409-f051-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1740141263; x=1740746063; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1740141842; x=1740746642; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=AuJ3PXnWQ+qrnRjWQ3DzHmS/IXTw0ydwCPMidPi+k/4=;
-        b=HBuMb7RqxnVbTg/tW72P5NEAb6PBL1ljvhnAKE3FMsOC3NwoCWoSbpHVmttejIfCzc
-         N9Yi+BSZrq05lOAREHVGHZcXu4rEgVtYRbfcV2Wystc5Lujss6qHIWxZwU0P779A8NKJ
-         2eALYpdwdQ7ccpXDoW/K3gMEbeDOmneiDaxKg=
+        bh=ZVCxIce40snc4QF3I2D6iivj9aYMdB22yzT9P/T9g4g=;
+        b=N+7J4NwZbIxV9X+x4mpR3ytuB75LYibvqK8sNTnMoazzmGQnTZ2Nse/GrVSNb43g3J
+         ovA5N6Dnd/AUtxu/DRHn23RoNuEaj5L696q88WSpVhXee4kCKm9EOwFtTz3eK0JMHJE9
+         7F2RfWMyNbWbSkw4HMpGI4ZLwpnH9V04nCUA0nznvqDmsG1uks3Sn3vFW3qz8bEmCl2u
+         jUYb9PQL3wYhCmRLltUZPliyRje3dWlQ0ybdxwpSKAXnXRkv2RBExoMW70dZX6NUiaJc
+         0CWbiMzJqPYUTQwXorqh+PkiIYIZfsArw2+Y6fbnWIdQFCq7+OLGpvpRyGR4so4QodqO
+         UFhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740141263; x=1740746063;
+        d=1e100.net; s=20230601; t=1740141842; x=1740746642;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=AuJ3PXnWQ+qrnRjWQ3DzHmS/IXTw0ydwCPMidPi+k/4=;
-        b=wmDAtsiNTRBAtbqf3fRwOj2cx2wxjnm7tPhnYt0LPSzBcPrcqLLD40xwH/pS6YFNag
-         w/Yk6D31+ul7eaiPah+dG+XUEPvsg8bXYIffBpKSZEz+UwJnLZTjRf2yLI3J7Xwbopkn
-         Rp8GQtZkCfI7P8TCd5aAAxNZlH5Od/frVKivjb8IyubRfR4wZOd+uSfAsbJ/adnTFAE1
-         3pYzwR9cQBQ0Y/GFLbsGK8xrG6Hy7mu+4i5FO6daL4D4YUzTC8KtmoaJ14GkjY6y4Qcr
-         QZNdf/n6MnPFrKoiWvNi9Mpe6W3VDKZqBfkVlLyOZGH95vbXCHHxn+nCnvxpAElcxXX/
-         VYSA==
-X-Forwarded-Encrypted: i=1; AJvYcCXB8DLuNpt4q4PZUobQr2ASg3eystcOOD9S6ODP8aiobJ2ObumyL6+Fqt5ggwbQnzWnFynrPG1CF4w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzNPDQ9ZkWvwazhoDQGJ2OwQZPPBQ3InCdZDIABzZpP6lzHfGfF
-	mSoJ/0SN9DeAg4z4qmGck3rL+Krb/EZYEe9QHrv7h9+YdaY1ieWw+IpyEKv+gta5jfjlACEsUUb
-	S
-X-Gm-Gg: ASbGnctOpQugi8oz0SvSZuxFz2FZp/+I6pmpyQ+gNDwCJxH5CFaMeSmmo/eh7Ct5URP
-	s0gOsU4tlM8ZlqVRCqsc+3pQQNVke96GShsiQGPn7kClSe0ury1qkxIX/NCcSS8P+YKSLPlhLbe
-	hYTUy/xv83XBpvvNijSysboF2tmkPU469xr1bgVTurK3zms+kQT+uaB3jL1UWhPtX92PFdskuob
-	Gu0SWKAEobvOOn3WE73DMcfEAG0aag0JqnWmBgBKy3wvGhfZBbeJKehRi4Kb/jtyTdsJvdb6K1z
-	KbD8smlUFf5MYPIhMicJCYH1nkzUhdXNOlU6uo77UByCZzg2lIPBtZxThJb16r4+nA==
-X-Google-Smtp-Source: AGHT+IHsNoJK8nbA6SR4VXef28sY4ae79oUqBSr3+3AkowzZeDpWJ/UYKegmRhP80NKPnrfSEF8olQ==
-X-Received: by 2002:a05:6000:1ac7:b0:38d:d299:709f with SMTP id ffacd0b85a97d-38f6f0d1d13mr2659381f8f.48.1740141262745;
-        Fri, 21 Feb 2025 04:34:22 -0800 (PST)
-Message-ID: <30a21ae6-14a0-4069-a715-e8b906169199@citrix.com>
-Date: Fri, 21 Feb 2025 12:34:21 +0000
+        bh=ZVCxIce40snc4QF3I2D6iivj9aYMdB22yzT9P/T9g4g=;
+        b=PeVHotoFQDTI69w8pdECM7vmQu67CRp0s66YbO/NHXHbZIKWkuccqVjMYwOzEgbiLL
+         PXM1V54qulvE9DZEq5vExqmJYQcSUv120MVS+K1J6QMblfErJ2j+FN3rAokuh7zTpp7F
+         wyLnTpa43tPy7rv1xS6GlUjYR3jKZwUxsOj7crDIwTioWM++sebyrJeRpJnjE4k431Q1
+         zQavlzw87EZaqsflmRU7q4gg53UEjA9SRFBbGlYkRy0GbAr1mEjih7vixI78dYjcRrRf
+         Zc5T+3BJ/+OSjUJSwaOZdUK9kCgK50rRhpCEf545n2kYlxi86+9KofU6MGBX2I19y3nN
+         lMgg==
+X-Forwarded-Encrypted: i=1; AJvYcCV0/ntGUlEy8igkOJh0hEEQMzBAq3DqDyjXz39M+ELMbyTClq3LBQ6y6NGFgNZKjbJzZ1QLGu+eQcE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx17p40jHoaMwAW05NRIT8jlyhoGl/UBWB/ELrxxLMFSd8TUtO4
+	g0dtAYwQ3hvS/WHvzcEOmYR/6hgd1I5+ISGuxoFZGt6rTQRVE5xSgkKebx0LShmIMFZcXpEvBVA
+	=
+X-Gm-Gg: ASbGncs5nuKruC8ayCYeZSeJaAcwGh1z9hRLHuS68Owe+ulazCE+evb3McmU27Vgejc
+	27dkK6SbRQ4wqUSVw/scYj2i6FmjrQuQlgBL15lisRWa+w38gGOgdSFCDexqfAiw/2uTfHkNM1L
+	1urvEQeshyDzCrftLTT1H4ZEan7voAuECyZHihzmPrjNZvdbgGYLdgjyqGpfirKS55lKVq1DfOW
+	qTQfKsZtPTnMWU4W9gd7Z59SkZfkzmngitIQfi/W4PNSbn8CrsrNcWdk8lYDPchANpS81AUygju
+	Km+ZnJyzjGWLFQe9zYnpl3QutuOtw3LBr+Zv9rISTP8gggl2LSGkbrQ1b44xCGhOn7AtrEEWDmW
+	NhEWFuYJcCr0=
+X-Google-Smtp-Source: AGHT+IE3SyzRegNHpqFuXRGXeRbtp54lLh78w1ff2FErNSEWDV/Fy76XmN8dRVwJpJMwsSwF7vNWTA==
+X-Received: by 2002:a17:906:314a:b0:ab7:b484:73b1 with SMTP id a640c23a62f3a-abc09a4580dmr309420166b.18.1740141842180;
+        Fri, 21 Feb 2025 04:44:02 -0800 (PST)
+Message-ID: <6e24ee01-9b07-4180-9430-7b5ce949d140@suse.com>
+Date: Fri, 21 Feb 2025 13:44:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] x86/msr: expose MSR_FAM10H_MMIO_CONF_BASE on AMD
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 References: <20250221120417.20431-1-roger.pau@citrix.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
 In-Reply-To: <20250221120417.20431-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 21/02/2025 12:04 pm, Roger Pau Monne wrote:
+On 21.02.2025 13:04, Roger Pau Monne wrote:
 > The MMIO_CONF_BASE reports the base of the MCFG range on AMD systems.
 > Currently Linux is unconditionally attempting to read the MSR without a
 > safe MSR accessor, and since Xen doesn't allow access to it Linux reports
 > the following error:
->
+> 
 > unchecked MSR access error: RDMSR from 0xc0010058 at rIP: 0xffffffff8101d19f (xen_do_read_msr+0x7f/0xa0)
 > Call Trace:
 >  <TASK>
@@ -181,55 +165,27 @@ On 21/02/2025 12:04 pm, Roger Pau Monne wrote:
 >  ? __pfx_kernel_init+0x10/0x10
 >  ret_from_fork_asm+0x1b/0x30
 >  </TASK>
->
+
+Across all the halfway recent Linux versions I've never seen this. The MSR
+access therefore can't be entirely unconditional, I expect. Or is this new
+in 6.14, which I haven't tried yet?
+
 > Fix by allowing access to the MSR on AMD systems, returning 0 for
 > unprivileged domains (MMIO configuration space disabled), and the native
 > value for the hardware domain.
->
+> 
 > The non hardware domain logic will need to be adjusted if in the future we
 > expose an MCFG region to such domains.
->
+> 
 > Write attempts to the MSR will still result in #GP for all domain types.
->
+> 
 > Fixes: 84e848fd7a16 ('x86/hvm: disallow access to unknown MSRs')
 > Fixes: 322ec7c89f66 ('x86/pv: disallow access to unknown MSRs')
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
->  xen/arch/x86/msr.c | 15 +++++++++++++++
->  1 file changed, 15 insertions(+)
->
-> diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
-> index 289cf10b783a..c588c9131337 100644
-> --- a/xen/arch/x86/msr.c
-> +++ b/xen/arch/x86/msr.c
-> @@ -245,6 +245,21 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
->          *val = 0;
->          break;
->  
-> +    case MSR_FAM10H_MMIO_CONF_BASE:
-> +        if ( !(cp->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON)) )
-> +            goto gp_fault;
-> +
-> +        /*
-> +         * Report MMIO configuration space is disabled unconditionally for
-> +         * domUs, as the emulated chipset doesn't support ECAM.  For dom0
-> +         * return the hardware value.
-> +         */
-> +        *val = 0;
-> +        if ( is_hardware_domain(d) && rdmsr_safe(msr, *val) )
-> +            goto gp_fault;
-> +
-> +        break;
-> +
->      case MSR_VIRT_SPEC_CTRL:
->          if ( !cp->extd.virt_ssbd )
->              goto gp_fault;
 
-Looking at the linux code, can we not fix this just by turning it into a
-rdmsr_safe(), noting that not all hypervisors virtualise this MSR?
+Hmm, if we consider this a bug fix, then perhaps we'd need to go quite a bit
+farther with what MSRs we permit at least read access for. More generally in
+this event I'd wonder whether for any MSR that's in principle writable we
+shouldn't silently ignore same-value writes.
 
-Given the number of VMs which genuinely don't have PCI (emulated or
-otherwise), it's a buggy assumption in Linux.
-
-~Andrew
+Jan
 
