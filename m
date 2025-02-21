@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72B09A40271
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Feb 2025 23:11:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.894670.1303390 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DFB7A40272
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Feb 2025 23:11:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.894680.1303399 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tlbEJ-0000iJ-3p; Fri, 21 Feb 2025 22:10:43 +0000
+	id 1tlbFF-0001FQ-EK; Fri, 21 Feb 2025 22:11:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 894670.1303390; Fri, 21 Feb 2025 22:10:43 +0000
+Received: by outflank-mailman (output) from mailman id 894680.1303399; Fri, 21 Feb 2025 22:11:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tlbEJ-0000gi-15; Fri, 21 Feb 2025 22:10:43 +0000
-Received: by outflank-mailman (input) for mailman id 894670;
- Fri, 21 Feb 2025 22:10:42 +0000
+	id 1tlbFF-0001Dp-Be; Fri, 21 Feb 2025 22:11:41 +0000
+Received: by outflank-mailman (input) for mailman id 894680;
+ Fri, 21 Feb 2025 22:11:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ozyL=VM=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1tlbEH-0000fE-28
- for xen-devel@lists.xenproject.org; Fri, 21 Feb 2025 22:10:41 +0000
-Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch
- [79.135.106.29]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a6b1919a-f0a0-11ef-9896-31a8f345e629;
- Fri, 21 Feb 2025 23:10:25 +0100 (CET)
+ id 1tlbFD-0001BA-UV
+ for xen-devel@lists.xenproject.org; Fri, 21 Feb 2025 22:11:39 +0000
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d216177b-f0a0-11ef-9896-31a8f345e629;
+ Fri, 21 Feb 2025 23:11:38 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,138 +36,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6b1919a-f0a0-11ef-9896-31a8f345e629
+X-Inumbo-ID: d216177b-f0a0-11ef-9896-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1740175824; x=1740435024;
-	bh=dA3eGRZctvKPvDt7sKPH2JkRLh8aLqvd/MYKS5OYnug=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector:
-	 List-Unsubscribe:List-Unsubscribe-Post;
-	b=TM2e/CyGkInUBdaQNcd+i98WC6ttY4dSREA2WLAZMSqpCY9OM1IDuHE8sRScSsaeP
-	 2/K0306Yaj7/R4KmOJCstTF111jHLhH8moMP/9YXYkkP+vAZhDWX4FlrgXmO0iz77C
-	 vCej6uy2RXNj4ymGaN70HctRhUM5EC2Xufu9kW5r9DRbU6WP07kFYGsYKL/ymhztnC
-	 8wHSHOQKigADMHDlTIG0DXJ6CZa+8BjR1Wh8jGX/7K5NG6QsFsLspP4JZtUVtWWT9T
-	 52nU1ywrAKrXlJHZDmKJ3te5hBiPGxJalStwyQc/PN4fW8OUleG6H0KzOIY0sLAAvy
-	 StfCXaE2WCDCQ==
-Date: Fri, 21 Feb 2025 22:10:18 +0000
-To: xen-devel@lists.xenproject.org
-From: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: [PATCH v6] xen/console: print Xen version via keyhandler
-Message-ID: <20250221220925.1391144-1-dmukhin@ford.com>
+	s=protonmail; t=1740175896; x=1740435096;
+	bh=T4FAb5xjrj98WcC8lm2Q5GtfGwGNHcd7RK5vRIb6rd0=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
+	b=Lk63JX0TDYuFhmsxS7s0qYELav25X8rCO/XxEaPeowXx5qi33ZnDg0hnFOXVKo0q6
+	 PD2tJaSE5tn9IKbm2HfLWAwE2ivH3FNqTS0DkapKvCMwkpDnE4F9rljutBNFzVTcVf
+	 nZR8rikaj3vG60seIa/6ehio08bJuQ6f6rbM1s9GdD/Bh94s/hzSDZcp1Pydps57Cr
+	 PliYGAqs3H4WfAbqiBvEt6NFlBnhQgmVnds8EjmNxYedlxrvsyPJ4MTSQbxb4bRgpx
+	 KzA0s5IgvZSW9opeLNdOwgJelgB6sj4J7MD0XMIFLDI47Sj5rz18BL27cv9Ru7giVC
+	 ZUf14BOWmJcgg==
+Date: Fri, 21 Feb 2025 22:11:32 +0000
+To: Jan Beulich <jbeulich@suse.com>
+From: Denis Mukhin <dmkhn@proton.me>
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v5] xen/console: print Xen version via keyhandler
+Message-ID: <Wi0Ti7rSDjrxQNoUp0lx9y6BPWqHurGHfHbDmqqBB3EVsj7_rpoR3Zmjpn8boU1nt1H78UM_JnBpmAN4Y4csk1QMvBXqtOsWTiSo0tUji6M=@proton.me>
+In-Reply-To: <cdcdab1c-f19f-42a4-820a-bd35dbf4ab28@suse.com>
+References: <20250217213253.2067015-1-dmukhin@ford.com> <cdcdab1c-f19f-42a4-820a-bd35dbf4ab28@suse.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 2550b2e8887c0c4048ec580d23449603c5f7eaca
+X-Pm-Message-ID: f5ff6e1c0e82ae5d8c169a80d74f92242ae990b6
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Add Xen version printout to 'h' keyhandler output.
+On Wednesday, February 19th, 2025 at 5:41 AM, Jan Beulich <jbeulich@suse.co=
+m> wrote:
 
-That is useful for debugging systems that have been left intact for a long
-time.
+>=20
+>=20
+> On 17.02.2025 22:33, dmkhn@proton.me wrote:
+>=20
+> > Add Xen version printout to 'h' keyhandler output.
+> >=20
+> > That is useful for debugging systems that have been left intact for a l=
+ong
+> > time.
+> >=20
+> > Signed-off-by: Denis Mukhin dmukhin@ford.com
+> > Reviewed-by: Jan Beulich jbeulich@suse.com
+>=20
+>=20
+> Hmm, wait - there's yet another issue:
+>=20
+> > --- a/xen/common/keyhandler.c
+> > +++ b/xen/common/keyhandler.c
+> > @@ -129,6 +129,10 @@ static void cf_check show_handlers(unsigned char k=
+ey)
+> > unsigned int i;
+> >=20
+> > printk("'%c' pressed -> showing installed handlers\n", key);
+> > +
+> > + print_version();
+> > + print_build_id();
+>=20
+>=20
+> Here and in console_init_preirq() you expect to be able to call the two
+> functions, no matter what the tool chain. Then ...
+>=20
+> > --- a/xen/common/version.c
+> > +++ b/xen/common/version.c
+> > @@ -210,9 +210,28 @@ void __init xen_build_init(void)
+> > }
+> > }
+> > #endif /* CONFIG_X86 */
+> > - if ( !rc )
+> > - printk(XENLOG_INFO "build-id: %phN\n", build_id_len, build_id_p);
+> > }
+> > +
+> > +void print_version(void)
+> > +{
+> > + printk("Xen version %d.%d%s (%s@%s) (%s) %s %s\n",
+> > + xen_major_version(), xen_minor_version(), xen_extra_version(),
+> > + xen_compile_by(), xen_compile_domain(), xen_compiler(),
+> > + xen_build_info(), xen_compile_date());
+> > +
+> > + printk("Latest ChangeSet: %s\n", xen_changeset());
+> > +}
+> > +
+> > +void print_build_id(void)
+> > +{
+> > + /
+> > + * NB: build_id_len may be 0 if XEN_HAS_BUILD_ID=3Dn.
+> > + * Do not print empty build-id.
+> > + */
+> > + if ( build_id_len )
+> > + printk("build-id: %phN\n", build_id_len, build_id_p);
+> > +}
+> > +
+> > #endif / BUILD_ID */
+>=20
+>=20
+> ... their definitions cannot be inside an #ifdef. They want to move up:
+> - print_build_id() between xen_build_id() and the #ifdef BUILD_ID,
+> - print_version() yet higher up, perhaps after xen_build_info().
+> I guess I can do so while committing.
 
-Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
----
-Changes since v5:
-- moved new code outside of #ifdef BUILD_ID
----
- xen/common/keyhandler.c    |  4 ++++
- xen/common/version.c       | 23 +++++++++++++++++++++--
- xen/drivers/char/console.c |  8 +++-----
- xen/include/xen/lib.h      |  3 +++
- 4 files changed, 31 insertions(+), 7 deletions(-)
+Oh, that's right.
+Thanks!
 
-diff --git a/xen/common/keyhandler.c b/xen/common/keyhandler.c
-index 6ea54838d4..0bb842ec00 100644
---- a/xen/common/keyhandler.c
-+++ b/xen/common/keyhandler.c
-@@ -129,6 +129,10 @@ static void cf_check show_handlers(unsigned char key)
-     unsigned int i;
-=20
-     printk("'%c' pressed -> showing installed handlers\n", key);
-+
-+    print_version();
-+    print_build_id();
-+
-     for ( i =3D 0; i < ARRAY_SIZE(key_table); i++ )
-         if ( key_table[i].fn )
-             printk(" key '%c' (ascii '%02x') =3D> %s\n",
-diff --git a/xen/common/version.c b/xen/common/version.c
-index bc3714b45f..be3906de79 100644
---- a/xen/common/version.c
-+++ b/xen/common/version.c
-@@ -210,10 +210,29 @@ void __init xen_build_init(void)
-         }
-     }
- #endif /* CONFIG_X86 */
--    if ( !rc )
--        printk(XENLOG_INFO "build-id: %*phN\n", build_id_len, build_id_p);
- }
- #endif /* BUILD_ID */
-+
-+void print_version(void)
-+{
-+    printk("Xen version %d.%d%s (%s@%s) (%s) %s %s\n",
-+           xen_major_version(), xen_minor_version(), xen_extra_version(),
-+           xen_compile_by(), xen_compile_domain(), xen_compiler(),
-+           xen_build_info(), xen_compile_date());
-+
-+    printk("Latest ChangeSet: %s\n", xen_changeset());
-+}
-+
-+void print_build_id(void)
-+{
-+    /*
-+     * NB: build_id_len may be 0 if XEN_HAS_BUILD_ID=3Dn.
-+     * Do not print empty build-id.
-+     */
-+    if ( build_id_len )
-+        printk("build-id: %*phN\n", build_id_len, build_id_p);
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index 07b14b7b3f..2e23910dfa 100644
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -1020,14 +1020,12 @@ void __init console_init_preirq(void)
-     nrspin_lock(&console_lock);
-     __putstr(xen_banner());
-     nrspin_unlock(&console_lock);
--    printk("Xen version %d.%d%s (%s@%s) (%s) %s %s\n",
--           xen_major_version(), xen_minor_version(), xen_extra_version(),
--           xen_compile_by(), xen_compile_domain(), xen_compiler(),
--           xen_build_info(), xen_compile_date());
--    printk("Latest ChangeSet: %s\n", xen_changeset());
-+
-+    print_version();
-=20
-     /* Locate and print the buildid, if applicable. */
-     xen_build_init();
-+    print_build_id();
-=20
-     if ( opt_sync_console )
-     {
-diff --git a/xen/include/xen/lib.h b/xen/include/xen/lib.h
-index 81b722ea3e..686899a63e 100644
---- a/xen/include/xen/lib.h
-+++ b/xen/include/xen/lib.h
-@@ -47,6 +47,9 @@ int parse_signed_integer(const char *name, const char *s,=
- const char *e,
-  */
- int cmdline_strcmp(const char *frag, const char *name);
-=20
-+void print_version(void);
-+void print_build_id(void);
-+
- #ifdef CONFIG_DEBUG_TRACE
- extern void debugtrace_dump(void);
- extern void debugtrace_printk(const char *fmt, ...)
---=20
-2.34.1
+Sent v6 with the fix.
 
-
+>=20
+> Jan
 
