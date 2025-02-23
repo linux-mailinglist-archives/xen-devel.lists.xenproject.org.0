@@ -2,38 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A787CA40D4D
-	for <lists+xen-devel@lfdr.de>; Sun, 23 Feb 2025 08:53:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.894869.1303536 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F1CEA40DB6
+	for <lists+xen-devel@lfdr.de>; Sun, 23 Feb 2025 10:35:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.894801.1303546 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tm6nx-0006MA-N3; Sun, 23 Feb 2025 07:53:37 +0000
+	id 1tm8Nw-0001qI-Mx; Sun, 23 Feb 2025 09:34:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 894869.1303536; Sun, 23 Feb 2025 07:53:37 +0000
+Received: by outflank-mailman (output) from mailman id 894801.1303546; Sun, 23 Feb 2025 09:34:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tm6nx-0006Ki-KD; Sun, 23 Feb 2025 07:53:37 +0000
-Received: by outflank-mailman (input) for mailman id 894869;
- Sun, 23 Feb 2025 07:53:35 +0000
+	id 1tm8Nw-0001oq-Jb; Sun, 23 Feb 2025 09:34:52 +0000
+Received: by outflank-mailman (input) for mailman id 894801;
+ Sun, 23 Feb 2025 00:02:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=omsT=VO=gmail.com=andr2000@srs-se1.protection.inumbo.net>)
- id 1tm6nv-0006Kc-Ue
- for xen-devel@lists.xenproject.org; Sun, 23 Feb 2025 07:53:35 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
+ <SRS0=4pks=VO=protonmail.com=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1tlzRn-0002Qz-4f
+ for xen-devel@lists.xenproject.org; Sun, 23 Feb 2025 00:02:15 +0000
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 47887f43-f1bb-11ef-9896-31a8f345e629;
- Sun, 23 Feb 2025 08:53:33 +0100 (CET)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-545fed4642aso3409869e87.0
- for <xen-devel@lists.xenproject.org>; Sat, 22 Feb 2025 23:53:33 -0800 (PST)
-Received: from [192.168.10.20] ([185.199.97.5])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5452e9932a6sm2620296e87.197.2025.02.22.23.53.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 22 Feb 2025 23:53:31 -0800 (PST)
+ id 680dad14-f179-11ef-9896-31a8f345e629;
+ Sun, 23 Feb 2025 01:02:01 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,185 +36,219 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47887f43-f1bb-11ef-9896-31a8f345e629
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1740297213; x=1740902013; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=jfmuHK1H9If2qcdgGnsOl5Qgl/Kcdr2H8/0d1jixcO4=;
-        b=GC4MycmS//54JN7hPS80DeGLk4eslUs1EFw2fTeh76jLjlNiypf3fxDK+G9lMiZJgL
-         k+BR0Bn364l27HRHxcfl63P1ZVltymfNVs2g/1kvcKxdAFo+eKRGvqxo3LUZ7RRlKF2G
-         2F39ZpskgIC34vwL92qR/yP2zRkTapZQaSB1cq32ApngBRnB1OrNzRS7kzt/2SBRfvMN
-         gbG2niPSwr71fM4qQwQFoRW1STIG90KdtHExZJtICO/xYcT1yh9cuFwvkR9qXySopExD
-         TVM0dYBaNLhzyT3OpAjwQrdGU5nsmeoM7RGscPV7vsBq8SdfyLqEtNBtNLHAOFvGUvWP
-         ltIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740297213; x=1740902013;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=jfmuHK1H9If2qcdgGnsOl5Qgl/Kcdr2H8/0d1jixcO4=;
-        b=H+tFtfvdg5HXD2OZC6In8CVSxp+1Ky7rMn5QWucxbBJxgBoIQKYMtW7ULLtGHEMJTW
-         hsZ/5NZoXin7ECimlo6kZtGcuiAHxV8fPqEUSMZ/S10DHUqa6ysvnSJnfBWRfmBGTz45
-         Ew5KyTJZLok82uzeEwbG10IRGwhfGl2cRsiH7TQK+HbMRxgu73H2HnTj0CS30BZ7E4C4
-         S/p3/O1q72MHxUQqKo/yENzDMgPmY+iI2302zHEah3lH9UFkwupeWrEw0qyK34vpPmq+
-         jfLIoA+DrP9rj889/QZD0/Q9KZUKBBYoStOFF/BFEOnbImekjJKJnvgWCKbc0Gq+9+He
-         20yA==
-X-Forwarded-Encrypted: i=1; AJvYcCXgW4h2Cj2i30Rj4BrMV+MvJGZC1UOUEJ56yD4nEfNxBantdtZqeWaxo2zENTmIvDBFAvGAPJJl2w0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxiHoo8ststDBwpzZzlJ2DBCvNj1SrHHB6HpejTYzMsm9rAQ1sS
-	+jcBl+p9/E/tSxC9W0R/foQArpixvf6U4IS/ppaUX5cp7O2lXYCr
-X-Gm-Gg: ASbGncuyhU4Qp0U8RwDwEx3QKqQbs9yYNjF0VqHm5QH11YFTz9GVHTv6ea0CoQw/9lC
-	oxoAEKmCtkduChexvTDNbobXA2kWa1zaW1FiBru9/9/dfUbD6ouQ0CxJGUXae15iEoPzQsckdJu
-	XNqvNcDJWa7Ot4q1IylQ0ntjQZgZAZSNlxrVp5tq5RLsQ3LGAd07NqKHzCYwxRycUtKwF+tWsFH
-	Me9Ie6UckKXhNNwk/1BFQ/VcMf5QtkbMU9QEdo8mN5IcLs766Pm7kjxhjKRGoigwZ+V8siq98La
-	r7RvjEbbXPa7iKQqJ8Geabbf3fE=
-X-Google-Smtp-Source: AGHT+IHv/hdgMywHetGXVE1How74EJNyaD2QjgCxYt3uqhw0kP13XFoqsfgqqLlXl//FQTR29rlSTQ==
-X-Received: by 2002:a05:6512:238a:b0:545:ea9:1a1e with SMTP id 2adb3069b0e04-54838ef5c21mr3524626e87.26.1740297212445;
-        Sat, 22 Feb 2025 23:53:32 -0800 (PST)
-Message-ID: <51e5994f-722a-499d-884e-9f299d091c99@gmail.com>
-Date: Sun, 23 Feb 2025 09:53:29 +0200
+X-Inumbo-ID: 680dad14-f179-11ef-9896-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1740268920; x=1740528120;
+	bh=SXDurolkFiCdwHrRyAyUFDlkuQXjyy5Vp6hdr87aphE=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
+	b=D/Xq9k89yHcDNEjxWXgrOcpXj/cpGQrFSw6TAziow8zyL3+GkLYExMwhjJ9zodsFb
+	 uEcWBkCTgvDWlLhmH8CvOs88EVwVF2nWrXIProRsJGZbcNed9quwXInlNY3gLMnibz
+	 Ul50QxMcp2YXq+7fYU/FaRzQ9TH8vTUcTwaJRMZ4UhPE6RCPVPrHmEzUwnpYp4zfXd
+	 C5pFRaPIahh0G/KdfudrMLY4prskR5KR8NvSe5uT0KlonaD30a3f7VpMt+GKp3XDhd
+	 ww4tqkFcvcDnRfYJ6u/3R4veXUgT4JSXBPGmTb4Wd64DKvRiJC7WO3LB70zNelbIVn
+	 UoO9H9s3crPEA==
+Date: Sun, 23 Feb 2025 00:01:57 +0000
+To: dmukhin@ford.com
+From: Denis Mukhin <dmkhn@protonmail.com>
+Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>, Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>, =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH v3 05/24] xen/console: introduce consoled_is_enabled()
+Message-ID: <fUSDJuA00Uc2Lm5_y7oK5broEvCmpYLAgOAqU3gcZxx3a3zc0FaxclY4CP6VPd69T3OvpbFCfy-yMrT4185T-Ylx2Kh_y0_zJWalzroNtLg=@protonmail.com>
+In-Reply-To: <20250103-vuart-ns8250-v3-v1-5-c5d36b31d66c@ford.com>
+References: <20250103-vuart-ns8250-v3-v1-0-c5d36b31d66c@ford.com> <20250103-vuart-ns8250-v3-v1-5-c5d36b31d66c@ford.com>
+Feedback-ID: 33633869:user:proton
+X-Pm-Message-ID: 805a67f0d75f6e2277aab694da1b6ccbc55b417e
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] code style: Format ns16550 driver
-To: Jan Beulich <jbeulich@suse.com>
-Cc: sstabellini@kernel.org, Artem_Mygaiev@epam.com, Luca.Fancellu@arm.com,
- roger.pau@citrix.com, marmarek@invisiblethingslab.com,
- andrew.cooper3@citrix.com, anthony.perard@vates.tech,
- xen-devel@lists.xenproject.org
-References: <20250216102108.2665222-1-andr2000@gmail.com>
- <20250216102108.2665222-2-andr2000@gmail.com>
- <5ed54fcf-d4fd-4ec0-8c40-1e50d9b16ae2@suse.com>
- <6f133e51-17b5-4edf-8db3-5c9b91028898@gmail.com>
- <b1b07d0a-06e7-4509-bb21-d5d6ac849252@suse.com>
- <85fa3476-c360-4049-9376-ef342883b864@gmail.com>
- <fd81810c-80de-40c9-8324-9e5bbdaaff11@suse.com>
- <c9404f41-2279-46f3-b21a-be4151d878e0@gmail.com>
- <6b8aa235-5415-4b59-bdd6-3e3a909fbdc4@suse.com>
-Content-Language: en-US
-From: Oleksandr Andrushchenko <andr2000@gmail.com>
-In-Reply-To: <6b8aa235-5415-4b59-bdd6-3e3a909fbdc4@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hello, Jan!
+On Friday, January 3rd, 2025 at 5:58 PM, Denis Mukhin via B4 Relay <devnull=
++dmukhin.ford.com@kernel.org> wrote:
+>=20
+>=20
+> From: Denis Mukhin dmukhin@ford.com
+>=20
+>=20
+> There are few places which check pv_shim console under CONFIG_PV_SHIM in =
+xen
+> console driver. Instead of #ifdef-ing, use new consoled_is_enabled() to
+> customize the logic.
+>=20
+> Header file now can be included w/o CONFIG_X86.
+>=20
+> Signature of consoled_guest_{rx,tx} has changed so the error can be logge=
+d.
+>=20
+> Signed-off-by: Denis Mukhin dmukhin@ford.com
 
-On 19.02.25 18:01, Jan Beulich wrote:
-> On 19.02.2025 16:40, Oleksandr Andrushchenko wrote:
->> On 19.02.25 16:05, Jan Beulich wrote:
->>> On 19.02.2025 14:52, Oleksandr Andrushchenko wrote:
->>>> On 19.02.25 15:18, Jan Beulich wrote:
->>>>> On 19.02.2025 13:39, Oleksandr Andrushchenko wrote:
->>>>>> On 17.02.25 12:20, Jan Beulich wrote:
->>>>>>> On 16.02.2025 11:21, Oleksandr Andrushchenko wrote:
->>>>>>>> @@ -248,8 +249,9 @@ static int cf_check ns16550_tx_ready(struct serial_port *port)
->>>>>>>>          if ( ns16550_ioport_invalid(uart) )
->>>>>>>>              return -EIO;
->>>>>>>>      
->>>>>>>> -    return ( (ns_read_reg(uart, UART_LSR) &
->>>>>>>> -              uart->lsr_mask ) == uart->lsr_mask ) ? uart->fifo_size : 0;
->>>>>>>> +    return ((ns_read_reg(uart, UART_LSR) & uart->lsr_mask) == uart->lsr_mask)
->>>>>>>> +               ? uart->fifo_size
->>>>>>>> +               : 0;
->>>>>>> Indentation of the ? and : lines is clearly wrong here? What is the tool
->>>>>>> doing?
->>>>>> There are number of options that have influence on this formatting:
->>>>>> AllowShortBlocksOnASingleLine [4]
->>>>>> BreakBeforeTernaryOperators [5]
->>>>>> AlignOperands [6]
->>>>>>
->>>>>> I was not able to tweak these options to have the previous form.
->>>>> Right, sticking to the original form (with just the stray blanks zapped)
->>>>> would of course be best. Yet again - the tool is doing more transformations
->>>>> despite there not being any need. If, however, it does so, then one of my
->>>>> expectations would be that the ? and : are properly indented:
->>>>>
->>>>>        return ((ns_read_reg(uart, UART_LSR) & uart->lsr_mask) == uart->lsr_mask)
->>>>>               ? uart->fifo_size
->>>>>               : 0;
->>>> This only differs from what the tool is doing by the fact it applies
->>>> the following rule: *IndentWidth: 4*, e.g. it has indented your construct
->>>> by 4 spaces, see [1]. Which, IMO, is acceptable change.
->>> I don't view this as acceptable. It falls in the same class then as
->>>
->>>       ns_write_reg(uart,
->>>                    UART_FCR,
->>>                    UART_FCR_ENABLE | UART_FCR_CLRX | UART_FCR_CLTX |
->>>                        UART_FCR_TRG14);
->>>
->>> that I also commented on in my initial reply.
->> Ok, then how would you have it defined in the coding style as a rule?
->> Such a diversity in defining indentation? So, will you have a dedicated
->> rule for the ternary?
-> Well, this feels like you're returning a request I made your way, elsewhere.
-> Our present, unwritten rule for wrapping lines is to match the earlier
-> line's indentation (or the start of the expression), plus accounting for any
-> pending open parentheses, braces, or brackets. Hence why some consider this
-> form
->
->       ns_write_reg(uart,
->                    UART_FCR,
->                    (UART_FCR_ENABLE | UART_FCR_CLRX | UART_FCR_CLTX |
->                     UART_FCR_TRG14));
->
-> preferable, as some tools (iirc e.g. Andrew indicated his editor does) then
-> are capable of inferring the intended indentation from the pending open
-> parentheses.
-I do understand that the tool needs to do the job and be able to fit
-any coding style exists and not vice versa. But this is only in an
-ideal world which doesn't exist yet: those tools are also developed by
-an open source community and they also have some limited bandwidth.
-I mean that bot Xen and some magic tool might need to co-exist and
-accept each other. Or just decide not to use any.
->>>>> That's not overly neat wrapping, but in line with our style. If the other
->>>>> form was demanded going forward, I'd be curious how you'd verbally
->>>>> describe the requirement in ./CODING_STYLE.
->>>> I believe this can be stated around the fact that we need to indent,
->>>> e.g. apply the same rule as for other constructs already in use
->>> Except here the tool didn't merely adjust indentation, but moved tokens
->>> between lines.
->> Again, if it moves, but doesn't break the style - then it is going to happen
->> only once while applying big-scary-patch.
-> As to that patch: To some degree I actually like the idea of following Linux
-> in generally not allowing style-only patches.
-Well, yes. I can suggest that if we decide to provide a series of
-style-only patches that we commit those with a fake authorship,
-e.g. "Author: clang-format@xenproject.org"
->
->>>>>>>> @@ -275,9 +277,10 @@ static void pci_serial_early_init(struct ns16550 *uart)
->>>>>>>>      #ifdef NS16550_PCI
->>>>>>>>          if ( uart->bar && uart->io_base >= 0x10000 )
->>>>>>>>          {
->>>>>>>> -        pci_conf_write16(PCI_SBDF(0, uart->ps_bdf[0], uart->ps_bdf[1],
->>>>>>>> -                                  uart->ps_bdf[2]),
->>>>>>>> -                         PCI_COMMAND, PCI_COMMAND_MEMORY);
->>>>>>>> +        pci_conf_write16(
->>>>>>>> +            PCI_SBDF(0, uart->ps_bdf[0], uart->ps_bdf[1], uart->ps_bdf[2]),
->>>>>>>> +            PCI_COMMAND,
->>>>>>>> +            PCI_COMMAND_MEMORY);
->>>>>>>>              return;
->>>>>>>>          }
->>>>>>> Hmm, transforming a well-formed block into another well-formed one. No
->>>>>>> gain? (Same again further down.)
->>>>>> No, gain from human point of view
->>>>>> But there is a gain that it is now formatted automatically.
->>>>> See above: I'd first like to see a written, textual description for all these
->>>>> requirements. After all it needs to be possible for a human to write code
->>>>> that the tool then wouldn't try to re-arrange. Which in turn requires that
->>>>> the restrictions / constraints on the layout are spelled out.
->>>> Agree, the existing coding style document will require some extension:
->>>> at least clarifications and addition of the rules not described yet.
->>>>>     I'm not looking
->>>>> forward to pass all my patches through such a tool. I can write style-
->>>>> conforming code pretty well, with - of course - occasional oversights,
->>>> Which the tool will allow not to have for less accurate developers
->>> I fear I don't understand this reply of yours.
->> I mean that you can write such a well formatted code without any tool.
->> But there are others who can't. Then the tool will help others to avoid
->> code style violations.
-> And it'll screw me up (and possibly others too).
->
-> Jan
-Thank you,
-Oleksandr
+Moved to:
+  https://lore.kernel.org/xen-devel/20250222235748.103599-1-dmkhn@proton.me=
+/
+
+>=20
+> ---
+> xen/drivers/char/console.c | 13 +++++--------
+> xen/drivers/char/consoled.c | 17 +++++++++++++----
+> xen/include/xen/consoled.h | 32 +++++++++++++++++++++++++++-----
+> 3 files changed, 45 insertions(+), 17 deletions(-)
+>=20
+> diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+> index 4785f0e93a17e3ecba79a7813d2928f946abab8f..2d20a9d7531e069803eaf30ce=
+79354b998c4a52f 100644
+> --- a/xen/drivers/char/console.c
+> +++ b/xen/drivers/char/console.c
+> @@ -33,9 +33,9 @@
+> #include <xen/pv_console.h>
+>=20
+> #include <asm/setup.h>
+>=20
+> #include <xen/sections.h>
+>=20
+> +#include <xen/consoled.h>
+>=20
+>=20
+> #ifdef CONFIG_X86
+> -#include <xen/consoled.h>
+>=20
+> #include <asm/guest.h>
+>=20
+> #endif
+> #ifdef CONFIG_SBSA_VUART_CONSOLE
+> @@ -508,11 +508,9 @@ static void switch_serial_input(void)
+> break;
+> }
+>=20
+> -#ifdef CONFIG_PV_SHIM
+> - if ( next_rx =3D=3D 1 )
+> + if ( consoled_is_enabled() && next_rx =3D=3D 1 )
+> domid =3D get_initial_domain_id();
+> else
+> -#endif
+> domid =3D next_rx - 1;
+> d =3D rcu_lock_domain_by_id(domid);
+> if ( d )
+> @@ -563,10 +561,9 @@ static void __serial_rx(char c)
+> rc =3D vpl011_rx_char_xen(d, c);
+> #endif
+>=20
+> -#ifdef CONFIG_X86
+> - if ( pv_shim && pv_console )
+> - consoled_guest_tx(c);
+> -#endif
+> + if ( consoled_is_enabled() )
+> + /* Deliver input to the PV shim console. */
+> + rc =3D consoled_guest_tx(c);
+>=20
+> if ( rc )
+> printk(KERN_ERR "d%pd: failed to process console input: %d\n", d, rc);
+> diff --git a/xen/drivers/char/consoled.c b/xen/drivers/char/consoled.c
+> index b415b632cecc0a80e161b701d7b70ba4f3cc5fb8..8704ec251eb19e9c1cdc5927f=
+896aeb20cc5af1e 100644
+> --- a/xen/drivers/char/consoled.c
+> +++ b/xen/drivers/char/consoled.c
+> @@ -43,13 +43,13 @@ struct xencons_interface consoled_get_ring_addr(void)
+> static char buf[BUF_SZ + 1];
+>=20
+> / Receives characters from a domain's PV console /
+> -void consoled_guest_rx(void)
+> +int consoled_guest_rx(void)
+> {
+> size_t idx =3D 0;
+> XENCONS_RING_IDX cons, prod;
+>=20
+> if ( !cons_ring )
+> - return;
+> + return -ENODEV;
+>=20
+> spin_lock(&rx_lock);
+>=20
+> @@ -91,15 +91,17 @@ void consoled_guest_rx(void)
+>=20
+> out:
+> spin_unlock(&rx_lock);
+> +
+> + return 0;
+> }
+>=20
+> / Sends a character into a domain's PV console */
+> -void consoled_guest_tx(char c)
+> +int consoled_guest_tx(char c)
+> {
+> XENCONS_RING_IDX cons, prod;
+>=20
+> if ( !cons_ring )
+> - return;
+> + return -ENODEV;
+>=20
+> cons =3D ACCESS_ONCE(cons_ring->in_cons);
+>=20
+> prod =3D cons_ring->in_prod;
+>=20
+> @@ -125,6 +127,13 @@ void consoled_guest_tx(char c)
+> notify:
+> /* Always notify the guest: prevents receive path from getting stuck. /
+> pv_shim_inject_evtchn(pv_console_evtchn());
+> +
+> + return 0;
+> +}
+> +
+> +bool consoled_is_enabled(void)
+> +{
+> + return pv_shim && pv_console;
+> }
+>=20
+> /
+> diff --git a/xen/include/xen/consoled.h b/xen/include/xen/consoled.h
+> index bd7ab6329ee8a7c466484021247241ded8ed03c7..14e5e3284a86201919f0f70a8=
+c2785609f35b15f 100644
+> --- a/xen/include/xen/consoled.h
+> +++ b/xen/include/xen/consoled.h
+> @@ -1,14 +1,36 @@
+> -#ifndef XEN_CONSOLED_H
+> -#define XEN_CONSOLED_H
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +#ifndef XEN__CONSOLED_H
+> +#define XEN__CONSOLED_H
+>=20
+> #include <public/io/console.h>
+>=20
+>=20
+> +#ifdef CONFIG_PV_SHIM
+> +
+> void consoled_set_ring_addr(struct xencons_interface *ring);
+> struct xencons_interface consoled_get_ring_addr(void);
+> -void consoled_guest_rx(void);
+> -void consoled_guest_tx(char c);
+> +int consoled_guest_rx(void);
+> +int consoled_guest_tx(char c);
+> +bool consoled_is_enabled(void);
+>=20
+> -#endif / XEN_CONSOLED_H /
+> +#else
+> +
+> +static inline int consoled_guest_rx(void)
+> +{
+> + ASSERT_UNREACHABLE();
+> + return 0;
+> +}
+> +
+> +static inline int consoled_guest_tx(char c)
+> +{
+> + ASSERT_UNREACHABLE();
+> + return 0;
+> +}
+> +
+> +#define consoled_is_enabled() ( false )
+> +
+> +#endif / CONFIG_PV_SHIM /
+> +
+> +#endif / XEN__CONSOLED_H /
+> /
+> * Local variables:
+> * mode: C
+>=20
+> --
+> 2.34.1
+> 
 
