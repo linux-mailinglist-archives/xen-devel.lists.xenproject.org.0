@@ -2,29 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9D44A40C4A
-	for <lists+xen-devel@lfdr.de>; Sun, 23 Feb 2025 01:03:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.894803.1303500 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70B95A40D48
+	for <lists+xen-devel@lfdr.de>; Sun, 23 Feb 2025 08:43:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.894860.1303526 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tlzSs-0002Uq-O4; Sun, 23 Feb 2025 00:03:22 +0000
+	id 1tm6d6-0004nI-NL; Sun, 23 Feb 2025 07:42:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 894803.1303500; Sun, 23 Feb 2025 00:03:22 +0000
+Received: by outflank-mailman (output) from mailman id 894860.1303526; Sun, 23 Feb 2025 07:42:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tlzSs-0002SZ-KI; Sun, 23 Feb 2025 00:03:22 +0000
-Received: by outflank-mailman (input) for mailman id 894803;
- Sun, 23 Feb 2025 00:03:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=4AKD=VO=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1tlzSq-0002SR-Lr
- for xen-devel@lists.xenproject.org; Sun, 23 Feb 2025 00:03:20 +0000
-Received: from mail-40133.protonmail.ch (mail-40133.protonmail.ch
- [185.70.40.133]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 96a92fbb-f179-11ef-9aac-95dc52dad729;
- Sun, 23 Feb 2025 01:03:19 +0100 (CET)
+	id 1tm6d6-0004kq-KJ; Sun, 23 Feb 2025 07:42:24 +0000
+Received: by outflank-mailman (input) for mailman id 894860;
+ Sun, 23 Feb 2025 07:42:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=omsT=VO=gmail.com=andr2000@srs-se1.protection.inumbo.net>)
+ id 1tm6d5-0004kk-Py
+ for xen-devel@lists.xenproject.org; Sun, 23 Feb 2025 07:42:23 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b722737d-f1b9-11ef-9896-31a8f345e629;
+ Sun, 23 Feb 2025 08:42:21 +0100 (CET)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-5452ed5b5b2so3471186e87.0
+ for <xen-devel@lists.xenproject.org>; Sat, 22 Feb 2025 23:42:21 -0800 (PST)
+Received: from [192.168.10.20] ([185.199.97.5])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-547bcef2eeesm790997e87.9.2025.02.22.23.42.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 22 Feb 2025 23:42:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,234 +45,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 96a92fbb-f179-11ef-9aac-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1740268998; x=1740528198;
-	bh=7Vz/p6JaLdgnJ7IxV7/Cl6zGMhdq4inDmzgfPAfcOCE=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=h95hJRd/4RLBuZ2HAxBYVk9qb85+43iWc1OWh+qa7h44Ta9XniMwf8mz4djRawTc7
-	 EzQmwVjzqglojb+URLkl5ST6y1x188X2rEz3WOUA21f7WtaTeJ57i+i8zxNaFRBtpQ
-	 xSB/gpp186C/33Qio1RWr5/VwFhniSEjR/XAzAjUPxd4YwCPTCj2r010tM+K8JICkB
-	 BSVNxuCjsFzth3Jv5t+LvIqTAyvSpdpY03ARlowutEvq/RDaUANEK5sj1WEXYYsoZf
-	 rJ5BGJa8DThFYXNA8MD/ZrYrag10U9nN13v9bCwkwJWW4w2WIKyjL6KyCAtxS3+khG
-	 TtBeBur28onIw==
-Date: Sun, 23 Feb 2025 00:03:13 +0000
-To: xen-devel@lists.xenproject.org
-From: Denis Mukhin <dmkhn@proton.me>
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: Re: [PATCH] xen/consoled: clean up console handling for pv_shim
-Message-ID: <NEiqHwjG6PAC6Q3Q03hS5ns6rTY7NuZntRMhd7sWPqtvLfTvUVk3L0v3IdercdZ6qg5Tq27CJwTRQgPCVnASPrF_gN8v5zPTjDyaPrrawKI=@proton.me>
-In-Reply-To: <20250222002520.2482334-1-dmukhin@ford.com>
-References: <20250222002520.2482334-1-dmukhin@ford.com>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 6ca60cf3d2cb1bad263572f4a47e27209b14b1a8
+X-Inumbo-ID: b722737d-f1b9-11ef-9896-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1740296541; x=1740901341; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=8xFWLQFeIdSTFot1VphEeZPJlYoCfgH/VxaTWLOP8tI=;
+        b=H/qqT3dHJQQkkwaW/BoAaLrzszJasvzbr5uZ2BaGx03bUyqlcIYjgfbDsTXRKuhujg
+         4YmJvSFztM0IVRZXKDiJuu8jsG8ERy5FxzDJNVVNwOvHEfHHaqJCd3KSUfCEithVrls1
+         NWs2YM86TIP4MhIvd448OAvk0IhTNSIrsinxk639lYmCfCnmR4tkWFPV6VIEbuvNN0n2
+         MP2OeJWy4o+EqtGnfNxJ3YbO6g46rQwUTBcuThXz1ac6WN2LpwIKlu66nfgWCp4MUefM
+         4BRn+PPJesvxQvwnBOJ95A9VIlZ6hUXVQhRVsa2+9f4ckl+XuVUqjQhcorCKMUaVkI7f
+         kVBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1740296541; x=1740901341;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=8xFWLQFeIdSTFot1VphEeZPJlYoCfgH/VxaTWLOP8tI=;
+        b=tqwgdV8CQI/VKWIlbOWQpTMePht7jbitFsXkcDqWCTFwKnjqP+ELvXtfP23De5n2Wj
+         UlSIxNlrii4CYAbPwbqu+DbHWcc+BlBD+R5JGE16pp+OP3YUAUha0RjGN3Vf803ppH9S
+         fx7tOYOvXZIgWZMPsm2PSZOKTstQbjHjakciz3gI5A+FNDjadMzLa7ymAG0TWUEGIsSD
+         D0Br/e/xHiNkZsLWHgCnOW10ul0YelnHGjNVx1jiys0UyiLHg6Sev24uDuZIIDs0YGT9
+         fUgJ3/hCeg7BJMouLIBdVMAtCl0GZLx30w9lCfX7xDGzJnyLExKJmgD+ySeIJtqPUXUn
+         LUgQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUE8XU5C9rwIjJY7ot3E38FE5uAczcm2MaFVKIeaeLf4Ffr76sAxWUyjFpEhveI9RoJTClJ6L2a8R8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx4L/99hLESbXaYz9RNgyTKFAA3g4PZvqqr5Ls85NLpQFuV0Rb6
+	xJTcH0SQOpybOLpq8Pi8sUCg90yBqBu8SwtO4hAK/ZYg1CgTC2Wb
+X-Gm-Gg: ASbGncvPodq8ioXwnSWTHSFY/yMdWwk3K7eE0UpusVsCdUPAjhytxYGzeamjmD/m311
+	Qp+5iE6nkNQQuvZF9C1EjTz2n50rqYU9o1bGwpBmIjKe0ava/esbrzsKSEKNHVyZhLq1olY47lT
+	xRWSnzn85lSikKOwe+qCYuPzRqALoTo76zoFVrbyU87+z96RMRvDBg4akVq3xcWzU+APAbm2njh
+	f9RbOx8/5EtXr7JKjcSwuevFACh7wFhVkhDFLX6SICrZ83K4U6dBbtzXXdenL1UcyARIfLMu0yG
+	9yOQr7SOEkxR52TsOPWubgp73GI=
+X-Google-Smtp-Source: AGHT+IFLt7eQTTyLBF9rzF3bGPF6QD0Ww75UOpPU4pJiGG8cdsx/VAZADb+zW5Z4YBL94FVlHYV4OQ==
+X-Received: by 2002:a05:6512:3f0d:b0:545:bda:f0d with SMTP id 2adb3069b0e04-54838f4e585mr3757359e87.37.1740296540694;
+        Sat, 22 Feb 2025 23:42:20 -0800 (PST)
+Message-ID: <020f1294-cd11-4733-a518-f4a42f146a83@gmail.com>
+Date: Sun, 23 Feb 2025 09:42:17 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] code style exercise: Drivers folder samples
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Jan Beulich <jbeulich@suse.com>, Artem_Mygaiev@epam.com,
+ Luca.Fancellu@arm.com, roger.pau@citrix.com,
+ marmarek@invisiblethingslab.com, andrew.cooper3@citrix.com,
+ anthony.perard@vates.tech, xen-devel@lists.xenproject.org
+References: <20250216102108.2665222-1-andr2000@gmail.com>
+ <4f1fcad5-dd6c-471f-9496-023973fa8857@suse.com>
+ <alpine.DEB.2.22.394.2502171833370.1085376@ubuntu-linux-20-04-desktop>
+ <f6db4e23-8c6e-43a5-a90a-ea3526f88b23@suse.com>
+ <26cfd51b-123f-48e7-9911-2c96b48abdfe@gmail.com>
+ <f0a4af56-016f-4ea7-92a8-6f6f4a62809a@suse.com>
+ <924753a2-8abc-4d49-84f9-6f4677bf76f1@gmail.com>
+ <alpine.DEB.2.22.394.2502191725300.1791669@ubuntu-linux-20-04-desktop>
+Content-Language: en-US
+From: Oleksandr Andrushchenko <andr2000@gmail.com>
+In-Reply-To: <alpine.DEB.2.22.394.2502191725300.1791669@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Friday, February 21st, 2025 at 4:26 PM, dmkhn@proton.me <dmkhn@proton.me=
-> wrote:
+Hello, Stefano!
 
->=20
->=20
-> There are few places which check pv_shim console under CONFIG_PV_SHIM or
-> CONFIG_X86 in xen console driver.
->=20
-> Instead of #ifdef-ing, use new consoled_is_enabled() in switch_serial_inp=
-ut()
-> and _serial_rx() (where pv_shim condition is now detected correctly).
->=20
-> Signature of consoled_guest{rx,tx} has changed so the errors can be logge=
-d
-> on the callsites.
->=20
-> Signed-off-by: Denis Mukhin dmukhin@ford.com
+On 20.02.25 03:34, Stefano Stabellini wrote:
+> On Wed, 19 Feb 2025, Oleksandr Andrushchenko wrote:
+>> Yes, I do agree. But only if we talk about having an automated
+>> code style check now (which is definitely the goal at some time).
+>> Before that we could still use the tool to take all that good that
+>> it does and manually prepare a set of patches to fix those
+>> code style issues which we like.
+> Let's explore this option a bit more. Let's say that we write down our
+> coding style in plain English by enhancing CODING_STYLE. This newer
+> CODING_STYLE has also a corresponding clang-format configuration.
+>
+> Now, we cannot use clang-format to reformat everything because, as we
+> are discovering with this example, clang-format is overzealous and
+> changes too many things. Instead, we take "inspiration" from
+> clang-format's output but we manually prepare a patch series to apply
+> code style changes to Xen as the coding style today is not uniform
+> across the code base and also not always conforming to CODING_STYLE.
+>
+> At this point, we have already made an improvement to CODING_STYLEe, and
+> made the Xen coding style more uniform across the codebase.
+>
+> But do we also have an automated coding style checker that we can use?
+It really depends on what that coding style would look like and
+if the rules we impose are supported by clang-format and if we ready
+to change ourselves if they are not.
+Again, here we are trying to do what we already did, but in the opposite
+direction: "diff -p" didn't work as expected(?) and we have changed
+*our* coding style to *fit that tool*. So, are we ready to do the same for
+another?
+Funny, but I checked diffutils and they have a test case for that behavior
+of the "diff -p" that we are trying to avoid. So even if we provide a patch
+to diffutils we would need a good reasoning why their behavior is
+wrong and needs fixing.
+> Can we use clang-format to check new patches coming in?
+Yes, we can use git-clang-format for that. clang-format is flexible enough
+in its configuration. So, it can be used for checking patches with different
+coding styles by providing .clang-format files at any folder level, e.g. we may
+have something like (just to show an example):
+- xen/drivers: Linux style .clang-format
+- xen (rest): Xen style .clang-format
+- libxl: its own .clang-format
+- etc.
+We can also disable formatting for the entire folder if need be by putting
+a .clang-format with "DisableFormat: true" option in it.
+clang-format respects the nested configuration files
 
-Sorry, I posted too early, there's missing dependency in this patch.
-Posted v2 here:
-  https://lore.kernel.org/xen-devel/20250222235748.103599-1-dmkhn@proton.me=
-/
+So, to answer your question: I think we can use the tool to check incoming
+patches.
 
->=20
-> ---
-> xen/arch/x86/pv/shim.c | 3 +--
-> xen/drivers/char/console.c | 15 ++++++---------
-> xen/drivers/char/consoled.c | 17 +++++++++++++----
-> xen/include/xen/consoled.h | 32 +++++++++++++++++++++++++++-----
-> 4 files changed, 47 insertions(+), 20 deletions(-)
->=20
-> diff --git a/xen/arch/x86/pv/shim.c b/xen/arch/x86/pv/shim.c
-> index b9c034ccff..cbc2e3fced 100644
-> --- a/xen/arch/x86/pv/shim.c
-> +++ b/xen/arch/x86/pv/shim.c
-> @@ -605,8 +605,7 @@ long pv_shim_event_channel_op(int cmd, XEN_GUEST_HAND=
-LE_PARAM(void) arg)
->=20
-> if ( pv_console && send.port =3D=3D pv_console_evtchn() )
-> {
-> - consoled_guest_rx();
-> - rc =3D 0;
-> + rc =3D consoled_guest_rx();
-> }
-> else
-> rc =3D xen_hypercall_event_channel_op(EVTCHNOP_send, &send);
-> diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-> index 992b37962e..c207fd8704 100644
-> --- a/xen/drivers/char/console.c
-> +++ b/xen/drivers/char/console.c
-> @@ -32,9 +32,9 @@
-> #include <xen/pv_console.h>
->=20
-> #include <asm/setup.h>
->=20
-> #include <xen/sections.h>
->=20
-> +#include <xen/consoled.h>
->=20
->=20
-> #ifdef CONFIG_X86
-> -#include <xen/consoled.h>
->=20
-> #include <asm/guest.h>
->=20
-> #endif
-> #ifdef CONFIG_SBSA_VUART_CONSOLE
-> @@ -507,11 +507,9 @@ static void switch_serial_input(void)
-> break;
-> }
->=20
-> -#ifdef CONFIG_PV_SHIM
-> - if ( next_rx =3D=3D 1 )
-> + if ( consoled_is_enabled() && next_rx =3D=3D 1 )
-> domid =3D get_initial_domain_id();
-> else
-> -#endif
-> domid =3D next_rx - 1;
-> d =3D rcu_lock_domain_by_id(domid);
-> if ( d )
-> @@ -562,13 +560,12 @@ static void __serial_rx(char c)
-> rc =3D vpl011_rx_char_xen(d, c);
-> #endif
->=20
-> -#ifdef CONFIG_X86
-> - if ( pv_shim && pv_console )
-> - consoled_guest_tx(c);
-> -#endif
-> + if ( consoled_is_enabled() )
-> + /* Deliver input to the PV shim console. */
-> + rc =3D consoled_guest_tx(c);
->=20
-> if ( rc )
-> - guest_printk(d, XENLOG_G_WARNING
-> + guest_printk(d, XENLOG_WARNING
-> "failed to process console input: %d\n", rc);
->=20
-> console_put_domain(d);
-> diff --git a/xen/drivers/char/consoled.c b/xen/drivers/char/consoled.c
-> index b415b632ce..8704ec251e 100644
-> --- a/xen/drivers/char/consoled.c
-> +++ b/xen/drivers/char/consoled.c
-> @@ -43,13 +43,13 @@ struct xencons_interface consoled_get_ring_addr(void)
-> static char buf[BUF_SZ + 1];
->=20
-> / Receives characters from a domain's PV console /
-> -void consoled_guest_rx(void)
-> +int consoled_guest_rx(void)
-> {
-> size_t idx =3D 0;
-> XENCONS_RING_IDX cons, prod;
->=20
-> if ( !cons_ring )
-> - return;
-> + return -ENODEV;
->=20
-> spin_lock(&rx_lock);
->=20
-> @@ -91,15 +91,17 @@ void consoled_guest_rx(void)
->=20
-> out:
-> spin_unlock(&rx_lock);
-> +
-> + return 0;
-> }
->=20
-> / Sends a character into a domain's PV console */
-> -void consoled_guest_tx(char c)
-> +int consoled_guest_tx(char c)
-> {
-> XENCONS_RING_IDX cons, prod;
->=20
-> if ( !cons_ring )
-> - return;
-> + return -ENODEV;
->=20
-> cons =3D ACCESS_ONCE(cons_ring->in_cons);
->=20
-> prod =3D cons_ring->in_prod;
->=20
-> @@ -125,6 +127,13 @@ void consoled_guest_tx(char c)
-> notify:
-> /* Always notify the guest: prevents receive path from getting stuck. /
-> pv_shim_inject_evtchn(pv_console_evtchn());
-> +
-> + return 0;
-> +}
-> +
-> +bool consoled_is_enabled(void)
-> +{
-> + return pv_shim && pv_console;
-> }
->=20
-> /
-> diff --git a/xen/include/xen/consoled.h b/xen/include/xen/consoled.h
-> index bd7ab6329e..52a1358bea 100644
-> --- a/xen/include/xen/consoled.h
-> +++ b/xen/include/xen/consoled.h
-> @@ -1,14 +1,36 @@
-> -#ifndef XEN_CONSOLED_H
-> -#define XEN_CONSOLED_H
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +#ifndef XEN__CONSOLED_H
-> +#define XEN__CONSOLED_H
->=20
-> #include <public/io/console.h>
->=20
->=20
-> +#ifdef CONFIG_PV_SHIM
-> +
-> void consoled_set_ring_addr(struct xencons_interface *ring);
-> struct xencons_interface consoled_get_ring_addr(void);
-> -void consoled_guest_rx(void);
-> -void consoled_guest_tx(char c);
-> +int consoled_guest_rx(void);
-> +int consoled_guest_tx(char c);
-> +bool consoled_is_enabled(void);
->=20
-> -#endif / XEN_CONSOLED_H /
-> +#else
-> +
-> +static inline int consoled_guest_rx(void)
-> +{
-> + ASSERT_UNREACHABLE();
-> + return -ENODEV;
-> +}
-> +
-> +static inline int consoled_guest_tx(char c)
-> +{
-> + ASSERT_UNREACHABLE();
-> + return -ENODEV;
-> +}
-> +
-> +#define consoled_is_enabled() (false)
-> +
-> +#endif / CONFIG_PV_SHIM /
-> +
-> +#endif / XEN__CONSOLED_H /
-> /
-> * Local variables:
-> * mode: C
-> --
-> 2.34.1
+>   Or would
+> clang-format flag too many things as coding style errors?
+It really depends on what we decide: if we are ready to change our coding
+style Or if we just want to skip entire folders from formatting, etc.
+>
+> If it is flagging too many things as error, so we cannot use it as
+> automated checker, is it still worth going through the exercise? Yes, we
+> make some improvement we haven't reached the goal of having an automated
+> code style checker.
+My impression from all these conversations is that most of the community
+can see that there are lots of places where clang-format does the job
+right. At the same time there are places which we do not like.
+Some of those we don't like can be discussed though as some feel
+like "I personally like it" or "don't like", e.g. depend on one's perception.
+We would need to accept the fact that if an existing code sample does
+conform at the moment, but still clang-format may re-format that code
+as well. Just because it will try to improve the code. Or "improve"
+
+So, the bottom line would be: yes, this can turn into a series of patches
+which will improve the coding style and fix the obvious. And then we
+can see what is left when we try to automatically run .clang-format at that
+stage and decide.
+
+We can also wait for "Year, 2034. Coding style, clang-format-AI. Attempt 21"
+letter in the future.
+
+We can also claim that "the coding style is perfect as it is, handmade and
+no robots allowed".
+
+So, I would love to hear from the community what is the best route here.
+
+Thank you,
+Oleksandr
 
