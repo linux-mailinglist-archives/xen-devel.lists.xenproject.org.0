@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA5D3A426B7
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Feb 2025 16:45:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.895219.1303815 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AEAFA426CC
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Feb 2025 16:48:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.895228.1303825 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmadQ-00063x-7v; Mon, 24 Feb 2025 15:44:44 +0000
+	id 1tmahK-0006kc-Oo; Mon, 24 Feb 2025 15:48:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 895219.1303815; Mon, 24 Feb 2025 15:44:44 +0000
+Received: by outflank-mailman (output) from mailman id 895228.1303825; Mon, 24 Feb 2025 15:48:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmadQ-00062M-4n; Mon, 24 Feb 2025 15:44:44 +0000
-Received: by outflank-mailman (input) for mailman id 895219;
- Mon, 24 Feb 2025 15:44:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tmahK-0006j8-Ko; Mon, 24 Feb 2025 15:48:46 +0000
+Received: by outflank-mailman (input) for mailman id 895228;
+ Mon, 24 Feb 2025 15:48:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=48j1=VP=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tmadO-00062C-9T
- for xen-devel@lists.xenproject.org; Mon, 24 Feb 2025 15:44:42 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 41be60f8-f2c6-11ef-9aae-95dc52dad729;
- Mon, 24 Feb 2025 16:44:39 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-38f2b7ce319so3858061f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 24 Feb 2025 07:44:39 -0800 (PST)
-Received: from andrewcoop.eng.citrite.net (host-92-26-98-202.as13285.net.
- [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38f258f5fabsm31527479f8f.45.2025.02.24.07.44.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Feb 2025 07:44:38 -0800 (PST)
+ <SRS0=1jZ5=VP=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1tmahJ-0006ip-M6
+ for xen-devel@lists.xenproject.org; Mon, 24 Feb 2025 15:48:45 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d2235521-f2c6-11ef-9897-31a8f345e629;
+ Mon, 24 Feb 2025 16:48:42 +0100 (CET)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-546210287c1so4750292e87.2; 
+ Mon, 24 Feb 2025 07:48:41 -0800 (PST)
+Received: from [172.24.85.51] ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5461c1e4ae0sm2606705e87.43.2025.02.24.07.48.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 24 Feb 2025 07:48:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,89 +44,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 41be60f8-f2c6-11ef-9aae-95dc52dad729
+X-Inumbo-ID: d2235521-f2c6-11ef-9897-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1740411878; x=1741016678; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=yRQZOXAfGkSpPSwXxxEsasOEgxUNrZvgxy+Z4QB59yA=;
-        b=GcK9w6IOd2fINGu/+xcQJeOEx9domKumGSAlOVdGfsJ3/WafzpDpykDc3YgCms+tP0
-         Efqdb2e1HAq8oRQOLUNMBATzI8dri56cZ12HDHwhfwNLJBneVm7fek/1vXxUQ/yTjpd4
-         bGRCBdVB23FjNzhwva54f3k29Vej7aIdi6sIQ=
+        d=gmail.com; s=20230601; t=1740412121; x=1741016921; darn=lists.xenproject.org;
+        h=to:subject:from:content-language:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=6bgsp8zew5+67NQYQXJH+nX6Jz9kS4sg/ZyUNAuYgFk=;
+        b=lb89muxOwa48NVbJpNfHGKaK1kyhfxjxS8ypulT6hBz959vSlxLvw8Oj1CylYkcZbf
+         VcuZRP94ZxzctnRPQdR7yg2tB8LogvhB9d1T0bceRA9ga5QzquMLXt0YZoEfZd4dtSed
+         dj8TDvRbI+1tlpieBAgmJvoj8TNfm+k/cbv8Dx7pSSnyaD1ZapkkcaXyDTjkWxqpPz0K
+         PJpe0yQT62bSDxhrBDK5rLoSJiVcI5SuZbpH8Ea91pFIm5gRe+eIj/MqJErT1xH+R3fa
+         xJZ6auMyhMerg64w8vdjfyx/6/P66/QearvxNkw1uccPiICOtvKfliSczL6cLmpau0zk
+         ub7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740411878; x=1741016678;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20230601; t=1740412121; x=1741016921;
+        h=to:subject:from:content-language:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=yRQZOXAfGkSpPSwXxxEsasOEgxUNrZvgxy+Z4QB59yA=;
-        b=qd81ty/034KrliW7GkVdySAKIcOzkRmeQKr9P1wz3+gPl2NbGKV0KOgulEzK+CoEuA
-         VCNlhS3YQdbcObM/nUKRV2HW0MRfUDUAGpNoc+zzZIyzer6V5xSW+63KoGpcSmNtRVtS
-         QaaiDKb9yZmmL8dSMk1SsdRP1//71Nn8weEwccWUrqyOkjaLDzcHia7L2MmsJCfBt5bv
-         4xlpX3gZMGckgFJCKgGmodGoVx7OUZYnT2g31Ty7QcO8cWl+pyK9a5GvIbRPq5vUo/W4
-         LFOUVH0rjbHL6bVbn9EspyU6i0XxYItfUtwzNRXv+QiE2glYHPlNknqyygoAJq6MtCQv
-         9WXw==
-X-Gm-Message-State: AOJu0YzNz6aBF7bLECnA3QqX0EPovGfNJBfHu5hs7khfk7nd716AJYPc
-	RsrDf5JnlBnkvlFJ6orCkL/myI7BUJoHiE+sGipvBG9WXxUMZtMZ30+SdnA/yah/wAi5HiNE08T
-	F
-X-Gm-Gg: ASbGnctet9YNPDEEbOTER6PpcgYDzz/PgaeYWP1k9s/IyU++nOwKvRsSeIxYi2onSOu
-	AesXtIeqS073oKuTV2lE1kyvYoyp89vgqC0Oe3Oq0doG+gEmL9MCadTPV3U4DBbBPSV/vctv9Fy
-	BSigD1ulM7qv4Waz5erRZ/oWpKZx/6cZSa+SPDJG5iq8jaWqQ4kMx3de6N7+7Tx9BavCv0Qldhu
-	ltLgIvmeNd6olQkfa6hp8QWczpb4lZerTwaCFmAU8xiL+iRWRxPn3j2P9fWCH9N+a0Y58FH4khf
-	31cjDAgNCJiGv3Yeo1cDbc/bdpMPrraNOtHZ84DxqvjIEWwIPEEXAOi2rYO8nyNs62eqr26N4zR
-	SA1+1wA==
-X-Google-Smtp-Source: AGHT+IFC8Rw4CHciaMuDmujxcy4FLQOfdjUJXEpzXpKBOm4guyT4+cskLb7a5OYTcLJDNBgI0cBWJQ==
-X-Received: by 2002:a5d:6482:0:b0:38d:e6b6:508b with SMTP id ffacd0b85a97d-38f6e755c4emr12399245f8f.9.1740411878535;
-        Mon, 24 Feb 2025 07:44:38 -0800 (PST)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Doug Goldstein <cardoe@cardoe.com>
-Subject: [PATCH] CirrusCI: Use shallow clone
-Date: Mon, 24 Feb 2025 15:42:36 +0000
-Message-Id: <20250224154236.1116264-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+        bh=6bgsp8zew5+67NQYQXJH+nX6Jz9kS4sg/ZyUNAuYgFk=;
+        b=fNLFlY3yo/CDSIO6XxplWPoM+mOomRJxxObC4oLBylADxL631XiQglfOpgGCw/VlGc
+         bHQel4pFy321MEtLQISuiMKPKQAEmN8323T7rrqkhAKuMVnNgifEng8I+YHplzIXbDfH
+         /RlbKeOyFAvL0NPPt5MQrUA3zfedJnA2vesOZ3iJ819PNkKJyooCvKahXQZFmH4Qdwhi
+         84mWfBPcdN24Zu3L74sP0SZF38MQdOuEFsO6R/HekvD9xQKmiU/2DX7PEDLwo46T5/Kx
+         TyoGi7c8FSZ8usuVGQYS15Qiumps1oWAGYLYEIybpYzJekeWzSWANnid8sY2kLCu5PWc
+         nQXw==
+X-Forwarded-Encrypted: i=1; AJvYcCUweBNY9Juxqq9C1wf+iPjVBD8ZdltDHUu0946oik0Jdw/Gjp7j0+nh6wsQ0nHfltlxr0x1y7SVCl9ZWII=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyBcw5ti4mY2bTPry6okdo3Ob/Bm/YANlvFlnz1u7aJDx3TYzUI
+	2tHvXqS09pvRXzx84cEwgTvFI6G+6/g60eFReOYp6V5+ZxDpwLgkpfxAFA==
+X-Gm-Gg: ASbGncuaj2tqu7Tnv6hwvj5qwd5lBm2nPWGxgeEKATy08Y+cqhfsX5uQjQz7mTi+RNp
+	UsEax32j7pXu5bIP6M7+xnI7sqfqwmlXHeHOslDAULFej6JXSzNvn5OkdLVq+Vx5Fjit1iWMAku
+	EuQCOruXtVDI9I9WGTfEuJBb48qmxpna7UNcQGgbPXfXMM1K0NCb/g1CCHoJf1Xzl/xErwNne0p
+	qBVpJAcc8db7KjFncKbehFwVoz7laYrzSfFZKf4WnhejE5+T9wXD3W/RbL8ntyWODPAoaPRlg89
+	qWYrMXiZosBfJpttP766lGOJ1+i2Dlx1uB0=
+X-Google-Smtp-Source: AGHT+IG1jFlr6SRBVRiJC3kvy6ia/clUl5MlW6KoHN6YS74YYkLVWMvbsCARZWdkvNM4RmUtxpQozw==
+X-Received: by 2002:a05:6512:398a:b0:545:fc8:e155 with SMTP id 2adb3069b0e04-548391400a7mr4652140e87.20.1740412120366;
+        Mon, 24 Feb 2025 07:48:40 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------kPfzbG0Qw773NNhnyc0Kzoq3"
+Message-ID: <1a7ca814-3f1e-48be-b606-c4d2b8966aa3@gmail.com>
+Date: Mon, 24 Feb 2025 16:48:39 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [ANNOUNCEMENT] Xen 4.21 is branched off
+To: Xen-devel <xen-devel@lists.xenproject.org>,
+ xen-announce@lists.xenproject.org,
+ Community Manager <community.manager@xenproject.org>,
+ committers@xenproject.org
+
+This is a multi-part message in MIME format.
+--------------kPfzbG0Qw773NNhnyc0Kzoq3
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-This reduces the Clone step from ~50s to ~3s.
+Hello everyone,
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Anthony PERARD <anthony.perard@vates.tech>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Michal Orzel <michal.orzel@amd.com>
-CC: Doug Goldstein <cardoe@cardoe.com>
+I would like to announce that we have branched off Xen 4.21.
 
-Example with shallow clone:
-  https://cirrus-ci.com/task/4625566281760768
+At the moment, staging is going to be half-open. It is fine to commit
+small bug fixes and changes that are unlikely to impact the remaining
+Xen 4.20 work.
 
-Example without:
-  https://cirrus-ci.com/task/5338544140451840
----
- .cirrus.yml | 1 +
- 1 file changed, 1 insertion(+)
+The release for 4.20 is expected on Wednesday, Feb 26, but there might
+be a slight delay of 1–2 days.
 
-diff --git a/.cirrus.yml b/.cirrus.yml
-index 7216729b6993..e2949d99d73a 100644
---- a/.cirrus.yml
-+++ b/.cirrus.yml
-@@ -13,6 +13,7 @@ freebsd_template: &FREEBSD_ENV
-   environment:
-     APPEND_LIB: /usr/local/lib
-     APPEND_INCLUDES: /usr/local/include
-+    CIRRUS_CLONE_DEPTH: 1
- 
- freebsd_full_build_template: &FREEBSD_FULL_BUILD_TEMPLATE
-   << : *FREEBSD_ENV
+Thanks in advance, and have a great week!
 
-base-commit: e16acd80674002cbc6b51626e826bd6f9f624a63
--- 
-2.39.5
+Best regards,
+  Oleksii
 
+--------------kPfzbG0Qw773NNhnyc0Kzoq3
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <pre data-start="86" data-end="103">Hello everyone,
+
+I would like to announce that we have branched off Xen 4.21.
+
+At the moment, staging is going to be half-open. It is fine to commit
+small bug fixes and changes that are unlikely to impact the remaining
+Xen 4.20 work.
+
+The release for 4.20 is expected on Wednesday, Feb 26, but there might
+be a slight delay of 1–2 days.
+
+Thanks in advance, and have a great week!
+
+Best regards,
+ Oleksii</pre>
+  </body>
+</html>
+
+--------------kPfzbG0Qw773NNhnyc0Kzoq3--
 
