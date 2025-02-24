@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E246A42781
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Feb 2025 17:11:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.895324.1303947 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E174A42823
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Feb 2025 17:41:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.895362.1303960 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmb3Q-0001Az-8S; Mon, 24 Feb 2025 16:11:36 +0000
+	id 1tmbVk-0006mw-EB; Mon, 24 Feb 2025 16:40:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 895324.1303947; Mon, 24 Feb 2025 16:11:36 +0000
+Received: by outflank-mailman (output) from mailman id 895362.1303960; Mon, 24 Feb 2025 16:40:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmb3Q-000192-47; Mon, 24 Feb 2025 16:11:36 +0000
-Received: by outflank-mailman (input) for mailman id 895324;
- Mon, 24 Feb 2025 16:11:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=e8X9=VP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tmb3O-00018B-Lu
- for xen-devel@lists.xenproject.org; Mon, 24 Feb 2025 16:11:34 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 03f2e2c1-f2ca-11ef-9aae-95dc52dad729;
- Mon, 24 Feb 2025 17:11:33 +0100 (CET)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-aaf0f1adef8so101416966b.3
- for <xen-devel@lists.xenproject.org>; Mon, 24 Feb 2025 08:11:33 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abbe4e29b4fsm1035672266b.170.2025.02.24.08.11.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Feb 2025 08:11:32 -0800 (PST)
+	id 1tmbVk-0006kd-Am; Mon, 24 Feb 2025 16:40:52 +0000
+Received: by outflank-mailman (input) for mailman id 895362;
+ Mon, 24 Feb 2025 16:40:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=kYPK=VP=bounce.vates.tech=bounce-md_30504962.67bca10e.v1-7585b375566644b29d272d6642012f13@srs-se1.protection.inumbo.net>)
+ id 1tmbVi-0006kJ-W1
+ for xen-devel@lists.xenproject.org; Mon, 24 Feb 2025 16:40:51 +0000
+Received: from mail179-30.suw41.mandrillapp.com
+ (mail179-30.suw41.mandrillapp.com [198.2.179.30])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 196e1a9a-f2ce-11ef-9897-31a8f345e629;
+ Mon, 24 Feb 2025 17:40:48 +0100 (CET)
+Received: from pmta12.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail179-30.suw41.mandrillapp.com (Mailchimp) with ESMTP id
+ 4Z1mgy6Q4DzP0JnKh
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Feb 2025 16:40:46 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 7585b375566644b29d272d6642012f13; Mon, 24 Feb 2025 16:40:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,98 +43,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 03f2e2c1-f2ca-11ef-9aae-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740413493; x=1741018293; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=DxRsymWHCUnTO7vsQJLW2acsli5kTrCwdvI1IiHNO7Q=;
-        b=TUpwMNPUzigwgcY3svLyb6UZyb3AfxEgVQz46VMW6+Ns1LFJj0G6moqDjcTHLPXrIK
-         94bpEtjb/pbf0PfJM69ianfh+mnwKIm6zutZAasiFNHv9OhuISMFQGYM+pARLzo6zkcU
-         QkFgyKINYdQHGvV3zdNI3wadUOa6C/SZpFkSA+QfEw1raKmEoaeZSpSUeFiXjYf9YUFT
-         8drkt7Bvhu0i8vAmBp84BTdeEipv+uVuz8URXL0c8JpcV0zWxobKnF3IYto5CrFkCTWm
-         +ucRZzozYwZMFTbU/grbINeRTiV/MY1BsqW6qzPr0RWF5b2h0EI+wZQQ0yBvI7eNV0Bq
-         9RGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740413493; x=1741018293;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=DxRsymWHCUnTO7vsQJLW2acsli5kTrCwdvI1IiHNO7Q=;
-        b=JKei32dBJsjh+OAwoZP5n8eoyV/QqxrkkePnxLmIjMgeRu8g392cEW22T9+2zzgAhm
-         59OJyFzJohDHV/TVleoTXIeqojF3gGHqLNbyEnUnHOUTHALUbqQ3XsCYiFJFzFTSq9mg
-         1BWDyXMuF2SbXFY4pO0rufRptUyt8RChI6KLvcgJODGnTDXu/v9PpQYbOU4r9jvseOth
-         qxrPmsgMRCiMtPzTwHLg8W8SLleYQrSxWPkj2NIeKiKgy7P3j7LW0ulc0LFWfsXaQBmw
-         716j2eeYguTJR+PyALWWNmb1tv7S42EiqI9hfXbtRPw+RlUmI4RVbMSszxdtV9qzKciA
-         yNlA==
-X-Forwarded-Encrypted: i=1; AJvYcCXCI7jStBEKk8FCvxfirCzuZ4/uDcP99MvQ6DJAXJvC13KZ1W+NeQUYqtTy7iS0U1G2PTtkAQ86NhM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw6FNKEfTZS30uWUaPtCfsjmxrkgkdAxO6rxCbB60YC36watI9S
-	h4kynYg2YCSarAT2Q90Dp3OIG0Pup030UKkNky6/HMbC+VJDasI7p+yP57g8XwXk6X0KLqy/HpQ
-	=
-X-Gm-Gg: ASbGncsYB/DrRuh9Adkeel+mZGyGd34+5rA9qwxfA12kfNO434NsJWkV+md2p5rxzxe
-	n/xMSAQXe8+2SWeSxQyLFqr16agEDw0OF8qWbeX+kXS2qGXIGsHT2Nc9ReO6q3yx5pCKcMiNeob
-	lqlLjGzqpUbG7nz/vzXOXEU3vtLA5fvHLsG2ifumS3gauB4QHE6zeNZ8MMy/C0Qu4oaOzFOhVFm
-	2ypk+jxcsBkUathB8StGLITt+pu7SiLAqhPTWfERCtNg5lOTCMmBLVKd8tlxeqiYhR3HADLpZ4h
-	EQXxjvzRf3czsdIHXpXTqaNyBWKOfADzV3RMyOI2K3fzYYHp1osXuZjPnZs3p+Pn08ApBnli5nT
-	SUjLYrkozBbg=
-X-Google-Smtp-Source: AGHT+IF2hE8DowpGaCkawCXirrN76go13NNs1EDzRysHiVt/TurBlEzuLBXbyWC3KDangWRGV9Ahfw==
-X-Received: by 2002:a17:907:c920:b0:abc:c40:b385 with SMTP id a640c23a62f3a-abc0c40bb25mr1071128466b.37.1740413493041;
-        Mon, 24 Feb 2025 08:11:33 -0800 (PST)
-Message-ID: <0a778b07-3826-416f-81e6-1220501cb576@suse.com>
-Date: Mon, 24 Feb 2025 17:11:31 +0100
+X-Inumbo-ID: 196e1a9a-f2ce-11ef-9897-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1740415246; x=1740685246;
+	bh=6lxkesbwl58qYSWgKOSn4jzHmOL67mnhC69gziGt6CE=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=TmEq8Gj4eg8omWqXtjlIwFOzs0yLkDner8vHkFKPFmJSyRC9R5ZnZ4AS0DgAsXPs9
+	 cRRnBc7ArGLQHIjbZ96n4PGhpsB8M9xlMknb6IVBm5ZcNrhyKqhyKUK2oqwCMO/V1U
+	 wfLEeBF6iQ93lSa/gFKCGG01t4OqcIlOCyiLSW0ySyybGISQ+EPpDNAsR4osuF4Q1x
+	 S27myIWbzmkoxj1cZJ8r0pVNJgE6w9gmvu92Z9HElBUXTe1lc5FJhh9lfLwm2I/YjS
+	 BZwsPi57ovi3s3JUEvcfi5qMAib0YFxABIw8fF36XaX2F9Qcn3IjNi3gzsN9r8Zdb/
+	 vXPPWd79GENcw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1740415246; x=1740675746; i=anthony.perard@vates.tech;
+	bh=6lxkesbwl58qYSWgKOSn4jzHmOL67mnhC69gziGt6CE=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=px5duN3IT1O8Z2r2RYQiSaLPv3Ym5BL8yC4haPIqSEZeH0Mec7mWEqojJTKeHufc4
+	 SRQHPx5X11VG/YjQ6WuSgpuRRARPx6Ijxi1+LQTk6MfMHOUvAxz1SlO+XXpncbCVog
+	 o5w+QBFk6vNuMnSQi5TtStaaaHuTLRBQiCl5xKdFqfKyxMIcLvbsWWuuzrA7tWmAPT
+	 7QpEAY1IJR5SfgNA6kAGw2FCwE0uYWFCG/2zxzhfyzjGWcmfHhopHduwiuGowE5fbk
+	 uM6UpkXLQoLfoZP1hlezngq8NsloJcNM6ci/RnJzPDu12yFWIOw267qBPvOen1lEOD
+	 Pihrj0dqcOU8Q==
+From: "Anthony PERARD" <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH]=20tools/xl:=20fix=20channel=20configuration=20setting?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1740415246257
+To: "Juergen Gross" <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org
+Message-Id: <Z7yhAUMRvTeSNoco@l14>
+References: <20250224142005.24172-1-jgross@suse.com>
+In-Reply-To: <20250224142005.24172-1-jgross@suse.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.7585b375566644b29d272d6642012f13?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250224:md
+Date: Mon, 24 Feb 2025 16:40:46 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/8] x86: Sort includes in various files
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250224160509.1117847-1-andrew.cooper3@citrix.com>
- <20250224160509.1117847-2-andrew.cooper3@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250224160509.1117847-2-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
-On 24.02.2025 17:05, Andrew Cooper wrote:
-> FRED support involves quite a lot of header file shuffling and cleanup.  Start
-> by sorting the includes of impacted files, and dropping duplciates.
+On Mon, Feb 24, 2025 at 03:20:05PM +0100, Juergen Gross wrote:
+> Channels work differently than other device types: their devid should
+> be -1 initially in order to distinguish them from the primary console
+> which has the devid of 0.
 > 
->   domain.c: Double asm/spec_ctrl.h
->   power.c:  Double xen/sched.h
->   setup.c:  Double xen/serial.h
->   mm.c:     Double xen/mm.h
+> So when parsing the channel configuration, set devid explicitly to -1
+> after expanding the channels array, as this expansion of the array will
+> have set the devid to the index of the item in the array, overwriting
+> the -1 initialization done by libxl_device_channel_init().
 > 
-> No functional change.
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+>  tools/xl/xl_parse.c | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+> index 3d85be7dd4..4705f6fd4b 100644
+> --- a/tools/xl/xl_parse.c
+> +++ b/tools/xl/xl_parse.c
+> @@ -2426,6 +2426,9 @@ void parse_config_data(const char *config_source,
+>              chn = ARRAY_EXTEND_INIT(d_config->channels, d_config->num_channels,
+>                                     libxl_device_channel_init);
+>  
+> +            /* ARRAY_EXTEND_INIT() has set the devid, but it must be -1. */
+> +            chn->devid = -1;
+> +
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+You can use ARRAY_EXTEND_INIT_NODEVID() instead which doesn't touch
+`devid` and let the value set by libxl_device_channel_init().
 
+Cheers,
 
+-- 
+
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
