@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B2B7A423E6
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Feb 2025 15:50:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.895208.1303802 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA5D3A426B7
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Feb 2025 16:45:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.895219.1303815 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmZmO-0007Eg-Eu; Mon, 24 Feb 2025 14:49:56 +0000
+	id 1tmadQ-00063x-7v; Mon, 24 Feb 2025 15:44:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 895208.1303802; Mon, 24 Feb 2025 14:49:56 +0000
+Received: by outflank-mailman (output) from mailman id 895219.1303815; Mon, 24 Feb 2025 15:44:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmZmO-0007Cw-Bs; Mon, 24 Feb 2025 14:49:56 +0000
-Received: by outflank-mailman (input) for mailman id 895208;
- Mon, 24 Feb 2025 14:49:54 +0000
+	id 1tmadQ-00062M-4n; Mon, 24 Feb 2025 15:44:44 +0000
+Received: by outflank-mailman (input) for mailman id 895219;
+ Mon, 24 Feb 2025 15:44:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cK+3=VP=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1tmZmM-0007Cq-CZ
- for xen-devel@lists.xenproject.org; Mon, 24 Feb 2025 14:49:54 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
+ <SRS0=48j1=VP=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tmadO-00062C-9T
+ for xen-devel@lists.xenproject.org; Mon, 24 Feb 2025 15:44:42 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9ac8a5c7-f2be-11ef-9aae-95dc52dad729;
- Mon, 24 Feb 2025 15:49:53 +0100 (CET)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-5ded46f323fso6184848a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 24 Feb 2025 06:49:52 -0800 (PST)
-Received: from localhost ([46.149.103.15]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abb843451b1sm1746097166b.42.2025.02.24.06.49.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Feb 2025 06:49:51 -0800 (PST)
+ id 41be60f8-f2c6-11ef-9aae-95dc52dad729;
+ Mon, 24 Feb 2025 16:44:39 +0100 (CET)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-38f2b7ce319so3858061f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Feb 2025 07:44:39 -0800 (PST)
+Received: from andrewcoop.eng.citrite.net (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38f258f5fabsm31527479f8f.45.2025.02.24.07.44.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 24 Feb 2025 07:44:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,99 +45,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ac8a5c7-f2be-11ef-9aae-95dc52dad729
+X-Inumbo-ID: 41be60f8-f2c6-11ef-9aae-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1740408592; x=1741013392; darn=lists.xenproject.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=QqXdEH7Z6vSUEGCto4NKogzU5qLGAMSKDcspj2n5MM4=;
-        b=hMyj2nf8RIDjtj4NZHt6EU6nO1dwKuCMvQeZHOU+K+LAsXVK+fxF3VvHewDLq8KsoG
-         +eOP914GRT1KBnzrQ4Ku+Mu8kWcsEhMpzelEC9m6nK2ricC4sW34vLR2VHJ4N1VtDdGz
-         Z3WRO/7RkMTTwLdsmiul0rTpgDajnAJg4fCP8=
+        d=citrix.com; s=google; t=1740411878; x=1741016678; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=yRQZOXAfGkSpPSwXxxEsasOEgxUNrZvgxy+Z4QB59yA=;
+        b=GcK9w6IOd2fINGu/+xcQJeOEx9domKumGSAlOVdGfsJ3/WafzpDpykDc3YgCms+tP0
+         Efqdb2e1HAq8oRQOLUNMBATzI8dri56cZ12HDHwhfwNLJBneVm7fek/1vXxUQ/yTjpd4
+         bGRCBdVB23FjNzhwva54f3k29Vej7aIdi6sIQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740408592; x=1741013392;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=QqXdEH7Z6vSUEGCto4NKogzU5qLGAMSKDcspj2n5MM4=;
-        b=mKc6hm3mP7fC0gCJBgL8e82Kld+MLSDbZG8A+6RXbO2ZbpmjQqmKmM5x7P0bF/3V5N
-         7kjSYduN6ItpHFP9zq7QaPPX8pEA4K1scj46MN+a5UI92pmLoWpt0/lcfl2fit6ki2zF
-         g11M4nXlCLMHi6VWFSwhGipIUadqczzjDdvkP8HmHI8V/HfgEBYw1GnJkeDCOL/2yLD1
-         PYsW4zrmM7UZbI05nxGPpjoHephoBad6bwj7/jibrOuWhTYwMYVbOCdUbZ3ZzilqyJB+
-         WqIhcEzj3jAtsXjgttk84JNbPKLdUTNIOYAGyp2b1HcREOKZdfWZaYaNOEUwVzG9rlPD
-         PWNw==
-X-Forwarded-Encrypted: i=1; AJvYcCUd7NF8DTwbfMrt68xup/VRhefTeAnUugFsZmM3OnSnFw9eWybOAbC4XDiI3wcIZv4T9R97lUj17Yo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxQfB36t02CRZ+WcvFHTHfFRWHKiPHNK+815Yx+PNJ6JHV18sIo
-	OJ94krT77TxVRFSGhlqyOCq5ZLA9LiYzFzXCrAXtxRRSEKtmJvlhBDlVFLyAqF8=
-X-Gm-Gg: ASbGnctMMlikCuFAzjEr4abW1JwtCL+2KUmOX+lN95oWcf3iXHv7T2UBsa2LjAmh0pY
-	TOko2qx4rRjlScaEMgg6AbdryCS6Mq8whxbJu4H/Zaj46Kh01pyavKZbUqG4QZATgre0Ax3paMX
-	Y6fFcQLeCf7dfNj357W+DA25wVF5XKcyfjARufePuQhuRETQwaz57hP/dVQO07zTXt+2UCys01c
-	/66+MNwR6bhlpNYWmWczOdXmOFl5cTInANKMRYp/hy2wg14qqQ/CjA4hth7sPjfa+CTMSIHYmdm
-	PPx59LMz5EgqaNGkUFYPnBwpasXbOr4x
-X-Google-Smtp-Source: AGHT+IFRxn2Ap9GlrXgrv8BFYY6/3+692usxwMNve8DEwXw2Z6pEsu/TPtwG/lFfxqutwA42e6bfBg==
-X-Received: by 2002:a17:907:9801:b0:abb:b294:6a2d with SMTP id a640c23a62f3a-abc09c270camr1348002466b.53.1740408592119;
-        Mon, 24 Feb 2025 06:49:52 -0800 (PST)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+        d=1e100.net; s=20230601; t=1740411878; x=1741016678;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=yRQZOXAfGkSpPSwXxxEsasOEgxUNrZvgxy+Z4QB59yA=;
+        b=qd81ty/034KrliW7GkVdySAKIcOzkRmeQKr9P1wz3+gPl2NbGKV0KOgulEzK+CoEuA
+         VCNlhS3YQdbcObM/nUKRV2HW0MRfUDUAGpNoc+zzZIyzer6V5xSW+63KoGpcSmNtRVtS
+         QaaiDKb9yZmmL8dSMk1SsdRP1//71Nn8weEwccWUrqyOkjaLDzcHia7L2MmsJCfBt5bv
+         4xlpX3gZMGckgFJCKgGmodGoVx7OUZYnT2g31Ty7QcO8cWl+pyK9a5GvIbRPq5vUo/W4
+         LFOUVH0rjbHL6bVbn9EspyU6i0XxYItfUtwzNRXv+QiE2glYHPlNknqyygoAJq6MtCQv
+         9WXw==
+X-Gm-Message-State: AOJu0YzNz6aBF7bLECnA3QqX0EPovGfNJBfHu5hs7khfk7nd716AJYPc
+	RsrDf5JnlBnkvlFJ6orCkL/myI7BUJoHiE+sGipvBG9WXxUMZtMZ30+SdnA/yah/wAi5HiNE08T
+	F
+X-Gm-Gg: ASbGnctet9YNPDEEbOTER6PpcgYDzz/PgaeYWP1k9s/IyU++nOwKvRsSeIxYi2onSOu
+	AesXtIeqS073oKuTV2lE1kyvYoyp89vgqC0Oe3Oq0doG+gEmL9MCadTPV3U4DBbBPSV/vctv9Fy
+	BSigD1ulM7qv4Waz5erRZ/oWpKZx/6cZSa+SPDJG5iq8jaWqQ4kMx3de6N7+7Tx9BavCv0Qldhu
+	ltLgIvmeNd6olQkfa6hp8QWczpb4lZerTwaCFmAU8xiL+iRWRxPn3j2P9fWCH9N+a0Y58FH4khf
+	31cjDAgNCJiGv3Yeo1cDbc/bdpMPrraNOtHZ84DxqvjIEWwIPEEXAOi2rYO8nyNs62eqr26N4zR
+	SA1+1wA==
+X-Google-Smtp-Source: AGHT+IFC8Rw4CHciaMuDmujxcy4FLQOfdjUJXEpzXpKBOm4guyT4+cskLb7a5OYTcLJDNBgI0cBWJQ==
+X-Received: by 2002:a5d:6482:0:b0:38d:e6b6:508b with SMTP id ffacd0b85a97d-38f6e755c4emr12399245f8f.9.1740411878535;
+        Mon, 24 Feb 2025 07:44:38 -0800 (PST)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Doug Goldstein <cardoe@cardoe.com>
+Subject: [PATCH] CirrusCI: Use shallow clone
+Date: Mon, 24 Feb 2025 15:42:36 +0000
+Message-Id: <20250224154236.1116264-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 24 Feb 2025 14:49:48 +0000
-Message-Id: <D80RCS1Y7AKH.373ULA2LO3MND@cloud.com>
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "Anthony PERARD"
- <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Jan
- Beulich" <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>,
- =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>
-Subject: Re: [PATCH] xen/page_alloc: Simplify domain_adjust_tot_pages
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>,
- <xen-devel@lists.xenproject.org>
-X-Mailer: aerc 0.18.2
-References: <20250224132724.9074-1-alejandro.vallejo@cloud.com>
-In-Reply-To: <20250224132724.9074-1-alejandro.vallejo@cloud.com>
+Content-Transfer-Encoding: 8bit
 
-Open question to whoever reviews this...
+This reduces the Clone step from ~50s to ~3s.
 
-On Mon Feb 24, 2025 at 1:27 PM GMT, Alejandro Vallejo wrote:
->      spin_lock(&heap_lock);
-> -    /* adjust domain outstanding pages; may not go negative */
-> -    dom_before =3D d->outstanding_pages;
-> -    dom_after =3D dom_before - pages;
-> -    BUG_ON(dom_before < 0);
-> -    dom_claimed =3D dom_after < 0 ? 0 : dom_after;
-> -    d->outstanding_pages =3D dom_claimed;
-> -    /* flag accounting bug if system outstanding_claims would go negativ=
-e */
-> -    sys_before =3D outstanding_claims;
-> -    sys_after =3D sys_before - (dom_before - dom_claimed);
-> -    BUG_ON(sys_after < 0);
-> -    outstanding_claims =3D sys_after;
-> +    BUG_ON(outstanding_claims < d->outstanding_pages);
-> +    if ( pages > 0 && d->outstanding_pages < pages )
-> +    {
-> +        /* `pages` exceeds the domain's outstanding count. Zero it out. =
-*/
-> +        outstanding_claims -=3D d->outstanding_pages;
-> +        d->outstanding_pages =3D 0;
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Anthony PERARD <anthony.perard@vates.tech>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Doug Goldstein <cardoe@cardoe.com>
 
-While this matches the previous behaviour, do we _really_ want it? It's wei=
-rd,
-quirky, and it hard to extend to NUMA-aware claims (which is something in
-midway through).
+Example with shallow clone:
+  https://cirrus-ci.com/task/4625566281760768
 
-Wouldn't it make sense to fail the allocation (earlier) if the claim has ru=
-n
-out? Do we even expect this to ever happen this late in the allocation call
-chain?
+Example without:
+  https://cirrus-ci.com/task/5338544140451840
+---
+ .cirrus.yml | 1 +
+ 1 file changed, 1 insertion(+)
 
-> +    } else {
-> +        outstanding_claims -=3D pages;
-> +        d->outstanding_pages -=3D pages;
-> +    }
->      spin_unlock(&heap_lock);
-> =20
->  out:
+diff --git a/.cirrus.yml b/.cirrus.yml
+index 7216729b6993..e2949d99d73a 100644
+--- a/.cirrus.yml
++++ b/.cirrus.yml
+@@ -13,6 +13,7 @@ freebsd_template: &FREEBSD_ENV
+   environment:
+     APPEND_LIB: /usr/local/lib
+     APPEND_INCLUDES: /usr/local/include
++    CIRRUS_CLONE_DEPTH: 1
+ 
+ freebsd_full_build_template: &FREEBSD_FULL_BUILD_TEMPLATE
+   << : *FREEBSD_ENV
 
-Cheers,
-Alejandro
+base-commit: e16acd80674002cbc6b51626e826bd6f9f624a63
+-- 
+2.39.5
+
 
