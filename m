@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D87FA41B7E
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Feb 2025 11:44:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.895092.1303692 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6620CA41BC2
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Feb 2025 11:55:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.895100.1303702 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmVwW-0004sp-Li; Mon, 24 Feb 2025 10:44:08 +0000
+	id 1tmW7R-0007QD-MI; Mon, 24 Feb 2025 10:55:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 895092.1303692; Mon, 24 Feb 2025 10:44:08 +0000
+Received: by outflank-mailman (output) from mailman id 895100.1303702; Mon, 24 Feb 2025 10:55:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmVwW-0004q7-Ij; Mon, 24 Feb 2025 10:44:08 +0000
-Received: by outflank-mailman (input) for mailman id 895092;
- Mon, 24 Feb 2025 10:44:07 +0000
+	id 1tmW7R-0007Or-HP; Mon, 24 Feb 2025 10:55:25 +0000
+Received: by outflank-mailman (input) for mailman id 895100;
+ Mon, 24 Feb 2025 10:55:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=e8X9=VP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tmVwV-0004q1-OE
- for xen-devel@lists.xenproject.org; Mon, 24 Feb 2025 10:44:07 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
+ id 1tmW7Q-0007Ol-IB
+ for xen-devel@lists.xenproject.org; Mon, 24 Feb 2025 10:55:24 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 448c2541-f29c-11ef-9897-31a8f345e629;
- Mon, 24 Feb 2025 11:44:05 +0100 (CET)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-aaec111762bso37612266b.2
- for <xen-devel@lists.xenproject.org>; Mon, 24 Feb 2025 02:44:05 -0800 (PST)
+ id d8236d96-f29d-11ef-9897-31a8f345e629;
+ Mon, 24 Feb 2025 11:55:22 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-abb9709b5b5so786091166b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Feb 2025 02:55:22 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abb7e29be33sm1779185266b.94.2025.02.24.02.44.03
+ a640c23a62f3a-abbbbc95288sm1264794966b.158.2025.02.24.02.55.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Feb 2025 02:44:04 -0800 (PST)
+ Mon, 24 Feb 2025 02:55:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 448c2541-f29c-11ef-9897-31a8f345e629
+X-Inumbo-ID: d8236d96-f29d-11ef-9897-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740393844; x=1740998644; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1740394522; x=1740999322; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=f7E+z5y8MfJG44dg0WkoSSYRd79I8Qu1Hiq4f0jeqnM=;
-        b=XYWdfH6OrYBAzi46uvkvUOCgSiFVITqfz4dTC/qdU/YikMpJ1IexD6XF3Ua4Iw4TIN
-         IljwNoADzMT3Cla4Ties4cLNXUMT41ejjaL5bwdBv2Ia0bPrXggQ3zopZoFuJ34No1n6
-         SMhzyMzcn8zlXS0OexSZkG/9BKGv73FA8KDxrxACONLzQHHBkaMCG9p7tNkeNdDRxd8n
-         jPDBzec97uYht40gPjBkYl8iaIwtwgWtv8pq6xOyrob5Cn1zpypRxIt5LdF/NENy9lq6
-         /8IUFPfZW8dVWGBAvHzrq2uqogveWB/EKAOw1koSTERQG2LcqPWIo1onFAXAgU/V8qt/
-         jaVg==
+        bh=H/zz1/2o0lKwq52keYUT+lim9DK1vtheJc0F88jQkZk=;
+        b=Z96g7RLGnZGiJixUND2nC6A+VdjnT+U/69hIEELXnJdylgOLwjcwfgOO6lvNnEFzs5
+         d6MhuBg/kcR/SEDMu7gHhEw9qGYAz+z8FmoEU0hsvcJ++YU4XhXlr/55G1jlWSIkqG1L
+         +D3RwqmW2APPgLl35u0BAfdsaKOG4vWV/zcbkQtlP2tAyRXJq2Dyyzo8uDeHrD/2ReTO
+         RUUBhOFnovbtftPXaWesE5OTrsW3YW3FfPUwNM1QgOI3kirqv10oWbnPA19XG74ilPfk
+         Sk7jpVCropzj0RIxNETPh5KvN/rXp/3ZRxwqsDeCmnhNiG6+aF20F1p2HQFmFdvBX9D6
+         jBSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740393844; x=1740998644;
+        d=1e100.net; s=20230601; t=1740394522; x=1740999322;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=f7E+z5y8MfJG44dg0WkoSSYRd79I8Qu1Hiq4f0jeqnM=;
-        b=iOYPx3FWWV6KrW8FA1gXxRYV4vbRRgi/ca2FZdEidcuVPGVQC1UcWh/RD104FCVqt5
-         ivAi3wcfl+BP9hL0cgPxsWteW1Yp3/9heH31wUUaMQnmGdUBE9RxSAWHfprx+ckhk5OY
-         ZjfXJYPQw5tLMNb9bMEVZ/ChnrKxb/CjOJVkGK3Dn6Q5P0e6V/NOlD7FR063qGFvpfmr
-         nCWUgDw0iUons6nZAOMe0AQMHk6i9/uyqIAftR9MG0bP0lKYG5HXFWN9iD90KucMn3et
-         bChK9ZRcEe+fxz+NFeVRmT90nIjMzATAGjy2SQ2XWi7xGjr3rbwGB0X5BYj86LG9VlPt
-         BTFg==
-X-Forwarded-Encrypted: i=1; AJvYcCUgzYv4NqxCYpecKWRWa9M6x4O+pLV1YwDqi1u5lp2Uz4F3osrVraCv7r/H4CaYV0ApJbOLTI7BaZw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzSmp9JazV2j9xc5XYs+Q7V1Z7z11l8O6KNumHHnQgXyPdCWbcp
-	DKtCNAOSUGR0VWc/CN3zO0jdEtYS5K5ObtnlwU5iZ3hWaTHZRc8sr/qYB4NeAw==
-X-Gm-Gg: ASbGncum+Z9toMnVOO+hy3+oGouKkriYsPgoYmm3aawFuFr1NfDT6lRaaTn/lcWtutg
-	fPlcqHRulGf5SaSMBzg/Zv55WcFp/fyc1MAFqI4Ac7M1gwAuANA6pW7jWp/FG10NN/VEExeuXkm
-	Z5GrBoX+mfgzGrs0hbe1eoYCWtUL/pAXrT8w2I0MOH7pTsXdtPbJiLQn6ixNJQVjqkndLPPkjN8
-	uVMRZ/POTxQXMBy3PNtl43D3MgC21FjoJJsAdoqzUioVgXDJZtBJ3jhiRBx3leB1eWMxcXEdtUF
-	y9Uu96PwmyRK0t/kINIlbs4tkAh+t9LOs8/wfixFArO5PZxHy0JZpBJbGnGJqrACx94ruxlVSA0
-	vanixhJITViU=
-X-Google-Smtp-Source: AGHT+IGV/aPyyhva0NYbM5bpmwOi5G9BAaLN18fkcj0ManzBWbhntPh8zg045Fi9TfWEW6XIhY3U6w==
-X-Received: by 2002:a17:907:7ea6:b0:ab2:d8e7:682c with SMTP id a640c23a62f3a-abc09d3566cmr1397022066b.38.1740393844426;
-        Mon, 24 Feb 2025 02:44:04 -0800 (PST)
-Message-ID: <3826b034-be99-4f43-ac55-d616e473ab40@suse.com>
-Date: Mon, 24 Feb 2025 11:44:03 +0100
+        bh=H/zz1/2o0lKwq52keYUT+lim9DK1vtheJc0F88jQkZk=;
+        b=kYL6Dl5B5bwK5YGAuCVY++4P2NK0QgdjOzJQhyuDk+qjDKssidAFNxcImE2R7Cl/dm
+         F1hauEVV53ubdcPcKdlv4NcrEkpbgwmo4Pfj1zUy5NKCkFYHZ2Qf4z+NxyAXVz+x1e9e
+         mN/S8RuR6yMHKaKLUok7/vdBcvlWDYzVFtLrvNmK8wKugGR0gPBfh4JR+zJ6UVRX4cRF
+         e4vTlWZIJfxz7EykMfgka6UxGEu2f3j4F9FlxNANdonTTZV4bU4FwbTERtN51W9WB6SZ
+         flGSD1F9gVBdNY1iSHgJpiHbfroFMTqI/VAuhC+XOrpp/8qqdQvhN+m30gREaCVqZo9a
+         Q+CA==
+X-Forwarded-Encrypted: i=1; AJvYcCWJt/UQFW4Wt5FjZNAmx3491ZoNWXcHLTswpxnFNOp9nUzeCkGo1HIPq+FSTL5rrmBqtPOVlRtxtSs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyettCDGnEOMISY+ekhL5/4lQbL6u//e+0uwvT435voXuE2GjKJ
+	0u7h++coj4FEjyglJi5x1+68DaB1CzlaNSdBvZGR3Moe33qmAMo9KvKufa7+xg==
+X-Gm-Gg: ASbGncusAilItcLF3ckDCPmLChX1cf5M+0Ek3Kqy9pPrYoi6nAYxelZ7i8eTdtw9hrb
+	au7Ri+QuyOla2GoJjsFswg6Wkd+cgSE0CfVnGCSanme6HED7Wd7AZIeWzP+cOE2bXu10NHOqEfW
+	rHHMT6Es45DrYf6YkbzBn7d1eBkWBHGda8lYThzkcXzFnZNkxwTZkW9ArLnJ/xQMcvjj+aaaolC
+	xeGyekgYcVoATnSkikJqPnR7YrpvZUx0zIraK63Is1aNhfJ6ciHNoL05kp2IezijuP0FL2ZsE6y
+	0Inw6QXV/0BB99TMKZPgX1XDSc0J/OlcD0pcgEWnES1Y44FnHSo2cAnLVYL6QUoW8FYx8BfAxLw
+	bBSt4hVKJ3Ko=
+X-Google-Smtp-Source: AGHT+IFfl6lyFo7X/sM6q0w06ql/sb6m5OJdQblYR1UsSrTA302dFFx3lD9dSwnrU+Xdx2Fcqg8ePg==
+X-Received: by 2002:a17:907:72c1:b0:ab7:b356:62e0 with SMTP id a640c23a62f3a-abc09d3615bmr1311430466b.53.1740394521593;
+        Mon, 24 Feb 2025 02:55:21 -0800 (PST)
+Message-ID: <62498ba8-dbbb-48ab-8bc1-9833909c90b4@suse.com>
+Date: Mon, 24 Feb 2025 11:55:20 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/console: make console buffer size configurable
-To: Denis Mukhin <dmkhn@proton.me>
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
- michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
- dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20250212222157.2974150-1-dmukhin@ford.com>
- <4203576f-0b93-4647-9983-e36c15fa1d0c@suse.com>
- <o_C90Tb8fjLMkG-pSNmxycIsYytdAxHSTU7yrudH07-h6L9e4XGirmyyKKSRQsLuOyYwA6b-9jd8kOOnM21yC8I-6q5EzcX2lsLHcbgGqec=@proton.me>
+Subject: Re: [PATCH 0/2] code style exercise: Drivers folder samples
+To: Oleksandr Andrushchenko <andr2000@gmail.com>
+Cc: Artem_Mygaiev@epam.com, Luca.Fancellu@arm.com, roger.pau@citrix.com,
+ marmarek@invisiblethingslab.com, andrew.cooper3@citrix.com,
+ anthony.perard@vates.tech, xen-devel@lists.xenproject.org,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20250216102108.2665222-1-andr2000@gmail.com>
+ <4f1fcad5-dd6c-471f-9496-023973fa8857@suse.com>
+ <alpine.DEB.2.22.394.2502171833370.1085376@ubuntu-linux-20-04-desktop>
+ <f6db4e23-8c6e-43a5-a90a-ea3526f88b23@suse.com>
+ <26cfd51b-123f-48e7-9911-2c96b48abdfe@gmail.com>
+ <f0a4af56-016f-4ea7-92a8-6f6f4a62809a@suse.com>
+ <924753a2-8abc-4d49-84f9-6f4677bf76f1@gmail.com>
+ <alpine.DEB.2.22.394.2502191725300.1791669@ubuntu-linux-20-04-desktop>
+ <020f1294-cd11-4733-a518-f4a42f146a83@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,56 +127,65 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <o_C90Tb8fjLMkG-pSNmxycIsYytdAxHSTU7yrudH07-h6L9e4XGirmyyKKSRQsLuOyYwA6b-9jd8kOOnM21yC8I-6q5EzcX2lsLHcbgGqec=@proton.me>
+In-Reply-To: <020f1294-cd11-4733-a518-f4a42f146a83@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 21.02.2025 21:52, Denis Mukhin wrote:
-> On Tuesday, February 18th, 2025 at 8:05 AM, Jan Beulich <jbeulich@suse.com> wrote:
->> On 12.02.2025 23:31, dmkhn@proton.me wrote:
->>> --- a/xen/drivers/char/Kconfig
->>> +++ b/xen/drivers/char/Kconfig
->>> @@ -96,6 +96,18 @@ config SERIAL_TX_BUFSIZE
->>>
->>> Default value is 32768 (32KiB).
->>>
->>> +config CONRING_SIZE
->>> + int "Console buffer size"
->>> + default 32768
->>> + range 16384 134217728
->>> + help
->>> + Select the boot console buffer size (in bytes).
+On 23.02.2025 08:42, Oleksandr Andrushchenko wrote:
+> On 20.02.25 03:34, Stefano Stabellini wrote:
+>> On Wed, 19 Feb 2025, Oleksandr Andrushchenko wrote:
+>>> Yes, I do agree. But only if we talk about having an automated
+>>> code style check now (which is definitely the goal at some time).
+>>> Before that we could still use the tool to take all that good that
+>>> it does and manually prepare a set of patches to fix those
+>>> code style issues which we like.
+>> Let's explore this option a bit more. Let's say that we write down our
+>> coding style in plain English by enhancing CODING_STYLE. This newer
+>> CODING_STYLE has also a corresponding clang-format configuration.
 >>
+>> Now, we cannot use clang-format to reformat everything because, as we
+>> are discovering with this example, clang-format is overzealous and
+>> changes too many things. Instead, we take "inspiration" from
+>> clang-format's output but we manually prepare a patch series to apply
+>> code style changes to Xen as the coding style today is not uniform
+>> across the code base and also not always conforming to CODING_STYLE.
 >>
->> Why in bytes when ...
+>> At this point, we have already made an improvement to CODING_STYLEe, and
+>> made the Xen coding style more uniform across the codebase.
 >>
->>> + Note, the value provided will be rounded down to the nearest power of 2.
->>
->>
->> ... this rounding is done anyway? Why have people type in complicated numbers?
->> A granularity of 1k would already be an improvement; yet better would be if
->> this was a power-of-two value altogether.
-> 
-> My understanding that the semantics of new CONFIG_CONRING_SIZE build-time setting
-> should be consistent with existing boot-time conring_size= behavior (string value
-> converted to number of bytes).
-> 
-> I can update both to round up to 1k boundary.
-> 
-> I also agree that having power of 2s for both (e.g. similar to Linux'es CONFIG_LOG_BUF_SHIFT)
-> will be the simplest (implementation) and non-ambigous.
-> I had it done earlier:
->   https://lore.kernel.org/xen-devel/20241205-vuart-ns8250-v1-26-e9aa923127eb@ford.com/
+>> But do we also have an automated coding style checker that we can use?
+> It really depends on what that coding style would look like and
+> if the rules we impose are supported by clang-format and if we ready
+> to change ourselves if they are not.
+> Again, here we are trying to do what we already did, but in the opposite
+> direction: "diff -p" didn't work as expected(?) and we have changed
+> *our* coding style to *fit that tool*. So, are we ready to do the same for
+> another?
 
-I'd prefer the power-of-2 approach, yet I could live with the Kb-based one as
-was suggested by Roger.
+With a small but relevant difference: "diff" is a tool that people have been
+using forever.
 
-> Also, since there's a build-time configuration parameter along with the boot-time
-> configuration, perhaps it makes sense to retire boot-time setting in favor of
-> build-time setting?
+>> Can we use clang-format to check new patches coming in?
+> Yes, we can use git-clang-format for that. clang-format is flexible enough
+> in its configuration. So, it can be used for checking patches with different
+> coding styles by providing .clang-format files at any folder level, e.g. we may
+> have something like (just to show an example):
+> - xen/drivers: Linux style .clang-format
+> - xen (rest): Xen style .clang-format
+> - libxl: its own .clang-format
+> - etc.
+> We can also disable formatting for the entire folder if need be by putting
+> a .clang-format with "DisableFormat: true" option in it.
+> clang-format respects the nested configuration files
 
-Why would that be? Build-time settings can only ever be defaults. We don't
-know what people need in their configurations.
+Folder granularity is likely far too coarse.
+
+> So, to answer your question: I think we can use the tool to check incoming
+> patches.
+
+I think the question was more aiming at: Can we have the tool check a patch
+for it to only introduce well-formed code, even if elsewhere in a file being
+touched there are instances of what the tool would re-format?
 
 Jan
 
