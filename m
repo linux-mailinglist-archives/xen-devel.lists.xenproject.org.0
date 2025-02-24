@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81BF4A42763
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Feb 2025 17:07:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.895265.1303871 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2899A4275F
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Feb 2025 17:07:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.895266.1303880 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmazF-00046W-6b; Mon, 24 Feb 2025 16:07:17 +0000
+	id 1tmazF-0004IV-Pv; Mon, 24 Feb 2025 16:07:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 895265.1303871; Mon, 24 Feb 2025 16:07:17 +0000
+Received: by outflank-mailman (output) from mailman id 895266.1303880; Mon, 24 Feb 2025 16:07:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmazF-00044I-29; Mon, 24 Feb 2025 16:07:17 +0000
-Received: by outflank-mailman (input) for mailman id 895265;
- Mon, 24 Feb 2025 16:07:15 +0000
+	id 1tmazF-0004Al-JN; Mon, 24 Feb 2025 16:07:17 +0000
+Received: by outflank-mailman (input) for mailman id 895266;
+ Mon, 24 Feb 2025 16:07:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=48j1=VP=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tmazD-0003oc-8G
- for xen-devel@lists.xenproject.org; Mon, 24 Feb 2025 16:07:15 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ id 1tmazE-0003oc-81
+ for xen-devel@lists.xenproject.org; Mon, 24 Feb 2025 16:07:16 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 69429b96-f2c9-11ef-9aae-95dc52dad729;
+ id 69aa6914-f2c9-11ef-9aae-95dc52dad729;
  Mon, 24 Feb 2025 17:07:14 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-43aac0390e8so5807215e9.2
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-43996e95114so29965215e9.3
  for <xen-devel@lists.xenproject.org>; Mon, 24 Feb 2025 08:07:14 -0800 (PST)
 Received: from andrewcoop.eng.citrite.net (host-92-26-98-202.as13285.net.
  [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-439b02d6837sm109356675e9.13.2025.02.24.08.07.12
+ 5b1f17b1804b1-439b02d6837sm109356675e9.13.2025.02.24.08.07.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Feb 2025 08:07:12 -0800 (PST)
+ Mon, 24 Feb 2025 08:07:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69429b96-f2c9-11ef-9aae-95dc52dad729
+X-Inumbo-ID: 69aa6914-f2c9-11ef-9aae-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1740413233; x=1741018033; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1740413234; x=1741018034; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mSib/EZ8nx2SutdLKPSjtycKdGYhGJ9Th7LeAr9+rZg=;
-        b=Tzo17SChrOR55/xre0GA5ooioj2s8YPNoINE/8+Na4lO+8GcNnrtZFDJgcYjw2NnDM
-         fQMUoQadqxBOyxv7l5aRqrG1wHxIi/bjD5hwDBAYPNp0imcgzN1kj5kN6idl5yCjwXCL
-         5JvqXktkA6FqthKSzKi+in2R8IQIA5DB2Y4E4=
+        bh=dUi6pKL3e9xeVB/CncS3c+2qCjypXGx2npChE0Akb54=;
+        b=rOuIda2i799s+HoNehUDP8k0fKE68mlJmbD5m6gML4nEssjwSkC2OTKHl4IVRcIe8f
+         IEttbc0EkBNIijyKw8mUtUYIhe4wcvUaD2c5vLJOMnb7zItF4g7cauN7zR42H0mvGuur
+         0wWmezHocDUioWMg02I5mM0FRCnAS83+KtWC4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740413233; x=1741018033;
+        d=1e100.net; s=20230601; t=1740413234; x=1741018034;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=mSib/EZ8nx2SutdLKPSjtycKdGYhGJ9Th7LeAr9+rZg=;
-        b=Xz++5rGVR1cuYwyr/MNc6+7ZX20fBnrOyD0Edj4WfcTy/57ufLeSL6/GgeRMozfHvf
-         VYs6EKbXJ15rj+0wkzmf9V1uSxf7yMwHoxhSC7G2I04J0Dtqm56Q2VzISTQQCXZpc72L
-         zBw6iItLp5gCquBGjuSGmXKmyPUHk4huuMbB2jcCKox3YVELw/LHjUv+cDtqiNYZJDnp
-         kJUAjmddbxC2a7m5AU21QPccLqgqBFkP5/Pyx/ReJKwvY/VEBRnIchlTEExeYt2Tkg28
-         sqxkPPv0knojp4rN4KRiVVO/QacSOx1aQ3JaEw8LgWvxgXKQWvqqNy+c/k5mki4OuaEQ
-         uE+A==
-X-Gm-Message-State: AOJu0YxjFUAomSMdWvhKxVqDDYUenPhubnhbhEkzlr7d8e5F4G9hW+w6
-	STRTPGwaSc/2GBsrQ4GinibKiopNUpmNURBS6XEG3LRqMXk5RBa7RFf0l7ymhhKi4YUrdQGgENh
-	j
-X-Gm-Gg: ASbGnctc+BDERw8jyYzECULJQR69s1NX2kKYSsiuxrBXuQHUnpPIgbjjoMA/6l8If3B
-	dv9R0wUcG5/YtlAxIrHukveDoEABE8McckfJtO0mVJwe/g5sQJ6FqvR7gFtbnIXtgm2OusmJPc3
-	943G6OO7zfx1+bIAWiPxSyyJ6xH61FcqZ4tj5aUNsk6cJ/wftVYSYbyBsNJVefWx7ZQBysiyWHO
-	UZDX5Yd8s1ZWCw749AgmFan1v3E5Rp8kHxabma3F4BxHw9XX/18O9A80G7MR1Rt3mA1OdUb5JTZ
-	h6PAhsrkFtxDE6aaM8oexmLu2PZTXeiSNTgRStbdqH/lAK7MaliZyKMrlisO09FDlX+c//BCl4O
-	UFH+Lug==
-X-Google-Smtp-Source: AGHT+IFqiZjcx54aS0d8m6rMm6a0JZlZM8YL4Z03n29WxxFUBcrA3joDJSEXAa/m9b7miLumtpU8Sw==
-X-Received: by 2002:a05:600c:1c08:b0:434:f0df:9f6 with SMTP id 5b1f17b1804b1-439ae1d97fbmr116167785e9.3.1740413232912;
-        Mon, 24 Feb 2025 08:07:12 -0800 (PST)
+        bh=dUi6pKL3e9xeVB/CncS3c+2qCjypXGx2npChE0Akb54=;
+        b=s8NdxZxs5H1L/6Da0nubDk2ToeskOWd7chWSmszCWFrUi/bhC0p72pTc7DLqqSHQil
+         mAuCgPuuxeG1ers2mC5nQh931n97FDPJ3b5WdiGZhOxmDSLGkRQHlTPZqABMLiZ8h6NR
+         b1r/y5y5UUey7q+r7TBV9f18ZkQVmvqWkOwfN3VeF4hcWXO0uN32szuV77EfqCgYUJHh
+         xfuM/PtZSiaC9iyu3lhfSWT1KOV1Rnh95lQMAoojbWOVdgVX8dEy9ehQY3gQLg/K/SsP
+         fAiMrEXVlePCU4ryTKSGr5rkUdJYe7CgelXx51zcyPf5qAg4/G8FmUnOws1WoA0B6Udg
+         /w9A==
+X-Gm-Message-State: AOJu0YyOvmsD26L4rUbChpAcKbbpppPlYA4qqKmd0+ZNMuJZppA3MhNI
+	Q/y+9Aek1mAXHdaWwQ2X5VS3mTqs43zWmtINPwvTl6MDtGOPivZArJzzu4rfmqe+qtzPIYQ4HNu
+	b
+X-Gm-Gg: ASbGncvErsRHFvm17L+TRAWGV55BSCLmBKsJcYVlXPm1kZaOUmNICIS6Vo500fthsnA
+	aBDT3Lh1XHmzC6vDMds3tXuFgYZ82cC77V/4YMnV2qlO9u1vudON0r/9VEi8lAIoa33AzMPtsh9
+	L/MB96X+6JZShIGXVPnG+a4fDCmjlXl4t+/OqBh0M23eBkxj6Jq74rPSKJdtaQQ+yAnd8Whw3i/
+	TvQUM9CpHwOodAr/xvtzgHKrsAHl5qGubsYqSC4bXGhMEtM5TIHeZ12yrUJjXO9v1aNXHBuwtyD
+	VZiq1e1PMih3DA7tVmQ1FBVDGQBnBiBQZwhBEXwzKwXneT5gj5ype55zEBPWUKKIp94aXkDjxim
+	FFY8A2g==
+X-Google-Smtp-Source: AGHT+IHX7Sg9NJ7ohj/WDwSXwXLQWp5SKxysy3acQu2aZl4OpPeHGStggRDZd/PupW6RyOJ+IwEUMA==
+X-Received: by 2002:a05:600c:4683:b0:439:8523:36cc with SMTP id 5b1f17b1804b1-43ab07ab212mr6475695e9.11.1740413233846;
+        Mon, 24 Feb 2025 08:07:13 -0800 (PST)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <JBeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 2/8] x86/IDT: Collect IDT related content idt.h
-Date: Mon, 24 Feb 2025 16:05:03 +0000
-Message-Id: <20250224160509.1117847-3-andrew.cooper3@citrix.com>
+Subject: [PATCH 3/8] x86/IDT: Rename X86_NR_VECTORS to X86_IDT_VECTORS
+Date: Mon, 24 Feb 2025 16:05:04 +0000
+Message-Id: <20250224160509.1117847-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250224160509.1117847-1-andrew.cooper3@citrix.com>
 References: <20250224160509.1117847-1-andrew.cooper3@citrix.com>
@@ -94,19 +94,10 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Logic concerning the IDT is somewhat different to the other system tables, and
-in particular ought not to be in asm/processor.h.  Collect it together a new
-header.
+Observant readers may have noticed that the FRED spec has another 8 bits of
+space reserved immediately following the vector field.
 
-While doing so, make a few minor adjustments:
-
- * Make set_ist() use volatile rather than ACCESS_ONCE(), as
-   _write_gate_lower() already does, removing the need for xen/lib.h.
-
- * Move the BUILD_BUG_ON() from subarch_percpu_traps_init() into mm.c's
-   build_assertions(), rather than including idt.h into x86_64/traps.c.
-
- * Drop UL from IST constants.
+Make the existing constant more precise.
 
 No functional change.
 
@@ -115,433 +106,310 @@ Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/arch/x86/cpu/common.c            |   1 +
- xen/arch/x86/crash.c                 |   1 +
- xen/arch/x86/domain.c                |   1 +
- xen/arch/x86/hvm/svm/svm.c           |   1 +
- xen/arch/x86/hvm/vmx/vmcs.c          |   1 +
- xen/arch/x86/include/asm/desc.h      |  76 ----------------
- xen/arch/x86/include/asm/idt.h       | 125 +++++++++++++++++++++++++++
- xen/arch/x86/include/asm/processor.h |  37 --------
- xen/arch/x86/machine_kexec.c         |   1 +
- xen/arch/x86/mm.c                    |   4 +
- xen/arch/x86/pv/traps.c              |   1 +
- xen/arch/x86/smpboot.c               |   1 +
- xen/arch/x86/traps.c                 |   1 +
- xen/arch/x86/x86_64/traps.c          |   3 -
- 14 files changed, 138 insertions(+), 116 deletions(-)
- create mode 100644 xen/arch/x86/include/asm/idt.h
+ xen/arch/x86/hvm/vlapic.c               |  4 ++--
+ xen/arch/x86/hvm/vmx/intr.c             |  4 ++--
+ xen/arch/x86/hvm/vmx/vmcs.c             |  2 +-
+ xen/arch/x86/hvm/vmx/vmx.c              |  6 +++---
+ xen/arch/x86/include/asm/hvm/vmx/vmcs.h |  4 ++--
+ xen/arch/x86/include/asm/irq.h          |  4 ++--
+ xen/arch/x86/include/asm/x86-defns.h    |  2 +-
+ xen/arch/x86/io_apic.c                  |  2 +-
+ xen/arch/x86/irq.c                      | 12 ++++++------
+ xen/arch/x86/pv/callback.c              |  4 ++--
+ xen/arch/x86/pv/domain.c                |  4 ++--
+ xen/arch/x86/traps.c                    |  4 ++--
+ xen/arch/x86/x86_64/entry.S             |  2 +-
+ 13 files changed, 27 insertions(+), 27 deletions(-)
 
-diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
-index 1cc4adccb471..1540ab0007a0 100644
---- a/xen/arch/x86/cpu/common.c
-+++ b/xen/arch/x86/cpu/common.c
-@@ -9,6 +9,7 @@
- #include <asm/cpu-policy.h>
- #include <asm/current.h>
- #include <asm/debugreg.h>
-+#include <asm/idt.h>
- #include <asm/io.h>
- #include <asm/mpspec.h>
- #include <asm/msr.h>
-diff --git a/xen/arch/x86/crash.c b/xen/arch/x86/crash.c
-index 4afe0ad859a7..5f7d7b392a1f 100644
---- a/xen/arch/x86/crash.c
-+++ b/xen/arch/x86/crash.c
-@@ -26,6 +26,7 @@
- #include <asm/atomic.h>
- #include <asm/elf.h>
- #include <asm/hpet.h>
-+#include <asm/idt.h>
- #include <asm/io_apic.h>
- #include <asm/nmi.h>
- #include <asm/shared.h>
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index 7b2549091fd3..d3db76833f3c 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -47,6 +47,7 @@
- #include <asm/hvm/svm/svm.h>
- #include <asm/hvm/viridian.h>
- #include <asm/i387.h>
-+#include <asm/idt.h>
- #include <asm/io.h>
- #include <asm/ldt.h>
- #include <asm/mc146818rtc.h>
-diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-index 62905c2c7acd..ea78da4f4210 100644
---- a/xen/arch/x86/hvm/svm/svm.c
-+++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -18,6 +18,7 @@
- #include <asm/cpufeature.h>
- #include <asm/current.h>
- #include <asm/debugreg.h>
-+#include <asm/idt.h>
- #include <asm/gdbsx.h>
- #include <asm/hvm/emulate.h>
- #include <asm/hvm/hvm.h>
+diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
+index 3363926b487b..91fc45716514 100644
+--- a/xen/arch/x86/hvm/vlapic.c
++++ b/xen/arch/x86/hvm/vlapic.c
+@@ -72,7 +72,7 @@ static void vlapic_do_init(struct vlapic *vlapic);
+ static int vlapic_find_highest_vector(const void *bitmap)
+ {
+     const uint32_t *word = bitmap;
+-    unsigned int word_offset = X86_NR_VECTORS / 32;
++    unsigned int word_offset = X86_IDT_VECTORS / 32;
+ 
+     /* Work backwards through the bitmap (first 32-bit word in every four). */
+     while ( (word_offset != 0) && (word[(--word_offset)*4] == 0) )
+@@ -665,7 +665,7 @@ int guest_rdmsr_x2apic(const struct vcpu *v, uint32_t msr, uint64_t *val)
+         REG(LVT0)  | REG(LVT1) | REG(LVTERR)  | REG(TMICT)   |
+         REG(TMCCT) | REG(TDCR) |
+ #undef REG
+-#define REGBLOCK(x) (((1UL << (X86_NR_VECTORS / 32)) - 1) << (APIC_ ## x >> 4))
++#define REGBLOCK(x) (((1UL << (X86_IDT_VECTORS / 32)) - 1) << (APIC_ ## x >> 4))
+         REGBLOCK(ISR) | REGBLOCK(TMR) | REGBLOCK(IRR)
+ #undef REGBLOCK
+     };
+diff --git a/xen/arch/x86/hvm/vmx/intr.c b/xen/arch/x86/hvm/vmx/intr.c
+index 1a4dfb499bcd..91b407e6bcc2 100644
+--- a/xen/arch/x86/hvm/vmx/intr.c
++++ b/xen/arch/x86/hvm/vmx/intr.c
+@@ -356,7 +356,7 @@ void asmlinkage vmx_intr_assist(void)
+                 {
+                     word = (const void *)&vlapic->regs->data[APIC_IRR];
+                     printk(XENLOG_ERR "vIRR:");
+-                    for ( i = X86_NR_VECTORS / 32; i-- ; )
++                    for ( i = X86_IDT_VECTORS / 32; i-- ; )
+                         printk(" %08x", word[i*4]);
+                     printk("\n");
+                 }
+@@ -366,7 +366,7 @@ void asmlinkage vmx_intr_assist(void)
+                 {
+                     word = (const void *)&pi_desc->pir;
+                     printk(XENLOG_ERR " PIR:");
+-                    for ( i = X86_NR_VECTORS / 32; i-- ; )
++                    for ( i = X86_IDT_VECTORS / 32; i-- ; )
+                         printk(" %08x", word[i]);
+                     printk("\n");
+                 }
 diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
-index fa9d8b3267ea..0136830ebcb7 100644
+index 0136830ebcb7..20ab2d0f266f 100644
 --- a/xen/arch/x86/hvm/vmx/vmcs.c
 +++ b/xen/arch/x86/hvm/vmx/vmcs.c
-@@ -25,6 +25,7 @@
- #include <asm/hvm/vmx/vmcs.h>
- #include <asm/hvm/vmx/vmx.h>
- #include <asm/hvm/vmx/vvmx.h>
-+#include <asm/idt.h>
- #include <asm/monitor.h>
- #include <asm/msr.h>
- #include <asm/processor.h>
-diff --git a/xen/arch/x86/include/asm/desc.h b/xen/arch/x86/include/asm/desc.h
-index a1e0807d97ed..85fae6b2f9ae 100644
---- a/xen/arch/x86/include/asm/desc.h
-+++ b/xen/arch/x86/include/asm/desc.h
-@@ -115,82 +115,6 @@ typedef union {
-     };
- } seg_desc_t;
+@@ -1219,7 +1219,7 @@ static int construct_vmcs(struct vcpu *v)
+         unsigned int i;
  
--typedef union {
--    struct {
--        uint64_t a, b;
--    };
--    struct {
--        uint16_t addr0;
--        uint16_t cs;
--        uint8_t  ist; /* :3, 5 bits rsvd, but this yields far better code. */
--        uint8_t  type:4, s:1, dpl:2, p:1;
--        uint16_t addr1;
--        uint32_t addr2;
--        /* 32 bits rsvd. */
--    };
--} idt_entry_t;
--
--/* Write the lower 64 bits of an IDT Entry. This relies on the upper 32
-- * bits of the address not changing, which is a safe assumption as all
-- * functions we are likely to load will live inside the 1GB
-- * code/data/bss address range.
-- *
-- * Ideally, we would use cmpxchg16b, but this is not supported on some
-- * old AMD 64bit capable processors, and has no safe equivalent.
-- */
--static inline void _write_gate_lower(volatile idt_entry_t *gate,
--                                     const idt_entry_t *new)
--{
--    ASSERT(gate->b == new->b);
--    gate->a = new->a;
--}
--
--#define _set_gate(gate_addr,type,dpl,addr)               \
--do {                                                     \
--    (gate_addr)->a = 0;                                  \
--    smp_wmb(); /* disable gate /then/ rewrite */         \
--    (gate_addr)->b =                                     \
--        ((unsigned long)(addr) >> 32);                   \
--    smp_wmb(); /* rewrite /then/ enable gate */          \
--    (gate_addr)->a =                                     \
--        (((unsigned long)(addr) & 0xFFFF0000UL) << 32) | \
--        ((unsigned long)(dpl) << 45) |                   \
--        ((unsigned long)(type) << 40) |                  \
--        ((unsigned long)(addr) & 0xFFFFUL) |             \
--        ((unsigned long)__HYPERVISOR_CS << 16) |         \
--        (1UL << 47);                                     \
--} while (0)
--
--static inline void _set_gate_lower(idt_entry_t *gate, unsigned long type,
--                                   unsigned long dpl, void *addr)
--{
--    idt_entry_t idte;
--    idte.b = gate->b;
--    idte.a =
--        (((unsigned long)(addr) & 0xFFFF0000UL) << 32) |
--        ((unsigned long)(dpl) << 45) |
--        ((unsigned long)(type) << 40) |
--        ((unsigned long)(addr) & 0xFFFFUL) |
--        ((unsigned long)__HYPERVISOR_CS << 16) |
--        (1UL << 47);
--    _write_gate_lower(gate, &idte);
--}
--
--/* Update the lower half handler of an IDT Entry, without changing any
-- * other configuration. */
--static inline void _update_gate_addr_lower(idt_entry_t *gate, void *addr)
--{
--    idt_entry_t idte;
--    idte.a = gate->a;
--
--    idte.b = ((unsigned long)(addr) >> 32);
--    idte.a &= 0x0000FFFFFFFF0000ULL;
--    idte.a |= (((unsigned long)(addr) & 0xFFFF0000UL) << 32) |
--        ((unsigned long)(addr) & 0xFFFFUL);
--
--    _write_gate_lower(gate, &idte);
--}
--
- #define _set_tssldt_desc(desc,addr,limit,type)           \
- do {                                                     \
-     (desc)[0].b = (desc)[1].b = 0;                       \
-diff --git a/xen/arch/x86/include/asm/idt.h b/xen/arch/x86/include/asm/idt.h
-new file mode 100644
-index 000000000000..4ef52050a11b
---- /dev/null
-+++ b/xen/arch/x86/include/asm/idt.h
-@@ -0,0 +1,125 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef X86_ASM_IDT_H
-+#define X86_ASM_IDT_H
-+
-+#include <xen/bug.h>
-+#include <xen/types.h>
-+
-+#include <asm/x86-defns.h>
-+
-+#define IST_NONE 0
-+#define IST_MCE  1
-+#define IST_NMI  2
-+#define IST_DB   3
-+#define IST_DF   4
-+#define IST_MAX  4
-+
-+typedef union {
-+    struct {
-+        uint64_t a, b;
-+    };
-+    struct {
-+        uint16_t addr0;
-+        uint16_t cs;
-+        uint8_t  ist; /* :3, 5 bits rsvd, but this yields far better code. */
-+        uint8_t  type:4, s:1, dpl:2, p:1;
-+        uint16_t addr1;
-+        uint32_t addr2;
-+        /* 32 bits rsvd. */
-+    };
-+} idt_entry_t;
-+
-+#define IDT_ENTRIES 256
-+extern idt_entry_t idt_table[];
-+extern idt_entry_t *idt_tables[];
-+
-+/*
-+ * Set the Interrupt Stack Table used by a particular IDT entry.  Typically
-+ * used on a live IDT, so volatile to disuade clever optimisations.
-+ */
-+static inline void set_ist(volatile idt_entry_t *idt, unsigned int ist)
-+{
-+    /* IST is a 3 bit field, 32 bits into the IDT entry. */
-+    ASSERT(ist <= IST_MAX);
-+
-+    idt->ist = ist;
-+}
-+
-+static inline void enable_each_ist(idt_entry_t *idt)
-+{
-+    set_ist(&idt[X86_EXC_DF],  IST_DF);
-+    set_ist(&idt[X86_EXC_NMI], IST_NMI);
-+    set_ist(&idt[X86_EXC_MC],  IST_MCE);
-+    set_ist(&idt[X86_EXC_DB],  IST_DB);
-+}
-+
-+static inline void disable_each_ist(idt_entry_t *idt)
-+{
-+    set_ist(&idt[X86_EXC_DF],  IST_NONE);
-+    set_ist(&idt[X86_EXC_NMI], IST_NONE);
-+    set_ist(&idt[X86_EXC_MC],  IST_NONE);
-+    set_ist(&idt[X86_EXC_DB],  IST_NONE);
-+}
-+
-+/*
-+ * Write the lower 64 bits of an IDT Entry. This relies on the upper 32
-+ * bits of the address not changing, which is a safe assumption as all
-+ * functions we are likely to load will live inside the 1GB
-+ * code/data/bss address range.
-+ */
-+static inline void _write_gate_lower(volatile idt_entry_t *gate,
-+                                     const idt_entry_t *new)
-+{
-+    ASSERT(gate->b == new->b);
-+    gate->a = new->a;
-+}
-+
-+#define _set_gate(gate_addr,type,dpl,addr)               \
-+do {                                                     \
-+    (gate_addr)->a = 0;                                  \
-+    smp_wmb(); /* disable gate /then/ rewrite */         \
-+    (gate_addr)->b =                                     \
-+        ((unsigned long)(addr) >> 32);                   \
-+    smp_wmb(); /* rewrite /then/ enable gate */          \
-+    (gate_addr)->a =                                     \
-+        (((unsigned long)(addr) & 0xFFFF0000UL) << 32) | \
-+        ((unsigned long)(dpl) << 45) |                   \
-+        ((unsigned long)(type) << 40) |                  \
-+        ((unsigned long)(addr) & 0xFFFFUL) |             \
-+        ((unsigned long)__HYPERVISOR_CS << 16) |         \
-+        (1UL << 47);                                     \
-+} while (0)
-+
-+static inline void _set_gate_lower(idt_entry_t *gate, unsigned long type,
-+                                   unsigned long dpl, void *addr)
-+{
-+    idt_entry_t idte;
-+    idte.b = gate->b;
-+    idte.a =
-+        (((unsigned long)(addr) & 0xFFFF0000UL) << 32) |
-+        ((unsigned long)(dpl) << 45) |
-+        ((unsigned long)(type) << 40) |
-+        ((unsigned long)(addr) & 0xFFFFUL) |
-+        ((unsigned long)__HYPERVISOR_CS << 16) |
-+        (1UL << 47);
-+    _write_gate_lower(gate, &idte);
-+}
-+
-+/*
-+ * Update the lower half handler of an IDT entry, without changing any other
-+ * configuration.
-+ */
-+static inline void _update_gate_addr_lower(idt_entry_t *gate, void *addr)
-+{
-+    idt_entry_t idte;
-+    idte.a = gate->a;
-+
-+    idte.b = ((unsigned long)(addr) >> 32);
-+    idte.a &= 0x0000FFFFFFFF0000ULL;
-+    idte.a |= (((unsigned long)(addr) & 0xFFFF0000UL) << 32) |
-+        ((unsigned long)(addr) & 0xFFFFUL);
-+
-+    _write_gate_lower(gate, &idte);
-+}
-+
-+#endif /* X86_ASM_IDT_H */
-diff --git a/xen/arch/x86/include/asm/processor.h b/xen/arch/x86/include/asm/processor.h
-index d247ef8dd226..86174cce5821 100644
---- a/xen/arch/x86/include/asm/processor.h
-+++ b/xen/arch/x86/include/asm/processor.h
-@@ -353,43 +353,6 @@ struct tss_page {
- };
- DECLARE_PER_CPU(struct tss_page, tss_page);
+         /* EOI-exit bitmap */
+-        bitmap_zero(v->arch.hvm.vmx.eoi_exit_bitmap, X86_NR_VECTORS);
++        bitmap_zero(v->arch.hvm.vmx.eoi_exit_bitmap, X86_IDT_VECTORS);
+         for ( i = 0; i < ARRAY_SIZE(v->arch.hvm.vmx.eoi_exit_bitmap); ++i )
+             __vmwrite(EOI_EXIT_BITMAP(i), 0);
  
--#define IST_NONE 0UL
--#define IST_MCE  1UL
--#define IST_NMI  2UL
--#define IST_DB   3UL
--#define IST_DF   4UL
--#define IST_MAX  4UL
--
--/* Set the Interrupt Stack Table used by a particular IDT entry. */
--static inline void set_ist(idt_entry_t *idt, unsigned int ist)
--{
--    /* IST is a 3 bit field, 32 bits into the IDT entry. */
--    ASSERT(ist <= IST_MAX);
--
--    /* Typically used on a live idt.  Disuade any clever optimisations. */
--    ACCESS_ONCE(idt->ist) = ist;
--}
--
--static inline void enable_each_ist(idt_entry_t *idt)
--{
--    set_ist(&idt[X86_EXC_DF],  IST_DF);
--    set_ist(&idt[X86_EXC_NMI], IST_NMI);
--    set_ist(&idt[X86_EXC_MC],  IST_MCE);
--    set_ist(&idt[X86_EXC_DB],  IST_DB);
--}
--
--static inline void disable_each_ist(idt_entry_t *idt)
--{
--    set_ist(&idt[X86_EXC_DF],  IST_NONE);
--    set_ist(&idt[X86_EXC_NMI], IST_NONE);
--    set_ist(&idt[X86_EXC_MC],  IST_NONE);
--    set_ist(&idt[X86_EXC_DB],  IST_NONE);
--}
--
--#define IDT_ENTRIES 256
--extern idt_entry_t idt_table[];
--extern idt_entry_t *idt_tables[];
--
- DECLARE_PER_CPU(root_pgentry_t *, root_pgt);
- 
- extern void write_ptbase(struct vcpu *v);
-diff --git a/xen/arch/x86/machine_kexec.c b/xen/arch/x86/machine_kexec.c
-index e20e8d0b1563..f775e526d59b 100644
---- a/xen/arch/x86/machine_kexec.c
-+++ b/xen/arch/x86/machine_kexec.c
-@@ -22,6 +22,7 @@
- 
- #include <asm/fixmap.h>
- #include <asm/hpet.h>
-+#include <asm/idt.h>
- #include <asm/machine_kexec.h>
- #include <asm/page.h>
- 
-diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-index 6b34b908efcd..bfdc8fb01949 100644
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -115,6 +115,7 @@
- #include <asm/fixmap.h>
- #include <asm/flushtlb.h>
- #include <asm/guest.h>
-+#include <asm/idt.h>
- #include <asm/io.h>
- #include <asm/io_apic.h>
- #include <asm/ldt.h>
-@@ -6639,6 +6640,9 @@ static void __init __maybe_unused build_assertions(void)
-      * using different PATs will not work.
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index eee1d4b47a13..ff0ea9cf0e1d 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -2199,7 +2199,7 @@ static void cf_check vmx_process_isr(int isr, struct vcpu *v)
+      * is acceptable because the subsequent interrupts will set up the eoi
+      * bitmap correctly.
       */
-     BUILD_BUG_ON(XEN_MSR_PAT != 0x050100070406ULL);
-+
-+    /* IST_MAX IST pages + at least 1 guard page + primary stack. */
-+    BUILD_BUG_ON((IST_MAX + 1) * PAGE_SIZE + PRIMARY_STACK_SIZE > STACK_SIZE);
+-    for ( i = 0x10; i < X86_NR_VECTORS; ++i )
++    for ( i = 0x10; i < X86_IDT_VECTORS; ++i )
+         if ( vlapic_test_vector(i, &vlapic->regs->data[APIC_IRR]) ||
+              vlapic_test_vector(i, &vlapic->regs->data[APIC_ISR]) )
+             set_bit(i, v->arch.hvm.vmx.eoi_exit_bitmap);
+@@ -2316,7 +2316,7 @@ static void cf_check vmx_sync_pir_to_irr(struct vcpu *v)
+ {
+     struct vlapic *vlapic = vcpu_vlapic(v);
+     unsigned int group, i;
+-    DECLARE_BITMAP(pending_intr, X86_NR_VECTORS);
++    DECLARE_BITMAP(pending_intr, X86_IDT_VECTORS);
+ 
+     if ( !pi_test_and_clear_on(&v->arch.hvm.vmx.pi_desc) )
+         return;
+@@ -2324,7 +2324,7 @@ static void cf_check vmx_sync_pir_to_irr(struct vcpu *v)
+     for ( group = 0; group < ARRAY_SIZE(pending_intr); group++ )
+         pending_intr[group] = pi_get_pir(&v->arch.hvm.vmx.pi_desc, group);
+ 
+-    bitmap_for_each ( i, pending_intr, X86_NR_VECTORS )
++    bitmap_for_each ( i, pending_intr, X86_IDT_VECTORS )
+         vlapic_set_vector(i, &vlapic->regs->data[APIC_IRR]);
  }
  
- /*
-diff --git a/xen/arch/x86/pv/traps.c b/xen/arch/x86/pv/traps.c
-index fd1597d0bdea..77b034e4dc73 100644
---- a/xen/arch/x86/pv/traps.c
-+++ b/xen/arch/x86/pv/traps.c
-@@ -13,6 +13,7 @@
- #include <xen/softirq.h>
+diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+index e1d339814143..bfb234101154 100644
+--- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
++++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+@@ -71,7 +71,7 @@ struct vmx_msr_bitmap {
+ };
  
- #include <asm/debugreg.h>
-+#include <asm/idt.h>
- #include <asm/irq-vectors.h>
- #include <asm/pv/trace.h>
- #include <asm/shared.h>
-diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
-index f904d5623272..f3d60d5bae35 100644
---- a/xen/arch/x86/smpboot.c
-+++ b/xen/arch/x86/smpboot.c
-@@ -28,6 +28,7 @@
- #include <asm/div64.h>
- #include <asm/flushtlb.h>
- #include <asm/guest.h>
-+#include <asm/idt.h>
- #include <asm/io_apic.h>
- #include <asm/irq-vectors.h>
- #include <asm/mc146818rtc.h>
+ struct pi_desc {
+-    DECLARE_BITMAP(pir, X86_NR_VECTORS);
++    DECLARE_BITMAP(pir, X86_IDT_VECTORS);
+     union {
+         struct {
+             u16     on     : 1,  /* bit 256 - Outstanding Notification */
+@@ -138,7 +138,7 @@ struct vmx_vcpu {
+     unsigned int         host_msr_count;
+ 
+     unsigned long        eoi_exitmap_changed;
+-    DECLARE_BITMAP(eoi_exit_bitmap, X86_NR_VECTORS);
++    DECLARE_BITMAP(eoi_exit_bitmap, X86_IDT_VECTORS);
+     struct pi_desc       pi_desc;
+ 
+     unsigned long        host_cr0;
+diff --git a/xen/arch/x86/include/asm/irq.h b/xen/arch/x86/include/asm/irq.h
+index 354868ba31ab..f9ed5dc86cb3 100644
+--- a/xen/arch/x86/include/asm/irq.h
++++ b/xen/arch/x86/include/asm/irq.h
+@@ -23,7 +23,7 @@ extern unsigned int nr_irqs;
+ #define LEGACY_VECTOR(irq)          ((irq) + FIRST_LEGACY_VECTOR)
+ 
+ typedef struct {
+-    DECLARE_BITMAP(_bits, X86_NR_VECTORS);
++    DECLARE_BITMAP(_bits, X86_IDT_VECTORS);
+ } vmask_t;
+ 
+ struct irq_desc;
+@@ -96,7 +96,7 @@ struct arch_irq_desc {
+ 
+ #define IRQ_VECTOR_UNASSIGNED (-1)
+ 
+-typedef int vector_irq_t[X86_NR_VECTORS];
++typedef int vector_irq_t[X86_IDT_VECTORS];
+ DECLARE_PER_CPU(vector_irq_t, vector_irq);
+ 
+ extern bool opt_noirqbalance;
+diff --git a/xen/arch/x86/include/asm/x86-defns.h b/xen/arch/x86/include/asm/x86-defns.h
+index 2493ec277f58..61b0cea8f37c 100644
+--- a/xen/arch/x86/include/asm/x86-defns.h
++++ b/xen/arch/x86/include/asm/x86-defns.h
+@@ -155,7 +155,7 @@
+ #define X86_INVPCID_ALL_INCL_GLOBAL 2
+ #define X86_INVPCID_ALL_NON_GLOBAL  3
+ 
+-#define X86_NR_VECTORS 256
++#define X86_IDT_VECTORS 256
+ 
+ /* Exception Vectors */
+ #define X86_EXC_DE             0 /* Divide Error */
+diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
+index 68680c102f58..776dd57720a2 100644
+--- a/xen/arch/x86/io_apic.c
++++ b/xen/arch/x86/io_apic.c
+@@ -101,7 +101,7 @@ static void share_vector_maps(unsigned int src, unsigned int dst)
+         return;
+ 
+     bitmap_or(vector_map[src]->_bits, vector_map[src]->_bits,
+-              vector_map[dst]->_bits, X86_NR_VECTORS);
++              vector_map[dst]->_bits, X86_IDT_VECTORS);
+ 
+     for (pin = 0; pin < nr_ioapic_entries[dst]; ++pin) {
+         int irq = apic_pin_2_gsi_irq(dst, pin);
+diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
+index ff3ac832f4b9..f35894577bb0 100644
+--- a/xen/arch/x86/irq.c
++++ b/xen/arch/x86/irq.c
+@@ -51,7 +51,7 @@ static vmask_t global_used_vector_map;
+ 
+ struct irq_desc __read_mostly *irq_desc = NULL;
+ 
+-static DECLARE_BITMAP(used_vectors, X86_NR_VECTORS);
++static DECLARE_BITMAP(used_vectors, X86_IDT_VECTORS);
+ 
+ static DEFINE_SPINLOCK(vector_lock);
+ 
+@@ -155,7 +155,7 @@ static int __init _bind_irq_vector(struct irq_desc *desc, int vector,
+     cpumask_t online_mask;
+     int cpu;
+ 
+-    BUG_ON((unsigned)vector >= X86_NR_VECTORS);
++    BUG_ON((unsigned)vector >= X86_IDT_VECTORS);
+ 
+     cpumask_and(&online_mask, cpu_mask, &cpu_online_map);
+     if (cpumask_empty(&online_mask))
+@@ -423,7 +423,7 @@ int __init init_irq_data(void)
+     struct irq_desc *desc;
+     int irq, vector;
+ 
+-    for ( vector = 0; vector < X86_NR_VECTORS; ++vector )
++    for ( vector = 0; vector < X86_IDT_VECTORS; ++vector )
+         this_cpu(vector_irq)[vector] = INT_MIN;
+ 
+     irq_desc = xzalloc_array(struct irq_desc, nr_irqs);
+@@ -745,7 +745,7 @@ void setup_vector_irq(unsigned int cpu)
+     unsigned int irq, vector;
+ 
+     /* Clear vector_irq */
+-    for ( vector = 0; vector < X86_NR_VECTORS; ++vector )
++    for ( vector = 0; vector < X86_IDT_VECTORS; ++vector )
+         per_cpu(vector_irq, cpu)[vector] = INT_MIN;
+     /* Mark the inuse vectors */
+     for ( irq = 0; irq < nr_irqs; ++irq )
+@@ -972,7 +972,7 @@ uint8_t alloc_hipriority_vector(void)
+     return next++;
+ }
+ 
+-static void (*direct_apic_vector[X86_NR_VECTORS])(void);
++static void (*direct_apic_vector[X86_IDT_VECTORS])(void);
+ void set_direct_apic_vector(uint8_t vector, void (*handler)(void))
+ {
+     BUG_ON(direct_apic_vector[vector] != NULL);
+@@ -2572,7 +2572,7 @@ static void cf_check dump_irqs(unsigned char key)
+ 
+     process_pending_softirqs();
+     printk("Direct vector information:\n");
+-    for ( i = FIRST_DYNAMIC_VECTOR; i < X86_NR_VECTORS; ++i )
++    for ( i = FIRST_DYNAMIC_VECTOR; i < X86_IDT_VECTORS; ++i )
+         if ( direct_apic_vector[i] )
+             printk("   %#02x -> %ps()\n", i, direct_apic_vector[i]);
+ 
+diff --git a/xen/arch/x86/pv/callback.c b/xen/arch/x86/pv/callback.c
+index caec4fb16fab..38b819b56626 100644
+--- a/xen/arch/x86/pv/callback.c
++++ b/xen/arch/x86/pv/callback.c
+@@ -347,7 +347,7 @@ long do_set_trap_table(XEN_GUEST_HANDLE_PARAM(const_trap_info_t) traps)
+     /* If no table is presented then clear the entire virtual IDT. */
+     if ( guest_handle_is_null(traps) )
+     {
+-        memset(dst, 0, X86_NR_VECTORS * sizeof(*dst));
++        memset(dst, 0, X86_IDT_VECTORS * sizeof(*dst));
+         return 0;
+     }
+ 
+@@ -393,7 +393,7 @@ int compat_set_trap_table(XEN_GUEST_HANDLE(trap_info_compat_t) traps)
+     /* If no table is presented then clear the entire virtual IDT. */
+     if ( guest_handle_is_null(traps) )
+     {
+-        memset(dst, 0, X86_NR_VECTORS * sizeof(*dst));
++        memset(dst, 0, X86_IDT_VECTORS * sizeof(*dst));
+         return 0;
+     }
+ 
+diff --git a/xen/arch/x86/pv/domain.c b/xen/arch/x86/pv/domain.c
+index 7aef628f55be..9334da1dab93 100644
+--- a/xen/arch/x86/pv/domain.c
++++ b/xen/arch/x86/pv/domain.c
+@@ -312,9 +312,9 @@ int pv_vcpu_initialise(struct vcpu *v)
+     if ( rc )
+         return rc;
+ 
+-    BUILD_BUG_ON(X86_NR_VECTORS * sizeof(*v->arch.pv.trap_ctxt) >
++    BUILD_BUG_ON(X86_IDT_VECTORS * sizeof(*v->arch.pv.trap_ctxt) >
+                  PAGE_SIZE);
+-    v->arch.pv.trap_ctxt = xzalloc_array(struct trap_info, X86_NR_VECTORS);
++    v->arch.pv.trap_ctxt = xzalloc_array(struct trap_info, X86_IDT_VECTORS);
+     if ( !v->arch.pv.trap_ctxt )
+     {
+         rc = -ENOMEM;
 diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-index e8d5aa9fd46b..1a53bb4aa481 100644
+index 1a53bb4aa481..a8a4fdaeb59c 100644
 --- a/xen/arch/x86/traps.c
 +++ b/xen/arch/x86/traps.c
-@@ -52,6 +52,7 @@
- #include <asm/hpet.h>
- #include <asm/hvm/vpt.h>
- #include <asm/i387.h>
-+#include <asm/idt.h>
- #include <asm/io.h>
- #include <asm/irq-vectors.h>
- #include <asm/mc146818rtc.h>
-diff --git a/xen/arch/x86/x86_64/traps.c b/xen/arch/x86/x86_64/traps.c
-index 93f32ac66c92..8b9f0949d348 100644
---- a/xen/arch/x86/x86_64/traps.c
-+++ b/xen/arch/x86/x86_64/traps.c
-@@ -342,9 +342,6 @@ void subarch_percpu_traps_init(void)
-     unsigned char *stub_page;
-     unsigned int offset;
+@@ -2196,7 +2196,7 @@ static void __init init_ler(void)
+     setup_force_cpu_cap(X86_FEATURE_XEN_LBR);
+ }
  
--    /* IST_MAX IST pages + at least 1 guard page + primary stack. */
--    BUILD_BUG_ON((IST_MAX + 1) * PAGE_SIZE + PRIMARY_STACK_SIZE > STACK_SIZE);
--
-     /* No PV guests?  No need to set up SYSCALL/SYSENTER infrastructure. */
-     if ( !IS_ENABLED(CONFIG_PV) )
-         return;
+-extern void (*const autogen_entrypoints[X86_NR_VECTORS])(void);
++extern void (*const autogen_entrypoints[X86_IDT_VECTORS])(void);
+ void __init trap_init(void)
+ {
+     unsigned int vector;
+@@ -2206,7 +2206,7 @@ void __init trap_init(void)
+ 
+     pv_trap_init();
+ 
+-    for ( vector = 0; vector < X86_NR_VECTORS; ++vector )
++    for ( vector = 0; vector < X86_IDT_VECTORS; ++vector )
+     {
+         if ( autogen_entrypoints[vector] )
+         {
+diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
+index 40d094d5b2ee..d866e626257b 100644
+--- a/xen/arch/x86/x86_64/entry.S
++++ b/xen/arch/x86/x86_64/entry.S
+@@ -1243,7 +1243,7 @@ DATA(autogen_entrypoints, 8)
+ FUNC_LOCAL(autogen_stubs, 0) /* Automatically generated stubs. */
+ 
+         vec = 0
+-        .rept X86_NR_VECTORS
++        .rept X86_IDT_VECTORS
+ 
+         /* Common interrupts, heading towards do_IRQ(). */
+ #if defined(CONFIG_PV32)
 -- 
 2.39.5
 
