@@ -2,49 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED2BCA413F8
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Feb 2025 04:27:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.894938.1303571 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29CA4A4189B
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Feb 2025 10:19:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.894976.1303582 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmP6U-0005XD-11; Mon, 24 Feb 2025 03:25:58 +0000
+	id 1tmUbc-0003rF-Na; Mon, 24 Feb 2025 09:18:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 894938.1303571; Mon, 24 Feb 2025 03:25:58 +0000
+Received: by outflank-mailman (output) from mailman id 894976.1303582; Mon, 24 Feb 2025 09:18:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmP6T-0005VS-SH; Mon, 24 Feb 2025 03:25:57 +0000
-Received: by outflank-mailman (input) for mailman id 894938;
- Mon, 24 Feb 2025 03:25:55 +0000
+	id 1tmUbc-0003pl-Jg; Mon, 24 Feb 2025 09:18:28 +0000
+Received: by outflank-mailman (input) for mailman id 894976;
+ Mon, 24 Feb 2025 09:18:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8bXv=VP=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
- id 1tmP6R-0005VM-Ne
- for xen-devel@lists.xenproject.org; Mon, 24 Feb 2025 03:25:55 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20614.outbound.protection.outlook.com
- [2a01:111:f403:2417::614])
+ <SRS0=vb1z=VP=epam.com=Mykyta_Poturai@srs-se1.protection.inumbo.net>)
+ id 1tmUbb-0003pb-KB
+ for xen-devel@lists.xenproject.org; Mon, 24 Feb 2025 09:18:27 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on20626.outbound.protection.outlook.com
+ [2a01:111:f403:2612::626])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0b8ea335-f25f-11ef-9aad-95dc52dad729;
- Mon, 24 Feb 2025 04:25:51 +0100 (CET)
-Received: from BN9PR03CA0083.namprd03.prod.outlook.com (2603:10b6:408:fc::28)
- by BN7PPF02710D35B.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::6c4) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8466.20; Mon, 24 Feb
- 2025 03:25:42 +0000
-Received: from BL6PEPF00022570.namprd02.prod.outlook.com
- (2603:10b6:408:fc:cafe::b4) by BN9PR03CA0083.outlook.office365.com
- (2603:10b6:408:fc::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8466.20 via Frontend Transport; Mon,
- 24 Feb 2025 03:25:42 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF00022570.mail.protection.outlook.com (10.167.249.38) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8466.11 via Frontend Transport; Mon, 24 Feb 2025 03:25:41 +0000
-Received: from cjq-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Sun, 23 Feb
- 2025 21:25:07 -0600
+ id 4d565f4b-f290-11ef-9aae-95dc52dad729;
+ Mon, 24 Feb 2025 10:18:26 +0100 (CET)
+Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
+ (2603:10a6:102:30d::12) by AS8PR03MB8859.eurprd03.prod.outlook.com
+ (2603:10a6:20b:56f::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8466.18; Mon, 24 Feb
+ 2025 09:18:23 +0000
+Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
+ ([fe80::35ac:8893:c31c:b971]) by PAVPR03MB10102.eurprd03.prod.outlook.com
+ ([fe80::35ac:8893:c31c:b971%3]) with mapi id 15.20.8466.016; Mon, 24 Feb 2025
+ 09:18:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,393 +47,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b8ea335-f25f-11ef-9aad-95dc52dad729
+X-Inumbo-ID: 4d565f4b-f290-11ef-9aae-95dc52dad729
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fQGIcNFEwZN3uZKhjbIZbq+Xg5XbOM4AhzpLTZUwMAtz1Q0XXMVzydTrLHsvtw/6D/4sgOCF4T3QAofakEMkllk70kg/Pgu3ft3C4wfTmR6p+C+z0CiJf1ncwopxM4jxFdNI7YRfVMiYKbknNCRvAVI/bkWlVw94+59Ub3QUC/KsEuL3OQdxLBeTK7rPQVPL2utRTEL3P1xoztB4KHrs4XpLvLrHyVXuViYoqBFOXKO1xRKjkGj28imiQ12eXyDL9+ULZqBxiOI3vizLeAFaLBuo8WQ8qniJftCcamRKXvUFeJhNU0fzgSUv28xGHGuXyez3hRD0ZMX2QtxW0NzzRw==
+ b=MSW2mV/Xw4cMp/P8JHAp1rl4y5WTotwRZpnjIrAXW/pJLPMIJandLGrbd7kXBTneRV/v5TnRcP0uB+aDtHFzmXXfjYf4gC5wqJPOsIMCHP8emDtDFqpewI4DTI+/LG+s1WXxDIN+PWnJ2FNb1O8LAZQrmVuRRS2K2CGYjyzJzbyATMXbWclhmwznNRIoKX10mXnckPhUg/5JCvmXQc5Ks1cSvDCRlU99RA36PXSiJGTOK4bt6ybk0snahN2v+vNrFcU6l3GoRXZUlOAHdslHlRPWkljzQaSdPKeBuPWy/iSJOVC7ouK0QqESX63R/GzOn2rxrM/FkPmOyz2wRaO+ww==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4E6DEBN6QUaECQBgfCHA2q9nN5ExWic7Y1WuyB0eQRM=;
- b=rEY+nANi5pnch7HAYPvKLldBf4KjARhBJPjPX/k9ZmuDBmNtVeYkPo6HsdHV52q71NeUE1c/JuYHPy/rPM4E0R3IBY3JBfEMSw/SX2eUPNhaQ3hvOMBMLBsCeuNgnX8VnOx1uIZJM/CYrGZVFUI0DTMHXo2GZCZhDK13uZqhJuvX+AeH/EcbjuEE849Gtg19yn2nXGfz/HUsXa6+OGWmQk4qNgfamVrXJ81+3MVEYcsqfAt/UcayDloi+RaxP3yNbbBPcHl0kqhrSnAfFYCTfUkwuxneczowBZteYBcJ77VWjzqd5+av9I0+4N9M5cXH0HUmDr+aG7bvzpN+1z9r5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=kG/AzRlNEE5meDJALtWRpixPxZ61I2XWF7TZt1xcgpY=;
+ b=MZ25m5mrdw4iYWoTI63xt6v4WEmXOwtJY/IztucN5io5cRHWYHHxIaH8UF2WLV+iHi/zEtcna7BtmQ8LQN0yQrHiOOuJgpwy883SyWs40rHlujN2gm8sF7bY9DHqiFarnydr+84D1+uu+dANGhMz69DnWQAfDCEUwxvG/Mglg3n6OZUD4ipC8J9SxRhVf9DZq6fZfErG/U/rwjwSGMEJ3uwNM288A2qkRpOkPC6iHRNATkqYiJxjRzxqyAfSFgsU6h0FeOB3SY4RCovHdE+DxE51uC3rICh01iwy99U/x34sMXkIgqYDJyZUpbH9qxJZRCF/kVFZbIVnj7GQkWHIBQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4E6DEBN6QUaECQBgfCHA2q9nN5ExWic7Y1WuyB0eQRM=;
- b=si4fy5NuYH9s2R5iZwAkyKx4M7FLRa+ooohbOKwFdyLnJqiFU2IhKb/0E8iA2QKqn6DIppV2ymyrynevMtt5cGM/fsF4zHKe6ip7BwoZfytiAjmVKlGQ4bLqIPuSyEjKpcTP4/iFNOQQb6VAYdl90s+b0DRhrcOFlI/4iNQQKjU=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Jiqian Chen <Jiqian.Chen@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, "Oleksii
- Kurochko" <oleksii.kurochko@gmail.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Huang Rui
-	<ray.huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>
-Subject: [PATCH v9] vpci: Add resizable bar support
-Date: Mon, 24 Feb 2025 11:24:33 +0800
-Message-ID: <20250224032433.1879630-1-Jiqian.Chen@amd.com>
-X-Mailer: git-send-email 2.34.1
+ bh=kG/AzRlNEE5meDJALtWRpixPxZ61I2XWF7TZt1xcgpY=;
+ b=WwfM0hFr9hAHZq1nI4yL5Oe2L61Q+oMF9zQwpsZUGLlJgiuQaSjBF8HcC2Zq+0r5JqvjArwiwtn/DF3QfGSltkCbJe4oE2MtZt/PmdsTnD11j61cXdS9ETMA1xWBTBjOTloL/YnLI7wwCVORWoMEx3if3UsnFCHUvcBZJFWF4wnzvP25vfDz4kL6LBtB+SITzUKGCuB/PqbxSkePU++R7oS9Gej6JeJD+5CJIMdstRcVSz69Dh/qYPKYpmxKqTdtwwItwHbH9UwD7TMaImuFFWy4gTog5RCx2vgiF4C7IFc+kbnnDvspaEkLp/nkmYjMOQA2C7fZPIouKaOf7t532g==
+From: Mykyta Poturai <Mykyta_Poturai@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Mykyta Poturai <Mykyta_Poturai@epam.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH 0/7] Add support for R-Car Gen4 PCI host controller
+Thread-Topic: [PATCH 0/7] Add support for R-Car Gen4 PCI host controller
+Thread-Index: AQHbhp0NQBdW76R7SUWOEr9t9KgJjA==
+Date: Mon, 24 Feb 2025 09:18:23 +0000
+Message-ID: <cover.1740382735.git.mykyta_poturai@epam.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|AS8PR03MB8859:EE_
+x-ms-office365-filtering-correlation-id: 65185172-698d-445b-10e5-08dd54b43041
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|1800799024|38070700018;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?ScaTRPMurRL/whvHr/jxJ6pdxw4weJnsBImDrlXvM+38iiGVESEqHgXKhB?=
+ =?iso-8859-1?Q?HKKpp4lZs+qfwBbmFeouWBtBxw7I59YgG4qW9CRD1DHpkXSRvFTPGtfL8G?=
+ =?iso-8859-1?Q?wVM2mSjeA9TnG6h7+alfuWdRop0dlxF6OOJuHeNSpmGWNLsL17R97jPGYD?=
+ =?iso-8859-1?Q?E1Kkt1kAgC26rtTULurfFNklP+zKhCjAd7GWhzq2905yMHU8MVCsflI1jE?=
+ =?iso-8859-1?Q?EEh+qYfn1ugBdiAx3RBmODCBxl78EM8LqM2NXq7paGqmy9LRPvgEF8OqJT?=
+ =?iso-8859-1?Q?A0V031oseFM/TDepDuVWksKngUno6yCa2h24R0IlFawNcgJrzli2Xd+bkg?=
+ =?iso-8859-1?Q?nlOT+jMsOaHwKr8+JIY7G1i8CfmZ1fm+F9F1js/QFV/HnXv5pfgHWzfA0/?=
+ =?iso-8859-1?Q?n7Fj00ihQQX0Hqec5cKAeHvj80pjcKCMx5FEiP4sRTXb3qZH/2MXbLBhOy?=
+ =?iso-8859-1?Q?i/Cso0ZmA0ImtSYLOwFWyvP247NLO6aR4U+VkoJz9kRDIYpcIP77V2W6wk?=
+ =?iso-8859-1?Q?lHTC0ixZqK1Qz/dnpArp/fEmRW6GDym1WthUnNXoMoljdyKFaeWImGVLbR?=
+ =?iso-8859-1?Q?mGl9eTxRcgageTfqZ9AKOmuSmP8IGEoFEU2CorznPYvjQGJMbuhB3AEjJH?=
+ =?iso-8859-1?Q?JFUVwmV5Q4zSFI2dzvMaQr45PuV9cKJVU4jmy6fB3ou9wuRTUg2UR9oTUz?=
+ =?iso-8859-1?Q?g/vH1scWalXcHSeTPQMIxwnKmiCh9ygqPiSfyNuRqwV3PZPYXhsejJgz6c?=
+ =?iso-8859-1?Q?mso8nFd1o6wyTHcN8gXXMCpCjIkkfWMmiVZ2Vtv12zqtaFenRe69FjQWb3?=
+ =?iso-8859-1?Q?CDdnliA+8xyNr9Meb800qqgbMBBej5o97hPjbG9hMVui+cw0cB7YbciQgu?=
+ =?iso-8859-1?Q?liYbpLUnQjvcjLBj25p7vY+1k82h8lPhhILhk5FijPFb6tDSXt+vthq8Yy?=
+ =?iso-8859-1?Q?2eUuJ6+NrtAdvuJmxY/d0fB+z/LF2Bq9EI26AuKNPqTB24Wx7XpXhJVIEK?=
+ =?iso-8859-1?Q?8F67LlZilHPNBQugtHTOYzkB8ZkELqQN92V/Yyju1bpQS+GeD+acd3D7hm?=
+ =?iso-8859-1?Q?JVKX4afm8eE4sr/NijyNg0evfKDSz2f7RfJU2rJRspAoqKZL9E8otyZtJy?=
+ =?iso-8859-1?Q?5dn/5qov6saMjB6YOGOw2KmxxVJ4xWmcg+CyBaxIstqnaCbXYIDXmTyPlt?=
+ =?iso-8859-1?Q?xLdPgMzrhOz39CF7iQZupko6veU8iVzlV8yRJp+492rmKQzxc85XPnjRJv?=
+ =?iso-8859-1?Q?Aveg+CMW3qVUQpiIXD7tVnW9QcE37qwUyIY9teGipIAqMydzLj0f6DR+XB?=
+ =?iso-8859-1?Q?fGBu96U1hIEEgjdsUQjD2IMjacGsOz6SgrYVSqAXCW0UbK3tU5XQK7yDEJ?=
+ =?iso-8859-1?Q?ErGvtIjeAG1ripRS/j7VNpsoUp/H58VfuNCW5KexcqcIyLOBo5OQcOtQ6k?=
+ =?iso-8859-1?Q?dSlXrg79RxurZ1vaefSiv+7dAGV6ePygsL5tqTTS9qmNZCj1NLM/+4icue?=
+ =?iso-8859-1?Q?ZC2OJ+VBgzlNJpI5elvBVr?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?nN+J8fWY/T6tJ2ptja5ThMKjhy3MNGu8RJ3e2nnaNswyHhUm8ojXKxv01M?=
+ =?iso-8859-1?Q?Fc2jfPjFPeBG4Bp19r/oC0xCDZS3TVNbKxD7H//tbuknF7y/Ml3Up5UsWS?=
+ =?iso-8859-1?Q?bwh3DHrH+vfaUUhDan/4o4U274R1uB8Ctfhf52GJsng+b8x03xn8OB9x4W?=
+ =?iso-8859-1?Q?1VSF/lL9cSSBdLGF1H8q2tiMKiFqo50ipG/4p3eJAeRJizYQKlN9pT0jNL?=
+ =?iso-8859-1?Q?veitML8KHT0SLYdPuBKznQbaQ4rFObt1X8xsKiAD2p4/NPC97u2FzTGgKV?=
+ =?iso-8859-1?Q?Z46yD/jxGjPoMRRyspuL++uqqhjrWLT+BhFLTUyNEOWdkBTiBpnHD+T2Fj?=
+ =?iso-8859-1?Q?/eyUSXZC0EOIUrqxahBU/NKoUmLX8/VebH/1xWUAIGwKPSJlqhW0vlwDXB?=
+ =?iso-8859-1?Q?Jm7mOaoiKIy1/uVXOiyySiORIwLDGgFnOo64jxjmMYCv+zEl2pzleevXPr?=
+ =?iso-8859-1?Q?rXX9BiP01uO68xbDCFpYDEGWWxgfjUmclpladfPwEng04Llp9fpX8M1mpN?=
+ =?iso-8859-1?Q?ztTUdN9gZPgDjfhxbsnav4rS/gEZr5VSPnrM7iUZ7DNas/0G5ZkYKpROc3?=
+ =?iso-8859-1?Q?VTTaXaA0E1ZaOySpuDLxfgzW6qvVFuni+w0snh0qaNRPPx2fyH1qZEWrP4?=
+ =?iso-8859-1?Q?Jh1h/iV26WqEZcheRb4uGyasDag2iqn4aSgYxtHZrwBHYlnvLn83eL+lAp?=
+ =?iso-8859-1?Q?myV/AKmKOZtRaXTUmAtozCZZB1JfuTByaQENfEunCxgHQIPAjoV3B+PTbL?=
+ =?iso-8859-1?Q?69PvxEVxVEYeRyj7xJU/LYIB11gcm5N2hj/LeHhArVCCb7oaYXKyai/2s0?=
+ =?iso-8859-1?Q?BKuIeEvfRF8QCi8eEkSGlAPUsLMpQdmZxTGe8u9zE6kFk6t7PRRehehxec?=
+ =?iso-8859-1?Q?93OakXI8NAfaCx4HJWitxKdAzevsmJ8nwByQrht4m/ZfXWf/li1KHOpKL6?=
+ =?iso-8859-1?Q?mTfZ0V5sf3Kdw4mRGdNt2PHvNwzpU1sIMcwUPAvTcU6gsIL432NrRzg4Aq?=
+ =?iso-8859-1?Q?jOiFsNrA0dqXpZ/hHjQO06COIdKaBqVQmVRjEiwP40ELSVpgYhZd4Mr73l?=
+ =?iso-8859-1?Q?IhiTTt8EY1L6HfP+BsPeF+TR7xzjN12TWMdT8OdFhU+TuR2YF1wXDAa+g2?=
+ =?iso-8859-1?Q?/EBXCJivwCAbhibI/pmWqPtBxlix7H9iiyccyg6PjJgylm51T2AzhR4Lux?=
+ =?iso-8859-1?Q?SCJJNAZAMjMGaBBBlLgvjKxBceIO9J6qYu86YAhdBxzkES1h95z2kXTf4g?=
+ =?iso-8859-1?Q?6cRs9lBlxqEHtmDCvlEtGFE68d7f8J/Gk0YHFMAFyzaGYy4hRvFMUBqsrf?=
+ =?iso-8859-1?Q?rcfKKkyRDdYL+n0Ere1JQFYZ9N7f5TO3E2gZ22RZl97cig7zmbe62/+EF5?=
+ =?iso-8859-1?Q?BVU/Qls/h/GmVFsMKbjaV7mEaOXhTIOIgnIzRfDiIX+9m4b7EANkXt9hx1?=
+ =?iso-8859-1?Q?nBa+thj31vbbVzVoVrwiGiXW0AfXG2Zdv63e5bIvGXHZSnUt9OAP77fE/p?=
+ =?iso-8859-1?Q?aTDoiSXdkKvYMJMBaHvYGE3zlEwzGvD4aKWRqYafKDs3Bc2eCWixAXqHjP?=
+ =?iso-8859-1?Q?Sty2O/64KPTI/0Z/R6DdBl2af/x6T1JL3+NvbnGvom3E7n1M/rugundCNq?=
+ =?iso-8859-1?Q?6o3VFpEqut4AdM52SiviaEnNb88N4hsiDDSjNqB3/P3UCevoNK1aEltw?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00022570:EE_|BN7PPF02710D35B:EE_
-X-MS-Office365-Filtering-Correlation-Id: e99360ec-db16-4414-86a6-08dd5482ead2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|82310400026|1800799024|376014|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?GFEB0CRRW+8cbVWDkLZ1JtlqEKZ8NsWs2gbxNTuX3Gl49rnnM3UY5MV/PKZG?=
- =?us-ascii?Q?foKxS1U/FWwLG7MWUiaNfBXLo4Gi7+Q1DwIzgCfjT3cMCJRpbQ/nP+l6FZie?=
- =?us-ascii?Q?XIZDf0ZHDU2dcYgtQGtfVxYrjCbuw0hP0lCR6nTvRZ2bcJNL/u5p0pY8q4Lu?=
- =?us-ascii?Q?ZzlbmWf74L0YgSOxhnGG3OemUOhk5lVR832bzTNny9uUelA8WzAQKzO8hYeL?=
- =?us-ascii?Q?b3RV1iwxuoDsPkLSrW0kMHR9noySG+vcVk/oX7FTsrYmQvmnOeBKJ5dvrdif?=
- =?us-ascii?Q?WKMOS4oA0eyOLzpzzoi/XXLpSyF5tsYaFy+/LQ4JvCiM+fXy6dTLL6BDOZEL?=
- =?us-ascii?Q?IZSrsiUrNZxXYpMLlNbude5AzGKTpL9Msz+bDStaRozXr4dfKiu3wD+2dvko?=
- =?us-ascii?Q?Eg/lDqXzGndc260fIp0LqGgfs/cMSHeuqzjj9YkiydK0v8wNywvh+l1617WE?=
- =?us-ascii?Q?F65VEC1kFlBX2T0QBzFK94UdwQAKDtXBWDfq/69UEWCekThFE6BQAw9Xve+4?=
- =?us-ascii?Q?Qu7NMuCewOLi5mLMHVvJmWbgIZ0hQtAfiCIcmxQ3tI1N64GRgMpN6mTCQ6HH?=
- =?us-ascii?Q?ayKw4+Hez4JrmQF+Woo8sbEtubuekGU3n2028BLs99uWacRw9AhGy1PxJQEC?=
- =?us-ascii?Q?sMHGgeQH1fYl673nIDX/ROCXBVMUjun1xwO0xgLSyuy1iDoau02cHAdDuv4K?=
- =?us-ascii?Q?BuyHi3LCf3jiuwnVqLViQPDMfQ1ZBoeeuCExDTe6IHAXKxfFWjYRCnMnRz69?=
- =?us-ascii?Q?HvBVZVNmRo4Qrjas8bowEKh/+k7nNPaLd9rz7mWFGvvg2Xjec5D67x/qlUPA?=
- =?us-ascii?Q?uWz6PHwUQUBN8m3kXH41gaeivTBaAvtbKX6eeC54iL/GzEb21OpxbR4S9fds?=
- =?us-ascii?Q?6EVinT+iDbuY378ow3J/Nb25WFQPSrFjZOZLpOv1t5tMUbb6FPRIRGrcD5QE?=
- =?us-ascii?Q?acWpdGc7FDKGs2Fs7AlpsbZLjn9CwGZsLOL3Xo3xMk481qQN3agjuaiZG8DM?=
- =?us-ascii?Q?xjVosA5rcg8AzD5arbXKnUGG+eMbhb5kKqur2yDXM+HCT5XgPfVV6kSbQIlV?=
- =?us-ascii?Q?rMHnNificsqPWqUAFovdpKCL2GvOEo3ovsN3XRMwCr7b+AaW+baZv7k7IcT/?=
- =?us-ascii?Q?Ug1YxCHgIpTFebxnz1nGjBon9WayVAfCKgBCnomIamzlvqxaLCaCbNumw9HA?=
- =?us-ascii?Q?wQoXG8hSjz4UC9mI44hJ8pcfwtxJPKIe+mYPzRlLs0SgPCp1KIphg6xOPPL8?=
- =?us-ascii?Q?LbPsvLjqofDKXvB/IlseP4Id1cwY7Ld6mkv0gqrz88gH+p4M3xzAyKFDjuaL?=
- =?us-ascii?Q?ofx2g/zfKwpc4909IIJHkzhwtG9yDVJGF1SxZxI8+gVHMc7drs7SxalMxtry?=
- =?us-ascii?Q?NF3lXjKoR2+wSBhMwIWp7HD3zTuBXL8qKw/J+dlIzsbs0G7sfYuPi1zv4NXV?=
- =?us-ascii?Q?3o65ine8ZR4=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014)(13003099007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2025 03:25:41.8156
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB10102.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65185172-698d-445b-10e5-08dd54b43041
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Feb 2025 09:18:23.6630
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e99360ec-db16-4414-86a6-08dd5482ead2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF00022570.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF02710D35B
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: fesgdNgEynk3wkRiphkU9ndI07Ovn5nKLuMHBGygPBkRexNpGGsIMdBYVhvllIKMwxeoXTP6Kh7TfN+5S+H6MQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR03MB8859
 
-Some devices, like AMDGPU, support resizable bar capability,
-but vpci of Xen doesn't support this feature, so they fail
-to resize bars and then cause probing failure.
+This series adds support for R-Car Gen4 PCI host controller.
 
-According to PCIe spec, each bar that supports resizing has
-two registers, PCI_REBAR_CAP and PCI_REBAR_CTRL. So, add
-handlers to support resizing the size of BARs.
+To fully support the controller, the following changes were made:
+- Generic mechanism to support PCI child buses is added.
+- Private data for PCI host bridge and means to access it are added.
 
-Note that Xen will only trap PCI_REBAR_CTRL, as PCI_REBAR_CAP
-is read-only register and the hardware domain already gets
-access to it without needing any setup.
+The series also includes a workaround for proper ATU propramming and
+optimizations to lessen the performance impact of that workaround.
 
-Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
----
-Hi all,
-v8->v9 changes:
-* Changed "size" to be const in function rebar_ctrl_write.
-* Delete sentence that describes PVH dom0 doesn't support resizable BARs in
-  SUPPORT.md since this patch is to support it
-* Added an entry to CHANGELOG.md to note Rebar is supported for PVH dom0.
+The series was tested both as a part of the pci-passthrough patches[1] and
+standalone on S4 and V4H boards.
 
-Best regards,
-Jiqian Chen.
+[1] https://github.com/Deedone/xen/tree/pci_passthrough_wip
 
-v7->v8 changes:
-* Modified commit message and some comments.
-* Deleted unused function vpci_hw_write32.
+Oleksandr Andrushchenko (4):
+  xen/arm: allow PCI host bridge to have private data
+  xen/arm: make pci_host_common_probe return the bridge
+  xen/arm: add support for PCI child bus
+  xen/arm: add support for R-Car Gen4 PCI host controller
 
-v6->v7 changes:
-* Deleted codes that add register for PCI_REBAR_CAP, and added comments to explain why.
-* Added comments to explain why use "continue" when fail to add register for PCI_REBAR_CTRL.
+Volodymyr Babchuk (3):
+  xen/arm: rcar4: add delay after programming ATU
+  xen/arm: rcar4: add simple optimization to avoid ATU reprogramming
+  xen/arm: rcar4: program ATU to accesses to all functions
 
-v5->v6 changes:
-* Changed "1UL" to "1ULL" in PCI_REBAR_CTRL_SIZE idefinition for 32 bit architecture.
-* In rebar_ctrl_write used "bar - pdev->vpci->header.bars" to get index instead of reading
-  from register.
-* Added the index of BAR to error messages.
-* Changed to "continue" instead of "return an error" when vpci_add_register failed.
+ xen/arch/arm/include/asm/pci.h      |  16 +-
+ xen/arch/arm/pci/Makefile           |   1 +
+ xen/arch/arm/pci/ecam.c             |  17 +-
+ xen/arch/arm/pci/pci-access.c       |  37 +-
+ xen/arch/arm/pci/pci-host-common.c  | 106 +++++-
+ xen/arch/arm/pci/pci-host-generic.c |   2 +-
+ xen/arch/arm/pci/pci-host-rcar4.c   | 542 ++++++++++++++++++++++++++++
+ xen/arch/arm/pci/pci-host-zynqmp.c  |   2 +-
+ xen/arch/arm/vpci.c                 |  91 ++++-
+ 9 files changed, 764 insertions(+), 50 deletions(-)
+ create mode 100644 xen/arch/arm/pci/pci-host-rcar4.c
 
-v4->v5 changes:
-* Called pci_size_mem_bar in rebar_ctrl_write to get addr and size of BAR instead of setting
-  their values directly after writing new size to hardware.
-* Changed from "return" to "continue" when index/type of BAR are not correct during initializing
-  BAR.
-* Corrected the value of PCI_REBAR_CTRL_BAR_SIZE from "0x00001F00" to "0x00003F00".
-* Renamed PCI_REBAR_SIZE_BIAS to PCI_REBAR_CTRL_SIZE_BIAS.
-* Re-defined "PCI_REBAR_CAP_SHIFT 4" to "PCI_REBAR_CAP_SIZES_MASK 0xFFFFFFF0U".
-
-v3->v4 changes:
-* Removed PCI_REBAR_CAP_SIZES since it was not needed, and added
-  PCI_REBAR_CAP_SHIFT and PCI_REBAR_CTRL_SIZES.
-* Added parameter resizable_sizes to struct vpci_bar to cache the support resizable sizes and
-  added the logic in init_rebar().
-* Changed PCI_REBAR_CAP to PCI_REBAR_CAP(n) (4+8*(n)), changed PCI_REBAR_CTRL to
-  PCI_REBAR_CTRL(n) (8+8*(n)).
-* Added domain info of pci_dev to printings of init_rebar().
-
-v2->v3 changes:
-* Used "bar->enabled" to replace "pci_conf_read16(pdev->sbdf, PCI_COMMAND) & PCI_COMMAND_MEMORY",
-  and added comments why it needs this check.
-* Added "!is_hardware_domain(pdev->domain)" check in init_rebar() to return EOPNOTSUPP for domUs.
-* Moved BAR type and index check into init_rebar(), then only need to check once.
-* Added 'U' suffix for macro PCI_REBAR_CAP_SIZES.
-* Added macro PCI_REBAR_SIZE_BIAS to represent 20.
-TODO: need to hide ReBar capability from hardware domain when init_rebar() fails.
-
-v1->v2 changes:
-* In rebar_ctrl_write, to check if memory decoding is enabled, and added
-  some checks for the type of Bar.
-* Added vpci_hw_write32 to handle PCI_REBAR_CAP's write, since there is
-  no write limitation of dom0.
-* And has many other minor modifications as well.
----
- CHANGELOG.md               |   2 +
- SUPPORT.md                 |   2 +-
- xen/drivers/vpci/Makefile  |   2 +-
- xen/drivers/vpci/rebar.c   | 131 +++++++++++++++++++++++++++++++++++++
- xen/include/xen/pci_regs.h |  15 +++++
- xen/include/xen/vpci.h     |   1 +
- 6 files changed, 151 insertions(+), 2 deletions(-)
- create mode 100644 xen/drivers/vpci/rebar.c
-
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index 1979166820a8..9659dc2df9a1 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -9,6 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
- ### Changed
- 
- ### Added
-+ - On x86:
-+    - Resizable BARs is supported for PVH dom0.
- 
- ### Removed
- 
-diff --git a/SUPPORT.md b/SUPPORT.md
-index e1f4769bd8b5..91cb6f8ed264 100644
---- a/SUPPORT.md
-+++ b/SUPPORT.md
-@@ -170,7 +170,7 @@ unexpected behavior or issues on some hardware.
- 
- At least the following features are missing on a PVH dom0:
- 
--  * PCI SR-IOV and Resizable BARs.
-+  * PCI SR-IOV.
- 
-   * Native NMI forwarding (nmi=dom0 command line option).
- 
-diff --git a/xen/drivers/vpci/Makefile b/xen/drivers/vpci/Makefile
-index 1a1413b93e76..a7c8a30a8956 100644
---- a/xen/drivers/vpci/Makefile
-+++ b/xen/drivers/vpci/Makefile
-@@ -1,2 +1,2 @@
--obj-y += vpci.o header.o
-+obj-y += vpci.o header.o rebar.o
- obj-$(CONFIG_HAS_PCI_MSI) += msi.o msix.o
-diff --git a/xen/drivers/vpci/rebar.c b/xen/drivers/vpci/rebar.c
-new file mode 100644
-index 000000000000..793937449af7
---- /dev/null
-+++ b/xen/drivers/vpci/rebar.c
-@@ -0,0 +1,131 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
-+ *
-+ * Author: Jiqian Chen <Jiqian.Chen@amd.com>
-+ */
-+
-+#include <xen/sched.h>
-+#include <xen/vpci.h>
-+
-+static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
-+                                      unsigned int reg,
-+                                      uint32_t val,
-+                                      void *data)
-+{
-+    struct vpci_bar *bar = data;
-+    const unsigned int index = bar - pdev->vpci->header.bars;
-+    const uint64_t size = PCI_REBAR_CTRL_SIZE(val);
-+
-+    if ( bar->enabled )
-+    {
-+        /*
-+         * Refuse to resize a BAR while memory decoding is enabled, as
-+         * otherwise the size of the mapped region in the p2m would become
-+         * stale with the newly set BAR size, and the position of the BAR
-+         * would be reset to undefined.  Note the PCIe specification also
-+         * forbids resizing a BAR with memory decoding enabled.
-+         */
-+        if ( size != bar->size )
-+            gprintk(XENLOG_ERR,
-+                    "%pp: refuse to resize BAR#%u with memory decoding enabled\n",
-+                    &pdev->sbdf, index);
-+        return;
-+    }
-+
-+    if ( !((size >> PCI_REBAR_CTRL_SIZE_BIAS) & bar->resizable_sizes) )
-+        gprintk(XENLOG_WARNING,
-+                "%pp: new BAR#%u size %#lx is not supported by hardware\n",
-+                &pdev->sbdf, index, size);
-+
-+    pci_conf_write32(pdev->sbdf, reg, val);
-+
-+    pci_size_mem_bar(pdev->sbdf,
-+                     PCI_BASE_ADDRESS_0 + index * 4,
-+                     &bar->addr,
-+                     &bar->size,
-+                     (index == PCI_HEADER_NORMAL_NR_BARS - 1) ?
-+                      PCI_BAR_LAST : 0);
-+    bar->guest_addr = bar->addr;
-+}
-+
-+static int cf_check init_rebar(struct pci_dev *pdev)
-+{
-+    uint32_t ctrl;
-+    unsigned int nbars;
-+    unsigned int rebar_offset = pci_find_ext_capability(pdev->sbdf,
-+                                                        PCI_EXT_CAP_ID_REBAR);
-+
-+    if ( !rebar_offset )
-+        return 0;
-+
-+    if ( !is_hardware_domain(pdev->domain) )
-+    {
-+        printk(XENLOG_ERR "%pp: resizable BARs unsupported for unpriv %pd\n",
-+               &pdev->sbdf, pdev->domain);
-+        return -EOPNOTSUPP;
-+    }
-+
-+    ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL(0));
-+    nbars = MASK_EXTR(ctrl, PCI_REBAR_CTRL_NBAR_MASK);
-+    for ( unsigned int i = 0; i < nbars; i++ )
-+    {
-+        int rc;
-+        struct vpci_bar *bar;
-+        unsigned int index;
-+
-+        ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL(i));
-+        index = ctrl & PCI_REBAR_CTRL_BAR_IDX;
-+        if ( index >= PCI_HEADER_NORMAL_NR_BARS )
-+        {
-+            printk(XENLOG_ERR "%pd %pp: too big BAR number %u in REBAR_CTRL\n",
-+                   pdev->domain, &pdev->sbdf, index);
-+            continue;
-+        }
-+
-+        bar = &pdev->vpci->header.bars[index];
-+        if ( bar->type != VPCI_BAR_MEM64_LO && bar->type != VPCI_BAR_MEM32 )
-+        {
-+            printk(XENLOG_ERR "%pd %pp: BAR%u is not in memory space\n",
-+                   pdev->domain, &pdev->sbdf, index);
-+            continue;
-+        }
-+
-+        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, rebar_ctrl_write,
-+                               rebar_offset + PCI_REBAR_CTRL(i), 4, bar);
-+        if ( rc )
-+        {
-+            printk(XENLOG_ERR "%pd %pp: BAR%u fail to add reg of REBAR_CTRL rc=%d\n",
-+                   pdev->domain, &pdev->sbdf, index, rc);
-+            /*
-+             * Ideally we would hide the ReBar capability on error, but code
-+             * for doing so still needs to be written. Use continue instead
-+             * to keep any already setup register hooks, as returning an
-+             * error will cause the hardware domain to get unmediated access
-+             * to all device registers.
-+             */
-+            continue;
-+        }
-+
-+        bar->resizable_sizes =
-+            MASK_EXTR(pci_conf_read32(pdev->sbdf,
-+                                      rebar_offset + PCI_REBAR_CAP(i)),
-+                      PCI_REBAR_CAP_SIZES_MASK);
-+        bar->resizable_sizes |=
-+            (((uint64_t)MASK_EXTR(ctrl, PCI_REBAR_CTRL_SIZES_MASK) << 32) /
-+             ISOLATE_LSB(PCI_REBAR_CAP_SIZES_MASK));
-+    }
-+
-+    return 0;
-+}
-+REGISTER_VPCI_INIT(init_rebar, VPCI_PRIORITY_LOW);
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/include/xen/pci_regs.h b/xen/include/xen/pci_regs.h
-index 250ba106dbd3..2f1d0d63e962 100644
---- a/xen/include/xen/pci_regs.h
-+++ b/xen/include/xen/pci_regs.h
-@@ -459,6 +459,7 @@
- #define PCI_EXT_CAP_ID_ARI	14
- #define PCI_EXT_CAP_ID_ATS	15
- #define PCI_EXT_CAP_ID_SRIOV	16
-+#define PCI_EXT_CAP_ID_REBAR	21	/* Resizable BAR */
- 
- /* Advanced Error Reporting */
- #define PCI_ERR_UNCOR_STATUS	4	/* Uncorrectable Error Status */
-@@ -541,6 +542,20 @@
- #define  PCI_VNDR_HEADER_REV(x)	(((x) >> 16) & 0xf)
- #define  PCI_VNDR_HEADER_LEN(x)	(((x) >> 20) & 0xfff)
- 
-+/* Resizable BARs */
-+#define PCI_REBAR_CAP(n)	(4 + 8 * (n))	/* capability register */
-+#define  PCI_REBAR_CAP_SIZES_MASK	0xFFFFFFF0U	/* supported BAR sizes in CAP */
-+#define PCI_REBAR_CTRL(n)	(8 + 8 * (n))	/* control register */
-+#define  PCI_REBAR_CTRL_BAR_IDX		0x00000007	/* BAR index */
-+#define  PCI_REBAR_CTRL_NBAR_MASK	0x000000E0	/* # of resizable BARs */
-+#define  PCI_REBAR_CTRL_BAR_SIZE	0x00003F00	/* BAR size */
-+#define  PCI_REBAR_CTRL_SIZES_MASK	0xFFFF0000U	/* supported BAR sizes in CTRL */
-+
-+#define PCI_REBAR_CTRL_SIZE_BIAS	20
-+#define PCI_REBAR_CTRL_SIZE(v) \
-+            (1ULL << (MASK_EXTR(v, PCI_REBAR_CTRL_BAR_SIZE) \
-+                      + PCI_REBAR_CTRL_SIZE_BIAS))
-+
- /*
-  * Hypertransport sub capability types
-  *
-diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-index 41e7c3bc2791..807401b2eaa2 100644
---- a/xen/include/xen/vpci.h
-+++ b/xen/include/xen/vpci.h
-@@ -100,6 +100,7 @@ struct vpci {
-             /* Guest address. */
-             uint64_t guest_addr;
-             uint64_t size;
-+            uint64_t resizable_sizes;
-             struct rangeset *mem;
-             enum {
-                 VPCI_BAR_EMPTY,
--- 
+--=20
 2.34.1
-
 
