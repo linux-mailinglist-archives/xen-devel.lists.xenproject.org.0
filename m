@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50787A42761
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Feb 2025 17:07:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.895269.1303916 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DB9AA42764
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Feb 2025 17:07:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.895268.1303902 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmazI-0005Dx-RE; Mon, 24 Feb 2025 16:07:20 +0000
+	id 1tmazH-0004pd-IK; Mon, 24 Feb 2025 16:07:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 895269.1303916; Mon, 24 Feb 2025 16:07:20 +0000
+Received: by outflank-mailman (output) from mailman id 895268.1303902; Mon, 24 Feb 2025 16:07:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmazI-00059j-Lm; Mon, 24 Feb 2025 16:07:20 +0000
-Received: by outflank-mailman (input) for mailman id 895269;
- Mon, 24 Feb 2025 16:07:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tmazH-0004lv-Aa; Mon, 24 Feb 2025 16:07:19 +0000
+Received: by outflank-mailman (input) for mailman id 895268;
+ Mon, 24 Feb 2025 16:07:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=48j1=VP=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tmazH-0004jn-43
- for xen-devel@lists.xenproject.org; Mon, 24 Feb 2025 16:07:19 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6ae2e851-f2c9-11ef-9897-31a8f345e629;
- Mon, 24 Feb 2025 17:07:16 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-4399d14334aso40333825e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 24 Feb 2025 08:07:16 -0800 (PST)
+ id 1tmazG-0003oc-Du
+ for xen-devel@lists.xenproject.org; Mon, 24 Feb 2025 16:07:18 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6b4fe0ec-f2c9-11ef-9aae-95dc52dad729;
+ Mon, 24 Feb 2025 17:07:17 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-4398c8c8b2cso46054775e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Feb 2025 08:07:17 -0800 (PST)
 Received: from andrewcoop.eng.citrite.net (host-92-26-98-202.as13285.net.
  [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-439b02d6837sm109356675e9.13.2025.02.24.08.07.15
+ 5b1f17b1804b1-439b02d6837sm109356675e9.13.2025.02.24.08.07.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Feb 2025 08:07:15 -0800 (PST)
+ Mon, 24 Feb 2025 08:07:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6ae2e851-f2c9-11ef-9897-31a8f345e629
+X-Inumbo-ID: 6b4fe0ec-f2c9-11ef-9aae-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1740413236; x=1741018036; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1740413237; x=1741018037; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2a7RbY8QCk2TLWrBIf90b/zkqmEwNcD5m6KQuSVDFjw=;
-        b=XWq1RrcLg1mXapKJ3HOY9ZtJaXZuRZweNc8OPZYEy2FFLrdc/qv6IPOjoTFUHBtI5H
-         lVt4n4+4jZcMMfr7GEAA3+pk/idpcqcyQmImi6UiGw8MGRlitL1UFXJnBpXS0T/tXZ8g
-         +a2XSkgHwNPl0kYI447M+2iGXN73j71KfbN8E=
+        bh=gqs2ri15sfzFaC7F9ABm85vSLlP8o53QJK1dsgxDFAI=;
+        b=gergOBXQHovQx0o2LaaqfesNdxDE0HGZOtA5GMklDP0EPtoRV2QCVjisFkeD1q0df6
+         63WzjPNVXPY9Ry4r78cSTTxofOv7SpwE6TVTe1K3S4yxLnudrpkCHJeRbUaNJ09fC51K
+         8ViWvG5KCtoQoIZHPgCEeQFDSEmfgS2LhfeWI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740413236; x=1741018036;
+        d=1e100.net; s=20230601; t=1740413237; x=1741018037;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=2a7RbY8QCk2TLWrBIf90b/zkqmEwNcD5m6KQuSVDFjw=;
-        b=w6D8cu8S7xBvgD2ZMaqFrhV/Ru4JTVpxpcvIq/0ILmYx6gJYpAfPN7/Itrf9cmE0pH
-         6B4IPxTJgkB1sR8a67yHiLLyz3fgSi1ki21h8aX0oFs47uEt0VJdDXnamDAg806HY/DC
-         zLK0J3gSz8PlsKIx+MK1N7gs7JhPwpLrGDtvirHi4wgVlmfatO6UpjOg9u/0CefwCcsK
-         SN4M5lUmNpWhWNnm17v5rp9qrsqaW3X/FXhuiQzRQ1xBvG6r5MPNIBqyOIPPRPcRqr8L
-         pf553zsCFV7a8WRRAYeTHSjkXe9ks1x7SWlCcrxpV6SQI7NREjHNgDZ/J/ciBMnA1W7y
-         fraQ==
-X-Gm-Message-State: AOJu0YzXJn+XPDJLDiPS245z6XONm2pP4FF+3CEPngiyAf4SX9Rh1ZMb
-	1sx4HlWRhYgyDnWnNqCo0FSGaYqKFVeVIY/NGq6UgmoHHH6cPkT6CqCC1eLT/Rw6c8H+IBrr48q
-	j
-X-Gm-Gg: ASbGncvZ/fsj0m3xBLbJVDYu0nf7zVSjaBGpnCCAmsEkD2aXWwD1eRoBatp/OxPvICA
-	sZP6oenBA5BRYgcYp/Q11XiVfTEyIq1gkUTtM4bL1uTD5qIzcvi2bEYmRGMM9FFuTGfjzx0QXPK
-	G5g4ygk33qzOpGL6xoL0kesThfSCwEUcM0szWOg96O65DxS4IxCO+F8xjzyCdUToBvYXbs3Ifon
-	T9Cy2/QVSssfd8v5Hk/+0eNEfJs3Kw8+WVM3WWsfdQKR4x5tqj/RXe9q4pM03u/PZ8GiY6RyL0/
-	/9GU9cMgvJHP0fplyt/mh9ppvU9EpoZlCrYq9NM9ozov+iYVVt41Rwx81mJVHM4J7AkdDNpmxra
-	faGrqRg==
-X-Google-Smtp-Source: AGHT+IEsnlgH0FFKo3AtBbyCmD1GiyDttxMH48OUHaofyJ8Q5l0+Fpaqz7EH7SSw8KYzD1j2UHH7Pw==
-X-Received: by 2002:a05:600c:4451:b0:439:8bb1:14b1 with SMTP id 5b1f17b1804b1-439ae1e8c88mr126527155e9.11.1740413235852;
-        Mon, 24 Feb 2025 08:07:15 -0800 (PST)
+        bh=gqs2ri15sfzFaC7F9ABm85vSLlP8o53QJK1dsgxDFAI=;
+        b=Kfds7yx5km7VrYlyVBCKxI5vduCimPdl4wrod8SMGf+vBr8L4ZpCDjUAsiJLdHFILj
+         6KnJ+Xe8e9rXOMVR7EftzDU/WXCLuyueg6Yrm5lo14O6MqukhBApZSWgBmvAMCvHP4WX
+         7yEkYrJtYmRuDoxYs9VKOhwu+4ttYAzGWJGnpw0bjhreaW202+TFiqtuYmAUYGVL07NQ
+         JLCgwH+z7GnlP+o3mIKdBLbjPxwlXaU1fARuPunr2VYlP8q+vo9GixLqVEqxUatKoQ4e
+         8csFo5mDDyuJ4nbcEkI4PlBgZFOrp9loRs6j/8j0ChdmfUjwonzy6OUZ8tr5zHqZY4UN
+         PnrQ==
+X-Gm-Message-State: AOJu0YzhUrX7WwTxY4VDGHkogE6MTO67SDXFYo11yHPgqxS3uwiFFoos
+	Vu/7v4kQu7jlbN3Rs27YftYHj6dFTwACz63FXMK+F4EcNeO0U+bEUW9KYPxoiKX2eYmIChUNk1V
+	Q
+X-Gm-Gg: ASbGnctbjLIbmcBM0+3VkyeRXkyYqVda1q+93IvrFfHWmE4Y2ImSx04AySjqrFd0ZBR
+	77GbAE9gXDn/bGvoE3V5S9WIUea++9oazX8e/2JazkzLo60dlLc0VaSpyt0P4sCVFPq6B1W1pPG
+	4mbYOI2JkM7ozCLju/zt20q1Jkw45J7LoiEdz9AR1xwtjDD8F12gH5f4DSMuMyYdbp9yh1KN1y8
+	QEDVXHbaSlFXNUvO+mL7JNvUGeuYl0qqv0kdCU5fOu5Bz8gF++EwvXWGMcbMtY8xhegpC8edUBg
+	YXiQ8LY3F+93mO5xCfpBkP0JXx62ZOW+bcxROcVUVDDROw0THpZ1MDGnuw3BS+Bib6Np4D3j98c
+	kCNSBrA==
+X-Google-Smtp-Source: AGHT+IFdO2/tob/YlbgVoGHNyRf3tjSWVYo8AEV1AL0jYNyLp9S0lOZXJOCZSWz3IOsultllNDjgIw==
+X-Received: by 2002:a05:600c:3c86:b0:439:9b80:ca6f with SMTP id 5b1f17b1804b1-439ae1d7272mr136814925e9.5.1740413236550;
+        Mon, 24 Feb 2025 08:07:16 -0800 (PST)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <JBeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 5/8] x86/IDT: Make idt_tables[] be per_cpu(idt)
-Date: Mon, 24 Feb 2025 16:05:06 +0000
-Message-Id: <20250224160509.1117847-6-andrew.cooper3@citrix.com>
+Subject: [PATCH 6/8] x86/IDT: Generate bsp_idt[] at build time
+Date: Mon, 24 Feb 2025 16:05:07 +0000
+Message-Id: <20250224160509.1117847-7-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250224160509.1117847-1-andrew.cooper3@citrix.com>
 References: <20250224160509.1117847-1-andrew.cooper3@citrix.com>
@@ -94,255 +94,324 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This can be a plain per_cpu() variable, and __read_mostly seeing as it's
-allocated once and never touched again.
+... rather than dynamically at boot time.  Aside from less runtime overhead,
+this approach is less fragile than the preexisting autogen stubs mechanism.
 
-This removes a NR_CPU's sized structure, and improves NUMA locality of access
-for both the the VT-x and SVM context switch paths.
+We can manage this with some linker calculations.  See patch comments for full
+details.
 
-No functional change.
+For simplicity, we create a new set of entry stubs here, and clean up the old
+ones in the subsequent patch.  bsp_idt[] needs to move from .bss to .data.
+
+No functional change yet; the boot path still (re)writes bsp_idt[] at this
+juncture.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/cpu/common.c      |  5 +++--
- xen/arch/x86/crash.c           |  8 ++++----
- xen/arch/x86/domain.c          |  2 +-
- xen/arch/x86/hvm/svm/svm.c     |  4 ++--
- xen/arch/x86/hvm/vmx/vmcs.c    |  2 +-
- xen/arch/x86/include/asm/idt.h |  3 ++-
- xen/arch/x86/machine_kexec.c   |  7 +++++--
- xen/arch/x86/smpboot.c         | 14 +++++++-------
- xen/arch/x86/traps-init.c      |  2 ++
- xen/arch/x86/traps.c           |  5 +----
- 10 files changed, 28 insertions(+), 24 deletions(-)
 
-diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
-index e8b355ebcf36..b83dbc5dfbba 100644
---- a/xen/arch/x86/cpu/common.c
-+++ b/xen/arch/x86/cpu/common.c
-@@ -819,6 +819,7 @@ void load_system_tables(void)
- 	 * support using ARRAY_SIZE against per-cpu variables.
- 	 */
- 	struct tss_page *tss_page = &this_cpu(tss_page);
-+        idt_entry_t *idt = this_cpu(idt);
- 
- 	/* The TSS may be live.	 Disuade any clever optimisations. */
- 	volatile struct tss64 *tss = &tss_page->tss;
-@@ -830,7 +831,7 @@ void load_system_tables(void)
- 		.limit = LAST_RESERVED_GDT_BYTE,
- 	};
- 	const struct desc_ptr idtr = {
--		.base = (unsigned long)idt_tables[cpu],
-+		.base = (unsigned long)idt,
- 		.limit = sizeof(bsp_idt) - 1,
- 	};
- 
-@@ -914,7 +915,7 @@ void load_system_tables(void)
- 	ltr(TSS_SELECTOR);
- 	lldt(0);
- 
--	enable_each_ist(idt_tables[cpu]);
-+	enable_each_ist(idt);
- 
- 	/*
- 	 * Bottom-of-stack must be 16-byte aligned!
-diff --git a/xen/arch/x86/crash.c b/xen/arch/x86/crash.c
-index 5f7d7b392a1f..1e4b0eeff21b 100644
---- a/xen/arch/x86/crash.c
-+++ b/xen/arch/x86/crash.c
-@@ -63,7 +63,7 @@ static int noreturn cf_check do_nmi_crash(
-          * This update is safe from a security point of view, as this
-          * pcpu is never going to try to sysret back to a PV vcpu.
-          */
--        set_ist(&idt_tables[cpu][X86_EXC_MC], IST_NONE);
-+        set_ist(&per_cpu(idt, cpu)[X86_EXC_MC], IST_NONE);
- 
-         kexec_crash_save_cpu();
-         __stop_this_cpu();
-@@ -120,6 +120,7 @@ static void nmi_shootdown_cpus(void)
- {
-     unsigned long msecs;
-     unsigned int cpu = smp_processor_id();
-+    idt_entry_t *idt = this_cpu(idt);
- 
-     disable_lapic_nmi_watchdog();
-     local_irq_disable();
-@@ -133,9 +134,8 @@ static void nmi_shootdown_cpus(void)
-      * Disable IST for MCEs to avoid stack corruption race conditions, and
-      * change the NMI handler to a nop to avoid deviation from this codepath.
-      */
--    _set_gate_lower(&idt_tables[cpu][X86_EXC_NMI],
--                    SYS_DESC_irq_gate, 0, &trap_nop);
--    set_ist(&idt_tables[cpu][X86_EXC_MC], IST_NONE);
-+    _set_gate_lower(&idt[X86_EXC_NMI], SYS_DESC_irq_gate, 0, &trap_nop);
-+    set_ist(&idt[X86_EXC_MC], IST_NONE);
- 
-     set_nmi_callback(do_nmi_crash);
-     smp_send_nmi_allbutself();
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index d3db76833f3c..a42fa5480593 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -116,7 +116,7 @@ void play_dead(void)
-     local_irq_disable();
- 
-     /* Change the NMI handler to a nop (see comment below). */
--    _set_gate_lower(&idt_tables[cpu][X86_EXC_NMI], SYS_DESC_irq_gate, 0,
-+    _set_gate_lower(&this_cpu(idt)[X86_EXC_NMI], SYS_DESC_irq_gate, 0,
-                     &trap_nop);
- 
-     /*
-diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-index ea78da4f4210..4eac89964f61 100644
---- a/xen/arch/x86/hvm/svm/svm.c
-+++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -915,7 +915,7 @@ static void cf_check svm_ctxt_switch_from(struct vcpu *v)
-     svm_vmload_pa(per_cpu(host_vmcb, cpu));
- 
-     /* Resume use of ISTs now that the host TR is reinstated. */
--    enable_each_ist(idt_tables[cpu]);
-+    enable_each_ist(per_cpu(idt, cpu));
- 
-     /*
-      * Possibly clear previous guest selection of SSBD if set.  Note that
-@@ -944,7 +944,7 @@ static void cf_check svm_ctxt_switch_to(struct vcpu *v)
-      * Cannot use ISTs for NMI/#MC/#DF while we are running with the guest TR.
-      * But this doesn't matter: the IST is only req'd to handle SYSCALL/SYSRET.
-      */
--    disable_each_ist(idt_tables[cpu]);
-+    disable_each_ist(per_cpu(idt, cpu));
- 
-     svm_restore_dr(v);
- 
-diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
-index 20ab2d0f266f..e47a6e1542b7 100644
---- a/xen/arch/x86/hvm/vmx/vmcs.c
-+++ b/xen/arch/x86/hvm/vmx/vmcs.c
-@@ -917,7 +917,7 @@ static void vmx_set_host_env(struct vcpu *v)
- 
-     __vmwrite(HOST_GDTR_BASE,
-               (unsigned long)(this_cpu(gdt) - FIRST_RESERVED_GDT_ENTRY));
--    __vmwrite(HOST_IDTR_BASE, (unsigned long)idt_tables[cpu]);
-+    __vmwrite(HOST_IDTR_BASE, (unsigned long)per_cpu(idt, cpu));
- 
-     __vmwrite(HOST_TR_BASE, (unsigned long)&per_cpu(tss_page, cpu).tss);
- 
-diff --git a/xen/arch/x86/include/asm/idt.h b/xen/arch/x86/include/asm/idt.h
-index 29d1a7dfbc63..3e3acdfa7930 100644
---- a/xen/arch/x86/include/asm/idt.h
-+++ b/xen/arch/x86/include/asm/idt.h
-@@ -3,6 +3,7 @@
- #define X86_ASM_IDT_H
- 
- #include <xen/bug.h>
-+#include <xen/percpu.h>
- #include <xen/types.h>
- 
- #include <asm/x86-defns.h>
-@@ -30,7 +31,7 @@ typedef union {
- } idt_entry_t;
- 
- extern idt_entry_t bsp_idt[X86_IDT_VECTORS];
--extern idt_entry_t *idt_tables[];
-+DECLARE_PER_CPU(idt_entry_t *, idt);
- 
- /*
-  * Set the Interrupt Stack Table used by a particular IDT entry.  Typically
-diff --git a/xen/arch/x86/machine_kexec.c b/xen/arch/x86/machine_kexec.c
-index f775e526d59b..35fa5c82e9c2 100644
---- a/xen/arch/x86/machine_kexec.c
-+++ b/xen/arch/x86/machine_kexec.c
-@@ -170,9 +170,12 @@ void machine_kexec(struct kexec_image *image)
-      */
-     for ( i = 0; i < nr_cpu_ids; i++ )
-     {
--        if ( idt_tables[i] == NULL )
-+        idt_entry_t *idt = per_cpu(idt, i);
+There's something differnet about LLD vs LD.  Without the ABSOLUTE() in
+gen-idt.lds.h, LD is fine but LLD puts out symbols in the form:
+
+  x86_IDT_entry_0xff_ADDR1|0000000000002fb0|   t  |            NOTYPE|                |     |.text
+  x86_IDT_entry_0xff_ADDR2|0000000000004020|   a  |            NOTYPE|                |     |*ABS*
+
+which causes a slew of errors making symbols for xen-syms:
+
+  .xen-syms.0.S:20:8: error: out of range literal value
+   .long 0x15a0 - (((((((261 >> 8) * 0xffff000000000000) | (261 << 39))) + ((1 << 39) / 2)) + (64 << 30)) + (1 << 30))
+         ^
+
+owing to half the symbols being t rather than a.  Moreover, this is reliable
+for the full FreeBSD builds, but interminttent on randconfig.  I haven't
+figured out which other option is having an effect.
+
+Forcing them all to absolute works in both toolchains.
+---
+ xen/arch/x86/include/asm/gen-idt.h     | 121 +++++++++++++++++++++++++
+ xen/arch/x86/include/asm/gen-idt.lds.h |  27 ++++++
+ xen/arch/x86/traps-init.c              |   4 -
+ xen/arch/x86/x86_64/entry.S            |  76 ++++++++++++++++
+ xen/arch/x86/xen.lds.S                 |   2 +
+ 5 files changed, 226 insertions(+), 4 deletions(-)
+ create mode 100644 xen/arch/x86/include/asm/gen-idt.h
+ create mode 100644 xen/arch/x86/include/asm/gen-idt.lds.h
+
+diff --git a/xen/arch/x86/include/asm/gen-idt.h b/xen/arch/x86/include/asm/gen-idt.h
+new file mode 100644
+index 000000000000..a345af0ec774
+--- /dev/null
++++ b/xen/arch/x86/include/asm/gen-idt.h
+@@ -0,0 +1,121 @@
++/*
++ * Generator for IDT entries.
++ *
++ * Caller to provide GEN(vector, symbol, dpl, autogen) macro
++ *
++ * Symbols are 'entry_0xYY' if there is no better name available.  Regular
++ * handlers set autogen=1, while manual (autogen=0) require the symbol to be
++ * implemented somewhere else.
++ */
 +
-+        if ( !idt )
-             continue;
--        _update_gate_addr_lower(&idt_tables[i][X86_EXC_MC], &trap_nop);
++#define DPL0 0
++#define DPL1 1
++#define DPL3 3
 +
-+        _update_gate_addr_lower(&idt[X86_EXC_MC], &trap_nop);
-     }
- 
-     /* Reset CPUID masking and faulting to the host's default. */
-diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
-index dc65f9e45269..4e9f9ac4b2ee 100644
---- a/xen/arch/x86/smpboot.c
-+++ b/xen/arch/x86/smpboot.c
-@@ -863,7 +863,7 @@ int setup_cpu_root_pgt(unsigned int cpu)
-         rc = clone_mapping(__va(__pa(stack_base[cpu])) + off, rpt);
- 
-     if ( !rc )
--        rc = clone_mapping(idt_tables[cpu], rpt);
-+        rc = clone_mapping(per_cpu(idt, cpu), rpt);
-     if ( !rc )
-     {
-         struct tss_page *ptr = &per_cpu(tss_page, cpu);
-@@ -1009,7 +1009,7 @@ static void cpu_smpboot_free(unsigned int cpu, bool remove)
-     if ( remove )
-     {
-         FREE_XENHEAP_PAGE(per_cpu(gdt, cpu));
--        FREE_XENHEAP_PAGE(idt_tables[cpu]);
-+        FREE_XENHEAP_PAGE(per_cpu(idt, cpu));
- 
-         if ( stack_base[cpu] )
-         {
-@@ -1076,12 +1076,12 @@ static int cpu_smpboot_alloc(unsigned int cpu)
-     gdt[PER_CPU_GDT_ENTRY - FIRST_RESERVED_GDT_ENTRY].a = cpu;
- #endif
- 
--    if ( idt_tables[cpu] == NULL )
--        idt_tables[cpu] = alloc_xenheap_pages(0, memflags);
--    if ( idt_tables[cpu] == NULL )
-+    if ( per_cpu(idt, cpu) == NULL )
-+        per_cpu(idt, cpu) = alloc_xenheap_pages(0, memflags);
-+    if ( per_cpu(idt, cpu) == NULL )
-         goto out;
--    memcpy(idt_tables[cpu], bsp_idt, sizeof(bsp_idt));
--    disable_each_ist(idt_tables[cpu]);
-+    memcpy(per_cpu(idt, cpu), bsp_idt, sizeof(bsp_idt));
-+    disable_each_ist(per_cpu(idt, cpu));
- 
-     for ( stub_page = 0, i = cpu & ~(STUBS_PER_PAGE - 1);
-           i < nr_cpu_ids && i <= (cpu | (STUBS_PER_PAGE - 1)); ++i )
++#define manual 0
++#define autogen 1
++
++#define GEN16(i) \
++    GEN(0x ## i ## 0, entry_0x ## i ## 0, DPL0, autogen) \
++    GEN(0x ## i ## 1, entry_0x ## i ## 1, DPL0, autogen) \
++    GEN(0x ## i ## 2, entry_0x ## i ## 2, DPL0, autogen) \
++    GEN(0x ## i ## 3, entry_0x ## i ## 3, DPL0, autogen) \
++    GEN(0x ## i ## 4, entry_0x ## i ## 4, DPL0, autogen) \
++    GEN(0x ## i ## 5, entry_0x ## i ## 5, DPL0, autogen) \
++    GEN(0x ## i ## 6, entry_0x ## i ## 6, DPL0, autogen) \
++    GEN(0x ## i ## 7, entry_0x ## i ## 7, DPL0, autogen) \
++    GEN(0x ## i ## 8, entry_0x ## i ## 8, DPL0, autogen) \
++    GEN(0x ## i ## 9, entry_0x ## i ## 9, DPL0, autogen) \
++    GEN(0x ## i ## a, entry_0x ## i ## a, DPL0, autogen) \
++    GEN(0x ## i ## b, entry_0x ## i ## b, DPL0, autogen) \
++    GEN(0x ## i ## c, entry_0x ## i ## c, DPL0, autogen) \
++    GEN(0x ## i ## d, entry_0x ## i ## d, DPL0, autogen) \
++    GEN(0x ## i ## e, entry_0x ## i ## e, DPL0, autogen) \
++    GEN(0x ## i ## f, entry_0x ## i ## f, DPL0, autogen)
++
++
++GEN(0x00, entry_DE,         DPL0, manual)
++GEN(0x01, entry_DB,         DPL0, manual)
++GEN(0x02, entry_NMI,        DPL0, manual)
++GEN(0x03, entry_BP,         DPL3, manual)
++GEN(0x04, entry_OF,         DPL3, manual)
++GEN(0x05, entry_BR,         DPL0, manual)
++GEN(0x06, entry_UD,         DPL0, manual)
++GEN(0x07, entry_NM,         DPL0, manual)
++GEN(0x08, entry_DF,         DPL0, manual)
++GEN(0x09, entry_0x09,       DPL0, autogen) /* Coprocessor Segment Overrun */
++GEN(0x0a, entry_TS,         DPL0, manual)
++GEN(0x0b, entry_NP,         DPL0, manual)
++GEN(0x0c, entry_SS,         DPL0, manual)
++GEN(0x0d, entry_GP,         DPL0, manual)
++GEN(0x0e, early_page_fault, DPL0, manual)
++GEN(0x0f, entry_0x0f,       DPL0, autogen) /* PIC Spurious Interrupt Vector */
++
++GEN(0x10, entry_MF,         DPL0, manual)
++GEN(0x11, entry_AC,         DPL0, manual)
++GEN(0x12, entry_MC,         DPL0, manual)
++GEN(0x13, entry_XM,         DPL0, manual)
++GEN(0x14, entry_VE,         DPL0, autogen)
++GEN(0x15, entry_CP,         DPL0, manual)
++GEN(0x16, entry_0x16,       DPL0, autogen)
++GEN(0x17, entry_0x17,       DPL0, autogen)
++GEN(0x18, entry_0x18,       DPL0, autogen)
++GEN(0x19, entry_0x19,       DPL0, autogen)
++GEN(0x1a, entry_0x1a,       DPL0, autogen)
++GEN(0x1b, entry_0x1b,       DPL0, autogen)
++GEN(0x1c, entry_HV,         DPL0, autogen)
++GEN(0x1d, entry_VC,         DPL0, autogen)
++GEN(0x1e, entry_SX,         DPL0, autogen)
++GEN(0x1f, entry_0x1f,       DPL0, autogen)
++
++GEN16(2)
++GEN16(3)
++GEN16(4)
++GEN16(5)
++GEN16(6)
++GEN16(7)
++
++#ifdef CONFIG_PV
++GEN(0x80, entry_int80,      DPL0, manual)
++#else
++GEN(0x80, entry_0x80,       DPL0, autogen)
++#endif
++
++GEN(0x81, entry_0x81,       DPL0, autogen)
++
++#ifdef CONFIG_PV32
++GEN(0x82, entry_int82,      DPL1, manual)
++#else
++GEN(0x82, entry_0x82,       DPL0, autogen)
++#endif
++
++GEN(0x83, entry_0x83,       DPL0, autogen)
++GEN(0x84, entry_0x84,       DPL0, autogen)
++GEN(0x85, entry_0x85,       DPL0, autogen)
++GEN(0x86, entry_0x86,       DPL0, autogen)
++GEN(0x87, entry_0x87,       DPL0, autogen)
++GEN(0x88, entry_0x88,       DPL0, autogen)
++GEN(0x89, entry_0x89,       DPL0, autogen)
++GEN(0x8a, entry_0x8a,       DPL0, autogen)
++GEN(0x8b, entry_0x8b,       DPL0, autogen)
++GEN(0x8c, entry_0x8c,       DPL0, autogen)
++GEN(0x8d, entry_0x8d,       DPL0, autogen)
++GEN(0x8e, entry_0x8e,       DPL0, autogen)
++GEN(0x8f, entry_0x8f,       DPL0, autogen)
++
++GEN16(9)
++GEN16(a)
++GEN16(b)
++GEN16(c)
++GEN16(d)
++GEN16(e)
++GEN16(f)
++
++#undef autogen
++#undef manual
++
++#undef DPL3
++#undef DPL1
++#undef DPL0
++
++#undef GEN16
+diff --git a/xen/arch/x86/include/asm/gen-idt.lds.h b/xen/arch/x86/include/asm/gen-idt.lds.h
+new file mode 100644
+index 000000000000..997cec0c4de1
+--- /dev/null
++++ b/xen/arch/x86/include/asm/gen-idt.lds.h
+@@ -0,0 +1,27 @@
++/*
++ * Linker file fragment to help format the IDT correctly
++ *
++ * The IDT, having grown compatibly since the 16 bit days, has the entrypoint
++ * address field split into 3.  x86 ELF lacks the @lo/@hi/etc relocation forms
++ * commonly found in other architectures for accessing a part of a resolved
++ * symbol address.
++ *
++ * However, the linker can perform the necessary calculations and provide them
++ * under new symbol names.  We use this to generate the low and next 16 bits
++ * of the address for each handler.
++ *
++ * The upper 32 bits are always a constant as Xen's .text/data/rodata sits in
++ * a single aligned 1G range, so do not need calculating in this manner.
++ */
++#ifndef X86_IDT_GEN_LDS_H
++#define X86_IDT_GEN_LDS_H
++
++#define GEN(vec, sym, dpl, auto)                                        \
++    PROVIDE_HIDDEN(IDT_ ## sym ## _ADDR1 = ABSOLUTE(((sym) & 0xffff))); \
++    PROVIDE_HIDDEN(IDT_ ## sym ## _ADDR2 = ABSOLUTE(((sym >> 16) & 0xffff)));
++
++#include <asm/gen-idt.h>
++
++#undef GEN
++
++#endif /* X86_IDT_GEN_LDS_H */
 diff --git a/xen/arch/x86/traps-init.c b/xen/arch/x86/traps-init.c
-index b172ea933607..ae600526cbe3 100644
+index ae600526cbe3..3ee28319584d 100644
 --- a/xen/arch/x86/traps-init.c
 +++ b/xen/arch/x86/traps-init.c
-@@ -7,3 +7,5 @@
- 
- idt_entry_t __section(".bss.page_aligned") __aligned(PAGE_SIZE)
-     bsp_idt[X86_IDT_VECTORS];
-+
-+DEFINE_PER_CPU_READ_MOSTLY(idt_entry_t *, idt);
-diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-index f7965b3ffa50..aa3ed658def6 100644
---- a/xen/arch/x86/traps.c
-+++ b/xen/arch/x86/traps.c
-@@ -102,9 +102,6 @@ DEFINE_PER_CPU_READ_MOSTLY(seg_desc_t *, compat_gdt);
- DEFINE_PER_CPU_READ_MOSTLY(l1_pgentry_t, compat_gdt_l1e);
- #endif
- 
--/* Pointer to the IDT of every CPU. */
--idt_entry_t *idt_tables[NR_CPUS] __read_mostly;
+@@ -3,9 +3,5 @@
+  * Configuration of event handling for all CPUs.
+  */
+ #include <asm/idt.h>
+-#include <asm/page.h>
 -
- /*
-  * The TSS is smaller than a page, but we give it a full page to avoid
-  * adjacent per-cpu data leaking via Meltdown when XPTI is in use.
-@@ -2149,7 +2146,7 @@ void __init init_idt_traps(void)
-     enable_each_ist(bsp_idt);
+-idt_entry_t __section(".bss.page_aligned") __aligned(PAGE_SIZE)
+-    bsp_idt[X86_IDT_VECTORS];
  
-     /* CPU0 uses the master IDT. */
--    idt_tables[0] = bsp_idt;
-+    this_cpu(idt) = bsp_idt;
+ DEFINE_PER_CPU_READ_MOSTLY(idt_entry_t *, idt);
+diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
+index d866e626257b..313711a01184 100644
+--- a/xen/arch/x86/x86_64/entry.S
++++ b/xen/arch/x86/x86_64/entry.S
+@@ -1229,6 +1229,82 @@ FUNC(trap_nop, 0)
+         iretq
+ END(trap_nop)
  
-     this_cpu(gdt) = boot_gdt;
-     if ( IS_ENABLED(CONFIG_PV32) )
++/*
++ * Automatically generated entrypoints, and IDT
++ */
++
++        .pushsection .data.page_aligned, "aw", @progbits
++DATA(bsp_idt, PAGE_SIZE)
++        .popsection
++
++/*
++ * Write an IDT Entry.  The linker provides us new _ADDR1/2 symbols calculated
++ * from \sym.
++ */
++.macro write_idte sym, dpl
++        .pushsection .data.page_aligned, "aw", @progbits
++        .word IDT_\sym\()_ADDR1
++        .word __HYPERVISOR_CS
++        .word 0x8e00 | (\dpl << 13) /* Present, DPL, Interrupt Gate */
++        .word IDT_\sym\()_ADDR2
++        .long __XEN_VIRT_START >> 32
++        .long 0
++        .popsection
++.endm
++
++/*
++ * Write an automatically generated stub.  Vectors in the exception range keep
++ * the stack properly aligned by judging whether the CPU pushed an error code
++ * or not.
++ *
++ * Alignment is forced to 16 because that's the size of the interrupt stub
++ * with CET active.
++ */
++.macro gen_entry vec, sym
++
++FUNC(\sym, 16)
++        ENDBR64
++
++        .if \vec < 0x20 /* Exception. */
++
++            test  $8, %spl       /* 64bit exception frames are 16 byte aligned, but the word */
++            jz    1f             /* size is 8 bytes.  Check whether the processor gave us an */
++            pushq $0             /* error code, and insert an empty one if not.              */
++1:          movb  $\vec, EFRAME_entry_vector(%rsp)
++            jmp   handle_exception
++
++        .else /* Interrupt. */
++
++            pushq $0
++            movb  $\vec, EFRAME_entry_vector(%rsp)
++            jmp   common_interrupt
++
++        .endif
++END(\sym)
++.endm
++
++/*
++ * Generator.  Write an entrypoint if necessary, and record an IDT entry.
++ */
++.macro gen vec, sym, dpl, auto
++
++        .if \auto
++            gen_entry \vec, \sym
++        .endif
++
++        write_idte \sym, \dpl
++.endm
++#define GEN(v, s, d, a) gen vec=v, sym=s, dpl=d auto=a;
++#include <asm/gen-idt.h>
++#undef GEN
++
++        .pushsection .data.page_aligned, "aw", @progbits
++END(bsp_idt)
++        .if . - bsp_idt != PAGE_SIZE
++            .error "Bad bsp_idt size, should be PAGE_SIZE"
++        .endif
++        .popsection
++
+ /* Table of automatically generated entry points.  One per vector. */
+         .pushsection .init.rodata, "a", @progbits
+ DATA(autogen_entrypoints, 8)
+diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
+index 42217eaf2485..d4dd6434c466 100644
+--- a/xen/arch/x86/xen.lds.S
++++ b/xen/arch/x86/xen.lds.S
+@@ -8,6 +8,8 @@
+ # define DECL_SECTION_WITH_LADDR
+ #endif
+ #include <xen/xen.lds.h>
++
++#include <asm/gen-idt.lds.h>
+ #include <asm/page.h>
+ #include <asm/trampoline.h>
+ 
 -- 
 2.39.5
 
