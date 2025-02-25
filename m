@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0254A43CF0
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Feb 2025 12:10:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.895627.1304289 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01A2EA43DC5
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Feb 2025 12:36:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.895649.1304310 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmspL-00053N-V7; Tue, 25 Feb 2025 11:10:15 +0000
+	id 1tmtDz-0001iB-6c; Tue, 25 Feb 2025 11:35:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 895627.1304289; Tue, 25 Feb 2025 11:10:15 +0000
+Received: by outflank-mailman (output) from mailman id 895649.1304310; Tue, 25 Feb 2025 11:35:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmspL-00051W-SJ; Tue, 25 Feb 2025 11:10:15 +0000
-Received: by outflank-mailman (input) for mailman id 895627;
- Tue, 25 Feb 2025 11:10:14 +0000
+	id 1tmtDz-0001gJ-3O; Tue, 25 Feb 2025 11:35:43 +0000
+Received: by outflank-mailman (input) for mailman id 895649;
+ Tue, 25 Feb 2025 11:35:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wvcP=VQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tmspK-00051G-0s
- for xen-devel@lists.xenproject.org; Tue, 25 Feb 2025 11:10:14 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ id 1tmtDx-0001g5-Hn
+ for xen-devel@lists.xenproject.org; Tue, 25 Feb 2025 11:35:41 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 157f1552-f369-11ef-9aae-95dc52dad729;
- Tue, 25 Feb 2025 12:10:13 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-4397e5d5d99so33750085e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 25 Feb 2025 03:10:13 -0800 (PST)
+ id a3cdb71e-f36c-11ef-9aae-95dc52dad729;
+ Tue, 25 Feb 2025 12:35:40 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-4398e3dfc66so48038795e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Feb 2025 03:35:40 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43ab156a199sm22087965e9.39.2025.02.25.03.10.11
+ 5b1f17b1804b1-43ab15476f0sm22729555e9.23.2025.02.25.03.35.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Feb 2025 03:10:12 -0800 (PST)
+ Tue, 25 Feb 2025 03:35:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 157f1552-f369-11ef-9aae-95dc52dad729
+X-Inumbo-ID: a3cdb71e-f36c-11ef-9aae-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740481812; x=1741086612; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1cxEuWRpsE19sPrSwBC7CAX0MomkD0jfLCXCfZiYFWE=;
-        b=IhQgQcQNVU+HiwldI1s/QG9sm6AvD32xLWdN/V9CC1VNhARlVLEy1U4Z6uYM+ZCcy8
-         HarbA0WpuG60S0jtqfZ8YcAiN0c6/ksMlSz6dQVBUAO2N9wyKE/tYlZd4TjSlBoUD0VT
-         MwDfdL9qVgtGNGsR9n2EkHXI70mtMWqljz7T9/3MIxDmHQFyVA4qIk6zgK851CtxwMro
-         /45yGSLcjud2IqPavo0R7rDmxs718eYs1cBtOHoStOI0Ll7GOIhunAJX03ScYovnhXsm
-         BvAx98T9yfxh9pXsDtJPQh2qyhlYriEqd0DOF5PcYMg4i1Uqq2S3c6+GOyjAuN2uTd4u
-         BgBQ==
+        d=suse.com; s=google; t=1740483340; x=1741088140; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=gcC6pezk/4Gx3yFitnhPDG4c8pYzM+gSGsCfBAkjr2Q=;
+        b=fy4HeQr28skDrsLmo8SUBmdyUD+tZKkBGL32lHYuaSwaNqPBNncEo5dw8AE7Fz9CLV
+         QhzCI5a9jEE6F/UNbSlNn5ftFIq4FQB0Hb4U+OLYKBRE1ao7ZqmHpzfBeKW4ZZy6Xdil
+         9RM1AmJeA9Hmv/mgXdmXXq3BXzJ5N0EdvO2JEqht6EjuKkMBN38rYVE2F1eYZHYmIc/t
+         7W2K7MRHEM0s1JbH0ADsHTv00vyQDWsQJkZ22QlD3877YMdLb8nlIpnhdurFMb5M59mY
+         awmgE8PDFv/WpdHEOI1NHgEzDnKGiMGTpk+ifeRtZnjYO9234XwzsYux0yy+UZ07ttlm
+         s7hQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740481812; x=1741086612;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=1cxEuWRpsE19sPrSwBC7CAX0MomkD0jfLCXCfZiYFWE=;
-        b=Hk9hroSD8pyVMXw1V2UWpF1gOfhVAeGoabVH7G+uDEbXtZAHO01oRE4KmLrQ7nXs+R
-         skwYHCbSSfuljfhIk/jLnM+AVK5nNGq2acCS/qI7V4Apw2lNXxAMB55cb3NkcEyRcrKQ
-         jNsp0BI4kkQNOJL6xdoH+LV2Y4F8QE5a4+5IMfcSgbA2uymXkz6k4JHNHS0OH/M8xWwX
-         xz+AGu+VYtgy9ZBVi2xvX5FSg1i2kBeYDXDOvCUwv50znLU7gCqF5vaFrUC7cmX5eJFo
-         fInJRL1KCPyQCI481MlFmoNlOnzQcKxrQspN1gNMbqu6dQSM2jTTa5+7okncRQsQAqxH
-         G5CA==
-X-Forwarded-Encrypted: i=1; AJvYcCVVwOLiqb33LYI79E0hcpsOs4kk0Xx+y4ROKXBVTAkuDzBKerDef+46lM3srfDvp4k91pi6yKYZdCc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwVEVDygr7YTByR4xUG5sP7eDQ60e/zZcFkIQMn7b3GaEXGCzt7
-	Sz5hRbYEv+pEHY2fWbFGWn0XpxRho1G2j/rmIYGAShpkle7PQ/y8d4f/3mRQVQ==
-X-Gm-Gg: ASbGncv1GWqyOObqEuxZHBNpy+U0IQM1nPxPm/1ZYVaUXUl601AbHDO7xInPNZNSsVa
-	Qn08dzPlvBnQ2YR5wtcCKulfFvqrM4hHL2wtpbTathDtTB4ecjqJK4cBbp+57OWSFHowQFuEnPQ
-	EBbff8i0+gNyvmD9LWU+eYM9vlHnVbEBvC9jvzkMJ7mt2KAtfp3nBapgeuC8wYENkP1pC9hVDu1
-	eCpY/aOSLF+OQ8JbZnOb/5SXKSZeFoyMZyOLc/AgA+LaouFI+EcuxHsdR7fF836ktw5QwERy0Hn
-	kSZnCt56mVvBb4J2ZHC+tkbnLeEbKFVC+DCHiFRPWksnhkBzNsVd06CIZyQLR4SaEtX8BLT4d/j
-	js0bGYJ/+P+I=
-X-Google-Smtp-Source: AGHT+IEwGY2sBSn58koOL8FfKc74tzIVRbtjdg621ptLLrjapIhpCCb6Hnvyfp+TQSznm+FfcECLXw==
-X-Received: by 2002:a05:600c:4ecf:b0:439:a88f:8538 with SMTP id 5b1f17b1804b1-43ab0f277efmr25728835e9.5.1740481812500;
-        Tue, 25 Feb 2025 03:10:12 -0800 (PST)
-Message-ID: <a7d1fd12-b950-4ba2-b8e9-9131d9a2b4e7@suse.com>
-Date: Tue, 25 Feb 2025 12:10:11 +0100
+        d=1e100.net; s=20230601; t=1740483340; x=1741088140;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=gcC6pezk/4Gx3yFitnhPDG4c8pYzM+gSGsCfBAkjr2Q=;
+        b=E8XyNsGTlE8546SllYjD+omyBoDBtsazsPJH0UTBdmP8ILRLQtCmDhdN5DJnWQ2Xd2
+         SKWF9RDcXgrLRLZ6HLlOTdParrHMcj/EiV8DRlehQjBkr0PfvW3X0AcjjRs8dzipZSUR
+         9hQ757NJ3mfl0ikCDYG8uQvXMLC/Vf6Xl0qlf2+DPDHqlmhgOPD2FhgOFc0tKvUi8/mS
+         JGH99+1wz7326mU8/MfrBKOPVEVBR6QcRX9NJSU+83+APgWKOl42V5vzgIYEyfhc3J3D
+         jvTbc0wz9UyQaUhvvSDDaXtVTkfD+cAdPFqomumQ4PAgFSe0XsH3Cclngh22Zfk7GzZl
+         sR4Q==
+X-Gm-Message-State: AOJu0Ywk3OxN2iySZGCfiF4lqRZxKCHr6LENuaX6FKnb/vmxQdweB5ZB
+	n56n9pgm9Rsl6QdotzEOMQZCXbN9naff4eSYlAKhZhdCq5iItc0Gp8qf71v0uX+5jefP5pxfjkM
+	=
+X-Gm-Gg: ASbGnctFI23f7rhspUOls8hA0s3YngaU5u/AcyQUegFzqsfAMM4phFtfE4NpAyUWKZ7
+	cNYkip2PSsTftFVicy32jlGlPCgO+DOVs5QoVad9WwAc7UsoIJkPjySAVrYK5gbgVY/kzyTkdLW
+	O7Qt6Vc6wCzLNYe3d9tZd3Yh3sTEcw9gHgmKOctr/DhGAmxytKjKTmN6DsnjdsmCfmBWfq7heBE
+	WQK2hOPJLsfZP22gF9XAQdRVOfpN2eUTFu7YSr2zvMPiwnmTTpkFFpgtTMt8Y9jCbsCGFGtBJzv
+	H8zTzlbT0yzuC6iKwQHjTQEJfaBS5oYAuS0x7fkQ0RXGBrWcsdQp1ugUmAYN1PojfJkrQUM2lud
+	SL1AYjT1yYiU=
+X-Google-Smtp-Source: AGHT+IGvZgiystBFAHlLkCiLQ2/Eeoial+6O+XqLKxoHYK/rdM97TJxFb8GqNcgzFz6JqizO/CDJBg==
+X-Received: by 2002:a05:600c:354c:b0:439:91dd:cfaf with SMTP id 5b1f17b1804b1-439ae1f2b3fmr143765395e9.18.1740483339724;
+        Tue, 25 Feb 2025 03:35:39 -0800 (PST)
+Message-ID: <748548e8-79e5-4957-be16-c5ea4d202d21@suse.com>
+Date: Tue, 25 Feb 2025 12:35:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/8] iommu/arm: Add iommu_dt_xlate()
 From: Jan Beulich <jbeulich@suse.com>
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>
-Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Julien Grall <jgrall@amazon.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1739182214.git.mykyta_poturai@epam.com>
- <02afc1bce09dd22865c7e2bad6cad9a804fca64b.1739182214.git.mykyta_poturai@epam.com>
- <f8f72da9-797e-44e5-93c2-cadb9fd1aae4@suse.com>
- <bab5a083-3aa2-4c5f-b798-57322e1af521@epam.com>
- <0c60434c-3899-4b1e-92c8-b72afdb698db@suse.com>
+Subject: [PATCH v4 00/11] x86/HVM: misc tidying
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -126,44 +116,20 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0c60434c-3899-4b1e-92c8-b72afdb698db@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 25.02.2025 12:08, Jan Beulich wrote:
-> On 25.02.2025 12:05, Mykyta Poturai wrote:
->> On 10.02.25 12:46, Jan Beulich wrote:
->>> On 10.02.2025 11:30, Mykyta Poturai wrote:
->>>> --- a/xen/include/xen/iommu.h
->>>> +++ b/xen/include/xen/iommu.h
->>>> @@ -238,6 +238,14 @@ int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
->>>>    */
->>>>   int iommu_remove_dt_device(struct dt_device_node *np);
->>>>   
->>>> +/*
->>>> + * Status code indicating that DT device cannot be added to the IOMMU
->>>> + * or removed from it because the IOMMU is disabled or the device is not
->>>> + * connected to it.
->>>> + */
->>>> +
->>>> +#define DT_NO_IOMMU    1
->>>
->>> While an improvement, it still isn't clear whose "status code" this is.
->>> The #define is effectively hanging in the air, from all I can tell. And
->>> from it not being a normal error code it is pretty clear that it better
->>> would have only very narrow use.
->>>
->>> Also can you please omit an interspersing blank line when the comment
->>> is specifically tied to a definition or declaration?
->>
->> What would you say about removing this status code entirely and 
->> returning something like -ENODEV instead, with adding special handling 
->> for this return to the callers where needed?
-> 
-> I'd be okay with that; Arm folks also need to be, though.
-
-Oh, and: Of course it then needs to be pretty clear / obvious that -ENODEV
-cannot come into play for other reasons / from other origins.
+01: x86/HVM: improve CET-IBT pruning of ENDBR
+02: VMX: drop vmcs_revision_id
+03: VMX: convert vmx_basic_msr
+04: VMX: convert vmx_pin_based_exec_control
+05: VMX: convert vmx_cpu_based_exec_control
+06: VMX: convert vmx_secondary_exec_control
+07: VMX: convert vmx_tertiary_exec_control
+08: VMX: convert vmx_vmexit_control
+09: VMX: convert vmx_vmentry_control
+10: VMX: convert vmx_ept_vpid_cap
+11: VMX: convert vmx_vmfunc
 
 Jan
 
