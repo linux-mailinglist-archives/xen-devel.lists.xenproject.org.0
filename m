@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E618CA436C8
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Feb 2025 09:00:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.895457.1304086 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9225CA436FD
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Feb 2025 09:09:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.895472.1304096 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmprC-0004ow-RC; Tue, 25 Feb 2025 07:59:58 +0000
+	id 1tmq0f-0007EF-UB; Tue, 25 Feb 2025 08:09:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 895457.1304086; Tue, 25 Feb 2025 07:59:58 +0000
+Received: by outflank-mailman (output) from mailman id 895472.1304096; Tue, 25 Feb 2025 08:09:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmprC-0004nR-O5; Tue, 25 Feb 2025 07:59:58 +0000
-Received: by outflank-mailman (input) for mailman id 895457;
- Tue, 25 Feb 2025 07:59:56 +0000
+	id 1tmq0f-0007BF-QZ; Tue, 25 Feb 2025 08:09:45 +0000
+Received: by outflank-mailman (input) for mailman id 895472;
+ Tue, 25 Feb 2025 08:09:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wvcP=VQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tmprA-0004nL-TS
- for xen-devel@lists.xenproject.org; Tue, 25 Feb 2025 07:59:56 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ id 1tmq0e-0007B9-Ej
+ for xen-devel@lists.xenproject.org; Tue, 25 Feb 2025 08:09:44 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7f82ee7d-f34e-11ef-9897-31a8f345e629;
- Tue, 25 Feb 2025 08:59:54 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-4394a823036so49992075e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 24 Feb 2025 23:59:54 -0800 (PST)
+ id dde3754b-f34f-11ef-9897-31a8f345e629;
+ Tue, 25 Feb 2025 09:09:42 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-38f31f7732dso3188406f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Feb 2025 00:09:42 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-439b02f3e15sm131301785e9.22.2025.02.24.23.59.53
+ ffacd0b85a97d-390cd883934sm1453433f8f.59.2025.02.25.00.09.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Feb 2025 23:59:53 -0800 (PST)
+ Tue, 25 Feb 2025 00:09:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f82ee7d-f34e-11ef-9897-31a8f345e629
+X-Inumbo-ID: dde3754b-f34f-11ef-9897-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740470394; x=1741075194; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1740470982; x=1741075782; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=je30tdEyMQIOcEUgzSoWQOOgDMbohTXppRVMlyF/xE8=;
-        b=gIgEAChtktbGiD3ojDoocal7x8bZ0TGl2/PZ979CYkUd9eBXKsgycORE1tzA44Tb70
-         57FZJpIc+3sA0Sje36g722Kl3FQ6da52A+DDaA+otIuoVRzZbJc5jsnWPFz+AZuSjw1Y
-         dnJMeyu6O8UZfVROkQKc5cN+gibUdAoogh3ydh9rrqQ/H1khrdpQc8aexDPYxkRp3RAa
-         WAxpjLqKJyHIlrutpiw33Y12Kv3OC2eCN3wj07yHYHeGZGuqaQg7FlOTlMJN+6oRG/k/
-         en6MAXo4kLnR3ecFbz4iC1daSMrU3cQwEJi4YA+DIFHrKHifGVbFdGqnstu2gkoX0lnK
-         zJKQ==
+        bh=yi0cN2INj1fQJVh2SYrayNgPNUBLs6318WF7Roxvjlk=;
+        b=Wl8yxlSbxKDBPqfSvhVYkRhF9JqlreBvey3Fzs2QMu2MiJQrcYynh51bDT18qKNCuf
+         00+3OsBv/G8G5YhzqE7qoJw1rRJMaSqh2biXlt2M/55eimIibwZB1Tjzawpir1jYF6dm
+         BHNebLhgGotmxK902sd9zn4SAOE3blIraeYTKzntMyqKK+QmWQb8Q3r57xoJPz38szEi
+         O4uMXyeogIVSSqAt1K76QgXL7nYTVsKbLGj0xgwRd+WPurdeTf/Zeddvc/SvOUe6tu5O
+         X2IMFzdsFQJLBYDfUoCXAdTlKDuUne+QFe8WDRH18DZUFWM1TG7HWi/71aAVuUMCDZ+1
+         EQCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740470394; x=1741075194;
+        d=1e100.net; s=20230601; t=1740470982; x=1741075782;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=je30tdEyMQIOcEUgzSoWQOOgDMbohTXppRVMlyF/xE8=;
-        b=GVhX1YfVzapv/vYptp+AtNscuFa30XU8w6GoFdfuxIqhP77On+qjp64/TQtaLwgI0b
-         eHHZciMd90bmIcL8tx9PkcF8J1XsdmDskgnrYto06QT8pJUGfDDb63e65+vcXjHZPuBa
-         L4ypLViD7w+bl7ir+REmzMo/W35q+QhK+jqoDDdk/2lCDFOgMgcJnVk9il3A9wUUZpHo
-         xAvb2Zu1gweg8IpdMd6U8I60J3tOZ3xdz+dIqPQ+diu8Buvpl6RA+DefzowYqEOto/px
-         qbe+oeuftTMzBduw40VVisHSPvw1PVj+A5bpT4QFCZBk7re6kI+Nh6cQzmbGFymRxXbU
-         JxsQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWjAxkwVCNfcD65XgRVvDO753PLIY3CIjyuCFGehGk5iGODkg9DH4ZZRPzQcdmSGYLQs1RnKDMrh7E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyu2oskugKqeYqgWWC5hSEC83ROOaO24OoDz0bFSz6/gTSDLzlw
-	aAZjDrcuqc69EQovps2N+tMHxCrzu3EEpE+JicHfrtPjM4QUbFUqYN+5cSY96Q==
-X-Gm-Gg: ASbGncvCUrQWg+Vy85NVFGRDYxNUtWXsZQgs9jqPS/6a1KeQYUuy6Dhq3SR6ChATn3f
-	Kvr8RJQZOnzChJg+ziFIzRYyVG9GQzSRdS/e5htQ4LXZXamcNL5KrOgoTKCk3QyTfkDNhKASAan
-	7IiJ066edP3M2ybF/xRwi+qlJ63W/XYTBmqoynJ+8wzLR3Xx9hKtIIZ7BFOd3hwi7YUlOGMm+nO
-	oQpzRMefFTp7VUMxlb1vAimSf7EisMVbtT4iYJ4KsIQu7sBM7bim+DiVBDYSGuB7ve4eWddQ/zW
-	2j4cc6Dnr4SQUZmxhHYhIT5+A2Rdidkcv41Qn0eozPXlILETY5vbTNS2MH5fyJ6ugl+q929Fd9h
-	wkRGyzzyIWJ8=
-X-Google-Smtp-Source: AGHT+IGjU+oeCRWieDYEZVzlHsqvTJknkBFPoSQZszIVrsxpxHIUecY9sRHEPYX6JiD6LkU+M5hqqg==
-X-Received: by 2002:a05:600c:450d:b0:439:9a43:dd62 with SMTP id 5b1f17b1804b1-439aebb2d6fmr101684335e9.24.1740470394006;
-        Mon, 24 Feb 2025 23:59:54 -0800 (PST)
-Message-ID: <cb1c97db-dba4-4dd4-bf93-7042b6edd20e@suse.com>
-Date: Tue, 25 Feb 2025 08:59:52 +0100
+        bh=yi0cN2INj1fQJVh2SYrayNgPNUBLs6318WF7Roxvjlk=;
+        b=JavBunVbLCLVVE5/bAk0oe//BAbDxPAejy/pcEsmyIKAXSvH0NvRBfVrGu1DKeK1hQ
+         KlBEfkO5SCuJYty6RRDDLpm6lGVvn/MgRN2/Ob24FXBvvMVqDs5OaMGLYQiaYPYDmjUY
+         dRU5+0kTxTVKY1n8klC+YlhS6T1u2Hbr0uviTbhzTVqvrGA94zJVYpBhQ9y8kyTcimlF
+         g+cf5qbXUJHsO1mBRTF5PS0VMt3wsD44hA1iWZBy0sJ8jj0bh3FBNWKndeXOUMpcaQGg
+         PN1KXTw2V25ypHVXDqqtJPOJCSX5iDuqtBMmDGAuUv+VrVZfpoGXZLPpz9KglM84xk9c
+         PV+A==
+X-Forwarded-Encrypted: i=1; AJvYcCU7GY6GizLYtpAuL8Ek32uTVf8XvfM3JkIIXhTTlSjbv8ZZT9DS2An8h5Q0fx2c9ISs/f0nq1hWPCo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw8GfSOLniNQUWJjSeIy2nJj22NVCS74+S5L/2k5xJMpRq7VEnX
+	94dXqPNFIQLofwCfx5KuAp9CRM5T/lmykGvu0XK08bop6NeDtdWg1Zb020v3lA==
+X-Gm-Gg: ASbGncuLKur0hCr96RGkrH80G14b3+rQFmJ44ksq3h2RfBN0UN/vYgEnDuFpY9WXd4q
+	R44usKGAWDrf36+m0wX7RN7b82cTJVdPtITcf4RcpWa7mXAPSkZbC4mqiG3tiv2INbJLAvHEE5j
+	Nz16isnXTinpHjJ/Yi5H9sqjwF7ZfEQdlHwFs8hUqmrQHAmZjrgZNA+bXUtMwcHqw5FQ0kp12u/
+	Nte92h0UKanYvRx6rkqyDYr2wtxGoRpEb4cl7JBLsCTf5xW5PY70YEgnJ3OO6ZnRYHsPJ7zcb7C
+	oc+CRJ6/JBFCcnNr2uwB22QycGUSITiMMxqo0dsA37uWukv4u8bC1WLk93IyilG46DHCrHhjwBO
+	H3ugJ8vsnnsY=
+X-Google-Smtp-Source: AGHT+IHUoFFLPeUFu+UU355uZPXSqKbe04M90Zq6iAnWoHkRiKSuQHJcCy3YfTfAC5taWSt2lmevmw==
+X-Received: by 2002:a05:6000:2a5:b0:38d:d533:d9a2 with SMTP id ffacd0b85a97d-38f615be1bamr16181576f8f.13.1740470981876;
+        Tue, 25 Feb 2025 00:09:41 -0800 (PST)
+Message-ID: <346374d3-9bc0-47d5-b8e2-af41644c6f50@suse.com>
+Date: Tue, 25 Feb 2025 09:09:40 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for 4.21 v5 3/3] xen/riscv: update mfn calculation in
- pt_mapping_level()
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1739985805.git.oleksii.kurochko@gmail.com>
- <f474bdd1393d376111559fc5b7b01f035d52dd44.1739985805.git.oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v2] xen/consoled: clean up console handling for PV shim
+To: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com, xen-devel@lists.xenproject.org
+References: <20250222235748.103599-1-dmkhn@proton.me>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,73 +118,56 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f474bdd1393d376111559fc5b7b01f035d52dd44.1739985805.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <20250222235748.103599-1-dmkhn@proton.me>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 20.02.2025 18:44, Oleksii Kurochko wrote:
-> When pt_update() is called with arguments (..., INVALID_MFN, ..., 0 or 1),
-> it indicates that a mapping is being destroyed/modifyed.
-> 
-> In the case when modifying or destroying a mapping, it is necessary to
-> search until a leaf node is found, instead of searching for a page table
-> entry based on the precalculated `level` and `order`(look at pt_update()).
-> This is because when `mfn` == INVALID_MFN, the `mask` (in pt_mapping_level())
-> will take into account only `vfn`, which could accidentally return an
-> incorrect level, leading to the discovery of an incorrect page table entry.
-> 
-> For example, if `vfn` is page table level 1 aligned, but it was mapped as
-> page table level 0, then pt_mapping_level() will return `level` = 1, since
-> only `vfn` (which is page table level 1 aligned) is taken into account when
-> `mfn` == INVALID_MFN (look at pt_mapping_level()).
-> 
-> Fixes: c2f1ded524 ("xen/riscv: page table handling")
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
-> Changes in v5:
-> - Rename *entry to *ptep in pt_update_entry().
-> - Fix code style issue in the comment.
-> - Move NULL check of pointer to `table` inside unmap_table and then drop
->   it in pt_update_entry().
-
-Imo this last aspect wants mentioning in the description.
-
-> @@ -422,17 +439,40 @@ static int pt_update(vaddr_t virt, mfn_t mfn,
+On 23.02.2025 00:58, dmkhn@proton.me wrote:
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -46,6 +46,7 @@
 >  
->      while ( left )
->      {
-> -        unsigned int order, level;
-> -
-> -        level = pt_mapping_level(vfn, mfn, left, flags);
-> -        order = XEN_PT_LEVEL_ORDER(level);
-> +        unsigned int order, level = CONFIG_PAGING_LEVELS;
+>  #ifdef CONFIG_X86
+>  #include <asm/guest.h>
+> +#include <asm/pv/shim.h>
+>  #endif
+
+This change isn't needed. It's the purpose of asm/guest.h to
+include, among other headers, asm/pv/shim.h.
+
+> @@ -562,13 +560,12 @@ static void __serial_rx(char c)
+>          rc = vpl011_rx_char_xen(d, c);
+>  #endif
 >  
-> -        ASSERT(left >= BIT(order, UL));
-> +        /*
-> +         * In the case when modifying or destroying a mapping, it is necessary
-> +         * to search until a leaf node is found, instead of searching for
-> +         * a page table entry based on the precalculated `level` and `order`
-> +         * (look at pt_update()).
-> +         * This is because when `mfn` == INVALID_MFN, the `mask`(in
-> +         * pt_mapping_level()) will take into account only `vfn`, which could
-> +         * accidentally return an incorrect level, leading to the discovery of
-> +         * an incorrect page table entry.
-> +         *
-> +         * For example, if `vfn` is page table level 1 aligned, but it was
-> +         * mapped as page table level 0, then pt_mapping_level() will return
-> +         * `level` = 1, since only `vfn` (which is page table level 1 aligned)
-> +         * is taken into account when `mfn` == INVALID_MFN
-> +         * (look at pt_mapping_level()).
-> +         *
-> +         * To force searching until a leaf node is found is necessary to have
-> +         * `level` == CONFIG_PAGING_LEVELS which is a default value for
-> +         * `level`.
+> -#ifdef CONFIG_X86
+> -    if ( pv_shim && pv_console )
+> -        consoled_guest_tx(c);
+> -#endif
+> +    if ( consoled_is_enabled() )
+> +        /* Deliver input to the PV shim console. */
+> +        rc = consoled_guest_tx(c);
+>  
+>      if ( rc )
+> -        guest_printk(d, XENLOG_G_WARNING
+> +        guest_printk(d, XENLOG_WARNING
+>                          "failed to process console input: %d\n", rc);
 
-There looks to be an "it" missing before the 2nd "is". I'm also unconvinced the
-part starting with "which" is really necessary.
+This change looks wrong to me. If there's a need to do so, I think this
+needs mentioning in the description or even splitting into a separate
+patch.
 
-Preferably with these small adjustments (I'd be happy to do so while committing)
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> --- a/xen/include/xen/consoled.h
+> +++ b/xen/include/xen/consoled.h
+> @@ -1,14 +1,36 @@
+> -#ifndef __XEN_CONSOLED_H__
+> -#define __XEN_CONSOLED_H__
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +#ifndef XEN__CONSOLED_H
+> +#define XEN__CONSOLED_H
+
+This also isn't mentioned anywhere, not even in passing. I'd actually
+suggest to leave header guards alone until we have settled on a final
+naming scheme. The one that was put in place is under debate again.
 
 Jan
 
