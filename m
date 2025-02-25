@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29AD4A443B8
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Feb 2025 15:59:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.895840.1304480 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 960B3A443BD
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Feb 2025 16:00:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.895847.1304490 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmwOO-0007XD-7W; Tue, 25 Feb 2025 14:58:40 +0000
+	id 1tmwPq-0000Z2-JC; Tue, 25 Feb 2025 15:00:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 895840.1304480; Tue, 25 Feb 2025 14:58:40 +0000
+Received: by outflank-mailman (output) from mailman id 895847.1304490; Tue, 25 Feb 2025 15:00:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmwOO-0007VY-4h; Tue, 25 Feb 2025 14:58:40 +0000
-Received: by outflank-mailman (input) for mailman id 895840;
- Tue, 25 Feb 2025 14:58:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tmwPq-0000WT-Fb; Tue, 25 Feb 2025 15:00:10 +0000
+Received: by outflank-mailman (input) for mailman id 895847;
+ Tue, 25 Feb 2025 15:00:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wvcP=VQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tmwOM-0007VS-IH
- for xen-devel@lists.xenproject.org; Tue, 25 Feb 2025 14:58:38 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fccc8309-f388-11ef-9aae-95dc52dad729;
- Tue, 25 Feb 2025 15:58:36 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-4394a823036so54580635e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 25 Feb 2025 06:58:35 -0800 (PST)
+ id 1tmwPp-0000WL-8O
+ for xen-devel@lists.xenproject.org; Tue, 25 Feb 2025 15:00:09 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 33778be3-f389-11ef-9897-31a8f345e629;
+ Tue, 25 Feb 2025 16:00:07 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-43996e95114so37835575e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Feb 2025 07:00:07 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-439b02f2475sm142600555e9.20.2025.02.25.06.58.34
+ 5b1f17b1804b1-439b02ce65dsm143701675e9.1.2025.02.25.07.00.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Feb 2025 06:58:34 -0800 (PST)
+ Tue, 25 Feb 2025 07:00:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fccc8309-f388-11ef-9aae-95dc52dad729
+X-Inumbo-ID: 33778be3-f389-11ef-9897-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740495515; x=1741100315; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1740495607; x=1741100407; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=qKiOFU7yLZ8utHN14N2KMOiuRrqZQa4CzFbTvEvQnK4=;
-        b=OMbZ52soX2vwSXECtV8kLTzmMgj76Dg4ksP+e5hpbusGrfquWaGGWIXsIKjAncsd+w
-         8wVOAaJb11DOs+bjW4uq8mIwKVVCPbgWrGPW9RLeg0qEBA7WMNXIiHoW4REkuoU0qPkF
-         Bm9099LFC2ShBkzMuXxZgV1C/BfXBryZv+vG87GlI1ShLw1jtnds86FoxCW1IeNKe+pz
-         zXRWqlLEsC6a8JnPkbuc68rOz/gmu5Zqh/mFmCAfM7x1iDvdGYlGSstRfm4OpFqodg7W
-         a/QPff51LCKMmlf/qMrtSQnpLSNm13reshaLWoMkCSXuDyvdVr3RQGsLBqdeRH46WGy5
-         +G8A==
+        bh=PVzKevVPF+DMbCFVqjrYtPejjhj5f0GQLOrMkNCQnMY=;
+        b=NCjQU/EpAWdZMQ2uozlSzJ2ht+g74/OHbNe0Z8Zp55ArbrW9y3FJSrI1KstxDOVcrs
+         2CGBIKnyclqcCRgapVAsH5Kk4C7WNSOfnnnoYo6/jRP8l6YVVw8An3iZKQ5/JioMTWcR
+         C9mV0TE5Ow81ECK7nkmpu4/Xho6fGDuoLxZZgntNUT15ZbtgoxDiFul2tvJJZE9m3kvl
+         KBo/6AHdUTazyCeCWJHIPRi0aMH5RY4jepMGUJD6mR+ucJZDZEGtHf+AVLs4CbbCsuAh
+         JwUNxLr4GdiEm0dTHd5T6rbIDgK6Bq/tZ8RP7XdcsLFm96ngh25NG7jK88y2/1zUZiL4
+         CpIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740495515; x=1741100315;
+        d=1e100.net; s=20230601; t=1740495607; x=1741100407;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=qKiOFU7yLZ8utHN14N2KMOiuRrqZQa4CzFbTvEvQnK4=;
-        b=qdszm+DX5sIf0MTTRQBmco1VLHUJy2QG9lME3DFtk8nxvbvC6tCY3pPbdscxyrk2sn
-         LaqmWMJzlnXmGf3RzRb+uG7Af0slocMnfXaqtdvLT4t57QLifvBvn4zY/icSmAC9xqjk
-         vcqzeHMPGJIBir74CVHtQ+Ah5UpNssql+0vNFrESyL7OMxORknL4aiyU8kekOnkjPwjb
-         HtIxPEqPWYZRgu/vsFF/5EIdQDSfGvGeyhE/0XokaiBXkxVzqHBSgreYmm9uwcdPy5eo
-         udkxtO8C6sIxjB+Q//C0jW2apQt02ii0JBf2CrW1zX0+0CY3Ke1+YMH8ZRXJE7MPqQL3
-         Tlvg==
-X-Gm-Message-State: AOJu0YxPpB2Dpit7FbNv5NWfwf/+tZJEeBIXu++MAN/MW+3Ytf93QQMs
-	YwKH3bZm/CNIsE/kKlIm1pjwauCglzOVP4KqdZ5oy0bSOUfx4W12E8uRTwZKowGX4VKZnv9w6lY
+        bh=PVzKevVPF+DMbCFVqjrYtPejjhj5f0GQLOrMkNCQnMY=;
+        b=tyDB4IFSkayiAK12giYRcuUHdzLzCqUXZ+oiarVmBIBuWI7EJdAoHmBVuQKMwFlO2p
+         zFI2MwI3Mp+ZGhPv3ZGnUZQX7bl8GaZ+jWTkEsavtOK1IS1bvchhB7Zb+xKRyFo3azd3
+         fFFwvdihjJEZ2kH1MMOHdsbAMZix3MCnCm1aYZoDrmhGcboOfflLOLOvYeBNAt1mPMvB
+         R6YJgLSFfIGBrsVFyeeq1pduK+tGuta4ZtX4/O4x+jU8ND4PWXPKApPrszti5/jvinF2
+         T8oYiOOWWUPG+QUE1pVs4Ej224yKwDFPVtrf2bqcr7lhJ06g+gZ+SDfThSEjhvrv2x5t
+         K28w==
+X-Gm-Message-State: AOJu0Yxi+qKwxhL2QvixrArkfVA618mNys/3Foe0Su9yyCI2mISGSY4S
+	SvAJmx96JOo5ioPnhsM1uqWTvAh4zjlx8jYKpUrqrX52dBZUPS2fIN7Bd1QO1hjyJii75/Cafcw
 	=
-X-Gm-Gg: ASbGncvGQ/Cnb06qa3NiWY9q+BIStitPK7DqPAIveUeVkWzqz8SBGtqZS9ZKB2H2HPI
-	N7QZsWgkwkHHv+Dsv05M+UPQx40+O/UXe1GXwBzNzoU6EhWJO8u56AXf6RXFBJJ6O2Nde82Wizv
-	hYe/9EfgrwB4B5VpSsAxS054aGVSc1mpNDbU96LrFKOp0wh3JHyhrudMl3RcyFhlewvt9ERqszf
-	5plHGq+Y8NAEC73+Ayp1w6xGHVsxcjAZTeL6UbyozmmNwS20+FZxXPj7n+ek+l4t0USgCXBRWo5
-	UFuXojKg8mrHSngw46DtlaSbx+Np0b/jFkdI2TPMIp0vunwnrCQnCBFmaSZMPRCGjJLyvy7nbDT
-	i1F0nCvnJyLU=
-X-Google-Smtp-Source: AGHT+IHtMWpQ+P1MyU3ZLOTBbkdsoKZoWKJ4NN0zrA3+Ro0VkIuVNbvsRfng+sD9idktTCa95qbWfg==
-X-Received: by 2002:a05:600c:470a:b0:439:a139:7a19 with SMTP id 5b1f17b1804b1-439aebb3155mr140887225e9.23.1740495515023;
-        Tue, 25 Feb 2025 06:58:35 -0800 (PST)
-Message-ID: <6565e881-ec59-4db4-834a-f694bf1b9427@suse.com>
-Date: Tue, 25 Feb 2025 15:58:34 +0100
+X-Gm-Gg: ASbGncvtniYSuIoq2411+EPHhO33xCLLhoCdsL7lWjgt9Wc7DJxDq2y+7ulm4SNSu3Y
+	YadxDwh8jolsx3zYeMs0SR9rTVBXPuBHuWlR5WXV+FzPAahNcgNRDFBasi8P61OnV+3z/vjq33Q
+	7UYgyYjbHegyT7E5JBV1WBrRHxW/U4eQYMe3uN/ZApiZrPYG0qQ7cpRAh+WSG8us2lqFMCbdZ6+
+	3cTLE/aqy/uwMuHsXsYwDUQy/DqDUIH7U+QCgD3qXvwgH3zVrQW+yQfj6DPgz7/xlK3k+1OvssD
+	m402fubLc4NNYC7h4NnqnP1xd6zzSFbELA9xLT2uizsrnIg8p553kqjHn+v/GiLdPxlOdAYJpMs
+	A9FNklc1zBFc=
+X-Google-Smtp-Source: AGHT+IG/bsHMPtKRSO80GdN4YGWK+JJfUBwaFGY1qqRWw3NTg9CTM0/2TJovEW18KLQVtZkgXzNZMQ==
+X-Received: by 2002:a05:600c:500e:b0:439:8e46:ee73 with SMTP id 5b1f17b1804b1-439aeb2b5d6mr147217375e9.15.1740495606015;
+        Tue, 25 Feb 2025 07:00:06 -0800 (PST)
+Message-ID: <4a40f0ea-2ce0-4485-aa70-b23634f73dc1@suse.com>
+Date: Tue, 25 Feb 2025 16:00:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] memory: arrange to conserve on DMA reservation
+Subject: [PATCH] x86/DM: slightly simplify set_mem_type()
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -121,32 +118,72 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Entities building domains are expected to deal with higher order
-allocation attempts (for populating a new domain) failing. If we set
-aside a reservation for DMA, try to avoid taking higher order pages from
-that reserve pool. Instead favor order-0 ones which often can still be
-supplied from higher addressed memory, even if we've run out of
-large/huge pages there.
+There's no need to access the static array twice per iteration, even
+more so when that's effectively open-coding array_access_nospec().
+Along with renaming the "new type" variable, rename the "old type" one
+as well, to clarify which one is which.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-RFC: More generally for any requests targeting remote domains?
 
---- a/xen/common/memory.c
-+++ b/xen/common/memory.c
-@@ -192,6 +192,14 @@ static void populate_physmap(struct memo
-          * delayed.
-          */
-         a->memflags |= MEMF_no_icache_flush;
-+
-+        /*
-+         * Heuristically assume that during domain construction the caller is
-+         * capable of falling back to order-0 allocations, allowing us to
-+         * conserve on memory otherwise held back for DMA purposes.
-+         */
-+        if ( a->extent_order )
-+            a->memflags |= MEMF_no_dma;
-     }
+--- a/xen/arch/x86/hvm/dm.c
++++ b/xen/arch/x86/hvm/dm.c
+@@ -219,7 +219,8 @@ static int set_mem_type(struct domain *d
+                         struct xen_dm_op_set_mem_type *data)
+ {
+     xen_pfn_t last_pfn = data->first_pfn + data->nr - 1;
+-    unsigned int iter = 0, mem_type;
++    unsigned int iter = 0;
++    p2m_type_t nt;
+     int rc = 0;
  
-     for ( i = a->nr_done; i < a->nr_extents; i++ )
+     /* Interface types to internal p2m types */
+@@ -239,16 +240,16 @@ static int set_mem_type(struct domain *d
+          unlikely(data->mem_type == HVMMEM_unused) )
+         return -EINVAL;
+ 
+-    mem_type = array_index_nospec(data->mem_type, ARRAY_SIZE(memtype));
++    nt = array_access_nospec(memtype, data->mem_type);
+ 
+-    if ( mem_type == HVMMEM_ioreq_server )
++    if ( nt == p2m_ioreq_server )
+     {
+         unsigned int flags;
+ 
+         if ( !hap_enabled(d) )
+             return -EOPNOTSUPP;
+ 
+-        /* Do not change to HVMMEM_ioreq_server if no ioreq server mapped. */
++        /* Do not change to p2m_ioreq_server if no ioreq server mapped. */
+         if ( !p2m_get_ioreq_server(d, &flags) )
+             return -EINVAL;
+     }
+@@ -256,22 +257,22 @@ static int set_mem_type(struct domain *d
+     while ( iter < data->nr )
+     {
+         unsigned long pfn = data->first_pfn + iter;
+-        p2m_type_t t;
++        p2m_type_t ot;
+ 
+-        get_gfn_unshare(d, pfn, &t);
+-        if ( p2m_is_paging(t) )
++        get_gfn_unshare(d, pfn, &ot);
++        if ( p2m_is_paging(ot) )
+         {
+             put_gfn(d, pfn);
+             p2m_mem_paging_populate(d, _gfn(pfn));
+             return -EAGAIN;
+         }
+ 
+-        if ( p2m_is_shared(t) )
++        if ( p2m_is_shared(ot) )
+             rc = -EAGAIN;
+-        else if ( !allow_p2m_type_change(t, memtype[mem_type]) )
++        else if ( !allow_p2m_type_change(ot, nt) )
+             rc = -EINVAL;
+         else
+-            rc = p2m_change_type_one(d, pfn, t, memtype[mem_type]);
++            rc = p2m_change_type_one(d, pfn, ot, nt);
+ 
+         put_gfn(d, pfn);
+ 
 
