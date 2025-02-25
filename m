@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2F00A4394D
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Feb 2025 10:23:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.895539.1304197 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11AD1A43975
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Feb 2025 10:29:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.895548.1304206 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmr95-0004ZN-HK; Tue, 25 Feb 2025 09:22:31 +0000
+	id 1tmrFd-0005Om-6b; Tue, 25 Feb 2025 09:29:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 895539.1304197; Tue, 25 Feb 2025 09:22:31 +0000
+Received: by outflank-mailman (output) from mailman id 895548.1304206; Tue, 25 Feb 2025 09:29:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmr95-0004WF-EV; Tue, 25 Feb 2025 09:22:31 +0000
-Received: by outflank-mailman (input) for mailman id 895539;
- Tue, 25 Feb 2025 09:22:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tmrFd-0005Lc-2e; Tue, 25 Feb 2025 09:29:17 +0000
+Received: by outflank-mailman (input) for mailman id 895548;
+ Tue, 25 Feb 2025 09:29:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=k2AW=VQ=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tmr94-0004W8-98
- for xen-devel@lists.xenproject.org; Tue, 25 Feb 2025 09:22:30 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 087fcf84-f35a-11ef-9aae-95dc52dad729;
- Tue, 25 Feb 2025 10:22:28 +0100 (CET)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-54605bfcc72so7183307e87.0
- for <xen-devel@lists.xenproject.org>; Tue, 25 Feb 2025 01:22:28 -0800 (PST)
+ id 1tmrFb-0005LT-Sf
+ for xen-devel@lists.xenproject.org; Tue, 25 Feb 2025 09:29:15 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f9ddbaa4-f35a-11ef-9897-31a8f345e629;
+ Tue, 25 Feb 2025 10:29:13 +0100 (CET)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-5e0505275b7so8624145a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Feb 2025 01:29:13 -0800 (PST)
 Received: from [172.24.85.51] ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-548514efbc3sm127299e87.125.2025.02.25.01.22.26
+ 4fb4d7f45d1cf-5e45b80b785sm921328a12.37.2025.02.25.01.29.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Feb 2025 01:22:27 -0800 (PST)
+ Tue, 25 Feb 2025 01:29:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,100 +44,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 087fcf84-f35a-11ef-9aae-95dc52dad729
+X-Inumbo-ID: f9ddbaa4-f35a-11ef-9897-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1740475348; x=1741080148; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1740475753; x=1741080553; darn=lists.xenproject.org;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2hLGORat6l4aXxdnCJWtKsFL1Ta+TD4yjlSnKoIKdzw=;
-        b=mR9ScuiN3I6mJBMaz2Ve74ysxV1x6ddt4HkTbCndzM87yiVmZOy+v2Y9w+1EdYsL8g
-         wew3c1P1QmunXzNuTqzvUVmxwaq9OyMQXkoMzQR7FhJ9Ecbtxebl1C6zYGh4Nm7bnBtQ
-         tz+OtialtkfySiDeN/Y0HIQHlpdLP3jyUJGSnw4zrgOGI9aN0SkJp9TZktsDqU1Yh3ZQ
-         11JBSR7G9v9OT13nGN22eGEB6xqvsHuyFTSCmpLPImM4UkKRwgejMmF8PWfDTj5FuTwa
-         c6C1Qz+cmNCN5fB2XYxPfI4A6h7fZSn/ZjECA0MgodZ6afOSu5Vz4X4xSHwEgK+j8M4j
-         SeIw==
+        bh=w4peud5O6/unVWYz5UTiFTz2z4jBleWsjfLFxVdgqAM=;
+        b=JDeIDl6CCNgTpsBPHOAxdkZoz26LtVXoEToWmXD6lDrFzo1/x/OkI3Uq1vRqqMm6TX
+         /yk9J9lA/fz/51/oDnzUVTHpCL6xdDjKVBv401viHVdxsHHEGqTf4+T14neFcz3RpK0U
+         jQaLb70fzlJtkVoHe1kax2lS+ahonBr8z3QeeHlWnNweiQ68Cv23r2UpgHiokvqTLYRQ
+         0MPgExfTs5jcMlegAzHc3XqOKxyj4OLkC7Qv0Y0PUnT+X46BRpUiGBuDJHcNrCfwB51Q
+         /uz3hwpkQigcODIDCCTpPaakt16Y3L8R40qO8QFB/xQsq8V3RwImqEnq+xwrDSiNFCYR
+         HgaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740475348; x=1741080148;
+        d=1e100.net; s=20230601; t=1740475753; x=1741080553;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=2hLGORat6l4aXxdnCJWtKsFL1Ta+TD4yjlSnKoIKdzw=;
-        b=m7ab7DYoX/9ziQkfp6KubCMHBukS2fz3/zEwa6G/dB7xM7t7GIYy/E6OMw0DV3M7Fp
-         2vJHsYKsOl5pW9qo1konIfQfJL3l+IHT7D1ypRN5d0KHiW9bCIc0ZptaWEpdiKC0g0ix
-         uCvH9IySdFywW6RsZ9uEIi58LGPqQgsYHeMxYSpAgvhxCuveCC7tXJQYMSvjaDTwRBEg
-         JzxHlCkqdJi6EFQ/4I1bEjGk+qjrUTZZLYxY7OzDiXMpJtjcHP+FSKfNwK271vfLR8uM
-         09TZ7zP191SF4ScfmxjDCDGGd06lYK9jDdep0vJAJzV+IMNgI+pxikO4HxbQ+rLSoCWn
-         8Mdw==
-X-Forwarded-Encrypted: i=1; AJvYcCVYhwdJkv1zjyKo2NN1ZQcKn9AFAY4vncGwvoPmFm0jG+RT6uD+TWhzGVmY4x2kjiDoIgAk48mke5E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx8Dy/x33xshCvrwI+9CSP1tB0e60X0qIorBHNscJb7fAkoupxg
-	gJ1XvmTUpStX2s32OoOPWe+Ln1ddzodREZ0oE0wsuhN9LhHScxyW
-X-Gm-Gg: ASbGncvuhthmpQPCPjdZWq2bwx2LYyveFMsgtiHCZwbyobFd5Nqvu+6GotZFYATS92K
-	fD36srHRyaJopDfQ/WOHPBksikR/fi8fDZ6FDsze/u/a7wJzXjhl28Ox9P6KeoiKATfWp+GqXvh
-	loiReWtMx/xPa2662COCFEU84nUL0cFu9bldIIgnIjCW2CRjYA6vXVUurm9Psn3zgcqaX0zAzDW
-	HJZL+yEwSqk4RDrr92hjGrppDlAWhn8SpmBvPs1yDEaLQebMk89i0Q+yyw+x0DZ+u2CUGzizSta
-	8aa1il+rdcX7D2tyy1JtQzTcHKqe7PkDhug=
-X-Google-Smtp-Source: AGHT+IFbqXYGB/YjfPd1SC1lMFz4FSu9HdCu3OGdOuUznMB+tu/+Oa9ux0QwVJBupQgb562STh3nZA==
-X-Received: by 2002:a05:6512:3b86:b0:545:4ca:d395 with SMTP id 2adb3069b0e04-54838c56efdmr5647053e87.2.1740475347722;
-        Tue, 25 Feb 2025 01:22:27 -0800 (PST)
+        bh=w4peud5O6/unVWYz5UTiFTz2z4jBleWsjfLFxVdgqAM=;
+        b=ZImhqTrBfJJ+Jwc+NIO6pq/CU9WzkBrfqqOjHtN28mZHIG7f2jV2pPtXaW5gWrOqFC
+         XKkPXJexr4q9f7QrYGUfjnyuJQk87P4+rxVMO0kV6yleCsTgphTCP5wQ5rYroApxwHGq
+         HsMafjWu+GUGK9ICG9psfZNpMLGNCjKOhA8PF8IZHn2Fkarirl7RZ34oGfGEbtTAcWc0
+         5eXQbndRgWqqMTr0/gm1iozJWcB3M+sv/u84RxkRt5lOZoI+w+ImByt23ylsbvJGcYnR
+         vpbDuEtHFZnEmHDoq9s7Z1832aWwg+qjVq09l1W/pLRhxTQ5PGnJjVFxbCIw2ftqP2Td
+         6IlA==
+X-Forwarded-Encrypted: i=1; AJvYcCWrUvMbvp8JXuWMlv6JkbLC8lKCkPga7Xqqu1Gh3uBHIkNOvKiczs70VJhWDN2w5hKQUe0C5Gw0YfE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzUp8mEKXIoXyJe/4Guf4+rixZaLLsUIHsSA5VEmJDl9A7WPd14
+	Sxo7sMyPLlzelA2Mr9kceMsrjyDx8qcE2vA/Tr0j/gsM89hIZjhd
+X-Gm-Gg: ASbGnctdIIQuhLP1fEEmX50qOxd1yVn0Fh6F8VUdeLQXeI5HscrswTFxGCBKjaTXZBd
+	/FLkRwxMGXE06ZXlxgBlmVoYiyFiOoFIEXNSfc52KcKInNAZQjGQ30z+kAw1os2UPYUUwGh2mjc
+	Nvs54bqEhdtBTbqf+VGG+f2HGW+CeDPbxU2zS0/WaUaFLAPWYFh0Fmy20K5BAgbE/eLpaMIiya8
+	DBbWOGXB/Creadsnohi0BflQP9Nc6RyWDwvmHQ1f5pArAiSV1lluXyvJ8QqPLml9/2zUCxT/LB6
+	u2D5g31Yk8v6O4N5rbmGwOu8J17I8sWDAKA=
+X-Google-Smtp-Source: AGHT+IGqlbXdwYB/7DgAYKcvrtkEBl/q85kDji7Rg1sFawi3G2Mv3KCZAuftsUFs1MkTS4BAjff1UQ==
+X-Received: by 2002:a05:6402:4305:b0:5da:a97:ad73 with SMTP id 4fb4d7f45d1cf-5e0b70f6d0bmr16092297a12.13.1740475752807;
+        Tue, 25 Feb 2025 01:29:12 -0800 (PST)
 Content-Type: multipart/alternative;
- boundary="------------uX6FJiPcKR2S85rWgvqnnOVe"
-Message-ID: <40d7a0b2-e455-4024-8137-a296d3f3767a@gmail.com>
-Date: Tue, 25 Feb 2025 10:22:26 +0100
+ boundary="------------fX0MCGDNRyEh502Uvdpvskkw"
+Message-ID: <3600c79c-f908-481a-8834-8a011bd88e05@gmail.com>
+Date: Tue, 25 Feb 2025 10:29:10 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] CHANGELOG.md: Finalize changes in 4.20 release cycle
+Subject: Re: [PATCH for 4.21 v5 3/3] xen/riscv: update mfn calculation in
+ pt_mapping_level()
 To: Jan Beulich <jbeulich@suse.com>
-Cc: committers@xenproject.org,
- Community Manager <community.manager@xenproject.org>,
- xen-devel@lists.xenproject.org
-References: <20250224182548.10812-1-oleksii.kurochko@gmail.com>
- <b6e03e25-2fa3-42d0-9755-61a71466f9b6@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1739985805.git.oleksii.kurochko@gmail.com>
+ <f474bdd1393d376111559fc5b7b01f035d52dd44.1739985805.git.oleksii.kurochko@gmail.com>
+ <cb1c97db-dba4-4dd4-bf93-7042b6edd20e@suse.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <b6e03e25-2fa3-42d0-9755-61a71466f9b6@suse.com>
+In-Reply-To: <cb1c97db-dba4-4dd4-bf93-7042b6edd20e@suse.com>
 
 This is a multi-part message in MIME format.
---------------uX6FJiPcKR2S85rWgvqnnOVe
+--------------fX0MCGDNRyEh502Uvdpvskkw
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
-On 2/25/25 8:13 AM, Jan Beulich wrote:
-> On 24.02.2025 19:25, Oleksii Kurochko wrote:
->> @@ -25,6 +30,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->>        interrupts instead of logical destination mode.
->>   
->>   ### Added
->> + - Support device passthrough when dom0 is PVH on Xen.
-> Was this work complete? (I'm truly uncertain, so not a rhetorical question.
-> IIRC SR-IOV is still unsupported, without which I'd not consider this work
-> complete.) In any event it's x86-only and hence would rather belong ...
+On 2/25/25 8:59 AM, Jan Beulich wrote:
+> On 20.02.2025 18:44, Oleksii Kurochko wrote:
+>> When pt_update() is called with arguments (..., INVALID_MFN, ..., 0 or 1),
+>> it indicates that a mapping is being destroyed/modifyed.
+>>
+>> In the case when modifying or destroying a mapping, it is necessary to
+>> search until a leaf node is found, instead of searching for a page table
+>> entry based on the precalculated `level` and `order`(look at pt_update()).
+>> This is because when `mfn` == INVALID_MFN, the `mask` (in pt_mapping_level())
+>> will take into account only `vfn`, which could accidentally return an
+>> incorrect level, leading to the discovery of an incorrect page table entry.
+>>
+>> For example, if `vfn` is page table level 1 aligned, but it was mapped as
+>> page table level 0, then pt_mapping_level() will return `level` = 1, since
+>> only `vfn` (which is page table level 1 aligned) is taken into account when
+>> `mfn` == INVALID_MFN (look at pt_mapping_level()).
+>>
+>> Fixes: c2f1ded524 ("xen/riscv: page table handling")
+>> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+>> ---
+>> Changes in v5:
+>> - Rename *entry to *ptep in pt_update_entry().
+>> - Fix code style issue in the comment.
+>> - Move NULL check of pointer to `table` inside unmap_table and then drop
+>>    it in pt_update_entry().
+> Imo this last aspect wants mentioning in the description.
 
-I decided so because the patch series [1] seems to be fully merged.
-[1]https://lore.kernel.org/xen-devel/20240930034250.2682265-1-Jiqian.Chen@amd.com/T/#m0811f020321587ec94638e686800264724af1cdb
+Agree, considering that it is a change in the code of previously introduced function,
+it makes to mention that.
 
 >
->> + - Enable CONFIG_UBSAN (Arm, x86, RISC-V) for GitLab CI.
->>    - On Arm:
->>      - Experimental support for Armv8-R.
->>      - Support for NXP S32G3 Processors Family and NXP LINFlexD UART driver.
->> @@ -34,6 +41,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->>    - On x86:
->>      - xl suspend/resume subcommands.
->>      - `wallclock` command line option to select time source.
->> +   - Add Support for Paging-Write Feature.
->> +   - Zen5 support (including new hardware support to mitigate the SRSO
->> +     speculative vulnerability).
-> ... here?
+>> @@ -422,17 +439,40 @@ static int pt_update(vaddr_t virt, mfn_t mfn,
+>>   
+>>       while ( left )
+>>       {
+>> -        unsigned int order, level;
+>> -
+>> -        level = pt_mapping_level(vfn, mfn, left, flags);
+>> -        order = XEN_PT_LEVEL_ORDER(level);
+>> +        unsigned int order, level = CONFIG_PAGING_LEVELS;
+>>   
+>> -        ASSERT(left >= BIT(order, UL));
+>> +        /*
+>> +         * In the case when modifying or destroying a mapping, it is necessary
+>> +         * to search until a leaf node is found, instead of searching for
+>> +         * a page table entry based on the precalculated `level` and `order`
+>> +         * (look at pt_update()).
+>> +         * This is because when `mfn` == INVALID_MFN, the `mask`(in
+>> +         * pt_mapping_level()) will take into account only `vfn`, which could
+>> +         * accidentally return an incorrect level, leading to the discovery of
+>> +         * an incorrect page table entry.
+>> +         *
+>> +         * For example, if `vfn` is page table level 1 aligned, but it was
+>> +         * mapped as page table level 0, then pt_mapping_level() will return
+>> +         * `level` = 1, since only `vfn` (which is page table level 1 aligned)
+>> +         * is taken into account when `mfn` == INVALID_MFN
+>> +         * (look at pt_mapping_level()).
+>> +         *
+>> +         * To force searching until a leaf node is found is necessary to have
+>> +         * `level` == CONFIG_PAGING_LEVELS which is a default value for
+>> +         * `level`.
+> There looks to be an "it" missing before the 2nd "is". I'm also unconvinced the
+> part starting with "which" is really necessary.
 
-Yes, it should be moved to x86. Based on the which files were changed during this patch series I decided that it should be
-in hypervisor changes, but now I checked which changes specifically done and for Arm it was added basically only stubs in
-libxl_arm.c.
+Lets then just drop this part. I added only to explicitly show that it is the value
+which is used to define `level`.
+
+>
+> Preferably with these small adjustments (I'd be happy to do so while committing)
+> Reviewed-by: Jan Beulich<jbeulich@suse.com>
+
+Thanks!
 
 ~ Oleksii
 
---------------uX6FJiPcKR2S85rWgvqnnOVe
+
+--------------fX0MCGDNRyEh502Uvdpvskkw
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
@@ -149,57 +197,102 @@ Content-Transfer-Encoding: 7bit
   <body>
     <p><br>
     </p>
-    <div class="moz-cite-prefix">On 2/25/25 8:13 AM, Jan Beulich wrote:<br>
+    <div class="moz-cite-prefix">On 2/25/25 8:59 AM, Jan Beulich wrote:<br>
     </div>
     <blockquote type="cite"
-      cite="mid:b6e03e25-2fa3-42d0-9755-61a71466f9b6@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 24.02.2025 19:25, Oleksii Kurochko wrote:
+      cite="mid:cb1c97db-dba4-4dd4-bf93-7042b6edd20e@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 20.02.2025 18:44, Oleksii Kurochko wrote:
 </pre>
       <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">@@ -25,6 +30,8 @@ The format is based on [Keep a Changelog](<a class="moz-txt-link-freetext" href="https://keepachangelog.com/en/1.0.0/">https://keepachangelog.com/en/1.0.0/</a>)
-      interrupts instead of logical destination mode.
- 
- ### Added
-+ - Support device passthrough when dom0 is PVH on Xen.
+        <pre wrap="" class="moz-quote-pre">When pt_update() is called with arguments (..., INVALID_MFN, ..., 0 or 1),
+it indicates that a mapping is being destroyed/modifyed.
+
+In the case when modifying or destroying a mapping, it is necessary to
+search until a leaf node is found, instead of searching for a page table
+entry based on the precalculated `level` and `order`(look at pt_update()).
+This is because when `mfn` == INVALID_MFN, the `mask` (in pt_mapping_level())
+will take into account only `vfn`, which could accidentally return an
+incorrect level, leading to the discovery of an incorrect page table entry.
+
+For example, if `vfn` is page table level 1 aligned, but it was mapped as
+page table level 0, then pt_mapping_level() will return `level` = 1, since
+only `vfn` (which is page table level 1 aligned) is taken into account when
+`mfn` == INVALID_MFN (look at pt_mapping_level()).
+
+Fixes: c2f1ded524 ("xen/riscv: page table handling")
+Signed-off-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+---
+Changes in v5:
+- Rename *entry to *ptep in pt_update_entry().
+- Fix code style issue in the comment.
+- Move NULL check of pointer to `table` inside unmap_table and then drop
+  it in pt_update_entry().
 </pre>
       </blockquote>
       <pre wrap="" class="moz-quote-pre">
-Was this work complete? (I'm truly uncertain, so not a rhetorical question.
-IIRC SR-IOV is still unsupported, without which I'd not consider this work
-complete.) In any event it's x86-only and hence would rather belong ...</pre>
+Imo this last aspect wants mentioning in the description.</pre>
     </blockquote>
-    <pre>I decided so because the patch series [1] seems to be fully merged.
-[1] <a class="moz-txt-link-freetext" href="https://lore.kernel.org/xen-devel/20240930034250.2682265-1-Jiqian.Chen@amd.com/T/#m0811f020321587ec94638e686800264724af1cdb">https://lore.kernel.org/xen-devel/20240930034250.2682265-1-Jiqian.Chen@amd.com/T/#m0811f020321587ec94638e686800264724af1cdb</a>
+    <pre>Agree, considering that it is a change in the code of previously introduced function,
+it makes to mention that.</pre>
+    <blockquote type="cite"
+      cite="mid:cb1c97db-dba4-4dd4-bf93-7042b6edd20e@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">@@ -422,17 +439,40 @@ static int pt_update(vaddr_t virt, mfn_t mfn,
+ 
+     while ( left )
+     {
+-        unsigned int order, level;
+-
+-        level = pt_mapping_level(vfn, mfn, left, flags);
+-        order = XEN_PT_LEVEL_ORDER(level);
++        unsigned int order, level = CONFIG_PAGING_LEVELS;
+ 
+-        ASSERT(left &gt;= BIT(order, UL));
++        /*
++         * In the case when modifying or destroying a mapping, it is necessary
++         * to search until a leaf node is found, instead of searching for
++         * a page table entry based on the precalculated `level` and `order`
++         * (look at pt_update()).
++         * This is because when `mfn` == INVALID_MFN, the `mask`(in
++         * pt_mapping_level()) will take into account only `vfn`, which could
++         * accidentally return an incorrect level, leading to the discovery of
++         * an incorrect page table entry.
++         *
++         * For example, if `vfn` is page table level 1 aligned, but it was
++         * mapped as page table level 0, then pt_mapping_level() will return
++         * `level` = 1, since only `vfn` (which is page table level 1 aligned)
++         * is taken into account when `mfn` == INVALID_MFN
++         * (look at pt_mapping_level()).
++         *
++         * To force searching until a leaf node is found is necessary to have
++         * `level` == CONFIG_PAGING_LEVELS which is a default value for
++         * `level`.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+There looks to be an "it" missing before the 2nd "is". I'm also unconvinced the
+part starting with "which" is really necessary.</pre>
+    </blockquote>
+    <pre>Lets then just drop this part. I added only to explicitly show that it is the value
+which is used to define `level`.
 </pre>
     <blockquote type="cite"
-      cite="mid:b6e03e25-2fa3-42d0-9755-61a71466f9b6@suse.com">
+      cite="mid:cb1c97db-dba4-4dd4-bf93-7042b6edd20e@suse.com">
       <pre wrap="" class="moz-quote-pre">
 
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+ - Enable CONFIG_UBSAN (Arm, x86, RISC-V) for GitLab CI.
-  - On Arm:
-    - Experimental support for Armv8-R.
-    - Support for NXP S32G3 Processors Family and NXP LINFlexD UART driver.
-@@ -34,6 +41,9 @@ The format is based on [Keep a Changelog](<a class="moz-txt-link-freetext" href="https://keepachangelog.com/en/1.0.0/">https://keepachangelog.com/en/1.0.0/</a>)
-  - On x86:
-    - xl suspend/resume subcommands.
-    - `wallclock` command line option to select time source.
-+   - Add Support for Paging-Write Feature.
-+   - Zen5 support (including new hardware support to mitigate the SRSO
-+     speculative vulnerability).
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-... here?</pre>
+Preferably with these small adjustments (I'd be happy to do so while committing)
+Reviewed-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a></pre>
     </blockquote>
-    <pre>Yes, it should be moved to x86. Based on the which files were changed during this patch series I decided that it should be
-in hypervisor changes, but now I checked which changes specifically done and for Arm it was added basically only stubs in
-libxl_arm.c.
-
-~ Oleksii</pre>
+    <pre>Thanks!</pre>
+    <pre>~ Oleksii
+</pre>
+    <p><br>
+    </p>
   </body>
 </html>
 
---------------uX6FJiPcKR2S85rWgvqnnOVe--
+--------------fX0MCGDNRyEh502Uvdpvskkw--
 
