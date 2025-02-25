@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B805A445EA
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Feb 2025 17:24:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.895906.1304587 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75C04A4460F
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Feb 2025 17:30:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.895914.1304598 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmxj3-0006DT-T5; Tue, 25 Feb 2025 16:24:05 +0000
+	id 1tmxog-0007Vp-GU; Tue, 25 Feb 2025 16:29:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 895906.1304587; Tue, 25 Feb 2025 16:24:05 +0000
+Received: by outflank-mailman (output) from mailman id 895914.1304598; Tue, 25 Feb 2025 16:29:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmxj3-0006BJ-QL; Tue, 25 Feb 2025 16:24:05 +0000
-Received: by outflank-mailman (input) for mailman id 895906;
- Tue, 25 Feb 2025 16:24:04 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1tmxog-0007Th-Dv; Tue, 25 Feb 2025 16:29:54 +0000
+Received: by outflank-mailman (input) for mailman id 895914;
+ Tue, 25 Feb 2025 16:29:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1tmxj2-0006BD-4X
- for xen-devel@lists.xenproject.org; Tue, 25 Feb 2025 16:24:04 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tmxj1-004j3W-32;
- Tue, 25 Feb 2025 16:24:03 +0000
-Received: from [2a02:8012:3a1:0:789b:6f8:a632:2adb]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tmxj1-003pzF-1h;
- Tue, 25 Feb 2025 16:24:03 +0000
+ (envelope-from <SRS0=wvcP=VQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tmxoe-0007TX-Px
+ for xen-devel@lists.xenproject.org; Tue, 25 Feb 2025 16:29:52 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bc9a3cc7-f395-11ef-9aae-95dc52dad729;
+ Tue, 25 Feb 2025 17:29:51 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-438a39e659cso38732245e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Feb 2025 08:29:51 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-439b0371c51sm148087225e9.35.2025.02.25.08.29.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 25 Feb 2025 08:29:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,78 +45,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=9184fGoZerNLkiGtJau/EC1CFY1l8JFVk3jxpdVcTAY=; b=2wTJZiEc1LaWU6eoXVL0aE4DGq
-	XBioIRtgXpmyu7ur2ONxrBl1fRohQUB5m96Cw7qD7it+VcucFhlb+a7GlviJEsbYB8oZzPt9q3lLk
-	E5O6Y1hzoEaPG1AbzPWnFzoVzE/idwX6jngtUyiWem8/HqYU0tTT3VHgl8i1piu8Z6n8=;
-Message-ID: <d032a1fc-0ba7-4d6c-8731-dc829f469dfc@xen.org>
-Date: Tue, 25 Feb 2025 16:24:01 +0000
+X-Inumbo-ID: bc9a3cc7-f395-11ef-9aae-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1740500991; x=1741105791; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=6sdd1xOiXwyAseUmz0ICzOH5PpnkY7J6KN50/I+lhDY=;
+        b=exFOs6ElmAwvoyKA35X0n3HaGhgppRXLW/ZSpTRVIpuey8ykVXp5CPooP1PKHpTp9K
+         HnA/GZGXVRQV+weENh29hhyvh2s0+2pHGVkZLT7x9feAMah8gOpcvHE/WOC/v+z0pt6p
+         e6DkoTNRHkPv77uw5oV8EAqrJfsWMMupICRUWFNP4E0WL/VI2z6Oa3ppRTp7OzZO/XWX
+         J9WF8dwWcJjtk07jvl91aTC7OOzG+Mg3hi8jmBKAc7fhVIrQvCPcsVc2/PYuB6+v2Aek
+         hweEUAxcy7ncqW25yBSOq7T9iipefRR10nqrjAGmVg1vIyKRg8BDanY/gTwvFsRFDf/v
+         LaLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1740500991; x=1741105791;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6sdd1xOiXwyAseUmz0ICzOH5PpnkY7J6KN50/I+lhDY=;
+        b=IJ1Ut6pf0B43k4BKhvjEgmoMgbfVOB1LPnJI/ljZUtWXGcEFxNp6761XAMZj6Ejb1b
+         ojqc2NBDPn6wufzehuNlfx7jL7G2nwxky7D+mvOBYY+u+YyNhXuK52D6H5lQVRTw5w0X
+         rsDQqxGm6adecC7mZmTfUxMrxDJVAPOWJKkdFRsQUNZx3+6mQGrQaBrnvVqHwvY/ro8a
+         GJo8kWpVZ8zkhkfx5GflKE8JJ2C0Z+wMeE20KyMR/7hmpqjnoszJJTNWzrXcxLmHLi2M
+         3T7cj5gsgdUWbm9G+rDGgE64YL+2Lx4LLYpjhtGcFKbxoPzalw0H0AwO6sMQIGBwSeYv
+         9o/w==
+X-Forwarded-Encrypted: i=1; AJvYcCW6PFDiELu5ISGZiDZhCybIWb2xc/mZen9a9wln2+ZtVbffPQ7caRxAjAbKOzoVlcNPV/V72t7DRP8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxhXJG200cQ78Qqvk81ckFIwe3Nc/c/DxsEST2lgLlaLELL75zr
+	USjYsKU3c7Y5Wb+e0fBl6vVdZs7fE4QILr6TDzmV2aOOhv3A4CpGGWpjlAcZig==
+X-Gm-Gg: ASbGncsUhH/UescGJzBZ622J73tJxdKiPiG6rRast4czZOvlB4RTbJ1xVb0lE8J4X76
+	tOFaaFcwFHHT49knhBRAhCNFWrD9DUEHqd9rYNQh0v835OilsJw0xugZbm774yyXbYzbul4ttLJ
+	GFoB6EbEHox7EREy8Wto/pFvNMQ5gLdn4XWg7WhAmDvDkFs2rU5vxWMAPyt3RdqM/hbuRQaV8vk
+	1ktxO9ir/hIZ7q1fBOSjUBD/TTQWZyh3vwCBymySiSsqjttiZe7HpvGUEBD6MC+xC16eg44DiV4
+	gunucxQjZOtrLerGmy+yZTt1Hu6mx8+CpgzpOEQQ+KY+R50yEnZf8mU5PKswfxZcfM1ntGpGrxO
+	LBHI0zjtALBc=
+X-Google-Smtp-Source: AGHT+IGn+3jn/4k/MQwG3mLuQvTj887l7CbVEIwcEd1rUmxUeuOB81hPZuTaxzTn0uMlaX2iXwImNQ==
+X-Received: by 2002:a05:600c:4e50:b0:439:8653:20bb with SMTP id 5b1f17b1804b1-439b2b06189mr168951185e9.14.1740500990746;
+        Tue, 25 Feb 2025 08:29:50 -0800 (PST)
+Message-ID: <b8364404-fb3a-4f96-8c05-2143783b9af8@suse.com>
+Date: Tue, 25 Feb 2025 17:29:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] xen/arm: mpu: Enclose access to MMU specific
- registers under CONFIG_MMU (arm32)
-Content-Language: en-GB
-To: Luca Fancellu <Luca.Fancellu@arm.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20250204192357.1862264-1-ayan.kumar.halder@amd.com>
- <20250204192357.1862264-3-ayan.kumar.halder@amd.com>
- <0C7E90FC-B76E-4293-A716-1C74B1F89DA5@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <0C7E90FC-B76E-4293-A716-1C74B1F89DA5@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 4/8] x86/IDT: Rename idt_table[] to bsp_idt[]
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250224160509.1117847-1-andrew.cooper3@citrix.com>
+ <20250224160509.1117847-5-andrew.cooper3@citrix.com>
+ <fa0cd84c-a3a7-44c8-af62-3e8da91a6d1a@suse.com>
+ <0ced63b8-e674-4a88-a979-ff807afe3576@citrix.com>
+ <924de1d3-94e8-4d0b-8f5d-ebc9a92e81c4@suse.com>
+ <b2220e73-6e3c-46a7-8007-20567d12c749@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <b2220e73-6e3c-46a7-8007-20567d12c749@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi,
-
-On 06/02/2025 14:48, Luca Fancellu wrote:
->> On 4 Feb 2025, at 19:23, Ayan Kumar Halder <ayan.kumar.halder@amd.com> wrote:
->>
->> All the EL2 MMU specific registers in head.S are enclosed within CONFIG_MMU.
->>
->> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->> ---
->> xen/arch/arm/arm32/head.S | 2 ++
->> 1 file changed, 2 insertions(+)
->>
->> diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
->> index 4ff5c220bc..1d0f84b18f 100644
->> --- a/xen/arch/arm/arm32/head.S
->> +++ b/xen/arch/arm/arm32/head.S
->> @@ -224,6 +224,7 @@ cpu_init_done:
->>          mcr   CP32(r0, HMAIR0)
->>          mcr   CP32(r1, HMAIR1)
->>
->> +#ifdef CONFIG_MMU
->>          /*
->>           * Set up the HTCR:
->>           * PT walks use Inner-Shareable accesses,
->> @@ -232,6 +233,7 @@ cpu_init_done:
->>           */
->>          mov_w r0, (TCR_RES1|TCR_SH0_IS|TCR_ORGN0_WBWA|TCR_IRGN0_WBWA|TCR_T0SZ(0))
->>          mcr   CP32(r0, HTCR)
->> +#endif
+On 25.02.2025 17:20, Andrew Cooper wrote:
+> On 25/02/2025 2:33 pm, Jan Beulich wrote:
+>> On 25.02.2025 13:54, Andrew Cooper wrote:
+>>> On 25/02/2025 9:00 am, Jan Beulich wrote:
+>>>> On 24.02.2025 17:05, Andrew Cooper wrote:
+>>>>> Having variables named idt_table[] and idt_tables[] is not ideal.
+>>>>>
+>>>>> Use X86_IDT_VECTORS and remove IDT_ENTRIES.  State the size of bsp_idt[] in
+>>>>> idt.h so that load_system_tables() and cpu_smpboot_alloc() can use sizeof()
+>>>>> rather than opencoding the calculation.
+>>>>>
+>>>>> Move the variable into a new traps-init.c, to make a start at splitting
+>>>>> traps.c in half.
+>>>> Hmm, I'd expect a file of that name to contain only __init code/data, and
+>>>> hence for it to be possible to ...
+>>>>
+>>>>> --- a/xen/arch/x86/Makefile
+>>>>> +++ b/xen/arch/x86/Makefile
+>>>>> @@ -65,6 +65,7 @@ obj-y += spec_ctrl.o
+>>>>>  obj-y += srat.o
+>>>>>  obj-y += string.o
+>>>>>  obj-y += time.o
+>>>>> +obj-y += traps-init.o
+>>>> ... use
+>>>>
+>>>> obj-bin-y += traps-init.init.o
+>>>>
+>>>> here.
+>>> AP bringup and S3 resume will have a rather hard time working if that
+>>> were the case.
+>>>
+>>> Plenty of it does end up being __init, but not all.
+>> Hmm, yes. Yet then, taking into consideration what you put in that file
+>> right in this series (which there's nothing init-ish about, as the tables
+>> are needed until we reboot / shut down / crash), what's the designated
+>> pattern for what is to go where?
 > 
-> I was wondering if here it was better, for readability, to have this part defined in the arm32/mmu/head.S and
-> arm32/mpu/head.S could have implemented a stub, maybe the maintainer could help with that.
+> Configuring event handling turns out to be pretty disjoint from actual
+> event handling, and traps.c is already too complicated.
+> 
+> If you can suggest a better name than traps-init.c then I'm all ears,
+> but I couldn't think of one.
+> 
+> Other commits I've got in the next batch of cleanup are:
+> 
+> x86/traps: Move subarch_percpu_traps_init() into traps-init.c
+> x86/traps: Move load_system_tables() into traps-init.c
+> x86/traps: Simplify early exception setup
+> x86/traps: Fold init_idt_traps() and trap_init() into their single callers
+> x86/traps: Introduce new init APIs
+> x86/traps: Move percpu_traps_init() into traps-init.c
+> x86/traps: Move cpu_init() out of trap_init()
+> 
+> which gives some idea of what's changing, although this isn't complete
+> yet.  Even things like LER setup end up moving in here.
 
-The current logic is a bit odd because the MM specific registers are 
-initialized in two different places (cpu_init and enable_mmu).
+traps-setup.c maybe? Just to avoid the "init" in the name.
 
-It would be better if we have a single place. So I would move setting 
-HTCR (and event HMAIR{0,1} even if it means duplication) to enable_mmu.
+Jan
 
-The same would apply for arm64.
-
-Cheers,
-
--- 
-Julien Grall
+> Setting up FRED requires the cmdline, feature scan, and a determination
+> of pv_shim, all of which precludes it from being used for early
+> exception handling.  Therefore, what I've ended up trying to arrange is:
+> 
+> 1) early_exception_init() (start of day)
+> 2) traps_init() (replaces the current trap_init())
+> 3) percpu_traps_init()
+> 
+> where early_exception_init() is even more simple than what we have
+> today, and traps_init() tailcalls percpu_traps_init() to remove some
+> duplication we've got.
+> 
+> ~Andrew
 
 
