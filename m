@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA200A43DC9
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Feb 2025 12:37:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.895668.1304330 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78CA9A43DCD
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Feb 2025 12:38:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.895676.1304340 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmtFt-0003CX-Rw; Tue, 25 Feb 2025 11:37:41 +0000
+	id 1tmtGI-0003jc-3i; Tue, 25 Feb 2025 11:38:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 895668.1304330; Tue, 25 Feb 2025 11:37:41 +0000
+Received: by outflank-mailman (output) from mailman id 895676.1304340; Tue, 25 Feb 2025 11:38:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmtFt-0003AR-Od; Tue, 25 Feb 2025 11:37:41 +0000
-Received: by outflank-mailman (input) for mailman id 895668;
- Tue, 25 Feb 2025 11:37:40 +0000
+	id 1tmtGI-0003gX-0b; Tue, 25 Feb 2025 11:38:06 +0000
+Received: by outflank-mailman (input) for mailman id 895676;
+ Tue, 25 Feb 2025 11:38:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wvcP=VQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tmtFs-0002Ya-Ff
- for xen-devel@lists.xenproject.org; Tue, 25 Feb 2025 11:37:40 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ id 1tmtGG-0002Ya-6H
+ for xen-devel@lists.xenproject.org; Tue, 25 Feb 2025 11:38:04 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ea789a32-f36c-11ef-9897-31a8f345e629;
- Tue, 25 Feb 2025 12:37:38 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-388cae9eb9fso2879638f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 25 Feb 2025 03:37:38 -0800 (PST)
+ id f894fc5d-f36c-11ef-9897-31a8f345e629;
+ Tue, 25 Feb 2025 12:38:02 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-38f1e8efe84so1981452f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Feb 2025 03:38:02 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-390cd8e7121sm1991465f8f.61.2025.02.25.03.37.37
+ 5b1f17b1804b1-43ab153a7bcsm22704945e9.13.2025.02.25.03.38.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Feb 2025 03:37:38 -0800 (PST)
+ Tue, 25 Feb 2025 03:38:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea789a32-f36c-11ef-9897-31a8f345e629
+X-Inumbo-ID: f894fc5d-f36c-11ef-9897-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740483458; x=1741088258; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1740483482; x=1741088282; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6uSgxkwpDZFbL0VmO//I6SlIcZxFmgRGqtOVriVjNJU=;
-        b=PpyCAe8fViuGvakCYJA/O2M7TdmF7/VtVexIIuJpk8lsCw+J9WDavPjamKPJ+RBfTD
-         f+OyvIVL21tGexFltVtUWt7n7OXtZ/py6rBR+1Yh6YQOv0n5E+/ot3FWqOT1zovEmDRv
-         RViCTEvwX/zx2SIPUiQDVzjFoZOY6fGuZHlZsZVIP68Tn61bpt20FdzTHUnA/GRec53f
-         pOza/GFeJ9jx6Nlalbx1C0tHZSDF9AbluqpMylfraL4bF1k7jL2RHi/IWWYrh99bhmv4
-         aqaozS1F28unkjjeQ3S8Bvafbz4JUEsoo6Luzjh9zz1Eq/7tF8v8mMQGt2HjEuNrdn3/
-         +HbQ==
+        bh=iUxyt5/5cykRkoN9EO7EYK+xTR64sHX+xHHUuTpi9b4=;
+        b=DClVWKZRCtX+YF67a8rDkxb+e7JjYm5CFA8fAs7UfnHF3e2qNKeUQ8Nqz3OLLZPux2
+         HG4V05fOIzzD0FEzt5/Hv3C3hUY3vnh7t0n5w1JAaopSLgT0ZKxUqF93K0mVBdLJXaLq
+         ZQbXL52rNJn7F3eo/JP9J5075VCF7BaEPtmM5cGIK8We+VOKB4Z6M4dNXZyIhD+5ALn7
+         7K7D8ljBUYqkO3p6laIx7cCAnbSc5AkZ0XF2CH+YkXTPqGNI8MJ+qWm4+Wh7J6SJQs6H
+         Wxj2VYEsYNNK0gwD0Q+8mwvENZVSkfeG7NhG/EKn7TV2JHPPOJ6DihJAXh1cht/P6UZl
+         BULg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740483458; x=1741088258;
+        d=1e100.net; s=20230601; t=1740483482; x=1741088282;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=6uSgxkwpDZFbL0VmO//I6SlIcZxFmgRGqtOVriVjNJU=;
-        b=nD0CzCky50Zp4jmOgdDs8ocn2qRUxF3A/M48PoLS/uRBbR+HMT+MZgpd5ilW9CK76o
-         jPNVQ58JHLBXO8g5u2S0mv82GVar9oeRQ/aG6pvLzCC7q1JgE+u59Z7sxMbswsl0yqBe
-         C/XGSIPhSKqqvFN/+gVH1IBbT0aHA6MoSyP/w6yZ87NfMcb/IdfHOUxEmmz9QH4q8HWA
-         6txcL5A/7Fotqi/Xxk5cc84iHQSa+YMnQTg0B546i33SOY6c9+CO7Ppl4PfGo72rd7Qg
-         NJ6+E3v+7AmDwio+ElB45f/ZdHgvNxOFbYTrrRNm32QJfb1BHxPgd6TMEkB+raSF6OW6
-         3Zxw==
-X-Gm-Message-State: AOJu0YxaVuCas9uNcgW8Z/pO5eafKId/2L/F5QFbU39FgYNBPm2HgbjM
-	ROT+unsDHMiDOBudp2aod2QcvUQ0PdreLZX89Y1EvOZmDwDbwz2CUiw+9selcwxr5xr09redZGg
+        bh=iUxyt5/5cykRkoN9EO7EYK+xTR64sHX+xHHUuTpi9b4=;
+        b=V0gNGDRnLJpzLfbNZGD9AJJGo07ciC9ca4e7L2MSvg+nNZwunZ9RYLaGXLyeZgd2Zq
+         UDauxE+z/hM02QnC3oeDl4LfFrhih2OG2TUXbOVgNTSQW8YRQHfmjkFqxixHr6V7IrV0
+         /wOoqdvBaiWzlNercreVcljJhGz3bolKMwMBVolNTN2At/b0Wtj4lyS7QYjTXkI+a827
+         jP9yZnmZlpIf1cgvReWwgdHFRJl7UZeTi4IyylVg1JQObWYomd07mmDI3DQL519dxkBF
+         DX2MZYjiHDEa6/rP879HJgp82iexIeWwFeXy2jRpwXN7CCPmhSJKMd0QoY5erTO7FHWE
+         XV+g==
+X-Gm-Message-State: AOJu0Yxs7Sb9i4U4lIfQJbBYjo2U4m5HBPIz/JESpFbP+MbcnwVMRSW3
+	57nWpxUArVAFaLxxcAx2xVd/VdOrZofcJ3iimUHVDG4FRbmhpltLoGGpMNi0n4PR7PqOGuuV/Co
 	=
-X-Gm-Gg: ASbGnctLNIPOAJo8FQ0kQfMu3F4x5GHW/CTaTw17++K9am7hqdNrue301HvuIH9Thp9
-	LGkT0WYXCEJFr4pm6XEIktU62VrCuXK06INfQJ7llSXoFDBBXGW68Q+WMxY83ZhaHff0mPtvERQ
-	Ir88ybm6IofitnywcUacFEYllivOjOynijO+1CTNXPQrGrdCnyvDwEeiwwEFl/wetHo4lAyRi16
-	aEtbrmFPRxQeos38FtrB5HckDgGLMPMFr/zE2Yo381oXbcY1egPIctqmT07VgJor97nmsVDRyl3
-	bRY67eiG0y6wBRHxZi7UB1acEC1NyNtWSQE0NtQcMorcl8Iwmr/+xytf6WXi9wKBG5Z9NqAqiRG
-	Td9IUcYz6e3U=
-X-Google-Smtp-Source: AGHT+IHFA9EOyHdTNGWqdgJuv5Erlj+E1X56smhCgRn4T8/vZ24k2pb5+kAuz7+uVq5f7Lvj72uMJw==
-X-Received: by 2002:a5d:6d07:0:b0:38f:2766:7594 with SMTP id ffacd0b85a97d-390cc6048c8mr1954114f8f.12.1740483458295;
-        Tue, 25 Feb 2025 03:37:38 -0800 (PST)
-Message-ID: <2b5f1dd8-7f4c-45dd-abea-a1876adaec8d@suse.com>
-Date: Tue, 25 Feb 2025 12:37:37 +0100
+X-Gm-Gg: ASbGncsUV8JHgNfcVzngtK0R5ZGypeIJCTY6Xn9GBKgi6DhABnoPULoegSU/CIgAfXm
+	ytv4ldKup/PvPOhPV+v6kF7cmrL8e0u17RT5/D1H1CAQJCTafCCfKULtFJTEmVidKronOjqycam
+	Gz02Vo+wXmb8cwPv5GGW4NEtGsTBSDU8R7xB4hUaMOnhseKgG4U37h1RtqUBRgfzq2V99M6eMJW
+	HB6UjWH5KJXuvPsMRaHdRcZNXo9RLnQaOXPLwF6Ey20CGbZMQwzmG0VByX1YYdbftl17hBRHa4+
+	iqcqPlpjXLxeUD7JGt5Ycd3qsAmyGdDxnl8CLeMYowNohRJKePaSrbZwID51QuNP0/2CYOTRZyX
+	pnNp0scbbS0g=
+X-Google-Smtp-Source: AGHT+IEsxX1fDXfAGaFhwRnk5/L7rTjXfueuflTpSl/3otAUrpbLZYcSFGpSZSOeYMt80XQKsJj9yw==
+X-Received: by 2002:a05:6000:1fae:b0:38d:cbc2:29f6 with SMTP id ffacd0b85a97d-38f6e947434mr12850815f8f.17.1740483481932;
+        Tue, 25 Feb 2025 03:38:01 -0800 (PST)
+Message-ID: <b7ba0c8a-daf6-4cc2-adda-2f0f51bc88a1@suse.com>
+Date: Tue, 25 Feb 2025 12:38:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v4 02/11] VMX: drop vmcs_revision_id
+Subject: [PATCH v4 03/11] VMX: convert vmx_basic_msr
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -121,96 +121,121 @@ In-Reply-To: <748548e8-79e5-4957-be16-c5ea4d202d21@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-It's effectively redundant with vmx_basic_msr. For the #define
-replacement to work, struct vmcs_struct's respective field name also
-needs to change: Drop the not really meaningful "vmcs_" prefix from it.
+... to a struct field, which is then going to be accompanied by other
+capability/control data presently living in individual variables. As
+this structure isn't supposed to be altered post-boot, put it in
+.data.ro_after_init right away.
 
+Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
+v4: Re-base.
 v2: New.
 
 --- a/xen/arch/x86/hvm/vmx/vmcs.c
 +++ b/xen/arch/x86/hvm/vmx/vmcs.c
-@@ -175,7 +175,7 @@ static DEFINE_PER_CPU(paddr_t, current_v
+@@ -161,6 +161,7 @@ static int cf_check parse_ept_param_runt
+ #endif
+ 
+ /* Dynamic (run-time adjusted) execution control flags. */
++struct vmx_caps __ro_after_init vmx_caps;
+ u32 vmx_pin_based_exec_control __read_mostly;
+ u32 vmx_cpu_based_exec_control __read_mostly;
+ u32 vmx_secondary_exec_control __read_mostly;
+@@ -175,8 +176,7 @@ static DEFINE_PER_CPU(paddr_t, current_v
  static DEFINE_PER_CPU(struct list_head, active_vmcs_list);
  DEFINE_PER_CPU(bool, vmxon);
  
--static u32 vmcs_revision_id __read_mostly;
-+#define vmcs_revision_id (vmx_basic_msr & VMX_BASIC_REVISION_MASK)
- u64 __read_mostly vmx_basic_msr;
+-#define vmcs_revision_id (vmx_basic_msr & VMX_BASIC_REVISION_MASK)
+-u64 __read_mostly vmx_basic_msr;
++#define vmcs_revision_id (vmx_caps.basic_msr & VMX_BASIC_REVISION_MASK)
  
  static void __init vmx_display_features(void)
-@@ -501,7 +501,6 @@ static int vmx_init_vmcs_config(bool bsp
-     if ( !vmx_pin_based_exec_control )
-     {
-         /* First time through. */
--        vmcs_revision_id           = vmx_basic_msr_low & VMX_BASIC_REVISION_MASK;
-         vmx_pin_based_exec_control = _vmx_pin_based_exec_control;
-         vmx_cpu_based_exec_control = _vmx_cpu_based_exec_control;
-         vmx_secondary_exec_control = _vmx_secondary_exec_control;
-@@ -613,7 +612,7 @@ static paddr_t vmx_alloc_vmcs(void)
+ {
+@@ -508,8 +508,8 @@ static int vmx_init_vmcs_config(bool bsp
+         vmx_ept_vpid_cap           = _vmx_ept_vpid_cap;
+         vmx_vmexit_control         = _vmx_vmexit_control;
+         vmx_vmentry_control        = _vmx_vmentry_control;
+-        vmx_basic_msr              = ((u64)vmx_basic_msr_high << 32) |
+-                                     vmx_basic_msr_low;
++        vmx_caps.basic_msr = ((uint64_t)vmx_basic_msr_high << 32) |
++                             vmx_basic_msr_low;
+         vmx_vmfunc                 = _vmx_vmfunc;
  
-     vmcs = __map_domain_page(pg);
-     clear_page(vmcs);
--    vmcs->vmcs_revision_id = vmcs_revision_id;
-+    vmcs->revision_id = vmcs_revision_id;
-     unmap_domain_page(vmcs);
+         vmx_display_features();
+@@ -563,7 +563,7 @@ static int vmx_init_vmcs_config(bool bsp
+             mismatch = 1;
+         }
+         if ( (vmx_basic_msr_high & (VMX_BASIC_VMCS_SIZE_MASK >> 32)) !=
+-             ((vmx_basic_msr & VMX_BASIC_VMCS_SIZE_MASK) >> 32) )
++             ((vmx_caps.basic_msr & VMX_BASIC_VMCS_SIZE_MASK) >> 32) )
+         {
+             printk("VMX: CPU%d unexpected VMCS size %Lu\n",
+                    smp_processor_id(),
+@@ -2228,7 +2228,7 @@ int __init vmx_vmcs_init(void)
+          * _vmx_vcpu_up() may have made it past feature identification.
+          * Make sure all dependent features are off as well.
+          */
+-        vmx_basic_msr              = 0;
++        memset(&vmx_caps, 0, sizeof(vmx_caps));
+         vmx_pin_based_exec_control = 0;
+         vmx_cpu_based_exec_control = 0;
+         vmx_secondary_exec_control = 0;
+--- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
++++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+@@ -300,6 +300,12 @@ extern u64 vmx_ept_vpid_cap;
  
-     return page_to_maddr(pg);
+ #define VMX_TSC_MULTIPLIER_MAX                  0xffffffffffffffffULL
+ 
++/* Capabilities and dynamic (run-time adjusted) execution control flags. */
++struct vmx_caps {
++    uint64_t basic_msr;
++};
++extern struct vmx_caps vmx_caps;
++
+ #define cpu_has_wbinvd_exiting \
+     (IS_ENABLED(CONFIG_INTEL_VMX) && \
+      vmx_secondary_exec_control & SECONDARY_EXEC_WBINVD_EXITING)
+@@ -415,9 +421,8 @@ extern u64 vmx_ept_vpid_cap;
+  */
+ #define VMX_BASIC_DEFAULT1_ZERO		(1ULL << 55)
+ 
+-extern u64 vmx_basic_msr;
+ #define cpu_has_vmx_ins_outs_instr_info \
+-    (!!(vmx_basic_msr & VMX_BASIC_INS_OUT_INFO))
++    (!!(vmx_caps.basic_msr & VMX_BASIC_INS_OUT_INFO))
+ 
+ /* Guest interrupt status */
+ #define VMX_GUEST_INTR_STATUS_SUBFIELD_BITMASK  0x0FF
 --- a/xen/arch/x86/hvm/vmx/vvmx.c
 +++ b/xen/arch/x86/hvm/vmx/vvmx.c
-@@ -1166,7 +1166,7 @@ static void nvmx_set_vmcs_pointer(struct
-     paddr_t vvmcs_maddr = v->arch.hvm.vmx.vmcs_shadow_maddr;
- 
-     __vmpclear(vvmcs_maddr);
--    vvmcs->vmcs_revision_id |= VMCS_RID_TYPE_MASK;
-+    vvmcs->revision_id |= VMCS_RID_TYPE_MASK;
-     v->arch.hvm.vmx.secondary_exec_control |=
-         SECONDARY_EXEC_ENABLE_VMCS_SHADOWING;
-     __vmwrite(SECONDARY_VM_EXEC_CONTROL,
-@@ -1181,7 +1181,7 @@ static void nvmx_clear_vmcs_pointer(stru
-     paddr_t vvmcs_maddr = v->arch.hvm.vmx.vmcs_shadow_maddr;
- 
-     __vmpclear(vvmcs_maddr);
--    vvmcs->vmcs_revision_id &= ~VMCS_RID_TYPE_MASK;
-+    vvmcs->revision_id &= ~VMCS_RID_TYPE_MASK;
-     v->arch.hvm.vmx.secondary_exec_control &=
-         ~SECONDARY_EXEC_ENABLE_VMCS_SHADOWING;
-     __vmwrite(SECONDARY_VM_EXEC_CONTROL,
-@@ -1799,10 +1799,10 @@ static int nvmx_handle_vmptrld(struct cp
+@@ -1561,7 +1561,7 @@ static int nvmx_handle_vmxon(struct cpu_
+     rc = hvm_copy_from_guest_phys(&nvmcs_revid, gpa, sizeof(nvmcs_revid));
+     if ( rc != HVMTRANS_okay ||
+          (nvmcs_revid & ~VMX_BASIC_REVISION_MASK) ||
+-         ((nvmcs_revid ^ vmx_basic_msr) & VMX_BASIC_REVISION_MASK) )
++         ((nvmcs_revid ^ vmx_caps.basic_msr) & VMX_BASIC_REVISION_MASK) )
+     {
+         vmfail_invalid(regs);
+         return X86EMUL_OKAY;
+@@ -1799,7 +1799,7 @@ static int nvmx_handle_vmptrld(struct cp
              {
                  struct vmcs_struct *vvmcs = vvmcx;
  
--                if ( ((vvmcs->vmcs_revision_id ^ vmx_basic_msr) &
--                                         VMX_BASIC_REVISION_MASK) ||
-+                if ( ((vvmcs->revision_id ^ vmx_basic_msr) &
-+                      VMX_BASIC_REVISION_MASK) ||
+-                if ( ((vvmcs->revision_id ^ vmx_basic_msr) &
++                if ( ((vvmcs->revision_id ^ vmx_caps.basic_msr) &
+                       VMX_BASIC_REVISION_MASK) ||
                       (!cpu_has_vmx_vmcs_shadowing &&
--                      (vvmcs->vmcs_revision_id & ~VMX_BASIC_REVISION_MASK)) )
-+                      (vvmcs->revision_id & ~VMX_BASIC_REVISION_MASK)) )
-                 {
-                     hvm_unmap_guest_frame(vvmcx, 1);
-                     vmfail(regs, VMX_INSN_VMPTRLD_INCORRECT_VMCS_ID);
-@@ -2215,7 +2215,7 @@ int nvmx_msr_read_intercept(unsigned int
-             map_domain_page(_mfn(PFN_DOWN(v->arch.hvm.vmx.vmcs_pa)));
- 
-         data = (host_data & (~0ul << 32)) |
--               (vmcs->vmcs_revision_id & 0x7fffffff);
-+               (vmcs->revision_id & 0x7fffffff);
-         unmap_domain_page(vmcs);
- 
-         if ( !cpu_has_vmx_vmcs_shadowing )
---- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-+++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-@@ -17,7 +17,7 @@ int cf_check vmx_cpu_up(void);
- void cf_check vmx_cpu_down(void);
- 
- struct vmcs_struct {
--    u32 vmcs_revision_id;
-+    uint32_t revision_id;
-     unsigned char data [0]; /* vmcs size is read from MSR */
- };
+                       (vvmcs->revision_id & ~VMX_BASIC_REVISION_MASK)) )
+@@ -2193,7 +2193,7 @@ int nvmx_msr_read_intercept(unsigned int
+     case MSR_IA32_VMX_TRUE_PROCBASED_CTLS:
+     case MSR_IA32_VMX_TRUE_EXIT_CTLS:
+     case MSR_IA32_VMX_TRUE_ENTRY_CTLS:
+-        if ( !(vmx_basic_msr & VMX_BASIC_DEFAULT1_ZERO) )
++        if ( !(vmx_caps.basic_msr & VMX_BASIC_DEFAULT1_ZERO) )
+             return 0;
+         break;
  
 
 
