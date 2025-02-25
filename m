@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75C04A4460F
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Feb 2025 17:30:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.895914.1304598 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 410F0A4461E
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Feb 2025 17:33:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.895924.1304607 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmxog-0007Vp-GU; Tue, 25 Feb 2025 16:29:54 +0000
+	id 1tmxsJ-0000yC-UM; Tue, 25 Feb 2025 16:33:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 895914.1304598; Tue, 25 Feb 2025 16:29:54 +0000
+Received: by outflank-mailman (output) from mailman id 895924.1304607; Tue, 25 Feb 2025 16:33:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmxog-0007Th-Dv; Tue, 25 Feb 2025 16:29:54 +0000
-Received: by outflank-mailman (input) for mailman id 895914;
- Tue, 25 Feb 2025 16:29:52 +0000
+	id 1tmxsJ-0000wY-Rf; Tue, 25 Feb 2025 16:33:39 +0000
+Received: by outflank-mailman (input) for mailman id 895924;
+ Tue, 25 Feb 2025 16:33:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wvcP=VQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tmxoe-0007TX-Px
- for xen-devel@lists.xenproject.org; Tue, 25 Feb 2025 16:29:52 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ id 1tmxsI-0000wS-8e
+ for xen-devel@lists.xenproject.org; Tue, 25 Feb 2025 16:33:38 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bc9a3cc7-f395-11ef-9aae-95dc52dad729;
- Tue, 25 Feb 2025 17:29:51 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-438a39e659cso38732245e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 25 Feb 2025 08:29:51 -0800 (PST)
+ id 435b6bcf-f396-11ef-9aae-95dc52dad729;
+ Tue, 25 Feb 2025 17:33:37 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-38f378498c9so5764014f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Feb 2025 08:33:37 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-439b0371c51sm148087225e9.35.2025.02.25.08.29.50
+ ffacd0b85a97d-390cd86c93bsm2820356f8f.26.2025.02.25.08.33.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Feb 2025 08:29:50 -0800 (PST)
+ Tue, 25 Feb 2025 08:33:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc9a3cc7-f395-11ef-9aae-95dc52dad729
+X-Inumbo-ID: 435b6bcf-f396-11ef-9aae-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740500991; x=1741105791; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1740501217; x=1741106017; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6sdd1xOiXwyAseUmz0ICzOH5PpnkY7J6KN50/I+lhDY=;
-        b=exFOs6ElmAwvoyKA35X0n3HaGhgppRXLW/ZSpTRVIpuey8ykVXp5CPooP1PKHpTp9K
-         HnA/GZGXVRQV+weENh29hhyvh2s0+2pHGVkZLT7x9feAMah8gOpcvHE/WOC/v+z0pt6p
-         e6DkoTNRHkPv77uw5oV8EAqrJfsWMMupICRUWFNP4E0WL/VI2z6Oa3ppRTp7OzZO/XWX
-         J9WF8dwWcJjtk07jvl91aTC7OOzG+Mg3hi8jmBKAc7fhVIrQvCPcsVc2/PYuB6+v2Aek
-         hweEUAxcy7ncqW25yBSOq7T9iipefRR10nqrjAGmVg1vIyKRg8BDanY/gTwvFsRFDf/v
-         LaLQ==
+        bh=VgXAL9yCAZAhtf5KHT4vLNlpy5MO1dgA+8sDSM4/E3I=;
+        b=gBrWdjZqgFOToB+6Tquj9DtoNBtP/9zlMqeu0dViRaOKjTVgYQXKsf2gZF1OxmPNE9
+         kMJDAoIGdSUmZGSTkdBEac5X4a45p8Ml3XGh/i21RVdhUsNlMLZCkn5VFf0TwCe7r326
+         JUo/OA2EmmA2+kG4ONJkNibaI6mJa71MLy9YEvyUjYHFExofZpGi9OmJCe6526DjsxR+
+         FoU9TwPHNABXV2MM+/oBiJToiksr9Jn/FUFkWLt7x3OzyBS3Fr/w+YhLwiZ+enHtHiK1
+         N0MZwzKO/hvyrkjKurKOA/xdAQz0VLL7d1FQ3ja+r43F8/hTXYiAq4PLuw8GL0gauI2a
+         dIgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740500991; x=1741105791;
+        d=1e100.net; s=20230601; t=1740501217; x=1741106017;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6sdd1xOiXwyAseUmz0ICzOH5PpnkY7J6KN50/I+lhDY=;
-        b=IJ1Ut6pf0B43k4BKhvjEgmoMgbfVOB1LPnJI/ljZUtWXGcEFxNp6761XAMZj6Ejb1b
-         ojqc2NBDPn6wufzehuNlfx7jL7G2nwxky7D+mvOBYY+u+YyNhXuK52D6H5lQVRTw5w0X
-         rsDQqxGm6adecC7mZmTfUxMrxDJVAPOWJKkdFRsQUNZx3+6mQGrQaBrnvVqHwvY/ro8a
-         GJo8kWpVZ8zkhkfx5GflKE8JJ2C0Z+wMeE20KyMR/7hmpqjnoszJJTNWzrXcxLmHLi2M
-         3T7cj5gsgdUWbm9G+rDGgE64YL+2Lx4LLYpjhtGcFKbxoPzalw0H0AwO6sMQIGBwSeYv
-         9o/w==
-X-Forwarded-Encrypted: i=1; AJvYcCW6PFDiELu5ISGZiDZhCybIWb2xc/mZen9a9wln2+ZtVbffPQ7caRxAjAbKOzoVlcNPV/V72t7DRP8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxhXJG200cQ78Qqvk81ckFIwe3Nc/c/DxsEST2lgLlaLELL75zr
-	USjYsKU3c7Y5Wb+e0fBl6vVdZs7fE4QILr6TDzmV2aOOhv3A4CpGGWpjlAcZig==
-X-Gm-Gg: ASbGncsUhH/UescGJzBZ622J73tJxdKiPiG6rRast4czZOvlB4RTbJ1xVb0lE8J4X76
-	tOFaaFcwFHHT49knhBRAhCNFWrD9DUEHqd9rYNQh0v835OilsJw0xugZbm774yyXbYzbul4ttLJ
-	GFoB6EbEHox7EREy8Wto/pFvNMQ5gLdn4XWg7WhAmDvDkFs2rU5vxWMAPyt3RdqM/hbuRQaV8vk
-	1ktxO9ir/hIZ7q1fBOSjUBD/TTQWZyh3vwCBymySiSsqjttiZe7HpvGUEBD6MC+xC16eg44DiV4
-	gunucxQjZOtrLerGmy+yZTt1Hu6mx8+CpgzpOEQQ+KY+R50yEnZf8mU5PKswfxZcfM1ntGpGrxO
-	LBHI0zjtALBc=
-X-Google-Smtp-Source: AGHT+IGn+3jn/4k/MQwG3mLuQvTj887l7CbVEIwcEd1rUmxUeuOB81hPZuTaxzTn0uMlaX2iXwImNQ==
-X-Received: by 2002:a05:600c:4e50:b0:439:8653:20bb with SMTP id 5b1f17b1804b1-439b2b06189mr168951185e9.14.1740500990746;
-        Tue, 25 Feb 2025 08:29:50 -0800 (PST)
-Message-ID: <b8364404-fb3a-4f96-8c05-2143783b9af8@suse.com>
-Date: Tue, 25 Feb 2025 17:29:49 +0100
+        bh=VgXAL9yCAZAhtf5KHT4vLNlpy5MO1dgA+8sDSM4/E3I=;
+        b=P9HIkEYe0FNxLucVPmZTgFvpPmX/wj4Tf0Wd6R0J/iijyEOXD7eY6DAM9jmIuLx+jp
+         QCHDbefhWnUk2fuTk1S27LRcQROF35+IrSxsRu5fzu07akBcIFXPIlzOZ52ICXD8jNC1
+         Ko+dJQ+vjrvcabZzy1MMr5arW2ikNrWipgYqy8wSUIXbCfrBGaeS5Hx6VLgBdSaD38VU
+         A4f+yYGcgQzIOWDFO6hx3IhiApesbW7VySW09hVq7rGuF2LG4ZLCJKfllKVYGvHePt+J
+         5fqEvx+EBFTh1fgYMbgZEb0UYBrUUTYbNYvCzvO1SDJyDswoPEa2XEsCZKp9M2cJgNP9
+         sXqQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU7e8OpCB7GfzLrtgTD5SXXF1sWjGPGKUVD2Xq40lVpDMse8d4Bh/J1ITMdjxJV1m9ci1+bFVj0pyE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywu1gcfQebaGquTMbHAxd2QhUrgTeXjHIplZO7ztiKzEpMmINOZ
+	FzscfXs0DX2y/79018CkDmcR4SZd8k0CIBsUjcw5m6usxiVpoHBf7k9k0oIEfQ==
+X-Gm-Gg: ASbGncvWp+ijGGnoidKmuP2WmBdMgu7NbC7h+TiNR0tpaL10zLk/gu4tzQ8PoP7/27f
+	kMxCaYc0YA9n+pJYnuFj3fKYBu3qZv5TPfiY7yVxqsgS4TqmNqjW/45Z8Ce5IObIMnfMjSiYicX
+	V4xcfy4u3/ST4WzAUmO2+USGQ1LiruqIPt8eqDwQfxiMgLaBdtz8P9moyJPl1lCldY1vjyWle1d
+	aev7zSGpPKEc68sFLsnDbr0La0/V2qzFnRobi6IkRTKbCWIJaDOocH0GXfhmZuTZfcV2aZKmNAP
+	yXr6Gv6vtAsAFRNEw+t8SVN8Sq+rwq6IXrV/Vp4smI6v/g9QnnLSsaRm1zTFE8IMm+jgSjOp/0J
+	NVsQLPVgPz2I=
+X-Google-Smtp-Source: AGHT+IHMzB4V2TlkJfzyD1nYxqCs3FzKmBwiauRM/dYoe4l4OJ+qaLdF0CCCgor3tQe2YBX0puottg==
+X-Received: by 2002:a5d:44c6:0:b0:38d:d6ef:f8 with SMTP id ffacd0b85a97d-390cc60ab83mr3052109f8f.30.1740501216830;
+        Tue, 25 Feb 2025 08:33:36 -0800 (PST)
+Message-ID: <1d4aa263-3a9b-4968-9b16-3dc3dcdc4b0c@suse.com>
+Date: Tue, 25 Feb 2025 17:33:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/8] x86/IDT: Rename idt_table[] to bsp_idt[]
+Subject: Re: [PATCH 5/8] x86/IDT: Make idt_tables[] be per_cpu(idt)
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250224160509.1117847-1-andrew.cooper3@citrix.com>
- <20250224160509.1117847-5-andrew.cooper3@citrix.com>
- <fa0cd84c-a3a7-44c8-af62-3e8da91a6d1a@suse.com>
- <0ced63b8-e674-4a88-a979-ff807afe3576@citrix.com>
- <924de1d3-94e8-4d0b-8f5d-ebc9a92e81c4@suse.com>
- <b2220e73-6e3c-46a7-8007-20567d12c749@citrix.com>
+ <20250224160509.1117847-6-andrew.cooper3@citrix.com>
+ <59e8952f-d49b-46de-ab57-07536a1028c0@suse.com>
+ <6d81b7b7-5317-4e49-8b39-1e3810d244d7@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,82 +120,62 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b2220e73-6e3c-46a7-8007-20567d12c749@citrix.com>
+In-Reply-To: <6d81b7b7-5317-4e49-8b39-1e3810d244d7@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 25.02.2025 17:20, Andrew Cooper wrote:
-> On 25/02/2025 2:33 pm, Jan Beulich wrote:
->> On 25.02.2025 13:54, Andrew Cooper wrote:
->>> On 25/02/2025 9:00 am, Jan Beulich wrote:
->>>> On 24.02.2025 17:05, Andrew Cooper wrote:
->>>>> Having variables named idt_table[] and idt_tables[] is not ideal.
->>>>>
->>>>> Use X86_IDT_VECTORS and remove IDT_ENTRIES.  State the size of bsp_idt[] in
->>>>> idt.h so that load_system_tables() and cpu_smpboot_alloc() can use sizeof()
->>>>> rather than opencoding the calculation.
->>>>>
->>>>> Move the variable into a new traps-init.c, to make a start at splitting
->>>>> traps.c in half.
->>>> Hmm, I'd expect a file of that name to contain only __init code/data, and
->>>> hence for it to be possible to ...
->>>>
->>>>> --- a/xen/arch/x86/Makefile
->>>>> +++ b/xen/arch/x86/Makefile
->>>>> @@ -65,6 +65,7 @@ obj-y += spec_ctrl.o
->>>>>  obj-y += srat.o
->>>>>  obj-y += string.o
->>>>>  obj-y += time.o
->>>>> +obj-y += traps-init.o
->>>> ... use
->>>>
->>>> obj-bin-y += traps-init.init.o
->>>>
->>>> here.
->>> AP bringup and S3 resume will have a rather hard time working if that
->>> were the case.
->>>
->>> Plenty of it does end up being __init, but not all.
->> Hmm, yes. Yet then, taking into consideration what you put in that file
->> right in this series (which there's nothing init-ish about, as the tables
->> are needed until we reboot / shut down / crash), what's the designated
->> pattern for what is to go where?
+On 25.02.2025 16:40, Andrew Cooper wrote:
+> On 25/02/2025 9:07 am, Jan Beulich wrote:
+>> On 24.02.2025 17:05, Andrew Cooper wrote:
+>>> --- a/xen/arch/x86/cpu/common.c
+>>> +++ b/xen/arch/x86/cpu/common.c
+>>> @@ -819,6 +819,7 @@ void load_system_tables(void)
+>>>  	 * support using ARRAY_SIZE against per-cpu variables.
+>>>  	 */
+>>>  	struct tss_page *tss_page = &this_cpu(tss_page);
+>>> +        idt_entry_t *idt = this_cpu(idt);
+>> Nit: Tab indentation here.
 > 
-> Configuring event handling turns out to be pretty disjoint from actual
-> event handling, and traps.c is already too complicated.
+> Yeah, I noticed that only after sending the email.  Other parts of the
+> FRED series vastly changes this function.
 > 
-> If you can suggest a better name than traps-init.c then I'm all ears,
-> but I couldn't think of one.
+>>
+>>> @@ -830,7 +831,7 @@ void load_system_tables(void)
+>>>  		.limit = LAST_RESERVED_GDT_BYTE,
+>>>  	};
+>>>  	const struct desc_ptr idtr = {
+>>> -		.base = (unsigned long)idt_tables[cpu],
+>>> +		.base = (unsigned long)idt,
+>>>  		.limit = sizeof(bsp_idt) - 1,
+>>>  	};
+>> Coming back to the comment on the earlier patch: Now that you touch all
+>> of the idt_tables[] uses anyway, ...
+>>
+>>> @@ -30,7 +31,7 @@ typedef union {
+>>>  } idt_entry_t;
+>>>  
+>>>  extern idt_entry_t bsp_idt[X86_IDT_VECTORS];
+>>> -extern idt_entry_t *idt_tables[];
+>>> +DECLARE_PER_CPU(idt_entry_t *, idt);
+>> ... this probably really ought to become
+>>
+>> DECLARE_PER_CPU(idt_entry_t (*)[X86_IDT_VECTORS], idt);
+>>
+>> ?
 > 
-> Other commits I've got in the next batch of cleanup are:
+> I'm afraid this doesn't compile.
 > 
-> x86/traps: Move subarch_percpu_traps_init() into traps-init.c
-> x86/traps: Move load_system_tables() into traps-init.c
-> x86/traps: Simplify early exception setup
-> x86/traps: Fold init_idt_traps() and trap_init() into their single callers
-> x86/traps: Introduce new init APIs
-> x86/traps: Move percpu_traps_init() into traps-init.c
-> x86/traps: Move cpu_init() out of trap_init()
+> arch/x86/crash.c:66:17: error: passing argument 1 of ‘set_ist’ from
+> incompatible pointer type [-Werror=incompatible-pointer-types]
+> ...
+> note: expected ‘volatile idt_entry_t *’ but argument is of type
+> ‘idt_entry_t (*)[256]’
 > 
-> which gives some idea of what's changing, although this isn't complete
-> yet.  Even things like LER setup end up moving in here.
+> Similarly {en,dis}able_each_ist() and _set_gate_lower().
 
-traps-setup.c maybe? Just to avoid the "init" in the name.
+Well, did you adjust the use sites? As said in the respective comment on
+patch 4, that'll be necessary (to account for the abstract extra level of
+indirection; generated code ought to not change).
 
 Jan
-
-> Setting up FRED requires the cmdline, feature scan, and a determination
-> of pv_shim, all of which precludes it from being used for early
-> exception handling.  Therefore, what I've ended up trying to arrange is:
-> 
-> 1) early_exception_init() (start of day)
-> 2) traps_init() (replaces the current trap_init())
-> 3) percpu_traps_init()
-> 
-> where early_exception_init() is even more simple than what we have
-> today, and traps_init() tailcalls percpu_traps_init() to remove some
-> duplication we've got.
-> 
-> ~Andrew
-
 
