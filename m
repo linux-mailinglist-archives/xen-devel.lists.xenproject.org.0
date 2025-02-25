@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 519CFA4379C
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Feb 2025 09:28:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.895488.1304115 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF64FA437AD
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Feb 2025 09:31:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.895497.1304125 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmqIK-0002Zy-GP; Tue, 25 Feb 2025 08:28:00 +0000
+	id 1tmqLo-0004JC-Ub; Tue, 25 Feb 2025 08:31:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 895488.1304115; Tue, 25 Feb 2025 08:28:00 +0000
+Received: by outflank-mailman (output) from mailman id 895497.1304125; Tue, 25 Feb 2025 08:31:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmqIK-0002Xo-Dc; Tue, 25 Feb 2025 08:28:00 +0000
-Received: by outflank-mailman (input) for mailman id 895488;
- Tue, 25 Feb 2025 08:27:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tmqLo-0004HM-RS; Tue, 25 Feb 2025 08:31:36 +0000
+Received: by outflank-mailman (input) for mailman id 895497;
+ Tue, 25 Feb 2025 08:31:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wvcP=VQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tmqIJ-0002Xf-EB
- for xen-devel@lists.xenproject.org; Tue, 25 Feb 2025 08:27:59 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6a6bb5e4-f352-11ef-9897-31a8f345e629;
- Tue, 25 Feb 2025 09:27:57 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-4394036c0efso32839275e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 25 Feb 2025 00:27:57 -0800 (PST)
+ id 1tmqLn-0004HG-Ju
+ for xen-devel@lists.xenproject.org; Tue, 25 Feb 2025 08:31:35 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ec0c96b1-f352-11ef-9aae-95dc52dad729;
+ Tue, 25 Feb 2025 09:31:34 +0100 (CET)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-38f3486062eso4491071f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Feb 2025 00:31:34 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-390cd883c68sm1497862f8f.60.2025.02.25.00.27.56
+ ffacd0b85a97d-390cd8e72e6sm1501231f8f.68.2025.02.25.00.31.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Feb 2025 00:27:56 -0800 (PST)
+ Tue, 25 Feb 2025 00:31:33 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a6bb5e4-f352-11ef-9897-31a8f345e629
+X-Inumbo-ID: ec0c96b1-f352-11ef-9aae-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740472076; x=1741076876; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1740472294; x=1741077094; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=MYYAnogiF9Pi5jGv/Ozu7SaeHXhXjmUZPo1k9kYoUDk=;
-        b=AgmLwYYbz0HvmIyB2iWrMJuZsjZXnj0mt+YgbwiurtTbfoVJnHHaplmV2TuLzgjU4t
-         VeKQyC/GaHQX93/+nnqKn97XvyKjINX0V90VYfzE18K/i87d3uBPkVFq9Gfnc+WsnNvI
-         8AgfxM9KZDrQavSZl9TJ9SIlpWoHCNbEjDt2QaI29e7XebNtOU9Ji5HhS9SF12BIQicY
-         lv51107+QVZUS+eiWxpAye9Ahn8hzaP9ceSKSNFRIyz17W9MM6njbDK+7KLXd8nYQ3rL
-         IQe6JvLs5jRAD7exH6czkqQUbucRP76tiCPaTRFSHiXjB+cJdWP9rB9Qyx2F6OL1alzD
-         3rpg==
+        bh=m+AqKId69+XfojEGWFmbZ3mAxbPw8loXkWqL0OB3N7c=;
+        b=BVq1WdMPC8ynUorvSMByfDype+/cj8+en3LM3EbfHlV6LXAjp9i6bnQIVoLbscN4wg
+         qxNnvAPgmYwllyTr1cVxo/BNJjgHeJ06qWw4IgNnRxTXiDqYu3HH0e8tN/KMil8YZo/e
+         EjAs/3rdRj2YWj6Cb8fDtYUh2ioKTMNDs06lLSyLJ9M//GFml6nFk6JAqbOYeMHCLoBo
+         HeEG9nLBgp+iNQAMGB5ewHFIR4LGw/s4VAloZXX5tWKD9VR9wKcVXDcOj1maBm8j6m9D
+         nVIdrAhxtG2qckZsYBVLLC1+xWuLHsRTrPqGpmsxOejbEE+5C000y1s29HTsBAlpxwca
+         ircQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740472076; x=1741076876;
+        d=1e100.net; s=20230601; t=1740472294; x=1741077094;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=MYYAnogiF9Pi5jGv/Ozu7SaeHXhXjmUZPo1k9kYoUDk=;
-        b=jrSafVyWUygwz7Fq/0cWNlIeKMBVmkUd39JHKx93qRupPT+xRLWnETTp33smZqy1Vk
-         IHhGAIKz2C8Sd5LezhLfy91muZ+GZF0kjtpBRjhx43ccAQH35Jp56JzOKXJGpGwDvoRC
-         oKoqPKOjaLt/MvTlIChyOn05Z2kY6gBtG8i+n6s6KP6P2DN/sTEkq1id7j9qOfbQdL0b
-         8v4qAfKNQmmsdyJV3uTLP1VY9uIITU6KHdoNlkDNN3UVbYHXo4qgRTex/dp3lujo8c2B
-         dJVpDTJNm4yvVSXKNHRle1C/asgfH1b7JtLo00BU52ef+A+s8ZeAE/Qz4BgEm0MyGTHk
-         WAlw==
-X-Forwarded-Encrypted: i=1; AJvYcCVJfPVIPZdYvuei0nR1KPS3W57dh00WR1C2vA5+pUQOsbBIMboaaRF6ky7nm6j1GoS/kf5QFyrI+OQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzvygBl3hvt+mshYkkg+0ePQSdw1iDSQF7guijOd9b8iEr2z4PM
-	Oji/eIIKyVOhgckVMtzjEi7P8I/Hmwxt5nPOTi8DsWFqCSLJToVNJsvTM4aBOw==
-X-Gm-Gg: ASbGnctZSo9QN+6Mo0DdBbfST3wK5TFMkeQmw8SpJ2CSe4x6xXJ2aSisuYk+gg+CIsN
-	2fCTqFXh5B8UaNs+dnE8jNnUJO+kfHQqM4XrU6ZG9bNP5xXCUy92p+W/fxPca8yKTCHShtbeNN5
-	+I4c8zXC2YLt6EgqD8RcpJa46+mhBfaX0f6uGM9Xy7vfbj7cuTKsehM5D9lop1bC7ycqV/Vsvkn
-	qHEar1rVp8flFfHAuKQ41QCXkRVVAsbgp+WCb7sbdwTf8NiMJ+P+kSVmtm8XDboSLZIKlTXKbh5
-	bSLciKqlRRvALDQH9H6XKNi+u4glcq06E443fFHALfzpMtG0sP4SpFS8AqosAMs3O0OYD8k0y0U
-	+Zr2keywCxFY=
-X-Google-Smtp-Source: AGHT+IEjKtaRy7w4SFC/iaeFEK07fOUM7xTRzx3oWtc11Z4g7uFsFqIs11n2RRLYL6moe7bhnuSp4Q==
-X-Received: by 2002:a5d:47a3:0:b0:38d:d8fb:e90f with SMTP id ffacd0b85a97d-38f6e975ca7mr12996505f8f.24.1740472076455;
-        Tue, 25 Feb 2025 00:27:56 -0800 (PST)
-Message-ID: <1180f10c-f31e-4254-91ea-ea588326f307@suse.com>
-Date: Tue, 25 Feb 2025 09:27:55 +0100
+        bh=m+AqKId69+XfojEGWFmbZ3mAxbPw8loXkWqL0OB3N7c=;
+        b=QAmgC1vbkcSo/uobeILWpIN8hRrPCu02baP/WQXulmabx6FGWIX7IuTRF28mDQfKMt
+         gU9l40mL7tIKgO88bwsFatiXxXodFLNMZt6cxb/Ieov8HEDW6TxkcU4A+xyiFLOA+VWl
+         ZnpYKkFBmEalNsLDxJj46z5huIdBmIAcPn9xXMjMUbLpC60jYTL9USHhK7THIRS8zfJv
+         IonUi4teuplozGPajIXmi2f7JTBG9q/pVZO70Wc16POSavkLi0SOHtoKlv076y0184OT
+         hVKRWSxU52Ez+BjD9hn56tq3zL/WXdIgxgiDcuVYU0LuyjfaZ44bBNhnsEsSjkt1OpRD
+         Y+DA==
+X-Forwarded-Encrypted: i=1; AJvYcCWml61EnNKwnd3acgZAz4DnqVTQzGzb2KhrgFK0dr+AFZSK7S79Y4DgZzt+hvsSn8XnN9KrTg0ACVM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx57XiF29jY6ZIfPE4LzYWUPCu0G2jxMPDDEY1LDV1RKAQHTmWl
+	vREDmX2J11RzNe0k59bQkwnbq8cHEMTrrJxy2W0ZgOxeupqHei9EvnvlF226Ig==
+X-Gm-Gg: ASbGncu3/FPi1cDLBa4W0QLtdvtBW1ABidzCPjCiRt2JYIErhbRQ2Y1x6Bd2xT9jgJ+
+	TsvTiYypefWZP7nZGGeCfefdn5vRU4lsn9a0yblae/oSHULtwqvVFBAQvcYndcqNZJaNjh7MPee
+	u7PdYLviRnCS3QSeUlN7koXD2xf2dkCRzIQ8YLUh/9nyXG60nhMVUfXzNj2qD+sgB40ViPyP6ww
+	G+OgPQTJiZyXGnM/wdPQF7DxWpbt17P/PrHe49N1vTVsQODmHYI3G+fJ9A1GFZhiuOi1Ntrh6KV
+	3k/3XQYRplNPl2n/YntD0XFRE78AIDDldHegEO+XRDM0/Qlan8jjt6yWJly4ebrXoLDkvB8tFXs
+	nolGWH4G1n4k=
+X-Google-Smtp-Source: AGHT+IHePi2g04T1sWVfbi5HRZyGPetrRzspH9X6ZUh83tybNq9NxtbPMwlf+WyVBdciu/9o+9F/EQ==
+X-Received: by 2002:a05:6000:1867:b0:38f:4fa6:68df with SMTP id ffacd0b85a97d-38f6f0d1fa2mr14518433f8f.51.1740472294088;
+        Tue, 25 Feb 2025 00:31:34 -0800 (PST)
+Message-ID: <56aa1fbe-ebbf-4e03-b164-51710a75bde3@suse.com>
+Date: Tue, 25 Feb 2025 09:31:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/8] x86/IDT: Collect IDT related content idt.h
+Subject: Re: [PATCH 3/8] x86/IDT: Rename X86_NR_VECTORS to X86_IDT_VECTORS
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250224160509.1117847-1-andrew.cooper3@citrix.com>
- <20250224160509.1117847-3-andrew.cooper3@citrix.com>
+ <20250224160509.1117847-4-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,169 +118,25 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250224160509.1117847-3-andrew.cooper3@citrix.com>
+In-Reply-To: <20250224160509.1117847-4-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 24.02.2025 17:05, Andrew Cooper wrote:
-> Logic concerning the IDT is somewhat different to the other system tables, and
-> in particular ought not to be in asm/processor.h.  Collect it together a new
-> header.
+> Observant readers may have noticed that the FRED spec has another 8 bits of
+> space reserved immediately following the vector field.
 > 
-> While doing so, make a few minor adjustments:
+> Make the existing constant more precise.
 > 
->  * Make set_ist() use volatile rather than ACCESS_ONCE(), as
->    _write_gate_lower() already does, removing the need for xen/lib.h.
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-While I don't mind this, I'd still like to mention that one of the first things
-I was told when starting to work on Linux was to avoid volatile about everywhere.
-
-> --- /dev/null
-> +++ b/xen/arch/x86/include/asm/idt.h
-> @@ -0,0 +1,125 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +#ifndef X86_ASM_IDT_H
-> +#define X86_ASM_IDT_H
-> +
-> +#include <xen/bug.h>
-> +#include <xen/types.h>
-> +
-> +#include <asm/x86-defns.h>
-> +
-> +#define IST_NONE 0
-> +#define IST_MCE  1
-> +#define IST_NMI  2
-> +#define IST_DB   3
-> +#define IST_DF   4
-> +#define IST_MAX  4
-> +
-> +typedef union {
-> +    struct {
-> +        uint64_t a, b;
-> +    };
-> +    struct {
-> +        uint16_t addr0;
-> +        uint16_t cs;
-> +        uint8_t  ist; /* :3, 5 bits rsvd, but this yields far better code. */
-> +        uint8_t  type:4, s:1, dpl:2, p:1;
-> +        uint16_t addr1;
-> +        uint32_t addr2;
-> +        /* 32 bits rsvd. */
-> +    };
-> +} idt_entry_t;
-> +
-> +#define IDT_ENTRIES 256
-> +extern idt_entry_t idt_table[];
-> +extern idt_entry_t *idt_tables[];
-> +
-> +/*
-> + * Set the Interrupt Stack Table used by a particular IDT entry.  Typically
-> + * used on a live IDT, so volatile to disuade clever optimisations.
-> + */
-> +static inline void set_ist(volatile idt_entry_t *idt, unsigned int ist)
-> +{
-> +    /* IST is a 3 bit field, 32 bits into the IDT entry. */
-> +    ASSERT(ist <= IST_MAX);
-> +
-> +    idt->ist = ist;
-> +}
-> +
-> +static inline void enable_each_ist(idt_entry_t *idt)
-> +{
-> +    set_ist(&idt[X86_EXC_DF],  IST_DF);
-> +    set_ist(&idt[X86_EXC_NMI], IST_NMI);
-> +    set_ist(&idt[X86_EXC_MC],  IST_MCE);
-> +    set_ist(&idt[X86_EXC_DB],  IST_DB);
-> +}
-> +
-> +static inline void disable_each_ist(idt_entry_t *idt)
-> +{
-> +    set_ist(&idt[X86_EXC_DF],  IST_NONE);
-> +    set_ist(&idt[X86_EXC_NMI], IST_NONE);
-> +    set_ist(&idt[X86_EXC_MC],  IST_NONE);
-> +    set_ist(&idt[X86_EXC_DB],  IST_NONE);
-> +}
-> +
-> +/*
-> + * Write the lower 64 bits of an IDT Entry. This relies on the upper 32
-> + * bits of the address not changing, which is a safe assumption as all
-> + * functions we are likely to load will live inside the 1GB
-> + * code/data/bss address range.
-> + */
-> +static inline void _write_gate_lower(volatile idt_entry_t *gate,
-> +                                     const idt_entry_t *new)
-> +{
-> +    ASSERT(gate->b == new->b);
-> +    gate->a = new->a;
-> +}
-
-Would this better move down a few lines, immediately ahead of its two
-use sites?
-
-> +#define _set_gate(gate_addr,type,dpl,addr)               \
-
-Moving this is questionable, as gates aren't limited to the IDT (in
-principle; yes, we don't use call gates ourselves). However, as you
-move it, my minimal request would be to add the missing blanks here.
-Beyond that I wonder ...
-
-> +do {                                                     \
-> +    (gate_addr)->a = 0;                                  \
-> +    smp_wmb(); /* disable gate /then/ rewrite */         \
-> +    (gate_addr)->b =                                     \
-> +        ((unsigned long)(addr) >> 32);                   \
-> +    smp_wmb(); /* rewrite /then/ enable gate */          \
-> +    (gate_addr)->a =                                     \
-> +        (((unsigned long)(addr) & 0xFFFF0000UL) << 32) | \
-> +        ((unsigned long)(dpl) << 45) |                   \
-> +        ((unsigned long)(type) << 40) |                  \
-> +        ((unsigned long)(addr) & 0xFFFFUL) |             \
-> +        ((unsigned long)__HYPERVISOR_CS << 16) |         \
-> +        (1UL << 47);                                     \
-> +} while (0)
-
-... whether using the other half of the union would allow this to
-become a little more readable. (Then it would also rightfully live
-here, seeing that the union is typedef-ed to idt_entry_t.) This then
-may also extend to ...
-
-> +static inline void _set_gate_lower(idt_entry_t *gate, unsigned long type,
-> +                                   unsigned long dpl, void *addr)
-> +{
-> +    idt_entry_t idte;
-> +    idte.b = gate->b;
-> +    idte.a =
-> +        (((unsigned long)(addr) & 0xFFFF0000UL) << 32) |
-> +        ((unsigned long)(dpl) << 45) |
-> +        ((unsigned long)(type) << 40) |
-> +        ((unsigned long)(addr) & 0xFFFFUL) |
-> +        ((unsigned long)__HYPERVISOR_CS << 16) |
-> +        (1UL << 47);
-
-... here and ...
-
-> +    _write_gate_lower(gate, &idte);
-> +}
-> +
-> +/*
-> + * Update the lower half handler of an IDT entry, without changing any other
-> + * configuration.
-> + */
-> +static inline void _update_gate_addr_lower(idt_entry_t *gate, void *addr)
-> +{
-> +    idt_entry_t idte;
-> +    idte.a = gate->a;
-> +
-> +    idte.b = ((unsigned long)(addr) >> 32);
-> +    idte.a &= 0x0000FFFFFFFF0000ULL;
-> +    idte.a |= (((unsigned long)(addr) & 0xFFFF0000UL) << 32) |
-> +        ((unsigned long)(addr) & 0xFFFFUL);
-
-... here. Otoh you may have reasons to keep these like they are?
-
-Could both _set_gate_lower() and _update_gate_addr_lower() have their
-last parameters each be switched to pointer-to-const (they supposedly point
-into .text after all)?
+I don't mind this, so
+Acked-by: Jan Beulich <jbeulich@suse.com>
+I can't help the impression though that the majority of places will need
+touching again if vector space was enlarged, to use the alternative larger
+constant then.
 
 Jan
 
