@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F53EA442D9
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Feb 2025 15:34:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.895827.1304470 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29AD4A443B8
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Feb 2025 15:59:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.895840.1304480 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmw07-0003CW-BD; Tue, 25 Feb 2025 14:33:35 +0000
+	id 1tmwOO-0007XD-7W; Tue, 25 Feb 2025 14:58:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 895827.1304470; Tue, 25 Feb 2025 14:33:35 +0000
+Received: by outflank-mailman (output) from mailman id 895840.1304480; Tue, 25 Feb 2025 14:58:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tmw07-0003AQ-7u; Tue, 25 Feb 2025 14:33:35 +0000
-Received: by outflank-mailman (input) for mailman id 895827;
- Tue, 25 Feb 2025 14:33:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tmwOO-0007VY-4h; Tue, 25 Feb 2025 14:58:40 +0000
+Received: by outflank-mailman (input) for mailman id 895840;
+ Tue, 25 Feb 2025 14:58:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wvcP=VQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tmw06-0003AK-Hn
- for xen-devel@lists.xenproject.org; Tue, 25 Feb 2025 14:33:34 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7ade20b2-f385-11ef-9897-31a8f345e629;
- Tue, 25 Feb 2025 15:33:29 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-43996e95114so37509075e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 25 Feb 2025 06:33:29 -0800 (PST)
+ id 1tmwOM-0007VS-IH
+ for xen-devel@lists.xenproject.org; Tue, 25 Feb 2025 14:58:38 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fccc8309-f388-11ef-9aae-95dc52dad729;
+ Tue, 25 Feb 2025 15:58:36 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-4394a823036so54580635e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Feb 2025 06:58:35 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-390cd86707asm2438677f8f.5.2025.02.25.06.33.28
+ 5b1f17b1804b1-439b02f2475sm142600555e9.20.2025.02.25.06.58.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Feb 2025 06:33:28 -0800 (PST)
+ Tue, 25 Feb 2025 06:58:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ade20b2-f385-11ef-9897-31a8f345e629
+X-Inumbo-ID: fccc8309-f388-11ef-9aae-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740494008; x=1741098808; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+tyUEjkszCiCFRm//vIAH4sS2l9rS4z3sC8mG//OJqI=;
-        b=dZ/e8Y63zXuADrG25TGuWEmyrq+Un2aQUvz+XcUI1hWXgiUU1VM0ItGQPYqJtIb2ZA
-         +HQrOVnLWUe9NX3zExyZXGkq8uYRIiGZE7YQ+7TEYDmAxLVcYvXZN/39Gbavw2Lwg6fX
-         Gt6Q0fzs53OvHKwH5dLlWfvrd/Zlz+ziamScbrGuuKAYYxpfdZK3AZ1EfQk48C+vKKp5
-         Oe/FCnBknokhI4SmuPhyF3GRBGU7fYLxaRQTV3mFpBAQ1AYfgjuSWPGawmaWHdnwpeHj
-         dMWo66AeLIGxW/kRKZFImxwnJ3Hg9bYwE57v7C8PSeRX8joE2r0P888udssSVRZ2fU3U
-         g9sA==
+        d=suse.com; s=google; t=1740495515; x=1741100315; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=qKiOFU7yLZ8utHN14N2KMOiuRrqZQa4CzFbTvEvQnK4=;
+        b=OMbZ52soX2vwSXECtV8kLTzmMgj76Dg4ksP+e5hpbusGrfquWaGGWIXsIKjAncsd+w
+         8wVOAaJb11DOs+bjW4uq8mIwKVVCPbgWrGPW9RLeg0qEBA7WMNXIiHoW4REkuoU0qPkF
+         Bm9099LFC2ShBkzMuXxZgV1C/BfXBryZv+vG87GlI1ShLw1jtnds86FoxCW1IeNKe+pz
+         zXRWqlLEsC6a8JnPkbuc68rOz/gmu5Zqh/mFmCAfM7x1iDvdGYlGSstRfm4OpFqodg7W
+         a/QPff51LCKMmlf/qMrtSQnpLSNm13reshaLWoMkCSXuDyvdVr3RQGsLBqdeRH46WGy5
+         +G8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740494008; x=1741098808;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+tyUEjkszCiCFRm//vIAH4sS2l9rS4z3sC8mG//OJqI=;
-        b=Ksa12uo1IysMQA+RzLJy55JtBQirZgeVWPJ422PR5TWmTtuoSZPxOuTOv+aANWhLXh
-         VdBcTrzhxMKB1iGQivCXFCzwWbWH7Khy/wdQs3AHOU5rai90IR5XAfvlwQa21Wr0K3Y6
-         93r27I6n5BEMJSNw8SgI2kN3U3rEeZXSw12JyY9wq0X2Vu7nEFHbdx4ozj/+3kqTlu+i
-         jIFxKmxFiEp6TiLkA2Le23p4Wns7y9e2C+KwkAwyNoU+3IOcu802mbvj+aROVW7JaQc3
-         8pePN03fmDsJK5k3xMPPGSapB7rAA/ItmLmGNn/c3EaN333nGdREYyVtzOcJ6TyumocW
-         vNmw==
-X-Forwarded-Encrypted: i=1; AJvYcCX91mvIyceMEMghYMD/X9mJAxwsfkM9o2G5nMxjWncz3XxLztK0AdYxBRTPr/humYtZb/izbEPPuKo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzpnyE+b4avr+0EQFdqngBxZMuFd43HjOmLkLbxebJmq/svwVqt
-	FiN0F5U/tLgFBqodN0E83OeP3sUZWJRF8hlMRIX8WpJdi5YizJUjUk9altqqoQ==
-X-Gm-Gg: ASbGncudAnCzlorDHz2ClhntnNJMZznhG4BqWhdDuOSFcB16wzX4rVTko931pj2pUil
-	ZA+sA9jF0tWmldsDX1EE0nlvd0Y3VCMgoCpoHLaRFv+oyUlucFiBKJvID7NO2pDYA5mNrl7s9s2
-	oFdjtaYzZCnQ1RyzpP7hnm8T2SzclBnaY6V/bmG0m4TvhdD7eJwLkQVl7MhqZXctl6c/p7QQH4l
-	Itkw6YCuxksoppLegU0d33xwQbA/ZCIO7JkJyn1rrSNVkplWlZsJEnvo7nDWdt6K61NND9cjzny
-	1tSoy/WGyDnibBh/Mm7z59F0mROQaGICMQpi2BC71QmIG188a9H6Qf7eeT9md+s0Ufi35a0Lhgc
-	qJKsiIZJkm7o=
-X-Google-Smtp-Source: AGHT+IHoSI1b5cvTPoejKRk72mrQIF8cpyTgcSRXUlaB2WRalTWpbHdqjC1rveb26A8BfBI65UnZ/g==
-X-Received: by 2002:a05:600c:4683:b0:439:8523:36cc with SMTP id 5b1f17b1804b1-43ab07ab212mr45394675e9.11.1740494008547;
-        Tue, 25 Feb 2025 06:33:28 -0800 (PST)
-Message-ID: <924de1d3-94e8-4d0b-8f5d-ebc9a92e81c4@suse.com>
-Date: Tue, 25 Feb 2025 15:33:27 +0100
+        d=1e100.net; s=20230601; t=1740495515; x=1741100315;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=qKiOFU7yLZ8utHN14N2KMOiuRrqZQa4CzFbTvEvQnK4=;
+        b=qdszm+DX5sIf0MTTRQBmco1VLHUJy2QG9lME3DFtk8nxvbvC6tCY3pPbdscxyrk2sn
+         LaqmWMJzlnXmGf3RzRb+uG7Af0slocMnfXaqtdvLT4t57QLifvBvn4zY/icSmAC9xqjk
+         vcqzeHMPGJIBir74CVHtQ+Ah5UpNssql+0vNFrESyL7OMxORknL4aiyU8kekOnkjPwjb
+         HtIxPEqPWYZRgu/vsFF/5EIdQDSfGvGeyhE/0XokaiBXkxVzqHBSgreYmm9uwcdPy5eo
+         udkxtO8C6sIxjB+Q//C0jW2apQt02ii0JBf2CrW1zX0+0CY3Ke1+YMH8ZRXJE7MPqQL3
+         Tlvg==
+X-Gm-Message-State: AOJu0YxPpB2Dpit7FbNv5NWfwf/+tZJEeBIXu++MAN/MW+3Ytf93QQMs
+	YwKH3bZm/CNIsE/kKlIm1pjwauCglzOVP4KqdZ5oy0bSOUfx4W12E8uRTwZKowGX4VKZnv9w6lY
+	=
+X-Gm-Gg: ASbGncvGQ/Cnb06qa3NiWY9q+BIStitPK7DqPAIveUeVkWzqz8SBGtqZS9ZKB2H2HPI
+	N7QZsWgkwkHHv+Dsv05M+UPQx40+O/UXe1GXwBzNzoU6EhWJO8u56AXf6RXFBJJ6O2Nde82Wizv
+	hYe/9EfgrwB4B5VpSsAxS054aGVSc1mpNDbU96LrFKOp0wh3JHyhrudMl3RcyFhlewvt9ERqszf
+	5plHGq+Y8NAEC73+Ayp1w6xGHVsxcjAZTeL6UbyozmmNwS20+FZxXPj7n+ek+l4t0USgCXBRWo5
+	UFuXojKg8mrHSngw46DtlaSbx+Np0b/jFkdI2TPMIp0vunwnrCQnCBFmaSZMPRCGjJLyvy7nbDT
+	i1F0nCvnJyLU=
+X-Google-Smtp-Source: AGHT+IHtMWpQ+P1MyU3ZLOTBbkdsoKZoWKJ4NN0zrA3+Ro0VkIuVNbvsRfng+sD9idktTCa95qbWfg==
+X-Received: by 2002:a05:600c:470a:b0:439:a139:7a19 with SMTP id 5b1f17b1804b1-439aebb3155mr140887225e9.23.1740495515023;
+        Tue, 25 Feb 2025 06:58:35 -0800 (PST)
+Message-ID: <6565e881-ec59-4db4-834a-f694bf1b9427@suse.com>
+Date: Tue, 25 Feb 2025 15:58:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/8] x86/IDT: Rename idt_table[] to bsp_idt[]
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250224160509.1117847-1-andrew.cooper3@citrix.com>
- <20250224160509.1117847-5-andrew.cooper3@citrix.com>
- <fa0cd84c-a3a7-44c8-af62-3e8da91a6d1a@suse.com>
- <0ced63b8-e674-4a88-a979-ff807afe3576@citrix.com>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] memory: arrange to conserve on DMA reservation
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -120,46 +118,35 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0ced63b8-e674-4a88-a979-ff807afe3576@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 25.02.2025 13:54, Andrew Cooper wrote:
-> On 25/02/2025 9:00 am, Jan Beulich wrote:
->> On 24.02.2025 17:05, Andrew Cooper wrote:
->>> Having variables named idt_table[] and idt_tables[] is not ideal.
->>>
->>> Use X86_IDT_VECTORS and remove IDT_ENTRIES.  State the size of bsp_idt[] in
->>> idt.h so that load_system_tables() and cpu_smpboot_alloc() can use sizeof()
->>> rather than opencoding the calculation.
->>>
->>> Move the variable into a new traps-init.c, to make a start at splitting
->>> traps.c in half.
->> Hmm, I'd expect a file of that name to contain only __init code/data, and
->> hence for it to be possible to ...
->>
->>> --- a/xen/arch/x86/Makefile
->>> +++ b/xen/arch/x86/Makefile
->>> @@ -65,6 +65,7 @@ obj-y += spec_ctrl.o
->>>  obj-y += srat.o
->>>  obj-y += string.o
->>>  obj-y += time.o
->>> +obj-y += traps-init.o
->> ... use
->>
->> obj-bin-y += traps-init.init.o
->>
->> here.
-> 
-> AP bringup and S3 resume will have a rather hard time working if that
-> were the case.
-> 
-> Plenty of it does end up being __init, but not all.
+Entities building domains are expected to deal with higher order
+allocation attempts (for populating a new domain) failing. If we set
+aside a reservation for DMA, try to avoid taking higher order pages from
+that reserve pool. Instead favor order-0 ones which often can still be
+supplied from higher addressed memory, even if we've run out of
+large/huge pages there.
 
-Hmm, yes. Yet then, taking into consideration what you put in that file
-right in this series (which there's nothing init-ish about, as the tables
-are needed until we reboot / shut down / crash), what's the designated
-pattern for what is to go where?
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+RFC: More generally for any requests targeting remote domains?
 
-Jan
+--- a/xen/common/memory.c
++++ b/xen/common/memory.c
+@@ -192,6 +192,14 @@ static void populate_physmap(struct memo
+          * delayed.
+          */
+         a->memflags |= MEMF_no_icache_flush;
++
++        /*
++         * Heuristically assume that during domain construction the caller is
++         * capable of falling back to order-0 allocations, allowing us to
++         * conserve on memory otherwise held back for DMA purposes.
++         */
++        if ( a->extent_order )
++            a->memflags |= MEMF_no_dma;
+     }
+ 
+     for ( i = a->nr_done; i < a->nr_extents; i++ )
 
