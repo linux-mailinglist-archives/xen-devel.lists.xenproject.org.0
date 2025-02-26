@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B92CA4608B
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 14:18:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.896584.1305330 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28BFFA4609A
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 14:21:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.896592.1305340 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnHJ6-0002KK-Uu; Wed, 26 Feb 2025 13:18:36 +0000
+	id 1tnHLf-0003oO-BS; Wed, 26 Feb 2025 13:21:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 896584.1305330; Wed, 26 Feb 2025 13:18:36 +0000
+Received: by outflank-mailman (output) from mailman id 896592.1305340; Wed, 26 Feb 2025 13:21:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnHJ6-0002HE-R7; Wed, 26 Feb 2025 13:18:36 +0000
-Received: by outflank-mailman (input) for mailman id 896584;
- Wed, 26 Feb 2025 13:18:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tnHLf-0003lg-7b; Wed, 26 Feb 2025 13:21:15 +0000
+Received: by outflank-mailman (input) for mailman id 896592;
+ Wed, 26 Feb 2025 13:21:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J4Ti=VR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tnHJ5-0002H8-MV
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 13:18:35 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2ddae25b-f444-11ef-9897-31a8f345e629;
- Wed, 26 Feb 2025 14:18:33 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-38f2b7ce2f3so4818023f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 05:18:33 -0800 (PST)
+ id 1tnHLd-0003la-Af
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 13:21:13 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8c5a73f7-f444-11ef-9aae-95dc52dad729;
+ Wed, 26 Feb 2025 14:21:12 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-38f5fc33602so581214f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 05:21:12 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-390cd86cc96sm5714016f8f.31.2025.02.26.05.18.32
+ 5b1f17b1804b1-43aba5711fcsm22216685e9.28.2025.02.26.05.21.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Feb 2025 05:18:32 -0800 (PST)
+ Wed, 26 Feb 2025 05:21:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2ddae25b-f444-11ef-9897-31a8f345e629
+X-Inumbo-ID: 8c5a73f7-f444-11ef-9aae-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740575913; x=1741180713; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1740576072; x=1741180872; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=m+sRnJ1oLyaeh/EDeHmdD4iyN2BRp/J3qC0tMtpqODs=;
-        b=faIvXFTqmL0NJr6Rvk524eTTCZDXGlIlAZ8my9BWYarvYiizmN2qPYHVJf8dwOCYHO
-         R6bLajPc0rV4Ca4tq0YVlJxq8pBjw9eMWpshIYncFGYl7uGui6YPziJgaM6eUwiItxRk
-         I0esdPlyz6cIIZgYoqUh92vSCeDF/+7niFmpbrz0eX0rjdCoE7uswbCBmBBIHxFTkdeE
-         Scmx9SFgYQSqzUlgpj/EKYiWfnGO/nS54+63ZXYS0lk0eishtFKGKVZJupEwlezFDc0H
-         Wrwoa4SS8hK4tWrUA3mXq49KQ7i16SU0rOvFT2fa4uasG2w9n3I2UATPhzm0Qp6rcpSM
-         rFww==
+        bh=x8BqPxENUZmrZvHyBEhxzV+YSoO9Zqld3EFinDkKl8I=;
+        b=GYeRoT+GRgip7/ROqheXE6h7++GthKXds6TYosQtH0xe3HOkeW4uF9uECUaz0yKUEg
+         mntszVuaApo9ff8B3fBkIh/WBj42N3VA5AA6BJECFurrpfsrCBzdDxEoYM+04nY41pe7
+         +69C6cxwU2rr/rfMvSDoNXfC+7PSSNyRazQe/rvLNyAGRYFiO7EAWEqJgIo05BLRFpex
+         WdDGiVidSvH6Gg0fs3araDC/nt+ajMipTfm2CU/QeOERlhuc8WcW3uDaADvXzO4SjYAS
+         S1/S3WaL3gDHl0WBfiak8AWEA6j6GHZgH9uLwd7/RHE9XFfQvw8hGLIN7yMahhKflwnd
+         HXpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740575913; x=1741180713;
+        d=1e100.net; s=20230601; t=1740576072; x=1741180872;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=m+sRnJ1oLyaeh/EDeHmdD4iyN2BRp/J3qC0tMtpqODs=;
-        b=m8Vq/QHwWXMfrGgQQe6xqwPiStgTohAIF6Y4ogMnflGZ8O6zboveK4knFmM1C7Gi0X
-         sGgKBSRegZCWUvtMyG4FYvRGESMeGdVmmOzcYGyTYmNsojasM5NbyIZKkHPWloA6312h
-         D/lrlCJNW3UvT1dL3IAxnliUQvmJzT4Ynr+Joxqo/nn+KkhFuIYQ2BNfTcRTtCto/BZp
-         G9FcyI6hurbg65aJINx6cTAlCDiQ3U7M9hOACcgtn0c4Twu0vsWhZhjXd2l8QO9hbTTN
-         NcWlbYw4xY+n9S2w6t4RUPqug/WCkEQA4ul4tymr4N3DOJ80hnZQLas3sXh3eriS76kI
-         qgDg==
-X-Forwarded-Encrypted: i=1; AJvYcCX9BdrJTP0Bxhnn9aEj16Wc1A6+b7bqyHS+VZnlzltTakiTrhkhNd8mgJkD4LHXa8nrhU62Dysc+GI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxgpskeYATPyaymmE4uueeLKwl4GQPghiAJwyJdmTb0sKMxHM1+
-	BYucfKcrGi814zVqJEMcmLZYsYyimsny625rrXkHQEQNZm9hmmaGxlYVxXODKA==
-X-Gm-Gg: ASbGncsp7rvMPqdJzLNqq9TJ4kHng7ge4uWsCCoq6+M/vjkW/0/QEK7snfg1brDvZp8
-	cey+Pk9IZPXJdAmv+PgBa1J4dgmweunJtG0VVmOq5LWmEuTSFhPJICM5rfdg6HrdG7Fvn8PIX8g
-	nW6AFAojr1kZQz1L9tu71VPoBy690koBIFhruYEUO09fPQp+rYwnngqzoMvf/DXhftqTYrcInh7
-	kAAclYSsBAPozLS7oTAPc69/2lx4SVleGv9QRKZMwMUxdbi/8lIs7EUsSCVdIAH8xsd1YCfB6+Q
-	ATwQAs8as6SNKFMKXsyE86YBaSofRfKqy8kJpGomCS5u6X8nAWMbx90mjA4xh/G34izBiJhrizD
-	UjzXXeFGv9C0=
-X-Google-Smtp-Source: AGHT+IEI48xLngQl8ANC6YVQQFd6NV11bvRaP4DrS/ezfLcBJexPJUGOoObBVvQvL6zAOKJbmiNr8A==
-X-Received: by 2002:a5d:5987:0:b0:38a:88ac:f115 with SMTP id ffacd0b85a97d-38f70826511mr14153269f8f.34.1740575913203;
-        Wed, 26 Feb 2025 05:18:33 -0800 (PST)
-Message-ID: <10a1901d-bddc-4452-8ff2-2586f18215e0@suse.com>
-Date: Wed, 26 Feb 2025 14:18:31 +0100
+        bh=x8BqPxENUZmrZvHyBEhxzV+YSoO9Zqld3EFinDkKl8I=;
+        b=oSieifXoRXiL8lpecxQU78hRlObnei9+UdV/6nJqX4Iiph06q3g2b5U4pAgW8n47rp
+         nDe31YYA/zEBQvRZxFEGXklchTLZUrcNJEvWNo+doYInXeuXTqUMeFtuDhNNmwA/3qTv
+         XWHTIpWDE2MgzR1JkP9LJ0DOMXNeMgKxVIKyBXGLkr5rcEhv8NqBfY0HG/fUFCSdIXsI
+         AH0rBkcyj77POEFnYASCtH5HHYPWo7lieGlv1qeHoClB1AashExEwDi3X8iHZ5MMwZEB
+         OPr1nWSmcYF8LgnldruYkzYewUJ2JlKcm2CaRfYxqHOPYXaUpx53hqA3XJDEdI62u54L
+         Mqjg==
+X-Forwarded-Encrypted: i=1; AJvYcCWIBBrWvKvJ3QAt9DZ0QTKbMl24D96tkstdEloys3YEJZUhzuiU6yjoqmT+p9vntskKJTNUEAN/iMg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzLEQWdxeyRVYL2ekxt8UNJSD9NZi5phG4/tZGDpEYvtbjawTLo
+	cfB1QW7XmSHlkdAyl3WVookEZbuh9eZMn9Lgr0oRGkdWkmWTy6Z9sb+P01l3Bw==
+X-Gm-Gg: ASbGncsEyS/qV+2lHwoiz086L05aEOgZAAgflqdPJe43yCXZKO5+7NQIbGG7SGpCbis
+	By1UhcF3evb230RnyLcL26v3tIgVvvv5xY/ocx5qLmH8fYicjUon/Fv315Zqp+n0cr61XeihNXL
+	RfUhbZxGc/PkXj10RGAi+hh1OS5MILDlAXl6lp7/tsn3NMEwtZRjQ1G/0ZLI/x4KtAlJWppLIDj
+	JbMUsHc0Fl5+VI9fJfTzqXin/F7/1vpH1Q95ORRckzeLIMSUuZnKbu+bCTM6P0bX/ybhrO3jE6+
+	ucXzvUiYlv2lUI2FLDc0P3W5hDyYwijCY02GULsWzlpY5uG0p5DZR43XRzbHjJXqjf91ewYqBhj
+	UyKigL3Xjbac=
+X-Google-Smtp-Source: AGHT+IE9bFzQsfJui5GAwRVVondRV4frFoauAp7vxsIU3nvJtG2Z9kpA6KH/J1APT+FPA/9yPOS3FA==
+X-Received: by 2002:a5d:6486:0:b0:38d:dffc:c14f with SMTP id ffacd0b85a97d-38f6149915fmr19764221f8f.1.1740576071318;
+        Wed, 26 Feb 2025 05:21:11 -0800 (PST)
+Message-ID: <afd7bc6a-e2d4-4734-9973-e7f6507fc2f3@suse.com>
+Date: Wed, 26 Feb 2025 14:21:10 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/8] x86/IDT: Don't rewrite bsp_idt[] at boot time
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250224160509.1117847-1-andrew.cooper3@citrix.com>
- <20250224160509.1117847-8-andrew.cooper3@citrix.com>
- <46bc8ff4-f33a-4736-b1c9-00dfdec554b7@suse.com>
- <f62fa004-379d-4589-b4ea-ba0f0c5c99e0@citrix.com>
+Subject: Re: [PATCH v3 1/2] asm-generic: Introduce mm-types.h header
+To: Shawn Anastasio <sanastasio@raptorengineering.com>
+Cc: tpearson@raptorengineering.com,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ xen-devel@lists.xenproject.org
+References: <1d0826e88e95357979d74fb3702b35fdb0b75151.1739488487.git.sanastasio@raptorengineering.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,38 +127,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f62fa004-379d-4589-b4ea-ba0f0c5c99e0@citrix.com>
+In-Reply-To: <1d0826e88e95357979d74fb3702b35fdb0b75151.1739488487.git.sanastasio@raptorengineering.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26.02.2025 13:53, Andrew Cooper wrote:
-> On 26/02/2025 12:48 pm, Jan Beulich wrote:
->> On 24.02.2025 17:05, Andrew Cooper wrote:
->>> Now that bsp_idt[] is constructed at build time, we do not need to manually
->>> initialise it in init_idt_traps() and trap_init().
->>>
->>> The only edit needed to the bsp_idt[] is to switch from the early #PF handler
->>> to the normal one, and this can be done using _update_gate_addr_lower() as we
->>> do on the kexec path for NMI and #MC.
->>>
->>> This in turn allows us to drop set_{intr,swint}_gate() and the underlying
->>> infrastructure.  It also lets us drop autogen_entrypoints[] and that
->>> underlying infrastructure.
->>>
->>> No functional change.
->>>
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+On 21.02.2025 21:10, Shawn Anastasio wrote:
+> Introduce a new header, mm-types.h, which will be used to define
+> architecture-specific types pertinent to memory management. This will be
+> used by a future commit to enable >32 bit PTE flags.
 > 
-> Thanks.
-> 
->> The switching around of the #PF handler is of course getting in the way of
->> moving bsp_idt[] into .rodata.
-> 
-> {en,dis}able_each_ist() edits it at runtime too.
+> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
 
-Oh, I had actually meant to add a condition upon CONFIG_AMD=n. The fields
-could be set at build time as well, couldn't they?
+Perhaps implicit from the Suggested-by:, but nevertheless:
+Acked-by: Jan Beulich <jbeulich@suse.com>
+
+Just one nit: Tags generally want to be in chronological order.
 
 Jan
 
