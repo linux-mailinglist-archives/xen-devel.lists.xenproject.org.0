@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8A71A45DB7
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 12:51:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.896433.1305134 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA785A45DBC
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 12:52:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.896441.1305146 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnFwv-0006As-0Z; Wed, 26 Feb 2025 11:51:37 +0000
+	id 1tnFxo-0006ga-AH; Wed, 26 Feb 2025 11:52:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 896433.1305134; Wed, 26 Feb 2025 11:51:36 +0000
+Received: by outflank-mailman (output) from mailman id 896441.1305146; Wed, 26 Feb 2025 11:52:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnFwu-00069Q-Tt; Wed, 26 Feb 2025 11:51:36 +0000
-Received: by outflank-mailman (input) for mailman id 896433;
- Wed, 26 Feb 2025 11:51:35 +0000
+	id 1tnFxo-0006dN-6v; Wed, 26 Feb 2025 11:52:32 +0000
+Received: by outflank-mailman (input) for mailman id 896441;
+ Wed, 26 Feb 2025 11:52:30 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J4Ti=VR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tnFwt-00069K-Jp
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 11:51:35 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ id 1tnFxm-00069K-NL
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 11:52:30 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 064c6705-f438-11ef-9897-31a8f345e629;
- Wed, 26 Feb 2025 12:51:33 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-4393dc02b78so45718315e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 03:51:33 -0800 (PST)
+ id 27825486-f438-11ef-9897-31a8f345e629;
+ Wed, 26 Feb 2025 12:52:29 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-438a39e659cso44400475e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 03:52:29 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43aba5396desm18629655e9.20.2025.02.26.03.51.32
+ ffacd0b85a97d-390cd8fbef5sm5529678f8f.90.2025.02.26.03.52.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Feb 2025 03:51:32 -0800 (PST)
+ Wed, 26 Feb 2025 03:52:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 064c6705-f438-11ef-9897-31a8f345e629
+X-Inumbo-ID: 27825486-f438-11ef-9897-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740570693; x=1741175493; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Ynj8wH9DwxGfM5NWBjbKHAouiA+Jshik+1q1pzrjiJA=;
-        b=fNi4KPV5GgANWR/HG0b3w8P6YeYJmjMJDxbHFt06JkBCjLeA2AmRiHl4j5Sf/SNEPW
-         iojA4tEjL1+WKaTkaNlZi1ccrSdfFPZqJFjcwx8UxAcQGMIHBLLgUYTHiK+0tERwNeUJ
-         NGrMT1ZcUpt6qBN8De7Dy5+rW26vSL/WAp9srU2OhMdcHTlCJAyF7aj7ktouLxIu9XQt
-         j2TLUiOyBSzlc6gOM44lH52lhYrMeepIVGjJrkq+r2WPg23B0xlassh8uFpEZlU64eNP
-         IUCvIHzd1McXpNu/Mw82KH4S0eP6A1+2wwbxkcme3UiEG2CHqDz/SNRURsyja8DdWxF0
-         teQg==
+        d=suse.com; s=google; t=1740570748; x=1741175548; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=EMk5+NKhGum3QtmdtmnLKhjInNSavSN0lNc/5reLNog=;
+        b=MA/TutLZ+PRn+HgHd0k0rZZ+Eqte0w02VL4r1aQAso6FWeOcBpcUt2Y0syArZKtsCy
+         emVGWqdIWKFWZBaNXcm/GNsCKA157GSC3r44HJSr41KsDjBcSLQ1koncJFUcw4WsKoMl
+         rnpPo7NgLXxenShX/00vx6A8ZZHTtNdxm8xt8IG64XlmtLKiNVC48crmGuBQN5SxosNc
+         zTJ0DI2mBJxcxkx0kvxCnkJTls8M0dmFqEziZB5yqaqjcPpRtp16PIqOAlLfLTJ7wqOV
+         M8INH4Z3YcvMXbAcIJjBFY9AejwcWyiJI3abzUEd4XHN0zDqrA+R1FRn2UMC78J7tTEO
+         XkIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740570693; x=1741175493;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ynj8wH9DwxGfM5NWBjbKHAouiA+Jshik+1q1pzrjiJA=;
-        b=pvQRCqxfqg5p8/ZwWPVn7nlJu8Ueb1W7coIQzTr+gbWiMJ3nsOY0MxhSbx3Z9Z5j8f
-         QT/BX44KwEEkydLWuazd5LrrB7K459+F6ya4ipRnQ4XTHCtoyR6u8pVE8GcY26s4lDdf
-         yRUroDsL4SCk4algTU/vLsbaCpcAC/AlKGJHkfaU8NRbiiQCDPMPmBIPi2OWVZ1iH/Z9
-         Urm3H/uiNT75mT9uH62Y9tDU8mRbiVW7pT4vcUT/rkhooV/cOtmYUaM+SjJxLXaD1+Fp
-         0ezhaI6P0wd58ZuOkoKYbZcG+VYuInAyzNun3ALpBp7pO3cyRtDXnbbtf1N3mKcYkXjk
-         h29A==
-X-Gm-Message-State: AOJu0YxaVXZnblsxrr8aLnYrrv3Z3Z5O9TNDcNNYer5O+U/RYDtRKJzD
-	Eu0NXpCpltA5dQT+Q7uwQLcS/FyM330gKounKr869L7kA7yWrUCN+XcDChl9GWu7R6eM6iMGH7g
+        d=1e100.net; s=20230601; t=1740570748; x=1741175548;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=EMk5+NKhGum3QtmdtmnLKhjInNSavSN0lNc/5reLNog=;
+        b=hmZLs72lcIW/tlIqZ/V5Nm7w21pyGdvtFM1Q04scVNOg6sxkhvSjoOdn5WJwFlL2Bu
+         5ZXWVJhS1B+H5IYj3ifr28rXaSNj2RDyYWNC9n6sSCM5VLcmYExwMRoZzuOMGqtXP/vS
+         tdsRl0QOYnFeMSafIynrExKytc17NuEU13BVl/bfp/QkClE9Qx9O9waKqhGtp8LJ+JiC
+         YkJttKv1Y8wA+MWJayBYTd5+oGzzx1XGbrU1oeM7SlSPqi13ySLM2rFa54MKjBvOEg4q
+         ZNrHRgHiL3P/sq3jMG6pqbofzUbpwq0VwQj/iK8gaeHn63KraStCUNfCl9nwCl7Rgwf3
+         +C7A==
+X-Gm-Message-State: AOJu0Yyi5WT968VaQaOvQqyjhCNMEMcAgenAvprDZMUJkDvXE0RQzBFD
+	wAqwwFBqJ5ae2w2yg0REhBvqutJuWhdXHdERE56Lc/pzU6/9mTtqX/tmfd4F8RG5Hs7KIRW+sMQ
 	=
-X-Gm-Gg: ASbGncsoH2OWAtoOFGydO+CYdlMvY8stA1KyRQVeywKz75VftgmV2cfUOz61l8y0s45
-	vnlKju6uzHQ+9T2P2uI/kxd6iymJ6mKOJbwrtV5AIq4+J6T7XyJ7DjgMIslRXU/P2UjScEIpcdc
-	KwgxSUEPy59cHQALwD7eG0fuh1BJdandefpYY/U0FOQilvQo4aMxj+iVUw97cbt+a54k/iU0gAP
-	nM21zIMPexT0vUj6eNSM1uhkoHVrScIXuybjMEPxP5X7IRMKybgASJEYHW0fNKkPmS8H2vNliEB
-	KG3F2jspbPhpZxjwnzsB4WGvrApPgE4spZFlSWWl9pwRjNXU5pymadcCXcw9mnjBlRsyUvUbElE
-	KwM12UD67j80=
-X-Google-Smtp-Source: AGHT+IF2UoRdzsoQdAygFgSjEimfdPrv74ToGVtCsLP2nzFCt5g57q9oBBGn2fruM4xHSyceIwh8mw==
-X-Received: by 2002:a05:600c:5253:b0:439:a093:fffe with SMTP id 5b1f17b1804b1-439ae1e9601mr186530805e9.7.1740570692859;
-        Wed, 26 Feb 2025 03:51:32 -0800 (PST)
-Message-ID: <7363b2ee-f297-4b0b-9c4d-bdebe08d514b@suse.com>
-Date: Wed, 26 Feb 2025 12:51:31 +0100
+X-Gm-Gg: ASbGncuyPsuwNqYPqjabWNCDjD8wheqOAU35hJYRGFBRrh6/Q7LYQ4cxHOlDRTXiYWG
+	k93LyHi8A2qsB+JAgFjICsEQn2dauh92GeDMMZEBYwmwlXB9F3Msc9I23E+ez507QIumiPLN2qf
+	m15WR+fD41q0mhriki7fLfdYke7WPH2qstP3LpIKHbY4W2nlq+Hazc3NPQe4GmvZb3W6GrcP23g
+	WzqJfEyjRhsEaNGZeYiTLiv07z7DkwsUEK0rYWIyLUQE382X+LuYX1scn9i5gBlPBMMdxrBagL0
+	jsZi/w7o8os/vZe8lWceMVzW2otvtlKhC6GqnKmJCLBtt+PT02FAupirzKNe0JjHiD7JWagtJE9
+	9GofqXTLCp+0=
+X-Google-Smtp-Source: AGHT+IHQY7RTeKP0ltTVsquDyu/YAHdfXAHfnqDyZUcwG+GP+QTT79o/6RilxPQzaRalIBCNcvYIag==
+X-Received: by 2002:a05:6000:178f:b0:38f:2073:1493 with SMTP id ffacd0b85a97d-38f70789bedmr14073315f8f.15.1740570748568;
+        Wed, 26 Feb 2025 03:52:28 -0800 (PST)
+Message-ID: <88d24595-50be-4f99-97d6-9126340b791e@suse.com>
+Date: Wed, 26 Feb 2025 12:52:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
+Subject: [PATCH 1/3] x86/P2M: synchronize fast and slow paths of
+ p2m_get_page_from_gfn()
+From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH 0/3] x86/P2M: assorted corrections
+References: <7363b2ee-f297-4b0b-9c4d-bdebe08d514b@suse.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -115,12 +118,134 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <7363b2ee-f297-4b0b-9c4d-bdebe08d514b@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-1: synchronize fast and slow paths of p2m_get_page_from_gfn()
-2: correct old entry checking in p2m_remove_entry()
-3: don't include MMIO_DM in p2m_is_valid()
+Handling of both grants and foreign pages was different between the two
+paths.
 
-Jan
+While permitting access to grants would be desirable, doing so would
+require more involved handling; undo that for the time being. In
+particular the page reference obtained would prevent the owning domain
+from changing e.g. the page's type (after the grantee has released the
+last reference of the grant). Instead perhaps another reference on the
+grant would need obtaining. Which in turn would require determining
+which grant that was.
+
+Foreign pages in any event need permitting on both paths.
+
+Introduce a helper function to be used on both paths, such that
+respective checking differs in just the extra "to be unshared" condition
+on the fast path.
+
+While there adjust the sanity check for foreign pages: Don't leak the
+reference on release builds when on a debug build the assertion would
+have triggered. (Thanks to Roger for the suggestion.)
+
+Fixes: 80ea7af17269 ("x86/mm: Introduce get_page_from_gfn()")
+Fixes: 50fe6e737059 ("pvh dom0: add and remove foreign pages")
+Fixes: cbbca7be4aaa ("x86/p2m: make p2m_get_page_from_gfn() handle grant case correctly")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+RFC: While the helper could take const struct domain * as first
+     parameter, for a P2M function it seemed more natural to have it
+     take const struct p2m_domain *.
+
+--- a/xen/arch/x86/mm/p2m.c
++++ b/xen/arch/x86/mm/p2m.c
+@@ -328,12 +328,45 @@ void p2m_put_gfn(struct p2m_domain *p2m,
+     gfn_unlock(p2m, gfn_x(gfn), 0);
+ }
+ 
++static struct page_info *get_page_from_mfn_and_type(
++    const struct p2m_domain *p2m, mfn_t mfn, p2m_type_t t)
++{
++    struct page_info *page;
++
++    if ( !mfn_valid(mfn) )
++        return NULL;
++
++    page = mfn_to_page(mfn);
++
++    if ( p2m_is_ram(t) )
++    {
++        const struct domain *d = !p2m_is_shared(t) ? p2m->domain : dom_cow;
++
++        if ( get_page(page, d) )
++            return page;
++    }
++    else if ( unlikely(p2m_is_foreign(t)) )
++    {
++        const struct domain *fdom = page_get_owner_and_reference(page);
++
++        if ( fdom )
++        {
++            if ( likely(fdom != p2m->domain) )
++                return page;
++            ASSERT_UNREACHABLE();
++            put_page(page);
++        }
++    }
++
++    return NULL;
++}
++
+ /* Atomically look up a GFN and take a reference count on the backing page. */
+ struct page_info *p2m_get_page_from_gfn(
+     struct p2m_domain *p2m, gfn_t gfn,
+     p2m_type_t *t, p2m_access_t *a, p2m_query_t q)
+ {
+-    struct page_info *page = NULL;
++    struct page_info *page;
+     p2m_access_t _a;
+     p2m_type_t _t;
+     mfn_t mfn;
+@@ -347,26 +380,9 @@ struct page_info *p2m_get_page_from_gfn(
+         /* Fast path: look up and get out */
+         p2m_read_lock(p2m);
+         mfn = p2m_get_gfn_type_access(p2m, gfn, t, a, 0, NULL, 0);
+-        if ( p2m_is_any_ram(*t) && mfn_valid(mfn)
+-             && !((q & P2M_UNSHARE) && p2m_is_shared(*t)) )
+-        {
+-            page = mfn_to_page(mfn);
+-            if ( unlikely(p2m_is_foreign(*t)) || unlikely(p2m_is_grant(*t)) )
+-            {
+-                struct domain *fdom = page_get_owner_and_reference(page);
+-
+-                ASSERT(!p2m_is_foreign(*t) || fdom != p2m->domain);
+-                if ( fdom == NULL )
+-                    page = NULL;
+-            }
+-            else
+-            {
+-                struct domain *d = !p2m_is_shared(*t) ? p2m->domain : dom_cow;
+-
+-                if ( !get_page(page, d) )
+-                    page = NULL;
+-            }
+-        }
++        page = !(q & P2M_UNSHARE) || !p2m_is_shared(*t)
++               ? get_page_from_mfn_and_type(p2m, mfn, *t)
++               : NULL;
+         p2m_read_unlock(p2m);
+ 
+         if ( page )
+@@ -380,14 +396,7 @@ struct page_info *p2m_get_page_from_gfn(
+ 
+     /* Slow path: take the write lock and do fixups */
+     mfn = get_gfn_type_access(p2m, gfn_x(gfn), t, a, q, NULL);
+-    if ( p2m_is_ram(*t) && mfn_valid(mfn) )
+-    {
+-        struct domain *d = !p2m_is_shared(*t) ? p2m->domain : dom_cow;
+-
+-        page = mfn_to_page(mfn);
+-        if ( !get_page(page, d) )
+-            page = NULL;
+-    }
++    page = get_page_from_mfn_and_type(p2m, mfn, *t);
+     put_gfn(p2m->domain, gfn_x(gfn));
+ 
+     return page;
+
 
