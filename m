@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 835FFA45DC1
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 12:52:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.896446.1305156 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E57DCA45DC7
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 12:53:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.896460.1305165 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnFy5-00075I-LS; Wed, 26 Feb 2025 11:52:49 +0000
+	id 1tnFyY-0007j8-Sg; Wed, 26 Feb 2025 11:53:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 896446.1305156; Wed, 26 Feb 2025 11:52:49 +0000
+Received: by outflank-mailman (output) from mailman id 896460.1305165; Wed, 26 Feb 2025 11:53:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnFy5-000727-IN; Wed, 26 Feb 2025 11:52:49 +0000
-Received: by outflank-mailman (input) for mailman id 896446;
- Wed, 26 Feb 2025 11:52:47 +0000
+	id 1tnFyY-0007hB-PK; Wed, 26 Feb 2025 11:53:18 +0000
+Received: by outflank-mailman (input) for mailman id 896460;
+ Wed, 26 Feb 2025 11:53:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J4Ti=VR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tnFy3-0006xM-FB
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 11:52:47 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ id 1tnFyX-0006xM-0I
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 11:53:17 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3206f476-f438-11ef-9aae-95dc52dad729;
- Wed, 26 Feb 2025 12:52:46 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-43995b907cfso42149855e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 03:52:46 -0800 (PST)
+ id 43257d6d-f438-11ef-9aae-95dc52dad729;
+ Wed, 26 Feb 2025 12:53:15 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-390d6426f1bso338799f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 03:53:15 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43aba58717esm18582625e9.33.2025.02.26.03.52.45
+ ffacd0b85a97d-390cd8e7121sm5377361f8f.61.2025.02.26.03.53.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Feb 2025 03:52:45 -0800 (PST)
+ Wed, 26 Feb 2025 03:53:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3206f476-f438-11ef-9aae-95dc52dad729
+X-Inumbo-ID: 43257d6d-f438-11ef-9aae-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740570766; x=1741175566; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1740570795; x=1741175595; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=B5K3ghHFEUKY+Sz/+pAKS3KKwzSv5cNIOym7K1d3bOs=;
-        b=VRZArgkDJEKoSgJBzRlDSTsPOxf44Bu4WLFfn/CCBw01KUtfictj5gmXK6BkWTRpzs
-         UPW+ltGgwbyW6Vzi4VdEQXAqYG2mGg6dVEmGqN7P/YrgyzokUHuiVRKbfShlsNddcDNT
-         7r0M+HWC13m6QYg2mWUleB2CwdBcz4S3m+WJj0ACZRXP5fKJF89YH6tBQCSSqprqCRmG
-         5JX775t5jqd4OQI5/n3s5ZbNrOIUMxFs8w07lNPqlQbe892qJxlqa4yqsaFN+a9Y9jcR
-         LynAn3u9YAQTF5cJ/CRwTAL5PWcPzNl+xqlII2Ey2ZBoby/lNE99KrLSa6mYTzay83oQ
-         rojA==
+        bh=7P5C2APSwoFZMq5J+tFruta/TZatKK4sGBr/+R4Wqn4=;
+        b=C0UtWShowlZep7wnBJFiVMzEHVSq6yc4EdsgHb7wIvOksiKdIABMOvufCz5pBIV5UO
+         qTvWrGARDt/nnHb1+asav7S4UJ6Vp/mYnaVhw49qv6TL2FGlTpIaI8iyMe9v34pIW2zH
+         CmZ96UFZXG27eAni8MHRckE0MiyFBGwTrKhUNQ3NGEePj85f6b2CpoECUlxodAN3zGW4
+         atdacHYxs0u+EapZ1m3rl4hxHz3MpnI0DVEE7jEfLagJ8RJV8se6kbPrVPtx/tTDN0gq
+         kxC2bz3m9RgbzhrD5GRuvWhn9b9nN7XdCVzbPx7ukj7puy8HWMAqCGL8nQ2teloY4HjU
+         86cA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740570766; x=1741175566;
+        d=1e100.net; s=20230601; t=1740570795; x=1741175595;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=B5K3ghHFEUKY+Sz/+pAKS3KKwzSv5cNIOym7K1d3bOs=;
-        b=pXFg+403KFDwwtKe04Kb2IijJsIgI9iYMnswztdY4DGM576UPZz8ssVrxVWGhMn7rj
-         bp2G3rh9P6wQt/I+ItNdp2STSLQyD9b8p7hhMhIyMYPUjUNUhPcs3DaF0YiK5pU9py1O
-         3DAtPF481QHZo8qxvkZFke1TX9H+1fEwYeAfpwfb9TlyFAwJtaP8MuhwmkQsygWTtQXx
-         v6PddB/Yty8l4J2tKUujJUuKizBqDOG6bR8S2g98Ylte2LJicl+uvBNMsyl8Q7RvQAS0
-         QOvPIa040xPNtlhbL5Ibfx1a3VyjPuqex0WFA8xC/xMGWaw7ZJcH7nGZfYABlbuwLKH2
-         Z7rw==
-X-Gm-Message-State: AOJu0Yzd/bq1rYVlCwgcHYJQsowA/ntxUqmafldb9AzO4D+5rMZtPI8Q
-	uaZJqWNUyZVRVl17JLLU6+WpPT/Uu7HRVUgKIgudyyDLrdHtCkA1XPwGPo1dt4rThwkWg6ziN2U
+        bh=7P5C2APSwoFZMq5J+tFruta/TZatKK4sGBr/+R4Wqn4=;
+        b=frhKcUeNAZMFNLyCSvV28KtkxJWJDWJzUz3giqLHotVDRL9wLYLn6fPISR1Pf6qJQx
+         mh4XR92De9GjsaoCtw/ZHns/GIgDMhSvCX6/4NYr9SAz2Qjl85dJdS5/YbCgooe8i/ZM
+         Mi2l5kmCdYe+U9GVy6UEXnDXY8bwdBxjE4XtbREy8JGZWyIAb0jjHQ5H6yarc2Fkx9Zw
+         gjYDN/4svOw9kh0LFunxn7yeEPvgwHt5C9Iy/2i/hBoxdSrBa1PivZmM0/jXJL+o+AEl
+         M5FwXeA0iCfr1eS85vv66O7feEKX0mMC30rd51QJXZUmxxngbCD+vD0lJqJ+fYO+6uM4
+         7lOQ==
+X-Gm-Message-State: AOJu0Yw9Xvnb+sioR7gWqE8mDNde1JfIB4yCIrU7CUMSpEwBy4A91fmw
+	6yyTJc/BOWHznK3oC2MA8D1GZGrv0BDf7WNCwcYKIcnQImMzeNjfltntu95axBgdBwEwpd/FgO4
 	=
-X-Gm-Gg: ASbGnctaOLA3csd+n/VDOC/I5s+aNrCpjIvKa236tZ4odh3DaUvawj0NhM/LlgpFv84
-	nvL3cnDqB2C7BOixv3wPxezoGeUuv5wAf3jJyTqpOtrh7Tjw6VX5pWH+bDURScCWWH6R110Azx3
-	FtdRvn+smfhOLDJ4WM7Kdvs/j/XTFEM8lMgWo1iYLC5oGgV+D5Hcxb148ZD4pKGVwjzjkikwdVo
-	gp7M2bAbf3ajgerSFdeV1b5wI1GfwBEkrmd3630mZEfe7EyFNeW3L4LJ6b+EKKUJRa/OtvlUXhu
-	QybIudN6iGFIU2KewQSVcqIEnsxnU0avkNK+66All3jqm81DdRwjNtdfG/bGTxU55S7xW+rv293
-	YHzelCT96PIQ=
-X-Google-Smtp-Source: AGHT+IFTuewJz5fhC4vpqLMOtQdq/QdU6EVL5Gara2b45wJ1k4losOmf7IZxfAqfCyOdRM6qO9nlFA==
-X-Received: by 2002:adf:ffc8:0:b0:38f:4d91:c123 with SMTP id ffacd0b85a97d-390cc60cf53mr4504063f8f.32.1740570766214;
-        Wed, 26 Feb 2025 03:52:46 -0800 (PST)
-Message-ID: <b9f829c3-dc7d-4023-b58a-49527742a5f0@suse.com>
-Date: Wed, 26 Feb 2025 12:52:45 +0100
+X-Gm-Gg: ASbGncuI6NfLhUVsmnGOuUKDzl2UErRjYIGvVV6aj2nqxM+akJplmCx455UoiGzkkAx
+	DbpJHiMEX7yzOQpfbPejiCqzFPWMkW82WNYmhdLawoywXZ7udVCRc+s16NS8H0JFoTE04Hl8i3O
+	fETRwzEx5s+KWL/1ya/NKaRmYHGUDMaO+f2TXAuvZUjKAILjWo2zPHOzD9+oBut5j/O8Hoy26PW
+	ZXjFo1OhaM5fznR7fMWH0u/Pe8u5FzhwX2bBxIE+4uXmqTzqfiNjOi+FqaKRZh7NFwd0nUS/V1Y
+	2KRH2OFE6JA4avrcMkyf9xaB96ubS/mDk0rqrI9FFtV4KfIh6ykdRZdvNrAUuxoZSM1No6RSp39
+	RwDKGG8XLWJ4=
+X-Google-Smtp-Source: AGHT+IGBWKScsf+3TQwRVP/ld+kKdLzZlQGdSV1MHSo14ss+v2qgw4sfLLN3sNF0XTgTCyteEUy6EQ==
+X-Received: by 2002:a5d:6d82:0:b0:38f:2b49:7bfe with SMTP id ffacd0b85a97d-38f6f0ae7eamr19788694f8f.47.1740570794950;
+        Wed, 26 Feb 2025 03:53:14 -0800 (PST)
+Message-ID: <2c9885d4-4a9f-4998-b0fa-15c17115fa1e@suse.com>
+Date: Wed, 26 Feb 2025 12:53:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 2/3] x86/P2M: correct old entry checking in p2m_remove_entry()
+Subject: [PATCH 3/3] x86/P2M: don't include MMIO_DM in p2m_is_valid()
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -121,42 +121,44 @@ In-Reply-To: <7363b2ee-f297-4b0b-9c4d-bdebe08d514b@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Using p2m_is_valid() isn't quite right here. It expanding to RAM+MMIO,
-the subsequent p2m_mmio_direct check effectively reduces its use to
-RAM+MMIO_DM. Yet MMIO_DM entries, which are never marked present in the
-page tables, won't pass the mfn_valid() check. It is, however, quite
-plausible (and supported by the rest of the function) to permit
-"removing" hole entries, i.e. in particular to convert MMIO_DM to
-INVALID. Which leaves the original check to be against RAM (plus MFN
-validity), while HOLE then instead wants INVALID_MFN to be passed in.
+MMIO_DM specifically marks pages which aren't valid, much like INVALID
+does. Dropping the type from the predicate
+- (conceptually) corrects _sh_propagate(), where the comment says that
+  "something valid" is needed (the only call path not passing in RAM_RW
+  would pass in INVALID_GFN along with MMIO_DM),
+- is benign to the use in sh_page_fault(), where the subsequent
+  mfn_valid() check would otherwise cause the same bail-out code path to
+  be taken,
+- is benign to all three uses in p2m_pt_get_entry(), as MMIO_DM entries
+  will only ever yield non-present entries, which are being checked for
+  earlier,
+- is benign to sh_unshadow_for_p2m_change(), for the same reason,
+- is benign to gnttab_transfer() with EPT not in use, again because
+  MMIO_DM entries will only ever yield non-present entries, and
+  INVALID_MFN is returned for those anyway by p2m_pt_get_entry().
+- for gnttab_transfer() with EPT in use (conceptually) corrects the
+  corner case of a page first being subject to XEN_DMOP_set_mem_type
+  converting a RAM type to MMIO_DM (which retains the MFN in the entry),
+  and then being subject to GNTTABOP_transfer, except that steal_page()
+  would later make the operation fail unconditionally anyway.
 
-Further more grant and foreign entries (together with RAM becoming
-ANY_RAM) as well as BROKEN want the MFN checking, too.
-
-All other types (i.e. MMIO_DIRECT and POD) want rejecting here rather
-than skipping, for needing handling / accounting elsewhere.
+While there also drop the unused (and otherwise now redundant)
+p2m_has_emt().
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Paging/sharing types likely need further customization here. Paths
-leading here differ in their handling (e.g. guest_remove_page() special-
-casing paging types vs XENMEM_remove_from_physmap not doing so), so it's
-not even clear what the intentions are for those types.
 
---- a/xen/arch/x86/mm/p2m.c
-+++ b/xen/arch/x86/mm/p2m.c
-@@ -531,9 +531,9 @@ p2m_remove_entry(struct p2m_domain *p2m,
-         mfn_t mfn_return = p2m->get_entry(p2m, gfn_add(gfn, i), &t, &a, 0,
-                                           &cur_order, NULL);
- 
--        if ( p2m_is_valid(t) &&
--             (!mfn_valid(mfn) || t == p2m_mmio_direct ||
--              !mfn_eq(mfn_add(mfn, i), mfn_return)) )
-+        if ( p2m_is_any_ram(t) || p2m_is_broken(t)
-+             ? !mfn_valid(mfn) || !mfn_eq(mfn_add(mfn, i), mfn_return)
-+             : !p2m_is_hole(t) || !mfn_eq(mfn, INVALID_MFN) )
-             return -EILSEQ;
- 
-         i += (1UL << cur_order) -
+--- a/xen/arch/x86/include/asm/p2m.h
++++ b/xen/arch/x86/include/asm/p2m.h
+@@ -168,8 +168,8 @@ typedef unsigned int p2m_query_t;
+ /* Grant types are *not* considered valid, because they can be
+    unmapped at any time and, unless you happen to be the shadow or p2m
+    implementations, there's no way of synchronising against that. */
+-#define p2m_is_valid(_t) (p2m_to_mask(_t) & (P2M_RAM_TYPES | P2M_MMIO_TYPES))
+-#define p2m_has_emt(_t)  (p2m_to_mask(_t) & (P2M_RAM_TYPES | p2m_to_mask(p2m_mmio_direct)))
++#define p2m_is_valid(_t)    (p2m_to_mask(_t) & \
++                             (P2M_RAM_TYPES | p2m_to_mask(p2m_mmio_direct)))
+ #define p2m_is_pageable(_t) (p2m_to_mask(_t) & P2M_PAGEABLE_TYPES)
+ #define p2m_is_paging(_t)   (p2m_to_mask(_t) & P2M_PAGING_TYPES)
+ #define p2m_is_paged(_t)    (p2m_to_mask(_t) & P2M_PAGED_TYPES)
 
 
