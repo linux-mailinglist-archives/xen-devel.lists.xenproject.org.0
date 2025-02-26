@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 501A4A450CE
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 00:04:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.896073.1304748 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE6CCA451BF
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 01:51:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.896086.1304757 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tn3yT-0007eq-9l; Tue, 25 Feb 2025 23:04:25 +0000
+	id 1tn5cr-00068n-Gq; Wed, 26 Feb 2025 00:50:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 896073.1304748; Tue, 25 Feb 2025 23:04:25 +0000
+Received: by outflank-mailman (output) from mailman id 896086.1304757; Wed, 26 Feb 2025 00:50:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tn3yT-0007cI-5p; Tue, 25 Feb 2025 23:04:25 +0000
-Received: by outflank-mailman (input) for mailman id 896073;
- Tue, 25 Feb 2025 23:04:24 +0000
+	id 1tn5cr-00066I-EF; Wed, 26 Feb 2025 00:50:13 +0000
+Received: by outflank-mailman (input) for mailman id 896086;
+ Wed, 26 Feb 2025 00:50:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MqP+=VQ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tn3yS-0007cC-2q
- for xen-devel@lists.xenproject.org; Tue, 25 Feb 2025 23:04:24 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
+ <SRS0=Cat0=VR=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1tn5cp-00066A-G4
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 00:50:11 +0000
+Received: from fout-a2-smtp.messagingengine.com
+ (fout-a2-smtp.messagingengine.com [103.168.172.145])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d6e2c68f-f3cc-11ef-9897-31a8f345e629;
- Wed, 26 Feb 2025 00:04:17 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-38f378498c9so6058062f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 25 Feb 2025 15:04:17 -0800 (PST)
-Received: from andrewcoop.eng.citrite.net (host-92-26-98-202.as13285.net.
- [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-390cd866f0asm3704921f8f.12.2025.02.25.15.04.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Feb 2025 15:04:16 -0800 (PST)
+ id 9d97bf57-f3db-11ef-9897-31a8f345e629;
+ Wed, 26 Feb 2025 01:50:04 +0100 (CET)
+Received: from phl-compute-01.internal (phl-compute-01.phl.internal
+ [10.202.2.41])
+ by mailfout.phl.internal (Postfix) with ESMTP id 607211380EC2;
+ Tue, 25 Feb 2025 19:50:03 -0500 (EST)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-01.internal (MEProxy); Tue, 25 Feb 2025 19:50:03 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 25 Feb 2025 19:50:01 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,160 +45,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d6e2c68f-f3cc-11ef-9897-31a8f345e629
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1740524657; x=1741129457; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=MiVlEo35tFsBOaQXCM+yGEsP+MnNt6IKKaKpkCMvjN0=;
-        b=lrC9RauDhjDic+FhXykgjYy8Z/E9cdRID0jKRnl2/S2zub4NNuOiK7dN7zX+tt3njG
-         tjmpDrrKZczijCSkyfVdLaiNOpXnC/Kv+VUZDvbGqUcty32eKsy7AyOtzJi/T+BpTe+F
-         0QehbaSHYOC1u2jnU91ZPwNUSLeYQonCF2il0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740524657; x=1741129457;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=MiVlEo35tFsBOaQXCM+yGEsP+MnNt6IKKaKpkCMvjN0=;
-        b=iwPfJLdVSSkPESQsAa8v1L9hdTvWP8gR+RkJqVopj2QAsayy/COZqORU2HQZuh/i8V
-         B+gJT51GwpFZT3l9U8eMPebh2SymRWqn06Mgv0e2ChYgUPfquGqwLtLKTgU0qWrM/8Kv
-         rK/gLgYARFek8C3w35gfnuS+Qk8HKqrDLWTyJAxySulqoigR8MMvgeKE/vYEweDQTS5+
-         +eL5qPXTPyFeur7guP+sBTKxgeZV0m4MBRJlzsNjlwxz0Z/bDH9JgBOaDZ6cIy2EfwzU
-         g/zmaoAocySLxY6C0G+ztssqm3vTRRKQ2pze7J6H80UJZbhU2q6hQDqcmTU/VVKna54i
-         zBNw==
-X-Gm-Message-State: AOJu0Yy/wdBVR6+oXnzZiKHf5s+nVbMzwLcJBBBLa9txR1EN4pg1ffhX
-	X2veF3B6+3f8akqbwxvfohJBHAl8K2oEIeCV2SkRdDsG/Tx/kYWS/lTrkWFjICThfTs/EP5Vcqj
-	R
-X-Gm-Gg: ASbGncv+B1QASAZNzIWhDjDMwx8JG023aByFUiQEv2XZC9B1ZFzZ3lwGR05xhWIbL2z
-	g135h8/Z0wRwX7SBwbDHtft7iVt1lqqc6rOAhqzO9MUIaDpWrufEQ38tUO66wvmspLo/uoxcqzo
-	Vr3WjM54ZvUcpag6UZRrBVPdNNYFoCNCQSpuoYXmoIsZd9lLheyqwSTzvIhE/rMN5l/KV2l/iLR
-	nrimeuWlUnyBeMirnNH7hPjvkkqOm17Nz7AAIJIpNSdChDf/EMq+aod4oOWo6fKK9d2I4mCNtXP
-	PxiMvixHVjng4lmPVT3p0aqgxjKitoDrEgiLu7d9jiiKrFOV5xSswzm7f2ocTOCM1VgGJmTfQ09
-	XT8h7Bw==
-X-Google-Smtp-Source: AGHT+IEifWEstIv/+b7clY/Buq2JSUyl9RnPvSKkVUuCCmdpoGAy29yhO/3/xw5gwgs00UEQoUF+qg==
-X-Received: by 2002:a5d:6d07:0:b0:38d:dfb8:3679 with SMTP id ffacd0b85a97d-390cc6040d2mr4711322f8f.17.1740524656889;
-        Tue, 25 Feb 2025 15:04:16 -0800 (PST)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+X-Inumbo-ID: 9d97bf57-f3db-11ef-9897-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1740531003;
+	 x=1740617403; bh=ryeOacmhi3T2sFf8TyDDKaTDfbe73PMUdjxY9XHea38=; b=
+	Cy5Z6W914usfiNb6uSXraRooaj9CYPcpMoO326LP0NdF3LUQqnwMaOJFLKzAcLGB
+	L4XOW9SQOt6XHsDYDsrsEfjak3CpBYagVxQc6rEm2D7dVB6QAfQg5mweDxYCzBbL
+	t+DVYUdc1K7bNzM1N5J7e0RAuN+nCoDMknlN0MtBxLGp9nB6DXTOcK3ex2tqhBuB
+	8VguAljT92YF/LB+J4u+r6UmGj2Wze6zw7QAhkT+6lp/uYCsqqNKCS/NvQWX+kaV
+	utnPZo4qbdeMhUEPVFKcpHbD0sXw189Kq574cG2kOXjVDN8iLXUfi0iZLVjG2Xa5
+	bZ7VfrQbcVWTLWKvMv1ZIQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1740531003; x=1740617403; bh=ryeOacmhi3T2sFf8TyDDKaTDfbe73PMUdjx
+	Y9XHea38=; b=AoinUBoU2JzxFz4Xz9Ho1HME21Bje4Ko28Wp2af8Mb0ujpVi6c1
+	wzLfFxa0uHVlOJ88ZAe5KlfjLRayuJqK6G9fLfteQSgPm++UHhai1RJho4XDyGRI
+	1AglxbKd0r4/+XBSl+iFH69xhkPMiOBfKNHSqUNrbKvHpI9E9sFHJ9z0lUi5VkkC
+	Xu2XDyvKrKHE0xeZfhsrzJKNeJy+bJK7HlqbVOtkdC2c/0eT92M54Qc9fu5oEu6y
+	7t1dQcORsXVbizpWbdBpm3BuSbLiSgpumvroPoM21iTESejcKyLzC0flNwMMIKjS
+	dYLCKHSZrCr339SKIALNoDH8aCDnXOVvJ3w==
+X-ME-Sender: <xms:OmW-ZzsI_gYtLvDmZWe8yKILoGRCiWuKx9mMitU_Q9rjgPuF_6Y-VQ>
+    <xme:OmW-Z0ef6D21A5vOuUgWcZHGuakNj9lw8RIqCYjRsiu3aYvwmLsg5fvoTjHEl8XEz
+    7mS0MGOdnl5og>
+X-ME-Received: <xmr:OmW-Z2zz-bmmSfZQRsLXg4TW1KUjoMI0UPxDO0GUjmroK9JM7cZFZxAk6Kh1XbWGe1rahAmbPqsb6VchzpGOwe3JA4sDNa8tVQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdekfedulecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdp
+    uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivg
+    hnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdej
+    necuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoe
+    hmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucgg
+    tffrrghtthgvrhhnpefgudelteefvefhfeehieetleeihfejhfeludevteetkeevtedtvd
+    egueetfeejudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhr
+    ohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpd
+    hnsggprhgtphhtthhopeehpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopeifudgs
+    vghnnhihsehgmhgrihhlrdgtohhmpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvg
+    drtghomhdprhgtphhtthhopegrnhhthhhonhihrdhpvghrrghrugesvhgrthgvshdrthgv
+    tghhpdhrtghpthhtoheprghnughrvgifrdgtohhophgvrhefsegtihhtrhhigidrtghomh
+    dprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdr
+    ohhrgh
+X-ME-Proxy: <xmx:OmW-ZyMZkxT5ozAmFUkebCOYbRwWWRipOtt-7aw6_ADGeCSj72NVMA>
+    <xmx:OmW-Zz_qvq2XZBFPtwI_PSCtiGcXAf0LLFwR-r4h2phTDzmKXvjHVg>
+    <xmx:OmW-ZyXzuJXYiFSUrLJQswm3WWYFMvH4NTD_Lzg4pmToqB9_XShlZQ>
+    <xmx:OmW-Z0dW7Jh6Pbzmv03Jwk6enrbOjO2Y5lO51Upsw-n8ldiSdjp3qA>
+    <xmx:O2W-Z-mw05Xt_nBTJM0IfVheiZD3xq-Q0rPnkWk40CDiisUOa5EfFsKg>
+Feedback-ID: i1568416f:Fastmail
+Date: Wed, 26 Feb 2025 01:49:58 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Petr =?utf-8?B?QmVuZcWh?= <w1benny@gmail.com>
+Cc: Jan Beulich <jbeulich@suse.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: [PATCH] xen: Don't cast away const-ness in vcpu_show_registers()
-Date: Tue, 25 Feb 2025 23:02:13 +0000
-Message-Id: <20250225230213.1248136-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: xl create/save throwing errors
+Message-ID: <Z75lN_ShrXUGiT5e@mail-itl>
+References: <CAKBKdXhaQLj01Kn06xMBsHExT1xNMKnHxTB+Hu33jtpySr-few@mail.gmail.com>
+ <be2314bd-d212-4b9b-a50c-1b86b42ab861@suse.com>
+ <CAKBKdXgMn90_R6_rKWAzrQdkpPXL1-ZxAKM8n8RPXiOeY7VtJQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="YNcMDSZhhzmOpYHi"
+Content-Disposition: inline
+In-Reply-To: <CAKBKdXgMn90_R6_rKWAzrQdkpPXL1-ZxAKM8n8RPXiOeY7VtJQ@mail.gmail.com>
 
-The final hunk is `(struct vcpu *)v` in disguise, expressed using a runtime
-pointer chase through memory and a technicality of the C type system to work
-around the fact that get_hvm_registers() strictly requires a mutable pointer.
 
-For anyone interested, this is one reason why C cannot optimise any reads
-across sequence points, even for a function purporting to take a const object.
+--YNcMDSZhhzmOpYHi
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 26 Feb 2025 01:49:58 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Petr =?utf-8?B?QmVuZcWh?= <w1benny@gmail.com>
+Cc: Jan Beulich <jbeulich@suse.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: xl create/save throwing errors
 
-Anyway, have the function correctly state that it needs a mutable vcpu.  All
-callers have a mutable vCPU to hand, and it removes the runtime pointer chase
-in x86.
+On Tue, Feb 25, 2025 at 11:59:38PM +0100, Petr Bene=C5=A1 wrote:
+> On Thu, Feb 20, 2025 at 9:14=E2=80=AFAM Jan Beulich <jbeulich@suse.com> w=
+rote:
+> >
+> > Just one thing - to (hopefully) get a better understanding of the origi=
+n of
+> > those errors, you may want to increase verbosity of the "xl save", e.g.
+> > "xl -vvv save".
+> >
+> > Jan
+>=20
+> Here's an output of this command, that failed:
+> xl -vvv save win10-18362-103 /opt/ramdisk/vms/clones/win10-18362-103/state
+>=20
+> libxl: debug: libxl_dom_suspend.c:348:suspend_common_wait_guest_check:
+> Domain 90:guest we were suspending has shut down with unexpected
+> reason code 3
 
-Make one style adjustment in ARM while adjusting the parameter type.
+This is domain crash.
+Anything interesting on the console log of that domain (if it has some
+debug logs there...), or maybe in xl dmesg?
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Anthony PERARD <anthony.perard@vates.tech>
-CC: Michal Orzel <michal.orzel@amd.com>
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Julien Grall <julien@xen.org>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-CC: Bertrand Marquis <bertrand.marquis@arm.com>
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-RISC-V and PPC don't have this helper yet, not even in stub form.
+--YNcMDSZhhzmOpYHi
+Content-Type: application/pgp-signature; name="signature.asc"
 
-I expect there will be one objection to this patch.  Since the last time we
-fought over this, speculative vulnerabilities have demonstrated how dangerous
-pointer chases are, and this is a violation of Misra Rule 11.8, even if it's
-not reasonable for Eclair to be able to spot and reject it.
----
- xen/arch/arm/include/asm/domain.h | 2 +-
- xen/arch/arm/traps.c              | 3 ++-
- xen/arch/x86/include/asm/domain.h | 2 +-
- xen/arch/x86/x86_64/traps.c       | 4 ++--
- 4 files changed, 6 insertions(+), 5 deletions(-)
+-----BEGIN PGP SIGNATURE-----
 
-diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
-index f1d72c6e48df..50b6a4b00982 100644
---- a/xen/arch/arm/include/asm/domain.h
-+++ b/xen/arch/arm/include/asm/domain.h
-@@ -243,7 +243,7 @@ struct arch_vcpu
- 
- }  __cacheline_aligned;
- 
--void vcpu_show_registers(const struct vcpu *v);
-+void vcpu_show_registers(struct vcpu *v);
- void vcpu_switch_to_aarch64_mode(struct vcpu *v);
- 
- /*
-diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
-index 737f4d65e324..665b17813acb 100644
---- a/xen/arch/arm/traps.c
-+++ b/xen/arch/arm/traps.c
-@@ -969,9 +969,10 @@ void show_registers(const struct cpu_user_regs *regs)
-     _show_registers(regs, &ctxt, guest_mode(regs), current);
- }
- 
--void vcpu_show_registers(const struct vcpu *v)
-+void vcpu_show_registers(struct vcpu *v)
- {
-     struct reg_ctxt ctxt;
-+
-     ctxt.sctlr_el1 = v->arch.sctlr;
-     ctxt.tcr_el1 = v->arch.ttbcr;
-     ctxt.ttbr0_el1 = v->arch.ttbr0;
-diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
-index b79d6badd71c..5fc1d1e5d01a 100644
---- a/xen/arch/x86/include/asm/domain.h
-+++ b/xen/arch/x86/include/asm/domain.h
-@@ -688,7 +688,7 @@ bool update_secondary_system_time(struct vcpu *v,
- void force_update_secondary_system_time(struct vcpu *v,
-                                         struct vcpu_time_info *map);
- 
--void vcpu_show_registers(const struct vcpu *v);
-+void vcpu_show_registers(struct vcpu *v);
- 
- static inline struct vcpu_guest_context *alloc_vcpu_guest_context(void)
- {
-diff --git a/xen/arch/x86/x86_64/traps.c b/xen/arch/x86/x86_64/traps.c
-index 02fdb3637d09..22d4db240b95 100644
---- a/xen/arch/x86/x86_64/traps.c
-+++ b/xen/arch/x86/x86_64/traps.c
-@@ -170,7 +170,7 @@ void show_registers(const struct cpu_user_regs *regs)
-     }
- }
- 
--void vcpu_show_registers(const struct vcpu *v)
-+void vcpu_show_registers(struct vcpu *v)
- {
-     const struct cpu_user_regs *regs = &v->arch.user_regs;
-     struct cpu_user_regs aux_regs;
-@@ -180,7 +180,7 @@ void vcpu_show_registers(const struct vcpu *v)
-     if ( is_hvm_vcpu(v) )
-     {
-         aux_regs = *regs;
--        get_hvm_registers(v->domain->vcpu[v->vcpu_id], &aux_regs, crs);
-+        get_hvm_registers(v, &aux_regs, crs);
-         regs = &aux_regs;
-         context = CTXT_hvm_guest;
-     }
--- 
-2.39.5
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAme+ZTcACgkQ24/THMrX
+1yyA+gf9FIFnTEEdV3WbZKTZ4TsKL5VODeh/OA90LGyQ3MSpSGseO/oK8rZbUNEv
+fTd5i6a4pimJIDCAkeoD4Vc/Hxk+KN9syvCd6dRwpxskEmiu9E6kJ9TfCoOdsUNb
+Gefdv817QrVSTmKB5VQaMPhP9wxyx52P7W6vRQVa0El1pn4kI5VvZFfltkYOsXNX
+vK8bXl6PzGLtci4mdHzewv6defLBLcgWDsYpaTupaYdf2+y9Y7gbuAJjABD7rTTs
+u3FlpdMg2jbFAdvD4LZahNgk7gUoGuqRu+aFhKOYi4Dm9Rhr+WtdQXu0DacAxseU
+RB96I+/petFWyY6XpgZ+FVUwR7NQjg==
+=CX4L
+-----END PGP SIGNATURE-----
 
+--YNcMDSZhhzmOpYHi--
 
