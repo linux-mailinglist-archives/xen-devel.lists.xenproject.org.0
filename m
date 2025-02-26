@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF32DA45693
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 08:25:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.896182.1304857 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CB3CA4569E
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 08:27:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.896190.1304868 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnBmn-0003Qv-Ij; Wed, 26 Feb 2025 07:24:53 +0000
+	id 1tnBpV-0003xV-VZ; Wed, 26 Feb 2025 07:27:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 896182.1304857; Wed, 26 Feb 2025 07:24:53 +0000
+Received: by outflank-mailman (output) from mailman id 896190.1304868; Wed, 26 Feb 2025 07:27:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnBmn-0003Og-Fq; Wed, 26 Feb 2025 07:24:53 +0000
-Received: by outflank-mailman (input) for mailman id 896182;
- Wed, 26 Feb 2025 07:24:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tnBpV-0003vj-Sv; Wed, 26 Feb 2025 07:27:41 +0000
+Received: by outflank-mailman (input) for mailman id 896190;
+ Wed, 26 Feb 2025 07:27:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J4Ti=VR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tnBmm-0003Oa-9N
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 07:24:52 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c4338ad7-f412-11ef-9aae-95dc52dad729;
- Wed, 26 Feb 2025 08:24:51 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-38f31f7732dso292934f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 25 Feb 2025 23:24:51 -0800 (PST)
+ id 1tnBpU-0003vb-Pc
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 07:27:40 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2838f71f-f413-11ef-9897-31a8f345e629;
+ Wed, 26 Feb 2025 08:27:39 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-439350f1a0bso3263655e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Feb 2025 23:27:39 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-390cd86c9ccsm4579952f8f.21.2025.02.25.23.24.49
+ 5b1f17b1804b1-43aba543fecsm11275415e9.30.2025.02.25.23.27.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Feb 2025 23:24:50 -0800 (PST)
+ Tue, 25 Feb 2025 23:27:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c4338ad7-f412-11ef-9aae-95dc52dad729
+X-Inumbo-ID: 2838f71f-f413-11ef-9897-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740554690; x=1741159490; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1740554858; x=1741159658; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vQmdiOwHrCymw3zyqB0n9TUMMAT1OTz1ahyOIxWVggU=;
-        b=VOUiD+TDV8CuHdsXgXfWox92MfC/a5WVyTCCnzEUau8BqXS0uJRz6VAoDJMcVkU4v2
-         G9jUnIDGl0qopPT2uabIyoXlPt5ZhHHpizkfYCqqXlKmPm2HDU9mVF9qcaO3YpNzs5sT
-         Wji6KLYx6Anr8z8I/2H28J0xCdYbYZDCzQef1b6WH6rDPWD5RI+/f0qjD/NPyfbYRtiM
-         KYQ3P/1Xc2ZUeX2BFU8iHnvMWK3249N1DPn6r1nfKSGkTKdi17IEcBN4Ed348gv1DxSP
-         RuCX+8YjwRCp2ZsCNYLxtc7xf2OGZXdWvIOEw4Y8zR6sXxeqqOtZZTCUZ5u7YaFI/+t6
-         th/A==
+        bh=ZBnEzw0SpJx5IDWabD3CNkR3tDUVXzOnZheJh+ylFvs=;
+        b=bjfBk2Kr9dQ8sxMRAt7N4dH45IBuyxcLaY4FhC6P40D+j9nepDxK5FchzfiR6uaKy5
+         93DAhFN+NsQlYohcyC3qm+nlYL/0X7jgZ7dmDNtnneHhKAq2YkzkMleMDfDCzsAz/ix0
+         hkT4T0gb6epk8GdUhLA4Yxi9vV9wOTGl9gfNluI5b+e4Vg7H/2ZSmnM/ww5wTtwah0KQ
+         eZaLdoyUNdMf7E5fl1moVj5yLXodPvSFJvKycfRnoYKabnxf1KjJQr1DQZE9dl1grGmD
+         bqPiE5c2pVn33C/UaPdPwPIGJEVPOhbwiIuB8pjxtEgMhCXhPGH7mFBFsfgx1KzwOp2+
+         6vxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740554690; x=1741159490;
+        d=1e100.net; s=20230601; t=1740554858; x=1741159658;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vQmdiOwHrCymw3zyqB0n9TUMMAT1OTz1ahyOIxWVggU=;
-        b=Vro//oBxJyYVSFS4UzZ3KaKMdox52m67VcnbNASeZG9DOLS25P1Dn476F638aEagrS
-         bbvsSG9+FB8wYM8CN+p85wDVB+rV3bi32bf5jjyi4Jop6TuA4MkcpAI0QSlgfd5LgjkN
-         ij/p1yHU6byuVIvbLJBEb3Xm4IlsyDp/tWPhBtq/vI8R4JdUtTOEkJiE70iR0udU/p4I
-         +zlBnb1UnHIopQQsGQ2T+Khl4mqy3r6XZWXPb1E8Uqtnb16YQcOMd5MaAvyBXa+s8ndV
-         Nl46UZN3k3/8IonsCXlPsQe/5ckoj+7dIo17x3usOyDFtiP+Skk2WTrg/fQVTS/atTP1
-         GypQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWoNjUsi57n67DZsdxN/LzHk8XB2F9cwoOiRzIQ5J7TtoyIP7yh1udQhiUJ6EPTlk4aHdTnsc3KllY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxbwXt/Lx+FyiB1pJkv+tgbvOeU8qO7G7SCL6wPaaRRhml1q/GP
-	6F3FAJGSqe1/Hg5zuxe4FIY1J0uDXOivcFRH4RgwCiTNbG/Y3QT2d5HLCOh5Xw==
-X-Gm-Gg: ASbGncsHU2asXzAsD8Jaj/YjRaEyeej7Tbd3t+r8xeFpe7W0M88/dsDnaBcy7WBSRxE
-	fvhzA+JKH41M/AvCKrnbPHwOr1JNcftkbB07f8grbmVhVR4mlPBkufN3rNi87UW38TGPij0NJ0z
-	i6ya/nE0jnoWagFebBwG8Um95+XceLwi9ECbOF4Up2vJHCPZppOpjEDA8VmorBCKqiZnakF11HG
-	1ChoXgdtuhQ/tAwV8ByDGOjK5s3RztZ4xEd0NghzKp/PzFF01sgiLZtPtoHyYJzBMY7eDXNXBqh
-	GNXDgUjizwykiTj4vsb0Gwmc53QIx+oC70emjZ0aWfWfCQO27a5tC0WhBcDrLjnOEry2F3xymTC
-	Ru5fiSfOy268=
-X-Google-Smtp-Source: AGHT+IFcelQNxJ3yLSaKgzrjwWxpawD8KLVi8UH2xbGpMKgeJdjarbLc7P6XkMsx3cXeBAWWDtQyEA==
-X-Received: by 2002:a5d:5985:0:b0:38d:c73d:e52c with SMTP id ffacd0b85a97d-38f6f3dc27cmr16607675f8f.14.1740554690612;
-        Tue, 25 Feb 2025 23:24:50 -0800 (PST)
-Message-ID: <4d5511e2-ff07-42fe-b57e-7e66c999d811@suse.com>
-Date: Wed, 26 Feb 2025 08:24:49 +0100
+        bh=ZBnEzw0SpJx5IDWabD3CNkR3tDUVXzOnZheJh+ylFvs=;
+        b=JBhzDZdKgo/8m7/4E8ImgTimvs2JK15QcGexDrnRmo/yOLwxwHrMwGuVilYWexrWdV
+         8WF9CbhOJlYJp+tpl8KRgJGE8Ekic6pV2GDdtxWY9PXopR/jCjZc5fT9ZS/vgXaoYAE8
+         Nhxqe+7mKadCbhrUXa/xKjmUZVi/DOtuCnSaEh+rCljG1JpJOaojDWTir84Spo+UIZFF
+         xaZG++q3SAoLibUxkmxD0nb4sN95t3SpNvzQNTfYXaEZT9OhyCD9U41NEo1qx6c1oDAT
+         oQlaCtrF/sRlf9hL2zx8JeSkg+QP7NMxBCdKzDq8r/aSC3/RIa0tzkstVCECY3DwjTE3
+         K/Bw==
+X-Forwarded-Encrypted: i=1; AJvYcCVd3JiVjoHkRZoLUOOwNZ0PIFDWuCT6C0bbfqpjyH2yA0sLVp/TlEMtg435+doo+qMw2FhK44RX0+0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx2IvnRVK07LZOfATXTB5pu3QJLvHQzs2sTXZL5u6oaVcKGEwH8
+	gR52hAgNSwnguqPh5pHQFl4/AjJt4X7N+Ht4RHg38B67mYDNs3lnGE9cgprIHQ==
+X-Gm-Gg: ASbGnctivlhUjQJVWdhwo3iZ6U+W7z6WGuwiG3YN3j/mNCmz6iUX0AvWoJ9Po7Sd+U7
+	BD3vHQHDKa2aeEZQnQt/cXaYTmCGyzjTOQnniL+TRZ+COWCLMKwEQ2tCaIS8aBGY+dhuGIcJYgL
+	35FFIqOveaqhfXSyqGrbFOVbEGRoe4hEkZUlzYj+YFGQDTYQkkp8Qebpp4UhcXB+8jRh077U6AQ
+	Y6QdPDP89iovxuDwTKeKFi/aSDuu9lpN+MdAIOZIq9x3G7C7JnmNM15iGuwQgY8TXo0ml7R8BiL
+	0YvRG7mp08VbnckEhDRrOeN4G4f0EmOX2U85nWmlJbrBE9CprL0BOoIsvUE+0rumrCypd1IwlbH
+	X43t0cV20HMI=
+X-Google-Smtp-Source: AGHT+IF4Mfj/wFyo64hA650XXiakxPN0BlGT6DtTzFsGldhR5lyuQ16aCopc2A6/RdTMTe75qxqymg==
+X-Received: by 2002:a05:600c:54ea:b0:439:871d:d4c0 with SMTP id 5b1f17b1804b1-439a2eb09f6mr196866925e9.3.1740554858446;
+        Tue, 25 Feb 2025 23:27:38 -0800 (PST)
+Message-ID: <0563d503-e7da-4b2f-9a97-e5b6b3e78108@suse.com>
+Date: Wed, 26 Feb 2025 08:27:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/1] PPC: Activate UBSAN in testing
-To: Shawn Anastasio <sanastasio@raptorengineering.com>
-Cc: tpearson@raptorengineering.com, Andrew Cooper
- <andrew.cooper3@citrix.com>, Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1740540262.git.sanastasio@raptorengineering.com>
- <a1bc84821cf9018549fb1dc0aeb8fd8f9bfeb002.1740540262.git.sanastasio@raptorengineering.com>
+Subject: Re: [PATCH] x86/traps: Move cpuid_hypervisor_leaves() into cpuid.c
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250225223137.1183313-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,19 +117,17 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a1bc84821cf9018549fb1dc0aeb8fd8f9bfeb002.1740540262.git.sanastasio@raptorengineering.com>
+In-Reply-To: <20250225223137.1183313-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26.02.2025 04:27, Shawn Anastasio wrote:
-> From: Andrew Cooper <andrew.cooper3@citrix.com>
+On 25.02.2025 23:31, Andrew Cooper wrote:
+> It's out of place in traps.c, and only has a single caller.  Make it static
+> inside cpuid.c.
 > 
-> Also enable -fno-sanitize=alignment like x86 since support for unaligned
-> accesses is guaranteed by the ISA and the existing OPAL setup code
-> relies on it.
+> No functional change.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
 
 Acked-by: Jan Beulich <jbeulich@suse.com>
 
