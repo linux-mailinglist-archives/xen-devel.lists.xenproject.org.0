@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9A44A467BE
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 18:16:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.897106.1305826 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4DCDA467F2
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 18:23:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.897117.1305837 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnL1R-0001Mf-LB; Wed, 26 Feb 2025 17:16:37 +0000
+	id 1tnL7Z-0002uL-9m; Wed, 26 Feb 2025 17:22:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 897106.1305826; Wed, 26 Feb 2025 17:16:37 +0000
+Received: by outflank-mailman (output) from mailman id 897117.1305837; Wed, 26 Feb 2025 17:22:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnL1R-0001K6-IN; Wed, 26 Feb 2025 17:16:37 +0000
-Received: by outflank-mailman (input) for mailman id 897106;
- Wed, 26 Feb 2025 17:16:35 +0000
+	id 1tnL7Z-0002rn-6V; Wed, 26 Feb 2025 17:22:57 +0000
+Received: by outflank-mailman (input) for mailman id 897117;
+ Wed, 26 Feb 2025 17:22:56 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wRt1=VR=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tnL1P-0001Jy-TQ
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 17:16:35 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
+ <SRS0=GPjD=VR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tnL7Y-0002rh-IP
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 17:22:56 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6e14d484-f465-11ef-9aae-95dc52dad729;
- Wed, 26 Feb 2025 18:16:34 +0100 (CET)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-5e0813bd105so11815774a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 09:16:34 -0800 (PST)
-Received: from [172.24.85.51] ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5e45a8b8c4esm3081517a12.26.2025.02.26.09.16.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Feb 2025 09:16:33 -0800 (PST)
+ id 50540708-f466-11ef-9aae-95dc52dad729;
+ Wed, 26 Feb 2025 18:22:54 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-38f31f7731fso779f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 09:22:54 -0800 (PST)
+Received: from andrewcoop.eng.citrite.net (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-390dd708d50sm2029699f8f.91.2025.02.26.09.22.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 26 Feb 2025 09:22:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,170 +45,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e14d484-f465-11ef-9aae-95dc52dad729
+X-Inumbo-ID: 50540708-f466-11ef-9aae-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1740590194; x=1741194994; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=sJ3gY2jBfIg7JkgC5g5pUvM+AvCUpLnKCnOITukTbk4=;
-        b=btYY0r56ZJ8bE1ucv5FXbF3FLVJABq8fwoBlcLlWEQuEFAZ/JMIoiOwz1aKt2lh/kq
-         qwbPVTJ8QLF8RTbJ78RdlNFHqKJo7QMUOLmqZSngbqhwAhfeyfGtD+AIVnFNuGIXHVqY
-         BVnwBvah+s+4vC8TK6nOVP+P0bj3FuXrNf3QpVPEWg4ZjLjJT6cOqv2O7JFF4TKWCRN7
-         Sy/6blgtu/kyxUhPPVsgbWKBld555jzAVcgu7IyId9vLemI+dKRDBnIprUlvcShAQyB6
-         lUHM7Mwrh0OHBMWKiU5Ai4y8Z5/uWGdVeLBwyGXeb4BhPgwJgxJnzQnt69YCxc+DiiTs
-         SndA==
+        d=citrix.com; s=google; t=1740590574; x=1741195374; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=0FkWu2+ymDbeZcBFazIKeQy1Pjj72JGYQdi3IsIoxAg=;
+        b=NctobUtWyS2IB1TcuGXmwuKMCZIwTgf3tRImh656y47sZWa7DcXq6PGU5phUXGs3nP
+         Ij9z43jC7QpmnpIzro1HzFiBN3C96GJzPiksxV6qHET2hpdTPoa7TqoLnfTyWC2h128n
+         4N5TotmMDnSu7dKiV5kpIMmn0JUyDKap1b1LM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740590194; x=1741194994;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=sJ3gY2jBfIg7JkgC5g5pUvM+AvCUpLnKCnOITukTbk4=;
-        b=WApHd4Jx1mVfWkp15wkd7hppWPMG+Cw07K8YEACf/bR3SmJLw3Fxlq2DrLMcamcOuJ
-         KdbebVivcX7qoXI+mKcIYhqLXSiP+Lb3y8LSYfLCf+uS0hdq9yng1rHs5/fQIpdf/WRU
-         6REH/hW9Y+bJpyDRatCXBKC/8Ng7tOpgA+2B77E9vsidqAL5LOpvSuRk3pPOdNzmxRUJ
-         SDRxAQRWoL7YHDF8mwJPwfRffQLkffCwE6Kh0hT3vOHkF2JBeDlcS3YwOHtCl39eR0u4
-         ljEXYYX67ybWbLNoc7Q2FFo0ItdcqVhAw9DaBPpssUNm8qjxwxpVTnGpVzmDflAFXopj
-         mezg==
-X-Forwarded-Encrypted: i=1; AJvYcCWD3SUduzSQDSJ9Iruvhb3pCoDt3hPOLPee/VgYLEqkwHiiIMln8pi7hpWNMCYJBXoylTyRZGP9gaU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxv8N3QcU1Wke3jjabOVuzldZVtXvweu8jD2qZDmTGeNzQWekHp
-	r/QXSX6jZkcNz34kPgsZ0u649394fbWqviQEU+zUBmNO4LDv95pM
-X-Gm-Gg: ASbGncvl5I3+Jh2t5Mj5BVeL6t5JOiB9KnCc5CoRkusJpT1+g7QgJL0PvHuJqHHrCtQ
-	mZSRYKiB8etpttpkGDVWRFXC3FqFNmOF+wWlUq/g6/x11shcWqKK30PpRUYSPkdY6J7cYuc0Hcg
-	0vtHSrt+ZslaQPxli4ip9dEIRezGR6QrUnG1WqVQEsUsOUktKNgmWFWRKWXL1QDz+7AI4nOn1l9
-	X3JNqzkkg3fm3wy+hrN3nUDKBgmYfgY4/7CxshJZmW1JG0YhZYdrlXfzeZYkiLirHq3X3y3tIdN
-	KC9QjsF+wRGJF4stkOyIV0GjMZlUpLtFtHw=
-X-Google-Smtp-Source: AGHT+IGs82BRcKCWzU+u2VjM6YGC/fyaHzMaC+t1ccQQ4/UsSAP3taKkdDHB39Qpe1XyfdISC/+ZKA==
-X-Received: by 2002:a05:6402:5109:b0:5e0:82a0:50e6 with SMTP id 4fb4d7f45d1cf-5e0b722e6d9mr23145835a12.20.1740590193994;
-        Wed, 26 Feb 2025 09:16:33 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------7hkHssToVTlKRyzsfquaY0MN"
-Message-ID: <6a7e6dad-b2d3-46df-be9a-d9ec3451cd37@gmail.com>
-Date: Wed, 26 Feb 2025 18:16:32 +0100
+        d=1e100.net; s=20230601; t=1740590574; x=1741195374;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=0FkWu2+ymDbeZcBFazIKeQy1Pjj72JGYQdi3IsIoxAg=;
+        b=wjuT9QBtT88h9mqzlf1mwox0lRbZNz2/YvgCuEN5QEOrlzdKr4at/aEFhhwoqgO+kD
+         t8Q1SPoAA5h40IC6mVZdZ0a6+Pfvgf3ftYPvGWzhccJ1N4XCcb4Qy5jbQ7badRgvq3bv
+         U8cBEZScSr4PEZCtTjh0rTxryM+eBKcO3zcdVPK+iiyN6vYg7ZiNsJATtnpzHAvGegNP
+         rVsHQUbN/U9xjH9ZaXI0KY1fgFpHUndHDG+WtXk7t1z36LCjo0pNo71p2elaAsd1JI0h
+         qb2zFo/clqxrj93GPxltQgL2nbDNslEh76EDJOdZ+RfJ7C02Yy9Hjr/I3+SiWleEtTZl
+         P3hQ==
+X-Gm-Message-State: AOJu0YyDhBnrEWPaIKQqaecdD4fFuTxbkUQEyud2jqrSvybsvWXQB/3S
+	ZI2poaGsDK/6WGFMA96d0DP/wV+DXoZ73beFNPChp73KHJTI3P534303EAs+PXWtsAHDfBCgUDC
+	c
+X-Gm-Gg: ASbGncvrX7k3Xm85fDpuMp2k25NRIT6cH71QF4FtJAsmvurGDwlU7Hul3uzEzlDyemD
+	dR4RUBNIMmfBizpE3o5bWx7V64lLsamxhA3b9pK5FxqUzZZhd+0vFatBQK7rTzT2wRely1xPVMR
+	0D0DnnJp/n/Okd33Muf9bpx8YVfQ58ClR651n5PQrv6590UbZL4nceyoIi7UxNjOKIB2xKNTDZn
+	HiehkZM4XVnng2s/32C8qkxQByolnJ5nhiEWrIqcS5B23+1+ONVtUtcx9i/bDDBVt+Hs1vfHoTj
+	nx38QrvHQpz1CNpgEptGaFUww7HP7NQ5gDXJnwqIbLlpJF03Fo75/D6NkUlz7+wofwH79U05CEh
+	SlCv4TA==
+X-Google-Smtp-Source: AGHT+IE9x4TA5JTOA/4m9tpgiIdOXQsYcp8xdKY818jqpLdCCN0k7yCnEe1vpXuGHJ/lHc+xUTk9iQ==
+X-Received: by 2002:a5d:494e:0:b0:38f:23f9:b367 with SMTP id ffacd0b85a97d-390d4f419e5mr3317615f8f.23.1740590573589;
+        Wed, 26 Feb 2025 09:22:53 -0800 (PST)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [PATCH] RISCV/bitops: Use Zbb to provide arch-optimised bitops
+Date: Wed, 26 Feb 2025 17:20:50 +0000
+Message-Id: <20250226172050.1300771-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for 4.21 v7 3/4] xen/riscv: make zbb as mandatory
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1740071755.git.oleksii.kurochko@gmail.com>
- <611e289e357a26490b95b2aa93d7288c77787171.1740071755.git.oleksii.kurochko@gmail.com>
- <ef3972a5-825a-47de-b9a7-a3681fe70bcb@suse.com>
- <38834638-df7a-4631-99e1-5596bb65d136@gmail.com>
- <e9f75fd0-4e65-4f06-a671-7f497354872d@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <e9f75fd0-4e65-4f06-a671-7f497354872d@suse.com>
+Content-Transfer-Encoding: 8bit
 
-This is a multi-part message in MIME format.
---------------7hkHssToVTlKRyzsfquaY0MN
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-
-On 2/26/25 3:49 PM, Jan Beulich wrote:
-> On 26.02.2025 15:38, Oleksii Kurochko wrote:
->> On 2/26/25 1:58 PM, Jan Beulich wrote:
->>> On 20.02.2025 18:44, Oleksii Kurochko wrote:
->>>> According to riscv/booting.txt, it is expected that Zbb should be supported.
->>>>
->>>> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
->>>> ---
->>>> Changes in v7:
->>>>    - new patch.
->>>> ---
->>>>    xen/arch/riscv/arch.mk | 7 ++-----
->>>>    1 file changed, 2 insertions(+), 5 deletions(-)
->>> Please can you also tidy asm/cmpxchg.h of ANDN_INSN() then?
->> Sure, I can leave only:
->> /*
->>    * To not face an issue that gas doesn't understand ANDN instruction
->>    * it is encoded using .insn directive.
->>    */
->> #define ANDN_INSN(rd, rs1, rs2)                 \
->>       ".insn r OP, 0x7, 0x20, " rd ", " rs1 ", " rs2 "\n"
-> Wait, no - why would you? Patch 0.5 is supposed to be setting a baseline
-> where Zbb is known by the tool chain. With that proper "andn" can be used
-> wherever we like.
-
-I thought that Zbb in binutils (part of whic is gas) was added later then
-I mentioned in Patch 0.5 but Zbb was added starting from 2.37, so we can
-just really use `andn` instruction instead of `.insn` .
-
-Thanks for clarification.
-
-~ Oleksii
-
---------------7hkHssToVTlKRyzsfquaY0MN
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2/26/25 3:49 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:e9f75fd0-4e65-4f06-a671-7f497354872d@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 26.02.2025 15:38, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">
-On 2/26/25 1:58 PM, Jan Beulich wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">On 20.02.2025 18:44, Oleksii Kurochko wrote:
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">According to riscv/booting.txt, it is expected that Zbb should be supported.
-
-Signed-off-by: Oleksii Kurochko<a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
-Changes in v7:
-  - new patch.
+CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+
+Depends on "xen/riscv: make zbb as mandatory"
 ---
-  xen/arch/riscv/arch.mk | 7 ++-----
-  1 file changed, 2 insertions(+), 5 deletions(-)
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">Please can you also tidy asm/cmpxchg.h of ANDN_INSN() then?
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-Sure, I can leave only:
-/*
-  * To not face an issue that gas doesn't understand ANDN instruction
-  * it is encoded using .insn directive.
-  */
-#define ANDN_INSN(rd, rs1, rs2)                 \
-     ".insn r OP, 0x7, 0x20, " rd ", " rs1 ", " rs2 "\n"
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Wait, no - why would you? Patch 0.5 is supposed to be setting a baseline
-where Zbb is known by the tool chain. With that proper "andn" can be used
-wherever we like.</pre>
-    </blockquote>
-    <pre>I thought that Zbb in binutils (part of whic is gas) was added later then
-I mentioned in Patch 0.5 but Zbb was added starting from 2.37, so we can
-just really use `andn` instruction instead of `.insn` .
+ xen/arch/riscv/include/asm/bitops.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Thanks for clarification.
+diff --git a/xen/arch/riscv/include/asm/bitops.h b/xen/arch/riscv/include/asm/bitops.h
+index d22eec1e87c7..df3df93520c5 100644
+--- a/xen/arch/riscv/include/asm/bitops.h
++++ b/xen/arch/riscv/include/asm/bitops.h
+@@ -125,6 +125,13 @@ static inline void clear_bit(int nr, volatile void *p)
+ #undef NOT
+ #undef __AMO
+ 
++#define arch_ffs(x)     ((x) ? 1 + __builtin_ctz(x) : 0)
++#define arch_ffsl(x)    ((x) ? 1 + __builtin_ctzl(x) : 0)
++#define arch_fls(x)     ((x) ? 32 - __builtin_clz(x) : 0)
++#define arch_flsl(x)    ((x) ? BITS_PER_LONG - __builtin_clzl(x) : 0)
++
++#define arch_heightl(x) __builtin_popcountl(x)
++
+ #endif /* ASM__RISCV__BITOPS_H */
+ 
+ /*
 
-~ Oleksii
-</pre>
-  </body>
-</html>
+base-commit: 7cf163879c5add0a4f7f9c987b61f04f8f7051b1
+prerequisite-patch-id: 9ee1f7ebf5d34b1c565ee2d3d4fb319164bb8bcd
+prerequisite-patch-id: 8a05c87c8d051a3ac0820887f676bbd318e4ae88
+prerequisite-patch-id: 6b56e42d130d8b5ee39457b6760b05cc6e16b049
+prerequisite-patch-id: c139f1f5741d695cd5e5aa6be904edcb61b73885
+prerequisite-patch-id: 99f8b701000e9ee11060934e627a988ddf9aaaa7
+-- 
+2.39.5
 
---------------7hkHssToVTlKRyzsfquaY0MN--
 
