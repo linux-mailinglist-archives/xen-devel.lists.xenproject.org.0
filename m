@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3D21A462EC
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 15:33:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.896745.1305499 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 076BBA46305
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 15:36:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.896753.1305509 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnITU-000675-OR; Wed, 26 Feb 2025 14:33:24 +0000
+	id 1tnIWb-0006hO-6y; Wed, 26 Feb 2025 14:36:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 896745.1305499; Wed, 26 Feb 2025 14:33:24 +0000
+Received: by outflank-mailman (output) from mailman id 896753.1305509; Wed, 26 Feb 2025 14:36:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnITU-00065d-LO; Wed, 26 Feb 2025 14:33:24 +0000
-Received: by outflank-mailman (input) for mailman id 896745;
- Wed, 26 Feb 2025 14:33:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tnIWb-0006ff-3g; Wed, 26 Feb 2025 14:36:37 +0000
+Received: by outflank-mailman (input) for mailman id 896753;
+ Wed, 26 Feb 2025 14:36:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J4Ti=VR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tnITU-00065X-6m
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 14:33:24 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a13f51b7-f44e-11ef-9897-31a8f345e629;
- Wed, 26 Feb 2025 15:33:22 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-43948021a45so60350915e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 06:33:22 -0800 (PST)
+ id 1tnIWa-0006fZ-2e
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 14:36:36 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1419100f-f44f-11ef-9aae-95dc52dad729;
+ Wed, 26 Feb 2025 15:36:35 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-43994ef3872so43029145e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 06:36:35 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-390d649cd17sm2247968f8f.79.2025.02.26.06.33.21
+ 5b1f17b1804b1-43aba52b591sm24475015e9.6.2025.02.26.06.36.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Feb 2025 06:33:21 -0800 (PST)
+ Wed, 26 Feb 2025 06:36:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a13f51b7-f44e-11ef-9897-31a8f345e629
+X-Inumbo-ID: 1419100f-f44f-11ef-9aae-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740580402; x=1741185202; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1740580594; x=1741185394; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=N003K+9hDnrovQ5bRB8Jj9yTnxq5rkozzZmPwLUzscY=;
-        b=ezOxFdE2ShjbjXPnbMiNd5D3okmva9VH4BAB7zrqp94/3pS+1VQgz6fK2eTTYBSHYl
-         lfkRkE9KfY/1MaWUQOZm4yESIU/IHG0OotxXz2snPZmex3i82sOLtcMRi/XtBP7KKOtV
-         lbmVBwvbEZljhENhbx9DXNuh30ebERuQKt/MP7RKablHwDwXPRdYbm/bE8EeVVFM2XIj
-         3DWiY/4gPRznR2/fZ2oYWftO97EU3I6YjwGmFU4QC7KSJJ/1PdR1zrwru4oYRhwJbO8+
-         YP4zUIDFLBDrWOOD7a6QzTQ7ObZZOTxoXszYLt0yW/5Vlj2935AEZL5tnsVVsYDAmbmT
-         hzLw==
+        bh=IjKqxD6G3KD6g5YrviTD+8jL/Tf+30e9/VjAQuiPHG8=;
+        b=dwP1SUQzrHPL6UxwEqAwaMNEETPYDwSaFw+bCFgf1t8KO9X1AIV2d9JU//YojMrI0W
+         ZHW2XReI2vFJmwX1B4lQIZRIzkoeBOfKuRqSMIn3FuWbbBiE1BYcD6LbJBP3IA1xs0Ce
+         tT2sNMzLavpABi09UNycGi8MGZtAf/O+HUe0CUA6ExxWOnwxPRyz0tRwQeiXH2nh3/6E
+         ma4ORVLwmKQn8LP13LHHQGmcYGkLdz7rX3IKzZbRELP705LiY/igOrkaBWekuXe/Zovh
+         sYH92YWxRremMCFanWTv2U/1WngQ6cIfSE3jcWWl/P9Vs9jN5o516hFKTwS1VlLf6y0v
+         V3KA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740580402; x=1741185202;
+        d=1e100.net; s=20230601; t=1740580594; x=1741185394;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=N003K+9hDnrovQ5bRB8Jj9yTnxq5rkozzZmPwLUzscY=;
-        b=j+lAV5dc3cSqINoeuUEVfQFnYooUXc96pOmLPb1o/CkmFDenAwJPriQ61BzExosynU
-         fZUAG9h2Jnh6aKi920gmu6gj33X6umWUfByIsn+hd8KpI9RlJf7KGw4Y70rQYcRV8RKm
-         jp+Zv3BcmcSOwaGmvcVBYGzYuTftDJYv9+IP7wrH50SNRhfm2DPAFvsRk0lod1oolaw/
-         vJZQdupW1AYEAzvYNSdUquX8cfLYLh2H6wQ2b79J6+r4HC3HtX6+bcZWcy6EObEYVt+q
-         sF4tzZPH9gtjmChMIh40qX787n8uCzppBUpdgnGojfwnBbOLuuj4AVNPLee7CIeiyrwG
-         CbKQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUuO/5fSV+xVCFe/StlgJFzYEGpVLNcP9b+7j55v+yi0G9MkJ3yBfRDpjRaNmUKnvNWEC4ph6/ZLZs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw8B2ge+HoE4B4gg1cQ/FMYzHGli4nj20uV9BUpnKrrDHD1n5Dn
-	IerZmu3mD8Fc0iCITJKMKNlkR9d6qHKWV0oekQBOxXZGDUeYYSYre4ZzD/rhZr5A0dcZuguY+ps
-	=
-X-Gm-Gg: ASbGncvJ6ljQsyIqQqploRKfzweAHkFStqKjNKNu4pr8z1rFoGqzrUF+YAG17jkmUv6
-	B8mDmkrB5HmBwNZQq0WcEDgh2o6e/ZmzBNUaTyJ1aiDHmJlmsU2WMGdicNgLvHYIH6HUbJvdJnU
-	egcHp+tLxSfk24Qcigbbtx/wFI+wEglyAyYrhVMtxDFJ3X/YcVE5K/l7MfXotEdK7JeKJQSGGO8
-	PF9tfeAGvnOpmf36ie5z8wQ6yNFQ6jWEHKPao4J7xqzZ5CdeYtxlSTIGqVzrdirWFAxuqq08qbH
-	Ewsam+ALozHCjaCO+2ZleYl5/KGFNpXszi5vsK8iT5YtAaHxRDAbQENfU0r1JRx10V2oHAugdTF
-	HEQ5PLFrl4Ao=
-X-Google-Smtp-Source: AGHT+IEdYSdWHMpNB29BmlJCA6Qj4J10yQ9f7+uXgsM3b6NugyfzjLMbkrXyUaaO3JRizQFDjHkt9w==
-X-Received: by 2002:a05:6000:4014:b0:38f:2a49:f6a5 with SMTP id ffacd0b85a97d-390d4f3cab3mr3418813f8f.15.1740580401715;
-        Wed, 26 Feb 2025 06:33:21 -0800 (PST)
-Message-ID: <53c991a5-b398-430e-b94e-d7428c2b2c2b@suse.com>
-Date: Wed, 26 Feb 2025 15:33:20 +0100
+        bh=IjKqxD6G3KD6g5YrviTD+8jL/Tf+30e9/VjAQuiPHG8=;
+        b=Jw152cxHhKpDhZAdWv1P9M5jXLSCS6lCIj6N1egiQji7s5VIvKAAG3i96kL5xxb84E
+         wf3kSTuj1mgc56lVOwwwLdm5Ot93H9gf3NA2Bl3tWpcW+oZEr1oP5X0tIyG0G73ELFRB
+         kKu5F6L7FFRaqHEK5lUM5uBZ4HO3zOBXOPT8SVLKG3kpY7RNzokzSkmSFPaktc/KbbMM
+         z3luY9ZSNIfAhmafsvjP2LG9NCBoZGTPw4PFTI2e5xmkmHc87jEn4X+5k8lSZFg+FRWp
+         JVA/qrx9eZ54fU/UBtegJbxgdJE7NDUvye42MTh6EBr24/huqRqWDjKSugs7Ec+GXhKL
+         iZPw==
+X-Gm-Message-State: AOJu0Yx4NZkAGqyCf3HwOQC7v892CeK/6s/T3gISmDBs+ASn+3QRuDtx
+	8uqCY+2KZp761fHSiXcNzJjiBdPP8k+yG2TK9Wf/KBfT17FNgzdzHeqhHMDpyQ==
+X-Gm-Gg: ASbGncvN3jc5keJtJgw4B/Avil2MVQPZoeKGQiCAyBk4wn2Zi4QWa7oUZMKI27RTDu7
+	vFG4iAt+9woU1qLJMhvQc8HaXFqsLUmL59h1hIceSaAy38Avh+aVu4/D2WtJk2XLhuPSRPjGIWQ
+	rVUeYuMrS/r4zxJadN1SZQ11Bq/67QB9gxdVC6uBm0mPSWadVcb7+cHi2RT+i8V6mGlC0Yj668Q
+	CXGU6mLkfYeXh1UWU9WZzCLrnMFxot3bQpRFIRZ45pqUkQPjZDBWvH82ZGLd1ELz1p+VTh2awPq
+	05PeBbXBiGk87ptBmwRhmHit8CtlHnOofAUfmnKn3QvEFZd03HBvL86+fBH1Jx17nHYyoxxrlaL
+	aW6Va33wIsag=
+X-Google-Smtp-Source: AGHT+IHL55gaBL0DdF2pxtoq64HZs+4zzY67oKFp94IXWc/gtgxLj6Y3NMgbbtTst4bR3I+Hx6V+Tg==
+X-Received: by 2002:a05:600c:5487:b0:439:9863:e876 with SMTP id 5b1f17b1804b1-43ab75011bbmr38650155e9.24.1740580594348;
+        Wed, 26 Feb 2025 06:36:34 -0800 (PST)
+Message-ID: <292f8373-705a-4405-bbdb-af750eb5f0ac@suse.com>
+Date: Wed, 26 Feb 2025 15:36:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for 4.20 v2] CHANGELOG.md: Finalize changes in 4.20
- release cycle
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Community Manager <community.manager@xenproject.org>,
- "committers @ xenproject . org" <committers@xenproject.org>,
- xen-devel@lists.xenproject.org
-References: <20250226104556.36324-1-oleksii.kurochko@gmail.com>
- <8ec1b722-3af1-4778-9902-0f3278e4309a@suse.com>
- <0f07557a-f340-4056-b8a0-5efe680bddc7@gmail.com>
- <b45c2acb-9d72-4de9-907f-ad2d0c7ac6bd@suse.com>
- <e801c975-0985-450e-ae6a-7659a78e862c@gmail.com>
+Subject: Re: [PATCH] xen/page_alloc: Simplify domain_adjust_tot_pages
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Alejandro Vallejo <alejandro.vallejo@cloud.com>
+References: <20250224132724.9074-1-alejandro.vallejo@cloud.com>
+ <Z78djoAU7vjGepjr@macbook.local>
+ <a9d4384c-770b-4947-b099-cf4bba1583a5@suse.com>
+ <Z78lJfzqH9btDMrM@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,31 +122,92 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e801c975-0985-450e-ae6a-7659a78e862c@gmail.com>
+In-Reply-To: <Z78lJfzqH9btDMrM@macbook.local>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 26.02.2025 15:31, Oleksii Kurochko wrote:
-> 
-> On 2/26/25 2:13 PM, Jan Beulich wrote:
->>>>> +   - Zen5 support (including new hardware support to mitigate the SRSO
->>>>> +     speculative vulnerability).
->>>> I'd also suggest to qualify Zen5 with AMD.
->>> I thought that it is clear just from the name for a CPU microachitecture: Zen5 which
->>> I expect to be develop by AMD. Anyway, if it is really better I will add AMD before Zen5.
+On 26.02.2025 15:28, Roger Pau Monné wrote:
+> On Wed, Feb 26, 2025 at 03:08:33PM +0100, Jan Beulich wrote:
+>> On 26.02.2025 14:56, Roger Pau Monné wrote:
+>>> On Mon, Feb 24, 2025 at 01:27:24PM +0000, Alejandro Vallejo wrote:
+>>>> --- a/xen/common/page_alloc.c
+>>>> +++ b/xen/common/page_alloc.c
+>>>> @@ -490,13 +490,11 @@ static long outstanding_claims; /* total outstanding claims by all domains */
+>>>>  
+>>>>  unsigned long domain_adjust_tot_pages(struct domain *d, long pages)
+>>>>  {
+>>>> -    long dom_before, dom_after, dom_claimed, sys_before, sys_after;
+>>>> -
+>>>>      ASSERT(rspin_is_locked(&d->page_alloc_lock));
+>>>>      d->tot_pages += pages;
+>>>>  
+>>>>      /*
+>>>> -     * can test d->claimed_pages race-free because it can only change
+>>>> +     * can test d->outstanding_pages race-free because it can only change
+>>>>       * if d->page_alloc_lock and heap_lock are both held, see also
+>>>>       * domain_set_outstanding_pages below
+>>>>       */
+>>>> @@ -504,17 +502,16 @@ unsigned long domain_adjust_tot_pages(struct domain *d, long pages)
+>>>>          goto out;
 >>>
->>>>    Whether to mention this here
->>>> when I think I backported all the pieces isn't entirely clear to me either.
->>> What is the better place then?
->> The question isn't where to put it, but whether to in the first place.
+>>> I think you can probably short-circuit the logic below if pages == 0?
+>>> (and avoid taking the heap_lock)
+>>
+>> Are there callers passing in 0?
 > 
-> Wouldn't it be useful to highlight that Xen now supports the new security feature
-> for mitigating SRSO vulnerabilities on AMD Zen5?
+> Not sure, but if there are no callers expected we might add an ASSERT
+> to that effect then.
+> 
+>>>>      spin_lock(&heap_lock);
+>>>> -    /* adjust domain outstanding pages; may not go negative */
+>>>> -    dom_before = d->outstanding_pages;
+>>>> -    dom_after = dom_before - pages;
+>>>> -    BUG_ON(dom_before < 0);
+>>>> -    dom_claimed = dom_after < 0 ? 0 : dom_after;
+>>>> -    d->outstanding_pages = dom_claimed;
+>>>> -    /* flag accounting bug if system outstanding_claims would go negative */
+>>>> -    sys_before = outstanding_claims;
+>>>> -    sys_after = sys_before - (dom_before - dom_claimed);
+>>>> -    BUG_ON(sys_after < 0);
+>>>> -    outstanding_claims = sys_after;
+>>>> +    BUG_ON(outstanding_claims < d->outstanding_pages);
+>>>> +    if ( pages > 0 && d->outstanding_pages < pages )
+>>>> +    {
+>>>> +        /* `pages` exceeds the domain's outstanding count. Zero it out. */
+>>>> +        outstanding_claims -= d->outstanding_pages;
+>>>> +        d->outstanding_pages = 0;
+>>>> +    } else {
+>>>> +        outstanding_claims -= pages;
+>>>> +        d->outstanding_pages -= pages;
+>>>
+>>> I wonder if it's intentional for a pages < 0 value to modify
+>>> outstanding_claims and d->outstanding_pages, I think those values
+>>> should only be set from domain_set_outstanding_pages().
+>>> domain_adjust_tot_pages() should only decrease the value, but never
+>>> increase either outstanding_claims or d->outstanding_pages.
+>>>
+>>> At best the behavior is inconsistent, because once
+>>> d->outstanding_pages reaches 0 there will be no further modification
+>>> from domain_adjust_tot_pages().
+>>
+>> Right, at that point the claim has run out. While freeing pages with an
+>> active claim means that the claim gets bigger (which naturally needs
+>> reflecting in the global).
+> 
+> domain_adjust_tot_pages() is not exclusively called when freeing
+> pages, see steal_page() for example.
 
-I don't know. Thing is what we list here is supposedly new in 4.20. Yet
-here we're talking about something that was already backported to older
-versions. I'll admit though I didn't check how much of that made it into
-any stable release.
+Or also when pages were allocated. steal_page() ...
+
+> When called from steal_page() it's wrong to increase the claim, as
+> it assumes that the page removed from d->tot_pages is freed, but
+> that's not the case.  The domain might end up in a situation where
+> the claim is bigger than the available amount of memory.
+
+... is a case that likely wasn't considered when the feature was added.
+
+I never really liked this; I'd be quite happy to see it ripped out, as
+long as we'd be reasonably certain it isn't in active use by people.
 
 Jan
 
