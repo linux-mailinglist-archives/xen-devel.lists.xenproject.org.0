@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55FE6A456A1
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 08:28:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.896197.1304878 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C761BA456BF
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 08:33:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.896204.1304888 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnBqA-0004TW-9E; Wed, 26 Feb 2025 07:28:22 +0000
+	id 1tnBv8-00060W-Q2; Wed, 26 Feb 2025 07:33:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 896197.1304878; Wed, 26 Feb 2025 07:28:22 +0000
+Received: by outflank-mailman (output) from mailman id 896204.1304888; Wed, 26 Feb 2025 07:33:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnBqA-0004RP-5y; Wed, 26 Feb 2025 07:28:22 +0000
-Received: by outflank-mailman (input) for mailman id 896197;
- Wed, 26 Feb 2025 07:28:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tnBv8-0005yM-NJ; Wed, 26 Feb 2025 07:33:30 +0000
+Received: by outflank-mailman (input) for mailman id 896204;
+ Wed, 26 Feb 2025 07:33:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J4Ti=VR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tnBq8-0004R8-Ia
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 07:28:20 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 40836c0e-f413-11ef-9aae-95dc52dad729;
- Wed, 26 Feb 2025 08:28:19 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-4399d14334aso56388045e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 25 Feb 2025 23:28:19 -0800 (PST)
+ id 1tnBv7-0005yG-QU
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 07:33:29 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f823dbe9-f413-11ef-9897-31a8f345e629;
+ Wed, 26 Feb 2025 08:33:27 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-4397e5d5d99so40451605e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Feb 2025 23:33:27 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-390cd86cd10sm4693434f8f.37.2025.02.25.23.28.18
+ 5b1f17b1804b1-43aba5442c0sm11324255e9.32.2025.02.25.23.33.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Feb 2025 23:28:18 -0800 (PST)
+ Tue, 25 Feb 2025 23:33:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 40836c0e-f413-11ef-9aae-95dc52dad729
+X-Inumbo-ID: f823dbe9-f413-11ef-9897-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740554899; x=1741159699; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1740555207; x=1741160007; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zAkCveHaveTl69+khWGx3j3ZodXmmYogQ2lY25O88jY=;
-        b=HxdSCABOU30JCyQJj4ud+5t/BNVKN4qNIy3Rz5efmpnVsSn6wcWeAW8EjtZqsfdYuH
-         hOFTdDGrX38Mr27InmFv1CpaTIez636fvPPfoTn6L98z5pKAwhcEBg/KUkgLiBMd1tCK
-         gtdIuHd4ARKQXMpEB9rS1XNScmGw83eW9R+w/+XsyA8IJVQyVw+hXfn6WxdRndAxulZt
-         W5TKe8FXB1qBYJ1CaEoQYvHPQujK+sovJhm2cRkYdDVPUGSEiGDP2QUhL33gJAZ/SUdE
-         10uTCIRAwR7FOk7PzQh3Wjtz5+DVORIzfaMYoXCC5ZW4d9/49ZlnSRry2nt/kPRIdhLL
-         u49w==
+        bh=rG2N8pH2CQrEOUyMlGi7i2QjnxYZk/xRFlWMOdTXN3g=;
+        b=LSwJlZ7z7kRYE4V7oIor2oK0LwxnFBW+8hLLRjXfb+4w8KB+E5WmpNtvct+dmEjwak
+         R7WK2+1sy/HeatQpKEWlUDA7tZPrunlPVxdTfRU9DUqzz7TT1ulP7b55QiNXQP+uG+cL
+         zqsagcP6crO+p/PrnRMzAx6c2lhJq73FhaiIhjrZ+mo/DjvlVhy/STx35SgSvD18RFzr
+         1FhivcKr+OGDCaLvxfzxmVr7F8s8lLKFWEP+q92rnu/XDzIAqoMUFub2pw9/2nSP1dwq
+         qKRXj0zjgNW2y+o4Mnx+mErNpaK7USZYMfayD/h5uX1KsbGyAC2njsYgxw4AfgPb04fN
+         qCyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740554899; x=1741159699;
+        d=1e100.net; s=20230601; t=1740555207; x=1741160007;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=zAkCveHaveTl69+khWGx3j3ZodXmmYogQ2lY25O88jY=;
-        b=CI/ZwKQZ+3WQ3fatmk6joYiNv7YqCEkc1rEYmHMXVlfL6+J0TsMgUbFMlmz2FdrXk1
-         JmVffcCSmOz3Je91/cfdGHgrFeM0gUI/O70IJwjzD9qpm3PTuf6vApsCtnXp4z/ErQMF
-         TpcJWmfxHoGFTGFinbtXaF8TMY/2v8b3i2F+NqOJbKdu6yc/kiPuZxPvoXdRznOMRRef
-         x0ipWGmHvgsMTzgPe2nY8+4E3C2CNIyE3hBjkiOMWh8MenR4S1mZjHzuEE9fSglUe9rj
-         Ihm/12IQ+H2P2LH4HiJDJQh2iuRNQ20VXFDF8JwdCo/kXZIMRtbfxE0t9VLGMYvfwsE2
-         vgqQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVcTs77xhLw5Db0Mq2kGX2SgPwVRowzhRXqTkyqTDpS0n2L59J+xzE5+mhDcvoqob+ezpPPERGn+L4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyLE6vwmptFLVL7IW5yTbjvnOWDH8u5yAzlSnCUkpcI7Tp1eUWk
-	pyK5feEhrYc7IKm0OG+4KrTWbnSTfuB/K+Ri4Dpnfi1d6bzkTtstFSenMymlSA==
-X-Gm-Gg: ASbGncswemk+kXx687Kmikj9RhO7je2fR689fPZrhGppsLgYgIIsncaRunx3M2UVEm7
-	t7P40vAG1ckKnZeqJLj6xzx9EhY0mEtae9gFg7mMDSVLlFKru6lJ98FVCvuFEVMrASlzT+FKAbW
-	e5m/04/cj6o2qRVHFh2OjbTDQixjmrQOEmjrmtGhlLb/uDxK2oiBwuA+Z1M86brz+RBJlS7O1Zn
-	tzo9RuK4JVzMsjKPZ7W4LD9XHz9aQzbkqGEdcPB1bqad0Dpk+7iW7c2/pO9pNBIYy6Ls+ZWDUy5
-	TcpEXzQiPfwlvywI20/pmJS+R3wplWo6yZpvBtTD3f9qHJNP1eSrapGQxbLhD0I0HCV88YciWZv
-	fl3xhj9Zi53c=
-X-Google-Smtp-Source: AGHT+IEZTaWw7yM8D8JdDlIstCZxpNFx/HUcU9gCQkVlGuP5mlChWvzXio4UXTb9j+ucFl0stkEIrA==
-X-Received: by 2002:a05:600c:4ec8:b0:439:7c0b:13f6 with SMTP id 5b1f17b1804b1-43ab9048304mr17407605e9.31.1740554899133;
-        Tue, 25 Feb 2025 23:28:19 -0800 (PST)
-Message-ID: <40886b73-a25a-4319-87f4-e63ab98a2be4@suse.com>
-Date: Wed, 26 Feb 2025 08:28:18 +0100
+        bh=rG2N8pH2CQrEOUyMlGi7i2QjnxYZk/xRFlWMOdTXN3g=;
+        b=iMLbGNGv3XE+m552CNX2/2MMunkRyUsI+xzubEn83NYnqrCXD68SgOqtISBOHeXbOD
+         NKoCkyy9jRiEFlCe2gcg4dbjNg5/MRTnvK7Jh9SWAQo6Ze6gCeZsKku7X2aWzk2U7/Js
+         aMLYFzBNvQEANc+RS2Cygqzw2orP0286NTfdUeEBj8/5dpg1p92Ei4ljhrX7gqPkhdEF
+         CdL2aidOt6vF4+GXF1eEnX7q9jgEZQ/vYGgb6ZflilcqOzZb6EE+v6XCJbQdTl+5SkG8
+         MP3nv3PgQjX3rnWF4CgjT8nqjiiGVNizfnhFUJa/ke/iSj24gxtE2zljuIhGofGgfBA1
+         2BXQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX7u13A4O96AbjWR+CSaS7VIm39g+JHGXk9IhrZ+0AowgSwdqjGd8JbBK9Z5ZoPMQ/8Q1w6+u4mLXQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzQM4ZZKkNvsGji1lMQaM0wa//dYvehV4avCpQMBRB5JQKsvEQ2
+	KQc0i7Izg+eV0SeXPtjUKq3IXY1sGTNttgrXyWdIdWbC3Z6uB8C4TEu4I8Alqg==
+X-Gm-Gg: ASbGncuwMSsTgdTlSqwihLxBiYtp8+2RhSNV02w3+UgSjfyvkQDm04PbcxgQ4xpF+/C
+	yR+MsQ5ZW/b/+UcEZpynyTTj0c7C9vyr3RKUFN3E1CksEU8n/mUuACGuj2vJ1QaUN06g7xhSKs7
+	qt0hKs8hE75ow8hPjRnRLnwcjyy5liJzmWh5OLe3mSWUj49/XqWAD4Pvlw9+hbtAXRHUI/OEilU
+	bxgupu7yZLunwK5tM621tuxSqYnEp4Nfrt8Iax6LoCpsfJX9KqAbS/20Fj2zh/HxJ6OYuUwPDVp
+	U496B3xxko2BmLRx0pEmqnayEkP4Xq31qBntdVypGWPH3dlaEkOa/h1Tii8oqIK4xqY6MOs2Ujz
+	ohNSKL/kzFT4=
+X-Google-Smtp-Source: AGHT+IGA8AsjlF54leAfnOAAbu+obDoUx23ef4wBVc35+jP4RQo3a+XbCB5Yus7C2geIln9U10mnjg==
+X-Received: by 2002:a05:600c:3114:b0:439:9e13:2dd0 with SMTP id 5b1f17b1804b1-43ab0f255b5mr49519995e9.6.1740555207133;
+        Tue, 25 Feb 2025 23:33:27 -0800 (PST)
+Message-ID: <7e77dceb-489b-4022-a665-2a008ddfe844@suse.com>
+Date: Wed, 26 Feb 2025 08:33:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/traps: Move guest_{rd,wr}msr_xen() into msr.c
+Subject: Re: [PATCH] xen: Don't cast away const-ness in vcpu_show_registers()
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250225223250.1185105-1-andrew.cooper3@citrix.com>
+References: <20250225230213.1248136-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,19 +122,74 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250225223250.1185105-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20250225230213.1248136-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 25.02.2025 23:32, Andrew Cooper wrote:
-> They are out of place in traps.c, and only have a single caller each.  Make
-> them static inside msr.c.
+On 26.02.2025 00:02, Andrew Cooper wrote:
+> The final hunk is `(struct vcpu *)v` in disguise, expressed using a runtime
+> pointer chase through memory and a technicality of the C type system to work
+> around the fact that get_hvm_registers() strictly requires a mutable pointer.
 > 
-> No functional change.
+> For anyone interested, this is one reason why C cannot optimise any reads
+> across sequence points, even for a function purporting to take a const object.
+> 
+> Anyway, have the function correctly state that it needs a mutable vcpu.  All
+> callers have a mutable vCPU to hand, and it removes the runtime pointer chase
+> in x86.
+> 
+> Make one style adjustment in ARM while adjusting the parameter type.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Anthony PERARD <anthony.perard@vates.tech>
+> CC: Michal Orzel <michal.orzel@amd.com>
+> CC: Jan Beulich <jbeulich@suse.com>
+> CC: Julien Grall <julien@xen.org>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+> CC: Bertrand Marquis <bertrand.marquis@arm.com>
+> 
+> RISC-V and PPC don't have this helper yet, not even in stub form.
+> 
+> I expect there will be one objection to this patch.  Since the last time we
+> fought over this, speculative vulnerabilities have demonstrated how dangerous
+> pointer chases are, and this is a violation of Misra Rule 11.8, even if it's
+> not reasonable for Eclair to be able to spot and reject it.
 
+On these grounds
 Acked-by: Jan Beulich <jbeulich@suse.com>
+irrespective of the fact that a function of this name and purpose really, really
+should be taking a pointer-to-const.
 
+Considering ...
 
+> --- a/xen/arch/arm/include/asm/domain.h
+> +++ b/xen/arch/arm/include/asm/domain.h
+> @@ -243,7 +243,7 @@ struct arch_vcpu
+>  
+>  }  __cacheline_aligned;
+>  
+> -void vcpu_show_registers(const struct vcpu *v);
+> +void vcpu_show_registers(struct vcpu *v);
+
+... this and ...
+
+> --- a/xen/arch/x86/include/asm/domain.h
+> +++ b/xen/arch/x86/include/asm/domain.h
+> @@ -688,7 +688,7 @@ bool update_secondary_system_time(struct vcpu *v,
+>  void force_update_secondary_system_time(struct vcpu *v,
+>                                          struct vcpu_time_info *map);
+>  
+> -void vcpu_show_registers(const struct vcpu *v);
+> +void vcpu_show_registers(struct vcpu *v);
+
+... this are the same, and there's nothing different to expect for other
+architectures, centralizing the declaration and then adding a comment to
+cover the non-const property may be desirable. Else people like me might
+forget that there was this change, and try to re-add the seemingly
+missing const.
+
+Jan
 
