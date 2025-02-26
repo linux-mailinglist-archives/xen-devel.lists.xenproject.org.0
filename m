@@ -2,33 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EA55A45313
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 03:30:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.896108.1304777 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B587DA453E2
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 04:19:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.896123.1304788 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tn7B9-0001g2-4u; Wed, 26 Feb 2025 02:29:43 +0000
+	id 1tn7wM-0000UG-R2; Wed, 26 Feb 2025 03:18:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 896108.1304777; Wed, 26 Feb 2025 02:29:43 +0000
+Received: by outflank-mailman (output) from mailman id 896123.1304788; Wed, 26 Feb 2025 03:18:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tn7B9-0001fJ-22; Wed, 26 Feb 2025 02:29:43 +0000
-Received: by outflank-mailman (input) for mailman id 896108;
- Wed, 26 Feb 2025 02:29:42 +0000
+	id 1tn7wM-0000RW-Nv; Wed, 26 Feb 2025 03:18:30 +0000
+Received: by outflank-mailman (input) for mailman id 896123;
+ Wed, 26 Feb 2025 03:18:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=l+Z1=VR=gmail.com=w1benny@srs-se1.protection.inumbo.net>)
- id 1tn7B8-0001fD-Ai
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 02:29:42 +0000
-Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
- [2001:4860:4864:20::32])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8579fab5-f3e9-11ef-9897-31a8f345e629;
- Wed, 26 Feb 2025 03:29:37 +0100 (CET)
-Received: by mail-oa1-x32.google.com with SMTP id
- 586e51a60fabf-2a94159cd5cso479609fac.3
- for <xen-devel@lists.xenproject.org>; Tue, 25 Feb 2025 18:29:37 -0800 (PST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3EFW=VR=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1tn7wL-0000RQ-Fc
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 03:18:29 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 539c6aa2-f3f0-11ef-9897-31a8f345e629;
+ Wed, 26 Feb 2025 04:18:21 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id AD50B82880D2;
+ Tue, 25 Feb 2025 21:18:18 -0600 (CST)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id XpjWmOSKc88d; Tue, 25 Feb 2025 21:18:17 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id D0C868288182;
+ Tue, 25 Feb 2025 21:18:17 -0600 (CST)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id 8RS_yuiWuX3w; Tue, 25 Feb 2025 21:18:17 -0600 (CST)
+Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id 2D27982880D2;
+ Tue, 25 Feb 2025 21:18:16 -0600 (CST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,96 +51,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8579fab5-f3e9-11ef-9897-31a8f345e629
+X-Inumbo-ID: 539c6aa2-f3f0-11ef-9897-31a8f345e629
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com D0C868288182
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1740536976; x=1741141776; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tpKolSqnr5hUSDPq6oLDCjDKaUv0tHATb/WZDazeYFk=;
-        b=e5d/jFcZXgCU/EyjhrCRoaKDHWwdmSD6Jhxb2Qs7bwEYwFT4A3P9KY89GPx1ydtiEa
-         LQnywwPdGsCG0asM7X/pmhjOB66fkLmHIASS7cvP1G8aTPzcpnNuNY6GLYqVBuruXL3o
-         wdRxuvkQpM3IoOwhl8jJF21z5hy+BGkJRk3M612vk0auBwbse0kpfSc4D87ot9BW0//0
-         a6lwc/AdPVcWuorPUZBnX8cYwzzNVH/I6Ujd4K3WTvHKmE+/F3gK158v5SKFFiNDKwPw
-         dTAapRy1YQO7FjNp8YTrVWR2Gfdp3PWsWHGjs8l/BZBUxniCbFbCziabKvoUrYJwSprE
-         5KVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740536976; x=1741141776;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=tpKolSqnr5hUSDPq6oLDCjDKaUv0tHATb/WZDazeYFk=;
-        b=HOH5f438y8snbcLay2ft6ErRkmRlrcBD5su/oCxeoGdbIdcdCGFuoYscWrEC/22QfI
-         eRp88aRQwvMIuLqcWK1QZpA82Yc984W47bbdq1dfGARlSnI6CRntnlz6Xn/TdGgqBu/H
-         tAjpz/2lBM/CeAj8v98s/F90AC4j77AnF5YrJJ++GSwNgIzY4k7iE/5Vrd1enemfA0eF
-         SxH+Y86DSOGJLRv92TJvgArjalgHXupszBfAfIoJBJZyymPAxuko1aKrHhZpsYxTRP3F
-         aK7LWlh+cRN7r2yQtXrI/cef/vtQkHNgANaTAevRNK7dnI2FrZkmQYuVGBJa04bHEdyW
-         +GzA==
-X-Forwarded-Encrypted: i=1; AJvYcCV3B8MCuOAOBSAUqBCsJsngZqyQmQPZ1bEEVYW9HOCK2f3T3AgNTcw9NcQg+3Vg7TqxwY4v+kr6bpw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxl9QN31WQgNeshg0RZoWsAvVnizCGPrlbFA5XmmH5xzLSIfZHh
-	u0MCgsS2g6SVPawgc+u7weu24ZVOGF43WLWuNCn/ZLqafp5STUdn4E31zAhyknuyPHZwOaM7l8V
-	N3Hh6zakEUH+8qqe0Zm1H9bCO/H8=
-X-Gm-Gg: ASbGncu3PA04tWIkyU48sccs+1ExJEIvujR54DBl3bO8orS+tRam8x5BWZ//UJEHtFl
-	CV/+VnPu0JEZGICb2FV7LmeA/1tHD6LihfBfSX9hG3WvbtTkJGppIz9xK9Nsj81ZGA7f7mn/lwx
-	uPauJmIcw=
-X-Google-Smtp-Source: AGHT+IENsU5aaECndYk8duZc0Wr7Fk1vvJBz3xswadsCc1kVQU7kIoiVNUhTTG8Rvvs/H4+Wk9KqNy87BsWOQJPBQ9U=
-X-Received: by 2002:a05:6808:178f:b0:3f4:104e:f11a with SMTP id
- 5614622812f47-3f4247b6f52mr5548233b6e.6.1740536975774; Tue, 25 Feb 2025
- 18:29:35 -0800 (PST)
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1740539897; bh=MArgYGLoH0zFz2KLW6t0r7u6cZLcE0p2rG4gv0KdFRg=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=kSy9IlUazFycwE7l816+RbxLYo8aHhZErqk00tgVyotTWvwZ6It7B2ejQ0ewNj+BF
+	 i6FRsOLYA0DDeLpOCzva7g5W/KzyWAbYwAeBs4ZMSx0KUKJZ4vsPUC/DUK/aRIw5bp
+	 gAjHsE2oWS4MK5LqahsOEJqn57RFlB1bpfJo0CXk=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <02d80b47-8d7b-4a3a-aa90-022526a41248@raptorengineering.com>
+Date: Tue, 25 Feb 2025 21:18:14 -0600
 MIME-Version: 1.0
-References: <CAKBKdXhaQLj01Kn06xMBsHExT1xNMKnHxTB+Hu33jtpySr-few@mail.gmail.com>
- <be2314bd-d212-4b9b-a50c-1b86b42ab861@suse.com> <CAKBKdXgMn90_R6_rKWAzrQdkpPXL1-ZxAKM8n8RPXiOeY7VtJQ@mail.gmail.com>
- <Z75lN_ShrXUGiT5e@mail-itl>
-In-Reply-To: <Z75lN_ShrXUGiT5e@mail-itl>
-From: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Date: Wed, 26 Feb 2025 03:29:24 +0100
-X-Gm-Features: AQ5f1JrdrhTm0P2oI25MC7d1lurXUKgCxWNKxFVog_81gT519Wt_r_-Av2L7OyM
-Message-ID: <CAKBKdXh0ANyMnB2VbB8ayp64DmOnHTw8WwB4VNQ7NxjpbfV2oQ@mail.gmail.com>
-Subject: Re: xl create/save throwing errors
-To: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Anthony PERARD <anthony.perard@vates.tech>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] xen/ppc: Fix opal.c's misaligned DT reads to avoid
+ tripping UBSAN
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: tpearson@raptorengineering.com
+References: <cover.1740168326.git.sanastasio@raptorengineering.com>
+ <f0b1f299d793c4302ee1b4c6a9c99057f924d4f4.1740168326.git.sanastasio@raptorengineering.com>
+ <9cb2f3e5-5523-4b02-b8df-9975dab7c015@citrix.com>
+ <4b9002fe-1e39-4ee9-a4fd-fc91cd0562d5@citrix.com>
+Content-Language: en-US
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+In-Reply-To: <4b9002fe-1e39-4ee9-a4fd-fc91cd0562d5@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Feb 26, 2025 at 1:50=E2=80=AFAM Marek Marczykowski-G=C3=B3recki
-<marmarek@invisiblethingslab.com> wrote:
->
-> This is domain crash.
-> Anything interesting on the console log of that domain (if it has some
-> debug logs there...), or maybe in xl dmesg?
->
-> --
-> Best Regards,
-> Marek Marczykowski-G=C3=B3recki
-> Invisible Things Lab
+On 2/21/25 2:15 PM, Andrew Cooper wrote:
+> Sorry, the other thing to say is that if PPC is generally fine with
+> unaligned accesses, then you might want to follow what x86 does.
+> 
+> We use -fno-sanitize=alignment generally, because there's a whole pile
+> of things which are misaigned and spec'd that way for backwards
+> compatibility.
 
-I figured. The domain simply crashes (bugchecks) and frustratingly,
-the generated MEMORY.DMP is corrupted.
+Oh perfect -- I did do an initial grep to see if this was done but
+couldn't immediately find it. The Power ISA does guarantee that
+unaligned word/doubleword reads are handled transparently by the
+hardware so enabling this seems like a reasonable approach on PPC as
+well. I'll submit a v2 that does this.
 
-xl dmesg shows:
+> ~Andrew
 
-(XEN) d157: VIRIDIAN GUEST_OS_ID: vendor: 0x1 os: 0x4 major: 0xa
-minor: 0 sp: 0 build: 0x271b
-(XEN) d157: VIRIDIAN HYPERCALL: enabled: 1 pfn: 0x20e
-(XEN) d157v0: VIRIDIAN VP_ASSIST: pfn: 0xc
-(XEN) d157: VIRIDIAN HVCALL_NOTIFY_LONG_SPIN_WAIT
-(XEN) d157: VIRIDIAN MSR_TIME_REF_COUNT: accessed
-(XEN) d157v1: VIRIDIAN VP_ASSIST: pfn: 0x3ffff
-(XEN) d157v2: VIRIDIAN VP_ASSIST: pfn: 0x3fffe
-(XEN) d157v3: VIRIDIAN VP_ASSIST: pfn: 0x3fffd
-(XEN) arch/x86/hvm/irq.c:368: Dom157 PCI link 0 changed 5 -> 0
-(XEN) arch/x86/hvm/irq.c:368: Dom157 PCI link 1 changed 10 -> 0
-(XEN) arch/x86/hvm/irq.c:368: Dom157 PCI link 2 changed 11 -> 0
-(XEN) arch/x86/hvm/irq.c:368: Dom157 PCI link 3 changed 5 -> 0
-(XEN) arch/x86/hvm/vmx/vmx.c:3413:d157v0 RDMSR 0x0000019a unimplemented
-(XEN) arch/x86/hvm/vmx/vmx.c:3413:d157v0 RDMSR 0x0000019b unimplemented
-(XEN) arch/x86/hvm/vmx/vmx.c:3413:d157v2 RDMSR 0x0000019a unimplemented
-(XEN) arch/x86/hvm/vmx/vmx.c:3413:d157v2 RDMSR 0x0000019b unimplemented
-(XEN) d157v3 VIRIDIAN GUEST_CRASH: 0xa 0xffffffffffffffff 0xe 0
-0xfffff80648bbd2b3
-
-So... it just confirms the bugcheck.
-
-P.
+Thanks,
+Shawn
 
