@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F523A46020
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 14:04:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.896554.1305298 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B62BA4606C
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 14:12:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.896567.1305308 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnH55-0007Sx-7G; Wed, 26 Feb 2025 13:04:07 +0000
+	id 1tnHCD-00015D-0b; Wed, 26 Feb 2025 13:11:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 896554.1305298; Wed, 26 Feb 2025 13:04:07 +0000
+Received: by outflank-mailman (output) from mailman id 896567.1305308; Wed, 26 Feb 2025 13:11:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnH55-0007QI-4E; Wed, 26 Feb 2025 13:04:07 +0000
-Received: by outflank-mailman (input) for mailman id 896554;
- Wed, 26 Feb 2025 13:04:06 +0000
+	id 1tnHCC-00012i-U9; Wed, 26 Feb 2025 13:11:28 +0000
+Received: by outflank-mailman (input) for mailman id 896567;
+ Wed, 26 Feb 2025 13:11:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wRt1=VR=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tnH53-0007QC-VJ
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 13:04:05 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=J4Ti=VR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tnHCB-00012c-Cn
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 13:11:27 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 26dbad53-f442-11ef-9897-31a8f345e629;
- Wed, 26 Feb 2025 14:04:03 +0100 (CET)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5e04f87584dso10381402a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 05:04:03 -0800 (PST)
-Received: from [172.24.85.51] ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5e45a8bb9d0sm2724254a12.31.2025.02.26.05.04.00
+ id 2e900ce5-f443-11ef-9897-31a8f345e629;
+ Wed, 26 Feb 2025 14:11:25 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-38a8b17d7a7so3911459f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 05:11:25 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-390cd8fc1f9sm5420845f8f.88.2025.02.26.05.11.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Feb 2025 05:04:01 -0800 (PST)
+ Wed, 26 Feb 2025 05:11:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,154 +45,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 26dbad53-f442-11ef-9897-31a8f345e629
+X-Inumbo-ID: 2e900ce5-f443-11ef-9897-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1740575042; x=1741179842; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3OS7EGnkC4yf4uz0nRcWmZg0I1VuERl3yyFL5HIoS7o=;
-        b=hvpRKlHksuXXHyYElR6yywr5oZhnkAmd6SXMk034wFbAs41H7CCScnBHWgmGEp4brB
-         3iD00stxdBjCTFXDbh3uQxzKPLrfu2XlYzWH7wWVbgcgWT2woJAnqAM9n7RVw+DE2zXV
-         zolHspv8vqCvucQTgF8OG5Q8pSuhTLg7yy9+dhnaDnIvKRzmyFidt8fnrZYEzomeHLn4
-         Wca2A92XTxDwhPuBUMIZm2SUNlBUAjo6ouggybT5EDNU6epjqqLIAqZv6MrQUn7mid6p
-         3FeoxPD6dq28A0d6l/k28C63vOVpUtFClq6R9Zp2nSRZ3dzKipcvDgg8RcBjCzmWpm+n
-         /gfQ==
+        d=suse.com; s=google; t=1740575485; x=1741180285; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=uzqk4o/9YPkyY62Ot6DQLVifHULUEJN97idJEjtKWEM=;
+        b=dJdWSsF5WUsaNTiUcDAWRfCVfWUjahSnNYgSw6EAUtI4Msvfp1FRvOwStxJUVOKPaN
+         1wyjE5RS8pzEeht0aJcviiNi8ZBcBwEFhlmhH1lkgWpSvgKnAmpNAqZeOz3WwJdM8Qdn
+         vzrelcplMi7KJNJ89BFZC+L9pDySUqj8rVjDRmUtylsdzpJ1vLXZb1MRgWut9eQJQ+hX
+         Pei7UtI6ZlxaiPpxsENHtB3gKzPt9jROPGSjjvJQ1Y8uCgsHvQpAZhITUJi95Cj0u3Uu
+         wyBDaQ4Wutx0BSWC4RN69U+UPZyciS7SoJwZbh80OMptTtvvwPo+bn7a3eq/U7dENDUU
+         xrMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740575042; x=1741179842;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=3OS7EGnkC4yf4uz0nRcWmZg0I1VuERl3yyFL5HIoS7o=;
-        b=l+hgmr0Z36cZ1UOWhVdf8UqxqW855uR6GGszq6ZIiJaP+hxcvETTGVROmMtaglWh8d
-         aT2uWP0krFeQ6N4Aeb43HTfXUsSH+Lp1PqlGuqRYTjTMc9lxRkF18ryb3hMfdjOmVdbl
-         FFqO5dClQBLUTymjJH/rgwX8dUss9DQm5BUSpm6unqXVy1FAyIRqb0VGhLNVhWxMRbt3
-         QfuY77VzTGEruzmuqXWX2e7obqq2JZmrwODps13U+SDXKPj2xJRtzxlQBozzGIIO86S3
-         /NXo/z+UCEwX2Q4Z+ShOqpLl1OSaF2PNhttHQmRmFw6a5jYAWeAwnINHwIz61rc1MNfD
-         Nu7g==
-X-Forwarded-Encrypted: i=1; AJvYcCXCLAfyxeNu3Snd+Cn1DKJNrOkfPyBXi5bUwA2X58uns3Ejdv20/KoPPYGcQswj+BcWirJcmVo31kE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxaxGpvp7v9RcpvYD9Yi4UpBdGLkoyClkVaHcKcDrl177XZO4P8
-	rMXZqjjH4Ri34IXdz9xapNBrRub02Mx4Ql5cPIZ4Z+WC92cF3uEB
-X-Gm-Gg: ASbGnctfT9fykalyPRY2C8+U7J8DzjRTxjYzPEdQq5zwI03ck6oZzlaGBiiGoXco3v0
-	KlF2RYIpdfVob2d0tEWEMWgFmf9RYx0j7d+g4QCvOF9vMZU+7jTD7PIvl2nE11+X8aqansyVHta
-	B1f+ZxmEskDKs31ohLTbplOUH3HZkZfLwzNBwev89D3/+k6sTHMMpnDxTdng0Vge9tf1Oq+3QI6
-	oLaAMds8O0Wx8jguqM7dX6H+6qgL7Flx+4EJ19XVsA8DsbsS6/djUcsotYQ1VzWnrZlLfRrvI/6
-	mfxA59DJjXHmRrhYIqEvm+Tg+Q3cf9Mr3KI=
-X-Google-Smtp-Source: AGHT+IE/uU+LGorRxTRPcpy3FAh8rknwGqI5VkrUyHmV8XSU93XhFHvXp5HF26jzKmyAAtZ5KPOeIQ==
-X-Received: by 2002:a05:6402:1e88:b0:5e4:95d0:7e1f with SMTP id 4fb4d7f45d1cf-5e4a0e29775mr3751225a12.29.1740575041594;
-        Wed, 26 Feb 2025 05:04:01 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------TI0OLt68va0W3F08Ucjj3ON6"
-Message-ID: <0f07557a-f340-4056-b8a0-5efe680bddc7@gmail.com>
-Date: Wed, 26 Feb 2025 14:03:59 +0100
+        d=1e100.net; s=20230601; t=1740575485; x=1741180285;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uzqk4o/9YPkyY62Ot6DQLVifHULUEJN97idJEjtKWEM=;
+        b=IzbcaUntQN2ch5YXc0hHOZwZb1Y/egMk0aOT72cdGkeEhcvOTbsmYMIwKhVcOEueh8
+         jZlvWf0G7nR2BsVjCBp99ftyfPVAecPPjuXfqNsNDSVSqcSKdv/Xl+CdvvYuyAu78VnS
+         jp4R+zK4yuSGNjHfVqQpsxKVGpNV/qPcCX8RSXh3Tw7oIvZiD7iYATjo9pLMA4r1SuXP
+         vE67Z6czZKI2n3UINPUOcjZHi7JpTM5pbKq5QnRqoKX5vetm/NZVnV84qZXVHl+iwMR0
+         lSfP5BPfrQWKzyYVAmT8vq0RtzhNF42wPnSVZ8bhld10jfVB8ghvH3FurDbH3YWm/oPl
+         R5Wg==
+X-Forwarded-Encrypted: i=1; AJvYcCXP2C1QnkcO0gvn3mvJI3RI0Tlm0k948+rHyoZ7BPnnKdAkG0uQVDBURYJdI33JhDQ2anUv8jj0Ql8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyhQsidAfJLbq5zlD1LTxaG5G/qok0ro1x4Vai8zGoGUjPWeO5G
+	b2UyajzH7uLVmwaNoAdqFHMihwVJPCPVTifngMc+4xRFN9HqlZHoIh5JtCcGcA==
+X-Gm-Gg: ASbGncs//YWH6UzbCRBbuMeGtD6kIp8kdctqol8NRnP1DuvmtGdpqi6FtQE27TTZ6sx
+	BBTeTPwazCmcw/XdT8VeSLbdFwsA76NK6J2Xw4JomJ9TMGkYp2Nq6JVY2/oK5/R8M/zQ7Dt1K4C
+	aRhjmwPoCaKQwdWeDIy9qsSybzHsL27UEdomOgqxvr/7h7xclvJ+pfPryuYt6fl120dI2yJiezz
+	9L2PnTQ70Xyl2xBTFtUPt+jbWQ5uVc2Tkgr+bs2dVFET8SsuV9uYLuFhzhP5LQ/8UMj70OC/veg
+	MK9JG6MB7OH09oSIYIiYwdqOz3KuiJaH2eSWQb4Awx23Y2gAhjtp9QS13NTKlMYKYljc/OpgL20
+	Jd4tw0mUzWqQ=
+X-Google-Smtp-Source: AGHT+IHOmNGw49NHY/o+3w6GaSaxWiGwnqKO6WwulpcufmcEot6esJxqSM5gVapMX6rxYdDYyBwNiw==
+X-Received: by 2002:a05:6000:1a85:b0:38f:2403:8e98 with SMTP id ffacd0b85a97d-390d4f3c49cmr2689439f8f.20.1740575484796;
+        Wed, 26 Feb 2025 05:11:24 -0800 (PST)
+Message-ID: <1de43f95-5ed1-46c1-a157-094ceb84ac83@suse.com>
+Date: Wed, 26 Feb 2025 14:11:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for 4.20 v2] CHANGELOG.md: Finalize changes in 4.20
- release cycle
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Community Manager <community.manager@xenproject.org>,
- "committers @ xenproject . org" <committers@xenproject.org>,
+Subject: Re: [PATCH] x86/hvm: Add APIC IDs to the per-vLAPIC save area
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
-References: <20250226104556.36324-1-oleksii.kurochko@gmail.com>
- <8ec1b722-3af1-4778-9902-0f3278e4309a@suse.com>
+References: <20250218142259.6697-1-alejandro.vallejo@cloud.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <8ec1b722-3af1-4778-9902-0f3278e4309a@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250218142259.6697-1-alejandro.vallejo@cloud.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This is a multi-part message in MIME format.
---------------TI0OLt68va0W3F08Ucjj3ON6
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+On 18.02.2025 15:22, Alejandro Vallejo wrote:
+> Today, Xen hardcodes apic_id = vcpu_id * 2, but this is unwise and
+> interferes with providing accurate topology information to the guest.
+> 
+> Introduce a new x2apic_id field into hvm_hw_lapic.  This is immutable
+> state from the guest's point of view, but it will allow the toolstack to
+> eventually configure the value, and for the value to move on migrate.
+> 
+> For backwards compatibility, the patch rebuilds the old-style APIC IDs
+> from migration streams lacking them when they aren't present.
 
+Nit: "when they aren't present" looks to duplicate "lacking them"?
 
-On 2/26/25 11:50 AM, Jan Beulich wrote:
-> On 26.02.2025 11:45, Oleksii Kurochko wrote:
->> @@ -34,6 +40,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->>    - On x86:
->>      - xl suspend/resume subcommands.
->>      - `wallclock` command line option to select time source.
->> +   - Add Support for Paging-Write Feature.
-> That EPT (i.e. Intel) only, which may want making explicit?
+> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> ---
+> I've split this one from the rest of the topology series as it's independent
+> and entangled with another patch from Andrew.
 
-Agree, it would be better to write: "Add support forEPT paging-write feature".
+Albeit I think meanwhile we've settled that the entangling isn't quite as
+problematic.
 
->
->> +   - Zen5 support (including new hardware support to mitigate the SRSO
->> +     speculative vulnerability).
-> I'd also suggest to qualify Zen5 with AMD.
+> @@ -1621,6 +1624,14 @@ static int cf_check lapic_load_hidden(struct domain *d, hvm_domain_context_t *h)
+>          return -EINVAL;
+>      }
+>  
+> +    /*
+> +     * Xen 4.20 and earlier had no x2APIC ID in the migration stream and
+> +     * hard-coded "vcpu_id * 2". Default back to this if we have a
+> +     * zero-extended record.
+> +     */
+> +    if ( h->size <= offsetof(struct hvm_hw_lapic, x2apic_id) )
+> +        s->hw.x2apic_id = v->vcpu_id * 2;
 
-I thought that it is clear just from the name for a CPU microachitecture: Zen5 which
-I expect to be develop by AMD. Anyway, if it is really better I will add AMD before Zen5.
+While we better wouldn't get to see such input, it is in principle possible
+to have an input stream with, say, half the field. Imo the condition ought
+to be such that we'd make the adjustment when less than the full field is
+available.
 
->   Whether to mention this here
-> when I think I backported all the pieces isn't entirely clear to me either.
-
-What is the better place then?
-
-~ Oleksii
-
---------------TI0OLt68va0W3F08Ucjj3ON6
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2/26/25 11:50 AM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:8ec1b722-3af1-4778-9902-0f3278e4309a@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 26.02.2025 11:45, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">@@ -34,6 +40,9 @@ The format is based on [Keep a Changelog](<a class="moz-txt-link-freetext" href="https://keepachangelog.com/en/1.0.0/">https://keepachangelog.com/en/1.0.0/</a>)
-  - On x86:
-    - xl suspend/resume subcommands.
-    - `wallclock` command line option to select time source.
-+   - Add Support for Paging-Write Feature.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-That EPT (i.e. Intel) only, which may want making explicit?</pre>
-    </blockquote>
-    <pre>Agree, it would be better to write: "Add support for<span
-    style="white-space: pre-wrap"> EPT paging-write feature".
-
-</span></pre>
-    <blockquote type="cite"
-      cite="mid:8ec1b722-3af1-4778-9902-0f3278e4309a@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+   - Zen5 support (including new hardware support to mitigate the SRSO
-+     speculative vulnerability).
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-I'd also suggest to qualify Zen5 with AMD.</pre>
-    </blockquote>
-    <pre>I thought that it is clear just from the name for a CPU microachitecture: Zen5 which
-I expect to be develop by AMD. Anyway, if it is really better I will add AMD before Zen5.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:8ec1b722-3af1-4778-9902-0f3278e4309a@suse.com">
-      <pre wrap="" class="moz-quote-pre"> Whether to mention this here
-when I think I backported all the pieces isn't entirely clear to me either.</pre>
-    </blockquote>
-    <pre>What is the better place then?
-
-</pre>
-    <pre>~ Oleksii
-</pre>
-  </body>
-</html>
-
---------------TI0OLt68va0W3F08Ucjj3ON6--
+Jan
 
