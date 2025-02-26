@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4E41A46235
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 15:18:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.896700.1305459 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BE8BA462C3
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 15:29:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.896711.1305469 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnIEs-0001Ip-QY; Wed, 26 Feb 2025 14:18:18 +0000
+	id 1tnIPQ-0003Ya-Oo; Wed, 26 Feb 2025 14:29:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 896700.1305459; Wed, 26 Feb 2025 14:18:18 +0000
+Received: by outflank-mailman (output) from mailman id 896711.1305469; Wed, 26 Feb 2025 14:29:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnIEs-0001G0-NE; Wed, 26 Feb 2025 14:18:18 +0000
-Received: by outflank-mailman (input) for mailman id 896700;
- Wed, 26 Feb 2025 14:18:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tnIPQ-0003We-LX; Wed, 26 Feb 2025 14:29:12 +0000
+Received: by outflank-mailman (input) for mailman id 896711;
+ Wed, 26 Feb 2025 14:29:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=y9YQ=VR=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tnIEr-0001Fu-3q
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 14:18:17 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 85153ab2-f44c-11ef-9aae-95dc52dad729;
- Wed, 26 Feb 2025 15:18:16 +0100 (CET)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-5e4b410e48bso637829a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 06:18:16 -0800 (PST)
+ id 1tnIPP-0003WY-20
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 14:29:11 +0000
+Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
+ [2607:f8b0:4864:20::62a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 04cefd34-f44e-11ef-9897-31a8f345e629;
+ Wed, 26 Feb 2025 15:29:00 +0100 (CET)
+Received: by mail-pl1-x62a.google.com with SMTP id
+ d9443c01a7336-2233622fdffso12082905ad.2
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 06:29:00 -0800 (PST)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5e45a8b8c33sm2793015a12.17.2025.02.26.06.18.14
+ d9443c01a7336-2232c798213sm12410115ad.73.2025.02.26.06.28.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Feb 2025 06:18:14 -0800 (PST)
+ Wed, 26 Feb 2025 06:28:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,104 +44,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85153ab2-f44c-11ef-9aae-95dc52dad729
+X-Inumbo-ID: 04cefd34-f44e-11ef-9897-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1740579495; x=1741184295; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=N0mab7l9zbpo0K/BiddF5ni+O7DDT53waVeuZpFv6rI=;
-        b=P/rQ2O2Dh+4fmnhG36sAd7y1UU+YQbPpMEt42mEYRhwZY+haIFivzIcnDJXuJrebTG
-         mkw1pnFfLqfKLqqdIrvDCHZtQp021j0KK9vj7GvHt5stJvZLc+AdfTxsw/2fthgoe0c0
-         4IqMeEJKYYXiqG9wwU0zVF0sz+iQgiEIGccvE=
+        d=citrix.com; s=google; t=1740580139; x=1741184939; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=dQEf11I6bVKD8mP1k41RioRswwQRrslQZGI8GsAEfbA=;
+        b=CNEodNDwkltWjndeciyHg2SFFYE5MN8WBzG7glK7gkLtjvJmTgoW4xVbPkm4a5f62W
+         zF5O1JtOa3nAo0NnWp05upP7TBEGgjzxhYiHBlgeCXLKkiiE8GudzSodtoetYu6iyFQ8
+         2cFxosXphf6QK4BzltGHCjqtHZUsLXoqPSq7c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740579495; x=1741184295;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=N0mab7l9zbpo0K/BiddF5ni+O7DDT53waVeuZpFv6rI=;
-        b=NrDQFxqQXcLvfUuKmx2IUqE2OF29ZANhI7D9aNkPv4Oi4vK/dnduBhL5laDkOdZTyt
-         YR1Q9L4QSHzawU9vxSgfgGyXbFidDqcAVyn8FCuXm6YeEHrGfSUIQvm0fwJPeNTcNZCz
-         Vi1WGyJGc1MgTjJ5z+ZgVYAH0ZsC120A/wnFqvUFSf8OTA6nyNEn5VoHdwM+zADNEctM
-         2V27fDhXyqOCJhzjsgpvWRRAZSTW/Seobo1OKu1B+aBztOC0xqyRgvmzhSrXjQb7NF9m
-         qUn91s73Lto5ZeHuL18rG4baa1DRfrgAQ2AGnE6IK4JTSyROOelepwZYfVa2aNYLF29V
-         jqqg==
-X-Gm-Message-State: AOJu0YyQN/Ahwf5K2jkjubUnmgxu9YND6Z8gEx43H3yY2DaMRJSOX731
-	f7pJoNwA+vRsfouxKU+0DPN8Kv9Sp1oLAgMLInCL9lRIxghmbJCf56qL1B0JQLQ=
-X-Gm-Gg: ASbGnctCe6mvrRKzSlZgaqSmh2Y2SMjny80UrW2DdIuNqvkThSBrK2K4GKBZvWP/DpQ
-	1E+fIzhbpuUpUI07aMhfQkTez5z5908sZnBu3lnppHw3n4cirAigAJfGiv0AvagvmJTT51dNx3w
-	bRadIKanKAUtMOsSSj63iIPqrbMgl/YcJMbyra/01fhPV1dPA8uL2dl0mV67ZRKQimEAjAVqAQP
-	+HCrrjc04NPE8nM4JIgmDdn3VOZufKoo8nrvEcYFHxR3W5ykM+xq4eiGjP9Gl6MNcNVGitQ4j9T
-	bUWSpJs5wffUrS7QQM5lZdPIHFBX9hQ=
-X-Google-Smtp-Source: AGHT+IEysSnJCgQmOE91TCPkUIaajyrEPumhgrGYVqzbfUYgGE8OhWH4NOTHRjxUt/7RTuv1gSzEiA==
-X-Received: by 2002:a05:6402:40c6:b0:5df:a651:32ef with SMTP id 4fb4d7f45d1cf-5e0b7231cadmr22334143a12.27.1740579495425;
-        Wed, 26 Feb 2025 06:18:15 -0800 (PST)
-Date: Wed, 26 Feb 2025 15:18:13 +0100
+        d=1e100.net; s=20230601; t=1740580139; x=1741184939;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=dQEf11I6bVKD8mP1k41RioRswwQRrslQZGI8GsAEfbA=;
+        b=GnKBjOGwk32WgBhRibN8Ks1kDkmEU4dBayuUy02EhkKONcN0Mwu3KNeaTsk0ffRgmg
+         4pX11iif3Q67bbDO+9goTyWqeHmhwYMLIFze9zzWmA6auifSiSlLYOo/pY/QJZOUePR7
+         E+T7JVH0gfRIRnmzpChywRFt5TxB9G9+qwKfywrgwi1OijcoaXiS30g7qhl4D3lgmZrC
+         LJJTbxY0AA41OOicVDv/dWg9j7ZMCOFuSunihjgddZK8e1s/hPsKeqjs8dXIGkaSVZBa
+         3vnMJGPzopfeSwQyzZeYQtZ7UD6kAVzFgyLzgKOONFpwzi1w2w0dL2vNsW4vKso3N+jD
+         ilGQ==
+X-Gm-Message-State: AOJu0YwBzUNw2FlIuFQjJdCEGKiGq82qrhB2alg3sTDJI4xcvQnH0ZmA
+	+oPBxTKnVMd3JlK4A6lAdGWZExaNP7QWQb4XaKULMEYMp8iNNxipGGwlY1A8l4A=
+X-Gm-Gg: ASbGnct2+wh6Om5q6X0LRel97AnuQMUe0443rCyYvJd7XIcPSiUTFvyV7ZTmfcFXYDs
+	oxnh3v3nrKdrwzmurzeWISM1y4EY8lfNS8vHqkEqj01/CZhY9aTRO26qSTg9FyAah3vV+IiuPRE
+	sin4O1ksAbGKv/McecVm0t5DD/1FxKaiZn8ylvsEqhdwf8QzDdTODYcGreZV46xfYmWT6Ri97+T
+	v4O5ZNEmKGMzxjthRh+T9vYE9r5d6VOT4KpUVv40BMXArDV1/m+pKjWIzAMhf7aT9wILgHMRTai
+	po4YydWMUflM5cTvBdCnBuAt5LfkLxQ=
+X-Google-Smtp-Source: AGHT+IFRhbDnKcjs19UiC3HTtQ4/VlCpBvbxB7lXn5fKkZXyMj3v16Wuv0sNVvL5XyfvlX8dGV8Jmg==
+X-Received: by 2002:a17:902:fc43:b0:220:be86:a421 with SMTP id d9443c01a7336-22307e6581emr142922365ad.38.1740580139083;
+        Wed, 26 Feb 2025 06:28:59 -0800 (PST)
+Date: Wed, 26 Feb 2025 15:28:53 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+To: Jan Beulich <jbeulich@suse.com>
 Cc: xen-devel@lists.xenproject.org,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Alejandro Vallejo <alejandro.vallejo@cloud.com>
 Subject: Re: [PATCH] xen/page_alloc: Simplify domain_adjust_tot_pages
-Message-ID: <Z78ipRmgQk67_A2q@macbook.local>
+Message-ID: <Z78lJfzqH9btDMrM@macbook.local>
 References: <20250224132724.9074-1-alejandro.vallejo@cloud.com>
- <D80RCS1Y7AKH.373ULA2LO3MND@cloud.com>
+ <Z78djoAU7vjGepjr@macbook.local>
+ <a9d4384c-770b-4947-b099-cf4bba1583a5@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <D80RCS1Y7AKH.373ULA2LO3MND@cloud.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <a9d4384c-770b-4947-b099-cf4bba1583a5@suse.com>
 
-On Mon, Feb 24, 2025 at 02:49:48PM +0000, Alejandro Vallejo wrote:
-> Open question to whoever reviews this...
+On Wed, Feb 26, 2025 at 03:08:33PM +0100, Jan Beulich wrote:
+> On 26.02.2025 14:56, Roger Pau Monné wrote:
+> > On Mon, Feb 24, 2025 at 01:27:24PM +0000, Alejandro Vallejo wrote:
+> >> --- a/xen/common/page_alloc.c
+> >> +++ b/xen/common/page_alloc.c
+> >> @@ -490,13 +490,11 @@ static long outstanding_claims; /* total outstanding claims by all domains */
+> >>  
+> >>  unsigned long domain_adjust_tot_pages(struct domain *d, long pages)
+> >>  {
+> >> -    long dom_before, dom_after, dom_claimed, sys_before, sys_after;
+> >> -
+> >>      ASSERT(rspin_is_locked(&d->page_alloc_lock));
+> >>      d->tot_pages += pages;
+> >>  
+> >>      /*
+> >> -     * can test d->claimed_pages race-free because it can only change
+> >> +     * can test d->outstanding_pages race-free because it can only change
+> >>       * if d->page_alloc_lock and heap_lock are both held, see also
+> >>       * domain_set_outstanding_pages below
+> >>       */
+> >> @@ -504,17 +502,16 @@ unsigned long domain_adjust_tot_pages(struct domain *d, long pages)
+> >>          goto out;
+> > 
+> > I think you can probably short-circuit the logic below if pages == 0?
+> > (and avoid taking the heap_lock)
 > 
-> On Mon Feb 24, 2025 at 1:27 PM GMT, Alejandro Vallejo wrote:
-> >      spin_lock(&heap_lock);
-> > -    /* adjust domain outstanding pages; may not go negative */
-> > -    dom_before = d->outstanding_pages;
-> > -    dom_after = dom_before - pages;
-> > -    BUG_ON(dom_before < 0);
-> > -    dom_claimed = dom_after < 0 ? 0 : dom_after;
-> > -    d->outstanding_pages = dom_claimed;
-> > -    /* flag accounting bug if system outstanding_claims would go negative */
-> > -    sys_before = outstanding_claims;
-> > -    sys_after = sys_before - (dom_before - dom_claimed);
-> > -    BUG_ON(sys_after < 0);
-> > -    outstanding_claims = sys_after;
-> > +    BUG_ON(outstanding_claims < d->outstanding_pages);
-> > +    if ( pages > 0 && d->outstanding_pages < pages )
-> > +    {
-> > +        /* `pages` exceeds the domain's outstanding count. Zero it out. */
-> > +        outstanding_claims -= d->outstanding_pages;
-> > +        d->outstanding_pages = 0;
+> Are there callers passing in 0?
+
+Not sure, but if there are no callers expected we might add an ASSERT
+to that effect then.
+
+> >>      spin_lock(&heap_lock);
+> >> -    /* adjust domain outstanding pages; may not go negative */
+> >> -    dom_before = d->outstanding_pages;
+> >> -    dom_after = dom_before - pages;
+> >> -    BUG_ON(dom_before < 0);
+> >> -    dom_claimed = dom_after < 0 ? 0 : dom_after;
+> >> -    d->outstanding_pages = dom_claimed;
+> >> -    /* flag accounting bug if system outstanding_claims would go negative */
+> >> -    sys_before = outstanding_claims;
+> >> -    sys_after = sys_before - (dom_before - dom_claimed);
+> >> -    BUG_ON(sys_after < 0);
+> >> -    outstanding_claims = sys_after;
+> >> +    BUG_ON(outstanding_claims < d->outstanding_pages);
+> >> +    if ( pages > 0 && d->outstanding_pages < pages )
+> >> +    {
+> >> +        /* `pages` exceeds the domain's outstanding count. Zero it out. */
+> >> +        outstanding_claims -= d->outstanding_pages;
+> >> +        d->outstanding_pages = 0;
+> >> +    } else {
+> >> +        outstanding_claims -= pages;
+> >> +        d->outstanding_pages -= pages;
+> > 
+> > I wonder if it's intentional for a pages < 0 value to modify
+> > outstanding_claims and d->outstanding_pages, I think those values
+> > should only be set from domain_set_outstanding_pages().
+> > domain_adjust_tot_pages() should only decrease the value, but never
+> > increase either outstanding_claims or d->outstanding_pages.
+> > 
+> > At best the behavior is inconsistent, because once
+> > d->outstanding_pages reaches 0 there will be no further modification
+> > from domain_adjust_tot_pages().
 > 
-> While this matches the previous behaviour, do we _really_ want it? It's weird,
-> quirky, and it hard to extend to NUMA-aware claims (which is something in
-> midway through).
-> 
-> Wouldn't it make sense to fail the allocation (earlier) if the claim has run
-> out? Do we even expect this to ever happen this late in the allocation call
-> chain?
+> Right, at that point the claim has run out. While freeing pages with an
+> active claim means that the claim gets bigger (which naturally needs
+> reflecting in the global).
 
-I'm unsure.  This is the case where more memory than initially claimed
-has been allocated, but by the time domain_adjust_tot_pages() gets
-called the memory has already been allocated, so it's kind of
-unhelpful to fail by then.
+domain_adjust_tot_pages() is not exclusively called when freeing
+pages, see steal_page() for example.
 
-I think any caller that requests more memory than what has been
-initially claimed for the domain should be prepared to deal with such
-allocation failing.  This quirky handling is very likely a workaround
-for the miscellaneous differences between the memory accounted by the
-toolstack for a guest vs the memory really used by such guest.  I bet
-if you limit a guest to strictly only allocate up to
-d->outstanding_pages domain creation will fail.
-
-In general the toolstack memory calculations are not fully accurate,
-see for example how vmx_alloc_vlapic_mapping() allocates a domheap
-page which very likely the toolstack won't have accounted for.  There
-are likely other examples that would possibly break the accounting
-done by the toolstack.
+When called from steal_page() it's wrong to increase the claim, as
+it assumes that the page removed from d->tot_pages is freed, but
+that's not the case.  The domain might end up in a situation where
+the claim is bigger than the available amount of memory.
 
 Thanks, Roger.
 
