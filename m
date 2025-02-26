@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4DCDA467F2
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 18:23:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.897117.1305837 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2B2FA46809
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 18:28:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.897126.1305847 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnL7Z-0002uL-9m; Wed, 26 Feb 2025 17:22:57 +0000
+	id 1tnLCI-0003d0-RJ; Wed, 26 Feb 2025 17:27:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 897117.1305837; Wed, 26 Feb 2025 17:22:57 +0000
+Received: by outflank-mailman (output) from mailman id 897126.1305847; Wed, 26 Feb 2025 17:27:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnL7Z-0002rn-6V; Wed, 26 Feb 2025 17:22:57 +0000
-Received: by outflank-mailman (input) for mailman id 897117;
- Wed, 26 Feb 2025 17:22:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tnLCI-0003Zs-O9; Wed, 26 Feb 2025 17:27:50 +0000
+Received: by outflank-mailman (input) for mailman id 897126;
+ Wed, 26 Feb 2025 17:27:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=GPjD=VR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tnL7Y-0002rh-IP
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 17:22:56 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 50540708-f466-11ef-9aae-95dc52dad729;
- Wed, 26 Feb 2025 18:22:54 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-38f31f7731fso779f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 09:22:54 -0800 (PST)
-Received: from andrewcoop.eng.citrite.net (host-92-26-98-202.as13285.net.
- [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-390dd708d50sm2029699f8f.91.2025.02.26.09.22.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Feb 2025 09:22:53 -0800 (PST)
+ id 1tnLCI-0003Zm-1R
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 17:27:50 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fe6804c0-f466-11ef-9897-31a8f345e629;
+ Wed, 26 Feb 2025 18:27:46 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-4399d14334aso844655e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 09:27:46 -0800 (PST)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43aba549da9sm28650605e9.38.2025.02.26.09.27.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 26 Feb 2025 09:27:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,85 +45,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 50540708-f466-11ef-9aae-95dc52dad729
+X-Inumbo-ID: fe6804c0-f466-11ef-9897-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1740590574; x=1741195374; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=0FkWu2+ymDbeZcBFazIKeQy1Pjj72JGYQdi3IsIoxAg=;
-        b=NctobUtWyS2IB1TcuGXmwuKMCZIwTgf3tRImh656y47sZWa7DcXq6PGU5phUXGs3nP
-         Ij9z43jC7QpmnpIzro1HzFiBN3C96GJzPiksxV6qHET2hpdTPoa7TqoLnfTyWC2h128n
-         4N5TotmMDnSu7dKiV5kpIMmn0JUyDKap1b1LM=
+        d=citrix.com; s=google; t=1740590866; x=1741195666; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=1RRN+V3PMH8GegLMS6oV/NhXgEo4GbQDqSygIoMJPHY=;
+        b=H9AjuN5YKu4Pg71pGGCSpZlv0BHEMZD0k0+d+hu6iSRHImEaT9FVk5mzabhuqUPNU8
+         Dk/MFODpWiN51R+ORGLbcCqGbOL+FS34VJtTGsoNzf2AVzyIoD1qEWArvsqnws5Y2595
+         OGOVQeRTFUd/u4aPeHt1sqfUoXl87TEL4aH5w=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740590574; x=1741195374;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=0FkWu2+ymDbeZcBFazIKeQy1Pjj72JGYQdi3IsIoxAg=;
-        b=wjuT9QBtT88h9mqzlf1mwox0lRbZNz2/YvgCuEN5QEOrlzdKr4at/aEFhhwoqgO+kD
-         t8Q1SPoAA5h40IC6mVZdZ0a6+Pfvgf3ftYPvGWzhccJ1N4XCcb4Qy5jbQ7badRgvq3bv
-         U8cBEZScSr4PEZCtTjh0rTxryM+eBKcO3zcdVPK+iiyN6vYg7ZiNsJATtnpzHAvGegNP
-         rVsHQUbN/U9xjH9ZaXI0KY1fgFpHUndHDG+WtXk7t1z36LCjo0pNo71p2elaAsd1JI0h
-         qb2zFo/clqxrj93GPxltQgL2nbDNslEh76EDJOdZ+RfJ7C02Yy9Hjr/I3+SiWleEtTZl
-         P3hQ==
-X-Gm-Message-State: AOJu0YyDhBnrEWPaIKQqaecdD4fFuTxbkUQEyud2jqrSvybsvWXQB/3S
-	ZI2poaGsDK/6WGFMA96d0DP/wV+DXoZ73beFNPChp73KHJTI3P534303EAs+PXWtsAHDfBCgUDC
-	c
-X-Gm-Gg: ASbGncvrX7k3Xm85fDpuMp2k25NRIT6cH71QF4FtJAsmvurGDwlU7Hul3uzEzlDyemD
-	dR4RUBNIMmfBizpE3o5bWx7V64lLsamxhA3b9pK5FxqUzZZhd+0vFatBQK7rTzT2wRely1xPVMR
-	0D0DnnJp/n/Okd33Muf9bpx8YVfQ58ClR651n5PQrv6590UbZL4nceyoIi7UxNjOKIB2xKNTDZn
-	HiehkZM4XVnng2s/32C8qkxQByolnJ5nhiEWrIqcS5B23+1+ONVtUtcx9i/bDDBVt+Hs1vfHoTj
-	nx38QrvHQpz1CNpgEptGaFUww7HP7NQ5gDXJnwqIbLlpJF03Fo75/D6NkUlz7+wofwH79U05CEh
-	SlCv4TA==
-X-Google-Smtp-Source: AGHT+IE9x4TA5JTOA/4m9tpgiIdOXQsYcp8xdKY818jqpLdCCN0k7yCnEe1vpXuGHJ/lHc+xUTk9iQ==
-X-Received: by 2002:a5d:494e:0:b0:38f:23f9:b367 with SMTP id ffacd0b85a97d-390d4f419e5mr3317615f8f.23.1740590573589;
-        Wed, 26 Feb 2025 09:22:53 -0800 (PST)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [PATCH] RISCV/bitops: Use Zbb to provide arch-optimised bitops
-Date: Wed, 26 Feb 2025 17:20:50 +0000
-Message-Id: <20250226172050.1300771-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+        d=1e100.net; s=20230601; t=1740590866; x=1741195666;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1RRN+V3PMH8GegLMS6oV/NhXgEo4GbQDqSygIoMJPHY=;
+        b=DbRh9vost2oBiS/hK1/bU0hWYktS8qLbq3LOS2+4+9rREUGoOPnbIz+IqR5y6VNMS8
+         /O2AB2Deyjh/Fbk0MJSjy0tcjuUr5ZPW+hBLSfJEPxkFwzFD3SQNTsxWinZHJIYKh6HP
+         8ma2yg4Pb/w0jv8ESdIJHAmCKZH7s/USiCyPOjplxOYmeIAuJUV8v1zSqTMt5o1pjbB1
+         ncOqEYu3ZoBpASv900AzpzytS/OW1MrJPfecScv+/hqaJTkc8wPpdzhSaS/WY1AJbnkq
+         SAFpnlP+Ecz6OMgt+Z9jvgYB1KgJCgrsTsWlpN4OXoi0fYWvuuoNRrx7jSwr7Bs51eSB
+         jw1g==
+X-Forwarded-Encrypted: i=1; AJvYcCWbribz6JNSs94SKYcXl6R/QumvMN6hzSng7iJNjTLtjl+XvJHKtR24ptTeBy/O9AUrJI/MA9SJVyU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzWe6THQtG2gQg0aP1g7OQV50ST2gEI6ehiEVj/eQUktTBYaT99
+	3M0zLChLRTjCSdWtEjfIJqrbEACRuMQEn5glBws1zykXolW93wHNQuzZB80MbSE=
+X-Gm-Gg: ASbGncvRMj0C4QcFIl2CrDU8+f2n+1qsQWazUC2iRLQQLfgwzS/yafGRiOS6ngnTdfU
+	Sk+Z8s+xtZpt4WNiIAen3wYf/594CALUFhi7asFkGEGAN9MkQXp73WU39wMEb0CaiDummsKKcrh
+	nMeajnaLkaak+D8RB2Agncg8WyIiLyXXT7XlyG4xWuALE36hPwfhb6/B2rw7ia+Vy9iez0g4i2x
+	0OimzA1nNZDpd9qsWasaKAsQLtX8bpqdYn7XR+wSfo4cHbYfOk/Le+SLBDBISNjD4PpdH0sS5HH
+	K9gt4RZos3x8OafDgpeCgnkMBs+IMuih2qE+6IpQB4wGcYAYYAG44dIy4IfOJZzzWQ==
+X-Google-Smtp-Source: AGHT+IGIBloRMaaWSlecXcvAQZPUQkiWEtPVrzzYzNomTlPTnnQBWzXlTZEgPc4oahHKGZj9XKjOhA==
+X-Received: by 2002:a05:600c:1c1e:b0:438:a240:c63 with SMTP id 5b1f17b1804b1-43ab8fd05d4mr36230205e9.2.1740590865955;
+        Wed, 26 Feb 2025 09:27:45 -0800 (PST)
+Message-ID: <3a3d67c5-c89b-4108-864c-8c46b79b0246@citrix.com>
+Date: Wed, 26 Feb 2025 17:27:44 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/8] x86/IDT: Rename X86_NR_VECTORS to X86_IDT_VECTORS
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250224160509.1117847-1-andrew.cooper3@citrix.com>
+ <20250224160509.1117847-4-andrew.cooper3@citrix.com>
+ <56aa1fbe-ebbf-4e03-b164-51710a75bde3@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <56aa1fbe-ebbf-4e03-b164-51710a75bde3@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+On 25/02/2025 8:31 am, Jan Beulich wrote:
+> On 24.02.2025 17:05, Andrew Cooper wrote:
+>> Observant readers may have noticed that the FRED spec has another 8 bits of
+>> space reserved immediately following the vector field.
+>>
+>> Make the existing constant more precise.
+>>
+>> No functional change.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> I don't mind this, so
+> Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Depends on "xen/riscv: make zbb as mandatory"
----
- xen/arch/riscv/include/asm/bitops.h | 7 +++++++
- 1 file changed, 7 insertions(+)
+Thanks.
 
-diff --git a/xen/arch/riscv/include/asm/bitops.h b/xen/arch/riscv/include/asm/bitops.h
-index d22eec1e87c7..df3df93520c5 100644
---- a/xen/arch/riscv/include/asm/bitops.h
-+++ b/xen/arch/riscv/include/asm/bitops.h
-@@ -125,6 +125,13 @@ static inline void clear_bit(int nr, volatile void *p)
- #undef NOT
- #undef __AMO
- 
-+#define arch_ffs(x)     ((x) ? 1 + __builtin_ctz(x) : 0)
-+#define arch_ffsl(x)    ((x) ? 1 + __builtin_ctzl(x) : 0)
-+#define arch_fls(x)     ((x) ? 32 - __builtin_clz(x) : 0)
-+#define arch_flsl(x)    ((x) ? BITS_PER_LONG - __builtin_clzl(x) : 0)
-+
-+#define arch_heightl(x) __builtin_popcountl(x)
-+
- #endif /* ASM__RISCV__BITOPS_H */
- 
- /*
+> I can't help the impression though that the majority of places will need
+> touching again if vector space was enlarged, to use the alternative larger
+> constant then.
 
-base-commit: 7cf163879c5add0a4f7f9c987b61f04f8f7051b1
-prerequisite-patch-id: 9ee1f7ebf5d34b1c565ee2d3d4fb319164bb8bcd
-prerequisite-patch-id: 8a05c87c8d051a3ac0820887f676bbd318e4ae88
-prerequisite-patch-id: 6b56e42d130d8b5ee39457b6760b05cc6e16b049
-prerequisite-patch-id: c139f1f5741d695cd5e5aa6be904edcb61b73885
-prerequisite-patch-id: 99f8b701000e9ee11060934e627a988ddf9aaaa7
--- 
-2.39.5
+A number of uses don't survive to the end of the series.  For the
+others, they'll need to become conditional on some new control being
+active, so won't be a straight swap for another constant.
 
+~Andrew
 
