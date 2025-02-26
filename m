@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B80E4A45875
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 09:35:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.896237.1304921 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 086B0A4587E
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 09:37:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.896244.1304931 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnCt6-0008Js-Tx; Wed, 26 Feb 2025 08:35:28 +0000
+	id 1tnCuh-0000Of-79; Wed, 26 Feb 2025 08:37:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 896237.1304921; Wed, 26 Feb 2025 08:35:28 +0000
+Received: by outflank-mailman (output) from mailman id 896244.1304931; Wed, 26 Feb 2025 08:37:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnCt6-0008Gk-R3; Wed, 26 Feb 2025 08:35:28 +0000
-Received: by outflank-mailman (input) for mailman id 896237;
- Wed, 26 Feb 2025 08:35:27 +0000
+	id 1tnCuh-0000Mj-4U; Wed, 26 Feb 2025 08:37:07 +0000
+Received: by outflank-mailman (input) for mailman id 896244;
+ Wed, 26 Feb 2025 08:37:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=y9YQ=VR=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tnCt5-0008Ge-A9
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 08:35:27 +0000
-Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
- [2607:f8b0:4864:20::633])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9dcaa283-f41c-11ef-9897-31a8f345e629;
- Wed, 26 Feb 2025 09:35:22 +0100 (CET)
-Received: by mail-pl1-x633.google.com with SMTP id
- d9443c01a7336-221050f3f00so147185155ad.2
- for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 00:35:22 -0800 (PST)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7347a6ad9c9sm2876322b3a.28.2025.02.26.00.35.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Feb 2025 00:35:20 -0800 (PST)
+ <SRS0=Soix=VR=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
+ id 1tnCug-0000MZ-AP
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 08:37:06 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id dae1a9ca-f41c-11ef-9897-31a8f345e629;
+ Wed, 26 Feb 2025 09:37:04 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AB2D71516;
+ Wed, 26 Feb 2025 00:37:19 -0800 (PST)
+Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.43])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A293D3F673;
+ Wed, 26 Feb 2025 00:37:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,82 +42,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9dcaa283-f41c-11ef-9897-31a8f345e629
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1740558921; x=1741163721; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=1NBgfF6iJVx28wGxR/0i0wVWIf8sfd6o3ncXKIn3Urw=;
-        b=RzniQ2HFG3KGPgQAJrO444ZsTHukMxKkrxJyt5M4XshNp6ZJmsWKc6J7yQsOFLboRZ
-         5w54mZzk2KJMD3ckl6hElr5pp5LFdY80L7l1ylXRUjwTyISMHwT6/8zTvrPKDVkGO7FC
-         VRumbvjThjWhZyJ52hZUM6tsaBqhfSU6H4wKM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740558921; x=1741163721;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=1NBgfF6iJVx28wGxR/0i0wVWIf8sfd6o3ncXKIn3Urw=;
-        b=HXcHkHlACxCxRz08Vh3dpAvnwzGWQXaureUCsRr4ZK4VvZxPCzboIWGe/MIA1RVaWP
-         HFQrPXZj7FRdT4a4G9BFGmT/j4pPdAVCkRieIJqQwApPsXOHYHpWTaerZVciKTqd0+Qn
-         iEK0Qw7FwT4XljSHx7ZkLjHgoN/8+zBdR5anfv08HoPkd4uRa7oj3apzgILb+PJMyuql
-         iI+fgjVXBmpXdZ8l5WE8KGcQHYQ6BTp+02ALmwFD6ZAJivis2sCSH6B0TH5gZtcrYaXm
-         HHgbnjsgzsUI6LgeIJHGeVGKku2pswuxUTOk2KfGUX/XjVEHy0vGZmely1L1Dyz2xDjH
-         pj6g==
-X-Gm-Message-State: AOJu0YxpTKWDWTYdxVRGLpt62JZKHGAxgESLKRsEmT+af65NLM5NfF1h
-	eUf2Mieqg8vrg2RrmRYZpDGe2FCBIj6r6vhMvkgcmr/wc5+TVHKbOeooKoQsa+g=
-X-Gm-Gg: ASbGnct5nJj+1H/uR5o7pi/5QA6nynkXrrTt5zTsfIbQx13mqj1BXz44WzBqbsV3x37
-	m1GYSGt/eoAJtgWs/tCe+czNL3dZLXQQNgg8wXfgVAMIQ/7p36AFATBbOXHh9dT4opYBLdusZ7B
-	YnT4dOIlwlw3uzzoI9vBmSwLwIW3C+SABhl/tDjkYvGFWRDwVneDlkkE4lY3LDgja4YsUJRR++/
-	fBU4UacbQbqmM1REhOmLKwuPX/mz4gz6NAl7RC+q3ECaniuGZO9MIFTpqwVCN6OPyM4OLhP/SFQ
-	kTlM+Z68bDGgntq4zLdXT3PHTtYpdsg=
-X-Google-Smtp-Source: AGHT+IFPwrpB0rjxA8pwqip86/R6T4lzTq6lQUFlW3KA9W2OkgnHyjvqUT8Ys3+axadlgj1/8OHyfA==
-X-Received: by 2002:a05:6a20:a103:b0:1ee:de1d:5abc with SMTP id adf61e73a8af0-1f0fc78bfe1mr9266843637.33.1740558920845;
-        Wed, 26 Feb 2025 00:35:20 -0800 (PST)
-Date: Wed, 26 Feb 2025 09:35:15 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: xen-devel@lists.xenproject.org, committers@xenproject.org,
-	Community Manager <community.manager@xenproject.org>
-Subject: Re: [PATCH] CHANGELOG.md: Finalize changes in 4.20 release cycle
-Message-ID: <Z77SQ1MRKXzVqJ_z@macbook.local>
-References: <20250224182548.10812-1-oleksii.kurochko@gmail.com>
+X-Inumbo-ID: dae1a9ca-f41c-11ef-9897-31a8f345e629
+From: Luca Fancellu <luca.fancellu@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH] xen/arm: Don't use copy_from_paddr for DTB relocation
+Date: Wed, 26 Feb 2025 08:36:49 +0000
+Message-Id: <20250226083649.2063916-1-luca.fancellu@arm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20250224182548.10812-1-oleksii.kurochko@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Feb 24, 2025 at 07:25:48PM +0100, Oleksii Kurochko wrote:
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
->  CHANGELOG.md | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/CHANGELOG.md b/CHANGELOG.md
-> index 1979166820..e6c6144ef1 100644
-> --- a/CHANGELOG.md
-> +++ b/CHANGELOG.md
-> @@ -18,6 +18,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->   - Fixed blkif protocol specification for sector sizes different than 512b.
->   - The dombuilder in libxenguest no longer un-gzips secondary modules, instead
->     leaving this to the guest kernel to do in guest context.
-> + - Reduce xenstore library dependencies.
-> + - On Arm:
-> +   - Several FF-A support improvements: add indirect messages support, transmit
-> +     RXTX buffer to the SPMC, fix version negotication and partition information
-> +     retrieval.
->   - On x86:
->     - Prefer ACPI reboot over UEFI ResetSystem() run time service call.
->     - Prefer CMOS over EFI_GET_TIME as time source.
-> @@ -25,6 +30,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->       interrupts instead of logical destination mode.
->  
->  ### Added
-> + - Support device passthrough when dom0 is PVH on Xen.
+Currently the early stage of the Arm boot maps the DTB using
+early_fdt_map() using PAGE_HYPERVISOR_RO which is cacheable
+read-only memory, later during DTB relocation the function
+copy_from_paddr() is used to map pages in the same range on
+the fixmap but using PAGE_HYPERVISOR_WC which is non-cacheable
+read-write memory.
 
-I've spoken with Jiqian from AMD and the QEMU side is still pending to
-be merged, so I'm not sure I would list it here yet.  Also AFAICT the
-current work just enables passthrough from a PVH dom0 to an HVM domU,
-but not to PV domUs.  This would need to be clarified.
+The Arm specifications, ARM DDI0487L.a, section B2.11 "Mismatched
+memory attributes" discourage using mismatched attributes for
+aliases of the same location.
 
-Thanks, Roger.
+Given that there is nothing preventing the relocation since the region
+is already mapped, fix that by open-coding copy_from_paddr inside
+relocate_fdt, without mapping on the fixmap.
+
+Fixes: 1bdc81dac816 ("arm: setup MM using information from the device tree")
+Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+---
+ xen/arch/arm/setup.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+index c1f2d1b89d43..b1fd4b44a2e1 100644
+--- a/xen/arch/arm/setup.c
++++ b/xen/arch/arm/setup.c
+@@ -237,14 +237,15 @@ void __init discard_initial_modules(void)
+ }
+ 
+ /* Relocate the FDT in Xen heap */
+-static void * __init relocate_fdt(paddr_t dtb_paddr, size_t dtb_size)
++static void * __init relocate_fdt(const void *dtb_vaddr, size_t dtb_size)
+ {
+     void *fdt = xmalloc_bytes(dtb_size);
+ 
+     if ( !fdt )
+         panic("Unable to allocate memory for relocating the Device-Tree.\n");
+ 
+-    copy_from_paddr(fdt, dtb_paddr, dtb_size);
++    memcpy(fdt, dtb_vaddr, dtb_size);
++    clean_dcache_va_range(dtb_vaddr, dtb_size);
+ 
+     return fdt;
+ }
+@@ -362,7 +363,7 @@ void asmlinkage __init start_xen(unsigned long fdt_paddr)
+     if ( acpi_disabled )
+     {
+         printk("Booting using Device Tree\n");
+-        device_tree_flattened = relocate_fdt(fdt_paddr, fdt_size);
++        device_tree_flattened = relocate_fdt(device_tree_flattened, fdt_size);
+         dt_unflatten_host_device_tree();
+     }
+     else
+-- 
+2.34.1
+
 
