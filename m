@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39F8CA45681
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 08:20:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.896174.1304848 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF32DA45693
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 08:25:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.896182.1304857 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnBgn-0001iW-VU; Wed, 26 Feb 2025 07:18:41 +0000
+	id 1tnBmn-0003Qv-Ij; Wed, 26 Feb 2025 07:24:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 896174.1304848; Wed, 26 Feb 2025 07:18:41 +0000
+Received: by outflank-mailman (output) from mailman id 896182.1304857; Wed, 26 Feb 2025 07:24:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnBgn-0001fu-SL; Wed, 26 Feb 2025 07:18:41 +0000
-Received: by outflank-mailman (input) for mailman id 896174;
- Wed, 26 Feb 2025 07:18:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tnBmn-0003Og-Fq; Wed, 26 Feb 2025 07:24:53 +0000
+Received: by outflank-mailman (input) for mailman id 896182;
+ Wed, 26 Feb 2025 07:24:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J4Ti=VR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tnBgm-0001fo-FA
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 07:18:40 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e58613a4-f411-11ef-9897-31a8f345e629;
- Wed, 26 Feb 2025 08:18:37 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-4399ca9d338so39508665e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 25 Feb 2025 23:18:37 -0800 (PST)
+ id 1tnBmm-0003Oa-9N
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 07:24:52 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c4338ad7-f412-11ef-9aae-95dc52dad729;
+ Wed, 26 Feb 2025 08:24:51 +0100 (CET)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-38f31f7732dso292934f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Feb 2025 23:24:51 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43ab374da3esm30147615e9.1.2025.02.25.23.18.35
+ ffacd0b85a97d-390cd86c9ccsm4579952f8f.21.2025.02.25.23.24.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Feb 2025 23:18:35 -0800 (PST)
+ Tue, 25 Feb 2025 23:24:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e58613a4-f411-11ef-9897-31a8f345e629
+X-Inumbo-ID: c4338ad7-f412-11ef-9aae-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740554317; x=1741159117; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1740554690; x=1741159490; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=GOdkMYB2E+stevsJVRRIaTF4D3bDE7yM7Oys8lvgU8s=;
-        b=gBZfEeQyfdgEDYiciNLsaGReY7eb9YUlb4UrmFyyZ7QGgycFXQtec5UN8WhjDuZ3Vt
-         PUiyjmMHvC8lNsiL4Cfnt6jm/J9981AVwAmqDBDVScd/QuZIujVff/WjQxSwcDmbIwG8
-         0XIZnt1TJ+piTfM+VyLas1qRxAPnU9pifDUjwgKW+uhaSQrhbGC1xQPMLdwMwxRuHrYd
-         ekU8ihJ4rsqALWZO4pDpw8DERBIK/P60+U7FPXDklyLnFd0AGMdJPrgr6E1Ie56vyBpE
-         k83VqmAe+0IV+ezzsJ04bApepIt0E73NAKeqVEJU6SlVCrLW+dXvn7z9rkSyD4g3idOE
-         YMzA==
+        bh=vQmdiOwHrCymw3zyqB0n9TUMMAT1OTz1ahyOIxWVggU=;
+        b=VOUiD+TDV8CuHdsXgXfWox92MfC/a5WVyTCCnzEUau8BqXS0uJRz6VAoDJMcVkU4v2
+         G9jUnIDGl0qopPT2uabIyoXlPt5ZhHHpizkfYCqqXlKmPm2HDU9mVF9qcaO3YpNzs5sT
+         Wji6KLYx6Anr8z8I/2H28J0xCdYbYZDCzQef1b6WH6rDPWD5RI+/f0qjD/NPyfbYRtiM
+         KYQ3P/1Xc2ZUeX2BFU8iHnvMWK3249N1DPn6r1nfKSGkTKdi17IEcBN4Ed348gv1DxSP
+         RuCX+8YjwRCp2ZsCNYLxtc7xf2OGZXdWvIOEw4Y8zR6sXxeqqOtZZTCUZ5u7YaFI/+t6
+         th/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740554317; x=1741159117;
+        d=1e100.net; s=20230601; t=1740554690; x=1741159490;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GOdkMYB2E+stevsJVRRIaTF4D3bDE7yM7Oys8lvgU8s=;
-        b=itOiEXRaQ2O7jLUYj7H2X0a8X+nyaF8dmPA3I03lqF0zHZHPt3JGE3tDuOG94HI+NR
-         nweTZVFglVzph+a7uF2/zNC25w/p6P6HNx3IyrOXVevEev3PtGtHw7YfA0O2w0HlsiGW
-         jKZbeuE/m55UVaBE4pTqMZ/XROqbr+32g46hZiInnYnZRWcUyaXWLw3nN5pH0jXZDrJg
-         7R3fwPatHiegpPWiJpucyBOGhqjJVxYlnaVjx/7GqL1bz/YaFlcmDuC+9rSZJEJmg84x
-         VBNLlFzUfblMEw44s8Us6ssxSLdqBw9TQkoug27NMdcL+l7DN/tpwMjH6h8vLfYZKwcm
-         8hPg==
-X-Forwarded-Encrypted: i=1; AJvYcCXIeSn60MRhM+SN9WAv6BuInrWzLyARxa9KD9XsU9Mxt/Vw1ZMD1Rh+LjJsf50TaDxJV/iRjwf+xaI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzbI2hVRkBn3VOZ284+lC/k9mzugVe2x+zcWITbThfNXUmbMVc+
-	RhlYupS9smYGVGKJ4UwBMdK2cTz9c9pDs8AJPHBOVrofGAgn64xeiFZSbNLQng==
-X-Gm-Gg: ASbGncsx7FEKxMlXSDMHxt7JtTeTlv5ZsWwX2L7VpSYpYFuoAd1D8kdQwc6eZ0BCTYm
-	bdA3pGmny3vc1Pi4pOHJt1DvC4g7SQoynR0/13TZDvH52g8Z0rpYvWrJt+W10vDWa1Ey9K0xKmV
-	qlr9Rqvnlxsa/KBdGvLcnA9v+2wAqH0yyBZ8kMMzrGeuPwgZkXhr33bVtp6hwPHc05gc4MnkKhk
-	vOFiVO9cq7r61cO+I22p4OIu31cAL/LUIe8i6AUnloLtyEZt125Dj+hYeH/IG683JuSuJ2CWEKR
-	DV0w+djONOMN8MqxGkGczSHX6QOP5ypkf/oTymwzOPKxFwr5ZiQUPtrw3kwg9V8gBE/SUdPc2kk
-	zNewlEjIFdY8=
-X-Google-Smtp-Source: AGHT+IHSytm5GAPCwuQBbb1qEjbqlnKDM7xxRVU60xxrbegzZXL4L8LiIbxC0kMU2LRKfc6KgrIbJw==
-X-Received: by 2002:a05:600c:1c0d:b0:439:a5e6:73ff with SMTP id 5b1f17b1804b1-43ab0f41d79mr55672695e9.17.1740554315499;
-        Tue, 25 Feb 2025 23:18:35 -0800 (PST)
-Message-ID: <241ab615-40bc-43ba-b41c-50408f1a8eb8@suse.com>
-Date: Wed, 26 Feb 2025 08:18:34 +0100
+        bh=vQmdiOwHrCymw3zyqB0n9TUMMAT1OTz1ahyOIxWVggU=;
+        b=Vro//oBxJyYVSFS4UzZ3KaKMdox52m67VcnbNASeZG9DOLS25P1Dn476F638aEagrS
+         bbvsSG9+FB8wYM8CN+p85wDVB+rV3bi32bf5jjyi4Jop6TuA4MkcpAI0QSlgfd5LgjkN
+         ij/p1yHU6byuVIvbLJBEb3Xm4IlsyDp/tWPhBtq/vI8R4JdUtTOEkJiE70iR0udU/p4I
+         +zlBnb1UnHIopQQsGQ2T+Khl4mqy3r6XZWXPb1E8Uqtnb16YQcOMd5MaAvyBXa+s8ndV
+         Nl46UZN3k3/8IonsCXlPsQe/5ckoj+7dIo17x3usOyDFtiP+Skk2WTrg/fQVTS/atTP1
+         GypQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWoNjUsi57n67DZsdxN/LzHk8XB2F9cwoOiRzIQ5J7TtoyIP7yh1udQhiUJ6EPTlk4aHdTnsc3KllY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxbwXt/Lx+FyiB1pJkv+tgbvOeU8qO7G7SCL6wPaaRRhml1q/GP
+	6F3FAJGSqe1/Hg5zuxe4FIY1J0uDXOivcFRH4RgwCiTNbG/Y3QT2d5HLCOh5Xw==
+X-Gm-Gg: ASbGncsHU2asXzAsD8Jaj/YjRaEyeej7Tbd3t+r8xeFpe7W0M88/dsDnaBcy7WBSRxE
+	fvhzA+JKH41M/AvCKrnbPHwOr1JNcftkbB07f8grbmVhVR4mlPBkufN3rNi87UW38TGPij0NJ0z
+	i6ya/nE0jnoWagFebBwG8Um95+XceLwi9ECbOF4Up2vJHCPZppOpjEDA8VmorBCKqiZnakF11HG
+	1ChoXgdtuhQ/tAwV8ByDGOjK5s3RztZ4xEd0NghzKp/PzFF01sgiLZtPtoHyYJzBMY7eDXNXBqh
+	GNXDgUjizwykiTj4vsb0Gwmc53QIx+oC70emjZ0aWfWfCQO27a5tC0WhBcDrLjnOEry2F3xymTC
+	Ru5fiSfOy268=
+X-Google-Smtp-Source: AGHT+IFcelQNxJ3yLSaKgzrjwWxpawD8KLVi8UH2xbGpMKgeJdjarbLc7P6XkMsx3cXeBAWWDtQyEA==
+X-Received: by 2002:a5d:5985:0:b0:38d:c73d:e52c with SMTP id ffacd0b85a97d-38f6f3dc27cmr16607675f8f.14.1740554690612;
+        Tue, 25 Feb 2025 23:24:50 -0800 (PST)
+Message-ID: <4d5511e2-ff07-42fe-b57e-7e66c999d811@suse.com>
+Date: Wed, 26 Feb 2025 08:24:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] x86/ucode: Drop the match_reg[] field from AMD's
- microcode_patch
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20241024132205.987042-1-andrew.cooper3@citrix.com>
- <20241024132205.987042-6-andrew.cooper3@citrix.com>
- <122ae85e-d418-42d3-9554-2ecd90996ae3@suse.com>
- <22f17108-7c71-47ee-94cc-068fc01194fd@citrix.com>
+Subject: Re: [PATCH v2 1/1] PPC: Activate UBSAN in testing
+To: Shawn Anastasio <sanastasio@raptorengineering.com>
+Cc: tpearson@raptorengineering.com, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1740540262.git.sanastasio@raptorengineering.com>
+ <a1bc84821cf9018549fb1dc0aeb8fd8f9bfeb002.1740540262.git.sanastasio@raptorengineering.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,48 +119,21 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <22f17108-7c71-47ee-94cc-068fc01194fd@citrix.com>
+In-Reply-To: <a1bc84821cf9018549fb1dc0aeb8fd8f9bfeb002.1740540262.git.sanastasio@raptorengineering.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 25.02.2025 23:01, Andrew Cooper wrote:
-> On 28/10/2024 1:18 pm, Jan Beulich wrote:
->> On 24.10.2024 15:22, Andrew Cooper wrote:
->>> This was true in the K10 days, but even back then the match registers were
->>> really payload data rather than header data.
->>>
->>> But, it's really model specific data, and these days typically part of the
->>> signature, so is random data for all intents and purposes.
->>>
->>> No functional change.
->>>
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> ---
->>> CC: Jan Beulich <JBeulich@suse.com>
->>> CC: Roger Pau Monné <roger.pau@citrix.com>
->>>
->>> The single difference from this is:
->>>
->>>   @@ -207587,7 +207587,7 @@
->>>    ffff82d0402ad261:	4c 89 ce             	mov    %r9,%rsi
->>>    ffff82d0402ad264:	4c 39 c8             	cmp    %r9,%rax
->>>    ffff82d0402ad267:	0f 82 c2 11 f6 ff    	jb     ffff82d04020e42f <amd_ucode_parse.cold+0x55>
->>>   -ffff82d0402ad26d:	41 83 f9 3f          	cmp    $0x3f,%r9d
->>>   +ffff82d0402ad26d:	41 83 f9 1f          	cmp    $0x1f,%r9d
->>>    ffff82d0402ad271:	0f 86 b8 11 f6 ff    	jbe    ffff82d04020e42f <amd_ucode_parse.cold+0x55>
->>>    ffff82d0402ad277:	85 ed                	test   %ebp,%ebp
->>>    ffff82d0402ad279:	75 55                	jne    ffff82d0402ad2d0 <amd_ucode_parse+0x170>
->>>
->>> which is "mc->len < sizeof(struct microcode_patch)" expression in
->>> amd_ucode_parse().
->> Yet is it correct to effectively relax that check, i.e. to accept something
->> we previously would have rejected?
+On 26.02.2025 04:27, Shawn Anastasio wrote:
+> From: Andrew Cooper <andrew.cooper3@citrix.com>
 > 
-> Yes.  This is the bounds check about whether it's safe to look at fields
-> in the header.  It's not part of the other validity checks.
+> Also enable -fno-sanitize=alignment like x86 since support for unaligned
+> accesses is guaranteed by the ISA and the existing OPAL setup code
+> relies on it.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
 
-Hmm, okay:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+
 
