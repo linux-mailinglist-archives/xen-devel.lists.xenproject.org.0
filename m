@@ -2,43 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34545A46713
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 17:53:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.897073.1305797 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23E69A46770
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 18:08:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.897082.1305807 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnKec-0002zx-C8; Wed, 26 Feb 2025 16:53:02 +0000
+	id 1tnKsm-00075z-HO; Wed, 26 Feb 2025 17:07:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 897073.1305797; Wed, 26 Feb 2025 16:53:02 +0000
+Received: by outflank-mailman (output) from mailman id 897082.1305807; Wed, 26 Feb 2025 17:07:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnKec-0002xA-8z; Wed, 26 Feb 2025 16:53:02 +0000
-Received: by outflank-mailman (input) for mailman id 897073;
- Wed, 26 Feb 2025 16:53:01 +0000
+	id 1tnKsm-00073L-EU; Wed, 26 Feb 2025 17:07:40 +0000
+Received: by outflank-mailman (input) for mailman id 897082;
+ Wed, 26 Feb 2025 17:07:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ae0M=VR=redhat.com=vschneid@srs-se1.protection.inumbo.net>)
- id 1tnKea-0002wz-UN
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 16:53:01 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ <SRS0=wRt1=VR=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1tnKsl-00073F-37
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 17:07:39 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 21550245-f462-11ef-9aae-95dc52dad729;
- Wed, 26 Feb 2025 17:52:58 +0100 (CET)
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-516-WZigUjCYOv6_zK2Nnt7VMA-1; Wed, 26 Feb 2025 11:52:55 -0500
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-4399d2a1331so338985e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 08:52:55 -0800 (PST)
-Received: from vschneid-thinkpadt14sgen2i.remote.csb
- (213-44-141-166.abo.bbox.fr. [213.44.141.166])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-390d98c0642sm2242326f8f.81.2025.02.26.08.52.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Feb 2025 08:52:53 -0800 (PST)
+ id 2e051797-f464-11ef-9aae-95dc52dad729;
+ Wed, 26 Feb 2025 18:07:37 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-abb90c20baeso900365466b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 09:07:37 -0800 (PST)
+Received: from [172.24.85.51] ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-abed20b6cfbsm360302666b.175.2025.02.26.09.07.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 26 Feb 2025 09:07:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,166 +44,204 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 21550245-f462-11ef-9aae-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1740588777;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Qf/Qm0nkzf7U3vlvRsLDs3vQoV9ABJSWnA6WtOiN2ig=;
-	b=F3p7MeKQY93rTAEtXvGAxtrVuCkWpAL6ijEGoQn6twsLWbzXpcxADa6nWMbEwv3+6zMqxV
-	UAfxgl9qvH2HeMBmaPHuiek/Jrgcid5OwLAxNODHBBkWnJ1UGVIIUpvVhxrCP/6tNUvfUa
-	1U9xQUNMLFujeOPpVIRnPCBO780vGRI=
-X-MC-Unique: WZigUjCYOv6_zK2Nnt7VMA-1
-X-Mimecast-MFC-AGG-ID: WZigUjCYOv6_zK2Nnt7VMA_1740588774
+X-Inumbo-ID: 2e051797-f464-11ef-9aae-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1740589657; x=1741194457; darn=lists.xenproject.org;
+        h=in-reply-to:content-language:references:cc:to:from:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Qc019Qg7RRw46z/L2MVxZEpFIRL1DugWS+9NSv/WwFo=;
+        b=CgbPXNjQs8FZpsS7wftgahVMnhTf32YQWIHm/Py+wzZPa5ZHsCkpgnJKBMSdwvlCIx
+         UQ7JMO0RX0pUa/ZajiDUSbJ+gCzGtV5MruB9aw1IB3p9EJW5ul0vhrPmmjeayQ7YVGsj
+         MureiomV7XLL8gyPi53O1Y+bIQ7QkqopDXr3RlU7CP14dqZ5/5TZMG3iDvr8HiitgIPa
+         Q++39TOe0ti+v5j6tSbLoCcsWqPI4wj9suRysBqzs8vy670NJPTdZLlR/hq2DfZVCe47
+         0fl+HZzdSBaGYdlAmmIGQI6cV1vEgWaorFBHsvqs0tN3fB8V5HSu6byYbPfpB/39J4/s
+         c29g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740588774; x=1741193574;
-        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
-         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Qf/Qm0nkzf7U3vlvRsLDs3vQoV9ABJSWnA6WtOiN2ig=;
-        b=ONe9m+AF6cCfOEByxkdbX1oR/T2k8dzAReMDmaQQDIbK01q7llh341LjcFJq9PyDeS
-         u5GOOYBx957aQZokKrKTehhNrKoykmpKgf0KrDaEqI2/PEPo5cR72PIGYhGoCrQyOUme
-         NpXq+IpvIzOg2w1aDIvG4MvBxXiAnmYp2zpEtuz/6LQ5SH3XC1V9jhe+AbIG/RSRALb/
-         RmoWkrixbnHtxgYPRljM7Kto3eJlQvAG242V+e1RVHtX79vSJXRoZYqGQETG2apekDuZ
-         7ECp2ki84Xg+VUkq4xey3s96RdqfXD8dbCrHgztOH/o9O7e2tGLmCDMvtfT1MAM6ZMlo
-         i4dw==
-X-Forwarded-Encrypted: i=1; AJvYcCUAQbnEtJaq9QL9l04gbkIcLXovsNRB24rGPuQtkat35RHirnwRCImD7F/5oz6LxG8Vt1hDfRpL9GM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyuBCNdFdET7IEVLI8wBcNkjNruUJJf64zxwbTkvGFPXT+ClPYQ
-	jWWKjT6cP93VSd3iLhO2kXKRv5JbhFN6s2oqPiTaV4f+tH0NTK8z8WKWzuGvm3R5TvSVsaLgEH7
-	aFFMO2RBwwoXwFV1Tm/6150qByTwcVvPrRoSOZvolC2Yorbj/Krn1ga1L7ZpXEpES
-X-Gm-Gg: ASbGncvT4mR44y8CgkyJyfAj14ZMnYn8nuPItccIJtlDKBOwm2Z8JIyo+XZa2H+glo9
-	DK8Mdmg+W1r8FcwBnm/YVYdjA6diSK6KbRY5c436bedpUtOFLUjFNwPsH0nPg5k8XYLOlI0Tg4M
-	o+I1kp6ICEzHH0oTakcvdp6B5EzFGk++U0TU3oe6mplRVq86VwPwx7ALNtN2p4PEsINfvt6PFpx
-	fP/mIgLI4LY2IrC3KqQSEsRZyKph8t6ze14Rp7iYnikUi68u9CxqVhPwN3smt0F6KT9PcolgMIH
-	TokEzzD85AH96fAXittzwWvlp1eavLCq/XvyGVGtlyVnyrIDzNSI6ropnEn14wOPKeNZDFAVUoD
-	M
-X-Received: by 2002:a05:600c:ca:b0:439:91c7:895a with SMTP id 5b1f17b1804b1-43afddc6489mr797545e9.7.1740588774301;
-        Wed, 26 Feb 2025 08:52:54 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGWpDWParbyEFSiQubNArY/pYMHk4T+vY7Yfjqs/xu0tXoSgFv+Leti7F7TfR+hujI+3HmBjw==
-X-Received: by 2002:a05:600c:ca:b0:439:91c7:895a with SMTP id 5b1f17b1804b1-43afddc6489mr797035e9.7.1740588773857;
-        Wed, 26 Feb 2025 08:52:53 -0800 (PST)
-From: Valentin Schneider <vschneid@redhat.com>
-To: Dave Hansen <dave.hansen@intel.com>, Jann Horn <jannh@google.com>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- virtualization@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
- linux-perf-users@vger.kernel.org, xen-devel@lists.xenproject.org,
- kvm@vger.kernel.org, linux-arch@vger.kernel.org, rcu@vger.kernel.org,
- linux-hardening@vger.kernel.org, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, bpf@vger.kernel.org,
- bcm-kernel-feedback-list@broadcom.com, Juergen Gross <jgross@suse.com>,
- Ajay Kaher <ajay.kaher@broadcom.com>, Alexey Makhalov
- <alexey.amakhalov@broadcom.com>, Russell King <linux@armlinux.org.uk>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, Paul
- Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave
- Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Peter Zijlstra <peterz@infradead.org>, Arnaldo Carvalho de Melo
- <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>, Alexander Shishkin
- <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, Ian
- Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
- "Liang, Kan" <kan.liang@linux.intel.com>, Boris Ostrovsky
- <boris.ostrovsky@oracle.com>, Josh Poimboeuf <jpoimboe@kernel.org>, Pawan
- Gupta <pawan.kumar.gupta@linux.intel.com>, Sean Christopherson
- <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, Andy Lutomirski
- <luto@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Frederic Weisbecker
- <frederic@kernel.org>, "Paul E. McKenney" <paulmck@kernel.org>, Jason
- Baron <jbaron@akamai.com>, Steven Rostedt <rostedt@goodmis.org>, Ard
- Biesheuvel <ardb@kernel.org>, Neeraj Upadhyay
- <neeraj.upadhyay@kernel.org>, Joel Fernandes <joel@joelfernandes.org>,
- Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun.feng@gmail.com>,
- Uladzislau Rezki <urezki@gmail.com>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>,
- Zqiang <qiang.zhang1211@gmail.com>, Juri Lelli <juri.lelli@redhat.com>,
- Clark Williams <williams@redhat.com>, Yair Podemsky <ypodemsk@redhat.com>,
- Tomas Glozar <tglozar@redhat.com>, Vincent Guittot
- <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Kees Cook
- <kees@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Christoph
- Hellwig <hch@infradead.org>, Shuah Khan <shuah@kernel.org>, Sami Tolvanen
- <samitolvanen@google.com>, Miguel Ojeda <ojeda@kernel.org>, Alice Ryhl
- <aliceryhl@google.com>, "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Samuel Holland <samuel.holland@sifive.com>, Rong Xu <xur@google.com>,
- Nicolas Saenz Julienne <nsaenzju@redhat.com>, Geert Uytterhoeven
- <geert@linux-m68k.org>, Yosry Ahmed <yosryahmed@google.com>, "Kirill A.
- Shutemov" <kirill.shutemov@linux.intel.com>, "Masami Hiramatsu (Google)"
- <mhiramat@kernel.org>, Jinghao Jia <jinghao7@illinois.edu>, Luis
- Chamberlain <mcgrof@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
- Tiezhu Yang <yangtiezhu@loongson.cn>
-Subject: Re: [PATCH v4 29/30] x86/mm, mm/vmalloc: Defer
- flush_tlb_kernel_range() targeting NOHZ_FULL CPUs
-In-Reply-To: <408ebd8b-4bfb-4c4f-b118-7fe853c6e897@intel.com>
-References: <20250114175143.81438-1-vschneid@redhat.com>
- <20250114175143.81438-30-vschneid@redhat.com>
- <CAG48ez1Mh+DOy0ysOo7Qioxh1W7xWQyK9CLGNU9TGOsLXbg=gQ@mail.gmail.com>
- <xhsmh34hhh37q.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
- <CAG48ez3H8OVP1GxBLdmFgusvT1gQhwu2SiXbgi8T9uuCYVK52w@mail.gmail.com>
- <xhsmh5xlhk5p2.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
- <CAG48ez1EAATYcX520Nnw=P8XtUDSr5pe+qGH1YVNk3xN2LE05g@mail.gmail.com>
- <xhsmh34gkk3ls.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
- <352317e3-c7dc-43b4-b4cb-9644489318d0@intel.com>
- <xhsmhjz9mj2qo.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
- <d0450bc8-6585-49ca-9cad-49e65934bd5c@intel.com>
- <xhsmhh64qhssj.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
- <eef09bdc-7546-462b-9ac0-661a44d2ceae@intel.com>
- <xhsmhfrk84k5k.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
- <408ebd8b-4bfb-4c4f-b118-7fe853c6e897@intel.com>
-Date: Wed, 26 Feb 2025 17:52:50 +0100
-Message-ID: <xhsmhfrk0lkbh.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
+        d=1e100.net; s=20230601; t=1740589657; x=1741194457;
+        h=in-reply-to:content-language:references:cc:to:from:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Qc019Qg7RRw46z/L2MVxZEpFIRL1DugWS+9NSv/WwFo=;
+        b=RpOO/c1ipcskveXRzBDUccb+rf2brmFIKWZQXDKL9Fb3JcA5lKWjdV0oTMLXpJzIgA
+         2iC5Dz8rjZfgmukHRyjKqZaOrkScadQw4C/O79tLM/xCt7ukZkp5UNqVNnv+q1+FgTOx
+         RWaxhbqK9rjgCG2PjhJ+bMcxLCppHEZMTKz0dzjo5bUVOYV2opxhqPN+1brh8ocDUEH/
+         GTKICPMFGl9K3gDqGgIa9JYiofrwEGJYGSqHy5BQvwwt3fHPGzOGtK74IyvnGrkXfEH1
+         R7ay3Kn+Ac7TdNIyTSQQtNwxqWXLnqUMfODNBY34OYx4j/hTBYBiF3StqqjfOizAB6m0
+         VXLQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXxgXmj5brFLj6BsnmiVwM9+cxD+L9PB5vrKcH710LgCtF8r9HXtlG6eJCR1jYx69u/Gv8SXTWV8bk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwlOeKnbhpO+foPxSfKPs+Dzt1gi86X9zN48jWokvnQKYvCnnXU
+	nHHm29Ph/1T903j9tmPUnBLVLZTaofOg7WNxLY6BNYcpTR+zAUw7
+X-Gm-Gg: ASbGncuJIg7radJnrjT4HW6RPH0jCEqhE0dMY7v6JbM5q860Sk4FewQZIomaQOJoNLn
+	c7Z+Oq40IgBUDGbZR1p1mTSrhd+RodOAEQ5l80yjc8KWaN5Y1wylW1fukncCVtx0xRib9eKN7ah
+	H0pI9YslaH2yA1qOvZcXUGiWL3Dj8zTqs11pu6rKwCUhNPuvXvl4MeFH5S3X5joORRWr/RjVfZW
+	ZiibfyX0jEaAZ4KfUfuj1pmUE0oPRHJySphChSkBLBo4E+AHcPIGeZElWBRZJW9+XB/KGpTt5Ue
+	DGbeeFdqhtmetonJHV83vT2wvYQ+pGUUed8=
+X-Google-Smtp-Source: AGHT+IG0gXLl7ds2H1OHFzWKLK0FFpXrLw2qOCsjUKLR3RR9NnxE3oE8eYH/kw4oGUonAmCCd0BuZQ==
+X-Received: by 2002:a17:906:318b:b0:abb:b322:2b37 with SMTP id a640c23a62f3a-abc0d9888eemr1787669566b.7.1740589656933;
+        Wed, 26 Feb 2025 09:07:36 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------CIxkhMeaIJuyiLSR1U4TiAb6"
+Message-ID: <957413e1-b348-44c2-9d72-4af8d155518c@gmail.com>
+Date: Wed, 26 Feb 2025 18:07:35 +0100
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Ue93r7otwgf-UP8rZ_ebq2Pws1xSOnPlLFT3FyIqf64_1740588774
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for 4.20 v2] CHANGELOG.md: Finalize changes in 4.20
+ release cycle
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Juergen Gross
+ <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Community Manager <community.manager@xenproject.org>,
+ "committers @ xenproject . org" <committers@xenproject.org>
+References: <20250226104556.36324-1-oleksii.kurochko@gmail.com>
+ <5e917a68-c350-4d98-aa66-840d678486d6@citrix.com>
+ <9d024b2f-32cc-4a22-8b45-0811ae4e07f7@suse.com>
+ <8a64a0a4-7e6a-4503-ac96-0b9c5d18b197@citrix.com>
+ <3046f71e-78c3-43ad-8dee-b452e21403cb@gmail.com>
+Content-Language: en-US
+In-Reply-To: <3046f71e-78c3-43ad-8dee-b452e21403cb@gmail.com>
 
-On 20/02/25 09:38, Dave Hansen wrote:
-> On 2/20/25 09:10, Valentin Schneider wrote:
->>> The LDT and maybe the PEBS buffers are the only implicit supervisor
->>> accesses to vmalloc()'d memory that I can think of. But those are both
->>> handled specially and shouldn't ever get zapped while in use. The LDT
->>> replacement has its own IPIs separate from TLB flushing.
->>>
->>> But I'm actually not all that worried about accesses while actually
->>> running userspace. It's that "danger zone" in the kernel between entry
->>> and when the TLB might have dangerous garbage in it.
->>>
->> So say we have kPTI, thus no vmalloc() mapped in CR3 when running
->> userspace, and do a full TLB flush right before switching to userspace -
->> could the TLB still end up with vmalloc()-range-related entries when we're
->> back in the kernel and going through the danger zone?
+This is a multi-part message in MIME format.
+--------------CIxkhMeaIJuyiLSR1U4TiAb6
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+
+On 2/26/25 4:27 PM, Oleksii Kurochko wrote:
 >
-> Yes, because the danger zone includes the switch back to the kernel CR3
-> with vmalloc() fully mapped. All bets are off about what's in the TLB
-> the moment that CR3 write occurs.
 >
-> Actually, you could probably use that.
+> On 2/26/25 4:20 PM, Andrew Cooper wrote:
+>> On 26/02/2025 3:17 pm, Juergen Gross wrote:
+>>> On 26.02.25 16:12, Andrew Cooper wrote:
+>>>> On 26/02/2025 10:45 am, Oleksii Kurochko wrote:
+>>>>> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+>>>>> ---
+>>>>> Changes in v2:
+>>>>>    - Drop "Support device passthrough when dom0 is PVH on Xen" from
+>>>>>      CHANGELOD.md becuase it isn't really ready:
+>>>>>     
+>>>>> https://lore.kernel.org/xen-devel/31db7d34-3338-4d88-8721-f2cd4b68f3b9@gmail.com/T/#m725b559864e5ed6163b59a088b437aa10c36ff16
+>>>>> ---
+>>>>>    CHANGELOG.md | 9 +++++++++
+>>>>>    1 file changed, 9 insertions(+)
+>>>>>
+>>>>> diff --git a/CHANGELOG.md b/CHANGELOG.md
+>>>>> index 1979166820..5f5a40855a 100644
+>>>>> --- a/CHANGELOG.md
+>>>>> +++ b/CHANGELOG.md
+>>>>> @@ -18,6 +18,11 @@ The format is based on [Keep a
+>>>>> Changelog](https://keepachangelog.com/en/1.0.0/)
+>>>>>     - Fixed blkif protocol specification for sector sizes different
+>>>>> than 512b.
+>>>>>     - The dombuilder in libxenguest no longer un-gzips secondary
+>>>>> modules, instead
+>>>>>       leaving this to the guest kernel to do in guest context.
+>>>>> + - Reduce xenstore library dependencies.
+>>>> What is this in reference to?  I don't think all of Juergen's series has
+>>>> been merged yet.
+>>> Not all of the series has been merged, but some library dependencies have
+>>> been dropped already (e.g. to libxenguest). This is especially affecting
+>>> the build of xenstore-stubdom positively.
+> Yes, it is connected to stubdom:
+>   https://lore.kernel.org/xen-devel/20241010155459.22389-1-jgross@suse.com/
 >
-> If a mapping is in the PTI user page table, you can't defer the flushes
-> for it. Basically the same rule for text poking in the danger zone.
->
-> If there's a deferred flush pending, make sure that all of the
-> SWITCH_TO_KERNEL_CR3's fully flush the TLB. You'd need something similar
-> to user_pcid_flush_mask.
->
+> ~ Oleksii
 
-Right, that's what I (roughly) had in mind...
+Do we need some rewording for the item in CHANGELOG.md?
 
-> But, honestly, I'm still not sure this is worth all the trouble. If
-> folks want to avoid IPIs for TLB flushes, there are hardware features
-> that *DO* that. Just get new hardware instead of adding this complicated
-> pile of software that we have to maintain forever. In 10 years, we'll
-> still have this software *and* 95% of our hardware has the hardware
-> feature too.
+~ Oleksii
+   
 
-... But yeah, it pretty much circumvents arch_context_tracking_work, or at
-the very least adds an early(er) flushing of the context tracking
-work... Urgh.
+--------------CIxkhMeaIJuyiLSR1U4TiAb6
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for grounding my wild ideas into reality. I'll try to think some
-more see if I see any other way out (other than "buy hardware that does
-what you want and ditch the one that doesn't").
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2/26/25 4:27 PM, Oleksii Kurochko
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:3046f71e-78c3-43ad-8dee-b452e21403cb@gmail.com">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <p><br>
+      </p>
+      <div class="moz-cite-prefix">On 2/26/25 4:20 PM, Andrew Cooper
+        wrote:<br>
+      </div>
+      <blockquote type="cite"
+        cite="mid:8a64a0a4-7e6a-4503-ac96-0b9c5d18b197@citrix.com">
+        <pre wrap="" class="moz-quote-pre">On 26/02/2025 3:17 pm, Juergen Gross wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On 26.02.25 16:12, Andrew Cooper wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">On 26/02/2025 10:45 am, Oleksii Kurochko wrote:
+</pre>
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">Signed-off-by: Oleksii Kurochko <a
+              class="moz-txt-link-rfc2396E"
+              href="mailto:oleksii.kurochko@gmail.com"
+              moz-do-not-send="true">&lt;oleksii.kurochko@gmail.com&gt;</a>
+---
+Changes in v2:
+  - Drop "Support device passthrough when dom0 is PVH on Xen" from
+    CHANGELOD.md becuase it isn't really ready:
+   
+<a class="moz-txt-link-freetext"
+href="https://lore.kernel.org/xen-devel/31db7d34-3338-4d88-8721-f2cd4b68f3b9@gmail.com/T/#m725b559864e5ed6163b59a088b437aa10c36ff16"
+              moz-do-not-send="true">https://lore.kernel.org/xen-devel/31db7d34-3338-4d88-8721-f2cd4b68f3b9@gmail.com/T/#m725b559864e5ed6163b59a088b437aa10c36ff16</a>
+---
+  CHANGELOG.md | 9 +++++++++
+  1 file changed, 9 insertions(+)
 
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 1979166820..5f5a40855a 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -18,6 +18,11 @@ The format is based on [Keep a
+Changelog](<a class="moz-txt-link-freetext"
+              href="https://keepachangelog.com/en/1.0.0/"
+              moz-do-not-send="true">https://keepachangelog.com/en/1.0.0/</a>)
+   - Fixed blkif protocol specification for sector sizes different
+than 512b.
+   - The dombuilder in libxenguest no longer un-gzips secondary
+modules, instead
+     leaving this to the guest kernel to do in guest context.
++ - Reduce xenstore library dependencies.
+</pre>
+            </blockquote>
+            <pre wrap="" class="moz-quote-pre">What is this in reference to?  I don't think all of Juergen's series has
+been merged yet.
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">Not all of the series has been merged, but some library dependencies have
+been dropped already (e.g. to libxenguest). This is especially affecting
+the build of xenstore-stubdom positively.</pre>
+        </blockquote>
+      </blockquote>
+      <pre>Yes, it is connected to stubdom:</pre>
+      <pre> <a class="moz-txt-link-freetext"
+href="https://lore.kernel.org/xen-devel/20241010155459.22389-1-jgross@suse.com/"
+      moz-do-not-send="true">https://lore.kernel.org/xen-devel/20241010155459.22389-1-jgross@suse.com/</a>
+
+~ Oleksii</pre>
+    </blockquote>
+    <pre>Do we need some rewording for the item in CHANGELOG.md?
+
+~ Oleksii
+  
+</pre>
+    <p></p>
+  </body>
+</html>
+
+--------------CIxkhMeaIJuyiLSR1U4TiAb6--
 
