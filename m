@@ -2,37 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39C52A46828
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 18:34:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.897139.1305857 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBAA2A469EF
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 19:40:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.897152.1305867 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnLI9-0006PS-Iq; Wed, 26 Feb 2025 17:33:53 +0000
+	id 1tnMJS-0007o9-5G; Wed, 26 Feb 2025 18:39:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 897139.1305857; Wed, 26 Feb 2025 17:33:53 +0000
+Received: by outflank-mailman (output) from mailman id 897152.1305867; Wed, 26 Feb 2025 18:39:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnLI9-0006Nu-Eu; Wed, 26 Feb 2025 17:33:53 +0000
-Received: by outflank-mailman (input) for mailman id 897139;
- Wed, 26 Feb 2025 17:33:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=y9YQ=VR=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tnLI7-0006No-KJ
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 17:33:51 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d6b8f8d7-f467-11ef-9897-31a8f345e629;
- Wed, 26 Feb 2025 18:33:49 +0100 (CET)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-5e058ca6806so12498770a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 09:33:49 -0800 (PST)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abed205c28asm359206166b.158.2025.02.26.09.33.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Feb 2025 09:33:48 -0800 (PST)
+	id 1tnMJS-0007m6-2H; Wed, 26 Feb 2025 18:39:18 +0000
+Received: by outflank-mailman (input) for mailman id 897152;
+ Wed, 26 Feb 2025 18:39:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=UxMA=VR=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1tnMJP-0007m0-9s
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 18:39:16 +0000
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f9150d18-f470-11ef-9aae-95dc52dad729;
+ Wed, 26 Feb 2025 19:39:13 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,106 +36,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d6b8f8d7-f467-11ef-9897-31a8f345e629
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1740591229; x=1741196029; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=lSGItwYuz0Wxc+Oa5Ba7YQeYE+6xEHm4QVjsv41Uh9Q=;
-        b=vUQIs28UvNWcx7YX80ZrEn5RQL17/MSNjiI8M9c/fEA4i92abePD7y3+bOT872HByM
-         kZCfmKkKbS9HGjQK4Ju4oyqfSaEhFNN2MLQjpsflnqx3JDXT5T8TwYurq/DtJESwNiVw
-         IwT5+BI4w3pdcsYHtRWlz5UHbfEnKmFCCmQHA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740591229; x=1741196029;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=lSGItwYuz0Wxc+Oa5Ba7YQeYE+6xEHm4QVjsv41Uh9Q=;
-        b=UDmzJA+4QT8jCGLOgzVBCn2zNwBfuhnZK79vAsiMTxBfnMq/YeyO9pUJDsaRwG5Dbu
-         qT+YdpR+D3xREcP7oVO0eFbdp6fFCvDmJnS/C4FgfGltjga9W+JOJPHx6/WXgJw3nxYa
-         fxTjAjag95UenTzm+bpJMe/V2sVpZjivPFhuKo9hgauRO1Uu2lPAWd+u64SSEiSHrs64
-         f7YKDErP2QO1lO35b87Kk0UGtH/xk1djHR6vsYBVMooKkkcis+74dZp7SR2w/N5N6Iru
-         0ztv7jnJGydSA1FjGg/klDGbC8T+ZZChHdL2Zxx+UYw3KK0qiDuZkjnuk5/NEtQGyUs5
-         g6bw==
-X-Forwarded-Encrypted: i=1; AJvYcCU763CuA4blPopj/jeV3zKbWPe8eJqt0OGOXmlJAy4VFbn6vIvmRIO9QwVA999DyXIPza21IduPh1Q=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzqJfi+G/94a/cgfOmgpm58sqSdrlFBPhiGkK+pOaTk9z5fGhjp
-	RWv4V4DYRAhFm1OUCRUdRM85JeFtYqHvowynSDlAITGwrzZLLU8i/oLvbkQZous=
-X-Gm-Gg: ASbGnctoHZKW/x3SUop2Swe8H5Wu4aEpS2TRx2CfXXa5VOOavOl2j2n+oR8fe20GBcg
-	OZNDAHzqYfQR7Tk8L6Ytqf7b2NsOUTbY4o1mlsmvCXMfnYtejQfcSbYIcnMTaubxjioVGe+mjja
-	IY6dOq2MLsHOARW+VW1Bq/S7xNJ2Gqh4v0dVeeouH37QjZNCcWjl0VyUZn2zni7eYDTWxOu1/8z
-	kcgn5H3GgvRdVYbeYIrg04VAW5SKmgkbiGZ5fpdbhRBDPXhipxq7RRrUaNLisnaJuS2So5oeOl1
-	ZGi9WmdCSZ9b9wVru9IWT3tEugC9nuo=
-X-Google-Smtp-Source: AGHT+IEscmj+MtBFOmmTx/kGSl2zk/sVjiafmN6npf1fQ3uNSKpQ+ujnJGQ4t5V/RL8Mgi5gtZ5mUA==
-X-Received: by 2002:a17:906:6a04:b0:ab7:db5d:44ea with SMTP id a640c23a62f3a-abc0da391f0mr2306317066b.27.1740591228828;
-        Wed, 26 Feb 2025 09:33:48 -0800 (PST)
-Date: Wed, 26 Feb 2025 18:33:47 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+X-Inumbo-ID: f9150d18-f470-11ef-9aae-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1740595151; x=1740854351;
+	bh=cZm7m8oDhbS80aDkBqH8CHonuDcIBkWMOqyG+7WetCg=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
+	b=hbBYATaLXbFYWTV3qnQtilMlJu96MwXKveF8+FygJvYZgHkZrlSLHZJHPwVh5JRsv
+	 xokK6f9H7LHU7f1Mmr8dnMvPB+qc72ftYLjdiS0+loFaogBC6XQ90qr/LCpQHJZWu9
+	 L1JdhxrpAdoebrW1VqRmbsIr4e2aMDWZ9tmd0iPhon0IQ0Fy5QrCj5YKHS1k0vIuZb
+	 G4bMNsvNM2QGmK+yMPim9cb3zBMTmbYbnC4wzu4DYE9uEcWohCphEaWc1L8ilvEtzS
+	 VHbQdiVridncT6fTp0zExRfPkrGh1e+T8caXn4O+wotvISpG+PqUWshjRwBRVwNKyT
+	 vUIb4pYVHgs6g==
+Date: Wed, 26 Feb 2025 18:39:07 +0000
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] x86/hvm: Add APIC IDs to the per-vLAPIC save area
-Message-ID: <Z79Qe3kMS18P6JNQ@macbook.local>
-References: <20250218142259.6697-1-alejandro.vallejo@cloud.com>
- <1de43f95-5ed1-46c1-a157-094ceb84ac83@suse.com>
+From: Denis Mukhin <dmkhn@proton.me>
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] xen/console: introduce console_{get,put}_domain()
+Message-ID: <4fIn4-lOrAgG5CkcxCJ-10lj4uGVZmQZpKtP4OZwzSyWyOqmxghZ4UCNsWf7x5vJi9I25YuVZqyTFqrVcRjgD4s4DqrLJrCGkVID4tNSgjk=@proton.me>
+In-Reply-To: <d955ba46-6556-40dd-9809-8f64c53dd704@suse.com>
+References: <20250218083048.596012-1-dmkhn@proton.me> <d955ba46-6556-40dd-9809-8f64c53dd704@suse.com>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: 55b6029a69ea01f579055b76b494cbf4124f2b54
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <1de43f95-5ed1-46c1-a157-094ceb84ac83@suse.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Feb 26, 2025 at 02:11:23PM +0100, Jan Beulich wrote:
-> On 18.02.2025 15:22, Alejandro Vallejo wrote:
-> > Today, Xen hardcodes apic_id = vcpu_id * 2, but this is unwise and
-> > interferes with providing accurate topology information to the guest.
-> > 
-> > Introduce a new x2apic_id field into hvm_hw_lapic.  This is immutable
-> > state from the guest's point of view, but it will allow the toolstack to
-> > eventually configure the value, and for the value to move on migrate.
-> > 
-> > For backwards compatibility, the patch rebuilds the old-style APIC IDs
-> > from migration streams lacking them when they aren't present.
-> 
-> Nit: "when they aren't present" looks to duplicate "lacking them"?
-> 
-> > Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+On Wednesday, February 26th, 2025 at 3:30 AM, Jan Beulich <jbeulich@suse.co=
+m> wrote:
+
+>=20
+>=20
+> On 18.02.2025 09:31, dmkhn@proton.me wrote:
+>=20
+> > From: Denis Mukhin dmukhin@ford.com
+> >=20
+> > console_input_domain() takes an RCU lock to protect domain structure.
+> > That implies call to rcu_unlock_domain() after use.
+> >=20
+> > Introduce a pair of console_get_domain() / console_put_domain() to high=
+light
+> > the correct use of the call within the code interacting with Xen consol=
+e
+> > driver.
+> >=20
+> > The new calls used in __serial_rx(), which also fixed console forwardin=
+g to
+> > late hardware domains which run with domain IDs different from 0.
+> >=20
+> > Signed-off-by: Denis Mukhin dmukhin@ford.com
 > > ---
-> > I've split this one from the rest of the topology series as it's independent
-> > and entangled with another patch from Andrew.
-> 
-> Albeit I think meanwhile we've settled that the entangling isn't quite as
-> problematic.
-> 
-> > @@ -1621,6 +1624,14 @@ static int cf_check lapic_load_hidden(struct domain *d, hvm_domain_context_t *h)
-> >          return -EINVAL;
-> >      }
-> >  
-> > +    /*
-> > +     * Xen 4.20 and earlier had no x2APIC ID in the migration stream and
-> > +     * hard-coded "vcpu_id * 2". Default back to this if we have a
-> > +     * zero-extended record.
-> > +     */
-> > +    if ( h->size <= offsetof(struct hvm_hw_lapic, x2apic_id) )
-> > +        s->hw.x2apic_id = v->vcpu_id * 2;
-> 
-> While we better wouldn't get to see such input, it is in principle possible
-> to have an input stream with, say, half the field. Imo the condition ought
-> to be such that we'd make the adjustment when less than the full field is
-> available.
+> > Link to the original patch:
+> > https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v3-v1-4-c5d36b3=
+1d66c@ford.com/
+> > ---
+> > xen/arch/arm/vpl011.c | 6 ++---
+> > xen/drivers/char/console.c | 53 +++++++++++++++++++-------------------
+> > xen/include/xen/console.h | 3 ++-
+> > 3 files changed, 32 insertions(+), 30 deletions(-)
+>=20
+>=20
+> This patch doesn't apply to staging. Looks like it depends on "arm/vuart:
+> move vpl011-related code to vpl011 emulator" without this being said anyw=
+here.
 
-I would add an additional check to ensure _rsvd0 remains 0, to avoid
-further additions from attempting to reuse that padding space.
+Correct, this patch depends on
+  https://lore.kernel.org/xen-devel/20250212211802.1669675-1-dmukhin@ford.c=
+om/
+and I have R-b:
+  https://lore.kernel.org/xen-devel/alpine.DEB.2.22.394.2502121412500.61909=
+0@ubuntu-linux-20-04-desktop/
 
-if ( s->hw._rsvd0 )
-    return -EINVAL;
-
-In fact I would be tempted to overwrite the ID if the stream size
-doesn't match the expected one, ie:
-
-if ( h->size < (offsetof(struct hvm_hw_lapic, _rsvd0) +
-                sizeof(s->hw._rsvd0)) )
-    s->hw.x2apic_id = v->vcpu_id * 2;
-
-Regards, Roger.
+>=20
+> Jan
 
