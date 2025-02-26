@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F449A45C1A
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 11:48:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.896349.1305031 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A4EFA45C25
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 11:50:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.896358.1305041 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnExo-0007Ed-MP; Wed, 26 Feb 2025 10:48:28 +0000
+	id 1tnF02-0000Ml-1r; Wed, 26 Feb 2025 10:50:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 896349.1305031; Wed, 26 Feb 2025 10:48:28 +0000
+Received: by outflank-mailman (output) from mailman id 896358.1305041; Wed, 26 Feb 2025 10:50:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnExo-0007BW-Jr; Wed, 26 Feb 2025 10:48:28 +0000
-Received: by outflank-mailman (input) for mailman id 896349;
- Wed, 26 Feb 2025 10:48:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tnF01-0000KX-VI; Wed, 26 Feb 2025 10:50:45 +0000
+Received: by outflank-mailman (input) for mailman id 896358;
+ Wed, 26 Feb 2025 10:50:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J4Ti=VR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tnExn-0007BQ-F5
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 10:48:27 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 34881fb6-f42f-11ef-9897-31a8f345e629;
- Wed, 26 Feb 2025 11:48:25 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-4399ee18a57so4431285e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 02:48:25 -0800 (PST)
+ id 1tnF00-0000JB-9s
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 10:50:44 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 868f5183-f42f-11ef-9aae-95dc52dad729;
+ Wed, 26 Feb 2025 11:50:43 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-4399d14334aso58092975e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 02:50:43 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43aba549eb9sm16814895e9.37.2025.02.26.02.48.24
+ 5b1f17b1804b1-43aba5442c0sm16815915e9.32.2025.02.26.02.50.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Feb 2025 02:48:24 -0800 (PST)
+ Wed, 26 Feb 2025 02:50:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 34881fb6-f42f-11ef-9897-31a8f345e629
+X-Inumbo-ID: 868f5183-f42f-11ef-9aae-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740566905; x=1741171705; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1740567042; x=1741171842; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BLdmoSrIL4bVnx4zfs232V4a4x4R0T70kGxqY4WZbSQ=;
-        b=PUEmN5Lnhk1R1H67gI35GVfCF1CeRj4d9ZPQE/NZwZH0uxcug55b4Q+qcyu9pcM+gQ
-         RGzZRZkhI5MxmOj/u7SzVJ3+Tp4L8G9P52eUZRrVRBtviFVpjfOIisgutSpgz9z4Jnqw
-         fY0sUr/Ijxd+rhL5Ihb/a1Jc8Mz9MMx2go4kZzSE2QVE01uuGUkhclFz+NPt294vD+X5
-         8Z+aG11ZgvMFeXHwhAhaud0c+g7eEVB1XvmeLdQTR3qFHjYv8OhUNihk9Z3zwVTk5N0p
-         1+t6oodqqstg0wjbi6kHe/BLL1PKMh6HDvED3vQxB+QCprY3QizvcDyD5Vm5E1zX+/w+
-         +pPg==
+        bh=SczHkmegOCDVbkpeQi3BlhQf/4uooD+2riH2LJn/dV8=;
+        b=FjhvXsBh9amjJEIUdnd68jI22BtoC7aBeZ/uUHpocfAcYFtm2H4i4Wgo9Tm3O/r3n7
+         6uhyvycCHrlt5jvWSC1zdvfUst6mEgElh3W+sE7Q6zudFVAxzC8AXv/So/i6jE8ug6Ug
+         cQsudVyvn/KH4zn5TLQJE14FZ3asFWLIgEZSStGn63NC7aL1+mKkl9KJ8ORRJGvW47rw
+         /qjjSx3VqlTcvDg6WcyYqG2O/dLyuMGjW5tRAfkN7bWcD/EGD+Hhv4z5yyaKEnwpZxTU
+         yApfPwr9Urs9O75pZYyx6M+4zGQB4xHDJvt8OhjLxgBgePkAltHo/IpTZ0Q3Aa2WL1fn
+         QgBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740566905; x=1741171705;
+        d=1e100.net; s=20230601; t=1740567042; x=1741171842;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BLdmoSrIL4bVnx4zfs232V4a4x4R0T70kGxqY4WZbSQ=;
-        b=cnBB8UQcSRKb/38HVxgzXmUllJ739jGST2qKyYm8StTuCm+OJSc7jE7/88MnkTIIKq
-         ino3rdxYf7iyqSb8XvE99Dp2FZl+TY2I2Ymion8ipU8xHdS+r8gy+3XC02ljvwrpM2yt
-         wzPmiJtuAxZjmB05Dua5OP+/0bJH7ZwHaCnYEoJSPpQIbk+fp4hJa3achWVLHZXw3MBm
-         ctkhr9lthquqMZ8AKrGa1GHCPmLJJ5kCpE6I+fKsIkNHD3mmW9Ps1LkWTeh32s0U9tLh
-         +rlJTBiYt6/ATIBeb+ZBP9l0jWjKe5fzYq7hCfP0vcpeysJaLIiQ9xJ16WnpqSblEAFa
-         +FYg==
-X-Forwarded-Encrypted: i=1; AJvYcCXNEQibphcH7j0eRzUS0zii4TEvnhS9smC6Iq3mAtLQCY88NgPcYhLQhyJstPFlJ0kruerhiBQg+b0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxBS0Eskl1B4xSGMRUvZKFZgOaK287vM4TkEMFSct+SeSb0D6y1
-	4GiXkIqUURjF15f7zDjdBe7/3l9JegLVRI9BWYBSjwAGa+UbsHTYsjcMHOdL7g==
-X-Gm-Gg: ASbGncu2Y0OW1UflySYSc02ln36L+gCft1kjK4AHh1v9uUVv5TAKHIGpmR7VRGaZQb9
-	iF5rz92urTqUnH09UKy8VSGhAd1tfVwO9Q6zblzsp0/dplONZnvgwDbcb6ewHX71/4gyc4xqmpz
-	aETlwMUpp9EDZ1a0vXSfm/WHb9NZMIowEY+gY31VzyXD32YTyAySvZwevArWJiLgV9v9mPKrPZ0
-	NFsM22E8Jv/pkDnTDz7tEC2B+gUV55jZ0B8C7V8QdaVc//HXriK1dloZj5CZnZSHUSWscOkr6Nv
-	A38wqajyio0om8+Yd6OUw2dVxJKnR8pqDgx2vQsCNcfy8gHbuXdg37RUSsNQ2E8BwMlIXZh0YFI
-	HKkmmVZafII4=
-X-Google-Smtp-Source: AGHT+IF9p0WAwUfLFaHvtmYqduHfrt6FR9wavuQXYYy5LGfjTAx7UVMl5K/jDvWz1qqKNHQ5sWoKvQ==
-X-Received: by 2002:a05:600c:4e8d:b0:439:892c:dfd0 with SMTP id 5b1f17b1804b1-439a30e91femr214615185e9.14.1740566904958;
-        Wed, 26 Feb 2025 02:48:24 -0800 (PST)
-Message-ID: <82b8b042-564c-4013-863e-499c316be344@suse.com>
-Date: Wed, 26 Feb 2025 11:48:23 +0100
+        bh=SczHkmegOCDVbkpeQi3BlhQf/4uooD+2riH2LJn/dV8=;
+        b=sWUf+tcWZl79HPujhH81sYi37vjcTm5NBGAhtYLjkK6Sx+kBa6VgwhgjpEOoNWLnhP
+         srG8PHfdSTJQUQgAlUdp2msB2EyE90FT3se/rtEg4CnbBw9cCyzW6wpoF/SmLy0J7mrS
+         X65S9q9b/b0K5YGNqR2Bk0p0uVhJ4yOz/TA/OWIgvBmQlz2VoNONxuTJCoa1TYtaVIwR
+         J7goldTzP08mvbQtC8ljqbXu1XrNM/6LaGNxec/jWslOXenEl60R9oX4wXNyg1kEyk9a
+         c0o6InIUqRLIALtgTSULrBgWmq4fDGviaDYng84d+hAu7JGtpuwlrAwul4FBSl6LbKNm
+         nQ4w==
+X-Forwarded-Encrypted: i=1; AJvYcCUJ0UZKKAuLaL7hS2VplbW3OarBV07h4zvmM9n/htlr4WK0c2O7CWRhQ4Zus77EFQs8C7aa/jc8kmM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwqKQ5rjCa1YOV/YFFznnATy7aH7/0LAkwEqqGilhxTEos7Wsk+
+	hLZaK/SGBSRd5wGDRXVTTO+8NVq1P6EVSjRZPb2+aS6xDr9mMeqoIrd8z0mHC8Q4o7E9lcJGBQo
+	=
+X-Gm-Gg: ASbGncuvKjCebWyVHFAZay9l79UWi9h1iQgf1lW7pu9pqHr+fGAMNjCdDIY4XdGyWhW
+	CgZt/FVqytYXBZCB/2fvtgRakjHfnTQJv2o+7cJqLDaj/CUSkHtgRe6JHQ6/ppiXaEn85Ixltrw
+	cQvl6evUcOCEdFAXHRWUPuZ8aI3LcJZIyK1ie4DMzZMQxG1UsPFgg8I9D40szFzkyPyWibABCEr
+	j//DNJvWYJUQ2+uMLYhReM1asNeWlMefzHEKO/S1WuHBxrNO5UEeKAyevhnBUFGcnbQkppKfopn
+	TbpdcjiZOEK2iREEu/tNL1kEOfv4ho3+R0VbcDqRMoRg3KG8lOz5MKZaYgHyk+bZrRiy00qfmhF
+	xgzZsO/Hwmxs=
+X-Google-Smtp-Source: AGHT+IFMAQMe2kK5ROSgLkYiZiTImQ49xmpTxno1Hss6ePlnn42ByAoexp0jxv6sb0zG27LrOQdC9A==
+X-Received: by 2002:a05:600c:3588:b0:439:6304:e28a with SMTP id 5b1f17b1804b1-43ab8f6fe56mr26315065e9.0.1740567042578;
+        Wed, 26 Feb 2025 02:50:42 -0800 (PST)
+Message-ID: <8ec1b722-3af1-4778-9902-0f3278e4309a@suse.com>
+Date: Wed, 26 Feb 2025 11:50:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/8] iommu/arm: Introduce iommu_add_dt_pci_sideband_ids
- API
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>
-Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1739182214.git.mykyta_poturai@epam.com>
- <67b9bd138c12c0df35e5c4b3137c30ad345097d5.1739182214.git.mykyta_poturai@epam.com>
- <67c8ce1e-5559-4567-9eed-970d97c29bda@suse.com>
- <e6ea52a3-c7ce-411f-8186-cf725aa608f3@epam.com>
+Subject: Re: [PATCH for 4.20 v2] CHANGELOG.md: Finalize changes in 4.20
+ release cycle
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Community Manager <community.manager@xenproject.org>,
+ "committers @ xenproject . org" <committers@xenproject.org>,
+ xen-devel@lists.xenproject.org
+References: <20250226104556.36324-1-oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,86 +120,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e6ea52a3-c7ce-411f-8186-cf725aa608f3@epam.com>
+In-Reply-To: <20250226104556.36324-1-oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 26.02.2025 10:58, Mykyta Poturai wrote:
-> On 10.02.25 12:52, Jan Beulich wrote:
->> On 10.02.2025 11:30, Mykyta Poturai wrote:
->>> --- a/xen/drivers/passthrough/iommu.c
->>> +++ b/xen/drivers/passthrough/iommu.c
->>> @@ -20,6 +20,7 @@
->>>   #include <xen/param.h>
->>>   #include <xen/softirq.h>
->>>   #include <xen/keyhandler.h>
->>> +#include <xen/acpi.h>
->>>   #include <xsm/xsm.h>
->>>   
->>>   #ifdef CONFIG_X86
->>> @@ -744,6 +745,18 @@ int __init iommu_get_extra_reserved_device_memory(iommu_grdm_t *func,
->>>       return 0;
->>>   }
->>>   
->>> +int iommu_add_pci_sideband_ids(struct pci_dev *pdev)
->>> +{
->>> +    int ret = -EOPNOTSUPP;
->>> +
->>> +#ifdef CONFIG_HAS_PCI
->>> +    if ( acpi_disabled )
->>> +        ret = iommu_add_dt_pci_sideband_ids(pdev);
->>> +#endif
->>> +
->>> +    return ret;
->>> +}
->>
->> This function has no caller, which violates a Misra rule iirc. Considering
->> all information given here it's also unclear why it would gain a caller on
->> x86 (at least as long as DT isn't used there).
-> 
-> Would it be ok to wrap it with CONFIG_ARM? I am not quite sure how 
-> relevant this mapping functionality is to X86 iommus, although Linux has 
-> similar implementations for ACPI.
+On 26.02.2025 11:45, Oleksii Kurochko wrote:
+> @@ -34,6 +40,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>   - On x86:
+>     - xl suspend/resume subcommands.
+>     - `wallclock` command line option to select time source.
+> +   - Add Support for Paging-Write Feature.
 
-Besides it being unclear to me whether the function is really Arm-specific
-(what about RISC-V or PPC), I also don't see how that would address the
-Misra concern. (If the function was truly Arm-specific, it would better
-move into an Arm-specific source file.)
+That EPT (i.e. Intel) only, which may want making explicit?
 
-> Alternatively, we can remove this abstraction for now, to call 
-> iommu_add_dt_pci_sideband_ids from Arm directly and only introduce it 
-> back when at least some ACPI implementation is done.
+> +   - Zen5 support (including new hardware support to mitigate the SRSO
+> +     speculative vulnerability).
 
-I'd leave that to Arm folks to judge.
-
-> Also, just want to mention the issue that forced me to move this from 
-> the header in the first place in case it is not known. There is a 
-> conflict in fixed width integers definitions between actypes.h and 
-> efibind.h and it was revealed when including acpi.h into iommu.h.
-> I initially tried to fix the source of this conflict, but I don't know 
-> enough about ACPI and EFI quirks to confidently do it.
-> 
-> In file included from ./include/acpi/acpi.h:57,
->                   from ./include/xen/acpi.h:57,
->                   from ./include/xen/iommu.h:28,
->                   from ./include/xen/sched.h:12,
->                   from ./arch/x86/include/asm/paging.h:17,
->                   from ./arch/x86/include/asm/guest_access.h:11,
->                   from ./include/xen/guest_access.h:10,
->                   from arch/x86/efi/runtime.c:5:
-> ./include/acpi/actypes.h:130:35: error: conflicting types for ‘UINT64’; 
-> have ‘long long unsigned int’
->    130 | typedef COMPILER_DEPENDENT_UINT64 UINT64;
->        |                                   ^~~~~~
-> In file included from ./arch/x86/include/asm/efibind.h:2,
->                   from ./common/efi/efi.h:1,
->                   from arch/x86/efi/runtime.c:1:
-> ./arch/x86/include/asm/x86_64/efibind.h:89:20: note: previous 
-> declaration of ‘UINT64’ with type ‘UINT64’ {aka ‘long unsigned int’}
->     89 | typedef uint64_t   UINT64;
-
-Yeah, sadly ACPI and EFI headers (both imported from different origins)
-aren't overly compatible with one another.
+I'd also suggest to qualify Zen5 with AMD. Whether to mention this here
+when I think I backported all the pieces isn't entirely clear to me either.
 
 Jan
 
