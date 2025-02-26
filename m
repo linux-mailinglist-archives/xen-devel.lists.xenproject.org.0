@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D206A458AE
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 09:44:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.896258.1304942 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35524A4599B
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 10:11:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.896268.1304951 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnD1x-00022O-25; Wed, 26 Feb 2025 08:44:37 +0000
+	id 1tnDRc-00072I-1w; Wed, 26 Feb 2025 09:11:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 896258.1304942; Wed, 26 Feb 2025 08:44:37 +0000
+Received: by outflank-mailman (output) from mailman id 896268.1304951; Wed, 26 Feb 2025 09:11:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnD1w-0001zG-V8; Wed, 26 Feb 2025 08:44:36 +0000
-Received: by outflank-mailman (input) for mailman id 896258;
- Wed, 26 Feb 2025 08:44:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=J4Ti=VR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tnD1v-0001zA-KR
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 08:44:35 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e721da3a-f41d-11ef-9aae-95dc52dad729;
- Wed, 26 Feb 2025 09:44:34 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-390dd35c78dso89257f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 00:44:34 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-390cd882af4sm4722205f8f.47.2025.02.26.00.44.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Feb 2025 00:44:33 -0800 (PST)
+	id 1tnDRb-00070L-V7; Wed, 26 Feb 2025 09:11:07 +0000
+Received: by outflank-mailman (input) for mailman id 896268;
+ Wed, 26 Feb 2025 09:11:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=9NM2=VR=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
+ id 1tnDRa-00070F-II
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 09:11:06 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20607.outbound.protection.outlook.com
+ [2a01:111:f403:200a::607])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 997f9b5c-f421-11ef-9897-31a8f345e629;
+ Wed, 26 Feb 2025 10:11:03 +0100 (CET)
+Received: from BL1PR12MB5849.namprd12.prod.outlook.com (2603:10b6:208:384::18)
+ by SJ0PR12MB5674.namprd12.prod.outlook.com (2603:10b6:a03:42c::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8466.19; Wed, 26 Feb
+ 2025 09:10:59 +0000
+Received: from BL1PR12MB5849.namprd12.prod.outlook.com
+ ([fe80::b77f:9333:3a5a:d285]) by BL1PR12MB5849.namprd12.prod.outlook.com
+ ([fe80::b77f:9333:3a5a:d285%6]) with mapi id 15.20.8489.018; Wed, 26 Feb 2025
+ 09:10:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,206 +47,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e721da3a-f41d-11ef-9aae-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740559474; x=1741164274; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=cPQkb62eNsvaBaCt7oLZ5OR18rLO0pxphtrRxlv2Lds=;
-        b=Xp2aEnrVzg+3QjNXNjYykr4A9C2w0IdnnJga0Mmv3Tcf7TZu2ewp2aaiNo/JJ1XEfD
-         QWoDdK0AmJ0lal0OIuV+pWgbHDIDsooqIXFv7S7qbVS1Q+uMTNyTqMyCXxVJe7GdULLF
-         00gBzcNqet859BF5qRR3NZQ8iwAUJqvazaHTHSXDYq8h4YmzsfHm+qXsJa4rZvPR2M5H
-         vFdDTg3E59R+DMdlQxtYzeOXQ0eSbjxZpyqRADcQjr6RQhOiTW56t0xjyPyJGAWVxDGN
-         wqyA+RYr03rT8SjhXm+uajUhWbdMaErIfZCYmbUGku1RNvy8bX8oTOFS7QpCxRgYIr1u
-         ggiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740559474; x=1741164274;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=cPQkb62eNsvaBaCt7oLZ5OR18rLO0pxphtrRxlv2Lds=;
-        b=tdg76BkUL/XQdOGhZNm4skHUDijzfMzD0bE58vhzjzcTw5PiR/sAt7DIESEr5LDP3z
-         OFE0p1sxKlPEVm86WyFu2KmQhOEjleqVBWokVhB8tYiHvkfGJ8KNhDYs0q7zDctBE4Cy
-         zbWs58czsFkNaOL8NmQsbsKx5jj9vGz6sBNlBJ6KAxiqdBrdttPL0kushyapV015ftKk
-         rzqj/ece+TVLbrgvlBqxRq5HyNu6nClzw4Z7RoEvXVfoctU2cbSUoZyXZmJKw/9pupz9
-         rxPy88lybD7+5kJswcPDtUcm6aGPeVxSEaIG0xE+e/nTUW7VlpnXprMEy1dNaaQ7aoTb
-         40OA==
-X-Forwarded-Encrypted: i=1; AJvYcCXGbVQGVlGzKDx4j7QagMFbNd3VuqFxt9w6X5hOcZ+Ga+JQSnjOceu4IKJaame5Mf7t4b8OA3O/KNU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzFSWnHEzELlADtbkYzfUNb/ydkrVbXG0UvMEpoF9VGco0lLUgf
-	6B8C0k9+O8VU+s5gk9CVifN0pPY5XcglJzp/ziXf8C+PUy9kqpi5jjjCIQ/CDQ==
-X-Gm-Gg: ASbGncvRVi0PneJEBKtEs0sGxFGx8JfEc0rEI5rXzzRgxo+W6XvQJlQudPFJA8r6YXG
-	5SBIdN/V2Fi4oD0pm8tyr8ssDo2mO5a0+if+AJxVvQSUIQyLNMqBFCPsvh9TNaaL9vuknFIUFh0
-	aDOMa/9dnVGfXgMomw7na2JXIUZSws/4ZefDojyHzJkxoqQzRr1E36fIvPwjt4A91FHtyk+OJpO
-	805u5kJuMGTQ7NkVbfl3lKUHVDmjC4dZOjihVmH+dRqZ9/ZM4M74lxLvlr8PpIa4frq78AOyp+/
-	jFOdr7G2C9cDD5gXeVQl4simMmiK/XJIDGBgKv4Bc/fYL5KZ2AqPO6RKvlTJboRGuHbMqPGBf7s
-	Z+Y89Nlxq4Pk=
-X-Google-Smtp-Source: AGHT+IF+J/hiKeAZIBz09PTz4XhpC5OEpbZeSs9K/JFE3q7avruVg/e3/Z+t+aXlyJqcDm6HiPLJGw==
-X-Received: by 2002:a5d:6486:0:b0:38f:2c10:da1e with SMTP id ffacd0b85a97d-38f6f51db8amr15543620f8f.27.1740559473652;
-        Wed, 26 Feb 2025 00:44:33 -0800 (PST)
-Message-ID: <b9bdba63-82a4-4833-b8bd-b3788fd02321@suse.com>
-Date: Wed, 26 Feb 2025 09:44:32 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/elf: Improve code generation in elf_core_save_regs()
-From: Jan Beulich <jbeulich@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250225224559.1226079-1-andrew.cooper3@citrix.com>
- <68a14ea8-b6f0-448e-8713-e9696c024c43@suse.com>
+X-Inumbo-ID: 997f9b5c-f421-11ef-9897-31a8f345e629
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lTRhq9ENUK5QE6dSJzAADYCGNJOD+AaxlEKFfinex9ePgz8CXG0JxsDnOpgSAEpF0u+Ys8clVb6pProCpXuVFavI+Q8/oaQLqiBjvzD8tJwTdq0mV4tmF8AeiWhH2HYHfpYA+5OiU8PfHRL4Gx3jo5fLQPyhHnAnsyNmQYz5pU3FPKIod3ijyAqZkRZNMuMgxSCzuukSHpU2Dw5/NsqWiMMDR3XUZx91kmIZQl4Jsfk9QfNQ5oOf5Mk0n/sqNfRyiE7qd1C/yajga0/B8Fl7nouKr1aZyCg+7N1kkaNqyHKejWl8QkoH3DgZg4m4tHxoYVQXw15oIAZhURfhkQUVuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+aEJfyQLKAKU1WJtNiqE2VDMEQ4xDiI7Z15KpY16Bbo=;
+ b=WQuVfcJxbziyer+SV4t3e7yl9Icf3RgxRCdUInQsw8Z9yunp14x0zJlOrI2XaSlkrd72lgf2LaJlUfgNIgmgrqsPBHqPRxCV0XNI/p8dp/JFttQ9nGVbmfhIm5n+MjPtjqemuigondMmATsFXsWJfHH2gPpEpfmpcNFO/G4N76C9dMBftnVWZo4XLFjotfuTEQxiwwE6xLcU0pETnyVATs0RuxjIWQg4gqZhNelu5CGshbrxEc8gRsb1WaBKNWGwfA13MtqTE76eCGyhJWPbKeHxYvORop+b+piMW/CQDM4ASUXMdjHqWUWJYQ2odUaAiKgf0XiuRR5j/GGvciXgGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+aEJfyQLKAKU1WJtNiqE2VDMEQ4xDiI7Z15KpY16Bbo=;
+ b=mRV7i8w97iyR9Bs7vbGCZMv1tDowcf5lmnFcrYFTz0LqubM4DZYZs4zkJCKfsuMcizL1bXNcCgy+XJptu1FDMkvNzuDEFAUqruwv6FWopX3jCuqgHykm3Cul/o2slJMrpqVOh8QcpQSlRZGnZMOP7Ae/9GVO72uimtHE12YbNf0=
+From: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"committers@xenproject.org" <committers@xenproject.org>, Community Manager
+	<community.manager@xenproject.org>
+Subject: Re: [PATCH] CHANGELOG.md: Finalize changes in 4.20 release cycle
+Thread-Topic: [PATCH] CHANGELOG.md: Finalize changes in 4.20 release cycle
+Thread-Index: AQHbhumTl2am2VijCUqahyE9g+0fwbNZROSAgACPWYA=
+Date: Wed, 26 Feb 2025 09:10:58 +0000
+Message-ID:
+ <BL1PR12MB58496C63F977A8D768D6EB08E7C22@BL1PR12MB5849.namprd12.prod.outlook.com>
+References: <20250224182548.10812-1-oleksii.kurochko@gmail.com>
+ <Z77SQ1MRKXzVqJ_z@macbook.local>
+In-Reply-To: <Z77SQ1MRKXzVqJ_z@macbook.local>
+Accept-Language: en-US
 Content-Language: en-US
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <68a14ea8-b6f0-448e-8713-e9696c024c43@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-exchange-imapappendstamp: BL1PR12MB5849.namprd12.prod.outlook.com
+ (15.20.8489.017)
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5849:EE_|SJ0PR12MB5674:EE_
+x-ms-office365-filtering-correlation-id: e42f6ec1-3175-411f-d44b-08dd56457bfc
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|376014|366016|13003099007|38070700018;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?Hr4vosST+zMz0U4Fa5D2iwclgmyJnsXHJSOlU+VBKDHR2pFItX4XGUmkuq?=
+ =?iso-8859-1?Q?NJfEoODRa3OCVIQyqk84prC+4Tfoy5aqJCZe4zAtWZCq60FEAxhVIjHQ0f?=
+ =?iso-8859-1?Q?COynDaUgCt5vdLkY23tWJLOvonCiMS96z9dZKE89vIB1rX2dcfwDasYJSQ?=
+ =?iso-8859-1?Q?WiC+7nv627ADJo05DyhgXNtLPob/3oYBx/zlQobWiWhlaBHd8ydW2qnykX?=
+ =?iso-8859-1?Q?7n573spM+99Pxq4OzLhHw4Ri60mgljwaiBWd89LYUoc1gc15Unlaa9MK8o?=
+ =?iso-8859-1?Q?a1V4H4vNbwH5wWTPdg++Lzer/a9vjvcn9mTw+4NwB+FApx/VXlmlXXcWCR?=
+ =?iso-8859-1?Q?kHTzp7tMFdAGwoUeY8EZXT9eCmffnG+Ck7ljxCFVxyE3jeor3HBjPf1vNO?=
+ =?iso-8859-1?Q?kmHlmJzKpqEtd1h4jqBa6oE4ixyYI6xPBzaDnOym7nu0z/T47EHjYet6zX?=
+ =?iso-8859-1?Q?8C7R/54ybmtGGzRrVZ+gXErwhHRt4UNVak3EBtyFs4h9g52QYA1DelbCDO?=
+ =?iso-8859-1?Q?wDoYHZPqirFCYL3WDts9zo9+lCveVv3WhJCkDoS/W2qdeCwZPFla5tkmdm?=
+ =?iso-8859-1?Q?m/+dmHjiCYajgEItLfBmaBurfiDGpnLrzaRg5UoF2jGb5Z9YeHEV1H9ULR?=
+ =?iso-8859-1?Q?tNEkXbuWWTJb5kuSx0n/q7JZi0chp6DydaRHt4b7Evd5iAMhpOzGmq6CHv?=
+ =?iso-8859-1?Q?oKot8ipEKiJqEyGMy9ArCrdKsTtcercU2c4FFzwuhFBLBVlxv9aNHM0Emh?=
+ =?iso-8859-1?Q?sUOU8rgoMW8lISF/5E6E84clpP0nYrFF2Hr6EItL4RMjlWLOpmOfPPSRYQ?=
+ =?iso-8859-1?Q?L/+7c0NBQ/0ROHZioBHaC0sHt7NMSQzg+Vbbpmv/mzlsAdHYfWWs3q3O4I?=
+ =?iso-8859-1?Q?ff2bD0bOqHMgo8JgiST92cllyUkQquAHEGd443wmpYZVJIEk9u4fMUZeqj?=
+ =?iso-8859-1?Q?XZfcbxpd3DLNMNfa5O0HKCbaBtGcmf8JOMRrh7pWEoB/HIYDSUJjF3mdbS?=
+ =?iso-8859-1?Q?chwdZGUhcLOUfvaycWp5UwgJ9XIxoOy7sp/LBM26jKatpuzNm5Qyzfb9rh?=
+ =?iso-8859-1?Q?af49I7oJ8m+siRRNldVtoikBmxjIW4MGxXGAGsNymOjLzfPoRdcEkc9uKd?=
+ =?iso-8859-1?Q?gSzsMflpxPybxuj5CncxkygqAo5oahPn+s3+a08MQCOcADkKKnEettqZda?=
+ =?iso-8859-1?Q?PmBiJd8b6nfER6xKHyB0PCCceeIJUeB6UUE++BNLULgaPTsfGTFnYAzSpO?=
+ =?iso-8859-1?Q?33fyjVdq9t0U9dE76agapId3KmQH9hatP5T6OV0S5Iv+n57uxUh+37bm/y?=
+ =?iso-8859-1?Q?0WYT6RvxoAUjbKMFaoWUH3T5CUKd/KcPNtD21Gr8iKCF/U3H/Svt5vsYjt?=
+ =?iso-8859-1?Q?Om8xCh6vFG806mdaEH9XlxTsL8C46t5bhFgZtp9fj+DCJQZ/e4Uo0Llr+q?=
+ =?iso-8859-1?Q?+X8d048FMEFavrSW?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5849.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(13003099007)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?IyxCdYwV5TgHGNJEuNXRcxS5vH2XAzGXlMEs5GAeWmobSrQYmTxWQtQPyG?=
+ =?iso-8859-1?Q?uhKQcnjolUFRbmS+jkb7p6r8PclLo4DfzC6Kqz3OdpLxBjiUc/KTBCutra?=
+ =?iso-8859-1?Q?lXr2qwY+r1flepXfThzojN5OFEzdZdqU4Tk/1BFgphxykS5VypfBedYUPB?=
+ =?iso-8859-1?Q?Ky0/2znihI22cYg3yvO3FjjFOee3i3piRTCNCKH45TtsBT9xoxyhsDX5/x?=
+ =?iso-8859-1?Q?5Dp5tl0bxnnXRTq/gppj5NMY+DPyGGW/o2tX2M2Z99FGiMS97msj1ey5M3?=
+ =?iso-8859-1?Q?vc62yGb+wqGg7Zk4PJyviYzum+91iNR3CiNt5BeBaPLjGhY3ZIyNvykQIH?=
+ =?iso-8859-1?Q?sknOKT37mhvI9zB/EYVgJuuRic5tAByNRxRWFpP5wZd8YKvQWeGPp8ljs4?=
+ =?iso-8859-1?Q?X1bDR8YwaKUxkxDJVueqG7+qdBkfptFuZUNAPNwFlyGdozjDby2CJnmaY5?=
+ =?iso-8859-1?Q?pC+DVHe8eyM+mxbNWAXgmAwSOT/AqI4S4Ej8uVTnIonrIR10LcoY7OXit2?=
+ =?iso-8859-1?Q?6ozKONWo/Z9HDBszgJNEunJNe9VqshdjZkuXRuvpfX7EaRZWTHS4MG5lOo?=
+ =?iso-8859-1?Q?WLEgA3wA8EH+Rd/IuLhqnFLS4aOqaZyL2pTuUD/DbR3ZW1AmfOL1XG3GoP?=
+ =?iso-8859-1?Q?+H4h8N7V1A6heOw1XeID6NK1nO9DyWMJR3bspsKs7uEvLBxQMAfLUiAwmP?=
+ =?iso-8859-1?Q?E+B3jG7c47GUoyyKvPcJTpyrQnyzAdSMTSQuZlcM86E8mC1WVDatYt0KjM?=
+ =?iso-8859-1?Q?U2o8NEsH1/y9V18srz2XJoxZhNBzpTa5rBEYvxGmAyEmdYFZD9TRU8oDAs?=
+ =?iso-8859-1?Q?oXAvHvib5/XdspdFUgMPURR3ht01ON8N0Nq1g07q3JlMkWmxSGR7drr7PX?=
+ =?iso-8859-1?Q?UrFvug8z5lgT7xoaqm3VDD0UfpBudSzehJUyBb1YPc39gOD0CxBDrdqOrG?=
+ =?iso-8859-1?Q?YX8aK+hcn0gMBMbQlrtImrU7dEIMynLJUtPgqGJwH+bV5fhsnD77m3/qfJ?=
+ =?iso-8859-1?Q?ZyFlMIeaIPPk00e91O0coSnjTYwKdJ6aoOMQw9sm0at64VzhEr11PHVHTS?=
+ =?iso-8859-1?Q?dLQvTzSoHwljXCxJaPrdAHramkOS44b+pl703sJt6lUgmj3O9aobanI28W?=
+ =?iso-8859-1?Q?4K7ng95qPcgGvp/GPdTiSeN3/mjqyOsgtemGiJbmdsc8DGjiXrtIpG8yfD?=
+ =?iso-8859-1?Q?6G8UQYHU4l2Jxnurb+T5VHHKtxp6ZU9UrJNZzso0T2+GcFGfViH5q8HcRO?=
+ =?iso-8859-1?Q?KUv4gTNaceCh//KKGYFZMsI2+Fr8js4J1ajOuJYuJ6Y/SaIlZHiVGtU8i3?=
+ =?iso-8859-1?Q?xYXT2hKWjSdnNSM6iV2r71WHlylpwy3W6KtufNAmwF4ZaQtibopcY+57I+?=
+ =?iso-8859-1?Q?Nvbmfh1Q+4+4H5XFX9fTaS9jrgbt50pHC7sajoPrSChM1Q7UoQeNw1PcXb?=
+ =?iso-8859-1?Q?8Xcg0XYpXPPUwo8Ko3n8I8Tw8Ka0SjCIk2N9WADZbUj/Iz8HcRkt8BRHwS?=
+ =?iso-8859-1?Q?aOKsCgdesgjO3xY4fc49qe8mt+/VBEDALESZftuw9aHxKueb58eLouPp/+?=
+ =?iso-8859-1?Q?EzTYnI2zvklq26I5UPLoAR1GKWLB0ySirZsK/M73kZKktQpZGEU4btBK4u?=
+ =?iso-8859-1?Q?GLGDxrQx0ZB0U=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-ID: <ACA67073C140234AAD6F4AB566E1EC8E@amdcloud.onmicrosoft.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5849.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e42f6ec1-3175-411f-d44b-08dd56457bfc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Feb 2025 09:10:58.9238
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9HipjhjKqbBpkccwKCdijPghzIHfKlH/Z/ALoqL7f/oIwgkVF+U1HdTjIhLY+g23dmCMDmzLcG6wSoC7lmxjQw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5674
 
-On 26.02.2025 08:44, Jan Beulich wrote:
-> On 25.02.2025 23:45, Andrew Cooper wrote:
->> A CALL with 0 displacement is handled specially, and is why this logic
->> functions even with CET Shadow Stacks active.  Nevertheless a rip-relative LEA
->> is the more normal way of doing this in 64bit code.
+Hi,
+
+On 2025/2/26 16:35, Roger Pau Monn=E9 wrote:
+> On Mon, Feb 24, 2025 at 07:25:48PM +0100, Oleksii Kurochko wrote:
+>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>> ---
+>>  CHANGELOG.md | 10 ++++++++++
+>>  1 file changed, 10 insertions(+)
 >>
->> The retrieval of flags modifies the stack pointer so needs to state a
->> dependency on the stack pointer.  Despite it's name, ASM_CALL_CONSTRAINT is
->> the way to do this.
->>
->> read_sreg() forces the answer through a register, causing code generation of
->> the form:
->>
->>     mov    %gs, %eax
->>     mov    %eax, %eax
->>     mov    %rax, 0x140(%rsi)
->>
->> Encode the reads directly with a memory operand.  This results in a 16bit
->> store instead of an 64bit store, but the backing memory is zeroed.
-> 
-> Raises the question whether we shouldn't change read_sreg(). At least the
-> emulator uses of it would also benefit from storing straight to memory. And
-> the remaining uses ought to be optimizable by the compiler, except that I
-> don't expect we'd be able to express the zero-extending nature when the
-> destination is a register. Or wait, maybe I can make up something (whether
-> that's going to be liked is a separate question).
+>> diff --git a/CHANGELOG.md b/CHANGELOG.md
+>> index 1979166820..e6c6144ef1 100644
+>> --- a/CHANGELOG.md
+>> +++ b/CHANGELOG.md
+>> @@ -18,6 +18,11 @@ The format is based on [Keep a Changelog](https://kee=
+pachangelog.com/en/1.0.0/)
+>>   - Fixed blkif protocol specification for sector sizes different than 5=
+12b.
+>>   - The dombuilder in libxenguest no longer un-gzips secondary modules, =
+instead
+>>     leaving this to the guest kernel to do in guest context.
+>> + - Reduce xenstore library dependencies.
+>> + - On Arm:
+>> +   - Several FF-A support improvements: add indirect messages support, =
+transmit
+>> +     RXTX buffer to the SPMC, fix version negotication and partition in=
+formation
+>> +     retrieval.
+>>   - On x86:
+>>     - Prefer ACPI reboot over UEFI ResetSystem() run time service call.
+>>     - Prefer CMOS over EFI_GET_TIME as time source.
+>> @@ -25,6 +30,8 @@ The format is based on [Keep a Changelog](https://keep=
+achangelog.com/en/1.0.0/)
+>>       interrupts instead of logical destination mode.
+>> =20
+>>  ### Added
+>> + - Support device passthrough when dom0 is PVH on Xen.
+>=20
+> I've spoken with Jiqian from AMD and the QEMU side is still pending to
+> be merged, so I'm not sure I would list it here yet.  Also AFAICT the
+> current work just enables passthrough from a PVH dom0 to an HVM domU,
+> but not to PV domUs.  This would need to be clarified.
+Yes, I only added pci passthrough for HVM domUs when dom0 is PVH.
+And the qemu patch isn't merged yet.
+https://lore.kernel.org/xen-devel/BL1PR12MB58491271C360CE4345A915AFE7C02@BL=
+1PR12MB5849.namprd12.prod.outlook.com/
+I think we need to wait qemu patch merged and then you can add an entry lik=
+e:
+- On x86:
+  - Support pci passthrough for HVM domUs when dom0 is PVH.
 
-Here you go.
+>=20
+> Thanks, Roger.
+>=20
 
-Jan
-
-x86: make read_sreg() "bi-modal"
-
-Permit use sites to control whether to store directly to memory; right
-now both elf_core_save_regs() and the insn emulator's put_fpu()
-needlessly go through an intermediate GPR. Note that in both cases the
-apparent loss of zero-extension isn't a problem: The fields written to
-start out zero-initialized anyway.
-
-No change in generated code for the use sites not being touched.
-
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Whether to make the change to put_fpu() is up for discussion: In my
-build it increases code size slightly, despite the reduction of number
-of insns emitted. An alternative (leaving the decision to the compiler)
-might be to drop the if() and use "=g" as constraint.
-
-I was considering to omit the assignment to sel_ on the if() branch,
-expecting the compiler to then flag uses of the return value (as
-consuming uninitialized data) when a 2nd argument is passed. However,
-gcc14 then already flags the "sel_;" at the end of the macro as
-consuming uninitialized data.
-
---- a/xen/arch/x86/include/asm/regs.h
-+++ b/xen/arch/x86/include/asm/regs.h
-@@ -16,10 +16,20 @@
-     !diff || ((r)->cs != __HYPERVISOR_CS);                                    \
- })
- 
--#define read_sreg(name) ({                           \
--    unsigned int __sel;                              \
--    asm ( "mov %%" STR(name) ",%0" : "=r" (__sel) ); \
--    __sel;                                           \
-+#define read_sreg(name, dst...) ({                       \
-+    unsigned int sel_;                                   \
-+    BUILD_BUG_ON(count_args(dst) > 1);                   \
-+    if ( count_args(dst) )                               \
-+    {                                                    \
-+        typeof(LASTARG(&sel_, ## dst)) dst_ =            \
-+            LASTARG(&sel_, ## dst);                      \
-+        asm ( "mov %%" STR(name) ",%0" : "=m" (*dst_) ); \
-+        /* The compiler ought to optimize this out. */   \
-+        sel_ = *dst_;                                    \
-+    }                                                    \
-+    else                                                 \
-+        asm ( "mov %%" STR(name) ",%0" : "=r" (sel_) );  \
-+    sel_;                                                \
- })
- 
- static inline void read_sregs(struct cpu_user_regs *regs)
---- a/xen/arch/x86/include/asm/x86_64/elf.h
-+++ b/xen/arch/x86/include/asm/x86_64/elf.h
-@@ -55,16 +55,16 @@ static inline void elf_core_save_regs(EL
- 
-     /* orig_rax not filled in for now */
-     asm ( "call 0f; 0: popq %0" : "=m" (core_regs->rip) );
--    core_regs->cs = read_sreg(cs);
-+    read_sreg(cs, &core_regs->cs);
-     asm ( "pushfq; popq %0" : "=m" (core_regs->rflags) );
-     asm ( "movq %%rsp, %0" : "=m" (core_regs->rsp) );
--    core_regs->ss = read_sreg(ss);
-+    read_sreg(ss, &core_regs->ss);
-     rdmsrl(MSR_FS_BASE, core_regs->thread_fs);
-     rdmsrl(MSR_GS_BASE, core_regs->thread_gs);
--    core_regs->ds = read_sreg(ds);
--    core_regs->es = read_sreg(es);
--    core_regs->fs = read_sreg(fs);
--    core_regs->gs = read_sreg(gs);
-+    read_sreg(ds, &core_regs->ds);
-+    read_sreg(es, &core_regs->es);
-+    read_sreg(fs, &core_regs->fs);
-+    read_sreg(gs, &core_regs->gs);
- 
-     asm ( "mov %%cr0, %0" : "=r" (xen_core_regs->cr0) );
-     asm ( "mov %%cr2, %0" : "=r" (xen_core_regs->cr2) );
---- a/xen/arch/x86/x86_emulate/x86_emulate.c
-+++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -465,10 +465,10 @@ static void put_fpu(
-             else if ( is_pv_vcpu(current) )
-                 switch ( state->ea.mem.seg )
-                 {
--                case x86_seg_ds: aux.ds = read_sreg(ds);  break;
--                case x86_seg_es: aux.ds = read_sreg(es);  break;
--                case x86_seg_fs: aux.ds = read_sreg(fs);  break;
--                case x86_seg_gs: aux.ds = read_sreg(gs);  break;
-+                case x86_seg_ds: read_sreg(ds, &aux.ds);  break;
-+                case x86_seg_es: read_sreg(es, &aux.ds);  break;
-+                case x86_seg_fs: read_sreg(fs, &aux.ds);  break;
-+                case x86_seg_gs: read_sreg(gs, &aux.ds);  break;
-                 case x86_seg_ss: aux.ds = ctxt->regs->ss; break;
-                 default:         ASSERT_UNREACHABLE();    break;
-                 }
-
-
+--=20
+Best regards,
+Jiqian Chen.
 
