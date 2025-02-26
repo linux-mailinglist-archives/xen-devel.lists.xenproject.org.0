@@ -2,38 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE6CCA451BF
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 01:51:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.896086.1304757 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76BDFA451BE
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 01:51:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.896092.1304768 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tn5cr-00068n-Gq; Wed, 26 Feb 2025 00:50:13 +0000
+	id 1tn5dO-0006oa-Oe; Wed, 26 Feb 2025 00:50:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 896086.1304757; Wed, 26 Feb 2025 00:50:13 +0000
+Received: by outflank-mailman (output) from mailman id 896092.1304768; Wed, 26 Feb 2025 00:50:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tn5cr-00066I-EF; Wed, 26 Feb 2025 00:50:13 +0000
-Received: by outflank-mailman (input) for mailman id 896086;
- Wed, 26 Feb 2025 00:50:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Cat0=VR=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1tn5cp-00066A-G4
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 00:50:11 +0000
-Received: from fout-a2-smtp.messagingengine.com
- (fout-a2-smtp.messagingengine.com [103.168.172.145])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9d97bf57-f3db-11ef-9897-31a8f345e629;
- Wed, 26 Feb 2025 01:50:04 +0100 (CET)
-Received: from phl-compute-01.internal (phl-compute-01.phl.internal
- [10.202.2.41])
- by mailfout.phl.internal (Postfix) with ESMTP id 607211380EC2;
- Tue, 25 Feb 2025 19:50:03 -0500 (EST)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-01.internal (MEProxy); Tue, 25 Feb 2025 19:50:03 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 25 Feb 2025 19:50:01 -0500 (EST)
+	id 1tn5dO-0006nI-LE; Wed, 26 Feb 2025 00:50:46 +0000
+Received: by outflank-mailman (input) for mailman id 896092;
+ Wed, 26 Feb 2025 00:50:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=UxMA=VR=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1tn5dM-0006mk-Ol
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 00:50:45 +0000
+Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch
+ [79.135.106.31]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b4f0ac25-f3db-11ef-9aae-95dc52dad729;
+ Wed, 26 Feb 2025 01:50:43 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,128 +36,298 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d97bf57-f3db-11ef-9897-31a8f345e629
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1740531003;
-	 x=1740617403; bh=ryeOacmhi3T2sFf8TyDDKaTDfbe73PMUdjxY9XHea38=; b=
-	Cy5Z6W914usfiNb6uSXraRooaj9CYPcpMoO326LP0NdF3LUQqnwMaOJFLKzAcLGB
-	L4XOW9SQOt6XHsDYDsrsEfjak3CpBYagVxQc6rEm2D7dVB6QAfQg5mweDxYCzBbL
-	t+DVYUdc1K7bNzM1N5J7e0RAuN+nCoDMknlN0MtBxLGp9nB6DXTOcK3ex2tqhBuB
-	8VguAljT92YF/LB+J4u+r6UmGj2Wze6zw7QAhkT+6lp/uYCsqqNKCS/NvQWX+kaV
-	utnPZo4qbdeMhUEPVFKcpHbD0sXw189Kq574cG2kOXjVDN8iLXUfi0iZLVjG2Xa5
-	bZ7VfrQbcVWTLWKvMv1ZIQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1740531003; x=1740617403; bh=ryeOacmhi3T2sFf8TyDDKaTDfbe73PMUdjx
-	Y9XHea38=; b=AoinUBoU2JzxFz4Xz9Ho1HME21Bje4Ko28Wp2af8Mb0ujpVi6c1
-	wzLfFxa0uHVlOJ88ZAe5KlfjLRayuJqK6G9fLfteQSgPm++UHhai1RJho4XDyGRI
-	1AglxbKd0r4/+XBSl+iFH69xhkPMiOBfKNHSqUNrbKvHpI9E9sFHJ9z0lUi5VkkC
-	Xu2XDyvKrKHE0xeZfhsrzJKNeJy+bJK7HlqbVOtkdC2c/0eT92M54Qc9fu5oEu6y
-	7t1dQcORsXVbizpWbdBpm3BuSbLiSgpumvroPoM21iTESejcKyLzC0flNwMMIKjS
-	dYLCKHSZrCr339SKIALNoDH8aCDnXOVvJ3w==
-X-ME-Sender: <xms:OmW-ZzsI_gYtLvDmZWe8yKILoGRCiWuKx9mMitU_Q9rjgPuF_6Y-VQ>
-    <xme:OmW-Z0ef6D21A5vOuUgWcZHGuakNj9lw8RIqCYjRsiu3aYvwmLsg5fvoTjHEl8XEz
-    7mS0MGOdnl5og>
-X-ME-Received: <xmr:OmW-Z2zz-bmmSfZQRsLXg4TW1KUjoMI0UPxDO0GUjmroK9JM7cZFZxAk6Kh1XbWGe1rahAmbPqsb6VchzpGOwe3JA4sDNa8tVQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdekfedulecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdp
-    uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivg
-    hnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdej
-    necuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoe
-    hmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucgg
-    tffrrghtthgvrhhnpefgudelteefvefhfeehieetleeihfejhfeludevteetkeevtedtvd
-    egueetfeejudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhr
-    ohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpd
-    hnsggprhgtphhtthhopeehpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopeifudgs
-    vghnnhihsehgmhgrihhlrdgtohhmpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvg
-    drtghomhdprhgtphhtthhopegrnhhthhhonhihrdhpvghrrghrugesvhgrthgvshdrthgv
-    tghhpdhrtghpthhtoheprghnughrvgifrdgtohhophgvrhefsegtihhtrhhigidrtghomh
-    dprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdr
-    ohhrgh
-X-ME-Proxy: <xmx:OmW-ZyMZkxT5ozAmFUkebCOYbRwWWRipOtt-7aw6_ADGeCSj72NVMA>
-    <xmx:OmW-Zz_qvq2XZBFPtwI_PSCtiGcXAf0LLFwR-r4h2phTDzmKXvjHVg>
-    <xmx:OmW-ZyXzuJXYiFSUrLJQswm3WWYFMvH4NTD_Lzg4pmToqB9_XShlZQ>
-    <xmx:OmW-Z0dW7Jh6Pbzmv03Jwk6enrbOjO2Y5lO51Upsw-n8ldiSdjp3qA>
-    <xmx:O2W-Z-mw05Xt_nBTJM0IfVheiZD3xq-Q0rPnkWk40CDiisUOa5EfFsKg>
-Feedback-ID: i1568416f:Fastmail
-Date: Wed, 26 Feb 2025 01:49:58 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Petr =?utf-8?B?QmVuZcWh?= <w1benny@gmail.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: xl create/save throwing errors
-Message-ID: <Z75lN_ShrXUGiT5e@mail-itl>
-References: <CAKBKdXhaQLj01Kn06xMBsHExT1xNMKnHxTB+Hu33jtpySr-few@mail.gmail.com>
- <be2314bd-d212-4b9b-a50c-1b86b42ab861@suse.com>
- <CAKBKdXgMn90_R6_rKWAzrQdkpPXL1-ZxAKM8n8RPXiOeY7VtJQ@mail.gmail.com>
+X-Inumbo-ID: b4f0ac25-f3db-11ef-9aae-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=mnk67kgyyba2jhz245ftfljhqm.protonmail; t=1740531041; x=1740790241;
+	bh=ewy6nO2BG0jL0z4N8P//BQhzzK8oonlgn0JJyxirPbM=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector:
+	 List-Unsubscribe:List-Unsubscribe-Post;
+	b=VHv1xvvXgQdxu0UWxO5wP2YdqJ3NQaymyKt5WgLuW4SP2GCkCX3odH1ynpmTdLEZ0
+	 WlhsYrzEp/g7vtTQ97LMUbFdgsCW5M3yiD6ecjiC1gPGEyZfw7Rquut8PVExACBeVx
+	 ZEjmPbpzwbRhe+/DIiHlJDNXSNN4as/gAeSL1f+/Q1II7JHl1FNczroWgBjuQxVnIG
+	 1Agd7v+HIC1RT2Kn7y+lzrHMgLyrmS4J4K9yf0YCw1AVmQMpePmsP+auQqd7VLlP7v
+	 hzi8b6uNX3s/907Gjxou5F9X/vvfvHmKIoonYokqynA+hXmyCl7+/XVQmcX9pvmZrI
+	 0xVf2fQqbH8UA==
+Date: Wed, 26 Feb 2025 00:50:36 +0000
+To: xen-devel@lists.xenproject.org
+From: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
+Subject: [PATCH v3] xen/consoled: clean up console handling for PV shim
+Message-ID: <20250226003519.1203748-1-dmukhin@ford.com>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: 34c86a646d89de977e607b5865ec476e7c76a8ca
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="YNcMDSZhhzmOpYHi"
-Content-Disposition: inline
-In-Reply-To: <CAKBKdXgMn90_R6_rKWAzrQdkpPXL1-ZxAKM8n8RPXiOeY7VtJQ@mail.gmail.com>
-
-
---YNcMDSZhhzmOpYHi
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 26 Feb 2025 01:49:58 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Petr =?utf-8?B?QmVuZcWh?= <w1benny@gmail.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: xl create/save throwing errors
 
-On Tue, Feb 25, 2025 at 11:59:38PM +0100, Petr Bene=C5=A1 wrote:
-> On Thu, Feb 20, 2025 at 9:14=E2=80=AFAM Jan Beulich <jbeulich@suse.com> w=
-rote:
-> >
-> > Just one thing - to (hopefully) get a better understanding of the origi=
-n of
-> > those errors, you may want to increase verbosity of the "xl save", e.g.
-> > "xl -vvv save".
-> >
-> > Jan
->=20
-> Here's an output of this command, that failed:
-> xl -vvv save win10-18362-103 /opt/ramdisk/vms/clones/win10-18362-103/state
->=20
-> libxl: debug: libxl_dom_suspend.c:348:suspend_common_wait_guest_check:
-> Domain 90:guest we were suspending has shut down with unexpected
-> reason code 3
+There are few places which check pv_shim console under CONFIG_PV_SHIM or
+CONFIG_X86 in xen console driver.
 
-This is domain crash.
-Anything interesting on the console log of that domain (if it has some
-debug logs there...), or maybe in xl dmesg?
+Instead of inconsistent #ifdef-ing, introduce and use consoled_is_enabled()=
+ in
+switch_serial_input() and __serial_rx().
 
+PV shim case is fixed in __serial_rx() - should be under 'pv_shim &&
+pv_console' check.
+
+Signature of consoled_guest_{rx,tx} has changed so the errors can be logged
+on the callsites.
+
+Also, move get_initial_domain_id() to arch-independent header since it is n=
+ow
+required by console driver.
+
+Lastly, add missing SPDX-License-Identifier to xen/consoled.h
+
+Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+---
+Changes since v2:
+- removed unneeded asm/pv/shim.h from xen/common/domain.c
+- dropped the warning message change in __serial_rx()
+- dropped header guards change in xen/include/xen/consoled.h
+---
+ xen/arch/x86/include/asm/pv/shim.h |  5 +++--
+ xen/arch/x86/pv/shim.c             |  8 ++------
+ xen/common/domain.c                |  9 +++++++++
+ xen/drivers/char/console.c         | 13 +++++--------
+ xen/drivers/char/consoled.c        | 17 +++++++++++++----
+ xen/include/xen/consoled.h         | 26 ++++++++++++++++++++++++--
+ xen/include/xen/domain.h           |  2 ++
+ 7 files changed, 58 insertions(+), 22 deletions(-)
+
+diff --git a/xen/arch/x86/include/asm/pv/shim.h b/xen/arch/x86/include/asm/=
+pv/shim.h
+index 6153e27005..27053d4f6f 100644
+--- a/xen/arch/x86/include/asm/pv/shim.h
++++ b/xen/arch/x86/include/asm/pv/shim.h
+@@ -31,7 +31,7 @@ long cf_check pv_shim_cpu_up(void *data);
+ long cf_check pv_shim_cpu_down(void *data);
+ void pv_shim_online_memory(unsigned int nr, unsigned int order);
+ void pv_shim_offline_memory(unsigned int nr, unsigned int order);
+-domid_t get_initial_domain_id(void);
++domid_t pv_shim_get_initial_domain_id(void);
+ uint64_t pv_shim_mem(uint64_t avail);
+ void pv_shim_fixup_e820(void);
+ const struct platform_bad_page *pv_shim_reserved_pages(unsigned int *size)=
+;
+@@ -76,8 +76,9 @@ static inline void pv_shim_offline_memory(unsigned int nr=
+, unsigned int order)
+ {
+     ASSERT_UNREACHABLE();
+ }
+-static inline domid_t get_initial_domain_id(void)
++static inline domid_t pv_shim_get_initial_domain_id(void)
+ {
++    ASSERT_UNREACHABLE();
+     return 0;
+ }
+ static inline uint64_t pv_shim_mem(uint64_t avail)
+diff --git a/xen/arch/x86/pv/shim.c b/xen/arch/x86/pv/shim.c
+index b9c034ccff..62b6a92392 100644
+--- a/xen/arch/x86/pv/shim.c
++++ b/xen/arch/x86/pv/shim.c
+@@ -605,8 +605,7 @@ long pv_shim_event_channel_op(int cmd, XEN_GUEST_HANDLE=
+_PARAM(void) arg)
+=20
+         if ( pv_console && send.port =3D=3D pv_console_evtchn() )
+         {
+-            consoled_guest_rx();
+-            rc =3D 0;
++            rc =3D consoled_guest_rx();
+         }
+         else
+             rc =3D xen_hypercall_event_channel_op(EVTCHNOP_send, &send);
+@@ -1018,13 +1017,10 @@ void pv_shim_offline_memory(unsigned int nr, unsign=
+ed int order)
+     }
+ }
+=20
+-domid_t get_initial_domain_id(void)
++domid_t pv_shim_get_initial_domain_id(void)
+ {
+     uint32_t eax, ebx, ecx, edx;
+=20
+-    if ( !pv_shim )
+-        return 0;
+-
+     cpuid(xen_cpuid_base + 4, &eax, &ebx, &ecx, &edx);
+=20
+     return (eax & XEN_HVM_CPUID_DOMID_PRESENT) ? ecx : 1;
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index 49d4cb8221..a3c4d7d27d 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -2261,6 +2261,15 @@ int continue_hypercall_on_cpu(
+     return 0;
+ }
+=20
++domid_t get_initial_domain_id(void)
++{
++#ifdef CONFIG_X86
++    if ( pv_shim )
++        return pv_shim_get_initial_domain_id();
++#endif
++    return hardware_domid;
++}
++
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+index a3735310e3..beef62a2c5 100644
+--- a/xen/drivers/char/console.c
++++ b/xen/drivers/char/console.c
+@@ -32,9 +32,9 @@
+ #include <xen/pv_console.h>
+ #include <asm/setup.h>
+ #include <xen/sections.h>
++#include <xen/consoled.h>
+=20
+ #ifdef CONFIG_X86
+-#include <xen/consoled.h>
+ #include <asm/guest.h>
+ #endif
+ #ifdef CONFIG_SBSA_VUART_CONSOLE
+@@ -507,11 +507,9 @@ static void switch_serial_input(void)
+             break;
+         }
+=20
+-#ifdef CONFIG_PV_SHIM
+-        if ( next_rx =3D=3D 1 )
++        if ( consoled_is_enabled() && next_rx =3D=3D 1 )
+             domid =3D get_initial_domain_id();
+         else
+-#endif
+             domid =3D next_rx - 1;
+         d =3D rcu_lock_domain_by_id(domid);
+         if ( d )
+@@ -562,10 +560,9 @@ static void __serial_rx(char c)
+         rc =3D vpl011_rx_char_xen(d, c);
+ #endif
+=20
+-#ifdef CONFIG_X86
+-    if ( pv_shim && pv_console )
+-        consoled_guest_tx(c);
+-#endif
++    if ( consoled_is_enabled() )
++        /* Deliver input to the PV shim console. */
++        rc =3D consoled_guest_tx(c);
+=20
+     if ( rc )
+         guest_printk(d, XENLOG_G_WARNING
+diff --git a/xen/drivers/char/consoled.c b/xen/drivers/char/consoled.c
+index b415b632ce..8704ec251e 100644
+--- a/xen/drivers/char/consoled.c
++++ b/xen/drivers/char/consoled.c
+@@ -43,13 +43,13 @@ struct xencons_interface *consoled_get_ring_addr(void)
+ static char buf[BUF_SZ + 1];
+=20
+ /* Receives characters from a domain's PV console */
+-void consoled_guest_rx(void)
++int consoled_guest_rx(void)
+ {
+     size_t idx =3D 0;
+     XENCONS_RING_IDX cons, prod;
+=20
+     if ( !cons_ring )
+-        return;
++        return -ENODEV;
+=20
+     spin_lock(&rx_lock);
+=20
+@@ -91,15 +91,17 @@ void consoled_guest_rx(void)
+=20
+  out:
+     spin_unlock(&rx_lock);
++
++    return 0;
+ }
+=20
+ /* Sends a character into a domain's PV console */
+-void consoled_guest_tx(char c)
++int consoled_guest_tx(char c)
+ {
+     XENCONS_RING_IDX cons, prod;
+=20
+     if ( !cons_ring )
+-        return;
++        return -ENODEV;
+=20
+     cons =3D ACCESS_ONCE(cons_ring->in_cons);
+     prod =3D cons_ring->in_prod;
+@@ -125,6 +127,13 @@ void consoled_guest_tx(char c)
+  notify:
+     /* Always notify the guest: prevents receive path from getting stuck. =
+*/
+     pv_shim_inject_evtchn(pv_console_evtchn());
++
++    return 0;
++}
++
++bool consoled_is_enabled(void)
++{
++    return pv_shim && pv_console;
+ }
+=20
+ /*
+diff --git a/xen/include/xen/consoled.h b/xen/include/xen/consoled.h
+index bd7ab6329e..d68c4ffa33 100644
+--- a/xen/include/xen/consoled.h
++++ b/xen/include/xen/consoled.h
+@@ -1,12 +1,34 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
+ #ifndef __XEN_CONSOLED_H__
+ #define __XEN_CONSOLED_H__
+=20
+ #include <public/io/console.h>
+=20
++#ifdef CONFIG_PV_SHIM
++
+ void consoled_set_ring_addr(struct xencons_interface *ring);
+ struct xencons_interface *consoled_get_ring_addr(void);
+-void consoled_guest_rx(void);
+-void consoled_guest_tx(char c);
++int consoled_guest_rx(void);
++int consoled_guest_tx(char c);
++bool consoled_is_enabled(void);
++
++#else
++
++static inline int consoled_guest_rx(void)
++{
++    ASSERT_UNREACHABLE();
++    return -ENODEV;
++}
++
++static inline int consoled_guest_tx(char c)
++{
++    ASSERT_UNREACHABLE();
++    return -ENODEV;
++}
++
++#define consoled_is_enabled()   (false)
++
++#endif /* CONFIG_PV_SHIM */
+=20
+ #endif /* __XEN_CONSOLED_H__ */
+ /*
+diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
+index 3de5635291..83069de501 100644
+--- a/xen/include/xen/domain.h
++++ b/xen/include/xen/domain.h
+@@ -35,6 +35,8 @@ void getdomaininfo(struct domain *d, struct xen_domctl_ge=
+tdomaininfo *info);
+ void arch_get_domain_info(const struct domain *d,
+                           struct xen_domctl_getdomaininfo *info);
+=20
++domid_t get_initial_domain_id(void);
++
+ /* CDF_* constant. Internal flags for domain creation. */
+ /* Is this a privileged domain? */
+ #define CDF_privileged           (1U << 0)
 --=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+2.34.1
 
---YNcMDSZhhzmOpYHi
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAme+ZTcACgkQ24/THMrX
-1yyA+gf9FIFnTEEdV3WbZKTZ4TsKL5VODeh/OA90LGyQ3MSpSGseO/oK8rZbUNEv
-fTd5i6a4pimJIDCAkeoD4Vc/Hxk+KN9syvCd6dRwpxskEmiu9E6kJ9TfCoOdsUNb
-Gefdv817QrVSTmKB5VQaMPhP9wxyx52P7W6vRQVa0El1pn4kI5VvZFfltkYOsXNX
-vK8bXl6PzGLtci4mdHzewv6defLBLcgWDsYpaTupaYdf2+y9Y7gbuAJjABD7rTTs
-u3FlpdMg2jbFAdvD4LZahNgk7gUoGuqRu+aFhKOYi4Dm9Rhr+WtdQXu0DacAxseU
-RB96I+/petFWyY6XpgZ+FVUwR7NQjg==
-=CX4L
------END PGP SIGNATURE-----
-
---YNcMDSZhhzmOpYHi--
 
