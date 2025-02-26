@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD5A6A46A00
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 19:45:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.897162.1305876 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA006A46A3C
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 19:55:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.897172.1305886 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnMPf-0000tl-PL; Wed, 26 Feb 2025 18:45:43 +0000
+	id 1tnMYm-0002To-Kc; Wed, 26 Feb 2025 18:55:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 897162.1305876; Wed, 26 Feb 2025 18:45:43 +0000
+Received: by outflank-mailman (output) from mailman id 897172.1305886; Wed, 26 Feb 2025 18:55:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnMPf-0000rS-Ml; Wed, 26 Feb 2025 18:45:43 +0000
-Received: by outflank-mailman (input) for mailman id 897162;
- Wed, 26 Feb 2025 18:45:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tnMYm-0002RI-I0; Wed, 26 Feb 2025 18:55:08 +0000
+Received: by outflank-mailman (input) for mailman id 897172;
+ Wed, 26 Feb 2025 18:55:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GPjD=VR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tnMPd-0000rM-N1
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 18:45:41 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dfcbb327-f471-11ef-9897-31a8f345e629;
- Wed, 26 Feb 2025 19:45:39 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-38f2b7ce2f3so58607f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 10:45:39 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-390cd882644sm6377693f8f.42.2025.02.26.10.45.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Feb 2025 10:45:38 -0800 (PST)
+ <SRS0=Cat0=VR=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1tnMYl-0002RC-Ta
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 18:55:08 +0000
+Received: from fhigh-a8-smtp.messagingengine.com
+ (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 30d01fcd-f473-11ef-9aae-95dc52dad729;
+ Wed, 26 Feb 2025 19:55:06 +0100 (CET)
+Received: from phl-compute-11.internal (phl-compute-11.phl.internal
+ [10.202.2.51])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id 7102F11400E1;
+ Wed, 26 Feb 2025 13:55:04 -0500 (EST)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-11.internal (MEProxy); Wed, 26 Feb 2025 13:55:04 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 26 Feb 2025 13:55:03 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,201 +45,230 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dfcbb327-f471-11ef-9897-31a8f345e629
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1740595539; x=1741200339; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=S2F1GYPZaaPeRghVlseZkbGNGnQY4o/gNiki5/prPDI=;
-        b=t7sOoQZ0+g7gb2UPFnl9AARo35JepjaeUAQeR6DnrixzWjYGoZjzbp1QE6DsOR74Og
-         EJiG+Q0meGE4AjGILTX7FxK9VA0N2RSrVF7DEOKnIQxKfnVi+IOkbFXfxS5xAX5ypn3d
-         Jnja9OttY+qyLIPkVX3nlUatq+4kIXaXGAo8g=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740595539; x=1741200339;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=S2F1GYPZaaPeRghVlseZkbGNGnQY4o/gNiki5/prPDI=;
-        b=POopfRls00/Fo8iP/6KBT5G0v6wOmtJpIZHnfjsW9jwci4VddTnLk49n9UpIzuUyNw
-         z1LdRi6EzxxwmwnMSC+J1ynfrUckt+uKx0QjsFofsfiepZzOexFMAXHlFQ4fwxXAVjHA
-         /0BuPCtCs/1GH4HEN7+CtXRLTaIXYFPmcWdL82q1jWatvYHu6TMfxQ0H4xUlmgyDuy/k
-         9DYRFcForWpDvbgptmjkOtLtk+jzr5OH9m3P+APF7i69mqxk81eICtDvesUOgkxsRH5d
-         kHYLB3jZfYhE/5sPV2GHUvzUTAGxAhpfy+6FyTAsAbSGbqBkOMe+oygQWjldjhod6xdU
-         giWg==
-X-Forwarded-Encrypted: i=1; AJvYcCX8490+PeNrj541kO8kM+VVYTTSnvV4YoUDlsv+j9ub05eOIyoZcaB98iYE9LuDWrrwurecN1maXwM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy5PsyVfPMOFZTWgflcjYIpt7qmJgzv/JF2+foYk0pBXFdNL8Gg
-	I8gRbzp+R71fAINovv3YkXRBhH9LW9EDjV4xYAgl9f79zZoLXHLe1xL6LbAbjAk=
-X-Gm-Gg: ASbGncuuBlUVrTyr3tdcm7Mk84uhX146L1WPqTBQNE1LyXAKJXsEr10QJdeyeuXcZbD
-	hltAn3xGgE6QgIhp/oQadhc5VEbujGi7Gmap0/iTlvpKzVfumz6nmMCdBVEc7CV+2VURbdOkkzC
-	tUP8lmkT+mUNYwXtSWWPprLB14OITO48NwyA9KC7de/jkMwuG5Kzkp/8YRaqU3n+mStiddoh3qe
-	v945SFc4O2Xbne9iqfdDySExsZn0Kmulr1ABhRNeu0dDrEyUzUPmwq9y7iEYoVU3b7vViWGECmK
-	w03L/I6QwCHpd4IJXbGWpWMBgLTtuGA/sAB/jriEcFki9rxZCmFnZN+Bt1xwFeRKKw==
-X-Google-Smtp-Source: AGHT+IG6KeKiKZNzkUJo6ozHD40Rg3Mo0ASzWsTO4fnpD+QPwXiB8BS9yJ5V3UA6PdwCDXsBYEDljg==
-X-Received: by 2002:a05:6000:1f87:b0:38f:3224:660b with SMTP id ffacd0b85a97d-38f7079aae3mr16597998f8f.22.1740595539068;
-        Wed, 26 Feb 2025 10:45:39 -0800 (PST)
-Message-ID: <1dea0c8a-ce6c-40db-8ab6-f3d2a3b1d0dc@citrix.com>
-Date: Wed, 26 Feb 2025 18:45:35 +0000
+X-Inumbo-ID: 30d01fcd-f473-11ef-9aae-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1740596104;
+	 x=1740682504; bh=e4u1K6bhPK/F8yzoOFojmHyNvHD7/5+SSiFI9x83loE=; b=
+	ODt0Wp8ylVUCc7tmvs47Ky8obsTGGWESs9gwoJW+5hpaMJfQ6h487YttF+EKGbE7
+	T634lfWYd6UWCAJcJkJ0npuFi3YZGPAdRk0VtHy8vOel77CCFCDSGQlRczxDGxTY
+	fC2TX+6jOo57MVDsoscqrL5cn3PbFWmWkwZoha6e3y2AcYNrKN0c5/4LjOm+Iaor
+	cX4D3JsME+pBYE57BVS0yFhB+58au371oDPIv/wWsxFHwT9SiuuAMosdt7v3UwWn
+	U8ZNCjIbLOyWxnTjBo2FU1VpURG+CEJ0EzqdY6kN5Ztfsm65pC+9pYo5odFsbIZf
+	WPB9wsM0VLbYOo00cC9GRw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1740596104; x=1740682504; bh=e4u1K6bhPK/F8yzoOFojmHyNvHD7/5+SSiF
+	I9x83loE=; b=tnuu61U1XAxPYSmpAwoSkI4vI0zqrX/2aJ7Jr8wQ+9pXcUlu/Ep
+	ptoKUNyKHcrA/xPOv0QJVB8x6xR89au+ICMG7Y0fGymybVnfezbpSUIxziBbMMX/
+	+PRiF5ntFvZ1N5J4J2Jc+aAKDGcifCFfqmE7fnKhGfcefDUUnTFYvoQ5jkhq/ltN
+	u/dF/YcVSyq0sAKEQYCqgvEalKkvzzOUIo9BYsP0PnXcfsAHDcj6GNEdX9yuhzfX
+	5MdRcJESTBxzK+bwTVPaAnnnfw2UJWwM9F1nS99+XVY8IdflaPbqPE4MoKsagDDI
+	icn/ZU3M1jQRmmcd2KYptS2zoUiHlpIFGbA==
+X-ME-Sender: <xms:h2O_Z7uTfUx5XYA_mfdn0ivsajRELvjxkANRUR0NU87IJ0kmxfmszg>
+    <xme:h2O_Z8cEjAZpl7ZN3jXKzf2vYPnkdGAAwAYarip9cXs4xMrqNXTSU5_gyjhnCm735
+    c9BWLgffC1oXw>
+X-ME-Received: <xmr:h2O_Z-wqvYZrMrrVqW1anfdJJ4-iBvXQH3BabBPMKWKOFHEbLFwpo06dP_q--Odl1lwIS_dZzUScb9COcJ8nuz0EmOqkNjqfgA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdekheefhecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdp
+    uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivg
+    hnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdej
+    necuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoe
+    hmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucgg
+    tffrrghtthgvrhhnpeevueejteegleelteduueevhfetgfffjeevtddvgfeiveehteehle
+    egueelvdejveenucffohhmrghinhepghhithhlrggsrdgtohhmnecuvehluhhsthgvrhfu
+    ihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvih
+    hsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepgedpmhhouggv
+    pehsmhhtphhouhhtpdhrtghpthhtohepfhhrvgguihgrnhhordiiihhglhhiohestghloh
+    huugdrtghomhdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhr
+    ohhjvggtthdrohhrghdprhgtphhtthhopeguphhsmhhithhhsegrphgvrhhtuhhsshholh
+    huthhiohhnshdrtghomhdprhgtphhtthhopehjsggvuhhlihgthhesshhushgvrdgtohhm
+X-ME-Proxy: <xmx:iGO_Z6O6jtFWV8wuHHN6Ay7HulujaawnqsFvwZTXpXvjdAbyS4_LsA>
+    <xmx:iGO_Z7-t-xm2JNhCGrw0ArqTyM3YprnKA6PAXsNp618CvJpln7G0Tw>
+    <xmx:iGO_Z6UwPX2G-SuKjtvgXqUi8Udoj31HDSUdYb9dGYqkZF8MM4AY-A>
+    <xmx:iGO_Z8eFe61-a5e2CcCq9UGGsSIkh_-FkSnXM_0wnvmky_9kMd_Y5g>
+    <xmx:iGO_Z3Zmt1g9zS0re2HoANpP5dmPHpkSrbxPT7UUz_y86DkKdGE-mzWu>
+Feedback-ID: i1568416f:Fastmail
+Date: Wed, 26 Feb 2025 19:54:58 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: xen-devel@lists.xenproject.org,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH v6] Avoid crash calling PrintErrMesg from efi_multiboot2
+Message-ID: <Z79jhZ_BGEC6DYl4@mail-itl>
+References: <20250217162659.151232-1-frediano.ziglio@cloud.com>
+ <Z7jf_YojU9tQ1Or7@mail-itl>
+ <CACHz=Zierjby+_Q93dFeO5mjMG1aiSpyHvDshRK6=ZHY5bH-6A@mail.gmail.com>
+ <Z7xxQHVdSGwig4hb@mail-itl>
+ <CACHz=ZgHxvCJQyJe_NJFh3YYcuW0sey+qcOEv0O-XxC8daTo+A@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] x86/ucode: Adjust parse_ucode() to match other list
- handling
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250225222905.1182374-1-andrew.cooper3@citrix.com>
- <20250225222905.1182374-2-andrew.cooper3@citrix.com>
- <f5a8262d-8397-46b0-83f9-5b597ac322e1@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <f5a8262d-8397-46b0-83f9-5b597ac322e1@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="WkdlofIomaYp0v0c"
+Content-Disposition: inline
+In-Reply-To: <CACHz=ZgHxvCJQyJe_NJFh3YYcuW0sey+qcOEv0O-XxC8daTo+A@mail.gmail.com>
 
-On 26/02/2025 2:30 pm, Jan Beulich wrote:
-> On 25.02.2025 23:29, Andrew Cooper wrote:
->> --- a/docs/misc/xen-command-line.pandoc
->> +++ b/docs/misc/xen-command-line.pandoc
->> @@ -2721,34 +2721,42 @@ performance.
->>     Alternatively, selecting `tsx=1` will re-enable TSX at the users own risk.
->>  
->>  ### ucode
->> -> `= List of [ <integer> | scan=<bool>, nmi=<bool> ]`
->> +> `= List of [ <integer>, scan=<bool>, nmi=<bool> ]`
-> While this makes doc fit present behavior, it is the behavior that is wrong.
-> It was - afaict - broken by 5ed12565aa32 ("microcode: rendezvous CPUs in NMI
-> handler and load ucode"). There should not be both an integer and "scan=".
-> (Really we should have taken measures to stay consistent even if multiple
-> "ucode=" were on the command line.) You actually say so ...
 
-Yes that changed commit changed the behaviour.  We discussed it during
-c25c964634b1 ("x86/ucode: Enforce invariant about module selection").
+--WkdlofIomaYp0v0c
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 26 Feb 2025 19:54:58 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: xen-devel@lists.xenproject.org,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH v6] Avoid crash calling PrintErrMesg from efi_multiboot2
 
-"Wrong" is more complicated.  Neither behaviour is great, but we need
-regular comma separated operations.  (I know I'm deleting nmi= in the
-next patch but I need to introduce a new one for the AMD fix).
+On Mon, Feb 24, 2025 at 02:31:00PM +0000, Frediano Ziglio wrote:
+> On Mon, Feb 24, 2025 at 1:16=E2=80=AFPM Marek Marczykowski-G=C3=B3recki
+> <marmarek@invisiblethingslab.com> wrote:
+> >
+> > On Mon, Feb 24, 2025 at 12:57:13PM +0000, Frediano Ziglio wrote:
+> > > On Fri, Feb 21, 2025 at 8:20=E2=80=AFPM Marek Marczykowski-G=C3=B3rec=
+ki
+> > > <marmarek@invisiblethingslab.com> wrote:
+> > > >
+> > > > On Mon, Feb 17, 2025 at 04:26:59PM +0000, Frediano Ziglio wrote:
+> > > > > Although code is compiled with -fpic option data is not position
+> > > > > independent. This causes data pointer to become invalid if
+> > > > > code is not relocated properly which is what happens for
+> > > > > efi_multiboot2 which is called by multiboot entry code.
+> > > > >
+> > > > > Code tested adding
+> > > > >    PrintErrMesg(L"Test message", EFI_BUFFER_TOO_SMALL);
+> > > > > in efi_multiboot2 before calling efi_arch_edd (this function
+> > > > > can potentially call PrintErrMesg).
+> > > > >
+> > > > > Before the patch (XenServer installation on Qemu, xen replaced
+> > > > > with vanilla xen.gz):
+> > > > >   Booting `XenServer (Serial)'Booting `XenServer (Serial)'
+> > > > >   Test message: !!!! X64 Exception Type - 0E(#PF - Page-Fault)  C=
+PU Apic ID - 00000000 !!!!
+> > > > >   ExceptionData - 0000000000000000  I:0 R:0 U:0 W:0 P:0 PK:0 SS:0=
+ SGX:0
+> > > > >   RIP  - 000000007EE21E9A, CS  - 0000000000000038, RFLAGS - 00000=
+00000210246
+> > > > >   RAX  - 000000007FF0C1B5, RCX - 0000000000000050, RDX - 00000000=
+00000010
+> > > > >   RBX  - 0000000000000000, RSP - 000000007FF0C180, RBP - 00000000=
+7FF0C210
+> > > > >   RSI  - FFFF82D040467CE8, RDI - 0000000000000000
+> > > > >   R8   - 000000007FF0C1C8, R9  - 000000007FF0C1C0, R10 - 00000000=
+00000000
+> > > > >   R11  - 0000000000001020, R12 - FFFF82D040467CE8, R13 - 00000000=
+7FF0C1B8
+> > > > >   R14  - 000000007EA33328, R15 - 000000007EA332D8
+> > > > >   DS   - 0000000000000030, ES  - 0000000000000030, FS  - 00000000=
+00000030
+> > > > >   GS   - 0000000000000030, SS  - 0000000000000030
+> > > > >   CR0  - 0000000080010033, CR2 - FFFF82D040467CE8, CR3 - 00000000=
+7FC01000
+> > > > >   CR4  - 0000000000000668, CR8 - 0000000000000000
+> > > > >   DR0  - 0000000000000000, DR1 - 0000000000000000, DR2 - 00000000=
+00000000
+> > > > >   DR3  - 0000000000000000, DR6 - 00000000FFFF0FF0, DR7 - 00000000=
+00000400
+> > > > >   GDTR - 000000007F9DB000 0000000000000047, LDTR - 00000000000000=
+00
+> > > > >   IDTR - 000000007F48E018 0000000000000FFF,   TR - 00000000000000=
+00
+> > > > >   FXSAVE_STATE - 000000007FF0BDE0
+> > > > >   !!!! Find image based on IP(0x7EE21E9A) (No PDB)  (ImageBase=3D=
+000000007EE20000, EntryPoint=3D000000007EE23935) !!!!
+> > > > >
+> > > > > After the patch:
+> > > > >   Booting `XenServer (Serial)'Booting `XenServer (Serial)'
+> > > > >   Test message: Buffer too small
+> > > > >   BdsDxe: loading Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAE=
+A-3EE4AF6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
+> > > > >   BdsDxe: starting Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AA=
+EA-3EE4AF6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
+> > > > >
+> > > > > This partially rollback commit 00d5d5ce23e6.
+> > > > >
+> > > > > Fixes: 9180f5365524 ("x86: add multiboot2 protocol support for EF=
+I platforms")
+> > > > > Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+> > > >
+> > > > I tried testing this patch, but it seems I cannot reproduce the ori=
+ginal
+> > > > failure...
+> > > >
+> > > > I did as the commit message suggests here:
+> > > > https://gitlab.com/xen-project/people/marmarek/xen/-/commit/ca3d691=
+1c448eb886990f33d4380b5646617a982
+> > > >
+> > > > With blexit() in PrintErrMesg(), it went back to the bootloader, so=
+ I'm
+> > > > sure this code path was reached. But with blexit() commented out, X=
+en
+> > > > started correctly both with and without this patch... The branch I =
+used
+> > > > is here:
+> > > > https://gitlab.com/xen-project/people/marmarek/xen/-/commits/automa=
+tion-tests?ref_type=3Dheads
+> > > >
+> > > > Are there some extra condition to reproduce the issue? Maybe it dep=
+ends
+> > > > on the compiler version? I guess I can try also on QEMU, but based =
+on
+> > > > the description, I would expect it to crash in any case.
+> > > >
+> > >
+> > > Did you see the correct message in both cases?
+> > > Did you use Grub or direct EFI?
+> > >
+> > > With Grub and without this patch you won't see the message, with grub
+> > > with the patch you see the correct message.
+> >
+> > I did use grub, and I didn't see the message indeed.
+> > But in the case it was supposed to crash (with added PrintErrMesg(),
+> > commented out blexit and without your patch) it did _not_ crashed and
+> > continued to normal boot. Is that #PF non-fatal here?
+> >
+>=20
+> Hi,
+>    I tried again with my test environment.
+> Added the PrintErrMesg line before efi_arch_edd call, I got a #PF, in
+> my case the system hangs. With the fix patch machine is rebooting and
+> I can see the message in the logs.
+> I'm trying with Xen starting inside Qemu, EFI firmware, xen.gz
+> compiled as ELF file. Host system is an Ubuntu 22.04.5 LTS. Gcc is
+> version 11.4.
 
-In the presence of comma separated options, one part being `<integer> |
-scan=<bool>` is pointless, because `ucode=1,1,1` is valid, as is
-`ucode=scan,scan,scan`, and then all you've got is an overly complicated
-description of what is identical to other regular list operations.
+My test was wrong, commenting out blexit made "mesg" variable unused.
+After fixing that, I can reproduce it on both QEMU and real hardware:
+without your patch it crashes and with your patch it works just fine.
+While there may be more places with similar issue, this patch clearly
+improves the situation, so:
 
-For this corner case, it's simply easier to tell the user "don't do
-that", which is what we say elsewhere too.
+Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
 
->
->>      Applicability: x86
->>      Default: `scan` is selectable via Kconfig, `nmi=true`
->>  
->> -Controls for CPU microcode loading. For early loading, this parameter can
->> -specify how and where to find the microcode update blob. For late loading,
->> -this parameter specifies if the update happens within a NMI handler.
->> -
->> -'integer' specifies the CPU microcode update blob module index. When positive,
->> -this specifies the n-th module (in the GrUB entry, zero based) to be used
->> -for updating CPU micrcode. When negative, counting starts at the end of
->> -the modules in the GrUB entry (so with the blob commonly being last,
->> -one could specify `ucode=-1`). Note that the value of zero is not valid
->> -here (entry zero, i.e. the first module, is always the Dom0 kernel
->> -image). Note further that use of this option has an unspecified effect
->> -when used with xen.efi (there the concept of modules doesn't exist, and
->> -the blob gets specified via the `ucode=<filename>` config file/section
->> -entry; see [EFI configuration file description](efi.html)).
->> -
->> -'scan' instructs the hypervisor to scan the multiboot images for an cpio
->> -image that contains microcode. Depending on the platform the blob with the
->> -microcode in the cpio name space must be:
->> -  - on Intel: kernel/x86/microcode/GenuineIntel.bin
->> -  - on AMD  : kernel/x86/microcode/AuthenticAMD.bin
->> -When using xen.efi, the `ucode=<filename>` config file setting takes
->> -precedence over `scan`. The default value for `scan` is set with
->> -`CONFIG_UCODE_SCAN_DEFAULT`.
->> +Controls for CPU microcode loading.
->> +
->> +In order to load microcode at boot, Xen needs to find a suitable update
->> +amongst the modules provided by the bootloader.  Two kinds of microcode update
->> +are supported:
->> +
->> + 1. Raw microcode containers.  The format of the container is CPU vendor
->> +    specific.
->> +
->> + 2. CPIO archive.  This is Linux's preferred mechanism, and involves having
->> +    the raw containers expressed as files
->> +    (e.g. `kernel/x86/microcode/{GenuineIntel,AuthenticAMD}.bin`) in a CPIO
->> +    archive, typically prepended to the initrd.
->> +
->> +The `<integer>` and `scan=` options are mutually exclusive and select between
->> +these two options.  They are also invalid in EFI boots (see below).
-> ... here.
->
-> As to EFI boots: "scan=" ought to be usable there, as long as no "ucode="
-> was in the xen.efi config file. I think your code is correct in this regard,
-> it's just the wording here which is too strict.
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-There's still a sharp corner trying that, which is why I didn't address it.
+--WkdlofIomaYp0v0c
+Content-Type: application/pgp-signature; name="signature.asc"
 
-With EFI, there's no order of modules, so `scan` is still ambiguous if
-you've got multiple CPIO archives.
+-----BEGIN PGP SIGNATURE-----
 
->
->> --- a/xen/arch/x86/cpu/microcode/core.c
->> +++ b/xen/arch/x86/cpu/microcode/core.c
->> @@ -113,11 +113,6 @@ void __init microcode_set_module(unsigned int idx)
->>      ucode_mod_forced = 1;
->>  }
->>  
->> -/*
->> - * The format is '[<integer>|scan=<bool>, nmi=<bool>]'.
-> While personally I don't mind the removal, I think back at the time it was
-> specifically asked to (also) put it here.
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAme/Y4UACgkQ24/THMrX
+1yx/bAf+MXkqge5yzU/u1WgX/y/pu5Zycs4p2Pung03rSj69Oxlpd3JtZn0L2ALi
+0AS+HegGLqd/FfJ+c/psnGRkQoB3FVWBFFt7ATcCbgc1kRECVYrs3Re+RBLaxPGR
+f4CWGJ95rGSmwfMSbemmM/Tqe3bchN1kQN8KkGpvx38HVlia0evaL359kZC7LSg9
+4c2QvVIA+vKVORTFlr03Y/7nWW1n0SH3hfw3TKBEFIp5uuF88CREneBWztE98Xn4
+3w5Cbuilvv6gZ8UP5YmwuUvFRgKPBRL78cyonz8N2emEOJxdp8pnW5GpEA/xy68f
+i9oov32CWYuC2vNRpF42/o/DBGk5XA==
+=8gmx
+-----END PGP SIGNATURE-----
 
-It was stale for the whole time of allow-same=<bool>.  This patch was
-originally part of the post-"--force" cleanup series, but I deferred it
-because of the unanticipated fixes required for the boot module changes.
-
-~Andrew
+--WkdlofIomaYp0v0c--
 
