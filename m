@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8036A46109
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 14:38:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.896620.1305369 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7FE1A4616C
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 14:57:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.896635.1305400 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnHbp-0007C5-62; Wed, 26 Feb 2025 13:37:57 +0000
+	id 1tnHts-0002ZT-Or; Wed, 26 Feb 2025 13:56:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 896620.1305369; Wed, 26 Feb 2025 13:37:57 +0000
+Received: by outflank-mailman (output) from mailman id 896635.1305400; Wed, 26 Feb 2025 13:56:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnHbp-00078y-30; Wed, 26 Feb 2025 13:37:57 +0000
-Received: by outflank-mailman (input) for mailman id 896620;
- Wed, 26 Feb 2025 13:37:56 +0000
+	id 1tnHts-0002WL-Lb; Wed, 26 Feb 2025 13:56:36 +0000
+Received: by outflank-mailman (input) for mailman id 896635;
+ Wed, 26 Feb 2025 13:56:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GPjD=VR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tnHbn-00078s-WF
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 13:37:56 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
+ <SRS0=y9YQ=VR=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tnHtq-0002WD-My
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 13:56:34 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e1618ef6-f446-11ef-9897-31a8f345e629;
- Wed, 26 Feb 2025 14:37:54 +0100 (CET)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-38f2f391864so3885119f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 05:37:53 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-390cd8fbb5dsm5519208f8f.84.2025.02.26.05.37.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Feb 2025 05:37:52 -0800 (PST)
+ id 7c20cf26-f449-11ef-9897-31a8f345e629;
+ Wed, 26 Feb 2025 14:56:32 +0100 (CET)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-5dee1626093so1701775a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 05:56:32 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-abefe713bbesm46456566b.69.2025.02.26.05.56.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 26 Feb 2025 05:56:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,205 +44,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1618ef6-f446-11ef-9897-31a8f345e629
+X-Inumbo-ID: 7c20cf26-f449-11ef-9897-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1740577073; x=1741181873; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Qig81jNPpMA4uukJ4w8conunWH/GUGtJrVYJmcqli0U=;
-        b=hpIYBAualsQ7p5zaMrzP0oKAYnVXk5cC3Wajbryv1iBhZx+P6G74FxL7DgeSf+CIKo
-         SoNf/PxdHDuKpqxBtbobU3T553vaRd40EuefEarY8PuolNvKH4/hxJE+YMoCt1tG0PQl
-         ngoFRs++xUf+P4W28QiFKgDfeKpS5hAymDd1A=
+        d=citrix.com; s=google; t=1740578192; x=1741182992; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=ewazTHnMaXUet36Ijlc4tPkDrTHIgx7OpNW5OBdADuk=;
+        b=V2HGTKkgM/HL/y9m1STVbUB8VL0BZSv0RRK1KIUoMXOgj5m+Uh1rTHxmlIyJ2r1T3L
+         RqmriUJyeuaFo3ICy5q9nFfIQtJYe8MSTQkJ6XACZhhzF3MK4ow6q/q0PNKMWDD0qrx1
+         SfWjIi4P/gFXTezLw9uf7HujQFgze3dsjCOjI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740577073; x=1741181873;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1740578192; x=1741182992;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Qig81jNPpMA4uukJ4w8conunWH/GUGtJrVYJmcqli0U=;
-        b=nPRpa3VM5DeN8xIvpeQ54Sx83u+Z/lkl4DenMBYQGMA93l72vI6ZuSheSS7eFwa59i
-         V5PNPsu3Y3Th5whpcTzwVDa02Ba/oqGDEYj5guzJUEyUw9IrgadGZeDt99KmULmjMWd3
-         39B+TP2a4bd3PBgloqoYhJtqKjt6U2RMBy1rW7kILhySBZFgCu4pdRVCNJoXpXmb5tUl
-         YMSwArHc9hG7nhUVbgz+xOxy432uz8byYQiIZROY4HFmbx3kxYIok/1wyBIUd0XmFuw9
-         lRoN3mRIXugHyXlQ5jAYbB2M3mgAT9h2wMblZCI9OQ8oQPacJfW/3uwsGMspjVxcMFP9
-         6P3Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVTQtw1HgjxyeWHB4xantdVD6G9rnHBJo/xx6k7ZE/F9PkUWA5qZN/4n7qTyXeM+oQV5dEpatGnJMc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw07IUNFQIVuo5Vz54TU6uVhnWwawwpRzgrVUPvs+MvkQb3jVDa
-	YqjpGm7a/+0fgiim5m4NbISKTvDePJl4DhBJYhR70EIAUq3Rt9OFt3N8ZY/4o3k=
-X-Gm-Gg: ASbGncvCHUfl6Uu9704MRXUcvKFoNARxRPym/ad6BXr3tt0hyGUr4fQ2D4ouQRyljB8
-	GAENiwf3ki55rmGXLva4LP4rB9x6Nf01mqfgJ6yqN38dxIPVhXlpZ2+XlLLLmQeDl/frsaJgKRT
-	XL+Y9TzuWrj1dDiIFV3jFRy5LJ3e21kHL0YPvCJREWYTlgHO3manpn9JkAIJY0ZILyolVoNhobx
-	daib3YZ31UBAG+yuooV0Wx71cZ9fE5r/rQMKqRLVX8zrByOVASZs/2YvStg7h1UzKpzbjruB1S1
-	RI5YCbueITrhCv7bYxz3x/dy/Jn8Ahu4Z+cyrjaC16xSdj8J8EaGCpzRIBYETkzSqA==
-X-Google-Smtp-Source: AGHT+IHpSPYWslggRytd0aqvIMrotI7kQ3xHU04KlDYtFb/aBJJgFXKKwQiGArKZm57N5i2Gqbs6JA==
-X-Received: by 2002:a5d:584c:0:b0:390:ddc5:42b2 with SMTP id ffacd0b85a97d-390ddc543dfmr1025471f8f.55.1740577073354;
-        Wed, 26 Feb 2025 05:37:53 -0800 (PST)
-Message-ID: <87289f57-8862-4300-948c-62e05e4de5ff@citrix.com>
-Date: Wed, 26 Feb 2025 13:37:52 +0000
+        bh=ewazTHnMaXUet36Ijlc4tPkDrTHIgx7OpNW5OBdADuk=;
+        b=ks+hfKdXjRPChUO7bKXRQOUky4TgN3js/f76XfudstPBY4hjcFhjuoIldDpkH/U8zM
+         6cWnA2bLIc7ZF92QqrmKAajk5d1Nw6esP7vLhIvhqNxy2XtnTBCeCcbFHHIRQzaOHWAR
+         BuJxHzxQhQskYu3uz8Xi7SSEvq64aVoj73PxwUPrKZI+9/MsjVfCIiXYZv9fYKcsgV5w
+         syFeWCIJcgkzQgbp/V1yiwhPJLgTtPD8ECOkrQphc/n7oNKpT1cYN/DTmtKXEY/iFXut
+         8vkPKUI2hYDgGHKJx9KCBTHBReQAa3NZeh/SUN7N8px9OiauKA7uK7Z9Np/YfPSJRcc3
+         X9Vw==
+X-Gm-Message-State: AOJu0YxLqZbmDKOGlsdL7+xzIdWVJJVUwI2oe1ynzsC1N4r6cnWMsWYz
+	r6upiiJ/m1+Hk7SFac6YEiCg92Ln7m5NbqiGYxeEBv45ErGdeKaxEMqx+gwI4hY=
+X-Gm-Gg: ASbGncuLdq5KQWp4hAZlu7xU2dNXuP/mvdDmEhxmK140EUKGE/+/iSWjXTgFdTDiCjE
+	khQKyi6NNDy/80K76u9JDfd8Oa1n/EPe/GlXqmlPrVlH0E/hwhA0FKLFxSnOKxWtiglSotg0dGM
+	C/tJcIimgGRW+RBNe9P/6xTQ7721lKkvAf0fofrNjhXJ7wTSKMN864SN5Ybe+xmoJxZOBUwlCPJ
+	Dmi2CiQGYAr7FVTwpQePgt8i9nhO9oAp/Ecwdmvtnl/RmKar5U+llf5VRbDgbwjWZY2KDBA++rb
+	1DZloMEStLp0LLsOJcWACPz0GiGRrWg=
+X-Google-Smtp-Source: AGHT+IE5V4w4VGKrK5GUpSevmzzu12rfaNMTp9RDDGZne/D3FFu9nPTgo/kSDHkLihKDl91+LsP8gA==
+X-Received: by 2002:a17:907:c80f:b0:abe:cfbf:3da6 with SMTP id a640c23a62f3a-abecfbf4065mr583261166b.19.1740578191919;
+        Wed, 26 Feb 2025 05:56:31 -0800 (PST)
+Date: Wed, 26 Feb 2025 14:56:30 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH] xen/page_alloc: Simplify domain_adjust_tot_pages
+Message-ID: <Z78djoAU7vjGepjr@macbook.local>
+References: <20250224132724.9074-1-alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/8] x86/IDT: Generate bsp_idt[] at build time
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250224160509.1117847-1-andrew.cooper3@citrix.com>
- <20250224160509.1117847-7-andrew.cooper3@citrix.com>
- <9524c92f-cc5c-480a-935c-f3b51618c03e@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <9524c92f-cc5c-480a-935c-f3b51618c03e@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20250224132724.9074-1-alejandro.vallejo@cloud.com>
 
-On 26/02/2025 12:39 pm, Jan Beulich wrote:
-> On 24.02.2025 17:05, Andrew Cooper wrote:
->> --- /dev/null
->> +++ b/xen/arch/x86/include/asm/gen-idt.h
->> @@ -0,0 +1,121 @@
->> +/*
->> + * Generator for IDT entries.
->> + *
->> + * Caller to provide GEN(vector, symbol, dpl, autogen) macro
->> + *
->> + * Symbols are 'entry_0xYY' if there is no better name available.  Regular
->> + * handlers set autogen=1, while manual (autogen=0) require the symbol to be
->> + * implemented somewhere else.
->> + */
-> Doesn't this need something for Eclair to spot the deliberate absence of a
-> header guard?
+On Mon, Feb 24, 2025 at 01:27:24PM +0000, Alejandro Vallejo wrote:
+> The logic has too many levels of indirection and it's very hard to
+> understand it its current form. Split it between the corner case where
+> the adjustment is bigger than the current claim and the rest to avoid 5
+> auxiliary variables.
+> 
+> While at it, fix incorrect field name in nearby comment.
+> 
+> Not a functional change (although by its nature it might not seem
+> immediately obvious at first).
+> 
+> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> ---
+>  xen/common/page_alloc.c | 25 +++++++++++--------------
+>  1 file changed, 11 insertions(+), 14 deletions(-)
+> 
+> diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+> index 1bf070c8c5df..4306753f0bd2 100644
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -490,13 +490,11 @@ static long outstanding_claims; /* total outstanding claims by all domains */
+>  
+>  unsigned long domain_adjust_tot_pages(struct domain *d, long pages)
+>  {
+> -    long dom_before, dom_after, dom_claimed, sys_before, sys_after;
+> -
+>      ASSERT(rspin_is_locked(&d->page_alloc_lock));
+>      d->tot_pages += pages;
+>  
+>      /*
+> -     * can test d->claimed_pages race-free because it can only change
+> +     * can test d->outstanding_pages race-free because it can only change
+>       * if d->page_alloc_lock and heap_lock are both held, see also
+>       * domain_set_outstanding_pages below
+>       */
+> @@ -504,17 +502,16 @@ unsigned long domain_adjust_tot_pages(struct domain *d, long pages)
+>          goto out;
 
-Eclair doesn't complain, although I'm not entirely sure why.
+I think you can probably short-circuit the logic below if pages == 0?
+(and avoid taking the heap_lock)
 
->> +#define DPL0 0
->> +#define DPL1 1
->> +#define DPL3 3
->> +
->> +#define manual 0
->> +#define autogen 1
->> +
->> +#define GEN16(i) \
->> +    GEN(0x ## i ## 0, entry_0x ## i ## 0, DPL0, autogen) \
->> +    GEN(0x ## i ## 1, entry_0x ## i ## 1, DPL0, autogen) \
->> +    GEN(0x ## i ## 2, entry_0x ## i ## 2, DPL0, autogen) \
->> +    GEN(0x ## i ## 3, entry_0x ## i ## 3, DPL0, autogen) \
->> +    GEN(0x ## i ## 4, entry_0x ## i ## 4, DPL0, autogen) \
->> +    GEN(0x ## i ## 5, entry_0x ## i ## 5, DPL0, autogen) \
->> +    GEN(0x ## i ## 6, entry_0x ## i ## 6, DPL0, autogen) \
->> +    GEN(0x ## i ## 7, entry_0x ## i ## 7, DPL0, autogen) \
->> +    GEN(0x ## i ## 8, entry_0x ## i ## 8, DPL0, autogen) \
->> +    GEN(0x ## i ## 9, entry_0x ## i ## 9, DPL0, autogen) \
->> +    GEN(0x ## i ## a, entry_0x ## i ## a, DPL0, autogen) \
->> +    GEN(0x ## i ## b, entry_0x ## i ## b, DPL0, autogen) \
->> +    GEN(0x ## i ## c, entry_0x ## i ## c, DPL0, autogen) \
->> +    GEN(0x ## i ## d, entry_0x ## i ## d, DPL0, autogen) \
->> +    GEN(0x ## i ## e, entry_0x ## i ## e, DPL0, autogen) \
->> +    GEN(0x ## i ## f, entry_0x ## i ## f, DPL0, autogen)
->> +
->> +
->> +GEN(0x00, entry_DE,         DPL0, manual)
->> +GEN(0x01, entry_DB,         DPL0, manual)
->> +GEN(0x02, entry_NMI,        DPL0, manual)
->> +GEN(0x03, entry_BP,         DPL3, manual)
->> +GEN(0x04, entry_OF,         DPL3, manual)
-> Would this better be
->
-> #ifdef CONFIG_PV32
-> GEN(0x04, entry_OF,         DPL3, manual)
-> #else
-> GEN(0x04, entry_0x04,       DPL0, autogen)
-> #endif
->
-> ? (Not necessarily in this patch, but in principle.)
+>  
+>      spin_lock(&heap_lock);
+> -    /* adjust domain outstanding pages; may not go negative */
+> -    dom_before = d->outstanding_pages;
+> -    dom_after = dom_before - pages;
+> -    BUG_ON(dom_before < 0);
+> -    dom_claimed = dom_after < 0 ? 0 : dom_after;
+> -    d->outstanding_pages = dom_claimed;
+> -    /* flag accounting bug if system outstanding_claims would go negative */
+> -    sys_before = outstanding_claims;
+> -    sys_after = sys_before - (dom_before - dom_claimed);
+> -    BUG_ON(sys_after < 0);
+> -    outstanding_claims = sys_after;
+> +    BUG_ON(outstanding_claims < d->outstanding_pages);
+> +    if ( pages > 0 && d->outstanding_pages < pages )
+> +    {
+> +        /* `pages` exceeds the domain's outstanding count. Zero it out. */
+> +        outstanding_claims -= d->outstanding_pages;
+> +        d->outstanding_pages = 0;
+> +    } else {
+> +        outstanding_claims -= pages;
+> +        d->outstanding_pages -= pages;
 
-No.  INTO can still be used in compatibility mode segment.
+I wonder if it's intentional for a pages < 0 value to modify
+outstanding_claims and d->outstanding_pages, I think those values
+should only be set from domain_set_outstanding_pages().
+domain_adjust_tot_pages() should only decrease the value, but never
+increase either outstanding_claims or d->outstanding_pages.
 
-Furthermore, for any exception we know about, we want a manual one to
-avoid the error-code realignment logic where possible.
+At best the behavior is inconsistent, because once
+d->outstanding_pages reaches 0 there will be no further modification
+from domain_adjust_tot_pages().
 
->
->> --- /dev/null
->> +++ b/xen/arch/x86/include/asm/gen-idt.lds.h
->> @@ -0,0 +1,27 @@
->> +/*
->> + * Linker file fragment to help format the IDT correctly
->> + *
->> + * The IDT, having grown compatibly since the 16 bit days, has the entrypoint
->> + * address field split into 3.  x86 ELF lacks the @lo/@hi/etc relocation forms
->> + * commonly found in other architectures for accessing a part of a resolved
->> + * symbol address.
->> + *
->> + * However, the linker can perform the necessary calculations and provide them
->> + * under new symbol names.  We use this to generate the low and next 16 bits
->> + * of the address for each handler.
->> + *
->> + * The upper 32 bits are always a constant as Xen's .text/data/rodata sits in
->> + * a single aligned 1G range, so do not need calculating in this manner.
->> + */
->> +#ifndef X86_IDT_GEN_LDS_H
->> +#define X86_IDT_GEN_LDS_H
->> +
->> +#define GEN(vec, sym, dpl, auto)                                        \
->> +    PROVIDE_HIDDEN(IDT_ ## sym ## _ADDR1 = ABSOLUTE(((sym) & 0xffff))); \
->> +    PROVIDE_HIDDEN(IDT_ ## sym ## _ADDR2 = ABSOLUTE(((sym >> 16) & 0xffff)));
-> Not sure if Eclair gets to see this at all, but maybe better parenthesize
-> sym also in the latter instance?
+I think it would be best if outstanding_claims and
+d->outstanding_pages was only modified if pages > 0.
 
-Oh, yes.
-
-> As to the final semicolon - ideally this would be on the use sites of GEN(),
-> for things to look more C-ish. Yet I won't insist, as gen-idt.h ends up
-> looking sufficiently uniform for this to not be a major concern.
-
-I'm afraid it's necessary (and too in entry stubs).
-
-It's the GEN16() macro, which expands 16x GEN() on the same line.
-
-I could drop the GEN16() macro and do everything longhand, but I suspect
-you'd like that even less.
-
-~Andrew
+Thanks, Roger.
 
