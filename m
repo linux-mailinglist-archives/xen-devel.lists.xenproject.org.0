@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BF50A45FCA
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 13:53:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.896510.1305252 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39274A45FCC
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 13:53:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.896511.1305264 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnGuc-00029y-Ja; Wed, 26 Feb 2025 12:53:18 +0000
+	id 1tnGum-0002di-RM; Wed, 26 Feb 2025 12:53:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 896510.1305252; Wed, 26 Feb 2025 12:53:18 +0000
+Received: by outflank-mailman (output) from mailman id 896511.1305264; Wed, 26 Feb 2025 12:53:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnGuc-00026S-Fl; Wed, 26 Feb 2025 12:53:18 +0000
-Received: by outflank-mailman (input) for mailman id 896510;
- Wed, 26 Feb 2025 12:53:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=J4Ti=VR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tnGub-00021N-4X
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 12:53:17 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a507602a-f440-11ef-9aae-95dc52dad729;
- Wed, 26 Feb 2025 13:53:15 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-38f403edb4eso4014047f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 04:53:15 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43aba52bc54sm21596905e9.5.2025.02.26.04.53.14
+	id 1tnGum-0002b5-O0; Wed, 26 Feb 2025 12:53:28 +0000
+Received: by outflank-mailman (input) for mailman id 896511;
+ Wed, 26 Feb 2025 12:53:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=wRt1=VR=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1tnGul-0002Zl-KR
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 12:53:27 +0000
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [2a00:1450:4864:20::22c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ab0f1986-f440-11ef-9897-31a8f345e629;
+ Wed, 26 Feb 2025 13:53:25 +0100 (CET)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-3098088c630so64297241fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 04:53:25 -0800 (PST)
+Received: from [172.24.85.51] ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5485222af44sm421910e87.138.2025.02.26.04.53.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Feb 2025 04:53:14 -0800 (PST)
+ Wed, 26 Feb 2025 04:53:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,93 +44,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a507602a-f440-11ef-9aae-95dc52dad729
+X-Inumbo-ID: ab0f1986-f440-11ef-9897-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740574395; x=1741179195; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Lf0Z1KE7YfIXt4PpykkUhVby1xb/rEwBGs/nUitjkFw=;
-        b=CJbMZb1q5+mq+KDZCA0RrKBJ7iAHSwwEKbK9JytZCC+PVUOGVSTsWE+nPDHjjdnj7p
-         U1YPo/HDZDygrakacQ8k4pcbZL1TAK8sBI+T93BAOmloTwcli4Xpoe93tGqEYzj5IA4R
-         sJ+FeuQ8GfDpHFJ3GdmwojUKAU/h/duz5rh+jQki115S03PwF0e25wAP2IrlJ9btxeq7
-         gYhVn8wdT26N30QI91kgHMSDOgCsbWF/F1hq9QKVEjS0uN2ZDacgg4ov4BZOyg2KYRDu
-         Kp3a2+XYJEoVNDhWj3DpgfPyLV2fk36xINq1c/mxBFai/P2mFnuoW1WMS3mDITpwLLIV
-         FHHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740574395; x=1741179195;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1740574405; x=1741179205; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Lf0Z1KE7YfIXt4PpykkUhVby1xb/rEwBGs/nUitjkFw=;
-        b=hx9xSEsa57WJoC4qecPJxUQ66mdZDRXdODwYKlO/2sDnw2bQLmEf3/6nPdIrNR/O8C
-         zl8B5+lOXbWwnAk0uKhWN/9fLfRB4CbccdeGTSNDO/SFiMYLuSDQvLcfHTfFNHVuJ1TX
-         c1yt0lzIDjfT/gbHBt5pGa5dRGI+P7nWN+rEvfNxltuqptqq0h7whorJ/Pwt24Iygv8K
-         RIj6ESA+SOHv8SOWvY1RtXmpD8H1NOPBeK7ZprY4fP3g3ZkyR8aGnMRjUlkoMsOoNyqA
-         okjj12V027tsjGnnhtZGv+M9xLNfdYuUi34osraO3vsDXLM2MeeI9PVoGXZ9vD1gHRBO
-         LJ8Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUDWvGsheHuUULcsDj+aJWKBnSdo8Z6VYQqpdOkPt2Q7t8v3Hgyl0RQ9sE8Zr74UANv2G3ViGWzsxE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzx+BA9uT1HKHN7LajL3e6wumszZ0fJaP56BCHejYOQ6lzEPEO3
-	cDQdrejMXPKuo8Hu3+SxfDWaM3qsmXEJZq2ExkjliVyulQoPMoAI0UvY3qX5fA==
-X-Gm-Gg: ASbGncv5RuM1hm5RFuoQmrkWZXMCWOuxXrGkiRCVw+qiHjm3eiUD+SplfqG23/vazZv
-	mEK5PqPymmZ0VVNznHGeUXq3nMWr4aRzUTDlTwHhhUiBrH6eYsBcizvr2vPuw8OQbxAyMAcPXuJ
-	ojCXZyk/ZDmzjuYRVrlKMw8Q5kYBZMgzmvx/YDXyhC4uqJFGzE3dZjuOk9jPhSE1wMeJzEuK3wN
-	mjtkfOoRaTVk+q4KK4K8e2k2Wzntdw5QHaky0dwLjdyQ0JPMPuweXTxhBZW7pzuKgKaIc4kmnJE
-	9yYUUzV0hfJD1q+4BL/SUZzk4qFtnd1jvmTGvfuLND4kA6LZIHdS0sYITR1ei8VxssEViFHMh5h
-	IjebJO/2mTDw=
-X-Google-Smtp-Source: AGHT+IE7AUQ3uL5ah3lgDzra0oKQjTDpqZw+R7iqlO0f8ugPrpTJHiH1njBEy5Sp1rwIlRW+xqxAsQ==
-X-Received: by 2002:a05:6000:1fad:b0:390:dfbb:640 with SMTP id ffacd0b85a97d-390dfbb06dbmr115612f8f.45.1740574395153;
-        Wed, 26 Feb 2025 04:53:15 -0800 (PST)
-Message-ID: <51550031-77f0-44c0-89f5-2a1a53384794@suse.com>
-Date: Wed, 26 Feb 2025 13:53:14 +0100
+        bh=0uArhqLd/PU5ZvoJ53Nemxk5nPslXqlvd2ut7vvcyrs=;
+        b=nQ1IfgqC2vZNxRTq6JsKwirJnsT0epqiYL/wR021zs5dh/BNR4jPYL+ajxKYXBKg1g
+         3cgJ2agRcjXmZE+wcxLuAbEzKBseNQxV1+YoIUuGgRMQzzqM6oF0bT9/35Po4O2yRQ7d
+         Kgk+GiBoQULZmsUiD2fAuRRw3K+ex4JWU2Bo3CQvJx/7bzx46hd/o/wI3sE4oz5GFuCP
+         dkrLIhU7pYNYnM6L8OPMHxf51+un0Yu4xZb5PE3TJPfvQmvJEYpwpD+2var+UdElajw6
+         +eJmmPNMyVYbXyJP10zjYhqwOp4TOA/8/Gnb1hkZ0vauTnp/SisLSz2TO9xfNAL28+sO
+         DpGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1740574405; x=1741179205;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=0uArhqLd/PU5ZvoJ53Nemxk5nPslXqlvd2ut7vvcyrs=;
+        b=YdFUAEl8ZXwxJ+AD4UC4X7rkpAWjq4Rirj8/Md9arZzDafrijhyxOq8ZfVCzO6jNkZ
+         iFlO0WZby6x915z0opN/EkUXZt2HRFwUqA11fWS/dEg9QqmqQHSCP7XbLGeyC4HKYevD
+         OvG9PUb7Z64aoW4/fS7i4YIGRFPL81JFhPOatKMAk0b8q7H+02bbkNngS0l33i27vIzO
+         edEjWYKd3Tu36Jb2RKAXjWBj59vMirWcre8tAt6vw9dmr//Ni/4CUeSsndAM1yfTlQm8
+         hnTynCpwvhAo5svl8GGlT/SPqEbOeJmiY+NHqZLnKb/kFNK2nIG4nv255onhwzFp0GkG
+         q1TQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUmiBw4Mr+QXamzh+qpfEePH5qaRAvGhka8fQJ4NTlQePgZYIGaaMwBNbVOK3jC47E82/wH1PV8CCM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YweMoIMokTKTPwVElmMHxtssFAdO7wv0RTv/87XZtaOQI/FLnTx
+	pdfzQ/wkg2ZSFLBYYrBIY1VEMHH+pQYZ3/+Q/i4XiBU5+QPn540j
+X-Gm-Gg: ASbGncvTQ003giQIqeN3Mc3QMvOfqAikhA7E2IqkRHdJDkPBCTRcpzuILjiy3tbAzpd
+	2H8nDcuj+S3rfZ0lv40h3N7YtrCiqg/8mv3fyr/s1zXpWP9MITCcsDDP0h6uUt7/q/AlSm9diuH
+	xWOFdlytEbJJiNSvsgW3CtMN0cNsgY6iLcRsXGzEBN0P/wtZtTau/SH5Ub6fB6AfWzNdsWAmH5P
+	YYM9EhOWHrfl08izPqi79FSWT/15jhKWxcr3Evb2US+xfcOVlcY2sWjZXkGE7orLwevhOlEwjLV
+	ucrTJJrWBk5zkOmUDxmPIu+AbiMw0VkKW0Q=
+X-Google-Smtp-Source: AGHT+IFLKtPWoHZSx4PhvVgkBMd/W0HHqos932F8cTywmrZZzVFDfFNhTeddJnlgrTW3bxS/yPjO5w==
+X-Received: by 2002:a05:6512:10c4:b0:545:c7d:1784 with SMTP id 2adb3069b0e04-54851108826mr5579282e87.43.1740574404712;
+        Wed, 26 Feb 2025 04:53:24 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------epK0FFwm7nTkZpEeKT48y5eD"
+Message-ID: <54c23100-5be2-479f-9e35-871fe5f95af2@gmail.com>
+Date: Wed, 26 Feb 2025 13:53:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 8/8] x86/traps: Convert pv_trap_init() to being an
- initcall
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250224160509.1117847-1-andrew.cooper3@citrix.com>
- <20250224160509.1117847-9-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v2 1/1] PPC: Activate UBSAN in testing (for 4.20?)
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+ <jbeulich@suse.com>, Shawn Anastasio <sanastasio@raptorengineering.com>
+Cc: tpearson@raptorengineering.com, Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1740540262.git.sanastasio@raptorengineering.com>
+ <a1bc84821cf9018549fb1dc0aeb8fd8f9bfeb002.1740540262.git.sanastasio@raptorengineering.com>
+ <4d5511e2-ff07-42fe-b57e-7e66c999d811@suse.com>
+ <2295052e-3999-47ef-bb74-ca8517296abf@citrix.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250224160509.1117847-9-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <2295052e-3999-47ef-bb74-ca8517296abf@citrix.com>
 
-On 24.02.2025 17:05, Andrew Cooper wrote:
-> With most of pv_trap_init() being done at build time, opening of NMI_SOFTIRQ
-> can be a regular initcall, simplifying trap_init().
-> 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+This is a multi-part message in MIME format.
+--------------epK0FFwm7nTkZpEeKT48y5eD
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
+On 2/26/25 1:10 PM, Andrew Cooper wrote:
+> On 26/02/2025 7:24 am, Jan Beulich wrote:
+>> On 26.02.2025 04:27, Shawn Anastasio wrote:
+>>> From: Andrew Cooper<andrew.cooper3@citrix.com>
+>>>
+>>> Also enable -fno-sanitize=alignment like x86 since support for unaligned
+>>> accesses is guaranteed by the ISA and the existing OPAL setup code
+>>> relies on it.
+>>>
+>>> Signed-off-by: Andrew Cooper<andrew.cooper3@citrix.com>
+>>> Signed-off-by: Shawn Anastasio<sanastasio@raptorengineering.com>
+>> Acked-by: Jan Beulich<jbeulich@suse.com>
+> Thanks. I've committed this.
+>
+> Oleksii, seeing as how simple it ended up, and seeing as how you're
+> currently writing the release notes for 4.20 while excluding PPC from
+> the list...
+>
+> Views on this sneaking in at the last moment?
+
+As it touches only PPC part, then I am okay to have it in 4.20:
+
+   Release-Acked-By: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+
+
+I'll update release notes too then.
+
+Thanks.
+
+~ Oleksii
+
+--------------epK0FFwm7nTkZpEeKT48y5eD
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2/26/25 1:10 PM, Andrew Cooper
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:2295052e-3999-47ef-bb74-ca8517296abf@citrix.com">
+      <pre wrap="" class="moz-quote-pre">On 26/02/2025 7:24 am, Jan Beulich wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">On 26.02.2025 04:27, Shawn Anastasio wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">From: Andrew Cooper <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a>
+
+Also enable -fno-sanitize=alignment like x86 since support for unaligned
+accesses is guaranteed by the ISA and the existing OPAL setup code
+relies on it.
+
+Signed-off-by: Andrew Cooper <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a>
+Signed-off-by: Shawn Anastasio <a class="moz-txt-link-rfc2396E" href="mailto:sanastasio@raptorengineering.com">&lt;sanastasio@raptorengineering.com&gt;</a>
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">Acked-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Thanks. I've committed this.
+
+Oleksii, seeing as how simple it ended up, and seeing as how you're
+currently writing the release notes for 4.20 while excluding PPC from
+the list...
+
+Views on this sneaking in at the last moment?</pre>
+    </blockquote>
+    <pre>As it touches only PPC part, then I am okay to have it in 4.20:</pre>
+    <pre>  Release-Acked-By: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+
+
+I'll update release notes too then.
+
+Thanks.
+
+~ Oleksii
+</pre>
+  </body>
+</html>
+
+--------------epK0FFwm7nTkZpEeKT48y5eD--
 
