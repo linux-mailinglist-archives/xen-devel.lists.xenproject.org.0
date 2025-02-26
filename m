@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C0C4A46440
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 16:14:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.896831.1305582 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70188A46448
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 16:14:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.896845.1305593 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnJ6c-0001R2-Ej; Wed, 26 Feb 2025 15:13:50 +0000
+	id 1tnJ7P-0001xg-Nc; Wed, 26 Feb 2025 15:14:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 896831.1305582; Wed, 26 Feb 2025 15:13:50 +0000
+Received: by outflank-mailman (output) from mailman id 896845.1305593; Wed, 26 Feb 2025 15:14:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnJ6c-0001Oc-C6; Wed, 26 Feb 2025 15:13:50 +0000
-Received: by outflank-mailman (input) for mailman id 896831;
- Wed, 26 Feb 2025 15:13:49 +0000
+	id 1tnJ7P-0001wC-Ke; Wed, 26 Feb 2025 15:14:39 +0000
+Received: by outflank-mailman (input) for mailman id 896845;
+ Wed, 26 Feb 2025 15:14:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=GPjD=VR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tnJ6b-0001KY-5O
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 15:13:49 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ id 1tnJ7O-0001KY-1R
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 15:14:38 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 46d42fa1-f454-11ef-9897-31a8f345e629;
- Wed, 26 Feb 2025 16:13:47 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-38f6287649eso5452596f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 07:13:47 -0800 (PST)
+ id 63fcbef5-f454-11ef-9897-31a8f345e629;
+ Wed, 26 Feb 2025 16:14:36 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-4399ee18a57so6877355e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 07:14:36 -0800 (PST)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-390cd866f0asm5928689f8f.12.2025.02.26.07.13.45
+ ffacd0b85a97d-390cd8e7108sm6027212f8f.69.2025.02.26.07.14.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Feb 2025 07:13:46 -0800 (PST)
+ Wed, 26 Feb 2025 07:14:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 46d42fa1-f454-11ef-9897-31a8f345e629
+X-Inumbo-ID: 63fcbef5-f454-11ef-9897-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1740582827; x=1741187627; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1740582876; x=1741187676; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=wBXwCbyrlSzHpR6lxJK5s0NX/XdXEE14LgJ8csdiVcY=;
-        b=FI9VcaXb6EqLW2vY1dY2z45/tHRvjTcqdIz3tMZUNLp+giXh806x2F9UOmV/K2WXls
-         WlGxgsbuL4LmnwO2UXYFohdQ6Km7sIb65kHB01yGAhZfyr7tac7UrvGvUpzXPQJ8LfAu
-         imIgEWE1yUfRTwL35IodsFnvKl9x+X3t3lZCg=
+        bh=Ro+XIxeDTyz/XU1jg+mRowNia4JOrt8ConDcnWLgyv4=;
+        b=dWF93MoBVIHlIs4N0x72lTYjzLv42m3NiM4tiw+BaqH0D5r7obSxGmfs+Q3r6iVFQo
+         88cUv/2nT9oWMdk4GXycZPsrA6BoKTHthYtxSt1lEMFevDOKEW1O50vecM6rpy4Jle3w
+         GxcFdd4Lf5La6KWi4g+kCRcjPE03nAV9ZH2Ks=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740582827; x=1741187627;
+        d=1e100.net; s=20230601; t=1740582876; x=1741187676;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=wBXwCbyrlSzHpR6lxJK5s0NX/XdXEE14LgJ8csdiVcY=;
-        b=ebptKu/MoU6JPoEmBYcUtfgCQA3ivvxORoQsaHF4cH/wbEl9EGm44r4iNWPCQpYQPf
-         IHz/QaJCmEL5yLwDn4Yat7KkijtJBMJCKhbE1YKvOoPxcMoeek1XpU35o8gHb28ttDmZ
-         50v/7AbagQqiowvDU1nwz1ldB7VR67YacYAWDDcejV3v00KhIf1EA9DxGcxC2gv04qqC
-         qnbYBop6goEQuG5gffinSN4GrC29HMoBjAcVsQT0nLGVuE4Rn/jWgMKm2PcO6Zz7oDFn
-         jxZctq3sOZiC3Y/p9S+Ps2vzcr7M/C3tjzTP5rN2SYV/Rup/5r0cWK24N2wkoy+zPZFD
-         Xv9A==
-X-Forwarded-Encrypted: i=1; AJvYcCUFmEdcByDR4qhF/8YdW+zhnudYxljWm83BSlTTv1EL1EfXskpH/M+u43VQxjrzHkH6u1aagtcq5Lo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwnzQaioLsvUwYXiqq+xODOIAk92CMIsiLUKzOgcIrJySWhStHm
-	sVhPbRkHT093H0GeiJFKPhFa/M3BCERYpw1u9MyB1h2UtxNU+HrpIESqxbFKRYI=
-X-Gm-Gg: ASbGnctzxsxMRoAs3g16Ud6lnbcLo8RaqGOZBgQknbLhG9j5S2ZoMHOX65267X51NSy
-	Um9MYvbmBy4tUHwYICdUusAVRYU3MIb9l7IqcULUeccJ9dj6Z+oVvO+4ZwsKZQKeR0k+Jwnt1ut
-	eix669oKWLkCNZ7r7KYOvFVitxJ5WXajE/pveL1Ro6O/Gxy8FHtTdKYa++7V2lPPbfapACnfB8W
-	iWg7ZoAUhEQ0yixu8c8l1Tg5xmFIKuEBoymeXqi4F8JkZf5ucD6uVhG9MUuG9cabnu5MSB6X5LI
-	vykpA2TYM6WVaizK5zGQGexImQRdtFDQhuSVM7aBuhM6//VKD3rxlGmmBJJdOQ3exA==
-X-Google-Smtp-Source: AGHT+IEBghiYG5pgDHxqmhVvbGUA2Wl/BfBjrWGk4NYgbA/uR7y7l0sti0IK1RHgJj14AXrnUr+URA==
-X-Received: by 2002:a05:6000:1541:b0:38d:e48b:1783 with SMTP id ffacd0b85a97d-38f70825febmr17240958f8f.42.1740582826759;
-        Wed, 26 Feb 2025 07:13:46 -0800 (PST)
-Message-ID: <82da9566-c545-4ac3-8182-b3368a06b283@citrix.com>
-Date: Wed, 26 Feb 2025 15:13:45 +0000
+        bh=Ro+XIxeDTyz/XU1jg+mRowNia4JOrt8ConDcnWLgyv4=;
+        b=Q9u3uUzCvCSGQlAe3IoqmF7T+gwk8gohNDRkAo2KJu4UPluAdxuteESkziY6g8e8WD
+         epd24NUham8+LzXzIXU3Fv9lXbU8zT+Lmo4p2n6N9IrK/Jj9meNormax2MUU9ZGKgTbb
+         kLbiVXaocWG465OH42wCenl2vE11Kh9pdkrGZWSzZtGp0lvPoxLUR/5clBRSI96xoikc
+         z2Z7KfcvGl/N306C5S72U5LYBRdyr633tBvs8/ZtM5u0Ggt3IILV8foV1gjDIaWddUKo
+         WPdQ/K6VHftVrUbMR070MJRhHm83ZejgX02OolmjBNKBqegema/qzuxhwNkzTmrP6jFN
+         G3Sw==
+X-Forwarded-Encrypted: i=1; AJvYcCWoFf2GU5rIjAUAKLm+rpypY5VfWnDel8Rn1f+vQdbE/XlXfVP27vY00fcLFxBlBTk/BNihf2YuLos=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw6nupC9L0mnWal0WKtIKXBxyTn6kyMoJIHNqwe1avX+KjqSCVx
+	/ZqEUOQnUw3sU/fk9b3eS5FgV3w0IpWlDjr6gj7oVAPwFqH5EQRypb9fLz3vkKg=
+X-Gm-Gg: ASbGnctG/HwViJFlU1og4iFCR5wTNcmcoj0DfgkczKI4hEzpOJqRGOxf7aIsIVJB6Kv
+	xKrtjRRiOb4Z40N7PEFuGlQ6qAn7Cf6prm11tLXwjDe+/MzCNQlD2ABj1y6RgwzckdroHPhc+0b
+	O7ZGBR7Q+dCB/giOK0G32KBHGgme9lLuzUPT5Dx5eVXTp+zXQ4mkuLsqJNLEKwLx8/OqbMQ+gdl
+	HXyFQC8uyBro+k4F4CWXBfpAs9/Pn3VE3TJQcdXEMIEuqxBxJY8sJwffCoC0b9kybcxIfaLMZZG
+	Jgvd51QLmumexBf9ixe5oo/1syZ3IUUHgolyDxGTP5sPEiDScavnbsAaPeXHkTMOjw==
+X-Google-Smtp-Source: AGHT+IFyeSOJQamRs/IVTwZCrHYRo+gkV3NJHR0xnpd9Y2wCKEAJ/DyzpcwqeYYXjyO0ravoIr6YhA==
+X-Received: by 2002:a05:600c:58d4:b0:439:9536:fa6b with SMTP id 5b1f17b1804b1-439a30e65c0mr216219565e9.13.1740582875917;
+        Wed, 26 Feb 2025 07:14:35 -0800 (PST)
+Message-ID: <e26cdb1a-9aa2-4ca2-94c2-c6c4afe9a46f@citrix.com>
+Date: Wed, 26 Feb 2025 15:14:34 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for 4.20 v2] CHANGELOG.md: Finalize changes in 4.20
- release cycle
-To: Jan Beulich <jbeulich@suse.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Community Manager <community.manager@xenproject.org>,
- "committers @ xenproject . org" <committers@xenproject.org>,
- xen-devel@lists.xenproject.org
-References: <20250226104556.36324-1-oleksii.kurochko@gmail.com>
- <8ec1b722-3af1-4778-9902-0f3278e4309a@suse.com>
- <0f07557a-f340-4056-b8a0-5efe680bddc7@gmail.com>
- <b45c2acb-9d72-4de9-907f-ad2d0c7ac6bd@suse.com>
- <e801c975-0985-450e-ae6a-7659a78e862c@gmail.com>
- <53c991a5-b398-430e-b94e-d7428c2b2c2b@suse.com>
+Subject: Re: [PATCH 6/8] x86/IDT: Generate bsp_idt[] at build time
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250224160509.1117847-1-andrew.cooper3@citrix.com>
+ <20250224160509.1117847-7-andrew.cooper3@citrix.com>
+ <9524c92f-cc5c-480a-935c-f3b51618c03e@suse.com>
+ <87289f57-8862-4300-948c-62e05e4de5ff@citrix.com>
+ <dff0e60a-e56a-4092-9641-6045a2712306@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -141,32 +137,124 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <53c991a5-b398-430e-b94e-d7428c2b2c2b@suse.com>
+In-Reply-To: <dff0e60a-e56a-4092-9641-6045a2712306@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 26/02/2025 2:33 pm, Jan Beulich wrote:
-> On 26.02.2025 15:31, Oleksii Kurochko wrote:
->> On 2/26/25 2:13 PM, Jan Beulich wrote:
->>>>>> +   - Zen5 support (including new hardware support to mitigate the SRSO
->>>>>> +     speculative vulnerability).
->>>>> I'd also suggest to qualify Zen5 with AMD.
->>>> I thought that it is clear just from the name for a CPU microachitecture: Zen5 which
->>>> I expect to be develop by AMD. Anyway, if it is really better I will add AMD before Zen5.
->>>>
->>>>>    Whether to mention this here
->>>>> when I think I backported all the pieces isn't entirely clear to me either.
->>>> What is the better place then?
->>> The question isn't where to put it, but whether to in the first place.
->> Wouldn't it be useful to highlight that Xen now supports the new security feature
->> for mitigating SRSO vulnerabilities on AMD Zen5?
-> I don't know. Thing is what we list here is supposedly new in 4.20. Yet
-> here we're talking about something that was already backported to older
-> versions. I'll admit though I didn't check how much of that made it into
-> any stable release.
+On 26/02/2025 2:14 pm, Jan Beulich wrote:
+> On 26.02.2025 14:37, Andrew Cooper wrote:
+>> On 26/02/2025 12:39 pm, Jan Beulich wrote:
+>>> On 24.02.2025 17:05, Andrew Cooper wrote:
+>>>> --- /dev/null
+>>>> +++ b/xen/arch/x86/include/asm/gen-idt.h
+>>>> @@ -0,0 +1,121 @@
+>>>> +/*
+>>>> + * Generator for IDT entries.
+>>>> + *
+>>>> + * Caller to provide GEN(vector, symbol, dpl, autogen) macro
+>>>> + *
+>>>> + * Symbols are 'entry_0xYY' if there is no better name available.  Regular
+>>>> + * handlers set autogen=1, while manual (autogen=0) require the symbol to be
+>>>> + * implemented somewhere else.
+>>>> + */
+>>> Doesn't this need something for Eclair to spot the deliberate absence of a
+>>> header guard?
+>> Eclair doesn't complain, although I'm not entirely sure why.
+>>
+>>>> +#define DPL0 0
+>>>> +#define DPL1 1
+>>>> +#define DPL3 3
+>>>> +
+>>>> +#define manual 0
+>>>> +#define autogen 1
+>>>> +
+>>>> +#define GEN16(i) \
+>>>> +    GEN(0x ## i ## 0, entry_0x ## i ## 0, DPL0, autogen) \
+>>>> +    GEN(0x ## i ## 1, entry_0x ## i ## 1, DPL0, autogen) \
+>>>> +    GEN(0x ## i ## 2, entry_0x ## i ## 2, DPL0, autogen) \
+>>>> +    GEN(0x ## i ## 3, entry_0x ## i ## 3, DPL0, autogen) \
+>>>> +    GEN(0x ## i ## 4, entry_0x ## i ## 4, DPL0, autogen) \
+>>>> +    GEN(0x ## i ## 5, entry_0x ## i ## 5, DPL0, autogen) \
+>>>> +    GEN(0x ## i ## 6, entry_0x ## i ## 6, DPL0, autogen) \
+>>>> +    GEN(0x ## i ## 7, entry_0x ## i ## 7, DPL0, autogen) \
+>>>> +    GEN(0x ## i ## 8, entry_0x ## i ## 8, DPL0, autogen) \
+>>>> +    GEN(0x ## i ## 9, entry_0x ## i ## 9, DPL0, autogen) \
+>>>> +    GEN(0x ## i ## a, entry_0x ## i ## a, DPL0, autogen) \
+>>>> +    GEN(0x ## i ## b, entry_0x ## i ## b, DPL0, autogen) \
+>>>> +    GEN(0x ## i ## c, entry_0x ## i ## c, DPL0, autogen) \
+>>>> +    GEN(0x ## i ## d, entry_0x ## i ## d, DPL0, autogen) \
+>>>> +    GEN(0x ## i ## e, entry_0x ## i ## e, DPL0, autogen) \
+>>>> +    GEN(0x ## i ## f, entry_0x ## i ## f, DPL0, autogen)
+>>>> +
+>>>> +
+>>>> +GEN(0x00, entry_DE,         DPL0, manual)
+>>>> +GEN(0x01, entry_DB,         DPL0, manual)
+>>>> +GEN(0x02, entry_NMI,        DPL0, manual)
+>>>> +GEN(0x03, entry_BP,         DPL3, manual)
+>>>> +GEN(0x04, entry_OF,         DPL3, manual)
+>>> Would this better be
+>>>
+>>> #ifdef CONFIG_PV32
+>>> GEN(0x04, entry_OF,         DPL3, manual)
+>>> #else
+>>> GEN(0x04, entry_0x04,       DPL0, autogen)
+>>> #endif
+>>>
+>>> ? (Not necessarily in this patch, but in principle.)
+>> No.  INTO can still be used in compatibility mode segment.
+> Oh, of course.
+>
+>> Furthermore, for any exception we know about, we want a manual one to
+>> avoid the error-code realignment logic where possible.
+> Why would that not apply to Co-processor Segment Overrun then?
 
-This was my suggested wording.  Yes we've backported it, but it was also
-new feature work done during the 4.20 window.
+It kinda does apply.
+
+We've never ever had CSO handler (hence why it was autogen'd the first
+time I tried making this more robust), and you didn't like my patch to
+autogen the exception entries.
+The CSO handler (and SPV) are the only two we can be pretty confident
+will never trigger on today's hardware, yet you also didn't like my
+suggestion of having them Not Present.
+>>>> --- /dev/null
+>>>> +++ b/xen/arch/x86/include/asm/gen-idt.lds.h
+>>>> @@ -0,0 +1,27 @@
+>>>> +/*
+>>>> + * Linker file fragment to help format the IDT correctly
+>>>> + *
+>>>> + * The IDT, having grown compatibly since the 16 bit days, has the entrypoint
+>>>> + * address field split into 3.  x86 ELF lacks the @lo/@hi/etc relocation forms
+>>>> + * commonly found in other architectures for accessing a part of a resolved
+>>>> + * symbol address.
+>>>> + *
+>>>> + * However, the linker can perform the necessary calculations and provide them
+>>>> + * under new symbol names.  We use this to generate the low and next 16 bits
+>>>> + * of the address for each handler.
+>>>> + *
+>>>> + * The upper 32 bits are always a constant as Xen's .text/data/rodata sits in
+>>>> + * a single aligned 1G range, so do not need calculating in this manner.
+>>>> + */
+>>>> +#ifndef X86_IDT_GEN_LDS_H
+>>>> +#define X86_IDT_GEN_LDS_H
+>>>> +
+>>>> +#define GEN(vec, sym, dpl, auto)                                        \
+>>>> +    PROVIDE_HIDDEN(IDT_ ## sym ## _ADDR1 = ABSOLUTE(((sym) & 0xffff))); \
+>>>> +    PROVIDE_HIDDEN(IDT_ ## sym ## _ADDR2 = ABSOLUTE(((sym >> 16) & 0xffff)));
+>>> Not sure if Eclair gets to see this at all, but maybe better parenthesize
+>>> sym also in the latter instance?
+>> Oh, yes.
+>>
+>>> As to the final semicolon - ideally this would be on the use sites of GEN(),
+>>> for things to look more C-ish. Yet I won't insist, as gen-idt.h ends up
+>>> looking sufficiently uniform for this to not be a major concern.
+>> I'm afraid it's necessary (and too in entry stubs).
+>>
+>> It's the GEN16() macro, which expands 16x GEN() on the same line.
+> Right, as said - the semicolons would need putting after every GEN() invocation,
+> including in GEN16() (with the final one likely excluded, for the semicolon then
+> to appear on its use site).
+
+Ah, I see what you mean.  I'll see if I can make it work.
 
 ~Andrew
 
