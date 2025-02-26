@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBCFCA4667D
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 17:24:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.897010.1305746 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D116A466B1
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 17:35:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.897025.1305756 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnKBt-0004fg-2M; Wed, 26 Feb 2025 16:23:21 +0000
+	id 1tnKMt-0007A9-4r; Wed, 26 Feb 2025 16:34:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 897010.1305746; Wed, 26 Feb 2025 16:23:21 +0000
+Received: by outflank-mailman (output) from mailman id 897025.1305756; Wed, 26 Feb 2025 16:34:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnKBs-0004eE-Vj; Wed, 26 Feb 2025 16:23:20 +0000
-Received: by outflank-mailman (input) for mailman id 897010;
- Wed, 26 Feb 2025 16:23:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=J4Ti=VR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tnKBr-0004e6-MX
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 16:23:19 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fcd2f984-f45d-11ef-9aae-95dc52dad729;
- Wed, 26 Feb 2025 17:23:18 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-439a4dec9d5so346415e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 08:23:18 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-390dd708d50sm1863313f8f.91.2025.02.26.08.23.17
+	id 1tnKMt-00078g-2B; Wed, 26 Feb 2025 16:34:43 +0000
+Received: by outflank-mailman (input) for mailman id 897025;
+ Wed, 26 Feb 2025 16:34:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=GPjD=VR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tnKMr-00078Z-SH
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 16:34:41 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 92e06ee9-f45f-11ef-9897-31a8f345e629;
+ Wed, 26 Feb 2025 17:34:39 +0100 (CET)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-38f29a1a93bso5735677f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 08:34:39 -0800 (PST)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-390cd91093dsm6069018f8f.101.2025.02.26.08.34.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Feb 2025 08:23:17 -0800 (PST)
+ Wed, 26 Feb 2025 08:34:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,281 +45,204 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fcd2f984-f45d-11ef-9aae-95dc52dad729
+X-Inumbo-ID: 92e06ee9-f45f-11ef-9897-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740586998; x=1741191798; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1740587679; x=1741192479; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=VIuZ4SitZuIpb5d7R7R/p+BJda862j5SXnshSbuLOyc=;
-        b=B+XobuPXkRv+qocl8FYnnu/B8geAmZ19Tg7mVPxLNfvk4aMP7QCMHvoxjFcQPNpjQK
-         bwdSmm7zHWMkc0COIxAjVD1qscmDdyftmzEq8cQJfBvbcDtxI2DqpXlOlfqFs7x2xbJC
-         zfelDpUPxAyd+oqJTvlC8nCta1ZUALtnHL3ouJT0ilkpmZ+EbT0bg7eL47Hr3zUyOB3I
-         QqF5ZHQy1a+QeW/L2ZoDaJS+X3a6eplPgqkGCsAWO+TDtYFehrB03K5n/S1ETP8SOTw9
-         tSiK7noxCcrZSgpajJSnza39nOYRnOmHLby1IqFS05K+/k5LZtMR2YGPLZP9fRrfdqu+
-         eVUw==
+        bh=1Dx2UlX9jdQVkW39pdtobaXQ2K7fJTyXjkyClar7dg8=;
+        b=p5QFBWgEGO0WPosridzMz7Cs0okHdwUYkTJL53wNZAnrkku356RfHDpMShsLI4CU5R
+         k1ZJsqL5NBYJHo+SmDvOVuboon1AfCqdlzuzY4QmpIzRUnY2k3aUiYXGfrSIQg9wCIU4
+         mr9a4NTNB3H3OPn63AdiMUYKJ5bqbSsNegaWk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740586998; x=1741191798;
+        d=1e100.net; s=20230601; t=1740587679; x=1741192479;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VIuZ4SitZuIpb5d7R7R/p+BJda862j5SXnshSbuLOyc=;
-        b=MpWt7Wp844N31dcc5bw679wh3d8sIshNu8tn3+IFD+awzeVBc4sPg5dJP5CuuOgszx
-         z/0wBTs2zVT6i2XI8K3PtuvOq+NC128fqpynwsYrZ9w4eHPN8ndRoUm5nyJNDiNXCME5
-         LkvFcgwnSeKK3i+zPw+uheLt/f2gLIpCRiHe5EI0qbFaz7xLMYvdXmSWVxauGkt1A0r+
-         +Ja7T88/e09+Y1wvc3wNJbHYiAm9W+U1S/U62uvMvTjVJNDCSSD0Oep1ZT3nfLqOmEZm
-         Z8f8f/m+/IFINMpXdoWadCkrQSfyyMVefAqyQZdu8Z9+piG2kzpnCiIgcwGLyfW3XKXj
-         vZlQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUx0ufUD/XOFIrNDti5R5OWrfeytz6YJlqnTEC+FYcm78MvuEal5R5zGnbImhJ8CVYsSXlM/ugGsFw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzbY7HdKwyYCo9reSrXSgzB10LbIrVRrCdGX4EIPSAgxtpzCkn3
-	y/zYyX/kfsLfZjpOlszrRPOop3jqWJl09+rGmSuoJCiMwBFilpfbON+B6Z3BxQ==
-X-Gm-Gg: ASbGnctitbw3mS8AFsKdU7ilCGcX0mMlrb2eljJBAzoOrYKePPSoHeLrJuWeGX5GTI9
-	HItD+qJm7eqml6jXrKq01zDBbTSQ2c3t+fwTUmi5pMeNqFb234pvPZSMsUq0K7+CzmeJnxKr+CG
-	iA/qVawPD91vESQf30mhYBx8eAzjbI/Vx+QGBSakvXuqz/jEuVabbrInov71K37gp6gNZfWmlNV
-	sLRc3mmhfl9jJ72TlwD9Z9B13fuyN6OzvHXo/3SShfSJAljgPzEOA7vnF1FvCF4S/AD0UT5Ea8h
-	UcMWv4Rr+EeX9Mnq90jA6lNNcKqXm08GMTei/xeRcANgWhagtdGhUk2RPGtu8p4u8VPWg8iZZOY
-	4/0MAxXd3FSI=
-X-Google-Smtp-Source: AGHT+IGvK3G4yEiyzk69VR6cKHtA+Xj/s4D1PIW8m33xJwjDyS0LtFiE3S604wnn7NmVCzHTRfOZxA==
-X-Received: by 2002:a05:600c:a01:b0:439:9424:1b70 with SMTP id 5b1f17b1804b1-43ab0f6fd2amr100868215e9.30.1740586997772;
-        Wed, 26 Feb 2025 08:23:17 -0800 (PST)
-Message-ID: <7f63e00e-ee0a-41e4-9ece-a805b5986f25@suse.com>
-Date: Wed, 26 Feb 2025 17:23:16 +0100
+        bh=1Dx2UlX9jdQVkW39pdtobaXQ2K7fJTyXjkyClar7dg8=;
+        b=vbhTu3T3cLgFypBN9nZg7jLHNomajRXrTxldkjE9/0Ah9kEz0k0h0Hdl/EIph6zmmE
+         NFvvCLYo8UKOUUPSqs/SAiTUcNXC0X09KaXoynkUZTFiil95oFvXuyrI7YleI86SiPCB
+         xKJPEGrvDfp3rdbllwQ8bjxoUWlCy1Jrn2wUlYVTayoyAxUyCtsTPaZp07EbZCrmD9fo
+         iv3bqk01q+lIPEU29c4Kf62bjfoL2lIHJSPUXjBegK631t3a1IZFjrIOuXdaWiwuHpOo
+         79YvemwCT4WxQub3oVB87Pdtdu5wA4dAOkrD3xqFr+KeWocLGf2oyMdjFsG/dHXh3WNN
+         exfQ==
+X-Gm-Message-State: AOJu0Yz8dXq9MVTUGdpGEg3LECuyd1mkIhqrUF+dTiKTpOcNPm1xfAzP
+	KIWmECci9mcqdO+40k6m6Ww2GidI6Oz7lbYq+GEy38vDqE17QwIYQFZZae6NCuI=
+X-Gm-Gg: ASbGncv94IClcfMiVEy9xadPoTR9PiT8XNzVr2rJOjSD27YaCY/RgcQQdDfGAgOmh7H
+	HZbY+j3Y6OxMl0PohPU/zIKnD9BSxhMHD1hNdL2PrY63OqX6VTi6Prv2S7DWKUYI0MXpM+dscVl
+	QXFu0avjlThqiex3LZzdb0WtgcNMxJa8cWZujhj0uJuUbzA9FuXYglawC3l2sArA3alHiFTKBJr
+	h0a4/b3rbJcAIMd8hgWMg3ZoVhE0xvD7kGLw5mjlkO7V8Yw5kKm9LlTnN3VGdAqVPhP5MPrptMU
+	r9ZpCTKY33yL1rh0bqwBhAC30gaBG0/6Dd2sKz55tERNSPjz+6SrpBpW107tGtGSgg==
+X-Google-Smtp-Source: AGHT+IFI1Gu2TIgq3OikD1eJqGQHyIvd3Sc1YLl0VdDvpOu+Ib0oLIZpsTHkgBOtrPY4yh/RXNJVmA==
+X-Received: by 2002:a05:6000:1863:b0:38f:4f64:8a22 with SMTP id ffacd0b85a97d-390d4fa3c1fmr2956641f8f.52.1740587679004;
+        Wed, 26 Feb 2025 08:34:39 -0800 (PST)
+Message-ID: <52adb963-9501-4d6b-a2cc-ec0e461baaf0@citrix.com>
+Date: Wed, 26 Feb 2025 16:34:37 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/11] xen/x86: implement EPP support for the amd-cppc
- driver in active mode
-To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: Ray.Huang@amd.com, Jason.Andryuk@amd.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250206083255.1296363-1-Penny.Zheng@amd.com>
- <20250206083255.1296363-10-Penny.Zheng@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250206083255.1296363-10-Penny.Zheng@amd.com>
+Subject: Re: [PATCH] xen/page_alloc: Simplify domain_adjust_tot_pages
+To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Anthony PERARD
+ <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Alejandro Vallejo <alejandro.vallejo@cloud.com>
+References: <20250224132724.9074-1-alejandro.vallejo@cloud.com>
+ <Z78djoAU7vjGepjr@macbook.local>
+ <a9d4384c-770b-4947-b099-cf4bba1583a5@suse.com>
+ <Z78lJfzqH9btDMrM@macbook.local>
+ <292f8373-705a-4405-bbdb-af750eb5f0ac@suse.com>
+ <Z787fHY6L0ssFDjG@macbook.local>
+ <f30a8fcf-5bb2-41ff-bc9f-25e421665ab2@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <f30a8fcf-5bb2-41ff-bc9f-25e421665ab2@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 06.02.2025 09:32, Penny Zheng wrote:
-> @@ -258,14 +259,27 @@ static void amd_cppc_write_request_msrs(void *info)
->  }
->  
->  static int cf_check amd_cppc_write_request(int cpu, uint8_t min_perf,
-> -                                           uint8_t des_perf, uint8_t max_perf)
-> +                                           uint8_t des_perf, uint8_t max_perf,
-> +                                           int epp)
->  {
->      struct amd_cppc_drv_data *data = per_cpu(amd_cppc_drv_data, cpu);
->      uint64_t prev = data->req.raw;
->  
->      data->req.min_perf = min_perf;
->      data->req.max_perf = max_perf;
-> -    data->req.des_perf = des_perf;
-> +    if ( !opt_cpufreq_active )
-> +        data->req.des_perf = des_perf;
-> +    else
-> +    {
-> +        data->req.des_perf = 0;
-> +        /* Get pre-defined BIOS value */
-> +        if ( epp < 0 )
-> +            data->req.epp = epp_init;
+On 26/02/2025 4:06 pm, Jan Beulich wrote:
+> On 26.02.2025 17:04, Roger Pau Monné wrote:
+>> On Wed, Feb 26, 2025 at 03:36:33PM +0100, Jan Beulich wrote:
+>>> On 26.02.2025 15:28, Roger Pau Monné wrote:
+>>>> On Wed, Feb 26, 2025 at 03:08:33PM +0100, Jan Beulich wrote:
+>>>>> On 26.02.2025 14:56, Roger Pau Monné wrote:
+>>>>>> On Mon, Feb 24, 2025 at 01:27:24PM +0000, Alejandro Vallejo wrote:
+>>>>>>> --- a/xen/common/page_alloc.c
+>>>>>>> +++ b/xen/common/page_alloc.c
+>>>>>>> @@ -490,13 +490,11 @@ static long outstanding_claims; /* total outstanding claims by all domains */
+>>>>>>>  
+>>>>>>>  unsigned long domain_adjust_tot_pages(struct domain *d, long pages)
+>>>>>>>  {
+>>>>>>> -    long dom_before, dom_after, dom_claimed, sys_before, sys_after;
+>>>>>>> -
+>>>>>>>      ASSERT(rspin_is_locked(&d->page_alloc_lock));
+>>>>>>>      d->tot_pages += pages;
+>>>>>>>  
+>>>>>>>      /*
+>>>>>>> -     * can test d->claimed_pages race-free because it can only change
+>>>>>>> +     * can test d->outstanding_pages race-free because it can only change
+>>>>>>>       * if d->page_alloc_lock and heap_lock are both held, see also
+>>>>>>>       * domain_set_outstanding_pages below
+>>>>>>>       */
+>>>>>>> @@ -504,17 +502,16 @@ unsigned long domain_adjust_tot_pages(struct domain *d, long pages)
+>>>>>>>          goto out;
+>>>>>> I think you can probably short-circuit the logic below if pages == 0?
+>>>>>> (and avoid taking the heap_lock)
+>>>>> Are there callers passing in 0?
+>>>> Not sure, but if there are no callers expected we might add an ASSERT
+>>>> to that effect then.
+>>>>
+>>>>>>>      spin_lock(&heap_lock);
+>>>>>>> -    /* adjust domain outstanding pages; may not go negative */
+>>>>>>> -    dom_before = d->outstanding_pages;
+>>>>>>> -    dom_after = dom_before - pages;
+>>>>>>> -    BUG_ON(dom_before < 0);
+>>>>>>> -    dom_claimed = dom_after < 0 ? 0 : dom_after;
+>>>>>>> -    d->outstanding_pages = dom_claimed;
+>>>>>>> -    /* flag accounting bug if system outstanding_claims would go negative */
+>>>>>>> -    sys_before = outstanding_claims;
+>>>>>>> -    sys_after = sys_before - (dom_before - dom_claimed);
+>>>>>>> -    BUG_ON(sys_after < 0);
+>>>>>>> -    outstanding_claims = sys_after;
+>>>>>>> +    BUG_ON(outstanding_claims < d->outstanding_pages);
+>>>>>>> +    if ( pages > 0 && d->outstanding_pages < pages )
+>>>>>>> +    {
+>>>>>>> +        /* `pages` exceeds the domain's outstanding count. Zero it out. */
+>>>>>>> +        outstanding_claims -= d->outstanding_pages;
+>>>>>>> +        d->outstanding_pages = 0;
+>>>>>>> +    } else {
+>>>>>>> +        outstanding_claims -= pages;
+>>>>>>> +        d->outstanding_pages -= pages;
+>>>>>> I wonder if it's intentional for a pages < 0 value to modify
+>>>>>> outstanding_claims and d->outstanding_pages, I think those values
+>>>>>> should only be set from domain_set_outstanding_pages().
+>>>>>> domain_adjust_tot_pages() should only decrease the value, but never
+>>>>>> increase either outstanding_claims or d->outstanding_pages.
+>>>>>>
+>>>>>> At best the behavior is inconsistent, because once
+>>>>>> d->outstanding_pages reaches 0 there will be no further modification
+>>>>>> from domain_adjust_tot_pages().
+>>>>> Right, at that point the claim has run out. While freeing pages with an
+>>>>> active claim means that the claim gets bigger (which naturally needs
+>>>>> reflecting in the global).
+>>>> domain_adjust_tot_pages() is not exclusively called when freeing
+>>>> pages, see steal_page() for example.
+>>> Or also when pages were allocated. steal_page() ...
+>>>
+>>>> When called from steal_page() it's wrong to increase the claim, as
+>>>> it assumes that the page removed from d->tot_pages is freed, but
+>>>> that's not the case.  The domain might end up in a situation where
+>>>> the claim is bigger than the available amount of memory.
+>>> ... is a case that likely wasn't considered when the feature was added.
+>>>
+>>> I never really liked this; I'd be quite happy to see it ripped out, as
+>>> long as we'd be reasonably certain it isn't in active use by people.
+>> What do you mean with 'it' in the above sentence, the whole claim
+>> stuff?
+> Yes.
+>
+>>  Or just getting rid of allowing the claim to increase as a
+>> result of pages being removed from a domain?
+> No.
 
-Instead of passing in a negative value, could't the caller pass epp_init,
-allowing the function parameter to be of an unsigned type?
+Alejandro and I discussed this earlier in the week.
 
-> @@ -292,7 +306,25 @@ static int cf_check amd_cppc_cpufreq_target(struct cpufreq_policy *policy,
->          return res;
->  
->      return amd_cppc_write_request(policy->cpu, data->caps.lowest_nonlinear_perf,
-> -                                  des_perf, data->caps.highest_perf);
-> +                                  des_perf, data->caps.highest_perf, -1);
-> +}
-> +
-> +static int read_epp_init_once(void)
-> +{
-> +    uint64_t val;
-> +    static bool read_once = false;
-> +
-> +    if ( !read_once )
-> +    {
-> +        if ( rdmsr_safe(MSR_AMD_CPPC_REQ, val) )
-> +            return -EINVAL;
-> +        epp_init = (val >> 24) & 0xFF;
-> +
-> +        /* Read pre-defined BIOS value once */
-> +        read_once = true;
-> +    }
-> +
-> +    return 0;
->  }
+The claim infrastructure stuff is critical for a toolstack capable of
+doing things in parallel.
 
-And all processors are (silently) assumed to have been configured the same?
+However, it is also nonsensical for there to be a remaining claim by the
+time domain construction is done.
 
-> @@ -381,7 +413,8 @@ static void cf_check amd_cppc_init_msrs(void *info)
->      data->nominal_freq = nominal_freq;
->      data->max_freq = max_freq;
->  
-> -    return;
-> +    if ( !read_epp_init_once() )
-> +        return;
+If creation_finished were a concrete thing, rather than a bodge hacked
+into domain_unpause_by_systemcontroller(), it ought to be made to fail
+if there were an outstanding claim.  I suggested that we follow through
+on a previous suggestion of making it a real hypercall (which is needed
+by the encrypted VM crowd too).
 
-With this kind of a caller the function ought to return bool. If the function
-returns an error code, it should not be lost here.
-
-> @@ -443,6 +487,52 @@ static int cf_check amd_cppc_cpufreq_cpu_exit(struct cpufreq_policy *policy)
->      return 0;
->  }
->  
-> +static int cf_check amd_cppc_epp_cpu_init(struct cpufreq_policy *policy)
-> +{
-> +    int ret;
-> +
-> +    ret = amd_cppc_cpufreq_init_perf(policy);
-> +    if ( ret )
-> +        return ret;
-> +
-> +    policy->policy = cpufreq_parse_policy(policy->governor);
-> +
-> +    amd_cppc_verbose("CPU %u initialized with amd-cppc active mode\n", policy->cpu);
-> +
-> +    return 0;
-> +}
-> +
-> +static int amd_cppc_epp_update_limit(const struct cpufreq_policy *policy)
-> +{
-> +    const struct amd_cppc_drv_data *data = per_cpu(amd_cppc_drv_data, policy->cpu);
-> +    uint8_t max_perf, min_perf, des_perf;
-> +    int epp = -1;
-> +
-> +    /* Initial min/max values for CPPC Performance Controls Register */
-> +    max_perf = data->caps.highest_perf;
-> +    min_perf = data->caps.lowest_perf;
-> +
-> +    /* CPPC EPP feature require to set zero to the desire perf bit */
-> +    des_perf = 0;
-
-Then why the local variable? Can't you pass ...
-
-> +    if ( policy->policy == CPUFREQ_POLICY_PERFORMANCE )
-> +    {
-> +        /* Force the epp value to be zero for performance policy */
-> +        epp = CPPC_ENERGY_PERF_MAX_PERFORMANCE;
-> +        min_perf = max_perf;
-> +    }
-> +    else if ( policy->policy == CPUFREQ_POLICY_POWERSAVE )
-> +        /* Force the epp value to be 0xff for powersave policy */
-> +        epp = CPPC_ENERGY_PERF_MAX_POWERSAVE;
-> +
-> +    return amd_cppc_write_request(policy->cpu, min_perf, des_perf, max_perf, epp);
-
-... 0 here (if need be with a /* des_perf */ comment)?
-
-The line (nit) is too long anyway, and hence needs wrapping no matter what.
-
-> @@ -452,10 +542,22 @@ static const struct cpufreq_driver __initconst_cf_clobber amd_cppc_cpufreq_drive
->      .exit   = amd_cppc_cpufreq_cpu_exit,
->  };
->  
-> +static const struct cpufreq_driver  __initconst_cf_clobber amd_cppc_epp_driver =
-> +{
-> +    .name       = XEN_AMD_CPPC_EPP_DRIVER_NAME,
-> +    .verify     = amd_cppc_cpufreq_verify,
-> +    .setpolicy  = amd_cppc_epp_set_policy,
-> +    .init       = amd_cppc_epp_cpu_init,
-> +    .exit       = amd_cppc_cpufreq_cpu_exit,
-> +};
-> +
->  int __init amd_cppc_register_driver(void)
->  {
->      if ( !cpu_has_cppc )
->          return -ENODEV;
->  
-> -    return cpufreq_register_driver(&amd_cppc_cpufreq_driver);
-> +    if ( !opt_cpufreq_active )
-> +        return cpufreq_register_driver(&amd_cppc_cpufreq_driver);
-> +    else
-> +        return cpufreq_register_driver(&amd_cppc_epp_driver);
->  }
-
-I'm personally opposed to this style of coding, and you ...
-
-> --- a/xen/drivers/cpufreq/utility.c
-> +++ b/xen/drivers/cpufreq/utility.c
-> @@ -484,3 +484,14 @@ int __cpufreq_set_policy(struct cpufreq_policy *data,
->  
->      return __cpufreq_governor(data, CPUFREQ_GOV_LIMITS);
->  }
-> +
-> +unsigned int cpufreq_parse_policy(const struct cpufreq_governor *gov)
-> +{
-> +    if ( !strncasecmp(gov->name, "performance", CPUFREQ_NAME_LEN) )
-> +        return CPUFREQ_POLICY_PERFORMANCE;
-> +
-> +    if ( !strncasecmp(gov->name, "powersave", CPUFREQ_NAME_LEN) )
-> +        return CPUFREQ_POLICY_POWERSAVE;
-> +
-> +    return CPUFREQ_POLICY_UNKNOWN;
-> +}
-
-... aren't doing that consistently anyway. May I ask that you drop the "else"
-there, or perhaps switch to using a conditional operator?
-
-> --- a/xen/include/acpi/cpufreq/cpufreq.h
-> +++ b/xen/include/acpi/cpufreq/cpufreq.h
-> @@ -83,6 +83,7 @@ struct cpufreq_policy {
->      int8_t              turbo;  /* tristate flag: 0 for unsupported
->                                   * -1 for disable, 1 for enabled
->                                   * See CPUFREQ_TURBO_* below for defines */
-> +    unsigned int        policy;
-
-This new field wants connecting, by way of a comment perhaps, to ...
-
-> @@ -133,6 +134,17 @@ extern int cpufreq_register_governor(struct cpufreq_governor *governor);
->  extern struct cpufreq_governor *__find_governor(const char *governor);
->  #define CPUFREQ_DEFAULT_GOVERNOR &cpufreq_gov_dbs
->  
-> +#define CPUFREQ_POLICY_UNKNOWN      0
-> +/*
-> + * If cpufreq_driver->target() exists, the ->governor decides what frequency
-> + * within the limits is used. If cpufreq_driver->setpolicy() exists, these
-> + * two generic policies are available:
-> + */
-> +#define CPUFREQ_POLICY_POWERSAVE    1
-> +#define CPUFREQ_POLICY_PERFORMANCE  2
-
-... the values to be put there, which - yes - ...
-
-> +unsigned int cpufreq_parse_policy(const struct cpufreq_governor *gov);
-
-... are returned by this function. Such a comment could be as simple as
-/* CPUFREQ_POLICY_* */
-
-Jan
+~Andrew
 
