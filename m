@@ -2,29 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76BDFA451BE
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 01:51:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.896092.1304768 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EA55A45313
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 03:30:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.896108.1304777 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tn5dO-0006oa-Oe; Wed, 26 Feb 2025 00:50:46 +0000
+	id 1tn7B9-0001g2-4u; Wed, 26 Feb 2025 02:29:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 896092.1304768; Wed, 26 Feb 2025 00:50:46 +0000
+Received: by outflank-mailman (output) from mailman id 896108.1304777; Wed, 26 Feb 2025 02:29:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tn5dO-0006nI-LE; Wed, 26 Feb 2025 00:50:46 +0000
-Received: by outflank-mailman (input) for mailman id 896092;
- Wed, 26 Feb 2025 00:50:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tn7B9-0001fJ-22; Wed, 26 Feb 2025 02:29:43 +0000
+Received: by outflank-mailman (input) for mailman id 896108;
+ Wed, 26 Feb 2025 02:29:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=UxMA=VR=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1tn5dM-0006mk-Ol
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 00:50:45 +0000
-Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch
- [79.135.106.31]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b4f0ac25-f3db-11ef-9aae-95dc52dad729;
- Wed, 26 Feb 2025 01:50:43 +0100 (CET)
+ (envelope-from <SRS0=l+Z1=VR=gmail.com=w1benny@srs-se1.protection.inumbo.net>)
+ id 1tn7B8-0001fD-Ai
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 02:29:42 +0000
+Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
+ [2001:4860:4864:20::32])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8579fab5-f3e9-11ef-9897-31a8f345e629;
+ Wed, 26 Feb 2025 03:29:37 +0100 (CET)
+Received: by mail-oa1-x32.google.com with SMTP id
+ 586e51a60fabf-2a94159cd5cso479609fac.3
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Feb 2025 18:29:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,298 +40,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b4f0ac25-f3db-11ef-9aae-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=mnk67kgyyba2jhz245ftfljhqm.protonmail; t=1740531041; x=1740790241;
-	bh=ewy6nO2BG0jL0z4N8P//BQhzzK8oonlgn0JJyxirPbM=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector:
-	 List-Unsubscribe:List-Unsubscribe-Post;
-	b=VHv1xvvXgQdxu0UWxO5wP2YdqJ3NQaymyKt5WgLuW4SP2GCkCX3odH1ynpmTdLEZ0
-	 WlhsYrzEp/g7vtTQ97LMUbFdgsCW5M3yiD6ecjiC1gPGEyZfw7Rquut8PVExACBeVx
-	 ZEjmPbpzwbRhe+/DIiHlJDNXSNN4as/gAeSL1f+/Q1II7JHl1FNczroWgBjuQxVnIG
-	 1Agd7v+HIC1RT2Kn7y+lzrHMgLyrmS4J4K9yf0YCw1AVmQMpePmsP+auQqd7VLlP7v
-	 hzi8b6uNX3s/907Gjxou5F9X/vvfvHmKIoonYokqynA+hXmyCl7+/XVQmcX9pvmZrI
-	 0xVf2fQqbH8UA==
-Date: Wed, 26 Feb 2025 00:50:36 +0000
-To: xen-devel@lists.xenproject.org
-From: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: [PATCH v3] xen/consoled: clean up console handling for PV shim
-Message-ID: <20250226003519.1203748-1-dmukhin@ford.com>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 34c86a646d89de977e607b5865ec476e7c76a8ca
+X-Inumbo-ID: 8579fab5-f3e9-11ef-9897-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1740536976; x=1741141776; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tpKolSqnr5hUSDPq6oLDCjDKaUv0tHATb/WZDazeYFk=;
+        b=e5d/jFcZXgCU/EyjhrCRoaKDHWwdmSD6Jhxb2Qs7bwEYwFT4A3P9KY89GPx1ydtiEa
+         LQnywwPdGsCG0asM7X/pmhjOB66fkLmHIASS7cvP1G8aTPzcpnNuNY6GLYqVBuruXL3o
+         wdRxuvkQpM3IoOwhl8jJF21z5hy+BGkJRk3M612vk0auBwbse0kpfSc4D87ot9BW0//0
+         a6lwc/AdPVcWuorPUZBnX8cYwzzNVH/I6Ujd4K3WTvHKmE+/F3gK158v5SKFFiNDKwPw
+         dTAapRy1YQO7FjNp8YTrVWR2Gfdp3PWsWHGjs8l/BZBUxniCbFbCziabKvoUrYJwSprE
+         5KVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1740536976; x=1741141776;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=tpKolSqnr5hUSDPq6oLDCjDKaUv0tHATb/WZDazeYFk=;
+        b=HOH5f438y8snbcLay2ft6ErRkmRlrcBD5su/oCxeoGdbIdcdCGFuoYscWrEC/22QfI
+         eRp88aRQwvMIuLqcWK1QZpA82Yc984W47bbdq1dfGARlSnI6CRntnlz6Xn/TdGgqBu/H
+         tAjpz/2lBM/CeAj8v98s/F90AC4j77AnF5YrJJ++GSwNgIzY4k7iE/5Vrd1enemfA0eF
+         SxH+Y86DSOGJLRv92TJvgArjalgHXupszBfAfIoJBJZyymPAxuko1aKrHhZpsYxTRP3F
+         aK7LWlh+cRN7r2yQtXrI/cef/vtQkHNgANaTAevRNK7dnI2FrZkmQYuVGBJa04bHEdyW
+         +GzA==
+X-Forwarded-Encrypted: i=1; AJvYcCV3B8MCuOAOBSAUqBCsJsngZqyQmQPZ1bEEVYW9HOCK2f3T3AgNTcw9NcQg+3Vg7TqxwY4v+kr6bpw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxl9QN31WQgNeshg0RZoWsAvVnizCGPrlbFA5XmmH5xzLSIfZHh
+	u0MCgsS2g6SVPawgc+u7weu24ZVOGF43WLWuNCn/ZLqafp5STUdn4E31zAhyknuyPHZwOaM7l8V
+	N3Hh6zakEUH+8qqe0Zm1H9bCO/H8=
+X-Gm-Gg: ASbGncu3PA04tWIkyU48sccs+1ExJEIvujR54DBl3bO8orS+tRam8x5BWZ//UJEHtFl
+	CV/+VnPu0JEZGICb2FV7LmeA/1tHD6LihfBfSX9hG3WvbtTkJGppIz9xK9Nsj81ZGA7f7mn/lwx
+	uPauJmIcw=
+X-Google-Smtp-Source: AGHT+IENsU5aaECndYk8duZc0Wr7Fk1vvJBz3xswadsCc1kVQU7kIoiVNUhTTG8Rvvs/H4+Wk9KqNy87BsWOQJPBQ9U=
+X-Received: by 2002:a05:6808:178f:b0:3f4:104e:f11a with SMTP id
+ 5614622812f47-3f4247b6f52mr5548233b6e.6.1740536975774; Tue, 25 Feb 2025
+ 18:29:35 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <CAKBKdXhaQLj01Kn06xMBsHExT1xNMKnHxTB+Hu33jtpySr-few@mail.gmail.com>
+ <be2314bd-d212-4b9b-a50c-1b86b42ab861@suse.com> <CAKBKdXgMn90_R6_rKWAzrQdkpPXL1-ZxAKM8n8RPXiOeY7VtJQ@mail.gmail.com>
+ <Z75lN_ShrXUGiT5e@mail-itl>
+In-Reply-To: <Z75lN_ShrXUGiT5e@mail-itl>
+From: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
+Date: Wed, 26 Feb 2025 03:29:24 +0100
+X-Gm-Features: AQ5f1JrdrhTm0P2oI25MC7d1lurXUKgCxWNKxFVog_81gT519Wt_r_-Av2L7OyM
+Message-ID: <CAKBKdXh0ANyMnB2VbB8ayp64DmOnHTw8WwB4VNQ7NxjpbfV2oQ@mail.gmail.com>
+Subject: Re: xl create/save throwing errors
+To: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: Jan Beulich <jbeulich@suse.com>, Anthony PERARD <anthony.perard@vates.tech>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-There are few places which check pv_shim console under CONFIG_PV_SHIM or
-CONFIG_X86 in xen console driver.
+On Wed, Feb 26, 2025 at 1:50=E2=80=AFAM Marek Marczykowski-G=C3=B3recki
+<marmarek@invisiblethingslab.com> wrote:
+>
+> This is domain crash.
+> Anything interesting on the console log of that domain (if it has some
+> debug logs there...), or maybe in xl dmesg?
+>
+> --
+> Best Regards,
+> Marek Marczykowski-G=C3=B3recki
+> Invisible Things Lab
 
-Instead of inconsistent #ifdef-ing, introduce and use consoled_is_enabled()=
- in
-switch_serial_input() and __serial_rx().
+I figured. The domain simply crashes (bugchecks) and frustratingly,
+the generated MEMORY.DMP is corrupted.
 
-PV shim case is fixed in __serial_rx() - should be under 'pv_shim &&
-pv_console' check.
+xl dmesg shows:
 
-Signature of consoled_guest_{rx,tx} has changed so the errors can be logged
-on the callsites.
+(XEN) d157: VIRIDIAN GUEST_OS_ID: vendor: 0x1 os: 0x4 major: 0xa
+minor: 0 sp: 0 build: 0x271b
+(XEN) d157: VIRIDIAN HYPERCALL: enabled: 1 pfn: 0x20e
+(XEN) d157v0: VIRIDIAN VP_ASSIST: pfn: 0xc
+(XEN) d157: VIRIDIAN HVCALL_NOTIFY_LONG_SPIN_WAIT
+(XEN) d157: VIRIDIAN MSR_TIME_REF_COUNT: accessed
+(XEN) d157v1: VIRIDIAN VP_ASSIST: pfn: 0x3ffff
+(XEN) d157v2: VIRIDIAN VP_ASSIST: pfn: 0x3fffe
+(XEN) d157v3: VIRIDIAN VP_ASSIST: pfn: 0x3fffd
+(XEN) arch/x86/hvm/irq.c:368: Dom157 PCI link 0 changed 5 -> 0
+(XEN) arch/x86/hvm/irq.c:368: Dom157 PCI link 1 changed 10 -> 0
+(XEN) arch/x86/hvm/irq.c:368: Dom157 PCI link 2 changed 11 -> 0
+(XEN) arch/x86/hvm/irq.c:368: Dom157 PCI link 3 changed 5 -> 0
+(XEN) arch/x86/hvm/vmx/vmx.c:3413:d157v0 RDMSR 0x0000019a unimplemented
+(XEN) arch/x86/hvm/vmx/vmx.c:3413:d157v0 RDMSR 0x0000019b unimplemented
+(XEN) arch/x86/hvm/vmx/vmx.c:3413:d157v2 RDMSR 0x0000019a unimplemented
+(XEN) arch/x86/hvm/vmx/vmx.c:3413:d157v2 RDMSR 0x0000019b unimplemented
+(XEN) d157v3 VIRIDIAN GUEST_CRASH: 0xa 0xffffffffffffffff 0xe 0
+0xfffff80648bbd2b3
 
-Also, move get_initial_domain_id() to arch-independent header since it is n=
-ow
-required by console driver.
+So... it just confirms the bugcheck.
 
-Lastly, add missing SPDX-License-Identifier to xen/consoled.h
-
-Signed-off-by: Denis Mukhin <dmukhin@ford.com>
----
-Changes since v2:
-- removed unneeded asm/pv/shim.h from xen/common/domain.c
-- dropped the warning message change in __serial_rx()
-- dropped header guards change in xen/include/xen/consoled.h
----
- xen/arch/x86/include/asm/pv/shim.h |  5 +++--
- xen/arch/x86/pv/shim.c             |  8 ++------
- xen/common/domain.c                |  9 +++++++++
- xen/drivers/char/console.c         | 13 +++++--------
- xen/drivers/char/consoled.c        | 17 +++++++++++++----
- xen/include/xen/consoled.h         | 26 ++++++++++++++++++++++++--
- xen/include/xen/domain.h           |  2 ++
- 7 files changed, 58 insertions(+), 22 deletions(-)
-
-diff --git a/xen/arch/x86/include/asm/pv/shim.h b/xen/arch/x86/include/asm/=
-pv/shim.h
-index 6153e27005..27053d4f6f 100644
---- a/xen/arch/x86/include/asm/pv/shim.h
-+++ b/xen/arch/x86/include/asm/pv/shim.h
-@@ -31,7 +31,7 @@ long cf_check pv_shim_cpu_up(void *data);
- long cf_check pv_shim_cpu_down(void *data);
- void pv_shim_online_memory(unsigned int nr, unsigned int order);
- void pv_shim_offline_memory(unsigned int nr, unsigned int order);
--domid_t get_initial_domain_id(void);
-+domid_t pv_shim_get_initial_domain_id(void);
- uint64_t pv_shim_mem(uint64_t avail);
- void pv_shim_fixup_e820(void);
- const struct platform_bad_page *pv_shim_reserved_pages(unsigned int *size)=
-;
-@@ -76,8 +76,9 @@ static inline void pv_shim_offline_memory(unsigned int nr=
-, unsigned int order)
- {
-     ASSERT_UNREACHABLE();
- }
--static inline domid_t get_initial_domain_id(void)
-+static inline domid_t pv_shim_get_initial_domain_id(void)
- {
-+    ASSERT_UNREACHABLE();
-     return 0;
- }
- static inline uint64_t pv_shim_mem(uint64_t avail)
-diff --git a/xen/arch/x86/pv/shim.c b/xen/arch/x86/pv/shim.c
-index b9c034ccff..62b6a92392 100644
---- a/xen/arch/x86/pv/shim.c
-+++ b/xen/arch/x86/pv/shim.c
-@@ -605,8 +605,7 @@ long pv_shim_event_channel_op(int cmd, XEN_GUEST_HANDLE=
-_PARAM(void) arg)
-=20
-         if ( pv_console && send.port =3D=3D pv_console_evtchn() )
-         {
--            consoled_guest_rx();
--            rc =3D 0;
-+            rc =3D consoled_guest_rx();
-         }
-         else
-             rc =3D xen_hypercall_event_channel_op(EVTCHNOP_send, &send);
-@@ -1018,13 +1017,10 @@ void pv_shim_offline_memory(unsigned int nr, unsign=
-ed int order)
-     }
- }
-=20
--domid_t get_initial_domain_id(void)
-+domid_t pv_shim_get_initial_domain_id(void)
- {
-     uint32_t eax, ebx, ecx, edx;
-=20
--    if ( !pv_shim )
--        return 0;
--
-     cpuid(xen_cpuid_base + 4, &eax, &ebx, &ecx, &edx);
-=20
-     return (eax & XEN_HVM_CPUID_DOMID_PRESENT) ? ecx : 1;
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 49d4cb8221..a3c4d7d27d 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -2261,6 +2261,15 @@ int continue_hypercall_on_cpu(
-     return 0;
- }
-=20
-+domid_t get_initial_domain_id(void)
-+{
-+#ifdef CONFIG_X86
-+    if ( pv_shim )
-+        return pv_shim_get_initial_domain_id();
-+#endif
-+    return hardware_domid;
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index a3735310e3..beef62a2c5 100644
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -32,9 +32,9 @@
- #include <xen/pv_console.h>
- #include <asm/setup.h>
- #include <xen/sections.h>
-+#include <xen/consoled.h>
-=20
- #ifdef CONFIG_X86
--#include <xen/consoled.h>
- #include <asm/guest.h>
- #endif
- #ifdef CONFIG_SBSA_VUART_CONSOLE
-@@ -507,11 +507,9 @@ static void switch_serial_input(void)
-             break;
-         }
-=20
--#ifdef CONFIG_PV_SHIM
--        if ( next_rx =3D=3D 1 )
-+        if ( consoled_is_enabled() && next_rx =3D=3D 1 )
-             domid =3D get_initial_domain_id();
-         else
--#endif
-             domid =3D next_rx - 1;
-         d =3D rcu_lock_domain_by_id(domid);
-         if ( d )
-@@ -562,10 +560,9 @@ static void __serial_rx(char c)
-         rc =3D vpl011_rx_char_xen(d, c);
- #endif
-=20
--#ifdef CONFIG_X86
--    if ( pv_shim && pv_console )
--        consoled_guest_tx(c);
--#endif
-+    if ( consoled_is_enabled() )
-+        /* Deliver input to the PV shim console. */
-+        rc =3D consoled_guest_tx(c);
-=20
-     if ( rc )
-         guest_printk(d, XENLOG_G_WARNING
-diff --git a/xen/drivers/char/consoled.c b/xen/drivers/char/consoled.c
-index b415b632ce..8704ec251e 100644
---- a/xen/drivers/char/consoled.c
-+++ b/xen/drivers/char/consoled.c
-@@ -43,13 +43,13 @@ struct xencons_interface *consoled_get_ring_addr(void)
- static char buf[BUF_SZ + 1];
-=20
- /* Receives characters from a domain's PV console */
--void consoled_guest_rx(void)
-+int consoled_guest_rx(void)
- {
-     size_t idx =3D 0;
-     XENCONS_RING_IDX cons, prod;
-=20
-     if ( !cons_ring )
--        return;
-+        return -ENODEV;
-=20
-     spin_lock(&rx_lock);
-=20
-@@ -91,15 +91,17 @@ void consoled_guest_rx(void)
-=20
-  out:
-     spin_unlock(&rx_lock);
-+
-+    return 0;
- }
-=20
- /* Sends a character into a domain's PV console */
--void consoled_guest_tx(char c)
-+int consoled_guest_tx(char c)
- {
-     XENCONS_RING_IDX cons, prod;
-=20
-     if ( !cons_ring )
--        return;
-+        return -ENODEV;
-=20
-     cons =3D ACCESS_ONCE(cons_ring->in_cons);
-     prod =3D cons_ring->in_prod;
-@@ -125,6 +127,13 @@ void consoled_guest_tx(char c)
-  notify:
-     /* Always notify the guest: prevents receive path from getting stuck. =
-*/
-     pv_shim_inject_evtchn(pv_console_evtchn());
-+
-+    return 0;
-+}
-+
-+bool consoled_is_enabled(void)
-+{
-+    return pv_shim && pv_console;
- }
-=20
- /*
-diff --git a/xen/include/xen/consoled.h b/xen/include/xen/consoled.h
-index bd7ab6329e..d68c4ffa33 100644
---- a/xen/include/xen/consoled.h
-+++ b/xen/include/xen/consoled.h
-@@ -1,12 +1,34 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
- #ifndef __XEN_CONSOLED_H__
- #define __XEN_CONSOLED_H__
-=20
- #include <public/io/console.h>
-=20
-+#ifdef CONFIG_PV_SHIM
-+
- void consoled_set_ring_addr(struct xencons_interface *ring);
- struct xencons_interface *consoled_get_ring_addr(void);
--void consoled_guest_rx(void);
--void consoled_guest_tx(char c);
-+int consoled_guest_rx(void);
-+int consoled_guest_tx(char c);
-+bool consoled_is_enabled(void);
-+
-+#else
-+
-+static inline int consoled_guest_rx(void)
-+{
-+    ASSERT_UNREACHABLE();
-+    return -ENODEV;
-+}
-+
-+static inline int consoled_guest_tx(char c)
-+{
-+    ASSERT_UNREACHABLE();
-+    return -ENODEV;
-+}
-+
-+#define consoled_is_enabled()   (false)
-+
-+#endif /* CONFIG_PV_SHIM */
-=20
- #endif /* __XEN_CONSOLED_H__ */
- /*
-diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
-index 3de5635291..83069de501 100644
---- a/xen/include/xen/domain.h
-+++ b/xen/include/xen/domain.h
-@@ -35,6 +35,8 @@ void getdomaininfo(struct domain *d, struct xen_domctl_ge=
-tdomaininfo *info);
- void arch_get_domain_info(const struct domain *d,
-                           struct xen_domctl_getdomaininfo *info);
-=20
-+domid_t get_initial_domain_id(void);
-+
- /* CDF_* constant. Internal flags for domain creation. */
- /* Is this a privileged domain? */
- #define CDF_privileged           (1U << 0)
---=20
-2.34.1
-
-
+P.
 
