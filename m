@@ -2,40 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CFD0A45B00
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 10:59:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.896277.1304960 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D68EEA45B82
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 11:17:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.896290.1304971 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnEBp-0004ox-G0; Wed, 26 Feb 2025 09:58:53 +0000
+	id 1tnET2-0008HK-0U; Wed, 26 Feb 2025 10:16:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 896277.1304960; Wed, 26 Feb 2025 09:58:53 +0000
+Received: by outflank-mailman (output) from mailman id 896290.1304971; Wed, 26 Feb 2025 10:16:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnEBp-0004ls-CW; Wed, 26 Feb 2025 09:58:53 +0000
-Received: by outflank-mailman (input) for mailman id 896277;
- Wed, 26 Feb 2025 09:58:52 +0000
+	id 1tnET1-0008Fs-Sx; Wed, 26 Feb 2025 10:16:39 +0000
+Received: by outflank-mailman (input) for mailman id 896290;
+ Wed, 26 Feb 2025 10:16:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9WXX=VR=epam.com=Mykyta_Poturai@srs-se1.protection.inumbo.net>)
- id 1tnEBn-0004lm-Vg
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 09:58:52 +0000
-Received: from EUR03-AM7-obe.outbound.protection.outlook.com
- (mail-am7eur03on20616.outbound.protection.outlook.com
- [2a01:111:f403:260e::616])
+ <SRS0=gyIY=VR=suse.de=tzimmermann@srs-se1.protection.inumbo.net>)
+ id 1tnET0-0008Fm-SN
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 10:16:39 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [2a07:de40:b251:101:10:150:64:2])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4719e71d-f428-11ef-9aae-95dc52dad729;
- Wed, 26 Feb 2025 10:58:50 +0100 (CET)
-Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
- (2603:10a6:102:30d::12) by PAXPR03MB7983.eurprd03.prod.outlook.com
- (2603:10a6:102:21d::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8445.17; Wed, 26 Feb
- 2025 09:58:48 +0000
-Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
- ([fe80::35ac:8893:c31c:b971]) by PAVPR03MB10102.eurprd03.prod.outlook.com
- ([fe80::35ac:8893:c31c:b971%3]) with mapi id 15.20.8466.016; Wed, 26 Feb 2025
- 09:58:47 +0000
+ id c3356ee2-f42a-11ef-9aae-95dc52dad729;
+ Wed, 26 Feb 2025 11:16:37 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B800B1F388;
+ Wed, 26 Feb 2025 10:16:36 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3ED391377F;
+ Wed, 26 Feb 2025 10:16:36 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 8GvYDQTqvmfDagAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 26 Feb 2025 10:16:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,191 +52,310 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4719e71d-f428-11ef-9aae-95dc52dad729
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dL8gzK7FINalsqHJ2Q9jJQh65brGr+Cwl2opdSbSv1BNRhUut0qZND4chf2MXx2G6D9Hsf6R1iOZQ2wYBdWOnlbGmdy4xZF/aVplN0V8toKmrVBny2sXXpCZrikI4x3WGv491pXGtrm2v0gYoNMUzbAFe2oOzzh9eCZY+uIbSZITvWLjwhsWdQqFoXI4F4L6eDtN+Wk+pwbJevoMXGIPrrzpp30PWEftQWzZt+LUjawvx/dyrZm/rBM4jxcSfTbl6ajJZBik3hAFxoG+MAhZ0MQYO4nBcNLBmObejLhi46U0dfRbXTob+oTkAC7mw2oWcJAj6xzD/7BvyKcJlDVSiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uDD56LKMooMs7+7yBsyUhzulBbC49slejj6BUFlkyIM=;
- b=S+Hee+DEKkGNe0X/MxbUJiLoYENWgSwNandAxWpFwA8BQHCHWj0VLN1ll96GnbLV7aKTpfgnvfPkVHZmp61CCffkEj+PNZCnjeSeLCeQBuSdWkfAidxf06rfVuz/wTHGI73QNsSFkAV8xx4sl/3hMdkCEeUYIIDYkxa0E8IWxKmAfZwLSgbMbe1nvUbxzXN3HNjzBLSzsFQJTsNqsElHh1DCFZjock/t6yWRj3rRYBbc6KtK7/Kry6lgylGBTFsIlJrvgbn+KzLnAZniythTrlDOF7tkdgl2FrJlZBKVcw8liX4rZxMXDJVN83iMSV2KMsmlEroexoGa285ahArMCQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uDD56LKMooMs7+7yBsyUhzulBbC49slejj6BUFlkyIM=;
- b=CaAQNFmLMg75fpqXldW7cIzT1JxbWV+r7dWuX8WPK4YeRX2ws2A6zk+YFpHKB0v2tZvuXw9SygaGluVIdQH/jPM3qNJaJclnkIgindwjNtZ6KsXvpyo7X9+rIYZuY0UNPmf77Jfy84qXvvFkIVvfbI2qZan+vC0N/vrjGfLKyZ5FOxpBnhzg2HXfuPubKvEP7+G/BFh1uwGtPk6I052IkPtHM9FBmdvIp9W79D1YA66Hcb+ID6+4P2lFJdw+89Mn9KJJWOaxDnRBmVznzMktph/UnXtGM1a1dbqArI6m15/pANM3YbmByWTH5OldqdREDB0RfN7H+4/mVkJ1Pjcz+Q==
-From: Mykyta Poturai <Mykyta_Poturai@epam.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Oleksandr Tyshchenko
-	<Oleksandr_Tyshchenko@epam.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>, =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?=
-	<roger.pau@citrix.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v8 2/8] iommu/arm: Introduce iommu_add_dt_pci_sideband_ids
- API
-Thread-Topic: [PATCH v8 2/8] iommu/arm: Introduce
- iommu_add_dt_pci_sideband_ids API
-Thread-Index: AQHbe6bXkeUuupR7FUWii7Y2X2QPj7NAXFWAgBkWagA=
-Date: Wed, 26 Feb 2025 09:58:47 +0000
-Message-ID: <e6ea52a3-c7ce-411f-8186-cf725aa608f3@epam.com>
-References: <cover.1739182214.git.mykyta_poturai@epam.com>
- <67b9bd138c12c0df35e5c4b3137c30ad345097d5.1739182214.git.mykyta_poturai@epam.com>
- <67c8ce1e-5559-4567-9eed-970d97c29bda@suse.com>
-In-Reply-To: <67c8ce1e-5559-4567-9eed-970d97c29bda@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|PAXPR03MB7983:EE_
-x-ms-office365-filtering-correlation-id: c3b1a69c-b1d4-4f7d-a6d1-08dd564c29ec
-x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|1800799024|366016|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?QkNVQUptaWx2VHR6M2pObTdkYjdEVnFRTUtuc1ZpTDd4YVhQaTlXOEQ2bldl?=
- =?utf-8?B?ZHdPUFZjaUZ0U2labmdpb1dTQm1mZ3VYcVF6MGRvVTdxdUxqL3Rka2FGTHVo?=
- =?utf-8?B?WTdrNU5Ma1hlRFJQdCs5UlgxTWFva2M2L2tKTTVvRTZtRzZwby81SEMydTdr?=
- =?utf-8?B?YnY2UkhwWEUyZTNpVXpud0plNDl6ZHAveVJjM2lwT0lkWEUvcGJIVVNtcHBk?=
- =?utf-8?B?ZzhiQ3FvZHBMSGx3SXcxdHlDRlkrWWdBaVhtSnNkdlBCVGR2UEI3S3RJazMx?=
- =?utf-8?B?NGc3TklKc0RKalM3TVBEbmFGNm1Ec3hsY3FSWUluUjNwS2g0Rk84Rk9XRFdE?=
- =?utf-8?B?UXVJZW1lMHkzd2NXcDNDRHpYTXliTW5hVVVQMzM1QkhmVWR0c3VtUnNsM3d1?=
- =?utf-8?B?S0hsVHdZNUkrMU5uN0JwMHg1UVdhRnpRTGRiM2ovazFwVEtNcDNDbUYrTVU4?=
- =?utf-8?B?WWNuQWcrSS96cURZR0pBd2tSY1N5bTl1Um1IY2JRZllaNUF5REFMOWhaTU1Q?=
- =?utf-8?B?bHk3NlIwT2Npc0JDSzZIOTB2NWlRWm42eVlGMEJaWDJ1ZW5GTWtPTTQwb1c4?=
- =?utf-8?B?MnYyOXhSSS9zdFUyMEVtSTUxemNxYWwyYkx5cjJlSnEza2dpUWZ0dVRYTkpH?=
- =?utf-8?B?SlZVcHc5RVZMSEZWM0pyaFFnZTloRnpoRy9Tdjg0Ukx0T0syRnlOY0hKYXdn?=
- =?utf-8?B?QlRiNGc0OFdGaW5BWTROMHhYMXlGSFYyUnl3SG0rV0ZleHZJbm5qa003emly?=
- =?utf-8?B?a3Y3SkdDMzhIanRTaHZFOGhGcFkzd3hCSmRoQWU4NXNtV1oxWld0cVd0SFlG?=
- =?utf-8?B?K0YrZHBNOW82ankxcjUybmV1WVE5ZVBvV09rdkl1amRMc0ZhZHBZaExtK08v?=
- =?utf-8?B?eTNNRzhUZmlXMUlMZW1TMzlQMFVydXljRVdhRUlVcmtwc0JVTnBIUi9idUpG?=
- =?utf-8?B?UTFJeHUvRnRxb29hdW14ZWNKWGp3Vy83c3hOcm0zZ25UbW5JcjE0cUJzS3gr?=
- =?utf-8?B?dU5iM2FXdnp0NXV2c1JlcjFaRmFDRDZLRVdtd1BGSHNtOTdMK25Zc0hVd1RS?=
- =?utf-8?B?a2h3Z1NMRDlDTVVYdmxlSk5waThQT3BINFZUbVhuY0d3MEFIV3JYc1pSbCts?=
- =?utf-8?B?M1E2UXYwVE9zZEphd3V0QUhDT0gzUjg4SHVhS3dBY3M3TmUvTjgxVWpkZnh1?=
- =?utf-8?B?WlRLcnlMYTkyYjdoM0REbEV3eWxkTzBDSEEvbEJNNUsydndPZy83R2RpQ0Mw?=
- =?utf-8?B?UEpqL2RHR1NqOEVLZlVDVDMwcEh1NmVYWUVBTXBwYk5NSmJwMU1UUExYMTN4?=
- =?utf-8?B?S1VFRjcxVlRDRlVQdElXWkZ3NWprdTUwdE1jMXBMaU5od2VyS3d5UkNmZ0Iv?=
- =?utf-8?B?VWgvaGJudVRvYTZlc0lxNHc4cmVyV1hjZVRCQ0ZIN202RFMrTnhqU01BWmpp?=
- =?utf-8?B?OEZkWThMQWxITUpuODZZbVY4Q2ppUjJJSW85VmVvZlhjN3p5V1p4Mmg2K3JQ?=
- =?utf-8?B?WUYvSFFwZjRWWi91RXVpclJFRldvL0V3VTRhNkxJaElWN2VGVVVFMkRTaWU1?=
- =?utf-8?B?WHhBL0diV2toaGdoVFNTcGw5RjNrNG9xQTVCamp3SWM5VS9hTW1wTlFRZklC?=
- =?utf-8?B?NjFiVzRIejFKNU1RNDREbmhjZ3l2bk5LUk1mZ1BRQzhHVWdHUkpWblR2ZkFY?=
- =?utf-8?B?M1o0cm14ZVRIRUR6NFd4Y1Z6SXQ0WXdHTXZySERVNFpqNXF6YUZydWpMR1V5?=
- =?utf-8?B?dU5EVk1iN01yY2pGR1ZsUG9EM01DeHFBTHFzZmNqSFZzRFkzMmwyRERjMitu?=
- =?utf-8?B?NUF0TEduWXNnRWkxOS9SSVdydzJWZk9oODRtNEc1RitrU3hWeWZqTGlmV2h4?=
- =?utf-8?B?UW91K1dUYXFpdDBFUjVvNHZvUW9ZQVIzQTZleGFLdmVpeGExcXB6bVNxcGND?=
- =?utf-8?Q?R20OivBYWTtEG0eTSQZw9HbPL8cYi5Qh?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?ekZVUGUvRUY4RGZjR2lSaUpSM1J4VFY1UFpseXdReUhOcVdSQ0FqSkNjV2pl?=
- =?utf-8?B?NzEvNUxuL21rNnZOM29rbVhUZ2hyZ0ovL0QrdUVHdWhiZkNsNDFkY21wQ24w?=
- =?utf-8?B?dGxidEdTUklEeFkydkg3d3Fua0RTdVp2VThQYUtNN3VNTVpCZUNmcnBLVFUz?=
- =?utf-8?B?MXYremE2cmVNVW0xaElEQktxMEdxTVpPQ3M3WUZjZ0Q1MXB5dkNqT1dWUXk2?=
- =?utf-8?B?bE9GSXB5NlcvZ1VlUnNBbGJBTVZnOFl4elBybG9xOUVTWVJhdHN6VVZLUTUy?=
- =?utf-8?B?bm1xSVBVK2d4YnJFWVVGby9HZ1VhNEJSTGJNVkk3RHkzajA5bVdCOW52d2Zp?=
- =?utf-8?B?MG9jdDFmNjlJalZDcFNRS3FjTmw2K3ZBYy9PTW1QSjdqME9kOWIxMTYxbnJ1?=
- =?utf-8?B?N00yYU02VElyWVdTbmwvRDFYTFdxdUZ5Z2F2YmxWOWs5QUdaTWdxMW5tNzFS?=
- =?utf-8?B?eU9nMkF2cmFXRWNpd1Y3aEFNVDN1bDBKbTFpK2RtRUxMZ1pleUFqU2Q4ZW5L?=
- =?utf-8?B?V0MrMWVjSGlmQUpTUVU1QVJiU2xCQk01RFgwSllzM1plMlUvZ3BqZU8vYUNy?=
- =?utf-8?B?NDVIbS8vM1ArNFJPczlmZDNGM2dpbDFWVytPSE82RGRobk1xU2lwOUpxRmN1?=
- =?utf-8?B?TTBMNnFnanlDVUxHSVVQTHl3V0NvUXFPN2lzeGVCUytrTHB4UzBCZGYxclhm?=
- =?utf-8?B?T25IcjMwSHRUc2xlbXl5bkdjTHBSR2IyaXBhbnU5WlZRRlE2L0gwcElnQWtC?=
- =?utf-8?B?R3R5K0IyRjk5K2QzL0M0Y05aaFpNMDdmOVkybVkrVS9NVzFvR3NVMkZxZDRp?=
- =?utf-8?B?ZlM5TjJ2Q1J2amh6eUFiVlBHUlZqUUpJYnk3Uzl4d3hjYkxqaWtacDVyelY0?=
- =?utf-8?B?aUc4VDFBL0tiaHhzWW84clN6ekFBYlVPQkJHb1c5dWkyYkFkQmtXUjFQRFYr?=
- =?utf-8?B?ZEJhZlhNRWkzUDFiNEMxS290N3hmRzR0V3F3NEFhQ2xrcUNqTS9GSFZLZEdM?=
- =?utf-8?B?bElyNzc4dm1HZjRobjJWQ2RDUXpCZjc1QXZidENmekNFZHpUd1d3eTRCYXp3?=
- =?utf-8?B?aG02MmpGa3lURWRYSUNXY1RpNzF5S1VVWCswczNWSWFNelNYeW4xc3M2UmN5?=
- =?utf-8?B?STFjOXJXZmEwMUNQSms4RWg3TDgvRzRhMlNhTEVKV3lzaE8yWDBqeE8vb0lC?=
- =?utf-8?B?dGhsU3JlaE1tdlFNWGNzRzBTTEFKK01HUXpVNU5BUm5sY3VVeVFHeHF3NUZ0?=
- =?utf-8?B?TXZtbTdmSHVuR2tlM3MzMGdpMjJWQWFUSGZya2lZVldCNXU2RmRuMGFuSmRx?=
- =?utf-8?B?SFdGanhkbmpzclNmSldJM01zSDlHc3JWbjE3ZjA2Y2VnNHFuTExpallwQmYr?=
- =?utf-8?B?WWIrak8wQXhpRUNYVVlyYkRCZk83N3RUazVoYVYyTnRPaWlCVDF6VjhETWNE?=
- =?utf-8?B?UU5NbnlmZ08wK1RlRFFrT2tiVTl1SXcxamlIc3NmcWVBTzNZT0NYTktvM0FH?=
- =?utf-8?B?eTlwVlJWWHVNcUN3U3NOUWNvNjV1QXRLeDNzMVJrQkVhcGdCM09BQ0RHUEN1?=
- =?utf-8?B?S3hVT0M4T29qZ204SDVHb0ZWNzJ3dHFCdjVIa05FNFBFTUh2Z0wrNnJxYzJz?=
- =?utf-8?B?NHhJdUZSZFFCaTM1OUJQcVpycEl2aWtGWGFldGVaMlRPVnp4aTNYL295MnM4?=
- =?utf-8?B?Mjg2ajE4YU5ITmZxTGkwS2RudDQwS1FXVWRWWjlUVFNDRmRua3RrV1RnUmtM?=
- =?utf-8?B?TzZzRFFPdWlKcXpVZzNQZGJJRTV1ZnF6MjZEMU1lRUxEOHBpZEhIa2RCMHdl?=
- =?utf-8?B?bWhDUHd1dW90ZWFXYlBMQXJvcWY1bDUzUVFDTUxibkdCNjJROS9obSszNUxG?=
- =?utf-8?B?VUVsdHdkUXdqbk41UUZkNURwQjBJNEFYbHBvVzNqc2tka2FjeEc4NEdnTVlm?=
- =?utf-8?B?dG5OMHFwNWVuL1hHaHVaY3krSDFacEdFSFpRODJTTW9tZ0VvQStiRlhNcUFJ?=
- =?utf-8?B?Y3lhMDFqSDBRTHd2MjVNVE9oK1luaGNycUROb0NmVCtReU00NFZwSFZ0Tk13?=
- =?utf-8?B?bEkxL0s0bzVEMlRGdFlCWEo4TGx1UUlIS1dSbWpYZ0NxdnBKaHRpZGNxV3Qv?=
- =?utf-8?B?WXYyUHJEREZLcnFPSkZkN0lPdnNPMjUxNG4xeHQyQnpDeVRxV2hGZVpMeG1a?=
- =?utf-8?B?RWc9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <40A2FF1127E41647860D4D4EF2374AF0@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: c3356ee2-f42a-11ef-9aae-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1740564996; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=W7huWkA+q4tRzFzbc4OooKbD6jGNlYW/aDI0Z6LcjV8=;
+	b=CYhMLnp7q0zfIxH8iu3DNheOYB4NL+Nf+4CwGTh2xeQ6XaiMe2y/w5C4nc6bW9xz7RbgAw
+	8ryL8T8ngv+vFjbcTTbAftFmRhYB2lclHddKns9vVCLWfBZDzJSvvQlUKLgV5Wmz5BH8cQ
+	v3TWwB2RQtT2+I3JBCLYix3NLqlliWA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1740564996;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=W7huWkA+q4tRzFzbc4OooKbD6jGNlYW/aDI0Z6LcjV8=;
+	b=py/wyHhesHkF3t5R/Yc8G+Nte20Q0gW31h5UiRetlboW695aUKEXNBzADKuVjVvPuLRL9V
+	oWrCKyFxSZ0u4RBQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1740564996; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=W7huWkA+q4tRzFzbc4OooKbD6jGNlYW/aDI0Z6LcjV8=;
+	b=CYhMLnp7q0zfIxH8iu3DNheOYB4NL+Nf+4CwGTh2xeQ6XaiMe2y/w5C4nc6bW9xz7RbgAw
+	8ryL8T8ngv+vFjbcTTbAftFmRhYB2lclHddKns9vVCLWfBZDzJSvvQlUKLgV5Wmz5BH8cQ
+	v3TWwB2RQtT2+I3JBCLYix3NLqlliWA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1740564996;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=W7huWkA+q4tRzFzbc4OooKbD6jGNlYW/aDI0Z6LcjV8=;
+	b=py/wyHhesHkF3t5R/Yc8G+Nte20Q0gW31h5UiRetlboW695aUKEXNBzADKuVjVvPuLRL9V
+	oWrCKyFxSZ0u4RBQ==
+Message-ID: <97832f2b-ea2f-4fec-990b-bbd5ccaa9a91@suse.de>
+Date: Wed, 26 Feb 2025 11:16:35 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB10102.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c3b1a69c-b1d4-4f7d-a6d1-08dd564c29ec
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Feb 2025 09:58:47.7180
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 9dgVpCR2L6kYXnrv5f3qSm0RnaeILxShqbLOPPCh3/WB0gi/VuWv4hXwQ6c1s8tdJaAgYz3Om8janoftHnBIXA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR03MB7983
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 02/25] drm/dumb-buffers: Provide helper to set pitch
+ and size
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+References: <20250218142542.438557-1-tzimmermann@suse.de>
+ <20250218142542.438557-3-tzimmermann@suse.de>
+ <dcd59a75-7945-4a2e-99f9-3abbb3e9de14@ideasonboard.com>
+ <355ed315-61fa-4a9d-b72b-8d5bc7b5a16c@suse.de>
+ <596b960e-71f8-4c2c-9abe-058206df1dfb@ideasonboard.com>
+ <87ca2b81-a67a-468b-ae2b-30d02a3a64bc@suse.de>
+ <f74af5cc-bca8-45c1-9204-b362fcd6f998@ideasonboard.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <f74af5cc-bca8-45c1-9204-b362fcd6f998@ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: -2.80
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.990];
+	MIME_GOOD(-0.10)[text/plain];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_TO(0.00)[ideasonboard.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[20];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
+X-Spam-Flag: NO
+X-Spam-Level: 
 
-T24gMTAuMDIuMjUgMTI6NTIsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAxMC4wMi4yMDI1IDEx
-OjMwLCBNeWt5dGEgUG90dXJhaSB3cm90ZToNCj4+IC0tLSBhL3hlbi9kcml2ZXJzL3Bhc3N0aHJv
-dWdoL2lvbW11LmMNCj4+ICsrKyBiL3hlbi9kcml2ZXJzL3Bhc3N0aHJvdWdoL2lvbW11LmMNCj4+
-IEBAIC0yMCw2ICsyMCw3IEBADQo+PiAgICNpbmNsdWRlIDx4ZW4vcGFyYW0uaD4NCj4+ICAgI2lu
-Y2x1ZGUgPHhlbi9zb2Z0aXJxLmg+DQo+PiAgICNpbmNsdWRlIDx4ZW4va2V5aGFuZGxlci5oPg0K
-Pj4gKyNpbmNsdWRlIDx4ZW4vYWNwaS5oPg0KPj4gICAjaW5jbHVkZSA8eHNtL3hzbS5oPg0KPj4g
-ICANCj4+ICAgI2lmZGVmIENPTkZJR19YODYNCj4+IEBAIC03NDQsNiArNzQ1LDE4IEBAIGludCBf
-X2luaXQgaW9tbXVfZ2V0X2V4dHJhX3Jlc2VydmVkX2RldmljZV9tZW1vcnkoaW9tbXVfZ3JkbV90
-ICpmdW5jLA0KPj4gICAgICAgcmV0dXJuIDA7DQo+PiAgIH0NCj4+ICAgDQo+PiAraW50IGlvbW11
-X2FkZF9wY2lfc2lkZWJhbmRfaWRzKHN0cnVjdCBwY2lfZGV2ICpwZGV2KQ0KPj4gK3sNCj4+ICsg
-ICAgaW50IHJldCA9IC1FT1BOT1RTVVBQOw0KPj4gKw0KPj4gKyNpZmRlZiBDT05GSUdfSEFTX1BD
-SQ0KPj4gKyAgICBpZiAoIGFjcGlfZGlzYWJsZWQgKQ0KPj4gKyAgICAgICAgcmV0ID0gaW9tbXVf
-YWRkX2R0X3BjaV9zaWRlYmFuZF9pZHMocGRldik7DQo+PiArI2VuZGlmDQo+PiArDQo+PiArICAg
-IHJldHVybiByZXQ7DQo+PiArfQ0KPiANCj4gVGhpcyBmdW5jdGlvbiBoYXMgbm8gY2FsbGVyLCB3
-aGljaCB2aW9sYXRlcyBhIE1pc3JhIHJ1bGUgaWlyYy4gQ29uc2lkZXJpbmcNCj4gYWxsIGluZm9y
-bWF0aW9uIGdpdmVuIGhlcmUgaXQncyBhbHNvIHVuY2xlYXIgd2h5IGl0IHdvdWxkIGdhaW4gYSBj
-YWxsZXIgb24NCj4geDg2IChhdCBsZWFzdCBhcyBsb25nIGFzIERUIGlzbid0IHVzZWQgdGhlcmUp
-Lg0KPiANCj4gSmFuDQoNCldvdWxkIGl0IGJlIG9rIHRvIHdyYXAgaXQgd2l0aCBDT05GSUdfQVJN
-PyBJIGFtIG5vdCBxdWl0ZSBzdXJlIGhvdyANCnJlbGV2YW50IHRoaXMgbWFwcGluZyBmdW5jdGlv
-bmFsaXR5IGlzIHRvIFg4NiBpb21tdXMsIGFsdGhvdWdoIExpbnV4IGhhcyANCnNpbWlsYXIgaW1w
-bGVtZW50YXRpb25zIGZvciBBQ1BJLg0KDQpBbHRlcm5hdGl2ZWx5LCB3ZSBjYW4gcmVtb3ZlIHRo
-aXMgYWJzdHJhY3Rpb24gZm9yIG5vdywgdG8gY2FsbCANCmlvbW11X2FkZF9kdF9wY2lfc2lkZWJh
-bmRfaWRzIGZyb20gQXJtIGRpcmVjdGx5IGFuZCBvbmx5IGludHJvZHVjZSBpdCANCmJhY2sgd2hl
-biBhdCBsZWFzdCBzb21lIEFDUEkgaW1wbGVtZW50YXRpb24gaXMgZG9uZS4NCg0KQWxzbywganVz
-dCB3YW50IHRvIG1lbnRpb24gdGhlIGlzc3VlIHRoYXQgZm9yY2VkIG1lIHRvIG1vdmUgdGhpcyBm
-cm9tIA0KdGhlIGhlYWRlciBpbiB0aGUgZmlyc3QgcGxhY2UgaW4gY2FzZSBpdCBpcyBub3Qga25v
-d24uIFRoZXJlIGlzIGEgDQpjb25mbGljdCBpbiBmaXhlZCB3aWR0aCBpbnRlZ2VycyBkZWZpbml0
-aW9ucyBiZXR3ZWVuIGFjdHlwZXMuaCBhbmQgDQplZmliaW5kLmggYW5kIGl0IHdhcyByZXZlYWxl
-ZCB3aGVuIGluY2x1ZGluZyBhY3BpLmggaW50byBpb21tdS5oLg0KSSBpbml0aWFsbHkgdHJpZWQg
-dG8gZml4IHRoZSBzb3VyY2Ugb2YgdGhpcyBjb25mbGljdCwgYnV0IEkgZG9uJ3Qga25vdyANCmVu
-b3VnaCBhYm91dCBBQ1BJIGFuZCBFRkkgcXVpcmtzIHRvIGNvbmZpZGVudGx5IGRvIGl0Lg0KDQpJ
-biBmaWxlIGluY2x1ZGVkIGZyb20gLi9pbmNsdWRlL2FjcGkvYWNwaS5oOjU3LA0KICAgICAgICAg
-ICAgICAgICAgZnJvbSAuL2luY2x1ZGUveGVuL2FjcGkuaDo1NywNCiAgICAgICAgICAgICAgICAg
-IGZyb20gLi9pbmNsdWRlL3hlbi9pb21tdS5oOjI4LA0KICAgICAgICAgICAgICAgICAgZnJvbSAu
-L2luY2x1ZGUveGVuL3NjaGVkLmg6MTIsDQogICAgICAgICAgICAgICAgICBmcm9tIC4vYXJjaC94
-ODYvaW5jbHVkZS9hc20vcGFnaW5nLmg6MTcsDQogICAgICAgICAgICAgICAgICBmcm9tIC4vYXJj
-aC94ODYvaW5jbHVkZS9hc20vZ3Vlc3RfYWNjZXNzLmg6MTEsDQogICAgICAgICAgICAgICAgICBm
-cm9tIC4vaW5jbHVkZS94ZW4vZ3Vlc3RfYWNjZXNzLmg6MTAsDQogICAgICAgICAgICAgICAgICBm
-cm9tIGFyY2gveDg2L2VmaS9ydW50aW1lLmM6NToNCi4vaW5jbHVkZS9hY3BpL2FjdHlwZXMuaDox
-MzA6MzU6IGVycm9yOiBjb25mbGljdGluZyB0eXBlcyBmb3Ig4oCYVUlOVDY04oCZOyANCmhhdmUg
-4oCYbG9uZyBsb25nIHVuc2lnbmVkIGludOKAmQ0KICAgMTMwIHwgdHlwZWRlZiBDT01QSUxFUl9E
-RVBFTkRFTlRfVUlOVDY0IFVJTlQ2NDsNCiAgICAgICB8ICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBefn5+fn4NCkluIGZpbGUgaW5jbHVkZWQgZnJvbSAuL2FyY2gveDg2L2luY2x1
-ZGUvYXNtL2VmaWJpbmQuaDoyLA0KICAgICAgICAgICAgICAgICAgZnJvbSAuL2NvbW1vbi9lZmkv
-ZWZpLmg6MSwNCiAgICAgICAgICAgICAgICAgIGZyb20gYXJjaC94ODYvZWZpL3J1bnRpbWUuYzox
-Og0KLi9hcmNoL3g4Ni9pbmNsdWRlL2FzbS94ODZfNjQvZWZpYmluZC5oOjg5OjIwOiBub3RlOiBw
-cmV2aW91cyANCmRlY2xhcmF0aW9uIG9mIOKAmFVJTlQ2NOKAmSB3aXRoIHR5cGUg4oCYVUlOVDY0
-4oCZIHtha2Eg4oCYbG9uZyB1bnNpZ25lZCBpbnTigJl9DQogICAgODkgfCB0eXBlZGVmIHVpbnQ2
-NF90ICAgVUlOVDY0Ow0KLS0gDQpNeWt5dGE=
+Hi
+
+Am 25.02.25 um 14:45 schrieb Tomi Valkeinen:
+> Hi,
+>
+> On 21/02/2025 11:19, Thomas Zimmermann wrote:
+>> Hi
+>>
+>> Am 20.02.25 um 11:53 schrieb Tomi Valkeinen:
+>>> Hi,
+>>>
+>>> On 20/02/2025 12:05, Thomas Zimmermann wrote:
+>>>> Hi
+>>>>
+>>>> Am 20.02.25 um 10:18 schrieb Tomi Valkeinen:
+>>>> [...]
+>>>>>> + * Color modes of 10, 12, 15, 30 and 64 are only supported for 
+>>>>>> use by
+>>>>>> + * legacy user space. Please don't use them in new code. Other 
+>>>>>> modes
+>>>>>> + * are not support.
+>>>>>> + *
+>>>>>> + * Do not attempt to allocate anything but linear framebuffer 
+>>>>>> memory
+>>>>>> + * with single-plane RGB data. Allocation of other framebuffer
+>>>>>> + * layouts requires dedicated ioctls in the respective DRM driver.
+>>>>>
+>>>>> According to this, every driver that supports, say, NV12, should 
+>>>>> implement their own custom ioctl to do the exact same thing? And, 
+>>>>> of course, every userspace app that uses, say, NV12, should then 
+>>>>> add code for all these platforms to call the custom ioctls?
+>>>>
+>>>> Yes, that's exactly the current status.
+>>>>
+>>>> There has been discussion about a new dumb-create ioctl that takes 
+>>>> a DRM format as parameter. I'm all for it, but it's out of the 
+>>>> scope for this series.
+>>>>
+>>>>>
+>>>>> As libdrm's modetest currently supports YUV formats with dumb 
+>>>>> buffers, should we remove that code, as it's not correct and I'm 
+>>>>> sure people use libdrm code as a reference?
+>>>>
+>>>> Of course not.
+>>>>
+>>>>>
+>>>>> Well, I'm not serious above, but I think all my points from the 
+>>>>> earlier version are still valid. I don't like this. It changes the 
+>>>>> parameters of the ioctl (bpp used to be bits-per-pixel, not it's 
+>>>>> "color mode"), and the behavior of the ioctl, behavior that we've 
+>>>>> had for a very long time, and we have no idea how many users there 
+>>>>> are that will break (could be none, of course). And the 
+>>>>> documentation changes make the current behavior and uses wrong or 
+>>>>> legacy.
+>>>>
+>>>> Before I go into details about this statement, what use case 
+>>>> exactly are you referring to when you say that behavior changes?
+>>>
+>>> For every dumb_buffer allocation with bpp that is not divisible by 
+>>> 8, the result is different, i.e. instead of DIV_ROUND_UP(width * 
+>>> bpp, 8), we now have width * DIV_ROUND_UP(bpp, 8). This, of course, 
+>>> depends on the driver implementation. Some already do the latter.
+>>
+>> The current dumb-buffer code does a stride computation at [1], which 
+>> is correct for all cases; although over-allocates sometimes. It's the 
+>> one you describe as "width * DIV_ROUND_UP(bpp, 8)". It's in the ioctl 
+>> entry point, so it's somewhat authoritative for all driver's 
+>> implementations. It's also used by several drivers.
+>>
+>> The other variant, "DIV_ROUND_UP(width * bpp, 8)", is used by 
+>> gem-dma, gem-shmem and others. It can give incorrect results and 
+>> possibly OOBs. To give a simple example, let's allocate 15-bit 
+>> XRGB1555. Bpp is 15. With a width of 1024, that would result in 1920 
+>> bytes per scanline. But because XRGB1555 has a filler bit, so the 
+>> pixel is actually 16 bit and a scanline needs to be 2048 bytes. The 
+>> new code fixes that. This is not just a hypothetical scenario: we do 
+>> have drivers that support XRGB1555 and some of them also export a 
+>> preferred_depth of 15 to userspace. [2] In the nearby comment, you'll 
+>> see that this value is meant for dumb buffers.
+>>
+>> Rounding up the depth value in user space is possible for RGB, but 
+>> not for YUV. Here different pixel planes have a different number of 
+>> bits. Sometimes pixels are sharing bits. The value of bits-per-pixel 
+>> becomes meaningless. That's why it's also deprecated in struct 
+>> drm_format_info. The struct instead uses a more complicated per-plane 
+>> calculation to compute the number of bits per plane. [3] The 
+>> user-space code currently doing YUV on dumb buffers simply got lucky.
+>>
+>> [1] https://elixir.bootlin.com/linux/v6.13.3/source/drivers/gpu/drm/ 
+>> drm_dumb_buffers.c#L77
+>> [2] https://elixir.bootlin.com/linux/v6.13.3/source/include/drm/ 
+>> drm_mode_config.h#L885
+>> [3] https://elixir.bootlin.com/linux/v6.13.3/source/include/drm/ 
+>> drm_fourcc.h#L83
+>>
+>>>
+>>> This change also first calls the drm_driver_color_mode_format(), 
+>>> which could change the behavior even more, but afaics at the moment 
+>>> does not. 
+>>
+>> Because currently each driver does its own thing, it can be hard to 
+>> write user space that reliably allocates on all drivers. That's why 
+>> it's important that parameters are not just raw numbers, but have 
+>> well- defined semantics. The raw bpp is meaningless; it's also 
+>> important to know which formats are associated with each value. 
+>> Otherwise, you might get a dumb buffer with a bpp of 15, but it will 
+>> be displayed incorrectly. This patch series finally implements this 
+>> and clearly documents the assumptions behind the interfaces. The 
+>> assumptions themselves have always existed.
+>
+> This is perhaps where the biggest gap in understanding/view is: I have 
+> always thought dumb-buffer's "bpp" to mean bits-per-pixel, where, for 
+> more complex formats, "pixel" is not necessarily a visible pixel but a 
+> container unit of some kind. So bpp * width = stride.
+>
+> It would not occur to me to allocate XRGB1555 dumb-buffer with 15 bpp, 
+> but 16 bpp, as that's what a pixel takes. I have never seen the 
+> dumb-buffer bpp connected directly to the pixel format (that's what 
+> the ADDFB brings in).
+>
+> I may be alone with that thinking, but afaics the documentation leans 
+> a bit on my interpretation (instead of considering bpp as a "color 
+> mode"), although admittedly the docs also don't really say much so 
+> this may be fully just my interpretation:
+>
+> https://man.archlinux.org/man/drm-memory.7.en
+
+Agreed, this could be read in the way you do. Is this being generated 
+from source somehow? The information is not incorrect, but how did they 
+get to this interpretation? It would definitely need an update with this 
+patch series applied. Citing from the man page:
+
+   "/bpp/ is the number of bits-per-pixel and must be a multiple of 8."
+
+That's what currently works on all drivers. But nothing enforces that it 
+"must by a multiple of 8". Doing so would prevent C1/C2/etc pixel 
+formats without over-allocation.  OR bpp is not bits-per-pixel but just 
+some factor that controls the buffer size. This is how you use it for 
+YUV formats.
+
+   "You most commonly want to pass 32 here."
+
+That's also just semi-true. 32 is simply what mostly works in practice 
+IFF you interpret it as XRGB8888. Userspace should read the formats from 
+the primary plane, or at least look at the driver-provided 
+preferred_depth field.
+
+>
+> https://cgit.freedesktop.org/drm/libdrm/tree/include/drm/drm_mode.h#n1055
+
+This one doesn't say anything specific AFAICT. Bpp is somewhat pointless 
+information without a known pixel and framebuffer layout, as I've 
+outlined before.
+
+>
+> I (mostly) understand all the complexities around here, thanks to your 
+> replies, and I think I'm ok with the series as it doesn't break 
+> anything (need to test the v3, though).
+
+Thank you so much.
+
+>
+> I still don't like it though =). And I would be happier with the 
+> simpler "bpp" interpretation that I mentioned above, instead of it 
+> being a color mode. But we can't have it both ways, and perhaps it's 
+> better to unify the code and have the behavior explained explicitly as 
+> you do in this series, even if the explanation only covers some RGB 
+> formats.
+
+No worries. The intention is not to break anything and existing code 
+will continue to work.
+
+Best regards
+Thomas
+
+>
+>  Tomi
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstrasse 146, 90461 Nuernberg, Germany
+GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+HRB 36809 (AG Nuernberg)
+
 
