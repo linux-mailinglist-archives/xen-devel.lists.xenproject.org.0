@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54477A466C4
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 17:38:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.897037.1305768 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57FF8A466D4
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2025 17:43:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.897047.1305777 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnKQW-0007mq-Ky; Wed, 26 Feb 2025 16:38:28 +0000
+	id 1tnKUc-0000o3-5K; Wed, 26 Feb 2025 16:42:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 897037.1305768; Wed, 26 Feb 2025 16:38:28 +0000
+Received: by outflank-mailman (output) from mailman id 897047.1305777; Wed, 26 Feb 2025 16:42:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnKQW-0007ji-HG; Wed, 26 Feb 2025 16:38:28 +0000
-Received: by outflank-mailman (input) for mailman id 897037;
- Wed, 26 Feb 2025 16:38:26 +0000
+	id 1tnKUc-0000lP-1X; Wed, 26 Feb 2025 16:42:42 +0000
+Received: by outflank-mailman (input) for mailman id 897047;
+ Wed, 26 Feb 2025 16:42:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J4Ti=VR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tnKQU-0007jc-MO
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 16:38:26 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ id 1tnKUa-0000lJ-T4
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2025 16:42:40 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 19839154-f460-11ef-9aae-95dc52dad729;
- Wed, 26 Feb 2025 17:38:25 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-38a25d4b9d4so4002377f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 08:38:25 -0800 (PST)
+ id af466e95-f460-11ef-9aae-95dc52dad729;
+ Wed, 26 Feb 2025 17:42:36 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-38f504f087eso5459198f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 08:42:36 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43aba52b925sm27341405e9.7.2025.02.26.08.38.24
+ ffacd0b85a97d-390cd88300bsm6305839f8f.54.2025.02.26.08.42.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Feb 2025 08:38:24 -0800 (PST)
+ Wed, 26 Feb 2025 08:42:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 19839154-f460-11ef-9aae-95dc52dad729
+X-Inumbo-ID: af466e95-f460-11ef-9aae-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740587905; x=1741192705; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1740588156; x=1741192956; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=D9dVm6xQByd76ygKStTgXWQCeG08CTBFkRjU/glm9WI=;
-        b=erOooPylgXEAfGGX0VHW6CVnFrw2CR2fRkY7s3uo5tA9PMRxPs/2x6D5FnyxK2cSKY
-         Ckos5VfQixZ5d6AzKK2SUKNzt0c0Ezd3UUxx9BXIUJD4Vq5RhFPrcPXwB6t7aGeJslDH
-         EBRRvggrZPhJtgyUhhmAS5UW8x0JaIvPVsiYw4F0K9m3IOUm9jzZc5rMFb1cGw6/Iv49
-         CCYEeesnEr4EQKnkrEATX9Bjo1ShsO385bLw8pa2ARpV/CbnBDFVSDnpLQr4rAOtwAEN
-         dI1jH/I5H0dz99rlmTZBYYNs8vhXmVNEGyOApH4LdAZ3vBacBskn0HCpqZQhc9KQWjH7
-         YKeg==
+        bh=1fmc2JeTjHfINWiPnx6uX1+cEUX/ZwFYOcv0Zjt8XwE=;
+        b=dllbpmEhkDSOLynFZJP4HKxKmxeetTz7XitqNrY4b+9Aj56eyBIUDj9M8AoHYZjBGY
+         zd89IDmYf85lb5O/kzIAMXkxU62s3m3++kSgHyjud3AHslk8uOIvfM61bR5W81mWps0S
+         8DCE1UxvupnFCGrBgwO22ShkNiTLkslPN3uIThmXDhv3AfqfI3fmWlyD91T6b35J4UOs
+         nAE93n6hnPndZFNDHM7aCioCoDP4SlHb/odhnqrmZ3oOgRz+827PACFEZ5/xBVbaT0c/
+         p1PXRuGporXSvIDApSdnYAdfiUApj5ueoeP9AQH6M9LACugS6PMu+JCrTmANSKrqjRVl
+         4afQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740587905; x=1741192705;
+        d=1e100.net; s=20230601; t=1740588156; x=1741192956;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=D9dVm6xQByd76ygKStTgXWQCeG08CTBFkRjU/glm9WI=;
-        b=qDdS2Q2tYbMF4I6+gijdE9HJwvWY+KXhmygxT5UMK+dw/8ofb+pk9hoWPZdR/tMV85
-         8LD5kdMJLYxx/hH/ogd1UtLrr2iJc6MxKABFsZfZCsiSmgP0Dn8U7/4D9JionqMC+voV
-         /xRQ76ixhQb8Rukc4DEhd5/o8W9ONiWvp3qfm1rfLK761QINUn7MTtxl85ZliU86LOBz
-         WH1l6MDG5gO8YuAf0EUD90GDPwj+/u75JQ229O9JdKNOwZAswjUZXF6t5rgZC0q5EX9b
-         DaDzOGqLp4r8bRz4sGt6HDIHO9HVLsKw8GZ3wZ+O4h2COSPfpl6D8OhcpekHCjXHgfeR
-         5AUA==
-X-Forwarded-Encrypted: i=1; AJvYcCWFaV96vib+R8Q/owHxlm7pCaWSl4SK5vPUDvxqh/MXLqePgxZmo75PCRnD57C/nWvmj8E+LknJ3YE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyKMrWlv/BBoSpM6q1NZ8jFwcq9Z1t+Ug1Z11YWtr9C7yRPeiPb
-	S4M+MryUH+0fRbgyap5UbztZHkUykoSaJfskyRU3j5VUd2DZYF9zNyu3ErMPwg==
-X-Gm-Gg: ASbGncvEkgFANWXbmqjsFUo/4eh7Vzu7YpZ0c2K9QkRmVsCx18kDIJJN3BAxVKZ3WhV
-	40KRCWS3sfXN2V/Y6uewmzO5FaqJEaQWyVqIPLNisGg1diF7+jRUKC2ICWHXIZIT39r1UnhnYdM
-	6aNRkAwc3JDPq0kmG7l5/5Ixm/fgBb/LNyQ4HKdjHPDpZgZOWv65IV4JvxSmH57KLaNAnBlRPu6
-	jeDM7BdLuEGLtch/apV3MzXHCp7iixPmySAuRwvtZjFTJap7SqIGQQjnm1b60yK0cUWmVVvGdM+
-	/tqQTbn8tZ1rblSRTXhUXCRemvTDy05ho+nLjC87krgDfrhKj0N52AIE+hJNrbZW+j9UreHjhmc
-	DDMIJoCUC3u4=
-X-Google-Smtp-Source: AGHT+IG1wwJAwrMM9YnK21eYK1oidgCpOcMoQJAjHif2Pc5PCYZQ9ZyLCgcy4CKjHfXIbsw6Kl7SRg==
-X-Received: by 2002:a5d:6d09:0:b0:38f:48ee:ddb1 with SMTP id ffacd0b85a97d-390cc605103mr7625886f8f.18.1740587904960;
-        Wed, 26 Feb 2025 08:38:24 -0800 (PST)
-Message-ID: <1f22aea3-cce8-4d41-bf10-deed01b0f390@suse.com>
-Date: Wed, 26 Feb 2025 17:38:23 +0100
+        bh=1fmc2JeTjHfINWiPnx6uX1+cEUX/ZwFYOcv0Zjt8XwE=;
+        b=Jmo9gPYlILocj7Rv5RMij06QvRx4v4uEvK6cVUrIrV7WaM2XWBmF74i1Wbt57kHztq
+         0lUlu4frX/RDIVh2qOad6CXIZVkg97iXH8sxRIXww22GVDFsWq8U3RdkPqJxnZu5jSHK
+         UJQuTTq4Xo6KL6M0ZhvoqdF6EzkrPm8Vp0gZQOnYeCxLKbJLwB2dIcCUX9eURFQvbBa2
+         ho9uMW49I/Nbx2qW6ZYSqRYxKPPGU7Kk55ph8ZYhbiDVysoNa5tK4w9Szf2QnqQH677h
+         rPIyBKdr14yxcrn2GzO7sJtd2xYpPgfpO0JHrgS06uX/UUNbLlI3zjDvzyQuwW5mRTEw
+         T3cA==
+X-Gm-Message-State: AOJu0YyCAUOGJPStoZQ+rU4hKnsFCII4vxUUS/tFnxEcMzbvFiLJCQR9
+	uM2CgBg0PwZX1eAF70miVm4jrVjaRKxLDdlXLCA67m0Hh+kmtrwkWitRXgTtIA==
+X-Gm-Gg: ASbGncuUZctrBZw5K+P/8ztwaqkL6m8wA0ZKF2wZerbnfmxh8bohy4bP7kyogMV7e5m
+	DBs7kG7k7VkcBoEDQ8j+K1f56nwTLGV2EGntTuX0XqwoaXxgfXygqlIyT0xWKD4B/Ymvg9pR/Nm
+	4GrRZaipAUDPc/pTsW8aJIUThD6uvpvGNgrBgpNNQyBoikVdKEXXMYRsShYW23s3A1OTsKYxdfi
+	4scYHXnI3XEmwErmxTdm7HUTPW+hys3nAtnR9fQE7o/O90EIsQwSjNdgULoBp1KWPX+jLENPDfM
+	T0rFZALQoUvdzjdBNO/MSJxEmyefw16LGLwwm+twSM3NxtxsLY6XOSq0hG+VeTJVa3UjVmUrIzE
+	pTqMfPTJ4y94=
+X-Google-Smtp-Source: AGHT+IGo+Pl8/5rA9uaUcjgjlz7o1tlLgrYzrv/MClXROv1oXna/2mi8eyyAm2j5ByHNtKQCzr78lw==
+X-Received: by 2002:a5d:6d81:0:b0:38d:de92:adad with SMTP id ffacd0b85a97d-390d4f3cfd0mr2835315f8f.22.1740588156187;
+        Wed, 26 Feb 2025 08:42:36 -0800 (PST)
+Message-ID: <4a5e8c55-4f90-4ff4-a643-cfa90203801e@suse.com>
+Date: Wed, 26 Feb 2025 17:42:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 11/11] xen/cpufreq: Adapt SET/GET_CPUFREQ_CPPC
- xen_sysctl_pm_op for amd-cppc driver
-To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: Ray.Huang@amd.com, Jason.Andryuk@amd.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20250206083255.1296363-1-Penny.Zheng@amd.com>
- <20250206083255.1296363-12-Penny.Zheng@amd.com>
+Subject: Re: [PATCH] xen/page_alloc: Simplify domain_adjust_tot_pages
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Anthony PERARD
+ <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20250224132724.9074-1-alejandro.vallejo@cloud.com>
+ <Z78djoAU7vjGepjr@macbook.local>
+ <a9d4384c-770b-4947-b099-cf4bba1583a5@suse.com>
+ <Z78lJfzqH9btDMrM@macbook.local>
+ <292f8373-705a-4405-bbdb-af750eb5f0ac@suse.com>
+ <Z787fHY6L0ssFDjG@macbook.local>
+ <f30a8fcf-5bb2-41ff-bc9f-25e421665ab2@suse.com>
+ <52adb963-9501-4d6b-a2cc-ec0e461baaf0@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,144 +126,115 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250206083255.1296363-12-Penny.Zheng@amd.com>
+In-Reply-To: <52adb963-9501-4d6b-a2cc-ec0e461baaf0@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 06.02.2025 09:32, Penny Zheng wrote:
-> @@ -533,6 +534,114 @@ static int cf_check amd_cppc_epp_set_policy(struct cpufreq_policy *policy)
->      return amd_cppc_epp_update_limit(policy);
->  }
->  
-> +int get_amd_cppc_para(unsigned int cpu,
-> +                      struct xen_cppc_para *cppc_para)
-> +{
-> +    const struct amd_cppc_drv_data *data = per_cpu(amd_cppc_drv_data, cpu);
-> +
-> +    if ( data == NULL )
-> +        return -ENODATA;
-> +
-> +    cppc_para->features         = 0;
-> +    cppc_para->lowest           = data->caps.lowest_perf;
-> +    cppc_para->lowest_nonlinear = data->caps.lowest_nonlinear_perf;
-> +    cppc_para->nominal          = data->caps.nominal_perf;
-> +    cppc_para->highest          = data->caps.highest_perf;
-> +    cppc_para->minimum          = data->req.min_perf;
-> +    cppc_para->maximum          = data->req.max_perf;
-> +    cppc_para->desired          = data->req.des_perf;
-> +    cppc_para->energy_perf      = data->req.epp;
-> +
-> +    return 0;
-> +}
-> +
-> +int set_amd_cppc_para(const struct cpufreq_policy *policy,
-> +                      const struct xen_set_cppc_para *set_cppc)
-> +{
-> +    unsigned int cpu = policy->cpu;
-> +    struct amd_cppc_drv_data *data = per_cpu(amd_cppc_drv_data, cpu);
-> +    uint8_t max_perf, min_perf, des_perf = 0;
-> +    int epp = -1;
-> +
-> +    if ( data == NULL )
-> +        return -ENOENT;
-> +
-> +    /* Validate all parameters - Disallow reserved bits. */
-> +    if ( set_cppc->minimum > 255 || set_cppc->maximum > 255 ||
-> +         set_cppc->desired > 255 || set_cppc->energy_perf > 255 )
-> +        return -EINVAL;
+On 26.02.2025 17:34, Andrew Cooper wrote:
+> On 26/02/2025 4:06 pm, Jan Beulich wrote:
+>> On 26.02.2025 17:04, Roger Pau Monné wrote:
+>>> On Wed, Feb 26, 2025 at 03:36:33PM +0100, Jan Beulich wrote:
+>>>> On 26.02.2025 15:28, Roger Pau Monné wrote:
+>>>>> On Wed, Feb 26, 2025 at 03:08:33PM +0100, Jan Beulich wrote:
+>>>>>> On 26.02.2025 14:56, Roger Pau Monné wrote:
+>>>>>>> On Mon, Feb 24, 2025 at 01:27:24PM +0000, Alejandro Vallejo wrote:
+>>>>>>>> --- a/xen/common/page_alloc.c
+>>>>>>>> +++ b/xen/common/page_alloc.c
+>>>>>>>> @@ -490,13 +490,11 @@ static long outstanding_claims; /* total outstanding claims by all domains */
+>>>>>>>>  
+>>>>>>>>  unsigned long domain_adjust_tot_pages(struct domain *d, long pages)
+>>>>>>>>  {
+>>>>>>>> -    long dom_before, dom_after, dom_claimed, sys_before, sys_after;
+>>>>>>>> -
+>>>>>>>>      ASSERT(rspin_is_locked(&d->page_alloc_lock));
+>>>>>>>>      d->tot_pages += pages;
+>>>>>>>>  
+>>>>>>>>      /*
+>>>>>>>> -     * can test d->claimed_pages race-free because it can only change
+>>>>>>>> +     * can test d->outstanding_pages race-free because it can only change
+>>>>>>>>       * if d->page_alloc_lock and heap_lock are both held, see also
+>>>>>>>>       * domain_set_outstanding_pages below
+>>>>>>>>       */
+>>>>>>>> @@ -504,17 +502,16 @@ unsigned long domain_adjust_tot_pages(struct domain *d, long pages)
+>>>>>>>>          goto out;
+>>>>>>> I think you can probably short-circuit the logic below if pages == 0?
+>>>>>>> (and avoid taking the heap_lock)
+>>>>>> Are there callers passing in 0?
+>>>>> Not sure, but if there are no callers expected we might add an ASSERT
+>>>>> to that effect then.
+>>>>>
+>>>>>>>>      spin_lock(&heap_lock);
+>>>>>>>> -    /* adjust domain outstanding pages; may not go negative */
+>>>>>>>> -    dom_before = d->outstanding_pages;
+>>>>>>>> -    dom_after = dom_before - pages;
+>>>>>>>> -    BUG_ON(dom_before < 0);
+>>>>>>>> -    dom_claimed = dom_after < 0 ? 0 : dom_after;
+>>>>>>>> -    d->outstanding_pages = dom_claimed;
+>>>>>>>> -    /* flag accounting bug if system outstanding_claims would go negative */
+>>>>>>>> -    sys_before = outstanding_claims;
+>>>>>>>> -    sys_after = sys_before - (dom_before - dom_claimed);
+>>>>>>>> -    BUG_ON(sys_after < 0);
+>>>>>>>> -    outstanding_claims = sys_after;
+>>>>>>>> +    BUG_ON(outstanding_claims < d->outstanding_pages);
+>>>>>>>> +    if ( pages > 0 && d->outstanding_pages < pages )
+>>>>>>>> +    {
+>>>>>>>> +        /* `pages` exceeds the domain's outstanding count. Zero it out. */
+>>>>>>>> +        outstanding_claims -= d->outstanding_pages;
+>>>>>>>> +        d->outstanding_pages = 0;
+>>>>>>>> +    } else {
+>>>>>>>> +        outstanding_claims -= pages;
+>>>>>>>> +        d->outstanding_pages -= pages;
+>>>>>>> I wonder if it's intentional for a pages < 0 value to modify
+>>>>>>> outstanding_claims and d->outstanding_pages, I think those values
+>>>>>>> should only be set from domain_set_outstanding_pages().
+>>>>>>> domain_adjust_tot_pages() should only decrease the value, but never
+>>>>>>> increase either outstanding_claims or d->outstanding_pages.
+>>>>>>>
+>>>>>>> At best the behavior is inconsistent, because once
+>>>>>>> d->outstanding_pages reaches 0 there will be no further modification
+>>>>>>> from domain_adjust_tot_pages().
+>>>>>> Right, at that point the claim has run out. While freeing pages with an
+>>>>>> active claim means that the claim gets bigger (which naturally needs
+>>>>>> reflecting in the global).
+>>>>> domain_adjust_tot_pages() is not exclusively called when freeing
+>>>>> pages, see steal_page() for example.
+>>>> Or also when pages were allocated. steal_page() ...
+>>>>
+>>>>> When called from steal_page() it's wrong to increase the claim, as
+>>>>> it assumes that the page removed from d->tot_pages is freed, but
+>>>>> that's not the case.  The domain might end up in a situation where
+>>>>> the claim is bigger than the available amount of memory.
+>>>> ... is a case that likely wasn't considered when the feature was added.
+>>>>
+>>>> I never really liked this; I'd be quite happy to see it ripped out, as
+>>>> long as we'd be reasonably certain it isn't in active use by people.
+>>> What do you mean with 'it' in the above sentence, the whole claim
+>>> stuff?
+>> Yes.
+>>
+>>>  Or just getting rid of allowing the claim to increase as a
+>>> result of pages being removed from a domain?
+>> No.
+> 
+> Alejandro and I discussed this earlier in the week.
+> 
+> The claim infrastructure stuff is critical for a toolstack capable of
+> doing things in parallel.
+> 
+> However, it is also nonsensical for there to be a remaining claim by the
+> time domain construction is done.
 
-In an earlier patch I just looked at you use UINT8_MAX for bounds checking.
-I'm not overly fussed which of the two its is, but I'd like to ask for it
-to be consistent throughout the driver. Unless of course there's a reason
-for the difference.
+I'm not entirely sure about this. Iirc it was the tmem work where this was
+added, and then pretty certainly it was needed also for already running
+domains.
 
-> +    /* Only allow values if params bit is set. */
-> +    if ( (!(set_cppc->set_params & XEN_SYSCTL_CPPC_SET_DESIRED) &&
-> +          set_cppc->desired) ||
-> +         (!(set_cppc->set_params & XEN_SYSCTL_CPPC_SET_MINIMUM) &&
-> +          set_cppc->minimum) ||
-> +         (!(set_cppc->set_params & XEN_SYSCTL_CPPC_SET_MAXIMUM) &&
-> +          set_cppc->maximum) ||
-> +         (!(set_cppc->set_params & XEN_SYSCTL_CPPC_SET_ENERGY_PERF) &&
-> +          set_cppc->energy_perf) )
-> +        return -EINVAL;
-> +
-> +    /* Activity window not supported */
-> +    if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_ACT_WINDOW )
-> +        return -EINVAL;
+> If creation_finished were a concrete thing, rather than a bodge hacked
+> into domain_unpause_by_systemcontroller(), it ought to be made to fail
+> if there were an outstanding claim.  I suggested that we follow through
+> on a previous suggestion of making it a real hypercall (which is needed
+> by the encrypted VM crowd too).
 
-"not supported" as in "support may appear later"? The -EOPNOTSUPP may be
-more appropriate. Else the comment may want re-wording.
-
-> +    /* Return if there is nothing to do. */
-> +    if ( set_cppc->set_params == 0 )
-> +        return 0;
-> +
-> +    /* Apply presets */
-> +    switch ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_PRESET_MASK )
-> +    {
-> +    case XEN_SYSCTL_CPPC_SET_PRESET_POWERSAVE:
-> +        if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_DESIRED )
-> +            return -EINVAL;
-> +        min_perf = data->caps.lowest_perf;
-> +        max_perf = data->caps.highest_perf;
-
-These match ...
-
-> +        epp = CPPC_ENERGY_PERF_MAX_POWERSAVE;
-> +        break;
-> +
-> +    case XEN_SYSCTL_CPPC_SET_PRESET_PERFORMANCE:
-> +        if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_DESIRED )
-> +            return -EINVAL;
-> +        min_perf = data->caps.highest_perf;
-> +        max_perf = data->caps.highest_perf;
-> +        epp = CPPC_ENERGY_PERF_MAX_PERFORMANCE;
-> +        break;
-> +
-> +    case XEN_SYSCTL_CPPC_SET_PRESET_BALANCE:
-> +        if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_DESIRED )
-> +            return -EINVAL;
-> +        min_perf = data->caps.lowest_perf;
-> +        max_perf = data->caps.highest_perf;
-
-... these, which doesn't seem quite right. It feels like I had asked about this
-on v1 already. If that's really intended, please add a clarifying comment to
-the POWERSAVE block.
-
-> +        epp = CPPC_ENERGY_PERF_BALANCE;
-> +        break;
-> +
-> +    case XEN_SYSCTL_CPPC_SET_PRESET_NONE:
-> +        min_perf = data->caps.lowest_nonlinear_perf;
-> +        max_perf = data->caps.highest_perf;
-> +        break;
-
-Similarly I think the use of lowest_nonlinear_perf deserves a comment here.
-
-> @@ -551,11 +660,17 @@ static const struct cpufreq_driver  __initconst_cf_clobber amd_cppc_epp_driver =
->      .exit       = amd_cppc_cpufreq_cpu_exit,
->  };
->  
-> +bool amd_cppc_active(void)
-> +{
-> +    return amd_cppc_in_use;
-> +}
-> +
->  int __init amd_cppc_register_driver(void)
->  {
->      if ( !cpu_has_cppc )
->          return -ENODEV;
->  
-> +    amd_cppc_in_use = true;
-
-Isn't this permature? I.e. wouldn't you better do so only ...
-
->      if ( !opt_cpufreq_active )
->          return cpufreq_register_driver(&amd_cppc_cpufreq_driver);
->      else
-
-... after successful driver registration?
+Rather than failing we could simply zap the leftover?
 
 Jan
 
