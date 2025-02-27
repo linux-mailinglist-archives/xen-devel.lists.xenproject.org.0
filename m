@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52D4BA477A9
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 09:23:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.897918.1306543 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4444A477B8
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 09:25:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.897930.1306553 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnZBF-0007eF-6c; Thu, 27 Feb 2025 08:23:41 +0000
+	id 1tnZD0-0008EG-JM; Thu, 27 Feb 2025 08:25:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 897918.1306543; Thu, 27 Feb 2025 08:23:41 +0000
+Received: by outflank-mailman (output) from mailman id 897930.1306553; Thu, 27 Feb 2025 08:25:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnZBF-0007cP-19; Thu, 27 Feb 2025 08:23:41 +0000
-Received: by outflank-mailman (input) for mailman id 897918;
- Thu, 27 Feb 2025 08:23:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tnZD0-0008CM-FK; Thu, 27 Feb 2025 08:25:30 +0000
+Received: by outflank-mailman (input) for mailman id 897930;
+ Thu, 27 Feb 2025 08:25:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=MKxr=VS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tnZBD-0007cJ-Ll
- for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 08:23:39 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 24830708-f4e4-11ef-9898-31a8f345e629;
- Thu, 27 Feb 2025 09:23:37 +0100 (CET)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-390e6ac844fso268864f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 27 Feb 2025 00:23:37 -0800 (PST)
+ id 1tnZCz-0008CG-JA
+ for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 08:25:29 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 66ae8dd6-f4e4-11ef-9aaf-95dc52dad729;
+ Thu, 27 Feb 2025 09:25:28 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-43b5859d1f1so3050875e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Feb 2025 00:25:28 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43aba5710f6sm48457185e9.29.2025.02.27.00.23.36
+ 5b1f17b1804b1-43aba532b0dsm45860015e9.13.2025.02.27.00.25.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Feb 2025 00:23:36 -0800 (PST)
+ Thu, 27 Feb 2025 00:25:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24830708-f4e4-11ef-9898-31a8f345e629
+X-Inumbo-ID: 66ae8dd6-f4e4-11ef-9aaf-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740644617; x=1741249417; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1740644728; x=1741249528; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=etFPcrtk9Tgkn8uByeM46xjOYSvuZ71OIx9b3bGqazU=;
-        b=ImoWkL/9wRYpDscGcd9WnLiF5POZfWfM/qftFmkRkBdLrh2jhQf0l0JXISSBnJJp8Q
-         6YQEIDfmMrgphn1PhXRrB35kf4pXfpsb8PKxf0krIawq6/aoBWgz34XynieABxtH8Xpr
-         w+BUAWEug2qCctaq+e/+Kpc+FmPB3QHRqKbbbt95EhAR5kkaS+m80el3Uo9mKGBPIPmu
-         vzgh5LOpacudtNI6qhbEfbDi8CKKz5whF7aUxXzs6J2AC4MjUh49Z1kA+ghNfTNgJNEd
-         FwLuFmqomqFQ2HQraxB1hTPqVekZki3YVimGtI5hk/+Ny5EzFyjAPQrwbJXyujPYDDvP
-         L6oQ==
+        bh=SxeMMwjttD0rqEP0+gpMZnJ67JFYvwYCgF+8EXEQrlo=;
+        b=fY4uO4VHZC7zq1zsN4mr6AwHg7DjZtVQiQpQ5iUa5TOg1xoJS2PkKWHr11w12x9qH0
+         9TQos6R3X/PSFcvmPFmKkAGV1av/As6uH7JuAnA6w+EyZZDe7QcNLfqhbLOnj6ndR0H9
+         8KHOZX8W9j8+Ys+2yWI69UfC/4aUo7Z6dasiMMhrsjSzU97mtlq7prwELgkbET0OC5Xb
+         UNO8JI5dGoPNptpUZCXTH3OeqhJe/hqKmTfz9WXMKwE5fFsBKazkoOmYntT4q37o+nXr
+         obhIZO0pftDmUyxbgFgd4corTK9f+CocHxWUN34qAEx4/P/QJOOrEdis+j2X0Oox6G4P
+         PuJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740644617; x=1741249417;
+        d=1e100.net; s=20230601; t=1740644728; x=1741249528;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=etFPcrtk9Tgkn8uByeM46xjOYSvuZ71OIx9b3bGqazU=;
-        b=OO95zRyISTyp79nKiDY17Zg+CvVU8JLeFYYVLyTv0TLtZKHWfIukkDCDUxGBeE8mx/
-         FTLNv0vmlBHZJ6VtCCsVBMzc0Z+W9W5vXaLiGMspSj6vo72kHnlLoqdtzCbX+fJPaoeq
-         I3nYEMcI196cUIa+yUd8dUvrCviVgjFoRZHOBkCK1tKvvZQypFXjGE8qz7pfvepdaFJA
-         /hw/69At1z4589zsEGyHTV6KizoB54Wha2EuTNOLGcaXvYSA/rXR0fQt/xS1eY8D2UYC
-         B5CyLe4gvzZsCiLX6cQ5oeyEfp0XgkKWrIWThf40gbqlGZBtpVslC4uKLyLHgU/pNU/l
-         tlYw==
-X-Forwarded-Encrypted: i=1; AJvYcCUtyPwb23szEah7qsUDBD1DsicDUKUVr/ChU/NWJ268YB1IwNfXWSuR/8DGfSJKCSakDrbs5FM/KVg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yztgk/zz0246fbzu33iLQwnIH+VZHnl+kp2lTwDkF7lsZoql+VR
-	t8Y3aCauX2wXj9VUUPzpw7qYA9NF6FTO5nApFCBIiY1Ss3uFKtfnPbSO8492+g==
-X-Gm-Gg: ASbGncuVdO0Qkl0E9DExW94scalXCdq1vcK3qnqEh8hWmaZ2rNXmsTX7K3wt1hVgYuX
-	Vu56tOoC4pFagc5UTQjCHyqaPPOH2TV9theduH6L6GhxQZTT+ViUYizcTPpTFy2+8KqHSREu74P
-	RoTJrFIIe5Hv2IQmPZMNDxGlLfGhKQPwDXFLCEJu11MICnuLQTRREzmNKFesbaXuVXkbXlcVM2/
-	sVqZOWUxP6yvy+em/Ml/jFq3DaoEMqz/1BP8YiT8txDhfQYevQphx+xXqgBD6Tlyhv6Dt7U37Hg
-	L9Qy/YLtVnS4E4dsU3nU3Vg3zw114fwPrkgSAbCr6LYZYkuY79oWB/n1Z6k+dkMzijAHeiecui2
-	mTP4+NL5XwLM=
-X-Google-Smtp-Source: AGHT+IGNO4lSsKzWr9bxAoIjTpTJaMHd6X1/Kf+c9UJluJGrqU3WSg6vtNZXxKPF+NoQckaCet6dJA==
-X-Received: by 2002:a5d:6c63:0:b0:38f:2a7f:b6cd with SMTP id ffacd0b85a97d-38f7079a134mr17580534f8f.20.1740644617014;
-        Thu, 27 Feb 2025 00:23:37 -0800 (PST)
-Message-ID: <22a46f43-d60c-465d-9ae7-4d84ca9108d4@suse.com>
-Date: Thu, 27 Feb 2025 09:23:35 +0100
+        bh=SxeMMwjttD0rqEP0+gpMZnJ67JFYvwYCgF+8EXEQrlo=;
+        b=UNlFhyZq9ZMwAOxjuis7OKz0CMFBDhtzGMo5HdHp/Zd/KwP4PeeAzwhCvokuVSiFUE
+         ZQzcup5wRMuEfx9tH1Hr0BF62pI9qtn4GDKHP6qf56WUY3awI2E84UIPSJBhP1yEsExR
+         Zp80kYKhqInkduJsTlUioN1tdM881QwBUIWm5Dox3cQmEzem9OA6xxEnj8AUymHoXc2i
+         mH5Xi4Y7Enet8WbVDuq0oo5dkiTUKrZ2J+TOX8QNnR8XLpuz8HHME682VEsldnaV/27U
+         vPhOmPtH/pmqZFiTjWHm6J0vPh5n/nc84mhhUx9XLWSpeaLGZ35BgIFaI++xrtb4NGz7
+         6Ypw==
+X-Forwarded-Encrypted: i=1; AJvYcCX9PKC/2iN50BmC/N8T7evnJicYvFd5siIhlmMuxi06yX8ekTAHPTBpnHNVyX+DiuSZj5gDUhnvjaI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzaoD+QbIsanWBAaJzUmRat2TD1J27ENv9a4+RKVmCSVvcn9Lam
+	hmhOdK9b49Zv5ElLmxhTw1h9jM5CRPr/f392noLv4rZ1WvMZ700Q4qtLYeKfPQ==
+X-Gm-Gg: ASbGnctKZqA1n1hsWX3Laq2BWpU0s0IMYSSxBc3ILZPy1UdkDRWt/Dmz+DkFQixClGQ
+	VR7BWcQ0AaQlMPBp6JhJA98JdTeSwffdI5hPNKgV4rOedylb4zgQPUUDmgoOHa153WHnNJOA3B3
+	BTrn+6LsiAVJ2wGoj9HTDxg1YpqsLaLe5bHgfcxbBE62+PPk23FPpFcRhwV551pO1zoKK+WWhjX
+	DcX+c3nUs5Gl5AAQOoafz+7fke47UP2IkLzxXF1boQRsloQ5Jrtoc2rir/dmgkoHV3RxNsKP1ku
+	61LxZkmI2Jxbklx0l8Z9LiUxVkpUIGjp46ijKtrguNeVMOpoynmIIuX4ElzH4t6SiJERhPd7pKd
+	51SzJioGRsdY=
+X-Google-Smtp-Source: AGHT+IHTWSzHNwqqUaS+mdoWC5wuP/WNoPTaZwYwQw++QRE46cJjLVU8WMQP1dBUNgvpEiJFHramFA==
+X-Received: by 2002:a05:600c:4588:b0:439:9377:fa21 with SMTP id 5b1f17b1804b1-43ab0f6de1cmr86954065e9.19.1740644728214;
+        Thu, 27 Feb 2025 00:25:28 -0800 (PST)
+Message-ID: <6819b451-9868-4c66-a52d-da5c91d58c7c@suse.com>
+Date: Thu, 27 Feb 2025 09:25:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/pciback: Make missing GSI non-fatal
+Subject: Re: [PATCH 2/2] tools/libxl: Skip missing PCI GSIs
 To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: stable@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Jiqian Chen <Jiqian.Chen@amd.com>, Huang Rui <ray.huang@amd.com>
-References: <20250226200134.29759-1-jason.andryuk@amd.com>
+Cc: Jiqian Chen <Jiqian.Chen@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>,
+ xen-devel@lists.xenproject.org
+References: <20250226201022.42447-1-jason.andryuk@amd.com>
+ <20250226201022.42447-3-jason.andryuk@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,68 +119,39 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250226200134.29759-1-jason.andryuk@amd.com>
+In-Reply-To: <20250226201022.42447-3-jason.andryuk@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26.02.2025 21:01, Jason Andryuk wrote:
-> A PCI may not have a legacy IRQ.  In that case, do not fail assigning
-
-Nit: Missing "device".
-
-> to the pciback stub.  Instead just skip xen_pvh_setup_gsi().
-> 
-> This will leave psdev->gsi == -1.  In that case, when reading the value
-> via IOCTL_PRIVCMD_PCIDEV_GET_GSI, return -ENOENT.  Userspace can used
-
-Nit: "use".
-
-> this to distinquish from other errors.
-
-Nit: "distinguish".
-
-> --- a/drivers/xen/acpi.c
-> +++ b/drivers/xen/acpi.c
-> @@ -101,7 +101,7 @@ int xen_acpi_get_gsi_info(struct pci_dev *dev,
+On 26.02.2025 21:10, Jason Andryuk wrote:
+> --- a/tools/libs/light/libxl_x86.c
+> +++ b/tools/libs/light/libxl_x86.c
+> @@ -901,7 +901,10 @@ int libxl__arch_hvm_map_gsi(libxl__gc *gc, uint32_t sbdf, uint32_t domid)
+>      int pirq = -1, gsi, r;
 >  
->  	pin = dev->pin;
->  	if (!pin)
-> -		return -EINVAL;
-> +		return -ENOENT;
+>      gsi = xc_pcidev_get_gsi(CTX->xch, sbdf);
+> -    if (gsi < 0) {
+> +    if (gsi == -1 && errno == ENOENT) {
+> +        LOGD(DEBUG, domid, "xc_pcidev_get_gsi no gsi");
+> +        return 0;
+> +    } else if (gsi < 0) {
+>          return ERROR_FAIL;
+>      }
 >  
->  	entry = acpi_pci_irq_lookup(dev, pin);
->  	if (entry) {
-
-While I can understand this change, ...
-
-> @@ -116,7 +116,7 @@ int xen_acpi_get_gsi_info(struct pci_dev *dev,
->  		gsi = -1;
+> @@ -925,7 +928,10 @@ int libxl__arch_hvm_unmap_gsi(libxl__gc *gc, uint32_t sbdf, uint32_t domid)
+>      int pirq = -1, gsi, r;
 >  
->  	if (gsi < 0)
-> -		return -EINVAL;
-> +		return -ENOENT;
+>      gsi = xc_pcidev_get_gsi(CTX->xch, sbdf);
+> -    if (gsi < 0) {
+> +    if (gsi == -1 && errno == ENOENT) {
+> +        LOGD(DEBUG, domid, "xc_pcidev_get_gsi no gsi");
+> +        return 0;
+> +    } else if (gsi < 0) {
+>          return ERROR_FAIL;
+>      }
 >  
->  	*gsi_out = gsi;
->  	*trigger_out = trigger;
 
-... I'd expect this needs to keep using an error code other than ENOENT.
-Aiui this path means the device has a pin-based interrupt, just that it's
-not configured correctly. In which case we'd better not allow the device
-to be handed to a guest. Unless there's logic in place (somewhere) to
-make sure it then would get to see a device without pin-based interrupt.
-
-> --- a/drivers/xen/xen-pciback/pci_stub.c
-> +++ b/drivers/xen/xen-pciback/pci_stub.c
-> @@ -240,6 +240,9 @@ static int pcistub_get_gsi_from_sbdf(unsigned int sbdf)
->  	if (!psdev)
->  		return -ENODEV;
->  
-> +	if (psdev->gsi == -1)
-> +		return -ENOENT;
-
-This may, aiui, mean either of the two situations above. They would then
-need distinguishing, too, if user space is intended to derive decisions
-from the error code it gets.
+Why the special-casing of the value -1?
 
 Jan
 
