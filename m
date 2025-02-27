@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E4CEA47696
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 08:29:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.897825.1306452 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 227DCA476AB
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 08:35:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.897834.1306462 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnYKo-0000DE-8e; Thu, 27 Feb 2025 07:29:30 +0000
+	id 1tnYQ4-0002f8-RK; Thu, 27 Feb 2025 07:34:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 897825.1306452; Thu, 27 Feb 2025 07:29:30 +0000
+Received: by outflank-mailman (output) from mailman id 897834.1306462; Thu, 27 Feb 2025 07:34:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnYKo-0000BS-5i; Thu, 27 Feb 2025 07:29:30 +0000
-Received: by outflank-mailman (input) for mailman id 897825;
- Thu, 27 Feb 2025 07:29:27 +0000
+	id 1tnYQ4-0002ca-Ob; Thu, 27 Feb 2025 07:34:56 +0000
+Received: by outflank-mailman (input) for mailman id 897834;
+ Thu, 27 Feb 2025 07:34:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=MKxr=VS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tnYKl-0000BH-UI
- for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 07:29:27 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ id 1tnYQ3-0002cU-H6
+ for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 07:34:55 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 930a5ada-f4dc-11ef-9aaf-95dc52dad729;
- Thu, 27 Feb 2025 08:29:27 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-438a3216fc2so5988365e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 23:29:27 -0800 (PST)
+ id 56412020-f4dd-11ef-9aaf-95dc52dad729;
+ Thu, 27 Feb 2025 08:34:54 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-4398ec2abc2so5520055e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 23:34:54 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-390e47b7d12sm1143612f8f.58.2025.02.26.23.29.24
+ 5b1f17b1804b1-43aba58713bsm47108655e9.34.2025.02.26.23.34.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Feb 2025 23:29:24 -0800 (PST)
+ Wed, 26 Feb 2025 23:34:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 930a5ada-f4dc-11ef-9aaf-95dc52dad729
+X-Inumbo-ID: 56412020-f4dd-11ef-9aaf-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740641366; x=1741246166; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1740641694; x=1741246494; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Qruc0VNZsQyWYlALDSXFdpTPCtDkJX+rm0zqgaFCBHw=;
-        b=NrKIKbsyasDopBIhCsHsoVULi1bgyfnLQWMGzSeZILxqYCY4wDDg37oqDiYj/F2JJ/
-         UmQf80WxJHL+uxA6jJv35Idtu0OHiqndLUSHGQWWkd3TjNqIoXq3LEl5Wz1BTc4szq6C
-         Exu1G58yoJ0YOekC7f/ynT1/Kzhdkh5kyZlKPoHHfrA3BI1bJNjjFZUl2Pt0WCHHoQ+4
-         ReDyJJmYO2XLFNAPwwivEG87V/czMtq79WJJAiYn1SxwDb3fJ6JKWKWbPzJX2BFjd/XS
-         X2ha+OCFKMZo9MW45vhEEymc74hV9hRsuGBfu8+p1NPRPhJuO+t4nnvmebTRy0o2xgwG
-         dTAg==
+        bh=4Yhcfv5GRCQQiGJeTtlRnAWU/UU5pFIXgD9kp9YURk8=;
+        b=MzsWoaL3/T5WdrbrYYL55ft06Ohlg3UmpZTH7hC9/qMaaJ/n2moLlOdJvVCP247WTW
+         zVjOcAmw7uTEoVrFrMeMeXgDAGKoH6Akm2//OHep3wbQdc0osftNM1RvUBLdH8Hz26F1
+         g2CjdfB27KMEulcYDGvgty8nIJzYI/zs4H/M3FOHg7XO000rbt7qBMVZa5NyBiV36xgH
+         j4q27bY/56zaeRlY9L2odMKvWFxLvLtQpvBgFOIWGhawrcH59nvYasj0eUTbE8JkmPct
+         6ra1096ECQfFfAbvuCp/aYaVUibMkNiX7nqgEYkkFWmlbczDxRoVY9I+B9CnCGSPUVWi
+         DD2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740641366; x=1741246166;
+        d=1e100.net; s=20230601; t=1740641694; x=1741246494;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Qruc0VNZsQyWYlALDSXFdpTPCtDkJX+rm0zqgaFCBHw=;
-        b=E3Gt1496jfRSaVJhCUvL3Q2AtoB3dRsYIhZm0EEFBt1mkRah6O3PhgHCC0ZJGnfxyK
-         Ukb7jdRM8ATWsaxl7+LP9KMFi66h+46AI0IZsk29qRe3WaQ2FSD7afIHTbxoaYgc3toG
-         NqqX55vj6TtOFdj7q4FZboQFyk47OlB0jtgCporh+xs6rcYa2pvIDJ/65R28V13BYPc+
-         S1564BgbIAI/nUR51A+lnb3gIFAMM4wRHF4q2UGpQW5zpmlpEre75lvy1OgjBBzMpzvp
-         BN2GYdpJcz7JP74RT37uDyWCPQ30B8XYnJF6BU/Ezg32u6F9ovzhm7a7UB7B33Ba5A31
-         4IUw==
-X-Forwarded-Encrypted: i=1; AJvYcCUFN7Z2h8OG4Fuoryl3SF2Ph51Vq+uq65YjrhbYWiY8afg4ke+tw+pSqRDjgMm+84LXgHYnZYwvEFI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz4XncLJRVjoop/GJ/bE19XQmJq8c+2Ve6UfQanQW4IFqpm+zgE
-	sUjScQfeSIfDqtkbzYYi98HngcpM18JePuC/yGvEaFiqzklfb1gFyBzUh9VvNQ==
-X-Gm-Gg: ASbGncvv0U2eWJsJ5KQKIKEVQQl6wRsITqpWCMg7Pcx7sfMsLRoL7A9y+cA15C2gUJG
-	IPujq/kn31BNQmQ9tJmFQPoNSA8nGnbuEREnLcWhyojv8C910dzfuCzx3JhT1yTTk+51oyE6tOt
-	ZZxPKy7GqtFiZAZqgAfRm/0DTE2/Hnq3oHJAdKJrCc4FCyG9Rc9WW5wtrUDFC7IrUY48U0aycxq
-	1TTD0wGiPeqtDymETKK8O6kf1JeRmOoMiPgtT7sF9re3qaDbD+PJaQBvM7kT0nv5Nr7+QSKwI4H
-	4zKe0G+3XvA8MljUnXiheiNhKQ48TKUj+yJxrZYs5SDdxsuSWxwaU/7FDEkPQEPfDx+mQvq5O5V
-	fQVRIHC36798=
-X-Google-Smtp-Source: AGHT+IH5gNuljvdnAumxdvC9L/BSoMfYXVzZ3se37OB3p2wjQ64ykWiAx3g4jGgbBQf4SV9YBd22hw==
-X-Received: by 2002:a05:600c:5117:b0:439:8829:aa69 with SMTP id 5b1f17b1804b1-439aeb3556cmr212498505e9.17.1740641365248;
-        Wed, 26 Feb 2025 23:29:25 -0800 (PST)
-Message-ID: <256285aa-d4a5-4735-b8bf-68fccd912c83@suse.com>
-Date: Thu, 27 Feb 2025 08:29:24 +0100
+        bh=4Yhcfv5GRCQQiGJeTtlRnAWU/UU5pFIXgD9kp9YURk8=;
+        b=avPyS4dKkqV/FAgexL4X4OGYLoTvMFOnuWcauCzygwiENIgUEtOW0dThhQh+M50c6a
+         cS4BEajtMux6JGKH42OepQwVLZejQsYjSmBLQYvqymp6Vx6ba0rgJFsZSB0fQs1/Ig6t
+         IiHdwKcTEdB3zQbjDenGpzPdtkxPCSx7ibv2DgRLPdv29i/xEmfXw2p2ZhGOzQwhPGbi
+         Ahh+aQ4eSwmgMhu8NyNTiglsciwexgv5anSKawSZDKpBj5KylSrwYd8CmaRl1wEX00te
+         YXuB9/uA16AqR+0Tm7Q66u27+eXg3+ria0QS0gBU6R8NMnelSmepvMLS7V/ap7/Rnpme
+         rL4g==
+X-Forwarded-Encrypted: i=1; AJvYcCXI/RUdAWIj32t9cqbQ7i1/Xxoya+L/WVg4Y7R282+/FSQcW/vAQ0TfYqsl6YA5ThIkF/KaWTFZOCg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwyoWm6VN0jgrNY8qfqvCBUmilmcpW9KXcwWaNxE1GACl511AyJ
+	FGJUK2vyBRNE2cVscHE8gQjOFUo8jea7uV5n9X1bK/EUtRDlBXB25tjH54zhfw==
+X-Gm-Gg: ASbGncsQrUveK0YHsvG5KcqRmclYqQfctNwl++T0X8+EKr/Axebzjmogh9NbzAj/B6E
+	5aKPI6R48/0EsVmu3FxGJfjDCa67XXr14VzfjNcNsT+Or7CjW5STKFRms+oIPZ5uY83gNn2b0Di
+	Hj6A/Dw+/dI0KnPQyHQ8x64Klr1mLzXF4poGZ52UI7btGIl24aVNdseShX1QArYlOtywLrF+cXV
+	0WUbQ0HeyLdrDQ6Cewprl5TwPPUSxLYuzwn7/w04RatW7fQHPvt8Jbuv/xXBy5U+d2Hr30I+UQy
+	ILcGjLFkVzXR8mYqFCXIDDYTsoW10sf4v3R++f41OVpzYeYc+P9WcIxf9Cia6vIQbVpYqU0wP6U
+	tEln0E0A+Mi0=
+X-Google-Smtp-Source: AGHT+IGCIFF/A6rBZYQ+cRjVoZOCiBJzuwhAFHU3OVTKCu/xkvPzT2kXVKilbXWtCTjLB7qbw0Kpww==
+X-Received: by 2002:a05:600c:3589:b0:439:6925:4d42 with SMTP id 5b1f17b1804b1-43ab8fd20bfmr54759305e9.5.1740641693955;
+        Wed, 26 Feb 2025 23:34:53 -0800 (PST)
+Message-ID: <b91400d0-351a-49fb-8e8a-1c588c59350d@suse.com>
+Date: Thu, 27 Feb 2025 08:34:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/hvm: Add APIC IDs to the per-vLAPIC save area
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250218142259.6697-1-alejandro.vallejo@cloud.com>
- <1de43f95-5ed1-46c1-a157-094ceb84ac83@suse.com>
- <Z79Qe3kMS18P6JNQ@macbook.local>
+Subject: Re: [PATCH v2 05/11] xen/x86: introduce a new amd cppc driver for
+ cpufreq scaling
+To: "Penny, Zheng" <penny.zheng@amd.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>, "Andryuk, Jason"
+ <Jason.Andryuk@amd.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20250206083255.1296363-1-Penny.Zheng@amd.com>
+ <20250206083255.1296363-6-Penny.Zheng@amd.com>
+ <0fe9e3b1-3d2c-4ddf-87c4-b0de2a586182@suse.com>
+ <DM4PR12MB8451A44498B3B0E990DED17CE1CD2@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,68 +123,78 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Z79Qe3kMS18P6JNQ@macbook.local>
+In-Reply-To: <DM4PR12MB8451A44498B3B0E990DED17CE1CD2@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 26.02.2025 18:33, Roger Pau Monné wrote:
-> On Wed, Feb 26, 2025 at 02:11:23PM +0100, Jan Beulich wrote:
->> On 18.02.2025 15:22, Alejandro Vallejo wrote:
->>> Today, Xen hardcodes apic_id = vcpu_id * 2, but this is unwise and
->>> interferes with providing accurate topology information to the guest.
->>>
->>> Introduce a new x2apic_id field into hvm_hw_lapic.  This is immutable
->>> state from the guest's point of view, but it will allow the toolstack to
->>> eventually configure the value, and for the value to move on migrate.
->>>
->>> For backwards compatibility, the patch rebuilds the old-style APIC IDs
->>> from migration streams lacking them when they aren't present.
+On 27.02.2025 07:53, Penny, Zheng wrote:
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: Wednesday, February 12, 2025 12:46 AM
 >>
->> Nit: "when they aren't present" looks to duplicate "lacking them"?
+>> On 06.02.2025 09:32, Penny Zheng wrote:
+>>> --- a/xen/arch/x86/acpi/cpufreq/amd-cppc.c
+>>> +++ b/xen/arch/x86/acpi/cpufreq/amd-cppc.c
+>>> +}
+>>> +
+>>> +static int cf_check amd_cppc_write_request(int cpu, uint8_t min_perf,
+>>> +                                           uint8_t des_perf, uint8_t
+>>> +max_perf) {
+>>> +    struct amd_cppc_drv_data *data = per_cpu(amd_cppc_drv_data, cpu);
+>>> +    uint64_t prev = data->req.raw;
+>>> +
+>>> +    data->req.min_perf = min_perf;
+>>> +    data->req.max_perf = max_perf;
+>>> +    data->req.des_perf = des_perf;
+>>> +
+>>> +    if ( prev == data->req.raw )
+>>> +        return 0;
+>>> +
+>>> +    on_selected_cpus(cpumask_of(cpu), amd_cppc_write_request_msrs,
+>>> + data, 1);
+>>> +
+>>> +    return data->err;
+>>> +}
 >>
->>> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
->>> ---
->>> I've split this one from the rest of the topology series as it's independent
->>> and entangled with another patch from Andrew.
+>> ... in this function. Then the field would be written to (and the cacheline change
+>> ownership) only in the error case.
 >>
->> Albeit I think meanwhile we've settled that the entangling isn't quite as
->> problematic.
->>
->>> @@ -1621,6 +1624,14 @@ static int cf_check lapic_load_hidden(struct domain *d, hvm_domain_context_t *h)
->>>          return -EINVAL;
->>>      }
->>>  
->>> +    /*
->>> +     * Xen 4.20 and earlier had no x2APIC ID in the migration stream and
->>> +     * hard-coded "vcpu_id * 2". Default back to this if we have a
->>> +     * zero-extended record.
->>> +     */
->>> +    if ( h->size <= offsetof(struct hvm_hw_lapic, x2apic_id) )
->>> +        s->hw.x2apic_id = v->vcpu_id * 2;
->>
->> While we better wouldn't get to see such input, it is in principle possible
->> to have an input stream with, say, half the field. Imo the condition ought
->> to be such that we'd make the adjustment when less than the full field is
->> available.
+>> As to the function's parameters - why's there a plain int?
 > 
-> I would add an additional check to ensure _rsvd0 remains 0, to avoid
-> further additions from attempting to reuse that padding space.
+> Are you asking why "int cpu" here?
+
+Yes. I don't expect negative values are okay to be passed in? And variables
+(incl parameters) which can't hold negative values want to be of an unsigned
+type.
+
+>>> + err:
+>>> +    data->err = -EINVAL;
+>>> +}
+>>
+>> At this point you may have set the enable bit already, which you can't undo.
+>> What effect will this have on the system when the error path is taken here?
+>> Especially if we then try to fall back to another driver?
 > 
-> if ( s->hw._rsvd0 )
->     return -EINVAL;
+> On current code logic, when the error path is taken, amd-cppc cpufreq driver fails
+> to initialize. And we will also not fall back to another driver.
+> As we could register *only one* cpufreq driver. If amd-cppc is registered properly
+> before, then legacy P-states will not get registered.
+> In amd-cppc registration code:
+> ```
+> +int __init amd_cppc_register_driver(void)
+> +{
+> +    if ( !cpu_has_cppc )
+> +        return -ENODEV;
+> +
+> +    return cpufreq_register_driver(&amd_cppc_cpufreq_driver);
+> +}
+> ```
+> CPPC feature MSR gets checked before the registration, which is to check whether the
+> hardware has CPPC msr support.
 
-I agree we want such a check; I actually should have pointed that out, too.
-I don't, however, see why the field couldn't be re-used going forward (under
-the right conditions, of course).
-
-> In fact I would be tempted to overwrite the ID if the stream size
-> doesn't match the expected one, ie:
-> 
-> if ( h->size < (offsetof(struct hvm_hw_lapic, _rsvd0) +
->                 sizeof(s->hw._rsvd0)) )
->     s->hw.x2apic_id = v->vcpu_id * 2;
-
-Hmm, yes, perhaps better to be yet more safe here.
+Yet still there's the possibility of a later error. If it's not an option to
+gracefully handle such errors, I think you want to put in a code comment
+explaining the situation and effect.
 
 Jan
 
