@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4444A477B8
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 09:25:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.897930.1306553 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0B80A47854
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 09:55:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.897946.1306563 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnZD0-0008EG-JM; Thu, 27 Feb 2025 08:25:30 +0000
+	id 1tnZf5-0004BA-Mw; Thu, 27 Feb 2025 08:54:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 897930.1306553; Thu, 27 Feb 2025 08:25:30 +0000
+Received: by outflank-mailman (output) from mailman id 897946.1306563; Thu, 27 Feb 2025 08:54:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnZD0-0008CM-FK; Thu, 27 Feb 2025 08:25:30 +0000
-Received: by outflank-mailman (input) for mailman id 897930;
- Thu, 27 Feb 2025 08:25:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tnZf5-00048P-Jh; Thu, 27 Feb 2025 08:54:31 +0000
+Received: by outflank-mailman (input) for mailman id 897946;
+ Thu, 27 Feb 2025 08:54:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=MKxr=VS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tnZCz-0008CG-JA
- for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 08:25:29 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 66ae8dd6-f4e4-11ef-9aaf-95dc52dad729;
- Thu, 27 Feb 2025 09:25:28 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-43b5859d1f1so3050875e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 27 Feb 2025 00:25:28 -0800 (PST)
+ id 1tnZf4-00048H-OT
+ for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 08:54:30 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 730fbd3a-f4e8-11ef-9898-31a8f345e629;
+ Thu, 27 Feb 2025 09:54:27 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-438a39e659cso4271905e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Feb 2025 00:54:27 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43aba532b0dsm45860015e9.13.2025.02.27.00.25.27
+ ffacd0b85a97d-390e47a7850sm1355407f8f.39.2025.02.27.00.54.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Feb 2025 00:25:27 -0800 (PST)
+ Thu, 27 Feb 2025 00:54:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 66ae8dd6-f4e4-11ef-9aaf-95dc52dad729
+X-Inumbo-ID: 730fbd3a-f4e8-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740644728; x=1741249528; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1740646467; x=1741251267; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SxeMMwjttD0rqEP0+gpMZnJ67JFYvwYCgF+8EXEQrlo=;
-        b=fY4uO4VHZC7zq1zsN4mr6AwHg7DjZtVQiQpQ5iUa5TOg1xoJS2PkKWHr11w12x9qH0
-         9TQos6R3X/PSFcvmPFmKkAGV1av/As6uH7JuAnA6w+EyZZDe7QcNLfqhbLOnj6ndR0H9
-         8KHOZX8W9j8+Ys+2yWI69UfC/4aUo7Z6dasiMMhrsjSzU97mtlq7prwELgkbET0OC5Xb
-         UNO8JI5dGoPNptpUZCXTH3OeqhJe/hqKmTfz9WXMKwE5fFsBKazkoOmYntT4q37o+nXr
-         obhIZO0pftDmUyxbgFgd4corTK9f+CocHxWUN34qAEx4/P/QJOOrEdis+j2X0Oox6G4P
-         PuJQ==
+        bh=mdh/5DjgY5kGwbaUZryfGV/KWej3t3pRrePnCHbB8Mc=;
+        b=HI3EiTddoUB8tB1ezBiqEaJRIvH7i55pJ65rw0DAwCdGnrUmRbZyKDOQ57yYhya89j
+         grGiNP+h65adkObID7gVrppiflSQuXX46WkyT/xcrdng2APaIVrnMg245XSXilHeMLdL
+         MBTzVTMxDH8U5zV7c6R3WuYzbuQ2DrsqszBZ+Xfnq2B/GEEWVlN4kzUplq/cuilzCrTf
+         i4MyKCiGhTztbQwxmDR2YrUCls+LpiWPL5HrbIpXHU+hN+UHINpFpAp8ksF5gdtp1jay
+         nvgmnGYjqYuQsCsczUzVlL8VyEB0UDhBOF3mB5npwccogw++GtFVyArGCWcH50kYPjFp
+         q6xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740644728; x=1741249528;
+        d=1e100.net; s=20230601; t=1740646467; x=1741251267;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SxeMMwjttD0rqEP0+gpMZnJ67JFYvwYCgF+8EXEQrlo=;
-        b=UNlFhyZq9ZMwAOxjuis7OKz0CMFBDhtzGMo5HdHp/Zd/KwP4PeeAzwhCvokuVSiFUE
-         ZQzcup5wRMuEfx9tH1Hr0BF62pI9qtn4GDKHP6qf56WUY3awI2E84UIPSJBhP1yEsExR
-         Zp80kYKhqInkduJsTlUioN1tdM881QwBUIWm5Dox3cQmEzem9OA6xxEnj8AUymHoXc2i
-         mH5Xi4Y7Enet8WbVDuq0oo5dkiTUKrZ2J+TOX8QNnR8XLpuz8HHME682VEsldnaV/27U
-         vPhOmPtH/pmqZFiTjWHm6J0vPh5n/nc84mhhUx9XLWSpeaLGZ35BgIFaI++xrtb4NGz7
-         6Ypw==
-X-Forwarded-Encrypted: i=1; AJvYcCX9PKC/2iN50BmC/N8T7evnJicYvFd5siIhlmMuxi06yX8ekTAHPTBpnHNVyX+DiuSZj5gDUhnvjaI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzaoD+QbIsanWBAaJzUmRat2TD1J27ENv9a4+RKVmCSVvcn9Lam
-	hmhOdK9b49Zv5ElLmxhTw1h9jM5CRPr/f392noLv4rZ1WvMZ700Q4qtLYeKfPQ==
-X-Gm-Gg: ASbGnctKZqA1n1hsWX3Laq2BWpU0s0IMYSSxBc3ILZPy1UdkDRWt/Dmz+DkFQixClGQ
-	VR7BWcQ0AaQlMPBp6JhJA98JdTeSwffdI5hPNKgV4rOedylb4zgQPUUDmgoOHa153WHnNJOA3B3
-	BTrn+6LsiAVJ2wGoj9HTDxg1YpqsLaLe5bHgfcxbBE62+PPk23FPpFcRhwV551pO1zoKK+WWhjX
-	DcX+c3nUs5Gl5AAQOoafz+7fke47UP2IkLzxXF1boQRsloQ5Jrtoc2rir/dmgkoHV3RxNsKP1ku
-	61LxZkmI2Jxbklx0l8Z9LiUxVkpUIGjp46ijKtrguNeVMOpoynmIIuX4ElzH4t6SiJERhPd7pKd
-	51SzJioGRsdY=
-X-Google-Smtp-Source: AGHT+IHTWSzHNwqqUaS+mdoWC5wuP/WNoPTaZwYwQw++QRE46cJjLVU8WMQP1dBUNgvpEiJFHramFA==
-X-Received: by 2002:a05:600c:4588:b0:439:9377:fa21 with SMTP id 5b1f17b1804b1-43ab0f6de1cmr86954065e9.19.1740644728214;
-        Thu, 27 Feb 2025 00:25:28 -0800 (PST)
-Message-ID: <6819b451-9868-4c66-a52d-da5c91d58c7c@suse.com>
-Date: Thu, 27 Feb 2025 09:25:27 +0100
+        bh=mdh/5DjgY5kGwbaUZryfGV/KWej3t3pRrePnCHbB8Mc=;
+        b=Mcx0Fe/Uat5SKkNu+RM4wvJdS5+An7eWaFWyr+9fCpMOyRTibl+wGTdAKXV0XIvPVz
+         XGdDF9pKIs6h0V2QL5TqvnFVPUWpXAxMQUHaK9Cy+PWFnzdM6AlY8KsDHa9kBSfEqQIl
+         d2dRh+PrRhQTYfk0yG3CsWJL8ma6jAbsWrj8qKsbO2NCbFv3OwMRR46dUfgHuiPvC3CQ
+         P1VAA0KkHFX1MR2spqJZcvU8LLykrZRDLx9DBdW1Yr8kvedA+T8NLMMThwirfk+eRRWb
+         IIm5hJ2dLz9vtiY7iFmKywJUNxSUNtFfC17wcSfzn+8OgPFq9bZVSDNunQLlgcuUuFQz
+         NDtg==
+X-Forwarded-Encrypted: i=1; AJvYcCU7uuh9JmYoPY0x15DCMiN1RHGw9Rh26BypWFvbBZjLEYmioyoqRHgXqmN/HgGAPUjl7FbJoV3EFW8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz3VeDU4eju1Z/Et/u2omijuSfOCrBFUWJERzWgBpt8NXmHMVoT
+	U1IAkD/HIn++Rx19SvlLo5OR1RK6fTxaqPQ692zWWIlHuY9yomDIR4yrhJv/Ew==
+X-Gm-Gg: ASbGnctWu7Cw4TaUQQwKsQXGFytUMuEaWpdkd7tUyld2TfhewRFpFPHTSgeNTBNyyB6
+	uSkld+MzvnrWYtfZ4QTP6fD/jby3otlMq1lTzOJUp83U+jWwTv0xZWknTFzSk3VMHVuc7GBrUEA
+	0vE8jJ/3K2IEqzYpjrMQVqkAsL+M20G+BiXwJOqiuV9YZH5dinnwR0/Xq5/MwwiRdGv7yRf7afd
+	LJEOZJPwi3M9Ky+43oCGJL8AgvLh7R7L2WcFZKz5MxiuLiCp3D8+ZgAcpPVsOmANoIOw4MRXRBV
+	93CsiRnsjOXnXfnrSlPLsCcknEUqLRcFCkFgDYosq4+carK6CHmpPSO6VBW/oGOLGUYMRRI7iUU
+	u+7wuZD88sy0=
+X-Google-Smtp-Source: AGHT+IEqnUKY/HaOYB/EHiuZDV8s6VdG4kRpOKCIoB2Cjjh7HbkKIFvxmLpfYIQi9m8ZPrkgcdU7CA==
+X-Received: by 2002:a05:600c:1906:b0:439:9c0e:3709 with SMTP id 5b1f17b1804b1-439aeafab74mr181918115e9.8.1740646466608;
+        Thu, 27 Feb 2025 00:54:26 -0800 (PST)
+Message-ID: <5184725e-baf6-460f-a8ee-2bb9982d7adc@suse.com>
+Date: Thu, 27 Feb 2025 09:54:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] tools/libxl: Skip missing PCI GSIs
+Subject: Re: [RFC PATCH] xen/amd-iommu: Add interrupt remapping quirk for
+ ath11k
 To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Jiqian Chen <Jiqian.Chen@amd.com>, Huang Rui <ray.huang@amd.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>,
- xen-devel@lists.xenproject.org
-References: <20250226201022.42447-1-jason.andryuk@amd.com>
- <20250226201022.42447-3-jason.andryuk@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>, xen-devel@lists.xenproject.org
+References: <20250226211125.43625-1-jason.andryuk@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,39 +122,158 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250226201022.42447-3-jason.andryuk@amd.com>
+In-Reply-To: <20250226211125.43625-1-jason.andryuk@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26.02.2025 21:10, Jason Andryuk wrote:
-> --- a/tools/libs/light/libxl_x86.c
-> +++ b/tools/libs/light/libxl_x86.c
-> @@ -901,7 +901,10 @@ int libxl__arch_hvm_map_gsi(libxl__gc *gc, uint32_t sbdf, uint32_t domid)
->      int pirq = -1, gsi, r;
+On 26.02.2025 22:11, Jason Andryuk wrote:
+> Sometimes we have to quirk the PCI IRTE to use a non-zero remap_index
+> corresponding to the guest's view of the MSI data register.  The MSI
+> data guest vector equals interrupt remapping table index.
+> 
+> The ath11k wifi device does unusual things with MSIs.  The driver lets
+> Linux program the MSI capability.  Linux internally caches the MSI data
+> it thinks it programmed.  It sets its affinity to CPU0.  The ath11k
+> driver then reads the MSI address from the PCI configuration space.  The
+> MSI address and cached data are then passed to other components on the
+> same card to generate MSI interrupts.
+
+I'm curious whether it's known how e.g. KVM deals with this.
+
+> With Xen, vPCI and QEMU PCI passthrough have a guest idea of the MSI
+> address and data.  But Xen programs the actual hardware with its own
+> address and data.  With per-device IRT, xen uses index 0.  When the
+> ath11k driver passes the guest address and data to the hardware, it
+> generates faults when there is no IRTE for the guest data (~0x25).
+> 
+> To work around this, we can, for per-device IRTs, program the hardware
+> to use the guest data & associated IRTE.  The address doesn't matter
+> since the IRTE handles that, and the Xen address & vector can be used as
+> expected.
+> 
+> For vPCI, the guest MSI data is available at the time of initial MSI
+> setup, but that is not the case for HVM.  With HVM, the initial MSI
+> setup is done when PHYSDEVOP_map_pirq is called, but the guest vector is
+> only available later when XEN_DOMCTL_bind_pt_irq is called.  In that
+> case, we need to tear down and create a new IRTE.  This later location
+> can also handle vPCI.
+> 
+> Add pirq_guest_bind_gvec to plumb down the gvec without modifying all
+> call sites.  Use msi_desc->gvec to pass through the desired value.
+> 
+> Only tested with AMD-Vi.  Requires per-device IRT.  With AMD-Vi, the
+> number of MSIs is passed in, but a minimum of a page is allocated for
+> the table.  The vector is 8 bits giving indices 0-255.  Even with 128bit
+> IRTEs, 16 bytes, 1 page 4096 / 16 = 256 entries, so we don't have to
+> worry about overflow.  N MSIs can only have the last one at 255, so the
+> guest can't expect to have N vectors starting above 255 - N.
+> 
+> Signed-off-by: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+
+Just to clarify: Who's the original patch author? The common expectation
+is that the first S-o-b: matches From:.
+
+> ---
+> Is something like this feasible for inclusion upstream?  I'm asking
+> before I look into what it would take to support Intel.
+
+Well, I wouldn't outright say "no". It needs to be pretty clear that this
+doesn't put at risk the "normal" cases. Which is going to be somewhat
+difficult considering how convoluted the involved code (sadly) is. See
+also the commentary related remark at the very bottom.
+
+> e.g. Replace amd_iommu_perdev_intremap with something generic.
+> 
+> The ath11k device supports and tries to enable 32 MSIs.  Linux in PVH
+> dom0 and HVM domU fails enabling 32 and falls back to just 1, so that is
+> all that has been tested.
+> 
+> Using msi_desc->gvec should be okay since with posted interrupts - the
+> gvec is expected to match.
+> 
+> hvm_pi_update_irte() changes the IRTE but not the MSI data in the PCI
+> capability, so that isn't suitable by itself.
+
+These last two paragraphs look to again be related to the VT-d aspect.
+Yet there's the middle one which apparently doesn't, hence I'm uncertain
+I read all of this as it's intended.
+
+> --- a/xen/drivers/passthrough/amd/iommu_intr.c
+> +++ b/xen/drivers/passthrough/amd/iommu_intr.c
+> @@ -543,6 +543,31 @@ int cf_check amd_iommu_msi_msg_update_ire(
+>      if ( !msg )
+>          return 0;
 >  
->      gsi = xc_pcidev_get_gsi(CTX->xch, sbdf);
-> -    if (gsi < 0) {
-> +    if (gsi == -1 && errno == ENOENT) {
-> +        LOGD(DEBUG, domid, "xc_pcidev_get_gsi no gsi");
-> +        return 0;
-> +    } else if (gsi < 0) {
->          return ERROR_FAIL;
->      }
+> +    if ( pdev->gvec_as_irte_idx && amd_iommu_perdev_intremap )
+> +    {
+> +        int new_remap_index = 0;
+> +        if ( msi_desc->gvec )
+> +        {
+> +            printk("%pp: gvec remap_index %#x -> %#x\n", &pdev->sbdf,
+> +                   msi_desc->remap_index, msi_desc->gvec);
+> +            new_remap_index = msi_desc->gvec;
+> +        }
+> +
+> +        if ( new_remap_index && new_remap_index != msi_desc->remap_index &&
+> +             msi_desc->remap_index != -1 )
+> +        {
+> +            /* Clear any existing entries */
+> +            update_intremap_entry_from_msi_msg(iommu, bdf, nr,
+> +                                               &msi_desc->remap_index,
+> +                                               NULL, NULL);
+> +
+> +            for ( i = 0; i < nr; ++i )
+> +                msi_desc[i].remap_index = -1;
+> +
+> +            msi_desc->remap_index = new_remap_index;
+
+You zap nr entries, and then set only 1? Doesn't the zapping loop need to
+instead be a setting one? Perhaps with a check up front that the last value
+used will still fit in 8 bits? Or else make applying the quirk conditional
+upon nr == 1?
+
+> --- a/xen/drivers/passthrough/pci.c
+> +++ b/xen/drivers/passthrough/pci.c
+> @@ -306,6 +306,17 @@ static void apply_quirks(struct pci_dev *pdev)
+>          { PCI_VENDOR_ID_INTEL, 0x6fa0 },
+>          { PCI_VENDOR_ID_INTEL, 0x6fc0 },
+>      };
+> +    static const struct {
+> +        uint16_t vendor, device;
+> +    } hide_irt[] = {
+> +#define PCI_VENDOR_ID_QCOM		0x17cb
+
+At least this wants to move into xen/pci_ids.h.
+
+> +#define QCA6390_DEVICE_ID		0x1101
+> +#define QCN9074_DEVICE_ID		0x1104
+> +#define WCN6855_DEVICE_ID		0x1103
+> +        { PCI_VENDOR_ID_QCOM, QCA6390_DEVICE_ID },
+> +        { PCI_VENDOR_ID_QCOM, QCN9074_DEVICE_ID },
+> +        { PCI_VENDOR_ID_QCOM, WCN6855_DEVICE_ID },
+> +    };
+
+May I ask what's the source of information on which specific devices are
+affected by this anomalous behavior? Just the Linux driver?
+
+I'm also uncertain #define-s are very useful in such a case. Raw hex numbers
+in the table with a comment indicating the device name ought to be as fine.
+
+> --- a/xen/include/xen/pci.h
+> +++ b/xen/include/xen/pci.h
+> @@ -127,6 +127,8 @@ struct pci_dev {
+>      /* Device with errata, ignore the BARs. */
+>      bool ignore_bars;
 >  
-> @@ -925,7 +928,10 @@ int libxl__arch_hvm_unmap_gsi(libxl__gc *gc, uint32_t sbdf, uint32_t domid)
->      int pirq = -1, gsi, r;
->  
->      gsi = xc_pcidev_get_gsi(CTX->xch, sbdf);
-> -    if (gsi < 0) {
-> +    if (gsi == -1 && errno == ENOENT) {
-> +        LOGD(DEBUG, domid, "xc_pcidev_get_gsi no gsi");
-> +        return 0;
-> +    } else if (gsi < 0) {
->          return ERROR_FAIL;
->      }
+> +    bool gvec_as_irte_idx;
+> +
+>      /* Device misbehaving, prevent assigning it to guests. */
+>      bool broken;
 >  
 
-Why the special-casing of the value -1?
+Overall more commentary would be needed throughout the patch. This field is
+just one example where some minimal explanation is missing.
 
 Jan
 
