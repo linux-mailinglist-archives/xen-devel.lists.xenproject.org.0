@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10430A487E6
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 19:36:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.898358.1306926 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D257A48871
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 20:00:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.898381.1306945 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnijV-00008Q-8w; Thu, 27 Feb 2025 18:35:41 +0000
+	id 1tnj7d-0005vE-GG; Thu, 27 Feb 2025 19:00:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 898358.1306926; Thu, 27 Feb 2025 18:35:41 +0000
+Received: by outflank-mailman (output) from mailman id 898381.1306945; Thu, 27 Feb 2025 19:00:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnijV-00005R-5X; Thu, 27 Feb 2025 18:35:41 +0000
-Received: by outflank-mailman (input) for mailman id 898358;
- Thu, 27 Feb 2025 18:35:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tnj7d-0005tI-D8; Thu, 27 Feb 2025 19:00:37 +0000
+Received: by outflank-mailman (input) for mailman id 898381;
+ Thu, 27 Feb 2025 19:00:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lrAT=VS=arm.com=mark.rutland@srs-se1.protection.inumbo.net>)
- id 1tnijU-0008TL-MQ
- for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 18:35:40 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id a3f93096-f539-11ef-9aaf-95dc52dad729;
- Thu, 27 Feb 2025 19:35:38 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 77A751516;
- Thu, 27 Feb 2025 10:35:53 -0800 (PST)
-Received: from J2N7QTR9R3 (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0EDB93F5A1;
- Thu, 27 Feb 2025 10:35:31 -0800 (PST)
+ <SRS0=1jS7=VS=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tnj7b-0005tC-Ek
+ for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 19:00:35 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 17243c86-f53d-11ef-9898-31a8f345e629;
+ Thu, 27 Feb 2025 20:00:20 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-390ec7c2cd8so59444f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Feb 2025 11:00:20 -0800 (PST)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-390e4844adfsm2882329f8f.62.2025.02.27.11.00.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 27 Feb 2025 11:00:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,73 +45,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a3f93096-f539-11ef-9aaf-95dc52dad729
-Date: Thu, 27 Feb 2025 18:35:26 +0000
-From: Mark Rutland <mark.rutland@arm.com>
-To: Valentin Schneider <vschneid@redhat.com>
-Cc: Jinjie Ruan <ruanjinjie@huawei.com>, catalin.marinas@arm.com,
-	will@kernel.org, oleg@redhat.com, sstabellini@kernel.org,
-	tglx@linutronix.de, peterz@infradead.org, luto@kernel.org,
-	mingo@redhat.com, juri.lelli@redhat.com, vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
-	mgorman@suse.de, kees@kernel.org, aliceryhl@google.com,
-	ojeda@kernel.org, samitolvanen@google.com, masahiroy@kernel.org,
-	rppt@kernel.org, xur@google.com, paulmck@kernel.org, arnd@arndb.de,
-	puranjay@kernel.org, broonie@kernel.org, mbenes@suse.cz,
-	sudeep.holla@arm.com, guohanjun@huawei.com, prarit@redhat.com,
-	liuwei09@cestc.cn, Jonathan.Cameron@huawei.com, dwmw@amazon.co.uk,
-	kristina.martsenko@arm.com, liaochang1@huawei.com, ptosi@google.com,
-	thiago.bauermann@linaro.org, kevin.brodsky@arm.com,
-	Dave.Martin@arm.com, joey.gouly@arm.com,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH -next v6 8/8] arm64: entry: Switch to generic IRQ entry
-Message-ID: <Z8CwbmCXguCEfJvx@J2N7QTR9R3>
-References: <20250213130007.1418890-1-ruanjinjie@huawei.com>
- <20250213130007.1418890-9-ruanjinjie@huawei.com>
- <xhsmh4j0fl0p3.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
+X-Inumbo-ID: 17243c86-f53d-11ef-9898-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1740682820; x=1741287620; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=myPRmR2b1kfVV04NdYBNTEbjrxGT02/WZV4CjSy6Vt4=;
+        b=RiYEv/wr8bNK0MtN2xAzw3WYbjGMllWp5s55THPXMqI6z1WdGSN9707Fhl0LeBbuNG
+         jxucBmQlwrLtsc8cjXedCyKpavcx2mgf3CvCBMOp7kmAmS84Ka7JoDqhn+F6gtUC6f7I
+         pe/dtS3MBt5qJF8sp1EINjMkQ/Lwpw8ZiKITU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1740682820; x=1741287620;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=myPRmR2b1kfVV04NdYBNTEbjrxGT02/WZV4CjSy6Vt4=;
+        b=SuREWVXNj03ZOfc+uVYwdjZ+PdMAsGrF2h0u34HRn+XOqCAz2QgNl/Uq1UqjCnwV2r
+         HHMwvUPx3H8uWpTi3iWuuKRwWGSIN4d5S8KEKFehroozfO1UmhX8gHgEKsNEPpescDX5
+         fQcBO10lyCmnaBZLxA/tiyRoi1qh0eFEkNG3tRBiqBg2jADVQrpSEkBlErn1rr1+o71+
+         86DLFzp7ptlJTq4Ub2QBXJLJ3J4VaQpAvO21+E5cm420e1yDfZyO45Z0T2PjgQholsXP
+         an4QFQdlOjxjyYPhAf/cT0gh0PG9cwcNsG7NsplUMyn+e2zBL4p+/gPfiWsjN8J8DeU6
+         RmHA==
+X-Gm-Message-State: AOJu0YxdxjoaNCxOigUkSVdbSqEO/d7T5C2NA9xQbLtdrc1llk14NPmZ
+	S5SKz4ZzdjLUJKBt3OvRa4Kts8KIVBFIHKsQ3IQdFuC5B4IloCQy6HhUgE/r8TM=
+X-Gm-Gg: ASbGnctjuS08P6fWS6kw92edxeKBlmN/WXKmqbYAdXUlVWrnO/kASY5IFc/IdaJqrdT
+	uW60vjk+2U8QVzJ7tFU0E0pQcpb+UMx7900rk2zKqRmGtRsbgq7pQzlBrKtk6LI1H1HEuZoguUq
+	gZtztxERjR2eV+S9xC+KevDGE82gsEoZ+ROEzz1TWjlaU+59hdQ68jAgsW34OvVbsqJu9is8Re/
+	1hbY6Cg20tk6ZubKoNenN4iyRJ5yPlaGD7/24Noc2VdiPymtNQXHoJzVkclIaRtn8o/JCfdFxfn
+	cG/JKrCwM7gOZDWArZKNuNgpqtEP2bJmsapeFWHdivin67OnNajFkvbeltHCZwsEXQ==
+X-Google-Smtp-Source: AGHT+IFNkRn5m18tqDLBUGhicRJSkHNHyh0BWP5YHnOUyBTJ+kwj7uXBVg2Id9AwZBE3SgKAfwTAPw==
+X-Received: by 2002:a05:6000:1f8a:b0:390:eaa8:46f1 with SMTP id ffacd0b85a97d-390eca5363cmr314688f8f.46.1740682819721;
+        Thu, 27 Feb 2025 11:00:19 -0800 (PST)
+Message-ID: <17f5324a-a52d-4065-9e7b-2cf37e869308@citrix.com>
+Date: Thu, 27 Feb 2025 19:00:18 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <xhsmh4j0fl0p3.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] xen/amd-iommu: Add interrupt remapping quirk for
+ ath11k
+To: Jason Andryuk <jason.andryuk@amd.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+References: <20250226211125.43625-1-jason.andryuk@amd.com>
+ <Z8A9LYjgr92IignP@macbook.local>
+ <9be05453-ab39-4b70-9675-b9df47e870b2@amd.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <9be05453-ab39-4b70-9675-b9df47e870b2@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Feb 27, 2025 at 07:08:56PM +0100, Valentin Schneider wrote:
-> On 13/02/25 21:00, Jinjie Ruan wrote:
-> > Currently, x86, Riscv, Loongarch use the generic entry. Convert arm64
-> > to use the generic entry infrastructure from kernel/entry/*.
-> > The generic entry makes maintainers' work easier and codes
-> > more elegant.
-> >
-> > Switch arm64 to generic IRQ entry first, which removed duplicate 100+
-> > LOC and make Lazy preemption on arm64 available by adding a
-> > _TIF_NEED_RESCHED_LAZY bit and enabling ARCH_HAS_PREEMPT_LAZY.
-> 
-> Just a drive-by comment as I'm interested in lazy preemption for arm64;
-> this series doesn't actually enable lazy preemption, is that for a
-> follow-up with the rest of the generic entry stuff?
-> 
-> From a quick glance, it looks like everything is in place for enabling it.
+On 27/02/2025 6:28 pm, Jason Andryuk wrote:
+> On 2025-02-27 05:23, Roger Pau Monné wrote:
+>>> To work around this, we can, for per-device IRTs, program the hardware
+>>> to use the guest data & associated IRTE.  The address doesn't matter
+>>> since the IRTE handles that, and the Xen address & vector can be
+>>> used as
+>>> expected.
+>>
+>> All this work on AMD because when interrupt remapping is enabled all
+>> MSIs are handled by the remapping table, while on Intel there's still
+>> a bit in the MSI address field to signal whether the MSI is using a
+>> remapping entry, or is using the "compatibility" format (iow: no
+>> remapping).
+>
+> So, on Intel, if the guest hands the device the MSI address, it can
+> decided to bypass remapping?
+>
+> Thanks for providing insight into the Intel inner workings.  That's
+> why I am asking.
 
-Sorry, there's been some fractured discussion on this on the
-linux-rt-users list:
+Yes.  In the IOMMU you can choose between blocking or permitting
+compatibility-form interrupts, but you can't cause them to become remapped.
 
-  https://lore.kernel.org/linux-rt-users/20241216190451.1c61977c@mordecai.tesarici.cz/
-
-The TL;DR is that lazy preemption doesn't actually depend on generic
-entry, and we should be able to enable it on arm64 independently of this
-series. I'd posted a quick hack which Mike Galbraith cleaned up:
-
-  https://lore.kernel.org/linux-rt-users/a198a7dd9076f97b89d8882bb249b3bf303564ef.camel@gmx.de/
-
-... but that was never posted as a new thread to LAKML.
-
-Would you be happy to take charge and take that patch, test it, and post
-it here (or spin your own working version)? I was happy with the way it
-looks but hadn't had the time for testing and so on.
-
-I expect that we'll merge the generic entry code too, but having them
-separate is a bit easier for bisection and backporting where people want
-lazy preemption in downstream trees.
-
-Mark.
+~Andrew
 
