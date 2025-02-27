@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25B69A480C2
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 15:17:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.898130.1306708 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80681A48129
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 15:28:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.898144.1306718 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tneh8-0002i9-2a; Thu, 27 Feb 2025 14:16:58 +0000
+	id 1tnero-0004No-0F; Thu, 27 Feb 2025 14:28:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 898130.1306708; Thu, 27 Feb 2025 14:16:58 +0000
+Received: by outflank-mailman (output) from mailman id 898144.1306718; Thu, 27 Feb 2025 14:27:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tneh7-0002fk-W6; Thu, 27 Feb 2025 14:16:57 +0000
-Received: by outflank-mailman (input) for mailman id 898130;
- Thu, 27 Feb 2025 14:16:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tnern-0004MJ-Tp; Thu, 27 Feb 2025 14:27:59 +0000
+Received: by outflank-mailman (input) for mailman id 898144;
+ Thu, 27 Feb 2025 14:27:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VKwg=VS=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1tneh6-0002fV-2d
- for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 14:16:56 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7eac8b6b-f515-11ef-9898-31a8f345e629;
- Thu, 27 Feb 2025 15:16:54 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-38f1e8efe82so1155102f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 27 Feb 2025 06:16:54 -0800 (PST)
-Received: from localhost ([46.149.103.9]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abf0c74c766sm127863466b.127.2025.02.27.06.16.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Feb 2025 06:16:53 -0800 (PST)
+ <SRS0=RNkt=VS=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1tnerl-0004MC-OF
+ for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 14:27:57 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 09c876f0-f517-11ef-9aaf-95dc52dad729;
+ Thu, 27 Feb 2025 15:27:56 +0100 (CET)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-548430564d9so1063642e87.2
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Feb 2025 06:27:56 -0800 (PST)
+Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5494417b636sm176031e87.94.2025.02.27.06.27.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Feb 2025 06:27:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,124 +44,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7eac8b6b-f515-11ef-9898-31a8f345e629
+X-Inumbo-ID: 09c876f0-f517-11ef-9aaf-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1740665813; x=1741270613; darn=lists.xenproject.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3mxeRIfobHq3MtliJfYmTsVVoVe8yeSafqTQaNvWGp0=;
-        b=BD69poV5rhEEe217SKjOFs2oihHBu4TNNhCrSlMWvX3D6zN2CrO97QeH26ByIuxHKT
-         w0H9GiOdjoo6IBj4WQ3hK/mnMD6L8hkz2xdSJ3yEwsLnZCyyPI2bjVbPXLgVRoDWUOux
-         wfRCCNsiGi7ljkaK4ZDl1cu9gliKdm9JkUvT8=
+        d=gmail.com; s=20230601; t=1740666476; x=1741271276; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=RNSijNZXdH8TRslchO0i6ZjUhLkUj8x4frWcH403sLE=;
+        b=CLcex799xZQf0NQQfAJOax/OAEQU7ZciQV9ovzVXKDd7vyx8yGgLNuINC2NhV1G615
+         SwAf8hEjx5eIYVn7e0dNqi9bKthQ0KOBSNyh2s6h/xtDgT8b7j9HLpDYh/mxrcW5NbsH
+         VcrCFzlZpQfV2/vLpJ9D6imOcoBmmTEmtfcsJp7qxAV0Zq4lNG5hcoMOh1KjHG//H4qu
+         mf/+UcD2XQX33YA7ZtmHFx25vRXf+5hRUrzcPVFxB5HzOWArYmpHiKcgfoJzm+zC+aGq
+         18p/M+cbw4PslvpLVE8cQT83s2CbqVU4zbuaqoGqSYoXO9H8mphSWEXx3DAzQSZ+KzuI
+         ISHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740665813; x=1741270613;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=3mxeRIfobHq3MtliJfYmTsVVoVe8yeSafqTQaNvWGp0=;
-        b=IRbtrNVieAehB/d7qYdywOaNTZOR/3tZ7uf+qD3HE2DLo3E7nfTo0zDwbsFobm+HJ9
-         OLyCvYraESClsoQ6LuHaShsmcRi+IF7t8Q7MlOxHuHoH9idKwiaRuDc6aXwWnalYAQVS
-         QUOS7gEyBeucKkRR5A4AzPJapfJ/iJzgza6K2fYBW9e7GVmyBn22PXAEwQodrpMVw1cK
-         yxw+ZRUmIk0Jj65ktES4D8rdmuaQroj6+1QxIuW2R4xjDdBMEaiyZt8hGeaOp1HlM+cU
-         UkcCvQBvQgsJRGdS0l0KMj6nCn5mkeFLiKJHGuF1iwF1/UKCGXln4HgUxXNhwuIPYd7a
-         XVaQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXR0CXQK2bbyIlW1hwI+yQNRE0xjpENlEwVdhr4G3mj5BRd0gaoCq3qhFEq5lw7tMWwqTpAwyOCkTM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxjgPMH6YfNUiPRCNfCyBgsulu3JKTjnLoLwxL4BrWgUk47066Y
-	BSLs8yzVuzz+y4BS9Z3+YJsebZ6F/JLiQ5jXj4DCZXBrFJ3Vz7/075WoCAOwHL8=
-X-Gm-Gg: ASbGncvERbxBWNnK7q7m+OuHlfo5ctsYm0Rmp6CCzk8GoUN40fOllu9HgfyvgLQQp3J
-	Lj9WKDvqgOlKNyPPwnw78ywGaJGQgo0pqbmzUQrKDmYYWtXQYmPx7Q/A9I553fpx8V3VeSm3NXv
-	hPhS8EzMrko3WTrK2h7dAg13AGfreZm7QdrhJHVk55OoNcE7kLGKtlgMomVYK67U+/9kfoY/YDq
-	mgqY8DrkB7rS4EIVuVKSNu8aG6HYxbWqpjzF5cxMjbnLLJHUEkhe6cmkUTK8gqCJ4P6jeMslWsu
-	E2o+vFe4YO5LYppaxlUZ7lZi76gvUbo=
-X-Google-Smtp-Source: AGHT+IF7CFDtQo78UqL1RXct1BtWP7I4xvjy7JKhHEo+vxczp0Kcl+jZ5bnMH3CAarJrfC0gX95nFw==
-X-Received: by 2002:a5d:5f90:0:b0:390:df5b:474d with SMTP id ffacd0b85a97d-390df5b4a1bmr6741204f8f.53.1740665813590;
-        Thu, 27 Feb 2025 06:16:53 -0800 (PST)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 27 Feb 2025 14:16:52 +0000
-Message-Id: <D83AJ6YCUHZK.EHST86QLX0TZ@cloud.com>
-Subject: Re: [PATCH] x86/hvm: Add APIC IDs to the per-vLAPIC save area
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Jan Beulich" <jbeulich@suse.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>,
- <xen-devel@lists.xenproject.org>
-X-Mailer: aerc 0.18.2
-References: <20250218142259.6697-1-alejandro.vallejo@cloud.com>
- <1de43f95-5ed1-46c1-a157-094ceb84ac83@suse.com>
- <Z79Qe3kMS18P6JNQ@macbook.local>
- <256285aa-d4a5-4735-b8bf-68fccd912c83@suse.com>
-In-Reply-To: <256285aa-d4a5-4735-b8bf-68fccd912c83@suse.com>
+        d=1e100.net; s=20230601; t=1740666476; x=1741271276;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=RNSijNZXdH8TRslchO0i6ZjUhLkUj8x4frWcH403sLE=;
+        b=CQPdIgFOA1QCTy4LFUdd5xnerEsWrOk+9k/UN/IFKhgSyDanupD6BW6WQYh4Yrw7y5
+         PDvozh0WzqaQ8k6jhvTqNhE6c0rT7TS8UH1g92jmwVCGtgUDesqXFTFjgJOg62TnACTS
+         x04DcwD7Cjn29R6vL4Nvju6XGLLb+GBlsKYzBAQGyKmx9FmQxN5/3Ds+5oSQ2W8uysyO
+         jBSXyQIQHKiNYrmaYpiVc+eWjd4aT8rpzT5B/c7da+oE7TazeBiBwsBmkh6/rgazWdqN
+         o/9hQCAVYpqrXD4mtxLqTEuVYXgIjkrGisAu6NzFbRkD5CaTTR8r1rHe6i64sa2C8MTv
+         AJlQ==
+X-Gm-Message-State: AOJu0Yx5NzLCsH/TsA6s5R2OkTA+J7/uFMXrsmuJ8Le0zrXVukBuyEnd
+	L85XBPAqZ3hSAo65tmg0ncUGaZihnfXAOF4vaoqJg8XaIPC5S86MLkstzA==
+X-Gm-Gg: ASbGncuKRRpi/4vgVkbe1VqgPVWg4DZs03JJp28f46O+WBA7AomwuJDyha52W0NeG5l
+	HhlOQKi726MtEVQT/Qv2mnUYp16mJkIM7ZTnYVKohSGu4MTNjumSYwUQS1KOcoxyAgRyOu5UZzP
+	A/cK6jjQaYLAGGf1m5L5dQKsPqFoEUZqYJr/cMCd1E7ZSH8YQNpZVPYFcdDN+q69xXMpsvbKobo
+	zuY2gmaR23coI2TlJzMKsVlEFh/mlfO1wAC8oaaJ3uKWrV+AryXjCf5jJxu6FAJLwI5iHV4Gcv1
+	IA0V/TTxxEyXj2SfAi7noB+O1T8=
+X-Google-Smtp-Source: AGHT+IEj3SV1/XEGFzG3yCj7aVtnqv+jYolZjvDPl70qakby2YoAW0lXp82tpD8GsN2xV4wNNd/PWg==
+X-Received: by 2002:a05:6512:3095:b0:546:2ea4:38f8 with SMTP id 2adb3069b0e04-54839136fcfmr12352187e87.12.1740666475810;
+        Thu, 27 Feb 2025 06:27:55 -0800 (PST)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Community Manager <community.manager@xenproject.org>,
+	"committers @ xenproject . org" <committers@xenproject.org>
+Subject: [PATCH for 4.20 v3] CHANGELOG.md: Finalize changes in 4.20 release cycle
+Date: Thu, 27 Feb 2025 15:27:52 +0100
+Message-ID: <20250227142753.48572-1-oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.48.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu Feb 27, 2025 at 7:29 AM GMT, Jan Beulich wrote:
-> On 26.02.2025 18:33, Roger Pau Monn=C3=A9 wrote:
-> > On Wed, Feb 26, 2025 at 02:11:23PM +0100, Jan Beulich wrote:
-> >> On 18.02.2025 15:22, Alejandro Vallejo wrote:
-> >>> Today, Xen hardcodes apic_id =3D vcpu_id * 2, but this is unwise and
-> >>> interferes with providing accurate topology information to the guest.
-> >>>
-> >>> Introduce a new x2apic_id field into hvm_hw_lapic.=C2=A0 This is immu=
-table
-> >>> state from the guest's point of view, but it will allow the toolstack=
- to
-> >>> eventually configure the value, and for the value to move on migrate.
-> >>>
-> >>> For backwards compatibility, the patch rebuilds the old-style APIC ID=
-s
-> >>> from migration streams lacking them when they aren't present.
-> >>
-> >> Nit: "when they aren't present" looks to duplicate "lacking them"?
-> >>
-> >>> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-> >>> ---
-> >>> I've split this one from the rest of the topology series as it's inde=
-pendent
-> >>> and entangled with another patch from Andrew.
-> >>
-> >> Albeit I think meanwhile we've settled that the entangling isn't quite=
- as
-> >> problematic.
-> >>
-> >>> @@ -1621,6 +1624,14 @@ static int cf_check lapic_load_hidden(struct d=
-omain *d, hvm_domain_context_t *h)
-> >>>          return -EINVAL;
-> >>>      }
-> >>> =20
-> >>> +    /*
-> >>> +     * Xen 4.20 and earlier had no x2APIC ID in the migration stream=
- and
-> >>> +     * hard-coded "vcpu_id * 2". Default back to this if we have a
-> >>> +     * zero-extended record.
-> >>> +     */
-> >>> +    if ( h->size <=3D offsetof(struct hvm_hw_lapic, x2apic_id) )
-> >>> +        s->hw.x2apic_id =3D v->vcpu_id * 2;
-> >>
-> >> While we better wouldn't get to see such input, it is in principle pos=
-sible
-> >> to have an input stream with, say, half the field. Imo the condition o=
-ught
-> >> to be such that we'd make the adjustment when less than the full field=
- is
-> >> available.
-> >=20
-> > I would add an additional check to ensure _rsvd0 remains 0, to avoid
-> > further additions from attempting to reuse that padding space.
-> >=20
-> > if ( s->hw._rsvd0 )
-> >     return -EINVAL;
->
-> I agree we want such a check; I actually should have pointed that out, to=
-o.
-> I don't, however, see why the field couldn't be re-used going forward (un=
-der
-> the right conditions, of course).
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+---
+Changes in v3:
+ - Update that CONFIG_UBSAN is also enabled for PPC; also for the same item
+   change Arm to Arm64.
+ - Add "Intel EPT" to "Add suport for Paging-Write Feature"; drop "Add" at
+   the start as it is already in Added section.
+ - "Zen 5" change to "AMD Zen 5". Drop brackets around "including mitigation..."
+---
+Changes in v2:
+ - Drop "Support device passthrough when dom0 is PVH on Xen" from
+   CHANGELOD.md becuase it isn't really ready:
+   https://lore.kernel.org/xen-devel/31db7d34-3338-4d88-8721-f2cd4b68f3b9@gmail.com/T/#m725b559864e5ed6163b59a088b437aa10c36ff16
+---
+ CHANGELOG.md | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-It could be reused indeed, but at the point of making use of it we'd remove=
- the
-check.
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 1979166820..c5c2ca998a 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -18,6 +18,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+  - Fixed blkif protocol specification for sector sizes different than 512b.
+  - The dombuilder in libxenguest no longer un-gzips secondary modules, instead
+    leaving this to the guest kernel to do in guest context.
++ - Reduce xenstore library dependencies.
++ - On Arm:
++   - Several FF-A support improvements: add indirect messages support, transmit
++     RXTX buffer to the SPMC, fix version negotication and partition information
++     retrieval.
+  - On x86:
+    - Prefer ACPI reboot over UEFI ResetSystem() run time service call.
+    - Prefer CMOS over EFI_GET_TIME as time source.
+@@ -25,6 +30,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+      interrupts instead of logical destination mode.
+ 
+ ### Added
++ - Enable CONFIG_UBSAN (Arm64, x86, PPC, RISC-V) for GitLab CI.
+  - On Arm:
+    - Experimental support for Armv8-R.
+    - Support for NXP S32G3 Processors Family and NXP LINFlexD UART driver.
+@@ -34,6 +40,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+  - On x86:
+    - xl suspend/resume subcommands.
+    - `wallclock` command line option to select time source.
++   - Support for Intel EPT Paging-Write Feature.
++   - AMD Zen 5 CPU support, including mitigation for SRSO speculative
++     vulnerability.
+ 
+ ### Removed
+  - On x86:
+-- 
+2.48.1
 
-Cheers,
-Alejandro
 
