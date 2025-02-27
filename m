@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C694A47217
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 03:19:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.897368.1306047 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C2E9A4721D
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 03:19:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.897369.1306063 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnTUW-0006Nz-CX; Thu, 27 Feb 2025 02:19:12 +0000
+	id 1tnTUX-0006pi-My; Thu, 27 Feb 2025 02:19:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 897368.1306047; Thu, 27 Feb 2025 02:19:12 +0000
+Received: by outflank-mailman (output) from mailman id 897369.1306063; Thu, 27 Feb 2025 02:19:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnTUW-0006Lf-8z; Thu, 27 Feb 2025 02:19:12 +0000
-Received: by outflank-mailman (input) for mailman id 897368;
+	id 1tnTUX-0006l2-Hg; Thu, 27 Feb 2025 02:19:13 +0000
+Received: by outflank-mailman (input) for mailman id 897369;
  Thu, 27 Feb 2025 02:19:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FXQ0=VS=flex--seanjc.bounces.google.com=3nMu_ZwYKCXcnZVieXbjjbgZ.XjhsZi-YZqZggdnon.sZikmjeZXo.jmb@srs-se1.protection.inumbo.net>)
- id 1tnTUV-00063X-9T
+ <SRS0=Jlms=VS=flex--seanjc.bounces.google.com=3ncu_ZwYKCXgoaWjfYckkcha.Ykitaj-Zarahheopo.tajlnkfaYp.knc@srs-se1.protection.inumbo.net>)
+ id 1tnTUV-0005qU-Ph
  for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 02:19:11 +0000
-Received: from mail-pj1-x104a.google.com (mail-pj1-x104a.google.com
- [2607:f8b0:4864:20::104a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 39bd186e-f4b1-11ef-9898-31a8f345e629;
- Thu, 27 Feb 2025 03:19:09 +0100 (CET)
-Received: by mail-pj1-x104a.google.com with SMTP id
- 98e67ed59e1d1-2fc1c7c8396so1082722a91.0
- for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 18:19:09 -0800 (PST)
+Received: from mail-pj1-x1049.google.com (mail-pj1-x1049.google.com
+ [2607:f8b0:4864:20::1049])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3ac0d216-f4b1-11ef-9aaf-95dc52dad729;
+ Thu, 27 Feb 2025 03:19:11 +0100 (CET)
+Received: by mail-pj1-x1049.google.com with SMTP id
+ 98e67ed59e1d1-2fe8c5dbdb0so1061021a91.3
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 18:19:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,48 +40,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 39bd186e-f4b1-11ef-9898-31a8f345e629
+X-Inumbo-ID: 3ac0d216-f4b1-11ef-9aaf-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1740622748; x=1741227548; darn=lists.xenproject.org;
+        d=google.com; s=20230601; t=1740622750; x=1741227550; darn=lists.xenproject.org;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:reply-to:from:to:cc:subject:date:message-id:reply-to;
-        bh=VvDX2+gOZciJHv0b670CNF4YevTYL2569oCfzMxNGMY=;
-        b=VE7xjkVyM37vonGgRzpU5rDoiywPKkNotpsaiU6G2QV3N9fGkR5oFNeLPwont3l5EO
-         BJ65reI8KazLtFjvlCGPSoPr5vRaw8mpePiHFVY1Hf3GGdcQzqp5ICGl5lcuPvf6A/Lu
-         FQqKdbSiJ5vQWwV8H6+rG1iozkTDWxnGYv5YB62rBQY1+dCXNaQCZcnXQIoVhciWs2ug
-         MhtagnMjQLQWYSBkrjyzoOTDt/4Gqeatiy8+c/KhfzUvRTjFqB78YzepMjZg3HPoaasY
-         o93X3yP1i6MNyX2b/1fGEYxwM4xnI/yX6o1smAQyZa50kALL8Xk15Y5r6xgDZ1B6ppTY
-         9wAg==
+        bh=HbJ/1jLoPDWkVBe7cDWaMugTDenciqtu5nrTgQ9Zvm0=;
+        b=I7QL8ZPwWO1oqFZxwYCoc80EI0hRHQqQbAlsZ79RHZP5h7pHY2rgFVbPQbgWEr5n2r
+         VBHeP2JmEdCC1wP2RlLyeUNUmG2ZWz0kIEQF0Jrozm3YRPMN6ugck3l1JAbT5Nrk65j5
+         lbMkvC+eBphKxw4kW74TJZVinvGV12zcXK1ZlmCaXZ2sNP5EKPkmVHY0irhQaZ6+O1Pi
+         bdxYUekTWNQYZuS6H+em1PmOYf3+G99dxPinYNYerXNRCBsCsZA8glWKkA/wF4hI5Q5M
+         EH9cutti+f40rGyoABf9BbIeB8uZdOExG6JmI6C+09ubVTb2MobHlPKVf1N+4I9ka87w
+         FeXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740622748; x=1741227548;
+        d=1e100.net; s=20230601; t=1740622750; x=1741227550;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=VvDX2+gOZciJHv0b670CNF4YevTYL2569oCfzMxNGMY=;
-        b=Ki8kMeF6fvLpEITeoCKKe+j3JHTKiw6M4gDcD7s43XOHRhLSdVW0TZqIsSVjEFWUO9
-         3v2HXhCJIV3yvy52tPKX788ebEfOKOo6HpkJ3KD6gVFOUDK/ALz6cbO8hpiEUen5Czxg
-         ngccMCTB3KhaWBCFHyKY0NBH8jbk+USQpmzzZHmhQfVUm7A6UXwt0EcggpJPcsz97bBK
-         n+SlkGMLrjy+8/RxalrB9VULLNdxnxqtRitd5qfvr7nIs5I6KRbZ/jMK56u7jq3UwB9n
-         46JOgM18oIIcucSngY1eqb/G5KwgNuvyHGpoOjAos0lQWjIKR0x9umN4jHza+nnJPy3k
-         7VOg==
-X-Forwarded-Encrypted: i=1; AJvYcCXMKZ+zcNlK/OEFEseyI5eAJuXev98jvPGr97CsK7ka59JSgHyvZE0uids4JZx27oHnJ3aNn6kcWIQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxDm4gOhs7j3PiIpflYXYD1ND2nf/OtLgwCOENvCedmjZRolZ6Z
-	KAJgEYYG+G1aw2PokDqXqsnCdv0clq7CyjwP6C4W0MpdQA+Gw7DO88QR5SeUolU7wZYvLEcXz3t
-	ItQ==
-X-Google-Smtp-Source: AGHT+IFmK8jVkmb1xHfpVWU6EZoqjhev83fKG44NRMRJnNlywOI5c93DmBzKNvUnwRZS9xQkuc4Cdr3SCGs=
-X-Received: from pjbsz5.prod.google.com ([2002:a17:90b:2d45:b0:2ea:5be5:da6])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:5148:b0:2ee:c9b6:4c42
- with SMTP id 98e67ed59e1d1-2fce86cf0ebmr41779532a91.16.1740622748050; Wed, 26
- Feb 2025 18:19:08 -0800 (PST)
+        bh=HbJ/1jLoPDWkVBe7cDWaMugTDenciqtu5nrTgQ9Zvm0=;
+        b=shn+Fk10sgtbEI6KnY45MQOD3np4lq7E6vwlHRqEonToNQpZiaWzBn39U08aMLbZ+P
+         QkbCa6QvAE0Mfld7TPqmv9mvfUsiH3B0fHlSY0tIVqarZ0L7QLqWj+USsHOXHkrHqXng
+         H2AIyMM1oJFfRkbRLCPOVEjHUmQRtTj+IUxK8+sE1GVm/hltjHjKsI1AyBDCtZzfwT4e
+         /g91B/H9wMR8ck33bpJ+z1+3q2gwTIwfnSSHQerzggKVFMhRRapMYQW4soEmh+8TyC3p
+         uT5wL/02FtUmB7fOmf+YUOQD5Cu3JxPPSgdWm6nsuz0E5TYaYEkxTcgttSu7MHgZUTCd
+         5tAw==
+X-Forwarded-Encrypted: i=1; AJvYcCWEQ5lMELySa5Ls5j4RSozENyYOmOpiOKZNk9OLrgq0RjgRgArkEQv0xxpKJeGWu5hfgaiALDzWP+M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YztioBU/Tw3TsPVdvvVBwT9AVEMPdNobpkn6gKou74gh9whY0SU
+	XGQKDpr3/R+U/oRCnnvGDlrk2wGwMnb0MRxSJhVUhduekj3zftVpXSqXui9sgpv2eKHVECE+1lp
+	G2w==
+X-Google-Smtp-Source: AGHT+IFmgEsUJJ1z3bRk5Nf8mtm9mdRWiQdO+4qbvCwBd/hyjI3jP5eNnlt+3d6bfd4x/QDsZrTqSfxiFQY=
+X-Received: from pjbsw3.prod.google.com ([2002:a17:90b:2c83:b0:2fa:15aa:4d2b])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:56cc:b0:2f1:2fa5:1924
+ with SMTP id 98e67ed59e1d1-2fe7e39f2afmr7133368a91.26.1740622749803; Wed, 26
+ Feb 2025 18:19:09 -0800 (PST)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed, 26 Feb 2025 18:18:19 -0800
+Date: Wed, 26 Feb 2025 18:18:20 -0800
 In-Reply-To: <20250227021855.3257188-1-seanjc@google.com>
 Mime-Version: 1.0
 References: <20250227021855.3257188-1-seanjc@google.com>
 X-Mailer: git-send-email 2.48.1.711.g2feabab25a-goog
-Message-ID: <20250227021855.3257188-4-seanjc@google.com>
-Subject: [PATCH v2 03/38] x86/tsc: Add helper to register CPU and TSC freq
- calibration routines
+Message-ID: <20250227021855.3257188-5-seanjc@google.com>
+Subject: [PATCH v2 04/38] x86/sev: Mark TSC as reliable when configuring
+ Secure TSC
 From: Sean Christopherson <seanjc@google.com>
 To: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
 	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
@@ -98,185 +98,49 @@ Cc: linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
 	Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Add a helper to register non-native, i.e. PV and CoCo, CPU and TSC
-frequency calibration routines.  This will allow consolidating handling
-of common TSC properties that are forced by hypervisor (PV routines),
-and will also allow adding sanity checks to guard against overriding a
-TSC calibration routine with a routine that is less robust/trusted.
+Move the code to mark the TSC as reliable from sme_early_init() to
+snp_secure_tsc_init().  The only reader of TSC_RELIABLE is the aptly
+named check_system_tsc_reliable(), which runs in tsc_init(), i.e.
+after snp_secure_tsc_init().
 
-Make the CPU calibration routine optional, as Xen (very sanely) doesn't
-assume the CPU runs as the same frequency as the TSC.
+This will allow consolidating the handling of TSC_KNOWN_FREQ and
+TSC_RELIABLE when overriding the TSC calibration routine.
 
-Wrap the helper in an #ifdef to document that the kernel overrides
-the native routines when running as a VM, and to guard against unwanted
-usage.  Add a TODO to call out that AMD_MEM_ENCRYPT is a mess and doesn't
-depend on HYPERVISOR_GUEST because it gates both guest and host code.
-
-No functional change intended.
-
+Cc: Tom Lendacky <thomas.lendacky@amd.com>
+Reviewed-by: Nikunj A Dadhania <nikunj@amd.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/coco/sev/core.c       |  4 ++--
- arch/x86/include/asm/tsc.h     |  4 ++++
- arch/x86/kernel/cpu/acrn.c     |  4 ++--
- arch/x86/kernel/cpu/mshyperv.c |  3 +--
- arch/x86/kernel/cpu/vmware.c   |  4 ++--
- arch/x86/kernel/jailhouse.c    |  4 ++--
- arch/x86/kernel/kvmclock.c     |  4 ++--
- arch/x86/kernel/tsc.c          | 17 +++++++++++++++++
- arch/x86/xen/time.c            |  2 +-
- 9 files changed, 33 insertions(+), 13 deletions(-)
+ arch/x86/coco/sev/core.c      | 2 ++
+ arch/x86/mm/mem_encrypt_amd.c | 3 ---
+ 2 files changed, 2 insertions(+), 3 deletions(-)
 
 diff --git a/arch/x86/coco/sev/core.c b/arch/x86/coco/sev/core.c
-index 82492efc5d94..684cef70edc1 100644
+index 684cef70edc1..e6ce4ca72465 100644
 --- a/arch/x86/coco/sev/core.c
 +++ b/arch/x86/coco/sev/core.c
-@@ -3291,6 +3291,6 @@ void __init snp_secure_tsc_init(void)
+@@ -3288,6 +3288,8 @@ void __init snp_secure_tsc_init(void)
+ 		return;
+ 
+ 	setup_force_cpu_cap(X86_FEATURE_TSC_KNOWN_FREQ);
++	setup_force_cpu_cap(X86_FEATURE_TSC_RELIABLE);
++
  	rdmsrl(MSR_AMD64_GUEST_TSC_FREQ, tsc_freq_mhz);
  	snp_tsc_freq_khz = (unsigned long)(tsc_freq_mhz * 1000);
  
--	x86_platform.calibrate_cpu = securetsc_get_tsc_khz;
--	x86_platform.calibrate_tsc = securetsc_get_tsc_khz;
-+	tsc_register_calibration_routines(securetsc_get_tsc_khz,
-+					  securetsc_get_tsc_khz);
- }
-diff --git a/arch/x86/include/asm/tsc.h b/arch/x86/include/asm/tsc.h
-index c3a14df46327..9318c74e8d13 100644
---- a/arch/x86/include/asm/tsc.h
-+++ b/arch/x86/include/asm/tsc.h
-@@ -40,6 +40,10 @@ extern int cpuid_get_cpu_freq(unsigned int *cpu_khz);
- 
- extern void tsc_early_init(void);
- extern void tsc_init(void);
-+#if defined(CONFIG_HYPERVISOR_GUEST) || defined(CONFIG_AMD_MEM_ENCRYPT)
-+extern void tsc_register_calibration_routines(unsigned long (*calibrate_tsc)(void),
-+					      unsigned long (*calibrate_cpu)(void));
-+#endif
- extern void mark_tsc_unstable(char *reason);
- extern int unsynchronized_tsc(void);
- extern int check_tsc_unstable(void);
-diff --git a/arch/x86/kernel/cpu/acrn.c b/arch/x86/kernel/cpu/acrn.c
-index 2c5b51aad91a..c1506cb87d8c 100644
---- a/arch/x86/kernel/cpu/acrn.c
-+++ b/arch/x86/kernel/cpu/acrn.c
-@@ -29,8 +29,8 @@ static void __init acrn_init_platform(void)
- 	/* Install system interrupt handler for ACRN hypervisor callback */
- 	sysvec_install(HYPERVISOR_CALLBACK_VECTOR, sysvec_acrn_hv_callback);
- 
--	x86_platform.calibrate_tsc = acrn_get_tsc_khz;
--	x86_platform.calibrate_cpu = acrn_get_tsc_khz;
-+	tsc_register_calibration_routines(acrn_get_tsc_khz,
-+					  acrn_get_tsc_khz);
+diff --git a/arch/x86/mm/mem_encrypt_amd.c b/arch/x86/mm/mem_encrypt_amd.c
+index b56c5c073003..774f9677458f 100644
+--- a/arch/x86/mm/mem_encrypt_amd.c
++++ b/arch/x86/mm/mem_encrypt_amd.c
+@@ -541,9 +541,6 @@ void __init sme_early_init(void)
+ 	 * kernel mapped.
+ 	 */
+ 	snp_update_svsm_ca();
+-
+-	if (sev_status & MSR_AMD64_SNP_SECURE_TSC)
+-		setup_force_cpu_cap(X86_FEATURE_TSC_RELIABLE);
  }
  
- static bool acrn_x2apic_available(void)
-diff --git a/arch/x86/kernel/cpu/mshyperv.c b/arch/x86/kernel/cpu/mshyperv.c
-index f285757618fc..aa60491bf738 100644
---- a/arch/x86/kernel/cpu/mshyperv.c
-+++ b/arch/x86/kernel/cpu/mshyperv.c
-@@ -478,8 +478,7 @@ static void __init ms_hyperv_init_platform(void)
- 
- 	if (ms_hyperv.features & HV_ACCESS_FREQUENCY_MSRS &&
- 	    ms_hyperv.misc_features & HV_FEATURE_FREQUENCY_MSRS_AVAILABLE) {
--		x86_platform.calibrate_tsc = hv_get_tsc_khz;
--		x86_platform.calibrate_cpu = hv_get_tsc_khz;
-+		tsc_register_calibration_routines(hv_get_tsc_khz, hv_get_tsc_khz);
- 		setup_force_cpu_cap(X86_FEATURE_TSC_KNOWN_FREQ);
- 	}
- 
-diff --git a/arch/x86/kernel/cpu/vmware.c b/arch/x86/kernel/cpu/vmware.c
-index 00189cdeb775..d6f079a75f05 100644
---- a/arch/x86/kernel/cpu/vmware.c
-+++ b/arch/x86/kernel/cpu/vmware.c
-@@ -416,8 +416,8 @@ static void __init vmware_platform_setup(void)
- 		}
- 
- 		vmware_tsc_khz = tsc_khz;
--		x86_platform.calibrate_tsc = vmware_get_tsc_khz;
--		x86_platform.calibrate_cpu = vmware_get_tsc_khz;
-+		tsc_register_calibration_routines(vmware_get_tsc_khz,
-+						  vmware_get_tsc_khz);
- 
- #ifdef CONFIG_X86_LOCAL_APIC
- 		/* Skip lapic calibration since we know the bus frequency. */
-diff --git a/arch/x86/kernel/jailhouse.c b/arch/x86/kernel/jailhouse.c
-index cd8ed1edbf9e..b0a053692161 100644
---- a/arch/x86/kernel/jailhouse.c
-+++ b/arch/x86/kernel/jailhouse.c
-@@ -209,8 +209,6 @@ static void __init jailhouse_init_platform(void)
- 	x86_init.mpparse.parse_smp_cfg		= jailhouse_parse_smp_config;
- 	x86_init.pci.arch_init			= jailhouse_pci_arch_init;
- 
--	x86_platform.calibrate_cpu		= jailhouse_get_tsc;
--	x86_platform.calibrate_tsc		= jailhouse_get_tsc;
- 	x86_platform.get_wallclock		= jailhouse_get_wallclock;
- 	x86_platform.legacy.rtc			= 0;
- 	x86_platform.legacy.warm_reset		= 0;
-@@ -220,6 +218,8 @@ static void __init jailhouse_init_platform(void)
- 
- 	machine_ops.emergency_restart		= jailhouse_no_restart;
- 
-+	tsc_register_calibration_routines(jailhouse_get_tsc, jailhouse_get_tsc);
-+
- 	while (pa_data) {
- 		mapping = early_memremap(pa_data, sizeof(header));
- 		memcpy(&header, mapping, sizeof(header));
-diff --git a/arch/x86/kernel/kvmclock.c b/arch/x86/kernel/kvmclock.c
-index 5b2c15214a6b..b898b95a7d50 100644
---- a/arch/x86/kernel/kvmclock.c
-+++ b/arch/x86/kernel/kvmclock.c
-@@ -320,8 +320,8 @@ void __init kvmclock_init(void)
- 	flags = pvclock_read_flags(&hv_clock_boot[0].pvti);
- 	kvm_sched_clock_init(flags & PVCLOCK_TSC_STABLE_BIT);
- 
--	x86_platform.calibrate_tsc = kvm_get_tsc_khz;
--	x86_platform.calibrate_cpu = kvm_get_tsc_khz;
-+	tsc_register_calibration_routines(kvm_get_tsc_khz, kvm_get_tsc_khz);
-+
- 	x86_platform.get_wallclock = kvm_get_wallclock;
- 	x86_platform.set_wallclock = kvm_set_wallclock;
- #ifdef CONFIG_X86_LOCAL_APIC
-diff --git a/arch/x86/kernel/tsc.c b/arch/x86/kernel/tsc.c
-index bb4619148161..d65e85929d3e 100644
---- a/arch/x86/kernel/tsc.c
-+++ b/arch/x86/kernel/tsc.c
-@@ -1294,6 +1294,23 @@ static void __init check_system_tsc_reliable(void)
- 		tsc_disable_clocksource_watchdog();
- }
- 
-+/*
-+ * TODO: Disentangle AMD_MEM_ENCRYPT and make SEV guest support depend on
-+ *	 HYPERVISOR_GUEST.
-+ */
-+#if defined(CONFIG_HYPERVISOR_GUEST) || defined(CONFIG_AMD_MEM_ENCRYPT)
-+void tsc_register_calibration_routines(unsigned long (*calibrate_tsc)(void),
-+				       unsigned long (*calibrate_cpu)(void))
-+{
-+	if (WARN_ON_ONCE(!calibrate_tsc))
-+		return;
-+
-+	x86_platform.calibrate_tsc = calibrate_tsc;
-+	if (calibrate_cpu)
-+		x86_platform.calibrate_cpu = calibrate_cpu;
-+}
-+#endif
-+
- /*
-  * Make an educated guess if the TSC is trustworthy and synchronized
-  * over all CPUs.
-diff --git a/arch/x86/xen/time.c b/arch/x86/xen/time.c
-index 96521b1874ac..9e2e900dc0c7 100644
---- a/arch/x86/xen/time.c
-+++ b/arch/x86/xen/time.c
-@@ -566,7 +566,7 @@ static void __init xen_init_time_common(void)
- 	static_call_update(pv_steal_clock, xen_steal_clock);
- 	paravirt_set_sched_clock(xen_sched_clock);
- 
--	x86_platform.calibrate_tsc = xen_tsc_khz;
-+	tsc_register_calibration_routines(xen_tsc_khz, NULL);
- 	x86_platform.get_wallclock = xen_get_wallclock;
- }
- 
+ void __init mem_encrypt_free_decrypted_mem(void)
 -- 
 2.48.1.711.g2feabab25a-goog
 
