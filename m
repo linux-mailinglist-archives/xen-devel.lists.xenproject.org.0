@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04C14A47ECC
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 14:17:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.898094.1306663 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F501A480AC
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 15:14:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.898110.1306687 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tndlm-0007ji-8p; Thu, 27 Feb 2025 13:17:42 +0000
+	id 1tnedM-0001Z3-9P; Thu, 27 Feb 2025 14:13:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 898094.1306663; Thu, 27 Feb 2025 13:17:42 +0000
+Received: by outflank-mailman (output) from mailman id 898110.1306687; Thu, 27 Feb 2025 14:13:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tndlm-0007hm-65; Thu, 27 Feb 2025 13:17:42 +0000
-Received: by outflank-mailman (input) for mailman id 898094;
- Thu, 27 Feb 2025 13:17:40 +0000
+	id 1tnedM-0001XI-6J; Thu, 27 Feb 2025 14:13:04 +0000
+Received: by outflank-mailman (input) for mailman id 898110;
+ Thu, 27 Feb 2025 14:13:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yTe9=VS=linux.intel.com=kirill.shutemov@srs-se1.protection.inumbo.net>)
- id 1tndlk-0007he-3w
- for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 13:17:40 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ <SRS0=VKwg=VS=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1tnedK-0001XC-SC
+ for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 14:13:02 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3613e66e-f50d-11ef-9aaf-95dc52dad729;
- Thu, 27 Feb 2025 14:17:38 +0100 (CET)
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2025 05:17:34 -0800
-Received: from black.fi.intel.com ([10.237.72.28])
- by orviesa001.jf.intel.com with ESMTP; 27 Feb 2025 05:17:28 -0800
-Received: by black.fi.intel.com (Postfix, from userid 1000)
- id AD1B92D5; Thu, 27 Feb 2025 15:17:26 +0200 (EET)
+ id f39a906b-f514-11ef-9aaf-95dc52dad729;
+ Thu, 27 Feb 2025 15:13:00 +0100 (CET)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-5dca468c5e4so1547248a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Feb 2025 06:13:00 -0800 (PST)
+Received: from localhost ([46.149.103.12]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5e4c43a54a9sm1127477a12.67.2025.02.27.06.12.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 27 Feb 2025 06:12:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,95 +44,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3613e66e-f50d-11ef-9aaf-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1740662258; x=1772198258;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=toSHPZ1YVa1gl//0kRiyLUjjHt9nXx8rDY0Mkemm0Mc=;
-  b=jZb+PF1e/gzoCaiUg99IsRx2Iv++aBMjeS0IaY+UeEkjzRntjDLRARQX
-   8fDW1lzNPjzq8tAvanC7kkLzddkV5Ga/gHFGphDkLUNxOL/2ri9M4qXbb
-   S8RFGRvhoaUU2Y/jtnEQHsmFOjxOQs16N4eKS6g2o4J2i+SjwIr8czSuM
-   l/13RxJlvIg9Xkz8dF2LfUML8f10SxumVZxCOo+WPJcbjuJi+48cxRzoB
-   6F9isH/BLbrTrDtT6kF6v73zLmNqimaqnioWMzVAfW98b4sdZ5p0U5M1z
-   XoqigFzFhwLP/nrFCeuOSaLO57pRahUCX4wz1gWrLI7mbGfwcuj5eJTgj
-   g==;
-X-CSE-ConnectionGUID: aGcd9D5FSw+u9tstNqXziQ==
-X-CSE-MsgGUID: a8QJgYwFR5qgqgAiU4xRgw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11358"; a="41433030"
-X-IronPort-AV: E=Sophos;i="6.13,319,1732608000"; 
-   d="scan'208";a="41433030"
-X-CSE-ConnectionGUID: sGPlddMNR0G8ZteOUDv6gg==
-X-CSE-MsgGUID: QI2K/LkMQjKqVmN4JfZORA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; 
-   d="scan'208";a="154208682"
-Date: Thu, 27 Feb 2025 15:17:26 +0200
-From: "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Juergen Gross <jgross@suse.com>, 
-	"K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, 
-	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, 
-	Ajay Kaher <ajay.kaher@broadcom.com>, Jan Kiszka <jan.kiszka@siemens.com>, 
-	Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Daniel Lezcano <daniel.lezcano@linaro.org>, John Stultz <jstultz@google.com>, linux-kernel@vger.kernel.org, 
-	linux-coco@lists.linux.dev, kvm@vger.kernel.org, virtualization@lists.linux.dev, 
-	linux-hyperv@vger.kernel.org, xen-devel@lists.xenproject.org, 
-	Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>
-Subject: Re: [PATCH v2 30/38] x86/paravirt: Don't use a PV sched_clock in
- CoCo guests with trusted TSC
-Message-ID: <okuuhll3ymxlvno46dlimlpnkhg5vcxm2jiaew7uce4f35sps3@xaommgjd447m>
-References: <20250227021855.3257188-1-seanjc@google.com>
- <20250227021855.3257188-31-seanjc@google.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250227021855.3257188-31-seanjc@google.com>
+X-Inumbo-ID: f39a906b-f514-11ef-9aaf-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1740665580; x=1741270380; darn=lists.xenproject.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8RiGxt8S4pp4NVdU4UWYAUBg3HkBB8R9opyPexE0ESg=;
+        b=S+gERN8S51pLyejc5n/XCJHXQ7KJWezHi2igstN/cCHk9Vtwki5QMyQdMD4za8NVbZ
+         skEOfLVIlcuU28vzrKcr7mVMg5D9JIheJwlp+9WCGCdvsXfWy9N0oXO1Egity//siEPh
+         mAO+KTIFD3v2fwwsd0P0RLcA29WzQVJphRNwU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1740665580; x=1741270380;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=8RiGxt8S4pp4NVdU4UWYAUBg3HkBB8R9opyPexE0ESg=;
+        b=WlmQFzRMjmsA9Qqh/bFAP0NIEOKSx616gawLddSyazu+Ua4scFvOQ6KPVu9KFS+BSf
+         Ch6yftJL6f1j0hnyzMwpraU5QBSTlS7VRqk+HykpiGAJekjIxrpIgUMcZSlFgyxxzQ+l
+         Z/MPhNgDzOo1EMgWTniaTdb4FPG9iuai9BgCQk2E5Cp3CDKhYYwIqadiB1kwCqflsyMl
+         bMvhR6vwvlGN45YrU4blfUYbBLBzxR51GZPounQjhs/e2urV+kNaq77v786IVJMZWoQy
+         UEGaWJwlG3A8fZVg19n8/yXN6sLzsOuSTUbRZdMi90rnIDzWY0TItcQG13V3lbtY0HAG
+         7cIg==
+X-Forwarded-Encrypted: i=1; AJvYcCWB2JOyCyjk0nIFj7EQERWPjguyZKcNnS57eag9Bhkm5Sn/sH+pApc0ZwvKGBwxs7AakRM5delSdPs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YysR3rlxaPYNq81Kkbc1skRCdsvwMIOSi+PBJ/xSZ79yFsLMSV9
+	mMtIbrb6Nfiu+nuvbv8LjE2qv+cp5L9MVPZ9tMQ75zhoj2mC4j6lRojrzSIWEi4=
+X-Gm-Gg: ASbGnctVxdZEr9a/D9XtRBVwY1XLQv93603Uokomi2Sm+mlZIoRSS8rw0iAPORBmQgu
+	z66L+IUlUZttcqSXL1C8PSsHNZLvgzBh69nOI9Fzq1lVm3FwYdWgTtd7o6GwPRn5p9AAbSXP6qc
+	aT3DO7QWaCkLAPJEcpkHEVMVczsDFS74wI+BfO6y94vr0MxNmspampXAwk21iqD6ictbiJPq1v5
+	ZqsL5wlaiFUkkkeJmyzBDzZ55JSD02/7CbXH6Z9DGcvUGKz8X9kMdgib7B5Oud0B3YWcs9ry1OU
+	ZaZKYNLmy8mlXEN9Fu5gyw8ar/KazU+R
+X-Google-Smtp-Source: AGHT+IFfFW0ahvgJXpyYh3QeF45874qC2NjRt+HQ+rzqojYUFXsSdDsanu8jy9/KEOn1uRDhm+e8gw==
+X-Received: by 2002:a05:6402:3487:b0:5dc:c9ce:b022 with SMTP id 4fb4d7f45d1cf-5e4457abb46mr14134457a12.9.1740665580163;
+        Thu, 27 Feb 2025 06:13:00 -0800 (PST)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 27 Feb 2025 14:12:58 +0000
+Message-Id: <D83AG7NO6F5P.YV16VNJWJ8FS@cloud.com>
+Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>,
+ <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] x86/hvm: Add APIC IDs to the per-vLAPIC save area
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+To: =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, "Jan Beulich"
+ <jbeulich@suse.com>
+X-Mailer: aerc 0.18.2
+References: <20250218142259.6697-1-alejandro.vallejo@cloud.com>
+ <1de43f95-5ed1-46c1-a157-094ceb84ac83@suse.com>
+ <Z79Qe3kMS18P6JNQ@macbook.local>
+In-Reply-To: <Z79Qe3kMS18P6JNQ@macbook.local>
 
-On Wed, Feb 26, 2025 at 06:18:46PM -0800, Sean Christopherson wrote:
-> Silently ignore attempts to switch to a paravirt sched_clock when running
-> as a CoCo guest with trusted TSC.  In hand-wavy theory, a misbehaving
-> hypervisor could attack the guest by manipulating the PV clock to affect
-> guest scheduling in some weird and/or predictable way.  More importantly,
-> reading TSC on such platforms is faster than any PV clock, and sched_clock
-> is all about speed.
-> 
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> ---
->  arch/x86/kernel/paravirt.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
-> diff --git a/arch/x86/kernel/paravirt.c b/arch/x86/kernel/paravirt.c
-> index a3a1359cfc26..c538c608d9fb 100644
-> --- a/arch/x86/kernel/paravirt.c
-> +++ b/arch/x86/kernel/paravirt.c
-> @@ -89,6 +89,15 @@ DEFINE_STATIC_CALL(pv_sched_clock, native_sched_clock);
->  int __init __paravirt_set_sched_clock(u64 (*func)(void), bool stable,
->  				      void (*save)(void), void (*restore)(void))
->  {
-> +	/*
-> +	 * Don't replace TSC with a PV clock when running as a CoCo guest and
-> +	 * the TSC is secure/trusted; PV clocks are emulated by the hypervisor,
-> +	 * which isn't in the guest's TCB.
-> +	 */
-> +	if (cc_platform_has(CC_ATTR_GUEST_SNP_SECURE_TSC) ||
-> +	    boot_cpu_has(X86_FEATURE_TDX_GUEST))
-> +		return -EPERM;
-> +
+Hi,
 
-Looks like a call for generic CC_ATTR_GUEST_SECURE_TSC that would be true
-for TDX and SEV with CC_ATTR_GUEST_SNP_SECURE_TSC.
+On Wed Feb 26, 2025 at 5:33 PM GMT, Roger Pau Monn=C3=A9 wrote:
+> On Wed, Feb 26, 2025 at 02:11:23PM +0100, Jan Beulich wrote:
+> > On 18.02.2025 15:22, Alejandro Vallejo wrote:
+> > > Today, Xen hardcodes apic_id =3D vcpu_id * 2, but this is unwise and
+> > > interferes with providing accurate topology information to the guest.
+> > >=20
+> > > Introduce a new x2apic_id field into hvm_hw_lapic.=C2=A0 This is immu=
+table
+> > > state from the guest's point of view, but it will allow the toolstack=
+ to
+> > > eventually configure the value, and for the value to move on migrate.
+> > >=20
+> > > For backwards compatibility, the patch rebuilds the old-style APIC ID=
+s
+> > > from migration streams lacking them when they aren't present.
+> >=20
+> > Nit: "when they aren't present" looks to duplicate "lacking them"?
+> >=20
+> > > Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> > > ---
+> > > I've split this one from the rest of the topology series as it's inde=
+pendent
+> > > and entangled with another patch from Andrew.
+> >=20
+> > Albeit I think meanwhile we've settled that the entangling isn't quite =
+as
+> > problematic.
+> >=20
+> > > @@ -1621,6 +1624,14 @@ static int cf_check lapic_load_hidden(struct d=
+omain *d, hvm_domain_context_t *h)
+> > >          return -EINVAL;
+> > >      }
+> > > =20
+> > > +    /*
+> > > +     * Xen 4.20 and earlier had no x2APIC ID in the migration stream=
+ and
+> > > +     * hard-coded "vcpu_id * 2". Default back to this if we have a
+> > > +     * zero-extended record.
+> > > +     */
+> > > +    if ( h->size <=3D offsetof(struct hvm_hw_lapic, x2apic_id) )
+> > > +        s->hw.x2apic_id =3D v->vcpu_id * 2;
+> >=20
+> > While we better wouldn't get to see such input, it is in principle poss=
+ible
+> > to have an input stream with, say, half the field. Imo the condition ou=
+ght
+> > to be such that we'd make the adjustment when less than the full field =
+is
+> > available.
+>
+> I would add an additional check to ensure _rsvd0 remains 0, to avoid
+> further additions from attempting to reuse that padding space.
+>
+> if ( s->hw._rsvd0 )
+>     return -EINVAL;
 
->  	if (!stable)
->  		clear_sched_clock_stable();
->  
-> -- 
-> 2.48.1.711.g2feabab25a-goog
-> 
+That's already on lapic_check_hidden(), so it's guaranteed to be zero. Unle=
+ss
+you mean something else?
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+>
+> if ( s->hw._rsvd0 )
+>     return -EINVAL;
+>
+> In fact I would be tempted to overwrite the ID if the stream size
+> doesn't match the expected one, ie:
+>
+> if ( h->size < (offsetof(struct hvm_hw_lapic, _rsvd0) +
+>                 sizeof(s->hw._rsvd0)) )
+>     s->hw.x2apic_id =3D v->vcpu_id * 2;
+
+That looks better. I'll do that instead.
+
+>
+> Regards, Roger.
+
+Cheers,
+Alejandro
 
