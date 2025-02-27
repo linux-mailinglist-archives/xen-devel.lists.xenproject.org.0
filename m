@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7698BA48200
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 15:50:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.898182.1306763 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF060A48240
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 16:00:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.898195.1306772 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnfDc-0001AZ-Fa; Thu, 27 Feb 2025 14:50:32 +0000
+	id 1tnfMn-0004ly-8r; Thu, 27 Feb 2025 15:00:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 898182.1306763; Thu, 27 Feb 2025 14:50:32 +0000
+Received: by outflank-mailman (output) from mailman id 898195.1306772; Thu, 27 Feb 2025 15:00:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnfDc-00017m-BA; Thu, 27 Feb 2025 14:50:32 +0000
-Received: by outflank-mailman (input) for mailman id 898182;
- Thu, 27 Feb 2025 14:50:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tnfMn-0004kJ-5t; Thu, 27 Feb 2025 15:00:01 +0000
+Received: by outflank-mailman (input) for mailman id 898195;
+ Thu, 27 Feb 2025 14:59:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HcRf=VS=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1tnfDa-00012A-Pk
- for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 14:50:30 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2fceebe5-f51a-11ef-9898-31a8f345e629;
- Thu, 27 Feb 2025 15:50:29 +0100 (CET)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5dedae49c63so1768300a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 27 Feb 2025 06:50:29 -0800 (PST)
-Received: from fziglio-xenia-fedora.eng.citrite.net ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5e4c3fb5927sm1169710a12.53.2025.02.27.06.50.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Feb 2025 06:50:26 -0800 (PST)
+ <SRS0=VKwg=VS=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1tnfMk-0004kD-W8
+ for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 14:59:59 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 82b667ff-f51b-11ef-9aaf-95dc52dad729;
+ Thu, 27 Feb 2025 15:59:57 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-aaec111762bso174046266b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Feb 2025 06:59:57 -0800 (PST)
+Received: from localhost ([46.149.103.12]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-abf0c0b92desm134413966b.25.2025.02.27.06.59.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 27 Feb 2025 06:59:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,106 +44,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2fceebe5-f51a-11ef-9898-31a8f345e629
+X-Inumbo-ID: 82b667ff-f51b-11ef-9aaf-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1740667828; x=1741272628; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1740668397; x=1741273197; darn=lists.xenproject.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=DL7GQVjUzjLg9lk8430dC5QosMySgAdQwlmn75yWWQY=;
-        b=PSfBhnnhdGyC7cZaOn8Y6kHfD9xOG06zSWnm5DsWVR18+MF6DAJeTMbg91OLstWy8n
-         82B44892655HrCxVPnZPzJLkDklSSzh5vGbDMDoY2pEGaLPMeoXDgVrwV3Mqrwjse+ek
-         bb/TMFUhMxSxKoxmuhgTcwqhCOR55WGiI6LtM=
+        bh=AXweAsiXIlFL+pDxu9aiQwdMCB9JKxPVoHxCV0SyLg4=;
+        b=RmJPTYTo/b4KQ3ovdn5yC3jSAGn3cKg020k+XKX0WygLvgk3egPy5BMLJ8jRigRREK
+         13eE1eOiM1KkTL7VbezSgKPlBvVf7/cpNE/xrlF9y1G6zeSsI6EeBI/jNgBjHru2+0rz
+         TALZfYIwU2XopFRQjCPlCorMhhFhj+/OMY3I0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740667828; x=1741272628;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=DL7GQVjUzjLg9lk8430dC5QosMySgAdQwlmn75yWWQY=;
-        b=JXOaIkmiWyutrJ0j4ziUwNcIoUGq3/+Pl5KiNZaCdde/q8AYn6iXu1J6bTJuFxmTrS
-         +3dWByb+mxfZfSEOK82YcNskPPC9WcO+cC9TkTP8CygK0xu8OQCKWwvn75LTPKGOLP35
-         ngy4BM1J9iupiuUODPsmn2mnAmd+4r9KoSUj3tqf+n8MU441KXVijcVC8wBP/Rq4B947
-         NZ29D6zDZOffmnSuu5q8VaPqekMwnocCaNx1Uuu6AcaMoBraxGukPYPAzO9CHrFCaWgg
-         cEKpe8DzTZ9hVyihpOWNbJ6wGNoJUIVQEf+6RtboB/YMtvgg7kjzzMhv2HEGTdsTZ/Ie
-         rPJg==
-X-Gm-Message-State: AOJu0YxPhAQ9eV9qv7EY5rISX2ViIDMf+5fV3LMhTl7KE+CwA3o6wtOK
-	9xzsW7VlRPIhDOllgyas5JurH6ASAhGDsRcoOFmJCubD3MIRKL9IldKYLJihcrV95d5T+jQp0En
-	h
-X-Gm-Gg: ASbGnctZnGk6C99DymsW52lFOvOHd6q86SBNyzmEDUqDrI51ibeT+wQ2GAj8FTnYftT
-	H0kxt+/WNWKMoxHp6f67fCHd/QnMwlWkOUAXcMWhJDwevbACyKKO/mGGzHQJnU7DaFQDJq/p5IK
-	YP9FZzwhMzckecz1R8oUOhCJj7+qE4aucnVpa0r9g0pcFZogoaRRrwBJiUiqKk/Bg1jd19VBCQj
-	E7J4f5GAcaAH6MEOr+5XODB2EmGgMVMOFUBce6V8aYGhnLLxBfIU63IKKJIO7V1yG4V2+gGHgZc
-	zNnR322gPAEh3F23F0bRpjqhIOKdIeKoSzi+eXqVFlPX9HqA46yOkdZujOl5YA9PBg==
-X-Google-Smtp-Source: AGHT+IGRvMe2rXEL5ocoy5Zl+QpTBISfmDkxZx112r9QomOkAyIB+XxUpSAYrFRY61XCOHlRKjn34w==
-X-Received: by 2002:a05:6402:430f:b0:5e0:4710:5f47 with SMTP id 4fb4d7f45d1cf-5e0b7243e16mr27359409a12.23.1740667827673;
-        Thu, 27 Feb 2025 06:50:27 -0800 (PST)
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-To: xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org
-Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
-	"Juergen Gross" <jgross@suse.com>,
-	"Stefano Stabellini" <sstabellini@kernel.org>,
-	"Oleksandr Tyshchenko" <oleksandr_tyshchenko@epam.com>,
-	"Bjorn Helgaas" <bhelgaas@google.com>
-Subject: [PATCH v2] xen: Add support for XenServer 6.1 platform device
-Date: Thu, 27 Feb 2025 14:50:15 +0000
-Message-ID: <20250227145016.25350-1-frediano.ziglio@cloud.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250225140400.23992-1-frediano.ziglio@cloud.com>
-References: <20250225140400.23992-1-frediano.ziglio@cloud.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+        d=1e100.net; s=20230601; t=1740668397; x=1741273197;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=AXweAsiXIlFL+pDxu9aiQwdMCB9JKxPVoHxCV0SyLg4=;
+        b=B50hDfJI5h9NJQuLZbObn50fNn57o8gUamxm39/ahDHYbkuuskOK532pW/RcKVajpw
+         WfGUFEriBUazfsol4Iel+akKCTRhu2SrrT/d+F+W7JMoTcvve18BZ0zGohp7M7G11rIy
+         UGfZG7+0B6Kf6JPKFBDcpGWDc70dFPVjFrM2OrZYRqTzAweIFPgs0ZpWYr4aF3rVuypv
+         +zJaI64Zzlc6qFG4BDDDTkv2DjitVCne5xeMiPjcstxjmVc5XC7u/Zcp/tFT51trbsZB
+         NUjwYLiugh3pH2VewL3jyxfcrJC2g/ftaCrTQM5z54OiSyN08ugrJGMOj+peO66MhiYT
+         Df5g==
+X-Forwarded-Encrypted: i=1; AJvYcCXjzMZJ27bVBvhQCJ8RwsG7xyJruRrpW+bfwX1M+5h0Pv6t0moEqWVX3eljjf808R8wMuH8UYfMfms=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzSQOccHswKwb7OtUG5Q0WaEPRK6fsUjDiLIPCICH0NkHnSmC+D
+	eMna30PlhdRbfgrsFJY2Y1pC3+fIZifiQoE9rNCSxnGNK/vgYolMcUaJgxrWX3I=
+X-Gm-Gg: ASbGncvnRvcbdWGxZfEa2bYXMdhFP5CJIupEQ6kBy1aw0ndfKP3oKJmUxSfikeGCKwZ
+	07Sf+Y9+wP8y38EjFa6LGDSuLdRxDDziTzKErYhdrWqHLQ7brIXIy8NfW1VsXvKT0Ey6feu0zY6
+	hFJIn1EkcPR7omJ9vLQY8jrHXykOrl8VHesqzM2c/JMz08bbwvaoKCgtpgiP5XcFe68qm9ZxohW
+	eshfvn5EHQ7lg34j+fJRVS7kWAiesSi/cAYrAhpZy7Oktop9sMWS6NXsiN6J76DHiIlsc7pQ8oi
+	VX9GygftHhpo+Q4Bvd8HyY3qcm5otkMw
+X-Google-Smtp-Source: AGHT+IEXFVzFS50GX/nItjNFHHV0bXBID1QwnAFT8klKJ+E/U9lPDWrS1aAuy31+Z83SW3RIhnPMCw==
+X-Received: by 2002:a17:907:9722:b0:abc:7d6:e445 with SMTP id a640c23a62f3a-abeeef835f5mr995695466b.54.1740668397270;
+        Thu, 27 Feb 2025 06:59:57 -0800 (PST)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 27 Feb 2025 14:59:56 +0000
+Message-Id: <D83BG5T2IRZW.2J68RYJ8CFPY6@cloud.com>
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+To: "Jan Beulich" <jbeulich@suse.com>
+Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "Anthony PERARD"
+ <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Julien
+ Grall" <julien@xen.org>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>,
+ <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] xen/page_alloc: Simplify domain_adjust_tot_pages
+X-Mailer: aerc 0.18.2
+References: <20250224132724.9074-1-alejandro.vallejo@cloud.com>
+ <fde4d70e-d7af-4e51-a871-d4ac19737064@suse.com>
+In-Reply-To: <fde4d70e-d7af-4e51-a871-d4ac19737064@suse.com>
 
-On XenServer on Windows machine a platform device with ID 2 instead of
-1 is used.
+On Wed Feb 26, 2025 at 2:02 PM GMT, Jan Beulich wrote:
+> On 24.02.2025 14:27, Alejandro Vallejo wrote:
+> > @@ -504,17 +502,16 @@ unsigned long domain_adjust_tot_pages(struct doma=
+in *d, long pages)
+> >          goto out;
+> > =20
+> >      spin_lock(&heap_lock);
+> > -    /* adjust domain outstanding pages; may not go negative */
+> > -    dom_before =3D d->outstanding_pages;
+> > -    dom_after =3D dom_before - pages;
+> > -    BUG_ON(dom_before < 0);
+> > -    dom_claimed =3D dom_after < 0 ? 0 : dom_after;
+> > -    d->outstanding_pages =3D dom_claimed;
+> > -    /* flag accounting bug if system outstanding_claims would go negat=
+ive */
+> > -    sys_before =3D outstanding_claims;
+> > -    sys_after =3D sys_before - (dom_before - dom_claimed);
+> > -    BUG_ON(sys_after < 0);
+> > -    outstanding_claims =3D sys_after;
+> > +    BUG_ON(outstanding_claims < d->outstanding_pages);
+> > +    if ( pages > 0 && d->outstanding_pages < pages )
+>
+> The lhs isn't needed, is it? d->outstanding_pages is an unsigned quantity=
+,
+> after all. Else dropping the earlier of the two BUG_ON() wouldn't be quit=
+e
+> right.
 
-This device is mainly identical to device 1 but due to some Windows
-update behaviour it was decided to use a device with a different ID.
+d->outstanding pages is unsigned, but pages isn't.
 
-This causes compatibility issues with Linux which expects, if Xen
-is detected, to find a Xen platform device (5853:0001) otherwise code
-will crash due to some missing initialization (specifically grant
-tables). Specifically from dmesg
+It was originally like that, but I then got concerned about 32bit machines,
+where you'd be comparing a signed and an unsigned integer of the same
+not-very-large width. That seems like dangerous terrains if the unsigned nu=
+mber
+grows large enough.
 
-    RIP: 0010:gnttab_expand+0x29/0x210
-    Code: 90 0f 1f 44 00 00 55 31 d2 48 89 e5 41 57 41 56 41 55 41 89 fd
-          41 54 53 48 83 ec 10 48 8b 05 7e 9a 49 02 44 8b 35 a7 9a 49 02
-          <8b> 48 04 8d 44 39 ff f7 f1 45 8d 24 06 89 c3 e8 43 fe ff ff
-          44 39
-    RSP: 0000:ffffba34c01fbc88 EFLAGS: 00010086
-    ...
+TL;DR: It's there for clarity and paranoia. Even if the overflowing into bi=
+t 31
+would be rare in such a system.
 
-The device 2 is presented by Xapi adding device specification to
-Qemu command line.
+>
+> > +    {
+> > +        /* `pages` exceeds the domain's outstanding count. Zero it out=
+. */
+> > +        outstanding_claims -=3D d->outstanding_pages;
+> > +        d->outstanding_pages =3D 0;
+> > +    } else {
+>
+> Nit: Braces on their own lines please.
 
-Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
----
- drivers/xen/platform-pci.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Ack.
 
-diff --git a/drivers/xen/platform-pci.c b/drivers/xen/platform-pci.c
-index 544d3f9010b9..1db82da56db6 100644
---- a/drivers/xen/platform-pci.c
-+++ b/drivers/xen/platform-pci.c
-@@ -26,6 +26,8 @@
- 
- #define DRV_NAME    "xen-platform-pci"
- 
-+#define PCI_DEVICE_ID_XEN_PLATFORM_XS61	0x0002
-+
- static unsigned long platform_mmio;
- static unsigned long platform_mmio_alloc;
- static unsigned long platform_mmiolen;
-@@ -174,6 +176,8 @@ static int platform_pci_probe(struct pci_dev *pdev,
- static const struct pci_device_id platform_pci_tbl[] = {
- 	{PCI_VENDOR_ID_XEN, PCI_DEVICE_ID_XEN_PLATFORM,
- 		PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
-+	{PCI_VENDOR_ID_XEN, PCI_DEVICE_ID_XEN_PLATFORM_XS61,
-+		PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
- 	{0,}
- };
- 
--- 
-2.48.1
+>
+> In any event - yes, this reads quite a bit easier after the adjustment.
+>
+> With the adjustments (happy to make while committing, so long as you agre=
+e)
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+Thanks. I'd probably like to hold off and send a v2 if you're fine with the
+adjustment I answered Roger with (returning ealy on pages <=3D 0, so claims=
+ are
+never increased on free).
+
+>
+> Jan
+>
+
+Cheers,
+Alejandro
 
