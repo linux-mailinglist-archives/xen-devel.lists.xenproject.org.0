@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F52DA476F3
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 08:58:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.897897.1306522 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CF74A4775A
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 09:11:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.897911.1306533 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnYmB-0008VR-QT; Thu, 27 Feb 2025 07:57:47 +0000
+	id 1tnYz8-0004Er-32; Thu, 27 Feb 2025 08:11:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 897897.1306522; Thu, 27 Feb 2025 07:57:47 +0000
+Received: by outflank-mailman (output) from mailman id 897911.1306533; Thu, 27 Feb 2025 08:11:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnYmB-0008T9-Nr; Thu, 27 Feb 2025 07:57:47 +0000
-Received: by outflank-mailman (input) for mailman id 897897;
- Thu, 27 Feb 2025 07:57:46 +0000
+	id 1tnYz8-0004C4-0P; Thu, 27 Feb 2025 08:11:10 +0000
+Received: by outflank-mailman (input) for mailman id 897911;
+ Thu, 27 Feb 2025 08:11:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=MKxr=VS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tnYmA-0008T3-Bf
- for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 07:57:46 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ id 1tnYz6-00045s-8b
+ for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 08:11:08 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8759b353-f4e0-11ef-9aaf-95dc52dad729;
- Thu, 27 Feb 2025 08:57:45 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-439a4fc2d65so6613215e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 23:57:45 -0800 (PST)
+ id 64f392a7-f4e2-11ef-9aaf-95dc52dad729;
+ Thu, 27 Feb 2025 09:11:06 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-390e3b3d3f4so189600f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Feb 2025 00:11:06 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43aba5710c2sm45023215e9.32.2025.02.26.23.57.44
+ 5b1f17b1804b1-43b7a27ab2asm14004275e9.32.2025.02.27.00.11.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Feb 2025 23:57:44 -0800 (PST)
+ Thu, 27 Feb 2025 00:11:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8759b353-f4e0-11ef-9aaf-95dc52dad729
+X-Inumbo-ID: 64f392a7-f4e2-11ef-9aaf-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1740643065; x=1741247865; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1740643866; x=1741248666; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=lxCEhA8gBt3F4C0rluBzk0frlNELaO4pI4dgMuwIyfQ=;
-        b=RbvjhKwiS+dMmDp83gvlI+QF6wLpgteAZw0XcoO60ldUUm5xWvXz62iNwtzDCl8Odr
-         lij2bMT7gW3KFo9ldm9CRDMux+9aGA8i5yju0G0dWfa5MIlKUosAt1GbTC/3gQ8xaEKV
-         HYPgENMcBwz6RWBvnoPzoi5ouuyUijfUX67p97agzOmH9rumfsyhXrrDWCjz+qPdSKfA
-         6H1mFTdwyoWnaVv4waErdb77JsdjCNmj2JQ/imHD/zdEVdvd+8aCRmGzjOh+pw7QzTrm
-         wf7G+QqHzwe6LdHpzWc5fIDFuMA/L6JizRxqq7jv+Fzpgiks0GYkxJh3/KlNYmW7JRDp
-         wJOQ==
+        bh=nOfrGNQmmxowAQaqFi4XIPOfsqcKlZ8GIDY6AD8oo+8=;
+        b=d5o5/Zl1GseHZffsJjMlx0LJJiKSLYGOVcHwT5zIBFkRTJCf2iEr9F+al+IETd5dAk
+         /pgSZVb0iM8xtlkAxkCwqFa5EOzYip+x905Tj6Tr0avg0KmRWZvACJkqmbt/9L3sZZYe
+         Xmo91j+Pxr2L4G9zcBXDzJyF0iSS3jWZ1XhN1WLe/PBJA7HkC9tuKikQHFEikmu0b/cB
+         8/y+fg/CLxAjScy67ztpEE14d9LBIjYzsCU1ysMzrQyG7PbtRHmzLQY4Zs6d3AkC5L91
+         NKk/HSccbaOyZpcY/BUcSsi9pmh1VPBCDDY5o6SJS5etNdJaG+dMuDMsIbG55pl2tTRD
+         +14w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740643065; x=1741247865;
+        d=1e100.net; s=20230601; t=1740643866; x=1741248666;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lxCEhA8gBt3F4C0rluBzk0frlNELaO4pI4dgMuwIyfQ=;
-        b=ILdLheKkInSB2OfXofgi/jibuw4DGX5zS6o+tEwLQRNkD/9adOCiXYIhM0rjeBO3v/
-         3wZY907ShSpYboy0RtICE+8Mm8BDKpawRt3A9iv8d41c7Fl0mQYGIWWTS+0rHNwSh1it
-         WU3EwEIpf0KrcYFo8ZJ78DIKuSWHQK0DzbBbmMNxjrDXqXPd+tG4AZBbJlwbXzxGz4UN
-         zx58ryRtosg47D09ekT8EFxzY6H5LCNPFynFzRma6JiL+pKwIUaAUmLdauJDpnSLUYF3
-         awaL376kH77Y7bmdjjjjAx33YUwpfivAWZgJuzxl9lLz6foD0WXeAQMhphBsIsv47a2n
-         2O/Q==
-X-Forwarded-Encrypted: i=1; AJvYcCXGmf7QMZfpBPidMa/ME3p+C+mL/56B2eENLPB076YyKLVdEUyEU5dd5017FQddPZNIQ+SeBjyAw2U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyfs/5fvErts+tJuXmB8u8pUAXsxJdxswpHqiUA7qKfmoJXLLF0
-	cQISC0+9t07NvES38LM0Yi4G1EzlnLiw+yI2uLjQmarn1RN9lRqsN/6rpCo1pg==
-X-Gm-Gg: ASbGncuGWVNBe+f9cjEenhOxTJRpgeBXJ8mMrpCmmkLZQPZLTHiCgCz+FRtU8UjRqiW
-	wqrhrW2h9/aNsvqFekNrdTB/jL31+fxXag8PWBMqS7tknOSsuInUu3nG/2M0yu9Udp2x+7lb06R
-	RAl3abDhPRnjPfLbtS2oqYs5b2w3UYkHYHH7DpNU4JHI7N+afaQhp1MXU4xuNf6KDeS2GeU4+8C
-	1hpjLtfvJyrmMvqk2qkuT6BVmSHoqhHbWZQcFL2aesleRt9K44XCLgnfVILQjGTxjy6vS/fLaoP
-	VQ4yogYtP6BdGhHbpYUwS0ChY163bOmShMpO4vb/RxD9GUgquKWQYR5Tl6Q+sqKlNIgIkYP4w5T
-	DanizU7SzEzQ=
-X-Google-Smtp-Source: AGHT+IEeIBa7HQ9pHvsRhjljQXoQZPlIOdPsggBBQQEYavMsFrba0t4NCc1Aj0r0E+mj1pQNPnnNNw==
-X-Received: by 2002:a05:600c:3114:b0:439:9b80:ca6f with SMTP id 5b1f17b1804b1-43ab0f255a3mr119065725e9.5.1740643064782;
-        Wed, 26 Feb 2025 23:57:44 -0800 (PST)
-Message-ID: <1620573b-7304-4921-abad-1170191918c0@suse.com>
-Date: Thu, 27 Feb 2025 08:57:43 +0100
+        bh=nOfrGNQmmxowAQaqFi4XIPOfsqcKlZ8GIDY6AD8oo+8=;
+        b=P2Xa5LwmO83REe3QRZCtZG5xQzD6Bys3T4dsGJhGl6jBAkBGFizQLDeHa6/39y2gFs
+         wPW6Dcyc9w6DPhezzwcRePLjL79B2cVNgHuzlorSso4ebcTlEynbG8j8OOqYakLIWA9k
+         AK9NNO2yoXlFhaw69L0gcC99/tLbX4iwIoe0DUe7J1DGcdQq1GMGsaq22wUjBmWMGhL/
+         zvcHAR89bHf9jSNiD2izwUl1WLob0XO5FFVcWqoXBEi52Uwp/t2X8CiWFdU0Y+ZrP9mt
+         2RSzUUY8MpMlbPStNfypdQHtkoANXNKcin52QJZuG9bm8MaUwIRi357ONpC4F0t3k2bX
+         83Hw==
+X-Forwarded-Encrypted: i=1; AJvYcCUmYeJKSovw33mBsJgnyQ7dMMR7jNmD/CiqWp92oPhyukQiGWdD2atJjNpqAqmUmNjNHXJ3FSyeY9Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw+47yW4lJxuWH6M6HAyhoesnivBSTrQErgCSCdfBpYI+pLRWTc
+	7s2OGNkuNxkeZCE/MmkywXxN5jEVlfA6PN0u8L42CyvsV7O6NwPardAkP5Rvhg==
+X-Gm-Gg: ASbGnct49i4zY8AYEF+9OBPiH7ULMsZRieo1AJUacUahrIFAo1hclFn3Nu7DRtLFHTu
+	Rn5fo5yyfdilRrrTVzL2rwEeGu/T5sOdE9pFFEvggP7QdfkGvcz44nTXldIj0l7U+uFkpqm/r+Q
+	7wRjPE5WYgRtiWbSeg490KTlVPiZPt4iIZu6M7j4kx0Ar9ZCAXv6fkN/M5FaLn+yL5Cne53kntm
+	ovILeSb6FqO6zwIgjfzvsRcItK1aBOehl+K4nH/WVQQPBCx3/uRxeia5bR3gDgH+nmefQuZweuU
+	O0KBJkjJpNTHo+g5AfboFIpfpY3fcd9RiriT7ExtGMFT42EPESaiIH83hRhOmKdRF+gxV1fmWg/
+	jPEeZ+vrXnxI=
+X-Google-Smtp-Source: AGHT+IF3C46EcqqLsCNB8v54cRYQ5chCcFviLkOzA3pabEFsqN+XW2L1GWXyNKk0xCiNExRT5i8UDw==
+X-Received: by 2002:a05:6000:2c7:b0:38f:21ce:aa28 with SMTP id ffacd0b85a97d-38f70827b21mr17522950f8f.36.1740643866147;
+        Thu, 27 Feb 2025 00:11:06 -0800 (PST)
+Message-ID: <113b2464-c7b2-4068-a179-707cba4f3835@suse.com>
+Date: Thu, 27 Feb 2025 09:11:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/8] x86/IDT: Rename X86_NR_VECTORS to X86_IDT_VECTORS
+Subject: Re: [PATCH] RISCV/bitops: Use Zbb to provide arch-optimised bitops
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250224160509.1117847-1-andrew.cooper3@citrix.com>
- <20250224160509.1117847-4-andrew.cooper3@citrix.com>
- <56aa1fbe-ebbf-4e03-b164-51710a75bde3@suse.com>
- <3a3d67c5-c89b-4108-864c-8c46b79b0246@citrix.com>
+References: <20250226172050.1300771-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,38 +117,31 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3a3d67c5-c89b-4108-864c-8c46b79b0246@citrix.com>
+In-Reply-To: <20250226172050.1300771-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 26.02.2025 18:27, Andrew Cooper wrote:
-> On 25/02/2025 8:31 am, Jan Beulich wrote:
->> On 24.02.2025 17:05, Andrew Cooper wrote:
->>> Observant readers may have noticed that the FRED spec has another 8 bits of
->>> space reserved immediately following the vector field.
->>>
->>> Make the existing constant more precise.
->>>
->>> No functional change.
->>>
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> I don't mind this, so
->> Acked-by: Jan Beulich <jbeulich@suse.com>
-> 
-> Thanks.
-> 
->> I can't help the impression though that the majority of places will need
->> touching again if vector space was enlarged, to use the alternative larger
->> constant then.
-> 
-> A number of uses don't survive to the end of the series.  For the
-> others, they'll need to become conditional on some new control being
-> active, so won't be a straight swap for another constant.
+On 26.02.2025 18:20, Andrew Cooper wrote:
+> --- a/xen/arch/riscv/include/asm/bitops.h
+> +++ b/xen/arch/riscv/include/asm/bitops.h
+> @@ -125,6 +125,13 @@ static inline void clear_bit(int nr, volatile void *p)
+>  #undef NOT
+>  #undef __AMO
+>  
+> +#define arch_ffs(x)     ((x) ? 1 + __builtin_ctz(x) : 0)
+> +#define arch_ffsl(x)    ((x) ? 1 + __builtin_ctzl(x) : 0)
+> +#define arch_fls(x)     ((x) ? 32 - __builtin_clz(x) : 0)
 
-Right, that's to be expected. My point though was that the rename (on its own)
-is perhaps not overly useful in that light. When all the places will need
-touching again (one way or another) the rename could as well be done when said
-conditionals are added. But anyway - you have my ack.
+I fear you won't like me to say this, but can't we avoid baking in yet
+another assumption on sizeof(int) == 4, by using at least sizeof(int) * 8
+here (yet better might be sizeof(int) * BITS_PER_BYTE)?
+
+> +#define arch_flsl(x)    ((x) ? BITS_PER_LONG - __builtin_clzl(x) : 0)
+> +
+> +#define arch_heightl(x) __builtin_popcountl(x)
+
+arch_hweightl()?
 
 Jan
+
 
