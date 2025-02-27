@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01149A47283
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 03:25:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.897460.1306178 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CCCCA472A7
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 03:27:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.897630.1306404 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnTaq-00060x-Ff; Thu, 27 Feb 2025 02:25:44 +0000
+	id 1tnTbz-0001D8-6K; Thu, 27 Feb 2025 02:26:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 897460.1306178; Thu, 27 Feb 2025 02:25:44 +0000
+Received: by outflank-mailman (output) from mailman id 897630.1306404; Thu, 27 Feb 2025 02:26:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnTaq-0005xQ-A1; Thu, 27 Feb 2025 02:25:44 +0000
-Received: by outflank-mailman (input) for mailman id 897460;
- Thu, 27 Feb 2025 02:25:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tnTbz-00018t-1S; Thu, 27 Feb 2025 02:26:55 +0000
+Received: by outflank-mailman (input) for mailman id 897630;
+ Thu, 27 Feb 2025 02:26:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=P3Qo=VS=flex--seanjc.bounces.google.com=3ucu_ZwYKCZQG2yB704CC492.0CAL2B-12J2996GHG.L2BDFC720H.CF4@srs-se1.protection.inumbo.net>)
- id 1tnTV2-0005qU-FT
- for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 02:19:44 +0000
-Received: from mail-pl1-x64a.google.com (mail-pl1-x64a.google.com
- [2607:f8b0:4864:20::64a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4b84a399-f4b1-11ef-9aaf-95dc52dad729;
- Thu, 27 Feb 2025 03:19:39 +0100 (CET)
-Received: by mail-pl1-x64a.google.com with SMTP id
- d9443c01a7336-2217a4bfcc7so6991145ad.3
- for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 18:19:39 -0800 (PST)
+ <SRS0=0e95=VS=flex--seanjc.bounces.google.com=3u8u_ZwYKCZYI40D926EE6B4.2ECN4D-34L4BB8IJI.N4DFHE942J.EH6@srs-se1.protection.inumbo.net>)
+ id 1tnTV1-00063X-86
+ for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 02:19:43 +0000
+Received: from mail-pj1-x104a.google.com (mail-pj1-x104a.google.com
+ [2607:f8b0:4864:20::104a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4c9efc0d-f4b1-11ef-9898-31a8f345e629;
+ Thu, 27 Feb 2025 03:19:41 +0100 (CET)
+Received: by mail-pj1-x104a.google.com with SMTP id
+ 98e67ed59e1d1-2fbff6426f5so1023400a91.3
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Feb 2025 18:19:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,47 +40,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4b84a399-f4b1-11ef-9aaf-95dc52dad729
+X-Inumbo-ID: 4c9efc0d-f4b1-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1740622778; x=1741227578; darn=lists.xenproject.org;
+        d=google.com; s=20230601; t=1740622780; x=1741227580; darn=lists.xenproject.org;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:reply-to:from:to:cc:subject:date:message-id:reply-to;
-        bh=Fan7xWhbYPUjoe6Gj73DFLAXBBtIUty3w4hEBXyAFt4=;
-        b=uN1liozK+r1vGE8azzH9vy6u2FEILmjHx3OBBoSxV9e0UnzrgzYrTI6vSQf9glFgO8
-         A/EURcOmx+94RDs3lDvDnN6KsVJkEu80deNqWvEUxBGE8ZFVi7XQdYgWHOr7vF313LMO
-         za3D08j/hyJEVu18Jes8duXg019uPbI464JqU445eJ/FhDW12NN6FR7J2RbFoR3bAszY
-         V9ppLjv6VzAHnbu7d9duLOO+CXk0BE4xP4E0xq4a/2xVcOhPhuNPGGK2cb2LzBppYaKX
-         JNGvHnnYgEpRWvqkDBTVfqQ5yaM7VDFQuKjswcwhzytpoeiIa0/DsB79eWgWLS5BGMz+
-         e+Ng==
+        bh=kU2lFcUz0RS/25JB9tsyegi1crsFJmJvQFST0gISHao=;
+        b=dj7MugigeW8T3upUlj7yLWUbOANaFMSVYZGWnYDqHHmXlMB9oLtXeaNdxdUq9/N5Us
+         D9I6oIhP4lL+/1b+q0DyBWOtWo8qi50baq9cummqnLEcHzHEoH1e1C9GQWEm9iePvii6
+         A4lxBVw2RxXuPae9XuETkkhtax9bVjf/DYudUnaK9dfJ7tfr4PweRt9vc45QtkzMdmr8
+         43ZZX1EraJFHxOuGDCVA4tVlqIGXt0nHU1n55Vk1h5znzBUAqSRG8ilfQlzaBb+HFPrv
+         dczM88G6K1+xAUpIkWa/0b5/eGNh4PI2UblixrP/h43wDJv4eraXKlfnuft3n10+57aw
+         L+Ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740622778; x=1741227578;
+        d=1e100.net; s=20230601; t=1740622780; x=1741227580;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=Fan7xWhbYPUjoe6Gj73DFLAXBBtIUty3w4hEBXyAFt4=;
-        b=JSoODSdzGou92nXSt5S1/e2WtiNhjdboL2nlSZpni6eLTpApF9plVZWUU+ZlS5/G1Q
-         P9q1yx7bd0qPNPe8C4V5ebNCRXBiVpsIDFfbqiVLMXTjt/SeihPCp9q/nQVoDxskfu5D
-         BSfusUYZJTHwwtsn3hS9wWjYGPEVsF/NDzQesIoXbN25v/IddeD2yBg89gndvv/GmWPP
-         p5UPi1jdRmRTrgFsGKuL6d1VN6JpmsyfYK7MH/zP1mGBE50CYkTnbqUcNkhNb8/jOaA2
-         eWOWDb9b8HdSQYtoMgQaIJIA6uUi3JbCpsyz8QazXfkPuT3GG4Eo8eOFkvh1GeA9F+uc
-         M2Og==
-X-Forwarded-Encrypted: i=1; AJvYcCVzoa1ix3Um0RKLufwkfTErtiuedd6FGHhr1TZ2q1LBF7hFspiMrc5Ryx/HR2mHPwJe7bc0j3C4gqA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz8xjbvYmZtC3qLbIsSwdM4vwScX4ntSTchnzjLzUBkRg0gptz2
-	RIrpnPHeShCheBXNM08AgQwanacDJnlT9w19nQU/a4LVc0T52iU05Ucwk8bigTjT0UH+t2QEz8P
-	E4g==
-X-Google-Smtp-Source: AGHT+IEIDOZ4TbuvBdNqbq0BRf/iBYYL2tXyd/xxECXyr6rznFcwd1mvvnFfD4EHjsDge5bCz6C8+YGYPK0=
-X-Received: from plbje3.prod.google.com ([2002:a17:903:2643:b0:223:4e55:d29a])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e80d:b0:220:f5d7:6405
- with SMTP id d9443c01a7336-221a0edbfc3mr358957175ad.16.1740622777972; Wed, 26
- Feb 2025 18:19:37 -0800 (PST)
+        bh=kU2lFcUz0RS/25JB9tsyegi1crsFJmJvQFST0gISHao=;
+        b=capsnjW+kgpjPjwHUAeUKbg+0WHkm6UOrPi6h0wpbroF5ntoYAB8OYBr+Yinpllp7x
+         G8AnoPtDLsmn2K6sF8F8SSMccy6WPoJKa4JAOY+lSbLVFIQEbPGcD4Vhvbfsh8nlsD+D
+         rmW2YOizQdmMsRJ1f2fK8BXPG1JhQfoajEdrqqZpv0whNK/t866HC2/o9HMnFnYFNJSS
+         iByOOXFLpil1TIKrDuFH2jtMSNMw/RJXPWbSmKh2tiFTNSJa3BhJTy8LQa0VYoTh0rk3
+         ymVBsnDgwl3FN6VoT0ahgQdJuJGkrmTn6+crUWJ0yFdyOhfuxTRhxbdwZFrOT43hh3xw
+         yI4A==
+X-Forwarded-Encrypted: i=1; AJvYcCUJg28p6fD5Q03sUSV2rtp+XnzDy32mX4Ap27RNFvYFPbVedjmOtIDcwNUn4KXR7eyKv3CRrMuGAQ4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywk8VApYdehjTp5zfpbrAJPuhXnMOAeC2c4YXgttkV3P9G2tYmw
+	TC2DkiS6NvIQ5bQOHwZqeYgIFuSn5/binKKqxRHFL/5XeEpA7aQ/27CH6v198C2sfNHo4OIfbqd
+	Brw==
+X-Google-Smtp-Source: AGHT+IGPqE+K3f21q2ak8FFNHYsAgDpuaP0E98T4gncRvFB5lVR5BPc4qf0azJ1lc37DAZgmd7FgPnilX0Q=
+X-Received: from pjbsh7.prod.google.com ([2002:a17:90b:5247:b0:2f2:e97a:e77f])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:fc44:b0:2f6:f107:fae6
+ with SMTP id 98e67ed59e1d1-2fe68cf3f5fmr12813327a91.23.1740622779809; Wed, 26
+ Feb 2025 18:19:39 -0800 (PST)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed, 26 Feb 2025 18:18:36 -0800
+Date: Wed, 26 Feb 2025 18:18:37 -0800
 In-Reply-To: <20250227021855.3257188-1-seanjc@google.com>
 Mime-Version: 1.0
 References: <20250227021855.3257188-1-seanjc@google.com>
 X-Mailer: git-send-email 2.48.1.711.g2feabab25a-goog
-Message-ID: <20250227021855.3257188-21-seanjc@google.com>
-Subject: [PATCH v2 20/38] x86/xen/time: Mark xen_setup_vsyscall_time_info() as __init
+Message-ID: <20250227021855.3257188-22-seanjc@google.com>
+Subject: [PATCH v2 21/38] x86/pvclock: Mark setup helpers and related various
+ as __init/__ro_after_init
 From: Sean Christopherson <seanjc@google.com>
 To: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
 	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
@@ -97,28 +98,42 @@ Cc: linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
 	Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Annotate xen_setup_vsyscall_time_info() as being used only during kernel
-initialization; it's called only by xen_time_init(), which is already
-tagged __init.
+Now that Xen PV clock and kvmclock explicitly do setup only during init,
+tag the common PV clock flags/vsyscall variables and their mutators with
+__init.
 
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/xen/time.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/x86/kernel/pvclock.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/arch/x86/xen/time.c b/arch/x86/xen/time.c
-index 3179f850352d..13e5888c4501 100644
---- a/arch/x86/xen/time.c
-+++ b/arch/x86/xen/time.c
-@@ -441,7 +441,7 @@ void xen_restore_time_memory_area(void)
- 	xen_sched_clock_offset = xen_clocksource_read() - xen_clock_value_saved;
+diff --git a/arch/x86/kernel/pvclock.c b/arch/x86/kernel/pvclock.c
+index b3f81379c2fc..a51adce67f92 100644
+--- a/arch/x86/kernel/pvclock.c
++++ b/arch/x86/kernel/pvclock.c
+@@ -16,10 +16,10 @@
+ #include <asm/pvclock.h>
+ #include <asm/vgtod.h>
+ 
+-static u8 valid_flags __read_mostly = 0;
+-static struct pvclock_vsyscall_time_info *pvti_cpu0_va __read_mostly;
++static u8 valid_flags __ro_after_init = 0;
++static struct pvclock_vsyscall_time_info *pvti_cpu0_va __ro_after_init;
+ 
+-void pvclock_set_flags(u8 flags)
++void __init pvclock_set_flags(u8 flags)
+ {
+ 	valid_flags = flags;
+ }
+@@ -153,7 +153,7 @@ void pvclock_read_wallclock(struct pvclock_wall_clock *wall_clock,
+ 	set_normalized_timespec64(ts, now.tv_sec, now.tv_nsec);
  }
  
--static void xen_setup_vsyscall_time_info(void)
-+static void __init xen_setup_vsyscall_time_info(void)
+-void pvclock_set_pvti_cpu0_va(struct pvclock_vsyscall_time_info *pvti)
++void __init pvclock_set_pvti_cpu0_va(struct pvclock_vsyscall_time_info *pvti)
  {
- 	struct vcpu_register_time_memory_area t;
- 	struct pvclock_vsyscall_time_info *ti;
+ 	WARN_ON(vclock_was_used(VDSO_CLOCKMODE_PVCLOCK));
+ 	pvti_cpu0_va = pvti;
 -- 
 2.48.1.711.g2feabab25a-goog
 
