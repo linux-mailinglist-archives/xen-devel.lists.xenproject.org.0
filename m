@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D323BA4834D
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 16:42:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.898284.1306865 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BF34A48605
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 18:02:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.898304.1306875 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tng1P-0002KM-BX; Thu, 27 Feb 2025 15:41:59 +0000
+	id 1tnhGG-0006xZ-PJ; Thu, 27 Feb 2025 17:01:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 898284.1306865; Thu, 27 Feb 2025 15:41:59 +0000
+Received: by outflank-mailman (output) from mailman id 898304.1306875; Thu, 27 Feb 2025 17:01:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tng1P-0002IG-8m; Thu, 27 Feb 2025 15:41:59 +0000
-Received: by outflank-mailman (input) for mailman id 898284;
- Thu, 27 Feb 2025 15:41:57 +0000
+	id 1tnhGG-0006vT-ML; Thu, 27 Feb 2025 17:01:24 +0000
+Received: by outflank-mailman (input) for mailman id 898304;
+ Thu, 27 Feb 2025 17:01:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1jS7=VS=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tng1N-0002IA-QJ
- for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 15:41:57 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ <SRS0=ymMN=VS=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1tnhGE-0006vN-Qr
+ for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 17:01:23 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20600.outbound.protection.outlook.com
+ [2a01:111:f403:200a::600])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5ff0ca6d-f521-11ef-9aaf-95dc52dad729;
- Thu, 27 Feb 2025 16:41:56 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-43948021a45so10630275e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 27 Feb 2025 07:41:56 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-390e485db6csm2411745f8f.91.2025.02.27.07.41.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Feb 2025 07:41:55 -0800 (PST)
+ id 76806950-f52c-11ef-9aaf-95dc52dad729;
+ Thu, 27 Feb 2025 18:01:20 +0100 (CET)
+Received: from MW4P221CA0026.NAMP221.PROD.OUTLOOK.COM (2603:10b6:303:8b::31)
+ by SJ0PR12MB6760.namprd12.prod.outlook.com (2603:10b6:a03:44c::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.22; Thu, 27 Feb
+ 2025 17:01:13 +0000
+Received: from SJ5PEPF00000203.namprd05.prod.outlook.com
+ (2603:10b6:303:8b:cafe::fa) by MW4P221CA0026.outlook.office365.com
+ (2603:10b6:303:8b::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8489.21 via Frontend Transport; Thu,
+ 27 Feb 2025 17:01:13 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF00000203.mail.protection.outlook.com (10.167.244.36) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8489.16 via Frontend Transport; Thu, 27 Feb 2025 17:01:13 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 27 Feb
+ 2025 11:01:12 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 27 Feb
+ 2025 11:01:12 -0600
+Received: from [172.31.223.240] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Thu, 27 Feb 2025 11:01:11 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,138 +63,274 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5ff0ca6d-f521-11ef-9aaf-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1740670916; x=1741275716; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=OMQZlKirdFQ93tCHKH2Zyfc9AsOqnh62+vTF47YL1ww=;
-        b=R/1wrYOAZNUPkAG0O8aqqzmUpXuRDNHvR6r8y8H5DQAFt7THKu9HvhA/Bkp8syGQBd
-         5DnjUb6GWZyLkCzNuunJuc1JSSBFk8WjJlatMu6wblbPCQV0jbNKSxsqNbZxIoapIv8v
-         TjejnQIH1V+PRCFo1JgMRYaus/LiB/w0wJAZA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740670916; x=1741275716;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=OMQZlKirdFQ93tCHKH2Zyfc9AsOqnh62+vTF47YL1ww=;
-        b=VJnaPzd/GSrP8NFKbJlDQXNpHCpDWN+GivH0LEXRm4jzvbz8uhSoa13xYaywlJYOd6
-         pSXaP2B8KFg5pXM1VotDeDHVqdvg+liPR0YmhERS0T/hq61HAwntzn2YS1FnXPiW0cT/
-         In7aPWPfB+SBk9ZZCr/gUHqpUlDh6LsSfuLkxoLIK3Ec4gOH1C4JYqEQlyvIjGoAwAPk
-         hZScxfrw/PKc4w8aX8m0htOj211m3RjXlkrCxvYrnHoIj4BnQP6cYRECKNt5SMiDPnYO
-         8QF7UDCjLl3SF4CXiTDU6q1KA/RDAZeTuWsnN36bScKkdkNW/hbIIcqwNeH9KVM5TRvW
-         Gn/A==
-X-Forwarded-Encrypted: i=1; AJvYcCVMyLUisRsxRwiqvwlM7PZYrA2UYjclGp+gwP1yPbOpCcuGWk9kN1c2JVC5xZefeGp4oGPDCGcEIws=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw/QmqNL7V8PslFebzntB+fFkslN/eWbWgUccJ1fJ4gHgcUiAE0
-	J+/ahHjPjJ5MzFxiZCOJTlJGuE8pXvi9BTKcJWIWt7H+Rc+TT7JAaBuxAg3Ovj4=
-X-Gm-Gg: ASbGncspRccibhP7sUFMGcxU6piM/T7BYovx8submNZwAjlZpJXC2dazDVdIm6WcjOt
-	7EpVcZovb20gGC957z2YlGEDGqrB9M3ermvmjJHr3fVtuo8dZJXPBslGdvCs2/TNvvmv13M4fos
-	MUfa/DLcLgqZ8H8FVCDz9NLio6f3k1mxeX6PiL0Mo8K4jRoTf3hPg67dXeXX/ff4p2MKPGjJci3
-	TvRItgMEr3I/NpCD/EmbOz3N841zrUUR2OVH2BZv8UVfbsUIN3LguH57E62fdiEf+cnwxe7fIu3
-	B+XtCb6+IgtH0+U9G6bZWtQSwVkChLvPmRVUt6VfqwF5DiSyY0kpdjg/Q/H05mRzOg==
-X-Google-Smtp-Source: AGHT+IEJtqX9D/EnATB3q8S7eg05lIwQjKQrkt4DszCUkwtBWX6WO6DqHDmYAHrCmh4AyuEGwQfYcw==
-X-Received: by 2002:a05:600c:4ec8:b0:439:7c0b:13f6 with SMTP id 5b1f17b1804b1-43ab9048304mr70380465e9.31.1740670915890;
-        Thu, 27 Feb 2025 07:41:55 -0800 (PST)
-Message-ID: <a14c6897-075c-4b2c-8906-75eb96d5c430@citrix.com>
-Date: Thu, 27 Feb 2025 15:41:54 +0000
+X-Inumbo-ID: 76806950-f52c-11ef-9aaf-95dc52dad729
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MApFYMUYn+xvkVj9y8Av7JWsbO3CRjM3wh9vGz0ZMVOmeuKpfC03tlr8B75jj3Arr/j7UgevkteP28IdxO4nGi/mzgD+rp+RTEZrxeEuBGtwPDrKk0cp3fTeerYsEKRbJiBf2+sl/KnHZ7Yb762VWl7Jp32Eip9orBi+w5zMhgLjp3ZDqVa8SvOY/Zikg0TEwIEO2U8XQF5xChhtH121U83/mFLPuj1dnubcj6VOHt/+RsJOXnst8PMlTmr4+T7VV7i1+wtztLWUfr4q400KDZmn1N6rcEq8+WriNe8ivJISKeLMewYqOiI06WtwDk9uy/1XDiLLuy2sv1wAzUW6Ng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xhKuUpZecKTNwDmLytBusoiddkioKQTZcl1zI3RVgL8=;
+ b=ly7QRXu7kYqHK71aCdznthaXUDSMcDoMeh6u0k9eGnQ1+y+SsNL4pkId91U5YfKUiamsEXPR2Td+bEhhYZBj+TaXC/VLWf9kNhfW55XdyO9PX62VaqPcXzhxaqPc5b6kUhZsO5iupWg85dpoX+UzQ/sKMW6IadepSeTmqq1qi5FFNDiybF6Q8fsJN8oZ24jVrkjJgvwcqiMU6mwXV5a9xIAos3JOZWxqndJvdqWIPp4x8RqNTH+2ZnKzYlji0qGDNmNGBrdwV4dYYNUGrtQbRvTvX1UpXyQF/54ynRy0I23ZePc/1G59qHdV3w4mz1lRXaYNUhUpzSFEQi2AF4EENA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xhKuUpZecKTNwDmLytBusoiddkioKQTZcl1zI3RVgL8=;
+ b=11zRDWFagLIhlM/kIAovW9w7URqhdvGvVT2FxphW3G9rpyp58qwcJsImC++IzvCAlzV6li182qHcZOT6zv8h+AXfaVYdkRWmsKnUydSM6gVTKel9HHCefDUe12eaWjbohNDJVCmbT3QrmjvlBU8YFZfM5E3aT2ADidL+mJAWdvc=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <aea5703c-9392-4b80-b517-cc411265e264@amd.com>
+Date: Thu, 27 Feb 2025 11:49:48 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen: Add support for XenServer 6.1 platform device
-To: Frediano Ziglio <frediano.ziglio@cloud.com>,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- linux-pci@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Bjorn Helgaas <bhelgaas@google.com>
-References: <20250225140400.23992-1-frediano.ziglio@cloud.com>
- <20250227145016.25350-1-frediano.ziglio@cloud.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20250227145016.25350-1-frediano.ziglio@cloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [RFC PATCH] xen/amd-iommu: Add interrupt remapping quirk for
+ ath11k
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
+ Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, "Xenia
+ Ragiadakou" <xenia.ragiadakou@amd.com>, <xen-devel@lists.xenproject.org>
+References: <20250226211125.43625-1-jason.andryuk@amd.com>
+ <5184725e-baf6-460f-a8ee-2bb9982d7adc@suse.com>
+Content-Language: en-US
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <5184725e-baf6-460f-a8ee-2bb9982d7adc@suse.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB05.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF00000203:EE_|SJ0PR12MB6760:EE_
+X-MS-Office365-Filtering-Correlation-Id: d2667eb9-35ce-4e0e-8989-08dd57505780
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700013|376014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?dmpzUEVrS3kybTVyQUJsNTh1aEVQSEZwNzlJRlBJVnh1OW4yalVaYnhZZHhq?=
+ =?utf-8?B?eE9JaFRmamY3VEZnYndNNktvZklEOFpLVlpXeFpjVGVBekt0SXB4TkRIMEpo?=
+ =?utf-8?B?aVgzYmNuK0lYZWhZYlhlVjdXRU80VnJvcS91UjVkSmY1Rit5eFluTE1udnZU?=
+ =?utf-8?B?QXRKMGE5dUhOamc5ZjRJbEl0TWlISjBaTmdCbXhhREU1YldyQmhBTkVTQ2xR?=
+ =?utf-8?B?bDBvYlJsdVJPV1BtdkFrMFpTMGdZSlYxTW5FZXp1cjRad1d6Y3FmekdQM3Jq?=
+ =?utf-8?B?M0U2ck5DcUdaS3loamZqT0dncm5KWllrclFYaUlENTFTWms5WWVsQVVoUkJh?=
+ =?utf-8?B?dkdhWkpLWmNzN1ZWMmNFSzJNUEw4SXpGaEc0c041VDJSaTlubmlER09XeVVI?=
+ =?utf-8?B?L2JBbGpzdWZZZ3BaOVMwMGZ1NmRBeWpBVCtmYVBEUUJucno0S3BqaWhNaWhN?=
+ =?utf-8?B?dU1oNzMyazB6TFlWMTZETTJocXR4V3RYTC9aaTc4YkxXRjlJcUhuNWFCWE9K?=
+ =?utf-8?B?MkIrQ3pnbTRJUkFhdzl3N2ZqTjI2TkpELzBXWnNueFVlaFBCTTZiQkdjOGVO?=
+ =?utf-8?B?QU04M0dFNERQQmtiWnYrQjlYRVZLc1Vna05XeHNlRDlHb3hubFIxcG5DTWlB?=
+ =?utf-8?B?QVlYdzh5NW1NMFNWTmpIWlVIZCtUS1A0NFFWblNSdXRXODZaaGVaYlFPZHlC?=
+ =?utf-8?B?eDVWYm9tenpNdFZIR0s0cDFISnNaNUw4bHRuMi9JakdZL0prK2ZpR1Z1Wndu?=
+ =?utf-8?B?ZFVDNGExWGhRckE3S1NudWREQnpoc2hjRUVtVVhiZE1HdFJWK3liZlEzZHVi?=
+ =?utf-8?B?a1VkdFVZcGhWWXhOQ0J0V1p0d2VpL2VvNWFJQkhWY0ZZVlM4VUIybExtQWRP?=
+ =?utf-8?B?MGRqbDIxelc4SUx4N3dCZjFENzdvYXN2Tm1YV0tiQkJidXM3VnVsL2NVWlFH?=
+ =?utf-8?B?Mks1VnBzWWw5Z3I1aHROS2dOaDA0SFhaa0E5cmFZcGVwS2d0QUV6M09VdXdX?=
+ =?utf-8?B?Nkh6QlIzb0ZRUUdGNm5ZNXFralVlVFVsNGp6Mk0rY1BoWjllbmRTSjJTdE1U?=
+ =?utf-8?B?d3FkZktvdDJwL0tvdGk3SUt4bHQrSXpoQmZJY2JIeWxUWUI0djNoZkFvcFpv?=
+ =?utf-8?B?bktmR3hkclpML0RiWVVtOUlyN0gzekRoVjhoYTY4cnpoYll4ZmNKNlpBWEZP?=
+ =?utf-8?B?MHZIMFQxaWFKS1ZaL3AvYUlpMGlWcmlSSU1PeUcvRTJ0TmU4VTFHamVTdlJ0?=
+ =?utf-8?B?bk4yNk4zaGRNemJBMnNveDRUdXc3MllRb3ltWmxGdnRSN0hWdzgrNGt0TnpE?=
+ =?utf-8?B?L3F0RzN2WkJzNVNCY214Y0dIdjZ3NjdwR0NBMEx2Vm9qay9iT282U1lHRVEx?=
+ =?utf-8?B?R3RaVU1TNmJKZFd0cXY3WDJQQmoza2hOQmxYa1NFRGhrbExQb3Z4SnEwV2Mz?=
+ =?utf-8?B?S01DV1BwLzFTY1o1K0Z0bHlzMEFTVmRYSDNCSC9yNWJGYXRGZnl1VnhuQTFF?=
+ =?utf-8?B?M2h0N0NyMUt1NDFCTXZVWHpsVS9tR3dsQk16UHRMUmhkR2lMNHl2dDR2Yjdt?=
+ =?utf-8?B?bGhwTDhMZlFhT0JvZlRoaVllT05GS21KUE5VREhKNDdvVzVYekp2MDhuQ0pZ?=
+ =?utf-8?B?TXZFeWIxbVRhcmdobDFjemU0NnlwMGRsOHFXMmF3aDZMZ2xpdXRaeTVLbm85?=
+ =?utf-8?B?V3djODVFbzN2VnlMRjVVTjhmaHlzK0hmZjV6NURMTUxOSStXYmhEa29RdW1x?=
+ =?utf-8?B?Sm9KeDFXSUJNcmVLSWlFd3J5aWZ2ODZTTGhLRDF6SW1GWm8yRDZuQzl3dFVG?=
+ =?utf-8?B?QURoQWVkVmtGOWZoeU1IbUJ2VFB0TVJWSEplQ0JFRks5c3VZeHhicGtROSsy?=
+ =?utf-8?B?MkJOVDRQTFJPRlNWVEtUOXBtbHBTTzhPWUlZbUhoSW9BQkRRZUkvUHVBU0RM?=
+ =?utf-8?B?WGFzODVWS1VtaVhuNDJpUHVZSXRubkJXVURxT3VwUXpiUTI3UFZjQXhITUZR?=
+ =?utf-8?Q?GOVZlhVrxNu/Ar6YmsncMp+ehnAAqs=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2025 17:01:13.1801
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2667eb9-35ce-4e0e-8989-08dd57505780
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF00000203.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6760
 
-On 27/02/2025 2:50 pm, Frediano Ziglio wrote:
-> On XenServer on Windows machine a platform device with ID 2 instead of
-> 1 is used.
->
-> This device is mainly identical to device 1 but due to some Windows
-> update behaviour it was decided to use a device with a different ID.
->
-> This causes compatibility issues with Linux which expects, if Xen
-> is detected, to find a Xen platform device (5853:0001) otherwise code
-> will crash due to some missing initialization (specifically grant
-> tables). Specifically from dmesg
->
->     RIP: 0010:gnttab_expand+0x29/0x210
->     Code: 90 0f 1f 44 00 00 55 31 d2 48 89 e5 41 57 41 56 41 55 41 89 fd
->           41 54 53 48 83 ec 10 48 8b 05 7e 9a 49 02 44 8b 35 a7 9a 49 02
->           <8b> 48 04 8d 44 39 ff f7 f1 45 8d 24 06 89 c3 e8 43 fe ff ff
->           44 39
->     RSP: 0000:ffffba34c01fbc88 EFLAGS: 00010086
->     ...
->
-> The device 2 is presented by Xapi adding device specification to
-> Qemu command line.
->
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+On 2025-02-27 03:54, Jan Beulich wrote:
+> On 26.02.2025 22:11, Jason Andryuk wrote:
+>> Sometimes we have to quirk the PCI IRTE to use a non-zero remap_index
+>> corresponding to the guest's view of the MSI data register.  The MSI
+>> data guest vector equals interrupt remapping table index.
+>>
+>> The ath11k wifi device does unusual things with MSIs.  The driver lets
+>> Linux program the MSI capability.  Linux internally caches the MSI data
+>> it thinks it programmed.  It sets its affinity to CPU0.  The ath11k
+>> driver then reads the MSI address from the PCI configuration space.  The
+>> MSI address and cached data are then passed to other components on the
+>> same card to generate MSI interrupts.
+> 
+> I'm curious whether it's known how e.g. KVM deals with this.
 
-I'm split about this.  It's just papering over the bugs that exist
-elsewhere in the Xen initialisation code.
+There were some vfio patches that did not get merged, FWICT.  A Linux 
+patch added a quirk to allow the guest to read the hardware MSI values. 
+QEMU intercepted access to a memory region of a BAR and swapped guest 
+MSI values for hardware MSI values.
 
-But, if we're going to take this approach, then 0xc000 needs adding too,
-which is the other device ID you might find when trying to boot Linux in
-a VM configured using a Windows template.
+https://lore.kernel.org/ath11k/20240812170014.1583783-1-alex.williamson@redhat.com/
 
-Bjorn: to answer a prior question of yours, all 3 of these devices are
-identical, and exist in production for political reasons (bindings in
-Windows Updates) rather than technical reasons.
+I tried something similar, but abandoned it.  The ath11k driver uses 
+Linux's cached value of the guest MSI data and passes that to the 
+device.   It doesn't re-read the hardware value out of the configuration 
+space.  That made me think using the guest data as an index would be a 
+better workaround.
 
-~Andrew
+
+>> Signed-off-by: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> 
+> Just to clarify: Who's the original patch author? The common expectation
+> is that the first S-o-b: matches From:.
+
+I took Xenia's changes to xen/drivers/passthrough/pci.c and 
+xen/include/xen/pci.h from an earlier patch and re-used them.  I wrote 
+the rest, so I put myself in the Form: line.
+
+>> ---
+>> Is something like this feasible for inclusion upstream?  I'm asking
+>> before I look into what it would take to support Intel.
+> 
+> Well, I wouldn't outright say "no". It needs to be pretty clear that this
+> doesn't put at risk the "normal" cases. Which is going to be somewhat
+> difficult considering how convoluted the involved code (sadly) is. See
+> also the commentary related remark at the very bottom.
+
+Ok
+
+>> e.g. Replace amd_iommu_perdev_intremap with something generic.
+>>
+>> The ath11k device supports and tries to enable 32 MSIs.  Linux in PVH
+>> dom0 and HVM domU fails enabling 32 and falls back to just 1, so that is
+>> all that has been tested.
+>>
+>> Using msi_desc->gvec should be okay since with posted interrupts - the
+>> gvec is expected to match.
+>>
+>> hvm_pi_update_irte() changes the IRTE but not the MSI data in the PCI
+>> capability, so that isn't suitable by itself.
+> 
+> These last two paragraphs look to again be related to the VT-d aspect.
+> Yet there's the middle one which apparently doesn't, hence I'm uncertain
+> I read all of this as it's intended.
+
+Sorry, I was just putting down thoughts.  Yes, the last two were 
+thinking about VT-d integration.
+
+In terms of the number of MSI, I wanted to highlight that I only tested 
+with 1 MSI since I always worry about code I haven't tested.
+
+>> --- a/xen/drivers/passthrough/amd/iommu_intr.c
+>> +++ b/xen/drivers/passthrough/amd/iommu_intr.c
+>> @@ -543,6 +543,31 @@ int cf_check amd_iommu_msi_msg_update_ire(
+>>       if ( !msg )
+>>           return 0;
+>>   
+>> +    if ( pdev->gvec_as_irte_idx && amd_iommu_perdev_intremap )
+>> +    {
+>> +        int new_remap_index = 0;
+>> +        if ( msi_desc->gvec )
+>> +        {
+>> +            printk("%pp: gvec remap_index %#x -> %#x\n", &pdev->sbdf,
+>> +                   msi_desc->remap_index, msi_desc->gvec);
+>> +            new_remap_index = msi_desc->gvec;
+>> +        }
+>> +
+>> +        if ( new_remap_index && new_remap_index != msi_desc->remap_index &&
+>> +             msi_desc->remap_index != -1 )
+>> +        {
+>> +            /* Clear any existing entries */
+>> +            update_intremap_entry_from_msi_msg(iommu, bdf, nr,
+>> +                                               &msi_desc->remap_index,
+>> +                                               NULL, NULL);
+>> +
+>> +            for ( i = 0; i < nr; ++i )
+>> +                msi_desc[i].remap_index = -1;
+>> +
+>> +            msi_desc->remap_index = new_remap_index;
+> 
+> You zap nr entries, and then set only 1? Doesn't the zapping loop need to
+> instead be a setting one? Perhaps with a check up front that the last value
+> used will still fit in 8 bits? Or else make applying the quirk conditional
+> upon nr == 1?
+
+The code below here sets all `nr` entries on success:
+
+     rc = update_intremap_entry_from_msi_msg(iommu, bdf, nr,
+                                             &msi_desc->remap_index,
+                                             msg, &data);
+     if ( !rc )
+     {
+         for ( i = 1; i < nr; ++i )
+             msi_desc[i].remap_index = msi_desc->remap_index + i;
+         msg->data = data;
+     }
+
+     return rc;
+
+The single passed in &msi_desc->remap_index is used as the start value 
+(when < INTREMAP_MAX_ENTRIES) or is assigned a value.  Checking 
+remap_index + nr fits is a good idea.
+
+Maybe all the remap_index settting should be moved into 
+update_intremap_entry_from_msi_msg()?
+
+>> --- a/xen/drivers/passthrough/pci.c
+>> +++ b/xen/drivers/passthrough/pci.c
+>> @@ -306,6 +306,17 @@ static void apply_quirks(struct pci_dev *pdev)
+
+>> +#define QCA6390_DEVICE_ID		0x1101
+>> +#define QCN9074_DEVICE_ID		0x1104
+>> +#define WCN6855_DEVICE_ID		0x1103
+>> +        { PCI_VENDOR_ID_QCOM, QCA6390_DEVICE_ID },
+>> +        { PCI_VENDOR_ID_QCOM, QCN9074_DEVICE_ID },
+>> +        { PCI_VENDOR_ID_QCOM, WCN6855_DEVICE_ID },
+>> +    };
+> 
+> May I ask what's the source of information on which specific devices are
+> affected by this anomalous behavior? Just the Linux driver?
+
+These are just taken from the Linux driver.  Tested with WCN6855 0x1103.
+
+> I'm also uncertain #define-s are very useful in such a case. Raw hex numbers
+> in the table with a comment indicating the device name ought to be as fine.
+
+Ok.
+
+>> --- a/xen/include/xen/pci.h
+>> +++ b/xen/include/xen/pci.h
+>> @@ -127,6 +127,8 @@ struct pci_dev {
+>>       /* Device with errata, ignore the BARs. */
+>>       bool ignore_bars;
+>>   
+>> +    bool gvec_as_irte_idx;
+>> +
+>>       /* Device misbehaving, prevent assigning it to guests. */
+>>       bool broken;
+>>   
+> 
+> Overall more commentary would be needed throughout the patch. This field is
+> just one example where some minimal explanation is missing.
+
+Ok.
+
+Thanks for taking a look.
+
+Regards,
+Jason
 
