@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A568BA47E49
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 13:54:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.898008.1306601 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02CEBA47EB8
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 14:16:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.898087.1306653 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tndOb-0001S2-Of; Thu, 27 Feb 2025 12:53:45 +0000
+	id 1tndjm-0007GQ-Tn; Thu, 27 Feb 2025 13:15:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 898008.1306601; Thu, 27 Feb 2025 12:53:45 +0000
+Received: by outflank-mailman (output) from mailman id 898087.1306653; Thu, 27 Feb 2025 13:15:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tndOb-0001Pc-Jw; Thu, 27 Feb 2025 12:53:45 +0000
-Received: by outflank-mailman (input) for mailman id 898008;
- Thu, 27 Feb 2025 12:53:43 +0000
+	id 1tndjm-0007DU-RI; Thu, 27 Feb 2025 13:15:38 +0000
+Received: by outflank-mailman (input) for mailman id 898087;
+ Thu, 27 Feb 2025 13:15:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XPKz=VS=xenbits.xen.org=andrewcoop@srs-se1.protection.inumbo.net>)
- id 1tndOZ-0001LK-UJ
- for xen-devel@lists.xen.org; Thu, 27 Feb 2025 12:53:43 +0000
-Received: from mail.xenproject.org (mail.xenproject.org [104.130.215.37])
+ <SRS0=yTe9=VS=linux.intel.com=kirill.shutemov@srs-se1.protection.inumbo.net>)
+ id 1tndjl-0007D8-30
+ for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 13:15:37 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dc357fad-f509-11ef-9898-31a8f345e629;
- Thu, 27 Feb 2025 13:53:38 +0100 (CET)
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <andrewcoop@xenbits.xen.org>) id 1tndOP-008PWx-0O;
- Thu, 27 Feb 2025 12:53:32 +0000
-Received: from andrewcoop by xenbits.xenproject.org with local (Exim 4.96)
- (envelope-from <andrewcoop@xenbits.xen.org>) id 1tndOO-00CM3B-2R;
- Thu, 27 Feb 2025 12:53:32 +0000
+ id ebbf656f-f50c-11ef-9898-31a8f345e629;
+ Thu, 27 Feb 2025 14:15:34 +0100 (CET)
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Feb 2025 05:15:30 -0800
+Received: from black.fi.intel.com ([10.237.72.28])
+ by fmviesa001.fm.intel.com with ESMTP; 27 Feb 2025 05:15:24 -0800
+Received: by black.fi.intel.com (Postfix, from userid 1000)
+ id 8582D2D5; Thu, 27 Feb 2025 15:15:23 +0200 (EET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,186 +43,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dc357fad-f509-11ef-9898-31a8f345e629
-Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
-Content-Transfer-Encoding: binary
+X-Inumbo-ID: ebbf656f-f50c-11ef-9898-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1740662134; x=1772198134;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=10uz/6GHPznmkoEebLO3Ry9z1Iblsqs6tsAuZLbb6pM=;
+  b=iaUIkNjGZ+L3pCBA4nu94Ss+gkJtErF6nqlG3qeiSxk9gve4Em4LzKC2
+   55exIcdSK2BKrI+AhfwIJ0zTYxAeS9Eo/bi6Vd374OIc0JmC+WsY9rSvR
+   gW4HqLANJPhz2r7EL9SuNcfBAvLoqMv+gYrTarHsThCk4mUuf2bRu0LOV
+   eKDn4JCSFFYwtu2UraCdq2yOn6+Ls73FxiKbJN8JGhB9QKJ2lWgF50Iuc
+   ZC3fgvNZzCI0qDxYTn5D6evr6zhTo9fieDKQ5CKQyvRbB0dJKfwHMPoOU
+   PERUZ3Otj1SZ5STM9uLfvqTiGHKGpqlkf8XNZUt55S/9VdjtFepYicExs
+   w==;
+X-CSE-ConnectionGUID: xne8VhtPQH++dIHBFguDeQ==
+X-CSE-MsgGUID: hbL4G4qPRjW8nMwz3KS1sw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11358"; a="52945591"
+X-IronPort-AV: E=Sophos;i="6.13,319,1732608000"; 
+   d="scan'208";a="52945591"
+X-CSE-ConnectionGUID: YSzANlW6TheqXNJb8PsEYQ==
+X-CSE-MsgGUID: IW3p7XzcS9++CSw8VxGIiQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; 
+   d="scan'208";a="147939679"
+Date: Thu, 27 Feb 2025 15:15:23 +0200
+From: "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	Paolo Bonzini <pbonzini@redhat.com>, Juergen Gross <jgross@suse.com>, 
+	"K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, 
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, 
+	Ajay Kaher <ajay.kaher@broadcom.com>, Jan Kiszka <jan.kiszka@siemens.com>, 
+	Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Daniel Lezcano <daniel.lezcano@linaro.org>, John Stultz <jstultz@google.com>, linux-kernel@vger.kernel.org, 
+	linux-coco@lists.linux.dev, kvm@vger.kernel.org, virtualization@lists.linux.dev, 
+	linux-hyperv@vger.kernel.org, xen-devel@lists.xenproject.org, 
+	Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>
+Subject: Re: [PATCH v2 06/38] x86/tdx: Override PV calibration routines with
+ CPUID-based calibration
+Message-ID: <buq5hn27q7r5ktb33rxejp7i54s22zqu3vw44bie6vzcouzzdc@btjgkdpoeclw>
+References: <20250227021855.3257188-1-seanjc@google.com>
+ <20250227021855.3257188-7-seanjc@google.com>
 MIME-Version: 1.0
-X-Mailer: MIME-tools 5.510 (Entity 5.510)
-To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
- xen-users@lists.xen.org, oss-security@lists.openwall.com
-From: Xen.org security team <security@xen.org>
-CC: Xen.org security team <security-team-members@xen.org>
-Subject: Xen Security Advisory 467 v1 (CVE-2025-1713) - deadlock potential
- with VT-d and legacy PCI device pass-through
-Message-Id: <E1tndOO-00CM3B-2R@xenbits.xenproject.org>
-Date: Thu, 27 Feb 2025 12:53:32 +0000
-
---=separator
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250227021855.3257188-7-seanjc@google.com>
 
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+On Wed, Feb 26, 2025 at 06:18:22PM -0800, Sean Christopherson wrote:
+> When running as a TDX guest, explicitly override the TSC frequency
+> calibration routine with CPUID-based calibration instead of potentially
+> relying on a hypervisor-controlled PV routine.  For TDX guests, CPUID.0x15
+> is always emulated by the TDX-Module, i.e. the information from CPUID is
+> more trustworthy than the information provided by the hypervisor.
+> 
+> To maintain backwards compatibility with TDX guest kernels that use native
+> calibration, and because it's the least awful option, retain
+> native_calibrate_tsc()'s stuffing of the local APIC bus period using the
+> core crystal frequency.  While it's entirely possible for the hypervisor
+> to emulate the APIC timer at a different frequency than the core crystal
+> frequency, the commonly accepted interpretation of Intel's SDM is that APIC
+> timer runs at the core crystal frequency when that latter is enumerated via
+> CPUID:
+> 
+>   The APIC timer frequency will be the processor’s bus clock or core
+>   crystal clock frequency (when TSC/core crystal clock ratio is enumerated
+>   in CPUID leaf 0x15).
+> 
+> If the hypervisor is malicious and deliberately runs the APIC timer at the
+> wrong frequency, nothing would stop the hypervisor from modifying the
+> frequency at any time, i.e. attempting to manually calibrate the frequency
+> out of paranoia would be futile.
+> 
+> Deliberately leave the CPU frequency calibration routine as is, since the
+> TDX-Module doesn't provide any guarantees with respect to CPUID.0x16.
+> 
+> Opportunistically add a comment explaining that CoCo TSC initialization
+> needs to come after hypervisor specific initialization.
+> 
+> Cc: Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> ---
+>  arch/x86/coco/tdx/tdx.c    | 30 +++++++++++++++++++++++++++---
+>  arch/x86/include/asm/tdx.h |  2 ++
+>  arch/x86/kernel/tsc.c      |  8 ++++++++
+>  3 files changed, 37 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/x86/coco/tdx/tdx.c b/arch/x86/coco/tdx/tdx.c
+> index 32809a06dab4..42cdaa98dc5e 100644
+> --- a/arch/x86/coco/tdx/tdx.c
+> +++ b/arch/x86/coco/tdx/tdx.c
+> @@ -8,6 +8,7 @@
+>  #include <linux/export.h>
+>  #include <linux/io.h>
+>  #include <linux/kexec.h>
+> +#include <asm/apic.h>
+>  #include <asm/coco.h>
+>  #include <asm/tdx.h>
+>  #include <asm/vmx.h>
+> @@ -1063,9 +1064,6 @@ void __init tdx_early_init(void)
+>  
+>  	setup_force_cpu_cap(X86_FEATURE_TDX_GUEST);
+>  
+> -	/* TSC is the only reliable clock in TDX guest */
+> -	setup_force_cpu_cap(X86_FEATURE_TSC_RELIABLE);
+> -
+>  	cc_vendor = CC_VENDOR_INTEL;
+>  
+>  	/* Configure the TD */
+> @@ -1122,3 +1120,29 @@ void __init tdx_early_init(void)
+>  
+>  	tdx_announce();
+>  }
+> +
+> +static unsigned long tdx_get_tsc_khz(void)
+> +{
+> +	struct cpuid_tsc_info info;
+> +
+> +	if (WARN_ON_ONCE(cpuid_get_tsc_freq(&info)))
+> +		return 0;
+> +
+> +	lapic_timer_period = info.crystal_khz * 1000 / HZ;
+> +
+> +	return info.tsc_khz;
+> +}
+> +
+> +void __init tdx_tsc_init(void)
+> +{
+> +	/* TSC is the only reliable clock in TDX guest */
+> +	setup_force_cpu_cap(X86_FEATURE_TSC_RELIABLE);
+> +	setup_force_cpu_cap(X86_FEATURE_TSC_KNOWN_FREQ);
+> +
+> +	/*
+> +	 * Override the PV calibration routines (if set) with more trustworthy
+> +	 * CPUID-based calibration.  The TDX module emulates CPUID, whereas any
+> +	 * PV information is provided by the hypervisor.
+> +	 */
+> +	tsc_register_calibration_routines(tdx_get_tsc_khz, NULL);
+> +}
+> diff --git a/arch/x86/include/asm/tdx.h b/arch/x86/include/asm/tdx.h
+> index b4b16dafd55e..621fbdd101e2 100644
+> --- a/arch/x86/include/asm/tdx.h
+> +++ b/arch/x86/include/asm/tdx.h
+> @@ -53,6 +53,7 @@ struct ve_info {
+>  #ifdef CONFIG_INTEL_TDX_GUEST
+>  
+>  void __init tdx_early_init(void);
+> +void __init tdx_tsc_init(void);
+>  
+>  void tdx_get_ve_info(struct ve_info *ve);
+>  
+> @@ -72,6 +73,7 @@ void __init tdx_dump_td_ctls(u64 td_ctls);
+>  #else
+>  
+>  static inline void tdx_early_init(void) { };
+> +static inline void tdx_tsc_init(void) { }
+>  static inline void tdx_safe_halt(void) { };
+>  
+>  static inline bool tdx_early_handle_ve(struct pt_regs *regs) { return false; }
+> diff --git a/arch/x86/kernel/tsc.c b/arch/x86/kernel/tsc.c
+> index 6a011cd1ff94..472d6c71d3a5 100644
+> --- a/arch/x86/kernel/tsc.c
+> +++ b/arch/x86/kernel/tsc.c
+> @@ -32,6 +32,7 @@
+>  #include <asm/topology.h>
+>  #include <asm/uv/uv.h>
+>  #include <asm/sev.h>
+> +#include <asm/tdx.h>
+>  
+>  unsigned int __read_mostly cpu_khz;	/* TSC clocks / usec, not used here */
+>  EXPORT_SYMBOL(cpu_khz);
+> @@ -1563,8 +1564,15 @@ void __init tsc_early_init(void)
+>  	if (is_early_uv_system())
+>  		return;
+>  
+> +	/*
+> +	 * Do CoCo specific "secure" TSC initialization *after* hypervisor
+> +	 * platform initialization so that the secure variant can override the
+> +	 * hypervisor's PV calibration routine with a more trusted method.
+> +	 */
+>  	if (cc_platform_has(CC_ATTR_GUEST_SNP_SECURE_TSC))
+>  		snp_secure_tsc_init();
+> +	else if (boot_cpu_has(X86_FEATURE_TDX_GUEST))
+> +		tdx_tsc_init();
 
-            Xen Security Advisory CVE-2025-1713 / XSA-467
+Maybe a x86_platform.guest callback for this?
 
-    deadlock potential with VT-d and legacy PCI device pass-through
 
-ISSUE DESCRIPTION
-=================
-
-When setting up interrupt remapping for legacy PCI(-X) devices,
-including PCI(-X) bridges, a lookup of the upstream bridge is required.
-This lookup, itself involving acquiring of a lock, is done in a context
-where acquiring that lock is unsafe.  This can lead to a deadlock.
-
-IMPACT
-======
-
-The passing through of certain kinds of devices to an unprivileged guest
-can result in a Denial of Service (DoS) affecting the entire host.
-
-Note: Normal usage of such devices by a privileged domain can also
-      trigger the issue.  In such a scenario, the deadlock is not
-      considered a security issue, but just a plain bug.
-
-VULNERABLE SYSTEMS
-==================
-
-Xen versions 4.0 and later are affected.  Xen versions 3.4 and earlier
-are not directly affected, but had other issues.
-
-Systems with Intel IOMMU hardware (VT-d) are affected.  Systems using
-AMD or non-x86 hardware are not affected.
-
-Only systems where certain kinds of devices are passed through to an
-unprivileged guest are vulnerable.
-
-MITIGATION
-==========
-
-Avoiding the passing through of the affected device types will avoid
-the vulnerability.
-
-RESOLUTION
-==========
-
-Applying the attached patch resolves this issue.
-
-Note that patches for released versions are generally prepared to
-apply to the stable branches, and may not apply cleanly to the most
-recent release tarball.  Downstreams are encouraged to update to the
-tip of the stable branch before applying these patches.
-
-xsa467.patch           xen-unstable - Xen 4.17.x
-
-$ sha256sum xsa467*
-2fffaa8892b3daecd698b4af95701045874a76edc2e18c8d2abbec85a39aa05c  xsa467.patch
-$
-
-NOTE REGARDING LACK OF EMBARGO
-==============================
-
-The issue was reported initially on a public bug tracker and discussed in
-public before it was realized that there was a security aspect.
------BEGIN PGP SIGNATURE-----
-
-iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAmfAX/kMHHBncEB4ZW4u
-b3JnAAoJEIP+FMlX6CvZ++UH/0n3V1omvWiPXQCSOl+HawK77MezS2MkjRx6HQ/N
-0SeaaWodvhBMeGd/FAECc7CY3G+sdLkOmwpVFtKvxBOjMRyEc6IsqdAa1CxkUZ0p
-S+K7/MNmBB8qzB73sSpFpssR7NYGQXTQNxbQOuYURSyyZK5yejavgQ0oTc8jhhsH
-NQOaTJPU/p6HBjDRlPcWB9EraJlPsr2iqv4FrbzDK+dS+I8BpfmElpnJkQOiOECg
-McfLgod2jwV8y9l9Zvzx8IXJMkWxIHTdXkgmZq2sDr6foiFEbFUHV1ZG0rr8l+Sl
-ckqx01g9UEDVmvjasWVjxeZUiaMLtppAp3SrewGjGwlx6oA=
-=3+H1
------END PGP SIGNATURE-----
-
---=separator
-Content-Type: application/octet-stream; name="xsa467.patch"
-Content-Disposition: attachment; filename="xsa467.patch"
-Content-Transfer-Encoding: base64
-
-RnJvbTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgpTdWJqZWN0
-OiBJT01NVS94ODY6IHRoZSBidXMtdG8tYnJpZGdlIGxvY2sgbmVlZHMgdG8g
-YmUgYWNxdWlyZWQgSVJRLXNhZmUKClRoZSBmdW5jdGlvbidzIHVzZSBmcm9t
-IHNldF9tc2lfc291cmNlX2lkKCkgaXMgZ3VhcmFudGVlZCB0byBiZSBpbiBh
-bgpJUlFzLW9mZiByZWdpb24uIFdoaWxlIHRoZSBpbnZvY2F0aW9uIG9mIHRo
-YXQgZnVuY3Rpb24gY291bGQgYmUgbW92ZWQKYWhlYWQgaW4gbXNpX21zZ190
-b19yZW1hcF9lbnRyeSgpIChkb2Vzbid0IG5lZWQgdG8gYmUgaW4gdGhlIElP
-TU1VLQppbnRyZW1hcC1sb2NrZWQgcmVnaW9uKSwgdGhlIGNhbGwgdHJlZSBm
-cm9tIG1hcF9kb21haW5fcGlycSgpIGhvbGRzIGFuCklSUSBkZXNjcmlwdG9y
-IGxvY2suIEhlbmNlIGFsbCB1c2Ugc2l0ZXMgb2YgdGhlIGxvY2sgbmVlZCBi
-ZWNvbWUgSVJRLQpzYWZlIG9uZXMuCgpJbiBmaW5kX3Vwc3RyZWFtX2JyaWRn
-ZSgpIGRvIGEgdGlueSBiaXQgb2YgdGlkeWluZyBpbiBhZGphY2VudCBjb2Rl
-OgpDaGFuZ2UgYSB2YXJpYWJsZSdzIHR5cGUgdG8gdW5zaWduZWQgYW5kIG1l
-cmdlIGEgcmVkdW5kYW50IGFzc2lnbm1lbnQKaW50byBhbm90aGVyIHZhcmlh
-YmxlJ3MgaW5pdGlhbGl6ZXIuCgpUaGlzIGlzIFhTQS00NjcgLyBDVkUtMjAy
-NS0xNzEzLgoKRml4ZXM6IDQ3NmJiY2NjODExYyAoIlZULWQ6IGZpeCBNU0kg
-c291cmNlLWlkIG9mIGludGVycnVwdCByZW1hcHBpbmciKQpTaWduZWQtb2Zm
-LWJ5OiBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+ClJldmlld2Vk
-LWJ5OiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+ClJldmlld2Vk
-LWJ5OiBSb2dlciBQYXUgTW9ubsOpIDxyb2dlci5wYXVAY2l0cml4LmNvbT4K
-Ci0tLSBhL3hlbi9kcml2ZXJzL3Bhc3N0aHJvdWdoL3BjaS5jCisrKyBiL3hl
-bi9kcml2ZXJzL3Bhc3N0aHJvdWdoL3BjaS5jCkBAIC0zNTQsMjAgKzM1NCwy
-MSBAQCBzdGF0aWMgc3RydWN0IHBjaV9kZXYgKmFsbG9jX3BkZXYoc3RydWN0
-CiAgICAgc3dpdGNoICggcGRldi0+dHlwZSA9IHBkZXZfdHlwZShwc2VnLT5u
-ciwgYnVzLCBkZXZmbikgKQogICAgIHsKICAgICAgICAgdW5zaWduZWQgaW50
-IGNhcCwgc2VjX2J1cywgc3ViX2J1czsKKyAgICAgICAgdW5zaWduZWQgbG9u
-ZyBmbGFnczsKIAogICAgICAgICBjYXNlIERFVl9UWVBFX1BDSWUyUENJX0JS
-SURHRToKICAgICAgICAgY2FzZSBERVZfVFlQRV9MRUdBQ1lfUENJX0JSSURH
-RToKICAgICAgICAgICAgIHNlY19idXMgPSBwY2lfY29uZl9yZWFkOChwZGV2
-LT5zYmRmLCBQQ0lfU0VDT05EQVJZX0JVUyk7CiAgICAgICAgICAgICBzdWJf
-YnVzID0gcGNpX2NvbmZfcmVhZDgocGRldi0+c2JkZiwgUENJX1NVQk9SRElO
-QVRFX0JVUyk7CiAKLSAgICAgICAgICAgIHNwaW5fbG9jaygmcHNlZy0+YnVz
-MmJyaWRnZV9sb2NrKTsKKyAgICAgICAgICAgIHNwaW5fbG9ja19pcnFzYXZl
-KCZwc2VnLT5idXMyYnJpZGdlX2xvY2ssIGZsYWdzKTsKICAgICAgICAgICAg
-IGZvciAoIDsgc2VjX2J1cyA8PSBzdWJfYnVzOyBzZWNfYnVzKysgKQogICAg
-ICAgICAgICAgewogICAgICAgICAgICAgICAgIHBzZWctPmJ1czJicmlkZ2Vb
-c2VjX2J1c10ubWFwID0gMTsKICAgICAgICAgICAgICAgICBwc2VnLT5idXMy
-YnJpZGdlW3NlY19idXNdLmJ1cyA9IGJ1czsKICAgICAgICAgICAgICAgICBw
-c2VnLT5idXMyYnJpZGdlW3NlY19idXNdLmRldmZuID0gZGV2Zm47CiAgICAg
-ICAgICAgICB9Ci0gICAgICAgICAgICBzcGluX3VubG9jaygmcHNlZy0+YnVz
-MmJyaWRnZV9sb2NrKTsKKyAgICAgICAgICAgIHNwaW5fdW5sb2NrX2lycXJl
-c3RvcmUoJnBzZWctPmJ1czJicmlkZ2VfbG9jaywgZmxhZ3MpOwogICAgICAg
-ICAgICAgYnJlYWs7CiAKICAgICAgICAgY2FzZSBERVZfVFlQRV9QQ0llX0VO
-RFBPSU5UOgpAQCAtNDM3LDE2ICs0MzgsMTcgQEAgc3RhdGljIHZvaWQgZnJl
-ZV9wZGV2KHN0cnVjdCBwY2lfc2VnICpwcwogICAgIHN3aXRjaCAoIHBkZXYt
-PnR5cGUgKQogICAgIHsKICAgICAgICAgdW5zaWduZWQgaW50IHNlY19idXMs
-IHN1Yl9idXM7CisgICAgICAgIHVuc2lnbmVkIGxvbmcgZmxhZ3M7CiAKICAg
-ICAgICAgY2FzZSBERVZfVFlQRV9QQ0llMlBDSV9CUklER0U6CiAgICAgICAg
-IGNhc2UgREVWX1RZUEVfTEVHQUNZX1BDSV9CUklER0U6CiAgICAgICAgICAg
-ICBzZWNfYnVzID0gcGNpX2NvbmZfcmVhZDgocGRldi0+c2JkZiwgUENJX1NF
-Q09OREFSWV9CVVMpOwogICAgICAgICAgICAgc3ViX2J1cyA9IHBjaV9jb25m
-X3JlYWQ4KHBkZXYtPnNiZGYsIFBDSV9TVUJPUkRJTkFURV9CVVMpOwogCi0g
-ICAgICAgICAgICBzcGluX2xvY2soJnBzZWctPmJ1czJicmlkZ2VfbG9jayk7
-CisgICAgICAgICAgICBzcGluX2xvY2tfaXJxc2F2ZSgmcHNlZy0+YnVzMmJy
-aWRnZV9sb2NrLCBmbGFncyk7CiAgICAgICAgICAgICBmb3IgKCA7IHNlY19i
-dXMgPD0gc3ViX2J1czsgc2VjX2J1cysrICkKICAgICAgICAgICAgICAgICBw
-c2VnLT5idXMyYnJpZGdlW3NlY19idXNdID0gcHNlZy0+YnVzMmJyaWRnZVtw
-ZGV2LT5idXNdOwotICAgICAgICAgICAgc3Bpbl91bmxvY2soJnBzZWctPmJ1
-czJicmlkZ2VfbG9jayk7CisgICAgICAgICAgICBzcGluX3VubG9ja19pcnFy
-ZXN0b3JlKCZwc2VnLT5idXMyYnJpZGdlX2xvY2ssIGZsYWdzKTsKICAgICAg
-ICAgICAgIGJyZWFrOwogCiAgICAgICAgIGRlZmF1bHQ6CkBAIC0xMDUzLDgg
-KzEwNTUsOSBAQCBlbnVtIHBkZXZfdHlwZSBwZGV2X3R5cGUodTE2IHNlZywg
-dTggYnVzCiBpbnQgZmluZF91cHN0cmVhbV9icmlkZ2UodTE2IHNlZywgdTgg
-KmJ1cywgdTggKmRldmZuLCB1OCAqc2VjYnVzKQogewogICAgIHN0cnVjdCBw
-Y2lfc2VnICpwc2VnID0gZ2V0X3BzZWcoc2VnKTsKLSAgICBpbnQgcmV0ID0g
-MDsKLSAgICBpbnQgY250ID0gMDsKKyAgICBpbnQgcmV0ID0gMTsKKyAgICB1
-bnNpZ25lZCBsb25nIGZsYWdzOworICAgIHVuc2lnbmVkIGludCBjbnQgPSAw
-OwogCiAgICAgaWYgKCAqYnVzID09IDAgKQogICAgICAgICByZXR1cm4gMDsK
-QEAgLTEwNjUsOCArMTA2OCw3IEBAIGludCBmaW5kX3Vwc3RyZWFtX2JyaWRn
-ZSh1MTYgc2VnLCB1OCAqYnUKICAgICBpZiAoICFwc2VnLT5idXMyYnJpZGdl
-WypidXNdLm1hcCApCiAgICAgICAgIHJldHVybiAwOwogCi0gICAgcmV0ID0g
-MTsKLSAgICBzcGluX2xvY2soJnBzZWctPmJ1czJicmlkZ2VfbG9jayk7Cisg
-ICAgc3Bpbl9sb2NrX2lycXNhdmUoJnBzZWctPmJ1czJicmlkZ2VfbG9jaywg
-ZmxhZ3MpOwogICAgIHdoaWxlICggcHNlZy0+YnVzMmJyaWRnZVsqYnVzXS5t
-YXAgKQogICAgIHsKICAgICAgICAgKnNlY2J1cyA9ICpidXM7CkBAIC0xMDgw
-LDcgKzEwODIsNyBAQCBpbnQgZmluZF91cHN0cmVhbV9icmlkZ2UodTE2IHNl
-ZywgdTggKmJ1CiAgICAgfQogCiBvdXQ6Ci0gICAgc3Bpbl91bmxvY2soJnBz
-ZWctPmJ1czJicmlkZ2VfbG9jayk7CisgICAgc3Bpbl91bmxvY2tfaXJxcmVz
-dG9yZSgmcHNlZy0+YnVzMmJyaWRnZV9sb2NrLCBmbGFncyk7CiAgICAgcmV0
-dXJuIHJldDsKIH0KIAo=
-
---=separator--
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
 
