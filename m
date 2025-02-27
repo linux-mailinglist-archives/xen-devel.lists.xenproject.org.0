@@ -2,43 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA29AA48A7F
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 22:30:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.898428.1306984 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53B11A48CA5
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Feb 2025 00:19:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.898444.1307006 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnlRf-0006kV-6A; Thu, 27 Feb 2025 21:29:27 +0000
+	id 1tnn9U-0007Hk-Mk; Thu, 27 Feb 2025 23:18:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 898428.1306984; Thu, 27 Feb 2025 21:29:27 +0000
+Received: by outflank-mailman (output) from mailman id 898444.1307006; Thu, 27 Feb 2025 23:18:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnlRf-0006i9-3O; Thu, 27 Feb 2025 21:29:27 +0000
-Received: by outflank-mailman (input) for mailman id 898428;
- Thu, 27 Feb 2025 21:29:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tnn9U-0007GX-JL; Thu, 27 Feb 2025 23:18:48 +0000
+Received: by outflank-mailman (input) for mailman id 898444;
+ Thu, 27 Feb 2025 23:18:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=R0Xv=VS=redhat.com=vschneid@srs-se1.protection.inumbo.net>)
- id 1tnlRe-0006i3-0P
- for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 21:29:26 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e6cacf67-f551-11ef-9898-31a8f345e629;
- Thu, 27 Feb 2025 22:29:19 +0100 (CET)
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-57-Cwkv29pANl6bxja5rx7yIw-1; Thu, 27 Feb 2025 16:29:16 -0500
-Received: by mail-wr1-f71.google.com with SMTP id
- ffacd0b85a97d-38f28a4647eso652655f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 27 Feb 2025 13:29:16 -0800 (PST)
-Received: from vschneid-thinkpadt14sgen2i.remote.csb
- (213-44-141-166.abo.bbox.fr. [213.44.141.166])
+ <SRS0=1jS7=VS=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tnn9T-0007GR-Bt
+ for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 23:18:47 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3148c372-f561-11ef-9aaf-95dc52dad729;
+ Fri, 28 Feb 2025 00:18:46 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-4394345e4d5so10786305e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Feb 2025 15:18:46 -0800 (PST)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-390e485d6dbsm3149393f8f.82.2025.02.27.13.29.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Feb 2025 13:29:13 -0800 (PST)
+ ffacd0b85a97d-390e484451fsm3413204f8f.63.2025.02.27.15.18.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 27 Feb 2025 15:18:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,121 +45,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e6cacf67-f551-11ef-9898-31a8f345e629
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1740691758;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eufceZLJr1I8fdiTEdgsBxpgVgc25hDn/n/ukbEKvAk=;
-	b=i3cQbQDOetJAuwCJvv9flcyohNbt9cPhcEkqy/LuArTr4043iBCmc5bkEQZnvcvZkVZidJ
-	nqGCmRsUNlf2VIPHrhU2cXsg9S/yZ7CmJSGlfCW5HAi2PULO7zN1kOhXrCdIZd5eoVW29H
-	E59zjpaoL5AW6++EpfbwLVXEkXH7EFs=
-X-MC-Unique: Cwkv29pANl6bxja5rx7yIw-1
-X-Mimecast-MFC-AGG-ID: Cwkv29pANl6bxja5rx7yIw_1740691755
+X-Inumbo-ID: 3148c372-f561-11ef-9aaf-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1740698325; x=1741303125; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=KKemdt4p/PXFI+TMcXPvjb6FxxMZcUvxy5qEYnxpFBQ=;
+        b=dr36ZiVxSvM9Oa7jm7XUeeWNhsDZkj8FDOSt35ejKHOl8YSCiVFcK0zcr4tSwzxyZQ
+         Y9wDBTeEWj4uvwseY4vsEUo+uLr/DvnhH3/cMvMSz58cEh2AAxlkeu55XUWyFA1X2y0E
+         4Qfe2opDwVVacerRWWfSUBpX8X1+xjYT0qwV8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740691754; x=1741296554;
-        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
-         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=eufceZLJr1I8fdiTEdgsBxpgVgc25hDn/n/ukbEKvAk=;
-        b=LuIzCDnOUOOWTj6J+gxGDTJCmFojNAuHtGjThsxRZOA+g3Q0GigVB7wpEzcrNk6rgP
-         rGjwbyiNY7XhynXmFYTDw79jW075w32I8a6FvrINV4e8JObr3IIsv4Bv55lsHZnB3VMd
-         47ukw9MX/xML6QtOQ+66bDwWSUWFBXPyDO41IYcwrmlRvztt1fDwMi6kyuKjQFUto/9L
-         y+NDcdqVBSC4vchVCKUrSTG6LiF2F0nDSxaZMYWUwtr1PTXSeH3eyttogOkH51HIQXPC
-         fZTG38rN4KZwIoHQ3XR9Oi3o5/yQkd7IgbP9/dq5sdzNZWRa3lPORb9jwY5+Roi6Y6zb
-         gbPg==
-X-Forwarded-Encrypted: i=1; AJvYcCU5eE1ZPhYaxFw3UUXlKxHAEKjtgvhSBlNfVM89JObjzoomKBjXQPsvgZFr++4JS+a6wp5aytZIGkQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzXPMMIR2CD3ogqBgJ/flP5vKzP2o9YnX+6rNH6zEQhsVdAkpCg
-	Lng7dM5y37xi9qYAI+zePpBcOfSYTOqYdW2Yq2sk5RvwnBCgcd2TXNz+353bsqYBKhAfHoFuHJe
-	4Mnn3lvf/JScECx4vKsX3EjujciCT2x7WNUWYm+etVYtDVmBbxIwjAlrGIOkaP2On6vynbjEUbx
-	GG0eVoI+m4CgQldlGREC/Ns88AtPc8BBsUrlm4XVZqzx+2rfsj
-X-Gm-Gg: ASbGncuPCyGCoe7/m0nuur6aXY67fZyg8oa42W9aWhkZv0S53mqgbzGF7vUH6uGbhsk
-	iJCgO94AZdG4O9xn85JSKtKkKobeFamZBTBAxC4k0EW1QteAxWa/vGi/3nhdXjjIcgW5kfKLc2t
-	uG2uuxZc/nVA2r5cc02EaQyvdCCPuabDMkoeUjBNPds6YumrEPWhw4dyGrI6G2UBRtwIaE3zdWU
-	SUUc0/ZVfpDtgxdRY5o8DPr33Bdu/SF9ZJJhL7cIA0CLmZlk4XzEVuCrw2NTaWen9fzUc8cuviD
-	Ei/GW8aybBEqVDTTCcetsV2IxiSV4UPySEVE92yLtXI6oXB+HlWSJiqpuew2z8SevfqyjKLljHb
-	d
-X-Received: by 2002:a05:6000:2112:b0:38f:6149:9235 with SMTP id ffacd0b85a97d-390ec7cba70mr618452f8f.16.1740691754661;
-        Thu, 27 Feb 2025 13:29:14 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGZAYOLvJ8C0YI1cxRbLvJGbMPaIg3Ni2v7psye+SaqGd/PraO+3wDx4Bo3vNp91pLbsuqmMQ==
-X-Received: by 2002:a05:6000:2112:b0:38f:6149:9235 with SMTP id ffacd0b85a97d-390ec7cba70mr618394f8f.16.1740691754190;
-        Thu, 27 Feb 2025 13:29:14 -0800 (PST)
-From: Valentin Schneider <vschneid@redhat.com>
-To: Mark Rutland <mark.rutland@arm.com>
-Cc: Jinjie Ruan <ruanjinjie@huawei.com>, catalin.marinas@arm.com,
- will@kernel.org, oleg@redhat.com, sstabellini@kernel.org,
- tglx@linutronix.de, peterz@infradead.org, luto@kernel.org,
- mingo@redhat.com, juri.lelli@redhat.com, vincent.guittot@linaro.org,
- dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
- mgorman@suse.de, kees@kernel.org, aliceryhl@google.com, ojeda@kernel.org,
- samitolvanen@google.com, masahiroy@kernel.org, rppt@kernel.org,
- xur@google.com, paulmck@kernel.org, arnd@arndb.de, puranjay@kernel.org,
- broonie@kernel.org, mbenes@suse.cz, sudeep.holla@arm.com,
- guohanjun@huawei.com, prarit@redhat.com, liuwei09@cestc.cn,
- Jonathan.Cameron@huawei.com, dwmw@amazon.co.uk,
- kristina.martsenko@arm.com, liaochang1@huawei.com, ptosi@google.com,
- thiago.bauermann@linaro.org, kevin.brodsky@arm.com, Dave.Martin@arm.com,
- joey.gouly@arm.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH -next v6 8/8] arm64: entry: Switch to generic IRQ entry
-In-Reply-To: <Z8CwbmCXguCEfJvx@J2N7QTR9R3>
-References: <20250213130007.1418890-1-ruanjinjie@huawei.com>
- <20250213130007.1418890-9-ruanjinjie@huawei.com>
- <xhsmh4j0fl0p3.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
- <Z8CwbmCXguCEfJvx@J2N7QTR9R3>
-Date: Thu, 27 Feb 2025 22:29:12 +0100
-Message-ID: <xhsmh1pvjkrfb.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
+        d=1e100.net; s=20230601; t=1740698325; x=1741303125;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=KKemdt4p/PXFI+TMcXPvjb6FxxMZcUvxy5qEYnxpFBQ=;
+        b=loH8npNRC7H1tatvl+KXpO7D4MMwMjSWaUrPbwuC4O17nPaMTuOF9SUA1OsxEzx5ci
+         Nay+Zt367ZqslvYq8CmeoX1+tFtQbmFOkjIW03gn2iA6NjGr3qjIuqujh/0GfmTQl65l
+         V2JVAZi8pNTp6pS9azmM0W6LiCsClnROt5k8KkApj/zT4PkBo0ilNlww44LZzWpLQj5n
+         8DJH81xP8st9nsW+ZtgpAzqQe7qthFPsPj+a3vPg8kcsgTSv8Pc3ldGEOyXSeG1d9+FG
+         sSnsDzoTr/iCQom00wy9i8pSkhBa+k3WcLf/f0AI5liVQk+i3/UVvvQE3QRZJkQknkyG
+         VCBw==
+X-Forwarded-Encrypted: i=1; AJvYcCXBIYcERQOs6PXfLyw/Wbwev9x2nqvyaCbhdxS1/kYSJU5FC6xIjrn+ykudjalsjbzItwRVxaPqcyY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwA8HZ3ZdkYHgey1cTOXF9b5dCfvWaadjbQJJ2PYXJPU5W7eDux
+	XmSP+RXOPNTeg5J3oZl0ZrsCatIk6VrfopZBaMyUoGsEC8AxWJJ6TU0yNZ7uoVU=
+X-Gm-Gg: ASbGncuWnopVRhtHQEomDuZDpaOuXQnZLdqWLl5bMekTWf4t0+JBCYgolDjKJvtuhLF
+	15LEa2fY7DdRzNH7Jj9B5bJPZ+m/BPrj+Q2BlurK8iqdjY6I8Xeo8/H5T+qx00D9Zirx3ytdgs+
+	yFWx3jYjZ7aPW1DurXtvONnll3pCFggkBWzBzgH1LiXVloNuZQAo/FZTO4CbLMzbUisC6Zelu0I
+	jkdnBNMsn1unGXgZlyHIJgR3K9lUWl2jJi8xK9/nVlEpLAhPHckbj4NzVx0pAIkoP+qDLxf2S5L
+	NzSamEanXuVYGqSKa1VS5YoTaOXiIScOCXXmOp3FsBjC9rXKWkaLFYP7siha2Obexg==
+X-Google-Smtp-Source: AGHT+IHYHpSy22uhQIl3YRiL5eZKzWQ7S3AQvdOS36XpDIB5kZBG63KOSYIBGREqrfOPEhEDpur/oQ==
+X-Received: by 2002:a05:6000:188c:b0:38c:5bfa:a93d with SMTP id ffacd0b85a97d-390ec7c8f9fmr722294f8f.10.1740698325506;
+        Thu, 27 Feb 2025 15:18:45 -0800 (PST)
+Message-ID: <6e445e74-8a34-4981-b2dd-cafb70f4a867@citrix.com>
+Date: Thu, 27 Feb 2025 23:18:42 +0000
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: GncnHSyyESU5-vAyYnu62AvuOg4IFiY4TFHOqXyz9RU_1740691755
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/boot: Fix comment about setting up the real mode
+ stack
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ Frediano Ziglio <frediano.ziglio@cloud.com>,
+ Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20241114182219.1983073-1-andrew.cooper3@citrix.com>
+ <990887c0-d76f-4f8a-a6a6-c3dca49dcb91@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <990887c0-d76f-4f8a-a6a6-c3dca49dcb91@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 27/02/25 18:35, Mark Rutland wrote:
-> On Thu, Feb 27, 2025 at 07:08:56PM +0100, Valentin Schneider wrote:
->> On 13/02/25 21:00, Jinjie Ruan wrote:
->> > Currently, x86, Riscv, Loongarch use the generic entry. Convert arm64
->> > to use the generic entry infrastructure from kernel/entry/*.
->> > The generic entry makes maintainers' work easier and codes
->> > more elegant.
->> >
->> > Switch arm64 to generic IRQ entry first, which removed duplicate 100+
->> > LOC and make Lazy preemption on arm64 available by adding a
->> > _TIF_NEED_RESCHED_LAZY bit and enabling ARCH_HAS_PREEMPT_LAZY.
+On 15/11/2024 9:28 am, Jan Beulich wrote:
+> On 14.11.2024 19:22, Andrew Cooper wrote:
+>> It may have taken a while, but it occurs to me that the mentioned commit fixed
+>> a second problem too.
 >>
->> Just a drive-by comment as I'm interested in lazy preemption for arm64;
->> this series doesn't actually enable lazy preemption, is that for a
->> follow-up with the rest of the generic entry stuff?
+>> On entering trampoline_boot_cpu_entry(), %esp points at the trampoline stack,
+>> but in a 32bit flat segment.  It happens to be page aligned.
 >>
->> From a quick glance, it looks like everything is in place for enabling it.
->
-> Sorry, there's been some fractured discussion on this on the
-> linux-rt-users list:
->
->   https://lore.kernel.org/linux-rt-users/20241216190451.1c61977c@mordecai.tesarici.cz/
->
-> The TL;DR is that lazy preemption doesn't actually depend on generic
-> entry, and we should be able to enable it on arm64 independently of this
-> series. I'd posted a quick hack which Mike Galbraith cleaned up:
->
->   https://lore.kernel.org/linux-rt-users/a198a7dd9076f97b89d8882bb249b3bf303564ef.camel@gmx.de/
->
-> ... but that was never posted as a new thread to LAKML.
->
+>> When dropping into 16bit mode, the stack segment operates on %sp, preserving
+>> the upper bits.  Prior to 1ed76797439e, the top nibble of %sp would depend on
+>> where the trampoline was placed in low memory, and only had a 1/16 chance of
+>> being 0 and therefore operating on the intended stack.
+>>
+>> There was a 15/16 chance of using a different page in the trampoline as if it
+>> were the stack.  Therefore, zeroing %esp was correct, but for more reasons
+>> than realised at the time.
+> I'm afraid I don't follow this analysis. Said commit replaced clearing of %sp
+> by clearing of %esp.
 
-Thanks for the breadcrumbs!
+Correct
 
-> Would you be happy to take charge and take that patch, test it, and post
-> it here (or spin your own working version)? I was happy with the way it
-> looks but hadn't had the time for testing and so on.
->
+> That made no difference for anything using the 16-bit
+> register.
 
-Sure, looks straightforward enough, I'll pick this up.
+True, but Xen's 16bit code isn't very relevant to the analysis. 
+Fujitsu's BIOS is.
 
-> I expect that we'll merge the generic entry code too, but having them
-> separate is a bit easier for bisection and backporting where people want
-> lazy preemption in downstream trees.
->
-> Mark.
+> I don't see how the top nibble of %sp could have been non-zero
+> prior to that change.
 
+Oh, that's a typo.  It should have been the 5th nibble of %esp.
+
+Said nibble depends entirely on where the trampoline is placed in low
+memory.
+
+We first enter the trampoline in 32bit flat mode with %esp being the
+absolute address of the stack. i.e. it's 0x000yyyyy with a 15/16th's
+chance of the 5th nibble being non-zero.
+
+Then we drop down into Real mode (non flat, because the trampoline never
+overlaps the IVT at 0).  At this point we used to zero %sp which
+preserves %esp's 5th nibble.
+
+And in the case that went wrong, INT $0x15 corrupted memory that
+happened to be in the Xen image.
+
+
+Anyway, when I was debugging 11 years ago, I noticed that %esp was
+nonzero in its upper half and, despite deciding this was suspicious,
+couldn't figure out why and zeroing it all fixed the memory corruption.
+
+I also didn't appreciate that `xor %sp, %sp` was strongly dependent on
+the trampoline being at exactly trampoline_start + 64k.
+
+
+Anyway, given that everyone seemed to be confused, I guess I need to try
+rewriting the commit message.
+
+~Andrew
 
