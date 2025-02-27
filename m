@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80681A48129
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 15:28:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.898144.1306718 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA2C8A48181
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 15:36:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.898153.1306732 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnero-0004No-0F; Thu, 27 Feb 2025 14:28:00 +0000
+	id 1tnf06-00065T-R5; Thu, 27 Feb 2025 14:36:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 898144.1306718; Thu, 27 Feb 2025 14:27:59 +0000
+Received: by outflank-mailman (output) from mailman id 898153.1306732; Thu, 27 Feb 2025 14:36:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnern-0004MJ-Tp; Thu, 27 Feb 2025 14:27:59 +0000
-Received: by outflank-mailman (input) for mailman id 898144;
- Thu, 27 Feb 2025 14:27:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tnf06-00062N-OG; Thu, 27 Feb 2025 14:36:34 +0000
+Received: by outflank-mailman (input) for mailman id 898153;
+ Thu, 27 Feb 2025 14:36:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RNkt=VS=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tnerl-0004MC-OF
- for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 14:27:57 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 09c876f0-f517-11ef-9aaf-95dc52dad729;
- Thu, 27 Feb 2025 15:27:56 +0100 (CET)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-548430564d9so1063642e87.2
- for <xen-devel@lists.xenproject.org>; Thu, 27 Feb 2025 06:27:56 -0800 (PST)
-Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5494417b636sm176031e87.94.2025.02.27.06.27.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Feb 2025 06:27:55 -0800 (PST)
+ <SRS0=VKwg=VS=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1tnf06-00062H-2a
+ for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 14:36:34 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3cc52a1a-f518-11ef-9898-31a8f345e629;
+ Thu, 27 Feb 2025 15:36:32 +0100 (CET)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-5e4ad1d67bdso1412220a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Feb 2025 06:36:32 -0800 (PST)
+Received: from localhost ([46.149.103.11]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5e4c3b6ccecsm1184876a12.21.2025.02.27.06.36.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 27 Feb 2025 06:36:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,104 +44,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 09c876f0-f517-11ef-9aaf-95dc52dad729
+X-Inumbo-ID: 3cc52a1a-f518-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1740666476; x=1741271276; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=RNSijNZXdH8TRslchO0i6ZjUhLkUj8x4frWcH403sLE=;
-        b=CLcex799xZQf0NQQfAJOax/OAEQU7ZciQV9ovzVXKDd7vyx8yGgLNuINC2NhV1G615
-         SwAf8hEjx5eIYVn7e0dNqi9bKthQ0KOBSNyh2s6h/xtDgT8b7j9HLpDYh/mxrcW5NbsH
-         VcrCFzlZpQfV2/vLpJ9D6imOcoBmmTEmtfcsJp7qxAV0Zq4lNG5hcoMOh1KjHG//H4qu
-         mf/+UcD2XQX33YA7ZtmHFx25vRXf+5hRUrzcPVFxB5HzOWArYmpHiKcgfoJzm+zC+aGq
-         18p/M+cbw4PslvpLVE8cQT83s2CbqVU4zbuaqoGqSYoXO9H8mphSWEXx3DAzQSZ+KzuI
-         ISHA==
+        d=cloud.com; s=cloud; t=1740666991; x=1741271791; darn=lists.xenproject.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4qt8CZK/qRiFpeCQdC2CTaTRGL9JP9NvWs8OP/oh4cI=;
+        b=CMDYjPEa/G6ddiHM5tJ4J3+A7dtgN98xTjnPoRmglvh9WOnl8s87cHIm2CezeRGySI
+         ycO4uWvdYunjrFRcCDDVGhCRAOfgldtDN9+JnTW2hnf0QQWnUF6U+/MECK+IY+gt4M2N
+         0uMLib6nhfG6KQcY/y8S+p6iZizxPeDW0ebC8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740666476; x=1741271276;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=RNSijNZXdH8TRslchO0i6ZjUhLkUj8x4frWcH403sLE=;
-        b=CQPdIgFOA1QCTy4LFUdd5xnerEsWrOk+9k/UN/IFKhgSyDanupD6BW6WQYh4Yrw7y5
-         PDvozh0WzqaQ8k6jhvTqNhE6c0rT7TS8UH1g92jmwVCGtgUDesqXFTFjgJOg62TnACTS
-         x04DcwD7Cjn29R6vL4Nvju6XGLLb+GBlsKYzBAQGyKmx9FmQxN5/3Ds+5oSQ2W8uysyO
-         jBSXyQIQHKiNYrmaYpiVc+eWjd4aT8rpzT5B/c7da+oE7TazeBiBwsBmkh6/rgazWdqN
-         o/9hQCAVYpqrXD4mtxLqTEuVYXgIjkrGisAu6NzFbRkD5CaTTR8r1rHe6i64sa2C8MTv
-         AJlQ==
-X-Gm-Message-State: AOJu0Yx5NzLCsH/TsA6s5R2OkTA+J7/uFMXrsmuJ8Le0zrXVukBuyEnd
-	L85XBPAqZ3hSAo65tmg0ncUGaZihnfXAOF4vaoqJg8XaIPC5S86MLkstzA==
-X-Gm-Gg: ASbGncuKRRpi/4vgVkbe1VqgPVWg4DZs03JJp28f46O+WBA7AomwuJDyha52W0NeG5l
-	HhlOQKi726MtEVQT/Qv2mnUYp16mJkIM7ZTnYVKohSGu4MTNjumSYwUQS1KOcoxyAgRyOu5UZzP
-	A/cK6jjQaYLAGGf1m5L5dQKsPqFoEUZqYJr/cMCd1E7ZSH8YQNpZVPYFcdDN+q69xXMpsvbKobo
-	zuY2gmaR23coI2TlJzMKsVlEFh/mlfO1wAC8oaaJ3uKWrV+AryXjCf5jJxu6FAJLwI5iHV4Gcv1
-	IA0V/TTxxEyXj2SfAi7noB+O1T8=
-X-Google-Smtp-Source: AGHT+IEj3SV1/XEGFzG3yCj7aVtnqv+jYolZjvDPl70qakby2YoAW0lXp82tpD8GsN2xV4wNNd/PWg==
-X-Received: by 2002:a05:6512:3095:b0:546:2ea4:38f8 with SMTP id 2adb3069b0e04-54839136fcfmr12352187e87.12.1740666475810;
-        Thu, 27 Feb 2025 06:27:55 -0800 (PST)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Community Manager <community.manager@xenproject.org>,
-	"committers @ xenproject . org" <committers@xenproject.org>
-Subject: [PATCH for 4.20 v3] CHANGELOG.md: Finalize changes in 4.20 release cycle
-Date: Thu, 27 Feb 2025 15:27:52 +0100
-Message-ID: <20250227142753.48572-1-oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.48.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+        d=1e100.net; s=20230601; t=1740666991; x=1741271791;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=4qt8CZK/qRiFpeCQdC2CTaTRGL9JP9NvWs8OP/oh4cI=;
+        b=Ppg6hJmMfNCdvbsnDPd+JfgDmpKtPPQu8eajGW0NwwMPIdRCm8phspxZJBzyCQHzAz
+         j5aqo4APTEr1kbZ5ZnRg316Vo1PEeeotDGi90JQumjLmKEq1JxfVtAxEmd67edhkuWZ5
+         Pf66khW25Jy0axSEfKgfoPOhdbOkXZTYiRiFW9zfOCXgYF/U8ALKJiBQxPbwQ3b5FN2z
+         CXtoVc5Bnwfyw6pHDK1FpwgVEJ4K8TuyXXmhOrPp2nC4XwZ+ChZywOrgy4IZY7AVzWEj
+         enpPGyqsUhwqFNUxCmzWonQRte7XVupwEPfGtKx2iZX2/o/7dy7Ma8lYJOYbB5Ku/VtL
+         gPEQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWhNUQ4B3Zop0+GF2I8R2h4H8SX5yyC2CUlTdHfsGYTToaIHMCHf78KMTbG84bfLaMYGVfrNqqDE/4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz1kODIscvNXB4msRRglx6/G0WjFOFz7jReQYVMkcGsnD+8PEJb
+	5NucnzKrsTmz1FGThA/gGzBkhgK7kRByUZ0ylyb/yghXptxH0NW6+1CgdqjsxSM=
+X-Gm-Gg: ASbGnctGlx4/9Fblb32CK8pIiEpMJsCDKz5bWhET19zVcYGoe6lzhp1lU2lRGQXYTs1
+	kZGfj/sY5wIIBRi2OLRfzJisx6lI1mgP2R6kvs3Xu2/UxB6gX0Jc1mUgQ+yB5oENWxVvBWy7iry
+	syMiZdT/OGGqCFJwzlijppNFlTTEA+vej3YtvdrTTKrElQMbrgYlZvLCg+fRThABeOjXqHtsC4R
+	V7Mkkd6Zq7jXzfWnROhldZzqFO2GNJPS+1TO4nXxQ/6AvbtINfUHaGyjBx6N82xOkmQm+Hwmvjk
+	Tf3Ji+/8+pUTV4/BoFEOwQhDCrKMUrnE
+X-Google-Smtp-Source: AGHT+IELuXXNU40WzGOunVC2/PrNse5XRQ5xy4rp2PbdIN8+Fg6hb7CxYQs6PyPNap/WCT8NqSwUzg==
+X-Received: by 2002:a05:6402:2548:b0:5e0:34b5:13c0 with SMTP id 4fb4d7f45d1cf-5e4a0d890a4mr10382583a12.19.1740666991402;
+        Thu, 27 Feb 2025 06:36:31 -0800 (PST)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 27 Feb 2025 14:36:30 +0000
+Message-Id: <D83AY7ZBKC81.3NBCLVK3DX833@cloud.com>
+Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "Anthony PERARD"
+ <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Julien
+ Grall" <julien@xen.org>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>,
+ <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] xen/page_alloc: Simplify domain_adjust_tot_pages
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+To: "Jan Beulich" <jbeulich@suse.com>
+X-Mailer: aerc 0.18.2
+References: <20250224132724.9074-1-alejandro.vallejo@cloud.com>
+ <D80RCS1Y7AKH.373ULA2LO3MND@cloud.com>
+ <4af0077c-c933-4894-bfad-2adda7afbbf7@suse.com>
+In-Reply-To: <4af0077c-c933-4894-bfad-2adda7afbbf7@suse.com>
 
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
-Changes in v3:
- - Update that CONFIG_UBSAN is also enabled for PPC; also for the same item
-   change Arm to Arm64.
- - Add "Intel EPT" to "Add suport for Paging-Write Feature"; drop "Add" at
-   the start as it is already in Added section.
- - "Zen 5" change to "AMD Zen 5". Drop brackets around "including mitigation..."
----
-Changes in v2:
- - Drop "Support device passthrough when dom0 is PVH on Xen" from
-   CHANGELOD.md becuase it isn't really ready:
-   https://lore.kernel.org/xen-devel/31db7d34-3338-4d88-8721-f2cd4b68f3b9@gmail.com/T/#m725b559864e5ed6163b59a088b437aa10c36ff16
----
- CHANGELOG.md | 9 +++++++++
- 1 file changed, 9 insertions(+)
+On Wed Feb 26, 2025 at 2:05 PM GMT, Jan Beulich wrote:
+> On 24.02.2025 15:49, Alejandro Vallejo wrote:
+> > Open question to whoever reviews this...
+> >=20
+> > On Mon Feb 24, 2025 at 1:27 PM GMT, Alejandro Vallejo wrote:
+> >>      spin_lock(&heap_lock);
+> >> -    /* adjust domain outstanding pages; may not go negative */
+> >> -    dom_before =3D d->outstanding_pages;
+> >> -    dom_after =3D dom_before - pages;
+> >> -    BUG_ON(dom_before < 0);
+> >> -    dom_claimed =3D dom_after < 0 ? 0 : dom_after;
+> >> -    d->outstanding_pages =3D dom_claimed;
+> >> -    /* flag accounting bug if system outstanding_claims would go nega=
+tive */
+> >> -    sys_before =3D outstanding_claims;
+> >> -    sys_after =3D sys_before - (dom_before - dom_claimed);
+> >> -    BUG_ON(sys_after < 0);
+> >> -    outstanding_claims =3D sys_after;
+> >> +    BUG_ON(outstanding_claims < d->outstanding_pages);
+> >> +    if ( pages > 0 && d->outstanding_pages < pages )
+> >> +    {
+> >> +        /* `pages` exceeds the domain's outstanding count. Zero it ou=
+t. */
+> >> +        outstanding_claims -=3D d->outstanding_pages;
+> >> +        d->outstanding_pages =3D 0;
+> >=20
+> > While this matches the previous behaviour, do we _really_ want it? It's=
+ weird,
+> > quirky, and it hard to extend to NUMA-aware claims (which is something =
+in
+> > midway through).
+> >=20
+> > Wouldn't it make sense to fail the allocation (earlier) if the claim ha=
+s run
+> > out? Do we even expect this to ever happen this late in the allocation =
+call
+> > chain?
+>
+> This goes back to what a "claim" means. Even without any claim, a domain =
+may
+> allocate memory. So a claim having run out doesn't imply allocation has t=
+o
+> fail.
 
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index 1979166820..c5c2ca998a 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -18,6 +18,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
-  - Fixed blkif protocol specification for sector sizes different than 512b.
-  - The dombuilder in libxenguest no longer un-gzips secondary modules, instead
-    leaving this to the guest kernel to do in guest context.
-+ - Reduce xenstore library dependencies.
-+ - On Arm:
-+   - Several FF-A support improvements: add indirect messages support, transmit
-+     RXTX buffer to the SPMC, fix version negotication and partition information
-+     retrieval.
-  - On x86:
-    - Prefer ACPI reboot over UEFI ResetSystem() run time service call.
-    - Prefer CMOS over EFI_GET_TIME as time source.
-@@ -25,6 +30,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
-      interrupts instead of logical destination mode.
- 
- ### Added
-+ - Enable CONFIG_UBSAN (Arm64, x86, PPC, RISC-V) for GitLab CI.
-  - On Arm:
-    - Experimental support for Armv8-R.
-    - Support for NXP S32G3 Processors Family and NXP LINFlexD UART driver.
-@@ -34,6 +40,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
-  - On x86:
-    - xl suspend/resume subcommands.
-    - `wallclock` command line option to select time source.
-+   - Support for Intel EPT Paging-Write Feature.
-+   - AMD Zen 5 CPU support, including mitigation for SRSO speculative
-+     vulnerability.
- 
- ### Removed
-  - On x86:
--- 
-2.48.1
+Hmmm... but that violates the purpose of the claim infra as far as I unders=
+tand
+it. If a domain may overallocate by (e.g) ballooning in memory it can disto=
+rt the
+ability of another domain to start up, even if it succeeded in its own clai=
+m.
 
+We might also break the invariant that total claims are strictly >=3D
+total_avail_pages.
+
+I'm somewhat puzzled at the "why" of having separate concepts for max_mem a=
+nd
+claims. I guess it simply grew the way it did. Reinstating sanity would
+probably involve making max_mem effectively the claim, but that's a ton of
+work I really would rather not do for now.
+
+>
+> NUMA-aware claims require more than an adjustment just here, I expect. Tr=
+acking
+> of claims (certainly the global, maybe also the per-domain value) would l=
+ikely
+> need to become per-node, for example.
+
+A fair amount more, yes. I'm preparing a series on the side to address per-=
+node
+claims and it's far more invasive on page_alloc.c. This function was just
+sufficiently impossible to read that I felt the urge to send it ahead of ti=
+me
+for my own mental health.
+
+>
+> Jan
+
+Cheers,
+Alejandro
 
