@@ -2,56 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BF34A48605
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 18:02:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.898304.1306875 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBF9CA4865D
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2025 18:15:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.898318.1306886 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnhGG-0006xZ-PJ; Thu, 27 Feb 2025 17:01:24 +0000
+	id 1tnhUB-0002Ra-2C; Thu, 27 Feb 2025 17:15:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 898304.1306875; Thu, 27 Feb 2025 17:01:24 +0000
+Received: by outflank-mailman (output) from mailman id 898318.1306886; Thu, 27 Feb 2025 17:15:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnhGG-0006vT-ML; Thu, 27 Feb 2025 17:01:24 +0000
-Received: by outflank-mailman (input) for mailman id 898304;
- Thu, 27 Feb 2025 17:01:23 +0000
+	id 1tnhUA-0002P0-VR; Thu, 27 Feb 2025 17:15:46 +0000
+Received: by outflank-mailman (input) for mailman id 898318;
+ Thu, 27 Feb 2025 17:15:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ymMN=VS=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1tnhGE-0006vN-Qr
- for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 17:01:23 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20600.outbound.protection.outlook.com
- [2a01:111:f403:200a::600])
+ <SRS0=nYXr=VS=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1tnhUA-0002Ou-1a
+ for xen-devel@lists.xenproject.org; Thu, 27 Feb 2025 17:15:46 +0000
+Received: from EUR02-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur02on20602.outbound.protection.outlook.com
+ [2a01:111:f403:2607::602])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 76806950-f52c-11ef-9aaf-95dc52dad729;
- Thu, 27 Feb 2025 18:01:20 +0100 (CET)
-Received: from MW4P221CA0026.NAMP221.PROD.OUTLOOK.COM (2603:10b6:303:8b::31)
- by SJ0PR12MB6760.namprd12.prod.outlook.com (2603:10b6:a03:44c::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.22; Thu, 27 Feb
- 2025 17:01:13 +0000
-Received: from SJ5PEPF00000203.namprd05.prod.outlook.com
- (2603:10b6:303:8b:cafe::fa) by MW4P221CA0026.outlook.office365.com
- (2603:10b6:303:8b::31) with Microsoft SMTP Server (version=TLS1_3,
+ id 7a2aab4f-f52e-11ef-9aaf-95dc52dad729;
+ Thu, 27 Feb 2025 18:15:44 +0100 (CET)
+Received: from AS4P190CA0039.EURP190.PROD.OUTLOOK.COM (2603:10a6:20b:5d1::12)
+ by VI0PR08MB11061.eurprd08.prod.outlook.com (2603:10a6:800:257::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.18; Thu, 27 Feb
+ 2025 17:15:38 +0000
+Received: from AM3PEPF0000A793.eurprd04.prod.outlook.com
+ (2603:10a6:20b:5d1:cafe::74) by AS4P190CA0039.outlook.office365.com
+ (2603:10a6:20b:5d1::12) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8489.21 via Frontend Transport; Thu,
- 27 Feb 2025 17:01:13 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF00000203.mail.protection.outlook.com (10.167.244.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8489.16 via Frontend Transport; Thu, 27 Feb 2025 17:01:13 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 27 Feb
- 2025 11:01:12 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 27 Feb
- 2025 11:01:12 -0600
-Received: from [172.31.223.240] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Thu, 27 Feb 2025 11:01:11 -0600
+ 27 Feb 2025 17:15:38 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM3PEPF0000A793.mail.protection.outlook.com (10.167.16.122) with
+ Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.8489.16
+ via Frontend Transport; Thu, 27 Feb 2025 17:15:37 +0000
+Received: ("Tessian outbound bc832f6acacf:v585");
+ Thu, 27 Feb 2025 17:15:37 +0000
+Received: from L80c881cc5388.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ BB25A6FC-113F-4745-A067-621A4A728050.1; 
+ Thu, 27 Feb 2025 17:15:30 +0000
+Received: from EUR02-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id
+ L80c881cc5388.1 (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Thu, 27 Feb 2025 17:15:30 +0000
+Received: from DB9PR08MB6588.eurprd08.prod.outlook.com (2603:10a6:10:25a::24)
+ by PAWPR08MB8839.eurprd08.prod.outlook.com (2603:10a6:102:338::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.22; Thu, 27 Feb
+ 2025 17:15:28 +0000
+Received: from DB9PR08MB6588.eurprd08.prod.outlook.com
+ ([fe80::a8fc:ea0d:baf1:23a]) by DB9PR08MB6588.eurprd08.prod.outlook.com
+ ([fe80::a8fc:ea0d:baf1:23a%6]) with mapi id 15.20.8489.018; Thu, 27 Feb 2025
+ 17:15:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,274 +72,384 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 76806950-f52c-11ef-9aaf-95dc52dad729
+X-Inumbo-ID: 7a2aab4f-f52e-11ef-9aaf-95dc52dad729
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=Mtx1D+DfyCjjd7VvkZaGbkVagfmDcpzAq3Kb9R3Yvta71YyMptGU7frOWnlIS/daoDKTXRmPxqjhu8ZoJGACFEZGEkWJPyuZHMLVF7M4OJiC/WY0MiFn6QSJkDcoHbmec3jH/4B3z6JWGyNV7BOUzMFSNwxWPmj5idQ0K0s8M1Gf7gA1+NUG5QfJZdk5sEspqNYEoCQ+RW7zHFXiNj03mCjOpT/ISp9hYt3vF6tXfd2M+L9PXpGuYrdCLwIHXKWCqlvL1+q9m5GmxgOf3sXMA6y3ravrflf2ETO4vg9xyJvxha0huBenEiYwgiqApjM2wvTTcBSKaZ8SqFbIBbSwjA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sfmNHIYQFMe6MV/WsIo1vDK6reoLe4R/aCTzycqNA0Q=;
+ b=PRAi4JbXAbqhCLf5rdLDv/R5glYmox/pxY4FbnsnUTTp9sTMF4T4g5tQmjOxlV+zgNJMQLz0LQV/o6rLFhuhZ7zb2QEiS7eGh2/4SIQ0D5xqDqo+bYBPfH8eWEqNIqW/DbAOYr96FAQbtP0h5LsK7hv+tw1wxKw/qeU7WKhijQ29BztpkCxrIAVjC/mXeTXGAXqiSgFm9uSzuFG7lpZMls8iNz1q1bJt/TAHBcWZPKR7e6eJG0MB2BE2VjsubVudc97ksj6uqX424cdai3vp777GGpg3VFw2UNl1TGFBE10NXxFdjjsON4vJEAKd6pur9wqf95i3Ssf2ZLj9MTPhyw==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sfmNHIYQFMe6MV/WsIo1vDK6reoLe4R/aCTzycqNA0Q=;
+ b=LkbCcQ+40vRXCCxot5Kmfp6qJEd/gCVcUilkI0sYdB3uh5zZWgQKTCthWfwcx+kdtzrPvn/vHFxFiFr8xFZIL/dRNiURxP1WX5XeJYfQsC9+rQ5Rni6jQpCaumsJv9Bsnb0Xhb74HqQVdSd5I7dlI3boGtIjDNe8HUZHzr13bnk=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: c4390b8ae6589bac
+X-TessianGatewayMetadata: Sc+OHtCpH9OQ4I7cdsEI6KU+V16Z7cG89JnebnQNK09/Z4P9dcJNGza3ZybAbQ02K72QfK2gCa7rH7xDb3I3R5WOQX0yEpnjej+RullOV7m0T8OwLGRMpjANPZsCFANwhikjUItL1T2hCL+YDGi291NQZwOLmDjz3siLwgSIAWA=
+X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MApFYMUYn+xvkVj9y8Av7JWsbO3CRjM3wh9vGz0ZMVOmeuKpfC03tlr8B75jj3Arr/j7UgevkteP28IdxO4nGi/mzgD+rp+RTEZrxeEuBGtwPDrKk0cp3fTeerYsEKRbJiBf2+sl/KnHZ7Yb762VWl7Jp32Eip9orBi+w5zMhgLjp3ZDqVa8SvOY/Zikg0TEwIEO2U8XQF5xChhtH121U83/mFLPuj1dnubcj6VOHt/+RsJOXnst8PMlTmr4+T7VV7i1+wtztLWUfr4q400KDZmn1N6rcEq8+WriNe8ivJISKeLMewYqOiI06WtwDk9uy/1XDiLLuy2sv1wAzUW6Ng==
+ b=MbAgCCTjX0dlCNVVYhkUCnYyD+JJUY1RwkHGce7POYeOjHZsGMA1esJUOLrNWiO1HOX++ncCWSIqQM9s4TxgLgDJPVOmc+mEKAqaYI4lZQB2UPtaTFRr2a5nT7GBzsgEsZZ5zxYHwNUa/XjRjf8dr5o6OiGO+BlStCcMwamHQNxHzNgwJR1nCPa3Lf4JG9SPgRPHor3zREitPv8ZlAjdglvoz3GTpPfEbxYzA1d036ZcUHDJZorCPyMDr/xxHkyZg0G1ajTDXNscf1qkHMLRQ7dBqDDHHpWga0753TQZ6uYwxAM8ASYfPFNvi8DBBlrBmzbzk6GALhyekrBWwrIFAA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xhKuUpZecKTNwDmLytBusoiddkioKQTZcl1zI3RVgL8=;
- b=ly7QRXu7kYqHK71aCdznthaXUDSMcDoMeh6u0k9eGnQ1+y+SsNL4pkId91U5YfKUiamsEXPR2Td+bEhhYZBj+TaXC/VLWf9kNhfW55XdyO9PX62VaqPcXzhxaqPc5b6kUhZsO5iupWg85dpoX+UzQ/sKMW6IadepSeTmqq1qi5FFNDiybF6Q8fsJN8oZ24jVrkjJgvwcqiMU6mwXV5a9xIAos3JOZWxqndJvdqWIPp4x8RqNTH+2ZnKzYlji0qGDNmNGBrdwV4dYYNUGrtQbRvTvX1UpXyQF/54ynRy0I23ZePc/1G59qHdV3w4mz1lRXaYNUhUpzSFEQi2AF4EENA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=sfmNHIYQFMe6MV/WsIo1vDK6reoLe4R/aCTzycqNA0Q=;
+ b=ihcnXfS1sculyFj4+8CjeHw0kjCnhAFhFU+Trd0bOcKda98DZt2mq+zvCx3O8S7zv9qcaXHyxqNXBWsvyGgl9pXE3fpVhiPedw1p5elvM4oEzAZAOIyjeky0kfp48fTKi+8WeMeDp6Xmq9WclFOlab6VL0xPjpgihN0m878IMaHIN45Q9vYvOcQDvpl2OFBA1HAYmb4AFVWL+Ux3QslYWmPQiH687Rav4GteymxlPPlezb88w3lZnkzFoUX1gGFLFV7JQuBKJLAMVoopk+TNY45WRqUnAXa/zEkwKXBMsCrKFS85GgE1u3pgge/T6DPosJ0Q5F/arGIMUV5IB0JY9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xhKuUpZecKTNwDmLytBusoiddkioKQTZcl1zI3RVgL8=;
- b=11zRDWFagLIhlM/kIAovW9w7URqhdvGvVT2FxphW3G9rpyp58qwcJsImC++IzvCAlzV6li182qHcZOT6zv8h+AXfaVYdkRWmsKnUydSM6gVTKel9HHCefDUe12eaWjbohNDJVCmbT3QrmjvlBU8YFZfM5E3aT2ADidL+mJAWdvc=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <aea5703c-9392-4b80-b517-cc411265e264@amd.com>
-Date: Thu, 27 Feb 2025 11:49:48 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] xen/amd-iommu: Add interrupt remapping quirk for
- ath11k
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
- Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, "Xenia
- Ragiadakou" <xenia.ragiadakou@amd.com>, <xen-devel@lists.xenproject.org>
-References: <20250226211125.43625-1-jason.andryuk@amd.com>
- <5184725e-baf6-460f-a8ee-2bb9982d7adc@suse.com>
+ bh=sfmNHIYQFMe6MV/WsIo1vDK6reoLe4R/aCTzycqNA0Q=;
+ b=LkbCcQ+40vRXCCxot5Kmfp6qJEd/gCVcUilkI0sYdB3uh5zZWgQKTCthWfwcx+kdtzrPvn/vHFxFiFr8xFZIL/dRNiURxP1WX5XeJYfQsC9+rQ5Rni6jQpCaumsJv9Bsnb0Xhb74HqQVdSd5I7dlI3boGtIjDNe8HUZHzr13bnk=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Michal Orzel <michal.orzel@amd.com>,
+	Artem Mygaiev <artem_mygaiev@epam.com>
+Subject: Re: [PATCH v2 1/2] docs: fusa: Define the requirements for
+ XEN_VERSION hypercall.
+Thread-Topic: [PATCH v2 1/2] docs: fusa: Define the requirements for
+ XEN_VERSION hypercall.
+Thread-Index: AQHbiSmfhnajI8fAUU6893mrw5oGSLNbZAUA
+Date: Thu, 27 Feb 2025 17:15:28 +0000
+Message-ID: <636358F4-C156-4304-9C75-A8DF36E16F2E@arm.com>
+References: <20250227150922.3965010-1-ayan.kumar.halder@amd.com>
+In-Reply-To: <20250227150922.3965010-1-ayan.kumar.halder@amd.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <5184725e-baf6-460f-a8ee-2bb9982d7adc@suse.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB05.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF00000203:EE_|SJ0PR12MB6760:EE_
-X-MS-Office365-Filtering-Correlation-Id: d2667eb9-35ce-4e0e-8989-08dd57505780
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3826.400.131.1.6)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	DB9PR08MB6588:EE_|PAWPR08MB8839:EE_|AM3PEPF0000A793:EE_|VI0PR08MB11061:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5028b3ed-034a-40cf-a53e-08dd57525aa2
+x-checkrecipientrouted: true
+nodisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|376014|366016|1800799024|10070799003|38070700018;
+X-Microsoft-Antispam-Message-Info-Original:
+ =?us-ascii?Q?kNPcU/sP74Rsyqc2WvgyUSGTQzO0OeDoU98soqytkIucbhy3AkLo3uvkScqc?=
+ =?us-ascii?Q?7M2jelf8fkrGyorKBjw6/4QNrvNxVSNxzlOUyEVmP5d0e1GINCHFo4kCysMQ?=
+ =?us-ascii?Q?KNVtOFWPlL8NMWM1pFdW7+q0DTl8JA+BtCycxWB2yp3dkZpwLoP/QZZxvdf3?=
+ =?us-ascii?Q?uzV6T8wLWt4aEw9Q56wFcSdxqDtIRX4hlt8+EhB9oFRsOWZe2U71efHXlZhJ?=
+ =?us-ascii?Q?SYrWuXQRa50VYDlw/8ZvURN6WWE0ZsW8oU/8sDs5M7KfGrEh1E4JtTCvyZHW?=
+ =?us-ascii?Q?9c9zWPFuVtD3uxbpuf7krJI3ZkVw/l32/fsqtQyni/EB/dZwWzk/8vYhvCOL?=
+ =?us-ascii?Q?jERJBDqVocqN4xZfCjvkTq35E0DFCjxiqlgJSJNjJhYXFMNoa2guKP5qAT2C?=
+ =?us-ascii?Q?sz5hCFtFNnjwZyc2XB/ZPSepb8ffcBerDjq78CVaJnPdeJkPbX3MLGSF7ZNg?=
+ =?us-ascii?Q?6dDJYsv3AeynXWL7HXceVcdoBsZ7Kl6VgUWEgU+7r9BsVck7tMfkI4dHd1OU?=
+ =?us-ascii?Q?IB6tLQBZNIPgllvRwRedsqUUi/3cnBs+8vN6jYeKZ9w13p5RjoJ0KKiI+je0?=
+ =?us-ascii?Q?wzxwLLYyvz8rcqKJRx4SDqpi4uo3B9JwDrOI3ewHTFxL7Oi/KxZsYJZqOUGF?=
+ =?us-ascii?Q?/FdhSuMMnH+YCD8fNT42uY48Bx4ljtVDcMd77/2Kec3bwb4J8Gk/YhpElD0F?=
+ =?us-ascii?Q?C52AIxmX9z4Cz4I/mHoTg0PkAkyrp+3ED1tHhY7WOPQ46wm0gEmR5wRQ4YIJ?=
+ =?us-ascii?Q?TXu+2VvlaC+pxGbQEFWeAR05WWVdelObZO0Uph+gnPLMC2+7tBef0P+OZGbG?=
+ =?us-ascii?Q?TLSML8y0BNUgqZTraIowhzJA5oyW++/74DGKqyrWXVJNybvNNBB1W6DaF/to?=
+ =?us-ascii?Q?YZJP0wtM4opQMRTJRYntim6cEDAwYuHzUrnNPtJ/moPBI8k818s8uh/O/5C5?=
+ =?us-ascii?Q?GU4SKcTBDHssdCUG12aOobHL8J7M+qNzkKyjJi/2zRSQABjfIntdhsnNBVss?=
+ =?us-ascii?Q?IMqSSV3zdJUZZ7RJWCapyZXS6qR30bekgWDmfM2uUyMGP39Trz6JtYT89c0p?=
+ =?us-ascii?Q?w7CTDN2T8YpCSnEeKLaIt207JM9UgsRMuz0IvN5h3y5I62zDJliH03NfZxQ1?=
+ =?us-ascii?Q?yALEnfc96O+tpTPAo0nPxFXIUAx7PJxmI2OWlgH3SycjTjuxo8D7v9B9Vkfq?=
+ =?us-ascii?Q?tIIfxSbVxSZfkNTSxdTChWUbONNG6G5+kzxvosWFSp6fkwCYL/scO6vHYGez?=
+ =?us-ascii?Q?QcK1YhtNjrcm5d13NRLxJFaqqhQ+pUcPYFj39rHlIWl9LwM+ripiRBUwyukZ?=
+ =?us-ascii?Q?hEFBHw5dFgdxPq2c8Gr322XtukgzrPvg6r1NxSIl2WxKujVQLmEeQPtq2j/W?=
+ =?us-ascii?Q?VVehdFmagB1UCLXgrh5yeuNV/X7NW/jdMSXxdFwTyHmlSDdh+A=3D=3D?=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6588.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(10070799003)(38070700018);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <5BD8A8D2275CD74F8CB12298975F62DA@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR08MB8839
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-SkipListedInternetSender:
+ ip=[2603:10a6:10:25a::24];domain=DB9PR08MB6588.eurprd08.prod.outlook.com
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM3PEPF0000A793.eurprd04.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	85699a49-f6ab-4982-f454-08dd57525552
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700013|376014|1800799024;
+	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|376014|35042699022|14060799003|13003099007;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?dmpzUEVrS3kybTVyQUJsNTh1aEVQSEZwNzlJRlBJVnh1OW4yalVaYnhZZHhq?=
- =?utf-8?B?eE9JaFRmamY3VEZnYndNNktvZklEOFpLVlpXeFpjVGVBekt0SXB4TkRIMEpo?=
- =?utf-8?B?aVgzYmNuK0lYZWhZYlhlVjdXRU80VnJvcS91UjVkSmY1Rit5eFluTE1udnZU?=
- =?utf-8?B?QXRKMGE5dUhOamc5ZjRJbEl0TWlISjBaTmdCbXhhREU1YldyQmhBTkVTQ2xR?=
- =?utf-8?B?bDBvYlJsdVJPV1BtdkFrMFpTMGdZSlYxTW5FZXp1cjRad1d6Y3FmekdQM3Jq?=
- =?utf-8?B?M0U2ck5DcUdaS3loamZqT0dncm5KWllrclFYaUlENTFTWms5WWVsQVVoUkJh?=
- =?utf-8?B?dkdhWkpLWmNzN1ZWMmNFSzJNUEw4SXpGaEc0c041VDJSaTlubmlER09XeVVI?=
- =?utf-8?B?L2JBbGpzdWZZZ3BaOVMwMGZ1NmRBeWpBVCtmYVBEUUJucno0S3BqaWhNaWhN?=
- =?utf-8?B?dU1oNzMyazB6TFlWMTZETTJocXR4V3RYTC9aaTc4YkxXRjlJcUhuNWFCWE9K?=
- =?utf-8?B?MkIrQ3pnbTRJUkFhdzl3N2ZqTjI2TkpELzBXWnNueFVlaFBCTTZiQkdjOGVO?=
- =?utf-8?B?QU04M0dFNERQQmtiWnYrQjlYRVZLc1Vna05XeHNlRDlHb3hubFIxcG5DTWlB?=
- =?utf-8?B?QVlYdzh5NW1NMFNWTmpIWlVIZCtUS1A0NFFWblNSdXRXODZaaGVaYlFPZHlC?=
- =?utf-8?B?eDVWYm9tenpNdFZIR0s0cDFISnNaNUw4bHRuMi9JakdZL0prK2ZpR1Z1Wndu?=
- =?utf-8?B?ZFVDNGExWGhRckE3S1NudWREQnpoc2hjRUVtVVhiZE1HdFJWK3liZlEzZHVi?=
- =?utf-8?B?a1VkdFVZcGhWWXhOQ0J0V1p0d2VpL2VvNWFJQkhWY0ZZVlM4VUIybExtQWRP?=
- =?utf-8?B?MGRqbDIxelc4SUx4N3dCZjFENzdvYXN2Tm1YV0tiQkJidXM3VnVsL2NVWlFH?=
- =?utf-8?B?Mks1VnBzWWw5Z3I1aHROS2dOaDA0SFhaa0E5cmFZcGVwS2d0QUV6M09VdXdX?=
- =?utf-8?B?Nkh6QlIzb0ZRUUdGNm5ZNXFralVlVFVsNGp6Mk0rY1BoWjllbmRTSjJTdE1U?=
- =?utf-8?B?d3FkZktvdDJwL0tvdGk3SUt4bHQrSXpoQmZJY2JIeWxUWUI0djNoZkFvcFpv?=
- =?utf-8?B?bktmR3hkclpML0RiWVVtOUlyN0gzekRoVjhoYTY4cnpoYll4ZmNKNlpBWEZP?=
- =?utf-8?B?MHZIMFQxaWFKS1ZaL3AvYUlpMGlWcmlSSU1PeUcvRTJ0TmU4VTFHamVTdlJ0?=
- =?utf-8?B?bk4yNk4zaGRNemJBMnNveDRUdXc3MllRb3ltWmxGdnRSN0hWdzgrNGt0TnpE?=
- =?utf-8?B?L3F0RzN2WkJzNVNCY214Y0dIdjZ3NjdwR0NBMEx2Vm9qay9iT282U1lHRVEx?=
- =?utf-8?B?R3RaVU1TNmJKZFd0cXY3WDJQQmoza2hOQmxYa1NFRGhrbExQb3Z4SnEwV2Mz?=
- =?utf-8?B?S01DV1BwLzFTY1o1K0Z0bHlzMEFTVmRYSDNCSC9yNWJGYXRGZnl1VnhuQTFF?=
- =?utf-8?B?M2h0N0NyMUt1NDFCTXZVWHpsVS9tR3dsQk16UHRMUmhkR2lMNHl2dDR2Yjdt?=
- =?utf-8?B?bGhwTDhMZlFhT0JvZlRoaVllT05GS21KUE5VREhKNDdvVzVYekp2MDhuQ0pZ?=
- =?utf-8?B?TXZFeWIxbVRhcmdobDFjemU0NnlwMGRsOHFXMmF3aDZMZ2xpdXRaeTVLbm85?=
- =?utf-8?B?V3djODVFbzN2VnlMRjVVTjhmaHlzK0hmZjV6NURMTUxOSStXYmhEa29RdW1x?=
- =?utf-8?B?Sm9KeDFXSUJNcmVLSWlFd3J5aWZ2ODZTTGhLRDF6SW1GWm8yRDZuQzl3dFVG?=
- =?utf-8?B?QURoQWVkVmtGOWZoeU1IbUJ2VFB0TVJWSEplQ0JFRks5c3VZeHhicGtROSsy?=
- =?utf-8?B?MkJOVDRQTFJPRlNWVEtUOXBtbHBTTzhPWUlZbUhoSW9BQkRRZUkvUHVBU0RM?=
- =?utf-8?B?WGFzODVWS1VtaVhuNDJpUHVZSXRubkJXVURxT3VwUXpiUTI3UFZjQXhITUZR?=
- =?utf-8?Q?GOVZlhVrxNu/Ar6YmsncMp+ehnAAqs=3D?=
+	=?us-ascii?Q?mNtsIEnUdf0RoHc/TE/nSrCBnp7r4+oegUzY5snfjd8fU0qUetX4l2TXcn4l?=
+ =?us-ascii?Q?CNKzC3SKj2+SBENwpCaOSwetnpx0X21IVXqhimzA+bdOY9VKnxKIR+JA8cGM?=
+ =?us-ascii?Q?M8SW/EUJ1tMt1j/QaYnsB4RxOA6rro0e0z0jrF/VWZ0nxvFv46pUsiQqR7Jb?=
+ =?us-ascii?Q?fJvUM0efDQkuFc3Qatg7ferRnTatlF6kA+dypBvIl41zTalogZ40kYjnMaC4?=
+ =?us-ascii?Q?s4hLpHvpe6SjyW7Dn4xmllmQVkkhI1oRnBEUTY/khp2vAlzHWcVlqT5jkNTs?=
+ =?us-ascii?Q?NwTs9i3DbFhp+du9XejXs+fNY4QtsK0DK/ZSsKR2qGWe+o5amRtRR5RtuPT7?=
+ =?us-ascii?Q?ZtuD1yeWDRcIHYf9pMrGSBqyzrbaNd8FjQ08VpUexGbUdmesEugc3kaGNQ6a?=
+ =?us-ascii?Q?D+bbqT/kG6CrTIAceWzJ2v65VrqAhDBvWpKtVyNDofHzODZtSgdUhXJHNIVh?=
+ =?us-ascii?Q?beIbDQW4tFzfc6fiTpqLkhRFpTKWDJgGR/2HEbtrVW1vPxmcGf/0PlUTMQtD?=
+ =?us-ascii?Q?nePTgd61nSz3b/OGrB0E3DY7uCIlhE11mC5Ynqa4/rjMwg7xSVBtrZ3jgGrk?=
+ =?us-ascii?Q?tETJiqUXIJvlGj9Kp73jo42QGtEDr7o26IFOsO7zIv80dJ2Yr+1i+wVQjL4l?=
+ =?us-ascii?Q?bNRcUjxeDkfNiGd4yudsHjl1Opw0xqWWj7fU+S8kp6Li/wOs03s3bZmHL0rM?=
+ =?us-ascii?Q?L+2MYwRYpmW0QBs7Up7+KcJKoZAMLakVszL85Zb8nuVhgvhaXOVTd1Puq/nC?=
+ =?us-ascii?Q?TFEFp0c125jMgDZ53Mm0lJJOTIg6NFxVwgOtMKvTxwSnzdOZ1XLnYX1bLtP/?=
+ =?us-ascii?Q?YVA4ZjDOc78qlokwqNZ/KxBiItT1wCtNdadoQ6DkPACZ/x6568RX4vFYDu4+?=
+ =?us-ascii?Q?RLTt/Vz2psBt93jbegymu/apP0a9VeY9H1N4oOiZKScBu/vGbosjsubKTCdi?=
+ =?us-ascii?Q?L8CW91QhJYnJXGmecJCDc07D1dWtv8SGTlfoJGiD77O2B0tE4MokF/LKGQf7?=
+ =?us-ascii?Q?Adwn4/Rx3O7XdtfQJ0RYmsDPH55TDx5XneTQCx0ZyVM+p1fca4JrdfL1GODG?=
+ =?us-ascii?Q?sNqwNVsuutR1/kLCU7BpYtph22es/1LPYNNyxDY9pOfyNTcxH+NY9tj4OIG1?=
+ =?us-ascii?Q?psiTYX9R7bFBRamy1h/dsBgJ5SoNCjM4heY+8Q4UVgAFPj2ipk7XIKb9+rCn?=
+ =?us-ascii?Q?+BC49tCa/Xy5kQQtc20gw6J5ZzLfdzzWfdESh5y5fLOBwqFeTVHzFY//GVa1?=
+ =?us-ascii?Q?6rNcix1wQgvexl24sM5jNVG8+ZeK6uD+LmRtJJB2CyNUzlLQJGyLwsSVL1cS?=
+ =?us-ascii?Q?vdk61y0LOMsjGpT6sRP+DxFiDlzuZNbaO9YOu17aM4WIo6PHfHYHNK0xJGwT?=
+ =?us-ascii?Q?doLzdST7vZ8N7+TsVBSnocIkb0buf6HSGahbbqB/dUld9di+TjUcoa4/7kjb?=
+ =?us-ascii?Q?1MrFLR5CRKnIZdbjw1LzObUdylhlK02r?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2025 17:01:13.1801
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:64aa7808-outbound-1.mta.getcheckrecipient.com;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014)(35042699022)(14060799003)(13003099007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2025 17:15:37.5240
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d2667eb9-35ce-4e0e-8989-08dd57505780
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5028b3ed-034a-40cf-a53e-08dd57525aa2
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF00000203.namprd05.prod.outlook.com
+	AM3PEPF0000A793.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6760
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR08MB11061
 
-On 2025-02-27 03:54, Jan Beulich wrote:
-> On 26.02.2025 22:11, Jason Andryuk wrote:
->> Sometimes we have to quirk the PCI IRTE to use a non-zero remap_index
->> corresponding to the guest's view of the MSI data register.  The MSI
->> data guest vector equals interrupt remapping table index.
->>
->> The ath11k wifi device does unusual things with MSIs.  The driver lets
->> Linux program the MSI capability.  Linux internally caches the MSI data
->> it thinks it programmed.  It sets its affinity to CPU0.  The ath11k
->> driver then reads the MSI address from the PCI configuration space.  The
->> MSI address and cached data are then passed to other components on the
->> same card to generate MSI interrupts.
-> 
-> I'm curious whether it's known how e.g. KVM deals with this.
+Hi Ayan,
 
-There were some vfio patches that did not get merged, FWICT.  A Linux 
-patch added a quirk to allow the guest to read the hardware MSI values. 
-QEMU intercepted access to a memory region of a BAR and swapped guest 
-MSI values for hardware MSI values.
+> On 27 Feb 2025, at 16:09, Ayan Kumar Halder <ayan.kumar.halder@amd.com> w=
+rote:
+>=20
+> In the current patch, we have defined the requirements which are common f=
+or
+> all the commands.
+>=20
+> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+> ---
+> Changes from -
+>=20
+> v1 - 1. Fixed `XenProd~version_hyp_ret_val~1` requirement as Xen does not=
+ return
+> 0 for success in all the cases.
+> 2. Reworded the requirements so as to write them from Xen's perspective (=
+not
+> domain's perspective).
+>=20
+> .../fusa/reqs/design-reqs/arm64/hypercall.rst | 55 +++++++++++++++++
+> docs/fusa/reqs/index.rst                      |  2 +
+> docs/fusa/reqs/market-reqs/reqs.rst           | 16 +++++
+> .../reqs/product-reqs/version_hypercall.rst   | 61 +++++++++++++++++++
+> 4 files changed, 134 insertions(+)
+> create mode 100644 docs/fusa/reqs/design-reqs/arm64/hypercall.rst
+> create mode 100644 docs/fusa/reqs/product-reqs/version_hypercall.rst
+>=20
+> diff --git a/docs/fusa/reqs/design-reqs/arm64/hypercall.rst b/docs/fusa/r=
+eqs/design-reqs/arm64/hypercall.rst
+> new file mode 100644
+> index 0000000000..ffd883260c
+> --- /dev/null
+> +++ b/docs/fusa/reqs/design-reqs/arm64/hypercall.rst
+> @@ -0,0 +1,55 @@
+> +.. SPDX-License-Identifier: CC-BY-4.0
+> +
+> +Hypercall
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +Instruction
+> +-----------
+> +
+> +`XenSwdgn~arm64_hyp_instr~1`
+> +
+> +Description:
+> +Xen shall treat domain hypercall exception as hypercall requests.
+> +
+> +Rationale:
+> +
+> +Comments:
+> +Hypercall is one of the communication mechanism between Xen and domains.
+> +Domains use hypercalls for various requests to Xen.
+> +Domains use 'hvc' instruction to invoke hypercalls.
+> +
+> +Covers:
+> + - `XenProd~version_hyp_first_param~1`
+> + - `XenProd~version_hyp_second_param~1`
+> +
+> +Parameters
+> +----------
+> +
+> +`XenSwdgn~arm64_hyp_param~1`
+> +
+> +Description:
+> +Xen shall use x0 to read the first parameter, x1 for second parameter an=
+d so
+> +on, for domain hypercall requests.
+> +
+> +Rationale:
+> +
+> +Comments:
+> +
+> +Covers:
+> + - `XenProd~version_hyp_first_param~1`
+> + - `XenProd~version_hyp_second_param~1`
+> +
+> +Return value
+> +------------
+> +
+> +`XenSwdgn~arm64_ret_val~1`
+> +
+> +Description:
+> +Xen shall store the return value in x0 register.
+> +
+> +Rationale:
+> +
+> +Comments:
+> +
+> +Covers:
+> + - `XenProd~version_hyp_ret_val~1`
+> diff --git a/docs/fusa/reqs/index.rst b/docs/fusa/reqs/index.rst
+> index 1088a51d52..d8683edce7 100644
+> --- a/docs/fusa/reqs/index.rst
+> +++ b/docs/fusa/reqs/index.rst
+> @@ -10,5 +10,7 @@ Requirements documentation
+>    market-reqs/reqs
+>    product-reqs/reqs
+>    product-reqs/arm64/reqs
+> +   product-reqs/version_hypercall
+>    design-reqs/arm64/generic-timer
+>    design-reqs/arm64/sbsa-uart
+> +   design-reqs/arm64/hypercall
+> diff --git a/docs/fusa/reqs/market-reqs/reqs.rst b/docs/fusa/reqs/market-=
+reqs/reqs.rst
+> index 2d297ecc13..0e29fe5362 100644
+> --- a/docs/fusa/reqs/market-reqs/reqs.rst
+> +++ b/docs/fusa/reqs/market-reqs/reqs.rst
+> @@ -79,3 +79,19 @@ Comments:
+>=20
+> Needs:
+>  - XenProd
+> +
+> +Version hypercall
+> +-----------------
+> +
+> +`XenMkt~version_hypercall~1`
+> +
+> +Description:
+> +Xen shall provide an interface for the domains to retrieve Xen's version=
+, type
+> +and compilation information.
+> +
+> +Rationale:
+> +
+> +Comments:
+> +
+> +Needs:
+> + - XenProd
+> diff --git a/docs/fusa/reqs/product-reqs/version_hypercall.rst b/docs/fus=
+a/reqs/product-reqs/version_hypercall.rst
+> new file mode 100644
+> index 0000000000..03221f70c3
+> --- /dev/null
+> +++ b/docs/fusa/reqs/product-reqs/version_hypercall.rst
+> @@ -0,0 +1,61 @@
+> +.. SPDX-License-Identifier: CC-BY-4.0
+> +
+> +Version hypercall
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +First Parameter
+> +---------------
+> +
+> +`XenProd~version_hyp_first_param~1`
+> +
+> +Description:
+> +Xen shall treat the first argument (as an integer) to denote the command=
+ number
+> +for the hypercall.
 
-https://lore.kernel.org/ath11k/20240812170014.1583783-1-alex.williamson@redhat.com/
+You speak of argument here and parameter earlier.
+I would rephrase to: the first argument of an hypercall exception as the co=
+mmand number for the hypercall.
 
-I tried something similar, but abandoned it.  The ath11k driver uses 
-Linux's cached value of the guest MSI data and passes that to the 
-device.   It doesn't re-read the hardware value out of the configuration 
-space.  That made me think using the guest data as an index would be a 
-better workaround.
+> +
+> +Rationale:
+> +
+> +Comments:
+> +
+> +Covers:
+> + - `XenMkt~version_hypercall~1`
+> +
+> +Needs:
+> + - XenSwdgn
+> +
+> +Second Parameter
+> +----------------
+> +
+> +`XenProd~version_hyp_second_param~1`
+> +
+> +Description:
+> +Xen shall treat the second argument as a virtual address to buffer in do=
+main's
+> +memory.
+> +
 
+Same here on argument vs parameter.
 
->> Signed-off-by: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
->> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-> 
-> Just to clarify: Who's the original patch author? The common expectation
-> is that the first S-o-b: matches From:.
+> +Rationale:
+> +
+> +Comments:
+> +
+> +Covers:
+> + - `XenMkt~version_hypercall~1`
+> +
+> +Needs:
+> + - XenSwdgn
+> +
+> +Return Value
+> +------------
+> +
+> +`XenProd~version_hyp_ret_val~1`
+> +
+> +Description:
+> +In case the hypercall fails, Xen shall return one of the error codes def=
+ined
+> +in http://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dblob;f=3Dxen/include/p=
+ublic/errno.h.
 
-I took Xenia's changes to xen/drivers/passthrough/pci.c and 
-xen/include/xen/pci.h from an earlier patch and re-used them.  I wrote 
-the rest, so I put myself in the Form: line.
+This is a very imprecise req as it does not states what can fail and what s=
+hould be returned exactly.
+Do we want to be that generic ? if yes then this might be a requirement val=
+id for any hypercall.
 
->> ---
->> Is something like this feasible for inclusion upstream?  I'm asking
->> before I look into what it would take to support Intel.
-> 
-> Well, I wouldn't outright say "no". It needs to be pretty clear that this
-> doesn't put at risk the "normal" cases. Which is going to be somewhat
-> difficult considering how convoluted the involved code (sadly) is. See
-> also the commentary related remark at the very bottom.
+Cheers
+Bertrand
 
-Ok
+> +
+> +Rationale:
+> +
+> +Comments:
+> +
+> +Covers:
+> + - `XenMkt~version_hypercall~1`
+> +
+> +Needs:
+> + - XenSwdgn
+> \ No newline at end of file
+> --=20
+> 2.25.1
+>=20
 
->> e.g. Replace amd_iommu_perdev_intremap with something generic.
->>
->> The ath11k device supports and tries to enable 32 MSIs.  Linux in PVH
->> dom0 and HVM domU fails enabling 32 and falls back to just 1, so that is
->> all that has been tested.
->>
->> Using msi_desc->gvec should be okay since with posted interrupts - the
->> gvec is expected to match.
->>
->> hvm_pi_update_irte() changes the IRTE but not the MSI data in the PCI
->> capability, so that isn't suitable by itself.
-> 
-> These last two paragraphs look to again be related to the VT-d aspect.
-> Yet there's the middle one which apparently doesn't, hence I'm uncertain
-> I read all of this as it's intended.
-
-Sorry, I was just putting down thoughts.  Yes, the last two were 
-thinking about VT-d integration.
-
-In terms of the number of MSI, I wanted to highlight that I only tested 
-with 1 MSI since I always worry about code I haven't tested.
-
->> --- a/xen/drivers/passthrough/amd/iommu_intr.c
->> +++ b/xen/drivers/passthrough/amd/iommu_intr.c
->> @@ -543,6 +543,31 @@ int cf_check amd_iommu_msi_msg_update_ire(
->>       if ( !msg )
->>           return 0;
->>   
->> +    if ( pdev->gvec_as_irte_idx && amd_iommu_perdev_intremap )
->> +    {
->> +        int new_remap_index = 0;
->> +        if ( msi_desc->gvec )
->> +        {
->> +            printk("%pp: gvec remap_index %#x -> %#x\n", &pdev->sbdf,
->> +                   msi_desc->remap_index, msi_desc->gvec);
->> +            new_remap_index = msi_desc->gvec;
->> +        }
->> +
->> +        if ( new_remap_index && new_remap_index != msi_desc->remap_index &&
->> +             msi_desc->remap_index != -1 )
->> +        {
->> +            /* Clear any existing entries */
->> +            update_intremap_entry_from_msi_msg(iommu, bdf, nr,
->> +                                               &msi_desc->remap_index,
->> +                                               NULL, NULL);
->> +
->> +            for ( i = 0; i < nr; ++i )
->> +                msi_desc[i].remap_index = -1;
->> +
->> +            msi_desc->remap_index = new_remap_index;
-> 
-> You zap nr entries, and then set only 1? Doesn't the zapping loop need to
-> instead be a setting one? Perhaps with a check up front that the last value
-> used will still fit in 8 bits? Or else make applying the quirk conditional
-> upon nr == 1?
-
-The code below here sets all `nr` entries on success:
-
-     rc = update_intremap_entry_from_msi_msg(iommu, bdf, nr,
-                                             &msi_desc->remap_index,
-                                             msg, &data);
-     if ( !rc )
-     {
-         for ( i = 1; i < nr; ++i )
-             msi_desc[i].remap_index = msi_desc->remap_index + i;
-         msg->data = data;
-     }
-
-     return rc;
-
-The single passed in &msi_desc->remap_index is used as the start value 
-(when < INTREMAP_MAX_ENTRIES) or is assigned a value.  Checking 
-remap_index + nr fits is a good idea.
-
-Maybe all the remap_index settting should be moved into 
-update_intremap_entry_from_msi_msg()?
-
->> --- a/xen/drivers/passthrough/pci.c
->> +++ b/xen/drivers/passthrough/pci.c
->> @@ -306,6 +306,17 @@ static void apply_quirks(struct pci_dev *pdev)
-
->> +#define QCA6390_DEVICE_ID		0x1101
->> +#define QCN9074_DEVICE_ID		0x1104
->> +#define WCN6855_DEVICE_ID		0x1103
->> +        { PCI_VENDOR_ID_QCOM, QCA6390_DEVICE_ID },
->> +        { PCI_VENDOR_ID_QCOM, QCN9074_DEVICE_ID },
->> +        { PCI_VENDOR_ID_QCOM, WCN6855_DEVICE_ID },
->> +    };
-> 
-> May I ask what's the source of information on which specific devices are
-> affected by this anomalous behavior? Just the Linux driver?
-
-These are just taken from the Linux driver.  Tested with WCN6855 0x1103.
-
-> I'm also uncertain #define-s are very useful in such a case. Raw hex numbers
-> in the table with a comment indicating the device name ought to be as fine.
-
-Ok.
-
->> --- a/xen/include/xen/pci.h
->> +++ b/xen/include/xen/pci.h
->> @@ -127,6 +127,8 @@ struct pci_dev {
->>       /* Device with errata, ignore the BARs. */
->>       bool ignore_bars;
->>   
->> +    bool gvec_as_irte_idx;
->> +
->>       /* Device misbehaving, prevent assigning it to guests. */
->>       bool broken;
->>   
-> 
-> Overall more commentary would be needed throughout the patch. This field is
-> just one example where some minimal explanation is missing.
-
-Ok.
-
-Thanks for taking a look.
-
-Regards,
-Jason
 
