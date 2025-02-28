@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FFE8A49427
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Feb 2025 09:57:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.898531.1307060 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3425A4946A
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Feb 2025 10:08:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.898540.1307070 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnwAt-0006kJ-QZ; Fri, 28 Feb 2025 08:56:51 +0000
+	id 1tnwM4-0008Ly-PZ; Fri, 28 Feb 2025 09:08:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 898531.1307060; Fri, 28 Feb 2025 08:56:51 +0000
+Received: by outflank-mailman (output) from mailman id 898540.1307070; Fri, 28 Feb 2025 09:08:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnwAt-0006hd-ND; Fri, 28 Feb 2025 08:56:51 +0000
-Received: by outflank-mailman (input) for mailman id 898531;
- Fri, 28 Feb 2025 08:56:50 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1tnwAs-0006hE-4i
- for xen-devel@lists.xenproject.org; Fri, 28 Feb 2025 08:56:50 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tnwAs-00ADmv-0B;
- Fri, 28 Feb 2025 08:56:49 +0000
-Received: from [2a02:8012:3a1:0:493f:83e7:39ed:f66c]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tnwAr-00EbFQ-1x;
- Fri, 28 Feb 2025 08:56:49 +0000
+	id 1tnwM4-0008Jh-MH; Fri, 28 Feb 2025 09:08:24 +0000
+Received: by outflank-mailman (input) for mailman id 898540;
+ Fri, 28 Feb 2025 09:08:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=zu1c=VT=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tnwM3-0008Jb-2B
+ for xen-devel@lists.xenproject.org; Fri, 28 Feb 2025 09:08:23 +0000
+Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
+ [2607:f8b0:4864:20::634])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8bf5ae39-f5b3-11ef-9898-31a8f345e629;
+ Fri, 28 Feb 2025 10:08:17 +0100 (CET)
+Received: by mail-pl1-x634.google.com with SMTP id
+ d9443c01a7336-2211acda7f6so42916555ad.3
+ for <xen-devel@lists.xenproject.org>; Fri, 28 Feb 2025 01:08:17 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-223501fd28dsm28766795ad.94.2025.02.28.01.08.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 28 Feb 2025 01:08:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,238 +44,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=TtKVPXrmU2Dv0RcEThQzquhzJ1WVtt5IrzOyHUmHvbo=; b=jtCT40QbUYEYZwmaGJ0O8/zvol
-	r8XBFGfIRmFTtWWTAJIrB9Eoj3kwZegRsRP909GALztoz3CxBNKIbDfxZ6h6/cj5ZA+9erQT3z4wh
-	OzBI6WfBIzbogaTEQtEtqlvZ2Ctf+zSUOzyTCvvzta0etv4J7ScSfo7rl/xWKE0HVQsw=;
-Message-ID: <9e52cffd-6286-442b-88d7-06eb07de3213@xen.org>
-Date: Fri, 28 Feb 2025 08:56:47 +0000
+X-Inumbo-ID: 8bf5ae39-f5b3-11ef-9898-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1740733696; x=1741338496; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=oVKPAo4CoaDSIv7Ii+G3vI3jczLnmFRq0BASTbd0kug=;
+        b=KJ67ZjDCURSTcWer/cigbIktN0m+o7y8rcndJecdAWliFdGYiRfMowXEirxnrjVZmd
+         E/K/c+HpK1aBIKv3BbK3vfMR4HXvvE0qIIO1CVfDXzVX85s55cdrFfcMCpmJHWYaW3af
+         Y3BfjQxqKiV7sbwupNMW4p8l2QyBawdZpJdPQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1740733696; x=1741338496;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=oVKPAo4CoaDSIv7Ii+G3vI3jczLnmFRq0BASTbd0kug=;
+        b=gUuyvLtN+xtKVTr9kX4npuqVCMU6pyMPx0nV5+Z/VjHiA9iDBrIGZZ5oyG8sdFtYci
+         P6ek89retOkavi09pG7C77/DU5kq4yejMY3v1w99m3UhOKHTlvBR0QasozjAxVwhOnzn
+         Xob1OPus8XLRob2ljzruXGKAhdjLQpJD1Hg2SllNA5rX/kX/a5POH1cBQemjjSRRCVoM
+         8Ze2LwG7DSnS1QYstONvC7DkF8EeaYCh9vMJZ4v6pHt1XXANb5XwDc1PBkeKW77FFOTC
+         78Ho8JphwQZNepRUiu2IPtCF6hs5QGzXBkl+fnZozC+iNenQR5NxMFJSgF/y+5kiU0Q7
+         jowQ==
+X-Gm-Message-State: AOJu0YwIa2utxPJNO55erJfR/AdZXMVnbUImT/bcFolVfHXdsOBVkQWz
+	0I0DyPwSSTVQ4YUgoh9tjNDmbvb2KFWE6SbyaD1Pg+eHyu6lNyRdl0LPP+oV704=
+X-Gm-Gg: ASbGncujAPJy6dlP+q7n7m3/vMb9cOKRskBh0TPZbqjcNs9IqO0VD4ZWEOAlus1Eje8
+	NH6h7KHfY4PzoWGhlSR7vwz6Yk+r96IJyxgFmrAedF2Auo3zI73uVeGU6h8f4ZklQ3+wvji9TGq
+	PRjxM+bbJPTUIqjWgHx0GUxFNhJkJsY4Hnd+Wp1kYNZpH6HAgtQwBA/jEyQaSa584Lq0AEDA6da
+	J6SQcXxXz/9ffgKJFQVnXWvuadgnvnVysjd94HIYRNoKlv/Bc7RiTUEsEhDFtDjVSJ/uRIkp9yR
+	91Dy0mswLal2c0ByVly8tHu0U+CZjutwCqCR
+X-Google-Smtp-Source: AGHT+IFQBC4GqXL0Ka0hd/1pRFQtHYa+tc+4bwOUSdflCIOko47yWczwCbC+DcNJSBPqnXS+sO96eg==
+X-Received: by 2002:a17:902:fccf:b0:220:e63c:5b08 with SMTP id d9443c01a7336-22368f6a1b5mr31291855ad.11.1740733696153;
+        Fri, 28 Feb 2025 01:08:16 -0800 (PST)
+Date: Fri, 28 Feb 2025 10:08:10 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: Re: Verbosity during boot
+Message-ID: <Z8F8-hQ3m8XTEX5P@macbook.local>
+References: <a90f1bb3-90a8-4c3e-818f-498319815475@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] docs: fusa: Define the requirements for
- XEN_VERSION hypercall.
-Content-Language: en-GB
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, Artem Mygaiev <artem_mygaiev@epam.com>
-References: <20250227150922.3965010-1-ayan.kumar.halder@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20250227150922.3965010-1-ayan.kumar.halder@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <a90f1bb3-90a8-4c3e-818f-498319815475@citrix.com>
 
-Hi,
-
-On 27/02/2025 15:09, Ayan Kumar Halder wrote:
-> In the current patch, we have defined the requirements which are common for
-> all the commands.
+On Thu, Feb 27, 2025 at 08:38:27PM +0000, Andrew Cooper wrote:
+> I've raised this during review before, but:
 > 
-> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-> ---
-> Changes from -
+> > (XEN) [    1.209230] AMD-Vi: IOMMU Extended Features:
+> > (XEN) [    1.213998] - Peripheral Page Service Request
+> > (XEN) [    1.218849] - x2APIC
+> > (XEN) [    1.221536] - NX bit
+> > (XEN) [    1.224221] - Invalidate All Command
+> > (XEN) [    1.228297] - Guest APIC
+> > (XEN) [    1.236062] - Performance Counters
+> > (XEN) [    1.244692] - Host Address Translation Size: 0x2
+> > (XEN) [    1.254547] - Guest Address Translation Size: 0
+> > (XEN) [    1.264313] - Guest CR3 Root Table Level: 0x1
+> > (XEN) [    1.273925] - Maximum PASID: 0xf
+> > (XEN) [    1.282338] - SMI Filter Register: 0x1
+> > (XEN) [    1.291241] - SMI Filter Register Count: 0x2
+> > (XEN) [    1.300607] - Guest Virtual APIC Modes: 0
+> > (XEN) [    1.309655] - Dual PPR Log: 0x2
+> > (XEN) [    1.317801] - Dual Event Log: 0x2
+> > (XEN) [    1.326078] - Secure ATS
+> > (XEN) [    1.333490] - User / Supervisor Page Protection
+> > (XEN) [    1.342892] - Device Table Segmentation: 0x3
+> > (XEN) [    1.351981] - PPR Log Overflow Early Warning
+> > (XEN) [    1.361040] - PPR Automatic Response
+> > (XEN) [    1.369341] - Memory Access Routing and Control: 0x1
+> > (XEN) [    1.379012] - Block StopMark Message
+> > (XEN) [    1.387273] - Performance Optimization
+> > (XEN) [    1.395637] - MSI Capability MMIO Access
+> > (XEN) [    1.404138] - Guest I/O Protection
+> > (XEN) [    1.412042] - Host Access
+> > (XEN) [    1.419105] - Enhanced PPR Handling
+> > (XEN) [    1.427008] - Attribute Forward
+> > (XEN) [    1.434494] - Host Dirty
+> > (XEN) [    1.441308] - Virtualized IOMMU
+> > (XEN) [    1.448699] - VMGuard I/O Support
+> > (XEN) [    1.456345] - VM Table Size: 0x2
+> > (XEN) [    1.491312] AMD-Vi: IOMMU 0 Enabled.
+> > (XEN) [    1.499087] AMD-Vi: IOMMU 1 Enabled.
+> > (XEN) [    1.506835] AMD-Vi: IOMMU 2 Enabled.
+> > (XEN) [    1.514554] AMD-Vi: IOMMU 3 Enabled.
+> > (XEN) [    1.522452] I/O virtualisation enabled
 > 
-> v1 - 1. Fixed `XenProd~version_hyp_ret_val~1` requirement as Xen does not return
-> 0 for success in all the cases.
-> 2. Reworded the requirements so as to write them from Xen's perspective (not
-> domain's perspective).
-> 
->   .../fusa/reqs/design-reqs/arm64/hypercall.rst | 55 +++++++++++++++++
->   docs/fusa/reqs/index.rst                      |  2 +
->   docs/fusa/reqs/market-reqs/reqs.rst           | 16 +++++
->   .../reqs/product-reqs/version_hypercall.rst   | 61 +++++++++++++++++++
->   4 files changed, 134 insertions(+)
->   create mode 100644 docs/fusa/reqs/design-reqs/arm64/hypercall.rst
->   create mode 100644 docs/fusa/reqs/product-reqs/version_hypercall.rst
-> 
-> diff --git a/docs/fusa/reqs/design-reqs/arm64/hypercall.rst b/docs/fusa/reqs/design-reqs/arm64/hypercall.rst
-> new file mode 100644
-> index 0000000000..ffd883260c
-> --- /dev/null
-> +++ b/docs/fusa/reqs/design-reqs/arm64/hypercall.rst
-> @@ -0,0 +1,55 @@
-> +.. SPDX-License-Identifier: CC-BY-4.0
-> +
-> +Hypercall
-> +=========
-> +
-> +Instruction
-> +-----------
-> +
-> +`XenSwdgn~arm64_hyp_instr~1`
-> +
-> +Description:
-> +Xen shall treat domain hypercall exception as hypercall requests.
-> +
-> +Rationale:
-> +
-> +Comments:
-> +Hypercall is one of the communication mechanism between Xen and domains.
-> +Domains use hypercalls for various requests to Xen.
-> +Domains use 'hvc' instruction to invoke hypercalls.
+> Lots of that information is not actually useful, not even for
+> developers.  What's worse is that this is a release build of Xen and it
+> still takes 0.3s to print the feature list alone.
 
-Are you trying to describe any hypercalls (e.g. SMCCC, Xen...) or just 
-the Xen one? If the latter, only "hvc #0xEA1" will be used for Xen 
-hypercalls. Other immediate/space will be used for something different 
-(i.e. #0 is used for SMCCC).
+VT-d is kind of similar, but not that verbose in the list of features.
+We should probably adjust there too.
 
- > +> +Covers:
-> + - `XenProd~version_hyp_first_param~1`
-> + - `XenProd~version_hyp_second_param~1`
-> +
-> +Parameters
-> +----------
-> +
-> +`XenSwdgn~arm64_hyp_param~1`
-> +
-> +Description:
-> +Xen shall use x0 to read the first parameter, x1 for second parameter and so
-> +on, for domain hypercall requests.
+I would be fine with doing (didn't test this at all):
 
-This implies we are supporting a large number of parameters. However, 
-Xen is only support 5 arguments. So I would just list all the registers.
-
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenProd~version_hyp_first_param~1`
-> + - `XenProd~version_hyp_second_param~1`
-> +
-
-You don't seem to describe how the hypercall number is passed. Is this 
-intended?
-
-> +Return value
-> +------------
-> +
-> +`XenSwdgn~arm64_ret_val~1`
-> +
-> +Description:
-> +Xen shall store the return value in x0 register.
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenProd~version_hyp_ret_val~1`
-> diff --git a/docs/fusa/reqs/index.rst b/docs/fusa/reqs/index.rst
-> index 1088a51d52..d8683edce7 100644
-> --- a/docs/fusa/reqs/index.rst
-> +++ b/docs/fusa/reqs/index.rst
-> @@ -10,5 +10,7 @@ Requirements documentation
->      market-reqs/reqs
->      product-reqs/reqs
->      product-reqs/arm64/reqs
-> +   product-reqs/version_hypercall
->      design-reqs/arm64/generic-timer
->      design-reqs/arm64/sbsa-uart
-> +   design-reqs/arm64/hypercall
-> diff --git a/docs/fusa/reqs/market-reqs/reqs.rst b/docs/fusa/reqs/market-reqs/reqs.rst
-> index 2d297ecc13..0e29fe5362 100644
-> --- a/docs/fusa/reqs/market-reqs/reqs.rst
-> +++ b/docs/fusa/reqs/market-reqs/reqs.rst
-> @@ -79,3 +79,19 @@ Comments:
->   
->   Needs:
->    - XenProd
-> +
-> +Version hypercall
-> +-----------------
-> +
-> +`XenMkt~version_hypercall~1`
-> +
-> +Description:
-> +Xen shall provide an interface for the domains to retrieve Xen's version, type
-> +and compilation information.
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Needs:
-> + - XenProd
-> diff --git a/docs/fusa/reqs/product-reqs/version_hypercall.rst b/docs/fusa/reqs/product-reqs/version_hypercall.rst
-> new file mode 100644
-> index 0000000000..03221f70c3
-> --- /dev/null
-> +++ b/docs/fusa/reqs/product-reqs/version_hypercall.rst
-> @@ -0,0 +1,61 @@
-> +.. SPDX-License-Identifier: CC-BY-4.0
-> +
-> +Version hypercall
-> +=================
-> +
-> +First Parameter
-> +---------------
-> +
-> +`XenProd~version_hyp_first_param~1`
-> +
-> +Description:
-> +Xen shall treat the first argument (as an integer) to denote the command number
-> +for the hypercall.
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenMkt~version_hypercall~1`
-> +
-> +Needs:
-> + - XenSwdgn
-> +
-> +Second Parameter
-> +----------------
-> +
-> +`XenProd~version_hyp_second_param~1`
-> +
-> +Description:
-> +Xen shall treat the second argument as a virtual address to buffer in domain's
-> +memory.
-
-We don't support any VA. The VA will need to be mapped with specifc 
-attributes (see include/public/arch-arm.h). Should this be mentioned in 
-the requirement?
-
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenMkt~version_hypercall~1`
-> +
-> +Needs:
-> + - XenSwdgn
-> +
-> +Return Value
-> +------------
-> +
-> +`XenProd~version_hyp_ret_val~1`
-> +
-> +Description:
-> +In case the hypercall fails, Xen shall return one of the error codes defined
-> +in http://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=xen/include/public/errno.h.
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenMkt~version_hypercall~1`
-> +
-> +Needs:
-> + - XenSwdgn
-> \ No newline at end of file
-
--- 
-Julien Grall
+diff --git a/xen/drivers/passthrough/amd/iommu_detect.c b/xen/drivers/passthrough/amd/iommu_detect.c
+index cede44e6518f..6bb5d5db9ac7 100644
+--- a/xen/drivers/passthrough/amd/iommu_detect.c
++++ b/xen/drivers/passthrough/amd/iommu_detect.c
+@@ -72,6 +72,9 @@ void __init get_iommu_features(struct amd_iommu *iommu)
+             amd_iommu_max_paging_mode = 4 + iommu->features.flds.hats;
+     }
+ 
++    if ( !iommu_verbose )
++        return;
++
+     /* Don't log the same set of features over and over. */
+     first = list_first_entry(&amd_iommu_head, struct amd_iommu, list);
+     if ( iommu != first && iommu->features.raw == first->features.raw )
 
 
