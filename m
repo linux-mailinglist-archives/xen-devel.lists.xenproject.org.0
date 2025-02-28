@@ -2,40 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A5C2A49813
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Feb 2025 12:08:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.898624.1307142 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6727CA49847
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Feb 2025 12:25:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.898639.1307157 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnyDb-0005EX-Ev; Fri, 28 Feb 2025 11:07:47 +0000
+	id 1tnyTM-00013x-R0; Fri, 28 Feb 2025 11:24:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 898624.1307142; Fri, 28 Feb 2025 11:07:47 +0000
+Received: by outflank-mailman (output) from mailman id 898639.1307157; Fri, 28 Feb 2025 11:24:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tnyDb-0005CT-CL; Fri, 28 Feb 2025 11:07:47 +0000
-Received: by outflank-mailman (input) for mailman id 898624;
- Fri, 28 Feb 2025 11:07:46 +0000
+	id 1tnyTM-00011v-NM; Fri, 28 Feb 2025 11:24:04 +0000
+Received: by outflank-mailman (input) for mailman id 898639;
+ Fri, 28 Feb 2025 11:24:03 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=T3SU=VT=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1tnyDa-0005CN-5M
- for xen-devel@lists.xenproject.org; Fri, 28 Feb 2025 11:07:46 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20631.outbound.protection.outlook.com
- [2a01:111:f403:2412::631])
+ <SRS0=X/K4=VT=casper.srs.infradead.org=BATV+41be19b7fb54d814ef99+7859+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1tnyTJ-00011p-Ss
+ for xen-devel@lists.xenproject.org; Fri, 28 Feb 2025 11:24:03 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3abeca52-f5c4-11ef-9898-31a8f345e629;
- Fri, 28 Feb 2025 12:07:43 +0100 (CET)
-Received: from PH8PR12MB7326.namprd12.prod.outlook.com (2603:10b6:510:216::7)
- by BY5PR12MB4323.namprd12.prod.outlook.com (2603:10b6:a03:211::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.23; Fri, 28 Feb
- 2025 11:07:35 +0000
-Received: from PH8PR12MB7326.namprd12.prod.outlook.com
- ([fe80::6d76:9c33:d230:8264]) by PH8PR12MB7326.namprd12.prod.outlook.com
- ([fe80::6d76:9c33:d230:8264%5]) with mapi id 15.20.8489.018; Fri, 28 Feb 2025
- 11:07:35 +0000
+ id 7ef19bbf-f5c6-11ef-9898-31a8f345e629;
+ Fri, 28 Feb 2025 12:23:56 +0100 (CET)
+Received: from 54-240-197-236.amazon.com ([54.240.197.236]
+ helo=freeip.amazon.com)
+ by casper.infradead.org with esmtpsa (Exim 4.98 #2 (Red Hat Linux))
+ id 1tnyT1-00000001lhq-0SHy; Fri, 28 Feb 2025 11:23:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,391 +41,359 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3abeca52-f5c4-11ef-9898-31a8f345e629
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RNf1qP+TDerBsKCq8p9KHIfpfQUWagC42hp92jHl3U4R3E8jek9Orvbptd9osU2KerC9YzwjHFUZGc7s1IVA3mLW+gxTPaXmkLZONBqbXoeDWApx5kUmW65vrhw2c/ZHhaGt5ss4Yo3trVarzFMIgEzpNIo2gZPiiI/+RvNno9Nb+aqXeIBWIkMXmVS/6d4IZ0VPyeCbcTFL+58BedNCROq0AqXMr5wTvB41v9kt+qlw9//lvKBFoWX0RTYVjKgFU8waCM+hp7CUSZdYWABvNVDDJt3+f58jGV6X9gm5fBEhmI3qmtpl5htKHi8FMb0vCJFhs0k2kkf4addGBum/Cw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xXXpqbtWnqJgjmrJ8SvofLRIAr6xWDu4kC+Azn4AFBA=;
- b=FBCtDAgfxJfl1xOaNjkJErgjv2FpETlhnDyqzquG6cbk0yB5orUmdEpyq8Lnv6F2BXvXc4Q448MSrAywQYLjIAFjVq+kkELHHrCvCLeJAHfU3hDgBcWMRjga7TBqAw9/ze64AQ5FXsB9wm7reZmsqABB4MmWiQQeo3At4yrYo9j+bAaUwB8BVlQIZHgwTnM44IIi66zMUmgc5O2VJMl1XqN3qWVMkAkKw5is2xBZd7LdyZtsk70v9BgqOAwdx9bDaxVpA8tSoc03LW+v1AucP4c+mVhiSwcjIj+Dg04biYtRkSkOgoa9tC/E9vwiVVpu8A7EKviYAEoMP4kBJiKRsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xXXpqbtWnqJgjmrJ8SvofLRIAr6xWDu4kC+Azn4AFBA=;
- b=sfNc6ls5lKL7TZG+3r5t20QZjGM/3dlNzxFojqd34kKW4W7VwX/x2MZvi8kagX35VbDnBrk27DOhFc2AuDUvkbl1H2fIGteN0OJZ3vWOoLwIf+r3jJgHOtTC6gOn/C7wpoe4pimBF2koZkyw45ytaGxPUOplNLi/I3w9okE1A2I=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <4b81d71f-f0bb-4c0a-b1f5-cf5e0a2cf97d@amd.com>
-Date: Fri, 28 Feb 2025 11:07:30 +0000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] docs: fusa: Define the requirements for
- XEN_VERSION hypercall.
-Content-Language: en-GB
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>, Artem Mygaiev <artem_mygaiev@epam.com>
-References: <20250227150922.3965010-1-ayan.kumar.halder@amd.com>
- <636358F4-C156-4304-9C75-A8DF36E16F2E@arm.com>
- <3ec73f8f-0a91-46eb-9ea8-461fc6bac373@amd.com>
- <6B6C39FB-E0C5-4873-923D-32D4B277B224@arm.com>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <6B6C39FB-E0C5-4873-923D-32D4B277B224@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PA7P264CA0419.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:39b::12) To PH8PR12MB7326.namprd12.prod.outlook.com
- (2603:10b6:510:216::7)
+X-Inumbo-ID: 7ef19bbf-f5c6-11ef-9898-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=hcBMVObYlSy4kfKgZ2QaFVxthR2uOFOjZ0tAFJ/Ueuw=; b=RUajs/vt2biYqM9UDHxwh9xDbF
+	iewMUZ54B9iYKsjFjSECIrcOSHa/86TB1yUlcxyB4PIX2/X64AjUZcg9/LMPtn4T0DlMriBYHjpOG
+	CecVudmlW7pi4Cydal5gh513Rm8NbDXC61p0ux3Bw8zjGhi96zwxtbvKwbfHxqOO6CcfzSDtrB3jO
+	lv9+eAHIoJIzhWvkIBfQIYjn2Zmo0KtW3eLt9fxglEjpigqpkS4ZoynsNDMMoA66a5syTwKWj+sxC
+	9GKAM0smKhawtYJ3+e5PsZsZ77TvWoKqZluDFU8oEzo696NxXxoq30iiAuWGNCDtG6hz8vwybrizJ
+	wrRAiIDw==;
+Message-ID: <5bdb92ab83269b49ad8fbbe8f54df01f6b98ea8f.camel@infradead.org>
+Subject: Re: [PATCH v2 00/38] x86: Try to wrangle PV clocks vs. TSC
+From: David Woodhouse <dwmw2@infradead.org>
+To: Sean Christopherson <seanjc@google.com>, Thomas Gleixner
+ <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
+ <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+ "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>, Paolo Bonzini
+ <pbonzini@redhat.com>, Juergen Gross <jgross@suse.com>,  "K. Y. Srinivasan"
+ <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu
+ <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, Ajay Kaher
+ <ajay.kaher@broadcom.com>, Jan Kiszka <jan.kiszka@siemens.com>, Andy
+ Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Daniel
+ Lezcano <daniel.lezcano@linaro.org>, John Stultz <jstultz@google.com>
+Cc: linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev, 
+	kvm@vger.kernel.org, virtualization@lists.linux.dev, 
+	linux-hyperv@vger.kernel.org, xen-devel@lists.xenproject.org, Tom Lendacky
+	 <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>
+Date: Fri, 28 Feb 2025 11:23:41 +0000
+In-Reply-To: <20250227021855.3257188-1-seanjc@google.com>
+References: <20250227021855.3257188-1-seanjc@google.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-ch88MIQEh5lgQIw/7rP6"
+User-Agent: Evolution 3.52.3-0ubuntu1 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7326:EE_|BY5PR12MB4323:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9af129bc-f095-428d-80a7-08dd57e81abc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?bkwxaDduUm9pcDBzWFVOS25wUlF4VktCOEJMWi9IQjR2VW1wS1NKRnM1ZmRr?=
- =?utf-8?B?YllvQjJ2RVhFdTNjMnRvZjFjSWRzNmxYM0hiNTY2aHdxUGh6VWRmYVprbWov?=
- =?utf-8?B?S01Ga29Nc3FRRVdyWXVoRkd2WVB3Zi9menJBZWlpMHM2b0lpMytaYkNTcnF3?=
- =?utf-8?B?enJRT0c3Z0QwbzhVa1UrdG9WaW5STkwwcis0MDFBeDIrclhMWWRDNzdoYkkr?=
- =?utf-8?B?T216N0l1TUpGcDdDYXQ3d2MyQnkvdEozUmxJVGFMM3gvZHpSTm9lRjgvNFdv?=
- =?utf-8?B?TUNDUGdrNE1BZExFRmF1NmtwSXQySERIRmdMRGJWNVJvVE5LazJmbUdueEo3?=
- =?utf-8?B?ZUJJdkxBdWFGNlNLMWZ3RlpEd1FTS283aWNHb3d1YjFJQ1dWcnA5V2RtcStE?=
- =?utf-8?B?Zm5CK1NXeTVZdzNoakJ3T0ZueG1DOUNIQ05yZkJsck5nYVNDK2tNdFJHcWV6?=
- =?utf-8?B?RnEzQjFlMml6cXBBWDg0ckhpZStqeHJ2VzlTeVlyRzdWSmpuc0VSdFc0QjlP?=
- =?utf-8?B?Rkg4RDJ2L1BxazBZVU1VL1M0ZnFpR0VxRE8zcTdiZHk0cCt1bzdwOFhRWnhL?=
- =?utf-8?B?OGorQ2tSYmNFcXh4OUhDSzZMNm9MK0ZpcFdQUDh1RUdYTFoyMmdqaFRKamdK?=
- =?utf-8?B?bDN0RVdlN3BWRnZITjR4UVplY0p2akphemdmbDNuNWtMWFdxYmN6VEMrTmZI?=
- =?utf-8?B?YUFOejQzYi9DRWdXL3Z0bnJzVjFpQTlRTlovRDBBeEhGNW54SnVMbjhtckI3?=
- =?utf-8?B?SEwwd3J1UUFvc3o0MVRXSkEramwyai92YXVybVlsMlBQdWY5Qk9KaW5wSjAy?=
- =?utf-8?B?Z0hDbEMxS09VNTUyTUc0TzJkeUQ0cnZxRkRISHFZeXJWNmFOdEN1M3ZyVWxO?=
- =?utf-8?B?U1VaVUhJN3J5U2h0NkoyK0NVaXhOc3NnMnpZT0RYcVhjRzliemhGMmltendo?=
- =?utf-8?B?NVRvemdlQlZkMjZLbnFycDBEN1JXUk00eEV2K1dNNnhZalNJRmhUbEQ2OE9a?=
- =?utf-8?B?THg1bE9WY3dOOUt3VWI5M2JxamtPZ0pVaVlJUzgzaEhINTRWVTZhRGJlYlI1?=
- =?utf-8?B?SjJZR1JzejNBS0I1bGRDejMrMUFZc2pXMGxNTUJOa0gyVFFUZVA0ZWUwenJL?=
- =?utf-8?B?VlJlSDBiMDdOd205dnVtYXZpS1BtaFFDVkRIYjA2TWZ2YllTT3RMa0YyZXNC?=
- =?utf-8?B?OFBVQnlEeThRd3lXcFVqdHhwM0t1T1JpVVYzUkp4RVYvZEpUdnRRd2RBb3Nl?=
- =?utf-8?B?YzM2N1F1d2FLbzVqWkJwTjhuYmZFTzM4OE1WVVc2bDR1c2lJcEJRL2ZDQXVt?=
- =?utf-8?B?cUtMOFNDemtCRC80eUlsRk5tam1sY2xxSHJsSW5TVys5ZmRRdlJmMUhrMnls?=
- =?utf-8?B?VGpuT2o2RVByZ1ZlY2FSbmg1KzhuRTllaXE3YlNiUStXcStablRadzlXejhI?=
- =?utf-8?B?a0UzQVFQM0Z1MnJCZzh2d2ZiZUwvN1JMblhxY0dSemlTSlZpRWoyRUFCL29n?=
- =?utf-8?B?UTdxUTBlNGVaTGIydHFzQWpIc0E4Wll5WDBMRkx5L2YvMVExcXFQc1lNL2J6?=
- =?utf-8?B?amdXUGtISGxPUWhSdDR6T1VTeDhMWWl2dnhUQVJxM2hRdGlUQzNtckpTMXNz?=
- =?utf-8?B?aXptZ2pZcWpVdFlvOUJGNENIOGxtRVZiazZkaFZsK1d6aU1Gc1Vwb0JBa2l0?=
- =?utf-8?B?WlBvSHpjaFhybENJV2lSWFUwMWkrTzBKSi9CQUxPdDl1UmxYWFB3ckpJUEZC?=
- =?utf-8?B?aWx5Q1YvWHlNV01iMnYxT1hDTFRDSlE1UktoZkdyM1RmRTNRWlpUVXpQZWsv?=
- =?utf-8?B?dmxZNGZoWFBncXFEVWJkdz09?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7326.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SlN4Z25YR1kzZFI5S0kyRm5aYlFoelZKcW5Yb1hESjBkVmhHYWY2VzNBWEVl?=
- =?utf-8?B?ZXhEZzhrQTNUOXQ5alhVVkQyYmtINE1HOUdBTis2N09HTlpNZVVibElBOC9p?=
- =?utf-8?B?SVhUVStYRlB4YlpDMzVLRkJoUVdnRUN0Qi92T3ZHSW9NTjZnYURJWm4wQWZK?=
- =?utf-8?B?bFliR0h4bWZkRlFzOWN1R3J1cTVUdHRmaVpBSXNwelIyZ0k0M2RvVWgvaXJp?=
- =?utf-8?B?cGNSdzRUWmd0akw0OWJ5dnZGTEY0Q3JrZW5IN3hqaTZNMnc3czJXMHVtbDRE?=
- =?utf-8?B?QXhHSkpxczlFR053SU9TWlhySmpmMm5OM2YvbjV6eUZHVHEyayttWVhRdEJo?=
- =?utf-8?B?ZUZCbGRlMDUvV0hqWWlhMFlCTW9PTHhFeTA0U1ZUcXBEQkE1Tk9PVzAvZFY5?=
- =?utf-8?B?Y1VMT0dnNFlDWG5vcEdHajFHWDdPakJYK3FrKzYweVhnL2xqelllcjdhYkI2?=
- =?utf-8?B?NVJpeGwvdjZJajJxN2tTbjVjbnJDTElHaE5xM0pKZGVINkwwSmozeHpmVUFL?=
- =?utf-8?B?SWhKWXJaMXRUT3ZBMFFyaExTZEl3OElxU3BQMVBFdzREVTdvTW1SS1QyZU9R?=
- =?utf-8?B?MVArM3ZJVXI1dTNxYWh6US9XcUNrRkxwMTJTSlA1ektpSDBOTWk0WDc4bEIx?=
- =?utf-8?B?NWg2LzhCZjU4a3pEemw4aU9BTTdoSG5vU0JZTWZZeG5jbjNpTkYxOWFlaitR?=
- =?utf-8?B?WTExR2pwU3MvdFV3WmpjVXZlQmQxZ3lpbnlyNnBHUnp3TjhQb2kwc0Q0QURM?=
- =?utf-8?B?RmJ1czVqV0V0MWtTditSRkRJdUl3WTRtc045TXVxUDQ4Y1dlUldNSzIxd20r?=
- =?utf-8?B?TGk1alUxcnBuR0wvV1I0QytXK3BwSXdON3ZuOGNmbnlyOGM0cGxoKytSYS9Z?=
- =?utf-8?B?MXJMRXJzOGpFRWNQOC9qK05oQlZVa2ZnSW00Y3RVR3p3MmdiSy91RlVidmYr?=
- =?utf-8?B?OXF4NGRzMlZGNExUc2FHY0NUclFmUHBKQW51MTNUUmRyRFVoTXFua2Jsd3Q2?=
- =?utf-8?B?eVY1b3ZZQlRqWnlqZmgwSUZjQlgyMmg2WC8yOHAvWXhQeGRxL2JKamtjZkhJ?=
- =?utf-8?B?aFdpV1l4U1pRSFNGOWNMWmQxcGRDY1NCbmFWdytJZEpiNk9xYWU5QURYNXho?=
- =?utf-8?B?S1cvM0JCaVFUYXVzNTNCdU03VGk5clNSdktmYkQ1QTl5NnVZSVBaUFMzVlNn?=
- =?utf-8?B?eHpWMFhzRlV2ZnRmQW9KbHdJaTZIUmNqSStCM1BGSWlhbmRkbk52Snl3WUFu?=
- =?utf-8?B?QXB3ODNzRHl2WHVvbThOeGY5MWxVU0JuL0FOVjkrNkMrUHVjcC9SWVdabFRH?=
- =?utf-8?B?WmdXYkRtODY0K2ZwcE1DM2tqNDdheFREaU1qdzJxdkRkb2svMlg1SW9xNU5S?=
- =?utf-8?B?TkNNSkFDU3R6Y2ZYSi9rMXJFSWI0MmcwMXlCNHNOZTlFbmsyYkw5aTRVSFNt?=
- =?utf-8?B?VWRSWENYaVUwWXpQUlBLTTdHc25PU3NXSWZLMFhoVlRZUVUrNHZ0ZE1zdXlt?=
- =?utf-8?B?bG1vZ0VHWGNoanRWRmU3L00zQ0F3am0xK0JVdVRTMWhpUXFkdVhBVzNPS2Zq?=
- =?utf-8?B?RjNiYWlxODhoNTBXUk9OVHdzc1dIcm55QVZMcWFSOXNDeEQrUitOWUdYRjBT?=
- =?utf-8?B?bGlxaVNaZFJyMkJMVmcrU1pLMkZrUXR4dUF6K0RCamFQRkM1bjVOVDhJdWl5?=
- =?utf-8?B?UDZiU2ZVN2k2NmNDdEpFQkJ6a1BVYW5NQnhHdFVXTEEwcW5laVpaRjZzdHRy?=
- =?utf-8?B?NFQ2K2V5cUI1VzIwTnJJdnJpYlJ2eFZzK0Y4bTFLN1dyckJ1VVFhMmZFY252?=
- =?utf-8?B?enNLb3pnMlYrM3JyN1JVdy9PaWNEOU9peWxJdzRGWStaWDJSSVpFU2cyWEFN?=
- =?utf-8?B?b1phT2lCNXJFY1VoRXdwc1RaSnNWN1o5K0RXd0t6SGtBa1RUNXltT0o5VnA2?=
- =?utf-8?B?d0NGa1RsYWRiV0RKN1dhWEh2bmFJZWV5a2ZnT1l6MlVWRkZLYmk5cjhvQXI3?=
- =?utf-8?B?ZWxTYkJDVlNtWDFnRW9jU1F2RkJRUTZ2bm5jNWJLR3hiVEJIM2E5djRNMkZB?=
- =?utf-8?B?RU5Ha01kMjFTVW9WWDdXZ2tYbllDemFBZkhSRWJQTFFmZllNNWZIc1d1a25D?=
- =?utf-8?Q?KU8zTIlx50/bKzyTtVODy2P5P?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9af129bc-f095-428d-80a7-08dd57e81abc
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2025 11:07:35.2013
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gWnZGSR/yIopAJjOOSIUyqd9VFcy49QbUo8fT3q8YTiuScq+oF9j5O/E7AgUhjoVrLfuhCYcl4Y/hoMnzbr+IA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4323
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
 
-On 28/02/2025 07:54, Bertrand Marquis wrote:
-> Hi Ayan,
-Hi Bertrand,
+--=-ch88MIQEh5lgQIw/7rP6
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, 2025-02-26 at 18:18 -0800, Sean Christopherson wrote:
+> This... snowballed a bit.
+>=20
+> The bulk of the changes are in kvmclock and TSC, but pretty much every
+> hypervisor's guest-side code gets touched at some point.=C2=A0 I am reaon=
+sably
+> confident in the correctness of the KVM changes.=C2=A0 For all other hype=
+rvisors,
+> assume it's completely broken until proven otherwise.
 >
->> On 27 Feb 2025, at 20:29, Ayan Kumar Halder <ayankuma@amd.com> wrote:
->>
->>
->> On 27/02/2025 17:15, Bertrand Marquis wrote:
->>> Hi Ayan,
->> Hi Bertrand,
->>
->> I have just some clarifications.
->>
->>>> On 27 Feb 2025, at 16:09, Ayan Kumar Halder <ayan.kumar.halder@amd.com> wrote:
->>>>
->>>> In the current patch, we have defined the requirements which are common for
->>>> all the commands.
->>>>
->>>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->>>> ---
->>>> Changes from -
->>>>
->>>> v1 - 1. Fixed `XenProd~version_hyp_ret_val~1` requirement as Xen does not return
->>>> 0 for success in all the cases.
->>>> 2. Reworded the requirements so as to write them from Xen's perspective (not
->>>> domain's perspective).
->>>>
->>>> .../fusa/reqs/design-reqs/arm64/hypercall.rst | 55 +++++++++++++++++
->>>> docs/fusa/reqs/index.rst                      |  2 +
->>>> docs/fusa/reqs/market-reqs/reqs.rst           | 16 +++++
->>>> .../reqs/product-reqs/version_hypercall.rst   | 61 +++++++++++++++++++
->>>> 4 files changed, 134 insertions(+)
->>>> create mode 100644 docs/fusa/reqs/design-reqs/arm64/hypercall.rst
->>>> create mode 100644 docs/fusa/reqs/product-reqs/version_hypercall.rst
->>>>
->>>> diff --git a/docs/fusa/reqs/design-reqs/arm64/hypercall.rst b/docs/fusa/reqs/design-reqs/arm64/hypercall.rst
->>>> new file mode 100644
->>>> index 0000000000..ffd883260c
->>>> --- /dev/null
->>>> +++ b/docs/fusa/reqs/design-reqs/arm64/hypercall.rst
->>>> @@ -0,0 +1,55 @@
->>>> +.. SPDX-License-Identifier: CC-BY-4.0
->>>> +
->>>> +Hypercall
->>>> +=========
->>>> +
->>>> +Instruction
->>>> +-----------
->>>> +
->>>> +`XenSwdgn~arm64_hyp_instr~1`
->>>> +
->>>> +Description:
->>>> +Xen shall treat domain hypercall exception as hypercall requests.
->>>> +
->>>> +Rationale:
->>>> +
->>>> +Comments:
->>>> +Hypercall is one of the communication mechanism between Xen and domains.
->>>> +Domains use hypercalls for various requests to Xen.
->>>> +Domains use 'hvc' instruction to invoke hypercalls.
->>>> +
->>>> +Covers:
->>>> + - `XenProd~version_hyp_first_param~1`
->>>> + - `XenProd~version_hyp_second_param~1`
->>>> +
->>>> +Parameters
->>>> +----------
->>>> +
->>>> +`XenSwdgn~arm64_hyp_param~1`
->>>> +
->>>> +Description:
->>>> +Xen shall use x0 to read the first parameter, x1 for second parameter and so
->>>> +on, for domain hypercall requests.
->>>> +
->>>> +Rationale:
->>>> +
->>>> +Comments:
->>>> +
->>>> +Covers:
->>>> + - `XenProd~version_hyp_first_param~1`
->>>> + - `XenProd~version_hyp_second_param~1`
->>>> +
->>>> +Return value
->>>> +------------
->>>> +
->>>> +`XenSwdgn~arm64_ret_val~1`
->>>> +
->>>> +Description:
->>>> +Xen shall store the return value in x0 register.
->>>> +
->>>> +Rationale:
->>>> +
->>>> +Comments:
->>>> +
->>>> +Covers:
->>>> + - `XenProd~version_hyp_ret_val~1`
->>>> diff --git a/docs/fusa/reqs/index.rst b/docs/fusa/reqs/index.rst
->>>> index 1088a51d52..d8683edce7 100644
->>>> --- a/docs/fusa/reqs/index.rst
->>>> +++ b/docs/fusa/reqs/index.rst
->>>> @@ -10,5 +10,7 @@ Requirements documentation
->>>>     market-reqs/reqs
->>>>     product-reqs/reqs
->>>>     product-reqs/arm64/reqs
->>>> +   product-reqs/version_hypercall
->>>>     design-reqs/arm64/generic-timer
->>>>     design-reqs/arm64/sbsa-uart
->>>> +   design-reqs/arm64/hypercall
->>>> diff --git a/docs/fusa/reqs/market-reqs/reqs.rst b/docs/fusa/reqs/market-reqs/reqs.rst
->>>> index 2d297ecc13..0e29fe5362 100644
->>>> --- a/docs/fusa/reqs/market-reqs/reqs.rst
->>>> +++ b/docs/fusa/reqs/market-reqs/reqs.rst
->>>> @@ -79,3 +79,19 @@ Comments:
->>>>
->>>> Needs:
->>>>   - XenProd
->>>> +
->>>> +Version hypercall
->>>> +-----------------
->>>> +
->>>> +`XenMkt~version_hypercall~1`
->>>> +
->>>> +Description:
->>>> +Xen shall provide an interface for the domains to retrieve Xen's version, type
->>>> +and compilation information.
->>>> +
->>>> +Rationale:
->>>> +
->>>> +Comments:
->>>> +
->>>> +Needs:
->>>> + - XenProd
->>>> diff --git a/docs/fusa/reqs/product-reqs/version_hypercall.rst b/docs/fusa/reqs/product-reqs/version_hypercall.rst
->>>> new file mode 100644
->>>> index 0000000000..03221f70c3
->>>> --- /dev/null
->>>> +++ b/docs/fusa/reqs/product-reqs/version_hypercall.rst
->>>> @@ -0,0 +1,61 @@
->>>> +.. SPDX-License-Identifier: CC-BY-4.0
->>>> +
->>>> +Version hypercall
->>>> +=================
->>>> +
->>>> +First Parameter
->>>> +---------------
->>>> +
->>>> +`XenProd~version_hyp_first_param~1`
->>>> +
->>>> +Description:
->>>> +Xen shall treat the first argument (as an integer) to denote the command number
->>>> +for the hypercall.
->>> You speak of argument here and parameter earlier.
->>> I would rephrase to: the first argument of an hypercall exception as the command number for the hypercall.
->> Ack
->>
->> Should I do this everywhere ?
->>
->> s/parameter/argument
->>
->> That would make it consistent.
-> Yes definitely
->
->>>> +
->>>> +Rationale:
->>>> +
->>>> +Comments:
->>>> +
->>>> +Covers:
->>>> + - `XenMkt~version_hypercall~1`
->>>> +
->>>> +Needs:
->>>> + - XenSwdgn
->>>> +
->>>> +Second Parameter
->>>> +----------------
->>>> +
->>>> +`XenProd~version_hyp_second_param~1`
->>>> +
->>>> +Description:
->>>> +Xen shall treat the second argument as a virtual address to buffer in domain's
->>>> +memory.
->>>> +
->>> Same here on argument vs parameter.
->>>
->>>> +Rationale:
->>>> +
->>>> +Comments:
->>>> +
->>>> +Covers:
->>>> + - `XenMkt~version_hypercall~1`
->>>> +
->>>> +Needs:
->>>> + - XenSwdgn
->>>> +
->>>> +Return Value
->>>> +------------
->>>> +
->>>> +`XenProd~version_hyp_ret_val~1`
->>>> +
->>>> +Description:
->>>> +In case the hypercall fails, Xen shall return one of the error codes defined
->>>> +in http://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=xen/include/public/errno.h.
->>> This is a very imprecise req as it does not states what can fail and what should be returned exactly.
->>> Do we want to be that generic ? if yes then this might be a requirement valid for any hypercall.
->> Yes, you are correct.
->>
->> I am thinking of pushing this further up ie have this requirement at market level and leave it **unlinked** to any product requirement.
->>
->> IOW, we don't need to validate each and every error code returned by the hypercall.
->>
->> Or should we just drop this requirement ?
-> I think you should move this requirement and make it a generic one valid for all hypercalls.
-Yes, I will place it under hypercall.rst.
->
-> Now at some point you might have to describe which error is caused by what problem as part of your hypercall interface definition.
-> ie: one generic product req and per hypercall design req describing the error cases.
+> Note, I deliberately omitted:
+>=20
+> =C2=A0 Alexey Makhalov <alexey.amakhalov@broadcom.com>
+> =C2=A0 jailhouse-dev@googlegroups.com
+>=20
+> from the To/Cc, as those emails bounced on the last version, and I have z=
+ero
+> desire to get 38*2 emails telling me an email couldn't be delivered.
+>=20
+> The primary goal of this series is (or at least was, when I started) to
+> fix flaws with SNP and TDX guests where a PV clock provided by the untrus=
+ted
+> hypervisor is used instead of the secure/trusted TSC that is controlled b=
+y
+> trusted firmware.
+>=20
+> The secondary goal is to draft off of the SNP and TDX changes to slightly
+> modernize running under KVM.=C2=A0 Currently, KVM guests will use TSC for
+> clocksource, but not sched_clock.=C2=A0 And they ignore Intel's CPUID-bas=
+ed TSC
+> and CPU frequency enumeration, even when using the TSC instead of kvmcloc=
+k.
+> And if the host provides the core crystal frequency in CPUID.0x15, then K=
+VM
+> guests can use that for the APIC timer period instead of manually calibra=
+ting
+> the frequency.
+>=20
+> Lots more background on the SNP/TDX motiviation:
+> https://lore.kernel.org/all/20250106124633.1418972-13-nikunj@amd.com
 
-Agreed.
+Looks good; thanks for tackling this.
 
-And an example design requirement which will be linked is :-
+I think there are still some things from my older series at
+https://lore.kernel.org/all/20240522001817.619072-1-dwmw2@infradead.org/
+which this doesn't address. Specifically, the accuracy and consistency
+of what KVM advertises to the guest as the KVM clock. And as the Xen
+clock, more to the point =E2=80=94 because guests generally *know* that the=
+ KVM
+clock is awful, but expect better of the Xen clock.
 
-Xen shall return -EFAULT if it encounters an error while copying the 
-extraversion string to domain's buffer.
+With a sane and consistent TSC, the mul/shift factors that KVM presents
+to the guest in the kvmclock structure should basically *never* change.
+Not even on live update (or live migration between hosts with the same
+host TSC frequency).=20
 
-Is this what you have in mind ?
+Take live update as the simple case: serializing the QEMU state and
+restarting it immediately, just to update QEMU with the guest
+experiencing only a few milliseconds of steal time.
 
->
-> At the end you should have a test to trigger each error condition and that test will be linked to the design req corresponding.
+The guest TSC has a fixed arithmetic relationship to the host TSC. That
+should *not* change across the live update; not by a single count.=20
+I don't believe the KVM APIs allow userspace to get that right, which
+is resolved by the KVM_VCPU_TSC_SCALE ioctl in patch 7 of that series:
+https://lore.kernel.org/all/20240522001817.619072-8-dwmw2@infradead.org/
 
-Ack.
+And then the KVM clock should have a fixed arithmetic relationship to
+the guest TSC, which should *also* not change. Not even over live
+migration =E2=80=94 userspace should ensure the guest TSC is as accurate as
+possible given NTP synchronisation between the hosts, and then the KVM
+clock remains a fixed function of the guest TSC (at least, if the guest
+TSC is the same frequency on source and destination). The existing KVM
+API doesn't allow userspace to get *that* right either, which is
+addressed by Jack's patch 3 of the series:
+https://lore.kernel.org/all/20240522001817.619072-4-dwmw2@infradead.org/
 
-- Ayan
+The rest of the series is mostly fixing a bunch of places where KVM
+gratuitously recalculates the KVM clock that it advertises to the
+guest, and the fact that it does so *badly* in some cases, with a loss
+of precision that causes errors in the guest. You may already have
+addressed some of those; I'll go over my series and see what still
+applies on top of yours.
 
->
-> Cheers
-> Bertrand
->
->> - Ayan
->>
->>> Cheers
->>> Bertrand
->>>
->>>> +
->>>> +Rationale:
->>>> +
->>>> +Comments:
->>>> +
->>>> +Covers:
->>>> + - `XenMkt~version_hypercall~1`
->>>> +
->>>> +Needs:
->>>> + - XenSwdgn
->>>> \ No newline at end of file
->>>> -- 
->>>> 2.25.1
->
+>=20
+> v2:
+> =C2=A0- Add struct to hold the TSC CPUID output. [Boris]
+> =C2=A0- Don't pointlessly inline the TSC CPUID helpers. [Boris]
+> =C2=A0- Fix a variable goof in a helper, hopefully for real this time. [D=
+an]
+> =C2=A0- Collect reviews. [Nikunj]
+> =C2=A0- Override the sched_clock save/restore hooks if and only if a PV c=
+lock
+> =C2=A0=C2=A0 is successfully registered.
+> =C2=A0- During resome, restore clocksources before reading persistent tim=
+e.
+> =C2=A0- Clean up more warts created by kvmclock.
+> =C2=A0- Fix more bugs in kvmclock's suspend/resume handling.
+> =C2=A0- Try to harden kvmclock against future bugs.
+>=20
+> v1: https://lore.kernel.org/all/20250201021718.699411-1-seanjc@google.com
+>=20
+> Sean Christopherson (38):
+> =C2=A0 x86/tsc: Add a standalone helpers for getting TSC info from CPUID.=
+0x15
+> =C2=A0 x86/tsc: Add standalone helper for getting CPU frequency from CPUI=
+D
+> =C2=A0 x86/tsc: Add helper to register CPU and TSC freq calibration routi=
+nes
+> =C2=A0 x86/sev: Mark TSC as reliable when configuring Secure TSC
+> =C2=A0 x86/sev: Move check for SNP Secure TSC support to tsc_early_init()
+> =C2=A0 x86/tdx: Override PV calibration routines with CPUID-based calibra=
+tion
+> =C2=A0 x86/acrn: Mark TSC frequency as known when using ACRN for calibrat=
+ion
+> =C2=A0 clocksource: hyper-v: Register sched_clock save/restore iff it's
+> =C2=A0=C2=A0=C2=A0 necessary
+> =C2=A0 clocksource: hyper-v: Drop wrappers to sched_clock save/restore
+> =C2=A0=C2=A0=C2=A0 helpers
+> =C2=A0 clocksource: hyper-v: Don't save/restore TSC offset when using HV
+> =C2=A0=C2=A0=C2=A0 sched_clock
+> =C2=A0 x86/kvmclock: Setup kvmclock for secondary CPUs iff CONFIG_SMP=3Dy
+> =C2=A0 x86/kvm: Don't disable kvmclock on BSP in syscore_suspend()
+> =C2=A0 x86/paravirt: Move handling of unstable PV clocks into
+> =C2=A0=C2=A0=C2=A0 paravirt_set_sched_clock()
+> =C2=A0 x86/kvmclock: Move sched_clock save/restore helpers up in kvmclock=
+.c
+> =C2=A0 x86/xen/time: Nullify x86_platform's sched_clock save/restore hook=
+s
+> =C2=A0 x86/vmware: Nullify save/restore hooks when using VMware's sched_c=
+lock
+> =C2=A0 x86/tsc: WARN if TSC sched_clock save/restore used with PV sched_c=
+lock
+> =C2=A0 x86/paravirt: Pass sched_clock save/restore helpers during
+> =C2=A0=C2=A0=C2=A0 registration
+> =C2=A0 x86/kvmclock: Move kvm_sched_clock_init() down in kvmclock.c
+> =C2=A0 x86/xen/time: Mark xen_setup_vsyscall_time_info() as __init
+> =C2=A0 x86/pvclock: Mark setup helpers and related various as
+> =C2=A0=C2=A0=C2=A0 __init/__ro_after_init
+> =C2=A0 x86/pvclock: WARN if pvclock's valid_flags are overwritten
+> =C2=A0 x86/kvmclock: Refactor handling of PVCLOCK_TSC_STABLE_BIT during
+> =C2=A0=C2=A0=C2=A0 kvmclock_init()
+> =C2=A0 timekeeping: Resume clocksources before reading persistent clock
+> =C2=A0 x86/kvmclock: Hook clocksource.suspend/resume when kvmclock isn't
+> =C2=A0=C2=A0=C2=A0 sched_clock
+> =C2=A0 x86/kvmclock: WARN if wall clock is read while kvmclock is suspend=
+ed
+> =C2=A0 x86/kvmclock: Enable kvmclock on APs during onlining if kvmclock i=
+sn't
+> =C2=A0=C2=A0=C2=A0 sched_clock
+> =C2=A0 x86/paravirt: Mark __paravirt_set_sched_clock() as __init
+> =C2=A0 x86/paravirt: Plumb a return code into __paravirt_set_sched_clock(=
+)
+> =C2=A0 x86/paravirt: Don't use a PV sched_clock in CoCo guests with trust=
+ed
+> =C2=A0=C2=A0=C2=A0 TSC
+> =C2=A0 x86/tsc: Pass KNOWN_FREQ and RELIABLE as params to registration
+> =C2=A0 x86/tsc: Rejects attempts to override TSC calibration with lesser
+> =C2=A0=C2=A0=C2=A0 routine
+> =C2=A0 x86/kvmclock: Mark TSC as reliable when it's constant and nonstop
+> =C2=A0 x86/kvmclock: Get CPU base frequency from CPUID when it's availabl=
+e
+> =C2=A0 x86/kvmclock: Get TSC frequency from CPUID when its available
+> =C2=A0 x86/kvmclock: Stuff local APIC bus period when core crystal freq c=
+omes
+> =C2=A0=C2=A0=C2=A0 from CPUID
+> =C2=A0 x86/kvmclock: Use TSC for sched_clock if it's constant and non-sto=
+p
+> =C2=A0 x86/paravirt: kvmclock: Setup kvmclock early iff it's sched_clock
+>=20
+> =C2=A0arch/x86/coco/sev/core.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 9 +-
+> =C2=A0arch/x86/coco/tdx/tdx.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 27 ++-
+> =C2=A0arch/x86/include/asm/kvm_para.h=C2=A0=C2=A0=C2=A0 |=C2=A0 10 +-
+> =C2=A0arch/x86/include/asm/paravirt.h=C2=A0=C2=A0=C2=A0 |=C2=A0 16 +-
+> =C2=A0arch/x86/include/asm/tdx.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 2 +
+> =C2=A0arch/x86/include/asm/tsc.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0 20 +++
+> =C2=A0arch/x86/include/asm/x86_init.h=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 -
+> =C2=A0arch/x86/kernel/cpu/acrn.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 5 +-
+> =C2=A0arch/x86/kernel/cpu/mshyperv.c=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 69 +=
+-------
+> =C2=A0arch/x86/kernel/cpu/vmware.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0 11 +-
+> =C2=A0arch/x86/kernel/jailhouse.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 |=C2=A0=C2=A0 6 +-
+> =C2=A0arch/x86/kernel/kvm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 39 +++--
+> =C2=A0arch/x86/kernel/kvmclock.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 | 260 +++++++++++++++++++++--------
+> =C2=A0arch/x86/kernel/paravirt.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0 35 +++-
+> =C2=A0arch/x86/kernel/pvclock.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0=C2=A0 9 +-
+> =C2=A0arch/x86/kernel/smpboot.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
+> =C2=A0arch/x86/kernel/tsc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 141 ++++++++++++----
+> =C2=A0arch/x86/kernel/x86_init.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 1 -
+> =C2=A0arch/x86/mm/mem_encrypt_amd.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=
+=C2=A0 3 -
+> =C2=A0arch/x86/xen/time.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 13 +-
+> =C2=A0drivers/clocksource/hyperv_timer.c |=C2=A0 38 +++--
+> =C2=A0include/clocksource/hyperv_timer.h |=C2=A0=C2=A0 2 -
+> =C2=A0kernel/time/timekeeping.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0=C2=A0 9 +-
+> =C2=A023 files changed, 487 insertions(+), 242 deletions(-)
+>=20
+>=20
+> base-commit: a64dcfb451e254085a7daee5fe51bf22959d52d3
+
+
+--=-ch88MIQEh5lgQIw/7rP6
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCD9Aw
+ggSOMIIDdqADAgECAhAOmiw0ECVD4cWj5DqVrT9PMA0GCSqGSIb3DQEBCwUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBDQTAeFw0yNDAxMzAwMDAwMDBaFw0zMTEx
+MDkyMzU5NTlaMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYDVQQDExdWZXJv
+a2V5IFNlY3VyZSBFbWFpbCBHMjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMjvgLKj
+jfhCFqxYyRiW8g3cNFAvltDbK5AzcOaR7yVzVGadr4YcCVxjKrEJOgi7WEOH8rUgCNB5cTD8N/Et
+GfZI+LGqSv0YtNa54T9D1AWJy08ZKkWvfGGIXN9UFAPMJ6OLLH/UUEgFa+7KlrEvMUupDFGnnR06
+aDJAwtycb8yXtILj+TvfhLFhafxroXrflspavejQkEiHjNjtHnwbZ+o43g0/yxjwnarGI3kgcak7
+nnI9/8Lqpq79tLHYwLajotwLiGTB71AGN5xK+tzB+D4eN9lXayrjcszgbOv2ZCgzExQUAIt98mre
+8EggKs9mwtEuKAhYBIP/0K6WsoMnQCcCAwEAAaOCAVwwggFYMBIGA1UdEwEB/wQIMAYBAf8CAQAw
+HQYDVR0OBBYEFIlICOogTndrhuWByNfhjWSEf/xwMB8GA1UdIwQYMBaAFEXroq/0ksuCMS1Ri6en
+IZ3zbcgPMA4GA1UdDwEB/wQEAwIBhjAdBgNVHSUEFjAUBggrBgEFBQcDBAYIKwYBBQUHAwIweQYI
+KwYBBQUHAQEEbTBrMCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQwYIKwYB
+BQUHMAKGN2h0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRJRFJvb3RD
+QS5jcnQwRQYDVR0fBD4wPDA6oDigNoY0aHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0
+QXNzdXJlZElEUm9vdENBLmNybDARBgNVHSAECjAIMAYGBFUdIAAwDQYJKoZIhvcNAQELBQADggEB
+ACiagCqvNVxOfSd0uYfJMiZsOEBXAKIR/kpqRp2YCfrP4Tz7fJogYN4fxNAw7iy/bPZcvpVCfe/H
+/CCcp3alXL0I8M/rnEnRlv8ItY4MEF+2T/MkdXI3u1vHy3ua8SxBM8eT9LBQokHZxGUX51cE0kwa
+uEOZ+PonVIOnMjuLp29kcNOVnzf8DGKiek+cT51FvGRjV6LbaxXOm2P47/aiaXrDD5O0RF5SiPo6
+xD1/ClkCETyyEAE5LRJlXtx288R598koyFcwCSXijeVcRvBB1cNOLEbg7RMSw1AGq14fNe2cH1HG
+W7xyduY/ydQt6gv5r21mDOQ5SaZSWC/ZRfLDuEYwggWbMIIEg6ADAgECAhAH5JEPagNRXYDiRPdl
+c1vgMA0GCSqGSIb3DQEBCwUAMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYD
+VQQDExdWZXJva2V5IFNlY3VyZSBFbWFpbCBHMjAeFw0yNDEyMzAwMDAwMDBaFw0yODAxMDQyMzU5
+NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqGSIb3DQEBAQUAA4IC
+DwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZeYAS/SRV6zmfXlXaZ
+sNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2zkC9S7/yHDYnqegqt
+w4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qGpgFdZEk2/c//ZvUN
+i12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41vav1RhZJzYan4a1gU0
+kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0cvnO8FM6PTqsnSbcc
+0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PWPU6zfQTOMZ9uLQRR
+ci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXtREF5lLXxp+CJ6KKS
+blPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQrlR0gO3lBzuyPPArV
+hvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7IqaAovAX0d+f1YjbmC
+VsAwjhLmveFjNwIDAQABo4IBsDCCAawwHwYDVR0jBBgwFoAUiUgI6iBOd2uG5YHI1+GNZIR//HAw
+HQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3bXcyQGluZnJhZGVh
+ZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEBMA4GA1UdDwEB/wQE
+AwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwewYDVR0fBHQwcjA3oDWgM4YxaHR0
+cDovL2NybDMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDA3oDWgM4YxaHR0
+cDovL2NybDQuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDB2BggrBgEFBQcB
+AQRqMGgwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBABggrBgEFBQcwAoY0
+aHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNydDANBgkq
+hkiG9w0BAQsFAAOCAQEAQXc4FPiPLRnTDvmOABEzkIumojfZAe5SlnuQoeFUfi+LsWCKiB8Uextv
+iBAvboKhLuN6eG/NC6WOzOCppn4mkQxRkOdLNThwMHW0d19jrZFEKtEG/epZ/hw/DdScTuZ2m7im
+8ppItAT6GXD3aPhXkXnJpC/zTs85uNSQR64cEcBFjjoQDuSsTeJ5DAWf8EMyhMuD8pcbqx5kRvyt
+JPsWBQzv1Dsdv2LDPLNd/JUKhHSgr7nbUr4+aAP2PHTXGcEBh8lTeYea9p4d5k969pe0OHYMV5aL
+xERqTagmSetuIwolkAuBCzA9vulg8Y49Nz2zrpUGfKGOD0FMqenYxdJHgDCCBZswggSDoAMCAQIC
+EAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQELBQAwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoT
+B1Zlcm9rZXkxIDAeBgNVBAMTF1Zlcm9rZXkgU2VjdXJlIEVtYWlsIEcyMB4XDTI0MTIzMDAwMDAw
+MFoXDTI4MDEwNDIzNTk1OVowHjEcMBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJ
+KoZIhvcNAQEBBQADggIPADCCAgoCggIBANqWLse95HW2F7FhfH9bugyT/danKmmXrbMnz5GZNAfj
+Jl5gBL9JFXrOZ9eVdpmw04Tp6aDxZctFLoEDvSWKi367Q7Sg+ci+fH4KwwfQ8Pi0IpIKx2n5emEg
+nbOQL1Lv/IcNiep6Cq3DiyaSpSp/RZf+CAfUNySHS8eWmhLU6jGpSD6hxTpYKye7PmrmvMWwfGEP
+WoamAV1kSTb9z/9m9Q2LXa89aKmTxNwnAfD3Ohn9mtU3JukwILRMewn9QRXK7KzM+01h5hkCE4nj
+W9q/VGFknNhqfhrWBTSQoE9CSVylASGrjzCgS7XmKy/BaH3/7mOOHQv5g1o3Qj/+cdKnpT0I5Qb1
+nRy+c7wUzo9OqydJtxzSP4ZyHA4dELto/a3m/ay1XHcpum1pgTOLgxAfGb/T4dCkwRUstSKLMmpL
+g9Y9TrN9BM4xn24tBFFyL5znGG0wQGzOVAM68RBzIQb6Fz758fjsr4yZnPbVsU1+gHEs/puNHrG0
+9e1EQXmUtfGn4InoopJuU8p5VGD9S3Ikd4UoBlc7xl5yjtNlQxUeYrRlnUSmdlucCEoTX1n4UmtA
+9CuVHSA7eUHO7I88CtWG9bGOU7tLgOZoSEvNqtaL/N7sQbBZK4jZ4Rr/zNTQg1SwYjjLB7u96lDP
+sipoCi8BfR35/ViNuYJWwDCOEua94WM3AgMBAAGjggGwMIIBrDAfBgNVHSMEGDAWgBSJSAjqIE53
+a4blgcjX4Y1khH/8cDAdBgNVHQ4EFgQUXGIam3Bs59Y60yTmWgfDu6pZQ6cwMAYDVR0RBCkwJ4ET
+ZHdtdzJAaW5mcmFkZWFkLm9yZ4EQZGF2aWRAd29vZGhvdS5zZTAUBgNVHSAEDTALMAkGB2eBDAEF
+AQEwDgYDVR0PAQH/BAQDAgXgMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDB7BgNVHR8E
+dDByMDegNaAzhjFodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
+Y3JsMDegNaAzhjFodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
+Y3JsMHYGCCsGAQUFBwEBBGowaDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29t
+MEAGCCsGAQUFBzAChjRodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVt
+YWlsRzIuY3J0MA0GCSqGSIb3DQEBCwUAA4IBAQBBdzgU+I8tGdMO+Y4AETOQi6aiN9kB7lKWe5Ch
+4VR+L4uxYIqIHxR7G2+IEC9ugqEu43p4b80LpY7M4KmmfiaRDFGQ50s1OHAwdbR3X2OtkUQq0Qb9
+6ln+HD8N1JxO5nabuKbymki0BPoZcPdo+FeRecmkL/NOzzm41JBHrhwRwEWOOhAO5KxN4nkMBZ/w
+QzKEy4PylxurHmRG/K0k+xYFDO/UOx2/YsM8s138lQqEdKCvudtSvj5oA/Y8dNcZwQGHyVN5h5r2
+nh3mT3r2l7Q4dgxXlovERGpNqCZJ624jCiWQC4ELMD2+6WDxjj03PbOulQZ8oY4PQUyp6djF0keA
+MYIDuzCCA7cCAQEwVTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMX
+VmVyb2tleSBTZWN1cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJYIZIAWUDBAIBBQCg
+ggE3MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI1MDIyODExMjM0
+MVowLwYJKoZIhvcNAQkEMSIEIC87su9K4r1SHa0OCjQ93LVFcaBIMsBzKpdc4Y+aPnTtMGQGCSsG
+AQQBgjcQBDFXMFUwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoTB1Zlcm9rZXkxIDAeBgNVBAMTF1Zl
+cm9rZXkgU2VjdXJlIEVtYWlsIEcyAhAH5JEPagNRXYDiRPdlc1vgMGYGCyqGSIb3DQEJEAILMVeg
+VTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMXVmVyb2tleSBTZWN1
+cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQEBBQAEggIAtMxKM6vArHv+
+VzkUciMZsLpHjtBsO5HOnXVqn+0zHjutEe2agOoND+ynd55zhNJ7WQwbA4LlhNjoA5NR/X0ztW/7
+1QevQMkw+SnTi65myjMRVsY8BezMKPgurV2tsLt7TOs7vfrXvkIPIq/PW6wVPu0ZsIEBcbscR57H
+KSyiGNXkt1NiHkU+inVbUDh7U/CN6Gskoe7SukAhxWC+/cCVOynel/v6E3BLj1tb2Ay2DnZsNxnn
+80L84EAt2JAOyWb573/SOX47jM4WOoIhmu1wpYs9O9gMnGZCQ+j2qi4JWdG5UjwwlTtHWTdn+nBe
++ISy2GfEp8kkZPlcq5yChbx3enBQ6DGe3dmY+ibzGofimh8CklecShvr2LCjt5RJXzEzs1ECQuth
+i9K489RVn4Ynm2cdGEwpF4rTv+AQuA34N7c6Yl2JID6gtZMM6SbHxB2gJtXsj55epstkUc214kli
+3L3FLGw4pJxYBbKS0Gky8oYFO/IlYBTp+68sFLF7JE+V3JBiTLH3zrWGXJc2szi5jRXDeDoK/+Eh
+AE1ZyNOAD4rztAb3ahZZWUwzU4Gqo6Fv5Xl5rpLvFW0ir/DF0JSglvdNEaDhtjGvDivCSx2p3ss9
+zhMKFjy0V3elkOSN7HRqDL7Sm0dLujdZ94ndVsZJWTZmJ3S4T+DySz+1oPtUleAAAAAAAAA=
+
+
+--=-ch88MIQEh5lgQIw/7rP6--
 
