@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5F5DA49EBF
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Feb 2025 17:27:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.899025.1307516 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24CA4A4A08D
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Feb 2025 18:35:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.899080.1307526 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1to3D6-0002FV-NE; Fri, 28 Feb 2025 16:27:36 +0000
+	id 1to4Fm-0005OO-D8; Fri, 28 Feb 2025 17:34:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 899025.1307516; Fri, 28 Feb 2025 16:27:36 +0000
+Received: by outflank-mailman (output) from mailman id 899080.1307526; Fri, 28 Feb 2025 17:34:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1to3D6-0002D2-KD; Fri, 28 Feb 2025 16:27:36 +0000
-Received: by outflank-mailman (input) for mailman id 899025;
- Fri, 28 Feb 2025 16:27:35 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <anthony@xenproject.org>) id 1to3D5-0002Cw-42
- for xen-devel@lists.xenproject.org; Fri, 28 Feb 2025 16:27:35 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <anthony@xenproject.org>) id 1to3D2-00ANbI-03;
- Fri, 28 Feb 2025 16:27:31 +0000
-Received: from [2a01:e0a:1da:8420:b77:bd5:6e45:7633] (helo=l14)
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <anthony@xenproject.org>) id 1to3D1-00FSXm-1N;
- Fri, 28 Feb 2025 16:27:31 +0000
+	id 1to4Fm-0005LQ-9p; Fri, 28 Feb 2025 17:34:26 +0000
+Received: by outflank-mailman (input) for mailman id 899080;
+ Fri, 28 Feb 2025 17:34:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=kVR1=VT=bounce.vates.tech=bounce-md_30504962.67c1f399.v1-55596eccef154d698c55302b3babed8b@srs-se1.protection.inumbo.net>)
+ id 1to4Fk-0005KY-IA
+ for xen-devel@lists.xenproject.org; Fri, 28 Feb 2025 17:34:24 +0000
+Received: from mail145-26.atl61.mandrillapp.com
+ (mail145-26.atl61.mandrillapp.com [198.2.145.26])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3cdec4d3-f5fa-11ef-9898-31a8f345e629;
+ Fri, 28 Feb 2025 18:34:19 +0100 (CET)
+Received: from pmta06.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail145-26.atl61.mandrillapp.com (Mailchimp) with ESMTP id
+ 4Z4Fgs3x03zJKF44L
+ for <xen-devel@lists.xenproject.org>; Fri, 28 Feb 2025 17:34:17 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 55596eccef154d698c55302b3babed8b; Fri, 28 Feb 2025 17:34:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,91 +43,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date;
-	bh=R3BRUdvvvJJZ604ru3RAMycqp9+G4p0pWnPRAV5PYjo=; b=txCtdH2JyyEdRz0+PyfXC0m3/T
-	9sPg8ZBYpWv/MFZPb5TtTDP/0nEKHF48AmSHMZwSMH+5q3HG10Qd3CKtXRtMqALEQUDDBq3x8LIkt
-	97SL6OcvHXxexL7rdHciZx0nEzl4d0mC9e+44VIhV3RJiNSTa2TjjvCZ3PX7l+aL8hKY=;
-Date: Fri, 28 Feb 2025 17:27:28 +0100
-From: Anthony PERARD <anthony@xenproject.org>
-To: Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>
-Cc: qemu-devel@nongnu.org, Richard Henderson <richard.henderson@linaro.org>,
-	xen-devel@lists.xenproject.org, qemu-arm@nongnu.org,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Paul Durrant <paul@xen.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
-	=?iso-8859-1?Q?Marc-Andr=E9?= Lureau <marcandre.lureau@redhat.com>,
-	Peter Maydell <peter.maydell@linaro.org>,
-	Eduardo Habkost <eduardo@habkost.net>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Vikram Garhwal <vikram.garhwal@bytedance.com>,
-	Thomas Huth <thuth@redhat.com>, Jan Beulich <jbeulich@suse.com>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>
-Subject: Re: [PATCH 8/8] meson: Remove support for Xen on 32-bit ARM hosts
-Message-ID: <Z8Hj8Lm5SqkjLqiM@l14>
-References: <20250218162618.46167-1-philmd@linaro.org>
- <20250218162618.46167-9-philmd@linaro.org>
+X-Inumbo-ID: 3cdec4d3-f5fa-11ef-9898-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1740764057; x=1741034057;
+	bh=NzQzaoDAqc1wvDc9DO/YoNB663bbLyTqvLG09zlZbRQ=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=CfICmzdWXZMgTy9eHSIn7rOFXlGVnEpCIfykTrck6mvdMO3emvxdCH0z8IcndLzml
+	 qeC/3kvDLpyJs+0DypYYIXmL6WgVKBQSO/RabphNkdOUPtv0vMWzXRDfLLzn89B8pV
+	 YDCJYDXRfARervPQVfC4Vt3GdvfRxcr3Br6/CkfXVxjSntNH2V6jRzb1Bsjz3tzhGe
+	 BtI8UyFKFlVEK2tH3nkeW7dMtLO0Ve72m/a4a1NQIngSHOX2ZHb5WEbWYcsWncWC+Q
+	 Z52Al7HyUIQ1eDW9KBAxHpG8N13X2RMI/JTIOFAzRSdGWsJ36Mo0pR/6o8CfDxkbyQ
+	 hTbWeLQOC7Nhg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1740764057; x=1741024557; i=anthony.perard@vates.tech;
+	bh=NzQzaoDAqc1wvDc9DO/YoNB663bbLyTqvLG09zlZbRQ=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=BttqohXwG+f7q/udBLfbXg/Dzab2S61YAcxyTGIlZlkWiNqgZwZ8akpFD00roRcFL
+	 Gd2Jzd8veoxKE7gxFM1JcOd1bvD6SUL+JC1L1uVaOCP7UrR9H4UpmDTYrY2KVZaSUy
+	 ca7rCnK3IGjc8O5bQavQu2gtpygvg1E5S5ahCooBcA5/pReGsHZ3bW0biiCiVPRenO
+	 EKvJKaRmn3+oP93kc9YuZoyLOi4mNiAXMSJLQZWr0gdPJpj7Xl7180ay4RtACd5vtW
+	 ZEzN2XYjTERP3dVLOwGTpwqOHRJXD/NZvfQbmmXiXtkNUy2ByD13jfv0poMfqJfXge
+	 5+raWBXC/EJpA==
+From: "Anthony PERARD" <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20v2]=20tools/xl:=20fix=20channel=20configuration=20setting?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1740764056559
+To: "=?utf-8?Q?J=C3=BCrgen=20Gro=C3=9F?=" <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org
+Message-Id: <Z8HzmC4evOxa6yPs@l14>
+References: <20250225073033.20972-1-jgross@suse.com> <Z785WyG39EGCRM1y@l14> <e49861d8-2f8f-4747-8d26-59b6defce7c1@suse.com>
+In-Reply-To: <e49861d8-2f8f-4747-8d26-59b6defce7c1@suse.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.55596eccef154d698c55302b3babed8b?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250228:md
+Date: Fri, 28 Feb 2025 17:34:17 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250218162618.46167-9-philmd@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Feb 18, 2025 at 05:26:18PM +0100, Philippe Mathieu-Daudé wrote:
-> Per Stefano:
+On Thu, Feb 27, 2025 at 04:10:25PM +0100, J=C3=BCrgen Gro=C3=9F wrote:
+> On 26.02.25 16:55, Anthony PERARD wrote:
+> > On Tue, Feb 25, 2025 at 08:30:33AM +0100, Juergen Gross wrote:
+> > > Channels work differently than other device types: their devid should
+> > > be -1 initially in order to distinguish them from the primary console
+> > > which has the devid of 0.
+> > > 
+> > > So when parsing the channel configuration, use
+> > > ARRAY_EXTEND_INIT_NODEVID() in order to avoid overwriting the devid
+> > > set by libxl_device_channel_init().
+> > > 
+> > > Signed-off-by: Juergen Gross <jgross@suse.com>
+> > 
+> > This might want a:
+> >      Fixes: 3a6679634766 ("libxl: set channel devid when not provided b=
+y application")
+> > 
+> > Before that, the devid set by `xl` was probably ignored. I think before=
+,
+> > the console devid would be taken from libxl__init_console_from_channel(=
+)
+> > parametters, so the first devnum would be `0+1`, so never 0.
+> > 
+> > Do you agree?
 > 
->   For ARM 32-bit, I do not think we ever had many deployments,
->   as most are 64-bit. Even when there are deployments, they do
->   not typically use QEMU, as QEMU is less important for Xen on
->   ARM compared to x86.
-> 
-> The QEMU project only test to cross-build Xen on Aarch64 hosts
-> (see 84eda110792 ("gitlab-ci: Add Xen cross-build jobs").
-> Since 32-bit host aren't tested, simply remove the support there.
-> 
-> [*] https://lore.kernel.org/qemu-devel/alpine.DEB.2.22.394.2502031438170.11632@ubuntu-linux-20-04-desktop/
-> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-> ---
-> While apparently running Xen on 32-bit hosts isn't straighforward
-> anymore (see [x]), we don't need to remove it ASAP, it is already
-> in the deprecation queue since commit 6d701c9bac1 ("meson:
-> Deprecate 32-bit host support").
-> 
-> [x] https://lore.kernel.org/qemu-devel/173d18bf-f68c-4bd5-b822-abb1c1f0c51b@suse.com/
-> ---
->  docs/about/removed-features.rst | 5 +++++
->  meson.build                     | 3 ---
->  2 files changed, 5 insertions(+), 3 deletions(-)
-> 
-> diff --git a/docs/about/removed-features.rst b/docs/about/removed-features.rst
-> index c6616ce05e5..f6ea53acc8b 100644
-> --- a/docs/about/removed-features.rst
-> +++ b/docs/about/removed-features.rst
-> @@ -969,6 +969,11 @@ MIPS "Trap-and-Emulate" KVM support (removed in 8.0)
->  The MIPS "Trap-and-Emulate" KVM host and guest support was removed
->  from Linux in 2021, and is not supported anymore by QEMU either.
->  
-> +Xen on 32-bit ARM hosts (removed in 10.0)
-> +'''''''''''''''''''''''''''''''''''''''''
-> +
-> +Untested for more than 4 years.
+> I'm not sure I do. The use of ARRAY_EXTEND_INIT() in xl_parse.c predates
+> commit 3a6679634766, so there is certainly more than one potential Fixes:
+> candidate.
 
-Well, not quite, we used to have some test of Xen on armhf hosts
-(one of arndale or cubietrunk, I don't remember which one we had to stop
-and never start testing again) until last year, and that included tests
-with qcow2 disk, so using QEMU.
+Of course, this was my first candidate as well, but that's part of the
+original introduction of channel to the source code, so it didn't really
+make sense to that the feature was commited with devid=3D0, surely it
+would already been an issue at the time. This is why I start looking
+in libxl on how devid was used.
 
-But that testing infra is gone so the patch is fine:
-Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
+> So at least for the xl case commit 3a6679634766 isn't relevant, and my pa=
+tch
+> is fixing the xl case only.
+
+Last time I check, `xl` is using libxl, so any change to libxl can
+impact xl.
+
+Before 3a6679634766, channel#0 would be connected to console#1 because
+libxl__init_console_from_channel() was called with dev_num=3D`channel#+1`,
+and $dev_num was used to set console.devid.
+
+After 3a6679634766, we have console.devid=3Dchannel.devid=3Ddev_num if
+channel.devid is -1, or console.devid=3Dchannel.devid.
+
+Without 3a6679634766, having more than one channel with devid=3D-1 would
+result in failing to start due to having more than one channel with the
+same devid.
+
+So the only good candidate is:
+Fixes: 3a6679634766 ("libxl: set channel devid when not provided by applica=
+tion")
+
+
+Also, I'm not sure channels are going to work properly if there's more
+than one console, lots of code seems to assume
+console.devid=3Dchannel.devid+1, and there's probably other issues.
 
 Cheers,
 
 -- 
-Anthony PERARD
+
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
 
