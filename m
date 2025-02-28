@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5128A4A382
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Feb 2025 21:08:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.899108.1307545 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26870A4A383
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Feb 2025 21:08:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.899109.1307556 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1to6ea-0005tH-3i; Fri, 28 Feb 2025 20:08:12 +0000
+	id 1to6eb-00067d-BD; Fri, 28 Feb 2025 20:08:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 899108.1307545; Fri, 28 Feb 2025 20:08:12 +0000
+Received: by outflank-mailman (output) from mailman id 899109.1307556; Fri, 28 Feb 2025 20:08:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1to6ea-0005ql-13; Fri, 28 Feb 2025 20:08:12 +0000
-Received: by outflank-mailman (input) for mailman id 899108;
- Fri, 28 Feb 2025 20:08:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1to6eb-000659-7C; Fri, 28 Feb 2025 20:08:13 +0000
+Received: by outflank-mailman (input) for mailman id 899109;
+ Fri, 28 Feb 2025 20:08:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2kAP=VT=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1to6eZ-0005OT-8P
- for xen-devel@lists.xenproject.org; Fri, 28 Feb 2025 20:08:11 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bb1a4746-f60f-11ef-9898-31a8f345e629;
- Fri, 28 Feb 2025 21:08:09 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-abbb12bea54so465324366b.0
- for <xen-devel@lists.xenproject.org>; Fri, 28 Feb 2025 12:08:09 -0800 (PST)
+ id 1to6ea-0005qk-3a
+ for xen-devel@lists.xenproject.org; Fri, 28 Feb 2025 20:08:12 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bc006e25-f60f-11ef-9aaf-95dc52dad729;
+ Fri, 28 Feb 2025 21:08:11 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-abbac134a19so381835666b.0
+ for <xen-devel@lists.xenproject.org>; Fri, 28 Feb 2025 12:08:11 -0800 (PST)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abf1d1a84b7sm267586566b.19.2025.02.28.12.08.07
+ a640c23a62f3a-abf1d1a84b7sm267586566b.19.2025.02.28.12.08.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Feb 2025 12:08:08 -0800 (PST)
+ Fri, 28 Feb 2025 12:08:09 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,40 +44,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bb1a4746-f60f-11ef-9898-31a8f345e629
+X-Inumbo-ID: bc006e25-f60f-11ef-9aaf-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1740773289; x=1741378089; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=TJ+oN53hfxQTn5Nt8nerxsJsdoEiF0OiX6DvICjw7HY=;
-        b=bCxZd9cJtRLRouzMs0foyxRTPUZm3ILBKuWnP4W9/1DxWy2O4JjM1SRCx0KQJCGr0N
-         XFn+2ksbmbCz7FrwDpW+QtjAmmimaYAKePW5pWulJ4+BxsGZby+3U0HsiWmukRff5mmP
-         X3FFJSG68xNhfc2iIG91/B2tzttkkjze6W4byShPU3LaRh5Zszg9GnUbwOWi9RYNfS5s
-         p++ViXXqPEvbrTg8VyU+Yu2u06Ms8dg3+zxpNSutkZWZmgUciiUR7YE1QRq1cXdR6Mm4
-         KqlwGwOWRI+MupN0ipefjqVn8oOw+vjkIFu6qXIXmtVIjdSvb0ub5Dwqo5yT9OndCiVY
-         pV5Q==
+        d=gmail.com; s=20230601; t=1740773290; x=1741378090; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=eGAYl7zaIMaBJNX7YEEaF7qnKxa2zbpYkHEkF/b+eiw=;
+        b=Lrcc+giclEI7rl5rg1nedDKHLHZ87yI1jIV5K99HDVNPt58HejDSS7Wuqk7hVEHvAd
+         7ugidUm92ZNt9YZFbTCDrQRFLzaexfE+TM1a9eOZvvCyk0gLGDnt4jA7mTee8qWLfdOU
+         34kqaSJexBp3Ddq48ms6m6bb6lZB1zZZMa5M9C7bylahauOGnJ6tnrupRlX9exKn1ebm
+         GcMC5S984CF/bHm1sg1xMKFLhUz+HDzRVakoVfstYEAvTmua7S2BHWF0LLJ14dpPp7W1
+         +v+jLAav2BBGDyeJEV1zxu3t01AsIFSKf6/hOql4PV8i99wu8F/OMau4rpYwbz7yIg37
+         zjsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740773289; x=1741378089;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=TJ+oN53hfxQTn5Nt8nerxsJsdoEiF0OiX6DvICjw7HY=;
-        b=jUUuU0L6qNnNnTZN61f8QtFvqTgcbpK+e9sRCP03isJLWyf8MgFJ5TybnXCHWAhMDG
-         ma5Cq0cBt7rk/mvuvs2tpbfJWK6xUymR0eUccqwOcYx/stJlmip7+yXB8CHBBV3SRcnH
-         NK1YvHwjeZWrnrQckkjfPAlMI/rz+mfwahxvbxvaP6YjGDIR7JdnFAydNx0Q2XKqeHvk
-         ozTs+tPVeyn0O2jtrtB83GHP4At3oYa7ceseUIHmGOn3aYKjCzgKfqgANv2PA/Mxtycf
-         dTetFTBnvRRSAbW/K9H7atigAhoM6IrKXUE9YpHGVPbtT/GoLV4eImcqN8NkHUIQpT1I
-         ZF6A==
-X-Gm-Message-State: AOJu0YyVN7xHICdqLrKlaJA/orK8yv+qUzMCv9io2BbF//mQhAbGUYlX
-	GnlzoTdonlz7J25ZbZWwewmFJkL9Vg6ClZpSLWdzYo0dr1Ur76shBKtKUw==
-X-Gm-Gg: ASbGncuQsU7I5lhJmlIoYKHM6ttRMlGrH8zlCpSDVh8/vwZsTOqaSw1yI7ftv9PoEus
-	k4okVwHoL2XIUUjvt96BTF0NcwKYXSen+arkDenxEeDTCAIzfB+rpnQz02wtazOWlGoJVxu+xBY
-	BehfdTNhG2ITjhvG1A3xo+T1p/NtLyBi7tMMmD/JjT/xEnxFLeBEj1CjP0xmAvU3FHgu57iKW2M
-	ZGPraJWtNrq9+RISB4f3krbIPwLFl7OA9iFBximP8ouWdYtWwKzxhlnCjcyNFZYx4RA2PSi7PnG
-	pSGpEnNquhcdDk20zh5HwMgku/c=
-X-Google-Smtp-Source: AGHT+IHVEHhodg+shrekfdRcDxf0itq30YrSaYPgFZKlDk74rGNUaQ6H3np9wOgokQhCZvYrYJdccw==
-X-Received: by 2002:a17:907:7210:b0:ab6:f789:6668 with SMTP id a640c23a62f3a-abf25fda834mr496051166b.17.1740773288746;
-        Fri, 28 Feb 2025 12:08:08 -0800 (PST)
+        d=1e100.net; s=20230601; t=1740773290; x=1741378090;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=eGAYl7zaIMaBJNX7YEEaF7qnKxa2zbpYkHEkF/b+eiw=;
+        b=jJz1DGr0fSnOD0cSuJDrlx6umgp/fZDvCtLq7efZshf0tGhwMJjNFNTYSSlwP6B7g+
+         IPL/meEzPH6e+Vr2CTyArhaLwiLy6rXKOf5oEkAhvYa6VxYoa5GsYQhSW/d2JnisjAqG
+         P32kBGRIA01w6eU0GCHFozMFwt9BZUWunqTz0gz49Pb1P4CvWR3sLWOY2lObOe9fenDB
+         Xo5SnPkf+cWGaICLJ8s0ZO/DEhhhZnZxtWuTraTRVjiKezTzVSJwppHRQidEDg8FGEpr
+         6uFSk24IojoLzDqnbGPmpRgR7fwuIdXFqXrGEV/pvTwbOkqsmViok84qfEbllZyk4plP
+         RyiA==
+X-Gm-Message-State: AOJu0YxkevXLzOC36jsT5gMfUMyRHU/p8V4CBDz3zUiXjhEtkQ0dRjer
+	vuG90qbR72zdz3lzEc6ABsL3EWQ6WNLNH8XjTYoTfkvx1PLcWaLQE8+8qw==
+X-Gm-Gg: ASbGncskhui74OhYUJEC5zckJcnMtzBDQrSjIijZawXQ/44mSyram5LDJegVgDp+sVQ
+	ehNKsdBZ0ZTsyXm5I45J7hoKM1mIX9THtoB5hz9Rh2s7GYHM0ZjVDc9d5WPHDyL3hXCeWXDM+Tj
+	Ff3Ehzt1CRcbOkmUq9LVlcYpim5xHqKJQ+8C+qFV9tPYr0GGUtZhhJSRvLM7ZDto86Abe1MR3HK
+	THrVZnR0s/HEhMVx9n/NVLNDG8tBL3hQsm7Ra2f5yuNT3ezI4V4nj6R3yOXjBuc/jtgS2O1Iibz
+	5X3HvXTK5byM9v6bxSLBmqTJGU4=
+X-Google-Smtp-Source: AGHT+IFnvqJKLojI4QW4VdrMfM5Jpzd/tSddUE87bx07B7KPWthOB7M7wuJ0brueGjQcwbFHn0i6NQ==
+X-Received: by 2002:a17:907:98b:b0:ab7:e47c:b54a with SMTP id a640c23a62f3a-abf268228a5mr553141466b.37.1740773290104;
+        Fri, 28 Feb 2025 12:08:10 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -87,58 +88,52 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>
-Subject: [PATCH v8 0/6] RISC-V runtime detection of extenstions
-Date: Fri, 28 Feb 2025 21:07:38 +0100
-Message-ID: <cover.1740764258.git.oleksii.kurochko@gmail.com>
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v8 1/6] xen/README: add compiler and binutils versions for RISCV-64
+Date: Fri, 28 Feb 2025 21:07:39 +0100
+Message-ID: <eb86d40b2e3091c829d08a83d43a383f7cc82d1f.1740764258.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.48.1
+In-Reply-To: <cover.1740764258.git.oleksii.kurochko@gmail.com>
+References: <cover.1740764258.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Based on riscv,isa property of device tree file parse extenstions which are
-available in CPU.
+Considering that the Zbb extension is supported since GCC version 12 [1]
+and that older GCC versions do not support Z extensions in -march (I haven't
+faced this issue for GCC >=11.2), leading to compilation failures,
+the baseline version for GCC is set to 12.2 and for GNU binutils to 2.39.
 
-As a part of this feature, drop CONFIG_RISCV_ISA_RV64G and explicitly use
-extensions 'i', 'm', 'a', 'zicsr', 'zifencei' as they are necessary for a work
-if Xen and it should be true not only for RISC-V 64 (but also for 32 and 128)
+The GCC version is set to 12.2 instead of 12.1 because Xen's GitLab CI uses
+Debian 12, which includes GCC 12.2 and GNU binutils 2.39.
 
+[1] https://gcc.gnu.org/git/?p=gcc.git;a=commit;h=149e217033f01410a9783c5cb2d020cf8334ae4c
+
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
-Changes in v8:
- - Add patch from Andrew which use Zbb to provide arch-optimised bitops
-   as in this patch series we made zbb mandatory.
- - Other changes are patch specific please look at specific patch
+Changes in V8:
+ - Rewrite commit message to explain more clearly why
+   GCC 12 is choosen as baseline version.
 ---
+Changes in V7:
+ - new patch
+---
+ README | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Andrew Cooper (1):
-  RISCV/bitops: Use Zbb to provide arch-optimised bitops
-
-Oleksii Kurochko (5):
-  xen/README: add compiler and binutils versions for RISCV-64
-  automation: drop debian:11-riscv64 container
-  xen/riscv: drop CONFIG_RISCV_ISA_RV64G
-  xen/riscv: make zbb as mandatory
-  xen/riscv: identify specific ISA supported by cpu
-
- README                                  |   3 +
- automation/gitlab-ci/build.yaml         |  14 -
- automation/scripts/containerize         |   1 -
- xen/arch/riscv/Kconfig                  |  18 -
- xen/arch/riscv/Makefile                 |   1 +
- xen/arch/riscv/arch.mk                  |  13 +-
- xen/arch/riscv/cpufeature.c             | 504 ++++++++++++++++++++++++
- xen/arch/riscv/include/asm/bitops.h     |   7 +
- xen/arch/riscv/include/asm/cmpxchg.h    |  15 +-
- xen/arch/riscv/include/asm/config.h     |   4 +
- xen/arch/riscv/include/asm/cpufeature.h |  59 +++
- xen/arch/riscv/setup.c                  |   3 +
- 12 files changed, 588 insertions(+), 54 deletions(-)
- create mode 100644 xen/arch/riscv/cpufeature.c
- create mode 100644 xen/arch/riscv/include/asm/cpufeature.h
-
+diff --git a/README b/README
+index 72f6b0fcde..9d9c6fc324 100644
+--- a/README
++++ b/README
+@@ -48,6 +48,9 @@ provided by your OS distributor:
+       - For ARM 64-bit:
+         - GCC 5.1 or later
+         - GNU Binutils 2.24 or later
++      - For RISC-V 64-bit:
++        - GCC 12.2 or later
++        - GNU Binutils 2.39 or later
+     * POSIX compatible awk
+     * Development install of zlib (e.g., zlib-dev)
+     * Development install of Python 2.7 or later (e.g., python-dev)
 -- 
 2.48.1
 
