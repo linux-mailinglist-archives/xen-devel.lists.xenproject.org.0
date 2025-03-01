@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D30AA4A5C1
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Feb 2025 23:15:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.899239.1307661 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDFBEA4A8FA
+	for <lists+xen-devel@lfdr.de>; Sat,  1 Mar 2025 06:33:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.899313.1307685 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1to8ce-0000IT-MC; Fri, 28 Feb 2025 22:14:20 +0000
+	id 1toFSY-0006oJ-Oq; Sat, 01 Mar 2025 05:32:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 899239.1307661; Fri, 28 Feb 2025 22:14:20 +0000
+Received: by outflank-mailman (output) from mailman id 899313.1307685; Sat, 01 Mar 2025 05:32:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1to8ce-0000FB-HX; Fri, 28 Feb 2025 22:14:20 +0000
-Received: by outflank-mailman (input) for mailman id 899239;
- Fri, 28 Feb 2025 22:14:18 +0000
+	id 1toFSY-0006ml-Ik; Sat, 01 Mar 2025 05:32:22 +0000
+Received: by outflank-mailman (input) for mailman id 899313;
+ Sat, 01 Mar 2025 05:32:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LTn8=VT=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1to8cc-0000F5-SK
- for xen-devel@lists.xenproject.org; Fri, 28 Feb 2025 22:14:18 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ <SRS0=FVjp=VU=linuxfoundation.org=gregkh@srs-se1.protection.inumbo.net>)
+ id 1toFSX-0006mf-1n
+ for xen-devel@lists.xenproject.org; Sat, 01 Mar 2025 05:32:21 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 59d4f52a-f621-11ef-9aaf-95dc52dad729;
- Fri, 28 Feb 2025 23:14:17 +0100 (CET)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-5deb1266031so4523819a12.2
- for <xen-devel@lists.xenproject.org>; Fri, 28 Feb 2025 14:14:17 -0800 (PST)
-Received: from andrewcoop.eng.citrite.net (host-92-26-98-202.as13285.net.
- [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5e4c3b70112sm3054224a12.31.2025.02.28.14.14.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Feb 2025 14:14:15 -0800 (PST)
+ id 8a3aec55-f65e-11ef-9ab0-95dc52dad729;
+ Sat, 01 Mar 2025 06:32:18 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 43B7F61160;
+ Sat,  1 Mar 2025 05:32:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 322F8C4CEDD;
+ Sat,  1 Mar 2025 05:32:16 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,239 +41,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 59d4f52a-f621-11ef-9aaf-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1740780856; x=1741385656; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=e34h++GkHjwM9pyGB6Bou20OACOM4Rp5jCKkZsQzXm0=;
-        b=ovXzMc+bDVvU5/x9A8AM0WFrh0ne7Sj9qxBxvCy4sS6+LnCn1vu80B7w+33Qt9BKQJ
-         7GHFVa8U1SbcYk/nMZfQqUT+Fo4fZFcB18AB3rmjUZddCYqKvvNpdICmuHN1mnSBsH1q
-         JTTTDCnG5uDAM68UNbh/2oAUwMqR/ojAjesb8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740780856; x=1741385656;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=e34h++GkHjwM9pyGB6Bou20OACOM4Rp5jCKkZsQzXm0=;
-        b=tVGOf+xo4ptEpZRB8+JoxfDy5+fISB2LVpICCz1yPvPugFYFTjBvV06rUockIXFaYl
-         Wjd92MX5RE23INqV1S5w6Q1UITX6Q2dDU7rCnqzbPHt2Q3lLDRRBVhAGUrMwKvJkvB7B
-         d+8xg6C52T4c8s7phS3jsujM7fkdI/n/TxCU7RktVbN5OaZQ1XXJzgYFasmqLaDR42JU
-         EcFrTmuA3Lzp6Q3l18n4+eugISvuXjOwFZw09o5qaFZsxiNRFj7bN+Mdd1rDjV6reEHu
-         944MqF8jc75uajKtpFTzqx1a/OeL63RaNX1grGkgNMmhPIbU+RH1drFD7z1r5/FVN4hA
-         Pmpw==
-X-Gm-Message-State: AOJu0YxS+Lj132Z7wfFx6OX6r1GQTFx75ffL93kt0X8MIc10odq78HN6
-	uErFRpQmH7k+J9TFIlCQ8HxQBU2b+OD0QilJA0Bh0vvLrMR0sz9cDxFuTLa/H0VPWa1Fz5EE70d
-	J
-X-Gm-Gg: ASbGnctK6240LIZML3hwXBar/aPHsDBBl+lqdv/vrgH2nRlAdlPtPYKWSgEhK6zeZHj
-	A4QaxWFBU3IpJxbSr7/BNiD8gUXxD0cYJHZ77NPgONNRIFB+651yO5nEJ+WgxL7URWZ2A5FHb/Z
-	MynlJ7VMCFCMSWimGau6p1/JwHO48bW34BMq8ROgngcxi41WvM8P3vFVttB4lGVwLNg96JNenW1
-	cSfQpnUOfUFoL/yCyYVltTWKNED9yyFwPrV8nz0fD7JcDwwI9ilmog63llf0+MArFQs5bNCzCNZ
-	DPTtHtAspR8WgPhmGUQSkMSYgwKKq5MLa0iJN1MMsKmj0Y1HzNeXCmpElaBUst2n0h5OzY/cm+N
-	Y4abq6rikJVMYzQPlI/8c+Y2O
-X-Google-Smtp-Source: AGHT+IHyKxm9RGCGCOcJV941XKG3xpXNUhW1H5nsxBlRtkFIxL+HlntNzf03DSoa/2zcp+YnWxIcJQ==
-X-Received: by 2002:a05:6402:350f:b0:5e4:9348:72b4 with SMTP id 4fb4d7f45d1cf-5e4d6921bd4mr4494924a12.0.1740780856484;
-        Fri, 28 Feb 2025 14:14:16 -0800 (PST)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH] x86/asm: Remove semicolon from LOCK prefix
-Date: Fri, 28 Feb 2025 22:12:13 +0000
-Message-Id: <20250228221213.2033895-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+X-Inumbo-ID: 8a3aec55-f65e-11ef-9ab0-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1740807136;
+	bh=hPXdQ/hFIPpJkdJk70/Oo9SCb0ot1PV7JSm65Zo7Cqg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=yZynGDlYwSbyoqFxsYZl1iByokf6rG0lkNQ74A4dx6zWUHiE8rkNPKdaqpLCM49Bn
+	 Uzrt/PWQSzWLM/oTxXcz3PcYxelzJVyoeGwpXCciRubcatryZJoBOlZTenvMi71GVA
+	 2W0TdbFnLPo/0syo4YdyI4XV80EkIo0CIlMPU25o=
+Date: Fri, 28 Feb 2025 20:19:47 -0800
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Harshvardhan Jha <harshvardhan.j.jha@oracle.com>
+Cc: =?iso-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>,
+	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
+	Salvatore Bonaccorso <carnil@debian.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	xen-devel@lists.xenproject.org, iommu@lists.linux.dev,
+	Radoslav =?iso-8859-1?Q?Bod=F3?= <radoslav.bodo@igalileo.cz>,
+	regressions@lists.linux.dev, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+Subject: Re: [6.1.y] Regression from b1e6e80a1b42 ("xen/swiotlb: add
+ alignment check for dma buffers") when booting with Xen and mpt3sas_cm0
+ _scsih_probe failures
+Message-ID: <2025022853-undivided-scribing-70dd@gregkh>
+References: <Z6d-l2nCO1mB4_wx@eldamar.lan>
+ <fd650c88-9888-46bc-a448-9c1ddcf2b066@oracle.com>
+ <Z6ukbNnyQVdw4kh0@eldamar.lan>
+ <716f186d-924a-4f2c-828a-2080729abfe9@oracle.com>
+ <6d7ed6bf-f8ad-438a-a368-724055b4f04c@suse.com>
+ <2025021548-amiss-duffel-9dcf@gregkh>
+ <74e74dde-0703-4709-96b8-e1615d40f19c@suse.com>
+ <2025021533-grime-luminous-d598@gregkh>
+ <e01c39ad-6f5e-449a-b24a-db3b7984030e@oracle.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <e01c39ad-6f5e-449a-b24a-db3b7984030e@oracle.com>
 
-Most of Xen's LOCK prefixes are already without semicolon, but we have a few
-still remaining in the tree.
+On Fri, Feb 28, 2025 at 01:50:12PM +0530, Harshvardhan Jha wrote:
+> 
+> On 15/02/25 8:25 PM, Greg KH wrote:
+> > On Sat, Feb 15, 2025 at 02:39:46PM +0100, J¸rgen Groﬂ wrote:
+> >> On 15.02.25 13:34, Greg KH wrote:
+> >>> On Sat, Feb 15, 2025 at 12:47:57PM +0100, J¸rgen Groﬂ wrote:
+> >>>> On 12.02.25 16:12, Harshit Mogalapalli wrote:
+> >>>>> Hi Salvatore,
+> >>>>>
+> >>>>> On 12/02/25 00:56, Salvatore Bonaccorso wrote:
+> >>>>>> Hi Harshit,
+> >>>>>>
+> >>>>>> On Sun, Feb 09, 2025 at 01:45:38AM +0530, Harshit Mogalapalli wrote:
+> >>>>>>> Hi Salvatore,
+> >>>>>>>
+> >>>>>>> On 08/02/25 21:26, Salvatore Bonaccorso wrote:
+> >>>>>>>> Hi Juergen, hi all,
+> >>>>>>>>
+> >>>>>>>> Radoslav BodÛ reported in Debian an issue after updating our kernel
+> >>>>>>>> from 6.1.112 to 6.1.115. His report in full is at:
+> >>>>>>>>
+> >>>>>>>> https://bugs.debian.org/1088159
+> >>>>>>>>
+> >>>>>>> Note:
+> >>>>>>> We have seen this on 5.4.y kernel: More details here:
+> >>>>>>> https://lore.kernel.org/all/9dd91f6e-1c66-4961-994e-dbda87d69dad@oracle.com/
+> >>>>>> Thanks for the pointer, so looking at that thread I suspect the three
+> >>>>>> referenced bugs in Debian are in the end all releated. We have one as
+> >>>>>> well relating to the megasas_sas driver, this one for the mpt3sas
+> >>>>>> driver and one for the i40e driver).
+> >>>>>>
+> >>>>>> AFAICS, there is not yet a patch which has landed upstream which I can
+> >>>>>> redirect to a affected user to test?
+> >>>>>>
+> >>>>> Konrad pointed me at this thread: https://lore.kernel.org/
+> >>>>> all/20250211120432.29493-1-jgross@suse.com/
+> >>>>>
+> >>>>> This has some fixes, but not landed upstream yet.
+> >>>> Patches are upstream now. In case you still experience any problems, please
+> >>>> speak up.
+> >>> What specific commits should be backported here?
+> >> Those are:
+> >>
+> >> e93ec87286bd1fd30b7389e7a387cfb259f297e3
+> >> 85fcb57c983f423180ba6ec5d0034242da05cc54
+> > Ugh, neither of them were marked for stable inclusion, why not?  Anyway,
+> > I'll go queue them up after this round of kernels is released hopefully
+> > tomorrow, but next time, please follow the stable kernel rules if you
+> > know you want a patch included in a tree.
+> 
+> 
+> Hi,
+> 
+> I see these patches in 6.12 now and upon manually checking these patches
+> cleanly apply till 6.6 kernel so I guess they will be eventually back
+> ported till there?
 
-As noted in the Linux patch, this adversly affects size/inlining decisions,
-and prevents the assembler from diagnosing some classes of error.
+They are already in the following released kernels:
+	6.1.129 6.6.79 6.12.16 6.13.4 6.14-rc3
 
-No functional change.
+and the first one is in the stable queues for 5.15, 5.10, and 5.4.  The
+second one is not because as you mention:
 
-Link: https://lore.kernel.org/lkml/20250228085149.2478245-1-ubizjak@gmail.com/
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monn√© <roger.pau@citrix.com>
+> 6.1 and older kernels have conflicts while cherry
+> picking these commits which makes it harder to verify them as the test
+> machine I have runs on a much older kernel(5.4) unfortunately. If it
+> could be at least be brought back till 5.15, testing this would become
+> much easier.
 
-It really does change inlining decisions.  Bloat-o-meter reports:
+The commit does not apply cleanly there.  If you need/want it there,
+please provide a working and tested backport.
 
-  add/remove: 1/1 grow/shrink: 7/1 up/down: 691/-247 (444)
-  Function                                     old     new   delta
-  cpupool_do_sysctl                           1737    1945    +208
-  kexec_do_unload.isra                           -     150    +150
-  kexec_load_slot                              396     502    +106
-  poll_timer_fn                                 37     104     +67
-  cpupool_unassign_cpu_finish                  376     427     +51
-  cpupool_create_pool                           82     130     +48
-  cpupool_assign_cpu_locked                    346     394     +48
-  panic                                        170     183     +13
-  do_kexec_op_internal                        2117    2022     -95
-  kexec_swap_images                            152       -    -152
+thanks,
 
-e.g. poll_timer_fn() previously tailcalled vcpu_unblock(), but now takes a
-copy of it.
----
- xen/arch/x86/include/asm/atomic.h   | 16 ++++++++--------
- xen/arch/x86/include/asm/bitops.h   | 12 ++++++------
- xen/arch/x86/include/asm/spinlock.h |  2 +-
- 3 files changed, 15 insertions(+), 15 deletions(-)
-
-diff --git a/xen/arch/x86/include/asm/atomic.h b/xen/arch/x86/include/asm/atomic.h
-index 16bd0ebfd763..ed4e09a50329 100644
---- a/xen/arch/x86/include/asm/atomic.h
-+++ b/xen/arch/x86/include/asm/atomic.h
-@@ -115,7 +115,7 @@ static inline int atomic_cmpxchg(atomic_t *v, int old, int new)
- static inline void atomic_add(int i, atomic_t *v)
- {
-     asm volatile (
--        "lock; addl %1,%0"
-+        "lock addl %1,%0"
-         : "=m" (*(volatile int *)&v->counter)
-         : "ir" (i), "m" (*(volatile int *)&v->counter) );
- }
-@@ -128,7 +128,7 @@ static inline int atomic_add_return(int i, atomic_t *v)
- static inline void atomic_sub(int i, atomic_t *v)
- {
-     asm volatile (
--        "lock; subl %1,%0"
-+        "lock subl %1,%0"
-         : "=m" (*(volatile int *)&v->counter)
-         : "ir" (i), "m" (*(volatile int *)&v->counter) );
- }
-@@ -142,7 +142,7 @@ static inline int atomic_sub_and_test(int i, atomic_t *v)
- {
-     bool c;
- 
--    asm volatile ( "lock; subl %[i], %[counter]\n\t"
-+    asm volatile ( "lock subl %[i], %[counter]\n\t"
-                    ASM_FLAG_OUT(, "setz %[zf]\n\t")
-                    : [counter] "+m" (*(volatile int *)&v->counter),
-                      [zf] ASM_FLAG_OUT("=@ccz", "=qm") (c)
-@@ -154,7 +154,7 @@ static inline int atomic_sub_and_test(int i, atomic_t *v)
- static inline void atomic_inc(atomic_t *v)
- {
-     asm volatile (
--        "lock; incl %0"
-+        "lock incl %0"
-         : "=m" (*(volatile int *)&v->counter)
-         : "m" (*(volatile int *)&v->counter) );
- }
-@@ -168,7 +168,7 @@ static inline int atomic_inc_and_test(atomic_t *v)
- {
-     bool c;
- 
--    asm volatile ( "lock; incl %[counter]\n\t"
-+    asm volatile ( "lock incl %[counter]\n\t"
-                    ASM_FLAG_OUT(, "setz %[zf]\n\t")
-                    : [counter] "+m" (*(volatile int *)&v->counter),
-                      [zf] ASM_FLAG_OUT("=@ccz", "=qm") (c)
-@@ -180,7 +180,7 @@ static inline int atomic_inc_and_test(atomic_t *v)
- static inline void atomic_dec(atomic_t *v)
- {
-     asm volatile (
--        "lock; decl %0"
-+        "lock decl %0"
-         : "=m" (*(volatile int *)&v->counter)
-         : "m" (*(volatile int *)&v->counter) );
- }
-@@ -194,7 +194,7 @@ static inline int atomic_dec_and_test(atomic_t *v)
- {
-     bool c;
- 
--    asm volatile ( "lock; decl %[counter]\n\t"
-+    asm volatile ( "lock decl %[counter]\n\t"
-                    ASM_FLAG_OUT(, "setz %[zf]\n\t")
-                    : [counter] "+m" (*(volatile int *)&v->counter),
-                      [zf] ASM_FLAG_OUT("=@ccz", "=qm") (c)
-@@ -207,7 +207,7 @@ static inline int atomic_add_negative(int i, atomic_t *v)
- {
-     bool c;
- 
--    asm volatile ( "lock; addl %[i], %[counter]\n\t"
-+    asm volatile ( "lock addl %[i], %[counter]\n\t"
-                    ASM_FLAG_OUT(, "sets %[sf]\n\t")
-                    : [counter] "+m" (*(volatile int *)&v->counter),
-                      [sf] ASM_FLAG_OUT("=@ccs", "=qm") (c)
-diff --git a/xen/arch/x86/include/asm/bitops.h b/xen/arch/x86/include/asm/bitops.h
-index 39e37f1cbe55..bb9d75646023 100644
---- a/xen/arch/x86/include/asm/bitops.h
-+++ b/xen/arch/x86/include/asm/bitops.h
-@@ -32,7 +32,7 @@
-  */
- static inline void set_bit(int nr, volatile void *addr)
- {
--    asm volatile ( "lock; btsl %1,%0"
-+    asm volatile ( "lock btsl %1,%0"
-                    : "+m" (ADDR) : "Ir" (nr) : "memory");
- }
- #define set_bit(nr, addr) ({                            \
-@@ -73,7 +73,7 @@ static inline void constant_set_bit(int nr, void *addr)
-  */
- static inline void clear_bit(int nr, volatile void *addr)
- {
--    asm volatile ( "lock; btrl %1,%0"
-+    asm volatile ( "lock btrl %1,%0"
-                    : "+m" (ADDR) : "Ir" (nr) : "memory");
- }
- #define clear_bit(nr, addr) ({                          \
-@@ -140,7 +140,7 @@ static inline void constant_change_bit(int nr, void *addr)
-  */
- static inline void change_bit(int nr, volatile void *addr)
- {
--    asm volatile ( "lock; btcl %1,%0"
-+    asm volatile ( "lock btcl %1,%0"
-                     : "+m" (ADDR) : "Ir" (nr) : "memory");
- }
- #define change_bit(nr, addr) ({                         \
-@@ -160,7 +160,7 @@ static inline int test_and_set_bit(int nr, volatile void *addr)
- {
-     int oldbit;
- 
--    asm volatile ( "lock; btsl %[nr], %[addr]\n\t"
-+    asm volatile ( "lock btsl %[nr], %[addr]\n\t"
-                    ASM_FLAG_OUT(, "sbbl %[old], %[old]\n\t")
-                    : [old] ASM_FLAG_OUT("=@ccc", "=r") (oldbit),
-                      [addr] "+m" (ADDR) : [nr] "Ir" (nr) : "memory" );
-@@ -206,7 +206,7 @@ static inline int test_and_clear_bit(int nr, volatile void *addr)
- {
-     int oldbit;
- 
--    asm volatile ( "lock; btrl %[nr], %[addr]\n\t"
-+    asm volatile ( "lock btrl %[nr], %[addr]\n\t"
-                    ASM_FLAG_OUT(, "sbbl %[old], %[old]\n\t")
-                    : [old] ASM_FLAG_OUT("=@ccc", "=r") (oldbit),
-                      [addr] "+m" (ADDR) : [nr] "Ir" (nr) : "memory" );
-@@ -266,7 +266,7 @@ static inline int test_and_change_bit(int nr, volatile void *addr)
- {
-     int oldbit;
- 
--    asm volatile ( "lock; btcl %[nr], %[addr]\n\t"
-+    asm volatile ( "lock btcl %[nr], %[addr]\n\t"
-                    ASM_FLAG_OUT(, "sbbl %[old], %[old]\n\t")
-                    : [old] ASM_FLAG_OUT("=@ccc", "=r") (oldbit),
-                      [addr] "+m" (ADDR) : [nr] "Ir" (nr) : "memory" );
-diff --git a/xen/arch/x86/include/asm/spinlock.h b/xen/arch/x86/include/asm/spinlock.h
-index 56f60957522a..834e8c580ebd 100644
---- a/xen/arch/x86/include/asm/spinlock.h
-+++ b/xen/arch/x86/include/asm/spinlock.h
-@@ -3,7 +3,7 @@
- 
- #define _raw_read_unlock(l) \
-     BUILD_BUG_ON(sizeof((l)->lock) != 4); /* Clang doesn't support %z in asm. */ \
--    asm volatile ( "lock; decl %0" : "+m" ((l)->lock) :: "memory" )
-+    asm volatile ( "lock decl %0" : "+m" ((l)->lock) :: "memory" )
- 
- /*
-  * On x86 the only reordering is of reads with older writes.  In the
-
-base-commit: e95dc03717b8ae00de2a0b41b88905af6170b210
--- 
-2.39.5
-
+greg k-h
 
