@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1256A4B269
-	for <lists+xen-devel@lfdr.de>; Sun,  2 Mar 2025 15:57:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.899722.1307797 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6222A4B266
+	for <lists+xen-devel@lfdr.de>; Sun,  2 Mar 2025 15:57:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.899723.1307808 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tokjq-0001uJ-TA; Sun, 02 Mar 2025 14:56:18 +0000
+	id 1tokjt-0002BA-4c; Sun, 02 Mar 2025 14:56:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 899722.1307797; Sun, 02 Mar 2025 14:56:18 +0000
+Received: by outflank-mailman (output) from mailman id 899723.1307808; Sun, 02 Mar 2025 14:56:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tokjq-0001sY-Q6; Sun, 02 Mar 2025 14:56:18 +0000
-Received: by outflank-mailman (input) for mailman id 899722;
- Sun, 02 Mar 2025 14:56:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tokjt-00027t-1Q; Sun, 02 Mar 2025 14:56:21 +0000
+Received: by outflank-mailman (input) for mailman id 899723;
+ Sun, 02 Mar 2025 14:56:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LRaO=VV=arm.com=ryan.roberts@srs-se1.protection.inumbo.net>)
- id 1tokjp-0001c4-4P
- for xen-devel@lists.xenproject.org; Sun, 02 Mar 2025 14:56:17 +0000
+ id 1tokjq-0001QO-Nf
+ for xen-devel@lists.xenproject.org; Sun, 02 Mar 2025 14:56:18 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 7cb3eb1a-f776-11ef-9ab1-95dc52dad729;
- Sun, 02 Mar 2025 15:56:14 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 7e551213-f776-11ef-9898-31a8f345e629;
+ Sun, 02 Mar 2025 15:56:17 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4A5BE13D5;
- Sun,  2 Mar 2025 06:56:28 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EC74816F3;
+ Sun,  2 Mar 2025 06:56:30 -0800 (PST)
 Received: from e125769.cambridge.arm.com (e125769.cambridge.arm.com
  [10.1.196.27])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7B5213F5A1;
- Sun,  2 Mar 2025 06:56:11 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 291D73F5A1;
+ Sun,  2 Mar 2025 06:56:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7cb3eb1a-f776-11ef-9ab1-95dc52dad729
+X-Inumbo-ID: 7e551213-f776-11ef-9898-31a8f345e629
 From: Ryan Roberts <ryan.roberts@arm.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	"David S. Miller" <davem@davemloft.net>,
@@ -62,61 +62,61 @@ Cc: Ryan Roberts <ryan.roberts@arm.com>,
 	sparclinux@vger.kernel.org,
 	xen-devel@lists.xenproject.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 2/4] sparc/mm: Disable preemption in lazy mmu mode
-Date: Sun,  2 Mar 2025 14:55:52 +0000
-Message-ID: <20250302145555.3236789-3-ryan.roberts@arm.com>
+Subject: [PATCH v1 3/4] sparc/mm: Avoid calling arch_enter/leave_lazy_mmu() in set_ptes
+Date: Sun,  2 Mar 2025 14:55:53 +0000
+Message-ID: <20250302145555.3236789-4-ryan.roberts@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250302145555.3236789-1-ryan.roberts@arm.com>
 References: <20250302145555.3236789-1-ryan.roberts@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since commit 38e0edb15bd0 ("mm/apply_to_range: call pte function with
-lazy updates") it's been possible for arch_[enter|leave]_lazy_mmu_mode()
-to be called without holding a page table lock (for the kernel mappings
-case), and therefore it is possible that preemption may occur while in
-the lazy mmu mode. The Sparc lazy mmu implementation is not robust to
-preemption since it stores the lazy mode state in a per-cpu structure
-and does not attempt to manage that state on task switch.
+With commit 1a10a44dfc1d ("sparc64: implement the new page table range
+API") set_ptes was added to the sparc architecture. The implementation
+included calling arch_enter/leave_lazy_mmu() calls.
 
-Powerpc had the same issue and fixed it by explicitly disabling
-preemption in arch_enter_lazy_mmu_mode() and re-enabling in
-arch_leave_lazy_mmu_mode(). See commit b9ef323ea168 ("powerpc/64s:
-Disable preemption in hash lazy mmu mode").
+The patch removes the usage of arch_enter/leave_lazy_mmu() since this
+implies nesting of lazy mmu regions which is not supported. Without this
+fix, lazy mmu mode is effectively disabled because we exit the mode
+after the first set_ptes:
 
-Given Sparc's lazy mmu mode is based on powerpc's, let's fix it in the
-same way here.
+remap_pte_range()
+  -> arch_enter_lazy_mmu()
+  -> set_ptes()
+      -> arch_enter_lazy_mmu()
+      -> arch_leave_lazy_mmu()
+  -> arch_leave_lazy_mmu()
 
-Fixes: 38e0edb15bd0 ("mm/apply_to_range: call pte function with lazy updates")
+Powerpc suffered the same problem and fixed it in a corresponding way
+with commit 47b8def9358c ("powerpc/mm: Avoid calling
+arch_enter/leave_lazy_mmu() in set_ptes").
+
+Fixes: 1a10a44dfc1d ("sparc64: implement the new page table range API")
 Signed-off-by: Ryan Roberts <ryan.roberts@arm.com>
 ---
- arch/sparc/mm/tlb.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ arch/sparc/include/asm/pgtable_64.h | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/arch/sparc/mm/tlb.c b/arch/sparc/mm/tlb.c
-index 8648a50afe88..a35ddcca5e76 100644
---- a/arch/sparc/mm/tlb.c
-+++ b/arch/sparc/mm/tlb.c
-@@ -52,8 +52,10 @@ void flush_tlb_pending(void)
- 
- void arch_enter_lazy_mmu_mode(void)
+diff --git a/arch/sparc/include/asm/pgtable_64.h b/arch/sparc/include/asm/pgtable_64.h
+index 2b7f358762c1..dc28f2c4eee3 100644
+--- a/arch/sparc/include/asm/pgtable_64.h
++++ b/arch/sparc/include/asm/pgtable_64.h
+@@ -936,7 +936,6 @@ static inline void __set_pte_at(struct mm_struct *mm, unsigned long addr,
+ static inline void set_ptes(struct mm_struct *mm, unsigned long addr,
+ 		pte_t *ptep, pte_t pte, unsigned int nr)
  {
--	struct tlb_batch *tb = this_cpu_ptr(&tlb_batch);
-+	struct tlb_batch *tb;
- 
-+	preempt_disable();
-+	tb = this_cpu_ptr(&tlb_batch);
- 	tb->active = 1;
+-	arch_enter_lazy_mmu_mode();
+ 	for (;;) {
+ 		__set_pte_at(mm, addr, ptep, pte, 0);
+ 		if (--nr == 0)
+@@ -945,7 +944,6 @@ static inline void set_ptes(struct mm_struct *mm, unsigned long addr,
+ 		pte_val(pte) += PAGE_SIZE;
+ 		addr += PAGE_SIZE;
+ 	}
+-	arch_leave_lazy_mmu_mode();
  }
+ #define set_ptes set_ptes
  
-@@ -64,6 +66,7 @@ void arch_leave_lazy_mmu_mode(void)
- 	if (tb->tlb_nr)
- 		flush_tlb_pending();
- 	tb->active = 0;
-+	preempt_enable();
- }
- 
- static void tlb_batch_add_one(struct mm_struct *mm, unsigned long vaddr,
 -- 
 2.43.0
 
