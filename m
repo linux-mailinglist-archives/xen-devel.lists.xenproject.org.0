@@ -2,52 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52BF0A4B2CD
-	for <lists+xen-devel@lfdr.de>; Sun,  2 Mar 2025 17:03:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.899777.1307828 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 399C8A4B9D7
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Mar 2025 09:51:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.899908.1307838 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tollk-0005Uo-Ra; Sun, 02 Mar 2025 16:02:20 +0000
+	id 1tp1Um-0008FI-Vj; Mon, 03 Mar 2025 08:49:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 899777.1307828; Sun, 02 Mar 2025 16:02:20 +0000
+Received: by outflank-mailman (output) from mailman id 899908.1307838; Mon, 03 Mar 2025 08:49:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tollk-0005Sm-Nl; Sun, 02 Mar 2025 16:02:20 +0000
-Received: by outflank-mailman (input) for mailman id 899777;
- Sun, 02 Mar 2025 16:02:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EjyH=VV=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1tollj-0005Sg-Pn
- for xen-devel@lists.xenproject.org; Sun, 02 Mar 2025 16:02:20 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20629.outbound.protection.outlook.com
- [2a01:111:f403:2416::629])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b5457094-f77f-11ef-9898-31a8f345e629;
- Sun, 02 Mar 2025 17:02:17 +0100 (CET)
-Received: from BLAPR03CA0135.namprd03.prod.outlook.com (2603:10b6:208:32e::20)
- by SJ1PR12MB6290.namprd12.prod.outlook.com (2603:10b6:a03:457::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.25; Sun, 2 Mar
- 2025 16:02:06 +0000
-Received: from BN3PEPF0000B373.namprd21.prod.outlook.com
- (2603:10b6:208:32e:cafe::dd) by BLAPR03CA0135.outlook.office365.com
- (2603:10b6:208:32e::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8489.26 via Frontend Transport; Sun,
- 2 Mar 2025 16:02:06 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN3PEPF0000B373.mail.protection.outlook.com (10.167.243.170) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8534.4 via Frontend Transport; Sun, 2 Mar 2025 16:02:06 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Sun, 2 Mar
- 2025 10:02:05 -0600
-Received: from [172.28.231.239] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Sun, 2 Mar 2025 10:02:03 -0600
+	id 1tp1Um-0008DC-Su; Mon, 03 Mar 2025 08:49:52 +0000
+Received: by outflank-mailman (input) for mailman id 899908;
+ Mon, 03 Mar 2025 08:49:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=8eIf=VW=redhat.com=david@srs-se1.protection.inumbo.net>)
+ id 1tp1Ul-0008D6-N9
+ for xen-devel@lists.xenproject.org; Mon, 03 Mar 2025 08:49:51 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7597cdca-f80c-11ef-9ab2-95dc52dad729;
+ Mon, 03 Mar 2025 09:49:47 +0100 (CET)
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-483-TRm7uBtiO1WgBBtbSwNUGg-1; Mon, 03 Mar 2025 03:49:45 -0500
+Received: by mail-wm1-f69.google.com with SMTP id
+ 5b1f17b1804b1-43bbfc1681eso3711735e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Mar 2025 00:49:44 -0800 (PST)
+Received: from ?IPV6:2003:cb:c734:9600:af27:4326:a216:2bfb?
+ (p200300cbc7349600af274326a2162bfb.dip0.t-ipconnect.de.
+ [2003:cb:c734:9600:af27:4326:a216:2bfb])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43bc032d049sm33471735e9.5.2025.03.03.00.49.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 03 Mar 2025 00:49:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,223 +51,199 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b5457094-f77f-11ef-9898-31a8f345e629
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MsWwBqA//Vg492HtFWJqlUr6DnOLG+Fv6+ui/IUhkZwuoCFD3ZbwKhAmF8Mq7YX7CZCNtZl5uQmT0jjttgE2MOO+/3ZQi2ICGz1haH4T94jKVfqN7Ao6Le9sbHWlqYP7XwxodMGq99q4qfQmhb28ncL80YmMSzNUsJzMMClU4GiXChfl9wTov7jTXVqKZLtaUs/gk0v9wc2zFYEWvUdTYkNs/d0fdWEQIrpCw8tF0AI/gtBAueul4GgFXt0482qWrX9bqFFJNX8TnL1i/dpZhZ7vE/yk62+LZ9CcVKqItlkeKPxiylk5Utmg3CCHErKhtPEgL3vVQsBcQjba5ozlew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zPt7Ti7IZGdt1x0wAsQw8O1i3BwrI4BT8gXRagBG8w8=;
- b=XHGDubZ0pQn3DbSAxqO9OYakcIeNsOPNF7dHKQ4mwzRuIRAd7zJGdj+5psoH0D2+RJYDPk6S4zlhSHtGRuWeqUwGDoCsfnDBy/DovQ5xXPMwsk79jsJMdV/gu6rPjBbQcrniiJ5NvQcxDRUegR2qvV0lpdyAAXhLbbtn9byfaj1gVSLFxNZA9mdZIw+SZz7OCaVMnNlwb4zh//wtFVXw8QxqKi8BPP3kglnvwOpywhtNmoJqct1s/J4UJOk8K1sX/RqhzLY4sBblSAfiEfIOTK45kzuXrWhhLed7xLtwbS8aSTq3eCYHekkc3yLrXWD+kiG6NyZuwn3ajlO3Pjn7JA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=epam.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zPt7Ti7IZGdt1x0wAsQw8O1i3BwrI4BT8gXRagBG8w8=;
- b=0A02PJEPT3NdQxd7ycdWx3f768v/91u4cDw38p12hBOnv5xWE8yaMSVGotijxMypdClIktlW+a+j9A7Is02q7vLyX+zQWFm6IjP3C1fyBIyzvRv82cXRhmBCoLdb7pDEFkcw07dPuKd4h2MrKewpOpZBaPBVk2ADioEiSZ/y1lU=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <5d965c79-296a-4319-b5c9-972b6a06ffd9@amd.com>
-Date: Sun, 2 Mar 2025 11:01:58 -0500
+X-Inumbo-ID: 7597cdca-f80c-11ef-9ab2-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1740991786;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=HZgsvoWWTlj/z7Wx3jz+2Ap6TQJJXYjKQ3XMWzn2w2I=;
+	b=WZuWs5FeYhZzMltbArYJ8wXFzdDj9k3Fyt56lTlajF9tpixE3/xxY2PxYMpSeCrgmL4B2+
+	XPAY3FjsKausWFXzeZ+/HT7oLw7EE+WhVw6vQtQfbqFIfiWtwKTJ5ED2G0xoT/3rpBWBA9
+	3mqUMPZrKjuRbmxaQEbZ56CnY8V+Ojk=
+X-MC-Unique: TRm7uBtiO1WgBBtbSwNUGg-1
+X-Mimecast-MFC-AGG-ID: TRm7uBtiO1WgBBtbSwNUGg_1740991784
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1740991784; x=1741596584;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:from:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=HZgsvoWWTlj/z7Wx3jz+2Ap6TQJJXYjKQ3XMWzn2w2I=;
+        b=e/9G5UTVEIdlvITsOAm08muL8L+BusGxpeFALinQsObVTn7D0IdYT32xyeowjq7GTk
+         jNMQKXg01V7QtqMlxQovPRdyvjamfkThmZmSY2XOUny46JApQajzCGceWL7t2znb1iHC
+         aGppHuuBcyn2Ia0xaCKrg/QEW2xdUHdaPWQUpvGnBE/bhvlbFnv566SlVyWoMhrp18um
+         JliRO2z98N/IdWI2XVeZUgZamBqdpM+Fch3wbBMu/G91XG5lrkiTZd9RnkNB052sVpS8
+         RAJRepgvsZuWFQoPPJF49+/QujVZ1CYN4W2gzWU9MRGifI7KkViRfBo1kHX9sPesH9Ul
+         0aKg==
+X-Forwarded-Encrypted: i=1; AJvYcCWYWuzD/3ii83gElutfVK8XZoND07+eR+v8YYd6XcMg98DfSfuzChr8fkGHADGLAqTwkmkxKFt4JZ8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzDjgrsnlBN6eCrr61kttrD/aZ4m+Rf7xyiw/LgxykqRxNCrhhy
+	p23KT3DzdmvSmdNKabS5pnL4w3FlQOrkTiftzJtvgUw5DXQnCK0SJg9zDNgLGfuHmWqr7tq0J5E
+	aqLjFORqUQeyvEerXPM3uJGCVglgwQqpLQXFNwFOWS5RqS+ruKg9b1cBMxsohOSBD
+X-Gm-Gg: ASbGncs5zBXokY9nIlM1vZFOhtjfaqHnS7na4mIjU5adNpC45KLN2DrCkEh8on3CTS/
+	6WK7Ok464IqXhDsYAtF32RHIEnOqXvm87Vda7SzpEjELiJrp9ZYRKCT93j0HchpG1beY7eL/FWf
+	yhpO55ufboHhk0WcahOXSqK0+SZvRtiAu3XoAWaj/AsrvwLeWOaJA3wwReM8V3DRuKcWtzKmit+
+	S8Xjn6c18oYF8qWPXLzr52ABKDMukrSnfw1eOLJKeYD6MSUBwvj5ZY4mB+n2/mOfNCu289M0qc9
+	ObEkzP0mFAmz0cE6/pSbolf/+IgBXhjpFImPV485URzj4Kiugru0X4q00+MesdfIx2BjiJqOcRq
+	YXkcD/ixJnq0h3a+1NYqXnvpHS7lRr3/u5jgOv/XgfLs=
+X-Received: by 2002:a05:600c:6a98:b0:43b:c1ac:aeeb with SMTP id 5b1f17b1804b1-43bc1acb051mr17807965e9.2.1740991783872;
+        Mon, 03 Mar 2025 00:49:43 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGfkTeqUr6av3ulFhHw4w32J7M9dmMHOsqprQVn7qo3OHB2JAoIA5h/UZCV7efl/bOzE0qShA==
+X-Received: by 2002:a05:600c:6a98:b0:43b:c1ac:aeeb with SMTP id 5b1f17b1804b1-43bc1acb051mr17807725e9.2.1740991783445;
+        Mon, 03 Mar 2025 00:49:43 -0800 (PST)
+Message-ID: <5418a661-dbd0-46e9-8ef7-b1c5a34acce3@redhat.com>
+Date: Mon, 3 Mar 2025 09:49:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 0/5] PCI devices passthrough on Arm, part 3
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
-	<michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
-References: <20240522225927.77398-1-stewart.hildebrand@amd.com>
- <1ef27a22-e541-4f44-97d5-400fe455222e@epam.com>
+Subject: Re: [PATCH v1 1/4] mm: Fix lazy mmu docs and usage
+To: Ryan Roberts <ryan.roberts@arm.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Andreas Larsson <andreas@gaisler.com>, Juergen Gross <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Catalin Marinas <catalin.marinas@arm.com>
+Cc: linux-mm@kvack.org, sparclinux@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+References: <20250302145555.3236789-1-ryan.roberts@arm.com>
+ <20250302145555.3236789-2-ryan.roberts@arm.com>
+From: David Hildenbrand <david@redhat.com>
+Autocrypt: addr=david@redhat.com; keydata=
+ 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
+ WNyWQQ==
+Organization: Red Hat
+In-Reply-To: <20250302145555.3236789-2-ryan.roberts@arm.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: gjB5rh2uYJxJG38V3sdiS6QGKach9c1yTzT0F7JOnFw_1740991784
+X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <1ef27a22-e541-4f44-97d5-400fe455222e@epam.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB03.amd.com: stewart.hildebrand@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B373:EE_|SJ1PR12MB6290:EE_
-X-MS-Office365-Filtering-Correlation-Id: 51b96ef1-4647-47a6-da73-08dd59a39469
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700013;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?TDZxNnBtc0g4amFwWmNRUFdseFRMYnBoWTk3Yi9QWUZaYTl2TndJNk4vaGpW?=
- =?utf-8?B?bUhrQzhHVSswTytLWXpsV0ZscnNYZllQMVRYVndHazN6cVI2d2xsaHJuanlj?=
- =?utf-8?B?dmpxbmJhWmw2bnJyQithQ1hVYldiLy9Xc2JUSmEwdldLSm5yakNscnNKcFd5?=
- =?utf-8?B?NkZmUWFMTFBqQmRXYm5reVdKd1N1SFJIVmNQOUpwOFc5L2VLV0VyMkRLMDJr?=
- =?utf-8?B?OFErQ0d4Z05MQlIrLzc4aDFSNlFjNHYyVEc1cGNsMlJlWm9LR3hSeUI0NGFm?=
- =?utf-8?B?ck9XWHVLc2pPdnpueXBObzlVUVBGN2dFbi9CZTRJZC9Sazh0c2ErVGNUSGNz?=
- =?utf-8?B?VjhEc2VzNEJmY2hPRnVoVUdicEUxdkVWTEM2NDQvZGtZVVVJU3F1QUMvcjJQ?=
- =?utf-8?B?eGYyZkR1QTJ1UEprVjY2NFBDeEc2c1lXcDBldTVpWSs4SWNhbk4xcE9YU1Rp?=
- =?utf-8?B?aHRuMDAxQTlhUjRZWEVBajJ1dEs3WEtMTFc1VHJ4VzFFM3Yvb2VpV2JWNUNH?=
- =?utf-8?B?am9rTWlYR21BcEJuNkc3QUtLeDJPOUR0dHZzMER5OXd2VTN3em5hTk1LSlpP?=
- =?utf-8?B?Zm9qb2d4WmRVckNPS1JwUjJGM2xSMXJBdWx2TUVSVDViTDg0OWNsSnBveDVJ?=
- =?utf-8?B?NmU1M2swa2JPQU5sYzA1Z3ZWMGFCYngrbDFhU2lYUGoxQUFqSDJYcHdONS9t?=
- =?utf-8?B?ZVQ0b0xabjk1SnVWZXprcDNBNnBlZXdOQ3Q3ZHB6ZyttWGRxeWpLNjQyTHpO?=
- =?utf-8?B?THhWOC8veXd4OFpUUFIrSXNvSnFUY3BaVkIrNnhIeGZPOXZRQXVZcTNxQlRo?=
- =?utf-8?B?bUh3TFFibU9EV0hZR2lva2FjZXZUSEhERXlnbnl4M1gwN2N1L1FDUFZUbEFE?=
- =?utf-8?B?S3NTZStQTnVFUGNaUmRkZ3RnVHM3cG9rOWpqMmxUbi9CU25zV0VlcXJIakxo?=
- =?utf-8?B?T0FDOXRvQWltZ1hGM2NZQ3k1VmIwVGNHUHJBUlN4S1B6Z2dsdnpKbUI5QitS?=
- =?utf-8?B?NmhNWlBHcXVtR3BHaFFoWDVnTEtFMEhJM1A5RWJabkFIOXlYM05LeGdFRnRk?=
- =?utf-8?B?dVROam9JSnduL3hZclZIdHhVVGtHV2s4bkFLa1dlc1F4OUxZcU1udE1XNXNH?=
- =?utf-8?B?bFZabEo4NVZldC9QbFFyKzdLcjdRSnl5bjlFcXV0eEVGc0k1b0puWTA0VUZJ?=
- =?utf-8?B?VTdDcm55NUpNSW5MRnM2dUIrRTRldC8zVHdUcFQ5M1QyQTRjVDc2WDFlclky?=
- =?utf-8?B?aFVHS3hCdHdSV1BnaUdCY0lyM05NZW9iWmtjdm15c2xkeE9vME9BNnUrV2Vl?=
- =?utf-8?B?K0xBVnV5WkdIRXB3YnBGSlJGSHNtZ2tHRTJlNmJjWXlGQkVUOElHdHIzNDBX?=
- =?utf-8?B?cDJlTi9WQ0daVkpmK1hMU1pLQUIweVFzKytQNGF2YXVsaDNYYS9YQ1RIUWxr?=
- =?utf-8?B?MHUzNDMrbk50QlRRKzhKekIzZzNvUjZBLzBrMXBteGVlM0JmRUEyMjNwZjVa?=
- =?utf-8?B?aHJUNHl1TUYrOC9WOG5ReTlNUFZFZlJUNCtVaExEalhFSG51UWFINTdPV3ZN?=
- =?utf-8?B?cnJwd0FNY2d4WHNuN2NXNUpxUXR1MTFGRCtIcUpPaStKUHJ0R2gxdjNLTEpo?=
- =?utf-8?B?VDIwc3djVWxEL3pqcFNkV2FMRmV3NUR5RXlXdk9zUkZnL3JCUTRwZ3NhbzVO?=
- =?utf-8?B?bVQ4VkJYam9LcWpFTXdVMlp2b1BUTjFGb2V6ekVFK0dFL3pCSjFUUFhSTWw1?=
- =?utf-8?B?ZXNEVFUyTTZPWTVpelgyWm9LNkJYRFl1REI1ZU1MNUF2ckx2cUtwdi9TQjRo?=
- =?utf-8?B?endxU0lkTWtpcG5WSmR0S0xsVzNqa2ljMlFLd3d5K0lvdVZmOStNSnE5MC9N?=
- =?utf-8?B?eTNMTmdWdWFiQXZvZEM2Wm1VZ2lXeTFyWS9nc2h1WjMrREI3aHREdUtHejlx?=
- =?utf-8?B?TUNDWStmSGdUUExxdTFZOXRsOWRSNHVsVEZ5OUNmaDZuekMvSjB3bTdQbmRB?=
- =?utf-8?Q?+nhHahU9QHHx2pM077557v1Mpt902U=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Mar 2025 16:02:06.0359
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 51b96ef1-4647-47a6-da73-08dd59a39469
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF0000B373.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6290
 
-On 2/28/25 09:40, Mykyta Poturai wrote:
-> On 23.05.24 01:59, Stewart Hildebrand wrote:
->> This is next version of vPCI rework. Aim of this series is to prepare
->> ground for introducing PCI support on ARM platform.
->>
->> in v16:
->>   - minor updates - see individual patches
->>
->> in v15:
->>   - reorder so ("arm/vpci: honor access size when returning an error")
->>     comes first
->>
->> in v14:
->>   - drop first 9 patches as they were committed
->>   - updated ("vpci/header: emulate PCI_COMMAND register for guests")
->>
->> in v13:
->>   - drop ("xen/arm: vpci: permit access to guest vpci space") as it was
->>     unnecessary
->>
->> in v12:
->>   - I (Stewart) coordinated with Volodomyr to send this whole series. So,
->>     add my (Stewart) Signed-off-by to all patches.
->>   - The biggest change is to re-work the PCI_COMMAND register patch.
->>     Additional feedback has also been addressed - see individual patches.
->>   - Drop ("pci: msi: pass pdev to pci_enable_msi() function") and
->>     ("pci: introduce per-domain PCI rwlock") as they were committed
->>   - Rename ("rangeset: add rangeset_empty() function")
->>         to ("rangeset: add rangeset_purge() function")
->>   - Rename ("vpci/header: rework exit path in init_bars")
->>         to ("vpci/header: rework exit path in init_header()")
->>
->> in v11:
->>   - Added my (Volodymyr) Signed-off-by tag to all patches
->>   - Patch "vpci/header: emulate PCI_COMMAND register for guests" is in
->>     intermediate state, because it was agreed to rework it once Stewart's
->>     series on register handling are in.
->>   - Addressed comments, please see patch descriptions for details.
->>
->> in v10:
->>
->>   - Removed patch ("xen/arm: vpci: check guest range"), proper fix
->>     for the issue is part of ("vpci/header: emulate PCI_COMMAND
->>     register for guests")
->>   - Removed patch ("pci/header: reset the command register when adding
->>     devices")
->>   - Added patch ("rangeset: add rangeset_empty() function") because
->>     this function is needed in ("vpci/header: handle p2m range sets
->>     per BAR")
->>   - Added ("vpci/header: handle p2m range sets per BAR") which addressed
->>     an issue discovered by Andrii Chepurnyi during virtio integration
->>   - Added ("pci: msi: pass pdev to pci_enable_msi() function"), which is
->>     prereq for ("pci: introduce per-domain PCI rwlock")
->>   - Fixed "Since v9/v8/... " comments in changelogs to reduce confusion.
->>     I left "Since" entries for older versions, because they were added
->>     by original author of the patches.
->>
->> in v9:
->>
->> v9 includes addressed commentes from a previous one. Also it
->> introduces a couple patches from Stewart. This patches are related to
->> vPCI use on ARM. Patch "vpci/header: rework exit path in init_bars"
->> was factored-out from "vpci/header: handle p2m range sets per BAR".
->>
->> in v8:
->>
->> The biggest change from previous, mistakenly named, v7 series is how
->> locking is implemented. Instead of d->vpci_rwlock we introduce
->> d->pci_lock which has broader scope, as it protects not only domain's
->> vpci state, but domain's list of PCI devices as well.
->>
->> As we discussed in IRC with Roger, it is not feasible to rework all
->> the existing code to use the new lock right away. It was agreed that
->> any write access to d->pdev_list will be protected by **both**
->> d->pci_lock in write mode and pcidevs_lock(). Read access on other
->> hand should be protected by either d->pci_lock in read mode or
->> pcidevs_lock(). It is expected that existing code will use
->> pcidevs_lock() and new users will use new rw lock. Of course, this
->> does not mean that new users shall not use pcidevs_lock() when it is
->> appropriate.
->>
->> Changes from previous versions are described in each separate patch.
->>
->> Oleksandr Andrushchenko (4):
->>    vpci/header: emulate PCI_COMMAND register for guests
->>    vpci: add initial support for virtual PCI bus topology
->>    xen/arm: translate virtual PCI bus topology for guests
->>    xen/arm: account IO handlers for emulated PCI MSI-X
->>
->> Volodymyr Babchuk (1):
->>    arm/vpci: honor access size when returning an error
->>
->>   xen/arch/arm/vpci.c        | 63 +++++++++++++++++++++++------
->>   xen/drivers/Kconfig        |  4 ++
->>   xen/drivers/vpci/header.c  | 60 +++++++++++++++++++++++++---
->>   xen/drivers/vpci/msi.c     |  9 +++++
->>   xen/drivers/vpci/msix.c    |  7 ++++
->>   xen/drivers/vpci/vpci.c    | 81 ++++++++++++++++++++++++++++++++++++++
->>   xen/include/xen/pci_regs.h |  1 +
->>   xen/include/xen/sched.h    | 10 ++++-
->>   xen/include/xen/vpci.h     | 28 +++++++++++++
->>   9 files changed, 244 insertions(+), 19 deletions(-)
->>
->>
->> base-commit: ced21fbb2842ac4655048bdee56232974ff9ff9c
+On 02.03.25 15:55, Ryan Roberts wrote:
+> The docs, implementations and use of arch_[enter|leave]_lazy_mmu_mode()
+> is a bit of a mess (to put it politely). There are a number of issues
+> related to nesting of lazy mmu regions and confusion over whether the
+> task, when in a lazy mmu region, is preemptible or not. Fix all the
+> issues relating to the core-mm. Follow up commits will fix the
+> arch-specific implementations. 3 arches implement lazy mmu; powerpc,
+> sparc and x86.
 > 
+> When arch_[enter|leave]_lazy_mmu_mode() was first introduced by commit
+> 6606c3e0da53 ("[PATCH] paravirt: lazy mmu mode hooks.patch"), it was
+> expected that lazy mmu regions would never nest and that the appropriate
+> page table lock(s) would be held while in the region, thus ensuring the
+> region is non-preemptible. Additionally lazy mmu regions were only used
+> during manipulation of user mappings.
 > 
-> Hi everyone
-> I see that the first three patches from this series were merged, but 
-> patches 4 and 5 were not, despite having acks. Is there something else 
-> wrong with them that needs addressing, or were they just missed by accident?
+> Commit 38e0edb15bd0 ("mm/apply_to_range: call pte function with lazy
+> updates") started invoking the lazy mmu mode in apply_to_pte_range(),
+> which is used for both user and kernel mappings. For kernel mappings the
+> region is no longer protected by any lock so there is no longer any
+> guarantee about non-preemptibility. Additionally, for RT configs, the
+> holding the PTL only implies no CPU migration, it doesn't prevent
+> preemption.
+> 
+> Commit bcc6cc832573 ("mm: add default definition of set_ptes()") added
+> arch_[enter|leave]_lazy_mmu_mode() to the default implementation of
+> set_ptes(), used by x86. So after this commit, lazy mmu regions can be
+> nested. Additionally commit 1a10a44dfc1d ("sparc64: implement the new
+> page table range API") and commit 9fee28baa601 ("powerpc: implement the
+> new page table range API") did the same for the sparc and powerpc
+> set_ptes() overrides.
+> 
+> powerpc couldn't deal with preemption so avoids it in commit
+> b9ef323ea168 ("powerpc/64s: Disable preemption in hash lazy mmu mode"),
+> which explicitly disables preemption for the whole region in its
+> implementation. x86 can support preemption (or at least it could until
+> it tried to add support nesting; more on this below). Sparc looks to be
+> totally broken in the face of preemption, as far as I can tell.
+> 
+> powewrpc can't deal with nesting, so avoids it in commit 47b8def9358c
+> ("powerpc/mm: Avoid calling arch_enter/leave_lazy_mmu() in set_ptes"),
+> which removes the lazy mmu calls from its implementation of set_ptes().
+> x86 attempted to support nesting in commit 49147beb0ccb ("x86/xen: allow
+> nesting of same lazy mode") but as far as I can tell, this breaks its
+> support for preemption.
+> 
+> In short, it's all a mess; the semantics for
+> arch_[enter|leave]_lazy_mmu_mode() are not clearly defined and as a
+> result the implementations all have different expectations, sticking
+> plasters and bugs.
+> 
+> arm64 is aiming to start using these hooks, so let's clean everything up
+> before adding an arm64 implementation. Update the documentation to state
+> that lazy mmu regions can never be nested, must not be called in
+> interrupt context and preemption may or may not be enabled for the
+> duration of the region.
+> 
+> Additionally, update the way arch_[enter|leave]_lazy_mmu_mode() is
+> called in pagemap_scan_pmd_entry() to follow the normal pattern of
+> holding the ptl for user space mappings. As a result the scope is
+> reduced to only the pte table, but that's where most of the performance
+> win is. While I believe there wasn't technically a bug here, the
+> original scope made it easier to accidentally nest or, worse,
+> accidentally call something like kmap() which would expect an immediate
+> mode pte modification but it would end up deferred.
+> 
+> arch-specific fixes to conform to the new spec will proceed this one.
+> 
+> These issues were spotted by code review and I have no evidence of
+> issues being reported in the wild.
+> 
 
-("xen/arm: account IO handlers for emulated PCI MSI-X") was sort of a
-presumptive change related to future work, and I think it should wait
-until the IO handlers are present on Arm, if they are even needed at
-all.
+All looking good to me!
 
-There was some additional dialogue following ("xen/arm: translate
-virtual PCI bus topology for guests") that may need to be investigated.
+Acked-by: David Hildenbrand <david@redhat.com>
+
+-- 
+Cheers,
+
+David / dhildenb
+
 
