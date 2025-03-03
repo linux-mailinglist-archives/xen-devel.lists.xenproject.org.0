@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 399C8A4B9D7
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Mar 2025 09:51:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.899908.1307838 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE15CA4B9DA
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Mar 2025 09:52:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.899920.1307847 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tp1Um-0008FI-Vj; Mon, 03 Mar 2025 08:49:52 +0000
+	id 1tp1Wa-0001FX-A2; Mon, 03 Mar 2025 08:51:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 899908.1307838; Mon, 03 Mar 2025 08:49:52 +0000
+Received: by outflank-mailman (output) from mailman id 899920.1307847; Mon, 03 Mar 2025 08:51:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tp1Um-0008DC-Su; Mon, 03 Mar 2025 08:49:52 +0000
-Received: by outflank-mailman (input) for mailman id 899908;
- Mon, 03 Mar 2025 08:49:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tp1Wa-0001Dp-7C; Mon, 03 Mar 2025 08:51:44 +0000
+Received: by outflank-mailman (input) for mailman id 899920;
+ Mon, 03 Mar 2025 08:51:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8eIf=VW=redhat.com=david@srs-se1.protection.inumbo.net>)
- id 1tp1Ul-0008D6-N9
- for xen-devel@lists.xenproject.org; Mon, 03 Mar 2025 08:49:51 +0000
+ id 1tp1WY-0001Dj-Tq
+ for xen-devel@lists.xenproject.org; Mon, 03 Mar 2025 08:51:42 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7597cdca-f80c-11ef-9ab2-95dc52dad729;
- Mon, 03 Mar 2025 09:49:47 +0100 (CET)
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b8ad19d2-f80c-11ef-9898-31a8f345e629;
+ Mon, 03 Mar 2025 09:51:40 +0100 (CET)
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-483-TRm7uBtiO1WgBBtbSwNUGg-1; Mon, 03 Mar 2025 03:49:45 -0500
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-43bbfc1681eso3711735e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 03 Mar 2025 00:49:44 -0800 (PST)
+ us-mta-528-TWOWeLwvNKmv6qDlNA0DgA-1; Mon, 03 Mar 2025 03:51:38 -0500
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-3910cd78330so163396f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Mar 2025 00:51:37 -0800 (PST)
 Received: from ?IPV6:2003:cb:c734:9600:af27:4326:a216:2bfb?
  (p200300cbc7349600af274326a2162bfb.dip0.t-ipconnect.de.
  [2003:cb:c734:9600:af27:4326:a216:2bfb])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43bc032d049sm33471735e9.5.2025.03.03.00.49.42
+ ffacd0b85a97d-390e4844a22sm13875701f8f.74.2025.03.03.00.51.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Mar 2025 00:49:43 -0800 (PST)
+ Mon, 03 Mar 2025 00:51:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,52 +51,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7597cdca-f80c-11ef-9ab2-95dc52dad729
+X-Inumbo-ID: b8ad19d2-f80c-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1740991786;
+	s=mimecast20190719; t=1740991899;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=HZgsvoWWTlj/z7Wx3jz+2Ap6TQJJXYjKQ3XMWzn2w2I=;
-	b=WZuWs5FeYhZzMltbArYJ8wXFzdDj9k3Fyt56lTlajF9tpixE3/xxY2PxYMpSeCrgmL4B2+
-	XPAY3FjsKausWFXzeZ+/HT7oLw7EE+WhVw6vQtQfbqFIfiWtwKTJ5ED2G0xoT/3rpBWBA9
-	3mqUMPZrKjuRbmxaQEbZ56CnY8V+Ojk=
-X-MC-Unique: TRm7uBtiO1WgBBtbSwNUGg-1
-X-Mimecast-MFC-AGG-ID: TRm7uBtiO1WgBBtbSwNUGg_1740991784
+	bh=PqwL+v3kSKyO1WWdOm3Dn4wn0YpaEHuXEacsy1CmEn4=;
+	b=MUEEaKhHroJTTeUp4KpAtO7naUHm8iEdVaV1kb7KmpWFAiy5a8jkMMipWqsR8y8eLMSPp4
+	dnrl21lc0/K2YOTKaSOBGn9zsA1kc9ocXtz5xe95YVTm0IVvFMv2MwtsCe+Cg53OMg8jXj
+	RwijkMT2v03xMyv/FWpaAgt37lFShcQ=
+X-MC-Unique: TWOWeLwvNKmv6qDlNA0DgA-1
+X-Mimecast-MFC-AGG-ID: TWOWeLwvNKmv6qDlNA0DgA_1740991896
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740991784; x=1741596584;
+        d=1e100.net; s=20230601; t=1740991896; x=1741596696;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:from:references:cc:to:subject:user-agent
          :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=HZgsvoWWTlj/z7Wx3jz+2Ap6TQJJXYjKQ3XMWzn2w2I=;
-        b=e/9G5UTVEIdlvITsOAm08muL8L+BusGxpeFALinQsObVTn7D0IdYT32xyeowjq7GTk
-         jNMQKXg01V7QtqMlxQovPRdyvjamfkThmZmSY2XOUny46JApQajzCGceWL7t2znb1iHC
-         aGppHuuBcyn2Ia0xaCKrg/QEW2xdUHdaPWQUpvGnBE/bhvlbFnv566SlVyWoMhrp18um
-         JliRO2z98N/IdWI2XVeZUgZamBqdpM+Fch3wbBMu/G91XG5lrkiTZd9RnkNB052sVpS8
-         RAJRepgvsZuWFQoPPJF49+/QujVZ1CYN4W2gzWU9MRGifI7KkViRfBo1kHX9sPesH9Ul
-         0aKg==
-X-Forwarded-Encrypted: i=1; AJvYcCWYWuzD/3ii83gElutfVK8XZoND07+eR+v8YYd6XcMg98DfSfuzChr8fkGHADGLAqTwkmkxKFt4JZ8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzDjgrsnlBN6eCrr61kttrD/aZ4m+Rf7xyiw/LgxykqRxNCrhhy
-	p23KT3DzdmvSmdNKabS5pnL4w3FlQOrkTiftzJtvgUw5DXQnCK0SJg9zDNgLGfuHmWqr7tq0J5E
-	aqLjFORqUQeyvEerXPM3uJGCVglgwQqpLQXFNwFOWS5RqS+ruKg9b1cBMxsohOSBD
-X-Gm-Gg: ASbGncs5zBXokY9nIlM1vZFOhtjfaqHnS7na4mIjU5adNpC45KLN2DrCkEh8on3CTS/
-	6WK7Ok464IqXhDsYAtF32RHIEnOqXvm87Vda7SzpEjELiJrp9ZYRKCT93j0HchpG1beY7eL/FWf
-	yhpO55ufboHhk0WcahOXSqK0+SZvRtiAu3XoAWaj/AsrvwLeWOaJA3wwReM8V3DRuKcWtzKmit+
-	S8Xjn6c18oYF8qWPXLzr52ABKDMukrSnfw1eOLJKeYD6MSUBwvj5ZY4mB+n2/mOfNCu289M0qc9
-	ObEkzP0mFAmz0cE6/pSbolf/+IgBXhjpFImPV485URzj4Kiugru0X4q00+MesdfIx2BjiJqOcRq
-	YXkcD/ixJnq0h3a+1NYqXnvpHS7lRr3/u5jgOv/XgfLs=
-X-Received: by 2002:a05:600c:6a98:b0:43b:c1ac:aeeb with SMTP id 5b1f17b1804b1-43bc1acb051mr17807965e9.2.1740991783872;
-        Mon, 03 Mar 2025 00:49:43 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGfkTeqUr6av3ulFhHw4w32J7M9dmMHOsqprQVn7qo3OHB2JAoIA5h/UZCV7efl/bOzE0qShA==
-X-Received: by 2002:a05:600c:6a98:b0:43b:c1ac:aeeb with SMTP id 5b1f17b1804b1-43bc1acb051mr17807725e9.2.1740991783445;
-        Mon, 03 Mar 2025 00:49:43 -0800 (PST)
-Message-ID: <5418a661-dbd0-46e9-8ef7-b1c5a34acce3@redhat.com>
-Date: Mon, 3 Mar 2025 09:49:41 +0100
+        bh=PqwL+v3kSKyO1WWdOm3Dn4wn0YpaEHuXEacsy1CmEn4=;
+        b=XjbvhNLCyL2eddAVJoUJQeCrf/q+mBdtNGqydNk6s/+4yTRhy8e5C0QrP2eJLW5mQ9
+         E4XKwUO6+hOdqzlB4Mh3gkyDYb9NeACM0gJ1Tx/7Jz5yGfGxUZcm9uenojVrfMitWx76
+         3ZvokYcKgDvfLfamy4ERfLKTKdgmN2WiLHKA2YsoU00lgfmFxADl82jogPGTCQjWN6Hc
+         7Y9dmcCQ7gyDmXpRq/jONOuw04EoGBxM6zEn4FIANuteu2BkLE2lERt3ugNNoKL6oN3o
+         Ay7llasjnY9oXb0kklusOswCdIwZ+ntZxSFY31tohLJM5D/inirB6Lwi1hrfzNJSVisd
+         kO6A==
+X-Forwarded-Encrypted: i=1; AJvYcCV834i95fxzUsw0/gI7rsHdwY7ZORXH8C80Ol3LFdfE8i5MDHemy8EYNWWGz1Owy7PKO5sLNsU7Umo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzG30RydlL9xJ+ceKAQmQ3Ijs2YSt5tljENp3XZZSzM1lMWLU7e
+	MJ2yUl8I2TzuwRmte9UBrZ4NVLqKJzY8LDztA5KyGfcz5jtqzOrRBLU6j693+NzbNZN4aWpWnaL
+	0BRAdD+jUB+scCMRDM0nm/K2G14o1KCpRaQOdzIgRMhTSqaPj4N9hSzu+/HnYvQk8
+X-Gm-Gg: ASbGncvp2vWDs7US5P8eyyNocuKSAx8j9n77YcTscJZ7qwDPIhu7d5ZCrtD76k3Ybeq
+	FPGCVvp6KgLejIQrUX3qaB7as2r5UeDtbdvR088KCXW36aGHcnLIAz3izRomgzLFJmc8wff3MeZ
+	H510mx4lJMdAbW9WIsdJmJa1HvQ6cspPbNpLXCHYYdtaP/0O7OZ5qyUfnzXRKWczMIO88/es8Qs
+	edkWj+Fq8yyTAa69WbD/9Ccc8i+pXyVqHVLKeNcDc8+ot8s7ngrRlFN/Fs+LHbG6xMAY5q92M5g
+	JwSebCcWkXmz7NO9FboVyBBddCKreuwCWRhT4THIXV74H13qgjAmEFsz7guDJ8SjfIqFRavukPj
+	B98ypcGNcfusQOLCgdmjVNNaBNLN14MvhzXaOMlUGGJY=
+X-Received: by 2002:a05:6000:1565:b0:391:9b2:f48d with SMTP id ffacd0b85a97d-39109b2f8ebmr2190204f8f.33.1740991896373;
+        Mon, 03 Mar 2025 00:51:36 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEiqrTykXg+NUm0kAtziKqLGECEKRMnAI63MS2I3V/WDMW5AEnsAxTN6b4wA0iNetJkZ/Gt5g==
+X-Received: by 2002:a05:6000:1565:b0:391:9b2:f48d with SMTP id ffacd0b85a97d-39109b2f8ebmr2190184f8f.33.1740991895948;
+        Mon, 03 Mar 2025 00:51:35 -0800 (PST)
+Message-ID: <4af46304-cf25-4c4a-8e4a-3a566193ca62@redhat.com>
+Date: Mon, 3 Mar 2025 09:51:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/4] mm: Fix lazy mmu docs and usage
+Subject: Re: [PATCH v1 2/4] sparc/mm: Disable preemption in lazy mmu mode
 To: Ryan Roberts <ryan.roberts@arm.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  "David S. Miller" <davem@davemloft.net>,
@@ -110,7 +110,7 @@ To: Ryan Roberts <ryan.roberts@arm.com>,
 Cc: linux-mm@kvack.org, sparclinux@vger.kernel.org,
  xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
 References: <20250302145555.3236789-1-ryan.roberts@arm.com>
- <20250302145555.3236789-2-ryan.roberts@arm.com>
+ <20250302145555.3236789-3-ryan.roberts@arm.com>
 From: David Hildenbrand <david@redhat.com>
 Autocrypt: addr=david@redhat.com; keydata=
  xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
@@ -157,87 +157,61 @@ Autocrypt: addr=david@redhat.com; keydata=
  jPrnvUsUUsjRoRNJjKKA/REq+sAnhkNPPZ/NNMjaZ5b8Tovi8C0tmxiCHaQYqj7G2rgnT0kt
  WNyWQQ==
 Organization: Red Hat
-In-Reply-To: <20250302145555.3236789-2-ryan.roberts@arm.com>
+In-Reply-To: <20250302145555.3236789-3-ryan.roberts@arm.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: gjB5rh2uYJxJG38V3sdiS6QGKach9c1yTzT0F7JOnFw_1740991784
+X-Mimecast-MFC-PROC-ID: CjXecJsR6joi1yo_jfWmXYmjvql60Ranyn8KpTLGY5w_1740991896
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 02.03.25 15:55, Ryan Roberts wrote:
-> The docs, implementations and use of arch_[enter|leave]_lazy_mmu_mode()
-> is a bit of a mess (to put it politely). There are a number of issues
-> related to nesting of lazy mmu regions and confusion over whether the
-> task, when in a lazy mmu region, is preemptible or not. Fix all the
-> issues relating to the core-mm. Follow up commits will fix the
-> arch-specific implementations. 3 arches implement lazy mmu; powerpc,
-> sparc and x86.
+> Since commit 38e0edb15bd0 ("mm/apply_to_range: call pte function with
+> lazy updates") it's been possible for arch_[enter|leave]_lazy_mmu_mode()
+> to be called without holding a page table lock (for the kernel mappings
+> case), and therefore it is possible that preemption may occur while in
+> the lazy mmu mode. The Sparc lazy mmu implementation is not robust to
+> preemption since it stores the lazy mode state in a per-cpu structure
+> and does not attempt to manage that state on task switch.
 > 
-> When arch_[enter|leave]_lazy_mmu_mode() was first introduced by commit
-> 6606c3e0da53 ("[PATCH] paravirt: lazy mmu mode hooks.patch"), it was
-> expected that lazy mmu regions would never nest and that the appropriate
-> page table lock(s) would be held while in the region, thus ensuring the
-> region is non-preemptible. Additionally lazy mmu regions were only used
-> during manipulation of user mappings.
+> Powerpc had the same issue and fixed it by explicitly disabling
+> preemption in arch_enter_lazy_mmu_mode() and re-enabling in
+> arch_leave_lazy_mmu_mode(). See commit b9ef323ea168 ("powerpc/64s:
+> Disable preemption in hash lazy mmu mode").
 > 
-> Commit 38e0edb15bd0 ("mm/apply_to_range: call pte function with lazy
-> updates") started invoking the lazy mmu mode in apply_to_pte_range(),
-> which is used for both user and kernel mappings. For kernel mappings the
-> region is no longer protected by any lock so there is no longer any
-> guarantee about non-preemptibility. Additionally, for RT configs, the
-> holding the PTL only implies no CPU migration, it doesn't prevent
-> preemption.
+> Given Sparc's lazy mmu mode is based on powerpc's, let's fix it in the
+> same way here.
 > 
-> Commit bcc6cc832573 ("mm: add default definition of set_ptes()") added
-> arch_[enter|leave]_lazy_mmu_mode() to the default implementation of
-> set_ptes(), used by x86. So after this commit, lazy mmu regions can be
-> nested. Additionally commit 1a10a44dfc1d ("sparc64: implement the new
-> page table range API") and commit 9fee28baa601 ("powerpc: implement the
-> new page table range API") did the same for the sparc and powerpc
-> set_ptes() overrides.
+> Fixes: 38e0edb15bd0 ("mm/apply_to_range: call pte function with lazy updates")
+> Signed-off-by: Ryan Roberts <ryan.roberts@arm.com>
+> ---
+>   arch/sparc/mm/tlb.c | 5 ++++-
+>   1 file changed, 4 insertions(+), 1 deletion(-)
 > 
-> powerpc couldn't deal with preemption so avoids it in commit
-> b9ef323ea168 ("powerpc/64s: Disable preemption in hash lazy mmu mode"),
-> which explicitly disables preemption for the whole region in its
-> implementation. x86 can support preemption (or at least it could until
-> it tried to add support nesting; more on this below). Sparc looks to be
-> totally broken in the face of preemption, as far as I can tell.
-> 
-> powewrpc can't deal with nesting, so avoids it in commit 47b8def9358c
-> ("powerpc/mm: Avoid calling arch_enter/leave_lazy_mmu() in set_ptes"),
-> which removes the lazy mmu calls from its implementation of set_ptes().
-> x86 attempted to support nesting in commit 49147beb0ccb ("x86/xen: allow
-> nesting of same lazy mode") but as far as I can tell, this breaks its
-> support for preemption.
-> 
-> In short, it's all a mess; the semantics for
-> arch_[enter|leave]_lazy_mmu_mode() are not clearly defined and as a
-> result the implementations all have different expectations, sticking
-> plasters and bugs.
-> 
-> arm64 is aiming to start using these hooks, so let's clean everything up
-> before adding an arm64 implementation. Update the documentation to state
-> that lazy mmu regions can never be nested, must not be called in
-> interrupt context and preemption may or may not be enabled for the
-> duration of the region.
-> 
-> Additionally, update the way arch_[enter|leave]_lazy_mmu_mode() is
-> called in pagemap_scan_pmd_entry() to follow the normal pattern of
-> holding the ptl for user space mappings. As a result the scope is
-> reduced to only the pte table, but that's where most of the performance
-> win is. While I believe there wasn't technically a bug here, the
-> original scope made it easier to accidentally nest or, worse,
-> accidentally call something like kmap() which would expect an immediate
-> mode pte modification but it would end up deferred.
-> 
-> arch-specific fixes to conform to the new spec will proceed this one.
-> 
-> These issues were spotted by code review and I have no evidence of
-> issues being reported in the wild.
-> 
-
-All looking good to me!
+> diff --git a/arch/sparc/mm/tlb.c b/arch/sparc/mm/tlb.c
+> index 8648a50afe88..a35ddcca5e76 100644
+> --- a/arch/sparc/mm/tlb.c
+> +++ b/arch/sparc/mm/tlb.c
+> @@ -52,8 +52,10 @@ void flush_tlb_pending(void)
+>   
+>   void arch_enter_lazy_mmu_mode(void)
+>   {
+> -	struct tlb_batch *tb = this_cpu_ptr(&tlb_batch);
+> +	struct tlb_batch *tb;
+>   
+> +	preempt_disable();
+> +	tb = this_cpu_ptr(&tlb_batch);
+>   	tb->active = 1;
+>   }
+>   
+> @@ -64,6 +66,7 @@ void arch_leave_lazy_mmu_mode(void)
+>   	if (tb->tlb_nr)
+>   		flush_tlb_pending();
+>   	tb->active = 0;
+> +	preempt_enable();
+>   }
+>   
+>   static void tlb_batch_add_one(struct mm_struct *mm, unsigned long vaddr,
 
 Acked-by: David Hildenbrand <david@redhat.com>
 
