@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78C67A4C312
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Mar 2025 15:16:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.900334.1308287 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15FE3A4C388
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Mar 2025 15:39:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.900417.1308338 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tp6aY-0005ww-9b; Mon, 03 Mar 2025 14:16:10 +0000
+	id 1tp6wT-0004u9-6C; Mon, 03 Mar 2025 14:38:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 900334.1308287; Mon, 03 Mar 2025 14:16:10 +0000
+Received: by outflank-mailman (output) from mailman id 900417.1308338; Mon, 03 Mar 2025 14:38:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tp6aY-0005vw-5M; Mon, 03 Mar 2025 14:16:10 +0000
-Received: by outflank-mailman (input) for mailman id 900334;
- Mon, 03 Mar 2025 14:16:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tp6wT-0004ri-30; Mon, 03 Mar 2025 14:38:49 +0000
+Received: by outflank-mailman (input) for mailman id 900417;
+ Mon, 03 Mar 2025 14:38:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jm5g=VW=arm.com=ryan.roberts@srs-se1.protection.inumbo.net>)
- id 1tp6aW-0005Dw-JC
- for xen-devel@lists.xenproject.org; Mon, 03 Mar 2025 14:16:08 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 0c137a29-f83a-11ef-9898-31a8f345e629;
- Mon, 03 Mar 2025 15:16:06 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4F7BE106F;
- Mon,  3 Mar 2025 06:16:20 -0800 (PST)
-Received: from e125769.cambridge.arm.com (e125769.cambridge.arm.com
- [10.1.196.27])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2C3CA3F66E;
- Mon,  3 Mar 2025 06:16:04 -0800 (PST)
+ <SRS0=RjBI=VW=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tp6b9-0004ZK-6S
+ for xen-devel@lists.xenproject.org; Mon, 03 Mar 2025 14:16:47 +0000
+Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com
+ [2607:f8b0:4864:20::62b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 235cf18b-f83a-11ef-9ab2-95dc52dad729;
+ Mon, 03 Mar 2025 15:16:46 +0100 (CET)
+Received: by mail-pl1-x62b.google.com with SMTP id
+ d9443c01a7336-223a7065ff8so31165425ad.0
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Mar 2025 06:16:46 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ d2e1a72fcca58-7364ef011c1sm2591656b3a.111.2025.03.03.06.16.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 Mar 2025 06:16:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,115 +44,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c137a29-f83a-11ef-9898-31a8f345e629
-From: Ryan Roberts <ryan.roberts@arm.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Andreas Larsson <andreas@gaisler.com>,
-	Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Catalin Marinas <catalin.marinas@arm.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>,
-	linux-mm@kvack.org,
-	sparclinux@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org,
-	David Hildenbrand <david@redhat.com>
-Subject: [PATCH v2 5/5] Revert "x86/xen: allow nesting of same lazy mode"
-Date: Mon,  3 Mar 2025 14:15:39 +0000
-Message-ID: <20250303141542.3371656-6-ryan.roberts@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250303141542.3371656-1-ryan.roberts@arm.com>
-References: <20250303141542.3371656-1-ryan.roberts@arm.com>
+X-Inumbo-ID: 235cf18b-f83a-11ef-9ab2-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1741011405; x=1741616205; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=mHyQ1S6OcoiWu2NIhoviRiSzrc0wSkcr90Nm+vU00/w=;
+        b=E2u2Kt6g7iaWK0Muhiq/Z5edKa2DFrUBIJkBsoCY1S/kgpL+m8eJAgfUG32fdDyhS6
+         xRMIOtU1e/QTYPeZZOGyrWTU9pLZSJ7U96RjX7aqVVGjK5UxHUnF/SANlJZ4oBjfiFjm
+         ju3oALIDrmzzNG1N7L3CKND7jRWBOaAyFn3KY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1741011405; x=1741616205;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=mHyQ1S6OcoiWu2NIhoviRiSzrc0wSkcr90Nm+vU00/w=;
+        b=lqr91KFAaR6Rxhwfwgz+++BeTuBxZtaOqJ5jJ9uMk/R+FAnWjXTF28gBa2449uVLyW
+         dDyjjE2D4uBt9Aq6A3qZ9uI5vYCSFcuaTP7Nn2MQ4ESJjqCqXZPIPXJmKQ0lTBDla949
+         luwD2k09c4942pg4UaoN9Og4Sw1IFiO2qp6xm4MBinDyaOexP6TfNOcpRLXLZYC3IH7L
+         d/vVpdmx2zreCg7/OuiabokcybdFqXL7IOV02XRiWwfwH1SS0kRj74ivjsHF5z2+GoNE
+         BfPNwSqMcOF+rSOhehGT6A9scwz6OTgI8W9KdFo56oDDbfdO359uHrIF/jwQFt1ScifB
+         diGg==
+X-Forwarded-Encrypted: i=1; AJvYcCXAn19xzyC7jy8g0TsW494Zoiey+BynC/7vM1JRGz8qJLrK63XG3NCZogkVWkpeb7zLDNB45DsIBmw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxHnJvk74nD2OD2mzfvsIb4Vl1Je8++eC2n4D8ztnKTMT1hXPIp
+	wQGnXtsphc54t+HlqXF21i/YhIiEGnBAjvu+UGUM2SAMIT6fX8lIrth3Y117RDU=
+X-Gm-Gg: ASbGncudrh0Is5ZDz20wInX1w0bFpxs5Hy5UhHTuDfVILu2bGg8wHm8xWGzjcm8HfVX
+	DN0MisJ6AdaX4/Yj9nb21pws0M56/fOGINvEtiR6skmxEWl1xigYiM5oOPJVuFCYC3nMDWPhsFm
+	zkdlpyOOOTc3sPhc3AK7kaP1kAJlZIn544dNWwzHHzhBPBUOIlfBW9+r06aCicfcT0bT0uIvwF8
+	6wBEnBIqfLeMMA7NDsg7uIL7wNoyuze3cvNfYNDD29DNt+lzaD6l0hGsx0LhLll7q08ygKDeLdh
+	uPaSu0acS/YGDf7nIkk0Z/nm6wWA1F086gUfo9jPfoUNL9j61g==
+X-Google-Smtp-Source: AGHT+IGoLI4X4aCiq6Qh2tqDp2VFm/jy5ZG2qcvCISc/6H3iGzMjb0RkAikmZjUbfxoQpMD0LN0TIw==
+X-Received: by 2002:a05:6a00:ccc:b0:736:48d1:57f7 with SMTP id d2e1a72fcca58-73648d159c8mr7714064b3a.7.1741011405046;
+        Mon, 03 Mar 2025 06:16:45 -0800 (PST)
+Date: Mon, 3 Mar 2025 15:16:39 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Nirmal Patel <nirmal.patel@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+	linux-pci@vger.kernel.org,
+	Jonathan Derrick <jonathan.derrick@linux.dev>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
+Subject: Re: [PATCH v3 2/3] PCI: vmd: Disable MSI remapping bypass under Xen
+Message-ID: <Z8W5x73El3aUOs5i@macbook.local>
+References: <20250219092059.90850-1-roger.pau@citrix.com>
+ <20250219092059.90850-3-roger.pau@citrix.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250219092059.90850-3-roger.pau@citrix.com>
 
-Commit 49147beb0ccb ("x86/xen: allow nesting of same lazy mode") was
-added as a solution for a core-mm code change where
-arch_[enter|leave]_lazy_mmu_mode() started to be called in a nested
-manner; see commit bcc6cc832573 ("mm: add default definition of
-set_ptes()").
+Hello Nirmal,
 
-However, now that we have fixed the API to avoid nesting, we no longer
-need this capability in the x86 implementation.
+Can I please get an Ack or a request for changes on the patch below
+for the VMD controller code?
 
-Additionally, from code review, I don't believe the fix was ever robust
-in the case of preemption occurring while in the nested lazy mode. The
-implementation usually deals with preemption by calling
-arch_leave_lazy_mmu_mode() from xen_start_context_switch() for the
-outgoing task if we are in the lazy mmu mode. Then in
-xen_end_context_switch(), it restarts the lazy mode by calling
-arch_enter_lazy_mmu_mode() for an incoming task that was in the lazy
-mode when it was switched out. But arch_leave_lazy_mmu_mode() will only
-unwind a single level of nesting. If we are in the double nest, then
-it's not fully unwound and per-cpu variables are left in a bad state.
+Thanks, Roger.
 
-So the correct solution is to remove the possibility of nesting from the
-higher level (which has now been done) and remove this x86-specific
-solution.
-
-Acked-by: David Hildenbrand <david@redhat.com>
-Signed-off-by: Ryan Roberts <ryan.roberts@arm.com>
----
- arch/x86/include/asm/xen/hypervisor.h | 15 ++-------------
- arch/x86/xen/enlighten_pv.c           |  1 -
- 2 files changed, 2 insertions(+), 14 deletions(-)
-
-diff --git a/arch/x86/include/asm/xen/hypervisor.h b/arch/x86/include/asm/xen/hypervisor.h
-index a9088250770f..bd0fc69a10a7 100644
---- a/arch/x86/include/asm/xen/hypervisor.h
-+++ b/arch/x86/include/asm/xen/hypervisor.h
-@@ -72,18 +72,10 @@ enum xen_lazy_mode {
- };
- 
- DECLARE_PER_CPU(enum xen_lazy_mode, xen_lazy_mode);
--DECLARE_PER_CPU(unsigned int, xen_lazy_nesting);
- 
- static inline void enter_lazy(enum xen_lazy_mode mode)
- {
--	enum xen_lazy_mode old_mode = this_cpu_read(xen_lazy_mode);
--
--	if (mode == old_mode) {
--		this_cpu_inc(xen_lazy_nesting);
--		return;
--	}
--
--	BUG_ON(old_mode != XEN_LAZY_NONE);
-+	BUG_ON(this_cpu_read(xen_lazy_mode) != XEN_LAZY_NONE);
- 
- 	this_cpu_write(xen_lazy_mode, mode);
- }
-@@ -92,10 +84,7 @@ static inline void leave_lazy(enum xen_lazy_mode mode)
- {
- 	BUG_ON(this_cpu_read(xen_lazy_mode) != mode);
- 
--	if (this_cpu_read(xen_lazy_nesting) == 0)
--		this_cpu_write(xen_lazy_mode, XEN_LAZY_NONE);
--	else
--		this_cpu_dec(xen_lazy_nesting);
-+	this_cpu_write(xen_lazy_mode, XEN_LAZY_NONE);
- }
- 
- enum xen_lazy_mode xen_get_lazy_mode(void);
-diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-index 5e57835e999d..919e4df9380b 100644
---- a/arch/x86/xen/enlighten_pv.c
-+++ b/arch/x86/xen/enlighten_pv.c
-@@ -99,7 +99,6 @@ struct tls_descs {
- };
- 
- DEFINE_PER_CPU(enum xen_lazy_mode, xen_lazy_mode) = XEN_LAZY_NONE;
--DEFINE_PER_CPU(unsigned int, xen_lazy_nesting);
- 
- enum xen_lazy_mode xen_get_lazy_mode(void)
- {
--- 
-2.43.0
-
+On Wed, Feb 19, 2025 at 10:20:56AM +0100, Roger Pau Monne wrote:
+> MSI remapping bypass (directly configuring MSI entries for devices on the
+> VMD bus) won't work under Xen, as Xen is not aware of devices in such bus,
+> and hence cannot configure the entries using the pIRQ interface in the PV
+> case, and in the PVH case traps won't be setup for MSI entries for such
+> devices.
+> 
+> Until Xen is aware of devices in the VMD bus prevent the
+> VMD_FEAT_CAN_BYPASS_MSI_REMAP capability from being used when running as
+> any kind of Xen guest.
+> 
+> The MSI remapping bypass is an optional feature of VMD bridges, and hence
+> when running under Xen it will be masked and devices will be forced to
+> redirect its interrupts from the VMD bridge.  That mode of operation must
+> always be supported by VMD bridges and works when Xen is not aware of
+> devices behind the VMD bridge.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+> Changes since v2:
+>  - Adjust patch subject.
+>  - Adjust code comment.
+> 
+> Changes since v1:
+>  - Add xen header.
+>  - Expand comment.
+> ---
+>  drivers/pci/controller/vmd.c | 20 ++++++++++++++++++++
+>  1 file changed, 20 insertions(+)
+> 
+> diff --git a/drivers/pci/controller/vmd.c b/drivers/pci/controller/vmd.c
+> index 9d9596947350..e619accca49d 100644
+> --- a/drivers/pci/controller/vmd.c
+> +++ b/drivers/pci/controller/vmd.c
+> @@ -17,6 +17,8 @@
+>  #include <linux/rculist.h>
+>  #include <linux/rcupdate.h>
+>  
+> +#include <xen/xen.h>
+> +
+>  #include <asm/irqdomain.h>
+>  
+>  #define VMD_CFGBAR	0
+> @@ -970,6 +972,24 @@ static int vmd_probe(struct pci_dev *dev, const struct pci_device_id *id)
+>  	struct vmd_dev *vmd;
+>  	int err;
+>  
+> +	if (xen_domain()) {
+> +		/*
+> +		 * Xen doesn't have knowledge about devices in the VMD bus
+> +		 * because the config space of devices behind the VMD bridge is
+> +		 * not known to Xen, and hence Xen cannot discover or configure
+> +		 * them in any way.
+> +		 *
+> +		 * Bypass of MSI remapping won't work in that case as direct
+> +		 * write by Linux to the MSI entries won't result in functional
+> +		 * interrupts, as Xen is the entity that manages the host
+> +		 * interrupt controller and must configure interrupts.  However
+> +		 * multiplexing of interrupts by the VMD bridge will work under
+> +		 * Xen, so force the usage of that mode which must always be
+> +		 * supported by VMD bridges.
+> +		 */
+> +		features &= ~VMD_FEAT_CAN_BYPASS_MSI_REMAP;
+> +	}
+> +
+>  	if (resource_size(&dev->resource[VMD_CFGBAR]) < (1 << 20))
+>  		return -ENOMEM;
+>  
+> -- 
+> 2.46.0
+> 
 
