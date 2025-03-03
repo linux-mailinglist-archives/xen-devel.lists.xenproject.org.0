@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD8E0A4CF3F
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Mar 2025 00:32:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.900668.1308528 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84EA6A4CF3E
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Mar 2025 00:32:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.900665.1308508 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpFGS-0001mv-6y; Mon, 03 Mar 2025 23:32:00 +0000
+	id 1tpFGI-0001HA-Op; Mon, 03 Mar 2025 23:31:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 900668.1308528; Mon, 03 Mar 2025 23:32:00 +0000
+Received: by outflank-mailman (output) from mailman id 900665.1308508; Mon, 03 Mar 2025 23:31:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpFGS-0001lL-2h; Mon, 03 Mar 2025 23:32:00 +0000
-Received: by outflank-mailman (input) for mailman id 900668;
- Mon, 03 Mar 2025 23:31:58 +0000
+	id 1tpFGI-0001Eo-Lj; Mon, 03 Mar 2025 23:31:50 +0000
+Received: by outflank-mailman (input) for mailman id 900665;
+ Mon, 03 Mar 2025 23:31:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2B8f=VW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tpFGQ-0001Ed-EF
- for xen-devel@lists.xenproject.org; Mon, 03 Mar 2025 23:31:58 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ id 1tpFGH-0001Ed-KY
+ for xen-devel@lists.xenproject.org; Mon, 03 Mar 2025 23:31:49 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ab319d59-f887-11ef-9898-31a8f345e629;
- Tue, 04 Mar 2025 00:31:45 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-43bcbdf79cdso662075e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 03 Mar 2025 15:31:45 -0800 (PST)
+ id abeb08eb-f887-11ef-9898-31a8f345e629;
+ Tue, 04 Mar 2025 00:31:46 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-43996e95114so34251155e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Mar 2025 15:31:46 -0800 (PST)
 Received: from andrewcoop.eng.citrite.net (host-92-26-98-202.as13285.net.
  [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43aba58713bsm211574785e9.34.2025.03.03.15.31.43
+ 5b1f17b1804b1-43aba58713bsm211574785e9.34.2025.03.03.15.31.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Mar 2025 15:31:43 -0800 (PST)
+ Mon, 03 Mar 2025 15:31:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,39 +45,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab319d59-f887-11ef-9898-31a8f345e629
+X-Inumbo-ID: abeb08eb-f887-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741044704; x=1741649504; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=5pm6c6pe2VTDnq+QjL5p5/gcR/5MEa54tmq0jY5TTfI=;
-        b=L4sb2x7dwnUwZpmkyVsmChsukanNfMaq5Pi+RzWckRogDn7rcrWPzmUsSXENjgFcio
-         xSd0D6tj7EwC6kcn+cjw1AUBjE10ZTEiv0Ln7X0HafGjE4nbkIX/0olHRLvEcLsdqN0f
-         SN0MCZLuYnpBdXutqA7VnTeIWUbg7fOPlmbmo=
+        d=citrix.com; s=google; t=1741044705; x=1741649505; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=exnQeKG8hftWWK19Cs5+acw+LLgJuCit5TsCrAyRrzA=;
+        b=Y26SqeSCHqc5KAtEn8qfuCjhQ/ET7d0yxUuKMLejb7YxEhwbtYBhkomLDyaEXN9MbY
+         N/LJxw0g74cDaTPhe1CXAU/HurMs1vJu5QH9y/MnMQSTW4CEsejDxHb4sqNC69UDSiBq
+         l2Wz+WrGGr/HceWuigJ6OO65WXn7bJNXXUb1I=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741044704; x=1741649504;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=5pm6c6pe2VTDnq+QjL5p5/gcR/5MEa54tmq0jY5TTfI=;
-        b=wBad+WvHyXokiscv6JDh3QWWRp5pwTu+lVeyT3a6+jUSyKObeZQDtfh6VhpucIZhjW
-         rTfIsFy0Ae8BN1LJp1YDkxte5McOpmf3+WlRTFGv3DyheLqSevJ4xkbjpLGsfn23RPRv
-         TQfFXr7S0EoBiFeBa9FtfrstSSkzeofJZhhDpBF9/nKm5punOni3RiDQwAgPrmQw5a0k
-         60LFN9cG4PEgsmkgP27i4tkP3687/4ik6OFhdVR9IwBRGj0Tl2Po2ESqh09oi82RJXX/
-         0nnHM/2Ah5JHfOBK2LfgMemQhzFOkvM+RN+pPgWjrAscZkrEr+pBFxGuhQeLu+5WPBiu
-         86/g==
-X-Gm-Message-State: AOJu0YxiccocKlp8y77dmT4FXv3/NGajfQG5HIN1mpzVjM1MuJcIqExx
-	+RsDHgrrnUJuXJUcssFzEBXDjPtJap9ev6l7KiTuawsUJIPPUUo/2TOvAoNd8UicHyAMGIfDZPH
-	7
-X-Gm-Gg: ASbGnctQ3zpyPIZ8o+ZFZkQU7AE0SlWkl4CkUVi6t8/U0/cYLONGJh2Cw012v15B0Qu
-	iJ0E9W+jsPshdjrLXCsnPZ8tySZKyE9DB8ENv8ihUKH5kX3VCtiBbQmcKiojPeKi7sGIm2mhegw
-	QBoouR63s2XQDGwVx5u9JWwck4ktQFqqA5nyXIAAsycQtwlDP16NFc6w+38UxNUS7iBmz3LptHE
-	BI4PkqMwhLozihY8WYlgtPSezP1FLDPIXTRmhmsgIS2OuzDc5/GNps/z/YZ0RM0o2PpQsKO0AW6
-	J0SBF8gEdiGoW+F0UbWE/JC/1DIIfEcJ5Y0BTPI7ukjD0xPgY7rTZzjgVs6vrGF5u5Ab2Rnt9jQ
-	hqXwElDnZ2Ns21kKc+xCQXW8w
-X-Google-Smtp-Source: AGHT+IFNVqJUl0an24mneSKabNLZUZOneCi0ExboAhwThv+I5u0FYGs0joj0xxhO3mTQISoEAUBlUA==
-X-Received: by 2002:a05:600c:4685:b0:439:9a5b:87d4 with SMTP id 5b1f17b1804b1-43ba67047bemr124575005e9.13.1741044704120;
-        Mon, 03 Mar 2025 15:31:44 -0800 (PST)
+        d=1e100.net; s=20230601; t=1741044705; x=1741649505;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=exnQeKG8hftWWK19Cs5+acw+LLgJuCit5TsCrAyRrzA=;
+        b=eiNJ5j3EyGACYja5eU6HL498oCyr5e4rcWcgEsO/oRBzeRlfAWOpDkA8OYkzi9lF9D
+         fEi3I4+IcD7uvlTZ+b5Mp3YRhDtUYd5AYeElqHEt47tYt6Zbj4uRNdsJs0QrXvllTyde
+         dYVFFISp+faRFXYpGtGqkDWWWbnuU/yT2vOrMKJ2poUQ1Kkdb7laBBrX0HhwHH+rJ76G
+         5P1U/iidQmNb40gi0xxGcQkYsItEGZaKDLpTecfZx2E3bH1O6yQ1zlVmUAzJMyBgtKDT
+         XR8GSyOztnH6dARuzvEUThyY78CNF5QrrZ1Feq3Nk7fINWCvMnBnLzWidgXgWDYFkUsI
+         FIFw==
+X-Gm-Message-State: AOJu0YzVL8/XFilr45K4S2aCwNMKTrfsfOESjJAnfsqts6zHUCLB9/0x
+	fB7mgq44KL+XdomkkOuS1MUdM5nlgrah/mzJcncy/w7gXLAPBabVBBnYO+2x5NlLH6STi1XwGSG
+	R
+X-Gm-Gg: ASbGnctLYQUkBKb0VkIz2gaWFQ4+beSvaHJA3QuPWHpEsa3DBRWnLz6NiL5LvVqrgC+
+	K1F9LF7LbOgSAzY+M7xIISWucJ02Qonzbhvgso9BDlke3EDjGjPr72UFPmMrhKRN1OKfez2G10N
+	YKkFM5DwPyOYyYq8zk4Exill5rVK/3WAZpx/EMFk9xCpGzji8jkgGx/zmzDOVtCcwDLK0KFdyzl
+	ohoctbgrPVvE5AE0mxfCQYCz7qedGOlsoY/kg6E66nlnWHFCaohox3Tt/Gy0dLtm53FfPXec1QX
+	T2ceiSpjHlc64c63r58UQ8FtvlqwMOVDJ/3UDv2dQif3HeP7nWLFlPeINaVVpX7UyhtpuAisEnA
+	QlDKoTTF/+rdAFLOlap4Tv2a6
+X-Google-Smtp-Source: AGHT+IHfeNgkjSAd8OLUupox2FnLTgk0jxJpVrMCU8hA9vWJAj8KypfsveYeC6u2z6YW5QNv6LEi8Q==
+X-Received: by 2002:a05:6000:401f:b0:38f:451b:653c with SMTP id ffacd0b85a97d-390ec7c8f86mr10710123f8f.7.1741044705463;
+        Mon, 03 Mar 2025 15:31:45 -0800 (PST)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -90,28 +91,57 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Dario Faggioli <dfaggioli@suse.com>,
 	Juergen Gross <jgross@suse.com>,
 	George Dunlap <gwd@xenproject.org>
-Subject: [PATCH v2 0/2] xen/watchdog: Identify which domain watchdog fired
-Date: Mon,  3 Mar 2025 23:29:39 +0000
-Message-Id: <20250303232941.2641306-1-andrew.cooper3@citrix.com>
+Subject: [PATCH v2 1/2] xen/domain: Annotate struct domain as page aligned
+Date: Mon,  3 Mar 2025 23:29:40 +0000
+Message-Id: <20250303232941.2641306-2-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20250303232941.2641306-1-andrew.cooper3@citrix.com>
+References: <20250303232941.2641306-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-See patch 2 for rational.
+struct domain is always a page aligned allocation.  Update it's type to
+reflect this, so we can safely reuse the lower bits in the pointer for
+auxiliary information.
 
-Since v1, use struct domain's alignment as the safety check.
+No functional change.
 
-Andrew Cooper (2):
-  xen/domain: Annotate struct domain as page aligned
-  xen/watchdog: Identify which domain watchdog fired
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Anthony PERARD <anthony.perard@vates.tech>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Julien Grall <julien@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Dario Faggioli <dfaggioli@suse.com>
+CC: Juergen Gross <jgross@suse.com>
+CC: George Dunlap <gwd@xenproject.org>
 
- xen/common/sched/core.c | 23 ++++++++++++++++++++---
- xen/include/xen/sched.h |  2 +-
- 2 files changed, 21 insertions(+), 4 deletions(-)
+v2:
+ * New
 
+Interestingly this does cause two changes in the resulting binary, both caused
+by GCC electing to use a more complicated addressing mode to save one ADD
+instruction.
+---
+ xen/include/xen/sched.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-base-commit: e95dc03717b8ae00de2a0b41b88905af6170b210
+diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+index 037c83fda219..8412b45178ca 100644
+--- a/xen/include/xen/sched.h
++++ b/xen/include/xen/sched.h
+@@ -645,7 +645,7 @@ struct domain
+     unsigned int num_llc_colors;
+     const unsigned int *llc_colors;
+ #endif
+-};
++} __aligned(PAGE_SIZE);
+ 
+ static inline struct page_list_head *page_to_list(
+     struct domain *d, const struct page_info *pg)
 -- 
 2.39.5
 
