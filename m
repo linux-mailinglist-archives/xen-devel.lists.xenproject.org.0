@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D238A4C37B
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Mar 2025 15:37:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.900403.1308328 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35D18A4C437
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Mar 2025 16:07:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.900452.1308347 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tp6uU-0004B8-Ni; Mon, 03 Mar 2025 14:36:46 +0000
+	id 1tp7Md-0001k9-5q; Mon, 03 Mar 2025 15:05:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 900403.1308328; Mon, 03 Mar 2025 14:36:46 +0000
+Received: by outflank-mailman (output) from mailman id 900452.1308347; Mon, 03 Mar 2025 15:05:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tp6uU-000483-KI; Mon, 03 Mar 2025 14:36:46 +0000
-Received: by outflank-mailman (input) for mailman id 900403;
- Mon, 03 Mar 2025 14:36:45 +0000
+	id 1tp7Md-0001h3-33; Mon, 03 Mar 2025 15:05:51 +0000
+Received: by outflank-mailman (input) for mailman id 900452;
+ Mon, 03 Mar 2025 15:05:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=DNf3=VW=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1tp6uT-00046W-7r
- for xen-devel@lists.xenproject.org; Mon, 03 Mar 2025 14:36:45 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=RjBI=VW=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tp7Mc-0001gx-6v
+ for xen-devel@lists.xenproject.org; Mon, 03 Mar 2025 15:05:50 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ecd983d9-f83c-11ef-9898-31a8f345e629;
- Mon, 03 Mar 2025 15:36:42 +0100 (CET)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-39104c1cbbdso652401f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 03 Mar 2025 06:36:42 -0800 (PST)
-Received: from ?IPV6:2003:e5:8714:500:2aea:6ec9:1d88:c1ef?
- (p200300e5871405002aea6ec91d88c1ef.dip0.t-ipconnect.de.
- [2003:e5:8714:500:2aea:6ec9:1d88:c1ef])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-390e4844abbsm14539737f8f.70.2025.03.03.06.36.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Mar 2025 06:36:41 -0800 (PST)
+ id fb3c8c4d-f840-11ef-9898-31a8f345e629;
+ Mon, 03 Mar 2025 16:05:45 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-abf4d756135so362391966b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Mar 2025 07:05:45 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ a640c23a62f3a-ac1e8a8c1f9sm43704466b.69.2025.03.03.07.05.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 Mar 2025 07:05:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,244 +44,335 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ecd983d9-f83c-11ef-9898-31a8f345e629
+X-Inumbo-ID: fb3c8c4d-f840-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741012602; x=1741617402; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=R2KPH7xolSgRpERAbrimyPF/uYhIF+d26nYUpS/9Nl4=;
-        b=KYhz6FNl8Qiocg9bsD8p9q0lATcAt8z1rdaTDUapDgXMucaFH7fD+5hCrJkjE4IuA6
-         752oSJAUjvYNARTEhz/qDiZsEdKqVoyPE8CnTg2G9L1oryOPsX/6Qvg9Zucc4S2COEnu
-         ATaLFZIOuWN4fd2DoBxtjAQ68ejGV6Rrusazk54U6Aye9pE1MpvPYgV9chOFsdrShz++
-         q5sHUf2c9sNMQD3B57V5rP0DpXxFE1wI8ZyxXdYufm6HJ9fhjUa9rJo35isNJTtdf50O
-         vuj7ybnWtiqTKyamQRanQDuUfTt91ysNNaSGZC7iJg6v0VMsO66gD+yRoVfkYTaOVNNR
-         fQhw==
+        d=citrix.com; s=google; t=1741014344; x=1741619144; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=bTyjRjXa23YRmw8rBvnbHI5OgQQJDhI0b5KyaQ3Fbz8=;
+        b=q5NNWyhwGgB0f29V/KUH8ZhYFWe3RSBrb/SI4FnWNmtgu2YCxevn+y58qhYCVsj1Gq
+         Vvhz8G0U0IhXhv/RbNWd84KPqtLiilQCNayxEnW4cqcVbsmox/dBZmhiLFHGgSCOB3+H
+         PLRynqhYqt0uQRokXDwudOkGcrbV2YxP8wGe8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741012602; x=1741617402;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=R2KPH7xolSgRpERAbrimyPF/uYhIF+d26nYUpS/9Nl4=;
-        b=kC12uOmbhvIr6/QAlcgpm4GHQq91AvxAqE0UGQvg4BQJ4sdOaEVEdthiNWjbAip7Z5
-         Hq6zBARyq1jOJSxGAzAG0XxQ/WIDNpKc9jUc1c9PvjCDw8ux6vkMMz//B4YyTtzJ+/Mj
-         JaBdTPrwiI9VIoAFcm5BgVmYrFKIV3YNeQ4rlkofNB6BEWGk2fsoUdalnsSlM4v7xYb2
-         ZjyRwhTgdaHUsfYYaGpGt5PH7JmL/ckhCH0ubeLjT/l2EsvJMpYpckd4f+lvWiVfhiKO
-         3Oip/cLd/Df8H+W8mPX6ab9qmBts9MJFW5OZVaxaV9cznVfTNX2gLxENr88UD4IFdajY
-         a/qQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV8LGb7YcvxtW+VBeuCEV7NsQ7CjmoEalJmEJzv2gYtU1QStjuP3RXWWNxaqpKTyv1XrS6R/567KaM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy3EfO6tqk2a3BePxbmjHj0S1x4TqZ6eq0L0QQSAq7ZSZEpk1V5
-	5VVidzkIZ80FXhzhix7zFGNxHcSWqURncma4GYlt0n1AUQHdnZ42Zx+ZQViWzBw=
-X-Gm-Gg: ASbGncsECRxZ0azLsIe7BfzdPPtjuYNMRV2XVMRAdq4HAmP1+3CG+tu5/D+QFr3MP/+
-	RyuTfBm0aC/PykOgKF5+Eaq+PB3ac7R6RdFymCnBlaf/CI6RdyEP6b/Dx6CbVpLjBNHxZFe3Moc
-	rshTUAYbmzMj6+ldkyNE2cnpEUtsi5A0CZ9m6keKEyUNkkAeWCyUOz7GMnQPGQBJHlDnSdv1H+R
-	BLgtR/qGFXSMjK7JdMcW5NInibxPS9Py+QypacgJVuZ8YtkQubcMGtGedzYIGCCZPi1aOjbAHwE
-	PnavOSuw4cyMbqKIur2pVBF4khkkdhnhyj2VqQsJE/86Wavs1KJlobbKHnsPRK4axITtHaKHyiP
-	dgubeSrFYcurdLZGUt4IL6AO9TAG9yzOWDJnQyah6kUijSEmWlcKJS7cLc977Q6iu/SA=
-X-Google-Smtp-Source: AGHT+IHZG5boLzUXRaTet0jfOprLTQ+TmhwTynTWXlvVPZA4H0j5TEeDpiAF4xDj5sFXrKtG7EyUTQ==
-X-Received: by 2002:a05:6000:23c7:b0:38f:218c:f672 with SMTP id ffacd0b85a97d-390eca41904mr7634141f8f.41.1741012602186;
-        Mon, 03 Mar 2025 06:36:42 -0800 (PST)
-Message-ID: <d0de16ad-33d5-4878-8e7f-8e8cd1d44585@suse.com>
-Date: Mon, 3 Mar 2025 15:36:40 +0100
+        d=1e100.net; s=20230601; t=1741014344; x=1741619144;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=bTyjRjXa23YRmw8rBvnbHI5OgQQJDhI0b5KyaQ3Fbz8=;
+        b=S1F/Nm0NFFSY/sXLyjhjYAV10Qg4d/ymbrXM/bdd3WhUY04pDwH2rEq8dvnT/WWKZi
+         n7XmZsiSZwyWK/qup74d7q5Mr5E44DWr4InasRiID3yGZXUJNhgORdREksrkWnz4Huha
+         F57/nAZJx4ZbcHPW9wP9TRAqZjxBBuIpSH8vZgJ5ECRKFX+OHXM4Ibn3TWPqXRjlgq5B
+         I4ZDgS+y4s57qHLv0inQ9SDWsBaSQfxehqc3LPlP0pOYwtcC40IgL+NrYR43vNvC+Wb9
+         ZrzPvj9rnfsxzP/T1XtyMzyYFyyx5/A9yJ2kZRGUd4ucn8pJNV7g1lQQ6icQEriowW11
+         nl/g==
+X-Gm-Message-State: AOJu0Yx98rvLKkRybIc9ThE/0iAhefbZQWT5cy1C0Yq2ajF30e9lpv4m
+	kmRfB1+TBpE2/As+1+h4AdbQPytLK6Q4FK445H8WAHOsGVu+AaIXN/XC/RPlitQ=
+X-Gm-Gg: ASbGncvI/kibt35XQxewNP2RpFF9ffV6W5d3mHG3VwhKoFAateO3gWSWtl3RIla2xjK
+	nFglqv7pAbotR5DlKXuVgYJkOaMvKcv7hnVXMJIA48HiVqVxnLzjSADQPqUuUa7KahX9xVzO+6O
+	oEj5Tk7LtOODpjys5Dr/xMLdaTrQhoDvhx2OPh4i20ALCbFpSaeQLBTKIpACg9ExSSU83AXBzD2
+	9rI4BtUk+Oegnjq6ChPZCd8F+y4FutavT7C2dFKWKp6wwoAZkHz+epDzgnsatrmQjJFx1AntHpA
+	wyG4g9gltj9/okqahzDQVU7ItwGXbiHYBqNrvWHwRNeDrS8sag==
+X-Google-Smtp-Source: AGHT+IElmCxR13LVHYG1kez1bFffysb6oUgFc9/9iz0zkcGIS95Ol+Dq84BL6mJ6Grci/EjNOojWUw==
+X-Received: by 2002:a17:907:6e90:b0:abf:71bb:c24a with SMTP id a640c23a62f3a-abf71bbc70dmr553324166b.17.1741014344095;
+        Mon, 03 Mar 2025 07:05:44 -0800 (PST)
+Date: Mon, 3 Mar 2025 16:05:42 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Oleksandr Andrushchenko <andr2000@gmail.com>
+Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
+	Artem_Mygaiev@epam.com, jbeulich@suse.com, Luca.Fancellu@arm.com,
+	marmarek@invisiblethingslab.com, andrew.cooper3@citrix.com,
+	anthony.perard@vates.tech
+Subject: Re: [PATCH 1/4] Add .clang-format files to enable manual coding
+ style checks
+Message-ID: <Z8XFRmK_kL6Lp9Xk@macbook.local>
+References: <20250301114242.93650-1-andr2000@gmail.com>
+ <20250301114242.93650-2-andr2000@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/5] Fix lazy mmu mode
-To: Ryan Roberts <ryan.roberts@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "David S. Miller" <davem@davemloft.net>,
- Andreas Larsson <andreas@gaisler.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Catalin Marinas <catalin.marinas@arm.com>
-Cc: linux-mm@kvack.org, sparclinux@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-References: <20250303141542.3371656-1-ryan.roberts@arm.com>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20250303141542.3371656-1-ryan.roberts@arm.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------j1JkPn85K8wsyuAVtwcVFZfT"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250301114242.93650-2-andr2000@gmail.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------j1JkPn85K8wsyuAVtwcVFZfT
-Content-Type: multipart/mixed; boundary="------------MxUlsgon821Y6J0ncZkjxNaY";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Ryan Roberts <ryan.roberts@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "David S. Miller" <davem@davemloft.net>,
- Andreas Larsson <andreas@gaisler.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Catalin Marinas <catalin.marinas@arm.com>
-Cc: linux-mm@kvack.org, sparclinux@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Message-ID: <d0de16ad-33d5-4878-8e7f-8e8cd1d44585@suse.com>
-Subject: Re: [PATCH v2 0/5] Fix lazy mmu mode
-References: <20250303141542.3371656-1-ryan.roberts@arm.com>
-In-Reply-To: <20250303141542.3371656-1-ryan.roberts@arm.com>
+On Sat, Mar 01, 2025 at 01:42:39PM +0200, Oleksandr Andrushchenko wrote:
+> Disable coding style checks for the project, but xen/ folder:
+> this is done by providing a global .clang-format at the top level which
+> disables clang-format and only providing .clang-format for xen/.
+> 
+> clang-format version expected to be >15 and the latest tool can be
+> installed with:
+> python3 -m pip install clang-format
+> 
+> Please note, that no automatic code style checks are performed and all
+> those can be run manually:
+> 
+> - to see changes proposed to the patch being worked on (not committed yet):
+> git-clang-format --diff --style=file --verbose
+> 
+> - to run code formatting on the HEAD patch:
+> git-clang-format --style=file --verbose HEAD~1
+> 
+> Provided xen/.clang-format still has a lot of comments gathered from the
+> previous discussions. This is for purpose of better seeing why some of
+> the options have their values. Once option values are accepted all those
+> comments can be removed.
 
---------------MxUlsgon821Y6J0ncZkjxNaY
-Content-Type: multipart/mixed; boundary="------------Dy08AUytJDFuCzLfWwyhli8T"
+I think the comments need to be trimmed to a concise explanation of
+why a setting is the way it is.  The (IMO overly long) excerpts from
+email conversations are difficult to follow in this context.  Someone
+has to spend the time to digest them and provide a shorter comment.
 
---------------Dy08AUytJDFuCzLfWwyhli8T
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+One thing that I'm missing: don't we need a list of excluded files
+somewhere because they are imports from Linux and we would like to
+keep the Linux coding style for avoiding conflicts when backporting
+fixes?
 
-T24gMDMuMDMuMjUgMTU6MTUsIFJ5YW4gUm9iZXJ0cyB3cm90ZToNCj4gSGkgQWxsLA0KPiAN
-Cj4gSSdtIHBsYW5uaW5nIHRvIGltcGxlbWVudCBsYXp5IG1tdSBtb2RlIGZvciBhcm02NCB0
-byBvcHRpbWl6ZSB2bWFsbG9jLiBBcyBwYXJ0DQo+IG9mIHRoYXQsIEkgd2lsbCBleHRlbmQg
-bGF6eSBtbXUgbW9kZSB0byBjb3ZlciBrZXJuZWwgbWFwcGluZ3MgaW4gdm1hbGxvYyB0YWJs
-ZQ0KPiB3YWxrZXJzLiBXaGlsZSBsYXp5IG1tdSBtb2RlIGlzIGFscmVhZHkgdXNlZCBmb3Ig
-a2VybmVsIG1hcHBpbmdzIGluIGEgZmV3DQo+IHBsYWNlcywgdGhpcyB3aWxsIGV4dGVuZCBp
-dCdzIHVzZSBzaWduaWZpY2FudGx5Lg0KPiANCj4gSGF2aW5nIHJldmlld2VkIHRoZSBleGlz
-dGluZyBsYXp5IG1tdSBpbXBsZW1lbnRhdGlvbnMgaW4gcG93ZXJwYywgc3BhcmMgYW5kIHg4
-NiwNCj4gaXQgbG9va3MgbGlrZSB0aGVyZSBhcmUgYSBidW5jaCBvZiBidWdzLCBzb21lIG9m
-IHdoaWNoIG1heSBiZSBtb3JlIGxpa2VseSB0bw0KPiB0cmlnZ2VyIG9uY2UgSSBleHRlbmQg
-dGhlIHVzZSBvZiBsYXp5IG1tdS4gU28gdGhpcyBzZXJpZXMgYXR0ZW1wdHMgdG8gY2xhcmlm
-eQ0KPiB0aGUgcmVxdWlyZW1lbnRzIGFuZCBmaXggYWxsIHRoZSBidWdzIGluIGFkdmFuY2Ug
-b2YgdGhhdCBzZXJpZXMuIFNlZSBwYXRjaCAjMQ0KPiBjb21taXQgbG9nIGZvciBhbGwgdGhl
-IGRldGFpbHMuDQo+IA0KPiBOb3RlIHRoYXQgSSBoYXZlIG9ubHkgYmVlbiBhYmxlIHRvIGNv
-bXBpbGUgdGVzdCB0aGVzZSBjaGFuZ2VzIGJ1dCBJIHRoaW5rIHRoZXkNCj4gYXJlIGluIGdv
-b2QgZW5vdWdoIHNoYXBlIGZvciBzb21lIGxpbnV4LW5leHQgdGVzdGluZy4NCj4gDQo+IEFw
-cGxpZXMgb24gRnJpZGF5J3MgbW0tdW5zdGFibGUgKDVmMDg5YTlhYTk4NyksIGFzIEkgYXNz
-dW1lIHRoaXMgd291bGQgYmUNCj4gcHJlZmVycmVkIHZpYSB0aGF0IHRyZWUuDQo+IA0KPiBD
-aGFuZ2VzIHNpbmNlIHYxDQo+ID09PT09PT09PT09PT09PT0NCj4gICAgLSBzcGxpdCB2MSBw
-YXRjaCAjMSBpbnRvIHYyIHBhdGNoICMxIGFuZCAjMjsgcGVyIERhdmlkDQo+ICAgIC0gQWRk
-ZWQgQWNrZWQtYnkgdGFncyBmcm9tIERhdmlkIGFuZCBBbmRyZWFzOyBUaGFua3MhDQo+ICAg
-IC0gUmVmaW5lZCB0aGUgcGF0Y2hlcyB3aGljaCBhcmUgdHJ1ZWx5IGZpeGVzIGFuZCBhZGRl
-ZCB0byBzdGFibGUgdG8gY2MNCj4gDQo+IFRoYW5rcywNCj4gUnlhbg0KPiANCj4gUnlhbiBS
-b2JlcnRzICg1KToNCj4gICAgbW06IEZpeCBsYXp5IG1tdSBkb2NzIGFuZCB1c2FnZQ0KPiAg
-ICBmcy9wcm9jL3Rhc2tfbW11OiBSZWR1Y2Ugc2NvcGUgb2YgbGF6eSBtbXUgcmVnaW9uDQo+
-ICAgIHNwYXJjL21tOiBEaXNhYmxlIHByZWVtcHRpb24gaW4gbGF6eSBtbXUgbW9kZQ0KPiAg
-ICBzcGFyYy9tbTogQXZvaWQgY2FsbGluZyBhcmNoX2VudGVyL2xlYXZlX2xhenlfbW11KCkg
-aW4gc2V0X3B0ZXMNCj4gICAgUmV2ZXJ0ICJ4ODYveGVuOiBhbGxvdyBuZXN0aW5nIG9mIHNh
-bWUgbGF6eSBtb2RlIg0KPiANCj4gICBhcmNoL3NwYXJjL2luY2x1ZGUvYXNtL3BndGFibGVf
-NjQuaCAgIHwgIDIgLS0NCj4gICBhcmNoL3NwYXJjL21tL3RsYi5jICAgICAgICAgICAgICAg
-ICAgIHwgIDUgKysrKy0NCj4gICBhcmNoL3g4Ni9pbmNsdWRlL2FzbS94ZW4vaHlwZXJ2aXNv
-ci5oIHwgMTUgKystLS0tLS0tLS0tLS0tDQo+ICAgYXJjaC94ODYveGVuL2VubGlnaHRlbl9w
-di5jICAgICAgICAgICB8ICAxIC0NCj4gICBmcy9wcm9jL3Rhc2tfbW11LmMgICAgICAgICAg
-ICAgICAgICAgIHwgMTEgKysrKy0tLS0tLS0NCj4gICBpbmNsdWRlL2xpbnV4L3BndGFibGUu
-aCAgICAgICAgICAgICAgIHwgMTQgKysrKysrKystLS0tLS0NCj4gICA2IGZpbGVzIGNoYW5n
-ZWQsIDE4IGluc2VydGlvbnMoKyksIDMwIGRlbGV0aW9ucygtKQ0KDQpGb3IgdGhlIHNlcmll
-czoNCg0KQWNrZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4NCg0KDQpK
-dWVyZ2VuDQo=
---------------Dy08AUytJDFuCzLfWwyhli8T
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+> 
+> Signed-off-by: Oleksandr Andrushchenko <andr2000@gmail.com>
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> ---
+>  .clang-format     |    5 +
+>  xen/.clang-format | 1380 +++++++++++++++++++++++++++++++++++++++++++++
+>  2 files changed, 1385 insertions(+)
+>  create mode 100644 .clang-format
+>  create mode 100644 xen/.clang-format
+> 
+> diff --git a/.clang-format b/.clang-format
+> new file mode 100644
+> index 000000000000..fc3f8e167f65
+> --- /dev/null
+> +++ b/.clang-format
+> @@ -0,0 +1,5 @@
+> +---
+> +DisableFormat: true
+> +SortIncludes: Never
+> +...
+> +
+> diff --git a/xen/.clang-format b/xen/.clang-format
+> new file mode 100644
+> index 000000000000..480628544cdd
+> --- /dev/null
+> +++ b/xen/.clang-format
+> @@ -0,0 +1,1380 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +#
+> +# clang-format configuration file. Intended for clang-format >= 15.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+What happens if used with clang-format < 15?  I expect the tool gives
+some kind of error about unknown options, rather than doing a wrong
+formatting?
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+> +#
+> +# For more information, see:
+> +#
+> +#   Documentation/process/clang-format.rst
+> +#   https://clang.llvm.org/docs/ClangFormat.html
+> +#   https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+> +#
+> +---
+> +
+> +################################################################################
+> +# How to review the changes
+> +################################################################################
+> +# ------------------------------------------------------------------------------
+> +# https://lists.xenproject.org/archives/html/xen-devel/2023-11/msg02126.html
+> +# ------------------------------------------------------------------------------
+> +# George Dunlap:
+> +# It's hard to agree on this one without seeing some of the examples of
+> +# what it does, some examples of the "weird behavior" Stefano &
+> +# Allejandro found, and some examples of places where it's going to
+> +# remove the alignment.
+> +#
+> +# I had tried to apply your series before and didn't get very far with
+> +# it for some reason ISTR.  One way to see the effect of individual
+> +# features would be:
+> +#
+> +# 1. Make a branch with one big patch applying clang-format for a given style
+> +#
+> +# 2. Change just one style line, re-run clang format, and create a new
+> +# patch from that
+> +#
+> +# Then it would be easy to see the difference between the two.  It might
+> +# actually be easier for individual reviewers to do that on their own
+> +# trees, rather than to ask you to try to generate and post such patches
+> +# somewhere.
+> +
+> +################################################################################
+> +# do/while loops
+> +################################################################################
+> +# ------------------------------------------------------------------------------
+> +# https://lists.xenproject.org/archives/html/xen-devel/2023-07/msg02276.html
+> +# ------------------------------------------------------------------------------
+> +# Jan:
+> +# > I've read the past threads about the brave people who dared to try to
+> +# > introduce clang-format for the xen codebase, some of them from 5 years ago,
+> +# > two points were clear: 1) goto label needs to be indented and 2) do-while
+> +# > loops have the braket in the same line.
+> +# > While point 1) was quite a blocker, it seemd to me that point 2) was less
+> +# > controversial to be changed in the Xen codestyle, so the current wrapper
+> +# > script handles only the point 1 (which is easy), the point 2 can be more
+> +# > tricky to handle.
+> +#
+> +# I'm afraid I view the do/while part pretty much as a blocker as well.
+> +# While placing the opening brace according to our style elsewhere would
+> +# be okay-ish (just a little wasteful to have two almost empty lines),
+> +# having the closing brace on a separate line is problematic: At least I
+> +# consider a block / scope to end at the line where the closing brace is.
+> +# So the farther do and while are apart, the more
+> +#
+> +#    do
+> +#    {
+> +#        ...;
+> +#    }
+> +#    while ( cond );
+> +#    ...;
+> +#
+> +# is going to be misleading. While normally we would write potentially
+> +# conflicting constructs this way
+> +#
+> +#     while ( cond )
+> +#         ;
+> +#
+> +# the alternative spelling still isn't outright wrong in our style (I
+> +# believe):
+> +#
+> +#     while ( cond );
+> +#
+> +# ------------------------------------------------------------------------------
+> +# https://lists.xenproject.org/archives/html/xen-devel/2023-07/msg02282.html
+> +# ------------------------------------------------------------------------------
+> +# Luca:
+> +# Thank you for your feedback, I could maybe misunderstood your reply, so please
+> +# tell me if I am wrong, the Xen coding style mandates this style for do-while
+> +# loops:
+> +#
+> +# do {
+> +# /* Do stuff. */
+> +# } while ( condition );
+> +#
+> +# Currently clang-format is able to do only this:
+> +#
+> +# do
+> +# {
+> +# /* Do stuff. */
+> +# } while ( condition );
+> +#
+> +# So the issue is only in the opening brackets, not the closing one. Is it a
+> +# blocker too?
+> +#
+> +# ------------------------------------------------------------------------------
+> +# https://lists.xenproject.org/archives/html/xen-devel/2023-07/msg02284.html
+> +# ------------------------------------------------------------------------------
+> +# Jan:
+> +# > do
+> +# > {
+> +# > /* Do stuff. */
+> +# > } while ( condition );
+> +#
+> +# Oh, I hadn't understood your description that way.
+> +#
+> +# > So the issue is only in the opening brackets, not the closing one. Is it a
+> +# > blocker too?
+> +#
+> +# No. I don't like the longer form, but I could live with it.
+> +
+> +################################################################################
+> +# clang version to use
+> +################################################################################
+> +# ------------------------------------------------------------------------------
+> +# https://lists.xenproject.org/archives/html/xen-devel/2023-07/msg02301.html
+> +# ------------------------------------------------------------------------------
+> +# Alejandro:
+> +# > The minimum clang-format version for the file is 15, my ubuntu 22.04 comes
+> +# > with it, we can reason if it's too high, or if we could also use the latest
+> +# > version maybe shipped inside a docker image.
+> +# 15 sounds ok \methinks. In practice we'll just stick it in GitLab and let
+> +# it check commits, so we'll be safe even in the case where every developer
+> +# has a slightly different version of the tool. I wouldn't try to make this
+> +# (hard) task harder by trying to retrofit it in an older version.
+> +#
+> +# It might be worth stitching a flag in the python script to scream if the
+> +#clang-format version doesn't match. Or it may do a mess of the tree.
+    ^ missing space
 
---------------Dy08AUytJDFuCzLfWwyhli8T--
+Is it possible to add such flag and give a clear error when the wrong
+clang-format version is used?
 
---------------MxUlsgon821Y6J0ncZkjxNaY--
+> +################################################################################
+> +# Options and their discussions
+> +################################################################################
+> +
+> +# [not specified]
+> +# Align function parameter that goes into a new line, under the open bracket
+> +# (supported in clang-format 3.8)
+> +# ------------------------------------------------------------------------------
+> +# https://lists.xenproject.org/archives/html/xen-devel/2023-11/msg01993.html
+> +# ------------------------------------------------------------------------------
+> +# Luca: This one is to align function parameters that overflows the line length,
+> +# I chose to align them to the open bracket to match the current codebase
+> +# (hopefully) e.g.:
+> +# someLongFunction(argument1,
+> +#                  argument2);
+> +#
+> +# This one can be a candidate for an entry in our coding style
+> +# ------------------------------------------------------------------------------
+> +# https://lists.xenproject.org/archives/html/xen-devel/2023-11/msg02143.html
+> +# ------------------------------------------------------------------------------
+> +# Jan:
+> +# > e.g.:
+> +# > someLongFunction(argument1,
+> +# >                  argument2);
+> +# The above matches neither of the two generally permitted styles:
+> +#
+> +#    someLongFunction(argument1,
+> +#                     argument2);
+> +#
+> +#    someLongFunction(
+> +#        argument1,
+> +#        argument2);
+> +#
+> +# Then again from its name I would infer this isn't just about function
+> +# arguments?
+> +#
+> +# ------------------------------------------------------------------------------
+> +# https://lists.xenproject.org/archives/html/xen-devel/2023-11/msg02172.html
+> +# ------------------------------------------------------------------------------
+> +# Luca:
+> +# I think it applies to parameters and arguments of functions and macro, given
+> +# the description in the docs.
+> +# I see your two snippets above but I’ve always found at least on arm a
+> +# predominance of the style above for functions, so arguments aligned after the
+> +# opening bracket, for macros there is a mix.
+> +# I might be wrong though and so another opinion from another maintainer would
+> +# help.
+> +# In any case we can choose among many value:
+> +# https://clang.llvm.org/docs/ClangFormatStyleOptions.html#alignafteropenbracket,
+> +# but when we do so, we need to stick to one permitted style only, the tool don’t
+> +# allow to specify more than one.
+> +#
+> +# ------------------------------------------------------------------------------
+> +# https://lists.xenproject.org/archives/html/xen-devel/2023-11/msg02311.html
+> +# ------------------------------------------------------------------------------
+> +# Jan:
+> +# > I see your two snippets above but I’ve always found at least on arm a
+> +# > predominance of the style above for functions, so arguments aligned after
+> +# > the opening bracket, for macros there is a mix.
+> +#
+> +# The latter "above" refers to which form exactly? The one you originally
+> +# spelled out, or the former of what my reply had?
+> +#
+> +# > In any case we can choose among many value:
+> +# > https://clang.llvm.org/docs/ClangFormatStyleOptions.html#alignafteropenbracket,
+> +# > but when we do so, we need to stick to one permitted style only, the tool
+> +# > don’t allow to specify more than one.
+> +#
+> +# a2k: RED FLAG
 
---------------j1JkPn85K8wsyuAVtwcVFZfT
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+What does 'a2k' mean?
 
------BEGIN PGP SIGNATURE-----
+I'm afraid this needs to be trimmed to a more manageable comment,
+otherwise I simply get lost in the context.  Maybe it makes sense more
+people involved in the discussion.
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmfFvngFAwAAAAAACgkQsN6d1ii/Ey9N
-HQf8CVGYvY31u+jZWErxqTSyDA7QQHaTw7tURzlm5l8yYeEnRGQwVGiLei6T5Ntjuj7NBN343O9f
-09ZUt85SNGt0VcBYWrF2C3sTml+jsOUTF2kxZwRfVLyUQ8vpnPIcyC9XEicHLZTph7aCJ7rur1is
-cJ4bCWKtarW+365ICzD5fLVso4JENnqDneUbtMJ2cibbsYPCSnq8VzLZjWLhPAxkybsCaBPc8e6A
-jwWftIwIiqbJOuPprrf8QQ568TWkkm0cRoZqOorrwBbYbeOxDUXMVFH0xS8sMkWAXVYEMB0gOhoz
-kGXdGm/0HeROKlLNMNPDmJCQ+cPKAHGHuqxdtCQM2A==
-=6C3p
------END PGP SIGNATURE-----
-
---------------j1JkPn85K8wsyuAVtwcVFZfT--
+Thanks, Roger.
 
