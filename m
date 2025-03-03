@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE15CA4B9DA
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Mar 2025 09:52:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.899920.1307847 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F6F0A4B9DC
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Mar 2025 09:52:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.899925.1307858 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tp1Wa-0001FX-A2; Mon, 03 Mar 2025 08:51:44 +0000
+	id 1tp1X4-0001gW-Ik; Mon, 03 Mar 2025 08:52:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 899920.1307847; Mon, 03 Mar 2025 08:51:44 +0000
+Received: by outflank-mailman (output) from mailman id 899925.1307858; Mon, 03 Mar 2025 08:52:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tp1Wa-0001Dp-7C; Mon, 03 Mar 2025 08:51:44 +0000
-Received: by outflank-mailman (input) for mailman id 899920;
- Mon, 03 Mar 2025 08:51:42 +0000
+	id 1tp1X4-0001eQ-EZ; Mon, 03 Mar 2025 08:52:14 +0000
+Received: by outflank-mailman (input) for mailman id 899925;
+ Mon, 03 Mar 2025 08:52:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8eIf=VW=redhat.com=david@srs-se1.protection.inumbo.net>)
- id 1tp1WY-0001Dj-Tq
- for xen-devel@lists.xenproject.org; Mon, 03 Mar 2025 08:51:42 +0000
+ id 1tp1X2-0001Dj-SC
+ for xen-devel@lists.xenproject.org; Mon, 03 Mar 2025 08:52:12 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b8ad19d2-f80c-11ef-9898-31a8f345e629;
- Mon, 03 Mar 2025 09:51:40 +0100 (CET)
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ id cb131bc0-f80c-11ef-9898-31a8f345e629;
+ Mon, 03 Mar 2025 09:52:11 +0100 (CET)
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-528-TWOWeLwvNKmv6qDlNA0DgA-1; Mon, 03 Mar 2025 03:51:38 -0500
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-3910cd78330so163396f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 03 Mar 2025 00:51:37 -0800 (PST)
+ us-mta-37-uwwI43YOPC63LUVaDya3Rg-1; Mon, 03 Mar 2025 03:52:06 -0500
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-390e27150dbso3880648f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Mar 2025 00:52:06 -0800 (PST)
 Received: from ?IPV6:2003:cb:c734:9600:af27:4326:a216:2bfb?
  (p200300cbc7349600af274326a2162bfb.dip0.t-ipconnect.de.
  [2003:cb:c734:9600:af27:4326:a216:2bfb])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-390e4844a22sm13875701f8f.74.2025.03.03.00.51.34
+ ffacd0b85a97d-390e485e13fsm13623429f8f.100.2025.03.03.00.52.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Mar 2025 00:51:35 -0800 (PST)
+ Mon, 03 Mar 2025 00:52:04 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,52 +51,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b8ad19d2-f80c-11ef-9898-31a8f345e629
+X-Inumbo-ID: cb131bc0-f80c-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1740991899;
+	s=mimecast20190719; t=1740991930;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=PqwL+v3kSKyO1WWdOm3Dn4wn0YpaEHuXEacsy1CmEn4=;
-	b=MUEEaKhHroJTTeUp4KpAtO7naUHm8iEdVaV1kb7KmpWFAiy5a8jkMMipWqsR8y8eLMSPp4
-	dnrl21lc0/K2YOTKaSOBGn9zsA1kc9ocXtz5xe95YVTm0IVvFMv2MwtsCe+Cg53OMg8jXj
-	RwijkMT2v03xMyv/FWpaAgt37lFShcQ=
-X-MC-Unique: TWOWeLwvNKmv6qDlNA0DgA-1
-X-Mimecast-MFC-AGG-ID: TWOWeLwvNKmv6qDlNA0DgA_1740991896
+	bh=AD0BhRUSKUKI9Ce/AzRts0lu/YIF74G3wU8/3/wY5qk=;
+	b=SxCeuxHehVcWI9BQYOmfFok5FXhF/OLd1+8LK+EKIVz1uydNDF2Dy9dk1yNafIsTv4or/e
+	ssU+0E5QJxVaNBn61Btn8k4Fg2m5ieoPXHexQkYGEWBCOaVzw9bKKonbGljeDYeb0+0e+M
+	FnxXtx0vZIfELC7HrjnTSLlCsVQPiRQ=
+X-MC-Unique: uwwI43YOPC63LUVaDya3Rg-1
+X-Mimecast-MFC-AGG-ID: uwwI43YOPC63LUVaDya3Rg_1740991926
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740991896; x=1741596696;
+        d=1e100.net; s=20230601; t=1740991925; x=1741596725;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:from:references:cc:to:subject:user-agent
          :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=PqwL+v3kSKyO1WWdOm3Dn4wn0YpaEHuXEacsy1CmEn4=;
-        b=XjbvhNLCyL2eddAVJoUJQeCrf/q+mBdtNGqydNk6s/+4yTRhy8e5C0QrP2eJLW5mQ9
-         E4XKwUO6+hOdqzlB4Mh3gkyDYb9NeACM0gJ1Tx/7Jz5yGfGxUZcm9uenojVrfMitWx76
-         3ZvokYcKgDvfLfamy4ERfLKTKdgmN2WiLHKA2YsoU00lgfmFxADl82jogPGTCQjWN6Hc
-         7Y9dmcCQ7gyDmXpRq/jONOuw04EoGBxM6zEn4FIANuteu2BkLE2lERt3ugNNoKL6oN3o
-         Ay7llasjnY9oXb0kklusOswCdIwZ+ntZxSFY31tohLJM5D/inirB6Lwi1hrfzNJSVisd
-         kO6A==
-X-Forwarded-Encrypted: i=1; AJvYcCV834i95fxzUsw0/gI7rsHdwY7ZORXH8C80Ol3LFdfE8i5MDHemy8EYNWWGz1Owy7PKO5sLNsU7Umo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzG30RydlL9xJ+ceKAQmQ3Ijs2YSt5tljENp3XZZSzM1lMWLU7e
-	MJ2yUl8I2TzuwRmte9UBrZ4NVLqKJzY8LDztA5KyGfcz5jtqzOrRBLU6j693+NzbNZN4aWpWnaL
-	0BRAdD+jUB+scCMRDM0nm/K2G14o1KCpRaQOdzIgRMhTSqaPj4N9hSzu+/HnYvQk8
-X-Gm-Gg: ASbGncvp2vWDs7US5P8eyyNocuKSAx8j9n77YcTscJZ7qwDPIhu7d5ZCrtD76k3Ybeq
-	FPGCVvp6KgLejIQrUX3qaB7as2r5UeDtbdvR088KCXW36aGHcnLIAz3izRomgzLFJmc8wff3MeZ
-	H510mx4lJMdAbW9WIsdJmJa1HvQ6cspPbNpLXCHYYdtaP/0O7OZ5qyUfnzXRKWczMIO88/es8Qs
-	edkWj+Fq8yyTAa69WbD/9Ccc8i+pXyVqHVLKeNcDc8+ot8s7ngrRlFN/Fs+LHbG6xMAY5q92M5g
-	JwSebCcWkXmz7NO9FboVyBBddCKreuwCWRhT4THIXV74H13qgjAmEFsz7guDJ8SjfIqFRavukPj
-	B98ypcGNcfusQOLCgdmjVNNaBNLN14MvhzXaOMlUGGJY=
-X-Received: by 2002:a05:6000:1565:b0:391:9b2:f48d with SMTP id ffacd0b85a97d-39109b2f8ebmr2190204f8f.33.1740991896373;
-        Mon, 03 Mar 2025 00:51:36 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEiqrTykXg+NUm0kAtziKqLGECEKRMnAI63MS2I3V/WDMW5AEnsAxTN6b4wA0iNetJkZ/Gt5g==
-X-Received: by 2002:a05:6000:1565:b0:391:9b2:f48d with SMTP id ffacd0b85a97d-39109b2f8ebmr2190184f8f.33.1740991895948;
-        Mon, 03 Mar 2025 00:51:35 -0800 (PST)
-Message-ID: <4af46304-cf25-4c4a-8e4a-3a566193ca62@redhat.com>
-Date: Mon, 3 Mar 2025 09:51:34 +0100
+        bh=AD0BhRUSKUKI9Ce/AzRts0lu/YIF74G3wU8/3/wY5qk=;
+        b=N5Mrm7ZSKWnVDMOfAYAuV2JzNUQDar/CjkoUt2OuzViXwfEu1Pw04WObBgeGpp8nfO
+         bR48wbrI8H53sAXIayqq0R/Nh1e4EloeZzGA17QlUF9DXY4GAYge3zdKDzQNpfP/LIEE
+         xKOsjB9xdGwEpSJyWghXGJUuAEqZGgOAS3r8zQ15mkNPAyd3t83YiC04GounuBk/NoKa
+         W50IA3N0PqSMDHTgphS3FfkTTDpad7BOjajZWsOSlnzozJtXEWkKsoM2gq/a4bPEvNMv
+         HJw8j0O1pXciG6+zscoO0MqK8dTaks7CF8cJMBR3/HXGR71Iu4WuCtmBDbu65+CxkM8/
+         yyvg==
+X-Forwarded-Encrypted: i=1; AJvYcCXhhj4DVr/Zs+TlMLd9vlJia428t6pdNmOhZQUI/dKyNuW8HJhOSmTmgjKNf7quKQViMaJNhXJ/qQY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzERSaUMfgflJsVaNIe2yd2HqnjAvbPZ4pX5L5txl+/xvLfFNEC
+	YrJpvvdm7wqBBK3220eE1s3EXwwt73LAP0j3hHw0vSWJyPqqtp2kNIjyP4RjVw2VPHyr8GP1Nkg
+	Pp9dCVeoAeX6bWSdrp3fXgP06PxCDBuIeEKhBQJ2/tdeCk+BfslJxxnJn0RLS6d6g
+X-Gm-Gg: ASbGnctTYs9Zx65AjAXBx9R1y8U4oRgQnart5iZ9UaLijUhi8t0VIMwTyO3JlwT5q8O
+	TveX9ud4dt3YKKJ7MhOpDuuKrE5JDLWW3r/Aj5sFTBRxNJ2p00Yx9w6gqk6rcAxYINF4goHidcB
+	DycLva/faixUako4BGirOO10VNOB92n52CbdseBR4vtURd5xBUi6S4YyHbYSFqkxFoYKAFjsrnZ
+	lk73fNeUekc3vtG/p/GSILrkL4EUCXAV6WdCoMT0cjBRNSdfSMw7HrboSieQKZH3AnfjaFOwR+N
+	rGHOi5f+rNo5nnaL1M+DZpJE777abJAP1yWcRZ02J7npA2lDYN6IpmLhFA83cOr2Z+5ofMImq0X
+	7qhIGwU67n46L0w+Xfk/750XYzf4JKrB7S9zqEDo/VP0=
+X-Received: by 2002:a5d:6d89:0:b0:390:f88c:a689 with SMTP id ffacd0b85a97d-390f88cadabmr5755544f8f.47.1740991925674;
+        Mon, 03 Mar 2025 00:52:05 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IF3sqppN55tl5C45qFk6psMYLYRvi/O7tktf2gORA/1QEyfox9eLasRdl1uBOhQIOjNr4hTpA==
+X-Received: by 2002:a5d:6d89:0:b0:390:f88c:a689 with SMTP id ffacd0b85a97d-390f88cadabmr5755517f8f.47.1740991925267;
+        Mon, 03 Mar 2025 00:52:05 -0800 (PST)
+Message-ID: <0db13472-d056-4e41-a42c-f4ca60483176@redhat.com>
+Date: Mon, 3 Mar 2025 09:52:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/4] sparc/mm: Disable preemption in lazy mmu mode
+Subject: Re: [PATCH v1 3/4] sparc/mm: Avoid calling
+ arch_enter/leave_lazy_mmu() in set_ptes
 To: Ryan Roberts <ryan.roberts@arm.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  "David S. Miller" <davem@davemloft.net>,
@@ -110,7 +111,7 @@ To: Ryan Roberts <ryan.roberts@arm.com>,
 Cc: linux-mm@kvack.org, sparclinux@vger.kernel.org,
  xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
 References: <20250302145555.3236789-1-ryan.roberts@arm.com>
- <20250302145555.3236789-3-ryan.roberts@arm.com>
+ <20250302145555.3236789-4-ryan.roberts@arm.com>
 From: David Hildenbrand <david@redhat.com>
 Autocrypt: addr=david@redhat.com; keydata=
  xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
@@ -157,61 +158,61 @@ Autocrypt: addr=david@redhat.com; keydata=
  jPrnvUsUUsjRoRNJjKKA/REq+sAnhkNPPZ/NNMjaZ5b8Tovi8C0tmxiCHaQYqj7G2rgnT0kt
  WNyWQQ==
 Organization: Red Hat
-In-Reply-To: <20250302145555.3236789-3-ryan.roberts@arm.com>
+In-Reply-To: <20250302145555.3236789-4-ryan.roberts@arm.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: CjXecJsR6joi1yo_jfWmXYmjvql60Ranyn8KpTLGY5w_1740991896
+X-Mimecast-MFC-PROC-ID: mM9A57ZSNF6KO7-IbFRE-5HdaUEKkRm2sa6rXhJN064_1740991926
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 02.03.25 15:55, Ryan Roberts wrote:
-> Since commit 38e0edb15bd0 ("mm/apply_to_range: call pte function with
-> lazy updates") it's been possible for arch_[enter|leave]_lazy_mmu_mode()
-> to be called without holding a page table lock (for the kernel mappings
-> case), and therefore it is possible that preemption may occur while in
-> the lazy mmu mode. The Sparc lazy mmu implementation is not robust to
-> preemption since it stores the lazy mode state in a per-cpu structure
-> and does not attempt to manage that state on task switch.
+> With commit 1a10a44dfc1d ("sparc64: implement the new page table range
+> API") set_ptes was added to the sparc architecture. The implementation
+> included calling arch_enter/leave_lazy_mmu() calls.
 > 
-> Powerpc had the same issue and fixed it by explicitly disabling
-> preemption in arch_enter_lazy_mmu_mode() and re-enabling in
-> arch_leave_lazy_mmu_mode(). See commit b9ef323ea168 ("powerpc/64s:
-> Disable preemption in hash lazy mmu mode").
+> The patch removes the usage of arch_enter/leave_lazy_mmu() since this
+> implies nesting of lazy mmu regions which is not supported. Without this
+> fix, lazy mmu mode is effectively disabled because we exit the mode
+> after the first set_ptes:
 > 
-> Given Sparc's lazy mmu mode is based on powerpc's, let's fix it in the
-> same way here.
+> remap_pte_range()
+>    -> arch_enter_lazy_mmu()
+>    -> set_ptes()
+>        -> arch_enter_lazy_mmu()
+>        -> arch_leave_lazy_mmu()
+>    -> arch_leave_lazy_mmu()
 > 
-> Fixes: 38e0edb15bd0 ("mm/apply_to_range: call pte function with lazy updates")
+> Powerpc suffered the same problem and fixed it in a corresponding way
+> with commit 47b8def9358c ("powerpc/mm: Avoid calling
+> arch_enter/leave_lazy_mmu() in set_ptes").
+> 
+> Fixes: 1a10a44dfc1d ("sparc64: implement the new page table range API")
 > Signed-off-by: Ryan Roberts <ryan.roberts@arm.com>
 > ---
->   arch/sparc/mm/tlb.c | 5 ++++-
->   1 file changed, 4 insertions(+), 1 deletion(-)
+>   arch/sparc/include/asm/pgtable_64.h | 2 --
+>   1 file changed, 2 deletions(-)
 > 
-> diff --git a/arch/sparc/mm/tlb.c b/arch/sparc/mm/tlb.c
-> index 8648a50afe88..a35ddcca5e76 100644
-> --- a/arch/sparc/mm/tlb.c
-> +++ b/arch/sparc/mm/tlb.c
-> @@ -52,8 +52,10 @@ void flush_tlb_pending(void)
->   
->   void arch_enter_lazy_mmu_mode(void)
+> diff --git a/arch/sparc/include/asm/pgtable_64.h b/arch/sparc/include/asm/pgtable_64.h
+> index 2b7f358762c1..dc28f2c4eee3 100644
+> --- a/arch/sparc/include/asm/pgtable_64.h
+> +++ b/arch/sparc/include/asm/pgtable_64.h
+> @@ -936,7 +936,6 @@ static inline void __set_pte_at(struct mm_struct *mm, unsigned long addr,
+>   static inline void set_ptes(struct mm_struct *mm, unsigned long addr,
+>   		pte_t *ptep, pte_t pte, unsigned int nr)
 >   {
-> -	struct tlb_batch *tb = this_cpu_ptr(&tlb_batch);
-> +	struct tlb_batch *tb;
->   
-> +	preempt_disable();
-> +	tb = this_cpu_ptr(&tlb_batch);
->   	tb->active = 1;
+> -	arch_enter_lazy_mmu_mode();
+>   	for (;;) {
+>   		__set_pte_at(mm, addr, ptep, pte, 0);
+>   		if (--nr == 0)
+> @@ -945,7 +944,6 @@ static inline void set_ptes(struct mm_struct *mm, unsigned long addr,
+>   		pte_val(pte) += PAGE_SIZE;
+>   		addr += PAGE_SIZE;
+>   	}
+> -	arch_leave_lazy_mmu_mode();
 >   }
+>   #define set_ptes set_ptes
 >   
-> @@ -64,6 +66,7 @@ void arch_leave_lazy_mmu_mode(void)
->   	if (tb->tlb_nr)
->   		flush_tlb_pending();
->   	tb->active = 0;
-> +	preempt_enable();
->   }
->   
->   static void tlb_batch_add_one(struct mm_struct *mm, unsigned long vaddr,
 
 Acked-by: David Hildenbrand <david@redhat.com>
 
