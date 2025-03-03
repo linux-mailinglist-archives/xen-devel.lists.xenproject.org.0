@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73988A4C26B
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Mar 2025 14:52:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.900298.1308207 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0773DA4C2E8
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Mar 2025 15:10:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.900308.1308218 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tp6DW-0007RO-Mn; Mon, 03 Mar 2025 13:52:22 +0000
+	id 1tp6Up-00033U-4f; Mon, 03 Mar 2025 14:10:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 900298.1308207; Mon, 03 Mar 2025 13:52:22 +0000
+Received: by outflank-mailman (output) from mailman id 900308.1308218; Mon, 03 Mar 2025 14:10:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tp6DW-0007Od-Jo; Mon, 03 Mar 2025 13:52:22 +0000
-Received: by outflank-mailman (input) for mailman id 900298;
- Mon, 03 Mar 2025 13:52:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tp6Up-00030K-1U; Mon, 03 Mar 2025 14:10:15 +0000
+Received: by outflank-mailman (input) for mailman id 900308;
+ Mon, 03 Mar 2025 14:10:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1KmY=VW=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
- id 1tp6DV-0007OX-A7
- for xen-devel@lists.xenproject.org; Mon, 03 Mar 2025 13:52:21 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b97b7739-f836-11ef-9ab2-95dc52dad729;
- Mon, 03 Mar 2025 14:52:19 +0100 (CET)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-abf4b376f2fso354442666b.3
- for <xen-devel@lists.xenproject.org>; Mon, 03 Mar 2025 05:52:19 -0800 (PST)
+ <SRS0=RjBI=VW=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tp6Un-00030B-UL
+ for xen-devel@lists.xenproject.org; Mon, 03 Mar 2025 14:10:13 +0000
+Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
+ [2607:f8b0:4864:20::629])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3324aa02-f839-11ef-9898-31a8f345e629;
+ Mon, 03 Mar 2025 15:10:03 +0100 (CET)
+Received: by mail-pl1-x629.google.com with SMTP id
+ d9443c01a7336-22382657540so33697295ad.2
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Mar 2025 06:10:03 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ d9443c01a7336-223504c59ecsm78050255ad.123.2025.03.03.06.09.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 Mar 2025 06:10:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,132 +44,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b97b7739-f836-11ef-9ab2-95dc52dad729
+X-Inumbo-ID: 3324aa02-f839-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1741009939; x=1741614739; darn=lists.xenproject.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=QPnh8amj6enWKzIhR062+TBgsv+8vsn9HyG1cXAF+c8=;
-        b=aEQ/jkTnNc1AmLySHZbGHooLIblph74R0NT5QHFbGs6x1M0czpD7FTfJ2DITd0zVtT
-         GBBj44td0Wz0ai6h5FTP71jt2rm2WaR67Lrhx7IROCe6YZZu8uzphJaZMchpqq0LeG0e
-         AyFYPDZwaOiUOvTgQYZbmRwtrBM1s9jyZHZOM=
+        d=citrix.com; s=google; t=1741011002; x=1741615802; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=V7YKNbEtCKvClNkv4j7sl0onkgyhRRhalJ9m3Tg6rXY=;
+        b=WzKZD9wj3hXL+M3eLAvl5yX0HyIggiuqatxTJtiuLwW0K8MjgJ4CE6CDyqAKWP8Dps
+         zwfmRx/InSX/CnAKjqurTFVjjlKjTeoCP9bIbgp9xpV2kXYKy0RT/OauFS041H0Bmq69
+         xbQYsfgZ6UFhCaVmSivwzt7DnIITZlQdRxhdY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741009939; x=1741614739;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=QPnh8amj6enWKzIhR062+TBgsv+8vsn9HyG1cXAF+c8=;
-        b=NH1WfvYGtOMgRNShZHjTXi62aOJOir98F3Do/pNmR51RGR3js7zHaAgHDUpQJ1ksdk
-         zwUOnE4w0VAhysu5k3F6UnAB18DbwdEc2AikWr9BunaefZ026YUH7roEXt7nflZKj97D
-         sQIQHPSeCLIya8n0MSs0nInT02za8Uz8/HPltTfV03PE3mpK3ZgqoWQGDuY4C6cdpWsT
-         ebvzkzej27PepMhWAgeWFVmgvStj6IZY+uBd5pgw9RLuWQSxDeCAUHYRyYeYWEK2SeAO
-         nIyPGM00LQ9PkdiSGBwYTe8wpLCxOdUVNvcujE/shJY6MaOmKGJ3lv6t2i3bPM8TWXor
-         qK0g==
-X-Gm-Message-State: AOJu0YxDQigaqIOaEKn0eeyGC7wiLxTP4MZT71qZVetFKTfBYyPKrjHb
-	0LVk+JJwWuhmiZOSkDQEpFw3Oxne2Iluf2ZtCSFinz06pMzp3Id24iT0bdmC/dt3PBtjI6/fBvY
-	yGPYSbiS94nVAikJICtRFbZ/aHZyCkc7XoZxum/s9/zGD5XgnTw+3HA==
-X-Gm-Gg: ASbGncvjaDW3esUvR1NE6NVdIHypxy6a8uVR7PRqQczGvSgpxwjcrv3LBH4QcsmiGPK
-	jOblw2GVH0t7zwNhx0u7nA/57RNKBlYwm1PfNbYAHVwCGKV2rl0rMDjUSIyhqH/A5xhJwth4sDT
-	H/D6Be6vLvDAP2zwnLDTLi8F3ChB4gy2RtDtyvi52IKjD+2XJWxRsIk74Kf4I=
-X-Google-Smtp-Source: AGHT+IFYz7oejKfNoztgWDzw36/uQaD6w0XRMLwoX2QMYH0g6a7+xn4adMtqYqaauCAV6lbi1LzPdXe2zDNkIHgoPmE=
-X-Received: by 2002:a17:907:7f25:b0:abf:7a26:c47b with SMTP id
- a640c23a62f3a-abf7a26c60bmr320980866b.39.1741009938613; Mon, 03 Mar 2025
- 05:52:18 -0800 (PST)
+        d=1e100.net; s=20230601; t=1741011002; x=1741615802;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=V7YKNbEtCKvClNkv4j7sl0onkgyhRRhalJ9m3Tg6rXY=;
+        b=utB5sApI6mbaJ4DKiBFRWhlz+JRcygdaX011yE/l9Vv67GEyfGJ2B8t9/I7u6gBsjK
+         5Y3nt/KSF8FQ+wKSLNuQ6pPu4DjH9kHlIwd2fAvExHQJgPBoWVk3iSEJKYSYCC4dVJ/r
+         KAWnsNlWuP8LnbnTNGRS6f/fVogGlvUh3rhIBS7nWHfknHUIB0QHN+OSLcZSJP7pvqMD
+         vkImXsI2qk6UTcFGkdTwsB1p8Ub4iXrUTffiX1J2kgqqGd5b18f6NGnB0ra0uMNiuuWW
+         V2Tlbk2MoqYI/jBdCeEf8CpAQrV27lI9dCBX0FIw+c01ux11THUrIjqLx3nsW67BmqW8
+         fThA==
+X-Gm-Message-State: AOJu0YxbFZqiQLp06XoXjhuc6SVm+MQWDP88Gq8/eOCZ/Z54Ek4DIV7X
+	VX99luHsZnUn/c+lgd667WnSUfOJUbppN8i1sLU1ii7ae170kxpovWaWv+pVtpc=
+X-Gm-Gg: ASbGnctl2VnkTUMFf9FIRD138I/sc5SUoAGeWqYqGfRYEN1sm4w/emnoCqeCHMN32fP
+	9fDJvQ5Ysahv5Lzr7mjByStxO8ljuci+LvCFckO+Aa9spnOtUAO2SS+5qNed0fHuKiSlGYYxilj
+	/dwbVOWzSebeO2+kYjPvINrkWDbNk7NlsFnegaNRHUo27f19FomBjcUXt+N+X+ft6tzAu1wkSut
+	wuSpQDIxv3y+msg6DQBd2VYfCr/e6GhtBzeiBybWOlVef+MZW+9JTQJESqEaiphah40Xb4Tmqnf
+	9HqlIzxih75ArWEbnkmI4QmBcjmi8T6UE//jKobQWjNiPpkVAg==
+X-Google-Smtp-Source: AGHT+IHdi3g63gaWHlIVQu9lRtjgXka95xcFxI8zloNtmzxwHce3eGClSLZMzP4IMq3gadZTdblRGw==
+X-Received: by 2002:a17:903:1b2c:b0:223:225a:7e4d with SMTP id d9443c01a7336-22368fba9efmr253404025ad.26.1741011002000;
+        Mon, 03 Mar 2025 06:10:02 -0800 (PST)
+Date: Mon, 3 Mar 2025 15:09:56 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Huang Rui <ray.huang@amd.com>
+Subject: Re: [PATCH v9] vpci: Add resizable bar support
+Message-ID: <Z8W4NFdcK1kuAH5q@macbook.local>
+References: <20250224032433.1879630-1-Jiqian.Chen@amd.com>
 MIME-Version: 1.0
-From: Kelly Choi <kelly.choi@cloud.com>
-Date: Mon, 3 Mar 2025 13:51:42 +0000
-X-Gm-Features: AQ5f1JoORI4O7QoY26oiFHIIvFLl-e6lagIjzPJuDCeRbnw-Twq5n4H7YKnj8DY
-Message-ID: <CAO-mL=zHSabDAt5faxWgsH7aFjnAQUAd25OgA-GMxyrCynKC5A@mail.gmail.com>
-Subject: [ANNOUNCE] Call for agenda items - Community Call 6th March 2025
-To: xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: multipart/alternative; boundary="000000000000f1305d062f7076c4"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250224032433.1879630-1-Jiqian.Chen@amd.com>
 
---000000000000f1305d062f7076c4
-Content-Type: text/plain; charset="UTF-8"
+On Mon, Feb 24, 2025 at 11:24:33AM +0800, Jiqian Chen wrote:
+> Some devices, like AMDGPU, support resizable bar capability,
+> but vpci of Xen doesn't support this feature, so they fail
+> to resize bars and then cause probing failure.
+> 
+> According to PCIe spec, each bar that supports resizing has
+> two registers, PCI_REBAR_CAP and PCI_REBAR_CTRL. So, add
+> handlers to support resizing the size of BARs.
+> 
+> Note that Xen will only trap PCI_REBAR_CTRL, as PCI_REBAR_CAP
+> is read-only register and the hardware domain already gets
+> access to it without needing any setup.
+> 
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
 
-Hi all,
+Reviewed-by: Roger Pau Monné <roger.pau@cirtrix.com>
 
-Please add your proposed agenda items below. If any action items are
-missing or have been resolved, please add/remove them from the sheet.
+Just one question below about a cosmetic adjustment.
 
-https://cryptpad.fr/pad/#/2/pad/edit/5aJq20OOLdSZ+nspYGPpVWYr/
+> diff --git a/xen/include/xen/pci_regs.h b/xen/include/xen/pci_regs.h
+> index 250ba106dbd3..2f1d0d63e962 100644
+> --- a/xen/include/xen/pci_regs.h
+> +++ b/xen/include/xen/pci_regs.h
+> @@ -459,6 +459,7 @@
+>  #define PCI_EXT_CAP_ID_ARI	14
+>  #define PCI_EXT_CAP_ID_ATS	15
+>  #define PCI_EXT_CAP_ID_SRIOV	16
+> +#define PCI_EXT_CAP_ID_REBAR	21	/* Resizable BAR */
+>  
+>  /* Advanced Error Reporting */
+>  #define PCI_ERR_UNCOR_STATUS	4	/* Uncorrectable Error Status */
+> @@ -541,6 +542,20 @@
+>  #define  PCI_VNDR_HEADER_REV(x)	(((x) >> 16) & 0xf)
+>  #define  PCI_VNDR_HEADER_LEN(x)	(((x) >> 20) & 0xfff)
+>  
+> +/* Resizable BARs */
+> +#define PCI_REBAR_CAP(n)	(4 + 8 * (n))	/* capability register */
+> +#define  PCI_REBAR_CAP_SIZES_MASK	0xFFFFFFF0U	/* supported BAR sizes in CAP */
+> +#define PCI_REBAR_CTRL(n)	(8 + 8 * (n))	/* control register */
+> +#define  PCI_REBAR_CTRL_BAR_IDX		0x00000007	/* BAR index */
+> +#define  PCI_REBAR_CTRL_NBAR_MASK	0x000000E0	/* # of resizable BARs */
+> +#define  PCI_REBAR_CTRL_BAR_SIZE	0x00003F00	/* BAR size */
+> +#define  PCI_REBAR_CTRL_SIZES_MASK	0xFFFF0000U	/* supported BAR sizes in CTRL */
+> +
+> +#define PCI_REBAR_CTRL_SIZE_BIAS	20
+> +#define PCI_REBAR_CTRL_SIZE(v) \
+> +    (1ULL << (MASK_EXTR(v, PCI_REBAR_CTRL_BAR_SIZE) \
+> +                      + PCI_REBAR_CTRL_SIZE_BIAS))
 
-*CALL LINK:* https://meet.jit.si/XenProjectCommunityCall
-<https://www.google.com/url?q=https://meet.jit.si/XenProjectCommunityCall&sa=D&source=calendar&ust=1699196661201312&usg=AOvVaw1FcogEsMjFSd1Pmi7V0cBc>
+I think this could fit on a single line if the indent was just 4
+spaces.  Would you mind me adjusting it at commit if it fits?
 
-*DATE: *Thursday 6th March 2025
-
-*TIME: *1600 UTC (4 pm UK time)
-*Note the following administrative conventions for the call:*
-
-
-** To allow time to switch between meetings, we plan on starting theagenda
-at 16:05 UTC sharp.  Aim to join by 16:03 UTC if possible to allocatetime
-to sort out technical difficulties.*
-
-
-
-
-
-
-
-
-** If you want to be CC'ed please add or remove yourself from
-thesign-up-sheet
-at https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/
-<https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/>== Dial-in
-Information ==## Meeting time16:00 - 17:00 British timeFurther
-International meeting
-times:*https://www.timeanddate.com/worldclock/meetingdetails.html?year=2025&month=3&day=6&hour=16&min=0&sec=0&p1=1234&p2=37&p3=224&p4=179
-
-
-## Dial in details
-https://meet.jit.si/static/dialInInfo.html?room=XenProjectCommunityCall
-
-Thanks,
-Kelly Choi
-Community Manager
-Xen Project <https://xenproject.org/>
-
---000000000000f1305d062f7076c4
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hi all,=C2=A0</div><div><div><p>Please add your propo=
-sed agenda items below. If any action items are missing or have been resolv=
-ed, please add/remove them from the sheet.=C2=A0</p><p><a href=3D"https://c=
-ryptpad.fr/pad/#/2/pad/edit/5aJq20OOLdSZ+nspYGPpVWYr/">https://cryptpad.fr/=
-pad/#/2/pad/edit/5aJq20OOLdSZ+nspYGPpVWYr/</a>=C2=A0</p><p><b><span class=
-=3D"gmail-il">CALL</span>=C2=A0LINK:</b>=C2=A0<a href=3D"https://www.google=
-.com/url?q=3Dhttps://meet.jit.si/XenProjectCommunityCall&amp;sa=3DD&amp;sou=
-rce=3Dcalendar&amp;ust=3D1699196661201312&amp;usg=3DAOvVaw1FcogEsMjFSd1Pmi7=
-V0cBc" target=3D"_blank">https://meet.jit.si/XenProjectCommunityCall</a></p=
-><p><b>DATE:=C2=A0</b>Thursday 6th March 2025</p><p><b>TIME:=C2=A0</b>1600 =
-UTC (4 pm UK time)</p><i>Note the following administrative conventions for =
-the=C2=A0<span class=3D"gmail-il">call</span>:</i></div><div><div><i>* To a=
-llow time to switch between meetings, we plan on starting the<br>agenda at =
-16:05 UTC sharp.=C2=A0 Aim to join by 16:03 UTC if possible to allocate<br>=
-time to sort out technical difficulties.</i></div><div><i><br>* If you want=
- to be CC&#39;ed please add or remove yourself from the<br>sign-up-sheet at=
-=C2=A0<a href=3D"https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sR=
-Cf+/" rel=3D"noreferrer" target=3D"_blank">https://cryptpad.fr/pad/#/2/pad/=
-edit/D9vGzihPxxAOe6RFPz0sRCf+/</a><br><br>=3D=3D=C2=A0<span class=3D"gmail-=
-il">Dial</span>-in Information =3D=3D<br>## Meeting time<br>16:00 - 17:00 B=
-ritish time<br>Further International meeting times:<br></i><a href=3D"https=
-://www.timeanddate.com/worldclock/meetingdetails.html?year=3D2025&amp;month=
-=3D3&amp;day=3D6&amp;hour=3D16&amp;min=3D0&amp;sec=3D0&amp;p1=3D1234&amp;p2=
-=3D37&amp;p3=3D224&amp;p4=3D179" target=3D"_blank">https://www.timeanddate.=
-com/worldclock/meetingdetails.html?year=3D2025&amp;month=3D3&amp;day=3D6&am=
-p;hour=3D16&amp;min=3D0&amp;sec=3D0&amp;p1=3D1234&amp;p2=3D37&amp;p3=3D224&=
-amp;p4=3D179  </a>=C2=A0<br><br>##=C2=A0<span class=3D"gmail-il">Dial</span=
->=C2=A0in details<br><a href=3D"https://meet.jit.si/static/dialInInfo.html?=
-room=3DXenProjectCommunityCall" rel=3D"noreferrer" target=3D"_blank">https:=
-//meet.jit.si/static/dialInInfo.html?room=3DXenProjectCommunityCall</a></di=
-v></div></div><div><br></div><div><div dir=3D"ltr" class=3D"gmail_signature=
-" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div>Thanks,</div><di=
-v>Kelly Choi<br></div><div><div style=3D"color:rgb(136,136,136)">Community =
-Manager</div><div style=3D"color:rgb(136,136,136)"><a href=3D"https://xenpr=
-oject.org/" target=3D"_blank">Xen Project</a><br></div></div></div></div></=
-div></div>
-
---000000000000f1305d062f7076c4--
+Thanks, Roger.
 
