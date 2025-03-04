@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8E08A4EE09
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Mar 2025 21:05:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.901503.1309470 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44017A4EE53
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Mar 2025 21:27:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.901520.1309480 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpYVg-0002CX-8S; Tue, 04 Mar 2025 20:05:00 +0000
+	id 1tpYqk-0005Nq-2M; Tue, 04 Mar 2025 20:26:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 901503.1309470; Tue, 04 Mar 2025 20:05:00 +0000
+Received: by outflank-mailman (output) from mailman id 901520.1309480; Tue, 04 Mar 2025 20:26:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpYVg-0002AN-5V; Tue, 04 Mar 2025 20:05:00 +0000
-Received: by outflank-mailman (input) for mailman id 901503;
- Tue, 04 Mar 2025 20:04:58 +0000
+	id 1tpYqj-0005M8-UO; Tue, 04 Mar 2025 20:26:45 +0000
+Received: by outflank-mailman (input) for mailman id 901520;
+ Tue, 04 Mar 2025 20:26:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8/uV=VX=gmail.com=andr2000@srs-se1.protection.inumbo.net>)
- id 1tpYVe-0002AH-0h
- for xen-devel@lists.xenproject.org; Tue, 04 Mar 2025 20:04:58 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f0fbbb09-f933-11ef-9898-31a8f345e629;
- Tue, 04 Mar 2025 21:04:55 +0100 (CET)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-5496bc2e261so2489678e87.3
- for <xen-devel@lists.xenproject.org>; Tue, 04 Mar 2025 12:04:55 -0800 (PST)
-Received: from [192.168.10.20] ([185.199.97.5])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5494f0d92f6sm1431165e87.105.2025.03.04.12.04.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 04 Mar 2025 12:04:53 -0800 (PST)
+ <SRS0=AC9t=VX=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1tpYqi-0005M2-98
+ for xen-devel@lists.xenproject.org; Tue, 04 Mar 2025 20:26:44 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f872cbaf-f936-11ef-9898-31a8f345e629;
+ Tue, 04 Mar 2025 21:26:37 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id C9A6E8286599;
+ Tue,  4 Mar 2025 14:26:35 -0600 (CST)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id vCBD8vEXSEuH; Tue,  4 Mar 2025 14:26:35 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 319C38287A79;
+ Tue,  4 Mar 2025 14:26:35 -0600 (CST)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id jr_TOd0z5dZo; Tue,  4 Mar 2025 14:26:35 -0600 (CST)
+Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id 310A38286599;
+ Tue,  4 Mar 2025 14:26:34 -0600 (CST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,221 +51,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f0fbbb09-f933-11ef-9898-31a8f345e629
+X-Inumbo-ID: f872cbaf-f936-11ef-9898-31a8f345e629
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 319C38287A79
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1741118695; x=1741723495; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ygh40xv4Vi3CreFxzFkGVO3MK/NUBiP1ocsbBliTXsc=;
-        b=EdbB5Iz2OTNHTHAzImlhDx9w1ytLBB2rxxlwSdRoloxJIK6vjYGVVhGunlquyX950b
-         jlHoLwHCwOINkjsSn/ta5vTye8bHVzjSWoc1VH+X5ceLPssDtEej0z7VIZI1zFLo2Cqt
-         JWcx0u/JoIosrDYWveSL5r2XUmwPXFDm/reeXlL7BjGbmuqi+LLk3k2w7sFocqNNyUKu
-         r/bwqXoCwX3EXxNHdvR3PuCHxpUyIaKIaFoMWb0rQsXqcvRtunzu11MvpfeCzsckpe/W
-         E26Ujs7muhidZVGPcMw/agbi23XKczoUJiF/G9jkrAil0zMpt4Zm1Ezg7FGJpW40l1lX
-         INjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741118695; x=1741723495;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ygh40xv4Vi3CreFxzFkGVO3MK/NUBiP1ocsbBliTXsc=;
-        b=OkNlWyXG2UP5rIBamZqdlVI5oZZeyp/LXEgA/EUmcHBuCYlUUbPSkx3BC8rJfyMKb/
-         pz16P2+Q8RAlhDLSEG1pgvPt/ZQEbSu4tS3IHP4vQsGojdkU5WWYFrF9iLwAfP5UK8cI
-         qHrJySm0jrLxIGzHXPheHMRy/p3hdVgAXkgee7MEKQoBkTMtAq895lQ04xgUiJZnQu6k
-         h0fghQgr1ZiWRLAMayoeXfuDWIeLkMboQLyIMdz9rCtZOVRTpsG/YaUDo3x0wZQpXBNC
-         r41CRVz78UfcqLlzDFiQol4RGXzjXkAAFpqrz7WApoXkkwgYr+GaegUWu/sw1KGiGudB
-         H9ag==
-X-Gm-Message-State: AOJu0YwYA4DjET4n0v4H3ER96DNQuRKyOYIQAt0iscA9n0Qs71njM1jb
-	xteGCavlri9a5vj3Jm67MRsljmfz6IGCviX96lkHEE8F5jmYMQd5
-X-Gm-Gg: ASbGncuBzS+atHmFOBqbGEdVlSEuX0HAQ0WyTvGiWL3FQ46Ab9ZEGm0Kne2OsDIQO+t
-	QzFsGrYv+MGJM8cOz2m50ZEAyOk0lrJci7cRp7G15rOQp49NOVlnHNFaYOgG0+kB28rIqsdxPlt
-	/qzwsj7K0E4jDS07/43CrAwVM7MVpCg6wA+WQVUYFMR7cX6SwNJerIEsTnyUCUToRKREugr4v4g
-	2j7es9n9zvDVUQiIVyox2XlJg9wpfZ7CJ4IfC6e+uB32wjKMwv5VS1H6mSWVLZPxVRAQw04pR1v
-	oW1+mT4GC9dwL+OKII2MCgx/3M4nTbYVsxeNQ8kqgoncjg==
-X-Google-Smtp-Source: AGHT+IH4p+EyXNtZBcFn5qZ2kRUT5u5G7xarBlFRDbvotDlq0RiQ5zzsA4mkL71EwZKloSe395O/NQ==
-X-Received: by 2002:a05:6512:693:b0:545:d27:e367 with SMTP id 2adb3069b0e04-5497d37bb95mr129847e87.42.1741118694427;
-        Tue, 04 Mar 2025 12:04:54 -0800 (PST)
-Message-ID: <c17f5a23-d144-4f79-86b9-ee98960ed7ce@gmail.com>
-Date: Tue, 4 Mar 2025 22:04:51 +0200
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1741119995; bh=9ZJMNquJ1eZP6quPV+PEWoALEoDBuYhrufbPN7+L8dw=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=KDKhILGud4p9u+lBauZG7NLkZqaeNg//4lEiEZ32jn+563tdbYW19yXfb+jHXDpbc
+	 7qkqJ5ann9h5xW05fjdZebxUdsD8mvo50QCgS00KI5KP3RkzcIBiFShGts4JV2v0dX
+	 +a4r51HQlnGm8K7n4yJR6Hu2Atq6tWIB3VB62Ea0=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <6db28995-40e6-4198-bf7d-5afdc814f810@raptorengineering.com>
+Date: Tue, 4 Mar 2025 14:26:33 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] Add .clang-format files to enable manual coding style
- checks
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
- Artem_Mygaiev@epam.com, jbeulich@suse.com, Luca.Fancellu@arm.com,
- marmarek@invisiblethingslab.com, andrew.cooper3@citrix.com,
- anthony.perard@vates.tech
-References: <20250301114242.93650-1-andr2000@gmail.com>
- <20250301114242.93650-2-andr2000@gmail.com> <Z8XFRmK_kL6Lp9Xk@macbook.local>
- <2e26f594-edfc-4687-8433-4d04a527388e@gmail.com>
- <Z8a3JmNFKPI6h0s7@macbook.local>
+Subject: Re: [PATCH v3 2/2] xen/mm: Introduce per-arch pte_attr_t type for PTE
+ flags
+To: Jan Beulich <jbeulich@suse.com>
+Cc: tpearson@raptorengineering.com, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+References: <1d0826e88e95357979d74fb3702b35fdb0b75151.1739488487.git.sanastasio@raptorengineering.com>
+ <ca31107923a8794f8752e65b5c3ad14bd2f326cf.1739488487.git.sanastasio@raptorengineering.com>
+ <396e663d-b8f1-42a5-acec-78ba78c0b67a@suse.com>
 Content-Language: en-US
-From: Oleksandr Andrushchenko <andr2000@gmail.com>
-In-Reply-To: <Z8a3JmNFKPI6h0s7@macbook.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+In-Reply-To: <396e663d-b8f1-42a5-acec-78ba78c0b67a@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hello, Roger!
-
-On 04.03.25 10:17, Roger Pau Monné wrote:
-> On Mon, Mar 03, 2025 at 09:23:57PM +0200, Oleksandr Andrushchenko wrote:
->> Hello, Roger!
+On 2/26/25 7:26 AM, Jan Beulich wrote:
+> On 21.02.2025 21:10, Shawn Anastasio wrote:
+>> --- a/xen/include/xen/mm.h
+>> +++ b/xen/include/xen/mm.h
+>> @@ -69,6 +69,7 @@
+>>  #include <xen/spinlock.h>
+>>  #include <xen/perfc.h>
+>>  #include <public/memory.h>
+>> +#include <asm/mm-types.h>
 >>
->> On 03.03.25 17:05, Roger Pau Monné wrote:
->>> On Sat, Mar 01, 2025 at 01:42:39PM +0200, Oleksandr Andrushchenko wrote:
->>>> Disable coding style checks for the project, but xen/ folder:
->>>> this is done by providing a global .clang-format at the top level which
->>>> disables clang-format and only providing .clang-format for xen/.
->>>>
->>>> clang-format version expected to be >15 and the latest tool can be
->>>> installed with:
->>>> python3 -m pip install clang-format
->>>>
->>>> Please note, that no automatic code style checks are performed and all
->>>> those can be run manually:
->>>>
->>>> - to see changes proposed to the patch being worked on (not committed yet):
->>>> git-clang-format --diff --style=file --verbose
->>>>
->>>> - to run code formatting on the HEAD patch:
->>>> git-clang-format --style=file --verbose HEAD~1
->>>>
->>>> Provided xen/.clang-format still has a lot of comments gathered from the
->>>> previous discussions. This is for purpose of better seeing why some of
->>>> the options have their values. Once option values are accepted all those
->>>> comments can be removed.
->>> I think the comments need to be trimmed to a concise explanation of
->>> why a setting is the way it is.  The (IMO overly long) excerpts from
->>> email conversations are difficult to follow in this context.  Someone
->>> has to spend the time to digest them and provide a shorter comment.
->> This is the goal. I do not expect the patch to be committed right
->> now, so I left those intentionally to provide some background
->> when those options were discussed before and, possibly, to
->> address some questions which were brought earlier.
->> The final patch will have all those in the way you mention here
->>> One thing that I'm missing: don't we need a list of excluded files
->>> somewhere because they are imports from Linux and we would like to
->>> keep the Linux coding style for avoiding conflicts when backporting
->>> fixes?
->> All files are excluded from formatting, but xen/ directory: this is
->> by providing a top level .clang-format file which disables all
->> formatting and also providing xen/.clang-format which is exactly
->> for xen/.
-> There are files with intentional Linux coding style inside of xen/,
-> for example xen/arch/x86/cpu/mwait-idle.c.  We would need a way to
-> filter those out so that clang-format doesn't attempt to apply the Xen
-> coding style to them.
->
-> Otherwise it needs to be noted possibly in .clang-format that while
-> the clang-format style will apply by default to all files inside of
-> xen/, some of those use a different coding style on purpose, and those
-> should not be reformatted.
-There is an analog of .gitignore which is .clang-format-ignore [1]
->
-> We also have some scripts in python and shell inside of both tools/
-> and scripts/, are those already excluded by clang-format by not having
-> a .c or .h extension?
-Currently it is only C/C++ files with the settings in the .clang-format provided
->
->>>> +################################################################################
->>>> +# Options and their discussions
->>>> +################################################################################
->>>> +
->>>> +# [not specified]
->>>> +# Align function parameter that goes into a new line, under the open bracket
->>>> +# (supported in clang-format 3.8)
->>>> +# ------------------------------------------------------------------------------
->>>> +# https://lists.xenproject.org/archives/html/xen-devel/2023-11/msg01993.html
->>>> +# ------------------------------------------------------------------------------
->>>> +# Luca: This one is to align function parameters that overflows the line length,
->>>> +# I chose to align them to the open bracket to match the current codebase
->>>> +# (hopefully) e.g.:
->>>> +# someLongFunction(argument1,
->>>> +#                  argument2);
->>>> +#
->>>> +# This one can be a candidate for an entry in our coding style
->>>> +# ------------------------------------------------------------------------------
->>>> +# https://lists.xenproject.org/archives/html/xen-devel/2023-11/msg02143.html
->>>> +# ------------------------------------------------------------------------------
->>>> +# Jan:
->>>> +# > e.g.:
->>>> +# > someLongFunction(argument1,
->>>> +# >                  argument2);
->>>> +# The above matches neither of the two generally permitted styles:
->>>> +#
->>>> +#    someLongFunction(argument1,
->>>> +#                     argument2);
->>>> +#
->>>> +#    someLongFunction(
->>>> +#        argument1,
->>>> +#        argument2);
->>>> +#
->>>> +# Then again from its name I would infer this isn't just about function
->>>> +# arguments?
->>>> +#
->>>> +# ------------------------------------------------------------------------------
->>>> +# https://lists.xenproject.org/archives/html/xen-devel/2023-11/msg02172.html
->>>> +# ------------------------------------------------------------------------------
->>>> +# Luca:
->>>> +# I think it applies to parameters and arguments of functions and macro, given
->>>> +# the description in the docs.
->>>> +# I see your two snippets above but I’ve always found at least on arm a
->>>> +# predominance of the style above for functions, so arguments aligned after the
->>>> +# opening bracket, for macros there is a mix.
->>>> +# I might be wrong though and so another opinion from another maintainer would
->>>> +# help.
->>>> +# In any case we can choose among many value:
->>>> +# https://clang.llvm.org/docs/ClangFormatStyleOptions.html#alignafteropenbracket,
->>>> +# but when we do so, we need to stick to one permitted style only, the tool don’t
->>>> +# allow to specify more than one.
->>>> +#
->>>> +# ------------------------------------------------------------------------------
->>>> +# https://lists.xenproject.org/archives/html/xen-devel/2023-11/msg02311.html
->>>> +# ------------------------------------------------------------------------------
->>>> +# Jan:
->>>> +# > I see your two snippets above but I’ve always found at least on arm a
->>>> +# > predominance of the style above for functions, so arguments aligned after
->>>> +# > the opening bracket, for macros there is a mix.
->>>> +#
->>>> +# The latter "above" refers to which form exactly? The one you originally
->>>> +# spelled out, or the former of what my reply had?
->>>> +#
->>>> +# > In any case we can choose among many value:
->>>> +# > https://clang.llvm.org/docs/ClangFormatStyleOptions.html#alignafteropenbracket,
->>>> +# > but when we do so, we need to stick to one permitted style only, the tool
->>>> +# > don’t allow to specify more than one.
->>>> +#
->>>> +# a2k: RED FLAG
->>> What does 'a2k' mean?
->>>
->>> I'm afraid this needs to be trimmed to a more manageable comment,
->>> otherwise I simply get lost in the context.  Maybe it makes sense more
->>> people involved in the discussion.
->> Sure, see my explanation above: this is just to give some more context
->> and have some ready answers for the questions being asked before.
->> I will remove all these right after we have some consensus.
-> Sorry for possibly not fully understanding the purpose and being
-> stubborn, but IMO consensus should be reached on the email discussion,
-> so that here you can make a proposal, possibly with a comment
-> justifying the chosen value.  Just copying excerpts from the email
-> thread is not likely to help, as I at least find myself completely
-> lost.
-Agree, but the opposite happened before: same questions asked
-again as we are out of context each time...
->
-> Otherwise if there's no consensus just add a TODO next to the option
-> explaining why the current setting might not be optimal or the (known)
-> shortcomings of it, so that we know there's some pending work in this
-> area.  But it needs to be a concrete list, not pieces from an email
-> discussion.
-It is not that easy as options act as a set, we cannot have one
-option per rule unfortunately.
->
-> Thanks, Roger.
-Thank  you,
-Oleksandr
+>>  struct page_info;
+>>
+>> @@ -113,9 +114,9 @@ int map_pages_to_xen(
+>>      unsigned long virt,
+>>      mfn_t mfn,
+>>      unsigned long nr_mfns,
+>> -    unsigned int flags);
+>> +    pte_attr_t flags);
+>>  /* Alter the permissions of a range of Xen virtual address space. */
+>> -int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf);
+>> +int modify_xen_mappings(unsigned long s, unsigned long e, pte_attr_t nf);
+> 
+> These declaration adjustments need to be carried through to all definitions,
+> not just PPC's. Without doing so there'll be new Misra violations (requiring
+> that declaration and definition agree not just in effective types, but also
+> in spelling),
 
-[1] https://clang.llvm.org/docs/ClangFormat.html#clang-format-ignore
+Understood -- I figured that if pte_attr_t was ever defined as non-int
+on the other arches the non-matching declarations would raise a compiler
+warning and thus it'd be fine to leave them for now, but didn't consider
+MISRA. Will update.
+
+Thanks,
+Shawn
 
