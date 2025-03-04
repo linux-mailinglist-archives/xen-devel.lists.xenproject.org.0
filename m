@@ -2,44 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44017A4EE53
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Mar 2025 21:27:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.901520.1309480 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEA7FA4F0A2
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Mar 2025 23:42:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.901548.1309510 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpYqk-0005Nq-2M; Tue, 04 Mar 2025 20:26:46 +0000
+	id 1tpawe-000158-Ej; Tue, 04 Mar 2025 22:41:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 901520.1309480; Tue, 04 Mar 2025 20:26:46 +0000
+Received: by outflank-mailman (output) from mailman id 901548.1309510; Tue, 04 Mar 2025 22:41:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpYqj-0005M8-UO; Tue, 04 Mar 2025 20:26:45 +0000
-Received: by outflank-mailman (input) for mailman id 901520;
- Tue, 04 Mar 2025 20:26:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tpawe-00013H-BK; Tue, 04 Mar 2025 22:41:00 +0000
+Received: by outflank-mailman (input) for mailman id 901548;
+ Tue, 04 Mar 2025 22:40:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AC9t=VX=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1tpYqi-0005M2-98
- for xen-devel@lists.xenproject.org; Tue, 04 Mar 2025 20:26:44 +0000
-Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f872cbaf-f936-11ef-9898-31a8f345e629;
- Tue, 04 Mar 2025 21:26:37 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id C9A6E8286599;
- Tue,  4 Mar 2025 14:26:35 -0600 (CST)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id vCBD8vEXSEuH; Tue,  4 Mar 2025 14:26:35 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 319C38287A79;
- Tue,  4 Mar 2025 14:26:35 -0600 (CST)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id jr_TOd0z5dZo; Tue,  4 Mar 2025 14:26:35 -0600 (CST)
-Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id 310A38286599;
- Tue,  4 Mar 2025 14:26:34 -0600 (CST)
+ <SRS0=vBJn=VX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1tpawc-00013B-Tk
+ for xen-devel@lists.xenproject.org; Tue, 04 Mar 2025 22:40:58 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bcc320b2-f949-11ef-9ab4-95dc52dad729;
+ Tue, 04 Mar 2025 23:40:57 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 4AC715C6435;
+ Tue,  4 Mar 2025 22:38:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E26FC4CEE5;
+ Tue,  4 Mar 2025 22:40:54 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,72 +41,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f872cbaf-f936-11ef-9898-31a8f345e629
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 319C38287A79
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1741119995; bh=9ZJMNquJ1eZP6quPV+PEWoALEoDBuYhrufbPN7+L8dw=;
-	h=Message-ID:Date:MIME-Version:To:From;
-	b=KDKhILGud4p9u+lBauZG7NLkZqaeNg//4lEiEZ32jn+563tdbYW19yXfb+jHXDpbc
-	 7qkqJ5ann9h5xW05fjdZebxUdsD8mvo50QCgS00KI5KP3RkzcIBiFShGts4JV2v0dX
-	 +a4r51HQlnGm8K7n4yJR6Hu2Atq6tWIB3VB62Ea0=
-X-Virus-Scanned: amavisd-new at rptsys.com
-Message-ID: <6db28995-40e6-4198-bf7d-5afdc814f810@raptorengineering.com>
-Date: Tue, 4 Mar 2025 14:26:33 -0600
+X-Inumbo-ID: bcc320b2-f949-11ef-9ab4-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1741128055;
+	bh=UXLBKADpVD6vJfgwrWUoLtRe5PGaNMpvVNlwuXREjoY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=vF9BWdZGmYUIGD5Z9RGvcgpY6q0vO56uGPauqFTXL1BzmmNUJSZcCnLZZny5hktuT
+	 MKb09r6X0FuvKR8pCI6jR/E7en5p7W4Mzybg/ayXCKigf39oy7GvhoTtKQW0Ow+gxX
+	 xnCJ4swU6lYUvQKYve9B5RiemYCx1PMJi5ZKA3L0v7lpU/8wBft6kKssUf6cSLUV/Y
+	 P9myJkD9KA2FaSjOCVQugRYfm47WLfKPnmuWTHzXE3Ji1SkMqR3mqmPGKA9ySvEaIW
+	 YKOGNOsp8EEfu/uaEe+WeZI4SyEfCNPpGF+Rroyh1gtH4o7BMd+x6X1jG/+QUQO36y
+	 tRFGdnJO+QXEA==
+Date: Tue, 4 Mar 2025 14:40:53 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>, 
+    George Dunlap <gwd@xenproject.org>
+Subject: Re: [PATCH v2 1/2] xen/domain: Annotate struct domain as page
+ aligned
+In-Reply-To: <20250303232941.2641306-2-andrew.cooper3@citrix.com>
+Message-ID: <alpine.DEB.2.22.394.2503041440380.1303386@ubuntu-linux-20-04-desktop>
+References: <20250303232941.2641306-1-andrew.cooper3@citrix.com> <20250303232941.2641306-2-andrew.cooper3@citrix.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] xen/mm: Introduce per-arch pte_attr_t type for PTE
- flags
-To: Jan Beulich <jbeulich@suse.com>
-Cc: tpearson@raptorengineering.com, Andrew Cooper
- <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-References: <1d0826e88e95357979d74fb3702b35fdb0b75151.1739488487.git.sanastasio@raptorengineering.com>
- <ca31107923a8794f8752e65b5c3ad14bd2f326cf.1739488487.git.sanastasio@raptorengineering.com>
- <396e663d-b8f1-42a5-acec-78ba78c0b67a@suse.com>
-Content-Language: en-US
-From: Shawn Anastasio <sanastasio@raptorengineering.com>
-In-Reply-To: <396e663d-b8f1-42a5-acec-78ba78c0b67a@suse.com>
+Content-Type: multipart/mixed; boundary="8323329-1286772829-1741128056=:1303386"
+
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1286772829-1741128056=:1303386
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8BIT
 
-On 2/26/25 7:26 AM, Jan Beulich wrote:
-> On 21.02.2025 21:10, Shawn Anastasio wrote:
->> --- a/xen/include/xen/mm.h
->> +++ b/xen/include/xen/mm.h
->> @@ -69,6 +69,7 @@
->>  #include <xen/spinlock.h>
->>  #include <xen/perfc.h>
->>  #include <public/memory.h>
->> +#include <asm/mm-types.h>
->>
->>  struct page_info;
->>
->> @@ -113,9 +114,9 @@ int map_pages_to_xen(
->>      unsigned long virt,
->>      mfn_t mfn,
->>      unsigned long nr_mfns,
->> -    unsigned int flags);
->> +    pte_attr_t flags);
->>  /* Alter the permissions of a range of Xen virtual address space. */
->> -int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf);
->> +int modify_xen_mappings(unsigned long s, unsigned long e, pte_attr_t nf);
+On Mon, 3 Mar 2025, Andrew Cooper wrote:
+> struct domain is always a page aligned allocation.  Update it's type to
+> reflect this, so we can safely reuse the lower bits in the pointer for
+> auxiliary information.
 > 
-> These declaration adjustments need to be carried through to all definitions,
-> not just PPC's. Without doing so there'll be new Misra violations (requiring
-> that declaration and definition agree not just in effective types, but also
-> in spelling),
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Understood -- I figured that if pte_attr_t was ever defined as non-int
-on the other arches the non-matching declarations would raise a compiler
-warning and thus it'd be fine to leave them for now, but didn't consider
-MISRA. Will update.
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Thanks,
-Shawn
+
+> ---
+> CC: Anthony PERARD <anthony.perard@vates.tech>
+> CC: Michal Orzel <michal.orzel@amd.com>
+> CC: Jan Beulich <jbeulich@suse.com>
+> CC: Julien Grall <julien@xen.org>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Dario Faggioli <dfaggioli@suse.com>
+> CC: Juergen Gross <jgross@suse.com>
+> CC: George Dunlap <gwd@xenproject.org>
+> 
+> v2:
+>  * New
+> 
+> Interestingly this does cause two changes in the resulting binary, both caused
+> by GCC electing to use a more complicated addressing mode to save one ADD
+> instruction.
+> ---
+>  xen/include/xen/sched.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+> index 037c83fda219..8412b45178ca 100644
+> --- a/xen/include/xen/sched.h
+> +++ b/xen/include/xen/sched.h
+> @@ -645,7 +645,7 @@ struct domain
+>      unsigned int num_llc_colors;
+>      const unsigned int *llc_colors;
+>  #endif
+> -};
+> +} __aligned(PAGE_SIZE);
+>  
+>  static inline struct page_list_head *page_to_list(
+>      struct domain *d, const struct page_info *pg)
+> -- 
+> 2.39.5
+> 
+--8323329-1286772829-1741128056=:1303386--
 
