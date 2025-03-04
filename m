@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E9D6A4E145
+	by mail.lfdr.de (Postfix) with ESMTPS id 54848A4E146
 	for <lists+xen-devel@lfdr.de>; Tue,  4 Mar 2025 15:41:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.901180.1309169 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.901179.1309160 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpTRt-0006T0-2g; Tue, 04 Mar 2025 14:40:45 +0000
+	id 1tpTRr-0006FK-LM; Tue, 04 Mar 2025 14:40:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 901180.1309169; Tue, 04 Mar 2025 14:40:45 +0000
+Received: by outflank-mailman (output) from mailman id 901179.1309160; Tue, 04 Mar 2025 14:40:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpTRs-0006Ri-Vb; Tue, 04 Mar 2025 14:40:44 +0000
-Received: by outflank-mailman (input) for mailman id 901180;
- Tue, 04 Mar 2025 14:40:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tpTRr-0006Dc-IY; Tue, 04 Mar 2025 14:40:43 +0000
+Received: by outflank-mailman (input) for mailman id 901179;
+ Tue, 04 Mar 2025 14:40:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wukS=VX=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1tpTRr-0006Db-HA
- for xen-devel@lists.xenproject.org; Tue, 04 Mar 2025 14:40:43 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a39e1a8b-f906-11ef-9898-31a8f345e629;
- Tue, 04 Mar 2025 15:40:38 +0100 (CET)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-5e55ec94962so3346702a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 04 Mar 2025 06:40:38 -0800 (PST)
-Received: from localhost (0545937c.skybroadband.com. [5.69.147.124])
+ <SRS0=/Z5M=VX=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tpTRq-0006DV-5w
+ for xen-devel@lists.xenproject.org; Tue, 04 Mar 2025 14:40:42 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a4fb3e74-f906-11ef-9ab4-95dc52dad729;
+ Tue, 04 Mar 2025 15:40:40 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-439a4fc2d65so61332905e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 04 Mar 2025 06:40:40 -0800 (PST)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abf5d0bcb77sm541310566b.49.2025.03.04.06.40.37
+ ffacd0b85a97d-390e47b7dcfsm18131038f8f.55.2025.03.04.06.40.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 04 Mar 2025 06:40:37 -0800 (PST)
+ Tue, 04 Mar 2025 06:40:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,210 +45,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a39e1a8b-f906-11ef-9898-31a8f345e629
+X-Inumbo-ID: a4fb3e74-f906-11ef-9ab4-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1741099238; x=1741704038; darn=lists.xenproject.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kL61Stni3IrXucg0ZRqrKuzdxsPSeZvZsyfQDm82Qwc=;
-        b=E3f1KwfeBViCQI8RzFPLO53PkQ3hs2PJnWtq4hDnd38zwRR8GLpxJo9dlnxsnZR0Zq
-         pqmI1/YAcK051vOxMMb9YdpabCA/WiRefmoZs8/yFACgbMUpyh5xmMQmnaHK63x7x/lH
-         RTryZdTb41GBxbRCPZE5jdEHlRMl1cBd+exhY=
+        d=citrix.com; s=google; t=1741099240; x=1741704040; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=wz3CGKRznTPHEVLLxfje4HZ3E3fMWbD5uwjqAe6IQok=;
+        b=Xf8r/XGCyqnQuyTOrmd9LWrOpUGXlvWpvO9idgGbIK6/FUIgi/15wm1FHMyJ7IPhoX
+         0BKz5DiZNLL6je2AIEW9mo7Z9iccvWJYtXR0XcGJROQbrJ36QcHa1OyAj12VidZ7fQkh
+         xFdCVZC4mPyEgeqDaLg4xgW2JWLX2YLxSDjH8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741099238; x=1741704038;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=kL61Stni3IrXucg0ZRqrKuzdxsPSeZvZsyfQDm82Qwc=;
-        b=JrrgFwGAZcHdYTiOaQXwiDm/LTdNf9uEQivY1tPgZebWnklL3iuT/Wtj5MJI/wITYv
-         62T59jH+T4HBQOfJvk0uYrXUXqTyGzizVPJuJ1GfT7wn2C1d93ZOUoMHw1Y+rzlID3nX
-         Y5zkc2jkx/8LY7DQFnGaNQCYFtHOXbSm/otn8x9AvzTzlR4sxBrlxWQSymmXRuGgLBQn
-         VRpl/cFnO8oftCxRxVhstlgeKxeYa+At19Oi6dL19Leetel/GjE4G5X2LBA6FmnioTHd
-         GUshPsWFU9cOZBk2di9V0jDr+p96hVGlZd2xtzN9z3ndpuz+uFgH1q+jactdCtZDfREr
-         3feQ==
-X-Gm-Message-State: AOJu0YzxIWCnJa5DTY3JyV/qEZBhioyUaddIUYupJAfv/gSkb0HkjEbb
-	phR3ZkeMC9oLMw8XvPjJKLZaXckyD/rcai67qvaO/YiEsjM0q2sS7Pb5tgjTEm63UnSAyob1V3q
-	u
-X-Gm-Gg: ASbGnctoJ8nQdJH6FW9vHML4aVgvgYuGFv28hXB9oxju3t7kdg8+bHpdy0fVhDWEFOQ
-	rVcGIxd5lQlPjhGEASWzom0fVtj7XZ0Xal7kbdIVbTH7uGTrlBcfV1KEoJb6PJPFTNIfETVzPLS
-	v/fbov2SvubsvIOdUTqjIyv2RMA5kdjsZV9hJLtyuAlxFEPxQtqdOgnoeMG+oJyVk1A4Dtke6Np
-	RaVU++FSphsVUVeN81JgXUpfXTdMADVru1vDogljB9ENOuU9/5Oof1WhfdnGYDBeB1hTLpq8cfZ
-	IN4xUPT4fFAHFWhs14wnbIdjUEVpHQGm73UkOGJRcIz6Vf/itHfw/HQIaY3gmyXuc4PR9BsWNFU
-	=
-X-Google-Smtp-Source: AGHT+IHVl+DOhwvmy+TgvcH64AyYIYxjb/lu8PRHRo+n8sCGgzieZallPrV0voVjEgOXWOEySXruxg==
-X-Received: by 2002:a17:907:d90:b0:ac1:e332:b1ec with SMTP id a640c23a62f3a-ac1e332b41dmr678308666b.10.1741099237764;
-        Tue, 04 Mar 2025 06:40:37 -0800 (PST)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+        d=1e100.net; s=20230601; t=1741099240; x=1741704040;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wz3CGKRznTPHEVLLxfje4HZ3E3fMWbD5uwjqAe6IQok=;
+        b=JC6m+UlG6Oc8YVmEsqvdiHJ99I5bC954h2Ef/9hd9kku7qn18cHFLIVdCOCqy4cxmR
+         OVRfUu+6PDSZs+pJFaMZcpsgMyEPKKD7HG+W0TktRCBpj8DIvdNryKZGfa1G1+mkPehI
+         HXFutEuXAwZmNZQyDVKn2bnkzPKfPKPvZJDYQcti8QipNyETaTjr1O+wyP7Ro2/N8cPE
+         +bVNlPaZcKuDUcsMjztx0xfhiXU3TzGOyaHlXz2qLsk4pIntn6N8cw8TsNTA01dtfrD9
+         WCSlWLbAJtfMa9pS0Ccn6EzuzD3iVBhv3HfJeOQleDKx5DTAmf+pkqEFodKhajq9N07h
+         pSdQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXEn/W7vvoHcy8IWAXp8lqNtPi2GvhRo4QUZqoNJtYU66CjasYPcQs+OehMGQOftWOuT57WNS6QtZw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzUr2R6m5Fb2Kn1zXQzSl0gC99sR/wr2rgWnMaevUjq4aBaHwNh
+	nRUAZAfJeZFLWCbSM1bxrZ62U1UZmDLqAIS0WeKD7vlFZh4Ag7yHRULyb3vsvnU=
+X-Gm-Gg: ASbGnctEKyENvERxdtGZ1wskt2ScsUBu3h3zjbEah3aIdmbNc2lJCu3us12pFFsVQ4l
+	/C6PAg7TITymBJQ/kdqhFq8wqzxR32lWBmBbvQiRwLTDJFjl3gECuB+nBLu4JT1EDMcsjFHWN4g
+	0vP30C4G28MpybFrvYDwosODKFH5JPGWaP1Fu7+Bzl1PFLixrQyfzj3uFU71jmY/fRNSu0EmB5/
+	raELj8R1ZIzu6vC9j/jeG8dpfyCLaWqbFVSusgjQMBBWKG7AztJgr7itjEx325+mMVjcHlxaEWc
+	NhVZSWn3P//Nm+OT/wefaHDD/A9v/lt2GKNYwIjx9roz+Og583Zml16Akkcgvailcf1NLo3nkHp
+	qYdLNlJMz
+X-Google-Smtp-Source: AGHT+IGdbHCCNdHhnLlKXzniAgyUitnFAWdIs5/Zy++dwKS6y0X/ZLqWl0CGLhev+/+nR4ZFb/dKBQ==
+X-Received: by 2002:a05:600c:4b17:b0:43b:bfb7:e099 with SMTP id 5b1f17b1804b1-43bbfb7e424mr91599455e9.29.1741099240084;
+        Tue, 04 Mar 2025 06:40:40 -0800 (PST)
+Message-ID: <0981f331-8489-4327-93a3-d063bb00362d@citrix.com>
+Date: Tue, 4 Mar 2025 14:40:39 +0000
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/8] x86/IDT: Make idt_tables[] be per_cpu(idt)
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250224160509.1117847-1-andrew.cooper3@citrix.com>
+ <20250224160509.1117847-6-andrew.cooper3@citrix.com>
+ <59e8952f-d49b-46de-ab57-07536a1028c0@suse.com>
+ <6d81b7b7-5317-4e49-8b39-1e3810d244d7@citrix.com>
+ <1d4aa263-3a9b-4968-9b16-3dc3dcdc4b0c@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <1d4aa263-3a9b-4968-9b16-3dc3dcdc4b0c@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 04 Mar 2025 14:40:32 +0000
-Message-Id: <D87K61FQGB1E.28MJY4MPV0KLV@cloud.com>
-Cc: <xen-devel@lists.xenproject.org>, "Anthony PERARD"
- <anthony.perard@vates.tech>, "Andrew Cooper" <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH] docs: Add some details on XenServer PCI devices
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, "Frediano
- Ziglio" <frediano.ziglio@cloud.com>
-X-Mailer: aerc 0.18.2
-References: <20250228152100.23105-1-frediano.ziglio@cloud.com>
- <D87ENZNEBN2Z.1E8WKX6K8EUE1@cloud.com> <Z8bfMmM5CJ5PQdhm@macbook.local>
- <CACHz=ZgmBxNKjA7KFktk-5jcPvWDn6DWpwCUEFzGO9qyJYuZsA@mail.gmail.com>
- <Z8byRwON4Oc23dxS@macbook.local>
-In-Reply-To: <Z8byRwON4Oc23dxS@macbook.local>
+Content-Transfer-Encoding: 8bit
 
-For the record, my remarks are fairly inconsequential. This patch is a net
-positive addition to the man page and I think it should go in.
+On 25/02/2025 4:33 pm, Jan Beulich wrote:
+> On 25.02.2025 16:40, Andrew Cooper wrote:
+>> On 25/02/2025 9:07 am, Jan Beulich wrote:
+>>> On 24.02.2025 17:05, Andrew Cooper wrote:
+>>>> --- a/xen/arch/x86/cpu/common.c
+>>>> +++ b/xen/arch/x86/cpu/common.c
+>>>> @@ -819,6 +819,7 @@ void load_system_tables(void)
+>>>>  	 * support using ARRAY_SIZE against per-cpu variables.
+>>>>  	 */
+>>>>  	struct tss_page *tss_page = &this_cpu(tss_page);
+>>>> +        idt_entry_t *idt = this_cpu(idt);
+>>> Nit: Tab indentation here.
+>> Yeah, I noticed that only after sending the email.  Other parts of the
+>> FRED series vastly changes this function.
+>>
+>>>> @@ -830,7 +831,7 @@ void load_system_tables(void)
+>>>>  		.limit = LAST_RESERVED_GDT_BYTE,
+>>>>  	};
+>>>>  	const struct desc_ptr idtr = {
+>>>> -		.base = (unsigned long)idt_tables[cpu],
+>>>> +		.base = (unsigned long)idt,
+>>>>  		.limit = sizeof(bsp_idt) - 1,
+>>>>  	};
+>>> Coming back to the comment on the earlier patch: Now that you touch all
+>>> of the idt_tables[] uses anyway, ...
+>>>
+>>>> @@ -30,7 +31,7 @@ typedef union {
+>>>>  } idt_entry_t;
+>>>>  
+>>>>  extern idt_entry_t bsp_idt[X86_IDT_VECTORS];
+>>>> -extern idt_entry_t *idt_tables[];
+>>>> +DECLARE_PER_CPU(idt_entry_t *, idt);
+>>> ... this probably really ought to become
+>>>
+>>> DECLARE_PER_CPU(idt_entry_t (*)[X86_IDT_VECTORS], idt);
+>>>
+>>> ?
+>> I'm afraid this doesn't compile.
+>>
+>> arch/x86/crash.c:66:17: error: passing argument 1 of ‘set_ist’ from
+>> incompatible pointer type [-Werror=incompatible-pointer-types]
+>> ...
+>> note: expected ‘volatile idt_entry_t *’ but argument is of type
+>> ‘idt_entry_t (*)[256]’
+>>
+>> Similarly {en,dis}able_each_ist() and _set_gate_lower().
+> Well, did you adjust the use sites? As said in the respective comment on
+> patch 4, that'll be necessary (to account for the abstract extra level of
+> indirection; generated code ought to not change).
 
-On Tue Mar 4, 2025 at 12:29 PM GMT, Roger Pau Monn=C3=A9 wrote:
-> On Tue, Mar 04, 2025 at 11:17:42AM +0000, Frediano Ziglio wrote:
-> > On Tue, Mar 4, 2025 at 11:08=E2=80=AFAM Roger Pau Monn=C3=A9 <roger.pau=
-@citrix.com> wrote:
-> > >
-> > > On Tue, Mar 04, 2025 at 10:21:52AM +0000, Alejandro Vallejo wrote:
-> > > > Hi,
-> > > >
-> > > > On Fri Feb 28, 2025 at 3:21 PM GMT, Frediano Ziglio wrote:
-> > > > > Describe the usage of devices 5853:0002 and 5853:C000.
-> > > > >
-> > > > > Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-> > > > > ---
-> > > > >  docs/man/xen-pci-device-reservations.7.pod | 9 +++++++++
-> > > > >  1 file changed, 9 insertions(+)
-> > > > >
-> > > > > diff --git a/docs/man/xen-pci-device-reservations.7.pod b/docs/ma=
-n/xen-pci-device-reservations.7.pod
-> > > > > index 9ddf3a18ad..62f3bd2105 100644
-> > > > > --- a/docs/man/xen-pci-device-reservations.7.pod
-> > > > > +++ b/docs/man/xen-pci-device-reservations.7.pod
-> > > > > @@ -10,6 +10,8 @@ use of this is with device ID 0x0001 to adverti=
-se the Xen Platform PCI
-> > > > >  device - the presence of this virtual device enables a guest Ope=
-rating
-> > > > >  System (subject to the availability of suitable drivers) to make=
- use of
-> > > > >  paravirtualisation features such as disk and network devices etc=
-.
-> > > > > +XenServer, for Windows machines, presents Xen Platform device wi=
-th device
-> > > > > +ID 0x0002 instead of 0x0001.
-> > > >
-> > > > nit: in the interest of future-proofing the doc 's/presents/may pre=
-sent/'?
-> > > >
-> > > > >
-> > > > >  Some Xen vendors wish to provide alternative and/or additional g=
-uest drivers
-> > > > >  that can bind to virtual devices[1]. This may be done using the =
-Xen PCI
-> > > > > @@ -86,4 +88,11 @@ and unplug protocol.
-> > > > >  libxl provides support for creation of a single additional xen-p=
-vdevice.
-> > > > >  See the vendor_device parameter in xl.cfg(5).
-> > > > >
-> > > > > +=3Ditem 2.
-> > > > > +
-> > > > > +XenServer, for Windows machines, presents a device with ID 0xC00=
-0.
-> > > > > +This device is a placeholders for Windows update.
-> > > > > +Device 0xC000 is presented with a Xen Platform PCI device, usual=
-ly with ID
-> > > > > +0x0002.
-> > > > > +
-> > > > >  =3Dback
-> > > >
-> > > > Wouldn't this be better covered under "=3Ditem 1"? Device 0xc000 is=
- a
-> > > > xen-pvdevice, so it could be simplified to a single line of "XenSer=
-ver uses
-> > > > device-id=3D0xc000 for its pvdevice on Windows guests", or somethin=
-g like that.
-> > >
-> > > I think it's important to note that c000 always appears in conjunctio=
-n
-> > > with 0001 or 0002, and it's not a replacement for either of those
-> > > devices.
+Having spent even more time, I'm giving up and rejecting this suggestion.
 
-That's already stated in the item1 description.
+Some can be made to compile.  Some I can't make compile, and the result
+is a good demonstration of why exotic types like this don't get common use.
 
-  Note that the presence of the Xen Platform PCI device is generally a
-  pre-requisite for an additional xen-pvdevice as it is the platform
-  device that provides that IO ports necessary for unplugging emulated
-  devices. See hvm-emulated-unplug.markdown for details of the IO ports
-  and unplug protocol.
+If you want to try once this series is in, then feel free, but the
+result is not pretty.
 
-> > >
-> >=20
-> > Do you have something more precise in mind? Can you suggest what to wri=
-te?
->
-> I'm fine with your proposed text, my reply was to Alejandro to note
-> that I think his proposed text was missing information that was on
-> your original proposal.
->
-> "XenServer might present a device with ID 0xC000.  Such device is a
-> placeholder for Windows update usage and is always exposed in
-> conjunction with a Xen Platform PCI device, usually with ID 0x0002."
->
-> I don't care much whether this is on a separate item or not.  My
-> preference would be for adding a second item, as to prevent cluttering
-> the first one.
->
-> I've also looked at xl.cfg, and it mentions:
->
-> vendor_device=3D"VENDOR_DEVICE"
->
-> Selects which variant of the QEMU xen-pvdevice should be used for this
-> guest. Valid values are:
->
->   none The xen-pvdevice should be omitted. This is the default.
->
->   xenserver The xenserver variant of the xen-pvdevice (device-id=3DC000)
->   will be specified, enabling the use of XenServer PV drivers in the
->   guest.
->
-> Isn't this wrong, as selecting `xenserver` should instead use
-> device-id=3D0002 but not C000?  Maybe I'm not understanding how this is
-> supported to work.
-
-I think there's some confusion going on.
-
-xen-pvdevice !=3D xen-platformdevice
-
-pvdevice is 0xc000. platformdevice is 0001 or 0002.
-
-platformdevice is the PCI device used for device unplug, grant table
-initialization and so on. pvdevice is a true dummy device present for the
-sole purpose of letting Windows bind the drivers to an actual device that
-can't be 0002 for (afaiui) very, very, very stupid and non-technical reason=
-s.
-
-The man page HINTS at this when talking about binding drivers to devices.
-
->
-> > > Likewise it's important to note that 0001 and 0002 are to my
-> > > understanding mutually exclusive, and only one of those must be
-> > > exposed.
-> >=20
-> > Not exactly sure if this is a must or a should. From my testing,
-> > presenting 2 devices (well, they are mostly the same) works. But, as
-> > they do the same things it seems reasonable to avoid the duplication.
-> > It looks like a good recommendation.
->
-> I was expecting it to not work, as I imagined Linux would then attempt
-> to initialize the grant tables twice for example.
->
-> Thanks, Roger.
-
-It may very well be a case of "happens to work, but it really shouldn't". T=
-he
-code does go through `gnttab_init()` twice if the probe succeeds twice. Not
-that it couldn't be changed to behave differently, but it currently doesn't=
-.
-
-Anyhow, I think you're right in that 0001 and 0002 must not coexist even if
-mechanically they may be able to. In the name of everyone's sanity.
-
-Cheers,
-Alejandro
+~Andrew
 
