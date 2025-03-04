@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 633D9A4D60B
+	by mail.lfdr.de (Postfix) with ESMTPS id 614EDA4D60A
 	for <lists+xen-devel@lfdr.de>; Tue,  4 Mar 2025 09:18:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.900845.1308820 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.900844.1308810 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpNTQ-0006FN-Nb; Tue, 04 Mar 2025 08:17:56 +0000
+	id 1tpNTL-000606-FU; Tue, 04 Mar 2025 08:17:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 900845.1308820; Tue, 04 Mar 2025 08:17:56 +0000
+Received: by outflank-mailman (output) from mailman id 900844.1308810; Tue, 04 Mar 2025 08:17:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpNTQ-0006CP-Kb; Tue, 04 Mar 2025 08:17:56 +0000
-Received: by outflank-mailman (input) for mailman id 900845;
- Tue, 04 Mar 2025 08:17:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tpNTL-0005xn-CZ; Tue, 04 Mar 2025 08:17:51 +0000
+Received: by outflank-mailman (input) for mailman id 900844;
+ Tue, 04 Mar 2025 08:17:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8kcs=VX=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1tpNTP-0006C1-KY
- for xen-devel@lists.xenproject.org; Tue, 04 Mar 2025 08:17:55 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20628.outbound.protection.outlook.com
- [2a01:111:f403:2418::628])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2aa178aa-f8d1-11ef-9ab4-95dc52dad729;
- Tue, 04 Mar 2025 09:17:53 +0100 (CET)
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
- by PH8PR12MB6747.namprd12.prod.outlook.com (2603:10b6:510:1c3::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.29; Tue, 4 Mar
- 2025 08:17:49 +0000
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13%6]) with mapi id 15.20.8489.025; Tue, 4 Mar 2025
- 08:17:42 +0000
+ <SRS0=kFsD=VX=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tpNTJ-0005xh-VR
+ for xen-devel@lists.xenproject.org; Tue, 04 Mar 2025 08:17:49 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 25f6b739-f8d1-11ef-9898-31a8f345e629;
+ Tue, 04 Mar 2025 09:17:44 +0100 (CET)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-5dca468c5e4so9570383a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 04 Mar 2025 00:17:44 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ a640c23a62f3a-abf6aeaff51sm416884366b.142.2025.03.04.00.17.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 04 Mar 2025 00:17:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,154 +44,207 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2aa178aa-f8d1-11ef-9ab4-95dc52dad729
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pXQAMk/EEav/DPgDxpLDovb8ywfzt8jGYAMjYAqCEYOPSBkCO/vgKaAhwJ23yGC+1MNE2fTbQlQdrbOJ7U+1N+jglZvaOtaGcKerZ6HdGHdJ4ZXfSc5boqY9MzYblfz4U4EMtHDUzuApiPgB9xzQr2oQyKWOBMt0GCqt78ADkLPKWhuBxxGC4X6AoXV7JH+4ZFia0/jK/7IdSF0opz4Bb9xxC7znf3IRrF2yHFX2LSbSDZochRFY+OvcPbOb5P4Iwc30+LzkZ2zy4mWZpvnaeKoDG7tEzfXWIPhpyiHay6Im5WHwhjOGNOgCLuFn1XIJ+R3oZEzQ/k60rJPiH8RCJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SsAWZfdnJqXz0aa5cY6heaifmfkbOH7pvqDehqhz9ug=;
- b=ePlY6N3ASF3WsgHdn9VmNCQToZJeD5wDcJpqJUpCk7V3DESKRiFh3sPF4eXfNY8hgpe6Uo28V5Pu25cP34E3yWRNgSLuOUr0Xzqf063T6RnUdCO5c6JYuKX8XGGgXRcZvKZhAI63Mvx9PUp3HPq/6Ce8zSAfeJ5EfcIXwf6VS8Q2o/uBqRwOaO1sHBPdec87CSBrKulbVUvjufOR0f4xStGHxlgWCC41RjZsR42Amdi8BAL/IDUo3G1q2htsyQRRsSsTbhid/p2iFkBzRxhd9Tc++cN0kPwWOks4MxNjceGyGAA39sP6iBjtnqlJR3xxdaLQUFX01ijupPQA/XjWrw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SsAWZfdnJqXz0aa5cY6heaifmfkbOH7pvqDehqhz9ug=;
- b=3osShgR4IgS1glt7+ZTEHJjZy1OToGdKPFvfNQw98JLgoApYIEu+T40qLi3hXXqY7EYguwj88Rn4PjGAjlBrtPjl+FmXDCz4AIa8lldCTSW8LUV2/BRu+ien0BRedOolhvHUOKDRkixMddes8Bd8ZgyfHQ3XEkinCR5xAEoOcHM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <83f16516-9c81-495d-8d56-eb299e8e10d8@amd.com>
-Date: Tue, 4 Mar 2025 09:17:31 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] xen/arm: Don't use copy_from_paddr for DTB relocation
-To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20250226215256.2713698-1-luca.fancellu@arm.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
-Content-Language: en-US
-In-Reply-To: <20250226215256.2713698-1-luca.fancellu@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: JN3P275CA0018.ZAFP275.PROD.OUTLOOK.COM (2603:1086:0:71::6)
- To BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
+X-Inumbo-ID: 25f6b739-f8d1-11ef-9898-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1741076263; x=1741681063; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Ux/jIAVztGit/84gK6nKHmn/f80sVYBPJTTboGQhCN4=;
+        b=tDGCCEBjx0q/EsXNKbK+udP0QVzfQ02JFVVYA36OAi5Q1lV1Soh8bPaCeoTjHUrbZ5
+         aQ+cZD7cYmvcxzInjHT3FoPhpSKoIlkKltSH2gzp8C5zTzadmMO3aJC8OoZLkrOY02wC
+         BR93xKOMQ5mYx4PICyPdv9KxB5pc2CJBfVzfE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1741076263; x=1741681063;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Ux/jIAVztGit/84gK6nKHmn/f80sVYBPJTTboGQhCN4=;
+        b=u2kz4Gkpet1MhRmEqELy8rYBVlh5UZNxQnmVO0/8G0tLoLfcu5gNW/LG1dC2radgiz
+         ODqgZ7be0QTrgNYhbTPCckcqSSNEn7w0LW8EWnWKlSFrdhQY1BMNCHDBJ6qevnblAlgb
+         ngbAHVsw2wwjssM+O6uMwrblvvLriCaKmDx08G0chep2g1dQabVTm+slKvVuIf5C5oGF
+         2tkMnXIbb5+KNZobdiZpjb5m967OIpUXoNFpdlOo+sWmzo9XVOc0xkjKRsIDDzDj3kb3
+         CZx6HP5XZW+ulKqBKqGFB3kcBbd06hKNypfyT1Uoj48HJBSnT9O2AGqJgXv1qrPiLYvl
+         9vMw==
+X-Gm-Message-State: AOJu0YzHRpfoju2Y6wYv7WHRpYRywvO/Mttiot97CxTJqCErKVYZvTSM
+	wijCGoEeOrFdTUUtr+8q4LjPdGoirs5XbqoCDLWl7jckCOowGL97K9MDCcEHShg=
+X-Gm-Gg: ASbGnctI6SP0DnnmKC7WFluB3JuWCj3m72XWd/sAOS8Co0jsdUHeZUKkxe8V2aYwD2z
+	VvOJW0oTXTK1LxcE9l3lymmgkAvtURsPABfEws2x7vNZBYkUuadxopXlAXShu20JX9PhjX5NLGQ
+	qmIjE03uiqcJS0SLlfBt2r63mpqAEQ0nmITqBz/bThUuFjAL7DenWZvDV30Q0CuKm6sZPuayXnZ
+	jh4lvPbKTr2VXXuDEeDb6Mc7c8B7l8wBhcmxKhPtnCuv5+2GVrKPWv+3Of6uw/TeLYOSu7RaWB2
+	XlHpD/TTb3mWnItgFZzRTQQA+FKza4p1kVSnRocE47JxhK6zjLMy+tQ=
+X-Google-Smtp-Source: AGHT+IG6fGLPP2yG0CPSXZba5+SDL+KLTAXXLLQ5vkUJBKplBVR6DpOXc3SiJWtiotTvReWxuhsb5A==
+X-Received: by 2002:a17:906:4fcb:b0:abf:6a53:2ce0 with SMTP id a640c23a62f3a-abf6a53392emr982215766b.14.1741076263516;
+        Tue, 04 Mar 2025 00:17:43 -0800 (PST)
+Date: Tue, 4 Mar 2025 09:17:42 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Oleksandr Andrushchenko <andr2000@gmail.com>
+Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
+	Artem_Mygaiev@epam.com, jbeulich@suse.com, Luca.Fancellu@arm.com,
+	marmarek@invisiblethingslab.com, andrew.cooper3@citrix.com,
+	anthony.perard@vates.tech
+Subject: Re: [PATCH 1/4] Add .clang-format files to enable manual coding
+ style checks
+Message-ID: <Z8a3JmNFKPI6h0s7@macbook.local>
+References: <20250301114242.93650-1-andr2000@gmail.com>
+ <20250301114242.93650-2-andr2000@gmail.com>
+ <Z8XFRmK_kL6Lp9Xk@macbook.local>
+ <2e26f594-edfc-4687-8433-4d04a527388e@gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|PH8PR12MB6747:EE_
-X-MS-Office365-Filtering-Correlation-Id: b067dd8e-a99f-4414-387b-08dd5af50940
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?ZFJ1Wnpva2FMS1J2NXpIeElySEdFcUhSL2pDYmlJOXR5ZEhKWmoxekowTUd2?=
- =?utf-8?B?L204eWlBa2xmMDJ1YThkRDRmalIwN1MwME1lZnU5ZFZEY0RYVkc4bDdHK1dE?=
- =?utf-8?B?M0VxUFpuQW9FOGFJbGJpSGpwbFM1c2F0anBBMTBjdkpFRFVZa2ZHczBQS0tW?=
- =?utf-8?B?SFh1VWs4UFlLaFRlOGZMeDkvaVp2SmRQZStWenp0YTcrWklLUGFhSWNzdkJE?=
- =?utf-8?B?cVhsM21zcEwrSGV2Vys5dlNIMnpaSHFCZ2ZEdFBvK25mM3ErYjkvWWFWbWVZ?=
- =?utf-8?B?VjFKSXFSc2YwazhNMGNpZTdsQzBJQjBnOVVnSTBYTnExOG9OdkJuVURoNmw4?=
- =?utf-8?B?WXdBVnE3dTlQMkFLZzNSTVNBR3dCMWdRWUpVWmlTNFdaVmJodUtaNllKT01X?=
- =?utf-8?B?V3BpY3lzdWZWYWpNZVpuZW5GNFpJcnZGbVBFM29pL3p0UlFNdUNjalNIVkZK?=
- =?utf-8?B?MnI2Tlh0UGY4eG1xelRCem0xUG0rajdNMnpvS1N4bEVSWVEzNjlOTzlKT1hl?=
- =?utf-8?B?M0xNOVlIRFRWN3h1d1NoU1J6ZjVWSDMwSTNOZ0tySFhucm9KWGlUaFZZL3ND?=
- =?utf-8?B?YU91T3pZckZxSUxibWVQWEF1bU50TlZmSUFCWDFNUGJoSFpCbHBXTlNHMkx5?=
- =?utf-8?B?OHllb0t2TW1mZFlOeVA5bmNtOFlBRzZsTWpzZXlKK09PM3RnbU1ZS3VWQmw5?=
- =?utf-8?B?MlZVYU5SRnFTMjFWdVBVQ0xvOW9lQW1YWlA1ZWx3NUkvNkRON0w0VDB2MkpW?=
- =?utf-8?B?aldwM1RCTng3NVVhbFhkK1hDRzRDZTJyY3NWZEx2YkQ2VGh2WnZJUDVMODJG?=
- =?utf-8?B?ZVpRRThRdTVzQjNiN2t1blVPUVhRQWNXaGU5RWkvN3BiaEM2TDNUOW1kSWZJ?=
- =?utf-8?B?ZWtadC9zL1NuOVZIcmwrU1RCQTdzcnNqVHNKOTJwMXE4ZWtBZGFxVlhWWloy?=
- =?utf-8?B?NGRuYncxdWhnbmJxdUVsb2d1V1l0dlBYRjFUMVVIS094T2U0Wkg5a1BtM1Z3?=
- =?utf-8?B?WUNRQVJvQ3BXbXI1V3dZMjViZy80eWxrZHZMeDdCenRNZW82SW5RVmExc0Ex?=
- =?utf-8?B?ejhaQUt5d3d3c3FYVmJZNERaRFc1OHBJVE9pbUJGR3JuYTc4WDQwcDNCRFBV?=
- =?utf-8?B?SkU0aU4weDg2SlpTRTF6QmFUcWx2S1VOWnNGc3E4ZE9wTEpsMWdIVzY0RmZB?=
- =?utf-8?B?cHZ6dGJKN0dSWWdDbzdOUEV5b0c5Wnd6L3RxbWRWK08vNlI2NWoxL0trY21i?=
- =?utf-8?B?ODB2N3A0a0R3Z3pIaCtLMXBpWFpvR0x3SlFwZHAyUHcvK0VyL2R2MlFzN21O?=
- =?utf-8?B?Z0Z5R2g2cHlNSTErS2lOSmVIb1BMQ083OExRSkpoWTN0RWQ2SkFuSENYSk5V?=
- =?utf-8?B?MXlGSFNFSkoxdFQ5WXVOWUpyYjlGQ2tKQ3JIT3lDK2FnVHJmajJadGhyRDZw?=
- =?utf-8?B?ZkVGakEydi9rQSs0ZG4zSE5Ob09Oc242SjRWaFFDOTZlMU5Ua0NFZm9WaXRL?=
- =?utf-8?B?UW1STWRPQnd2L25wMmZlcHZFU25PSVhNNU1MQ0dXMUVmVEc4LzFpWmNiWnhV?=
- =?utf-8?B?QVVNY09pYStXNnlsSEk5cFRkZVZTMUduZjhCL2pMd2RHRnM5RDlvZXM2ektx?=
- =?utf-8?B?T2x2cXdTTzk4UUYzWGhzQklPMnhrZC9rYlp3M0RUR1B6WGNURldPUE1BUXVE?=
- =?utf-8?B?T0dVR0xGUC9hWEZRWnQ2Y1Y2REpLSVN0dDUzU0FqYmV3R2xIckg2SkpnLzZn?=
- =?utf-8?B?cms4NVU0MGtCT1dEcksvanB3Z0pwaWZ5bUFIWm5aVDRiWDhVSUZpUks2eFov?=
- =?utf-8?B?U1hacVUrSWVqUzFZNUVUbStKVFlDZVRsQWI3dzRDb24xYnl4UHpSbGY0aHRU?=
- =?utf-8?Q?ypA0VXE15Fpvg?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bTlBU1lIVHFzN1ZDWlB5K2VyNzlqSTFTTnpVWkpkdFRKQVR4K2VwZURCbHh2?=
- =?utf-8?B?RHBIRzRxU1JrZjRVWjVydUFkWDF6N1BKeXY0TytEanJob0ZJMkU1SndMMWJr?=
- =?utf-8?B?VUs5UUM4MW1QQjcvRG9NTTYwSmUwU3cwVU5GWkprOElvMUgxcGtHWmF2RGNF?=
- =?utf-8?B?TUIwUUtISTlhY3lWOHI4M3poVnBQN0VQUjVmbUhRUUxldjhLZTRxSFBValMx?=
- =?utf-8?B?UnpGakZwcVBiOUJPUjdWSXJJNUltSTJ6RmR6WTM0aUZ1K2xxMUhvbzFIUDZN?=
- =?utf-8?B?WXd3L05sdHpkVE9heDY0cmM2WUloYyt6YjhDTXNSNEZRYk5uQWlRbFJFMVRt?=
- =?utf-8?B?TzVXMkxkd2VYVXBuMTlvOU5sdU1PdUhlVDRWemtKRUZCcVM5UW1SNGNmU09q?=
- =?utf-8?B?NVFYZFZMNzhxZmdLWG1YWU5WbzNVY0Npczdxc3lQQ1orSmRnaXVjRFBlQlNE?=
- =?utf-8?B?RkRmSjZPVGZTdDVsMjA2cVBNOFNhQkM0bHlScCs4N2xkQVJSTEwzYlk2QlVU?=
- =?utf-8?B?ajh1UTVIdGg0VmZPeDNsb28rNzZCWWJ6M0NsYzlHOXliL0doS1UyK2JvVUxi?=
- =?utf-8?B?MkJmNjlxVEFkbXF0S01HTkRYSWRWcVFvU2kwOGl0anpXblk4RE5VQ0RqRXZj?=
- =?utf-8?B?VUFGckI2ZFcrTEdRS0NFR1o4MVlqWkFGdkNmKzl3WmpwWWtITXRRZVYwc25I?=
- =?utf-8?B?VHpOdUZBWjM1NXd5ZzhMeUZycURvZm9NZndieWgvK25pbDAvZ2o3d0RYeGJp?=
- =?utf-8?B?VXhDRlZqNzQrNzRURFV6a0dkckdGemJ4dmZSNjNyenVYMmRuOE5JSnJhMm4x?=
- =?utf-8?B?b2dWVFJOQitxUW5Pam9vUDV4Yld5RVRteGIzRitPV1dCNUdJcFdhTWRTKytm?=
- =?utf-8?B?bCt3TFkzWUhhbEh1N1p0bHNFR0lEYkNkaTZZOWdJU1h3OHFnckNHQzJWTElW?=
- =?utf-8?B?R0ZYUzFydUxzVmhtSjkyZDJpa3JlRFpVUjJmdzJYS3VXeC8ra2hFTFVHRys5?=
- =?utf-8?B?MmFTcXUvTGtWeVRRYW1QV0d4U2RZKy9ZcTJkM1BTMDFHdlNTRzF1Z0VQZm50?=
- =?utf-8?B?bU9DaC9FWmF3eXJTRTc3Wkg3RXM1OXFPWkhNVTBKOE00RUE1TzVCOUNRUmt1?=
- =?utf-8?B?dzRyY255dkxabXdwbmdwK0RmZ1lXN3VpcC9EUkQxVkxNeFhDY1dlb0tQa2NB?=
- =?utf-8?B?djdSMHFrcDdkRWpHdjZ0czZRZVI5OEZ1NW13b0FNdlFsbDMwSTBIclJUcFVZ?=
- =?utf-8?B?Wkp2bkhGTVBLMDMrOWtnTC9HK0lsUHBrRDdsSzl2OGVpQk5TSFpoaWEvcmZE?=
- =?utf-8?B?UnlXN3ZacnNwYTBNazI0TEV4WlB3UDZIczl6ZnYwNHRYeGthd3hIa3UreWNr?=
- =?utf-8?B?aHhXTzNkSlNaOUhaQmVJTEJlTWw2VHlFL0JMWER6VXliNHFGNEpiamE1bk1r?=
- =?utf-8?B?eDI3TlFzN3dmRWIvYkdQZlpVa0hCUGE2dHNxMHU1TERVZkordDdnd003eitV?=
- =?utf-8?B?NWh6VkgxakJndXVNYkQ0MWNaenI2aHoxYUR6OTJLQzNDUGpLV0RMVmd4c3ZV?=
- =?utf-8?B?aFZwNGVEZjVNcWdJUzhTTFlNdDFDZ3pFaFl6U1ZQbktVb1crTG5FRDJiTWRZ?=
- =?utf-8?B?dWYvVGRlT285dmtuK3VnM3BraEg0b3NGRVM2NVFMQ0NIaTlja0NLc1RRRzhR?=
- =?utf-8?B?dC9oMFRpWkthRjBTNkl0S2JJcXkzNDRSMEM0N21nckx2bXdBcDlxemlFQlBs?=
- =?utf-8?B?R3grRWl2Y3NYcHR6ZStKQi8vRW41ZU9tRExRWFQ5NkpTWFlxeVZVOVpKWnJN?=
- =?utf-8?B?eUVhVHRCOWEzU0xSS2NUdmtKU3Q5NDI2WEFQVW53ZlI3Vjl4T0x0TERwY0ND?=
- =?utf-8?B?b1p0T3VjUWNsLzUzZWMvaXZOL2FUN254YnRzajd5cmxpSmlSQzFKNG5DMm4v?=
- =?utf-8?B?L1dmckNSbFRwdTVvdjVOcTNqaE1MSHlGUlVVbWREQVF6bUlDdUNVTmZmNkcz?=
- =?utf-8?B?aENMK3Q1dkhkUld2NkV6U3c0V0FRMlFENWtrQ1NoUzRjb2JoTWV0bTRKNXZD?=
- =?utf-8?B?VUp3NHprcnQwL1ZvK1M2ajlLcmh0RmhMWFlSMUdpeFpoWGpDWklMaTU3TlNH?=
- =?utf-8?Q?WqxNex6S6RAkvUk+0Dv2pfBd6?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b067dd8e-a99f-4414-387b-08dd5af50940
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Mar 2025 08:17:42.6846
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dxdX3GLUOBdeQRxd5tqgsQWKdRll6Za3ePSXgfWSTIru3LuJJVyAGZXqMcVfpviU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6747
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2e26f594-edfc-4687-8433-4d04a527388e@gmail.com>
 
+On Mon, Mar 03, 2025 at 09:23:57PM +0200, Oleksandr Andrushchenko wrote:
+> Hello, Roger!
+> 
+> On 03.03.25 17:05, Roger Pau Monné wrote:
+> > On Sat, Mar 01, 2025 at 01:42:39PM +0200, Oleksandr Andrushchenko wrote:
+> > > Disable coding style checks for the project, but xen/ folder:
+> > > this is done by providing a global .clang-format at the top level which
+> > > disables clang-format and only providing .clang-format for xen/.
+> > > 
+> > > clang-format version expected to be >15 and the latest tool can be
+> > > installed with:
+> > > python3 -m pip install clang-format
+> > > 
+> > > Please note, that no automatic code style checks are performed and all
+> > > those can be run manually:
+> > > 
+> > > - to see changes proposed to the patch being worked on (not committed yet):
+> > > git-clang-format --diff --style=file --verbose
+> > > 
+> > > - to run code formatting on the HEAD patch:
+> > > git-clang-format --style=file --verbose HEAD~1
+> > > 
+> > > Provided xen/.clang-format still has a lot of comments gathered from the
+> > > previous discussions. This is for purpose of better seeing why some of
+> > > the options have their values. Once option values are accepted all those
+> > > comments can be removed.
+> > I think the comments need to be trimmed to a concise explanation of
+> > why a setting is the way it is.  The (IMO overly long) excerpts from
+> > email conversations are difficult to follow in this context.  Someone
+> > has to spend the time to digest them and provide a shorter comment.
+> This is the goal. I do not expect the patch to be committed right
+> now, so I left those intentionally to provide some background
+> when those options were discussed before and, possibly, to
+> address some questions which were brought earlier.
+> The final patch will have all those in the way you mention here
+> > 
+> > One thing that I'm missing: don't we need a list of excluded files
+> > somewhere because they are imports from Linux and we would like to
+> > keep the Linux coding style for avoiding conflicts when backporting
+> > fixes?
+> All files are excluded from formatting, but xen/ directory: this is
+> by providing a top level .clang-format file which disables all
+> formatting and also providing xen/.clang-format which is exactly
+> for xen/.
 
+There are files with intentional Linux coding style inside of xen/,
+for example xen/arch/x86/cpu/mwait-idle.c.  We would need a way to
+filter those out so that clang-format doesn't attempt to apply the Xen
+coding style to them.
 
-On 26/02/2025 22:52, Luca Fancellu wrote:
-> 
-> 
-> Currently the early stage of the Arm boot maps the DTB using
-> early_fdt_map() using PAGE_HYPERVISOR_RO which is cacheable
-> read-only memory, later during DTB relocation the function
-> copy_from_paddr() is used to map pages in the same range on
-> the fixmap but using PAGE_HYPERVISOR_WC which is non-cacheable
-> read-write memory.
-> 
-> The Arm specifications, ARM DDI0487L.a, section B2.11 "Mismatched
-> memory attributes" discourage using mismatched attributes for
-> aliases of the same location.
-> 
-> Given that there is nothing preventing the relocation since the region
-> is already mapped, fix that by open-coding copy_from_paddr inside
-> relocate_fdt, without mapping on the fixmap.
-> 
-> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+Otherwise it needs to be noted possibly in .clang-format that while
+the clang-format style will apply by default to all files inside of
+xen/, some of those use a different coding style on purpose, and those
+should not be reformatted.
 
-~Michal
+We also have some scripts in python and shell inside of both tools/
+and scripts/, are those already excluded by clang-format by not having
+a .c or .h extension?
 
+> > > +################################################################################
+> > > +# Options and their discussions
+> > > +################################################################################
+> > > +
+> > > +# [not specified]
+> > > +# Align function parameter that goes into a new line, under the open bracket
+> > > +# (supported in clang-format 3.8)
+> > > +# ------------------------------------------------------------------------------
+> > > +# https://lists.xenproject.org/archives/html/xen-devel/2023-11/msg01993.html
+> > > +# ------------------------------------------------------------------------------
+> > > +# Luca: This one is to align function parameters that overflows the line length,
+> > > +# I chose to align them to the open bracket to match the current codebase
+> > > +# (hopefully) e.g.:
+> > > +# someLongFunction(argument1,
+> > > +#                  argument2);
+> > > +#
+> > > +# This one can be a candidate for an entry in our coding style
+> > > +# ------------------------------------------------------------------------------
+> > > +# https://lists.xenproject.org/archives/html/xen-devel/2023-11/msg02143.html
+> > > +# ------------------------------------------------------------------------------
+> > > +# Jan:
+> > > +# > e.g.:
+> > > +# > someLongFunction(argument1,
+> > > +# >                  argument2);
+> > > +# The above matches neither of the two generally permitted styles:
+> > > +#
+> > > +#    someLongFunction(argument1,
+> > > +#                     argument2);
+> > > +#
+> > > +#    someLongFunction(
+> > > +#        argument1,
+> > > +#        argument2);
+> > > +#
+> > > +# Then again from its name I would infer this isn't just about function
+> > > +# arguments?
+> > > +#
+> > > +# ------------------------------------------------------------------------------
+> > > +# https://lists.xenproject.org/archives/html/xen-devel/2023-11/msg02172.html
+> > > +# ------------------------------------------------------------------------------
+> > > +# Luca:
+> > > +# I think it applies to parameters and arguments of functions and macro, given
+> > > +# the description in the docs.
+> > > +# I see your two snippets above but I’ve always found at least on arm a
+> > > +# predominance of the style above for functions, so arguments aligned after the
+> > > +# opening bracket, for macros there is a mix.
+> > > +# I might be wrong though and so another opinion from another maintainer would
+> > > +# help.
+> > > +# In any case we can choose among many value:
+> > > +# https://clang.llvm.org/docs/ClangFormatStyleOptions.html#alignafteropenbracket,
+> > > +# but when we do so, we need to stick to one permitted style only, the tool don’t
+> > > +# allow to specify more than one.
+> > > +#
+> > > +# ------------------------------------------------------------------------------
+> > > +# https://lists.xenproject.org/archives/html/xen-devel/2023-11/msg02311.html
+> > > +# ------------------------------------------------------------------------------
+> > > +# Jan:
+> > > +# > I see your two snippets above but I’ve always found at least on arm a
+> > > +# > predominance of the style above for functions, so arguments aligned after
+> > > +# > the opening bracket, for macros there is a mix.
+> > > +#
+> > > +# The latter "above" refers to which form exactly? The one you originally
+> > > +# spelled out, or the former of what my reply had?
+> > > +#
+> > > +# > In any case we can choose among many value:
+> > > +# > https://clang.llvm.org/docs/ClangFormatStyleOptions.html#alignafteropenbracket,
+> > > +# > but when we do so, we need to stick to one permitted style only, the tool
+> > > +# > don’t allow to specify more than one.
+> > > +#
+> > > +# a2k: RED FLAG
+> > What does 'a2k' mean?
+> > 
+> > I'm afraid this needs to be trimmed to a more manageable comment,
+> > otherwise I simply get lost in the context.  Maybe it makes sense more
+> > people involved in the discussion.
+> Sure, see my explanation above: this is just to give some more context
+> and have some ready answers for the questions being asked before.
+> I will remove all these right after we have some consensus.
+
+Sorry for possibly not fully understanding the purpose and being
+stubborn, but IMO consensus should be reached on the email discussion,
+so that here you can make a proposal, possibly with a comment
+justifying the chosen value.  Just copying excerpts from the email
+thread is not likely to help, as I at least find myself completely
+lost.
+
+Otherwise if there's no consensus just add a TODO next to the option
+explaining why the current setting might not be optimal or the (known)
+shortcomings of it, so that we know there's some pending work in this
+area.  But it needs to be a concrete list, not pieces from an email
+discussion.
+
+Thanks, Roger.
 
