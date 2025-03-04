@@ -2,70 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC519A4E81B
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Mar 2025 18:15:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.901355.1309314 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBFE8A4E96F
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Mar 2025 18:40:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.901367.1309331 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpVqq-00037z-Fe; Tue, 04 Mar 2025 17:14:40 +0000
+	id 1tpWFF-0005vW-ET; Tue, 04 Mar 2025 17:39:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 901355.1309314; Tue, 04 Mar 2025 17:14:40 +0000
+Received: by outflank-mailman (output) from mailman id 901367.1309331; Tue, 04 Mar 2025 17:39:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpVqq-00036X-CT; Tue, 04 Mar 2025 17:14:40 +0000
-Received: by outflank-mailman (input) for mailman id 901355;
- Tue, 04 Mar 2025 17:14:38 +0000
+	id 1tpWFF-0005sT-Br; Tue, 04 Mar 2025 17:39:53 +0000
+Received: by outflank-mailman (input) for mailman id 901367;
+ Tue, 04 Mar 2025 17:39:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lwvO=VX=cc.itu.edu.tr=root@srs-se1.protection.inumbo.net>)
- id 1tpVqo-00036R-BV
- for xen-devel@lists.xenproject.org; Tue, 04 Mar 2025 17:14:38 +0000
-Received: from beeline3.cc.itu.edu.tr (beeline3.cc.itu.edu.tr [160.75.25.117])
+ <SRS0=esJf=VX=flex--seanjc.bounces.google.com=35DrHZwYKCbstfbokdhpphmf.dpnyfo-efwfmmjtut.yfoqspkfdu.psh@srs-se1.protection.inumbo.net>)
+ id 1tpWFD-0005sN-Uq
+ for xen-devel@lists.xenproject.org; Tue, 04 Mar 2025 17:39:52 +0000
+Received: from mail-pl1-x649.google.com (mail-pl1-x649.google.com
+ [2607:f8b0:4864:20::649])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 26001e49-f91c-11ef-9ab4-95dc52dad729;
- Tue, 04 Mar 2025 18:14:36 +0100 (CET)
-Received: from lesvatest1.cc.itu.edu.tr (lesvatest1.cc.itu.edu.tr
- [10.146.128.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by beeline3.cc.itu.edu.tr (Postfix) with ESMTPS id 9670C40CECB3
- for <xen-devel@lists.xenproject.org>; Tue,  4 Mar 2025 20:14:35 +0300 (+03)
-Received: from lesva1.cc.itu.edu.tr (unknown [160.75.70.79])
- by lesvatest1.cc.itu.edu.tr (Postfix) with ESMTP id 4Z6fjd5nNtzG0Wb
- for <xen-devel@lists.xenproject.org>; Tue,  4 Mar 2025 18:29:09 +0300 (+03)
-Received: by le1 (Postfix, from userid 0)
- id A018242751; Tue,  4 Mar 2025 18:28:56 +0300 (+03)
-Received: from fgw1.itu.edu.tr (fgw1.itu.edu.tr [160.75.25.103])
- by le2 (Postfix) with ESMTP id 75DBC42090
- for <bozkiru@itu.edu.tr>; Mon,  3 Mar 2025 16:39:49 +0300 (+03)
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
- by fgw1.itu.edu.tr (Postfix) with SMTP id 52C0A305F789
- for <bozkiru@itu.edu.tr>; Mon,  3 Mar 2025 16:39:49 +0300 (+03)
-Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by am.mirrors.kernel.org (Postfix) with ESMTPS id 94A8E188EDF1
- for <bozkiru@itu.edu.tr>; Mon,  3 Mar 2025 13:39:46 +0000 (UTC)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
- by smtp.subspace.kernel.org (Postfix) with ESMTP id 1EE29212F9A;
- Mon,  3 Mar 2025 13:39:30 +0000 (UTC)
-Received: from smtp-out3.simply.com (smtp-out3.simply.com [94.231.106.210])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED7DE211A10;
- Mon,  3 Mar 2025 13:39:23 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by smtp.simply.com (Simply.com) with ESMTP id 4Z60KQ0fWkz1FbZy;
- Mon,  3 Mar 2025 14:39:22 +0100 (CET)
-Received: from [10.10.15.10] (h-98-128-223-123.NA.cust.bahnhof.se
- [98.128.223.123])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (Client did not present a certificate)
- by smtp.simply.com (Simply.com) with ESMTPSA id 4Z60KP1Hk1z1DDhC;
- Mon,  3 Mar 2025 14:39:21 +0100 (CET)
+ id abde0fcb-f91f-11ef-9ab4-95dc52dad729;
+ Tue, 04 Mar 2025 18:39:50 +0100 (CET)
+Received: by mail-pl1-x649.google.com with SMTP id
+ d9443c01a7336-22367f4e9b9so80309475ad.0
+ for <xen-devel@lists.xenproject.org>; Tue, 04 Mar 2025 09:39:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -75,117 +38,95 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
+Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 26001e49-f91c-11ef-9ab4-95dc52dad729
-X-Envelope-From: <root@cc.itu.edu.tr>
-Authentication-Results: lesva1.cc.itu.edu.tr;
-	dkim=pass (1024-bit key) header.d=gaisler.com header.i=@gaisler.com header.b=RFhGDprU
-X-Envelope-From: <linux-kernel+bounces-541835-bozkiru=itu.edu.tr@vger.kernel.org>
-Authentication-Results: lesva2.cc.itu.edu.tr;
-	dkim=pass (1024-bit key) header.d=gaisler.com header.i=@gaisler.com header.b=RFhGDprU
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=gaisler.com header.i=@gaisler.com header.b="RFhGDprU"
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=94.231.106.210
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1741009167; cv=none; b=KLn8li1D5hW4GwoJPXJ8YMxv2SNwvFWoC6JcZbFyDxQL57i6Pr26/olgzeuq69bmBLKs0sGw+R8+JWO1ZxJAYbQHHMrrGozjhhyJp75vayfpl5RbtJOTUQk/+lFjSCAB7m7q/dDPdEqOxcUNycVDsU9R/8wmop+yrQQJEuCKFc0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1741009167; c=relaxed/simple;
-	bh=a+xzmZy+B7fCsmKmkr8eFxrN/zN1zTAx89ABihyaOnI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=inap1f6lcXJ1vWcihJTfQRkBrabY1czfCdXRaV09yK4eMxiIOI1U9cv4YyUad5qu7l0eeCMzVVXug/Ke81dkZEq8EeHqd5nmx0frPYL0oBYkHlj9tTWvlRcZfna92adEK7CJmJEXfjh51N3JW8zCn5Ij0E2ttvcKx27pTAcq7NA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gaisler.com; spf=pass smtp.mailfrom=gaisler.com; dkim=pass (1024-bit key) header.d=gaisler.com header.i=@gaisler.com header.b=RFhGDprU; arc=none smtp.client-ip=94.231.106.210
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gaisler.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gaisler.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gaisler.com;
-	s=unoeuro; t=1741009161;
-	bh=/93h/VFBMXUYlK5HJY61WVbB5bIOZygI64XeIBe95nE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=RFhGDprUngIX8B/WksXu5qCl6jvG6Ue2AZeNLU2uztLVehbOrf4Be7sdpXV7apQAV
-	 L5G/0zYDuoS1MZLUHtd9Cg4ltQmBCZYtoSFItZZTzSCMQlto/+shrAINuGubsl6a9Z
-	 zhVJuX2/VxHBfRJjuhyVJhRfswfIwjfgKGq1o31k=
-Message-ID: <b2b03b41-8442-4c68-9c00-05e524673fe0@gaisler.com>
-Date: Mon, 3 Mar 2025 14:39:20 +0100
-Precedence: bulk
-X-Mailing-List: linux-kernel@vger.kernel.org
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/4] sparc/mm: Disable preemption in lazy mmu mode
-To: Ryan Roberts <ryan.roberts@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "David S. Miller" <davem@davemloft.net>, Juergen Gross <jgross@suse.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Catalin Marinas <catalin.marinas@arm.com>
-Cc: linux-mm@kvack.org, sparclinux@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-References: <20250302145555.3236789-1-ryan.roberts@arm.com>
- <20250302145555.3236789-3-ryan.roberts@arm.com>
-Content-Language: en-US
-From: Andreas Larsson <andreas@gaisler.com>
-In-Reply-To: <20250302145555.3236789-3-ryan.roberts@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ITU-Libra-ESVA-Information: Please contact Istanbul Teknik Universitesi for more information
-X-ITU-Libra-ESVA-ID: 4Z6fjd5nNtzG0Wb
-X-ITU-Libra-ESVA: No virus found
-X-ITU-Libra-ESVA-From: root@cc.itu.edu.tr
-X-ITU-Libra-ESVA-Watermark: 1741713176.01234@qgSCxTcWbrwFchGmGN7pRw
-X-ITU-MailScanner-SpamCheck: not spam
+X-Inumbo-ID: abde0fcb-f91f-11ef-9ab4-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1741109989; x=1741714789; darn=lists.xenproject.org;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:from:to:cc:subject:date:message-id:reply-to;
+        bh=TI3FoVeE0Ra2glCU+l7ZrrB58ecOTFnnVt+cs3oYhCA=;
+        b=rVvLSfFe7LIWkFjAIGNRd3UmHQJh3vfhzuobUvZZBOgFqPuxTuAd/2nJB+RwG4UlWZ
+         9lt5vfSFHnnvAyjHR6oB8VWWzM/aXaPMyZNoe5yAVrwXOb/qeOC4lRD0/mumfDSfA2NP
+         JsmXmJh0UCaj/8BBud4ZCKpW3yYI7CfkK/dKeFKa1X8bIxpT7KVlV02pJJZvu/kgPXt1
+         ZOKaBsUY9INoFn4+vthQBN8NR+QgxC2zbt6IDuA5FVh44mavD3vOcrlma0aJ/ckJx9Xu
+         cukT7MaMRlz8yk5S5oMbS1aPdwRb07/9f+ieVo2wFMZw3xp1+b07PvXhRoUAMf9OYFy+
+         gNpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1741109989; x=1741714789;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=TI3FoVeE0Ra2glCU+l7ZrrB58ecOTFnnVt+cs3oYhCA=;
+        b=hfScL8QhwtcQcTeJglslf0SdGQf5vUxh7fTAzjgMyHOk6gVddo6PYo3q/eym4dccDi
+         BphXf2jqXvwTUrgRjf0xQV3fvIoI9KTZ4pBXNWHgheLEmr3Fmd1tssTMsEX5E/ZNaTqN
+         jfK7BK3lEoHect8pJ435ayogMFiBzXZJUTphIPRn0KPIZGluu+ZFr1t+8kt61BtXHJbV
+         Cm9kd9fv0VNaWU0PqJv24xfGYu6CYX8d8xPl7ffkfd61PX5S3e15mO0MYOfmzWlytvBp
+         qPSNPISAHN6ws/m7JVe989HU2rv/Q5RUmfTEC4U1oQ3ABDMfkfDEkCO3crnDHmu/5yx3
+         lizQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXHU2wehnEnkV+oF3YK3FwsVBOUf5sjztVKGQPLqzwE/a7qSRrLHHmbQb92vEwCECe8Uvtg9/ObM8o=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyxCgaWjAFrtd620DMZLl4oCULNFkO+YCiyajcu9xp6g/SbEq3Q
+	x5Rd82N5a3oZp5tUGBmwV7/OcKw+PDXfmaDSWmHuIkUoWnB4mDwFHByGMQbHGelXopi1r+BUhTM
+	D2g==
+X-Google-Smtp-Source: AGHT+IGZddoSY2oyJ60dCyqtZiF8YnS+v36sYEMEslkao7NI/8RRXlf38IKWdXRybiMidO4JcJg+/iNohU8=
+X-Received: from pfbfw3.prod.google.com ([2002:a05:6a00:61c3:b0:730:76c4:7144])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:734b:b0:1ee:d418:f758
+ with SMTP id adf61e73a8af0-1f2f4cdb421mr28532451637.17.1741109988705; Tue, 04
+ Mar 2025 09:39:48 -0800 (PST)
+Date: Tue, 4 Mar 2025 09:39:47 -0800
+In-Reply-To: <SN6PR02MB41576973AC66F8515F6C81F0D4C82@SN6PR02MB4157.namprd02.prod.outlook.com>
+Mime-Version: 1.0
+References: <20250227021855.3257188-1-seanjc@google.com> <20250227021855.3257188-9-seanjc@google.com>
+ <SN6PR02MB41576973AC66F8515F6C81F0D4C82@SN6PR02MB4157.namprd02.prod.outlook.com>
+Message-ID: <Z8c641D3AuWNXGVB@google.com>
+Subject: Re: [PATCH v2 08/38] clocksource: hyper-v: Register sched_clock
+ save/restore iff it's necessary
+From: Sean Christopherson <seanjc@google.com>
+To: Michael Kelley <mhklinux@outlook.com>
+Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, "x86@kernel.org" <x86@kernel.org>, 
+	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Juergen Gross <jgross@suse.com>, "K. Y. Srinivasan" <kys@microsoft.com>, 
+	Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
+	Dexuan Cui <decui@microsoft.com>, Ajay Kaher <ajay.kaher@broadcom.com>, 
+	Jan Kiszka <jan.kiszka@siemens.com>, Andy Lutomirski <luto@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Daniel Lezcano <daniel.lezcano@linaro.org>, 
+	John Stultz <jstultz@google.com>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>, 
+	"virtualization@lists.linux.dev" <virtualization@lists.linux.dev>, 
+	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>, 
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Tom Lendacky <thomas.lendacky@amd.com>, 
+	Nikunj A Dadhania <nikunj@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 
-On 2025-03-02 15:55, Ryan Roberts wrote:
-> Since commit 38e0edb15bd0 ("mm/apply_to_range: call pte function with
-> lazy updates") it's been possible for arch_[enter|leave]_lazy_mmu_mode()
-> to be called without holding a page table lock (for the kernel mappings
-> case), and therefore it is possible that preemption may occur while in
-> the lazy mmu mode. The Sparc lazy mmu implementation is not robust to
-> preemption since it stores the lazy mode state in a per-cpu structure
-> and does not attempt to manage that state on task switch.
+On Tue, Mar 04, 2025, Michael Kelley wrote:
+> From: Sean Christopherson <seanjc@google.com> Sent: Wednesday, February 26, 2025 6:18 PM
+> > 
+> > Register the Hyper-V timer callbacks or saving/restoring its PV sched_clock
 > 
-> Powerpc had the same issue and fixed it by explicitly disabling
-> preemption in arch_enter_lazy_mmu_mode() and re-enabling in
-> arch_leave_lazy_mmu_mode(). See commit b9ef323ea168 ("powerpc/64s:
-> Disable preemption in hash lazy mmu mode").
+> s/or/for/
 > 
-> Given Sparc's lazy mmu mode is based on powerpc's, let's fix it in the
-> same way here.
+> > if and only if the timer is actually being used for sched_clock.
+> > Currently, Hyper-V overrides the save/restore hooks if the reference TSC
+> > available, whereas the Hyper-V timer code only overrides sched_clock if
+> > the reference TSC is available *and* it's not invariant.  The flaw is
+> > effectively papered over by invoking the "old" save/restore callbacks as
+> > part of save/restore, but that's unnecessary and fragile.
 > 
-> Fixes: 38e0edb15bd0 ("mm/apply_to_range: call pte function with lazy updates")
-> Signed-off-by: Ryan Roberts <ryan.roberts@arm.com>
-> ---
->  arch/sparc/mm/tlb.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
+> The Hyper-V specific terminology here isn't quite right.  There is a
+> PV "Hyper-V timer", but it is loaded by the guest OS with a specific value
+> and generates an interrupt when that value is reached.  In Linux, it is used
+> for clockevents, but it's not a clocksource and is not used for sched_clock.
+> The correct Hyper-V term is "Hyper-V reference counter" (or "refcounter"
+> for short).  The refcounter behaves like the TSC -- it's a monotonically
+> increasing value that is read-only, and can serve as the sched_clock.
 > 
-> diff --git a/arch/sparc/mm/tlb.c b/arch/sparc/mm/tlb.c
-> index 8648a50afe88..a35ddcca5e76 100644
-> --- a/arch/sparc/mm/tlb.c
-> +++ b/arch/sparc/mm/tlb.c
-> @@ -52,8 +52,10 @@ void flush_tlb_pending(void)
->  
->  void arch_enter_lazy_mmu_mode(void)
->  {
-> -	struct tlb_batch *tb = this_cpu_ptr(&tlb_batch);
-> +	struct tlb_batch *tb;
->  
-> +	preempt_disable();
-> +	tb = this_cpu_ptr(&tlb_batch);
->  	tb->active = 1;
->  }
->  
-> @@ -64,6 +66,7 @@ void arch_leave_lazy_mmu_mode(void)
->  	if (tb->tlb_nr)
->  		flush_tlb_pending();
->  	tb->active = 0;
-> +	preempt_enable();
->  }
->  
->  static void tlb_batch_add_one(struct mm_struct *mm, unsigned long vaddr,
+> And yes, both the Hyper-V timer and Hyper-V refcounter code is in a
+> source file with a name containing "timer" but not "refcounter". But
+> that seems to be the pattern for many of the drivers in
+> drivers/clocksource. :-)
 
-Acked-by: Andreas Larsson <andreas@gaisler.com>
+Heh, wading through misleading naming is basically a right of passage in the kernel.
 
-Thanks,
-Andreas
-
+Thanks for the reviews and testing!  I'll fixup all the changelogs.
 
