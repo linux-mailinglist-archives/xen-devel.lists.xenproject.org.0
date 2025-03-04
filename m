@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBC94A4D290
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Mar 2025 05:25:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.900815.1308799 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 633D9A4D60B
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Mar 2025 09:18:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.900845.1308820 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpJqh-0001sx-6X; Tue, 04 Mar 2025 04:25:43 +0000
+	id 1tpNTQ-0006FN-Nb; Tue, 04 Mar 2025 08:17:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 900815.1308799; Tue, 04 Mar 2025 04:25:43 +0000
+Received: by outflank-mailman (output) from mailman id 900845.1308820; Tue, 04 Mar 2025 08:17:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpJqh-0001q0-3H; Tue, 04 Mar 2025 04:25:43 +0000
-Received: by outflank-mailman (input) for mailman id 900815;
- Tue, 04 Mar 2025 04:25:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tpNTQ-0006CP-Kb; Tue, 04 Mar 2025 08:17:56 +0000
+Received: by outflank-mailman (input) for mailman id 900845;
+ Tue, 04 Mar 2025 08:17:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Wix9=VX=outlook.com=mhklinux@srs-se1.protection.inumbo.net>)
- id 1tpJjO-0006sI-M0
- for xen-devel@lists.xenproject.org; Tue, 04 Mar 2025 04:18:10 +0000
-Received: from CY4PR02CU008.outbound.protection.outlook.com
- (mail-westcentralusazolkn190110000.outbound.protection.outlook.com
- [2a01:111:f403:d122::])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ac116d60-f8af-11ef-9898-31a8f345e629;
- Tue, 04 Mar 2025 05:18:07 +0100 (CET)
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
- by PH8PR02MB10184.namprd02.prod.outlook.com (2603:10b6:510:224::20)
+ <SRS0=8kcs=VX=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1tpNTP-0006C1-KY
+ for xen-devel@lists.xenproject.org; Tue, 04 Mar 2025 08:17:55 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20628.outbound.protection.outlook.com
+ [2a01:111:f403:2418::628])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2aa178aa-f8d1-11ef-9ab4-95dc52dad729;
+ Tue, 04 Mar 2025 09:17:53 +0100 (CET)
+Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
+ by PH8PR12MB6747.namprd12.prod.outlook.com (2603:10b6:510:1c3::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.26; Tue, 4 Mar
- 2025 04:18:02 +0000
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::cedd:1e64:8f61:b9df]) by SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::cedd:1e64:8f61:b9df%3]) with mapi id 15.20.8489.025; Tue, 4 Mar 2025
- 04:18:02 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.29; Tue, 4 Mar
+ 2025 08:17:49 +0000
+Received: from BN9PR12MB5273.namprd12.prod.outlook.com
+ ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
+ ([fe80::cf66:58ab:47be:4b13%6]) with mapi id 15.20.8489.025; Tue, 4 Mar 2025
+ 08:17:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,390 +47,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ac116d60-f8af-11ef-9898-31a8f345e629
+X-Inumbo-ID: 2aa178aa-f8d1-11ef-9ab4-95dc52dad729
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=orVnHf5358RlPzpciPc248b9H0WkSTeB3BEkOneHB0/pxy3AuNfEPIuA523jIMn2dUARW2UbQFAtzuQN135sGhxYgVMa2mRYAGBa217xxCPIFFbJ6R+SacH0tVAmPgOKka1I7+hcypIza/VznLjB+ojcLoCUSopdv++JrmEz+JK8ZZ16g8ZcZL8oddVBXpM+Hp/+noH67NOfBaqE/dUhha7k0DJYakp9XKTqyT5O3M6sARYwLM7t/Tk0CwFUPo/VdKVv8MNS5IUXF/xGExAM1FmsWcmzFSlzxLZ9yLkj3FRLLjUY6Xh0fm+BHYh3lfY9znb0ERniHR1K6sxkKr4uVw==
+ b=pXQAMk/EEav/DPgDxpLDovb8ywfzt8jGYAMjYAqCEYOPSBkCO/vgKaAhwJ23yGC+1MNE2fTbQlQdrbOJ7U+1N+jglZvaOtaGcKerZ6HdGHdJ4ZXfSc5boqY9MzYblfz4U4EMtHDUzuApiPgB9xzQr2oQyKWOBMt0GCqt78ADkLPKWhuBxxGC4X6AoXV7JH+4ZFia0/jK/7IdSF0opz4Bb9xxC7znf3IRrF2yHFX2LSbSDZochRFY+OvcPbOb5P4Iwc30+LzkZ2zy4mWZpvnaeKoDG7tEzfXWIPhpyiHay6Im5WHwhjOGNOgCLuFn1XIJ+R3oZEzQ/k60rJPiH8RCJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PzEySjbbc6HrK6FD5TMJLnk9DO7HVtEDsRMFDyTDn50=;
- b=u15diXRI/9xytJKOxhb82TsfGXofaVPRBTTU46dXkb+im5pw+A7Foikt+j8jmp3Z8ehhxSKCLhSX+w0CT1aE2kQWkmcuVK77uuSc5ZtF/NtVo7BYPppI03DYthuEVNuteP3CNni7YqNZYW4xHbhzPSFIXD0UgZuAd5xenPm+xWTjY+VkJ0IuE384VgvKXfr8V+G41YVob7FoSch30y8umsvPvvggjDI/bOsR3GyYgSEUTjvntK932tBcel2ycKHErinkQw7Z6f4es5bAnHzkrDt/Rot0MmpxwIKphOSrqY29vppkyErmwBtKokfziqahKU8c+rwiRVgAaLDeTZAvUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
+ bh=SsAWZfdnJqXz0aa5cY6heaifmfkbOH7pvqDehqhz9ug=;
+ b=ePlY6N3ASF3WsgHdn9VmNCQToZJeD5wDcJpqJUpCk7V3DESKRiFh3sPF4eXfNY8hgpe6Uo28V5Pu25cP34E3yWRNgSLuOUr0Xzqf063T6RnUdCO5c6JYuKX8XGGgXRcZvKZhAI63Mvx9PUp3HPq/6Ce8zSAfeJ5EfcIXwf6VS8Q2o/uBqRwOaO1sHBPdec87CSBrKulbVUvjufOR0f4xStGHxlgWCC41RjZsR42Amdi8BAL/IDUo3G1q2htsyQRRsSsTbhid/p2iFkBzRxhd9Tc++cN0kPwWOks4MxNjceGyGAA39sP6iBjtnqlJR3xxdaLQUFX01ijupPQA/XjWrw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PzEySjbbc6HrK6FD5TMJLnk9DO7HVtEDsRMFDyTDn50=;
- b=LdBnSerGOEIofsQi5ZalLjBKi0g1NV9utelD1zrZU17IkQ5YPIc8A3eGmtl6/XLP6SUAqOdUEwB69LKR+MSfw11TeHEeKiOamq+D/oW2TtozaZCP+ZZjh6FKJSM5TCXj3UdzVCjVmFluoxZA9+hBziektD1ZqHqviC5FH82l2zwOYoSmqSNDIrCGndOHfLIN+DMkL4m0aiBRw+oKqGqJkc93TjSXxXOcNKy9iop7GvIFEokeJXs+Qx1cfKLVFiP/ntVJ8WZ5GQKDaZ8ee6mO8q/bd+3zrIGbjmkDx94SacyQnL+Z/8fEKj4wTb9QHjCTUVASb3+kUPRrhhNFZ0Qjng==
-From: Michael Kelley <mhklinux@outlook.com>
-To: Sean Christopherson <seanjc@google.com>, Thomas Gleixner
-	<tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
-	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "x86@kernel.org"
-	<x86@kernel.org>, "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
-	Paolo Bonzini <pbonzini@redhat.com>, Juergen Gross <jgross@suse.com>, "K. Y.
- Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei
- Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, Ajay Kaher
-	<ajay.kaher@broadcom.com>, Jan Kiszka <jan.kiszka@siemens.com>, Andy
- Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Daniel
- Lezcano <daniel.lezcano@linaro.org>, John Stultz <jstultz@google.com>
-CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "virtualization@lists.linux.dev"
-	<virtualization@lists.linux.dev>, "linux-hyperv@vger.kernel.org"
-	<linux-hyperv@vger.kernel.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, Tom Lendacky <thomas.lendacky@amd.com>,
-	Nikunj A Dadhania <nikunj@amd.com>
-Subject: RE: [PATCH v2 31/38] x86/tsc: Pass KNOWN_FREQ and RELIABLE as params
- to registration
-Thread-Topic: [PATCH v2 31/38] x86/tsc: Pass KNOWN_FREQ and RELIABLE as params
- to registration
-Thread-Index: AQHbiL/SUCd7zgLAtUGlvGS/sV/Q7LNiY70g
-Date: Tue, 4 Mar 2025 04:18:02 +0000
-Message-ID:
- <SN6PR02MB4157CBC183775A8C17AC590BD4C82@SN6PR02MB4157.namprd02.prod.outlook.com>
-References: <20250227021855.3257188-1-seanjc@google.com>
- <20250227021855.3257188-32-seanjc@google.com>
-In-Reply-To: <20250227021855.3257188-32-seanjc@google.com>
-Accept-Language: en-US
+ bh=SsAWZfdnJqXz0aa5cY6heaifmfkbOH7pvqDehqhz9ug=;
+ b=3osShgR4IgS1glt7+ZTEHJjZy1OToGdKPFvfNQw98JLgoApYIEu+T40qLi3hXXqY7EYguwj88Rn4PjGAjlBrtPjl+FmXDCz4AIa8lldCTSW8LUV2/BRu+ien0BRedOolhvHUOKDRkixMddes8Bd8ZgyfHQ3XEkinCR5xAEoOcHM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <83f16516-9c81-495d-8d56-eb299e8e10d8@amd.com>
+Date: Tue, 4 Mar 2025 09:17:31 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] xen/arm: Don't use copy_from_paddr for DTB relocation
+To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20250226215256.2713698-1-luca.fancellu@arm.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|PH8PR02MB10184:EE_
-x-ms-office365-filtering-correlation-id: 3e7219cf-5274-41d6-6e0c-08dd5ad38e06
-x-microsoft-antispam:
- BCL:0;ARA:14566002|19110799003|8060799006|15080799006|461199028|8062599003|41001999003|12091999003|19061999003|102099032|3412199025|440099028;
-x-microsoft-antispam-message-info:
- =?us-ascii?Q?IOdnMuGdXWduI0tAKQdceZLZVWr+sgMp6SFApUZhwYYIBNLL3D+COyOcRyL+?=
- =?us-ascii?Q?obmgaXsF4INm4wdD/k0o+JEnuLOYWMzN3i2sDvrjGH+IAEY9+e0/CoQNMtgW?=
- =?us-ascii?Q?hGkomfxS05uCMShiIA7lTUjgIeMvToEGVcdoNTfd0bXxs0tqmx0ytUiz3GW2?=
- =?us-ascii?Q?AWZgjg/y5NopYkWd8cIph+5AlI4oSNPRFG3WANj/yE4pSw+R8EMhYWitaf6D?=
- =?us-ascii?Q?/mncv87szT4BE1dvh4zqaeO2SQriZrlYJ+f9/WVU9+HVn1aaQ9LBQvvhA7E8?=
- =?us-ascii?Q?8FZqK05CrExpwo4F+kbKIfKySnX/UY0URbC9iJjpvcnkbFPbIqyur5mGopKn?=
- =?us-ascii?Q?937+bXn9posbQh6e/7vUWB+igToCXLWBgDejYoRgrTc0SnpCLkgyRRlEkxZ7?=
- =?us-ascii?Q?JU5CUYZ2SE+rFmXdsEUvT2n9/TT2UNEnu+5amKeaeb6VFqTyt4PLrWld4mlw?=
- =?us-ascii?Q?66JMAxzf2U2lFD7UZIKpdGMIVFOF3CCRPxd9Gmq42gdbwRijailo8F5wXfzH?=
- =?us-ascii?Q?5u2jU/Wx0Mt+x/S/Z+zhD7wVI4FVuHCERhL7SXYNBmJ1wp3XaGOncaXNbyDV?=
- =?us-ascii?Q?uD69HcRfku6DzAerY2kvKFUCTv4/9bF+Hd8+nmMs1BQeKRBMSR4CpjEzDP0i?=
- =?us-ascii?Q?Ks4kqRzrDvGK4uK2dmikncHWKLRayqzvRtfKBrJ2c42P61I/K1DK5DU1yFIL?=
- =?us-ascii?Q?XJGHtiOnXuxvm5CyXrXRvkAj1Ek2Jh5/G7ftjD8b2GiLK7IRUHjYjvXn2jbd?=
- =?us-ascii?Q?Pd41kZqZBix5gLry9tUrpZBeFlPNMnOIlKWGR8t/J3seL20epooVHnphJnK+?=
- =?us-ascii?Q?ANJEo75xljvmv41yM4AVUkMtjCNJqpzo3BEgybp4mawmQCWgZ79AgwSdhAQC?=
- =?us-ascii?Q?c5SEJM45vYBdrz2HQ/oHZUmqpsA4eVPjUBOKVBr9jAHRf9hGHzqvjKm32mwk?=
- =?us-ascii?Q?tiXSHsRNSczkUZy0T7ClIxi/VgGEe74CSqWzBRVLdjsaCabZMQqhI35OyJ5z?=
- =?us-ascii?Q?qJ4Lwgzy5H/EIJOXzlgzjen0yeX7fY84kHdNuF1HSQLp/529p/q8KbBp9gld?=
- =?us-ascii?Q?EynBE9FiU96zxRw37/NLCr+nYhfGReUcnOKFKGrrhPzTfYUN96jHaoViQXg3?=
- =?us-ascii?Q?CLUQBAr+0crLOyEUvD/5c3Lt40jfaqYOrQ=3D=3D?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?zPrKRhgt1MKbwuiKcsdppWeBkUR/b76XxVLIeALE6pSVq58uE4HbRBsTjAWP?=
- =?us-ascii?Q?3+hsu86ZFOAZmtK5wIbXh7mJmVtm4srt0Y1vmuMd5NXEMEauBrER2YJFebf2?=
- =?us-ascii?Q?PxPox0wzHJCtmr3fQribryXkmrW32w93Daq61YQ1On04U+xp7GmoUrz1Yy4d?=
- =?us-ascii?Q?2MZsVvGXmkSo6C1uxs/V/C51BrnOYaIWNpcUZUFH4j9Xk4ljypVN5UEYp9GN?=
- =?us-ascii?Q?KLxVVzRm+JwVCSburM/1ZTAjmrsHyss17ZZYrVX+vycfEElB4z6RtD8UwFQU?=
- =?us-ascii?Q?11nh7vo/LnMiNmziv29U1Nchz6dyLkkuqxkOrZMmYllqkFQTWfqUKuzNr9Gv?=
- =?us-ascii?Q?0hmMurKAoo04re9hyiQ9Yy8e2UxntXH9DM0ihIKRgGPhZRnQO3zDECGlSKla?=
- =?us-ascii?Q?oiPgUXsV5f5UoM3syZKyTEojldwvmGArwtmyqCiOD4Am1dWtTe7Qm2MyGVl3?=
- =?us-ascii?Q?qQtBJ3k6/wVdVlpNlLTY3OvXaeXD2q8NFwC59UcbDcGB+9jokjqjyyzvKB5b?=
- =?us-ascii?Q?47dgdrHQxquIONA1p/4hUJ+A1xXAyzbAXq38GB+irQ4QljKBhDuyryC2281J?=
- =?us-ascii?Q?EdLGHiSjKnoorokjWNHXhfgqA2kbS5B5mKQCCsi+nCo+2wJpo88bvxHvi+zH?=
- =?us-ascii?Q?GyPG2nWxqBBQ2/Mb3TZBh+lVrcetJy/DDCB8piHVzyalhPCC+Y0E7iRICJsR?=
- =?us-ascii?Q?oNM1WAmfMx4u/sh/Hl/s3ql88tOfw9kn1Z2ttx9fhpW7HYCD+Jw356YmWP9F?=
- =?us-ascii?Q?bhVzcUpOphE+C09XOcABoEqLoL8yDdh4Y0gHo1y/6zpJGJHZtlUDxO+g9cSY?=
- =?us-ascii?Q?12aChDvOHVWEBShzqMaRClcaviiQ1NHXVW1Fp5Q1ux1hgg6rCQHtgsmZAUjQ?=
- =?us-ascii?Q?rQPui8KamL9EB/WPX1LQRT+KEKINp3yPrpNPsQR2c7hofip23BfUcsDgPNaY?=
- =?us-ascii?Q?u+bpKhK5bsYtMhG5IhvXOeQj0mfySwiF0Faz0F6Mmb8dvlUaFAiSM76gqGS/?=
- =?us-ascii?Q?A/IufiOLyM01Sr2/R/TUnfWW0fgNzn5/LLYEDDX0PWgbHl9F4FmRHnK6GX0W?=
- =?us-ascii?Q?CHflUSYO5Wz8qi/4+T95eiG9MPjenE0awDkn7GlN8saqWqaeMJMRjb6dlCKi?=
- =?us-ascii?Q?CnalEIKl06jEE9xvzn30ozgkQ9Zee1GJTkCblTfO7Ng9pTVkSuVx64iU0huk?=
- =?us-ascii?Q?JJx0olGMiUZrHMnu+i39cQPzyHhSr1Vrp/547dL50GeDDQ6lKmm4KJLAjGk?=
- =?us-ascii?Q?=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20250226215256.2713698-1-luca.fancellu@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: JN3P275CA0018.ZAFP275.PROD.OUTLOOK.COM (2603:1086:0:71::6)
+ To BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|PH8PR12MB6747:EE_
+X-MS-Office365-Filtering-Correlation-Id: b067dd8e-a99f-4414-387b-08dd5af50940
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?ZFJ1Wnpva2FMS1J2NXpIeElySEdFcUhSL2pDYmlJOXR5ZEhKWmoxekowTUd2?=
+ =?utf-8?B?L204eWlBa2xmMDJ1YThkRDRmalIwN1MwME1lZnU5ZFZEY0RYVkc4bDdHK1dE?=
+ =?utf-8?B?M0VxUFpuQW9FOGFJbGJpSGpwbFM1c2F0anBBMTBjdkpFRFVZa2ZHczBQS0tW?=
+ =?utf-8?B?SFh1VWs4UFlLaFRlOGZMeDkvaVp2SmRQZStWenp0YTcrWklLUGFhSWNzdkJE?=
+ =?utf-8?B?cVhsM21zcEwrSGV2Vys5dlNIMnpaSHFCZ2ZEdFBvK25mM3ErYjkvWWFWbWVZ?=
+ =?utf-8?B?VjFKSXFSc2YwazhNMGNpZTdsQzBJQjBnOVVnSTBYTnExOG9OdkJuVURoNmw4?=
+ =?utf-8?B?WXdBVnE3dTlQMkFLZzNSTVNBR3dCMWdRWUpVWmlTNFdaVmJodUtaNllKT01X?=
+ =?utf-8?B?V3BpY3lzdWZWYWpNZVpuZW5GNFpJcnZGbVBFM29pL3p0UlFNdUNjalNIVkZK?=
+ =?utf-8?B?MnI2Tlh0UGY4eG1xelRCem0xUG0rajdNMnpvS1N4bEVSWVEzNjlOTzlKT1hl?=
+ =?utf-8?B?M0xNOVlIRFRWN3h1d1NoU1J6ZjVWSDMwSTNOZ0tySFhucm9KWGlUaFZZL3ND?=
+ =?utf-8?B?YU91T3pZckZxSUxibWVQWEF1bU50TlZmSUFCWDFNUGJoSFpCbHBXTlNHMkx5?=
+ =?utf-8?B?OHllb0t2TW1mZFlOeVA5bmNtOFlBRzZsTWpzZXlKK09PM3RnbU1ZS3VWQmw5?=
+ =?utf-8?B?MlZVYU5SRnFTMjFWdVBVQ0xvOW9lQW1YWlA1ZWx3NUkvNkRON0w0VDB2MkpW?=
+ =?utf-8?B?aldwM1RCTng3NVVhbFhkK1hDRzRDZTJyY3NWZEx2YkQ2VGh2WnZJUDVMODJG?=
+ =?utf-8?B?ZVpRRThRdTVzQjNiN2t1blVPUVhRQWNXaGU5RWkvN3BiaEM2TDNUOW1kSWZJ?=
+ =?utf-8?B?ZWtadC9zL1NuOVZIcmwrU1RCQTdzcnNqVHNKOTJwMXE4ZWtBZGFxVlhWWloy?=
+ =?utf-8?B?NGRuYncxdWhnbmJxdUVsb2d1V1l0dlBYRjFUMVVIS094T2U0Wkg5a1BtM1Z3?=
+ =?utf-8?B?WUNRQVJvQ3BXbXI1V3dZMjViZy80eWxrZHZMeDdCenRNZW82SW5RVmExc0Ex?=
+ =?utf-8?B?ejhaQUt5d3d3c3FYVmJZNERaRFc1OHBJVE9pbUJGR3JuYTc4WDQwcDNCRFBV?=
+ =?utf-8?B?SkU0aU4weDg2SlpTRTF6QmFUcWx2S1VOWnNGc3E4ZE9wTEpsMWdIVzY0RmZB?=
+ =?utf-8?B?cHZ6dGJKN0dSWWdDbzdOUEV5b0c5Wnd6L3RxbWRWK08vNlI2NWoxL0trY21i?=
+ =?utf-8?B?ODB2N3A0a0R3Z3pIaCtLMXBpWFpvR0x3SlFwZHAyUHcvK0VyL2R2MlFzN21O?=
+ =?utf-8?B?Z0Z5R2g2cHlNSTErS2lOSmVIb1BMQ083OExRSkpoWTN0RWQ2SkFuSENYSk5V?=
+ =?utf-8?B?MXlGSFNFSkoxdFQ5WXVOWUpyYjlGQ2tKQ3JIT3lDK2FnVHJmajJadGhyRDZw?=
+ =?utf-8?B?ZkVGakEydi9rQSs0ZG4zSE5Ob09Oc242SjRWaFFDOTZlMU5Ua0NFZm9WaXRL?=
+ =?utf-8?B?UW1STWRPQnd2L25wMmZlcHZFU25PSVhNNU1MQ0dXMUVmVEc4LzFpWmNiWnhV?=
+ =?utf-8?B?QVVNY09pYStXNnlsSEk5cFRkZVZTMUduZjhCL2pMd2RHRnM5RDlvZXM2ektx?=
+ =?utf-8?B?T2x2cXdTTzk4UUYzWGhzQklPMnhrZC9rYlp3M0RUR1B6WGNURldPUE1BUXVE?=
+ =?utf-8?B?T0dVR0xGUC9hWEZRWnQ2Y1Y2REpLSVN0dDUzU0FqYmV3R2xIckg2SkpnLzZn?=
+ =?utf-8?B?cms4NVU0MGtCT1dEcksvanB3Z0pwaWZ5bUFIWm5aVDRiWDhVSUZpUks2eFov?=
+ =?utf-8?B?U1hacVUrSWVqUzFZNUVUbStKVFlDZVRsQWI3dzRDb24xYnl4UHpSbGY0aHRU?=
+ =?utf-8?Q?ypA0VXE15Fpvg?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bTlBU1lIVHFzN1ZDWlB5K2VyNzlqSTFTTnpVWkpkdFRKQVR4K2VwZURCbHh2?=
+ =?utf-8?B?RHBIRzRxU1JrZjRVWjVydUFkWDF6N1BKeXY0TytEanJob0ZJMkU1SndMMWJr?=
+ =?utf-8?B?VUs5UUM4MW1QQjcvRG9NTTYwSmUwU3cwVU5GWkprOElvMUgxcGtHWmF2RGNF?=
+ =?utf-8?B?TUIwUUtISTlhY3lWOHI4M3poVnBQN0VQUjVmbUhRUUxldjhLZTRxSFBValMx?=
+ =?utf-8?B?UnpGakZwcVBiOUJPUjdWSXJJNUltSTJ6RmR6WTM0aUZ1K2xxMUhvbzFIUDZN?=
+ =?utf-8?B?WXd3L05sdHpkVE9heDY0cmM2WUloYyt6YjhDTXNSNEZRYk5uQWlRbFJFMVRt?=
+ =?utf-8?B?TzVXMkxkd2VYVXBuMTlvOU5sdU1PdUhlVDRWemtKRUZCcVM5UW1SNGNmU09q?=
+ =?utf-8?B?NVFYZFZMNzhxZmdLWG1YWU5WbzNVY0Npczdxc3lQQ1orSmRnaXVjRFBlQlNE?=
+ =?utf-8?B?RkRmSjZPVGZTdDVsMjA2cVBNOFNhQkM0bHlScCs4N2xkQVJSTEwzYlk2QlVU?=
+ =?utf-8?B?ajh1UTVIdGg0VmZPeDNsb28rNzZCWWJ6M0NsYzlHOXliL0doS1UyK2JvVUxi?=
+ =?utf-8?B?MkJmNjlxVEFkbXF0S01HTkRYSWRWcVFvU2kwOGl0anpXblk4RE5VQ0RqRXZj?=
+ =?utf-8?B?VUFGckI2ZFcrTEdRS0NFR1o4MVlqWkFGdkNmKzl3WmpwWWtITXRRZVYwc25I?=
+ =?utf-8?B?VHpOdUZBWjM1NXd5ZzhMeUZycURvZm9NZndieWgvK25pbDAvZ2o3d0RYeGJp?=
+ =?utf-8?B?VXhDRlZqNzQrNzRURFV6a0dkckdGemJ4dmZSNjNyenVYMmRuOE5JSnJhMm4x?=
+ =?utf-8?B?b2dWVFJOQitxUW5Pam9vUDV4Yld5RVRteGIzRitPV1dCNUdJcFdhTWRTKytm?=
+ =?utf-8?B?bCt3TFkzWUhhbEh1N1p0bHNFR0lEYkNkaTZZOWdJU1h3OHFnckNHQzJWTElW?=
+ =?utf-8?B?R0ZYUzFydUxzVmhtSjkyZDJpa3JlRFpVUjJmdzJYS3VXeC8ra2hFTFVHRys5?=
+ =?utf-8?B?MmFTcXUvTGtWeVRRYW1QV0d4U2RZKy9ZcTJkM1BTMDFHdlNTRzF1Z0VQZm50?=
+ =?utf-8?B?bU9DaC9FWmF3eXJTRTc3Wkg3RXM1OXFPWkhNVTBKOE00RUE1TzVCOUNRUmt1?=
+ =?utf-8?B?dzRyY255dkxabXdwbmdwK0RmZ1lXN3VpcC9EUkQxVkxNeFhDY1dlb0tQa2NB?=
+ =?utf-8?B?djdSMHFrcDdkRWpHdjZ0czZRZVI5OEZ1NW13b0FNdlFsbDMwSTBIclJUcFVZ?=
+ =?utf-8?B?Wkp2bkhGTVBLMDMrOWtnTC9HK0lsUHBrRDdsSzl2OGVpQk5TSFpoaWEvcmZE?=
+ =?utf-8?B?UnlXN3ZacnNwYTBNazI0TEV4WlB3UDZIczl6ZnYwNHRYeGthd3hIa3UreWNr?=
+ =?utf-8?B?aHhXTzNkSlNaOUhaQmVJTEJlTWw2VHlFL0JMWER6VXliNHFGNEpiamE1bk1r?=
+ =?utf-8?B?eDI3TlFzN3dmRWIvYkdQZlpVa0hCUGE2dHNxMHU1TERVZkordDdnd003eitV?=
+ =?utf-8?B?NWh6VkgxakJndXVNYkQ0MWNaenI2aHoxYUR6OTJLQzNDUGpLV0RMVmd4c3ZV?=
+ =?utf-8?B?aFZwNGVEZjVNcWdJUzhTTFlNdDFDZ3pFaFl6U1ZQbktVb1crTG5FRDJiTWRZ?=
+ =?utf-8?B?dWYvVGRlT285dmtuK3VnM3BraEg0b3NGRVM2NVFMQ0NIaTlja0NLc1RRRzhR?=
+ =?utf-8?B?dC9oMFRpWkthRjBTNkl0S2JJcXkzNDRSMEM0N21nckx2bXdBcDlxemlFQlBs?=
+ =?utf-8?B?R3grRWl2Y3NYcHR6ZStKQi8vRW41ZU9tRExRWFQ5NkpTWFlxeVZVOVpKWnJN?=
+ =?utf-8?B?eUVhVHRCOWEzU0xSS2NUdmtKU3Q5NDI2WEFQVW53ZlI3Vjl4T0x0TERwY0ND?=
+ =?utf-8?B?b1p0T3VjUWNsLzUzZWMvaXZOL2FUN254YnRzajd5cmxpSmlSQzFKNG5DMm4v?=
+ =?utf-8?B?L1dmckNSbFRwdTVvdjVOcTNqaE1MSHlGUlVVbWREQVF6bUlDdUNVTmZmNkcz?=
+ =?utf-8?B?aENMK3Q1dkhkUld2NkV6U3c0V0FRMlFENWtrQ1NoUzRjb2JoTWV0bTRKNXZD?=
+ =?utf-8?B?VUp3NHprcnQwL1ZvK1M2ajlLcmh0RmhMWFlSMUdpeFpoWGpDWklMaTU3TlNH?=
+ =?utf-8?Q?WqxNex6S6RAkvUk+0Dv2pfBd6?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b067dd8e-a99f-4414-387b-08dd5af50940
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3e7219cf-5274-41d6-6e0c-08dd5ad38e06
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Mar 2025 04:18:02.3789
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Mar 2025 08:17:42.6846
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR02MB10184
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dxdX3GLUOBdeQRxd5tqgsQWKdRll6Za3ePSXgfWSTIru3LuJJVyAGZXqMcVfpviU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6747
 
-From: Sean Christopherson <seanjc@google.com> Sent: Wednesday, February 26,=
- 2025 6:19 PM
->=20
-> Add a "tsc_properties" set of flags and use it to annotate whether the
-> TSC operates at a known and/or reliable frequency when registering a
-> paravirtual TSC calibration routine.  Currently, each PV flow manually
-> sets the associated feature flags, but often in haphazard fashion that
-> makes it difficult for unfamiliar readers to see the properties of the
-> TSC when running under a particular hypervisor.
->=20
-> The other, bigger issue with manually setting the feature flags is that
-> it decouples the flags from the calibration routine.  E.g. in theory, PV
-> code could mark the TSC as having a known frequency, but then have its
-> PV calibration discarded in favor of a method that doesn't use that known
-> frequency.  Passing the TSC properties along with the calibration routine
-> will allow adding sanity checks to guard against replacing a "better"
-> calibration routine with a "worse" routine.
->=20
-> As a bonus, the flags also give developers working on new PV code a heads
-> up that they should at least mark the TSC as having a known frequency.
->=20
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> ---
->  arch/x86/coco/sev/core.c       |  6 ++----
->  arch/x86/coco/tdx/tdx.c        |  7 ++-----
->  arch/x86/include/asm/tsc.h     |  8 +++++++-
->  arch/x86/kernel/cpu/acrn.c     |  4 ++--
->  arch/x86/kernel/cpu/mshyperv.c | 10 +++++++---
->  arch/x86/kernel/cpu/vmware.c   |  7 ++++---
->  arch/x86/kernel/jailhouse.c    |  4 ++--
->  arch/x86/kernel/kvmclock.c     |  4 ++--
->  arch/x86/kernel/tsc.c          |  8 +++++++-
->  arch/x86/xen/time.c            |  4 ++--
->  10 files changed, 37 insertions(+), 25 deletions(-)
->=20
-> diff --git a/arch/x86/coco/sev/core.c b/arch/x86/coco/sev/core.c
-> index dab386f782ce..29dd50552715 100644
-> --- a/arch/x86/coco/sev/core.c
-> +++ b/arch/x86/coco/sev/core.c
-> @@ -3284,12 +3284,10 @@ void __init snp_secure_tsc_init(void)
->  {
->  	unsigned long long tsc_freq_mhz;
->=20
-> -	setup_force_cpu_cap(X86_FEATURE_TSC_KNOWN_FREQ);
-> -	setup_force_cpu_cap(X86_FEATURE_TSC_RELIABLE);
-> -
->  	rdmsrl(MSR_AMD64_GUEST_TSC_FREQ, tsc_freq_mhz);
->  	snp_tsc_freq_khz =3D (unsigned long)(tsc_freq_mhz * 1000);
->=20
->  	tsc_register_calibration_routines(securetsc_get_tsc_khz,
-> -					  securetsc_get_tsc_khz);
-> +					  securetsc_get_tsc_khz,
-> +					  TSC_FREQ_KNOWN_AND_RELIABLE);
->  }
-> diff --git a/arch/x86/coco/tdx/tdx.c b/arch/x86/coco/tdx/tdx.c
-> index 42cdaa98dc5e..ca31560d0dd3 100644
-> --- a/arch/x86/coco/tdx/tdx.c
-> +++ b/arch/x86/coco/tdx/tdx.c
-> @@ -1135,14 +1135,11 @@ static unsigned long tdx_get_tsc_khz(void)
->=20
->  void __init tdx_tsc_init(void)
->  {
-> -	/* TSC is the only reliable clock in TDX guest */
-> -	setup_force_cpu_cap(X86_FEATURE_TSC_RELIABLE);
-> -	setup_force_cpu_cap(X86_FEATURE_TSC_KNOWN_FREQ);
-> -
->  	/*
->  	 * Override the PV calibration routines (if set) with more trustworthy
->  	 * CPUID-based calibration.  The TDX module emulates CPUID, whereas any
->  	 * PV information is provided by the hypervisor.
->  	 */
-> -	tsc_register_calibration_routines(tdx_get_tsc_khz, NULL);
-> +	tsc_register_calibration_routines(tdx_get_tsc_khz, NULL,
-> +					  TSC_FREQ_KNOWN_AND_RELIABLE);
->  }
-> diff --git a/arch/x86/include/asm/tsc.h b/arch/x86/include/asm/tsc.h
-> index 9318c74e8d13..360f47610258 100644
-> --- a/arch/x86/include/asm/tsc.h
-> +++ b/arch/x86/include/asm/tsc.h
-> @@ -41,8 +41,14 @@ extern int cpuid_get_cpu_freq(unsigned int *cpu_khz);
->  extern void tsc_early_init(void);
->  extern void tsc_init(void);
->  #if defined(CONFIG_HYPERVISOR_GUEST) || defined(CONFIG_AMD_MEM_ENCRYPT)
-> +enum tsc_properties {
-> +	TSC_FREQUENCY_KNOWN	=3D BIT(0),
-> +	TSC_RELIABLE		=3D BIT(1),
-> +	TSC_FREQ_KNOWN_AND_RELIABLE =3D TSC_FREQUENCY_KNOWN | TSC_RELIABLE,
-> +};
->  extern void tsc_register_calibration_routines(unsigned long (*calibrate_=
-tsc)(void),
-> -					      unsigned long (*calibrate_cpu)(void));
-> +					      unsigned long (*calibrate_cpu)(void),
-> +					      enum tsc_properties properties);
->  #endif
->  extern void mark_tsc_unstable(char *reason);
->  extern int unsynchronized_tsc(void);
-> diff --git a/arch/x86/kernel/cpu/acrn.c b/arch/x86/kernel/cpu/acrn.c
-> index 2da3de4d470e..4f2f4f7ec334 100644
-> --- a/arch/x86/kernel/cpu/acrn.c
-> +++ b/arch/x86/kernel/cpu/acrn.c
-> @@ -29,9 +29,9 @@ static void __init acrn_init_platform(void)
->  	/* Install system interrupt handler for ACRN hypervisor callback */
->  	sysvec_install(HYPERVISOR_CALLBACK_VECTOR, sysvec_acrn_hv_callback);
->=20
-> -	setup_force_cpu_cap(X86_FEATURE_TSC_KNOWN_FREQ);
->  	tsc_register_calibration_routines(acrn_get_tsc_khz,
-> -					  acrn_get_tsc_khz);
-> +					  acrn_get_tsc_khz,
-> +					  TSC_FREQUENCY_KNOWN);
->  }
->=20
->  static bool acrn_x2apic_available(void)
-> diff --git a/arch/x86/kernel/cpu/mshyperv.c b/arch/x86/kernel/cpu/mshyper=
-v.c
-> index 174f6a71c899..445ac3adfebc 100644
-> --- a/arch/x86/kernel/cpu/mshyperv.c
-> +++ b/arch/x86/kernel/cpu/mshyperv.c
-> @@ -421,8 +421,13 @@ static void __init ms_hyperv_init_platform(void)
->=20
->  	if (ms_hyperv.features & HV_ACCESS_FREQUENCY_MSRS &&
->  	    ms_hyperv.misc_features & HV_FEATURE_FREQUENCY_MSRS_AVAILABLE) {
-> -		tsc_register_calibration_routines(hv_get_tsc_khz, hv_get_tsc_khz);
-> -		setup_force_cpu_cap(X86_FEATURE_TSC_KNOWN_FREQ);
-> +		enum tsc_properties tsc_properties =3D TSC_FREQUENCY_KNOWN;
-> +
-> +		if (ms_hyperv.features & HV_ACCESS_TSC_INVARIANT)
-> +			tsc_properties =3D TSC_FREQ_KNOWN_AND_RELIABLE;
-> +
-> +		tsc_register_calibration_routines(hv_get_tsc_khz, hv_get_tsc_khz,
-> +						  tsc_properties);
->  	}
 
-For the Hyper-V guest code,
 
-Reviewed-by: Michael Kelley <mhklinux@outlook.com>
-Tested-by: Michael Kelley <mhklinux@outlook.com>
+On 26/02/2025 22:52, Luca Fancellu wrote:
+> 
+> 
+> Currently the early stage of the Arm boot maps the DTB using
+> early_fdt_map() using PAGE_HYPERVISOR_RO which is cacheable
+> read-only memory, later during DTB relocation the function
+> copy_from_paddr() is used to map pages in the same range on
+> the fixmap but using PAGE_HYPERVISOR_WC which is non-cacheable
+> read-write memory.
+> 
+> The Arm specifications, ARM DDI0487L.a, section B2.11 "Mismatched
+> memory attributes" discourage using mismatched attributes for
+> aliases of the same location.
+> 
+> Given that there is nothing preventing the relocation since the region
+> is already mapped, fix that by open-coding copy_from_paddr inside
+> relocate_fdt, without mapping on the fixmap.
+> 
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
->=20
->  	if (ms_hyperv.priv_high & HV_ISOLATION) {
-> @@ -525,7 +530,6 @@ static void __init ms_hyperv_init_platform(void)
->  		 * is called.
->  		 */
->  		wrmsrl(HV_X64_MSR_TSC_INVARIANT_CONTROL,
-> HV_EXPOSE_INVARIANT_TSC);
-> -		setup_force_cpu_cap(X86_FEATURE_TSC_RELIABLE);
->  	}
->=20
->  	/*
-> diff --git a/arch/x86/kernel/cpu/vmware.c b/arch/x86/kernel/cpu/vmware.c
-> index 399cf3286a60..a3a71309214c 100644
-> --- a/arch/x86/kernel/cpu/vmware.c
-> +++ b/arch/x86/kernel/cpu/vmware.c
-> @@ -385,10 +385,10 @@ static void __init vmware_paravirt_ops_setup(void)
->   */
->  static void __init vmware_set_capabilities(void)
->  {
-> +	/* TSC is non-stop and reliable even if the frequency isn't known. */
->  	setup_force_cpu_cap(X86_FEATURE_CONSTANT_TSC);
->  	setup_force_cpu_cap(X86_FEATURE_TSC_RELIABLE);
-> -	if (vmware_tsc_khz)
-> -		setup_force_cpu_cap(X86_FEATURE_TSC_KNOWN_FREQ);
-> +
->  	if (vmware_hypercall_mode =3D=3D CPUID_VMWARE_FEATURES_ECX_VMCALL)
->  		setup_force_cpu_cap(X86_FEATURE_VMCALL);
->  	else if (vmware_hypercall_mode =3D=3D CPUID_VMWARE_FEATURES_ECX_VMMCALL=
-)
-> @@ -417,7 +417,8 @@ static void __init vmware_platform_setup(void)
->=20
->  		vmware_tsc_khz =3D tsc_khz;
->  		tsc_register_calibration_routines(vmware_get_tsc_khz,
-> -						  vmware_get_tsc_khz);
-> +						  vmware_get_tsc_khz,
-> +						  TSC_FREQ_KNOWN_AND_RELIABLE);
->=20
->  #ifdef CONFIG_X86_LOCAL_APIC
->  		/* Skip lapic calibration since we know the bus frequency. */
-> diff --git a/arch/x86/kernel/jailhouse.c b/arch/x86/kernel/jailhouse.c
-> index b0a053692161..d73a4d0fb118 100644
-> --- a/arch/x86/kernel/jailhouse.c
-> +++ b/arch/x86/kernel/jailhouse.c
-> @@ -218,7 +218,8 @@ static void __init jailhouse_init_platform(void)
->=20
->  	machine_ops.emergency_restart		=3D jailhouse_no_restart;
->=20
-> -	tsc_register_calibration_routines(jailhouse_get_tsc, jailhouse_get_tsc)=
-;
-> +	tsc_register_calibration_routines(jailhouse_get_tsc, jailhouse_get_tsc,
-> +					  TSC_FREQUENCY_KNOWN);
->=20
->  	while (pa_data) {
->  		mapping =3D early_memremap(pa_data, sizeof(header));
-> @@ -256,7 +257,6 @@ static void __init jailhouse_init_platform(void)
->  	pr_debug("Jailhouse: PM-Timer IO Port: %#x\n", pmtmr_ioport);
->=20
->  	precalibrated_tsc_khz =3D setup_data.v1.tsc_khz;
-> -	setup_force_cpu_cap(X86_FEATURE_TSC_KNOWN_FREQ);
->=20
->  	pci_probe =3D 0;
->=20
-> diff --git a/arch/x86/kernel/kvmclock.c b/arch/x86/kernel/kvmclock.c
-> index 1dbe12ecb26e..ce676e735ced 100644
-> --- a/arch/x86/kernel/kvmclock.c
-> +++ b/arch/x86/kernel/kvmclock.c
-> @@ -199,7 +199,6 @@ void kvmclock_cpu_action(enum kvm_guest_cpu_action ac=
-tion)
->   */
->  static unsigned long kvm_get_tsc_khz(void)
->  {
-> -	setup_force_cpu_cap(X86_FEATURE_TSC_KNOWN_FREQ);
->  	return pvclock_tsc_khz(this_cpu_pvti());
->  }
->=20
-> @@ -403,7 +402,8 @@ void __init kvmclock_init(void)
->=20
->  	kvm_sched_clock_init(stable);
->=20
-> -	tsc_register_calibration_routines(kvm_get_tsc_khz, kvm_get_tsc_khz);
-> +	tsc_register_calibration_routines(kvm_get_tsc_khz, kvm_get_tsc_khz,
-> +					  TSC_FREQUENCY_KNOWN);
->=20
->  	x86_platform.get_wallclock =3D kvm_get_wallclock;
->  	x86_platform.set_wallclock =3D kvm_set_wallclock;
-> diff --git a/arch/x86/kernel/tsc.c b/arch/x86/kernel/tsc.c
-> index 5501d76243c8..be58df4fef66 100644
-> --- a/arch/x86/kernel/tsc.c
-> +++ b/arch/x86/kernel/tsc.c
-> @@ -1301,11 +1301,17 @@ static void __init check_system_tsc_reliable(void=
-)
->   */
->  #if defined(CONFIG_HYPERVISOR_GUEST) || defined(CONFIG_AMD_MEM_ENCRYPT)
->  void tsc_register_calibration_routines(unsigned long (*calibrate_tsc)(vo=
-id),
-> -				       unsigned long (*calibrate_cpu)(void))
-> +				       unsigned long (*calibrate_cpu)(void),
-> +				       enum tsc_properties properties)
->  {
->  	if (WARN_ON_ONCE(!calibrate_tsc))
->  		return;
->=20
-> +	if (properties & TSC_FREQUENCY_KNOWN)
-> +		setup_force_cpu_cap(X86_FEATURE_TSC_KNOWN_FREQ);
-> +	if (properties & TSC_RELIABLE)
-> +		setup_force_cpu_cap(X86_FEATURE_TSC_RELIABLE);
-> +
->  	x86_platform.calibrate_tsc =3D calibrate_tsc;
->  	if (calibrate_cpu)
->  		x86_platform.calibrate_cpu =3D calibrate_cpu;
-> diff --git a/arch/x86/xen/time.c b/arch/x86/xen/time.c
-> index 13e5888c4501..4de06ea55397 100644
-> --- a/arch/x86/xen/time.c
-> +++ b/arch/x86/xen/time.c
-> @@ -40,7 +40,6 @@ static unsigned long xen_tsc_khz(void)
->  	struct pvclock_vcpu_time_info *info =3D
->  		&HYPERVISOR_shared_info->vcpu_info[0].time;
->=20
-> -	setup_force_cpu_cap(X86_FEATURE_TSC_KNOWN_FREQ);
->  	return pvclock_tsc_khz(info);
->  }
->=20
-> @@ -571,7 +570,8 @@ static void __init xen_init_time_common(void)
->  	 */
->  	paravirt_set_sched_clock(xen_sched_clock, NULL, NULL);
->=20
-> -	tsc_register_calibration_routines(xen_tsc_khz, NULL);
-> +	tsc_register_calibration_routines(xen_tsc_khz, NULL,
-> +					  TSC_FREQUENCY_KNOWN);
->  	x86_platform.get_wallclock =3D xen_get_wallclock;
->  }
->=20
-> --
-> 2.48.1.711.g2feabab25a-goog
->=20
+~Michal
 
 
