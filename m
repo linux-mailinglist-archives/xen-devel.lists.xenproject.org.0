@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81FB4A4DF08
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Mar 2025 14:18:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.901132.1309114 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CC07A4DF19
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Mar 2025 14:23:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.901142.1309124 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpSA2-0005F5-Bk; Tue, 04 Mar 2025 13:18:14 +0000
+	id 1tpSEz-00006L-U7; Tue, 04 Mar 2025 13:23:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 901132.1309114; Tue, 04 Mar 2025 13:18:14 +0000
+Received: by outflank-mailman (output) from mailman id 901142.1309124; Tue, 04 Mar 2025 13:23:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpSA2-0005DN-8f; Tue, 04 Mar 2025 13:18:14 +0000
-Received: by outflank-mailman (input) for mailman id 901132;
- Tue, 04 Mar 2025 13:18:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tpSEz-0008VS-R1; Tue, 04 Mar 2025 13:23:21 +0000
+Received: by outflank-mailman (input) for mailman id 901142;
+ Tue, 04 Mar 2025 13:23:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=QBId=VX=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1tpSA1-0005DH-1t
- for xen-devel@lists.xenproject.org; Tue, 04 Mar 2025 13:18:13 +0000
-Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
- [2001:4860:4864:20::33])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1ee26c42-f8fb-11ef-9ab4-95dc52dad729;
- Tue, 04 Mar 2025 14:18:12 +0100 (CET)
-Received: by mail-oa1-x33.google.com with SMTP id
- 586e51a60fabf-2c19509639eso660518fac.0
- for <xen-devel@lists.xenproject.org>; Tue, 04 Mar 2025 05:18:11 -0800 (PST)
+ id 1tpSEy-0008VM-KS
+ for xen-devel@lists.xenproject.org; Tue, 04 Mar 2025 13:23:20 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d606aa11-f8fb-11ef-9898-31a8f345e629;
+ Tue, 04 Mar 2025 14:23:18 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-43bc638686eso11251965e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 04 Mar 2025 05:23:18 -0800 (PST)
+Received: from localhost.localdomain (172.74.6.51.dyn.plus.net. [51.6.74.172])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43aba5710f6sm234888765e9.29.2025.03.04.05.23.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 04 Mar 2025 05:23:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,187 +45,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1ee26c42-f8fb-11ef-9ab4-95dc52dad729
+X-Inumbo-ID: d606aa11-f8fb-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1741094290; x=1741699090; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1741094598; x=1741699398; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=cjhupSRthIewKVU6xizNO2GzUe9kIDLQKoXcQLy3CAM=;
-        b=QoaQ5WwOAcMT/cy2SNvuHVDpQvKBnpfHQFumKOwQSJqB4cif4rSPmEi5/rSKLhf1Rx
-         772gZUKXJSt3JXMR9yd3a2B4D4Ryfzbkj1jqkeV3hObO5ET6qxMgPAUzMPlrcqQI4kM0
-         rgTVyc1KDSl+5BjPOHxZJNsJhEOXiioqYJPnI=
+        bh=I1uscNqFaFtz43eRgY1wNwFVffA/ar3ed9Rc6ucAINU=;
+        b=adrMNRMrObsH0ykEwyUaeZ1yU3QdAl6XSMSEoJXWhTcvMtI25u1fOV/CpzsyvcAsrT
+         N0wh28GKO1/NLHN6h8NPG8GwsZbK/GN2wYwBMvEyVl9bfNG+tHBmkHnOzxxlV23Bn6D8
+         O98Vk+QveoG3QHKQy2+J2a/jWnBtAW6B9po7k=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741094290; x=1741699090;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20230601; t=1741094598; x=1741699398;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=cjhupSRthIewKVU6xizNO2GzUe9kIDLQKoXcQLy3CAM=;
-        b=nRvEp+DIYn4R5fxOVQALiMWNtW/CEt1/zErEvYTlEUpFFGGqt08CBNw9l8dyTWAzRs
-         XZy17tCSx1lKkicTOJP25F6mLwu6GbR4YKvIcAmDFgF6Og88hEUtr6qe2Ri8HkFEeTjk
-         JnoNcLWPxuFZ61h7sesHRECkNlZwvdQoUQdDFcvlUJ2X1/3RBTtsnpZrMO8K4GHurUV6
-         eDV0QUB5TsFhjnzbN3OdKJFqr66kJH4KCbyHTE0kK00RrdWmJQLS3uFzD7SNwVmrmiUO
-         7wNrJNW6/46JHDNW+J6uVWfYcf7P8ObdcFg7k0TIN9xkVVtNrznYIwRsx+Cf+k2qMY/B
-         KqCA==
-X-Forwarded-Encrypted: i=1; AJvYcCWPsq4RZ7Xou+spmpXSvP5g4f7AwA/x5I2CqHaEm2x3UZzR9zt7clWleefakQgX70tsaOaWQ6AAbzU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxIH8mg9n4NywysfQvJV3ykMeo6MMNsBhzAU16tO+MIZt3IrrRI
-	ukICrstlUetpDSNsHPDzXdkx2rknT71ewVBztdREwEku9NBLSdoF131vuYLnnFyZ7DAWYBMFuoh
-	SHVo4IUz1ao5+j36ZUSojmjffzlodUySIV/keug==
-X-Gm-Gg: ASbGnctcggocFGtLQW4CUUrWgwJ3tMTKRHcLwIo8JQdz7hXZT9rDfaD8NNqZ6xDjdud
-	/hkRYeQKU0qSELdf7UbhrP+kMrwUAy30sNztRULW+B7R0hTu3j8GlBNQIxHZn/t355gUA17xMDc
-	njTA+LIpE4IpQqWGAvU7m4KY8b
-X-Google-Smtp-Source: AGHT+IE5RZIuJUdNzds0TsdmVE0L47YKdf0cbIo1Q6UdOVq7ZHnAGO7fY3ZLTKtxO64NqkI1mdHA+J5lpOFp5RjrxSk=
-X-Received: by 2002:a05:6870:65a0:b0:2c1:b217:59ac with SMTP id
- 586e51a60fabf-2c1b2177f4fmr5760953fac.23.1741094290413; Tue, 04 Mar 2025
- 05:18:10 -0800 (PST)
-MIME-Version: 1.0
-References: <20250228152100.23105-1-frediano.ziglio@cloud.com>
- <D87ENZNEBN2Z.1E8WKX6K8EUE1@cloud.com> <Z8bfMmM5CJ5PQdhm@macbook.local>
- <CACHz=ZgmBxNKjA7KFktk-5jcPvWDn6DWpwCUEFzGO9qyJYuZsA@mail.gmail.com> <Z8byRwON4Oc23dxS@macbook.local>
-In-Reply-To: <Z8byRwON4Oc23dxS@macbook.local>
+        bh=I1uscNqFaFtz43eRgY1wNwFVffA/ar3ed9Rc6ucAINU=;
+        b=X4CqEufTkQ3/KPUCSlnjsjeyZO18NMFFVX4v/AeXJNuI6rPQVjDbof3bqlo7WZ4v+w
+         vGbUcwBJwh1+ivXJc7Jx/jjhgpP5C9Chp1C0Gg1DqPZ1a0WmmOvwFMfLIzBl8q68mT+e
+         IHCMQWpZGIqfsd0wZHU3qEDoNj2ALJh9ySqWUktknXoAnmG+VKPHH41RwfAxO6pp88tz
+         kICUQ+3nPLNmvF6nchPyIh4rn5ExXQcSAybrnEugpKRzP2XUtpqlVy1ljpGmQdXkTk3a
+         OxOiKjKubsTiUy3WRl/pFwi6vnrLwsDPbipuY0/iwOxvs6Jk/DeqA1UW+Th9QbRlpD7l
+         rlqw==
+X-Gm-Message-State: AOJu0Yz1IpO+1fe0qWopYlBON+/BE5rTq4GU0QvqwAIYSh2fQeehBSa9
+	/TE54fMgXUsOMgVUhBXCy3KoTSuUjcLVnzqZCnG0COBrogE8TJRFtWIixQNnXxVbA5qUGlZAbXF
+	T
+X-Gm-Gg: ASbGncvsYHysC29ZVOys28oYvNOO41Xbi6nwsiwKt5yo7p4ID5Npo4OUF6rEsBgdFco
+	altw32TZiSfqpaOqRf1MEq2iIoLt53GtwMvsYehxTSWj17MWIUXBQK6Mo8T5JX/9CddF+p4LxLk
+	WRLZ9PFbofZpASGcEd2IDBFtPZCfl5XLop4NKqElIXDVkNOch2Azz//3Xmfm32eLO4H8y+W4ORX
+	c9Ddgfgh9eLIeltFcYLT4pXEi/xVS+v/t6Qoh5OyDMEYRIT8Es8Il7dPZWut1OUADM5ZfrJVEKl
+	mj8H8lPMzb789EATl6Ifd6DrKS/gNiGeUY2dbbnUHZZdU5KqcEjGaokkXDWgWG7Fomui/gUAnqG
+	a7HL35Gre1w==
+X-Google-Smtp-Source: AGHT+IHf99zJA6gc6my3UzUPsv1ZdlLiru2rHyzOho1fFKvDyp60c8sgQpLuwIZw3nK34y/NsmMQWQ==
+X-Received: by 2002:a05:600c:3c98:b0:439:98fd:a4b6 with SMTP id 5b1f17b1804b1-43bcb04c074mr27208325e9.15.1741094597631;
+        Tue, 04 Mar 2025 05:23:17 -0800 (PST)
 From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Tue, 4 Mar 2025 13:17:58 +0000
-X-Gm-Features: AQ5f1JqKgF0tnyWQT7YjQCTfXXrOGbJWa6XEDRkEezhS8jHqQImGI3lrGzPrvjk
-Message-ID: <CACHz=ZgTBf_=x8-myVHRnCYqF+VBCVwZ8rd83E9r=Ec8tLL+hw@mail.gmail.com>
-Subject: Re: [PATCH] docs: Add some details on XenServer PCI devices
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>, xen-devel@lists.xenproject.org, 
-	Anthony PERARD <anthony.perard@vates.tech>, Andrew Cooper <andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+To: xen-devel@lists.xenproject.org
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Subject: [PATCH v2] docs: Add some details on XenServer PCI devices
+Date: Tue,  4 Mar 2025 13:22:53 +0000
+Message-Id: <20250304132253.23955-1-frediano.ziglio@cloud.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250228152100.23105-1-frediano.ziglio@cloud.com>
+References: <20250228152100.23105-1-frediano.ziglio@cloud.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, Mar 4, 2025 at 12:30=E2=80=AFPM Roger Pau Monn=C3=A9 <roger.pau@cit=
-rix.com> wrote:
->
-> On Tue, Mar 04, 2025 at 11:17:42AM +0000, Frediano Ziglio wrote:
-> > On Tue, Mar 4, 2025 at 11:08=E2=80=AFAM Roger Pau Monn=C3=A9 <roger.pau=
-@citrix.com> wrote:
-> > >
-> > > On Tue, Mar 04, 2025 at 10:21:52AM +0000, Alejandro Vallejo wrote:
-> > > > Hi,
-> > > >
-> > > > On Fri Feb 28, 2025 at 3:21 PM GMT, Frediano Ziglio wrote:
-> > > > > Describe the usage of devices 5853:0002 and 5853:C000.
-> > > > >
-> > > > > Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-> > > > > ---
-> > > > >  docs/man/xen-pci-device-reservations.7.pod | 9 +++++++++
-> > > > >  1 file changed, 9 insertions(+)
-> > > > >
-> > > > > diff --git a/docs/man/xen-pci-device-reservations.7.pod b/docs/ma=
-n/xen-pci-device-reservations.7.pod
-> > > > > index 9ddf3a18ad..62f3bd2105 100644
-> > > > > --- a/docs/man/xen-pci-device-reservations.7.pod
-> > > > > +++ b/docs/man/xen-pci-device-reservations.7.pod
-> > > > > @@ -10,6 +10,8 @@ use of this is with device ID 0x0001 to adverti=
-se the Xen Platform PCI
-> > > > >  device - the presence of this virtual device enables a guest Ope=
-rating
-> > > > >  System (subject to the availability of suitable drivers) to make=
- use of
-> > > > >  paravirtualisation features such as disk and network devices etc=
-.
-> > > > > +XenServer, for Windows machines, presents Xen Platform device wi=
-th device
-> > > > > +ID 0x0002 instead of 0x0001.
-> > > >
-> > > > nit: in the interest of future-proofing the doc 's/presents/may pre=
-sent/'?
-> > > >
-> > > > >
-> > > > >  Some Xen vendors wish to provide alternative and/or additional g=
-uest drivers
-> > > > >  that can bind to virtual devices[1]. This may be done using the =
-Xen PCI
-> > > > > @@ -86,4 +88,11 @@ and unplug protocol.
-> > > > >  libxl provides support for creation of a single additional xen-p=
-vdevice.
-> > > > >  See the vendor_device parameter in xl.cfg(5).
-> > > > >
-> > > > > +=3Ditem 2.
-> > > > > +
-> > > > > +XenServer, for Windows machines, presents a device with ID 0xC00=
-0.
-> > > > > +This device is a placeholders for Windows update.
-> > > > > +Device 0xC000 is presented with a Xen Platform PCI device, usual=
-ly with ID
-> > > > > +0x0002.
-> > > > > +
-> > > > >  =3Dback
-> > > >
-> > > > Wouldn't this be better covered under "=3Ditem 1"? Device 0xc000 is=
- a
-> > > > xen-pvdevice, so it could be simplified to a single line of "XenSer=
-ver uses
-> > > > device-id=3D0xc000 for its pvdevice on Windows guests", or somethin=
-g like that.
-> > >
-> > > I think it's important to note that c000 always appears in conjunctio=
-n
-> > > with 0001 or 0002, and it's not a replacement for either of those
-> > > devices.
-> > >
-> >
-> > Do you have something more precise in mind? Can you suggest what to wri=
-te?
->
-> I'm fine with your proposed text, my reply was to Alejandro to note
-> that I think his proposed text was missing information that was on
-> your original proposal.
->
-> "XenServer might present a device with ID 0xC000.  Such device is a
-> placeholder for Windows update usage and is always exposed in
-> conjunction with a Xen Platform PCI device, usually with ID 0x0002."
->
-> I don't care much whether this is on a separate item or not.  My
-> preference would be for adding a second item, as to prevent cluttering
-> the first one.
->
-> I've also looked at xl.cfg, and it mentions:
->
-> vendor_device=3D"VENDOR_DEVICE"
->
-> Selects which variant of the QEMU xen-pvdevice should be used for this
-> guest. Valid values are:
->
->   none The xen-pvdevice should be omitted. This is the default.
->
->   xenserver The xenserver variant of the xen-pvdevice (device-id=3DC000)
->   will be specified, enabling the use of XenServer PV drivers in the
->   guest.
->
-> Isn't this wrong, as selecting `xenserver` should instead use
-> device-id=3D0002 but not C000?  Maybe I'm not understanding how this is
-> supported to work.
->
+Describe the usage of devices 5853:0002 and 5853:C000.
 
-No, the device is correct, it should be C000. 0002 is a xen platform
-device, C000 is a xen-pvdevice device.
-Apparently device 0002 was the first attempt to make Windows update
-pick up Citrix drivers on Windows, C000 is the final attempt.
-Note that recently released XCP-ng signed drivers are supporting both
-devices 0001 and 0002 (I hope this sentence does not cause more
-questions than answers).
+Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+---
+Changes since v1:
+- address minor comments
+---
+ docs/man/xen-pci-device-reservations.7.pod | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-> > > Likewise it's important to note that 0001 and 0002 are to my
-> > > understanding mutually exclusive, and only one of those must be
-> > > exposed.
-> >
-> > Not exactly sure if this is a must or a should. From my testing,
-> > presenting 2 devices (well, they are mostly the same) works. But, as
-> > they do the same things it seems reasonable to avoid the duplication.
-> > It looks like a good recommendation.
->
-> I was expecting it to not work, as I imagined Linux would then attempt
-> to initialize the grant tables twice for example.
->
+diff --git a/docs/man/xen-pci-device-reservations.7.pod b/docs/man/xen-pci-device-reservations.7.pod
+index 9ddf3a18ad..adc325069c 100644
+--- a/docs/man/xen-pci-device-reservations.7.pod
++++ b/docs/man/xen-pci-device-reservations.7.pod
+@@ -10,6 +10,9 @@ use of this is with device ID 0x0001 to advertise the Xen Platform PCI
+ device - the presence of this virtual device enables a guest Operating
+ System (subject to the availability of suitable drivers) to make use of
+ paravirtualisation features such as disk and network devices etc.
++XenServer, for Windows machines, may present Xen Platform device with device
++ID 0x0002 instead of 0x0001. Device 0x0001 and 0x0002 should be mutually
++exclusive.
+ 
+ Some Xen vendors wish to provide alternative and/or additional guest drivers
+ that can bind to virtual devices[1]. This may be done using the Xen PCI
+@@ -86,4 +89,8 @@ and unplug protocol.
+ libxl provides support for creation of a single additional xen-pvdevice.
+ See the vendor_device parameter in xl.cfg(5).
+ 
++XenServer might present a xen-pvdevice device with ID 0xC000.
++Such device is a placeholder for Windows update usage and is always exposed
++in conjunction with a Xen Platform PCI device, usually with ID 0x0002
++
+ =back
+-- 
+2.34.1
 
-That's the reason why not to present 2 of these devices. But one would
-override the other and everything should work even on Linux.
-
-> Thanks, Roger.
-
-Preparing a v2.
-
-Frediano
 
