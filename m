@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B687A4ECDB
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Mar 2025 20:10:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.901454.1309409 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78242A4ED24
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Mar 2025 20:20:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.901466.1309419 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpXe0-0007XJ-E4; Tue, 04 Mar 2025 19:09:32 +0000
+	id 1tpXoP-0001fC-BX; Tue, 04 Mar 2025 19:20:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 901454.1309409; Tue, 04 Mar 2025 19:09:32 +0000
+Received: by outflank-mailman (output) from mailman id 901466.1309419; Tue, 04 Mar 2025 19:20:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpXe0-0007Vt-BM; Tue, 04 Mar 2025 19:09:32 +0000
-Received: by outflank-mailman (input) for mailman id 901454;
- Tue, 04 Mar 2025 19:09:31 +0000
+	id 1tpXoP-0001cR-8t; Tue, 04 Mar 2025 19:20:17 +0000
+Received: by outflank-mailman (input) for mailman id 901466;
+ Tue, 04 Mar 2025 19:20:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vBJn=VX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tpXdz-0007Vl-2V
- for xen-devel@lists.xenproject.org; Tue, 04 Mar 2025 19:09:31 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ id 1tpXoN-0001cL-6F
+ for xen-devel@lists.xenproject.org; Tue, 04 Mar 2025 19:20:15 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2f1dccbb-f92c-11ef-9898-31a8f345e629;
- Tue, 04 Mar 2025 20:09:24 +0100 (CET)
+ id afe79483-f92d-11ef-9898-31a8f345e629;
+ Tue, 04 Mar 2025 20:20:10 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 22F3BA45C72;
- Tue,  4 Mar 2025 19:03:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D918C4CEE5;
- Tue,  4 Mar 2025 19:09:21 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id B7C6B5C62E9;
+ Tue,  4 Mar 2025 19:17:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35B87C4CEE9;
+ Tue,  4 Mar 2025 19:20:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,140 +41,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2f1dccbb-f92c-11ef-9898-31a8f345e629
+X-Inumbo-ID: afe79483-f92d-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1741115362;
-	bh=FR4pwLReWGnkxv8J+Lnfrgkv2pcuahFC0Q/UVMZZguI=;
+	s=k20201202; t=1741116008;
+	bh=Z5BIBaNIwH+oGY3G4OBh0J7GxqSN8Jy13TFVHCtWKUc=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=RYG1kAiJyX1rhaWPZ53NGL2HcelBZbm8mlRBTO6KzOqBmCdELL76dWKbYg/xmliOP
-	 RcWHXOvJq/BYi/S4aq8jCeimbnsO0MumZIGkV08xHrhLmjyHEXX+JPFHjLEHbMMetm
-	 ACj1Pk0RWrNL8VFsCeSYYRwIW35S/QEgectouvPQZEs/nanuZMCtc/wQcP3MYmyQ/X
-	 lvxO5xDg00SMGhsNO740QczlWsjwbntUIGLqTsdPgU+ctPD1qt9GtwobGkEvHWBVOQ
-	 GoVp6vwQGA6o53jmg9Y+W9/YB10HAFKPcLEPNZPECRCMqaYISa5tLzVUQRHNXDVlcP
-	 81ohMbEpFwChg==
-Date: Tue, 4 Mar 2025 11:09:20 -0800 (PST)
+	b=BR1KCx0qx+HM0ToG0B/GW3e2rgGD6cZv83aA7MSZKpev/KuSBmpsZTBjt49laprDn
+	 xT6R3NKyobhyKb7wZKFMILr8UqdJeV8eOZg8Rnk59kO82YqEHR35vmwuH9zSJwPVDG
+	 BBrS78nItJgNKwYAatpdAQgszbt0He8PRUsM7+BUzAcWfoVHUBumLeYLQdcVKBg6a+
+	 zkNZTkBgSKzDIGJSjcHC7RY+xYMuIW7WfEtil+pOknbC99ElMxLwmfgSc02r+lK/E0
+	 X9p2ttxpLmldWeHQozFhhOVZ1eOI53GnNKXo9eIshNgxv1FJgnwP6jE8V5HhSn+fCU
+	 7loAGMNOBf6RA==
+Date: Tue, 4 Mar 2025 11:20:06 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Oleksandr Andrushchenko <andr2000@gmail.com>
-cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
-    Artem_Mygaiev@epam.com, jbeulich@suse.com, Luca.Fancellu@arm.com, 
-    roger.pau@citrix.com, marmarek@invisiblethingslab.com, 
-    andrew.cooper3@citrix.com, anthony.perard@vates.tech
-Subject: Re: [PATCH 0/4] clang-format with examples
-In-Reply-To: <20250301114242.93650-1-andr2000@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2503041109140.1303386@ubuntu-linux-20-04-desktop>
-References: <20250301114242.93650-1-andr2000@gmail.com>
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+cc: "Orzel, Michal" <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v3 2/2] xen/arm: Restrict Kconfig configuration for LLC
+ coloring
+In-Reply-To: <769DE9A1-0F3F-4564-9A37-0812ECCA3234@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2503041119450.1303386@ubuntu-linux-20-04-desktop>
+References: <20250218095130.2666580-1-luca.fancellu@arm.com> <20250218095130.2666580-3-luca.fancellu@arm.com> <eeb91fb4-ef2e-4f07-a1b8-1812f0371113@suse.com> <1133b3cc-4051-44d9-83ab-88c4c30f260a@amd.com> <4b31f272-2bb2-40d8-94d9-8137586b59fa@suse.com>
+ <769DE9A1-0F3F-4564-9A37-0812ECCA3234@arm.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-Hi Oleksandr,
+On Tue, 4 Mar 2025, Luca Fancellu wrote:
+> Hi,
+> 
+> > On 18 Feb 2025, at 15:06, Jan Beulich <jbeulich@suse.com> wrote:
+> > 
+> > On 18.02.2025 16:01, Orzel, Michal wrote:
+> >> On 18/02/2025 14:44, Jan Beulich wrote:
+> >>> On 18.02.2025 10:51, Luca Fancellu wrote:
+> >>>> LLC coloring can be used only on MMU system,
+> >>> 
+> >>> Just for my own education: Why is this?
+> >> I read this as it refers to the feature we have in Xen, not the generic concept.
+> >> You could in theory achieve cache coloring without MMU using static allocation
+> >> or some custom allocator but in general we benefit from being able to map VA
+> >> to PA aligning with cache coloring scheme.
+> > 
+> > Oh, okay. Then maybe the sentence would better be worded to express that
+> > it's our present choice, rather than an inherent limitation?
+> 
+> Is this better? Can be addressed on commit?
+> 
+> Xen LLC coloring feature can be used only on MMU system, move the code
+> that selects it from ARM_64 to MMU and add the ARM_64 dependency.
 
-I really appreciate the examples you provided; they were very
-enlightening regarding the way forward.
-
-Today we discussed the topic with the maintainers again, and I believe
-we have identified the best approach to take.
-
-Since it is not feasible to use clang-format to make changes to an
-entire file at once, and even applying clang-format patch by patch, as
-demonstrated in this series, poses challenges, we think that
-clang-format is not a suitable solution. Many of the suggested changes
-are unwelcome, making its use impractical.
-
-We believe the best approach is to start small and use a tool like
-checkpatch.pl to enforce a limited set of coding style rules that we all
-agree on. A simple starting point could be enforcing basic rules such as
-indentation must be four spaces.
-
-The key idea is that it is better to have a tool that enforces a few
-rules correctly rather than one that enforces many rules but some of
-them wrong. 
-
-With this in mind, a tool similar to checkpatch.pl that verifies only
-the coding style rules explicitly defined in CODING_STYLE would be an
-excellent starting point. If we identify inconsistencies within Xen
-source files, the maintainers have agreed to review each issue
-individually and establish a consensus-based resolution, similar to how
-we handled MISRA rules.
-
-It is important to note that we will need to make exceptions for files
-imported from Linux, many of which are already listed under
-docs/misra/exclude-list.json. We can reuse this exclusion list for
-coding style checks, ensuring that it does not interfere with how
-exclude-list.json is currently used by ECLAIR for MISRA scans.  
-
-Does this approach make sense? In summary, if we had a version of
-checkpatch.pl that enforced the coding style defined in CODING_STYLE
-instead of Linux-specific style rules, we would be happy to adopt it and
-integrate it into the CI loop. The tool does not necessarily have to be
-written in Perl; it could be implemented in another language, such as
-Python, if that is more convenient.  
-
-One final note: Please disregard the section "Header inclusion guards"
-in CODING_STYLE, as we are aware that it needs updating.  
-
-Cheers,
-
-Stefano
-
-
-On Sat, 1 Mar 2025, Oleksandr Andrushchenko wrote:
-> Hello, everybody!
-> 
-> In order to continue activity started at [1] I am sending this series
-> which allows to manually run coding style checks and does not provide
-> any automation yet.
-> 
-> Only the first patch is the goal of this series and patches 2-4 are for
-> example only.
-> 
-> This proposal disables coding style checks for the project, but xen/
-> folder: this is done by providing a global .clang-format at the project
-> top level which disables clang-format and only providing .clang-format
-> for xen/ folder.
-> 
-> clang-format version expected to be >15 and the latest tool can be
-> installed with:
-> python3 -m pip install clang-format
-> This allows having the tool without the need to compile or install
-> anything else.
-> 
-> As no automatic code style checks are performed, so all those can be
-> run manually:
-> 
-> - to see changes proposed to the patch being worked on (not committed yet):
-> git-clang-format --diff --style=file --verbose
-> 
-> - to run code formatting on the HEAD patch:
-> git-clang-format --style=file --verbose HEAD~1
-> 
-> Provided xen/.clang-format still has a lot of comments gathered from the
-> previous discussions. This is for purpose of better seeing why some of
-> the options have their values. Once option values are accepted all those
-> comments can be removed.
-> 
-> Stay safe,
-> Oleksandr Andrushchenko
-> 
-> [1] https://lists.xen.org/archives/html/xen-devel/2025-02/msg00800.html
-> 
-> Oleksandr Andrushchenko (4):
->   Add .clang-format files to enable manual coding style checks
->   [EXAMPLE] Provide an example of a malformed patch
->   [EXAMPLE] Changes done by clang-format to the previous commit
->   [EXAMPLE] Whole file code style formatting
-> 
->  .clang-format              |    5 +
->  tools/xl/xl_info.c         |    6 +-
->  xen/.clang-format          | 1380 ++++++++++++++++++++++++++++++++++++
->  xen/drivers/char/ns16550.c |   13 +-
->  xen/drivers/pci/pci.c      |    8 +-
->  5 files changed, 1397 insertions(+), 15 deletions(-)
->  create mode 100644 .clang-format
->  create mode 100644 xen/.clang-format
-> 
-> -- 
-> 2.25.1
-> 
+Hi Luca, I think that's OK. Can this patch be committed without the
+previous patch in the series?
 
