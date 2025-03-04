@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A82CA4F0B7
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Mar 2025 23:47:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.901557.1309520 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3436A4F16C
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 00:25:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.901567.1309530 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpb2y-0001h1-26; Tue, 04 Mar 2025 22:47:32 +0000
+	id 1tpbcr-0008SB-Pl; Tue, 04 Mar 2025 23:24:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 901557.1309520; Tue, 04 Mar 2025 22:47:32 +0000
+Received: by outflank-mailman (output) from mailman id 901567.1309530; Tue, 04 Mar 2025 23:24:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpb2x-0001fY-Vl; Tue, 04 Mar 2025 22:47:31 +0000
-Received: by outflank-mailman (input) for mailman id 901557;
- Tue, 04 Mar 2025 22:47:30 +0000
+	id 1tpbcr-0008Pk-N3; Tue, 04 Mar 2025 23:24:37 +0000
+Received: by outflank-mailman (input) for mailman id 901567;
+ Tue, 04 Mar 2025 23:24:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vBJn=VX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tpb2w-0001fS-EO
- for xen-devel@lists.xenproject.org; Tue, 04 Mar 2025 22:47:30 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ <SRS0=/Z5M=VX=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tpbcp-0008Pb-HW
+ for xen-devel@lists.xenproject.org; Tue, 04 Mar 2025 23:24:35 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a5b74322-f94a-11ef-9898-31a8f345e629;
- Tue, 04 Mar 2025 23:47:28 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 35599A46018;
- Tue,  4 Mar 2025 22:41:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48A0FC4CEE5;
- Tue,  4 Mar 2025 22:47:25 +0000 (UTC)
+ id d178a513-f94f-11ef-9898-31a8f345e629;
+ Wed, 05 Mar 2025 00:24:28 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-43bccfa7b89so9221935e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 04 Mar 2025 15:24:28 -0800 (PST)
+Received: from andrewcoop.eng.citrite.net (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43bc743f649sm69782295e9.27.2025.03.04.15.24.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 04 Mar 2025 15:24:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,133 +45,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a5b74322-f94a-11ef-9898-31a8f345e629
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1741128446;
-	bh=pJjgE4hP0Hn3MC32EegzqHfmNUqzFYjWwUHgIVz+FIc=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=shuQ54HQ6fHWVDJ4mG/xpksSA9/OWUlgtYgivgW/lO3K18rCnh44ArJUi+lqhupQR
-	 PDMM8tp7oA+0qm3u9++uNB/wvSvVTcu5Jz76CMCImnHjAWUKx1oBDdYit8Istus3ts
-	 REysGnvVmzItnL6Fi0tk3XKLDCPwLHOGie03O9Q98zCjHrV1Yaky9cMI1D5B8wuqoS
-	 ss9rWMPd+B6OMYShfxVjRQzb5ayQf1w2avEU7rFCUsEDVGA91H8s1FTdZKfSQxFIbi
-	 s5Zg6SGfU0nEym24AnSnnKQNYGpzQjKL9Z3GeY5Y6ZNfUtMFYluQasRPXkBLXLLlSK
-	 Jfh++aENe/JtA==
-Date: Tue, 4 Mar 2025 14:47:24 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-    Anthony PERARD <anthony.perard@vates.tech>, 
-    Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>, 
-    George Dunlap <gwd@xenproject.org>
-Subject: Re: [PATCH v2 2/2] xen/watchdog: Identify which domain watchdog
- fired
-In-Reply-To: <20250303232941.2641306-3-andrew.cooper3@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2503041445010.1303386@ubuntu-linux-20-04-desktop>
-References: <20250303232941.2641306-1-andrew.cooper3@citrix.com> <20250303232941.2641306-3-andrew.cooper3@citrix.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: d178a513-f94f-11ef-9898-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1741130668; x=1741735468; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=dJn0EOtoOspWkZsAezbXT11JWUNWguHtx31jBY0thn4=;
+        b=mTZtBY75IqtVe5SS1QU1j+wSWfkRD2oVWW3GvQyAEK931EhQWLmDOK21gkzUoyRIBD
+         yKXJcrxAnYRbanZfkwWXk4EpaYnXxsf8NgZE2zn+FonGFxbineYI6yYUk8SoslmjXEQC
+         SpON7B8cKpXpUSJAAtnGXSnoynO3Pt8HUGFOM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1741130668; x=1741735468;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=dJn0EOtoOspWkZsAezbXT11JWUNWguHtx31jBY0thn4=;
+        b=QenLbGxPaFm6dprdNHfUbbAIS4wGsdMF9BuDL0WnGGLLufjBJKdoAtveKNvBWJkIA6
+         8A/aS/ac7Q3KJOz9c19TYXtCM6cRvISFJ2nRcQ8LQIIAAEXvsilGurp5BrOu7j7vYNUD
+         iDhssyjIazzpv1txAoveyGcer6VFRc1TsEJlxE/93PGL14VBZcP+6GzcEEXvFBKAeJHS
+         iALkBkcjqzWzELUBJZ4vDYXAhbPk6GFyBf+NjywPdWb1yDcckHjTJj8wGeZzGEPGZcrd
+         tsKGxNcZr7B/mR9cAzVDsc2W+JFIE2ypTTi98wtxEZ7RRkP+SoIoz7ZUmJLFCP+l2/2L
+         6GZQ==
+X-Gm-Message-State: AOJu0YxOeroBI0+viA+4vntBnZ/zTQRCC+1mtea9SutLNEauA6399OKt
+	ifkE8yCk1rKAp7OM63kJSkiDWiCSdkoEY/HU8e5Mz1bS0t8bFUe6eRmywB+75aRiBFDfLZ9o6RX
+	R
+X-Gm-Gg: ASbGncu+w7tsTu0wgA3mHTg0IOBfgwQhTqP5Lu/a6DYBaxfLzWdOtqKy3T3ItGCDuEc
+	/oFdpVoxE9eYuUkihMr38sWZywEtO4jujMqUYOqIfu6JU2dlnuj1KfKKRIxP3q6M2HHdoJI6ukB
+	A+KfNrQsG/kGDiFA3zdfa81nfKJQjlKvHF9JWAluRWcq3TY7UPnh2pqfR09qs8YsTeh44aIQHt0
+	zHvt13olcOAKcbi8rR4N2JCva7/lrtQ+lZsiKo4IEhCceZqnP9YGkmTnBvovtqcj2ZaOLDasKEt
+	2DjKlSAbTzd1sWc0SM4pQ66tYFps94UwdsbF4IOdEltOLSguRDX9eXad8ry9aNHi4M1aTD05zEF
+	32DzpKZmRjrVz29qR0fF+Lqsw
+X-Google-Smtp-Source: AGHT+IH6ijEY9Azzf7yI2+Rd59Gh6QiVd2RZ4Z/TpleD+eKUy8kM4RUwHVOHP8f1uuqYh69fH+6r1w==
+X-Received: by 2002:a05:600c:510f:b0:439:9537:e96b with SMTP id 5b1f17b1804b1-43bd29bced0mr4272965e9.14.1741130667643;
+        Tue, 04 Mar 2025 15:24:27 -0800 (PST)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v3] x86/vmx: Rewrite vmx_sync_pir_to_irr() to be more efficient
+Date: Tue,  4 Mar 2025 23:22:18 +0000
+Message-Id: <20250304232218.2768344-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-312225281-1741128447=:1303386"
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-312225281-1741128447=:1303386
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Content-Transfer-Encoding: 8bit
 
-On Mon, 3 Mar 2025, Andrew Cooper wrote:
-> When a watchdog fires, the domain is crashed and can't dump any state.
-> 
-> Xen allows a domain to have two separate watchdogs.  Therefore, for a
-> domain running multiple watchdogs (e.g. one based around network, one
-> for disk), it is important for diagnostics to know which watchdog
-> fired.
-> 
-> As the printk() is in a timer callback, this is a bit awkward to
-> arrange, but there are 12 spare bits in the bottom of the domain
-> pointer owing to its alignment.
-> 
-> Reuse these bits to encode the watchdog id too, so the one which fired
-> is identified when the domain is crashed.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+There are two issues.  First, pi_test_and_clear_on() pulls the cache-line to
+the CPU and dirties it even if there's nothing outstanding, but the final
+bitmap_for_each() is O(256) when O(8) would do, and would avoid multiple
+atomic updates to the same IRR word.
 
-The code looks like it would work as intended.
+Rewrite it from scratch, explaining what's going on at each step.
 
-I checked with the MISRA rules and it looks like it would fall under the
-allowed exception. Please have a run through ECLAIR to make sure it
-doesn't cause regressions (especially R11.2).
+Bloat-o-meter reports 177 -> 145 (net -32), but real improvement is the
+removal of calls to __find_{first,next}_bit() hidden behind bitmap_for_each().
 
+No functional change.
 
-> ---
-> CC: Anthony PERARD <anthony.perard@vates.tech>
-> CC: Michal Orzel <michal.orzel@amd.com>
-> CC: Jan Beulich <jbeulich@suse.com>
-> CC: Julien Grall <julien@xen.org>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Dario Faggioli <dfaggioli@suse.com>
-> CC: Juergen Gross <jgross@suse.com>
-> CC: George Dunlap <gwd@xenproject.org>
-> 
-> v2:
->  * BUILD_BUG_ON() against the alignment of d.
-> ---
->  xen/common/sched/core.c | 23 ++++++++++++++++++++---
->  1 file changed, 20 insertions(+), 3 deletions(-)
-> 
-> diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
-> index d6296d99fdb9..3db0fe32ccd8 100644
-> --- a/xen/common/sched/core.c
-> +++ b/xen/common/sched/core.c
-> @@ -1534,12 +1534,19 @@ long vcpu_yield(void)
->  
->  static void cf_check domain_watchdog_timeout(void *data)
->  {
-> -    struct domain *d = data;
-> +    /*
-> +     * The data parameter encodes the watchdog id in the low bits of
-> +     * the domain pointer.
-> +     */
-> +    struct domain *d = _p((unsigned long)data & PAGE_MASK);
-> +    unsigned int id = (unsigned long)data & ~PAGE_MASK;
-> +
-> +    BUILD_BUG_ON(!(alignof(d) < PAGE_SIZE));
->  
->      if ( d->is_shutting_down || d->is_dying )
->          return;
->  
-> -    printk("Watchdog timer fired for domain %u\n", d->domain_id);
-> +    printk("Watchdog timer %u fired for %pd\n", id, d);
->      domain_shutdown(d, SHUTDOWN_watchdog);
->  }
->  
-> @@ -1593,7 +1600,17 @@ void watchdog_domain_init(struct domain *d)
->      d->watchdog_inuse_map = 0;
->  
->      for ( i = 0; i < NR_DOMAIN_WATCHDOG_TIMERS; i++ )
-> -        init_timer(&d->watchdog_timer[i], domain_watchdog_timeout, d, 0);
-> +    {
-> +        void *data = d;
-> +
-> +        BUILD_BUG_ON(NR_DOMAIN_WATCHDOG_TIMERS > alignof(d));
-> +
-> +        /*
-> +         * For the timer callback parameter, encode the watchdog id in
-> +         * the low bits of the domain pointer.
-> +         */
-> +        init_timer(&d->watchdog_timer[i], domain_watchdog_timeout, data + i, 0);
-> +    }
->  }
->  
->  void watchdog_domain_destroy(struct domain *d)
-> -- 
-> 2.39.5
-> 
---8323329-312225281-1741128447=:1303386--
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+
+https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1699791518
+
+v3:
+ * Fix IRR scatter address calculation
+ * Spelling/Grammar improvements
+v2:
+ * Extend the comments
+---
+ xen/arch/x86/hvm/vmx/vmx.c | 70 +++++++++++++++++++++++++++++++++-----
+ 1 file changed, 62 insertions(+), 8 deletions(-)
+
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index d87da427ade1..ab881d6f8c42 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -2314,18 +2314,72 @@ static void cf_check vmx_deliver_posted_intr(struct vcpu *v, u8 vector)
+ 
+ static void cf_check vmx_sync_pir_to_irr(struct vcpu *v)
+ {
+-    struct vlapic *vlapic = vcpu_vlapic(v);
+-    unsigned int group, i;
+-    DECLARE_BITMAP(pending_intr, X86_IDT_VECTORS);
++    struct pi_desc *desc = &v->arch.hvm.vmx.pi_desc;
++    union {
++        unsigned long _ul[X86_IDT_VECTORS / BITS_PER_LONG];
++        uint32_t      _32[X86_IDT_VECTORS / (sizeof(uint32_t) * 8)];
++    } vec;
++    uint32_t *irr;
++    bool on;
+ 
+-    if ( !pi_test_and_clear_on(&v->arch.hvm.vmx.pi_desc) )
++    /*
++     * The PIR is a contended cacheline which bounces between the CPU(s) and
++     * IOMMU(s).  An IOMMU updates the entire PIR atomically, but we can't
++     * express the same on the CPU side, so care has to be taken.
++     *
++     * First, do a plain read of ON.  If the PIR hasn't been modified, this
++     * will keep the cacheline Shared and not pull it Exclusive on the current
++     * CPU.
++     */
++    if ( !pi_test_on(desc) )
+         return;
+ 
+-    for ( group = 0; group < ARRAY_SIZE(pending_intr); group++ )
+-        pending_intr[group] = pi_get_pir(&v->arch.hvm.vmx.pi_desc, group);
++    /*
++     * Second, if the plain read said that ON was set, we must clear it with
++     * an atomic action.  This will bring the cacheline to Exclusive on the
++     * current CPU.
++     *
++     * This should always succeed because no-one else should be playing with
++     * the PIR behind our back, but assert so just in case.
++     */
++    on = pi_test_and_clear_on(desc);
++    ASSERT(on);
++
++    /*
++     * The cacheline will have become Exclusive on the current CPU, and
++     * because ON was set, some other entity (an IOMMU, or Xen on another CPU)
++     * has indicated that the PIR needs re-scanning.
++     *
++     * Note: Entities which can't update the entire cacheline atomically
++     *       (i.e. Xen on another CPU) are required to update PIR first, then
++     *       set ON.  Therefore, there is a corner case where we may have
++     *       found and processed the PIR updates "last time around" and only
++     *       found ON this time around.  This is fine; the logic still
++     *       operates correctly.
++     *
++     * Atomically read and clear the entire pending bitmap as fast as we can,
++     * to reduce the window where another entity may steal the cacheline back
++     * from us.  This is a performance concern, not a correctness concern; if
++     * another entity does steal the cacheline, we'll just wait for it to
++     * return.
++     */
++    for ( unsigned int i = 0; i < ARRAY_SIZE(vec._ul); ++i )
++        vec._ul[i] = xchg(&desc->pir[i], 0);
++
++    /*
++     * Finally, merge the pending vectors into IRR.  The IRR register is
++     * scattered in memory, so we have to do this 32 bits at a time.
++     */
++    irr = (uint32_t *)&vcpu_vlapic(v)->regs->data[APIC_IRR];
++    for ( unsigned int i = 0; i < ARRAY_SIZE(vec._32); ++i )
++    {
++        if ( !vec._32[i] )
++            continue;
+ 
+-    bitmap_for_each ( i, pending_intr, X86_IDT_VECTORS )
+-        vlapic_set_vector(i, &vlapic->regs->data[APIC_IRR]);
++        asm ( "lock or %[val], %[irr]"
++              : [irr] "+m" (irr[i * 4])
++              : [val] "r" (vec._32[i]) );
++    }
+ }
+ 
+ static bool cf_check vmx_test_pir(const struct vcpu *v, uint8_t vec)
+-- 
+2.39.5
+
 
