@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BABCA4FA49
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 10:37:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.902099.1310050 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5208AA4FA6D
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 10:42:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.902124.1310060 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tplBq-0007gM-7j; Wed, 05 Mar 2025 09:37:22 +0000
+	id 1tplGI-0003e7-PV; Wed, 05 Mar 2025 09:41:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 902099.1310050; Wed, 05 Mar 2025 09:37:22 +0000
+Received: by outflank-mailman (output) from mailman id 902124.1310060; Wed, 05 Mar 2025 09:41:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tplBq-0007cq-4m; Wed, 05 Mar 2025 09:37:22 +0000
-Received: by outflank-mailman (input) for mailman id 902099;
- Wed, 05 Mar 2025 09:37:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tplGI-0003bZ-M1; Wed, 05 Mar 2025 09:41:58 +0000
+Received: by outflank-mailman (input) for mailman id 902124;
+ Wed, 05 Mar 2025 09:41:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2gZc=VY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tplBo-0007MI-ID
- for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 09:37:20 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6ee67f54-f9a5-11ef-9ab4-95dc52dad729;
- Wed, 05 Mar 2025 10:37:19 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-390df0138beso3426695f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 01:37:19 -0800 (PST)
+ id 1tplGH-0003bT-Lu
+ for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 09:41:57 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1327cbb5-f9a6-11ef-9898-31a8f345e629;
+ Wed, 05 Mar 2025 10:41:55 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-43bd5644de8so2801245e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 01:41:55 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-390e47b7cf2sm20818413f8f.59.2025.03.05.01.37.18
+ 5b1f17b1804b1-43bd4310b06sm11942875e9.36.2025.03.05.01.41.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Mar 2025 01:37:19 -0800 (PST)
+ Wed, 05 Mar 2025 01:41:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6ee67f54-f9a5-11ef-9ab4-95dc52dad729
+X-Inumbo-ID: 1327cbb5-f9a6-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741167439; x=1741772239; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741167715; x=1741772515; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QJA+5fpHjinsjWQQKWUS7YW4inJ4fNIQc4sTTDAivkk=;
-        b=N4Wl6z6fGLqGwuyUrPORUyqXkQ7yeUsIZd3no081OeWZ16X01/gjFw3CZC62pDp3Gs
-         jTTgkGN+Mkl9FcszythILxPyd2VLY4kxAaqo1CP6uuEOkeWLin1vJWaWFQFMZXfJZyWx
-         QfLNtvUD4r29jawoKzGWfS0AJYZb+WU+PjzdKxI7avxDpmgHrE8ErRkr5gJQntgkV5zg
-         F+Y5+sOsLOSPhuu532+kqDetPumLJAVK2gMndjrZIUeWnkS96+XPpT3hmHbWumgNNtZR
-         NnUsRftZFURyQqijmQt2xbJNjHX879SoxNQslfK1ycIUbqAdRlJ9tTPA2xhmpwqHA1xV
-         WBJA==
+        bh=FlmGdk7dfCSsQCDag4+ixlY9iS0gH9TaTK7l5vxfuRs=;
+        b=dU5UEf7J7HnHaZJuIRei6dlsl+bQo8mmwJwC8d768HgXCWVKnVs5tiyClv+RSNN9ll
+         Cz4sVNcnB1ZTfUbgoLHwtD8mJV78Ld7IsixEugfrlnX8063NPMHqGAZUqjF43aSHMG3n
+         KCK1Nsw3UqH/NDxsLjh5NQXeA2iWBBnrybLVYgJmQv9PBIZZfrgepdMfK9R1wUsnAhFX
+         oVjI9nMX+igab/NlPVASSadSpDRlWcgkrOwE61B+7ssPmZl4tQq5uXKKehWV2UYt8TDT
+         BJYpOfefJboPbcD4qIRjO0wzPXn/vEZblE4HkpK5SAgHwQqAxUNKMK2nbowV09SmndsG
+         IeXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741167439; x=1741772239;
+        d=1e100.net; s=20230601; t=1741167715; x=1741772515;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QJA+5fpHjinsjWQQKWUS7YW4inJ4fNIQc4sTTDAivkk=;
-        b=UfvbyFhDUciHeiXm/iOgb5eY4BGhPsBZTZKWRhK1HBSnT3rU4niE+hQaPtM+ln7SSa
-         K/9Azz4pQss83DDQ0XiDEHN2R1OO2iEXb+trNRJdXj2l1AuRp9MB87RHuqVt59zvl8Vj
-         ZWKjJpHAus+4TzXS5A7+cZwZntPSMn14eK57SoM2UajHYZwEavPnu4y0lcXBsf1/UUYs
-         hQGuMMbsNDB0VC+vKQprCtodvS8DpBpRVpQpfd0Jlul1ydIlho9nvWx8KnpKFNZPJEOV
-         3afeqTkjR59aW+uEvlSzsbCA9H4oapyPfMmreRbd7yTGc14FIScosGn81V5ZjwawmtIZ
-         n2Sw==
-X-Forwarded-Encrypted: i=1; AJvYcCXYH4vas9X2uNJBzzSqnwXLcl2/0ystomEN0uxiR2ojzQFG9TU1FiO3ocLpaamSfuSGmLqoJ9SV2p8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwYDJIT4FPVf4zjagCCm4h9NhkmTQWq7yZy+HyRbym+pjamO+2O
-	L3L6iyCAtShRTBBh/AzYahUdCb+Z831wHJpAN3WydU6+aZw4YTMY39A6bspNwQ==
-X-Gm-Gg: ASbGncthPjXNV0DmE7IaLIIg47wtfxE86LjTXAT52lkW6RK+FFdWdtLnsZrisCDhZlg
-	bC80WwH/h+4WOctVnGSmMlC/KGcFq9KBGHGBPoLMuUOYgndCqMnD5KxnKBi4iIYHvanlqEJBAHO
-	RHOv2F3OQUKLAmkEgIpp5q5fwVbAgQG0hYn1rFrnhywqXAjcHipg/CLP36tsv1pA6wQnu2V1grm
-	t0q/d0IZKDeNF+TyfgmmuBiPLoGjAA2z3eVMom+5K9w5/7lSJUXzixnKK6qrxfX0hAtu4EhqklN
-	1Fp3oKEx3MspKLVV1hvZfbE6zcb1U/fVgPQLM5EuVL0OZLaM6uB3TETxUPrYtYvo84m0BkWA2ux
-	boHTzuwNle+c5PRk+D/bN1SeTL8dSOA==
-X-Google-Smtp-Source: AGHT+IFHIzxE2xWaT6mhjaBo6WQvHBsCCk+pL1cyZgdiAXtsQyIGHqWIw7rHhLp6T1JziVeL2+PTdA==
-X-Received: by 2002:a05:6000:2cd:b0:390:ea34:7d83 with SMTP id ffacd0b85a97d-3911f76f519mr2080160f8f.31.1741167439342;
-        Wed, 05 Mar 2025 01:37:19 -0800 (PST)
-Message-ID: <ed8a4143-4d5d-4ef9-857b-d86b24f72f34@suse.com>
-Date: Wed, 5 Mar 2025 10:37:22 +0100
+        bh=FlmGdk7dfCSsQCDag4+ixlY9iS0gH9TaTK7l5vxfuRs=;
+        b=DRvsgaVa/U5P6ZDG8Pn74kP/Ck8hvq5jQm5hEGy4L7KrZBRKbBen5qycSXfz4PO2Jl
+         zX2JVePZzB8vZYCoaWWq0Tk1UQj6XFHjqVirFwOIgzV7lo4Hbqh596ACizt7xUyC59LT
+         pbhg+5X/QjIdlrvGAOSpO+Ic+pEw6Nt0NGLEa5fXu5lHQzXDx5nszC/iG84mgUTN4a+k
+         CkW/SWxsbLNXzvMaiBa+wZLNXmXyaCvDe5lVfsto5eXjqp3sGI49kePvc16dH5EpyJkq
+         fZUufQEnXnGabn/y0wN3ddaI9qNkOYe6QOal/nAo4AuybiTcyJ0JD0sEl6OjLE1S/Ce6
+         wrYA==
+X-Gm-Message-State: AOJu0YwWuR4t8O8NoZ43l4EoEa+N+N0BzSA0jYzOzeUwhgEajj4VL8Vr
+	/jaMeWUV9H1fS55YLb2cz8qpIo7oAOHFjJravsX3ItlwsUsm84J18cRvlVOeGQ==
+X-Gm-Gg: ASbGncs5jmcSXe905fwjF9HylUXFjQLUs4NrrLBKyyvoxf8YZZvgE7MBpdcz5aev/af
+	5syuTEjKNvRr7E5PCDhszFht/I5atXs9hxcJhJRlojFp+lrm3psYDur+nzG6HBi117QbzCkdjvE
+	/bZyFI6lNhJqQ0K/zEFPQ7mw32EeBXWl0xacUCxhrb/myVaf3t58Rtokkpu6x4qoOItzKd4elXQ
+	M1+ivqXGGfnpXTnuTyFOwLtGxrS4Zy/shu279e7czp0a1PeAdTFNg3OxRNvPeRkPYlRb5ZXoHnh
+	uP21uk+yT1xfTCDg4HIcj5IrIabt58Bu378mnb6yN6CqtgvwhDIAdpWbMycduSvWsnq2pT5ujCa
+	VOPwaHyv4ljmjkoXjGSU1HxrC1QZymw==
+X-Google-Smtp-Source: AGHT+IFG0E4Oqbbm4sT2y8VUVL8I9U4baUQdFPg5AKn/yYRqesJ7Kc6L9G2WE0qCz6nMBaMaY874hg==
+X-Received: by 2002:a05:600c:1c07:b0:439:9a40:aa0b with SMTP id 5b1f17b1804b1-43bd29d0474mr15587535e9.25.1741167714707;
+        Wed, 05 Mar 2025 01:41:54 -0800 (PST)
+Message-ID: <55d4a5ff-e638-4162-96a0-f936c163a1aa@suse.com>
+Date: Wed, 5 Mar 2025 10:41:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Verbosity during boot
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel <xen-devel@lists.xenproject.org>
-References: <a90f1bb3-90a8-4c3e-818f-498319815475@citrix.com>
+Subject: Re: [PATCH v2] x86/msr: expose MSR_FAM10H_MMIO_CONF_BASE on AMD
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org
+References: <20250303091908.38846-1-roger.pau@citrix.com>
+ <915229bd-a930-422e-a915-6414c3224c93@citrix.com>
+ <Z8W47V836vSWuAzw@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,64 +118,115 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a90f1bb3-90a8-4c3e-818f-498319815475@citrix.com>
+In-Reply-To: <Z8W47V836vSWuAzw@macbook.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 27.02.2025 21:38, Andrew Cooper wrote:
-> I've raised this during review before, but:
+On 03.03.2025 15:13, Roger Pau Monné wrote:
+> On Mon, Mar 03, 2025 at 01:41:15PM +0000, Andrew Cooper wrote:
+>> On 03/03/2025 9:19 am, Roger Pau Monne wrote:
+>>> The MMIO_CONF_BASE reports the base of the MCFG range on AMD systems.
+>>> Currently Linux is unconditionally attempting to read the MSR without a
+>>> safe MSR accessor, and since Xen doesn't allow access to it Linux reports
+>>> the following error:
+>>>
+>>> unchecked MSR access error: RDMSR from 0xc0010058 at rIP: 0xffffffff8101d19f (xen_do_read_msr+0x7f/0xa0)
+>>> Call Trace:
+>>>  <TASK>
+>>>  ? ex_handler_msr+0x11e/0x150
+>>>  ? fixup_exception+0x81/0x300
+>>>  ? exc_general_protection+0x138/0x410
+>>>  ? asm_exc_general_protection+0x22/0x30
+>>>  ? xen_do_read_msr+0x7f/0xa0
+>>>  xen_read_msr+0x1e/0x30
+>>>  amd_get_mmconfig_range+0x2b/0x80
+>>>  quirk_amd_mmconfig_area+0x28/0x100
+>>>  ? quirk_system_pci_resources+0x2b/0x150
+>>>  pnp_fixup_device+0x39/0x50
+>>>  __pnp_add_device+0xf/0x150
+>>>  pnp_add_device+0x3d/0x100
+>>>  ? __pfx_pnpacpi_allocated_resource+0x10/0x10
+>>>  ? __pfx_pnpacpi_allocated_resource+0x10/0x10
+>>>  ? acpi_walk_resources+0xbb/0xd0
+>>>  pnpacpi_add_device_handler+0x1f9/0x280
+>>>  acpi_ns_get_device_callback+0x104/0x1c0
+>>>  ? _raw_spin_unlock_irqrestore+0x18/0x20
+>>>  ? down_timeout+0x3a/0x60
+>>>  ? _raw_spin_lock_irqsave+0x14/0x40
+>>>  acpi_ns_walk_namespace+0x1d0/0x260
+>>>  ? _raw_spin_unlock_irqrestore+0x18/0x20
+>>>  ? __pfx_acpi_ns_get_device_callback+0x10/0x10
+>>>  acpi_get_devices+0x8a/0xb0
+>>>  ? __pfx_pnpacpi_add_device_handler+0x10/0x10
+>>>  ? __pfx_pnpacpi_init+0x10/0x10
+>>>  pnpacpi_init+0x50/0x80
+>>>  do_one_initcall+0x46/0x2e0
+>>>  kernel_init_freeable+0x1da/0x2f0
+>>>  ? __pfx_kernel_init+0x10/0x10
+>>>  kernel_init+0x16/0x1b0
+>>>  ret_from_fork+0x30/0x50
+>>>  ? __pfx_kernel_init+0x10/0x10
+>>>  ret_from_fork_asm+0x1b/0x30
+>>>  </TASK>
+>>>
+>>> Such access is conditional to the presence of a device with PnP ID
+>>> "PNP0c01", which triggers the execution of the quirk_amd_mmconfig_area()
+>>> function.  Note that prior to commit 3fac3734c43a MSR accesses when running
+>>> as a PV guest would always use the safe variant, and thus silently handle
+>>> the #GP.
+>>>
+>>> Fix by allowing access to the MSR on AMD systems, returning 0 for
+>>> unprivileged domains (MMIO configuration space disabled), and the native
+>>> value for the hardware domain.
+>>>
+>>> The non hardware domain logic will need to be adjusted if in the future we
+>>> expose an MCFG region to such domains.
+>>>
+>>> Write attempts to the MSR will still result in #GP for all domain types.
+>>>
+>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>> ---
+>>> Changes since v2:
+>>>  - Expand commit message to note which device triggers the MSR read.
+>>> ---
+>>>  xen/arch/x86/msr.c | 15 +++++++++++++++
+>>>  1 file changed, 15 insertions(+)
+>>>
+>>> diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
+>>> index 1550fd9ec9f3..c1e616a3a757 100644
+>>> --- a/xen/arch/x86/msr.c
+>>> +++ b/xen/arch/x86/msr.c
+>>> @@ -318,6 +318,21 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
+>>>          *val = 0;
+>>>          break;
+>>>  
+>>> +    case MSR_FAM10H_MMIO_CONF_BASE:
+>>> +        if ( !(cp->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON)) )
+>>> +            goto gp_fault;
+>>> +
+>>> +        /*
+>>> +         * Report MMIO configuration space is disabled unconditionally for
+>>> +         * domUs, as the emulated chipset doesn't support ECAM.  For dom0
+>>> +         * return the hardware value.
+>>> +         */
+>>> +        *val = 0;
+>>> +        if ( is_hardware_domain(d) && rdmsr_safe(msr, *val) )
+>>> +            goto gp_fault;
+>>> +
+>>> +        break;
+>>
+>> It doesn't matter right now, but reporting MMCFG disable is likely to
+>> interfere with Q35 support when we do present such a range.
 > 
->> (XEN) [    1.209230] AMD-Vi: IOMMU Extended Features:
->> (XEN) [    1.213998] - Peripheral Page Service Request
->> (XEN) [    1.218849] - x2APIC
->> (XEN) [    1.221536] - NX bit
->> (XEN) [    1.224221] - Invalidate All Command
->> (XEN) [    1.228297] - Guest APIC
->> (XEN) [    1.236062] - Performance Counters
->> (XEN) [    1.244692] - Host Address Translation Size: 0x2
->> (XEN) [    1.254547] - Guest Address Translation Size: 0
->> (XEN) [    1.264313] - Guest CR3 Root Table Level: 0x1
->> (XEN) [    1.273925] - Maximum PASID: 0xf
->> (XEN) [    1.282338] - SMI Filter Register: 0x1
->> (XEN) [    1.291241] - SMI Filter Register Count: 0x2
->> (XEN) [    1.300607] - Guest Virtual APIC Modes: 0
->> (XEN) [    1.309655] - Dual PPR Log: 0x2
->> (XEN) [    1.317801] - Dual Event Log: 0x2
->> (XEN) [    1.326078] - Secure ATS
->> (XEN) [    1.333490] - User / Supervisor Page Protection
->> (XEN) [    1.342892] - Device Table Segmentation: 0x3
->> (XEN) [    1.351981] - PPR Log Overflow Early Warning
->> (XEN) [    1.361040] - PPR Automatic Response
->> (XEN) [    1.369341] - Memory Access Routing and Control: 0x1
->> (XEN) [    1.379012] - Block StopMark Message
->> (XEN) [    1.387273] - Performance Optimization
->> (XEN) [    1.395637] - MSI Capability MMIO Access
->> (XEN) [    1.404138] - Guest I/O Protection
->> (XEN) [    1.412042] - Host Access
->> (XEN) [    1.419105] - Enhanced PPR Handling
->> (XEN) [    1.427008] - Attribute Forward
->> (XEN) [    1.434494] - Host Dirty
->> (XEN) [    1.441308] - Virtualized IOMMU
->> (XEN) [    1.448699] - VMGuard I/O Support
->> (XEN) [    1.456345] - VM Table Size: 0x2
->> (XEN) [    1.491312] AMD-Vi: IOMMU 0 Enabled.
->> (XEN) [    1.499087] AMD-Vi: IOMMU 1 Enabled.
->> (XEN) [    1.506835] AMD-Vi: IOMMU 2 Enabled.
->> (XEN) [    1.514554] AMD-Vi: IOMMU 3 Enabled.
->> (XEN) [    1.522452] I/O virtualisation enabled
-> 
-> Lots of that information is not actually useful, not even for
-> developers.
+> Yup, that's why I mention that this will likely need  to be adjusted.
+> However Linux only reads MMIO_CONF_BASE if a PnP device with ID
+> "PNP0c01" is present, not sure whether that's (or will be the case)
+> with Q35 support.
 
-"Lots" != "all" (or maybe you meant all without saying so). Then what we'd
-need are criteria by which to judge what to log and and what to omit from
-logging.
-
->  What's worse is that this is a release build of Xen and it
-> still takes 0.3s to print the feature list alone.
-
-With a serial console, I expect? Or with us still wrongly using UC accesses
-to VGA memory?
+Q35 is probably going to be yet more odd when used with AMD CPUs than
+the Intel chipset we currently present to guests. But yes, I don't
+expect we'd expose AMD-like firmware aspects when presenting an Intel
+chipset.
 
 Jan
 
