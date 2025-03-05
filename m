@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A798A5064E
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 18:26:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.902578.1310567 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA948A506A0
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 18:43:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.902590.1310583 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpsVX-0008U7-Ko; Wed, 05 Mar 2025 17:26:11 +0000
+	id 1tpsl8-0003YC-2t; Wed, 05 Mar 2025 17:42:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 902578.1310567; Wed, 05 Mar 2025 17:26:11 +0000
+Received: by outflank-mailman (output) from mailman id 902590.1310583; Wed, 05 Mar 2025 17:42:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpsVX-0008S9-HN; Wed, 05 Mar 2025 17:26:11 +0000
-Received: by outflank-mailman (input) for mailman id 902578;
- Wed, 05 Mar 2025 17:26:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tpsl7-0003Vy-Vf; Wed, 05 Mar 2025 17:42:17 +0000
+Received: by outflank-mailman (input) for mailman id 902590;
+ Wed, 05 Mar 2025 17:42:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mCKF=VY=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tpsVV-0008S3-IL
- for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 17:26:09 +0000
+ id 1tpsl7-0003Vs-CO
+ for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 17:42:17 +0000
 Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
  [2a00:1450:4864:20::632])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e8fe4aad-f9e6-11ef-9898-31a8f345e629;
- Wed, 05 Mar 2025 18:26:02 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2d6ebb76-f9e9-11ef-9ab4-95dc52dad729;
+ Wed, 05 Mar 2025 18:42:15 +0100 (CET)
 Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-ac0b6e8d96cso523209966b.0
- for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 09:26:02 -0800 (PST)
+ a640c23a62f3a-abf5f4e82caso797217466b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 09:42:15 -0800 (PST)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- a640c23a62f3a-abf627daa5esm703163366b.154.2025.03.05.09.26.00
+ a640c23a62f3a-ac1eec40e84sm342718966b.23.2025.03.05.09.42.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Mar 2025 09:26:01 -0800 (PST)
+ Wed, 05 Mar 2025 09:42:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,98 +44,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e8fe4aad-f9e6-11ef-9898-31a8f345e629
+X-Inumbo-ID: 2d6ebb76-f9e9-11ef-9ab4-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741195561; x=1741800361; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1741196535; x=1741801335; darn=lists.xenproject.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=Xeesjz60AZETYOgB9n1R+Mb7R1HS5mpUxtd/jkNtyUY=;
-        b=OE89Dvjt/Y7Ny3j1MEwijuoKJ2OXo1VvD1JViT1UumZIem/XL83AX7/t2miaiEdrQS
-         uR6aVXZUItK601rYDk7WK3cp1clKGALy4ogfnDfPM8yDfC9NVwIhlHwcKbJub6KAWM0T
-         TFZOzfjp4ueSRWwbo79x3RzTO12DL+JlmpCjI=
+        bh=AwDaxoFH2BoMMg8UQH85VxgmfjvGf01JMpmfHHoXsjA=;
+        b=dvyEmiARehedRHnqQleNLNUql1N3FIH1ijn1mQj8qceZT8xUyiHSKlZ3xlYAKZELBY
+         XjCfg6awpCvpxCzD81uAwdYGLrwutgn1ozq5eH3uX6J1Oc62lTZDZhVYvtuQXcsX6t+r
+         GD76G/KjPiMVZny+Z15IMGxMD+vkMsuvRSUoA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741195561; x=1741800361;
+        d=1e100.net; s=20230601; t=1741196535; x=1741801335;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Xeesjz60AZETYOgB9n1R+Mb7R1HS5mpUxtd/jkNtyUY=;
-        b=Gzkc7o5dNvk2GP6ysshgXzP5BSBNei+L5tD7ajqFhuBnmTZCuWfrXamBU26CsvwXB9
-         sRzMiVifH1L/pFn0HtvHttNRQnMJhW3LWkcQJrVv70N6Sc1kbvl2rG7eFcmTio/1t7B3
-         qNV8qFx6JlRQoDoye9LhRjPrdnSz7IvJ6JT7oNC/TwnJtE9Ssn1IZWBJZ3tqaZHiZMk+
-         6xNlp0RrskFQb3j/Mz7P4SP/thciOUTa2yqWUJuyr6Ah4A4wnB40havJTOGJwYDfr3Mj
-         tEIA8NrlvIYFasUBYLJN0jVsKwY1vFDJ6HMAz2wTfaRIBjkS6USQsdiNU+jdmulokyE5
-         tQxQ==
-X-Gm-Message-State: AOJu0Yx9LXg0qtakNn8nGnOqEI4CvA92eGDltYNcj3cW8OOYEypDgKXf
-	VU73nDIfvIubkq+IBgr0RUohLU5867fJK0GFPtemRMaPAr2sirhhL1hFm/t7GpI=
-X-Gm-Gg: ASbGnct/rNPGlGUJv3fudE2CQmvy2AItfOcYdRQag/9X3FDjBNWzhdedhC4fy08vOmN
-	z8r4tlDXrAeNU+UsfBrIiekqyuMsqX7BBhaN8JqvBMnDX389qN1Z/uvpEAvYWLAFRCPJgZ1SXTK
-	K3xwQoP7uLOSFn6nHy1LSTrdtVT0lasU+V+UZzMgXf++s8vXchdp1M7eKXWDDcNB3Z1RrNPhSMF
-	vVXTzX3qZNcrnZnEG3Bg08NdHkLnyNJ/b5pCJQAoBh9uI3wk2mVopt5ZgwWQkRsIZTDPSPiWc9c
-	MHcfYFmLRWLzFCR0VhfrChx0rUHSKkSqz18/Ep2nqSV25MVTZ33rW9U=
-X-Google-Smtp-Source: AGHT+IF+Hf/M5MyPJ5X7jQo+Ae7F7PRt1vnlHXzArnGwOu6bpPtOjajmfu2QizsYzAIfTMtTBgIYvw==
-X-Received: by 2002:a17:907:9692:b0:ac1:e881:89b1 with SMTP id a640c23a62f3a-ac20d925e29mr392880566b.30.1741195561437;
-        Wed, 05 Mar 2025 09:26:01 -0800 (PST)
-Date: Wed, 5 Mar 2025 18:26:00 +0100
+        bh=AwDaxoFH2BoMMg8UQH85VxgmfjvGf01JMpmfHHoXsjA=;
+        b=K4CsjNefwNmKX+2UL8kV2VdzVRslb6BOH5zk5pJ0kGXTTbQ7yRWDzuTqgVht65bg5m
+         8T+bNxRy1qgeRKVoMfk/U+d8vpW3rhxiHIlBW3GWzxIIvjQu0mvBcnltGXoKpqddZC/0
+         9y5zsmPYDCUF6FKw2+iEKCKSRtv1SoOeLucwqJvusdEghyiwxyTIXq9e4H7tJZ4IvSbg
+         OAZIF7jJUPuuSHhdZUw9a8Bj8oVGl8JUmIByCAhtDGwSjxUbEyi8DXCLFgxb1ufg0ez8
+         1k/bG/WoFJjC/JDmr1jUAMJU0VFBAeiabw+ahkRWsNBv/YEdZOPngKib+mzBeHa6urUJ
+         hYCA==
+X-Forwarded-Encrypted: i=1; AJvYcCU4LqupeTgm5dfMY/V6rlYwFnwvQxN5KCTeW1H4+fvwD6epwKnh9rV67ThmC2E0IzxXLSpnqPDcWyI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxUT9SNgR5vpj6QuIp2tanp5z4HjNWE0Y/4CadXXfCOINcd2EhM
+	ssiK8BoVSX2IRM3gmRnrmrVVBk3O04DhT51gvVlx+lp22Z++kvH2wVu3rmR2m1dLpx1WTK4qmTm
+	3
+X-Gm-Gg: ASbGncvy9/O3QzAhHBqIBhivkFbLs4je3jeISrGkI/PlMTOcjasbQkq9hIqlXfIGXdL
+	Fp9CE8675pxW4rAGHSmzlipD6VYDjybFVaqphfO0vbwq+rg0UbVnq1rtPvzL3XS7EtwRzj1Dhkq
+	qPQb2Cnj+yeZCbtWx5NQ9vhGu8F7K8bdgIUbL2t+9YE2p/9fsHqHWMctGb8kqTTlUjhAFBzmCVr
+	ls8icyviicrWU4wUmVpjm1Tm86fnkN1n3FqaU8gl21vCkiUK2Bf+7ntCm6HKoENyOnHK4Epu2Z3
+	8y1NPDygTP9FM4nHOowl0CO3ZJTf1gUJ+kh3bg+lX15F2MK4E1OuQS0=
+X-Google-Smtp-Source: AGHT+IGTLUcUNHHwzAI31wxKg4auMapScysR0LuIW8k+3A6hOJ4x282hW2Tzwk8LK37VtU/FShZuhw==
+X-Received: by 2002:a17:907:72ca:b0:abf:fb78:6742 with SMTP id a640c23a62f3a-ac20e1db221mr433716566b.44.1741196535299;
+        Wed, 05 Mar 2025 09:42:15 -0800 (PST)
+Date: Wed, 5 Mar 2025 18:42:14 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v4 01/11] x86/HVM: improve CET-IBT pruning of ENDBR
-Message-ID: <Z8iJKJN17mILVEGS@macbook.local>
-References: <748548e8-79e5-4957-be16-c5ea4d202d21@suse.com>
- <29cc2974-a1d8-4123-83b0-b44a3151f900@suse.com>
- <Z8hkLjMAQfhBR2Cm@macbook.local>
- <5978ed8d-ecef-41f7-adde-bc52312b483c@suse.com>
- <Z8hwTL8bsgjU3fJi@macbook.local>
- <0d298a29-91f6-4e3f-abac-c14fcbfbccf5@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3 0/3] x86/dom0: be less restrictive with the Interrupt
+ Address Range
+Message-ID: <Z8iM9tSD6O2r6RBp@macbook.local>
+References: <20250219164840.94803-1-roger.pau@citrix.com>
+ <db3113a1-4cae-4d2b-8840-645f56af3c51@suse.com>
+ <Z8hhKa-KdTbmp6rE@macbook.local>
+ <03dfb2ad-50de-406d-bdd0-41352c21f82b@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <0d298a29-91f6-4e3f-abac-c14fcbfbccf5@suse.com>
+In-Reply-To: <03dfb2ad-50de-406d-bdd0-41352c21f82b@suse.com>
 
-On Wed, Mar 05, 2025 at 05:23:05PM +0100, Jan Beulich wrote:
-> On 05.03.2025 16:39, Roger Pau Monné wrote:
-> > On Wed, Mar 05, 2025 at 04:02:51PM +0100, Jan Beulich wrote:
-> >> On 05.03.2025 15:48, Roger Pau Monné wrote:
-> >>> On Tue, Feb 25, 2025 at 12:37:00PM +0100, Jan Beulich wrote:
-> >>>> __init{const,data}_cf_clobber can have an effect only for pointers
-> >>>> actually populated in the respective tables. While not the case for SVM
-> >>>> right now, VMX installs a number of pointers only under certain
-> >>>> conditions. Hence the respective functions would have their ENDBR purged
-> >>>> only when those conditions are met. Invoke "pruning" functions after
-> >>>> having copied the respective tables, for them to install any "missing"
-> >>>> pointers.
-> >>>>
-> >>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On Wed, Mar 05, 2025 at 03:54:56PM +0100, Jan Beulich wrote:
+> On 05.03.2025 15:35, Roger Pau Monné wrote:
+> > On Wed, Mar 05, 2025 at 03:27:18PM +0100, Jan Beulich wrote:
+> >> On 19.02.2025 17:48, Roger Pau Monne wrote:
+> >>> Hello,
 > >>>
-> >>> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+> >>> First two patches are preparatory changes to reduce the changes required
+> >>> in patch 3.  I would have wanted those to go in 4.20 to fix the issues
+> >>> on Lenovo Thinkpads, but it's too late now.
+> >>>
+> >>> Thanks, Roger.
+> >>>
+> >>> Roger Pau Monne (3):
+> >>>   x86/dom0: correctly set the maximum ->iomem_caps bound for PVH
+> >>>   x86/iommu: account for IOMEM caps when populating dom0 IOMMU
+> >>>     page-tables
+> >>>   x86/dom0: be less restrictive with the Interrupt Address Range
 > >>
-> >> Thanks.
-> >>
-> >>> However I find this filling slightly ugly, and prone to be forgotten
-> >>> when further hooks are added.
-> >>
-> >> Indeed. Luckily, while undesirable, that wouldn't be an outright bug.
-> >>
-> >>> Would it make sense to delay enabling of IBT until after alternatives
-> >>> have been applied, and thus simply not use the cf_clobber attribute on
-> >>> functions that are patched to not be indirectly called?
+> >> I'm uncertain whether to take this and "x86/pvh: workaround missing MMIO
+> >> regions in dom0 p2m" for backport. The sole Fixes: tag is in patch 1 here.
+> >> Thoughts?
+> > 
+> > At least the ones here would be helpful for the reported Lenovo
+> > Thinkpad issue.  The PVH p2m addition would be nice IMO.
 > 
-> Hmm, wait - how would that work? cf_clobber is used on function pointer
-> tables; any function indirectly callable prior to patching still needs
-> marking with cf_check, for build-time analysis to not throw errors (with
-> the specially patched gcc that Andrew prepared with a patch of H.J.'s).
+> Are the ones here sufficient to deal with that issue? IOW iasn't the other
+> 2-patch series also necessary?
 
-Yeah, we would need something there?
-
-Maybe disable such detection around alternative_{,v}call() usages if
-possible?
-
-I assume the build-time detection is done based on call sites?  We
-would need to figure out whether the detection can be disabled for
-chunks of code.
+For a PV dom0, yes, the patches here are enough.  For a PVH dom0 you
+also need "x86/pvh: workaround missing MMIO regions in dom0 p2m".
+Given that we now officially support PVH I think we would need to
+backport the latter, to have parity between PV and PVH dom0.
 
 Thanks, Roger.
 
