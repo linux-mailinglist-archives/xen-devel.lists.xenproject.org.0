@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADD17A50EE8
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 23:44:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.902828.1310790 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2B3FA50F45
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 23:58:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.902874.1310817 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpxTR-0008EO-W2; Wed, 05 Mar 2025 22:44:21 +0000
+	id 1tpxgU-0002T0-E3; Wed, 05 Mar 2025 22:57:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 902828.1310790; Wed, 05 Mar 2025 22:44:21 +0000
+Received: by outflank-mailman (output) from mailman id 902874.1310817; Wed, 05 Mar 2025 22:57:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpxTR-0008C0-Su; Wed, 05 Mar 2025 22:44:21 +0000
-Received: by outflank-mailman (input) for mailman id 902828;
- Wed, 05 Mar 2025 22:44:19 +0000
+	id 1tpxgU-0002RR-Au; Wed, 05 Mar 2025 22:57:50 +0000
+Received: by outflank-mailman (input) for mailman id 902874;
+ Wed, 05 Mar 2025 22:57:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=pOX7=VY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tpxTP-0008Bm-Jt
- for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 22:44:19 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ id 1tpxgS-0002RL-Qm
+ for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 22:57:48 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5ebebf21-fa13-11ef-9898-31a8f345e629;
- Wed, 05 Mar 2025 23:44:17 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-abf4d756135so7172066b.1
- for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 14:44:17 -0800 (PST)
+ id 4111f0ae-fa15-11ef-9898-31a8f345e629;
+ Wed, 05 Mar 2025 23:57:46 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-abf4802b242so9744366b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 14:57:46 -0800 (PST)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abf4a3a19b2sm884386166b.44.2025.03.05.14.44.16
+ a640c23a62f3a-ac1efd7d3dfsm372188666b.166.2025.03.05.14.57.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Mar 2025 14:44:16 -0800 (PST)
+ Wed, 05 Mar 2025 14:57:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5ebebf21-fa13-11ef-9898-31a8f345e629
+X-Inumbo-ID: 4111f0ae-fa15-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741214657; x=1741819457; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1741215466; x=1741820266; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=pTwmi0cUF3/pS1Hz6HN1qkSC3wILXQEsVZibWmbgZsw=;
-        b=GDsw5eiW9Us/6AlzqmswcepX5qLKdzWhrQfqg05jP99+MW3caT7mJ+ykpxkoipKqs9
-         GtWsPOLAXmCYTOT8sjNSVD4nSoZGCZxeCZ3Jze42zRO0qvVwory9a95GTzFii3IGQbvu
-         EPLOrF2K/MJsz4dWTT9EQ4AVTjy8P+NK/HFZg=
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=iOEK8Q5iQn/5cK6OlgLwl5nwQ1puwz4Bez7lEpItq34=;
+        b=rY9YoLNGXA/C0DDfoVXU/0ZDLCEkct/8CFLxrZrWqXTbhWP2nT/TE0Vwg8VuzLGtSq
+         Xw2n+plNUw+kje1aC3NrKyQspdrnLmAVlVHr32JpRr3KUUx9JdjF9hP9X6EXPRc+eGEp
+         puHngbmwqt0J638ZZ8qOT86NqZ2jVAwYdLfXA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741214657; x=1741819457;
+        d=1e100.net; s=20230601; t=1741215466; x=1741820266;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=pTwmi0cUF3/pS1Hz6HN1qkSC3wILXQEsVZibWmbgZsw=;
-        b=I6I3LNM4DLwCZ7qTxEkQL0hwwkl4yoFPuKDmrBC0Mi0SY/Xr9bbSFP1SV2E7e5x6+D
-         Ufd/Wh4ftQmsLFdbf/79CAwhjf1qsjHFyRTwjUUoGDmFlNGJhJGp+cqjDH71z+j/Vt/9
-         JGcPNCn516qVicJe5H+EmveaqxbW4SXTE6WwuPGnesdwwzoukMCyBk8qEopsyqRId2Kv
-         NQ5i/jWelXOEutLE9l14jw3lKwnCrlRcsC3vDsZRnWqitZ3hO8GzPNJTqFGT62Eda623
-         WXpSpD/UqFK+s5mJEBVYR26L+fS1EhEClBsHo/xiSstEnTVFRvzI8PVTd80j7rVhZeDM
-         0sww==
-X-Forwarded-Encrypted: i=1; AJvYcCWNgUm+Vln9SzM9X2kvYpwY0Wib69TySpb3hQZh2xcx4gNolse9HrRW0wJW970LJIHE92ai9vXBdN8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyboUfcmZy5rQglhjZvJdLg2urSZC0Ps+DRqLvxJg4W51adT+Ow
-	x9rMAMQ2eUzuYt6DqKmtvA+Hw0FeDK4keSTy+4xcIwb05xjxev9Lq3fnVsJVNT0=
-X-Gm-Gg: ASbGnctU7s7KCwhP9izR2U08FggTk+9dYO+ZF+KXJFGpBVAzI2QeHHlo9tZv1ntcX0H
-	j13CNcnbAg/QUQJ8grnSENhpPXV/Mm7Wf9b3zfM+HnS0TTE1gCpcTv3lMgAeIE/GIfurCJH4UPP
-	3Jm7Cko4N8qGlYwrJrnXqeu7T2TeU0J1XeC7pOtMjbcfqpe5xLLcqhZBURhgUY3VfTszYwtgCg9
-	Qbknl4JbJQg5XH/QZSitunSoyrLJ5/+n5Nm3JM+v9hh2t+TBQ/Zzn+n4P53qYitJSrEK9eL9wHw
-	UfAsNUo5dYgveGL8JyQb9UgBd/y7ugrd6FqWU+gki3HwGPoKrITCLcw29vwWJ530Jv4p0pvQ4PL
-	9Vu+wyM5r
-X-Google-Smtp-Source: AGHT+IExbXJ+4eq9PD0aDX2d2JiRDM5bnenGWIBWXBnZSN/dT+RB1zbNtl+FBrcGy/UDgD9r+V6SPA==
-X-Received: by 2002:a17:906:7308:b0:abf:486a:5e0e with SMTP id a640c23a62f3a-ac20d8cdafdmr464943466b.22.1741214656816;
-        Wed, 05 Mar 2025 14:44:16 -0800 (PST)
-Message-ID: <c145ee1e-91e9-491e-bd21-7bb0a04ab0a1@citrix.com>
-Date: Wed, 5 Mar 2025 22:44:15 +0000
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=iOEK8Q5iQn/5cK6OlgLwl5nwQ1puwz4Bez7lEpItq34=;
+        b=rFjbDQgNvA6tNl3Q2Yq4ouCfPeCSKsJN96KBYppopx60mxj96uBve9ZJqVmrCMXbGN
+         aNIgYnZgZWbdsI77NWSE2Vo3HWqoafdii3tR5pX+lY44yZsyEN1QmJUpc0D37c65Jkr5
+         YxoPylVzNRISGuFfE74P7/OmToie/SJw2aOxSBfCU6CkLsi4fUJe4VkiB5P5P9Jkjryl
+         8SF8Iz9AWHjVgzhVBi8g4CDhRrmbY7jtpPjOyeGerV9HxZKCOncZrEDbY3FCO6JcTqSI
+         RPtSbUqjvUroj5SsZOklUkX037ZfTr4k70xgkU2pwsJi373ULHlph2MUmv9w6kEk3qfX
+         RO+Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXcMnMkyTmi8Fxv/5YaguJtzLoEocDU712JViTBJR8uvypp+TLDzmT6v9SprP9A6/3oAszuWHZqlZo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw8MmCBVZQWo+B6kc9oZK9EP2Fn94VJfe5VFhERMZTTNGPhlbXQ
+	6LudDa3OZXiMH9DbTrbqm3X7K8OmhbcJkkfsgzUjbQRcnH+5xi8pXgRXSdm7ik56f3cw9/PP54X
+	6
+X-Gm-Gg: ASbGncvIesACjYvwXTjMvN8E5afruB/tIFjx55AIJxoYj0WBx+PSx/FwUmT18n9WKtc
+	bYYAQ5hqQHeT3Lt7K2YtO2fKHJwBtNs8gL7izDeO69GyythF+hJT/VDU7p2ysBy+ewNw//uL4fb
+	bWo6XtGQxTnjK7OHtry4VaiTouKcv8xzrewe52iOr8t0j4DDCi7bVKTT52Yrt+w0Ott54P9Dik2
+	z3432/nPrRzD6yrsDNXJ7jo59Rs0zRF31IaZ3Z67FSSqCRYG8t4AE+d7WYb19bKSNcOa6XVmkpb
+	qcX/yiINSdsf6vagC97r+55sALV5Lju36IRi7TrmOOFqdMaEWmuNrLMsM07ycNj87xEZpt/lV5U
+	5rdLKaW2I
+X-Google-Smtp-Source: AGHT+IGMWpcTR/9Fj0JeIj6qDhKEzbmcyD/tRgd+uvNb0W9FM5ENsOQymhpIvmHax/3+lmJjG7KC4Q==
+X-Received: by 2002:a17:907:7e96:b0:abb:c647:a4bf with SMTP id a640c23a62f3a-ac20d8bcea1mr427935666b.23.1741215466041;
+        Wed, 05 Mar 2025 14:57:46 -0800 (PST)
+Message-ID: <499e999a-06d9-4a49-b223-b04bb0c34edb@citrix.com>
+Date: Wed, 5 Mar 2025 22:57:44 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: BUG - running new version on nested virtualization
-To: =?UTF-8?B?S0HEnkFOIEnFnklMREFL?= <kagan.isildak@malwation.com>,
- xen-devel@lists.xenproject.org, xen-users@lists.xenproject.org
-References: <CABDHFN7uk0JdehT3R0f_PvRgT-thdNyywppekmjLWfSq13dNKQ@mail.gmail.com>
+Subject: Re: [PATCH] docs: fix INTRODUCE description in xenstore.txt
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20250305085201.14258-1-jgross@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -133,32 +137,58 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <CABDHFN7uk0JdehT3R0f_PvRgT-thdNyywppekmjLWfSq13dNKQ@mail.gmail.com>
+In-Reply-To: <20250305085201.14258-1-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 05/03/2025 10:05 pm, KAĞAN IŞILDAK wrote:
-> Hey there
+On 05/03/2025 8:52 am, Juergen Gross wrote:
+> The description of the Xenstore INTRODUCE command is still referencing
+> xend. Fix that.
 >
-> I'm facing weird issue. At my lab env. i'm building xen 4.18 and make
-> deb package than i use it on virtual machine which running on esxi
-> with CPU features for nested virtualization and there's no problem. (I
-> can create vm and able to do all operational things etc.)
+> While at it, make clear that the Xenstore implementation is allowed
+> to ignore the specified gfn and use the Xenstore reserved grant id
+> GNTTAB_RESERVED_XENSTORE instead.
 >
-> Last week i tried to migrate 4.19 and 4.20 but Xen get stuck on
-> booting and at debug log i just see error about mounting /proc/xen
-> (mount: /proc/xen: mount point does not exist.) I've no f... idea why
-> it caused. (At my all tries, i used fresh install of ubuntu server
-> 22.04, 24.04)
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+>  docs/misc/xenstore.txt | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
 >
-> Is there any one faced issue and is there special things to do in
-> build phase for nested virtualization? (I didn't change anything while
-> building 4.18, i'm just using stable branch)
+> diff --git a/docs/misc/xenstore.txt b/docs/misc/xenstore.txt
+> index 38015835b1..d894d24d11 100644
+> --- a/docs/misc/xenstore.txt
+> +++ b/docs/misc/xenstore.txt
+> @@ -286,7 +286,7 @@ TRANSACTION_END		F|
+>  INTRODUCE		<domid>|<gfn>|<evtchn>|?
+>  	Notifies xenstored to communicate with this domain.
+>  
+> -	INTRODUCE is currently only used by xend (during domain
+> +	INTRODUCE is currently only used by xen tools (during domain
+>  	startup and various forms of restore and resume), and
+>  	xenstored prevents its use other than by dom0.
+>  
+> @@ -299,6 +299,10 @@ INTRODUCE		<domid>|<gfn>|<evtchn>|?
+>  	for example passing a high-bit-set 32-bit gfn as an unsigned
+>  	decimal will attempt to use 0x7fffffff instead (!).
+>  
+> +	Xenstored might ignore the <gfn> value and use the reserved
+> +	grant table entry GNTTAB_RESERVED_XENSTORE instead for mapping
+> +	the Xenstore interface page of the guest.
 
-/proc/xen isn't getting mounted, and that's necessary for the Xen
-tooling to work.  It's a custom filesystem of type "xenfs" in Linux.
+I'd suggest making a stronger statement than this.
 
-Check the status of proc-xen.mount
+---
+The <gfn> field is used by xenstoreds which use foreign mapping to
+access the ring page.
+
+Alternatively, Grant 1 (GNTTAB_RESERVED_XENSTORE) is reserved for the
+same purpose, and is populated by the domain builder on behalf of the
+guest.  This mechanism is preferred because reduces the permissions that
+xenstored needs in order to function.
+
+Both <gfn> and Grant 1 need to agree, because implementations of
+xenstored will use one and ignore the other.
+---
 
 ~Andrew
 
