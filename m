@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76706A4F34E
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 02:13:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.901674.1309630 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CF37A4F350
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 02:14:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.901682.1309640 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpdJE-0006W9-30; Wed, 05 Mar 2025 01:12:28 +0000
+	id 1tpdLK-000739-DT; Wed, 05 Mar 2025 01:14:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 901674.1309630; Wed, 05 Mar 2025 01:12:28 +0000
+Received: by outflank-mailman (output) from mailman id 901682.1309640; Wed, 05 Mar 2025 01:14:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpdJD-0006Tk-Vw; Wed, 05 Mar 2025 01:12:27 +0000
-Received: by outflank-mailman (input) for mailman id 901674;
- Wed, 05 Mar 2025 01:12:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tpdLK-00070X-AS; Wed, 05 Mar 2025 01:14:38 +0000
+Received: by outflank-mailman (input) for mailman id 901682;
+ Wed, 05 Mar 2025 01:14:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vvpY=VY=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1tpdJB-0006Te-Kj
- for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 01:12:26 +0000
-Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch
- [79.135.106.29]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e4266293-f95e-11ef-9ab4-95dc52dad729;
- Wed, 05 Mar 2025 02:12:24 +0100 (CET)
+ id 1tpdLI-00070N-8Y
+ for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 01:14:36 +0000
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 30cc60f4-f95f-11ef-9898-31a8f345e629;
+ Wed, 05 Mar 2025 02:14:31 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,132 +36,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e4266293-f95e-11ef-9ab4-95dc52dad729
+X-Inumbo-ID: 30cc60f4-f95f-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=7msnwpphb5cfvpe577esins6hy.protonmail; t=1741137140; x=1741396340;
-	bh=V3j+k1jHDurRGziduvVGb9LeHYCXEotngrDFCp3SnvY=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector:
-	 List-Unsubscribe:List-Unsubscribe-Post;
-	b=fO6sORSzaHbXmLc2v581zeeB6UoULwJtU/L5H3X8CnWhUP0ZjVLd68z8H2TkVEh0U
-	 v2l6bmsu7tXiwmIHx9jp06C1O4ExcTek9K9rDW26dYCc18REsGomgHd4vAPuzvEDal
-	 Etm99XBvgLtK8EqlZkkd0s2iEn/WF9+lAX4z5BQYSQ8pUCN0TAnZp/L0XGMqU2Ayf3
-	 YPAueqsbPwiDzA1u+wgbVIaHBfIcK3XhCxmRqbmBLZnJYro61/CxEYTN0dNLFL9FQS
-	 Ax7jesdKRpxMEr9tdTkQKvoXe7zCKamChc/wm2uhMXHrPWQUPIIfT0EZTZsPdLcJ0Q
-	 iuTxcXHsg2IaA==
-Date: Wed, 05 Mar 2025 01:12:17 +0000
-To: xen-devel@lists.xenproject.org
-From: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: [PATCH v2] xen/console: make console buffer size configurable
-Message-ID: <20250305011127.4079670-1-dmukhin@ford.com>
+	s=pjm5nundg5a5nfh2nsl7o3wbsy.protonmail; t=1741137270; x=1741396470;
+	bh=GFVUK0ROMfQvo+Iqx6rTcS4JZeJncja6c/p6tblP/sE=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
+	b=hLrahnaPprXbD0JV/EhTqF6vUcvsE9lXGBFEnUAUZ1xrz3P0lcXA5lUneQyyf95IO
+	 6OX7smW2X4rrXV2HqY+9R9+YHbMz7RnU/VUPkkFxzdvlGnjm6K6D5cmRLnB72njWLy
+	 8ePYjdQLqPgTuNCUz38tZpDZy2qVTiaB4zRxU96LYFvoAqb9czIfCQ5QPA/+dngG1V
+	 tQ+aJp3qQLBvT2m/RbdUy99+AAGJQBKveocs5FQuOgiOKjkwPD47CvZgjLr3yn7kWK
+	 9mhxuX57rQ5vM6sxl6Nq85FOIWtQyGnas45k/P8OQFnkWL4jE+8VvI6rAyBnlwFn4A
+	 e/fw73ZC+ku7Q==
+Date: Wed, 05 Mar 2025 01:14:22 +0000
+To: Jan Beulich <jbeulich@suse.com>
+From: Denis Mukhin <dmkhn@proton.me>
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] xen/console: make console buffer size configurable
+Message-ID: <k4iQCAOqKszbNTt0dcUiMaI--TwJAlO6alZSawaTzluJXggCBHoxsZR8TJr1qHsGZYupkCOkMb4Wkxw4KiZzwh2QSZolmgkOBMFQ4CsNBLs=@proton.me>
+In-Reply-To: <3826b034-be99-4f43-ac55-d616e473ab40@suse.com>
+References: <20250212222157.2974150-1-dmukhin@ford.com> <4203576f-0b93-4647-9983-e36c15fa1d0c@suse.com> <o_C90Tb8fjLMkG-pSNmxycIsYytdAxHSTU7yrudH07-h6L9e4XGirmyyKKSRQsLuOyYwA6b-9jd8kOOnM21yC8I-6q5EzcX2lsLHcbgGqec=@proton.me> <3826b034-be99-4f43-ac55-d616e473ab40@suse.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 96f650eb570a6a7bb33e783d083fb78a7e447563
+X-Pm-Message-ID: 19318af4d458949f6c1b91c30d8442bc554fc8fd
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Add new CONRING_SHIFT Kconfig parameter to specify the boot console buffer =
-size
-as a power of 2.
+On Monday, February 24th, 2025 at 2:44 AM, Jan Beulich <jbeulich@suse.com> =
+wrote:
 
-The supported range is [14..27] -> [16KiB..128MiB].
+>=20
+>=20
+> On 21.02.2025 21:52, Denis Mukhin wrote:
+>=20
+> > On Tuesday, February 18th, 2025 at 8:05 AM, Jan Beulich jbeulich@suse.c=
+om wrote:
+> >=20
+> > > On 12.02.2025 23:31, dmkhn@proton.me wrote:
+> > >=20
+> > > > --- a/xen/drivers/char/Kconfig
+> > > > +++ b/xen/drivers/char/Kconfig
+> > > > @@ -96,6 +96,18 @@ config SERIAL_TX_BUFSIZE
+> > > >=20
+> > > > Default value is 32768 (32KiB).
+> > > >=20
+> > > > +config CONRING_SIZE
+> > > > + int "Console buffer size"
+> > > > + default 32768
+> > > > + range 16384 134217728
+> > > > + help
+> > > > + Select the boot console buffer size (in bytes).
+> > >=20
+> > > Why in bytes when ...
+> > >=20
+> > > > + Note, the value provided will be rounded down to the nearest powe=
+r of 2.
+> > >=20
+> > > ... this rounding is done anyway? Why have people type in complicated=
+ numbers?
+> > > A granularity of 1k would already be an improvement; yet better would=
+ be if
+> > > this was a power-of-two value altogether.
+> >=20
+> > My understanding that the semantics of new CONFIG_CONRING_SIZE build-ti=
+me setting
+> > should be consistent with existing boot-time conring_size=3D behavior (=
+string value
+> > converted to number of bytes).
+> >=20
+> > I can update both to round up to 1k boundary.
+> >=20
+> > I also agree that having power of 2s for both (e.g. similar to Linux'es=
+ CONFIG_LOG_BUF_SHIFT)
+> > will be the simplest (implementation) and non-ambigous.
+> > I had it done earlier:
+> > https://lore.kernel.org/xen-devel/20241205-vuart-ns8250-v1-26-e9aa92312=
+7eb@ford.com/
+>=20
+>=20
+> I'd prefer the power-of-2 approach, yet I could live with the Kb-based on=
+e as
+> was suggested by Roger.
 
-Set default to 15 (32 KiB).
+Reworked to power of 2.
 
-Link: https://gitlab.com/xen-project/xen/-/issues/185
-Signed-off-by: Denis Mukhin <dmukhin@ford.com>
----
-Changes v1->v2:
-- Switched to using powers of 2 in new Kconfig knob
----
- docs/misc/xen-command-line.pandoc |  5 ++++-
- xen/drivers/char/Kconfig          | 27 +++++++++++++++++++++++++++
- xen/drivers/char/console.c        |  6 +++---
- 3 files changed, 34 insertions(+), 4 deletions(-)
-
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line=
-.pandoc
-index 0c6225391d..1e12d2c6b5 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -425,10 +425,13 @@ The following are examples of correct specifications:
- ### conring_size
- > `=3D <size>`
-=20
--> Default: `conring_size=3D16k`
-+> Default: `conring_size=3D32k`
-=20
- Specify the size of the console ring buffer.
-=20
-+The console ring buffer size can be selected at build time via
-+CONFIG_CONRING_SHIFT.
-+
- ### console
- > `=3D List of [ vga | com1[H,L] | com2[H,L] | pv | dbgp | ehci | xhci | n=
-one ]`
-=20
-diff --git a/xen/drivers/char/Kconfig b/xen/drivers/char/Kconfig
-index e6e12bb413..d3ddb7d87a 100644
---- a/xen/drivers/char/Kconfig
-+++ b/xen/drivers/char/Kconfig
-@@ -96,6 +96,33 @@ config SERIAL_TX_BUFSIZE
-=20
- =09  Default value is 32768 (32KiB).
-=20
-+config CONRING_SHIFT
-+=09int "Console buffer size (power of 2)"
-+=09range 14 27
-+=09default 15
-+=09help
-+=09  Select the boot console buffer size as a power of 2.
-+=09  Run-time console buffer size is the same as the boot console size,
-+=09  unless overridden via 'conring_size=3D' boot parameter.
-+
-+=09  Default value is 15 (32KiB).
-+
-+=09  Examples:
-+=09    27 =3D> 128 MiB
-+=09    26 =3D>  64 MiB
-+=09    25 =3D>  32 MiB
-+=09    24 =3D>  16 MiB
-+=09    23 =3D>   8 MiB
-+=09    22 =3D>   4 MiB
-+=09    21 =3D>   2 MiB
-+=09    20 =3D>   1 MiB
-+=09    19 =3D> 512 KiB
-+=09    18 =3D> 256 KiB
-+=09    17 =3D> 128 KiB
-+=09    16 =3D>  64 KiB
-+=09    15 =3D>  32 KiB
-+=09    14 =3D>  16 KiB
-+
- config XHCI
- =09bool "XHCI DbC UART driver"
- =09depends on X86
-diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index a84932e384..65468109ba 100644
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -101,12 +101,12 @@ static int cf_check parse_console_timestamps(const ch=
-ar *s);
- custom_runtime_param("console_timestamps", parse_console_timestamps,
-                      con_timestamp_mode_upd);
-=20
--/* conring_size: allows a large console ring than default (16kB). */
-+/* conring_size: override build-time CONFIG_CONRING_SHIFT setting. */
- static uint32_t __initdata opt_conring_size;
- size_param("conring_size", opt_conring_size);
-=20
--#define _CONRING_SIZE 16384
--#define CONRING_IDX_MASK(i) ((i)&(conring_size-1))
-+#define _CONRING_SIZE       (1UL << CONFIG_CONRING_SHIFT)
-+#define CONRING_IDX_MASK(i) ((i) & (conring_size - 1))
- static char __initdata _conring[_CONRING_SIZE];
- static char *__read_mostly conring =3D _conring;
- static uint32_t __read_mostly conring_size =3D _CONRING_SIZE;
---=20
-2.34.1
-
-
+>=20
+> > Also, since there's a build-time configuration parameter along with the=
+ boot-time
+> > configuration, perhaps it makes sense to retire boot-time setting in fa=
+vor of
+> > build-time setting?
+>=20
+>=20
+> Why would that be? Build-time settings can only ever be defaults. We don'=
+t
+> know what people need in their configurations.
+>=20
+> Jan
 
