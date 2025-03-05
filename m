@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF0ECA50140
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 15:01:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.902310.1310263 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FE97A50177
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 15:10:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.902322.1310272 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tppJQ-0008J3-IW; Wed, 05 Mar 2025 14:01:28 +0000
+	id 1tppRe-000117-Cz; Wed, 05 Mar 2025 14:09:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 902310.1310263; Wed, 05 Mar 2025 14:01:28 +0000
+Received: by outflank-mailman (output) from mailman id 902322.1310272; Wed, 05 Mar 2025 14:09:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tppJQ-0008G7-F0; Wed, 05 Mar 2025 14:01:28 +0000
-Received: by outflank-mailman (input) for mailman id 902310;
- Wed, 05 Mar 2025 14:01:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tppRe-0000zG-AN; Wed, 05 Mar 2025 14:09:58 +0000
+Received: by outflank-mailman (input) for mailman id 902322;
+ Wed, 05 Mar 2025 14:09:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2gZc=VY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tppJP-0008Fz-IE
- for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 14:01:27 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 53723f70-f9ca-11ef-9898-31a8f345e629;
- Wed, 05 Mar 2025 15:01:25 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-43bcf9612f4so11763905e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 06:01:25 -0800 (PST)
+ id 1tppRd-0000z8-8v
+ for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 14:09:57 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8400cc69-f9cb-11ef-9ab4-95dc52dad729;
+ Wed, 05 Mar 2025 15:09:56 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-43bc4b1603fso21524765e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 06:09:56 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-390e47b6d31sm20853817f8f.42.2025.03.05.06.01.23
+ 5b1f17b1804b1-43bd426c16dsm18774595e9.6.2025.03.05.06.09.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Mar 2025 06:01:24 -0800 (PST)
+ Wed, 05 Mar 2025 06:09:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 53723f70-f9ca-11ef-9898-31a8f345e629
+X-Inumbo-ID: 8400cc69-f9cb-11ef-9ab4-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741183284; x=1741788084; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741183795; x=1741788595; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LzLepnddtgy5ZHTvXxN/RNFwvPNbyybm8o13vR0Pp3M=;
-        b=QRjia+kC0BhOE1z2cbHGEEyJT48+zj57QUKpOkSybxAF4RfSv8vhp4xI11jh/rhNpb
-         r+alqN2bCThhezKgy8nGnWnANW4rGPmfLLHb1h1MMfjDlAz9GpvCKfauhRtc9kISl5ga
-         iejGzD7mhN4GnSIRFkLit/iF2bU4jZPov0jgC4HsibNC1xVR5NcDuiqXnuCJZlcwJ52v
-         62DRRH+jalQqu930YlDpOW2dFvTb2q2HMKM1lsHDpd++WUG+IjxUux4EFtXOxdRtRpsS
-         9RA6eM6kxP2nizyb3fUzBHVLXpuI76iKifxMC2+fjycZduecC++vDRNr1CYRpiGTtFib
-         dRKg==
+        bh=Q0XFZ2Ptg4ulL7EcjE0LONbQfbQUHARIrFRzFQHpeXA=;
+        b=PIHLOtgQRXuzcawWyRGnI6B16hlVVW4b6sOW1soFp9pI6ef0XydAwNCq/JfRonoYbn
+         Gzu1nKThlOEYmG4o5pl+MOwH6lAbgKUoWakpoVsUYtWtl18xCU1JENoCKkWZhblIDNOa
+         etaHBMo6rNr/r535hymDyfqQ/VUm6WnApiyjMHCPvBJNA/O5kMQ8DpW2m/f9eAiMBV+O
+         1PTzbO5BfpAYouC3M8nr7HxAQ77QtUsPS3XZtYlJINttXDKoSOUwldZ4uwvN7DBJPUsz
+         7wH4d371Osjthiz2YA0k14p5lT9zemAy9uK9YqbLrMPfnBHCqnW1giMioyXVDy8KReU2
+         KGdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741183284; x=1741788084;
+        d=1e100.net; s=20230601; t=1741183795; x=1741788595;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LzLepnddtgy5ZHTvXxN/RNFwvPNbyybm8o13vR0Pp3M=;
-        b=BMtMH5W2tLYWDKErn+kU9drwUfAWhyUP7g1JD/eAIPNTy//iUuW1eggCGyUXeizVVf
-         FfGlrPY/FNiey0GFqp5ObIcMN0cb+iQJDkJe49CDDoHcMOWquBo8PJG6+LX1P/Xxh90X
-         7BWCaeJAHjRQjvQXkEzbrFUAjFVR1ZDOkftu+43sFkyymFjRyOTHKixyfKOQk0Zc6Pz8
-         XPPyqv//eQ4wzgBTKuIC+JBGvjh2YoOfswx3OctuHoCjAD29rAsBRlpMbU0DYivD7T4u
-         gAoC91bi4OJZe3eRRA+R43jyvwQ2iW5UKpa0+DSSte+c86rrwSoJmTaP4abelezjUuWj
-         QGfw==
-X-Forwarded-Encrypted: i=1; AJvYcCUckQQYFNZ7ZU5Cd4SkzNyMS21w3xTSN9oJ+8kttns3wy5GipZRZQRWul/vqmGlIl047Is68agJ37c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YylgfZHfx88pnrC3w2ovUXjOMFqsvSOfgj3QwnxBsmm9YiuXemX
-	x1W5QR9KeRt1OmpX1FsiqgomoZXil2PaqoLuo2CVfMyM4/s4BEi64yTZ4O7hcA==
-X-Gm-Gg: ASbGncsRHZCq2r5GoWkLvvd4DEE1jB3NmvflIoQ+GCh3aFJP7F1eT6vuggX6y+rhYqu
-	i/7bBSVnkxo6h5FRO8tpExNSyIQekCGAgpJ2PoFBZQgc7xzaVuw3X/wg94r+KFRwpeETKH7WuCE
-	4UO/gl2d9KP+UoBq/OLPnZakNMbjOFwIsFII+nwVoc3QHr0ELNhxW90v1BgDTLBjNtvA7qBQesN
-	lkj8Pj8jwnYmIeMQbUwO2oC4F9/cQlD5Dd/YJTa9St3UWRu5UUXlVgUkmBjsyMwIWNObYTr1pgQ
-	pvglzbK4oh0D+rS5AbXNtqrvePuX//SgxhBBLIRmiiPsPKrKnJkA4924T7gVHLXmaoCUVsi2z4/
-	vjw+zxltnpv+kV+N3dFmejq5MnSDZJg==
-X-Google-Smtp-Source: AGHT+IFnpGTj6M2+b+9CQQaJmVGt9bFZhQAHPQoZy+mWQCGRRJqrSJPNpxaEOGpxxiDTBUqduQx4Ng==
-X-Received: by 2002:a05:600c:1d01:b0:439:9f97:7d6c with SMTP id 5b1f17b1804b1-43bd2aec224mr23388355e9.29.1741183284442;
-        Wed, 05 Mar 2025 06:01:24 -0800 (PST)
-Message-ID: <636170c8-2b61-4918-8c17-5c4953aa25ca@suse.com>
-Date: Wed, 5 Mar 2025 15:01:23 +0100
+        bh=Q0XFZ2Ptg4ulL7EcjE0LONbQfbQUHARIrFRzFQHpeXA=;
+        b=COvSTnhQQZzOv0cpcVfX9ny3rxT+EDYGMMBTowSWaERkIpEoN5tBsSv9ztIFYgJvVn
+         Y4XbYeDUe4tj49hsl9l/9w0iJYLqtVkPpAF8yHP6R4Ll5ctdIwkbdsl1/oP/mJnH0Jj+
+         iRkxD78DEwAgq/Pw4BGKFkP+4MmDSaGZd3fRjvL8V9/t8DmoN7Wxrz7/Sb5EaVbbW5zb
+         ueJOlZ1Xa90bmWFdaCkEo+VeLrFO+JGCFBrfeKNL2F0p4Zf5AP6n2f3oXZh7nSAsEXf/
+         69P9nlmwonvR16P5b9tnusLWUhNmLaWgyeu4NWKaU9PIJ6VE6XrGK+TLzDehpzMT58au
+         vkVA==
+X-Forwarded-Encrypted: i=1; AJvYcCWFRRljYhlasDuDnC2q9on04gMCqYjijeboaZZpezHGJrJxpJMESXPY4mrX4/0kGMQ5gopX5jGikfw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwZh5QJBuWfM3rLoZlVavvZKl26WiBV8t7eGi0PKlIIIdpZhq1l
+	TQ8B19/gcjJjrwkYXVFZTQB83DIQDy/uyk0SLdwLsmNBySYN8Ckh0ykDuP2Lbg==
+X-Gm-Gg: ASbGncv5BOPDjdfQ341lOaPPFwjy0yWvTA9E/QSQpCeVLJ9yvuVz4on82QzFRRkIlK4
+	QhlcchGjmH2gZ26jNAgBRDRYcrllww0varOphAUnbtf+TYLE1idTnX2IsyoWDRNmQp8ZZCRBY+a
+	0TfHPxWcYzqKZNSxI7YFTc9y05LuUEKEwOESQqS1hYOBPbpkHVHG6wp7uVKWA+19XEyDuuSIBrS
+	OzqwoGBaJikKNRNmmuxVxAwmKxP6Xi2Cnnq7412xJDT3z55xmQ5TDppCpqcQW87VzZou4FIGc3o
+	FwdpVxrLswVL4phkr6bCYaGledm2ui5wE58XFniRaBaFIZSJJrH983+s0JmfhG4B4eRmDu2k9mV
+	qiaKi2NsXvXfxKsUtaVBsrB6rgH1Z7g==
+X-Google-Smtp-Source: AGHT+IH3cupE7rMepLIA2zUNd0bETKlAKXyeJPI7ZuCTeKj7eFrSyORToR8OcIOLw9hWopfBmS4cdQ==
+X-Received: by 2002:a05:6000:2ac:b0:391:1473:134e with SMTP id ffacd0b85a97d-3911f725c6amr2247512f8f.5.1741183795448;
+        Wed, 05 Mar 2025 06:09:55 -0800 (PST)
+Message-ID: <3d183a5b-008a-4985-bc94-1fb5dd93af7c@suse.com>
+Date: Wed, 5 Mar 2025 15:09:54 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/5] x86/IDT: Make idt_tables[] be per_cpu(idt)
+Subject: Re: [PATCH v2 3/5] x86/IDT: Generate bsp_idt[] at build time
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250305000247.2772029-1-andrew.cooper3@citrix.com>
- <20250305000247.2772029-3-andrew.cooper3@citrix.com>
+ <20250305000247.2772029-4-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,26 +118,59 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250305000247.2772029-3-andrew.cooper3@citrix.com>
+In-Reply-To: <20250305000247.2772029-4-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 05.03.2025 01:02, Andrew Cooper wrote:
-> This can be a plain per_cpu() variable, and __read_mostly seeing as it's
-> allocated once and never touched again.
+> ... rather than dynamically at boot time.  Aside from less runtime overhead,
+> this approach is less fragile than the preexisting autogen stubs mechanism.
+> 
+> We can manage this with some linker calculations.  See patch comments for full
+> details.
+> 
+> For simplicity, we create a new set of entry stubs here, and clean up the old
+> ones in the subsequent patch.  bsp_idt[] needs to move from .bss to .data.
+> 
+> No functional change yet; the boot path still (re)writes bsp_idt[] at this
+> juncture.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> v2:
+>  * Shuffle semicolon position
+>  * Eclair magic comment for multi-include files
+> 
+> There's something differnet about LLD vs LD.  Without the ABSOLUTE() in
+> gen-idt.lds.h, LD is fine but LLD puts out symbols in the form:
+> 
+>   x86_IDT_entry_0xff_ADDR1|0000000000002fb0|   t  |            NOTYPE|                |     |.text
+>   x86_IDT_entry_0xff_ADDR2|0000000000004020|   a  |            NOTYPE|                |     |*ABS*
+> 
+> which causes a slew of errors making symbols for xen-syms:
+> 
+>   .xen-syms.0.S:20:8: error: out of range literal value
+>    .long 0x15a0 - (((((((261 >> 8) * 0xffff000000000000) | (261 << 39))) + ((1 << 39) / 2)) + (64 << 30)) + (1 << 30))
+>          ^
+> 
+> owing to half the symbols being t rather than a.  Moreover, this is reliable
+> for the full FreeBSD builds, but interminttent on randconfig.  I haven't
+> figured out which other option is having an effect.
+> 
+> Forcing them all to absolute works in both toolchains.
 
-cpu_smpboot_free() certainly touches (really: modifies) it again. Just that ...
-
-> @@ -1009,7 +1009,7 @@ static void cpu_smpboot_free(unsigned int cpu, bool remove)
->      if ( remove )
->      {
->          FREE_XENHEAP_PAGE(per_cpu(gdt, cpu));
-> -        FREE_XENHEAP_PAGE(idt_tables[cpu]);
-> +        FREE_XENHEAP_PAGE(per_cpu(idt, cpu));
-
-... this function-like macro hides that the macro argument is written to. (This
-is the kind of hiding that elsewhere I think you dislike, yet there macros were
-an idea of yours, iirc.)
+Just to double-check: Making these symbols absolute does not collide with
+the .reloc section generation that we do for xen.efi, does it? That is, the
+absence of relocations for the IDT merely means that we must not use the
+IDT or any of its entries prior to relocating Xen back to its linked
+addresses. Or, if e.g. we fetched an entry's address from the IDT earlier
+on, we'd need to be aware that it's the linked address we fetch, not the
+one matching where we execute. If that's a correct understanding of mine
+and also matches your intentions:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
