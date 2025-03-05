@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A06D2A4FC08
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 11:31:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.902153.1310101 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0205CA4FC47
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 11:37:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.902162.1310109 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpm1a-0006r9-QK; Wed, 05 Mar 2025 10:30:50 +0000
+	id 1tpm8A-0000VZ-Dm; Wed, 05 Mar 2025 10:37:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 902153.1310101; Wed, 05 Mar 2025 10:30:50 +0000
+Received: by outflank-mailman (output) from mailman id 902162.1310109; Wed, 05 Mar 2025 10:37:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpm1a-0006o1-Mu; Wed, 05 Mar 2025 10:30:50 +0000
-Received: by outflank-mailman (input) for mailman id 902153;
- Wed, 05 Mar 2025 10:30:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tpm8A-0000TE-B5; Wed, 05 Mar 2025 10:37:38 +0000
+Received: by outflank-mailman (input) for mailman id 902162;
+ Wed, 05 Mar 2025 10:37:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2gZc=VY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tpm1a-0006m4-1A
- for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 10:30:50 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e7965def-f9ac-11ef-9ab4-95dc52dad729;
- Wed, 05 Mar 2025 11:30:48 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-43bd5644de8so3403855e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 02:30:48 -0800 (PST)
+ id 1tpm88-0000T8-Lz
+ for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 10:37:36 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d95d5253-f9ad-11ef-9898-31a8f345e629;
+ Wed, 05 Mar 2025 11:37:34 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-439ac3216dcso44932895e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 02:37:34 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43bd42e51e8sm13213705e9.26.2025.03.05.02.30.47
+ 5b1f17b1804b1-43bd42c5b33sm13818045e9.22.2025.03.05.02.37.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Mar 2025 02:30:47 -0800 (PST)
+ Wed, 05 Mar 2025 02:37:33 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e7965def-f9ac-11ef-9ab4-95dc52dad729
+X-Inumbo-ID: d95d5253-f9ad-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741170648; x=1741775448; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741171054; x=1741775854; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=VZ7UpXkW5IqQEzTM44e164jNNUa/Agj4+x0JpVCSNno=;
-        b=Z46usWdwrc+VEeiNpshCpVnPxNzvpX+r5D7wdH2/v2xq6evjM4yfJikJyqz5gIU3PV
-         xBMBHbeNRvsAVK8P+12fyJIy9HnJpH1ebe8MJYwk0LfLtkn3QgWn52HW+Hu+G6qIlfkP
-         E00yH2ETvqOoXP4yJv+b/lvQFx2YN0GB+oopF1bSt3GpWWFxml8nNxHpSI4A3nLYasVj
-         KRab7jdfKvPmjQFKwvEFS9u1C6HYtZw+UrfQ8nkMV0xzsqdA1NRh5wXaC93ZbTcvawrW
-         ESm/Wj/aPgIS56pcSmNdcODRhW+zSutyMYYQIpKDOntOrAUL+fI0GE8eqzxHLXqzIvoc
-         R12Q==
+        bh=lb7mvAggtx7iYpOd/sm/9W0BwekAkv1/DCEZvYlqoTQ=;
+        b=b5Rc3rFhzbc/QwLnT8nSsdiepvmhrHR6EBfmshY6CVDm3u6aC15ofXB9azbtoVGCQ+
+         08IKCSIazwENEE1wXby3m650yCWpxc8/1JDlACJgT9/u4y+pdeuO859fO2hwUGJW+wj8
+         slOs+OH9aj5ZSMAvlS2TgW6Nl/VmErlxRj+G5EQ7tsLF9J9KsCu3BZW4KUrEEoSYLpmp
+         pP9WTmhNYegEiMfF9dsY9oI3QGYfS5GtIEZMKUptS6/69UhFOenkPuuzBLZ+UB3WuE4m
+         1BjdvDWqIlyQIyArzZqQBiLfT1IJiabT771XjF6vcMurBxuRrSS+qpD0SlwN1dGubJQF
+         Hd/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741170648; x=1741775448;
+        d=1e100.net; s=20230601; t=1741171054; x=1741775854;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VZ7UpXkW5IqQEzTM44e164jNNUa/Agj4+x0JpVCSNno=;
-        b=w8r8Rv0AMeaRy6fL/aWJOXexaDnzyddRg06lVLChbaOFlZ54ivOJuIFlS87kWO5vcg
-         Rvu+M6jD1y0sPQZAquQSCMvNGpNihwjE3Xw3yy5JxfiuVQAgwztjMSP2SsOfQEWLWHYH
-         WIyW6LY9RxKe7zRS4DvFxhW2iYWH1ny1vsAkJwG18SCeuByZzqdLK24ZYN8WSaz6zmdw
-         jUj2byJZWXgkRst6erP0KN9791JbUdKRz459jG/trBGc1N0X50qtwBz9pjsa08gXx63L
-         xLQRmqlIBvIEGUHIcNmXP8E5DGPKiJ4zVtjevWDeR8kVNsIFo2vDt5Zb4+L0zZey3XVU
-         Oc0g==
-X-Forwarded-Encrypted: i=1; AJvYcCULcO64EW9BlxSqqVuyrW19wqBrO3toNRZGBb2sx3vlMUrL+HV3SA041dO2X339oEz5jvCWaVi4d10=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzr2v7i/Me8zn10RoQz5MLXUSoNX0Ao2mGAH4bFGlj89Is/S+kd
-	OhYtrJfd37lavRp/1+bkAvY5DN25htBS3qyW+V2deAjgHRGyGbua1HCenSrHFA==
-X-Gm-Gg: ASbGncuhMdQ0j2zZN/iKpW2VwMMrSmo4U7F4NTdCKPI2f2pBhJG0QcUW+aIZwjjMzcc
-	4jmczW1dQwG6Za8PyiOWZFltbNFwcvp1eNSo6m3FrmNIkU/gwap5zvXzczCRtyiO6JwOChBTOb8
-	FZBpUR6Qv5r3+n1KXPN83lvdd5wHN3ReISb6amEyYleNczx0ICK8LkhT7aWZChB9n4e2W4USgmR
-	K4OVat+jDTsdgKhXbujNpY6bWbDV5I7TFjBV3KQ0/PMsuLbFn2A6WxwQcUMYUdb3NBC70XLfp9a
-	HsEQx+LvlTVcrlFIhz063Ljqza24YT0tRkfJP4ZR8djGnbQy9Y3LD4VX/9/CR1F0dDSjjUtr/bJ
-	sD9bwdUmX5D36u1Cjnx8daa4ixOPuPA==
-X-Google-Smtp-Source: AGHT+IGzCBgpIpgqjOZJZDnPqo/bW2nNpFfO9LNnf3UvwX05Tv/B+f5KhnkY32Q/V0YG3fnMAO0Kbw==
-X-Received: by 2002:a05:600c:35ca:b0:43b:ce86:b31a with SMTP id 5b1f17b1804b1-43bd29bd205mr16296315e9.22.1741170648110;
-        Wed, 05 Mar 2025 02:30:48 -0800 (PST)
-Message-ID: <c06573d3-36a1-4146-ac3f-5dbd4d82d22e@suse.com>
-Date: Wed, 5 Mar 2025 11:30:51 +0100
+        bh=lb7mvAggtx7iYpOd/sm/9W0BwekAkv1/DCEZvYlqoTQ=;
+        b=R463/2PvFpMPprwXFP+c/nP91WlyB1mBLRi7bnsjR16pFGTsZpC5bObaTZYqPqYBtK
+         Hyn+oMOfthbvc7ZfO0rci+frV8I5eSNimNLIdGCh/GxVaKysQTzU7hLCGItoNdU/9UXa
+         emhklvgu3LtzhHYCBxBpgyrgbDIQXRHWIm8ZmtAZS3PaiWOj8Q86TskFmH2cfiO0znaJ
+         YBBxSgxqH5Lo2eN2R+zQBKyvU6lRDN1nzvq8ip/2tMzB7aAeegEZbB9qGZ6PZ/RNJx7G
+         h9UkqhT9s5O8G+XN3aczjcioEog0hvhGoHLUuKpLLA4HnO8o3pmUQHUcrUT80mVS3wAV
+         c/4w==
+X-Forwarded-Encrypted: i=1; AJvYcCX+8IzlnDpMpWsemZT25NdEvgKxG9JoK47v/H1T3J/F+fiRF5Q8dP6T8j6fySb7jgE3z8RbpfTHXcA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyFh+2xIRAt84aE2CQkDMdUxb1kU0kmPU9btiPMa1ttuiVvDQ6z
+	ojCMjMKNQSDHBmd23RfEKtwYeL3A/4pCEklrp/+oM8AAI5vPpBkH4ErySWCEaQ==
+X-Gm-Gg: ASbGncvSPg6W0ve+35IID5VKdbtw+gNwxXp1Qn8VBTxt5XipwdIvoLD/CrfvN+Hcf/1
+	84pnzuNuRCitM3Hlwb6taDq4/O+UcX14Rt5h8mPqPnJRzIdlREaRpFN2FGlvsq17LUCmNF/vbLl
+	cbFZ9bJf38/RlzWjL0KHRpHXqxVegqulrBDBq2HxMzd1SLaWF+PaXGrKLlefshKl2uywgIoqWDj
+	CaUzgQGMWJksLZk9Z1udMAOu1OrR4mKsa86EK0u2LQmhb/BOXb7/Q44iA1R43kOZhICyzPBl+0u
+	EeDXpKYqdvxMSlFQfRslsh6jn/YbdGDlZzmYL+6oqW0RylV4bKNmGkfeA2TKTqoThbw66N0vMuS
+	JiwpMbSsLz+MKx3NeUi/3xRQ/jXRsWg==
+X-Google-Smtp-Source: AGHT+IFSv4q1UjMpdfCP3nRajVxfRsZ9pO8lNPvA/qK4DrP5myjf2pdUc99pejTvn4RoOlVoWDXtaA==
+X-Received: by 2002:a05:600c:4e8b:b0:43b:d0fe:b8be with SMTP id 5b1f17b1804b1-43bd29d8d45mr20262785e9.30.1741171053843;
+        Wed, 05 Mar 2025 02:37:33 -0800 (PST)
+Message-ID: <83d5d612-2f6a-430a-8aee-4738f43204e0@suse.com>
+Date: Wed, 5 Mar 2025 11:37:36 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/msi: prevent MSI entry re-writes of the same data
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250228113237.6116-1-roger.pau@citrix.com>
+Subject: Re: [PATCH] xen/iocap.h: add documentation
+To: Grygorii Strashko <gragst.linux@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Michal Orzel <michal.orzel@amd.com>, Roger Pau Monne <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Grygorii Strashko <grygorii_strashko@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20250224113828.151794-1-grygorii_strashko@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,83 +121,187 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250228113237.6116-1-roger.pau@citrix.com>
+In-Reply-To: <20250224113828.151794-1-grygorii_strashko@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28.02.2025 12:32, Roger Pau Monne wrote:
-> @@ -191,8 +193,6 @@ void msi_compose_msg(unsigned vector, const cpumask_t *cpu_mask, struct msi_msg
->  
->  static int write_msi_msg(struct msi_desc *entry, struct msi_msg *msg)
->  {
-> -    entry->msg = *msg;
-> -
->      if ( iommu_intremap != iommu_intremap_off )
->      {
->          int rc;
-> @@ -203,6 +203,20 @@ static int write_msi_msg(struct msi_desc *entry, struct msi_msg *msg)
->              return rc;
->      }
->  
-> +    /*
-> +     * Avoid updating the MSI entry if the address and data fields haven't
-> +     * changed.  When using interrupt remapping changing the MSI affinity
-> +     * shouldn't change the interrupt remapping table index, and hence the MSI
-> +     * address and data fields should remain the same.
-> +     */
-> +    if ( entry->msg.address == msg->address && entry->msg.data == msg->data )
-> +    {
-> +        entry->msg.dest32 = msg->dest32;
-> +        return 0;
-> +    }
-> +
-> +    entry->msg = *msg;
+On 24.02.2025 12:38, Grygorii Strashko wrote:
+> Change rangeset parameters to "start, last" as proposed in [1],
+> and add documentation for public interface.
+> 
+> No functional changes.
+> 
+> [1] https://patchwork.kernel.org/comment/26251962/
+> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
 
-It is perhaps pure luck that iommu_update_ire_from_msi() doesn't use entry's
-"msg" field, and hence that this re-arrangement is okay. It's unclear to me
-whether going forward this might not bite us.
-
-> @@ -1407,7 +1415,9 @@ int pci_restore_msi_state(struct pci_dev *pdev)
->          }
->          type = entry->msi_attrib.type;
->  
-> -        msg = entry->msg;
-> +        msg.dest32 = entry->msg.dest32;
-> +        msi_compose_msg(desc->arch.vector, NULL, &msg);
-> +        entry->msg = (typeof(entry->msg)){};
->          write_msi_msg(entry, &msg);
-
-Hmm, this isn't exactly a "restore" then anymore. That said, re-constructing
-the message may even be more correct. Then, however, the question is whether
-passing NULL as msi_compose_msg()'s middle argument is really appropriate. A
-little bit of commentary may be desirable here in any event, also as to need
-to clear entry->msg.
-
-There's (at least) one place where behavior changes with the change of what
-we store in struct msi_desc's msg field (previously untranslated, now
-translated): dump_msi() wants to use the untranslated form. I fear it can't
-even re-construct some of the data it means to log (without reading from
-the IRTE).
-
-> --- a/xen/drivers/passthrough/vtd/iommu.c
-> +++ b/xen/drivers/passthrough/vtd/iommu.c
-> @@ -1182,7 +1182,7 @@ static void cf_check dma_msi_end(struct irq_desc *desc, u8 vector)
->  static void cf_check dma_msi_set_affinity(
->      struct irq_desc *desc, const cpumask_t *mask)
->  {
-> -    struct msi_msg msg;
-> +    struct msi_msg msg = {};
->      unsigned int dest;
->      unsigned long flags;
->      struct vtd_iommu *iommu = desc->action->dev_id;
-
-Why not a similar transformation as you do in set_msi_affinity(), eliminating
-the local "dest"?
-
-A change like the one here is likely needed in __hpet_setup_msi_irq(), to
-prevent accidental "uninitialized struct field" warnings.
-hpet_msi_set_affinity() might then also want to use msi_compose_msg(), albeit
-that may also be regarded as an independent change.
+To be honest, this is getting too verbose for my taste. I also don't think
+title and description fit together: One says the main thing the patch does
+is add doc, the other says the main thing is the parameter renaming. When
+then there's at least one further parameter which is also renamed, despite
+not fitting the description.
 
 Jan
+
+> --- a/xen/include/xen/iocap.h
+> +++ b/xen/include/xen/iocap.h
+> @@ -12,11 +12,21 @@
+>  #include <asm/iocap.h>
+>  #include <asm/p2m.h>
+>  
+> -static inline int iomem_permit_access(struct domain *d, unsigned long s,
+> -                                      unsigned long e)
+> +/**
+> + * @brief Gives domain permission to access IOMEM range
+> + *
+> + * @d: Domain to give IOMEM range access
+> + * @start: IOMEM range start address, inclusive
+> + * @last: IOMEM range last address, inclusive
+> + *
+> + * @retval 0 Is successful
+> + * @retval -ENOMEM if memory allocation failed
+> + */
+> +static inline int iomem_permit_access(struct domain *d, unsigned long start,
+> +                                      unsigned long last)
+>  {
+>      bool flush = cache_flush_permitted(d);
+> -    int ret = rangeset_add_range(d->iomem_caps, s, e);
+> +    int ret = rangeset_add_range(d->iomem_caps, start, last);
+>  
+>      if ( !ret && !is_iommu_enabled(d) && !flush )
+>          /*
+> @@ -29,10 +39,20 @@ static inline int iomem_permit_access(struct domain *d, unsigned long s,
+>      return ret;
+>  }
+>  
+> -static inline int iomem_deny_access(struct domain *d, unsigned long s,
+> -                                    unsigned long e)
+> +/**
+> + * @brief Denies domain permission to access IOMEM range
+> + *
+> + * @d: Domain to deny IOMEM range access
+> + * @start: IOMEM range start address, inclusive
+> + * @last: IOMEM range last address, inclusive
+> + *
+> + * @retval 0 Is successful
+> + * @retval -ENOMEM if memory allocation failed
+> + */
+> +static inline int iomem_deny_access(struct domain *d, unsigned long start,
+> +                                    unsigned long last)
+>  {
+> -    int ret = rangeset_remove_range(d->iomem_caps, s, e);
+> +    int ret = rangeset_remove_range(d->iomem_caps, start, last);
+>  
+>      if ( !ret && !is_iommu_enabled(d) && !cache_flush_permitted(d) )
+>          /*
+> @@ -45,23 +65,93 @@ static inline int iomem_deny_access(struct domain *d, unsigned long s,
+>      return ret;
+>  }
+>  
+> -#define iomem_access_permitted(d, s, e)                 \
+> -    rangeset_contains_range((d)->iomem_caps, s, e)
+> -
+> -#define irq_permit_access(d, i)                         \
+> -    rangeset_add_singleton((d)->irq_caps, i)
+> -#define irq_deny_access(d, i)                           \
+> -    rangeset_remove_singleton((d)->irq_caps, i)
+> -#define irqs_permit_access(d, s, e)                     \
+> -    rangeset_add_range((d)->irq_caps, s, e)
+> -#define irqs_deny_access(d, s, e)                       \
+> -    rangeset_remove_range((d)->irq_caps, s, e)
+> -#define irq_access_permitted(d, i)                      \
+> -    rangeset_contains_singleton((d)->irq_caps, i)
+> -
+> -#define pirq_access_permitted(d, i) ({                  \
+> +/**
+> + * @brief Checks if domain has permissions to access IOMEM range
+> + *
+> + * @d: Domain to check IOMEM range access
+> + * @start: IOMEM range start address, inclusive
+> + * @last: IOMEM range last address, inclusive
+> + *
+> + * @retval true if access permitted
+> + * @retval false if access denied
+> + */
+> +#define iomem_access_permitted(d, start, last)             \
+> +    rangeset_contains_range((d)->iomem_caps, start, last)
+> +
+> +/**
+> + * @brief Gives domain permission to access IRQ
+> + *
+> + * @d: Domain to give IRQ access
+> + * @irq: IRQ number
+> + *
+> + * @retval 0 Is successful
+> + * @retval -ENOMEM if memory allocation failed
+> + */
+> +#define irq_permit_access(d, irq)                         \
+> +    rangeset_add_singleton((d)->irq_caps, irq)
+> +
+> +/**
+> + * @brief Denies domain permission to access IRQ
+> + *
+> + * @d: Domain to deny IRQ access
+> + * @irq: IRQ number
+> + *
+> + * @retval 0 Is successful
+> + * @retval -ENOMEM if memory allocation failed
+> + */
+> +#define irq_deny_access(d, irq)                           \
+> +    rangeset_remove_singleton((d)->irq_caps, irq)
+> +
+> +/**
+> + * @brief Gives domain permission to access IRQ range
+> + *
+> + * @d: Domain to give IRQ range access
+> + * @start_irq: IRQ range start number, inclusive
+> + * @last_irq: IRQ range last number, inclusive
+> + *
+> + * @retval 0 Is successful
+> + * @retval -ENOMEM if memory allocation failed
+> + */
+> +#define irqs_permit_access(d, start_irq, last_irq)      \
+> +    rangeset_add_range((d)->irq_caps, start_irq, last_irq)
+> +
+> +/**
+> + * @brief Denies domain permission to access IRQ range
+> + *
+> + * @d: Domain to deny IRQ range access
+> + * @start_irq: IRQ range start number, inclusive
+> + * @last_irq: IRQ range last number, inclusive
+> + *
+> + * @retval 0 Is successful
+> + * @retval -ENOMEM if memory allocation failed
+> + */
+> +#define irqs_deny_access(d, start_irq, last_irq)        \
+> +    rangeset_remove_range((d)->irq_caps, start_irq, last_irq)
+> +
+> +/**
+> + * @brief Checks if domain has permissions to access IRQ
+> + *
+> + * @d: Domain to check IRQ access
+> + * @irq: IRQ number to check
+> + *
+> + * @retval true if access permitted
+> + * @retval false if access denied
+> + */
+> +#define irq_access_permitted(d, irq)                    \
+> +    rangeset_contains_singleton((d)->irq_caps, irq)
+> +
+> +/**
+> + * @brief Checks if domain has permissions to access PIRQ
+> + *
+> + * @d: Domain to check PIRQ access
+> + * @pirq: PIRQ number to check
+> + *
+> + * @retval IRQ number if access permitted
+> + * @retval 0 if access denied
+> + */
+> +#define pirq_access_permitted(d, pirq) ({               \
+>      struct domain *d__ = (d);                           \
+> -    int irq__ = domain_pirq_to_irq(d__, i);             \
+> +    int irq__ = domain_pirq_to_irq(d__, pirq);          \
+>      irq__ > 0 && irq_access_permitted(d__, irq__)       \
+>      ? irq__ : 0;                                        \
+>  })
+
 
