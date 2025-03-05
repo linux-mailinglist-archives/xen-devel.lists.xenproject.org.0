@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD812A50E8F
+	by mail.lfdr.de (Postfix) with ESMTPS id C8DCCA50E90
 	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 23:26:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.902775.1310780 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.902811.1310772 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpxBc-0002kR-Gc; Wed, 05 Mar 2025 22:25:56 +0000
+	id 1tpxBV-0002IA-AG; Wed, 05 Mar 2025 22:25:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 902775.1310780; Wed, 05 Mar 2025 22:25:56 +0000
+Received: by outflank-mailman (output) from mailman id 902811.1310772; Wed, 05 Mar 2025 22:25:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpxBc-0002iX-Dm; Wed, 05 Mar 2025 22:25:56 +0000
-Received: by outflank-mailman (input) for mailman id 902775;
- Wed, 05 Mar 2025 22:06:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tpxBV-0002FP-6F; Wed, 05 Mar 2025 22:25:49 +0000
+Received: by outflank-mailman (input) for mailman id 902811;
+ Wed, 05 Mar 2025 22:25:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ysEN=VY=malwation.com=kagan.isildak@srs-se1.protection.inumbo.net>)
- id 1tpwsb-0006ro-0N
- for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 22:06:17 +0000
-Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com
- [2607:f8b0:4864:20::c2e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 067c57de-fa0e-11ef-9898-31a8f345e629;
- Wed, 05 Mar 2025 23:06:02 +0100 (CET)
-Received: by mail-oo1-xc2e.google.com with SMTP id
- 006d021491bc7-5fe86c16f5dso4063eaf.1
- for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 14:06:02 -0800 (PST)
+ <SRS0=pOX7=VY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tpxBT-00024R-FR
+ for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 22:25:47 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c862679f-fa10-11ef-9ab4-95dc52dad729;
+ Wed, 05 Mar 2025 23:25:46 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-aaedd529ba1so4914066b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 14:25:46 -0800 (PST)
+Received: from andrewcoop.eng.citrite.net (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ac1e152fdd4sm473867766b.176.2025.03.05.14.25.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 05 Mar 2025 14:25:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,97 +45,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 067c57de-fa0e-11ef-9898-31a8f345e629
+X-Inumbo-ID: c862679f-fa10-11ef-9ab4-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=malwation.com; s=google; t=1741212361; x=1741817161; darn=lists.xenproject.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=M5hCnZbYP5dUn03pFzViTItIx1J8XbSrIgN3JhUNevA=;
-        b=iIdW+Sty/dizZlZ7NQSNMzmjH6GSBP7Lt4RxzgkEXYgzcvSbtGfbl2qx+6UHRwMc6G
-         tLxSHBWqn9zoVch3ogVv64cT6IPk4aqOPzOUUyC+dcZ4qZSjt1ocKH0lG7qXBgHDZRHB
-         FtmjSyxR8LRe3Rbd2ufh5jeQiU5m4N1bm6Dh3O0MUupRkeyqunzkQBl/1oRv+w/UK9A5
-         n5D7S58X5PsCUY5NYL/tjkmPbEDuMmh4+0FIh5H/xKWZhby0YzkvJL2mJhr9NmtxhVOg
-         HKOLh4SssjN2GRntkMlKSHgPS49I8f4obe2IOf24kIYfgIstV/ics/zcKGjcsAODzZhc
-         1I4Q==
+        d=citrix.com; s=google; t=1741213545; x=1741818345; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=McDKkH1/jF76pltYd4jyBlFJcmo4P/DuMqxlYLD0OPg=;
+        b=FqBx1tf4A6G3NKyG0aQ3ayHwuUOJI2ULSHduVbr/B3mPtMmUGuDZybUMBUJ0VzE/15
+         mbVs+ivxEXuu836lPSO6WAM9TMBFVQVFOj/4NXYq92vitGm4wZARsvMybbj3TTCX9K7Z
+         PrT0324/LiA9W+/4xkeRxCtqcKPmyS6R2Xxp8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741212361; x=1741817161;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=M5hCnZbYP5dUn03pFzViTItIx1J8XbSrIgN3JhUNevA=;
-        b=QrTbZkBxQj1GbXqxO0XvtNFO/Gx6lDh96dCdc36IYYTQ6JgnYl2Q9jlfuXI5HCSgw9
-         9m7sTzwJksIcpBh59TSCEmvjwuXqHt47TV8tmVCMvT/Fe5k35RGJ0gAZ88zxWlSLmjjy
-         LEaNFfcC8taXsQPemcvy87m8yolT9XGczTdMDsVyeIfGuErW7SgykILEH9TCMrdJ2bGt
-         oCftUVY4BKSYPDuIENrB1q2DkdPIXwVjJqOp2meAO05lTjG7JEi/kHcPABmjPId+djgl
-         3WIoP2KOSdAPNqgBaCS0WvS7bJFxO4cji/VFJfzdx+tkI0tTSpsXrBtLhdt487B/wPtW
-         u6HQ==
-X-Gm-Message-State: AOJu0YwHeg/01/lP/0rlA1dapjrrd3GhZtNBqeEKXIClLDhlZEHurb8b
-	+iTTzQ0M9sQB4SwATRJO5yq7+6RA3VfNDLt0/E8oUJSX6A0JL0uyUJLWSyfImhBUdLadPDOQezA
-	yjEgnT0i/9P6mx9BE0aPs3k0GUm/kfGr/ArGo62kjOx8CmAYCbYul95Gp
-X-Gm-Gg: ASbGncu9J+K72TLC+iGuHKkpbeCTG9m03OsVOqW2TEaehVQ12teRFGamektDt5xNDB+
-	fQ6oX3y8hwVP/jXEHh7XYKFGVvL28vjt1ccDzaXJnAVY3WiVHekczwrfgdGvowx/YMvx91eej18
-	mFHpSuDXRaT+8W75zP7hWCyps=
-X-Google-Smtp-Source: AGHT+IGRowsngn07NCsyZTcdbLfd6yMbnpb4znYTPW3Ym2gzPIIXMCq7jw26S3Qm2pxKTjGP6N9eaN2983BBxLZc6KI=
-X-Received: by 2002:a05:6870:2192:b0:29e:76c8:be2e with SMTP id
- 586e51a60fabf-2c21cd20179mr2887455fac.28.1741212361101; Wed, 05 Mar 2025
- 14:06:01 -0800 (PST)
+        d=1e100.net; s=20230601; t=1741213545; x=1741818345;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=McDKkH1/jF76pltYd4jyBlFJcmo4P/DuMqxlYLD0OPg=;
+        b=k2CWcTodMqEGkNfRATPkyQPv7IJN5FWai8EQVIC/MjoHseH6Y3f0rbvHKyFiN6h2Si
+         hJ9kj4k4X2v/OxWgo9u58R5Bu4DHAzhUxQXvCfiJGtzWpWCQR4UugVqAfbS/HugT/iMU
+         YPfh6qdvp4rqoDjKsfGpf/f5AKtd/qc9cCg0eRojgTk1CBs6VrOf+YkWDPVADPw5+owB
+         p9EjVaglLCKYXuldE+MSdEZxHQU3q4RjYi3UK5xYCz6YvyQ52YA3XBrStRtMmW3dWCJ+
+         dS5/zlw50dhKqXHOk/3GObIY0rK3XXB5otEy61ugKigGOUqoE2AD38Q1w50P+sHD/jM7
+         7vDA==
+X-Gm-Message-State: AOJu0Yy+cgIpZVrHwvGAdtEkTgT05LJ52m2QrgsDDyx59+7WqeVoE+pV
+	s/n12rO9ovWI9guwxzRWH+C59Dji/16TIv6Wt942up/r/8c3QN+3X28gBPXPYyFWSA/DiDeN2Lk
+	/
+X-Gm-Gg: ASbGncvbbk9tROl4Z+u3qA3ai3N6gNu+eBAGjjwj2MdqnyWANYZJrfijUXMsGm69IUP
+	HfPKWk9/d1qEH1/RGhifz4FGsQukNVjycei3cXMfTgZFtg0OCvl3WkjbEva9SGmkch+ajqS7Umy
+	wF7bePhK7pNWjAXHResyMXPJqbw4eWmqVaR6z4hQjun/nLVKKWkPn16KgIFkuKQiQctM9gRGSp5
+	oxHBDEDI44WRoKxJ3d3QPB5VdlOvsF83/kliolmRJ1xbyyD1pxx6AxSvL8tCGeNjMscVkH/9CGj
+	ozVZ8VZcxt9iaf2aYiqdKgB4TdONgjLfGmsYa4E34D7qhVioOzhwOlYHWw5asz7wm/LL5NsKJBm
+	qLmVB6Jm4ejWghtuyQ338BVKm
+X-Google-Smtp-Source: AGHT+IGmFjGSqtjbYLGpeN00qCc9zJtUjy+DPtbTm7PnwBltB7kkFjwZmaHLI6kIC46gAMbIWvjeAg==
+X-Received: by 2002:a05:6402:2114:b0:5de:a6a8:5ec6 with SMTP id 4fb4d7f45d1cf-5e59f3d3780mr10313073a12.10.1741213545303;
+        Wed, 05 Mar 2025 14:25:45 -0800 (PST)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH] Xen: CI fixes from XSN-2
+Date: Wed,  5 Mar 2025 22:23:43 +0000
+Message-Id: <20250305222343.2874591-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-From: =?UTF-8?B?S0HEnkFOIEnFnklMREFL?= <kagan.isildak@malwation.com>
-Date: Thu, 6 Mar 2025 01:05:50 +0300
-X-Gm-Features: AQ5f1Jp0BZUIcsEM4ZJvNyQLKtAMwqyfxXDv55iUDWhh-tF4-ayiR9SrZrlpCaA
-Message-ID: <CABDHFN7uk0JdehT3R0f_PvRgT-thdNyywppekmjLWfSq13dNKQ@mail.gmail.com>
-Subject: BUG - running new version on nested virtualization
-To: xen-devel@lists.xenproject.org, xen-users@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="00000000000043304c062f9f986d"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
---00000000000043304c062f9f986d
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ * Add cf_check annotation to cmp_patch_id() used by bsearch().
+ * Add U suffix to the K[] table to fix MISRA Rule 7.2 violations.
 
-Hey there
+Fixes: 372af524411f ("xen/lib: Introduce SHA2-256")
+Fixes: 630e8875ab36 ("x86/ucode: Perform extra SHA2 checks on AMD Fam17h/19h microcode")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Anthony PERARD <anthony.perard@vates.tech>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Julien Grall <julien@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
 
-I'm facing weird issue. At my lab env. i'm building xen 4.18 and make deb
-package than i use it on virtual machine which running on esxi with CPU
-features for nested virtualization and there's no problem. (I can create vm
-and able to do all operational things etc.)
+TODO: Make a working CI pipline the security team can use.
 
-Last week i tried to migrate 4.19 and 4.20 but Xen get stuck on booting and
-at debug log i just see error about mounting /proc/xen (mount: /proc/xen:
-mount point does not exist.) I've no f... idea why it caused. (At my all
-tries, i used fresh install of ubuntu server 22.04, 24.04)
+https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1701963907
+---
+ xen/arch/x86/cpu/microcode/amd.c |  2 +-
+ xen/lib/sha2-256.c               | 32 ++++++++++++++++----------------
+ 2 files changed, 17 insertions(+), 17 deletions(-)
 
-Is there any one faced issue and is there special things to do in build
-phase for nested virtualization? (I didn't change anything while building
-4.18, i'm just using stable branch)
+diff --git a/xen/arch/x86/cpu/microcode/amd.c b/xen/arch/x86/cpu/microcode/amd.c
+index 27caed102818..ee7de5282b2a 100644
+--- a/xen/arch/x86/cpu/microcode/amd.c
++++ b/xen/arch/x86/cpu/microcode/amd.c
+@@ -99,7 +99,7 @@ static const struct patch_digest {
+ #include "amd-patch-digests.c"
+ };
+ 
+-static int cmp_patch_id(const void *key, const void *elem)
++static int cf_check cmp_patch_id(const void *key, const void *elem)
+ {
+     const struct patch_digest *pd = elem;
+     uint32_t patch_id = *(uint32_t *)key;
+diff --git a/xen/lib/sha2-256.c b/xen/lib/sha2-256.c
+index 4aeb8aa20490..19e8252188f7 100644
+--- a/xen/lib/sha2-256.c
++++ b/xen/lib/sha2-256.c
+@@ -56,22 +56,22 @@ static uint32_t blend(uint32_t W[16], unsigned int i)
+ }
+ 
+ static const uint32_t K[] = {
+-    0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
+-    0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+-    0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
+-    0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+-    0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc,
+-    0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+-    0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7,
+-    0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+-    0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13,
+-    0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+-    0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3,
+-    0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+-    0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5,
+-    0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+-    0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208,
+-    0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2,
++    0x428a2f98U, 0x71374491U, 0xb5c0fbcfU, 0xe9b5dba5U,
++    0x3956c25bU, 0x59f111f1U, 0x923f82a4U, 0xab1c5ed5U,
++    0xd807aa98U, 0x12835b01U, 0x243185beU, 0x550c7dc3U,
++    0x72be5d74U, 0x80deb1feU, 0x9bdc06a7U, 0xc19bf174U,
++    0xe49b69c1U, 0xefbe4786U, 0x0fc19dc6U, 0x240ca1ccU,
++    0x2de92c6fU, 0x4a7484aaU, 0x5cb0a9dcU, 0x76f988daU,
++    0x983e5152U, 0xa831c66dU, 0xb00327c8U, 0xbf597fc7U,
++    0xc6e00bf3U, 0xd5a79147U, 0x06ca6351U, 0x14292967U,
++    0x27b70a85U, 0x2e1b2138U, 0x4d2c6dfcU, 0x53380d13U,
++    0x650a7354U, 0x766a0abbU, 0x81c2c92eU, 0x92722c85U,
++    0xa2bfe8a1U, 0xa81a664bU, 0xc24b8b70U, 0xc76c51a3U,
++    0xd192e819U, 0xd6990624U, 0xf40e3585U, 0x106aa070U,
++    0x19a4c116U, 0x1e376c08U, 0x2748774cU, 0x34b0bcb5U,
++    0x391c0cb3U, 0x4ed8aa4aU, 0x5b9cca4fU, 0x682e6ff3U,
++    0x748f82eeU, 0x78a5636fU, 0x84c87814U, 0x8cc70208U,
++    0x90befffaU, 0xa4506cebU, 0xbef9a3f7U, 0xc67178f2U,
+ };
+ 
+ static void sha2_256_transform(uint32_t *state, const void *_input)
 
-Regards
-Ka=C4=9Fan
+base-commit: 630e8875ab368b97cc7231aaf3809e3d7d5687e1
+-- 
+2.39.5
 
---00000000000043304c062f9f986d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_default" style=3D""><font face=3D"mono=
-space">Hey there</font></div><div class=3D"gmail_default" style=3D""><font =
-face=3D"monospace"><br></font></div><div class=3D"gmail_default" style=3D""=
-><font face=3D"monospace">I&#39;m facing weird issue. At my lab env. i&#39;=
-m building xen 4.18 and make deb package than i use it on virtual machine w=
-hich running on esxi with CPU features for nested virtualization and there&=
-#39;s no problem. (I can create vm and able to do all operational things et=
-c.)</font></div><div class=3D"gmail_default" style=3D""><font face=3D"monos=
-pace"><br></font></div><div class=3D"gmail_default" style=3D""><font face=
-=3D"monospace">Last week i tried to migrate 4.19 and 4.20 but Xen get stuck=
- on booting and at debug log i just see error about mounting /proc/xen (mou=
-nt: /proc/xen: mount point does not exist.) I&#39;ve no f... idea why it ca=
-used. (At my all tries, i used fresh install of ubuntu server 22.04, 24.04)=
-</font></div><div class=3D"gmail_default" style=3D""><font face=3D"monospac=
-e"><br></font></div><div class=3D"gmail_default" style=3D""><font face=3D"m=
-onospace">Is there any one faced issue and is there special things to do in=
- build phase for nested virtualization? (I didn&#39;t change anything while=
- building 4.18, i&#39;m just using stable branch)=C2=A0</font></div><div cl=
-ass=3D"gmail_default" style=3D""><font face=3D"monospace"><br></font></div>=
-<div class=3D"gmail_default" style=3D""><font face=3D"monospace">Regards</f=
-ont></div><div class=3D"gmail_default" style=3D""><font face=3D"monospace">=
-Ka=C4=9Fan</font></div><br></div>
-
---00000000000043304c062f9f986d--
 
