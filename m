@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64639A4F84C
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 08:53:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.901779.1309709 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4F3CA4F874
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 09:09:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.901791.1309719 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpjZ0-0004WB-F0; Wed, 05 Mar 2025 07:53:10 +0000
+	id 1tpjoP-0008SV-RF; Wed, 05 Mar 2025 08:09:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 901779.1309709; Wed, 05 Mar 2025 07:53:10 +0000
+Received: by outflank-mailman (output) from mailman id 901791.1309719; Wed, 05 Mar 2025 08:09:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpjZ0-0004Ts-CI; Wed, 05 Mar 2025 07:53:10 +0000
-Received: by outflank-mailman (input) for mailman id 901779;
- Wed, 05 Mar 2025 07:53:09 +0000
+	id 1tpjoP-0008QY-Oc; Wed, 05 Mar 2025 08:09:05 +0000
+Received: by outflank-mailman (input) for mailman id 901791;
+ Wed, 05 Mar 2025 08:09:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2gZc=VY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tpjYz-0004TW-Gc
- for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 07:53:09 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
+ id 1tpjoO-0008QS-AE
+ for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 08:09:04 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dd5bde37-f996-11ef-9898-31a8f345e629;
- Wed, 05 Mar 2025 08:53:02 +0100 (CET)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-390eebcc331so283291f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 04 Mar 2025 23:53:02 -0800 (PST)
+ id 19409b62-f999-11ef-9898-31a8f345e629;
+ Wed, 05 Mar 2025 09:09:02 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-390df0138beso3377755f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 00:09:02 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43bd426c841sm9497915e9.8.2025.03.04.23.53.01
+ ffacd0b85a97d-390e47b6ccdsm20160062f8f.46.2025.03.05.00.09.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 04 Mar 2025 23:53:01 -0800 (PST)
+ Wed, 05 Mar 2025 00:09:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dd5bde37-f996-11ef-9898-31a8f345e629
+X-Inumbo-ID: 19409b62-f999-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741161182; x=1741765982; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741162141; x=1741766941; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0Pa6tXK+1ttLMdugFkaiTNN4R7BTebEbxBi5gF10G1A=;
-        b=Nwzp1PY2oS81+QW+hqhbO22lufqVtdZY2waZ2iX1NESbSk+exxFz0r1/HW2itgQ6+g
-         LRhclio50pCElZMWkYMz9Dnsv5O0lsiUdnc8a7LYhLFyqe/nVCRb306zB5bBMwzoztMs
-         naTFS1int1OH6g1Pg1e+3YX5/su0GFC7mnkpGi7eqKRvlO8OXMW9bYSjlWKdxnA+Qouj
-         TM5PkpR6sGBufCrR8fdY8njKmv0rF6WsNX3DaTFr2if4xALGDSjiLAe4L26nzWq5PPVS
-         4psjRvr8YXxpf4mtR0HbNm6K7pRcYNblS6rz2iVU+zNh9yrsd8UPzwJoMm07lHp6JdIU
-         spGQ==
+        bh=EVnsiotWi6VMKlk2D+ZwbAfmRuq1u+3n6X58FAgmp5M=;
+        b=VkplIpMQmU6rmiQr0fWrxJpW3Q+zoaRMfc3LE/nfyeOGsUdLsjhyEx6yFAgcOpfWk0
+         5b+vnMHcillqf3B/Ngwi04zc5t/S9GEB9cS3SXnFGKuu42eNRcrh1mGwp0Yr+DBRYDsM
+         r0v9TAHSaVql+6udWUs9+p6ILFSgMF7buFkIEOEG80lkp8p+0ADI/mAZuhXON00clu6x
+         YVTxozYJsW3JATDzqdNq+JRljZM7/ll/Iw6/+OHcbL2DPV+R/4wJv0rCN7bbbU7Iub9f
+         zQmZJgt2PGD9Xv9g8kTH+HINKNONcRdg7mRMYO7x8nKr7gFfSggbkPEOvtwllpEXD7M3
+         H16g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741161182; x=1741765982;
+        d=1e100.net; s=20230601; t=1741162142; x=1741766942;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0Pa6tXK+1ttLMdugFkaiTNN4R7BTebEbxBi5gF10G1A=;
-        b=BnVGJ0y+6O6qEABq2Fwum92AahOscA/sY+YTihtCvGfNxC83rRW4yo+TjcoqFuN61X
-         zs8orPNyWaRQlON143cSX3gPeSpjC2iTjzlf+CsaBXeo5goYKqWmeEU1OFuuED/YNe0H
-         M4eDxU4JmCH+wAPIEqFmUlqhX3fjx7F8Qq1PbctSa8b+ekfZLjOVq8qqU2ki6nEOyFg+
-         Zz6SbdTzlsjaXrZDnwS0SAOrWmsjfzBW7mQi9nWBMjipInxkU9VqQhobweguLS2dB+4O
-         6tQmmdlQ6YNUD0AFVYa4AkZG1Ri666Hjo+AFNECFPjFF5BDgZOChKcIn8PEqIwk/FG26
-         VLag==
-X-Forwarded-Encrypted: i=1; AJvYcCVgMHFEft8No21j4FYL4rTvl9xahJ/wpM7HwYLL+/DP8a2Oe++KtmUrFhNnq6ugWLUPR9/kbxak8to=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxxU7dzST8ggYfHKBgncDHj/sC7lOrsv54Uz6b2OWesdo67wBCw
-	ULggpL1Szzu2fQ9f5iM+WM5Wtr6tSzaE5mKOFiYe8f8zCR5RKNz0JuRlxzz15A==
-X-Gm-Gg: ASbGncuy2r/Pqy9bQ/AtSbnWVPDw9OQicjCJ2Ov+HQj/Ii0oiiSgnVQbbsbv3lrFDFl
-	q1oH7/D9Q+CZDN8+agvuKYhtL5073jipD53fBqfiVmC54L3Y1M+SNMfvQoiEeZ0srj2+1mLZ32l
-	/6v7cqBRgjskNVcQqXCYrj6OpgWd8s6j0k4t2QQO43hh0XN/xZORBKUlyOPmkzZiuZsAS8+OT1L
-	uHF06RmiIzLwv3T99Ax1PsyDJDehv4bliI6qZ8oNKCM5zO2mblYLe67PVAiCGS0c+pc5KLH5vJ9
-	NqUvo0QhA0r64C/JlzP+gQoNNZyv3GHRnei5uxjSyJQoEWc/A7nz1uT1XRKmRQfEXhmBYUmLI2E
-	HUQKnw5MB2S3LhQqLrSqrUuFQD0hLPQ==
-X-Google-Smtp-Source: AGHT+IGvbv2lLDA6uWnjmUM8epToYBhvDhAklQfARHog7wDYBHb4Dpbz+e9c5skpPqvEemPicoUB+A==
-X-Received: by 2002:a5d:6484:0:b0:391:b93:c971 with SMTP id ffacd0b85a97d-3911561aaccmr4718034f8f.20.1741161182122;
-        Tue, 04 Mar 2025 23:53:02 -0800 (PST)
-Message-ID: <98998559-27d6-4b65-bd45-cb1755d48564@suse.com>
-Date: Wed, 5 Mar 2025 08:53:05 +0100
+        bh=EVnsiotWi6VMKlk2D+ZwbAfmRuq1u+3n6X58FAgmp5M=;
+        b=Ie2fUtV69qycdF/45H4YjRonu0FhPxvmx4FuCkF8o17/AD8tSISbEfbgq3AfLYAya9
+         oRrew+Mt7Fqlhw2Zg+FPg6bmQ6cDEmxIOXr1iCB9Ysf8uFAxziD5WNG+zDjd9snUaYQC
+         BwGvxlinM/8dezmhhGJS7ssCtR+eI+MMDelOK1NM9yDAPVYSo9DJmnZVZeOFsBF4LGtN
+         Wt4HuJARMRDrPMCANSypZ8MHzqathJKxz7aDoTvblalnnrg5u5vLblGckIZszOHszsq2
+         6kKoMeddEE4p692+pd3qk3g3Keeuea7OiXNTpe+FfF1k58h2n79kT44vsOfLdHs6RkeA
+         IMuQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV9Mr0eBlLIq6TQo4isUovQRkve2phBmEBtuAcqdTmpQC6ptOjo+ySkXtgZrisvJ79ln4o42HswbG4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzs2JLJu1kRxmOD4dpt60m/ZdSQCHtpWWWLMC1V9JOU4dSJxOWL
+	7m7v+HtO/rHMHNNqW7ecn57DFV/CyARL0iB0lA9J6lKPI49oIpzKOu5i0m31zA==
+X-Gm-Gg: ASbGncvdPgIOFu/KnkZc7cyuK0If0NlV8lyRlRXGP8La9mCrH9NWQz1nEwE8rRMfkvg
+	eMgc/sy7u9StPZAtAJdj4dS59bVwWem1wkxor4a/qlxm2jrB1/YjVRDrGTVoOLgVFb0itep7djX
+	wQKo1vj5lHGYHtai/wyIjskYBfaaCuyOs3TEiCfcjL8Q9yntzF7aBjKmPAG1jwJk0ooBfQGS1uH
+	h0F2S3afLf223RqCXYDN6ebTof2+EqNgilscd/tzKoQleD/v3l85grz8J6Bv4MiC5RCTYL3UUMy
+	zUgwkd5YIjOvuUvBdoL7IjqeK/rc6ZhTNoojvbzPhercf254DnmmWJoopAthbeUIrtHCeqVfsEl
+	Oz4LB4rgOEJ74Ps5U2LFZESRCDqeIgg==
+X-Google-Smtp-Source: AGHT+IHzThqBnrMv4k3ifpugnEys2MwHnOm8ndw99xKxrK+IbRUge4fipOy0EI9QXOgPq9DHE9VaTA==
+X-Received: by 2002:a5d:4391:0:b0:38f:32a7:b6f3 with SMTP id ffacd0b85a97d-3911f7baf8dmr1203078f8f.40.1741162141628;
+        Wed, 05 Mar 2025 00:09:01 -0800 (PST)
+Message-ID: <3e982ad9-60ff-4e74-9f3b-ba3e8b1306f4@suse.com>
+Date: Wed, 5 Mar 2025 09:09:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: Don't cast away const-ness in vcpu_show_registers()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [RFC PATCH] xen/amd-iommu: Add interrupt remapping quirk for
+ ath11k
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250225230213.1248136-1-andrew.cooper3@citrix.com>
- <7e77dceb-489b-4022-a665-2a008ddfe844@suse.com>
- <f62841d3-b0e4-4007-a056-a807a19fc988@citrix.com>
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>, xen-devel@lists.xenproject.org
+References: <20250226211125.43625-1-jason.andryuk@amd.com>
+ <5184725e-baf6-460f-a8ee-2bb9982d7adc@suse.com>
+ <aea5703c-9392-4b80-b517-cc411265e264@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,88 +124,86 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f62841d3-b0e4-4007-a056-a807a19fc988@citrix.com>
+In-Reply-To: <aea5703c-9392-4b80-b517-cc411265e264@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 03.03.2025 17:52, Andrew Cooper wrote:
-> On 26/02/2025 7:33 am, Jan Beulich wrote:
->> On 26.02.2025 00:02, Andrew Cooper wrote:
->>> The final hunk is `(struct vcpu *)v` in disguise, expressed using a runtime
->>> pointer chase through memory and a technicality of the C type system to work
->>> around the fact that get_hvm_registers() strictly requires a mutable pointer.
->>>
->>> For anyone interested, this is one reason why C cannot optimise any reads
->>> across sequence points, even for a function purporting to take a const object.
->>>
->>> Anyway, have the function correctly state that it needs a mutable vcpu.  All
->>> callers have a mutable vCPU to hand, and it removes the runtime pointer chase
->>> in x86.
->>>
->>> Make one style adjustment in ARM while adjusting the parameter type.
->>>
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+On 27.02.2025 17:49, Jason Andryuk wrote:
+> On 2025-02-27 03:54, Jan Beulich wrote:
+>> On 26.02.2025 22:11, Jason Andryuk wrote:
+>>> Signed-off-by: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+>>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+>>
+>> Just to clarify: Who's the original patch author? The common expectation
+>> is that the first S-o-b: matches From:.
+> 
+> I took Xenia's changes to xen/drivers/passthrough/pci.c and 
+> xen/include/xen/pci.h from an earlier patch and re-used them.  I wrote 
+> the rest, so I put myself in the Form: line.
+
+Unusual arrangements of tags typically call for some clarification in ...
+
 >>> ---
->>> CC: Anthony PERARD <anthony.perard@vates.tech>
->>> CC: Michal Orzel <michal.orzel@amd.com>
->>> CC: Jan Beulich <jbeulich@suse.com>
->>> CC: Julien Grall <julien@xen.org>
->>> CC: Roger Pau Monné <roger.pau@citrix.com>
->>> CC: Stefano Stabellini <sstabellini@kernel.org>
->>> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
->>> CC: Bertrand Marquis <bertrand.marquis@arm.com>
->>>
->>> RISC-V and PPC don't have this helper yet, not even in stub form.
->>>
->>> I expect there will be one objection to this patch.  Since the last time we
->>> fought over this, speculative vulnerabilities have demonstrated how dangerous
->>> pointer chases are, and this is a violation of Misra Rule 11.8, even if it's
->>> not reasonable for Eclair to be able to spot and reject it.
->> On these grounds
->> Acked-by: Jan Beulich <jbeulich@suse.com>
-> 
-> Thanks.
-> 
->> irrespective of the fact that a function of this name and purpose really, really
->> should be taking a pointer-to-const.
-> 
-> No - this is a perfect example of why most functions should *not* take
-> pointer-to-const for complex objects.
-> 
-> There is no such thing as an actually-const vcpu or domain; they are all
-> mutable.  The reason why x86 needs a strictly-mutable pointer is because
-> it needs to take a spinlock to negotiate for access to a hardware
-> resource to read some of the registers it needs.
-> 
-> This is where there is a semantic gap between "logically doesn't modify"
-> and what the C keyword means.
 
-And hence (in part) why C++ gained "mutable" ages ago.
+... the post-commit-message area. In the case here the question arises
+whether a different tag (Co-Developed-by:?) might not be better.
 
-> Anything except the-most-trivial trivial predates may reasonably need to
-> take a spinlock or some other safety primitive, even just to read
-> information.
+>>> --- a/xen/drivers/passthrough/amd/iommu_intr.c
+>>> +++ b/xen/drivers/passthrough/amd/iommu_intr.c
+>>> @@ -543,6 +543,31 @@ int cf_check amd_iommu_msi_msg_update_ire(
+>>>       if ( !msg )
+>>>           return 0;
+>>>   
+>>> +    if ( pdev->gvec_as_irte_idx && amd_iommu_perdev_intremap )
+>>> +    {
+>>> +        int new_remap_index = 0;
+>>> +        if ( msi_desc->gvec )
+>>> +        {
+>>> +            printk("%pp: gvec remap_index %#x -> %#x\n", &pdev->sbdf,
+>>> +                   msi_desc->remap_index, msi_desc->gvec);
+>>> +            new_remap_index = msi_desc->gvec;
+>>> +        }
+>>> +
+>>> +        if ( new_remap_index && new_remap_index != msi_desc->remap_index &&
+>>> +             msi_desc->remap_index != -1 )
+>>> +        {
+>>> +            /* Clear any existing entries */
+>>> +            update_intremap_entry_from_msi_msg(iommu, bdf, nr,
+>>> +                                               &msi_desc->remap_index,
+>>> +                                               NULL, NULL);
+>>> +
+>>> +            for ( i = 0; i < nr; ++i )
+>>> +                msi_desc[i].remap_index = -1;
+>>> +
+>>> +            msi_desc->remap_index = new_remap_index;
+>>
+>> You zap nr entries, and then set only 1? Doesn't the zapping loop need to
+>> instead be a setting one? Perhaps with a check up front that the last value
+>> used will still fit in 8 bits? Or else make applying the quirk conditional
+>> upon nr == 1?
 > 
+> The code below here sets all `nr` entries on success:
 > 
-> Because this was gratuitously const in the first place, bad code was put
-> in place of making the prototype match reality.
+>      rc = update_intremap_entry_from_msi_msg(iommu, bdf, nr,
+>                                              &msi_desc->remap_index,
+>                                              msg, &data);
+>      if ( !rc )
+>      {
+>          for ( i = 1; i < nr; ++i )
+>              msi_desc[i].remap_index = msi_desc->remap_index + i;
+>          msg->data = data;
+>      }
 > 
-> This demonstrates a bigger failing in how code is reviewed and
-> maintained.  It is far too frequent that requests to const things don't
-> even compile.  It is also far too frequent that requests to const things
-> haven't read the full patch series to realise why not.  Both of these
-> are a source of friction during review.
-> 
-> But more than that, even if something could technically be const right
-> now, the request to do so forces churn into a future patch to de-const
-> it in order to make a clean change.  And for contributors who aren't
-> comfortable saying a firm no to a maintainer, this turns into a bad hack
-> instead.
-> 
-> i.e. requests to const accessors for complexity objects are making Xen
-> worse, not better, and we should stop doing it.
+>      return rc;
 
-Okay, let's agree that we don't agree in our perspectives here.
+Ah, yes, I see now how this matches other behavior in the function.
+
+> Maybe all the remap_index settting should be moved into 
+> update_intremap_entry_from_msi_msg()?
+
+That would require passing in msi_desc (or making assumptions on the
+passed in "int *remap_index"), neither of which looks very attractive
+to me.
 
 Jan
 
