@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0205CA4FC47
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 11:37:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.902162.1310109 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73396A4FCAD
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 11:49:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.902183.1310143 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpm8A-0000VZ-Dm; Wed, 05 Mar 2025 10:37:38 +0000
+	id 1tpmJL-0002W8-SG; Wed, 05 Mar 2025 10:49:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 902162.1310109; Wed, 05 Mar 2025 10:37:38 +0000
+Received: by outflank-mailman (output) from mailman id 902183.1310143; Wed, 05 Mar 2025 10:49:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpm8A-0000TE-B5; Wed, 05 Mar 2025 10:37:38 +0000
-Received: by outflank-mailman (input) for mailman id 902162;
- Wed, 05 Mar 2025 10:37:36 +0000
+	id 1tpmJL-0002UF-Oe; Wed, 05 Mar 2025 10:49:11 +0000
+Received: by outflank-mailman (input) for mailman id 902183;
+ Wed, 05 Mar 2025 10:49:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2gZc=VY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tpm88-0000T8-Lz
- for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 10:37:36 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ id 1tpmJK-0002Td-F1
+ for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 10:49:10 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d95d5253-f9ad-11ef-9898-31a8f345e629;
- Wed, 05 Mar 2025 11:37:34 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-439ac3216dcso44932895e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 02:37:34 -0800 (PST)
+ id 77331424-f9af-11ef-9898-31a8f345e629;
+ Wed, 05 Mar 2025 11:49:08 +0100 (CET)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-38f406e9f80so5042267f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 02:49:08 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43bd42c5b33sm13818045e9.22.2025.03.05.02.37.33
+ ffacd0b85a97d-390e479608fsm20934812f8f.14.2025.03.05.02.49.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Mar 2025 02:37:33 -0800 (PST)
+ Wed, 05 Mar 2025 02:49:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d95d5253-f9ad-11ef-9898-31a8f345e629
+X-Inumbo-ID: 77331424-f9af-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741171054; x=1741775854; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741171748; x=1741776548; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=lb7mvAggtx7iYpOd/sm/9W0BwekAkv1/DCEZvYlqoTQ=;
-        b=b5Rc3rFhzbc/QwLnT8nSsdiepvmhrHR6EBfmshY6CVDm3u6aC15ofXB9azbtoVGCQ+
-         08IKCSIazwENEE1wXby3m650yCWpxc8/1JDlACJgT9/u4y+pdeuO859fO2hwUGJW+wj8
-         slOs+OH9aj5ZSMAvlS2TgW6Nl/VmErlxRj+G5EQ7tsLF9J9KsCu3BZW4KUrEEoSYLpmp
-         pP9WTmhNYegEiMfF9dsY9oI3QGYfS5GtIEZMKUptS6/69UhFOenkPuuzBLZ+UB3WuE4m
-         1BjdvDWqIlyQIyArzZqQBiLfT1IJiabT771XjF6vcMurBxuRrSS+qpD0SlwN1dGubJQF
-         Hd/g==
+        bh=RxhRUVKfr8JjgeK+JIcIYAn/fcfB14HcMzLZwJebzqY=;
+        b=gPGt76OmWfLAupnBIr/byecgnDM+zX2scWyYS+BOUMPEb0jOUlNihFoNhMcQTrj9BN
+         qfxHX7CWw1vjCEBmPAQFh67hRI5g3oLDFkFKbBB+1U37zYe2+YX/EE30LHIg1PwK1u5r
+         VkD9qVPDNjg3Awqz2XZZ3hx8J1/sq5ZZiG/f4pwyhu+vCJmVRS9SqlUDn2mpH+aLHQB3
+         qG3cxWuEVQWCUS37xTiP4J8X5cRi581WGHVzG7Pv+OLk54Mq/S0XjI0+dPlYvUA7y9M9
+         tStYTXULkIqD8mispk2OJEodVwcgGW1/4NVEjIc4UefM+6u3RqA6ctC+tXy5NxMIx3Fa
+         xtDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741171054; x=1741775854;
+        d=1e100.net; s=20230601; t=1741171748; x=1741776548;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lb7mvAggtx7iYpOd/sm/9W0BwekAkv1/DCEZvYlqoTQ=;
-        b=R463/2PvFpMPprwXFP+c/nP91WlyB1mBLRi7bnsjR16pFGTsZpC5bObaTZYqPqYBtK
-         Hyn+oMOfthbvc7ZfO0rci+frV8I5eSNimNLIdGCh/GxVaKysQTzU7hLCGItoNdU/9UXa
-         emhklvgu3LtzhHYCBxBpgyrgbDIQXRHWIm8ZmtAZS3PaiWOj8Q86TskFmH2cfiO0znaJ
-         YBBxSgxqH5Lo2eN2R+zQBKyvU6lRDN1nzvq8ip/2tMzB7aAeegEZbB9qGZ6PZ/RNJx7G
-         h9UkqhT9s5O8G+XN3aczjcioEog0hvhGoHLUuKpLLA4HnO8o3pmUQHUcrUT80mVS3wAV
-         c/4w==
-X-Forwarded-Encrypted: i=1; AJvYcCX+8IzlnDpMpWsemZT25NdEvgKxG9JoK47v/H1T3J/F+fiRF5Q8dP6T8j6fySb7jgE3z8RbpfTHXcA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyFh+2xIRAt84aE2CQkDMdUxb1kU0kmPU9btiPMa1ttuiVvDQ6z
-	ojCMjMKNQSDHBmd23RfEKtwYeL3A/4pCEklrp/+oM8AAI5vPpBkH4ErySWCEaQ==
-X-Gm-Gg: ASbGncvSPg6W0ve+35IID5VKdbtw+gNwxXp1Qn8VBTxt5XipwdIvoLD/CrfvN+Hcf/1
-	84pnzuNuRCitM3Hlwb6taDq4/O+UcX14Rt5h8mPqPnJRzIdlREaRpFN2FGlvsq17LUCmNF/vbLl
-	cbFZ9bJf38/RlzWjL0KHRpHXqxVegqulrBDBq2HxMzd1SLaWF+PaXGrKLlefshKl2uywgIoqWDj
-	CaUzgQGMWJksLZk9Z1udMAOu1OrR4mKsa86EK0u2LQmhb/BOXb7/Q44iA1R43kOZhICyzPBl+0u
-	EeDXpKYqdvxMSlFQfRslsh6jn/YbdGDlZzmYL+6oqW0RylV4bKNmGkfeA2TKTqoThbw66N0vMuS
-	JiwpMbSsLz+MKx3NeUi/3xRQ/jXRsWg==
-X-Google-Smtp-Source: AGHT+IFSv4q1UjMpdfCP3nRajVxfRsZ9pO8lNPvA/qK4DrP5myjf2pdUc99pejTvn4RoOlVoWDXtaA==
-X-Received: by 2002:a05:600c:4e8b:b0:43b:d0fe:b8be with SMTP id 5b1f17b1804b1-43bd29d8d45mr20262785e9.30.1741171053843;
-        Wed, 05 Mar 2025 02:37:33 -0800 (PST)
-Message-ID: <83d5d612-2f6a-430a-8aee-4738f43204e0@suse.com>
-Date: Wed, 5 Mar 2025 11:37:36 +0100
+        bh=RxhRUVKfr8JjgeK+JIcIYAn/fcfB14HcMzLZwJebzqY=;
+        b=vBubPOHNQ854pGtTxOfKeeDbRw60UY+1gM09yQt1IjDibcjCzKfC0YmX52GAqMrANO
+         8U0TH2giafNxnhd+lJJ+GQmrGOrhhrotsYtqtSQyHUj1jub+4rTY7xSK1p5uFOO3q8nL
+         4Nl9sxOCFucm+cFraDQSotbU48zWFqWFIr4dOUCoWFvBG/c+AYpnDcBXnMihoosHPDoG
+         BZg7ulm8igHYOT+tT7Axosr1O4D0yqkBVewSZb/gG7rN4yAc3+XkAMIsYdh9cFmqmrLM
+         4Swmw9Z/C6gYNWQF1AgWu/L9Hdn20Dt+8CG8ctvHtddMsRy5QYg8QKnWQIcY2zkZcaV5
+         D2Pg==
+X-Forwarded-Encrypted: i=1; AJvYcCWKEHP7p8a3CW9ATa7uEEUCJhfJOC+orShBJ2hQqnIefLYbdbgpth0NYNsTy2uXB3DFTvnolWsI7tk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwgQDTF0n4QZyBkuBKffqCZIhvEHEKmPwCbLJX4cfQwh7ombawk
+	K1x+Np2AV2CTkrSvRyAF+5lw5dCNQza/Dx0f7croeUW4+NpkkEPoyh9rS7ExwA==
+X-Gm-Gg: ASbGncuCdhlYQ0fvo1u5/UWXgK9pf80gXsJc6T4tVU0GjQLCHCm2Jd1Qr5Ff7S9o4sp
+	pTjuHdsGwoZBG47Fb+fqGFBwvpFKN1+aNbalMhiBYwBodMvRqV71cmGdAXalDS1bJDayLwj32dp
+	xqxT0zs3t07sn/280rpQZqgXmmA/aSslKv5UoyUTv+ti+c1lDO8Wgi6wCu+i0DiOoNkJ0wxz+nf
+	+K+kp+uRqhUhhuhvaUfkhGGmhJ8lMZRTTb1tJUaxsKHht3sprqGI1EdHEdCWzumMKJ6jKpzbI6Y
+	HMwDgR9Daqm12wAqqsxYbtjw+0PwNTNVuQh6XJtwPulUYnwNH4irE0TYXF+eWcyw3k/yGsOFjJS
+	KgC8BA6/8/xKhLbY2WPeUy+SFPAsj1Q==
+X-Google-Smtp-Source: AGHT+IFhhT071uLRU0ze159uDJGhU71r4h82T0p5rqUEkK5zhUZ5KFtClVTaHjRT+j3f6m6kQqsZMQ==
+X-Received: by 2002:a05:6000:1886:b0:390:e8bf:55a8 with SMTP id ffacd0b85a97d-3911f7412f1mr1882629f8f.18.1741171748132;
+        Wed, 05 Mar 2025 02:49:08 -0800 (PST)
+Message-ID: <f50d8ee7-a00f-4f4f-99f6-4313af7a4fdc@suse.com>
+Date: Wed, 5 Mar 2025 11:49:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/iocap.h: add documentation
-To: Grygorii Strashko <gragst.linux@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Michal Orzel <michal.orzel@amd.com>, Roger Pau Monne <roger.pau@citrix.com>,
+Subject: Re: [PATCH] xen/page_alloc: Simplify domain_adjust_tot_pages
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Grygorii Strashko <grygorii_strashko@epam.com>,
- xen-devel@lists.xenproject.org
-References: <20250224113828.151794-1-grygorii_strashko@epam.com>
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250224132724.9074-1-alejandro.vallejo@cloud.com>
+ <D80RCS1Y7AKH.373ULA2LO3MND@cloud.com>
+ <4af0077c-c933-4894-bfad-2adda7afbbf7@suse.com>
+ <D83AY7ZBKC81.3NBCLVK3DX833@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,187 +123,70 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250224113828.151794-1-grygorii_strashko@epam.com>
+In-Reply-To: <D83AY7ZBKC81.3NBCLVK3DX833@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24.02.2025 12:38, Grygorii Strashko wrote:
-> Change rangeset parameters to "start, last" as proposed in [1],
-> and add documentation for public interface.
+On 27.02.2025 15:36, Alejandro Vallejo wrote:
+> On Wed Feb 26, 2025 at 2:05 PM GMT, Jan Beulich wrote:
+>> On 24.02.2025 15:49, Alejandro Vallejo wrote:
+>>> Open question to whoever reviews this...
+>>>
+>>> On Mon Feb 24, 2025 at 1:27 PM GMT, Alejandro Vallejo wrote:
+>>>>      spin_lock(&heap_lock);
+>>>> -    /* adjust domain outstanding pages; may not go negative */
+>>>> -    dom_before = d->outstanding_pages;
+>>>> -    dom_after = dom_before - pages;
+>>>> -    BUG_ON(dom_before < 0);
+>>>> -    dom_claimed = dom_after < 0 ? 0 : dom_after;
+>>>> -    d->outstanding_pages = dom_claimed;
+>>>> -    /* flag accounting bug if system outstanding_claims would go negative */
+>>>> -    sys_before = outstanding_claims;
+>>>> -    sys_after = sys_before - (dom_before - dom_claimed);
+>>>> -    BUG_ON(sys_after < 0);
+>>>> -    outstanding_claims = sys_after;
+>>>> +    BUG_ON(outstanding_claims < d->outstanding_pages);
+>>>> +    if ( pages > 0 && d->outstanding_pages < pages )
+>>>> +    {
+>>>> +        /* `pages` exceeds the domain's outstanding count. Zero it out. */
+>>>> +        outstanding_claims -= d->outstanding_pages;
+>>>> +        d->outstanding_pages = 0;
+>>>
+>>> While this matches the previous behaviour, do we _really_ want it? It's weird,
+>>> quirky, and it hard to extend to NUMA-aware claims (which is something in
+>>> midway through).
+>>>
+>>> Wouldn't it make sense to fail the allocation (earlier) if the claim has run
+>>> out? Do we even expect this to ever happen this late in the allocation call
+>>> chain?
+>>
+>> This goes back to what a "claim" means. Even without any claim, a domain may
+>> allocate memory. So a claim having run out doesn't imply allocation has to
+>> fail.
 > 
-> No functional changes.
-> 
-> [1] https://patchwork.kernel.org/comment/26251962/
-> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+> Hmmm... but that violates the purpose of the claim infra as far as I understand
+> it. If a domain may overallocate by (e.g) ballooning in memory it can distort the
+> ability of another domain to start up, even if it succeeded in its own claim.
 
-To be honest, this is getting too verbose for my taste. I also don't think
-title and description fit together: One says the main thing the patch does
-is add doc, the other says the main thing is the parameter renaming. When
-then there's at least one further parameter which is also renamed, despite
-not fitting the description.
+Why would that be? As long as we hold back enough memory to cover the claim, it
+shouldn't matter what kind of allocation we want to process. I'd say that a PV
+guest starting ballooned ought to be able to deflate its balloon as far as
+there was a claim established for it up front.
+
+> We might also break the invariant that total claims are strictly >=
+> total_avail_pages.
+
+Same here - I don't see why this would happen as long as all accounting is
+working correctly.
+
+> I'm somewhat puzzled at the "why" of having separate concepts for max_mem and
+> claims. I guess it simply grew the way it did. Reinstating sanity would
+> probably involve making max_mem effectively the claim, but that's a ton of
+> work I really would rather not do for now.
+
+To me the two are different (beyond claim being global while max-mem is per-
+domain). max-mem is a hard boundary (beyond which allocations _will_ fail),
+whereas a claim is a softer one, beyond which allocations _may_ fail.
 
 Jan
-
-> --- a/xen/include/xen/iocap.h
-> +++ b/xen/include/xen/iocap.h
-> @@ -12,11 +12,21 @@
->  #include <asm/iocap.h>
->  #include <asm/p2m.h>
->  
-> -static inline int iomem_permit_access(struct domain *d, unsigned long s,
-> -                                      unsigned long e)
-> +/**
-> + * @brief Gives domain permission to access IOMEM range
-> + *
-> + * @d: Domain to give IOMEM range access
-> + * @start: IOMEM range start address, inclusive
-> + * @last: IOMEM range last address, inclusive
-> + *
-> + * @retval 0 Is successful
-> + * @retval -ENOMEM if memory allocation failed
-> + */
-> +static inline int iomem_permit_access(struct domain *d, unsigned long start,
-> +                                      unsigned long last)
->  {
->      bool flush = cache_flush_permitted(d);
-> -    int ret = rangeset_add_range(d->iomem_caps, s, e);
-> +    int ret = rangeset_add_range(d->iomem_caps, start, last);
->  
->      if ( !ret && !is_iommu_enabled(d) && !flush )
->          /*
-> @@ -29,10 +39,20 @@ static inline int iomem_permit_access(struct domain *d, unsigned long s,
->      return ret;
->  }
->  
-> -static inline int iomem_deny_access(struct domain *d, unsigned long s,
-> -                                    unsigned long e)
-> +/**
-> + * @brief Denies domain permission to access IOMEM range
-> + *
-> + * @d: Domain to deny IOMEM range access
-> + * @start: IOMEM range start address, inclusive
-> + * @last: IOMEM range last address, inclusive
-> + *
-> + * @retval 0 Is successful
-> + * @retval -ENOMEM if memory allocation failed
-> + */
-> +static inline int iomem_deny_access(struct domain *d, unsigned long start,
-> +                                    unsigned long last)
->  {
-> -    int ret = rangeset_remove_range(d->iomem_caps, s, e);
-> +    int ret = rangeset_remove_range(d->iomem_caps, start, last);
->  
->      if ( !ret && !is_iommu_enabled(d) && !cache_flush_permitted(d) )
->          /*
-> @@ -45,23 +65,93 @@ static inline int iomem_deny_access(struct domain *d, unsigned long s,
->      return ret;
->  }
->  
-> -#define iomem_access_permitted(d, s, e)                 \
-> -    rangeset_contains_range((d)->iomem_caps, s, e)
-> -
-> -#define irq_permit_access(d, i)                         \
-> -    rangeset_add_singleton((d)->irq_caps, i)
-> -#define irq_deny_access(d, i)                           \
-> -    rangeset_remove_singleton((d)->irq_caps, i)
-> -#define irqs_permit_access(d, s, e)                     \
-> -    rangeset_add_range((d)->irq_caps, s, e)
-> -#define irqs_deny_access(d, s, e)                       \
-> -    rangeset_remove_range((d)->irq_caps, s, e)
-> -#define irq_access_permitted(d, i)                      \
-> -    rangeset_contains_singleton((d)->irq_caps, i)
-> -
-> -#define pirq_access_permitted(d, i) ({                  \
-> +/**
-> + * @brief Checks if domain has permissions to access IOMEM range
-> + *
-> + * @d: Domain to check IOMEM range access
-> + * @start: IOMEM range start address, inclusive
-> + * @last: IOMEM range last address, inclusive
-> + *
-> + * @retval true if access permitted
-> + * @retval false if access denied
-> + */
-> +#define iomem_access_permitted(d, start, last)             \
-> +    rangeset_contains_range((d)->iomem_caps, start, last)
-> +
-> +/**
-> + * @brief Gives domain permission to access IRQ
-> + *
-> + * @d: Domain to give IRQ access
-> + * @irq: IRQ number
-> + *
-> + * @retval 0 Is successful
-> + * @retval -ENOMEM if memory allocation failed
-> + */
-> +#define irq_permit_access(d, irq)                         \
-> +    rangeset_add_singleton((d)->irq_caps, irq)
-> +
-> +/**
-> + * @brief Denies domain permission to access IRQ
-> + *
-> + * @d: Domain to deny IRQ access
-> + * @irq: IRQ number
-> + *
-> + * @retval 0 Is successful
-> + * @retval -ENOMEM if memory allocation failed
-> + */
-> +#define irq_deny_access(d, irq)                           \
-> +    rangeset_remove_singleton((d)->irq_caps, irq)
-> +
-> +/**
-> + * @brief Gives domain permission to access IRQ range
-> + *
-> + * @d: Domain to give IRQ range access
-> + * @start_irq: IRQ range start number, inclusive
-> + * @last_irq: IRQ range last number, inclusive
-> + *
-> + * @retval 0 Is successful
-> + * @retval -ENOMEM if memory allocation failed
-> + */
-> +#define irqs_permit_access(d, start_irq, last_irq)      \
-> +    rangeset_add_range((d)->irq_caps, start_irq, last_irq)
-> +
-> +/**
-> + * @brief Denies domain permission to access IRQ range
-> + *
-> + * @d: Domain to deny IRQ range access
-> + * @start_irq: IRQ range start number, inclusive
-> + * @last_irq: IRQ range last number, inclusive
-> + *
-> + * @retval 0 Is successful
-> + * @retval -ENOMEM if memory allocation failed
-> + */
-> +#define irqs_deny_access(d, start_irq, last_irq)        \
-> +    rangeset_remove_range((d)->irq_caps, start_irq, last_irq)
-> +
-> +/**
-> + * @brief Checks if domain has permissions to access IRQ
-> + *
-> + * @d: Domain to check IRQ access
-> + * @irq: IRQ number to check
-> + *
-> + * @retval true if access permitted
-> + * @retval false if access denied
-> + */
-> +#define irq_access_permitted(d, irq)                    \
-> +    rangeset_contains_singleton((d)->irq_caps, irq)
-> +
-> +/**
-> + * @brief Checks if domain has permissions to access PIRQ
-> + *
-> + * @d: Domain to check PIRQ access
-> + * @pirq: PIRQ number to check
-> + *
-> + * @retval IRQ number if access permitted
-> + * @retval 0 if access denied
-> + */
-> +#define pirq_access_permitted(d, pirq) ({               \
->      struct domain *d__ = (d);                           \
-> -    int irq__ = domain_pirq_to_irq(d__, i);             \
-> +    int irq__ = domain_pirq_to_irq(d__, pirq);          \
->      irq__ > 0 && irq_access_permitted(d__, irq__)       \
->      ? irq__ : 0;                                        \
->  })
-
 
