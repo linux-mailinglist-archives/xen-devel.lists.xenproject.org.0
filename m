@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64451A502CD
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 15:55:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.902401.1310352 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22EBEA502D1
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 15:55:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.902406.1310374 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpq9F-0004xi-Ah; Wed, 05 Mar 2025 14:55:01 +0000
+	id 1tpq9b-0005RM-NG; Wed, 05 Mar 2025 14:55:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 902401.1310352; Wed, 05 Mar 2025 14:55:01 +0000
+Received: by outflank-mailman (output) from mailman id 902406.1310374; Wed, 05 Mar 2025 14:55:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpq9F-0004vm-7j; Wed, 05 Mar 2025 14:55:01 +0000
-Received: by outflank-mailman (input) for mailman id 902401;
- Wed, 05 Mar 2025 14:55:00 +0000
+	id 1tpq9b-0005PA-Ii; Wed, 05 Mar 2025 14:55:23 +0000
+Received: by outflank-mailman (input) for mailman id 902406;
+ Wed, 05 Mar 2025 14:55:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=2gZc=VY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tpq9E-0004vg-5S
- for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 14:55:00 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=4HJ/=VY=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1tpq9a-0004vg-GX
+ for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 14:55:22 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ce7fafab-f9d1-11ef-9898-31a8f345e629;
- Wed, 05 Mar 2025 15:54:58 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-43bbd711eedso31661195e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 06:54:58 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43bd435c836sm19386615e9.37.2025.03.05.06.54.57
+ id dbf4e03d-f9d1-11ef-9898-31a8f345e629;
+ Wed, 05 Mar 2025 15:55:20 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-4398ec2abc2so61657065e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 06:55:20 -0800 (PST)
+Received: from localhost (0545937c.skybroadband.com. [5.69.147.124])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-390e485e13fsm21038964f8f.100.2025.03.05.06.55.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Mar 2025 06:54:57 -0800 (PST)
+ Wed, 05 Mar 2025 06:55:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,110 +45,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ce7fafab-f9d1-11ef-9898-31a8f345e629
+X-Inumbo-ID: dbf4e03d-f9d1-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741186497; x=1741791297; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1cQC6vYhD116p/beCQKFVQAku44xo9abXmPmldl+uTg=;
-        b=deLX0bKJodmc5pKEN0H5EBna/1jCtln9JC2ACDII3KzYXJFiKxDZ4YGP0t1Unb02B4
-         4nsfivFUC+0G4KKP3tTkOo36nMSSGGaN7L5058TFF1XFR4MLYuFPAEjH0QBtXfFOkx+6
-         zel0YUwvifvUdYM2zU8+7Zz8paAmRd7qG8p+gFMHNAA0BTWQRvnb2Hns7oD5DPkeYZER
-         g9Hp3RjHZZ9y3WJrXVnMZba4u9pQwBDVkLD30BmJhkf/M9TOACi1L84WswY/D0vgJwed
-         eryuJKtuEemlcED9rrrwv6q5DLkEC7S1erNERCHArTGCUZTEVltpfOdM7orXZnv8bu/l
-         D/AA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741186497; x=1741791297;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1741186520; x=1741791320; darn=lists.xenproject.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1cQC6vYhD116p/beCQKFVQAku44xo9abXmPmldl+uTg=;
-        b=sAbY6ECL5H+aq4x3IZedQMNjojPqHOHI/6rJcNIQZ09egpuF5HydzwzVz3kTqtG0Qk
-         EmtSnXTMXkb8cyCN+3oMxE2uYWCwrsuLt1yGURZGNn0nOFgCBrf4MjXH+Lx/inFPjb+d
-         Pv7e92IeWgvLGJVDdeShXuyxi0vt2vjFbIlmPksyta8fi3Rcfx9PDAt2XssCAOn/nmKH
-         2fWiPlArg01nWBytwo7nnwgMyp1wxUV0QdeN3C7KpD9WSHFF/4fkNTdAJqjk3JgYzzd4
-         RwzpQQW4M0ab4acR1Xo/ELF3vyzOJam9qHtSBrZkeGdcZh2E8CLTYkqh2PQCMTM/BvzL
-         iFMA==
-X-Forwarded-Encrypted: i=1; AJvYcCXkdSOSwy2JZTGHh0arwohE1veTTyljQAu70NAYo6LTrTofkl9CjjQq10RAvmulWV+J69ZwET+YbH8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxQvWP1eIoq7oA1VnKb7tesapGeX0QG/pgAgQpIgLdvYG9bH2ov
-	cr5C/yokuovBcMeDOAB7uMM/Lk7tQdRb/vh2fkxfzA0jSGn3cmtXN95gl3UF6w==
-X-Gm-Gg: ASbGncsaFvYfVCOLeeCBDfN5+FG8uTtvoovG4tnGMLP/6inS6OFYMVpp8hnD2ldVpQ1
-	LgtlPPqVIhmzfxg5xJiR6lKRq6DHmvR8d8zKcccQTfjf5laianc07LwY01kLj7kCAyHgkr6kKc9
-	aNw7lq+NefCl7AB4e4dcaEPNofyM5cQchRktwUTGhHbeZgeA5a/+wf1F5uDo8An5fOYZE3oCKHa
-	KK30sCo1B+Drt67GZPfwdFEkZbGesobbbFx8G5kAC+1p/M+XaGIC7ZUVlPWJOifHj0kFVuoZ2W4
-	VsDnf73dsWK2Bc7/4mh60rJDHa5TEa/sGvOoePuHHJa0W86TytJQg7bAOUd4Yi0p68QRHJul+Jh
-	sVBlClMpK1SDLNVv0dppQGCn+UKpzLg==
-X-Google-Smtp-Source: AGHT+IHNtZr2A3dyGK9ML05XEcPWO8cfUCLOQMbaXC80WjYMTu/STBoLSa3mzAv4poS1h8cQ72Gcsg==
-X-Received: by 2002:a05:600c:4f15:b0:439:8bc3:a697 with SMTP id 5b1f17b1804b1-43bd294bc2dmr26615015e9.4.1741186497576;
-        Wed, 05 Mar 2025 06:54:57 -0800 (PST)
-Message-ID: <03dfb2ad-50de-406d-bdd0-41352c21f82b@suse.com>
-Date: Wed, 5 Mar 2025 15:54:56 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] x86/dom0: be less restrictive with the Interrupt
- Address Range
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250219164840.94803-1-roger.pau@citrix.com>
- <db3113a1-4cae-4d2b-8840-645f56af3c51@suse.com>
- <Z8hhKa-KdTbmp6rE@macbook.local>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Z8hhKa-KdTbmp6rE@macbook.local>
+        bh=JeJp7PNGj3PTSByjNRhWi6B3e4Yw3Mgr8V+GQ5vcDn8=;
+        b=Ahwxe1cfdlks/45EQHEZsXv/c3VRtmdYUjQaHJ3Wz+6NpWFVQ5Yp54o7RYvOy+2Oo+
+         5MGwwboxND7QOGHoAwl4yuPrRs4ZWZ0rOKMou9oJVuAddqITBh6DT1Px0pCFTXfSWjph
+         qTXfW5zOWR1IKPJ3sivey06QeHf16AnUL3Ggk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1741186520; x=1741791320;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=JeJp7PNGj3PTSByjNRhWi6B3e4Yw3Mgr8V+GQ5vcDn8=;
+        b=iw44CoBtnDlRyxJpee628YPvfqJ7fNXDkfG8DBluLhRRX+DjA6/42Ng/lV7rg671sg
+         10kngXIb2m5CuVlpUPlTOwTr0jfY3fKiDLSDUxqEzB9M1kKVNqQaxeyUXrMldRcqq1Jp
+         Uho2DpJccmCfW7uobWg5ME4cWNBHXouprtREUiMbTKjeVDDDL+I51MvUhaTLmnCd+uWA
+         jEWMBqKJePtPMrww45prSlk2U+BCJaHKTCIDaoFEWD17Y1fbTQox43LvRudX9I0DlYh5
+         Kd9AjK+sUtzuQNJx1RXIm+AHJQgmHavCLB6YIF1qwsWvlBWBemtvLus+FFI7kEIJRyIJ
+         kBbA==
+X-Forwarded-Encrypted: i=1; AJvYcCWFtUkyAsX8d7HJqQ+gUUTm0XpVT9ScQj3+nBGeRmldoS2xWPVCBrYxDlbqfKFQSDw2uCSUm1ODyV8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywk5ljmZfuJxnHMH+ayHNP4dSHr4zhuVYG6GpZxwytqyo2SujFP
+	ikviVU4RjUoe/NMpDrFurRHcaWXVdkSpJe8IYCjh363dqZyge7DI9LVI2Y9ZAFc=
+X-Gm-Gg: ASbGncumXb8MdZcLgf+juPjqqjidWu0YR7fMVjObW48kA96LLl6gwMGxbX2IoPMinOy
+	Wtaf6hWwcqizVh6/0EBwF7VamqHWevkZLwJ2oZOUMCS66r2ZUe8oDefPJmTLLi6GZ9LKrCZ0szn
+	i1ZjDmjuzDAx/EP1SLDN+i+jbRCVVdm/wQiHwCSKUsYzB0C0os3t0fbTR/UxQzBoUWEse2K44xJ
+	3a4vH0OQAdgg8jFPZLnLCUdOHMIVqGIt93Nt/mWk47Lf7BORnhyv7KODtsc6DFWai3enO57OZ0r
+	xKE/UgKk4+I1iX5d0DAOfs/qnKgBSL6tRGo7JcHhUDB3HxUG5bnnoxOcXIu6o14OtMcAPIb8+sw
+	=
+X-Google-Smtp-Source: AGHT+IExiyIcGfObRXeFi9SVwwkN5CstKutiokwjhu6TowkHMzoM0sOfc7MRqxrc5BnCVhEXKAyhuA==
+X-Received: by 2002:a5d:64c5:0:b0:38d:d371:e04d with SMTP id ffacd0b85a97d-3911f7bbb52mr2766444f8f.34.1741186518564;
+        Wed, 05 Mar 2025 06:55:18 -0800 (PST)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Wed, 05 Mar 2025 14:55:16 +0000
+Message-Id: <D88F3V276W5M.WVP7OIPMJMSD@cloud.com>
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+To: "Jan Beulich" <jbeulich@suse.com>
+Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "Anthony PERARD"
+ <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Julien
+ Grall" <julien@xen.org>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>,
+ <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] xen/page_alloc: Simplify domain_adjust_tot_pages
+X-Mailer: aerc 0.18.2
+References: <20250224132724.9074-1-alejandro.vallejo@cloud.com>
+ <D80RCS1Y7AKH.373ULA2LO3MND@cloud.com>
+ <4af0077c-c933-4894-bfad-2adda7afbbf7@suse.com>
+ <D83AY7ZBKC81.3NBCLVK3DX833@cloud.com>
+ <f50d8ee7-a00f-4f4f-99f6-4313af7a4fdc@suse.com>
+ <D88D5732H4EQ.3770M7EIO3TW1@cloud.com>
+ <6070a7b3-4d1d-4db9-a812-5887de129aa1@suse.com>
+In-Reply-To: <6070a7b3-4d1d-4db9-a812-5887de129aa1@suse.com>
 
-On 05.03.2025 15:35, Roger Pau Monné wrote:
-> On Wed, Mar 05, 2025 at 03:27:18PM +0100, Jan Beulich wrote:
->> On 19.02.2025 17:48, Roger Pau Monne wrote:
->>> Hello,
->>>
->>> First two patches are preparatory changes to reduce the changes required
->>> in patch 3.  I would have wanted those to go in 4.20 to fix the issues
->>> on Lenovo Thinkpads, but it's too late now.
->>>
->>> Thanks, Roger.
->>>
->>> Roger Pau Monne (3):
->>>   x86/dom0: correctly set the maximum ->iomem_caps bound for PVH
->>>   x86/iommu: account for IOMEM caps when populating dom0 IOMMU
->>>     page-tables
->>>   x86/dom0: be less restrictive with the Interrupt Address Range
->>
->> I'm uncertain whether to take this and "x86/pvh: workaround missing MMIO
->> regions in dom0 p2m" for backport. The sole Fixes: tag is in patch 1 here.
->> Thoughts?
-> 
-> At least the ones here would be helpful for the reported Lenovo
-> Thinkpad issue.  The PVH p2m addition would be nice IMO.
+On Wed Mar 5, 2025 at 1:39 PM GMT, Jan Beulich wrote:
+> On 05.03.2025 14:22, Alejandro Vallejo wrote:
+> > On Wed Mar 5, 2025 at 10:49 AM GMT, Jan Beulich wrote:
+> >> On 27.02.2025 15:36, Alejandro Vallejo wrote:
+> >>> On Wed Feb 26, 2025 at 2:05 PM GMT, Jan Beulich wrote:
+> >>>> On 24.02.2025 15:49, Alejandro Vallejo wrote:
+> >>>>> Open question to whoever reviews this...
+> >>>>>
+> >>>>> On Mon Feb 24, 2025 at 1:27 PM GMT, Alejandro Vallejo wrote:
+> >>>>>>      spin_lock(&heap_lock);
+> >>>>>> -    /* adjust domain outstanding pages; may not go negative */
+> >>>>>> -    dom_before =3D d->outstanding_pages;
+> >>>>>> -    dom_after =3D dom_before - pages;
+> >>>>>> -    BUG_ON(dom_before < 0);
+> >>>>>> -    dom_claimed =3D dom_after < 0 ? 0 : dom_after;
+> >>>>>> -    d->outstanding_pages =3D dom_claimed;
+> >>>>>> -    /* flag accounting bug if system outstanding_claims would go =
+negative */
+> >>>>>> -    sys_before =3D outstanding_claims;
+> >>>>>> -    sys_after =3D sys_before - (dom_before - dom_claimed);
+> >>>>>> -    BUG_ON(sys_after < 0);
+> >>>>>> -    outstanding_claims =3D sys_after;
+> >>>>>> +    BUG_ON(outstanding_claims < d->outstanding_pages);
+> >>>>>> +    if ( pages > 0 && d->outstanding_pages < pages )
+> >>>>>> +    {
+> >>>>>> +        /* `pages` exceeds the domain's outstanding count. Zero i=
+t out. */
+> >>>>>> +        outstanding_claims -=3D d->outstanding_pages;
+> >>>>>> +        d->outstanding_pages =3D 0;
+> >>>>>
+> >>>>> While this matches the previous behaviour, do we _really_ want it? =
+It's weird,
+> >>>>> quirky, and it hard to extend to NUMA-aware claims (which is someth=
+ing in
+> >>>>> midway through).
+> >>>>>
+> >>>>> Wouldn't it make sense to fail the allocation (earlier) if the clai=
+m has run
+> >>>>> out? Do we even expect this to ever happen this late in the allocat=
+ion call
+> >>>>> chain?
+> >>>>
+> >>>> This goes back to what a "claim" means. Even without any claim, a do=
+main may
+> >>>> allocate memory. So a claim having run out doesn't imply allocation =
+has to
+> >>>> fail.
+> >>>
+> >>> Hmmm... but that violates the purpose of the claim infra as far as I =
+understand
+> >>> it. If a domain may overallocate by (e.g) ballooning in memory it can=
+ distort the
+> >>> ability of another domain to start up, even if it succeeded in its ow=
+n claim.
+> >>
+> >> Why would that be? As long as we hold back enough memory to cover the =
+claim, it
+> >> shouldn't matter what kind of allocation we want to process. I'd say t=
+hat a PV
+> >> guest starting ballooned ought to be able to deflate its balloon as fa=
+r as
+> >> there was a claim established for it up front.
+> >=20
+> > The fact a domain allocated something does not mean it had it claimed b=
+efore. A
+> > claim is a restriction to others' ability to allocate/claim, not to the=
+ domain
+> > that made the claim.
+>
+> Yes and no. No in so far as the target's "ability to allocate" may or may=
+ not
+> be meant to extend beyond domain creation.
+>
+> > e.g:
+> >=20
+> >   0. host is idle. No domU.
+> >   1. dom1 is created with a claim to 10% of host memory and max_mem of =
+80% of
+> >      host meomory.
+> >   2. dom1 balloons in 70% of host memory.
+> >   3. dom1 ballons out 70% of host memory.
+> >   4. dom1 now holds a a claim to 80% of host memory.
+>
+> Sure, this shouldn't be the result. Yet that may merely be an effect of c=
+laim
+> accounting being insufficient.
+>
+> > It's all quite perverse. Fortunately, looking at adjacent claims-relate=
+d code
+> > xl seems to default to making a claim prior to populating the physmap a=
+nd
+> > cancelling the claim at the end of the meminit() hook so this is never =
+a real
+> > problem.
+> >=20
+> > This tells me that the logic intent is to force early failure of
+> > populate_physmap and nothing else. It's never active by the time balloo=
+ning or
+> > memory exchange matter at all.
+>
+> Ah yes, this I find more convincing. (Oddly enough this is all x86-only c=
+ode.)
 
-Are the ones here sufficient to deal with that issue? IOW iasn't the other
-2-patch series also necessary?
+(about claims being an x86-ism in toolstack). Yeah, that's weird. It's shou=
+ld
+be moved in time to a common area of xg. I guess no other arch has cared ab=
+out
+bootstorms or massive VMs just yet.
 
-Jan
+>
+> > Xen ought to cancel the claim by itself though, toolstack should not NE=
+ED to do
+> > it.
+>
+> Fundamentally yes. Except that the toolstack can do it earlier than Xen c=
+ould.
+>
+> Jan
+
+Yes, in the sense that it can do it just after it's done populating the
+physmap, but Xen should still zero it at the end in case toolstack hasn't d=
+one
+so. Nothing good can come out of that counter going up and down in such a
+dubious fashion.
+
+Cheers,
+Alejandro
 
