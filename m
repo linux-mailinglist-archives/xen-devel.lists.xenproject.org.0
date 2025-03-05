@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6655A501E8
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 15:27:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.902352.1310303 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D81BA50201
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 15:30:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.902360.1310312 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tppiX-0004iT-Bp; Wed, 05 Mar 2025 14:27:25 +0000
+	id 1tpplj-0006Gf-PD; Wed, 05 Mar 2025 14:30:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 902352.1310303; Wed, 05 Mar 2025 14:27:25 +0000
+Received: by outflank-mailman (output) from mailman id 902360.1310312; Wed, 05 Mar 2025 14:30:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tppiX-0004gC-8a; Wed, 05 Mar 2025 14:27:25 +0000
-Received: by outflank-mailman (input) for mailman id 902352;
- Wed, 05 Mar 2025 14:27:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tpplj-0006Dg-Mb; Wed, 05 Mar 2025 14:30:43 +0000
+Received: by outflank-mailman (input) for mailman id 902360;
+ Wed, 05 Mar 2025 14:30:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2gZc=VY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tppiV-0004g6-TZ
- for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 14:27:23 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f353db81-f9cd-11ef-9ab4-95dc52dad729;
- Wed, 05 Mar 2025 15:27:22 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-43bc48ff815so6161025e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 06:27:21 -0800 (PST)
+ id 1tppli-0006Bu-Qo
+ for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 14:30:42 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 69d64585-f9ce-11ef-9898-31a8f345e629;
+ Wed, 05 Mar 2025 15:30:40 +0100 (CET)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-390df942558so5387576f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 06:30:40 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-390e4844adfsm21301021f8f.62.2025.03.05.06.27.19
+ ffacd0b85a97d-390e4795da5sm21527491f8f.15.2025.03.05.06.30.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Mar 2025 06:27:19 -0800 (PST)
+ Wed, 05 Mar 2025 06:30:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f353db81-f9cd-11ef-9ab4-95dc52dad729
+X-Inumbo-ID: 69d64585-f9ce-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741184841; x=1741789641; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741185040; x=1741789840; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=9sIw2UWz4vdVdKiu9aIpEhwlEcPnMCoW/Yp+dEHOPmQ=;
-        b=LftfVcDefidEOep0HBydxZs3MDrpQGxG5Xpzzd8H2FzyP88Q+vQVmtnEy6ftChnvz0
-         Mgf9zzBofAx1g0apcygU2wm6kauYvuITiumuVod5O6jhr4pHabSZm9kieNp6qH5Q1Xm/
-         5aelnAqaaaQkigRChVZVFek/LwdbsUYOLTSBYH0ux1n8XzpbMaaYn9ey5+pFd4RJSL+s
-         3M0qty1GPwomWFQLnjeLh3Ok/vFVN911gzA22IO5atC17udfz5WX5fiaf8pPnp84yCHc
-         4tui1FmsfbyES1hcutsnNQpdjSeeRRb8Rdw7cBP1+kyzEXwZ0AVnmtr/396m5yw2t1S5
-         DqOA==
+        bh=b69Q2h+ejXv3VG2Wtcvi1KGHdv5iSQp1vAp4X37G9iw=;
+        b=L4Y1sf7HaH+CyVYeTV4JRNTL1ZBg4NZz6bmtvVA/9Qw7l3LdjEb0nqLvQprZ7nZ31R
+         o5VnwuurgUPK28poxUxEPjrqClpqw2X9n4sYtj78o0Tt8by0N+6tJj51iYoFG31iDQOj
+         79SNztrc50Jn2i9ngaVV+5smo8BIG2Pt8ZldRn9snuRSMAZSpvuKWPCgiooaScWptuS/
+         S/ZjIjczNOYdhOahVvjd00W2n+cIZr27jr+rxUwogjm3OeYKjwbZc19M/9WHyAb/WiFf
+         lpFqBXdMSHN6qkrRhLm9cBi+8piIWoYJzxkyWl/GqdMSEwfAqwZUjYdDfpQY5XD4/nfS
+         SuJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741184841; x=1741789641;
+        d=1e100.net; s=20230601; t=1741185040; x=1741789840;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9sIw2UWz4vdVdKiu9aIpEhwlEcPnMCoW/Yp+dEHOPmQ=;
-        b=NxsrFwLHLoSpiXyfR0ag9kAdNtUF+pSZ8l8OxgCcSUXN3Gv41U88m01FHIvAEidGDD
-         A3dx9IPIphwBY9wklls9o2UPKmEXnjAxz39s6r+CdKWpiIJwxxR4vPqu2zG9tefMk/J5
-         qlv1aPIcdUnOUMqw9Z8EeghtM7t9JPy1veK6zPsU4Jl8GMxSKLdWsrIXDGImD9wKtoCy
-         O4TT2u9R+Zzm4aBfMvmGFvGRORhoksygPm/xB0hrzZYIoqFx8ijBcbqPzIo2J1hXh/me
-         2tI8JkhutyUoQMBOpRpQSer23+oLp7U5iDfatlseIHE1MUWZQIFluKIwvNxXQQvcce2X
-         czVA==
-X-Gm-Message-State: AOJu0YwqCv75epbfsW/vkDkakQJS/WtiTd5yej2By+IhehMlET8XfZaz
-	foIQsP8pjv8Ts5XzHwP/N5FKDcxhG9IEOs024ClDTY7cX+B9iwl3PX0+apdYHw==
-X-Gm-Gg: ASbGncvVaBNiu0+TaBNRVprs0V6PlnmE7HD5mjxSvLqUa1jzjLSmq+Nr4NsxVL+4eSm
-	PK7QKsKmVOrFvY/UM4U+I9cH184B1T2hrD0zteZ41xrPoLfaxjdL//sq+novYpRcObCdGmuzq98
-	XD729uqv75veD7BEpv7lBbD2zo9bRRwBG0rDV220/H5aXoDEPkKsit8KU/68BWOLkjscDZk6Ygk
-	DozXDFWZzwPKzvRUXr7jwiREQjVMBHTYzio7pv5MK6+HC2Gknzd560Nx0+2YNok+8//4/l0H22+
-	I0fi/WNUlEztKlE+hA0Qob2uqXRgivMtH8pK2OqUbn1mvteusRrNLWyHNpEP9iXN+voMFbssieg
-	tbM5FAfi8dJDdkhY3O8C07PbqKjNVBw==
-X-Google-Smtp-Source: AGHT+IEKF0Hz52aBLt1Z1EEzQ5bERkeRnhMQfHK4nS+CMQclD62q151O7xkZmdKFQO/NSYf43tgHNg==
-X-Received: by 2002:a05:600c:310d:b0:439:9737:675b with SMTP id 5b1f17b1804b1-43bd20b5147mr27975415e9.7.1741184839775;
-        Wed, 05 Mar 2025 06:27:19 -0800 (PST)
-Message-ID: <db3113a1-4cae-4d2b-8840-645f56af3c51@suse.com>
-Date: Wed, 5 Mar 2025 15:27:18 +0100
+        bh=b69Q2h+ejXv3VG2Wtcvi1KGHdv5iSQp1vAp4X37G9iw=;
+        b=gqIHwx1o/jzSPmIOAts5ltCV23scVuYWvIJAIAsYdNwckAtNCT0n5bmb0eEkqF3u2Z
+         D7PMsoPW2ELBaYQ4pX5TAH5fqIBKy5Y6BdIJrJ5D9fzew2MGro+OJCmMdau0yy5Yt3DV
+         APvAR26pS2cjJD8tEhWF5xxmNHcsxdTPVD2Lc/AcDVNAYU6FQUT1U16e+vsWZzWdocPe
+         tl9ZPu4TdVz+cbSnWYpQngMj+CIZ0rWUOkrcCMdnlsFifN8mg+hUp5ncpEY520l/tJL7
+         VVnOaYvVhHPcOzb57UfmKrygDf0EUB0A5tTHzhZQt1Iw00TtyVa5Sa7HYd8tvTSV4bOn
+         nyVg==
+X-Forwarded-Encrypted: i=1; AJvYcCX1hha7CwiaeDHT5YaDpgKc5ibFz/lFENlddUiFzzD/sIc69yTnG39Z2NfduHgqjpqplyNuMyGgTzk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw8JnIQGn3K229F+YfuySNKvTUa57A6mdRxcz/yFlV8gFGAJumJ
+	fgbjpigrrWkyezE8WDy6Jd3x7eS9MZkZmuHppX3WhmvgYs+CWYILPOCCMwDoOA==
+X-Gm-Gg: ASbGncsqraYZlkJQiG62GUG3H0W3lJTyo8Bj7oHMn/QVnoNYVr0+rmJH907GOJrGfp4
+	i+d+I1KlFpXL8ZnFupxIdXMV2Tjop1EaiHl/Ekkp0TFJD/rA1vIOYEg3gIz7oQI/hbJJp2vV7od
+	XBt1tWdfK70pYNkf4lYEYJXgt6yyGwhe+CD+5d5+dQnvSx2Q8FcMMuyC5CMkNwCcBxJlqU3zNEf
+	+CD1dflkaWRJSogVcW6GOUmI0Rfh3dXVt/OpaLxXI3ACTEPlfbrHwg5RPdS6TtaNVIyRA7/Lcur
+	Ks08MbC9fQjp0J9VIESgdwUUpOIEcku3EnanIKLsPiE8BYD6Ezf5nPNNBYosBzlMj8SF9dHlkKV
+	5WSB25DxqgZWc438QYtIpi3LWKML1nA==
+X-Google-Smtp-Source: AGHT+IFZ1Nx1v/RQBFebxsBlU0njJtAMkKaDBCT8R63R4pvhK6dZJfGuao3Tda3M9vFBcE7SZyqK1w==
+X-Received: by 2002:a05:6000:1843:b0:391:12a5:3c95 with SMTP id ffacd0b85a97d-3911f73858fmr2306736f8f.22.1741185040132;
+        Wed, 05 Mar 2025 06:30:40 -0800 (PST)
+Message-ID: <54225b2d-4fed-458d-9e94-7e6f1ce08d34@suse.com>
+Date: Wed, 5 Mar 2025 15:30:39 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] x86/dom0: be less restrictive with the Interrupt
- Address Range
-To: Roger Pau Monne <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org
-References: <20250219164840.94803-1-roger.pau@citrix.com>
+Subject: Re: [PATCH v8 4/6] xen/riscv: make zbb as mandatory
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1740764258.git.oleksii.kurochko@gmail.com>
+ <052daeb00fb90416a30f1deebf42c9b6ca5ff348.1740764258.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,28 +123,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250219164840.94803-1-roger.pau@citrix.com>
+In-Reply-To: <052daeb00fb90416a30f1deebf42c9b6ca5ff348.1740764258.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19.02.2025 17:48, Roger Pau Monne wrote:
-> Hello,
+On 28.02.2025 21:07, Oleksii Kurochko wrote:
+> According to riscv/booting.txt, it is expected that Zbb should be supported.
 > 
-> First two patches are preparatory changes to reduce the changes required
-> in patch 3.  I would have wanted those to go in 4.20 to fix the issues
-> on Lenovo Thinkpads, but it's too late now.
+> Drop ANDN_INSN() in asm/cmpxchg.h as Zbb is mandatory now so `andn`
+> instruction could be used directly.
 > 
-> Thanks, Roger.
-> 
-> Roger Pau Monne (3):
->   x86/dom0: correctly set the maximum ->iomem_caps bound for PVH
->   x86/iommu: account for IOMEM caps when populating dom0 IOMMU
->     page-tables
->   x86/dom0: be less restrictive with the Interrupt Address Range
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-I'm uncertain whether to take this and "x86/pvh: workaround missing MMIO
-regions in dom0 p2m" for backport. The sole Fixes: tag is in patch 1 here.
-Thoughts?
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Thanks, Jan
+
 
