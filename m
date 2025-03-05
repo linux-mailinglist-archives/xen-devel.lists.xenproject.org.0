@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B699A504F8
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 17:34:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.902532.1310526 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B026A50560
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 17:42:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.902545.1310537 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tprhT-00033z-3g; Wed, 05 Mar 2025 16:34:27 +0000
+	id 1tprp9-0007qn-Vb; Wed, 05 Mar 2025 16:42:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 902532.1310526; Wed, 05 Mar 2025 16:34:27 +0000
+Received: by outflank-mailman (output) from mailman id 902545.1310537; Wed, 05 Mar 2025 16:42:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tprhT-00031L-0H; Wed, 05 Mar 2025 16:34:27 +0000
-Received: by outflank-mailman (input) for mailman id 902532;
- Wed, 05 Mar 2025 16:34:25 +0000
+	id 1tprp9-0007nl-Sb; Wed, 05 Mar 2025 16:42:23 +0000
+Received: by outflank-mailman (input) for mailman id 902545;
+ Wed, 05 Mar 2025 16:42:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2gZc=VY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tprhR-00031D-HE
- for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 16:34:25 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ id 1tprp9-0007nd-C1
+ for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 16:42:23 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b233d128-f9df-11ef-9898-31a8f345e629;
- Wed, 05 Mar 2025 17:34:23 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-43bbc8b7c65so40969485e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 08:34:23 -0800 (PST)
+ id cec9d80c-f9e0-11ef-9898-31a8f345e629;
+ Wed, 05 Mar 2025 17:42:21 +0100 (CET)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-390cf7458f5so6541215f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 08:42:21 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43bd430c2e9sm22063435e9.33.2025.03.05.08.34.22
+ ffacd0b85a97d-390e4848252sm21719647f8f.69.2025.03.05.08.42.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Mar 2025 08:34:22 -0800 (PST)
+ Wed, 05 Mar 2025 08:42:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b233d128-f9df-11ef-9898-31a8f345e629
+X-Inumbo-ID: cec9d80c-f9e0-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741192463; x=1741797263; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=doGCc8HPYNtDzt6szKX2aChz4OQa85Px11FINIB913Q=;
-        b=cLwK68rBkW60JDuktB8fG2dvabSgQMMfKKmLuOs36BKmzV6r6wVK8IJTtzK9W/jm9H
-         J7vmg/ozfWUUq31P2FydifLsXkIOshWL3RqYDA9SxKhMDneJEdRRLX7SMy7Lchbl1rlw
-         KbJoWvkISlYMoH3CjfbIueKFk4tEJXOdTcL5FEA2o1iqIBGtafRCxsihcu1PK5SresoU
-         eI3knbLYzH6vxfzHZX8un3uZfypZE8RiRy/ca8KjbXmJcoQa2Z98lChSG2YeQpZ7yWiK
-         V0xkD1HFl4P/7r2DmWnIQoBsESmgW9hE5covLHm1h5sP+GBvg9uoVXbvoD6UiTW5xm3n
-         M6dA==
+        d=suse.com; s=google; t=1741192940; x=1741797740; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=ehB1ZceNy94/D6w3ogxTzP8rb6moxGw5Enf4ASGso/s=;
+        b=OdxzsbwlgRXVtKeo2Atn4ww/7DiqMpt3IqDZcNurza1buiWATHbQQ1ZeeOdBSxlPTY
+         c3M3h/2L9v3YvSyTBPy2HWZ6q20LwSCJKC7D/cLQgItWjESLBCSahdTL9MFv0wDdHcEC
+         0YvlHP89LrIbxUTmO/HQUeJljOAc0xVmbGeVioKaSqr2d6fN2Bvrvv1IKuf3L7ynEtTA
+         dvVDKCwk3umcE5g4mSrr2ZadIoWZTu89+GBTjwV7megX+58RHNGqG81t60vgTxvogGV9
+         HWetL63Z//i2lN62L3Dv4FsU50JPtEMVWAf9wI0lRa0wzbsBXiGh3nkLN41MhF3ToD/n
+         5RLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741192463; x=1741797263;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=doGCc8HPYNtDzt6szKX2aChz4OQa85Px11FINIB913Q=;
-        b=dJUjoE0a98zyWVVmNz0RqjxTd3uqLzibdErwdvjDr4sHrmOLt58kHfX9zfHnYRByG6
-         IvVZ0ngk1/DGqT2lWng1ILGaqUbAGqdhDabE/t5vXmXS6Asam7iP7kMVol+RLDikmTYf
-         hRmlu/6OaScR5ev5ZAAToeJV0Up1CBc0LIQbFnVXzHI1DZeW+r6GdPPMTC71zh/mGW11
-         DZYr72NPybFP3p7xy2bEoyogSs3fyYEFkpayCk/JcoG+gL8yg7Epwwxqb3MMp4FagXt/
-         oLVXMyIK9C5CZUg8qVMC2+G8Lqtjy99UouBOUSXdvtVK5pfNcBRjHrmK47fxFy7ZCssq
-         /BPw==
-X-Gm-Message-State: AOJu0YwmrF9tTphg9ieFa6AXEEKGuWyxcSvdiiszHiBR98EHJhoWBGCm
-	3bPWsPMKmc/ee0bPT3x583C6FuYDThxYszMvWrZGBhGYDHMjZE68A9u3isJnRi3CFxn27kL8SlQ
-	=
-X-Gm-Gg: ASbGncv2p0g1Q57Jutu5Ya57/RmWSXBVAyW6v7vtsmZ9v+e8OnpXHG7YROnXDBw6U9+
-	X4AJIyeldhMa75rqD0sz3Vp9Xmqmq7mzULb00jxxiNJ+xpp8uQjj0DNoF24R4gUEg8EqtRoEWxt
-	lLwu6p5PfqqEPTxW20ECiLLQ81umda3iAkyKj/2LzPexWgKdhMnRktGM8xt9vkCZXmvqgcZv0bU
-	2eOGhC8kr3npzOAivchI6StWB2HC/Zrauz7bGkMrIjAInhYGsi7x9iFf7hJEKgHFksInv3IlylK
-	PgIcGS9QbugtC6sW/IKCanSw1yzxHn8Qo+8/8ezeg2GZQXth4T77tgju2Goe+QGmXuysVYPX/qv
-	gTMJrHlzCB/6l1Frhs/cCdGTsJIS1dA==
-X-Google-Smtp-Source: AGHT+IFxMyiLqImDziH2oxnCMVVdJLz07vVZqkfGj3PPGVg8+52jqtGAAKniJPCp/IC7yWTAkLUbEg==
-X-Received: by 2002:a05:600c:4f15:b0:43b:ce36:756e with SMTP id 5b1f17b1804b1-43bd29487a8mr37427955e9.12.1741192463058;
-        Wed, 05 Mar 2025 08:34:23 -0800 (PST)
-Message-ID: <30d772e2-466c-4b59-b17d-973957d0112b@suse.com>
-Date: Wed, 5 Mar 2025 17:34:21 +0100
+        d=1e100.net; s=20230601; t=1741192940; x=1741797740;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ehB1ZceNy94/D6w3ogxTzP8rb6moxGw5Enf4ASGso/s=;
+        b=PvCBotq0C7fw+yOzeEBsMAccCCw+pJUzHO2GbUVk2m0zWFzTpvGA/AGFNyuD7RhgW+
+         jn7NFl4fZfdpK5gsRxK7PVeNW7XU5uR44T0Qvb0pf19GYoehA+Q0MmSpe5lNFYDoSskA
+         3C5f7Tl4Dt7scjxYXgG9VQ1DU30RklBOhTs6b4WnFZQ38z44T1x33eRuDZyLO5RPjmz9
+         kyzPHsCfOa3YwlFHOM23MJ6bkAOhbh3wzpSASMK7p6tt0j0WS/3tncyPs6rpWp7wKqAS
+         2V+i5FP6OBo3ymwvnMTTQWsxw8nc63RdtK6bVQfEiuu/Q2Gcr/dxloSHcHPCc0So+Kjh
+         NhaA==
+X-Forwarded-Encrypted: i=1; AJvYcCW++Q0gPZHpSwxauPvm4xMhQiGKtHxyK1zl9u8lTAzZpbcNzljEOBy5QjvWDlYB/gD8sbNAH1srAGw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywa1tMt9rSRgUC+NZjx95nxhAadQ/dMs+/10K+Y7QlBTC+WYUQs
+	0Cv2pDwFKARcNfgOwabli8uSGclTZZcsM3jdBPBqdGrIPqDrOIi0XsoBkJnOqw==
+X-Gm-Gg: ASbGnctgr1SraSOGbe0JLnE50raoOhG9u+NNxVfA++rSIH6jnxco1ZRmul+7WcWLWvF
+	XSki1KSvDcKX8+NYL+J7Qq4Y1eAXIk2EoXIawliefRy/dj2cY45u4XuD5kR0nLdjjW6BMb1zyud
+	5xZXYc2UJzbODwJKkvMmoxCLbCtoRZ9FAwXZaVD91z3W5rmlHZOCZB8DoJ2c6DiYCg1tHrV9Jxt
+	srV5F6ezBQFqEwJfeQdtBEKiQslK7tIXgFwzLGk4q4tqQUloqjtw8Q4QUK/nQqnZOzh+N+hQ80Q
+	wRCRb8h3BgfE9mg54zEfGZ3ZZdv31jpVeq3TNkgL/OPIRsZcBtDRTOkD/rnCHIu7DbT+QQ8/jw8
+	PgZ/ZIaaOkDLGp19CAJ5h912Z+7cE4Q==
+X-Google-Smtp-Source: AGHT+IEvYsW7zt4lOgEkcyle3KxsIDh4kZrb0GleqBUjknSObR4qnTBlg3IyHtL5h7MkFoSk5rJOCg==
+X-Received: by 2002:a05:6000:1acd:b0:38d:df29:e14f with SMTP id ffacd0b85a97d-3911f7a957emr3953480f8f.43.1741192940491;
+        Wed, 05 Mar 2025 08:42:20 -0800 (PST)
+Message-ID: <acb0fd5d-0315-4a5a-9974-14556e497a03@suse.com>
+Date: Wed, 5 Mar 2025 17:42:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Ping: [PATCH] x86/ACPI: annotate assembly data with type and size
-From: Jan Beulich <jbeulich@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <26cfd90a-91f2-4bf4-9607-8ab6c7823048@suse.com>
+Subject: Re: [PATCH v2] xen/console: make console buffer size configurable
+To: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com, xen-devel@lists.xenproject.org
+References: <20250305011127.4079670-1-dmukhin@ford.com>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -117,59 +118,92 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <26cfd90a-91f2-4bf4-9607-8ab6c7823048@suse.com>
+In-Reply-To: <20250305011127.4079670-1-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 02.10.2024 09:41, Jan Beulich wrote:
-> Further use the generic framework from xen/linkage.h. While there drop
-> excess alignment and move to .bss.
-> 
-> Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 05.03.2025 02:12, dmkhn@proton.me wrote:
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -425,10 +425,13 @@ The following are examples of correct specifications:
+>  ### conring_size
+>  > `= <size>`
+>  
+> -> Default: `conring_size=16k`
+> +> Default: `conring_size=32k`
+>  
+>  Specify the size of the console ring buffer.
+>  
+> +The console ring buffer size can be selected at build time via
+> +CONFIG_CONRING_SHIFT.
 
-May I please ask for an ack or otherwise?
+And hence, if a value other than 32 is used there, the default above is
+going to be wrong. IOW it is only the compile time default which is 32k.
+The run-time default (which is what matters in Default: above) is itself
+configurable, and hence wants documenting that way.
+
+> --- a/xen/drivers/char/Kconfig
+> +++ b/xen/drivers/char/Kconfig
+> @@ -96,6 +96,33 @@ config SERIAL_TX_BUFSIZE
+>  
+>  	  Default value is 32768 (32KiB).
+>  
+> +config CONRING_SHIFT
+> +	int "Console buffer size (power of 2)"
+
+Would you mind adding the word "ring" here?
+
+> +	range 14 27
+> +	default 15
+> +	help
+> +	  Select the boot console buffer size as a power of 2.
+> +	  Run-time console buffer size is the same as the boot console size,
+> +	  unless overridden via 'conring_size=' boot parameter.
+> +
+> +	  Default value is 15 (32KiB).
+> +
+> +	  Examples:
+> +	    27 => 128 MiB
+> +	    26 =>  64 MiB
+> +	    25 =>  32 MiB
+> +	    24 =>  16 MiB
+> +	    23 =>   8 MiB
+> +	    22 =>   4 MiB
+> +	    21 =>   2 MiB
+> +	    20 =>   1 MiB
+> +	    19 => 512 KiB
+> +	    18 => 256 KiB
+> +	    17 => 128 KiB
+> +	    16 =>  64 KiB
+> +	    15 =>  32 KiB
+> +	    14 =>  16 KiB
+
+I don't think an exhaustive list is necessary here. This way it's not really
+a set of examples, but an enumeration of all possible values.
+
+> --- a/xen/drivers/char/console.c
+> +++ b/xen/drivers/char/console.c
+> @@ -101,12 +101,12 @@ static int cf_check parse_console_timestamps(const char *s);
+>  custom_runtime_param("console_timestamps", parse_console_timestamps,
+>                       con_timestamp_mode_upd);
+>  
+> -/* conring_size: allows a large console ring than default (16kB). */
+> +/* conring_size: override build-time CONFIG_CONRING_SHIFT setting. */
+>  static uint32_t __initdata opt_conring_size;
+>  size_param("conring_size", opt_conring_size);
+>  
+> -#define _CONRING_SIZE 16384
+> -#define CONRING_IDX_MASK(i) ((i)&(conring_size-1))
+> +#define _CONRING_SIZE       (1UL << CONFIG_CONRING_SHIFT)
+
+Imo this ought to be 1U only, seeing ...
+
+> +#define CONRING_IDX_MASK(i) ((i) & (conring_size - 1))
+>  static char __initdata _conring[_CONRING_SIZE];
+>  static char *__read_mostly conring = _conring;
+>  static uint32_t __read_mostly conring_size = _CONRING_SIZE;
+
+... this use of the constant.
 
 Jan
-
-> ---
-> Of course alongside ASM_INT() we could introduce ASM_QUAD() and
-> ASM_QUAD_LOCAL() (only the latter needed right here) to aid readability.
-> Thoughts?
-> 
-> --- a/xen/arch/x86/acpi/wakeup_prot.S
-> +++ b/xen/arch/x86/acpi/wakeup_prot.S
-> @@ -1,3 +1,5 @@
-> +#define DATA_FILL 0 /* For the .bss contributions at the bottom. */
-> +
->  #include <asm/asm_defns.h>
->  #include <asm/msr-index.h>
->  #include <asm/page.h>
-> @@ -134,13 +136,20 @@ LABEL(s3_resume)
->          ret
->  END(do_suspend_lowlevel)
->  
-> -.data
-> -        .align 16
-> +        .bss
->  
-> -saved_rsp:      .quad   0
-> -saved_cr0:      .quad   0
-> +DATA_LOCAL(saved_rsp, 8)
-> +        .quad   0
-> +END(saved_rsp)
-> +DATA_LOCAL(saved_cr0, 8)
-> +        .quad   0
-> +END(saved_cr0)
->  #ifdef CONFIG_XEN_SHSTK
-> -saved_ssp:      .quad   0
-> +DATA_LOCAL(saved_ssp, 8)
-> +        .quad   0
-> +END(saved_ssp)
->  #endif
->  
-> +        .data
-> +
->  ASM_INT(saved_magic, 0x9abcdef0)
-
 
