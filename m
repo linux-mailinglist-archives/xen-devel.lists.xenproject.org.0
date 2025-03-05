@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF90CA4F210
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 01:05:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.901607.1309607 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81F37A4F244
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 01:17:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.901639.1309620 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpcFx-00026I-5R; Wed, 05 Mar 2025 00:05:01 +0000
+	id 1tpcRk-0005FL-7n; Wed, 05 Mar 2025 00:17:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 901607.1309607; Wed, 05 Mar 2025 00:05:01 +0000
+Received: by outflank-mailman (output) from mailman id 901639.1309620; Wed, 05 Mar 2025 00:17:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpcFw-0001zx-VS; Wed, 05 Mar 2025 00:05:00 +0000
-Received: by outflank-mailman (input) for mailman id 901607;
- Wed, 05 Mar 2025 00:05:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tpcRk-0005Ds-52; Wed, 05 Mar 2025 00:17:12 +0000
+Received: by outflank-mailman (input) for mailman id 901639;
+ Wed, 05 Mar 2025 00:17:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pOX7=VY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tpcFw-0000xS-16
- for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 00:05:00 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7959ad19-f955-11ef-9898-31a8f345e629;
- Wed, 05 Mar 2025 01:04:57 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-43995b907cfso40095025e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 04 Mar 2025 16:04:57 -0800 (PST)
-Received: from andrewcoop.eng.citrite.net (host-92-26-98-202.as13285.net.
- [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43bd435300esm476005e9.29.2025.03.04.16.04.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Mar 2025 16:04:56 -0800 (PST)
+ <SRS0=Gbs/=VY=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1tpcRi-0005Dm-G1
+ for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 00:17:10 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2cd9b5fb-f957-11ef-9ab4-95dc52dad729;
+ Wed, 05 Mar 2025 01:17:08 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id DFBE5A46134;
+ Wed,  5 Mar 2025 00:11:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29019C4CEE9;
+ Wed,  5 Mar 2025 00:17:06 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,132 +41,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7959ad19-f955-11ef-9898-31a8f345e629
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741133097; x=1741737897; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fggL8gjJQh3WZv8LFKJP+En/Pq4iqlskBDNzkNbL1nY=;
-        b=uFQTdDyFPKtk5sLIN50NLkTPhoASoR+pZNMOJDBQCuYMydXwoAKk0MepFLPLduc0fV
-         LkLCBBuQ/dOFr8SfB9JmZdWmt6Fl24LiL5Xyu+J7OcNCndegGvyP/UWBcgAf52sfw2Zi
-         L8MvG1UfCry9ZrChVKQVW9UD4zvfQIWC/svOo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741133097; x=1741737897;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=fggL8gjJQh3WZv8LFKJP+En/Pq4iqlskBDNzkNbL1nY=;
-        b=FOVcuxSWrx8E6tejhADpDZaqQ5saf3LWb2EYINg61d7S1uaHPSp2pPnH/5yFVp5ydr
-         eI/07yeKfLkURTTLSaPxl780V+ljEGWJ4YHYbebm+zcecyT46ygBM04h9KzjwUiZ2GlU
-         CxPH9Sb4vYRpHmDR/M5CVcz4CwB+zLSzyzbxLRiQKbkIEWJ8SY7yEt97Si99j9sg/+1I
-         L/TZI9VNgAT885UhDqAbIXFyJiitm3AD91yZSTgyFxQyiVjYfK6n5Su8BuqKf4dywc4o
-         pR0uagp/wJBmeM1RolSYvMBY662Ha0hi98GkK3lzJow2F89f88H3PNDG3iOMZ0Yds/+F
-         wLbg==
-X-Gm-Message-State: AOJu0YxxKgfHcB4QRUTh/wMcWb2834jzNuBjzJgtsuKGUI315yTdobWa
-	HS4qTSDNaHPEqE2z8JXXIohaJKF9dgPDUwEftH1fSQu9YmY6+POdUJ54xWwdh4zPYNAAvQi9Bso
-	E
-X-Gm-Gg: ASbGnctZFgmm+Jum7FYx91gaUjqY3P35JIIO/VfhOrB6j8fCxL70DBUhKD9qrvLqK4c
-	NDIonrknX3bJASZdI3eQ+dngvZUMTegPvLnticP1ZDOQvpt24Tw7ChXIapklZFgn/bpkNQPweJX
-	wHhmwUpy3pstbjxtzPrQyO5NduUH5JZyCuYOvjJTppcvtj+lCQ9tcUWKg7F98XZlj21Hk4LfzeH
-	0Er0C4Act80qqlkFBViHBfxix4rMmrYI3sJgC1THqTmhdsmsfgM9iG2WsZM8P2yVAK1vtlIlfX9
-	keGkw+309bzThLBfoaLlxmGn2S8HsmFQ9+IOXfl6+YfyhJu0QDV/zwzCyN1ZVIM9SGzd6LPNJQK
-	4TghtgUyOUgxYLHxDA6pYKn8q
-X-Google-Smtp-Source: AGHT+IE/t7GOoWMZzDu5WPvfmxfaav4VcwRjDgrjwEuQnt5Ss6XOdzCKh7YJr8ieVfW6KpdvCs4tgQ==
-X-Received: by 2002:a05:600c:1c09:b0:439:9946:af60 with SMTP id 5b1f17b1804b1-43bd2ae76c6mr4347285e9.25.1741133096876;
-        Tue, 04 Mar 2025 16:04:56 -0800 (PST)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v2 5/5] x86/traps: Convert pv_trap_init() to being an initcall
-Date: Wed,  5 Mar 2025 00:02:47 +0000
-Message-Id: <20250305000247.2772029-6-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250305000247.2772029-1-andrew.cooper3@citrix.com>
-References: <20250305000247.2772029-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: 2cd9b5fb-f957-11ef-9ab4-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1741133827;
+	bh=epKUhep462GMxKnqe0Nwl3QcWlNcWklWzK2ZVLTnrpU=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=gYa8tHvlObVJPMpq+BrmyWPCCecdzOP43Elmb7+h3godyN/vQOf3RzjpDJUQbhCqa
+	 /pi54fTsydPB+mIEkplYPK8Tda/EF2tfVyZ6bbogDWiARYJZ/y9WEi8t5qOF/mDLQ2
+	 bkJQ3juu162GBqi9V0NXsuZkA9w7X+PEf1LGrjQ/v3+EXh42owrc35gu0+/xadycg4
+	 5QvTk+ZuWvIZhq1lRAm6tlTFLZToO+7P5B0i5YwOx5EosrpxIUkp/lZge1+O2jRf8/
+	 99Eb5vloSGvR3ZeF1M46ejXVqrxsyQGyDpdKgXTd4gd/O1txrwAP+Hbl5xJjlajUlM
+	 UVBGG7N9Ib4LQ==
+Date: Tue, 4 Mar 2025 16:17:04 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Nicola Vetrini <nicola.vetrini@bugseng.com>
+Subject: Re: [PATCH] MISRA: Rephrase the deviation for Directive 4.10
+In-Reply-To: <20250304235701.2770842-1-andrew.cooper3@citrix.com>
+Message-ID: <alpine.DEB.2.22.394.2503041616560.1303386@ubuntu-linux-20-04-desktop>
+References: <20250304235701.2770842-1-andrew.cooper3@citrix.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="8323329-757340337-1741133827=:1303386"
+
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-757340337-1741133827=:1303386
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 8BIT
 
-With most of pv_trap_init() being done at build time, opening of NMI_SOFTIRQ
-can be a regular initcall, simplifying trap_init().
+On Tue, 4 Mar 2025, Andrew Cooper wrote:
+> The use of "legitimately" mixes the concepts of "it was designed to do this"
+> and "it was correct to do this".
+> 
+> The latter in particular can go stale.  "intended" is a better way of phrasing
+> this.
+> 
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-No functional change.
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
 
-For Branch:
-
-  https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1684170631
-  https://cirrus-ci.com/build/6590097610506240
----
- xen/arch/x86/include/asm/pv/traps.h | 4 ----
- xen/arch/x86/pv/traps.c             | 5 ++++-
- xen/arch/x86/traps.c                | 2 --
- 3 files changed, 4 insertions(+), 7 deletions(-)
-
-diff --git a/xen/arch/x86/include/asm/pv/traps.h b/xen/arch/x86/include/asm/pv/traps.h
-index 404f5b169ca8..8c31d5a793c5 100644
---- a/xen/arch/x86/include/asm/pv/traps.h
-+++ b/xen/arch/x86/include/asm/pv/traps.h
-@@ -14,8 +14,6 @@
- 
- #include <public/xen.h>
- 
--void pv_trap_init(void);
--
- int pv_raise_nmi(struct vcpu *v);
- 
- int pv_emulate_privileged_op(struct cpu_user_regs *regs);
-@@ -32,8 +30,6 @@ static inline bool pv_trap_callback_registered(const struct vcpu *v,
- 
- #include <xen/errno.h>
- 
--static inline void pv_trap_init(void) {}
--
- static inline int pv_raise_nmi(struct vcpu *v) { return -EOPNOTSUPP; }
- 
- static inline int pv_emulate_privileged_op(struct cpu_user_regs *regs) { return 0; }
-diff --git a/xen/arch/x86/pv/traps.c b/xen/arch/x86/pv/traps.c
-index 932800555bca..c3c0976c440f 100644
---- a/xen/arch/x86/pv/traps.c
-+++ b/xen/arch/x86/pv/traps.c
-@@ -141,10 +141,13 @@ static void cf_check nmi_softirq(void)
-     *v_ptr = NULL;
- }
- 
--void __init pv_trap_init(void)
-+static int __init cf_check pv_trap_init(void)
- {
-     open_softirq(NMI_SOFTIRQ, nmi_softirq);
-+
-+    return 0;
- }
-+__initcall(pv_trap_init);
- 
- /*
-  * Deliver NMI to PV guest. Return 0 on success.
-diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-index 7698fa580ef7..5addb1f903d3 100644
---- a/xen/arch/x86/traps.c
-+++ b/xen/arch/x86/traps.c
-@@ -1928,8 +1928,6 @@ void __init trap_init(void)
-     /* Replace early pagefault with real pagefault handler. */
-     _update_gate_addr_lower(&bsp_idt[X86_EXC_PF], entry_PF);
- 
--    pv_trap_init();
--
-     init_ler();
- 
-     /* Cache {,compat_}gdt_l1e now that physically relocation is done. */
--- 
-2.39.5
-
+> ---
+> CC: Anthony PERARD <anthony.perard@vates.tech>
+> CC: Michal Orzel <michal.orzel@amd.com>
+> CC: Jan Beulich <jbeulich@suse.com>
+> CC: Julien Grall <julien@xen.org>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> ---
+>  automation/eclair_analysis/ECLAIR/deviations.ecl | 2 +-
+>  xen/arch/arm/include/asm/perfc_defn.h            | 2 +-
+>  xen/arch/x86/include/asm/perfc_defn.h            | 2 +-
+>  xen/include/asm-generic/perfc_defn.h             | 2 +-
+>  xen/include/xen/perfc_defn.h                     | 2 +-
+>  5 files changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> index dfa5f34b3952..2c8fb9271391 100644
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -74,7 +74,7 @@ they are not instances of commented-out code."
+>  
+>  -doc_begin="Files that are intended to be included more than once do not need to
+>  conform to the directive."
+> --config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* This file is legitimately included multiple times\\. \\*/$, begin-4))"}
+> +-config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* This file is intended to be included multiple times\\. \\*/$, begin-4))"}
+>  -config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* Generated file, do not edit! \\*/$, begin-3))"}
+>  -config=MC3A2.D4.10,reports+={safe, "all_area(all_loc(file(^xen/include/generated/autoconf.h$)))"}
+>  -doc_end
+> diff --git a/xen/arch/arm/include/asm/perfc_defn.h b/xen/arch/arm/include/asm/perfc_defn.h
+> index 3ab0391175d7..effd25b69ecc 100644
+> --- a/xen/arch/arm/include/asm/perfc_defn.h
+> +++ b/xen/arch/arm/include/asm/perfc_defn.h
+> @@ -1,4 +1,4 @@
+> -/* This file is legitimately included multiple times. */
+> +/* This file is intended to be included multiple times. */
+>  /*#ifndef __XEN_PERFC_DEFN_H__*/
+>  /*#define __XEN_PERFC_DEFN_H__*/
+>  
+> diff --git a/xen/arch/x86/include/asm/perfc_defn.h b/xen/arch/x86/include/asm/perfc_defn.h
+> index 487e20dc9734..d6127cb91ea5 100644
+> --- a/xen/arch/x86/include/asm/perfc_defn.h
+> +++ b/xen/arch/x86/include/asm/perfc_defn.h
+> @@ -1,4 +1,4 @@
+> -/* This file is legitimately included multiple times. */
+> +/* This file is intended to be included multiple times. */
+>  /*#ifndef __XEN_PERFC_DEFN_H__*/
+>  /*#define __XEN_PERFC_DEFN_H__*/
+>  
+> diff --git a/xen/include/asm-generic/perfc_defn.h b/xen/include/asm-generic/perfc_defn.h
+> index 8237636d83fb..726cddc1b3e8 100644
+> --- a/xen/include/asm-generic/perfc_defn.h
+> +++ b/xen/include/asm-generic/perfc_defn.h
+> @@ -1,4 +1,4 @@
+> -/* This file is legitimately included multiple times. */
+> +/* This file is intended to be included multiple times. */
+>  /* #ifndef ASM_GENERIC_PERFC_DEFN_H */
+>  /* #define ASM_GENERIC_PERFC_DEFN_H */
+>  
+> diff --git a/xen/include/xen/perfc_defn.h b/xen/include/xen/perfc_defn.h
+> index a987d80dd6f1..afbabad0b3be 100644
+> --- a/xen/include/xen/perfc_defn.h
+> +++ b/xen/include/xen/perfc_defn.h
+> @@ -1,4 +1,4 @@
+> -/* This file is legitimately included multiple times. */
+> +/* This file is intended to be included multiple times. */
+>  /*#ifndef __XEN_PERFC_DEFN_H__*/
+>  /*#define __XEN_PERFC_DEFN_H__*/
+>  
+> 
+> base-commit: 83e043ee72b8c2fe1d620d137c20a2ffb040da01
+> -- 
+> 2.39.5
+> 
+--8323329-757340337-1741133827=:1303386--
 
