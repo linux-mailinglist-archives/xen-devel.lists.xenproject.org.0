@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBF27A509DF
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 19:25:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.902630.1310666 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90294A50B25
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 20:12:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.902677.1310713 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tptQK-0002Fs-1i; Wed, 05 Mar 2025 18:24:52 +0000
+	id 1tpu9U-0006bK-Om; Wed, 05 Mar 2025 19:11:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 902630.1310666; Wed, 05 Mar 2025 18:24:52 +0000
+Received: by outflank-mailman (output) from mailman id 902677.1310713; Wed, 05 Mar 2025 19:11:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tptQJ-0002DG-V3; Wed, 05 Mar 2025 18:24:51 +0000
-Received: by outflank-mailman (input) for mailman id 902630;
- Wed, 05 Mar 2025 18:24:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tpu9U-0006Yp-Kt; Wed, 05 Mar 2025 19:11:32 +0000
+Received: by outflank-mailman (input) for mailman id 902677;
+ Wed, 05 Mar 2025 19:11:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=A9GM=VY=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tptQI-0002Bv-5D
- for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 18:24:50 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1a3efbf2-f9ef-11ef-9898-31a8f345e629;
- Wed, 05 Mar 2025 19:24:42 +0100 (CET)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-5e4d50ed90aso8459464a12.0; 
- Wed, 05 Mar 2025 10:24:40 -0800 (PST)
-Received: from [172.20.10.5] (public-gprs377817.centertel.pl. [37.47.107.26])
+ <SRS0=pOX7=VY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tpu9S-0006AR-85
+ for xen-devel@lists.xen.org; Wed, 05 Mar 2025 19:11:30 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a2c5ae67-f9f5-11ef-9ab4-95dc52dad729;
+ Wed, 05 Mar 2025 20:11:28 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-abbd96bef64so1113514266b.3
+ for <xen-devel@lists.xen.org>; Wed, 05 Mar 2025 11:11:26 -0800 (PST)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5e4c43a55e0sm9956954a12.79.2025.03.05.10.24.38
+ a640c23a62f3a-ac1ecafa17fsm368668266b.162.2025.03.05.11.11.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Mar 2025 10:24:38 -0800 (PST)
+ Wed, 05 Mar 2025 11:11:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,224 +45,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1a3efbf2-f9ef-11ef-9898-31a8f345e629
+X-Inumbo-ID: a2c5ae67-f9f5-11ef-9ab4-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1741199080; x=1741803880; darn=lists.xenproject.org;
-        h=subject:from:to:content-language:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kizGuW1y8r26IEy4rhwW4XbhuTNeCtED17MvvM09fUw=;
-        b=XiJ8leITbHfD2rP6P3yNHwxGyD9wPB/8+FIrfKZWBATE0ZzaVSikySVS2SwUk4eOqa
-         HCYpNQM5vt8oQE1EcTLWPFNZrvBLYsbu15PhmU2TiBoBd6SYukQWC4tnixgL4wyWg2v9
-         0Ox6D1qRhWQpG4dUHU7OV8H9oEHpScfAiwUUIJD/1wkANaHPuq0tTGQcWXCdwzXhDRKz
-         +AozQcEM67D+Ja5ogsC5wRCii5aM85zdhMHZiGwaS3K4OeoJfroVMxynupc4lS6YplEm
-         c4PPYXe5tL7+MwxKdyhL6hFjAffGJy+OKzaOwX8YREpfQsA7nd4OS04qDz5WeKmBA6cd
-         WLZA==
+        d=citrix.com; s=google; t=1741201886; x=1741806686; darn=lists.xen.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=DZaame9Ci028tUxlPLSZYIhVkogn4h4VCrJpnOsb3QI=;
+        b=WmyGD0RaYXSCLECeQ5nkN6CqoVkEauRgRGSoNCsH4dMmYa5MlzA2mDiE9uBXT5cm2m
+         4+OdGDHOoLThONEPGkwE9JiflPmorJq+sF6Q208dRJZXFuPQslidAJIWzKGfkpnQ4pNY
+         JlEESiPpO363AFnmo0gZ2IHgh+S1cQBVJqlhU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741199080; x=1741803880;
-        h=subject:from:to:content-language:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=kizGuW1y8r26IEy4rhwW4XbhuTNeCtED17MvvM09fUw=;
-        b=n4LfrMN0fVLdRc+Rh1VfgvZWyzKnK8m0la9UBNyNPdKdXBKgdCmkqbaULVDoSvZWqB
-         5nWqMxwGq5LZya2/xjkDriDn1W8LwDoiQXhWTKYXp/lHni1ONKsi2KQkRF/DvEk9rnAR
-         17ldJYh5ckyRvGOpixJxnLiOFaVmi8mn1GbiKTgq6mtUhKir9gv8eDIQnTFEF1PlL3Ql
-         74yCEtWD1gde1hZ8pmERxmjEMkgcQ2urYIYGx2q8UBS63OIGxDpZuwyUQhSoP0sP2r0O
-         UWx39KypJpRy0TZ2vBWtgMWdlZ5EIh9L0cl/4G/y9F1jTFs3+7RRyOAvm3ArFLEoGbXV
-         G9/w==
-X-Forwarded-Encrypted: i=1; AJvYcCWxZHm/83G9LnGzNQzwcFRB+vjtHEjasjI95ZtDY9ew2+aIhsXteGj2iTLvUK7Z3EAQvOUlFjtpC+P7RzcS@lists.xenproject.org, AJvYcCX/9W62hXzVTlO9BCNyeg3QbKNl/JtdSmZVz1SUADR/mmKHnM+AwX4fH7S8Ko8fO2yH7fCmi5ED59Ug@lists.xenproject.org, AJvYcCXSnqzWPKgBhGamhFQFEXMBFnKw50C89bS4thgUR4vPq250D+Yzio3SBvgJ4+mUv/e79kRdEjCdzsY92/LdKQ==@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzDtNo3dqywS16ZaZrAsEjrJLjr5KKAsdKCK4sEtka+wr+Acnah
-	B1nlvwh842k3waLEWzP1Kq7aoHZpnW3ahA4howKIKMl7S6QFeo4zCIM4iA==
-X-Gm-Gg: ASbGnctEX1oeDzmPue+c6+eScOlCgQbxK1FYN5Ak4slnUjtKHHh5YzH00EHE4fvGdUt
-	RHjBpFWuQM/xda2r3AHw3WdwQp68DIBI6K0jjSKh3aX3UyqIQ3ysDg9iRLIrdsK8IMkhnhkPUnP
-	XO1YFgeQfYBDhZ/arvOW4NJrtfr1CqcKz0zQ40/hBZ1MmClLRsqnrhWDxL0RbQeHOgmLYkk/X7l
-	RxXythGycXOOXbuTuBRU4LFA0DlM4OfhxBYoiwKzy5mSX+oQDQeoV7XtXnAfiGZBx36Z47xrZRp
-	LW/i1gb5Qt0TsqciFg/oln0RPO5FrcewdEA/+FzpbauETFLC+yINGaR6IzLt80UL5n2rPpm4tkA
-	E1WpokP9amA==
-X-Google-Smtp-Source: AGHT+IHel4usX22oqVEEWfsbSa/Wn+fVueF2skW49/SnjX8u5G3c6olM2+oclpnCRn7VjqswcElaDw==
-X-Received: by 2002:a05:6402:5c8:b0:5dc:5a34:1296 with SMTP id 4fb4d7f45d1cf-5e59f3d47f1mr4239848a12.16.1741199079156;
-        Wed, 05 Mar 2025 10:24:39 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------Sfts9e0BljbIB0VHBbBpP0Sh"
-Message-ID: <b7ccce46-f546-4edb-a9f4-0197dee3be26@gmail.com>
-Date: Wed, 5 Mar 2025 19:24:37 +0100
+        d=1e100.net; s=20230601; t=1741201886; x=1741806686;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=DZaame9Ci028tUxlPLSZYIhVkogn4h4VCrJpnOsb3QI=;
+        b=dW2Uux1/v8176h8bdcn7lv5cKHyAzD/NT70w0f7LeY1Fpj2AFRSSoJZyMTcUgz+v5w
+         XiDZlEp8oUI3ifK+NQ3aGtFPI3aZIZlSC7qQZye+Y3/U4+TdZDJpYyFhZd/C3gxJAHXq
+         yipY7RBrFpBDB1+nVyRZDMELT4E3LZcjjEyPCCsWzBcCQA9/+qEuvwjnUSqaf8uqWtqV
+         /Qmz9/sFI47oz/eKl9LeV/XXBaUSDXwqvxFgKAuUyAWwp7J8jHRfKHYN7faphcL/06hY
+         Ql15pvVUMOIJfb3wZ6oF64eYShY4fNtx5ZKIV/0X/UBqbiA9corQVuRwVeXAse+V1tA+
+         mQ5Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUsSTnL37mYbg/5xDDaAmfzEqXETqhFMWqFGTsYnzEpnb4ClYjno6p4alZ5KBQfLFw7n7F1VFntPNg=@lists.xen.org
+X-Gm-Message-State: AOJu0Yw63RvED/aBZFAI2b26aC9f66ykFZoE7c6sImbEc/R+Nq/LUMC5
+	Mc9wJLyjKHrGlQMm0XFk0Rt75NMFqSx7WwORm0AcTFN5Yy5wtjC8zgR2y+v0Km4=
+X-Gm-Gg: ASbGncsEcg96iif7+Uh9lQ2d8dtOz6qEdSxjSjJlA7eY3hj/YAeX3b/mX1mDXaqVeuK
+	2YIZVoc7qUt7slLjrCZYQCYRQvGGk2ZnJMaXjuwxDO+v/Qhs74zHqdIpPjlXiJdgbvVp2CU4/aA
+	HPr7vfkweiHf4kDj3L5+2Dh7Bcph7NQI5r9a628gmoxZ4lvXCtJ+ILw/4J0O+h1C7SWTXFuLedK
+	Pt0gUhTj4h4PEW1j7YfEWHdoUNuX0Y8Bx2cM+18mIE414gHPOXrLZjnGZoRYknJg+ZWBbJuB9jh
+	s1ygtVvrrnuHicqV+vO6e+qSTcZ3kEVJ/LP/8KborxnP2VIlHTzmepWuOUfj2UapWVng0xzGfnh
+	I9sj4hMTU
+X-Google-Smtp-Source: AGHT+IE4Oj0YBaW1g1qsSSQnSSCOaSMQmxLzlg0vhrLzGeXWTn120/RwT20dUywm3p5AOlyDXi21Kw==
+X-Received: by 2002:a17:907:3f25:b0:ac1:fcda:78c1 with SMTP id a640c23a62f3a-ac20d97e6b7mr466336266b.34.1741201885183;
+        Wed, 05 Mar 2025 11:11:25 -0800 (PST)
+Message-ID: <b3afc964-2840-4583-bb39-e05d390d3e55@citrix.com>
+Date: Wed, 5 Mar 2025 19:11:23 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: xen-devel@lists.xenproject.org, xen-users@lists.xenproject.org,
- xen-announce@lists.xenproject.org, advisory-board@lists.xenproject.org,
- Community Manager <community.manager@xenproject.org>
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Xen Project Releases Version 4.20
-
-This is a multi-part message in MIME format.
---------------Sfts9e0BljbIB0VHBbBpP0Sh
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Language: en-GB
+To: "xen-announce@lists.xen.org" <xen-announce@lists.xen.org>,
+ Xen-devel <xen-devel@lists.xen.org>,
+ "xen-users@lists.xen.org" <xen-users@lists.xen.org>,
+ "oss-security@lists.openwall.com" <oss-security@lists.openwall.com>
+Cc: "Xen.org security team" <security-team-members@xen.org>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Xen Security Notice 2 (CVE-2024-35347) AMD CPU Microcode Signature
+ Verification Vulnerability
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hello everyone,
+See:
 
-It's with great pleasure that I announce our 4.20 PR release.
+https://bughunters.google.com/blog/5424842357473280/zen-and-the-art-of-microcode-hacking
+https://www.amd.com/en/resources/product-security/bulletin/amd-sb-7033.html
 
-I want to thank the whole community for their efforts in getting this
-release published!
+Right now there are four known but (reasonably) benign microcodes from a
+non-AMD source.  However, there is a tool to sign arbitrary microcode.
 
-*Please find the PR article attached here
-<https://www.linuxfoundation.org/press/xen-project-announces-xen-420-release 
- >*
+In Xen, we've provided a stopgap mitigation to perform extra checks on
+microcode load on affected CPU families.  This is a SHA2 digest check
+against hashes with believed-good provenance.  This is staging only for
+now, in case it is overly disruptive.
 
-Please find the tarball and its signature at:
-    https://downloads.xenproject.org/release/xen/4.20.0/
+This will not protect against an already-compromised platform, but it
+will prevent an uncompromised system becoming compromised via Xen's
+microcode loading capabilities.
 
-You can also check out the tag in xen.git:
-    git://xenbits.xen.org/xen.git RELEASE-4.20.0
+On affected systems, the only complete fix is a firmware update.  This
+is a very firmly recommended course of action.
 
-Git checkout and build instructions can be found at:
-    https://wiki.xenproject.org/wiki/Xen_Project_4.20_Release_Notes#Build_Requirements
+Sincerely,
 
-Release notes can be found at:
-    https://wiki.xenproject.org/wiki/Xen_Project_4.20_Release_Notes
+~Andrew, on behalf of the Xen Security Team.
 
-A summary for 4.20 release documents can be found at:
-    https://wiki.xenproject.org/wiki/Category:Xen_4.20
-
-*Some notable features:*
-   - *Security Enhancements:*
-     - During the 4.20 development window, 8 new Xen Security Advisories (XSAs) were published.
-     - Expanded MISRA C compliance: Integrated ECLAIR MISRA C scanner in GitLab CI, enforcing 90
-       rules with zero unjustified violations.
-     - Enabled UBSAN (Undefined Behaviour Sanitiser) by default for x86, Arm64, RISC-V and PowerPC
-       in GitLab CI.
-     - Integrated two of our existing fuzzing harnesses into OSSFuzz.
-   
-  - *Arm*
-     - Support for LLC (Last Level Cache) coloring for performance optimizations.
-     - Experimental support for Armv8-R.
-     - Support for NXP S32G3 Processors Family and LINFlexD UART driver.
-     - To enable Xen towards safety certification, 43 requirements have been added.
-
-  - *x86 Architecture:*
-     - On Intel CPUs, support the Paging-Write Feature.
-     - AMD Zen 5 CPU support, including mitigation for SRSO speculative vulnerability.
-     - Improve Xen ability to boot (and reboot) using the default configuration on possibly
-       quirky EFI firmware.
-     - Switched the xAPIC flat driver to use physical destination mode for external interrupts instead
-       of logical destination mode.
-     - Remove support for running on Xeon Phi processors.
-     - There has been a substantial overhaul to the way in which boot module handling works (part of the
-       Hyperlaunch work in progress), and a substantial overhaul to how the 32bit early boot code is built
-       and linked (part of the UEFI SecureBoot work in progress).
-
-
-  - *Other updates:*
-    - Fixes in the blkif protocol specification for non-512b sector sizes.
-    - Security and performance enhancements: The domain builder in libxenguest no longer un-gzips
-      secondary modules, leaving it to the guest kernel.
-    - Continued to improve the common/arch code split, including improved bit-operation helpers for bit
-      scanning and hamming weight.
-
-Aside from the updates mentioned, I would also like to note that we are
-still continue working on the PPC and RISC-V ports.
-
-Best regards,
-  Oleksii
-
-Come join the conversation on Matrix:
-
-XenProject:https://matrix.to/#/#XenProject:matrix.org
-
-XenDevel:https://matrix.to/#/#XenDevel:matrix.org
-
-XenSocial:https://matrix.to/#/#XenSocial:matrix.org
-
---------------Sfts9e0BljbIB0VHBbBpP0Sh
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <pre>Hello everyone,
-
-It's with great pleasure that I announce our 4.20 PR release.
-
-I want to thank the whole community for their efforts in getting this
-release published!
-
-*Please find the PR article attached here
-<a class="moz-txt-link-rfc2396E" href="https://www.linuxfoundation.org/press/xen-project-announces-xen-420-release">&lt;https://www.linuxfoundation.org/press/xen-project-announces-xen-420-release
-&gt;</a>*
-
-Please find the tarball and its signature at:
-   <a class="moz-txt-link-freetext" href="https://downloads.xenproject.org/release/xen/4.20.0/">https://downloads.xenproject.org/release/xen/4.20.0/</a>
-
-You can also check out the tag in xen.git:
-   git://xenbits.xen.org/xen.git RELEASE-4.20.0
-
-Git checkout and build instructions can be found at:
-   <a class="moz-txt-link-freetext" href="https://wiki.xenproject.org/wiki/Xen_Project_4.20_Release_Notes#Build_Requirements">https://wiki.xenproject.org/wiki/Xen_Project_4.20_Release_Notes#Build_Requirements</a>
-
-Release notes can be found at:
-   <a class="moz-txt-link-freetext" href="https://wiki.xenproject.org/wiki/Xen_Project_4.20_Release_Notes">https://wiki.xenproject.org/wiki/Xen_Project_4.20_Release_Notes</a>
-
-A summary for 4.20 release documents can be found at:
-   <a class="moz-txt-link-freetext" href="https://wiki.xenproject.org/wiki/Category:Xen_4.20">https://wiki.xenproject.org/wiki/Category:Xen_4.20</a>
-
-*Some notable features:*
-  - *Security Enhancements:*
-    - During the 4.20 development window, 8 new Xen Security Advisories (XSAs) were published.
-    - Expanded MISRA C compliance: Integrated ECLAIR MISRA C scanner in GitLab CI, enforcing 90
-      rules with zero unjustified violations.
-    - Enabled UBSAN (Undefined Behaviour Sanitiser) by default for x86, Arm64, RISC-V and PowerPC
-      in GitLab CI.
-    - Integrated two of our existing fuzzing harnesses into OSSFuzz.
-  
- - *Arm*
-    - Support for LLC (Last Level Cache) coloring for performance optimizations.
-    - Experimental support for Armv8-R.
-    - Support for NXP S32G3 Processors Family and LINFlexD UART driver.
-    - To enable Xen towards safety certification, 43 requirements have been added. 
-
- - *x86 Architecture:*
-    - On Intel CPUs, support the Paging-Write Feature.
-    - AMD Zen 5 CPU support, including mitigation for SRSO speculative vulnerability.
-    - Improve Xen ability to boot (and reboot) using the default configuration on possibly
-      quirky EFI firmware.
-    - Switched the xAPIC flat driver to use physical destination mode for external interrupts instead
-      of logical destination mode. 
-    - Remove support for running on Xeon Phi processors.
-    - There has been a substantial overhaul to the way in which boot module handling works (part of the
-      Hyperlaunch work in progress), and a substantial overhaul to how the 32bit early boot code is built
-      and linked (part of the UEFI SecureBoot work in progress).
-
-
- - *Other updates:*
-   - Fixes in the blkif protocol specification for non-512b sector sizes.
-   - Security and performance enhancements: The domain builder in libxenguest no longer un-gzips
-     secondary modules, leaving it to the guest kernel.
-   - Continued to improve the common/arch code split, including improved bit-operation helpers for bit
-     scanning and hamming weight.
-
-Aside from the updates mentioned, I would also like to note that we are
-still continue working on the PPC and RISC-V ports.
-
-Best regards,
- Oleksii
-
-Come join the conversation on Matrix:
-
-XenProject: <a class="moz-txt-link-freetext" href="https://matrix.to/#/#XenProject:matrix.org">https://matrix.to/#/#XenProject:matrix.org</a>
-
-XenDevel: <a class="moz-txt-link-freetext" href="https://matrix.to/#/#XenDevel:matrix.org">https://matrix.to/#/#XenDevel:matrix.org</a>
-
-XenSocial: <a class="moz-txt-link-freetext" href="https://matrix.to/#/#XenSocial:matrix.org">https://matrix.to/#/#XenSocial:matrix.org</a>
-
-</pre>
-  </body>
-</html>
-
---------------Sfts9e0BljbIB0VHBbBpP0Sh--
 
