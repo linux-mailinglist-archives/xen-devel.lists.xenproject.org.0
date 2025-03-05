@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8DCCA50E90
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 23:26:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.902811.1310772 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADD17A50EE8
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 23:44:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.902828.1310790 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpxBV-0002IA-AG; Wed, 05 Mar 2025 22:25:49 +0000
+	id 1tpxTR-0008EO-W2; Wed, 05 Mar 2025 22:44:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 902811.1310772; Wed, 05 Mar 2025 22:25:49 +0000
+Received: by outflank-mailman (output) from mailman id 902828.1310790; Wed, 05 Mar 2025 22:44:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpxBV-0002FP-6F; Wed, 05 Mar 2025 22:25:49 +0000
-Received: by outflank-mailman (input) for mailman id 902811;
- Wed, 05 Mar 2025 22:25:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tpxTR-0008C0-Su; Wed, 05 Mar 2025 22:44:21 +0000
+Received: by outflank-mailman (input) for mailman id 902828;
+ Wed, 05 Mar 2025 22:44:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=pOX7=VY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tpxBT-00024R-FR
- for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 22:25:47 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c862679f-fa10-11ef-9ab4-95dc52dad729;
- Wed, 05 Mar 2025 23:25:46 +0100 (CET)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-aaedd529ba1so4914066b.1
- for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 14:25:46 -0800 (PST)
-Received: from andrewcoop.eng.citrite.net (host-92-26-98-202.as13285.net.
- [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac1e152fdd4sm473867766b.176.2025.03.05.14.25.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Mar 2025 14:25:44 -0800 (PST)
+ id 1tpxTP-0008Bm-Jt
+ for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 22:44:19 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5ebebf21-fa13-11ef-9898-31a8f345e629;
+ Wed, 05 Mar 2025 23:44:17 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-abf4d756135so7172066b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 14:44:17 -0800 (PST)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-abf4a3a19b2sm884386166b.44.2025.03.05.14.44.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 05 Mar 2025 14:44:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,137 +45,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c862679f-fa10-11ef-9ab4-95dc52dad729
+X-Inumbo-ID: 5ebebf21-fa13-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741213545; x=1741818345; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=McDKkH1/jF76pltYd4jyBlFJcmo4P/DuMqxlYLD0OPg=;
-        b=FqBx1tf4A6G3NKyG0aQ3ayHwuUOJI2ULSHduVbr/B3mPtMmUGuDZybUMBUJ0VzE/15
-         mbVs+ivxEXuu836lPSO6WAM9TMBFVQVFOj/4NXYq92vitGm4wZARsvMybbj3TTCX9K7Z
-         PrT0324/LiA9W+/4xkeRxCtqcKPmyS6R2Xxp8=
+        d=citrix.com; s=google; t=1741214657; x=1741819457; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=pTwmi0cUF3/pS1Hz6HN1qkSC3wILXQEsVZibWmbgZsw=;
+        b=GDsw5eiW9Us/6AlzqmswcepX5qLKdzWhrQfqg05jP99+MW3caT7mJ+ykpxkoipKqs9
+         GtWsPOLAXmCYTOT8sjNSVD4nSoZGCZxeCZ3Jze42zRO0qvVwory9a95GTzFii3IGQbvu
+         EPLOrF2K/MJsz4dWTT9EQ4AVTjy8P+NK/HFZg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741213545; x=1741818345;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20230601; t=1741214657; x=1741819457;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=McDKkH1/jF76pltYd4jyBlFJcmo4P/DuMqxlYLD0OPg=;
-        b=k2CWcTodMqEGkNfRATPkyQPv7IJN5FWai8EQVIC/MjoHseH6Y3f0rbvHKyFiN6h2Si
-         hJ9kj4k4X2v/OxWgo9u58R5Bu4DHAzhUxQXvCfiJGtzWpWCQR4UugVqAfbS/HugT/iMU
-         YPfh6qdvp4rqoDjKsfGpf/f5AKtd/qc9cCg0eRojgTk1CBs6VrOf+YkWDPVADPw5+owB
-         p9EjVaglLCKYXuldE+MSdEZxHQU3q4RjYi3UK5xYCz6YvyQ52YA3XBrStRtMmW3dWCJ+
-         dS5/zlw50dhKqXHOk/3GObIY0rK3XXB5otEy61ugKigGOUqoE2AD38Q1w50P+sHD/jM7
-         7vDA==
-X-Gm-Message-State: AOJu0Yy+cgIpZVrHwvGAdtEkTgT05LJ52m2QrgsDDyx59+7WqeVoE+pV
-	s/n12rO9ovWI9guwxzRWH+C59Dji/16TIv6Wt942up/r/8c3QN+3X28gBPXPYyFWSA/DiDeN2Lk
-	/
-X-Gm-Gg: ASbGncvbbk9tROl4Z+u3qA3ai3N6gNu+eBAGjjwj2MdqnyWANYZJrfijUXMsGm69IUP
-	HfPKWk9/d1qEH1/RGhifz4FGsQukNVjycei3cXMfTgZFtg0OCvl3WkjbEva9SGmkch+ajqS7Umy
-	wF7bePhK7pNWjAXHResyMXPJqbw4eWmqVaR6z4hQjun/nLVKKWkPn16KgIFkuKQiQctM9gRGSp5
-	oxHBDEDI44WRoKxJ3d3QPB5VdlOvsF83/kliolmRJ1xbyyD1pxx6AxSvL8tCGeNjMscVkH/9CGj
-	ozVZ8VZcxt9iaf2aYiqdKgB4TdONgjLfGmsYa4E34D7qhVioOzhwOlYHWw5asz7wm/LL5NsKJBm
-	qLmVB6Jm4ejWghtuyQ338BVKm
-X-Google-Smtp-Source: AGHT+IGmFjGSqtjbYLGpeN00qCc9zJtUjy+DPtbTm7PnwBltB7kkFjwZmaHLI6kIC46gAMbIWvjeAg==
-X-Received: by 2002:a05:6402:2114:b0:5de:a6a8:5ec6 with SMTP id 4fb4d7f45d1cf-5e59f3d3780mr10313073a12.10.1741213545303;
-        Wed, 05 Mar 2025 14:25:45 -0800 (PST)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH] Xen: CI fixes from XSN-2
-Date: Wed,  5 Mar 2025 22:23:43 +0000
-Message-Id: <20250305222343.2874591-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+        bh=pTwmi0cUF3/pS1Hz6HN1qkSC3wILXQEsVZibWmbgZsw=;
+        b=I6I3LNM4DLwCZ7qTxEkQL0hwwkl4yoFPuKDmrBC0Mi0SY/Xr9bbSFP1SV2E7e5x6+D
+         Ufd/Wh4ftQmsLFdbf/79CAwhjf1qsjHFyRTwjUUoGDmFlNGJhJGp+cqjDH71z+j/Vt/9
+         JGcPNCn516qVicJe5H+EmveaqxbW4SXTE6WwuPGnesdwwzoukMCyBk8qEopsyqRId2Kv
+         NQ5i/jWelXOEutLE9l14jw3lKwnCrlRcsC3vDsZRnWqitZ3hO8GzPNJTqFGT62Eda623
+         WXpSpD/UqFK+s5mJEBVYR26L+fS1EhEClBsHo/xiSstEnTVFRvzI8PVTd80j7rVhZeDM
+         0sww==
+X-Forwarded-Encrypted: i=1; AJvYcCWNgUm+Vln9SzM9X2kvYpwY0Wib69TySpb3hQZh2xcx4gNolse9HrRW0wJW970LJIHE92ai9vXBdN8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyboUfcmZy5rQglhjZvJdLg2urSZC0Ps+DRqLvxJg4W51adT+Ow
+	x9rMAMQ2eUzuYt6DqKmtvA+Hw0FeDK4keSTy+4xcIwb05xjxev9Lq3fnVsJVNT0=
+X-Gm-Gg: ASbGnctU7s7KCwhP9izR2U08FggTk+9dYO+ZF+KXJFGpBVAzI2QeHHlo9tZv1ntcX0H
+	j13CNcnbAg/QUQJ8grnSENhpPXV/Mm7Wf9b3zfM+HnS0TTE1gCpcTv3lMgAeIE/GIfurCJH4UPP
+	3Jm7Cko4N8qGlYwrJrnXqeu7T2TeU0J1XeC7pOtMjbcfqpe5xLLcqhZBURhgUY3VfTszYwtgCg9
+	Qbknl4JbJQg5XH/QZSitunSoyrLJ5/+n5Nm3JM+v9hh2t+TBQ/Zzn+n4P53qYitJSrEK9eL9wHw
+	UfAsNUo5dYgveGL8JyQb9UgBd/y7ugrd6FqWU+gki3HwGPoKrITCLcw29vwWJ530Jv4p0pvQ4PL
+	9Vu+wyM5r
+X-Google-Smtp-Source: AGHT+IExbXJ+4eq9PD0aDX2d2JiRDM5bnenGWIBWXBnZSN/dT+RB1zbNtl+FBrcGy/UDgD9r+V6SPA==
+X-Received: by 2002:a17:906:7308:b0:abf:486a:5e0e with SMTP id a640c23a62f3a-ac20d8cdafdmr464943466b.22.1741214656816;
+        Wed, 05 Mar 2025 14:44:16 -0800 (PST)
+Message-ID: <c145ee1e-91e9-491e-bd21-7bb0a04ab0a1@citrix.com>
+Date: Wed, 5 Mar 2025 22:44:15 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: BUG - running new version on nested virtualization
+To: =?UTF-8?B?S0HEnkFOIEnFnklMREFL?= <kagan.isildak@malwation.com>,
+ xen-devel@lists.xenproject.org, xen-users@lists.xenproject.org
+References: <CABDHFN7uk0JdehT3R0f_PvRgT-thdNyywppekmjLWfSq13dNKQ@mail.gmail.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <CABDHFN7uk0JdehT3R0f_PvRgT-thdNyywppekmjLWfSq13dNKQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
- * Add cf_check annotation to cmp_patch_id() used by bsearch().
- * Add U suffix to the K[] table to fix MISRA Rule 7.2 violations.
+On 05/03/2025 10:05 pm, KAĞAN IŞILDAK wrote:
+> Hey there
+>
+> I'm facing weird issue. At my lab env. i'm building xen 4.18 and make
+> deb package than i use it on virtual machine which running on esxi
+> with CPU features for nested virtualization and there's no problem. (I
+> can create vm and able to do all operational things etc.)
+>
+> Last week i tried to migrate 4.19 and 4.20 but Xen get stuck on
+> booting and at debug log i just see error about mounting /proc/xen
+> (mount: /proc/xen: mount point does not exist.) I've no f... idea why
+> it caused. (At my all tries, i used fresh install of ubuntu server
+> 22.04, 24.04)
+>
+> Is there any one faced issue and is there special things to do in
+> build phase for nested virtualization? (I didn't change anything while
+> building 4.18, i'm just using stable branch)
 
-Fixes: 372af524411f ("xen/lib: Introduce SHA2-256")
-Fixes: 630e8875ab36 ("x86/ucode: Perform extra SHA2 checks on AMD Fam17h/19h microcode")
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Anthony PERARD <anthony.perard@vates.tech>
-CC: Michal Orzel <michal.orzel@amd.com>
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Julien Grall <julien@xen.org>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
+/proc/xen isn't getting mounted, and that's necessary for the Xen
+tooling to work.  It's a custom filesystem of type "xenfs" in Linux.
 
-TODO: Make a working CI pipline the security team can use.
+Check the status of proc-xen.mount
 
-https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1701963907
----
- xen/arch/x86/cpu/microcode/amd.c |  2 +-
- xen/lib/sha2-256.c               | 32 ++++++++++++++++----------------
- 2 files changed, 17 insertions(+), 17 deletions(-)
-
-diff --git a/xen/arch/x86/cpu/microcode/amd.c b/xen/arch/x86/cpu/microcode/amd.c
-index 27caed102818..ee7de5282b2a 100644
---- a/xen/arch/x86/cpu/microcode/amd.c
-+++ b/xen/arch/x86/cpu/microcode/amd.c
-@@ -99,7 +99,7 @@ static const struct patch_digest {
- #include "amd-patch-digests.c"
- };
- 
--static int cmp_patch_id(const void *key, const void *elem)
-+static int cf_check cmp_patch_id(const void *key, const void *elem)
- {
-     const struct patch_digest *pd = elem;
-     uint32_t patch_id = *(uint32_t *)key;
-diff --git a/xen/lib/sha2-256.c b/xen/lib/sha2-256.c
-index 4aeb8aa20490..19e8252188f7 100644
---- a/xen/lib/sha2-256.c
-+++ b/xen/lib/sha2-256.c
-@@ -56,22 +56,22 @@ static uint32_t blend(uint32_t W[16], unsigned int i)
- }
- 
- static const uint32_t K[] = {
--    0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
--    0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
--    0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
--    0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
--    0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc,
--    0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
--    0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7,
--    0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
--    0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13,
--    0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
--    0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3,
--    0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
--    0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5,
--    0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
--    0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208,
--    0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2,
-+    0x428a2f98U, 0x71374491U, 0xb5c0fbcfU, 0xe9b5dba5U,
-+    0x3956c25bU, 0x59f111f1U, 0x923f82a4U, 0xab1c5ed5U,
-+    0xd807aa98U, 0x12835b01U, 0x243185beU, 0x550c7dc3U,
-+    0x72be5d74U, 0x80deb1feU, 0x9bdc06a7U, 0xc19bf174U,
-+    0xe49b69c1U, 0xefbe4786U, 0x0fc19dc6U, 0x240ca1ccU,
-+    0x2de92c6fU, 0x4a7484aaU, 0x5cb0a9dcU, 0x76f988daU,
-+    0x983e5152U, 0xa831c66dU, 0xb00327c8U, 0xbf597fc7U,
-+    0xc6e00bf3U, 0xd5a79147U, 0x06ca6351U, 0x14292967U,
-+    0x27b70a85U, 0x2e1b2138U, 0x4d2c6dfcU, 0x53380d13U,
-+    0x650a7354U, 0x766a0abbU, 0x81c2c92eU, 0x92722c85U,
-+    0xa2bfe8a1U, 0xa81a664bU, 0xc24b8b70U, 0xc76c51a3U,
-+    0xd192e819U, 0xd6990624U, 0xf40e3585U, 0x106aa070U,
-+    0x19a4c116U, 0x1e376c08U, 0x2748774cU, 0x34b0bcb5U,
-+    0x391c0cb3U, 0x4ed8aa4aU, 0x5b9cca4fU, 0x682e6ff3U,
-+    0x748f82eeU, 0x78a5636fU, 0x84c87814U, 0x8cc70208U,
-+    0x90befffaU, 0xa4506cebU, 0xbef9a3f7U, 0xc67178f2U,
- };
- 
- static void sha2_256_transform(uint32_t *state, const void *_input)
-
-base-commit: 630e8875ab368b97cc7231aaf3809e3d7d5687e1
--- 
-2.39.5
-
+~Andrew
 
