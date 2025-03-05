@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 288CFA502FD
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 16:00:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.902443.1310410 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70372A5030C
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 16:03:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.902451.1310420 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpqEN-00084Q-Os; Wed, 05 Mar 2025 15:00:19 +0000
+	id 1tpqGt-0000D7-48; Wed, 05 Mar 2025 15:02:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 902443.1310410; Wed, 05 Mar 2025 15:00:19 +0000
+Received: by outflank-mailman (output) from mailman id 902451.1310420; Wed, 05 Mar 2025 15:02:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpqEN-00082f-Lo; Wed, 05 Mar 2025 15:00:19 +0000
-Received: by outflank-mailman (input) for mailman id 902443;
- Wed, 05 Mar 2025 15:00:18 +0000
+	id 1tpqGt-0000CN-1K; Wed, 05 Mar 2025 15:02:55 +0000
+Received: by outflank-mailman (input) for mailman id 902451;
+ Wed, 05 Mar 2025 15:02:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2gZc=VY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tpqEM-00082Z-UT
- for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 15:00:18 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ id 1tpqGs-0000BW-3f
+ for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 15:02:54 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8cf08241-f9d2-11ef-9ab4-95dc52dad729;
- Wed, 05 Mar 2025 16:00:17 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-4398ec2abc2so61729065e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 07:00:17 -0800 (PST)
+ id e9b127e6-f9d2-11ef-9ab4-95dc52dad729;
+ Wed, 05 Mar 2025 16:02:53 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-43bd87f7c2eso2628635e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 07:02:53 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43bd426ca07sm20059815e9.2.2025.03.05.07.00.16
+ 5b1f17b1804b1-43bd6530f26sm14217885e9.4.2025.03.05.07.02.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Mar 2025 07:00:16 -0800 (PST)
+ Wed, 05 Mar 2025 07:02:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8cf08241-f9d2-11ef-9ab4-95dc52dad729
+X-Inumbo-ID: e9b127e6-f9d2-11ef-9ab4-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741186817; x=1741791617; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741186973; x=1741791773; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=RyvjW5c6iwJDTK1Lpof10N8PHBOXS02s/X+QNaLBgYk=;
-        b=MgiYOwnFJqleN9eTzuqYoWPjqPU2GeN+WCrItam9byQZQaiVU79ShzKR2EqZkKxEtl
-         4LI2LPDWQzbPJyk3YLk3NNV7RrILlgiTpFyiJVxSEUPlucziUVK9yWjtEJ4fDP1NSanf
-         tgtB2QaGsU7wWaTxXUo2CobX4GdWocjstiyaN0x7pFwdq/rAm8Gtl9tFO0zqtStxDATj
-         pvn2b7KbqisVGaDcIOhi8zUubPJqvuTRvpL5Kaw5XZE2Eg954WypPv6kDYZkISs4xb8C
-         uXF8+XvZXL3m1z8y3oCr8tqUEYlgMfS9BNoD4sbHxFmWYgvuIQlI51wLAQdnQVQgcgOj
-         857g==
+        bh=cYJfryi3uCgAHEybKeFZAQ7Zv3eRpV9dRlrTMaZBi0A=;
+        b=BJjFZ8cRB6PIOWoQKBVY2+6dcRD30391K43rlt7vpw2wrF10QIpUU00hJkI5QAyFy2
+         fuDztokGvdMSmAJph6KKu1FBXKttuzIOQa+B0EBEuQb2RIOYLIg94Rz6bOogQrY8VCJX
+         HjolhigU5ZxRNAKIo+ZVnpldvyPtRGWGB+VLUj4LrBo4B9Hzrp3HekUu1mFSxzVYSLjR
+         sZG7OsqXYHGtk30X2dh+BI1e/Vg6c6Z5OgrWs/xjTxoGqiBRu/acGA0DJhdPtHWYwtmh
+         GVK3MssFNGpbjWCPUk0evtsR0peQuy4QHOSEjUqaDYsUSD2nx7c1RDdVlkWOWRYpjLlw
+         Rl1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741186817; x=1741791617;
+        d=1e100.net; s=20230601; t=1741186973; x=1741791773;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RyvjW5c6iwJDTK1Lpof10N8PHBOXS02s/X+QNaLBgYk=;
-        b=aW9tnddLtfWOkRNU2LzF11xZXh9dAKbd36r0UQHfUhEMvXcmBg+X8eYqKkx1UlqnIH
-         YEA0o6NQQDz2uZS41KRVuLFYZ7/S813XCgeKCIsuj1ArrzHc2wCZqSv7LjFuhobxtQFw
-         dcdz8MQC4Y4xgcfj3H+J1yj8O5FcXGzexFK8JuF3Iew2LVYKv7H7qq2zZVXw0wZRNAd6
-         OzubI/sp70r6o1DksaDWAa7x/7XNRg/q7HBqhEoU15x5xgRX70OyUMUJGNJTQUjcSKgz
-         lZUZo9LB38Oduk2YOsv2tIMlu7h1B1/ZRYdXTEmjCoRYxRkv5jUcbr/H7oQ5TPRcOwk0
-         YVIw==
-X-Forwarded-Encrypted: i=1; AJvYcCWnjqYJAagjSIlfK4nVGYjWJUff6BwTNagw1IbaQY1a6rqb46O+mREOkqnGYA/Ezrw0U9mtsMk/6sw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwULWFhhNX344nWml5laCa4ONO38ykQlAXiTSTe/Ec7xEtARE4n
-	AWuqMXAKd/JAD2GTraceLljw2NCpHG0+7L+DMnvcwZAXmTfJPs8XlwwuJY798w==
-X-Gm-Gg: ASbGncvOvd7GI/DnbhFVQK7srQUCgcc27eC086XIzgdxWrQ9ip2jdDaAHs6LWoSWuIE
-	vEPUP9oW5cQehh/p8xSoAh1BsTqlLePfzlGjfkOtzVWDwFZ1VTFy9h+o/hIil4MqKXkUjUMD4xb
-	l7wk0qdx5wl93DydeX82DMI9KS9d9aGY2bRtF00Epo1dOopP48ljt+lqMXrWWjnFGjFks7v4WuP
-	IOXRWyJFT9r+avq970t/ZEGB6TXs2e0/JbIRRX1SremmCOcccA0Xg1q6+IKOZR9O9sh2ftWlWKM
-	bDaVBy7e9BN5WTojns8EkJm9OJbNXJjHPToixNHI5gyNRzEb+8qgqPY/nwIf8Lrye34aBNs0Xrw
-	DNSvWUl5wnUsCYcTqFMkty3r7QZ6jyw==
-X-Google-Smtp-Source: AGHT+IFgE3qjO2tjDEVK/UORbEEnIR49PASLuEfuZu2CVLG4W7Angph9Z73enbHK0JgwymLlajCeoA==
-X-Received: by 2002:a05:600c:474b:b0:439:4700:9eb3 with SMTP id 5b1f17b1804b1-43bd294bb8amr24943445e9.3.1741186816981;
-        Wed, 05 Mar 2025 07:00:16 -0800 (PST)
-Message-ID: <86cdf4c1-ab94-4228-bb90-167e9d9ea271@suse.com>
-Date: Wed, 5 Mar 2025 16:00:15 +0100
+        bh=cYJfryi3uCgAHEybKeFZAQ7Zv3eRpV9dRlrTMaZBi0A=;
+        b=OT+IpmyPyhVymJoXGI70ZkOTv0yeWUNURJnN4tRbv1blzCGfi01DNBGj5AH1H8NFro
+         RjM9Z1h8+PZPcMpNqJRO9J8i4Vh8Nnr/OSPPVlsi3M4L3Qt1C3F+rjm1fe1K2NPmjdr8
+         /3lp6UE+D6uHWt7BzJsT86l2H4j2ZFC6Y3aHhHrhi/f0ce8gTMM5lkuty0QzCuJrPCPC
+         UhMLCePmQ2+Fac9olWVThaoEB+B+E1L1fMak84l7lpcAOUj/fRPMry3ObjEJp2BLWgdi
+         ryEdiAm2qP9eNLlWtIq0XWs4Aos/a2qTv8ETv0JUN7l/LcXhi+TmILjRRYMdipY6sSle
+         kf7w==
+X-Gm-Message-State: AOJu0Yw4FQcM07NW4zgQDCBdbeMDskfsVwbgJkvHYlaM7mYNCITI8yvX
+	1MMM+kboIXTu8P75oIHuzYzh2UlQXN6JSodYBlNy2Jlb3HzBoJfVMooBZhN3rDHxu7BDjZHzNqg
+	=
+X-Gm-Gg: ASbGncvISh54B4/Pd/7l2xR2WdkLuQFfWax4yI6sOCe/PVrl/+IebJCSNUaiVv2s81e
+	jJIXB2fv5EVEQs9fteb/f5rUYeJ+or5q4NLKctuBPddntSkYDekuQCCqkv2NuZDxLSU2Af/aDxw
+	9qiBURXRPGO/SuavUbs2cfKnlL0yRYVs4b2Cce68iT20LggRg9+z4JzeMxtO4PAxpxcgLl3b1lO
+	g0PuIIaNlq/4Tt3pw1ze9XzHB0RhGjOMe279txhlHpbgTkr2w9C5IVrTZLGh5GUFAnF0QygpGgK
+	CGDCAaz/LqelvJ1I5VfdNbqwgU1PDHDN9dJn4FNmGnrnX5Asu5j3cp69I7FNXPuW/LksPdTDLNI
+	nkaNM3vYefLQMGT2YeINvTLRBB7wvBg==
+X-Google-Smtp-Source: AGHT+IHihhuz56KmP8lZvKL4xFruEC1c9RKQRLpGOAfK3cjhdr7guVSvMliwyWyWPZvcB8Z9lrXYyQ==
+X-Received: by 2002:a05:600c:1c26:b0:439:9274:81db with SMTP id 5b1f17b1804b1-43bd292a806mr33993695e9.5.1741186972421;
+        Wed, 05 Mar 2025 07:02:52 -0800 (PST)
+Message-ID: <5978ed8d-ecef-41f7-adde-bc52312b483c@suse.com>
+Date: Wed, 5 Mar 2025 16:02:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v4 01/11] x86/HVM: improve CET-IBT pruning of ENDBR
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 References: <748548e8-79e5-4957-be16-c5ea4d202d21@suse.com>
  <29cc2974-a1d8-4123-83b0-b44a3151f900@suse.com>
- <11dc36a1-6b34-4e06-ae6b-4019a024bbd5@citrix.com>
+ <Z8hkLjMAQfhBR2Cm@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,12 +119,12 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <11dc36a1-6b34-4e06-ae6b-4019a024bbd5@citrix.com>
+In-Reply-To: <Z8hkLjMAQfhBR2Cm@macbook.local>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 05.03.2025 15:47, Andrew Cooper wrote:
-> On 25/02/2025 11:37 am, Jan Beulich wrote:
+On 05.03.2025 15:48, Roger Pau Monné wrote:
+> On Tue, Feb 25, 2025 at 12:37:00PM +0100, Jan Beulich wrote:
 >> __init{const,data}_cf_clobber can have an effect only for pointers
 >> actually populated in the respective tables. While not the case for SVM
 >> right now, VMX installs a number of pointers only under certain
@@ -135,22 +135,24 @@ On 05.03.2025 15:47, Andrew Cooper wrote:
 >>
 >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
-> I don't especially like this, but I can't suggest anything better right
-> now, so
-> 
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
 Thanks.
 
->> Originally I had meant to put the SVM and VMX functions in presmp-
->> initcalls, but hvm/{svm,vmx}/built_in.o are linked into hvm/built_in.o
->> before hvm/hvm.o. And I don't think I want to fiddle with link order
->> here.
-> 
-> Why does the link order matter?
+> However I find this filling slightly ugly, and prone to be forgotten
+> when further hooks are added.
 
-Because hvm_enable() is a pre-SMP initcall, and if the new vendor functions
-also were such, they'd need to run later.
+Indeed. Luckily, while undesirable, that wouldn't be an outright bug.
+
+> Would it make sense to delay enabling of IBT until after alternatives
+> have been applied, and thus simply not use the cf_clobber attribute on
+> functions that are patched to not be indirectly called?
+> 
+> We could still enable IBT before starting the APs.
+
+I'd prefer if Andrew answered this. It looks like it might be an option,
+but it also feels as if this would (if only a little) complicate logic
+overall.
 
 Jan
 
