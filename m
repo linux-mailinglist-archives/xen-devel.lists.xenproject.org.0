@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2FC7A4FA79
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 10:43:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.902135.1310071 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A06D2A4FC08
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 11:31:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.902153.1310101 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tplHc-0004jT-6w; Wed, 05 Mar 2025 09:43:20 +0000
+	id 1tpm1a-0006r9-QK; Wed, 05 Mar 2025 10:30:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 902135.1310071; Wed, 05 Mar 2025 09:43:20 +0000
+Received: by outflank-mailman (output) from mailman id 902153.1310101; Wed, 05 Mar 2025 10:30:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tplHc-0004gR-3m; Wed, 05 Mar 2025 09:43:20 +0000
-Received: by outflank-mailman (input) for mailman id 902135;
- Wed, 05 Mar 2025 09:43:18 +0000
+	id 1tpm1a-0006o1-Mu; Wed, 05 Mar 2025 10:30:50 +0000
+Received: by outflank-mailman (input) for mailman id 902153;
+ Wed, 05 Mar 2025 10:30:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2gZc=VY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tplHa-0004gJ-8v
- for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 09:43:18 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ id 1tpm1a-0006m4-1A
+ for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 10:30:50 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 43d4b89c-f9a6-11ef-9ab4-95dc52dad729;
- Wed, 05 Mar 2025 10:43:17 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-43bd5644de8so2815755e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 01:43:17 -0800 (PST)
+ id e7965def-f9ac-11ef-9ab4-95dc52dad729;
+ Wed, 05 Mar 2025 11:30:48 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-43bd5644de8so3403855e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 02:30:48 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43bd4291ffbsm12147285e9.15.2025.03.05.01.43.15
+ 5b1f17b1804b1-43bd42e51e8sm13213705e9.26.2025.03.05.02.30.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Mar 2025 01:43:16 -0800 (PST)
+ Wed, 05 Mar 2025 02:30:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 43d4b89c-f9a6-11ef-9ab4-95dc52dad729
+X-Inumbo-ID: e7965def-f9ac-11ef-9ab4-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741167796; x=1741772596; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741170648; x=1741775448; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=iTQMus1QCOmBrZ6SvmoKw2n5PpJzTvkJ+r/HAwUoPCA=;
-        b=eRsR+gLGOhqB0KSDpSryuYhQsCr91MOi1ki5zd2k/VVctfsL+o2AVwQAeTb7O47GzY
-         N4L0S/UzveBZ3p8w8/Y3fAjchJ3JFF76+b5q04JcTNymDJmTtf6MwuVqcBzOyEkyZgmj
-         GZJ7e9X+Id+a0PdzffPSouTpD02g0DGmmDOsRixc9NYwyZzHKksxn4IrMLmgbm2HJHEz
-         HsVWElBOui8I8wwNnzj4hH69fZYzqDBaPyk413dvUqI3O+u9KwHNBFB89V7rm8y+9EyJ
-         +z37GfJ2BbtOjhhEa7VNeGqWjl5Kt+QXN80Xriu/PQ0iu7F6mO6BLTsh90El+OTpTtlG
-         UMBw==
+        bh=VZ7UpXkW5IqQEzTM44e164jNNUa/Agj4+x0JpVCSNno=;
+        b=Z46usWdwrc+VEeiNpshCpVnPxNzvpX+r5D7wdH2/v2xq6evjM4yfJikJyqz5gIU3PV
+         xBMBHbeNRvsAVK8P+12fyJIy9HnJpH1ebe8MJYwk0LfLtkn3QgWn52HW+Hu+G6qIlfkP
+         E00yH2ETvqOoXP4yJv+b/lvQFx2YN0GB+oopF1bSt3GpWWFxml8nNxHpSI4A3nLYasVj
+         KRab7jdfKvPmjQFKwvEFS9u1C6HYtZw+UrfQ8nkMV0xzsqdA1NRh5wXaC93ZbTcvawrW
+         ESm/Wj/aPgIS56pcSmNdcODRhW+zSutyMYYQIpKDOntOrAUL+fI0GE8eqzxHLXqzIvoc
+         R12Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741167796; x=1741772596;
+        d=1e100.net; s=20230601; t=1741170648; x=1741775448;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iTQMus1QCOmBrZ6SvmoKw2n5PpJzTvkJ+r/HAwUoPCA=;
-        b=J3jMsrex/v10Ie0DmnXX7IS0VoRJHWJjA8cZwq7BJ4s+RJOeHX27PNAtT52YXB+4sN
-         wpU18RL1iQez2b7gdgvHNXiUSn7CjQ8ButurTNNTNRiDswWimzD+JuSdpN7MUufEJE0B
-         7yVHHVOPNawvyAPCyXQCOaMGG/JFK85XgEWLDokPLso50eMIfdQ8mZA8oCPh/XYcZ6zy
-         7IhxKmaJst/J+w76w2ndm6SCEm1zGorhmic+Ndj+A5w+FdNyTNcHPy+1jd6jQ7fBusLV
-         DObe0fd9HX0pRS0LnOeca7yPe5PZkyt8dvmIIp217p4waK4m0uuYb8XD+VO+C6tKvgsB
-         PB8g==
-X-Forwarded-Encrypted: i=1; AJvYcCUN7DPIHcHYhoEsKpXAd7RjjOHEVtIk21GmZsvO8OMrSHV7jsFc/NGemowF2YW/ba2FChDGjzFEeoY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwQeKfSFAB+UcyodNBZNxkh6+dckZoGM3PW77pNnPBKA0gVu2RV
-	O5qEK36ZWRaY98qoOZfodTmBLko2hVSS/4qp7c1vprB9up4Fb0VTHzJz/QDsHQ==
-X-Gm-Gg: ASbGncvV8YpkCp23g+j5gCFHEpfwn3kvh48jtD6hIqIVDG8EsDphhndQybnCHihDpsJ
-	6klKR13ho64G3kGUSnQ1gp//pQV/9jJKVnxToE+6xXcP1I+jiBxxRSHCG12DndppqZNFTMWukrE
-	KXxOfAZdrjW+A8Xj5Sr+tRzDszLfDSaHStVS5x78QHuVxEioCDPkJA419V9AMZYL6bvhaTsbvB/
-	h56/cFdW4DAxcCMNk9DiRV3QkmzNr7l/L7Dwqy131xm5TTc0U4v+0kwZrXKC1/7jzADH3YSwwmq
-	7NB6PCsMz1fDd2qaQRZKpYZ2xxeflfMAiPc5SYEBDtgCumQXf8X1xxfP1opIWyrLY0Aja4emGHA
-	BKrl5TmBOYyJFk/SZuDztP6kJgbWwRA==
-X-Google-Smtp-Source: AGHT+IGEHYHLYZ/B6i9OBVcVb48QUht6Sg/mUO0XAuiGDxG8NM1y+TUn6Dge9KkUGReVJkCfmWpk0g==
-X-Received: by 2002:a05:600c:1c07:b0:439:9a40:aa0b with SMTP id 5b1f17b1804b1-43bd29d0474mr15633335e9.25.1741167796506;
-        Wed, 05 Mar 2025 01:43:16 -0800 (PST)
-Message-ID: <5166d75c-2f6a-43fe-b8e0-67d309cefc96@suse.com>
-Date: Wed, 5 Mar 2025 10:43:19 +0100
+        bh=VZ7UpXkW5IqQEzTM44e164jNNUa/Agj4+x0JpVCSNno=;
+        b=w8r8Rv0AMeaRy6fL/aWJOXexaDnzyddRg06lVLChbaOFlZ54ivOJuIFlS87kWO5vcg
+         Rvu+M6jD1y0sPQZAquQSCMvNGpNihwjE3Xw3yy5JxfiuVQAgwztjMSP2SsOfQEWLWHYH
+         WIyW6LY9RxKe7zRS4DvFxhW2iYWH1ny1vsAkJwG18SCeuByZzqdLK24ZYN8WSaz6zmdw
+         jUj2byJZWXgkRst6erP0KN9791JbUdKRz459jG/trBGc1N0X50qtwBz9pjsa08gXx63L
+         xLQRmqlIBvIEGUHIcNmXP8E5DGPKiJ4zVtjevWDeR8kVNsIFo2vDt5Zb4+L0zZey3XVU
+         Oc0g==
+X-Forwarded-Encrypted: i=1; AJvYcCULcO64EW9BlxSqqVuyrW19wqBrO3toNRZGBb2sx3vlMUrL+HV3SA041dO2X339oEz5jvCWaVi4d10=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzr2v7i/Me8zn10RoQz5MLXUSoNX0Ao2mGAH4bFGlj89Is/S+kd
+	OhYtrJfd37lavRp/1+bkAvY5DN25htBS3qyW+V2deAjgHRGyGbua1HCenSrHFA==
+X-Gm-Gg: ASbGncuhMdQ0j2zZN/iKpW2VwMMrSmo4U7F4NTdCKPI2f2pBhJG0QcUW+aIZwjjMzcc
+	4jmczW1dQwG6Za8PyiOWZFltbNFwcvp1eNSo6m3FrmNIkU/gwap5zvXzczCRtyiO6JwOChBTOb8
+	FZBpUR6Qv5r3+n1KXPN83lvdd5wHN3ReISb6amEyYleNczx0ICK8LkhT7aWZChB9n4e2W4USgmR
+	K4OVat+jDTsdgKhXbujNpY6bWbDV5I7TFjBV3KQ0/PMsuLbFn2A6WxwQcUMYUdb3NBC70XLfp9a
+	HsEQx+LvlTVcrlFIhz063Ljqza24YT0tRkfJP4ZR8djGnbQy9Y3LD4VX/9/CR1F0dDSjjUtr/bJ
+	sD9bwdUmX5D36u1Cjnx8daa4ixOPuPA==
+X-Google-Smtp-Source: AGHT+IGzCBgpIpgqjOZJZDnPqo/bW2nNpFfO9LNnf3UvwX05Tv/B+f5KhnkY32Q/V0YG3fnMAO0Kbw==
+X-Received: by 2002:a05:600c:35ca:b0:43b:ce86:b31a with SMTP id 5b1f17b1804b1-43bd29bd205mr16296315e9.22.1741170648110;
+        Wed, 05 Mar 2025 02:30:48 -0800 (PST)
+Message-ID: <c06573d3-36a1-4146-ac3f-5dbd4d82d22e@suse.com>
+Date: Wed, 5 Mar 2025 11:30:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/msr: expose MSR_FAM10H_MMIO_CONF_BASE on AMD
+Subject: Re: [PATCH] x86/msi: prevent MSI entry re-writes of the same data
 To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250303091908.38846-1-roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>, xen-devel@lists.xenproject.org
+References: <20250228113237.6116-1-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,74 +117,83 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250303091908.38846-1-roger.pau@citrix.com>
+In-Reply-To: <20250228113237.6116-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 03.03.2025 10:19, Roger Pau Monne wrote:
-> The MMIO_CONF_BASE reports the base of the MCFG range on AMD systems.
-> Currently Linux is unconditionally attempting to read the MSR without a
-> safe MSR accessor, and since Xen doesn't allow access to it Linux reports
-> the following error:
-> 
-> unchecked MSR access error: RDMSR from 0xc0010058 at rIP: 0xffffffff8101d19f (xen_do_read_msr+0x7f/0xa0)
-> Call Trace:
->  <TASK>
->  ? ex_handler_msr+0x11e/0x150
->  ? fixup_exception+0x81/0x300
->  ? exc_general_protection+0x138/0x410
->  ? asm_exc_general_protection+0x22/0x30
->  ? xen_do_read_msr+0x7f/0xa0
->  xen_read_msr+0x1e/0x30
->  amd_get_mmconfig_range+0x2b/0x80
->  quirk_amd_mmconfig_area+0x28/0x100
->  ? quirk_system_pci_resources+0x2b/0x150
->  pnp_fixup_device+0x39/0x50
->  __pnp_add_device+0xf/0x150
->  pnp_add_device+0x3d/0x100
->  ? __pfx_pnpacpi_allocated_resource+0x10/0x10
->  ? __pfx_pnpacpi_allocated_resource+0x10/0x10
->  ? acpi_walk_resources+0xbb/0xd0
->  pnpacpi_add_device_handler+0x1f9/0x280
->  acpi_ns_get_device_callback+0x104/0x1c0
->  ? _raw_spin_unlock_irqrestore+0x18/0x20
->  ? down_timeout+0x3a/0x60
->  ? _raw_spin_lock_irqsave+0x14/0x40
->  acpi_ns_walk_namespace+0x1d0/0x260
->  ? _raw_spin_unlock_irqrestore+0x18/0x20
->  ? __pfx_acpi_ns_get_device_callback+0x10/0x10
->  acpi_get_devices+0x8a/0xb0
->  ? __pfx_pnpacpi_add_device_handler+0x10/0x10
->  ? __pfx_pnpacpi_init+0x10/0x10
->  pnpacpi_init+0x50/0x80
->  do_one_initcall+0x46/0x2e0
->  kernel_init_freeable+0x1da/0x2f0
->  ? __pfx_kernel_init+0x10/0x10
->  kernel_init+0x16/0x1b0
->  ret_from_fork+0x30/0x50
->  ? __pfx_kernel_init+0x10/0x10
->  ret_from_fork_asm+0x1b/0x30
->  </TASK>
-> 
-> Such access is conditional to the presence of a device with PnP ID
-> "PNP0c01", which triggers the execution of the quirk_amd_mmconfig_area()
-> function.  Note that prior to commit 3fac3734c43a MSR accesses when running
-> as a PV guest would always use the safe variant, and thus silently handle
-> the #GP.
-> 
-> Fix by allowing access to the MSR on AMD systems, returning 0 for
-> unprivileged domains (MMIO configuration space disabled), and the native
-> value for the hardware domain.
-> 
-> The non hardware domain logic will need to be adjusted if in the future we
-> expose an MCFG region to such domains.
-> 
-> Write attempts to the MSR will still result in #GP for all domain types.
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+On 28.02.2025 12:32, Roger Pau Monne wrote:
+> @@ -191,8 +193,6 @@ void msi_compose_msg(unsigned vector, const cpumask_t *cpu_mask, struct msi_msg
+>  
+>  static int write_msi_msg(struct msi_desc *entry, struct msi_msg *msg)
+>  {
+> -    entry->msg = *msg;
+> -
+>      if ( iommu_intremap != iommu_intremap_off )
+>      {
+>          int rc;
+> @@ -203,6 +203,20 @@ static int write_msi_msg(struct msi_desc *entry, struct msi_msg *msg)
+>              return rc;
+>      }
+>  
+> +    /*
+> +     * Avoid updating the MSI entry if the address and data fields haven't
+> +     * changed.  When using interrupt remapping changing the MSI affinity
+> +     * shouldn't change the interrupt remapping table index, and hence the MSI
+> +     * address and data fields should remain the same.
+> +     */
+> +    if ( entry->msg.address == msg->address && entry->msg.data == msg->data )
+> +    {
+> +        entry->msg.dest32 = msg->dest32;
+> +        return 0;
+> +    }
+> +
+> +    entry->msg = *msg;
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-(assuming you sufficiently addressed Andrew's concern)
+It is perhaps pure luck that iommu_update_ire_from_msi() doesn't use entry's
+"msg" field, and hence that this re-arrangement is okay. It's unclear to me
+whether going forward this might not bite us.
+
+> @@ -1407,7 +1415,9 @@ int pci_restore_msi_state(struct pci_dev *pdev)
+>          }
+>          type = entry->msi_attrib.type;
+>  
+> -        msg = entry->msg;
+> +        msg.dest32 = entry->msg.dest32;
+> +        msi_compose_msg(desc->arch.vector, NULL, &msg);
+> +        entry->msg = (typeof(entry->msg)){};
+>          write_msi_msg(entry, &msg);
+
+Hmm, this isn't exactly a "restore" then anymore. That said, re-constructing
+the message may even be more correct. Then, however, the question is whether
+passing NULL as msi_compose_msg()'s middle argument is really appropriate. A
+little bit of commentary may be desirable here in any event, also as to need
+to clear entry->msg.
+
+There's (at least) one place where behavior changes with the change of what
+we store in struct msi_desc's msg field (previously untranslated, now
+translated): dump_msi() wants to use the untranslated form. I fear it can't
+even re-construct some of the data it means to log (without reading from
+the IRTE).
+
+> --- a/xen/drivers/passthrough/vtd/iommu.c
+> +++ b/xen/drivers/passthrough/vtd/iommu.c
+> @@ -1182,7 +1182,7 @@ static void cf_check dma_msi_end(struct irq_desc *desc, u8 vector)
+>  static void cf_check dma_msi_set_affinity(
+>      struct irq_desc *desc, const cpumask_t *mask)
+>  {
+> -    struct msi_msg msg;
+> +    struct msi_msg msg = {};
+>      unsigned int dest;
+>      unsigned long flags;
+>      struct vtd_iommu *iommu = desc->action->dev_id;
+
+Why not a similar transformation as you do in set_msi_affinity(), eliminating
+the local "dest"?
+
+A change like the one here is likely needed in __hpet_setup_msi_irq(), to
+prevent accidental "uninitialized struct field" warnings.
+hpet_msi_set_affinity() might then also want to use msi_compose_msg(), albeit
+that may also be regarded as an independent change.
 
 Jan
 
