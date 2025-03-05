@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73396A4FCAD
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 11:49:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.902183.1310143 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31A96A4FCB2
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Mar 2025 11:50:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.902191.1310152 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpmJL-0002W8-SG; Wed, 05 Mar 2025 10:49:11 +0000
+	id 1tpmKE-0003rR-40; Wed, 05 Mar 2025 10:50:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 902183.1310143; Wed, 05 Mar 2025 10:49:11 +0000
+Received: by outflank-mailman (output) from mailman id 902191.1310152; Wed, 05 Mar 2025 10:50:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tpmJL-0002UF-Oe; Wed, 05 Mar 2025 10:49:11 +0000
-Received: by outflank-mailman (input) for mailman id 902183;
- Wed, 05 Mar 2025 10:49:10 +0000
+	id 1tpmKE-0003ni-1E; Wed, 05 Mar 2025 10:50:06 +0000
+Received: by outflank-mailman (input) for mailman id 902191;
+ Wed, 05 Mar 2025 10:50:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2gZc=VY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tpmJK-0002Td-F1
- for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 10:49:10 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ id 1tpmKD-0002Td-85
+ for xen-devel@lists.xenproject.org; Wed, 05 Mar 2025 10:50:05 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 77331424-f9af-11ef-9898-31a8f345e629;
- Wed, 05 Mar 2025 11:49:08 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-38f406e9f80so5042267f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 02:49:08 -0800 (PST)
+ id 97cdb8fc-f9af-11ef-9898-31a8f345e629;
+ Wed, 05 Mar 2025 11:50:03 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-438a39e659cso44953525e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Mar 2025 02:50:03 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-390e479608fsm20934812f8f.14.2025.03.05.02.49.07
+ 5b1f17b1804b1-43bd4292144sm13813785e9.13.2025.03.05.02.50.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Mar 2025 02:49:07 -0800 (PST)
+ Wed, 05 Mar 2025 02:50:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 77331424-f9af-11ef-9898-31a8f345e629
+X-Inumbo-ID: 97cdb8fc-f9af-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741171748; x=1741776548; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741171803; x=1741776603; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=RxhRUVKfr8JjgeK+JIcIYAn/fcfB14HcMzLZwJebzqY=;
-        b=gPGt76OmWfLAupnBIr/byecgnDM+zX2scWyYS+BOUMPEb0jOUlNihFoNhMcQTrj9BN
-         qfxHX7CWw1vjCEBmPAQFh67hRI5g3oLDFkFKbBB+1U37zYe2+YX/EE30LHIg1PwK1u5r
-         VkD9qVPDNjg3Awqz2XZZ3hx8J1/sq5ZZiG/f4pwyhu+vCJmVRS9SqlUDn2mpH+aLHQB3
-         qG3cxWuEVQWCUS37xTiP4J8X5cRi581WGHVzG7Pv+OLk54Mq/S0XjI0+dPlYvUA7y9M9
-         tStYTXULkIqD8mispk2OJEodVwcgGW1/4NVEjIc4UefM+6u3RqA6ctC+tXy5NxMIx3Fa
-         xtDg==
+        bh=ensTPfdrJMk3ZSEb1xAmSFWvV1YGDCiMcUCqT0JdamM=;
+        b=fHLBfAsjd/wlXxrmnFVYdJheZkXyEN5KV2LfQxZF7TN0KB6LBv8uNDGesybSEKvaF5
+         qz/QYKBiHpJc6EUhqDEAw8ML5AdhFAdhNvkw3umD7DJibrXio/rJETkHKnos6puDws/C
+         wZqmJCu8D27aOuO3TDksd30Q3fjPcOsP09SJtZvgnEVsJdalYguy3zKOc3pDNRDXfOFA
+         nDjMBuDIecBjXYtcB7g+mgq1hk3PW7nCbA00FWFy4hxmizsgOK+QBaaIcednqHQpYhEa
+         J4N6SfRmteJC9y2s8l3snXTtCsGh1RIUus/QgMkweeomgXqPdcWjl+yb6H5MpKDqFJ14
+         p0eQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741171748; x=1741776548;
+        d=1e100.net; s=20230601; t=1741171803; x=1741776603;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RxhRUVKfr8JjgeK+JIcIYAn/fcfB14HcMzLZwJebzqY=;
-        b=vBubPOHNQ854pGtTxOfKeeDbRw60UY+1gM09yQt1IjDibcjCzKfC0YmX52GAqMrANO
-         8U0TH2giafNxnhd+lJJ+GQmrGOrhhrotsYtqtSQyHUj1jub+4rTY7xSK1p5uFOO3q8nL
-         4Nl9sxOCFucm+cFraDQSotbU48zWFqWFIr4dOUCoWFvBG/c+AYpnDcBXnMihoosHPDoG
-         BZg7ulm8igHYOT+tT7Axosr1O4D0yqkBVewSZb/gG7rN4yAc3+XkAMIsYdh9cFmqmrLM
-         4Swmw9Z/C6gYNWQF1AgWu/L9Hdn20Dt+8CG8ctvHtddMsRy5QYg8QKnWQIcY2zkZcaV5
-         D2Pg==
-X-Forwarded-Encrypted: i=1; AJvYcCWKEHP7p8a3CW9ATa7uEEUCJhfJOC+orShBJ2hQqnIefLYbdbgpth0NYNsTy2uXB3DFTvnolWsI7tk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwgQDTF0n4QZyBkuBKffqCZIhvEHEKmPwCbLJX4cfQwh7ombawk
-	K1x+Np2AV2CTkrSvRyAF+5lw5dCNQza/Dx0f7croeUW4+NpkkEPoyh9rS7ExwA==
-X-Gm-Gg: ASbGncuCdhlYQ0fvo1u5/UWXgK9pf80gXsJc6T4tVU0GjQLCHCm2Jd1Qr5Ff7S9o4sp
-	pTjuHdsGwoZBG47Fb+fqGFBwvpFKN1+aNbalMhiBYwBodMvRqV71cmGdAXalDS1bJDayLwj32dp
-	xqxT0zs3t07sn/280rpQZqgXmmA/aSslKv5UoyUTv+ti+c1lDO8Wgi6wCu+i0DiOoNkJ0wxz+nf
-	+K+kp+uRqhUhhuhvaUfkhGGmhJ8lMZRTTb1tJUaxsKHht3sprqGI1EdHEdCWzumMKJ6jKpzbI6Y
-	HMwDgR9Daqm12wAqqsxYbtjw+0PwNTNVuQh6XJtwPulUYnwNH4irE0TYXF+eWcyw3k/yGsOFjJS
-	KgC8BA6/8/xKhLbY2WPeUy+SFPAsj1Q==
-X-Google-Smtp-Source: AGHT+IFhhT071uLRU0ze159uDJGhU71r4h82T0p5rqUEkK5zhUZ5KFtClVTaHjRT+j3f6m6kQqsZMQ==
-X-Received: by 2002:a05:6000:1886:b0:390:e8bf:55a8 with SMTP id ffacd0b85a97d-3911f7412f1mr1882629f8f.18.1741171748132;
-        Wed, 05 Mar 2025 02:49:08 -0800 (PST)
-Message-ID: <f50d8ee7-a00f-4f4f-99f6-4313af7a4fdc@suse.com>
-Date: Wed, 5 Mar 2025 11:49:11 +0100
+        bh=ensTPfdrJMk3ZSEb1xAmSFWvV1YGDCiMcUCqT0JdamM=;
+        b=wGQSKZNUUSXLAPgGJnWj0b/99Xxg81cItyg/NQZuJgOBHGtnc07QrxfFA7bHPj1p5u
+         lYbSUKutPLvxnEYz3/FqKNucrWimagGeCfYSaiH2JjWF7dfb9LcVWstEpcKdunA6kSSA
+         mRsFDJ/9s2xYG8uCTNoYNAGwLeQB4ubqQVLJ3EdUc11/BdKSph95qmKhcyTAZZ6C6LXV
+         NiWcU2mqygRuWdShyChCnkcaXNLfHo9rjXUSy13qKmc6aDHCV3c1cvO55mEvRtTm/1Yn
+         s/L0vXB9nLmBbvBJyHkszRHs9km4Iku7l1GO86DY31Ngu5cYXpmeRp0j52A+MQL1CnNB
+         9FJQ==
+X-Gm-Message-State: AOJu0YyIMV2P3vRA2PvoaOtpN+4ukhvGTxoMAYsFpvp37iAUcTSoeUWn
+	xx9aDo0JSPIQor+BP4rRVhHTKsvkWzfCWDQyUT1/zftZfIIBLMQpHDlPyXDv0A==
+X-Gm-Gg: ASbGncuBTq1kfs7TB5XA1sLGQc2C1otlupBZRxyeSsyFiIMDq2kQw0caGZCMutwu32w
+	5TetnGMdCS1qiEQcwV6syPxucEar5KpPlLVRs95R415zYdMt8dSz2FL7gAluGdas6cMd8YLjH8a
+	tqdWD3ntTOyRfuwFnZgEgR7HLnzVIPviP5ZfJkGenmO5OnASihzI3nkF1fjvsqdY5zPlUy2c2tE
+	foX0FcmYqqYZcH9ldsN6p8hQEpGXpEhUjUvR/6OgCnDAe5c5cMiEQvdhRmItyO5JonbzOwii0hv
+	X6J5sjhA/gbF+tu8rQOlKH1uAH48gKcpTnZN8cy7iuJ3bBWP8Bh4MjZSpo84qpvkZIxvqiI2gK/
+	fZaN442LUcpc8EEdqO0N3pjM4YhV+1Q==
+X-Google-Smtp-Source: AGHT+IHQZ8dCqr1O9O9NoteRhQU1yQ88LDfsMdvpWQHV3uTQqCyQY3f+CesIAH4Tq1h5JIor1mGshg==
+X-Received: by 2002:a05:600c:548c:b0:43b:d04b:52b7 with SMTP id 5b1f17b1804b1-43bd2939f35mr19698045e9.12.1741171802826;
+        Wed, 05 Mar 2025 02:50:02 -0800 (PST)
+Message-ID: <0a7f1059-8939-4e8c-a88d-8ad20b3ffadc@suse.com>
+Date: Wed, 5 Mar 2025 11:50:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] xen/page_alloc: Simplify domain_adjust_tot_pages
 To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <20250224132724.9074-1-alejandro.vallejo@cloud.com>
- <D80RCS1Y7AKH.373ULA2LO3MND@cloud.com>
- <4af0077c-c933-4894-bfad-2adda7afbbf7@suse.com>
- <D83AY7ZBKC81.3NBCLVK3DX833@cloud.com>
+ <Z78djoAU7vjGepjr@macbook.local>
+ <a9d4384c-770b-4947-b099-cf4bba1583a5@suse.com>
+ <Z78lJfzqH9btDMrM@macbook.local> <D83B8MUC2HYI.F3IYZM092P3R@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,70 +122,102 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <D83AY7ZBKC81.3NBCLVK3DX833@cloud.com>
+In-Reply-To: <D83B8MUC2HYI.F3IYZM092P3R@cloud.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 27.02.2025 15:36, Alejandro Vallejo wrote:
-> On Wed Feb 26, 2025 at 2:05 PM GMT, Jan Beulich wrote:
->> On 24.02.2025 15:49, Alejandro Vallejo wrote:
->>> Open question to whoever reviews this...
+On 27.02.2025 15:50, Alejandro Vallejo wrote:
+> On Wed Feb 26, 2025 at 2:28 PM GMT, Roger Pau Monné wrote:
+>> On Wed, Feb 26, 2025 at 03:08:33PM +0100, Jan Beulich wrote:
+>>> On 26.02.2025 14:56, Roger Pau Monné wrote:
+>>>> On Mon, Feb 24, 2025 at 01:27:24PM +0000, Alejandro Vallejo wrote:
+>>>>> --- a/xen/common/page_alloc.c
+>>>>> +++ b/xen/common/page_alloc.c
+>>>>> @@ -490,13 +490,11 @@ static long outstanding_claims; /* total outstanding claims by all domains */
+>>>>>  
+>>>>>  unsigned long domain_adjust_tot_pages(struct domain *d, long pages)
+>>>>>  {
+>>>>> -    long dom_before, dom_after, dom_claimed, sys_before, sys_after;
+>>>>> -
+>>>>>      ASSERT(rspin_is_locked(&d->page_alloc_lock));
+>>>>>      d->tot_pages += pages;
+>>>>>  
+>>>>>      /*
+>>>>> -     * can test d->claimed_pages race-free because it can only change
+>>>>> +     * can test d->outstanding_pages race-free because it can only change
+>>>>>       * if d->page_alloc_lock and heap_lock are both held, see also
+>>>>>       * domain_set_outstanding_pages below
+>>>>>       */
+>>>>> @@ -504,17 +502,16 @@ unsigned long domain_adjust_tot_pages(struct domain *d, long pages)
+>>>>>          goto out;
+>>>>
+>>>> I think you can probably short-circuit the logic below if pages == 0?
+>>>> (and avoid taking the heap_lock)
 >>>
->>> On Mon Feb 24, 2025 at 1:27 PM GMT, Alejandro Vallejo wrote:
->>>>      spin_lock(&heap_lock);
->>>> -    /* adjust domain outstanding pages; may not go negative */
->>>> -    dom_before = d->outstanding_pages;
->>>> -    dom_after = dom_before - pages;
->>>> -    BUG_ON(dom_before < 0);
->>>> -    dom_claimed = dom_after < 0 ? 0 : dom_after;
->>>> -    d->outstanding_pages = dom_claimed;
->>>> -    /* flag accounting bug if system outstanding_claims would go negative */
->>>> -    sys_before = outstanding_claims;
->>>> -    sys_after = sys_before - (dom_before - dom_claimed);
->>>> -    BUG_ON(sys_after < 0);
->>>> -    outstanding_claims = sys_after;
->>>> +    BUG_ON(outstanding_claims < d->outstanding_pages);
->>>> +    if ( pages > 0 && d->outstanding_pages < pages )
->>>> +    {
->>>> +        /* `pages` exceeds the domain's outstanding count. Zero it out. */
->>>> +        outstanding_claims -= d->outstanding_pages;
->>>> +        d->outstanding_pages = 0;
->>>
->>> While this matches the previous behaviour, do we _really_ want it? It's weird,
->>> quirky, and it hard to extend to NUMA-aware claims (which is something in
->>> midway through).
->>>
->>> Wouldn't it make sense to fail the allocation (earlier) if the claim has run
->>> out? Do we even expect this to ever happen this late in the allocation call
->>> chain?
+>>> Are there callers passing in 0?
 >>
->> This goes back to what a "claim" means. Even without any claim, a domain may
->> allocate memory. So a claim having run out doesn't imply allocation has to
->> fail.
+>> Not sure, but if there are no callers expected we might add an ASSERT
+>> to that effect then.
+>>
+>>>>>      spin_lock(&heap_lock);
+>>>>> -    /* adjust domain outstanding pages; may not go negative */
+>>>>> -    dom_before = d->outstanding_pages;
+>>>>> -    dom_after = dom_before - pages;
+>>>>> -    BUG_ON(dom_before < 0);
+>>>>> -    dom_claimed = dom_after < 0 ? 0 : dom_after;
+>>>>> -    d->outstanding_pages = dom_claimed;
+>>>>> -    /* flag accounting bug if system outstanding_claims would go negative */
+>>>>> -    sys_before = outstanding_claims;
+>>>>> -    sys_after = sys_before - (dom_before - dom_claimed);
+>>>>> -    BUG_ON(sys_after < 0);
+>>>>> -    outstanding_claims = sys_after;
+>>>>> +    BUG_ON(outstanding_claims < d->outstanding_pages);
+>>>>> +    if ( pages > 0 && d->outstanding_pages < pages )
+>>>>> +    {
+>>>>> +        /* `pages` exceeds the domain's outstanding count. Zero it out. */
+>>>>> +        outstanding_claims -= d->outstanding_pages;
+>>>>> +        d->outstanding_pages = 0;
+>>>>> +    } else {
+>>>>> +        outstanding_claims -= pages;
+>>>>> +        d->outstanding_pages -= pages;
+>>>>
+>>>> I wonder if it's intentional for a pages < 0 value to modify
+>>>> outstanding_claims and d->outstanding_pages, I think those values
+>>>> should only be set from domain_set_outstanding_pages().
+>>>> domain_adjust_tot_pages() should only decrease the value, but never
+>>>> increase either outstanding_claims or d->outstanding_pages.
+>>>>
+>>>> At best the behavior is inconsistent, because once
+>>>> d->outstanding_pages reaches 0 there will be no further modification
+>>>> from domain_adjust_tot_pages().
+>>>
+>>> Right, at that point the claim has run out. While freeing pages with an
+>>> active claim means that the claim gets bigger (which naturally needs
+>>> reflecting in the global).
+>>
+>> domain_adjust_tot_pages() is not exclusively called when freeing
+>> pages, see steal_page() for example.
+>>
+>> When called from steal_page() it's wrong to increase the claim, as
+>> it assumes that the page removed from d->tot_pages is freed, but
+>> that's not the case.  The domain might end up in a situation where
+>> the claim is bigger than the available amount of memory.
+>>
+>> Thanks, Roger.
 > 
-> Hmmm... but that violates the purpose of the claim infra as far as I understand
-> it. If a domain may overallocate by (e.g) ballooning in memory it can distort the
-> ability of another domain to start up, even if it succeeded in its own claim.
+> This is what I meant by my initial reply questioning the logic itself.
+> 
+> It's all very dubious with memory_exchange and makes very little sense on the
+> tentative code I have for per-node claims.
+> 
+> I'd be quite happy to put an early exit before the spin_lock on pages <= 0.
+> That also covers your initial comment and prevents claims from growing after a
+> domain started running if it didn't happen to consume all of them.
+> 
+> Is anyone opposed?
 
-Why would that be? As long as we hold back enough memory to cover the claim, it
-shouldn't matter what kind of allocation we want to process. I'd say that a PV
-guest starting ballooned ought to be able to deflate its balloon as far as
-there was a claim established for it up front.
-
-> We might also break the invariant that total claims are strictly >=
-> total_avail_pages.
-
-Same here - I don't see why this would happen as long as all accounting is
-working correctly.
-
-> I'm somewhat puzzled at the "why" of having separate concepts for max_mem and
-> claims. I guess it simply grew the way it did. Reinstating sanity would
-> probably involve making max_mem effectively the claim, but that's a ton of
-> work I really would rather not do for now.
-
-To me the two are different (beyond claim being global while max-mem is per-
-domain). max-mem is a hard boundary (beyond which allocations _will_ fail),
-whereas a claim is a softer one, beyond which allocations _may_ fail.
+We first need to reach common understanding what a claim is (or is not). See
+the other reply just sent.
 
 Jan
 
