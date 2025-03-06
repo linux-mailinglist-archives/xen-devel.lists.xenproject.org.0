@@ -2,56 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6E13A55669
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 20:16:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.903966.1311887 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D67E3A55697
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 20:27:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.903976.1311897 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqGh8-00047I-F3; Thu, 06 Mar 2025 19:15:46 +0000
+	id 1tqGri-0000wH-D4; Thu, 06 Mar 2025 19:26:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 903966.1311887; Thu, 06 Mar 2025 19:15:46 +0000
+Received: by outflank-mailman (output) from mailman id 903976.1311897; Thu, 06 Mar 2025 19:26:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqGh8-000449-Ba; Thu, 06 Mar 2025 19:15:46 +0000
-Received: by outflank-mailman (input) for mailman id 903966;
- Thu, 06 Mar 2025 19:15:45 +0000
+	id 1tqGri-0000ue-AG; Thu, 06 Mar 2025 19:26:42 +0000
+Received: by outflank-mailman (input) for mailman id 903976;
+ Thu, 06 Mar 2025 19:26:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0m9W=VZ=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1tqGh7-00043m-5t
- for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 19:15:45 +0000
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2062e.outbound.protection.outlook.com
- [2a01:111:f403:2407::62e])
+ <SRS0=MmV8=VZ=gmail.com=thierry.reding@srs-se1.protection.inumbo.net>)
+ id 1tqGrh-0000uU-3b
+ for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 19:26:41 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 62e2c6af-fabf-11ef-9898-31a8f345e629;
- Thu, 06 Mar 2025 20:15:38 +0100 (CET)
-Received: from CY5PR03CA0017.namprd03.prod.outlook.com (2603:10b6:930:8::41)
- by BY5PR12MB4066.namprd12.prod.outlook.com (2603:10b6:a03:207::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.19; Thu, 6 Mar
- 2025 19:15:35 +0000
-Received: from CY4PEPF0000FCBE.namprd03.prod.outlook.com
- (2603:10b6:930:8:cafe::8f) by CY5PR03CA0017.outlook.office365.com
- (2603:10b6:930:8::41) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8511.17 via Frontend Transport; Thu,
- 6 Mar 2025 19:15:34 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000FCBE.mail.protection.outlook.com (10.167.242.100) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8511.15 via Frontend Transport; Thu, 6 Mar 2025 19:15:34 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 6 Mar
- 2025 13:15:31 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 6 Mar
- 2025 13:15:30 -0600
-Received: from [172.19.192.96] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Thu, 6 Mar 2025 13:15:29 -0600
+ id ece81b9c-fac0-11ef-9898-31a8f345e629;
+ Thu, 06 Mar 2025 20:26:38 +0100 (CET)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-38f2f391864so647944f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Mar 2025 11:26:38 -0800 (PST)
+Received: from orome (p200300e41f3a9f00f22f74fffe1f3a53.dip0.t-ipconnect.de.
+ [2003:e4:1f3a:9f00:f22f:74ff:fe1f:3a53])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3912c0e1d67sm2905872f8f.74.2025.03.06.11.26.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 06 Mar 2025 11:26:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,120 +46,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 62e2c6af-fabf-11ef-9898-31a8f345e629
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CfOC/Npa0405yVmTtIASCbY2z5IETQ2UdxRl/z52lgSaLlFSsbCXMwUr5BA7FViJeETaYXcfDvM0IcrUDoROHkt431dhFPurZX+P1XKXSHllWgjTqsQSFU8GiN5GAOxjDTOLYtmLLQ9T1DWyFDAZdNfumK0/2NKDThSWOLA7AhzCnnYzVEw6U1GwxUmQNqjKmQxivtZvR6j7OqWGz9lh2+uYbwSmrQX4ck0Mjrwr/ME82xJbHWfsKmr41rZlAS8ApB78//ZH8oh4tQ9aLiIBn93FQApWwVWIFKCTmX0SHRmApkiy7l4Q+Vr37wt1cMKJ1sM2ZTA++VEis16Tl/JwJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ApfgN2aia//xxSiC5wzEE0OScHtZ0agICMxSNAp7hSU=;
- b=PscfxVYUST7nnCF4a+BngY/UKTg/6raarjKO4z9+gCpLEDFX6aQL4mwzq+Aiy3so4w1lZyl7P6lCpWugJSQdVYhmBS8JlceucsitrB683MMpqYxUUKB0kJdN6T+8TFng9ilFJ82L7pmblZJw0CJcJSMoRnsFReWhjKx3YMC1fifg2ms1se+e++QylrMN/r21fNqs/ripoI6n6QwlzazSzVNJfHTUisFrLhfnkChSXvEQois5kfJtoQIBWAiGnQHCJXDGvkrYNu3zsQibS6A+aZlsEh9VgHLHMSQzUGzsoTudCD9aAjaigkSOy23g/TMUMfLlHKIbJoFKu5FNSAPvWQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=epam.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ApfgN2aia//xxSiC5wzEE0OScHtZ0agICMxSNAp7hSU=;
- b=sKltildq+6rluWIfRIJzkXjjMiyvHvYnO9gkW4HmHdT0erJNGQbbov8VjnDGUyjXihZwRnxSakMEY1t7N2afq+7MZvtAehOloxC/X4qx8Z2J0snYYRxbRHtktydVUNo3ZdWZehOehksbn/MsMqBE+Bc+MjJLdDNnBwtfIfxD9P4=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <a2092d85-9b4d-40d3-883e-60207d2e3412@amd.com>
-Date: Thu, 6 Mar 2025 14:15:29 -0500
+X-Inumbo-ID: ece81b9c-fac0-11ef-9898-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1741289198; x=1741893998; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=yNcfgkruRbdQ2LTcDlb82l2rtv263h9UvbuoZgmPSdM=;
+        b=E7VL2nFJix3NQimlXy0NtbIYfr4jwgIpqDs/hyDZxdWOC7kbhMLNSxyILVlHAuGKkw
+         jgun6590k3r+EonHdARVQPahkVnA6z4B4fq972EB6Ln0nvegRMdmaouoXEyx3jZglGfg
+         Tj2B8VMZ6FmJUPGpj8egVr1domMsr+ewIgoA11+iDF603OwxWrYgcGPBCeOdr3RqkV+u
+         u4+YwZpBjIC/TDdkzp8KwfIu1I5Uc7N7fpUoiqH1gcgBtPjjqOscwLQDWUuJIQAUG5Uz
+         bwDX8Ytra/SoqLatE0+3tNJqBdABmEd9bw3InhoN5fmtxxpIwTiBjc6SBfvzqXcAOi+2
+         m2ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1741289198; x=1741893998;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=yNcfgkruRbdQ2LTcDlb82l2rtv263h9UvbuoZgmPSdM=;
+        b=wBrLc+Upbj+oZpQXp/UcPumPygSWDVwGKqA0QxlIC0gfgG/3/OdXMTgjYYSSayU+F6
+         kfm/T+MKKVeJkgd3KKmpQLvDrN5HFCa00tgWEGw0/Ss9cJdE4OHDQAdidWOHGTgrLl4C
+         /N3zqNoGvWP2c0C99AVtcd6BoF4mFLjViAWRlFqcfUIwuLKmvEwcb+4RTGlSX7DlZk3a
+         IHp+0YQzWGIc4k9TPvS3lg4Z7zfMYpBRZzk/XJxgUoUYUPxraHl78pS/SBrjxdH1aRFQ
+         WrbVEFDyv77iVFEPbyPfOiIfx64jkgsb4MPPxm46B/DgNysgDp0InckLmjerNPKZJXBQ
+         JIKw==
+X-Forwarded-Encrypted: i=1; AJvYcCWGCxiPKICt1r1aqTQl5dTW4H45RYEmANH5eBRMfN4BvVe7quSHkcUFElUSju37xM6FPkt51ZcFpAw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyT5T3OA29aayF93W6zO7pWtEPHg/WmSk+wla04fSrfXERTcn+D
+	TjlYnXiTVpcwssLKX0eKzS8Vbbs7/XMytAaiJ3+DEC/sBGO5kcEu
+X-Gm-Gg: ASbGncutqF/L2Di0DPrk3s31BUGx4VED1l6PDN/cft83o3iqwjJFGjP2GdGXlwwGDye
+	KOaQQZNM2vaaSjxkA19icxWqT+uslFD96hwvQhk0UW3WIGLF3dhjAht1Gn9YrhQKDcfQJ4mtBZ2
+	98knyJAqkvT9HNKfR23qWSY/J101UbatImn0TRQVaWbt/85Aqwu7OlniTdtoadoUM9a9e7bhkbg
+	U5a9jjRWZcxpCYOwD1R8wobJkMaZ6yyITzzw7ftHn2wALkvTWGYd5O0CiFoJSXsUGZ/OOw6XTww
+	xGzHYIEXOsIlHbkDsGR/AVFRm5CF4EEDTZFmrJFH+/ClG9b5V5M+gdVUEndnMw3mO9AF4WxcVfy
+	UwrLiXFvUeJ/7XhNgTrahvnkh+NkdTCs=
+X-Google-Smtp-Source: AGHT+IGse2HrwvQit3ez+Tb+IZmcWPgul6Oz1Of3MncB8IKv5GiNEYehZwUGHa/gmdRGfttFwUyGrw==
+X-Received: by 2002:a5d:5f45:0:b0:390:eebc:6f32 with SMTP id ffacd0b85a97d-39132da8fecmr291664f8f.48.1741289198054;
+        Thu, 06 Mar 2025 11:26:38 -0800 (PST)
+Date: Thu, 6 Mar 2025 20:26:33 +0100
+From: Thierry Reding <thierry.reding@gmail.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+	airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org, 
+	linux-mediatek@lists.infradead.org, freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+	imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org, nouveau@lists.freedesktop.org, 
+	virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org, 
+	linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org, 
+	intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
+	Mikko Perttunen <mperttunen@nvidia.com>
+Subject: Re: [PATCH v3 20/25] drm/tegra: Compute dumb-buffer sizes with
+ drm_mode_size_dumb()
+Message-ID: <mtsi7lohn4nq75y3mdzk7eomloxvswjn4blsmruutpejhppd5i@wexuiu7yfea3>
+References: <20250218142542.438557-1-tzimmermann@suse.de>
+ <20250218142542.438557-21-tzimmermann@suse.de>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/7] xen/arm: add support for R-Car Gen4 PCI host
- controller
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand
- Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1740382735.git.mykyta_poturai@epam.com>
- <8e567e7db48ba6d268c5e3a3481d53d891524d68.1740382735.git.mykyta_poturai@epam.com>
-Content-Language: en-US
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <8e567e7db48ba6d268c5e3a3481d53d891524d68.1740382735.git.mykyta_poturai@epam.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCBE:EE_|BY5PR12MB4066:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0cf90cbf-303b-4bdd-a836-08dd5ce34573
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|36860700013|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?WmFwbFhXQjdTdWtyTm14SlVWVWlmdTNROFpsNzBJbGJUeDdRQnlac0V5bDFj?=
- =?utf-8?B?bDhBOHJucXc0SSt6dHQ2aytMblVjWXZpbmdSYUd3UjNPN1VUUTNCWWthOXBx?=
- =?utf-8?B?MVdBd1FKcUZvRm5JU05STUEwRm9TMDRSc0ZvVlAvU1NYbmt2bjd5RVd1U2RB?=
- =?utf-8?B?M2ZxWkxLTXJEOHZ6Ymp0OGpNTUxhZFBTQlJXMW0xYUVkV2R5dDdjMU5IUUdv?=
- =?utf-8?B?STFXU05NNWdJWkE5dXNKWUhrUVNwOXgra1NJNy8xMDJnOWZKMTZkSEw2bE9n?=
- =?utf-8?B?ek1zNTE2WnloUHlzQ001NXRoREJvYkFVd3lXNGhGYVdnQkJPQm5sU2JRb3Vh?=
- =?utf-8?B?b2dHbVViWkRVayszSE51SUgyWTRMbTR4Z2lDTEFpc1V5YlEwdUw5Qm90NDNj?=
- =?utf-8?B?SkhUNTF3VmtvMWdjWk5uNG5reVp2ZStDdFlPTi9CVlZVYzR1RlVMS28zVDEv?=
- =?utf-8?B?ZVJJOUY5U09VcW5rTlNYUEdBTEFkOE5sQjl0SDcrdkxmK2lSRmFUSGY2V2R3?=
- =?utf-8?B?SlUxbHdHcldkVFhhcjVIWGptZStQM0Y3ckx6ejlabkZCRzh5aGE5ZWhmMnFi?=
- =?utf-8?B?cjYzSjl1eGtJSlJDdFEwamQ0ZVZIU2krekU1Wi9FTjBRaHI5ZnVLWU9EYi9O?=
- =?utf-8?B?cU5ubmoxNlRndXhZbjhWajVrSEFSdEhtdWJkc09LNmlMaWNoUnhVbkRmaHV1?=
- =?utf-8?B?ckVoQ3VvbDBZUHNkT2FkcmpSS1pmZWg5UkJLRUFCQ01TaHZaZFpqcW1uaVV4?=
- =?utf-8?B?eDhiVnRKeTZseG1PK0NBMi9NV1c5WC8zOFlqU0FRYW9VUW4rbWNXak9POEla?=
- =?utf-8?B?bFZjWWdyaFcrNzBHSDV5QStkd1d1RXE1dVUxR0pEaC94SEtzdEpNQkp5ck1w?=
- =?utf-8?B?Sy9BQmlCZTUwRHNVVE1IQTkvcmpVQnpXS05XTHhhR1lETmNrRnd1NXRnZ0k4?=
- =?utf-8?B?UXB6M0w5WW1rdVBBRFNJUnVsVnlhc2ZBdjRrTGttdldjZ215emFHa2svWGJU?=
- =?utf-8?B?cEp5YllRSW1JZlEwVjA1L0kxcXRkQ28zWVJ4TTNpWTJGdEdlSWpNbE9IVkJt?=
- =?utf-8?B?VTUyWlBKb28xeGc0ajlKdnJQMEVTOE5ZOEUrUDJMTjBodjU0enRldUU2Nm1p?=
- =?utf-8?B?ZHVMOUNMdURETVhMeCtKSHVxUmQ5Q1JoOVFQdnhvZ2FLdVZNa1hNMGxwMzFr?=
- =?utf-8?B?dFdCKzZzMkdWQzhKOVUyTyt0WE80RTFVWEh6U1hma04rVkd0VnhFWGhNNDJN?=
- =?utf-8?B?ekd3OVVlTmp6TWd4L1dJcFJoV1NXVzFBOXZRYTFjdk9tZmZlc0E3M3hQeEpa?=
- =?utf-8?B?Mmc5Z2IzTU5EOUpSSnpsb1UzeU4vaWdIait4bHUzNXpLTGdNTFVwSkZRV3o0?=
- =?utf-8?B?TmdsSzhReUxNT0VzQ2JXYng5b1VNVEEvZlI0VGlHTW94cDZFdzZwTmtjK0lW?=
- =?utf-8?B?elFxSGJ2bk9PaU9CM0trelIyQ1hDM3NjRk55Unh5a1IwMHV4Sm9UcnV4Vmor?=
- =?utf-8?B?bHh5dUF0alVZYXo1STZ0U0QyYm9xQnNUWk9EcXpDZWw4WkFRTEszSGlCbU5n?=
- =?utf-8?B?U0NlU0U2NSs5RlNnd2o1dm8yMnZSdkFKRHh2TU9FVVFFK2lsUGRWd3UwWGtS?=
- =?utf-8?B?ODFXckVHSE1RU0JVVnA4YXZtYW03MGFGWk05ZGhMMDk5Z2MvVmFCMjEwNG1J?=
- =?utf-8?B?VGtvaGpUNkJta1AxWERxMmMvVW1QTWxMdEhib0I5V01EQitUdGZyRHp1TFdv?=
- =?utf-8?B?ODhqc001bzFmM3NrZ2dCcmdldXZONGl6dFRXanNweUFpSWYzZWl4NTUrZE5O?=
- =?utf-8?B?dzNvQTRCckZCa3FWMGZuS1VuRXNubFBDSkVDTGU2MVk4Q0pQSGJ3ZkF0YXlP?=
- =?utf-8?B?WWVuV3J0eEFVK0VJMktrWGJuWUZkNm9mUk1CbTJoNWZMeCtaYkhJRjRuSW56?=
- =?utf-8?B?UUVQTnBueVdrRjhsb1N0N1IxNVhZSDJVNnF3SVdmUFJuWmxZSXFlUThvWXVV?=
- =?utf-8?B?ZFowU21BcndRPT0=?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2025 19:15:34.7298
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0cf90cbf-303b-4bdd-a836-08dd5ce34573
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000FCBE.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4066
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="y6cp6aqkj6w24xiu"
+Content-Disposition: inline
+In-Reply-To: <20250218142542.438557-21-tzimmermann@suse.de>
 
-On 2/24/25 04:18, Mykyta Poturai wrote:
-> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> 
-> Add support for Renesas R-Car Gen4 PCI host controller.
-> S4 and V4H SoCs are supported.
-> Implement config read/write operations for both root and child buses.
-> For accessing the child bus, iATU is used for address translation.
-> 
-> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+
+--y6cp6aqkj6w24xiu
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 20/25] drm/tegra: Compute dumb-buffer sizes with
+ drm_mode_size_dumb()
+MIME-Version: 1.0
+
+On Tue, Feb 18, 2025 at 03:23:43PM +0100, Thomas Zimmermann wrote:
+> Call drm_mode_size_dumb() to compute dumb-buffer scanline pitch and
+> buffer size. Align the pitch according to hardware requirements.
+>=20
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Thierry Reding <thierry.reding@gmail.com>
+> Cc: Mikko Perttunen <mperttunen@nvidia.com>
 > ---
->  xen/arch/arm/pci/Makefile         |   1 +
->  xen/arch/arm/pci/pci-host-rcar4.c | 529 ++++++++++++++++++++++++++++++
->  2 files changed, 530 insertions(+)
->  create mode 100644 xen/arch/arm/pci/pci-host-rcar4.c
+>  drivers/gpu/drm/tegra/gem.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
 
-Can any parts of this potentially be reused for other designware-based
-PCIe controllers? If so, could those parts be moved to a separate file?
+Acked-by: Thierry Reding <treding@nvidia.com>
+
+--y6cp6aqkj6w24xiu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmfJ9ukACgkQ3SOs138+
+s6GThw/9F553EWmmWz8ONopI5pY7Fy+Pu8kzqsU5bhKSKO2aqJ8y4PFOQAzaacO8
+2HuvhLXsP6l91B+R49oebJTWnbgcl9ThzcA4njgdKRFc7yZU/EZUEUGdwDkU6qsh
+/rkDnM+a+MzIAd3Z31B0Kvb0tUsl4e0UBueDHmjfP554dbtnMr94eIHuqLVRb1/D
+LB6ddm8DbZVoDKT9Ji2gLQpW84oFuIzRZPOV8JmPe+wE8Xf6A9sLloqJndErnvHg
+B8X2K8PzxkNNJGaZtQMUpiJ+S1oDNZnnKtzt0Wb+b9itJqUgykve29vGBDBImsb5
+8JLFlkdPFdKpFsbAvGyHv8b+F2rDVu4Oelg88WWDUSMc9Ut274u5/a2DTUOwF806
+DtCADAFUOOcIyDZKfPpeQuWDPeScN3/ANW8iQMlyPaNO5fBKlisFjiF1Bh0gS+vQ
+shkKb74wChg/4jgq1+M+I4DPdCQRe0kGIqbNZ4yK71owOjoSE6WIxxEt0UUKxPwh
+XZyf8ZF2O9TCPMigN6Qw2AGUhaC3HsAG9KbhOTSeUAsOwohFtYY+3B6Hkb8SQHEM
+i05OutqXEhtdSZgBK+HuweZtYWCBfy/BcMeD99Rkg01C+aMZcNPGVLpvGqpryNaB
+Ga0hQwFdIjbnMbXxjzyfJfs7GqNyTAJtpiqBO3uDhWH2LxJHZ7M=
+=2m1E
+-----END PGP SIGNATURE-----
+
+--y6cp6aqkj6w24xiu--
 
