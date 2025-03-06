@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE7FDA54ED7
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 16:23:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.903720.1311695 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF723A54EDF
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 16:24:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.903733.1311713 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqD3L-0001E2-OQ; Thu, 06 Mar 2025 15:22:27 +0000
+	id 1tqD5I-0001sZ-JT; Thu, 06 Mar 2025 15:24:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 903720.1311695; Thu, 06 Mar 2025 15:22:27 +0000
+Received: by outflank-mailman (output) from mailman id 903733.1311713; Thu, 06 Mar 2025 15:24:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqD3L-0001As-Kj; Thu, 06 Mar 2025 15:22:27 +0000
-Received: by outflank-mailman (input) for mailman id 903720;
- Thu, 06 Mar 2025 15:22:26 +0000
+	id 1tqD5I-0001qY-GZ; Thu, 06 Mar 2025 15:24:28 +0000
+Received: by outflank-mailman (input) for mailman id 903733;
+ Thu, 06 Mar 2025 15:24:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YZnl=VZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tqD3K-0001Am-Ix
- for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 15:22:26 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ <SRS0=4wq0=VZ=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
+ id 1tqD5H-0001iS-0K
+ for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 15:24:27 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cc55dcbe-fa9e-11ef-9898-31a8f345e629;
- Thu, 06 Mar 2025 16:22:21 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-43bcbdf79cdso5195885e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 06 Mar 2025 07:22:21 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3912bfb79cfsm2371007f8f.10.2025.03.06.07.22.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Mar 2025 07:22:20 -0800 (PST)
+ id 1637a1ce-fa9f-11ef-9898-31a8f345e629;
+ Thu, 06 Mar 2025 16:24:25 +0100 (CET)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-abf4cebb04dso154467666b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Mar 2025 07:24:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,117 +40,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc55dcbe-fa9e-11ef-9898-31a8f345e629
+X-Inumbo-ID: 1637a1ce-fa9f-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741274541; x=1741879341; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=IPQ35TqkoU0Z/YMA44V8bs0kfvQmDFCjA71bpBt2D34=;
-        b=nm8qS5m1k4ZNyMmInVIuLf5IDZ1pd3A6f9gaFW0BbMytd22KE8KXu5PIvleY3lNG/i
-         Vnb2oIt0IKm6KsIZG4aNllTFJXaaJwQA5KVkWOJx9/7Xzv8spMC67/5TTpOIyZrdGCcP
-         t5J/M3sUZbH7lOhZH3xcpSHihGlHwIwBA9Cdg=
+        d=cloud.com; s=cloud; t=1741274664; x=1741879464; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=IfpRx+4HWti9bQdpi7v8SRUcygtKRPDlLQgeTFRrDpk=;
+        b=HLqa9OUzCw/jlJ+LMV9/H5kjoMRUv5SDkukE4+RDgRfssueZ/8LDUC52FIx/W+2W2d
+         VTANfr0OJRTwz0M0DTXzo7tDS3jLachmYkeFZcTQRxOvjj6ekBe5KPW7zrOpgQnO1GOa
+         R+31wlmgKRUf3FN/1WKWOQdoUoaSuOv/j9r/E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741274541; x=1741879341;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IPQ35TqkoU0Z/YMA44V8bs0kfvQmDFCjA71bpBt2D34=;
-        b=Qy1Lx0e6c10hCRj00SdRohmfpdex0/kQB9CF+HNbi1V4xZU7+x1Np+5gy70RDcd5YV
-         7HYovtaIPRMsGURlsaL44GeAb8bRME2fP3cSuaHulkuyIwa/phaT5s4x3xflWa+ericK
-         JF2Tsk7zCyQpepMOG/L8WNu0sFay6izffv0TZf5VlzysMxKTvDpuUf7TmCef4u134q4E
-         mF8/yTRpIdxDb/dZTZMRMfxDqqmmDLLNb3lq6seo62Rw5MAsvJrC/nPdIKvJcr3UHJlo
-         PoqRb5wYfE1A6ywZw/zQ3di8/CX3GsGNw1dqnn39dtCdoG2LT+f2uT1s4Igs0s3aHrUd
-         V5Sg==
-X-Forwarded-Encrypted: i=1; AJvYcCVuEKi8ACodsEnpONjbufT9nGeW6MzDs4Uh/gC8QSU2HJRzZKmKtElj3Xxv/b8txMjMBJpEWWnPOGU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxW968C+Ul6EpMiu5YOgvwx9FR0HDQEiIE5EGsV9GTznEHNGL7e
-	AghNf7ZK13eFPjTsg7GujNY17AJopqtCc4IfC7as8oOdnYRVtnEvffkTLy83V6k=
-X-Gm-Gg: ASbGncvx/fHWtTRCyqyGrxqNHcqGTg8CGC+dvAfRmSV+zy3O+Oc9Nmh/yDqj9yjYucc
-	L0AsEdLV1L0LrFzHah3dTBgQHXOUrXvy2Pn+I4l5w0l7XV5YC1j8Hix5tc4Cs3wwu15LEurg5jw
-	/Aj+4sRInwIXnXgS5cgshzCsail7cmiaYUuUknPGq1CxwwgyJEscEYKQ2IxfLu0th5BnleTCIzL
-	mKfv6KyJCTtLRQaDNfPkmoKWLvoUK/xH7l4qgN4pT4+TJ3Apw8PAmm4/AoX0QNpPJCnqbaPINIQ
-	te29XEDOupyvAFbj2+mGoKb69MvJGL5VPtxGlpckleZ2gfv1Mf6ACbC97wCnqHZwteyiSk6p++5
-	VRrStoOIm
-X-Google-Smtp-Source: AGHT+IHNowB5/ZE0ZHWbpkouCgQePefDiVlCP33DaXM+BX57LKGgiCfPU+sStoDwvHVVwHnPqDEEwg==
-X-Received: by 2002:a05:600c:548a:b0:43b:d025:76aa with SMTP id 5b1f17b1804b1-43bd29c4f3cmr53781515e9.23.1741274540680;
-        Thu, 06 Mar 2025 07:22:20 -0800 (PST)
-Message-ID: <d5419da1-02de-4e18-a1cf-e2aaa9d4f988@citrix.com>
-Date: Thu, 6 Mar 2025 15:22:19 +0000
+        d=1e100.net; s=20230601; t=1741274664; x=1741879464;
+        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=IfpRx+4HWti9bQdpi7v8SRUcygtKRPDlLQgeTFRrDpk=;
+        b=T+/gzYvFlTVOd6xl5h9IGS0Nz3+WRQQiU1QBeNBkSd7cxG1yqZoSntUJeYQwAh7mXq
+         ZpJHxjG47uB2VUS+deu/qdVuPyPazXUdshrTMl0BeSybXiXDCC2qTulTdK8eiQ14VlAb
+         I2RSNYmU/bfZD9Gvy6YmUJZPovogFki1IqmNZ+p0Sa89mvxcok9uUE/1v6HGPnHy689q
+         17BykOcUSZanz7GMEFUV8189UU3VQ1p/O7RuAWy+V2LzBXHYOFO1MNq86uYtxGwtVS6Z
+         7UoA2LJsfNMi+cMb2RQjp5wz7yqi8c84JqHBha62c6ADCksnjOI8WXMy7sPtCHFvkXJD
+         iyDA==
+X-Gm-Message-State: AOJu0YzHq9Ek7ymV4nQhC9rvKiAIAOhUOPRv7LnBpoX2gGWfxZforbmE
+	fYVZCydyk9FOGV+E0cchsVpk1K4x9KopafflUpvwcdE55iv1f7Mlt6IExHle9pBF/1G7Jg88Nza
+	BlOHxBKKpkNeu+4ljpnTH4XmX8bhjJA5i0r/iIHoZdBcEE4ug
+X-Gm-Gg: ASbGncte4zu8qPjBc9t97cFJWH63lAhzF81GVSg3mnfZQYL2MHtXwQ8Tb0XXUt4FKcF
+	WKZgoPnj/fWvVF7/IwuhOtASoj/MNl/hvRmN4wHyanwwBiXdx0B19J2VfRt6bSIA7qDZetszmf5
+	Rsij7eIrGrUvKhDom8N8INx2SIQXSLQtN/KRPFmY5/7Yxo10a/qgCqX7BueKuF
+X-Google-Smtp-Source: AGHT+IFG8Hjgc5IwezD9G4WANi05H7A6vd765haYU/2KUDPqtMpkkf7PCcNmWSZuCHXxJSr5Y8uCiqQTNf/S2ST6WCs=
+X-Received: by 2002:a17:907:961e:b0:abb:b411:5e02 with SMTP id
+ a640c23a62f3a-ac22cbb5723mr423946866b.18.1741274663692; Thu, 06 Mar 2025
+ 07:24:23 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] x86/apic: remove delivery and destination mode
- fields from drivers
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>
-References: <20250306145733.99927-1-roger.pau@citrix.com>
- <20250306145733.99927-2-roger.pau@citrix.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20250306145733.99927-2-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Kelly Choi <kelly.choi@cloud.com>
+Date: Thu, 6 Mar 2025 15:24:12 +0000
+X-Gm-Features: AQ5f1JqOjxcHusnvwMlnFvSOng7ureYgflORoBCR2NJY5QGKAtSBtk7YNgoztow
+Message-ID: <CAO-mL=xZBFaHW0=3sz_1Kg0vno=YCb_ZP5foRz=r8D6D_hcySw@mail.gmail.com>
+Subject: A Heartfelt Goodbye to the Xen Project Community
+To: xen-devel <xen-devel@lists.xenproject.org>, xen-users@lists.xenproject.org
+Cc: Xen Project Advisory Board <advisory-board@lists.xenproject.org>, 
+	"committers @ xenproject . org" <committers@xenproject.org>
+Content-Type: multipart/alternative; boundary="000000000000c950a8062fae190b"
 
-On 06/03/2025 2:57 pm, Roger Pau Monne wrote:
-> All local APIC drivers use physical destination and fixed delivery modes,
-> remove the fields from the genapic struct and simplify the logic.
->
-> No functional change intended.
->
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
->  xen/arch/x86/genapic/bigsmp.c      |  2 --
->  xen/arch/x86/genapic/default.c     |  2 --
->  xen/arch/x86/genapic/x2apic.c      |  4 ----
->  xen/arch/x86/include/asm/genapic.h |  5 -----
->  xen/arch/x86/io_apic.c             | 16 ++++++++--------
->  xen/arch/x86/msi.c                 | 11 +++--------
->  6 files changed, 11 insertions(+), 29 deletions(-)
+--000000000000c950a8062fae190b
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Definitely going in a good direction.
+Hi all,
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+It is with a heavy heart that I share that my time as the Community Manager
+for the Xen Project has come to an end due to redundancy. While this was an
+unexpected change, I want to take this opportunity to express my gratitude
+and reflect on what an incredible journey it has been.
+
+Being part of this community has been nothing short of amazing. I=E2=80=99v=
+e had
+the privilege of working alongside some of the most talented, passionate,
+and dedicated people in open source. From contributors and maintainers to
+users and advocates, every interaction has reinforced what makes Xen so
+special=E2=80=94it=E2=80=99s not just about technology; it=E2=80=99s also a=
+bout the people behind
+it.
+
+I=E2=80=99ve loved seeing the project evolve, celebrating its milestones, a=
+nd
+tackling challenges together. And while I may be stepping away from my
+official role, I=E2=80=99ll always be cheering for the Xen Project from the
+sidelines. I have no doubt that this community will continue to push
+boundaries and achieve great things. Watch out for more board members
+joining Xen Project soon!
+
+Thank you to everyone who has supported, collaborated, and shared this
+journey with me.
+
+Let=E2=80=99s stay in touch=E2=80=94you can connect with me on LinkedIn
+<https://www.linkedin.com/in/kellychoiuk/>.
+
+Wishing you all the best, and hoping our paths cross again soon!
+Thanks,
+Kelly Choi
+Community Manager
+Xen Project <https://xenproject.org/>
+
+--000000000000c950a8062fae190b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div><div dir=3D"ltr"><div dir=3D"ltr"><div><p>Hi all,=C2=A0</p><p>It is wi=
+th a heavy heart that I share that my time as the Community Manager for the=
+ Xen Project has come to an end due to redundancy. While this was an unexpe=
+cted change, I want to take this opportunity to express my gratitude and re=
+flect on what an incredible journey it has been.</p><p>Being part of this c=
+ommunity has been nothing short of amazing. I=E2=80=99ve had the privilege =
+of working alongside some of the most talented, passionate, and dedicated p=
+eople in open source. From contributors and maintainers to users and advoca=
+tes, every interaction has reinforced what makes Xen so special=E2=80=94it=
+=E2=80=99s not just about technology; it=E2=80=99s also about the people be=
+hind it.</p><p>I=E2=80=99ve loved seeing the project evolve, celebrating it=
+s milestones, and tackling challenges together. And while I may be stepping=
+ away from my official role, I=E2=80=99ll always be cheering for the Xen Pr=
+oject from the sidelines. I have no doubt that this community will continue=
+ to push boundaries and achieve great things. Watch out for more board memb=
+ers joining Xen Project soon!=C2=A0</p><p>Thank you to everyone who has sup=
+ported, collaborated, and shared this journey with me.=C2=A0</p><p>Let=E2=
+=80=99s stay in touch=E2=80=94you can <a href=3D"https://www.linkedin.com/i=
+n/kellychoiuk/" target=3D"_blank">connect with me on LinkedIn</a>.=C2=A0</p=
+><p>Wishing you all the best, and hoping our paths cross again soon!</p></d=
+iv><div><div dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_=
+signature"><div dir=3D"ltr"><div>Thanks,</div><div>Kelly Choi<br></div><div=
+><div style=3D"color:rgb(136,136,136)">Community Manager</div><div style=3D=
+"color:rgb(136,136,136)"><a href=3D"https://xenproject.org/" target=3D"_bla=
+nk">Xen Project</a><br></div></div></div></div></div></div>
+</div>
+</div>
+
+--000000000000c950a8062fae190b--
 
