@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18CA1A55765
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 21:23:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.904017.1311926 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94515A5576A
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 21:26:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.904025.1311937 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqHkJ-00056u-VZ; Thu, 06 Mar 2025 20:23:07 +0000
+	id 1tqHn5-0005gQ-C9; Thu, 06 Mar 2025 20:25:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 904017.1311926; Thu, 06 Mar 2025 20:23:07 +0000
+Received: by outflank-mailman (output) from mailman id 904025.1311937; Thu, 06 Mar 2025 20:25:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqHkJ-00055H-Sr; Thu, 06 Mar 2025 20:23:07 +0000
-Received: by outflank-mailman (input) for mailman id 904017;
- Thu, 06 Mar 2025 20:23:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tqHn5-0005eH-9N; Thu, 06 Mar 2025 20:25:59 +0000
+Received: by outflank-mailman (input) for mailman id 904025;
+ Thu, 06 Mar 2025 20:25:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YZnl=VZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tqHkI-00055B-Ls
- for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 20:23:06 +0000
+ id 1tqHn4-0005eB-37
+ for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 20:25:58 +0000
 Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
  [2a00:1450:4864:20::429])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cfae5098-fac8-11ef-9ab4-95dc52dad729;
- Thu, 06 Mar 2025 21:23:05 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 352a2604-fac9-11ef-9898-31a8f345e629;
+ Thu, 06 Mar 2025 21:25:56 +0100 (CET)
 Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-39133f709f5so32009f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 06 Mar 2025 12:23:05 -0800 (PST)
+ ffacd0b85a97d-39104c1cbbdso633135f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Mar 2025 12:25:56 -0800 (PST)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3912c0193bfsm3064474f8f.55.2025.03.06.12.23.03
+ ffacd0b85a97d-3912bfdff57sm3121608f8f.37.2025.03.06.12.25.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Mar 2025 12:23:04 -0800 (PST)
+ Thu, 06 Mar 2025 12:25:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cfae5098-fac8-11ef-9ab4-95dc52dad729
+X-Inumbo-ID: 352a2604-fac9-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741292585; x=1741897385; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1741292755; x=1741897555; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YmN86OJEvdahQBeRbgX+nPyW1WbN/rldMxH5sKyuoXA=;
-        b=aya7RsCayIFj/wZKznJiF9/BPi7KWiOooz1FnNo2rX2jrT/ZUnUdidu2OY/iqh7dce
-         TYb78WM/lp4CLfaz11vsS63tZN455qRmm5k67lEgmwyIGI6Dpbm4hmv6Y55YuSxOSF/P
-         S9NamagC5htglE4B1qnP3ZerFKsj5bo6vThn8=
+        bh=zsQEXenOUTs47C+xftYn6ATvYNZ3NiQAPYk4EFnyEc0=;
+        b=WBs9Kj5Mux1UXcF89IVWqIiH8qRLX5lMPRR596lN+ch1hJ8vDX7M9zz3ac8GbInzsi
+         ZxMHRqnohDHqczvqRhiV7QMC7oPZYBuRwR3Na3uqtrwF8OmB+B7wRNvDwdN1kGqgV4hE
+         xg7TesDH+chs634evq1qnu6xXyTEg8t1iA/5k=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741292585; x=1741897385;
+        d=1e100.net; s=20230601; t=1741292755; x=1741897555;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YmN86OJEvdahQBeRbgX+nPyW1WbN/rldMxH5sKyuoXA=;
-        b=vnfDWdLkGVtzDytjEmf5vlmz/TlMuhGFs6r2zwP0UNJ8jA+DvaJ1GBGLvbT+WjY96H
-         ETLaNmeQ6L7V1LX+K10HlVJouOjAXZhblESB/GvFyZuin1rJeMb6J5r3AAaTcN//BYN6
-         1LubC7AVBBzMCmKj5bQ3e2H6+bxMjzSVss/XhglZryI6sw0X6iCCHWW8PT3N12a763Fm
-         7PQzm00iPekz6EBRIDBQdW40bxXvMXye0KzVSlx4w5RVvOpx0IKfEGVID7mbjZwvSxwT
-         Eps4PrfdtaithYTMThLOS9nLrNa47ZkFyhmxL0/EJEOnVoZ/BZrMufgVBSAo0Zn7vquM
-         0xSw==
-X-Forwarded-Encrypted: i=1; AJvYcCURZMnUvqM5eQPyAAeqUDAA425F3saBjfNDXNGjhM3veLFTN4/kmiuYInzcSSjCuzcDzs58+FP11Qo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzSGXyAPSsYcrkhpoLVZVly7c5MsmuqkIOJbjFcyxXqtLY4vNap
-	fAfAXxx3N88nvyOc5T0IRoL+/6y2Q3JrpYb+4im6oPMO2nslyUi74C0PLUrQIWY=
-X-Gm-Gg: ASbGncujtMVcmY6H3EBQUTNuKd70isKfnjpjoJsHRu4wp08WQAn5tpvJCnF9ytVqAk/
-	WFcPF7krELZItyUgw74vkCefnGMtKHpKjCYYCx75GjkYamPT1NmEWGcyS1ZJUe668tVzx6nWeIB
-	SOzjjg1I3BhcLUx9gG4n60yiFzxSlUPqtlRsx7pVzOf78pTgU0jAXH1+W5oj004IWaJnpZFo1EH
-	oIM6CSw58YKdCr/0uwggM2sG5d1vO4eeoZmsXcQMCW8H1aKaf4356dqEMQsQcE2JbTIlJa5XOfk
-	D8NyM/5xUS2zKLsUtqxXc8IKJgcfdg5ZB/uJV0iV+5rp2F62LECve5bl5o3bhDRj1+vCTFz/Nyn
-	tvoXrvKpN
-X-Google-Smtp-Source: AGHT+IGSsNhfbVN+otKz6XbVyidTcb5YGEAJ6Fm/WfXzbpKRiFu+FHQ1vy5DiRQHUWkV4Dy7rZEw4w==
-X-Received: by 2002:a05:6000:1545:b0:390:f9d0:5e4 with SMTP id ffacd0b85a97d-39132d513c9mr415375f8f.21.1741292585217;
-        Thu, 06 Mar 2025 12:23:05 -0800 (PST)
-Message-ID: <356b3bbd-b6fa-42c6-adda-aa286033c793@citrix.com>
-Date: Thu, 6 Mar 2025 20:23:02 +0000
+        bh=zsQEXenOUTs47C+xftYn6ATvYNZ3NiQAPYk4EFnyEc0=;
+        b=jo8RkhDW6MxZ015mjFT2qw377dJqKLa+1Zwqk7geLpXkDvRM43+CHJHo79CNezn/MP
+         iD1Op0dLtvvq1wseC7CSUwlrDuuHStfWHcJX0XJysyT+E0hoJqnzqrhz09uc5sGGCVhf
+         3sZXorE1p81K9flVi9da9Ki4DbdNTc5t22tXy/c8Mwn+ubmnD0+7fcXdNR+f+CdGTAGL
+         WnS2/rRfdfbicTyCnwjZbYpeL1d3ugWUzeAz/d0SGo3ISZkfjc1uK20MXe0VBeK9BkW4
+         N/0SxUBKq7pknA/2y0Y84DHXR4UpREk6xedR4vSkR12P3ML/haIntwfp0xC1RqHPcpyh
+         Nieg==
+X-Forwarded-Encrypted: i=1; AJvYcCVcXDaxk1sgbmNYPNg6jukezG0TnMmnjnqpHnKvv1EMI6D62UjB3BlqmlrKHFwstGI3kDbej69U4fg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxI8Qaiy6lNpHelkD+WflDnMDd/SlckQbBLgOl+8PCWsmxwKLoY
+	XdTEWX/x88cBwhaPSSzXUKqwhuveMQBPBWQQX2fns9eqjhJSRf0kTuCsYen87ek=
+X-Gm-Gg: ASbGncuIKju81IpdReaRXtw30K7T9z9tjmCC7UjrbyG3JREXi1FbQvbENbFoS8wYmi4
+	oA8xpySY76c6okQH+DSX5JRo3gbiaiKq4OBmgo8lUeZ+Qa+QmjFl/1t7EsR4bWqu7VZ2eQnIbrz
+	c42MF+if3yLNa3ttCVZTic91IiLkHl8B6S0o1ciglBCdJhKDT/ot60MaFsJcywXKZDBV7fVSq09
+	G0+vL+BoKxD+OfUBFkjr4RTywTbLCedVChf8mcj8HBzYXTWHpliRCGXflxjyaee41Pt0iRt1nB8
+	YbtixaEJGSXGu9x0t4QoH4J5L4uhZaZUsDPKQlF0cNaSqUUNE2J29RS645t4aAnt7YYEhYnj7gG
+	vxXcvKgt5
+X-Google-Smtp-Source: AGHT+IGcJXYKrWjP9l2md5S1zzO40Vga8xn8Ack/aDb+r7gRrvrMvdNgAF7aPsgogbGVQ2SVZdASdw==
+X-Received: by 2002:a5d:598d:0:b0:391:23e6:f09b with SMTP id ffacd0b85a97d-39132d8f220mr441274f8f.27.1741292755506;
+        Thu, 06 Mar 2025 12:25:55 -0800 (PST)
+Message-ID: <93b94674-f669-4e3b-9b83-d63b3e504310@citrix.com>
+Date: Thu, 6 Mar 2025 20:25:53 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools/libs/store: use single_with_domid() in
- xs_get_domain_path()
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Julien Grall <julien@xen.org>, Anthony PERARD <anthony.perard@vates.tech>
-References: <20250305085536.26311-1-jgross@suse.com>
+Subject: Re: [PATCH v2 2/2] xen/watchdog: Identify which domain watchdog fired
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
+ George Dunlap <gwd@xenproject.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250303232941.2641306-1-andrew.cooper3@citrix.com>
+ <20250303232941.2641306-3-andrew.cooper3@citrix.com>
+ <7fc9ee31-dfce-4fba-ac11-4d6ff2acc2f9@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -134,14 +141,42 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250305085536.26311-1-jgross@suse.com>
+In-Reply-To: <7fc9ee31-dfce-4fba-ac11-4d6ff2acc2f9@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 05/03/2025 8:55 am, Juergen Gross wrote:
-> xs_get_domain_path() can be simplified by using single_with_domid().
+On 05/03/2025 9:27 am, Jan Beulich wrote:
+> On 04.03.2025 00:29, Andrew Cooper wrote:
+>> --- a/xen/common/sched/core.c
+>> +++ b/xen/common/sched/core.c
+>> @@ -1534,12 +1534,19 @@ long vcpu_yield(void)
+>>  
+>>  static void cf_check domain_watchdog_timeout(void *data)
+>>  {
+>> -    struct domain *d = data;
+>> +    /*
+>> +     * The data parameter encodes the watchdog id in the low bits of
+>> +     * the domain pointer.
+>> +     */
+>> +    struct domain *d = _p((unsigned long)data & PAGE_MASK);
+>> +    unsigned int id = (unsigned long)data & ~PAGE_MASK;
+>> +
+>> +    BUILD_BUG_ON(!(alignof(d) < PAGE_SIZE));
+>     BUILD_BUG_ON(alignof(*d) < PAGE_SIZE);
 >
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+>> @@ -1593,7 +1600,17 @@ void watchdog_domain_init(struct domain *d)
+>>      d->watchdog_inuse_map = 0;
+>>  
+>>      for ( i = 0; i < NR_DOMAIN_WATCHDOG_TIMERS; i++ )
+>> -        init_timer(&d->watchdog_timer[i], domain_watchdog_timeout, d, 0);
+>> +    {
+>> +        void *data = d;
+>> +
+>> +        BUILD_BUG_ON(NR_DOMAIN_WATCHDOG_TIMERS > alignof(d));
+>         BUILD_BUG_ON(NR_DOMAIN_WATCHDOG_TIMERS > alignof(*d));
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Well, that's embarrassing.  That explains why I was having issues, and I
+was clearly asleep when writing...
+
+~Andrew
 
