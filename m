@@ -2,38 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A220A54937
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 12:25:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.903414.1311317 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 690F5A54AA2
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 13:25:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.903446.1311328 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tq9Lw-0007p7-Ki; Thu, 06 Mar 2025 11:25:24 +0000
+	id 1tqAHJ-0005HO-BW; Thu, 06 Mar 2025 12:24:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 903414.1311317; Thu, 06 Mar 2025 11:25:24 +0000
+Received: by outflank-mailman (output) from mailman id 903446.1311328; Thu, 06 Mar 2025 12:24:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tq9Lw-0007mn-I4; Thu, 06 Mar 2025 11:25:24 +0000
-Received: by outflank-mailman (input) for mailman id 903414;
- Thu, 06 Mar 2025 11:25:23 +0000
+	id 1tqAHJ-0005En-8r; Thu, 06 Mar 2025 12:24:41 +0000
+Received: by outflank-mailman (input) for mailman id 903446;
+ Thu, 06 Mar 2025 12:24:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=qAxi=VZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tq9Lv-0007mh-HO
- for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 11:25:23 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
+ (envelope-from <SRS0=TCcn=VZ=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1tqAHH-0005Eh-55
+ for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 12:24:39 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [2a07:de40:b251:101:10:150:64:1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b0ac8636-fa7d-11ef-9ab4-95dc52dad729;
- Thu, 06 Mar 2025 12:25:21 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-43bc4b1603fso3242125e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 06 Mar 2025 03:25:21 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3912c1037bfsm1753129f8f.96.2025.03.06.03.25.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Mar 2025 03:25:20 -0800 (PST)
+ id f3864e29-fa85-11ef-9ab4-95dc52dad729;
+ Thu, 06 Mar 2025 13:24:29 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 35F24211AD;
+ Thu,  6 Mar 2025 12:24:29 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E542713676;
+ Thu,  6 Mar 2025 12:24:28 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id G0eDNvyTyWfTUQAAD6G6ig
+ (envelope-from <jgross@suse.com>); Thu, 06 Mar 2025 12:24:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,109 +52,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b0ac8636-fa7d-11ef-9ab4-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741260321; x=1741865121; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=0i1AVq3SFWy6g02i/aw2Xp3pHuLEmtNFaXJSflJCW5g=;
-        b=MrAKRH4c5/3QxT8sHbVpOKjdXEChaFT4eeUDSyLnZTJ86ieBHHCA25gvAVLnr19Gl0
-         7eBROSbkjtySqQPKw164+s7W+QF83bB4OKP9L6DYan5h243KgMabLJlgNiF7pRkJnaDR
-         33nnDpX341bJeOAY+7To/OC/QoOcPcT12rugwmLjtSZNDZgmO/MxPOugfK8RJ5t3EQD1
-         epLNiFRJE3wXegit1gAyervmUrPtIDAUaUdYIr74YlyixpG6GKSeutv+aRDJVAoWMjR4
-         lJzr/CAP6xauK23JHMXLEfUlW2t8bkmZAMSGRfaK4ZVvDB6wBJIYEEJDODL2uB9H6E38
-         TCDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741260321; x=1741865121;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0i1AVq3SFWy6g02i/aw2Xp3pHuLEmtNFaXJSflJCW5g=;
-        b=aeOgQ23z+/ogRTe2qgfwMJQsdJJyw9dPjDDeIVWqseqxBTQDwhf1gW0VzTduFgKFPM
-         pQShHm7CHE+OMgs9ZXIXGxLt7iGaRT4y8opJW8Y85jSueAyQMrM55drHrV+wut+GxaMI
-         Ay/mbYMfTVdM3Y4zXvpfavijTP3uoLjSw94kiDq22ZtdbWxaD2kq0c6DjdfY2iZWIOSY
-         ta4rL11fIGTnQo5I3CE2XmSjhTxlJE5iQQcnntKBJvwYP5xlUqnjA5ksErznypEnmjZS
-         BnmaKl7bDc0XRkOtWtUZY89AJRer66619yLhvSFJS+S1jgyPMU7rp/G9zg2iAlFCPLPl
-         cL9A==
-X-Gm-Message-State: AOJu0Yz4pYbhHQOPKXq1clr/ul7yVObNDM8ECxUE4kcxPpXEfTlVNoJO
-	OewzTDjBmMxOfufeHh2HJUSCSL82YOBLkUN/TY66wrqUJSYQl2rvt7yaF8hbY40WnEPEzEbImbE
-	=
-X-Gm-Gg: ASbGncvYALIK7Xm53raDlj8gsYFzlPZDVwhLER9cVWvoL8MzxWDddqqpWnz3rFLNKrh
-	bfyWMGgKc3gPzn0NgtAWnHCc8/DRaklhZiXszIJGn0aJc51s2AXa3XybfRl9Z8u4YpgHqyvF6Lr
-	OAc3BIt8IwFeVibt3s5oRvBys0w3kFY0/fE1ZY5AV6yF6kWzP3d8eCk9M1Qj95Lg793IQqUtjO3
-	CsXXdhP+L9IEuMFy031EiZC4cAegcsaS5Id2nGtdgeZ114AlzgHpSn4tsrzCjV8N1bmgBOo/Y2y
-	iYOYQvhXLz7SBW9nhYY8w9Q3MgoZXtN4SaIzuFCPZNEmTOo0llM1U6iZEOcGl9jTgvzDRiMwpIP
-	n2eJhIenETzajN0+0wU2LqBKeQNh5GA==
-X-Google-Smtp-Source: AGHT+IEu6xzM328i4Is1EdiqaflQhddCSk9c5Grs5O2onRGWbuWmymmfND6uReg2qJfjqZ5oYWwVig==
-X-Received: by 2002:a05:600c:4f87:b0:439:9d75:9e7d with SMTP id 5b1f17b1804b1-43bd29c4593mr44899675e9.22.1741260320780;
-        Thu, 06 Mar 2025 03:25:20 -0800 (PST)
-Message-ID: <0d3655d6-8551-486b-85ca-e64378231278@suse.com>
-Date: Thu, 6 Mar 2025 12:25:19 +0100
+X-Inumbo-ID: f3864e29-fa85-11ef-9ab4-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1741263869; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=EEKhfUX1UAhdwTW1++HkghLsKqJFR8BkWE1VB2eK79Q=;
+	b=Xjunt6SiGlfG0PfmllWo8fp3ukMBMcn4gHSW0FIVNLVvzxMg564wJ2/piNWHzx7MZlG2QX
+	hMqyGldN8U95LaIbyQxtGoc1iVyVaUeSkWf9iv7mQrehpKmgBfoYNEjhfBfFLU21p1jWjV
+	Trkrm5E/NUNiPnhZsjzUOHA9ztNM7tc=
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1741263869; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=EEKhfUX1UAhdwTW1++HkghLsKqJFR8BkWE1VB2eK79Q=;
+	b=Xjunt6SiGlfG0PfmllWo8fp3ukMBMcn4gHSW0FIVNLVvzxMg564wJ2/piNWHzx7MZlG2QX
+	hMqyGldN8U95LaIbyQxtGoc1iVyVaUeSkWf9iv7mQrehpKmgBfoYNEjhfBfFLU21p1jWjV
+	Trkrm5E/NUNiPnhZsjzUOHA9ztNM7tc=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH] docs: specify numerical values of Xenstore commands
+Date: Thu,  6 Mar 2025 13:23:55 +0100
+Message-ID: <20250306122426.4351-1-jgross@suse.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] libxl: avoid infinite loop in libxl__remove_directory()
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: -3.30
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.98%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	RCVD_TLS_ALL(0.00)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:email]
+X-Spam-Flag: NO
+X-Spam-Level: 
 
-Infinitely retrying the rmdir() invocation makes little sense. While the
-original observation was the log filling the disk (due to repeated
-"Directory not empty" errors, in turn occurring for unclear reasons),
-the loop wants breaking even if there was no error message being logged
-(much like is done in the similar loops in libxl__remove_file() and
-libxl__remove_file_or_directory()).
+In docs/misc/xenstore.txt all Xenstore commands are specified, but
+the specifications lack the numerical values of the commands.
 
-Fixes: c4dcbee67e6d ("libxl: provide libxl__remove_file et al")
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Add a table with all commands, their values, and a potential remark
+(e.g. whether the command is optional).
+
+Reported-by: Jan Beulich <jbeulich@suse.com>
+Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
-This is the simplest possible adjustment. Depending on why there were
-retries, retrying a few times may make sense. But then, especially for
-the specific error observed, presumably only after having tried to empty
-the directory another time.
+ docs/misc/xenstore.txt | 59 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 59 insertions(+)
 
-It's further questionable whether trying the rmdir() makes sense at all
-when emptying the directory failed. After all failure of opendir() also
-results in bailing from the function without trying to rmdir(). If this
-makes sense, then I further think that "rc" would want resetting ahead
-of this final loop in the function: If the rmdir() succeeds despite
-earlier errors, all is (kind of) fine.
-
---- a/tools/libs/light/libxl_utils.c
-+++ b/tools/libs/light/libxl_utils.c
-@@ -577,6 +577,7 @@ int libxl__remove_directory(libxl__gc *g
-         if (errno == EINTR) continue;
-         LOGE(ERROR, "failed to remove emptied directory %s", dirpath);
-         rc = ERROR_FAIL;
-+        break;
-     }
+diff --git a/docs/misc/xenstore.txt b/docs/misc/xenstore.txt
+index 7e1f031520..76001c6ee6 100644
+--- a/docs/misc/xenstore.txt
++++ b/docs/misc/xenstore.txt
+@@ -86,6 +86,65 @@ parts of xenstore inaccessible to some clients.  In any case passing
+ bulk data through xenstore is not recommended as the performance
+ properties are poor.
  
-  out:
++---------- Defined Xenstore message types ----------
++
++Below is a table with all defined Xenstore message types (type name
++and its associated numerical value).
++
++Some types are optional to be supported by a specific Xenstore
++implementation.  If an optional type is not supported by a Xenstore
++implementation, Xen tools will continue to work, maybe with slightly
++reduced functionality.  A mandatory type not being supported will
++result in severely reduced functionality, like inability to create
++domains.  In case a type is optional, this is stated in the table with
++the lost functionality in case Xenstore doesn't support that type.
++
++XS_CONTROL		0	optional
++	If not supported, xenstore-control command will not work.
++	XS_DEBUG is a deprecated alias of XS_CONTROL.
++XS_DIRECTORY		1
++XS_READ			2
++XS_GET_PERMS		3
++XS_WATCH		4
++XS_UNWATCH		5
++XS_TRANSACTION_START	6
++XS_TRANSACTION_END	7
++XS_INTRODUCE		8
++XS_RELEASE		9
++XS_GET_DOMAIN_PATH	10
++XS_WRITE		11
++XS_MKDIR		12
++XS_RM			13
++XS_SET_PERMS		14
++XS_WATCH_EVENT		15
++	Not valid in client sent messages.
++	Only valid in Xenstore replies.
++XS_ERROR		16
++	Not valid in client sent messages.
++	Only valid in Xenstore replies.
++XS_IS_DOMAIN_INTRODUCED	17
++XS_RESUME		18
++XS_SET_TARGET		19
++XS_RESTRICT		20	no longer supported
++	XS_RESTRICT has been removed, the type value 20 is invalid.
++XS_RESET_WATCHES	21
++XS_DIRECTORY_PART	22	optional
++	If not supported, the output of xenstore-ls might be incomplete
++	with moŕe than ca. 1000 domains active.
++XS_GET_FEATURE		23	optional
++XS_SET_FEATURE		24	optional
++	XS_GET_FEATURE and XS_SET_FEATURE must either be both supported
++	or both unsupported.
++	If unsupported, setting availability of Xenstore features per
++	domain is not possible.
++XS_GET_QUOTA		25	optional
++XS_SET_QUOTA		26	optional
++	XS_GET_QUOTA and XS_SET_QUOTA must either be both supported
++	or both unsupported.
++	If unsupported, setting of Xenstore quota per domain is not
++	possible.
++XS_INVALID		65535
++	Guaranteed invalid type (never supported).
+ 
+ ---------- Xenstore protocol details - introduction ----------
+ 
+-- 
+2.43.0
+
 
