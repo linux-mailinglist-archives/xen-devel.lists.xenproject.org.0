@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 534A9A5459E
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 09:58:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.903236.1311183 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44C34A54525
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 09:40:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.903123.1311129 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tq73Q-0005I5-Aj; Thu, 06 Mar 2025 08:58:08 +0000
+	id 1tq6mg-000614-J3; Thu, 06 Mar 2025 08:40:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 903236.1311183; Thu, 06 Mar 2025 08:58:08 +0000
+Received: by outflank-mailman (output) from mailman id 903123.1311129; Thu, 06 Mar 2025 08:40:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tq73Q-0005GD-6J; Thu, 06 Mar 2025 08:58:08 +0000
-Received: by outflank-mailman (input) for mailman id 903236;
- Thu, 06 Mar 2025 08:58:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tq6mg-0005x9-Ch; Thu, 06 Mar 2025 08:40:50 +0000
+Received: by outflank-mailman (input) for mailman id 903123;
+ Thu, 06 Mar 2025 08:40:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jWYO=VZ=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1tq6md-00031D-Hi
- for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 08:40:47 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20609.outbound.protection.outlook.com
- [2a01:111:f403:2416::609])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b17abe18-fa66-11ef-9898-31a8f345e629;
- Thu, 06 Mar 2025 09:40:45 +0100 (CET)
-Received: from CH2PR10CA0026.namprd10.prod.outlook.com (2603:10b6:610:4c::36)
- by BL3PR12MB6522.namprd12.prod.outlook.com (2603:10b6:208:3be::21)
+ id 1tq6me-0002me-RG
+ for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 08:40:48 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2061a.outbound.protection.outlook.com
+ [2a01:111:f403:2009::61a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b32e965e-fa66-11ef-9ab4-95dc52dad729;
+ Thu, 06 Mar 2025 09:40:48 +0100 (CET)
+Received: from CH2PR10CA0004.namprd10.prod.outlook.com (2603:10b6:610:4c::14)
+ by BL1PR12MB5729.namprd12.prod.outlook.com (2603:10b6:208:384::14)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.17; Thu, 6 Mar
- 2025 08:40:41 +0000
+ 2025 08:40:43 +0000
 Received: from CH1PEPF0000AD74.namprd04.prod.outlook.com
- (2603:10b6:610:4c:cafe::ec) by CH2PR10CA0026.outlook.office365.com
- (2603:10b6:610:4c::36) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8511.16 via Frontend Transport; Thu,
- 6 Mar 2025 08:40:41 +0000
+ (2603:10b6:610:4c:cafe::67) by CH2PR10CA0004.outlook.office365.com
+ (2603:10b6:610:4c::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8511.19 via Frontend Transport; Thu,
+ 6 Mar 2025 08:40:43 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CH1PEPF0000AD74.mail.protection.outlook.com (10.167.244.52) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8511.15 via Frontend Transport; Thu, 6 Mar 2025 08:40:41 +0000
+ 15.20.8511.15 via Frontend Transport; Thu, 6 Mar 2025 08:40:43 +0000
 Received: from penny-System-Product-Name.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Thu, 6 Mar 2025 02:40:39 -0600
+ 15.1.2507.39; Thu, 6 Mar 2025 02:40:41 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b17abe18-fa66-11ef-9898-31a8f345e629
+X-Inumbo-ID: b32e965e-fa66-11ef-9ab4-95dc52dad729
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cUdLrgISklfZGltEqej33jG5BfMxsu4kE9VUvHqQ9DBezZ4OBfmCPzICDxZBELRjCCJnHTI2ozACUDeK5BnG8nHeXhrYpW039mW2HusTRZuVxBIqUS6JgHCXYPr46a5X+D9/L7A007UQAOXoxXXGbQ0AAqj2jcjS8ivrz/c9tIFybBP3vP5wYVBn8UDm1SxwfgB/kLaPPoKSh5UdJfGMpMYKLfea8+oCZD1TyneDA/EKPFJEmsnJxbvhJcXMRIJiSf+xjZDo7rdpE1Vi9cUmpV/r4/N1G3xQxF6YsqOdjLehIgf7L7lFTvqu3k1xJ7lX3d89q9+zAaANKPM9FmqK6g==
+ b=MH2cikLeq1NYwU6AhzgRsuIUKv1VzYk8B/6dEaGk5WAZKg98mXxG+dgEDwtN8lG0Gll538913DASA9Ud5BOsEkPBD2p80ek4U6Lbw+/9xvM9SfASR/P4UYn+Fjdf+XuUD6wA7Saugb32GlLgdBtgoNLIlxmJ4IlzI18mKar2RSDq2pIuDDu2N1/zSAqX4HSAeaJ254QoSqFkOxyaaEvZj0XZYvc6kJ9jDHNJmx3DDSuLTMvV8EPEr4GbptfEupLL/FS+4DnC2g69/ZaqoX6azHryH7JVaLvuYYYHBgc9gjwAD+hljDQ1SM+ITeamiM9AEJCr2b64HC+QRF1BREKgGA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AWoURI9UoGDnQV3zAsQtajok02PmR6ELhXOEUkvQD6w=;
- b=XL8EQKmSUGurOQM+pHx6gA/l6Z7OvnrPyAMDg1Pa1x1ahMWq1x15QEyIy7sI4FJh76++pVv04JNFCe7OOKzQVEG07BBZ1EwSyb2stK3VrS7Z/VZGLQWjJ1ocxokz+IGgE57ymH3xwZQ5rNdO1ZYTve4bx+7dIz+8nvBfiaoT3F3WdO5MstTHVVhCYeCOqhGoMnnGW2EYflBGyvZ5w2wID3cWS5M3E2hz4unNu/F/IhF5VpDlrnvjNK7Hhl9TsgxAmch9SIKkMM6KRJSLHHjKhNYCE8rujo0H20SxRcTsR3ujkA4el+lX9m2XX4itz/ha5+YjfW+4i+MQjmuJHeRCWw==
+ bh=4BfnQ5dP3CxeHkbX6crdv0E08fIf7w35NJx7zZuBUh4=;
+ b=s+mlZgLZocaKe8Vmd5RfaXQZoGzHRA/VfLCC+Vy2Pl9ENdmLhjsrV8RB+8W6qxs9nFFz4RfjAXq4JQDuo37Xyw2qS3zi/wbjaqsDAOa54So4SUgZs0ANM6po0kUNR3N3PoAx494UYA5O3A8MSx3bCml+7oL9lA5tuCWwS4JuFAp2HAvCIDF/u+WtlHlRxm2GYkXu26l72v8g+T8rcU8RJM121LP2SOkGHtZO+aZnNSiJUvXc373fcx9G0zpHtKHVOsNGZUp4yxIFQD3HJOdzY7L6HQ8wfTJ0mlDVQMQlLrejLThCbiU+o54UyHP0d/4Iz2Kvvv8EwscMuaT37XOrRg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AWoURI9UoGDnQV3zAsQtajok02PmR6ELhXOEUkvQD6w=;
- b=oQ2RrY6+ZnBDlZAazC81JGwmF7X23gKdXa8jEH9YW6fbK9FQMzUZNEctNKAirp/MVXTJPt6AVDBOKh1G+bkq5RjjH/5b9cBVVG/50n3zPM8z6YHSMIqQ+6NpkA2rZK0L5adYBPs6U8ZMjptxcBrzrVP2Xw3RbXVoOCOq9NFiWec=
+ bh=4BfnQ5dP3CxeHkbX6crdv0E08fIf7w35NJx7zZuBUh4=;
+ b=cj7NvY5wnQ9AsjOJbJebOZZ3Cn+qsePR7DvFIZ84wpQ/lLnzFQ2eAOTd2UmWZQ4Gx53TvvlLG1smm/4eEWPm5pntI5hPLyGiWgvixGOfGH5HZmN7kHyOoumMryjOGAF1LtVRZlg68Xw/5iEpJ+jPimKW17Y6Z2I+Cmek51oPfkw=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -80,11 +80,12 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Penny Zheng <Penny.Zheng@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: <ray.huang@amd.com>, Penny Zheng <penny.zheng@amd.com>, Jan Beulich
-	<jbeulich@suse.com>, Penny Zheng <Penny.Zheng@amd.com>
-Subject: [PATCH v3 10/15] xen/cpufreq: only set gov NULL when cpufreq_driver.setpolicy is NULL
-Date: Thu, 6 Mar 2025 16:39:44 +0800
-Message-ID: <20250306083949.1503385-11-Penny.Zheng@amd.com>
+CC: <ray.huang@amd.com>, Penny Zheng <Penny.Zheng@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v3 11/15] xen/cpufreq: abstract Energy Performance Preference value
+Date: Thu, 6 Mar 2025 16:39:45 +0800
+Message-ID: <20250306083949.1503385-12-Penny.Zheng@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250306083949.1503385-1-Penny.Zheng@amd.com>
 References: <20250306083949.1503385-1-Penny.Zheng@amd.com>
@@ -96,89 +97,128 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD74:EE_|BL3PR12MB6522:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3d857b7f-ad88-440d-7a44-08dd5c8a93ff
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD74:EE_|BL1PR12MB5729:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5d76491e-93fd-4d54-e324-08dd5c8a952b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|82310400026|376014;
+	BCL:0;ARA:13230040|82310400026|376014|1800799024|36860700013;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?H5ILEu1lovzLACCN6Yvu1TwTuFE6vLTPFCElCrfnsZXmFkFWMIeEXwRiaIN8?=
- =?us-ascii?Q?o5+pXECjatIilO7k0crVrcMpqIV9YXhWHmTsEYS6sfh8jfEBFvJ9NSorsYod?=
- =?us-ascii?Q?cWE4lXmIbTPcAudz9S9z0jHBQmvNKhVCTQLTbjr3Fenui4/X8QeczrSGn4XJ?=
- =?us-ascii?Q?7WYxe6i8rnK5I/FvkXEb8KujRjFTb7y4mLMf6YNuqOftYg8hmSubI4tF3GwN?=
- =?us-ascii?Q?chi7APB10YWzS2XdSE5w+D+XMPRXzA2U09HcHk1vgQMJxMa7gSEa5y3PUq7D?=
- =?us-ascii?Q?Tz79zop8jH4BkSvAyDIahzbmB0t1f/l7+/utOwNYclO4ba2Z7VHyw/6TdcS8?=
- =?us-ascii?Q?BBvvwuMffgrG+pKxpHcQfe4YNBQg8uEAAfkl8+AIN9LobQaEmaoLs1gGlxp4?=
- =?us-ascii?Q?IUd0ya4XewFQAVgsltAjh1+8dtp3/4A89Szmx5blHp8Kyy+PAm9XwivzOz0F?=
- =?us-ascii?Q?JegGpwlQzcr5MkIibW5S4iSH0gvrYaRnNIlIVkIoPPSPE1TuolHBrRK3LdaQ?=
- =?us-ascii?Q?LRPuG8vSSiIrG8i+cO19nH5MsPXbEg0tByaY1dmFf7TYvoFjkqEVta87dS7X?=
- =?us-ascii?Q?bIJXb1CnPNZ+Tl7UxoZhWOKSZepr5ekKIi4cEqo/K5sT4SnwuSrH+Q+zeSb0?=
- =?us-ascii?Q?qSFVe08ELvl2ZDfBSJSCauoPbihEbZQek1XRxrYFLJmKqhVoiAMzGr7qBpfn?=
- =?us-ascii?Q?BlnySxDttNdjE7+ri2qtYZSGt31MKkJgee7dOU8kAC+gAbF/Lhyj5leJSnIj?=
- =?us-ascii?Q?l3NPR9Z10SJzROd0Nb/Do6ZfTPQh7RQflXuQFaz5WzwBbzgGNyIRdvp1o4YM?=
- =?us-ascii?Q?AdT/B701Mar4yDimtmzWhpYgJgImz9l/HeTPG/1ZiA8OCLBv6RHvRTgxv16t?=
- =?us-ascii?Q?xbHzlCcuJFdf+peAagzr3kd9tuDefsNiRZYsygYOrwVjL7rUMQuTAFcP0xTn?=
- =?us-ascii?Q?YWHD97QCV0D0pbiVIx9BbnLd1eK0+5SDV5NsETNtWdcSs06l83hi5otzc1/P?=
- =?us-ascii?Q?NA6ttOQUrfqa4QZOKg/WRh3kxuj5LWhqN48Rc6PsuY9uot5wP2yuWKpYjneK?=
- =?us-ascii?Q?/COg5YxDV9HPl8wNI7w3gmGygZsErtEEGrC0EGxyQH2jd1Va4pJt+CP13tnS?=
- =?us-ascii?Q?/WgfOMDeG2gFkmWqUOt6D2cVszHDb5PHpY1vFxe7DYjmmKYhk128IYJIrpWX?=
- =?us-ascii?Q?FZt2AoHNP9D1hsjVONdFmi3Hng4g1hrHram+kamyT8nXzg74ibTSAcv5Qg8W?=
- =?us-ascii?Q?X5uIRncQFyl3Rr76j8Y4o8imm2Ag5kxE0xMOUMA0/PH6SPinwL5AE37WmrT1?=
- =?us-ascii?Q?K0jd91vrssn9Mo1WNJw85u9Z4akRG8AEjS55ZiPoB+jVAtAQo9976Nyymxzj?=
- =?us-ascii?Q?gbBgtrpoRYvJ8SD9MyoeV5aByWzGZTslA/Mvjli1gtyqzj82vXRGnkS/BoLM?=
- =?us-ascii?Q?3Zw0Xn8bhl1pLvGXfBgpMB2JUpegY1omr1lLXeqkUPQZ0O/apThIruIdMR4U?=
- =?us-ascii?Q?bEToRPENh4aIMbY=3D?=
+	=?us-ascii?Q?kE+g4dO3RxQYO+VoVWwivurkr1tuO6haErHxlQLzTTHVXLsvJRZo1KDZtHVS?=
+ =?us-ascii?Q?ePgaq5sHh5SjS7yD1SzicFAgO7pk8Nr4gsmVNvjacoyWZ4iEc3AhXeZelKR7?=
+ =?us-ascii?Q?A1zM/ConlX4b+vzSIIt+BCAVHtZakQyetURRXRhOHEjGHP0V4I/8Ag504NLX?=
+ =?us-ascii?Q?a9YbzsxNWiNh+a3I1uPbwHYPR1y9AV698e7EiS1SV2JMwMuxSWLOB7eARcXp?=
+ =?us-ascii?Q?zwrBvgEdy2sHoulddDoYSz1UuvVvkQpk0+9FXPzE4Y4FA5jxlEyO1WKMWcTS?=
+ =?us-ascii?Q?hHeiS7xkiWKdUHAXgyW5sg/tkPkQ5CR4HqR63ICTJDyGOeejHELaq6Uf8cMh?=
+ =?us-ascii?Q?jQDvTL09GizGU40Egb0Ny0sLPjpFOLZrjdXPhkeGwmNeyjIQlzd7g0mtow0A?=
+ =?us-ascii?Q?0ArSs7p2SYuqmWP7K2AgR4iWROEzKaoAwX9S8XLV1yHLrxrhN6OUjETbuPZ3?=
+ =?us-ascii?Q?9MYC8PtPdyGpYs3yS2Yd7D1zrpzYM1v8LH838XLX9fzi7H0A22UUIzo2pK+V?=
+ =?us-ascii?Q?RoS8PaPiv98Bz7m2uGrEcCBglSobyDnvHWRGRXi/WpPnxJNbSiIrGaBo6CaF?=
+ =?us-ascii?Q?uMiX6tGTtlNzRiyO8rU8IpjkHEkBP2BJ3J4q1VIO6jZWcFkFCUNPqlLUVjmT?=
+ =?us-ascii?Q?DlZwKcViPkOes0X1xP2YVkPNvsHk7clhNTh6bFLvoEyzcbi4xBFUIplBE2Pi?=
+ =?us-ascii?Q?R6jNNCxWOxddvCnUC3vDmTQRvUlUOnIlkbB4D5NAwgaul+sEaQ48G9ztWUek?=
+ =?us-ascii?Q?MnzI6aFs4LnJ4FzINXmmzGNdH74HzR7VX2tOXh2nocbF9z3Bd8CJ/7EFDwDU?=
+ =?us-ascii?Q?yT4wxgsaRYgw0s2Q4dRMDfiNOXPbL56dezTSDCD11uMVJpihl269hD/W+bo9?=
+ =?us-ascii?Q?pPYFP+a6jni2Xs2TPZkuB7zl49yS0sLSNCChw745YkyzHDsJDSO8AU+D85ak?=
+ =?us-ascii?Q?hDh1mLFA+IAHVqGQa1vv7olJyJF53MgfN+tMrg/LZZIIL2LANtvo6I4CoxQn?=
+ =?us-ascii?Q?b6LzqfzNeAfEkJ4NqChfwqQIw9kouxbMNf02qdjnzRT6nN+QZgoqoC6qnG7k?=
+ =?us-ascii?Q?kz2VS9nwBXZi9ip+Keqei1wsVN+1snFvl/mjp4CY8bxo0AvFTJKXr1XtPvMW?=
+ =?us-ascii?Q?9SoKAwvueVhqdT9VkkK+Rl+n99ITRfdwcAWZ/jh0pJM02D1HZNL5U1UNxpFH?=
+ =?us-ascii?Q?RJ5sGHOZTiqKrjOwh05qVIPt/mQ0cChiFAFMmP7B20dwyWTOoF4yFCsBShMs?=
+ =?us-ascii?Q?dsiPO1ZBTsFP5rrAUcnFDWZx5Kl45bLOyle4cYpBfZMmjBrk8JfMjNxDe4SI?=
+ =?us-ascii?Q?JjNMngtRAB4CKJzZCN83Yy/14CPZSVdRVBjO/q43NImuNpBb9LYn5HiNXYfR?=
+ =?us-ascii?Q?WwAPxMa/lHZmNBHOsVRR/BwZAtIpkJBGKVjFX9wC+CknSZsEe7+/Jwqe9aHZ?=
+ =?us-ascii?Q?84rWNpQ1WHP4/B8A3XJb5wjJRmCOE3rrUGKBqjFtX6goO0T4qMGDSRW6onN/?=
+ =?us-ascii?Q?ST11CC7TEs8I78A=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2025 08:40:41.3776
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2025 08:40:43.3464
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3d857b7f-ad88-440d-7a44-08dd5c8a93ff
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5d76491e-93fd-4d54-e324-08dd5c8a952b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	CH1PEPF0000AD74.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6522
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5729
 
-From: Penny Zheng <penny.zheng@amd.com>
-
-amd-cppc on active mode bypasses the scaling governor layer, and
-provides its own P-state selection algorithms in hardware. Consequently,
-when it is used, the driver's -> setpolicy() callback is invoked
-to register per-CPU utilization update callbacks, not the ->target()
-callback.
-
-So, only when cpufreq_driver.setpolicy is NULL, we need to deliberately
-set old gov as NULL to trigger the according gov starting.
+Intel's hwp Energy Performance Preference value is compatible with
+CPPC's Energy Performance Preference value, so this commit abstracts
+the value and re-place it in common header file cpufreq.h, to be
+used not only for hwp in the future.
 
 Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
- xen/drivers/cpufreq/cpufreq.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ xen/arch/x86/acpi/cpufreq/hwp.c    | 10 +++-------
+ xen/include/acpi/cpufreq/cpufreq.h | 10 ++++++++++
+ 2 files changed, 13 insertions(+), 7 deletions(-)
 
-diff --git a/xen/drivers/cpufreq/cpufreq.c b/xen/drivers/cpufreq/cpufreq.c
-index 792e4dc02c..8fc6e527c2 100644
---- a/xen/drivers/cpufreq/cpufreq.c
-+++ b/xen/drivers/cpufreq/cpufreq.c
-@@ -353,7 +353,13 @@ int cpufreq_add_cpu(unsigned int cpu)
-     if (hw_all || (cpumask_weight(cpufreq_dom->map) ==
-                    pmpt->domain_info.num_processors)) {
-         memcpy(&new_policy, policy, sizeof(struct cpufreq_policy));
--        policy->governor = NULL;
+diff --git a/xen/arch/x86/acpi/cpufreq/hwp.c b/xen/arch/x86/acpi/cpufreq/hwp.c
+index 59b57a4cef..d5fa3d47ca 100644
+--- a/xen/arch/x86/acpi/cpufreq/hwp.c
++++ b/xen/arch/x86/acpi/cpufreq/hwp.c
+@@ -21,10 +21,6 @@ static bool __ro_after_init feature_hdc;
+ 
+ static bool __ro_after_init opt_cpufreq_hdc = true;
+ 
+-#define HWP_ENERGY_PERF_MAX_PERFORMANCE 0
+-#define HWP_ENERGY_PERF_BALANCE         0x80
+-#define HWP_ENERGY_PERF_MAX_POWERSAVE   0xff
+-
+ union hwp_request
+ {
+     struct
+@@ -597,7 +593,7 @@ int set_hwp_para(struct cpufreq_policy *policy,
+         data->minimum = data->hw.lowest;
+         data->maximum = data->hw.lowest;
+         data->activity_window = 0;
+-        data->energy_perf = HWP_ENERGY_PERF_MAX_POWERSAVE;
++        data->energy_perf = CPPC_ENERGY_PERF_MAX_POWERSAVE;
+         data->desired = 0;
+         break;
+ 
+@@ -605,7 +601,7 @@ int set_hwp_para(struct cpufreq_policy *policy,
+         data->minimum = data->hw.highest;
+         data->maximum = data->hw.highest;
+         data->activity_window = 0;
+-        data->energy_perf = HWP_ENERGY_PERF_MAX_PERFORMANCE;
++        data->energy_perf = CPPC_ENERGY_PERF_MAX_PERFORMANCE;
+         data->desired = 0;
+         break;
+ 
+@@ -613,7 +609,7 @@ int set_hwp_para(struct cpufreq_policy *policy,
+         data->minimum = data->hw.lowest;
+         data->maximum = data->hw.highest;
+         data->activity_window = 0;
+-        data->energy_perf = HWP_ENERGY_PERF_BALANCE;
++        data->energy_perf = CPPC_ENERGY_PERF_BALANCE;
+         data->desired = 0;
+         break;
+ 
+diff --git a/xen/include/acpi/cpufreq/cpufreq.h b/xen/include/acpi/cpufreq/cpufreq.h
+index a6fb10ea27..3c2b951830 100644
+--- a/xen/include/acpi/cpufreq/cpufreq.h
++++ b/xen/include/acpi/cpufreq/cpufreq.h
+@@ -253,6 +253,16 @@ void cpufreq_dbs_timer_resume(void);
+ 
+ void intel_feature_detect(struct cpufreq_policy *policy);
+ 
++/*
++ * If Energy Performance Preference(epp) is supported in the platform,
++ * OSPM may write a range of values from 0(performance preference)
++ * to 0xFF(energy efficiency perference) to control the platform's
++ * energy efficiency and performance optimization policies
++ */
++#define CPPC_ENERGY_PERF_MAX_PERFORMANCE 0
++#define CPPC_ENERGY_PERF_BALANCE         0x80
++#define CPPC_ENERGY_PERF_MAX_POWERSAVE   0xff
 +
-+       /*
-+        * Only when cpufreq_driver.setpolicy == NULL, we need to deliberately
-+        * set old gov as NULL to trigger the according gov starting.
-+        */
-+       if ( cpufreq_driver.setpolicy == NULL )
-+            policy->governor = NULL;
- 
-         cpufreq_cmdline_common_para(&new_policy);
- 
+ int hwp_cmdline_parse(const char *s, const char *e);
+ int hwp_register_driver(void);
+ #ifdef CONFIG_INTEL
 -- 
 2.34.1
 
