@@ -2,29 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 547F7A544E7
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 09:31:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.903089.1311009 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8A51A5451D
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 09:40:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.903104.1311043 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tq6dD-000166-Py; Thu, 06 Mar 2025 08:31:03 +0000
+	id 1tq6mP-000372-6v; Thu, 06 Mar 2025 08:40:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 903089.1311009; Thu, 06 Mar 2025 08:31:03 +0000
+Received: by outflank-mailman (output) from mailman id 903104.1311043; Thu, 06 Mar 2025 08:40:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tq6dD-00014L-N6; Thu, 06 Mar 2025 08:31:03 +0000
-Received: by outflank-mailman (input) for mailman id 903089;
- Thu, 06 Mar 2025 08:31:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Z0IF=VZ=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1tq6dB-000147-Fp
- for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 08:31:02 +0000
-Received: from mail-40133.protonmail.ch (mail-40133.protonmail.ch
- [185.70.40.133]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 54d160b9-fa65-11ef-9ab4-95dc52dad729;
- Thu, 06 Mar 2025 09:30:59 +0100 (CET)
+	id 1tq6mP-00034D-3l; Thu, 06 Mar 2025 08:40:33 +0000
+Received: by outflank-mailman (input) for mailman id 903104;
+ Thu, 06 Mar 2025 08:40:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jWYO=VZ=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
+ id 1tq6mO-00031D-04
+ for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 08:40:32 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20631.outbound.protection.outlook.com
+ [2a01:111:f403:200a::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a4c32f27-fa66-11ef-9898-31a8f345e629;
+ Thu, 06 Mar 2025 09:40:24 +0100 (CET)
+Received: from CH0PR13CA0040.namprd13.prod.outlook.com (2603:10b6:610:b2::15)
+ by BL1PR12MB5707.namprd12.prod.outlook.com (2603:10b6:208:386::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.19; Thu, 6 Mar
+ 2025 08:40:17 +0000
+Received: from CH1PEPF0000AD79.namprd04.prod.outlook.com
+ (2603:10b6:610:b2:cafe::c0) by CH0PR13CA0040.outlook.office365.com
+ (2603:10b6:610:b2::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.11 via Frontend Transport; Thu,
+ 6 Mar 2025 08:40:16 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH1PEPF0000AD79.mail.protection.outlook.com (10.167.244.57) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8511.15 via Frontend Transport; Thu, 6 Mar 2025 08:40:16 +0000
+Received: from penny-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Thu, 6 Mar 2025 02:40:13 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,253 +56,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 54d160b9-fa65-11ef-9ab4-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1741249857; x=1741509057;
-	bh=YFyaLrqSiCCFniO/I2nJRPjvCkxdXPJhz62XjF8z71o=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=T1aI1AKTXvjyvBh25hu//JbTDvWQJUk7Eouy7hbQMBOhRGRIjlTNPPlC4O/J03XHN
-	 DaPEjGAI9/6Sf+Hmksslaxm/TkaZtwdB9x8x2LB7wf2QkBI+J5roBQDDWNC3IKY4Gz
-	 XHtjX8P/Q0peSoqXB+zVj5Ox9sg3xqZngkt9xtTqe30hcHqfcttlL1+T2Hv4KH65aZ
-	 D1l2Fxray68RD54rxu85yfcI0apQ2poTY78WcH70UGPVIY/uIAH5EcDFgXatTV3vr2
-	 nAKTbuaVoB41JfHCcesjA2W5kT3kWst2+8Pag7YUXClPBTbhA/5TQ/TOkAaI6O3gJR
-	 WuOm1TKBu52fQ==
-Date: Thu, 06 Mar 2025 08:30:56 +0000
-To: xen-devel@lists.xenproject.org
-From: Denis Mukhin <dmkhn@proton.me>
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: Re: [PATCH] x86/hvm: add HVM-specific Kconfig
-Message-ID: <l7VrqyY3R3PrPx3l69-NmwHS5NT5kBg2L5I3AnPuKVThmoX5m2mf6tApmmqtbz_9_9JRP6AibnKCQ4eWMue4RcONkseCpAIJwBX3s3n9Fvw=@proton.me>
-In-Reply-To: <20250207220302.4190210-1-dmukhin@ford.com>
-References: <20250207220302.4190210-1-dmukhin@ford.com>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 1aec2f7bbbdb3b84a3698e6e7e8f20417ced16cf
+X-Inumbo-ID: a4c32f27-fa66-11ef-9898-31a8f345e629
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lR1vijV7JzXvl5EUAAjeT2GUawPMi4dkiVUQp+h7kHzTBeAuxgf6yH9Siu0cNFu2cT4j9dk6c3O3jrSjY3YqA8mB3uUuUxAbg4QuCuwWfgpzb9N/POLJ2OgByisTCzLHH7x35WtVMw39lsCjRwMJNh7Zt4GQb8v+rETI6GKTomHzk0CYNLrm2W5Wu1WN2Ku8BlFG7nr6Bu6BlIgrIesugowVhHELShTM5Wbr2rUVpxkxCNyKNzcf3EHUf5YDfft7W/2fRvLpfNNZ7usZRxuk7sp5dZLWIdt5KQVJvyzxKUCamQPnc0y/vedFR9Uj5zybkXBioJ+ixgCav0z6K+1DWg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xLa4URw5/fSo6XciW9nbnUXzZVf1ijPFAaF6bNSCkw4=;
+ b=QG5XzR7h9ZrnWi/3zI4qN6p1CG5CuoWgEK6qgRSCgZbWVvWWS3vcOfhWJIdkPmGXmetrP9afgSMzExsK4uAKpg+KGQBdwi2sEqXVV3STAnfG64pT1DO5rvElJR9anvwd6ZEBfi6nakvZJ8MYwsUK1u/sIPZZgB5BPkhc9kLj2dt0Mfn+XBVypUbG9WmT1FR7zk179jfDBx7DKAN9VHsYEW816pSSom6UtJk9SHgUjI8Esi40vbhPxuEMJQevwT8VtibKHoIchu8+ib/LoDmHEvLt5k5riDYm5jIVB5E52a8GgWHZr8NzUPlOgkq9zCMbvW38wuCRsWgQkXqza0wErA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xLa4URw5/fSo6XciW9nbnUXzZVf1ijPFAaF6bNSCkw4=;
+ b=Jvbsu3Zk06TI6ksL3gPdaS3xKxga1ziYDLv+3r8nmpbu8JXom9/ek+8M7oEcogQ2HlcYy6CpXMl6VfP/pf6i2bz5w75k3olka1JHO2wDFHoYJiubRthONr84EH3C/4fSRa/ZpFNayjuO+rBBhXAuCb6Gm8XMTknaI83QrWFjmTs=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Penny Zheng <Penny.Zheng@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <ray.huang@amd.com>, Penny Zheng <Penny.Zheng@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
+ Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+	"Juergen Gross" <jgross@suse.com>
+Subject: [PATCH v3 00/15] amd-cppc CPU Performance Scaling Driver
+Date: Thu, 6 Mar 2025 16:39:34 +0800
+Message-ID: <20250306083949.1503385-1-Penny.Zheng@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD79:EE_|BL1PR12MB5707:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3785c4aa-33b5-4005-488f-08dd5c8a853c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|1800799024|376014|82310400026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?X0kjspoYMBJcYzo/vVBdbNal+NzSENSz7X62BilbNjXDmJsfjzSqWAymy5zg?=
+ =?us-ascii?Q?yEUCMz/MjXUvo2P4oVBDDRGIdvvJtgmcJcN3ngz2cXklhjntI7fofNELH+01?=
+ =?us-ascii?Q?tcolsJSCFEtU1yIZNm2SYr27xtuLYDU99m74fdrPBsFrpBbpKGwL1oTsFk60?=
+ =?us-ascii?Q?HhYlqZqGxso8qYDY+tIKctMO4dmVrL0eEJkgz6RXo6jdsVPmdRU1NFBCncm9?=
+ =?us-ascii?Q?ZH6ZoXWzMxFWdV5EW40bbNS9gcczZ3p4wJDzi6dRpc/BI2TIbiMqsuQ0MqrL?=
+ =?us-ascii?Q?2BV1fCu6ZgiHrCDh6DEC/a1vQL+MRT1nqmj0KCErXGjDRzydcYpDOql6g2TV?=
+ =?us-ascii?Q?OYuM5EAkbvoDiBCAdBiLHWttQzVRz0yeP/NgGf1IT4FNYkPJKXvVbA2Rpnpn?=
+ =?us-ascii?Q?pr2oIcv5jUZmcJ2UMGWT4UtDCvvEAOSwFnvXvSnn+vrWXqsysADK9B2pRw54?=
+ =?us-ascii?Q?K338A7iB5L/pQgJ/MV4pkUAyXKpNfjrMKMyRtoyciA9sqpyiTWSLwK9CYyHZ?=
+ =?us-ascii?Q?DwiKZ0auaR2ae5Zr0c5h7BTeIH1SMiU1ZxuQbDZ7e4xxUXpc1yGe5WEqQA76?=
+ =?us-ascii?Q?txQWgGZcEDAH73/JuNftUBBa2GT1nePGrEbu6l0AavVjErgysCj5FfZd5tu5?=
+ =?us-ascii?Q?GIxaiAzTmdWRCPwiFzGGEDpLnuvb2iGlolydlA0YtCcqnXqAeRik4lPY3xKs?=
+ =?us-ascii?Q?YLfHq0j5++jJz/9vJTwSbF6lO5dHHn9ZQ0xaeuyRiwKSy3450qWvRG7se+28?=
+ =?us-ascii?Q?/lSMMSV0Mel2w+zXx3TiC8FwuECr9vncBUKuMKrFOmbyUfSiFSZHrYogpAho?=
+ =?us-ascii?Q?tZDMmhkEi+iQ/h95pnxx4ofnuTNJsV6aNquxFz4F9MNRXE5HZG0pXqYAW24z?=
+ =?us-ascii?Q?c8QOnFDytyu2t0GEx5KAqCrQfO33KMFz67PUDXKYZdSEi+xKkULxppymuayL?=
+ =?us-ascii?Q?quLJUce2B10rR1zAzoC6a8ePvr8UEVDDVq681E4gRIJTAGn5ekQ64tum3Dt+?=
+ =?us-ascii?Q?JcTjBZTxBzkmeKc/9152jOO2opdOtycznKISY6F6NOkS6mRBtS0vGD7EH6BS?=
+ =?us-ascii?Q?dSMxdF1V8Bm5pnpMj7eNaFQlVnGfwJIgw/AsAsRZ++LaO099eOPegtpXSG5Q?=
+ =?us-ascii?Q?9AsNHB/wwWNs7pP9SjjOLqeTH5Irx9M2U7bMkhvTzuf6OakoLhQxwj1YslBq?=
+ =?us-ascii?Q?bdG5OximX2ifrLsMjXQWBXwvuUJLwSrPR/VJ3Ot8RhIBdUg3LBOR7/BG2Vr9?=
+ =?us-ascii?Q?JGa6OaxDal6fam6BCHVo8mBQSfPa3z1GMzxgloPGm6a1zBw04ksxlezCtGpz?=
+ =?us-ascii?Q?GuY+13GOvEU2EvCbVagOi4Cehz6AxpIg2szeVLV+cf0lOVNpIe+wE9Dz777M?=
+ =?us-ascii?Q?8gUMS4zjFb/sPWwXlhWErSvM8u1CDsmH9cgLDDz/Tgu/RxpaMpNPNOOSuRgL?=
+ =?us-ascii?Q?r83rtqmxlASGYHIVQ2Jy+5mfjTLBhQW1m8ebKLXMBdP17XAWKzWiWFy72AZl?=
+ =?us-ascii?Q?umYPg3IAVRxxlrI=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2025 08:40:16.6261
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3785c4aa-33b5-4005-488f-08dd5c8a853c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000AD79.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5707
 
-On Friday, February 7th, 2025 at 2:03 PM, dmkhn@proton.me <dmkhn@proton.me>=
- wrote:
+amd-cppc is the AMD CPU performance scaling driver that introduces a
+new CPU frequency control mechanism on modern AMD APU and CPU series in
+Xen. The new mechanism is based on Collaborative Processor Performance
+Control (CPPC) which provides finer grain frequency management than
+legacy ACPI hardware P-States. Current AMD CPU/APU platforms are using
+the ACPI P-states driver to manage CPU frequency and clocks with
+switching only in 3 P-states. CPPC replaces the ACPI P-states controls
+and allows a flexible, low-latency interface for Xen to directly
+communicate the performance hints to hardware.
 
->=20
->=20
-> Add separate menu for configuring HVM build-time settings to help organiz=
-ing
-> HVM-specific options.
->=20
-> Signed-off-by: Denis Mukhin dmukhin@ford.com
+amd_cppc driver has 2 operation modes: autonomous (active) mode,
+and non-autonomous (passive) mode. We register different CPUFreq driver
+for different modes, "amd-cppc" for passive mode and "amd-cppc-epp"
+for active mode.
 
-Can I get a review please?
+The passive mode leverages common governors such as *ondemand*,
+*performance*, etc, to manage the performance hints. And the active mode
+uses epp to provides a hint to the hardware if software wants to bias
+toward performance (0x0) or energy efficiency (0xff). CPPC power algorithm
+in hardware will automatically calculate the runtime workload and adjust the
+realtime cpu cores frequency according to the power supply and thermal, core
+voltage and some other hardware conditions.
 
->=20
->=20
-> ---
-> Link to the original patch:
-> https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v3-v1-20-c5d36b31=
-d66c@ford.com/
-> ---
-> ---
-> xen/arch/x86/Kconfig | 76 +---------------------------------------
-> xen/arch/x86/hvm/Kconfig | 73 ++++++++++++++++++++++++++++++++++++++
-> 2 files changed, 74 insertions(+), 75 deletions(-)
-> create mode 100644 xen/arch/x86/hvm/Kconfig
->=20
-> diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-> index 9cdd04721a..37362c205d 100644
-> --- a/xen/arch/x86/Kconfig
-> +++ b/xen/arch/x86/Kconfig
-> @@ -30,7 +30,6 @@ config X86
-> select HAS_SCHED_GRANULARITY
-> select HAS_UBSAN
-> select HAS_VMAP
-> - select HAS_VPCI if HVM
-> select NEEDS_LIBELF
->=20
-> config ARCH_DEFCONFIG
-> @@ -107,42 +106,7 @@ config PV_LINEAR_PT
->=20
-> If unsure, say Y.
->=20
-> -config HVM
-> - bool "HVM support"
-> - depends on !PV_SHIM_EXCLUSIVE
-> - default !PV_SHIM
-> - select COMPAT
-> - select IOREQ_SERVER
-> - select MEM_ACCESS_ALWAYS_ON
-> - help
-> - Interfaces to support HVM domains. HVM domains require hardware
-> - virtualisation extensions (e.g. Intel VT-x, AMD SVM), but can boot
-> - guests which have no specific Xen knowledge.
-> -
-> - This option is needed if you want to run HVM or PVH domains.
-> -
-> - If unsure, say Y.
-> -
-> -config AMD_SVM
-> - bool "AMD-V" if EXPERT
-> - depends on HVM
-> - default y
-> - help
-> - Enables virtual machine extensions on platforms that implement the
-> - AMD Virtualization Technology (AMD-V).
-> - If your system includes a processor with AMD-V support, say Y.
-> - If in doubt, say Y.
-> -
-> -config INTEL_VMX
-> - bool "Intel VT-x" if EXPERT
-> - depends on HVM
-> - default y
-> - select ARCH_VCPU_IOREQ_COMPLETION
-> - help
-> - Enables virtual machine extensions on platforms that implement the
-> - Intel Virtualization Technology (Intel VT-x).
-> - If your system includes a processor with Intel VT-x support, say Y.
-> - If in doubt, say Y.
-> +source "arch/x86/hvm/Kconfig"
->=20
-> config XEN_SHSTK
-> bool "Supervisor Shadow Stacks"
-> @@ -201,25 +165,6 @@ config BIGMEM
->=20
-> If unsure, say N.
->=20
-> -config HVM_FEP
-> - bool "HVM Forced Emulation Prefix support (UNSUPPORTED)" if UNSUPPORTED
-> - default DEBUG
-> - depends on HVM
-> - help
-> -
-> - Compiles in a feature that allows HVM guest to arbitrarily
-> - exercise the instruction emulator.
-> -
-> - This feature can only be enabled during boot time with
-> - appropriate hypervisor command line option. Please read
-> - hypervisor command line documentation before trying to use
-> - this feature.
-> -
-> - This is strictly for testing purposes, and not appropriate
-> - for use in production.
-> -
-> - If unsure, say N.
-> -
-> config TBOOT
-> bool "Xen tboot support (UNSUPPORTED)"
-> depends on INTEL && UNSUPPORTED
-> @@ -348,14 +293,6 @@ config HYPERV_GUEST
->=20
-> endif
->=20
-> -config MEM_PAGING
-> - bool "Xen memory paging support (UNSUPPORTED)" if UNSUPPORTED
-> - depends on HVM
-> -
-> -config MEM_SHARING
-> - bool "Xen memory sharing support (UNSUPPORTED)" if UNSUPPORTED
-> - depends on HVM
-> -
-> config REQUIRE_NX
-> bool "Require NX (No eXecute) support"
-> help
-> @@ -372,17 +309,6 @@ config REQUIRE_NX
-> was unavailable. However, if enabled, Xen will no longer boot on
-> any CPU which is lacking NX support.
->=20
-> -config ALTP2M
-> - bool "Alternate P2M support" if EXPERT
-> - depends on INTEL_VMX
-> - default y
-> - help
-> - Alternate-p2m allows a guest to manage multiple p2m guest physical
-> - "memory views" (as opposed to a single p2m).
-> - Useful for memory introspection.
-> -
-> - If unsure, stay with defaults.
-> -
-> endmenu
->=20
-> source "common/Kconfig"
-> diff --git a/xen/arch/x86/hvm/Kconfig b/xen/arch/x86/hvm/Kconfig
-> new file mode 100644
-> index 0000000000..cbfeb5e4f4
-> --- /dev/null
-> +++ b/xen/arch/x86/hvm/Kconfig
-> @@ -0,0 +1,73 @@
-> +menuconfig HVM
-> + bool "HVM support"
-> + depends on !PV_SHIM_EXCLUSIVE
-> + default !PV_SHIM
-> + select COMPAT
-> + select HAS_VPCI
-> + select IOREQ_SERVER
-> + select MEM_ACCESS_ALWAYS_ON
-> + help
-> + Interfaces to support HVM domains. HVM domains require hardware
-> + virtualisation extensions (e.g. Intel VT-x, AMD SVM), but can boot
-> + guests which have no specific Xen knowledge.
-> +
-> + This option is needed if you want to run HVM or PVH domains.
-> +
-> + If unsure, say Y.
-> +
-> +if HVM
-> +
-> +config AMD_SVM
-> + bool "AMD-V" if EXPERT
-> + default y
-> + help
-> + Enables virtual machine extensions on platforms that implement the
-> + AMD Virtualization Technology (AMD-V).
-> + If your system includes a processor with AMD-V support, say Y.
-> + If in doubt, say Y.
-> +
-> +config INTEL_VMX
-> + bool "Intel VT-x" if EXPERT
-> + default y
-> + select ARCH_VCPU_IOREQ_COMPLETION
-> + help
-> + Enables virtual machine extensions on platforms that implement the
-> + Intel Virtualization Technology (Intel VT-x).
-> + If your system includes a processor with Intel VT-x support, say Y.
-> + If in doubt, say Y.
-> +
-> +config ALTP2M
-> + bool "Alternate P2M support" if EXPERT
-> + depends on INTEL_VMX
-> + default y
-> + help
-> + Alternate-p2m allows a guest to manage multiple p2m guest physical
-> + "memory views" (as opposed to a single p2m).
-> + Useful for memory introspection.
-> +
-> + If unsure, stay with defaults.
-> +
-> +config MEM_PAGING
-> + bool "Xen memory paging support (UNSUPPORTED)" if UNSUPPORTED
-> +
-> +config MEM_SHARING
-> + bool "Xen memory sharing support (UNSUPPORTED)" if UNSUPPORTED
-> +
-> +config HVM_FEP
-> + bool "HVM Forced Emulation Prefix support (UNSUPPORTED)" if UNSUPPORTED
-> + default DEBUG
-> + help
-> + Compiles in a feature that allows HVM guest to arbitrarily
-> + exercise the instruction emulator.
-> +
-> + This feature can only be enabled during boot time with
-> + appropriate hypervisor command line option. Please read
-> + hypervisor command line documentation before trying to use
-> + this feature.
-> +
-> + This is strictly for testing purposes, and not appropriate
-> + for use in production.
-> +
-> + If unsure, say N.
-> +
-> +endif
-> --
-> 2.34.1
+amd-cppc is enabled on passive mode with a top-level `cpufreq=amd-cppc` option,
+while users add extra `active` flag to select active mode.
+
+With `cpufreq=amd-cppc,active`, we did a 60s sampling test to see the CPU
+frequency change, through tweaking the energy_perf preference from
+`xenpm set-cpufreq-cppc powersave` to `xenpm set-cpufreq-cppc performance`.
+The outputs are as follows:
+```
+Setting CPU in powersave mode
+Sampling and Outputs:
+  Avg freq      2000000 KHz
+  Avg freq      2000000 KHz
+  Avg freq      2000000 KHz
+Setting CPU in performance mode
+Sampling and Outputs:
+  Avg freq      4640000 KHz
+  Avg freq      4220000 KHz
+  Avg freq      4640000 KHz
+
+Penny Zheng (15):
+  xen/cpufreq: introduces XEN_PM_PSD for solely delivery of _PSD
+  xen/x86: introduce new sub-hypercall to propagate CPPC data
+  xen/cpufreq: refactor cmdline "cpufreq=xxx"
+  xen/cpufreq: move XEN_PROCESSOR_PM_xxx to internal header
+  xen/x86: introduce "cpufreq=amd-cppc" xen cmdline
+  xen/cpufreq: disable px statistic info in amd-cppc mode
+  xen/cpufreq: fix core frequency calculation for AMD Family 1Ah CPUs
+  xen/amd: export processor max frequency value
+  xen/x86: introduce a new amd cppc driver for cpufreq scaling
+  xen/cpufreq: only set gov NULL when cpufreq_driver.setpolicy is NULL
+  xen/cpufreq: abstract Energy Performance Preference value
+  xen/x86: implement EPP support for the amd-cppc driver in active mode
+  tools/xenpm: Print CPPC parameters for amd-cppc driver
+  xen/xenpm: Adapt cpu frequency monitor in xenpm
+  xen/cpufreq: Adapt SET/GET_CPUFREQ_CPPC xen_sysctl_pm_op for amd-cppc
+    driver
+
+ docs/misc/xen-command-line.pandoc         |  27 +-
+ tools/libs/ctrl/xc_pm.c                   |  12 +-
+ tools/misc/xenpm.c                        |  23 +-
+ xen/arch/x86/acpi/cpufreq/Makefile        |   1 +
+ xen/arch/x86/acpi/cpufreq/acpi.c          |  14 +-
+ xen/arch/x86/acpi/cpufreq/amd-cppc.c      | 681 ++++++++++++++++++++++
+ xen/arch/x86/acpi/cpufreq/cpufreq.c       |  34 +-
+ xen/arch/x86/acpi/cpufreq/hwp.c           |  10 +-
+ xen/arch/x86/acpi/cpufreq/powernow.c      |   2 +-
+ xen/arch/x86/cpu/amd.c                    |  37 +-
+ xen/arch/x86/include/asm/amd.h            |   1 +
+ xen/arch/x86/include/asm/msr-index.h      |   5 +
+ xen/arch/x86/platform_hypercall.c         |  25 +
+ xen/arch/x86/pv/dom0_build.c              |   1 -
+ xen/arch/x86/setup.c                      |   1 +
+ xen/arch/x86/x86_64/cpufreq.c             |   4 +
+ xen/common/domain.c                       |   1 +
+ xen/drivers/acpi/pmstat.c                 |  54 +-
+ xen/drivers/cpufreq/cpufreq.c             | 258 +++++---
+ xen/drivers/cpufreq/cpufreq_ondemand.c    |   2 +-
+ xen/drivers/cpufreq/utility.c             |  18 +
+ xen/include/acpi/cpufreq/cpufreq.h        |  31 +
+ xen/include/acpi/cpufreq/processor_perf.h |  18 +-
+ xen/include/public/platform.h             |  38 +-
+ xen/include/public/sysctl.h               |   2 +
+ xen/include/public/xen.h                  |   1 -
+ xen/include/xen/pmstat.h                  |   4 +
+ xen/include/xlat.lst                      |   3 +-
+ 28 files changed, 1160 insertions(+), 148 deletions(-)
+ create mode 100644 xen/arch/x86/acpi/cpufreq/amd-cppc.c
+
+-- 
+2.34.1
+
 
