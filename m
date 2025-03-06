@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CC11A55972
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 23:13:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.904124.1312096 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34324A559F1
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 23:40:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.904155.1312116 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqJT1-0008NN-8U; Thu, 06 Mar 2025 22:13:23 +0000
+	id 1tqJsS-0003R2-C8; Thu, 06 Mar 2025 22:39:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 904124.1312096; Thu, 06 Mar 2025 22:13:23 +0000
+Received: by outflank-mailman (output) from mailman id 904155.1312116; Thu, 06 Mar 2025 22:39:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqJT1-0008Lu-5d; Thu, 06 Mar 2025 22:13:23 +0000
-Received: by outflank-mailman (input) for mailman id 904124;
- Thu, 06 Mar 2025 22:13:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tqJsS-0003Oi-91; Thu, 06 Mar 2025 22:39:40 +0000
+Received: by outflank-mailman (input) for mailman id 904155;
+ Thu, 06 Mar 2025 22:39:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0N12=VZ=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1tqJT0-0008Lo-JF
- for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 22:13:22 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20612.outbound.protection.outlook.com
- [2a01:111:f403:2413::612])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 359bc024-fad8-11ef-9898-31a8f345e629;
- Thu, 06 Mar 2025 23:13:20 +0100 (CET)
-Received: from BL1PR13CA0104.namprd13.prod.outlook.com (2603:10b6:208:2b9::19)
- by CYYPR12MB9014.namprd12.prod.outlook.com (2603:10b6:930:bf::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.17; Thu, 6 Mar
- 2025 22:13:13 +0000
-Received: from MN1PEPF0000F0DF.namprd04.prod.outlook.com
- (2603:10b6:208:2b9:cafe::5a) by BL1PR13CA0104.outlook.office365.com
- (2603:10b6:208:2b9::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.11 via Frontend Transport; Thu,
- 6 Mar 2025 22:13:13 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000F0DF.mail.protection.outlook.com (10.167.242.37) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8511.15 via Frontend Transport; Thu, 6 Mar 2025 22:13:13 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 6 Mar
- 2025 16:13:12 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 6 Mar
- 2025 16:13:12 -0600
-Received: from fedora.mshome.net (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Thu, 6 Mar 2025 16:13:12 -0600
+ <SRS0=YZnl=VZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tqJsR-0003Oc-0F
+ for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 22:39:39 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e252b1dc-fadb-11ef-9ab4-95dc52dad729;
+ Thu, 06 Mar 2025 23:39:37 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-43bc48ff815so7975625e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Mar 2025 14:39:37 -0800 (PST)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43bdd94913fsm31472515e9.37.2025.03.06.14.39.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 06 Mar 2025 14:39:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,193 +45,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 359bc024-fad8-11ef-9898-31a8f345e629
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oxp0p9dOU+3BOeAvjM5QmSANGC0xDaghUTvzLeiQSCrRLawmtYvhOxx2mDPyv6R/KsnkU0+cvNSFMH8n+QOnE21q6z0I1IUkn8pl5/1LSjo2lBX51Lxr1yAJwc5G531osCZIdP7I1sL20ZGZR7XMk5qd9P8GpprEoU2lZzKdM8oteNBFUnTmnE1u47hFzkr8p2gtUw4WRi4CXw0NqVZqIFSrpzEGOr3fyPb6JV5oJC5zUpRLgCDU2Yt6JnZgg4J0gx0x5FS2wH88IdPyIdHnU/6ndR0cML7BSdwa00gGoshtRt+n8bW3REfR2MVGa2il/BouOHURxiN5a6+GNwNS2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TaJNdntK/qgZ8HTPyL3RyCw3rWdNqE2r7A8d00ZRWjw=;
- b=kjKk4o+FLd889ZdP8LUjdnu503JYod2KLMynhPBHeHvhjeePuePiuIJdPNbMMBs94dG2sE1+Q7VtOTvFtrELrS7OVO/mXALIKc3FLp3ho6ACe6tfUSW+UWEXeQDO0GRzKAPPu0bqRDM8IHD2WudMROwiX5rWCNUFrnI6W+wMYp4J1LdvAKrfc360xK5oyco/a8Z8uAnyvdZoupHEdI951BfPd7pBwpaCM6AkN0d2ahqYk3z5EFf05zjp9hUO4CecDOVUm7UtMkHH9n63sVinEv3uMsYm8zx4N47TOMJvNyuvqQxKxHcseohXPQVJHs3cnkfwVzrqoWqVQpefbntqAQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TaJNdntK/qgZ8HTPyL3RyCw3rWdNqE2r7A8d00ZRWjw=;
- b=dmL9czB37yVgk5CzEIXEfiuFxkIKez+NO0OpIENMIP4wbaWixlRYHBIDnToJSzIBVGRuCSR0zeKGeEpbUHKa9LTj+HP2L8gY2+YLfymegmYEtSEyXykYjs7rFrMKfAHX5nuDabYvTWSDlRH2rr1W0UvB0cCD33xUGgDKeS0T9VI=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Jason Andryuk <jason.andryuk@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Michal Orzel
-	<michal.orzel@amd.com>, Jason Andryuk <jason.andryuk@amd.com>
-Subject: [IMAGEBUILDER PATCH] Add domain capabilities
-Date: Thu, 6 Mar 2025 17:13:10 -0500
-Message-ID: <20250306221310.203221-1-jason.andryuk@amd.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250306220343.203047-1-jason.andryuk@amd.com>
-References: <20250306220343.203047-1-jason.andryuk@amd.com>
+X-Inumbo-ID: e252b1dc-fadb-11ef-9ab4-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1741300777; x=1741905577; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=URkZIt9aNGkAepz09WJxJ+Xvv5GX00VbOGGfRXjdOFQ=;
+        b=CIVD6TziPPellNTiT0U8VP78rOEzhVEape65c08Q/1i55Gtxguta/L3Mx2qcIL7/Ta
+         2ad7g1ZR0xNgKdnVbCJT0DL5MqghjDSP4Cnb6N6AFrEiro01n+/lHzUt8I4bzce0EzQ9
+         gQZHJdbHIFcnVlh50CBR04EGTNXVtx9BvH074=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1741300777; x=1741905577;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=URkZIt9aNGkAepz09WJxJ+Xvv5GX00VbOGGfRXjdOFQ=;
+        b=T6plhOHq5SZ1arGsuoeSozV0bNHXQiT0Ds3RBosPpCKshGWqtakIWsfPeuoW3DM8Ck
+         VrHKo5VROjXLCg1FwPDMrPCmrfa+GFBSu6Mz3ZG0VODsNjxXKwxFASDBBDCVCPJzlVfU
+         MDFcWaDv+4sWvN30WzSzxqqAR1Dgt5iEWe08p3Dd0KZNAR7VNEZ2Z5Aj9jCGV0rCoQtw
+         hY8QBLhpT75myxSkO376xSS6Ys7yzgxY5Qf/E9Xyw/UwUVDDW9Ne5sTO5BqoI8cyJ0ce
+         JPeVC1Pp/qqQ/pLlxaTJ0DzqdEWcDlxvh1IpYmKBjKXDCK8LLTTvk9DMFPM/XBqqPMrq
+         E5NA==
+X-Forwarded-Encrypted: i=1; AJvYcCUWptx0MXtI8XEPn3RdTAOCeMQzRumQeK06g7/oZ1Mbc4UQHWZ+6jD0RIENw7X3RUW8+qbz/nOydKA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwJTKQVtku6xonjrRn74aWg1GSAPNJa07rEiWgwtgB82SkTFGtJ
+	xyvlI1awZmA0HVXLczyKb2Shw1DmDkypSRy8hZCjJe28IDz8pA33riXrmf+OyRw=
+X-Gm-Gg: ASbGnctvM9On5NHYtO3FrdMrkeEBpNl+GAgSoXVjsNoh8xnJ7k0R0Xfw70G9AeXN66l
+	tNe/c6YnsRNHGOWb+AuSITssRgDakmknLwVjdqjopfXZJtS9wWhEWu2zqtpY5u1fdXE0OUN+3On
+	LtBG+6ZI++44CYfeYmI6ToZFv+yeBsViEZU94je4RWLkjLImoBgQWbNxVmltPkwvQt9WO7r4Mvt
+	7Ke630gCqA0k5ofBSJ9b4LgYDzcT+u+Yq4HZsIL5wciiXgz0i+sdWIs8rMTj6LWig9ZyucJ/Vda
+	8hOI8Ly/qAgfq8B/B0GbKbL4tRpxvsGDncSQOkFz55b3iRz8Z/RVuwB4yvcwNLEUc1AkMqg74CG
+	ttsW8xFUQ
+X-Google-Smtp-Source: AGHT+IE+BdwaO9nPG6A5mHSq3Cuh3FcesrApG8m8kDqRF6n0Y6dBYUDUOmjw4GDsnjqHgNvcFBNjKg==
+X-Received: by 2002:a05:600c:474b:b0:439:9434:4f3b with SMTP id 5b1f17b1804b1-43c5a61b6c6mr8311535e9.8.1741300776940;
+        Thu, 06 Mar 2025 14:39:36 -0800 (PST)
+Message-ID: <eca6c919-043b-4e7b-a04d-639406ca1332@citrix.com>
+Date: Thu, 6 Mar 2025 22:39:35 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/23] xen: introduce hardware domain create flag
+To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20250306220343.203047-1-jason.andryuk@amd.com>
+ <20250306220343.203047-2-jason.andryuk@amd.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20250306220343.203047-2-jason.andryuk@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0DF:EE_|CYYPR12MB9014:EE_
-X-MS-Office365-Filtering-Correlation-Id: 29e7cdd9-9b92-4405-479a-08dd5cfc1666
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|376014|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?tKg3Mp6O2AHCEGkPbejtEUQUKfOFiEwb18kWWhBCAfA2XzExs/CijzCchfF8?=
- =?us-ascii?Q?UFUtuIDrvEt9xikxrjW93OHhj3+6u6ItRZDx/c+4fcLE8i6rXqN3Egz8fwRG?=
- =?us-ascii?Q?ecZgAasVdM2TVzPQvTyVAjTFnBWap8zMd5xHjqfi9DWe0rpCEmqoSxEdG8ag?=
- =?us-ascii?Q?C9ItnrbM728bBPRMSO0wpSmK1iAALRxTRt4lr+N5D9N37rqHEZpIFyvEF1jD?=
- =?us-ascii?Q?YfOw+Hq8glLwcxfcXPFBaA2UcP9ie/7ftiKEIdsBP5H2I17g1Q/5tkGgqktF?=
- =?us-ascii?Q?cIKKQrw4GWEw7uUHUMkIpRoPgnth6JqHt+/gBglDCvGP/crfppxOjsTqCggU?=
- =?us-ascii?Q?AUtqwGlEkC1C4wTuEfzO028YhXjz3AJrbSDYvwh/qkiWUNLR1DTIQMR3f1bA?=
- =?us-ascii?Q?ohf/Rch5oOBqRWbICmOadUNIttTUE63POXanMlp0eJi4CGeXR5NZPbsIj4aU?=
- =?us-ascii?Q?2qSZB1cAMho00SPx7v/trqkJ9H1Co1H0NM/AbaBTW15GjYsOILvZa5R4fAvx?=
- =?us-ascii?Q?pRzXTxqOKVpE9Aod93AT1LvrThoGAY0KvMvvys+xEJLWtoD445aW+GP2RfGI?=
- =?us-ascii?Q?I/1aXM1vdR56b6sm1yV6jOKH/cYDa3a7qFrpH3n5JhFVe3dCb5YcTjx4PT3W?=
- =?us-ascii?Q?y4hZV2NFR450xWGhw1nsSlCEEufG0nP5tJlgwlXKxbD1yW5Z9yKiW6/9MBcR?=
- =?us-ascii?Q?7uGlgDT4DYqFnWHntSKIdsZon1o/ZIQNF1J0MmH3nSPVvOzIXu/9H0ZlI1d6?=
- =?us-ascii?Q?7yIOrGPrjjjx63fWJX8BXpDsofV5y+36JfFOsooWRKllETxU+r/sVv8tsqOU?=
- =?us-ascii?Q?CH5jW5Dku8wibijg11T5pX8+DLVO+/a4/NEdhVQQ/5aLC+hwL4CQGt0HUfpi?=
- =?us-ascii?Q?GOh5uACz1w/vXh6pZXpxiUtSGoKbWKOwLVTJ5jqDBjm9bbXwpH7MVd+qZNZf?=
- =?us-ascii?Q?4KvRC/gg7F5NLpKJRSQukTS/VfbAJcpHs8G3uqPVayfBWT4ByOf4lImbEYr3?=
- =?us-ascii?Q?hcgUGBUk/3/1+rQZeJUDBOAU1FriS7LuWuxF07//q9YTpNw6ul2IjR91ZOo4?=
- =?us-ascii?Q?Ss2rHaRgJBkvJXe46AUn0om2q3ftIpP5Jps/irPnpm0ozyuQhaQpFvLrOmfo?=
- =?us-ascii?Q?U7ilJqGod0y2SI5t2QKECbyd7yqt5zF+smLH3oa9EMnuw6qlK5wtwL5/2Mfc?=
- =?us-ascii?Q?aqIuEEusEoi28pknBeMLevMoV17Iq25oH6lPuoCaNSKR8Qwuju1On9tDgTmG?=
- =?us-ascii?Q?80R/f9vLhTmIbJt1BTRi1GfSKJT8uN7W90o133Wbhb46s5/kGhbAYDhRWJ7H?=
- =?us-ascii?Q?6ZfFUWyZ8IQymvHE3QpmOKJFHu7gp6q4ku89+Xq8z7cPxDTMsXNN+qYKdx3S?=
- =?us-ascii?Q?Orkwv50e1FV0qN+PSUwvTpUnWpqnYmVSfklpdwxzJqbnleYCIuTTYIviFFQx?=
- =?us-ascii?Q?CgHpzyGc1cEHwgG/YA8pbMsP5wBXjZ8m/zXYw6hBV0EcBhUNOdblXCoX027z?=
- =?us-ascii?Q?J156IDGNrLcq0UA=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2025 22:13:13.3325
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29e7cdd9-9b92-4405-479a-08dd5cfc1666
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000F0DF.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB9014
 
-Add domain capabilities to creating disaggregated systems.
+On 06/03/2025 10:03 pm, Jason Andryuk wrote:
+> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+>
+> Add and use a new internal create domain flag to specify the hardware
+> domain.  This removes the hardcoding of domid 0 as the hardware domain.
+>
+> This allows more flexibility with domain creation.
+>
+> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
 
-Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
----
- README.md                | 16 ++++++++++++++
- scripts/uboot-script-gen | 47 ++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 63 insertions(+)
+I definitely like the removal of the late_hwdom bodges.
 
-diff --git a/README.md b/README.md
-index ae2fdfd..25c9b6e 100644
---- a/README.md
-+++ b/README.md
-@@ -250,6 +250,22 @@ Where:
-   Set driver_domain in xl config file. This option is only available for
-   the disk_image script.
- 
-+- DOMU_CAPS[number] = "string" or "hex" (optional)
-+  A "|"-concatentated string of capabilities:
-+    - control
-+    - hardware
-+    - xenstore
-+    - dom0 (All of the above)
-+    - none
-+
-+  e.g. "control|hardware"
-+
-+  Or a numeric bitwise flags to specify domain capabilities:
-+  0: None
-+  1: Control
-+  2: Hardware
-+  4: Xenstore
-+
- - LINUX is optional but specifies the Linux kernel for when Xen is NOT
-   used.  To enable this set any LINUX\_\* variables and do NOT set the
-   XEN variable.
-diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
-index db2c011..397d73b 100755
---- a/scripts/uboot-script-gen
-+++ b/scripts/uboot-script-gen
-@@ -309,6 +309,43 @@ function add_device_tree_cpupools()
-     done
- }
- 
-+function parse_domain_caps()
-+{
-+    local caps_str="$1"
-+    local caps=0
-+
-+    for x in $( echo $caps_str | sed 's/|/ /g' | tr '[:upper:]' '[:lower:]' )
-+    do
-+        case "$x" in
-+        none)
-+            caps=$(( caps | 0 ))
-+            ;;
-+        control)
-+            caps=$(( caps | 0x1 ))
-+            ;;
-+        hardware)
-+            caps=$(( caps | 0x2 ))
-+            ;;
-+        xenstore)
-+            caps=$(( caps | 0x4 ))
-+            ;;
-+        dom0|domain0)
-+            caps=$(( caps | 0x7 ))
-+            ;;
-+        [0-9]*|0x[0-9a-fA-f]*)
-+            caps=$(( caps | $x ))
-+            ;;
-+        *)
-+            return 1
-+            ;;
-+        esac
-+    done
-+
-+    echo "$caps"
-+
-+    return 0
-+}
-+
- function xen_device_tree_editing()
- {
-     dt_set "/chosen" "#address-cells" "hex" "0x2"
-@@ -386,6 +423,16 @@ function xen_device_tree_editing()
-         then
-             dt_set "/chosen/domU$i" "max_maptrack_frames" "int" "${DOMU_MAPTRACK_FRAMES[i]}"
-         fi
-+        if test -n "${DOMU_CAPS[i]}"
-+        then
-+            local caps
-+
-+            if ! caps=$( parse_domain_caps ${DOMU_CAPS[i]} ) ; then
-+                echo "Invalid DOMU_CAPS[$i] \"${DOMU_CAPS[i]}\""
-+                cleanup_and_return_err
-+            fi
-+            dt_set "/chosen/domU$i" "capabilities" "int" "$caps"
-+        fi
- 
-         if test -n "${DOMU_SHARED_MEM[i]}"
-         then
--- 
-2.48.1
+However, there are several things to be aware of here.
 
+First, CDF_privileged probably wants renaming to CDF_control, now that
+CDF_hardware is being split out.
+
+Second, you've created a case where we can make multiple hardware
+domains, yet it is very much a singleton object from Xen's point of view.
+
+This might be ok it's addressed by later in the series.  One especially
+nasty bit of late_hwdom was how dom0 started as both, then the
+late_hwdom stole dom0's hw-ness.  I expect untangling this is more
+complicated than a single patch.
+
+But, by the end, I think we do need to have reasonable confidence that
+only a single domain can be constructed as the hardware domain.
+
+> diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
+> index 3de5635291..b5e82578c3 100644
+> --- a/xen/include/xen/domain.h
+> +++ b/xen/include/xen/domain.h
+> @@ -50,6 +50,8 @@ void arch_get_domain_info(const struct domain *d,
+>  #else
+>  #define CDF_staticmem            0
+>  #endif
+> +/* Is this the hardware? */
+> +#define CDF_hardware             (1U << 3)
+
+No, this one CDF flag isn't the hardware.  That would be the CPU we're
+running on.
+
+~Andrew
 
