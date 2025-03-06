@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37193A548C0
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 12:09:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.903355.1311287 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 575FAA548C3
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 12:09:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.903356.1311298 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tq964-0001MQ-Hv; Thu, 06 Mar 2025 11:09:00 +0000
+	id 1tq966-0001dg-Tf; Thu, 06 Mar 2025 11:09:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 903355.1311287; Thu, 06 Mar 2025 11:09:00 +0000
+Received: by outflank-mailman (output) from mailman id 903356.1311298; Thu, 06 Mar 2025 11:09:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tq964-0001KR-Er; Thu, 06 Mar 2025 11:09:00 +0000
-Received: by outflank-mailman (input) for mailman id 903355;
- Thu, 06 Mar 2025 11:08:59 +0000
+	id 1tq966-0001bW-Nd; Thu, 06 Mar 2025 11:09:02 +0000
+Received: by outflank-mailman (input) for mailman id 903356;
+ Thu, 06 Mar 2025 11:09:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jWYO=VZ=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1tq963-0000aa-1m
- for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 11:08:59 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20604.outbound.protection.outlook.com
- [2a01:111:f403:2418::604])
+ id 1tq964-0000aa-Rk
+ for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 11:09:00 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2060d.outbound.protection.outlook.com
+ [2a01:111:f403:2415::60d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6613471a-fa7b-11ef-9ab4-95dc52dad729;
- Thu, 06 Mar 2025 12:08:58 +0100 (CET)
-Received: from PH7PR17CA0008.namprd17.prod.outlook.com (2603:10b6:510:324::8)
- by CH3PR12MB7572.namprd12.prod.outlook.com (2603:10b6:610:144::17)
+ id 66f25704-fa7b-11ef-9ab4-95dc52dad729;
+ Thu, 06 Mar 2025 12:08:59 +0100 (CET)
+Received: from MW4PR03CA0005.namprd03.prod.outlook.com (2603:10b6:303:8f::10)
+ by MN6PR12MB8516.namprd12.prod.outlook.com (2603:10b6:208:46f::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.16; Thu, 6 Mar
- 2025 11:08:51 +0000
-Received: from CO1PEPF000066EB.namprd05.prod.outlook.com
- (2603:10b6:510:324:cafe::a2) by PH7PR17CA0008.outlook.office365.com
- (2603:10b6:510:324::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8511.17 via Frontend Transport; Thu,
- 6 Mar 2025 11:08:51 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.19; Thu, 6 Mar
+ 2025 11:08:53 +0000
+Received: from CO1PEPF000066E8.namprd05.prod.outlook.com
+ (2603:10b6:303:8f:cafe::76) by MW4PR03CA0005.outlook.office365.com
+ (2603:10b6:303:8f::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8511.16 via Frontend Transport; Thu,
+ 6 Mar 2025 11:08:53 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000066EB.mail.protection.outlook.com (10.167.249.7) with Microsoft
+ CO1PEPF000066E8.mail.protection.outlook.com (10.167.249.6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8511.15 via Frontend Transport; Thu, 6 Mar 2025 11:08:50 +0000
+ 15.20.8511.15 via Frontend Transport; Thu, 6 Mar 2025 11:08:53 +0000
 Received: from penny-System-Product-Name.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Thu, 6 Mar 2025 05:08:47 -0600
+ 15.1.2507.39; Thu, 6 Mar 2025 05:08:50 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6613471a-fa7b-11ef-9ab4-95dc52dad729
+X-Inumbo-ID: 66f25704-fa7b-11ef-9ab4-95dc52dad729
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RZvrj1ljjwHXUMZi/hrwY9TPxvLFIZqOc6kLrMMTxVp05w76hHfJoyD6Wrj2hot727o9tJ8TyWBQuj4kL+ATUD+ZBEUqZLo06F0nVm4k4QVe7RCslYXa1AtulH7rOl8pqW/vJUFyciv8eHWOrSk+6hYj1japyPVeu/QU5wZPqrYd6LotisYeztW7EsmGUvZdyt0mYLPA9/khcoG5a/4exHqs9Yy7S0Oea2FJOunMhoDxioZwSwCxOFU2N8VxF6RPx8N5ZD8jrHKI2tZaTxk1us5mHQ1YqBYIFGNH0vE+kjNX4Tc4tdJCx5Mc1NnTj2dOvyFyW89xNKuA/HYiFjYVmQ==
+ b=GWRF+dz6NCOStVi+W0bwP+VSnBvQixlqKnFteps8a6NgpQgxw2vLjVAJbStUdaR1+u2k7ixso01GPBPijl3Js53FSE8oT3AYMrhm9s/lMzBHe/2JE+pOS2dh82cy+zrNBkA1j8xsjBaBaR402+yjDahONectdSR9EMpYX2unMJFQJhnFEl3KcnVDcW6i6ou4sT+0HbqxpFKvJpRSk8oOxPRtNh/lP3KCE3A/uCrhGwgTIwvzJvHqSlER7D6ZSbUzzYvsKxJFhQ3nY6+qeGEWCIkXGSqUcuAuF5E6lIUN4N5NShX5mZQXVmPp2wgIQmSrmZLqflGVRCmy4PZro9smKg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Rq7vU9w3neS35oOjCAPGIVLiBLKO/J0X0LYCQ7COV/I=;
- b=Agp3roJv4dmsLRQ7BhM/z4aGGltWxwsu5TF+n8pjaTjUTj/3L+n2tXkH8EYe1sRVl5QMT7VoB/GqJG4D9dFC5w8hjY6s2WT03Siajvoj4/V4Yq7Whq7ZM6S5pSuu3qnO/KtenchyD+k7v3L4SiUynJkKNOSpXrIhGNAKeKH4+pmxGeyj+5mWC0jsDaMI1zaoUJC0UDDsH82ZPQztkc5LFIF85n8D025nImR+zTBkVzTeLNJ3y1LjLS7zbJ6I4NbvEe8+93kyLIwwZOq3HbHgLYzpmnnLz9REPJdVIJERN1/KyMHl+jxnsjVZQkE+x2JBkrWIwnFVTWZJfI4K0hqKXA==
+ bh=0ZRxKjwyMiSYNUhMY1N3tzoMlUFhuT5YHU4ioGA+va0=;
+ b=yYeXuOSjXrUOYWja//Ge5+cYdTEk7kUw6Pi9YuwYSFL07rPi+XveYg8k8wqfD3iNl5zxoQdUTajxPaSXyJ8yp+ks1I9y1FnuJbc3oOgzvHIy9+ZdkFmQ2hZgIBu9Jldl1v/FlOaYjPtKZ/GweIF6he4mJkxXHi0T9S7QOJTzwbhQvmqZeVqxMDWEGKA2hrM+tp6GeCSBQSgJOlu+S6WVWTBLs2QySCabqN6FBAeERW8+AU1qO4ljXkL4XG9t4emOVPszrYbPBbUA3RQ+7PCLRfIw6Ochmpheg6jleALN6mYqMusd+ByzszKPMcGdVvji7qy3i1rpZuBtb0yhxYYtTw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rq7vU9w3neS35oOjCAPGIVLiBLKO/J0X0LYCQ7COV/I=;
- b=v9dpuE7t9VyThvhRFTtgsYET1UNs7lfeagq7ByR5oO/fOXqRwPOdjSYJEygtIv/7DmUbA8+FnkALEAvm07LtEbDKWets3ZDZjsECOJZ1AEvZouwKVh5L3e3AVNJpv2RzYwif7NJtTVxEegMt+IB4jJLzfmNb8hgyzqTS4qgcuDk=
+ bh=0ZRxKjwyMiSYNUhMY1N3tzoMlUFhuT5YHU4ioGA+va0=;
+ b=WcH7BNYn3PQat97AuH44GBFmTcQl0Ylwj0nr3tlr+IjryFkmbTk4snVfYbEIdI0UgTg6Bim0QL+63wGB/YKpNOuDerjKX0mB6++yfQk+bsI8tV2DIrUKZlc4oGAIKt/E+kn2XMJ/TIxPvnIYjNaQ2SyJN3qSJrSxOarVUNmNCds=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -85,9 +85,9 @@ To: <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>, Stefano Stabellini
 CC: Ray Huang <Ray.Huang@amd.com>, Jason Andryuk <jason.andryuk@amd.com>,
 	Penny Zheng <Penny.Zheng@amd.com>, <xen-devel@lists.xenproject.org>,
 	<linux-kernel@vger.kernel.org>
-Subject: [PATCH v3 3/5] acpi/cppc: extract _cpc entry parsing logic
-Date: Thu, 6 Mar 2025 19:08:22 +0800
-Message-ID: <20250306110824.1506699-4-Penny.Zheng@amd.com>
+Subject: [PATCH v3 4/5] xen/cppc: get xen-required cppc perf caps data
+Date: Thu, 6 Mar 2025 19:08:23 +0800
+Message-ID: <20250306110824.1506699-5-Penny.Zheng@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250306110824.1506699-1-Penny.Zheng@amd.com>
 References: <20250306110824.1506699-1-Penny.Zheng@amd.com>
@@ -99,222 +99,155 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000066EB:EE_|CH3PR12MB7572:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5de6d9a2-821c-48d5-6541-08dd5c9f468f
+X-MS-TrafficTypeDiagnostic: CO1PEPF000066E8:EE_|MN6PR12MB8516:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5a480329-5f26-45fd-1c84-08dd5c9f480e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|376014;
+	BCL:0;ARA:13230040|36860700013|82310400026|376014|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?MsbVH3VvkL8LirultWvhMG9sbS9PF5m57FFFpUh9uycZKmr40EH0FhGhKnBV?=
- =?us-ascii?Q?za8DJRxsdj+RPiDodzTz0hx6fukpSIqdiNP0PLfRcRS16X3Lo+626L4S7gff?=
- =?us-ascii?Q?5MGooomIWm+Mi8g/vEEJa7GxWnl/JUPcBBO5AjSGXpnccB/uqlaj3VWHNGPI?=
- =?us-ascii?Q?q03jrEoR9dRxouHvHlfgDn+mB60hzz0u8rVuBWRQK+6yxc9/1s1AJPdc7urR?=
- =?us-ascii?Q?NHRN2sfv/h++DBPBr8Xo4V+tHDxf+m205mTUuGJ9T1ySGyD8bCRiEd5QvDG6?=
- =?us-ascii?Q?YTIH3B+RgayOH0HSWhtqIv1ev3cntWfajtGpVyRv3PNSvQ4tWWN6BLPe9FkM?=
- =?us-ascii?Q?47oRQVL8gzCam+w4P15rqdb88EYHb1XnqbpicjpZxm0dX95schqfDgwPOqA+?=
- =?us-ascii?Q?m2kUj0yXPGYg4h9/EqFkS23jq6zvvikormMGj/KB1W0A76X+GFbAkg2Vxz9c?=
- =?us-ascii?Q?0qGy+SF88cbr2Th+bblTNp5sDA2GnXLCvwzHejk+WEiBFQ2oKCbN3DjVQ3dy?=
- =?us-ascii?Q?qlNRcHbmnIfrUAqJ2278hCYCYT2B1yscBySO80Mjj2lqxdVaXQb+4jQrx4qz?=
- =?us-ascii?Q?KYZefpulYGasY6B9RrsRD8wg6Y+42l7Y6AQMUM+HjiddSAtFcuSjd2XgIGwt?=
- =?us-ascii?Q?EHk0kuw/U1pKHYt4w9S4xqTQ16V5aOYruFrC1+maRi+9DxIyezADLjnJcP87?=
- =?us-ascii?Q?2tcxmjPQH6vPePty0xgir7omzVAiK+7zAnyEley5Fa/bYLUiBNbPU7NUy4hT?=
- =?us-ascii?Q?AXmfeJNpSNGshKUf4AzreyWQSfeRjtUjMM4FXcm4tfsMQzjFFoiJjQooUtqa?=
- =?us-ascii?Q?oW2qw7QMkOKB69gWvVndIxmcp9GgyFOeZkyHG8G6Lnp6Toc6k0nf686F6N6A?=
- =?us-ascii?Q?jVBX7p3wAWI1ki107MRLaC9u27ivq7/cXkk2BklZJZsXaLhLYF38TlcDRXMm?=
- =?us-ascii?Q?aUmqbAlzrZl11WprkPfl3v8JUvMnYeDIY9lRGU4wV3ogMf3srVxrB5EtV1TF?=
- =?us-ascii?Q?r4fUEtM4xSl/QVyRjjHQxBjaPMy2rfUjIt6BO0IxOtsgjkwqyGjFtW80zF/5?=
- =?us-ascii?Q?MtZRR0BebRAVXaSZyjPLCv9ravlyw6yx0MAiKq6PMd5AHbstLUyHWTWm5Bu1?=
- =?us-ascii?Q?XXlif0jv3oF7PHW8OeR+fqPMcSjj7vTidSQG83te3YiZ9JRYO4PMnsr6+3rJ?=
- =?us-ascii?Q?uSFc4nvCo1ZboW7f7T390raFBw6i9sa1a8pNzAJpL6zagcLWBp/kV13h36S+?=
- =?us-ascii?Q?ZiRmGt6rHbmQOTB6aUWabqUykh0tjBuxLohLlBTX0Q5fw8B/tHxa8s5ecLWY?=
- =?us-ascii?Q?oSbzBdWQZUCIndJCY4Ci3xcC7rVXLkwLAkcYdZaYHylvuGOPoxWVvn23fwIO?=
- =?us-ascii?Q?4iB1fRdvHupxXYw8FclTYphiUPiu3c2sTDtVOKD9zMn1ztVxff6C9lujwM+g?=
- =?us-ascii?Q?ZStPVHV83HZHoOTnnPCdGdc9Nll+viSsu1QR62ZNSylFsHtVNrNW4xrsrDu2?=
- =?us-ascii?Q?3t08zWeZtR3qy9M=3D?=
+	=?us-ascii?Q?/QHqUcqO1YAxFun7RLHrTs1TpmMzVdRq8EkY4J+2TsSF7ZFhjvTJzn9F8N52?=
+ =?us-ascii?Q?FGibGHXUueo5wY+xYEvg0Ly17qPZv9XJ77tcN3BSYQdTCGX+S1ZR+2DAQwFG?=
+ =?us-ascii?Q?oHPPlae4y2ZqmqE+Wav2aKM21j9IiEeyzarLwT8ObHuCHAxDJv8+O5zyXAf8?=
+ =?us-ascii?Q?jdz+ITsmtMFayx0qG3w7LD8+tcHlQGnwHujMUhW5HHFEkLquKcqfAKVDbzsM?=
+ =?us-ascii?Q?rqNSRxqB/eAkVMQN/ikhu9rUpGeVIEdCdPM7VG7KOEjNHSaPCE1+l8SG680R?=
+ =?us-ascii?Q?hKsEx943yZZ+/G4V27nfqw5YTvkKDRiPuiqPdnhK4NUEh2xUQmHL9iyGrEU5?=
+ =?us-ascii?Q?BRLuusjVX2A5EW11/dEPQnrl/UV1wMjUj2YF74sKHUOpfo4ciByNWT3aMGbU?=
+ =?us-ascii?Q?M3TYKWneHfRDD6Ca3JV6zOjBA6Y6JTUVq88JfuEnGzANi3iP6ajSxWUsnrHm?=
+ =?us-ascii?Q?f7BDECJBnIa47dDahmRPgouo7AIrWkki3ceyY9LIhMGzzgWRCuTi6TV32Qjn?=
+ =?us-ascii?Q?MCK73gJGEDEd//YhBZK7OI51QbtgppcXyvt5018AhM4Aq1zVCARanqCj45Xv?=
+ =?us-ascii?Q?I4U7ziSvpuprM5r2GhH+Ujq9Sl37+kBsizpqf3Qq3JjrEQO4KdyXckqXdmhi?=
+ =?us-ascii?Q?lszxvxSJP1R+Sud9o1QPMa6wLM0mrxJVBxuynoU+JDifhW0Jb3trMNr9+l0V?=
+ =?us-ascii?Q?GKFFDE+lu99+gujH+G1RInCiytxzK0ROzoaG7P1YYO8VeyTS6UNxd0GXhpxq?=
+ =?us-ascii?Q?nSQiGKEbpjS/RVj/fJRSYLcH7BMClhG6xw6K8fRTG2TivzHQb9t4bgcrlpjq?=
+ =?us-ascii?Q?/ozY5yJUiO2WpPCmpC+sF+f0bhmom0b3QTtb+tf0+TbBlY1IhMTyzEKoYPRF?=
+ =?us-ascii?Q?j0TziGkdUmj+M4525Jvue2WAuYQbDjUOknan9cLuo9FFCsFgeUDByOQCgn23?=
+ =?us-ascii?Q?jwsim0iv0hQdxakpXYKp5aMw6LvyKqRyMbywIgMudI0JF636Db0oJA15M1o/?=
+ =?us-ascii?Q?Xz19lOXppc1iNoqSZh9XGvk+o1Av+hJc6IzwMfWwWcDlCqqLt6NKUAPB8BA6?=
+ =?us-ascii?Q?GKjBn6pxkNYISXVMkfo2FSRaQ6re9iLP6IhBqwhWnv34Qhiz9BIoaoTA155v?=
+ =?us-ascii?Q?FvS9EcZDpVV4Pp8TTPjDrXuvMGRlF4uQMsZCl1rlofw5prHH/4CAYiTiONlM?=
+ =?us-ascii?Q?DbBn8awozPtrrI1FX53RjwF/1axJ2Dp8k/oxoFT4JR+I4Z4xV4Hx6mCQw7Yc?=
+ =?us-ascii?Q?FKmXXqsip9ABC+rcj8q8rpY7yFc4yZjeTBiZtvuaVnPIF8DpdmG009DyngLY?=
+ =?us-ascii?Q?FlUp4wWVV6i/OzdCnOKv8X0YuYIrKA80yIJr1oYBGH0OCedtV3CxOzs742Ws?=
+ =?us-ascii?Q?VPhmjWsnhIlO4dIqVgx4t2dQqrykvH7M7Ti4X6Q2vLHwMS4CXJ8F8IN4UNvO?=
+ =?us-ascii?Q?ZU+5jPOXAHWN8qCcmEPnu38U1wbhCTJIwCf0ebsn0h4VNQEzKIBCvAfq5MpV?=
+ =?us-ascii?Q?7quNYmLVEGAZbTU=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2025 11:08:50.8117
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2025 11:08:53.3043
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5de6d9a2-821c-48d5-6541-08dd5c9f468f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5a480329-5f26-45fd-1c84-08dd5c9f480e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000066EB.namprd05.prod.outlook.com
+	CO1PEPF000066E8.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7572
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8516
 
-When running as Xen dom0 PVH guest, MADT table is customized
-and may have the "wrong" UID processor number, which is
-inconsistent with the UID in Processor entry in native DSDT.
+When running as Xen dom0 PVH guest, processor logical id <-> physical
+id map could not be properly set up. So the original function
+cppc_get_perf_caps() fails to get correct cppc data for Xen ACPI
+processor.
 
-As a result, during ACPI boot-up for dom0, linux fails to set
-up proper processor logical id <-> physical id map(acpi_map_cpuid).
-Furthermore, It leads to that some ACPI processor feature data,
-like per-cpu cpc_desc structure, failed to be correctly stored.
+A new function xen_processor_get_perf_caps() is introduced to
+get xen-required cppc perf caps data.
 
-In order to re-parse _CPC entry later for delivering correct data
-in performance hypercall, firstly, we extract parsing logic from
-acpi_cppc_processor_probe() and export it as a new function
-acpi_cppc_processor_parse().
-
-Also, replace logical processor id with ACPI ID, to show correct print
-info in Xen dom0 PVH guest.
+Also, as Xen couldn't read and process PCC-type register, this commit
+includes a new flag pcc_unsupported in struct acpi_processor_flags to
+tell whether platform supports PCC-type register.
 
 Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 ---
 v2 -> v3:
 - no change
 ---
- drivers/acpi/cppc_acpi.c | 93 +++++++++++++++++++++++-----------------
- 1 file changed, 53 insertions(+), 40 deletions(-)
+ drivers/acpi/cppc_acpi.c | 110 +++++++++++++++++++++++++++++++++++----
+ include/acpi/cppc_acpi.h |   5 ++
+ include/acpi/processor.h |   1 +
+ 3 files changed, 105 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
-index f193e713825a..7832bebeb953 100644
+index 7832bebeb953..ee8015ce3ddf 100644
 --- a/drivers/acpi/cppc_acpi.c
 +++ b/drivers/acpi/cppc_acpi.c
-@@ -671,19 +671,11 @@ static int pcc_data_alloc(int pcc_ss_id)
-  *  )
-  */
- 
--/**
-- * acpi_cppc_processor_probe - Search for per CPU _CPC objects.
-- * @pr: Ptr to acpi_processor containing this CPU's logical ID.
-- *
-- *	Return: 0 for success or negative value for err.
-- */
--int acpi_cppc_processor_probe(struct acpi_processor *pr)
-+static int acpi_cppc_processor_parse(struct acpi_processor *pr, struct cpc_desc *cpc_ptr)
- {
- 	struct acpi_buffer output = {ACPI_ALLOCATE_BUFFER, NULL};
- 	union acpi_object *out_obj, *cpc_obj;
--	struct cpc_desc *cpc_ptr;
- 	struct cpc_reg *gas_t;
--	struct device *cpu_dev;
- 	acpi_handle handle = pr->handle;
- 	unsigned int num_ent, i, cpc_rev;
- 	int pcc_subspace_id = -1;
-@@ -702,31 +694,24 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 	status = acpi_evaluate_object_typed(handle, "_CPC", NULL, &output,
- 			ACPI_TYPE_PACKAGE);
- 	if (ACPI_FAILURE(status)) {
--		ret = -ENODEV;
--		goto out_buf_free;
-+		return -ENODEV;
- 	}
- 
- 	out_obj = (union acpi_object *) output.pointer;
- 
--	cpc_ptr = kzalloc(sizeof(struct cpc_desc), GFP_KERNEL);
--	if (!cpc_ptr) {
--		ret = -ENOMEM;
--		goto out_buf_free;
--	}
--
- 	/* First entry is NumEntries. */
- 	cpc_obj = &out_obj->package.elements[0];
- 	if (cpc_obj->type == ACPI_TYPE_INTEGER)	{
- 		num_ent = cpc_obj->integer.value;
- 		if (num_ent <= 1) {
- 			pr_debug("Unexpected _CPC NumEntries value (%d) for CPU:%d\n",
--				 num_ent, pr->id);
--			goto out_free;
-+				 num_ent, pr->acpi_id);
-+			goto out_pointer;
- 		}
- 	} else {
- 		pr_debug("Unexpected _CPC NumEntries entry type (%d) for CPU:%d\n",
--			 cpc_obj->type, pr->id);
--		goto out_free;
-+			 cpc_obj->type, pr->acpi_id);
-+		goto out_pointer;
- 	}
- 
- 	/* Second entry should be revision. */
-@@ -735,14 +720,14 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 		cpc_rev = cpc_obj->integer.value;
- 	} else {
- 		pr_debug("Unexpected _CPC Revision entry type (%d) for CPU:%d\n",
--			 cpc_obj->type, pr->id);
--		goto out_free;
-+			 cpc_obj->type, pr->acpi_id);
-+		goto out_pointer;
- 	}
- 
- 	if (cpc_rev < CPPC_V2_REV) {
- 		pr_debug("Unsupported _CPC Revision (%d) for CPU:%d\n", cpc_rev,
--			 pr->id);
--		goto out_free;
-+			 pr->acpi_id);
-+		goto out_pointer;
- 	}
- 
- 	/*
-@@ -754,8 +739,8 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 	    (cpc_rev == CPPC_V3_REV && num_ent != CPPC_V3_NUM_ENT) ||
- 	    (cpc_rev > CPPC_V3_REV && num_ent <= CPPC_V3_NUM_ENT)) {
- 		pr_debug("Unexpected number of _CPC return package entries (%d) for CPU:%d\n",
--			 num_ent, pr->id);
--		goto out_free;
-+			 num_ent, pr->acpi_id);
-+		goto out_pointer;
- 	}
- 	if (cpc_rev > CPPC_V3_REV) {
- 		num_ent = CPPC_V3_NUM_ENT;
-@@ -789,7 +774,7 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 						goto out_free;
- 				} else if (pcc_subspace_id != gas_t->access_width) {
- 					pr_debug("Mismatched PCC ids in _CPC for CPU:%d\n",
--						 pr->id);
-+						 pr->acpi_id);
- 					goto out_free;
- 				}
- 			} else if (gas_t->space_id == ACPI_ADR_SPACE_SYSTEM_MEMORY) {
-@@ -844,7 +829,7 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 			memcpy(&cpc_ptr->cpc_regs[i-2].cpc_entry.reg, gas_t, sizeof(*gas_t));
- 		} else {
- 			pr_debug("Invalid entry type (%d) in _CPC for CPU:%d\n",
--				 i, pr->id);
-+				 i, pr->acpi_id);
+@@ -768,6 +768,15 @@ static int acpi_cppc_processor_parse(struct acpi_processor *pr, struct cpc_desc
+ 			 * so extract it only once.
+ 			 */
+ 			if (gas_t->space_id == ACPI_ADR_SPACE_PLATFORM_COMM) {
++				/*
++				 * When ACPI processor represents Xen processor, PCC register type
++				 * could not be properly read and processed right now, as logical
++				 * processor doesn't always have 1:1 map relation to physical processor.
++				 */
++				if (pr->flags.pcc_unsupported) {
++					pr_debug("Unsupported PCC register type:%d\n", pr->acpi_id);
++					goto out_free;
++				}
+ 				if (pcc_subspace_id < 0) {
+ 					pcc_subspace_id = gas_t->access_width;
+ 					if (pcc_data_alloc(pcc_subspace_id))
+@@ -833,7 +842,9 @@ static int acpi_cppc_processor_parse(struct acpi_processor *pr, struct cpc_desc
  			goto out_free;
  		}
  	}
-@@ -860,6 +845,45 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 		cpc_ptr->cpc_regs[i].cpc_entry.int_value = 0;
- 	}
+-	per_cpu(cpu_pcc_subspace_idx, pr->id) = pcc_subspace_id;
++
++	if (!pr->flags.pcc_unsupported)
++		per_cpu(cpu_pcc_subspace_idx, pr->id) = pcc_subspace_id;
  
-+	pr_debug("Parsed _CPC entry for CPU: %d\n", pr->acpi_id);
-+	kfree(output.pointer);
-+	return 0;
+ 	/*
+ 	 * Initialize the remaining cpc_regs as unsupported.
+@@ -1012,8 +1023,7 @@ int __weak cpc_write_ffh(int cpunum, struct cpc_reg *reg, u64 val)
+ static int cpc_read(int cpu, struct cpc_register_resource *reg_res, u64 *val)
+ {
+ 	void __iomem *vaddr = NULL;
+-	int size;
+-	int pcc_ss_id = per_cpu(cpu_pcc_subspace_idx, cpu);
++	int size, pcc_ss_id;
+ 	struct cpc_reg *reg = &reg_res->cpc_entry.reg;
+ 
+ 	if (reg_res->type == ACPI_TYPE_INTEGER) {
+@@ -1039,14 +1049,17 @@ static int cpc_read(int cpu, struct cpc_register_resource *reg_res, u64 *val)
+ 
+ 		*val = val_u32;
+ 		return 0;
+-	} else if (reg->space_id == ACPI_ADR_SPACE_PLATFORM_COMM && pcc_ss_id >= 0) {
+-		/*
+-		 * For registers in PCC space, the register size is determined
+-		 * by the bit width field; the access size is used to indicate
+-		 * the PCC subspace id.
+-		 */
+-		size = reg->bit_width;
+-		vaddr = GET_PCC_VADDR(reg->address, pcc_ss_id);
++	} else if (reg->space_id == ACPI_ADR_SPACE_PLATFORM_COMM) {
++		pcc_ss_id = per_cpu(cpu_pcc_subspace_idx, cpu);
++		if (pcc_ss_id >= 0) {
++			/*
++			 * For registers in PCC space, the register size is determined
++			 * by the bit width field; the access size is used to indicate
++			 * the PCC subspace id.
++			 */
++			size = reg->bit_width;
++			vaddr = GET_PCC_VADDR(reg->address, pcc_ss_id);
++		}
+ 	}
+ 	else if (reg->space_id == ACPI_ADR_SPACE_SYSTEM_MEMORY)
+ 		vaddr = reg_res->sys_mem_vaddr;
+@@ -1278,6 +1291,81 @@ int cppc_get_epp_perf(int cpunum, u64 *epp_perf)
+ }
+ EXPORT_SYMBOL_GPL(cppc_get_epp_perf);
+ 
 +
-+ out_free:
-+	/* Free all the mapped sys mem areas for this CPU */
-+	for (i = 2; i < cpc_ptr->num_entries; i++) {
-+		void __iomem *addr = cpc_ptr->cpc_regs[i-2].sys_mem_vaddr;
-+
-+		if (addr)
-+			iounmap(addr);
-+	}
-+ out_pointer:
-+	kfree(output.pointer);
-+	return ret;
-+}
-+
-+/**
-+ * acpi_cppc_processor_probe - Search for per CPU _CPC objects.
-+ * @pr: Ptr to acpi_processor containing this CPU's logical ID.
-+ *
-+ *	Return: 0 for success or negative value for err.
-+ */
-+int acpi_cppc_processor_probe(struct acpi_processor *pr)
++int xen_processor_get_perf_caps(struct acpi_processor *pr, struct cppc_perf_caps *perf_caps)
 +{
-+	acpi_handle handle = pr->handle;
 +	struct cpc_desc *cpc_ptr;
-+	struct device *cpu_dev;
-+	int pcc_subspace_id = -1;
-+	int ret = -ENODATA;
++	struct cpc_register_resource *highest_reg, *lowest_reg,
++		*lowest_non_linear_reg, *nominal_reg,
++		*low_freq_reg = NULL, *nom_freq_reg = NULL;
++	u64 high, low, nom, min_nonlinear, low_f = 0, nom_f = 0;
++	int ret = 0;
 +
 +	cpc_ptr = kzalloc(sizeof(struct cpc_desc), GFP_KERNEL);
 +	if (!cpc_ptr)
@@ -322,33 +255,103 @@ index f193e713825a..7832bebeb953 100644
 +
 +	ret = acpi_cppc_processor_parse(pr, cpc_ptr);
 +	if (ret)
-+		goto out_free;
-+	pcc_subspace_id = per_cpu(cpu_pcc_subspace_idx, pr->id);
- 
- 	/* Store CPU Logical ID */
- 	cpc_ptr->cpu_id = pr->id;
-@@ -901,21 +925,10 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 		goto out_free;
- 	}
- 
--	kfree(output.pointer);
- 	return 0;
- 
- out_free:
--	/* Free all the mapped sys mem areas for this CPU */
--	for (i = 2; i < cpc_ptr->num_entries; i++) {
--		void __iomem *addr = cpc_ptr->cpc_regs[i-2].sys_mem_vaddr;
--
--		if (addr)
--			iounmap(addr);
--	}
- 	kfree(cpc_ptr);
--
--out_buf_free:
--	kfree(output.pointer);
- 	return ret;
++		goto err;
++
++	highest_reg = &cpc_ptr->cpc_regs[HIGHEST_PERF];
++	lowest_reg = &cpc_ptr->cpc_regs[LOWEST_PERF];
++	lowest_non_linear_reg = &cpc_ptr->cpc_regs[LOW_NON_LINEAR_PERF];
++	nominal_reg = &cpc_ptr->cpc_regs[NOMINAL_PERF];
++	low_freq_reg = &cpc_ptr->cpc_regs[LOWEST_FREQ];
++	nom_freq_reg = &cpc_ptr->cpc_regs[NOMINAL_FREQ];
++
++	/* Are any of the regs PCC ?*/
++	if (CPC_IN_PCC(highest_reg) || CPC_IN_PCC(lowest_reg) ||
++		CPC_IN_PCC(lowest_non_linear_reg) || CPC_IN_PCC(nominal_reg) ||
++		CPC_IN_PCC(low_freq_reg) || CPC_IN_PCC(nom_freq_reg)) {
++		pr_debug("Unsupported register type read for Xen Processor %d,"
++			 "highest_reg in PCC: %s, lowest_reg in PCC: %s,"
++			 "lowest_non_linear_reg in PCC: %s, nominal_reg in PCC: %s,"
++			 "low_freq_reg in PCC: %s, nom_freq_reg in PCC: %s\n",
++			 pr->acpi_id, CPC_IN_PCC(highest_reg) ? "true" : "false",
++			 CPC_IN_PCC(lowest_reg) ? "true" : "false",
++			 CPC_IN_PCC(lowest_non_linear_reg) ? "true" : "false",
++			 CPC_IN_PCC(nominal_reg) ? "true" : "false",
++			 CPC_IN_PCC(low_freq_reg) ? "true" : "false",
++			 CPC_IN_PCC(nom_freq_reg) ? "true" : "false");
++		goto err;
++	}
++
++	cpc_read(pr->acpi_id, highest_reg, &high);
++	perf_caps->highest_perf = high;
++
++	cpc_read(pr->acpi_id, lowest_reg, &low);
++	perf_caps->lowest_perf = low;
++
++	cpc_read(pr->acpi_id, nominal_reg, &nom);
++	perf_caps->nominal_perf = nom;
++
++	cpc_read(pr->id, lowest_non_linear_reg, &min_nonlinear);
++	perf_caps->lowest_nonlinear_perf = min_nonlinear;
++
++	if (!high || !low || !nom || !min_nonlinear)
++		pr_warn("CPPC: read zero cpc register value for Xen Processor %d"
++			"highest_reg: %llu, lowest_reg: %llu"
++			"nominal_reg: %llu, lowest_non_linear_reg: %llu\n",
++			pr->acpi_id, high, low, nom, min_nonlinear);
++
++	/* Read optional lowest and nominal frequencies if present */
++	if (CPC_SUPPORTED(low_freq_reg))
++		cpc_read(pr->acpi_id, low_freq_reg, &low_f);
++
++	if (CPC_SUPPORTED(nom_freq_reg))
++		cpc_read(pr->acpi_id, nom_freq_reg, &nom_f);
++
++	perf_caps->lowest_freq = low_f;
++	perf_caps->nominal_freq = nom_f;
++
++ err:
++	kfree(cpc_ptr);
++	return ret;
++}
++EXPORT_SYMBOL_GPL(xen_processor_get_perf_caps);
+ /**
+  * cppc_get_perf_caps - Get a CPU's performance capabilities.
+  * @cpunum: CPU from which to get capabilities info.
+diff --git a/include/acpi/cppc_acpi.h b/include/acpi/cppc_acpi.h
+index 62d368bcd9ec..dcf129ec540f 100644
+--- a/include/acpi/cppc_acpi.h
++++ b/include/acpi/cppc_acpi.h
+@@ -164,6 +164,7 @@ extern int cppc_set_auto_sel(int cpu, bool enable);
+ extern int amd_get_highest_perf(unsigned int cpu, u32 *highest_perf);
+ extern int amd_get_boost_ratio_numerator(unsigned int cpu, u64 *numerator);
+ extern int amd_detect_prefcore(bool *detected);
++extern int xen_processor_get_perf_caps(struct acpi_processor *pr, struct cppc_perf_caps *perf_caps);
+ #else /* !CONFIG_ACPI_CPPC_LIB */
+ static inline int cppc_get_desired_perf(int cpunum, u64 *desired_perf)
+ {
+@@ -249,6 +250,10 @@ static inline int amd_detect_prefcore(bool *detected)
+ {
+ 	return -ENODEV;
  }
- EXPORT_SYMBOL_GPL(acpi_cppc_processor_probe);
++static inline int xen_processor_get_perf_caps(struct acpi_processor *pr, struct cppc_perf_caps *perf_caps)
++{
++	return -ENOTSUPP;
++}
+ #endif /* !CONFIG_ACPI_CPPC_LIB */
+ 
+ #endif /* _CPPC_ACPI_H*/
+diff --git a/include/acpi/processor.h b/include/acpi/processor.h
+index a17e97e634a6..1decb437c750 100644
+--- a/include/acpi/processor.h
++++ b/include/acpi/processor.h
+@@ -214,6 +214,7 @@ struct acpi_processor_flags {
+ 	u8 bm_control:1;
+ 	u8 bm_check:1;
+ 	u8 has_cst:1;
++	u8 pcc_unsupported:1;
+ 	u8 has_lpi:1;
+ 	u8 power_setup_done:1;
+ 	u8 bm_rld_set:1;
 -- 
 2.34.1
 
