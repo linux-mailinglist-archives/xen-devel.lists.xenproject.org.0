@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A9DCA54CA8
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 14:53:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.903554.1311509 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBDB6A54CAB
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 14:54:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.903565.1311518 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqBfA-0001e1-GD; Thu, 06 Mar 2025 13:53:24 +0000
+	id 1tqBgT-0002Fr-Th; Thu, 06 Mar 2025 13:54:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 903554.1311509; Thu, 06 Mar 2025 13:53:24 +0000
+Received: by outflank-mailman (output) from mailman id 903565.1311518; Thu, 06 Mar 2025 13:54:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqBfA-0001cE-Aj; Thu, 06 Mar 2025 13:53:24 +0000
-Received: by outflank-mailman (input) for mailman id 903554;
- Thu, 06 Mar 2025 13:53:23 +0000
+	id 1tqBgT-0002DM-QE; Thu, 06 Mar 2025 13:54:45 +0000
+Received: by outflank-mailman (input) for mailman id 903565;
+ Thu, 06 Mar 2025 13:54:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qAxi=VZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tqBf9-0001bz-8i
- for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 13:53:23 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ id 1tqBgS-0002DB-3D
+ for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 13:54:44 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5d11153b-fa92-11ef-9ab4-95dc52dad729;
- Thu, 06 Mar 2025 14:53:20 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-43bbb440520so7661495e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 06 Mar 2025 05:53:20 -0800 (PST)
+ id 8e4b6b43-fa92-11ef-9ab4-95dc52dad729;
+ Thu, 06 Mar 2025 14:54:43 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-4394a0c65fcso7716555e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Mar 2025 05:54:43 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3912bfdfcb8sm2142417f8f.33.2025.03.06.05.53.19
+ 5b1f17b1804b1-43bd4291cb9sm50683075e9.13.2025.03.06.05.54.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Mar 2025 05:53:19 -0800 (PST)
+ Thu, 06 Mar 2025 05:54:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5d11153b-fa92-11ef-9ab4-95dc52dad729
+X-Inumbo-ID: 8e4b6b43-fa92-11ef-9ab4-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741269200; x=1741874000; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741269283; x=1741874083; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qT1x+ulaThyGriwOwx7YIEF9wd6WAWno+Iwl4h3I0mk=;
-        b=Q3UvoR/1E+vvA9H9xCfg9N83ojdCv35nsb4scnhLJTrDRqbFS2l4ZFiuJWJPNgy/Hl
-         wlmXv1ikwdKfWZBYZ9gi7hF8ft0clv0tepsnTNxygJf2jVl1jCM1IgRWitNz3oiq/rOL
-         ti2FxAoY1tH6PUc42fHHOG00p74gBXfCtIoSxQFlEzAkq1qwLSxxERaHKJwfzzGRBgYz
-         HvEvsIHozfPWz0T9nTyWUTzac89mkk6WcP0EZpWIIrL1LJ66d4pN62Z2pyxgRM9jt560
-         pnUmg7WNFIuet1JK14E6nzzpMSNjN+D/R/22UPKnNooZCqCvBe57y+d4U4kmHLBeIjBL
-         Obng==
+        bh=3CB/tNK/UcNhgs6UI6IRvNTHvxFlI211Lzete/13Fy0=;
+        b=Yd8q9m62mdYvby5u2J5BZNV0Gj8oB/7ZFqMC2Ct+lJfm6JcD2JG8PG0sl34641RMkY
+         8l+zImRDzrjjP7QmYnKTFBikqaeRU6wbdb+43HXiVCDUt7/W0+Q9yY45O14Bsh8rEBTh
+         CUEvPYfynwRZzwSQ8gefLtEsSYUQoIaOvqZakT3q+5VNxgvyJRonz72epwLNw8d198+p
+         yDVq0IaVTRsGm2mCyJYacppac6SEZqTlI1J1o+rMXD0DpVGEFAA/QJ52yird+TIfwXGV
+         zqEbW/a1++s0+tW/hCn6aOPUGHxt+GGS+ZqYAsUbhxlpnjKh5V7GCsH0lwNoV/YMCR9U
+         qc6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741269200; x=1741874000;
+        d=1e100.net; s=20230601; t=1741269283; x=1741874083;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qT1x+ulaThyGriwOwx7YIEF9wd6WAWno+Iwl4h3I0mk=;
-        b=jAbX0ikbL7BXaHkBoc3iOxTY6jMUvV7A0oekh2OfhwAQ3NuDOOp1d+PXDTeWWcOLjM
-         1+vlST+xiyLz4ebKysFzUysATRDx/zNn0P+LCvAT0UKrrN7nvAoeKkZFcGD7vURwlupn
-         W8yisnUNzUPW84VlS/dhoG54g+Lyy9b2xWODBM0Pi4Iw3BUMBeuTjxrZbdzzwsrxJwjL
-         C0gGAM3UiKqn2l4vHKH/bLYVWNdJVPKuVWY/H718e77FLhbsz2JMRR4sdAgT/V/06U9e
-         qYngXSjDiK3Xue4UrqBRLBlaMgAcLmuc5C3BTu7r8K+Q9X2tnRtrX7UsghcDOih7v+St
-         KWVw==
-X-Gm-Message-State: AOJu0YyL8ISM5BNwJ8GqJF2pFjDoCfw5hgnODzxFWXKauIKglojdQdMc
-	ugIO3js/Y/+PDyl5T/dx16/2ZGh5ZWavONVXoie8XPVx47sVOhwBWYIkwt1yvQ==
-X-Gm-Gg: ASbGncu0+hWzeK+wweoINeWtroJPUT31WPAtW2TIA4dZf1i31EQMx6BoBbSkDMXCwXO
-	8fRY1PJQ4bIhiMpvRKoOJoO4TVGci3+gPl3ueIu2AV67UXTO17kKyFM031EXgZ23LG3j9JXgmHO
-	Ljwu2Sm1bj8F2VcbENM7Mw8UqwsjYxHlKGjxd0w07fXemz23GXLaP5Va6SCrLB7ms+JIL0Nd/df
-	tg1NzEK80dRO8bGr/3Iwz8EEdse+fbjL6YqTvhO56o549G3e6WF6+P13Km8uT2atNJ6frBCkaUn
-	/kKpLpP9wmYk7K3J3wTM/2Mvk9j3vtt/2gOB6W9AAL9JNzcdewH9DB44LjzP5duf9V0aOqjUAkN
-	y9DeuJle6UcH6545jHhUj1fwEk33LQw==
-X-Google-Smtp-Source: AGHT+IF2X6notgrJdgunewzuoDmpOiR51gSMhSZbWSTcsC70c6A0eY25zVmR/MmpvP65u79uNxrppA==
-X-Received: by 2002:adf:8b5e:0:b0:391:2a9a:4796 with SMTP id ffacd0b85a97d-3912a9a4963mr1980743f8f.18.1741269200038;
-        Thu, 06 Mar 2025 05:53:20 -0800 (PST)
-Message-ID: <98ed1cc8-48e9-4db0-8d0c-78c63fc2e4fe@suse.com>
-Date: Thu, 6 Mar 2025 14:53:18 +0100
+        bh=3CB/tNK/UcNhgs6UI6IRvNTHvxFlI211Lzete/13Fy0=;
+        b=Zg6RyrO1lHeIyoOKurka805LGk8j5aXt/qTQlpxVTNOKHuv8SDVXjcrV5nlID1nS+o
+         By53nPxY5ToMr4YAvTrp5bmqBSV669EWYrZGRaYF8xA/8RyYykl7Gdokk6bilESGs7f2
+         zEVf4SbBEbrlhz2EbouiPFvAZhbHrDU0IILw1VNyZFjYPt01i4yh6m5xkpCvS2Yijc2J
+         BfFHPOMEZPHFX13InUFTWcBYEdP+dJJe0+JJl4H4Xfx6C2edloTNOfR5OZC8zcCN1QJS
+         6K+6D4de/38/8eYxQLVHjcKKpmKtX8W/+Npwfdt6y3eAK8AhG0i5m8DXb9xTOj+AV51R
+         40QA==
+X-Forwarded-Encrypted: i=1; AJvYcCUmS1uAWzkDime9wWQujNjn48UaLp+JKBPYYOUrg5DjMbXzKp7cf08ZVJ8MdEiSYQhso29J9z/Qw6Q=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwKOxUQDHvQkVrIN3UJOVtTzMyZcgVIOjaK/KS06KeOAyF5rw3m
+	2DVX+VTkpgwn+4ROPygTC6fNuDmXnymWyD3a3mC7prCi1j7hot5KUNOkbzbYWQ==
+X-Gm-Gg: ASbGncuFp9F8b7gzjAalo2parONt+qA7Ri+AK3oNYzp4GV2QfzIIm879hDBdTy4ZwFA
+	KAzE7Ml7EGSC6dPiNTyTO3PzqBEHEa/6iKdfZQLHgO7SnhYJyOCWpco5IyQ+wFFRHBIRZ/QDmkH
+	/+QMNmGIFicVm7KaYggMbO+VgrUIP+Xk80tuczmqDlffnTWatfRCmVfj3RPgVcWPoG9ybMlgtTP
+	TcPKVjctt6k6rKvZwGb/IeRelgxhyq0vrv0rRmuoTbhk+ipIoD2MYhVu7vrCuvuGCAynknZGi5r
+	YlzFhp67PmP7U7g70DdZRJTdFHZbs7XR7iXuBO3SIwKleNoDxlIfmMPBJFyYFHNXKKe8rpl1nRJ
+	S1wRkj5NSoht3jNW5z81G9dpjAlL7FA==
+X-Google-Smtp-Source: AGHT+IEEEX3ShPj7MUOdd97/qEYbCuumN6O7fjURnB0YMvBj2ns6L1iwfQmZLtg0ypNJTTYo+KgcQw==
+X-Received: by 2002:a05:600c:35c2:b0:43b:a397:345f with SMTP id 5b1f17b1804b1-43bd2945a39mr80222695e9.11.1741269282672;
+        Thu, 06 Mar 2025 05:54:42 -0800 (PST)
+Message-ID: <45259237-0495-477e-8966-31b2cceff56e@suse.com>
+Date: Thu, 6 Mar 2025 14:54:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 0/9] remove libxenctrl usage from xenstored
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH] config: update Mini-OS commit
+To: Juergen Gross <jgross@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20250204113407.16839-1-jgross@suse.com>
- <6e63a858-9554-440b-92f1-55dc34256e0b@suse.com>
- <9c8f50d4-9139-4541-8acb-ff407b61ef97@suse.com>
- <alpine.DEB.2.22.394.2503051531380.1303386@ubuntu-linux-20-04-desktop>
- <c26a91be-8f13-4e22-be87-a96b81df0aa4@suse.com>
- <0ef805d0-68f1-4fb2-a6bb-5901304270bd@suse.com>
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250306135152.11188-1-jgross@suse.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,84 +120,16 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0ef805d0-68f1-4fb2-a6bb-5901304270bd@suse.com>
+In-Reply-To: <20250306135152.11188-1-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 06.03.2025 14:27, Jürgen Groß wrote:
-> On 06.03.25 14:13, Jan Beulich wrote:
->> On 06.03.2025 00:32, Stefano Stabellini wrote:
->>> On Wed, 5 Mar 2025, Juergen Gross wrote:
->>>> On 25.02.25 12:10, Juergen Gross wrote:
->>>>> Ping? Especially ...
->>>>>
->>>>> On 04.02.25 12:33, Juergen Gross wrote:
->>>>>> Xenstored is using libxenctrl for only one purpose: to get information
->>>>>> about state of domains.
->>>>>>
->>>>>> This patch series is removing that dependency by introducing a new
->>>>>> stable interface which can be used by xenstored instead.
->>>>>>
->>>>>> There was a RFC series sent out 3 years ago, which I have taken as a
->>>>>> base and by addressing all comments from back then.
->>>>>>
->>>>>> The main differences since that RFC series are:
->>>>>>
->>>>>> - Instead of introducing an new main hypercall for a stable management
->>>>>>     interface I have just added a new domctl sub-op, as requested in 2021.
->>>>>>
->>>>>> - I have added a new library libxenmanage for easy use of the new
->>>>>>     stable hypervisor interface. Main motivation for adding the library
->>>>>>     was the recent attempt to decouple oxenstored from the Xen git tree.
->>>>>>     By using the new library, oxenstored could benefit in the same way as
->>>>>>     xenstored from the new interface: it would be possible to rely on
->>>>>>     stable libraries only.
->>>>>>
->>>>>> - Mini-OS has gained some more config options recently, so it was rather
->>>>>>     easy to make xenstore[pvh]-stubdom independent from libxenctrl, too.
->>>>>>
->>>>>> Please note that the last 4 patches can be committed only after the
->>>>>> related Mini-OS patch "config: add support for libxenmanage" has gone in
->>>>>> AND the Mini-OS commit-id has been updated in Config.mk accordingly! The
->>>>>> Mini-OS patch has been Acked already, so it can go in as soon as patch
->>>>>> 5 of this series (the one introducing libxenmanage) has been committed.
->>>>>>
->>>>>> As patches 1 and 2 change current behavior, Jan didn't want to give his
->>>>>> Ack (he didn't reject the patch either). So I'm asking other "Rest"
->>>>>> maintainers to look at those patches specifically.
->>>>>
->>>>> ... patches 1 and 2 could need an additional opinion.
->>>>
->>>> And another ping.
->>>>
->>>> One of Andrew, Stefano, Julien, Roger, Anthony, Mical: Please have a look.
->>>>
->>>> The related discussion between Jan and me can be found here (patches 2 and 3):
->>>>
->>>> https://lore.kernel.org/xen-devel/20250107101711.5980-1-jgross@suse.com/
->>>
->>> I didn't do an in-details review but based on Jan's comments and your
->>> replies, I think they are an improvement. If someone else wants to do a
->>> proper review, they would be welcome.
->>>
->>> Acked-by: Stefano Stabellini <sstabellini@kernel.org>
->>
->> I've taken the conservative approach and interpreted this as an ack for the
->> two patches in question only, rather than the entire series. Please indicate
->> if it was meant the other way around, as then the final 3 patches could also
->> go in.
+On 06.03.2025 14:51, Juergen Gross wrote:
+> Update the Mini-OS upstream revision.
 > 
-> Sorry, but please revert the last patch of this series you've committed
-> already. As stated in the cover letter AND that patch, a Mini-OS patch and
-> the bump of the Mini-OS commit in Config.mk are required in order to avoid
-> build failures when trying to build the Xenstore-stubdom binaries.
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Indeed, I overlooked this while preparing what to commit (while I remember
-noticing it earlier on). Still it's probably sub-optimal to have a series
-split in the middle like this.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Instead of reverting, let's bump the MiniOS ref in staging instead, as you
-did suggest on Matrix.
 
-Jan
 
