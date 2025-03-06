@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34324A559F1
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 23:40:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.904155.1312116 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 132B8A55AD4
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Mar 2025 00:18:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.904332.1312227 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqJsS-0003R2-C8; Thu, 06 Mar 2025 22:39:40 +0000
+	id 1tqKTo-0003XO-B3; Thu, 06 Mar 2025 23:18:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 904155.1312116; Thu, 06 Mar 2025 22:39:40 +0000
+Received: by outflank-mailman (output) from mailman id 904332.1312227; Thu, 06 Mar 2025 23:18:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqJsS-0003Oi-91; Thu, 06 Mar 2025 22:39:40 +0000
-Received: by outflank-mailman (input) for mailman id 904155;
- Thu, 06 Mar 2025 22:39:39 +0000
+	id 1tqKTo-0003Ub-7b; Thu, 06 Mar 2025 23:18:16 +0000
+Received: by outflank-mailman (input) for mailman id 904332;
+ Thu, 06 Mar 2025 23:18:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YZnl=VZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tqJsR-0003Oc-0F
- for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 22:39:39 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ id 1tqKTn-0003UQ-5Q
+ for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 23:18:15 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e252b1dc-fadb-11ef-9ab4-95dc52dad729;
- Thu, 06 Mar 2025 23:39:37 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-43bc48ff815so7975625e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 06 Mar 2025 14:39:37 -0800 (PST)
+ id 3fef8f84-fae1-11ef-9ab4-95dc52dad729;
+ Fri, 07 Mar 2025 00:18:02 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-43bc638686eso16167785e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Mar 2025 15:18:02 -0800 (PST)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43bdd94913fsm31472515e9.37.2025.03.06.14.39.36
+ ffacd0b85a97d-3912c01952dsm3311679f8f.45.2025.03.06.15.17.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Mar 2025 14:39:36 -0800 (PST)
+ Thu, 06 Mar 2025 15:18:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e252b1dc-fadb-11ef-9ab4-95dc52dad729
+X-Inumbo-ID: 3fef8f84-fae1-11ef-9ab4-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741300777; x=1741905577; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1741303081; x=1741907881; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=URkZIt9aNGkAepz09WJxJ+Xvv5GX00VbOGGfRXjdOFQ=;
-        b=CIVD6TziPPellNTiT0U8VP78rOEzhVEape65c08Q/1i55Gtxguta/L3Mx2qcIL7/Ta
-         2ad7g1ZR0xNgKdnVbCJT0DL5MqghjDSP4Cnb6N6AFrEiro01n+/lHzUt8I4bzce0EzQ9
-         gQZHJdbHIFcnVlh50CBR04EGTNXVtx9BvH074=
+        bh=OwIYEN/bfwQjxdi9mjzfGuHZDdD9e5wqdn0bOG/mows=;
+        b=fa/yuR6c5voAeNu9Cp4e7JktJpb3OqObSeBT5WNla7wY+hlDegRXq5DYSRY6phzUQk
+         o2Q+qLplTt4lToT8QyeG+ov0GVFvyC4tH8MZ/xIKg4a4Og8ma3u9a/6NmLJwloUYtPiF
+         MdFjUHTk1/pfVqNcsPFvwpUHc88TZGfHDCF0I=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741300777; x=1741905577;
+        d=1e100.net; s=20230601; t=1741303081; x=1741907881;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=URkZIt9aNGkAepz09WJxJ+Xvv5GX00VbOGGfRXjdOFQ=;
-        b=T6plhOHq5SZ1arGsuoeSozV0bNHXQiT0Ds3RBosPpCKshGWqtakIWsfPeuoW3DM8Ck
-         VrHKo5VROjXLCg1FwPDMrPCmrfa+GFBSu6Mz3ZG0VODsNjxXKwxFASDBBDCVCPJzlVfU
-         MDFcWaDv+4sWvN30WzSzxqqAR1Dgt5iEWe08p3Dd0KZNAR7VNEZ2Z5Aj9jCGV0rCoQtw
-         hY8QBLhpT75myxSkO376xSS6Ys7yzgxY5Qf/E9Xyw/UwUVDDW9Ne5sTO5BqoI8cyJ0ce
-         JPeVC1Pp/qqQ/pLlxaTJ0DzqdEWcDlxvh1IpYmKBjKXDCK8LLTTvk9DMFPM/XBqqPMrq
-         E5NA==
-X-Forwarded-Encrypted: i=1; AJvYcCUWptx0MXtI8XEPn3RdTAOCeMQzRumQeK06g7/oZ1Mbc4UQHWZ+6jD0RIENw7X3RUW8+qbz/nOydKA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwJTKQVtku6xonjrRn74aWg1GSAPNJa07rEiWgwtgB82SkTFGtJ
-	xyvlI1awZmA0HVXLczyKb2Shw1DmDkypSRy8hZCjJe28IDz8pA33riXrmf+OyRw=
-X-Gm-Gg: ASbGnctvM9On5NHYtO3FrdMrkeEBpNl+GAgSoXVjsNoh8xnJ7k0R0Xfw70G9AeXN66l
-	tNe/c6YnsRNHGOWb+AuSITssRgDakmknLwVjdqjopfXZJtS9wWhEWu2zqtpY5u1fdXE0OUN+3On
-	LtBG+6ZI++44CYfeYmI6ToZFv+yeBsViEZU94je4RWLkjLImoBgQWbNxVmltPkwvQt9WO7r4Mvt
-	7Ke630gCqA0k5ofBSJ9b4LgYDzcT+u+Yq4HZsIL5wciiXgz0i+sdWIs8rMTj6LWig9ZyucJ/Vda
-	8hOI8Ly/qAgfq8B/B0GbKbL4tRpxvsGDncSQOkFz55b3iRz8Z/RVuwB4yvcwNLEUc1AkMqg74CG
-	ttsW8xFUQ
-X-Google-Smtp-Source: AGHT+IE+BdwaO9nPG6A5mHSq3Cuh3FcesrApG8m8kDqRF6n0Y6dBYUDUOmjw4GDsnjqHgNvcFBNjKg==
-X-Received: by 2002:a05:600c:474b:b0:439:9434:4f3b with SMTP id 5b1f17b1804b1-43c5a61b6c6mr8311535e9.8.1741300776940;
-        Thu, 06 Mar 2025 14:39:36 -0800 (PST)
-Message-ID: <eca6c919-043b-4e7b-a04d-639406ca1332@citrix.com>
-Date: Thu, 6 Mar 2025 22:39:35 +0000
+        bh=OwIYEN/bfwQjxdi9mjzfGuHZDdD9e5wqdn0bOG/mows=;
+        b=Yw97uqycCYNk9Tn7q/p6IlxPG4WiRCwVKn2y+bYKVqZUKiV7g0P94O2e10B3R4zSrP
+         1DK/QQ6vnks8UA7AdJuteWgmGZOJhABIVU+ub74R+7xBxjXunONSqP8byjGsVlvFXAMZ
+         8jN2T74e8sA9koOXPbcgJz3CNZ7dUJQ+7L6sRqZd9pRRPXBH0XL+uAtW19MGv6sUGkxV
+         CR9AZo+ZzVzQZCqnFRCiE5wwZrf77o68prkuP19beh+YVpZRnp404arcRkOWPzD+gBdY
+         AUxnnTfGhlNek2OXsWQ/4uyqdTpyT4FOz3CwErH/XQRxcyXeYwJFATsnBXSwRUcIwdPx
+         IK7Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUSRt0i7xXUD7i2iXZ7xmCqyZN70a+jKDmy66l5DnQhV61ZHD1cyoDqdtuzyOCzsAMbjbHiSQP/2F0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwCSBGrFMjzVsztmGEoAEniyVQsktQM3cPbUDf7W3O+vPmbSpFt
+	11MrK3UlsdD0Z8UTWSrMWJR9kRFCXIz9OZmLlpPGw/cPcSpsjigNGgQO2ADDdcc=
+X-Gm-Gg: ASbGncu9JIcaWSOqEAuAfDmJkthiDC2Ep/+0BXEApcF7rM5EmvRwBUcgokHgN5hv4NG
+	3RmGpm+0sox218ebEwHycKRkh2PiL4Q+T85Yi+I8/xl5+esK77/7tPEriQyh6gyoyqPj1wPHk4P
+	vsZLa4QE4GHxi8dKJ6EwtEt20UHmRAYBt5C30LiibeREFJJOq7idhikdEIehGKmsJ0UnMqRF1Lw
+	CIgkqwsXKdsE3vWpPtR0EVYocJEmneXE/auVxSUXivDpmKywWjlrSLqTMb5eejL01ySW6DRlt8E
+	ncEJ0haVBOUdCoulki9jvwsVkRrXIJPY4gy3UbeL/iI5RU3//5udCGUwXESFd+8DYlK2uE17MMt
+	sdjXJvLrd
+X-Google-Smtp-Source: AGHT+IELQM2u047VHxfDzS0R25HoIuzXz89faGqDNTV/ljPUf0HA/xv0WoNNQQNBr11VhAipJ5nyQw==
+X-Received: by 2002:a05:600c:3ba0:b0:43b:c7f0:6173 with SMTP id 5b1f17b1804b1-43c5a60170fmr9330975e9.4.1741303081423;
+        Thu, 06 Mar 2025 15:18:01 -0800 (PST)
+Message-ID: <5eadc0e9-54ce-464c-80fe-e7b7cfd45ecf@citrix.com>
+Date: Thu, 6 Mar 2025 23:17:59 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/23] xen: introduce hardware domain create flag
-To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
+Subject: Re: [PATCH] xen: Don't cast away const-ness in vcpu_show_registers()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20250306220343.203047-1-jason.andryuk@amd.com>
- <20250306220343.203047-2-jason.andryuk@amd.com>
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250225230213.1248136-1-andrew.cooper3@citrix.com>
+ <7e77dceb-489b-4022-a665-2a008ddfe844@suse.com>
+ <f62841d3-b0e4-4007-a056-a807a19fc988@citrix.com>
+ <98998559-27d6-4b65-bd45-cb1755d48564@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -140,52 +142,109 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250306220343.203047-2-jason.andryuk@amd.com>
+In-Reply-To: <98998559-27d6-4b65-bd45-cb1755d48564@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 06/03/2025 10:03 pm, Jason Andryuk wrote:
-> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
->
-> Add and use a new internal create domain flag to specify the hardware
-> domain.  This removes the hardcoding of domid 0 as the hardware domain.
->
-> This allows more flexibility with domain creation.
->
-> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
-> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+On 05/03/2025 7:53 am, Jan Beulich wrote:
+> On 03.03.2025 17:52, Andrew Cooper wrote:
+>> On 26/02/2025 7:33 am, Jan Beulich wrote:
+>>> On 26.02.2025 00:02, Andrew Cooper wrote:
+>>>> The final hunk is `(struct vcpu *)v` in disguise, expressed using a runtime
+>>>> pointer chase through memory and a technicality of the C type system to work
+>>>> around the fact that get_hvm_registers() strictly requires a mutable pointer.
+>>>>
+>>>> For anyone interested, this is one reason why C cannot optimise any reads
+>>>> across sequence points, even for a function purporting to take a const object.
+>>>>
+>>>> Anyway, have the function correctly state that it needs a mutable vcpu.  All
+>>>> callers have a mutable vCPU to hand, and it removes the runtime pointer chase
+>>>> in x86.
+>>>>
+>>>> Make one style adjustment in ARM while adjusting the parameter type.
+>>>>
+>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>>> ---
+>>>> CC: Anthony PERARD <anthony.perard@vates.tech>
+>>>> CC: Michal Orzel <michal.orzel@amd.com>
+>>>> CC: Jan Beulich <jbeulich@suse.com>
+>>>> CC: Julien Grall <julien@xen.org>
+>>>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>>>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>>>> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+>>>> CC: Bertrand Marquis <bertrand.marquis@arm.com>
+>>>>
+>>>> RISC-V and PPC don't have this helper yet, not even in stub form.
+>>>>
+>>>> I expect there will be one objection to this patch.  Since the last time we
+>>>> fought over this, speculative vulnerabilities have demonstrated how dangerous
+>>>> pointer chases are, and this is a violation of Misra Rule 11.8, even if it's
+>>>> not reasonable for Eclair to be able to spot and reject it.
+>>> On these grounds
+>>> Acked-by: Jan Beulich <jbeulich@suse.com>
+>> Thanks.
+>>
+>>> irrespective of the fact that a function of this name and purpose really, really
+>>> should be taking a pointer-to-const.
+>> No - this is a perfect example of why most functions should *not* take
+>> pointer-to-const for complex objects.
+>>
+>> There is no such thing as an actually-const vcpu or domain; they are all
+>> mutable.  The reason why x86 needs a strictly-mutable pointer is because
+>> it needs to take a spinlock to negotiate for access to a hardware
+>> resource to read some of the registers it needs.
+>>
+>> This is where there is a semantic gap between "logically doesn't modify"
+>> and what the C keyword means.
+> And hence (in part) why C++ gained "mutable" ages ago.
 
-I definitely like the removal of the late_hwdom bodges.
+Sure.  If we were writing in C++, then an internal splinlock being
+mutable would be a fine thing.
 
-However, there are several things to be aware of here.
+But we're writing in a language where there is no such concept.
+>> Anything except the-most-trivial trivial predates may reasonably need to
+>> take a spinlock or some other safety primitive, even just to read
+>> information.
+>>
+>>
+>> Because this was gratuitously const in the first place, bad code was put
+>> in place of making the prototype match reality.
+>>
+>> This demonstrates a bigger failing in how code is reviewed and
+>> maintained.  It is far too frequent that requests to const things don't
+>> even compile.  It is also far too frequent that requests to const things
+>> haven't read the full patch series to realise why not.  Both of these
+>> are a source of friction during review.
+>>
+>> But more than that, even if something could technically be const right
+>> now, the request to do so forces churn into a future patch to de-const
+>> it in order to make a clean change.  And for contributors who aren't
+>> comfortable saying a firm no to a maintainer, this turns into a bad hack
+>> instead.
+>>
+>> i.e. requests to const accessors for complexity objects are making Xen
+>> worse, not better, and we should stop doing it.
+> Okay, let's agree that we don't agree in our perspectives here.
 
-First, CDF_privileged probably wants renaming to CDF_control, now that
-CDF_hardware is being split out.
+I'm not saying this to be mean.  If C could do something like C++'s
+mutable, then this wouldn't be an issue.
 
-Second, you've created a case where we can make multiple hardware
-domains, yet it is very much a singleton object from Xen's point of view.
+But, I have lost count of the number of times I have had to reject
+requests of yours to const a pointer, on the basis that it can't
+compile.  Your review feedback cost one of my team-members a week trying
+to fulfil a const request before asking me for help, and it was another
+impossible example.
 
-This might be ok it's addressed by later in the series.  One especially
-nasty bit of late_hwdom was how dom0 started as both, then the
-late_hwdom stole dom0's hw-ness.  I expect untangling this is more
-complicated than a single patch.
+Of all feedback given by reviewers (it's not only you), requests to
+const are the ones that are most often wrong in my experience.  Probably
+only ~50% of requests are correct, yet it takes a very seasoned
+developer to come back and say "no, that doesn't compile", because
+that's really a "I think you're wrong" needing knowledge in a subtle
+part of the language.
 
-But, by the end, I think we do need to have reasonable confidence that
-only a single domain can be constructed as the hardware domain.
-
-> diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
-> index 3de5635291..b5e82578c3 100644
-> --- a/xen/include/xen/domain.h
-> +++ b/xen/include/xen/domain.h
-> @@ -50,6 +50,8 @@ void arch_get_domain_info(const struct domain *d,
->  #else
->  #define CDF_staticmem            0
->  #endif
-> +/* Is this the hardware? */
-> +#define CDF_hardware             (1U << 3)
-
-No, this one CDF flag isn't the hardware.  That would be the CPU we're
-running on.
+My request is to all reviewers.  Please take far more care before asking
+for const.  There are absolutely cases where it's right, but a false
+request is more problematic than it appears at the surface.
 
 ~Andrew
 
