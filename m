@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E49BCA5575D
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 21:21:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.904008.1311917 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18CA1A55765
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 21:23:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.904017.1311926 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqHhI-0002r8-IJ; Thu, 06 Mar 2025 20:20:00 +0000
+	id 1tqHkJ-00056u-VZ; Thu, 06 Mar 2025 20:23:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 904008.1311917; Thu, 06 Mar 2025 20:20:00 +0000
+Received: by outflank-mailman (output) from mailman id 904017.1311926; Thu, 06 Mar 2025 20:23:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqHhI-0002pg-FP; Thu, 06 Mar 2025 20:20:00 +0000
-Received: by outflank-mailman (input) for mailman id 904008;
- Thu, 06 Mar 2025 20:19:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tqHkJ-00055H-Sr; Thu, 06 Mar 2025 20:23:07 +0000
+Received: by outflank-mailman (input) for mailman id 904017;
+ Thu, 06 Mar 2025 20:23:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YZnl=VZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tqHhH-0002op-3D
- for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 20:19:59 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5d8643df-fac8-11ef-9898-31a8f345e629;
- Thu, 06 Mar 2025 21:19:54 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-43bdcd0d97dso6569715e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 06 Mar 2025 12:19:54 -0800 (PST)
+ id 1tqHkI-00055B-Ls
+ for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 20:23:06 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cfae5098-fac8-11ef-9ab4-95dc52dad729;
+ Thu, 06 Mar 2025 21:23:05 +0100 (CET)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-39133f709f5so32009f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Mar 2025 12:23:05 -0800 (PST)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43bdd8dbb2fsm29445785e9.20.2025.03.06.12.19.52
+ ffacd0b85a97d-3912c0193bfsm3064474f8f.55.2025.03.06.12.23.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Mar 2025 12:19:53 -0800 (PST)
+ Thu, 06 Mar 2025 12:23:04 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5d8643df-fac8-11ef-9898-31a8f345e629
+X-Inumbo-ID: cfae5098-fac8-11ef-9ab4-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741292394; x=1741897194; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1741292585; x=1741897385; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QNhuGevp/Q5Oe5jwsfQAWTFma5vvixKS8s/lz47rS/U=;
-        b=uLRmBdTHkdaYqHxScyW0AGcusJqvewxBarjEeTJEmua116zU2elcSljof6YYecrzW1
-         ZXRQXdcZxvpMMMg+R8Kd97RPYbJF+2cIDcOISQAHc7joAWtMTy9nLWOcUExoLWPT6/ML
-         yXH67UQjJ8CgkBMqYuvunvW/4gju0KfcFSsFE=
+        bh=YmN86OJEvdahQBeRbgX+nPyW1WbN/rldMxH5sKyuoXA=;
+        b=aya7RsCayIFj/wZKznJiF9/BPi7KWiOooz1FnNo2rX2jrT/ZUnUdidu2OY/iqh7dce
+         TYb78WM/lp4CLfaz11vsS63tZN455qRmm5k67lEgmwyIGI6Dpbm4hmv6Y55YuSxOSF/P
+         S9NamagC5htglE4B1qnP3ZerFKsj5bo6vThn8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741292394; x=1741897194;
+        d=1e100.net; s=20230601; t=1741292585; x=1741897385;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QNhuGevp/Q5Oe5jwsfQAWTFma5vvixKS8s/lz47rS/U=;
-        b=Iw+7lbtV2mMxK4uM8qzuCRO47Jx6mbGbq7nL51h26qYNpIHAdkUJp4t0Q28mp289iz
-         qjMva1c0dwatvaNP25bxTVjZlYCQtlHF3BM09bImVIsQ/j4/YmhFwvRR6xhKy+hyqpsP
-         cO5eWVLOr/VyU/+v1t9tPr62svVjMRfKxjWRWayZpdked0K07UOGc6Ylzklr2wnh3ZLK
-         lGdtAXCUAAUcao4rR5d2BOj1BcsKD9XtZbpY1GrFTJQedHc7qftzbi/OGrjMxQyMo94t
-         PN+cdQuUuSedvRKvX96dp/89Bs4zbkiKEyjyEq8iIP993dk62ucZ2qjcKBovqgt3C4ZS
-         eWwQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWAEHiOtpaodm/iewiEv2kmDf4VDWbQO4ri6B6Cd4oh/7JujqdTEZ+w1jNLH9u01Yx/M/10TCTZbs0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxhRpNq+V3CLWJL5S8fFguAT111OURY+oK7kqGnj/JO9yNCyHUT
-	i2U1Pml016o9SHUJLVvobEPo9Mbs0d7Ug2qvUYFXIg229k0RiHJTS4MOKltPVbUK69nnfb1Tvwc
-	O
-X-Gm-Gg: ASbGncsCYKup32kPlbpUym9yHn+3i6pv/MsI/1iiy5dRxyIncrlwiur37KpNNR1ALLZ
-	6GSe0iUPtMmqXgt1yloBcZNayPNHhJLT+AIMoGPbpcPGO8dJFpSBZ1XPu2tL4LRH9fuuGAB7eWo
-	ukXasnqX6dStVH5NIDgY6z2/HTzjEuYrZdd6cijiPBXtYybos0QAowSFz12EcuAhmJ38zW5dvOC
-	MhWFWR+10PwYUOEylZzuqYuALm00jmt1Vp9PufaHLrSKi0IR2kHVlg2bfF4fyIkBbSq6M1qd2DS
-	AfvDXMj5Ch7J4eQFMmytBmZ5AkkzAFNEUMBPDRdtNHMGBeOlK1JnTPB1ojWbj1vwG3q7yJJrqFg
-	fUcnK0sXC
-X-Google-Smtp-Source: AGHT+IEjS7dA1ImOAqlpnVtrl5wgMaCGCiVApWb2c6vjh+H68V2XRfqATA1fvjEvAlLF1422eAfc2A==
-X-Received: by 2002:a05:600c:3545:b0:43b:c5a3:2e1a with SMTP id 5b1f17b1804b1-43c601cdb15mr6501615e9.2.1741292393617;
-        Thu, 06 Mar 2025 12:19:53 -0800 (PST)
-Message-ID: <8dff5fb9-b46f-47bf-a6ee-863282155706@citrix.com>
-Date: Thu, 6 Mar 2025 20:19:52 +0000
+        bh=YmN86OJEvdahQBeRbgX+nPyW1WbN/rldMxH5sKyuoXA=;
+        b=vnfDWdLkGVtzDytjEmf5vlmz/TlMuhGFs6r2zwP0UNJ8jA+DvaJ1GBGLvbT+WjY96H
+         ETLaNmeQ6L7V1LX+K10HlVJouOjAXZhblESB/GvFyZuin1rJeMb6J5r3AAaTcN//BYN6
+         1LubC7AVBBzMCmKj5bQ3e2H6+bxMjzSVss/XhglZryI6sw0X6iCCHWW8PT3N12a763Fm
+         7PQzm00iPekz6EBRIDBQdW40bxXvMXye0KzVSlx4w5RVvOpx0IKfEGVID7mbjZwvSxwT
+         Eps4PrfdtaithYTMThLOS9nLrNa47ZkFyhmxL0/EJEOnVoZ/BZrMufgVBSAo0Zn7vquM
+         0xSw==
+X-Forwarded-Encrypted: i=1; AJvYcCURZMnUvqM5eQPyAAeqUDAA425F3saBjfNDXNGjhM3veLFTN4/kmiuYInzcSSjCuzcDzs58+FP11Qo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzSGXyAPSsYcrkhpoLVZVly7c5MsmuqkIOJbjFcyxXqtLY4vNap
+	fAfAXxx3N88nvyOc5T0IRoL+/6y2Q3JrpYb+4im6oPMO2nslyUi74C0PLUrQIWY=
+X-Gm-Gg: ASbGncujtMVcmY6H3EBQUTNuKd70isKfnjpjoJsHRu4wp08WQAn5tpvJCnF9ytVqAk/
+	WFcPF7krELZItyUgw74vkCefnGMtKHpKjCYYCx75GjkYamPT1NmEWGcyS1ZJUe668tVzx6nWeIB
+	SOzjjg1I3BhcLUx9gG4n60yiFzxSlUPqtlRsx7pVzOf78pTgU0jAXH1+W5oj004IWaJnpZFo1EH
+	oIM6CSw58YKdCr/0uwggM2sG5d1vO4eeoZmsXcQMCW8H1aKaf4356dqEMQsQcE2JbTIlJa5XOfk
+	D8NyM/5xUS2zKLsUtqxXc8IKJgcfdg5ZB/uJV0iV+5rp2F62LECve5bl5o3bhDRj1+vCTFz/Nyn
+	tvoXrvKpN
+X-Google-Smtp-Source: AGHT+IGSsNhfbVN+otKz6XbVyidTcb5YGEAJ6Fm/WfXzbpKRiFu+FHQ1vy5DiRQHUWkV4Dy7rZEw4w==
+X-Received: by 2002:a05:6000:1545:b0:390:f9d0:5e4 with SMTP id ffacd0b85a97d-39132d513c9mr415375f8f.21.1741292585217;
+        Thu, 06 Mar 2025 12:23:05 -0800 (PST)
+Message-ID: <356b3bbd-b6fa-42c6-adda-aa286033c793@citrix.com>
+Date: Thu, 6 Mar 2025 20:23:02 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] RISCV/bitops: Use Zbb to provide arch-optimised bitops
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250226172050.1300771-1-andrew.cooper3@citrix.com>
- <113b2464-c7b2-4068-a179-707cba4f3835@suse.com>
- <50cd2332-11b7-4b64-85ea-489c416098f9@citrix.com>
- <db2073b0-8585-4518-9467-b7da4cefbbae@suse.com>
+Subject: Re: [PATCH] tools/libs/store: use single_with_domid() in
+ xs_get_domain_path()
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Julien Grall <julien@xen.org>, Anthony PERARD <anthony.perard@vates.tech>
+References: <20250305085536.26311-1-jgross@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -138,91 +134,14 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <db2073b0-8585-4518-9467-b7da4cefbbae@suse.com>
+In-Reply-To: <20250305085536.26311-1-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 05/03/2025 7:34 am, Jan Beulich wrote:
-> On 28.02.2025 17:24, Andrew Cooper wrote:
->> On 27/02/2025 8:11 am, Jan Beulich wrote:
->>> On 26.02.2025 18:20, Andrew Cooper wrote:
->>>> --- a/xen/arch/riscv/include/asm/bitops.h
->>>> +++ b/xen/arch/riscv/include/asm/bitops.h
->>>> @@ -125,6 +125,13 @@ static inline void clear_bit(int nr, volatile void *p)
->>>>  #undef NOT
->>>>  #undef __AMO
->>>>  
->>>> +#define arch_ffs(x)     ((x) ? 1 + __builtin_ctz(x) : 0)
->>>> +#define arch_ffsl(x)    ((x) ? 1 + __builtin_ctzl(x) : 0)
->>>> +#define arch_fls(x)     ((x) ? 32 - __builtin_clz(x) : 0)
->>> I fear you won't like me to say this, but can't we avoid baking in yet
->>> another assumption on sizeof(int) == 4, by using at least sizeof(int) * 8
->>> here (yet better might be sizeof(int) * BITS_PER_BYTE)?
->> Yes and no.
->>
->> No, because 32 here is consistent with ARM and PPC when it comes to
->> arch_fls().  Given the effort it took to get these consistent, I'm not
->> interested in letting them diverge.
->>
->> But, if someone wants to introduce BITS_PER_INT to mirror BITS_PER_LONG
->> and use it consistently, then that would be ok too.
+On 05/03/2025 8:55 am, Juergen Gross wrote:
+> xs_get_domain_path() can be simplified by using single_with_domid().
+>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Oleksii: I see your patch is committed, but when I said "use it
-consistently", I meant "patch ARM and PPC too".
-> I was actually hoping to eliminate BITS_PER_LONG at some point, in favor
-> of using sizeof(long) * BITS_PER_BYTE. (Surely in common code we could
-> retain a shorthand of that name, if so desired, but I see no reason why
-> each arch would need to provide all three BITS_PER_{BYTE,INT,LONG}.)
-
-The concern is legibility and clarity.
-
-This:
-
-    ((x) ? 32 - __builtin_clz(x) : 0)
-
-is a clear expression in a way that this:
-
-    ((x) ? (sizeof(int) * BITS_PER_BYTE) - __builtin_clz(x) : 0)
-
-is not.  The problem is the extra binary expression, and this:
-
-    ((x) ? BITS_PER_INT - __builtin_clz(x) : 0)
-
-is still clear, because the reader doesn't have to perform a multiply to
-just to figure out what's going on.
-
-
-It is definitely stupid to have each architecture provide their own
-BITS_PER_*.  The compiler is in a superior position to provide those
-details, and it should be in a common location.
-
-I don't particularly mind how those constants are derived, but one key
-thing that BITS_PER_* can do which sizeof() can't is be used in #ifdef/etc.
-
-The following files use BITS_PER_LONG preprocessing:
-
-arch/arm/include/asm/div64.h
-arch/x86/cpu/mcheck/mce.c
-arch/x86/smpboot.c
-common/bitops.c
-common/coverage/gcov.h
-common/coverage/llvm.c
-common/cpu.c
-common/event_channel.c
-common/time.c
-common/ubsan/ubsan.c
-include/asm-generic/div64.h
-include/xen/cpumask.h
-include/xen/inttypes.h
-include/xen/nodemask.h
-include/xen/sched.h
-include/xen/xxhash.h
-lib/find-next-bit.c
-lib/generic-ffsl.c
-lib/generic-flsl.c
-lib/generic-hweightl.c
-
-And I really don't think they can be replaced with a sizeof().
-
-~Andrew
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
