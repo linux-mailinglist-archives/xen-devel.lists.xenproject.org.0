@@ -2,33 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 834CEA543DF
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 08:44:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.903006.1310927 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B51F9A543E6
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 08:48:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.903017.1310937 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tq5tA-0003qS-Gu; Thu, 06 Mar 2025 07:43:28 +0000
+	id 1tq5xY-0004Or-1x; Thu, 06 Mar 2025 07:48:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 903006.1310927; Thu, 06 Mar 2025 07:43:28 +0000
+Received: by outflank-mailman (output) from mailman id 903017.1310937; Thu, 06 Mar 2025 07:48:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tq5tA-0003oF-Dw; Thu, 06 Mar 2025 07:43:28 +0000
-Received: by outflank-mailman (input) for mailman id 903006;
- Thu, 06 Mar 2025 07:43:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=t507=VZ=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1tq5t8-0003o9-MI
- for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 07:43:27 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id af17b7a3-fa5e-11ef-9ab4-95dc52dad729;
- Thu, 06 Mar 2025 08:43:24 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id 882AD4EF512A;
- Thu,  6 Mar 2025 08:43:23 +0100 (CET)
+	id 1tq5xX-0004Mp-V5; Thu, 06 Mar 2025 07:47:59 +0000
+Received: by outflank-mailman (input) for mailman id 903017;
+ Thu, 06 Mar 2025 07:47:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=TCcn=VZ=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1tq5xW-0004Mi-F9
+ for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 07:47:58 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 51364355-fa5f-11ef-9898-31a8f345e629;
+ Thu, 06 Mar 2025 08:47:56 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id AD0081F385;
+ Thu,  6 Mar 2025 07:47:55 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5E5F413A61;
+ Thu,  6 Mar 2025 07:47:55 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id fd8eFStTyWf+dAAAD6G6ig
+ (envelope-from <jgross@suse.com>); Thu, 06 Mar 2025 07:47:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,98 +52,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: af17b7a3-fa5e-11ef-9ab4-95dc52dad729
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1741247003;
-	b=wB2sFPniLCmpqj70pgfCiIpg0Tjr2Y1Jn+vcfKB0lND18nXx4Rf2ShKUZTIs+kI6rXRZ
-	 OnWvjTfJT/o7aeqgrhvNbP+x0y8qGz0ZIlUV6xJN19Pez12bzihl9a5IssT43jeBgi0QK
-	 OP6Mr5sCZKbjRaaVG95A69OmRGG04vD6eoojj9yeGknfAVloSTsVfCeQqR4JReYypUF/3
-	 rD64B8zpxjQv0NBfaB12QEc8UbRSrk1hr/DHGMDddz+rmC9IsdlLzS95GfbNd8FIbZGpp
-	 vxOEOTMgq7xzWOkzSUavVHHRUko/7dhYhIuBUWESYSZr3ewlBVwSQuchWmD9PllGBc1cr
-	 YXo+H1U0GNtIVG+mLaUIXxYUQGObewZMXUYT4DPb6ni2mYg+KVi9FwSiW7MTnmCSc2ZkU
-	 ENiiR/NFKFmAMykievmiG1Cvwm2pxx1lCkr+a6j+mzBjepENzcXBuKy2QJRlY9Zq9+QC1
-	 B9jRmEhQqtOumDcYyvA4hZ8TA33PuuRIZU3fllgZCLCnjPC2SQ8sp/DP36uHcMmCrab00
-	 mUDx0/LTM1876bc7D25he8ILSa0y1RuZJV8486ndytnaWzoFngxomVoQItsljS1a6AIcY
-	 qoltBlb+PBopCj0xMlKW1OzPJyjJWqCtkaEoz4nYZS7WS95MYoLA7+HqQPYpTu8=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1741247003;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=CcaqJOPjnFy3yKhiXV1YpeD4tvqdyipHd4a64lZUdIQ=;
-	b=Go4eEPm7Q146xjjpWVnptAxLIN4Npv/E4Mio++jvEII7JZDiCpH7bSb+oNBVKOFjlTgB
-	 EGDHxzawuf7piJq4ttwG8xxt+ucXhD57OC30Q56bRVKQjfstdu5eiuLOWmQLVAZeE6eI9
-	 EmvZwgcFfnUIbfeVNR3Q8SO0WRxpkW3GqkbG30Ns3tiFbmOX0LODmLD30A1lP5aoYCj2A
-	 mVgCbFdrTGGBaJyxKvVYSmTCAtqmYrE8pR778qvTug23JbJGoVrJfKXdKlTp4jFQO5OU/
-	 EgA7fiUAdMsDI2vY0xGsMSdogtgoWgrf6DIo58cPGOnqc2UyAIsu+4hrDHnfMJOJvG+xl
-	 hWvHsbVE9LATzxLCglmACqc2Y13DRKT9/KWraEEr9tkpRfc7LNJA0WB3pgH3P3DUu+5+m
-	 fKiYwS23XPudQHjgQweP1FyyyCMknG2+dEi/sImQd4XqUr3Wa9eN+M/ap9r8EkOqLm/Zh
-	 6eqHMX3d/fuFSMcrw2k7Sag+6BamQC5TJZQehExe6n41MSdqer5eyM3hvdwxEGRbZ1gms
-	 xq5bvPbmyRwKtbCFjTM/NV8qKMJ0L/CKZlR/89vMiaLuNh6uomvzJhEdwslNGgvuwfswm
-	 U1/weOqI2Tw6wA2G6LzVsv7rIBCxBSw9SDjaEsypi1htzlJLq2YAmjDTYEmKcTc=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1741247003; bh=QCSgnfWjBJBo3Di9c0lbl17h5seljaYuONGD380g1kg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=vV0lqLaNcUbf8LByo12pbt+WpTJ/WodJPZ+WxwCoJRO36Qf5HCd0ceJERbbXz6H0j
-	 OsX7V5sxbqUERlOg2YPaBKJIu5H09h94g4AcfiCRw8AzesAV5JyRcBrMID8++W4v4J
-	 AqdiYi1RhBG2UvrMtwRDx8WRRNRKGI/FHDB8gOAq4zFsINUesoeM53GrcQB06T6Jii
-	 ySUuQG3V3jjtqZKsXay6+ZjgauG1cjHo70YkcJjqUm+wgK6teLHFbeqXKOJTD4dZgx
-	 P2t3kifWc6OUSsNhgS4TbXXZonMiUPa/SRFidiybLwxAuZ9RQih54O8AojtQZ+lZja
-	 WfOPKUvBfutNA==
+X-Inumbo-ID: 51364355-fa5f-11ef-9898-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1741247275; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=IXajTnQR6rguwzjmxMX4Wjp94Ht5U2Pcz/IXQXqMUu8=;
+	b=FF7Les/tnzWnKSZnD5kBac+Z59P2OIaD9j+Az4jc2In4kHQ7t1i7rOEUosDZ0DKbxQ3pdx
+	FvvhuoV8X7nbQDwMQPg/3lULgbqHEhrj1UUFInScPZ6XX3Zk8XRiJtHDlKGTSUA/1F656c
+	W2i8zupzweTNS6HQlFAogM/wCs4GQhE=
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b="FF7Les/t"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1741247275; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=IXajTnQR6rguwzjmxMX4Wjp94Ht5U2Pcz/IXQXqMUu8=;
+	b=FF7Les/tnzWnKSZnD5kBac+Z59P2OIaD9j+Az4jc2In4kHQ7t1i7rOEUosDZ0DKbxQ3pdx
+	FvvhuoV8X7nbQDwMQPg/3lULgbqHEhrj1UUFInScPZ6XX3Zk8XRiJtHDlKGTSUA/1F656c
+	W2i8zupzweTNS6HQlFAogM/wCs4GQhE=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v2] docs: fix INTRODUCE description in xenstore.txt
+Date: Thu,  6 Mar 2025 08:47:52 +0100
+Message-ID: <20250306074752.13208-1-jgross@suse.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Date: Thu, 06 Mar 2025 08:43:23 +0100
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Jan Beulich <jbeulich@suse.com>, michal.orzel@amd.com,
- xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
- Dario Faggioli <dfaggioli@suse.com>, Meng Xu <mengxu@cis.upenn.edu>, Juergen
- Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>,
- xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH v2 2/3] xen/rt: address violation of MISRA C Rule 8.2
-In-Reply-To: <alpine.DEB.2.22.394.2503051524030.1303386@ubuntu-linux-20-04-desktop>
-References: <cover.1740476096.git.nicola.vetrini@bugseng.com>
- <e3c6457e50d61daa05fd9c3a7c71b06d912216a0.1740476096.git.nicola.vetrini@bugseng.com>
- <fc6c0113-484d-4eb5-8b66-0ef547d8dbf1@suse.com>
- <alpine.DEB.2.22.394.2503051524030.1303386@ubuntu-linux-20-04-desktop>
-Message-ID: <6c932b6a486e43387d3923f39e2f48c7@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: AD0081F385
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,suse.com:dkim,suse.com:mid];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_TRACE(0.00)[suse.com:+]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -3.01
+X-Spam-Flag: NO
 
-On 2025-03-06 00:24, Stefano Stabellini wrote:
-> On Wed, 5 Mar 2025, Jan Beulich wrote:
->> On 25.02.2025 10:38, Nicola Vetrini wrote:
->> > Rule 8.2 states: "Function types shall be in prototype form with
->> > named parameters".
->> >
->> > The parameter name is missing from the function pointer type
->> > that constitutes the first parameter.
->> >
->> > No functional change.
->> >
->> > Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->> > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
->> > Reviewed-by: Juergen Gross <jgross@suse.com>
->> > ---
->> > Changes in v2:
->> > - renamed function parameter name to "elem"
->> > - changed prefix to xen/rt since only that scheduler is touched
->> 
->> Looks like you committed v1 of this, and without a maintainer ack?
-> 
-> Hi Jan, I took Juergen's comment and his maintainer ack, making the
-> change on commit: https://marc.info/?l=xen-devel&m=173978187314898
+The description of the Xenstore INTRODUCE command is still referencing
+xend. Fix that.
 
-I think Jan's comment is due to the subject prefix of the commit being 
-xen/sched, rather than xen/rt, as I touched only the rt scheduler, but 
-that's too late to change.
+The <evtchn> description is starting with a grammatically wrong
+sentence. Fix that.
 
+While at it, make clear that the Xenstore implementation is allowed
+to ignore the specified gfn and use the Xenstore reserved grant id
+GNTTAB_RESERVED_XENSTORE instead.
+
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+V2:
+- fix <evtchn> description
+- reword <gfn> vs. grant usage (Andrew Cooper)
+---
+ docs/misc/xenstore.txt | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
+
+diff --git a/docs/misc/xenstore.txt b/docs/misc/xenstore.txt
+index 38015835b1..7e1f031520 100644
+--- a/docs/misc/xenstore.txt
++++ b/docs/misc/xenstore.txt
+@@ -286,19 +286,32 @@ TRANSACTION_END		F|
+ INTRODUCE		<domid>|<gfn>|<evtchn>|?
+ 	Notifies xenstored to communicate with this domain.
+ 
+-	INTRODUCE is currently only used by xend (during domain
++	INTRODUCE is currently only used by xen tools (during domain
+ 	startup and various forms of restore and resume), and
+ 	xenstored prevents its use other than by dom0.
+ 
+ 	<domid> must be a real domain id (not 0 and not a special
+ 	DOMID_... value).  <gfn> must be a page in that domain
+-	represented in signed decimal (!).  <evtchn> must be event
+-	channel is an unbound event channel in <domid> (likewise in
+-	decimal), on which xenstored will call bind_interdomain.
++	represented in signed decimal (!).  <evtchn> is an unbound
++	event channel in <domid> (likewise in decimal), on which
++	xenstored will call bind_interdomain.
++
+ 	Violations of these rules may result in undefined behaviour;
+ 	for example passing a high-bit-set 32-bit gfn as an unsigned
+ 	decimal will attempt to use 0x7fffffff instead (!).
+ 
++	The <gfn> field is used by xenstoreds which use foreign
++	mapping to access the ring page.
++
++	Alternatively, Grant 1 (GNTTAB_RESERVED_XENSTORE) is reserved
++	for the same purpose, and is populated by the domain builder
++	on behalf of the guest.  This mechanism is preferred because
++	it reduces the permissions that xenstored needs in order to
++	function.
++
++	Both <gfn> and Grant 1 need to agree, because implementations
++	of xenstored will use one and ignore the other.
++
+ RELEASE			<domid>|
+ 	Manually requests that xenstored disconnect from the domain.
+ 	The event channel is unbound at the xenstored end and the page
 -- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+2.43.0
+
 
