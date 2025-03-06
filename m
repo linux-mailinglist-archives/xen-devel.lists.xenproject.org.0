@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FDB1A54F39
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 16:34:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.903772.1311734 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66998A54F5F
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 16:41:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.903785.1311743 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqDEE-0004WS-FH; Thu, 06 Mar 2025 15:33:42 +0000
+	id 1tqDLZ-00069L-5b; Thu, 06 Mar 2025 15:41:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 903772.1311734; Thu, 06 Mar 2025 15:33:42 +0000
+Received: by outflank-mailman (output) from mailman id 903785.1311743; Thu, 06 Mar 2025 15:41:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqDEE-0004TM-C7; Thu, 06 Mar 2025 15:33:42 +0000
-Received: by outflank-mailman (input) for mailman id 903772;
- Thu, 06 Mar 2025 15:33:40 +0000
+	id 1tqDLZ-00066m-2Y; Thu, 06 Mar 2025 15:41:17 +0000
+Received: by outflank-mailman (input) for mailman id 903785;
+ Thu, 06 Mar 2025 15:41:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qAxi=VZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tqDEC-0004TG-OV
- for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 15:33:40 +0000
+ id 1tqDLX-00066g-Rx
+ for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 15:41:15 +0000
 Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
  [2a00:1450:4864:20::334])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 60537824-faa0-11ef-9ab4-95dc52dad729;
- Thu, 06 Mar 2025 16:33:39 +0100 (CET)
+ id 6edfeb3b-faa1-11ef-9ab4-95dc52dad729;
+ Thu, 06 Mar 2025 16:41:13 +0100 (CET)
 Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-43bc4b1603fso5369585e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 06 Mar 2025 07:33:39 -0800 (PST)
+ 5b1f17b1804b1-43bd03ed604so7378885e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Mar 2025 07:41:13 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43bcbd27996sm44601595e9.2.2025.03.06.07.33.37
+ 5b1f17b1804b1-43bd42c6203sm53306225e9.24.2025.03.06.07.41.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Mar 2025 07:33:38 -0800 (PST)
+ Thu, 06 Mar 2025 07:41:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 60537824-faa0-11ef-9ab4-95dc52dad729
+X-Inumbo-ID: 6edfeb3b-faa1-11ef-9ab4-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741275218; x=1741880018; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741275672; x=1741880472; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=uH2iIPv71xUZ7Kh7UsPOG12+ca9p9pw6FI3e2CBLarc=;
-        b=I0UEQM7uuQTCaqLkKJXuqMv5UEeshBfWHbQ4dbKn3riD2m4pRswkqQR33tmZJJGyuI
-         03Vo0IrSMG4hwsqsxcQxJesL/oymq2H3+Om2xSMbGMKIWu64w97VjZPFYoF8CdRNtwYI
-         EQ60makkAXFBm8buRdiAwYhbekdPOz9/hnYjhElACfVK2mfGIDLd1dHVI9p7H+MwOkQd
-         u4g+NcIyeiqY97A3A0uKrDApxeiopSDmhDwAPjVm9sxiJHn/kagAfxkFDeGoJkHdvrB5
-         bzUXxWOKdyszZQDB0QFucGg6aO3ITHnNVOOoexh6CKcbzSGq7zugq04zx/k2cRLEPTje
-         fG6A==
+        bh=DGwaPKtKFaZlPvtxRAUsCkBD4pDgJpIoW4mCfRWiXjk=;
+        b=F2MlTCEB5woTw7T1PXcJaNVDjZRBqk6I7IB+eCH2Kj8ZegiNdJGQpTkN5bcP432H9z
+         b3Yg4gcqIwxfYLEL4pGZO6SwG7xl7/uKXVZpYxjOhZzpcx4/MmfumRe8vmyTKuf0lBqz
+         y1vaI7TIaIPB5f7FUqIaDIS9kIEY9eP8BnzND3N5yAS/0kAaehgbfcGAa/AzE1N2fj+d
+         x3FK5JjEyPmVu2Y0SYy2gfbvGNE/tgbus/i21up3A4Vt1SCWUhGeN6c/ICFeLGhCI26l
+         VSwRZU1jkyy5eCIDQJpP/+idJqBG0kNkSHG8rKI3BEf0iERAUtnH2P13RRA0CJNXKEff
+         cTig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741275218; x=1741880018;
+        d=1e100.net; s=20230601; t=1741275672; x=1741880472;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uH2iIPv71xUZ7Kh7UsPOG12+ca9p9pw6FI3e2CBLarc=;
-        b=rBKsPdRO6u8OKh0bXYBlnMjdDdhzP3F95ijAd9fpBFttQf6uRhFgUWkQnanR/S9CUj
-         iyqG1tdUz1t8LeDvHavt9osWkJkpKCf9YDCO5ml+nl4mcfuTYcSx/7wazo/nnRgfomcA
-         JcVXv9Ep62Y/pQ0jXDPN0awR4liShZHBawcDNrj3dgdijmHha1CQPfn4ez9hqku8BzbL
-         pKfwFjOfLrNpmoAb3a1Es2UV26EHBQKF7bQA8VmIJ/eK3nH5MDwucgrKDXcJyP+6UuHf
-         5nH7YX8iMNJTtWRRVovlHHxuzCvO4sxRuj5C53nU7EGHuW6slh6HzDRoH6AOrKbjXcub
-         pdjw==
-X-Forwarded-Encrypted: i=1; AJvYcCWleHuiv1Hchc+U/IghRl3fhpsZ2MeX7wahejLh8xb/WpWbqpngulGJAHF+iTQ/XiMn1rlydlhyWrY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxuVGoauF/cNG4pgn2+Qdid56ebuqCDrI+8lNbQYE4FUeGrZyXd
-	RiIl576T3LVQnSALfc2sCVBoPqadeY8Y0jfMmsMJ4f4hkvwlAvov8Yo4cdOjbw==
-X-Gm-Gg: ASbGncu1MGZoyeqZ7kO/T3C88T/EmEufG+HnA1wmM6S1jw2UUfDDdudybTm5huugb4z
-	8J8I2GuTTSrRxvQInKR6AiPrEvxf2v3BwTcmIcez6rOHFz7si+Tw9W46PmbU0jUK4hib85gxiL1
-	JCvZ+NcZBEE5a8nZbMUVYe1OLd8r+0kEPUXO8V8DzrZ3897a1F3797LfosuJ0x4WMzBrpljkE98
-	l5kSW72z8LN1wVgnD5SvCzY1M14GZQkhJWkInfdIKTa8m9r48f852pg7rQuxlgsyTWyiW5WWFJI
-	fBoAHx9ITLcitLhDSHBA0lJVTYLVWOIzsXyHKiTDQrwg+sI2qUU4xzyxgPaGQzoSOuPsPOEtD8z
-	c/9zgeYk4qgJa2mjwFsvN5jjglHYIwQ==
-X-Google-Smtp-Source: AGHT+IESQfeHxj7EAptPkRzt6oe21kZZq+TEJi+fj23Hnu4Easc15eoLJmnxHqh4eUaxb5KsqjxGGg==
-X-Received: by 2002:a05:600c:4ed3:b0:439:a155:549d with SMTP id 5b1f17b1804b1-43bd295351bmr63049695e9.12.1741275218478;
-        Thu, 06 Mar 2025 07:33:38 -0800 (PST)
-Message-ID: <f53539b7-ca49-465c-8aeb-205a489130ea@suse.com>
-Date: Thu, 6 Mar 2025 16:33:37 +0100
+        bh=DGwaPKtKFaZlPvtxRAUsCkBD4pDgJpIoW4mCfRWiXjk=;
+        b=He0lOdr2JRhsgkyoHaKVKpQkx3ncOP2nVrgETtBZaJAq3/uvgUEvfnvwrO8k9xW1Dc
+         fHPd3eFBzhgVpGfEED8QH/E09u+2bRN3rYvvP9LqsB7wsPrytcvPF9sGdp1XvPB33hyK
+         hhGeRphQ2A7OL/o1yIG3vqWZp8sDHyfy3TJcpPvDFWfIJxkvs8C2WPO7XmV5MVYWDqUV
+         zSHW07djb4ZlexDdi9goxKollfz9aM5oo7AlBr0PRKvVgmJkLPf4BcQgEQ9HNLLAGCIi
+         zADrb5jobTSP7mwZ9Ilb/I5f+H5AyGO7qtUooAJesYzd/TexcjzUJORGlVbLkuevp7vh
+         EPIQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUWG4/gONATmuOrCc9U80gOfv2CYiVL++pIYF2jHAGM3ibxOPAVp/7K2omAOS2sWRiRmSOQj7fiBNc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzHNLofOTNV7LiCSt5A5GeoPwHA87rMKWghhWj69EAmYXr/2/Iu
+	DR1tgKVNQQx6QOiJ6OvoaOOa4+xyoVLqMb6lK0dL7PB/bsQ3xUdnfYwjx48mlQ==
+X-Gm-Gg: ASbGncugM4D3jvtPwK6XAb/kTZYSEo0j3OxiVFLbB/YXajrbvGhTReyKjgv5gRcqrdI
+	nYaS0icdVNGfJ/0bUat7Wjaf4JfuWmz73A8qwCNjQXzH3mHJTYV2Yg3xhMPj1OlBm0WcgjCucfJ
+	/KPZa7V3+SBZG86Ah09qYDV5fzTk6l7K7DNClzflvGOFK2UXolhQVW1NmfBjvf/fjpRyBQOoAUx
+	tSa75HmPrWJD1m91kXO3NPtvhH/w7uvzurgYASDAFZOVrT1GDih2F9TGLikEeLGe/qeUjERm2r1
+	Yt6Rm1m+3lC3VxlFlzZp9sur9sogMB6ucqCOYF9z93XRvrBB8b+9xY8AP5/OUzZDZqdaxQjPbO0
+	BWbpwVFo8R+hgo6p8sGwPJuaVk/9v+w==
+X-Google-Smtp-Source: AGHT+IGxqs9b6zF9SZnUxUV+4ms42SgFP3kZfy0nAZnPyTwja2Nls56WLHIi6wEdWlvWIueB/bXnig==
+X-Received: by 2002:a05:600c:6a13:b0:43b:b67f:6802 with SMTP id 5b1f17b1804b1-43be06b7a1amr20604045e9.0.1741275672387;
+        Thu, 06 Mar 2025 07:41:12 -0800 (PST)
+Message-ID: <21bd8eff-1583-42a9-baf4-00a495ab7a5b@suse.com>
+Date: Thu, 6 Mar 2025 16:41:10 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] x86/apic: remove delivery and destination mode
- fields from drivers
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250306145733.99927-1-roger.pau@citrix.com>
- <20250306145733.99927-2-roger.pau@citrix.com>
+Subject: Re: [PATCH v8 3/9] xen: add bitmap to indicate per-domain state
+ changes
+To: Juergen Gross <jgross@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250204113407.16839-1-jgross@suse.com>
+ <20250204113407.16839-4-jgross@suse.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,68 +122,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250306145733.99927-2-roger.pau@citrix.com>
+In-Reply-To: <20250204113407.16839-4-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 06.03.2025 15:57, Roger Pau Monne wrote:
-> --- a/xen/arch/x86/genapic/bigsmp.c
-> +++ b/xen/arch/x86/genapic/bigsmp.c
-> @@ -46,8 +46,6 @@ static int __init cf_check probe_bigsmp(void)
+On 04.02.2025 12:34, Juergen Gross wrote:
+> @@ -1075,6 +1086,26 @@ static void clear_global_virq_handlers(struct domain *d)
+>      }
+>  }
 >  
->  const struct genapic __initconst_cf_clobber apic_bigsmp = {
->  	APIC_INIT("bigsmp", probe_bigsmp),
-> -	.int_delivery_mode = dest_Fixed,
-> -	.int_dest_mode = 0, /* physical delivery */
->  	.init_apic_ldr = init_apic_ldr_phys,
->  	.vector_allocation_cpumask = vector_allocation_cpumask_phys,
->  	.cpu_mask_to_apicid = cpu_mask_to_apicid_phys,
-> --- a/xen/arch/x86/genapic/default.c
-> +++ b/xen/arch/x86/genapic/default.c
-> @@ -16,8 +16,6 @@
->  /* should be called last. */
->  const struct genapic __initconst_cf_clobber apic_default = {
->  	APIC_INIT("default", NULL),
-> -	.int_delivery_mode = dest_Fixed,
-> -	.int_dest_mode = 0, /* physical delivery */
->  	.init_apic_ldr = init_apic_ldr_flat,
->  	.vector_allocation_cpumask = vector_allocation_cpumask_phys,
->  	.cpu_mask_to_apicid = cpu_mask_to_apicid_phys,
-> --- a/xen/arch/x86/genapic/x2apic.c
-> +++ b/xen/arch/x86/genapic/x2apic.c
-> @@ -140,8 +140,6 @@ static void cf_check send_IPI_mask_x2apic_cluster(
->  
->  static const struct genapic __initconst_cf_clobber apic_x2apic_phys = {
->      APIC_INIT("x2apic_phys", NULL),
-> -    .int_delivery_mode = dest_Fixed,
-> -    .int_dest_mode = 0 /* physical delivery */,
->      .init_apic_ldr = init_apic_ldr_phys,
->      .vector_allocation_cpumask = vector_allocation_cpumask_phys,
->      .cpu_mask_to_apicid = cpu_mask_to_apicid_phys,
-> @@ -163,8 +161,6 @@ static const struct genapic __initconst_cf_clobber apic_x2apic_mixed = {
->       * The following fields are exclusively used by external interrupts and
->       * hence are set to use Physical destination mode handlers.
->       */
-> -    .int_delivery_mode = dest_Fixed,
-> -    .int_dest_mode = 0 /* physical delivery */,
->      .vector_allocation_cpumask = vector_allocation_cpumask_phys,
->      .cpu_mask_to_apicid = cpu_mask_to_apicid_phys,
+> +struct domain *lock_dom_exc_handler(void)
+> +{
+> +    struct domain *d;
+> +
+> +    d = get_global_virq_handler(VIRQ_DOM_EXC);
 
-Like we had it everywhere above, ...
+The Arm dom0less crash(es?) found by CI are apparently a result of this possibly
+returning NULL (hardware_domain == NULL). Returning NULL from here also in this
+case (and not just ...
 
-> --- a/xen/arch/x86/io_apic.c
-> +++ b/xen/arch/x86/io_apic.c
-> @@ -1080,8 +1080,8 @@ static void __init setup_IO_APIC_irqs(void)
->               */
->              memset(&entry,0,sizeof(entry));
->  
-> -            entry.delivery_mode = INT_DELIVERY_MODE;
-> -            entry.dest_mode = INT_DEST_MODE;
-> +            entry.delivery_mode = dest_Fixed;
-> +            entry.dest_mode = 0;
+> +    if ( unlikely(!get_domain(d)) )
+> +        return NULL;
 
-... here and below these zeros would better gain a comment, or be expressed
-as e.g. (untested) MASK_EXTR(APIC_DEST_PHYSICAL, APIC_DEST_MASK).
+... in this one) would at least deal with the use from domain_changed_state(). I
+didn't closely check other uses. Thoughts?
 
 Jan
 
