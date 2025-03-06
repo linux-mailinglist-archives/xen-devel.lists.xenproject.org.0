@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 556FCA548C1
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 12:09:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.903353.1311268 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7499A548BE
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Mar 2025 12:09:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.903354.1311275 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tq960-0000qo-Vd; Thu, 06 Mar 2025 11:08:56 +0000
+	id 1tq961-0000wB-D4; Thu, 06 Mar 2025 11:08:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 903353.1311268; Thu, 06 Mar 2025 11:08:56 +0000
+Received: by outflank-mailman (output) from mailman id 903354.1311275; Thu, 06 Mar 2025 11:08:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tq960-0000oZ-Rp; Thu, 06 Mar 2025 11:08:56 +0000
-Received: by outflank-mailman (input) for mailman id 903353;
- Thu, 06 Mar 2025 11:08:55 +0000
+	id 1tq961-0000tu-6v; Thu, 06 Mar 2025 11:08:57 +0000
+Received: by outflank-mailman (input) for mailman id 903354;
+ Thu, 06 Mar 2025 11:08:56 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jWYO=VZ=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1tq95z-0000aa-1z
- for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 11:08:55 +0000
+ id 1tq960-0000aa-0I
+ for xen-devel@lists.xenproject.org; Thu, 06 Mar 2025 11:08:56 +0000
 Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on20606.outbound.protection.outlook.com
- [2a01:111:f403:2407::606])
+ (mail-bn1nam02on2060c.outbound.protection.outlook.com
+ [2a01:111:f403:2407::60c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 62a62f1a-fa7b-11ef-9ab4-95dc52dad729;
- Thu, 06 Mar 2025 12:08:52 +0100 (CET)
-Received: from SJ0PR13CA0158.namprd13.prod.outlook.com (2603:10b6:a03:2c7::13)
- by CY5PR12MB6407.namprd12.prod.outlook.com (2603:10b6:930:3c::16)
+ id 645ddf26-fa7b-11ef-9ab4-95dc52dad729;
+ Thu, 06 Mar 2025 12:08:55 +0100 (CET)
+Received: from MW4PR03CA0006.namprd03.prod.outlook.com (2603:10b6:303:8f::11)
+ by SA1PR12MB6679.namprd12.prod.outlook.com (2603:10b6:806:252::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.16; Thu, 6 Mar
- 2025 11:08:46 +0000
-Received: from CO1PEPF000066EA.namprd05.prod.outlook.com
- (2603:10b6:a03:2c7:cafe::ea) by SJ0PR13CA0158.outlook.office365.com
- (2603:10b6:a03:2c7::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.11 via Frontend Transport; Thu,
- 6 Mar 2025 11:08:46 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.19; Thu, 6 Mar
+ 2025 11:08:48 +0000
+Received: from CO1PEPF000066E8.namprd05.prod.outlook.com
+ (2603:10b6:303:8f:cafe::75) by MW4PR03CA0006.outlook.office365.com
+ (2603:10b6:303:8f::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8511.16 via Frontend Transport; Thu,
+ 6 Mar 2025 11:08:48 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000066EA.mail.protection.outlook.com (10.167.249.5) with Microsoft
+ CO1PEPF000066E8.mail.protection.outlook.com (10.167.249.6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8511.15 via Frontend Transport; Thu, 6 Mar 2025 11:08:45 +0000
+ 15.20.8511.15 via Frontend Transport; Thu, 6 Mar 2025 11:08:48 +0000
 Received: from penny-System-Product-Name.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Thu, 6 Mar 2025 05:08:42 -0600
+ 15.1.2507.39; Thu, 6 Mar 2025 05:08:45 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 62a62f1a-fa7b-11ef-9ab4-95dc52dad729
+X-Inumbo-ID: 645ddf26-fa7b-11ef-9ab4-95dc52dad729
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bx4yQKcIou+bGDBwVOXYgeK+sFSXCVyzU5qJP41LPhenpKGW++ePj9YoMuSLZVBaD5EN4N01v1hfSHr/2v/Yw4v+jc4bgLWyOmInikt45CaRe2UypDvbL4E1NqSdWNOd5yi4m+iOyyC7u5ZfioYbJymJVXc/NPNCCUZSDVru+Oi8h65L7o5y8/CB5VuK5sx5DhyOrnJIgi4pYMdx0OUL2mpnMawdZ3vUMCQYdmD2mQC+t0184iKxa7531VOtBi0liHaVW3JR8qkwhs4heR6QFm/GpHBYWxZQthOttkrEavsHwxwtlvH1aO98g95w4Gt/JNEsEtOlCF0lteD3RwUq8A==
+ b=ii5U1DNS/lAcElrqLMGwXTvggt3TdQOocbHb6t+xp7jJFWmsImxSEbUHCqInVbTVX8OIsTuso0AOSP0oN0pyz0+SQjWfsgYirNCPYqfbgIbqPMZ+6TzI6RpkawQjhYdMjO4w0qGVLvoTZnoK9KTBlgFdIfTOUzJpoLA052p5dQwIs66sp8hSCfiT9DBa9/SNosPIgU3oqpom/h3ShQT7qfbZYxyRX0DKeKXCxXqjkB1lu0JZlc3CUK6zvjT8oRGmZp7i3VP2B8uHEvfb0mPRKK1IXfbB1DENcz3Pcpu59L/lLD+/f13CD7rTZbW+47JYx7/MLMCKnJJxxsVNjpKIMA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=umPQCB2LN+Kalqs6W3FFGVHcfPlI9C3UYolJoarzFPM=;
- b=WuCEKnQphRNQA44CLda2Npj1PP7ea5xqyOlsgxULfVdSgqEfDby2TbQSpijT1YDK1C4i9thuEgcl9/DbltLG2yFsxfRxM+3VvYDOjVfDuoGyQ270Se25ju6/ixaLG8d6Xp5O6ZDnqas5ApIpuapxmRD9mCJ8gGjrWJwREIh/18bhmqJ3bc/hZDLdpgDj4/+bXWCjYrGWWgMZAomgRFZUxuH1Mz1Fx/RMv9P4eGBTnXrla11dKaFL+7K6g+vFgcmKDl75rZ0CI8ZfpkGVFOcNlQuDp4Hbhimyz+FY2XoHTqSz7iLvkJQI4DqbX8bXnmxrec1Z5VMyDrPT3GU6SCPHXw==
+ bh=9/e/Hlw2V8fXNadO2E5iUFdqkjG160ZTKnpUmCG6fYg=;
+ b=lzjtip4VnYvgQxj8Wl1noXuI/uSTT3Ohh3xmf8KGRcGrglwehR5ms2+1EQFg0b2G1K/LD1P51mIR57hZIXfOlLtN3RuYTGITYgQ0B+d3wdfjiDXBo8F3xujSRIPb2g3Q4ShUV+r2UUFWCWEGZbJMX6LdlFg+mAIwwdf8tsz0w1grxGnCoh1gBs9atsRekW1ghsBrQMCC+Az8S4tyDEPqwT1BkEwtceJYjTuRveYI0fPRyPgfN3kwpTsRtsBvKyJkjIaBsepnPNkgeoKOqISrJUU2vgyCCsWNDqhcIAmFSkei2DCefnJrhE9omr/2o2e+qQ48S2DSj1a9JzbIntooMg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=umPQCB2LN+Kalqs6W3FFGVHcfPlI9C3UYolJoarzFPM=;
- b=ld0kDCcFSxAytTnql+O4h+lQYq3yOyDvfJ8z2J3HalvoiTB40GXb+2ZhzxEpN0/5qv0VcP5eMYvF0JhHx6LtmKOJhpIjIPyXNmoyzw/hQ+tgucFeJBsKpuOhlzCoHI/uButNh6RYm6QMPyvuX9OM5FC9QfxvHK75T33EfE66Tm8=
+ bh=9/e/Hlw2V8fXNadO2E5iUFdqkjG160ZTKnpUmCG6fYg=;
+ b=TekTs9b+ZDDXXFpxWgoKtertBuca538ceMmDjGtv4hKitd/r0u/o6736eE3b4sqelReJ3YCOc49IsY0+HLwCGomeUIWbaTZ7G/aiZuCl5HGKBoaO+YvhoN659Cvw7cu/TuY+FmKXF6yJ4ND9VFmMDAwISY+tU0SoT+Sog8QeSL0=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -84,470 +84,249 @@ To: <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>, Stefano Stabellini
 	<oleksandr_tyshchenko@epam.com>
 CC: Ray Huang <Ray.Huang@amd.com>, Jason Andryuk <jason.andryuk@amd.com>,
 	Penny Zheng <Penny.Zheng@amd.com>, <xen-devel@lists.xenproject.org>,
-	<linux-kernel@vger.kernel.org>, Roger Pau Monne <roger.pau@citrix.com>
-Subject: [PATCH v3 1/5] xen/acpi: upload power and performance related data from a PVH dom0
-Date: Thu, 6 Mar 2025 19:08:20 +0800
-Message-ID: <20250306110824.1506699-2-Penny.Zheng@amd.com>
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH v3 2/5] xen: introduces XEN_PM_PSD sub-hypercall for solely delivery of _PSD info
+Date: Thu, 6 Mar 2025 19:08:21 +0800
+Message-ID: <20250306110824.1506699-3-Penny.Zheng@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250306110824.1506699-1-Penny.Zheng@amd.com>
 References: <20250306110824.1506699-1-Penny.Zheng@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000066EA:EE_|CY5PR12MB6407:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0f168f34-20af-40f2-4f22-08dd5c9f4399
+X-MS-TrafficTypeDiagnostic: CO1PEPF000066E8:EE_|SA1PR12MB6679:EE_
+X-MS-Office365-Filtering-Correlation-Id: fc2018c2-8a39-4dd5-6686-08dd5c9f450e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700013|1800799024|82310400026;
+	BCL:0;ARA:13230040|82310400026|376014|36860700013|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?aUQzcGZDNUV6d2l2clduK0ZmcWUyOXZZTG9CMm5STUF6ZHowNURjOUw3WVd2?=
- =?utf-8?B?WFV3NXN3RHBHYWZoTmYzMG9xR2NIQnljcUlhTDNKTms2TUwyUGRxRFZSdWl2?=
- =?utf-8?B?TEVoejF3YlVTVDc1VGQzSWJJeHNJSlFIN2t6Tk1wUGVQY3ZOODVuVUhnMHo2?=
- =?utf-8?B?NlB6Q1RRcE1ySUIySkllTk5jYmNuT0FvK2ZuOXY4SEJCdDM5S0tML3MwM0g5?=
- =?utf-8?B?UTJoMDlXTVJKV0pjcU1GYVZoMzl5cTYxWmxuZEVucmNzdEsxYTV2aVJpMHhs?=
- =?utf-8?B?ZmxSQms5VUNyeTk5VThLMGlPOWc1enBiTnBKMDVnTnF1aG5td0ZHS3ZyU2Qw?=
- =?utf-8?B?b2NMSEhadmZnYmNIOU56WEp5RjZ2MFBtd3d5Q2VScys5ZTAxNTlKZjlUUUFS?=
- =?utf-8?B?aWlDYndGb3RHckVVWE0vZVk2RzJZTWZ4S3E5Z3hYTE9VUjRFaWh6UkRmK3lv?=
- =?utf-8?B?ekpBV2ZuY0gzbW1YeGpDSmpDY0hpam55MFJHV2ZVeTB6eHVjZSs4Z1Q2Y1Fz?=
- =?utf-8?B?RG1mRW53MVM4TWIxc3ZKVXk1QXVpcFlTWWNjYVZtcC96LzBUODFES1VDVU1N?=
- =?utf-8?B?WjRGL0tWNitqbW9kMy9ueEdTZVQ5N2FOYTZWSG43bnlmY1h4ZXovNkdyZjJK?=
- =?utf-8?B?TGNhVlVHaGVyRDdnWVdjMUlQMkFEWCtWaXlnRE9HSExWMFc1aWxoblRTK3hJ?=
- =?utf-8?B?MDhzb1lUc1BkTlN3eGRoN053d2s0WDJ6MGVsbUR2TUlwNGRabXJMZERKdUJ4?=
- =?utf-8?B?RXdPMTBmam44RWlVYWlhcUw3N3JBVnpyVnFIYTRBWGdLczZvdXBVWnFCaHRL?=
- =?utf-8?B?QWgxTEN6VlpQSG90Nkd1a3lqVmg2QVlWN0ZJRG53UDg0WEJNZW4zSFVKMHdo?=
- =?utf-8?B?K2U5NlNDbjAzZU10QmdHNzFWUmVkSWZ4bS9qVHFPK2tDSGIzQ05nNmE5Vzhz?=
- =?utf-8?B?K2w4SkEvRzFvVmwxN3lhZzR0MWhTWjQ4c0p1MFppWVVWWngydkt6dUp5WkJM?=
- =?utf-8?B?V1NNNHB0bkRDazl6UlJMbzlNejRVc254Q3BHUlRmYTYrNG9ubGhMZUNlRmY3?=
- =?utf-8?B?RmFLaitPYXhlUWs3WVU4TnZyZmlva1J1dElYK3d6NWF3T2R6V1FxL29XVkpS?=
- =?utf-8?B?WEk2SjI5YVVLTExTZVRMYW5BS01yckZ4VEI5UzVyNlBZc2tITUU1VDVvWjFF?=
- =?utf-8?B?QWQ2L3V6dVpsdzRSYVdPdDlPR2syUVBCZEdxblBHcTRBRjc2RXNLQU52RzNG?=
- =?utf-8?B?ek9XU1RNd2lkR2RJb1JJem5CVnEzMHhNNTVwSFhqVTlsN1ovYmp1OHRsbHBC?=
- =?utf-8?B?OVJlbWNTSjl3Ymp4Rjk0Vjl2S0tURU1jdXhqd05TSTVxVUtUTHJVOWdkSExH?=
- =?utf-8?B?WXhsWGFzS0pyNEltb0pVczgrdGxGcWR3RFNGTnU1OTkvdGRDdlNBN1FmekZ1?=
- =?utf-8?B?bFVUb2VkZHZaTFFpaUs5NW5JY3Z5K1YwVU00QXNiTkp5SUVUajFhUy95amw5?=
- =?utf-8?B?N2F5UzZBVHFOcTVEQ0FyVzU2SCt1SXdSZmhsaXJRZWdQM2Q5VkJkN3N3eGxW?=
- =?utf-8?B?V1BtYkFqOWxoYy9ZSTQxUHNqUzJGbVJkOUl2b0pBUjRLUFROVzF3MGMzcmk2?=
- =?utf-8?B?L1Q4NXVkMWVkQ2RjM2g5NzZsNHdyNDRoWlNzVTUvS3ZYdVFZSnhiYllMQ0lP?=
- =?utf-8?B?cEpZOFh0TXFCZGdXaDc0RG51QjNZVnhReW05RFpLREgwNlFZczFMYmFtT0No?=
- =?utf-8?B?T2MwYkJRYzRwekk0VjRMQ3FYQ21CZW1SbUhXbXJNeHJZeE8wUWRuQWhyd0c0?=
- =?utf-8?B?dE9LMVlTZ0RnKzVoL2t3ZFFhZlk3dHZ2dlloVEJRT1R6WXh1Q3VjU3poMnFX?=
- =?utf-8?B?RytRUXpNMDJLSTdyZS9Xc1FGTzdJclpaTkZETzFISExESmhCSURBRWhZbG1h?=
- =?utf-8?B?cDFHbVF0Qnl0bkZtWUloS2hsZVRORytyU2RzMUlNMEhIYndmaDg1R2tOVzYz?=
- =?utf-8?Q?FAnZBdfBkX6SMyMa1n42pPBy7suObc=3D?=
+	=?us-ascii?Q?lwNk5rhRcSrUcegox21m2QTFesJG9MCoVTEey0hWXPQm7HpZVP7+iTwKKScG?=
+ =?us-ascii?Q?eafYM+BeNPJEd7h7myl/TUMj5btJ4lTEefws0/ik16KT2nkR3PJpFXUizwMO?=
+ =?us-ascii?Q?TGZRqupsEbS4b0ZyQzGM+hn9G4I8PHa5kVvJvDbVwfFRicMvX18gbsWkukpD?=
+ =?us-ascii?Q?6dO7tfAtktcM3l4H0rbr88e9WuM7qEqz8oLzGvydTcUk3V/vA3p0aQPEoq1x?=
+ =?us-ascii?Q?FjawEVUsAZZh0J1wCOvmWOW4CaXSRpenIRay6bvOtco313NDbBz6WOM9Ran2?=
+ =?us-ascii?Q?37wRZt7LJ7wG1qzQsz/uAk1Pb5vOMg8PY8/ES/2HAuSn4bL2NBRahgRWMKTM?=
+ =?us-ascii?Q?kPb2SZg06VEELkcv34tOZddcVc8gEvXelHTvNwy70thmdLF4Czo4fik65Ifz?=
+ =?us-ascii?Q?JcxDpqSuyolx8HeTLdgG+6Gb38b0B77AH7p2WEAAeDEVLfcT3BlXNk3mFC04?=
+ =?us-ascii?Q?n1i/kiWXtczT8XbgrqJdzCR2EixDBAuURDuqYggRWKFQG+FO3UOh6yhWHhod?=
+ =?us-ascii?Q?YX3argLUUJeTxM9RllGtW3Hq1Hng8sADbhEGkTLxQNyazgPHtyhN7UBR2tuM?=
+ =?us-ascii?Q?Hjtnyh6YoDooD+yjHM7F4HnrUADBNy4DTl/CIMD8wrpTOevK+Pz9BI5T3N0j?=
+ =?us-ascii?Q?Vro/AIHVci2cqZ5jbk8n0M/1F6KmsyqlLbCFmJLlV226wzkyhuvxEOlQ/P9E?=
+ =?us-ascii?Q?WTn1JfmgR4tFOfOoxgqqqwPhOWozMx/UrxPcnc3K4QBAh5MyRHDdXHUFKg7f?=
+ =?us-ascii?Q?VhOAyiS7USPDS6uEgrPH7WTpLKmxlW7GAxRrqte9BCZCayXUyjEf4MbhJG6G?=
+ =?us-ascii?Q?bZA3UU6pUP61DmOfAmGod9r6LSBzFlfZg2SptWcyRmrjlAL+iVB4PcnEiaRe?=
+ =?us-ascii?Q?6Od451/6OgkCTec++EFhzGEcw0hvWfEQwTuv1egZjrByqE283smLK0HQgHZI?=
+ =?us-ascii?Q?q2Y4WVaf5ksCH8bKsV+k5iFLaofnBnlcsi2HRIwyErh1wv2+JWIfhVELO9cs?=
+ =?us-ascii?Q?fMTOfMNTot+9Q6myAmgGQsuV4B2Fktmf8u4UkIqHuBVEx1ZM4enOCa/u1SEC?=
+ =?us-ascii?Q?QUzSomjqRZyl4Tj67DMpFZ0/y6gF/9rJ+4l4ZladphZYvacFfmbb9jnroHDL?=
+ =?us-ascii?Q?w2Zs67uL7VDTAVps0KGvHZoeN9lxDmWN1iapvIKNf4kPmzIPTPFZzsEaFrWv?=
+ =?us-ascii?Q?/hvnyNRtRXrbcxv06TT/r0NrgDxW+uGtzIR0aVolnoX0gregJFU2zlkziFQh?=
+ =?us-ascii?Q?4guAAZ8SrldCDB1RRptFlfki9OziaTxr3Rv8CCAtLxs+Hx5ei34LbQ9akUJ7?=
+ =?us-ascii?Q?0CgW3a6sYcdD/lqJlijnR0bKYo1TLakF7mBOLOuqhTNf9T8kaQKPhWkZq58a?=
+ =?us-ascii?Q?wCflsOZdK3/Ak4qhNwodp3ei8iZU+WepEjLB3pYWlxDb4URyA+0/kndprPlD?=
+ =?us-ascii?Q?uth44JpUB/Ks9i1zbPc+q19TAozagDA+hYcJP6grjT/o6BaIPFWDGWg+q7jH?=
+ =?us-ascii?Q?rRDf24lt/+uY6MY=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2025 11:08:45.8279
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2025 11:08:48.2730
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f168f34-20af-40f2-4f22-08dd5c9f4399
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc2018c2-8a39-4dd5-6686-08dd5c9f450e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000066EA.namprd05.prod.outlook.com
+	CO1PEPF000066E8.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6407
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6679
 
-From: Roger Pau Monne <roger.pau@citrix.com>
+_PSD(P-State Dependency) provides performance control, no matter legacy
+P-state or CPPC, logical processor dependency information.
 
-When running as a PVH dom0 the ACPI MADT is crafted by Xen in order to
-report the correct numbers of vCPUs that dom0 has, so the host MADT is
-not provided to dom0.  This creates issues when parsing the power and
-performance related data from ACPI dynamic tables, as the ACPI
-Processor UIDs found on the dynamic code are likely to not match the
-ones crafted by Xen in the dom0 MADT.
+In order to re-use it for CPPC, this commit extracts the delivery of _PSD
+info from push_pxx_to_hypervisor() and wrap it with a new sub-hypercall
+XEN_PM_PSD.
 
-Xen would rely on Linux having filled at least the power and
-performance related data of the vCPUs on the system, and would clone
-that information in order to setup the remaining pCPUs on the system
-if dom0 vCPUs < pCPUs.  However when running as PVH dom0 it's likely
-that none of dom0 CPUs will have the power and performance data
-filled, and hence the Xen ACPI Processor driver needs to fetch that
-information by itself.
-
-In order to do so correctly, introduce a new helper to fetch the _CST
-data without taking into account the system capabilities from the
-CPUID output, as the capabilities reported to dom0 in CPUID might be
-different from the ones on the host.
-
-Note that the newly introduced code will only fetch the _CST, _PSS,
-_PPC and _PCT from a single CPU, and clone that information for all the
-other Processors.  This won't work on an heterogeneous system with
-Processors having different power and performance related data between
-them.
-
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 ---
- drivers/xen/pcpu.c               |   3 +-
- drivers/xen/xen-acpi-processor.c | 232 ++++++++++++++++++++++++++++---
- include/xen/xen.h                |   2 +-
- 3 files changed, 216 insertions(+), 21 deletions(-)
+v2 -> v3:
+- new commit
+---
+ drivers/xen/xen-acpi-processor.c | 82 ++++++++++++++++++++------------
+ include/xen/interface/platform.h |  8 ++--
+ 2 files changed, 56 insertions(+), 34 deletions(-)
 
-diff --git a/drivers/xen/pcpu.c b/drivers/xen/pcpu.c
-index 093ad4a08672..36fb5372cd04 100644
---- a/drivers/xen/pcpu.c
-+++ b/drivers/xen/pcpu.c
-@@ -388,7 +388,7 @@ static int __init xen_pcpu_init(void)
- arch_initcall(xen_pcpu_init);
- 
- #ifdef CONFIG_ACPI
--bool __init xen_processor_present(uint32_t acpi_id)
-+bool xen_processor_present(uint32_t acpi_id)
- {
- 	const struct pcpu *pcpu;
- 	bool online = false;
-@@ -403,6 +403,7 @@ bool __init xen_processor_present(uint32_t acpi_id)
- 
- 	return online;
- }
-+EXPORT_SYMBOL_GPL(xen_processor_present);
- 
- void xen_sanitize_proc_cap_bits(uint32_t *cap)
- {
 diff --git a/drivers/xen/xen-acpi-processor.c b/drivers/xen/xen-acpi-processor.c
-index 296703939846..e9f38f171240 100644
+index e9f38f171240..8db8631a4b9d 100644
 --- a/drivers/xen/xen-acpi-processor.c
 +++ b/drivers/xen/xen-acpi-processor.c
-@@ -48,6 +48,8 @@ static unsigned long *acpi_id_cst_present;
- /* Which ACPI P-State dependencies for a enumerated processor */
- static struct acpi_psd_package *acpi_psd;
- 
-+static bool pr_initialized;
-+
- static int push_cxx_to_hypervisor(struct acpi_processor *_pr)
- {
- 	struct xen_platform_op op = {
-@@ -172,8 +174,13 @@ static int xen_copy_psd_data(struct acpi_processor *_pr,
- 
- 	/* 'acpi_processor_preregister_performance' does not parse if the
- 	 * num_processors <= 1, but Xen still requires it. Do it manually here.
-+	 *
-+	 * Also init the field if not set, as that's possible if the physical
-+	 * CPUs on the system doesn't match the data provided in the MADT when
-+	 * running as a PVH dom0.
- 	 */
--	if (pdomain->num_processors <= 1) {
-+	if (pdomain->num_processors <= 1 ||
-+	    dst->shared_type == CPUFREQ_SHARED_TYPE_NONE) {
- 		if (pdomain->coord_type == DOMAIN_COORD_TYPE_SW_ALL)
- 			dst->shared_type = CPUFREQ_SHARED_TYPE_ALL;
- 		else if (pdomain->coord_type == DOMAIN_COORD_TYPE_HW_ALL)
-@@ -313,6 +320,155 @@ static unsigned int __init get_max_acpi_id(void)
- 	pr_debug("Max ACPI ID: %u\n", max_acpi_id);
- 	return max_acpi_id;
+@@ -157,18 +157,40 @@ xen_copy_pss_data(struct acpi_processor *_pr,
+ 	}
+ 	return dst_states;
  }
-+
-+/*
-+ * Custom version of the native acpi_processor_evaluate_cst() function, to
-+ * avoid some sanity checks done based on the CPUID data.  When running as a
-+ * Xen domain the CPUID data provided to dom0 is not the native one, so C
-+ * states cannot be sanity checked.  Leave it to the hypervisor which is also
-+ * the entity running the driver.
-+ */
-+static int xen_acpi_processor_evaluate_cst(acpi_handle handle,
-+					   struct acpi_processor_power *info)
+-static int xen_copy_psd_data(struct acpi_processor *_pr,
+-			     struct xen_processor_performance *dst)
++static int xen_copy_pct_data(struct acpi_pct_register *pct,
++			     struct xen_pct_register *dst_pct)
 +{
-+	struct acpi_buffer buffer = { ACPI_ALLOCATE_BUFFER, NULL };
-+	union acpi_object *cst;
-+	acpi_status status;
-+	u64 count;
-+	int last_index = 0;
-+	int i, ret = 0;
-+
-+	status = acpi_evaluate_object(handle, "_CST", NULL, &buffer);
-+	if (ACPI_FAILURE(status)) {
-+		acpi_handle_debug(handle, "No _CST\n");
-+		return -ENODEV;
-+	}
-+
-+	cst = buffer.pointer;
-+
-+	/* There must be at least 2 elements. */
-+	if (!cst || cst->type != ACPI_TYPE_PACKAGE || cst->package.count < 2) {
-+		acpi_handle_warn(handle, "Invalid _CST output\n");
-+		ret = -EFAULT;
-+		goto end;
-+	}
-+
-+	count = cst->package.elements[0].integer.value;
-+
-+	/* Validate the number of C-states. */
-+	if (count < 1 || count != cst->package.count - 1) {
-+		acpi_handle_warn(handle, "Inconsistent _CST data\n");
-+		ret = -EFAULT;
-+		goto end;
-+	}
-+
-+	for (i = 1; i <= count; i++) {
-+		union acpi_object *element;
-+		union acpi_object *obj;
-+		struct acpi_power_register *reg;
-+		struct acpi_processor_cx cx;
-+
-+		/*
-+		 * If there is not enough space for all C-states, skip the
-+		 * excess ones and log a warning.
-+		 */
-+		if (last_index >= ACPI_PROCESSOR_MAX_POWER - 1) {
-+			acpi_handle_warn(handle, "No room for more idle states (limit: %d)\n",
-+					 ACPI_PROCESSOR_MAX_POWER - 1);
-+			break;
-+		}
-+
-+		memset(&cx, 0, sizeof(cx));
-+
-+		element = &cst->package.elements[i];
-+		if (element->type != ACPI_TYPE_PACKAGE) {
-+			acpi_handle_info(handle, "_CST C%d type(%x) is not package, skip...\n",
-+					 i, element->type);
-+			continue;
-+		}
-+
-+		if (element->package.count != 4) {
-+			acpi_handle_info(handle, "_CST C%d package count(%d) is not 4, skip...\n",
-+				i, element->package.count);
-+			continue;
-+		}
-+
-+		obj = &element->package.elements[0];
-+
-+		if (obj->type != ACPI_TYPE_BUFFER) {
-+			acpi_handle_info(handle, "_CST C%d package element[0] type(%x) is not buffer, skip...\n",
-+					 i, obj->type);
-+			continue;
-+		}
-+
-+		reg = (struct acpi_power_register *)obj->buffer.pointer;
-+
-+		obj = &element->package.elements[1];
-+		if (obj->type != ACPI_TYPE_INTEGER) {
-+			acpi_handle_info(handle, "_CST C[%d] package element[1] type(%x) is not integer, skip...\n",
-+					 i, obj->type);
-+			continue;
-+		}
-+
-+		cx.type = obj->integer.value;
-+		/*
-+		 * There are known cases in which the _CST output does not
-+		 * contain C1, so if the type of the first state found is not
-+		 * C1, leave an empty slot for C1 to be filled in later.
-+		 */
-+		if (i == 1 && cx.type != ACPI_STATE_C1)
-+			last_index = 1;
-+
-+		cx.address = reg->address;
-+		cx.index = last_index + 1;
-+
-+		switch (reg->space_id) {
-+		case ACPI_ADR_SPACE_FIXED_HARDWARE:
-+			cx.entry_method = ACPI_CSTATE_FFH;
-+			break;
-+
-+		case ACPI_ADR_SPACE_SYSTEM_IO:
-+			cx.entry_method = ACPI_CSTATE_SYSTEMIO;
-+			break;
-+
-+		default:
-+			acpi_handle_info(handle, "_CST C%d space_id(%x) neither FIXED_HARDWARE nor SYSTEM_IO, skip...\n",
-+					 i, reg->space_id);
-+			continue;
-+		}
-+
-+		if (cx.type == ACPI_STATE_C1)
-+			cx.valid = 1;
-+
-+		obj = &element->package.elements[2];
-+		if (obj->type != ACPI_TYPE_INTEGER) {
-+			acpi_handle_info(handle, "_CST C%d package element[2] type(%x) not integer, skip...\n",
-+					 i, obj->type);
-+			continue;
-+		}
-+
-+		cx.latency = obj->integer.value;
-+
-+		obj = &element->package.elements[3];
-+		if (obj->type != ACPI_TYPE_INTEGER) {
-+			acpi_handle_info(handle, "_CST C%d package element[3] type(%x) not integer, skip...\n",
-+					 i, obj->type);
-+			continue;
-+		}
-+
-+		memcpy(&info->states[++last_index], &cx, sizeof(cx));
-+	}
-+
-+	acpi_handle_info(handle, "Found %d idle states\n", last_index);
-+
-+	info->count = last_index;
-+
-+end:
-+	kfree(buffer.pointer);
-+
-+	return ret;
++	/* It would be nice if you could just do 'memcpy(pct, dst_pct') but
++	 * sadly the Xen structure did not have the proper padding so the
++	 * descriptor field takes two (dst_pct) bytes instead of one (pct).
++	 */
++	dst_pct->descriptor = pct->descriptor;
++	dst_pct->length = pct->length;
++	dst_pct->space_id = pct->space_id;
++	dst_pct->bit_width = pct->bit_width;
++	dst_pct->bit_offset = pct->bit_offset;
++	dst_pct->reserved = pct->reserved;
++	dst_pct->address = pct->address;
++	return 0;
 +}
-+
- /*
-  * The read_acpi_id and check_acpi_ids are there to support the Xen
-  * oddity of virtual CPUs != physical CPUs in the initial domain.
-@@ -331,6 +487,7 @@ read_acpi_id(acpi_handle handle, u32 lvl, void *context, void **rv)
- 	unsigned long long tmp;
- 	union acpi_object object = { 0 };
- 	struct acpi_buffer buffer = { sizeof(union acpi_object), &object };
-+	struct acpi_buffer cst_buf = { ACPI_ALLOCATE_BUFFER, NULL };
- 	acpi_io_address pblk = 0;
- 
- 	status = acpi_get_type(handle, &acpi_type);
-@@ -354,24 +511,45 @@ read_acpi_id(acpi_handle handle, u32 lvl, void *context, void **rv)
- 	default:
- 		return AE_OK;
- 	}
--	if (invalid_phys_cpuid(acpi_get_phys_id(handle,
--						acpi_type == ACPI_TYPE_DEVICE,
--						acpi_id))) {
-+
-+	if (!xen_processor_present(acpi_id)) {
- 		pr_debug("CPU with ACPI ID %u is unavailable\n", acpi_id);
- 		return AE_OK;
- 	}
--	/* There are more ACPI Processor objects than in x2APIC or MADT.
--	 * This can happen with incorrect ACPI SSDT declerations. */
--	if (acpi_id >= nr_acpi_bits) {
--		pr_debug("max acpi id %u, trying to set %u\n",
--			 nr_acpi_bits - 1, acpi_id);
--		return AE_OK;
--	}
-+
- 	/* OK, There is a ACPI Processor object */
- 	__set_bit(acpi_id, acpi_id_present);
- 
- 	pr_debug("ACPI CPU%u w/ PBLK:0x%lx\n", acpi_id, (unsigned long)pblk);
- 
-+	if (!pr_initialized) {
-+		struct acpi_processor *pr = context;
-+		int rc, rc2;
-+
-+		/*
-+		 * There's no CPU on the system that has any performance or
-+		 * power related data, initialize all the required fields by
-+		 * fetching that info here.
-+		 *
-+		 * Note such information is only fetched once, and then reused
-+		 * for all pCPUs.  This won't work on heterogeneous systems
-+		 * with different Cx anb/or Px states between CPUs.
-+		 */
-+
-+		pr->handle = handle;
-+
-+		rc = acpi_processor_get_performance_info(pr);
-+		if (rc)
-+			pr_err("ACPI CPU%u failed to get performance data\n",
-+			       acpi_id);
-+		rc2 = xen_acpi_processor_evaluate_cst(handle, &pr->power);
-+		if (rc2)
-+			pr_err("ACPI CPU%u failed to get _CST data\n", acpi_id);
-+
-+		if (!rc && !rc2)
-+			pr_initialized = true;
-+	}
-+
- 	/* It has P-state dependencies */
- 	if (!acpi_processor_get_psd(handle, &acpi_psd[acpi_id])) {
- 		pr_debug("ACPI CPU%u w/ PST:coord_type = %llu domain = %llu\n",
-@@ -379,11 +557,13 @@ read_acpi_id(acpi_handle handle, u32 lvl, void *context, void **rv)
- 			 acpi_psd[acpi_id].domain);
- 	}
- 
--	status = acpi_evaluate_object(handle, "_CST", NULL, &buffer);
-+	status = acpi_evaluate_object(handle, "_CST", NULL, &cst_buf);
- 	if (ACPI_FAILURE(status)) {
- 		if (!pblk)
- 			return AE_OK;
- 	}
-+	kfree(cst_buf.pointer);
-+
- 	/* .. and it has a C-state */
- 	__set_bit(acpi_id, acpi_id_cst_present);
- 
-@@ -391,10 +571,6 @@ read_acpi_id(acpi_handle handle, u32 lvl, void *context, void **rv)
- }
- static int check_acpi_ids(struct acpi_processor *pr_backup)
++static int push_psd_to_hypervisor(struct acpi_processor *_pr)
  {
++	struct xen_platform_op op = {
++		.cmd                    = XENPF_set_processor_pminfo,
++		.interface_version      = XENPF_INTERFACE_VERSION,
++		.u.set_pminfo.id        = _pr->acpi_id,
++		.u.set_pminfo.type      = XEN_PM_PSD,
++	};
+ 	struct acpi_psd_package *pdomain;
++	int ret = 0;
+ 
+ 	BUILD_BUG_ON(sizeof(struct xen_psd_package) !=
+ 		     sizeof(struct acpi_psd_package));
+ 
+-	/* This information is enumerated only if acpi_processor_preregister_performance
+-	 * has been called.
++	/* This information is enumerated only if
++	 * acpi_processor_preregister_performance has been called.
+ 	 */
+-	dst->shared_type = _pr->performance->shared_type;
++	op.u.set_pminfo.shared_type = _pr->performance->shared_type;
+ 
+ 	pdomain = &(_pr->performance->domain_info);
+ 
+@@ -180,32 +202,30 @@ static int xen_copy_psd_data(struct acpi_processor *_pr,
+ 	 * running as a PVH dom0.
+ 	 */
+ 	if (pdomain->num_processors <= 1 ||
+-	    dst->shared_type == CPUFREQ_SHARED_TYPE_NONE) {
++	    op.u.set_pminfo.shared_type == CPUFREQ_SHARED_TYPE_NONE) {
+ 		if (pdomain->coord_type == DOMAIN_COORD_TYPE_SW_ALL)
+-			dst->shared_type = CPUFREQ_SHARED_TYPE_ALL;
++			op.u.set_pminfo.shared_type = CPUFREQ_SHARED_TYPE_ALL;
+ 		else if (pdomain->coord_type == DOMAIN_COORD_TYPE_HW_ALL)
+-			dst->shared_type = CPUFREQ_SHARED_TYPE_HW;
++			op.u.set_pminfo.shared_type = CPUFREQ_SHARED_TYPE_HW;
+ 		else if (pdomain->coord_type == DOMAIN_COORD_TYPE_SW_ANY)
+-			dst->shared_type = CPUFREQ_SHARED_TYPE_ANY;
 -
--	if (!pr_backup)
--		return -ENODEV;
--
- 	if (acpi_id_present && acpi_id_cst_present)
- 		/* OK, done this once .. skip to uploading */
- 		goto upload;
-@@ -422,8 +598,8 @@ static int check_acpi_ids(struct acpi_processor *pr_backup)
- 
- 	acpi_walk_namespace(ACPI_TYPE_PROCESSOR, ACPI_ROOT_OBJECT,
- 			    ACPI_UINT32_MAX,
--			    read_acpi_id, NULL, NULL, NULL);
--	acpi_get_devices(ACPI_PROCESSOR_DEVICE_HID, read_acpi_id, NULL, NULL);
-+			    read_acpi_id, NULL, pr_backup, NULL);
-+	acpi_get_devices(ACPI_PROCESSOR_DEVICE_HID, read_acpi_id, pr_backup, NULL);
- 
- upload:
- 	if (!bitmap_equal(acpi_id_present, acpi_ids_done, nr_acpi_bits)) {
-@@ -464,6 +640,7 @@ static int xen_upload_processor_pm_data(void)
- 	struct acpi_processor *pr_backup = NULL;
- 	int i;
- 	int rc = 0;
-+	bool free_perf = false;
- 
- 	pr_info("Uploading Xen processor PM info\n");
- 
-@@ -473,12 +650,29 @@ static int xen_upload_processor_pm_data(void)
- 		if (!_pr)
- 			continue;
- 
--		if (!pr_backup)
-+		if (!pr_backup) {
- 			pr_backup = kmemdup(_pr, sizeof(*_pr), GFP_KERNEL);
-+			pr_initialized = true;
-+		}
- 		(void)upload_pm_data(_pr);
++			op.u.set_pminfo.shared_type = CPUFREQ_SHARED_TYPE_ANY;
  	}
- 
-+	if (!pr_backup) {
-+		pr_backup = kzalloc(sizeof(struct acpi_processor), GFP_KERNEL);
-+		if (!pr_backup)
-+			return -ENOMEM;
-+		pr_backup->performance = kzalloc(sizeof(struct acpi_processor_performance),
-+						 GFP_KERNEL);
-+		if (!pr_backup->performance) {
-+			kfree(pr_backup);
-+			return -ENOMEM;
-+		}
-+		free_perf = true;
-+	}
+-	memcpy(&(dst->domain_info), pdomain, sizeof(struct acpi_psd_package));
+-	return 0;
+-}
+-static int xen_copy_pct_data(struct acpi_pct_register *pct,
+-			     struct xen_pct_register *dst_pct)
+-{
+-	/* It would be nice if you could just do 'memcpy(pct, dst_pct') but
+-	 * sadly the Xen structure did not have the proper padding so the
+-	 * descriptor field takes two (dst_pct) bytes instead of one (pct).
+-	 */
+-	dst_pct->descriptor = pct->descriptor;
+-	dst_pct->length = pct->length;
+-	dst_pct->space_id = pct->space_id;
+-	dst_pct->bit_width = pct->bit_width;
+-	dst_pct->bit_offset = pct->bit_offset;
+-	dst_pct->reserved = pct->reserved;
+-	dst_pct->address = pct->address;
 +
- 	rc = check_acpi_ids(pr_backup);
-+	if (free_perf)
-+		kfree(pr_backup->performance);
- 	kfree(pr_backup);
++	memcpy(&(op.u.set_pminfo.domain_info), pdomain,
++	       sizeof(struct acpi_psd_package));
++
++	if (!no_hypercall)
++		ret = HYPERVISOR_platform_op(&op);
++
++	if (!ret) {
++		pr_debug("ACPI CPU%u - _PSD uploaded.\n", _pr->acpi_id);
++	} else if ((ret != -EINVAL) && (ret != -ENOSYS))
++		/* EINVAL means the ACPI ID is incorrect - meaning the ACPI
++		 * table is referencing a non-existing CPU - which can happen
++		 * with broken ACPI tables. */
++		pr_warn("(_PSD): Hypervisor error (%d) for ACPI CPU%u\n",
++			ret, _pr->acpi_id);
++
+ 	return 0;
+ }
+ static int push_pxx_to_hypervisor(struct acpi_processor *_pr)
+@@ -234,10 +254,8 @@ static int push_pxx_to_hypervisor(struct acpi_processor *_pr)
+ 		set_xen_guest_handle(dst_perf->states, dst_states);
+ 		dst_perf->flags |= XEN_PX_PSS;
+ 	}
+-	if (!xen_copy_psd_data(_pr, dst_perf))
+-		dst_perf->flags |= XEN_PX_PSD;
  
- 	return rc;
-diff --git a/include/xen/xen.h b/include/xen/xen.h
-index a1e5b3f18d69..6ff3e2f40803 100644
---- a/include/xen/xen.h
-+++ b/include/xen/xen.h
-@@ -81,7 +81,7 @@ static inline void xen_free_unpopulated_pages(unsigned int nr_pages,
- #endif
+-	if (dst_perf->flags != (XEN_PX_PSD | XEN_PX_PSS | XEN_PX_PCT | XEN_PX_PPC)) {
++	if (dst_perf->flags != (XEN_PX_PSS | XEN_PX_PCT | XEN_PX_PPC)) {
+ 		pr_warn("ACPI CPU%u missing some P-state data (%x), skipping\n",
+ 			_pr->acpi_id, dst_perf->flags);
+ 		ret = -ENODEV;
+@@ -281,6 +299,10 @@ static int upload_pm_data(struct acpi_processor *_pr)
+ 		mutex_unlock(&acpi_ids_mutex);
+ 		return -EBUSY;
+ 	}
++
++	if (_pr->performance && _pr->performance->states)
++		err |= push_psd_to_hypervisor(_pr);
++
+ 	if (_pr->flags.power)
+ 		err = push_cxx_to_hypervisor(_pr);
  
- #if defined(CONFIG_XEN_DOM0) && defined(CONFIG_ACPI) && defined(CONFIG_X86)
--bool __init xen_processor_present(uint32_t acpi_id);
-+bool xen_processor_present(uint32_t acpi_id);
- #else
- #include <linux/bug.h>
- static inline bool xen_processor_present(uint32_t acpi_id)
+diff --git a/include/xen/interface/platform.h b/include/xen/interface/platform.h
+index 79a443c65ea9..a35e1eb958f3 100644
+--- a/include/xen/interface/platform.h
++++ b/include/xen/interface/platform.h
+@@ -319,11 +319,11 @@ DEFINE_GUEST_HANDLE_STRUCT(xenpf_getidletime_t);
+ #define XEN_PM_PX   1
+ #define XEN_PM_TX   2
+ #define XEN_PM_PDC  3
++#define XEN_PM_PSD  4
+ /* Px sub info type */
+ #define XEN_PX_PCT   1
+ #define XEN_PX_PSS   2
+ #define XEN_PX_PPC   4
+-#define XEN_PX_PSD   8
+ 
+ struct xen_power_register {
+ 	uint32_t     space_id;
+@@ -399,8 +399,6 @@ struct xen_processor_performance {
+ 	struct xen_pct_register status_register;
+ 	uint32_t state_count;     /* total available performance states */
+ 	GUEST_HANDLE(xen_processor_px) states;
+-	struct xen_psd_package domain_info;
+-	uint32_t shared_type;     /* coordination type of this processor */
+ };
+ DEFINE_GUEST_HANDLE_STRUCT(xen_processor_performance);
+ 
+@@ -410,9 +408,11 @@ struct xenpf_set_processor_pminfo {
+ 	uint32_t type;  /* {XEN_PM_CX, XEN_PM_PX} */
+ 	union {
+ 		struct xen_processor_power          power;/* Cx: _CST/_CSD */
+-		struct xen_processor_performance    perf; /* Px: _PPC/_PCT/_PSS/_PSD */
++		struct xen_psd_package              domain_info; /* _PSD */
++		struct xen_processor_performance    perf; /* Px: _PPC/_PCT/_PSS */
+ 		GUEST_HANDLE(uint32_t)              pdc;
+ 	};
++	uint32_t shared_type;     /* coordination type of this processor */
+ };
+ DEFINE_GUEST_HANDLE_STRUCT(xenpf_set_processor_pminfo);
+ 
 -- 
 2.34.1
 
