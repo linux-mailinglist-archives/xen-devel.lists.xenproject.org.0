@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA5BAA5614D
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Mar 2025 07:59:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.904583.1312437 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59C74A5615A
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Mar 2025 08:02:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.904595.1312447 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqRfk-00006D-SL; Fri, 07 Mar 2025 06:59:04 +0000
+	id 1tqRiB-0002YJ-9Z; Fri, 07 Mar 2025 07:01:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 904583.1312437; Fri, 07 Mar 2025 06:59:04 +0000
+Received: by outflank-mailman (output) from mailman id 904595.1312447; Fri, 07 Mar 2025 07:01:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqRfk-0008W5-Oq; Fri, 07 Mar 2025 06:59:04 +0000
-Received: by outflank-mailman (input) for mailman id 904583;
- Fri, 07 Mar 2025 06:59:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tqRiB-0002Vf-6t; Fri, 07 Mar 2025 07:01:35 +0000
+Received: by outflank-mailman (input) for mailman id 904595;
+ Fri, 07 Mar 2025 07:01:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hW4D=V2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tqRfk-0008Vz-0Q
- for xen-devel@lists.xenproject.org; Fri, 07 Mar 2025 06:59:04 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a6f1a52e-fb21-11ef-9ab5-95dc52dad729;
- Fri, 07 Mar 2025 07:59:02 +0100 (CET)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-390eebcc331so923279f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 06 Mar 2025 22:59:02 -0800 (PST)
+ id 1tqRi9-0002VZ-Gt
+ for xen-devel@lists.xenproject.org; Fri, 07 Mar 2025 07:01:33 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ff91d19f-fb21-11ef-9898-31a8f345e629;
+ Fri, 07 Mar 2025 08:01:31 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-43bc30adad5so9020215e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Mar 2025 23:01:31 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43bdd8da097sm42929185e9.17.2025.03.06.22.59.01
+ 5b1f17b1804b1-43bdd8b04edsm41908595e9.1.2025.03.06.23.01.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Mar 2025 22:59:01 -0800 (PST)
+ Thu, 06 Mar 2025 23:01:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6f1a52e-fb21-11ef-9ab5-95dc52dad729
+X-Inumbo-ID: ff91d19f-fb21-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741330742; x=1741935542; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741330891; x=1741935691; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8wyvEdczGpWizVGjAAtGsizqbzD28+n1382w2Q2Yo9Y=;
-        b=WQdy0otQDqcWlQ00cO2kaxZezqs369UKXVtmVKoZLv+p73pFOCa7qtIlJl52hXkv/0
-         JKl0CRSnOsbj+2SX2ozc/7UHGi+h4ueD/+63rzEntEvCdh4HVcHjRot4C2iZgeWyXJcH
-         JycU2pGWljDCW587eSstrS7sxxgjFXz4OYSThMqgT6dnTvKAK0YiHR1lLCAyqR1/7eQD
-         G8bC4/nSyjokeWOto5g5+ygKsRbYsOwLR00rxHCas6ejX8Rx1jjVz2oI7WMSgSDhRYoN
-         g2ZxQDOZLmEB48hIAIpMGrOl/C6j1dHdILI0lwvevfnwqf/q5FDypfM95SNM01FZcKb+
-         Z4tQ==
+        bh=RS476B2SU7qQlYR+uylKs0Zico0mizTgEw12o/5AepI=;
+        b=ZQi308/Q0Jwto+yjhNhO12gjs4DiTpSPYUahz3VZsQNxJ0y2+WfSJK0GcY+M4dxOWu
+         ackp6HdwYxuZ3n20eHJZiBH03BFtMgMi72IQhyyJ1jp96dgoDhiFaQfyAnj6d9ChM7iG
+         js+aQG0KCxHZ/QojzXSDGmyCfns8h0ar48Yq80s07YaiQ45tfqc1N91TU6Z5G2auTM7Z
+         TqyIzoO3NajYkL2a46ZDQSvtHZb45wH8Ek9iO7oZHtD0Xi0seojrqVU/+YDrpGnCLz/w
+         GmuFf/5uXnY6hvYGpG+uwOP40512+rFDmdAKDKtptKlwc+7UIPB/WE0R5aZhmWHMNlCx
+         T/mA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741330742; x=1741935542;
+        d=1e100.net; s=20230601; t=1741330891; x=1741935691;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8wyvEdczGpWizVGjAAtGsizqbzD28+n1382w2Q2Yo9Y=;
-        b=a2A1fvJ+SejQ0stCI5V8M0lH1WKFjnvonp+wduAkaYBa0zlx7gCAnnGwcxa+Bz1N2y
-         I/R1ZXgd59qaNXkRa4nmBLoXXdZ5qVqnjrLV11pSRaNXq54IVVNgpi9DXpigCF18aqHz
-         03GuDNo5DWiyUC1p3CvRtKhu9v92j/XPForbQF5RHP+Fqk1vH+ADrMQ1Pjk8rRuq+2HP
-         7YwnF/MSSpfxjnt1mAIw0iPPNcl8ms9zVAaYDnxHGuQ9MKZhgug2TE/yqg/I3fEL6ySk
-         q0KHCG7YhrmfZZpoXP3Zjcir5BXOSNce0K20r/ChcYXuITi8iZ7ZyXm1ZTiTjQEjHAou
-         b30g==
-X-Forwarded-Encrypted: i=1; AJvYcCUUcYIOHpyD/w6lR9+OYYilHlAukptSZUGoE+In+a8SPEi1VmoIr4a43Hf8GwaM8yRKr/YFtkg1exE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy4dMBofLcZev67d4zLe4cNpt7bG5ZqJbY5zGp0IODWV5b3sz4n
-	tyPrm/RqPwKUrgO0xI46amKY76My7CrotckehmEgnerPgQeD2HUdoetYFIjPsQ==
-X-Gm-Gg: ASbGncvXzCCbgzCKOqmKiJfmuw39d4CiS3YKO8M5fhSIFaWHckRBM4BCtzGOgLy1aKE
-	6xe/6W5dw1vVQwDbTyDRprLuune9MJrifvvd6GIxHehPl0vCLLl3TeEPaHKhZDKHVPcr7ubgvoS
-	rHCC2o70rafqJiETx4SQV3F6jeyv5Zn9XdglOZ+3QDQSRZm8Gpw/ptvRHd9v4WidIvn8wpLVx32
-	f5lKqea2SSKCyOlSdqxc7OqT6jYxdRId1ReP+mPc+6rczEmj14hvMYAlEke6hADebNh+0jwOJpw
-	QUemCYRrsdM/ib0cFTEYMj/ea/nRF/hQ4bOdy7v1dNv/hP766lNEi5MkWEdmmCfq4Qi67QIaIew
-	oU3s88Szu0KXPsNoP7Z4NXtvY9nBCxg==
-X-Google-Smtp-Source: AGHT+IE5vcZz3t/1VI8X2rhG6LIhDSoEgAzGWuW0O+IhDM7Oa3j5x8TxiMkMD523NYOMd3SgjTcSdQ==
-X-Received: by 2002:a05:6000:1888:b0:390:e904:63ee with SMTP id ffacd0b85a97d-3912982e891mr3970918f8f.17.1741330742073;
-        Thu, 06 Mar 2025 22:59:02 -0800 (PST)
-Message-ID: <8166d698-9761-40d6-a4c0-c7614d97367e@suse.com>
-Date: Fri, 7 Mar 2025 07:59:00 +0100
+        bh=RS476B2SU7qQlYR+uylKs0Zico0mizTgEw12o/5AepI=;
+        b=Zncq7VNN5F2EEi8g4eLfDbcGqwYqB1BkSYkca/9KOtjc0ZTbXVP8n/JjZUc1HxZVGp
+         zvVAVW27Z59bxW/wg7sM07c/eWCUE8YfolstKhtuYSf3sB00O9gtCc4vcNXJihcwkjQV
+         iCqtUO7spgaO/kAJZqF53WYygNvwmGoox+8VitGNMifrT3pTmzZkriJPO0hF8b3IGoZD
+         SnCYuIy2xRAYSXHP9VHDP5D/xLbskuvo9hZ7klJnIb6Ix05izo/NGQLOmFdxwtIQRU1f
+         7q72v/ndqBgqrx4mAjKUJxOIJtQmtGODLmlRw4l7zP1WvuqQqtv0s9kbnm6gOMLWldyg
+         gZjw==
+X-Forwarded-Encrypted: i=1; AJvYcCXISVthSWlheDNJ3oRBjzDxpGEX6ks6rhuiJ3khroFPmOHnPUlxpV2Lsq4ZuJ3QflKTvrXnpbvWt9g=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzP3/JtkN6340KFzGL+Sekl4DgQriDFYCGT+02hyY0wtXNOIrp9
+	TFbO/y3K0kjhDjOxXuecqTLgJxILCWT28XPNurSKj8um5WDZVTmGzcnbMHH1gA==
+X-Gm-Gg: ASbGnct/rTpVBWj3Ny8iYmHP88m+GvLP2AQuCBk6SwipXyIrOfXoWrQuO9g3HIz8Kq+
+	Sct2s1A3KMzdjEJsHlaQ9bvnQkmAluxzrRJV9hJjiR2c9i0NqKWM1utEVkvIaj9PZsL89O8gOos
+	YfZNTsJ9wYfEQMRF6Jeb3ZrBohpXFE6iqTcObu07p47E8HniGoHovDSzeD+naMTsQ4h2JBxBzP3
+	yZmbmdVtytj3uc6Vmzz28/1vD75/AAbSwfSoOAz7A0KZLcWw9eVUhtTJFCUC8/8AiPE6fBuzEam
+	GOTSH6Uqgf9buVESZCqZNiSMCYlRac+6uzyd4eeP4hA46IJhERsnQNuMA8EyezU41oxEV/xunFv
+	p95hKapQXdc1OCeb89w3P7GlUq2U5EQ==
+X-Google-Smtp-Source: AGHT+IGmoZW+VEw6IvVZ7XdWfaJbp+g7koPT2ud0KSDjbnUyZLKwe35qN37yTOlkeEXi2sv+Ch5RRA==
+X-Received: by 2002:a05:600c:4884:b0:439:9d75:9e7d with SMTP id 5b1f17b1804b1-43cd169b4d8mr4051965e9.22.1741330890737;
+        Thu, 06 Mar 2025 23:01:30 -0800 (PST)
+Message-ID: <f2ad2751-8b00-4541-a372-d754c84f955c@suse.com>
+Date: Fri, 7 Mar 2025 08:01:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: Don't cast away const-ness in vcpu_show_registers()
+Subject: Re: [PATCH v2 1/2] xen/domain: Annotate struct domain as page aligned
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
+ Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
+ George Dunlap <gwd@xenproject.org>,
  Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250225230213.1248136-1-andrew.cooper3@citrix.com>
- <7e77dceb-489b-4022-a665-2a008ddfe844@suse.com>
- <f62841d3-b0e4-4007-a056-a807a19fc988@citrix.com>
- <98998559-27d6-4b65-bd45-cb1755d48564@suse.com>
- <5eadc0e9-54ce-464c-80fe-e7b7cfd45ecf@citrix.com>
+References: <20250303232941.2641306-1-andrew.cooper3@citrix.com>
+ <20250303232941.2641306-2-andrew.cooper3@citrix.com>
+ <abffca04-ca4f-4d62-8c2d-c687550ca8c3@suse.com>
+ <7da64dd1-2510-440f-b165-f64c0a873575@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,127 +125,36 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5eadc0e9-54ce-464c-80fe-e7b7cfd45ecf@citrix.com>
+In-Reply-To: <7da64dd1-2510-440f-b165-f64c0a873575@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 07.03.2025 00:17, Andrew Cooper wrote:
-> On 05/03/2025 7:53 am, Jan Beulich wrote:
->> On 03.03.2025 17:52, Andrew Cooper wrote:
->>> On 26/02/2025 7:33 am, Jan Beulich wrote:
->>>> On 26.02.2025 00:02, Andrew Cooper wrote:
->>>>> The final hunk is `(struct vcpu *)v` in disguise, expressed using a runtime
->>>>> pointer chase through memory and a technicality of the C type system to work
->>>>> around the fact that get_hvm_registers() strictly requires a mutable pointer.
->>>>>
->>>>> For anyone interested, this is one reason why C cannot optimise any reads
->>>>> across sequence points, even for a function purporting to take a const object.
->>>>>
->>>>> Anyway, have the function correctly state that it needs a mutable vcpu.  All
->>>>> callers have a mutable vCPU to hand, and it removes the runtime pointer chase
->>>>> in x86.
->>>>>
->>>>> Make one style adjustment in ARM while adjusting the parameter type.
->>>>>
->>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>>>> ---
->>>>> CC: Anthony PERARD <anthony.perard@vates.tech>
->>>>> CC: Michal Orzel <michal.orzel@amd.com>
->>>>> CC: Jan Beulich <jbeulich@suse.com>
->>>>> CC: Julien Grall <julien@xen.org>
->>>>> CC: Roger Pau Monné <roger.pau@citrix.com>
->>>>> CC: Stefano Stabellini <sstabellini@kernel.org>
->>>>> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
->>>>> CC: Bertrand Marquis <bertrand.marquis@arm.com>
->>>>>
->>>>> RISC-V and PPC don't have this helper yet, not even in stub form.
->>>>>
->>>>> I expect there will be one objection to this patch.  Since the last time we
->>>>> fought over this, speculative vulnerabilities have demonstrated how dangerous
->>>>> pointer chases are, and this is a violation of Misra Rule 11.8, even if it's
->>>>> not reasonable for Eclair to be able to spot and reject it.
->>>> On these grounds
->>>> Acked-by: Jan Beulich <jbeulich@suse.com>
->>> Thanks.
->>>
->>>> irrespective of the fact that a function of this name and purpose really, really
->>>> should be taking a pointer-to-const.
->>> No - this is a perfect example of why most functions should *not* take
->>> pointer-to-const for complex objects.
->>>
->>> There is no such thing as an actually-const vcpu or domain; they are all
->>> mutable.  The reason why x86 needs a strictly-mutable pointer is because
->>> it needs to take a spinlock to negotiate for access to a hardware
->>> resource to read some of the registers it needs.
->>>
->>> This is where there is a semantic gap between "logically doesn't modify"
->>> and what the C keyword means.
->> And hence (in part) why C++ gained "mutable" ages ago.
+On 06.03.2025 22:29, Andrew Cooper wrote:
+> On 05/03/2025 9:23 am, Jan Beulich wrote:
+>> On 04.03.2025 00:29, Andrew Cooper wrote:
+>>> --- a/xen/include/xen/sched.h
+>>> +++ b/xen/include/xen/sched.h
+>>> @@ -645,7 +645,7 @@ struct domain
+>>>      unsigned int num_llc_colors;
+>>>      const unsigned int *llc_colors;
+>>>  #endif
+>>> -};
+>>> +} __aligned(PAGE_SIZE);
+>>>  
+>>>  static inline struct page_list_head *page_to_list(
+>>>      struct domain *d, const struct page_info *pg)
+>> I understand struct domain is where you need the annotation right away, but is
+>> there a reason not to do the same for struct vcpu right away?
 > 
-> Sure.  If we were writing in C++, then an internal splinlock being
-> mutable would be a fine thing.
+> struct vcpu is more complicated.  It's multi-page on ARM, and I have a
+> strong suspicion that alignment is going to have to change away from
+> PAGE_SIZE for architectures wanting to use larger page sizes.
 > 
-> But we're writing in a language where there is no such concept.
->>> Anything except the-most-trivial trivial predates may reasonably need to
->>> take a spinlock or some other safety primitive, even just to read
->>> information.
->>>
->>>
->>> Because this was gratuitously const in the first place, bad code was put
->>> in place of making the prototype match reality.
->>>
->>> This demonstrates a bigger failing in how code is reviewed and
->>> maintained.  It is far too frequent that requests to const things don't
->>> even compile.  It is also far too frequent that requests to const things
->>> haven't read the full patch series to realise why not.  Both of these
->>> are a source of friction during review.
->>>
->>> But more than that, even if something could technically be const right
->>> now, the request to do so forces churn into a future patch to de-const
->>> it in order to make a clean change.  And for contributors who aren't
->>> comfortable saying a firm no to a maintainer, this turns into a bad hack
->>> instead.
->>>
->>> i.e. requests to const accessors for complexity objects are making Xen
->>> worse, not better, and we should stop doing it.
->> Okay, let's agree that we don't agree in our perspectives here.
-> 
-> I'm not saying this to be mean.  If C could do something like C++'s
-> mutable, then this wouldn't be an issue.
-> 
-> But, I have lost count of the number of times I have had to reject
-> requests of yours to const a pointer, on the basis that it can't
-> compile.  Your review feedback cost one of my team-members a week trying
-> to fulfil a const request before asking me for help, and it was another
-> impossible example.
-> 
-> Of all feedback given by reviewers (it's not only you), requests to
-> const are the ones that are most often wrong in my experience.
+> e.g. with 64k pagetables, I expect these will still want 4k alignment,
+> and therefore they'll all want changing. i.e. I'm probably creating less
+> work for someone in the future by not annotating struct vcpu. ~Andrew
 
-I am entirely certain you're wrong here, unless maybe you mean solely
-comments on patches of yours. There are far too many places where we're
-still lacking const, and people are copying such instances far too
-blindly.
-
->  Probably
-> only ~50% of requests are correct, yet it takes a very seasoned
-> developer to come back and say "no, that doesn't compile", because
-> that's really a "I think you're wrong" needing knowledge in a subtle
-> part of the language.
-> 
-> My request is to all reviewers.  Please take far more care before asking
-> for const.  There are absolutely cases where it's right, but a false
-> request is more problematic than it appears at the surface.
-
-I am attempting to be quite careful with such requests, but as for any
-review comment mistakes / oversights happen. Furthermore relatively
-often I put such comments as questions, in the hope to indicates this
-way that the change request depends on the result actually building
-fine. In fact things not building doesn't necessarily mean the comment
-was outright wrong - it often means code elsewhere isn't properly
-constified.
-
-My request to all submitters: Constify your patches properly up front.
+Wouldn't the same hold for struct domain?
 
 Jan
 
