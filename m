@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCB1AA56714
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Mar 2025 12:51:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.904915.1312707 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3E82A56739
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Mar 2025 12:57:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.904939.1312726 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqWEH-00017H-7E; Fri, 07 Mar 2025 11:51:01 +0000
+	id 1tqWK7-0003Z8-4e; Fri, 07 Mar 2025 11:57:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 904915.1312707; Fri, 07 Mar 2025 11:51:01 +0000
+Received: by outflank-mailman (output) from mailman id 904939.1312726; Fri, 07 Mar 2025 11:57:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqWEH-00014l-40; Fri, 07 Mar 2025 11:51:01 +0000
-Received: by outflank-mailman (input) for mailman id 904915;
- Fri, 07 Mar 2025 11:50:59 +0000
+	id 1tqWK7-0003Ws-22; Fri, 07 Mar 2025 11:57:03 +0000
+Received: by outflank-mailman (input) for mailman id 904939;
+ Fri, 07 Mar 2025 11:57:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YHQw=V2=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tqWEF-00014f-Jr
- for xen-devel@lists.xenproject.org; Fri, 07 Mar 2025 11:50:59 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
+ id 1tqWK5-0003Wm-UZ
+ for xen-devel@lists.xenproject.org; Fri, 07 Mar 2025 11:57:01 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6e90754c-fb4a-11ef-9898-31a8f345e629;
- Fri, 07 Mar 2025 12:50:57 +0100 (CET)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-5e4f88ea298so3080823a12.2
- for <xen-devel@lists.xenproject.org>; Fri, 07 Mar 2025 03:50:57 -0800 (PST)
+ id 4666373f-fb4b-11ef-9898-31a8f345e629;
+ Fri, 07 Mar 2025 12:56:59 +0100 (CET)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-5e5e0caa151so1690701a12.0
+ for <xen-devel@lists.xenproject.org>; Fri, 07 Mar 2025 03:56:59 -0800 (PST)
 Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
  [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5e5c74a6af7sm2430951a12.33.2025.03.07.03.50.55
+ 4fb4d7f45d1cf-5e5c768f8cbsm2419913a12.76.2025.03.07.03.56.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 07 Mar 2025 03:50:55 -0800 (PST)
+ Fri, 07 Mar 2025 03:56:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,174 +45,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e90754c-fb4a-11ef-9898-31a8f345e629
+X-Inumbo-ID: 4666373f-fb4b-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1741348257; x=1741953057; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1741348619; x=1741953419; darn=lists.xenproject.org;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PsZwKpgBToRc6otnjdnjYspSc26Bg7dzFdExKxzScUw=;
-        b=mPpCgrZTvWE8Mb0bMYBWGM6YxGKYHtT+doT2PIofTDW9fqTw6xk0TmmEUV8tRrmmGU
-         5+YlaACyeqqckIqYEgUt0UA+SF/nXxvNs2IXHveRU5rslAWjzpWv0EfN8MjzsSpUq0mm
-         JAC22o1ueLoSEQhvt1m7rxxRbtwqhl2JMfbGjoehIGKX9K362irFIVsUCiQaNjlmc2z5
-         97Y5dLaAU4Ufmm8XL6STMlZxypUh9lQABoJVVKXfCvA56QPnknSVNdmFX77eymckGQbq
-         0qIsQVyUcuok5W5gUSjwhmmpR2ir4b4P7nHy/ezBnY3Pb4EZDJYJFDMmJhc0Wo296ZBQ
-         gxKA==
+        bh=8wHNyQPneM7ZqwLxqlqQxFiog4J6FqDY8ioJmChRN2I=;
+        b=UVpiNe3RjmYFqyKDr8OyEFjqjhpEztEJy7XIgMJXIWZIR5dqzD3g0tHFtmVvpM8I5c
+         jLVAml1wGtGtxClzAD8lBHgHFa2okcKzLN0k2SPeqfI2gsym7smlwmAKww1/8FTRrotE
+         fSjarpdDHClaXyRsqU17a8HE58+vbb6lSBSKDjwzyEZTIoFsnnqpaHW5bYwsXI+fdajM
+         5fF0M/PSaw4ede+PE6iN2AUqgHvyWY+/cSKmbz/MgijQS8Jz4Eu9Jt0WsCSPVy7P3C4p
+         CRJCadU0Dje6Q2nLaIvbztS5eDXNq67exT653vp1Vx5za/kpQoKuXVzUOk5I+7vxQMhl
+         4qfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741348257; x=1741953057;
+        d=1e100.net; s=20230601; t=1741348619; x=1741953419;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=PsZwKpgBToRc6otnjdnjYspSc26Bg7dzFdExKxzScUw=;
-        b=TTqhNGc9gAFWjgnSAmSvLwTKm/8MhJxKJDegFqCiFkEItJAi0lSHLAOiy2cNTh4YRz
-         yy6dPaD6dZkd3Vz/lvvaQMveE/UwZ7geakG8slcjGUIV6bp/bst8U9XWfagIgOahmjjL
-         i3Lc2rnnPRvg/F3M0EbOsRdsbLoTIvMsXCZa0LcCTmOYeFpFwL51aiOEEx2BUmKyUlv1
-         Xyhg0Wi3TQAmnTYBbFOMZUPo0zYSWfMdr6peL4OADbZBsHx8QTmJJZWvq7e8nzLum+yI
-         UjnETYx7eXem8F4RilaeKGIOEah7+m9PKq0w9zwKIDGRsrsNyEz2YcX2h6gMvUOWnLZa
-         BtoQ==
-X-Gm-Message-State: AOJu0YxgYgtwU8b4ZbPG9TXnmvjisOADacNoSmuvqueH4glqPyqW4w/+
-	GpBVtCKt42HrHdfYoz5m0EIDs9l8sQ3EwALqZASjLxhlUo05yPyk
-X-Gm-Gg: ASbGncuX/0fKrqhJpy9a36219HVOy6vUxDfpOJKrLtQrfMA1UQ4/USy5PcWj/HJ6XIe
-	wL4qKH5uoHJB/FN/BC3K0iSB2MKNxAoEU8cclEX8KUypCu9IxcclSiSC22gbK9c4qlfI5aJivUJ
-	Lz7Fj6rgdH5ipmRlAgIYGogvSexmJRGyntjJDPbXdwKN/3DeXCHxlHh7sc5uLmcJFtdoFOPKxUT
-	I+fPsGmcROHVrYsJy2wYdenxwdlz0v3mAy2eLjiy/fsXaNyTWhvKwuTYq6C0tNv9dAZlfyVuyaR
-	aspRIMWEF2/QFb3WnkKfC2IE5CVMHBCB9cauN1UOkA49RD3628lS+TdiK/3q22+c+zNGCl60oe7
-	PK/8qOhETIZ66MQGHgH0B
-X-Google-Smtp-Source: AGHT+IHHEuArQRUOcoulK3E8ghqsdZVhd5a2GlcFE+ppmNRPyEroEYUij6ovR0P4ROftB97mOyCwzA==
-X-Received: by 2002:a05:6402:4402:b0:5de:39fd:b2f5 with SMTP id 4fb4d7f45d1cf-5e5e22bf610mr2938299a12.1.1741348256446;
-        Fri, 07 Mar 2025 03:50:56 -0800 (PST)
+        bh=8wHNyQPneM7ZqwLxqlqQxFiog4J6FqDY8ioJmChRN2I=;
+        b=Rywv9vL1NuMu/jTcXO75JlS+DKSgJovdOAKXhDU6fHBMsK1FDV2l05zAxPjqnTHf7i
+         mALRoUEHA2/7N9AsTaJPbpN9G5Epmzr6dnI9MaZWeWURyIKCYkWyK2QOLm4CkstyW4vf
+         vnMx+M0YijxHi21y+ISAZZhkm5N8FlrUZExryUchzjIe1lqqpE0OqFGtfBYmOiHuX2BQ
+         KsebZimJrDPheTp1hRcqIhVj6C+UtBlYaXW0I/Aie6DkJZd+PxQ9y7WRggRA4SHqyRfk
+         XZmIzQ14zatbXxIob2lDPdLPABzqdFD5Gplh0avixJ4qRpX79z4PgGSuFPXsMN1WGg1Z
+         ZqdA==
+X-Gm-Message-State: AOJu0Yx6wplxLXr2yWp0QUpBBa8BydGabOVOiGgtVAwEFrG8n9Dc7QXD
+	tXn4YGvxSKeHSUaZkHd18rtWvX+R5b45oBHqdzoc4DujJ3JXkp/D
+X-Gm-Gg: ASbGncs6+Ebq+DIOEzBkWptX1183geSNWdH41jNKjXAOB2pVJHs8eM2qjPeHUqEO8qB
+	2N0MfjBHQXS+mLhnSf/PM3qGmbXJOeqgCf7Ob4pUDgBnt/yJtT5R6vRRGiZBrWFAbQoCb7pLF8R
+	fQ5nBpFWYRuEdxCeetIuBuTqbomnqFahgvh0ifkoKdqw6tTtssnrBR3euWz7q8h0qZGGZHhdPZu
+	iPIx6CmGEM8dfZdGUlrryPrnP0M4PIIEif0EpL1nrHfuvehDmKaFypn3niI5UQ9ZSOKtnqxBpmK
+	MOVlCZlDbKUhUgO0b0cmU2CFX8A6OgKI2+5vCuMnVVtflJkWh0nYf33k1TKon3RPR2gltMhs6sH
+	aGUj1Z2J+kxpHZxbYzcDH
+X-Google-Smtp-Source: AGHT+IGbIUKGX5/NY8E9LSxlRk/GHBZTT4zxyrR86sp7eOy9aYm8Ujc5J6Mm1ZkP6DbUwg0jVpDWVw==
+X-Received: by 2002:a50:8dca:0:b0:5e5:bd8d:edb9 with SMTP id 4fb4d7f45d1cf-5e5e22db548mr2752291a12.10.1741348618640;
+        Fri, 07 Mar 2025 03:56:58 -0800 (PST)
 Content-Type: multipart/alternative;
- boundary="------------59hCNb4BUGWcLGx4xB8k00kb"
-Message-ID: <295f59af-ebb8-4ad5-bf27-ec0ea5a2c2fe@gmail.com>
-Date: Fri, 7 Mar 2025 12:50:55 +0100
+ boundary="------------1Rn7CXrr0ks0L0utR9UF0rNg"
+Message-ID: <90dd70c2-88bc-44a6-8ccd-12bda9ac00f2@gmail.com>
+Date: Fri, 7 Mar 2025 12:56:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] RISCV/bitops: Use Zbb to provide arch-optimised bitops
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250226172050.1300771-1-andrew.cooper3@citrix.com>
- <113b2464-c7b2-4068-a179-707cba4f3835@suse.com>
- <50cd2332-11b7-4b64-85ea-489c416098f9@citrix.com>
- <db2073b0-8585-4518-9467-b7da4cefbbae@suse.com>
- <8dff5fb9-b46f-47bf-a6ee-863282155706@citrix.com>
+Subject: Re: [PATCH] xen/riscv: copy_to_guest/copy_from_guest functionality.
+To: =?UTF-8?B?TWlsYW4gxJBva2nEhw==?= <milandjokic1995@gmail.com>
+Cc: xen-devel@lists.xenproject.org,
+ Slavisa Petrovic <Slavisa.Petrovic@rt-rk.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Milan Djokic <Milan.Djokic@rt-rk.com>
+References: <dae753618491b2a6e42f7ed3f24190d0dc13fe3f.1740754166.git.Slavisa.Petrovic@rt-rk.com>
+ <1b71b063-1f1d-4cd0-be06-0ba3908027e6@gmail.com>
+ <CAKp59VHngx=DaHYdb8nYNNbmd5_s5FejShX2xwFFz1KVmPB_vw@mail.gmail.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <8dff5fb9-b46f-47bf-a6ee-863282155706@citrix.com>
+In-Reply-To: <CAKp59VHngx=DaHYdb8nYNNbmd5_s5FejShX2xwFFz1KVmPB_vw@mail.gmail.com>
 
 This is a multi-part message in MIME format.
---------------59hCNb4BUGWcLGx4xB8k00kb
+--------------1Rn7CXrr0ks0L0utR9UF0rNg
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 
-On 3/6/25 9:19 PM, Andrew Cooper wrote:
-> On 05/03/2025 7:34 am, Jan Beulich wrote:
->> On 28.02.2025 17:24, Andrew Cooper wrote:
->>> On 27/02/2025 8:11 am, Jan Beulich wrote:
->>>> On 26.02.2025 18:20, Andrew Cooper wrote:
->>>>> --- a/xen/arch/riscv/include/asm/bitops.h
->>>>> +++ b/xen/arch/riscv/include/asm/bitops.h
->>>>> @@ -125,6 +125,13 @@ static inline void clear_bit(int nr, volatile void *p)
->>>>>   #undef NOT
->>>>>   #undef __AMO
->>>>>   
->>>>> +#define arch_ffs(x)     ((x) ? 1 + __builtin_ctz(x) : 0)
->>>>> +#define arch_ffsl(x)    ((x) ? 1 + __builtin_ctzl(x) : 0)
->>>>> +#define arch_fls(x)     ((x) ? 32 - __builtin_clz(x) : 0)
->>>> I fear you won't like me to say this, but can't we avoid baking in yet
->>>> another assumption on sizeof(int) == 4, by using at least sizeof(int) * 8
->>>> here (yet better might be sizeof(int) * BITS_PER_BYTE)?
->>> Yes and no.
->>>
->>> No, because 32 here is consistent with ARM and PPC when it comes to
->>> arch_fls().  Given the effort it took to get these consistent, I'm not
->>> interested in letting them diverge.
->>>
->>> But, if someone wants to introduce BITS_PER_INT to mirror BITS_PER_LONG
->>> and use it consistently, then that would be ok too.
-> Oleksii: I see your patch is committed, but when I said "use it
-> consistently", I meant "patch ARM and PPC too".
+On 3/4/25 1:09 PM, Milan Đokić wrote:
+>> diff --git a/xen/arch/riscv/arch.mk b/xen/arch/riscv/arch.mk
+>> index 17827c302c..f4098f5b5e 100644
+>> --- a/xen/arch/riscv/arch.mk
+>> +++ b/xen/arch/riscv/arch.mk
+>> @@ -23,13 +23,17 @@ $(eval $(1) := \
+>>    $(call as-insn,$(CC) $(riscv-generic-flags)_$(1),$(value $(1)-insn),_$(1)))
+>>   endef
+>>
+>> +h-extension-name := $(call cc-ifversion,-lt,1301, hh, h)
+>> +$(h-extension-name)-insn := "hfence.gvma"
+>> +$(call check-extension,$(h-extension-name))
+>> +
+>>   zbb-insn := "andn t0$(comma)t0$(comma)t0"
+>>   $(call check-extension,zbb)
+>>
+>>   zihintpause-insn := "pause"
+>>   $(call check-extension,zihintpause)
+>>
+>> -extensions := $(zbb) $(zihintpause)
+>> +extensions := $(value $(h-extension-name)) $(zbb) $(zihintpause)
+>>
+>>   extensions := $(subst $(space),,$(extensions))
+>>
+>> This patch should take into account another one patch series (https://lore.kernel.org/xen-devel/cover.1740071755.git.oleksii.kurochko@gmail.com/T/#t)
+>> update for which I am going to sent today.
+>>
+>> Also, these changes would be better to move into separate commit with explanation why what is so specific with 1301 and why it is needed to introduce
+>> 'hh'.
+>> I believe that these changes were taken based on my patch:https://gitlab.com/xen-project/people/olkur/xen/-/commit/154f75e943f1668dbf2c7be0f0fdff5b30132e89
+>> Probably it will make sense just to get it and rebase on top of mentioned above patch series.
+>>
+> Yes, it is based on your patch. Sorry, I was not aware that you
+> already have an active patch series which contains this part.
+> In that case we'll wait for your patch series to be merged first. And
+> we'll split it into 2 commits where first one will only introduce h
+> extension handling in arch.mk and the second one with
+> copy_from/to_guest functionallity
 
-I planned to do that in a separate patch next week.
+This is not really contains this part directly but that another one patch series will affect these changes.
+So the final changes should look like:
+   https://gitlab.com/xen-project/people/olkur/xen/-/commit/eb75bc3482ffe025cf36c320e2e13a77deeea883
 
->> I was actually hoping to eliminate BITS_PER_LONG at some point, in favor
->> of using sizeof(long) * BITS_PER_BYTE. (Surely in common code we could
->> retain a shorthand of that name, if so desired, but I see no reason why
->> each arch would need to provide all three BITS_PER_{BYTE,INT,LONG}.)
-> The concern is legibility and clarity.
->
-> This:
->
->      ((x) ? 32 - __builtin_clz(x) : 0)
->
-> is a clear expression in a way that this:
->
->      ((x) ? (sizeof(int) * BITS_PER_BYTE) - __builtin_clz(x) : 0)
->
-> is not.  The problem is the extra binary expression, and this:
->
->      ((x) ? BITS_PER_INT - __builtin_clz(x) : 0)
->
-> is still clear, because the reader doesn't have to perform a multiply to
-> just to figure out what's going on.
->
->
-> It is definitely stupid to have each architecture provide their own
-> BITS_PER_*.  The compiler is in a superior position to provide those
-> details, and it should be in a common location.
->
-> I don't particularly mind how those constants are derived, but one key
-> thing that BITS_PER_* can do which sizeof() can't is be used in #ifdef/etc.
+I planned to send this patch to upstream on Monday.
 
-What about moving them to xen/config.h? (if it isn't the best one place, any suggestion which is better?)
+Best regards,
+  Oleksii
 
-#define BYTES_PER_INT  (1 << INT_BYTEORDER)
-#define BITS_PER_INT  (BYTES_PER_INT << 3)
 
-#define BYTES_PER_LONG (1 << LONG_BYTEORDER)
-#define BITS_PER_LONG (BYTES_PER_LONG << 3)
-#define BITS_PER_BYTE 8
-
-Also, it seems like the follwoing could be moved there too:
-
-#define POINTER_ALIGN  BYTES_PER_LONG
-
-#define BITS_PER_LLONG 64
-
-#define BITS_PER_BYTE 8
-
-Only, BITS_PER_XEN_ULONG is looking different for x86, so should be still in arch specific config.h.
-
-~ Oleksii
-
->
-> The following files use BITS_PER_LONG preprocessing:
->
-> arch/arm/include/asm/div64.h
-> arch/x86/cpu/mcheck/mce.c
-> arch/x86/smpboot.c
-> common/bitops.c
-> common/coverage/gcov.h
-> common/coverage/llvm.c
-> common/cpu.c
-> common/event_channel.c
-> common/time.c
-> common/ubsan/ubsan.c
-> include/asm-generic/div64.h
-> include/xen/cpumask.h
-> include/xen/inttypes.h
-> include/xen/nodemask.h
-> include/xen/sched.h
-> include/xen/xxhash.h
-> lib/find-next-bit.c
-> lib/generic-ffsl.c
-> lib/generic-flsl.c
-> lib/generic-hweightl.c
->
-> And I really don't think they can be replaced with a sizeof().
->
-> ~Andrew
---------------59hCNb4BUGWcLGx4xB8k00kb
+--------------1Rn7CXrr0ks0L0utR9UF0rNg
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
@@ -224,146 +173,62 @@ Content-Transfer-Encoding: 8bit
   <body>
     <p><br>
     </p>
-    <div class="moz-cite-prefix">On 3/6/25 9:19 PM, Andrew Cooper wrote:<br>
-    </div>
+    <div class="moz-cite-prefix">On 3/4/25 1:09 PM, Milan Đokić wrote:</div>
     <blockquote type="cite"
-      cite="mid:8dff5fb9-b46f-47bf-a6ee-863282155706@citrix.com">
-      <pre wrap="" class="moz-quote-pre">On 05/03/2025 7:34 am, Jan Beulich wrote:
-</pre>
+cite="mid:CAKp59VHngx=DaHYdb8nYNNbmd5_s5FejShX2xwFFz1KVmPB_vw@mail.gmail.com">
       <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">On 28.02.2025 17:24, Andrew Cooper wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">On 27/02/2025 8:11 am, Jan Beulich wrote:
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">On 26.02.2025 18:20, Andrew Cooper wrote:
-</pre>
-            <blockquote type="cite">
-              <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/include/asm/bitops.h
-+++ b/xen/arch/riscv/include/asm/bitops.h
-@@ -125,6 +125,13 @@ static inline void clear_bit(int nr, volatile void *p)
- #undef NOT
- #undef __AMO
- 
-+#define arch_ffs(x)     ((x) ? 1 + __builtin_ctz(x) : 0)
-+#define arch_ffsl(x)    ((x) ? 1 + __builtin_ctzl(x) : 0)
-+#define arch_fls(x)     ((x) ? 32 - __builtin_clz(x) : 0)
-</pre>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">I fear you won't like me to say this, but can't we avoid baking in yet
-another assumption on sizeof(int) == 4, by using at least sizeof(int) * 8
-here (yet better might be sizeof(int) * BITS_PER_BYTE)?
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">Yes and no.
+        <pre wrap="" class="moz-quote-pre">diff --git a/xen/arch/riscv/arch.mk b/xen/arch/riscv/arch.mk
+index 17827c302c..f4098f5b5e 100644
+--- a/xen/arch/riscv/arch.mk
++++ b/xen/arch/riscv/arch.mk
+@@ -23,13 +23,17 @@ $(eval $(1) := \
+  $(call as-insn,$(CC) $(riscv-generic-flags)_$(1),$(value $(1)-insn),_$(1)))
+ endef
 
-No, because 32 here is consistent with ARM and PPC when it comes to
-arch_fls().  Given the effort it took to get these consistent, I'm not
-interested in letting them diverge.
++h-extension-name := $(call cc-ifversion,-lt,1301, hh, h)
++$(h-extension-name)-insn := "hfence.gvma"
++$(call check-extension,$(h-extension-name))
++
+ zbb-insn := "andn t0$(comma)t0$(comma)t0"
+ $(call check-extension,zbb)
 
-But, if someone wants to introduce BITS_PER_INT to mirror BITS_PER_LONG
-and use it consistently, then that would be ok too.
-</pre>
-        </blockquote>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Oleksii: I see your patch is committed, but when I said "use it
-consistently", I meant "patch ARM and PPC too".</pre>
-    </blockquote>
-    <pre>I planned to do that in a separate patch next week.
+ zihintpause-insn := "pause"
+ $(call check-extension,zihintpause)
 
-</pre>
-    <blockquote type="cite"
-      cite="mid:8dff5fb9-b46f-47bf-a6ee-863282155706@citrix.com">
-      <pre wrap="" class="moz-quote-pre">
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">I was actually hoping to eliminate BITS_PER_LONG at some point, in favor
-of using sizeof(long) * BITS_PER_BYTE. (Surely in common code we could
-retain a shorthand of that name, if so desired, but I see no reason why
-each arch would need to provide all three BITS_PER_{BYTE,INT,LONG}.)
+-extensions := $(zbb) $(zihintpause)
++extensions := $(value $(h-extension-name)) $(zbb) $(zihintpause)
+
+ extensions := $(subst $(space),,$(extensions))
+
+This patch should take into account another one patch series ( <a class="moz-txt-link-freetext" href="https://lore.kernel.org/xen-devel/cover.1740071755.git.oleksii.kurochko@gmail.com/T/#t">https://lore.kernel.org/xen-devel/cover.1740071755.git.oleksii.kurochko@gmail.com/T/#t</a>)
+update for which I am going to sent today.
+
+Also, these changes would be better to move into separate commit with explanation why what is so specific with 1301 and why it is needed to introduce
+'hh'.
+I believe that these changes were taken based on my patch: <a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/people/olkur/xen/-/commit/154f75e943f1668dbf2c7be0f0fdff5b30132e89">https://gitlab.com/xen-project/people/olkur/xen/-/commit/154f75e943f1668dbf2c7be0f0fdff5b30132e89</a>
+Probably it will make sense just to get it and rebase on top of mentioned above patch series.
+
 </pre>
       </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-The concern is legibility and clarity.
-
-This:
-
-    ((x) ? 32 - __builtin_clz(x) : 0)
-
-is a clear expression in a way that this:
-
-    ((x) ? (sizeof(int) * BITS_PER_BYTE) - __builtin_clz(x) : 0)
-
-is not.  The problem is the extra binary expression, and this:
-
-    ((x) ? BITS_PER_INT - __builtin_clz(x) : 0)
-
-is still clear, because the reader doesn't have to perform a multiply to
-just to figure out what's going on.
-
-
-It is definitely stupid to have each architecture provide their own
-BITS_PER_*.  The compiler is in a superior position to provide those
-details, and it should be in a common location.
-
-I don't particularly mind how those constants are derived, but one key
-thing that BITS_PER_* can do which sizeof() can't is be used in #ifdef/etc.</pre>
-    </blockquote>
-    <pre>What about moving them to xen/config.h? (if it isn't the best one place, any suggestion which is better?)</pre>
-    <pre>#define BYTES_PER_INT  (1 &lt;&lt; INT_BYTEORDER)
-#define BITS_PER_INT  (BYTES_PER_INT &lt;&lt; 3)</pre>
-    <pre>#define BYTES_PER_LONG (1 &lt;&lt; LONG_BYTEORDER)
-#define BITS_PER_LONG (BYTES_PER_LONG &lt;&lt; 3)
-#define BITS_PER_BYTE 8
-</pre>
-    <pre>Also, it seems like the follwoing could be moved there too:
-
-#define POINTER_ALIGN  BYTES_PER_LONG
-</pre>
-    <pre>#define BITS_PER_LLONG 64
-
-#define BITS_PER_BYTE 8
-
-Only, BITS_PER_XEN_ULONG is looking different for x86, so should be still in arch specific config.h.
-
-~ Oleksii
-</pre>
-    <blockquote type="cite"
-      cite="mid:8dff5fb9-b46f-47bf-a6ee-863282155706@citrix.com">
-      <pre wrap="" class="moz-quote-pre">
-
-The following files use BITS_PER_LONG preprocessing:
-
-arch/arm/include/asm/div64.h
-arch/x86/cpu/mcheck/mce.c
-arch/x86/smpboot.c
-common/bitops.c
-common/coverage/gcov.h
-common/coverage/llvm.c
-common/cpu.c
-common/event_channel.c
-common/time.c
-common/ubsan/ubsan.c
-include/asm-generic/div64.h
-include/xen/cpumask.h
-include/xen/inttypes.h
-include/xen/nodemask.h
-include/xen/sched.h
-include/xen/xxhash.h
-lib/find-next-bit.c
-lib/generic-ffsl.c
-lib/generic-flsl.c
-lib/generic-hweightl.c
-
-And I really don't think they can be replaced with a sizeof().
-
-~Andrew
+      <pre wrap="" class="moz-quote-pre">Yes, it is based on your patch. Sorry, I was not aware that you
+already have an active patch series which contains this part.
+In that case we'll wait for your patch series to be merged first. And
+we'll split it into 2 commits where first one will only introduce h
+extension handling in arch.mk and the second one with
+copy_from/to_guest functionallity
 </pre>
     </blockquote>
+    <pre>This is not really contains this part directly but that another one patch series will affect these changes.
+So the final changes should look like:
+  <a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/people/olkur/xen/-/commit/eb75bc3482ffe025cf36c320e2e13a77deeea883">https://gitlab.com/xen-project/people/olkur/xen/-/commit/eb75bc3482ffe025cf36c320e2e13a77deeea883</a></pre>
+    <pre>I planned to send this patch to upstream on Monday.
+
+Best regards,
+ Oleksii
+</pre>
+    <br>
   </body>
 </html>
 
---------------59hCNb4BUGWcLGx4xB8k00kb--
+--------------1Rn7CXrr0ks0L0utR9UF0rNg--
 
