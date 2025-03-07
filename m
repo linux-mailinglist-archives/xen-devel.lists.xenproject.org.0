@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2495A5678B
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Mar 2025 13:13:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.904980.1312757 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBE07A568C1
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Mar 2025 14:19:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.904713.1312777 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqWZY-0007qY-5w; Fri, 07 Mar 2025 12:13:00 +0000
+	id 1tqXbz-0002tH-Ct; Fri, 07 Mar 2025 13:19:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 904980.1312757; Fri, 07 Mar 2025 12:13:00 +0000
+Received: by outflank-mailman (output) from mailman id 904713.1312777; Fri, 07 Mar 2025 13:19:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqWZY-0007oy-2P; Fri, 07 Mar 2025 12:13:00 +0000
-Received: by outflank-mailman (input) for mailman id 904980;
- Fri, 07 Mar 2025 12:12:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tqXbz-0002sW-9I; Fri, 07 Mar 2025 13:19:35 +0000
+Received: by outflank-mailman (input) for mailman id 904713;
+ Fri, 07 Mar 2025 08:42:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZxnO=V2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tqWZW-0007op-Os
- for xen-devel@lists.xenproject.org; Fri, 07 Mar 2025 12:12:58 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 813398a2-fb4d-11ef-9ab6-95dc52dad729;
- Fri, 07 Mar 2025 13:12:57 +0100 (CET)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-390effd3e85so1610803f8f.0
- for <xen-devel@lists.xenproject.org>; Fri, 07 Mar 2025 04:12:57 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ <SRS0=lT2w=V2=ffwll.ch=simona.vetter@srs-se1.protection.inumbo.net>)
+ id 1tqTHu-0000s3-N0
+ for xen-devel@lists.xenproject.org; Fri, 07 Mar 2025 08:42:34 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1a4b0e0a-fb30-11ef-9898-31a8f345e629;
+ Fri, 07 Mar 2025 09:42:29 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-43bc38bb6baso9184315e9.3
+ for <xen-devel@lists.xenproject.org>; Fri, 07 Mar 2025 00:42:29 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3912bfdfcdasm5083770f8f.23.2025.03.07.04.12.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 07 Mar 2025 04:12:56 -0800 (PST)
+ ffacd0b85a97d-3912c0194f2sm4703188f8f.54.2025.03.07.00.42.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 07 Mar 2025 00:42:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,173 +45,339 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 813398a2-fb4d-11ef-9ab6-95dc52dad729
+X-Inumbo-ID: 1a4b0e0a-fb30-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741349576; x=1741954376; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=racZ9WLIFatRaEJK5lSBxAGRS2J5Dg95ncOfXNtBjHY=;
-        b=dWRmFyOn9da8vemIe7618T2ECAPLUIUIFGcIlVVy3G8EJnaigCEOVjJp9NulWlzeR1
-         Zv9SSGXk6FdpWamsq/z2xL55MJqQpVNWQWIzLoNO6e9/sdbmFWqg31Bp+NTMde4+WLo8
-         X0wW7E8is1G2SwPD/2wWA7Khy8RYY5TUHy9Dw=
+        d=ffwll.ch; s=google; t=1741336948; x=1741941748; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=US2Wc6icG0i9/47aJ/pkH3GP4es8yYK0BFMiCt7We04=;
+        b=j5qCM1yIkKBEdb4LzYrdrMwPkdnC0vuVkIf9HDl/t8+UNKmKOFEn/5HYq1A9mfddRZ
+         nepYsMLgNHres99VsG0u/SHGqSTe+YAWFPzdWWATVlTjxQyf09JotI7wQ4uGFbEVRBdD
+         xhdFORO8E2cZDe3Ky9r+ew8fPD8ujZmhFM4oc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741349576; x=1741954376;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1741336948; x=1741941748;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=racZ9WLIFatRaEJK5lSBxAGRS2J5Dg95ncOfXNtBjHY=;
-        b=bboqDIlq9MdSU6O1wfxO+mEiZQCN+Q+fwvIfBooJ/qjBFNXkYqkPwiduxah8pHapdP
-         NNe7Oeubdn3IVtMMTPMKvJgcRsME4pG1O+42hXaOsFDOmZvj+EpyyrdKOB8tHG+iT1q0
-         UssN/wWKwri4Ym1vaokRqt9LMPrsBjOVuISjOxKSbxtx7+aa15vTydBzKPljAGFnMvOQ
-         6Inb+wy56ISdXIQDwZE0iXiKvRlXEKnhe96ySxLn+/7Ekfm/6JAPpEkNzfvBpmClQNaG
-         SMAl2ZM4LWV2wbAmYJM5YZI7KpQaPZPMfrrIGLmyz/xchHbm+VExdU/R5lh0Sanqzse9
-         r03Q==
-X-Gm-Message-State: AOJu0YzK+mrZSdiZFeG3UrcSxJHA/weg22Nzb8QzSJYa96PMcd/Sd8fI
-	G1859CyUhb0VkQDvW/gr/2kkTrhpCnvVY0hQBjulRcd9taRAQql5+880t/B35Yo=
-X-Gm-Gg: ASbGncvQj86zCT+9lbPrBIaEcR2UxI1vVywlczP5HIV6u0UURg585MgH+qmcDpd8XYd
-	o1uib+Zjvxm7UAfqksQKjDhA1hoJ2CA+mRuvHVWcnny8wr4yNEyc549+ka93ONr2qbPbW6AwNqH
-	RPYpxb3KxpVrLuVTYz4jXRmVA72F0KMGXZvhgFXHIsMDhsfEmXdTWdFsGbBTRQJS0AWo4ITaMbX
-	JIC1eFQ6HEar1RqfTObHFSgMZO0KyemVhu7odvywi0HNKBwto2b+ddvJ0F22hI3nGfUC20Irzqs
-	LlOWv9LqxK6wU/q6Ra2rSPqpYdjJI1VdkZ6ktpaESb6qWlEJi5JFGFndgcbEedyCAMD8/VhGBLA
-	jaV5fpcBx
-X-Google-Smtp-Source: AGHT+IFUUwfXlO2hHx99v5v6MmO2zQAicCY3V5nHHcAx+NRYetMTkFo6Xh+olRcOtS76hNMeeTuvvg==
-X-Received: by 2002:a5d:5f4e:0:b0:391:fcc:9ee8 with SMTP id ffacd0b85a97d-39132d6bc06mr1798241f8f.23.1741349576548;
-        Fri, 07 Mar 2025 04:12:56 -0800 (PST)
-Message-ID: <a7f05789-cf1a-474f-b619-80a7e890a579@citrix.com>
-Date: Fri, 7 Mar 2025 12:12:55 +0000
+        bh=US2Wc6icG0i9/47aJ/pkH3GP4es8yYK0BFMiCt7We04=;
+        b=qf+YvI+wgdWzbO7KeDvLvjuxWO9dL74QamdaJJOkFFV0cJ+J9FPrPim18tQ91Rh8Yt
+         ZxoL8V41pZl2m19FmI56iaTEfTL0jrg1fB7As4eKV2wCO8A8TKU+EwinwZrpqJwELua8
+         hWH6JWEEEEsnD9NAQnQ2NjpZYQBkxmYbrDBjshqKPan/7CidBtJ0+47d0rU+A+WweJE8
+         Xbv2Smsiikg2VGEKgtFqUVx6zSHuZ+uaafprXevyhVCJ4+CR2dljc7CBrpXGq/5srn1O
+         LxUGeQJkgxGidHX18XZNky4ap7cDO53lgVc8+cg0j3fDhnlreg04AWj3Dxr7iQUJZinm
+         VzzQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWAvaOx7IxO6YXCIsuPP4GMZ0v3SS2zLh9qOoO+yPa1xM+UGCEmQjF3NajmXQhQfjjetk3vMbgfCuo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzZti91BNTUoZIn7+LIhWD4zHU/YgvNjMdVMJXVEOMXN8GNOI9C
+	SAdOVE6xW+EPDKmmTAF0unyBLuMFffViWMi84JWt14Np1y7+xcN16H7caKNFfzE=
+X-Gm-Gg: ASbGncvM+W8Da1PB6F3JvdQbViDEJWlIbw4qOu6jgt8J1jGqKkVanv55nGIi05Bu01H
+	OGYmJZW+zgpSKoepYQwz2kmYn/LVsodow9ufxEGOYnTaJlIsCNwKZYRSTMXwwiZeItLWhqlCMxx
+	9PGtJQmmwdn+QH+llh/AKGoFR4qeC2SHdMAPcf2Zw+ta61fFxlrGyO5YRd2RzR9cNVXKkaveQOU
+	5O06ypcvk9R2xEoMFls1447C+jurn3ZSnz4p4itxsss2kPS1pBCDKv6/uS1CQe+btiCJp3Y4LlE
+	3PHQn5kdmysdr8B1WDpyvqrZ4n2+n0bch1CoeX4QGwkyRQjagqJ1qy7u
+X-Google-Smtp-Source: AGHT+IHeHcCAYfYIfg5Jap/0uuzQ6Oi2iytybYQTlJnuwARBxYqbc0PxFDylyktyJP3I4EPX9/4QPQ==
+X-Received: by 2002:a05:600c:1c19:b0:439:a1ef:c238 with SMTP id 5b1f17b1804b1-43c601e1162mr16070975e9.13.1741336948296;
+        Fri, 07 Mar 2025 00:42:28 -0800 (PST)
+Date: Fri, 7 Mar 2025 09:42:25 +0100
+From: Simona Vetter <simona.vetter@ffwll.ch>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+	airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+	linux-mediatek@lists.infradead.org, freedreno@lists.freedesktop.org,
+	linux-arm-msm@vger.kernel.org, imx@lists.linux.dev,
+	linux-samsung-soc@vger.kernel.org, nouveau@lists.freedesktop.org,
+	virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
+	intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3 02/25] drm/dumb-buffers: Provide helper to set pitch
+ and size
+Message-ID: <Z8qxcTIcD4W5OGwL@phenom.ffwll.local>
+References: <20250218142542.438557-1-tzimmermann@suse.de>
+ <20250218142542.438557-3-tzimmermann@suse.de>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] RISCV/bitops: Use Zbb to provide arch-optimised bitops
-To: Jan Beulich <jbeulich@suse.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250226172050.1300771-1-andrew.cooper3@citrix.com>
- <113b2464-c7b2-4068-a179-707cba4f3835@suse.com>
- <50cd2332-11b7-4b64-85ea-489c416098f9@citrix.com>
- <db2073b0-8585-4518-9467-b7da4cefbbae@suse.com>
- <8dff5fb9-b46f-47bf-a6ee-863282155706@citrix.com>
- <295f59af-ebb8-4ad5-bf27-ec0ea5a2c2fe@gmail.com>
- <927264c2-0b99-4d60-97f8-31bcd0d64aa6@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <927264c2-0b99-4d60-97f8-31bcd0d64aa6@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250218142542.438557-3-tzimmermann@suse.de>
+X-Operating-System: Linux phenom 6.12.11-amd64 
 
-On 07/03/2025 12:01 pm, Jan Beulich wrote:
-> On 07.03.2025 12:50, Oleksii Kurochko wrote:
->> On 3/6/25 9:19 PM, Andrew Cooper wrote:
->>> On 05/03/2025 7:34 am, Jan Beulich wrote:
->>>> I was actually hoping to eliminate BITS_PER_LONG at some point, in favor
->>>> of using sizeof(long) * BITS_PER_BYTE. (Surely in common code we could
->>>> retain a shorthand of that name, if so desired, but I see no reason why
->>>> each arch would need to provide all three BITS_PER_{BYTE,INT,LONG}.)
->>> The concern is legibility and clarity.
->>>
->>> This:
->>>
->>>      ((x) ? 32 - __builtin_clz(x) : 0)
->>>
->>> is a clear expression in a way that this:
->>>
->>>      ((x) ? (sizeof(int) * BITS_PER_BYTE) - __builtin_clz(x) : 0)
->>>
->>> is not.  The problem is the extra binary expression, and this:
->>>
->>>      ((x) ? BITS_PER_INT - __builtin_clz(x) : 0)
->>>
->>> is still clear, because the reader doesn't have to perform a multiply to
->>> just to figure out what's going on.
->>>
->>>
->>> It is definitely stupid to have each architecture provide their own
->>> BITS_PER_*.  The compiler is in a superior position to provide those
->>> details, and it should be in a common location.
->>>
->>> I don't particularly mind how those constants are derived, but one key
->>> thing that BITS_PER_* can do which sizeof() can't is be used in #ifdef/etc.
->> What about moving them to xen/config.h? (if it isn't the best one place, any suggestion which is better?)
->>
->> #define BYTES_PER_INT  (1 << INT_BYTEORDER)
->> #define BITS_PER_INT  (BYTES_PER_INT << 3)
->>
->> #define BYTES_PER_LONG (1 << LONG_BYTEORDER)
->> #define BITS_PER_LONG (BYTES_PER_LONG << 3)
->> #define BITS_PER_BYTE 8
+On Tue, Feb 18, 2025 at 03:23:25PM +0100, Thomas Zimmermann wrote:
+> Add drm_modes_size_dumb(), a helper to calculate the dumb-buffer
+> scanline pitch and allocation size. Implementations of struct
+> drm_driver.dumb_create can call the new helper for their size
+> computations.
+> 
+> There is currently quite a bit of code duplication among DRM's
+> memory managers. Each calculates scanline pitch and buffer size
+> from the given arguments, but the implementations are inconsistent
+> in how they treat alignment and format support. Later patches will
+> unify this code on top of drm_mode_size_dumb() as much as possible.
+> 
+> drm_mode_size_dumb() uses existing 4CC format helpers to interpret
+> the given color mode. This makes the dumb-buffer interface behave
+> similar the kernel's video= parameter. Current per-driver implementations
+> again likely have subtle differences or bugs in how they support color
+> modes.
+> 
+> The dumb-buffer UAPI is only specified for known color modes. These
+> values describe linear, single-plane RGB color formats or legacy index
+> formats. Other values should not be specified. But some user space
+> still does. So for unknown color modes, there are a number of known
+> exceptions for which drm_mode_size_dumb() calculates the pitch from
+> the bpp value, as before. All other values work the same but print
+> an error.
+> 
+> v3:
+> - document the UAPI semantics
+> - compute scanline pitch from for unknown color modes (Andy, Tomi)
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>  drivers/gpu/drm/drm_dumb_buffers.c | 116 +++++++++++++++++++++++++++++
+>  include/drm/drm_dumb_buffers.h     |  14 ++++
+>  include/uapi/drm/drm_mode.h        |  46 +++++++++++-
+>  3 files changed, 175 insertions(+), 1 deletion(-)
+>  create mode 100644 include/drm/drm_dumb_buffers.h
+> 
+> diff --git a/drivers/gpu/drm/drm_dumb_buffers.c b/drivers/gpu/drm/drm_dumb_buffers.c
+> index 9916aaf5b3f2..600ab281712b 100644
+> --- a/drivers/gpu/drm/drm_dumb_buffers.c
+> +++ b/drivers/gpu/drm/drm_dumb_buffers.c
+> @@ -25,6 +25,8 @@
+>  
+>  #include <drm/drm_device.h>
+>  #include <drm/drm_drv.h>
+> +#include <drm/drm_dumb_buffers.h>
+> +#include <drm/drm_fourcc.h>
+>  #include <drm/drm_gem.h>
+>  #include <drm/drm_mode.h>
+>  
+> @@ -57,6 +59,120 @@
+>   * a hardware-specific ioctl to allocate suitable buffer objects.
+>   */
+>  
+> +static int drm_mode_align_dumb(struct drm_mode_create_dumb *args,
+> +			       unsigned long pitch_align,
+> +			       unsigned long size_align)
+> +{
+> +	u32 pitch = args->pitch;
+> +	u32 size;
+> +
+> +	if (!pitch)
+> +		return -EINVAL;
+> +
+> +	if (pitch_align)
+> +		pitch = roundup(pitch, pitch_align);
+> +
+> +	/* overflow checks for 32bit size calculations */
+> +	if (args->height > U32_MAX / pitch)
+> +		return -EINVAL;
+> +
+> +	if (!size_align)
+> +		size_align = PAGE_SIZE;
+> +	else if (!IS_ALIGNED(size_align, PAGE_SIZE))
+> +		return -EINVAL;
+> +
+> +	size = ALIGN(args->height * pitch, size_align);
+> +	if (!size)
+> +		return -EINVAL;
+> +
+> +	args->pitch = pitch;
+> +	args->size = size;
+> +
+> +	return 0;
+> +}
+> +
+> +/**
+> + * drm_mode_size_dumb - Calculates the scanline and buffer sizes for dumb buffers
+> + * @dev: DRM device
+> + * @args: Parameters for the dumb buffer
+> + * @pitch_align: Scanline alignment in bytes
+> + * @size_align: Buffer-size alignment in bytes
+> + *
+> + * The helper drm_mode_size_dumb() calculates the size of the buffer
+> + * allocation and the scanline size for a dumb buffer. Callers have to
+> + * set the buffers width, height and color mode in the argument @arg.
+> + * The helper validates the correctness of the input and tests for
+> + * possible overflows. If successful, it returns the dumb buffer's
+> + * required scanline pitch and size in &args.
+> + *
+> + * The parameter @pitch_align allows the driver to specifies an
+> + * alignment for the scanline pitch, if the hardware requires any. The
+> + * calculated pitch will be a multiple of the alignment. The parameter
+> + * @size_align allows to specify an alignment for buffer sizes. The
+> + * returned size is always a multiple of PAGE_SIZE.
+> + *
+> + * Returns:
+> + * Zero on success, or a negative error code otherwise.
+> + */
+> +int drm_mode_size_dumb(struct drm_device *dev,
+> +		       struct drm_mode_create_dumb *args,
+> +		       unsigned long pitch_align,
+> +		       unsigned long size_align)
+> +{
+> +	u64 pitch = 0;
+> +	u32 fourcc;
+> +
+> +	/*
+> +	 * The scanline pitch depends on the buffer width and the color
+> +	 * format. The latter is specified as a color-mode constant for
+> +	 * which we first have to find the corresponding color format.
+> +	 *
+> +	 * Different color formats can have the same color-mode constant.
+> +	 * For example XRGB8888 and BGRX8888 both have a color mode of 32.
+> +	 * It is possible to use different formats for dumb-buffer allocation
+> +	 * and rendering as long as all involved formats share the same
+> +	 * color-mode constant.
+> +	 */
+> +	fourcc = drm_driver_color_mode_format(dev, args->bpp);
+> +	if (fourcc != DRM_FORMAT_INVALID) {
+> +		const struct drm_format_info *info = drm_format_info(fourcc);
+> +
+> +		if (!info)
+> +			return -EINVAL;
+> +		pitch = drm_format_info_min_pitch(info, 0, args->width);
+> +	} else if (args->bpp) {
+> +		/*
+> +		 * Some userspace throws in arbitrary values for bpp and
+> +		 * relies on the kernel to figure it out. In this case we
+> +		 * fall back to the old method of using bpp directly. The
+> +		 * over-commitment of memory from the rounding is acceptable
+> +		 * for compatibility with legacy userspace. We have a number
+> +		 * of deprecated legacy values that are explicitly supported.
+> +		 */
+> +		switch (args->bpp) {
+> +		default:
+> +			drm_warn(dev, "Unknown color mode %d; guessing buffer size.\n",
+> +				 args->bpp);
+> +			fallthrough;
 
-The *_BYTEORDER's are useless indirection.  BITS_PER_* should be defined
-straight up, and this will simplify quite a lot of preprocessing.
+We cannot let userspace trigger dmesg warnings (or anything else really
+that spams logs). Also I think for future proofing it would be good if we
+just reject anything we don't currently know about instead of silently
+letting this mess become worse. Hence my vote is to reject unknown bpp
+hack values.
 
->>
->> Also, it seems like the follwoing could be moved there too:
->>
->> #define POINTER_ALIGN  BYTES_PER_LONG
-> This one is likely fine to move.
->
->> #define BITS_PER_LLONG 64
-> This one is only fine to move imo when converted to
->
-> #define BITS_PER_LONG (BYTES_PER_LLONG << 3)
+> +		case 12:
+> +		case 15:
+> +		case 30: /* see drm_gem_afbc_get_bpp() */
 
-Erm?  That's mixing long and long long types.  Presuming that's an
-errant L, then sure.
+This is a bit too cryptic to me, I think if you want to do comments I'd
+just put a long-form one above each value that explains where we've found
+it and why it happens. I'm also assuming these all have depth = 0, which I
+guess is something we should check just to keep this as strict as
+possible? Or do they have matching depth?
 
->
->> #define BITS_PER_BYTE 8
-> Personally I'd rather leave this per-arch. The others can truly be derived;
-> this one can't be. If we centralize, imo we should also convert the " << 3"
-> to " * BITS_PER_BYTE".
+Cheers, Sima
 
-It is highly unlikely that Xen will ever run on a system where CHAR_BIT
-isn't 8.
+> +		case 10:
+> +		case 64: /* used by Mesa */
+> +			pitch = args->width * DIV_ROUND_UP(args->bpp, SZ_8);
+> +			break;
+> +		}
+> +	}
+> +
+> +	if (!pitch || pitch > U32_MAX)
+> +		return -EINVAL;
+> +
+> +	args->pitch = pitch;
+> +
+> +	return drm_mode_align_dumb(args, pitch_align, size_align);
+> +}
+> +EXPORT_SYMBOL(drm_mode_size_dumb);
+> +
+>  int drm_mode_create_dumb(struct drm_device *dev,
+>  			 struct drm_mode_create_dumb *args,
+>  			 struct drm_file *file_priv)
+> diff --git a/include/drm/drm_dumb_buffers.h b/include/drm/drm_dumb_buffers.h
+> new file mode 100644
+> index 000000000000..6fe36004b19d
+> --- /dev/null
+> +++ b/include/drm/drm_dumb_buffers.h
+> @@ -0,0 +1,14 @@
+> +/* SPDX-License-Identifier: MIT */
+> +
+> +#ifndef __DRM_DUMB_BUFFERS_H__
+> +#define __DRM_DUMB_BUFFERS_H__
+> +
+> +struct drm_device;
+> +struct drm_mode_create_dumb;
+> +
+> +int drm_mode_size_dumb(struct drm_device *dev,
+> +		       struct drm_mode_create_dumb *args,
+> +		       unsigned long pitch_align,
+> +		       unsigned long size_align);
+> +
+> +#endif
+> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+> index c082810c08a8..eea09103b1a6 100644
+> --- a/include/uapi/drm/drm_mode.h
+> +++ b/include/uapi/drm/drm_mode.h
+> @@ -1058,7 +1058,7 @@ struct drm_mode_crtc_page_flip_target {
+>   * struct drm_mode_create_dumb - Create a KMS dumb buffer for scanout.
+>   * @height: buffer height in pixels
+>   * @width: buffer width in pixels
+> - * @bpp: bits per pixel
+> + * @bpp: color mode
+>   * @flags: must be zero
+>   * @handle: buffer object handle
+>   * @pitch: number of bytes between two consecutive lines
+> @@ -1066,6 +1066,50 @@ struct drm_mode_crtc_page_flip_target {
+>   *
+>   * User-space fills @height, @width, @bpp and @flags. If the IOCTL succeeds,
+>   * the kernel fills @handle, @pitch and @size.
+> + *
+> + * The value of @bpp is a color-mode number describing a specific format
+> + * or a variant thereof. The value often corresponds to the number of bits
+> + * per pixel for most modes, although there are exceptions. Each color mode
+> + * maps to a DRM format plus a number of modes with similar pixel layout.
+> + * Framebuffer layout is always linear.
+> + *
+> + * Support for all modes and formats is optional. Even if dumb-buffer
+> + * creation with a certain color mode succeeds, it is not guaranteed that
+> + * the DRM driver supports any of the related formats. Most drivers support
+> + * a color mode of 32 with a format of DRM_FORMAT_XRGB8888 on their primary
+> + * plane.
+> + *
+> + * +------------+------------------------+------------------------+
+> + * | Color mode | Framebuffer format     | Compatibles            |
+> + * +============+========================+========================+
+> + * |     32     |  * DRM_FORMAT_XRGB8888 |  * DRM_FORMAT_XBGR8888 |
+> + * |            |                        |  * DRM_FORMAT_RGBX8888 |
+> + * |            |                        |  * DRM_FORMAT_BGRX8888 |
+> + * +------------+------------------------+------------------------+
+> + * |     24     |  * DRM_FORMAT_RGB888   |  * DRM_FORMAT_BGR888   |
+> + * +------------+------------------------+------------------------+
+> + * |     16     |  * DRM_FORMAT_RGB565   |  * DRM_FORMAT_BGR565   |
+> + * +------------+------------------------+------------------------+
+> + * |     15     |  * DRM_FORMAT_XRGB1555 |  * DRM_FORMAT_XBGR1555 |
+> + * |            |                        |  * DRM_FORMAT_RGBX1555 |
+> + * |            |                        |  * DRM_FORMAT_BGRX1555 |
+> + * +------------+------------------------+------------------------+
+> + * |      8     |  * DRM_FORMAT_C8       |  * DRM_FORMAT_R8       |
+> + * +------------+------------------------+------------------------+
+> + * |      4     |  * DRM_FORMAT_C4       |  * DRM_FORMAT_R4       |
+> + * +------------+------------------------+------------------------+
+> + * |      2     |  * DRM_FORMAT_C2       |  * DRM_FORMAT_R2       |
+> + * +------------+------------------------+------------------------+
+> + * |      1     |  * DRM_FORMAT_C1       |  * DRM_FORMAT_R1       |
+> + * +------------+------------------------+------------------------+
+> + *
+> + * Color modes of 10, 12, 15, 30 and 64 are only supported for use by
+> + * legacy user space. Please don't use them in new code. Other modes
+> + * are not support.
+> + *
+> + * Do not attempt to allocate anything but linear framebuffer memory
+> + * with single-plane RGB data. Allocation of other framebuffer
+> + * layouts requires dedicated ioctls in the respective DRM driver.
+>   */
+>  struct drm_mode_create_dumb {
+>  	__u32 height;
+> -- 
+> 2.48.1
+> 
 
-So I suggest it stays central to reduce complexity.  If an arch ever
-needs to change it, the complexity can be added then.
-
-~Andrew
+-- 
+Simona Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 
