@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA6F6A56434
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Mar 2025 10:46:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.904817.1312636 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58C79A564B7
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Mar 2025 11:12:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.904831.1312647 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqUHO-0007EF-5e; Fri, 07 Mar 2025 09:46:06 +0000
+	id 1tqUgE-0004nL-4D; Fri, 07 Mar 2025 10:11:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 904817.1312636; Fri, 07 Mar 2025 09:46:06 +0000
+Received: by outflank-mailman (output) from mailman id 904831.1312647; Fri, 07 Mar 2025 10:11:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqUHO-0007Br-2o; Fri, 07 Mar 2025 09:46:06 +0000
-Received: by outflank-mailman (input) for mailman id 904817;
- Fri, 07 Mar 2025 09:46:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tqUgE-0004l4-03; Fri, 07 Mar 2025 10:11:46 +0000
+Received: by outflank-mailman (input) for mailman id 904831;
+ Fri, 07 Mar 2025 10:11:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hW4D=V2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tqUHN-0007Bl-0l
- for xen-devel@lists.xenproject.org; Fri, 07 Mar 2025 09:46:05 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fa906c71-fb38-11ef-9898-31a8f345e629;
- Fri, 07 Mar 2025 10:46:01 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-43bd5644de8so18036075e9.3
- for <xen-devel@lists.xenproject.org>; Fri, 07 Mar 2025 01:46:01 -0800 (PST)
+ id 1tqUgC-0004ky-Eu
+ for xen-devel@lists.xenproject.org; Fri, 07 Mar 2025 10:11:44 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 919f602c-fb3c-11ef-9ab5-95dc52dad729;
+ Fri, 07 Mar 2025 11:11:43 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-43bc48ff815so10167055e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 07 Mar 2025 02:11:43 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43bcbcbe64fsm71740575e9.0.2025.03.07.01.45.59
+ 5b1f17b1804b1-43bdd8c3aa8sm46171535e9.14.2025.03.07.02.11.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 07 Mar 2025 01:46:00 -0800 (PST)
+ Fri, 07 Mar 2025 02:11:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fa906c71-fb38-11ef-9898-31a8f345e629
+X-Inumbo-ID: 919f602c-fb3c-11ef-9ab5-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741340761; x=1741945561; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4W6pX3E98C87U4EFHMStWMN+RiCAN79IXQGEvb8aLu8=;
-        b=NDC2D97ZjGghj2DnSFXAptiUW5kSESzeO2jIzrV+dihCq0n/0okH8iPmXsaTKE3dQZ
-         vn7weUyZHrmuk9mBq0l1+0FZSZkqDXFh5EOdKCKGUULZ53BGsJWVBwsYc9C2BjyDxYTt
-         DnhsxQZPq1A13Mj8iKo2YHUQXHCDWPpup7ADE3corCHcDCFY6GVIO3mX1BaOajDeI2Re
-         fMjfN7l6d+pQY/dICMYisDAepvXA9PGRXAcpu14WqAiP2Vyd2slVGUqZ2pUz3jq3fr1W
-         B1+bOVzySlxDkIfJK+2zadIDuS2in0FlU9uY0MR8qSRnJeRLPmjJHEYAMdfjhGqvS+vQ
-         ukDw==
+        d=suse.com; s=google; t=1741342303; x=1741947103; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=7ZSXVjc2miKUFoLiDEfoI9Vwsq/CSEqNaJnezPJXwc4=;
+        b=DeCXxupKRXI1oFCfKT16YYeeuhIjFPpxkIRzqVJ1F2EiATNSJJOW/57lRr4qWZyq21
+         QSspd8WtJ8uKDzY+WfnsTq0n92cz9PfcZQvf2onGUxudg7DntUESde3gQv77blNOm9IW
+         hf15yb926daiThsfXajJ6iYmZ1AXd86+VNGuFclpGga7LodsGMdms7Sl1bVFiscq31xw
+         IPSU79W6V4XhfCGS7kBYIbGehulntpDdFaRKD57ZborhII8aP9KPAAo/ylOAIDbM2dxd
+         VQe0EvOazYJ0T1aJ2B5LOI2hCAM4xH7AK4KUjcYiIjoHJHejqnSPmlXlSu+iWgE2hVff
+         cgkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741340761; x=1741945561;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4W6pX3E98C87U4EFHMStWMN+RiCAN79IXQGEvb8aLu8=;
-        b=mava6h1akmIHqGva2CvgorhBGywY2HhRj9neHBu0m+9FhNFiyfKwxE4EZZbyzijY3a
-         42fSuwjn51axwJmR8E5y3N5kpysJ6iuPB7p2j9P843ILv3a0rp3ndifb8Hf1DUe+zC/w
-         XUlmw1lLWaotZSOvPpk5HkF57Ur0p0dd3KBspGMYPuuvWZ53W5ju6Q23o+1qzmaYQKp9
-         RI+U5cuxZ4hoJV3qYl5CqMIUE6E7/DDTkwpG1rREf/nOFtvpJ1RVuXITt+61pRq+ihMj
-         /dox82rsvD7Kfa4deYhaGUPM7+GEICxODlDonpYcT+P/NkSB0r+xHZ6+UiAtqwCQqNl+
-         9yLg==
-X-Gm-Message-State: AOJu0Yw911hc0Fpzy1k80mUpqudWqc/jQ7ud82UPj+YHi7qGZS7lV4Bn
-	3xoJ3GLwKT7T4xUk9GnTbZgSo/dvIeaMJIr/xMk00X91qNS8MLjPuUFHxjJr6g==
-X-Gm-Gg: ASbGnctk6CwFCYbz0N8g6M8FVDbCe8gtuscEscwDXVA2+150q/TlPt3tQUwnG0ylr9n
-	pZOIfm58QekwL7hsHtWHadWM07z3miw0YAqyl8OLXkx7fb27Chesz/wlCZxBRul3RKlM6hy7/GF
-	LWuy21U7Pw+Fc/nGSvWHZP/xi/AbnAfOnc7eeOH0MptQch3to0OSuzf6ut8uEvW3w7LyWJ3PPGy
-	N8PUBKwDhGTIdLwc/wpNpbyWJIG8Tf8T+LwadNIp5kZqlt7F1nUA7F7mozJXMzVzXYA7fTfbYfp
-	/leL+Lfp+URwKbcsjJmU6BKVeZ+EqklLTtl95NrPrzPIi7vqwWUPuI446yepL8fG/iSc7kFm+oN
-	ljmYbQoD9n0Bg04anwbcHqGr7mn952g==
-X-Google-Smtp-Source: AGHT+IEr92KhGuc9/ENtlyaZeoemPjdIGwgcUEKsgyXU0ooMcGKhxnoGtOpHmuNBjKjBO4qibCRLdw==
-X-Received: by 2002:a05:600c:5103:b0:439:a0a3:a15 with SMTP id 5b1f17b1804b1-43c601cf53amr25915405e9.14.1741340760538;
-        Fri, 07 Mar 2025 01:46:00 -0800 (PST)
-Message-ID: <cc4c694c-9d31-4239-a469-18580d74d35a@suse.com>
-Date: Fri, 7 Mar 2025 10:45:59 +0100
+        d=1e100.net; s=20230601; t=1741342303; x=1741947103;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=7ZSXVjc2miKUFoLiDEfoI9Vwsq/CSEqNaJnezPJXwc4=;
+        b=DImvE/l3M+/yYPwFXTGObCRK3sA5Gmqx6qs8CkJh9TVmwYjRuoLR6hkjH3Y4sgJdaR
+         C9MDRUX3QdrxzEpw39f0uC+xo10riC4ADsFjifFTDtkpz8CQtRXs1usqlHNm+MDebt9x
+         3Xl/xZRQqt9dn/HMsEgqyNRzmQ4XfcKZoSmOAtVHA/rg0sB/qAYGcOw+3gPTM0hyDXEI
+         pGxq7aoUyL2x8Re6NZ+UisZyoy3GD6/w6TBK1H8QBUAnxr6r9Oj71veSLuXNa6BOHQh9
+         wyXVMEuPH6sJMF7sHPw+Z0mwK7lczWwfLJLyIcfGuRtlCq/CLl8kE3/18TQGE0vpvnF2
+         9voQ==
+X-Gm-Message-State: AOJu0YwrmrFBpqFvyK2U2A/1qfyznmpTEpWmYQHdIjyGCXtgZlTUWauz
+	dgsGx138/zpmRMqiBd1xvYQv6YNfDGdSEyPss+SXhcBkb/9uSqcRpjN3JWWU8ZHk1MIYQ1TmfuY
+	=
+X-Gm-Gg: ASbGnct18V+G8PKkrdTC7Mlem1s0nbuRBfn2pQwhf9hQuBAfBkhyMf8pnZ9lUP3op/L
+	b/S78rdykvdGPX1c/eIGor8kXqF/J3RoOAqlszTwEoVXqgyw8/h4OuYx9m7iBzFQBMZpNrcMbB0
+	1/yWtLuyTISnx/vi1+6ugQDpPuVoGInRg7duIAxx1E13+Yvoc9CUaVgOxP06ppPVy8h4fyzBT2V
+	FAT5/WCuv5YDJS1Rg2GsYRe8vdd1YWU26LEXKWO0pl3luJ1Rv/orj3X74YLeCJl+e2cTZTj2mX2
+	vYpGYnm7Lw45N4NFyf9+BQ5FqRbyMCKxSYUKM3MhwYmIFtGqpa53RS4VTRrXv6bHkSSYXayZItS
+	b2cwzP3GTnjGEG0UqaFJ6WWtZHnXgKA==
+X-Google-Smtp-Source: AGHT+IFLSw4U5goXom44ORWdkvAJxaNSNigDPKxhLuUc5DDECCGXduXJmpXUQ2hZYN86LbLfZBy8jw==
+X-Received: by 2002:a7b:c053:0:b0:43b:c592:7e16 with SMTP id 5b1f17b1804b1-43bdb368dafmr49566775e9.3.1741342302667;
+        Fri, 07 Mar 2025 02:11:42 -0800 (PST)
+Message-ID: <0315252d-0378-4699-bff7-ce745d753438@suse.com>
+Date: Fri, 7 Mar 2025 11:11:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] xen/passthrough: Provide stub functions when
- !HAS_PASSTHROUGH
-To: Luca Fancellu <Luca.Fancellu@arm.com>, Julien Grall <julien@xen.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20250307075818.740649-1-luca.fancellu@arm.com>
- <20250307075818.740649-2-luca.fancellu@arm.com>
- <9a257d60-3047-4d8a-b461-ce793d5f89e8@xen.org>
- <F4801232-DC72-44D4-AF0D-EFDF5D2B3202@arm.com>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bobby Eshleman <bobbyeshleman@gmail.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Christopher Clark <christopher.w.clark@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v2] xen/events: fix global virq handling
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -124,144 +125,279 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <F4801232-DC72-44D4-AF0D-EFDF5D2B3202@arm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 07.03.2025 10:20, Luca Fancellu wrote:
-> Hi Julien,
-> 
->> On 7 Mar 2025, at 09:09, Julien Grall <julien@xen.org> wrote:
->>
->> Hi Luca,
->>
->> On 07/03/2025 07:58, Luca Fancellu wrote:
->>> When Xen is built without HAS_PASSTHROUGH, there are some parts
->>> in arm where iommu_* functions are called in the codebase, but
->>> their implementation is under xen/drivers/passthrough that is
->>> not built.
->>> So provide some stub for these functions in order to build Xen
->>> when !HAS_PASSTHROUGH, which is the case for example on systems
->>> with MPU support.
->>> For gnttab_need_iommu_mapping() in the Arm part, modify the macro
->>> to use IS_ENABLED for the HAS_PASSTHROUGH Kconfig.
->>> Fixes: 0388a5979b21 ("xen/arm: mpu: Introduce choice between MMU and MPU")
->>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
->>> ---
->>> v4 changes:
->>>  - re-introduced stub for iommu_use_hap_pt, Stefano suggested
->>>    it is ok to have it in iommu.h.
->>>  - Reworded comment in iommu_domain_init from Jan suggestion
->>> v3 Changes:
->>>  - removed stub for iommu_use_hap_pt, another solution will be
->>>    done for the instance in common arm code.
->>>  - Moved a comment close to the macro it was referred to
->>>  - add comment to iommu_domain_init() stub
->>>  - modified commit message
->>>  - Add fixes tag
->>> v2 Changes:
->>>  - modify gnttab_need_iommu_mapping to use IS_ENABLED
->>>  - removed macro that didn't allow some of the parameter to be
->>>    evaluated
->>>  - Changed commit message
->>> ---
->>> ---
->>>  xen/arch/arm/include/asm/grant_table.h |  5 +--
->>>  xen/include/xen/iommu.h                | 50 +++++++++++++++++++++++++-
->>>  2 files changed, 52 insertions(+), 3 deletions(-)
->>> diff --git a/xen/arch/arm/include/asm/grant_table.h b/xen/arch/arm/include/asm/grant_table.h
->>> index d3c518a926b9..c5d87b60c4df 100644
->>> --- a/xen/arch/arm/include/asm/grant_table.h
->>> +++ b/xen/arch/arm/include/asm/grant_table.h
->>> @@ -73,8 +73,9 @@ int replace_grant_host_mapping(uint64_t gpaddr, mfn_t frame,
->>>  #define gnttab_status_gfn(d, t, i)                                       \
->>>      page_get_xenheap_gfn(gnttab_status_page(t, i))
->>>  -#define gnttab_need_iommu_mapping(d)                    \
->>> -    (is_domain_direct_mapped(d) && is_iommu_enabled(d))
->>> +#define gnttab_need_iommu_mapping(d)                                     \
->>> +    (IS_ENABLED(CONFIG_HAS_PASSTHROUGH) && is_domain_direct_mapped(d) && \
->>> +     is_iommu_enabled(d))
->>>    #endif /* __ASM_GRANT_TABLE_H__ */
->>>  /*
->>> diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
->>> index 77a514019cc6..5ac038521e23 100644
->>> --- a/xen/include/xen/iommu.h
->>> +++ b/xen/include/xen/iommu.h
->>> @@ -110,6 +110,8 @@ extern int8_t iommu_hwdom_reserved;
->>>    extern unsigned int iommu_dev_iotlb_timeout;
->>>  +#ifdef CONFIG_HAS_PASSTHROUGH
->>> +
->>>  int iommu_setup(void);
->>>  int iommu_hardware_setup(void);
->>>  @@ -122,6 +124,28 @@ int arch_iommu_domain_init(struct domain *d);
->>>  void arch_iommu_check_autotranslated_hwdom(struct domain *d);
->>>  void arch_iommu_hwdom_init(struct domain *d);
->>>  +#else
->>> +
->>> +static inline int iommu_setup(void)
->>> +{
->>> +    return -ENODEV;
->>> +}
->>> +
->>> +static inline int iommu_domain_init(struct domain *d, unsigned int opts)
->>> +{
->>> +    /*
->>> +     * Return as the real iommu_domain_init() would: Success when
->>> +     * !is_iommu_enabled(), following from !iommu_enabled when !HAS_PASSTHROUGH
->>> +     */
->>> +    return 0;
->>> +}
->>> +
->>> +static inline void iommu_hwdom_init(struct domain *d) {}
->>> +
->>> +static inline void iommu_domain_destroy(struct domain *d) {}
->>> +
->>> +#endif /* HAS_PASSTHROUGH */
->>> +
->>>  /*
->>>   * The following flags are passed to map (applicable ones also to unmap)
->>>   * operations, while some are passed back by lookup operations.
->>> @@ -209,6 +233,8 @@ struct msi_msg;
->>>  #ifdef CONFIG_HAS_DEVICE_TREE
->>>  #include <xen/device_tree.h>
->>>  +#ifdef CONFIG_HAS_PASSTHROUGH
->>> +
->>>  int iommu_assign_dt_device(struct domain *d, struct dt_device_node *dev);
->>>  int iommu_deassign_dt_device(struct domain *d, struct dt_device_node *dev);
->>>  int iommu_dt_domain_init(struct domain *d);
->>> @@ -238,6 +264,26 @@ int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
->>>   */
->>>  int iommu_remove_dt_device(struct dt_device_node *np);
->>>  +#else
->>> +
->>> +static inline int iommu_assign_dt_device(struct domain *d,
->>> +                                         struct dt_device_node *dev)
->>> +{
->>> +    return -EINVAL;
->>> +}
->>> +
->>> +static inline int iommu_add_dt_device(struct dt_device_node *np)
->>> +{
->>> +    return 1;
->>
->> I would suggest to add a comment explain what 1 means. IIRC, this means "no iommu" present.
-> 
-> Would it be ok something like in iommu_domain_init:
-> 
-> /*
->  * Returns as the real iommu_add_dt_device() would: Error “no iommu" because
->  * !iommu_enabled due to the fact that !HAS_PASSTHROUGH
->  */
+VIRQs are split into "global" and "per vcpu" ones. Unfortunately in
+reality there are "per domain" ones, too.
 
-We had been there before, hadn't we? Personally I find the suggested text
-hard to follow. How about
+send_global_virq() and set_global_virq_handler() make only sense for
+the real "global" ones, so replace virq_is_global() with a new
+function get_virq_type() returning one of the 3 possible types (global,
+domain, vcpu VIRQ).
 
-    /*
-     * !HAS_PASSTHROUGH => !iommu_enabled (see the non-stub
-     * iommu_add_dt_device())
+To make its intended purpose more clear, also rename
+send_guest_global_virq() to send_guest_domain_virq().
+
+Fixes: 980822c5edd1 ("xen/events: allow setting of global virq handler only for unbound virqs")
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+As I don't have much time today (I'm having a day off), only compile
+tested. Please try a CI run with this patch before applying!
+
+Whether the "domain" infix in send_guest_domain_virq() is really useful
+I don't know. Maybe we should go even father with renaming, to have
+{vcpu,domain}_send_virq()?
+---
+v2: Also rename send_guest_global_virq().
+
+--- a/xen/arch/arm/include/asm/event.h
++++ b/xen/arch/arm/include/asm/event.h
+@@ -47,9 +47,9 @@ static inline void local_event_delivery_
+ }
+ 
+ /* No arch specific virq definition now. Default to global. */
+-static inline bool arch_virq_is_global(unsigned int virq)
++static inline enum virq_type arch_get_virq_type(unsigned int virq)
+ {
+-    return true;
++    return VIRQ_GLOBAL;
+ }
+ 
+ #endif
+--- a/xen/arch/ppc/include/asm/event.h
++++ b/xen/arch/ppc/include/asm/event.h
+@@ -17,9 +17,9 @@ static inline int vcpu_event_delivery_is
+ }
+ 
+ /* No arch specific virq definition now. Default to global. */
+-static inline bool arch_virq_is_global(unsigned int virq)
++static inline enum virq_type arch_get_virq_type(unsigned int virq)
+ {
+-    return true;
++    return VIRQ_GLOBAL;
+ }
+ 
+ static inline int local_events_need_delivery(void)
+--- a/xen/arch/riscv/include/asm/event.h
++++ b/xen/arch/riscv/include/asm/event.h
+@@ -24,9 +24,9 @@ static inline void local_event_delivery_
+ }
+ 
+ /* No arch specific virq definition now. Default to global. */
+-static inline bool arch_virq_is_global(unsigned int virq)
++static inline enum virq_type arch_get_virq_type(unsigned int virq)
+ {
+-    return true;
++    return VIRQ_GLOBAL;
+ }
+ 
+ #endif /* ASM__RISCV__EVENT_H */
+--- a/xen/arch/x86/include/asm/event.h
++++ b/xen/arch/x86/include/asm/event.h
+@@ -41,10 +41,10 @@ static inline void local_event_delivery_
+     vcpu_info(current, evtchn_upcall_mask) = 0;
+ }
+ 
+-/* No arch specific virq definition now. Default to global. */
+-static inline bool arch_virq_is_global(unsigned int virq)
++/* Only global arch specific virq definitions. */
++static inline enum virq_type arch_get_virq_type(unsigned int virq)
+ {
+-    return true;
++    return VIRQ_GLOBAL;
+ }
+ 
+ #ifdef CONFIG_PV_SHIM
+--- a/xen/common/argo.c
++++ b/xen/common/argo.c
+@@ -440,7 +440,7 @@ signal_domain(struct domain *d)
+ {
+     argo_dprintk("signalling domid:%u\n", d->domain_id);
+ 
+-    send_guest_global_virq(d, VIRQ_ARGO);
++    send_guest_domain_virq(d, VIRQ_ARGO);
+ }
+ 
+ static void
+--- a/xen/common/event_channel.c
++++ b/xen/common/event_channel.c
+@@ -127,7 +127,7 @@ static struct domain *get_global_virq_ha
+     return global_virq_handlers[virq] ?: hardware_domain;
+ }
+ 
+-static bool virq_is_global(unsigned int virq)
++static enum virq_type get_virq_type(unsigned int virq)
+ {
+     switch ( virq )
+     {
+@@ -135,14 +135,17 @@ static bool virq_is_global(unsigned int
+     case VIRQ_DEBUG:
+     case VIRQ_XENOPROF:
+     case VIRQ_XENPMU:
+-        return false;
++        return VIRQ_VCPU;
++
++    case VIRQ_ARGO:
++        return VIRQ_DOMAIN;
+ 
+     case VIRQ_ARCH_0 ... VIRQ_ARCH_7:
+-        return arch_virq_is_global(virq);
++        return arch_get_virq_type(virq);
+     }
+ 
+     ASSERT(virq < NR_VIRQS);
+-    return true;
++    return VIRQ_GLOBAL;
+ }
+ 
+ static struct evtchn *_evtchn_from_port(const struct domain *d,
+@@ -476,7 +479,7 @@ int evtchn_bind_virq(evtchn_bind_virq_t
+     struct domain *d = current->domain;
+     int            virq = bind->virq, vcpu = bind->vcpu;
+     int            rc = 0;
+-    bool           is_global;
++    enum virq_type type;
+ 
+     if ( (virq < 0) || (virq >= ARRAY_SIZE(v->virq_to_evtchn)) )
+         return -EINVAL;
+@@ -486,9 +489,9 @@ int evtchn_bind_virq(evtchn_bind_virq_t
+     * speculative execution.
      */
-
-If that's too terse, adding a few words should be fine.
-
-Jan
+     virq = array_index_nospec(virq, ARRAY_SIZE(v->virq_to_evtchn));
+-    is_global = virq_is_global(virq);
++    type = get_virq_type(virq);
+ 
+-    if ( is_global && vcpu != 0 )
++    if ( type != VIRQ_VCPU && vcpu != 0 )
+         return -EINVAL;
+ 
+     if ( (v = domain_vcpu(d, vcpu)) == NULL )
+@@ -496,7 +499,7 @@ int evtchn_bind_virq(evtchn_bind_virq_t
+ 
+     write_lock(&d->event_lock);
+ 
+-    if ( is_global && get_global_virq_handler(virq) != d )
++    if ( type == VIRQ_GLOBAL && get_global_virq_handler(virq) != d )
+     {
+         rc = -EBUSY;
+         goto out;
+@@ -756,7 +759,8 @@ int evtchn_close(struct domain *d1, int
+         if ( chn1->u.virq == VIRQ_DOM_EXC )
+             domain_deinit_states(d1);
+ 
+-        v = d1->vcpu[virq_is_global(chn1->u.virq) ? 0 : chn1->notify_vcpu_id];
++        v = d1->vcpu[get_virq_type(chn1->u.virq) != VIRQ_VCPU
++            ? 0 : chn1->notify_vcpu_id];
+ 
+         write_lock_irqsave(&v->virq_lock, flags);
+         ASSERT(read_atomic(&v->virq_to_evtchn[chn1->u.virq]) == port1);
+@@ -900,7 +904,7 @@ bool evtchn_virq_enabled(const struct vc
+     if ( !v )
+         return false;
+ 
+-    if ( virq_is_global(virq) && v->vcpu_id )
++    if ( get_virq_type(virq) != VIRQ_VCPU && v->vcpu_id )
+         v = domain_vcpu(v->domain, 0);
+ 
+     return read_atomic(&v->virq_to_evtchn[virq]);
+@@ -913,7 +917,7 @@ void send_guest_vcpu_virq(struct vcpu *v
+     struct domain *d;
+     struct evtchn *chn;
+ 
+-    ASSERT(!virq_is_global(virq));
++    ASSERT(get_virq_type(virq) == VIRQ_VCPU);
+ 
+     read_lock_irqsave(&v->virq_lock, flags);
+ 
+@@ -933,14 +937,14 @@ void send_guest_vcpu_virq(struct vcpu *v
+     read_unlock_irqrestore(&v->virq_lock, flags);
+ }
+ 
+-void send_guest_global_virq(struct domain *d, uint32_t virq)
++void send_guest_domain_virq(struct domain *d, uint32_t virq)
+ {
+     unsigned long flags;
+     int port;
+     struct vcpu *v;
+     struct evtchn *chn;
+ 
+-    ASSERT(virq_is_global(virq));
++    ASSERT(get_virq_type(virq) != VIRQ_VCPU);
+ 
+     if ( unlikely(d == NULL) || unlikely(d->vcpu == NULL) )
+         return;
+@@ -995,9 +999,9 @@ static DEFINE_SPINLOCK(global_virq_handl
+ 
+ void send_global_virq(uint32_t virq)
+ {
+-    ASSERT(virq_is_global(virq));
++    ASSERT(get_virq_type(virq) == VIRQ_GLOBAL);
+ 
+-    send_guest_global_virq(get_global_virq_handler(virq), virq);
++    send_guest_domain_virq(get_global_virq_handler(virq), virq);
+ }
+ 
+ int set_global_virq_handler(struct domain *d, uint32_t virq)
+@@ -1008,7 +1012,7 @@ int set_global_virq_handler(struct domai
+ 
+     if (virq >= NR_VIRQS)
+         return -EINVAL;
+-    if (!virq_is_global(virq))
++    if (get_virq_type(virq) != VIRQ_GLOBAL)
+         return -EINVAL;
+ 
+     if (global_virq_handlers[virq] == d)
+@@ -1204,7 +1208,7 @@ int evtchn_bind_vcpu(evtchn_port_t port,
+     switch ( chn->state )
+     {
+     case ECS_VIRQ:
+-        if ( virq_is_global(chn->u.virq) )
++        if ( get_virq_type(chn->u.virq) != VIRQ_VCPU )
+             chn->notify_vcpu_id = v->vcpu_id;
+         else
+             rc = -EINVAL;
+--- a/xen/include/xen/event.h
++++ b/xen/include/xen/event.h
+@@ -24,17 +24,17 @@
+ void send_guest_vcpu_virq(struct vcpu *v, uint32_t virq);
+ 
+ /*
+- * send_global_virq: Notify the domain handling a global VIRQ.
+- *  @virq:     Virtual IRQ number (VIRQ_*)
++ * send_guest_domain_virq:
++ *  @d:        Domain to which VIRQ should be sent
++ *  @virq:     Virtual IRQ number (VIRQ_*), may not be per-vCPU
+  */
+-void send_global_virq(uint32_t virq);
++void send_guest_domain_virq(struct domain *d, uint32_t virq);
+ 
+ /*
+- * send_guest_global_virq:
+- *  @d:        Domain to which VIRQ should be sent
+- *  @virq:     Virtual IRQ number (VIRQ_*), must be global
++ * send_global_virq: Notify the domain handling a global VIRQ.
++ *  @virq:     Virtual IRQ number (VIRQ_*)
+  */
+-void send_guest_global_virq(struct domain *d, uint32_t virq);
++void send_global_virq(uint32_t virq);
+ 
+ /*
+  * sent_global_virq_handler: Set a global VIRQ handler.
+--- a/xen/include/xen/sched.h
++++ b/xen/include/xen/sched.h
+@@ -84,6 +84,12 @@ extern domid_t hardware_domid;
+ #define XEN_CONSUMER_BITS 3
+ #define NR_XEN_CONSUMERS ((1 << XEN_CONSUMER_BITS) - 1)
+ 
++enum virq_type {
++    VIRQ_GLOBAL,
++    VIRQ_DOMAIN,
++    VIRQ_VCPU
++};
++
+ struct evtchn
+ {
+     rwlock_t lock;
 
