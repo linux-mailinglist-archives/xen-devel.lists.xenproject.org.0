@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 680F9A55C2B
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Mar 2025 01:48:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.904426.1312307 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E700CA55C2F
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Mar 2025 01:49:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.904438.1312317 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqLsS-0003o6-Nv; Fri, 07 Mar 2025 00:47:48 +0000
+	id 1tqLtz-0004P0-4a; Fri, 07 Mar 2025 00:49:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 904426.1312307; Fri, 07 Mar 2025 00:47:48 +0000
+Received: by outflank-mailman (output) from mailman id 904438.1312317; Fri, 07 Mar 2025 00:49:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqLsS-0003me-Km; Fri, 07 Mar 2025 00:47:48 +0000
-Received: by outflank-mailman (input) for mailman id 904426;
- Fri, 07 Mar 2025 00:47:47 +0000
+	id 1tqLtz-0004NT-1h; Fri, 07 Mar 2025 00:49:23 +0000
+Received: by outflank-mailman (input) for mailman id 904438;
+ Fri, 07 Mar 2025 00:49:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=AsaE=V2=treblig.org=linux@srs-se1.protection.inumbo.net>)
- id 1tqLsR-0003mY-BD
- for xen-devel@lists.xenproject.org; Fri, 07 Mar 2025 00:47:47 +0000
-Received: from mx.treblig.org (mx.treblig.org [2a00:1098:5b::1])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Nrba=V2=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1tqLty-0003mY-86
+ for xen-devel@lists.xenproject.org; Fri, 07 Mar 2025 00:49:22 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c5645573-faed-11ef-9898-31a8f345e629;
- Fri, 07 Mar 2025 01:47:40 +0100 (CET)
-Received: from localhost ([127.0.0.1] helo=dalek.home.treblig.org)
- by mx.treblig.org with esmtp (Exim 4.96)
- (envelope-from <linux@treblig.org>) id 1tqLsH-003H7O-1H;
- Fri, 07 Mar 2025 00:47:37 +0000
+ id ff1d4426-faed-11ef-9898-31a8f345e629;
+ Fri, 07 Mar 2025 01:49:17 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 815C4A4535F;
+ Fri,  7 Mar 2025 00:43:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F6CDC4CEE5;
+ Fri,  7 Mar 2025 00:49:15 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,87 +41,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c5645573-faed-11ef-9898-31a8f345e629
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
-	; s=bytemarkmx; h=MIME-Version:Message-ID:Date:Subject:From:Content-Type:From
-	:Subject; bh=YCYD+T9+FjJKiym2zwCOFkdlpqOZMAK+Qe99zxgMH6s=; b=UUqHVjyMM8WUReiU
-	A4ca7U+tiC0+qNH8lB6X5qSexXMCQClFL2J2nTEE19AVd1QoC0fB+z8NClnd2OwKELQY/Vph8Vwsk
-	vvm6xprdC2RUCe29yvcMXr9q5/owfpwSLZjUJ1nghsSDF/YXrKOOmhCCt8soHPttjnkMqBrSameBH
-	l+eFOl3scc/GHQkcJosyJ2yUDLJ0t5C9Ml/wo65DLqL4xIug3CNYhYgBwhXEjy78cXYVwkZWeRJTx
-	AYTIxFF6BMVoeR0K/OAOF31LZHOTiSb9eHLN21eCTWf6hcKy5ijymaxrNgvMKjsvgRYxSI9J0DaGw
-	k0q45Pc2MWKspgBivg==;
-From: linux@treblig.org
-To: jgross@suse.com,
-	sstabellini@kernel.org,
-	oleksandr_tyshchenko@epam.com
-Cc: xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org,
-	"Dr. David Alan Gilbert" <linux@treblig.org>
-Subject: [PATCH] xen/pciback: Remove unused pcistub_get_pci_dev
-Date: Fri,  7 Mar 2025 00:47:36 +0000
-Message-ID: <20250307004736.291229-1-linux@treblig.org>
-X-Mailer: git-send-email 2.48.1
+X-Inumbo-ID: ff1d4426-faed-11ef-9898-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1741308555;
+	bh=nzu4MBOshbka4yvyEkAlVonFwNV1K4fmA6QYEemB+dM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=MLRx55nL/bylyF0m+wR0Kn39Ck2rkfE3xEjMSHD3dk8CWgSJ5YVFo3ncyIk1Iiy8k
+	 yaZRk3fFQxiuxreJWjC0MW3pmH7oGTisVO/LENQWHzNFoK79uTpXJ36F2F91hIqwL1
+	 7J3F7E14nDujWXcWINSaAUa4Owx0FBqMsmNIvQwRFFi4vqpULqNPB5pj+4yZB88W8z
+	 yfYem6aRzP3zEgs71BLqHlIBfoUAE3ijZ3tttNlCN9QYtWPZyXejXmJvkasmTiPpGW
+	 +ykgLRqZEVk550obwo+GnztVWdTtAzl7VjuOkt04nXK9zfbZWUhV1Gcs0tF935sQJ4
+	 dODUnkOQ8BTZQ==
+Date: Thu, 6 Mar 2025 16:49:14 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Stefano Stabellini <sstabellini@kernel.org>
+cc: Luca Miccio <luca.miccio@amd.com>, xen-devel@lists.xenproject.org
+Subject: Re: [ImageBuilder] uboot-script-gen: handle reserved memory
+ regions
+In-Reply-To: <alpine.DEB.2.22.394.2503061606020.2600338@ubuntu-linux-20-04-desktop>
+Message-ID: <alpine.DEB.2.22.394.2503061648360.2600338@ubuntu-linux-20-04-desktop>
+References: <20250228150733.3945774-1-luca.miccio@amd.com> <alpine.DEB.2.22.394.2503061606020.2600338@ubuntu-linux-20-04-desktop>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-From: "Dr. David Alan Gilbert" <linux@treblig.org>
+On Thu, 6 Mar 2025, Stefano Stabellini wrote:
+> On Fri, 28 Feb 2025, Luca Miccio wrote:
+> > Currently, the uboot-script-gen does not account for reserved memory
+> > regions in the device tree. This oversight can lead to scenarios where
+> > one or more boot modules overlap with a reserved region. As a result,
+> > Xen will always crash upon detecting this overlap. However, the crash
+> > will be silent (without output) if earlyprintk is not enabled, which is
+> > the default setting at the moment.
+> > 
+> > To address this issue, add a function that iterates over the
+> > reserved-memory nodes and populates an array. This array will be used
+> > later to calculate the load address for any given file.
+> > 
+> > Signed-off-by: Luca Miccio <luca.miccio@amd.com>
+> 
+> Hi Luca,
+> 
+> Thanks for the nice patch! I was waiting for the 4.21 development window
+> to open.
+> 
+> 
+> > ---
+> >  scripts/uboot-script-gen | 59 ++++++++++++++++++++++++++++++++++++++--
+> >  1 file changed, 56 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
+> > index db2c011..cd0d202 100755
+> > --- a/scripts/uboot-script-gen
+> > +++ b/scripts/uboot-script-gen
+> > @@ -468,6 +468,42 @@ function device_tree_editing()
+> >      fi
+> >  }
+> >  
+> > +function fill_reserved_spaces_from_dtb()
+> > +{
+> > +    if [ ! -f $DEVICE_TREE ]
+> > +    then
+> > +        echo "File $DEVICE_TREE doesn't exist, exiting";
+> > +        cleanup_and_return_err
+> > +    fi
+> > +
+> > +    addr_cells=$(fdtget -t x $DEVICE_TREE /reserved-memory '#address-cells')
+> > +    size_cells=$(fdtget -t x $DEVICE_TREE /reserved-memory '#size-cells')
 
-pcistub_get_pci_dev() was added in 2009 as part of:
-commit 30edc14bf39a ("xen/pciback: xen pci backend driver.")
+One more comment. If the DT doesn't have any reserved memory regions:
 
-Remove it.
+Error at '/reserved-memory': FDT_ERR_NOTFOUND
+Error at '/reserved-memory': FDT_ERR_NOTFOUND
+Error at '/reserved-memory': FDT_ERR_NOTFOUND
 
-Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
----
- drivers/xen/xen-pciback/pci_stub.c | 20 --------------------
- drivers/xen/xen-pciback/pciback.h  |  2 --
- 2 files changed, 22 deletions(-)
+It would be best to silence these errors
 
-diff --git a/drivers/xen/xen-pciback/pci_stub.c b/drivers/xen/xen-pciback/pci_stub.c
-index b616b7768c3b..5c2f829d5b0b 100644
---- a/drivers/xen/xen-pciback/pci_stub.c
-+++ b/drivers/xen/xen-pciback/pci_stub.c
-@@ -262,26 +262,6 @@ struct pci_dev *pcistub_get_pci_dev_by_slot(struct xen_pcibk_device *pdev,
- 	return found_dev;
- }
- 
--struct pci_dev *pcistub_get_pci_dev(struct xen_pcibk_device *pdev,
--				    struct pci_dev *dev)
--{
--	struct pcistub_device *psdev;
--	struct pci_dev *found_dev = NULL;
--	unsigned long flags;
--
--	spin_lock_irqsave(&pcistub_devices_lock, flags);
--
--	list_for_each_entry(psdev, &pcistub_devices, dev_list) {
--		if (psdev->dev == dev) {
--			found_dev = pcistub_device_get_pci_dev(pdev, psdev);
--			break;
--		}
--	}
--
--	spin_unlock_irqrestore(&pcistub_devices_lock, flags);
--	return found_dev;
--}
--
- /*
-  * Called when:
-  *  - XenBus state has been reconfigure (pci unplug). See xen_pcibk_remove_device
-diff --git a/drivers/xen/xen-pciback/pciback.h b/drivers/xen/xen-pciback/pciback.h
-index f9599ed2f2e2..b786c1f74f85 100644
---- a/drivers/xen/xen-pciback/pciback.h
-+++ b/drivers/xen/xen-pciback/pciback.h
-@@ -67,8 +67,6 @@ extern struct list_head xen_pcibk_quirks;
- struct pci_dev *pcistub_get_pci_dev_by_slot(struct xen_pcibk_device *pdev,
- 					    int domain, int bus,
- 					    int slot, int func);
--struct pci_dev *pcistub_get_pci_dev(struct xen_pcibk_device *pdev,
--				    struct pci_dev *dev);
- void pcistub_put_pci_dev(struct pci_dev *dev);
- 
- static inline bool xen_pcibk_pv_support(void)
--- 
-2.48.1
 
+> missing "local" for both variables
+> 
+> 
+> > +    for node in $(fdtget -l $DEVICE_TREE /reserved-memory); do
+> > +        reg_values=($(fdtget -t x $DEVICE_TREE /reserved-memory/$node reg))
+> 
+> missing "local"
+> 
+> 
+> > +        for ((i=0; i<${#reg_values[@]}; i+=addr_cells+size_cells)); do
+> > +            addr=0
+> > +            size=0
+> 
+> missing "local" for addr and size, and also i and j
+> 
+> 
+> > +            for ((j=0; j<addr_cells; j++)); do
+> > +                addr=$((addr << 32 | 0x${reg_values[i+j]}))
+> > +            done
+> > +            
+> > +            for ((j=0; j<size_cells; j++)); do
+> > +                size=$((size << 32 | 0x${reg_values[i+addr_cells+j]}))
+> > +            done
+> > +            
+> > +            addr=$(printf "0x%X" $addr)
+> > +            size=$(printf "0x%X" $size)
+> > +        done
+> > +
+> > +        # Add the reserved space to the list and avoid duplicates
+> > +        if [[ ! " ${RESERVED_MEM_SPACES[@]} " =~ " ${addr},${size} " ]]; then
+> 
+> I think this is too imprecise as a check because it would match with a
+> similar element of the array with a higher number of zeros. If I read
+> this right:
+> 
+> 0x1000,0x1000 would match 0x1000,0x10000
+> 
+> I would either remove this check, as it might be OK to have duplicates,
+> or I would turn it into a proper numeric check, one item at a time in
+> the list.
+> 
+> 
+> > +            RESERVED_MEM_SPACES+=("${addr},${size}")
+> > +        fi
+> > +    done
+> > +}
+> > +
+> >  # Read effective image size from a header, which may be larger than the filesize
+> >  # due to noload sections, e.g. bss.
+> >  function get_image_size()
+> > @@ -505,9 +541,24 @@ function add_size()
+> >          size=${image_size}
+> >      fi
+> >  
+> > -    memaddr=$(( $memaddr + $size + $offset - 1))
+> > -    memaddr=$(( $memaddr & ~($offset - 1) ))
+> > -    memaddr=`printf "0x%X\n" $memaddr`
+> > +    # Try to place the file at the first available space...
+> > +    local new_memaddr=$(( (memaddr + size + offset - 1) & ~(offset - 1) ))
+> > +
+> > +    # ...then check if it overlaps with any reserved space
+> > +    for reserved_space in "${RESERVED_MEM_SPACES[@]}"; do
+> > +        local reserved_start=${reserved_space%,*}
+> > +        local reserved_size=${reserved_space#*,}
+> > +        local reserved_end=$((reserved_start + reserved_size))
+> > +
+> > +        if [[ $new_memaddr -le $reserved_end ]] && \
+> > +           [[ $((new_memaddr + size)) -ge $reserved_start ]]; then
+> > +            # In that case, place the file at the next available space
+> > +            # after the reserved one
+> > +            new_memaddr=$(( (reserved_end + offset) & ~(offset - 1) ))
+> > +        fi
+> > +    done
+> > +
+> > +    memaddr=$(printf "0x%X\n" $new_memaddr)
+> >      filesize=$size
+> >  }
+> >  
+> > @@ -1373,6 +1424,8 @@ uboot_addr=$memaddr
+> >  memaddr=$(( $memaddr + $offset ))
+> >  memaddr=`printf "0x%X\n" $memaddr`
+> >  
+> > +fill_reserved_spaces_from_dtb
+> > +
+> >  if test "$os" = "xen"
+> >  then
+> >      xen_file_loading
+> > -- 
+> > 2.25.1
+> > 
+> 
 
