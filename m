@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DB96A55C58
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Mar 2025 01:57:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.904447.1312326 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C9D6A55C8F
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Mar 2025 02:02:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.904456.1312338 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqM1m-0007zl-Si; Fri, 07 Mar 2025 00:57:26 +0000
+	id 1tqM6e-0000Se-Gh; Fri, 07 Mar 2025 01:02:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 904447.1312326; Fri, 07 Mar 2025 00:57:26 +0000
+Received: by outflank-mailman (output) from mailman id 904456.1312338; Fri, 07 Mar 2025 01:02:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqM1m-0007ww-Pt; Fri, 07 Mar 2025 00:57:26 +0000
-Received: by outflank-mailman (input) for mailman id 904447;
- Fri, 07 Mar 2025 00:57:25 +0000
+	id 1tqM6e-0000PW-B9; Fri, 07 Mar 2025 01:02:28 +0000
+Received: by outflank-mailman (input) for mailman id 904456;
+ Fri, 07 Mar 2025 01:02:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ZxnO=V2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tqM1l-0007wq-Rk
- for xen-devel@lists.xenproject.org; Fri, 07 Mar 2025 00:57:25 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ id 1tqM6d-0000PQ-54
+ for xen-devel@lists.xenproject.org; Fri, 07 Mar 2025 01:02:27 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2154d29b-faef-11ef-9898-31a8f345e629;
- Fri, 07 Mar 2025 01:57:23 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-4394a0c65fcso14622105e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 06 Mar 2025 16:57:23 -0800 (PST)
+ id d4ed604c-faef-11ef-9898-31a8f345e629;
+ Fri, 07 Mar 2025 02:02:25 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-43bcfa6c57fso7547985e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Mar 2025 17:02:25 -0800 (PST)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3912bfb79cfsm3610296f8f.10.2025.03.06.16.57.21
+ 5b1f17b1804b1-43bdd8dbb2fsm34822325e9.20.2025.03.06.17.02.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Mar 2025 16:57:21 -0800 (PST)
+ Thu, 06 Mar 2025 17:02:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2154d29b-faef-11ef-9898-31a8f345e629
+X-Inumbo-ID: d4ed604c-faef-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741309043; x=1741913843; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1741309344; x=1741914144; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=k3kVTeo6hQ3m6R2v6h6cRhZpBdizWREPTz/VbcmNxHI=;
-        b=ND0Oq9Z0H0Yz0SfDSJltDvCI8eKT6wO7R84cB9zlMsACp/S8VE3pbRMqUX/iG7i2fC
-         eYsMPIqM7sjMkZ6OCikVuanmcpacbH5Tw/MSQmq2GvZgr2NLWvwDjVsgx5L3xzfX/WHy
-         HP4XAVcnH/LThAGJNtL0KSBYWgJGuHgiggN2M=
+        bh=P4heuVWu5+Ldn39bDXgdzZt1Z0uKXplph1DqTILALFA=;
+        b=hKvvmZBbu+oIE1c2GJ2OSbeU/UMErlchmEGQVGWprvihSxGfEB/R/a7kQUPriCh3FS
+         mvS0egNfWmDnn0Le+V3ZbPkg+NEgdTEQ7iFQSymGaIFyoWMEHvMTsbQ19PMgi+cETb/T
+         hWjRmwPlGSQNuEuGyvVCy+KGIvQK2HAWGiaDI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741309043; x=1741913843;
+        d=1e100.net; s=20230601; t=1741309344; x=1741914144;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=k3kVTeo6hQ3m6R2v6h6cRhZpBdizWREPTz/VbcmNxHI=;
-        b=qqsD9X/iGjKar0dgQPUrMPtKokfh1tNQIM5kQ2Fq+XgXAzfus2r1S4cyEryVl7/kvN
-         7+uvsUzxeiuI40E2Z16zGVidWA93OSzA5TyGAqvJNI2tgcEY3eSvJcDbR0DDJQQ285uP
-         z6F1xX/CZNn9rsQKhq8PhsgrpHXjXcKhSTpvDHcxyQ67MayEAIWJC85jD4OdtAlp2Kv7
-         S2H9IgIA3Yr9L1K59/an4GGqH4Vb+WPwIhg3LHD4TFAmmIoasR0Kh5gjXioKXazyTBYl
-         vcBCq0bc2wyIQ3vOgMtAJ+TXjtNcRAff+2zWNbPUXPIIN8V0gJ4EGXN4dQNeL4o6fp1Y
-         m1jA==
-X-Forwarded-Encrypted: i=1; AJvYcCUvq8+U7WmwcVc50hpMJiIl1eVJ49CrH94sVggZF5t+G8vgkrZobP0iSWV8prqJrcpu1gZ2kTDoPCk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxPhPSJEl9RqibQsYOoViZU7Iuy0bx6gVhgU8Q8Lr0sAf45+seE
-	m84q51oTmK0YS6lDiiB3T6A4F2I58pVGDz1FCTqQfn5hxpFOmeT1yDjc4Sgkwn8=
-X-Gm-Gg: ASbGnctWf4A4HsO7HZWMHtYXHAuQSNhBiF7d+MT/RFF/9TAD84LwxsPi6R3QLR7b6Ui
-	79d0vo55y1vUeGBVTA5mLoSYhKfpJZBj3Sw73DJmuysQvij2f11mDQxchpr03IKzWjXAS8fDCMb
-	ePO7rFhcFbYkXXtwPcERfONkMvIFAyrYe7lCtba6IMMnr4pr+mm9Pa57zN1fphWMlN8eHTgT1oe
-	aDR1CuZZrrXWnFzp2n6er5RvoK3T/d58b6ONGXmPAHyerhNHorP7DPJF0HC9ot+LpMIhPNA3bQi
-	SIbbdsphKVrOIXNccOMGdZTcUzIrHQsIPYhldxWbsTbopxRihv8sxIsuneriDkftNvuYKLKzKqI
-	l4Z8OPr0m
-X-Google-Smtp-Source: AGHT+IFxyvTXnHduGBEnpxq5+0hN0V+Vr4WYJoM9O9QSDwVmO0QsElc+pSmsj1evWa2Olk7K+2GvMg==
-X-Received: by 2002:a05:600c:3b1e:b0:439:9ee1:86bf with SMTP id 5b1f17b1804b1-43c5c98089bmr13949555e9.7.1741309043028;
-        Thu, 06 Mar 2025 16:57:23 -0800 (PST)
-Message-ID: <b5c45592-e33e-43fd-a3e9-ac691b60135a@citrix.com>
-Date: Fri, 7 Mar 2025 00:57:20 +0000
+        bh=P4heuVWu5+Ldn39bDXgdzZt1Z0uKXplph1DqTILALFA=;
+        b=fkRUOwpjHx7la3q7b18rGA+djoJ4A+PvPONPdbmHI0ZxRpemMOPwkH6bWnLTJWSAUg
+         1wCnfObROBCC8/3pZ5PJxEbwi73sYS40obMFiHPtdO4fdH4fp7ZTpcNdJHatOFprt1Go
+         8oGaXsQhWlYW87ta513f8eFJnLQxE0Mry0StqbYjt3NaU3iHo7Lnf4mQJsi6g0QvHePK
+         ma7VQcpYg+WWiAMEwZqThX0udXQ5iiOA6wO7RVOeWfqHitJLzzZy3Ci6iiuThGKSOk8E
+         KGPtpn4iN0I2QzMX2fBJfPP7ZpsR6XZgtuCqGHVYDUDqrR7QR8J1DCfMqyHUsTq7M3dg
+         vBkw==
+X-Forwarded-Encrypted: i=1; AJvYcCWZqDjegS2dm4jhYRQr+3MhOd+3COZ4iOGi9sZzdmL6V90+bFvmn9hfIgfg2FPELMwQHGTyaEaG7J8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyxVXfR3U/C9kzQtUB4XzCAXlcbazHaiHLJMEIj5/WKpSwIi1SA
+	cFu/cmH4CyD2ZX5fhZRwpOiE1BaJErrI4IDwvPK6+L2skE0djtYoylX+raZ4vG0=
+X-Gm-Gg: ASbGncvuZzXzMALRURIxYbzL6eIWNXUih+ZINgmwkJmXIXFdUwsd3n8GgVsWtqwB++U
+	ile9kc7curLWXdxVLl8JLzMxo3Shgdh8MSJk489n6EKXCVmaFH3KCoUFJXAcmmxrqZDmzqQd0Ik
+	4LmzeYQMZzwuD1Zb2A3TZhFkz7WnGRAyVyu/EGPYV6UkOohHzKXjQzUV04C4wtgdafLcoNcuZUC
+	GYq53uctp9JOFcAlHsJ81ywouNVIZQIZvoiLLV5u7UWyX3ohIs87e2x8PD/29Fw2RH2RdBn6l4E
+	P3EkIPgvoock5cF21vCr6XdlP8A0LInlcpYt+jwhHd1naOBAsyBrOrCggFTiIJ4PCm8KJ9uaP/z
+	AcQA4xq/y
+X-Google-Smtp-Source: AGHT+IFk07r5vmOiX4NGAdYBw6+Iw/dZo/cfISp9uAw6sMjZP1KqCJ2R5BmF5xNsSIEYN8PoiiH4LA==
+X-Received: by 2002:a05:600c:3b04:b0:439:8a62:db42 with SMTP id 5b1f17b1804b1-43c5a6008e6mr8646395e9.8.1741309344252;
+        Thu, 06 Mar 2025 17:02:24 -0800 (PST)
+Message-ID: <9a66d9e6-80a7-457e-9012-780ed6f09548@citrix.com>
+Date: Fri, 7 Mar 2025 01:02:23 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] x86/vlapic: Fix handling of writes to APIC_ESR
+Subject: Re: [PATCH v2 2/2] x86/vlapic: Drop vlapic->esr_lock
 To: Jan Beulich <jbeulich@suse.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20250303185352.86499-1-andrew.cooper3@citrix.com>
- <20250303185352.86499-2-andrew.cooper3@citrix.com>
- <042807a0-77cc-4e16-a949-116bb7cd8c94@suse.com>
+ <20250303185352.86499-3-andrew.cooper3@citrix.com>
+ <a3be52ef-77a9-46f3-9f9b-1f4e230d6c29@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -136,54 +136,58 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <042807a0-77cc-4e16-a949-116bb7cd8c94@suse.com>
+In-Reply-To: <a3be52ef-77a9-46f3-9f9b-1f4e230d6c29@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 05/03/2025 1:49 pm, Jan Beulich wrote:
+On 05/03/2025 1:56 pm, Jan Beulich wrote:
 > On 03.03.2025 19:53, Andrew Cooper wrote:
->> Xen currently presents APIC_ESR to guests as a simple read/write register.
+>> The exact behaviour of LVTERR interrupt generation is implementation
+>> specific.
 >>
->> This is incorrect.  The SDM states:
+>>  * Newer Intel CPUs generate an interrupt when pending_esr becomes
+>>    nonzero.
 >>
->>   The ESR is a write/read register. Before attempt to read from the ESR,
->>   software should first write to it. (The value written does not affect the
->>   values read subsequently; only zero may be written in x2APIC mode.) This
->>   write clears any previously logged errors and updates the ESR with any
->>   errors detected since the last write to the ESR.
+>>  * Older Intel and all AMD CPUs generate an interrupt when any
+>>    individual bit in pending_esr becomes nonzero.
 >>
->> Introduce a new pending_esr field in hvm_hw_lapic.
+>> Neither vendor documents their behaviour very well.  Xen implements
+>> the per-bit behaviour and has done since support was added.
 >>
->> Update vlapic_error() to accumulate errors here, and extend vlapic_reg_write()
->> to discard the written value and transfer pending_esr into APIC_ESR.  Reads
->> are still as before.
+>> Importantly, the per-bit behaviour can be expressed using the atomic
+>> operations available in the x86 architecture, whereas the
+>> former (interrupt only on pending_esr becoming nonzero) cannot.
 >>
->> Importantly, this means that guests no longer destroys the ESR value it's
->> looking for in the LVTERR handler when following the SDM instructions.
+>> With vlapic->hw.pending_esr held outside of the main regs page, it's
+>> much easier to use atomic operations.
 >>
+>> Use xchg() in vlapic_reg_write(), and *set_bit() in vlapic_error().
+>>
+>> The only interesting change is that vlapic_error() now needs to take a
+>> single bit only, rather than a mask, but this fine for all current
+>> callers and forseable changes.
+>>
+>> No practical change.
+> From a guest perspective that is.
+>
 >> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 > Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Thanks.
 
-> I guess there's no good Fixes: candidate?
+>
+>> @@ -124,15 +126,12 @@ static void vlapic_error(struct vlapic *vlapic, unsigned int errmask)
+>>              if ( (lvterr & APIC_VECTOR_MASK) >= 16 )
+>>                   inj = true;
+> I wouldn't, btw, mind if you also corrected this indentation screw-up of
+> mine along with you doing so ...
+>
+>>              else
+>> -                 errmask |= APIC_ESR_RECVILL;
+>> +                set_bit(ilog2(APIC_ESR_RECVILL), &vlapic->hw.pending_esr);
+> ... here.
 
-Not that I could find.  5f32d186a8b introduced vlapic_error(), and
-therefore delivery of LVTERR to guests, but the (mis)behaviour of the
-APIC_ESR register goes back further.
-
-d1bd157fbc9b "Big merge the HVM full-virtualisation abstractions" 19
-years ago had a far more buggy behaviour (counted writes, and only
-returned data on half the reads).
-
-The read side (of this far more broken behaviour) was broken by
-50b3cef2eecb ("[HVM] Place all APIC registers into one page in native
-format.") and restored by 69f646a61b1b ("[HVM] Fix some IOAPIC and LAPIC
-device model bugs").
-
-The far more broken behaviour was dropped by f7c8af3a6476 ("[XEN] HVM:
-Clean up and simplify vlapic device-model code.") in 3.0.4, leaving the
-behaviour we've had until today.
+Both fixed.
 
 ~Andrew
 
