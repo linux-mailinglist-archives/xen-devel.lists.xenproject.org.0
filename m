@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30B47A55D3A
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Mar 2025 02:41:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.904514.1312397 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0682A55D4D
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Mar 2025 02:47:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.904526.1312407 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqMhp-0002sT-Ed; Fri, 07 Mar 2025 01:40:53 +0000
+	id 1tqMoV-0003ZD-5t; Fri, 07 Mar 2025 01:47:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 904514.1312397; Fri, 07 Mar 2025 01:40:53 +0000
+Received: by outflank-mailman (output) from mailman id 904526.1312407; Fri, 07 Mar 2025 01:47:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqMhp-0002pK-Aw; Fri, 07 Mar 2025 01:40:53 +0000
-Received: by outflank-mailman (input) for mailman id 904514;
- Fri, 07 Mar 2025 01:40:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tqMoV-0003XM-3G; Fri, 07 Mar 2025 01:47:47 +0000
+Received: by outflank-mailman (input) for mailman id 904526;
+ Fri, 07 Mar 2025 01:47:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Nrba=V2=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tqMhn-0002pE-Ti
- for xen-devel@lists.xenproject.org; Fri, 07 Mar 2025 01:40:51 +0000
+ id 1tqMoU-0003XG-Ek
+ for xen-devel@lists.xenproject.org; Fri, 07 Mar 2025 01:47:46 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 31617a3a-faf5-11ef-9ab4-95dc52dad729;
- Fri, 07 Mar 2025 02:40:50 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 223b3297-faf6-11ef-9898-31a8f345e629;
+ Fri, 07 Mar 2025 02:47:32 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id F23435C5B3E;
- Fri,  7 Mar 2025 01:38:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B024C4CEE9;
- Fri,  7 Mar 2025 01:40:44 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 0E9905C5B44;
+ Fri,  7 Mar 2025 01:45:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DB07C4CEE0;
+ Fri,  7 Mar 2025 01:47:29 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,18 +41,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 31617a3a-faf5-11ef-9ab4-95dc52dad729
+X-Inumbo-ID: 223b3297-faf6-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1741311646;
-	bh=XjhrAxzmyzOaaKLIf65u4yuTJ+70wcU27Nxbh+rj+HY=;
+	s=k20201202; t=1741312050;
+	bh=GRXPYX/QzIEkqiLL3rrayFFIMnq7YT3TfzKxQgIvKKg=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=LXO0pHXqzg5n5KoaMQjFPrgi2+UFctPGdkwCTGiJb2eX+tjciGxsjry+Yha2HIrv2
-	 YccnIAXVt4WVcr1Ngs7qYAWBLEg8ojssEl4SAjDrajPrVsJtEeGkIz5KcFsR9I+WUj
-	 pllgZ2n45y0s1ebOMB7YPq2KJyLdW/Ks1ysgs73f/haQZTAgkc+zbk5CJIWIlqBRd3
-	 vSQparGUQYnUJEoCTQcujTJlqtJhpLSEY3bZQ1hWSx7rJ6WVM4q1RnpG73of3pefel
-	 I3WBiVPgvlyjQuorgJ1hdv4TylOiRHbkDyZoIDHNN+CCLvgsTEYcWmg3c2Vbhrofhs
-	 Dd5rgkMumw5FQ==
-Date: Thu, 6 Mar 2025 17:40:44 -0800 (PST)
+	b=CXb6TdpWIagy33hXzJFrhKE3cXKNnVfx27XxDxE9ipRYYVIVsGBbIbvGgv+pnWUoJ
+	 GvPa4u4iUeB8eo4NHM74pK9rPm69oewnd2WcUjUMzNpdxLOnq9JJCNsZfosTBIaCjG
+	 LT0yGYg1JMVk/P2DqHQkDhlg50acZJZRqQ63BzDOlAZF2ySMB+NNRt+uStQmHb8hjz
+	 fTtLmfBFKla1QXhhkp/Rje8T7ixeidel09gbhBfYFJ24y6q6lViIPG9p6Zt/lkqHX7
+	 iQfCxdxLLLDdOZNJjZaRCzG+GtqFQqbaJv1RxmeBh7f/7fJiGaj+6pHfZOztnPShXW
+	 uzSDMtLAdDLmQ==
+Date: Thu, 6 Mar 2025 17:47:28 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Jason Andryuk <jason.andryuk@amd.com>
@@ -65,187 +65,133 @@ cc: xen-devel@lists.xenproject.org,
     Anthony PERARD <anthony.perard@vates.tech>, 
     Jan Beulich <jbeulich@suse.com>, 
     =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [PATCH 05/23] xen/arm: Add capabilities to dom0less
-In-Reply-To: <20250306220343.203047-6-jason.andryuk@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2503061738430.2600338@ubuntu-linux-20-04-desktop>
-References: <20250306220343.203047-1-jason.andryuk@amd.com> <20250306220343.203047-6-jason.andryuk@amd.com>
+Subject: Re: [PATCH 08/23] xen/arm: dom0less seed xenstore grant table
+ entry
+In-Reply-To: <20250306220343.203047-9-jason.andryuk@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2503061744590.2600338@ubuntu-linux-20-04-desktop>
+References: <20250306220343.203047-1-jason.andryuk@amd.com> <20250306220343.203047-9-jason.andryuk@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Thu, 6 Mar 2025, Jason Andryuk wrote:
-> Add capabilities property to dom0less to allow building a
-> disaggregated system.
+> With a split hardware and control domain, the control domain may still
+> want and xenstore access.  Currently this relies on init-dom0less to
+> seed the grants.  This is problematic since we don't want hardware
+> domain to be able to map the control domain's resources.  Instead have
+> the hypervisor see the grant table entry.  The grant is then accessible
+> as normal.
 > 
-> Introduce bootfdt.h to contain these constants.
-> 
-> When using the hardware or xenstore capabilities, adjust the grant and
-> event channel limits similar to dom0.
-> 
-> Also for the hardware domain, set directmap and iommu.  This brings its
-> configuration in line with a dom0.
+> This is also useful with a xenstore stubdom to setup the xenbus page
+> much earlier.
+
+Reading the patch, it seems that what is doing is letting the xenstore
+domain map the domU's grant table page. Is that correct?
+
+If so, I would suggest to update the commit message as follows:
+
+With split hardware/control/xenstore domains, the xenstore domain may
+still want to access other domains' xenstore page. Currently this relies
+on init-dom0less to seed the grants from Dom0.  This is problematic
+since we don't want the hardware domain to be able to map other domains'
+resources without their permission.  Instead have the hypervisor seed
+the grant table entry for every dom0less domain.  The grant is then
+accessible as normal.
+
+
+> This works with C xenstored.  OCaml xenstored does not use grants and
+> would fail to foreign map the page.
 > 
 > Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
 > ---
-> There is overlap with hyperlaunch.  The numeric values are the same.
-> Hyperlaunch doesn't expose the values in a public header as done here.
-> Is this to be expected for dom0less?  It seems most of dom0less isn't in
-> a header, but just in docs.
+>  xen/arch/arm/dom0less-build.c |  9 +++++++++
+>  xen/common/grant_table.c      | 10 ++++++++++
+>  xen/include/xen/grant_table.h |  8 ++++++++
+>  3 files changed, 27 insertions(+)
 > 
-> Hyperlaunch uses BUILD_CAPS_, but I chose DOMAIN_CAPS_ since there are
-> domain-level capabilities.
-> 
-> Only a single xenstore and hardware domain make sense.  A check to limit
-> to only a single hardware domain is in place - building two breaks.  But
-> nothing prevents the dom0less configuration from only having multiple
-> xenstore domains.  Each xenstore domain would have slightly more
-> permissions, but only the last one would be used.
-> ---
->  docs/misc/arm/device-tree/booting.txt | 11 ++++++++++
->  xen/arch/arm/dom0less-build.c         | 29 +++++++++++++++++++++++++++
->  xen/arch/arm/domain.c                 |  3 ++-
->  xen/include/public/bootfdt.h          | 27 +++++++++++++++++++++++++
->  4 files changed, 69 insertions(+), 1 deletion(-)
->  create mode 100644 xen/include/public/bootfdt.h
-> 
-> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
-> index ac781c9cc8..490c792ddf 100644
-> --- a/docs/misc/arm/device-tree/booting.txt
-> +++ b/docs/misc/arm/device-tree/booting.txt
-> @@ -167,6 +167,17 @@ with the following properties:
->      Refer to docs/misc/cache_coloring.rst for syntax. This option is applicable
->      only to Arm64 guests.
->  
-> +- capabilities
-> +    Optional.  A bit field of domain capabilities for a disaggregated
-> +    system.  A traditional dom0 has all all of these capabilities, and a
-> +    domU has none of them.
-> +
-> +    0x1 DOMAIN_CAPS_CONTROL  - A privileged, control domain
-> +    0x2 DOMAIN_CAPS_HARDWARE - The hardware domain - there can be only 1
-> +    0x4 DOMAIN_CAPS_XENSTORE - The xenstore domain - there can be only 1
-> +
-> +    The default is no capabilities.
-> +
->  - vpl011
->  
->      An empty property to enable/disable a virtual pl011 for the guest to
 > diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
-> index 5a7871939b..068bf99294 100644
+> index 068bf99294..f1d5bbb097 100644
 > --- a/xen/arch/arm/dom0less-build.c
 > +++ b/xen/arch/arm/dom0less-build.c
-> @@ -12,6 +12,7 @@
->  #include <xen/sizes.h>
->  #include <xen/vmap.h>
+> @@ -21,6 +21,8 @@
+>  #include <asm/static-memory.h>
+>  #include <asm/static-shmem.h>
 >  
-> +#include <public/bootfdt.h>
->  #include <public/io/xs_wire.h>
->  
->  #include <asm/arm64/sve.h>
-> @@ -994,6 +995,34 @@ void __init create_domUs(void)
->          if ( (max_init_domid + 1) >= DOMID_FIRST_RESERVED )
->              panic("No more domain IDs available\n");
->  
-> +        if ( dt_property_read_u32(node, "capabilities", &val) )
-> +        {
-> +            if ( val & ~DOMAIN_CAPS_MASK )
-> +                panic("Invalid capabilities (%"PRIx32")\n", val);
+> +static domid_t __initdata xs_domid = DOMID_INVALID;
 > +
-> +            if ( val & DOMAIN_CAPS_CONTROL )
-> +                flags |= CDF_privileged;
-> +
-> +            if ( val & DOMAIN_CAPS_HARDWARE )
-> +            {
-> +                if ( hardware_domain )
-> +                    panic("Only 1 hardware domain can be specified! (%pd)\n",
-> +                           hardware_domain);
-> +
-> +                d_cfg.max_grant_frames = gnttab_dom0_frames();
-> +                d_cfg.max_evtchn_port = -1;
-
-max_maptrack_frames = -1 ?
-
-
-> +                flags |= CDF_hardware;
-> +                flags |= CDF_directmap;
-> +                iommu = true;
-> +            }
-> +
-> +            if ( val & DOMAIN_CAPS_XENSTORE )
-> +            {
-> +                d_cfg.flags |= XEN_DOMCTL_CDF_xs_domain;
-
-shouldn't we take the opportunity to also set XEN_DOMCTL_CDF_xs_domain
-in xen/arch/arm/domain_build.c:create_dom0 ?
-
-
-> +                d_cfg.max_evtchn_port = -1;
-
-Why this one?
-
-
-> +            }
-> +        }
-> +
->          if ( dt_find_property(node, "xen,static-mem", NULL) )
->          {
->              if ( llc_coloring_enabled )
-> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-> index 3ba959f866..dc4b4e84c1 100644
-> --- a/xen/arch/arm/domain.c
-> +++ b/xen/arch/arm/domain.c
-> @@ -608,7 +608,8 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+>  bool __init is_dom0less_mode(void)
 >  {
->      unsigned int max_vcpus;
->      unsigned int flags_required = (XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap);
-> -    unsigned int flags_optional = (XEN_DOMCTL_CDF_iommu | XEN_DOMCTL_CDF_vpmu);
-> +    unsigned int flags_optional = (XEN_DOMCTL_CDF_iommu | XEN_DOMCTL_CDF_vpmu |
-> +                                   XEN_DOMCTL_CDF_xs_domain );
->      unsigned int sve_vl_bits = sve_decode_vl(config->arch.sve_vl);
+>      struct bootmodules *mods = &bootinfo.modules;
+> @@ -753,6 +755,10 @@ static int __init alloc_xenstore_page(struct domain *d)
+>      interface->connection = XENSTORE_RECONNECT;
+>      unmap_domain_page(interface);
 >  
->      if ( (config->flags & ~flags_optional) != flags_required )
-> diff --git a/xen/include/public/bootfdt.h b/xen/include/public/bootfdt.h
-> new file mode 100644
-> index 0000000000..4e87aca8ac
-> --- /dev/null
-> +++ b/xen/include/public/bootfdt.h
-> @@ -0,0 +1,27 @@
-> +/* SPDX-License-Identifier: MIT */
-> +/*
-> + * Xen Device Tree boot information
-> + *
-> + * Information for configuring Xen domains created at boot time.
-> + */
+> +    if ( xs_domid != DOMID_INVALID )
+> +        gnttab_seed_entry(d, GNTTAB_RESERVED_XENSTORE, xs_domid,
+> +                          gfn_x(gfn), GTF_permit_access);
 > +
-> +#ifndef __XEN_PUBLIC_BOOTFDT_H__
-> +#define __XEN_PUBLIC_BOOTFDT_H__
+>      return 0;
+>  }
+>  
+> @@ -1173,6 +1179,9 @@ void __init create_domUs(void)
+>          if ( rc )
+>              panic("Could not set up domain %s (rc = %d)\n",
+>                    dt_node_name(node), rc);
 > +
-> +/* Domain Capabilities specified in the "capabilities" property.  Use of
-> + * this property allows splitting up the monolithic dom0 into separate,
-> + * less privileged components.  A regular domU has no capabilities
-> + * (which is the default if nothing is specified).  A traditional dom0
-> + * has all three capabilities.*/
-
-The multiline comment coding style is:
-
-/*
- * comment
- * comment
- */
-
-
-> +/* Control/Privileged domain capable of affecting other domains. */
-> +#define DOMAIN_CAPS_CONTROL  (1 << 0)
-> +/* Hardware domain controlling physical hardware.  Typically providing
-> + * backends to other domains.  */
-> +#define DOMAIN_CAPS_HARDWARE (1 << 1)
-> +/* Xenstore domain. */
-> +#define DOMAIN_CAPS_XENSTORE (1 << 2)
-> +#define DOMAIN_CAPS_MASK     (DOMAIN_CAPS_CONTROL | DOMAIN_CAPS_HARDWARE | \
-> +                              DOMAIN_CAPS_XENSTORE)
+> +        if ( d_cfg.flags & XEN_DOMCTL_CDF_xs_domain )
+> +            xs_domid = d->domain_id;
+>      }
+>  }
+>  
+> diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
+> index 6c77867f8c..ba93cdcbca 100644
+> --- a/xen/common/grant_table.c
+> +++ b/xen/common/grant_table.c
+> @@ -4346,6 +4346,16 @@ static void gnttab_usage_print(struct domain *rd)
+>          printk("no active grant table entries\n");
+>  }
+>  
+> +void gnttab_seed_entry(struct domain *d, int idx, domid_t be_domid,
+> +                       uint64_t frame, unsigned int flags)
+> +{
+> +    struct grant_table *gt = d->grant_table;
 > +
-> +#endif /* __XEN_PUBLIC_BOOTFDT_H__ */
+> +    shared_entry_v1(gt, idx).flags = flags;
+> +    shared_entry_v1(gt, idx).domid = be_domid;
+> +    shared_entry_v1(gt, idx).frame = frame;
+> +}
+> +
+>  static void cf_check gnttab_usage_print_all(unsigned char key)
+>  {
+>      struct domain *d;
+> diff --git a/xen/include/xen/grant_table.h b/xen/include/xen/grant_table.h
+> index 50edfecfb6..63150fa497 100644
+> --- a/xen/include/xen/grant_table.h
+> +++ b/xen/include/xen/grant_table.h
+> @@ -45,6 +45,10 @@ void grant_table_destroy(
+>      struct domain *d);
+>  void grant_table_init_vcpu(struct vcpu *v);
+>  
+> +/* Seed a gnttab entry for Hyperlaunch/dom0less. */
+> +void gnttab_seed_entry(struct domain *d, int idx, domid_t be_domid,
+> +                       uint64_t frame, unsigned int flags);
+> +
+>  /*
+>   * Check if domain has active grants and log first 10 of them.
+>   */
+> @@ -85,6 +89,10 @@ static inline void grant_table_destroy(struct domain *d) {}
+>  
+>  static inline void grant_table_init_vcpu(struct vcpu *v) {}
+>  
+> +static inline void gnttab_seed_entry(struct domain *d, int idx,
+> +                                     domid_t be_domid, uint64_t frame,
+> +                                     unsigned int flags) {}
+> +
+>  static inline void grant_table_warn_active_grants(struct domain *d) {}
+>  
+>  static inline int gnttab_release_mappings(struct domain *d) { return 0; }
 > -- 
 > 2.48.1
+> 
 > 
 
