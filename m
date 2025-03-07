@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77220A56342
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Mar 2025 10:09:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.904763.1312596 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D92DA56354
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Mar 2025 10:13:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.904772.1312606 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqTht-0006jO-P2; Fri, 07 Mar 2025 09:09:25 +0000
+	id 1tqTm2-0008Ep-8k; Fri, 07 Mar 2025 09:13:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 904763.1312596; Fri, 07 Mar 2025 09:09:25 +0000
+Received: by outflank-mailman (output) from mailman id 904772.1312606; Fri, 07 Mar 2025 09:13:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqTht-0006hH-MU; Fri, 07 Mar 2025 09:09:25 +0000
-Received: by outflank-mailman (input) for mailman id 904763;
- Fri, 07 Mar 2025 09:09:24 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1tqTm2-0008Cc-66; Fri, 07 Mar 2025 09:13:42 +0000
+Received: by outflank-mailman (input) for mailman id 904772;
+ Fri, 07 Mar 2025 09:13:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1tqThs-0006hB-22
- for xen-devel@lists.xenproject.org; Fri, 07 Mar 2025 09:09:24 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tqThr-006u2t-2T;
- Fri, 07 Mar 2025 09:09:23 +0000
-Received: from [2a02:8012:3a1:0:9517:10f4:44fb:20af]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tqThr-00C9g3-0S;
- Fri, 07 Mar 2025 09:09:23 +0000
+ (envelope-from <SRS0=hW4D=V2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tqTm0-0008CG-1p
+ for xen-devel@lists.xenproject.org; Fri, 07 Mar 2025 09:13:40 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 74d2eba5-fb34-11ef-9ab5-95dc52dad729;
+ Fri, 07 Mar 2025 10:13:39 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-43bc63876f1so13587645e9.3
+ for <xen-devel@lists.xenproject.org>; Fri, 07 Mar 2025 01:13:39 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43bd435c6ffsm74559375e9.33.2025.03.07.01.13.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 07 Mar 2025 01:13:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,168 +45,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=BFpTOSDy50ZixyM5uUXTyzOmmMUItVK4jkyiJjzaB1I=; b=0o5cqTbwg8bELn3kO0lyFr9QBm
-	mQgXJwiX6NAua+H0aF9S4NyvqDrKz6DpsPzqFMQJHSAGL4Dy9giSBpYPBiw1MQqCR/xfIrDmVVJN7
-	m17Mk4euUSc9NTDItcKFPG0uMcIUeiiDoL3cdXPyOFqAdKMtZeAj2Q2eCMDhaN0Xm/J0=;
-Message-ID: <9a257d60-3047-4d8a-b461-ce793d5f89e8@xen.org>
-Date: Fri, 7 Mar 2025 09:09:20 +0000
+X-Inumbo-ID: 74d2eba5-fb34-11ef-9ab5-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1741338818; x=1741943618; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Cyl9hUZgtMTThSqrYpMZScOq562GDDGL0ex6bxdyrfA=;
+        b=QaxOsY2edx+KIWJ4amHtTMk8z8qiXUhJX6e0gBGi5NcwnfpSeDCiBMDVjq8Nekp1Ex
+         hX1IZYExYspm1lH7YLta3fI/L6H3ntxLud8559ASW6fXD0s0FPBU7UN0QwUHe7MFb4c5
+         wyzAu/Z4/t3XlELND6m7zEskZ2JGHyciN8QxSJ7uI75LtX/hXxSEZoXIey7UabLARUHb
+         YG05gDKekex9d9qXtEEz96+B/+S7kTDxB07SCfcnbgERbH+jXoqequD87/873KUDOmDb
+         4a7s+Gux0/gaDu04DrUCk2bU4kzAMjBRdkFKVYev1AUyG7HjL7P0SrGOwDPWFq1JbX4O
+         lzBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1741338818; x=1741943618;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Cyl9hUZgtMTThSqrYpMZScOq562GDDGL0ex6bxdyrfA=;
+        b=E5LtSreOeEHbiXogRJWS6a+vARqBVGqLfRs4aMq3BfOJD9C47QwRIldbdYUsd996ua
+         cz48Pjjb6RsB9WonM/HMlVuoRuVOb341pKnTonseMDp/i/BxceigjiyDDHHqa1hhRcF8
+         F6oq2nOO9uwsGi7bHgdIqShKtn9u4843X3j0felB75wvKqX4iMGgfusWZexgtA2YtLah
+         nk6q3UB9nUKJiluS5dnawDaeyN198MlPKKQFrZvBGI7enLlMo0E6CQD2yogVGGfuSqyl
+         xvB9PZBydiauiHHxRrc28+xY8U8Q3Uvgmz/NrD9mcJoH/aoS70ak716YVRIUxLQJ/1HS
+         kHSw==
+X-Forwarded-Encrypted: i=1; AJvYcCXXfrQTjLLRppcq8+og946PVWFjuaDrH4lLRY08uN7HprxM5f38Cm+Pc6bCh+avlyL0K0hMLeu+f/E=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxOm46meNHZly3jzQiabAaAHsliI5+FP0KzSzF/+z+fY3jipzK2
+	/PSMSguP2l8LATKZPGHwah04azBQqL7f0vpGDqyjnUjajm+bu677fZHnlvgTIA==
+X-Gm-Gg: ASbGncudjmYGOPeHKvqAaB+ZFKQYmJ1eVK92L2ukaHVh0yWvHk+vhlfTlgGwZD51EKF
+	G7LOGtGOVUIISAhT/CWXtGe+B8n3WWa5uBvRcL3OlwXGGq8loeXlCYFzmptZKYoTg15uLakNgtD
+	/fCrCMjTdYKf5TnobRJeGHWi4Zvu66pxiGC6IBNe5n8X16ZvlWZ9wzqWRuiq4dxgxu+qR/O7Kdw
+	V/Fw7xdyd1MUluC5Wf6Ze5ZnViyJTEDgZIIu/1d3w7lo8zgRsdKe1JSNLbI0qtEW0jfRvhyMHz/
+	3s68YaaLKTt/SC+t2f5Yv+mJFgS47P8eoS+SQmnLHtIzgaaixJsG8JgKqqvGvELKIXGPzrPsnck
+	Zt3lN5OluMooe1lcdE2AoIpTvGBwj6g==
+X-Google-Smtp-Source: AGHT+IH5JfPLmzm6C79jD6Q1GDomSrY809xBbIONYCtMy6x8qUuxCduNUFjHq3ZtU1YIc2cmkjDEdw==
+X-Received: by 2002:a05:600c:4750:b0:439:60ef:ce94 with SMTP id 5b1f17b1804b1-43c621ccff7mr14863225e9.21.1741338818458;
+        Fri, 07 Mar 2025 01:13:38 -0800 (PST)
+Message-ID: <09e07468-8558-477a-9e1d-1247620faea0@suse.com>
+Date: Fri, 7 Mar 2025 10:13:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] xen/passthrough: Provide stub functions when
- !HAS_PASSTHROUGH
-Content-Language: en-GB
-To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <20250307075818.740649-1-luca.fancellu@arm.com>
- <20250307075818.740649-2-luca.fancellu@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20250307075818.740649-2-luca.fancellu@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 2/5] x86/IDT: Make idt_tables[] be per_cpu(idt)
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250305000247.2772029-1-andrew.cooper3@citrix.com>
+ <20250305000247.2772029-3-andrew.cooper3@citrix.com>
+ <636170c8-2b61-4918-8c17-5c4953aa25ca@suse.com>
+ <1cf7e95c-eea5-4a93-81ea-7505ee158b4f@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <1cf7e95c-eea5-4a93-81ea-7505ee158b4f@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Luca,
-
-On 07/03/2025 07:58, Luca Fancellu wrote:
-> When Xen is built without HAS_PASSTHROUGH, there are some parts
-> in arm where iommu_* functions are called in the codebase, but
-> their implementation is under xen/drivers/passthrough that is
-> not built.
+On 07.03.2025 02:09, Andrew Cooper wrote:
+> On 05/03/2025 2:01 pm, Jan Beulich wrote:
+>> On 05.03.2025 01:02, Andrew Cooper wrote:
+>>> This can be a plain per_cpu() variable, and __read_mostly seeing as it's
+>>> allocated once and never touched again.
+>> cpu_smpboot_free() certainly touches (really: modifies) it again.
 > 
-> So provide some stub for these functions in order to build Xen
-> when !HAS_PASSTHROUGH, which is the case for example on systems
-> with MPU support.
-> 
-> For gnttab_need_iommu_mapping() in the Arm part, modify the macro
-> to use IS_ENABLED for the HAS_PASSTHROUGH Kconfig.
-> 
-> Fixes: 0388a5979b21 ("xen/arm: mpu: Introduce choice between MMU and MPU")
-> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-> ---
-> v4 changes:
->   - re-introduced stub for iommu_use_hap_pt, Stefano suggested
->     it is ok to have it in iommu.h.
->   - Reworded comment in iommu_domain_init from Jan suggestion
-> 
-> v3 Changes:
->   - removed stub for iommu_use_hap_pt, another solution will be
->     done for the instance in common arm code.
->   - Moved a comment close to the macro it was referred to
->   - add comment to iommu_domain_init() stub
->   - modified commit message
->   - Add fixes tag
-> 
-> v2 Changes:
->   - modify gnttab_need_iommu_mapping to use IS_ENABLED
->   - removed macro that didn't allow some of the parameter to be
->     evaluated
->   - Changed commit message
-> ---
-> ---
->   xen/arch/arm/include/asm/grant_table.h |  5 +--
->   xen/include/xen/iommu.h                | 50 +++++++++++++++++++++++++-
->   2 files changed, 52 insertions(+), 3 deletions(-)
-> 
-> diff --git a/xen/arch/arm/include/asm/grant_table.h b/xen/arch/arm/include/asm/grant_table.h
-> index d3c518a926b9..c5d87b60c4df 100644
-> --- a/xen/arch/arm/include/asm/grant_table.h
-> +++ b/xen/arch/arm/include/asm/grant_table.h
-> @@ -73,8 +73,9 @@ int replace_grant_host_mapping(uint64_t gpaddr, mfn_t frame,
->   #define gnttab_status_gfn(d, t, i)                                       \
->       page_get_xenheap_gfn(gnttab_status_page(t, i))
->   
-> -#define gnttab_need_iommu_mapping(d)                    \
-> -    (is_domain_direct_mapped(d) && is_iommu_enabled(d))
-> +#define gnttab_need_iommu_mapping(d)                                     \
-> +    (IS_ENABLED(CONFIG_HAS_PASSTHROUGH) && is_domain_direct_mapped(d) && \
-> +     is_iommu_enabled(d))
->   
->   #endif /* __ASM_GRANT_TABLE_H__ */
->   /*
-> diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
-> index 77a514019cc6..5ac038521e23 100644
-> --- a/xen/include/xen/iommu.h
-> +++ b/xen/include/xen/iommu.h
-> @@ -110,6 +110,8 @@ extern int8_t iommu_hwdom_reserved;
->   
->   extern unsigned int iommu_dev_iotlb_timeout;
->   
-> +#ifdef CONFIG_HAS_PASSTHROUGH
-> +
->   int iommu_setup(void);
->   int iommu_hardware_setup(void);
->   
-> @@ -122,6 +124,28 @@ int arch_iommu_domain_init(struct domain *d);
->   void arch_iommu_check_autotranslated_hwdom(struct domain *d);
->   void arch_iommu_hwdom_init(struct domain *d);
->   
-> +#else
-> +
-> +static inline int iommu_setup(void)
-> +{
-> +    return -ENODEV;
-> +}
-> +
-> +static inline int iommu_domain_init(struct domain *d, unsigned int opts)
-> +{
-> +    /*
-> +     * Return as the real iommu_domain_init() would: Success when
-> +     * !is_iommu_enabled(), following from !iommu_enabled when !HAS_PASSTHROUGH
-> +     */
-> +    return 0;
-> +}
-> +
-> +static inline void iommu_hwdom_init(struct domain *d) {}
-> +
-> +static inline void iommu_domain_destroy(struct domain *d) {}
-> +
-> +#endif /* HAS_PASSTHROUGH */
-> +
->   /*
->    * The following flags are passed to map (applicable ones also to unmap)
->    * operations, while some are passed back by lookup operations.
-> @@ -209,6 +233,8 @@ struct msi_msg;
->   #ifdef CONFIG_HAS_DEVICE_TREE
->   #include <xen/device_tree.h>
->   
-> +#ifdef CONFIG_HAS_PASSTHROUGH
-> +
->   int iommu_assign_dt_device(struct domain *d, struct dt_device_node *dev);
->   int iommu_deassign_dt_device(struct domain *d, struct dt_device_node *dev);
->   int iommu_dt_domain_init(struct domain *d);
-> @@ -238,6 +264,26 @@ int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
->    */
->   int iommu_remove_dt_device(struct dt_device_node *np);
->   
-> +#else
-> +
-> +static inline int iommu_assign_dt_device(struct domain *d,
-> +                                         struct dt_device_node *dev)
-> +{
-> +    return -EINVAL;
-> +}
-> +
-> +static inline int iommu_add_dt_device(struct dt_device_node *np)
-> +{
-> +    return 1;
+> Not really.  That's a dead path because we always park CPUs.
 
-I would suggest to add a comment explain what 1 means. IIRC, this means 
-"no iommu" present.
+On Intel hardware; not (yet) on AMD / Hygon iirc.
 
-Other than that:
+Jan
 
-Acked-by: Julien Grall <jgrall@amazon.com>
-
-Cheers,
-
--- 
-Julien Grall
+> But fine, I'll rephrase to "not touched again during it's lifetime".
+> 
+> ~Andrew
 
 
