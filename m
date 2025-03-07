@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC33AA562F7
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Mar 2025 09:51:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.904733.1312576 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16D03A56326
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Mar 2025 10:02:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.904750.1312587 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqTPz-0003Zl-27; Fri, 07 Mar 2025 08:50:55 +0000
+	id 1tqTZy-000653-2S; Fri, 07 Mar 2025 09:01:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 904733.1312576; Fri, 07 Mar 2025 08:50:55 +0000
+Received: by outflank-mailman (output) from mailman id 904750.1312587; Fri, 07 Mar 2025 09:01:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqTPy-0003Y9-VS; Fri, 07 Mar 2025 08:50:54 +0000
-Received: by outflank-mailman (input) for mailman id 904733;
- Fri, 07 Mar 2025 08:50:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tqTZx-00062d-VD; Fri, 07 Mar 2025 09:01:13 +0000
+Received: by outflank-mailman (input) for mailman id 904750;
+ Fri, 07 Mar 2025 09:01:12 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hW4D=V2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tqTPy-0003Y3-3Y
- for xen-devel@lists.xenproject.org; Fri, 07 Mar 2025 08:50:54 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4617bf21-fb31-11ef-9898-31a8f345e629;
- Fri, 07 Mar 2025 09:50:52 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-43bbb440520so17330595e9.2
- for <xen-devel@lists.xenproject.org>; Fri, 07 Mar 2025 00:50:52 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43bd41c7cc7sm78908345e9.0.2025.03.07.00.50.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 07 Mar 2025 00:50:51 -0800 (PST)
+ (envelope-from <julien@xen.org>) id 1tqTZw-00062X-Lz
+ for xen-devel@lists.xenproject.org; Fri, 07 Mar 2025 09:01:12 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1tqTZw-006tul-0M;
+ Fri, 07 Mar 2025 09:01:11 +0000
+Received: from [2a02:8012:3a1:0:9517:10f4:44fb:20af]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1tqTZv-00C8Qh-1w;
+ Fri, 07 Mar 2025 09:01:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,112 +39,205 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4617bf21-fb31-11ef-9898-31a8f345e629
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741337451; x=1741942251; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=O1x1n+AZzf5/b70OMat2ZfJvKVdQaC7k7NkrClJm+nU=;
-        b=V37WWK4b28prbkr+rCu8gdkmZf0hol3nstrge59eZ9CauDFfQIveiQFcIww+1vH3yS
-         dCSrBLKrhfUw3Y3QfET6+iHysrtDmutwwfDJA2dssYNkE8wQ4k21SbwJqVN3lXYxpnEP
-         mfHUwu/13G4/Q53Cw02eXkR0yDLGU2RWNMdKVtTqO5XtpwFsy4PmBHJ65Tlih6udFKoM
-         3NXkOXVreokzHu2yOdD7gTn4eXlp7KaKOOQWxoY6aDWA9CkQpHFXmqIPEbdD7lYPeIKg
-         ht2um63Eq360kq4zhQOC8tTwe5QqaF/vm5gQknVg9dfehgI3nIlNPjlIK/olnWDgQFY/
-         9QGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741337451; x=1741942251;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=O1x1n+AZzf5/b70OMat2ZfJvKVdQaC7k7NkrClJm+nU=;
-        b=WHEMbRdJqh3dr9gzdfYKi0krE00bYFer9YGwYUgqRPNViRlQSFjxE1YbpdbURb5s6R
-         c5RgEZZnEK/9G80H/Fn/gtKkZOgQ9kJjX4okjJIwdumeT3DuBbO73YFfeWk66YcIkSAu
-         iTGY6Y0VGfSK+x3Lw87AJh1NfAnwL37YGFUnjGlehw+Dh/BT+zsFz3QOgdgwEsfzX2co
-         IqmEBMU49gR8UsDFUAKJxAX1OmNl6UmVoJlgXcXjcVUT73jKbMmU5PN7Z5VzFUSpykvj
-         RZURXt4B3lqXBCEebTpRAXXqqZ94ORdw8rlIngjt3CfqM71yGpZ/6kR+eugLelL4vFWk
-         PCtw==
-X-Forwarded-Encrypted: i=1; AJvYcCVhcPpDOb3SkQ42Sepj9trOYeO0FclDA0wEDBoXdKW/LUtV9Ntm27d4aMJwfXW3Ash00UVh7ELXo/I=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyyg2IMhqrHn+1FSOYcXNJPSpX0Rx59G1AvK5C3S8ltC1ibftQB
-	rPV6CljbRFRs7rOQejPvs3UeVHasoH5BvOO2FhLQN76fqEYmQTXrpt0nwNXsfw==
-X-Gm-Gg: ASbGncv01psbJpGo2XyAm4xTnGrkrLjx4bpWN2YgE5hj8dQNeG0e9oBexQrktxFGMMz
-	KHNLG6/gbI7ZwDQyT2MLTSdP2yqTdwjCvCf0hJA814W/mq6x4YtI7JKlj9o+vTMMJpQE0DMqiro
-	is/S7Ez6JL3y0nq0TaTB4bcmZymIxzMN3EZNzpr4dj6pu+NYLTb2IFOPmDAGKHYHGBodBRCPFZq
-	0+1S5ykhW6qnIBa3aqo+MeWkzTj/iLfX5kQVrzuP0hm+H30W+IKr9Wl61MWFikqJpH8hc/oZkXi
-	Lumq6ubwqK+KLuJAAnn2gFTKDV4UC2bisIn62igaDt+fJDMQymAc9gJQRx6iK1PEAfbVkWYwQBa
-	cO+ix0eIXlPKUPKXMVhh1JPOlnCgm3w==
-X-Google-Smtp-Source: AGHT+IFtm0vCNT80/kaN0ZBJg+VWDLFqUhJpN6OWNhiKBvTVPzqhWfBg+8Nb70DFrpKT/ClmgXv6OQ==
-X-Received: by 2002:a05:600c:468f:b0:43b:cf12:2ca6 with SMTP id 5b1f17b1804b1-43c5a62ff38mr16569555e9.1.1741337451492;
-        Fri, 07 Mar 2025 00:50:51 -0800 (PST)
-Message-ID: <26b95258-af65-4cbb-a054-d7fe9b0ea1e4@suse.com>
-Date: Fri, 7 Mar 2025 09:50:50 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=Gi2H+Z6LnQa9RXh6kXivv8rTJXUPkDXRWWOVXCADnBQ=; b=rNpKUrwe+c4KwTUDTUfXHQsrrE
+	NSKXi4EWSJg/Kv4IP0sAVpw8mRVz3xQ4n0ypbTfE+8LAeYDOLae5M4xOlhrpjF31hmActWeiWTBEC
+	BvbJi1QdVJybskuWjrqTRf5p4ybgCfQc26S6/mACTNKYX7w9N3dtlvh108wiUatUoGQw=;
+Message-ID: <254e38d3-ebc2-4044-9d0f-9be9f652c46c@xen.org>
+Date: Fri, 7 Mar 2025 09:01:09 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/e820: Remove opencoded vendor/feature checks
-From: Jan Beulich <jbeulich@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250306233519.3006560-1-andrew.cooper3@citrix.com>
- <1f5bf9e0-4f88-4d00-8b44-cc4e666aeea5@suse.com>
-Content-Language: en-US
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1f5bf9e0-4f88-4d00-8b44-cc4e666aeea5@suse.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH 05/23] xen/arm: Add capabilities to dom0less
+Content-Language: en-GB
+To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20250306220343.203047-1-jason.andryuk@amd.com>
+ <20250306220343.203047-6-jason.andryuk@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20250306220343.203047-6-jason.andryuk@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 07.03.2025 09:48, Jan Beulich wrote:
-> On 07.03.2025 00:35, Andrew Cooper wrote:
->> We've already scanned features by the time init_e820() is called.  Remove the
->> cpuid() calls.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> 
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> 
->> Backporting.  Not sure it's worth backporing, but it is safe (just) to
->> backport past commit 365f408339d3 ("x86/boot: Load microcode much earlier on
->> boot").  That commit was the last one to reposition early_cpu_init().
-> 
-> At least I wouldn't consider such cleanup to be an obvious backporting
-> candidate.
-> 
->> I'm pretty sure that all 64bit CPUs have MTRR, but I'm less certain if
->> dropping the check is wise given the variety of VM configurations that exist.
-> 
-> We did consider exposing PAT-only configurations to guests, so I don't think
-> we should be implying MTRR from being 64-bit (unless we know cpu_has_hypervisor
-> is false).
+Hi,
 
-Except that - we do:
+On 06/03/2025 22:03, Jason Andryuk wrote:
+> Add capabilities property to dom0less to allow building a
+> disaggregated system.
+> 
+> Introduce bootfdt.h to contain these constants.
+> 
+> When using the hardware or xenstore capabilities, adjust the grant and
+> event channel limits similar to dom0.
+ > > Also for the hardware domain, set directmap and iommu.  This brings its
+> configuration in line with a dom0.
 
-#define cpu_has_mtrr            1
+Looking the device tree bindings, a user would be allowed to disable 
+"passthrough" or even "directmap". This means, we would never be able to 
+disable "directmap" for the hardware domain in the future with the 
+existing property (this is to avoid break backwards compatibility).
 
-I guess that wants undoing (pre-dating the consideration of Xen running
-virtualized itself).
+Instead, I think we should check what the user provided and confirm this 
+is matching our expectation for an hardware domain.
 
-Jan
+That said, I am not entirely sure why we should force directmap for the 
+HW domain. We are starting from a clean slate, so I think it would be 
+better to have by default no directmap and imposing the presence of an 
+IOMMU in the system.
+
+Lastly, can you provide an example of what the hardware domain DT node 
+would looke like?
+
+> 
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> ---
+> There is overlap with hyperlaunch.  The numeric values are the same.
+> Hyperlaunch doesn't expose the values in a public header as done here.
+> Is this to be expected for dom0less?  It seems most of dom0less isn't in
+> a header, but just in docs.
+> 
+> Hyperlaunch uses BUILD_CAPS_, but I chose DOMAIN_CAPS_ since there are
+> domain-level capabilities.
+> 
+> Only a single xenstore and hardware domain make sense.  A check to limit
+> to only a single hardware domain is in place - building two breaks.  But
+> nothing prevents the dom0less configuration from only having multiple
+> xenstore domains.  Each xenstore domain would have slightly more
+> permissions, but only the last one would be used.
+ > --->   docs/misc/arm/device-tree/booting.txt | 11 ++++++++++
+>   xen/arch/arm/dom0less-build.c         | 29 +++++++++++++++++++++++++++
+>   xen/arch/arm/domain.c                 |  3 ++-
+>   xen/include/public/bootfdt.h          | 27 +++++++++++++++++++++++++
+>   4 files changed, 69 insertions(+), 1 deletion(-)
+>   create mode 100644 xen/include/public/bootfdt.h
+> 
+> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+> index ac781c9cc8..490c792ddf 100644
+> --- a/docs/misc/arm/device-tree/booting.txt
+> +++ b/docs/misc/arm/device-tree/booting.txt
+> @@ -167,6 +167,17 @@ with the following properties:
+>       Refer to docs/misc/cache_coloring.rst for syntax. This option is applicable
+>       only to Arm64 guests.
+>   
+> +- capabilities
+> +    Optional.  A bit field of domain capabilities for a disaggregated
+> +    system.  A traditional dom0 has all all of these capabilities, and a
+> +    domU has none of them.
+> +
+> +    0x1 DOMAIN_CAPS_CONTROL  - A privileged, control domain
+> +    0x2 DOMAIN_CAPS_HARDWARE - The hardware domain - there can be only 1
+> +    0x4 DOMAIN_CAPS_XENSTORE - The xenstore domain - there can be only 1
+> +
+> +    The default is no capabilities.
+> +
+>   - vpl011
+>   
+>       An empty property to enable/disable a virtual pl011 for the guest to
+> diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
+> index 5a7871939b..068bf99294 100644
+> --- a/xen/arch/arm/dom0less-build.c
+> +++ b/xen/arch/arm/dom0less-build.c
+> @@ -12,6 +12,7 @@
+>   #include <xen/sizes.h>
+>   #include <xen/vmap.h>
+>   
+> +#include <public/bootfdt.h>
+>   #include <public/io/xs_wire.h>
+>   
+>   #include <asm/arm64/sve.h>
+> @@ -994,6 +995,34 @@ void __init create_domUs(void)
+>           if ( (max_init_domid + 1) >= DOMID_FIRST_RESERVED )
+>               panic("No more domain IDs available\n");
+>   
+> +        if ( dt_property_read_u32(node, "capabilities", &val) )
+> +        {
+> +            if ( val & ~DOMAIN_CAPS_MASK )
+> +                panic("Invalid capabilities (%"PRIx32")\n", val);
+> +
+> +            if ( val & DOMAIN_CAPS_CONTROL )
+> +                flags |= CDF_privileged;
+> +
+> +            if ( val & DOMAIN_CAPS_HARDWARE )
+> +            {
+> +                if ( hardware_domain )
+> +                    panic("Only 1 hardware domain can be specified! (%pd)\n",
+> +                           hardware_domain);
+> +
+> +                d_cfg.max_grant_frames = gnttab_dom0_frames();
+> +                d_cfg.max_evtchn_port = -1;
+
+What about d_cfg.arch.nr_spis? Are we expecting the user to pass "nr_spis"?
+
+> +                flags |= CDF_hardware;
+> +                flags |= CDF_directmap;
+ > +                iommu = true;> +            }
+> +
+> +            if ( val & DOMAIN_CAPS_XENSTORE )
+> +            {
+> +                d_cfg.flags |= XEN_DOMCTL_CDF_xs_domain;
+> +                d_cfg.max_evtchn_port = -1;
+> +            }
+> +        }
+> +
+>           if ( dt_find_property(node, "xen,static-mem", NULL) )
+>           {
+>               if ( llc_coloring_enabled )
+> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+> index 3ba959f866..dc4b4e84c1 100644
+> --- a/xen/arch/arm/domain.c
+> +++ b/xen/arch/arm/domain.c
+> @@ -608,7 +608,8 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+>   {
+>       unsigned int max_vcpus;
+>       unsigned int flags_required = (XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap);
+> -    unsigned int flags_optional = (XEN_DOMCTL_CDF_iommu | XEN_DOMCTL_CDF_vpmu);
+> +    unsigned int flags_optional = (XEN_DOMCTL_CDF_iommu | XEN_DOMCTL_CDF_vpmu |
+> +                                   XEN_DOMCTL_CDF_xs_domain );
+>       unsigned int sve_vl_bits = sve_decode_vl(config->arch.sve_vl);
+>   
+>       if ( (config->flags & ~flags_optional) != flags_required )
+> diff --git a/xen/include/public/bootfdt.h b/xen/include/public/bootfdt.h
+> new file mode 100644
+> index 0000000000..4e87aca8ac
+> --- /dev/null
+> +++ b/xen/include/public/bootfdt.h
+> @@ -0,0 +1,27 @@
+> +/* SPDX-License-Identifier: MIT */
+> +/*
+> + * Xen Device Tree boot information
+> + *
+> + * Information for configuring Xen domains created at boot time.
+> + */
+> +
+> +#ifndef __XEN_PUBLIC_BOOTFDT_H__
+> +#define __XEN_PUBLIC_BOOTFDT_H__
+> +
+> +/* Domain Capabilities specified in the "capabilities" property.  Use of
+> + * this property allows splitting up the monolithic dom0 into separate,
+> + * less privileged components.  A regular domU has no capabilities
+> + * (which is the default if nothing is specified).  A traditional dom0
+> + * has all three capabilities.*/
+> +
+> +/* Control/Privileged domain capable of affecting other domains. */
+> +#define DOMAIN_CAPS_CONTROL  (1 << 0)
+> +/* Hardware domain controlling physical hardware.  Typically providing
+> + * backends to other domains.  */
+> +#define DOMAIN_CAPS_HARDWARE (1 << 1)
+> +/* Xenstore domain. */
+> +#define DOMAIN_CAPS_XENSTORE (1 << 2)
+> +#define DOMAIN_CAPS_MASK     (DOMAIN_CAPS_CONTROL | DOMAIN_CAPS_HARDWARE | \
+> +                              DOMAIN_CAPS_XENSTORE)
+> +
+> +#endif /* __XEN_PUBLIC_BOOTFDT_H__ */
+
+-- 
+Julien Grall
+
 
