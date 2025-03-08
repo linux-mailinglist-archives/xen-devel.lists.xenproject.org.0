@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8A28A57709
-	for <lists+xen-devel@lfdr.de>; Sat,  8 Mar 2025 01:54:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.905515.1313326 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F233A5770A
+	for <lists+xen-devel@lfdr.de>; Sat,  8 Mar 2025 01:56:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.905523.1313337 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqiS6-00041T-LI; Sat, 08 Mar 2025 00:54:06 +0000
+	id 1tqiUJ-0004uL-0g; Sat, 08 Mar 2025 00:56:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 905515.1313326; Sat, 08 Mar 2025 00:54:06 +0000
+Received: by outflank-mailman (output) from mailman id 905523.1313337; Sat, 08 Mar 2025 00:56:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqiS6-0003zo-IY; Sat, 08 Mar 2025 00:54:06 +0000
-Received: by outflank-mailman (input) for mailman id 905515;
- Sat, 08 Mar 2025 00:54:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tqiUI-0004rm-UK; Sat, 08 Mar 2025 00:56:22 +0000
+Received: by outflank-mailman (input) for mailman id 905523;
+ Sat, 08 Mar 2025 00:56:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7c++=V3=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tqiS5-0003zi-Jn
- for xen-devel@lists.xenproject.org; Sat, 08 Mar 2025 00:54:05 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d277e15a-fbb7-11ef-9898-31a8f345e629;
- Sat, 08 Mar 2025 01:54:00 +0100 (CET)
+ id 1tqiUH-0004rg-9E
+ for xen-devel@lists.xenproject.org; Sat, 08 Mar 2025 00:56:21 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 256bf26f-fbb8-11ef-9ab7-95dc52dad729;
+ Sat, 08 Mar 2025 01:56:20 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id F370DA455AA;
- Sat,  8 Mar 2025 00:48:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34F69C4CED1;
- Sat,  8 Mar 2025 00:53:58 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id C76EF5C649A;
+ Sat,  8 Mar 2025 00:54:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E19E5C4CEE3;
+ Sat,  8 Mar 2025 00:56:16 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,18 +41,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d277e15a-fbb7-11ef-9898-31a8f345e629
+X-Inumbo-ID: 256bf26f-fbb8-11ef-9ab7-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1741395239;
-	bh=Peod8AxqMf9613TS2aH9gWnEv3mJhqhEDj2d7jrL1+Y=;
+	s=k20201202; t=1741395378;
+	bh=tOkzSuCF3xIbg1ODCi3tdRzJm+mv/X9rR8yj4CvmIUA=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=cpHIB+M5XkWru4U11Ha6bBfQHxPqTOmZmR+s7igQDsrhsLX1rL+EP12lVUFhITKfj
-	 ukmJQQPEj+JoVRpso/2k9soo3Bzm3nIGlYrAmH987e81/GGjXKBqEupO4IYKMA9N78
-	 KNDxkZ1eyuPGdln3vCFj32CRO931vaLVipkKiFPCBqMOA0E3Kx3DhD6lHdOpuqB9Zn
-	 8l18IVmrGaZPpU4vUgeVoHf6tXi4QJFF48MyNMRTPELTJgV+mLptrWbyBMDOBP25QM
-	 0LnmPqDP3dDYLo2FX/mb7nffeMP63BMr8k/5alEt1xmn9W6osLh9VdTrTFVqfPghxm
-	 oKQbtFNpox3Xw==
-Date: Fri, 7 Mar 2025 16:53:56 -0800 (PST)
+	b=TdETXMOsi1Gu0skF3LvWDkRc2ZHip9uOSapfJkVoMORy7vIbk5a7Eb++MRnczGesT
+	 ZhV53+/ZlTyHObPkeOhvY718ccSvFnhc2BhcLNb1DADGyzFqmu756zKhcto8jF4BvB
+	 JelIa3onsfB0VImSjzjVP9OfAPF4ijyLclKVZeCVmO2B9lnMGlrNrpuR3m/EUXK1e7
+	 WIP3tz8b4qgFCdK/bGHxP40x8yP30p9q1uE9yvEyY62dTY5ALPRCotm1MZ9+lCJy+I
+	 9YyYY+OwY2pP/o7vgFRCE5aC013heESTxbxDKqepF5HfMn1rCSs5YeLRRZ9jWxfkNx
+	 jG9y7TCdghy7w==
+Date: Fri, 7 Mar 2025 16:56:15 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Julien Grall <julien@xen.org>
@@ -60,38 +60,38 @@ cc: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org,
     Stefano Stabellini <sstabellini@kernel.org>, 
     Bertrand Marquis <bertrand.marquis@arm.com>, 
     Michal Orzel <michal.orzel@amd.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH 04/23] xen/arm: dom0less use domid 0 for hwdom
-In-Reply-To: <39540c8b-e43d-4315-bc34-a61ac6cb1d70@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2503071651090.3032631@ubuntu-linux-20-04-desktop>
-References: <20250306220343.203047-1-jason.andryuk@amd.com> <20250306220343.203047-5-jason.andryuk@amd.com> <4ee02463-c413-4afc-add6-d7bf3915dd5a@xen.org> <734d9fdf-a201-4a46-9739-26a474683b10@amd.com> <39540c8b-e43d-4315-bc34-a61ac6cb1d70@xen.org>
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Jan Beulich <jbeulich@suse.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH 05/23] xen/arm: Add capabilities to dom0less
+In-Reply-To: <01df1e44-a2cb-4e93-8b9d-99aca914db68@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2503071654180.3032631@ubuntu-linux-20-04-desktop>
+References: <20250306220343.203047-1-jason.andryuk@amd.com> <20250306220343.203047-6-jason.andryuk@amd.com> <254e38d3-ebc2-4044-9d0f-9be9f652c46c@xen.org> <92eca43f-1dc8-4eec-a124-e715d118ab03@amd.com> <01df1e44-a2cb-4e93-8b9d-99aca914db68@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1608948088-1741395239=:3032631"
+Content-Type: multipart/mixed; boundary="8323329-935559913-1741395378=:3032631"
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-1608948088-1741395239=:3032631
+--8323329-935559913-1741395378=:3032631
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8BIT
 
 On Fri, 7 Mar 2025, Julien Grall wrote:
-> > init-dom0less only initializes non- introduced domains, so hwdom doesn't get
-> > its "domid" xenstore node populated.  That leads to other errors.
-> > > So I think with Denis's patch, this isn't strictly needed.  It does help
-> > existing toolstack code work today.
+> > What exactly do you mean by imposing with respect to the iommu?  Require
+> > one, or mirror the dom0 code and set it for the hwdom?
+> > 
+> >      if ( iommu_enabled )
+> >          dom0_cfg.flags |= XEN_DOMCTL_CDF_iommu;
 > 
-> I don't think the toolstack is ready for a split between control/hardware
-> domain. That said, shouldn't the toolstack run in the control domain? Same for
-> xenstored (unless you have a xenstored domain)?
+> I mean requires one. Without it, you would need to set directmap and I don't
+> think this should be allowed (at least for now) for the HW domain.
 
-Yes, the toolstack (if present) would be in the control domain.
-xenstored doesn't have to be in the control domain and in fact it might
-not be advisable to place it there today.
-
-The main difference between the toolstack and xenstored is that the
-toolstack only talks to Xen, while xenstored talks to all other VMs,
-which is dangerous in many configurations.
---8323329-1608948088-1741395239=:3032631--
+I think the directmap should be optional for the hardware domain. In
+practice, we already have not direct-mapped dom0 today when the user
+enables cache coloring.
+--8323329-935559913-1741395378=:3032631--
 
