@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15F5CA57707
-	for <lists+xen-devel@lfdr.de>; Sat,  8 Mar 2025 01:48:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.905506.1313316 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8A28A57709
+	for <lists+xen-devel@lfdr.de>; Sat,  8 Mar 2025 01:54:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.905515.1313326 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqiMb-0001vt-2Y; Sat, 08 Mar 2025 00:48:25 +0000
+	id 1tqiS6-00041T-LI; Sat, 08 Mar 2025 00:54:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 905506.1313316; Sat, 08 Mar 2025 00:48:25 +0000
+Received: by outflank-mailman (output) from mailman id 905515.1313326; Sat, 08 Mar 2025 00:54:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqiMa-0001tg-W6; Sat, 08 Mar 2025 00:48:24 +0000
-Received: by outflank-mailman (input) for mailman id 905506;
- Sat, 08 Mar 2025 00:48:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tqiS6-0003zo-IY; Sat, 08 Mar 2025 00:54:06 +0000
+Received: by outflank-mailman (input) for mailman id 905515;
+ Sat, 08 Mar 2025 00:54:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7c++=V3=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tqiMa-0001ta-At
- for xen-devel@lists.xenproject.org; Sat, 08 Mar 2025 00:48:24 +0000
+ id 1tqiS5-0003zi-Jn
+ for xen-devel@lists.xenproject.org; Sat, 08 Mar 2025 00:54:05 +0000
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 092a2825-fbb7-11ef-9ab7-95dc52dad729;
- Sat, 08 Mar 2025 01:48:22 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d277e15a-fbb7-11ef-9898-31a8f345e629;
+ Sat, 08 Mar 2025 01:54:00 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 53991A453A9;
- Sat,  8 Mar 2025 00:42:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1998AC4CED1;
- Sat,  8 Mar 2025 00:48:19 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id F370DA455AA;
+ Sat,  8 Mar 2025 00:48:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34F69C4CED1;
+ Sat,  8 Mar 2025 00:53:58 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,92 +41,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 092a2825-fbb7-11ef-9ab7-95dc52dad729
+X-Inumbo-ID: d277e15a-fbb7-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1741394901;
-	bh=H5oYHhqH4NzBGtKxHm2Nw6mnKCEyM983o340HFIuPQk=;
+	s=k20201202; t=1741395239;
+	bh=Peod8AxqMf9613TS2aH9gWnEv3mJhqhEDj2d7jrL1+Y=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=OGSYGPRAg8EhBmdTL4nPd6mRVcVCqqz5v9UL32tAJlgoASMyqBN74DLJcscPfCNFW
-	 tS/0ttVCcH0wahZZ7Wez+/RoJPAvq4J0YJUIlugzDrjGcAolvi+0vC2jPB9CGAAyol
-	 jyM/lhgyT8uJDu71kQaRJird4X7pb3vuH+U6Q2sn82cYEA4jk5sE3HVpi8AoXh/Z0S
-	 UGMaa+CtNB/8lBqlWqJLHYyL4zI395neMgC6gL3wLHAHK+Rw6Y7AAXa45em6OKDA+S
-	 k2mNvQ009iCuuHwA94Qedg/n7HF+DHSCz65B5BAzk9xnzQYccC21XfK0HlbHxLBWV2
-	 PjNzBSBsMSPoA==
-Date: Fri, 7 Mar 2025 16:48:19 -0800 (PST)
+	b=cpHIB+M5XkWru4U11Ha6bBfQHxPqTOmZmR+s7igQDsrhsLX1rL+EP12lVUFhITKfj
+	 ukmJQQPEj+JoVRpso/2k9soo3Bzm3nIGlYrAmH987e81/GGjXKBqEupO4IYKMA9N78
+	 KNDxkZ1eyuPGdln3vCFj32CRO931vaLVipkKiFPCBqMOA0E3Kx3DhD6lHdOpuqB9Zn
+	 8l18IVmrGaZPpU4vUgeVoHf6tXi4QJFF48MyNMRTPELTJgV+mLptrWbyBMDOBP25QM
+	 0LnmPqDP3dDYLo2FX/mb7nffeMP63BMr8k/5alEt1xmn9W6osLh9VdTrTFVqfPghxm
+	 oKQbtFNpox3Xw==
+Date: Fri, 7 Mar 2025 16:53:56 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jason Andryuk <jason.andryuk@amd.com>
-cc: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org, 
+To: Julien Grall <julien@xen.org>
+cc: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org, 
     Stefano Stabellini <sstabellini@kernel.org>, 
     Bertrand Marquis <bertrand.marquis@arm.com>, 
     Michal Orzel <michal.orzel@amd.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Anthony PERARD <anthony.perard@vates.tech>, 
-    Jan Beulich <jbeulich@suse.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [PATCH 08/23] xen/arm: dom0less seed xenstore grant table
- entry
-In-Reply-To: <d002aef4-3511-4e9b-8ff2-34bb268d9d7d@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2503071642470.3032631@ubuntu-linux-20-04-desktop>
-References: <20250306220343.203047-1-jason.andryuk@amd.com> <20250306220343.203047-9-jason.andryuk@amd.com> <4c66ad14-9a30-48e5-aae1-49f61efaaf67@xen.org> <d002aef4-3511-4e9b-8ff2-34bb268d9d7d@amd.com>
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH 04/23] xen/arm: dom0less use domid 0 for hwdom
+In-Reply-To: <39540c8b-e43d-4315-bc34-a61ac6cb1d70@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2503071651090.3032631@ubuntu-linux-20-04-desktop>
+References: <20250306220343.203047-1-jason.andryuk@amd.com> <20250306220343.203047-5-jason.andryuk@amd.com> <4ee02463-c413-4afc-add6-d7bf3915dd5a@xen.org> <734d9fdf-a201-4a46-9739-26a474683b10@amd.com> <39540c8b-e43d-4315-bc34-a61ac6cb1d70@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-435799868-1741394695=:3032631"
-Content-ID: <alpine.DEB.2.22.394.2503071645100.3032631@ubuntu-linux-20-04-desktop>
+Content-Type: multipart/mixed; boundary="8323329-1608948088-1741395239=:3032631"
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-435799868-1741394695=:3032631
-Content-Type: text/plain; CHARSET=UTF-8
+--8323329-1608948088-1741395239=:3032631
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2503071645101.3032631@ubuntu-linux-20-04-desktop>
 
-On Fri, 7 Mar 2025, Jason Andryuk wrote:
-> On 2025-03-07 16:24, Julien Grall wrote:
-> > Hi,
-> > 
-> > On 06/03/2025 22:03, Jason Andryuk wrote:
-> > > With a split hardware and control domain, the control domain may still
-> > > want and xenstore access.  Currently this relies on init-dom0less to
-> > > seed the grants.  This is problematic since we don't want hardware
-> > > domain to be able to map the control domain's resources.  Instead have
-> > > the hypervisor see the grant table entry.  The grant is then accessible
-> > > as normal.
-> > 
-> > I am probably missing something, but why would run xenstored in the hardware
-> > domain rather than the control domain? Isn't xenstored more related to the
-> > VM management than HW?
+On Fri, 7 Mar 2025, Julien Grall wrote:
+> > init-dom0less only initializes non- introduced domains, so hwdom doesn't get
+> > its "domid" xenstore node populated.  That leads to other errors.
+> > > So I think with Denis's patch, this isn't strictly needed.  It does help
+> > existing toolstack code work today.
 > 
-> I addressed this in my other email.  You're probably right that xenstored
-> should run in control, but implementation details prevent that in the short
-> term.
+> I don't think the toolstack is ready for a split between control/hardware
+> domain. That said, shouldn't the toolstack run in the control domain? Same for
+> xenstored (unless you have a xenstored domain)?
 
-I wrote a longer reply here:
-https://marc.info/?l=xen-devel&m=174139414000462
+Yes, the toolstack (if present) would be in the control domain.
+xenstored doesn't have to be in the control domain and in fact it might
+not be advisable to place it there today.
 
-I think there are valid reasons to run xenstored in either the control
-domain or the hardware domain, so it should be configurable. If no
-specific preference is indicated, I would place it in the hardware
-domain because the control domain must remain free from interference.
-Given that I don't think we know for sure today whether the Xenstore
-protocol could be a potential vector for interference, it is safer to
-avoid placing it in the control domain by default.
-
-
-> Regardless, of the xenstored placement, I think it's a better design for Xen
-> to seed the grants.  With Xen allocating the xenstore page and event channel,
-> and now seeding the grant table, they can just be used.  A xenstore stubdom
-> can just establish all the connections without relying on another domain to
-> perform an action.
-
-+1
-
-
-> I tested that with hyperlaunching the xenstore stubdom.  That is where the two
-> XS_PRIV changes later in the series come from.  xenstore stubdom iterates the
-> domains, reads the hvm_param for the event channel, and then runs introduce to
-> set up the connection.
---8323329-435799868-1741394695=:3032631--
+The main difference between the toolstack and xenstored is that the
+toolstack only talks to Xen, while xenstored talks to all other VMs,
+which is dangerous in many configurations.
+--8323329-1608948088-1741395239=:3032631--
 
