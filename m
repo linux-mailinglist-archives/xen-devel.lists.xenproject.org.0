@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 465E2A59EA3
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Mar 2025 18:32:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.906746.1314132 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CC4EA5A22C
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Mar 2025 19:17:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.906755.1314141 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1trgzR-0006Jj-3n; Mon, 10 Mar 2025 17:32:33 +0000
+	id 1trhgc-0005at-Ak; Mon, 10 Mar 2025 18:17:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 906746.1314132; Mon, 10 Mar 2025 17:32:33 +0000
+Received: by outflank-mailman (output) from mailman id 906755.1314141; Mon, 10 Mar 2025 18:17:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1trgzR-0006HV-1B; Mon, 10 Mar 2025 17:32:33 +0000
-Received: by outflank-mailman (input) for mailman id 906746;
- Mon, 10 Mar 2025 17:32:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1trhgc-0005Xv-7x; Mon, 10 Mar 2025 18:17:10 +0000
+Received: by outflank-mailman (input) for mailman id 906755;
+ Mon, 10 Mar 2025 18:17:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iUjf=V5=linaro.org=richard.henderson@srs-se1.protection.inumbo.net>)
- id 1trgzP-0006HM-8c
- for xen-devel@lists.xenproject.org; Mon, 10 Mar 2025 17:32:31 +0000
-Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
- [2607:f8b0:4864:20::62d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a3e582a7-fdd5-11ef-9ab8-95dc52dad729;
- Mon, 10 Mar 2025 18:32:30 +0100 (CET)
-Received: by mail-pl1-x62d.google.com with SMTP id
- d9443c01a7336-22185cddbffso99068865ad.1
- for <xen-devel@lists.xenproject.org>; Mon, 10 Mar 2025 10:32:30 -0700 (PDT)
-Received: from [192.168.0.4] (174-21-74-48.tukw.qwest.net. [174.21.74.48])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-736cc153016sm3620330b3a.173.2025.03.10.10.32.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Mar 2025 10:32:28 -0700 (PDT)
+ <SRS0=B6N5=V5=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1trhga-0005Xl-7R
+ for xen-devel@lists.xenproject.org; Mon, 10 Mar 2025 18:17:08 +0000
+Received: from mail-pj1-x1032.google.com (mail-pj1-x1032.google.com
+ [2607:f8b0:4864:20::1032])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id de680cb5-fddb-11ef-9898-31a8f345e629;
+ Mon, 10 Mar 2025 19:17:05 +0100 (CET)
+Received: by mail-pj1-x1032.google.com with SMTP id
+ 98e67ed59e1d1-2fea8d8c322so9089702a91.2
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Mar 2025 11:17:05 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ 98e67ed59e1d1-2ff693534f8sm8281307a91.17.2025.03.10.11.17.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 10 Mar 2025 11:17:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,74 +44,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a3e582a7-fdd5-11ef-9ab8-95dc52dad729
+X-Inumbo-ID: de680cb5-fddb-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1741627948; x=1742232748; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=FKvTTaeAXFeAoKKy/TUEugm6Lvxdb1J/dR+hd8yG8+Q=;
-        b=EN/W5LxjZpdmD55TMnCWqkl1JZAjdqfUY/Z4b5oJlTlzvQfVVJ8d0VuZucLP9NwST1
-         OU2o4LFGGYCS87m1BhlvqgbMZJIOllqcLJKTxZUzEvbvfxTnNCbFVbYcfrCyWfRwriX9
-         cPAckxHdIpnLZoY4fxFyBBMK1aVZOcM8ayb+3bVvq21CWYhKNiOrj+/9wltFVkW6x1nG
-         gZfbO3erQfF7OCXNqSjAGXl0BgS/cbLs0b/I+jNoKgbp8HMlbEblkum61f0HgERSwXhe
-         J1pM63A7UlKmAgbqkBAnswSH/dOYcNPqfmDGiA6QWzYjlLIL4EhALaIdH58DTIyObeAk
-         gr3g==
+        d=citrix.com; s=google; t=1741630623; x=1742235423; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=2sAOgBUuXdaWKO3ytoPWYB8f49rfYyoU0zMSb3fCBrQ=;
+        b=cXxPV0WKK8TluO/TjgXiOmQF7LgGxlLwqWH0jV5rkY8qK4aNn0DkXuyGSvpF13JGF3
+         ZEGkIElEUq9WK27J1sBeeDA/K6eolijnd9UdpTf7IG+GynsG9gnmxRmTd8PKNrx6QGaC
+         puVBOGgAu/W+aFhmHW8MwiE9erq/ndmQzz2LI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741627948; x=1742232748;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=FKvTTaeAXFeAoKKy/TUEugm6Lvxdb1J/dR+hd8yG8+Q=;
-        b=KojWPprIllOkmuDcV9kE7Cqrjh6Bka3l7SJjTXGefk+rGjXdbK6roet//k4yhKamvq
-         pKkTbQ3l76ECHCtzdJHMQZfTNCMJ0O96rtI5WJ+YUAkHudqwan6ssNgxiDan3R0v9Rgh
-         XJMD65G2598104+Pi8Vk3juTh6uJOv0DiAAy3WJ8xJLMZsehGjAFXEWfYlK6bztJojUG
-         Dpe/Z36Y9rS70qZrRWQESRPOt6tfx/b8hUSwg9tBvYncy5+72XEJA2+dnJUJeJu423EZ
-         PWEncSL8aZp3blSz8X0Hr9O9pItyy/JrxZpqNqEOeYoynpEPh3Q/sk9oAYkuK9cq7o0h
-         PDtw==
-X-Gm-Message-State: AOJu0Yy0zD4IpdDyLunpg7BLEsVGcKnKC5mnlyMSSGDkMnFP2Z1fy8PO
-	l2TpBYy6ZGmiTNx6Ea+oaPbZ8mMGjQpZi7zHEaUfCErhq1yLeZdF1n+Qd3mENu1yVadQFSnEdW/
-	z
-X-Gm-Gg: ASbGncvrl3aD9iipC6Q6rNgbTL8JmS4xxo+0bi5AD+kdG9dgF+NEcavtSu+AFh7xflh
-	SnIotv3hidN3zlBLH4RRtkjzornaDXvi0mPg4yihJw7JGTQEwrMKcm84n7UuqN98KPQ99aKcm+m
-	gue7Aex/Xxy1ZJ/FQNqCB1se0f3410NtfQj08E9gZfQ382bH+4EJPRx3wqcluXw41BcA8AL5mQM
-	YM/vZx5Thu1b9PjVpg5rfEwXbf4hV1tynesseary7HTorE0BumV+VFlQzmUHcpHGODbSBd/AxRP
-	a6m+SLPCIysr1+XrMyQaVu71A7uUifwNMj39eCelIMepsSHfFr28NW8h7ja4KQ3lMgjbkZOv9gM
-	RSmw7K2ma
-X-Google-Smtp-Source: AGHT+IGlsTuVM/mWYGBPfTtazpwhgbmQOPR2gjCm9rQY9M9e9b0UBRTLp/Z541I5JBsXGEodHFeYGw==
-X-Received: by 2002:a05:6a00:1aca:b0:736:aea8:c9b7 with SMTP id d2e1a72fcca58-736ec5c3c05mr456490b3a.2.1741627948521;
-        Mon, 10 Mar 2025 10:32:28 -0700 (PDT)
-Message-ID: <3dfedea0-baa3-4768-9c6b-033cb8b8adbd@linaro.org>
-Date: Mon, 10 Mar 2025 10:32:26 -0700
+        d=1e100.net; s=20230601; t=1741630623; x=1742235423;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=2sAOgBUuXdaWKO3ytoPWYB8f49rfYyoU0zMSb3fCBrQ=;
+        b=CEgdqoXwd4h4e86ZJD8msamhB5GhtNGIW1CdnyAS5WsGoJYqebxR8Zq/tqkzbEh9qD
+         43NE6MNYlWDwxU9Mi7bZc+6izMus6dA3R+vlX26F/H1WMwfOTM6obdolhupYg8xs+OZL
+         sCE/vZXm2WWU9JXn/bGuH/OEIz5AOa3hydGsolC8u2OF7zs9weW9XhLjXE16qSxXjANL
+         FJ3IRxNRTGQntl0TnDdVcADHq7TM9HLY9r63HeWa4tBjO1myPIwqCxn6GXuQE+IWw5Uj
+         iMrPDt1pcK0ICYpTsjT0Nh9IFK4qi/1KRLzCTdtxmVF2lSJoar8sqGEQ9msfTyFoyiAv
+         F18Q==
+X-Gm-Message-State: AOJu0YxsUs8WZoSxk1rGjgg0AhUpVajVR7hZiUPc/KZIid8emU79BFyY
+	Bl0NrSNU6kJ/cK4LlWhoRBUWx3KNJMnStzajEbFenLKYi+Hfq/1hGj3I3zbSwCgqPfGsRUtdibJ
+	O
+X-Gm-Gg: ASbGnctwMBKJb80vyz51K8hws4nOsasCHaKyMpIs99qwkbeCQv9sT93hUtrvJCwJx6/
+	YlLRCJBU9sHkG9e1wtyyHBesJAymUi3S940Ew2eCHt2D6VJrIsfSdm2fuRw/mjZ5HcTZlCzL+vM
+	/xCCDUEuwIkSqgx856hTW6sHU/JSYtCeWVWfbZfHyTjDLfh1q1sbEenNHsvbQGl9OtKMWJ2sBIG
+	Z3c7YnFniYqWyBww1jXtsgejfvMxqhEsQPdT4yIh5BT1RfklHIEYNR5KCG0KAhlr0acOAZKsk87
+	5cbUP+uBBbWvCdKNjwzBTISGNckFDggtdU9bscYQdW7krUcSrLso4q0=
+X-Google-Smtp-Source: AGHT+IFNYcQw9vHTcGDhDjrzDfRaVaGC0rWdBkxN/lNBLcKYAeMSjEVUmtjKu1xTkMkdnb0gy+dOfQ==
+X-Received: by 2002:a17:90b:2fc5:b0:2ee:fa0c:cebc with SMTP id 98e67ed59e1d1-2ff7ce949d2mr23242122a91.20.1741630623256;
+        Mon, 10 Mar 2025 11:17:03 -0700 (PDT)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH] automation/cirrus-ci: store xen/.config as an artifact
+Date: Mon, 10 Mar 2025 19:16:38 +0100
+Message-ID: <20250310181638.51196-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 13/16] hw/xen: add stubs for various functions
-To: Pierrick Bouvier <pierrick.bouvier@linaro.org>, qemu-devel@nongnu.org
-Cc: "open list:X86" <xen-devel@lists.xenproject.org>
-References: <20250310045842.2650784-1-pierrick.bouvier@linaro.org>
- <20250310045842.2650784-14-pierrick.bouvier@linaro.org>
-Content-Language: en-US
-From: Richard Henderson <richard.henderson@linaro.org>
-In-Reply-To: <20250310045842.2650784-14-pierrick.bouvier@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 3/9/25 21:58, Pierrick Bouvier wrote:
-> Those functions are used by system/physmem.c, and are called only if
-> xen is enabled (which happens only if CONFIG_XEN is not set).
-> 
-> So we can crash in case those are called.
-> 
-> Signed-off-by: Pierrick Bouvier<pierrick.bouvier@linaro.org>
-> ---
->   hw/xen/xen_stubs.c | 56 ++++++++++++++++++++++++++++++++++++++++++++++
->   hw/xen/meson.build |  3 +++
->   2 files changed, 59 insertions(+)
->   create mode 100644 hw/xen/xen_stubs.c
+Always store xen/.config as an artifact, renamed to xen-config to match
+the naming used in the Gitlab CI tests.
 
+Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+ .cirrus.yml | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-Acked-by: Richard Henderson <richard.henderson@linaro.org>
+diff --git a/.cirrus.yml b/.cirrus.yml
+index e2949d99d73a..1a39f5026f9a 100644
+--- a/.cirrus.yml
++++ b/.cirrus.yml
+@@ -15,6 +15,14 @@ freebsd_template: &FREEBSD_ENV
+     APPEND_INCLUDES: /usr/local/include
+     CIRRUS_CLONE_DEPTH: 1
+ 
++freebsd_artifacts: &FREEBSD_ARTIFACTS
++  always:
++    rename_script:
++      - cp xen/.config xen-config
++    config_artifacts:
++      path: xen-config
++      type: text/plain
++
+ freebsd_full_build_template: &FREEBSD_FULL_BUILD_TEMPLATE
+   << : *FREEBSD_ENV
+ 
+@@ -28,6 +36,8 @@ freebsd_full_build_template: &FREEBSD_FULL_BUILD_TEMPLATE
+     - ./configure --with-system-seabios=/usr/local/share/seabios/bios.bin
+     - gmake -j`sysctl -n hw.ncpu` clang=y
+ 
++  << : *FREEBSD_ARTIFACTS
++
+ freebsd_randconfig_template: &FREEBSD_RANDCONFIG_TEMPLATE
+   << : *FREEBSD_ENV
+ 
+@@ -39,6 +49,8 @@ freebsd_randconfig_template: &FREEBSD_RANDCONFIG_TEMPLATE
+             KCONFIG_ALLCONFIG=tools/kconfig/allrandom.config randconfig
+     - gmake -j`sysctl -n hw.ncpu` build-xen clang=y
+ 
++  << : *FREEBSD_ARTIFACTS
++
+ task:
+   name: 'FreeBSD 13: full build'
+   << : *FREEBSD_13
+-- 
+2.48.1
 
-
-r~
 
