@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C862A58E40
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Mar 2025 09:35:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.906223.1313670 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FD1DA58EC5
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Mar 2025 10:00:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.906244.1313688 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1trYbz-000426-KU; Mon, 10 Mar 2025 08:35:47 +0000
+	id 1trYzZ-0000As-I4; Mon, 10 Mar 2025 09:00:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 906223.1313670; Mon, 10 Mar 2025 08:35:47 +0000
+Received: by outflank-mailman (output) from mailman id 906244.1313688; Mon, 10 Mar 2025 09:00:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1trYbz-00040b-Hj; Mon, 10 Mar 2025 08:35:47 +0000
-Received: by outflank-mailman (input) for mailman id 906223;
- Mon, 10 Mar 2025 08:35:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1trYzZ-00008j-Ek; Mon, 10 Mar 2025 09:00:09 +0000
+Received: by outflank-mailman (input) for mailman id 906244;
+ Mon, 10 Mar 2025 09:00:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sahL=V5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1trYbx-00040T-MF
- for xen-devel@lists.xenproject.org; Mon, 10 Mar 2025 08:35:45 +0000
+ id 1trYzX-00008d-UH
+ for xen-devel@lists.xenproject.org; Mon, 10 Mar 2025 09:00:07 +0000
 Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
  [2a00:1450:4864:20::32b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a8685edb-fd8a-11ef-9ab8-95dc52dad729;
- Mon, 10 Mar 2025 09:35:44 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0ea784b0-fd8e-11ef-9898-31a8f345e629;
+ Mon, 10 Mar 2025 10:00:04 +0100 (CET)
 Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-43ce71582e9so8819425e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 10 Mar 2025 01:35:44 -0700 (PDT)
+ 5b1f17b1804b1-43ce71582e9so8974325e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Mar 2025 02:00:04 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43cef25f075sm54007925e9.28.2025.03.10.01.35.43
+ 5b1f17b1804b1-43bd4353003sm172352675e9.28.2025.03.10.02.00.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Mar 2025 01:35:43 -0700 (PDT)
+ Mon, 10 Mar 2025 02:00:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a8685edb-fd8a-11ef-9ab8-95dc52dad729
+X-Inumbo-ID: 0ea784b0-fd8e-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741595744; x=1742200544; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0Tu8M1wbmBvd2Bhn6d98e+bIIfzD1CPCBZ/EgBV4p9c=;
-        b=EfH0yAl2WUfpE+DNYHrYHqKAXcmMLZgB6XeN6XpZqpiIMIYJfgYyXQ7n9x+Jy+CrSS
-         IXLtBYt3IuQMPmhO/1DGWgl+qYa+WermAqBvJJn5o6xpQxZEqAaCtjAHPzASBPvEbbBu
-         1ySJo0saVy2CjrY9FjAd7/OSPUVDVETB79X4ZAF6FR1FnKgIZpgt4EFfNmzXrEgp1ZX/
-         LO8e1GyobvMIMqaOlTnjELYvT/pOY/tfXetBPZJLC2V9uKnnY32E/dYvozbsUcSUY4cU
-         fcuna9MxewClvNUqVf+zA6xcKwuNdgk9wkJd337ILBpmbWNEb9FysUoyAHoI2Ug9rKdo
-         myAg==
+        d=suse.com; s=google; t=1741597204; x=1742202004; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=BXSNTNFeK2euoWz9Svo5AHpfvU/76RTFUZF1OpYQlBc=;
+        b=G+wMOxUBSrQL2cFSk7pUeMxoStB9uV3JKFnm79v34ZNaVZqSRGCkgaetvNGjZxCG8p
+         i4PWpvsCyRPf7reIFNFrqR4DBUGSucLl/qjl9QNIVqEADEIU9P9DEv0ZcQzWKRrVXpdK
+         hEx/wX3dEQ9BmWlwuP4BiNT1kyCcgG8IGJ/DgdkB6l+TY8/Aa0B15lFTFGXHcoC/gfnr
+         dBI97TyTnb9ZMLLQOk/NP0XztDOrM3KyR8DjnXp/SAvH6jR0IbPHIoF+xo289pvNOsqA
+         BGwRfNFaF7dfCXk65okn2YlrEiFA4gi74EtlizMhtf4BIl6Rikpd2rR+zF0JzzjL0Dl/
+         ZgCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741595744; x=1742200544;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=0Tu8M1wbmBvd2Bhn6d98e+bIIfzD1CPCBZ/EgBV4p9c=;
-        b=CIGVYg2pvXB2di4QIjBjbmUA4J/bU/VAuqrgAkMxhYm/TtEkVe7V0rzjV0LR5qHjOY
-         n/lilWZBB28e4Zhd4F08dYgjG0mGQjcbSSgw4gg2HyO0VeN/qbertBysulzgufLs1lf6
-         pjFWqkrCKgaA7fxGm55pGY0siGxa4Ki9rijr2advrbniYrTf2ihAp+9stBJyY2a5D3Pm
-         ZEE5wtFin64oAhQppFE3KIda8mH8ehlo5z4i8rjZL58kTZfKYdMazRqMgpieqPyaeirR
-         glCaHm/E4vqif/srJEwUVFOBgn91xOLwHY/xU2VWOoQIkqyuTTNrdKXGFP2yuMchCDsw
-         b2MA==
-X-Forwarded-Encrypted: i=1; AJvYcCXTbhXJZPtYpoFEbTQQfru49/U6qNJ1B9jyKwVU6ET6qzqp9woVcL/S31mhDedSfdIcUWBTMdC00nM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzz0Klh4mFubvYtWMQ8baXdhVXTH74h81xGjClrdE0AIpSfApuI
-	GOx++GyAxhr8YmuxzDwUX0Mzfx+tDI6wheyMUv3LzRHZTXWvOKkXgtFicJsDfQ==
-X-Gm-Gg: ASbGncviM/Wpmv40KLTfG0ZuGDPyC+QEdAkyUTDBjZERa8XL5sWtuMQQFaD8SfaXnbt
-	rqrqj4rQ2U4aIuBgrF+V0dfoTE1GEPP+dT+a8MP4TdaKceg/9sev7XGEIO7Td6LgSgtPt0A48qh
-	DoLRmH3hbjgM8fmYkzBZW9vZFfT+s6ez544Slb7FySa9liyDdd74cdfx+6JEklxA9F5Q3zFwD8s
-	aCylGbCM9RIoEPCoingjhPs/gpUJU+0gSI23OFmlXlFABxCls9QtmdkvWHs1IN7ERPgNr2MDzNA
-	PvignBovJrqdc4Fnu6AC9rMpQaQJIjbpwJLd2oTNhWZJv4eWNGYJDBAxvzuT3ctmFikKptFMIlV
-	PfJzgkehg+JwsoFzH5lfGMqtz57dVA0209Z9IqO+J
-X-Google-Smtp-Source: AGHT+IG+qXa/CeHyg4mAuA3QejpbK8bG2mH99hImli+PWiJ5tPMDOp8OGe0lZDwF1yUkNbPxt9A97g==
-X-Received: by 2002:a05:600c:1c9d:b0:439:86fb:7340 with SMTP id 5b1f17b1804b1-43c601d19cbmr82361235e9.30.1741595744132;
-        Mon, 10 Mar 2025 01:35:44 -0700 (PDT)
-Message-ID: <fd5c0f83-5236-4aa3-b727-f7769da7beca@suse.com>
-Date: Mon, 10 Mar 2025 09:35:45 +0100
+        d=1e100.net; s=20230601; t=1741597204; x=1742202004;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BXSNTNFeK2euoWz9Svo5AHpfvU/76RTFUZF1OpYQlBc=;
+        b=plxaiduhcpVuk7LFZyAMAHpVH3yBZryhK3Ka18d+xIjrzIlkvj9SIpnBYsYZiNmRx5
+         E56+jHZJGyo6IfKoInKlQp9vkr7Yc28DlaXycxfGYFMG8MD7/L6jN1YFS42D1k/7kO+J
+         JF+ZgzBB83FcImpzHa8LFbDjYCDbQumYr8+ICtpidJOhx+NGy5F4nTtKg1OtsxNrZuSX
+         kgZuAsM+9Ww6pOl/7c61O8i3jmGvA1fKXqWmHudboo4QmsNiCLuIg60Do0XeZ6R24YGN
+         jtMK0Mzwt6WtRSlY537TxBP0qfvqJgaQ/btF8i4p6VuERGPYqORIGB1g9qG5cX/QxVu8
+         t6Dw==
+X-Forwarded-Encrypted: i=1; AJvYcCV+fNTjqUgbM2eVhG18CmcOA9DYc48bRaATv7wVrChe0kllhtNYplU5cjbLrUkWCJgJVGXUqmTEdPE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxkxHGZQ/N1TSzkw4y51J2EUL9fSzbjC0nis1A8BydMtAAKARdM
+	4M1w938Pz6OrKsXJXSBkyY+du+mGjfiiVj348Xfts9S8e3MN7xYKnvWThb6k0w==
+X-Gm-Gg: ASbGncsYJeA+UGgUA02uxK75tdFKvXJzLVWdbMDBiwzRfsWyKxTZ3Qty1wU8CMrsO8q
+	ln8oWQWO5rh3H8xwtV+/Brkm/siVi/zqAlMUtRgCk42eCdOm/GRXcMxjXIFPC4hnHQVE13UXv7B
+	P+Pn3BkVxd+KFOejHbGP4kkmZpDRKWynS3RLD80tgdfOgx2bYKZeTFr6644uf8kxigEf63WMR88
+	97WahV0jxd0QKc7Ilgnz52YuBwDIQxvsfhM/0vXR6peW4r5FFdSjFGzvLv7UG6ScbS7ePNE8dCA
+	yB8+PVMa+g3KxHl6ebOEXd6ixTc+/BKo+nhxdIS7/jq14tdN2JFEQcaALjRYdOmUQY2yAdzkpnY
+	1oppUkBPFEQPfUjDldJX4pxua+diGJQ==
+X-Google-Smtp-Source: AGHT+IErwouMuKw0nanjNH+fkJMvw+68iQ2YNlJYdyjyBxuFZ3EARueAMIBid5q2aW7rClyikVcT4g==
+X-Received: by 2002:a05:600c:470c:b0:43c:f050:fed3 with SMTP id 5b1f17b1804b1-43cf051022dmr30860765e9.11.1741597203816;
+        Mon, 10 Mar 2025 02:00:03 -0700 (PDT)
+Message-ID: <edba2284-4539-471b-a992-0f7ac43eadcc@suse.com>
+Date: Mon, 10 Mar 2025 10:00:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Ping: [PATCH] PCI: drop pci_segments_init()
-From: Jan Beulich <jbeulich@suse.com>
-To: Stefano Stabellini <sstabellini@kernel.org>,
+Subject: Re: [PATCH 01/23] xen: introduce hardware domain create flag
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>
-Cc: Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony Perard <anthony@xenproject.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <4ada4343-c65b-456d-b0c2-9ae59937aaff@suse.com>
+ xen-devel@lists.xenproject.org
+References: <20250306220343.203047-1-jason.andryuk@amd.com>
+ <20250306220343.203047-2-jason.andryuk@amd.com>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -122,103 +125,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4ada4343-c65b-456d-b0c2-9ae59937aaff@suse.com>
+In-Reply-To: <20250306220343.203047-2-jason.andryuk@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26.02.2025 12:38, Jan Beulich wrote:
-> Have callers invoke pci_add_segment() directly instead: With radix tree
-> initialization moved out of the function, its name isn't quite
-> describing anymore what it actually does.
-> 
-> On x86 move the logic into __start_xen() itself, to reduce the risk of
-> re-introducing ordering issues like the one which was addressed by
-> 26fe09e34566 ("radix-tree: introduce RADIX_TREE{,_INIT}()").
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 06.03.2025 23:03, Jason Andryuk wrote:
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -699,7 +699,7 @@ struct domain *domain_create(domid_t domid,
+>      d->is_privileged = flags & CDF_privileged;
+>  
+>      /* Sort out our idea of is_hardware_domain(). */
+> -    if ( domid == 0 || domid == hardware_domid )
+> +    if ( flags & CDF_hardware || domid == hardware_domid )
 
-Arm maintainers: May I ask for an ack (or ...
-
-> ---
-> This is entirely optional and up for discussion. There certainly also is
-> an argument towards keeping the function. Otoh on Arm there is the still
-> open question whether segment 0 really is kind of special there (as it
-> is on x86, largely for historical reasons), or whether the code can be
-> dropped there altogether.
-
-... otherwise) here please?
+Nit: If the rhs of the || needs to stay for the time being (does it?),
+parentheses please around the & expression.
 
 Jan
-
-> ---
-> v4: Move x86 logic into __start_xen() itself.
-> v3: Adjust description to account for and re-base over dropped earlier
->     patch.
-> v2: New.
-> 
-> --- a/xen/arch/arm/pci/pci.c
-> +++ b/xen/arch/arm/pci/pci.c
-> @@ -88,7 +88,8 @@ static int __init pci_init(void)
->      if ( !pci_passthrough_enabled )
->          return 0;
->  
-> -    pci_segments_init();
-> +    if ( pci_add_segment(0) )
-> +        panic("Could not initialize PCI segment 0\n");
->  
->      if ( acpi_disabled )
->          return dt_pci_init();
-> --- a/xen/arch/x86/x86_64/mmconfig-shared.c
-> +++ b/xen/arch/x86/x86_64/mmconfig-shared.c
-> @@ -402,8 +402,6 @@ void __init acpi_mmcfg_init(void)
->  {
->      bool valid = true;
->  
-> -    pci_segments_init();
-> -
->      /* MMCONFIG disabled */
->      if ((pci_probe & PCI_PROBE_MMCONF) == 0)
->          return;
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -1898,6 +1898,13 @@ void asmlinkage __init noreturn __start_
->      setup_system_domains();
->  
->      /*
-> +     * Ahead of any ACPI table parsing make sure we have control structures
-> +     * for PCI segment 0.
-> +     */
-> +    if ( pci_add_segment(0) )
-> +        panic("Could not initialize PCI segment 0\n");
-> +
-> +    /*
->       * IOMMU-related ACPI table parsing has to happen before APIC probing, for
->       * check_x2apic_preenabled() to be able to observe respective findings, in
->       * particular iommu_intremap having got turned off.
-> --- a/xen/drivers/passthrough/pci.c
-> +++ b/xen/drivers/passthrough/pci.c
-> @@ -127,12 +127,6 @@ static int pci_segments_iterate(
->      return rc;
->  }
->  
-> -void __init pci_segments_init(void)
-> -{
-> -    if ( !alloc_pseg(0) )
-> -        panic("Could not initialize PCI segment 0\n");
-> -}
-> -
->  int __init pci_add_segment(u16 seg)
->  {
->      return alloc_pseg(seg) ? 0 : -ENOMEM;
-> --- a/xen/include/xen/pci.h
-> +++ b/xen/include/xen/pci.h
-> @@ -219,7 +219,6 @@ void setup_hwdom_pci_devices(struct doma
->                               int (*handler)(uint8_t devfn,
->                                              struct pci_dev *pdev));
->  int pci_release_devices(struct domain *d);
-> -void pci_segments_init(void);
->  int pci_add_segment(u16 seg);
->  const unsigned long *pci_get_ro_map(u16 seg);
->  int pci_add_device(u16 seg, u8 bus, u8 devfn,
-
 
