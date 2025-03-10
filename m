@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F095A58EE0
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Mar 2025 10:04:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.906276.1313734 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 874E1A58F52
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Mar 2025 10:21:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.906291.1313744 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1trZ3K-00024C-Or; Mon, 10 Mar 2025 09:04:02 +0000
+	id 1trZJh-0005Wm-3N; Mon, 10 Mar 2025 09:20:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 906276.1313734; Mon, 10 Mar 2025 09:04:02 +0000
+Received: by outflank-mailman (output) from mailman id 906291.1313744; Mon, 10 Mar 2025 09:20:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1trZ3K-00022U-LF; Mon, 10 Mar 2025 09:04:02 +0000
-Received: by outflank-mailman (input) for mailman id 906276;
- Mon, 10 Mar 2025 09:04:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1trZJg-0005VA-Vt; Mon, 10 Mar 2025 09:20:56 +0000
+Received: by outflank-mailman (input) for mailman id 906291;
+ Mon, 10 Mar 2025 09:20:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kKOj=V5=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1trZ3J-0001qd-56
- for xen-devel@lists.xenproject.org; Mon, 10 Mar 2025 09:04:01 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9ac99580-fd8e-11ef-9ab8-95dc52dad729;
- Mon, 10 Mar 2025 10:03:59 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-ac2b10bea16so18599866b.0
- for <xen-devel@lists.xenproject.org>; Mon, 10 Mar 2025 02:03:59 -0700 (PDT)
+ id 1trZJf-0005TX-D1
+ for xen-devel@lists.xenproject.org; Mon, 10 Mar 2025 09:20:55 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f6b4a020-fd90-11ef-9898-31a8f345e629;
+ Mon, 10 Mar 2025 10:20:53 +0100 (CET)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-5e5cded3e2eso6074546a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Mar 2025 02:20:53 -0700 (PDT)
 Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
  [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac283e4d50csm322617166b.175.2025.03.10.02.03.57
+ a640c23a62f3a-ac27d8b2c31sm361480766b.1.2025.03.10.02.20.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Mar 2025 02:03:58 -0700 (PDT)
+ Mon, 10 Mar 2025 02:20:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,373 +45,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ac99580-fd8e-11ef-9ab8-95dc52dad729
+X-Inumbo-ID: f6b4a020-fd90-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1741597439; x=1742202239; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1741598452; x=1742203252; darn=lists.xenproject.org;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=T8hu8ZQsUKK5QBrOl69DO8IdswJx6xSlr1Qh4X16VMs=;
-        b=mzQtQU8oZ5LWIoBlcRLLYbBgZIrey6wwKgf9YmuiMie3cXkmz6jhIgifdDDcpCPgk6
-         B3ZbK7A4E0lhCxaVdkg0oOa62YmQDVpRDu8DVcXJUU/oQ719Cu1nralUrlYXj7YnGhK8
-         08iAAkfn+pvHmh0H2UkBUeJzDnxjfkNd2Z5NrtSyDG1O2tk1oaZU1b44a9RpaKtPfWhS
-         Syzism5tMTiibJbAUiYbOXrBXfj7m69tl/lmJSHu5GCG6VglnsBlJgqRrJHOAr1NioH9
-         zx3bTK0D/PdmuZmO6qlWSWUyime0VUMIVrWjrFgaNEd8+eiUf94UIyK+2Zu8VMN65vvt
-         A/Ug==
+        bh=6OMmdjTJYGN5IlEQedbPslmeEUtLzdH2lHF+RoHjOKg=;
+        b=DG8jm4hCX7ebufdH85Y8t5658nNXXqM0lgX/yYXvrsuOaE2UNkQaGM73H9lFSa3Hpo
+         QAbjEjI9gbIadBOdsu2D+rIdSiYchZQaLFQauTGdEdWrGY67O67fVBIt4Vbq3p867oyU
+         CPU7mqQSc3v00EoOhkOqjW8orw9S/tz9FYaqQBiX9uOFnLehmog6LPAOAtRaMwkw2Lof
+         oHhcjLIDx0qOMeOhHggMBb1ai9FTRXFqY+ahAM9S8MppzWUhe1No/SHtKt+guFS7iTxG
+         sht4vKQsodXZRMM5yUHLJKNXl1s454APaTrU+BiS1/Y3iZWxtFrilb4Q51yzW1L1W7Tl
+         VjPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741597439; x=1742202239;
+        d=1e100.net; s=20230601; t=1741598452; x=1742203252;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=T8hu8ZQsUKK5QBrOl69DO8IdswJx6xSlr1Qh4X16VMs=;
-        b=ZYrYR8VieDg2e7iRMJxW+ShtmYA5XPZE4qbkE+OnVsZAelXzStRbDRKsEEePpqNbzB
-         khLmLK1oPrD3cfsXDYOkUH21g5nzkWqxx9xL9rckJdjykxGxmFl+6biO1N7rEUkQXtyg
-         xld7gGlVSM6rZWoVJXUU5vE8hCHCEh+XrbNmMkUAqY+peSd/0jPnPdn8K9f1dn5mybJy
-         1BCp71w/qQix0zr6WZ/GHVVYaicj5seYtkA+H+Sm1EZnLMysPNoPuzEfTmjESMuEBbvY
-         ZuqCdsc7CqGhUJo8sqdc6zLQ/imZ1gva9BKoS5aLUzYXeCTibiHKvBNr1pHtbDGvA+S9
-         Qc+A==
-X-Forwarded-Encrypted: i=1; AJvYcCVWF03ZGIlLgzMdQDTFKAZMw8b7ik/4ugB2IzJzdnaMSAVMy9e1OCjvje1wsP6400evJZxdSi6I8L8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx/zXq9hZw3NsRppKKrpwufXI+o/NvnckFORz1Zez6+SWUM/yGJ
-	zFvmSWnXhQvapWJRN/4TANJaL5Qds8sPKMcukjN6Rta0/lB40g9oxQugMA==
-X-Gm-Gg: ASbGncvm1AxVokh/C6YKFPGbe7gkvMgBfhfXWPBLBPJJREf9YTirBgu6zvFW4GfV6j4
-	bCnEeSHq87uvVmXJ4oUv/5juBaUuQ/IyM/jLQ8NYWH096o30d1HaiGOJlFxJrnlkgyvIdgPmMDD
-	GvX++hQCLnCnOPR9mj/vGtxQiVnaa9FvJY69Vh3WaQ0XNrw3RRTn6GDlyDXxPuyhfXzm8yIXlNb
-	DQhsYafk9KYsKzfTZuUexdwgWLD+A59JkItpytFHmtwn8smPq9ct2DVrHn1xymP0EuNpTvU/OTD
-	ai/6ZXkOnh6R0pu1O9Tl8vUYRe5RNcN4f9M62XYuDPuqXaTOGUsg3UNO+3woR//fg4+oUBwskbH
-	X6jkwBtvtB0b5Pu+gCq7r
-X-Google-Smtp-Source: AGHT+IFbTLEQAhRGHCz+l5QPDnR48NwK1ENrsA/1vF62xBZWNIarNEbKI8aoGpJdsOO7mV3riOrhAQ==
-X-Received: by 2002:a17:907:1ca3:b0:ab7:b30:42ed with SMTP id a640c23a62f3a-ac2521295eamr1569415966b.0.1741597438629;
-        Mon, 10 Mar 2025 02:03:58 -0700 (PDT)
+        bh=6OMmdjTJYGN5IlEQedbPslmeEUtLzdH2lHF+RoHjOKg=;
+        b=HgbH4iAyWvRUC6/6qd+8A6iq+3XaZnXCzLftbncyg7VwjrRoZ/CQU80f6h+1QXuj5H
+         kVK7HvBT99m1vjw7Nhh/PZtxCStpOyD5Mcw1FNrITsAppw/UfQs6wnXlB9conG0S6FNK
+         Qixsp5+vlw9z3N1PHYIzjseOggh3Y+Ecq/k0v+/Qua75vxJxp/OixXg8MLH+UgtkAjAN
+         jlwn9BNwQWraiar7L+BhmLn9aru0DiMZvJ50TYgNUsZQGdHctZcgeg9vPsNp5nIGTrEv
+         IfhaMHxypmbCU2C3g2GwFYJwjOK7dOvOvu9j+Zn0WVmQ+hrGPIKNikMvzru1NwBEWKb7
+         4M8g==
+X-Forwarded-Encrypted: i=1; AJvYcCWhjWtalPgYlvN3W8GwRolSUQm/0sS2CHvcMq4wvdCT0p1xxGCnkXVsDj7rcXEfay68NuLX4l55ufQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzqqL2GS0lvkYqEfsf825/lJ+tabrivL02ZgmQQc6Qc2Cpikd1l
+	4KKf4GM5sMn0FjMUDtN9znlgWes205nnWvwWUl/wk/sX0OTFc04/
+X-Gm-Gg: ASbGncsQzLcu7Yc3K2ZyyZroas9m339+OpIBXHhLCHa1Yogekuiiz1cLEPjYKcSt5x2
+	ykoEIOaJ7ZDOlYp4ZUmpGTz4CAOvvqnI1HIx8q71lXWDckXpUa3ZrRURsHGKhsDiPJ2n/Uu+USu
+	9LHiNPIV8DZO+wdD/GeKSu3yfKeFrPzzJGIhcoKwHvz6+PYuSE1hVs5UbvJwlXi3/JjQtFy3ci2
+	pQl4FdZboZjZImhrcBASUduMUmEl8bBWHBByG9vcMEIJW6d0HxB//BWygD1+8lfxBKiIV6ZR926
+	ancItMSBYy/iULW521qf0+AeYcVYl6/8Sm3AZ4LuXpA4rNBD9BH1BpseFTbRD2bQfQdb8OV8NZ8
+	2i4jbAnoq+Nzp5AJAw7FG
+X-Google-Smtp-Source: AGHT+IEt2Ig+yygdQLgkSvLg2Ja0SzBATCVoOqvrZ2vcVaudl0/i6fjJ6RnIiRkM1uf16BMC4Bmnlw==
+X-Received: by 2002:a17:907:94ce:b0:ac1:e1e1:1f37 with SMTP id a640c23a62f3a-ac25273af3dmr1575173666b.10.1741598451882;
+        Mon, 10 Mar 2025 02:20:51 -0700 (PDT)
 Content-Type: multipart/alternative;
- boundary="------------40uO6hPC8HAGbShqZOiaZI6O"
-Message-ID: <b773c2d7-b005-4671-90b9-2382dbb25cd2@gmail.com>
-Date: Mon, 10 Mar 2025 10:03:57 +0100
+ boundary="------------aIXzOtMcji8vsWlGRxtjYtQu"
+Message-ID: <c21c47df-5b87-40c6-a98b-69236237058a@gmail.com>
+Date: Mon, 10 Mar 2025 10:20:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9] vpci: Add resizable bar support
-To: Jiqian Chen <Jiqian.Chen@amd.com>, xen-devel@lists.xenproject.org
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Huang Rui <ray.huang@amd.com>
-References: <20250224032433.1879630-1-Jiqian.Chen@amd.com>
+Subject: Re: [PATCH v4 1/2] asm-generic: Introduce mm-types.h header
+To: Shawn Anastasio <sanastasio@raptorengineering.com>,
+ xen-devel@lists.xenproject.org
+Cc: tpearson@raptorengineering.com,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>
+References: <a8417544cc8139ceafc1314acc6f9970358061ee.1741284947.git.sanastasio@raptorengineering.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <20250224032433.1879630-1-Jiqian.Chen@amd.com>
+In-Reply-To: <a8417544cc8139ceafc1314acc6f9970358061ee.1741284947.git.sanastasio@raptorengineering.com>
 
 This is a multi-part message in MIME format.
---------------40uO6hPC8HAGbShqZOiaZI6O
+--------------aIXzOtMcji8vsWlGRxtjYtQu
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
-On 2/24/25 4:24 AM, Jiqian Chen wrote:
-> Some devices, like AMDGPU, support resizable bar capability,
-> but vpci of Xen doesn't support this feature, so they fail
-> to resize bars and then cause probing failure.
+On 3/6/25 7:25 PM, Shawn Anastasio wrote:
+> Introduce a new header, mm-types.h, which will be used to define
+> architecture-specific types pertinent to memory management. This will be
+> used by a future commit to enable >32 bit PTE flags.
 >
-> According to PCIe spec, each bar that supports resizing has
-> two registers, PCI_REBAR_CAP and PCI_REBAR_CTRL. So, add
-> handlers to support resizing the size of BARs.
->
-> Note that Xen will only trap PCI_REBAR_CTRL, as PCI_REBAR_CAP
-> is read-only register and the hardware domain already gets
-> access to it without needing any setup.
->
-> Signed-off-by: Jiqian Chen<Jiqian.Chen@amd.com>
+> Suggested-by: Jan Beulich<jbeulich@suse.com>
+> Signed-off-by: Shawn Anastasio<sanastasio@raptorengineering.com>
+> Acked-by: Jan Beulich<jbeulich@suse.com>
 > ---
-> Hi all,
-> v8->v9 changes:
-> * Changed "size" to be const in function rebar_ctrl_write.
-> * Delete sentence that describes PVH dom0 doesn't support resizable BARs in
->    SUPPORT.md since this patch is to support it
-> * Added an entry to CHANGELOG.md to note Rebar is supported for PVH dom0.
+> Changes in v4:
+>    - Add Jan's Acked-by
 >
-> Best regards,
-> Jiqian Chen.
->
-> v7->v8 changes:
-> * Modified commit message and some comments.
-> * Deleted unused function vpci_hw_write32.
->
-> v6->v7 changes:
-> * Deleted codes that add register for PCI_REBAR_CAP, and added comments to explain why.
-> * Added comments to explain why use "continue" when fail to add register for PCI_REBAR_CTRL.
->
-> v5->v6 changes:
-> * Changed "1UL" to "1ULL" in PCI_REBAR_CTRL_SIZE idefinition for 32 bit architecture.
-> * In rebar_ctrl_write used "bar - pdev->vpci->header.bars" to get index instead of reading
->    from register.
-> * Added the index of BAR to error messages.
-> * Changed to "continue" instead of "return an error" when vpci_add_register failed.
->
-> v4->v5 changes:
-> * Called pci_size_mem_bar in rebar_ctrl_write to get addr and size of BAR instead of setting
->    their values directly after writing new size to hardware.
-> * Changed from "return" to "continue" when index/type of BAR are not correct during initializing
->    BAR.
-> * Corrected the value of PCI_REBAR_CTRL_BAR_SIZE from "0x00001F00" to "0x00003F00".
-> * Renamed PCI_REBAR_SIZE_BIAS to PCI_REBAR_CTRL_SIZE_BIAS.
-> * Re-defined "PCI_REBAR_CAP_SHIFT 4" to "PCI_REBAR_CAP_SIZES_MASK 0xFFFFFFF0U".
->
-> v3->v4 changes:
-> * Removed PCI_REBAR_CAP_SIZES since it was not needed, and added
->    PCI_REBAR_CAP_SHIFT and PCI_REBAR_CTRL_SIZES.
-> * Added parameter resizable_sizes to struct vpci_bar to cache the support resizable sizes and
->    added the logic in init_rebar().
-> * Changed PCI_REBAR_CAP to PCI_REBAR_CAP(n) (4+8*(n)), changed PCI_REBAR_CTRL to
->    PCI_REBAR_CTRL(n) (8+8*(n)).
-> * Added domain info of pci_dev to printings of init_rebar().
->
-> v2->v3 changes:
-> * Used "bar->enabled" to replace "pci_conf_read16(pdev->sbdf, PCI_COMMAND) & PCI_COMMAND_MEMORY",
->    and added comments why it needs this check.
-> * Added "!is_hardware_domain(pdev->domain)" check in init_rebar() to return EOPNOTSUPP for domUs.
-> * Moved BAR type and index check into init_rebar(), then only need to check once.
-> * Added 'U' suffix for macro PCI_REBAR_CAP_SIZES.
-> * Added macro PCI_REBAR_SIZE_BIAS to represent 20.
-> TODO: need to hide ReBar capability from hardware domain when init_rebar() fails.
->
-> v1->v2 changes:
-> * In rebar_ctrl_write, to check if memory decoding is enabled, and added
->    some checks for the type of Bar.
-> * Added vpci_hw_write32 to handle PCI_REBAR_CAP's write, since there is
->    no write limitation of dom0.
-> * And has many other minor modifications as well.
-> ---
->   CHANGELOG.md               |   2 +
->   SUPPORT.md                 |   2 +-
->   xen/drivers/vpci/Makefile  |   2 +-
->   xen/drivers/vpci/rebar.c   | 131 +++++++++++++++++++++++++++++++++++++
->   xen/include/xen/pci_regs.h |  15 +++++
->   xen/include/xen/vpci.h     |   1 +
->   6 files changed, 151 insertions(+), 2 deletions(-)
->   create mode 100644 xen/drivers/vpci/rebar.c
->
-> diff --git a/CHANGELOG.md b/CHANGELOG.md
-> index 1979166820a8..9659dc2df9a1 100644
-> --- a/CHANGELOG.md
-> +++ b/CHANGELOG.md
-> @@ -9,6 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->   ### Changed
->   
->   ### Added
-> + - On x86:
-> +    - Resizable BARs is supported for PVH dom0.
+>   xen/arch/arm/include/asm/Makefile   | 1 +
+>   xen/arch/ppc/include/asm/Makefile   | 1 +
+>   xen/arch/riscv/include/asm/Makefile | 1 +
 
-Acked-By: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+Reviewed-By: Oleksii Kurochko<oleksii.kurochko@gmail.com>
 
 ~ Oleksii
 
-
->   
->   ### Removed
->   
-> diff --git a/SUPPORT.md b/SUPPORT.md
-> index e1f4769bd8b5..91cb6f8ed264 100644
-> --- a/SUPPORT.md
-> +++ b/SUPPORT.md
-> @@ -170,7 +170,7 @@ unexpected behavior or issues on some hardware.
->   
->   At least the following features are missing on a PVH dom0:
->   
-> -  * PCI SR-IOV and Resizable BARs.
-> +  * PCI SR-IOV.
->   
->     * Native NMI forwarding (nmi=dom0 command line option).
->   
-> diff --git a/xen/drivers/vpci/Makefile b/xen/drivers/vpci/Makefile
-> index 1a1413b93e76..a7c8a30a8956 100644
-> --- a/xen/drivers/vpci/Makefile
-> +++ b/xen/drivers/vpci/Makefile
-> @@ -1,2 +1,2 @@
-> -obj-y += vpci.o header.o
-> +obj-y += vpci.o header.o rebar.o
->   obj-$(CONFIG_HAS_PCI_MSI) += msi.o msix.o
-> diff --git a/xen/drivers/vpci/rebar.c b/xen/drivers/vpci/rebar.c
+>   xen/arch/x86/include/asm/Makefile   | 1 +
+>   xen/include/asm-generic/mm-types.h  | 5 +++++
+>   5 files changed, 9 insertions(+)
+>   create mode 100644 xen/include/asm-generic/mm-types.h
+>
+> diff --git a/xen/arch/arm/include/asm/Makefile b/xen/arch/arm/include/asm/Makefile
+> index 4a4036c951..f8249b2439 100644
+> --- a/xen/arch/arm/include/asm/Makefile
+> +++ b/xen/arch/arm/include/asm/Makefile
+> @@ -3,6 +3,7 @@ generic-y += altp2m.h
+>   generic-y += device.h
+>   generic-y += hardirq.h
+>   generic-y += iocap.h
+> +generic-y += mm-types.h
+>   generic-y += paging.h
+>   generic-y += percpu.h
+>   generic-y += random.h
+> diff --git a/xen/arch/ppc/include/asm/Makefile b/xen/arch/ppc/include/asm/Makefile
+> index c989a7f89b..c0dbc68ac6 100644
+> --- a/xen/arch/ppc/include/asm/Makefile
+> +++ b/xen/arch/ppc/include/asm/Makefile
+> @@ -5,6 +5,7 @@ generic-y += div64.h
+>   generic-y += hardirq.h
+>   generic-y += hypercall.h
+>   generic-y += iocap.h
+> +generic-y += mm-types.h
+>   generic-y += paging.h
+>   generic-y += percpu.h
+>   generic-y += perfc_defn.h
+> diff --git a/xen/arch/riscv/include/asm/Makefile b/xen/arch/riscv/include/asm/Makefile
+> index c989a7f89b..c0dbc68ac6 100644
+> --- a/xen/arch/riscv/include/asm/Makefile
+> +++ b/xen/arch/riscv/include/asm/Makefile
+> @@ -5,6 +5,7 @@ generic-y += div64.h
+>   generic-y += hardirq.h
+>   generic-y += hypercall.h
+>   generic-y += iocap.h
+> +generic-y += mm-types.h
+>   generic-y += paging.h
+>   generic-y += percpu.h
+>   generic-y += perfc_defn.h
+> diff --git a/xen/arch/x86/include/asm/Makefile b/xen/arch/x86/include/asm/Makefile
+> index 2c27787d31..26650707e6 100644
+> --- a/xen/arch/x86/include/asm/Makefile
+> +++ b/xen/arch/x86/include/asm/Makefile
+> @@ -1,2 +1,3 @@
+>   # SPDX-License-Identifier: GPL-2.0-only
+>   generic-y += div64.h
+> +generic-y += mm-types.h
+> diff --git a/xen/include/asm-generic/mm-types.h b/xen/include/asm-generic/mm-types.h
 > new file mode 100644
-> index 000000000000..793937449af7
+> index 0000000000..26490e48db
 > --- /dev/null
-> +++ b/xen/drivers/vpci/rebar.c
-> @@ -0,0 +1,131 @@
+> +++ b/xen/include/asm-generic/mm-types.h
+> @@ -0,0 +1,5 @@
 > +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
-> + *
-> + * Author: Jiqian Chen<Jiqian.Chen@amd.com>
-> + */
+> +#ifndef __ASM_GENERIC_MM_TYPES_H__
+> +#define __ASM_GENERIC_MM_TYPES_H__
 > +
-> +#include <xen/sched.h>
-> +#include <xen/vpci.h>
-> +
-> +static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
-> +                                      unsigned int reg,
-> +                                      uint32_t val,
-> +                                      void *data)
-> +{
-> +    struct vpci_bar *bar = data;
-> +    const unsigned int index = bar - pdev->vpci->header.bars;
-> +    const uint64_t size = PCI_REBAR_CTRL_SIZE(val);
-> +
-> +    if ( bar->enabled )
-> +    {
-> +        /*
-> +         * Refuse to resize a BAR while memory decoding is enabled, as
-> +         * otherwise the size of the mapped region in the p2m would become
-> +         * stale with the newly set BAR size, and the position of the BAR
-> +         * would be reset to undefined.  Note the PCIe specification also
-> +         * forbids resizing a BAR with memory decoding enabled.
-> +         */
-> +        if ( size != bar->size )
-> +            gprintk(XENLOG_ERR,
-> +                    "%pp: refuse to resize BAR#%u with memory decoding enabled\n",
-> +                    &pdev->sbdf, index);
-> +        return;
-> +    }
-> +
-> +    if ( !((size >> PCI_REBAR_CTRL_SIZE_BIAS) & bar->resizable_sizes) )
-> +        gprintk(XENLOG_WARNING,
-> +                "%pp: new BAR#%u size %#lx is not supported by hardware\n",
-> +                &pdev->sbdf, index, size);
-> +
-> +    pci_conf_write32(pdev->sbdf, reg, val);
-> +
-> +    pci_size_mem_bar(pdev->sbdf,
-> +                     PCI_BASE_ADDRESS_0 + index * 4,
-> +                     &bar->addr,
-> +                     &bar->size,
-> +                     (index == PCI_HEADER_NORMAL_NR_BARS - 1) ?
-> +                      PCI_BAR_LAST : 0);
-> +    bar->guest_addr = bar->addr;
-> +}
-> +
-> +static int cf_check init_rebar(struct pci_dev *pdev)
-> +{
-> +    uint32_t ctrl;
-> +    unsigned int nbars;
-> +    unsigned int rebar_offset = pci_find_ext_capability(pdev->sbdf,
-> +                                                        PCI_EXT_CAP_ID_REBAR);
-> +
-> +    if ( !rebar_offset )
-> +        return 0;
-> +
-> +    if ( !is_hardware_domain(pdev->domain) )
-> +    {
-> +        printk(XENLOG_ERR "%pp: resizable BARs unsupported for unpriv %pd\n",
-> +               &pdev->sbdf, pdev->domain);
-> +        return -EOPNOTSUPP;
-> +    }
-> +
-> +    ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL(0));
-> +    nbars = MASK_EXTR(ctrl, PCI_REBAR_CTRL_NBAR_MASK);
-> +    for ( unsigned int i = 0; i < nbars; i++ )
-> +    {
-> +        int rc;
-> +        struct vpci_bar *bar;
-> +        unsigned int index;
-> +
-> +        ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL(i));
-> +        index = ctrl & PCI_REBAR_CTRL_BAR_IDX;
-> +        if ( index >= PCI_HEADER_NORMAL_NR_BARS )
-> +        {
-> +            printk(XENLOG_ERR "%pd %pp: too big BAR number %u in REBAR_CTRL\n",
-> +                   pdev->domain, &pdev->sbdf, index);
-> +            continue;
-> +        }
-> +
-> +        bar = &pdev->vpci->header.bars[index];
-> +        if ( bar->type != VPCI_BAR_MEM64_LO && bar->type != VPCI_BAR_MEM32 )
-> +        {
-> +            printk(XENLOG_ERR "%pd %pp: BAR%u is not in memory space\n",
-> +                   pdev->domain, &pdev->sbdf, index);
-> +            continue;
-> +        }
-> +
-> +        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, rebar_ctrl_write,
-> +                               rebar_offset + PCI_REBAR_CTRL(i), 4, bar);
-> +        if ( rc )
-> +        {
-> +            printk(XENLOG_ERR "%pd %pp: BAR%u fail to add reg of REBAR_CTRL rc=%d\n",
-> +                   pdev->domain, &pdev->sbdf, index, rc);
-> +            /*
-> +             * Ideally we would hide the ReBar capability on error, but code
-> +             * for doing so still needs to be written. Use continue instead
-> +             * to keep any already setup register hooks, as returning an
-> +             * error will cause the hardware domain to get unmediated access
-> +             * to all device registers.
-> +             */
-> +            continue;
-> +        }
-> +
-> +        bar->resizable_sizes =
-> +            MASK_EXTR(pci_conf_read32(pdev->sbdf,
-> +                                      rebar_offset + PCI_REBAR_CAP(i)),
-> +                      PCI_REBAR_CAP_SIZES_MASK);
-> +        bar->resizable_sizes |=
-> +            (((uint64_t)MASK_EXTR(ctrl, PCI_REBAR_CTRL_SIZES_MASK) << 32) /
-> +             ISOLATE_LSB(PCI_REBAR_CAP_SIZES_MASK));
-> +    }
-> +
-> +    return 0;
-> +}
-> +REGISTER_VPCI_INIT(init_rebar, VPCI_PRIORITY_LOW);
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * tab-width: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> diff --git a/xen/include/xen/pci_regs.h b/xen/include/xen/pci_regs.h
-> index 250ba106dbd3..2f1d0d63e962 100644
-> --- a/xen/include/xen/pci_regs.h
-> +++ b/xen/include/xen/pci_regs.h
-> @@ -459,6 +459,7 @@
->   #define PCI_EXT_CAP_ID_ARI	14
->   #define PCI_EXT_CAP_ID_ATS	15
->   #define PCI_EXT_CAP_ID_SRIOV	16
-> +#define PCI_EXT_CAP_ID_REBAR	21	/* Resizable BAR */
->   
->   /* Advanced Error Reporting */
->   #define PCI_ERR_UNCOR_STATUS	4	/* Uncorrectable Error Status */
-> @@ -541,6 +542,20 @@
->   #define  PCI_VNDR_HEADER_REV(x)	(((x) >> 16) & 0xf)
->   #define  PCI_VNDR_HEADER_LEN(x)	(((x) >> 20) & 0xfff)
->   
-> +/* Resizable BARs */
-> +#define PCI_REBAR_CAP(n)	(4 + 8 * (n))	/* capability register */
-> +#define  PCI_REBAR_CAP_SIZES_MASK	0xFFFFFFF0U	/* supported BAR sizes in CAP */
-> +#define PCI_REBAR_CTRL(n)	(8 + 8 * (n))	/* control register */
-> +#define  PCI_REBAR_CTRL_BAR_IDX		0x00000007	/* BAR index */
-> +#define  PCI_REBAR_CTRL_NBAR_MASK	0x000000E0	/* # of resizable BARs */
-> +#define  PCI_REBAR_CTRL_BAR_SIZE	0x00003F00	/* BAR size */
-> +#define  PCI_REBAR_CTRL_SIZES_MASK	0xFFFF0000U	/* supported BAR sizes in CTRL */
-> +
-> +#define PCI_REBAR_CTRL_SIZE_BIAS	20
-> +#define PCI_REBAR_CTRL_SIZE(v) \
-> +            (1ULL << (MASK_EXTR(v, PCI_REBAR_CTRL_BAR_SIZE) \
-> +                      + PCI_REBAR_CTRL_SIZE_BIAS))
-> +
->   /*
->    * Hypertransport sub capability types
->    *
-> diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-> index 41e7c3bc2791..807401b2eaa2 100644
-> --- a/xen/include/xen/vpci.h
-> +++ b/xen/include/xen/vpci.h
-> @@ -100,6 +100,7 @@ struct vpci {
->               /* Guest address. */
->               uint64_t guest_addr;
->               uint64_t size;
-> +            uint64_t resizable_sizes;
->               struct rangeset *mem;
->               enum {
->                   VPCI_BAR_EMPTY,
---------------40uO6hPC8HAGbShqZOiaZI6O
+> +#endif /* __ASM_GENERIC_MM_TYPES_H__ */
+> --
+> 2.30.2
+>
+--------------aIXzOtMcji8vsWlGRxtjYtQu
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
@@ -423,322 +207,99 @@ Content-Transfer-Encoding: 7bit
   <body>
     <p><br>
     </p>
-    <div class="moz-cite-prefix">On 2/24/25 4:24 AM, Jiqian Chen wrote:<br>
+    <div class="moz-cite-prefix">On 3/6/25 7:25 PM, Shawn Anastasio
+      wrote:<br>
     </div>
     <blockquote type="cite"
-      cite="mid:20250224032433.1879630-1-Jiqian.Chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">Some devices, like AMDGPU, support resizable bar capability,
-but vpci of Xen doesn't support this feature, so they fail
-to resize bars and then cause probing failure.
+cite="mid:a8417544cc8139ceafc1314acc6f9970358061ee.1741284947.git.sanastasio@raptorengineering.com">
+      <pre wrap="" class="moz-quote-pre">Introduce a new header, mm-types.h, which will be used to define
+architecture-specific types pertinent to memory management. This will be
+used by a future commit to enable &gt;32 bit PTE flags.
 
-According to PCIe spec, each bar that supports resizing has
-two registers, PCI_REBAR_CAP and PCI_REBAR_CTRL. So, add
-handlers to support resizing the size of BARs.
-
-Note that Xen will only trap PCI_REBAR_CTRL, as PCI_REBAR_CAP
-is read-only register and the hardware domain already gets
-access to it without needing any setup.
-
-Signed-off-by: Jiqian Chen <a class="moz-txt-link-rfc2396E" href="mailto:Jiqian.Chen@amd.com">&lt;Jiqian.Chen@amd.com&gt;</a>
+Suggested-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
+Signed-off-by: Shawn Anastasio <a class="moz-txt-link-rfc2396E" href="mailto:sanastasio@raptorengineering.com">&lt;sanastasio@raptorengineering.com&gt;</a>
+Acked-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
 ---
-Hi all,
-v8-&gt;v9 changes:
-* Changed "size" to be const in function rebar_ctrl_write.
-* Delete sentence that describes PVH dom0 doesn't support resizable BARs in
-  SUPPORT.md since this patch is to support it
-* Added an entry to CHANGELOG.md to note Rebar is supported for PVH dom0.
+Changes in v4:
+  - Add Jan's Acked-by
 
-Best regards,
-Jiqian Chen.
-
-v7-&gt;v8 changes:
-* Modified commit message and some comments.
-* Deleted unused function vpci_hw_write32.
-
-v6-&gt;v7 changes:
-* Deleted codes that add register for PCI_REBAR_CAP, and added comments to explain why.
-* Added comments to explain why use "continue" when fail to add register for PCI_REBAR_CTRL.
-
-v5-&gt;v6 changes:
-* Changed "1UL" to "1ULL" in PCI_REBAR_CTRL_SIZE idefinition for 32 bit architecture.
-* In rebar_ctrl_write used "bar - pdev-&gt;vpci-&gt;header.bars" to get index instead of reading
-  from register.
-* Added the index of BAR to error messages.
-* Changed to "continue" instead of "return an error" when vpci_add_register failed.
-
-v4-&gt;v5 changes:
-* Called pci_size_mem_bar in rebar_ctrl_write to get addr and size of BAR instead of setting
-  their values directly after writing new size to hardware.
-* Changed from "return" to "continue" when index/type of BAR are not correct during initializing
-  BAR.
-* Corrected the value of PCI_REBAR_CTRL_BAR_SIZE from "0x00001F00" to "0x00003F00".
-* Renamed PCI_REBAR_SIZE_BIAS to PCI_REBAR_CTRL_SIZE_BIAS.
-* Re-defined "PCI_REBAR_CAP_SHIFT 4" to "PCI_REBAR_CAP_SIZES_MASK 0xFFFFFFF0U".
-
-v3-&gt;v4 changes:
-* Removed PCI_REBAR_CAP_SIZES since it was not needed, and added
-  PCI_REBAR_CAP_SHIFT and PCI_REBAR_CTRL_SIZES.
-* Added parameter resizable_sizes to struct vpci_bar to cache the support resizable sizes and
-  added the logic in init_rebar().
-* Changed PCI_REBAR_CAP to PCI_REBAR_CAP(n) (4+8*(n)), changed PCI_REBAR_CTRL to
-  PCI_REBAR_CTRL(n) (8+8*(n)).
-* Added domain info of pci_dev to printings of init_rebar().
-
-v2-&gt;v3 changes:
-* Used "bar-&gt;enabled" to replace "pci_conf_read16(pdev-&gt;sbdf, PCI_COMMAND) &amp; PCI_COMMAND_MEMORY",
-  and added comments why it needs this check.
-* Added "!is_hardware_domain(pdev-&gt;domain)" check in init_rebar() to return EOPNOTSUPP for domUs.
-* Moved BAR type and index check into init_rebar(), then only need to check once.
-* Added 'U' suffix for macro PCI_REBAR_CAP_SIZES.
-* Added macro PCI_REBAR_SIZE_BIAS to represent 20.
-TODO: need to hide ReBar capability from hardware domain when init_rebar() fails.
-
-v1-&gt;v2 changes:
-* In rebar_ctrl_write, to check if memory decoding is enabled, and added
-  some checks for the type of Bar.
-* Added vpci_hw_write32 to handle PCI_REBAR_CAP's write, since there is
-  no write limitation of dom0.
-* And has many other minor modifications as well.
----
- CHANGELOG.md               |   2 +
- SUPPORT.md                 |   2 +-
- xen/drivers/vpci/Makefile  |   2 +-
- xen/drivers/vpci/rebar.c   | 131 +++++++++++++++++++++++++++++++++++++
- xen/include/xen/pci_regs.h |  15 +++++
- xen/include/xen/vpci.h     |   1 +
- 6 files changed, 151 insertions(+), 2 deletions(-)
- create mode 100644 xen/drivers/vpci/rebar.c
-
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index 1979166820a8..9659dc2df9a1 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -9,6 +9,8 @@ The format is based on [Keep a Changelog](<a class="moz-txt-link-freetext" href="https://keepachangelog.com/en/1.0.0/">https://keepachangelog.com/en/1.0.0/</a>)
- ### Changed
- 
- ### Added
-+ - On x86:
-+    - Resizable BARs is supported for PVH dom0.</pre>
+ xen/arch/arm/include/asm/Makefile   | 1 +
+ xen/arch/ppc/include/asm/Makefile   | 1 +
+ xen/arch/riscv/include/asm/Makefile | 1 +</pre>
     </blockquote>
-    <pre>Acked-By: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-
-~ Oleksii
+    <pre>Reviewed-By: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a></pre>
+    <pre>~ Oleksii
 </pre>
-    <p><br>
-    </p>
     <blockquote type="cite"
-      cite="mid:20250224032433.1879630-1-Jiqian.Chen@amd.com">
+cite="mid:a8417544cc8139ceafc1314acc6f9970358061ee.1741284947.git.sanastasio@raptorengineering.com">
       <pre wrap="" class="moz-quote-pre">
- 
- ### Removed
- 
-diff --git a/SUPPORT.md b/SUPPORT.md
-index e1f4769bd8b5..91cb6f8ed264 100644
---- a/SUPPORT.md
-+++ b/SUPPORT.md
-@@ -170,7 +170,7 @@ unexpected behavior or issues on some hardware.
- 
- At least the following features are missing on a PVH dom0:
- 
--  * PCI SR-IOV and Resizable BARs.
-+  * PCI SR-IOV.
- 
-   * Native NMI forwarding (nmi=dom0 command line option).
- 
-diff --git a/xen/drivers/vpci/Makefile b/xen/drivers/vpci/Makefile
-index 1a1413b93e76..a7c8a30a8956 100644
---- a/xen/drivers/vpci/Makefile
-+++ b/xen/drivers/vpci/Makefile
-@@ -1,2 +1,2 @@
--obj-y += vpci.o header.o
-+obj-y += vpci.o header.o rebar.o
- obj-$(CONFIG_HAS_PCI_MSI) += msi.o msix.o
-diff --git a/xen/drivers/vpci/rebar.c b/xen/drivers/vpci/rebar.c
+ xen/arch/x86/include/asm/Makefile   | 1 +
+ xen/include/asm-generic/mm-types.h  | 5 +++++
+ 5 files changed, 9 insertions(+)
+ create mode 100644 xen/include/asm-generic/mm-types.h
+
+diff --git a/xen/arch/arm/include/asm/Makefile b/xen/arch/arm/include/asm/Makefile
+index 4a4036c951..f8249b2439 100644
+--- a/xen/arch/arm/include/asm/Makefile
++++ b/xen/arch/arm/include/asm/Makefile
+@@ -3,6 +3,7 @@ generic-y += altp2m.h
+ generic-y += device.h
+ generic-y += hardirq.h
+ generic-y += iocap.h
++generic-y += mm-types.h
+ generic-y += paging.h
+ generic-y += percpu.h
+ generic-y += random.h
+diff --git a/xen/arch/ppc/include/asm/Makefile b/xen/arch/ppc/include/asm/Makefile
+index c989a7f89b..c0dbc68ac6 100644
+--- a/xen/arch/ppc/include/asm/Makefile
++++ b/xen/arch/ppc/include/asm/Makefile
+@@ -5,6 +5,7 @@ generic-y += div64.h
+ generic-y += hardirq.h
+ generic-y += hypercall.h
+ generic-y += iocap.h
++generic-y += mm-types.h
+ generic-y += paging.h
+ generic-y += percpu.h
+ generic-y += perfc_defn.h
+diff --git a/xen/arch/riscv/include/asm/Makefile b/xen/arch/riscv/include/asm/Makefile
+index c989a7f89b..c0dbc68ac6 100644
+--- a/xen/arch/riscv/include/asm/Makefile
++++ b/xen/arch/riscv/include/asm/Makefile
+@@ -5,6 +5,7 @@ generic-y += div64.h
+ generic-y += hardirq.h
+ generic-y += hypercall.h
+ generic-y += iocap.h
++generic-y += mm-types.h
+ generic-y += paging.h
+ generic-y += percpu.h
+ generic-y += perfc_defn.h
+diff --git a/xen/arch/x86/include/asm/Makefile b/xen/arch/x86/include/asm/Makefile
+index 2c27787d31..26650707e6 100644
+--- a/xen/arch/x86/include/asm/Makefile
++++ b/xen/arch/x86/include/asm/Makefile
+@@ -1,2 +1,3 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ generic-y += div64.h
++generic-y += mm-types.h
+diff --git a/xen/include/asm-generic/mm-types.h b/xen/include/asm-generic/mm-types.h
 new file mode 100644
-index 000000000000..793937449af7
+index 0000000000..26490e48db
 --- /dev/null
-+++ b/xen/drivers/vpci/rebar.c
-@@ -0,0 +1,131 @@
++++ b/xen/include/asm-generic/mm-types.h
+@@ -0,0 +1,5 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
-+ *
-+ * Author: Jiqian Chen <a class="moz-txt-link-rfc2396E" href="mailto:Jiqian.Chen@amd.com">&lt;Jiqian.Chen@amd.com&gt;</a>
-+ */
++#ifndef __ASM_GENERIC_MM_TYPES_H__
++#define __ASM_GENERIC_MM_TYPES_H__
 +
-+#include &lt;xen/sched.h&gt;
-+#include &lt;xen/vpci.h&gt;
-+
-+static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
-+                                      unsigned int reg,
-+                                      uint32_t val,
-+                                      void *data)
-+{
-+    struct vpci_bar *bar = data;
-+    const unsigned int index = bar - pdev-&gt;vpci-&gt;header.bars;
-+    const uint64_t size = PCI_REBAR_CTRL_SIZE(val);
-+
-+    if ( bar-&gt;enabled )
-+    {
-+        /*
-+         * Refuse to resize a BAR while memory decoding is enabled, as
-+         * otherwise the size of the mapped region in the p2m would become
-+         * stale with the newly set BAR size, and the position of the BAR
-+         * would be reset to undefined.  Note the PCIe specification also
-+         * forbids resizing a BAR with memory decoding enabled.
-+         */
-+        if ( size != bar-&gt;size )
-+            gprintk(XENLOG_ERR,
-+                    "%pp: refuse to resize BAR#%u with memory decoding enabled\n",
-+                    &amp;pdev-&gt;sbdf, index);
-+        return;
-+    }
-+
-+    if ( !((size &gt;&gt; PCI_REBAR_CTRL_SIZE_BIAS) &amp; bar-&gt;resizable_sizes) )
-+        gprintk(XENLOG_WARNING,
-+                "%pp: new BAR#%u size %#lx is not supported by hardware\n",
-+                &amp;pdev-&gt;sbdf, index, size);
-+
-+    pci_conf_write32(pdev-&gt;sbdf, reg, val);
-+
-+    pci_size_mem_bar(pdev-&gt;sbdf,
-+                     PCI_BASE_ADDRESS_0 + index * 4,
-+                     &amp;bar-&gt;addr,
-+                     &amp;bar-&gt;size,
-+                     (index == PCI_HEADER_NORMAL_NR_BARS - 1) ?
-+                      PCI_BAR_LAST : 0);
-+    bar-&gt;guest_addr = bar-&gt;addr;
-+}
-+
-+static int cf_check init_rebar(struct pci_dev *pdev)
-+{
-+    uint32_t ctrl;
-+    unsigned int nbars;
-+    unsigned int rebar_offset = pci_find_ext_capability(pdev-&gt;sbdf,
-+                                                        PCI_EXT_CAP_ID_REBAR);
-+
-+    if ( !rebar_offset )
-+        return 0;
-+
-+    if ( !is_hardware_domain(pdev-&gt;domain) )
-+    {
-+        printk(XENLOG_ERR "%pp: resizable BARs unsupported for unpriv %pd\n",
-+               &amp;pdev-&gt;sbdf, pdev-&gt;domain);
-+        return -EOPNOTSUPP;
-+    }
-+
-+    ctrl = pci_conf_read32(pdev-&gt;sbdf, rebar_offset + PCI_REBAR_CTRL(0));
-+    nbars = MASK_EXTR(ctrl, PCI_REBAR_CTRL_NBAR_MASK);
-+    for ( unsigned int i = 0; i &lt; nbars; i++ )
-+    {
-+        int rc;
-+        struct vpci_bar *bar;
-+        unsigned int index;
-+
-+        ctrl = pci_conf_read32(pdev-&gt;sbdf, rebar_offset + PCI_REBAR_CTRL(i));
-+        index = ctrl &amp; PCI_REBAR_CTRL_BAR_IDX;
-+        if ( index &gt;= PCI_HEADER_NORMAL_NR_BARS )
-+        {
-+            printk(XENLOG_ERR "%pd %pp: too big BAR number %u in REBAR_CTRL\n",
-+                   pdev-&gt;domain, &amp;pdev-&gt;sbdf, index);
-+            continue;
-+        }
-+
-+        bar = &amp;pdev-&gt;vpci-&gt;header.bars[index];
-+        if ( bar-&gt;type != VPCI_BAR_MEM64_LO &amp;&amp; bar-&gt;type != VPCI_BAR_MEM32 )
-+        {
-+            printk(XENLOG_ERR "%pd %pp: BAR%u is not in memory space\n",
-+                   pdev-&gt;domain, &amp;pdev-&gt;sbdf, index);
-+            continue;
-+        }
-+
-+        rc = vpci_add_register(pdev-&gt;vpci, vpci_hw_read32, rebar_ctrl_write,
-+                               rebar_offset + PCI_REBAR_CTRL(i), 4, bar);
-+        if ( rc )
-+        {
-+            printk(XENLOG_ERR "%pd %pp: BAR%u fail to add reg of REBAR_CTRL rc=%d\n",
-+                   pdev-&gt;domain, &amp;pdev-&gt;sbdf, index, rc);
-+            /*
-+             * Ideally we would hide the ReBar capability on error, but code
-+             * for doing so still needs to be written. Use continue instead
-+             * to keep any already setup register hooks, as returning an
-+             * error will cause the hardware domain to get unmediated access
-+             * to all device registers.
-+             */
-+            continue;
-+        }
-+
-+        bar-&gt;resizable_sizes =
-+            MASK_EXTR(pci_conf_read32(pdev-&gt;sbdf,
-+                                      rebar_offset + PCI_REBAR_CAP(i)),
-+                      PCI_REBAR_CAP_SIZES_MASK);
-+        bar-&gt;resizable_sizes |=
-+            (((uint64_t)MASK_EXTR(ctrl, PCI_REBAR_CTRL_SIZES_MASK) &lt;&lt; 32) /
-+             ISOLATE_LSB(PCI_REBAR_CAP_SIZES_MASK));
-+    }
-+
-+    return 0;
-+}
-+REGISTER_VPCI_INIT(init_rebar, VPCI_PRIORITY_LOW);
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/include/xen/pci_regs.h b/xen/include/xen/pci_regs.h
-index 250ba106dbd3..2f1d0d63e962 100644
---- a/xen/include/xen/pci_regs.h
-+++ b/xen/include/xen/pci_regs.h
-@@ -459,6 +459,7 @@
- #define PCI_EXT_CAP_ID_ARI	14
- #define PCI_EXT_CAP_ID_ATS	15
- #define PCI_EXT_CAP_ID_SRIOV	16
-+#define PCI_EXT_CAP_ID_REBAR	21	/* Resizable BAR */
- 
- /* Advanced Error Reporting */
- #define PCI_ERR_UNCOR_STATUS	4	/* Uncorrectable Error Status */
-@@ -541,6 +542,20 @@
- #define  PCI_VNDR_HEADER_REV(x)	(((x) &gt;&gt; 16) &amp; 0xf)
- #define  PCI_VNDR_HEADER_LEN(x)	(((x) &gt;&gt; 20) &amp; 0xfff)
- 
-+/* Resizable BARs */
-+#define PCI_REBAR_CAP(n)	(4 + 8 * (n))	/* capability register */
-+#define  PCI_REBAR_CAP_SIZES_MASK	0xFFFFFFF0U	/* supported BAR sizes in CAP */
-+#define PCI_REBAR_CTRL(n)	(8 + 8 * (n))	/* control register */
-+#define  PCI_REBAR_CTRL_BAR_IDX		0x00000007	/* BAR index */
-+#define  PCI_REBAR_CTRL_NBAR_MASK	0x000000E0	/* # of resizable BARs */
-+#define  PCI_REBAR_CTRL_BAR_SIZE	0x00003F00	/* BAR size */
-+#define  PCI_REBAR_CTRL_SIZES_MASK	0xFFFF0000U	/* supported BAR sizes in CTRL */
-+
-+#define PCI_REBAR_CTRL_SIZE_BIAS	20
-+#define PCI_REBAR_CTRL_SIZE(v) \
-+            (1ULL &lt;&lt; (MASK_EXTR(v, PCI_REBAR_CTRL_BAR_SIZE) \
-+                      + PCI_REBAR_CTRL_SIZE_BIAS))
-+
- /*
-  * Hypertransport sub capability types
-  *
-diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-index 41e7c3bc2791..807401b2eaa2 100644
---- a/xen/include/xen/vpci.h
-+++ b/xen/include/xen/vpci.h
-@@ -100,6 +100,7 @@ struct vpci {
-             /* Guest address. */
-             uint64_t guest_addr;
-             uint64_t size;
-+            uint64_t resizable_sizes;
-             struct rangeset *mem;
-             enum {
-                 VPCI_BAR_EMPTY,
++#endif /* __ASM_GENERIC_MM_TYPES_H__ */
+--
+2.30.2
+
 </pre>
     </blockquote>
   </body>
 </html>
 
---------------40uO6hPC8HAGbShqZOiaZI6O--
+--------------aIXzOtMcji8vsWlGRxtjYtQu--
 
