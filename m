@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02F76A599EE
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Mar 2025 16:25:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.906658.1314062 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AA9EA59A40
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Mar 2025 16:43:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.906687.1314082 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1trf0a-00057x-7t; Mon, 10 Mar 2025 15:25:36 +0000
+	id 1trfHG-0001IP-SA; Mon, 10 Mar 2025 15:42:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 906658.1314062; Mon, 10 Mar 2025 15:25:36 +0000
+Received: by outflank-mailman (output) from mailman id 906687.1314082; Mon, 10 Mar 2025 15:42:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1trf0a-00055K-3h; Mon, 10 Mar 2025 15:25:36 +0000
-Received: by outflank-mailman (input) for mailman id 906658;
- Mon, 10 Mar 2025 15:25:33 +0000
+	id 1trfHG-0001GE-Oh; Mon, 10 Mar 2025 15:42:50 +0000
+Received: by outflank-mailman (input) for mailman id 906687;
+ Mon, 10 Mar 2025 15:42:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=B6N5=V5=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1trf0X-00055B-SZ
- for xen-devel@lists.xenproject.org; Mon, 10 Mar 2025 15:25:33 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ id 1trfHF-0001G5-2K
+ for xen-devel@lists.xenproject.org; Mon, 10 Mar 2025 15:42:49 +0000
+Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
+ [2607:f8b0:4864:20::632])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e8368e74-fdc3-11ef-9ab8-95dc52dad729;
- Mon, 10 Mar 2025 16:25:32 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-abbb12bea54so808770566b.0
- for <xen-devel@lists.xenproject.org>; Mon, 10 Mar 2025 08:25:32 -0700 (PDT)
+ id 4ff5c233-fdc6-11ef-9ab8-95dc52dad729;
+ Mon, 10 Mar 2025 16:42:46 +0100 (CET)
+Received: by mail-pl1-x632.google.com with SMTP id
+ d9443c01a7336-22359001f1aso106556925ad.3
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Mar 2025 08:42:46 -0700 (PDT)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- a640c23a62f3a-ac2b68b53a0sm24814366b.62.2025.03.10.08.25.31
+ d9443c01a7336-224109ddbf2sm79534945ad.18.2025.03.10.08.42.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 Mar 2025 08:25:32 -0700 (PDT)
+ Mon, 10 Mar 2025 08:42:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,84 +44,168 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e8368e74-fdc3-11ef-9ab8-95dc52dad729
+X-Inumbo-ID: 4ff5c233-fdc6-11ef-9ab8-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741620332; x=1742225132; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1741621365; x=1742226165; darn=lists.xenproject.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=vHLt/k8UafD//JOBgmMroG9drHMiJW1DW8qYAU21W4I=;
-        b=UBl2DAa6QtNHmaUSSClxydqpgWfHj+pVb9ZvAtZxBFiNrSBarCI0O+dw7HTCiA53nM
-         jK9qcUdVhITPsQocJtnX5RioVurNYstM33RdPuxPvJnkf9Qm8rCH/WAUJMCSthcccRsW
-         sHDwopcBoE3xS3Q6CJeSBcYzVXhEQ0j95blfs=
+        bh=On0kVqxDo+Wcr67gdF9MF+rNkvzHcv2wGO4dJ9QaaCI=;
+        b=juu1t8uvP4/5pot9v5pPjQkwTINLWsU7uPnWWY/3xJUiiUVrSrQbnXhjrxaFygasJp
+         J7wgkUd7Q+RYp5UO9BvtHEDL2h5BkIKyi+iTj9QZTDhGSQuvj5mYYszRhOBl2QlNzPGD
+         OoUDP0Ukifi43I2XxuaSW9/hgHzfr2Y1PBVzU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741620332; x=1742225132;
+        d=1e100.net; s=20230601; t=1741621365; x=1742226165;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=vHLt/k8UafD//JOBgmMroG9drHMiJW1DW8qYAU21W4I=;
-        b=fbXRbXCYdlIinLksQZI3A5+1WIA6rqE1A4KBUZsW5FLINudndLh0qkI4pdpvT8PswW
-         yQE1Mfp+j8TyPD3XfrPaL9QcWlvhAJzKiKoEvSNwIfHocBlbRaXhoKTcfMzWJ91xuBcC
-         eO6ql8UwjSOqB5jE/BSw7fILCgO5RYa0cjI31m8zTn3yq0Z0/7mdlTZT08Nkl7953dT7
-         tR5XE0zEZvYc40+5gE6sVDua59xKer46K6WIQIBBYAT4/67kxN99DNrB0COwJYmICxRk
-         nbkeIJSlr+TWOB9568ofCqXP3qWgmBG34wlU34AVXbAj+ls7QxP5BFJLOaI4B0/3zny2
-         iRXA==
-X-Gm-Message-State: AOJu0YzGLNE9jowytRKm2+rZ3UNOCdlPE1JOKv6Fcz8cUWleqikdQgGO
-	MXEBGO23+dJIBCg9fhAvfZ/IVsgue0ly8PMRaFN8nmIF1XKfroPHn1OoOqbb9I0=
-X-Gm-Gg: ASbGnctNhn7DKusIQW0R35vpCKE70F/wAZCy4utYnA/KiH+XYcC7N9GpadxDDEkC/Ye
-	VQZ65gpoqCOBUT7yS0x7ZBAwv4k6VQK4/tMuEZsyKHjv7o42g72tEQQMnPZ1az5tXcVbe03VYHI
-	IVlBH0HgBhexyySV+o5Egcwbhn/vELAQEHVeEwSisOnNBvef9E57dPZRW0IqYDJT9PVKia7WOFO
-	Km2JHB/kaUyhf5GmYMHrwSDAzdFz7/0/oyXos9f3LXgCDl4sSmKkBD3r2/UPwmSaKqDAv3RWSu7
-	vNNC9oUay6xR0ggpasrDkUMxPmBPrLiqQ6omTCfKACjFtEh8BlK7IGd6R1Lysq2w0Q==
-X-Google-Smtp-Source: AGHT+IEtUkH7mco0QSFN8CjJ/zP6tyhITpmWFPP6aFVDazreZrwZWUY69Y5KRiCMBlgWnS9XKlut6g==
-X-Received: by 2002:a17:907:97d5:b0:ac1:f5a4:6da5 with SMTP id a640c23a62f3a-ac252ba28efmr1951653366b.37.1741620332370;
-        Mon, 10 Mar 2025 08:25:32 -0700 (PDT)
-Date: Mon, 10 Mar 2025 16:25:31 +0100
+        bh=On0kVqxDo+Wcr67gdF9MF+rNkvzHcv2wGO4dJ9QaaCI=;
+        b=mlEsRn0/6LKbZIeWMMAWfM9w/3i6rclL9gvaGtiY2EgOR7T2qwlr/mFnhvZtvSk+iM
+         8In0oIHMtYB1mXv6E7jw+wWZh9vfoMscQru97lxTHtxqesNUMw/NBYaLh2dQhuSKPuAP
+         QkI3XxJ4aP0/0P4HgSm65777dsO1wiPHM/5yjnpm9kGx4xve9cODDLMUNdkI0RFDpwdR
+         jef+jHGgzNq+qGc7c2X8D4yEh2ci12TY6rLE5Hv0cETvhaFnrnKHJJbqWpXuf954HGQA
+         cihILIJyeSZusldL3MA9SDG1Ti5Q9uU/sPxTEOjSmJQyQAkaj/G7E6z/STLTcWNj4TWc
+         SSjw==
+X-Forwarded-Encrypted: i=1; AJvYcCUJ9bnxHwUegVA6e+3pc5ZGtRonh8nRHwWORSg1WiZx9jW48Mgi/rpVV/90S+q4dIierJhoh4jUs1M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxozfL3whgZa0ZOoEm/03u6Guq7s5Dk+JmU5LihxGK1sG0vmgJA
+	IHqPGoDxnLs/FYh6dwR2vpXpYgqW6Vqu/WmVIQHVH7Ni7jy13Z/rq/zz0Wy41iE=
+X-Gm-Gg: ASbGnct00I5nMeZwzSWunB5wEYc7Y0PtyuhWsVjakRHTsi1sWhb8jx1phsIWUaIX9OV
+	fKXF89Qg9Z2q4ua2js7IuO2MefnXtrc1Owwl/KMdw9XexHE/i1MOQU5Jf8lBTVzV/l0ziUYfWJt
+	Ba7IgEibJfrcukbwf8OCjZ0BD6NYGq0/iamQx7uqworQESSc+KfxuMCFoCK091eUj/v60zmB8lC
+	gQOj4V13WCtRQT/HdZVdiu7DYGQjfZ1i4+7abNnHUH6dphE+fb/yjGkBKP3pJUD2EDvhlITuB1K
+	7S3ah6leDwHr3niuorVOLIKCsSc6+sgryTuiHhgLo5aQOphklx3JhcNNJ42w9LmLtQ==
+X-Google-Smtp-Source: AGHT+IHjFe6dDuLqlhwItMU1i9wCzI1O4A9ra3UYH7d1CtRs8AnYfXVPGz0WZ/D9SIqAJx48E8PDAw==
+X-Received: by 2002:a17:902:e845:b0:223:635d:3e38 with SMTP id d9443c01a7336-2242888a9a3mr233132265ad.15.1741621365181;
+        Mon, 10 Mar 2025 08:42:45 -0700 (PDT)
+Date: Mon, 10 Mar 2025 16:42:39 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 3/3] x86/P2M: don't include MMIO_DM in p2m_is_valid()
-Message-ID: <Z88Ea1Qvork6ytkw@macbook.local>
-References: <7363b2ee-f297-4b0b-9c4d-bdebe08d514b@suse.com>
- <2c9885d4-4a9f-4998-b0fa-15c17115fa1e@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Ross Lagerwall <ross.lagerwall@citrix.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3 2/2] x86/iommu: avoid MSI address and data writes if
+ IRT index hasn't changed
+Message-ID: <Z88Ib1ewzugJmepe@macbook.local>
+References: <20250310095535.46033-1-roger.pau@citrix.com>
+ <20250310095535.46033-3-roger.pau@citrix.com>
+ <507eef19-92ff-44ca-bd0a-86299949c03b@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <2c9885d4-4a9f-4998-b0fa-15c17115fa1e@suse.com>
+In-Reply-To: <507eef19-92ff-44ca-bd0a-86299949c03b@suse.com>
 
-On Wed, Feb 26, 2025 at 12:53:14PM +0100, Jan Beulich wrote:
-> MMIO_DM specifically marks pages which aren't valid, much like INVALID
-> does. Dropping the type from the predicate
-> - (conceptually) corrects _sh_propagate(), where the comment says that
->   "something valid" is needed (the only call path not passing in RAM_RW
->   would pass in INVALID_GFN along with MMIO_DM),
-> - is benign to the use in sh_page_fault(), where the subsequent
->   mfn_valid() check would otherwise cause the same bail-out code path to
->   be taken,
-> - is benign to all three uses in p2m_pt_get_entry(), as MMIO_DM entries
->   will only ever yield non-present entries, which are being checked for
->   earlier,
-> - is benign to sh_unshadow_for_p2m_change(), for the same reason,
-> - is benign to gnttab_transfer() with EPT not in use, again because
->   MMIO_DM entries will only ever yield non-present entries, and
->   INVALID_MFN is returned for those anyway by p2m_pt_get_entry().
-> - for gnttab_transfer() with EPT in use (conceptually) corrects the
->   corner case of a page first being subject to XEN_DMOP_set_mem_type
->   converting a RAM type to MMIO_DM (which retains the MFN in the entry),
->   and then being subject to GNTTABOP_transfer, except that steal_page()
->   would later make the operation fail unconditionally anyway.
+On Mon, Mar 10, 2025 at 11:51:09AM +0100, Jan Beulich wrote:
+> On 10.03.2025 10:55, Roger Pau Monne wrote:
+> > Attempt to reduce the MSI entry writes, and the associated checking whether
+> > memory decoding and MSI-X is enabled for the PCI device, when the MSI data
+> > hasn't changed.
+> > 
+> > When using Interrupt Remapping the MSI entry will contain an index into
+> > the remapping table, and it's in such remapping table where the MSI vector
+> > and destination CPU is stored.  As such, when using interrupt remapping,
+> > changes to the interrupt affinity shouldn't result in changes to the MSI
+> > entry, and the MSI entry update can be avoided.
+> > 
+> > Signal from the IOMMU update_ire_from_msi hook whether the MSI data or
+> > address fields have changed, and thus need writing to the device registers.
+> > Such signaling is done by returning 1 from the function.  Otherwise
+> > returning 0 means no update of the MSI fields, and thus no write
+> > required.
+> > 
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 > 
-> While there also drop the unused (and otherwise now redundant)
-> p2m_has_emt().
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> with two purely cosmetic suggestions and an only loosely related question below.
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> > --- a/xen/arch/x86/hvm/vmx/vmx.c
+> > +++ b/xen/arch/x86/hvm/vmx/vmx.c
+> > @@ -415,7 +415,9 @@ static int cf_check vmx_pi_update_irte(const struct vcpu *v,
+> >  
+> >      ASSERT_PDEV_LIST_IS_READ_LOCKED(msi_desc->dev->domain);
+> >  
+> > -    return iommu_update_ire_from_msi(msi_desc, &msi_desc->msg);
+> > +    rc = iommu_update_ire_from_msi(msi_desc, &msi_desc->msg);
+> > +
+> > +    return rc < 0 ? rc : 0;
+> 
+> Only tangential here, but: Why does this function have a return type of
+> non-void, when neither caller cares?
 
-It's tightening an existing check (making it more restrictive), so as
-long as current users can deal with it.
+I'm afraid there's more wrong in vmx_pi_update_irte() that I've just
+spotted afterwards.
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+vmx_pi_update_irte() passes to iommu_update_ire_from_msi() the
+msi_desc->msg field, but that field is supposed to always contain the
+non-translated MSI data, as you correctly pointed out in v1 it's
+consumed by dump_msi().  vmx_pi_update_irte() using msi_desc->msg to
+store the translated MSI effectively breaks dump_msi().
+
+Also vmx_pi_update_irte() relies on the IRT index never changing, as
+otherwise it's missing any logic to update the MSI registers.
+
+I will fix that in a pre-patch.
+
+> 
+> > --- a/xen/drivers/passthrough/amd/iommu_intr.c
+> > +++ b/xen/drivers/passthrough/amd/iommu_intr.c
+> > @@ -492,7 +492,7 @@ static int update_intremap_entry_from_msi_msg(
+> >                 get_ivrs_mappings(iommu->seg)[alias_id].intremap_table);
+> >      }
+> >  
+> > -    return 0;
+> > +    return !fresh ? 0 : 1;
+> >  }
+> 
+> Simply
+> 
+>     return fresh;
+> 
+> ?
+> 
+> > @@ -546,7 +546,7 @@ int cf_check amd_iommu_msi_msg_update_ire(
+> >      rc = update_intremap_entry_from_msi_msg(iommu, bdf, nr,
+> >                                              &msi_desc->remap_index,
+> >                                              msg, &data);
+> > -    if ( !rc )
+> > +    if ( rc > 0 )
+> >      {
+> >          for ( i = 1; i < nr; ++i )
+> >              msi_desc[i].remap_index = msi_desc->remap_index + i;
+> > --- a/xen/drivers/passthrough/vtd/intremap.c
+> > +++ b/xen/drivers/passthrough/vtd/intremap.c
+> > @@ -506,6 +506,7 @@ static int msi_msg_to_remap_entry(
+> >      unsigned int index, i, nr = 1;
+> >      unsigned long flags;
+> >      const struct pi_desc *pi_desc = msi_desc->pi_desc;
+> > +    bool alloc = false;
+> >  
+> >      if ( msi_desc->msi_attrib.type == PCI_CAP_ID_MSI )
+> >          nr = msi_desc->msi.nvec;
+> > @@ -529,6 +530,7 @@ static int msi_msg_to_remap_entry(
+> >          index = alloc_remap_entry(iommu, nr);
+> >          for ( i = 0; i < nr; ++i )
+> >              msi_desc[i].remap_index = index + i;
+> > +        alloc = true;
+> >      }
+> >      else
+> >          index = msi_desc->remap_index;
+> > @@ -601,7 +603,7 @@ static int msi_msg_to_remap_entry(
+> >      unmap_vtd_domain_page(iremap_entries);
+> >      spin_unlock_irqrestore(&iommu->intremap.lock, flags);
+> >  
+> > -    return 0;
+> > +    return alloc ? 1 : 0;
+> >  }
+> 
+> Like above, simply
+> 
+>     return alloc;
+> 
+> ?
+
+I wasn't sure whether this was overloading the boolean type and
+possibly breaking some MISRA rule.  I can adjust.
 
 Thanks, Roger.
 
