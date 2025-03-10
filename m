@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08230A5A3EC
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Mar 2025 20:41:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.906799.1314172 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72AC2A5A441
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Mar 2025 21:00:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.906819.1314202 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1triyz-00060P-Fu; Mon, 10 Mar 2025 19:40:13 +0000
+	id 1trjIJ-0001Gf-AP; Mon, 10 Mar 2025 20:00:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 906799.1314172; Mon, 10 Mar 2025 19:40:13 +0000
+Received: by outflank-mailman (output) from mailman id 906819.1314202; Mon, 10 Mar 2025 20:00:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1triyz-0005xv-Cs; Mon, 10 Mar 2025 19:40:13 +0000
-Received: by outflank-mailman (input) for mailman id 906799;
- Mon, 10 Mar 2025 19:40:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1trjIJ-0001Dz-7G; Mon, 10 Mar 2025 20:00:11 +0000
+Received: by outflank-mailman (input) for mailman id 906819;
+ Mon, 10 Mar 2025 20:00:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Hcpv=V5=eik.bme.hu=balaton@srs-se1.protection.inumbo.net>)
- id 1triyy-0005xp-Qm
- for xen-devel@lists.xenproject.org; Mon, 10 Mar 2025 19:40:12 +0000
-Received: from zero.eik.bme.hu (zero.eik.bme.hu [152.66.115.2])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 78ca931a-fde7-11ef-9898-31a8f345e629;
- Mon, 10 Mar 2025 20:40:08 +0100 (CET)
-Received: from zero.eik.bme.hu (localhost [127.0.0.1])
- by zero.eik.bme.hu (Postfix) with ESMTP id 4525E4E602E;
- Mon, 10 Mar 2025 20:40:07 +0100 (CET)
-Received: from zero.eik.bme.hu ([127.0.0.1])
- by zero.eik.bme.hu (zero.eik.bme.hu [127.0.0.1]) (amavisd-new, port 10028)
- with ESMTP id UKowroTsGVfA; Mon, 10 Mar 2025 20:40:04 +0100 (CET)
-Received: by zero.eik.bme.hu (Postfix, from userid 432)
- id EF2D94E6030; Mon, 10 Mar 2025 20:40:04 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
- by zero.eik.bme.hu (Postfix) with ESMTP id EC36774577C;
- Mon, 10 Mar 2025 20:40:04 +0100 (CET)
+ <SRS0=UYYE=V5=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1trjIH-0001Dr-C8
+ for xen-devel@lists.xenproject.org; Mon, 10 Mar 2025 20:00:09 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 44366cb7-fdea-11ef-9ab8-95dc52dad729;
+ Mon, 10 Mar 2025 21:00:08 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-43cf034d4abso15719945e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Mar 2025 13:00:08 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43cea1e041fsm92235765e9.23.2025.03.10.13.00.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 10 Mar 2025 13:00:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,191 +45,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 78ca931a-fde7-11ef-9898-31a8f345e629
-X-Virus-Scanned: amavisd-new at eik.bme.hu
-Date: Mon, 10 Mar 2025 20:40:04 +0100 (CET)
-From: BALATON Zoltan <balaton@eik.bme.hu>
-To: Pierrick Bouvier <pierrick.bouvier@linaro.org>
-cc: qemu-devel@nongnu.org, qemu-ppc@nongnu.org, 
-    Alistair Francis <alistair.francis@wdc.com>, 
-    Richard Henderson <richard.henderson@linaro.org>, 
-    Harsh Prateek Bora <harshpb@linux.ibm.com>, alex.bennee@linaro.org, 
-    Palmer Dabbelt <palmer@dabbelt.com>, 
-    Daniel Henrique Barboza <danielhb413@gmail.com>, kvm@vger.kernel.org, 
-    Peter Xu <peterx@redhat.com>, Nicholas Piggin <npiggin@gmail.com>, 
-    Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, 
-    David Hildenbrand <david@redhat.com>, Weiwei Li <liwei1518@gmail.com>, 
-    Paul Durrant <paul@xen.org>, 
-    "Edgar E. Iglesias" <edgar.iglesias@gmail.com>, 
-    =?ISO-8859-15?Q?Philippe_Mathieu-Daud=E9?= <philmd@linaro.org>, 
-    Anthony PERARD <anthony@xenproject.org>, 
-    Yoshinori Sato <ysato@users.sourceforge.jp>, 
-    manos.pitsidianakis@linaro.org, qemu-riscv@nongnu.org, 
-    Paolo Bonzini <pbonzini@redhat.com>, xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH 00/16] make system memory API available for common code
-In-Reply-To: <a57faa36-2e66-4438-accc-0cbfdeebf100@linaro.org>
-Message-ID: <6b3e48e2-0730-09e2-55b1-35daff4ecf75@eik.bme.hu>
-References: <20250310045842.2650784-1-pierrick.bouvier@linaro.org> <f231b3be-b308-56cf-53ff-1a6a7fb4da5c@eik.bme.hu> <c5b9eea9-c412-461d-b79b-0fa2f72128ee@linaro.org> <a57faa36-2e66-4438-accc-0cbfdeebf100@linaro.org>
+X-Inumbo-ID: 44366cb7-fdea-11ef-9ab8-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1741636807; x=1742241607; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=OxW7Z5w1m+QU8mPxDLgCVrhTjj2pjgURoSloPRibUlA=;
+        b=anGYHeGm3AlvmfycqjDFNOFDPjYPsNmsFgoE/1XJHvFuzSG4TioEL8IssEwnZr6X4H
+         DY2sSCV8OZyra+a/MI1iQs3HJM2r1FnF8SiPUQhVEbtFb+BxW+o8EDdR3sroJBL4iLlE
+         7tJjb7Tza4+z3XP9f9dZNR/GdZ1pvwzVyn578=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1741636807; x=1742241607;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=OxW7Z5w1m+QU8mPxDLgCVrhTjj2pjgURoSloPRibUlA=;
+        b=WH1ACGuk7+Eo9UFv+h+PtaqIIwGlceUwqN8HLou8J6CESIENJuy5eFpREJRBqowwyH
+         xWYD8v2g8a+TBrT/OyUMiSmrg31fnpTlXJBlSMpFTrDdSh57UVT97eks7Z19hlmpJ3or
+         A281lMmTJxo2Q4fygfJCyk7a3FTAdUUHz/0ZbYwiUh1fr+amheEfemT3kfio+jFGIWtB
+         /Vp+vYiVtz01MakLvEl4DXOr4/FkQU+vE4SjwhuI1zf+rjTXO9cD9sZ4fHyo2PXImlR6
+         gODP7V057Pzcx3jozA22fqDjSWz5eMGmO2uBGexRu3FLAe44pv5vrVKXJZfVWM+eXLUw
+         zE4A==
+X-Gm-Message-State: AOJu0Yy2/euTiwZdihq+lvU+45y2yg19OBTvbvdi2oK56JXOYJJYe4Xr
+	7w10HkY664VqQCvHoETk99Pxy0+nSKrYyhaLqRG2ThBZrnr2mbzcc+Fy6PGsWok=
+X-Gm-Gg: ASbGnct7MY89pZWNqMl0IGWjrwTfylZFAm90QAfrkeoKSkaiF7l+uad5Y/ZjMPXELEq
+	8C0uyN2dQT+utIVeom62ryW2582PFnnG6Lt7Vh+GLREDxqMf5e6s7L5z04PNu8Jr2+h6G+OKMk+
+	mGOfkX8RDqJSzZpEub5hGuivXcMZZ9KX1RnWr7Gd0DmN0i/kQOXkdx7YqIZn9OEsvBWXQRq98Pm
+	+3uIBUbX/IyOjugd9ihd8uWRqpcMejNLojeroxyEXuD1F+2VoEKT6jcTEj1FzxPGH6noexhAgk+
+	MV4/vrm9tmBoxFdg5Qb5TX6cBZRhD0SznW+QuJhhwavRikjENq1qka6kZZuPyjJ2Ph0eZ4ZrDqh
+	BNj2978CE
+X-Google-Smtp-Source: AGHT+IE18akr9YEFppq34L2cPbXOF0emAS1qTK1oSEKxTbtgqeecpuIamQA+FimK5RT9349/7RC52A==
+X-Received: by 2002:a05:600c:1c81:b0:43c:efed:733e with SMTP id 5b1f17b1804b1-43d01be6389mr16366575e9.14.1741636807602;
+        Mon, 10 Mar 2025 13:00:07 -0700 (PDT)
+Message-ID: <d9b90141-3af1-4247-b900-0032d70ade0e@citrix.com>
+Date: Mon, 10 Mar 2025 20:00:06 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII; format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] automation/cirrus-ci: store xen/.config as an artifact
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Anthony PERARD
+ <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>,
+ Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20250310181638.51196-1-roger.pau@citrix.com>
+ <b95a2bcc-4ab8-46d5-9d92-1f2c37d4c279@citrix.com>
+ <Z88xmtUGw5k1nsBN@macbook.local>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <Z88xmtUGw5k1nsBN@macbook.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, 10 Mar 2025, Pierrick Bouvier wrote:
-> On 3/10/25 09:28, Pierrick Bouvier wrote:
->> Hi Zoltan,
->> 
->> On 3/10/25 06:23, BALATON Zoltan wrote:
->>> On Sun, 9 Mar 2025, Pierrick Bouvier wrote:
->>>> The main goal of this series is to be able to call any memory ld/st 
->>>> function
->>>> from code that is *not* target dependent.
->>> 
->>> Why is that needed?
->>> 
->> 
->> this series belongs to the "single binary" topic, where we are trying to
->> build a single QEMU binary with all architectures embedded.
-
-Yes I get it now, I just forgot as this wasn't mentioned so the goal 
-wasn't obvious.
-
->> To achieve that, we need to have every single compilation unit compiled
->> only once, to be able to link a binary without any symbol conflict.
->> 
->> A consequence of that is target specific code (in terms of code relying
->> of target specific macros) needs to be converted to common code,
->> checking at runtime properties of the target we run. We are tackling
->> various places in QEMU codebase at the same time, which can be confusing
->> for the community members.
-
-Mentioning this single binary in related series may help reminding readers 
-about the context.
-
->> This series take care of system memory related functions and associated
->> compilation units in system/.
->> 
->>>> As a positive side effect, we can
->>>> turn related system compilation units into common code.
->>> 
->>> Are there any negative side effects? In particular have you done any
->>> performance benchmarking to see if this causes a measurable slow down?
->>> Such as with the STREAM benchmark:
->>> https://stackoverflow.com/questions/56086993/what-does-stream-memory-bandwidth-benchmark-really-measure
->>> 
->>> Maybe it would be good to have some performance tests similiar to
->>> functional tests that could be run like the CI tests to detect such
->>> performance changes. People report that QEMU is getting slower and slower
->>> with each release. Maybe it could be a GSoC project to make such tests but
->>> maybe we're too late for that.
->>> 
->> 
->> I agree with you, and it's something we have mentioned during our
->> "internal" conversations. Testing performance with existing functional
->> tests would already be a first good step. However, given the poor
->> reliability we have on our CI runners, I think it's a bit doomed.
->> 
->> Ideally, every QEMU release cycle should have a performance measurement
->> window to detect potential sources of regressions.
-
-Maybe instead of aiming for full CI like performance testing something 
-simpler like a few tests that excercise some apects each like STREAM that 
-tests memory access, copying a file from network and/or disk that tests 
-I/O and mp3 encode with lame for example that's supposed to test floating 
-point and SIMD might be simpler to do. It could be made a bootable image 
-that just runs the test and reports a number (I did that before for 
-qemu-system-ppc when we wanted to test an issue that on some hosts it ran 
-slower). Such test could be run by somebody making changes so they could 
-call these before and after their patch to quickly check if there's 
-anything to improve. This may be less through then full performance 
-testing but still give some insight and better than not testing anything 
-for performance.
-
-I'm bringig this topic up to try to keep awareness on this so QEMU can 
-remain true to its name. (Although I'm not sure if originally the Q in the 
-name stood for the time it took to write or its performance but it's 
-hopefully still a goal to keep it fast.)
-
->> To answer to your specific question, I am trying first to get a review
->> on the approach taken. We can always optimize in next series version, in
->> case we identify it's a big deal to introduce a branch for every memory
->> related function call.
-
-I'm not sure we can always optimise after the fact so sometimes it can be 
-necessary to take performance in consideration while designing changes.
-
->> In all cases, transforming code relying on compile time
->> optimization/dead code elimination through defines to runtime checks
->> will *always* have an impact,
-
-Yes, that's why it would be good to know how much impact is that.
-
->> even though it should be minimal in most of cases.
-
-Hopefully but how do we know if we don't even test for it?
-
->> But the maintenance and compilation time benefits, as well as
->> the perspectives it opens (single binary, heterogeneous emulation, use
->> QEMU as a library) are worth it IMHO.
-
-I'm not so sure about that. Heterogeneous emulation sounds interesting but 
-is it needed most of the time? Using QEMU as a library also may not be 
-common and limited by licencing. The single binary would simplify packages 
-but then this binary may get huge so it's slower to load, may take more 
-resources to run and more time to compile and if somebody only needs one 
-architecture why do I want to include all of the others and wait for it to 
-compile using up a lot of space on my disk? So in other words, while these 
-are interesting and good goals could it be achieved with keeping the 
-current way of building single ARCH binary as opposed to single binary 
-with multiple archs and not throwing out the optimisations a single arch 
-binary can use? Which one is better may depend on the use case so if 
-possible it would be better to allow both keeping what we have and adding 
-multi arch binary on top not replacing the current way completely.
-
->>> Regards,
->>> BALATON Zoltan
->> 
->> Regards,
->> Pierrick
->> 
+On 10/03/2025 6:38 pm, Roger Pau Monné wrote:
+> On Mon, Mar 10, 2025 at 06:30:15PM +0000, Andrew Cooper wrote:
+>> On 10/03/2025 6:16 pm, Roger Pau Monne wrote:
+>>> Always store xen/.config as an artifact, renamed to xen-config to match
+>>> the naming used in the Gitlab CI tests.
+>>>
+>>> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>> Looking at this, I suspect my failure was caused by trying to capture
+>> ".config" directly.
+>>
+>>> ---
+>>>  .cirrus.yml | 12 ++++++++++++
+>>>  1 file changed, 12 insertions(+)
+>>>
+>>> diff --git a/.cirrus.yml b/.cirrus.yml
+>>> index e2949d99d73a..1a39f5026f9a 100644
+>>> --- a/.cirrus.yml
+>>> +++ b/.cirrus.yml
+>>> @@ -15,6 +15,14 @@ freebsd_template: &FREEBSD_ENV
+>>>      APPEND_INCLUDES: /usr/local/include
+>>>      CIRRUS_CLONE_DEPTH: 1
+>>>  
+>>> +freebsd_artifacts: &FREEBSD_ARTIFACTS
+>>> +  always:
+>>> +    rename_script:
+>>> +      - cp xen/.config xen-config
+>>> +    config_artifacts:
+>>> +      path: xen-config
+>>> +      type: text/plain
+>> Can't this be part of freebsd_template directly?
+>>
+>> Or is there an ordering problem with the regular build_script ?
+> Exactly, that was my first attempt (placing it in freebsd_template),
+> but then the collection would be done before the build, as
+> freebsd_template sets the env variables ahead of the build, see:
 >
-> As a side note, we recently did some work around performance analysis (for 
-> aarch64), as you can see here [1]. In the end, QEMU performance depends
-
-Thank you, very interesting read.
-
-> (roughly in this order) on:
-> 1. quality of code generated by TCG
-> 2. helper code to implement instructions
-> 3. mmu emulation
+> https://cirrus-ci.com/task/5086615544004608
 >
-> Other state of the art translators that exist are faster (fex, box64) mainly 
-> by enhancing 1, and relying on various tricks to avoid translating some 
-> libraries calls. But those translators are host/target specific, and the 
-> ratio of instructions generated (vs target ones read) is much lower than 
-> QEMU. In the experimentation listed in the blog, I observed that for 
-> qemu-system-aarch64, we have an average expansion factor of around 18 (1 
-> guest insn translates to 18 host ones).
->
-> For users seeing performance decreases, beyond the QEMU code changes, adding 
-> new target instructions may add new helpers, which may be called by the stack 
-> people use, and they can sometimes observe a slower behaviour.
+> Thanks, Roger.
 
-I'm mostly interested in emulating PPC for older and obscure OSes running 
-on older hardware so there new instructions isn't a problem. Most of the 
-time MMU emulation, helpers and TCG code generation is mostly dominating 
-there and on PPC particularly the lack of hard float usage. Apart from 
-that maybe some device emulations but that's a different topic. This is 
-already slow so any overhead introduced at lowest levels just adds to 
-that and target specific optimisation may only get back what's lost 
-elsewhere.
+Ok.
 
-Regards,
-BALATON Zoltan
-
-> There are probably some other low hanging fruits for other target 
-> architectures.
->
-> [1] https://www.linaro.org/blog/qemu-a-tale-of-performance-analysis/
->
->
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
