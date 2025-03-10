@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B65BBA591CC
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Mar 2025 11:51:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.906416.1313863 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 180ACA59219
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Mar 2025 11:58:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.906425.1313873 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1traj5-0006n0-RN; Mon, 10 Mar 2025 10:51:15 +0000
+	id 1traq7-0007RK-HI; Mon, 10 Mar 2025 10:58:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 906416.1313863; Mon, 10 Mar 2025 10:51:15 +0000
+Received: by outflank-mailman (output) from mailman id 906425.1313873; Mon, 10 Mar 2025 10:58:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1traj5-0006la-Or; Mon, 10 Mar 2025 10:51:15 +0000
-Received: by outflank-mailman (input) for mailman id 906416;
- Mon, 10 Mar 2025 10:51:14 +0000
+	id 1traq7-0007PI-Eb; Mon, 10 Mar 2025 10:58:31 +0000
+Received: by outflank-mailman (input) for mailman id 906425;
+ Mon, 10 Mar 2025 10:58:30 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sahL=V5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1traj4-0006lU-93
- for xen-devel@lists.xenproject.org; Mon, 10 Mar 2025 10:51:14 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ id 1traq5-0007Ou-Uq
+ for xen-devel@lists.xenproject.org; Mon, 10 Mar 2025 10:58:29 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 948d1454-fd9d-11ef-9898-31a8f345e629;
- Mon, 10 Mar 2025 11:51:11 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-43cf3192f3bso9220255e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 10 Mar 2025 03:51:11 -0700 (PDT)
+ id 988556ca-fd9e-11ef-9898-31a8f345e629;
+ Mon, 10 Mar 2025 11:58:27 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-4393dc02b78so23191805e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Mar 2025 03:58:27 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43cf6c74f38sm33861315e9.20.2025.03.10.03.51.10
+ 5b1f17b1804b1-43cfc02e8bfsm10019165e9.1.2025.03.10.03.58.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Mar 2025 03:51:10 -0700 (PDT)
+ Mon, 10 Mar 2025 03:58:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 948d1454-fd9d-11ef-9898-31a8f345e629
+X-Inumbo-ID: 988556ca-fd9e-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741603871; x=1742208671; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741604307; x=1742209107; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=wzmehQ4pIDj8/sRLN/NhOagiHJebn3c57Zcma0dsm/M=;
-        b=fvJ9IIWZ6fpWAbDk1N30AFPT7Ck07+TjVVEZ2BU9rZB25KVU6SFQz3D6PvFAfNSinA
-         B/RLqMGA+4um8Y4dxc3zD4yp11fnsmvnZrvjboWP20HPF7yiI3QyhaOcNuM8Mgn92rfa
-         AYT9kIRFh/G5qkZEV7aVkHXYHzf3BgneSklh4FWYbYUtP1AbRBv7Rzthnaz3ieca1ewg
-         tqih9/9dB+9j9H1M0P6KoEA0pIUYM76uAQf9t3kSJsf/5AMB0bHxdgppg2GxxISYQVjj
-         u8gL0oJgeNH/Jbj20e5KradbMEdQb2eaoxrNcyERd3285Ava+tj96jHW0Ic+8Ci/V2pq
-         3VfQ==
+        bh=M7NUsoZ3YDpgxf0kMho0qHQQ0xPqGzRseuU60Jh2/Vs=;
+        b=fwB55Jbnfv0C561GPdrSjgtkg0LLE2YZxLeh5+nI7J726sy9+IbV/0dvmZ1E8RiGoE
+         WHp6mzskcVlL+W2+6KFWqyutNU2vskHxiw8E0ying4gBQnPo2+3fxVgH44JueKQhODRb
+         bXExnMRrW70eKVsFtoxPSgcTHD1UrkV+LuOGjRxAMX3J8CNoI7bxdJbuMn7lV82jEKeK
+         VPDYmTBf77c/KtiAKVOSQsVwxE+mywQ3HSGHzZm/RFG6cw7VDgF9DNMPzUiLAUH/8Dh2
+         TxMvCV8oUDvipy4Ec9qMaeEzEAJqLx7+yiF3bsceYoF/A20XSslhiZqozPc4SVLyAwFk
+         sc5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741603871; x=1742208671;
+        d=1e100.net; s=20230601; t=1741604307; x=1742209107;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=wzmehQ4pIDj8/sRLN/NhOagiHJebn3c57Zcma0dsm/M=;
-        b=LrU+wu6+JgP6Ib0LR+g8UVS6mGNqzzDDrumdIutDFTauJVuwzUxuE48FPPJ8wnTNhk
-         2ndGJ2VzC9MwGkO9NZk8uYIHn2Dz7tYWsdnfEQDMCQVgSneULeAH5YdJvH94nBqPBWhB
-         gsSIBp4LPqviAPGw57kH2kyKqcVQvXmlgT6BhE8IeFVV71Uu+Y2MEslGVK0IG5Ve1me+
-         DpBPxShrv3V69sk3Dnq96vnKQ2BhUp9Ucxbp/xVJ8nTHPSakVaoJztfV7/jwOpj7J2mT
-         +RjyrP+rK9/4s8QITupwOxokdU3TYGEcEKGl8v4FgKz27qs/aSnGIeM6r5Uuw8BXAELK
-         LJpQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXJgy958mpKkQELQJXSSvtpRnH9HiTesMOrihDIfNPyuOfKnri14iGGc/r0k1o92HRDmTOROh/qv2c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwIn+OtuaJzDtc6C80p34InxI29RNvMMKD0Nc/12ABlrMipNbTO
-	sG3no0CT0uhbm+Ivt7xf58EZAmfsh34Drtjs8+ADmiamt7blUvoh/H7H6UIFDA==
-X-Gm-Gg: ASbGnctvO5kZ91FMETaQB148p79p93ZCTKmVZ6TIaebogA7X7sVB9nGi07U2SnBDl/z
-	P48UoCDAeK3J6qZmrqPm7s/jMHSUAGtEn7VuQOVf0Nxxwr3NDLJbbZCGzvJs2LKivjCzT2+EYg1
-	Bz+2FNeaE+M03DoGiXYkS2aAFpeVR609bNNIjjV15TVRpnYbCTJMR4A29LFi2m89La6kzXMOvHo
-	hR0GhDE34DCWQ0dqXmWdQYo0oKOr3y0sC0CEm0InY9CcYIUkecUzfKlQwW7o1hLH2a+rfT4LOSc
-	ujhnzS0qhWX7w+yJBZPV/e+lZ80YYVXW1xAVhZGz5TtHk0hwxNn6IQcpJm5p4R70Gv/Uj7/xQn1
-	Swlli5rrTne+dWC1tLTimYd/9c7kZOA==
-X-Google-Smtp-Source: AGHT+IFplJVqNIfE6TPtDRpiNXOvhW5YCRHQHQfoxxZb0bwAwbtP7ofueGlSXQuZoxZr1J3Xyt7Fnw==
-X-Received: by 2002:a05:600c:46ca:b0:439:88bb:d002 with SMTP id 5b1f17b1804b1-43c5a629b5bmr76113665e9.23.1741603871123;
-        Mon, 10 Mar 2025 03:51:11 -0700 (PDT)
-Message-ID: <507eef19-92ff-44ca-bd0a-86299949c03b@suse.com>
-Date: Mon, 10 Mar 2025 11:51:09 +0100
+        bh=M7NUsoZ3YDpgxf0kMho0qHQQ0xPqGzRseuU60Jh2/Vs=;
+        b=Tzw8C37ErccRZ4t/ujt+aUiGUAhCQFip8bFQa/Kk0jMlVxL+evtbCwHTcU1TSQg87r
+         nslYrRF9DBsvRljCZuBQz6FUFbLGzGyK51620554j3y5ZnvA836wcNymLDuAKMVDlMnW
+         mBtxI8hpiLEuVc5Pz/w59Mh1uP3kI/waPc7I1moKR6Kwzwj5whQx6NPBVDGAI4mQUVIb
+         GXtRu1F8S6B6hzVweHQI+GAqY+58KhkTwdOirBIzBKdCqAk88dABeTnBxxrQTlnuUQMn
+         LjuiLrx4JG4ifU5uyCMnqyC8Bbc5S7JV/MbJV/w87ffYW4WtDz3Um62Mrnw+k0JwhSYc
+         wBnQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVzvpfoOeun/6EPr7bs30AkuzRZtME01oemhwxrL40Xl3PAidC4UWjWAgkrcg3l7RNq60bXL244PZc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxFWEmsSiYCgSWNVc7dyDAIuJLDy2qcAXRxfiW2Yn+4mTLDioed
+	aGLwttQunOxYinlBlWW8JuUAyCw2ipcQZGHgVTY8cMDLydQs5K68dlsGK6WQHw==
+X-Gm-Gg: ASbGncsjWo7wk+lXTaiKgDmEotDm1T4QH5TV9Dh4tT6we6qpw5itEvuyymyFLM3K9Wp
+	WPDOhPZHJdWmhUxGOhlQHWekYDtyaMz2S3Yq3Hp1XTeM3yah70oo4pEwVcjo5lpGPhQ4LL6Svn4
+	musnxVUjcnW07SkGrdYwgaVrCnQOqFHxTvxfXIajQtXhvmmCszx5BgnhGuy22BlW9VOQ+O/L0UH
+	TzZpGGWYTRKpgPsMJ2PzJSNtpDIfuN9zn+owc7J/m7g8hw58/j3wIZeIiWKqAsQF/jggDYMoKMB
+	ErFYzAy3wCLdbv5/grRAqZ7+EkgRTg7rvSFJoskcZmSwJY0EO9QTQe7KxeQLC5BAVzAL/a6Gh89
+	Jg6HBTW2GuhpVAOT7XCpCIXDrOOO/rg==
+X-Google-Smtp-Source: AGHT+IEc3V2k68rcGEzv5Uk7jGHAOA5Ns2LegZDIzMkv700iJ542xID08Acj6a26RgcOXLrLYjOk8Q==
+X-Received: by 2002:a05:600c:19cd:b0:43c:f1b8:16ad with SMTP id 5b1f17b1804b1-43cf1b81b78mr28990245e9.30.1741604307261;
+        Mon, 10 Mar 2025 03:58:27 -0700 (PDT)
+Message-ID: <15510eaa-021a-4d7f-8756-c6abdf631dce@suse.com>
+Date: Mon, 10 Mar 2025 11:58:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] x86/iommu: avoid MSI address and data writes if
- IRT index hasn't changed
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250310095535.46033-1-roger.pau@citrix.com>
- <20250310095535.46033-3-roger.pau@citrix.com>
+Subject: Re: [PATCH v4 1/2] xen/passthrough: Provide stub functions when
+ !HAS_PASSTHROUGH
+To: Luca Fancellu <luca.fancellu@arm.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>
+References: <20250307075818.740649-1-luca.fancellu@arm.com>
+ <20250307075818.740649-2-luca.fancellu@arm.com>
+ <9a257d60-3047-4d8a-b461-ce793d5f89e8@xen.org>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,102 +124,145 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250310095535.46033-3-roger.pau@citrix.com>
+In-Reply-To: <9a257d60-3047-4d8a-b461-ce793d5f89e8@xen.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 10.03.2025 10:55, Roger Pau Monne wrote:
-> Attempt to reduce the MSI entry writes, and the associated checking whether
-> memory decoding and MSI-X is enabled for the PCI device, when the MSI data
-> hasn't changed.
+On 07.03.2025 10:09, Julien Grall wrote:
+> Hi Luca,
 > 
-> When using Interrupt Remapping the MSI entry will contain an index into
-> the remapping table, and it's in such remapping table where the MSI vector
-> and destination CPU is stored.  As such, when using interrupt remapping,
-> changes to the interrupt affinity shouldn't result in changes to the MSI
-> entry, and the MSI entry update can be avoided.
+> On 07/03/2025 07:58, Luca Fancellu wrote:
+>> When Xen is built without HAS_PASSTHROUGH, there are some parts
+>> in arm where iommu_* functions are called in the codebase, but
+>> their implementation is under xen/drivers/passthrough that is
+>> not built.
+>>
+>> So provide some stub for these functions in order to build Xen
+>> when !HAS_PASSTHROUGH, which is the case for example on systems
+>> with MPU support.
+>>
+>> For gnttab_need_iommu_mapping() in the Arm part, modify the macro
+>> to use IS_ENABLED for the HAS_PASSTHROUGH Kconfig.
+>>
+>> Fixes: 0388a5979b21 ("xen/arm: mpu: Introduce choice between MMU and MPU")
+>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+>> ---
+>> v4 changes:
+>>   - re-introduced stub for iommu_use_hap_pt, Stefano suggested
+>>     it is ok to have it in iommu.h.
+>>   - Reworded comment in iommu_domain_init from Jan suggestion
+>>
+>> v3 Changes:
+>>   - removed stub for iommu_use_hap_pt, another solution will be
+>>     done for the instance in common arm code.
+>>   - Moved a comment close to the macro it was referred to
+>>   - add comment to iommu_domain_init() stub
+>>   - modified commit message
+>>   - Add fixes tag
+>>
+>> v2 Changes:
+>>   - modify gnttab_need_iommu_mapping to use IS_ENABLED
+>>   - removed macro that didn't allow some of the parameter to be
+>>     evaluated
+>>   - Changed commit message
+>> ---
+>> ---
+>>   xen/arch/arm/include/asm/grant_table.h |  5 +--
+>>   xen/include/xen/iommu.h                | 50 +++++++++++++++++++++++++-
+>>   2 files changed, 52 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/xen/arch/arm/include/asm/grant_table.h b/xen/arch/arm/include/asm/grant_table.h
+>> index d3c518a926b9..c5d87b60c4df 100644
+>> --- a/xen/arch/arm/include/asm/grant_table.h
+>> +++ b/xen/arch/arm/include/asm/grant_table.h
+>> @@ -73,8 +73,9 @@ int replace_grant_host_mapping(uint64_t gpaddr, mfn_t frame,
+>>   #define gnttab_status_gfn(d, t, i)                                       \
+>>       page_get_xenheap_gfn(gnttab_status_page(t, i))
+>>   
+>> -#define gnttab_need_iommu_mapping(d)                    \
+>> -    (is_domain_direct_mapped(d) && is_iommu_enabled(d))
+>> +#define gnttab_need_iommu_mapping(d)                                     \
+>> +    (IS_ENABLED(CONFIG_HAS_PASSTHROUGH) && is_domain_direct_mapped(d) && \
+>> +     is_iommu_enabled(d))
+>>   
+>>   #endif /* __ASM_GRANT_TABLE_H__ */
+>>   /*
+>> diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
+>> index 77a514019cc6..5ac038521e23 100644
+>> --- a/xen/include/xen/iommu.h
+>> +++ b/xen/include/xen/iommu.h
+>> @@ -110,6 +110,8 @@ extern int8_t iommu_hwdom_reserved;
+>>   
+>>   extern unsigned int iommu_dev_iotlb_timeout;
+>>   
+>> +#ifdef CONFIG_HAS_PASSTHROUGH
+>> +
+>>   int iommu_setup(void);
+>>   int iommu_hardware_setup(void);
+>>   
+>> @@ -122,6 +124,28 @@ int arch_iommu_domain_init(struct domain *d);
+>>   void arch_iommu_check_autotranslated_hwdom(struct domain *d);
+>>   void arch_iommu_hwdom_init(struct domain *d);
+>>   
+>> +#else
+>> +
+>> +static inline int iommu_setup(void)
+>> +{
+>> +    return -ENODEV;
+>> +}
+>> +
+>> +static inline int iommu_domain_init(struct domain *d, unsigned int opts)
+>> +{
+>> +    /*
+>> +     * Return as the real iommu_domain_init() would: Success when
+>> +     * !is_iommu_enabled(), following from !iommu_enabled when !HAS_PASSTHROUGH
+>> +     */
+>> +    return 0;
+>> +}
+>> +
+>> +static inline void iommu_hwdom_init(struct domain *d) {}
+>> +
+>> +static inline void iommu_domain_destroy(struct domain *d) {}
+>> +
+>> +#endif /* HAS_PASSTHROUGH */
+>> +
+>>   /*
+>>    * The following flags are passed to map (applicable ones also to unmap)
+>>    * operations, while some are passed back by lookup operations.
+>> @@ -209,6 +233,8 @@ struct msi_msg;
+>>   #ifdef CONFIG_HAS_DEVICE_TREE
+>>   #include <xen/device_tree.h>
+>>   
+>> +#ifdef CONFIG_HAS_PASSTHROUGH
+>> +
+>>   int iommu_assign_dt_device(struct domain *d, struct dt_device_node *dev);
+>>   int iommu_deassign_dt_device(struct domain *d, struct dt_device_node *dev);
+>>   int iommu_dt_domain_init(struct domain *d);
+>> @@ -238,6 +264,26 @@ int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
+>>    */
+>>   int iommu_remove_dt_device(struct dt_device_node *np);
+>>   
+>> +#else
+>> +
+>> +static inline int iommu_assign_dt_device(struct domain *d,
+>> +                                         struct dt_device_node *dev)
+>> +{
+>> +    return -EINVAL;
+>> +}
+>> +
+>> +static inline int iommu_add_dt_device(struct dt_device_node *np)
+>> +{
+>> +    return 1;
 > 
-> Signal from the IOMMU update_ire_from_msi hook whether the MSI data or
-> address fields have changed, and thus need writing to the device registers.
-> Such signaling is done by returning 1 from the function.  Otherwise
-> returning 0 means no update of the MSI fields, and thus no write
-> required.
+> I would suggest to add a comment explain what 1 means. IIRC, this means 
+> "no iommu" present.
 > 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> Other than that:
+> 
+> Acked-by: Julien Grall <jgrall@amazon.com>
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-with two purely cosmetic suggestions and an only loosely related question below.
-
-> --- a/xen/arch/x86/hvm/vmx/vmx.c
-> +++ b/xen/arch/x86/hvm/vmx/vmx.c
-> @@ -415,7 +415,9 @@ static int cf_check vmx_pi_update_irte(const struct vcpu *v,
->  
->      ASSERT_PDEV_LIST_IS_READ_LOCKED(msi_desc->dev->domain);
->  
-> -    return iommu_update_ire_from_msi(msi_desc, &msi_desc->msg);
-> +    rc = iommu_update_ire_from_msi(msi_desc, &msi_desc->msg);
-> +
-> +    return rc < 0 ? rc : 0;
-
-Only tangential here, but: Why does this function have a return type of
-non-void, when neither caller cares?
-
-> --- a/xen/drivers/passthrough/amd/iommu_intr.c
-> +++ b/xen/drivers/passthrough/amd/iommu_intr.c
-> @@ -492,7 +492,7 @@ static int update_intremap_entry_from_msi_msg(
->                 get_ivrs_mappings(iommu->seg)[alias_id].intremap_table);
->      }
->  
-> -    return 0;
-> +    return !fresh ? 0 : 1;
->  }
-
-Simply
-
-    return fresh;
-
-?
-
-> @@ -546,7 +546,7 @@ int cf_check amd_iommu_msi_msg_update_ire(
->      rc = update_intremap_entry_from_msi_msg(iommu, bdf, nr,
->                                              &msi_desc->remap_index,
->                                              msg, &data);
-> -    if ( !rc )
-> +    if ( rc > 0 )
->      {
->          for ( i = 1; i < nr; ++i )
->              msi_desc[i].remap_index = msi_desc->remap_index + i;
-> --- a/xen/drivers/passthrough/vtd/intremap.c
-> +++ b/xen/drivers/passthrough/vtd/intremap.c
-> @@ -506,6 +506,7 @@ static int msi_msg_to_remap_entry(
->      unsigned int index, i, nr = 1;
->      unsigned long flags;
->      const struct pi_desc *pi_desc = msi_desc->pi_desc;
-> +    bool alloc = false;
->  
->      if ( msi_desc->msi_attrib.type == PCI_CAP_ID_MSI )
->          nr = msi_desc->msi.nvec;
-> @@ -529,6 +530,7 @@ static int msi_msg_to_remap_entry(
->          index = alloc_remap_entry(iommu, nr);
->          for ( i = 0; i < nr; ++i )
->              msi_desc[i].remap_index = index + i;
-> +        alloc = true;
->      }
->      else
->          index = msi_desc->remap_index;
-> @@ -601,7 +603,7 @@ static int msi_msg_to_remap_entry(
->      unmap_vtd_domain_page(iremap_entries);
->      spin_unlock_irqrestore(&iommu->intremap.lock, flags);
->  
-> -    return 0;
-> +    return alloc ? 1 : 0;
->  }
-
-Like above, simply
-
-    return alloc;
-
-?
+Then also
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
