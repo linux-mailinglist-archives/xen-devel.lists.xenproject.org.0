@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BDD0A58EC8
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Mar 2025 10:01:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.906255.1313715 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62E11A58EDC
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Mar 2025 10:03:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.906266.1313724 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1trZ0u-0000vS-13; Mon, 10 Mar 2025 09:01:32 +0000
+	id 1trZ2X-0001WA-BV; Mon, 10 Mar 2025 09:03:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 906255.1313715; Mon, 10 Mar 2025 09:01:31 +0000
+Received: by outflank-mailman (output) from mailman id 906266.1313724; Mon, 10 Mar 2025 09:03:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1trZ0t-0000sN-U5; Mon, 10 Mar 2025 09:01:31 +0000
-Received: by outflank-mailman (input) for mailman id 906255;
- Mon, 10 Mar 2025 09:01:30 +0000
+	id 1trZ2X-0001Uh-7s; Mon, 10 Mar 2025 09:03:13 +0000
+Received: by outflank-mailman (input) for mailman id 906266;
+ Mon, 10 Mar 2025 09:03:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sahL=V5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1trZ0s-0000sF-Kf
- for xen-devel@lists.xenproject.org; Mon, 10 Mar 2025 09:01:30 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ id 1trZ2W-0001Ub-3y
+ for xen-devel@lists.xenproject.org; Mon, 10 Mar 2025 09:03:12 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 40cf0805-fd8e-11ef-9898-31a8f345e629;
- Mon, 10 Mar 2025 10:01:28 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-43cf05f0c3eso5825645e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 10 Mar 2025 02:01:28 -0700 (PDT)
+ id 7cb67d98-fd8e-11ef-9898-31a8f345e629;
+ Mon, 10 Mar 2025 10:03:09 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-43cfebc343dso636875e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Mar 2025 02:03:09 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43cf6d05234sm31144345e9.2.2025.03.10.02.01.27
+ 5b1f17b1804b1-43bdd9471b7sm136066705e9.34.2025.03.10.02.03.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Mar 2025 02:01:28 -0700 (PDT)
+ Mon, 10 Mar 2025 02:03:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 40cf0805-fd8e-11ef-9898-31a8f345e629
+X-Inumbo-ID: 7cb67d98-fd8e-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741597288; x=1742202088; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741597389; x=1742202189; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=w3N497sXuFP7W0HDLKpz65ux5K9/WWI36JCb19Yq+Mw=;
-        b=HHvZ6LbG+btu1VPLKvayrcc+vDjRBh4Tp3dn60MtvpZCXOurdBsswJdSOsTZBdAQGL
-         JagvGctntg2if5gJpOZ92pVTPjh4rCgFa+kZydPnFmOk038zY0b++nmoxhseRqQRby+9
-         eCql+XuO1StI10+uP6MzyeJ1UXlafPqQcww6T3LJ2qZ3Iy3Slpzi4XihzQvJDDZAtMop
-         0qtBVTBicPJ81RQZtvzExHXBXS65h31lLZPcMjnIUzr5KvXeGaJJR+qZnkpVjypWYUJU
-         T6vplDu5Ax1tlla1EGng0gKhLCI1K9QIbP643kc6wtCsgQdBpz5/DCJuGgKHLqCmS4AZ
-         BAig==
+        bh=gK7kVpDIOq3HwZqo56/VCxhWYDmn0+uWUzqZws8lHRs=;
+        b=H0aERoqvl+sdiAMvOcCV40NTcjhNNtu+Rr9gSdFJx4hcPXmbiDNwo1L6p0AUaRhz0E
+         u59NvSVm31fHvwWWdqZejCAixcHEiC4WKsyDT2FTM0Q1ej1KByYfbfC3G6WVlob+vfEH
+         sVDP5FqdGeWbfkoalDfTBild0GoMqQ3D83GOBLRD46a6YOkk65YUaFDVB1Cwr6aEHDNg
+         cT0XdUONPsrzHdcNr/fOf7sJ/Tjpw1Mfiikbz3zJAY6sI5VXWIfc4h75jbcOKoxN2Ot9
+         y6QI8DPfpF2T++WcHaSw94oC4F9dv+Jq0Eqccq+f2H1RfPaC/0fGNrW+F5cTtIEms+M1
+         r2Ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741597288; x=1742202088;
+        d=1e100.net; s=20230601; t=1741597389; x=1742202189;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=w3N497sXuFP7W0HDLKpz65ux5K9/WWI36JCb19Yq+Mw=;
-        b=U6b8QipOS/JWSQ5Kj7cN/NtsuAd3Q91JwafI2AkYcOihDCRmaqqAhjsF1zLSe5U/ma
-         VXadnRItCxk8bu4uBc4xSB/l4OfLN5LpSr+ANYnn2S4+ryF2ixYe/ZZWGJcVbh93aCSt
-         Emeg+t4ypi8yd90XK37lvx01ALjj9lTEI8hSO3Im4kBPr6zFNO/RtxS+wgftQdZ4ZqKd
-         CSYboWgJOS4dE/izT0q1GTzAqpdDzRIaWC7qnDB6Ba7UPvccFW6XRI2b45L2pQoW/SqJ
-         iSQNGlvFYMbLR1c3YscBeymqfq9753BRy75upk8tYS3KGsPO8XFcMrkOpfm+WCuIK77V
-         XUoQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV+HmyPe1hZniZjdwR26TPd03vEuMBvxvSnDlc2MVTfEfJwxuvBpDfV6uPLZmEn4T1X6mzp8bfMaFg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy5CrbmsvfKChxU3GLbPuhqPbo0gjBhCkaxZFtcbDuTEc5vNRIn
-	EnKEgIVM6vJKObuaBGivkzhBjnqONIHrB1ZtrOe5N1ggdZeOZcSw1ZIdddpg8Q==
-X-Gm-Gg: ASbGncspUAwm7hsp5z72yLZRxIQqHupQUTMNhR0WL4F+q6vyNxwOJGZFAXlaTIjGQsx
-	VwWLEsbOf+VnCKKdCkqNU/nDBuBHSzqX/a02HDh0BWTxha+fNh2cE7IFz3IZr8MYXIKqdX4yqgK
-	PrAvfS4l7WqjGvKRFi15uIX9X9u0lFhv0hdcoRxufQU4fOonuXCzef9bM0KejkcGUa6Ws5eYW0k
-	fM8hSg1lGYhSiXGHAq0rsxo3LrHp7FtZlCYJ4m9cYwCILslAKZdt9ZDrzSPJnkcJRjPCAv6RkHC
-	oRhqDWcMA1dRk66nEiJu1U+xz99+Wkvkb+bnvRxNpF9pDJwdoeasTeYpGQT46oeEvM+vQGb/Sqd
-	UCAvdrCeyKbokPdAVe7n12A/dWdUFRQ==
-X-Google-Smtp-Source: AGHT+IFSAYGRUi1OS47ZjSAVW22TahEieRAgvzn8BHFtocaXdhlUn/p9OK7u870J/OSp0idRonEk7w==
-X-Received: by 2002:a05:600c:5103:b0:439:685e:d4c8 with SMTP id 5b1f17b1804b1-43c5a60eda3mr77328965e9.15.1741597288287;
-        Mon, 10 Mar 2025 02:01:28 -0700 (PDT)
-Message-ID: <88863567-220d-4b70-b0e0-1cb14e564963@suse.com>
-Date: Mon, 10 Mar 2025 10:01:29 +0100
+        bh=gK7kVpDIOq3HwZqo56/VCxhWYDmn0+uWUzqZws8lHRs=;
+        b=gzMdzXvydr6jn3N5aCURahDURPJFroCozPyOz2LwR6ugjQJHRJMMmTTXduvmFTU0vs
+         brbcUZBzu5S3/xLb8kMwwF0sMM1tscXBa/+/bzNrQJ7PWGHtAE9RroJ9hdJNc+f9aVhb
+         x3gvon5X0PSmWJxt/+8QDOE5ra/s2ZzRKTVWPBLl/W5g0SVKEJVPdt9+4F0c/9b3QFwz
+         XhPZaRDHpZ9AoFep7PFA1P9ZmtxNSwjXqQ2poafpyOqXEOR9I2f5MKxlT1J0PdS951KO
+         wUjqug5VbZVMMVvkCs4un0Zxy9cidePEJAdh6NmP+B3vr0x5IbUPi3ubXJzutqgxcqh9
+         mWgQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUz7qXmr+/JCX5FVHbW1pgHKfRzN4UkEE4SvF3StwQBLFvwxkqG6kHQlm+yDLZnX7ysCPpLmwnG3AI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz/ki/BIf7aDaUw2a0H6Go1+LhQE5KCVoKe96+uGjHMR8spfAJt
+	NaA11GMwe4xPGfOHNl4yqdabqztv5MDXCxwQfvCD/afrIFUSl8q5/zGMvSDJfg==
+X-Gm-Gg: ASbGnctLy440uURyUKqsjB8dfjqC+wuZuqd6bjMIwXTmr/Nlc50pohE1z9EPTC3OUSl
+	pQtjsh2lBWuCDWOM+eZIK7JZTUddPvwnZRooFjzH2NrMpsrvJpNHvxz5M+YYhVD1QQgCcC3N934
+	NTFoVAoGTOdGLlQqV/Kk/Fnyu8Y/lVzXKlqJobQpkaSVCUMAbCaFINuZWCSq5pzFvk6saBMT2HP
+	qI48BPUlR4OeInm+VH60Bfrm9R7oRrxrdj+0J5t4IZVkGwo3e0iVDVLBmq5o3JeLD7bqHx3CAKh
+	1lpw0kUu28eo7z7ymIcN3W6k7bxRhz3foopaK2wUvwevxHXeB9UiDY58LaCRdjpAXRkNugIFDPW
+	9t4J4cMxwf1kgCwZlVV2HHACy8GLASg==
+X-Google-Smtp-Source: AGHT+IGl8UuBrwJOmPFb6OM2C+aGC5f/WTakA7J5YJGeZKAAPtsjf9CW8tkG26U4mlGqn9EdVvQPLg==
+X-Received: by 2002:a05:600c:3543:b0:43c:ec4c:25b4 with SMTP id 5b1f17b1804b1-43cec4c272fmr41091415e9.10.1741597388702;
+        Mon, 10 Mar 2025 02:03:08 -0700 (PDT)
+Message-ID: <813569bb-a1f7-42b0-a872-f6ecf4033880@suse.com>
+Date: Mon, 10 Mar 2025 10:03:10 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 06/23] xen/domctl: Expose privileged and hardware
  capabilities
-To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
+To: Jason Andryuk <jason.andryuk@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20250306220343.203047-1-jason.andryuk@amd.com>
  <20250306220343.203047-7-jason.andryuk@amd.com>
 Content-Language: en-US
@@ -140,8 +140,9 @@ On 06.03.2025 23:03, Jason Andryuk wrote:
 > +#define _XEN_DOMINF_priv      10
 > +#define XEN_DOMINF_priv       (1U<<_XEN_DOMINF_priv)
 
-Better use "control" in place of "priv", as "privileged" can also be a
-gradual thing?
+Oh, and: If we really need both constants (I doubt we do), the latter wants
+to follow style even if all of its siblings don't (i.e. blanks around binary
+operators).
 
 Jan
 
