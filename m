@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B1CBA58C2D
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Mar 2025 07:43:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.905960.1313445 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5675CA58C32
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Mar 2025 07:43:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.905963.1313454 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1trWqr-0001hu-IG; Mon, 10 Mar 2025 06:43:01 +0000
+	id 1trWqr-0001nz-SP; Mon, 10 Mar 2025 06:43:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 905960.1313445; Mon, 10 Mar 2025 06:43:01 +0000
+Received: by outflank-mailman (output) from mailman id 905963.1313454; Mon, 10 Mar 2025 06:43:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1trWqr-0001UE-8t; Mon, 10 Mar 2025 06:43:01 +0000
-Received: by outflank-mailman (input) for mailman id 905960;
- Mon, 10 Mar 2025 04:59:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1trWqr-0001iB-JH; Mon, 10 Mar 2025 06:43:01 +0000
+Received: by outflank-mailman (input) for mailman id 905963;
+ Mon, 10 Mar 2025 04:59:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fu2G=V5=linaro.org=pierrick.bouvier@srs-se1.protection.inumbo.net>)
- id 1trVEC-00070S-2T
- for xen-devel@lists.xenproject.org; Mon, 10 Mar 2025 04:59:00 +0000
-Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
- [2607:f8b0:4864:20::1030])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5fbbae20-fd6c-11ef-9898-31a8f345e629;
- Mon, 10 Mar 2025 05:58:58 +0100 (CET)
-Received: by mail-pj1-x1030.google.com with SMTP id
- 98e67ed59e1d1-2ff6a98c638so7132758a91.0
- for <xen-devel@lists.xenproject.org>; Sun, 09 Mar 2025 21:58:58 -0700 (PDT)
+ id 1trVEE-000735-U7
+ for xen-devel@lists.xenproject.org; Mon, 10 Mar 2025 04:59:02 +0000
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
+ [2607:f8b0:4864:20::636])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 60758afa-fd6c-11ef-9ab8-95dc52dad729;
+ Mon, 10 Mar 2025 05:59:01 +0100 (CET)
+Received: by mail-pl1-x636.google.com with SMTP id
+ d9443c01a7336-22398e09e39so65589935ad.3
+ for <xen-devel@lists.xenproject.org>; Sun, 09 Mar 2025 21:58:59 -0700 (PDT)
 Received: from pc.. ([38.39.164.180]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-736d2ae318csm1708308b3a.53.2025.03.09.21.58.55
+ d2e1a72fcca58-736d2ae318csm1708308b3a.53.2025.03.09.21.58.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 09 Mar 2025 21:58:56 -0700 (PDT)
+ Sun, 09 Mar 2025 21:58:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,42 +44,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5fbbae20-fd6c-11ef-9898-31a8f345e629
+X-Inumbo-ID: 60758afa-fd6c-11ef-9ab8-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1741582737; x=1742187537; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1741582738; x=1742187538; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ErKU0wbfVZdnsjs5NMSuiTB4KixyX1gD9AraKkIZNBI=;
-        b=OQOOlWNi52Yku4QClHAMKlQuJ4CjB0VBe4FkV7VkXKHLJrJlqrnAW4GC9v6pff6ZMf
-         esaqHclwd2xg1oHwIL/YmMYmmE5YrIjlmoA3w+pVcLrKzEKL2tNWnoYrai95tTDOvaeD
-         uRohAWPpd8dEqaz7VbYOBjvED7SH3BTJ1E+YqQxOKBVeC3HtAJhATE5u+KjnUTrPwEwg
-         bN8m+CxS6T4OU0FkIbQ5WlA1bmIzloZBdIM/yusTsdskAR/QC9ty5HCraahwi5YBvOT1
-         uXvK0qXmgHp2GT4c+YkgGzlkIYaseh7kVfLq/UnyTIEZmwC7Xq8xnaguqRpOB39CJ6tC
-         G2wQ==
+        bh=8s25jeAGTcBk8xCVR99anv09nY4TtNOY1pAkSQYXuE0=;
+        b=MAuFZdP1snK4RBJauQKk9IyBArEt30/odJpEL6c0pv50e/d05kLEHtfCesSDPBi08O
+         qAGC0JN6u8lXlh3uO5EYC+Op9xhfb/TQoBo1yXVrW3XRhI03r1rA4t+dv2qjgnfvIRAr
+         soS5fjZXUOGQ/4naN9dxxBxC3kzKrZ+GK31FcL2yL+sBZCd8w63iDdvrwAlA21fAhW4E
+         846D1OOsoM4I5xX53JzaCVVtg6atWB4Lk2hbHAattBX6qzQjPvq7ku4/ttywBlb8FH/y
+         6WfpDdeNjfLbGqrumNPoCirmjdSpB2f0ai7yb+GZjqo+ABE8+gD1Zdn0CYdc7S/zyJ9w
+         OZpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741582737; x=1742187537;
+        d=1e100.net; s=20230601; t=1741582738; x=1742187538;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=ErKU0wbfVZdnsjs5NMSuiTB4KixyX1gD9AraKkIZNBI=;
-        b=MQ3LyaQQmXKfg3kIINQJEVhVu/KaApGfavVOYG4OKLAbMTBLlhoUSgFX7yEZ1KIUj5
-         qdZdNHk9c+o434VcqZMgcFrxBcdeGH+RLj4U0BCZYH2Eqga/0nTNx8YQ2UlqDmFkkC7R
-         ZZJ+lDRj8O1T3JjOKzhJWHejPfWOVVArxG0JHepNFOVDFpPk97e+wbTaq7/ThVEwwhu7
-         4Hgyv9gKUgNFO/ronc0WinAOEQKpvlZbWZHYCWx0VMhadpYXnbBBe3IFX56NxV33wqLc
-         xApqtm+tyNgwFLOFvGWd94n7lL9NnemJ6ZXut+aPTNqUkTaoQ2EqmWGdR3D7tLEBC0Ic
-         zj0w==
-X-Forwarded-Encrypted: i=1; AJvYcCX1EK+ouxKtWrlWi2XGyQTP6Tot9MvMM72pB4lsWTXsGigUdFVgsz/oip07OExmmWXsc80+l7pWrgo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy9Aat/p8HPAL8ROBwxPTZDWz9d3dsZE/Op5FYjZCfPpCYFk4Zm
-	kcr//U9KdMqVfpoTXyLz/EAxsu0OIRChe0hRaxRZtAQPGBwgib1RnEzw6yYdHxQ=
-X-Gm-Gg: ASbGncvG133hepn4+PCY4ydt4zN7X2SNZOb+DyxMnlk0cCEWmea4CGG82B61AWk/z3R
-	Z+rD9qWzsAv6JX7vGsyNz1v6kW1zrrxPG8OaHK6D8Fn8k+sFXjFwAqSkwza7y74dx3dB8Sm37d/
-	X93s6ZtAWNNvZHuTgxsR/aY7ZaaBhyE0AHbvwwm50b1zEFfpbQ4mieIpSByQC72Z6z3rbJjLZCZ
-	fnCMXQboMK9WGzto8eoP5VrSaROTakUmg0v6GfdgIWdLpaW11DycNOqS18mXmKjgya6W6+/Vu0b
-	bcRSHkqEX1m7I/eBr+/ZyhX92oPsl7aRtt+l+lc+hJQp
-X-Google-Smtp-Source: AGHT+IHO0adHTKDFbdiZLdbwVjzffyYfi7nVPL6wN+0ieHxoGwNOezFQMlR0NxHpJZQhWhI8f44U4w==
-X-Received: by 2002:a05:6a21:9786:b0:1f5:8506:5039 with SMTP id adf61e73a8af0-1f585065599mr1040552637.28.1741582737079;
-        Sun, 09 Mar 2025 21:58:57 -0700 (PDT)
+        bh=8s25jeAGTcBk8xCVR99anv09nY4TtNOY1pAkSQYXuE0=;
+        b=AcAW2pXFnNy31DBxKnZjtfR4+93G5+NPCWrgMMn5GndEHsCTN+l5Lsgnh+KmeMalei
+         tpnIcIN3SXVwYoYl1B574dSisruLseqX5Bb58S5s3qleYC1FNSixFl5VqCAZnt4vBVEF
+         z5lpJmLR2FOcPywuKWVNJ+mNn4EGCa21xXq5tJSLnspT2eSWo3rxwnkkCpHjQJssrBYQ
+         O0EK7mbXBA9Vp6ryTXpEuOc/x9CIBMezRItsMeMVSyARBa4d2max3S6Mtgejk5xipxD7
+         FQWRf6hmhN83LsBFFtbHvC7V4HzMJ9jBnAuBiZTf6hPW3TarVw6R8/aNLcrFS/Ud94Xm
+         MLpw==
+X-Forwarded-Encrypted: i=1; AJvYcCXT6GUbSTPcHn9rMmo2VPaR6OybmW3nGRU68CZqzeinUDfFqClJeiiXlmr80YciCzGCk6Nbu+rqqqk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz0PYbIa0ZxIK7KwESaf0r3P4S95oqKFlvb7zGMV30KFlres+/g
+	2klTWlfLqGNK4XoKcIA8XcZ05GzmNqkwwEOwrA/igU/hWSlYniFmNYnAjRw8Kro=
+X-Gm-Gg: ASbGncvXluj052xIQcddWBgQADCTL6/PJlKlbwwT8kTujXc4NUXRVtvVhM+/WKCde1H
+	wraN9AmAJxxoUdjSb5E6XTcBJ35aZYhbwmwt0OfNclsYv7xrdzcleNMwUyB/CQtg1e52mKS8itp
+	CjLkkBi2bfKdXv82NMgs4hnBL9j4iE0pvggoJcaUrw0aH2En/QO/gX6CePQKjiZ+uaGi0z1KHUz
+	owmYJ6dqqcahmcwCGydrqKVbr2Q4bXHSgmkw0iL5rEt9vKzvAEtEGhOfrc1kKqixaOjrY9351WY
+	Mh0/vPN1h+F7ftLNIybM6qHNQMZxseRMrq7bTleivc859nsVO9UXEw4=
+X-Google-Smtp-Source: AGHT+IGRoGZ7coEeYo9o9fE7YTKv7YM5Vcb8VYcCl0LtzUFuhPuPAIbAabhl/TEnMhgrans4FlUiUA==
+X-Received: by 2002:a17:902:f648:b0:220:d601:a704 with SMTP id d9443c01a7336-22428a967a4mr181654565ad.18.1741582738292;
+        Sun, 09 Mar 2025 21:58:58 -0700 (PDT)
 From: Pierrick Bouvier <pierrick.bouvier@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: qemu-ppc@nongnu.org,
@@ -106,61 +106,101 @@ Cc: qemu-ppc@nongnu.org,
 	xen-devel@lists.xenproject.org,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Pierrick Bouvier <pierrick.bouvier@linaro.org>
-Subject: [PATCH 06/16] exec/cpu-all.h: we can now remove ld/st macros
-Date: Sun,  9 Mar 2025 21:58:32 -0700
-Message-Id: <20250310045842.2650784-7-pierrick.bouvier@linaro.org>
+Subject: [PATCH 07/16] codebase: prepare to remove cpu.h from exec/exec-all.h
+Date: Sun,  9 Mar 2025 21:58:33 -0700
+Message-Id: <20250310045842.2650784-8-pierrick.bouvier@linaro.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250310045842.2650784-1-pierrick.bouvier@linaro.org>
 References: <20250310045842.2650784-1-pierrick.bouvier@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Functions declared in bswap.h will be used instead.
-
-At this point, we finished to extract memory API from cpu-all.h, and it
-can be called from any common or target dependent code.
-
 Signed-off-by: Pierrick Bouvier <pierrick.bouvier@linaro.org>
 ---
- include/exec/cpu-all.h | 25 -------------------------
- 1 file changed, 25 deletions(-)
+ include/tcg/tcg-op.h           | 1 +
+ target/ppc/helper_regs.h       | 2 ++
+ hw/ppc/spapr_nested.c          | 1 +
+ hw/sh4/sh7750.c                | 1 +
+ page-vary-target.c             | 3 ++-
+ target/riscv/bitmanip_helper.c | 1 +
+ 6 files changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/include/exec/cpu-all.h b/include/exec/cpu-all.h
-index 1c2e18f492b..625b4c51f3c 100644
---- a/include/exec/cpu-all.h
-+++ b/include/exec/cpu-all.h
-@@ -38,31 +38,6 @@
- #define BSWAP_NEEDED
- #endif
+diff --git a/include/tcg/tcg-op.h b/include/tcg/tcg-op.h
+index a02850583bd..bc46b5570c4 100644
+--- a/include/tcg/tcg-op.h
++++ b/include/tcg/tcg-op.h
+@@ -9,6 +9,7 @@
+ #define TCG_TCG_OP_H
  
--/* Target-endianness CPU memory access functions. These fit into the
-- * {ld,st}{type}{sign}{size}{endian}_p naming scheme described in bswap.h.
-- */
--#if TARGET_BIG_ENDIAN
--#define lduw_p(p) lduw_be_p(p)
--#define ldsw_p(p) ldsw_be_p(p)
--#define ldl_p(p) ldl_be_p(p)
--#define ldq_p(p) ldq_be_p(p)
--#define stw_p(p, v) stw_be_p(p, v)
--#define stl_p(p, v) stl_be_p(p, v)
--#define stq_p(p, v) stq_be_p(p, v)
--#define ldn_p(p, sz) ldn_be_p(p, sz)
--#define stn_p(p, sz, v) stn_be_p(p, sz, v)
--#else
--#define lduw_p(p) lduw_le_p(p)
--#define ldsw_p(p) ldsw_le_p(p)
--#define ldl_p(p) ldl_le_p(p)
--#define ldq_p(p) ldq_le_p(p)
--#define stw_p(p, v) stw_le_p(p, v)
--#define stl_p(p, v) stl_le_p(p, v)
--#define stq_p(p, v) stq_le_p(p, v)
--#define ldn_p(p, sz) ldn_le_p(p, sz)
--#define stn_p(p, sz, v) stn_le_p(p, sz, v)
--#endif
--
- /* MMU memory access macros */
+ #include "tcg/tcg-op-common.h"
++#include "exec/target_long.h"
  
- #if !defined(CONFIG_USER_ONLY)
+ #ifndef TARGET_LONG_BITS
+ #error must include QEMU headers
+diff --git a/target/ppc/helper_regs.h b/target/ppc/helper_regs.h
+index 8196c1346dc..b928c2c452d 100644
+--- a/target/ppc/helper_regs.h
++++ b/target/ppc/helper_regs.h
+@@ -20,6 +20,8 @@
+ #ifndef HELPER_REGS_H
+ #define HELPER_REGS_H
+ 
++#include "target/ppc/cpu.h"
++
+ void hreg_swap_gpr_tgpr(CPUPPCState *env);
+ void hreg_compute_hflags(CPUPPCState *env);
+ void hreg_update_pmu_hflags(CPUPPCState *env);
+diff --git a/hw/ppc/spapr_nested.c b/hw/ppc/spapr_nested.c
+index 23958c6383a..18bbb1403c6 100644
+--- a/hw/ppc/spapr_nested.c
++++ b/hw/ppc/spapr_nested.c
+@@ -2,6 +2,7 @@
+ #include "qemu/cutils.h"
+ #include "exec/exec-all.h"
+ #include "exec/cputlb.h"
++#include "exec/target_long.h"
+ #include "helper_regs.h"
+ #include "hw/ppc/ppc.h"
+ #include "hw/ppc/spapr.h"
+diff --git a/hw/sh4/sh7750.c b/hw/sh4/sh7750.c
+index 6faf0e3ca8b..41306fb6008 100644
+--- a/hw/sh4/sh7750.c
++++ b/hw/sh4/sh7750.c
+@@ -29,6 +29,7 @@
+ #include "hw/irq.h"
+ #include "hw/sh4/sh.h"
+ #include "system/system.h"
++#include "target/sh4/cpu.h"
+ #include "hw/qdev-properties.h"
+ #include "hw/qdev-properties-system.h"
+ #include "sh7750_regs.h"
+diff --git a/page-vary-target.c b/page-vary-target.c
+index 3f81144cda8..12fda410bb0 100644
+--- a/page-vary-target.c
++++ b/page-vary-target.c
+@@ -20,8 +20,9 @@
+ #define IN_PAGE_VARY 1
+ 
+ #include "qemu/osdep.h"
+-#include "exec/page-vary.h"
+ #include "exec/exec-all.h"
++#include "exec/page-vary.h"
++#include "exec/target_page.h"
+ 
+ bool set_preferred_target_page_bits(int bits)
+ {
+diff --git a/target/riscv/bitmanip_helper.c b/target/riscv/bitmanip_helper.c
+index b99c4a39a1f..d93312a811c 100644
+--- a/target/riscv/bitmanip_helper.c
++++ b/target/riscv/bitmanip_helper.c
+@@ -21,6 +21,7 @@
+ #include "qemu/osdep.h"
+ #include "qemu/host-utils.h"
+ #include "exec/exec-all.h"
++#include "exec/target_long.h"
+ #include "exec/helper-proto.h"
+ #include "tcg/tcg.h"
+ 
 -- 
 2.39.5
 
