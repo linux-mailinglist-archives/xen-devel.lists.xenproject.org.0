@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D397CA5A564
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Mar 2025 21:59:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.906845.1314222 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37BB4A5A57A
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Mar 2025 22:02:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.906857.1314232 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1trkDD-0003O2-Lm; Mon, 10 Mar 2025 20:58:59 +0000
+	id 1trkGt-0004xq-5x; Mon, 10 Mar 2025 21:02:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 906845.1314222; Mon, 10 Mar 2025 20:58:59 +0000
+Received: by outflank-mailman (output) from mailman id 906857.1314232; Mon, 10 Mar 2025 21:02:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1trkDD-0003LM-Hg; Mon, 10 Mar 2025 20:58:59 +0000
-Received: by outflank-mailman (input) for mailman id 906845;
- Mon, 10 Mar 2025 20:58:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1trkGt-0004w3-3G; Mon, 10 Mar 2025 21:02:47 +0000
+Received: by outflank-mailman (input) for mailman id 906857;
+ Mon, 10 Mar 2025 21:02:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UYYE=V5=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1trkDB-0003LE-9s
- for xen-devel@lists.xenproject.org; Mon, 10 Mar 2025 20:58:57 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 79aff57f-fdf2-11ef-9898-31a8f345e629;
- Mon, 10 Mar 2025 21:58:54 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-43ce71582e9so14754905e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 10 Mar 2025 13:58:53 -0700 (PDT)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3912bfdff72sm16244727f8f.36.2025.03.10.13.58.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Mar 2025 13:58:52 -0700 (PDT)
+ <SRS0=Hcpv=V5=eik.bme.hu=balaton@srs-se1.protection.inumbo.net>)
+ id 1trkGr-0004vx-O0
+ for xen-devel@lists.xenproject.org; Mon, 10 Mar 2025 21:02:45 +0000
+Received: from zero.eik.bme.hu (zero.eik.bme.hu [152.66.115.2])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 026e76dc-fdf3-11ef-9ab8-95dc52dad729;
+ Mon, 10 Mar 2025 22:02:44 +0100 (CET)
+Received: from zero.eik.bme.hu (localhost [127.0.0.1])
+ by zero.eik.bme.hu (Postfix) with ESMTP id AF51A4E602E;
+ Mon, 10 Mar 2025 22:02:42 +0100 (CET)
+Received: from zero.eik.bme.hu ([127.0.0.1])
+ by zero.eik.bme.hu (zero.eik.bme.hu [127.0.0.1]) (amavisd-new, port 10028)
+ with ESMTP id IphZi4_PVs8l; Mon, 10 Mar 2025 22:02:40 +0100 (CET)
+Received: by zero.eik.bme.hu (Postfix, from userid 432)
+ id 6B4A84E601A; Mon, 10 Mar 2025 22:02:40 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by zero.eik.bme.hu (Postfix) with ESMTP id 6816074577D;
+ Mon, 10 Mar 2025 22:02:40 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,114 +47,252 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 79aff57f-fdf2-11ef-9898-31a8f345e629
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741640333; x=1742245133; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=cb8VwozYLihPlXOI0f+/TMwpoy8uXYoZ099zSO2jGrY=;
-        b=EG8ANhzrCky4RV7M1uNIOPiImEpGn4XUrAnUV/8YwmRIuCCdWUo4dF6rflr/iQRbFf
-         AV6yeThlZ/UETtcARhDT4AhAWy6/5Ha3QU7p3aXz30YnQyKKc4UpWgl+XHVsqwksCBFl
-         NaHHgSzIY3h0/nCAiXkFswPSzvbakKFon28AM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741640333; x=1742245133;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=cb8VwozYLihPlXOI0f+/TMwpoy8uXYoZ099zSO2jGrY=;
-        b=BstXiEG7rb7fE/1jJ7xv8ECcK4+ryKymSIyFlAYhwPR4tJiVFYxxyi4RUecSNgvAat
-         KCgg+Qannsbc/DlUcnsTmoMIIhEAhdU/RKOsXTU5pG0reKcTUhxjMTkzBbgbOkIEjnM3
-         xY6CxL415VDuxhlsHPI59Lxz7hUBmkQwSsLxv5ttGsNS4WuA3loQ26ResO0zoJKqgLbt
-         LE84QBVu+yPgghLftPNYgKCqmUD9rw/kfMvTGRzc8OIY3g7LYuEyDPh7EVb1scpcS62h
-         YWXMLhILh+e+V7j1NzEOu9okfVjmPJO0YQZWQMNOXIoIyiJZMTu8TFIqSEYy50+AFT+5
-         sVMw==
-X-Forwarded-Encrypted: i=1; AJvYcCUAGXL9+9CvJEKC2ZRDLbDnslDHwMEVqqiw2T/YBCZ0LM12bZ+j9bcrmGsTAHAfQoI7QX6OZIYQS5I=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwWLx9cx4/ZrpghQQYvqa15yiAOymfNN9K9LYvxdMik9R62O7c2
-	TNN2/WYDoJp2YnvecE4CHJ9TSQDdwto1UvodPgugNvKRlOgmklxeY78G1ziKTVc=
-X-Gm-Gg: ASbGncvPWwMyGBMZImaBLvgGAJ7r96ACMTWkMJjob9QPalDZCeRHMiO9A0oSLdvEKsb
-	d6HNDhWmLGY+DVlmZtftcYOHvRxgFF2hl1Jcw/zcoJaayWArZtrJSahcjMtzy2p4+8qW+d8tiLU
-	WSLPpFZRNZMziwnombQZmTqU3/NF/75qE8q07w/FJnTqeovxKeK85rLwhOtUehiVDp1u6itIHsS
-	z1Kpq6ggZrup8UIxhNqha+l2qmZCELBa0Qn0x7Gfoa8RXaxX514WZF7BFogSBdxZWdmQcb6qaRU
-	3epkzynh5qB9fyjmXgMALZ4H7RYtfHH5/TvKXHLNwskWCa1mhYbZbQgUIZiivu2r14IkFLs8IPN
-	knJCSJhYu
-X-Google-Smtp-Source: AGHT+IFMFL7Db4G/4h+vbm5L3e+h03+zVh8NKDYLPX4Dlkz72erFh9IJx5d/IKWv+ktO3ksqq6oQHw==
-X-Received: by 2002:a05:6000:18a3:b0:391:3207:2e6f with SMTP id ffacd0b85a97d-39132d984abmr10880095f8f.42.1741640333312;
-        Mon, 10 Mar 2025 13:58:53 -0700 (PDT)
-Message-ID: <137cc8c6-0727-4253-96b8-45d28ce40943@citrix.com>
-Date: Mon, 10 Mar 2025 20:58:51 +0000
+X-Inumbo-ID: 026e76dc-fdf3-11ef-9ab8-95dc52dad729
+X-Virus-Scanned: amavisd-new at eik.bme.hu
+Date: Mon, 10 Mar 2025 22:02:40 +0100 (CET)
+From: BALATON Zoltan <balaton@eik.bme.hu>
+To: Pierrick Bouvier <pierrick.bouvier@linaro.org>
+cc: qemu-devel@nongnu.org, qemu-ppc@nongnu.org, 
+    Alistair Francis <alistair.francis@wdc.com>, 
+    Richard Henderson <richard.henderson@linaro.org>, 
+    Harsh Prateek Bora <harshpb@linux.ibm.com>, alex.bennee@linaro.org, 
+    Palmer Dabbelt <palmer@dabbelt.com>, 
+    Daniel Henrique Barboza <danielhb413@gmail.com>, kvm@vger.kernel.org, 
+    Peter Xu <peterx@redhat.com>, Nicholas Piggin <npiggin@gmail.com>, 
+    Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, 
+    David Hildenbrand <david@redhat.com>, Weiwei Li <liwei1518@gmail.com>, 
+    Paul Durrant <paul@xen.org>, 
+    "Edgar E. Iglesias" <edgar.iglesias@gmail.com>, 
+    =?ISO-8859-15?Q?Philippe_Mathieu-Daud=E9?= <philmd@linaro.org>, 
+    Anthony PERARD <anthony@xenproject.org>, 
+    Yoshinori Sato <ysato@users.sourceforge.jp>, 
+    manos.pitsidianakis@linaro.org, qemu-riscv@nongnu.org, 
+    Paolo Bonzini <pbonzini@redhat.com>, xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH 00/16] make system memory API available for common code
+In-Reply-To: <86acf98f-99d6-4a93-b62f-c83571b0ae09@linaro.org>
+Message-ID: <5c6a446b-e715-cc38-b212-3291ecc426d2@eik.bme.hu>
+References: <20250310045842.2650784-1-pierrick.bouvier@linaro.org> <f231b3be-b308-56cf-53ff-1a6a7fb4da5c@eik.bme.hu> <c5b9eea9-c412-461d-b79b-0fa2f72128ee@linaro.org> <a57faa36-2e66-4438-accc-0cbfdeebf100@linaro.org> <6b3e48e2-0730-09e2-55b1-35daff4ecf75@eik.bme.hu>
+ <86acf98f-99d6-4a93-b62f-c83571b0ae09@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] xen/console: make console buffer size configurable
-To: dmkhn@proton.me, xen-devel@lists.xenproject.org
-Cc: anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org,
- michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
- dmukhin@ford.com
-References: <20250306080428.155039-1-dmkhn@proton.me>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <20250306080428.155039-1-dmkhn@proton.me>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII; format=flowed
 
-On 06/03/2025 8:05 am, dmkhn@proton.me wrote:
-> From: Denis Mukhin <dmukhin@ford.com>
+On Mon, 10 Mar 2025, Pierrick Bouvier wrote:
+> On 3/10/25 12:40, BALATON Zoltan wrote:
+>> On Mon, 10 Mar 2025, Pierrick Bouvier wrote:
+>>> On 3/10/25 09:28, Pierrick Bouvier wrote:
+>>>> Hi Zoltan,
+>>>> 
+>>>> On 3/10/25 06:23, BALATON Zoltan wrote:
+>>>>> On Sun, 9 Mar 2025, Pierrick Bouvier wrote:
+>>>>>> The main goal of this series is to be able to call any memory ld/st
+>>>>>> function
+>>>>>> from code that is *not* target dependent.
+>>>>> 
+>>>>> Why is that needed?
+>>>>> 
+>>>> 
+>>>> this series belongs to the "single binary" topic, where we are trying to
+>>>> build a single QEMU binary with all architectures embedded.
+>> 
+>> Yes I get it now, I just forgot as this wasn't mentioned so the goal
+>> wasn't obvious.
+>> 
 >
-> Add new CONRING_SHIFT Kconfig parameter to specify the boot console buffer size
-> as a power of 2.
->
-> The supported range is [14..27] -> [16KiB..128MiB].
->
-> Set default to 15 (32 KiB).
->
-> Link: https://gitlab.com/xen-project/xen/-/issues/185
+> The more I work on this topic, the more I realize we miss a clear and concise 
+> document (wiki page, or anything than can be edited easily - not email) 
+> explaining this to other developers, and that we could share as a link, and 
+> enhance based on the questions asked.
 
-Minor note, we typically use Resolves: for this, which will auto-close
-the issue when it's merged.
+Maybe you can start collecting FAQ on a wiki page so you don't have to 
+answer them multiple times. I think most people aware of this though just 
+may not associate a series with it if not mentioned in the description.
 
-~Andrew
+>>>> To achieve that, we need to have every single compilation unit compiled
+>>>> only once, to be able to link a binary without any symbol conflict.
+>>>> 
+>>>> A consequence of that is target specific code (in terms of code relying
+>>>> of target specific macros) needs to be converted to common code,
+>>>> checking at runtime properties of the target we run. We are tackling
+>>>> various places in QEMU codebase at the same time, which can be confusing
+>>>> for the community members.
+>> 
+>> Mentioning this single binary in related series may help reminding readers
+>> about the context.
+>> 
+>
+> I'll make sure to mention this "name" in the title for next series, thanks!
+>
+>>>> This series take care of system memory related functions and associated
+>>>> compilation units in system/.
+>>>> 
+>>>>>> As a positive side effect, we can
+>>>>>> turn related system compilation units into common code.
+>>>>> 
+>>>>> Are there any negative side effects? In particular have you done any
+>>>>> performance benchmarking to see if this causes a measurable slow down?
+>>>>> Such as with the STREAM benchmark:
+>>>>> https://stackoverflow.com/questions/56086993/what-does-stream-memory-bandwidth-benchmark-really-measure
+>>>>> 
+>>>>> Maybe it would be good to have some performance tests similiar to
+>>>>> functional tests that could be run like the CI tests to detect such
+>>>>> performance changes. People report that QEMU is getting slower and 
+>>>>> slower
+>>>>> with each release. Maybe it could be a GSoC project to make such tests 
+>>>>> but
+>>>>> maybe we're too late for that.
+>>>>> 
+>>>> 
+>>>> I agree with you, and it's something we have mentioned during our
+>>>> "internal" conversations. Testing performance with existing functional
+>>>> tests would already be a first good step. However, given the poor
+>>>> reliability we have on our CI runners, I think it's a bit doomed.
+>>>> 
+>>>> Ideally, every QEMU release cycle should have a performance measurement
+>>>> window to detect potential sources of regressions.
+>> 
+>> Maybe instead of aiming for full CI like performance testing something
+>> simpler like a few tests that excercise some apects each like STREAM that
+>> tests memory access, copying a file from network and/or disk that tests
+>> I/O and mp3 encode with lame for example that's supposed to test floating
+>> point and SIMD might be simpler to do. It could be made a bootable image
+>> that just runs the test and reports a number (I did that before for
+>> qemu-system-ppc when we wanted to test an issue that on some hosts it ran
+>> slower). Such test could be run by somebody making changes so they could
+>> call these before and after their patch to quickly check if there's
+>> anything to improve. This may be less through then full performance
+>> testing but still give some insight and better than not testing anything
+>> for performance.
+>> 
+>> I'm bringig this topic up to try to keep awareness on this so QEMU can
+>> remain true to its name. (Although I'm not sure if originally the Q in the
+>> name stood for the time it took to write or its performance but it's
+>> hopefully still a goal to keep it fast.)
+>> 
+>
+> You do well to remind that, but as always, the problem is that "run by 
+> somebody" is not an enforceable process.
+>
+>>>> To answer to your specific question, I am trying first to get a review
+>>>> on the approach taken. We can always optimize in next series version, in
+>>>> case we identify it's a big deal to introduce a branch for every memory
+>>>> related function call.
+>> 
+>> I'm not sure we can always optimise after the fact so sometimes it can be
+>> necessary to take performance in consideration while designing changes.
+>> 
+>
+> In the context of single binary concerned series, we mostly introduce a few 
+> branches in various spots, to do a runtime check.
+> As Richard mentioned in this series, we can keep target code exactly as it 
+> is.
+>
+>>>> In all cases, transforming code relying on compile time
+>>>> optimization/dead code elimination through defines to runtime checks
+>>>> will *always* have an impact,
+>> 
+>> Yes, that's why it would be good to know how much impact is that.
+>> 
+>>>> even though it should be minimal in most of cases.
+>> 
+>> Hopefully but how do we know if we don't even test for it?
+>> 
+>
+> In the case of this series, I usually so a local test booting (automatically) 
+> an x64 debian stable vm, that poweroff itself as part of its init.
+>
+> With and without this series, the variation is below the average one I have 
+> between two runs (<1 sec, for a total of 40 seconds), so the impact is 
+> litterally invisible.
+
+That's good to hear. Some overhead which is unavoidable is OK I just hope 
+we can avoid which is not unavoidable and try to do something about what 
+would have noticable performance penalty. If you're already aware of that 
+and do that then that's all I wanted to say, nothing new.
+
+>>>> But the maintenance and compilation time benefits, as well as
+>>>> the perspectives it opens (single binary, heterogeneous emulation, use
+>>>> QEMU as a library) are worth it IMHO.
+>> 
+>> I'm not so sure about that. Heterogeneous emulation sounds interesting but
+>> is it needed most of the time? Using QEMU as a library also may not be
+>> common and limited by licencing. The single binary would simplify packages
+>> but then this binary may get huge so it's slower to load, may take more
+>> resources to run and more time to compile and if somebody only needs one
+>> architecture why do I want to include all of the others and wait for it to
+>> compile using up a lot of space on my disk? So in other words, while these
+>> are interesting and good goals could it be achieved with keeping the
+>> current way of building single ARCH binary as opposed to single binary
+>> with multiple archs and not throwing out the optimisations a single arch
+>> binary can use? Which one is better may depend on the use case so if
+>> possible it would be better to allow both keeping what we have and adding
+>> multi arch binary on top not replacing the current way completely.
+>> 
+>
+> Thanks, it's definitely interesting to hear the concerns on this, so we can 
+> address them, and find the best and minimal solution to achive the desired 
+> goal.
+>
+> I'll answer point by point.
+>
+> QEMU as a library: that's what Unicorn is 
+> (https://www.unicorn-engine.org/docs/beyond_qemu.html), which is used by a 
+> lot of researchers. Talking frequently with some of them, they would be happy 
+> to have such a library directly with upstream QEMU, so it can benefit from 
+> all the enhancements done to TCG. It's mostly a use case for security 
+> researchers/engineers, but definitely a valid one. Just look at the list of 
+> QEMU downstream forks focused on that. Combining this with plugins would be 
+> amazing, and only grow our list of users.
+>
+> For the heterogeneous scenario, yes it's not the most common case. But we 
+> *must*, in terms of QEMU binary, be able to have a single binary first. By 
+> that, I mean the need is to be able to link a binary with several arch 
+> present, without any symbol conflict.
+
+OK Unicorn engine explains it and it needs multiple targets in single 
+library (which maybe is the real goal, not a single binary here and that 
+only needs targets not all devices). By the way I think multiple-arch is 
+what they really mean on that beyond_qemu.html page above under 
+Thread-safety.
+
+> The other approach possible is to rename many functions through QEMU codebase 
+> by adding a target_prefix everywhere, which would be ugly and endless. That's 
+> why we are currently using the "remove duplicated compilation units" 
+> pragmatic approach. As well, we can do a lot of headers cleanup on the way 
+> (removing useless dependencies), which is good for everyone.
+>
+> For compilation times, it will only speed it up, because in case you have 
+> only specific targets, non-needed files won't be compiled/linked. For multi 
+> target setup, it's only a speed up (with all targets, it would be a drop from 
+> 9000+ CUs to around 4000+). Less disk space as well, most notable in debug.
+> As well, having files compiled only once allow to use reliably code 
+> indexation tools (clangd for instance), instead of picking a random CU 
+> setting based on one target.
+> Finally, having a single binary would mean it's easy to use LTO (or at least 
+> distros would use it easily), and get the same or better performance as what 
+> we have today.
+>
+> The "current" way, with several binaries, can be kept forever if people
+
+As I said I think that would be needed as there are valid use cases for 
+both.
+
+> wants. But it's not feasible to keep headers and cu compatible for both 
+> modes. It would be a lot of code duplication, and that is really not 
+> desirable IMHO. So we need to do those system wide changes and convince the 
+> community it's a good progress for everyone.
+
+It would be nice to keep optimisations where possible and it seems it 
+might be possible sometimes so just take that in consideration as well not 
+just one goal.
+
+> Kudos to Philippe who has been doing this long and tedious work for several 
+> years now, and I hope that with some fresh eyes/blood, it can be completed 
+> soon.
+
+Absolutely and I did not mean to say not to do it just added another view 
+point for consideration.
+
+Regards,
+BALATON Zoltan
 
