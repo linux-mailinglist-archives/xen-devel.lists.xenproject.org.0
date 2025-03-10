@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45B1EA5914F
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Mar 2025 11:37:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.906403.1313854 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B65BBA591CC
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Mar 2025 11:51:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.906416.1313863 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1traVE-0001FP-Jw; Mon, 10 Mar 2025 10:36:56 +0000
+	id 1traj5-0006n0-RN; Mon, 10 Mar 2025 10:51:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 906403.1313854; Mon, 10 Mar 2025 10:36:56 +0000
+Received: by outflank-mailman (output) from mailman id 906416.1313863; Mon, 10 Mar 2025 10:51:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1traVE-0001D6-H6; Mon, 10 Mar 2025 10:36:56 +0000
-Received: by outflank-mailman (input) for mailman id 906403;
- Mon, 10 Mar 2025 10:36:55 +0000
+	id 1traj5-0006la-Or; Mon, 10 Mar 2025 10:51:15 +0000
+Received: by outflank-mailman (input) for mailman id 906416;
+ Mon, 10 Mar 2025 10:51:14 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sahL=V5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1traVD-0001D0-8L
- for xen-devel@lists.xenproject.org; Mon, 10 Mar 2025 10:36:55 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ id 1traj4-0006lU-93
+ for xen-devel@lists.xenproject.org; Mon, 10 Mar 2025 10:51:14 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 94cb25c5-fd9b-11ef-9898-31a8f345e629;
- Mon, 10 Mar 2025 11:36:53 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-3913fdd0120so745949f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 10 Mar 2025 03:36:53 -0700 (PDT)
+ id 948d1454-fd9d-11ef-9898-31a8f345e629;
+ Mon, 10 Mar 2025 11:51:11 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-43cf3192f3bso9220255e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Mar 2025 03:51:11 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3912bfba87csm14800007f8f.17.2025.03.10.03.36.51
+ 5b1f17b1804b1-43cf6c74f38sm33861315e9.20.2025.03.10.03.51.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Mar 2025 03:36:52 -0700 (PDT)
+ Mon, 10 Mar 2025 03:51:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 94cb25c5-fd9b-11ef-9898-31a8f345e629
+X-Inumbo-ID: 948d1454-fd9d-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741603012; x=1742207812; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741603871; x=1742208671; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xxruKh367t5nmxEuw1EmnVaO6W08iJH00rfq67GMJVY=;
-        b=AxVvAfIUL6ESgOcoedCVyYtSVPfN96UZ2DUrHp1By2EQ1A6FuijfnnM2EKtZnSoTpr
-         zWXos9RYuQpMrBYVev/XFlpaktP3XdT1zfEH4QdqW373vSOyLEcN7vcj6Y84BdBhDi5j
-         8nhTloa5qJ1/n4VteofczXV4eed6Ou4Nv4V+V4L4DWivygvrJtit0RnTqbGLpNTy00s4
-         H392OWhJmrRosgnxwVAVnUhB5nQAo5cbnsZFXSEnp65r8fm5sGTNgQQj7Gxv/Nz2Ga9P
-         h/x2bMQ4V0FpbKKYAHRBE3MozplFSgMa5E6joBpf3wuoQoivldLwdQi61nECHY/4Q2gy
-         nu3Q==
+        bh=wzmehQ4pIDj8/sRLN/NhOagiHJebn3c57Zcma0dsm/M=;
+        b=fvJ9IIWZ6fpWAbDk1N30AFPT7Ck07+TjVVEZ2BU9rZB25KVU6SFQz3D6PvFAfNSinA
+         B/RLqMGA+4um8Y4dxc3zD4yp11fnsmvnZrvjboWP20HPF7yiI3QyhaOcNuM8Mgn92rfa
+         AYT9kIRFh/G5qkZEV7aVkHXYHzf3BgneSklh4FWYbYUtP1AbRBv7Rzthnaz3ieca1ewg
+         tqih9/9dB+9j9H1M0P6KoEA0pIUYM76uAQf9t3kSJsf/5AMB0bHxdgppg2GxxISYQVjj
+         u8gL0oJgeNH/Jbj20e5KradbMEdQb2eaoxrNcyERd3285Ava+tj96jHW0Ic+8Ci/V2pq
+         3VfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741603012; x=1742207812;
+        d=1e100.net; s=20230601; t=1741603871; x=1742208671;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xxruKh367t5nmxEuw1EmnVaO6W08iJH00rfq67GMJVY=;
-        b=lmVNL2Y3zLpFODcIIaQpxZVTB1HtVzHzwT2n5GGZH+LtwG8LhgPz/S5z05W9WbFZV7
-         lGD9w8iwHRwiWfxUOrT3NJkeUSyZABgF4LNeRX34Xm3UTGW5GPq7Vak/qvCwMtBfuUlo
-         LNiz5Z0mVvB/4j4JEDysCgRF4oPt29yWWUA7TIsOZJ2lh9pg6wG3OIRrHJyONAKvM5OJ
-         OaaYXFbJcsetyAzHdbJEHvap1Pf29rtFigWfV8kAD+mGU73kUTY96BfUK1G4adm7XKfO
-         oKdrN7MvQ1kmGUarVVnRe0tJtcxS2VTNmm9b/1MjhgtziEX2U9ENVWBF0psM2BXODFrA
-         8YuA==
-X-Forwarded-Encrypted: i=1; AJvYcCXQsAr32qjLHzDaaSgePywy/fqcskHQEYVoggOilapFymZLcByjklzOxOFsTsN9UUclGZE/sTH6yTY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwF78a0dny1DF5Jg2+ew1JTjr6EgeKyzo89UJAZaDmwGanZSRd7
-	eJyMFnuuipEe4ExYnOOTQHopheZL2SLx2+/b7Y7XthGQ+Vs5lJKWDo1z6ka95A==
-X-Gm-Gg: ASbGncvaMecp4mJ5v9iH9UGcvyZd3ULycc6SCgcGXQKUprsX5QVdrDHDzhifejCzfF3
-	KTy8GrfeIpdAN3GsSl+BgfwdpnuAaE5TScVv9IpkXpwPdJxmgtCRBkactCqWx10cvM4DgSALmSZ
-	24Kz9ICvXYnbBdiNHKorlQQ8z+pZo1H5p2K9JAhH/qRQlZpjT1ig7GTb6QrDivGpm5pjj1EwCQt
-	7KIiygR942f87pjqkGbLOTCU0obtoVYtxfLRt/SiSSAKH0ZCQ1l4lvbclJ+0AtnAkAMZ1j+hZ0w
-	PmxlOkAg/akvSu7+1K+cVMnEcdpRczaXSbVys0ZMzyi1/6HThUfQDkmsxNCpsibKF3uaGCjrrnK
-	yQNZqGRMo5ruhf44+wiKLpYV8xw56ng==
-X-Google-Smtp-Source: AGHT+IGeO4yTGC58MRRmlIHR6sIaf6azf5UDzV10+C64R/ID3UhTXRCb57T0ZMe2PAf1SmAnrzQ25A==
-X-Received: by 2002:a05:6000:144d:b0:38f:503a:d93f with SMTP id ffacd0b85a97d-39132d9908fmr7003530f8f.40.1741603012535;
-        Mon, 10 Mar 2025 03:36:52 -0700 (PDT)
-Message-ID: <c037b420-d732-45fd-adc5-12792c1bc187@suse.com>
-Date: Mon, 10 Mar 2025 11:36:51 +0100
+        bh=wzmehQ4pIDj8/sRLN/NhOagiHJebn3c57Zcma0dsm/M=;
+        b=LrU+wu6+JgP6Ib0LR+g8UVS6mGNqzzDDrumdIutDFTauJVuwzUxuE48FPPJ8wnTNhk
+         2ndGJ2VzC9MwGkO9NZk8uYIHn2Dz7tYWsdnfEQDMCQVgSneULeAH5YdJvH94nBqPBWhB
+         gsSIBp4LPqviAPGw57kH2kyKqcVQvXmlgT6BhE8IeFVV71Uu+Y2MEslGVK0IG5Ve1me+
+         DpBPxShrv3V69sk3Dnq96vnKQ2BhUp9Ucxbp/xVJ8nTHPSakVaoJztfV7/jwOpj7J2mT
+         +RjyrP+rK9/4s8QITupwOxokdU3TYGEcEKGl8v4FgKz27qs/aSnGIeM6r5Uuw8BXAELK
+         LJpQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXJgy958mpKkQELQJXSSvtpRnH9HiTesMOrihDIfNPyuOfKnri14iGGc/r0k1o92HRDmTOROh/qv2c=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwIn+OtuaJzDtc6C80p34InxI29RNvMMKD0Nc/12ABlrMipNbTO
+	sG3no0CT0uhbm+Ivt7xf58EZAmfsh34Drtjs8+ADmiamt7blUvoh/H7H6UIFDA==
+X-Gm-Gg: ASbGnctvO5kZ91FMETaQB148p79p93ZCTKmVZ6TIaebogA7X7sVB9nGi07U2SnBDl/z
+	P48UoCDAeK3J6qZmrqPm7s/jMHSUAGtEn7VuQOVf0Nxxwr3NDLJbbZCGzvJs2LKivjCzT2+EYg1
+	Bz+2FNeaE+M03DoGiXYkS2aAFpeVR609bNNIjjV15TVRpnYbCTJMR4A29LFi2m89La6kzXMOvHo
+	hR0GhDE34DCWQ0dqXmWdQYo0oKOr3y0sC0CEm0InY9CcYIUkecUzfKlQwW7o1hLH2a+rfT4LOSc
+	ujhnzS0qhWX7w+yJBZPV/e+lZ80YYVXW1xAVhZGz5TtHk0hwxNn6IQcpJm5p4R70Gv/Uj7/xQn1
+	Swlli5rrTne+dWC1tLTimYd/9c7kZOA==
+X-Google-Smtp-Source: AGHT+IFplJVqNIfE6TPtDRpiNXOvhW5YCRHQHQfoxxZb0bwAwbtP7ofueGlSXQuZoxZr1J3Xyt7Fnw==
+X-Received: by 2002:a05:600c:46ca:b0:439:88bb:d002 with SMTP id 5b1f17b1804b1-43c5a629b5bmr76113665e9.23.1741603871123;
+        Mon, 10 Mar 2025 03:51:11 -0700 (PDT)
+Message-ID: <507eef19-92ff-44ca-bd0a-86299949c03b@suse.com>
+Date: Mon, 10 Mar 2025 11:51:09 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/hvm: add HVM-specific Kconfig
-To: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
- michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
- dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20250207220302.4190210-1-dmukhin@ford.com>
+Subject: Re: [PATCH v3 2/2] x86/iommu: avoid MSI address and data writes if
+ IRT index hasn't changed
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>, xen-devel@lists.xenproject.org
+References: <20250310095535.46033-1-roger.pau@citrix.com>
+ <20250310095535.46033-3-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,114 +119,102 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250207220302.4190210-1-dmukhin@ford.com>
+In-Reply-To: <20250310095535.46033-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 07.02.2025 23:03, dmkhn@proton.me wrote:
-> Add separate menu for configuring HVM build-time settings to help organizing
-> HVM-specific options.
+On 10.03.2025 10:55, Roger Pau Monne wrote:
+> Attempt to reduce the MSI entry writes, and the associated checking whether
+> memory decoding and MSI-X is enabled for the PCI device, when the MSI data
+> hasn't changed.
 > 
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> When using Interrupt Remapping the MSI entry will contain an index into
+> the remapping table, and it's in such remapping table where the MSI vector
+> and destination CPU is stored.  As such, when using interrupt remapping,
+> changes to the interrupt affinity shouldn't result in changes to the MSI
+> entry, and the MSI entry update can be avoided.
+> 
+> Signal from the IOMMU update_ire_from_msi hook whether the MSI data or
+> address fields have changed, and thus need writing to the device registers.
+> Such signaling is done by returning 1 from the function.  Otherwise
+> returning 0 means no update of the MSI fields, and thus no write
+> required.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-I think it would be nice if "organizing" was further qualified, to really see
-_why_ the change is being made. A particular benefit that Roger points out is
-that this way all HVM-dependent options moved here will then appear in a sub-
-menu like fashion in the tool.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+with two purely cosmetic suggestions and an only loosely related question below.
 
-> --- a/xen/arch/x86/Kconfig
-> +++ b/xen/arch/x86/Kconfig
-> @@ -30,7 +30,6 @@ config X86
->  	select HAS_SCHED_GRANULARITY
->  	select HAS_UBSAN
->  	select HAS_VMAP
-> -	select HAS_VPCI if HVM
->  	select NEEDS_LIBELF
+> --- a/xen/arch/x86/hvm/vmx/vmx.c
+> +++ b/xen/arch/x86/hvm/vmx/vmx.c
+> @@ -415,7 +415,9 @@ static int cf_check vmx_pi_update_irte(const struct vcpu *v,
+>  
+>      ASSERT_PDEV_LIST_IS_READ_LOCKED(msi_desc->dev->domain);
+>  
+> -    return iommu_update_ire_from_msi(msi_desc, &msi_desc->msg);
+> +    rc = iommu_update_ire_from_msi(msi_desc, &msi_desc->msg);
+> +
+> +    return rc < 0 ? rc : 0;
 
-As said before, personally I'd prefer if this didn't move.
+Only tangential here, but: Why does this function have a return type of
+non-void, when neither caller cares?
 
-> --- /dev/null
-> +++ b/xen/arch/x86/hvm/Kconfig
-> @@ -0,0 +1,73 @@
-> +menuconfig HVM
-> +	bool "HVM support"
-> +	depends on !PV_SHIM_EXCLUSIVE
-> +	default !PV_SHIM
-> +	select COMPAT
-> +	select HAS_VPCI
-> +	select IOREQ_SERVER
-> +	select MEM_ACCESS_ALWAYS_ON
-> +	help
-> +	  Interfaces to support HVM domains.  HVM domains require hardware
-> +	  virtualisation extensions (e.g. Intel VT-x, AMD SVM), but can boot
-> +	  guests which have no specific Xen knowledge.
-> +
-> +	  This option is needed if you want to run HVM or PVH domains.
-> +
-> +	  If unsure, say Y.
-> +
-> +if HVM
-> +
-> +config AMD_SVM
-> +	bool "AMD-V" if EXPERT
-> +	default y
-> +	help
-> +	  Enables virtual machine extensions on platforms that implement the
-> +	  AMD Virtualization Technology (AMD-V).
-> +	  If your system includes a processor with AMD-V support, say Y.
-> +	  If in doubt, say Y.
-> +
-> +config INTEL_VMX
-> +	bool "Intel VT-x" if EXPERT
-> +	default y
-> +	select ARCH_VCPU_IOREQ_COMPLETION
-> +	help
-> +	  Enables virtual machine extensions on platforms that implement the
-> +	  Intel Virtualization Technology (Intel VT-x).
-> +	  If your system includes a processor with Intel VT-x support, say Y.
-> +	  If in doubt, say Y.
+> --- a/xen/drivers/passthrough/amd/iommu_intr.c
+> +++ b/xen/drivers/passthrough/amd/iommu_intr.c
+> @@ -492,7 +492,7 @@ static int update_intremap_entry_from_msi_msg(
+>                 get_ivrs_mappings(iommu->seg)[alias_id].intremap_table);
+>      }
+>  
+> -    return 0;
+> +    return !fresh ? 0 : 1;
+>  }
 
-Perhaps not to be done right here, but still: I guess the "default" of these
-want to change to use AMD / INTEL respectively. While we permit enabling the
-virt extension support separately, generally there's little point doing so
-by default when the corresponding CPU support code was disabled.
+Simply
 
-> +config ALTP2M
-> +	bool "Alternate P2M support" if EXPERT
-> +	depends on INTEL_VMX
-> +	default y
-> +	help
-> +	  Alternate-p2m allows a guest to manage multiple p2m guest physical
-> +	  "memory views" (as opposed to a single p2m).
-> +	  Useful for memory introspection.
-> +
-> +	  If unsure, stay with defaults.
-> +
-> +config MEM_PAGING
-> +	bool "Xen memory paging support (UNSUPPORTED)" if UNSUPPORTED
-> +
-> +config MEM_SHARING
-> +	bool "Xen memory sharing support (UNSUPPORTED)" if UNSUPPORTED
-> +
-> +config HVM_FEP
-> +	bool "HVM Forced Emulation Prefix support (UNSUPPORTED)" if UNSUPPORTED
-> +	default DEBUG
-> +	help
-> +	  Compiles in a feature that allows HVM guest to arbitrarily
-> +	  exercise the instruction emulator.
-> +
-> +	  This feature can only be enabled during boot time with
-> +	  appropriate hypervisor command line option. Please read
-> +	  hypervisor command line documentation before trying to use
-> +	  this feature.
-> +
-> +	  This is strictly for testing purposes, and not appropriate
-> +	  for use in production.
-> +
-> +	  If unsure, say N.
+    return fresh;
 
-Please can this move ahead of at least the two MEM_* ones, maybe even ahead
-of ALTP2M?
+?
+
+> @@ -546,7 +546,7 @@ int cf_check amd_iommu_msi_msg_update_ire(
+>      rc = update_intremap_entry_from_msi_msg(iommu, bdf, nr,
+>                                              &msi_desc->remap_index,
+>                                              msg, &data);
+> -    if ( !rc )
+> +    if ( rc > 0 )
+>      {
+>          for ( i = 1; i < nr; ++i )
+>              msi_desc[i].remap_index = msi_desc->remap_index + i;
+> --- a/xen/drivers/passthrough/vtd/intremap.c
+> +++ b/xen/drivers/passthrough/vtd/intremap.c
+> @@ -506,6 +506,7 @@ static int msi_msg_to_remap_entry(
+>      unsigned int index, i, nr = 1;
+>      unsigned long flags;
+>      const struct pi_desc *pi_desc = msi_desc->pi_desc;
+> +    bool alloc = false;
+>  
+>      if ( msi_desc->msi_attrib.type == PCI_CAP_ID_MSI )
+>          nr = msi_desc->msi.nvec;
+> @@ -529,6 +530,7 @@ static int msi_msg_to_remap_entry(
+>          index = alloc_remap_entry(iommu, nr);
+>          for ( i = 0; i < nr; ++i )
+>              msi_desc[i].remap_index = index + i;
+> +        alloc = true;
+>      }
+>      else
+>          index = msi_desc->remap_index;
+> @@ -601,7 +603,7 @@ static int msi_msg_to_remap_entry(
+>      unmap_vtd_domain_page(iremap_entries);
+>      spin_unlock_irqrestore(&iommu->intremap.lock, flags);
+>  
+> -    return 0;
+> +    return alloc ? 1 : 0;
+>  }
+
+Like above, simply
+
+    return alloc;
+
+?
 
 Jan
 
