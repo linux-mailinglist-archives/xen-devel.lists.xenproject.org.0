@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3A24A57A32
-	for <lists+xen-devel@lfdr.de>; Sat,  8 Mar 2025 13:38:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.905677.1313385 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94157A58C30
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Mar 2025 07:43:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.905971.1313497 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqtQo-0002tP-QI; Sat, 08 Mar 2025 12:37:30 +0000
+	id 1trWqu-0002ky-Kc; Mon, 10 Mar 2025 06:43:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 905677.1313385; Sat, 08 Mar 2025 12:37:30 +0000
+Received: by outflank-mailman (output) from mailman id 905971.1313497; Mon, 10 Mar 2025 06:43:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tqtQo-0002qR-Mj; Sat, 08 Mar 2025 12:37:30 +0000
-Received: by outflank-mailman (input) for mailman id 905677;
- Sat, 08 Mar 2025 12:37:29 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1tqtQn-0002qL-09
- for xen-devel@lists.xenproject.org; Sat, 08 Mar 2025 12:37:29 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tqtQm-008ria-1y;
- Sat, 08 Mar 2025 12:37:28 +0000
-Received: from [2a02:8012:3a1:0:5057:2808:1e53:9bd7]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tqtQl-00EB5j-3D;
- Sat, 08 Mar 2025 12:37:28 +0000
+	id 1trWqu-0002Ux-7I; Mon, 10 Mar 2025 06:43:04 +0000
+Received: by outflank-mailman (input) for mailman id 905971;
+ Mon, 10 Mar 2025 04:59:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fu2G=V5=linaro.org=pierrick.bouvier@srs-se1.protection.inumbo.net>)
+ id 1trVEJ-00070S-Lq
+ for xen-devel@lists.xenproject.org; Mon, 10 Mar 2025 04:59:07 +0000
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
+ [2607:f8b0:4864:20::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5b891409-fd6c-11ef-9898-31a8f345e629;
+ Mon, 10 Mar 2025 05:58:51 +0100 (CET)
+Received: by mail-pl1-x631.google.com with SMTP id
+ d9443c01a7336-223594b3c6dso65469345ad.2
+ for <xen-devel@lists.xenproject.org>; Sun, 09 Mar 2025 21:58:51 -0700 (PDT)
+Received: from pc.. ([38.39.164.180]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-736d2ae318csm1708308b3a.53.2025.03.09.21.58.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 09 Mar 2025 21:58:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,187 +44,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=eg3FJYsT45Gm7cOBDnUNLx4BtDMVb7xQcoVTW4Z35is=; b=GT196senWSvKumZ47+qqWC/PQo
-	tmtIYECyPimsR+KiES/lCEQNBPR5Rk3g33BgBqqO08s30diXNAaPqWPiLpes2Nib50mHf6OW43d8F
-	xh6UPQF8Roe6i7kvYeuYqSPRqn4unbphVZXQIB87fxGfFRut/Fpf/DFwp4RoDHGZeA1s=;
-Message-ID: <cdb05727-fd2f-4b83-9200-d88789ce908e@xen.org>
-Date: Sat, 8 Mar 2025 12:37:25 +0000
+X-Inumbo-ID: 5b891409-fd6c-11ef-9898-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1741582730; x=1742187530; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=CyMnY8DCOyhH4sll8UBWjGQBOdpS4N2V2sRcD5CyECM=;
+        b=T5mqFkzrUgQVbUzBL0B85y3B6SqnLNGzrHsv3Bxb/R4kyBvS+USlLx0k2HscWCN2gt
+         j6bEhCFCX6GUTPbTdawtKg5ufipes77/Xtgp9qN2R3IWLGAD1pnHDWKUzlpoDlBPa1jS
+         9Dz8+A42USY9gBeCj2kPO4ewiGcTh7ZlnjHA5RS6VxumjazXOeCF4QCfjDZCFx+3pCW3
+         fiYTEpCdm19qEfCtuotquGgTfi2O+DOSOtfmeJb/tRU6GRy4quFpSmTvxS8gDV2lub7H
+         HhezNqM5520UFUilbf4QUbbA0S3BKkRgBGcaXnWqO4l+1+jn7peXCYscBVngVOECFntF
+         S37A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1741582730; x=1742187530;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=CyMnY8DCOyhH4sll8UBWjGQBOdpS4N2V2sRcD5CyECM=;
+        b=P2RlC9xV5uZTBZ6qDvwfkDxWADRsrLGvAnAxGly8e+PPg/eowyY1OkZJ0JZNT8O2xr
+         Gu4C3zjVh1eiRZFUDiiWj+LCNbUgclXNFjlK6nl6HPMBhNalw0y1TY+z6UvfH/MbVJUo
+         4SPDxaVLDBQ050bEyybbLkwGBoffEYexd34T0pdazsE2DGmk7N7rI7TJwQjWsAXqlali
+         ZDLlsFZf9pZeRg2Ha8LeKE7a2KPN99kBPYFpGIzU0mK/8iYQ1q6KO+4FUUdjbmBH+k+B
+         PGQEuuKDbSJvi3O5Pci1NOFIAlp/DJO0caqgu9cWoH/YDUmilmLXUl4bLQmuhmyorI/p
+         AjRg==
+X-Forwarded-Encrypted: i=1; AJvYcCVgDJ6nzhPSnf6NGu7wgKXQ1x0RQM73fzuon+DgI2ZATTP+Z17LHCtaBED6bhgFWH3V05ziNUNKv5Q=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyJRzmm/EGqhOLmZgGKScJZzJQ7945A+/mviOvwFnRNEIazdFf1
+	sfJ65uD1DBQusQ/VYwAfxYXddadnU17VnARBgmLnSGho5TZEBznF7H2nbyl1shI=
+X-Gm-Gg: ASbGncuCJUn8AptwNY/k8Ob8TCM2/uw5/OVZuxRH/cHbe8pB681WucIMhJQgFGOmPQf
+	pei/mo0dI5uxEqmPeU5CZwyEFoPwyiNMpx3TN65dY1o159ydWnbRtDfiVAyOSbs+1vD0KRPYEAx
+	ExeUuzKmMxaFWKjvhxmz2UTk2yTJSUrzxHxeEujj7oByc5OyWTiYceISPpJXS9UP76FKhkFKTtX
+	jozcxneuJPjJ+9RBmTyLU5LJqxovdwp0wXj7qLC+FR1jhNLBpffQDBxXLndcAujhCS3dA2IEy3x
+	q9I0pKneaOSvDVpJcjXivOgbNgjs2r7hl8NvwH1PLRpA10/LVz0WtXE=
+X-Google-Smtp-Source: AGHT+IFBRE9vcuWy/8QGIVJH+CegCd8ZXFRntWgx7wfqbQL9hdyzkh8MEMl2t2vqfLHGN0wEW9B3Eg==
+X-Received: by 2002:a05:6a00:b4e:b0:736:57cb:f2b6 with SMTP id d2e1a72fcca58-736aaa1acf0mr17943212b3a.12.1741582729877;
+        Sun, 09 Mar 2025 21:58:49 -0700 (PDT)
+From: Pierrick Bouvier <pierrick.bouvier@linaro.org>
+To: qemu-devel@nongnu.org
+Cc: qemu-ppc@nongnu.org,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Harsh Prateek Bora <harshpb@linux.ibm.com>,
+	alex.bennee@linaro.org,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Daniel Henrique Barboza <danielhb413@gmail.com>,
+	kvm@vger.kernel.org,
+	Peter Xu <peterx@redhat.com>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+	David Hildenbrand <david@redhat.com>,
+	Weiwei Li <liwei1518@gmail.com>,
+	Paul Durrant <paul@xen.org>,
+	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+	Anthony PERARD <anthony@xenproject.org>,
+	Yoshinori Sato <ysato@users.sourceforge.jp>,
+	manos.pitsidianakis@linaro.org,
+	qemu-riscv@nongnu.org,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	xen-devel@lists.xenproject.org,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Pierrick Bouvier <pierrick.bouvier@linaro.org>
+Subject: [PATCH 00/16] make system memory API available for common code
+Date: Sun,  9 Mar 2025 21:58:26 -0700
+Message-Id: <20250310045842.2650784-1-pierrick.bouvier@linaro.org>
+X-Mailer: git-send-email 2.39.5
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/23] xen/arm: Add capabilities to dom0less
-Content-Language: en-GB
-To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20250306220343.203047-1-jason.andryuk@amd.com>
- <20250306220343.203047-6-jason.andryuk@amd.com>
- <254e38d3-ebc2-4044-9d0f-9be9f652c46c@xen.org>
- <92eca43f-1dc8-4eec-a124-e715d118ab03@amd.com>
- <01df1e44-a2cb-4e93-8b9d-99aca914db68@xen.org>
- <09103c2b-a7c0-44d5-8eb5-2d0fcb01c26e@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <09103c2b-a7c0-44d5-8eb5-2d0fcb01c26e@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Jason,
+The main goal of this series is to be able to call any memory ld/st function
+from code that is *not* target dependent. As a positive side effect, we can
+turn related system compilation units into common code.
 
-On 08/03/2025 00:02, Jason Andryuk wrote:
-> On 2025-03-07 16:21, Julien Grall wrote:
->> Hi Jason,
->>
->> On 07/03/2025 17:58, Jason Andryuk wrote:
->>> On 2025-03-07 04:01, Julien Grall wrote:
->>>> Hi,
->>>>
->>>> On 06/03/2025 22:03, Jason Andryuk wrote:
->>>>> Add capabilities property to dom0less to allow building a
->>>>> disaggregated system.
->>>>>
->>>>> Introduce bootfdt.h to contain these constants.
->>>>>
->>>>> When using the hardware or xenstore capabilities, adjust the grant and
->>>>> event channel limits similar to dom0.
->>>>  > > Also for the hardware domain, set directmap and iommu.  This 
->>>> brings its
->>>>> configuration in line with a dom0.
->>>>
->>>> Looking the device tree bindings, a user would be allowed to disable 
->>>> "passthrough" or even "directmap". This means, we would never be 
->>>> able to disable "directmap" for the hardware domain in the future 
->>>> with the existing property (this is to avoid break backwards 
->>>> compatibility).
->>>>
->>>> Instead, I think we should check what the user provided and confirm 
->>>> this is matching our expectation for an hardware domain.
->>>  >
->>>> That said, I am not entirely sure why we should force directmap for 
->>>> the HW domain. We are starting from a clean slate, so I think it 
->>>> would be better to have by default no directmap and imposing the 
->>>> presence of an IOMMU in the system.
->>>
->>> Ok, it seems like directmap is not necessary.  It was helpful early 
->>> on to get things booting, but I think it's no longer necessary after 
->>> factoring out construct_hwdom().
->>>
->>> What exactly do you mean by imposing with respect to the iommu? 
->>> Require one, or mirror the dom0 code and set it for the hwdom?
->>>
->>>      if ( iommu_enabled )
->>>          dom0_cfg.flags |= XEN_DOMCTL_CDF_iommu;
->>
->> I mean requires one. Without it, you would need to set directmap and I 
->> don't think this should be allowed (at least for now) for the HW domain.
->>
->>>
->>>> Lastly, can you provide an example of what the hardware domain DT 
->>>> node would looke like?
->>>
->>> I've attached a dump of /sys/firmware/fdt from hwdom.  (This is 
->>> direct mapped).
->>
->> Sorry if this was not clear, I am asking for the configuration you 
->> wrote in the host DT for create the hardware domain. I am interested 
->> to know which properties you set...
-> 
-> I've attached the u-boot fdt commands which generate the DT.  Hopefully 
-> that works for you.
-> 
->>>
->>>>> --- a/xen/arch/arm/dom0less-build.c
->>>>> +++ b/xen/arch/arm/dom0less-build.c
->>>>> @@ -12,6 +12,7 @@
->>>>>   #include <xen/sizes.h>
->>>>>   #include <xen/vmap.h>
->>>>> +#include <public/bootfdt.h>
->>>>>   #include <public/io/xs_wire.h>
->>>>>   #include <asm/arm64/sve.h>
->>>>> @@ -994,6 +995,34 @@ void __init create_domUs(void)
->>>>>           if ( (max_init_domid + 1) >= DOMID_FIRST_RESERVED )
->>>>>               panic("No more domain IDs available\n");
->>>>> +        if ( dt_property_read_u32(node, "capabilities", &val) )
->>>>> +        {
->>>>> +            if ( val & ~DOMAIN_CAPS_MASK )
->>>>> +                panic("Invalid capabilities (%"PRIx32")\n", val);
->>>>> +
->>>>> +            if ( val & DOMAIN_CAPS_CONTROL )
->>>>> +                flags |= CDF_privileged;
->>>>> +
->>>>> +            if ( val & DOMAIN_CAPS_HARDWARE )
->>>>> +            {
->>>>> +                if ( hardware_domain )
->>>>> +                    panic("Only 1 hardware domain can be 
->>>>> specified! (%pd)\n",
->>>>> +                           hardware_domain);
->>>>> +
->>>>> +                d_cfg.max_grant_frames = gnttab_dom0_frames();
->>>>> +                d_cfg.max_evtchn_port = -1;
->>>>
->>>> What about d_cfg.arch.nr_spis? Are we expecting the user to pass 
->>>> "nr_spis"?
->>>
->>> Further down, when nr_spis isn't specified in the DT, it defaults to:
->>>      d_cfg.arch.nr_spis = gic_number_lines() - 32;
->>
->> Thanks. One further question, what if the user pass "nr_spis" for the 
->> HW domain. Wouldn't this result to more issue further down the line?
-> 
-> I'm not familiar with ARM, so I'll to whatever is best.  I did put the 
-> capabilities first, thinking it would set defaults, and then later 
-> options could override them.
+The first 6 patches remove dependency of memory API to cpu headers and remove
+dependency to target specific code. This could be a series on its own, but it's
+great to be able to turn system memory compilation units into common code to
+make sure it can't regress, and prove it achieves the desired result.
 
-I am not sure it is related to Arm. It is more that the HW domain is 
-going to re-use the memory layout of the host (this is including the 
-mapping for the GIC) and also have all the irqs with pirq == virq.
+The next patches remove more dependencies on cpu headers (exec-all,
+memory-internal, ram_addr).
+Then, we add access to a needed function from kvm, some xen stubs, and we
+finally can turn our compilation units into common code.
 
-I am a bit concerned that letting the users mistakenly tweaking the 
-defaults could prevent attaching devices (for instance if the IRQ ID is 
-above > nr_spis).
+Every commit was tested to build correctly for all targets (on windows, linux,
+macos), and the series was fully tested by running all tests we have (linux,
+x86_64 host).
 
-> 
->>>
->>> Dom0 does:
->>>      /*
->>>       * Xen vGIC supports a maximum of 992 interrupt lines.
->>>       * 32 are substracted to cover local IRQs.
->>>       */
->>>      dom0_cfg.arch.nr_spis = min(gic_number_lines(), (unsigned int) 
->>> 992) - 32;
->>>      if ( gic_number_lines() > 992 )
->>>          printk(XENLOG_WARNING "Maximum number of vGIC IRQs exceeded. 
->>> \n");
->>>
->>> So I think it's fine as-is?  I could add the min() and warning if you 
->>> think it's necessary.
->>
->> Regardless this discussion, I wonder why we didn't add the min(...) 
->> here like for dom0 because we are using the same vGIC emulation. So 
->> the max SPIs supported is the same...
->>
->> What I am trying to understand is whether it is ok to allow the user 
->> to select "nr_spis", "vpl011" & co if they are either not honored 
->> (like for vpl011) or could introduce further issue (like for nr_spis 
->> as the HW domain is supposed to have the same configuration as dom0).
->>
->> I also don't think it is a good idea to silently ignore what the user 
->> requested. So far, on Arm, we mainly decided to reject/panic early if 
->> the setup is not correct.
-> 
-> Again, I'll do whatever is best.
+Pierrick Bouvier (16):
+  exec/memory_ldst: extract memory_ldst declarations from cpu-all.h
+  exec/memory_ldst_phys: extract memory_ldst_phys declarations from
+    cpu-all.h
+  include: move target_words_bigendian() from tswap to bswap
+  exec/memory.h: make devend_memop target agnostic
+  qemu/bswap: implement {ld,st}.*_p as functions
+  exec/cpu-all.h: we can now remove ld/st macros
+  codebase: prepare to remove cpu.h from exec/exec-all.h
+  exec/exec-all: remove dependency on cpu.h
+  exec/memory-internal: remove dependency on cpu.h
+  exec/ram_addr: remove dependency on cpu.h
+  system/kvm: make kvm_flush_coalesced_mmio_buffer() accessible for
+    common code
+  exec/ram_addr: call xen_hvm_modified_memory only if xen is enabled
+  hw/xen: add stubs for various functions
+  system/physmem: compilation unit is now common to all targets
+  system/memory: make compilation unit common
+  system/ioport: make compilation unit common
 
-Bertrand, Michal, Stefano, any opinions?
-
-Cheers,
+ include/exec/cpu-all.h              | 52 ------------------
+ include/exec/exec-all.h             |  1 -
+ include/exec/memory-internal.h      |  2 -
+ include/exec/memory.h               | 48 ++++++++++++++---
+ include/exec/ram_addr.h             | 11 ++--
+ include/exec/tswap.h                | 11 ----
+ include/qemu/bswap.h                | 82 +++++++++++++++++++++++++++++
+ include/system/kvm.h                |  6 +--
+ include/tcg/tcg-op.h                |  1 +
+ target/ppc/helper_regs.h            |  2 +
+ include/exec/memory_ldst.h.inc      | 13 ++---
+ include/exec/memory_ldst_phys.h.inc |  5 +-
+ hw/ppc/spapr_nested.c               |  1 +
+ hw/sh4/sh7750.c                     |  1 +
+ hw/xen/xen_stubs.c                  | 56 ++++++++++++++++++++
+ page-vary-target.c                  |  3 +-
+ system/ioport.c                     |  1 -
+ system/memory.c                     | 22 +++++---
+ target/riscv/bitmanip_helper.c      |  1 +
+ hw/xen/meson.build                  |  3 ++
+ system/meson.build                  |  6 +--
+ 21 files changed, 225 insertions(+), 103 deletions(-)
+ create mode 100644 hw/xen/xen_stubs.c
 
 -- 
-Julien Grall
+2.39.5
 
 
