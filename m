@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CE67A5BEAB
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 12:16:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.907848.1315038 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD1FAA5BEAD
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 12:16:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.907855.1315048 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1trxac-000635-0P; Tue, 11 Mar 2025 11:16:02 +0000
+	id 1trxb9-0006VQ-9G; Tue, 11 Mar 2025 11:16:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 907848.1315038; Tue, 11 Mar 2025 11:16:01 +0000
+Received: by outflank-mailman (output) from mailman id 907855.1315048; Tue, 11 Mar 2025 11:16:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1trxab-00061a-Tf; Tue, 11 Mar 2025 11:16:01 +0000
-Received: by outflank-mailman (input) for mailman id 907848;
- Tue, 11 Mar 2025 11:15:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1trxb9-0006T0-5r; Tue, 11 Mar 2025 11:16:35 +0000
+Received: by outflank-mailman (input) for mailman id 907855;
+ Tue, 11 Mar 2025 11:16:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=72vt=V6=amd.com=Luca.Miccio@srs-se1.protection.inumbo.net>)
- id 1trxaZ-00061U-Pn
- for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 11:15:59 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20614.outbound.protection.outlook.com
- [2a01:111:f403:2414::614])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3205fc32-fe6a-11ef-9898-31a8f345e629;
- Tue, 11 Mar 2025 12:15:54 +0100 (CET)
-Received: from BN9P221CA0030.NAMP221.PROD.OUTLOOK.COM (2603:10b6:408:10a::29)
- by PH8PR12MB7232.namprd12.prod.outlook.com (2603:10b6:510:224::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.27; Tue, 11 Mar
- 2025 11:15:49 +0000
-Received: from BL6PEPF0001AB59.namprd02.prod.outlook.com
- (2603:10b6:408:10a:cafe::d7) by BN9P221CA0030.outlook.office365.com
- (2603:10b6:408:10a::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.21 via Frontend Transport; Tue,
- 11 Mar 2025 11:15:49 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB59.mail.protection.outlook.com (10.167.241.11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8534.20 via Frontend Transport; Tue, 11 Mar 2025 11:15:49 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 11 Mar
- 2025 06:15:48 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 11 Mar
- 2025 06:15:48 -0500
-Received: from xsjstefanos51.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via
- Frontend Transport; Tue, 11 Mar 2025 06:15:48 -0500
+ <SRS0=1WQE=V6=gmail.com=gragst.linux@srs-se1.protection.inumbo.net>)
+ id 1trxb8-0006Sq-6p
+ for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 11:16:34 +0000
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [2a00:1450:4864:20::22c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 49ea3842-fe6a-11ef-9ab9-95dc52dad729;
+ Tue, 11 Mar 2025 12:16:33 +0100 (CET)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-30bef9b04adso47322621fa.1
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 04:16:33 -0700 (PDT)
+Received: from epuakyiw0a98.kyiv.epam.com (ll-74.141.223.85.sovam.net.ua.
+ [85.223.141.74]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5498ae45fa8sm1755729e87.52.2025.03.11.04.16.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Mar 2025 04:16:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,221 +45,203 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3205fc32-fe6a-11ef-9898-31a8f345e629
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VS+AfzYU7oSEqNYiW2DxmvY1hTOUqc9LXy3u7KT5W0kncGjlsMrBE+NdM1ZNH9Wi+AgueOwwsBypFQcPcRBrdcUoY6UvreQROzCgEhT/cNyI9jP+9/84JTHz7cL9D1b9xGL39guJOkGn2MBrisN/tGpUnpG9rT6G0cwCy5hjPQNhIYbwLmrS0Pv+uZVIlAyjUBuvvvzwWyl6KPADDJ/c+dvXlSy2PrNqpRMfy/K673KabS3d+NJiQeauEjcDVWOgRze3uVDL+6KKXxgSQtkAQgJ50D1G4W7aluOCcESzdyaH1JeqyrGr85UDmBg/mJRrpgcFX71PMlzQgLBxIMLJjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7bOrbxElBQUFEUmULX+wor0Ego3z9F5Xqr1SL2zMeko=;
- b=ls2+XuWCug2DwwqUtd+OEMFYZEuLGjQSBO39JSRoHsTjeHjm0ASO+OtbZaElJ5yO7osSlIodvP5Xj3HTZNm5mbiBjjzo+cLoZznyY6LjqJIbW/gQk153CQDkCWTvU9hfpXozgH9zBaXsFUzYu2iS4FPn+P8JZ3DEJMLT/+HpXMZzQH/WEAdNirSXOvIyvVvC6gWAASiRZgrgpjXuCqi8Shd/3entH2PBi5ZKBb6rkNi33Rn3hB2qCcqPKqNTxIa/wGw8jrgzOotB3cTs7zycIR3usoh5J0o+HCmYZaxrywyTN/xfpHRe4+IFdAx4IK901hUaqWzIE4gBZzHM9fXcOg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7bOrbxElBQUFEUmULX+wor0Ego3z9F5Xqr1SL2zMeko=;
- b=p0618K/w/m3Fy+dqZMrVfe0dhj6QN3RDdfzUnJaxzviMPLl4uCAdV0wzb4X0+ndMzWCJp+fPifTAbf0h0DQeVe2e3sr6WTj8DnDnp+KQzN8hOQ3Ytpgfn4o7WrsvjQTuX0SLr5/nnPb1e0uqrMrcu9nGh7gxoJD5wUWFgOrD3H0=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Luca Miccio <luca.miccio@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>
-Subject: [ImageBuilder][PATCH v2] uboot-script-gen: handle reserved memory regions
-Date: Tue, 11 Mar 2025 04:15:48 -0700
-Message-ID: <20250311111548.3696851-1-luca.miccio@amd.com>
-X-Mailer: git-send-email 2.25.1
+X-Inumbo-ID: 49ea3842-fe6a-11ef-9ab9-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1741691792; x=1742296592; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=N+6cbmlWt96G4k4CNtgTYC9+E+sNENwDJS4lYdrVj9I=;
+        b=RTxksURGtodyePsTffag4o9YamUh+Wm2S4p1nAllmQMIYwRySLU8QA284sWMgpDRwQ
+         cxec65UuRJ+7o2JCLPxITtxoe423RkycnOSQ9PugmHFcXpO5+Hv6TJbAMDQYP3Nxyhpw
+         WtPEdY1+ReEms0AGF/fcxIP2Ve1MJASVQ0cbYwB9+07ne783G6hM9tAOCi56xWV1fnIp
+         nA1RPj0d0jPTATsG8Pr1BVUNBhq02yWqfKsJgFKsk++jRkvSkoQe6I3tXM6TgEn8aNX+
+         Uv7Ixo6APMYgKmWT1n8+EniNGStFu1qg3n7FUPg4URUdy42rrq3RZxMcXWRGIjVJZgT5
+         xadA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1741691792; x=1742296592;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=N+6cbmlWt96G4k4CNtgTYC9+E+sNENwDJS4lYdrVj9I=;
+        b=fxBB3AKlmtHOuLd9WKnatBFpSFn1B1Ha9fFejp1xmDxSyHPg2SNFHLWo61j9GgKaIr
+         SIXvvbQPPi8gUKltb7YzdtRLHBvxGb8lFl9DOohxXxJsVw29nN7b01/YxHkH4z/35Wbd
+         B1zMt6YP3Pmgij3wsCF84q9hxnECmeeNy1MdbDrvoNUbMKvASltipMd2D6ZP/DjN4RiB
+         AiUmZ2PL0RGXH3XRJlVOwWVSCQ/yBNc3irv75Xw8QmsFsUlqXBD/0GvvK2mjA/iaaC7R
+         FII9mpaAJHmFvVntUaS4pNn4G87FGxPmmsp0kpXSPNuPjipFTh2pVyGiMTCQD6pemHJW
+         U7Mw==
+X-Gm-Message-State: AOJu0YxDUGMXf9QOXNDSslRgmkZcuUZSu4d2WoyMtmxE+yCNxs6Dt2p2
+	fxqC/sA8l/0qWNwnSS08fxWI8CPMQ71r+pgcuX+Oj8NCkHqIZkp7srky26my
+X-Gm-Gg: ASbGnctw+kNS9Riguu2Y2iopz2hl/LbWtTbBgjDm2yy0coy8oBBOYyJxAUL2o6twfhG
+	CMKG/oqjFSvR3tsHVA24O7UZJq4BSywHxXTRbJXUi4E25LxZeaMTBVlVxcFij37x7lzQbmGX3iU
+	Tkrd1MXoKloKJjnaS1bGCagW3WpDjzzTs3ffwVaopInk3UrUWh2UvVItw5j/gZk8jmO8sAB3xze
+	FZN/kFOJ8e2k4HsxAP1CziV49TlEMA7fQ2dUQAGJp6/X3PV5Cd4HgetMIwEDh44yuibPEfNtt+K
+	KSHqhj5d5HkZPa5IgXgnnlMDcLJXkujLGBlHwDPlcfFQvyAZHbC8qAckVA+/HgoajwEpsiCGURj
+	C2lsL4OFCElVNgjB8gxLqWnYTQHo=
+X-Google-Smtp-Source: AGHT+IEe27X8S43+QmAn//kF2YBvQ7Td9nd32YZUwH/lFFiOWnbg3afQPaUvFTyERbDyXW6oMYiJYw==
+X-Received: by 2002:a05:651c:b0c:b0:30b:c637:fcea with SMTP id 38308e7fff4ca-30c20648a89mr12321621fa.3.1741691791812;
+        Tue, 11 Mar 2025 04:16:31 -0700 (PDT)
+From: Grygorii Strashko <gragst.linux@gmail.com>
+X-Google-Original-From: Grygorii Strashko <grygorii_strashko@epam.com>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	"Roger Pau Monne" <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Oleksii Moisieiev <oleksii_moisieiev@epam.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Juergen Gross <jgross@suse.com>,
+	Grygorii Strashko <grygorii_strashko@epam.com>
+Subject: [RFC PATCH v3 0/7] xen/arm: scmi: introduce SCI SCMI SMC multi-agent support
+Date: Tue, 11 Mar 2025 13:16:11 +0200
+Message-Id: <20250311111618.1850927-1-grygorii_strashko@epam.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: luca.miccio@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB59:EE_|PH8PR12MB7232:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe29296a-0a91-4674-80eb-08dd608e13f1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|1800799024|376014|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?VshcLKHJhyrQlbNTFocgjyJwExa9euBceNqoilaRs7SHWXlcdHTvoWMFmx/n?=
- =?us-ascii?Q?eFwMpw5y1X2xkOWK/s9g/xlCsZC3+rx8mAzg8zo3jtTRnK9Me6TbfOIwWOeD?=
- =?us-ascii?Q?6XiflguidfQcQ5xc8OFc8zkC1S34KnuLyK1+FZBhSOVwZ4KydRrw0UJMRvOX?=
- =?us-ascii?Q?GwyUOVG+gUfiurkWccP+kOXcSQbraOSO803gyaiQ2V3hbGtXHhLZwJ8J0wOK?=
- =?us-ascii?Q?KAuvASGZSXxz78f4hcu3lUpR8l83QpeCxF7+Mb43Lzqib6rZyJGBvkZmJkKz?=
- =?us-ascii?Q?t6tB11BUqICDyNHpff16ed3m3wdfFblF1TGU2e+PEmfGMBRslCkjyCx3o3bL?=
- =?us-ascii?Q?6RH3kiOAvB490wwSO4AKGRQW/fHJ7dfMrL4oeG5FgVb3OvkltrxeIYwhb9sa?=
- =?us-ascii?Q?D5Gx6WuAxfpKvZVdun2v2nWw+75e8PlSMcG6UBzqyc2kmJynwwsEhCBgTNQd?=
- =?us-ascii?Q?un9b0WthjyhV1188WikmIF5hg+6BMXQVBopQdem9SdqDPT2A6qtrb5066etX?=
- =?us-ascii?Q?vL/ZwBcilcHA2z/DhogNRh75mm8XEEdSEvY9xaHM98bqDRlJ4mG8FGd3R6X/?=
- =?us-ascii?Q?yQexfeBqsRtKPoUNxJlM8c3CJ+D2+calhAb2ArrgCr3+5YMmhz6ez6AL80yX?=
- =?us-ascii?Q?vIiciuyRgkDsSNBHsP7ls4KvR0QwCy5iL28vyp3Wg/sOemeBzUL1uveBMsuP?=
- =?us-ascii?Q?W4lBFZsNVku8Ln4iaJ7id4RF0GKPZ8oKrXyVaPWvo0KDKTYRKzDkQqv0Io0k?=
- =?us-ascii?Q?3yW2Z2R8HMIpRLp5aaMdaY8hvCrYfTZIu9G7pC90WEdg4KsHIcYMsCD/YvI0?=
- =?us-ascii?Q?LLp3dRNWh0pboqAh2fugPXFdzsjO4ilpXXSgOGddT7WdSTY+HWav77o9B3LE?=
- =?us-ascii?Q?Rx/FKCImUvItOrHIJV1l7fZjD0/MOcro4bx+cJYBoiyEpYnFSlcBmbmTd3ut?=
- =?us-ascii?Q?3dexoFl8xpAvJ+v4fBOoJtGh3P+PMohOAL3kmo2L8U8Co8QMOSjhkEmucJTx?=
- =?us-ascii?Q?3knsBeUPo63vkGLcC2u0gnrzegJhkhpaWe42zfPgWoHUas3EQHkKuYf9DVZH?=
- =?us-ascii?Q?VBfRBFo23OSkjnhX+U81V6EpAafrOYycClsafzJTr76m2G7YlIlFKib4C7/W?=
- =?us-ascii?Q?wRvSHocIeKh3sGdCvLe/U19JAEmXXmwVisINlBzispiWPI8nu5S8orGCxzNf?=
- =?us-ascii?Q?XB1vViuwYhS7iEWGyvb0ZGRvWvVxxLQNO08tR9QVo+aj6J5gGiPwpK3SOh5j?=
- =?us-ascii?Q?Bh+Iffn/YCYiMkRBM2knRu0fe1Is6aCTGr+mOiWOI1G019CX7seIwZliX6st?=
- =?us-ascii?Q?Jr9fBN1FLl2ZmO0guvrU0eCaCSdVlLxAsnJ7ADfIytAFev27nXpkjLr+19lQ?=
- =?us-ascii?Q?qMEPUbpBUuzCG7taVcBoMWsJQmQ4l/++/+mo//WFKa3fPeKkb/TbWWGS5N+w?=
- =?us-ascii?Q?8F3KKdtfcOOtELiHdN4rkGJrttPlYxS+L0ZbiSc+Lr1QjViXJWTJvFk/ZTF/?=
- =?us-ascii?Q?LGdF+nmYiABLVmM=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2025 11:15:49.2226
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe29296a-0a91-4674-80eb-08dd608e13f1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0001AB59.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7232
 
-Currently, the uboot-script-gen does not account for reserved memory
-regions in the device tree. This oversight can lead to scenarios where
-one or more boot modules overlap with a reserved region. As a result,
-Xen will always crash upon detecting this overlap. However, the crash
-will be silent (without output) if earlyprintk is not enabled, which is
-the default setting at the moment.
+Hi,
 
-To address this issue, add a function that iterates over the
-reserved-memory nodes if any and populates an array. This array will
-be used later to calculate the load address for any given file.
+This is respin of RFCv2 series from Oleksii Moisieiev [1] which was send pretty long time ago (2022),
+with the main intention is to resume this discussion in public and gather more opinions.
 
-Signed-off-by: Luca Miccio <luca.miccio@amd.com>
----
-v1->v2
- - added local
- - check if reserved node exists
- - handle fdtget errors
- - use numeric check for duplicates
----
- scripts/uboot-script-gen | 84 ++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 81 insertions(+), 3 deletions(-)
+Hence the code was previously sent long time ago there are pretty high number of changes,
+including rebase on newer Xen version 4.20.0-rc2, which already contains some basic SCMI SMC driver
+introduced by Andrei Cherechesu, commit 3e322bef8bc0 ("xen/arm: firmware: Add SCMI over SMC calls
+handling layer").
 
-diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
-index db2c011..edc6a4c 100755
---- a/scripts/uboot-script-gen
-+++ b/scripts/uboot-script-gen
-@@ -468,6 +468,67 @@ function device_tree_editing()
-     fi
- }
- 
-+function fill_reserved_spaces_from_dtb()
-+{
-+    if [ ! -f $DEVICE_TREE ]
-+    then
-+        echo "File $DEVICE_TREE doesn't exist, exiting";
-+        cleanup_and_return_err
-+    fi
-+
-+    # Check if reserved-memory node exists
-+    if ! fdtget -l $DEVICE_TREE /reserved-memory &> /dev/null
-+    then
-+        return
-+    fi
-+
-+    local addr_cells=$(fdtget -t x $DEVICE_TREE /reserved-memory '#address-cells' 2> /dev/null\
-+                    || fdtget -t x $DEVICE_TREE / '#address-cells' 2> /dev/null)
-+    local size_cells=$(fdtget -t x $DEVICE_TREE /reserved-memory '#size-cells' 2> /dev/null\
-+                    || fdtget -t x $DEVICE_TREE / '#size-cells' 2> /dev/null)
-+
-+    if [ -z "$addr_cells" ] || [ -z "$size_cells" ]; then
-+        echo "Could not find #address-cells or #size-cells properties for reserved-memory node in $DEVICE_TREE"
-+        cleanup_and_return_err
-+    fi
-+
-+    for node in $(fdtget -l $DEVICE_TREE /reserved-memory); do
-+        local reg_values=($(fdtget -t x $DEVICE_TREE /reserved-memory/$node reg))
-+        local i=0
-+        for ((i=0; i<${#reg_values[@]}; i+=addr_cells+size_cells)); do
-+            local addr=0
-+            local size=0
-+            local j=0
-+
-+            for ((j=0; j<addr_cells; j++)); do
-+                addr=$((addr << 32 | 0x${reg_values[i+j]}))
-+            done
-+
-+            for ((j=0; j<size_cells; j++)); do
-+                size=$((size << 32 | 0x${reg_values[i+addr_cells+j]}))
-+            done
-+
-+            addr=$(printf "0x%X" $addr)
-+            size=$(printf "0x%X" $size)
-+        done
-+
-+        # Add the reserved space to the list and avoid duplicates
-+        local duplicate=0
-+        for reserved_space in "${RESERVED_MEM_SPACES[@]}"; do
-+            local reserved_start=${reserved_space%,*}
-+            local reserved_size=${reserved_space#*,}
-+
-+            if [[ $addr -eq $reserved_start ]] && [[ $size -eq $reserved_size ]]; then
-+                duplicate=1
-+                break
-+            fi
-+        done
-+        if [ $duplicate -eq 0 ]; then
-+            RESERVED_MEM_SPACES+=("${addr},${size}")
-+        fi
-+    done
-+}
-+
- # Read effective image size from a header, which may be larger than the filesize
- # due to noload sections, e.g. bss.
- function get_image_size()
-@@ -505,9 +566,24 @@ function add_size()
-         size=${image_size}
-     fi
- 
--    memaddr=$(( $memaddr + $size + $offset - 1))
--    memaddr=$(( $memaddr & ~($offset - 1) ))
--    memaddr=`printf "0x%X\n" $memaddr`
-+    # Try to place the file at the first available space...
-+    local new_memaddr=$(( (memaddr + size + offset - 1) & ~(offset - 1) ))
-+
-+    # ...then check if it overlaps with any reserved space
-+    for reserved_space in "${RESERVED_MEM_SPACES[@]}"; do
-+        local reserved_start=${reserved_space%,*}
-+        local reserved_size=${reserved_space#*,}
-+        local reserved_end=$((reserved_start + reserved_size))
-+
-+        if [[ $new_memaddr -le $reserved_end ]] && \
-+           [[ $((new_memaddr + size)) -ge $reserved_start ]]; then
-+            # In that case, place the file at the next available space
-+            # after the reserved one
-+            new_memaddr=$(( (reserved_end + offset) & ~(offset - 1) ))
-+        fi
-+    done
-+
-+    memaddr=$(printf "0x%X\n" $new_memaddr)
-     filesize=$size
- }
- 
-@@ -1373,6 +1449,8 @@ uboot_addr=$memaddr
- memaddr=$(( $memaddr + $offset ))
- memaddr=`printf "0x%X\n" $memaddr`
- 
-+fill_reserved_spaces_from_dtb
-+
- if test "$os" = "xen"
- then
-     xen_file_loading
+Patch 1 "xen/arm: add generic SCI subsystem"
+- rebased and refactored
+- introduced DEVICE_ARM_SCI DT device class and used for SCI drivers probing instead of custom,
+  linker sections based implementation.
+- added SCI API for Dom0 DT handling, instead of manipulating with ARM arch dom0 code directly.
+- TODO: RFC changes in XEN_DOMCTL_assign_device OP processing
+
+Patch 2 "xen/arm: scmi-smc: update to be used under sci subsystem"
+- update driver introduced by commit 3e322bef8bc0 ("xen/arm: firmware: Add SCMI over SMC calls
+handling layer") be used under sci subsystem.
+- no functional changes in general
+
+Patch 3 "xen/arm: scmi-smc: passthrough SCMI SMC to guest domain
+This is new change which allows passthrough SCMI SMC, single agent interface to guest domain
+cover use case "thin Dom0 with guest domain, which serves as Driver domain".
+See patch commit message for full description.
+
+Patch 4 - xen/arm: scmi: introduce SCI SCMI SMC multi-agent driver
+- added "xen,scmi-secondary-agents" property in "chosen" to inform SCI SCMI multi-agent driver
+  about available agents and their configuration. It defines <agent_id> to <smc-id,scmi_shm> map.
+  This option is Xen specific as Xen is the only one entry in the system which need to know
+  about SCMI multi-agent support and configuration.
+- each guest using SCMI should be configured with SCMI agent_id, so SCMI
+  FW can implement Agent-specific permission policy.
+  -- dom0: dom0_scmi_agent_id=<agent_id> in Xen command line option
+  -- toolstack: arm_sci = "type=scmi_smc_multiagent,agent_id=<agent_id>"
+  -- dom0less: todo: "xen,sci_type", "xen,sci_agent_id" properties in "xen,domain" nodes.
+- factored out SCMI generic definitions (re-usable)
+- factored out SCMI shmem code (re-usable)
+- the SCMI passthrough configuration for guest domains is similar to any other HW passthrough cfg.
+
+Patches 5-7
+- no major changes, except to follow rebase and changes in previous patches
+
+Regarding patches 5-7 I'd like to rise a question and I, personally, feel very skeptical doing any
+kind of SCMI DT nodes generation as from toolstack as from Xen.
+1) SCMI is no differ as any other HW MFD device, and HW passthrough configuration works for it in
+   the same way.
+2) if toolstack generates DT then dom0less case might need it also, but this means more code in Xen,
+   so, with certification in mind, it means more overhead requirements, docs and testing.
+   In my opinion if something can be done outside "kernel" - it should.
+   So better invest in tools (imagebuilder, lopper, etc.) instead.
+3) Hence SCMI DT bindings are pretty complex the corresponding guest DT nodes can't be generated
+   from scratch - the user still need to add scmi node, protocols and protocols subnodes in the
+   partial device tree, at least empty. But stop, not exactly empty - the properties like
+   "#clock-cells" need to be added to avoid DTC warnings. Such behavior is rather confusing than
+   helpful.
+4) Exposing the Host Device tree in Dom0 is another questionable thing for toolstack SCMI DT
+   generation. It consumes 128K of memory on Renesas r8a779g0-whitehawk.
+5) No needs for additional public API (XEN_DOMCTL_get_sci_info, GUEST_SCI_SHMEM_BASE..) if dropped 
+
+Code can be found at:
+https://github.com/GrygiriiS/xen/commits/master_v4h_sci_v13_dt_gen
+
+[1] RFC v2:
+https://patchwork.kernel.org/project/xen-devel/cover/cover.1644341635.git.oleksii_moisieiev@epam.com/
+
+SCMI spec:
+https://developer.arm.com/documentation/den0056/e/?lang=en
+
+SCMI bindings:
+https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
+https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/access-controllers/access-controllers.yaml
+
+Reference EL3 FW:
+RPI5: https://github.com/xen-troops/arm-trusted-firmware/commits/rpi5_dev/
+Renesas v4h: https://github.com/GrygiriiS/arm-trusted-firmware/commits/rcar_gen4_v2.7_v4x-scmi_upd/
+
+base-commit: c3f5d1bb40b5 ("automation/cirrus-ci: introduce FreeBSD randconfig builds")
+
+Grygorii Strashko (2):
+  xen/arm: scmi-smc: update to be used under sci subsystem
+  xen/arm: scmi-smc: passthrough SCMI SMC to domain, single agent
+
+Oleksii Moisieiev (5):
+  xen/arm: add generic SCI subsystem
+  xen/arm: scmi: introduce SCI SCMI SMC multi-agent driver
+  libs: libxenhypfs - handle blob properties
+  xen/arm: Export host device-tree to hypfs
+  xen/arm: scmi: generate scmi dt node for DomUs
+
+ MAINTAINERS                                  |   6 +
+ docs/man/xl.cfg.5.pod.in                     |  51 ++
+ docs/misc/xen-command-line.pandoc            |  18 +
+ tools/include/libxl.h                        |   5 +
+ tools/include/xenctrl.h                      |   3 +
+ tools/libs/ctrl/xc_domain.c                  |  18 +
+ tools/libs/hypfs/core.c                      |   2 -
+ tools/libs/light/libxl_arm.c                 | 311 ++++++-
+ tools/libs/light/libxl_create.c              |  12 +
+ tools/libs/light/libxl_internal.h            |   3 +
+ tools/libs/light/libxl_types.idl             |  12 +
+ tools/xl/xl_parse.c                          |  83 ++
+ xen/arch/arm/Kconfig                         |  16 +
+ xen/arch/arm/Makefile                        |   1 +
+ xen/arch/arm/device.c                        |   5 +
+ xen/arch/arm/dom0less-build.c                |  13 +
+ xen/arch/arm/domain.c                        |  12 +-
+ xen/arch/arm/domain_build.c                  |  11 +-
+ xen/arch/arm/domctl.c                        |  22 +
+ xen/arch/arm/firmware/Kconfig                |  36 +-
+ xen/arch/arm/firmware/Makefile               |   2 +
+ xen/arch/arm/firmware/sci.c                  | 187 ++++
+ xen/arch/arm/firmware/scmi-proto.h           | 164 ++++
+ xen/arch/arm/firmware/scmi-shmem.c           | 172 ++++
+ xen/arch/arm/firmware/scmi-shmem.h           |  45 +
+ xen/arch/arm/firmware/scmi-smc-multiagent.c  | 858 +++++++++++++++++++
+ xen/arch/arm/firmware/scmi-smc.c             | 161 +++-
+ xen/arch/arm/host_dtb_export.c               |  28 +
+ xen/arch/arm/include/asm/domain.h            |  11 +
+ xen/arch/arm/include/asm/firmware/sci.h      | 214 +++++
+ xen/arch/arm/include/asm/firmware/scmi-smc.h |  41 -
+ xen/arch/arm/vsmc.c                          |   4 +-
+ xen/common/domctl.c                          |  13 +
+ xen/drivers/passthrough/device_tree.c        |   7 +
+ xen/include/asm-generic/device.h             |   1 +
+ xen/include/public/arch-arm.h                |  12 +
+ xen/include/public/device_tree_defs.h        |   1 +
+ xen/include/public/domctl.h                  |  11 +
+ 38 files changed, 2471 insertions(+), 101 deletions(-)
+ create mode 100644 xen/arch/arm/firmware/sci.c
+ create mode 100644 xen/arch/arm/firmware/scmi-proto.h
+ create mode 100644 xen/arch/arm/firmware/scmi-shmem.c
+ create mode 100644 xen/arch/arm/firmware/scmi-shmem.h
+ create mode 100644 xen/arch/arm/firmware/scmi-smc-multiagent.c
+ create mode 100644 xen/arch/arm/host_dtb_export.c
+ create mode 100644 xen/arch/arm/include/asm/firmware/sci.h
+ delete mode 100644 xen/arch/arm/include/asm/firmware/scmi-smc.h
+
 -- 
-2.25.1
+2.34.1
 
 
