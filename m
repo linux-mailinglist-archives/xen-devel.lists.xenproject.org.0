@@ -2,29 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 057C3A5B992
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 08:11:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.907212.1314481 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A348A5B9BC
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 08:26:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.907234.1314492 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1trtkL-0001aO-76; Tue, 11 Mar 2025 07:09:49 +0000
+	id 1tru0O-0005Sg-IV; Tue, 11 Mar 2025 07:26:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 907212.1314481; Tue, 11 Mar 2025 07:09:49 +0000
+Received: by outflank-mailman (output) from mailman id 907234.1314492; Tue, 11 Mar 2025 07:26:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1trtkL-0001Yc-4L; Tue, 11 Mar 2025 07:09:49 +0000
-Received: by outflank-mailman (input) for mailman id 907212;
- Tue, 11 Mar 2025 07:09:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tru0O-0005Pw-FL; Tue, 11 Mar 2025 07:26:24 +0000
+Received: by outflank-mailman (input) for mailman id 907234;
+ Tue, 11 Mar 2025 07:26:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=lFlb=V6=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1trtkI-0001YW-10
- for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 07:09:47 +0000
-Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch
- [79.135.106.30]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ce34f59f-fe47-11ef-9ab8-95dc52dad729;
- Tue, 11 Mar 2025 08:09:42 +0100 (CET)
+ (envelope-from <SRS0=+cUl=V6=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1tru0M-0005Pq-FG
+ for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 07:26:22 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 20d16e62-fe4a-11ef-9898-31a8f345e629;
+ Tue, 11 Mar 2025 08:26:20 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-43cf848528aso15548545e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 00:26:20 -0700 (PDT)
+Received: from [192.168.69.199] (88-187-86-199.subs.proxad.net.
+ [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43bdd8b0548sm176538855e9.6.2025.03.11.00.26.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 11 Mar 2025 00:26:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,131 +45,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ce34f59f-fe47-11ef-9ab8-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1741676981; x=1741936181;
-	bh=mV9a75nmhMh2/Fuuwr6Zg4EoZlyh62lt04p+OA5Udzo=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector:
-	 List-Unsubscribe:List-Unsubscribe-Post;
-	b=edpTw2uRGGRIojpGF/Md1uA78Uy2pTpGbpTw0CPTiLzhIlpLJesCz2nQNvgvFKW0U
-	 JnhhT85i3N6k9X8FULOGpLp+2tvSAPCCYc30sKibLgBoePlvCmGqA3CUrSphr6tR4v
-	 K2HX1TOUirvkETWpOP1gNNh+IL+1dx/c3HTVCcV/koQuxd2WaVqJ50FF38E+VzB5X7
-	 HxpnNV/FMjtOePQUlj4GTTOXhI+CztmfgEdQw2GOoI1iwvuikh30YV1dQ9WGu0rG5e
-	 XL1WhOdH3reHleaBat4afD96FdWcl4Jc9+du8fE8BRp3WXTzKzeNO7PrpfAjSl6TYV
-	 5l0TIkgE4/3Cw==
-Date: Tue, 11 Mar 2025 07:09:34 +0000
-To: xen-devel@lists.xenproject.org
-From: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: [PATCH v4] xen/console: make console buffer size configurable
-Message-ID: <20250311070912.730334-1-dmkhn@proton.me>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 3b58a56e8d9a01993ce4841f41154431fcb97d3f
+X-Inumbo-ID: 20d16e62-fe4a-11ef-9898-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1741677980; x=1742282780; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=WBH8un9SN3jvdF5o16jBTUcJYgDHmjsu0gBD/ioH79g=;
+        b=yWcA7RR4G0r8VzdI6KQPRb9EJlfhycN9Qoy7FMl8AWMfcx8wJThs/bgMo0TYI8uycN
+         4kVmVFksyBg2gpJo/KAfgF04E/dqONFFKD0cdynhqcXjDP/z+XTTSHYPqDQlb8jMK2Ow
+         V3RLCWd83VIMJZgbthZJjyxzkFTFDq5hApbrfZ8GU3wz9TOeIjK6aC1OlsmQIMOCt5Rx
+         WkMnYDi+arq2K0dZhmfZ/5SHGIZZ/hqd/CbXGOOAuoSa2rtyS7ggUzhvzf/ala4i1a7P
+         YV8da/0aEKoGNnZI2hlzwJYDfxdoSWMiJW55LIvqrPf71flVSNJHJh94sGi7DewyBgLm
+         dq6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1741677980; x=1742282780;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=WBH8un9SN3jvdF5o16jBTUcJYgDHmjsu0gBD/ioH79g=;
+        b=rCZ3r36yVgSJGqhph6FjFDsu3rMJ/3GI5eDf+qrWFeSzxxtrA62xIvcp11qK5+jFCa
+         Gv9PpY9pwWBrZoOIhQVj8TYI5Q5334kN/19nSPEp9GHf83Nzf0yuKiTCJc10CXNSLP8F
+         dQbrZe7ib2q8A2Sx29QiRDy//dgVhiLOgkM5laWU8ahE3hgXK5zveNq15k6RHRIqsWuG
+         3VMbRV7BSqV+rC+LRf176ZpJpALaQmuOMPLzWpj7fi8tMQYouFWO5q0oFsvFhQ4TuYFs
+         R0KA6lwwuIex9WthNeEt480CtY+oEpPYAh4IIUAZ9tdAkHQgCGd95hfW5wgvZ+h9grb1
+         3NrQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVDxp7qGaNA/D5dLyAC/bTc//5UEDgCTpGWMfJCFYKzEmHo4EvL870GB+qKxPS3y9XQr2MKS9xpclE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzGK4oErbLw1XVVuFUikOTdJdwfaFspDTdDKnzS5gf+jn9LwOxh
+	jbGHumSXev1vaeX2OFcs/h0+rfLGvghWTxtrCH6tk9iEctYBh3n1ihM4aoAt2gA=
+X-Gm-Gg: ASbGncsTPfZh+DpSKJkALaERNRsTuig72lxsElrDRFpfm+SjzGmxqQwDxwHYOzZqosB
+	ZdVakSlMJj+vvJFLL6Y4AhiJmw8+MBUcucp5P4SVcXrSBC/i09jV4ipJAXUfrntVeFWNn1/ZbTQ
+	WX4oASRX3/745Sc6nA9FtzEl6lwJ2eFvD+kERt5uoO1P4cdAbBjdAUflyhT+I7If6pubHh0Amk9
+	Nr9iJr4RAWcSphbQr1tC/VSxWcY3reoRp0aOGrkWlTGJPsqGaWKZ5v49pEP/ZB2t3V/4T1qT+23
+	IgQcGVONyLLMffHW5awo10XfLaaX7XoZ89SUKso2xGLCSeTmsLTwGYLihIkfKEsZaKmq3J/MfJC
+	h2mCUVjY2S9UU
+X-Google-Smtp-Source: AGHT+IGFEKvevhRYU5jwIA+OF5lD7GqYNAbzux+l1q3TxUHSloakvK6wXKgncMmFM2y1SaO/Ty9ZZA==
+X-Received: by 2002:a05:6000:440e:b0:391:39bd:a381 with SMTP id ffacd0b85a97d-3926487d48bmr2239834f8f.30.1741677979924;
+        Tue, 11 Mar 2025 00:26:19 -0700 (PDT)
+Message-ID: <f0c7b0ff-a43a-4203-aba1-2e06a462771e@linaro.org>
+Date: Tue, 11 Mar 2025 08:26:17 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 07/16] exec/exec-all: remove dependency on cpu.h
+To: Pierrick Bouvier <pierrick.bouvier@linaro.org>, qemu-devel@nongnu.org
+Cc: Paul Durrant <paul@xen.org>, Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+ David Hildenbrand <david@redhat.com>, Weiwei Li <liwei1518@gmail.com>,
+ xen-devel@lists.xenproject.org, Paolo Bonzini <pbonzini@redhat.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Peter Xu <peterx@redhat.com>, Nicholas Piggin <npiggin@gmail.com>,
+ kvm@vger.kernel.org, qemu-ppc@nongnu.org,
+ Alistair Francis <alistair.francis@wdc.com>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Harsh Prateek Bora <harshpb@linux.ibm.com>, alex.bennee@linaro.org,
+ qemu-riscv@nongnu.org, manos.pitsidianakis@linaro.org,
+ Yoshinori Sato <ysato@users.sourceforge.jp>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ Daniel Henrique Barboza <danielhb413@gmail.com>,
+ Anthony PERARD <anthony@xenproject.org>
+References: <20250311040838.3937136-1-pierrick.bouvier@linaro.org>
+ <20250311040838.3937136-8-pierrick.bouvier@linaro.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <20250311040838.3937136-8-pierrick.bouvier@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Denis Mukhin <dmukhin@ford.com>
+On 11/3/25 05:08, Pierrick Bouvier wrote:
+> Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
+> Signed-off-by: Pierrick Bouvier <pierrick.bouvier@linaro.org>
 
-Add new CONRING_SHIFT Kconfig parameter to specify the boot console buffer =
-size
-as a power of 2.
+Missing the "why" justification we couldn't do that before.
 
-The supported range is [14..27] -> [16KiB..128MiB].
-
-Set default to 15 (32 KiB).
-
-Resolves: https://gitlab.com/xen-project/xen/-/issues/185
-Signed-off-by: Denis Mukhin <dmukhin@ford.com>
----
-Changes v3->v4:
-- s/Link:/Resolves:/ in commit message to auto-close the gitlab ticket
----
- docs/misc/xen-command-line.pandoc |  5 +++--
- xen/drivers/char/Kconfig          | 24 ++++++++++++++++++++++++
- xen/drivers/char/console.c        |  6 +++---
- 3 files changed, 30 insertions(+), 5 deletions(-)
-
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line=
-.pandoc
-index 89db6e83be..a471a9f7ce 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -425,10 +425,11 @@ The following are examples of correct specifications:
- ### conring_size
- > `=3D <size>`
-=20
--> Default: `conring_size=3D16k`
--
- Specify the size of the console ring buffer.
-=20
-+The default console ring buffer size is selected at build time via
-+CONFIG_CONRING_SHIFT setting.
-+
- ### console
- > `=3D List of [ vga | com1[H,L] | com2[H,L] | pv | dbgp | ehci | xhci | n=
-one ]`
-=20
-diff --git a/xen/drivers/char/Kconfig b/xen/drivers/char/Kconfig
-index e6e12bb413..e238d4eccf 100644
---- a/xen/drivers/char/Kconfig
-+++ b/xen/drivers/char/Kconfig
-@@ -96,6 +96,30 @@ config SERIAL_TX_BUFSIZE
-=20
- =09  Default value is 32768 (32KiB).
-=20
-+config CONRING_SHIFT
-+=09int "Console ring buffer size (power of 2)"
-+=09range 14 27
-+=09default 15
-+=09help
-+=09  Select the boot console ring buffer size as a power of 2.
-+=09  Run-time console ring buffer size is the same as the boot console rin=
-g
-+=09  buffer size, unless overridden via 'conring_size=3D' boot parameter.
-+
-+=09    27 =3D> 128 MiB
-+=09    26 =3D>  64 MiB
-+=09    25 =3D>  32 MiB
-+=09    24 =3D>  16 MiB
-+=09    23 =3D>   8 MiB
-+=09    22 =3D>   4 MiB
-+=09    21 =3D>   2 MiB
-+=09    20 =3D>   1 MiB
-+=09    19 =3D> 512 KiB
-+=09    18 =3D> 256 KiB
-+=09    17 =3D> 128 KiB
-+=09    16 =3D>  64 KiB
-+=09    15 =3D>  32 KiB (default)
-+=09    14 =3D>  16 KiB
-+
- config XHCI
- =09bool "XHCI DbC UART driver"
- =09depends on X86
-diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index ba428199d2..78794b74e9 100644
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -101,12 +101,12 @@ static int cf_check parse_console_timestamps(const ch=
-ar *s);
- custom_runtime_param("console_timestamps", parse_console_timestamps,
-                      con_timestamp_mode_upd);
-=20
--/* conring_size: allows a large console ring than default (16kB). */
-+/* conring_size: override build-time CONFIG_CONRING_SHIFT setting. */
- static uint32_t __initdata opt_conring_size;
- size_param("conring_size", opt_conring_size);
-=20
--#define _CONRING_SIZE 16384
--#define CONRING_IDX_MASK(i) ((i)&(conring_size-1))
-+#define _CONRING_SIZE       (1U << CONFIG_CONRING_SHIFT)
-+#define CONRING_IDX_MASK(i) ((i) & (conring_size - 1))
- static char __initdata _conring[_CONRING_SIZE];
- static char *__read_mostly conring =3D _conring;
- static uint32_t __read_mostly conring_size =3D _CONRING_SIZE;
---=20
-2.34.1
-
+> ---
+>   include/exec/exec-all.h | 1 -
+>   1 file changed, 1 deletion(-)
+> 
+> diff --git a/include/exec/exec-all.h b/include/exec/exec-all.h
+> index dd5c40f2233..19b0eda44a7 100644
+> --- a/include/exec/exec-all.h
+> +++ b/include/exec/exec-all.h
+> @@ -20,7 +20,6 @@
+>   #ifndef EXEC_ALL_H
+>   #define EXEC_ALL_H
+>   
+> -#include "cpu.h"
+>   #if defined(CONFIG_USER_ONLY)
+>   #include "exec/cpu_ldst.h"
+>   #endif
 
 
