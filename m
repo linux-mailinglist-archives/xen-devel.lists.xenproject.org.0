@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1D4EA5B5A8
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 02:16:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.906960.1314282 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B84A7A5B5D4
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 02:22:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.906972.1314291 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1troDX-00038A-7L; Tue, 11 Mar 2025 01:15:35 +0000
+	id 1troKN-0004hX-SQ; Tue, 11 Mar 2025 01:22:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 906960.1314282; Tue, 11 Mar 2025 01:15:35 +0000
+Received: by outflank-mailman (output) from mailman id 906972.1314291; Tue, 11 Mar 2025 01:22:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1troDX-00036i-3j; Tue, 11 Mar 2025 01:15:35 +0000
-Received: by outflank-mailman (input) for mailman id 906960;
- Tue, 11 Mar 2025 01:15:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1troKN-0004fq-Pv; Tue, 11 Mar 2025 01:22:39 +0000
+Received: by outflank-mailman (input) for mailman id 906972;
+ Tue, 11 Mar 2025 01:22:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=NzKm=V6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1troDW-00035b-0h
- for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 01:15:34 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 51f53a8b-fe16-11ef-9898-31a8f345e629;
- Tue, 11 Mar 2025 02:15:29 +0100 (CET)
+ id 1troKM-0004fU-6n
+ for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 01:22:38 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4ed7e483-fe17-11ef-9ab8-95dc52dad729;
+ Tue, 11 Mar 2025 02:22:34 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 59F32A465AD;
- Tue, 11 Mar 2025 01:09:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35294C4CEE5;
- Tue, 11 Mar 2025 01:15:27 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 626965C6585;
+ Tue, 11 Mar 2025 01:20:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D78D4C4CEE5;
+ Tue, 11 Mar 2025 01:22:31 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,18 +41,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 51f53a8b-fe16-11ef-9898-31a8f345e629
+X-Inumbo-ID: 4ed7e483-fe17-11ef-9ab8-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1741655728;
-	bh=YiC5Gp5Fhy6SozVaKJyfwuJxI96bLeq6lfJmrJG0yqU=;
+	s=k20201202; t=1741656152;
+	bh=qeMdG+3QifF7XKHSkQSnpDK+M9IB6nt1fq7AY5nXYyA=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=a+aM4L8RkTDHuYmDoIfr+R3fmhM50+JqfpkkqH9wkP6FkgqTOhLjR2SQPHYipzPm/
-	 ZDIeLhy5qfhJz2e5JYHpDPfnDvbWTFU/7AAdlAyAr5Fu2YfT5qyhWaoFR6Q8Blp9W3
-	 l8BOdk+n1PEH4Gwn6i3d5GmxvxPHiAB+VM8SoCSbgCWjTeSQ/YTT4hGSgDoRxEkdcM
-	 YOaSvLDff+OFD8ob9GYgSkkrqSqgcGe/cVuRp/twJgLTTsumQZ+C5HGbhSgMaq9Ynn
-	 FDGiqlZS2ojpvCqHByRUaBgazhgPGmtKKpyEpmxF9IQOhoebiTQ27kimTb3WTwjQFK
-	 oGo61zK6CwsaA==
-Date: Mon, 10 Mar 2025 18:15:26 -0700 (PDT)
+	b=T5lnaYJ5VyLcPlDfc4y38elE69YcXVR5q1ezaLuglTb4agVN+a0erR4skwqPPsiQ2
+	 gIYV5NG0QZ2vDtpgObo1t7beRYFFY8ZLh7Y5o8MpJbwNdhwfzlZqbIc5/Nk2kSqlFi
+	 SMy7yUoKe/dVTxcl5jr3+81z0oqyqunLYSPfWPnh6khOTSDtS0fFDF4MqidV8c8/vt
+	 Xu3sVlToBPDI2KhD0XEKLu9/mHMrmwy5g2oQolpXegHm07igskx5ifCXJaQ7nvr/Jz
+	 VosNkTt3I/9a6KjSu9d5FuCSH/rWHOMl2UDyayXiAJJ8UbD2HDW2H6DZdGAqYZLOEE
+	 CCkHJv5nqhX3A==
+Date: Mon, 10 Mar 2025 18:22:30 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Julien Grall <julien@xen.org>
@@ -62,104 +62,173 @@ cc: Stefano Stabellini <sstabellini@kernel.org>,
     Michal Orzel <michal.orzel@amd.com>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Subject: Re: [PATCH 04/23] xen/arm: dom0less use domid 0 for hwdom
-In-Reply-To: <6c5d389e-72b7-4a64-af05-574655a6dcec@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2503101723410.3090675@ubuntu-linux-20-04-desktop>
+In-Reply-To: <ff034e29-1aa4-42af-a28c-fd95b83a0ce1@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2503101815520.3090675@ubuntu-linux-20-04-desktop>
 References: <20250306220343.203047-1-jason.andryuk@amd.com> <20250306220343.203047-5-jason.andryuk@amd.com> <4ee02463-c413-4afc-add6-d7bf3915dd5a@xen.org> <734d9fdf-a201-4a46-9739-26a474683b10@amd.com> <39540c8b-e43d-4315-bc34-a61ac6cb1d70@xen.org>
- <alpine.DEB.2.22.394.2503071651090.3032631@ubuntu-linux-20-04-desktop> <6c5d389e-72b7-4a64-af05-574655a6dcec@xen.org>
+ <ba5b9675-fa62-4872-b969-e5ecc917a087@amd.com> <alpine.DEB.2.22.394.2503071450480.2600338@ubuntu-linux-20-04-desktop> <ff034e29-1aa4-42af-a28c-fd95b83a0ce1@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1481278237-1741653283=:3090675"
-Content-ID: <alpine.DEB.2.22.394.2503101734490.3090675@ubuntu-linux-20-04-desktop>
+Content-Type: multipart/mixed; boundary="8323329-537619804-1741656153=:3090675"
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-1481278237-1741653283=:3090675
-Content-Type: text/plain; CHARSET=UTF-8
+--8323329-537619804-1741656153=:3090675
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2503101734491.3090675@ubuntu-linux-20-04-desktop>
 
 On Sat, 8 Mar 2025, Julien Grall wrote:
-> On 08/03/2025 00:53, Stefano Stabellini wrote:
-> > On Fri, 7 Mar 2025, Julien Grall wrote:
-> > > > init-dom0less only initializes non- introduced domains, so hwdom doesn't
-> > > > get
-> > > > its "domid" xenstore node populated.  That leads to other errors.
-> > > > > So I think with Denis's patch, this isn't strictly needed.  It does
-> > > > > help
-> > > > existing toolstack code work today.
+> On 08/03/2025 00:40, Stefano Stabellini wrote:
+> > On Fri, 7 Mar 2025, Jason Andryuk wrote:
+> > > On 2025-03-07 16:01, Julien Grall wrote:
+> > > > Hi Jason,
+> > > > 
+> > > > On 07/03/2025 16:03, Jason Andryuk wrote:
+> > > > > On 2025-03-07 03:31, Julien Grall wrote:
+> > > > > > Hi,
+> > > > > > 
+> > > > > > On 06/03/2025 22:03, Jason Andryuk wrote:
+> > > > > > > Assign domid 0 to the hwdom.  Normally, dom0less does not use
+> > > > > > > domid 0.
+> > > > > > 
+> > > > > > A few years ago, we went to great length to avoid making the
+> > > > > > assumption
+> > > > > > that the hardware domain is domid 0. See all the calls to
+> > > > > > "is_hardware_domain()". So I am reluctant to force the domain ID to
+> > > > > > 0.
+> > > > > 
+> > > > > I was disappointed when it didn't "just work".
+> > > > > 
+> > > > > > > 
+> > > > > > > This fixes using the Xen console which assumes domid 0 to use the
+> > > > > > > hypercall interface.
+> > > > > > 
+> > > > > > I had a brief look at drivers/char/console.c and I can't find any
+> > > > > > place
+> > > > > > assuming "domid 0". Do you have any pointer?
+> > > > > 
+> > > > > As Jan pointed out, Denis Mukhin's patch removed the domid 0
+> > > > > assumption.
+> > > > >    This was developed without this patch when it mattered.
+> > > > > 
+> > > > > I tested before posting without this patch (and with Denis's), and
+> > > > > again
+> > > > > now, and I didn't get a hwdom login.  Turns out xenstored was assuming
+> > > > > domid 0.  Changing that with --master-domid gets to the login prompt.
+> > > > 
+> > > > Hmmm, I am not sure --master-domid should point to the hardware domain.
+> > > > Instead, it feels like it should be the control domain because it needs
+> > > > to
+> > > > manage the VMs so needs to create any nodes in Xenstore.
 > > > 
-> > > I don't think the toolstack is ready for a split between control/hardware
-> > > domain. That said, shouldn't the toolstack run in the control domain? Same
-> > > for
-> > > xenstored (unless you have a xenstored domain)?
+> > > --master-domid encompasses "the domid where xenstored is running" (which
+> > > really xenstored should figure out itself), and is needed for xenstored to
+> > > start.
+> > > 
+> > > There is an additional --priv-domid, which can point at the control
+> > > domain.
+> > > 
+> > > > > 
+> > > > > Still, there are now other userspace errors.  xen-init-dom0 hardcodes
+> > > > > domid 0 which doesn't exist.
+> > > > 
+> > > > I am confused. Why would you call xen-init-dom0 in a domain that is
+> > > > meant to
+> > > > be the hardware domain rather than dom0?
+> > > 
+> > > I was using domid 0 :)  Also, it's called by default in xencommons and
+> > > sets up
+> > > the cpupools.
+> > > 
+> > > > > init-dom0less only initializes non- introduced domains, so hwdom
+> > > > > doesn't
+> > > > > get its "domid" xenstore node populated.  That leads to other errors.
+> > > >   > > So I think with Denis's patch, this isn't strictly needed.  It
+> > > > does
+> > > > help
+> > > > > existing toolstack code work today.
+> > > > 
+> > > > I don't think the toolstack is ready for a split between control/
+> > > > hardware
+> > > > domain. That said, shouldn't the toolstack run in the control domain?
+> > > > Same
+> > > > for xenstored (unless you have a xenstored domain)?
+> > > 
+> > > Yes, maybe running control and xenstore together is better.  I came from
+> > > the
+> > > perspective of dom0less with a hardware/control split, the toolstack is
+> > > less
+> > > important.
+> > > 
+> > > But in general, it's all intertwined.  You have to start somewhere
+> > > untangling.
+> > > 
+> > > Running xenstored in the hardware domain, and leaving hardware domain at
+> > > domid
+> > > 0 seemed like a good way to keep most things working while splitting out
+> > > the
+> > > hardware/control permissions.
 > > 
-> > Yes, the toolstack (if present) would be in the control domain.
-> > xenstored doesn't have to be in the control domain and in fact it might
-> > not be advisable to place it there today.
-> > 
-> > The main difference between the toolstack and xenstored is that the
-> > toolstack only talks to Xen, while xenstored talks to all other VMs,
-> > which is dangerous in many configurations.
+> > In my opinion, there are reasons for placing xenstored in the control
+> > domain and also reasons for placing it in the hardware domain. I think
+> > this is the kind of policy decision I would leave to the user.
 > 
-> It is not really clear which toolstack you are referring to.
+> I agree it should be a policy decision. But as a default setup, I think this
+> is muddying the difference between the control domain and hardware domain.
+> Today's toolstack can't work without xenstored. So intuitively, xenstored
+> would belong to the control domain in a default setup.
 
-You make a good point, I'll be clearer and distinguish between the
-implementation and the interfaces. This exercise helped me clarify my
-own thoughts as well.
+I wrote more in another email.
 
+ 
+> > In an embedded environment where safety is a concern, it also depends on
+> > whether the user wants to keep xenstore only between non-safe VMs, in
+> > which case I would put it in the hardware domain so that the control
+> > domain is fully isolated and protected. xenstore could be a source of
+> > interference.
+> 
+> So your hardware domain is not really an hardware domain, right? This is more
+> a dom0 minus toolstack? If so, I think it might be helpful if you add a
+> document explaining what a hardware domain really means with this series.
 
-> Someone using vanilla Xen upstream will end up to use "xl"  which has to talk
-> to xenstored and also indirectly to each domain (e.g. shutdown/suspend node in
-> xenstored). So for this setup, "xenstored" is not optional and I would argue
-> should be part of the control domain (or in a xenstore stubdomain which IIRC
-> is not supported on Arm today).
+Yes, it is as you wrote: dom0 minus toolstack and without d->is_priv. I
+can help document it better.
 
-The control domain is the guest with the highest level of privilege and
-the only virtual machine that can use hypercalls to affect other VMs. A
-simple example is that the control domain could issue a hypercall to
-reboot other VMs.
+ 
+> > Or whether the user wants to use xenstore also for safe VMs, in which
+> > case they are likely to reimplement xenstored in a way that is safety
+> > certified and as part of a safety certified OS such as Zephyr. In this
+> > type of configuration, it would make sense to have xenstored in the
+> > control domain.
+> > > I would suggest to make the location of xenstored configurable, and only
+> > provide a sensible default when the user doesn't explicitly say. With
+> > the state of the codebase and protocols that we have today, I think we
+> > are not ready for a xenstore free-from-interference implementation, so
+> > it would be safer to leave xenstored in the hardware domain as default,
+> > but we should make also the other configurations possible.
+> > 
+> > This is the first patch series aimed at untangling the whole thing,
+> > so not everything can be done here. For example, if the location of
+> > Xenstore is not configurable in this series, it may still be OK. We
+> > just need to be careful in the docs and interfaces not to bake it into
+> > an assumption.
+> > 
+> > I would also say the same for domid == 0: while it would be ideal to
+> > avoid relying on domid == 0 for the hardware domain, we don't have to
+> > resolve everything immediately.
+> 
+> I have to disagree. If we start shipping Xen with "hwdomid == 0", it will be
+> quite difficult to remove this behavior because new tooling (which may not be
+> under our control) will likely start/continue to rely on it. So ...
+> 
+> > This series already achieves a
+> > significant improvement by separating the hardware domain from the
+> > control domain, which is valuable in itself.
+> 
+> ... while I agree this series is a good step, I don't want to have any version
+> of Xen where hwdomid == 0 (even temporarily).
 
-The hardware domain does not have privilege (d->is_priv=false).
-
-In the configuration for safety, we use dom0less for domain creation, so
-there is no toolstack is the traditional sense of the word. But we could
-have a Zephyr guest issuing a SHUTDOWN_poweroff hypercall for instance.
-Certainly, we cannot run Linux and xl/libxl in the control domain.
-
-Due to its high level of privilege and the fact that it can affect
-others, if present, the control domain must be safety certified. The
-current toolstack implementation is based on Linux. While the larger
-Open Source community is working on Linux for safety, it is still a
-challenge. xenstored itself would need to be safety certified as well to
-run there, think of MISRA C, and also requirements, tests, etc. In
-addition, xenstored communicates directly with other VMs over shared
-memory, which means it would need to be developed with extreme care to
-prevent interference through shared memory. Even if a safety certified
-version of Linux were available in the future, the current toolstack
-implementation might not be suitable for use in that environment. As of
-today, safety deployments would not be able to run xl/libxl and/or
-xenstored in the control domain. However, they could run a safety
-certified RTOS, maybe Zephyr, issuing individual hypercalls, such as
-SHUTDOWN_reboot.
-
-If we had a safety certified free-from-interference implementation of
-xenstored as a Zephyr application, with Zephyr safety-certified, then I
-would run it in the control domain.
-
-On the other hand, the hardware domain might not be safety certified. So
-we could run xl/libxl and xenstored in the hardware domain. Of course
-most operations will be refused, e.g. SHUTDOWN_poweroff returns error
-because d->is_priv=false, but at least the user could run today's
-implementation of xenstored successfully. (domain creation is done using
-dom0less anyway so xl is optional.)
-
-Conceptually, it could make sense to think of xenstored being part of
-the control domain, not today's xenstored but a safe re-implementation
-of xenstored based on Zephyr.
-
-If you look at what we have today available and what people could deploy
-with the current codebase this year or next year, it makes sense to
-place xenstored in the hardware domain, or not at all.
---8323329-1481278237-1741653283=:3090675--
+I don't feel strongly either way. If Jason is OK with ensuring the
+hardware domain domid != 0 from the start, I am happy with it too.
+--8323329-537619804-1741656153=:3090675--
 
