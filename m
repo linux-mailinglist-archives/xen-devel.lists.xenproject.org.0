@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B84A7A5B5D4
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 02:22:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.906972.1314291 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43E8BA5B5E5
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 02:33:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.906986.1314302 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1troKN-0004hX-SQ; Tue, 11 Mar 2025 01:22:39 +0000
+	id 1troU6-0007LD-P1; Tue, 11 Mar 2025 01:32:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 906972.1314291; Tue, 11 Mar 2025 01:22:39 +0000
+Received: by outflank-mailman (output) from mailman id 906986.1314302; Tue, 11 Mar 2025 01:32:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1troKN-0004fq-Pv; Tue, 11 Mar 2025 01:22:39 +0000
-Received: by outflank-mailman (input) for mailman id 906972;
- Tue, 11 Mar 2025 01:22:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1troU6-0007Ia-Ll; Tue, 11 Mar 2025 01:32:42 +0000
+Received: by outflank-mailman (input) for mailman id 906986;
+ Tue, 11 Mar 2025 01:32:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=NzKm=V6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1troKM-0004fU-6n
- for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 01:22:38 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4ed7e483-fe17-11ef-9ab8-95dc52dad729;
- Tue, 11 Mar 2025 02:22:34 +0100 (CET)
+ id 1troU5-0007IU-GJ
+ for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 01:32:41 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b77e5b3a-fe18-11ef-9898-31a8f345e629;
+ Tue, 11 Mar 2025 02:32:38 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 626965C6585;
- Tue, 11 Mar 2025 01:20:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D78D4C4CEE5;
- Tue, 11 Mar 2025 01:22:31 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id A6A4CA40FBE;
+ Tue, 11 Mar 2025 01:27:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07DBDC4CEE5;
+ Tue, 11 Mar 2025 01:32:35 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,194 +41,202 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4ed7e483-fe17-11ef-9ab8-95dc52dad729
+X-Inumbo-ID: b77e5b3a-fe18-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1741656152;
-	bh=qeMdG+3QifF7XKHSkQSnpDK+M9IB6nt1fq7AY5nXYyA=;
+	s=k20201202; t=1741656757;
+	bh=QTKu+8e++YU4ykPXa/W2YQNbcG1tqKeLylpql7nWwlM=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=T5lnaYJ5VyLcPlDfc4y38elE69YcXVR5q1ezaLuglTb4agVN+a0erR4skwqPPsiQ2
-	 gIYV5NG0QZ2vDtpgObo1t7beRYFFY8ZLh7Y5o8MpJbwNdhwfzlZqbIc5/Nk2kSqlFi
-	 SMy7yUoKe/dVTxcl5jr3+81z0oqyqunLYSPfWPnh6khOTSDtS0fFDF4MqidV8c8/vt
-	 Xu3sVlToBPDI2KhD0XEKLu9/mHMrmwy5g2oQolpXegHm07igskx5ifCXJaQ7nvr/Jz
-	 VosNkTt3I/9a6KjSu9d5FuCSH/rWHOMl2UDyayXiAJJ8UbD2HDW2H6DZdGAqYZLOEE
-	 CCkHJv5nqhX3A==
-Date: Mon, 10 Mar 2025 18:22:30 -0700 (PDT)
+	b=nyzBeRTInu44PfV4vVMDBAvNrS+JQDB5ubOh2xbcBEofadPGvavZ6eYqreZ1qixZp
+	 befitWZ4067zUBMXaAZ9YYP3IORg7ObbaLK/QNdsUKs2ZtLZKJxEcfssLAnikpM5xL
+	 ypedjk3u4xPWfWaq22zBNleaL5BsfFWoGaBj/PGOX9PEE5K+ZfzTzr6rbfIdb8y71l
+	 8SsEq+jEaJ/RbZv6zloabh7CiIn5QB1H/OUXfWzTev9jg60xp8llzi6JLqmYDZHkHb
+	 Ehqs7auhfDEQKgBekmATlzlGdEEhcHZEXTVriz0SRIdfbRjqKJdS/zopHCX4jC2qvO
+	 0K2zYZFIEF3qg==
+Date: Mon, 10 Mar 2025 18:32:35 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org, 
+cc: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
     Bertrand Marquis <bertrand.marquis@arm.com>, 
     Michal Orzel <michal.orzel@amd.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH 04/23] xen/arm: dom0less use domid 0 for hwdom
-In-Reply-To: <ff034e29-1aa4-42af-a28c-fd95b83a0ce1@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2503101815520.3090675@ubuntu-linux-20-04-desktop>
-References: <20250306220343.203047-1-jason.andryuk@amd.com> <20250306220343.203047-5-jason.andryuk@amd.com> <4ee02463-c413-4afc-add6-d7bf3915dd5a@xen.org> <734d9fdf-a201-4a46-9739-26a474683b10@amd.com> <39540c8b-e43d-4315-bc34-a61ac6cb1d70@xen.org>
- <ba5b9675-fa62-4872-b969-e5ecc917a087@amd.com> <alpine.DEB.2.22.394.2503071450480.2600338@ubuntu-linux-20-04-desktop> <ff034e29-1aa4-42af-a28c-fd95b83a0ce1@xen.org>
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Jan Beulich <jbeulich@suse.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH 05/23] xen/arm: Add capabilities to dom0less
+In-Reply-To: <cdb05727-fd2f-4b83-9200-d88789ce908e@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2503101823240.3090675@ubuntu-linux-20-04-desktop>
+References: <20250306220343.203047-1-jason.andryuk@amd.com> <20250306220343.203047-6-jason.andryuk@amd.com> <254e38d3-ebc2-4044-9d0f-9be9f652c46c@xen.org> <92eca43f-1dc8-4eec-a124-e715d118ab03@amd.com> <01df1e44-a2cb-4e93-8b9d-99aca914db68@xen.org>
+ <09103c2b-a7c0-44d5-8eb5-2d0fcb01c26e@amd.com> <cdb05727-fd2f-4b83-9200-d88789ce908e@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-537619804-1741656153=:3090675"
+Content-Type: multipart/mixed; boundary="8323329-2028676297-1741656757=:3090675"
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-537619804-1741656153=:3090675
+--8323329-2028676297-1741656757=:3090675
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8BIT
 
 On Sat, 8 Mar 2025, Julien Grall wrote:
-> On 08/03/2025 00:40, Stefano Stabellini wrote:
-> > On Fri, 7 Mar 2025, Jason Andryuk wrote:
-> > > On 2025-03-07 16:01, Julien Grall wrote:
-> > > > Hi Jason,
-> > > > 
-> > > > On 07/03/2025 16:03, Jason Andryuk wrote:
-> > > > > On 2025-03-07 03:31, Julien Grall wrote:
-> > > > > > Hi,
+> On 08/03/2025 00:02, Jason Andryuk wrote:
+> > On 2025-03-07 16:21, Julien Grall wrote:
+> > > Hi Jason,
+> > > 
+> > > On 07/03/2025 17:58, Jason Andryuk wrote:
+> > > > On 2025-03-07 04:01, Julien Grall wrote:
+> > > > > Hi,
+> > > > > 
+> > > > > On 06/03/2025 22:03, Jason Andryuk wrote:
+> > > > > > Add capabilities property to dom0less to allow building a
+> > > > > > disaggregated system.
 > > > > > > 
-> > > > > > On 06/03/2025 22:03, Jason Andryuk wrote:
-> > > > > > > Assign domid 0 to the hwdom.  Normally, dom0less does not use
-> > > > > > > domid 0.
+> > > > > > Introduce bootfdt.h to contain these constants.
 > > > > > > 
-> > > > > > A few years ago, we went to great length to avoid making the
-> > > > > > assumption
-> > > > > > that the hardware domain is domid 0. See all the calls to
-> > > > > > "is_hardware_domain()". So I am reluctant to force the domain ID to
-> > > > > > 0.
+> > > > > > When using the hardware or xenstore capabilities, adjust the grant
+> > > > > > and
+> > > > > > event channel limits similar to dom0.
+> > > > >  > > Also for the hardware domain, set directmap and iommu.  This
+> > > > > brings its
+> > > > > > configuration in line with a dom0.
 > > > > > 
-> > > > > I was disappointed when it didn't "just work".
+> > > > > Looking the device tree bindings, a user would be allowed to disable
+> > > > > "passthrough" or even "directmap". This means, we would never be able
+> > > > > to disable "directmap" for the hardware domain in the future with the
+> > > > > existing property (this is to avoid break backwards compatibility).
 > > > > > 
-> > > > > > > 
-> > > > > > > This fixes using the Xen console which assumes domid 0 to use the
-> > > > > > > hypercall interface.
-> > > > > > 
-> > > > > > I had a brief look at drivers/char/console.c and I can't find any
-> > > > > > place
-> > > > > > assuming "domid 0". Do you have any pointer?
-> > > > > 
-> > > > > As Jan pointed out, Denis Mukhin's patch removed the domid 0
-> > > > > assumption.
-> > > > >    This was developed without this patch when it mattered.
-> > > > > 
-> > > > > I tested before posting without this patch (and with Denis's), and
-> > > > > again
-> > > > > now, and I didn't get a hwdom login.  Turns out xenstored was assuming
-> > > > > domid 0.  Changing that with --master-domid gets to the login prompt.
+> > > > > Instead, I think we should check what the user provided and confirm
+> > > > > this is matching our expectation for an hardware domain.
+> > > >  >
+> > > > > That said, I am not entirely sure why we should force directmap for
+> > > > > the HW domain. We are starting from a clean slate, so I think it would
+> > > > > be better to have by default no directmap and imposing the presence of
+> > > > > an IOMMU in the system.
 > > > > 
-> > > > Hmmm, I am not sure --master-domid should point to the hardware domain.
-> > > > Instead, it feels like it should be the control domain because it needs
-> > > > to
-> > > > manage the VMs so needs to create any nodes in Xenstore.
+> > > > Ok, it seems like directmap is not necessary.  It was helpful early on
+> > > > to get things booting, but I think it's no longer necessary after
+> > > > factoring out construct_hwdom().
+> > > > 
+> > > > What exactly do you mean by imposing with respect to the iommu? Require
+> > > > one, or mirror the dom0 code and set it for the hwdom?
+> > > > 
+> > > >      if ( iommu_enabled )
+> > > >          dom0_cfg.flags |= XEN_DOMCTL_CDF_iommu;
 > > > 
-> > > --master-domid encompasses "the domid where xenstored is running" (which
-> > > really xenstored should figure out itself), and is needed for xenstored to
-> > > start.
+> > > I mean requires one. Without it, you would need to set directmap and I
+> > > don't think this should be allowed (at least for now) for the HW domain.
 > > > 
-> > > There is an additional --priv-domid, which can point at the control
-> > > domain.
+> > > > 
+> > > > > Lastly, can you provide an example of what the hardware domain DT node
+> > > > > would looke like?
+> > > > 
+> > > > I've attached a dump of /sys/firmware/fdt from hwdom.  (This is direct
+> > > > mapped).
 > > > 
+> > > Sorry if this was not clear, I am asking for the configuration you wrote
+> > > in the host DT for create the hardware domain. I am interested to know
+> > > which properties you set...
+> > 
+> > I've attached the u-boot fdt commands which generate the DT.  Hopefully that
+> > works for you.
+> > 
+> > > > 
+> > > > > > --- a/xen/arch/arm/dom0less-build.c
+> > > > > > +++ b/xen/arch/arm/dom0less-build.c
+> > > > > > @@ -12,6 +12,7 @@
+> > > > > >   #include <xen/sizes.h>
+> > > > > >   #include <xen/vmap.h>
+> > > > > > +#include <public/bootfdt.h>
+> > > > > >   #include <public/io/xs_wire.h>
+> > > > > >   #include <asm/arm64/sve.h>
+> > > > > > @@ -994,6 +995,34 @@ void __init create_domUs(void)
+> > > > > >           if ( (max_init_domid + 1) >= DOMID_FIRST_RESERVED )
+> > > > > >               panic("No more domain IDs available\n");
+> > > > > > +        if ( dt_property_read_u32(node, "capabilities", &val) )
+> > > > > > +        {
+> > > > > > +            if ( val & ~DOMAIN_CAPS_MASK )
+> > > > > > +                panic("Invalid capabilities (%"PRIx32")\n", val);
+> > > > > > +
+> > > > > > +            if ( val & DOMAIN_CAPS_CONTROL )
+> > > > > > +                flags |= CDF_privileged;
+> > > > > > +
+> > > > > > +            if ( val & DOMAIN_CAPS_HARDWARE )
+> > > > > > +            {
+> > > > > > +                if ( hardware_domain )
+> > > > > > +                    panic("Only 1 hardware domain can be specified!
+> > > > > > (%pd)\n",
+> > > > > > +                           hardware_domain);
+> > > > > > +
+> > > > > > +                d_cfg.max_grant_frames = gnttab_dom0_frames();
+> > > > > > +                d_cfg.max_evtchn_port = -1;
 > > > > > 
-> > > > > Still, there are now other userspace errors.  xen-init-dom0 hardcodes
-> > > > > domid 0 which doesn't exist.
+> > > > > What about d_cfg.arch.nr_spis? Are we expecting the user to pass
+> > > > > "nr_spis"?
 > > > > 
-> > > > I am confused. Why would you call xen-init-dom0 in a domain that is
-> > > > meant to
-> > > > be the hardware domain rather than dom0?
+> > > > Further down, when nr_spis isn't specified in the DT, it defaults to:
+> > > >      d_cfg.arch.nr_spis = gic_number_lines() - 32;
 > > > 
-> > > I was using domid 0 :)  Also, it's called by default in xencommons and
-> > > sets up
-> > > the cpupools.
-> > > 
-> > > > > init-dom0less only initializes non- introduced domains, so hwdom
-> > > > > doesn't
-> > > > > get its "domid" xenstore node populated.  That leads to other errors.
-> > > >   > > So I think with Denis's patch, this isn't strictly needed.  It
-> > > > does
-> > > > help
-> > > > > existing toolstack code work today.
+> > > Thanks. One further question, what if the user pass "nr_spis" for the HW
+> > > domain. Wouldn't this result to more issue further down the line?
+> > 
+> > I'm not familiar with ARM, so I'll to whatever is best.  I did put the
+> > capabilities first, thinking it would set defaults, and then later options
+> > could override them.
+> 
+> I am not sure it is related to Arm. It is more that the HW domain is going to
+> re-use the memory layout of the host (this is including the mapping for the
+> GIC) and also have all the irqs with pirq == virq.
+> 
+> I am a bit concerned that letting the users mistakenly tweaking the defaults
+> could prevent attaching devices (for instance if the IRQ ID is above >
+> nr_spis).
+> 
+> > 
 > > > > 
-> > > > I don't think the toolstack is ready for a split between control/
-> > > > hardware
-> > > > domain. That said, shouldn't the toolstack run in the control domain?
-> > > > Same
-> > > > for xenstored (unless you have a xenstored domain)?
+> > > > Dom0 does:
+> > > >      /*
+> > > >       * Xen vGIC supports a maximum of 992 interrupt lines.
+> > > >       * 32 are substracted to cover local IRQs.
+> > > >       */
+> > > >      dom0_cfg.arch.nr_spis = min(gic_number_lines(), (unsigned int) 992)
+> > > > - 32;
+> > > >      if ( gic_number_lines() > 992 )
+> > > >          printk(XENLOG_WARNING "Maximum number of vGIC IRQs exceeded.
+> > > > \n");
+> > > > 
+> > > > So I think it's fine as-is?  I could add the min() and warning if you
+> > > > think it's necessary.
 > > > 
-> > > Yes, maybe running control and xenstore together is better.  I came from
-> > > the
-> > > perspective of dom0less with a hardware/control split, the toolstack is
-> > > less
-> > > important.
+> > > Regardless this discussion, I wonder why we didn't add the min(...) here
+> > > like for dom0 because we are using the same vGIC emulation. So the max
+> > > SPIs supported is the same...
 > > > 
-> > > But in general, it's all intertwined.  You have to start somewhere
-> > > untangling.
+> > > What I am trying to understand is whether it is ok to allow the user to
+> > > select "nr_spis", "vpl011" & co if they are either not honored (like for
+> > > vpl011) or could introduce further issue (like for nr_spis as the HW
+> > > domain is supposed to have the same configuration as dom0).
 > > > 
-> > > Running xenstored in the hardware domain, and leaving hardware domain at
-> > > domid
-> > > 0 seemed like a good way to keep most things working while splitting out
-> > > the
-> > > hardware/control permissions.
+> > > I also don't think it is a good idea to silently ignore what the user
+> > > requested. So far, on Arm, we mainly decided to reject/panic early if the
+> > > setup is not correct.
 > > 
-> > In my opinion, there are reasons for placing xenstored in the control
-> > domain and also reasons for placing it in the hardware domain. I think
-> > this is the kind of policy decision I would leave to the user.
+> > Again, I'll do whatever is best.
 > 
-> I agree it should be a policy decision. But as a default setup, I think this
-> is muddying the difference between the control domain and hardware domain.
-> Today's toolstack can't work without xenstored. So intuitively, xenstored
-> would belong to the control domain in a default setup.
+> Bertrand, Michal, Stefano, any opinions?
 
-I wrote more in another email.
+As a first step, I would try to make the hardware domain as similar as
+dom0 as possible in terms of these configurations. That's because I
+would prioritize having something working reliably. So I think it is OK
+to panic if the provided configuration is not what we expect, such as
+"nr_spis" being provided.
 
- 
-> > In an embedded environment where safety is a concern, it also depends on
-> > whether the user wants to keep xenstore only between non-safe VMs, in
-> > which case I would put it in the hardware domain so that the control
-> > domain is fully isolated and protected. xenstore could be a source of
-> > interference.
-> 
-> So your hardware domain is not really an hardware domain, right? This is more
-> a dom0 minus toolstack? If so, I think it might be helpful if you add a
-> document explaining what a hardware domain really means with this series.
-
-Yes, it is as you wrote: dom0 minus toolstack and without d->is_priv. I
-can help document it better.
-
- 
-> > Or whether the user wants to use xenstore also for safe VMs, in which
-> > case they are likely to reimplement xenstored in a way that is safety
-> > certified and as part of a safety certified OS such as Zephyr. In this
-> > type of configuration, it would make sense to have xenstored in the
-> > control domain.
-> > > I would suggest to make the location of xenstored configurable, and only
-> > provide a sensible default when the user doesn't explicitly say. With
-> > the state of the codebase and protocols that we have today, I think we
-> > are not ready for a xenstore free-from-interference implementation, so
-> > it would be safer to leave xenstored in the hardware domain as default,
-> > but we should make also the other configurations possible.
-> > 
-> > This is the first patch series aimed at untangling the whole thing,
-> > so not everything can be done here. For example, if the location of
-> > Xenstore is not configurable in this series, it may still be OK. We
-> > just need to be careful in the docs and interfaces not to bake it into
-> > an assumption.
-> > 
-> > I would also say the same for domid == 0: while it would be ideal to
-> > avoid relying on domid == 0 for the hardware domain, we don't have to
-> > resolve everything immediately.
-> 
-> I have to disagree. If we start shipping Xen with "hwdomid == 0", it will be
-> quite difficult to remove this behavior because new tooling (which may not be
-> under our control) will likely start/continue to rely on it. So ...
-> 
-> > This series already achieves a
-> > significant improvement by separating the hardware domain from the
-> > control domain, which is valuable in itself.
-> 
-> ... while I agree this series is a good step, I don't want to have any version
-> of Xen where hwdomid == 0 (even temporarily).
-
-I don't feel strongly either way. If Jason is OK with ensuring the
-hardware domain domid != 0 from the start, I am happy with it too.
---8323329-537619804-1741656153=:3090675--
+direct-map is different because we know dom0 works fine today without
+it, as an example cache coloring requires it. So I think it could be
+a good idea to default direct-map to off, also to align better with
+the DomU DT bindings. But the address map should still match the host
+layout.
+--8323329-2028676297-1741656757=:3090675--
 
