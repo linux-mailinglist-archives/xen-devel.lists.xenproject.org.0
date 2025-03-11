@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AE68A5C206
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 14:10:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.908104.1315257 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E76CA5C23A
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 14:17:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.908113.1315268 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1trzN8-0008BD-IH; Tue, 11 Mar 2025 13:10:14 +0000
+	id 1trzU1-0000Oo-8c; Tue, 11 Mar 2025 13:17:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 908104.1315257; Tue, 11 Mar 2025 13:10:14 +0000
+Received: by outflank-mailman (output) from mailman id 908113.1315268; Tue, 11 Mar 2025 13:17:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1trzN8-00089g-FM; Tue, 11 Mar 2025 13:10:14 +0000
-Received: by outflank-mailman (input) for mailman id 908104;
- Tue, 11 Mar 2025 13:10:13 +0000
+	id 1trzU1-0000Mg-53; Tue, 11 Mar 2025 13:17:21 +0000
+Received: by outflank-mailman (input) for mailman id 908113;
+ Tue, 11 Mar 2025 13:17:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EmiY=V6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1trzN7-00089Z-CX
- for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 13:10:13 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
+ id 1trzTz-0000Ma-Ra
+ for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 13:17:19 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 29f820f2-fe7a-11ef-9ab9-95dc52dad729;
- Tue, 11 Mar 2025 14:10:11 +0100 (CET)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-391342fc148so2598451f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 06:10:11 -0700 (PDT)
+ id 289900b1-fe7b-11ef-9ab9-95dc52dad729;
+ Tue, 11 Mar 2025 14:17:18 +0100 (CET)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-391211ea598so3034582f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 06:17:18 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3912bfdfc96sm18445614f8f.31.2025.03.11.06.10.10
+ ffacd0b85a97d-3912bfba8a9sm18096708f8f.9.2025.03.11.06.17.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Mar 2025 06:10:10 -0700 (PDT)
+ Tue, 11 Mar 2025 06:17:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 29f820f2-fe7a-11ef-9ab9-95dc52dad729
+X-Inumbo-ID: 289900b1-fe7b-11ef-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741698611; x=1742303411; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kZxzBfeMvtS8msc4AUdZye+paWIRQWsY02FYX9D/dyU=;
-        b=aXTG4GJomasvzYn3/08M6fWlTyn5aYN5byhrV4x2/47tyLawdlFqxQZfRSejQPK0ME
-         HhYcwDLLZe54K/yGOFlVciaVwTJYpTBcdk4satfpYP1YjmPOvjqgBKTb/V6EmXoTEErq
-         EjhGjSF50tyY76QNu1C9b+9LJL+4VznjCO/Z37oxTMbsmMOgSgUjgy0dCvDT/YA85Gpt
-         tcD6JqV9UlZ30feRaqMsCYvY35VclKue5eNhsDluTex1MBbok/OIpehEJuiod06DST3e
-         9f/ARL7dpYoMCDHIyykIR1wrH6OaHepRIBi3SbSnrPlHL9J0EjHh/+zOkHQR9/XzVP0o
-         rWrg==
+        d=suse.com; s=google; t=1741699038; x=1742303838; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=O21ZBP1LORUHWVo7z4txTTHR9OUfXFI/2w9ZR5Kdntc=;
+        b=WK5zP+oNeJlMwxk9SPWHeVrao1qO+s968mWDn0FEFORE5X8F9K7QGi5EKrhxc3o+bg
+         q41yhgc82nfH2qXQlpo45Os55F07X1nmStqrllIDiowqaKN07q5aUdMKndKWxXvyKfAQ
+         vFIqudv76id1JNpi7DGVYbosWeV0RRPP6aj71iXTs1VtOpX8WtGWAsOcp8lyrFIxe3O7
+         vstQABUEqBPTEuVE4wDk2zkpGEMurbBJ3qUoBuBlNVGnpDe1rPwBBUBV9/tgr2Ox00GL
+         BXRZPvyB29KIq/QTta3QdCsXt+5J/ASB4WXSp/+hJOWwtVnL2d96az+O5CAubu5xaDUM
+         MarQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741698611; x=1742303411;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kZxzBfeMvtS8msc4AUdZye+paWIRQWsY02FYX9D/dyU=;
-        b=jtZNKz+aeZAnNGS43WScGJCjS9iJGr7VZOov060cxMNrCaSGc2fS3dcGJpwjC+Zo/A
-         daMw9BdiIiE2XlVa9DlPe3vI18zBkUOkITpphSFwrEQuurMAEwRS2j69Jb2l5+KjnnGe
-         y/tXyckCsnQ4rDDE8/KstV7+uNnSFolQgDu3wi4aGV4JMF2pWbr3I3FRTqqgetJCCmtG
-         6CySl0KmWDizlyDJf0tPTijGp6bdlcLwo+gUvAgLBgukblKHap7/MP40fKGrIXs9Uq0F
-         p+dyQCZnyPlncfx6X1T1ZAgJtrOA6G1xa5k27mXpKRgMMifnPF+/1++nCeUNNYndfuLI
-         HUkQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU+81320mxFEcwBqNtk7NlZGszDHinb/8yaYlso/Mixm8jG1JWS2OzSE5fTBkKSx2RuJ/l3FQ5ko18=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz9bAmkV6lYtlHVLHbk3ekKfZazONXQMMqNsaqEGOVNoN+8RMBj
-	wb0erBv8qqzcY/j35V/NtskhJ+t5PgXSYOhoPPmuiybMNJZ+gufx9KNYlqyiLQ==
-X-Gm-Gg: ASbGncuL9A+8AqWfmWq4hRkiAXksuiA3pqKvhfhGlZ+D6WI4GjdT3w0uqQJV/HxYhwE
-	TetRULS4l1tpJiWTLwrctqQv0/hNrzNwLJ7cIemajDU3onU24IhREfuZapODXmpcI9qSnuZlQoZ
-	jXzPSTP7oPxQ24njXWna7Y9aS+v+gHDLl5l82oV0aomQeMhsZ54LVOB9mUCU+27kj1IflInAye0
-	bh6bseYgGXknsiMwCfkl0qPlsYvNmIKuwsOnSrtR96vIc9c6/Ea3e1NL9YTbV8Q9b09WmpeJIxX
-	btvgSYMmabA2JQ4p3mdGNDJcHhzeyqOtj6abIrJZZqDnQFTIRAveDazNYr1sM9wYDHDokHlScbQ
-	5Mbthaw/lhsO7ibrhEPByptHgNqd/0w==
-X-Google-Smtp-Source: AGHT+IGjgWsrvzzfEZbJBBfLP7b3NXl+vu6YRfQZwy/4AhwAC/+SYuRPlvSDF6NzMYVciulPb5U/tQ==
-X-Received: by 2002:a05:6000:1acd:b0:390:d796:b946 with SMTP id ffacd0b85a97d-3926c1ce312mr4745960f8f.44.1741698611073;
-        Tue, 11 Mar 2025 06:10:11 -0700 (PDT)
-Message-ID: <369daf2d-63de-4375-a11e-401135ede43b@suse.com>
-Date: Tue, 11 Mar 2025 14:10:04 +0100
+        d=1e100.net; s=20230601; t=1741699038; x=1742303838;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=O21ZBP1LORUHWVo7z4txTTHR9OUfXFI/2w9ZR5Kdntc=;
+        b=c1Gj45bqi3oF2m+30y2efuSEuzuItMMU5epraX/dyz0nuhuCO3oThqFUc6MFoPufND
+         banshvGJZXmD35CdWQxmF+ghdtk0daa88dy6serEp2Z7HHkswfIQ+4jL7atVI3hCwVHq
+         jPH9AA/k2vKF3BTwTFrUHp7Ejz3jO6bhsoM50DqTRBbIyFjrtoT7P8LuT2PoVHTmuRaQ
+         lSHV60MbPuwafFRn47l0Cy8FeoD+VfzC9VdnfZgSxsgfXaCX0CXyYJNbUWedIwjKkrcU
+         qm/Ud1iCtNKzYlPXetzSfY4aaxQwWabQirW3gtQ9iV/KrEcrSsUaxhVOZ6Vw0tXFlt94
+         udHw==
+X-Gm-Message-State: AOJu0YzCoRhB5Zrqks3pwviZUABz07meERGsaeBnWk+nNjguNANYF5hD
+	U9IuFCjJp/IbT0HVO82B4UIeaBQ+8oSvGEOauV79S/+OeYDw/J7m2g8yHSsNFA==
+X-Gm-Gg: ASbGncsup3P8DYMoLnmLBbC3aDtQ4ujef+Yx8NKCk80ClJxeCBaDJrt8XtholqRDQNx
+	JYbv9qTRrAZFiLclnlJ8dCok7XppCuqX/uk4XGURv/Ta4PyYcJOHcryIEYaUQdq+CunBmCxZ9XL
+	OIixqq/Q0hzflOq2iAsXDdqj1CadNXEY3S4xftRhT0uj5zbZRg9h9oLH+++CE67CQeXiM/ZzQUL
+	fWPJz7CXnexn2Gvrtxcp/3qgeTHhbWmdMzkQYB430MJh08ZfpjiL6sceTpoLY/M5MrltR9rieK9
+	C9cIlVhp0lLejjbyXDPkKJI6VLTXnBYm1ix1zimTaCd3WSIwPOS8lkhx2SjBdAm+geLFdFsPO57
+	t8KxyNZTiZrFKverDvq9TOt/Arn+UAw==
+X-Google-Smtp-Source: AGHT+IFhiMI5KdoXCzVoYQ8B4lgVwTEc+bUtmXpgR7uq6gFqabB8V/F+i+Qzy58RPYAqiqX1AzdoMQ==
+X-Received: by 2002:a05:6000:1fa1:b0:390:fb37:1ca with SMTP id ffacd0b85a97d-39132dbb25amr13046137f8f.53.1741699038331;
+        Tue, 11 Mar 2025 06:17:18 -0700 (PDT)
+Message-ID: <42f7e36b-c3ee-45b8-9821-44a9da77eb6d@suse.com>
+Date: Tue, 11 Mar 2025 14:17:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] x86/vmx: fix posted interrupts usage of
- msi_desc->msg field
+Subject: Re: [PATCH v4 2/3] x86/hvm: check return code of hvm_pi_update_irte
+ when binding
 To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 References: <20250311120652.61366-1-roger.pau@citrix.com>
- <20250311120652.61366-2-roger.pau@citrix.com>
+ <20250311120652.61366-3-roger.pau@citrix.com>
 Content-Language: en-US
+Cc: xen-devel@lists.xenproject.org
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,29 +117,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250311120652.61366-2-roger.pau@citrix.com>
+In-Reply-To: <20250311120652.61366-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 11.03.2025 13:06, Roger Pau Monne wrote:
-> --- a/xen/arch/x86/hvm/vmx/vmx.c
-> +++ b/xen/arch/x86/hvm/vmx/vmx.c
-> @@ -396,6 +396,13 @@ static int cf_check vmx_pi_update_irte(const struct vcpu *v,
->      const struct pi_desc *pi_desc = v ? &v->arch.hvm.vmx.pi_desc : NULL;
->      struct irq_desc *desc;
->      struct msi_desc *msi_desc;
-> +    /*
-> +     * vmx_pi_update_irte() relies on the IRTE already being setup, and just
-> +     * updates the guest vector, but not the other IRTE fields.  As such the
-> +     * contents of msg are not consumed by iommu_update_ire_from_msi().  Even
-> +     * if not consumed, zero the contents to avoid possible stack leaks.
-> +     */
-> +    struct msi_msg msg = {};
+> Consume the return code from hvm_pi_update_irte(), and propagate the error
+> back to the caller if hvm_pi_update_irte() fails.
+> 
+> Fixes: 35a1caf8b6b5 ('pass-through: update IRTE according to guest interrupt config changes')
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-What the comment says is true only when pi_desc != NULL. As can be seen in
-context above, it can very well be NULL here, though (which isn't to say
-that I'm convinced the NULL case is handled correctly here). I'd view it as
-more safe anyway if you set msg from msi_desc->msg.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+
 
