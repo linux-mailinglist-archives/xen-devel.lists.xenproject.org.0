@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43F83A5BBE4
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 10:18:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.907468.1314705 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE3C2A5BBEC
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 10:21:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.907480.1314715 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1trvkN-0003lX-Sy; Tue, 11 Mar 2025 09:17:59 +0000
+	id 1trvnW-0005M1-A2; Tue, 11 Mar 2025 09:21:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 907468.1314705; Tue, 11 Mar 2025 09:17:59 +0000
+Received: by outflank-mailman (output) from mailman id 907480.1314715; Tue, 11 Mar 2025 09:21:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1trvkN-0003k2-QF; Tue, 11 Mar 2025 09:17:59 +0000
-Received: by outflank-mailman (input) for mailman id 907468;
- Tue, 11 Mar 2025 09:17:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QaIb=V6=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1trvkN-0003jv-0r
- for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 09:17:59 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b6c06ff7-fe59-11ef-9898-31a8f345e629;
- Tue, 11 Mar 2025 10:17:54 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-43cf05f0c3eso14340985e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 02:17:54 -0700 (PDT)
-Received: from localhost ([66.81.170.107]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43cf27f8ef3sm78672445e9.11.2025.03.11.02.17.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Mar 2025 02:17:53 -0700 (PDT)
+	id 1trvnW-0005KZ-7I; Tue, 11 Mar 2025 09:21:14 +0000
+Received: by outflank-mailman (input) for mailman id 907480;
+ Tue, 11 Mar 2025 09:21:13 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1trvnV-0005KT-7n
+ for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 09:21:13 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1trvnV-00EThc-05;
+ Tue, 11 Mar 2025 09:21:12 +0000
+Received: from [2a02:8012:3a1:0:d5e1:ab8b:3d02:5aa4]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1trvnU-003deD-1y;
+ Tue, 11 Mar 2025 09:21:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,134 +39,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b6c06ff7-fe59-11ef-9898-31a8f345e629
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1741684674; x=1742289474; darn=lists.xenproject.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0dzrzcyd8GjsfaBoKtl9Wiw+PcOdfc4AoYsq7TuoxVg=;
-        b=EMvt49TXYNOPTbxvXEpNlgmLKyBm5V/HW8sXPWRm6BEoU43lZDO2KwwJ+BNajG8YMa
-         3fDSiBfZUTvRtqmFyKnE14JHOt4iL3UStlF2reemtxDvIfw5XGZ7RbxQH4gAVuLiJb5c
-         sVNHkueNbxl+MSE817/E7sy8auimRjw7plg/A=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741684674; x=1742289474;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=0dzrzcyd8GjsfaBoKtl9Wiw+PcOdfc4AoYsq7TuoxVg=;
-        b=NkJ9kaU+2+iwoTcZmAxTQqxBWh+MlzrOjLJREONjsGC2p0Z/3oi+w5JfzgmrBCy+dq
-         X3MFZGoMuK2s5Csz+nojYO8CpNN/GE8t0SXfaqfjjqon5wk9ru4cqQnGkO4SnjUzQxxn
-         H202S2SKeZWLOVlWMd1dMbH3UEAPnhHO2WW/84Q7U9fS5N2N++NyPnibTZHysq7ol3KM
-         bTyISXafpDafLKnaObmlOwM1q2SRXzmLiKD8EoV+RQTVU7Wfs/50hBgzEWxPyF/jwsS2
-         vYQ9JD39mT8BIFmvl8L/eWj4J8wOmEKYBUFgKWeRbXTy37GI6fFAnSUppRwBhZsZU1Su
-         yELA==
-X-Forwarded-Encrypted: i=1; AJvYcCXjG61WfV0+Qz06qvuXnpijxLGe7zkLOOIjh/utrPIwDyTRIgRPjAH7WPTw8DmYxc4aD3JtX88g1TU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwyvAEzx77R/CBaJbehkjKh54cQPl8kQX+00G4Xwyp24g0nHHtz
-	NsSaA/xrGfoyGgM0gW/rHt6ZNGcw8+iBTfbeEo+He3UISUJ1V4eryd4YJUvGOof9hpwIBuRMswD
-	6X0k=
-X-Gm-Gg: ASbGncsPWqRXQs8qFK6hsDLpZ+owywIpG+Edj3l/bRtSh2SvZKlDpH8sBgQQ6S7yWjj
-	32djRAGAaBR32Wb/oldtFEiK70YgStX4vqx724px3SJIC6/wPD+haOUaRuIKm+GA7U8v3+4/CFR
-	M6SwtHpY/ok5p+B1eQx+SIgIBNEwPB3Kw/mEmcb/fOl57goJTcM2frqHf/YtB1gAkvT/iqUAdDK
-	7hVfgXLK1oEdLVfGjoUe2bgBXi2ORJrNtBgnPB8n2fK5gHUcc9PUaw5fEhy9TfH3GM1RWBBEXZf
-	GYVqpLkxLcp1/PDLhm5hBV+HPeuYhbDkbhCe2q4Tkl8T8X+gVF8=
-X-Google-Smtp-Source: AGHT+IG2adtEzPJsUBOh3ZFuOSLZfOKqlIR2xFoxwrtMpZSO3oFAgkcovhJZOzgowr/MtDwzRgKI9w==
-X-Received: by 2002:a05:600c:470c:b0:43c:f050:fed3 with SMTP id 5b1f17b1804b1-43cf051022dmr92439915e9.11.1741684673845;
-        Tue, 11 Mar 2025 02:17:53 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 11 Mar 2025 09:17:52 +0000
-Message-Id: <D8DBOSSN37VY.1VN43MHCQ5AGR@cloud.com>
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>,
- =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, "Anthony PERARD"
- <anthony.perard@vates.tech>, "Juergen Gross" <jgross@suse.com>,
- <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH] tools: Mark ACPI SDTs as NVS in the PVH build path
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Jan Beulich" <jbeulich@suse.com>
-X-Mailer: aerc 0.18.2
-References: <20250310152523.81181-1-alejandro.vallejo@cloud.com>
- <5f207284-d206-417a-b963-c922119abe33@suse.com>
-In-Reply-To: <5f207284-d206-417a-b963-c922119abe33@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=oMgLVYklDh0YrOc0j6PCgzR6NlxnMWRVmt9aLSX5P4g=; b=AnP3YDPYIcDY4MS+SIuhDcs3xe
+	TMosS0NUpWhGS4NXdsT54r+yeLSy4kXxhh5AweipeO68pqku17/DpVecEhNRd4hMFa9XEMQYdiGtg
+	Ie+AZ8c9ROk5ZG/+at9xfFc7tJ8V+94NH7JRDHrGPhkZMKqDa2dt77biqGlVDTTV0CqY=;
+Message-ID: <ca2e86f3-68f6-4628-af98-c3ad0e82cc0f@xen.org>
+Date: Tue, 11 Mar 2025 09:21:09 +0000
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] docs: specify numerical values of Xenstore commands
+Content-Language: en-GB
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20250311073131.13539-1-jgross@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20250311073131.13539-1-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue Mar 11, 2025 at 8:30 AM GMT, Jan Beulich wrote:
-> On 10.03.2025 16:25, Alejandro Vallejo wrote:
-> > Commit cefeffc7e583 marked ACPI tables as NVS in the hvmloader path
-> > because SeaBIOS may otherwise just mark it as RAM. There is, however,
-> > yet another reason to do it even in the PVH path. Xen's incarnation of
-> > AML relies on having access to some ACPI tables (e.g: _STA of Processor
-> > objects relies on reading the processor online bit in its MADT entry)
-> >=20
-> > This is problematic if the OS tries to reclaim ACPI memory for page
-> > tables as it's needed for runtime and can't be reclaimed after the OSPM
-> > is up and running.
-> >=20
-> > Fixes: de6d188a519f("hvmloader: flip "ACPI data" to "ACPI NVS" type for=
- ACPI table region)"
-> > Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-> > ---
-> > I really, really, really dislike this idea of accessing the MADT from
-> > AML.
->
-> I think this isn't Xen's invention, but something I've seen in various
-> systems' AML.
->
+Hi Juergen,
 
-Do you mean ACPI hotplug? I don't think I've ever seen a real system with
-support for it. I don't suppose you remember any specifically? I'd be quite
-interested to have a look at their ACPI dumps.
+On 11/03/2025 07:31, Juergen Gross wrote:
+> In docs/misc/xenstore.txt all Xenstore commands are specified, but
+> the specifications lack the numerical values of the commands.
+> 
+> Add a table with all commands, their values, and a potential remark
+> (e.g. whether the command is optional).
+> 
+> Reported-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+> V2:
+> - replace "ŕ" with plain "r" (Jan Beulich)
+> - replace hard tabs with blanks (Jan Beulich)
+> - allow GET_FEATURES and GET_QUOTA support without SET_* (Jan Beulich)
+> ---
+>   docs/misc/xenstore.txt | 57 ++++++++++++++++++++++++++++++++++++++++++
+>   1 file changed, 57 insertions(+)
+> 
+> diff --git a/docs/misc/xenstore.txt b/docs/misc/xenstore.txt
+> index 7e1f031520..8b4b790e11 100644
+> --- a/docs/misc/xenstore.txt
+> +++ b/docs/misc/xenstore.txt
+> @@ -86,6 +86,63 @@ parts of xenstore inaccessible to some clients.  In any case passing
+>   bulk data through xenstore is not recommended as the performance
+>   properties are poor.
+>   
+> +---------- Defined Xenstore message types ----------
+> +
+> +Below is a table with all defined Xenstore message types (type name
+> +and its associated numerical value).
+> +
+> +Some types are optional to be supported by a specific Xenstore
+> +implementation.  If an optional type is not supported by a Xenstore
+> +implementation, Xen tools will continue to work, maybe with slightly
+> +reduced functionality.  A mandatory type not being supported will
+> +result in severely reduced functionality, like inability to create
+> +domains.  In case a type is optional, this is stated in the table with
+> +the lost functionality in case Xenstore doesn't support that type.
+> +
+> +XS_CONTROL               0    optional
+> +    If not supported, xenstore-control command will not work.
 
-> > In time I'll try to implement something to stop doing it, but for
-> > the time being I find it preferable to align libxl to hvmloader rather
-> > than trying to restrict what's reclaimable and what isn't.
-> > ---
-> >  tools/firmware/hvmloader/e820.c | 4 ++++
-> >  tools/libs/light/libxl_x86.c    | 2 +-
-> >  2 files changed, 5 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/tools/firmware/hvmloader/e820.c b/tools/firmware/hvmloader=
-/e820.c
-> > index c490a0bc790c..86d39544e887 100644
-> > --- a/tools/firmware/hvmloader/e820.c
-> > +++ b/tools/firmware/hvmloader/e820.c
-> > @@ -210,6 +210,10 @@ int build_e820_table(struct e820entry *e820,
-> >       * space reuse by an ACPI unaware / buggy bootloader, option ROM, =
-etc.
-> >       * before an ACPI OS takes control. This is possible due to the fa=
-ct that
-> >       * ACPI NVS memory is explicitly described as non-reclaimable in A=
-CPI spec.
-> > +     *
-> > +     * Furthermore, Xen relies on accessing ACPI tables from within th=
-e AML
-> > +     * code exposed to guests. So Xen's ACPI tables are not, in genera=
-l,
-> > +     * reclaimable.
-> >       */
-> > =20
-> >      if ( acpi_enabled )
-> > diff --git a/tools/libs/light/libxl_x86.c b/tools/libs/light/libxl_x86.=
-c
-> > index a3164a3077fe..265da8072a59 100644
-> > --- a/tools/libs/light/libxl_x86.c
-> > +++ b/tools/libs/light/libxl_x86.c
-> > @@ -742,7 +742,7 @@ static int domain_construct_memmap(libxl__gc *gc,
-> >              e820[nr].addr =3D dom->acpi_modules[i].guest_addr_out & ~(=
-page_size - 1);
-> >              e820[nr].size =3D dom->acpi_modules[i].length +
-> >                  (dom->acpi_modules[i].guest_addr_out & (page_size - 1)=
-);
-> > -            e820[nr].type =3D E820_ACPI;
-> > +            e820[nr].type =3D E820_NVS;
->
-> This likely needs a comment then, too.
+Are we documenting anywhere how a user could figure out if the command 
+is not supported? Is it a specific error code?
 
-Fair enough. Let me send a v2 with that.
+> +    XS_DEBUG is a deprecated alias of XS_CONTROL.
+ > +XS_DIRECTORY             1> +XS_READ                  2
+> +XS_GET_PERMS             3
+> +XS_WATCH                 4
+> +XS_UNWATCH               5
+> +XS_TRANSACTION_START     6
+> +XS_TRANSACTION_END       7
+> +XS_INTRODUCE             8
+> +XS_RELEASE               9
+> +XS_GET_DOMAIN_PATH      10
+> +XS_WRITE                11
+> +XS_MKDIR                12
+> +XS_RM                   13
+> +XS_SET_PERMS            14
+> +XS_WATCH_EVENT          15
+> +    Not valid in client sent messages.
+> +    Only valid in Xenstore replies.
+> +XS_ERROR                16
+> +    Not valid in client sent messages.
+> +    Only valid in Xenstore replies.
+> +XS_IS_DOMAIN_INTRODUCED 17
+> +XS_RESUME               18
+> +XS_SET_TARGET           19
+> +XS_RESTRICT             20    no longer supported
+> +    XS_RESTRICT has been removed, the type value 20 is invalid.
+> +XS_RESET_WATCHES        21
+> +XS_DIRECTORY_PART       22    optional
+> +    If not supported, the output of xenstore-ls might be incomplete
+> +    with more than ca. 1000 domains active.
 
->
-> Jan
+Why are we making this specific to number of domains? Wouldn't the 
+problem be the same if you have 1000 node within a parent node?
+
+> +XS_GET_FEATURE          23    optional
+> +XS_SET_FEATURE          24    optional
+> +    XS_SET_FEATURE requires XS_GET_FEATURE to be supported.
+> +    If unsupported, setting availability of Xenstore features per
+> +    domain is not possible.
+> +XS_GET_QUOTA            25    optional
+> +XS_SET_QUOTA            26    optional
+> +    XS_SET_QUOTA requires XS_GET_QUOTA to be supported.
+> +    If unsupported, setting of Xenstore quota per domain is not
+> +    possible.
+> +XS_INVALID           65535
+> +    Guaranteed invalid type (never supported).
+>   
+>   ---------- Xenstore protocol details - introduction ----------
+>   
 
 Cheers,
-Alejandro
+
+-- 
+Julien Grall
+
 
