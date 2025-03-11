@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C1FBA5D14A
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 21:59:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.909271.1316246 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F227A5D155
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 22:05:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.909282.1316256 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ts6hG-0005MF-TP; Tue, 11 Mar 2025 20:59:30 +0000
+	id 1ts6mU-0006uT-EM; Tue, 11 Mar 2025 21:04:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 909271.1316246; Tue, 11 Mar 2025 20:59:30 +0000
+Received: by outflank-mailman (output) from mailman id 909282.1316256; Tue, 11 Mar 2025 21:04:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ts6hG-0005JA-Qn; Tue, 11 Mar 2025 20:59:30 +0000
-Received: by outflank-mailman (input) for mailman id 909271;
- Tue, 11 Mar 2025 20:59:29 +0000
+	id 1ts6mU-0006sK-Bi; Tue, 11 Mar 2025 21:04:54 +0000
+Received: by outflank-mailman (input) for mailman id 909282;
+ Tue, 11 Mar 2025 21:04:52 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ts6hE-0005J4-Vq
- for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 20:59:29 +0000
+ (envelope-from <julien@xen.org>) id 1ts6mS-0006sE-Sh
+ for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 21:04:52 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1ts6hE-00Eiub-2G;
- Tue, 11 Mar 2025 20:59:28 +0000
+ (envelope-from <julien@xen.org>) id 1ts6mR-00Ej3W-2q;
+ Tue, 11 Mar 2025 21:04:51 +0000
 Received: from [2a02:8012:3a1:0:9c08:78f4:b949:88f8]
  by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1ts6hE-004nch-0F;
- Tue, 11 Mar 2025 20:59:28 +0000
+ (envelope-from <julien@xen.org>) id 1ts6mR-004o92-1R;
+ Tue, 11 Mar 2025 21:04:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,99 +42,140 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=ytqT0XbvtxFADS1Rg3eUrTjTyGQ2eIkAHFMOiAgmQcA=; b=0KdDlNEVbVgEsvoF8UukEZ92wo
-	NPhvTVmsrN8Pyxx7aGi3vyIFO8RMtSGNpEIUfNQirpqJghJoR/nRPFhHLcmOIep3BzT6M6pvM2Ma0
-	3tOVrg9SjmTWJo8G/yPqRGK2i0WkOWZCr3F7DBdNMiLSTkgsmWsFqJF7paPdzPdYycpo=;
-Message-ID: <c5ccb703-45eb-4fb1-842c-75317354afad@xen.org>
-Date: Tue, 11 Mar 2025 20:59:24 +0000
+	bh=PYXnjgz4McCAUig7ZhfLuoXt1YKitv9oUoVZEcCChnw=; b=RH/MELDni5v2YlY1PgvsKW0GY0
+	Sg7EQf0p7BKPl2jHttA0H0nhSIx9RZLqkroguezXAm0Q0vhd6C1wedmwWUkkKRJtj7GE7jLG0UGeb
+	XfIYP8+XfSD6n+SxEOOU3OIKHdW1nhYMzmZHq3C5y1WjgUOuSpnRZZwVIYl/EeZ9yodA=;
+Message-ID: <0d0ed573-d810-4e78-9a12-985e9150c107@xen.org>
+Date: Tue, 11 Mar 2025 21:04:48 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/16] xen/percpu: don't initialize percpu on resume
+Subject: Re: [PATCH 08/16] xen/arm: add watchdog domain suspend/resume helpers
 Content-Language: en-GB
 To: Mykola Kvach <xakep.amatop@gmail.com>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
+Cc: Mykola Kvach <mykola_kvach@epam.com>, Dario Faggioli
+ <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
+ George Dunlap <gwd@xenproject.org>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Mykyta Poturai <mykyta_poturai@epam.com>,
- Mykola Kvach <mykola_kvach@epam.com>, Juergen Gross <jgross@suse.com>
+ Mirela Simonovic <mirela.simonovic@aggios.com>,
+ Saeed Nowshadi <saeed.nowshadi@xilinx.com>,
+ Mykyta Poturai <mykyta_poturai@epam.com>
 References: <cover.1741164138.git.xakep.amatop@gmail.com>
- <e44b56f18fe5e1c7f1d6cd9d33ba84cf0e26b440.1741164138.git.xakep.amatop@gmail.com>
+ <15604985aae5333670467a84cccbaaa403a10000.1741164138.git.xakep.amatop@gmail.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <e44b56f18fe5e1c7f1d6cd9d33ba84cf0e26b440.1741164138.git.xakep.amatop@gmail.com>
+In-Reply-To: <15604985aae5333670467a84cccbaaa403a10000.1741164138.git.xakep.amatop@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-
-(+ Juergen)
 
 Hi Mykola,
 
 On 05/03/2025 09:11, Mykola Kvach wrote:
-> Invocation of the CPU_UP_PREPARE notification
-> on ARM64 during resume causes a crash:
+> From: Mykola Kvach <mykola_kvach@epam.com>
 > 
-> (XEN) [  315.807606] Error bringing CPU1 up: -16
-> (XEN) [  315.811926] Xen BUG at common/cpu.c:258
-> [...]
-> (XEN) [  316.142765] Xen call trace:
-> (XEN) [  316.146048]    [<00000a0000202264>] enable_nonboot_cpus+0x128/0x1ac (PC)
-> (XEN) [  316.153219]    [<00000a000020225c>] enable_nonboot_cpus+0x120/0x1ac (LR)
-> (XEN) [  316.160391]    [<00000a0000278180>] suspend.c#system_suspend+0x4c/0x1a0
-> (XEN) [  316.167476]    [<00000a0000206b70>] domain.c#continue_hypercall_tasklet_handler+0x54/0xd0
-> (XEN) [  316.176117]    [<00000a0000226538>] tasklet.c#do_tasklet_work+0xb8/0x100
-> (XEN) [  316.183288]    [<00000a0000226920>] do_tasklet+0x68/0xb0
-> (XEN) [  316.189077]    [<00000a000026e120>] domain.c#idle_loop+0x7c/0x194
-> (XEN) [  316.195644]    [<00000a0000277638>] shutdown.c#halt_this_cpu+0/0x14
-> (XEN) [  316.202383]    [<0000000000000008>] 0000000000000008
+> This patch implements suspend/resume helpers for the watchdog.
+> While a domain is suspended its watchdogs must be paused. Otherwise,
+> if the domain stays in the suspend state for a longer period of time
+> compared to the watchdog period, the domain would be shutdown on resume.
+> Proper solution to this problem is to stop (suspend) the watchdog timers
+> after the domain suspends and to restart (resume) the watchdog timers
+> before the domain resumes. The suspend/resume of watchdog timers is done
+> in Xen and is invisible to the guests.
 > 
-> Freeing per-CPU areas and setting __per_cpu_offset to INVALID_PERCPU_AREA
-> only occur when !park_offline_cpus and system_state is not SYS_STATE_suspend.
-> On ARM64, park_offline_cpus is always false, so setting __per_cpu_offset to
-> INVALID_PERCPU_AREA depends solely on the system state.
-> 
-> If the system is suspended, this area is not freed, and during resume, an error
-> occurs in init_percpu_area, causing a crash because INVALID_PERCPU_AREA is not
-> set and park_offline_cpus remains 0:
-> 
->      if ( __per_cpu_offset[cpu] != INVALID_PERCPU_AREA )
->          return park_offline_cpus ? 0 : -EBUSY;
-> 
-> It appears that the same crash can occur on x86 if park_offline_cpus is set
-> to 0 during Xen suspend.
-
-I am rather confused. Looking at the x86 code, it seems 
-park_offline_cpus is cleared for AMD platforms. So are you saying the 
-suspend/resume doesn't work on AMD?
-
-I am also CCing Juergen because he originally add the check to the 
-system_state in 2019. Maybe he will remember why CPU_UP_PREPARE was not 
-changed.
-
-> 
+> Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
+> Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
 > Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
 > ---
-> These changes were introduced in V2 inside
-> "xen: don't free percpu areas during suspend" patch.
-> ---
->   xen/common/percpu.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
+> Changes in v3:
+> - cover the code with CONFIG_SYSTEM_SUSPEND
 > 
-> diff --git a/xen/common/percpu.c b/xen/common/percpu.c
-> index e4e8b7bcab..83dca7edd6 100644
-> --- a/xen/common/percpu.c
-> +++ b/xen/common/percpu.c
-> @@ -74,7 +74,8 @@ static int cf_check cpu_percpu_callback(
->       switch ( action )
->       {
->       case CPU_UP_PREPARE:
-> -        rc = init_percpu_area(cpu);
-> +        if ( system_state != SYS_STATE_resume )
-> +            rc = init_percpu_area(cpu);
->           break;
+> Changes in v2:
+> - drop suspended field from timer structure
+> - drop the call of watchdog_domain_resume from ctxt_switch_to
+> ---
+>   xen/common/sched/core.c | 39 +++++++++++++++++++++++++++++++++++++++
+>   xen/include/xen/sched.h |  9 +++++++++
+>   2 files changed, 48 insertions(+)
+> 
+> diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+> index b1c6b6b9fa..6c2231826a 100644
+> --- a/xen/common/sched/core.c
+> +++ b/xen/common/sched/core.c
+> @@ -1605,6 +1605,45 @@ void watchdog_domain_destroy(struct domain *d)
+>           kill_timer(&d->watchdog_timer[i].timer);
+>   }
 >   
->       case CPU_UP_CANCELED:
+> +#ifdef CONFIG_SYSTEM_SUSPEND
+
+The config option is Arm specific, yet this is common code. As x86, 
+already suspend/resume, then shouldn't the config option be common?
+
+But more importantly, why do we need to save/restore the watchdogs for 
+Arm but not x86? Is this a latent issue or design choice?
+
+> +
+> +void watchdog_domain_suspend(struct domain *d)
+> +{
+> +    unsigned int i;
+> +
+> +    spin_lock(&d->watchdog_lock);
+> +
+> +    for ( i = 0; i < NR_DOMAIN_WATCHDOG_TIMERS; i++ )
+> +    {
+> +        if ( test_bit(i, &d->watchdog_inuse_map) )
+> +        {
+> +            stop_timer(&d->watchdog_timer[i].timer);
+> +        }
+> +    }
+> +
+> +    spin_unlock(&d->watchdog_lock);
+> +}
+> +
+> +void watchdog_domain_resume(struct domain *d)
+> +{
+> +    unsigned int i;
+> +
+> +    spin_lock(&d->watchdog_lock);
+> +
+> +    for ( i = 0; i < NR_DOMAIN_WATCHDOG_TIMERS; i++ )
+> +    {
+> +        if ( test_bit(i, &d->watchdog_inuse_map) )
+> +        {
+> +            set_timer(&d->watchdog_timer[i].timer,
+> +                      NOW() + SECONDS(d->watchdog_timer[i].timeout));
+> +        }
+> +    }
+> +
+> +    spin_unlock(&d->watchdog_lock);
+> +}
+> +
+> +#endif /* CONFIG_SYSTEM_SUSPEND */
+> +
+>   /*
+>    * Pin a vcpu temporarily to a specific CPU (or restore old pinning state if
+>    * cpu is NR_CPUS).
+> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+> index d0d10612ce..caab4aad93 100644
+> --- a/xen/include/xen/sched.h
+> +++ b/xen/include/xen/sched.h
+> @@ -1109,6 +1109,15 @@ void scheduler_disable(void);
+>   void watchdog_domain_init(struct domain *d);
+>   void watchdog_domain_destroy(struct domain *d);
+>   
+> +#ifdef CONFIG_SYSTEM_SUSPEND
+> +/*
+> + * Suspend/resume watchdogs of domain (while the domain is suspended its
+> + * watchdogs should be on pause)
+> + */
+> +void watchdog_domain_suspend(struct domain *d);
+> +void watchdog_domain_resume(struct domain *d);
+> +#endif /* CONFIG_SYSTEM_SUSPEND */
+> +
+>   /*
+>    * Use this check when the following are both true:
+>    *  - Using this feature or interface requires full access to the hardware
 
 Cheers,
 
