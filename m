@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C624FA5CB82
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 18:01:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.908820.1315888 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18F3EA5CDFC
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 19:36:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.908853.1315901 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ts2ym-0007DE-Mb; Tue, 11 Mar 2025 17:01:20 +0000
+	id 1ts4Rp-00037S-0q; Tue, 11 Mar 2025 18:35:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 908820.1315888; Tue, 11 Mar 2025 17:01:20 +0000
+Received: by outflank-mailman (output) from mailman id 908853.1315901; Tue, 11 Mar 2025 18:35:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ts2ym-0007As-JR; Tue, 11 Mar 2025 17:01:20 +0000
-Received: by outflank-mailman (input) for mailman id 908820;
- Tue, 11 Mar 2025 17:01:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=EmiY=V6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ts2yk-0007Aj-IX
- for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 17:01:18 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6ba73490-fe9a-11ef-9ab9-95dc52dad729;
- Tue, 11 Mar 2025 18:01:05 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-43d04ea9d9aso6338985e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 10:01:05 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43ceba8d727sm116891255e9.25.2025.03.11.10.01.03
+	id 1ts4Ro-00034s-Ta; Tue, 11 Mar 2025 18:35:24 +0000
+Received: by outflank-mailman (input) for mailman id 908853;
+ Tue, 11 Mar 2025 18:35:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=QaIb=V6=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1ts4Rm-00034m-Pi
+ for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 18:35:22 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 917d611a-fea7-11ef-9898-31a8f345e629;
+ Tue, 11 Mar 2025 19:35:12 +0100 (CET)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-5e61d91a087so4631632a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 11:35:12 -0700 (PDT)
+Received: from localhost ([66.81.170.107]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5e5c745d5cfsm8619384a12.19.2025.03.11.11.35.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Mar 2025 10:01:04 -0700 (PDT)
+ Tue, 11 Mar 2025 11:35:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,139 +44,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6ba73490-fe9a-11ef-9ab9-95dc52dad729
+X-Inumbo-ID: 917d611a-fea7-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741712465; x=1742317265; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fAgzANV4fpi95DidZLdr9ATxtnSWLY2xRjhmMXrOwPM=;
-        b=URBQtbldrjjtlf3X6SkTyJfgvPqCpvIAa+8q42u00O2rldhwmv+5AqtT34rtScWhdK
-         H50+N7IrdbJ2STm99cWBGhLTIUsgAByXcsgHqr207Q8qjDLEQVWDKj9H2+Gs/f4mGiA2
-         wRTIU40d7MevnexOIlGcC2p5NNhkuyjbEs1Ee7ECdAkPFj9dLyEzx7lkXRKcMjDDSbBV
-         jPt4BxPJKSjBxynoN7wdX7owYdvdjxs3alsVBEg3+DdCgdBQ8UyyhzimwSgAiSAXAjoe
-         IO2aZDiZ7wDt6O+DrBs9fMlBiVPoZ0w6zVDSpCOPabsW5Jne1E/OsNSKb9jjyOzkpToE
-         QCXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741712465; x=1742317265;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1741718112; x=1742322912; darn=lists.xenproject.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fAgzANV4fpi95DidZLdr9ATxtnSWLY2xRjhmMXrOwPM=;
-        b=xMg5qCpYV5jzpA1Ig+qdWJlWQpBZOt49tYPMgRWinuptQweoqqmrlaQ5kH+t3fCOEw
-         bKrmcocRYAryuvIDw6JE+UTfoTIppDUMSukVpBJB0FaRPQ2yTqei5zS0APcbWr+kuZLK
-         oZqTdrI1zRYf8VlOXvusvxfjV0NZIBWWCYIURJz3HPGfqZaOTPNZdk4N6G7qoorNSef5
-         iSsa/3Z2mFfD1lbtVxI40ac7x7OCEPH18pA6DoCY7LmS54o0xL1UlQzKK3VE1DX5fKYF
-         WhgMoAHofv9H7JXCV/CP+N9Iloc9rTSX3s5vKZSb+XnDLW+ME/ts1/9eJnbx0VEIRzEx
-         Zumw==
-X-Forwarded-Encrypted: i=1; AJvYcCUyaM5rlu3TdqQrJZgsdl0SSA/bAvlTYFCjWxt1YbAphRAxfnMgojZSTZvoouLfw9mkAbUUEclK4/s=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzWtXWUBm83RLoKwBzuvQmKcUmDcHA2bYdaUxbmiNFKm/mG7I6R
-	j3AWqQxdulImbtM3jBBk+qTSbGstpTmyqTJPj0SwgMUNBR/42sHrnMkBRAd/tA==
-X-Gm-Gg: ASbGncuk7KhnDnOeL7l4FqaRf4yX9VnH6WvlU6iDQ7YedOcAAJip3rnsBC4zI0LSH9o
-	I7a+XOEUvUWcV4nUIlmyjOGPoAPzEeMqIs+6532g4eFleLRuL5yO3kad3QZcbrxAbEgPNY/gqSZ
-	3jMFD2103C5xQ+sdr3R5HeRNZOVSmdgzz3+F5TbltMuSNy7hYuRsdk0QiyDk2K7UfN4WOa9MvTw
-	xHLDcn1+hwrpCXkBoNR3NjDt5OiWeIGUJHTZd2FIL1ELtnZ0yFcOaUwn9ohFcdgAHamRnI/O7Oi
-	QwC79t6Ume7bgMlv1D3X+bN7jvqu0gEtno1bqwgYiSKTDP+0lNGU2f/saKmormXytvpRRI6khmn
-	mcx9YdN7bTfXiUiSgcb1X3PJOOPYEGnGs53c5gaBZ
-X-Google-Smtp-Source: AGHT+IGlbBk5RbeAwHfpfeEPuaJZDh4JlWVJLa2WEYqpSDFhWeJsOS7C6rdMh47b7/VVNNv8cQQs/g==
-X-Received: by 2002:a05:600c:1d18:b0:43c:f050:fed1 with SMTP id 5b1f17b1804b1-43cf051014bmr99573715e9.12.1741712465020;
-        Tue, 11 Mar 2025 10:01:05 -0700 (PDT)
-Message-ID: <5ccc36f4-0fda-4b28-9e7d-bbb2e3a66df3@suse.com>
-Date: Tue, 11 Mar 2025 18:01:02 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/iocap.h: add documentation
-To: Grygorii Strashko <grygorii_strashko@epam.com>,
- Grygorii Strashko <gragst.linux@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Michal Orzel <michal.orzel@amd.com>, Roger Pau Monne <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
-References: <20250224113828.151794-1-grygorii_strashko@epam.com>
- <83d5d612-2f6a-430a-8aee-4738f43204e0@suse.com>
- <d7fe19f2-f8ac-497a-833e-44a04e1ca4c7@epam.com>
- <60eff646-724f-4ff9-9dde-3a7f9a1da66a@suse.com>
- <49e28768-3b9e-42da-922b-64b0bf8dec34@epam.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <49e28768-3b9e-42da-922b-64b0bf8dec34@epam.com>
+        bh=htF2N9p/aAIVZMCKfEGHMLMJDu/Sei2gfh7cJJB7TyQ=;
+        b=GzeejAFca/Ir9xstoP84IBFmpRScfx1dAMi2mHBxcF6YycH2PAqzsgPpaZpWny+9HQ
+         O4JzDkc4g9QM/LqJaREH9GsTqD1OwZLRzm85PJLbvI60N6ztkD5mA/Hh0VytDrbfQzzw
+         znCUClFRzqSq6cVMrVvR8jqaj/qVfowqoIg8M=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1741718112; x=1742322912;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=htF2N9p/aAIVZMCKfEGHMLMJDu/Sei2gfh7cJJB7TyQ=;
+        b=VsmfNSEk2Zb6sMtt2gnZpanNP3McJjASGjd48gn/K2hwIX8G/lrzwdrqvK4bwTzP2n
+         DvQ/LZLlb10VKcdXptltI7dJ/tVGrMMrUXgakRHBLHX7QzMAnu1nef+7V7pmRViaUAwl
+         KS+16kWTihwsMHjMiU/kzwblTeo4Ot8xnkXE83aX+DqL/bYuQIooIn6AHhHycZsJmKjM
+         hLkvqnjjBpUlaPhp1BpOzLW2Pw/LLJODkFolQgRE1LO01onwAuj0uYzX9N8biQNF4CMj
+         3TrR1p4pXeGSrCT+P2U803OsW67tKXWOpWQGwklhL9F2gI6dSQVPSLcK9Kz3UtCmTSKv
+         UZrg==
+X-Gm-Message-State: AOJu0YxfNCSUbrT6H46pjasZfsBawo3mhKORV2LonRpM3w9PJNrARIFR
+	ha8Z68vijeRxLfEE+dQSI5zY24fyo6ElQPIzfJwV1rvU9R/8VxYmrghUFpCfE28=
+X-Gm-Gg: ASbGncst0+3qPllLYcFbcg/PNgl2rX2IKd0jccEkjM9buqR4iJ8rD+AwFFcp9D5i4Vt
+	EVoicFUVD4+U2ln2MjW2Gp/ePEutNX2++9bHSXON6GA/BesoMTTMSxLs9msyIt0apIs+i+i6gLs
+	0HhpwywxSjfO3w46NNuC2IcNi4TDNHIiY62joJxny/mjwMivLujE29M/RW9l6WPDkyEJ212scLl
+	RMHqPz6lvEaViHZPENWQwAasY9+tl6/YE1iYjxPdX6tTe60c0xC2CuYOlySw953KBB2DJli1BZC
+	mHGdxYcK5SDq2BTIiiexboyprpLAbvkanhFy2IHh8rgY0DXv22E=
+X-Google-Smtp-Source: AGHT+IGcHf61jKUTnaAIgdaEUfpQt8Di28ya7aIPnzou0v1dGsyW9MuvkZaBuSazAT0WgvIjGDNzwg==
+X-Received: by 2002:a05:6402:270f:b0:5de:dfde:c8b1 with SMTP id 4fb4d7f45d1cf-5e5e229de50mr43768067a12.4.1741718111956;
+        Tue, 11 Mar 2025 11:35:11 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Tue, 11 Mar 2025 18:35:09 +0000
+Message-Id: <D8DNJHDNZNRD.1XOJK139C5PEI@cloud.com>
+Cc: <xen-devel@lists.xenproject.org>, "Andrew Cooper"
+ <andrew.cooper3@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>,
+ "Michal Orzel" <michal.orzel@amd.com>, "Julien Grall" <julien@xen.org>,
+ "Stefano Stabellini" <sstabellini@kernel.org>
+Subject: Re: [PATCH v2] xen/page_alloc: Simplify domain_adjust_tot_pages
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+To: "Jan Beulich" <jbeulich@suse.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+X-Mailer: aerc 0.18.2
+References: <20250304111000.9252-1-alejandro.vallejo@cloud.com>
+ <Z9AwsrDBELe2UREz@macbook.local> <D8DITFXFKM32.2H5OOI4GVUAZ1@cloud.com>
+ <Z9BZ-V8fWHOAwMJ7@macbook.local>
+ <de418de2-b059-4f1e-92b0-42a236208b14@suse.com>
+In-Reply-To: <de418de2-b059-4f1e-92b0-42a236208b14@suse.com>
 
-On 11.03.2025 17:11, Grygorii Strashko wrote:
-> 
-> Hi Jan,
-> 
-> On 11.03.25 17:35, Jan Beulich wrote:
->> On 11.03.2025 15:53, Grygorii Strashko wrote:
->>> On 05.03.25 12:37, Jan Beulich wrote:
->>>> On 24.02.2025 12:38, Grygorii Strashko wrote:
->>>>> Change rangeset parameters to "start, last" as proposed in [1],
->>>>> and add documentation for public interface.
->>>>>
->>>>> No functional changes.
->>>>>
->>>>> [1] https://patchwork.kernel.org/comment/26251962/
->>>>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
->>>>
->>>> To be honest, this is getting too verbose for my taste. I also don't think
->>>> title and description fit together: One says the main thing the patch does
->>>> is add doc, the other says the main thing is the parameter renaming. When
->>>> then there's at least one further parameter which is also renamed, despite
->>>> not fitting the description.
->>>
->>> I can update subject and commit message and resend.
->>
->> This would address the latter part of my comment, but ...
->>
->>> Or you want me to drop some parts?
->>
->> ... only this would address the former part.
-> 
-> I'm very sorry, but I feel very much confused about your above comment :(
-> 
-> So I'd be appreciated if You can provide some clarification here.
-> 
-> 1) you do not want API documentation at all?
-> 2) you want API documentation, but only for some API?
-> 3) you are not satisfied with documentation style?
-> 
-> In case 3, how do you want it to be look like? Could you point on any .h or function in Xen,
-> to inherit the doc style?
-> 
-> Here I've followed doxygen style (like in xen/include/xen/vmap.h for example)
-> Before proceeding I've checked CODING_STYLE and other headers as well and saw that
-> there is no generic style for code documentation.
+On Tue Mar 11, 2025 at 3:45 PM GMT, Jan Beulich wrote:
+> On 11.03.2025 16:42, Roger Pau Monn=C3=A9 wrote:
+> > On Tue, Mar 11, 2025 at 02:53:04PM +0000, Alejandro Vallejo wrote:
+> >> On Tue Mar 11, 2025 at 12:46 PM GMT, Roger Pau Monn=C3=A9 wrote:
+> >>> On Tue, Mar 04, 2025 at 11:10:00AM +0000, Alejandro Vallejo wrote:
+> >>>> The logic has too many levels of indirection and it's very hard to
+> >>>> understand it its current form. Split it between the corner case whe=
+re
+> >>>> the adjustment is bigger than the current claim and the rest to avoi=
+d 5
+> >>>> auxiliary variables.
+> >>>>
+> >>>> Add a functional change to prevent negative adjustments from
+> >>>> re-increasing the claim. This has the nice side effect of avoiding
+> >>>> taking the heap lock here on every free.
+> >>>>
+> >>>> While at it, fix incorrect field name in nearby comment.
+> >>>>
+> >>>> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> >>>
+> >>> Acked-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> >>
+> >> Thanks.
+> >>
+> >>> I think it would be nice to also ensure that once the domain is
+> >>> finished building (maybe when it's unpaused for the first
+> >>> time?) d->outstanding_pages is set to 0.  IMO the claim system was
+> >>> designed to avoid races during domain building, and shouldn't be used
+> >>> once the domain is already running.
+> >>>
+> >>> Thanks, Roger.
+> >>
+> >> As a matter of implementation that's already the case by toolstack bei=
+ng "nice"
+> >> and unconditionally clearing claims after populating the physmap.
+> >=20
+> > I see.  Another option would be to refuse the unpause a domain if it
+> > still has pending claims.  However I don't know how that will work out
+> > with all possible toolstacks.
+> >=20
+> >> However, I agree the hypervisor should do it on its own. I didn't find=
+ a
+> >> suitable place for it.=20
+> >=20
+> > You could do it in arch_domain_creation_finished().
+>
+> Except that better wouldn't be arch-specific.
+>
+> Jan
 
-As said, my take is that this ends up too verbose. Personally I'm happy
-without any doc for these relatively simple interfaces. I could live
-with something lightweight. And if other maintainers think having this
-kind of extensive doc is useful, I also wouldn't veto this going in. But
-in the current shape I don#t think I'm willing to ack it.
+Why would it have to be arch-specific though? As far as the hypervisor is
+concerned, it doesn't seem to be.
 
-Jan
+Cheers,
+Alejandro
 
