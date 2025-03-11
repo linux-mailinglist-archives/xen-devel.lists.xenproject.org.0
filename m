@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62505A5D2ED
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Mar 2025 00:05:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.909518.1316455 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6156A5D32F
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Mar 2025 00:37:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.909539.1316465 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ts8dv-0002hP-2H; Tue, 11 Mar 2025 23:04:11 +0000
+	id 1ts99c-00046g-F6; Tue, 11 Mar 2025 23:36:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 909518.1316455; Tue, 11 Mar 2025 23:04:11 +0000
+Received: by outflank-mailman (output) from mailman id 909539.1316465; Tue, 11 Mar 2025 23:36:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ts8du-0002f9-Th; Tue, 11 Mar 2025 23:04:10 +0000
-Received: by outflank-mailman (input) for mailman id 909518;
- Tue, 11 Mar 2025 23:04:09 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ts8dt-0002f3-69
- for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 23:04:09 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1ts8ds-00ElNS-2T;
- Tue, 11 Mar 2025 23:04:08 +0000
-Received: from [2a02:8012:3a1:0:9c08:78f4:b949:88f8]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1ts8ds-005bK7-0q;
- Tue, 11 Mar 2025 23:04:08 +0000
+	id 1ts99c-00043g-BM; Tue, 11 Mar 2025 23:36:56 +0000
+Received: by outflank-mailman (input) for mailman id 909539;
+ Tue, 11 Mar 2025 23:36:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=isYZ=V6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1ts99a-00043Y-GK
+ for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 23:36:54 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b3dc1478-fed1-11ef-9898-31a8f345e629;
+ Wed, 12 Mar 2025 00:36:49 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3914aba1ce4so2067922f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 16:36:49 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3912bee262esm19298021f8f.0.2025.03.11.16.36.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 11 Mar 2025 16:36:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,160 +45,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=D7XPpLUmOlvkrbBskEb4nrzCSx2P8UAgHA84vsAuRHc=; b=4+hzcNbdN7aFME6fFx0xHaS4Gf
-	HdRkPOFcNFO3MfsxRVXv01RJXe8F2hKg8c/EVK65znC9G3b4iSws+NWShccxPuwZ8WMPR5FzL2Wkg
-	tgYGITGqg2SWWcCCXUHb7ZuPiBZgoqYao3LXX+v88EREFHFfVSkvii2/4jb1b8R4c2kc=;
-Message-ID: <1bcdca51-0f31-421c-81cf-699a1b94fbd6@xen.org>
-Date: Tue, 11 Mar 2025 23:04:06 +0000
+X-Inumbo-ID: b3dc1478-fed1-11ef-9898-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1741736208; x=1742341008; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=QE6JOMNccSR32yRQAyfqaeBa0yFpZt5itSd6nBN2X2g=;
+        b=eQS2t+akVDonDDqoP2LES+v5U7K9AIA0jIXGM2suFK6zLIfFRqTsW5oboedvBcKPbH
+         dbKmO9eJ3MsuEh77BwqJzhmnvjncWS1940HNg/tXFzbYwyrGzo/NnHTE56yYRRWQEHDz
+         6bozFlxbC2Huaog7ejq1ZaJUoM6jGhSM0PAdY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1741736208; x=1742341008;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=QE6JOMNccSR32yRQAyfqaeBa0yFpZt5itSd6nBN2X2g=;
+        b=DM/jlH0dgHZ5C+2y1+oIN56QSLyt235jYVrmayf+K9uWiy/x1gP8A5/7MbP1GC6SrE
+         EPEzbLN3kXrPpZqg9N/2Q2DFcQuvuyAF/JAyu/sF/7C0Grpigx9bPjiixlxizx4dED5J
+         held7KQVwh0c8NL9AU3wulZy2jWACGT6iETVkMxZzRoeN8nGSEmL6a3LnENvsryiGEpm
+         vFATDonym/pYVYCw4eDO776h/I5vOigP0E5Fczx+PpwzQPjOiAH8jhdpGvbwHNu8T8Z6
+         Md1bNRZGWnLrTbjwYGwcflrvw8q1FukUtfyFRiMa3ZWkLK7PE6CctF/tCOtKv4JVOokA
+         zW6g==
+X-Gm-Message-State: AOJu0Yy5vRY8nt8RIKwBWaoiCXueQS8mcWQQS/NaZmSmir2YcKen26d/
+	BW6BXYz0WmjcNLbqjAxzkHRLuOEIA2W7WUIkiIpEt9LGZ6gmbjJVjsO6VAnnQPcCLwnVTDdPx9w
+	3
+X-Gm-Gg: ASbGnct8Y7hTx7rMZvy+ILk2hu81TUnn3tAJ7r4bYveesEjSKcfH213kgZxqvQKVQPq
+	iyQuLsGi1NwYeeb9YSEtEodEh1AWH8tnYWBLvz+1atNR59r2ZUGd0ZgV8kPl0AzlU1GCWCpF+vn
+	IdiNm9fEWVObs42ZhOSLtESOWvJYbbTT6PxSM4nvdyp+L+YIENipMLzq4nV2mMAh05rPR+u4wcO
+	doXEwLzMSdYdnn/eTgSaJmkmVwKC8RHxSnxTmZYSfOyd1gXjTKaWfgfN0faUZ8SqmQT0rNyC6y5
+	GF8dsKp5KKii0xVagnQbyLfMU50J0nd5sZSGqZAhpN0FUVkVAoMmqNcBNH31eE0J9+2J8jSdovy
+	AcPTlzKY0
+X-Google-Smtp-Source: AGHT+IFvIZTswHu61twpGYiO2y/o9XmbZfKb8LCbQexZp9W6XVke4HgMyKmUx6iTwetCSG2wnYnkng==
+X-Received: by 2002:adf:a29a:0:b0:391:3aaf:1d57 with SMTP id ffacd0b85a97d-3913aaf1e5dmr9798764f8f.18.1741736208225;
+        Tue, 11 Mar 2025 16:36:48 -0700 (PDT)
+Message-ID: <79b3e775-5996-4d31-80cf-0f29d56d9633@citrix.com>
+Date: Tue, 11 Mar 2025 23:36:45 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 14/16] xen/arm: Resume memory management on Xen resume
+Subject: Re: [PATCH] x86/IDT: Fix IDT generation for INT $0x80
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Luca Fancellu <luca.fancellu@arm.com>, Jan Beulich <JBeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20250311212248.3630583-1-andrew.cooper3@citrix.com>
+ <cdae37d8-a01d-412c-a48b-f4e27d7d898e@citrix.com>
 Content-Language: en-GB
-To: Mykola Kvach <xakep.amatop@gmail.com>, xen-devel@lists.xenproject.org
-Cc: Mirela Simonovic <mirela.simonovic@aggios.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Saeed Nowshadi <saeed.nowshadi@xilinx.com>,
- Mykyta Poturai <mykyta_poturai@epam.com>,
- Mykola Kvach <mykola_kvach@epam.com>
-References: <cover.1741164138.git.xakep.amatop@gmail.com>
- <2ef15cb605f987eb087c5496d123c47c01cc0ae7.1741164138.git.xakep.amatop@gmail.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <2ef15cb605f987eb087c5496d123c47c01cc0ae7.1741164138.git.xakep.amatop@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <cdae37d8-a01d-412c-a48b-f4e27d7d898e@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi,
+On 11/03/2025 9:27 pm, Andrew Cooper wrote:
+> On 11/03/2025 9:22 pm, Andrew Cooper wrote:
+>> When PV is enabled, entry_int80 needs to be DPL3, not DPL0.
+>>
+>> This causes the XSA-259 PoC to fail with:
+>>
+>>   --- Xen Test Framework ---
+>>   Environment: PV 64bit (Long mode 4 levels)
+>>   XSA-259 PoC
+>>   Error: Unexpected fault 0x800d0802, #GP[IDT[256]]
+>>   Test result: ERROR
+>>
+>> (Clearly I have a bug in XTF's rendering of the error code too.)
 
-On 05/03/2025 09:11, Mykola Kvach wrote:
-> From: Mirela Simonovic <mirela.simonovic@aggios.com>
-> 
-> The MMU needs to be enabled in the resume flow before the context
-> can be restored (we need to be able to access the context data by
-> virtual address in order to restore it). The configuration of system
-> registers prior to branching to the routine that sets up the page
-> tables is copied from xen/arch/arm/arm64/head.S.
-> After the MMU is enabled, the content of TTBR0_EL2 is changed to
-> point to init_ttbr (page tables used at runtime).
-> 
-> At boot the init_ttbr variable is updated when a secondary CPU is
-> hotplugged. In the scenario where there is only one physical CPU in
-> the system, the init_ttbr would not be initialized for the use in
-> resume flow. To get the variable initialized in all scenarios in this
-> patch we add that the boot CPU updates init_ttbr after it sets the
-> page tables for runtime.
-> 
-> Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
-> Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
-> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
-> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-> ---
-> Changes in V3:
-> - updated commit message
-> - instead of using create_page_tables, enable_mmu, and mmu_init_secondary_cpu,
->    the existing function enable_secondary_cpu_mm is now used
-> - prepare_secondary_mm (previously init_secondary_pagetables in the previous
->    patch series) is now called at the end of start_xen instead of
->    setup_pagetables. Calling it in the previous location caused a crash
-> - add early printk init during resume
-> 
-> Changes in V2:
-> - moved hyp_resume to head.S to place it near the rest of the start code
-> - simplified the code in hyp_resume by using existing functions such as
->    check_cpu_mode, cpu_init, create_page_tables, and enable_mmu
-> ---
->   xen/arch/arm/arm64/head.S | 23 +++++++++++++++++++++++
->   xen/arch/arm/setup.c      |  8 ++++++++
->   2 files changed, 31 insertions(+)
-> 
-> diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
-> index 3522c497c5..fab2812e54 100644
-> --- a/xen/arch/arm/arm64/head.S
-> +++ b/xen/arch/arm/arm64/head.S
-> @@ -564,6 +564,29 @@ END(efi_xen_start)
->   #ifdef CONFIG_SYSTEM_SUSPEND
->   
->   FUNC(hyp_resume)
-> +        msr   DAIFSet, 0xf           /* Disable all interrupts */
+Nope, it's a QEMU bug.  Under QEMU, we get:
 
-Surely we should be here with interrupts disabled. No?
+--- Xen Test Framework ---
+Environment: PV 64bit (Long mode 4 levels)
+XSA-259 PoC
+(XEN) [    3.982447] *** #GP/IDT ec 00000802
+(XEN) [    3.982668] *** #GP/IDT ec 00000802, not permitted
+(XEN) [    3.982849] *** #GP inject ec 00000802
+Error: Unexpected fault 0x800d0802, #GP[IDT[256]]
+Test result: ERROR
 
-> +
-> +        tlbi  alle2
-> +        dsb   sy                     /* Ensure completion of TLB flush */
 
-This doesn't exist when booting Xen and I am not sure why we would need 
-it for resume as we already nuke the TLbs in enable_mmu. Can you clarify?
+On real hardware:
 
-> +        isb
-> +
-> +        ldr   x0, =start
-> +        adr   x19, start             /* x19 := paddr (start) */
-> +        sub   x20, x19, x0           /* x20 := phys-offset */
+(d1) --- Xen Test Framework ---
+(d1) Environment: PV 64bit (Long mode 4 levels)
+(d1) XSA-259 PoC
+(XEN) *** #GP/IDT ec 00000402
+(XEN) *** #GP/IDT ec 00000402, not permitted
+(XEN) *** #GP inject ec 00000402
+(d1) Success: Not vulnerable to XSA-259
+(d1) Test result: SUCCESS
 
-Looking at the code, I wonder if it is still necessary to set x19 and 
-x20 for booting secondary CPUs and resume. There doesn't seem to be any 
-use of the registers.
+So it's by chance that Luca's testing even picked up this failure.  The
+XSA-259 PoC can't distinguish between the #GP INT emulation path and the
+INT80 fastpath's error path which injects #GP.
 
-> +
-> +        /* Initialize the UART if earlyprintk has been enabled. */
-> +#ifdef CONFIG_EARLY_PRINTK
-> +        bl    init_uart
-> +#endif
-> +        PRINT_ID("- Xen resuming -\r\n")
-> +
-> +        bl    check_cpu_mode
-> +        bl    cpu_init
-> +
-> +        ldr   lr, =mmu_resumed
-> +        b     enable_secondary_cpu_mm
-> +
-> +mmu_resumed:
->           b .
->   END(hyp_resume)
->   
-> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-> index ffcae900d7..3a89ac436b 100644
-> --- a/xen/arch/arm/setup.c
-> +++ b/xen/arch/arm/setup.c
-> @@ -508,6 +508,14 @@ void asmlinkage __init start_xen(unsigned long fdt_paddr)
->       for_each_domain( d )
->           domain_unpause_by_systemcontroller(d);
->   
-> +#ifdef CONFIG_SYSTEM_SUSPEND
-> +    /*
-> +     * It is called to initialize init_ttbr.
-> +     * Without this call, Xen gets stuck after resuming.
-
-This is not a very descriptive comment. But, you seem to make the 
-assumption that prepare_secondary_mm() can be called on the boot CPU. 
-This is not always the case. For instance on arm32, it will allocate 
-memory and overwrite the per-cpu page-tables pointer (not great). This 
-will also soon be the case for arm64.
-
-Furthermore, this call reminded me that the secondary CPU page-tables 
-are not freed when turning off a CPU. So they will leak. Not yet a 
-problem for arm64 though.
-
-So overall, I think we need a separate function that will be prepare 
-init_ttbr for a given CPU (not allocate any memory). This will then need 
-to be called from the suspend helper.
-
-> +     */
- > +    prepare_secondary_mm(0);> +#endif
-> +
->       /* Switch on to the dynamically allocated stack for the idle vcpu
->        * since the static one we're running on is about to be freed. */
->       memcpy(idle_vcpu[0]->arch.cpu_info, get_cpu_info(),
-
-Cheers,
-
--- 
-Julien Grall
-
+~Andrew
 
