@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 377CCA5BF9C
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 12:47:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.907948.1315138 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DBBEA5BFE0
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 12:59:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.907993.1315167 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1try4Y-0006u7-03; Tue, 11 Mar 2025 11:46:58 +0000
+	id 1tryGd-0002y7-JU; Tue, 11 Mar 2025 11:59:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 907948.1315138; Tue, 11 Mar 2025 11:46:57 +0000
+Received: by outflank-mailman (output) from mailman id 907993.1315167; Tue, 11 Mar 2025 11:59:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1try4X-0006rQ-TA; Tue, 11 Mar 2025 11:46:57 +0000
-Received: by outflank-mailman (input) for mailman id 907948;
- Tue, 11 Mar 2025 11:46:56 +0000
+	id 1tryGd-0002wf-Gl; Tue, 11 Mar 2025 11:59:27 +0000
+Received: by outflank-mailman (input) for mailman id 907993;
+ Tue, 11 Mar 2025 11:59:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EmiY=V6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1try4W-0006rK-Gn
- for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 11:46:56 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
+ id 1tryGc-0002wZ-F4
+ for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 11:59:26 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 878ac211-fe6e-11ef-9898-31a8f345e629;
- Tue, 11 Mar 2025 12:46:54 +0100 (CET)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-ac2a9a74d9cso337860666b.1
- for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 04:46:54 -0700 (PDT)
+ id 4657556d-fe70-11ef-9898-31a8f345e629;
+ Tue, 11 Mar 2025 12:59:24 +0100 (CET)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-38f403edb4eso2930745f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 04:59:24 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac2a385e09dsm297184766b.48.2025.03.11.04.46.51
+ ffacd0b85a97d-3912c01cd31sm18004294f8f.52.2025.03.11.04.59.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Mar 2025 04:46:52 -0700 (PDT)
+ Tue, 11 Mar 2025 04:59:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 878ac211-fe6e-11ef-9898-31a8f345e629
+X-Inumbo-ID: 4657556d-fe70-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741693614; x=1742298414; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741694364; x=1742299164; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=oo+zFSk1rEJLd5hQmX0r94e4LlW+Zu7ptqf6pG4Xz8s=;
-        b=Nbby92TjuJyqL1V7wgE+2T3qeH10M4Ip/JtJLCnnQf6NAxw8H8ufW+0AOiJ6v+MJuZ
-         FaSeT8mxCpIwO8o9rmDr+Tv/0MNZLILTuSuSRxRr0TFgSj6g8QZO4uWbjrucIpsnfPH3
-         4zL/cdUPo+ugEywe6uFLYNhZF4KC9Z6XsnMX/JgAWZtRIPX9FLOrsOCTqvQLT69T8cw3
-         xDg9mdSX4gOw2p1KtbLBbFQpj47G5UjwyW3uZiR4vHdMRY4jT6thH3h0fdi4xwZv61Ge
-         W775fQQ8mTnHshSWHhRer09OoDrFFo3ZsG67hJSyLd24iCCaibOMsDSmeMRabralFWBF
-         K1ig==
+        bh=hERjAomuy6L7tseKyGREGYCTqyHWIvjuFAPqa/xMCh4=;
+        b=QdKAwQxx2Yz4Vgu+nHDnuhpRRl7yZZr9Y6avtw5Zii/ILqbGN27aBNJM94KOwaVejZ
+         pUTgx+M4vwwd+GvHd3LSSV7nDY6mtfGsac+D0COyqCkCYb+ONnJNZfvq56og4UcnkB96
+         jesbOBW7i4aaV875q7jZcAxf/q8l0BJi4ZQLau3MMwxi7VcBRaeruoxkmfdnysFbI0vz
+         /di662gw7JjB7vCTzScPlLz+L8pkXU/xJjsRXK2b1r0bfKPdYtgJ8ep7duyY15f+1luu
+         EAQ08UroXb9C/kHc+cw0iRz83h6xcgErXdSydH851WoUkAMlwMPilYGH/kwckcrd+7td
+         S2qg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741693614; x=1742298414;
+        d=1e100.net; s=20230601; t=1741694364; x=1742299164;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=oo+zFSk1rEJLd5hQmX0r94e4LlW+Zu7ptqf6pG4Xz8s=;
-        b=ZNdMJ0D6ekk3bWGO1/FYjiPEn9Fb7bQgLKgeh+Fv7ghPKXnSgQYCVfXdDWaqeuOPgA
-         P/NnRRWVTAXp8qMetNDv6nXfWHRb41Vnp1JIbBbCe1z/aCADZaIOcH/zg4eQgjoa6BII
-         JCDydycxnaxW+8OZG9JQrJ981m5eveYP1sWbh/tiiPESui4fudO1xdGfCIvgu4D0hh8d
-         zQ+ChMl7nsQMgXU4HJ5DwkA8hBncVmvXil6Xgtl+olfV3bEmn8AiCLw2MW3EsoJKC5Oj
-         TGs7YKrQnj+knPPPxexzN6d5vTOdVWqZ5BUdkAhe3e1bsLH67Ivy47A3LloeGOjVMHlh
-         rAHQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXspIEhJ8eEjrS4ENlamXrDaRrf6wm173iQLfj7cIWWaEuGa0kEeKgJK0X++2yRLorVENCdK7NgePM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzQZ4/Ajtw87i0ZRzdfFO8zuNvM96zxPRBthZjysD2w7FP3jPg9
-	f4z2UEqtsIDZLjdNdjI5OJm9jYaPMZlz8MLfyvybMmmh+PIqlt6oN/99ugiMeA==
-X-Gm-Gg: ASbGncuvuvr9tiZ+yde7EqRx4k4UHfRDd2P679PRv+6/OEAscoqNnNdRiVF6HFqRKCe
-	3JGLurvtswIyd2++R1R4XBbrmtFTMtXd3MVYFoDFQhEK5FRdAl7QK4KBP2XK1FLo6Na66a/wkwL
-	+n5agYMY1yblN2NKBSs5pBZ27vvpbTqpEF+qFFw5GmZ/sqlpkSmlINUVLNymAb9uThJSo5TRUrc
-	6FOHOufxhBGRWWUFVCQNdzUyo/uBWSyJCXSMciBJ/lUAnfwwA4T/O0slNYe5U2hxFsGfKD+6yJA
-	1Fgp0/eW3leGF3xH2WBlwXNgXRkPlnjJkNMdZV4iVN9nZX1AoT9M/V0pWdNtJoSFeY+bywIq1SA
-	/DKggbGqVkBm+DyVnbyWh8tfYQnBC/g==
-X-Google-Smtp-Source: AGHT+IEXRrV+YxhntIWg4PtUh80zEOtYNr1aFeTzgUieJF81VjXaMzyNN7PmtuiBpRx/FIcO9v3HAA==
-X-Received: by 2002:a17:907:608e:b0:ac2:b826:1e6b with SMTP id a640c23a62f3a-ac2b9db3c7bmr435021366b.4.1741693612636;
-        Tue, 11 Mar 2025 04:46:52 -0700 (PDT)
-Message-ID: <6668a29f-0b78-4579-8583-132d9fb3df0c@suse.com>
-Date: Tue, 11 Mar 2025 12:46:51 +0100
+        bh=hERjAomuy6L7tseKyGREGYCTqyHWIvjuFAPqa/xMCh4=;
+        b=lMoYsvMuxteen/QvvZ7fwzNerRD0tFPslNJe2KSrgmGjGpRl3BWsb9SR9RZExvI0av
+         qBxhq2KShR5GvbK2XKTfixeTwrIyMN6FljYqe1SQT/4jTQTlgCqKebRCmKS+tjJbo2LB
+         //kGwIadANxicy8FH5FL1K+XZvM79fCIHlgCpWLeumEXusYk0aoTi4BVgfFadj1FEu/h
+         p+6uXazaBYByCCc/hzEDFu9UwnUaB5pUiNxHL2ugO7Y1JvPXdgrc9Bl0F9N+7fwXEKcp
+         Sq0lhuQsEkplLlGm644uhw6rQXzzOOZ+Tki2IXm+IODjnG6jtXGqPZcWpxl/dz4gYnXJ
+         gKRQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUiPvmmeL4bHCQkWcxE9ff/L53I30ZrRmvQr0K1MaHMQeIFn2D4xXolYxxEpOyKQZ/Dlhyvk2DgssE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzcHeuLfttclQqi5fQ5RcR/PmFKglQZ2zRlbKHhZ7GpWs8fcLsn
+	/iE8jP7vhVntBDC3qZoRo1lybIM3EKG+up5s0wosiblmZpJKtGjQONajB4Kmlw==
+X-Gm-Gg: ASbGnctmmr3EO5drAlctR4TSte+dJ57u+9cOPGX9NOwMyP3rYE0gQVGhmo+fli9Oun5
+	2sV9Wpp7OHUN581H1kLOCwjGD8KvzsHAjFhgWIUwVjymA0/sGOAg2e8q7awyXkBZcftVfsxaoFQ
+	8GOMeNnPDEU6Kk3LIsCXQcSm/TloKk9D3Ulw+48PNtTlRsFA7CcOfSRM1+j+RqhD1Ug6czeeQ+Z
+	zt0WkFvh367tsUOh51QVgDiRRU7qw3SsTK8H35GVEDWTouxta3r/hjshcpdIfaGHzVzKaYdE/fh
+	6/SPMVDGiuere+oULKRCJtqFN2Fx+D5jmC915DWkSNQA7YP/ks6flEDccRe3M19x4j5tNsSCGZB
+	kJpfAfj0kUBGIFL8QWb6gvSPcBJdFBw==
+X-Google-Smtp-Source: AGHT+IF/+zvCgqnz54MKha9rjmWTbzhz7I+uiHmK9RnlJizGEWHlGU5FUJEMNKwCgNAD9dFNBaWh/g==
+X-Received: by 2002:a5d:6d8a:0:b0:390:e655:f998 with SMTP id ffacd0b85a97d-39132d6f17bmr13936800f8f.26.1741694363716;
+        Tue, 11 Mar 2025 04:59:23 -0700 (PDT)
+Message-ID: <ebef450c-280e-43a4-9a48-e4d1f754ba03@suse.com>
+Date: Tue, 11 Mar 2025 12:59:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v3 7/7] xen/arm: scmi: generate scmi dt node for DomUs
-To: Grygorii Strashko <gragst.linux@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Michal Orzel <michal.orzel@amd.com>, Roger Pau Monne <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
+Subject: Re: [PATCH v3 3/3] xen: mem_access: conditionally compile vm_event.c
+ & monitor.c
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
+ Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Oleksii Moisieiev <oleksii_moisieiev@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Juergen Gross
- <jgross@suse.com>, Grygorii Strashko <grygorii_strashko@epam.com>,
- xen-devel@lists.xenproject.org
-References: <20250311111618.1850927-1-grygorii_strashko@epam.com>
- <20250311111618.1850927-8-grygorii_strashko@epam.com>
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
+References: <cover.1741687645.git.Sergiy_Kibrik@epam.com>
+ <e37da57b94fd3bd4f314e6fbd7b6b94aee4b4607.1741687645.git.Sergiy_Kibrik@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,40 +129,67 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250311111618.1850927-8-grygorii_strashko@epam.com>
+In-Reply-To: <e37da57b94fd3bd4f314e6fbd7b6b94aee4b4607.1741687645.git.Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11.03.2025 12:16, Grygorii Strashko wrote:
-> --- a/xen/include/public/domctl.h
-> +++ b/xen/include/public/domctl.h
-> @@ -1223,6 +1223,13 @@ struct xen_domctl_vmtrace_op {
->  #define XEN_DOMCTL_vmtrace_get_option         5
->  #define XEN_DOMCTL_vmtrace_set_option         6
->  };
-> +
-> +/* XEN_DOMCTL_get_sci_info */
-> +struct xen_domctl_sci_info {
-> +    uint64_t paddr;
-> +    uint32_t func_id;
-> +};
+On 11.03.2025 11:27, Sergiy Kibrik wrote:
+> From: Stefano Stabellini <stefano.stabellini@amd.com>
+> 
+> Extend coverage of CONFIG_VM_EVENT option and make the build of VM events
+> and monitoring support optional. Also make MEM_PAGING option depend on VM_EVENT
+> to document that mem_paging is relying on vm_event.
+> This is to reduce code size on Arm when this option isn't enabled.
+> 
+> CC: Jan Beulich <jbeulich@suse.com>
+> CC: Tamas K Lengyel <tamas@tklengyel.com>
+> Reviewed-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 
-Please take a look at the rest of this header: Outside of x86-specific
-sub-ops there's no use of uint64_t; uint64_aligned_t wants using instead.
+Please can tags be kept in chronological order? It's impossible to review
+a patch that wasn't first signed-off on by the author(s).
 
-> @@ -1333,6 +1340,9 @@ struct xen_domctl {
->  #define XEN_DOMCTL_dt_overlay                    87
->  #define XEN_DOMCTL_gsi_permission                88
->  #define XEN_DOMCTL_set_llc_colors                89
-> +
-> +#define XEN_DOMCTL_get_sci_info                  90
-> +
->  #define XEN_DOMCTL_gdbsx_guestmemio            1000
->  #define XEN_DOMCTL_gdbsx_pausevcpu             1001
->  #define XEN_DOMCTL_gdbsx_unpausevcpu           1002
+> ---
+> changes in v3:
+>  - add dependency MEM_PAGING -> VM_EVENT
+>  - monitor_domctl() stub returns -EOPNOTSUPP
 
-The latter of the blank lines may make sense to add. There former shouldn't
-be there imo.
+Seeing this, i.e. ...
+
+> --- a/xen/include/xen/monitor.h
+> +++ b/xen/include/xen/monitor.h
+> @@ -27,8 +27,17 @@
+>  struct domain;
+>  struct xen_domctl_monitor_op;
+>  
+> +#ifdef CONFIG_VM_EVENT
+>  int monitor_domctl(struct domain *d, struct xen_domctl_monitor_op *mop);
+>  void monitor_guest_request(void);
+> +#else
+> +static inline int monitor_domctl(struct domain *d,
+> +                                 struct xen_domctl_monitor_op *mop)
+> +{
+> +    return -EOPNOTSUPP;
+
+... this, why ...
+
+> @@ -88,7 +85,18 @@ void vm_event_cancel_slot(struct domain *d, struct vm_event_domain *ved);
+>  void vm_event_put_request(struct domain *d, struct vm_event_domain *ved,
+>                            vm_event_request_t *req);
+>  
+> +#ifdef CONFIG_VM_EVENT
+> +/* Clean up on domain destruction */
+> +void vm_event_cleanup(struct domain *d);
+>  int vm_event_domctl(struct domain *d, struct xen_domctl_vm_event_op *vec);
+> +#else
+> +static inline void vm_event_cleanup(struct domain *d) {}
+> +static inline int vm_event_domctl(struct domain *d,
+> +                                  struct xen_domctl_vm_event_op *vec)
+> +{
+> +    return -EINVAL;
+
+... is it EINVAL here?
 
 Jan
 
