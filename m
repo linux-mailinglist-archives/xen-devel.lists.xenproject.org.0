@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47B0AA5C406
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 15:39:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.908228.1315367 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F794A5C40B
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 15:40:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.908240.1315378 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ts0l0-00053a-6v; Tue, 11 Mar 2025 14:38:58 +0000
+	id 1ts0mH-0006Y2-IZ; Tue, 11 Mar 2025 14:40:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 908228.1315367; Tue, 11 Mar 2025 14:38:58 +0000
+Received: by outflank-mailman (output) from mailman id 908240.1315378; Tue, 11 Mar 2025 14:40:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ts0l0-000525-3C; Tue, 11 Mar 2025 14:38:58 +0000
-Received: by outflank-mailman (input) for mailman id 908228;
- Tue, 11 Mar 2025 14:38:56 +0000
+	id 1ts0mH-0006VI-Fo; Tue, 11 Mar 2025 14:40:17 +0000
+Received: by outflank-mailman (input) for mailman id 908240;
+ Tue, 11 Mar 2025 14:40:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EmiY=V6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ts0ky-00051z-4A
- for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 14:38:56 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ id 1ts0mG-0006V8-59
+ for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 14:40:16 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8ee6a914-fe86-11ef-9ab9-95dc52dad729;
- Tue, 11 Mar 2025 15:38:55 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-4393dc02b78so33459935e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 07:38:55 -0700 (PDT)
+ id bea8367e-fe86-11ef-9ab9-95dc52dad729;
+ Tue, 11 Mar 2025 15:40:15 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-43d0359b1fcso5605715e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 07:40:15 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d025869e7sm32165655e9.7.2025.03.11.07.38.53
+ 5b1f17b1804b1-43cea8076fcsm116075565e9.15.2025.03.11.07.40.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Mar 2025 07:38:54 -0700 (PDT)
+ Tue, 11 Mar 2025 07:40:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8ee6a914-fe86-11ef-9ab9-95dc52dad729
+X-Inumbo-ID: bea8367e-fe86-11ef-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741703934; x=1742308734; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741704014; x=1742308814; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tspCbd/hT2vDr7de6KAkUb85jCsiDSxeYlkFf9BqpQk=;
-        b=Tx7Jk7t+dmrAyph17vY8YgcPTRlyZh8PFxxzl540dJ00Wwuc717OULgBVsrtCH9n5y
-         qZvH5qOs2kTtO0gpR/M2qNwBgcVF77JztwtNNWa3vmbOGAGmhNvaZtoIZXHmiPbiIkBl
-         w4mZD/oiat/fdITaUOWzDdDcTVyAkJCT7Xj/OqXhFfUpymbkVcDMAfiqHMQ8kD2H0Auj
-         352Yzo89lonuqT5pvQzckrJCUt5Qfu0nALBx3shLq79Bvp3+dbR+QAiD8ROllv5qqVh2
-         EM7ouUd8++uSnmiWxxUw492CttrWrg6XwjFO0MO9H9TtvMeUy+fFfOZ3fugPjbFKRJy1
-         O3YQ==
+        bh=C/eDNm3veu2kEtLJaDIeOArNxq9TE3o+DSORQrLAqPs=;
+        b=Xr18DbnEEIxOWrJ4ZUlBZxj0i8yG3ypAr+KcM5Zl9J2aRu8sKeQrlTmtZzhOQtflcg
+         sKjasrWaGnExfUTm9lo+K4S2QuCKkd6sqpbE7NATYy4B+O6opEBbP+WtG6O0eD7sX9ZZ
+         CyJCB9GkT85f5aEHNG75LS6DLiCyBNKH6g9k3BqN1w6NalvdSqIKHj3gOBcGWmkpThwv
+         dE4Hw3vfKGCYk2YTdZCdWhIpCtfU5HeMGZyAUHADCQfx6UB4bjEjFN2JJ1h/rCZ52KlB
+         V4qgLdwVEfkFrHdY6QMg2bi8MSqOr3q6yPaYwk/w4TZArNUi7LWd6D/k44vd2poRXA1X
+         Crrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741703934; x=1742308734;
+        d=1e100.net; s=20230601; t=1741704014; x=1742308814;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tspCbd/hT2vDr7de6KAkUb85jCsiDSxeYlkFf9BqpQk=;
-        b=u4+OkBBpME9x+KkPBAaso3oeP40lZeHRnxyE8iOU+XnvvFr2CeJE515RgTHg/Q8AML
-         A9cXxkqJeuYXLduDzRYaBbi9od5JrnRpqxqLkvZuglVsxZOkFOOtFPK9ltqeno71ycol
-         9QPXmvTqiPRChAbKzbaqSb06kGmfc4gAPYxwR7yJMseZ61LToGdjV6PmKhhxWXvbK2pU
-         I+CknK/zjDKHJmIVXyO8LGI+zbU8/MrBcQRhiDrJSA6Rl+pjkbkNLkEJ2teA26+FJzc2
-         z+YqdWxm4/HvJw3AaZ/qKqUCtcVXgASP8aJZLczZEbv/Zg5t7RaWTIVpzPUU92nhdIPQ
-         8dPg==
-X-Forwarded-Encrypted: i=1; AJvYcCUeuFGqiL5IkO+b6bQsIlgY/rII6io/PQYQY/3exMC11+q4HdSBa9OMK6W6a1NspWYiEV0rdvXEgDk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzCzpzu/fMJPOzCvlHn4lBu12JAusYwiDoE7bEZkXMA5oMVLfeE
-	/7kUlQLWCJo48aR35zUaE2zjddLq+Rf4eoH4dF4vsWZ2RTPUjiVwfRlXWZI7rg==
-X-Gm-Gg: ASbGncuOd1N8dWGxDH5WXOw6pfA2fearSqULw+kAmqcra4zqUG1k6f46Yhg15PhE6JU
-	xroD91KDEaHk2xdEouHEtMLXrz302ViunILHDQaaMEod0/Pbrw5TaS1wzeny9HJqRWcCNxsqahC
-	XsmIBrKFEGBZkQ4zlF220me5TD4HqGpqHE6rjRPylSStca1tkka9q2ENP8z/ZwzDI8uV3gKu+36
-	rdJcVW8hw9XP1x1aL7m0ejXfYfWTKAk+JLW69QUOFywzdtj1C22dB3XDWPijkHgg0JjgBA+OiZU
-	5ko3iGKKyV0yXsh/0dNyjBRsa05Z19IaqeTrKRFDx4uJ5CeDLXypszyptiHboY/51CT+q3A4bVi
-	gme2kE7WJeSq5JZd1Ynz6wBUkbjJsYmTTQIiYkurH
-X-Google-Smtp-Source: AGHT+IEebjeYCETbpVREfohUjWQINQA2iWcxwDhY52JML+x4xDgdtX32Ov5OxLy6wzMfXyo0pFvosQ==
-X-Received: by 2002:a05:600c:1c05:b0:43b:b756:f0a9 with SMTP id 5b1f17b1804b1-43d01bdbea9mr61202385e9.11.1741703934357;
-        Tue, 11 Mar 2025 07:38:54 -0700 (PDT)
-Message-ID: <ba5a370e-3cad-4ed8-874c-7372d6d8a4b3@suse.com>
-Date: Tue, 11 Mar 2025 15:38:53 +0100
+        bh=C/eDNm3veu2kEtLJaDIeOArNxq9TE3o+DSORQrLAqPs=;
+        b=fIAD+UiGeu91L4zDtk4+gUyMFK+7IoHG2KYyxu06EebSuYpEyF8x99X2g6u00diQwc
+         0N4M2z9nTJ+9CAYtXvmpME7epD/WjM5ZJeqs0g1j+ec/dFc0EI96WIbLIue9U+i1M7hJ
+         k/UH5RyKTJCFYGbsTVC5kxZb0eJgWOOBMISGWnLjhfphTMuSKchMPqugL/lvJ3fk0dev
+         bfCy9MvJVuwXvmrTk19hrfAVCIGXfqTDQHD0LaYGeMwIgO8AiXj4I4E7gYdmF+cejsTR
+         cQpya/mu1uhHrbPAEWiDApe4pTrVHidO8jSHLxdWnJYbxX0wx57P+ADa53xivJibJHoF
+         lbXg==
+X-Forwarded-Encrypted: i=1; AJvYcCXCKqQghrAwMXXxwhJO0toMLXk5jMK4nYB7cx5/5GVGTBVFU7LMopGhRwK4yptmN/nNKTdFRgMM8Nk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzhzad7nDpcfHjxy9e8WR1j97lPJtNmv4bUyC01Syh1FJwqWHNG
+	8Qcw4vGIM0XCxCpOKzmBSs05B+8kjROmow+0P+9wvIwl88d6MyXgB1UGaT2Btw==
+X-Gm-Gg: ASbGncuWjQ1V7Kb5IyxPrw7GE0+3naN+tqdrp0PkKRcEXw97hhOLqueRFqTbyKCSd4Q
+	OcPEviFqjYtx+J/CJ252eovbRGkDbevI+zmwKlBx4SAxjWUAYFUOwlr9aIGg/oY8qg0XzfXrTsJ
+	hjQG+3iW4uKBfY3e4+81E1lJdAxx/fogy7ZGE4Lx5nBUvy18M0/JqGgK1IeaPx2M1nqAKPC2/yn
+	M/wRLX2MAVvxXQMn5IDNjLP+dxZfb9JouNgpQyR5pfaGpPHz5yEOAhcWj4IXEd891gKUH46Nowt
+	D59yHSELJraigUd1oxtJRrMYtVjE4VnHXVk9Osr2gbcoOLgkdTr0MUQqDagmD6cAI1pthWG070O
+	k8vHJIrvYhGcVMQgKGYPzENKlHSv+hQ==
+X-Google-Smtp-Source: AGHT+IGLSojSkH00MXbQ7Dr/vVQ/dWb8LvA1vJfHO2vj0JQfECZ7YPMMZ7416bJSgWSSd3vhLbvvrQ==
+X-Received: by 2002:a05:600c:2947:b0:434:9e17:190c with SMTP id 5b1f17b1804b1-43d01cc32fcmr45556375e9.0.1741704014569;
+        Tue, 11 Mar 2025 07:40:14 -0700 (PDT)
+Message-ID: <704d5246-83ee-4dd8-a0ff-d7bc2cd8d63c@suse.com>
+Date: Tue, 11 Mar 2025 15:40:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] x86/elf: Improve code generation in elf_core_save_regs()
@@ -92,9 +92,6 @@ To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250225224559.1226079-1-andrew.cooper3@citrix.com>
- <68a14ea8-b6f0-448e-8713-e9696c024c43@suse.com>
- <b9bdba63-82a4-4833-b8bd-b3788fd02321@suse.com>
- <3dd5e64c-81cd-44fe-808a-c09e55c92d32@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,114 +117,37 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3dd5e64c-81cd-44fe-808a-c09e55c92d32@citrix.com>
+In-Reply-To: <20250225224559.1226079-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 11.03.2025 15:21, Andrew Cooper wrote:
-> On 26/02/2025 8:44 am, Jan Beulich wrote:
->> On 26.02.2025 08:44, Jan Beulich wrote:
->>> On 25.02.2025 23:45, Andrew Cooper wrote:
->>>> A CALL with 0 displacement is handled specially, and is why this logic
->>>> functions even with CET Shadow Stacks active.  Nevertheless a rip-relative LEA
->>>> is the more normal way of doing this in 64bit code.
->>>>
->>>> The retrieval of flags modifies the stack pointer so needs to state a
->>>> dependency on the stack pointer.  Despite it's name, ASM_CALL_CONSTRAINT is
->>>> the way to do this.
->>>>
->>>> read_sreg() forces the answer through a register, causing code generation of
->>>> the form:
->>>>
->>>>     mov    %gs, %eax
->>>>     mov    %eax, %eax
->>>>     mov    %rax, 0x140(%rsi)
->>>>
->>>> Encode the reads directly with a memory operand.  This results in a 16bit
->>>> store instead of an 64bit store, but the backing memory is zeroed.
->>> Raises the question whether we shouldn't change read_sreg(). At least the
->>> emulator uses of it would also benefit from storing straight to memory. And
->>> the remaining uses ought to be optimizable by the compiler, except that I
->>> don't expect we'd be able to express the zero-extending nature when the
->>> destination is a register. Or wait, maybe I can make up something (whether
->>> that's going to be liked is a separate question).
->> Here you go.
->>
->> Jan
->>
->> x86: make read_sreg() "bi-modal"
->>
->> Permit use sites to control whether to store directly to memory; right
->> now both elf_core_save_regs() and the insn emulator's put_fpu()
->> needlessly go through an intermediate GPR. Note that in both cases the
->> apparent loss of zero-extension isn't a problem: The fields written to
->> start out zero-initialized anyway.
->>
->> No change in generated code for the use sites not being touched.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> Whether to make the change to put_fpu() is up for discussion: In my
->> build it increases code size slightly, despite the reduction of number
->> of insns emitted. An alternative (leaving the decision to the compiler)
->> might be to drop the if() and use "=g" as constraint.
->>
->> I was considering to omit the assignment to sel_ on the if() branch,
->> expecting the compiler to then flag uses of the return value (as
->> consuming uninitialized data) when a 2nd argument is passed. However,
->> gcc14 then already flags the "sel_;" at the end of the macro as
->> consuming uninitialized data.
->>
->> --- a/xen/arch/x86/include/asm/regs.h
->> +++ b/xen/arch/x86/include/asm/regs.h
->> @@ -16,10 +16,20 @@
->>      !diff || ((r)->cs != __HYPERVISOR_CS);                                    \
->>  })
->>  
->> -#define read_sreg(name) ({                           \
->> -    unsigned int __sel;                              \
->> -    asm ( "mov %%" STR(name) ",%0" : "=r" (__sel) ); \
->> -    __sel;                                           \
->> +#define read_sreg(name, dst...) ({                       \
->> +    unsigned int sel_;                                   \
->> +    BUILD_BUG_ON(count_args(dst) > 1);                   \
->> +    if ( count_args(dst) )                               \
->> +    {                                                    \
->> +        typeof(LASTARG(&sel_, ## dst)) dst_ =            \
->> +            LASTARG(&sel_, ## dst);                      \
->> +        asm ( "mov %%" STR(name) ",%0" : "=m" (*dst_) ); \
->> +        /* The compiler ought to optimize this out. */   \
->> +        sel_ = *dst_;                                    \
->> +    }                                                    \
->> +    else                                                 \
->> +        asm ( "mov %%" STR(name) ",%0" : "=r" (sel_) );  \
->> +    sel_;                                                \
->>  })
+On 25.02.2025 23:45, Andrew Cooper wrote:
+> A CALL with 0 displacement is handled specially, and is why this logic
+> functions even with CET Shadow Stacks active.  Nevertheless a rip-relative LEA
+> is the more normal way of doing this in 64bit code.
 > 
-> This doesn't fix the register promotion problem.  That can be fixed by
-> unsigned long rather than int, as you did for rdmsr. 
-> https://godbolt.org/z/K5hKz7KvM
-
-Right, but that's an orthogonal aspect.
-
-> But the fundamental problem is that the sreg instructions with mem16
-> encodings are weird.  They don't even follow normal x86 rules for
-> operand size.
+> The retrieval of flags modifies the stack pointer so needs to state a
+> dependency on the stack pointer.  Despite it's name, ASM_CALL_CONSTRAINT is
+> the way to do this.
 > 
-> By the end of the FRED series (for which this patch was misc cleanup),
-> I've almost removed read_sreg(), and was intending to purge it
-> completely.
-
-Well, if that's the plan, then ...
-
->  Even in it's current form, it's not normal C semantics,
-> because it looks to take a variable which isn't a variable.
+> read_sreg() forces the answer through a register, causing code generation of
+> the form:
 > 
-> Clever as this trick is, I feel it's a backwards step in terms of
-> legibility, and that plain asm()'s are the lesser evil when it comes to
-> mem16 instructions.
+>     mov    %gs, %eax
+>     mov    %eax, %eax
+>     mov    %rax, 0x140(%rsi)
+> 
+> Encode the reads directly with a memory operand.  This results in a 16bit
+> store instead of an 64bit store, but the backing memory is zeroed.
+> 
+> While cleaning this up, drop one piece of trailing whitespace.
+> 
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-... indeed I agree here.
+With the plan to ultimately drop read_sreg() altogether:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
