@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DAF4A5D1BD
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 22:27:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.909380.1316367 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8066DA5D1F9
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 22:50:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.909432.1316377 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ts78B-0000a4-E4; Tue, 11 Mar 2025 21:27:19 +0000
+	id 1ts7TW-0007qE-5j; Tue, 11 Mar 2025 21:49:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 909380.1316367; Tue, 11 Mar 2025 21:27:19 +0000
+Received: by outflank-mailman (output) from mailman id 909432.1316377; Tue, 11 Mar 2025 21:49:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ts78B-0000XJ-AR; Tue, 11 Mar 2025 21:27:19 +0000
-Received: by outflank-mailman (input) for mailman id 909380;
- Tue, 11 Mar 2025 21:27:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=isYZ=V6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ts78A-0000XD-1O
- for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 21:27:18 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9a832cf4-febf-11ef-9898-31a8f345e629;
- Tue, 11 Mar 2025 22:27:15 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-43cf680d351so1649855e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 14:27:15 -0700 (PDT)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d0a75aae2sm1365345e9.20.2025.03.11.14.27.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Mar 2025 14:27:14 -0700 (PDT)
+	id 1ts7TW-0007nA-2N; Tue, 11 Mar 2025 21:49:22 +0000
+Received: by outflank-mailman (input) for mailman id 909432;
+ Tue, 11 Mar 2025 21:49:20 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1ts7TU-0007n4-JN
+ for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 21:49:20 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1ts7TU-00EjxQ-0v;
+ Tue, 11 Mar 2025 21:49:20 +0000
+Received: from [2a02:8012:3a1:0:9c08:78f4:b949:88f8]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1ts7TT-005Vl7-2k;
+ Tue, 11 Mar 2025 21:49:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,140 +39,362 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9a832cf4-febf-11ef-9898-31a8f345e629
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741728435; x=1742333235; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=GokTaAnqondTU7MlgAyrCtcMbxMtopqx+4M1uwEQ87M=;
-        b=GDnEP7K5+QDtnzGPES0qpr5qInzt08jkmz/Bs7qwizzzJfC61M5Y5OoSPm/WKxXNnB
-         /bDSiuDc+ky7c95PQPcC2U8lVidOVPofsrm/u0X1P1zSAOjkikYczP8VbEXtf83zE1Sf
-         YlE/xZMaV2W82FK5m9WM6iil62k5b3E5BpLw8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741728435; x=1742333235;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=GokTaAnqondTU7MlgAyrCtcMbxMtopqx+4M1uwEQ87M=;
-        b=YRXY8rl3SUHs9WY7MYSpolZrWv+y9rSm7hXl9+WF9fMXB+cW1gM/VXrG29rk0d5nEN
-         P1f2yE/3fPbddUTqEEV9fpbMI7SE8QlcCTiCfDTBySe6LYyvAB+ltcNk9gP3S3+zDwvC
-         CfcrdYDz8hZLX5MKWyfWghs3HKOJvxErv/ukbHEObrjvTVJX/jO/noFQ0qFHPYGLIv3D
-         qT9Z1vjSOV+XBUhQfKbFgmHfmjcPBRun/f0hslRCq/stKw57fY5D4wrEVhJGHZa0AQYo
-         DFh1OIY+GpJP43z30gIouGsxo6YIz/71nh4vnIJe2/OzztXuOSqXElRiWE7CN4TQ+Ax0
-         IoOQ==
-X-Gm-Message-State: AOJu0YyH2/ApY7bX1ewZuNirftPN4b6oCgUajFF2+KQ7C0YEQqURIfp8
-	LXwTNWnBnaxQGZxsE/DeZ1CAqkrMtrmVtu+NOVy9UfCmFrnZ8rs0o5KXSD7snypduY0xGcGPtIv
-	1
-X-Gm-Gg: ASbGnctYscdPRr5nB8mOYtK22BwDGHxmfcxOUcnFwSf0L0KUfA6URDUPUQ8EOHJx6iM
-	SF8nJ/4/iT4XRmvBBAfF3b4o2ds2BiqZ+r5JrkoknjYzCEtbw8xD65YwzLt+7kqB+sJyF/A1AW2
-	qKnVlvc2EMOItp2eRMRw93VNLK5RP/qdhSahPYIswhdcOQjDvuHRFy6ID6eji/eK1W9d2F3owjP
-	vxEcyywChtHkX/SPOjRBe58u87Tf/m0Ch0PAULKzu7aePKp9MCDVwPdxd+RtKteCxoQKZSl6vzu
-	nBlnN5akvNA1AqkfLJtuoMATEJFjTo7Btb4PywNFiBDsldm0xHfUqNBpNxI2QWGcEaxBuT41QTb
-	IlCXcj25r
-X-Google-Smtp-Source: AGHT+IEaPi2ScbxWEXy9LOg2nnLdeMKQA979+ekLy7JkSlJQQ18e5x9dbPGRDBJwgTfl1/KjIdAdmg==
-X-Received: by 2002:a05:6000:1fa6:b0:390:ec6e:43ea with SMTP id ffacd0b85a97d-3926c97ae30mr5904486f8f.15.1741728434878;
-        Tue, 11 Mar 2025 14:27:14 -0700 (PDT)
-Message-ID: <cdae37d8-a01d-412c-a48b-f4e27d7d898e@citrix.com>
-Date: Tue, 11 Mar 2025 21:27:13 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=wRnLpbhWkjgtDUe3vtbrsnj6WjAiSrViZ+f90TH+WLc=; b=hH8zKu11iy6VrZgSYzos5TI+oc
+	ny0cYPrGLmhxDeqz8rgVYl3zGqUEytnFuVirJ7kc5Nwo2Y74sdka/gE//qh2A690cDuZmCr9gh9BS
+	fYO2J0WAmlz4AtICLdi6n3u//KTobO0DC2MZebnRoTmQdnq5LfQ+Ep8lu0p5LSPAPkn0=;
+Message-ID: <37d1210c-cfc6-4cd4-9562-40db809b8223@xen.org>
+Date: Tue, 11 Mar 2025 21:49:17 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/IDT: Fix IDT generation for INT $0x80
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Luca Fancellu <luca.fancellu@arm.com>, Jan Beulich <JBeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20250311212248.3630583-1-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 11/16] xen/arm: Implement PSCI system suspend
 Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20250311212248.3630583-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+To: Mykola Kvach <xakep.amatop@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Mirela Simonovic <mirela.simonovic@aggios.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Saeed Nowshadi <saeed.nowshadi@xilinx.com>,
+ Mykyta Poturai <mykyta_poturai@epam.com>,
+ Mykola Kvach <mykola_kvach@epam.com>
+References: <cover.1741164138.git.xakep.amatop@gmail.com>
+ <b80f0559048638bfe1a934f2d256331db733ed3e.1741164138.git.xakep.amatop@gmail.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <b80f0559048638bfe1a934f2d256331db733ed3e.1741164138.git.xakep.amatop@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 11/03/2025 9:22 pm, Andrew Cooper wrote:
-> When PV is enabled, entry_int80 needs to be DPL3, not DPL0.
->
-> This causes the XSA-259 PoC to fail with:
->
->   --- Xen Test Framework ---
->   Environment: PV 64bit (Long mode 4 levels)
->   XSA-259 PoC
->   Error: Unexpected fault 0x800d0802, #GP[IDT[256]]
->   Test result: ERROR
->
-> (Clearly I have a bug in XTF's rendering of the error code too.)
+Hi,
 
-Fixes: 3da2149cf4dc ("x86/IDT: Generate bsp_idt[] at build time")
+On 05/03/2025 09:11, Mykola Kvach wrote:
+> From: Mirela Simonovic <mirela.simonovic@aggios.com>
+> 
+> The implementation consists of:
+> -Adding PSCI system suspend call as new PSCI function
+> -Trapping PSCI system_suspend HVC
+> -Implementing PSCI system suspend call (virtual interface that allows
+>   guests to suspend themselves), but currently it is only partially
+>   implemented, so suspend/resume will correctly work only for dom0
 
-Adjusted locally.
+What is missing for other domains?
 
-~Andrew
-
-> Reported-by: Luca Fancellu <luca.fancellu@arm.com>
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> 
+> The PSCI system suspend should be called by a guest from its boot
+> VCPU. Non-boot VCPUs of the guest should be hot-unplugged using PSCI
+> CPU_OFF call prior to issuing PSCI system suspend. Interrupts that
+> are left enabled by the guest are assumed to be its wake-up interrupts.
+> Therefore, a wake-up interrupt triggers the resume of the guest. Guest
+> should resume regardless of the state of Xen (suspended or not).
+> 
+> When a guest calls PSCI system suspend the respective domain will be
+> suspended if the following conditions are met:
+> 1) Given resume entry point is not invalid
+> 2) Other (if any) VCPUs of the calling guest are hot-unplugged
+> 
+> If the conditions above are met the calling domain is labeled as
+> suspended and the calling VCPU is blocked. If nothing else wouldn't
+> be done the suspended domain would resume from the place where it
+> called PSCI system suspend. This is expected if processing of the PSCI
+> system suspend call fails. However, in the case of success the calling
+> guest should resume (continue execution after the wake-up) from the entry
+> point which is given as the first argument of the PSCI system suspend
+> call. In addition to the entry point, the guest expects to start within
+> the environment whose state matches the state after reset. This means
+> that the guest should find reset register values, MMU disabled, etc.
+> Thereby, the context of VCPU should be 'reset' (as if the system is
+> comming out of reset), the program counter should contain entry point,
+> which is 1st argument, and r0/x0 should contain context ID which is 2nd
+> argument of PSCI system suspend call. The context of VCPU is set
+> accordingly when the PSCI system suspend is processed, so that nothing
+> needs to be done on resume/wake-up path.
+> 
+> Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
+> Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
+> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
 > ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Luca Fancellu <luca.fancellu@arm.com>
+> Changes in V3:
+> Dropped all domain flags and related code (which touched common functions like
+> vcpu_unblock), keeping only the necessary changes for Xen suspend/resume, i.e.
+> suspend/resume is now fully supported only for the hardware domain.
+> Proper support for domU suspend/resume will be added in a future patch.
+> This patch does not yet include VCPU context reset or domain context
+> restoration in VCPU.
 > ---
->  xen/arch/x86/include/asm/gen-idt.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/xen/arch/x86/include/asm/gen-idt.h b/xen/arch/x86/include/asm/gen-idt.h
-> index 9c8810edf9d7..d1da73248c1c 100644
-> --- a/xen/arch/x86/include/asm/gen-idt.h
-> +++ b/xen/arch/x86/include/asm/gen-idt.h
-> @@ -77,7 +77,7 @@ GEN16(6);
->  GEN16(7);
->  
->  #ifdef CONFIG_PV
-> -GEN(0x80, entry_int80,      DPL0, manual);
-> +GEN(0x80, entry_int80,      DPL3, manual);
->  #else
->  GEN(0x80, entry_0x80,       DPL0, autogen);
->  #endif
+>   xen/arch/arm/Makefile                 |  1 +
+>   xen/arch/arm/include/asm/domain.h     |  3 ++
+>   xen/arch/arm/include/asm/perfc_defn.h |  1 +
+>   xen/arch/arm/include/asm/psci.h       |  2 +
+>   xen/arch/arm/include/asm/suspend.h    | 18 +++++++
+>   xen/arch/arm/suspend.c                | 67 +++++++++++++++++++++++++++
+>   xen/arch/arm/vpsci.c                  | 32 +++++++++++++
+>   7 files changed, 124 insertions(+)
+>   create mode 100644 xen/arch/arm/include/asm/suspend.h
+>   create mode 100644 xen/arch/arm/suspend.c
+> 
+> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+> index 43ab5e8f25..70d4b5daf8 100644
+> --- a/xen/arch/arm/Makefile
+> +++ b/xen/arch/arm/Makefile
+> @@ -53,6 +53,7 @@ obj-y += smpboot.o
+>   obj-$(CONFIG_STATIC_EVTCHN) += static-evtchn.init.o
+>   obj-$(CONFIG_STATIC_MEMORY) += static-memory.init.o
+>   obj-$(CONFIG_STATIC_SHM) += static-shmem.init.o
+> +obj-$(CONFIG_SYSTEM_SUSPEND) += suspend.o
+
+I am a bit confused why we are tie guest suspend/resume with system 
+suspend/resume. Shouldn't they be separate?
+
+>   obj-y += sysctl.o
+>   obj-y += time.o
+>   obj-y += traps.o
+> diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
+> index 50b6a4b009..8b1bdf3d74 100644
+> --- a/xen/arch/arm/include/asm/domain.h
+> +++ b/xen/arch/arm/include/asm/domain.h
+> @@ -233,6 +233,9 @@ struct arch_vcpu
+>       struct vtimer virt_timer;
+>       bool   vtimer_initialized;
+>   
+> +    register_t suspend_ep;
+> +    register_t suspend_cid;
+> +
+>       /*
+>        * The full P2M may require some cleaning (e.g when emulation
+>        * set/way). As the action can take a long time, it requires
+> diff --git a/xen/arch/arm/include/asm/perfc_defn.h b/xen/arch/arm/include/asm/perfc_defn.h
+> index 3ab0391175..5049563718 100644
+> --- a/xen/arch/arm/include/asm/perfc_defn.h
+> +++ b/xen/arch/arm/include/asm/perfc_defn.h
+> @@ -33,6 +33,7 @@ PERFCOUNTER(vpsci_system_reset,        "vpsci: system_reset")
+>   PERFCOUNTER(vpsci_cpu_suspend,         "vpsci: cpu_suspend")
+>   PERFCOUNTER(vpsci_cpu_affinity_info,   "vpsci: cpu_affinity_info")
+>   PERFCOUNTER(vpsci_features,            "vpsci: features")
+> +PERFCOUNTER(vpsci_system_suspend,      "vpsci: system_suspend")
+>   
+>   PERFCOUNTER(vcpu_kick,                 "vcpu: notify other vcpu")
+>   
+> diff --git a/xen/arch/arm/include/asm/psci.h b/xen/arch/arm/include/asm/psci.h
+> index 4780972621..48a93e6b79 100644
+> --- a/xen/arch/arm/include/asm/psci.h
+> +++ b/xen/arch/arm/include/asm/psci.h
+> @@ -47,10 +47,12 @@ void call_psci_system_reset(void);
+>   #define PSCI_0_2_FN32_SYSTEM_OFF          PSCI_0_2_FN32(8)
+>   #define PSCI_0_2_FN32_SYSTEM_RESET        PSCI_0_2_FN32(9)
+>   #define PSCI_1_0_FN32_PSCI_FEATURES       PSCI_0_2_FN32(10)
+> +#define PSCI_1_0_FN32_SYSTEM_SUSPEND      PSCI_0_2_FN32(14)
+>   
+>   #define PSCI_0_2_FN64_CPU_SUSPEND         PSCI_0_2_FN64(1)
+>   #define PSCI_0_2_FN64_CPU_ON              PSCI_0_2_FN64(3)
+>   #define PSCI_0_2_FN64_AFFINITY_INFO       PSCI_0_2_FN64(4)
+> +#define PSCI_1_0_FN64_SYSTEM_SUSPEND      PSCI_0_2_FN64(14)
+>   
+>   /* PSCI v0.2 affinity level state returned by AFFINITY_INFO */
+>   #define PSCI_0_2_AFFINITY_LEVEL_ON      0
+> diff --git a/xen/arch/arm/include/asm/suspend.h b/xen/arch/arm/include/asm/suspend.h
+> new file mode 100644
+> index 0000000000..745377dbcf
+> --- /dev/null
+> +++ b/xen/arch/arm/include/asm/suspend.h
+> @@ -0,0 +1,18 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +
+> +#ifndef __ASM_ARM_SUSPEND_H__
+> +#define __ASM_ARM_SUSPEND_H__
+> +
+> +int32_t domain_suspend(register_t epoint, register_t cid);
+> +
+> +#endif
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/arch/arm/suspend.c b/xen/arch/arm/suspend.c
+> new file mode 100644
+> index 0000000000..27fab8c999
+> --- /dev/null
+> +++ b/xen/arch/arm/suspend.c
+> @@ -0,0 +1,67 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +
+> +#include <xen/sched.h>
+> +#include <asm/cpufeature.h>
+> +#include <asm/event.h>
+> +#include <asm/psci.h>
+> +#include <asm/suspend.h>
+> +#include <asm/platform.h>
+> +#include <public/sched.h>
+> +
+> +static void vcpu_suspend_prepare(register_t epoint, register_t cid)
+> +{
+> +    struct vcpu *v = current;
+> +
+> +    v->arch.suspend_ep = epoint;
+> +    v->arch.suspend_cid = cid;
+> +}
+> +
+> +int32_t domain_suspend(register_t epoint, register_t cid)
+> +{
+> +    struct vcpu *v;
+> +    struct domain *d = current->domain;
+> +    bool is_thumb = epoint & 1;
+> +
+> +    dprintk(XENLOG_DEBUG,
+> +            "Dom%d suspend: epoint=0x%"PRIregister", cid=0x%"PRIregister"\n",
+> +            d->domain_id, epoint, cid);
+> +
+> +    /* THUMB set is not allowed with 64-bit domain */
+> +    if ( is_64bit_domain(d) && is_thumb )
+> +        return PSCI_INVALID_ADDRESS;
+> +
+> +    /* TODO: care about locking here */
+
+What's the plan for this?
+
+> +    /* Ensure that all CPUs other than the calling one are offline */
+> +    for_each_vcpu ( d, v )
+> +    {
+> +        if ( v != current && is_vcpu_online(v) )
+> +            return PSCI_DENIED;
+> +    }
+> +
+> +    /*
+> +     * Prepare the calling VCPU for suspend (save entry point into pc and
+> +     * context ID into r0/x0 as specified by PSCI SYSTEM_SUSPEND)
+> +     */
+
+Looking at the code, it doesn't save the value into pc and x0/r0. 
+Instead, it is stashing it into different fields.
+
+> +    vcpu_suspend_prepare(epoint, cid);
+> +
+> +    /* Disable watchdogs of this domain */
+> +    watchdog_domain_suspend(d);
+
+At least for guests, I was expecting psci_suspend to behave very 
+similarly to domain_shutdown(SHUTDOWN_suspend) so it can be used with 
+"xl suspend/resume". Is there any reason we are diverging?
+
+> +
+> +    /*
+> +     * The calling domain is suspended by blocking its last running VCPU. If an
+> +     * event is pending the domain will resume right away (VCPU will not block,
+> +     * but when scheduled in it will resume from the given entry point).
+> +     */
+
+Looking at the code, you don't seem to set x0, pc or even reset the vCPU 
+unless the platform suspend. So are you sure the suspend will work 
+properly if there is an event pending?
+
+
+> +    vcpu_block_unless_event_pending(current);
+ > +> +    return PSCI_SUCCESS;
+> +}
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/arch/arm/vpsci.c b/xen/arch/arm/vpsci.c
+> index d1615be8a6..96eef06c18 100644
+> --- a/xen/arch/arm/vpsci.c
+> +++ b/xen/arch/arm/vpsci.c
+> @@ -7,6 +7,7 @@
+>   #include <asm/vgic.h>
+>   #include <asm/vpsci.h>
+>   #include <asm/event.h>
+> +#include <asm/suspend.h>
+>   
+>   #include <public/sched.h>
+>   
+> @@ -197,6 +198,15 @@ static void do_psci_0_2_system_reset(void)
+>       domain_shutdown(d,SHUTDOWN_reboot);
+>   }
+>   
+> +static int32_t do_psci_1_0_system_suspend(register_t epoint, register_t cid)
+> +{
+> +#ifdef CONFIG_SYSTEM_SUSPEND
+> +    return domain_suspend(epoint, cid);
+> +#else
+> +    return PSCI_NOT_SUPPORTED;
+> +#endif
+> +}
+> +
+>   static int32_t do_psci_1_0_features(uint32_t psci_func_id)
+>   {
+>       /* /!\ Ordered by function ID and not name */
+> @@ -214,6 +224,8 @@ static int32_t do_psci_1_0_features(uint32_t psci_func_id)
+>       case PSCI_0_2_FN32_SYSTEM_OFF:
+>       case PSCI_0_2_FN32_SYSTEM_RESET:
+>       case PSCI_1_0_FN32_PSCI_FEATURES:
+> +    case PSCI_1_0_FN32_SYSTEM_SUSPEND:
+> +    case PSCI_1_0_FN64_SYSTEM_SUSPEND:
+>       case ARM_SMCCC_VERSION_FID:
+>           return 0;
+>       default:
+> @@ -344,6 +356,26 @@ bool do_vpsci_0_2_call(struct cpu_user_regs *regs, uint32_t fid)
+>           return true;
+>       }
+>   
+> +    case PSCI_1_0_FN32_SYSTEM_SUSPEND:
+> +    case PSCI_1_0_FN64_SYSTEM_SUSPEND:
+> +    {
+> +        register_t epoint = PSCI_ARG(regs,1);
+> +        register_t cid = PSCI_ARG(regs,2);
+> +        register_t ret;
+> +
+> +        perfc_incr(vpsci_system_suspend);
+> +        /* Set the result to PSCI_SUCCESS if the call fails.
+
+I don't understand the comment. Below, you will set "ret" only if the 
+call doesn't return SUCCESS.
+
+Also, coding style:
+
+/*
+  * Foo ...
+  * Bar ...
+  */
+
+> +         * Otherwise preserve the context_id in x0. For now
+
+Per above, I don't think this is correct.
+
+> +         * we don't support the case where the system is suspended
+> +         * to a shallower level and PSCI_SUCCESS is returned to the
+> +         * caller.
+
+I am confused. Per the specification, PSCI_SYSTEM_SUSPEND cannot return 
+PSCI_SUCCESS if the call is successful. Any chance you are confusing 
+with CPU_SUSPEND?
+
+> +         */
+> +        ret = do_psci_1_0_system_suspend(epoint, cid);
+> +        if ( ret != PSCI_SUCCESS )
+> +            PSCI_SET_RESULT(regs, ret);
+> +        return true;
+> +    }
+> +
+>       default:
+>           return false;
+>       }
+
+Cheers,
+
+-- 
+Julien Grall
 
 
