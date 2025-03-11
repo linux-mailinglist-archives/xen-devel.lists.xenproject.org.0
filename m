@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F2DEA5C8BF
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 16:49:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.908420.1315538 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 941D9A5CA3C
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 17:05:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.908627.1315747 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ts1qd-0002j0-RU; Tue, 11 Mar 2025 15:48:51 +0000
+	id 1ts26e-0004Nj-E4; Tue, 11 Mar 2025 16:05:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 908420.1315538; Tue, 11 Mar 2025 15:48:51 +0000
+Received: by outflank-mailman (output) from mailman id 908627.1315747; Tue, 11 Mar 2025 16:05:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ts1qd-0002gy-Oh; Tue, 11 Mar 2025 15:48:51 +0000
-Received: by outflank-mailman (input) for mailman id 908420;
- Tue, 11 Mar 2025 15:48:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=EmiY=V6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ts1qd-0002gs-7G
- for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 15:48:51 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5381b1fe-fe90-11ef-9ab9-95dc52dad729;
- Tue, 11 Mar 2025 16:48:50 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-43690d4605dso35401485e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 08:48:50 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43cf7c8249bsm77116165e9.7.2025.03.11.08.48.48
+	id 1ts26e-0004Lr-BU; Tue, 11 Mar 2025 16:05:24 +0000
+Received: by outflank-mailman (input) for mailman id 908627;
+ Tue, 11 Mar 2025 16:05:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=JHpu=V6=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1ts26c-0004LY-W7
+ for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 16:05:22 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a2009fd3-fe92-11ef-9898-31a8f345e629;
+ Tue, 11 Mar 2025 17:05:21 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-ac2ab99e16eso394393766b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 09:05:20 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
+ [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ac2397358b8sm946097266b.109.2025.03.11.09.05.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Mar 2025 08:48:49 -0700 (PDT)
+ Tue, 11 Mar 2025 09:05:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5381b1fe-fe90-11ef-9ab9-95dc52dad729
+X-Inumbo-ID: a2009fd3-fe92-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741708130; x=1742312930; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UvO1sa82d386QVY0qd2WzXLwoNNxAuzBSDkgUD42rAU=;
-        b=VHBG2LzMjh1o7An8Svq181f0TFlavH91yRGJURqAgDa33rAucEgQA6GcIquQupv6Hg
-         xMqKuRSXQxWAKjxmzZGJ2MHp5Q57eHaIUt721peW0+hSrWKMtBdpPnWeLgZ4CQup9DSg
-         PF8LFCSh1pvNaohGFR9JElarEP1FZ2Aidko/I4ZAorvHznGKB8VUGUs8JDPihYhXIysw
-         Swb0I8hcWjNYsXW2q6VwTC4H1EsVQPQ0aVAAw5TkWW3W82091K77ycSSF+dvCm84taxw
-         6c6OejUK1Q83IFWnNzcn3Iiexkrg8mORMRYqForrCCZ+4ujR2HMX6uQwck7IV5T8Xfr7
-         tOhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741708130; x=1742312930;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1741709120; x=1742313920; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UvO1sa82d386QVY0qd2WzXLwoNNxAuzBSDkgUD42rAU=;
-        b=S4NAaAj6mTYw671aEh5BufWI5NKTPMv0YVfDfA7iISBj0xNju+ySRaXR66I/MbMs30
-         7xlE04+T6opJqa4t+R6QR/j3RmQHRUmnkcg8XZsSqKGb1V/OJx32P7nOH4AOSC0qnnIz
-         qKh9tFYbwBYA4wdiwApUyzuM8q0BrfqaLqIT/uIrHT0E/OEAzDPZPbZRtEfO+MT+/mfE
-         GthcAb/mm/ojw2oxvJw+Qu62KOKnAu1ceJFjbxXaDBzEh1fk2RSC5LmmdL6H6KXNPmTA
-         YDGbviPjvYaZODyO4lhrptahSDObOzHesNh9sp2jGnZlksvgL3FHQPjfBZOTQ4KtsI1J
-         e8oQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWmfuIIxfb6ESFIWubBDkfIj/HH82lWCyVO6ISad3naCVlkRPpq2G65T7zYlmpuObVmQ2mhnLThCWQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyJzasx/YwEAbe3AYFh5t2QnLZpcHF9p17zLZN1ThLtacKLKTDz
-	9QF7DVms0VnnMz88lVa1IRZJbRq4Qq5Ge1xIYm+bm9zwqz8ocZavGmS+ZTSk6g==
-X-Gm-Gg: ASbGncsFkI1GL709KtX2FuazjLa8r4AfB3z51bVhu2c0bpG3uQrgx3wPcDfAKiWZzLj
-	XzNu0PxWnWuy493pfD5ZRUt6wVVylEt1G61sJFH54UpnCj5F6PqJu99y+Prj8GxS65w0V+ZlXn7
-	n5TQl8ApKMZyDm1SvX/y4KIEIu+X2m3+m96Ca1U8vavJfHoXQjdZOhxWSFzJFViIVNsyktN+4fZ
-	ocyaqN2DyD+W+EnuWxcu9Z2zlMT6MVchzQl1v/4ji7fukGy/3ha+Ff0hBWcBkCVFapcigQGYd9d
-	JWJCXC1eqCi+U3UriQ/KWzZMh11BD5y8/TnCgtUNXt5DMb09XvUrqRKb2d8wk2agkgJQPdNiGgR
-	InrC1mfgByQrVhTI/edkJ2WcjxYgDgg==
-X-Google-Smtp-Source: AGHT+IG4nedJ82Rb5HHp2eUfSIYkEmewD95b707XTQ/6C8brXpejVs5aPf+5IcLRJqKsCeRtUz/UwA==
-X-Received: by 2002:a05:600c:511b:b0:43c:f61e:6ea8 with SMTP id 5b1f17b1804b1-43cf61e702fmr94082345e9.2.1741708129644;
-        Tue, 11 Mar 2025 08:48:49 -0700 (PDT)
-Message-ID: <c55c4f19-21e2-4115-b7f6-ba4752cc2e56@suse.com>
-Date: Tue, 11 Mar 2025 16:48:48 +0100
+        bh=UzHd6iMMLXuYYCM1EzL52RSbRwWbnidC35UGy6Zl3PA=;
+        b=O1lDBPoOnrNV39a0ABAq1dNM/HhbBfvA+FbNLqepapspGXThzMtpKC5bX1VwtTnLGA
+         pLLO8H9S5uuExLLTsCjFByLeqmeqO9FZZl2yqZpdaGusN1LCZ44CIGNBdRo+vQYyZfUH
+         OiwPdoKc0OxMty9br001gKqJ0H9egnO3zR5XpLxQKBGzOsWcUJk44+sjUs/uocBL8G8U
+         Ia/RAxbc0bHK92IDtnE2c8CTpzEYJDCi8gbZEJnvEKUn0S0zY6i4hoc1NzaXbntuOQp3
+         U5MPSINHruZ1Z/sb85tEpE/PDHgDHA80SXiWR8c22JHxzm4gwrCcDjJHd/jXaTsE+Fck
+         zOkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1741709120; x=1742313920;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=UzHd6iMMLXuYYCM1EzL52RSbRwWbnidC35UGy6Zl3PA=;
+        b=fNWhjB18uhYmd631yoJbyB9AU6TYAz5vO5AkdPbdjVf+bn72+pDfbQJXzmConPcI6w
+         rRbrW9ri+AwgCTtihkmemYW/q8kpTY/tDSjgpDpc/DZ52JtwCpVYSDGe+I+3B+yjTjsB
+         o3FqLQzeLNnzklZmZAcnDWNTqQbKUCwWZ2/QyUw0Dp1n5Hf6ilA5jLO2VjQgQgJIp8Uf
+         Y7hPGQiNsEOx9gbl70vg+Pro6AVd+XRpyDt+BQnxoEhJiw16E0z7JMuJ6X26D/eaRNMm
+         bJez66LUohzGZnNPhbOyFHZFP/Dkvx8vzh7DRgM4rCENz5Tc8KOsHwm+ZcJWGyvRkqkB
+         m88A==
+X-Forwarded-Encrypted: i=1; AJvYcCWTQzsfu08+SCuCR7aJ34VRtHGol+/z2n9MO6/kTOL343Bh+MbKZwi5oZ3qHFCT7Gx8+t7EhgnbCfg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxKMpPJfaeRtnLY7mzfiPqZ3aMhlMGLlOBMSR1leWxVV02fcW20
+	kv/+h7M+qPE5GALZ2I8K6AnQX2v3H9hTCXd9NncEiZiQHDLYzvjD
+X-Gm-Gg: ASbGncsk5wvzUEwo9hGq3sg2scL0uJ8aM+iTMi/EWIrwZQHJWbaixnnzsUn18oOs/wo
+	vm1ICUBcebyF2GC3lDc8NTOs9TBj3/guW86OjjaXZGQAtEZeHMzJDAWPiOa0+It4UJCSB1kXoYG
+	2nSHZxsPvZPJlfYjVz20xbwCKv8wPcpaocIWW2NLeffc61u9XRMPMQwr5jZgWCIWXQwgvGShnoP
+	tcf0GGUKJkcW/3wsJ0GVXhYMVS80m7zNEJuHA/eV2lMC4dI+bb1HrspKoxK87o6qGRGY8awp2f0
+	6FexHwGcU0wsd3so797fvzHo4E/Te0Qq3DCS0/x8rK1p7iQsRvW+qMe518TxR5M27g1gs8CAEcR
+	X5VNyVudPLCIArGgaxxVi
+X-Google-Smtp-Source: AGHT+IHPtH2YCe19JU0eMdlCRjXCcXvn7E3iKMqnC6VjbOd3ze9nqHs2bFU0fKZU3q0Gv+40cxVuZg==
+X-Received: by 2002:a17:906:3a85:b0:ac2:7adb:ee3b with SMTP id a640c23a62f3a-ac27adbf21emr1301703066b.1.1741709119385;
+        Tue, 11 Mar 2025 09:05:19 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------5lscqloy2ZpsvI6lomN0fsQK"
+Message-ID: <5b22cfc5-f796-46bc-8cc4-090ab66d88b5@gmail.com>
+Date: Tue, 11 Mar 2025 17:05:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v1] xen/riscv: add H extenstion to -march
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
@@ -99,47 +100,116 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  <connojdavis@gmail.com>, Milan Djokic <milandjokic1995@gmail.com>,
  Slavisa Petrovic <Slavisa.Petrovic@rt-rk.com>, xen-devel@lists.xenproject.org
 References: <32ebe4032b7968157d5cadbc2f6aa1d9f2d363c9.1741707803.git.oleksii.kurochko@gmail.com>
+ <c55c4f19-21e2-4115-b7f6-ba4752cc2e56@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <32ebe4032b7968157d5cadbc2f6aa1d9f2d363c9.1741707803.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <c55c4f19-21e2-4115-b7f6-ba4752cc2e56@suse.com>
+
+This is a multi-part message in MIME format.
+--------------5lscqloy2ZpsvI6lomN0fsQK
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 11.03.2025 16:45, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/arch.mk
-> +++ b/xen/arch/riscv/arch.mk
-> @@ -9,7 +9,8 @@ riscv-abi-$(CONFIG_RISCV_64) := -mabi=lp64
->  riscv-march-$(CONFIG_RISCV_64) := rv64
->  riscv-march-y += ima
->  riscv-march-$(CONFIG_RISCV_ISA_C) += c
-> -riscv-march-y += _zicsr_zifencei_zbb
-> +h-extension-name := $(call cc-ifversion,-lt,1301, hh, h)
 
+On 3/11/25 4:48 PM, Jan Beulich wrote:
+> On 11.03.2025 16:45, Oleksii Kurochko wrote:
+>> --- a/xen/arch/riscv/arch.mk
+>> +++ b/xen/arch/riscv/arch.mk
+>> @@ -9,7 +9,8 @@ riscv-abi-$(CONFIG_RISCV_64) := -mabi=lp64
+>>   riscv-march-$(CONFIG_RISCV_64) := rv64
+>>   riscv-march-y += ima
+>>   riscv-march-$(CONFIG_RISCV_ISA_C) += c
+>> -riscv-march-y += _zicsr_zifencei_zbb
+>> +h-extension-name := $(call cc-ifversion,-lt,1301, hh, h)
+> Instead of a version check, did you consider probing the compiler? With the
+> hard-coded version, how are things going to work with Clang?
+
+Initially, it was implemented using:
+
++$(h-extension-name)-insn := "hfence.gvma"
++$(call check-extension,$(h-extension-name))
+
+with
+
++h-extension-name := $(call cc-ifversion,-lt,1301, hh, h)
+
+But it seems that we still need this hard-coded version for h-extension-name
+because of this behavior that h extensions should be longer then single letter
+for some compilers.
+
+Probably, we could consider option to check "hfence.gvma" twice:
+h-insn := "hfence.gvma"
+$(call check-extension,h)
+
+hh-insn := "hfence.gvma"
+$(call check-extension,hh)
+
+And filter-out/skip the second check-extension if the previous one check succeeded.
+But it looks a weird.
+
+~ Oleksii
+
+
+
+--------------5lscqloy2ZpsvI6lomN0fsQK
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 3/11/25 4:48 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:c55c4f19-21e2-4115-b7f6-ba4752cc2e56@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 11.03.2025 16:45, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/arch.mk
++++ b/xen/arch/riscv/arch.mk
+@@ -9,7 +9,8 @@ riscv-abi-$(CONFIG_RISCV_64) := -mabi=lp64
+ riscv-march-$(CONFIG_RISCV_64) := rv64
+ riscv-march-y += ima
+ riscv-march-$(CONFIG_RISCV_ISA_C) += c
+-riscv-march-y += _zicsr_zifencei_zbb
++h-extension-name := $(call cc-ifversion,-lt,1301, hh, h)
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
 Instead of a version check, did you consider probing the compiler? With the
-hard-coded version, how are things going to work with Clang?
+hard-coded version, how are things going to work with Clang?</pre>
+    </blockquote>
+    <pre>Initially, it was implemented using:</pre>
+    <pre>+$(h-extension-name)-insn := "hfence.gvma"
++$(call check-extension,$(h-extension-name))</pre>
+    <pre>with</pre>
+    <pre>+h-extension-name := $(call cc-ifversion,-lt,1301, hh, h)</pre>
+    <pre>But it seems that we still need this hard-coded version for h-extension-name
+because of this behavior that h extensions should be longer then single letter
+for some compilers.
 
-Jan
+Probably, we could consider option to check "hfence.gvma" twice:
+h-insn := "hfence.gvma"
+$(call check-extension,h)
+
+hh-insn := "hfence.gvma"
+$(call check-extension,hh)
+
+And filter-out/skip the second check-extension if the previous one check succeeded.
+But it looks a weird.
+
+~ Oleksii
+
+
+
+</pre>
+  </body>
+</html>
+
+--------------5lscqloy2ZpsvI6lomN0fsQK--
 
