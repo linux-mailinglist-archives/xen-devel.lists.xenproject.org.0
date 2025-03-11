@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0B9FA5C028
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 13:07:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.908021.1315198 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0637CA5C02B
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 13:07:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.908022.1315208 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tryO7-0005qU-UH; Tue, 11 Mar 2025 12:07:11 +0000
+	id 1tryOD-00066f-6w; Tue, 11 Mar 2025 12:07:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 908021.1315198; Tue, 11 Mar 2025 12:07:11 +0000
+Received: by outflank-mailman (output) from mailman id 908022.1315208; Tue, 11 Mar 2025 12:07:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tryO7-0005ny-R9; Tue, 11 Mar 2025 12:07:11 +0000
-Received: by outflank-mailman (input) for mailman id 908021;
- Tue, 11 Mar 2025 12:07:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tryOD-00065E-2M; Tue, 11 Mar 2025 12:07:17 +0000
+Received: by outflank-mailman (input) for mailman id 908022;
+ Tue, 11 Mar 2025 12:07:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=siat=V6=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tryO6-0005a1-Du
- for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 12:07:10 +0000
-Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
- [2607:f8b0:4864:20::102e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5ab14304-fe71-11ef-9898-31a8f345e629;
- Tue, 11 Mar 2025 13:07:08 +0100 (CET)
-Received: by mail-pj1-x102e.google.com with SMTP id
- 98e67ed59e1d1-300f92661fcso2269130a91.3
- for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 05:07:08 -0700 (PDT)
+ id 1tryOC-000646-3w
+ for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 12:07:16 +0000
+Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
+ [2607:f8b0:4864:20::635])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5e034700-fe71-11ef-9ab9-95dc52dad729;
+ Tue, 11 Mar 2025 13:07:14 +0100 (CET)
+Received: by mail-pl1-x635.google.com with SMTP id
+ d9443c01a7336-22401f4d35aso94273635ad.2
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 05:07:14 -0700 (PDT)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- 98e67ed59e1d1-2ff4e773dddsm11737657a91.12.2025.03.11.05.07.05
+ d2e1a72fcca58-736cbe3fb3fsm5116665b3a.83.2025.03.11.05.07.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Mar 2025 05:07:06 -0700 (PDT)
+ Tue, 11 Mar 2025 05:07:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,47 +44,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5ab14304-fe71-11ef-9898-31a8f345e629
+X-Inumbo-ID: 5e034700-fe71-11ef-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741694827; x=1742299627; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1741694832; x=1742299632; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4jErcxw8hXwlteixzxl0LBLAgfAmaGdNXQV4dueoQeA=;
-        b=mxmuypI8V+xpxTKO2mU0bpCyRDtODasePgLM5GBEHR4r+3SIVF0QS4nBObVFehvGzU
-         Ni/FqKv49n1iMfmy3wWOqi3edQcMit3mGANDmxA7lBGMIIVw0z8uTdcFy3CPpfNqqm6b
-         U01qZnL4oej+xZluhA6CtlM9uzlVjR8vBvP4M=
+        bh=JTL0ZfXPTekNOVwpdMmR6t4znYMHoG7CKcBB5SY41+I=;
+        b=V/ZJpDsvgg0iOpKUsy3j9Bi6qJdmVYGFjt98zK9G3Q6RiZFLjL2CF9ezQSU0Aqg5b/
+         HspOFSiDx9DmAAYBGhUrR3AeLIlBv+gpAvp5O9ZYVbCWYZ2GLOG3Oo0LqsO40Lvu/eW4
+         Q4e8tw0sNaniGan7lpLOezkBwa9F4/3HxE4X0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741694827; x=1742299627;
+        d=1e100.net; s=20230601; t=1741694832; x=1742299632;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=4jErcxw8hXwlteixzxl0LBLAgfAmaGdNXQV4dueoQeA=;
-        b=hFNRSyvw5rw82+uoWzMS7cN2Y9dM0mqSCkbpu5Btqm9q8wi6eta85QN4GVlKRgSorz
-         MwGWRGhMRXb0gQcpU+CIyv2xVLZqqaxyBeXajNZ+Vf1ia1++giLnbDTp0KTXYCvwLcz6
-         hTGJSC7DZntDtURyITyFoILuZzNA36+4M5/L5DELY4PaJ8vYhEwk1W0aw+BZ0IK/g0J0
-         AOegbtdJx/lM5VvXiIodBMVgg93kSnHUcR9gysXiOtDfchf6b85l3ySHNpoEavEGxmp0
-         dPvtT4HoH6+Ck2i3mQh6Ln56iJqOaWSFTuPmz5v6B1a4NFZUiG4mxz7iCfExAbEMPJ8N
-         t1bw==
-X-Gm-Message-State: AOJu0Yx4N3xhyFK7MLDC83lr7/TBLIeBRuPhs7SBjO+aIp3aV0PQqRDA
-	RCCMr78rLTaLHijtRE+thQY/X1pk5lfqqfWmXdZd4+YV2S/CkwEphgEYRd3WNWdmvTRINcRlr1/
-	B
-X-Gm-Gg: ASbGncvqMkPyazv86oZy7rPPFtn5YhNN9ijtGGOwZttNKwHkg/CgW7tWsf2en6arVJW
-	FfvMCs7KnnQRhlwX0P0jGw0BQXs70V9ojfeHNfbxknB7/phjtZUkHknIMRlo00h1iye7yuIsLaT
-	BqWAf4pXyq1Uzokp1lSaAs6Z6P8Dcb9iwMzIc2lFNgT2Y/LteuWZXs+A3rb2oxp651H4NzkdMwu
-	/JnE5b6398pFuhl3KG6A8kkSHSYE9MIS/tc4IjckijPcT/m0jiNW2Jc+f7u8IY8X8lREuTpkev+
-	8SWvS0oHNaGnEXNQlwumNq/VDpid8bg4po/vWwSJoyXNWnjOKL04KTI=
-X-Google-Smtp-Source: AGHT+IEckJW2JtOIBmxT4Hmkwecoki/J7UEiV+z216vrUg+iTQcfRhZ/wdd465edtUY+ZOJlGiV+rg==
-X-Received: by 2002:a17:90a:d605:b0:2ee:db8a:2a01 with SMTP id 98e67ed59e1d1-2ff7cf128cdmr24469073a91.30.1741694826779;
-        Tue, 11 Mar 2025 05:07:06 -0700 (PDT)
+        bh=JTL0ZfXPTekNOVwpdMmR6t4znYMHoG7CKcBB5SY41+I=;
+        b=IEG/nMHWlfdbdO1gGV3W3KWvm7vobhp+IK0VDaWDvrElPUmNB22nl1Jau/CTh5mjUp
+         q9etcBdN83hLn86s3Zh6lRyoGUtELBENky25UZZwJDri55I2J4Q2d3mOYrckSzZs5tFT
+         vCkjHR/f7ISa4ltIgUJGI0x9TB7Gpy9mCA2EOt9nUqDQIjIYkJxapJKN//ne0Orlf5xb
+         ySrNH7yxclv9WhzdniQwe303smGka6ffi7pWsnzj8MxM66DYXrVTiJjU+wvKWrkjWqsJ
+         Q1hxljkpq30Pyf554TgarB9pHfuzrRWhNTILpzRNswd5yRr7nqPOyo5JXxjc48FA0QzR
+         aYZQ==
+X-Gm-Message-State: AOJu0Yx9r2WStf/7UMrZ4tZR5O/iazBkhpifMzXINybQw/L+XcIHp4pE
+	9TkhQTP0Bytz943gk7WzqowEUdQ6ksKG7It0d7UjvhkB3sDxQ168Ds+JBPvJq3/1n7sSg02IYzB
+	T
+X-Gm-Gg: ASbGnct0ZNFzDLjNH6T4t0t4W3EMLm7SfgpFC499o5g5/wDceTi7pB/j+BxphOXTVHm
+	Ie9QEHF5SVH8JTdB9+hivQ1iU08r1oc2vSIKFihP8dA6jRE+QlA6T7ZbEbfTI0hojrHrBJJA+C6
+	r5SnK7n3HLmsT8B5hXWeJrTY9hsfCJGmaosKRfPcRQm0XQagbD3gjW36NPbnq+2M5d/FbQpsYgm
+	CQInig7eC7k4JZYMGStdETio8VkkG2Jc87bLWggGxZbdk4tdQWqxKRpjdBW6yIAq3JumjajUxcx
+	2OXi9cb80do9kl4owZgBbG2sX0eCAecR/txRxQL8hioFGMvMpVvpTg0=
+X-Google-Smtp-Source: AGHT+IF84n5Crz4rbJ97n8u9t0N/OS3tqDTWlQm9iV1Ar93eP3SlCpQjtGofhTyf01f6SjEMXq3r0w==
+X-Received: by 2002:a05:6a00:244e:b0:730:9801:d3e2 with SMTP id d2e1a72fcca58-736eb7d87f5mr5847293b3a.8.1741694831988;
+        Tue, 11 Mar 2025 05:07:11 -0700 (PDT)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH v4 1/3] x86/vmx: fix posted interrupts usage of msi_desc->msg field
-Date: Tue, 11 Mar 2025 13:06:50 +0100
-Message-ID: <20250311120652.61366-2-roger.pau@citrix.com>
+	Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v4 2/3] x86/hvm: check return code of hvm_pi_update_irte when binding
+Date: Tue, 11 Mar 2025 13:06:51 +0100
+Message-ID: <20250311120652.61366-3-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250311120652.61366-1-roger.pau@citrix.com>
 References: <20250311120652.61366-1-roger.pau@citrix.com>
@@ -92,66 +91,39 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The current usage of msi_desc->msg in vmx_pi_update_irte() will make the
-field contain a translated MSI message, instead of the expected
-untranslated one.  This breaks dump_msi(), that use the data in
-msi_desc->msg to print the interrupt details.
+Consume the return code from hvm_pi_update_irte(), and propagate the error
+back to the caller if hvm_pi_update_irte() fails.
 
-Fix this by introducing a dummy local msi_msg, and use it with
-iommu_update_ire_from_msi().  vmx_pi_update_irte() relies on the MSI
-message not changing, so there's no need to propagate the resulting msi_msg
-to the hardware, and the contents can be ignored.
-
-Fixes: a5e25908d18d ('VT-d: introduce new fields in msi_desc to track binding with guest interrupt')
+Fixes: 35a1caf8b6b5 ('pass-through: update IRTE according to guest interrupt config changes')
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
 Changes since v3:
  - New in this version.
 ---
- xen/arch/x86/hvm/vmx/vmx.c     | 9 ++++++++-
- xen/arch/x86/include/asm/msi.h | 2 +-
- 2 files changed, 9 insertions(+), 2 deletions(-)
+ xen/drivers/passthrough/x86/hvm.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index 0241303b4bf4..c407513af624 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -396,6 +396,13 @@ static int cf_check vmx_pi_update_irte(const struct vcpu *v,
-     const struct pi_desc *pi_desc = v ? &v->arch.hvm.vmx.pi_desc : NULL;
-     struct irq_desc *desc;
-     struct msi_desc *msi_desc;
-+    /*
-+     * vmx_pi_update_irte() relies on the IRTE already being setup, and just
-+     * updates the guest vector, but not the other IRTE fields.  As such the
-+     * contents of msg are not consumed by iommu_update_ire_from_msi().  Even
-+     * if not consumed, zero the contents to avoid possible stack leaks.
-+     */
-+    struct msi_msg msg = {};
-     int rc;
+diff --git a/xen/drivers/passthrough/x86/hvm.c b/xen/drivers/passthrough/x86/hvm.c
+index f5faff7a499a..47de6953fdf8 100644
+--- a/xen/drivers/passthrough/x86/hvm.c
++++ b/xen/drivers/passthrough/x86/hvm.c
+@@ -381,7 +381,15 @@ int pt_irq_create_bind(
  
-     desc = pirq_spin_lock_irq_desc(pirq, NULL);
-@@ -415,7 +422,7 @@ static int cf_check vmx_pi_update_irte(const struct vcpu *v,
+         /* Use interrupt posting if it is supported. */
+         if ( iommu_intpost )
+-            hvm_pi_update_irte(vcpu, info, pirq_dpci->gmsi.gvec);
++        {
++            rc = hvm_pi_update_irte(vcpu, info, pirq_dpci->gmsi.gvec);
++
++            if ( rc )
++            {
++                pt_irq_destroy_bind(d, pt_irq_bind);
++                return rc;
++            }
++        }
  
-     ASSERT_PDEV_LIST_IS_READ_LOCKED(msi_desc->dev->domain);
- 
--    return iommu_update_ire_from_msi(msi_desc, &msi_desc->msg);
-+    return iommu_update_ire_from_msi(msi_desc, &msg);
- 
-  unlock_out:
-     spin_unlock_irq(&desc->lock);
-diff --git a/xen/arch/x86/include/asm/msi.h b/xen/arch/x86/include/asm/msi.h
-index 378b85ee947b..975d0f26b35d 100644
---- a/xen/arch/x86/include/asm/msi.h
-+++ b/xen/arch/x86/include/asm/msi.h
-@@ -124,7 +124,7 @@ struct msi_desc {
-     int irq;
-     int remap_index;         /* index in interrupt remapping table */
- 
--    struct msi_msg msg;      /* Last set MSI message */
-+    struct msi_msg msg;      /* Last set MSI message (untranslated) */
- };
- 
- /*
+         if ( pt_irq_bind->u.msi.gflags & XEN_DOMCTL_VMSI_X86_UNMASKED )
+         {
 -- 
 2.48.1
 
