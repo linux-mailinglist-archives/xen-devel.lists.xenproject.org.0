@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6C3CA5BFD3
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 12:56:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.907957.1315148 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 037E6A5BEF2
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 12:27:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.907914.1315108 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tryDf-0000Q8-R5; Tue, 11 Mar 2025 11:56:23 +0000
+	id 1trxks-00034r-Rp; Tue, 11 Mar 2025 11:26:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 907957.1315148; Tue, 11 Mar 2025 11:56:23 +0000
+Received: by outflank-mailman (output) from mailman id 907914.1315108; Tue, 11 Mar 2025 11:26:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tryDf-0000Nn-Ny; Tue, 11 Mar 2025 11:56:23 +0000
-Received: by outflank-mailman (input) for mailman id 907957;
- Tue, 11 Mar 2025 11:56:22 +0000
+	id 1trxks-00032Q-Ou; Tue, 11 Mar 2025 11:26:38 +0000
+Received: by outflank-mailman (input) for mailman id 907914;
+ Tue, 11 Mar 2025 11:26:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1WQE=V6=gmail.com=gragst.linux@srs-se1.protection.inumbo.net>)
- id 1trxbR-00061U-95
- for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 11:16:53 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=F6th=V6=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1trxkr-00032K-2P
+ for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 11:26:37 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 54932f69-fe6a-11ef-9898-31a8f345e629;
- Tue, 11 Mar 2025 12:16:51 +0100 (CET)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-30762598511so57568661fa.0
- for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 04:16:51 -0700 (PDT)
-Received: from epuakyiw0a98.kyiv.epam.com (ll-74.141.223.85.sovam.net.ua.
- [85.223.141.74]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5498ae45fa8sm1755729e87.52.2025.03.11.04.16.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Mar 2025 04:16:49 -0700 (PDT)
+ id af4db4e5-fe6b-11ef-9898-31a8f345e629;
+ Tue, 11 Mar 2025 12:26:33 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 420511F443;
+ Tue, 11 Mar 2025 11:26:32 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D1CF9134A0;
+ Tue, 11 Mar 2025 11:26:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 6Wm9Mecd0GcpHAAAD6G6ig
+ (envelope-from <jgross@suse.com>); Tue, 11 Mar 2025 11:26:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,725 +51,259 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 54932f69-fe6a-11ef-9898-31a8f345e629
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1741691810; x=1742296610; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=B96UdKByw6q/7v0qR414AXSgvWpTAQ49fpaibtFfFYs=;
-        b=Ld1T7HdYse4bHSpwXfIacLy+h+X30k1aUUxatCAwFgiyyuytBBPg6eyq/zIyEOTQFG
-         WItagRCAkjfCncq8gW9conTf/rXS6Vf12f0gn32Yrzownf6ydfYiJJlEgsuthvrnAtL/
-         4mf8Osru/mTy+y5jsqc8rG4rR+qlfoz5tx+vAxfVFBsmY9Y5yEHOkl24K/HWOW7sst74
-         /Iie6R9C2PVJwybp+At/+JjUHyCzM6RBAtcL1pvf/D//eNCU6EwuprbRuqxHOCfLHFbd
-         nnMztfZd03jaYBixZYiQLxjUYl3hWjGG+qyfTtWW86hEKphWMWkz1JHfTBvKEjnG+Ilh
-         yhbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741691810; x=1742296610;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=B96UdKByw6q/7v0qR414AXSgvWpTAQ49fpaibtFfFYs=;
-        b=nhWEBfMEnfV+deqhuWsJZ5VLawTamT6ohSqrxRznQWpLHZU2RoAAz0yGvrC+KHr+9F
-         F3MIRgurKN1pmq5QrO+S8U8dXGXa1Dy/F2/FyS75UEkyr0JTYIZ9KB3UGeJVNqUkXDYa
-         rf/BKQUmwmz2h0vLzBd3DzuVbCJ23G+m4wzidmIt6vxyLh0h84e58AqER1lHRWheCJmE
-         4nbwS3I/UHyrnXBYwNpV+iBPb/9aht1mtBYS94h2S4syDFyPRGWbhBvfVQtqS8zNZBP2
-         mtDdcv5UsehWAxKjFMw5XjgfUZZkJ/idoKFh+phQEu9xq+lzJI5wPuqGDdUei96zXje4
-         9lcA==
-X-Gm-Message-State: AOJu0YzFSgtWZ8PNrLzJQEhlSLeiuFi3zD2VnlC5RX78vvogKVjWFohZ
-	OvaEQpvNgJGt49T3kasWCwdcIengbnTnFH2oEI03eE1IPcX9kH0drIx1QQ==
-X-Gm-Gg: ASbGncsPv6kte7hD1Kp9g4Tx/4V3vRQYslXLqPno8klrzC7N8glS4WY2+as738UulcR
-	rBLkVeMVL/+65KZIE0R/BNHwpzhjL3gXfdL7akYW+Q9NHKZ1xmCIMHEakemCEIvJB1klCCxlgge
-	ZkzAuykriFRV5ssOQ/nVMnGEhUCsk6zWQgkh6NykwnrL0l3JxPvpgdW5GVtePvo8AQde4Te0w7N
-	evamUpqROGaBuOubLy6ewhH/PF5/tdo3YwugVyjx8ZTyulEUtsr4wvZ6WRoNTboURx9D0X7H7tr
-	nRXmlVbP08mavvW6/cmOQTBal8BX7K5ODSYFYyhhDXF0XfHcK1D75NToJg2YXn3L4FSt0CiPTsG
-	nFZHdomZp0rKM9nfxaTRDilrtuVE=
-X-Google-Smtp-Source: AGHT+IF64v2hXGQ00z9GVEJ8U68hv2KGBZFKEJQrCkpVVAWcuKQkSvBRVsWQkqHjxbSg/SHD3m9UlA==
-X-Received: by 2002:a05:6512:b14:b0:544:11cf:10c1 with SMTP id 2adb3069b0e04-54990e641efmr6135062e87.30.1741691809824;
-        Tue, 11 Mar 2025 04:16:49 -0700 (PDT)
-From: Grygorii Strashko <gragst.linux@gmail.com>
-X-Google-Original-From: Grygorii Strashko <grygorii_strashko@epam.com>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	"Roger Pau Monne" <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Oleksii Moisieiev <oleksii_moisieiev@epam.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Juergen Gross <jgross@suse.com>,
-	Grygorii Strashko <grygorii_strashko@epam.com>
-Subject: [RFC PATCH v3 7/7] xen/arm: scmi: generate scmi dt node for DomUs
-Date: Tue, 11 Mar 2025 13:16:18 +0200
-Message-Id: <20250311111618.1850927-8-grygorii_strashko@epam.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250311111618.1850927-1-grygorii_strashko@epam.com>
-References: <20250311111618.1850927-1-grygorii_strashko@epam.com>
+X-Inumbo-ID: af4db4e5-fe6b-11ef-9898-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1741692392; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=mTxF7VeeHsTS5DV78R/UU1jxsujaaMlln7IICO57VeQ=;
+	b=NVSiDXwuFQ5tiYd2YKlLMthgR/Ztn2s+2I8Ea6nG88N7ZrofyWQHygAGWz9yEgZCzYn0CD
+	b5j1ZsRkL8Ce1qn/WP1lT1uCpKxSjwXYm17y+hOaiGAJvbMnkv7FEifkLgYTCMXdiwDaRf
+	5DTyR/95N18uCO0goEt5lfPT+Zcx9PI=
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1741692392; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=mTxF7VeeHsTS5DV78R/UU1jxsujaaMlln7IICO57VeQ=;
+	b=NVSiDXwuFQ5tiYd2YKlLMthgR/Ztn2s+2I8Ea6nG88N7ZrofyWQHygAGWz9yEgZCzYn0CD
+	b5j1ZsRkL8Ce1qn/WP1lT1uCpKxSjwXYm17y+hOaiGAJvbMnkv7FEifkLgYTCMXdiwDaRf
+	5DTyR/95N18uCO0goEt5lfPT+Zcx9PI=
+Message-ID: <7ef00fa0-5e40-4204-ab12-e1b820c3358a@suse.com>
+Date: Tue, 11 Mar 2025 12:26:31 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v3 5/7] libs: libxenhypfs - handle blob properties
+To: Grygorii Strashko <gragst.linux@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Michal Orzel <michal.orzel@amd.com>, Roger Pau Monne <roger.pau@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Anthony PERARD <anthony.perard@vates.tech>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Oleksii Moisieiev <oleksii_moisieiev@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+References: <20250311111618.1850927-1-grygorii_strashko@epam.com>
+ <20250311111618.1850927-6-grygorii_strashko@epam.com>
+Content-Language: en-US
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <20250311111618.1850927-6-grygorii_strashko@epam.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------RYdN3UR30ULH0tkZuE092G5T"
+X-Spam-Score: -3.66
+X-Spamd-Result: default: False [-3.66 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	SIGNED_PGP(-2.00)[];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MIME_BASE64_TEXT_BOGUS(1.00)[];
+	NEURAL_HAM_LONG(-0.96)[-0.961];
+	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_BASE64_TEXT(0.10)[];
+	MIME_UNKNOWN(0.10)[application/pgp-keys];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_TO(0.00)[gmail.com,lists.xenproject.org];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	HAS_ATTACHMENT(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TAGGED_RCPT(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid]
+X-Spam-Flag: NO
+X-Spam-Level: 
 
-From: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------RYdN3UR30ULH0tkZuE092G5T
+Content-Type: multipart/mixed; boundary="------------sQPZsre0myDyxnvoGUbbEfpD";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Grygorii Strashko <gragst.linux@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Michal Orzel <michal.orzel@amd.com>, Roger Pau Monne <roger.pau@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Anthony PERARD <anthony.perard@vates.tech>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Oleksii Moisieiev <oleksii_moisieiev@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+Message-ID: <7ef00fa0-5e40-4204-ab12-e1b820c3358a@suse.com>
+Subject: Re: [RFC PATCH v3 5/7] libs: libxenhypfs - handle blob properties
+References: <20250311111618.1850927-1-grygorii_strashko@epam.com>
+ <20250311111618.1850927-6-grygorii_strashko@epam.com>
+In-Reply-To: <20250311111618.1850927-6-grygorii_strashko@epam.com>
+Autocrypt-Gossip: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJ3BBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AAIQkQoDSui/t3IH4WIQQ+pJkfkcoLMCa4X6CgNK6L+3cgfgn7AJ9DmMd0SMJE
+ ePbc7/m22D2v04iu7ACffXTdZQhNl557tJuDXZSBxDmW/tLOwU0EWTecRBAIAIK5OMKMU5R2
+ Lk2bbjgX7vyQuCFFyKf9rC/4itNwhYWFSlKzVj3WJBDsoi2KvPm7AI+XB6NIkNAkshL5C0kd
+ pcNd5Xo0jRR5/WE/bT7LyrJ0OJWS/qUit5eNNvsO+SxGAk28KRa1ieVLeZi9D03NL0+HIAtZ
+ tecfqwgl3Y72UpLUyt+r7LQhcI/XR5IUUaD4C/chB4Vq2QkDKO7Q8+2HJOrFIjiVli4lU+Sf
+ OBp64m//Y1xys++Z4ODoKh7tkh5DxiO3QBHG7bHK0CSQsJ6XUvPVYubAuy1XfSDzSeSBl//C
+ v78Fclb+gi9GWidSTG/4hsEzd1fY5XwCZG/XJJY9M/sAAwUH/09Ar9W2U1Qm+DwZeP2ii3Ou
+ 14Z9VlVVPhcEmR/AFykL9dw/OV2O/7cdi52+l00reUu6Nd4Dl8s4f5n8b1YFzmkVVIyhwjvU
+ jxtPyUgDOt6DRa+RaDlXZZmxQyWcMv2anAgYWGVszeB8Myzsw8y7xhBEVV1S+1KloCzw4V8Z
+ DSJrcsZlyMDoiTb7FyqxwQnM0f6qHxWbmOOnbzJmBqpNpFuDcz/4xNsymJylm6oXiucHQBAP
+ Xb/cE1YNHpuaH4SRhIxwQilCYEznWowQphNAbJtEKOmcocY7EbSt8VjXTzmYENkIfkrHRyXQ
+ dUm5AoL51XZljkCqNwrADGkTvkwsWSvCSQQYEQIACQUCWTecRAIbDAAKCRCgNK6L+3cgfuef
+ AJ9wlZQNQUp0KwEf8Tl37RmcxCL4bQCcC5alCSMzUBJ5DBIcR4BY+CyQFAs=
 
-This feature introduces SCMI support for DomU domains with partial SCMI DT
-node generation.
-During domain creation the following prerequisites are expected:
+--------------sQPZsre0myDyxnvoGUbbEfpD
+Content-Type: multipart/mixed; boundary="------------p034AxZnjbBWWNPfnkMvqqGd"
 
- - SCMI node template in partial device-tree, which should contain all
- subnodes used by DomU:
+--------------p034AxZnjbBWWNPfnkMvqqGd
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-/ {
-    firmware {
-            scmi {
-                    scmi_reset: protocol@19 {
-			\#reset-cells = <1>;
-                    };
-                    scmi_clk: protocol@14 {
-			\#clock-cells = <1>;
-		    };
-                    scmi_pinctrl: protocol@19 {
-                            sdio_mux: mux {
-                            };
-                            mux1: mux1 {
-                            };
-                    };
-            };
-    };
+T24gMTEuMDMuMjUgMTI6MTYsIEdyeWdvcmlpIFN0cmFzaGtvIHdyb3RlOg0KPiBGcm9tOiBP
+bGVrc2lpIE1vaXNpZWlldiA8b2xla3NpaV9tb2lzaWVpZXZAZXBhbS5jb20+DQo+IA0KPiBs
+aWJ4ZW5oeXBmcyB3aWxsIHJldHVybiBibG9iIHByb3BlcnRpZXMgYXMgaXMuIFRoaXMgb3V0
+cHV0IGNhbiBiZSB1c2VkDQo+IHRvIHJldHJpZXZlIGluZm9ybWF0aW9uIGZyb20gdGhlIGh5
+cGZzLiBDYWxsZXIgaXMgcmVzcG9uc2libGUgZm9yDQo+IHBhcnNpbmcgcHJvcGVydHkgdmFs
+dWUuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBPbGVrc2lpIE1vaXNpZWlldiA8b2xla3NpaV9t
+b2lzaWVpZXZAZXBhbS5jb20+DQo+IFJldmlld2VkLWJ5OiBWb2xvZHlteXIgQmFiY2h1ayA8
+dm9sb2R5bXlyX2JhYmNodWtAZXBhbS5jb20+DQo+IC0tLQ0KPiAgIHRvb2xzL2xpYnMvaHlw
+ZnMvY29yZS5jIHwgMiAtLQ0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAyIGRlbGV0aW9ucygtKQ0K
+PiANCj4gZGlmZiAtLWdpdCBhL3Rvb2xzL2xpYnMvaHlwZnMvY29yZS5jIGIvdG9vbHMvbGli
+cy9oeXBmcy9jb3JlLmMNCj4gaW5kZXggNTJiMzBkYjhkNzc3Li5kMDliYmE3ZDhjODYgMTAw
+NjQ0DQo+IC0tLSBhL3Rvb2xzL2xpYnMvaHlwZnMvY29yZS5jDQo+ICsrKyBiL3Rvb2xzL2xp
+YnMvaHlwZnMvY29yZS5jDQo+IEBAIC0zMDcsOCArMzA3LDYgQEAgY2hhciAqeGVuaHlwZnNf
+cmVhZCh4ZW5oeXBmc19oYW5kbGUgKmZzaGRsLCBjb25zdCBjaGFyICpwYXRoKQ0KPiAgICAg
+ICAgICAgZXJybm8gPSBFSVNESVI7DQo+ICAgICAgICAgICBicmVhazsNCj4gICAgICAgY2Fz
+ZSB4ZW5oeXBmc190eXBlX2Jsb2I6DQo+IC0gICAgICAgIGVycm5vID0gRURPTTsNCj4gLSAg
+ICAgICAgYnJlYWs7DQo+ICAgICAgIGNhc2UgeGVuaHlwZnNfdHlwZV9zdHJpbmc6DQo+ICAg
+ICAgICAgICByZXRfYnVmID0gYnVmOw0KPiAgICAgICAgICAgYnVmID0gTlVMTDsNCg0KWW91
+IGFyZSBsb3NpbmcgdGhlIHNpemUgaW5mb3JtYXRpb24uIFNvIHlvdSBjYW4gb25seSBwYXJz
+ZSB0aGUgYmxvYg0KaWYgdGhlIHNpemUgaXMga25vd24gb3IgdGhlIGJsb2IgaXMgY29udGFp
+bmluZyB0aGUgc2l6ZS4NCg0KQW55IHJlYXNvbiB5b3UgZG9uJ3Qgd2FudCB0byB1c2UgeGVu
+aHlwZnNfcmVhZF9yYXcoKSwgd2hpY2ggaXMNCmF2YWlsYWJsZSBleGFjdGx5IGZvciB0aGF0
+IHB1cnBvc2U/DQoNCg0KSnVlcmdlbg0K
+--------------p034AxZnjbBWWNPfnkMvqqGd
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-    passthrough {
-            sdio {
-                    pinctrl-0 = <&sdio_mux>;
-                    resets = <&scmi_reset 0x1>;
-                    clocks = <&scmi_clk 0x1>;
-            };
-	    dev1 {
-                 resets = <&scmi_reset 2>;
-                 pinctrl-0 = <&mux1>;
-            };
-   };
-};
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
- - properly defined "arm_sci" property in domain xl.cfg:
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
 
- arm_sci = "type=scmi_smc_multiagent,agent_id=2"
+--------------p034AxZnjbBWWNPfnkMvqqGd--
 
- - Platform/Xen DT exposed to Dom0 through Xen hypfs.
+--------------sQPZsre0myDyxnvoGUbbEfpD--
 
-The Xen toolstack:
+--------------RYdN3UR30ULH0tkZuE092G5T
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-- obtains from Xen information about phys address of the SCMI shmem and
-SMC/HVC id used by specified SCMI agent_id (domctl
-XEN_DOMCTL_get_sci_info)
+-----BEGIN PGP SIGNATURE-----
 
-- creates the SCMI shmem node in domain DT using predefined guest MMIO
-mappings and DT phandle
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmfQHecFAwAAAAAACgkQsN6d1ii/Ey8g
++wgAhg23RC1/kuA1whn7+j6jBUfq0YXPRcYYgmY+lBOcp7S/0mIgDmgIYGpFQ2N8gXb5RpICKUVA
+nWJflbk+MtP7i+FKO4449QOc1H1aK9vX77LNcffoVmZQeCpUUj7THv7QNPhhbLxnyveoWGAVKf9K
+UfnILIlven1NSa0+zNzRupxQ0SG9Gj/U/pSuFKYSZcesHYhEsKF/TDZZ5IPgilKuFzlsMZjElgJS
+hiZOHiiO78vTIoPcU7hhNpRLbwn2P4knxQJKQEBpZHeRnZjpiZ7eSHpgpVWynBmxaGaNp5dxqvvJ
+8V/z6W7A8yd5o2u9XxdJ7Qdlf7sT6QowOjjv1O7XGA==
+=xjyD
+-----END PGP SIGNATURE-----
 
-	GUEST_SCI_SHMEM_BASE xen_mk_ullong(0x22001000)
-	GUEST_SCI_SHMEM_SIZE xen_mk_ullong(0x01000)
-	GUEST_PHANDLE_SCMI (GUEST_PHANDLE_IOMMU + 1)
-
-- creates SCMI node in domain DT with:
-  - "shmem" phandle sets to GUEST_PHANDLE_SCMI
-  - "arm,smc-id" sets to SMC/HVC id obtained from Xen
-  - parses partial device tree and creates corresponding SCMI subnodes in
-  domain DT. All SCMI subnodes properties are copied from Xen DT except
-  phandles, which are taken from partial DT.
-
-- maps the SCMI shmem into DomU GUEST_SCI_SHMEM_BASE address.
-
-Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
-Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
----
- tools/include/xenctrl.h                     |   3 +
- tools/libs/ctrl/xc_domain.c                 |  18 ++
- tools/libs/light/libxl_arm.c                | 294 +++++++++++++++++++-
- tools/libs/light/libxl_create.c             |  12 +
- tools/libs/light/libxl_internal.h           |   3 +
- xen/arch/arm/domctl.c                       |  22 ++
- xen/arch/arm/firmware/scmi-smc-multiagent.c |   2 +
- xen/arch/arm/include/asm/domain.h           |   6 +
- xen/include/public/arch-arm.h               |   4 +
- xen/include/public/device_tree_defs.h       |   1 +
- xen/include/public/domctl.h                 |  11 +
- 11 files changed, 365 insertions(+), 11 deletions(-)
-
-diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-index 495598123133..54a93431641a 100644
---- a/tools/include/xenctrl.h
-+++ b/tools/include/xenctrl.h
-@@ -1205,6 +1205,9 @@ int xc_domain_getvnuma(xc_interface *xch,
- int xc_domain_soft_reset(xc_interface *xch,
-                          uint32_t domid);
- 
-+int xc_domain_get_sci_info(xc_interface *xch, uint32_t domid,
-+                           uint64_t *paddr, uint32_t *func_id);
-+
- #if defined(__i386__) || defined(__x86_64__)
- /*
-  * PC BIOS standard E820 types and structure.
-diff --git a/tools/libs/ctrl/xc_domain.c b/tools/libs/ctrl/xc_domain.c
-index 2ddc3f4f426d..f4ffab2021cd 100644
---- a/tools/libs/ctrl/xc_domain.c
-+++ b/tools/libs/ctrl/xc_domain.c
-@@ -2229,6 +2229,24 @@ out:
- 
-     return ret;
- }
-+
-+int xc_domain_get_sci_info(xc_interface *xch, uint32_t domid,
-+                            uint64_t *paddr, uint32_t *func_id)
-+{
-+    struct xen_domctl domctl = {};
-+
-+    memset(&domctl, 0, sizeof(domctl));
-+    domctl.cmd = XEN_DOMCTL_get_sci_info;
-+    domctl.domain = domid;
-+
-+    if ( do_domctl(xch, &domctl) != 0 )
-+        return 1;
-+
-+    *paddr = domctl.u.sci_info.paddr;
-+    *func_id = domctl.u.sci_info.func_id;
-+    return 0;
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-index cdf5edb299af..cc54abc1ea79 100644
---- a/tools/libs/light/libxl_arm.c
-+++ b/tools/libs/light/libxl_arm.c
-@@ -9,6 +9,7 @@
- #include <libfdt.h>
- #include <assert.h>
- #include <xen/device_tree_defs.h>
-+#include <xenhypfs.h>
- 
- /*
-  * There is no clear requirements for the total size of Virtio MMIO region.
-@@ -640,9 +641,6 @@ static int make_optee_node(libxl__gc *gc, void *fdt)
-     int res;
-     LOG(DEBUG, "Creating OP-TEE node in dtb");
- 
--    res = fdt_begin_node(fdt, "firmware");
--    if (res) return res;
--
-     res = fdt_begin_node(fdt, "optee");
-     if (res) return res;
- 
-@@ -655,9 +653,6 @@ static int make_optee_node(libxl__gc *gc, void *fdt)
-     res = fdt_end_node(fdt);
-     if (res) return res;
- 
--    res = fdt_end_node(fdt);
--    if (res) return res;
--
-     return 0;
- }
- 
-@@ -1191,10 +1186,9 @@ static int copy_node(libxl__gc *gc, void *fdt, void *pfdt,
-     return 0;
- }
- 
--static int copy_node_by_path(libxl__gc *gc, const char *path,
--                             void *fdt, void *pfdt)
-+static int get_path_nodeoff(const char *path, void *pfdt)
- {
--    int nodeoff, r;
-+    int nodeoff;
-     const char *name = strrchr(path, '/');
- 
-     if (!name)
-@@ -1214,12 +1208,277 @@ static int copy_node_by_path(libxl__gc *gc, const char *path,
-     if (strcmp(fdt_get_name(pfdt, nodeoff, NULL), name))
-         return -FDT_ERR_NOTFOUND;
- 
-+    return nodeoff;
-+}
-+
-+static int copy_node_by_path(libxl__gc *gc, const char *path,
-+                             void *fdt, void *pfdt)
-+{
-+    int nodeoff, r;
-+
-+    nodeoff = get_path_nodeoff(path, pfdt);
-+    if (nodeoff < 0)
-+        return nodeoff;
-+
-     r = copy_node(gc, fdt, pfdt, nodeoff, 0);
-     if (r) return r;
- 
-     return 0;
- }
- 
-+static int map_sci_page(libxl__gc *gc, uint32_t domid, uint64_t paddr,
-+                         uint64_t guest_addr)
-+{
-+    int ret;
-+    uint64_t _paddr_pfn = paddr >> XC_PAGE_SHIFT;
-+    uint64_t _guest_pfn = guest_addr >> XC_PAGE_SHIFT;
-+
-+    assert(paddr && guest_addr);
-+    LOG(DEBUG, "[%d] mapping sci shmem page %"PRIx64, domid, _paddr_pfn);
-+
-+    ret = xc_domain_iomem_permission(CTX->xch, domid, _paddr_pfn, 1, 1);
-+    if (ret < 0) {
-+        LOG(ERROR,
-+              "failed give domain access to iomem page %"PRIx64,
-+             _paddr_pfn);
-+        return ret;
-+    }
-+
-+    ret = xc_domain_memory_mapping(CTX->xch, domid,
-+                                   _guest_pfn, _paddr_pfn,
-+                                   1, 1);
-+    if (ret < 0) {
-+        LOG(ERROR,
-+              "failed to map to domain iomem page %"PRIx64
-+              " to guest address %"PRIx64,
-+              _paddr_pfn, _guest_pfn);
-+        return ret;
-+    }
-+
-+    return 0;
-+}
-+
-+static int scmi_dt_make_shmem_node(libxl__gc *gc, void *fdt)
-+{
-+    int res;
-+    char buf[64];
-+
-+    snprintf(buf, sizeof(buf), "scmi-shmem@%llx", GUEST_SCI_SHMEM_BASE);
-+
-+    res = fdt_begin_node(fdt, buf);
-+    if (res) return res;
-+
-+    res = fdt_property_compat(gc, fdt, 1, "arm,scmi-shmem");
-+    if (res) return res;
-+
-+    res = fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS,
-+                    GUEST_ROOT_SIZE_CELLS, 1,
-+                    GUEST_SCI_SHMEM_BASE, GUEST_SCI_SHMEM_SIZE);
-+    if (res) return res;
-+
-+    res = fdt_property_cell(fdt, "phandle", GUEST_PHANDLE_SCMI);
-+    if (res) return res;
-+
-+    res = fdt_end_node(fdt);
-+    if (res) return res;
-+
-+    return 0;
-+}
-+
-+static const char *name_from_path(const char *path)
-+{
-+    return strrchr(path, '/') + 1;
-+}
-+
-+static int dt_copy_properties(libxl__gc *gc, void* fdt, void *xen_fdt,
-+        const char *full_name)
-+{
-+    int propoff, nameoff, r, nodeoff;
-+    const struct fdt_property *prop;
-+
-+    LOG(DEBUG, "Copy properties for node: %s", full_name);
-+    nodeoff = get_path_nodeoff(full_name, xen_fdt);
-+    if (nodeoff < 0)
-+        return -FDT_ERR_NOTFOUND;
-+
-+    for (propoff = fdt_first_property_offset(xen_fdt, nodeoff);
-+         propoff >= 0;
-+         propoff = fdt_next_property_offset(xen_fdt, propoff)) {
-+
-+        if (!(prop = fdt_get_property_by_offset(xen_fdt, propoff, NULL)))
-+            return -FDT_ERR_INTERNAL;
-+
-+        nameoff = fdt32_to_cpu(prop->nameoff);
-+
-+        /* Skipping phandle nodes in xen device-tree */
-+        if (strcmp(fdt_string(xen_fdt,nameoff), "phandle") == 0 ||
-+            strcmp(fdt_string(xen_fdt, nameoff), "linux,phandle") == 0)
-+            continue;
-+
-+        r = fdt_property(fdt, fdt_string(xen_fdt, nameoff),
-+                         prop->data, fdt32_to_cpu(prop->len));
-+        if (r) return r;
-+    }
-+
-+    return (propoff != -FDT_ERR_NOTFOUND)? propoff : 0;
-+}
-+
-+static int scmi_dt_scan_node(libxl__gc *gc, void *fdt, void *pfdt,
-+                             void *xen_fdt, int nodeoff)
-+{
-+    int rc;
-+    int node_next;
-+    char full_name[128];
-+    uint32_t phandle;
-+
-+    node_next = fdt_first_subnode(pfdt, nodeoff);
-+    while (node_next > 0)
-+    {
-+        LOG(ERROR,"Processing node %s",
-+                fdt_get_name(pfdt, node_next, NULL));
-+
-+        phandle = fdt_get_phandle(pfdt, node_next);
-+
-+        rc = fdt_get_path(pfdt, node_next, full_name, sizeof(full_name));
-+        if (rc) return rc;
-+
-+        rc = fdt_begin_node(fdt, name_from_path(full_name));
-+        if (rc) return rc;
-+
-+        rc = dt_copy_properties(gc, fdt, xen_fdt, full_name);
-+        if (rc) return rc;
-+
-+        if (phandle) {
-+            rc = fdt_property_cell(fdt, "phandle", phandle);
-+            if (rc) return rc;
-+        }
-+
-+        rc = scmi_dt_scan_node(gc, fdt, pfdt, xen_fdt, node_next);
-+        if (rc) return rc;
-+
-+        rc = fdt_end_node(fdt);
-+        if (rc) return rc;
-+
-+        node_next = fdt_next_subnode(pfdt, node_next);
-+    }
-+
-+    return 0;
-+}
-+
-+static int scmi_hypfs_fdt_check(libxl__gc *gc, void *fdt)
-+{
-+    int r;
-+
-+    if (fdt_magic(fdt) != FDT_MAGIC) {
-+         LOG(ERROR, "FDT is not a valid Flat Device Tree");
-+         return ERROR_FAIL;
-+     }
-+
-+     r = fdt_check_header(fdt);
-+     if (r) {
-+         LOG(ERROR, "Failed to check the FDT (%d)", r);
-+         return ERROR_FAIL;
-+     }
-+
-+     return r;
-+}
-+
-+static int scmi_dt_copy_subnodes(libxl__gc *gc, void *fdt, void *pfdt)
-+{
-+    struct xenhypfs_handle *hdl;
-+    struct xenhypfs_dirent *ent;
-+    void *xen_fdt;
-+    int rc, nodeoff;
-+
-+    hdl = xenhypfs_open(NULL, 0);
-+    if (!hdl)
-+        return -EINVAL;
-+
-+    xen_fdt = xenhypfs_read_raw(hdl, "/devicetree", &ent);
-+    if (!xen_fdt) {
-+        rc = errno;
-+        LOG(ERROR, "Unable to read hypfs entry: %d", rc);
-+        goto out;
-+    }
-+
-+    rc = scmi_hypfs_fdt_check(gc, xen_fdt);
-+    if (rc) {
-+        LOG(ERROR, "Hypfs device tree is invalid");
-+        goto out;
-+    }
-+
-+    nodeoff = get_path_nodeoff("/firmware/scmi", pfdt);
-+    if (nodeoff <= 0) {
-+        rc = -ENODEV;
-+        goto out;
-+    }
-+
-+    rc = scmi_dt_scan_node(gc, fdt, pfdt, xen_fdt, nodeoff);
-+
-+out:
-+    xenhypfs_close(hdl);
-+
-+    return rc;
-+}
-+
-+static int scmi_dt_create_node(libxl__gc *gc, void *fdt, void *pfdt,
-+                               uint32_t func_id)
-+{
-+    int rc = 0;
-+
-+    rc = fdt_begin_node(fdt, "scmi");
-+    if (rc) return rc;
-+
-+    rc = fdt_property_compat(gc, fdt, 1, "arm,scmi-smc");
-+    if (rc) return rc;
-+
-+    rc = fdt_property_cell(fdt, "shmem", GUEST_PHANDLE_SCMI);
-+    if (rc) return rc;
-+
-+    rc = fdt_property_cell(fdt, "#addrets-cells", 1);
-+    if (rc) return rc;
-+
-+    rc = fdt_property_cell(fdt, "#size-cells", 0);
-+    if (rc) return rc;
-+
-+    rc = fdt_property_cell(fdt, "arm,smc-id", func_id);
-+    if (rc) return rc;
-+
-+    rc = scmi_dt_copy_subnodes(gc, fdt, pfdt);
-+    if (rc) return rc;
-+
-+    rc = fdt_end_node(fdt);
-+    if (rc) return rc;
-+
-+    return rc;
-+}
-+
-+static int make_firmware_node(libxl__gc *gc, void *fdt, void *pfdt, int tee,
-+                              int sci, uint32_t func_id)
-+{
-+    int res;
-+
-+    if ((tee == LIBXL_TEE_TYPE_NONE) && (sci == LIBXL_ARM_SCI_TYPE_NONE))
-+        return 0;
-+
-+    res = fdt_begin_node(fdt, "firmware");
-+    if (res) return res;
-+
-+    if (tee == LIBXL_TEE_TYPE_OPTEE) {
-+       res = make_optee_node(gc, fdt);
-+       if (res) return res;
-+    }
-+
-+    if (sci == LIBXL_ARM_SCI_TYPE_SCMI_SMC_MULTIAGENT) {
-+        res = scmi_dt_create_node(gc, fdt, pfdt, func_id);
-+        if (res) return res;
-+    }
-+
-+    res = fdt_end_node(fdt);
-+    if (res) return res;
-+    return 0;
-+}
-+
- /*
-  * The partial device tree is not copied entirely. Only the relevant bits are
-  * copied to the guest device tree:
-@@ -1391,8 +1650,11 @@ next_resize:
-         if (info->arch_arm.vuart == LIBXL_VUART_TYPE_SBSA_UART)
-             FDT( make_vpl011_uart_node(gc, fdt, ainfo, dom) );
- 
--        if (info->tee == LIBXL_TEE_TYPE_OPTEE)
--            FDT( make_optee_node(gc, fdt) );
-+        if (info->arm_sci.type == LIBXL_ARM_SCI_TYPE_SCMI_SMC_MULTIAGENT)
-+            FDT( scmi_dt_make_shmem_node(gc, fdt) );
-+
-+        FDT( make_firmware_node(gc, fdt, pfdt, info->tee, info->arm_sci.type,
-+                state->arm_sci_agent_funcid) );
- 
-         if (d_config->num_pcidevs)
-             FDT( make_vpci_node(gc, fdt, ainfo, dom) );
-@@ -1671,6 +1933,16 @@ int libxl__arch_build_dom_finish(libxl__gc *gc,
- {
-     int rc = 0, ret;
- 
-+    if (info->arm_sci.type == LIBXL_ARM_SCI_TYPE_SCMI_SMC_MULTIAGENT) {
-+        ret = map_sci_page(gc, dom->guest_domid, state->arm_sci_agent_paddr,
-+                           GUEST_SCI_SHMEM_BASE);
-+        if (ret < 0) {
-+            LOG(ERROR, "map_sci_page failed\n");
-+            rc = ERROR_FAIL;
-+            goto out;
-+        }
-+    }
-+
-     if (info->arch_arm.vuart != LIBXL_VUART_TYPE_SBSA_UART) {
-         rc = 0;
-         goto out;
-diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
-index e03599ea99d1..ba26b9784838 100644
---- a/tools/libs/light/libxl_create.c
-+++ b/tools/libs/light/libxl_create.c
-@@ -813,6 +813,18 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
-      */
-     assert(libxl_domid_valid_guest(*domid));
- 
-+    if (d_config->b_info.arm_sci.type == LIBXL_ARM_SCI_TYPE_SCMI_SMC_MULTIAGENT) {
-+        ret = xc_domain_get_sci_info(ctx->xch, *domid, &state->arm_sci_agent_paddr,
-+                &state->arm_sci_agent_funcid);
-+        LOGD(DEBUG, *domid,"sci_agent_paddr = %lx", state->arm_sci_agent_paddr);
-+        if (ret) {
-+            LOGED(ERROR, *domid, "failed to get sci paddr");
-+            rc = ERROR_FAIL;
-+            goto out;
-+        }
-+
-+    }
-+
-     dom_path = libxl__xs_get_dompath(gc, *domid);
-     if (!dom_path) {
-         rc = ERROR_FAIL;
-diff --git a/tools/libs/light/libxl_internal.h b/tools/libs/light/libxl_internal.h
-index cfac8e18b6d3..349c89a938ca 100644
---- a/tools/libs/light/libxl_internal.h
-+++ b/tools/libs/light/libxl_internal.h
-@@ -1405,6 +1405,9 @@ typedef struct {
-      * applicable to the primary domain, not support domains (e.g. stub QEMU). */
-     bool restore;
-     bool soft_reset;
-+
-+    uint64_t arm_sci_agent_paddr;
-+    uint32_t arm_sci_agent_funcid;
- } libxl__domain_build_state;
- 
- _hidden void libxl__domain_build_state_init(libxl__domain_build_state *s);
-diff --git a/xen/arch/arm/domctl.c b/xen/arch/arm/domctl.c
-index 9d047065ba13..3ac77ea4d497 100644
---- a/xen/arch/arm/domctl.c
-+++ b/xen/arch/arm/domctl.c
-@@ -49,6 +49,17 @@ static int handle_vuart_init(struct domain *d,
-     return rc;
- }
- 
-+static int get_sci_info(struct domain *d, struct xen_domctl_sci_info *sci_info)
-+{
-+#ifdef CONFIG_ARM_SCI
-+    sci_info->paddr = d->arch.sci_channel.paddr;
-+    sci_info->func_id = d->arch.sci_channel.guest_func_id;
-+    return 0;
-+#else
-+    return -ENODEV;
-+#endif
-+}
-+
- long arch_do_domctl(struct xen_domctl *domctl, struct domain *d,
-                     XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
- {
-@@ -179,6 +190,17 @@ long arch_do_domctl(struct xen_domctl *domctl, struct domain *d,
-     }
-     case XEN_DOMCTL_dt_overlay:
-         return dt_overlay_domctl(d, &domctl->u.dt_overlay);
-+
-+    case XEN_DOMCTL_get_sci_info:
-+    {
-+        int rc = get_sci_info(d, &domctl->u.sci_info);
-+
-+        if ( !rc )
-+            rc = copy_to_guest(u_domctl, domctl, 1);
-+
-+        return rc;
-+    }
-+
-     default:
-         return subarch_do_domctl(domctl, d, u_domctl);
-     }
-diff --git a/xen/arch/arm/firmware/scmi-smc-multiagent.c b/xen/arch/arm/firmware/scmi-smc-multiagent.c
-index 293fb30fa6c5..c2f43d97d804 100644
---- a/xen/arch/arm/firmware/scmi-smc-multiagent.c
-+++ b/xen/arch/arm/firmware/scmi-smc-multiagent.c
-@@ -560,6 +560,8 @@ static int scmi_domain_init(struct domain *d,
- 
-     d->arch.sci_data = channel;
-     d->arch.sci_enabled = true;
-+    d->arch.sci_channel.paddr = channel->paddr;
-+    d->arch.sci_channel.guest_func_id = channel->func_id;
- 
-     return 0;
- 
-diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
-index fa0898b7cf80..511f4aa8ed8d 100644
---- a/xen/arch/arm/include/asm/domain.h
-+++ b/xen/arch/arm/include/asm/domain.h
-@@ -59,6 +59,11 @@ struct paging_domain {
-     unsigned long p2m_total_pages;
- };
- 
-+struct sci_channel {
-+    uint32_t guest_func_id;
-+    uint64_t paddr;
-+};
-+
- struct arch_domain
- {
- #ifdef CONFIG_ARM_64
-@@ -122,6 +127,7 @@ struct arch_domain
-     bool sci_enabled;
-     /* ARM SCI driver's specific data */
-     void *sci_data;
-+    struct sci_channel sci_channel;
- #endif
- 
- }  __cacheline_aligned;
-diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
-index 30e46de6d7a0..a5b22225bf31 100644
---- a/xen/include/public/arch-arm.h
-+++ b/xen/include/public/arch-arm.h
-@@ -469,6 +469,10 @@ typedef uint64_t xen_callback_t;
- #define GUEST_PL011_BASE    xen_mk_ullong(0x22000000)
- #define GUEST_PL011_SIZE    xen_mk_ullong(0x00001000)
- 
-+/* SCI mediator */
-+#define GUEST_SCI_SHMEM_BASE xen_mk_ullong(0x22001000)
-+#define GUEST_SCI_SHMEM_SIZE xen_mk_ullong(0x01000)
-+
- /* Guest PCI-PCIe memory space where config space and BAR will be available.*/
- #define GUEST_VPCI_ADDR_TYPE_MEM            xen_mk_ullong(0x02000000)
- #define GUEST_VPCI_MEM_ADDR                 xen_mk_ullong(0x23000000)
-diff --git a/xen/include/public/device_tree_defs.h b/xen/include/public/device_tree_defs.h
-index 9e80d0499dc3..b8bdfcdcf0b9 100644
---- a/xen/include/public/device_tree_defs.h
-+++ b/xen/include/public/device_tree_defs.h
-@@ -14,6 +14,7 @@
-  */
- #define GUEST_PHANDLE_GIC (65000)
- #define GUEST_PHANDLE_IOMMU (GUEST_PHANDLE_GIC + 1)
-+#define GUEST_PHANDLE_SCMI (GUEST_PHANDLE_IOMMU + 1)
- 
- #define GUEST_ROOT_ADDRESS_CELLS 2
- #define GUEST_ROOT_SIZE_CELLS 2
-diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-index e2d392d1e5e5..6ef78c241f8c 100644
---- a/xen/include/public/domctl.h
-+++ b/xen/include/public/domctl.h
-@@ -1223,6 +1223,13 @@ struct xen_domctl_vmtrace_op {
- #define XEN_DOMCTL_vmtrace_get_option         5
- #define XEN_DOMCTL_vmtrace_set_option         6
- };
-+
-+/* XEN_DOMCTL_get_sci_info */
-+struct xen_domctl_sci_info {
-+    uint64_t paddr;
-+    uint32_t func_id;
-+};
-+
- typedef struct xen_domctl_vmtrace_op xen_domctl_vmtrace_op_t;
- DEFINE_XEN_GUEST_HANDLE(xen_domctl_vmtrace_op_t);
- 
-@@ -1333,6 +1340,9 @@ struct xen_domctl {
- #define XEN_DOMCTL_dt_overlay                    87
- #define XEN_DOMCTL_gsi_permission                88
- #define XEN_DOMCTL_set_llc_colors                89
-+
-+#define XEN_DOMCTL_get_sci_info                  90
-+
- #define XEN_DOMCTL_gdbsx_guestmemio            1000
- #define XEN_DOMCTL_gdbsx_pausevcpu             1001
- #define XEN_DOMCTL_gdbsx_unpausevcpu           1002
-@@ -1400,6 +1410,7 @@ struct xen_domctl {
-         struct xen_domctl_dt_overlay        dt_overlay;
- #endif
-         struct xen_domctl_set_llc_colors    set_llc_colors;
-+        struct xen_domctl_sci_info          sci_info;
-         uint8_t                             pad[128];
-     } u;
- };
--- 
-2.34.1
-
+--------------RYdN3UR30ULH0tkZuE092G5T--
 
