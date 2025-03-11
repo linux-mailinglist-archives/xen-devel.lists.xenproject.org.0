@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 941D9A5CA3C
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 17:05:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.908627.1315747 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0E40A5CA71
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 17:11:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.908677.1315798 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ts26e-0004Nj-E4; Tue, 11 Mar 2025 16:05:24 +0000
+	id 1ts2CQ-000887-A2; Tue, 11 Mar 2025 16:11:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 908627.1315747; Tue, 11 Mar 2025 16:05:24 +0000
+Received: by outflank-mailman (output) from mailman id 908677.1315798; Tue, 11 Mar 2025 16:11:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ts26e-0004Lr-BU; Tue, 11 Mar 2025 16:05:24 +0000
-Received: by outflank-mailman (input) for mailman id 908627;
- Tue, 11 Mar 2025 16:05:23 +0000
+	id 1ts2CQ-00086G-5K; Tue, 11 Mar 2025 16:11:22 +0000
+Received: by outflank-mailman (input) for mailman id 908677;
+ Tue, 11 Mar 2025 16:11:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JHpu=V6=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1ts26c-0004LY-W7
- for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 16:05:22 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ <SRS0=0SOU=V6=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
+ id 1ts2CO-0007gU-Be
+ for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 16:11:20 +0000
+Received: from DB3PR0202CU003.outbound.protection.outlook.com
+ (mail-northeuropeazlp170110001.outbound.protection.outlook.com
+ [2a01:111:f403:c200::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a2009fd3-fe92-11ef-9898-31a8f345e629;
- Tue, 11 Mar 2025 17:05:21 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-ac2ab99e16eso394393766b.0
- for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 09:05:20 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
- [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac2397358b8sm946097266b.109.2025.03.11.09.05.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Mar 2025 09:05:19 -0700 (PDT)
+ id 753d54e2-fe93-11ef-9898-31a8f345e629;
+ Tue, 11 Mar 2025 17:11:15 +0100 (CET)
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
+ by PAXPR03MB7617.eurprd03.prod.outlook.com (2603:10a6:102:1d8::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.27; Tue, 11 Mar
+ 2025 16:11:13 +0000
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593%4]) with mapi id 15.20.8511.026; Tue, 11 Mar 2025
+ 16:11:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,171 +47,181 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a2009fd3-fe92-11ef-9898-31a8f345e629
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1741709120; x=1742313920; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=UzHd6iMMLXuYYCM1EzL52RSbRwWbnidC35UGy6Zl3PA=;
-        b=O1lDBPoOnrNV39a0ABAq1dNM/HhbBfvA+FbNLqepapspGXThzMtpKC5bX1VwtTnLGA
-         pLLO8H9S5uuExLLTsCjFByLeqmeqO9FZZl2yqZpdaGusN1LCZ44CIGNBdRo+vQYyZfUH
-         OiwPdoKc0OxMty9br001gKqJ0H9egnO3zR5XpLxQKBGzOsWcUJk44+sjUs/uocBL8G8U
-         Ia/RAxbc0bHK92IDtnE2c8CTpzEYJDCi8gbZEJnvEKUn0S0zY6i4hoc1NzaXbntuOQp3
-         U5MPSINHruZ1Z/sb85tEpE/PDHgDHA80SXiWR8c22JHxzm4gwrCcDjJHd/jXaTsE+Fck
-         zOkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741709120; x=1742313920;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=UzHd6iMMLXuYYCM1EzL52RSbRwWbnidC35UGy6Zl3PA=;
-        b=fNWhjB18uhYmd631yoJbyB9AU6TYAz5vO5AkdPbdjVf+bn72+pDfbQJXzmConPcI6w
-         rRbrW9ri+AwgCTtihkmemYW/q8kpTY/tDSjgpDpc/DZ52JtwCpVYSDGe+I+3B+yjTjsB
-         o3FqLQzeLNnzklZmZAcnDWNTqQbKUCwWZ2/QyUw0Dp1n5Hf6ilA5jLO2VjQgQgJIp8Uf
-         Y7hPGQiNsEOx9gbl70vg+Pro6AVd+XRpyDt+BQnxoEhJiw16E0z7JMuJ6X26D/eaRNMm
-         bJez66LUohzGZnNPhbOyFHZFP/Dkvx8vzh7DRgM4rCENz5Tc8KOsHwm+ZcJWGyvRkqkB
-         m88A==
-X-Forwarded-Encrypted: i=1; AJvYcCWTQzsfu08+SCuCR7aJ34VRtHGol+/z2n9MO6/kTOL343Bh+MbKZwi5oZ3qHFCT7Gx8+t7EhgnbCfg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxKMpPJfaeRtnLY7mzfiPqZ3aMhlMGLlOBMSR1leWxVV02fcW20
-	kv/+h7M+qPE5GALZ2I8K6AnQX2v3H9hTCXd9NncEiZiQHDLYzvjD
-X-Gm-Gg: ASbGncsk5wvzUEwo9hGq3sg2scL0uJ8aM+iTMi/EWIrwZQHJWbaixnnzsUn18oOs/wo
-	vm1ICUBcebyF2GC3lDc8NTOs9TBj3/guW86OjjaXZGQAtEZeHMzJDAWPiOa0+It4UJCSB1kXoYG
-	2nSHZxsPvZPJlfYjVz20xbwCKv8wPcpaocIWW2NLeffc61u9XRMPMQwr5jZgWCIWXQwgvGShnoP
-	tcf0GGUKJkcW/3wsJ0GVXhYMVS80m7zNEJuHA/eV2lMC4dI+bb1HrspKoxK87o6qGRGY8awp2f0
-	6FexHwGcU0wsd3so797fvzHo4E/Te0Qq3DCS0/x8rK1p7iQsRvW+qMe518TxR5M27g1gs8CAEcR
-	X5VNyVudPLCIArGgaxxVi
-X-Google-Smtp-Source: AGHT+IHPtH2YCe19JU0eMdlCRjXCcXvn7E3iKMqnC6VjbOd3ze9nqHs2bFU0fKZU3q0Gv+40cxVuZg==
-X-Received: by 2002:a17:906:3a85:b0:ac2:7adb:ee3b with SMTP id a640c23a62f3a-ac27adbf21emr1301703066b.1.1741709119385;
-        Tue, 11 Mar 2025 09:05:19 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------5lscqloy2ZpsvI6lomN0fsQK"
-Message-ID: <5b22cfc5-f796-46bc-8cc4-090ab66d88b5@gmail.com>
-Date: Tue, 11 Mar 2025 17:05:18 +0100
-MIME-Version: 1.0
+X-Inumbo-ID: 753d54e2-fe93-11ef-9898-31a8f345e629
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WgRUhXU2T6P6C6sHx70BBwdjBPUrH+TNAaCM+izVP2wuiL9iw2dXmFKS4waJsubT1yb8XY9GDW3ZVuDjcTm9FGFTBi9fPvlzhznkv8hUX9ttZV1NPDxVGyu3B4qARkCw04XZTxEGUZxAjvts4rzdqZwWYXdnETOewvR/Si2vnMAmJAjIiP1yQFVP+/ZEFJcG8GFYXYD6sDD8eJbWThpRusHwh2xvNo3VJdO276GEAOgS8zLqS/px37ZYxVTuCDEgzt/RrIkn9T6cXDJp/NaO0/Ii/NMC3MrzadSaEIQ/lYmNZKnfYJrBfy78UUOOclb6VxUIPeYJ8ni/TAr2l+j+7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=H/Rpomn/r+Ds019ajq2ernrgn2VW5Z5LjCdgBh5Xzu8=;
+ b=hgSoWxSm5hTRD7MLHSPYH99lRwzIc5ZTqkpJBCMigdGMR+DIbUUAgPdwhjnA3iP+Z3VD+tqCsx6tWA3dnpYqZXJy/g9Lu7Xe4Gxq6izK0hC4f9FrbzTz/lIrjZMBZH7V/KvsRvhA5vS1T21QxkenCqMfpwRL9XRwdhZADv2f9oqZ5vOXsgSrHR4jE06cy737nhNhVSZUnnp7dwKjaowrkGe9kcxD0QWxSZfUy/beodldCZoxiSm28R1ZyOtjejGOQM7upatbh7bXAw824utQXin+sH9UHE4icqU8UpJBQKZ7qcEiVLDeYPlEAmCsw6uSiFHx2Ruvb//GkQq1ta/BTQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=H/Rpomn/r+Ds019ajq2ernrgn2VW5Z5LjCdgBh5Xzu8=;
+ b=hlDmPWlLgEkxWklsGJ9No5pSQKGpiHYmy+3ogUk4ftRfIgxCKTbsXT1eyGT/lExdX8uVA+kmyf2CTXC/Ib4nVLwgj002QRtABytduEUA74Aa4AWInmZ8Gp+uF4KEegkm+/N2IKeO7AE5DDmPRBQrneQkdYCIpZrR85VKB8KEf50VbbZdG0IcOV1reUddj96dSfSf93E/BJVrfNxM4LeAWA3+ldPoQ4AizmlEjMoPPBbHerKYMeIcO6pznoIj3KccNjmLRHDCk/aGKevBWlHABYTGMhWBg4fDJrkMe3F3NTKv2aEU8YNGzr7h7VUFGnGakSA+lxe2WvIYHXXjGvB+mg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+Message-ID: <49e28768-3b9e-42da-922b-64b0bf8dec34@epam.com>
+Date: Tue, 11 Mar 2025 18:11:10 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] xen/riscv: add H extenstion to -march
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Milan Djokic <milandjokic1995@gmail.com>,
- Slavisa Petrovic <Slavisa.Petrovic@rt-rk.com>, xen-devel@lists.xenproject.org
-References: <32ebe4032b7968157d5cadbc2f6aa1d9f2d363c9.1741707803.git.oleksii.kurochko@gmail.com>
- <c55c4f19-21e2-4115-b7f6-ba4752cc2e56@suse.com>
+Subject: Re: [PATCH] xen/iocap.h: add documentation
+To: Jan Beulich <jbeulich@suse.com>,
+ Grygorii Strashko <gragst.linux@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Michal Orzel <michal.orzel@amd.com>, Roger Pau Monne <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+References: <20250224113828.151794-1-grygorii_strashko@epam.com>
+ <83d5d612-2f6a-430a-8aee-4738f43204e0@suse.com>
+ <d7fe19f2-f8ac-497a-833e-44a04e1ca4c7@epam.com>
+ <60eff646-724f-4ff9-9dde-3a7f9a1da66a@suse.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <c55c4f19-21e2-4115-b7f6-ba4752cc2e56@suse.com>
-
-This is a multi-part message in MIME format.
---------------5lscqloy2ZpsvI6lomN0fsQK
+From: Grygorii Strashko <grygorii_strashko@epam.com>
+In-Reply-To: <60eff646-724f-4ff9-9dde-3a7f9a1da66a@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0143.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:98::16) To AS2PR03MB8907.eurprd03.prod.outlook.com
+ (2603:10a6:20b:5e4::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|PAXPR03MB7617:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4b2cd462-3be7-4c65-811f-08dd60b7580e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?Tk5JVHVxeExkTGYwL0oyKzlJa2t4SklVMjFOREFtTjhRbHl3MHZhT05rRkhB?=
+ =?utf-8?B?U1JnQmJpRVl3Ryt1QmRyQmd5TzI1WmJrUGdMMFNtNFVIWC9PeDliVnpGWWQx?=
+ =?utf-8?B?NDUvbzlzRWxSSk9TKzZMemExbTNPc3FYaHgwM1lkMTZrQXU0S2piWFNVMEgx?=
+ =?utf-8?B?ZXk0Q1JKZzdoTStVV3haZWl6UVhma010MCsxOUlHNTJKc2dET2tVYXBoc01S?=
+ =?utf-8?B?dlhOSDlySjRLenkxQityRHQ4WTJjSkp1ZEdQRTVnVlBXWjhJcnptNzFuWnVp?=
+ =?utf-8?B?NEhteTBmd01ZaUhvWmdmc3M3d2lwM0hKR1JXbWZjL3FIYXc4cDlhd1dVNmV4?=
+ =?utf-8?B?WU55THloS05nSmNzNEZZZElLU3BDU1h0UWhjcHovZmFXZHZkTzZYYUd2YlZt?=
+ =?utf-8?B?QmYvQWVFVWdEQ1hvODNZR01nSnkyR1h2V3hUdDlsRkxnamJ1Nk5ZckM2dE5o?=
+ =?utf-8?B?bzh3eXpXWnZsL295aVorRk02UTJ3d2FWMEFuMTFNeUoxczJqVEZXcGdaVWpI?=
+ =?utf-8?B?bW1hZ1Y2SHNIK0QvL2NWNGxtM3ZsRjJ5Y3lpREFMeFQzWWE5Ym1LSDYwSVpv?=
+ =?utf-8?B?NTR3RTlMeUtEMzBzdTJxWUtUT09tMERkUXNKZFRqbE5KTTcwNnpnOGpaWXYv?=
+ =?utf-8?B?QVZ2RVd5WVcyeUNtVnlPWUMvSTZjRUc5UWtlaDQ4bzYvTEtnSnhPNDVGaG5i?=
+ =?utf-8?B?ZWhlNGpmZlhvZDFJRVZvLzBXdFRkQlFsbkRMZkJzVEM3ZW43bElpUVdtUDNO?=
+ =?utf-8?B?aWJranNSazl2ck1QOTl6QTJjS21VMnZ1WkxYV0wzNURTM21Zeit0T0FSRGRR?=
+ =?utf-8?B?Z1ZjV0g0U3JGNlY5SDU5eWQzTEp0NGl0cjFYelVJQU1LZWlCTmxKVytzN3Bz?=
+ =?utf-8?B?MzVlNThWNjZRU0pXQ2R6dUlKZENvRWZla3FKMFpFcnBEbnF3bFNCUUtOOVg1?=
+ =?utf-8?B?TGZQemNBUGlScm9pMmtkMTRLRXhnc2Y2ZVhiaEhSKzNaY0VYbmttNjFEYkhO?=
+ =?utf-8?B?NmYzbktEdHlHZmg3YzMrUk1FWFhoS0JzaTdpUW04b01NNXdMNFRwdDR0NGxF?=
+ =?utf-8?B?NkdOc3dxNFo1aVFVKy9lbjhkcXdhRzZTUnV4ckQ2aklNNzdKNjJZSkpoaDVO?=
+ =?utf-8?B?enpVTEc3VHE3NHV1TVNaRFJYNForemxUQmtma2haNDQxNURpZ1F3NUw0aXVm?=
+ =?utf-8?B?ZFlzdVpZd0pUdk50NFVYaWxWT3J5a004MC9mTzk3WEdUUSttcFlzQldJbXl2?=
+ =?utf-8?B?cklBUEhjcXQ3bnNvMjQ4ZTc5aC90aEd1ZkpLbVo0NFlvMW1VcDIrTUhUVFIy?=
+ =?utf-8?B?MXJhaHFPakEyUkRiRUY0YnBtbk1UVWs1clJsSTZJb1dXQkVja01jMDArNTdJ?=
+ =?utf-8?B?ZTNTWTdlZE4xSU5lT3dOWFJITHBpampkdWZxWndiT3ZnNDgzRkhDaHlRRkVD?=
+ =?utf-8?B?d1h1Z1NYQktrNW5WNUltWnRxREluTjZzOWlwT2djbG5VQU1YeFpCRHdqbFJJ?=
+ =?utf-8?B?UWNHU2lTakpvbmFpL0hMTWt4TDFibXBKYWYxU0grZUZUbUtjNEM2Yldsalk2?=
+ =?utf-8?B?UGo3UWNhN2ZSdmZGekNIUms5YWpKRk9yYjY2K0daOXo2QkR3Sy90OWRhd1B0?=
+ =?utf-8?B?WHVQVDhyVDVydG1nR3JZNm5HREt2R25YUkI2bzYySjRVcnhTR2hTcFFtU2l0?=
+ =?utf-8?B?TGFxZmovbnJ4bEJJdDNPZWNmZEhQMkJvVHozVm92MzNsRUJyOTk2TVF2RVgy?=
+ =?utf-8?B?Tnc2T3hXdmhNM0xwVzNjOXQrbUs0Tk9qaFQ0Siszb201MmN6NU96WU5FUk5l?=
+ =?utf-8?B?ZVFkQmtmeENMQVF3Zk9ZVlNacFBqWFQ2YnNoeTNKazVJRWJwd1FWMkhweXNO?=
+ =?utf-8?Q?KssihsJhtf4+u?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?YkQ5RHNLUE9oTWU2Y2NnWGpVWDJ5UGVSN2N0djEzWnRkdkh5cWxDNmQ2VHlp?=
+ =?utf-8?B?cm8wSUE0Mit1N01YRldUOUN4ZlIwKzhLK3VRZnNGbHdQWDRWcTg3UzdxQkZj?=
+ =?utf-8?B?MW9aOC9nWm8vN1FFVWRjYjVPUHNaNEt1SzVzbllWcmZhV1gxcUlOejhJcVVO?=
+ =?utf-8?B?cnh3OTRndGhPbmdCMmdkRGdNKzBobXhoQVdQYzZQNldMM0RxUlBKTDNyaDJE?=
+ =?utf-8?B?RzBWODVZTGRlUTZIeTMwTXJJUEdpSmE2YWxxNDE1MzIzQVJxVExDb3o1MTNw?=
+ =?utf-8?B?MUUzOWNacnNSWWlJTHVDWDZFZHZ6UjhIRGFOVlNFdDk0RVBBazJ6eU1JNmpW?=
+ =?utf-8?B?T0pMQmVlRXlPVlM5TGNYaHB4Nklrb3diNmtTaTVHazEwc2pSV3dmN05iMCtG?=
+ =?utf-8?B?VnpRY25qcU9OaEt1cWlwRGRvUUJXc2ZTQ0ZEejUyMkdoUlk3dHd3K1hRS3Rk?=
+ =?utf-8?B?dzJicldJS1YvWjNNakJpanNzNnpOU0pFdm1JcDdLSFB2L2ZoVTZ6dVpianlr?=
+ =?utf-8?B?OWNFUUtsVHROMTBUN3IySU1TV2hPVUxDRGZ1c00zMldNRUpwQW40SWhtUVR5?=
+ =?utf-8?B?OWFsMEE4UHNUNzdBQVV2MUtiZDV6WU5URFc1eTg0cFZISVZHd1B0N25RNmxF?=
+ =?utf-8?B?T3dhU1NuZUxtNThsb0JDMmZDY2tXSytNUktzSjAxdTlYMHh5akIxVEI5cGhT?=
+ =?utf-8?B?bHgvZS8rUldiYkoxcUlvVmR2UWt4ZWJIbkFZRi9jRDhVQUFnZHlHeGwyTVRK?=
+ =?utf-8?B?TUVMTkRZSm5MQ3M0WVRKeGIwU0krRXNZdEZjamdFQzMyMFFQVXA5UWN4eGNu?=
+ =?utf-8?B?QmNMcnhrcFphZG9TOVU3aTY0MVgzQyt4U3BVRFZYcUl1RFJmcTJqcXFBeGNT?=
+ =?utf-8?B?QS82dmMwcWhBME5JQjFHWG10aUZRbUtpNXo4c1AydVN2dm5HekczbUsxN3Nr?=
+ =?utf-8?B?bnNobXRyUXBqdG1IMHdoY3E0aEtkUENOQ1E4cHF1OGI2aWpWdStFaW1lWTN1?=
+ =?utf-8?B?TjZzcXJDckFzNU9ZVU1ONmtHZnlXdlU4S2RWcmNpSWI2bG9CZjlwS0I3T3U4?=
+ =?utf-8?B?eXQ2dlpCYUQrSTlGWHdCZ3hCM0Q0Q1kwaEJtR1BENWdYOHpFQXpRa3FLZ3hO?=
+ =?utf-8?B?amwrMCtvMDBBeFJldExnSDFrcG91ME5GRDBmSGg1YUhmOEV2KzRRNkNUVStO?=
+ =?utf-8?B?VTJHcW1IRG1CcnFvQjNoTzlLWjZ0Mjc0UTlHR3N3ZXBjOWt1QksxREllTXFz?=
+ =?utf-8?B?TXJIcmtVZWNrbjZxTFMrVXlISlRxUVlrck1Va1I5WnREeHRKNit5QlBFMEJj?=
+ =?utf-8?B?WTRxU1ZHNWJ4ek1pVEdWVk1vcUxnSFplc0l3eVVyMW5PeVE4cEZrbnFjUEpl?=
+ =?utf-8?B?alZIWDRKRUJmN1RId3BocG95OVZVbUIydm1EbVNlNU9EMUJ1V3kxY2w0TEhJ?=
+ =?utf-8?B?TkVaZHVyNXlwcmt3QlUxaG1UY1Z3R1hLMnYwWmNwc1BVRXVvUGtrVytqZnJP?=
+ =?utf-8?B?Y3grUktTWkJmSFV4WmxTTWlJL3lzWjR6QWxqck9RL1Uxa3F6TmppOVh1V1dj?=
+ =?utf-8?B?L1dUTUZSaEx6Tk5uQldvakdpWFd6OGJ6ODJJWmpETGhaeW5Xa3R6aW50TVMr?=
+ =?utf-8?B?OXU4L0EvZmFuZFg3bGxlV1FmYk52My93NXJBelJsQ2ZBOFQ0UjRIWElOWGx5?=
+ =?utf-8?B?aFhNengxakw0aFhtQVcwL25lTjJxeStIOWRmRWJDQ291NzJOQkxTV2NrbmFs?=
+ =?utf-8?B?OVd2WitsVXNreldwekhqWWdTQ1F3RHEwVnl2eGhiTmZ5TmJTMHRkRW9PNnhM?=
+ =?utf-8?B?Q2Nod1RYUEI2OTBMam1ESEpKMW96ckYxUkNEWkJQMEM2Y3YwbEJ2NTR4cE5m?=
+ =?utf-8?B?TFRZQWo4RUpwUWdQOUdmSkk1RzlPbEJGamtURUpWYUdRNXBsdVVCVUFOMWtD?=
+ =?utf-8?B?bVdYYnN2QTFWNFZtZUFaWk9OSExUdUpMS3p4V0lyUFZTdWhZSERuY1FkNW5y?=
+ =?utf-8?B?M2EveHVoZ0hmSGkyc2o2Q3NZYUd2WFNyVW5vdXVuclRzTW1GTlE5dXRkR3FK?=
+ =?utf-8?B?aHpOM0NvR3NEay9FSWx6MWNydGtQbU82Q2pIY2FMcm5GbzJycVdJSlRqUlRw?=
+ =?utf-8?B?Y1d0c3RpQzhuQk1UUXMwVFhpUmNQWkJkbHdWT1lqdjRKSzV6WjlsQzJPQmcw?=
+ =?utf-8?B?dWc9PQ==?=
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4b2cd462-3be7-4c65-811f-08dd60b7580e
+X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2025 16:11:13.0544
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NRZYGf0LsHHQF3cfaASUZ8Vvwg+qQMzqF1Dlxn+p4pARR8Eu6O88khQcBxsd8VWYS8XKDumN7c1aYKe7DdLO0i52/5Gh/9XiDwjmnoWQU3Q=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR03MB7617
 
 
-On 3/11/25 4:48 PM, Jan Beulich wrote:
-> On 11.03.2025 16:45, Oleksii Kurochko wrote:
->> --- a/xen/arch/riscv/arch.mk
->> +++ b/xen/arch/riscv/arch.mk
->> @@ -9,7 +9,8 @@ riscv-abi-$(CONFIG_RISCV_64) := -mabi=lp64
->>   riscv-march-$(CONFIG_RISCV_64) := rv64
->>   riscv-march-y += ima
->>   riscv-march-$(CONFIG_RISCV_ISA_C) += c
->> -riscv-march-y += _zicsr_zifencei_zbb
->> +h-extension-name := $(call cc-ifversion,-lt,1301, hh, h)
-> Instead of a version check, did you consider probing the compiler? With the
-> hard-coded version, how are things going to work with Clang?
+Hi Jan,
 
-Initially, it was implemented using:
+On 11.03.25 17:35, Jan Beulich wrote:
+> On 11.03.2025 15:53, Grygorii Strashko wrote:
+>> On 05.03.25 12:37, Jan Beulich wrote:
+>>> On 24.02.2025 12:38, Grygorii Strashko wrote:
+>>>> Change rangeset parameters to "start, last" as proposed in [1],
+>>>> and add documentation for public interface.
+>>>>
+>>>> No functional changes.
+>>>>
+>>>> [1] https://patchwork.kernel.org/comment/26251962/
+>>>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+>>>
+>>> To be honest, this is getting too verbose for my taste. I also don't think
+>>> title and description fit together: One says the main thing the patch does
+>>> is add doc, the other says the main thing is the parameter renaming. When
+>>> then there's at least one further parameter which is also renamed, despite
+>>> not fitting the description.
+>>
+>> I can update subject and commit message and resend.
+> 
+> This would address the latter part of my comment, but ...
+> 
+>> Or you want me to drop some parts?
+> 
+> ... only this would address the former part.
 
-+$(h-extension-name)-insn := "hfence.gvma"
-+$(call check-extension,$(h-extension-name))
+I'm very sorry, but I feel very much confused about your above comment :(
 
-with
+So I'd be appreciated if You can provide some clarification here.
 
-+h-extension-name := $(call cc-ifversion,-lt,1301, hh, h)
+1) you do not want API documentation at all?
+2) you want API documentation, but only for some API?
+3) you are not satisfied with documentation style?
 
-But it seems that we still need this hard-coded version for h-extension-name
-because of this behavior that h extensions should be longer then single letter
-for some compilers.
+In case 3, how do you want it to be look like? Could you point on any .h or function in Xen,
+to inherit the doc style?
 
-Probably, we could consider option to check "hfence.gvma" twice:
-h-insn := "hfence.gvma"
-$(call check-extension,h)
+Here I've followed doxygen style (like in xen/include/xen/vmap.h for example)
+Before proceeding I've checked CODING_STYLE and other headers as well and saw that
+there is no generic style for code documentation.
 
-hh-insn := "hfence.gvma"
-$(call check-extension,hh)
-
-And filter-out/skip the second check-extension if the previous one check succeeded.
-But it looks a weird.
-
-~ Oleksii
-
-
-
---------------5lscqloy2ZpsvI6lomN0fsQK
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 3/11/25 4:48 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:c55c4f19-21e2-4115-b7f6-ba4752cc2e56@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 11.03.2025 16:45, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/arch.mk
-+++ b/xen/arch/riscv/arch.mk
-@@ -9,7 +9,8 @@ riscv-abi-$(CONFIG_RISCV_64) := -mabi=lp64
- riscv-march-$(CONFIG_RISCV_64) := rv64
- riscv-march-y += ima
- riscv-march-$(CONFIG_RISCV_ISA_C) += c
--riscv-march-y += _zicsr_zifencei_zbb
-+h-extension-name := $(call cc-ifversion,-lt,1301, hh, h)
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Instead of a version check, did you consider probing the compiler? With the
-hard-coded version, how are things going to work with Clang?</pre>
-    </blockquote>
-    <pre>Initially, it was implemented using:</pre>
-    <pre>+$(h-extension-name)-insn := "hfence.gvma"
-+$(call check-extension,$(h-extension-name))</pre>
-    <pre>with</pre>
-    <pre>+h-extension-name := $(call cc-ifversion,-lt,1301, hh, h)</pre>
-    <pre>But it seems that we still need this hard-coded version for h-extension-name
-because of this behavior that h extensions should be longer then single letter
-for some compilers.
-
-Probably, we could consider option to check "hfence.gvma" twice:
-h-insn := "hfence.gvma"
-$(call check-extension,h)
-
-hh-insn := "hfence.gvma"
-$(call check-extension,hh)
-
-And filter-out/skip the second check-extension if the previous one check succeeded.
-But it looks a weird.
-
-~ Oleksii
-
-
-
-</pre>
-  </body>
-</html>
-
---------------5lscqloy2ZpsvI6lomN0fsQK--
+Best regards,
+-grygorii
 
