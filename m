@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4213CA5D01C
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 20:58:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.908969.1316030 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65AE1A5D01E
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 20:58:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.908971.1316040 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ts5k7-0007Yh-2j; Tue, 11 Mar 2025 19:58:23 +0000
+	id 1ts5k8-0007pu-Ab; Tue, 11 Mar 2025 19:58:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 908969.1316030; Tue, 11 Mar 2025 19:58:23 +0000
+Received: by outflank-mailman (output) from mailman id 908971.1316040; Tue, 11 Mar 2025 19:58:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ts5k6-0007Wh-Uz; Tue, 11 Mar 2025 19:58:22 +0000
-Received: by outflank-mailman (input) for mailman id 908969;
- Tue, 11 Mar 2025 19:58:21 +0000
+	id 1ts5k8-0007nV-76; Tue, 11 Mar 2025 19:58:24 +0000
+Received: by outflank-mailman (input) for mailman id 908971;
+ Tue, 11 Mar 2025 19:58:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=EQfW=V6=linaro.org=pierrick.bouvier@srs-se1.protection.inumbo.net>)
- id 1ts5k5-0007Uu-TP
- for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 19:58:21 +0000
-Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
- [2607:f8b0:4864:20::62d])
+ id 1ts5k6-0007Uu-Lz
+ for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 19:58:22 +0000
+Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com
+ [2607:f8b0:4864:20::62b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2dc86ca4-feb3-11ef-9898-31a8f345e629;
- Tue, 11 Mar 2025 20:58:20 +0100 (CET)
-Received: by mail-pl1-x62d.google.com with SMTP id
- d9443c01a7336-22113560c57so111409135ad.2
- for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 12:58:20 -0700 (PDT)
+ id 2e77400b-feb3-11ef-9898-31a8f345e629;
+ Tue, 11 Mar 2025 20:58:21 +0100 (CET)
+Received: by mail-pl1-x62b.google.com with SMTP id
+ d9443c01a7336-225477548e1so64746335ad.0
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 12:58:21 -0700 (PDT)
 Received: from pc.. ([38.39.164.180]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-736a6e5c13asm9646981b3a.157.2025.03.11.12.58.17
+ d2e1a72fcca58-736a6e5c13asm9646981b3a.157.2025.03.11.12.58.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Mar 2025 12:58:18 -0700 (PDT)
+ Tue, 11 Mar 2025 12:58:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,42 +44,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2dc86ca4-feb3-11ef-9898-31a8f345e629
+X-Inumbo-ID: 2e77400b-feb3-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1741723099; x=1742327899; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1741723100; x=1742327900; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bYYGOsy+zcSjxVOnigwMonGaAhWbZB7W76ZyOX5Jlgc=;
-        b=MrBjC14IbrRjXfyDaHlpQgUSOS+1ZWWkDsY7WQ6vPwqn6+/gZMK/fIaIBHu1LmOrz6
-         vHd9uH33Jwrr+Q/d0AEQzRplk1PVAt7Da/M0OLeDMSMPb7lHtRA36uRL0dXYN/UsitJH
-         nP0cDqp0w095eM+PB18C17FeQ+iFk2PuoV8S+sF//QqB+ewVp/dtfkTgrBM1aWBJ/5ti
-         CEupD/zVfymVMx64xXrd778/XklLbUpwRMv0MwfVmcElIeolgOLUaZOE0CeYgrNDmPW/
-         Cet3J5CWdgQjGU7XGMO4G5NZH6qPIkFv8UjNbbM5VCTExriLsfbmQFtVTAbUJ2/SGKwi
-         OEOQ==
+        bh=Rp8GQC6vA5rTxSSazblnkjuLZPjrJAYUOFg9uGM493s=;
+        b=rqT+31mIV+vPr03qoENe6CuMOe8gLU4c+/GqGRI21EM+dS3Ec2fPRdbewPKTUSbooW
+         vRycV7B6RVOK1vhZOIXBYxWOP7VQ/EXiTO/D29r3I6EmdnNWcOutxwiBGM8vMiYXePGQ
+         9vghG81+GFDPEdj3z0WVnSmOfuqcysl4xJsE8N0eqOJn584n5DIwfc+Z5hBSG90OBQY+
+         zOai0wydV9wQOFixpCT1IFZrKwkO5b8TgExMwkS1LiOcKish8VTxYsHezoZs4yScwP1t
+         D6ahQSVvrawIsZpWSYB5XB1YSLx/nHvZG83PYP/l2YfQo63W9CdbcbxyTYYMbsMePt2k
+         JLhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741723099; x=1742327899;
+        d=1e100.net; s=20230601; t=1741723100; x=1742327900;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=bYYGOsy+zcSjxVOnigwMonGaAhWbZB7W76ZyOX5Jlgc=;
-        b=b1oHNBINq7L7tPiDM3hJ2KL2hQZlvLdj9jagya42GsF0K0NjCPFpmAuoAiYHT8GcLI
-         8rh7011KtpYOWe3J2qaCHZWB86Q4OKitNOWQCICESabJ5esQ5gq7n1sYWipXsuQYTkYy
-         1iIcw7qKgAsVzqg7jR+Wt3bjmAK9lwX27JMdWCHkRKFynB9Nqh5mSjSqMGaOpxBbXhIl
-         OMpw1qKhj7BzTTvbKgxfMclJsOzsw7FiGsSE6P3qDnJ883TA7O+zDFhWQZr3AAWX/chr
-         Dhb+heVCK7Xa9XuEWIutexZOIJV8sODTfNPp1NQQOu4xmhxNBhPj3qI6IpKlj1E6ZDNv
-         l4eA==
-X-Forwarded-Encrypted: i=1; AJvYcCX5DjEuMjzFPfP4hrLcDuUI9mR+xsqXlypF5+Tb3CrYMDbVsU8uF+VwY8LwqTnE+fsVoCXVcVXSYTI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzvFvWGh8JQStmYJLeC+d5/oLGj9OCYOmU3WKa5Z0O0ObhD2w0z
-	0E13fp6ECZxxTfkUCL2KIb2mwtCLG6qz/lt417V85DW7A4PNCDFHG+WX8SXapcM=
-X-Gm-Gg: ASbGncs7GWmpLf/nfnKBH1lBGogYqKs+BzgNyeY2e1r07Jxmy944TmsS7bslN6m/Dph
-	SOAuvADDReWpyFPUoQP8ld25d/TBOTZRHjO4aR1ZQ6CKSDKB43lYjzJnHbGCM99WqUqLzpvJOr4
-	TJb+UqDnLPqqYT4HywVQTvEROWSe9lFwC+JMFEH94/mb9H+hMVjm9kHruA3jRguYx+ywgijozoU
-	PfeFPsd+0DMB53AmqE8lYSIQWvp8zvNZgQX1xxwdd6x6v0v058T2UvVXWCRyp3/kl4+BdKfTjQ2
-	yQkcacZovQ/TE6CreZzedRKCt6o1aOHCQvPfLt2DqFpCHizizH6t41o=
-X-Google-Smtp-Source: AGHT+IFbL/EikEqHmQH7/+hOB9jflYFjv2fXkewmYVpLTsSrUYTiBJ9zTgGhdqBywi26rV+yUM0nVQ==
-X-Received: by 2002:a05:6a00:1708:b0:736:43d6:f008 with SMTP id d2e1a72fcca58-736aa9f0b0cmr27815913b3a.12.1741723098739;
-        Tue, 11 Mar 2025 12:58:18 -0700 (PDT)
+        bh=Rp8GQC6vA5rTxSSazblnkjuLZPjrJAYUOFg9uGM493s=;
+        b=KmKL3GHvEJVVWSxx0rebhShS0w4wSZYif8BdGLBtPqGZfb1ZuZE7v3nV1P2lM4+L8p
+         JXXJTmL9slwSQA8P45IMHfL3ankA9eH4zGRRj2JJq64MYOxFCkvk/1chRSfP32DRVuJi
+         PqIz69/lc42InhMWlXRW5LeE0MTbaJxnManjR2yKM/QxVp2Pq4Fb4T5GqMZaggJzS/Hc
+         HUk/FOPer+iIM1bXAyM4WUfXSfxtd7ImJDW+gCaSR3G/pRi9+MEymNKDd10XWPM2jbaW
+         zu2qwq66Y34V6EQP+3PUx5ufkVuYCzmJ/YXS5Hx772AlMG4SZtrx72lQMjFPlACnJNqI
+         gLsA==
+X-Forwarded-Encrypted: i=1; AJvYcCXSfT5w2shCNE3K5hy8w3GmPAvTxV9Xv0tuxaE+2vlpbF4D+w19OSeu2CRNwpTGFi0bR7/Ey52kDF0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyBNXckCef3yO31LOZ8Xv07QjQwfgBIsxruZId3HbwrHmiraI9L
+	oqZ9hCLIcbXQXmw2B0SHu3gKjCwZCAVF+ZRLLbb3Pv68+/YQEV6FSDDzlWcelfs=
+X-Gm-Gg: ASbGncvaSgxx/ufFinL8bbPYzy3QWL09aX5R00c4FeC+QieOdCo5XT+RnHvlihrAhiL
+	nNEnXbSMWSuLr+eDrW2QubNj38j0AV4ZU/DdH0IcnueotVEcH/d+pw5RV6wyd+pnm6cbLM4GxgV
+	EcE8OntkWQvvwboS/pcN9icTNEVC0GLgRvRjFu/Czl49bYbpC6zVhQjz4ZxU7NLWqYh9wn+qpVT
+	xDx+9gbYTYG1BLQoIhCNQE3qSLeaDkrMRudKxpgIyEf9hhVkMo8y2e3MOO3oD8iXQNK694C2uzT
+	opfF8lmE4S7198FSvarzScjLxpYs+QFhIZYfScyphnKffsPW2/TlqMw=
+X-Google-Smtp-Source: AGHT+IEBCxz8tAPvpmfBsP3Ukq6OIHQbs/5ODtSLSGAs7fop1NjSulQH4pEJZaQn/aXi1ghSaJLALA==
+X-Received: by 2002:a17:902:cccd:b0:224:256e:5e4e with SMTP id d9443c01a7336-2242889d3a7mr298318035ad.16.1741723099862;
+        Tue, 11 Mar 2025 12:58:19 -0700 (PDT)
 From: Pierrick Bouvier <pierrick.bouvier@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: David Hildenbrand <david@redhat.com>,
@@ -106,35 +106,36 @@ Cc: David Hildenbrand <david@redhat.com>,
 	qemu-riscv@nongnu.org,
 	qemu-ppc@nongnu.org,
 	Pierrick Bouvier <pierrick.bouvier@linaro.org>
-Subject: [PATCH v3 07/17] exec/exec-all: remove dependency on cpu.h
-Date: Tue, 11 Mar 2025 12:57:53 -0700
-Message-Id: <20250311195803.4115788-8-pierrick.bouvier@linaro.org>
+Subject: [PATCH v3 08/17] exec/memory-internal: remove dependency on cpu.h
+Date: Tue, 11 Mar 2025 12:57:54 -0700
+Message-Id: <20250311195803.4115788-9-pierrick.bouvier@linaro.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250311195803.4115788-1-pierrick.bouvier@linaro.org>
 References: <20250311195803.4115788-1-pierrick.bouvier@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Previous commit changed files relying transitively on it.
+Needed so compilation units including it can be common.
 
 Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
 Signed-off-by: Pierrick Bouvier <pierrick.bouvier@linaro.org>
 ---
- include/exec/exec-all.h | 1 -
- 1 file changed, 1 deletion(-)
+ include/exec/memory-internal.h | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/include/exec/exec-all.h b/include/exec/exec-all.h
-index dd5c40f2233..19b0eda44a7 100644
---- a/include/exec/exec-all.h
-+++ b/include/exec/exec-all.h
-@@ -20,7 +20,6 @@
- #ifndef EXEC_ALL_H
- #define EXEC_ALL_H
+diff --git a/include/exec/memory-internal.h b/include/exec/memory-internal.h
+index 100c1237ac2..b729f3b25ad 100644
+--- a/include/exec/memory-internal.h
++++ b/include/exec/memory-internal.h
+@@ -20,8 +20,6 @@
+ #ifndef MEMORY_INTERNAL_H
+ #define MEMORY_INTERNAL_H
  
 -#include "cpu.h"
- #if defined(CONFIG_USER_ONLY)
- #include "exec/cpu_ldst.h"
- #endif
+-
+ #ifndef CONFIG_USER_ONLY
+ static inline AddressSpaceDispatch *flatview_to_dispatch(FlatView *fv)
+ {
 -- 
 2.39.5
 
