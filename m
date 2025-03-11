@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BBC7A5C883
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 16:45:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.908382.1315508 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC2C6A5C891
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 16:45:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.908393.1315519 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ts1n1-0000GF-Sp; Tue, 11 Mar 2025 15:45:07 +0000
+	id 1ts1ni-0000uA-8l; Tue, 11 Mar 2025 15:45:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 908382.1315508; Tue, 11 Mar 2025 15:45:07 +0000
+Received: by outflank-mailman (output) from mailman id 908393.1315519; Tue, 11 Mar 2025 15:45:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ts1n1-0000E2-PX; Tue, 11 Mar 2025 15:45:07 +0000
-Received: by outflank-mailman (input) for mailman id 908382;
- Tue, 11 Mar 2025 15:45:06 +0000
+	id 1ts1ni-0000rg-4w; Tue, 11 Mar 2025 15:45:50 +0000
+Received: by outflank-mailman (input) for mailman id 908393;
+ Tue, 11 Mar 2025 15:45:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=EmiY=V6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ts1n0-0000Dw-U0
- for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 15:45:06 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=JHpu=V6=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1ts1ng-0000Dw-RN
+ for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 15:45:48 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cdd5ab2b-fe8f-11ef-9ab9-95dc52dad729;
- Tue, 11 Mar 2025 16:45:06 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-43cfb6e9031so26325105e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 08:45:06 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43cea8076fcsm117908575e9.15.2025.03.11.08.45.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Mar 2025 08:45:05 -0700 (PDT)
+ id e2395b40-fe8f-11ef-9ab9-95dc52dad729;
+ Tue, 11 Mar 2025 16:45:40 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-ac2c663a3daso142273166b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 08:45:40 -0700 (PDT)
+Received: from fedora.. (user-109-243-64-225.play-internet.pl.
+ [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ac239485d55sm946785066b.67.2025.03.11.08.45.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Mar 2025 08:45:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,128 +45,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cdd5ab2b-fe8f-11ef-9ab9-95dc52dad729
+X-Inumbo-ID: e2395b40-fe8f-11ef-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741707905; x=1742312705; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zdHLJPJl7l7uqIh9CSFve3F+wK9rtDug0M8CSSvpwP0=;
-        b=Z9nIYCbWzGrqaZQWuOMo4MFUv/3cPn4gbE4/YXKiLnxpDJT9PtTxq51uqRUsx2ciE3
-         ptIIdRFTlvvtdMn89Y8mfFrSwUEBpRG4zoL138aa8wwq6IGGMDJILY65ZDtTiLv8zxao
-         lNZoPC+NkdrAXI1EW7j2ymO+ZhEqqa+u1phGQooHZIy0aAQr6pYUnHFVgveiTJiAuQnM
-         33KxpgpzrMGffxH+yrd6YmeL2NfNbvF477iDZcKikdezNGk3gUgYVe/T5OuG24JysHqF
-         M0Pl9m+FUlcqOOYBUvvUw5ucYgGhSJzg3nzG5mdIPsGcB44hfosy54+PH/UlYjC4mI+u
-         eKgg==
+        d=gmail.com; s=20230601; t=1741707939; x=1742312739; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=mIJbgt7IrUs9KjyNsFbMDWvna1vjE52x/ZJvHbiTdeI=;
+        b=Xo1qu6NhQjwzOsbCIhXn6bdHoUTsEz/XZWWoTMXdZsuqN/ghy+tddja2TDo1PKbAhF
+         zEyBn+pr2FqQELqkwzFUgotWLsU1ar8Q6jsa5zFBzxytbBH6hTuIiPG9VqE2ZXjKrTSC
+         NGvVDaIrlakhp14N/D73QRsWswTk3z6WSddwcqlkFuibTCxmt6mai+ZqqTiWI5yaysuw
+         qaDPSw0KSbwKH5q57pw+kumEv6FrZYtT5ua6bedWhBWsCxfX2yy3AelQzSYO/iMiaIOB
+         IiOW6L76qUhQgOXcT+VxmKRJxVUarQ0Xj6X1PXGttXHBZxWcEDkxC1dCnF/GqAhuhK0P
+         P+uA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741707905; x=1742312705;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=zdHLJPJl7l7uqIh9CSFve3F+wK9rtDug0M8CSSvpwP0=;
-        b=dB8yqV74/cdrA3LvbHX9z/7qGC5SashxV6M8IwoJ0mUuQAtsfQa71I0Ec1YfQ5asZ9
-         UQLmAPIYFO8837YQaU7788X+IGsia7ZM2JSgPHrSCjaE8s+XU3ivD0LyT6C85H+LiDf8
-         so1pqwzRUsn2uRpz6fNBTjEPZNPlvDbUit+nNKUJR8UrNsjBbB00kltzOwgZ21RvgNzW
-         O9oqqZ4ubJDjbGj6iETuiboAIGlaeP3tQXnMxmmrYjdznUIW766855Lt2VpD54VLPSgO
-         71musL/z5mNhbHXURms+0yL7R5ErLGec+CoMO3sr9RDmKC6TmjUtdvpy9sl9I3XRoUkj
-         cVTw==
-X-Gm-Message-State: AOJu0YyAxpkvYgvDmqb+mhfoggwUaKUgps8fsIMHsgFS/DowDFr+zLYz
-	5WvkfmXpcm8yTCUO1p+VMJ8ZE0Q3ciq4BgE43mb96dyJ9H3xwXxozvliR89WWQ==
-X-Gm-Gg: ASbGncuDMrFpbRCm4JIrFxn6BKL+PD3PREuWK60o6YdHJrHGmYeX9AhisOcLqLY5rPa
-	ZJy0Y1IbvabUXmdmw/ITifPCPWPinPGhQtPwiJ9GlJ8xY3vOFYcEEqDnOmC3WqUBZjmLnJF9MfV
-	RPov4ZtoJCJFnU3u380V8yps4rlLFSBMHaCTKX9/60PVOjZRG93iEXJCpo98FI74SV+DWKVrDDj
-	h5s6BRDB+4yqAA5bV+vr15Ylz6hBrjqBSgzmFAJvCz6NkpN2MZn+69ArFyLNF5N8HPCm4p6QLB+
-	+08UJHAb/pRznTuvhY2eQrZvLXbRXfXvUKoeFD3tDrDJ6WjOVf6OHfZKTFd7dUt8D8aMAW/SR5C
-	04vRJo+H+vh+xQZR5GU1cDOv1YXCpvw==
-X-Google-Smtp-Source: AGHT+IGscGJVDGiTKJrBIqCxQB2waYCffCOpXuB9USiwiJlKiASVvQKtk6aDDnvijT2bwhKFWnVXbA==
-X-Received: by 2002:a05:600c:1e8c:b0:43c:fc0c:7f33 with SMTP id 5b1f17b1804b1-43cfc0c92bcmr98991515e9.2.1741707905403;
-        Tue, 11 Mar 2025 08:45:05 -0700 (PDT)
-Message-ID: <de418de2-b059-4f1e-92b0-42a236208b14@suse.com>
-Date: Tue, 11 Mar 2025 16:45:04 +0100
+        d=1e100.net; s=20230601; t=1741707939; x=1742312739;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=mIJbgt7IrUs9KjyNsFbMDWvna1vjE52x/ZJvHbiTdeI=;
+        b=rXRBej5ePoNSOswJ28HqwVWi28GoBIC/k9x2SZ6yuCBLScVYPK2p11lWZJUZIGH5Bn
+         E/jsaWXeahPRKc33q0ptrpqmIgoFdA3MX0SikLxfRgavLR7Xu8M6xTdit6soqLT5kj+y
+         Zc9Ov9ex0jYt61bTwEqb7fi3M6G4sf4tj8Sy8B1IXZWu0558/g7NrIStaab+w2q/diqE
+         eGE+wGDrMWuvcbfNcbuHyT4SdYylo7Q+CAD/Lj+UMPVHxrAMzKrWRKszP6FrazHhK19K
+         JasgYCej+vx8AGUW8TtvaWBGbEBPpO4ElOCK3QT+uNiS6TX1Ngsh5oflZR9shcXcQjhZ
+         5gYg==
+X-Gm-Message-State: AOJu0Yw41W2CgUKaO9W3noKHoMdsPAFODrAAZCW+TsmUsZ5KbkE4Xem8
+	NRaUjZbqTix/cQdV0T6AhgCdHH12cxFYDJhCwFV/P2u0x0pat5qC9H3qHg==
+X-Gm-Gg: ASbGncs4D/V2ryBZaGqMMwAV4feVY34gznRG6GwI+xUyBKuBRFD2DWA5CwSfY25xKWx
+	zfldtB71Ua3eCFLSjLBQ9L7ODB5QgfT3h3hVlV7mzar3AkyGx3MMVEwuBq4VWi1rCYzi8cF9QvD
+	ywuUZMQzIDxz6+obLja4GXOV0d65KSmdOGrFPNjwwS+TKGTIhmXyTqrD38nEKUfsetpfEwxta6O
+	iGa+5PznQzLxrU7XXnoJM/PGHY/u6UL6j/iFKCw32oxe+N3QuGcpH+mRFRo+MT3QvP6AIgyVpml
+	2W9/IoPwahSCu5YegmUttFVYJ0KA/CO2ZCCi2JOsqhS3DPxhm/862v1Qk2rm63D84O0RPcJ0LEH
+	RAvMgZCljVUz7dQ==
+X-Google-Smtp-Source: AGHT+IGUorZZIHRO8/zim1V9oGRIvUVD1C/LxAbhpqBUZ7SvQQcDZKXajDIxA84ESodmqzsvVhqLlw==
+X-Received: by 2002:a17:906:cecb:b0:ac2:8118:27e7 with SMTP id a640c23a62f3a-ac2811831a3mr1528203866b.50.1741707939134;
+        Tue, 11 Mar 2025 08:45:39 -0700 (PDT)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Milan Djokic <milandjokic1995@gmail.com>,
+	Slavisa Petrovic <Slavisa.Petrovic@rt-rk.com>
+Subject: [PATCH v1] xen/riscv: add H extenstion to -march
+Date: Tue, 11 Mar 2025 16:45:34 +0100
+Message-ID: <32ebe4032b7968157d5cadbc2f6aa1d9f2d363c9.1741707803.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/page_alloc: Simplify domain_adjust_tot_pages
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20250304111000.9252-1-alejandro.vallejo@cloud.com>
- <Z9AwsrDBELe2UREz@macbook.local> <D8DITFXFKM32.2H5OOI4GVUAZ1@cloud.com>
- <Z9BZ-V8fWHOAwMJ7@macbook.local>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Z9BZ-V8fWHOAwMJ7@macbook.local>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11.03.2025 16:42, Roger Pau Monné wrote:
-> On Tue, Mar 11, 2025 at 02:53:04PM +0000, Alejandro Vallejo wrote:
->> On Tue Mar 11, 2025 at 12:46 PM GMT, Roger Pau Monné wrote:
->>> On Tue, Mar 04, 2025 at 11:10:00AM +0000, Alejandro Vallejo wrote:
->>>> The logic has too many levels of indirection and it's very hard to
->>>> understand it its current form. Split it between the corner case where
->>>> the adjustment is bigger than the current claim and the rest to avoid 5
->>>> auxiliary variables.
->>>>
->>>> Add a functional change to prevent negative adjustments from
->>>> re-increasing the claim. This has the nice side effect of avoiding
->>>> taking the heap lock here on every free.
->>>>
->>>> While at it, fix incorrect field name in nearby comment.
->>>>
->>>> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
->>>
->>> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
->>
->> Thanks.
->>
->>> I think it would be nice to also ensure that once the domain is
->>> finished building (maybe when it's unpaused for the first
->>> time?) d->outstanding_pages is set to 0.  IMO the claim system was
->>> designed to avoid races during domain building, and shouldn't be used
->>> once the domain is already running.
->>>
->>> Thanks, Roger.
->>
->> As a matter of implementation that's already the case by toolstack being "nice"
->> and unconditionally clearing claims after populating the physmap.
-> 
-> I see.  Another option would be to refuse the unpause a domain if it
-> still has pending claims.  However I don't know how that will work out
-> with all possible toolstacks.
-> 
->> However, I agree the hypervisor should do it on its own. I didn't find a
->> suitable place for it. 
-> 
-> You could do it in arch_domain_creation_finished().
+H provides additional instructions and CSRs that control the new stage of
+address translation and support hosting a guest OS in virtual S-mode
+(VS-mode).
 
-Except that better wouldn't be arch-specific.
+According to the Unprivileged Architecture (version 20240411) specification:
+```
+Table 74 summarizes the standardized extension names. The table also defines
+the canonical order in which extension names must appear in the name string,
+with top-to-bottom in table indicating first-to-last in the name string, e.g.,
+RV32IMACV is legal, whereas RV32IMAVC is not.
+```
+According to Table 74, the h extension is placed last in the one-letter
+extensions name part of the ISA string.
 
-Jan
+`h` is a standalone extension based on the patch [1] but it wasn't so
+before.
+As the minimal supported GCC version to build Xen for RISC-V is 12.2.0,
+and for that version, h is still considered a prefix for the hypervisor
+extension but the name of hypervisor extension must be more then 1 letter
+extension, a workaround ( with using `hh` as an H extension name ) is
+implemented as otherwise the following compilation error will occur:
+ error: '-march=rv64gc_h_zbb_zihintpause': name of hypervisor extension
+        must be more than 1 letter
+
+After GCC version 13.1.0, the commit [1] introducing H extension support
+allows us to drop the workaround with `hh` as hypervisor extension name
+and use only one h in -march.
+
+To implement this, the h-extension-name is introduced, which is filled with
+hh or h depending on the GCC version.
+
+[1] https://github.com/gcc-mirror/gcc/commit/0cd11d301013af50a3fae0694c909952e94e20d5#diff-d6f7db0db31bfb339b01bec450f1b905381eb4730cc5ab2b2794971e34647d64R148
+
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+---
+ docs/misc/riscv/booting.txt | 4 ++++
+ xen/arch/riscv/arch.mk      | 3 ++-
+ xen/arch/riscv/cpufeature.c | 1 +
+ 3 files changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/docs/misc/riscv/booting.txt b/docs/misc/riscv/booting.txt
+index cb4d79f12c..3a8474a27d 100644
+--- a/docs/misc/riscv/booting.txt
++++ b/docs/misc/riscv/booting.txt
+@@ -3,6 +3,10 @@ System requirements
+ 
+ The following extensions are expected to be supported by a system on which
+ Xen is run:
++- H:
++  Provides additional instructions and CSRs that control the new stage of
++  address translation and support hosting a guest OS in virtual S-mode
++  (VS-mode).
+ - Zbb:
+   RISC-V doesn't have a CLZ instruction in the base ISA.
+   As a consequence, __builtin_ffs() emits a library call to ffs() on GCC,
+diff --git a/xen/arch/riscv/arch.mk b/xen/arch/riscv/arch.mk
+index 236ea7c8a6..14d1f0ada0 100644
+--- a/xen/arch/riscv/arch.mk
++++ b/xen/arch/riscv/arch.mk
+@@ -9,7 +9,8 @@ riscv-abi-$(CONFIG_RISCV_64) := -mabi=lp64
+ riscv-march-$(CONFIG_RISCV_64) := rv64
+ riscv-march-y += ima
+ riscv-march-$(CONFIG_RISCV_ISA_C) += c
+-riscv-march-y += _zicsr_zifencei_zbb
++h-extension-name := $(call cc-ifversion,-lt,1301, hh, h)
++riscv-march-y += $(h-extension-name)_zicsr_zifencei_zbb
+ 
+ riscv-generic-flags := $(riscv-abi-y) -march=$(subst $(space),,$(riscv-march-y))
+ 
+diff --git a/xen/arch/riscv/cpufeature.c b/xen/arch/riscv/cpufeature.c
+index bf09aa1170..5aafab0f49 100644
+--- a/xen/arch/riscv/cpufeature.c
++++ b/xen/arch/riscv/cpufeature.c
+@@ -146,6 +146,7 @@ static const struct riscv_isa_ext_data __initconst required_extensions[] = {
+ #ifdef CONFIG_RISCV_ISA_C
+     RISCV_ISA_EXT_DATA(c),
+ #endif
++    RISCV_ISA_EXT_DATA(h),
+     RISCV_ISA_EXT_DATA(zicsr),
+     RISCV_ISA_EXT_DATA(zifencei),
+     RISCV_ISA_EXT_DATA(zihintpause),
+-- 
+2.48.1
+
 
