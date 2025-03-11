@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2CD2A5BF77
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 12:43:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.907935.1315128 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 377CCA5BF9C
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 12:47:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.907948.1315138 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1try0o-0006H6-Cn; Tue, 11 Mar 2025 11:43:06 +0000
+	id 1try4Y-0006u7-03; Tue, 11 Mar 2025 11:46:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 907935.1315128; Tue, 11 Mar 2025 11:43:06 +0000
+Received: by outflank-mailman (output) from mailman id 907948.1315138; Tue, 11 Mar 2025 11:46:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1try0o-0006Ep-9b; Tue, 11 Mar 2025 11:43:06 +0000
-Received: by outflank-mailman (input) for mailman id 907935;
- Tue, 11 Mar 2025 11:43:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1try4X-0006rQ-TA; Tue, 11 Mar 2025 11:46:57 +0000
+Received: by outflank-mailman (input) for mailman id 907948;
+ Tue, 11 Mar 2025 11:46:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EmiY=V6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1try0n-0006Ej-79
- for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 11:43:05 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fdfbce39-fe6d-11ef-9ab9-95dc52dad729;
- Tue, 11 Mar 2025 12:43:04 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-43cf034d4abso21455615e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 04:43:04 -0700 (PDT)
+ id 1try4W-0006rK-Gn
+ for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 11:46:56 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 878ac211-fe6e-11ef-9898-31a8f345e629;
+ Tue, 11 Mar 2025 12:46:54 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-ac2a9a74d9cso337860666b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 04:46:54 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43cf27f8ef3sm82676935e9.11.2025.03.11.04.43.02
+ a640c23a62f3a-ac2a385e09dsm297184766b.48.2025.03.11.04.46.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Mar 2025 04:43:02 -0700 (PDT)
+ Tue, 11 Mar 2025 04:46:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fdfbce39-fe6d-11ef-9ab9-95dc52dad729
+X-Inumbo-ID: 878ac211-fe6e-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741693383; x=1742298183; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741693614; x=1742298414; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Gmv143IPjlIa7TGdcoEdnJnBb+vnuvoiBmNX4lh20wM=;
-        b=bEpcQNZWC6OwQDAd8HzXyiMyaGabGq2BJaGMFN3MsQosaz+OEIV/qczV+T/vw7Jfym
-         gcyFaj0GG87dENwzAUp/8O2yliZWOYpz2ZQOo+Y8cXVVq+LmxmNkf2y0z5AazC82FaaD
-         Jtc6BdWj63a3HQTSCYXoMagNzGSuBlTyAO5seAFwWhFGLWeHxC37xQSEv26cVXSOi/nj
-         SDIhBuxXyt+tVIwV0Ot9VQBAsgiektc3WlkkCuk5i59Yyqenfm6LMIQ7Y0b6/k4hUhMR
-         jT3xjb8ayNtONAdEf7mEAoappA5WJGt7nZ6qGLrqRDi/gTW92PhxtP4dR2VCdpXI5+F1
-         msUA==
+        bh=oo+zFSk1rEJLd5hQmX0r94e4LlW+Zu7ptqf6pG4Xz8s=;
+        b=Nbby92TjuJyqL1V7wgE+2T3qeH10M4Ip/JtJLCnnQf6NAxw8H8ufW+0AOiJ6v+MJuZ
+         FaSeT8mxCpIwO8o9rmDr+Tv/0MNZLILTuSuSRxRr0TFgSj6g8QZO4uWbjrucIpsnfPH3
+         4zL/cdUPo+ugEywe6uFLYNhZF4KC9Z6XsnMX/JgAWZtRIPX9FLOrsOCTqvQLT69T8cw3
+         xDg9mdSX4gOw2p1KtbLBbFQpj47G5UjwyW3uZiR4vHdMRY4jT6thH3h0fdi4xwZv61Ge
+         W775fQQ8mTnHshSWHhRer09OoDrFFo3ZsG67hJSyLd24iCCaibOMsDSmeMRabralFWBF
+         K1ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741693383; x=1742298183;
+        d=1e100.net; s=20230601; t=1741693614; x=1742298414;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Gmv143IPjlIa7TGdcoEdnJnBb+vnuvoiBmNX4lh20wM=;
-        b=gew+IOpbVzpYMSbRALkLUDzjRDCeA4pmvOY0lLJukY9fyPXl3OFvN/7Jm+acCkRcPq
-         601lGRqRsmAHOUz7XthbMZSAHMf7qeqo28vHeWl5TasdW/2Rkr3tKazlQz7h/JdXCZnA
-         Y58W2xr2ybBhieqrsMsv0n/1WztTLRpRrs2TJYpU6UVlJAJbafZ6Qhw294yrMLlTDhoq
-         HdGMvasa4pKk12zdhlXqYhO/YpRr2rKOCHczf2CQLwWciSKQy0fJzn+qkEtce0SiPfjo
-         RJ8ZuWkkNi1xIHp9DXwqjPPIJ3KxiY+lCu9wjNjU2Jn3+OTX8hCYaWwqpAK74Or97xP7
-         JgxA==
-X-Forwarded-Encrypted: i=1; AJvYcCUw33lq+NLXJPj51t0MUTIGI8+GdqlFt75WRiWfUt4K/64t08n1ebJZdgDzRatWfVXcicnmANOL/f0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzUXpF2Z1qELFG2MM8Yy2JJj0JqSPXtSzXt8P+bDwEFuCH00jcK
-	Yo5QkSBVkw/e7Hjqg8XpOkcvxTbSb2TFkk9CNjMmZD4NUpEz174+AnLny6j+tw==
-X-Gm-Gg: ASbGncvctGbWtdm+NjHxMuY0ZuxwcuEDAkE7Xgiig8SIpXunuMUuZL41LDepeY8M0V2
-	8AmwPlHBCxUzjiPYAVSDXNOma30pL9W7jXUEYQa4PyhZQN4qnm73lwKnhs4eVbzUs5MsMuWPAKt
-	DSGxNbFreIfykZbgQSM0t9v1aHweg1vNjP6vzdBFw5M9B+vFFDO+FN9/Ls8XoRijBMH2P4AsHNY
-	2cuZTJ8x55b8Qycik1Z1EBjTIBYehiJmMtn0vqj0F01RFvfOfoOcwRFFrl7lLgwXQzGkLFIc17w
-	4N9eAlNaKT8MhAq7vqQPTjH4exfZkbXbc6NDveGbYVswnUiJWqXhxVFqoA9cZERLZdQnFjlGjEG
-	9wWh2Y8cKP5H1XE1cdB1ZsKby32+VDg==
-X-Google-Smtp-Source: AGHT+IH6yHeL4EoTswVO2FZWN926l4yMuLRtp9wTbljow29BOOg4XEzJleItR0Btu+dsiQGkJ+EmeA==
-X-Received: by 2002:a5d:47c2:0:b0:390:ea4b:ea9 with SMTP id ffacd0b85a97d-3926bfe070cmr5221101f8f.39.1741693383240;
-        Tue, 11 Mar 2025 04:43:03 -0700 (PDT)
-Message-ID: <6a0a3b3d-9bbd-49da-a37c-eb1cbad94cc1@suse.com>
-Date: Tue, 11 Mar 2025 12:43:01 +0100
+        bh=oo+zFSk1rEJLd5hQmX0r94e4LlW+Zu7ptqf6pG4Xz8s=;
+        b=ZNdMJ0D6ekk3bWGO1/FYjiPEn9Fb7bQgLKgeh+Fv7ghPKXnSgQYCVfXdDWaqeuOPgA
+         P/NnRRWVTAXp8qMetNDv6nXfWHRb41Vnp1JIbBbCe1z/aCADZaIOcH/zg4eQgjoa6BII
+         JCDydycxnaxW+8OZG9JQrJ981m5eveYP1sWbh/tiiPESui4fudO1xdGfCIvgu4D0hh8d
+         zQ+ChMl7nsQMgXU4HJ5DwkA8hBncVmvXil6Xgtl+olfV3bEmn8AiCLw2MW3EsoJKC5Oj
+         TGs7YKrQnj+knPPPxexzN6d5vTOdVWqZ5BUdkAhe3e1bsLH67Ivy47A3LloeGOjVMHlh
+         rAHQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXspIEhJ8eEjrS4ENlamXrDaRrf6wm173iQLfj7cIWWaEuGa0kEeKgJK0X++2yRLorVENCdK7NgePM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzQZ4/Ajtw87i0ZRzdfFO8zuNvM96zxPRBthZjysD2w7FP3jPg9
+	f4z2UEqtsIDZLjdNdjI5OJm9jYaPMZlz8MLfyvybMmmh+PIqlt6oN/99ugiMeA==
+X-Gm-Gg: ASbGncuvuvr9tiZ+yde7EqRx4k4UHfRDd2P679PRv+6/OEAscoqNnNdRiVF6HFqRKCe
+	3JGLurvtswIyd2++R1R4XBbrmtFTMtXd3MVYFoDFQhEK5FRdAl7QK4KBP2XK1FLo6Na66a/wkwL
+	+n5agYMY1yblN2NKBSs5pBZ27vvpbTqpEF+qFFw5GmZ/sqlpkSmlINUVLNymAb9uThJSo5TRUrc
+	6FOHOufxhBGRWWUFVCQNdzUyo/uBWSyJCXSMciBJ/lUAnfwwA4T/O0slNYe5U2hxFsGfKD+6yJA
+	1Fgp0/eW3leGF3xH2WBlwXNgXRkPlnjJkNMdZV4iVN9nZX1AoT9M/V0pWdNtJoSFeY+bywIq1SA
+	/DKggbGqVkBm+DyVnbyWh8tfYQnBC/g==
+X-Google-Smtp-Source: AGHT+IEXRrV+YxhntIWg4PtUh80zEOtYNr1aFeTzgUieJF81VjXaMzyNN7PmtuiBpRx/FIcO9v3HAA==
+X-Received: by 2002:a17:907:608e:b0:ac2:b826:1e6b with SMTP id a640c23a62f3a-ac2b9db3c7bmr435021366b.4.1741693612636;
+        Tue, 11 Mar 2025 04:46:52 -0700 (PDT)
+Message-ID: <6668a29f-0b78-4579-8583-132d9fb3df0c@suse.com>
+Date: Tue, 11 Mar 2025 12:46:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v3 1/7] xen/arm: add generic SCI subsystem
+Subject: Re: [RFC PATCH v3 7/7] xen/arm: scmi: generate scmi dt node for DomUs
 To: Grygorii Strashko <gragst.linux@gmail.com>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -99,7 +99,7 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  <jgross@suse.com>, Grygorii Strashko <grygorii_strashko@epam.com>,
  xen-devel@lists.xenproject.org
 References: <20250311111618.1850927-1-grygorii_strashko@epam.com>
- <20250311111618.1850927-2-grygorii_strashko@epam.com>
+ <20250311111618.1850927-8-grygorii_strashko@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,85 +125,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250311111618.1850927-2-grygorii_strashko@epam.com>
+In-Reply-To: <20250311111618.1850927-8-grygorii_strashko@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 11.03.2025 12:16, Grygorii Strashko wrote:
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -526,6 +526,12 @@ S:	Supported
->  F:	xen/arch/arm/include/asm/tee/
->  F:	xen/arch/arm/tee/
->  
-> +SCI MEDIATORS
-> +M:	Oleksii Moisieiev <oleksii_moisieiev@epam.com>
-> +S:	Supported
-> +F:	xen/arch/arm/sci
-> +F:	xen/include/asm-arm/sci
-> +
->  TOOLSTACK
->  M:	Anthony PERARD <anthony.perard@vates.tech>
->  S:	Supported
-
-Please can you respect alphabetical sorting in this file?
-
-> @@ -851,6 +852,18 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
->      case XEN_DOMCTL_deassign_device:
->      case XEN_DOMCTL_get_device_group:
->          ret = iommu_do_domctl(op, d, u_domctl);
-> +
-> +        if ( ret >= 0 || (ret == -EOPNOTSUPP) || (ret == -ENODEV) )
-> +        {
-> +            /*
-> +             * TODO: RFC
-> +             * This change will allow to pass DT nodes/devices to
-> +             * XEN_DOMCTL_assign_device OP using xl.cfg:"dtdev" property even
-> +             * if those DT nodes/devices even are not behind IOMMU (or IOMMU
-> +             * is disabled) without failure.
-> +             */
-> +            ret = sci_do_domctl(op, d, u_domctl);
-> +        }
->          break;
-
-Despite the comment I fear I don't understand what you're trying to do here.
-In any event you may not clobber the original "ret", if all you do is some
-"add-on".
-
-> --- a/xen/include/asm-generic/device.h
-> +++ b/xen/include/asm-generic/device.h
-> @@ -18,6 +18,7 @@ enum device_class
->      DEVICE_IOMMU,
->      DEVICE_INTERRUPT_CONTROLLER,
->      DEVICE_PCI_HOSTBRIDGE,
-> +    DEVICE_ARM_SCI,
->      /* Use for error */
->      DEVICE_UNKNOWN,
-
-This is a generic header - I don't see how anything arch-specific could
-validly end up here.
-
-> --- a/xen/include/public/arch-arm.h
-> +++ b/xen/include/public/arch-arm.h
-> @@ -327,6 +327,8 @@ DEFINE_XEN_GUEST_HANDLE(vcpu_guest_context_t);
->  #define XEN_DOMCTL_CONFIG_TEE_OPTEE     1
->  #define XEN_DOMCTL_CONFIG_TEE_FFA       2
->  
-> +#define XEN_DOMCTL_CONFIG_ARM_SCI_NONE      0
-> +
->  struct xen_arch_domainconfig {
->      /* IN/OUT */
->      uint8_t gic_version;
-> @@ -350,6 +352,8 @@ struct xen_arch_domainconfig {
->       *
->       */
->      uint32_t clock_frequency;
-> +    /* IN */
-> +    uint8_t arm_sci_type;
+> --- a/xen/include/public/domctl.h
+> +++ b/xen/include/public/domctl.h
+> @@ -1223,6 +1223,13 @@ struct xen_domctl_vmtrace_op {
+>  #define XEN_DOMCTL_vmtrace_get_option         5
+>  #define XEN_DOMCTL_vmtrace_set_option         6
 >  };
+> +
+> +/* XEN_DOMCTL_get_sci_info */
+> +struct xen_domctl_sci_info {
+> +    uint64_t paddr;
+> +    uint32_t func_id;
+> +};
 
-You're not re-using a pre-existing padding field, so I don't see how you
-can get away without bumping XEN_DOMCTL_INTERFACE_VERSION.
+Please take a look at the rest of this header: Outside of x86-specific
+sub-ops there's no use of uint64_t; uint64_aligned_t wants using instead.
+
+> @@ -1333,6 +1340,9 @@ struct xen_domctl {
+>  #define XEN_DOMCTL_dt_overlay                    87
+>  #define XEN_DOMCTL_gsi_permission                88
+>  #define XEN_DOMCTL_set_llc_colors                89
+> +
+> +#define XEN_DOMCTL_get_sci_info                  90
+> +
+>  #define XEN_DOMCTL_gdbsx_guestmemio            1000
+>  #define XEN_DOMCTL_gdbsx_pausevcpu             1001
+>  #define XEN_DOMCTL_gdbsx_unpausevcpu           1002
+
+The latter of the blank lines may make sense to add. There former shouldn't
+be there imo.
 
 Jan
 
