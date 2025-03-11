@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFB3DA5BAE6
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 09:35:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.907390.1314622 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2E17A5BAFC
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 09:44:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.907399.1314632 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1trv57-0000pX-Aw; Tue, 11 Mar 2025 08:35:21 +0000
+	id 1trvDr-0002QL-5P; Tue, 11 Mar 2025 08:44:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 907390.1314622; Tue, 11 Mar 2025 08:35:21 +0000
+Received: by outflank-mailman (output) from mailman id 907399.1314632; Tue, 11 Mar 2025 08:44:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1trv57-0000mz-7u; Tue, 11 Mar 2025 08:35:21 +0000
-Received: by outflank-mailman (input) for mailman id 907390;
- Tue, 11 Mar 2025 08:35:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1trvDr-0002Nj-2T; Tue, 11 Mar 2025 08:44:23 +0000
+Received: by outflank-mailman (input) for mailman id 907399;
+ Tue, 11 Mar 2025 08:44:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EmiY=V6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1trv55-0000mt-7e
- for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 08:35:19 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c259f518-fe53-11ef-9898-31a8f345e629;
- Tue, 11 Mar 2025 09:35:17 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-390f5f48eafso2533246f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 01:35:17 -0700 (PDT)
+ id 1trvDo-0002Nd-QJ
+ for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 08:44:20 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 05d4fa20-fe55-11ef-9ab9-95dc52dad729;
+ Tue, 11 Mar 2025 09:44:19 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-43cfdc2c8c9so9232405e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 01:44:19 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3912c01d81csm17614697f8f.58.2025.03.11.01.35.15
+ ffacd0b85a97d-3912c1030cfsm17760386f8f.90.2025.03.11.01.44.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Mar 2025 01:35:16 -0700 (PDT)
+ Tue, 11 Mar 2025 01:44:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c259f518-fe53-11ef-9898-31a8f345e629
+X-Inumbo-ID: 05d4fa20-fe55-11ef-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741682116; x=1742286916; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741682659; x=1742287459; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=9gcX1TXYCg6ntY8ksYwFPbVpOrg3Qrl+xl8TA5paZNE=;
-        b=f6EHM3E2qiNpjKZqjXEHm+vUNA87AhR5nz9VPMnofY4WUGkeVk4afdmiwYkFlLZY1Q
-         cNFqRCDezxZo+LhjW8TP+0D3pHZ0BQMnNo8sihh2WyBBMyG45QTOZWf7N67w8zvhnAti
-         46PUorvOBT3JdTAoJmqcz4e7PQ+P/pcXSWq8iRMmP4T56flBFP6VN6hWH5N2n2hXpaMb
-         EKL9K47U91dD84vb9MzFmspkmEwohL9BFeS6UohwNZ/F+VuGMSg7UWcz5Kk4alY2uqwj
-         Ld5618CQjZ6BNJQl4FWhaLak6JvlFY9+m6IZHXb/zmf9fSRzvF91VK+eFtlDP788IUGu
-         Owng==
+        bh=U9QzownHLiU16AH6mH1UpTYSiJ6RaMIlL7uNMFd4PMY=;
+        b=UISlmTbYFmnqQKfQCklIKIXWoaYm30PWtYCA7wKQG30YJiwBDbRgCGIoUZnGkbgWLd
+         YW11/fFZYzcQlXjKokzbR7KNYwgBHXGjBp/7B6Jz9I5Pmvr/Xn/T6EP8b0eB6qLtzExB
+         sC30CxKiH/Nb3Ci1jOweJhk267SJBlewBGqi+sg12IM55d6FHNM7sUbQRy1VR5vESvgW
+         Ebm4apEVQqkhqkXIq4fNwO7gyc3inBh9PEkqhwy5YZma/hKPTgGTkHDQbxU8paloTdmE
+         nSVMO61bLQJEeXet4+iMMVJcc+a3b3/ugRU6KLVrPYU4O6xR9CoAV8t6K1SgSm+8PuBf
+         UAHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741682116; x=1742286916;
+        d=1e100.net; s=20230601; t=1741682659; x=1742287459;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9gcX1TXYCg6ntY8ksYwFPbVpOrg3Qrl+xl8TA5paZNE=;
-        b=TVZ8mhm2ne/XBP4I8TJH8CwpMs7pgw25BRXQNCAz8+6YezLrlkdxNIe8J8sSe1uNjP
-         V8Z+ig1tBtx2AgEMMhbJ3M+xFUBXDP3DjwJxIBZQhO7IOF+KeIHLWDvZM6LPwrLOll83
-         NqyQTnDbiZGgf67RsmSs8XUPlL3Ncoh+wVh9NZOK64Krv2/kRwzitUz4Fu31sq+YcOvR
-         wKpH0b5WSVtfY3M8IYfMKcF4J6iK0CgC4NpG04Kyy9mkeyogsOBlHWX6uIsB2IwFvFYU
-         JgrJuEkx4DCm2atWOZzobmEKKYkDO8BHeVafjrkHzcPi0AtzckvUYdA9pDWrMuYlhEir
-         eh/Q==
-X-Forwarded-Encrypted: i=1; AJvYcCXGIa2J/G6c0FtoummOo80fXSocGmQsuITfLtbvXg2gSmehXMJvgAHGjxWpdSDdRjgHRSUMQNg4T2M=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yypy09gUF+rwxSFwnd9qO8nLLWtyd9yFhFMqwdcnAcVMwuYXPJB
-	rGo3h/XS/slU0i1bWtjQFVh6xtma2RQryO9q6UPK4nW9qB9yh7EulCn+xKiFWw==
-X-Gm-Gg: ASbGncts6SIpgvq5wKshNS4cRZ7EzAvTOQ5U3mDYmNJTa2W/RNgI6/VW90YrqWBYWp9
-	YMKv/9Bm93U1Vf10+Hy0+e3kM4UUyDca08Qy+rkBXeP9V+ZPy2irbpopFsDfmJhUTwSGUH0XpsE
-	8cbkuIGRcf7KL0nrC1matPWCnvopDWudFAHjIyfE06l6HOLPzAe1uMFp59dVcJ/noaJ3yVmNlS2
-	bkS5lxfvksuHnTxkaym9NXv1yBtIaEqHdXFaBAJ2dDVNDKfjxJS+/l9vL/vSG9DhITPg5hj0dqZ
-	YdORsgU5OQB307heRbLE4zMdwcr6qHvIdBQgmXivUcrrwfA2XPSfc/btBWgvxTMcmABYXnuce3R
-	kEm/ShqVUT+2k5/vK4hMnTd/6/JbhnQ==
-X-Google-Smtp-Source: AGHT+IEhyAST5rhVuek4aVwecZSOvF5fQ+vCnY/Iqgg4bF2Z0bOvERO7vKt6OVthSEUWKa0YIGcrQA==
-X-Received: by 2002:a5d:588f:0:b0:391:1806:e23d with SMTP id ffacd0b85a97d-39132d7a3b6mr10788909f8f.6.1741682116598;
-        Tue, 11 Mar 2025 01:35:16 -0700 (PDT)
-Message-ID: <83f0a115-1a14-4992-91ea-df354c5176fd@suse.com>
-Date: Tue, 11 Mar 2025 09:35:15 +0100
+        bh=U9QzownHLiU16AH6mH1UpTYSiJ6RaMIlL7uNMFd4PMY=;
+        b=gz44qOCgInpad3ot62HuxBmT7FCJ62+9yFUmEBwcwqbR6wksNCOftZodTIHGFf0orB
+         pgfwvydDim5fd7E4Um/WptIBZzoPpkDfjVcxFTxHBw5gEI8emnC1Kl6suyAGZwH4sfqA
+         5goaha5dHh08pbvKh+AfZ5tdd7o2HinGBIjlkiXjQ0QcRn+KguENtxgO3d+ExP0jbwYl
+         9FoOLDAraTZ18wG76m+7HANMdhG8q3W46BLKvFVZigTMpDbpD5bCGvutID/Ui5lreQ7n
+         aq9PWMxRvr/NS63doH32LxVAKM/1oqgg1CP5tdxpu+oKfJ8JQn2d5ha5TNEp11UUmVax
+         ZCtw==
+X-Gm-Message-State: AOJu0YwRRfRvESRHNmTCWjHm9FzZPSlx9KQEgQpuHCyrp2Xxy0AbR/D3
+	c7JcexqYk5pCjQQbz11XIi+ZZ/ySxZjBMeqBgczBX6SHXWFsrwt+1AQC1jDJiA==
+X-Gm-Gg: ASbGncstuqZvWG3t2SJWmOk0ZyggspyF4qlv4XXIDvUphOUgHFq5jy0O9pYPBwdt4R3
+	ZGxnt4C26/Vc1Cc5JCZ4MOfGNAI3mSF8eQGKlUB9WGNe7YNtf1pI9SkEdqyyGJVHO5TuagoSGJc
+	rbz5UOXKg3SqaaJH4JZKEJgusM/DAFf0+Oa0iHPRMmIBTkIaUes4iI9IYgp6ZR2pnm2+q5vretM
+	QGlxoflNZ45YFsZ6llbVz19gYvNLSqNwtwyRl8ALLSO/DCMyAxjAsGZI8odg681+IYNWWMLm/rd
+	kYvmeXwBGDoTEQbFsdhK06BC1iiUEbyenwRuyAcu2YoIklGYz7nsfgSvZCaTHWhgGG7hcAZ8jqZ
+	MGEV/fo++Oi7WiI3FQboTXU1GQBzPxA==
+X-Google-Smtp-Source: AGHT+IHoBOFPCdOJpNGTcSNVeyY3fLyGdrvxnoqTeqrYKvVMymOa9DYNkXajSSvqw5uMljFFwPeMbQ==
+X-Received: by 2002:a05:600c:470d:b0:43c:fab3:4fad with SMTP id 5b1f17b1804b1-43cfab351c6mr68763655e9.16.1741682659062;
+        Tue, 11 Mar 2025 01:44:19 -0700 (PDT)
+Message-ID: <b0aae379-9128-4d31-9a3f-92a500a30d75@suse.com>
+Date: Tue, 11 Mar 2025 09:44:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] xen/arm: Create tee command line parameter
-To: Bertrand Marquis <bertrand.marquis@arm.com>
-Cc: jens.wiklander@linaro.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1741617888.git.bertrand.marquis@arm.com>
- <9313ffc0cf2e8be7e39ba24e8849a27b6bae2526.1741617888.git.bertrand.marquis@arm.com>
+Subject: Re: [PATCH 1/3] x86/P2M: synchronize fast and slow paths of
+ p2m_get_page_from_gfn()
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <7363b2ee-f297-4b0b-9c4d-bdebe08d514b@suse.com>
+ <88d24595-50be-4f99-97d6-9126340b791e@suse.com>
+ <Z879Aq-UNj-Jz5S1@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,38 +119,81 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <9313ffc0cf2e8be7e39ba24e8849a27b6bae2526.1741617888.git.bertrand.marquis@arm.com>
+In-Reply-To: <Z879Aq-UNj-Jz5S1@macbook.local>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10.03.2025 15:50, Bertrand Marquis wrote:
-> --- a/docs/misc/xen-command-line.pandoc
-> +++ b/docs/misc/xen-command-line.pandoc
-> @@ -2651,6 +2651,20 @@ Specify the per-cpu trace buffer size in pages.
->  
->  Flag to enable TSC deadline as the APIC timer mode.
->  
-> +### tee
-> +> `= <string>`
+On 10.03.2025 15:53, Roger Pau Monné wrote:
+> On Wed, Feb 26, 2025 at 12:52:27PM +0100, Jan Beulich wrote:
+>> Handling of both grants and foreign pages was different between the two
+>> paths.
+>>
+>> While permitting access to grants would be desirable, doing so would
+>> require more involved handling; undo that for the time being. In
+>> particular the page reference obtained would prevent the owning domain
+>> from changing e.g. the page's type (after the grantee has released the
+>> last reference of the grant). Instead perhaps another reference on the
+>> grant would need obtaining. Which in turn would require determining
+>> which grant that was.
+>>
+>> Foreign pages in any event need permitting on both paths.
+>>
+>> Introduce a helper function to be used on both paths, such that
+>> respective checking differs in just the extra "to be unshared" condition
+>> on the fast path.
+>>
+>> While there adjust the sanity check for foreign pages: Don't leak the
+>> reference on release builds when on a debug build the assertion would
+>> have triggered. (Thanks to Roger for the suggestion.)
+>>
+>> Fixes: 80ea7af17269 ("x86/mm: Introduce get_page_from_gfn()")
+>> Fixes: 50fe6e737059 ("pvh dom0: add and remove foreign pages")
+>> Fixes: cbbca7be4aaa ("x86/p2m: make p2m_get_page_from_gfn() handle grant case correctly")
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> 
+> Just a couple of nits below (with a reply to your RFC).
+> 
+>> ---
+>> RFC: While the helper could take const struct domain * as first
+>>      parameter, for a P2M function it seemed more natural to have it
+>>      take const struct p2m_domain *.
+>>
+>> --- a/xen/arch/x86/mm/p2m.c
+>> +++ b/xen/arch/x86/mm/p2m.c
+>> @@ -328,12 +328,45 @@ void p2m_put_gfn(struct p2m_domain *p2m,
+>>      gfn_unlock(p2m, gfn_x(gfn), 0);
+>>  }
+>>  
+>> +static struct page_info *get_page_from_mfn_and_type(
+>> +    const struct p2m_domain *p2m, mfn_t mfn, p2m_type_t t)
+> 
+> Re your RFC: since it's a static function, just used for
+> p2m_get_page_from_gfn(), I would consider passing a domain instead of
+> a p2m_domain, as the solely usage of p2m is to obtain the domain.
 
-This wants an arch restriction, like we have for other command line options
-supported only by one arch.
+Okay, will do.
 
-Jan
+>> +{
+>> +    struct page_info *page;
+>> +
+>> +    if ( !mfn_valid(mfn) )
+>> +        return NULL;
+>> +
+>> +    page = mfn_to_page(mfn);
+>> +
+>> +    if ( p2m_is_ram(t) )
+> 
+> Should this be a likely() to speed up the common successful path?
 
-> +Specify the TEE mediator to be probed and use.
-> +
-> +The default behaviour is to probe all supported TEEs supported by Xen and use
-> +the first one successfully probed. When this parameter is passed, Xen will
-> +probe only the TEE mediator passed as argument and boot will fail if this
-> +mediator is not properly probed or if the requested TEE is not supported by
-> +Xen.
-> +
-> +This parameter can be set to `optee` of `ffa` if the corresponding mediators
-> +are compiled in.
-> +
->  ### tevt_mask
->  > `= <integer>`
->  
+Well. Andrew's general advice looks to be to avoid likely() / unlikely()
+in almost all situations. Therefore unless he positively indicates that
+in a case like this using likely() is acceptable, I'd rather stay away
+from adding that.
+
+docs/process/coding-best-practices.pandoc could certainly do with some
+rough guidelines on when adding these two is acceptable (or even
+desirable). Right now to me it is largely unclear when their use is
+deemed okay; it certainly doesn't match anymore what I was told some
+20 years ago when I started working on Linux.
 
 
