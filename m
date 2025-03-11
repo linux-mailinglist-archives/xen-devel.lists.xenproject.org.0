@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 644C6A5BB99
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 10:04:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.907438.1314694 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26DC2A5BB97
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 10:04:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.907437.1314685 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1trvXM-0001JA-Md; Tue, 11 Mar 2025 09:04:32 +0000
+	id 1trvXL-00013t-FT; Tue, 11 Mar 2025 09:04:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 907438.1314694; Tue, 11 Mar 2025 09:04:32 +0000
+Received: by outflank-mailman (output) from mailman id 907437.1314685; Tue, 11 Mar 2025 09:04:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1trvXM-0001Gu-J3; Tue, 11 Mar 2025 09:04:32 +0000
-Received: by outflank-mailman (input) for mailman id 907438;
- Tue, 11 Mar 2025 09:04:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1trvXL-00011y-Bh; Tue, 11 Mar 2025 09:04:31 +0000
+Received: by outflank-mailman (input) for mailman id 907437;
+ Tue, 11 Mar 2025 09:04:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5FZT=V6=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1trvXK-0000nU-HI
- for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 09:04:30 +0000
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on20604.outbound.protection.outlook.com
- [2a01:111:f403:240a::604])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d59ffdf0-fe57-11ef-9898-31a8f345e629;
+ id 1trvXJ-0000na-Pp
+ for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 09:04:29 +0000
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on20605.outbound.protection.outlook.com
+ [2a01:111:f403:2406::605])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d5b43dfa-fe57-11ef-9ab9-95dc52dad729;
  Tue, 11 Mar 2025 10:04:28 +0100 (CET)
-Received: from BY3PR03CA0018.namprd03.prod.outlook.com (2603:10b6:a03:39a::23)
- by BL1PR12MB5851.namprd12.prod.outlook.com (2603:10b6:208:396::13)
+Received: from SN6PR08CA0035.namprd08.prod.outlook.com (2603:10b6:805:66::48)
+ by CH3PR12MB8073.namprd12.prod.outlook.com (2603:10b6:610:126::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.27; Tue, 11 Mar
- 2025 09:04:24 +0000
-Received: from SJ1PEPF0000231E.namprd03.prod.outlook.com
- (2603:10b6:a03:39a:cafe::9a) by BY3PR03CA0018.outlook.office365.com
- (2603:10b6:a03:39a::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8511.27 via Frontend Transport; Tue,
- 11 Mar 2025 09:04:24 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF0000231E.mail.protection.outlook.com (10.167.242.230) with Microsoft
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.26; Tue, 11 Mar
+ 2025 09:04:21 +0000
+Received: from SA2PEPF000015CB.namprd03.prod.outlook.com
+ (2603:10b6:805:66:cafe::fa) by SN6PR08CA0035.outlook.office365.com
+ (2603:10b6:805:66::48) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8511.26 via Frontend Transport; Tue,
+ 11 Mar 2025 09:04:21 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SA2PEPF000015CB.mail.protection.outlook.com (10.167.241.201) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8534.20 via Frontend Transport; Tue, 11 Mar 2025 09:04:23 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.8534.20 via Frontend Transport; Tue, 11 Mar 2025 09:04:20 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 11 Mar
- 2025 04:04:18 -0500
+ 2025 04:04:20 -0500
 Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39
- via Frontend Transport; Tue, 11 Mar 2025 04:04:17 -0500
+ via Frontend Transport; Tue, 11 Mar 2025 04:04:18 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,172 +59,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d59ffdf0-fe57-11ef-9898-31a8f345e629
+X-Inumbo-ID: d5b43dfa-fe57-11ef-9ab9-95dc52dad729
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ApwisKWEWA/kDPsohgQvyPNJvq3+aF8oML3GPR7pj5Tsh3mp/kquWGwdP+qteNqqJUIdpS0M1KO+CAK8AK0czhJdiPzPh5s47ar44zIa1hCRVYjPL2rDWyo4pY5n2HRlHYuEhBOqTKzAWusM8LQyz3hGWD8ImaLMkKkPbeAEMDfEogVXG09iXAUby2O5wPY3Lopr6Cx+CInzgcHERtCTeLrjYAR9T9Yya98Asrx45wQqLWBH40hYQ6sdl7uTE1lA2z4Vurbma9i+7u8BN+t4XZ5G/18LXnjYT219dIFGUVbwpTMzCKd4QRxTeByjGoKFNXpa2iSitgp6hEw7a+gIuA==
+ b=Y3lmWCBI1SfwzKnPhDhYbys+TwSBiZBEvoEWI7Nzl8s8AVSJzY1ZEl4D2Q2tpt1lEQ2lRuM5AHf17lFwXakfeQq8GbpWtXuCjIZRs8VC3JpANkombCoApGLLbGc7GlsdY6jtA+aqontJimmZG9i7mGHILvfP+vfIIUXdOdn4jx+0/NcKgXkf6b9sH9Zuxtr8/SpqgxG6W8h8UZO22jKGwF4Y5A9Lc1YRdaeLKEOt0wsrUiA8iDObRIaEYDucgNmZ/ajhAAaGPPjxKHYdSv+nhMZfPso5d8cv237ade78dxNbMN7uAtHudC9/9hcuAhxMcFqYGTyfsLgodNu2su3Fuw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=09ybYecYRoOEzAvj3BYdvry8lchrGyNnjUK7uSVH+5I=;
- b=MgCYOhDP2Hsa5IZKEzRMMLdnIqLKZgU0z1ULRE3ynoKOA82KglymesijSBwE/YpzxejBWA3sJGdWOP6ha0cAf1wD6D6StuIWSaeRT8HMw4AvzTKhg5t1U3i2k9KkL+Cp4n2fH9Wv75thIezNv1BGbGALvZq6AqQK2lGNaevz4CoM28JSwz06D7M8qu1tA1YFqYEv51Xcwkr2Qwi0p6H3DY5vnNZ0oy3WRETu2jzoF9TLFXIYU4LK6n0NvaS9CJCWhc6WjzLnQGRlmHmM3UtStm3a4b4rDldgmBO5AkUQ+GUagghV3VsONxsfWpuMymRzkQfOhVVC/SKsTm1c91zhyw==
+ bh=80brAO46bmDac1yCYoJVXqrH6nv3qcWOTeS80rNdmTU=;
+ b=ajwZdNd4WmkXInHzTKoDYRN7hGVJdpyCCindVlAZJxtoVgEp0WZ0hyX3Fg1eDrxyVinKd/ortq95PdJbvh2fcdk3zYLRZuybIkA6U8MNC+YUwqQNjWqYKOMJFp984NCnlbCYaZORfk0tZbVA/XnLf5hW9MI3PSXSVh+jkyhXWtJ3pZkH8Z0GqD/TUhkK+kWmWQCaQScUZKO/vFxRqDbTaJVz1Z6lWJ88ezqFyFQJKge36hhmlGP3maNVKeLKNS4xeqQyDsoSzR2CpABlFVWFkcAm+F/ym1CWPtGfBizCBfeMzy91cMBjg5HIgAVvRjxrrXEF1K0CUVXqweVc2YYyNA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=09ybYecYRoOEzAvj3BYdvry8lchrGyNnjUK7uSVH+5I=;
- b=dfqjPDKbGsyiu4DQGFXtcNbqwLcCju1XEWkCK2wSURgPwgAAwDqAwdOufv1rbmqpVGIKwBjHWm1yTVmcZQO4MigPpVBllrRV+iqeo621C/p1mh+Nb4jH3VTLOKarsUtqQypHsdk6kk/s7+yav/KQxUiA5IH+bdpMHmieoSPMJiU=
+ bh=80brAO46bmDac1yCYoJVXqrH6nv3qcWOTeS80rNdmTU=;
+ b=hbk75kEkMLj54z4Hx8m793xM0kWOih85m8BKgM1OLXlPLtvei+D1CPpYZ8GzzkWXuHUFGditEb1vUPQFyYExCYajZ9ua29K0rGGNufhYe3MYmP2sz9YqcYk8+OFvPbq4/A1BEYcvR5Clm57VXuWC85BXsCw4oKKO0pw5xFf64IM=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 From: Michal Orzel <michal.orzel@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH 1/2] xen/arm: Improve handling of nr_spis
-Date: Tue, 11 Mar 2025 10:04:08 +0100
-Message-ID: <20250311090409.122577-2-michal.orzel@amd.com>
+CC: Michal Orzel <michal.orzel@amd.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+	"Bertrand Marquis" <bertrand.marquis@arm.com>
+Subject: [PATCH 2/2] tools/arm: Reject configuration with incorrect nr_spis value
+Date: Tue, 11 Mar 2025 10:04:09 +0100
+Message-ID: <20250311090409.122577-3-michal.orzel@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20250311090409.122577-1-michal.orzel@amd.com>
 References: <20250311090409.122577-1-michal.orzel@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
+Received-SPF: None (SATLEXMB03.amd.com: michal.orzel@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231E:EE_|BL1PR12MB5851:EE_
-X-MS-Office365-Filtering-Correlation-Id: 54dcec8f-d655-465e-8c0c-08dd607bb7cb
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015CB:EE_|CH3PR12MB8073:EE_
+X-MS-Office365-Filtering-Correlation-Id: a40a0a1f-a7ff-42cd-292c-08dd607bb632
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|82310400026|376014;
+	BCL:0;ARA:13230040|376014|1800799024|36860700013|82310400026;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?GDXvmGubcQy3cxVIm1WFwouJwJ3lFV74KGPtYVhF1Wsol7vvD5XOoCt5qdmg?=
- =?us-ascii?Q?8e88jN3NDj9vSpIOdfRvLVGgbnMz0Hg4aQOFYQoflPe+t73ux0n7qWUDiKkn?=
- =?us-ascii?Q?ydr8q0Kks0DG2/+nvkjXgx7NZC/2GlmXUkLvZ8mD8wRmvZr7nOE9UNmBINkp?=
- =?us-ascii?Q?fgJrtYrzfeK8h8YJfI+zPxt8XXEK9SNGXy9UfcdB/yIdENgGBKq92JjHHkle?=
- =?us-ascii?Q?iiCMEAf8wLkVP8NzVA+pTdFDKnmKU8RAadqgCRy0aZyZesyFZjZrInJ2wiFx?=
- =?us-ascii?Q?B4qOuYL8YSjgRx/Avvh5Vp0toRxiFSQsDfGCwApRAOjALBPZLwbttf7unRur?=
- =?us-ascii?Q?vPc96vmAuCpTzRqaCBmghYz4tdStruvXfKByZ76dm/vqVQ9bJ3o8JHOsRucH?=
- =?us-ascii?Q?ocJyUNcVa+NAuoScOrPaNPR0BqiUvdxc31W+i6NM4h6Zbwo8ZO+6/SDLuRnR?=
- =?us-ascii?Q?9Fuwro2VvLEp7rBnFhlD0KhpP6H86WOHQDqgnSL4o7r+td6xoXcbwJleD0A6?=
- =?us-ascii?Q?zZxi4aBC9eQbRHMarNzYo3qFDOiy2+9S6teHEMfMlxAsjpTVQgYSxmST6Kgf?=
- =?us-ascii?Q?VphaBfCcuYTkgvANMofM1AgWtUboWzUR6r+xIWGVugZmjEm9PoobtEGB+JSE?=
- =?us-ascii?Q?UTrJHrfaCdR4th8a8O51JnclVlRsvgdOIBDg95PY43uCUq0DUM9fpJ+8JMgN?=
- =?us-ascii?Q?zmcHJUVtEQ09f4Uv7yo0pxtA9PbKjpUuwL1gP41fcpRAIDswRrLDlmiWNMj1?=
- =?us-ascii?Q?2J2++4Ufic4KdRHhXMGBBcAVcU8Yl7L66OKvQrhQFQhKzbyatoHO2AmTr7Ai?=
- =?us-ascii?Q?D/QG3pFjCUhQwn0Aljn3dliMHRyucBiRuqUm1KJ6vI+RXn/+hB8aI9sWIpul?=
- =?us-ascii?Q?3Cdt7MN//3vEzbZzAxtAwj3lSli5mUCo3rhGUkOJxCfFVmk1se0k2FWbo2n0?=
- =?us-ascii?Q?4ADaTRB4rqQrqNqiqSJxFEr82LHzHmIVd2ahJ07TGIbiE0NI3cZx94R40pHI?=
- =?us-ascii?Q?HPxpLoP70yvQcEdFy4eYn2G3eD1FptJ5r2uINvHlAxFwxYFIGG54OQyLxEPg?=
- =?us-ascii?Q?gW7t1c+n23ZEPEfC1nOCwmjwad9bVEV/27vc1BWX0IawZ9EKhtPhG5xiMWWz?=
- =?us-ascii?Q?uRQIM3E1uhaLUQtMHdoQJSdRjKWm6g4PJwX/yRnjmBSfciWoByHa2N92IwMS?=
- =?us-ascii?Q?xlJjR1NJwj0qxrXM0AW9YjUcrDsK1cJKagp7KjwhpRKJu4vLHStUj9g1oVQ+?=
- =?us-ascii?Q?f/V0JyRTOjITLwj9CbEYnRiGmhhi+GL3bIoY3291pE5mpCjFbHw4SZx4CMyM?=
- =?us-ascii?Q?O6gBerJR5pygyxm5mjg7heNpCDR66n5MaPcvEbXXYkn/WS5l1ECNwX2NZIl/?=
- =?us-ascii?Q?KNHIA2T7JLNLn5+hHPM77sTB1N1ZWpXTM2y8eCdWdQr9rwa62DlaDScZdR76?=
- =?us-ascii?Q?jNjOnr2Jik/BJBizoVDNmIjhiJGQzhUkRkG4xLVbtgYVvSD7YsehrjgCGZRU?=
- =?us-ascii?Q?KInpIQaFslTCXrY=3D?=
+	=?us-ascii?Q?KQ/+PtggQAdTEuhWmxhbXx5iO6Dojx/XPEHrVsv8K4qfVuPWANMzG+c+BuI5?=
+ =?us-ascii?Q?W7TLHDqimEwQoSyAFHWK6tnopcmz3xBZXN+C3f9FE0yIr6BM8FdO2efIt08Q?=
+ =?us-ascii?Q?MJPDDV2SKRmlpJViNVeUEKBMWGnwEC/7pC/29GCPgzhI85kgsiOZCBS/Id/4?=
+ =?us-ascii?Q?bukVAgdXiB+kG5ZhbuJLIMpGT8UxiQO7KAWrnStlB9suFv3I0bmKk1Glq0Nt?=
+ =?us-ascii?Q?KpULsMPEK9Zqg80rYSX/9GngNyG3RMghFAxBNsQ/mE5XSWPegLlriQ9kyB86?=
+ =?us-ascii?Q?j1P2mggxSRkNEG8uRNkfhpNjVhql5e7SngxrYjD5PCIr4NrshEl1HIhQ7TsE?=
+ =?us-ascii?Q?HQzVlyvItcPcKvPu/pEFhvhgIdOyAOLG6JQ6iV6h+Cg34M2a0twPlAkapc/O?=
+ =?us-ascii?Q?Zu6NwjP+q2qaNBqK4NOupy1303XMHfIYPrye7fit/tJ996SahnFbyJbSdpbR?=
+ =?us-ascii?Q?oIQFiEjBzY3ND9CQlUE12ELLK9rPlxDtSMIBbqjPnXw6tMkDj1RCdC2FBm2f?=
+ =?us-ascii?Q?s8hVfEGalFWtcApR5SJvaI7NfMFFLa1gXRhsDlEtEy0FKGalSsedi2uqfjQA?=
+ =?us-ascii?Q?H4+2xEpW8cHmFd7818qCrOUvLiZpnRpj05HFNqOMfC0u3agOaMRMDade1gfJ?=
+ =?us-ascii?Q?a8zwCzFTk4TvPheQ8Dr8glSlQ8S8HH3RfukZxKXH8boL9j/uNKFtkPql9469?=
+ =?us-ascii?Q?OlgDRFXjjBGpiu+7mfqp3Q6suNidAxlrImAcWkslY1+UYfxgynhllCJVq8fe?=
+ =?us-ascii?Q?M3bH/a/7IIDwHF9si5Rh1qitMH+NqY/DRPmYBL3tFe8wUiYCV2I6QGwpgew4?=
+ =?us-ascii?Q?fL/HISPDsjlv/y10M6j0nrD/Ae6SXkd0NxtBYKHA1hRs7OCfZdU3l33oQVpc?=
+ =?us-ascii?Q?lVzvsGc27sRRb4Sz5BLN3XqFScA1+y34xoobJ2b9UtVn1VvUp2CTlGR24GuE?=
+ =?us-ascii?Q?/VYQPepN0RGiE2t3dwhucQuJLe2VZaPfFglJA+eBF8ee3NEBJkaHaIrkp3bB?=
+ =?us-ascii?Q?zJrezpMGtggfZI14ocDFptFISFwjJC0aEODzoKTdWQkq34EhNU340eDuM4V2?=
+ =?us-ascii?Q?RFF1wWa/Ogm3UC7icDYR1Gq44q+8/QN/e9jIClfu4bkoXtSqPG3rUtXnF7pz?=
+ =?us-ascii?Q?7NHguBzQqQafCCV6EAgSnBtCkZpBtXxblIBsv9bV5SnrmSmm/uYE9IH0WiQi?=
+ =?us-ascii?Q?zJTuPFMSI8RkMW25cxgBefASneDXUxWD4n8Le8n2e00osrHcUlHjbAdVSfbT?=
+ =?us-ascii?Q?yZlT+awUaACAe944y8aZK6/1hiFRSuXgT1LG2Y9DbWsDDlnYZ/cUQmFOaOZf?=
+ =?us-ascii?Q?zzzPMqlUhL+HVJv5FwlTmyKPusJbVSlQuqUax6aI3cfuJFeqmAZ1wU2vXs54?=
+ =?us-ascii?Q?Awsu1ddIx6lipSt1tJzZZOlKqHMiim3G5Uz/HsxdOoic+XffQUpJvB//I1sT?=
+ =?us-ascii?Q?jwVfVReuq2Z6VfhkavwM3ZXjKfv2H6uHDCE9z6TOahwuQyWSnUkxNYX/lYiE?=
+ =?us-ascii?Q?IvMEmrWggWT2wik=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2025 09:04:23.5730
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2025 09:04:20.9369
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 54dcec8f-d655-465e-8c0c-08dd607bb7cb
+X-MS-Exchange-CrossTenant-Network-Message-Id: a40a0a1f-a7ff-42cd-292c-08dd607bb632
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF0000231E.namprd03.prod.outlook.com
+	SA2PEPF000015CB.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5851
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8073
 
-At the moment, we print a warning about max number of IRQs supported by
-GIC bigger than vGIC only for hardware domain. This check is not hwdom
-special, and should be made common. Also, in case of user not specifying
-nr_spis for dom0less domUs, we should take into account max number of
-IRQs supported by vGIC if it's smaller than for GIC.
-
-Introduce VGIC_MAX_IRQS macro and use it instead of hardcoded 992 value.
-Fix calculation of nr_spis for dom0less domUs and make the GIC/vGIC max
-IRQs comparison common.
+If the calculated value for nr_spis by the toolstack is bigger than the
+value provided by the user, we silently ignore the latter. This is not
+consistent with the approach we have in Xen on Arm when we try to reject
+incorrect configuration. Also, the documentation for nr_spis is
+incorrect as it mentions 991 as the number of max SPIs, where it should
+be 960 i.e. (1020 - 32) rounded down to the nearest multiple of 32.
 
 Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 ---
- xen/arch/arm/dom0less-build.c   | 2 +-
- xen/arch/arm/domain_build.c     | 9 ++-------
- xen/arch/arm/gic.c              | 3 +++
- xen/arch/arm/include/asm/vgic.h | 3 +++
- 4 files changed, 9 insertions(+), 8 deletions(-)
+ docs/man/xl.cfg.5.pod.in     | 13 +++++--------
+ tools/libs/light/libxl_arm.c |  6 ++++++
+ 2 files changed, 11 insertions(+), 8 deletions(-)
 
-diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
-index 31f31c38da3f..9a84fee94119 100644
---- a/xen/arch/arm/dom0less-build.c
-+++ b/xen/arch/arm/dom0less-build.c
-@@ -1018,7 +1018,7 @@ void __init create_domUs(void)
-         {
-             int vpl011_virq = GUEST_VPL011_SPI;
+diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+index 8e1422104e50..7339c44efd54 100644
+--- a/docs/man/xl.cfg.5.pod.in
++++ b/docs/man/xl.cfg.5.pod.in
+@@ -3083,14 +3083,11 @@ interval of colors (such as "0-4").
+ =item B<nr_spis="NR_SPIS">
  
--            d_cfg.arch.nr_spis = gic_number_lines() - 32;
-+            d_cfg.arch.nr_spis = min(gic_number_lines(), VGIC_MAX_IRQS) - 32;
+ An optional integer parameter specifying the number of SPIs (Shared
+-Peripheral Interrupts) to allocate for the domain. Max is 991 SPIs. If
+-the value specified by the `nr_spis` parameter is smaller than the
+-number of SPIs calculated by the toolstack based on the devices
+-allocated for the domain, or the `nr_spis` parameter is not specified,
+-the value calculated by the toolstack will be used for the domain.
+-Otherwise, the value specified by the `nr_spis` parameter will be used.
+-The number of SPIs should match the highest interrupt ID that will be
+-assigned to the domain.
++Peripheral Interrupts) to allocate for the domain. Max is 960 SPIs. If
++the `nr_spis` parameter is not specified, the value calculated by the toolstack
++will be used for the domain. Otherwise, the value specified by the `nr_spis`
++parameter will be used. The number of SPIs should match the highest interrupt
++ID that will be assigned to the domain.
  
-             /*
-              * The VPL011 virq is GUEST_VPL011_SPI, unless direct-map is
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 7cc141ef75e9..b99c4e3a69bf 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -2371,13 +2371,8 @@ void __init create_dom0(void)
+ =back
  
-     /* The vGIC for DOM0 is exactly emulating the hardware GIC */
-     dom0_cfg.arch.gic_version = XEN_DOMCTL_CONFIG_GIC_NATIVE;
--    /*
--     * Xen vGIC supports a maximum of 992 interrupt lines.
--     * 32 are substracted to cover local IRQs.
--     */
--    dom0_cfg.arch.nr_spis = min(gic_number_lines(), (unsigned int) 992) - 32;
--    if ( gic_number_lines() > 992 )
--        printk(XENLOG_WARNING "Maximum number of vGIC IRQs exceeded.\n");
-+    /* 32 are substracted to cover local IRQs */
-+    dom0_cfg.arch.nr_spis = min(gic_number_lines(), VGIC_MAX_IRQS) - 32;
-     dom0_cfg.arch.tee_type = tee_get_type();
-     dom0_cfg.max_vcpus = dom0_max_vcpus();
+diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+index 5a9db5e85f6f..ee9154298f2a 100644
+--- a/tools/libs/light/libxl_arm.c
++++ b/tools/libs/light/libxl_arm.c
+@@ -181,6 +181,12 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
  
-diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
-index acf61a4de373..e80fe0ca2421 100644
---- a/xen/arch/arm/gic.c
-+++ b/xen/arch/arm/gic.c
-@@ -251,6 +251,9 @@ void __init gic_init(void)
-         panic("Failed to initialize the GIC drivers\n");
-     /* Clear LR mask for cpu0 */
-     clear_cpu_lr_mask();
+     LOG(DEBUG, "Configure the domain");
+ 
++    if (nr_spis > d_config->b_info.arch_arm.nr_spis) {
++        LOG(ERROR, "Provided nr_spis value is too small (required %u)\n",
++            nr_spis);
++        return ERROR_FAIL;
++    }
 +
-+    if ( gic_number_lines() > VGIC_MAX_IRQS )
-+        printk(XENLOG_WARNING "Maximum number of vGIC IRQs exceeded\n");
- }
+     config->arch.nr_spis = max(nr_spis, d_config->b_info.arch_arm.nr_spis);
+     LOG(DEBUG, " - Allocate %u SPIs", config->arch.nr_spis);
  
- void send_SGI_mask(const cpumask_t *cpumask, enum gic_sgi sgi)
-diff --git a/xen/arch/arm/include/asm/vgic.h b/xen/arch/arm/include/asm/vgic.h
-index e309dca1ad01..c549e5840bfa 100644
---- a/xen/arch/arm/include/asm/vgic.h
-+++ b/xen/arch/arm/include/asm/vgic.h
-@@ -329,6 +329,9 @@ extern void vgic_check_inflight_irqs_pending(struct vcpu *v,
-  */
- #define vgic_num_irqs(d)        ((d)->arch.vgic.nr_spis + 32)
- 
-+/* Maximum number of IRQs supported by vGIC */
-+#define VGIC_MAX_IRQS 992U
-+
- /*
-  * Allocate a guest VIRQ
-  *  - spi == 0 => allocate a PPI. It will be the same on every vCPU
 -- 
 2.25.1
 
