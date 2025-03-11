@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44086A5D178
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 22:13:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.909298.1316297 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 611A9A5D174
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Mar 2025 22:13:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.909297.1316286 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ts6uD-0000oe-W9; Tue, 11 Mar 2025 21:12:53 +0000
+	id 1ts6uC-0000Zp-OC; Tue, 11 Mar 2025 21:12:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 909298.1316297; Tue, 11 Mar 2025 21:12:53 +0000
+Received: by outflank-mailman (output) from mailman id 909297.1316286; Tue, 11 Mar 2025 21:12:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ts6uD-0000mG-Rw; Tue, 11 Mar 2025 21:12:53 +0000
-Received: by outflank-mailman (input) for mailman id 909298;
+	id 1ts6uC-0000XP-KR; Tue, 11 Mar 2025 21:12:52 +0000
+Received: by outflank-mailman (input) for mailman id 909297;
  Tue, 11 Mar 2025 21:12:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=isYZ=V6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ts6uB-0008V9-T0
+ id 1ts6uB-0008Uq-D9
  for xen-devel@lists.xenproject.org; Tue, 11 Mar 2025 21:12:51 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 96898c2d-febd-11ef-9898-31a8f345e629;
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 96d77c12-febd-11ef-9ab9-95dc52dad729;
  Tue, 11 Mar 2025 22:12:50 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-43690d4605dso37356815e9.0
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-39133f709f5so2403710f8f.0
  for <xen-devel@lists.xenproject.org>; Tue, 11 Mar 2025 14:12:50 -0700 (PDT)
 Received: from andrewcoop.eng.citrite.net (host-92-26-98-202.as13285.net.
  [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3912bfdfba9sm19480872f8f.39.2025.03.11.14.12.48
+ ffacd0b85a97d-3912bfdfba9sm19480872f8f.39.2025.03.11.14.12.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Mar 2025 14:12:48 -0700 (PDT)
+ Tue, 11 Mar 2025 14:12:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 96898c2d-febd-11ef-9898-31a8f345e629
+X-Inumbo-ID: 96d77c12-febd-11ef-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741727569; x=1742332369; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1741727570; x=1742332370; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3tUvTAv3blqytxViw6Vvd9NJKdvVm3sZY5QDWdB8lnM=;
-        b=iL/AhS5u/a8tlcYimgK2oHOuYGIjbPkDKm1TC8UnNVOwGkJvdpgLDhLezZnIXw3+xz
-         /Wn7+QvbgUJvFXnz6fsk8UEL5OTfUHbHmbaMd556Evd3Rvqm7FzF7/9gKx1nmYhGAbTz
-         Uyl6OGK84IFbEjIoul10Fq4aIevCDLwJ2wc4s=
+        bh=UiR2XpbypvshRbRNfBioPM8wWuD1cIjIcqBLxXLhlGE=;
+        b=ea4HZ0jUAA8Hr1Yq+ZGyUuuGbpQTfF1+rCRj800IzG+er75qgHhpkGEGVsnozSE/lj
+         NyypmMXtPaTJZx2hflmhF9MbdoNmR4KQOLqrxxrWjYaLLoxATSo3xRGdcS0kS2cTyKdq
+         3NyvYoscqhwjnURCciJJ4hFGUjrbq+/JAt2q4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741727569; x=1742332369;
+        d=1e100.net; s=20230601; t=1741727570; x=1742332370;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=3tUvTAv3blqytxViw6Vvd9NJKdvVm3sZY5QDWdB8lnM=;
-        b=HImng6Olq4ld6l2sVEJADauDXPbUMyFv/dQgxnj89hLyClFg2OgpXayu92UTcn3pMp
-         dUtzOt+WuD/GOI9liOFgvPcoxlm/VGBFNIrcB8uBEN/raQcdZvH3/MOvbgqbjYNDEE1v
-         y2tKTnxUc/aYFLfaNkEct3T2YUdrN68mA1hOw15rDLFSvhvxS8t0fb6lA4Gx4pv34d9H
-         g0yUeZERPkxJ5Ug86rnTHi3FIrHyt+dYLHLiv5Ct1A4QGZVJFokSSaJb4Uo4QTX/7zNn
-         7c6fJllVbHtz4cfIQPdgokzzW3ZklW1lKS6C9LW4rpW9LVu86uCdcwiPUC9UfbRdZ6cF
-         hfVg==
-X-Gm-Message-State: AOJu0Ywgs0MNM3bKg4lSZeYrSIi8ftzbBk9j0NahSFLF+X6LP04sn+j6
-	Q5aYS2x5T4GwRI37hvFae3PlyNQevrBRkLsP+91PfYGMX1uZnSaotM4+RUwUqE7pkbsdCxxdNg8
-	I
-X-Gm-Gg: ASbGncsOogRdUp4qwEpPwaJ6/pDgRhOeJyGY6Uw2San8NKLHg2S0mLOKxymdz9P8NC1
-	KmYzLcafnIt4lfKR1vZ2lBeCT9r6D9e429RlQM5C/2UJCdqPTW792pdIIVWeFrBoqw3Of4wfEbn
-	cpxz2wY+oaBT2YxAq70e1+/yCAkC+vtrRKGA3/b+JA43t9JRvI9TFmUJ1BnWID2I6IoLay5kGpu
-	18s9ZYsRUDJy/oPSvLgfMm3RJn01WPOtRjcAcJwinQVJQNjWYkkaEyuIv97UqTjfeI9iCZttMa2
-	/bPUN0IWeMCmENQ/a7eZ7ET2eFuqq160Vw7mTGfFTffjas68qYL4Ox+6/qMQeB3zHXjglQCYJ16
-	nHB5sL8NPC0oMSI8nlxbDjXKP
-X-Google-Smtp-Source: AGHT+IHDtuMEgcwGjelrzYRwcrT2OmMihNokulS7s+soekb61kdamUYko2fDPfbSIEcFLf335JFhLw==
-X-Received: by 2002:a05:6000:18a3:b0:391:2df9:772d with SMTP id ffacd0b85a97d-39132d3bad8mr17084750f8f.13.1741727569105;
+        bh=UiR2XpbypvshRbRNfBioPM8wWuD1cIjIcqBLxXLhlGE=;
+        b=Q1bW4lWxFkdpoxZmtNg/+SM1e2FmT5fKnRn/mwSl57MC4hhpnntJ8gkzf8S8o3QbFC
+         SV8DJqtypswc+7GLEsfeqw8qplryBs/NxiwC/pwvNLGNx4rzuPsWQVMsJ3YCxFtwjSF3
+         DOIZvfETXe2V3xzlJQXTLi5qx8TuazONDSIjaQhwdLW8LOslsyXYHx9oI3pH4/YFFpCa
+         rT8T3T+UvN2xaeJ01S8iNQzO8CJhejJYL2OfeXnQaDbFxE1iPj1/qYvu9Znyr5KAFaXk
+         1r9TQKvhNLX13ciIU1wKFsr3bcFMj3FHPfyPUD0A2ndm9tDHXCQN9dxvf8OA8CHNn/F1
+         GHjQ==
+X-Gm-Message-State: AOJu0Yz2gf/7EduHmTPhbdgP6VbF2rYeMElie/lEZMkqWp2I6+hGYowB
+	5ZJNs3+r767BmIBfnzSMxKcE1C0tNAsXs7wrnLQxucyMphF0L4BcmZfJx3z6/CHza8iNYmdMgRJ
+	g
+X-Gm-Gg: ASbGncs88ew1grFNlcQY25wSNXU0+JI1JJ+OL3ZIA+7WXxxTBjhHRY/jV5t6373WhIf
+	znT3D3a/1pCXX6fNS9gy2oL9S7ZAF5X5ec9xh5xSnzSH0BbAbb6QSgv3yWFsGR5KjXOU88SqS/K
+	yIbNmK6aU2CiGUSdagKcJ9DP3N9V6AFBCCkFCvv8YK6CKEY5Ci/n+PB00DPVoYRPxwSXsI509tt
+	Y46FaczlwZR04CgTBre9UAmAPF1Q+eiE+gXhExPXb84eOCNq61ScunwUHypysvAp3t/Ghoekw29
+	Q4fGDRJwA7m98xslYmdPbIVUjIfZwjLhlakyDaCg8sHBdnCnGKAxjYrdDcno9ZSlngc4orY5weR
+	fUS0uZXEbENC5sJJRvxqd5IBvSRodsbKLqr0=
+X-Google-Smtp-Source: AGHT+IEksX+aXkXkg07Um+9mSO9nX2sNvAhlsA7pWNcI+p2ZNrCqDLY4p05fIO2bIMnjr9gY6I/uEg==
+X-Received: by 2002:a5d:64aa:0:b0:390:e853:85bd with SMTP id ffacd0b85a97d-39132db1108mr16961540f8f.48.1741727569762;
         Tue, 11 Mar 2025 14:12:49 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <JBeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 2/8] x86/traps: Rework register state printing to use a struct
-Date: Tue, 11 Mar 2025 21:10:37 +0000
-Message-Id: <20250311211043.3629696-3-andrew.cooper3@citrix.com>
+Subject: [PATCH 3/8] x86/traps: Avoid OoB accesses to print the data selectors
+Date: Tue, 11 Mar 2025 21:10:38 +0000
+Message-Id: <20250311211043.3629696-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250311211043.3629696-1-andrew.cooper3@citrix.com>
 References: <20250311211043.3629696-1-andrew.cooper3@citrix.com>
@@ -94,242 +94,154 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-... in preference to the crs[8] array.  This avoids abusing crs[5..7] for the
-fs/gs bases, giving them proper named fields instead, and avoids storage for
-cr1 which is unused in the x86 architecture.
+_show_registers() prints the data selectors from struct cpu_user_regs, but
+these fields are sometimes out-of-bounds.  See commit 6065a05adf15
+("x86/traps: 'Fix' safety of read_registers() in #DF path").
 
-In show_registers(), remove a redundant read_cr2().  read_registers() already
-did the same, and it is only the PV path which needs to override with
-arch_get_cr2().
+There are 3 callers of _show_registers():
 
-In vcpu_show_registers(), express the gsb/gss decision using SWAP().  The
-determination is going to get even more complicated under FRED.
+ 1. vcpu_show_registers(), which always operates on a scheduled-out vCPU,
+    where v->arch.user_regs (or aux_regs on the stack) is always in-bounds.
 
-No functional change.
+ 2. show_registers() where regs is always an on-stack frame.  regs is copied
+    into a local variable first (which is an OoB read for constructs such as
+    WARN()), before being modified (so no OoB write).
+
+ 3. do_double_fault(), where regs is adjacent to the stack guard page, and
+    written into directly.  This is an out of bounds read and write, with a
+    bodge to avoid the writes hitting the guard page.
+
+Include the data segment selectors in struct extra_state, and use those fields
+instead of the fields in regs.  This resolves the OoB write on the #DF path.
+
+Resolve the OoB read in show_registers() by doing a partial memcpy() rather
+than full structure copy.  This is temporary until we've finished untangling
+the vm86 fields fully.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/arch/x86/x86_64/traps.c | 96 +++++++++++++++++++++----------------
- 1 file changed, 54 insertions(+), 42 deletions(-)
+ xen/arch/x86/x86_64/traps.c | 39 +++++++++++++++++++++++++------------
+ 1 file changed, 27 insertions(+), 12 deletions(-)
 
 diff --git a/xen/arch/x86/x86_64/traps.c b/xen/arch/x86/x86_64/traps.c
-index ac0fafd72d31..01b4f0623282 100644
+index 01b4f0623282..23622cdb1440 100644
 --- a/xen/arch/x86/x86_64/traps.c
 +++ b/xen/arch/x86/x86_64/traps.c
-@@ -23,6 +23,11 @@
- #include <asm/shared.h>
- #include <asm/traps.h>
- 
-+struct extra_state
-+{
-+    unsigned long cr0, cr2, cr3, cr4;
-+    unsigned long fsb, gsb, gss;
-+};
+@@ -27,6 +27,7 @@ struct extra_state
+ {
+     unsigned long cr0, cr2, cr3, cr4;
+     unsigned long fsb, gsb, gss;
++    uint16_t ds, es, fs, gs;
+ };
  
  static void print_xen_info(void)
- {
-@@ -35,28 +40,29 @@ static void print_xen_info(void)
+@@ -40,18 +41,21 @@ static void print_xen_info(void)
  
  enum context { CTXT_hypervisor, CTXT_pv_guest, CTXT_hvm_guest };
  
--/* (ab)use crs[5..7] for fs/gs bases. */
--static void read_registers(struct cpu_user_regs *regs, unsigned long crs[8])
-+static void read_registers(struct cpu_user_regs *regs, struct extra_state *state)
+-static void read_registers(struct cpu_user_regs *regs, struct extra_state *state)
++static void read_registers(struct extra_state *state)
  {
--    crs[0] = read_cr0();
--    crs[2] = read_cr2();
--    crs[3] = read_cr3();
--    crs[4] = read_cr4();
-+    state->cr0 = read_cr0();
-+    state->cr2 = read_cr2();
-+    state->cr3 = read_cr3();
-+    state->cr4 = read_cr4();
+     state->cr0 = read_cr0();
+     state->cr2 = read_cr2();
+     state->cr3 = read_cr3();
+     state->cr4 = read_cr4();
+ 
+-    read_sregs(regs);
+-
+     state->fsb = read_fs_base();
+     state->gsb = read_gs_base();
+     state->gss = read_gs_shadow();
 +
-     read_sregs(regs);
--    crs[5] = read_fs_base();
--    crs[6] = read_gs_base();
--    crs[7] = read_gs_shadow();
-+
-+    state->fsb = read_fs_base();
-+    state->gsb = read_gs_base();
-+    state->gss = read_gs_shadow();
++    asm ( "mov %%ds, %0" : "=m" (state->ds) );
++    asm ( "mov %%es, %0" : "=m" (state->es) );
++    asm ( "mov %%fs, %0" : "=m" (state->fs) );
++    asm ( "mov %%gs, %0" : "=m" (state->gs) );
  }
  
  static void get_hvm_registers(struct vcpu *v, struct cpu_user_regs *regs,
--                              unsigned long crs[8])
-+                              struct extra_state *state)
- {
-     struct segment_register sreg;
- 
--    crs[0] = v->arch.hvm.guest_cr[0];
--    crs[2] = v->arch.hvm.guest_cr[2];
--    crs[3] = v->arch.hvm.guest_cr[3];
--    crs[4] = v->arch.hvm.guest_cr[4];
-+    state->cr0 = v->arch.hvm.guest_cr[0];
-+    state->cr2 = v->arch.hvm.guest_cr[2];
-+    state->cr3 = v->arch.hvm.guest_cr[3];
-+    state->cr4 = v->arch.hvm.guest_cr[4];
- 
-     hvm_get_segment_register(v, x86_seg_cs, &sreg);
+@@ -68,17 +72,17 @@ static void get_hvm_registers(struct vcpu *v, struct cpu_user_regs *regs,
      regs->cs = sreg.sel;
-@@ -69,20 +75,20 @@ static void get_hvm_registers(struct vcpu *v, struct cpu_user_regs *regs,
+ 
+     hvm_get_segment_register(v, x86_seg_ds, &sreg);
+-    regs->ds = sreg.sel;
++    state->ds = sreg.sel;
+ 
+     hvm_get_segment_register(v, x86_seg_es, &sreg);
+-    regs->es = sreg.sel;
++    state->es = sreg.sel;
  
      hvm_get_segment_register(v, x86_seg_fs, &sreg);
-     regs->fs = sreg.sel;
--    crs[5] = sreg.base;
-+    state->fsb = sreg.base;
+-    regs->fs = sreg.sel;
++    state->fs = sreg.sel;
+     state->fsb = sreg.base;
  
      hvm_get_segment_register(v, x86_seg_gs, &sreg);
-     regs->gs = sreg.sel;
--    crs[6] = sreg.base;
-+    state->gsb = sreg.base;
+-    regs->gs = sreg.sel;
++    state->gs = sreg.sel;
+     state->gsb = sreg.base;
  
      hvm_get_segment_register(v, x86_seg_ss, &sreg);
-     regs->ss = sreg.sel;
- 
--    crs[7] = hvm_get_reg(v, MSR_SHADOW_GS_BASE);
-+    state->gss = hvm_get_reg(v, MSR_SHADOW_GS_BASE);
- }
- 
- static void _show_registers(
--    const struct cpu_user_regs *regs, unsigned long crs[8],
-+    const struct cpu_user_regs *regs, const struct extra_state *state,
-     enum context context, const struct vcpu *v)
- {
-     static const char *const context_names[] = {
-@@ -112,10 +118,10 @@ static void _show_registers(
-     printk("r12: %016lx   r13: %016lx   r14: %016lx\n",
-            regs->r12, regs->r13, regs->r14);
-     printk("r15: %016lx   cr0: %016lx   cr4: %016lx\n",
--           regs->r15, crs[0], crs[4]);
--    printk("cr3: %016lx   cr2: %016lx\n", crs[3], crs[2]);
-+           regs->r15, state->cr0, state->cr4);
-+    printk("cr3: %016lx   cr2: %016lx\n", state->cr3, state->cr2);
-     printk("fsb: %016lx   gsb: %016lx   gss: %016lx\n",
--           crs[5], crs[6], crs[7]);
-+           state->fsb, state->gsb, state->gss);
+@@ -124,17 +128,23 @@ static void _show_registers(
+            state->fsb, state->gsb, state->gss);
      printk("ds: %04x   es: %04x   fs: %04x   gs: %04x   "
             "ss: %04x   cs: %04x\n",
-            regs->ds, regs->es, regs->fs,
-@@ -125,34 +131,33 @@ static void _show_registers(
+-           regs->ds, regs->es, regs->fs,
+-           regs->gs, regs->ss, regs->cs);
++           state->ds, state->es, state->fs,
++           state->gs, regs->ss, regs->cs);
+ }
+ 
  void show_registers(const struct cpu_user_regs *regs)
  {
-     struct cpu_user_regs fault_regs = *regs;
--    unsigned long fault_crs[8];
-+    struct extra_state fault_state;
+-    struct cpu_user_regs fault_regs = *regs;
++    struct cpu_user_regs fault_regs;
+     struct extra_state fault_state;
      enum context context;
      struct vcpu *v = system_state >= SYS_STATE_smp_boot ? current : NULL;
  
++    /*
++     * Don't read beyond the end of the hardware frame.  It is out of bounds
++     * for WARN()/etc.
++     */
++    memcpy(&fault_regs, regs, offsetof(struct cpu_user_regs, es));
++
      if ( guest_mode(regs) && is_hvm_vcpu(v) )
      {
--        get_hvm_registers(v, &fault_regs, fault_crs);
-+        get_hvm_registers(v, &fault_regs, &fault_state);
-         context = CTXT_hvm_guest;
+         get_hvm_registers(v, &fault_regs, &fault_state);
+@@ -142,7 +152,7 @@ void show_registers(const struct cpu_user_regs *regs)
      }
      else
      {
--        read_registers(&fault_regs, fault_crs);
-+        read_registers(&fault_regs, &fault_state);
+-        read_registers(&fault_regs, &fault_state);
++        read_registers(&fault_state);
  
          if ( guest_mode(regs) )
          {
-             context = CTXT_pv_guest;
--            fault_crs[2] = arch_get_cr2(v);
-+            fault_state.cr2 = arch_get_cr2(v);
-         }
-         else
-         {
-             context = CTXT_hypervisor;
--            fault_crs[2] = read_cr2();
-         }
-     }
+@@ -209,6 +219,11 @@ void vcpu_show_registers(struct vcpu *v)
+         state.gsb = gsb;
+         state.gss = gss;
  
-     print_xen_info();
-     printk("CPU:    %d\n", smp_processor_id());
--    _show_registers(&fault_regs, fault_crs, context, v);
-+    _show_registers(&fault_regs, &fault_state, context, v);
- 
-     if ( ler_msr && !guest_mode(regs) )
-     {
-@@ -173,34 +178,41 @@ void vcpu_show_registers(struct vcpu *v)
- {
-     const struct cpu_user_regs *regs = &v->arch.user_regs;
-     struct cpu_user_regs aux_regs;
-+    struct extra_state state;
-     enum context context;
--    unsigned long crs[8];
- 
-     if ( is_hvm_vcpu(v) )
-     {
-         aux_regs = *regs;
--        get_hvm_registers(v, &aux_regs, crs);
-+        get_hvm_registers(v, &aux_regs, &state);
-         regs = &aux_regs;
-         context = CTXT_hvm_guest;
-     }
-     else
-     {
-         bool kernel = guest_kernel_mode(v, regs);
-+        unsigned long gsb, gss;
++        state.ds = v->arch.user_regs.ds;
++        state.es = v->arch.user_regs.es;
++        state.fs = v->arch.user_regs.fs;
++        state.gs = v->arch.user_regs.gs;
 +
-+        state.cr0 = v->arch.pv.ctrlreg[0];
-+        state.cr2 = arch_get_cr2(v);
-+        state.cr3 = pagetable_get_paddr(kernel
-+                                        ? v->arch.guest_table
-+                                        : v->arch.guest_table_user);
-+        state.cr4 = v->arch.pv.ctrlreg[4];
-+
-+        gsb = v->arch.pv.gs_base_user;
-+        gss = v->arch.pv.gs_base_kernel;
-+        if ( kernel )
-+            SWAP(gsb, gss);
- 
--        crs[0] = v->arch.pv.ctrlreg[0];
--        crs[2] = arch_get_cr2(v);
--        crs[3] = pagetable_get_paddr(kernel ?
--                                     v->arch.guest_table :
--                                     v->arch.guest_table_user);
--        crs[4] = v->arch.pv.ctrlreg[4];
--        crs[5] = v->arch.pv.fs_base;
--        crs[6 + !kernel] = v->arch.pv.gs_base_kernel;
--        crs[7 - !kernel] = v->arch.pv.gs_base_user;
-+        state.fsb = v->arch.pv.fs_base;
-+        state.gsb = gsb;
-+        state.gss = gss;
- 
          context = CTXT_pv_guest;
      }
  
--    _show_registers(regs, crs, context, v);
-+    _show_registers(regs, &state, context, v);
- }
- 
- void show_page_walk(unsigned long addr)
-@@ -268,7 +280,7 @@ void show_page_walk(unsigned long addr)
- void asmlinkage do_double_fault(struct cpu_user_regs *regs)
- {
-     unsigned int cpu;
--    unsigned long crs[8];
-+    struct extra_state state;
- 
-     console_force_unlock();
- 
-@@ -279,10 +291,10 @@ void asmlinkage do_double_fault(struct cpu_user_regs *regs)
+@@ -291,7 +306,7 @@ void asmlinkage do_double_fault(struct cpu_user_regs *regs)
      printk("*** DOUBLE FAULT ***\n");
      print_xen_info();
  
--    read_registers(regs, crs);
-+    read_registers(regs, &state);
+-    read_registers(regs, &state);
++    read_registers(&state);
  
      printk("CPU:    %d\n", cpu);
--    _show_registers(regs, crs, CTXT_hypervisor, NULL);
-+    _show_registers(regs, &state, CTXT_hypervisor, NULL);
-     show_code(regs);
-     show_stack_overflow(cpu, regs);
- 
+     _show_registers(regs, &state, CTXT_hypervisor, NULL);
 -- 
 2.39.5
 
