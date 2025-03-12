@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90618A5D898
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Mar 2025 09:49:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.910099.1316873 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BF6CA5D8A0
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Mar 2025 09:51:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.910109.1316883 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsHmI-0003xH-FA; Wed, 12 Mar 2025 08:49:26 +0000
+	id 1tsHo2-0006hw-QF; Wed, 12 Mar 2025 08:51:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 910099.1316873; Wed, 12 Mar 2025 08:49:26 +0000
+Received: by outflank-mailman (output) from mailman id 910109.1316883; Wed, 12 Mar 2025 08:51:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsHmI-0003vp-CT; Wed, 12 Mar 2025 08:49:26 +0000
-Received: by outflank-mailman (input) for mailman id 910099;
- Wed, 12 Mar 2025 08:49:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tsHo2-0006fS-NP; Wed, 12 Mar 2025 08:51:14 +0000
+Received: by outflank-mailman (input) for mailman id 910109;
+ Wed, 12 Mar 2025 08:51:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ASRr=V7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tsHmH-0003vj-CW
- for xen-devel@lists.xenproject.org; Wed, 12 Mar 2025 08:49:25 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e5cdbb85-ff1e-11ef-9ab9-95dc52dad729;
- Wed, 12 Mar 2025 09:49:24 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-43d0c18e84eso1437385e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 12 Mar 2025 01:49:24 -0700 (PDT)
+ id 1tsHo1-0006fK-Dz
+ for xen-devel@lists.xenproject.org; Wed, 12 Mar 2025 08:51:13 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 25902835-ff1f-11ef-9898-31a8f345e629;
+ Wed, 12 Mar 2025 09:51:11 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-39104c1cbbdso3151646f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Mar 2025 01:51:11 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3912bfdfcfbsm19922695f8f.28.2025.03.12.01.49.23
+ ffacd0b85a97d-3912bfdfcb8sm20762231f8f.33.2025.03.12.01.51.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Mar 2025 01:49:23 -0700 (PDT)
+ Wed, 12 Mar 2025 01:51:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e5cdbb85-ff1e-11ef-9ab9-95dc52dad729
+X-Inumbo-ID: 25902835-ff1f-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741769364; x=1742374164; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741769471; x=1742374271; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=G8rsxSW6RfkBU/qhCqIRhOPnN5q7fpagLRTqNVArWdo=;
-        b=bktyYoZtxuJxcjwyVs0+8HpoemhYB4WaRcv704WykUHXl5bc8ehrB7HcXwGJYlfxru
-         a3lEj3Ig6aZNOoTOTVR4/O8D8fHAMMBWSA5F8lHh/zNRlmO2B95fKNYnXHgbvHL8rGL+
-         C44qNwrIYCB3Ufd5Ri8paI0/dHvSNlASPgEWjgw0rv5tWDeoxhIKDrfHiZXF40mD80Yq
-         Dt4l8o/cYBjyWHc3AWTaeXtpQzCbXW+P2dM7hSzG2lTVTUHXOgdBdhKz30JeGcfNfyyq
-         Q3LfYo66XKQBIUbZX+IS6jVB4Ra5nRa8LrIgGNfywjYpeTVFd/q6bQgL9UgwndHXk8Dy
-         0n7A==
+        bh=nIWMIijTkI2Ao3vMUw/l9DFrjzu18CxO6OHhFeZqUnU=;
+        b=BnZSIT+sn3OF40Okt4luzqpYhVyoi3tIkrX/xDq3ycWHCkcksAVWbv6iE7Kn6t4Hwh
+         WhJu+wu2VFI/7ACWAXnoYbdUP2DAMD/c2m1T03uOo4P5aYAE6sMOP/qe1ZXy3mtDIQY/
+         bkOsx0SNxrBJWAmUQuGQqSZNnan8HKGXyiJCPjmTQzA1D65H2vsEFCPnYerV7vE9OP7a
+         PS470eJGIHIu+N2TDm56iFuI/L2CS9ILxOHKA4NOxjfkqivcCqIKPgUdQ5MW9S2n3lrl
+         RJUqD/Ok5CWrQdWtHqPnKb5otx5mV2F/RRiQmcaJMFzVaTevP47pM3zXy+XLqXfmbgDI
+         fkIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741769364; x=1742374164;
+        d=1e100.net; s=20230601; t=1741769471; x=1742374271;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=G8rsxSW6RfkBU/qhCqIRhOPnN5q7fpagLRTqNVArWdo=;
-        b=xS9cukZzvfJywX4AIzXYhAQqke1ABxFFRYzGEQGIeSltmuBDXHBGnN1SwkbMV16Hzo
-         jbhNDcPy/SgjwrDj5Hc+xOoQm29Ewd+CKQzZzIj2KS/dFhFCX25RZam0VivQwNVDxfkM
-         JH221FURMbku8PKUhS+VWBAAs0vYjPSfTIqTCKxzKVPivirTcFZ02vM8ouN5EqIYHHSE
-         2YJkaSc7J0ujRP3kLQVwWAZac4D/+N79WnHPD+n+dk9BJYvrVclRrk7JS0slQ7/PJGvI
-         qqUiNwKlkkqxxksZHRwNb00sDnZ09+BIm02LjxOw4cwkYYSlhRvmiiJWvwQsrOnFbA0Y
-         emVA==
-X-Forwarded-Encrypted: i=1; AJvYcCWsObFvKuU1zde4A7eYe7Ohs/k7iWdnmyZMI8lS20MEeLWfeJ7mL9F1Se1Z4l8iPqWvy19w5CMYNSI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxcYVUo1lmnecUvsdjJ/8A9tOhkIArQ6OIgj2jyrHQQRupyP4de
-	o3NfKNmfhHjm/cPgXzk2UDkKW0EiJgukiP1M2xT/nHkgbDzvJRsN5pT3hzYTRg==
-X-Gm-Gg: ASbGncuPX+5t9UyV+3eGPsbSH98bh7KPbwLKIR4IMuuLrA3bpbvOdx7pFZ1CF1SCSoN
-	qWmgNfnyGqqMb9ByuW5STwH7WNRQCn/56gtb8EL8m4FivW7IxpwiiGNoQJTzW42lFrWidIw9ZVd
-	jWxFsex/agZEHkG00fdM2toMjeNWdr0oSKiZtXzyKA6l1poMYlBD59JEdjXhzQvfVrYRItL1OQN
-	6kjP9lMKOEzHyUkxfInBULIZE7Mqc8U8VfxtTcx4xLTYKe/e8+rW2jo1+lxjGp6dvEfldGUfuYE
-	FUtAtn7rqTYHOVZFhmrhu72ltaTifgc59ulleCxWxP/hEiW8Aoh8g/G229BU+rWxfwk6L39I2cv
-	SPmASShU0Hwhzsz+YOIzAF/9WBMHEUw==
-X-Google-Smtp-Source: AGHT+IGfpqQrXsMVR2fjr1OH8YzpmyrJUccUqQb0HFKMYx5Qff6uD0l+RnBeXTKk54YnxWXHVuhW8w==
-X-Received: by 2002:a05:600c:1d26:b0:43c:f597:d589 with SMTP id 5b1f17b1804b1-43cf597d965mr91561365e9.27.1741769363653;
-        Wed, 12 Mar 2025 01:49:23 -0700 (PDT)
-Message-ID: <cb7f086a-8a6d-4284-b85a-be88749757e0@suse.com>
-Date: Wed, 12 Mar 2025 09:49:22 +0100
+        bh=nIWMIijTkI2Ao3vMUw/l9DFrjzu18CxO6OHhFeZqUnU=;
+        b=R8Lqj8XinL+kbyAn6aLWKmf7bKlsslq+IOvhTlH/y2ixmAmAbWaxL6MeQizN3qteyN
+         bKlR3TxjZ0TLW0aOvkeymf4dzcBWqJT4LVLw5i1F6FJ0+F63JXFRnWLNEIVCo2F1vq9q
+         YZPJz7zaQ6rzR/A7NiZz5eOwJRFdWeJrTNOJw5XjrrHlYIyOgBLxjlBftZ+ucSG/vqJL
+         SYIzpDrdJRVeAZNB8ohhclWFEni+my8G5TAzTxP2tcwnEXdprEcfMd/ZGGm62yRlQ9hy
+         4oGg/h46Lz+BqiInfvf70n6izlfHBq1rGhjZAHvEBW+rhjMdlZEbYlT1YPTppd6p5eAO
+         OdGg==
+X-Forwarded-Encrypted: i=1; AJvYcCXsMm0mKxV+7WK1jtZcgWoWuev5mycWSCQin1cXUKRTVptxaU1BEbk33waIJgwu/hENZ4jgDfltQTI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz9hlc41MXV1C9Q44tMmg+0YkH8tUU6m+NbCMjrO4ZlIUB+8eQO
+	jcDV43muKFzoXhHP4aRUwPwbWIynjmWoAvuWkVBb8nO0mQRpeR2sMpMkh7V7cA==
+X-Gm-Gg: ASbGncv6SpOaaPupIk188Y4c6wwP6CjFFvkkKA2asjAQB90xcu3H+fPrgK4ID4/pV96
+	4PiPOhZ6ghlErrYTsSTbrM/prVMG4Y/m6tjXQwxzh9Sm/F7f0mz3C7a9m0hSXIqaHP5CncN6uKY
+	yQe0k3Mw2VfVuNPEdGTkxDMshoFpBSzlx4DywgdByE/sbfdRFmm6grkWYCGOBI/bG5s2lnDJlp3
+	XI16HQje5uJz++NgwESfyzCwRzFzVpGYUMBZEeXVHRkO/krpfqdw4Ue3aaXsXUKMf78Obkj5Vnm
+	uo+7qV0aUBotX+Cze9ZvTwiitobHhaK4OvlmVSc7a+yViChLbD7AuStASlPPpGbyHAW8AM92SRE
+	JB0mZJK0e3wmGA4rYhfoJvWSmXN8VMg==
+X-Google-Smtp-Source: AGHT+IEoyh83SoCmV7d41SM2TYpvLmlUNGbPOVs86/1BmSl7348Jt4/xB+JLfjz73o9aPRPskN+54A==
+X-Received: by 2002:a5d:5885:0:b0:38f:2b77:a9f3 with SMTP id ffacd0b85a97d-3926c1ce288mr8160102f8f.43.1741769470729;
+        Wed, 12 Mar 2025 01:51:10 -0700 (PDT)
+Message-ID: <a8919be5-020c-47f3-8bfa-02dab2f1e2ca@suse.com>
+Date: Wed, 12 Mar 2025 09:51:09 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/IDT: Fix IDT generation for INT $0x80
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Luca Fancellu <luca.fancellu@arm.com>,
+Subject: Re: [PATCH v1] CHANGELOG.md: Mention PCI passthrough for HVM domUs
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: Community Manager <community.manager@xenproject.org>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250311212248.3630583-1-andrew.cooper3@citrix.com>
- <cdae37d8-a01d-412c-a48b-f4e27d7d898e@citrix.com>
+ Huang Rui <ray.huang@amd.com>, xen-devel@lists.xenproject.org
+References: <20250312040220.2624329-1-Jiqian.Chen@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,28 +119,32 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <cdae37d8-a01d-412c-a48b-f4e27d7d898e@citrix.com>
+In-Reply-To: <20250312040220.2624329-1-Jiqian.Chen@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11.03.2025 22:27, Andrew Cooper wrote:
-> On 11/03/2025 9:22 pm, Andrew Cooper wrote:
->> When PV is enabled, entry_int80 needs to be DPL3, not DPL0.
->>
->> This causes the XSA-259 PoC to fail with:
->>
->>   --- Xen Test Framework ---
->>   Environment: PV 64bit (Long mode 4 levels)
->>   XSA-259 PoC
->>   Error: Unexpected fault 0x800d0802, #GP[IDT[256]]
->>   Test result: ERROR
->>
->> (Clearly I have a bug in XTF's rendering of the error code too.)
+On 12.03.2025 05:02, Jiqian Chen wrote:
+> PCI passthrough is already supported for HVM domUs when dom0 is PVH
+> on x86. The last related patch on Qemu side was merged after Xen4.20
+> release. So mention this feature in Xen4.21 entry.
 > 
-> Fixes: 3da2149cf4dc ("x86/IDT: Generate bsp_idt[] at build time")
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> ---
+>  CHANGELOG.md | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/CHANGELOG.md b/CHANGELOG.md
+> index 7201c484f899..b6de9b72ea7a 100644
+> --- a/CHANGELOG.md
+> +++ b/CHANGELOG.md
+> @@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>   - On x86:
+>     - Option to attempt to fixup p2m page-faults on PVH dom0.
+>     - Resizable BARs is supported for PVH dom0.
+> +   - Support PCI passthrough for HVM domUs when dom0 is PVH.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Aren't we still in need of SR-IOV support in order to make such an
+unconditional statement?
 
 Jan
-
 
