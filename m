@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23A54A5E878
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 00:35:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.911021.1317586 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02667A5E87C
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 00:36:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.911033.1317596 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsVbA-0001I6-KJ; Wed, 12 Mar 2025 23:34:52 +0000
+	id 1tsVc4-0001pt-VN; Wed, 12 Mar 2025 23:35:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 911021.1317586; Wed, 12 Mar 2025 23:34:52 +0000
+Received: by outflank-mailman (output) from mailman id 911033.1317596; Wed, 12 Mar 2025 23:35:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsVbA-0001Fj-G7; Wed, 12 Mar 2025 23:34:52 +0000
-Received: by outflank-mailman (input) for mailman id 911021;
- Wed, 12 Mar 2025 23:34:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tsVc4-0001nx-Ru; Wed, 12 Mar 2025 23:35:48 +0000
+Received: by outflank-mailman (input) for mailman id 911033;
+ Wed, 12 Mar 2025 23:35:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=K94u=V7=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tsVb8-0001Fd-F1
- for xen-devel@lists.xenproject.org; Wed, 12 Mar 2025 23:34:50 +0000
+ id 1tsVc4-0001bl-2s
+ for xen-devel@lists.xenproject.org; Wed, 12 Mar 2025 23:35:48 +0000
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 95660cfb-ff9a-11ef-9ab9-95dc52dad729;
- Thu, 13 Mar 2025 00:34:47 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b6a10ff8-ff9a-11ef-9898-31a8f345e629;
+ Thu, 13 Mar 2025 00:35:43 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 707A7A4140F;
- Wed, 12 Mar 2025 23:29:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FB17C4CEDD;
- Wed, 12 Mar 2025 23:34:44 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 4B090A44E25;
+ Wed, 12 Mar 2025 23:30:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D038FC4CEDD;
+ Wed, 12 Mar 2025 23:35:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,111 +41,191 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95660cfb-ff9a-11ef-9ab9-95dc52dad729
+X-Inumbo-ID: b6a10ff8-ff9a-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1741822486;
-	bh=y0yQJRuy+QF1g5v6Gxf8ham3SVd77ry1hi7sQRG+tz8=;
+	s=k20201202; t=1741822541;
+	bh=sMsVV3EOdF1ZV5JdnLlnHRCKVt4P7SqAgXeaUQ59QpY=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=IhQiYKdTCXdiz/Gba26sPLNjU0BauXG+0KIyw13gVODlmSXMMcRaxUcQhzGxtzCY5
-	 XuwQibiCMZHRYnc7waxHmhR601eTdaa/storFNNuM/LgJESxe1Wbacu2AX6AputTbJ
-	 VoqkaOue0SoNwqeo4biBWg+UiF8oBMjcGELd6esUJ1pSvSJS4hQJ8/fldK7uCfKs5f
-	 yKy7LgQhcGde9X94vkanJwCu+9NYqU1hTQ2wqDOq07g6y9KRaEYrxqjBli9bnAoOty
-	 babci1ghdfNxEoB2m+jhjlyQqnaZ+jgdl3N0EIrIe/MCAvJ0cQpreW7oJPDSefZUvO
-	 IvuEI8O0deZoA==
-Date: Wed, 12 Mar 2025 16:34:43 -0700 (PDT)
+	b=pEE2kJnBuN3fWxlJHXLirSfb7L9JuM9/FArWbJ/h2dBLGqDm5GZF7X3sjrfPNHfPc
+	 4pG8FqkotVrzlQ4POXODX5NjuLUTXHqA3AofrnyZ5leUbhttuGFu2H3debHqcLAKWM
+	 IEdiVpGRbtrZdEA9fQ3uvPnGOV/vIXQOt16AfDQBEfuU+AdVoqjvIWfChW0mcUW++I
+	 1P9ydWrUvSISYa7KiAkBrIxoBdIQZH/alrvyQoakIPrgecfGGU0X+OBYXWQiHWOwod
+	 5u//PUi1RdwxCgamETgoY6F7NtG8Y30omMe0IthZHpSTh2r7+7dq4gehAMH5LwzPYe
+	 6EURrOUN90IZw==
+Date: Wed, 12 Mar 2025 16:35:38 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Stefano Stabellini <sstabellini@kernel.org>
-cc: Penny Zheng <Penny.Zheng@amd.com>, xen-devel@lists.xenproject.org, 
-    ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
+To: Penny Zheng <Penny.Zheng@amd.com>
+cc: xen-devel@lists.xenproject.org, ray.huang@amd.com, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
     Anthony PERARD <anthony.perard@vates.tech>, 
-    Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [PATCH v1 14/19] xen: make avail_domheap_pages() static
-In-Reply-To: <alpine.DEB.2.22.394.2503121627560.3477110@ubuntu-linux-20-04-desktop>
-Message-ID: <alpine.DEB.2.22.394.2503121632330.3477110@ubuntu-linux-20-04-desktop>
-References: <20250312040632.2853485-1-Penny.Zheng@amd.com> <20250312040632.2853485-15-Penny.Zheng@amd.com> <alpine.DEB.2.22.394.2503121627560.3477110@ubuntu-linux-20-04-desktop>
+    Jan Beulich <jbeulich@suse.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Alistair Francis <alistair.francis@wdc.com>, 
+    Bob Eshleman <bobbyeshleman@gmail.com>, 
+    Connor Davis <connojdavis@gmail.com>, 
+    Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v1 15/19] xen/sysctl: wrap around XEN_SYSCTL_physinfo
+In-Reply-To: <20250312040632.2853485-16-Penny.Zheng@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2503121634530.3477110@ubuntu-linux-20-04-desktop>
+References: <20250312040632.2853485-1-Penny.Zheng@amd.com> <20250312040632.2853485-16-Penny.Zheng@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-145566692-1741822485=:3477110"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-145566692-1741822485=:3477110
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Wed, 12 Mar 2025, Stefano Stabellini wrote:
-> On Wed, 12 Mar 2025, Penny Zheng wrote:
-> > Function avail_domheap_pages() is only invoked by get_outstanding_claims(),
-> > so it shall be static, no need to extern.
-> > 
-> > Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+On Wed, 12 Mar 2025, Penny Zheng wrote:
+> The following functions are only used to deal with XEN_SYSCTL_physinfo,
+> then they shall be wrapped:
+> - arch_do_physinfo
+> - get_outstanding_claims
 > 
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-I spoke too soon: this patch breaks the build:
-
-common/page_alloc.c: In function ‘get_outstanding_claims’:
-common/page_alloc.c:587:20: error: implicit declaration of function ‘avail_domheap_pages’; did you mean ‘avail_node_heap_pages’? [-Werror=implicit-function-declaration]
-  587 |     *free_pages =  avail_domheap_pages();
-      |                    ^~~~~~~~~~~~~~~~~~~
-      |                    avail_node_heap_pages
-common/page_alloc.c:587:20: error: nested extern declaration of ‘avail_domheap_pages’ [-Werror=nested-externs]
-common/page_alloc.c: At top level:
-common/page_alloc.c:2798:22: error: conflicting types for ‘avail_domheap_pages’
- 2798 | static unsigned long avail_domheap_pages(void)
-      |                      ^~~~~~~~~~~~~~~~~~~
-common/page_alloc.c:587:20: note: previous implicit declaration of ‘avail_domheap_pages’ was here
-  587 |     *free_pages =  avail_domheap_pages();
-      |                    ^~~~~~~~~~~~~~~~~~~
-common/page_alloc.c:2798:22: error: ‘avail_domheap_pages’ defined but not used [-Werror=unused-function]
- 2798 | static unsigned long avail_domheap_pages(void)
-      |                      ^~~~~~~~~~~~~~~~~~~
-cc1: all warnings being treated as errors
-make[2]: *** [Rules.mk:249: common/page_alloc.o] Error 1
-make[1]: *** [build.mk:72: common] Error 2
-make: *** [Makefile:615: xen] Error 2
-
-
-I think you fixed it in the next patch. Still, it is better not to break
-bisectability.
-
-> > ---
-> >  xen/common/page_alloc.c | 2 +-
-> >  xen/include/xen/mm.h    | 1 -
-> >  2 files changed, 1 insertion(+), 2 deletions(-)
-> > 
-> > diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-> > index 7476d37238..5e710cc9a1 100644
-> > --- a/xen/common/page_alloc.c
-> > +++ b/xen/common/page_alloc.c
-> > @@ -2796,7 +2796,7 @@ unsigned long avail_domheap_pages_region(
-> >      return avail_heap_pages(zone_lo, zone_hi, node);
-> >  }
-> >  
-> > -unsigned long avail_domheap_pages(void)
-> > +static unsigned long avail_domheap_pages(void)
-> >  {
-> >      return avail_heap_pages(MEMZONE_XEN + 1,
-> >                              NR_ZONES - 1,
-> > diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-> > index 86bbb15890..cbb9f2dfdb 100644
-> > --- a/xen/include/xen/mm.h
-> > +++ b/xen/include/xen/mm.h
-> > @@ -140,7 +140,6 @@ struct page_info *alloc_domheap_pages(
-> >  void free_domheap_pages(struct page_info *pg, unsigned int order);
-> >  unsigned long avail_domheap_pages_region(
-> >      unsigned int node, unsigned int min_width, unsigned int max_width);
-> > -unsigned long avail_domheap_pages(void);
-> >  unsigned long avail_node_heap_pages(unsigned int nodeid);
-> >  #define alloc_domheap_page(d,f) (alloc_domheap_pages(d,0,f))
-> >  #define free_domheap_page(p)  (free_domheap_pages(p,0))
-> > -- 
-> > 2.34.1
-> > 
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> ---
+>  xen/arch/arm/sysctl.c   | 2 ++
+>  xen/arch/riscv/stubs.c  | 2 ++
+>  xen/arch/x86/sysctl.c   | 2 ++
+>  xen/common/page_alloc.c | 5 +++++
+>  xen/include/xen/mm.h    | 5 +++++
+>  xen/include/xen/sched.h | 4 ++++
+>  6 files changed, 20 insertions(+)
 > 
---8323329-145566692-1741822485=:3477110--
+> diff --git a/xen/arch/arm/sysctl.c b/xen/arch/arm/sysctl.c
+> index 32cab4feff..2d350b700a 100644
+> --- a/xen/arch/arm/sysctl.c
+> +++ b/xen/arch/arm/sysctl.c
+> @@ -15,6 +15,7 @@
+>  #include <asm/arm64/sve.h>
+>  #include <public/sysctl.h>
+>  
+> +#ifdef CONFIG_SYSCTL
+>  void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
+>  {
+>      pi->capabilities |= XEN_SYSCTL_PHYSCAP_hvm | XEN_SYSCTL_PHYSCAP_hap;
+> @@ -22,6 +23,7 @@ void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
+>      pi->arch_capabilities |= MASK_INSR(sve_encode_vl(get_sys_vl_len()),
+>                                         XEN_SYSCTL_PHYSCAP_ARM_SVE_MASK);
+>  }
+> +#endif
+>  
+>  long arch_do_sysctl(struct xen_sysctl *sysctl,
+>                      XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+> diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
+> index 5951b0ce91..0321ad57f0 100644
+> --- a/xen/arch/riscv/stubs.c
+> +++ b/xen/arch/riscv/stubs.c
+> @@ -328,10 +328,12 @@ long arch_do_sysctl(struct xen_sysctl *sysctl,
+>      BUG_ON("unimplemented");
+>  }
+>  
+> +#ifdef CONFIG_SYSCTL
+>  void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
+>  {
+>      BUG_ON("unimplemented");
+>  }
+> +#endif
+>  
+>  /* p2m.c */
+>  
+> diff --git a/xen/arch/x86/sysctl.c b/xen/arch/x86/sysctl.c
+> index 1b04947516..d7da476379 100644
+> --- a/xen/arch/x86/sysctl.c
+> +++ b/xen/arch/x86/sysctl.c
+> @@ -91,6 +91,7 @@ static long cf_check smt_up_down_helper(void *data)
+>      return ret;
+>  }
+>  
+> +#ifdef CONFIG_SYSCTL
+>  void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
+>  {
+>      memcpy(pi->hw_cap, boot_cpu_data.x86_capability,
+> @@ -104,6 +105,7 @@ void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
+>      if ( IS_ENABLED(CONFIG_SHADOW_PAGING) )
+>          pi->capabilities |= XEN_SYSCTL_PHYSCAP_shadow;
+>  }
+> +#endif
+>  
+>  long arch_do_sysctl(
+>      struct xen_sysctl *sysctl, XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+> diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+> index 5e710cc9a1..d1c4db57a5 100644
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -581,6 +581,8 @@ out:
+>      return ret;
+>  }
+>  
+> +#ifdef CONFIG_SYSCTL
+> +static unsigned long avail_domheap_pages(void);
+
+This part here should be in the previous patch. I would add it at the
+top of the page_alloc.c file, ideally without the #ifdef, I am guessing
+it is not required for a forward declaration.
+
+
+>  void get_outstanding_claims(uint64_t *free_pages, uint64_t *outstanding_pages)
+>  {
+>      spin_lock(&heap_lock);
+> @@ -588,6 +590,7 @@ void get_outstanding_claims(uint64_t *free_pages, uint64_t *outstanding_pages)
+>      *free_pages =  avail_domheap_pages();
+>      spin_unlock(&heap_lock);
+>  }
+> +#endif
+>  
+>  static bool __read_mostly first_node_initialised;
+>  #ifndef CONFIG_SEPARATE_XENHEAP
+> @@ -2796,12 +2799,14 @@ unsigned long avail_domheap_pages_region(
+>      return avail_heap_pages(zone_lo, zone_hi, node);
+>  }
+>  
+> +#ifdef CONFIG_SYSCTL
+>  static unsigned long avail_domheap_pages(void)
+>  {
+>      return avail_heap_pages(MEMZONE_XEN + 1,
+>                              NR_ZONES - 1,
+>                              -1);
+>  }
+> +#endif
+>  
+>  unsigned long avail_node_heap_pages(unsigned int nodeid)
+>  {
+> diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
+> index cbb9f2dfdb..a63e063a46 100644
+> --- a/xen/include/xen/mm.h
+> +++ b/xen/include/xen/mm.h
+> @@ -131,7 +131,12 @@ int populate_pt_range(unsigned long virt, unsigned long nr_mfns);
+>  unsigned long __must_check domain_adjust_tot_pages(struct domain *d,
+>      long pages);
+>  int domain_set_outstanding_pages(struct domain *d, unsigned long pages);
+> +#ifdef CONFIG_SYSCTL
+>  void get_outstanding_claims(uint64_t *free_pages, uint64_t *outstanding_pages);
+> +#else
+> +static inline void get_outstanding_claims(uint64_t *free_pages,
+> +                                          uint64_t *outstanding_pages) {}
+> +#endif /* CONFIG_SYSCTL */
+>  
+>  /* Domain suballocator. These functions are *not* interrupt-safe.*/
+>  void init_domheap_pages(paddr_t ps, paddr_t pe);
+> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+> index 5a065b3624..df39c0465a 100644
+> --- a/xen/include/xen/sched.h
+> +++ b/xen/include/xen/sched.h
+> @@ -1291,7 +1291,11 @@ struct cpupool *cpupool_create_pool(unsigned int pool_id, int sched_id);
+>  
+>  extern void cf_check dump_runq(unsigned char key);
+>  
+> +#ifdef CONFIG_SYSCTL
+>  void arch_do_physinfo(struct xen_sysctl_physinfo *pi);
+> +#else
+> +static inline void arch_do_physinfo(struct xen_sysctl_physinfo *pi) {};
+> +#endif /* CONFIG_SYSCTL */
+>  
+>  #ifdef CONFIG_BOOT_TIME_CPUPOOLS
+>  void btcpupools_allocate_pools(void);
+> -- 
+> 2.34.1
+> 
 
