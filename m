@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AB0BA5D807
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Mar 2025 09:22:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.910035.1316824 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61632A5D837
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Mar 2025 09:31:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.910049.1316833 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsHKz-0005K9-Bk; Wed, 12 Mar 2025 08:21:13 +0000
+	id 1tsHV8-0006w7-AI; Wed, 12 Mar 2025 08:31:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 910035.1316824; Wed, 12 Mar 2025 08:21:13 +0000
+Received: by outflank-mailman (output) from mailman id 910049.1316833; Wed, 12 Mar 2025 08:31:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsHKz-0005HT-6w; Wed, 12 Mar 2025 08:21:13 +0000
-Received: by outflank-mailman (input) for mailman id 910035;
- Wed, 12 Mar 2025 08:21:11 +0000
+	id 1tsHV8-0006tu-7c; Wed, 12 Mar 2025 08:31:42 +0000
+Received: by outflank-mailman (input) for mailman id 910049;
+ Wed, 12 Mar 2025 08:31:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ASRr=V7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tsHKx-0005HN-EW
- for xen-devel@lists.xenproject.org; Wed, 12 Mar 2025 08:21:11 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ id 1tsHV7-0006to-1V
+ for xen-devel@lists.xenproject.org; Wed, 12 Mar 2025 08:31:41 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f352a89b-ff1a-11ef-9898-31a8f345e629;
- Wed, 12 Mar 2025 09:21:09 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-43d0359b1fcso3592315e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 12 Mar 2025 01:21:09 -0700 (PDT)
+ id 6aa83d55-ff1c-11ef-9898-31a8f345e629;
+ Wed, 12 Mar 2025 09:31:38 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-43cfe63c592so23770645e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Mar 2025 01:31:38 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d0a731031sm13755495e9.7.2025.03.12.01.21.07
+ 5b1f17b1804b1-43d0a8d1666sm13841975e9.40.2025.03.12.01.31.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Mar 2025 01:21:08 -0700 (PDT)
+ Wed, 12 Mar 2025 01:31:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f352a89b-ff1a-11ef-9898-31a8f345e629
+X-Inumbo-ID: 6aa83d55-ff1c-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741767668; x=1742372468; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741768298; x=1742373098; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4NJ9uLAM4FJMJWZEMsiQkdE4qRovreYd7G6RZmWThOY=;
-        b=Rsdv0KljISoUsWTr4m10//hS4lagCWBqtS5b/iFpRtv5FfXOJ43fxqVQaoT3qonqVC
-         MF6RcVQxIXg/OoNE4rZs9FCcUQWtSjOMYlpxwPQtXwoUToQhAJeV2kaqoh4vRgoTT86J
-         +7ZtSgJegutOZBysmkPaUylqdvW4Gaw4Z5OnjN2LOMGgNuBIyVBX2ucrHOJpynCO5jEo
-         ASND+HQwuaW0AJCbUDEmdh4CQWURyrJdHBlC1JkZ6i/Y0MTUlNaiOf5B3IRuxhESgCea
-         QMo/HNwYMtK1lHFNE2yIwqtw0hL1WHFBMVsZsNA/YBZzsBf083OP2Bwx/QAOsDmmswQg
-         VDoA==
+        bh=PTnd/gKQCKWCasnzsOQs105SOTin9YnfxhFLcOkSEyA=;
+        b=JAEs3Rv68o4+g5sl0Ms0X2UQVmBH9zsfxFf7X85zopkt/3aqC+XT5QgB5Vl8OIl30l
+         /829+SSgU+d1H+c+lwOZvYhCqyVvIE482Xpp/CBD1aJijPqjM4OKc+gl7OIXvPagMi2Y
+         slG5R+VmsJ5oMOGpj/ZGht4S90Dk4x0NHcLgxXWzUnE00RnRh8NtPGSzdHkjfPr93mcb
+         803J4hNq+fTwHzWa5vguBEym5iCOfsYfmajK+kRjCdlCvY6WWL/UtuFm/TYOkvTrY330
+         RujRC8ELHwPaQiD6VtPsN6HC0V5vG+1pmkSTy4uFmvzm6cWC33fbBgtZTdc/fkTasW/R
+         MgZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741767668; x=1742372468;
+        d=1e100.net; s=20230601; t=1741768298; x=1742373098;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4NJ9uLAM4FJMJWZEMsiQkdE4qRovreYd7G6RZmWThOY=;
-        b=hq2ygM33ouKOetM4V/nQuhrNJ+a8cu8yjnyLoMoJ82PK6CcHpaVPDchH5IbbUAmZAr
-         /0iPFeZLy4Eh9VFWVabFESRdsI+OABkDtR2XvHrfU9ZloUl+Mk5kq2MQWURkrWadJpXP
-         oEhNeDpM7htGYA2tKDWR6ECTHEl1B3utJkCsCzOPpO+oicKKcRv+G4AQz7Cu7SNWtQH2
-         yiOOhw2XfwZoVq9/2YjNEUHB84yh3Z75cuAPfQ7/yspGNRW5VYlUXurts864cM1TV2/E
-         ZB93n/X/CjEYp93KjuXJMdY0BPd+lKJXRGGw2zchDhFnt+GES6QAPnReuJ4h0P7L1EoR
-         MPjQ==
-X-Gm-Message-State: AOJu0Yx6TgkKoPkc9vPnYpA2kynX5C4VQ9+hkHvDDi//QEergT/BOlKe
-	FgvfD/3mGqDdzPH9mRMkpfeIv+MREXn1UjXp2Y9hcLuBu6xJBxm+Mv+lkc3LVw==
-X-Gm-Gg: ASbGncsKfDWRU7931nf+Tv+vAKFLV6vBjsx3uSlG7ZArVf3tW7jsiEa/HygLU1AQ4od
-	JkXJZdPXK5Snqq+cDJgycx285l3BRzGxxmp92diKadhBXTDNkHAQUDvP9Cp1qei/BK0eX4IVA/P
-	kg8H7FyhW97NP+ouo6B5zFWl3Iugq6lIOKAMZszBUMa68v/a27KjNvtwS+Px8XUYXLlHzyyfbK7
-	LsJAnMkJzE1yfEXdlqPUYJ+3A1MFD9aiEQV56wlqCdB7hAdfuyYJiEIeWlZTgWBH5O4/zLAPSrJ
-	18C/ZJkvJS3CsVU5EzVv7rXYzLuT8RzMmo8YBS1wSYFFG7jzCiGXasHvIJDo6yOzeZipvymrb6l
-	AqZxUQSo/Z5w+lT74/1K0tuvOvYYPPA==
-X-Google-Smtp-Source: AGHT+IEFeZC6yMMqn9k/VmEcCy5cqcGk7jsSETgRI48IxW7TL9kO+6hBAnWsG42tBfNxLkemQM9rlA==
-X-Received: by 2002:a05:600c:1551:b0:439:5f04:4f8d with SMTP id 5b1f17b1804b1-43d01d39b5cmr59947555e9.12.1741767668369;
-        Wed, 12 Mar 2025 01:21:08 -0700 (PDT)
-Message-ID: <52918859-3922-4b2d-b432-162a9de2b554@suse.com>
-Date: Wed, 12 Mar 2025 09:21:07 +0100
+        bh=PTnd/gKQCKWCasnzsOQs105SOTin9YnfxhFLcOkSEyA=;
+        b=T/UAKqYNE4+s0y+8Wl9So1vevGzp0lh3MJ1R4ms7KaIJpymO9gU/NT0cC/OKl/rDr5
+         enzIzzJpC0y/Zn3mVPDXX9Wuheshddf7/GQGrXGmYRb4Ou1qGAOBlckiKL4gqrpMXP8K
+         OSZYYmw6/hvXi4MMW7uhd0DSjn8Jt2DmPx6GlGC4KF4GVgtXPgYJrMtcJXWmMvz9kMrR
+         YSqwk3O1x0QYBqaP97O+cp3k4ysncX5Ei0GOMhafTP/TPLPQpFo6es4GAIxCTp4L+0i9
+         rCRno1YrSeWtWmMB83ePSXsQ1s9wqDCRZZOrZpBmxHG1Q/6FnStzMYcCGEWJ6EIb/rZX
+         sDSg==
+X-Forwarded-Encrypted: i=1; AJvYcCU8ueHF7HkcoxiDTRBe9KWvFWu47D26ZF/Ir4WXg1aH09KfObUjTx4IhskCZj7oG/tVRELzqxIRxBw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywd696moTHbQzw6VDdI8/tsmLxH3knNAoZISd+llcZMzGAgk6mS
+	jxkXxu5JtnAwmdM/odneuY5f3Lmork27XlaoeRXzn3jNtyQJ/XWvdiUyTtMU4w==
+X-Gm-Gg: ASbGncvksbI/O4Gf9Ol4r3YfB377QSu1enI0dE9AKcJpaykmoO7YNZvyXH23/xnDX29
+	4+MijEl6T5a6Pj9ISSbwlUMUWZoKz8+YCcDNA175VJFmrVsYY02El5FJqdyG6c098IN/1MZOsCg
+	dRojczjMxvkcaDyzLrw/mJNPfTNhpGvArf0hAAmMjtQ2m6lM1CpQNq9w+nYDucLS8dtUk/bY18+
+	ehMwUa+5sW5JGrO4kvrs7IFUTPQ77o6VekEa8xuo/6T0YQ2cGY/OW+rZCRJABnsKIqlG7u5Df7x
+	FsdZVtRmVMLxilk60UYDCNOKe0RqFfbmEsAxogFtFqfB/Lz/+v4fa6DSEmKXR1T//JPu2UVZlib
+	Z4AgXDzrt+isU/r4Ey+FZGAaZ1G5aIQ==
+X-Google-Smtp-Source: AGHT+IHrHh/TaluzVfs1MS/hF3+autYRKYmqDqYwuSNPPRhScIN5XdBu9TC0tii0nr3RIzDiuGf0CQ==
+X-Received: by 2002:a05:600c:b95:b0:43c:ec97:75db with SMTP id 5b1f17b1804b1-43cec97779fmr149475225e9.11.1741768298077;
+        Wed, 12 Mar 2025 01:31:38 -0700 (PDT)
+Message-ID: <0565db90-5734-4795-8988-efd3e72cc770@suse.com>
+Date: Wed, 12 Mar 2025 09:31:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/page_alloc: Simplify domain_adjust_tot_pages
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20250304111000.9252-1-alejandro.vallejo@cloud.com>
- <Z9AwsrDBELe2UREz@macbook.local> <D8DITFXFKM32.2H5OOI4GVUAZ1@cloud.com>
- <Z9BZ-V8fWHOAwMJ7@macbook.local>
- <de418de2-b059-4f1e-92b0-42a236208b14@suse.com>
- <D8DNJHDNZNRD.1XOJK139C5PEI@cloud.com>
+Subject: Re: [PATCH] x86/boot: Fix zap_low_mappings() to map less of the
+ trampoline
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250106112652.579310-1-andrew.cooper3@citrix.com>
+ <2f12f38e-9629-40fd-b532-6b6f82ecfe1f@suse.com>
+ <4bff530c-9f96-4b59-b6cb-86349c576690@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,61 +120,75 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <D8DNJHDNZNRD.1XOJK139C5PEI@cloud.com>
+In-Reply-To: <4bff530c-9f96-4b59-b6cb-86349c576690@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11.03.2025 19:35, Alejandro Vallejo wrote:
-> On Tue Mar 11, 2025 at 3:45 PM GMT, Jan Beulich wrote:
->> On 11.03.2025 16:42, Roger Pau Monné wrote:
->>> On Tue, Mar 11, 2025 at 02:53:04PM +0000, Alejandro Vallejo wrote:
->>>> On Tue Mar 11, 2025 at 12:46 PM GMT, Roger Pau Monné wrote:
->>>>> On Tue, Mar 04, 2025 at 11:10:00AM +0000, Alejandro Vallejo wrote:
->>>>>> The logic has too many levels of indirection and it's very hard to
->>>>>> understand it its current form. Split it between the corner case where
->>>>>> the adjustment is bigger than the current claim and the rest to avoid 5
->>>>>> auxiliary variables.
->>>>>>
->>>>>> Add a functional change to prevent negative adjustments from
->>>>>> re-increasing the claim. This has the nice side effect of avoiding
->>>>>> taking the heap lock here on every free.
->>>>>>
->>>>>> While at it, fix incorrect field name in nearby comment.
->>>>>>
->>>>>> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
->>>>>
->>>>> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
->>>>
->>>> Thanks.
->>>>
->>>>> I think it would be nice to also ensure that once the domain is
->>>>> finished building (maybe when it's unpaused for the first
->>>>> time?) d->outstanding_pages is set to 0.  IMO the claim system was
->>>>> designed to avoid races during domain building, and shouldn't be used
->>>>> once the domain is already running.
->>>>>
->>>>> Thanks, Roger.
->>>>
->>>> As a matter of implementation that's already the case by toolstack being "nice"
->>>> and unconditionally clearing claims after populating the physmap.
+On 11.03.2025 21:47, Andrew Cooper wrote:
+> On 06/01/2025 11:54 am, Jan Beulich wrote:
+>> On 06.01.2025 12:26, Andrew Cooper wrote:
+>>> Regular data access into the trampoline is via the directmap.
 >>>
->>> I see.  Another option would be to refuse the unpause a domain if it
->>> still has pending claims.  However I don't know how that will work out
->>> with all possible toolstacks.
+>>> As now discussed quite extensively in asm/trampoline.h, the trampoline is
+>>> arranged so that only the AP and S3 paths need an identity mapping, and that
+>>> they fit within a single page.
 >>>
->>>> However, I agree the hypervisor should do it on its own. I didn't find a
->>>> suitable place for it. 
+>>> Right now, PFN_UP(trampoline_end - trampoline_start) is 2, causing more than
+>>> expected of the trampoline to be mapped.  Cut it down just the single page it
+>>> ought to be.
 >>>
->>> You could do it in arch_domain_creation_finished().
->>
->> Except that better wouldn't be arch-specific.
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Acked-by: Jan Beulich <jbeulich@suse.com>
 > 
-> Why would it have to be arch-specific though? As far as the hypervisor is
-> concerned, it doesn't seem to be.
+> Thanks.  However,
+> 
+>> on the basis that this improves things. However, ...
+>>
+>>> --- a/xen/arch/x86/x86_64/mm.c
+>>> +++ b/xen/arch/x86/x86_64/mm.c
+>>> @@ -718,14 +718,16 @@ void __init zap_low_mappings(void)
+>>>  {
+>>>      BUG_ON(num_online_cpus() != 1);
+>>>  
+>>> -    /* Remove aliased mapping of first 1:1 PML4 entry. */
+>>> +    /* Stop using l?_bootmap[] mappings. */
+>>>      l4e_write(&idle_pg_table[0], l4e_empty());
+>>>      flush_local(FLUSH_TLB_GLOBAL);
+>>>  
+>>> -    /* Replace with mapping of the boot trampoline only. */
+>>> +    /*
+>>> +     * Insert an identity mapping of the AP/S3 part of the trampoline, which
+>>> +     * is arranged to fit in a single page.
+>>> +     */
+>>>      map_pages_to_xen(trampoline_phys, maddr_to_mfn(trampoline_phys),
+>>> -                     PFN_UP(trampoline_end - trampoline_start),
+>>> -                     __PAGE_HYPERVISOR_RX);
+>>> +                     1, __PAGE_HYPERVISOR_RX);
+>> ... literal numbers like this - however well they are commented - are
+>> potentially problematic to locate in case something changes significantly.
+>> The 1 here really would want connecting with the .equ establishing
+>> wakeup_stack.
+> 
+> how do you propose doing this?
+> 
+> PFN_UP(wakeup_stack - trampoline_start) doesn't have the same obvious
+> connection, and it would involve partly undoing 7d73c6f196a5 which hid
+> the symbol recently.
+> 
+> While 1 isn't ideal, it is next to a comment explaining what's going on,
+> and it's not going to go stale in a silent way...  (It's also not liable
+> to go stale either.)
 
-Together with Roger's earlier clarification on his original remark, I fear
-I don't understand the question: I asked that it not be arch-specific. And
-Roger clarified that he also didn't mean it to be.
+If in
+
+        .equ    wakeup_stack, trampoline_start + PAGE_SIZE
+
+PAGE_SIZE was replaced by a new (in asm/trampoline.h) TRAMPOLINE_PERM_SIZE,
+you could use PFN_UP(TRAMPOLINE_PERM_SIZE) here to establish a connection.
+
+I have to admit I also don't really see why things going stale here would
+(a) be unlikely and (b) be guaranteed to not go silently. We just don't
+know what we may need to add to the trampoline, sooner or later.
 
 Jan
 
