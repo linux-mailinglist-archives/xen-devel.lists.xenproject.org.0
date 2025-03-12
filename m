@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF95BA5E845
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 00:19:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.910971.1317545 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7353FA5E85A
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 00:24:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.910985.1317556 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsVM2-0005Ub-K2; Wed, 12 Mar 2025 23:19:14 +0000
+	id 1tsVQa-00073h-96; Wed, 12 Mar 2025 23:23:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 910971.1317545; Wed, 12 Mar 2025 23:19:14 +0000
+Received: by outflank-mailman (output) from mailman id 910985.1317556; Wed, 12 Mar 2025 23:23:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsVM2-0005Rg-GX; Wed, 12 Mar 2025 23:19:14 +0000
-Received: by outflank-mailman (input) for mailman id 910971;
- Wed, 12 Mar 2025 23:19:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tsVQa-00071Z-6K; Wed, 12 Mar 2025 23:23:56 +0000
+Received: by outflank-mailman (input) for mailman id 910985;
+ Wed, 12 Mar 2025 23:23:54 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=K94u=V7=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tsVM1-0005Ra-TL
- for xen-devel@lists.xenproject.org; Wed, 12 Mar 2025 23:19:13 +0000
+ id 1tsVQY-00071T-Qt
+ for xen-devel@lists.xenproject.org; Wed, 12 Mar 2025 23:23:54 +0000
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 66b68f70-ff98-11ef-9898-31a8f345e629;
- Thu, 13 Mar 2025 00:19:10 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0fa1d5b1-ff99-11ef-9ab9-95dc52dad729;
+ Thu, 13 Mar 2025 00:23:53 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 1EB59A448EE;
- Wed, 12 Mar 2025 23:13:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B960C4CEDD;
- Wed, 12 Mar 2025 23:19:07 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id AD01BA448EE;
+ Wed, 12 Mar 2025 23:18:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DF9AC4CEDD;
+ Wed, 12 Mar 2025 23:23:50 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,217 +41,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 66b68f70-ff98-11ef-9898-31a8f345e629
+X-Inumbo-ID: 0fa1d5b1-ff99-11ef-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1741821548;
-	bh=0KbVc+hTWH5ShLJB/tVyjoB0uLQR8SuVb17sAG3n0sc=;
+	s=k20201202; t=1741821832;
+	bh=oSZI3+DRQzg9rjwjwh4VEfp0HrKqBYFXce+AyF7pLs0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=LloxY1jLz2wiTGp8sgFR3By6ZE227rYrTNNjySN8tvuFDFoxv1UqwKWWEUWuRdFX8
-	 d0a83ByO4a3GclHKi3jh8NdxGlaJ6SvfVZ+i/+r8bJv1aOC/6v98iVx5ZJ2b2ICFxy
-	 cqpTmw63cqqXBlIvUoLOYG+Kg2M2m+wj4LMndhtcYA4LPDXDibpOkxbYfhnry5DEws
-	 iVJ9xCg89gz2azDFv01P0QAt3g9C6fkUa3AHquhSSC5SixNLHQFSaJxezKbvp5eQ5I
-	 MyRmP0UtXIR5W85b8rTN5imIqTQRedNO5eIkIIB3/CTBYuZlmj5fqV1Zs8zobWfxXF
-	 BLYcJ8Y0T18mA==
-Date: Wed, 12 Mar 2025 16:19:05 -0700 (PDT)
+	b=CnnjwejwQ2tSI4voayyyMLU6zPjzKuKTr+u8cdUn29PO+rgDKV8FstWSToj3JsDR+
+	 ySdsXM1ZTPn60F+s5dODSBW9qkR4eNeUnkcAHcxsOYYx8xy7v3HNin2wpdVDDx6ppt
+	 x0hh0lgLTJ/XprYYaEHNcqW5+3qvDEhUC63zgog3TJe7uc2ewjuu6HrVXnAASoCdCo
+	 BFzNm1B4KC4nde5a8Fcx1oSwppRjyHQfIUq53z6lU3irRnKmi18bk1RrQ0tUzv5ebz
+	 5+R9dl4jFXBtqxQbRHl2EImOHLFilrkIgLREdvf8b8cYXrsv9MufmHQL7plOzz0TOU
+	 s+BJshQwPXXZw==
+Date: Wed, 12 Mar 2025 16:23:48 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Penny Zheng <Penny.Zheng@amd.com>
 cc: xen-devel@lists.xenproject.org, ray.huang@amd.com, 
+    Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>, 
+    George Dunlap <gwd@xenproject.org>, 
     Andrew Cooper <andrew.cooper3@citrix.com>, 
     Anthony PERARD <anthony.perard@vates.tech>, 
     Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, 
     Julien Grall <julien@xen.org>, 
     =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: Re: [PATCH v1 11/19] xen/sysctl: wrap around
- XEN_SYSCTL_page_offline_op
-In-Reply-To: <20250312040632.2853485-12-Penny.Zheng@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2503121618390.3477110@ubuntu-linux-20-04-desktop>
-References: <20250312040632.2853485-1-Penny.Zheng@amd.com> <20250312040632.2853485-12-Penny.Zheng@amd.com>
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v1 12/19] xen/sysctl: wrap around XEN_SYSCTL_cpupool_op
+In-Reply-To: <20250312040632.2853485-13-Penny.Zheng@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2503121623420.3477110@ubuntu-linux-20-04-desktop>
+References: <20250312040632.2853485-1-Penny.Zheng@amd.com> <20250312040632.2853485-13-Penny.Zheng@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Wed, 12 Mar 2025, Penny Zheng wrote:
-> The following functions are only to deal with XEN_SYSCTL_page_offline_op,
-> then shall be wrapped:
-> - xsm_page_offline
-> - online_page
-> - query_page_offline
+> Function cpupool_do_sysctl is designed for doing
+> cpupool related sysctl operations, and shall be
+> wrapped.
+> 
+> The following static functions are only called by cpupool_do_sysctl(), then
+> shall be wrapped too:
+> - cpupool_get_next_by_id
+> - cpupool_destroy
+> - cpupool_unassign_cpu_helper
+> - cpupool_unassign_cpu
 > 
 > Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
->  xen/common/page_alloc.c |  2 ++
->  xen/include/xen/mm.h    | 13 ++++++++++++-
->  xen/include/xsm/dummy.h |  7 +++++++
->  xen/include/xsm/xsm.h   |  9 +++++++++
->  xen/xsm/dummy.c         |  2 ++
->  xen/xsm/flask/hooks.c   |  6 ++++++
->  6 files changed, 38 insertions(+), 1 deletion(-)
+>  xen/common/sched/cpupool.c | 9 +++++++++
+>  xen/include/xen/sched.h    | 7 +++++++
+>  2 files changed, 16 insertions(+)
 > 
-> diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-> index b5ec4bda7d..7476d37238 100644
-> --- a/xen/common/page_alloc.c
-> +++ b/xen/common/page_alloc.c
-> @@ -1759,6 +1759,7 @@ int offline_page(mfn_t mfn, int broken, uint32_t *status)
->      return 0;
+> diff --git a/xen/common/sched/cpupool.c b/xen/common/sched/cpupool.c
+> index 3d02c7b706..0efd8a4591 100644
+> --- a/xen/common/sched/cpupool.c
+> +++ b/xen/common/sched/cpupool.c
+> @@ -241,10 +241,12 @@ struct cpupool *cpupool_get_by_id(unsigned int poolid)
+>      return __cpupool_get_by_id(poolid, true);
 >  }
 >  
 > +#ifdef CONFIG_SYSCTL
->  /*
->   * Online the memory.
->   *   The caller should make sure end_pfn <= max_page,
-> @@ -1843,6 +1844,7 @@ int query_page_offline(mfn_t mfn, uint32_t *status)
+>  static struct cpupool *cpupool_get_next_by_id(unsigned int poolid)
+>  {
+>      return __cpupool_get_by_id(poolid, false);
+>  }
+> +#endif /* CONFIG_SYSCTL */
 >  
+>  void cpupool_put(struct cpupool *pool)
+>  {
+> @@ -352,6 +354,8 @@ static struct cpupool *cpupool_create(unsigned int poolid,
+>  
+>      return ERR_PTR(ret);
+>  }
+> +
+> +#ifdef CONFIG_SYSCTL
+>  /*
+>   * destroys the given cpupool
+>   * returns 0 on success, 1 else
+> @@ -379,6 +383,7 @@ static int cpupool_destroy(struct cpupool *c)
+>      debugtrace_printk("cpupool_destroy(pool=%u)\n", c->cpupool_id);
 >      return 0;
 >  }
 > +#endif /* CONFIG_SYSCTL */
 >  
 >  /*
->   * This function should only be called with valid pages from the same NUMA
-> diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-> index ae1c48a615..86bbb15890 100644
-> --- a/xen/include/xen/mm.h
-> +++ b/xen/include/xen/mm.h
-> @@ -144,9 +144,20 @@ unsigned long avail_domheap_pages(void);
->  unsigned long avail_node_heap_pages(unsigned int nodeid);
->  #define alloc_domheap_page(d,f) (alloc_domheap_pages(d,0,f))
->  #define free_domheap_page(p)  (free_domheap_pages(p,0))
-> -int online_page(mfn_t mfn, uint32_t *status);
->  int offline_page(mfn_t mfn, int broken, uint32_t *status);
-> +#ifdef CONFIG_SYSCTL
-> +int online_page(mfn_t mfn, uint32_t *status);
->  int query_page_offline(mfn_t mfn, uint32_t *status);
-> +#else
-> +static inline int online_page(mfn_t mfn, uint32_t *status)
-> +{
-> +    return -EOPNOTSUPP;
-> +}
-> +static inline int query_page_offline(mfn_t mfn, uint32_t *status)
-> +{
-> +    return -EOPNOTSUPP;
-> +}
-> +#endif /* CONFIG_SYSCTL */
->  
->  void heap_init_late(void);
->  
-> diff --git a/xen/include/xsm/dummy.h b/xen/include/xsm/dummy.h
-> index 35d084aca7..5f89fc98fc 100644
-> --- a/xen/include/xsm/dummy.h
-> +++ b/xen/include/xsm/dummy.h
-> @@ -497,11 +497,18 @@ static XSM_INLINE int cf_check xsm_resource_setup_misc(XSM_DEFAULT_VOID)
->      return xsm_default_action(action, current->domain, NULL);
+>   * Move domain to another cpupool
+> @@ -568,6 +573,7 @@ static int cpupool_unassign_cpu_start(struct cpupool *c, unsigned int cpu)
+>      return ret;
 >  }
 >  
 > +#ifdef CONFIG_SYSCTL
->  static XSM_INLINE int cf_check xsm_page_offline(XSM_DEFAULT_ARG uint32_t cmd)
+>  static long cf_check cpupool_unassign_cpu_helper(void *info)
 >  {
->      XSM_ASSERT_ACTION(XSM_HOOK);
->      return xsm_default_action(action, current->domain, NULL);
->  }
-> +#else
-> +static XSM_INLINE int cf_check xsm_page_offline(XSM_DEFAULT_ARG uint32_t cmd)
-> +{
-> +    return -EOPNOTSUPP;
-> +}
-> +#endif
->  
->  static XSM_INLINE int cf_check xsm_hypfs_op(XSM_DEFAULT_VOID)
->  {
-> diff --git a/xen/include/xsm/xsm.h b/xen/include/xsm/xsm.h
-> index d322740de1..d6f27aa977 100644
-> --- a/xen/include/xsm/xsm.h
-> +++ b/xen/include/xsm/xsm.h
-> @@ -140,7 +140,9 @@ struct xsm_ops {
->      int (*resource_setup_gsi)(int gsi);
->      int (*resource_setup_misc)(void);
->  
-> +#ifdef CONFIG_SYSCTL
->      int (*page_offline)(uint32_t cmd);
-> +#endif
->      int (*hypfs_op)(void);
->  
->      long (*do_xsm_op)(XEN_GUEST_HANDLE_PARAM(void) op);
-> @@ -601,10 +603,17 @@ static inline int xsm_resource_setup_misc(xsm_default_t def)
->      return alternative_call(xsm_ops.resource_setup_misc);
->  }
->  
-> +#ifdef CONFIG_SYSCTL
->  static inline int xsm_page_offline(xsm_default_t def, uint32_t cmd)
->  {
->      return alternative_call(xsm_ops.page_offline, cmd);
->  }
-> +#else
-> +static inline int xsm_page_offline(xsm_default_t def, uint32_t cmd)
-> +{
-> +    return -EOPNOTSUPP;
-> +}
-> +#endif
->  
->  static inline int xsm_hypfs_op(xsm_default_t def)
->  {
-> diff --git a/xen/xsm/dummy.c b/xen/xsm/dummy.c
-> index 4c97db0c48..aa89ee5331 100644
-> --- a/xen/xsm/dummy.c
-> +++ b/xen/xsm/dummy.c
-> @@ -96,7 +96,9 @@ static const struct xsm_ops __initconst_cf_clobber dummy_ops = {
->      .resource_setup_gsi            = xsm_resource_setup_gsi,
->      .resource_setup_misc           = xsm_resource_setup_misc,
->  
-> +#ifdef CONFIG_SYSCTL
->      .page_offline                  = xsm_page_offline,
-> +#endif
->      .hypfs_op                      = xsm_hypfs_op,
->      .hvm_param                     = xsm_hvm_param,
->      .hvm_param_altp2mhvm           = xsm_hvm_param_altp2mhvm,
-> diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
-> index 7c46657d97..9819cd407d 100644
-> --- a/xen/xsm/flask/hooks.c
-> +++ b/xen/xsm/flask/hooks.c
-> @@ -1206,10 +1206,12 @@ static int cf_check flask_resource_unplug_core(void)
->      return avc_current_has_perm(SECINITSID_DOMXEN, SECCLASS_RESOURCE, RESOURCE__UNPLUG, NULL);
->  }
->  
-> +#ifdef CONFIG_SYSCTL
->  static int flask_resource_use_core(void)
->  {
->      return avc_current_has_perm(SECINITSID_DOMXEN, SECCLASS_RESOURCE, RESOURCE__USE, NULL);
->  }
-> +#endif
->  
->  static int cf_check flask_resource_plug_pci(uint32_t machine_bdf)
->  {
-> @@ -1274,6 +1276,7 @@ static int cf_check flask_resource_setup_misc(void)
->      return avc_current_has_perm(SECINITSID_XEN, SECCLASS_RESOURCE, RESOURCE__SETUP, NULL);
->  }
->  
-> +#ifdef CONFIG_SYSCTL
->  static inline int cf_check flask_page_offline(uint32_t cmd)
->  {
->      switch ( cmd )
-> @@ -1288,6 +1291,7 @@ static inline int cf_check flask_page_offline(uint32_t cmd)
->          return avc_unknown_permission("page_offline", cmd);
+>      struct cpupool *c = info;
+> @@ -633,6 +639,7 @@ static int cpupool_unassign_cpu(struct cpupool *c, unsigned int cpu)
 >      }
+>      return continue_hypercall_on_cpu(work_cpu, cpupool_unassign_cpu_helper, c);
 >  }
-> +#endif
+> +#endif /* CONFIG_SYSCTL */
 >  
->  static inline int cf_check flask_hypfs_op(void)
->  {
-> @@ -1948,7 +1952,9 @@ static const struct xsm_ops __initconst_cf_clobber flask_ops = {
->      .resource_setup_gsi = flask_resource_setup_gsi,
->      .resource_setup_misc = flask_resource_setup_misc,
+>  /*
+>   * add a new domain to a cpupool
+> @@ -810,6 +817,7 @@ static void cpupool_cpu_remove_forced(unsigned int cpu)
+>      rcu_read_unlock(&sched_res_rculock);
+>  }
 >  
 > +#ifdef CONFIG_SYSCTL
->      .page_offline = flask_page_offline,
+>  /*
+>   * do cpupool related sysctl operations
+>   */
+> @@ -975,6 +983,7 @@ int cpupool_do_sysctl(struct xen_sysctl_cpupool_op *op)
+>  
+>      return ret;
+>  }
+> +#endif /* CONFIG_SYSCTL */
+>  
+>  unsigned int cpupool_get_id(const struct domain *d)
+>  {
+> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+> index 9bdeb85aa4..ea81832c50 100644
+> --- a/xen/include/xen/sched.h
+> +++ b/xen/include/xen/sched.h
+> @@ -1259,7 +1259,14 @@ static always_inline bool is_cpufreq_controller(const struct domain *d)
+>  }
+>  
+>  int cpupool_move_domain(struct domain *d, struct cpupool *c);
+> +#ifdef CONFIG_SYSCTL
+>  int cpupool_do_sysctl(struct xen_sysctl_cpupool_op *op);
+> +#else
+> +static inline int cpupool_do_sysctl(struct xen_sysctl_cpupool_op *op)
+> +{
+> +    return -EOPNOTSUPP;
+> +}
 > +#endif
->      .hypfs_op = flask_hypfs_op,
->      .hvm_param = flask_hvm_param,
->      .hvm_param_altp2mhvm = flask_hvm_param_altp2mhvm,
+>  unsigned int cpupool_get_id(const struct domain *d);
+>  const cpumask_t *cpupool_valid_cpus(const struct cpupool *pool);
+>  
 > -- 
 > 2.34.1
 > 
