@@ -2,45 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E7A6A5D868
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Mar 2025 09:42:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.910083.1316863 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90618A5D898
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Mar 2025 09:49:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.910099.1316873 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsHf3-00018P-Jj; Wed, 12 Mar 2025 08:41:57 +0000
+	id 1tsHmI-0003xH-FA; Wed, 12 Mar 2025 08:49:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 910083.1316863; Wed, 12 Mar 2025 08:41:57 +0000
+Received: by outflank-mailman (output) from mailman id 910099.1316873; Wed, 12 Mar 2025 08:49:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsHf3-00016r-Gd; Wed, 12 Mar 2025 08:41:57 +0000
-Received: by outflank-mailman (input) for mailman id 910083;
- Wed, 12 Mar 2025 08:41:56 +0000
+	id 1tsHmI-0003vp-CT; Wed, 12 Mar 2025 08:49:26 +0000
+Received: by outflank-mailman (input) for mailman id 910099;
+ Wed, 12 Mar 2025 08:49:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=IlF8=V7=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1tsHf2-00016l-0z
- for xen-devel@lists.xenproject.org; Wed, 12 Mar 2025 08:41:56 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ (envelope-from <SRS0=ASRr=V7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tsHmH-0003vj-CW
+ for xen-devel@lists.xenproject.org; Wed, 12 Mar 2025 08:49:25 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d6c899f8-ff1d-11ef-9ab9-95dc52dad729;
- Wed, 12 Mar 2025 09:41:49 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 4BF1D1F394;
- Wed, 12 Mar 2025 08:41:48 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 037B3132CB;
- Wed, 12 Mar 2025 08:41:47 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id VQUKO8tI0WfCAgAAD6G6ig
- (envelope-from <jgross@suse.com>); Wed, 12 Mar 2025 08:41:47 +0000
+ id e5cdbb85-ff1e-11ef-9ab9-95dc52dad729;
+ Wed, 12 Mar 2025 09:49:24 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-43d0c18e84eso1437385e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Mar 2025 01:49:24 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3912bfdfcfbsm19922695f8f.28.2025.03.12.01.49.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 12 Mar 2025 01:49:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,165 +45,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d6c899f8-ff1d-11ef-9ab9-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1741768908; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=wHv81Lj5QCqxN7gR9fokIxxEn01P0DZu8jlW2+mGzQs=;
-	b=Iz6QtDgclSojqIclG3dnH3Gp6wsO8BAtPfnx1TV7Z2r4kBWBictDEQI516ef6ikevty3ru
-	NEko9caIyuJwfa2Q2+eMW8JyOpx0YWO+kd3dizGfCP7yrpKjEO+6cbl54EzS9hjhEZt78v
-	dXW6/H68P1xVbuxRuX7UVsHTOqXcRHI=
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=Iz6QtDgc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1741768908; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=wHv81Lj5QCqxN7gR9fokIxxEn01P0DZu8jlW2+mGzQs=;
-	b=Iz6QtDgclSojqIclG3dnH3Gp6wsO8BAtPfnx1TV7Z2r4kBWBictDEQI516ef6ikevty3ru
-	NEko9caIyuJwfa2Q2+eMW8JyOpx0YWO+kd3dizGfCP7yrpKjEO+6cbl54EzS9hjhEZt78v
-	dXW6/H68P1xVbuxRuX7UVsHTOqXcRHI=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v3] docs: specify numerical values of Xenstore commands
-Date: Wed, 12 Mar 2025 09:41:43 +0100
-Message-ID: <20250312084143.14045-1-jgross@suse.com>
-X-Mailer: git-send-email 2.43.0
+X-Inumbo-ID: e5cdbb85-ff1e-11ef-9ab9-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1741769364; x=1742374164; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=G8rsxSW6RfkBU/qhCqIRhOPnN5q7fpagLRTqNVArWdo=;
+        b=bktyYoZtxuJxcjwyVs0+8HpoemhYB4WaRcv704WykUHXl5bc8ehrB7HcXwGJYlfxru
+         a3lEj3Ig6aZNOoTOTVR4/O8D8fHAMMBWSA5F8lHh/zNRlmO2B95fKNYnXHgbvHL8rGL+
+         C44qNwrIYCB3Ufd5Ri8paI0/dHvSNlASPgEWjgw0rv5tWDeoxhIKDrfHiZXF40mD80Yq
+         Dt4l8o/cYBjyWHc3AWTaeXtpQzCbXW+P2dM7hSzG2lTVTUHXOgdBdhKz30JeGcfNfyyq
+         Q3LfYo66XKQBIUbZX+IS6jVB4Ra5nRa8LrIgGNfywjYpeTVFd/q6bQgL9UgwndHXk8Dy
+         0n7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1741769364; x=1742374164;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=G8rsxSW6RfkBU/qhCqIRhOPnN5q7fpagLRTqNVArWdo=;
+        b=xS9cukZzvfJywX4AIzXYhAQqke1ABxFFRYzGEQGIeSltmuBDXHBGnN1SwkbMV16Hzo
+         jbhNDcPy/SgjwrDj5Hc+xOoQm29Ewd+CKQzZzIj2KS/dFhFCX25RZam0VivQwNVDxfkM
+         JH221FURMbku8PKUhS+VWBAAs0vYjPSfTIqTCKxzKVPivirTcFZ02vM8ouN5EqIYHHSE
+         2YJkaSc7J0ujRP3kLQVwWAZac4D/+N79WnHPD+n+dk9BJYvrVclRrk7JS0slQ7/PJGvI
+         qqUiNwKlkkqxxksZHRwNb00sDnZ09+BIm02LjxOw4cwkYYSlhRvmiiJWvwQsrOnFbA0Y
+         emVA==
+X-Forwarded-Encrypted: i=1; AJvYcCWsObFvKuU1zde4A7eYe7Ohs/k7iWdnmyZMI8lS20MEeLWfeJ7mL9F1Se1Z4l8iPqWvy19w5CMYNSI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxcYVUo1lmnecUvsdjJ/8A9tOhkIArQ6OIgj2jyrHQQRupyP4de
+	o3NfKNmfhHjm/cPgXzk2UDkKW0EiJgukiP1M2xT/nHkgbDzvJRsN5pT3hzYTRg==
+X-Gm-Gg: ASbGncuPX+5t9UyV+3eGPsbSH98bh7KPbwLKIR4IMuuLrA3bpbvOdx7pFZ1CF1SCSoN
+	qWmgNfnyGqqMb9ByuW5STwH7WNRQCn/56gtb8EL8m4FivW7IxpwiiGNoQJTzW42lFrWidIw9ZVd
+	jWxFsex/agZEHkG00fdM2toMjeNWdr0oSKiZtXzyKA6l1poMYlBD59JEdjXhzQvfVrYRItL1OQN
+	6kjP9lMKOEzHyUkxfInBULIZE7Mqc8U8VfxtTcx4xLTYKe/e8+rW2jo1+lxjGp6dvEfldGUfuYE
+	FUtAtn7rqTYHOVZFhmrhu72ltaTifgc59ulleCxWxP/hEiW8Aoh8g/G229BU+rWxfwk6L39I2cv
+	SPmASShU0Hwhzsz+YOIzAF/9WBMHEUw==
+X-Google-Smtp-Source: AGHT+IGfpqQrXsMVR2fjr1OH8YzpmyrJUccUqQb0HFKMYx5Qff6uD0l+RnBeXTKk54YnxWXHVuhW8w==
+X-Received: by 2002:a05:600c:1d26:b0:43c:f597:d589 with SMTP id 5b1f17b1804b1-43cf597d965mr91561365e9.27.1741769363653;
+        Wed, 12 Mar 2025 01:49:23 -0700 (PDT)
+Message-ID: <cb7f086a-8a6d-4284-b85a-be88749757e0@suse.com>
+Date: Wed, 12 Mar 2025 09:49:22 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/IDT: Fix IDT generation for INT $0x80
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Luca Fancellu <luca.fancellu@arm.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250311212248.3630583-1-andrew.cooper3@citrix.com>
+ <cdae37d8-a01d-412c-a48b-f4e27d7d898e@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <cdae37d8-a01d-412c-a48b-f4e27d7d898e@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4BF1D1F394
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	ARC_NA(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -3.51
-X-Spam-Flag: NO
+Content-Transfer-Encoding: 7bit
 
-In docs/misc/xenstore.txt all Xenstore commands are specified, but
-the specifications lack the numerical values of the commands.
+On 11.03.2025 22:27, Andrew Cooper wrote:
+> On 11/03/2025 9:22 pm, Andrew Cooper wrote:
+>> When PV is enabled, entry_int80 needs to be DPL3, not DPL0.
+>>
+>> This causes the XSA-259 PoC to fail with:
+>>
+>>   --- Xen Test Framework ---
+>>   Environment: PV 64bit (Long mode 4 levels)
+>>   XSA-259 PoC
+>>   Error: Unexpected fault 0x800d0802, #GP[IDT[256]]
+>>   Test result: ERROR
+>>
+>> (Clearly I have a bug in XTF's rendering of the error code too.)
+> 
+> Fixes: 3da2149cf4dc ("x86/IDT: Generate bsp_idt[] at build time")
 
-Add a table with all commands, their values, and a potential remark
-(e.g. whether the command is optional).
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Reported-by: Jan Beulich <jbeulich@suse.com>
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V2:
-- replace "ŕ" with plain "r" (Jan Beulich)
-- replace hard tabs with blanks (Jan Beulich)
-- allow GET_FEATURES and GET_QUOTA support without SET_* (Jan Beulich)
-V3:
-- specify error code returned for unsupported commands (Julien Grall)
-- reword XS_DIRECTORY_PART related text (Julien Grall)
----
- docs/misc/xenstore.txt | 61 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 61 insertions(+)
-
-diff --git a/docs/misc/xenstore.txt b/docs/misc/xenstore.txt
-index 7e1f031520..72db73deef 100644
---- a/docs/misc/xenstore.txt
-+++ b/docs/misc/xenstore.txt
-@@ -86,6 +86,67 @@ parts of xenstore inaccessible to some clients.  In any case passing
- bulk data through xenstore is not recommended as the performance
- properties are poor.
- 
-+---------- Defined Xenstore message types ----------
-+
-+Below is a table with all defined Xenstore message types (type name
-+and its associated numerical value).
-+
-+Some types are optional to be supported by a specific Xenstore
-+implementation.  If an optional type is not supported by a Xenstore
-+implementation, Xen tools will continue to work, maybe with slightly
-+reduced functionality.  A mandatory type not being supported will
-+result in severely reduced functionality, like inability to create
-+domains.  In case a type is optional, this is stated in the table with
-+the lost functionality in case Xenstore doesn't support that type.
-+Any not supported type sent to Xenstore will result in an error response
-+with the "ENOSYS" error.
-+
-+XS_CONTROL               0    optional
-+    If not supported, xenstore-control command will not work.
-+    XS_DEBUG is a deprecated alias of XS_CONTROL.
-+XS_DIRECTORY             1
-+XS_READ                  2
-+XS_GET_PERMS             3
-+XS_WATCH                 4
-+XS_UNWATCH               5
-+XS_TRANSACTION_START     6
-+XS_TRANSACTION_END       7
-+XS_INTRODUCE             8
-+XS_RELEASE               9
-+XS_GET_DOMAIN_PATH      10
-+XS_WRITE                11
-+XS_MKDIR                12
-+XS_RM                   13
-+XS_SET_PERMS            14
-+XS_WATCH_EVENT          15
-+    Not valid in client sent messages.
-+    Only valid in Xenstore replies.
-+XS_ERROR                16
-+    Not valid in client sent messages.
-+    Only valid in Xenstore replies.
-+XS_IS_DOMAIN_INTRODUCED 17
-+XS_RESUME               18
-+XS_SET_TARGET           19
-+XS_RESTRICT             20    no longer supported
-+    XS_RESTRICT has been removed, the type value 20 is invalid.
-+XS_RESET_WATCHES        21
-+XS_DIRECTORY_PART       22    optional
-+    If not supported, the output of xenstore-ls might be incomplete
-+    with a node's sub-node list exceeding the maximum payload size
-+    (e.g. the "/local/domain" node with more than ca. 1000 domains
-+    active).
-+XS_GET_FEATURE          23    optional
-+XS_SET_FEATURE          24    optional
-+    XS_SET_FEATURE requires XS_GET_FEATURE to be supported.
-+    If unsupported, setting availability of Xenstore features per
-+    domain is not possible.
-+XS_GET_QUOTA            25    optional
-+XS_SET_QUOTA            26    optional
-+    XS_SET_QUOTA requires XS_GET_QUOTA to be supported.
-+    If unsupported, setting of Xenstore quota per domain is not
-+    possible.
-+XS_INVALID           65535
-+    Guaranteed invalid type (never supported).
- 
- ---------- Xenstore protocol details - introduction ----------
- 
--- 
-2.43.0
+Jan
 
 
