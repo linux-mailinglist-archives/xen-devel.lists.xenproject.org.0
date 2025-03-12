@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA6ADA5D503
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Mar 2025 05:10:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.909783.1316719 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58A53A5D4FE
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Mar 2025 05:10:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.909732.1316654 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsDQf-0006tX-Oz; Wed, 12 Mar 2025 04:10:49 +0000
+	id 1tsDQQ-0004B1-LY; Wed, 12 Mar 2025 04:10:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 909783.1316719; Wed, 12 Mar 2025 04:10:49 +0000
+Received: by outflank-mailman (output) from mailman id 909732.1316654; Wed, 12 Mar 2025 04:10:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsDQf-0006mn-Eh; Wed, 12 Mar 2025 04:10:49 +0000
-Received: by outflank-mailman (input) for mailman id 909783;
- Wed, 12 Mar 2025 04:10:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tsDQQ-00047j-HG; Wed, 12 Mar 2025 04:10:34 +0000
+Received: by outflank-mailman (input) for mailman id 909732;
+ Wed, 12 Mar 2025 04:10:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cozV=V7=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1tsDNS-0007Fd-JK
- for xen-devel@lists.xenproject.org; Wed, 12 Mar 2025 04:07:30 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20631.outbound.protection.outlook.com
- [2a01:111:f403:2417::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 825a1573-fef7-11ef-9ab9-95dc52dad729;
- Wed, 12 Mar 2025 05:07:28 +0100 (CET)
-Received: from BN9PR03CA0663.namprd03.prod.outlook.com (2603:10b6:408:10e::8)
- by PH7PR12MB5784.namprd12.prod.outlook.com (2603:10b6:510:1d3::22)
+ id 1tsDNT-0006o2-75
+ for xen-devel@lists.xenproject.org; Wed, 12 Mar 2025 04:07:31 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2060b.outbound.protection.outlook.com
+ [2a01:111:f403:2412::60b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 836ad4be-fef7-11ef-9898-31a8f345e629;
+ Wed, 12 Mar 2025 05:07:29 +0100 (CET)
+Received: from BN9PR03CA0682.namprd03.prod.outlook.com (2603:10b6:408:10e::27)
+ by LV8PR12MB9691.namprd12.prod.outlook.com (2603:10b6:408:295::13)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.27; Wed, 12 Mar
- 2025 04:07:20 +0000
+ 2025 04:07:23 +0000
 Received: from BN1PEPF00006003.namprd05.prod.outlook.com
- (2603:10b6:408:10e:cafe::74) by BN9PR03CA0663.outlook.office365.com
- (2603:10b6:408:10e::8) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:408:10e:cafe::f6) by BN9PR03CA0682.outlook.office365.com
+ (2603:10b6:408:10e::27) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8511.26 via Frontend Transport; Wed,
- 12 Mar 2025 04:07:20 +0000
+ 12 Mar 2025 04:07:23 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN1PEPF00006003.mail.protection.outlook.com (10.167.243.235) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8534.20 via Frontend Transport; Wed, 12 Mar 2025 04:07:20 +0000
+ 15.20.8534.20 via Frontend Transport; Wed, 12 Mar 2025 04:07:23 +0000
 Received: from penny-System-Product-Name.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Tue, 11 Mar 2025 23:07:17 -0500
+ 15.1.2507.39; Tue, 11 Mar 2025 23:07:20 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 825a1573-fef7-11ef-9ab9-95dc52dad729
+X-Inumbo-ID: 836ad4be-fef7-11ef-9898-31a8f345e629
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=B+n53j4bARuUSWHHQgVc1V3AaS6LoxRAU3r23v/IbGMGdNtzjVhVtMCRAd6DmzB5FJ0QQyB6pgMl1Yey1BcGsyZBAtUswORElELuucKI/5nHu9vCT7up2g8By2VlRqf8GjDCQ6BDc2m/5/ASpWaM+Vr+4ks1znoNYdgEFaEAc9zweRGz0TadYsQOP0HSSK0ouSuJbW56S1D2ZRH1rq2TSFFvYmqR59xTcTw8HQdpfl+i+bJISa60VmKgV2fLjexYOVmmtU2/RY48cjc3AVNVd83a7DcGYHMm6XhXbvfE5RU37pRX4K2pmW7b63aPBC0fUhKcav0zhatTTzjjzF56MA==
+ b=qdfbVYZ36h95D6hcBPFiCMeJafIiaRN7AF+VmXXx2qc7/S3WPpi93cvbqb05zLZ6j7GddcyESYrIQb3Z+KTjSv9pkp6gDuVwQVjmgjjmrub6TzYTGtKTr0aFzDRR0Hh+LjA6Aov0lTPz6b3sDyPcPfkLpxtWoPfPtQkpcGAOS2Sqz05ZaOLeK0W6SEu3Jce0i4HS3ZuCaG60rRF1cmmqNi9Dmpmvl5CjfXOj3aeg3cfg0h/NdHHIQREYr8AS1AOFwa7R3weBTpZte4j5JdQfUSDdXz2nEkJVWAC3O/NK9lA10ofov84bwEZuGE11O+nECu8bjlHGQFMweb+6M1C8rA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DLEI3G0mdFjl3RZdhIhDB4K+LruSLZL23++Ti9uAVpY=;
- b=nosc/o+i+GfMnwj2CM2Ag73OQ/73nUfQJASvHcaKq40BcNfe1ubufJphDuwdzqmBhlt78/lTC9SY70qUkaQMPxGHKYVuZoDvtfmzleZzhzEXldnHUPfr+X7HokK46YylyLX9l54HYymKAvG3ygHJu41UeTdciXYi+gure7afo2LLdpp9vLIjp26WNtULK5S5Tu8pgesTP0juz6xYKGoFgF5Emkm2E5vdQcfmbZmYbdArSGLEjwhoR8K9jKf5Gq8OxTUCUlqz/qP2jY3ydbdwukUQ9Z7c4KHKslJW1S8OBfHaeW1WTniEgDmks7qTymDBgGkseoWRcvM+mvAvK9lc7w==
+ bh=X9zemyVNubW8PfgWJd3Mg81LIUFsZ0rkITRTvoNrtMQ=;
+ b=FUu0OsENIwGKCMIKmn2o+xt7Y9Sm+xy5fozo8zRu4q7E2gfCl5BjE+X8lHSksYN9oixmfkDxsybnOavnhlx8NllGQaPeaA8EKj/EcmJygg9UN3/BbCzr0yAh6gwOPzAn9x3V/DNcgOjAeDoyzzINrJ7eczcXHpSTOrbVAmT1z1o95Uzy1D/cxBwywZ9rezIdxv6UWMCTk7cVDe4vVHFxTYagcLAdNbQba1xv1RTvZLR3NAfVGMhILJV5NlGEUXRXoMeXerKCUl1aRFnbzEzj8UEBgxEmjzUb5zBR8926FY/ABBjs6fNMo+So3KlrQ0cSwaFR56fRFVtPaJ/u4nOVuQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DLEI3G0mdFjl3RZdhIhDB4K+LruSLZL23++Ti9uAVpY=;
- b=nYmBK9zV0MKZ5ZOIiUSt+FrxZ/8Dysn6kkRAzILnk84UuqbASdj4tZ71vWKqNlGc3R0Fdqw5/rARf2GF6o2DyopnMwMkZQeCwgrmvaD00iI1UK1RFBTkbgjkMb8x9Vz2qvfiKB1fLGG2fQD2uBO7lMV40T5UyVzURxuSrjZWntA=
+ bh=X9zemyVNubW8PfgWJd3Mg81LIUFsZ0rkITRTvoNrtMQ=;
+ b=KvB9Hw0O886ZfWbX4+YVmU38MrkY1z0tzY6xmiF2oLsDMJm6rLPDj6oAKk6rzCqg54/5rhuO4ft0ui4PkaKv2G9Lx2T04Sw1tm551cz3ChJ7CysX9AnWyfM/ZhsDX1i4GU02j6J1CZUUXHIhPUZCAVJOXPO4ozzEU9zGKMThVNU=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -85,9 +85,9 @@ CC: <ray.huang@amd.com>, Penny Zheng <Penny.Zheng@amd.com>, Andrew Cooper
 	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, "Julien
  Grall" <julien@xen.org>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v1 09/19] xen/sysctl: make CONFIG_PM_STATISTIC depend on CONFIG_SYSCTL
-Date: Wed, 12 Mar 2025 12:06:22 +0800
-Message-ID: <20250312040632.2853485-10-Penny.Zheng@amd.com>
+Subject: [PATCH v1 10/19] xen/page: fix return type of online_page()
+Date: Wed, 12 Mar 2025 12:06:23 +0800
+Message-ID: <20250312040632.2853485-11-Penny.Zheng@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250312040632.2853485-1-Penny.Zheng@amd.com>
 References: <20250312040632.2853485-1-Penny.Zheng@amd.com>
@@ -99,71 +99,88 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00006003:EE_|PH7PR12MB5784:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1a89c8d5-8616-4d1b-7ba0-08dd611b62de
+X-MS-TrafficTypeDiagnostic: BN1PEPF00006003:EE_|LV8PR12MB9691:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5cd23513-25dc-4ab8-ddb5-08dd611b6486
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|1800799024|376014|82310400026;
+	BCL:0;ARA:13230040|376014|36860700013|1800799024|82310400026;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?GaoW1+qMbFaTXNg3rqSIx9cDvVI7CmlB6GRK2RjWu5mdKeqaZlmgAr1VAiHN?=
- =?us-ascii?Q?d6Lg7/CMOU8wE8MgyYCH8Zplnkt0462NlEOt7XPIH6+zVuN9MFDzfvL/ylCM?=
- =?us-ascii?Q?2ietKOrMouXrIu68q79+/tFJWds95oRlnQX2US1DmVKsG1Fn3wq2431hMfMo?=
- =?us-ascii?Q?xTc0siQUh2WxmNgiCkZian2S9k4n4PgmF2Bp+y9SG6CtZQ7PHW7qPD0gFu4z?=
- =?us-ascii?Q?NzBSlcna7NCE7IIljkhEs6vti21MC8kKKciRvuBWTo40PPz6utVR+j3wndwK?=
- =?us-ascii?Q?tc5yw6NtCrwl0XYjqkKU8jk/jZLWU+/Itxm9Nh2w4eWo6A5MVkGInK2/AVgB?=
- =?us-ascii?Q?QRe2w7J8mA2OGrym6vZyGhW3JZAcBuKJG6h+8qiZvBpUbtyTcrOxFITVFGkY?=
- =?us-ascii?Q?BQlYHwFn6MPvSMvYXR+zQ9xC0bCGmGomwvQ3p10ATujxoCTu3KN72hXywz+c?=
- =?us-ascii?Q?YfHmLmp1ulLQc5wAFGbeX7hdgQRiXrfx5u2xV0HxxqkcgbM+KbOeFqW1EMt+?=
- =?us-ascii?Q?yQ8VaVUhBB3T+0ltPIWvVDmARFQ3zHmwl0tHEZvWvkvydv58kX67UJ+gBa/n?=
- =?us-ascii?Q?FbBNYohngEnTj90ADIg45+qO87a8F2M5hEk10KwaAmrOZko1NHfps6soF7IB?=
- =?us-ascii?Q?Mo5gxXz2hreHcDQiCvTrhZFddu304bljAx5hS++lzxR/8+w/1rjVebW5M7Yq?=
- =?us-ascii?Q?q7jI0lJmf9DOx/ZCGONhoR34GpFdyX20e0CsTW3rI2iyZxsHp9G5ltVqEL3w?=
- =?us-ascii?Q?CNueOH6+nVV4HHRELcG4RbbdbAq1lnbqOvNrpTK+XlnTkrJ5ejTj7kxIL90A?=
- =?us-ascii?Q?ByIxQKgfZ1J5/QH7XnLWEz4F5cC9/XQE4R/qpjxGUfHeEAThqDmAvxXZY46d?=
- =?us-ascii?Q?uSszQA4elf4mq0NBrMYmT2PHJ16fJlZEGV9ww/GSOtmDG5fjv5JlnhGhVo37?=
- =?us-ascii?Q?UiSoULc2TT1hqLCKDof7MJGwPxnbAe1D4tX6b7WQ6wUBmNDxBxfIyRyTBvNs?=
- =?us-ascii?Q?e6C+jvuzHpMub6KB/KGwd0E8bJ8rSJTk5fFd1AHcQBAMO7WNWfvS1qc7DXZO?=
- =?us-ascii?Q?pt5mOmA58SgY9GrBBI9EaAeIOXjmqwPOSWaX7oME+WpPItpt1KO9QkDc+28o?=
- =?us-ascii?Q?G4n4GgMmWs1Rb8MkUbFVXlMGbMdbFYiZJp1ELql0wyOB1N820qleJsYMAPT9?=
- =?us-ascii?Q?HRTqzmx7zQc7iTrvs2231GA8bKvBlFxSdwHKAXy9Hxjvfv15JZm/52YpEliY?=
- =?us-ascii?Q?A4gqap7fAKXpbTxFJFgDrWOo8JkRyr4BBe+ONCZg3Q8vMQDDI1Ja9c+ubS9j?=
- =?us-ascii?Q?XqCgPVfWkfcYzb8h9z04ClmgjMB/PqhoJFcLGLkmhhpN42fAvOb+Jg0st+9d?=
- =?us-ascii?Q?83mk/UPPAoz6eYlGTK9wetf0SSnmgS9BaFZLfGnCKjExyRgJeSchvANLlBdG?=
- =?us-ascii?Q?fPnWS+HwUQ0fUWC5rS+RhuKQSegZIDVxBHEGf0lYwNUn8tjJx8hyp/70l8R2?=
- =?us-ascii?Q?obZzlOY0B1uHKyY=3D?=
+	=?us-ascii?Q?YqwuKirBPBZaATopkJ+ZEnjf9oMwSTeZucyp1Vsv8oZUYeZXBHdm4vUu/R+0?=
+ =?us-ascii?Q?B14KbrOJXXPVX4tvJ9sapj++CB754+vUmQfjy4NqC623bpbXVX3gZRDlLDli?=
+ =?us-ascii?Q?3R6+D8s4wKmMX6mNwFwGiJhiuLaNzW4SoJkFNXCdwHyiVsClSj/cKBadcSbU?=
+ =?us-ascii?Q?NcQQ0mg+bTl0v6e8ptnhLvOhpO/EzmIU5mgjNO9+pw+/XMQpzq8z1++h70yS?=
+ =?us-ascii?Q?Hg70arNbswCoGSnHjTYFoO8B2lnTItKGltwZmG2G/YAz7P0EBy1fkUn59AvC?=
+ =?us-ascii?Q?gOmjySaddV9G0l82J4mJd48xbyBHLB/cSMuHyDfuRbOjb5XKjlZjg8QMLY6U?=
+ =?us-ascii?Q?1Mdh99mA9KENw/0eh/GVRjM8BeCFEqtp4mOP9GWLGv3qRgaZAWMJGvb1wHTp?=
+ =?us-ascii?Q?vRTMKKcvAWy2L1Dliv8u8+idFD8l6KXtNQanLdyytaw5kCnbl8GBUUjnsi4p?=
+ =?us-ascii?Q?zrTMP7McKchAlDYXihbHruxttif1f+1atE0UrNf2JDNNoNBwvD8a98bF9obD?=
+ =?us-ascii?Q?4sBxUqzEPIua4Mv5S0XpIvrC6gJ0hO3w4idwf3Hlx8nzzXnUQ94fTc9WQqmZ?=
+ =?us-ascii?Q?dbNZ2ylGiG+dTUz87n7uS6ffwWVd0/AKNbFAaZXz6iYcSZhLnKKTem0Y4x4a?=
+ =?us-ascii?Q?UWj61AdjNgyE/l1pTjHNGCDTfB5wmNjMAhWXscKPM1KEWr6dehF5tu6ZEtsd?=
+ =?us-ascii?Q?CGSdzlDusF+bcersT0FOl387tAFOlrfaI0SV5S3kav6wx8DGplBjKlyBDHxt?=
+ =?us-ascii?Q?HCit0zA08NtMX1mSimvxPWB3JO/bMFOE973EoEgPIxIZlX0/nSAZ0U1E0li5?=
+ =?us-ascii?Q?n0UKIb9fteDMPvegDPCt6QR7ouoJC/9MdKdOmdS2gQzsWi0JXqeVDkyICn8m?=
+ =?us-ascii?Q?S5kl2IAyyPAfGDK3iAuz6DC6ud/2G0TpmFANBkhpZjqNt4Seh5WBOuX+n+sx?=
+ =?us-ascii?Q?NMPnNNdwnwSaQbxP5BaUzInrj3lSc+TR/HLAmB2CoGs5tVPrAD1/OeNt2MmX?=
+ =?us-ascii?Q?is4towF+vzYGINFDy3HKr9xg/wXsYZM9l9ymH+k8O+8mQ0/bXougRtLMb9u5?=
+ =?us-ascii?Q?9cUj0Tz543sV/rHO94hbsa7aoaevKjx0yBhUuIr9vuRyZiZciz7jTrWqErdj?=
+ =?us-ascii?Q?tk6uaJdtyxcDn9pZnrTBFtO8aeaHSZuJaSRIFp6cA5itOHEDJ/NAGS6LMmzg?=
+ =?us-ascii?Q?dDm/uLQinrL4CMXQhh7ZFcOsRNPYuG2uB/pR7YsTGjk8nQBpHHTKCe6vlu3m?=
+ =?us-ascii?Q?Vg+n6VSU3g8QvAqfRsz2wFsOzNzM9kCfI31/WyhUlV2RraI0snIfoXjNthLz?=
+ =?us-ascii?Q?CR9EOZKRV5UEcQRlQJv3awhSe+n7FrPX4EZo03MwRQRCVNlHNPj20nXSNJqE?=
+ =?us-ascii?Q?TO915W6ykBw8ptqSn1NUcxwAdkNvKO6NZSdqqHdwmkYpZAwVgW2u3XEotAkt?=
+ =?us-ascii?Q?IavhtwUow1UdN0J5MFy1zjlPPihdRCyzpmIsVtoalRRxmJrp0WGVn7wyxGml?=
+ =?us-ascii?Q?k+yUohMj6eUmmC8=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2025 04:07:20.6612
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2025 04:07:23.4581
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a89c8d5-8616-4d1b-7ba0-08dd611b62de
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5cd23513-25dc-4ab8-ddb5-08dd611b6486
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	BN1PEPF00006003.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5784
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9691
+
+This commit fixes return type of online_page(), which shall be int
+to include correct error value.
 
 Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 ---
- xen/common/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ xen/common/page_alloc.c | 2 +-
+ xen/include/xen/mm.h    | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index ffc6b9d4df..fbaca097ff 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -109,7 +109,7 @@ config NUMA
+diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+index 1bf070c8c5..b5ec4bda7d 100644
+--- a/xen/common/page_alloc.c
++++ b/xen/common/page_alloc.c
+@@ -1764,7 +1764,7 @@ int offline_page(mfn_t mfn, int broken, uint32_t *status)
+  *   The caller should make sure end_pfn <= max_page,
+  *   if not, expand_pages() should be called prior to online_page().
+  */
+-unsigned int online_page(mfn_t mfn, uint32_t *status)
++int online_page(mfn_t mfn, uint32_t *status)
+ {
+     unsigned long x, nx, y;
+     struct page_info *pg;
+diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
+index 16f733281a..ae1c48a615 100644
+--- a/xen/include/xen/mm.h
++++ b/xen/include/xen/mm.h
+@@ -144,7 +144,7 @@ unsigned long avail_domheap_pages(void);
+ unsigned long avail_node_heap_pages(unsigned int nodeid);
+ #define alloc_domheap_page(d,f) (alloc_domheap_pages(d,0,f))
+ #define free_domheap_page(p)  (free_domheap_pages(p,0))
+-unsigned int online_page(mfn_t mfn, uint32_t *status);
++int online_page(mfn_t mfn, uint32_t *status);
+ int offline_page(mfn_t mfn, int broken, uint32_t *status);
+ int query_page_offline(mfn_t mfn, uint32_t *status);
  
- config PM_STATISTIC
-         bool "Enable Performance Management Statistic Operations"
--        depends on ACPI && HAS_CPUFREQ
-+        depends on ACPI && HAS_CPUFREQ && SYSCTL
-         default y
- 
- config STATIC_MEMORY
 -- 
 2.34.1
 
