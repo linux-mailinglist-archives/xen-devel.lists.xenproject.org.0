@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24D2AA5E732
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Mar 2025 23:18:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.910867.1317466 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3DF2A5E738
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Mar 2025 23:19:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.910877.1317476 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsUOR-0003yu-NR; Wed, 12 Mar 2025 22:17:39 +0000
+	id 1tsUQ5-0004Vh-2Y; Wed, 12 Mar 2025 22:19:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 910867.1317466; Wed, 12 Mar 2025 22:17:39 +0000
+Received: by outflank-mailman (output) from mailman id 910877.1317476; Wed, 12 Mar 2025 22:19:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsUOR-0003wa-KY; Wed, 12 Mar 2025 22:17:39 +0000
-Received: by outflank-mailman (input) for mailman id 910867;
- Wed, 12 Mar 2025 22:17:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tsUQ4-0004TG-VS; Wed, 12 Mar 2025 22:19:20 +0000
+Received: by outflank-mailman (input) for mailman id 910877;
+ Wed, 12 Mar 2025 22:19:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XFa6=V7=redhat.com=david@srs-se1.protection.inumbo.net>)
- id 1tsUOQ-0003wU-Hy
- for xen-devel@lists.xenproject.org; Wed, 12 Mar 2025 22:17:38 +0000
+ id 1tsUQ2-0004T8-Ut
+ for xen-devel@lists.xenproject.org; Wed, 12 Mar 2025 22:19:18 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c902e66f-ff8f-11ef-9898-31a8f345e629;
- Wed, 12 Mar 2025 23:17:29 +0100 (CET)
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 082d5f39-ff90-11ef-9ab9-95dc52dad729;
+ Wed, 12 Mar 2025 23:19:16 +0100 (CET)
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-315-t8R2WAC7P6O7eHZ_2ULvZw-1; Wed, 12 Mar 2025 18:17:23 -0400
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-39130f02631so140815f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 12 Mar 2025 15:17:22 -0700 (PDT)
+ us-mta-346-QCSDL9XNNkuIgRg0hngWAw-1; Wed, 12 Mar 2025 18:19:11 -0400
+Received: by mail-wm1-f69.google.com with SMTP id
+ 5b1f17b1804b1-43ceeaf1524so1742765e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Mar 2025 15:19:11 -0700 (PDT)
 Received: from ?IPV6:2003:d8:2f1a:7c00:4ac1:c2c4:4167:8a0f?
  (p200300d82f1a7c004ac1c2c441678a0f.dip0.t-ipconnect.de.
  [2003:d8:2f1a:7c00:4ac1:c2c4:4167:8a0f])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395c4f9d59dsm62270f8f.0.2025.03.12.15.17.18
+ 5b1f17b1804b1-43d0a73127esm34510605e9.8.2025.03.12.15.19.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Mar 2025 15:17:20 -0700 (PDT)
+ Wed, 12 Mar 2025 15:19:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,70 +51,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c902e66f-ff8f-11ef-9898-31a8f345e629
+X-Inumbo-ID: 082d5f39-ff90-11ef-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1741817848;
+	s=mimecast20190719; t=1741817954;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=GjIBl5yndOQdnleTRVmAst04zzkiJlZJAcEZZ6NnjC8=;
-	b=aB+onykU416EHhh48QzWBn0Nm0H7C+cS5O4i2WyKNjlXarUNtDnEBrjG52XOAJRb8EQj4P
-	nYornZtXI4WFvKRvHZWMfuXH7GujPfmRRc3nBEZ3eY+9SaA2EqEMB8+QVmaje+2wcplsnG
-	/wNggY0jhTDtV18/fBg/VxBN2S56bAE=
-X-MC-Unique: t8R2WAC7P6O7eHZ_2ULvZw-1
-X-Mimecast-MFC-AGG-ID: t8R2WAC7P6O7eHZ_2ULvZw_1741817841
+	bh=YKs6c5vd6BryHi5UgmvOyl94KmjrndKcyGQFDHLGkR0=;
+	b=V+jD3LlEc/40EUSHErUc93E1Lu/cuEvIzpJaDVp/aw2R6eOj76uvAwACrueGAc4LsYAGFv
+	MhZMSEJIS/ySuvrZwIVRRhoff1YckyddDSAnudAfCePNI333/Zg1RmtmqQs3ZAJN1N18Xr
+	AXQpjygs2121gbZ23pYFNUimR/rvb30=
+X-MC-Unique: QCSDL9XNNkuIgRg0hngWAw-1
+X-Mimecast-MFC-AGG-ID: QCSDL9XNNkuIgRg0hngWAw_1741817950
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741817841; x=1742422641;
+        d=1e100.net; s=20230601; t=1741817950; x=1742422750;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:from:references:cc:to:subject:user-agent
          :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=GjIBl5yndOQdnleTRVmAst04zzkiJlZJAcEZZ6NnjC8=;
-        b=WGLpBmvxwRT5hPF2xA7uQ9tOXj4LeacgJBtwXfcxVMnk9kPyOpoAgUEtrMHjgtoYZZ
-         CS0QmBRIxesFTaNGTwLqx73JAWeJv2iw5BwKTqq+lRUkH2vt3Dxds1d730ucnXiSZ/ZJ
-         98oz7vKsWLLNMr8zpxQV4vSVeAqKmZJYJIU9Qoe0rOBBrW45+vw6K07lSI4jhYqKQfwD
-         cvJbnyQZnpbbgIWnJVlopKa9qWJ3lm/x761/1I6r0UDFX0MH3lwPt8cUnirB3wX4Is8v
-         211hqCrHsg2cJwzC1RiaAxrvFsDm809nbjK7ykaN2jGwwxgPXRfKk/KRe9YwsB+iIu9R
-         XDOA==
-X-Forwarded-Encrypted: i=1; AJvYcCWPqWz/aKCq1s7/yEWgk9qRmtkx3Df97T5jGsdEkeFHG/ADVL6sY8hmfiY8j4eS0R7Lu5pOxxIZ1l0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyl4IFXAtdBgstNIWX3jVBVqzDyA+hhmQdHRceRWp2kSGG9eA2J
-	4YJ8OoDr2HuEmV2uCdO5MPSb3nSfFgoaDWP2Q6PoM+jYueYgpxFTBOLOGkJBFC1cGYfjfgVrCgJ
-	OlPoUC3zhDKgiYeQTaQ/bYL3ygTUNz3OXwHCB7j7use2Kh7D2HIagGcoPfC9ljqSs
-X-Gm-Gg: ASbGncvu+wrEXFNG5774fQAd/oD92s8ZM4GoZTptN8//9rvetoLagbE45KrujLvqUck
-	bdIFzZ5IKGM8UTjQ3R1AhopgTfpkbgxyallwcqZYHB1L+Rd5WDrAERtu06lfsGu7qlStU/7aCBP
-	Y+iwD8WfdPmRG/eLcorLDB5vvVxNR5YAuIU3Pqr2exUuu2EOIvKvnhUD3iM0zh79nb8Tgxovff0
-	BGb1Tq1CSbDB3vwbySEcoctTs5OE8YTgwnnE1NqquVaE2gPTdi6MIHxaS0TrIExRnAMxFq030zB
-	B35OAiB+P7pfpKYTBMDBsoOybekSVAuYOwBl2vGo5o/PmOqdMSKesqSUXlf7+y5dEuCqjua4ULF
-	MFPHv1JV1enwsLMDQh8EhnpnjK1PIXN94ym4CZFrI2H0=
-X-Received: by 2002:a05:6000:156d:b0:391:2192:ccd6 with SMTP id ffacd0b85a97d-3926c1cd9e5mr10444698f8f.39.1741817841286;
-        Wed, 12 Mar 2025 15:17:21 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE7ajs+DbkvWkZrtvS3kgtwWoElT+oDfxGjlF1xcQLWnYsT+dOgzewtbm0o82DOv1DRYwzp5A==
-X-Received: by 2002:a05:6000:156d:b0:391:2192:ccd6 with SMTP id ffacd0b85a97d-3926c1cd9e5mr10444674f8f.39.1741817840917;
-        Wed, 12 Mar 2025 15:17:20 -0700 (PDT)
-Message-ID: <26e942e3-4e06-4644-b19b-ae0301bf9b2a@redhat.com>
-Date: Wed, 12 Mar 2025 23:17:18 +0100
+        bh=YKs6c5vd6BryHi5UgmvOyl94KmjrndKcyGQFDHLGkR0=;
+        b=L3g4+m10iSslMNF7K4tYxwaZLc1tQ8hEeHAoy6ve1vyPQly3j5ErmoS1P6SDsIFDYc
+         g0U1dRSUodkxp4sIDV4zjYOwwxHkM56HhdIhFVyO7j1obCghFX3H7yRsvwTJ1ZCHzgL+
+         5afoESn8oVU/xWl5fKM+5/H524YcbUlQ7hswqpkQcm5qBpVaVLkSdCuDrrlFdvjKyIq5
+         A6Vcb0dndVdebEP8+ImZWUd3M7LbENio4g/ZVzlfwidTZg0/GJWGkO65XfiPVApZVbN+
+         0wr7cx92PdI3u8JAF0z/gBoXx/k1XH46CdtsRm2kvLG/QPnsGKlKe9C+i13KCvD9rqAt
+         ppPQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV2UuYw9otaLVvn2qXRFHXdyd6YbTsBZeJuKg88dtYin+sPLAetRSneW158MdURKICZErVOtNh2MN4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxXIICu+5ZFJGMc5zwjnnY05Ix5lCsNvPf8HFvzPCcyGPwWRo9Q
+	COH9vll9Qr6jjh2486xnvdCueUavriE+9+VWCRzmJR/qvGXG48BjPzJ64DZO4TW1vVmhsHyhB14
+	14hPBhBzHGDd0J+faJVKPrLXO/wCa2Wb6YYVW4Fc+RehyedlodKl7UM7+AV1cETJn
+X-Gm-Gg: ASbGncteJV0/SRh6JNhz2b0o0pT2nDBwx6Ln2rzMMHmIpBjZc5Bv3T2XJmWUUfuuIlp
+	V+sqmJ62aEbLdH0BcU3VS+rQGWZnThDqHzNdpdci7gHdLPvw1inrrqzPdLDQNpdM1QFCpkK9Ejc
+	Y3bZ6V1lm/rGTojXnWt7QSdEe1ouFNSDVfJ+kyyYGAPTuqrOebSOJFEShGexeF4y2woN00Pnwy8
+	Q1TzhySFubEyn2PgsA0z9E/Ex7WNoOs2T048vGTq7J+HSD9ThFpTQFWwHvoS84Yz5TuXgw/JSwf
+	KL/9jH2pXAWMnOCMqhp3H72cBBqBY24xElfpMJ4kaQqjuMqEoZQDauaG7BVJpbLKbrNKH3zloNB
+	w4i98gUOHgDBkvDvDcqECOZVhi4lY5WOeYGYBi2rHH3Y=
+X-Received: by 2002:a05:600c:5687:b0:43d:186d:a4bf with SMTP id 5b1f17b1804b1-43d186da55cmr561155e9.0.1741817949890;
+        Wed, 12 Mar 2025 15:19:09 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEFCZMzMhDcHcPaUJ7ZYKRB5yd0dTr+9E10/9yIGc6tvXc+O0vqyF/Y1Un5pGyf0sl4Nfe9rg==
+X-Received: by 2002:a05:600c:5687:b0:43d:186d:a4bf with SMTP id 5b1f17b1804b1-43d186da55cmr561065e9.0.1741817949555;
+        Wed, 12 Mar 2025 15:19:09 -0700 (PDT)
+Message-ID: <c4229ea5-d991-4f5e-a0ff-45dce78a242a@redhat.com>
+Date: Wed, 12 Mar 2025 23:19:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 4/5] vmx_balloon: update the NR_BALLOON_PAGES state
-To: Nico Pache <npache@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>
-Cc: linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
- virtualization@lists.linux.dev, xen-devel@lists.xenproject.org,
- linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, cgroups@vger.kernel.org,
- kys@microsoft.com, haiyangz@microsoft.com, wei.liu@kernel.org,
+Subject: Re: [RFC 1/5] meminfo: add a per node counter for balloon drivers
+To: Nico Pache <npache@redhat.com>, linux-hyperv@vger.kernel.org,
+ linux-kernel@vger.kernel.org, virtualization@lists.linux.dev,
+ xen-devel@lists.xenproject.org, linux-fsdevel@vger.kernel.org,
+ linux-mm@kvack.org, cgroups@vger.kernel.org
+Cc: kys@microsoft.com, haiyangz@microsoft.com, wei.liu@kernel.org,
  decui@microsoft.com, jerrin.shaji-george@broadcom.com,
  bcm-kernel-feedback-list@broadcom.com, arnd@arndb.de,
- gregkh@linuxfoundation.org, jasowang@redhat.com, xuanzhuo@linux.alibaba.com,
- eperezma@redhat.com, jgross@suse.com, sstabellini@kernel.org,
- oleksandr_tyshchenko@epam.com, akpm@linux-foundation.org,
- hannes@cmpxchg.org, mhocko@kernel.org, roman.gushchin@linux.dev,
- shakeel.butt@linux.dev, muchun.song@linux.dev, nphamcs@gmail.com,
- yosry.ahmed@linux.dev, kanchana.p.sridhar@intel.com,
+ gregkh@linuxfoundation.org, mst@redhat.com, jasowang@redhat.com,
+ xuanzhuo@linux.alibaba.com, eperezma@redhat.com, jgross@suse.com,
+ sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
+ akpm@linux-foundation.org, hannes@cmpxchg.org, mhocko@kernel.org,
+ roman.gushchin@linux.dev, shakeel.butt@linux.dev, muchun.song@linux.dev,
+ nphamcs@gmail.com, yosry.ahmed@linux.dev, kanchana.p.sridhar@intel.com,
  alexander.atanasov@virtuozzo.com
 References: <20250312000700.184573-1-npache@redhat.com>
- <20250312000700.184573-5-npache@redhat.com>
- <20250312025607-mutt-send-email-mst@kernel.org>
- <CAA1CXcDjEErb2L85gi+W=1sFn73VHLto09nG6f1vS+10o4PctA@mail.gmail.com>
+ <20250312000700.184573-2-npache@redhat.com>
 From: David Hildenbrand <david@redhat.com>
 Autocrypt: addr=david@redhat.com; keydata=
  xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
@@ -161,57 +159,28 @@ Autocrypt: addr=david@redhat.com; keydata=
  jPrnvUsUUsjRoRNJjKKA/REq+sAnhkNPPZ/NNMjaZ5b8Tovi8C0tmxiCHaQYqj7G2rgnT0kt
  WNyWQQ==
 Organization: Red Hat
-In-Reply-To: <CAA1CXcDjEErb2L85gi+W=1sFn73VHLto09nG6f1vS+10o4PctA@mail.gmail.com>
+In-Reply-To: <20250312000700.184573-2-npache@redhat.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: miGkV1RFSXSFwCK_XJ2bOThIdZi3DvlvDexyKggCr_8_1741817841
+X-Mimecast-MFC-PROC-ID: lxQ_xoTuC7Y_EbaivctFpvfugYdizo_ZeLKOEJ2iQy0_1741817950
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 12.03.25 21:11, Nico Pache wrote:
-> On Wed, Mar 12, 2025 at 12:57 AM Michael S. Tsirkin <mst@redhat.com> wrote:
->>
->> On Tue, Mar 11, 2025 at 06:06:59PM -0600, Nico Pache wrote:
->>> Update the NR_BALLOON_PAGES counter when pages are added to or
->>> removed from the VMware balloon.
->>>
->>> Signed-off-by: Nico Pache <npache@redhat.com>
->>> ---
->>>   drivers/misc/vmw_balloon.c | 5 ++++-
->>>   1 file changed, 4 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/misc/vmw_balloon.c b/drivers/misc/vmw_balloon.c
->>> index c817d8c21641..2c70b08c6fb3 100644
->>> --- a/drivers/misc/vmw_balloon.c
->>> +++ b/drivers/misc/vmw_balloon.c
->>> @@ -673,6 +673,8 @@ static int vmballoon_alloc_page_list(struct vmballoon *b,
->>>
->>>                        vmballoon_stats_page_inc(b, VMW_BALLOON_PAGE_STAT_ALLOC,
->>>                                                 ctl->page_size);
->>> +                     mod_node_page_state(page_pgdat(page), NR_BALLOON_PAGES,
->>> +                             vmballoon_page_in_frames(ctl->page_size));
->>
->>
->> same issue as virtio I think - this counts frames not pages.
-> I agree with the viritio issue since PAGE_SIZE can be larger than
-> VIRTIO_BALLOON_PFN_SHIFT, resulting in multiple virtio_balloon pages
-> for each page. I fixed that one, thanks!
-> 
-> For the Vmware one, the code is littered with mentions of counting in
-> 4k or 2M but as far as I can tell from looking at the code it actually
-> operates in PAGE_SIZE or PMD size chunks and this count would be
-> correct.
-> Perhaps I am missing something though.
+On 12.03.25 01:06, Nico Pache wrote:
+> Add NR_BALLOON_PAGES counter to track memory used by balloon drivers and
+> expose it through /proc/meminfo and other memory reporting interfaces.
 
-vmballoon_page_in_frames() documents to "Return: the number of 4k 
-frames.", because it supports either 4k or 2M chunks IIRC.
+In balloon_page_enqueue_one(), we perform a
 
-I think the catch is that PAGE_SIZE will in these configs always be 4k. 
-Otherwise things like vmballoon_mark_page_offline() wouldn't work as 
-expected.
+__count_vm_event(BALLOON_INFLATE)
 
-So I think this is correct.
+and in balloon_page_list_dequeue
+
+__count_vm_event(BALLOON_DEFLATE);
+
+
+Should we maybe simply do the per-node accounting similarly there?
 
 -- 
 Cheers,
