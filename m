@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6811FA5D84B
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Mar 2025 09:35:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.910062.1316843 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5823A5D85C
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Mar 2025 09:39:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.910073.1316852 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsHYD-0007W1-OM; Wed, 12 Mar 2025 08:34:53 +0000
+	id 1tsHc7-00086Z-6m; Wed, 12 Mar 2025 08:38:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 910062.1316843; Wed, 12 Mar 2025 08:34:53 +0000
+Received: by outflank-mailman (output) from mailman id 910073.1316852; Wed, 12 Mar 2025 08:38:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsHYD-0007TN-Kl; Wed, 12 Mar 2025 08:34:53 +0000
-Received: by outflank-mailman (input) for mailman id 910062;
- Wed, 12 Mar 2025 08:34:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tsHc7-00084q-41; Wed, 12 Mar 2025 08:38:55 +0000
+Received: by outflank-mailman (input) for mailman id 910073;
+ Wed, 12 Mar 2025 08:38:54 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ASRr=V7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tsHYC-0007TH-14
- for xen-devel@lists.xenproject.org; Wed, 12 Mar 2025 08:34:52 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dccb2bfd-ff1c-11ef-9898-31a8f345e629;
- Wed, 12 Mar 2025 09:34:50 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-43948f77f1aso38286015e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 12 Mar 2025 01:34:50 -0700 (PDT)
+ id 1tsHc5-00084i-WE
+ for xen-devel@lists.xenproject.org; Wed, 12 Mar 2025 08:38:54 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6d822d9b-ff1d-11ef-9ab9-95dc52dad729;
+ Wed, 12 Mar 2025 09:38:52 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-4394345e4d5so37894325e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Mar 2025 01:38:52 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d0a74c848sm13866695e9.9.2025.03.12.01.34.48
+ ffacd0b85a97d-3912bfdfb16sm20188489f8f.29.2025.03.12.01.38.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Mar 2025 01:34:49 -0700 (PDT)
+ Wed, 12 Mar 2025 01:38:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dccb2bfd-ff1c-11ef-9898-31a8f345e629
+X-Inumbo-ID: 6d822d9b-ff1d-11ef-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741768489; x=1742373289; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741768732; x=1742373532; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=cfud79DCYLt7xSFt1frzceEEUeBnioKtW6RhEpqlqBc=;
-        b=aTK4AnQvLV55DFCyk4KE1D0Xr9Vx/blCzly336yX0uau+NUB3nzOSmltDSAm+peHK4
-         5n1ysaACwgqNCrykkLDtSxOhAg0HC55T1rg2oNADQRAIErsbd5FVBVFwl4x94SzvnH3A
-         ZVtgHWuhXBbHkbyv6WSlBdzBPIOC3EZjWeiVjNXsYH+IRkm/ybVVRsAC9pW7OfN3EJZW
-         hsN0JJiLOKjvP8e8nqbNBic9myjJes60qSBV3R6oJwayft/CDtYI4dWyp5GC6HpfImFz
-         RvNDATXqYAY2MMUwpru73/rN4EuaJv7l9meMIHSdU5ob2IaFoF0cf2fbsVmmDaiecrlY
-         3B9A==
+        bh=TWd0JSWCnolBxwmmxmTHV+s7JlpXcHYXYHCagTxBwmY=;
+        b=aNDeZnXxfSK4xNnV6wUGZRk9tl1gBvgdNaJjlBFIRhT0goAPBpatuuIYOX1y086IU1
+         76Uip6NY25zFbUP3zXxNnRxrkRJriD+nP9Yi/NOdekmpZDX8XGTuhhl0o/2IVoXAaMwL
+         jKzmRJpjULKZlsxGR1Nwqoqj5DCqmw524PMTvqGE1xESmVU51hpLSLWzoNqHy+4aV74o
+         Emgf3cqY07reqhABjSwDJN2pK0WBz1Qrj7QNuufJbtdI6IULNZCMlSKW/cjwVAvpAQPq
+         8OrP5sjCHcvcCHFrD51lIoyRdc2Vh0xWRM62rND0aKpezUPCa2tiLxX0vnQc8Y3sqs2j
+         u+mQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741768489; x=1742373289;
+        d=1e100.net; s=20230601; t=1741768732; x=1742373532;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=cfud79DCYLt7xSFt1frzceEEUeBnioKtW6RhEpqlqBc=;
-        b=oO4p41H6PptPI++36IrXYRU2vrF5SJGfD/xSHlgFnDIOt8oMXAsy9395QCKbWZQfjS
-         JK0drWXYKE5x6aSD9ar4vfgi671eqiKTruT0Rg0/HwAwsBNrcHGX0FwGZOQTrRcVgse/
-         yDfYv2M2w2iOq4WmJNmo7ccsVQc1aN2BW4fosAypCKrXzTSf122sBAncLhAtjgT+laSr
-         vRQ49mdeyJCV8jlW2VVcDaPSEgR7KtyBeKsxvcnOAECoGbN2QF4fnwI4BQGI7+C2WVI+
-         iyysOBdNB+3xyZQJv33RibvpQtGMgN0bZmdVDlkmi/h+q4nElta7YsOEs7187AZe9lxe
-         Cb3g==
-X-Forwarded-Encrypted: i=1; AJvYcCVooIoYWStDZpttyzuMWTG78GCOQqqSYOyDzhmLkKWWfy8Y6oyDxulejhaaS9OMxtgiwFI1/MCI8xk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YykCmFFkgIt284WLUmxEOWa6hynwJ7z6H28/erptmMonMRZGXou
-	xpEDmWmQe17GbfZMGtBqetks5KkiqBD5HXztOkfAhNLDrVyVlsHq5mjAqCTnuA==
-X-Gm-Gg: ASbGncu+RCGKDauqk92UCzYb7+gtsnDjbo2CBvSfL52IvB2SVWMDVjWuiZLR/qEWKDG
-	m6L3kcKWxx5NNrySZCG4IRTq14eVwvw++zAnDJZgixMhb2SqOawyIn9o/6W3yBq6wD9UsZA+zuB
-	Q+Lx5hxqySpV3CiKZ2WW+lVdp+v0U4J2KKyuevOHp11C8x0vmuJtIHd59ZkGOlTjrDIk8IoV2Wl
-	J75FgjxOQkB5ZLQsV9BMPm6b6sGmbcQU5npUml/MoNKUTrADesw3heAQsjCK0We0b+wHL7Juziz
-	8/b5fLORoIqMP6mvpu+rNGiXbqhUyBZbKCw77ObCxkfSIS3u3TOBw/YRdnR+0el7HlNMaS/E6AO
-	iANlVyiRo12nKP32EaviLUJu/fioxmA==
-X-Google-Smtp-Source: AGHT+IEmeDVqa6LO75yMezs6cRlHJRYz4nKwdHRef4WmKWHvuBj8M4/F5U7j+VgHuOE350MnRhXP4g==
-X-Received: by 2002:a05:600c:4f8b:b0:43d:649:4e50 with SMTP id 5b1f17b1804b1-43d064952fbmr43400755e9.13.1741768489623;
-        Wed, 12 Mar 2025 01:34:49 -0700 (PDT)
-Message-ID: <d05bd416-0643-4d7c-bb7b-39b5b82de0cc@suse.com>
-Date: Wed, 12 Mar 2025 09:34:48 +0100
+        bh=TWd0JSWCnolBxwmmxmTHV+s7JlpXcHYXYHCagTxBwmY=;
+        b=KNxw7kzH4miGq15I2fyqCLdz/xvO4limwCPqp/vMV4TRyv7eAgvLe0fqmEeczVbKSC
+         xhH+e6q0d1NdVfbptjH6bUbWMgW8aRcMGd8g/RW45bhD62HuGoaWL/cguIAEAVkjgzly
+         Yj8hebQk23azhUzw3BvYNl0IQszTVn4fq2d1i/LDS9f8qvH9ODPzyfG0apd56Yp8MKZG
+         nTfnJcwhLXEERGf+RiLO8vW1IDVoIhDve4/E/5AOsb8+5EGcqLBQvVgOnVeF0MuFFg5V
+         JP8b3DBrfGbgY6dVGu6aedi8gSOeDEoiyi+blvszkDbsr6V3h4vYmhHJ5sEkyQ2KZkiz
+         NB+g==
+X-Forwarded-Encrypted: i=1; AJvYcCWUukoJv9X3FULGGLcdVgOvfXYjfpocHSKtTo9sJKfhTC6HPxWo3tUrcLICYDDGznTCyR9jsk1Fsvc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzQSeqVrKsAFIEuQ3+1pB+hWsqA6OyLBxxbGff56sAI5uwOFpb1
+	jpH5xDvxht4mln6ctQT8tQ8oc8GB5FFwLCWNUqGG0BpiyHdvsEB+jvR+lvMRLg==
+X-Gm-Gg: ASbGnctuNHcz5gApQ4OC8qGFLCmQjQRFyPr+QvwUJt3HXjgTE7R66iPL8NkXmqRe01G
+	hZBnylDXXigR/QxkhEpWphVtX0I9+QOTuqYCK7KJE4K3SzECwQbqUi2CxZWq3OeGLe1pgfOEGEd
+	2xGjRps329bYwabIIKyo7KzVpBGwUdB6T1BvjjmbKpp4ZmVAEBKzNANLTWSZoOuPYOvMUIX2aUC
+	cgJXcsP+h3UJrJ44DJETaJ+KkIgfzN+qj8nIWcMbEvyFzOWvAVgX54pI4fu5C/Of/b+rgP2QUzD
+	QDsqwyuPOmwZ15qPSLae+KR3L0Vj5EtUsJ1kJ9YmWw7Ig5Baekao6+748dilTZs9VgPa0SSyClM
+	QQyZ7Y9jBPa1Km9/MIUB+iW+wtgXzUA==
+X-Google-Smtp-Source: AGHT+IExedR9h7u1iNCrqxzsYgQau0D/v4C9+NUIgyME6jZy3FpuNOpK1XLznQCEmg3JSPp3rh3Aig==
+X-Received: by 2002:a05:600c:1c17:b0:43d:79:ae1b with SMTP id 5b1f17b1804b1-43d0079b0c9mr98175505e9.14.1741768732259;
+        Wed, 12 Mar 2025 01:38:52 -0700 (PDT)
+Message-ID: <78d03f36-c848-4e88-9aac-c323a48f4148@suse.com>
+Date: Wed, 12 Mar 2025 09:38:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 01/19] xen: introduce CONFIG_SYSCTL
-To: "Penny, Zheng" <penny.zheng@amd.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>,
- "Stabellini, Stefano" <stefano.stabellini@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v1 02/19] xen/xsm: wrap around xsm_sysctl with
+ CONFIG_SYSCTL
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
 References: <20250312040632.2853485-1-Penny.Zheng@amd.com>
- <20250312040632.2853485-2-Penny.Zheng@amd.com>
- <DM4PR12MB845105949CCBCD7780A718FFE1D02@DM4PR12MB8451.namprd12.prod.outlook.com>
+ <20250312040632.2853485-3-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,58 +119,52 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DM4PR12MB845105949CCBCD7780A718FFE1D02@DM4PR12MB8451.namprd12.prod.outlook.com>
+In-Reply-To: <20250312040632.2853485-3-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 12.03.2025 05:10, Penny, Zheng wrote:
-> [Public]
-> 
-> Hi,
-> 
->> -----Original Message-----
->> From: Penny, Zheng <penny.zheng@amd.com>
->> Sent: Wednesday, March 12, 2025 12:06 PM
->> To: xen-devel@lists.xenproject.org
->> Cc: Huang, Ray <Ray.Huang@amd.com>; Stabellini, Stefano
->> <stefano.stabellini@amd.com>; Andrew Cooper <andrew.cooper3@citrix.com>;
->> Anthony PERARD <anthony.perard@vates.tech>; Orzel, Michal
->> <Michal.Orzel@amd.com>; Jan Beulich <jbeulich@suse.com>; Julien Grall
->> <julien@xen.org>; Roger Pau Monné <roger.pau@citrix.com>; Stefano Stabellini
->> <sstabellini@kernel.org>; Sergiy Kibrik <Sergiy_Kibrik@epam.com>; Penny, Zheng
->> <penny.zheng@amd.com>
->> Subject: [PATCH v1 01/19] xen: introduce CONFIG_SYSCTL
->>
->> From: Stefano Stabellini <stefano.stabellini@amd.com>
->>
->> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
->> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
->> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
->> ---
->>  xen/common/Kconfig | 9 +++++++++
->>  1 file changed, 9 insertions(+)
->>
->> diff --git a/xen/common/Kconfig b/xen/common/Kconfig index
->> 6166327f4d..72e1d7ea97 100644
->> --- a/xen/common/Kconfig
->> +++ b/xen/common/Kconfig
->> @@ -519,6 +519,15 @@ config TRACEBUFFER
->>         to be collected at run time for debugging or performance analysis.
->>         Memory and execution overhead when not active is minimal.
->>
->> +menu "Supported hypercall interfaces"
->> +     visible if EXPERT
->> +
->> +config SYSCTL
->> +     bool "Enable sysctl hypercall"
->> +     depends on !PV_SHIM_EXCLUSIVE
-> 
-> I'm aware of the commit of "x86: provide an inverted Kconfig control for shim-exclusive mode"[1]
-> And I'll rebase whenever it gets merged.
+On 12.03.2025 05:06, Penny Zheng wrote:
+> --- a/xen/include/xsm/dummy.h
+> +++ b/xen/include/xsm/dummy.h
+> @@ -180,11 +180,18 @@ static XSM_INLINE int cf_check xsm_domctl(
+>      }
+>  }
+>  
+> +#ifdef CONFIG_SYSCTL
+>  static XSM_INLINE int cf_check xsm_sysctl(XSM_DEFAULT_ARG int cmd)
+>  {
+>      XSM_ASSERT_ACTION(XSM_PRIV);
+>      return xsm_default_action(action, current->domain, NULL);
+>  }
+> +#else
+> +static XSM_INLINE int cf_check xsm_sysctl(XSM_DEFAULT_ARG int cmd)
+> +{
+> +    return -EOPNOTSUPP;
+> +}
+> +#endif
 
-Except that meanwhile it was agreed upon that it won't be merged. Instead
-iirc the plan is for someone to go and remove all the "depends on
-!PV_SHIM_EXCLUSIVE". Which means new ones better won't be added anymore.
+Please can you avoid introducing unnecessary redundancy, by putting the
+#ifdef inside the function body here and ...
+
+> @@ -259,10 +261,17 @@ static inline int xsm_domctl(xsm_default_t def, struct domain *d,
+>      return alternative_call(xsm_ops.domctl, d, cmd, ssidref);
+>  }
+>  
+> +#ifdef CONFIG_SYSCTL
+>  static inline int xsm_sysctl(xsm_default_t def, int cmd)
+>  {
+>      return alternative_call(xsm_ops.sysctl, cmd);
+>  }
+> +#else
+> +static inline int xsm_sysctl(xsm_default_t def, int cmd)
+> +{
+> +    return -EOPNOTSUPP;
+> +}
+> +#endif
+
+... here? Provided these #ifdef-s are actually needed in the first place.
+The earlier one I can't really see a need for. If there was a need, at
+least the assertion likely also would want to stay outside of the #ifdef.
 
 Jan
 
