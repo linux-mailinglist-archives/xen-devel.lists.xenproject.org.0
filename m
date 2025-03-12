@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0C57A5E2E6
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Mar 2025 18:41:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.910604.1317276 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05531A5E30D
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Mar 2025 18:47:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.910628.1317296 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsQ4b-0005ZE-4j; Wed, 12 Mar 2025 17:40:53 +0000
+	id 1tsQAr-0006gP-0B; Wed, 12 Mar 2025 17:47:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 910604.1317276; Wed, 12 Mar 2025 17:40:53 +0000
+Received: by outflank-mailman (output) from mailman id 910628.1317296; Wed, 12 Mar 2025 17:47:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsQ4b-0005X0-22; Wed, 12 Mar 2025 17:40:53 +0000
-Received: by outflank-mailman (input) for mailman id 910604;
- Wed, 12 Mar 2025 17:40:52 +0000
+	id 1tsQAq-0006eR-TQ; Wed, 12 Mar 2025 17:47:20 +0000
+Received: by outflank-mailman (input) for mailman id 910628;
+ Wed, 12 Mar 2025 17:47:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sRiM=V7=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1tsQ4a-0005Wu-9d
- for xen-devel@lists.xenproject.org; Wed, 12 Mar 2025 17:40:52 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2060a.outbound.protection.outlook.com
- [2a01:111:f403:2414::60a])
+ <SRS0=5o35=V7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tsQAp-0006eC-1j
+ for xen-devel@lists.xenproject.org; Wed, 12 Mar 2025 17:47:19 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 22ec2b3a-ff69-11ef-9ab9-95dc52dad729;
- Wed, 12 Mar 2025 18:40:50 +0100 (CET)
-Received: from DS7PR03CA0115.namprd03.prod.outlook.com (2603:10b6:5:3b7::30)
- by CY8PR12MB9034.namprd12.prod.outlook.com (2603:10b6:930:76::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.28; Wed, 12 Mar
- 2025 17:40:46 +0000
-Received: from DS3PEPF000099D4.namprd04.prod.outlook.com
- (2603:10b6:5:3b7:cafe::21) by DS7PR03CA0115.outlook.office365.com
- (2603:10b6:5:3b7::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8511.27 via Frontend Transport; Wed,
- 12 Mar 2025 17:40:46 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS3PEPF000099D4.mail.protection.outlook.com (10.167.17.5) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8534.20 via Frontend Transport; Wed, 12 Mar 2025 17:40:46 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 12 Mar
- 2025 12:40:45 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 12 Mar
- 2025 12:40:45 -0500
-Received: from [172.19.213.155] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 12 Mar 2025 12:40:44 -0500
+ id 0a33dbd2-ff6a-11ef-9ab9-95dc52dad729;
+ Wed, 12 Mar 2025 18:47:17 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-43cec5cd73bso414075e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Mar 2025 10:47:17 -0700 (PDT)
+Received: from andrewcoop.eng.citrite.net (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43d0a8d0b79sm27333805e9.36.2025.03.12.10.47.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 12 Mar 2025 10:47:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,134 +45,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 22ec2b3a-ff69-11ef-9ab9-95dc52dad729
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mvfzO+2z1iF3CjDDpDCmK1PQeeDiP0kTfj2mEDcLEYri9jun7waPT/lI3FwUMcUyp/alswtYtM/5qNxh7NNeJl2eh2OHIKzEgpBTRVOeoPWvjKP3rgS6WnxY1Jxm8NBJEcKFsHaDSGwme1mNsAxEHfp247pBG7vqIBaN9uTcNdM2+g8Sy8Akmn9SoxTKvgxRyvuQxuRPmPOVPtLHGDIsK3VD9Z9USX0Ww9WHS3p182UUSB7xz9Cra1P5Up+4BrpKnvHULMmJLKD2GUB3sc11FAHxU2gXBwLfPQ4l7//JGVuSqSWNjT8u0BdBCGFsZCjVVdnHtZ1GIXe9HfIV8uNP8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=23F8W1myyJryhzgepBxpSVHRgrA0RwTaHK3k3wt/1Xs=;
- b=wVzR2/oeDHB0l01bCh9W+yWj3uwuCkYSHQnsDnT1644MoW7txCFVmDcVAaUm0ssCT/DMKkQMT0sQw9ZMXQurZTiqUJTZs+jXS+X9GR8JTrNpHE6OBnoHRTnp8m/BQIMWqimMOWOZBYAqtAsmn/TWfXi3yQqJ6O+KVz3/xa3tJCxPPUUk21fxyNYQwt021Qt9Rf22N/dMqTQutS4+AOP5fsQ2drJSDFWfOftrAwKbsbkYremgUj69392hqWPuRYtHayXDEw+el9nnNeinjfo0+f9H1ujE2dm8ipdNssv9J14X272WmHla2CZsCTAS5fAbiajVb5w8ap8qHmuFwzEGQg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=23F8W1myyJryhzgepBxpSVHRgrA0RwTaHK3k3wt/1Xs=;
- b=02VUGYX3xNfoL6Q/6Jd6Wp9VaP36na4E7b1GpPv0uonkBg04hiCB+ItyhhifBlZKLaTsHJHBoTdBqm63mSS7U/rlO5+Jz/oLTG58WicuSoLxR+LjjhCbUSSH3QdcYPKFHE/+yrtEXmo7tUKdUejnxFINIEYv797XLaDErGDWJ5c=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <d1a8cc18-83ce-430f-9a5e-93fa0d1d655e@amd.com>
-Date: Wed, 12 Mar 2025 13:40:27 -0400
+X-Inumbo-ID: 0a33dbd2-ff6a-11ef-9ab9-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1741801637; x=1742406437; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=u9ySLeeh1yjuxUkxJF2YCrGLWw2qs4BAiUK6ECM8mVI=;
+        b=wHOnQSE6HIn2QZ4r2Q760hJVexwPJXuP3T6IgG+WRyM3B1xZbAxT7Dzn+Fe+hip8yq
+         ROxxjdio8WRcH5R0r/Ug8EW9ndzWY23kcLT1yeHLzBqNqjdi1B4Tp/gDJxi5ujW4tRa6
+         TWgaFiVJ0ZNBe8/MlE19fZs5y+xL2/W/oIt0E=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1741801637; x=1742406437;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=u9ySLeeh1yjuxUkxJF2YCrGLWw2qs4BAiUK6ECM8mVI=;
+        b=xLaxVePT2Q9snp+Q6DWrhiJd+j0oWpfjTrY5sgtLIYwx+CxZKRFrKS76Rw8BDRxSXZ
+         Lkd0tJHgBLdfgfmZLrVBfICCvcBjQ5jFNGKliCT0ybE21hNS0XBxszq8eZdnd04UVecM
+         +cvCrnPdj82BEV0godsoQEgavI7EiIVuzoDHDItct2d8Ef4tdJjDnfzyK+oHBUYS6oEj
+         EErqOzHgUwC3s1uoGPdm2KtGCpIfzpcCONEKvlnlONtenQXNM+hmmE0UpQwU1D6j5v3Y
+         bcU6zWmXwmo/927MBVZmt0yRY+crZB1HHo2UCE/Al7C5yprciX0CssRwlU8ZofqsJVT6
+         AVbw==
+X-Gm-Message-State: AOJu0YwBOLsbUicy8RZ1iSFOYl2Xy+fcbPUdtQyZEBFpl9JG58tWPtkU
+	PHg/bSy+CH9eMaaFZQMGJMsIaQdBNwYMMTmbjkIZu1abgoT9GK5J5XlDWr+2On9bfeVWiCM/qh4
+	U
+X-Gm-Gg: ASbGncuzKrHVtQBuwxGAZblZIO6sToTVlw97J7DDG5rnitJQn/yJwB20F4pn/6LacIs
+	lBl7h7prUUNbH1vPhrm98A1daK3auoKWs4c/0iQsj0Dcn0wvp4NgdEf/dNxcRS8Fg3bubvakyKf
+	VhiGtuhUIjquMwtTMzQ+1JnFVKqeuPFEvxT4FJzfmAyrMzs4AE2C1HBBicGxCT8BwT4lq+S9DtG
+	2lg6JAhlZR078txV7XU7NKyICcgIeqeaKXqbSQ/6zygLeeE4BkIeHYYF2Nf8yGAfUwbTSukoC1h
+	CL/7Pqi+TBNM+lp8ZopX7HuOcOYzljT5LxWtJ1rt1LFBq701uqpVEWhVAdb5kXqMyX4HbKj7tza
+	GWGqroQZx9NMp7jjczM3VbISLUKn2hrxBY7M=
+X-Google-Smtp-Source: AGHT+IFpTaqMGcs3RCCxfIUzSMlD1wVR7Tf0H2EawjN+pSZ1/uvG+g6U61jzaIlddrU/C5NwMhyLOA==
+X-Received: by 2002:a05:600c:5251:b0:43d:94:2d1e with SMTP id 5b1f17b1804b1-43d00942ff6mr100909555e9.13.1741801636750;
+        Wed, 12 Mar 2025 10:47:16 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>
+Subject: [PATCH 0/8] xen: Untangle mm.h
+Date: Wed, 12 Mar 2025 17:45:04 +0000
+Message-Id: <20250312174513.4075066-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 8/9] tools/xenstored: use unique_id to identify new
- domain with same domid
-To: Juergen Gross <jgross@suse.com>, <xen-devel@lists.xenproject.org>
-CC: Julien Grall <julien@xen.org>, Anthony PERARD <anthony.perard@vates.tech>
-References: <20250204113407.16839-1-jgross@suse.com>
- <20250204113407.16839-9-jgross@suse.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <20250204113407.16839-9-jgross@suse.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099D4:EE_|CY8PR12MB9034:EE_
-X-MS-Office365-Filtering-Correlation-Id: fbb608eb-a425-4ba3-e528-08dd618d0567
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|36860700013|376014|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?eTVWMit1anhDKzVwa01zRzZMbllQS1NSSldtS2xUc3ZENHRjc08vQnd2RW1Y?=
- =?utf-8?B?NlhRMjUvR2VGVHV2bkJSc3pZbmFvVXBNd3RUSFZWTkNDS0U4em9rTVU1c1Yz?=
- =?utf-8?B?ZWxTMFZlVm84T3Rac2N3WkNIZGVmc3lUVjd4MEo0dzRCOW1HWVZ6bHFnSlVK?=
- =?utf-8?B?eENRRU0vWnFidHJxd0pWeFpYMXJxcFA3V2gwY0JlbXFabWJDQlk5YjVQSjFv?=
- =?utf-8?B?R1FqZFZoQkNSRzh0SkRlb0hRZStwdk5KWDhBa2ZVY0JqekNBMGs4SitaSzZo?=
- =?utf-8?B?L212dnJmOGw4U0d3QjhNejNiSFZtWHRpdkVib2VmUmVyUTNPdTFTTSsxTFlD?=
- =?utf-8?B?TWV4WGE4Uk9BcXN4RmM4ZEtaZjlPMlJLbVJrZ2wrRW9DQXpGODNYUVkvbng0?=
- =?utf-8?B?ZHlGbFFZNkl4TXBtc0RCYXR4VWN0eDQzWXJNK1VmTWJFV3haalIzT0lwN1JI?=
- =?utf-8?B?ZDhVWVQ5ZG14b1g3bTloTlIxVHlkblRXVEFBdHZqZG16U0podExRMVVNRXlB?=
- =?utf-8?B?WXlrVXlGUnFaTXVWRlhGT0VPaTNVZHZrT2FKQ09yR1hWMmZhQTZXMngyK3JC?=
- =?utf-8?B?TGdNc21ucTZvdCtlUXQwc05DeWpTcW5ubENQQkhOSmFGRHl4YXd1dkpvdUN6?=
- =?utf-8?B?aE5pbGx4SWdGOC93OW1TYnRkeDNiWFl3M3JpUSt0bkRpMGh2V1h2V0E4a1c2?=
- =?utf-8?B?Tzd1MlNOcTNCUE9hdWQvSHpEV3phc1JNSCtZc1M3TXJQUFBrODQwN0RqSjhJ?=
- =?utf-8?B?VCsyajdhNlRhYzNXNVUweVp2b1hlRHJBYytLdGNKS0Nwa3RMMEsxQy9nSDcr?=
- =?utf-8?B?RWNvMHZIbUF1dDIzbU5jV0k3NS9EWDVUbjYzeVRUL0lqYjBkZHRJMmx5Mzdu?=
- =?utf-8?B?OEl3U1hYU3k3SlJMSjZvOHN0alRzMnh4cWJucUpDU2s3WEJ5c0pUb3ZyWjEv?=
- =?utf-8?B?SG1oRU5QZzdqQ00rSjFGUFhGOStaUUNWMk8zWmx5aWNyNUpjaUhoenl0dmp2?=
- =?utf-8?B?aU1ZRUtQVjJIWlk0d1l2VGVHNm9WM0lDU2Y2VWRQT0l1S3NaR3NhQmpXN0xa?=
- =?utf-8?B?ZE02M1ZOdVpaenhCMFpNM1NqSmcrQTAwRjEwaUJwZTM0cThhandYUDc5RGdX?=
- =?utf-8?B?UnBPNnhEeTlNc1FYYzQrNUhDUG5uL2RGcmpLVzB5VEJBMzIzM0V2TUo5NkRn?=
- =?utf-8?B?SEUrRHVYdFZzbmFxa1RWeTFSYk1TTjJLVkpDaXJwL29wZllnWWI3VUdSc0RB?=
- =?utf-8?B?RnRnSnNEQnNJMzRFUmh5d1V4S0xYeDZCSFlwZ1FCVXBZTFVLUitZMno5Qjhw?=
- =?utf-8?B?OFdTc2h6THBHQ1VWcGgrLy9jQ25hRDVVUVZyZG93aEJBanJ0SWV6cVdNMnJZ?=
- =?utf-8?B?SjNyRDIvOU40Vlo3Q09KNjZ3Tjh5RVFKZDlkTmgwa09RVnB2bFl2S05QT3RO?=
- =?utf-8?B?OUx4ejlRS0VNK09EZXVlS2Rrb2F2TDZMejBpQmVHWWttV1F4WSt3V3R0MkNh?=
- =?utf-8?B?dTFrRkpNdDRPcFQ4ZFc1bEpuVnF3cnRJRHlEZTNIbGZlam1hRFY2RE5IOXZs?=
- =?utf-8?B?b0JBYjZPTURGZVNwOGZmREZhKzRNenYvVXNSdUk1MjYxckNRVWU3VlhkTnJ2?=
- =?utf-8?B?djkrN0x3UjZzMFJ4VjZFdXdpZ2ZydGNNMThtanBveURVQmx2a0JRdDFzM3Qr?=
- =?utf-8?B?UlBEOVBJRXVNWjNWbENrVmtqUy9tNEJNS3MzQ3YwQS9Mck9pTlhkYVYzZGUz?=
- =?utf-8?B?cDlmWWh1M1dXSTMrT3pEbDdNOFhZckFOYXRYZkZTdVpvYmJOc0pNQlZkMWFv?=
- =?utf-8?B?NkxURVM2REN1VTh4emZxVWo1QzBFN2VKcXFYbHYyRVE0bGJ5dFc3eUdaaWJ0?=
- =?utf-8?B?OHJaRmV0YUtnK0xUT3RjQThsS1V4L1VFc0wvc0NNb3dSb0JkeCtOdTBpeE9M?=
- =?utf-8?B?NU55RXVBQmdvdEp3WkwzLzNXU1c5cUR2SVFMc09TNUhIR21ZUUsrSjIyM1lr?=
- =?utf-8?Q?SQsSIO5a/xJiE0fdSozm0CSeXRu5Pk=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2025 17:40:46.4518
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fbb608eb-a425-4ba3-e528-08dd618d0567
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS3PEPF000099D4.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB9034
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 2025-02-04 06:34, Juergen Gross wrote:
-> Use the new unique_id of a domain in order to detect that a domain
-> has been replaced with another one reusing the doamin-id of the old
+This started out trying to fix one little TODO in x86's microcode loader, and
+escalated somewhat...
 
-s/doamin/domain/
+tlb-clock.h is definitely not as clean as it could be, but it's an improvment
+over today, and given how long it's taken to get this to compile, I'm not
+looking to rewrite everything.
 
-> domain.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
+Andrew Cooper (8):
+  xen/elfstructs: Include xen/types.h
+  xen/livepatch: Fix include hierarchy
+  xen: Sort includes
+  xen/common: Split tlb-clock.h out of mm.h
+  xen/arch: Strip out tlb-clock stubs for non-implementors
+  xen/mm: Exclude flushtlb.h from mm.h for PPC and RISC-V
+  xen/mm: Exclude flushtlb.h from mm.h for ARM
+  xen/mm: Exclude flushtlb.h from mm.h for x86
 
-> diff --git a/tools/xenstored/domain.c b/tools/xenstored/domain.c
-> index a6506a5bb2..63df24030e 100644
-> --- a/tools/xenstored/domain.c
-> +++ b/tools/xenstored/domain.c
+ xen/arch/arm/arm32/livepatch.c            |  1 -
+ xen/arch/arm/arm64/livepatch.c            |  1 -
+ xen/arch/arm/include/asm/arm32/flushtlb.h |  2 +
+ xen/arch/arm/include/asm/arm64/flushtlb.h |  2 +
+ xen/arch/arm/include/asm/fixmap.h         |  2 +
+ xen/arch/arm/include/asm/flushtlb.h       | 14 -------
+ xen/arch/arm/include/asm/pmap.h           |  1 +
+ xen/arch/arm/livepatch.c                  |  1 -
+ xen/arch/arm/mmu/domain_page.c            |  2 +
+ xen/arch/arm/mmu/pt.c                     |  1 +
+ xen/arch/arm/mmu/setup.c                  |  3 +-
+ xen/arch/arm/traps.c                      |  1 +
+ xen/arch/ppc/include/asm/flushtlb.h       | 14 -------
+ xen/arch/riscv/include/asm/flushtlb.h     | 14 -------
+ xen/arch/x86/Kconfig                      |  1 +
+ xen/arch/x86/alternative.c                | 13 +++---
+ xen/arch/x86/cpu/microcode/amd.c          |  2 +-
+ xen/arch/x86/livepatch.c                  | 10 ++---
+ xen/common/Kconfig                        |  3 ++
+ xen/common/memory.c                       |  5 ++-
+ xen/common/page_alloc.c                   |  6 +--
+ xen/include/xen/elfstructs.h              |  7 +++-
+ xen/include/xen/livepatch.h               | 10 ++---
+ xen/include/xen/livepatch_elf.h           |  1 -
+ xen/include/xen/mm.h                      | 36 ++--------------
+ xen/include/xen/tlb-clock.h               | 50 +++++++++++++++++++++++
+ xen/include/xen/version.h                 |  1 -
+ 27 files changed, 102 insertions(+), 102 deletions(-)
+ create mode 100644 xen/include/xen/tlb-clock.h
 
-> @@ -627,9 +628,17 @@ static int check_domain(const void *k, void *v, void *arg)
->   	int dom_invalid;
->   	struct domain *domain = v;
->   	bool *notify = arg;
-> +	uint64_t unique_id;
->   
->   	dom_invalid = xenmanage_get_domain_info(xm_handle, domain->domid,
-> -						&state, NULL);
-> +						&state, &unique_id);
-> +	if (!dom_invalid) {
 
-What do you think about  `if (dom_valid)` to avoid the double negative?
+base-commit: 8e60d47cf0112c145b6b0e454d102b04c857db8c
+-- 
+2.39.5
 
-If you don't want to change it, the code here and elsewhere looks fine 
-to me as-is.
-
-You'll re-spin with updated dump code, correct?
-
-Regards,
-Jason
 
