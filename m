@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61632A5D837
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Mar 2025 09:31:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.910049.1316833 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6811FA5D84B
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Mar 2025 09:35:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.910062.1316843 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsHV8-0006w7-AI; Wed, 12 Mar 2025 08:31:42 +0000
+	id 1tsHYD-0007W1-OM; Wed, 12 Mar 2025 08:34:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 910049.1316833; Wed, 12 Mar 2025 08:31:42 +0000
+Received: by outflank-mailman (output) from mailman id 910062.1316843; Wed, 12 Mar 2025 08:34:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsHV8-0006tu-7c; Wed, 12 Mar 2025 08:31:42 +0000
-Received: by outflank-mailman (input) for mailman id 910049;
- Wed, 12 Mar 2025 08:31:41 +0000
+	id 1tsHYD-0007TN-Kl; Wed, 12 Mar 2025 08:34:53 +0000
+Received: by outflank-mailman (input) for mailman id 910062;
+ Wed, 12 Mar 2025 08:34:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ASRr=V7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tsHV7-0006to-1V
- for xen-devel@lists.xenproject.org; Wed, 12 Mar 2025 08:31:41 +0000
+ id 1tsHYC-0007TH-14
+ for xen-devel@lists.xenproject.org; Wed, 12 Mar 2025 08:34:52 +0000
 Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
  [2a00:1450:4864:20::32a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6aa83d55-ff1c-11ef-9898-31a8f345e629;
- Wed, 12 Mar 2025 09:31:38 +0100 (CET)
+ id dccb2bfd-ff1c-11ef-9898-31a8f345e629;
+ Wed, 12 Mar 2025 09:34:50 +0100 (CET)
 Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-43cfe63c592so23770645e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 12 Mar 2025 01:31:38 -0700 (PDT)
+ 5b1f17b1804b1-43948f77f1aso38286015e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Mar 2025 01:34:50 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d0a8d1666sm13841975e9.40.2025.03.12.01.31.37
+ 5b1f17b1804b1-43d0a74c848sm13866695e9.9.2025.03.12.01.34.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Mar 2025 01:31:37 -0700 (PDT)
+ Wed, 12 Mar 2025 01:34:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6aa83d55-ff1c-11ef-9898-31a8f345e629
+X-Inumbo-ID: dccb2bfd-ff1c-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741768298; x=1742373098; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741768489; x=1742373289; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=PTnd/gKQCKWCasnzsOQs105SOTin9YnfxhFLcOkSEyA=;
-        b=JAEs3Rv68o4+g5sl0Ms0X2UQVmBH9zsfxFf7X85zopkt/3aqC+XT5QgB5Vl8OIl30l
-         /829+SSgU+d1H+c+lwOZvYhCqyVvIE482Xpp/CBD1aJijPqjM4OKc+gl7OIXvPagMi2Y
-         slG5R+VmsJ5oMOGpj/ZGht4S90Dk4x0NHcLgxXWzUnE00RnRh8NtPGSzdHkjfPr93mcb
-         803J4hNq+fTwHzWa5vguBEym5iCOfsYfmajK+kRjCdlCvY6WWL/UtuFm/TYOkvTrY330
-         RujRC8ELHwPaQiD6VtPsN6HC0V5vG+1pmkSTy4uFmvzm6cWC33fbBgtZTdc/fkTasW/R
-         MgZw==
+        bh=cfud79DCYLt7xSFt1frzceEEUeBnioKtW6RhEpqlqBc=;
+        b=aTK4AnQvLV55DFCyk4KE1D0Xr9Vx/blCzly336yX0uau+NUB3nzOSmltDSAm+peHK4
+         5n1ysaACwgqNCrykkLDtSxOhAg0HC55T1rg2oNADQRAIErsbd5FVBVFwl4x94SzvnH3A
+         ZVtgHWuhXBbHkbyv6WSlBdzBPIOC3EZjWeiVjNXsYH+IRkm/ybVVRsAC9pW7OfN3EJZW
+         hsN0JJiLOKjvP8e8nqbNBic9myjJes60qSBV3R6oJwayft/CDtYI4dWyp5GC6HpfImFz
+         RvNDATXqYAY2MMUwpru73/rN4EuaJv7l9meMIHSdU5ob2IaFoF0cf2fbsVmmDaiecrlY
+         3B9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741768298; x=1742373098;
+        d=1e100.net; s=20230601; t=1741768489; x=1742373289;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PTnd/gKQCKWCasnzsOQs105SOTin9YnfxhFLcOkSEyA=;
-        b=T/UAKqYNE4+s0y+8Wl9So1vevGzp0lh3MJ1R4ms7KaIJpymO9gU/NT0cC/OKl/rDr5
-         enzIzzJpC0y/Zn3mVPDXX9Wuheshddf7/GQGrXGmYRb4Ou1qGAOBlckiKL4gqrpMXP8K
-         OSZYYmw6/hvXi4MMW7uhd0DSjn8Jt2DmPx6GlGC4KF4GVgtXPgYJrMtcJXWmMvz9kMrR
-         YSqwk3O1x0QYBqaP97O+cp3k4ysncX5Ei0GOMhafTP/TPLPQpFo6es4GAIxCTp4L+0i9
-         rCRno1YrSeWtWmMB83ePSXsQ1s9wqDCRZZOrZpBmxHG1Q/6FnStzMYcCGEWJ6EIb/rZX
-         sDSg==
-X-Forwarded-Encrypted: i=1; AJvYcCU8ueHF7HkcoxiDTRBe9KWvFWu47D26ZF/Ir4WXg1aH09KfObUjTx4IhskCZj7oG/tVRELzqxIRxBw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywd696moTHbQzw6VDdI8/tsmLxH3knNAoZISd+llcZMzGAgk6mS
-	jxkXxu5JtnAwmdM/odneuY5f3Lmork27XlaoeRXzn3jNtyQJ/XWvdiUyTtMU4w==
-X-Gm-Gg: ASbGncvksbI/O4Gf9Ol4r3YfB377QSu1enI0dE9AKcJpaykmoO7YNZvyXH23/xnDX29
-	4+MijEl6T5a6Pj9ISSbwlUMUWZoKz8+YCcDNA175VJFmrVsYY02El5FJqdyG6c098IN/1MZOsCg
-	dRojczjMxvkcaDyzLrw/mJNPfTNhpGvArf0hAAmMjtQ2m6lM1CpQNq9w+nYDucLS8dtUk/bY18+
-	ehMwUa+5sW5JGrO4kvrs7IFUTPQ77o6VekEa8xuo/6T0YQ2cGY/OW+rZCRJABnsKIqlG7u5Df7x
-	FsdZVtRmVMLxilk60UYDCNOKe0RqFfbmEsAxogFtFqfB/Lz/+v4fa6DSEmKXR1T//JPu2UVZlib
-	Z4AgXDzrt+isU/r4Ey+FZGAaZ1G5aIQ==
-X-Google-Smtp-Source: AGHT+IHrHh/TaluzVfs1MS/hF3+autYRKYmqDqYwuSNPPRhScIN5XdBu9TC0tii0nr3RIzDiuGf0CQ==
-X-Received: by 2002:a05:600c:b95:b0:43c:ec97:75db with SMTP id 5b1f17b1804b1-43cec97779fmr149475225e9.11.1741768298077;
-        Wed, 12 Mar 2025 01:31:38 -0700 (PDT)
-Message-ID: <0565db90-5734-4795-8988-efd3e72cc770@suse.com>
-Date: Wed, 12 Mar 2025 09:31:37 +0100
+        bh=cfud79DCYLt7xSFt1frzceEEUeBnioKtW6RhEpqlqBc=;
+        b=oO4p41H6PptPI++36IrXYRU2vrF5SJGfD/xSHlgFnDIOt8oMXAsy9395QCKbWZQfjS
+         JK0drWXYKE5x6aSD9ar4vfgi671eqiKTruT0Rg0/HwAwsBNrcHGX0FwGZOQTrRcVgse/
+         yDfYv2M2w2iOq4WmJNmo7ccsVQc1aN2BW4fosAypCKrXzTSf122sBAncLhAtjgT+laSr
+         vRQ49mdeyJCV8jlW2VVcDaPSEgR7KtyBeKsxvcnOAECoGbN2QF4fnwI4BQGI7+C2WVI+
+         iyysOBdNB+3xyZQJv33RibvpQtGMgN0bZmdVDlkmi/h+q4nElta7YsOEs7187AZe9lxe
+         Cb3g==
+X-Forwarded-Encrypted: i=1; AJvYcCVooIoYWStDZpttyzuMWTG78GCOQqqSYOyDzhmLkKWWfy8Y6oyDxulejhaaS9OMxtgiwFI1/MCI8xk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YykCmFFkgIt284WLUmxEOWa6hynwJ7z6H28/erptmMonMRZGXou
+	xpEDmWmQe17GbfZMGtBqetks5KkiqBD5HXztOkfAhNLDrVyVlsHq5mjAqCTnuA==
+X-Gm-Gg: ASbGncu+RCGKDauqk92UCzYb7+gtsnDjbo2CBvSfL52IvB2SVWMDVjWuiZLR/qEWKDG
+	m6L3kcKWxx5NNrySZCG4IRTq14eVwvw++zAnDJZgixMhb2SqOawyIn9o/6W3yBq6wD9UsZA+zuB
+	Q+Lx5hxqySpV3CiKZ2WW+lVdp+v0U4J2KKyuevOHp11C8x0vmuJtIHd59ZkGOlTjrDIk8IoV2Wl
+	J75FgjxOQkB5ZLQsV9BMPm6b6sGmbcQU5npUml/MoNKUTrADesw3heAQsjCK0We0b+wHL7Juziz
+	8/b5fLORoIqMP6mvpu+rNGiXbqhUyBZbKCw77ObCxkfSIS3u3TOBw/YRdnR+0el7HlNMaS/E6AO
+	iANlVyiRo12nKP32EaviLUJu/fioxmA==
+X-Google-Smtp-Source: AGHT+IEmeDVqa6LO75yMezs6cRlHJRYz4nKwdHRef4WmKWHvuBj8M4/F5U7j+VgHuOE350MnRhXP4g==
+X-Received: by 2002:a05:600c:4f8b:b0:43d:649:4e50 with SMTP id 5b1f17b1804b1-43d064952fbmr43400755e9.13.1741768489623;
+        Wed, 12 Mar 2025 01:34:49 -0700 (PDT)
+Message-ID: <d05bd416-0643-4d7c-bb7b-39b5b82de0cc@suse.com>
+Date: Wed, 12 Mar 2025 09:34:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/boot: Fix zap_low_mappings() to map less of the
- trampoline
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250106112652.579310-1-andrew.cooper3@citrix.com>
- <2f12f38e-9629-40fd-b532-6b6f82ecfe1f@suse.com>
- <4bff530c-9f96-4b59-b6cb-86349c576690@citrix.com>
+Subject: Re: [PATCH v1 01/19] xen: introduce CONFIG_SYSCTL
+To: "Penny, Zheng" <penny.zheng@amd.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ "Stabellini, Stefano" <stefano.stabellini@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20250312040632.2853485-1-Penny.Zheng@amd.com>
+ <20250312040632.2853485-2-Penny.Zheng@amd.com>
+ <DM4PR12MB845105949CCBCD7780A718FFE1D02@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,75 +126,58 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4bff530c-9f96-4b59-b6cb-86349c576690@citrix.com>
+In-Reply-To: <DM4PR12MB845105949CCBCD7780A718FFE1D02@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11.03.2025 21:47, Andrew Cooper wrote:
-> On 06/01/2025 11:54 am, Jan Beulich wrote:
->> On 06.01.2025 12:26, Andrew Cooper wrote:
->>> Regular data access into the trampoline is via the directmap.
->>>
->>> As now discussed quite extensively in asm/trampoline.h, the trampoline is
->>> arranged so that only the AP and S3 paths need an identity mapping, and that
->>> they fit within a single page.
->>>
->>> Right now, PFN_UP(trampoline_end - trampoline_start) is 2, causing more than
->>> expected of the trampoline to be mapped.  Cut it down just the single page it
->>> ought to be.
->>>
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> Acked-by: Jan Beulich <jbeulich@suse.com>
+On 12.03.2025 05:10, Penny, Zheng wrote:
+> [Public]
 > 
-> Thanks.  However,
+> Hi,
 > 
->> on the basis that this improves things. However, ...
+>> -----Original Message-----
+>> From: Penny, Zheng <penny.zheng@amd.com>
+>> Sent: Wednesday, March 12, 2025 12:06 PM
+>> To: xen-devel@lists.xenproject.org
+>> Cc: Huang, Ray <Ray.Huang@amd.com>; Stabellini, Stefano
+>> <stefano.stabellini@amd.com>; Andrew Cooper <andrew.cooper3@citrix.com>;
+>> Anthony PERARD <anthony.perard@vates.tech>; Orzel, Michal
+>> <Michal.Orzel@amd.com>; Jan Beulich <jbeulich@suse.com>; Julien Grall
+>> <julien@xen.org>; Roger Pau Monné <roger.pau@citrix.com>; Stefano Stabellini
+>> <sstabellini@kernel.org>; Sergiy Kibrik <Sergiy_Kibrik@epam.com>; Penny, Zheng
+>> <penny.zheng@amd.com>
+>> Subject: [PATCH v1 01/19] xen: introduce CONFIG_SYSCTL
 >>
->>> --- a/xen/arch/x86/x86_64/mm.c
->>> +++ b/xen/arch/x86/x86_64/mm.c
->>> @@ -718,14 +718,16 @@ void __init zap_low_mappings(void)
->>>  {
->>>      BUG_ON(num_online_cpus() != 1);
->>>  
->>> -    /* Remove aliased mapping of first 1:1 PML4 entry. */
->>> +    /* Stop using l?_bootmap[] mappings. */
->>>      l4e_write(&idle_pg_table[0], l4e_empty());
->>>      flush_local(FLUSH_TLB_GLOBAL);
->>>  
->>> -    /* Replace with mapping of the boot trampoline only. */
->>> +    /*
->>> +     * Insert an identity mapping of the AP/S3 part of the trampoline, which
->>> +     * is arranged to fit in a single page.
->>> +     */
->>>      map_pages_to_xen(trampoline_phys, maddr_to_mfn(trampoline_phys),
->>> -                     PFN_UP(trampoline_end - trampoline_start),
->>> -                     __PAGE_HYPERVISOR_RX);
->>> +                     1, __PAGE_HYPERVISOR_RX);
->> ... literal numbers like this - however well they are commented - are
->> potentially problematic to locate in case something changes significantly.
->> The 1 here really would want connecting with the .equ establishing
->> wakeup_stack.
+>> From: Stefano Stabellini <stefano.stabellini@amd.com>
+>>
+>> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+>> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+>> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+>> ---
+>>  xen/common/Kconfig | 9 +++++++++
+>>  1 file changed, 9 insertions(+)
+>>
+>> diff --git a/xen/common/Kconfig b/xen/common/Kconfig index
+>> 6166327f4d..72e1d7ea97 100644
+>> --- a/xen/common/Kconfig
+>> +++ b/xen/common/Kconfig
+>> @@ -519,6 +519,15 @@ config TRACEBUFFER
+>>         to be collected at run time for debugging or performance analysis.
+>>         Memory and execution overhead when not active is minimal.
+>>
+>> +menu "Supported hypercall interfaces"
+>> +     visible if EXPERT
+>> +
+>> +config SYSCTL
+>> +     bool "Enable sysctl hypercall"
+>> +     depends on !PV_SHIM_EXCLUSIVE
 > 
-> how do you propose doing this?
-> 
-> PFN_UP(wakeup_stack - trampoline_start) doesn't have the same obvious
-> connection, and it would involve partly undoing 7d73c6f196a5 which hid
-> the symbol recently.
-> 
-> While 1 isn't ideal, it is next to a comment explaining what's going on,
-> and it's not going to go stale in a silent way...  (It's also not liable
-> to go stale either.)
+> I'm aware of the commit of "x86: provide an inverted Kconfig control for shim-exclusive mode"[1]
+> And I'll rebase whenever it gets merged.
 
-If in
-
-        .equ    wakeup_stack, trampoline_start + PAGE_SIZE
-
-PAGE_SIZE was replaced by a new (in asm/trampoline.h) TRAMPOLINE_PERM_SIZE,
-you could use PFN_UP(TRAMPOLINE_PERM_SIZE) here to establish a connection.
-
-I have to admit I also don't really see why things going stale here would
-(a) be unlikely and (b) be guaranteed to not go silently. We just don't
-know what we may need to add to the trampoline, sooner or later.
+Except that meanwhile it was agreed upon that it won't be merged. Instead
+iirc the plan is for someone to go and remove all the "depends on
+!PV_SHIM_EXCLUSIVE". Which means new ones better won't be added anymore.
 
 Jan
 
