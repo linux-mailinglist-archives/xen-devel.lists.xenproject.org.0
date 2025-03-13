@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF463A601E4
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 21:06:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.913475.1319505 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01B01A6023A
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 21:16:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.913487.1319515 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsoor-0001Z6-7v; Thu, 13 Mar 2025 20:06:17 +0000
+	id 1tsoyS-0004pq-6m; Thu, 13 Mar 2025 20:16:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 913475.1319505; Thu, 13 Mar 2025 20:06:17 +0000
+Received: by outflank-mailman (output) from mailman id 913487.1319515; Thu, 13 Mar 2025 20:16:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsoor-0001Wj-4t; Thu, 13 Mar 2025 20:06:17 +0000
-Received: by outflank-mailman (input) for mailman id 913475;
- Thu, 13 Mar 2025 20:06:15 +0000
+	id 1tsoyS-0004o3-3v; Thu, 13 Mar 2025 20:16:12 +0000
+Received: by outflank-mailman (input) for mailman id 913487;
+ Thu, 13 Mar 2025 20:16:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zfkQ=WA=dornerworks.com=Nathan.Studer@srs-se1.protection.inumbo.net>)
- id 1tsoop-0001Wd-OW
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 20:06:15 +0000
-Received: from USG02-BN3-obe.outbound.protection.office365.us
- (mail-bn3usg02on0613.outbound.protection.office365.us
- [2001:489a:2202:c::613])
+ <SRS0=w2IX=WA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tsoyQ-0004nx-4i
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 20:16:10 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9b94e5c2-0046-11f0-9ab9-95dc52dad729;
- Thu, 13 Mar 2025 21:06:12 +0100 (CET)
-Received: from SA1P110MB1629.NAMP110.PROD.OUTLOOK.COM (2001:489a:200:195::20)
- by SA1P110MB2265.NAMP110.PROD.OUTLOOK.COM (2001:489a:200:167::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.37; Thu, 13 Mar
- 2025 20:06:08 +0000
-Received: from SA1P110MB1629.NAMP110.PROD.OUTLOOK.COM
- ([fe80::4c02:35de:2909:2bea]) by SA1P110MB1629.NAMP110.PROD.OUTLOOK.COM
- ([fe80::4c02:35de:2909:2bea%4]) with mapi id 15.20.8489.035; Thu, 13 Mar 2025
- 20:06:07 +0000
+ id ff342ba0-0047-11f0-9ab9-95dc52dad729;
+ Thu, 13 Mar 2025 21:16:07 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-43cfb6e9031so13316845e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 13:16:07 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-395c7df3512sm3389770f8f.12.2025.03.13.13.16.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 13 Mar 2025 13:16:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,153 +45,325 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b94e5c2-0046-11f0-9ab9-95dc52dad729
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector5401; d=microsoft.com; cv=none;
- b=AdHSgkktNRtCObOWQqXJ7sIw7EaItlk/CMafoTEzGZGpO4+xKgT7i7UZrBMqURc9KE9lButrZENXx8RwLCUheNxIUWCn3Kfek9BCGnoAaPJ82J33IK6wFU7J+n4FczZvaNuxapnArvzZ4bXVpk3SEr/Yp7W20ROhStZBDvSYu+Fx4/9INHdfNl8TA5XsfaGpc5ZKtyJsyORYzwaC4XGdl2X9mEB/LZVVqMxWvhd0E2QLPFI+ErSnVeHUhlYb6DL+V4uqjwMrofi2+MS0BP84pE693vZW9AjqMRnpE7feK02+YEa6OYKo6YvhYGfJU8b9MHLsq2HfLUMXSpJFmO9S8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector5401;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b6HixeUQc8ew+vO1YJOtKqDcUNesmYML9qW6m1pm7YE=;
- b=J1UUfTWvehOe3QAe3LJwqDui/UMErcWbOBCB55iXkkvyMekhGp1nLuX6427/vxHH+UlkpIu5UNGd0WGByBl9FXwqffgeCHnWYf13C19BTO4E/Kzsm5ZKS0PdX/8+dNsxXFSzDdB8KFsMhTMl9hr6YLdkPIYBw+bbkheWe0xN/lsjAdS6y8M2Z0TUbLAmYpW5MbUQ9JX9irIbbsfmbcYlJWLF15zxyN1Tr+bQocOBqEmaK50YV2bffbd6MS1v6G8T2H764TMJDybclCsbHtvnDhJvH2ovTOFzxpXKUnrsGf475isOqC7hSKzhJ6/CQSQaw1wq1K9LVjjsg+aTacI8Lg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=dornerworks.com; dmarc=pass action=none
- header.from=dornerworks.com; dkim=pass header.d=dornerworks.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dornerworks.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b6HixeUQc8ew+vO1YJOtKqDcUNesmYML9qW6m1pm7YE=;
- b=cAClS7HGObhEk2DiRzZSPradZAXMmNqKh4rpFx4A6N4fty1OmHCFJaI47SITmdz7oJ8xPRr97ChG21SeFndJbQPSYN68oks41wtN3Rb8n2n+f111VDhF/0renBttEexN6UwRRtx+9+LTJNjePfk7AjltnOozh09aKvLtraNdzI60r4uiMxZBOKQbO6twZ172UpRTNPDuWK/m1nfOD0qyMPWY/5uYPhCE2nBIT1l3Y/EaapEborZ5Njoz7/ZY6rvESueey/LpNaZAl6NeavORrkXatZ7SqY+tUAOIQBlPLHIW9UJmfg8T74bjSP/eryrjg6pHA3RjzkBRnP6hb46YCg==
-From: Nathan Studer <Nathan.Studer@dornerworks.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Juergen Gross
-	<jgross@suse.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, xen-devel <xen-devel@dornerworks.com>, Jeff
- Kubascik <Jeff.Kubascik@dornerworks.com>
-CC: Stewart Hildebrand <stewart@stew.dk>, Dario Faggioli <dfaggioli@suse.com>,
-	George Dunlap <gwd@xenproject.org>, Choi Anderson <Anderson.Choi@boeing.com>
-Subject: RE: [PATCH] xen/sched: fix arinc653 to not use variables across
- cpupools
-Thread-Topic: [PATCH] xen/sched: fix arinc653 to not use variables across
- cpupools
-Thread-Index: AQHbk/rJLC8kkmZ6m0etj3YPTyi7AbNw8nsAgACI0dA=
-Date: Thu, 13 Mar 2025 20:06:07 +0000
-Message-ID:
- <SA1P110MB1629ABA437E47DA887CA5FCEF4D3A@SA1P110MB1629.NAMP110.PROD.OUTLOOK.COM>
-References: <20250313093157.30450-1-jgross@suse.com>
- <8655362d-4019-4dca-b232-5adeb13c3ac1@citrix.com>
-In-Reply-To: <8655362d-4019-4dca-b232-5adeb13c3ac1@citrix.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=dornerworks.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA1P110MB1629:EE_|SA1P110MB2265:EE_
-x-ms-office365-filtering-correlation-id: d89ba5c7-775e-4ee4-19fc-08dd626a7deb
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|41320700013|1800799024|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?Znl5U05vMWpyeWt5UGJFQTNWUGxlQmVJRWx5ZHBwNVduSXdIeWhzYWRyK05J?=
- =?utf-8?B?a3dFdWpIWmI2bHl4ckJmeHR4Zk55K0JrNXBreU9LenY1WXFkK3dzK05CRlBy?=
- =?utf-8?B?SGF3YUR1Q1cyVkpWR3QwTUt3RzQ1cThhakhDMlZSYkVVQ0ZBR0llRk52dHdP?=
- =?utf-8?B?RmtjNjZSRjhmUXdMTmFzcVpvT0k0K1c3Y1BPMmoxSVl6Q2pqaVFlb0Nablpa?=
- =?utf-8?B?R2F2anJKMlc4bzdNanJnSitrTEdnUG9LT05RNzcyVXpjemt2OVk3S0VVWmhD?=
- =?utf-8?B?YUJVemQ4Tmp5eWcrbUFQazhseU9yeE5jbUdwS1c1MFVMeFZ5OHhwTFI1d0ps?=
- =?utf-8?B?VGlqcHhrT0JpK0tLckVWY05Rd01IN3VRVlg3TCtNL3BHVWNUL1RnQ1Ftdjc3?=
- =?utf-8?B?WkFJZUdTeVFHRkRRUXhSRU5DU29td1VNdE1tM0VrVmRlRVpGdVBDMmZrVmFY?=
- =?utf-8?B?UllLT09IME82NWl1Y2oxVEVYRnRYZXNRNFNPaGJYVXZoVDcrYkt2Qko5WjBX?=
- =?utf-8?B?L0N2d2RwcTJSaTRHSVVBSnRCT3dTSzhuSmpuWU9qZ2tlYy9jeWJybGJLNUw3?=
- =?utf-8?B?NmdvVklhdWFCZ2kwRXM4ZzhGMHQvbEswbVJyS0lRajVvWkhEOGVKaDVRS1Z5?=
- =?utf-8?B?eDA4akg2VGdOMDNyWUJPRFNPTEdpNmc2TE05d0xpdDBzVjhKWkh1SFlFVHg0?=
- =?utf-8?B?WitzSWRJLzR5VEh0bXRHdnZzSUJYcXgxL3hvR3dUNFBZYVM2MHl5azhzZkh4?=
- =?utf-8?B?QzQzcjB6UFVSVmZRbjVDTStoa1pFWnNtZm4wdFZSamlDYytWaFZMTDFqeThR?=
- =?utf-8?B?dU54S1dlY2pBOHFtR0VkMlc3Vk5TamZEajYzRWNoV3VicGtVT2hwWm1sSzVC?=
- =?utf-8?B?aWE2TW5TS2ZGWEVxU1RLQnlvZldJWW9ybEJ6bmpYTHM1SmhrZE5EM1pJM2pN?=
- =?utf-8?B?cXNtdTJML0FGek9uand5UGFraENITFQ3VWlJbGs4L3R1emZacjlKWXV3eFZq?=
- =?utf-8?B?ZFduTkJ6Ym10cThpb3BGSlAyeEhXWHc4WmljVTlOZENiT2Z6MDJUN0s2VFJz?=
- =?utf-8?B?OTNzbkk1eHhnYW9qalg5UTBDZm1iRFVpWE8rS0NXTkZGUVJSYzhDOHlaRlAv?=
- =?utf-8?B?N1NrVUx6NTVhUS91cFhJNnpKVWNJSDNqNkhxK2s3WWJCL29PNHd1YnBwd1VU?=
- =?utf-8?B?M1J0RFp3b09xeXFORWNvZkorck1tL2M5L29mZkFqNlV1UjlIV0drRE5wMHY5?=
- =?utf-8?B?Y0k0ZnFVeXVhcHBXOWk4SjA4bUFFWDV4dzB3Z1BucXo5YUhKYVMxUVFibCtF?=
- =?utf-8?B?bWpJeWJ2c0dEbkVycThaeU1zaE9vVStjQWtqVlVIcElGQmlJcWJYLzJLVG9w?=
- =?utf-8?B?VndxaG5zVXBUSEgrT3BVM2pIUE00T2RWN25GUVBHQXFiKzhzOTk1WFk5NkQ5?=
- =?utf-8?B?bFB4aHUybS9iUmRJdXp2MWVtZURLRXRMdWcvd2NpZXhGcGE4S2xrNFUramFr?=
- =?utf-8?B?VWhLYzZkSFJJeTd5QlJYa3lDMjludktCaEs2Y0F0aVdwaHRHQXg2TzJEUXkx?=
- =?utf-8?B?Q0VuQUdWd29ydWZEeGhRSHQ2YTg1NUFDU3RMNFdIT2swUlpOekQ5Y2toUzlY?=
- =?utf-8?B?QXdBUkFlQmdxVWIzMFNOWmZ2Y3lpSDFIeEwzL1hSaGZkWEhYdnIxQ3VCeHZn?=
- =?utf-8?B?djZHWkhrb0FUTnZiOU9xaEJnKzAzUG9XT21zYWlIL3lOT25DZWV2SlpURU85?=
- =?utf-8?B?UnBlWmc2VXBySXhuazJzeC8rcVhCaFVsbkJPM1U4TjU3SUliNkRTZE01QnVp?=
- =?utf-8?B?SzhveEpxQkl5aGdWSThPVUdPQk5BR1JDdFlqRVVIbE90NTZ0UHU3QVRFbkZi?=
- =?utf-8?B?OERQYk5CQW1KeURLYTFKR055WDUvT05pVmw5SHdWTE5IbFNKN3RzcGFnT0Fo?=
- =?utf-8?Q?9k+ce5uOUZl8FSEFQ8Xb1qElk8adws+G?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1P110MB1629.NAMP110.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(41320700013)(1800799024)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?Nmc5RjhLaHZReGtZTVF4YVgrcnZlVkZpdjl0RjcvYkZJK1ptTVVYYWZkMjg1?=
- =?utf-8?B?OVZySGszUWdxakxZSEY0SDJFelpabWZ2d2NmQ2JsdEZjbUFSaVA0TDFMcUx0?=
- =?utf-8?B?dnVoVlBFY2ZZNjFVbjRZS2diN2dFUjdGV0d2SGVXeHljdWhOMnVKd2RMNnk0?=
- =?utf-8?B?VUZVakpYTjBxYkVMeFU3N25hQ3FJTHV1ZEo0L0w1NC9JbFI4SHhFakkwZmZz?=
- =?utf-8?B?NTFZWnBBQmNMN0F1Z0J3UGlJTkxkZEZNeVYyZWVKam9HNC9EcFFmZ25UUzRq?=
- =?utf-8?B?RG1Vb0hMcGsrajhOc3hjRmMrUFBZZnZKVUhQeWZTNUI3MWF5ejNHbXV1Sk5M?=
- =?utf-8?B?QkNHVllaVlcxM0VXRmpXYTlONi9hZDF5Q25mdlgyWmJUcFI2cElJQTJlNFE1?=
- =?utf-8?B?Qm5XbjBna1B5UklIVng5VUhjVEdZdHg3WGZMUCsyelQ4R2VCY3lKdWRrY0Js?=
- =?utf-8?B?a0pKNm5XYStDcS9ZUEFtQllDTDhRUDhTYmpvMW1ZOUVKc3BId0JVNm1QS3RI?=
- =?utf-8?B?UkZaR0ZESHBaL01qL3JKUTFLVmtUQ1dqMUFkNjRUWFpwT3VpajhDdmYxK0Rx?=
- =?utf-8?B?ckw5TTUrY2pWZ3dDbER6SE9JRmIwN0lueEdlenJYT1hzUjJJTlphUzQ3cWll?=
- =?utf-8?B?NDdaeVJrYW84Yjg0eGhzdDhkbGdvd011QkltWnpMZHNFSHl3YlV6eFFobUdO?=
- =?utf-8?B?VTB3QWRQYm9lTVBVRU8vdGdiWktJOUljU3UvaU11NGZUMWxwZXBrc0loajBK?=
- =?utf-8?B?Q3k3MW5udi8ycEE4eTQrSHVaaW95QTZaVGNmckhpUk80c3p4dFFBaHR2U2lF?=
- =?utf-8?B?YzY3M2E0RXlDanlWMmZqWlAzd3FaNlJTenVrb3YvRGpPS1pFK3MvQmtQZlFE?=
- =?utf-8?B?NFg3ZStrenErZGFIbzEvZkxKQ3hBYUcybGxsQ1JjVDN6U2RCeitRVVl6UFBN?=
- =?utf-8?B?UVBtWDEwcjlIckxIdWM3cUFhSE1ZeGxGMm1tVVVpYVdON1pnMXg1N3k5YzEr?=
- =?utf-8?B?MExGNG1PKy9uZ0VTNzAwL3VDRzNiK3RZY3ZHb1RrNDl3L1pnMnpvYkRLYjF3?=
- =?utf-8?B?ZG1LVjBGcDBTanNORkYwdE5WUnY2OVBMV2k0YnFIajFVN3FJT3kxY3duWEcw?=
- =?utf-8?B?bERGbTJFbkVCcWNKdHlyWVZ1Tzc4WDJQMWZiazgzekxQSjZQbXVmaHpwUWhv?=
- =?utf-8?B?NHY2VDd2WkJMZGsrWE9kb09uZ2lzZUtTenpEaHFCbzJPVDZZMXpBek9wVlhI?=
- =?utf-8?B?VjVxU1AyS3lmZGxJWWRtWUQ4R0F2YWhsUmxvOGR4MC93MUViMitWQ1I0ZGFX?=
- =?utf-8?B?elp3M3FXTi9UQ0w4TGtMbHhYZ0xPZGxXeEtUT284YzJqRnEydFg3MDNZTWp3?=
- =?utf-8?B?dzRsUUtEbmtWbXFjRE05UW82WGRRMU1wYm1xM3E2MVk3S2hQRUdGU3pMTFF5?=
- =?utf-8?B?QUlEajVrbWVpbmw0cldMWUxDVFlrU0tncVZrUEkwcHZrMm9ZUUc5Smo5dnlO?=
- =?utf-8?B?bzZ1bHNiQTdOYXBhcm1renNTNUY0QUxSOWV1R3BZMTh6YVdoTG5tR3B3eHVK?=
- =?utf-8?B?STY2VDN6T05SNGtWMlZXNFQwOXV4Qk5pOXk0U0lpUG9rajJERmRJbTJFK2JJ?=
- =?utf-8?B?RHcwdlV2SmhGa0dYUmdsRjUvbUtlbE9zU2xXOTkvWXBxVU9MdldYTE8yRUcy?=
- =?utf-8?B?ZnRhbTVkMGVCK3VoNEZ3dWZ2eDFqb2FRNW1BdUdUOGg2d3Fjb2c3TmkrdXEz?=
- =?utf-8?B?KzZNaHhDT3ZlVStvVFMxNGhGY0RRbGFxSkpIMXVPa1V2THRnZnNLMSs0ZkJZ?=
- =?utf-8?B?NVFpbk80QUJhaG9haEswWkVMTitoMnlRYkVUSzFnODFJL01XSUpWanM5Ykdl?=
- =?utf-8?B?eEp2U3NUa0VIeDRtM1Azajh4UXNRMU1pSlF6NlJuRytNNjcrdDIyRGk2azgx?=
- =?utf-8?B?Tlh6OVVzTTRBOW96RTRNOVpFVTJKVnFNYXZyMDkxWExEWHVZUE5OOGNzalE4?=
- =?utf-8?B?NnhueXp4dXUxQ2J6dnIwSFBkajRQMXorL2kycVI2NkdqSzZBR0lvTEpSdHd2?=
- =?utf-8?Q?WWvEtm?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: ff342ba0-0047-11f0-9ab9-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1741896967; x=1742501767; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=RB/MyG+0LRPEbvbzRUvEJYPoTi+GNQ1GdxWLQViUUto=;
+        b=gh+xSPePj5d+kCEKAOZzVnmmtKHd7Ze9A7ir6Y0fyhRF2UTHg/ZbTpvQ8Jct0KNJ9l
+         qRrot7kYNdp/VeKx/mqt3LTeblbkOAUywf1kPG4qPjxPh9BxLDOExzv7Oo+Ug0EgBBBn
+         IWUQvRd11EzrEp4XrfMW22tR4dxDmL+YSlsAc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1741896967; x=1742501767;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RB/MyG+0LRPEbvbzRUvEJYPoTi+GNQ1GdxWLQViUUto=;
+        b=Sre4IMc0uUR66JaCxtZjnyPXwChAgxbwKsjpUDLYDulcErooToN709WJO6du9LxswZ
+         8r4JNgsXIJXKbG+DU/8R1279eRptQTKlgLtfC569trDwwnKB06uPrGhKQKJ92cjXw9tv
+         2afb9zuHwWVxLZOIi9Cmu1UE7w+7fLHJr2QPs2+dSq9S6SH5R2zaPXq0A5e6kBw8IVwI
+         BAni4qmcvrKOGhpeeUKVu2w/PQZbMba2awF6JZ3ZcoY9e6o6SQqhLn49gLxulyCl7zlG
+         bkOhJ+V09NWHZHLB5aKfK1QQBm8uZMqGpSmqUHYSEH0I0Mp0RJsVpSusX3IJMEGptOYO
+         5HVA==
+X-Forwarded-Encrypted: i=1; AJvYcCXYvHnvfKwPzBpPkR/nsk3DVUwW+Q35XregCRxCwf6KLlXUT0TsWkySuLiJbZefsaoIimqEuo4m+VI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz+/WwcledGCmuFVehRstguD2221Av0jJzXcfN9lXqVgoNKJ8kk
+	EYKDnQ4BzToHKPW2yqolYYwt2BnlBz/MZtxgdPpYYO2L2B1e8wSRgR40lcA+sga/4u/2eZGDeCK
+	b
+X-Gm-Gg: ASbGncsNF7DvxDtEq27Hjz8WuNVVTsYW4Xl2kpGoKrn+W0qMj8rCAYzAYp4T4jqaVly
+	e44HHD59fj600jUO7Tuckw2O0hCo1vMwQazgzTe2GjhrizTXlx3GFVJCDY2s4J5n/ECaV1oP9QG
+	OOjYrgwQ6hE/fN4tMBC1yXIzaxyg4VIAeu++LdNL72i1uSRKFQ1c7ZQFlYu20SqL5+jDmbGKfko
+	sRRqbC0UQmFX1Lpaql9tHL/nvioRyN6YWEBhLZIridQbSHrmW4HpGt4LUgMbnfy/05kI2XC/kWl
+	fpf5k+LAdG2wzxHQjYbGsKC8ZQU4RVj4EkGJsl5U9pwZeBH7zaXicRh5TaOGODQfdv3kcV5gKQa
+	FQWW4piet
+X-Google-Smtp-Source: AGHT+IFi5Rh078UvQiQ7CBWVlxet/U9H2Fz3F3ucCNj2ovtFjoWb6QSv6NxUm9Tn0R5ymqldi8yhyA==
+X-Received: by 2002:a05:600c:4204:b0:43c:f87c:24ce with SMTP id 5b1f17b1804b1-43d1d9c5841mr7328795e9.21.1741896966755;
+        Thu, 13 Mar 2025 13:16:06 -0700 (PDT)
+Message-ID: <bb0090da-c2ac-453e-972d-b06a66c51530@citrix.com>
+Date: Thu, 13 Mar 2025 20:16:05 +0000
 MIME-Version: 1.0
-X-OriginatorOrg: dornerworks.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA1P110MB1629.NAMP110.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: d89ba5c7-775e-4ee4-19fc-08dd626a7deb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Mar 2025 20:06:07.4836
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 097cf9aa-db69-4b12-aeab-ab5f513dbff9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1P110MB2265
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] drivers: Change amd_iommu struct to contain
+ pci_sbdf_t, simplify code
+To: Andrii Sultanov <sultanovandriy@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <7e5a37e51303ba17dab8e6a92830257f670f3355.1741891599.git.sultanovandriy@gmail.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <7e5a37e51303ba17dab8e6a92830257f670f3355.1741891599.git.sultanovandriy@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-K0plZmYNCg0KT24gMTMvMDMvMjUgMDc6NDQsIEFuZHJldyBDb29wZXIgd3JvdGU6DQo+IE9uIDEz
-LzAzLzIwMjUgOTozMSBhbSwgSnVlcmdlbiBHcm9zcyB3cm90ZToNCj4gPiBhNjUzc2NoZWRfZG9f
-c2NoZWR1bGUoKSBpcyB1c2luZyB0d28gZnVuY3Rpb24gbG9jYWwgc3RhdGljIHZhcmlhYmxlcywN
-Cj4gPiB3aGljaCBpcyByZXN1bHRpbmcgaW4gYmFkIGJlaGF2aW9yIHdoZW4gdXNpbmcgbW9yZSB0
-aGFuIG9uZSBjcHVwb29sDQo+ID4gd2l0aCB0aGUgYXJpbmM2NTMgc2NoZWR1bGVyLg0KPiA+DQo+
-ID4gRml4IHRoYXQgYnkgbW92aW5nIHRob3NlIHZhcmlhYmxlcyB0byB0aGUgc2NoZWR1bGVyIHBy
-aXZhdGUgZGF0YS4NCj4gPg0KPiA+IEZpeGVzOiAyMjc4N2YyZTEwN2MgKCJBUklOQyA2NTMgc2No
-ZWR1bGVyIikNCj4gPiBSZXBvcnRlZC1ieTogQ2hvaSBBbmRlcnNvbiA8QW5kZXJzb24uQ2hvaUBi
-b2VpbmcuY29tPg0KPiA+IFNpZ25lZC1vZmYtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNl
-LmNvbT4NCj4gDQo+IE9oIGxvdmVseSwgdGhvc2Ugc3RhdGljcyBhcmUgbmljZWx5IGhpZGRlbiBp
-biB0aGUgbG9jYWwgdmFyaWFibGUgbGlzdC4NCj4gDQo+IFJldmlld2VkLWJ5OiBBbmRyZXcgQ29v
-cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPg0KDQpUaGlzIHdhcyBvbmUgb2YgdGhlIGlz
-c3VlcyBKZWZmIGZpeGVkIGluIHRoaXMgcmVqZWN0ZWQgcGF0Y2gsIHdoaWNoIHdlIHNob3VsZCBo
-YXZlIHNwbGl0IG91dCBhbmQgc3VibWl0dGVkIHNlcGFyYXRlbHkgdXBzdHJlYW06ICBodHRwczov
-L2xpc3RzLnhlbnByb2plY3Qub3JnL2FyY2hpdmVzL2h0bWwveGVuLWRldmVsLzIwMjAtMDkvbXNn
-MDEzMTguaHRtbA0KDQpBY2tlZC1ieTogTmF0aGFuIFN0dWRlciA8bmF0aGFuLnN0dWRlckBkb3Ju
-ZXJ3b3Jrcy5jb20+DQo=
+On 13/03/2025 6:57 pm, Andrii Sultanov wrote:
+> Following on from 250d87dc, struct amd_iommu has its seg and bdf fields
+> backwards with relation to pci_sbdf_t. Swap them around, and simplify the
+> expressions regenerating an sbdf_t from seg+bdf.
+>
+> Simplify ioapic_sbdf and bpet_sbdf along the way. Adjust functions
+> taking seg and bdf fields of these structs to take pci_sbdf_t instead.
+> Simplify comparisons similarly.
+>
+> Bloat-o-meter reports:
+>
+> ```
+> add/remove: 0/0 grow/shrink: 13/21 up/down: 352/-576 (-224)
+> Function                                     old     new   delta
+> _einittext                                 22028   22220    +192
+> amd_iommu_prepare                            853     897     +44
+> _invalidate_all_devices                      133     154     +21
+> amd_iommu_domain_destroy                      46      63     +17
+> disable_fmt                                12336   12352     +16
+> _acpi_module_name                            416     432     +16
+> amd_iommu_get_reserved_device_memory         521     536     +15
+> parse_ivrs_table                            3955    3966     +11
+> amd_iommu_assign_device                      271     282     +11
+> find_iommu_for_device                        242     246      +4
+> get_intremap_requestor_id                     49      52      +3
+> amd_iommu_free_intremap_table                360     361      +1
+> allocate_domain_resources                     82      83      +1
+> reassign_device                              843     838      -5
+> amd_iommu_remove_device                      352     347      -5
+> amd_iommu_flush_iotlb                        359     354      -5
+> iov_supports_xt                              270     264      -6
+> amd_iommu_setup_domain_device               1478    1472      -6
+> amd_setup_hpet_msi                           232     224      -8
+> amd_iommu_ioapic_update_ire                  572     564      -8
+> _hvm_dpci_msi_eoi                            157     149      -8
+> amd_iommu_msi_enable                          33      20     -13
+> register_range_for_device                    297     281     -16
+> amd_iommu_add_device                         856     839     -17
+> update_intremap_entry_from_msi_msg           879     861     -18
+> amd_iommu_read_ioapic_from_ire               347     323     -24
+> amd_iommu_msi_msg_update_ire                 472     431     -41
+> flush_command_buffer                         460     417     -43
+> set_iommu_interrupt_handler                  421     377     -44
+> amd_iommu_detect_one_acpi                    918     868     -50
+> amd_iommu_get_supported_ivhd_type             86      31     -55
+> iterate_ivrs_mappings                        169     113     -56
+> parse_ivmd_block                            1339    1271     -68
+> enable_iommu                                1745    1665     -80
+> ```
+>
+> Resolves: https://gitlab.com/xen-project/xen/-/issues/198
+>
+> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Andrii Sultanov <sultanovandriy@gmail.com>
+
+Well, this is awkward.  This is the task I'd put together for Cody to
+try.  I guess I have to find another one.
+
+In commit messages, we always want the subject alongside a hash.  I have
+this local alias to help:
+
+> xen.git/xen$ git commit-str 250d87dc
+> commit 250d87dc3ff9 ("x86/msi: Change __msi_set_enable() to take
+> pci_sbdf_t")
+> xen.git/xen$ git help commit-str
+> 'commit-str' is aliased to 'log -1 --abbrev=12 --pretty=format:'commit
+> %h ("%s")''
+
+(The name is not imaginative, and could probably be better.)
+
+> @@ -239,17 +239,17 @@ static int __init register_range_for_device(
+>      unsigned int bdf, paddr_t base, paddr_t limit,
+>      bool iw, bool ir, bool exclusion)
+>  {
+> -    int seg = 0; /* XXX */
+> -    struct ivrs_mappings *ivrs_mappings = get_ivrs_mappings(seg);
+> +    pci_sbdf_t sbdf = { .seg = 0, .bdf = bdf };
+
+The /* XXX */ wants to stay.  It's highlighting that this code isn't
+muti-segment aware (yet).
+
+> +    struct ivrs_mappings *ivrs_mappings = get_ivrs_mappings(sbdf.seg);
+>      struct amd_iommu *iommu;
+>      u16 req;
+>      int rc = 0;
+>  
+> -    iommu = find_iommu_for_device(seg, bdf);
+> +    iommu = find_iommu_for_device(sbdf);
+>      if ( !iommu )
+>      {
+>          AMD_IOMMU_WARN("IVMD: no IOMMU for device %pp - ignoring constrain\n",
+> -                       &PCI_SBDF(seg, bdf));
+> +                       &(sbdf));
+
+The brackets should be dropped now.  This should be just &sbdf.
+
+> @@ -1543,14 +1540,14 @@ static void invalidate_all_domain_pages(void)
+>  static int cf_check _invalidate_all_devices(
+>      u16 seg, struct ivrs_mappings *ivrs_mappings)
+>  {
+> -    unsigned int bdf; 
+> +    pci_sbdf_t sbdf = { .seg = seg, .bdf = 0 };
+>      u16 req_id;
+>      struct amd_iommu *iommu;
+>  
+> -    for ( bdf = 0; bdf < ivrs_bdf_entries; bdf++ )
+> +    for ( /* sbdf.bdf = 0 */ ; sbdf.bdf < ivrs_bdf_entries; sbdf.bdf++ )
+>      {
+> -        iommu = find_iommu_for_device(seg, bdf);
+> -        req_id = ivrs_mappings[bdf].dte_requestor_id;
+> +        iommu = find_iommu_for_device(sbdf);
+> +        req_id = ivrs_mappings[sbdf.bdf].dte_requestor_id;
+
+See how bloat-o-meter reports this as the 3rd most increased function. 
+This is an example where merging to a pci_sbdf_t local variable is
+making things worse.
+
+Keep the bdf local variable, and use PCI_SBDF() for the call to
+find_iommu_for_device().
+
+The reason is that you're now modifying the low uint16_t half of a
+uint32_t.  This requires emitting 16-bit logic (requires the Operand
+Size Override prefix, contributing to your code size), it also suffers
+register merge penalty
+
+
+> diff --git a/xen/drivers/passthrough/amd/iommu_intr.c b/xen/drivers/passthrough/amd/iommu_intr.c
+> index 9abdc38053..0c91125ec0 100644
+> --- a/xen/drivers/passthrough/amd/iommu_intr.c
+> +++ b/xen/drivers/passthrough/amd/iommu_intr.c
+> @@ -123,10 +123,10 @@ static spinlock_t* get_intremap_lock(int seg, int req_id)
+>             &shared_intremap_lock);
+>  }
+>  
+> -static int get_intremap_requestor_id(int seg, int bdf)
+> +static int get_intremap_requestor_id(pci_sbdf_t sbdf)
+>  {
+> -    ASSERT( bdf < ivrs_bdf_entries );
+> -    return get_ivrs_mappings(seg)[bdf].dte_requestor_id;
+> +    ASSERT( sbdf.bdf < ivrs_bdf_entries );
+> +    return get_ivrs_mappings(sbdf.seg)[sbdf.bdf].dte_requestor_id;
+
+This is also an example where merging the parameter is not necessarily
+wise.  The segment and bdf parts are used differently, so this function
+now has to split the one parameter in two, and shift segment by 16 just
+to use it.
+
+> @@ -335,20 +336,19 @@ void cf_check amd_iommu_ioapic_update_ire(
+>      new_rte.raw = rte;
+>  
+>      /* get device id of ioapic devices */
+> -    bdf = ioapic_sbdf[idx].bdf;
+> -    seg = ioapic_sbdf[idx].seg;
+> -    iommu = find_iommu_for_device(seg, bdf);
+> +    sbdf.sbdf = ioapic_sbdf[idx].sbdf.sbdf;
+
+sbdf = ioapic_sbdf[idx].sbdf;
+
+> +    iommu = find_iommu_for_device(sbdf);
+>      if ( !iommu )
+>      {
+>          AMD_IOMMU_WARN("failed to find IOMMU for IO-APIC @ %04x:%04x\n",
+> -                       seg, bdf);
+> +                       sbdf.seg, sbdf.bdf);
+
+This should be converted to %pp, which has a side effect of correcting
+the rendering of bdf.
+
+> @@ -515,15 +515,15 @@ int cf_check amd_iommu_msi_msg_update_ire(
+>      struct msi_desc *msi_desc, struct msi_msg *msg)
+>  {
+>      struct pci_dev *pdev = msi_desc->dev;
+> -    int bdf, seg, rc;
+> +    pci_sbdf_t sbdf;
+> +    int rc;
+>      struct amd_iommu *iommu;
+>      unsigned int i, nr = 1;
+>      u32 data;
+>  
+> -    bdf = pdev ? pdev->sbdf.bdf : hpet_sbdf.bdf;
+> -    seg = pdev ? pdev->seg : hpet_sbdf.seg;
+> +    sbdf.sbdf = pdev ? pdev->sbdf.sbdf : hpet_sbdf.sbdf.sbdf;
+
+This is a better example where
+
+sbdf = pdev ? pdev->sbdf : hpet_sbdf.sbdf;
+
+is equivalent.
+
+> diff --git a/xen/drivers/passthrough/amd/iommu_map.c b/xen/drivers/passthrough/amd/iommu_map.c
+> index dde393645a..17070904fa 100644
+> --- a/xen/drivers/passthrough/amd/iommu_map.c
+> +++ b/xen/drivers/passthrough/amd/iommu_map.c
+> @@ -694,17 +694,16 @@ int amd_iommu_reserve_domain_unity_unmap(struct domain *d,
+>  int cf_check amd_iommu_get_reserved_device_memory(
+>      iommu_grdm_t *func, void *ctxt)
+>  {
+> -    unsigned int seg = 0 /* XXX */, bdf;
+> -    const struct ivrs_mappings *ivrs_mappings = get_ivrs_mappings(seg);
+> +    pci_sbdf_t sbdf = {0};
+
+"= {}" please.
+
+GCC has just introduced a nasty bug (they claim its a feature) where {0}
+on unions now zeros less than it used to do.  pci_sbdf_t doesn't tickle
+this corner case, but we need to be proactive about removing examples of
+"= {0}".
+
+> +    const struct ivrs_mappings *ivrs_mappings = get_ivrs_mappings(sbdf.seg);
+>      /* At least for global entries, avoid reporting them multiple times. */
+>      enum { pending, processing, done } global = pending;
+>  
+> -    for ( bdf = 0; bdf < ivrs_bdf_entries; ++bdf )
+> +    for ( /* sbdf.bdf = 0 */ ; sbdf.bdf < ivrs_bdf_entries; ++sbdf.bdf )
+>      {
+> -        pci_sbdf_t sbdf = PCI_SBDF(seg, bdf);
+> -        const struct ivrs_unity_map *um = ivrs_mappings[bdf].unity_map;
+> -        unsigned int req = ivrs_mappings[bdf].dte_requestor_id;
+> -        const struct amd_iommu *iommu = ivrs_mappings[bdf].iommu;
+> +        const struct ivrs_unity_map *um = ivrs_mappings[sbdf.bdf].unity_map;
+> +        unsigned int req = ivrs_mappings[sbdf.bdf].dte_requestor_id;
+> +        const struct amd_iommu *iommu = ivrs_mappings[sbdf.bdf].iommu;
+
+Again, this will be better staying as two split variables.
+
+~Andrew
 
