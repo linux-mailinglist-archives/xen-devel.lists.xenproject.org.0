@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21E17A5FDA0
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 18:22:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.913208.1319315 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 519CDA5FDF2
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 18:36:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.913219.1319326 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsmGF-0007Ba-Dc; Thu, 13 Mar 2025 17:22:23 +0000
+	id 1tsmTo-00050R-Id; Thu, 13 Mar 2025 17:36:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 913208.1319315; Thu, 13 Mar 2025 17:22:23 +0000
+Received: by outflank-mailman (output) from mailman id 913219.1319326; Thu, 13 Mar 2025 17:36:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsmGF-00079m-Ax; Thu, 13 Mar 2025 17:22:23 +0000
-Received: by outflank-mailman (input) for mailman id 913208;
- Thu, 13 Mar 2025 17:22:21 +0000
+	id 1tsmTo-0004yT-G1; Thu, 13 Mar 2025 17:36:24 +0000
+Received: by outflank-mailman (input) for mailman id 913219;
+ Thu, 13 Mar 2025 17:36:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=w2IX=WA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tsmGD-00078K-KH
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 17:22:21 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=rhEb=WA=redhat.com=npache@srs-se1.protection.inumbo.net>)
+ id 1tsmTn-0004yN-6B
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 17:36:23 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b74d94fb-002f-11f0-9ab9-95dc52dad729;
- Thu, 13 Mar 2025 18:22:18 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-39129fc51f8so1104827f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 10:22:18 -0700 (PDT)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395c8975b83sm2847974f8f.52.2025.03.13.10.22.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Mar 2025 10:22:17 -0700 (PDT)
+ id acdded1e-0031-11f0-9ab9-95dc52dad729;
+ Thu, 13 Mar 2025 18:36:21 +0100 (CET)
+Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
+ [209.85.219.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-492-3WjiGEFbPjSckd-p95PnXg-1; Thu, 13 Mar 2025 13:36:17 -0400
+Received: by mail-yb1-f198.google.com with SMTP id
+ 3f1490d57ef6-e60aebf48e8so1759228276.0
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 10:36:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,106 +44,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b74d94fb-002f-11f0-9ab9-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741886538; x=1742491338; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YyAg+8+kicowoMgNGw/4BBtuXRJmLCB6s6sGJZUYBcw=;
-        b=dd1m0TXwUkuTGUHZM2PUOrr01qG3uVS5n5GXJ+bYBGD4cDRrS6bTBMYJGecCVB5DFa
-         isEb0us7mbJi5VXQ/MMXUWXiR2l9OR5QyFAbr3MxPZ88oYL14E2McXqaemqdPesHCosY
-         aSZCbR0keApRLkKjXNWVCyUpw75i7VzP/kTiA=
+X-Inumbo-ID: acdded1e-0031-11f0-9ab9-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1741887380;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=74LdO3L2papOXx6onu8X7dux3CgaxYMbpnbfEZf5vfs=;
+	b=K4m8IFSl+u1sxHRI19hDZU/eQJNFrjhXR3zPY0N6wjPdo8eXgI8ADrY56GA8WQHWpwN7PZ
+	uGu9ASfCU8a+l4PhTWsxaCdncu+8Ixlzc1mHMFEVwlfRTo8Sh4bEp3YUFvo5Tz5fUaOO9m
+	hk4CqZo+62K41BgBlOBlN4bheeyAJ8w=
+X-MC-Unique: 3WjiGEFbPjSckd-p95PnXg-1
+X-Mimecast-MFC-AGG-ID: 3WjiGEFbPjSckd-p95PnXg_1741887377
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741886538; x=1742491338;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YyAg+8+kicowoMgNGw/4BBtuXRJmLCB6s6sGJZUYBcw=;
-        b=Ka2wN1VO+Xnwnt/LvhSwlPg+6lnKCEvVpHeqjz6gJ8qCXcEQ1plA/BCLv+LjVje6Og
-         na2wNRlc6V0qPna/KgiARmTyCbSey9wMZclICF+qoPh5AKLZxjx05m+H7InkZfYqLD37
-         6R+yYARyExy0bljFG2K/o3GV6Elyo592iElZtWVGcy8Q8mPvuRZDv/QZjdifzg1mdHmm
-         p5S6Nfa2+th5oDiSgH2M8PnxDLQDVZkn0crD8RuTMlvG/ASosGvOUJK+5ks8vWpQFgx6
-         hZi2W1a4TnOyvLKZPOKXIYa1al4xtwAv4j3CDYBPA+dtrBG07rV95oz2NyrWel/8hHQ8
-         pVlA==
-X-Forwarded-Encrypted: i=1; AJvYcCVrGBBFpLbsqQ+XlXmTiFecWeCo5QFRnDy3XquGJaSVr63YcAbTUPrrq7/3guYBpuS3Xnq6VMPTJGk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz2v6vAg65zI3K741LHUCqa7jJ5OxKTqXH0qtEXuB7HS1XsWRwL
-	5INe6wnWEgCy7WNq28jtrHERrihWs3tNwgTiYInmkUnlE8g1I5Aq8N+xXVuJHCo=
-X-Gm-Gg: ASbGncvtAhpGwcmGileSdFUV1Vz7gpVQIUheGRMgmcYNPkanPuQnohnKJ7B7P+mjODm
-	TihQvzcdPBAe751rz0ycteoR9muWQ/hmKyXwyOjgonnhqK6c/ae3FvqbGvszVyV00jL0fVFmkKe
-	KTw+RNtFMqz+bBWjXkfr2/2jQpuEr+O3Iz12/O1OxY9ozQHjTHNNBHmKSSNP2omrAYpMHH6hThf
-	eCrXzJ7T8Az6Vxrc+inEwd/EIbxXCmngblpQ4urRSRUEktp1t+2Rw4BXzSUVoLyF3T1VwZ/3WQc
-	+sA0W3UxbHpCDpa+0b5UEZ1XMNBSIRqGFCaW3PB8vHO2CvqpyztogF9lsW41M2UwcgTt96Xan54
-	mpfIRb2wq
-X-Google-Smtp-Source: AGHT+IFx7VKYE0D3iwrrXzCu6OOZmfbaSg6f77HyWW6qlcTWzdZpk2BZ4mLbvHH0hox7oYRLtzKCZw==
-X-Received: by 2002:a05:6000:1447:b0:38f:4fa6:68df with SMTP id ffacd0b85a97d-396c392e367mr456616f8f.51.1741886538298;
-        Thu, 13 Mar 2025 10:22:18 -0700 (PDT)
-Message-ID: <f84d82b9-978f-4e24-ac70-59fce7b25ad7@citrix.com>
-Date: Thu, 13 Mar 2025 17:22:17 +0000
+        d=1e100.net; s=20230601; t=1741887377; x=1742492177;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=74LdO3L2papOXx6onu8X7dux3CgaxYMbpnbfEZf5vfs=;
+        b=v6uPJhvPF7fn02pl8lV+4k2OswDzcL0GCk5JV92bogBTCsMKKcbyCjM5LCQ13Fi0Ud
+         hTn1qCE+qCCYua25lFPfk1AqEJtJQDRoCt77/txMVBCpn6Gfs9h8CSwxrw0pVHtLv6xs
+         Mgp1WsiwSilDcVaYjkwT+Hrk1LEtMDUgMGGWwf8FJXSEDW3dMVsR0zTXq0jFHLZ5VPgd
+         pDyGCvFMC+B4PKR7G99pp3xiFt/+EzIR6lnotT9qS44q6D93OTMOKxwSqY6wCFYHQ9Oy
+         y/Bm+dcfHaRxcPjOI5fSuYy16IqK/84v40GTTjr6mV0fcR8FwJ7sRxjt8kn+BUUHO724
+         Fovw==
+X-Forwarded-Encrypted: i=1; AJvYcCVV5ncN+0PSatiS88TVAmt7NJw6Tr4y2vjNNWSs29+hc8tUzWolAaY9MRacDaLwx9FjI678Uo0W3F8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwLIQb4U/gVKyElBjcSYHSRc9CDOwxrEuN+IP5FB62RnC/L8jQN
+	T1JCA2ylkJ8oekRHLsqZiWiN4cCLpu44fsfFI8SqDlpOQLBZSGW41cl5vm9v0m3TECYSV1yotul
+	UYx+8ZqIS5NsRlfmZlKUWQEvY7hmjif0rOWNrRXeaTTV+Oy01GsqUcUDSEuyhFtHGJdCn1I/7xN
+	9srOtmQnn8kbVbC5BOwWyaUq1Aa9LWfyenPxbzh4k=
+X-Gm-Gg: ASbGncu3dQaU/rMWHDqZNhuQyQvO+VzGDQVS7hKbyhibwg4S6IM5fXtNyNjCtbLArE6
+	ij24cakdJPJUVY6U3whTU4jBY9DI5gGkgb1qgM77hPWhm2+2OaMbcgUkltVYxYCHi29Lo8kZkNX
+	oGOM+kCgFUpw==
+X-Received: by 2002:a05:6902:11cc:b0:e5d:d6b8:231d with SMTP id 3f1490d57ef6-e63f3c1ab89mr394110276.46.1741887377143;
+        Thu, 13 Mar 2025 10:36:17 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IESNapqN0/McTxEgf1yThn7lvo6wBYo3eRd0NunIcEjHGxMwrpjR53TwIJsg0lBT1jUk9YB7r7WxOStKAHssG0=
+X-Received: by 2002:a05:6902:11cc:b0:e5d:d6b8:231d with SMTP id
+ 3f1490d57ef6-e63f3c1ab89mr394058276.46.1741887376762; Thu, 13 Mar 2025
+ 10:36:16 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/7] xen/ubsan: expand pointer overflow message printing
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20250313153029.93347-1-roger.pau@citrix.com>
- <20250313153029.93347-5-roger.pau@citrix.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20250313153029.93347-5-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20250312000700.184573-1-npache@redhat.com> <20250312000700.184573-2-npache@redhat.com>
+ <c4229ea5-d991-4f5e-a0ff-45dce78a242a@redhat.com> <CAA1CXcCv20TW+Xgn18E0Jn1rbT003+3gR-KAxxE9GLzh=EHNmQ@mail.gmail.com>
+ <e9570319-a766-40f6-a8ea-8d9af5f03f81@redhat.com>
+In-Reply-To: <e9570319-a766-40f6-a8ea-8d9af5f03f81@redhat.com>
+From: Nico Pache <npache@redhat.com>
+Date: Thu, 13 Mar 2025 11:35:49 -0600
+X-Gm-Features: AQ5f1JrzcM5gNtNPl-Fo_pToh0DelHZYtUioYU9wKMINK1ALGT_dvw_uu_EmSak
+Message-ID: <CAA1CXcBsnbj1toxZNbks+NxrR_R_xuUb76X4ANin551Fi0WROA@mail.gmail.com>
+Subject: Re: [RFC 1/5] meminfo: add a per node counter for balloon drivers
+To: David Hildenbrand <david@redhat.com>
+Cc: linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	virtualization@lists.linux.dev, xen-devel@lists.xenproject.org, 
+	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, cgroups@vger.kernel.org, 
+	kys@microsoft.com, haiyangz@microsoft.com, wei.liu@kernel.org, 
+	decui@microsoft.com, jerrin.shaji-george@broadcom.com, 
+	bcm-kernel-feedback-list@broadcom.com, arnd@arndb.de, 
+	gregkh@linuxfoundation.org, mst@redhat.com, jasowang@redhat.com, 
+	xuanzhuo@linux.alibaba.com, eperezma@redhat.com, jgross@suse.com, 
+	sstabellini@kernel.org, oleksandr_tyshchenko@epam.com, 
+	akpm@linux-foundation.org, hannes@cmpxchg.org, mhocko@kernel.org, 
+	roman.gushchin@linux.dev, shakeel.butt@linux.dev, muchun.song@linux.dev, 
+	nphamcs@gmail.com, yosry.ahmed@linux.dev, kanchana.p.sridhar@intel.com, 
+	alexander.atanasov@virtuozzo.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: GE11DJ4xcpZtqpZQqtqtv6DXEd9WBseW1sM_kWYUa-0_1741887377
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 13/03/2025 3:30 pm, Roger Pau Monne wrote:
-> Add messages about operations against the NULL pointer, or that result in
-> a NULL pointer.
+On Thu, Mar 13, 2025 at 2:22=E2=80=AFAM David Hildenbrand <david@redhat.com=
+> wrote:
 >
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> On 13.03.25 00:04, Nico Pache wrote:
+> > On Wed, Mar 12, 2025 at 4:19=E2=80=AFPM David Hildenbrand <david@redhat=
+.com> wrote:
+> >>
+> >> On 12.03.25 01:06, Nico Pache wrote:
+> >>> Add NR_BALLOON_PAGES counter to track memory used by balloon drivers =
+and
+> >>> expose it through /proc/meminfo and other memory reporting interfaces=
+.
+> >>
+> >> In balloon_page_enqueue_one(), we perform a
+> >>
+> >> __count_vm_event(BALLOON_INFLATE)
+> >>
+> >> and in balloon_page_list_dequeue
+> >>
+> >> __count_vm_event(BALLOON_DEFLATE);
+> >>
+> >>
+> >> Should we maybe simply do the per-node accounting similarly there?
+> >
+> > I think the issue is that some balloon drivers use the
+> > balloon_compaction interface while others use their own.
+> >
+> > This would require unifying all the drivers under a single api which
+> > may be tricky if they all have different behavior
+>
+> Why would that be required? Simply implement it in the balloon
+> compaction logic, and in addition separately in the ones that don't
+> implement it.
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Ah ok that makes sense!
+
+>
+> That's the same as how we handle PageOffline today.
+>
+> In summary, we have
+>
+> virtio-balloon: balloon compaction
+> hv-balloon: no balloon compaction
+> xen-balloon: no balloon compaction
+> vmx-balloon: balloon compaction
+> pseries-cmm: balloon compaction
+
+I'm having a hard time verifying this... it looks like only
+vmx-balloon uses the balloon_compaction balloon_page_list_enqueue
+function that calls balloon_page_enqueue_one.
+
+>
+> So you'd handle 3 balloon drivers in one go.
+>
+> (this series didn't touch pseries-cmm)
+Ah I didn't realize that was a balloon driver. Ill add that one to the todo=
+.
+>
+> --
+> Cheers,
+>
+> David / dhildenb
+>
+
 
