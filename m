@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61F6AA5F8CC
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 15:44:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.912390.1318656 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A822A5F92C
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 16:02:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.912407.1318667 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsjmi-00081T-0B; Thu, 13 Mar 2025 14:43:44 +0000
+	id 1tsk3v-0003yv-FE; Thu, 13 Mar 2025 15:01:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 912390.1318656; Thu, 13 Mar 2025 14:43:43 +0000
+Received: by outflank-mailman (output) from mailman id 912407.1318667; Thu, 13 Mar 2025 15:01:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsjmh-0007yq-TP; Thu, 13 Mar 2025 14:43:43 +0000
-Received: by outflank-mailman (input) for mailman id 912390;
- Thu, 13 Mar 2025 14:43:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tsk3v-0003vn-Bq; Thu, 13 Mar 2025 15:01:31 +0000
+Received: by outflank-mailman (input) for mailman id 912407;
+ Thu, 13 Mar 2025 15:01:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=w2IX=WA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tsjmh-0007yk-14
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 14:43:43 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8ede7817-0019-11f0-9ab9-95dc52dad729;
- Thu, 13 Mar 2025 15:43:42 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-43d0359b1fcso7467635e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 07:43:42 -0700 (PDT)
+ id 1tsk3t-0003vh-E0
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 15:01:29 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 09b702f4-001c-11f0-9898-31a8f345e629;
+ Thu, 13 Mar 2025 16:01:27 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-3913d129c1aso890510f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 08:01:27 -0700 (PDT)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395c82c258bsm2273005f8f.24.2025.03.13.07.43.40
+ ffacd0b85a97d-395c7df33ccsm2439585f8f.15.2025.03.13.08.01.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Mar 2025 07:43:41 -0700 (PDT)
+ Thu, 13 Mar 2025 08:01:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8ede7817-0019-11f0-9ab9-95dc52dad729
+X-Inumbo-ID: 09b702f4-001c-11f0-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741877021; x=1742481821; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1741878086; x=1742482886; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7wIGkNCBAdAkXB43iC80BA+JJuIDs3rKUmSJUF1V7ZQ=;
-        b=J/U8p3mBdTRfiR3pesdoKTNDhT2xN6ixOpSfM+89TLs0e7oMLSuV7S7qEiMJiPNHL+
-         VHWkKGgFngi9GARsDprnLNt4RKAvafSKzeu5zjfvUdwAkHtZg/WyKvJACKyP+V5E89zM
-         +uSEfyk71nElgh1lDR6e45P99q21VV7kom5OM=
+        bh=1CBwzWImXpxS6A8+Z4zLZX1AmX9T6gxrClIqQeDIrjA=;
+        b=cMRHd7jxHyyk3zGZ8SQHfw461tyXpkUk7l29eUqsNkjLx5WWwvDD7ZKyW7obviAHt4
+         FszuJw2PWK++UmwffbUoEN+UE2db0rvoFV2xy8uvbLUcf/Inbmj5xOzlhrWOZcbN8r4g
+         UpzFUdPK/tlZmFJQz98VtB15UY7teWwCLpPr8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741877021; x=1742481821;
+        d=1e100.net; s=20230601; t=1741878086; x=1742482886;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7wIGkNCBAdAkXB43iC80BA+JJuIDs3rKUmSJUF1V7ZQ=;
-        b=EQxn/E5W4/ml3AkQ5rYoWE/Z2kmRsjamJBri/Tpb/5/uzqvbMGxZpIFnUbywL5yRH8
-         OlbCxXThgkiNPw1xVJ5lB/c8/D0CgumjpWqX2gvjX3aAgYDmBhYt7Dp6TNLICu6EM7Nq
-         Czmi9SDQGQiF/xvot4TwnuhVioaa+H9/mvHLnATrRBKu4HFFXKq3zEupEGYwGPyI59at
-         wxTFCEVb+5TBA0ol51RYnumALcM1Drjq3UdGSrLN5i5c4s8gjAUkjW0YLj0NksP+Ap0n
-         Hegq6UsmEzInH1zqZxMA8cZvuFgcxG3/pxfFTT+GF3+lcdL1vVbj/Gav2/4RkUi1OmWH
-         PGIA==
-X-Forwarded-Encrypted: i=1; AJvYcCWpK/3fiTxkGI5FqkywgcYmbocJyTTb2Fr5U0b0tVd6szeIE0EZR7zDwH0jtefEVP7/wI7HzAllOSI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzOWycvs+r6/XZ31KSVAwYQLzRkL0T2IsV8N+hPajAKLyPA2D/y
-	lyhdBakrztCLgxHitnBLjdh6Guy9DNgyigrz2bf51Lvbs9JGdpZ3gXqanjd1Sqk=
-X-Gm-Gg: ASbGncs4WjlFijzfuMzqNK3dvnxTpsV9J1AVRhaEQ89jZHeEFll1GqYEd5X2jVaV9iI
-	p1BWdHU4jVVrBsKDszlnXV8oIOrR0vqWiEGk1tcCd+M3jKAXtZXxs5S0w3WLmXNlw/14I0oovQa
-	x/Cy67UeHULu6hTensWpON98H5vtNNf214nMY/FNgEkw6icFCxmw7S6g6U4znF0s/uCY3mn7BgP
-	1G1zscRC8mCieRJ9gPJT7OvtPxPp3vaLtfpvgUXYql+EBUOVoHBpP29hF54UHGvOkfhhRmtFaaY
-	IbpWGPoCtNCcYMiqi2I3XQhdStL+CFA3Z9vkzU4+VFEeQfyFh5CNCXIl/M6p84xMhmb93dtDvbr
-	rlGz4wMOAS1R2fkVJiPs=
-X-Google-Smtp-Source: AGHT+IHRdHCzB32Dj697UpiBTozgmwq3SJ+Y5gq0ZhyyaYeNlcb32KLLDs4+WWoEpXa/FyFmAUDyZA==
-X-Received: by 2002:a05:600c:4ed0:b0:439:4b23:9e8e with SMTP id 5b1f17b1804b1-43d18bb1abdmr22607785e9.3.1741877021527;
-        Thu, 13 Mar 2025 07:43:41 -0700 (PDT)
-Message-ID: <d7a0a5db-73f2-45f6-997a-81284209602c@citrix.com>
-Date: Thu, 13 Mar 2025 14:43:40 +0000
+        bh=1CBwzWImXpxS6A8+Z4zLZX1AmX9T6gxrClIqQeDIrjA=;
+        b=o/YePWz++foViWHMYi8v/ahfB3zdg56YulKOAnrRRdu+w/EclBvIGShMW4mfclJ664
+         iWd8X3k9oniTTyg/rs2D7muV0t5xWIXR76nZPS476QD6FB4vo4ghIG/8g9scIHQOvz7g
+         o0Ey31rplNPQk/P+3zyVuuO1tJSkM0TKFSSU8udnkJbNIQIDg5VCnRDUBT1yUwsdymLT
+         jPH5ILTzBHzlMnJDQ4H1vXgVf3+eroxe4HUb3+WcOLgn7mPV6BI2pn43ITcduTYbZdvZ
+         McaKZ3RXqaKqCYC/uYCUaj0RgBjRsEAX6Ctn9eAZ+S01cqAIF6YgYLkg2mk2Q9mpbwg3
+         g4gw==
+X-Forwarded-Encrypted: i=1; AJvYcCU3ku8t44SckFUIVgb+rMQoZRb6IRHe01HKJQrGtpsYY4t/J/g/uubi9DUep0g+7Cce2kq3vTh8CmA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzcg3bECLTy/ppL7wpHccDot3FbRmBoy9mCzZ8rFaYfd6JUjOen
+	9qiMZbdSscqWn/wFRjdQ2w5u5ImCNwysMO7kZWGX7PQFZflqXfr1k++PYqkzdQHQtnA9FS7X+7s
+	e
+X-Gm-Gg: ASbGncvTZzCQW+uRMrt/huDa8ynqW1oXtcnx6z3/U2HTh0dUeb1IAl0n4EsUxXGmJWl
+	Wv+Jq+PeB6eJuJWEn7KEVZk8L67evpmmE9DPmdRI8/9QdrjVvb+ML7192mXvMtURMGPqRUo1xbk
+	xobNxyCN7w8AeWedTEneZVhRm7DFVGDj2XMLt6vcV8cvdfPVCcGldyOZe3MEYeyFaxzVT1YQTCa
+	m0Wps+o9q/NX4bCWrS0NT/MhIdWhkG6Atl2fkBxu4JwvuRYmsgZFjf8x0Kordw8MWD2eylXjKIR
+	M/aTnp+InbW8RAfE4KT16CZwKHCirPEsXgv3gp+s5Y7aZSlTDECTYq0N1DX3zR4OYtKNFA9xgou
+	VT8PMEVMV
+X-Google-Smtp-Source: AGHT+IFoQdh5OU53F+yxOgsF4XF9ewqFJg7l/TqLAYqdaoP6Zf3vk/hvWgR+4MN5RicYuteM3PHlcQ==
+X-Received: by 2002:a5d:64e2:0:b0:390:f9e0:f0d0 with SMTP id ffacd0b85a97d-395b72a3060mr2878559f8f.6.1741878084722;
+        Thu, 13 Mar 2025 08:01:24 -0700 (PDT)
+Message-ID: <f64ca308-d3e4-4097-9a60-886ba4592644@citrix.com>
+Date: Thu, 13 Mar 2025 15:01:23 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] VT-d: move obtaining of MSI/HPET source ID
+Subject: Re: [PATCH 2/2] VT-d: have set_msi_source_id() return a success
+ indicator
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <8b610dba-0ce9-47ed-808d-035dc48f4f04@suse.com>
- <b09c2c89-ae6b-4942-8e22-61a2ae2862a4@suse.com>
+ <6468c44a-772e-45a6-b712-0732c9017234@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -135,28 +137,69 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <b09c2c89-ae6b-4942-8e22-61a2ae2862a4@suse.com>
+In-Reply-To: <6468c44a-772e-45a6-b712-0732c9017234@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 13/03/2025 1:33 pm, Jan Beulich wrote:
-> This was the original attempt to address XSA-467, until it was found
-> that IRQs can be off already from higher up the call stack. Nevertheless
-> moving code out of locked regions is generally desirable anyway; some of
-> the callers, after all, don't disable interrupts or acquire other locks.
+On 13/03/2025 1:34 pm, Jan Beulich wrote:
+> Handling possible internal errors by just emitting a (debug-build-only)
+> log message can't be quite enough. Return error codes in those cases,
+> and have the caller propagate those up.
 >
-> Hence, despite this not addressing the original report:
+> Drop a pointless return path, rather than "inventing" an error code for
+> it.
 >
-> Data collection solely depends on the passed in PCI device. Furthermore,
-> since the function only writes to a local variable, we can pull the
-> invocation of set_msi_source_id() (and also set_hpet_source_id()) ahead
-> of the acquiring of the (IRQ-safe) lock.
+> While touching the function declarator anyway also constify its first
+> parameter.
 >
+> Fixes: 476bbccc811c ("VT-d: fix MSI source-id of interrupt remapping")
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>, although...
 
-It's worth noting that this patch was shown to fix the original crash,
-only to expose the second.  i.e. it's had some testing.
+>
+> --- a/xen/drivers/passthrough/vtd/intremap.c
+> +++ b/xen/drivers/passthrough/vtd/intremap.c
+> @@ -436,15 +436,13 @@ void cf_check io_apic_write_remap_rte(
+>      __ioapic_write_entry(apic, pin, true, old_rte);
+>  }
+>  
+> -static void set_msi_source_id(struct pci_dev *pdev, struct iremap_entry *ire)
+> +static int set_msi_source_id(const struct pci_dev *pdev,
+> +                             struct iremap_entry *ire)
+>  {
+>      u16 seg;
+>      u8 bus, devfn, secbus;
+>      int ret;
+>  
+> -    if ( !pdev || !ire )
+> -        return;
+> -
+>      seg = pdev->seg;
+>      bus = pdev->bus;
+>      devfn = pdev->devfn;
+> @@ -485,16 +483,21 @@ static void set_msi_source_id(struct pci
+>                              PCI_BDF(bus, devfn));
+>          }
+>          else
+> +        {
+>              dprintk(XENLOG_WARNING VTDPREFIX,
+>                      "d%d: no upstream bridge for %pp\n",
+>                      pdev->domain->domain_id, &pdev->sbdf);
+
+as you're doing cleanup, %pd here?  Given DOM_IO for quarantine, I think
+it's more likely now than it used to be.
+
+> +            return -ENXIO;
+> +        }
+>          break;
+>  
+>      default:
+>          dprintk(XENLOG_WARNING VTDPREFIX, "d%d: unknown(%u): %pp\n",
+>                  pdev->domain->domain_id, pdev->type, &pdev->sbdf);
+
+Here too.  Also, the "unknown(%u)" is less than ideal.  "%pd: %pp
+unknown type %u\n" would be better.
+
+~Andrew
 
