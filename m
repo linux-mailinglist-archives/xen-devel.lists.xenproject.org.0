@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A488EA5F9FC
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B6E5A5F9FA
 	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 16:32:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.912511.1318791 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.912509.1318775 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tskY1-0000XP-96; Thu, 13 Mar 2025 15:32:37 +0000
+	id 1tskY0-0000Ec-5w; Thu, 13 Mar 2025 15:32:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 912511.1318791; Thu, 13 Mar 2025 15:32:37 +0000
+Received: by outflank-mailman (output) from mailman id 912509.1318775; Thu, 13 Mar 2025 15:32:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tskY1-0000Pa-1E; Thu, 13 Mar 2025 15:32:37 +0000
-Received: by outflank-mailman (input) for mailman id 912511;
- Thu, 13 Mar 2025 15:32:35 +0000
+	id 1tskY0-0000CR-1D; Thu, 13 Mar 2025 15:32:36 +0000
+Received: by outflank-mailman (input) for mailman id 912509;
+ Thu, 13 Mar 2025 15:32:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=a3gq=WA=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tskXz-0007tP-QY
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 15:32:35 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
+ id 1tskXx-0007tP-QN
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 15:32:33 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 61e3d338-0020-11f0-9ab9-95dc52dad729;
- Thu, 13 Mar 2025 16:32:33 +0100 (CET)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-ac2bfcd2a66so195988166b.0
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 08:32:33 -0700 (PDT)
+ id 61b9e35e-0020-11f0-9ab9-95dc52dad729;
+ Thu, 13 Mar 2025 16:32:32 +0100 (CET)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-5e6c18e2c7dso1920581a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 08:32:32 -0700 (PDT)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- a640c23a62f3a-ac3147e75f6sm94542466b.50.2025.03.13.08.32.29
+ 4fb4d7f45d1cf-5e81692e64asm825684a12.4.2025.03.13.08.32.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Mar 2025 08:32:30 -0700 (PDT)
+ Thu, 13 Mar 2025 08:32:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,47 +44,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 61e3d338-0020-11f0-9ab9-95dc52dad729
+X-Inumbo-ID: 61b9e35e-0020-11f0-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741879952; x=1742484752; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1741879951; x=1742484751; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0pnkqaluj8B9YBV7qcBYIqpLoiXoQSDu6pxVexTlitI=;
-        b=NrAf98HlnJiNUst+0n8I9m+0aWIvQL/Ygzabp3Y97fyO21SQHYEWcTLEg+x8tOFNFo
-         6TV7rE4Y9wFJcadskO0ggEpugkvndhYFa7ib2nsoSiXLUyudi72DybQCyxUI1kaEF9kq
-         ICoDrsfFg7Vj4tJtTQz5/iox824iUzaXEeu6Q=
+        bh=tIV0lbRrLZFbQdSx0BrVvPIuenqWUkKeEWZTK4TAOBs=;
+        b=qNPNh6cilg4xvwrSXRfw/4wWiKbZySsu3sStveUIMMyHFrFoFGBTzF8uXa6Bo1/NPP
+         kRQIm+m+W+0nJE8Q9qBi9FxqLZrlSAnQsPw9gr49ZJ7tgzZL0lLiYAFtfcmaocXsTGhB
+         tktFoa5ZquA0BfF7QbvR05CrI0+f0PluJ9c3Q=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741879952; x=1742484752;
+        d=1e100.net; s=20230601; t=1741879951; x=1742484751;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=0pnkqaluj8B9YBV7qcBYIqpLoiXoQSDu6pxVexTlitI=;
-        b=eTucIz6jvyqM0/69gzNCZyI1HZOcITq0oFQ3914GBauppVLARw80kHiZ/zZx22sSIw
-         ypLOdKTpn4X/4uextv+qQZdkP0ao9qFvsbnHvIcq1fQVlx/99YtARn5F2yVmiGfcQqwX
-         kmLdo79QHxepJQpZSs4gKRw28wJkbKUlEwU/Pr4TjcVNV3s4pJz/2j4jmNTLVnwP0FX4
-         waUQza/99BvA1rKOFVWQXspDkuYwukiBwEbRdOonx4AK4kW9cRaVVRFUCPjewtjiwlv5
-         ZH7u0sBvuw53NGxU8EmYZgxQYwhmM6uh0cQoIIjPCq3V0C4yTmCnN08NyTBijzxKh29s
-         bJmw==
-X-Gm-Message-State: AOJu0YwMjGuJ9IKGhaV3dvWSpixc3JfvILqHelOJGyHKO77QV+2JNR00
-	sxDt+61ymHs80iubFCTG9Otpb6+qoDhHaLjRna3DtkLz+qjGkQmllLo18B0cZxthYH4AAX4+y+/
-	v
-X-Gm-Gg: ASbGncsZMpEMjiwZGqFNOgxyPlxLwPDuJflnEv+bnvAVPQhfC0uBp0NwnuvZ/KKkzk1
-	Lw8yK6OJ48ida/+OGXEvgyTKwbNaq6NpLss7bElcbjA5I5xSRsBLSQti+5umk7EPP94wMIawPqW
-	+FGoYrlCSHRg2dR0XydIPXOm4c8uEfwNAt4KStMIb1pyITHOwtf4cHt0+5YR0n9sE0c3QwUW+My
-	e5ZDiGj1++vY/yGePhKD7qPn3VkF2Ccem0p9uAsmmlEBgwET2CDRZxpgD6Xv6Iw3/J8WcbyhSLt
-	1dSx/YZ9PrB7MUsbkDLNiMfVTPBqeoWjqE9d+8mqGUyInmSqXA==
-X-Google-Smtp-Source: AGHT+IGiOn2t/rq7mDNKUqoGOEzt+MuTENHsD8/W2dHi4WucDuFyXSyonSuzTfGfMEGBBvn8+slrPw==
-X-Received: by 2002:a17:907:2da6:b0:abf:6f44:bffa with SMTP id a640c23a62f3a-ac2b9ea39cdmr1744531166b.36.1741879950362;
-        Thu, 13 Mar 2025 08:32:30 -0700 (PDT)
+        bh=tIV0lbRrLZFbQdSx0BrVvPIuenqWUkKeEWZTK4TAOBs=;
+        b=hzIi/C+KJ6DV4brZWidMb54q1+498KVChuy/XxFLoELWMiFN7BcwITApXkpQIFFqOU
+         MjagyabE5kjF7FtkpcoxK32FWkbzmN+8n0sbtsyaJc49pcJHGP9X7Ew9mwbu8V5bt/Qq
+         sVy1QA/whIDQJsAmPXeVVdwV1G433BZO5PFxw3MebGplNezvmZ43sxDym2GGdOxk4o+e
+         DYiTI6Fk+xUvs4rS0QNsZ9Xi5pgiRIPVrYnXD0b/6kuhX/00Is4gln7Z++c04XTodHC0
+         3izqFsgvT9y1gKZaJTVKJPx3Oy2p2M/291dW5V4hRlrcMTv8TJzJLI15cIAaSWgGPXOA
+         Mz+Q==
+X-Gm-Message-State: AOJu0YxwS1ile/xUzrK9Ez0lvrS2brCslQe7IbSoNkRLUbo2qNM+piVd
+	7WG35F/BXUwi6rlCTueUM6A45yyUKThI6RdQ9gJNmpUQlA0nQNUaicanCV6zvg3KNwIMvAimw3x
+	f
+X-Gm-Gg: ASbGnct5DvN/jkVJgGam5KrGo0bQv4XJ9WBVGQunz1kjyrx/UcSMvZDDOPukhaY58Cl
+	GLkWoUfq1UvgoPsj2H0gWskWvxSTKS4LmMGUKZ2qkkfpPaboMokpME4Ey53/7mdYvc/qXDj0I19
+	EM+b9kYDnqOdG1e2eNdK/YIl/Xd5NIw9WaDY0LemRUvc4zFvQgTG92fPNOFPzpQDugbg3+OgINE
+	t4rFIJt5DN2v3CThwqrHi95ELrPOzUnEDHLCMIXoZJ6TkELQVK1heQ5in9p4JD8wV8qHSpstOzC
+	dEAtoxe0NeEWre1PARJ+f2RVbOjUjgiTCmNOQhGIvSGACiwNdA==
+X-Google-Smtp-Source: AGHT+IGSp33R1eWJEtY9rFEEoNQDrBjGvY13L37whLkeE+FLQVs6my06EgT5NpY7mSqCs6pPUI4sUg==
+X-Received: by 2002:a05:6402:42c4:b0:5e4:d192:2373 with SMTP id 4fb4d7f45d1cf-5e5e22bf631mr31125520a12.10.1741879951520;
+        Thu, 13 Mar 2025 08:32:31 -0700 (PDT)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH 3/7] x86/dom0: placate GCC 12 compile-time errors with UBSAN and PVH_GUEST
-Date: Thu, 13 Mar 2025 16:30:25 +0100
-Message-ID: <20250313153029.93347-4-roger.pau@citrix.com>
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH 4/7] xen/ubsan: expand pointer overflow message printing
+Date: Thu, 13 Mar 2025 16:30:26 +0100
+Message-ID: <20250313153029.93347-5-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250313153029.93347-1-roger.pau@citrix.com>
 References: <20250313153029.93347-1-roger.pau@citrix.com>
@@ -92,55 +96,40 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-When building Xen with GCC 12 with UBSAN and PVH_GUEST both enabled the
-compiler emits the following errors:
-
-arch/x86/setup.c: In function '__start_xen':
-arch/x86/setup.c:1504:19: error: 'consider_modules' reading 40 bytes from a region of size 4 [-Werror=stringop-overread]
- 1504 |             end = consider_modules(s, e, reloc_size + mask,
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- 1505 |                                    bi->mods, bi->nr_modules, -1);
-      |                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-arch/x86/setup.c:1504:19: note: referencing argument 4 of type 'const struct boot_module[0]'
-arch/x86/setup.c:686:24: note: in a call to function 'consider_modules'
-  686 | static uint64_t __init consider_modules(
-      |                        ^~~~~~~~~~~~~~~~
-arch/x86/setup.c:1535:19: error: 'consider_modules' reading 40 bytes from a region of size 4 [-Werror=stringop-overread]
- 1535 |             end = consider_modules(s, e, size, bi->mods,
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- 1536 |                                    bi->nr_modules + relocated, j);
-      |                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-arch/x86/setup.c:1535:19: note: referencing argument 4 of type 'const struct boot_module[0]'
-arch/x86/setup.c:686:24: note: in a call to function 'consider_modules'
-  686 | static uint64_t __init consider_modules(
-      |                        ^~~~~~~~~~~~~~~~
-
-This seems to be the result of some function manipulation done by UBSAN
-triggering GCC stringops related errors.  Placate the errors by declaring
-the function parameter as `const struct *boot_module` instead of `const
-struct boot_module[]`.
-
-Note that GCC 13 seems to be fixed, and doesn't trigger the error when
-using `[]`.
+Add messages about operations against the NULL pointer, or that result in
+a NULL pointer.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/arch/x86/setup.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ xen/common/ubsan/ubsan.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 4a32d8491186..bde5d75ea6ab 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -684,7 +684,7 @@ static void __init noinline move_xen(void)
- #undef BOOTSTRAP_MAP_LIMIT
+diff --git a/xen/common/ubsan/ubsan.c b/xen/common/ubsan/ubsan.c
+index 7ebe4bfc14dc..20aa0cb598e1 100644
+--- a/xen/common/ubsan/ubsan.c
++++ b/xen/common/ubsan/ubsan.c
+@@ -517,9 +517,18 @@ void __ubsan_handle_pointer_overflow(struct pointer_overflow_data *data,
  
- static uint64_t __init consider_modules(
--    uint64_t s, uint64_t e, uint32_t size, const struct boot_module mods[],
-+    uint64_t s, uint64_t e, uint32_t size, const struct boot_module *mods,
-     unsigned int nr_mods, unsigned int this_mod)
- {
-     unsigned int i;
+ 	ubsan_prologue(&data->location, &flags);
+ 
+-	pr_err("pointer operation %s %p to %p\n",
+-	       base > result ? "overflowed" : "underflowed",
+-	       _p(base), _p(result));
++	if (!base && !result)
++		pr_err("applying zero offset to null pointer\n");
++	else if (!base && result)
++		pr_err("applying non-zero offset %p to null pointer\n",
++			_p(result));
++	else if (base && !result)
++		pr_err("applying non-zero offset to non-null pointer %p produced null pointer\n",
++			_p(base));
++	else
++		pr_err("pointer operation %s %p to %p\n",
++			base > result ? "overflowed" : "underflowed",
++			_p(base), _p(result));
+ 
+ 	ubsan_epilogue(&flags);
+ }
 -- 
 2.48.1
 
