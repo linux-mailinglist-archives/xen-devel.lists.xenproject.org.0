@@ -2,52 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73188A601B8
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 20:59:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.913459.1319496 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF463A601E4
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 21:06:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.913475.1319505 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsoib-0006lK-KP; Thu, 13 Mar 2025 19:59:49 +0000
+	id 1tsoor-0001Z6-7v; Thu, 13 Mar 2025 20:06:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 913459.1319496; Thu, 13 Mar 2025 19:59:49 +0000
+Received: by outflank-mailman (output) from mailman id 913475.1319505; Thu, 13 Mar 2025 20:06:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsoib-0006j2-HS; Thu, 13 Mar 2025 19:59:49 +0000
-Received: by outflank-mailman (input) for mailman id 913459;
- Thu, 13 Mar 2025 19:59:48 +0000
+	id 1tsoor-0001Wj-4t; Thu, 13 Mar 2025 20:06:17 +0000
+Received: by outflank-mailman (input) for mailman id 913475;
+ Thu, 13 Mar 2025 20:06:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4VEl=WA=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1tsoiZ-0006iu-Vk
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 19:59:48 +0000
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on20628.outbound.protection.outlook.com
- [2a01:111:f403:2409::628])
+ <SRS0=zfkQ=WA=dornerworks.com=Nathan.Studer@srs-se1.protection.inumbo.net>)
+ id 1tsoop-0001Wd-OW
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 20:06:15 +0000
+Received: from USG02-BN3-obe.outbound.protection.office365.us
+ (mail-bn3usg02on0613.outbound.protection.office365.us
+ [2001:489a:2202:c::613])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b4a1108f-0045-11f0-9ab9-95dc52dad729;
- Thu, 13 Mar 2025 20:59:44 +0100 (CET)
-Received: from SJ0PR03CA0056.namprd03.prod.outlook.com (2603:10b6:a03:33e::31)
- by IA0PR12MB8930.namprd12.prod.outlook.com (2603:10b6:208:481::22)
+ id 9b94e5c2-0046-11f0-9ab9-95dc52dad729;
+ Thu, 13 Mar 2025 21:06:12 +0100 (CET)
+Received: from SA1P110MB1629.NAMP110.PROD.OUTLOOK.COM (2001:489a:200:195::20)
+ by SA1P110MB2265.NAMP110.PROD.OUTLOOK.COM (2001:489a:200:167::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.28; Thu, 13 Mar
- 2025 19:59:39 +0000
-Received: from SJ5PEPF0000020A.namprd05.prod.outlook.com
- (2603:10b6:a03:33e:cafe::6f) by SJ0PR03CA0056.outlook.office365.com
- (2603:10b6:a03:33e::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.21 via Frontend Transport; Thu,
- 13 Mar 2025 19:59:39 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SJ5PEPF0000020A.mail.protection.outlook.com (10.167.244.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8534.20 via Frontend Transport; Thu, 13 Mar 2025 19:59:39 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 13 Mar
- 2025 14:59:38 -0500
-Received: from [172.19.213.155] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Thu, 13 Mar 2025 14:59:38 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.37; Thu, 13 Mar
+ 2025 20:06:08 +0000
+Received: from SA1P110MB1629.NAMP110.PROD.OUTLOOK.COM
+ ([fe80::4c02:35de:2909:2bea]) by SA1P110MB1629.NAMP110.PROD.OUTLOOK.COM
+ ([fe80::4c02:35de:2909:2bea%4]) with mapi id 15.20.8489.035; Thu, 13 Mar 2025
+ 20:06:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,397 +47,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b4a1108f-0045-11f0-9ab9-95dc52dad729
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PR1ynQv2YbXOF9ytjU4sCnkuaGZoBz9bqtw2Ni+gk0q6ohH8S6i0eA3x2jul7Yf13ldDu9iTg+ACLxdgWHYmEGOXiHRFXkIQLGma4aje/lkCAjbGsaYa5MXFFK9B0eiLrV4Nwqjhcss+PHW9GSM6qkgp9B/Zr5fVkpcR/8KYfamE3y3VdpfFFTY/DzRePKkKFy5dniKnDaTjhtwe7h1SlMs/rklyQ+inFfYKHVsmWEGCey9VG0hsnHtPmPVfalh33fnjmoJunxEDDKgkx8+gYTx1MSQBFVeYa3ZFmrkzZrltRcw4nXIXXPllEUV/0rfP/CucvYvFZCgx2ixboLDzyQ==
+X-Inumbo-ID: 9b94e5c2-0046-11f0-9ab9-95dc52dad729
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector5401; d=microsoft.com; cv=none;
+ b=AdHSgkktNRtCObOWQqXJ7sIw7EaItlk/CMafoTEzGZGpO4+xKgT7i7UZrBMqURc9KE9lButrZENXx8RwLCUheNxIUWCn3Kfek9BCGnoAaPJ82J33IK6wFU7J+n4FczZvaNuxapnArvzZ4bXVpk3SEr/Yp7W20ROhStZBDvSYu+Fx4/9INHdfNl8TA5XsfaGpc5ZKtyJsyORYzwaC4XGdl2X9mEB/LZVVqMxWvhd0E2QLPFI+ErSnVeHUhlYb6DL+V4uqjwMrofi2+MS0BP84pE693vZW9AjqMRnpE7feK02+YEa6OYKo6YvhYGfJU8b9MHLsq2HfLUMXSpJFmO9S8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
+ s=arcselector5401;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nqfPq+mZmGNLseZ0eeM6hYKGvOqszUy0gCFXV0Axp3k=;
- b=Sl/Wj0FjGKjko+xHnvW7ZcZKUn1mC3v487hV+SGRwDWkmQNeRZ/1qtCcMvJFzLJhrc59G6gjRD1Dzz0mFzl+5m2nBPZDo6Hcz93GjVvh4rRXtO0CsGCsNRBGJHH3iWfSZuiWXx1CIQL5imTmq9etL1a267WNYZWZfTNJanJKY+F4i/3l9nAB9yezE2N6NXHKe6H6X6E3BVjO2G1nzXGaFYjLe8tTQrLvFHODct1eKPxuKtvVk/jj0QhfcG5vhaLTg10t4cpp0cf7srOEdztmmqF3vMo9SO6FHTqtoJpOQ1XsJHGgK8ZJJlT8NdwcIDVoYWLHWk7mH20ecQyRTfq/Gg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=b6HixeUQc8ew+vO1YJOtKqDcUNesmYML9qW6m1pm7YE=;
+ b=J1UUfTWvehOe3QAe3LJwqDui/UMErcWbOBCB55iXkkvyMekhGp1nLuX6427/vxHH+UlkpIu5UNGd0WGByBl9FXwqffgeCHnWYf13C19BTO4E/Kzsm5ZKS0PdX/8+dNsxXFSzDdB8KFsMhTMl9hr6YLdkPIYBw+bbkheWe0xN/lsjAdS6y8M2Z0TUbLAmYpW5MbUQ9JX9irIbbsfmbcYlJWLF15zxyN1Tr+bQocOBqEmaK50YV2bffbd6MS1v6G8T2H764TMJDybclCsbHtvnDhJvH2ovTOFzxpXKUnrsGf475isOqC7hSKzhJ6/CQSQaw1wq1K9LVjjsg+aTacI8Lg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=dornerworks.com; dmarc=pass action=none
+ header.from=dornerworks.com; dkim=pass header.d=dornerworks.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dornerworks.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nqfPq+mZmGNLseZ0eeM6hYKGvOqszUy0gCFXV0Axp3k=;
- b=KKTjVc7ZPeVDjRXkBkw/uMNkM6ymXBCHxjHpgn5lzB7kTqUH+sxZbEQJs9RIaTRGTFD3IK3TQDYr0aw4ignoig9tlUYhzpt1TKCM45nhusNpI67w6x1Scb0pT8tslViX8il5XyfzNNkRxiY6cTF65Ht3VB1+J+7I2X+kg0+vb0A=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <f308cbf6-0d2d-4843-982a-a59ea70c7ad1@amd.com>
-Date: Thu, 13 Mar 2025 15:59:37 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] drivers: Change amd_iommu struct to contain
- pci_sbdf_t, simplify code
-To: Andrii Sultanov <sultanovandriy@gmail.com>,
-	<xen-devel@lists.xenproject.org>
-CC: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>
-References: <7e5a37e51303ba17dab8e6a92830257f670f3355.1741891599.git.sultanovandriy@gmail.com>
+ bh=b6HixeUQc8ew+vO1YJOtKqDcUNesmYML9qW6m1pm7YE=;
+ b=cAClS7HGObhEk2DiRzZSPradZAXMmNqKh4rpFx4A6N4fty1OmHCFJaI47SITmdz7oJ8xPRr97ChG21SeFndJbQPSYN68oks41wtN3Rb8n2n+f111VDhF/0renBttEexN6UwRRtx+9+LTJNjePfk7AjltnOozh09aKvLtraNdzI60r4uiMxZBOKQbO6twZ172UpRTNPDuWK/m1nfOD0qyMPWY/5uYPhCE2nBIT1l3Y/EaapEborZ5Njoz7/ZY6rvESueey/LpNaZAl6NeavORrkXatZ7SqY+tUAOIQBlPLHIW9UJmfg8T74bjSP/eryrjg6pHA3RjzkBRnP6hb46YCg==
+From: Nathan Studer <Nathan.Studer@dornerworks.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Juergen Gross
+	<jgross@suse.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, xen-devel <xen-devel@dornerworks.com>, Jeff
+ Kubascik <Jeff.Kubascik@dornerworks.com>
+CC: Stewart Hildebrand <stewart@stew.dk>, Dario Faggioli <dfaggioli@suse.com>,
+	George Dunlap <gwd@xenproject.org>, Choi Anderson <Anderson.Choi@boeing.com>
+Subject: RE: [PATCH] xen/sched: fix arinc653 to not use variables across
+ cpupools
+Thread-Topic: [PATCH] xen/sched: fix arinc653 to not use variables across
+ cpupools
+Thread-Index: AQHbk/rJLC8kkmZ6m0etj3YPTyi7AbNw8nsAgACI0dA=
+Date: Thu, 13 Mar 2025 20:06:07 +0000
+Message-ID:
+ <SA1P110MB1629ABA437E47DA887CA5FCEF4D3A@SA1P110MB1629.NAMP110.PROD.OUTLOOK.COM>
+References: <20250313093157.30450-1-jgross@suse.com>
+ <8655362d-4019-4dca-b232-5adeb13c3ac1@citrix.com>
+In-Reply-To: <8655362d-4019-4dca-b232-5adeb13c3ac1@citrix.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <7e5a37e51303ba17dab8e6a92830257f670f3355.1741891599.git.sultanovandriy@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB03.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF0000020A:EE_|IA0PR12MB8930:EE_
-X-MS-Office365-Filtering-Correlation-Id: 55537e00-3af8-44f5-ccc0-08dd62699691
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|36860700013|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?VjNMMVpjUzc4SDVVUzB2azNqZTUzY3k2UGhZaDBSd2tjb2FqWnlSVk5XZGVX?=
- =?utf-8?B?bXJ3SHZVVER1bGNNU3ltMkRXdEZ0dUtSQ0VndmkrTUgzVWN6U2NZb01vaDBR?=
- =?utf-8?B?NmJUKzZzNStLaElQbGcvK3lnOXFwS0JST3VTd09FVVR5VEdJMnVhVmZoSit1?=
- =?utf-8?B?b3gzdlhvL05Md2d1dGRaeVc3TWh6NGdmU1UybTVxWldsOWYwNmI2Mi9lZmVI?=
- =?utf-8?B?MmtrNUY5WVMxMytoMjhsZ0YyQ09jcFNTaVhCcVk5YzZwbkN5VHA1NkFxcWJT?=
- =?utf-8?B?QjFKUzU1S25qSWE5NURrYUUxY1ZaR2tFOVZrSE5yRFNVUFA5SVowRTRVcmtt?=
- =?utf-8?B?ZjRIbkVEaGVDQ1FwUk12b1FLQmlIbTBMaldZVE9NN09veFlnd0NqbGl3UE9B?=
- =?utf-8?B?RHhUKzMwbEk3UlBjakdFODdWeVdQb1JUTXRNWCtWUUl0WEdoUmNyNy8xb2xX?=
- =?utf-8?B?QlBQMmVNYm5JSVRyVDkxYVdQYVNNWjdsb09mTmxzeFYxVWo1WDJTeHByOEIr?=
- =?utf-8?B?RG1BZ3gyZkJ1WlFWeCtPN3p1WXhic2t4TE1lVWRnSnNEcUd0LzEyWHJZWHQ5?=
- =?utf-8?B?VTAwNlhNckRZTmp6TVYwaWVrQWlrbyt1UitKVTQrRm1hejNGM2ZjRnZSZjJE?=
- =?utf-8?B?a2JzbXNFcndGeENFNm5YL29BZmdQZ3ZGMExVb0k5TEZRWDdJdGd1NFdkMWhU?=
- =?utf-8?B?aE80RFcrZlVQZWF2ZzlJUXFxS0IxVW9ZRWNMdWFMNFVKYjBadlBPQXFob1RX?=
- =?utf-8?B?SUQ0SkhuMlZUUVJGRXRyVFQ2OHZJR2swcUZxQWIyY0plU0NGWHNZMUZ6a2tw?=
- =?utf-8?B?VEFJVURqaTc0Y1VzejJxcHRUcW16VWc4Z3ZhcDlQdWF6azMyOE13NDhES25C?=
- =?utf-8?B?d3ErTXQ1QmN3RTVOVGxiRHBOMGs2OEt5Z2pPTU93aXdlMGg1d2Vrc3k5bFdX?=
- =?utf-8?B?ajc4L1VkNEc4Wi9rNys2RGJTNThOQUovMmJoQldVSHpKeEFDWlJQcnUxTG1F?=
- =?utf-8?B?ZzAydU1ydHF5ei91RzVma2lDU3BNU2hPQUVaK2xWT3hiOXF6Q1V5S3lnWmov?=
- =?utf-8?B?cFRHWGozdUZ0QWF0cXhPL3hNdldPREJNQzFGRkNNSWV4b2FEbFdReVZaVXA2?=
- =?utf-8?B?VlRxTmdzRjNkY1NrM2RGVCtRLy95UG1OTnkrZXUxK1dja0RiK0FOamxOajZZ?=
- =?utf-8?B?aWZ2YldudWkyeGs3Zm1iRWo0Zkxtc3R6dzdzNit1TzlPTm00Q2NiSkNQOGdV?=
- =?utf-8?B?MnpuWE9ocndvM2M4MXM5NUJ6ZXJYdTlNZlR1cGM4Yy8wVStMeFEvdEMvL2JQ?=
- =?utf-8?B?TGh2bjFFYldvM21tMGZjNkQwalc5bEdLMmljOUJ4TTJDd3VXb0R6T2ZMd2NG?=
- =?utf-8?B?enMvTG90Rm0vdWwwRmFjM2FHMVVjNHVFcnJrVGZWMk1tcTJKMzZmc0d4Nklw?=
- =?utf-8?B?bkRzaE9BYVpxOG5LanlJRk1nSjV4VHRxUlJCSi9MYjhQcDRSTmY1NkpzYXJ0?=
- =?utf-8?B?Y2RqSis0WW9TN3dRTEd5dmJqNFJldjJPSFFzbUovUmJzVDJRVjd3RjVtRVdD?=
- =?utf-8?B?R2lGYXFFcEl1aEdlZWcya1hlUXl0d0F6TURMaERxdlJnS0l5MmlZM3B4ZGZi?=
- =?utf-8?B?VVRmSkxOSjhCNWJKNk8wTHJqdzB2M3h2NUk4eVdNTkFPNndTSk1DRGFMeFVB?=
- =?utf-8?B?ak82ZDUyNjByd2loTXJaM3dnZ2ZHT3VVYkZLSnpsUGk3dnBkRytabnEydWlZ?=
- =?utf-8?B?VTdvZkJjK0x0d0tSdkVoRzI0b3hOSXFVTWdtM0V5aWtKV1RCSlZRQmhCL3Br?=
- =?utf-8?B?MHU1Qnp5SEIzSmdlMUlYYW1DakdWMVZuQzcxZXh6RzZzUkJud2FTS2EzOC9x?=
- =?utf-8?B?Y2pJc2ZXV2NJMG96d0lRZGUzczJMQ2ZuOGlFblp0b2dHdG5kb0FzclBackN1?=
- =?utf-8?B?NzJtcnd2eko3c01NanhDd2h2cm9zandtdHI0SjE5UXgrR2xTV3ZVZE4xa2tQ?=
- =?utf-8?Q?aoM9UPto0LWu+ctlad2XNrzI+21chM=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2025 19:59:39.2297
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=dornerworks.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1P110MB1629:EE_|SA1P110MB2265:EE_
+x-ms-office365-filtering-correlation-id: d89ba5c7-775e-4ee4-19fc-08dd626a7deb
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|41320700013|1800799024|38070700018;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?Znl5U05vMWpyeWt5UGJFQTNWUGxlQmVJRWx5ZHBwNVduSXdIeWhzYWRyK05J?=
+ =?utf-8?B?a3dFdWpIWmI2bHl4ckJmeHR4Zk55K0JrNXBreU9LenY1WXFkK3dzK05CRlBy?=
+ =?utf-8?B?SGF3YUR1Q1cyVkpWR3QwTUt3RzQ1cThhakhDMlZSYkVVQ0ZBR0llRk52dHdP?=
+ =?utf-8?B?RmtjNjZSRjhmUXdMTmFzcVpvT0k0K1c3Y1BPMmoxSVl6Q2pqaVFlb0Nablpa?=
+ =?utf-8?B?R2F2anJKMlc4bzdNanJnSitrTEdnUG9LT05RNzcyVXpjemt2OVk3S0VVWmhD?=
+ =?utf-8?B?YUJVemQ4Tmp5eWcrbUFQazhseU9yeE5jbUdwS1c1MFVMeFZ5OHhwTFI1d0ps?=
+ =?utf-8?B?VGlqcHhrT0JpK0tLckVWY05Rd01IN3VRVlg3TCtNL3BHVWNUL1RnQ1Ftdjc3?=
+ =?utf-8?B?WkFJZUdTeVFHRkRRUXhSRU5DU29td1VNdE1tM0VrVmRlRVpGdVBDMmZrVmFY?=
+ =?utf-8?B?UllLT09IME82NWl1Y2oxVEVYRnRYZXNRNFNPaGJYVXZoVDcrYkt2Qko5WjBX?=
+ =?utf-8?B?L0N2d2RwcTJSaTRHSVVBSnRCT3dTSzhuSmpuWU9qZ2tlYy9jeWJybGJLNUw3?=
+ =?utf-8?B?NmdvVklhdWFCZ2kwRXM4ZzhGMHQvbEswbVJyS0lRajVvWkhEOGVKaDVRS1Z5?=
+ =?utf-8?B?eDA4akg2VGdOMDNyWUJPRFNPTEdpNmc2TE05d0xpdDBzVjhKWkh1SFlFVHg0?=
+ =?utf-8?B?WitzSWRJLzR5VEh0bXRHdnZzSUJYcXgxL3hvR3dUNFBZYVM2MHl5azhzZkh4?=
+ =?utf-8?B?QzQzcjB6UFVSVmZRbjVDTStoa1pFWnNtZm4wdFZSamlDYytWaFZMTDFqeThR?=
+ =?utf-8?B?dU54S1dlY2pBOHFtR0VkMlc3Vk5TamZEajYzRWNoV3VicGtVT2hwWm1sSzVC?=
+ =?utf-8?B?aWE2TW5TS2ZGWEVxU1RLQnlvZldJWW9ybEJ6bmpYTHM1SmhrZE5EM1pJM2pN?=
+ =?utf-8?B?cXNtdTJML0FGek9uand5UGFraENITFQ3VWlJbGs4L3R1emZacjlKWXV3eFZq?=
+ =?utf-8?B?ZFduTkJ6Ym10cThpb3BGSlAyeEhXWHc4WmljVTlOZENiT2Z6MDJUN0s2VFJz?=
+ =?utf-8?B?OTNzbkk1eHhnYW9qalg5UTBDZm1iRFVpWE8rS0NXTkZGUVJSYzhDOHlaRlAv?=
+ =?utf-8?B?N1NrVUx6NTVhUS91cFhJNnpKVWNJSDNqNkhxK2s3WWJCL29PNHd1YnBwd1VU?=
+ =?utf-8?B?M1J0RFp3b09xeXFORWNvZkorck1tL2M5L29mZkFqNlV1UjlIV0drRE5wMHY5?=
+ =?utf-8?B?Y0k0ZnFVeXVhcHBXOWk4SjA4bUFFWDV4dzB3Z1BucXo5YUhKYVMxUVFibCtF?=
+ =?utf-8?B?bWpJeWJ2c0dEbkVycThaeU1zaE9vVStjQWtqVlVIcElGQmlJcWJYLzJLVG9w?=
+ =?utf-8?B?VndxaG5zVXBUSEgrT3BVM2pIUE00T2RWN25GUVBHQXFiKzhzOTk1WFk5NkQ5?=
+ =?utf-8?B?bFB4aHUybS9iUmRJdXp2MWVtZURLRXRMdWcvd2NpZXhGcGE4S2xrNFUramFr?=
+ =?utf-8?B?VWhLYzZkSFJJeTd5QlJYa3lDMjludktCaEs2Y0F0aVdwaHRHQXg2TzJEUXkx?=
+ =?utf-8?B?Q0VuQUdWd29ydWZEeGhRSHQ2YTg1NUFDU3RMNFdIT2swUlpOekQ5Y2toUzlY?=
+ =?utf-8?B?QXdBUkFlQmdxVWIzMFNOWmZ2Y3lpSDFIeEwzL1hSaGZkWEhYdnIxQ3VCeHZn?=
+ =?utf-8?B?djZHWkhrb0FUTnZiOU9xaEJnKzAzUG9XT21zYWlIL3lOT25DZWV2SlpURU85?=
+ =?utf-8?B?UnBlWmc2VXBySXhuazJzeC8rcVhCaFVsbkJPM1U4TjU3SUliNkRTZE01QnVp?=
+ =?utf-8?B?SzhveEpxQkl5aGdWSThPVUdPQk5BR1JDdFlqRVVIbE90NTZ0UHU3QVRFbkZi?=
+ =?utf-8?B?OERQYk5CQW1KeURLYTFKR055WDUvT05pVmw5SHdWTE5IbFNKN3RzcGFnT0Fo?=
+ =?utf-8?Q?9k+ce5uOUZl8FSEFQ8Xb1qElk8adws+G?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1P110MB1629.NAMP110.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(41320700013)(1800799024)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?Nmc5RjhLaHZReGtZTVF4YVgrcnZlVkZpdjl0RjcvYkZJK1ptTVVYYWZkMjg1?=
+ =?utf-8?B?OVZySGszUWdxakxZSEY0SDJFelpabWZ2d2NmQ2JsdEZjbUFSaVA0TDFMcUx0?=
+ =?utf-8?B?dnVoVlBFY2ZZNjFVbjRZS2diN2dFUjdGV0d2SGVXeHljdWhOMnVKd2RMNnk0?=
+ =?utf-8?B?VUZVakpYTjBxYkVMeFU3N25hQ3FJTHV1ZEo0L0w1NC9JbFI4SHhFakkwZmZz?=
+ =?utf-8?B?NTFZWnBBQmNMN0F1Z0J3UGlJTkxkZEZNeVYyZWVKam9HNC9EcFFmZ25UUzRq?=
+ =?utf-8?B?RG1Vb0hMcGsrajhOc3hjRmMrUFBZZnZKVUhQeWZTNUI3MWF5ejNHbXV1Sk5M?=
+ =?utf-8?B?QkNHVllaVlcxM0VXRmpXYTlONi9hZDF5Q25mdlgyWmJUcFI2cElJQTJlNFE1?=
+ =?utf-8?B?Qm5XbjBna1B5UklIVng5VUhjVEdZdHg3WGZMUCsyelQ4R2VCY3lKdWRrY0Js?=
+ =?utf-8?B?a0pKNm5XYStDcS9ZUEFtQllDTDhRUDhTYmpvMW1ZOUVKc3BId0JVNm1QS3RI?=
+ =?utf-8?B?UkZaR0ZESHBaL01qL3JKUTFLVmtUQ1dqMUFkNjRUWFpwT3VpajhDdmYxK0Rx?=
+ =?utf-8?B?ckw5TTUrY2pWZ3dDbER6SE9JRmIwN0lueEdlenJYT1hzUjJJTlphUzQ3cWll?=
+ =?utf-8?B?NDdaeVJrYW84Yjg0eGhzdDhkbGdvd011QkltWnpMZHNFSHl3YlV6eFFobUdO?=
+ =?utf-8?B?VTB3QWRQYm9lTVBVRU8vdGdiWktJOUljU3UvaU11NGZUMWxwZXBrc0loajBK?=
+ =?utf-8?B?Q3k3MW5udi8ycEE4eTQrSHVaaW95QTZaVGNmckhpUk80c3p4dFFBaHR2U2lF?=
+ =?utf-8?B?YzY3M2E0RXlDanlWMmZqWlAzd3FaNlJTenVrb3YvRGpPS1pFK3MvQmtQZlFE?=
+ =?utf-8?B?NFg3ZStrenErZGFIbzEvZkxKQ3hBYUcybGxsQ1JjVDN6U2RCeitRVVl6UFBN?=
+ =?utf-8?B?UVBtWDEwcjlIckxIdWM3cUFhSE1ZeGxGMm1tVVVpYVdON1pnMXg1N3k5YzEr?=
+ =?utf-8?B?MExGNG1PKy9uZ0VTNzAwL3VDRzNiK3RZY3ZHb1RrNDl3L1pnMnpvYkRLYjF3?=
+ =?utf-8?B?ZG1LVjBGcDBTanNORkYwdE5WUnY2OVBMV2k0YnFIajFVN3FJT3kxY3duWEcw?=
+ =?utf-8?B?bERGbTJFbkVCcWNKdHlyWVZ1Tzc4WDJQMWZiazgzekxQSjZQbXVmaHpwUWhv?=
+ =?utf-8?B?NHY2VDd2WkJMZGsrWE9kb09uZ2lzZUtTenpEaHFCbzJPVDZZMXpBek9wVlhI?=
+ =?utf-8?B?VjVxU1AyS3lmZGxJWWRtWUQ4R0F2YWhsUmxvOGR4MC93MUViMitWQ1I0ZGFX?=
+ =?utf-8?B?elp3M3FXTi9UQ0w4TGtMbHhYZ0xPZGxXeEtUT284YzJqRnEydFg3MDNZTWp3?=
+ =?utf-8?B?dzRsUUtEbmtWbXFjRE05UW82WGRRMU1wYm1xM3E2MVk3S2hQRUdGU3pMTFF5?=
+ =?utf-8?B?QUlEajVrbWVpbmw0cldMWUxDVFlrU0tncVZrUEkwcHZrMm9ZUUc5Smo5dnlO?=
+ =?utf-8?B?bzZ1bHNiQTdOYXBhcm1renNTNUY0QUxSOWV1R3BZMTh6YVdoTG5tR3B3eHVK?=
+ =?utf-8?B?STY2VDN6T05SNGtWMlZXNFQwOXV4Qk5pOXk0U0lpUG9rajJERmRJbTJFK2JJ?=
+ =?utf-8?B?RHcwdlV2SmhGa0dYUmdsRjUvbUtlbE9zU2xXOTkvWXBxVU9MdldYTE8yRUcy?=
+ =?utf-8?B?ZnRhbTVkMGVCK3VoNEZ3dWZ2eDFqb2FRNW1BdUdUOGg2d3Fjb2c3TmkrdXEz?=
+ =?utf-8?B?KzZNaHhDT3ZlVStvVFMxNGhGY0RRbGFxSkpIMXVPa1V2THRnZnNLMSs0ZkJZ?=
+ =?utf-8?B?NVFpbk80QUJhaG9haEswWkVMTitoMnlRYkVUSzFnODFJL01XSUpWanM5Ykdl?=
+ =?utf-8?B?eEp2U3NUa0VIeDRtM1Azajh4UXNRMU1pSlF6NlJuRytNNjcrdDIyRGk2azgx?=
+ =?utf-8?B?Tlh6OVVzTTRBOW96RTRNOVpFVTJKVnFNYXZyMDkxWExEWHVZUE5OOGNzalE4?=
+ =?utf-8?B?NnhueXp4dXUxQ2J6dnIwSFBkajRQMXorL2kycVI2NkdqSzZBR0lvTEpSdHd2?=
+ =?utf-8?Q?WWvEtm?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: dornerworks.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA1P110MB1629.NAMP110.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: d89ba5c7-775e-4ee4-19fc-08dd626a7deb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Mar 2025 20:06:07.4836
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 55537e00-3af8-44f5-ccc0-08dd62699691
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF0000020A.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8930
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 097cf9aa-db69-4b12-aeab-ab5f513dbff9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1P110MB2265
 
-On 2025-03-13 14:57, Andrii Sultanov wrote:
-> Following on from 250d87dc, struct amd_iommu has its seg and bdf fields
-> backwards with relation to pci_sbdf_t. Swap them around, and simplify the
-> expressions regenerating an sbdf_t from seg+bdf.
-> 
-> Simplify ioapic_sbdf and bpet_sbdf along the way. Adjust functions
-> taking seg and bdf fields of these structs to take pci_sbdf_t instead.
-> Simplify comparisons similarly.
-
-It's rather large.  Can this be sensibly split into smaller patches?
-
-> diff --git a/xen/drivers/passthrough/amd/iommu.h b/xen/drivers/passthrough/amd/iommu.h
-> index 00e81b4b2a..6903b1bc5d 100644
-> --- a/xen/drivers/passthrough/amd/iommu.h
-> +++ b/xen/drivers/passthrough/amd/iommu.h
-> @@ -77,8 +77,14 @@ struct amd_iommu {
->       struct list_head list;
->       spinlock_t lock; /* protect iommu */
->   
-> -    u16 seg;
-> -    u16 bdf;
-> +    union {
-> +        struct {
-> +            uint16_t bdf;
-> +            uint16_t seg;
-
-Are these still needed by the end of this patch?
-
-> +        };
-> +        pci_sbdf_t sbdf;
-> +    };
-> +
->       struct msi_desc msi;
->   
->       u16 cap_offset;
-
-> diff --git a/xen/drivers/passthrough/amd/iommu_acpi.c b/xen/drivers/passthrough/amd/iommu_acpi.c
-> index 5bdbfb5ba8..57efb7ddda 100644
-> --- a/xen/drivers/passthrough/amd/iommu_acpi.c
-> +++ b/xen/drivers/passthrough/amd/iommu_acpi.c
-> @@ -107,12 +107,12 @@ static void __init add_ivrs_mapping_entry(
-
-> @@ -239,17 +239,17 @@ static int __init register_range_for_device(
->       unsigned int bdf, paddr_t base, paddr_t limit,
->       bool iw, bool ir, bool exclusion)
->   {
-> -    int seg = 0; /* XXX */
-> -    struct ivrs_mappings *ivrs_mappings = get_ivrs_mappings(seg);
-> +    pci_sbdf_t sbdf = { .seg = 0, .bdf = bdf };
-
-Maybe retain the /* XXX */ to highlight that segment is hardcoded to 0.
-
-> +    struct ivrs_mappings *ivrs_mappings = get_ivrs_mappings(sbdf.seg);
->       struct amd_iommu *iommu;
->       u16 req;
->       int rc = 0;
->   
-> -    iommu = find_iommu_for_device(seg, bdf);
-> +    iommu = find_iommu_for_device(sbdf);
->       if ( !iommu )
->       {
->           AMD_IOMMU_WARN("IVMD: no IOMMU for device %pp - ignoring constrain\n",
-> -                       &PCI_SBDF(seg, bdf));
-> +                       &(sbdf));
-
-Please drop () for just &sbdf.
-
->           return 0;
->       }
->       req = ivrs_mappings[bdf].dte_requestor_id;
-> @@ -263,9 +263,9 @@ static int __init register_range_for_device(
->           paddr_t length = limit + PAGE_SIZE - base;
->   
->           /* reserve unity-mapped page entries for device */
-> -        rc = reserve_unity_map_for_device(seg, bdf, base, length, iw, ir,
-> +        rc = reserve_unity_map_for_device(sbdf.seg, bdf, base, length, iw, ir,
-
-Another candidate for conversion?
-
->                                             false) ?:
-> -             reserve_unity_map_for_device(seg, req, base, length, iw, ir,
-> +             reserve_unity_map_for_device(sbdf.seg, req, base, length, iw, ir,
->                                             false);
->       }
->       else
-
-> @@ -916,8 +916,8 @@ static int __init parse_ivhd_block(const struct acpi_ivrs_hardware *ivhd_block)
->                       ivhd_block->pci_segment_group, ivhd_block->info,
->                       ivhd_block->iommu_attr);
->   
-> -    iommu = find_iommu_from_bdf_cap(ivhd_block->pci_segment_group,
-> -                                    ivhd_block->header.device_id,
-> +    iommu = find_iommu_from_bdf_cap(PCI_SBDF(ivhd_block->pci_segment_group,
-> +                                    ivhd_block->header.device_id),
-
-Please indent to match the end of "PCI_SBDF(".
-
->                                       ivhd_block->capability_offset);
->       if ( !iommu )
->       {
-> diff --git a/xen/drivers/passthrough/amd/iommu_cmd.c b/xen/drivers/passthrough/amd/iommu_cmd.c
-> index 83c525b84f..dc3d2394a1 100644
-> --- a/xen/drivers/passthrough/amd/iommu_cmd.c
-> +++ b/xen/drivers/passthrough/amd/iommu_cmd.c
-> @@ -85,7 +85,7 @@ static void flush_command_buffer(struct amd_iommu *iommu,
->               threshold |= threshold << 1;
->               printk(XENLOG_WARNING
->                      "AMD IOMMU %pp: %scompletion wait taking too long\n",
-> -                   &PCI_SBDF(iommu->seg, iommu->bdf),
-> +                   &(iommu->sbdf),
-
-Please drop ().
-
->                      timeout_base ? "iotlb " : "");
->               timeout = 0;
->           }
-> @@ -95,7 +95,7 @@ static void flush_command_buffer(struct amd_iommu *iommu,
->       if ( !timeout )
->           printk(XENLOG_WARNING
->                  "AMD IOMMU %pp: %scompletion wait took %lums\n",
-> -               &PCI_SBDF(iommu->seg, iommu->bdf),
-> +               &(iommu->sbdf),
-
-Please drop ().
-
->                  timeout_base ? "iotlb " : "",
->                  (NOW() - start) / 10000000);
->   }
-
-> diff --git a/xen/drivers/passthrough/amd/iommu_detect.c b/xen/drivers/passthrough/amd/iommu_detect.c
-> index cede44e651..7d60389500 100644
-> --- a/xen/drivers/passthrough/amd/iommu_detect.c
-> +++ b/xen/drivers/passthrough/amd/iommu_detect.c
-> @@ -231,7 +231,7 @@ int __init amd_iommu_detect_one_acpi(
->       rt = pci_ro_device(iommu->seg, bus, PCI_DEVFN(dev, func));
->       if ( rt )
->           printk(XENLOG_ERR "Could not mark config space of %pp read-only (%d)\n",
-> -               &PCI_SBDF(iommu->seg, iommu->bdf), rt);
-> +               &(iommu->sbdf), rt);
-
-Please drop ().
-
->   
->       list_add_tail(&iommu->list, &amd_iommu_head);
->       rt = 0;
-> diff --git a/xen/drivers/passthrough/amd/iommu_init.c b/xen/drivers/passthrough/amd/iommu_init.c
-> index bb25b55c85..e2c205a857 100644
-> --- a/xen/drivers/passthrough/amd/iommu_init.c
-> +++ b/xen/drivers/passthrough/amd/iommu_init.c
-
-> @@ -752,12 +750,11 @@ static bool __init set_iommu_interrupt_handler(struct amd_iommu *iommu)
->       }
->   
->       pcidevs_lock();
-> -    iommu->msi.dev = pci_get_pdev(NULL, PCI_SBDF(iommu->seg, iommu->bdf));
-> +    iommu->msi.dev = pci_get_pdev(NULL, iommu->sbdf);
->       pcidevs_unlock();
->       if ( !iommu->msi.dev )
->       {
-> -        AMD_IOMMU_WARN("no pdev for %pp\n",
-> -                       &PCI_SBDF(iommu->seg, iommu->bdf));
-> +        AMD_IOMMU_WARN("no pdev for %pp\n", &(iommu->sbdf));
-
-Please drop ().
-
->           return 0;
->       }
->   
-
-
-> @@ -1543,14 +1540,14 @@ static void invalidate_all_domain_pages(void)
->   static int cf_check _invalidate_all_devices(
->       u16 seg, struct ivrs_mappings *ivrs_mappings)
->   {
-> -    unsigned int bdf;
-> +    pci_sbdf_t sbdf = { .seg = seg, .bdf = 0 };
-
-.bdf = 0 isn't necessary as it will be set to 0 by default.
-
->       u16 req_id;
->       struct amd_iommu *iommu;
->   
-> -    for ( bdf = 0; bdf < ivrs_bdf_entries; bdf++ )
-> +    for ( /* sbdf.bdf = 0 */ ; sbdf.bdf < ivrs_bdf_entries; sbdf.bdf++ )
-
-I'd either set it or just drop the comment.
-
->       {
-> -        iommu = find_iommu_for_device(seg, bdf);
-> -        req_id = ivrs_mappings[bdf].dte_requestor_id;
-> +        iommu = find_iommu_for_device(sbdf);
-> +        req_id = ivrs_mappings[sbdf.bdf].dte_requestor_id;
->           if ( iommu )
->           {
->               /*
-> diff --git a/xen/drivers/passthrough/amd/iommu_intr.c b/xen/drivers/passthrough/amd/iommu_intr.c
-> index 9abdc38053..0c91125ec0 100644
-> --- a/xen/drivers/passthrough/amd/iommu_intr.c
-> +++ b/xen/drivers/passthrough/amd/iommu_intr.c
-
-> diff --git a/xen/drivers/passthrough/amd/iommu_map.c b/xen/drivers/passthrough/amd/iommu_map.c
-> index dde393645a..17070904fa 100644
-> --- a/xen/drivers/passthrough/amd/iommu_map.c
-> +++ b/xen/drivers/passthrough/amd/iommu_map.c
-> @@ -694,17 +694,16 @@ int amd_iommu_reserve_domain_unity_unmap(struct domain *d,
->   int cf_check amd_iommu_get_reserved_device_memory(
->       iommu_grdm_t *func, void *ctxt)
->   {
-> -    unsigned int seg = 0 /* XXX */, bdf;
-> -    const struct ivrs_mappings *ivrs_mappings = get_ivrs_mappings(seg);
-> +    pci_sbdf_t sbdf = {0};
-
-Just " = {};"
-
-> +    const struct ivrs_mappings *ivrs_mappings = get_ivrs_mappings(sbdf.seg);
->       /* At least for global entries, avoid reporting them multiple times. */
->       enum { pending, processing, done } global = pending;
->   
-> -    for ( bdf = 0; bdf < ivrs_bdf_entries; ++bdf )
-> +    for ( /* sbdf.bdf = 0 */ ; sbdf.bdf < ivrs_bdf_entries; ++sbdf.bdf )
-
-Like earlier, change to code or remove comment.
-
->       {
-> -        pci_sbdf_t sbdf = PCI_SBDF(seg, bdf);
-> -        const struct ivrs_unity_map *um = ivrs_mappings[bdf].unity_map;
-> -        unsigned int req = ivrs_mappings[bdf].dte_requestor_id;
-> -        const struct amd_iommu *iommu = ivrs_mappings[bdf].iommu;
-> +        const struct ivrs_unity_map *um = ivrs_mappings[sbdf.bdf].unity_map;
-> +        unsigned int req = ivrs_mappings[sbdf.bdf].dte_requestor_id;
-> +        const struct amd_iommu *iommu = ivrs_mappings[sbdf.bdf].iommu;
->           int rc;
->   
->           if ( !iommu )
-
-> diff --git a/xen/drivers/passthrough/amd/pci_amd_iommu.c b/xen/drivers/passthrough/amd/pci_amd_iommu.c
-> index d00697edb3..16bab0f948 100644
-> --- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
-> +++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
-> @@ -32,35 +32,35 @@ static bool __read_mostly init_done;
->   
->   static const struct iommu_init_ops _iommu_init_ops;
->   
-> -struct amd_iommu *find_iommu_for_device(int seg, int bdf)
-> +struct amd_iommu *find_iommu_for_device(pci_sbdf_t sbdf)
->   {
-> -    struct ivrs_mappings *ivrs_mappings = get_ivrs_mappings(seg);
-> +    struct ivrs_mappings *ivrs_mappings = get_ivrs_mappings(sbdf.seg);
-
-Adding:
-unsigned int bdf = sbdf.bdf
-
-here would eliminate all the sbdf.bdf use below.
-
-Thanks,
-Jason
-
->   
-> -    if ( !ivrs_mappings || bdf >= ivrs_bdf_entries )
-> +    if ( !ivrs_mappings || sbdf.bdf >= ivrs_bdf_entries )
->           return NULL;
->   
-> -    if ( unlikely(!ivrs_mappings[bdf].iommu) && likely(init_done) )
-> +    if ( unlikely(!ivrs_mappings[sbdf.bdf].iommu) && likely(init_done) )
->       {
-> -        unsigned int bd0 = bdf & ~PCI_FUNC(~0);
-> +        unsigned int bd0 = sbdf.bdf & ~PCI_FUNC(~0);
->   
-> -        if ( ivrs_mappings[bd0].iommu && ivrs_mappings[bd0].iommu->bdf != bdf )
-> +        if ( ivrs_mappings[bd0].iommu && ivrs_mappings[bd0].iommu->bdf != sbdf.bdf )
->           {
->               struct ivrs_mappings tmp = ivrs_mappings[bd0];
->   
->               tmp.iommu = NULL;
->               if ( tmp.dte_requestor_id == bd0 )
-> -                tmp.dte_requestor_id = bdf;
-> -            ivrs_mappings[bdf] = tmp;
-> +                tmp.dte_requestor_id = sbdf.bdf;
-> +            ivrs_mappings[sbdf.bdf] = tmp;
->   
->               printk(XENLOG_WARNING "%pp not found in ACPI tables;"
-> -                   " using same IOMMU as function 0\n", &PCI_SBDF(seg, bdf));
-> +                   " using same IOMMU as function 0\n", &sbdf);
->   
->               /* write iommu field last */
-> -            ivrs_mappings[bdf].iommu = ivrs_mappings[bd0].iommu;
-> +            ivrs_mappings[sbdf.bdf].iommu = ivrs_mappings[bd0].iommu;
->           }
->       }
->   
-> -    return ivrs_mappings[bdf].iommu;
-> +    return ivrs_mappings[sbdf.bdf].iommu;
->   }
->   
->   /*
+K0plZmYNCg0KT24gMTMvMDMvMjUgMDc6NDQsIEFuZHJldyBDb29wZXIgd3JvdGU6DQo+IE9uIDEz
+LzAzLzIwMjUgOTozMSBhbSwgSnVlcmdlbiBHcm9zcyB3cm90ZToNCj4gPiBhNjUzc2NoZWRfZG9f
+c2NoZWR1bGUoKSBpcyB1c2luZyB0d28gZnVuY3Rpb24gbG9jYWwgc3RhdGljIHZhcmlhYmxlcywN
+Cj4gPiB3aGljaCBpcyByZXN1bHRpbmcgaW4gYmFkIGJlaGF2aW9yIHdoZW4gdXNpbmcgbW9yZSB0
+aGFuIG9uZSBjcHVwb29sDQo+ID4gd2l0aCB0aGUgYXJpbmM2NTMgc2NoZWR1bGVyLg0KPiA+DQo+
+ID4gRml4IHRoYXQgYnkgbW92aW5nIHRob3NlIHZhcmlhYmxlcyB0byB0aGUgc2NoZWR1bGVyIHBy
+aXZhdGUgZGF0YS4NCj4gPg0KPiA+IEZpeGVzOiAyMjc4N2YyZTEwN2MgKCJBUklOQyA2NTMgc2No
+ZWR1bGVyIikNCj4gPiBSZXBvcnRlZC1ieTogQ2hvaSBBbmRlcnNvbiA8QW5kZXJzb24uQ2hvaUBi
+b2VpbmcuY29tPg0KPiA+IFNpZ25lZC1vZmYtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNl
+LmNvbT4NCj4gDQo+IE9oIGxvdmVseSwgdGhvc2Ugc3RhdGljcyBhcmUgbmljZWx5IGhpZGRlbiBp
+biB0aGUgbG9jYWwgdmFyaWFibGUgbGlzdC4NCj4gDQo+IFJldmlld2VkLWJ5OiBBbmRyZXcgQ29v
+cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPg0KDQpUaGlzIHdhcyBvbmUgb2YgdGhlIGlz
+c3VlcyBKZWZmIGZpeGVkIGluIHRoaXMgcmVqZWN0ZWQgcGF0Y2gsIHdoaWNoIHdlIHNob3VsZCBo
+YXZlIHNwbGl0IG91dCBhbmQgc3VibWl0dGVkIHNlcGFyYXRlbHkgdXBzdHJlYW06ICBodHRwczov
+L2xpc3RzLnhlbnByb2plY3Qub3JnL2FyY2hpdmVzL2h0bWwveGVuLWRldmVsLzIwMjAtMDkvbXNn
+MDEzMTguaHRtbA0KDQpBY2tlZC1ieTogTmF0aGFuIFN0dWRlciA8bmF0aGFuLnN0dWRlckBkb3Ju
+ZXJ3b3Jrcy5jb20+DQo=
 
