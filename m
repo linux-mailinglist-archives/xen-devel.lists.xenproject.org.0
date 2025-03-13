@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0373CA5F2BC
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 12:44:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.911946.1318326 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FE11A5F333
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 12:50:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.911965.1318336 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsgyv-0004cz-8w; Thu, 13 Mar 2025 11:44:09 +0000
+	id 1tsh53-0006PM-SJ; Thu, 13 Mar 2025 11:50:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 911946.1318326; Thu, 13 Mar 2025 11:44:09 +0000
+Received: by outflank-mailman (output) from mailman id 911965.1318336; Thu, 13 Mar 2025 11:50:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsgyv-0004ap-5B; Thu, 13 Mar 2025 11:44:09 +0000
-Received: by outflank-mailman (input) for mailman id 911946;
- Thu, 13 Mar 2025 11:44:06 +0000
+	id 1tsh53-0006NL-PJ; Thu, 13 Mar 2025 11:50:29 +0000
+Received: by outflank-mailman (input) for mailman id 911965;
+ Thu, 13 Mar 2025 11:50:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=w2IX=WA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tsgys-0004Ly-UG
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 11:44:06 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ id 1tsh52-0006NF-EE
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 11:50:28 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 77fcd1a5-0000-11f0-9ab9-95dc52dad729;
- Thu, 13 Mar 2025 12:44:06 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-43d0c18e84eso5178685e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 04:44:06 -0700 (PDT)
+ id 5b13900a-0001-11f0-9ab9-95dc52dad729;
+ Thu, 13 Mar 2025 12:50:27 +0100 (CET)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3914aba1ce4so682671f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 04:50:27 -0700 (PDT)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395cb318a5fsm1851733f8f.79.2025.03.13.04.44.05
+ ffacd0b85a97d-395cb318a12sm1862639f8f.75.2025.03.13.04.50.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Mar 2025 04:44:05 -0700 (PDT)
+ Thu, 13 Mar 2025 04:50:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 77fcd1a5-0000-11f0-9ab9-95dc52dad729
+X-Inumbo-ID: 5b13900a-0001-11f0-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741866246; x=1742471046; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1741866627; x=1742471427; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4+dligUpIn7eZeZppXpXDaOpcvkUgqp7/b0zEBX4m14=;
-        b=rq3Wni/eFpTDGcbAYOfD1Pt6QYmn4+9y7zPaLz1yyVATlrvsg93woQk4nud3SePHwG
-         K9PzVhywxg+0Ci4Hzx6mOuC1Tj4eE8x3JPjjDap0CwWIF1/g+aLx8cB1RCMnQeQ3DICa
-         DhXLfc31xoOxZR5cMmJA52Z9UQ/Frbdpb1ILs=
+        bh=TwD2InZFQbMmnKmgNnnxw0QuykR8zp9a4UFZ37MyqrY=;
+        b=ZzLl/55ubyeX8V9tVw72haCv8UTrzYGV8/k9ur5tgZxeDk6WfEHfj6CsjFJFrRXbkb
+         hdlBhDU88YpKaMlzN9kozx712b1hZqknW7tJuUAlbNwNw03lNoMXLxX1yN45jw8GVC27
+         xUFOSxC4UvYSX+OgxAZH+mLT5mWCuckGDk3/8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741866246; x=1742471046;
+        d=1e100.net; s=20230601; t=1741866627; x=1742471427;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4+dligUpIn7eZeZppXpXDaOpcvkUgqp7/b0zEBX4m14=;
-        b=dZem0CQZJtzOFv5sX1NC0HqIddzo23Pq8cgE9SpWdB87+B1eCvPLNDzpepkB9J9dgX
-         5U9mYzBIvA/i+fvMh6mPZxM9mxZwnl1ChOSzVh3cB2D7InURORQXpsVYeOGvA9egyTqY
-         lRzAPHT2kqvHh0y+Vi3v+JxHEm22Ty7zRQkG3HoEHYjyUgY0fhVFGATPIcSC6+F1sBbO
-         d141n7OCT0QyeJl48DeNCiMEXFFkGScG4NEROTLTRbDE4ZewqqM0U2rLysyqq7cl9/vo
-         OAoomceVY8QoIpSOi6TxzUq2tz95MkJBCUrXXSubSnOtiUaA/p6acmnb3Gy54BFKgyLD
-         Se5w==
-X-Forwarded-Encrypted: i=1; AJvYcCVimcfbeDYM+sZJUR9JN8G7sesG5upPPCRCvtIAbi4HLTv9pN1xyvMJKw26pGSbtweRo/q75uG1xAc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy2LeIvY8GtUes01XtNYV3r+i1yIQR4HJ09SLED6BBb6SGQVBU2
-	OCpcXc+2CjTX3Xn1hU6//ZQ8DDktl7Wcd95Yor15KYXwn1TT/miZkXn7BbQrLZM=
-X-Gm-Gg: ASbGncuOnA7PcVm5PqVMHa5NopTsrc/Ysmf9xlp9AohQUefTt+6oVqlWwcusvTjkcWL
-	+IPr2J73p4k57bDnAZy+hRow3Ml3dPlJ+qdlQGipP7A/TgE+dBkVTxq7F17Fk+VxmFv0683HMQw
-	FUHJyfZTwSDkbbpZGLzCKw5K2iiSLmiy7LY/QXpkG879dapq0ZOm76trQzmNJWP0oJojf8ohceb
-	GxEYnNA+7M9DoP9FXhpJagdAsiKnBY4ZcF3dI3TzyRemjGeUZIpi1fWdVDW7FSc82bWDMkpnk0C
-	+lC0j/OPzOIRvyECYwP9bWyqMBwEkMVbPGG6V8FyccZ2cQv32kihukSfw3ULEC6SKF25JXlelKS
-	8aUQN0nub
-X-Google-Smtp-Source: AGHT+IGD5ZSgXrgNvl9nNf5lNKGAYJAFmXn7V2SKcM1e8jfX4L8ZOEOY7v8BVcsX7Do3CYGlBOQ01w==
-X-Received: by 2002:a5d:64cd:0:b0:390:f2f1:2a17 with SMTP id ffacd0b85a97d-39132da9d2amr20535279f8f.53.1741866245758;
-        Thu, 13 Mar 2025 04:44:05 -0700 (PDT)
-Message-ID: <8655362d-4019-4dca-b232-5adeb13c3ac1@citrix.com>
-Date: Thu, 13 Mar 2025 11:44:04 +0000
+        bh=TwD2InZFQbMmnKmgNnnxw0QuykR8zp9a4UFZ37MyqrY=;
+        b=xJMUS6ptixqZiqPWxHBe+ZlT73UJXy9IAgYU2eirlZb3zw6pAoY+WQhpuXHpAyifvi
+         Q9/fOyS02xcdyHztlyf9IG3DtXT9M0MUCgPD59tNewTWE/Yh10BYJqurjNrWBnAUxYND
+         fNapLwrMx6Z06HWZ7Nxpvo0XLCK4BoYlvcAhSh1MF666bXBi9sm/an3ZMrczD3X5oXDv
+         xDaZW8JW5kWtOIpdfdApA1ZTXzPVu2CH9juMB+erheb1cXMceYtBHxoJDjyutvYieDXC
+         LPCRiD8u8YqUfaDrIfV0g4VXl/RMVVDQf7Z/tjlLNysBbNuQ+M7kNwRhgNK00pcb2Xbx
+         m99g==
+X-Forwarded-Encrypted: i=1; AJvYcCUAmk15VxCzVV3nlUfFNkNBulzMl2Tar59nK1gu+qcoA5Wp0MKmn25ieqiiL1u8T1Rh6zLi5FbPeoI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxSsi74kFe1ODGuSIaIl3EXIwr5fiLOcrd0lSvIMiGmRWZRhaxs
+	ISVQiWakThgfV5p2q13q5LdV3I7ebqyTtA++9u5GBPf8FZ23Jv7XFlsO96IEYPc=
+X-Gm-Gg: ASbGnctJNyx94HE4clzZVHcKth/P62hO6WAfL9Nxa9R+hAaYr+hV/kdWtZFrdtIhmjj
+	KUXsZUyhcbO1n6LAQY0scyUarkqi05Zzk+kRp7/zc2CvKjtl8q6UBUJiEuADSsSNNVzBtLwgaGb
+	HgcG4qOaH5xhd78JDaw4xE8a4ouPnZm1LtC9E6bpejvWgp4YDEtelzJXlU3fAT5yaFeq2ZynHrw
+	fVZ9XnSFz4ZZFET28v425+azWgEVuK+B/FTiDDxguMvcHeN46Eg9s7CRsNN9pTqHdS+zOrQpBz8
+	QWUEhKwDL/CV9Ne0prmJC94iOMd0+uZFUDR1x74D0ZzSRO+IWEVHuOwpQRmAoe6YVzbH6CKbQs1
+	I2mzVhGY3
+X-Google-Smtp-Source: AGHT+IH0njngF816MrTtIZXSTDaGJDf+DIm+qbChlmUNNc5jL8vq2dYxUX+8iYEiPftn9kj2lJeJqw==
+X-Received: by 2002:a5d:64c3:0:b0:391:2932:e67b with SMTP id ffacd0b85a97d-39132dacfdbmr25419003f8f.35.1741866626689;
+        Thu, 13 Mar 2025 04:50:26 -0700 (PDT)
+Message-ID: <d58143e7-22f0-40f0-a391-1c0308796d30@citrix.com>
+Date: Thu, 13 Mar 2025 11:50:25 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/sched: fix arinc653 to not use variables across
- cpupools
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
- xen-devel@dornerworks.com
-Cc: Nathan Studer <nathan.studer@dornerworks.com>,
- Stewart Hildebrand <stewart@stew.dk>, Dario Faggioli <dfaggioli@suse.com>,
- George Dunlap <gwd@xenproject.org>, Choi Anderson <Anderson.Choi@boeing.com>
-References: <20250313093157.30450-1-jgross@suse.com>
+Subject: Re: [PATCH 8/8] xen/mm: Exclude flushtlb.h from mm.h for x86
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250312174513.4075066-1-andrew.cooper3@citrix.com>
+ <20250312174513.4075066-10-andrew.cooper3@citrix.com>
+ <cd4e4e69-9b54-40bf-a9e2-88191481487d@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -137,22 +143,24 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250313093157.30450-1-jgross@suse.com>
+In-Reply-To: <cd4e4e69-9b54-40bf-a9e2-88191481487d@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 13/03/2025 9:31 am, Juergen Gross wrote:
-> a653sched_do_schedule() is using two function local static variables,
-> which is resulting in bad behavior when using more than one cpupool
-> with the arinc653 scheduler.
+On 13/03/2025 9:13 am, Jan Beulich wrote:
+> On 12.03.2025 18:45, Andrew Cooper wrote:
+>> alternative.c and livepatch.c pick up flushtlb.h transitively through mm.h.
+>>
+>> Fix these, and finally resolve the TODO in microcode/amd.c
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
 >
-> Fix that by moving those variables to the scheduler private data.
 >
-> Fixes: 22787f2e107c ("ARINC 653 scheduler")
-> Reported-by: Choi Anderson <Anderson.Choi@boeing.com>
-> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Oh lovely, those statics are nicely hidden in the local variable list.
+Thanks.  Randconfig thus far has found that
+xen/arch/x86/guest/hyperv/tlb.c needs an extra include too, which I've
+fixed up locally.
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+~Andrew
 
