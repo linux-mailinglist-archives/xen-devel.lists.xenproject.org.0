@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91448A5ED93
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 09:07:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.911336.1317784 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74C0FA5ED99
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 09:07:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.911341.1317794 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsdam-0002RF-FG; Thu, 13 Mar 2025 08:07:00 +0000
+	id 1tsdb7-0002rh-NM; Thu, 13 Mar 2025 08:07:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 911336.1317784; Thu, 13 Mar 2025 08:07:00 +0000
+Received: by outflank-mailman (output) from mailman id 911341.1317794; Thu, 13 Mar 2025 08:07:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsdam-0002PV-Ca; Thu, 13 Mar 2025 08:07:00 +0000
-Received: by outflank-mailman (input) for mailman id 911336;
- Thu, 13 Mar 2025 08:06:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tsdb7-0002pJ-Jr; Thu, 13 Mar 2025 08:07:21 +0000
+Received: by outflank-mailman (input) for mailman id 911341;
+ Thu, 13 Mar 2025 08:07:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7Xn0=WA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tsdak-0002PI-Lh
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 08:06:58 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2237ef2a-ffe2-11ef-9ab9-95dc52dad729;
- Thu, 13 Mar 2025 09:06:57 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-391342fc148so399774f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 01:06:57 -0700 (PDT)
+ id 1tsdb6-0002fh-FE
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 08:07:20 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2ed36e0f-ffe2-11ef-9898-31a8f345e629;
+ Thu, 13 Mar 2025 09:07:18 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-43cf628cb14so10528775e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 01:07:18 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d0a8d0ab1sm44657825e9.34.2025.03.13.01.06.55
+ ffacd0b85a97d-395c83b6e87sm1272056f8f.32.2025.03.13.01.07.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Mar 2025 01:06:55 -0700 (PDT)
+ Thu, 13 Mar 2025 01:07:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2237ef2a-ffe2-11ef-9ab9-95dc52dad729
+X-Inumbo-ID: 2ed36e0f-ffe2-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741853217; x=1742458017; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741853238; x=1742458038; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7619zjoO2xByYDNkGfqdj7sygU5oz+pkl2wMtVZ3RHY=;
-        b=MayZ0brQPLbMwJZVcU587A7qyGnO7m+v1fjMvSGYo3UwRlpje9nFHY5YqQoUUfXfQP
-         UziLZipGMw8swgDIvS6BM4rXZ7FerFidBAWiJ0gVQh9dcXbSc2nTYRrlYWF4K+KZXOKj
-         islPyeznqrU2/tcI4ubWrj5Z34Nh4jwjW7pv0H54WtkicALNO/ycJWyc1BYonAZGCKUy
-         2Y0HqFbQwqa4BYow4vU+t3BIeehSFE520zA6NHZVGZWBB1YXV9yycKIvJj9msxLmX3cX
-         BRA95a79AI5eZ14ixbpJ4C8mX+blpRt+KGe6+wizAzAIAdQ8FYaoNhycXHdQg66u9iyH
-         HAcQ==
+        bh=JZSRw1yeJ0fgmNmD4NFPkk5QxMfczbYCBB42jjWa7ro=;
+        b=dbNenuFxlb21MPiLDaqkXptFxlFStdi3Jef9jtunGkg1RcnQZi6HFzMaBpmPbcUaN6
+         GFYL1roUANTGRhVY2a7Bl+F4v6qiDjHZhh5rr2giYZmSGBJuimIveVKq9dtWnd3l/FMq
+         x2iWryHhsaigXUGYKXZkjQ76WTIQXJEnO84ucSG8iplzlG+zzeRAABlOJ2S+asLAfhYL
+         fQ60u3MTtfr4QOv3JfyNPycANdYHG9h6J58U8y8V8lWJd+KMR1TPqEntFwprgVwfLz2q
+         0ltJ4bBN50SBGsJQXoJWuHdkKU7YCVdwu4/lw0gRJGpKUTqxx1Vae0y9UybIT49ButVa
+         7mqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741853217; x=1742458017;
+        d=1e100.net; s=20230601; t=1741853238; x=1742458038;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=7619zjoO2xByYDNkGfqdj7sygU5oz+pkl2wMtVZ3RHY=;
-        b=gzpKcPT7Kj0XOkp+I8mEIoMqSFmD6gbPbYQ84WwwN637fuhM/8BSTYSagXoHbGM13u
-         W+ue22W3jEzLzxxHfhRCRby7APRScgaJat9lfeAHv4iRmLGTFvLfqCM6YWebOdRPcQn1
-         nPGvzpyH5Vo7xx8vsZPgvm44XmGgvh7mwwQ7mOqmmac1pl7bvhACEss+hlbxul2u3gVD
-         2gRAK46EJo0qJL6ns1GqxeKvg7feIDo2tEwtYYULeHtwGVk3y4H2lQuLtaOZrE7lFYcs
-         ViERzAeVZwsA+BzMpbTNR4k3esmCNvnOvBXkvASnKc4liIrPrO1yW/cySm9bID8rVz2Q
-         Ygwg==
-X-Gm-Message-State: AOJu0YySA1z3V8wD7sr56oKQxtFLuo4xOwtlGHk5HzI4g/IoQvLwLTIS
-	6uvyhBcJ8LARPEduuu/PCt1UmLnHjYwEC0eWQPx6P1efyZUY711aN9A6Db9wz/Nj6xSfmNrj0Tk
+        bh=JZSRw1yeJ0fgmNmD4NFPkk5QxMfczbYCBB42jjWa7ro=;
+        b=i/S2Xb4bBRBG+0cunhybKEu/gd8oIiX/vHeihoCKZcBgnmmySckHlxiDHFqWEb73qJ
+         AVGdeBH5bpdtQOwJx+Z7oadIdlO29o6NXuFg5v5Ud3HrhErQqNCIJOjsj86GTr05DO41
+         1ar5Z66hERcH+M5MEmvpjgk90DOGq1dxK4khdmjU6a0vTUk91Zo5cIe4euOGZKQsXX2D
+         BgCmfJHCbcu83kzk+b4m8AgoNgR4JEVEfpgYF2j9GsZyocWqLpLM435k0Fepytif6knu
+         ibk5bgxAjxwcbOVn4p5YQw+mqUKZXsuY8pCARVCPGiqjkdB2ts7NSgLcKIwm2sEoaqVf
+         vnXQ==
+X-Gm-Message-State: AOJu0YyvnnmrCaGI/OblqjvQIpErPw/BDo/Z8IWrwHnXta3uNGOpOPYD
+	qh9DGQbfesJAqfNuzb6TpcQhk2cfFKczwDET8JG0kapGJ56y45EZ9coodAy4GqDlY318IS9v6DI
 	=
-X-Gm-Gg: ASbGncs7eddKbp/U8EPObYZedR9GB/PkRMNoaYf1ta0TKY7HBC86zEVdEOtBpR1WrNp
-	nTGRN1wFpb7CYqUOXrMh68WCCSqj60oSkK7uDiK7QyjdVuRIPqu4CFXAogiRHe0wk22Lo9yRQdk
-	3rYREX/uRAJOmsAlZE07kKWn71weoSq3JQWNDdbTvPpd7dWnNnweh3D/p07DUOjGQvZnvp3auoz
-	64tLR+qhw1gjzHD5sb2jUn1GvKQWmawdvOypbXryvvyoK2TTQAloQXqdzakJaigv/sR5IfN0ie+
-	Y/1773RCirhxuvrBb/VY3cj/CCTkLhoHczrQhvjgIyn5aiP3YFpdLxCM7YnqQAdm2tpwYtQsxNS
-	DDUafLT1p0Y+UTJKSznSHtiK5ReGW3w==
-X-Google-Smtp-Source: AGHT+IEo1IQ9uoEizqtAsPBqTlrWlQljwbYaHMwlndpgBGDZcWP6V8gULeLoTzD2HCpCF/fW/TARCw==
-X-Received: by 2002:a5d:47cd:0:b0:390:f902:f973 with SMTP id ffacd0b85a97d-39263b006d0mr7634331f8f.8.1741853216878;
-        Thu, 13 Mar 2025 01:06:56 -0700 (PDT)
-Message-ID: <6c071ddd-1e9b-44ea-a07c-3d049abefaa3@suse.com>
-Date: Thu, 13 Mar 2025 09:06:55 +0100
+X-Gm-Gg: ASbGncvNRxGNcEfST2t59lXmoc74Z7kuCneX6f7pWG4nxc6sKrkn4ER54LL1zyfO9NU
+	5yu6V2GUJM9dtLR4p0rH1DfxS78zuNAXcSv4HufELVyZCkxk0JODAStalctMHJkR9vXAt7AT27r
+	FzKxt7D6+g1ous3tuo02Qwi2xyAylsMwQSLLvVEU9N8+4Go/PwmuVG+l8pGM6eccdU7EZR1gJKc
+	yKceACt/zfGKV8NN5gVlryxXJvl2LFWg+m1sbnLdJWeoHfSe5GUg6X+RUpood7OEZxfTYoaEe7G
+	C3aStphZD/dQ5yfr6h0P6sb+HrG+ygO4YTwjRVesqrCxaFtnLGr4Xr46zRtx3ptKY9Wtd2Dvmr0
+	jJbaXm8qafhcBMYaJ+xHgEvTiICOFag==
+X-Google-Smtp-Source: AGHT+IFUQAYgdwylcRt17N6aDzg8lVuRZinZ/67XT/+6aKMIt6u3gbVMpzUPLXDGMc3NmVZOw/29Ug==
+X-Received: by 2002:a05:6000:18a3:b0:38d:ae1e:2f3c with SMTP id ffacd0b85a97d-395b86ea83amr1129332f8f.25.1741853238105;
+        Thu, 13 Mar 2025 01:07:18 -0700 (PDT)
+Message-ID: <1287edd8-188f-4b1a-b087-0beb3eea5ed4@suse.com>
+Date: Thu, 13 Mar 2025 09:07:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v8 RESEND 1/6] Arm32: use new-style entry annotations for
- library code
+Subject: [PATCH v8 RESEND 2/6] Arm32: use new-style entry annotations for MMU
+ code
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
@@ -125,382 +125,178 @@ In-Reply-To: <ebc98ba6-4ced-4e74-baa6-089240465eca@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-No functional change, albeit all globals now become hidden, and aliasing
-symbols (__aeabi_{u,}idiv) lose their function-ness and size.
+Locally override SYM_PUSH_SECTION() to retain the intended section
+association.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 Tested-by: Luca Fancellu <luca.fancellu@arm.com> # arm
 ---
-If the function-ness was important (Julien says it likely isn't), some
-new construct would need inventing. Not setting size for the aliases may
-even be desirable, as I'm uncertain whether it is really legal in ELF
-that two entities overlap in space.
----
-v8: Re-base.
 v7: New.
 
---- a/xen/arch/arm/arm32/lib/findbit.S
-+++ b/xen/arch/arm/arm32/lib/findbit.S
-@@ -20,7 +20,7 @@
-  * Purpose  : Find a 'zero' bit
-  * Prototype: int find_first_zero_bit(void *addr, unsigned int maxbit);
-  */
--ENTRY(_find_first_zero_bit_le)
-+FUNC(_find_first_zero_bit_le)
- 		teq	r1, #0	
- 		beq	3f
- 		mov	r2, #0
-@@ -35,13 +35,13 @@ ENTRY(_find_first_zero_bit_le)
- 		blo	1b
- 3:		mov	r0, r1			@ no free bits
- 		mov	pc, lr
--ENDPROC(_find_first_zero_bit_le)
-+END(_find_first_zero_bit_le)
- 
- /*
-  * Purpose  : Find next 'zero' bit
-  * Prototype: int find_next_zero_bit(void *addr, unsigned int maxbit, int offset)
-  */
--ENTRY(_find_next_zero_bit_le)
-+FUNC(_find_next_zero_bit_le)
- 		cmp	r1, r2
- 		bls	3b
- 		ands	ip, r2, #7
-@@ -55,13 +55,13 @@ ENTRY(_find_next_zero_bit_le)
- 		orr	r2, r2, #7		@ if zero, then no bits here
- 		add	r2, r2, #1		@ align bit pointer
- 		b	2b			@ loop for next bit
--ENDPROC(_find_next_zero_bit_le)
-+END(_find_next_zero_bit_le)
- 
- /*
-  * Purpose  : Find a 'one' bit
-  * Prototype: int find_first_bit(const unsigned long *addr, unsigned int maxbit);
-  */
--ENTRY(_find_first_bit_le)
-+FUNC(_find_first_bit_le)
- 		teq	r1, #0	
- 		beq	3f
- 		mov	r2, #0
-@@ -76,13 +76,13 @@ ENTRY(_find_first_bit_le)
- 		blo	1b
- 3:		mov	r0, r1			@ no free bits
- 		mov	pc, lr
--ENDPROC(_find_first_bit_le)
-+END(_find_first_bit_le)
- 
- /*
-  * Purpose  : Find next 'one' bit
-  * Prototype: int find_next_zero_bit(void *addr, unsigned int maxbit, int offset)
-  */
--ENTRY(_find_next_bit_le)
-+FUNC(_find_next_bit_le)
- 		cmp	r1, r2
- 		bls	3b
- 		ands	ip, r2, #7
-@@ -95,11 +95,11 @@ ENTRY(_find_next_bit_le)
- 		orr	r2, r2, #7		@ if zero, then no bits here
- 		add	r2, r2, #1		@ align bit pointer
- 		b	2b			@ loop for next bit
--ENDPROC(_find_next_bit_le)
-+END(_find_next_bit_le)
- 
- #ifdef __ARMEB__
- 
--ENTRY(_find_first_zero_bit_be)
-+FUNC(_find_first_zero_bit_be)
- 		teq	r1, #0
- 		beq	3f
- 		mov	r2, #0
-@@ -114,9 +114,9 @@ ENTRY(_find_first_zero_bit_be)
- 		blo	1b
- 3:		mov	r0, r1			@ no free bits
- 		mov	pc, lr
--ENDPROC(_find_first_zero_bit_be)
-+END(_find_first_zero_bit_be)
- 
--ENTRY(_find_next_zero_bit_be)
-+FUNC(_find_next_zero_bit_be)
- 		cmp	r1, r2
- 		bls	3b
- 		ands	ip, r2, #7
-@@ -131,9 +131,9 @@ ENTRY(_find_next_zero_bit_be)
- 		orr	r2, r2, #7		@ if zero, then no bits here
- 		add	r2, r2, #1		@ align bit pointer
- 		b	2b			@ loop for next bit
--ENDPROC(_find_next_zero_bit_be)
-+END(_find_next_zero_bit_be)
- 
--ENTRY(_find_first_bit_be)
-+FUNC(_find_first_bit_be)
- 		teq	r1, #0
- 		beq	3f
- 		mov	r2, #0
-@@ -148,9 +148,9 @@ ENTRY(_find_first_bit_be)
- 		blo	1b
- 3:		mov	r0, r1			@ no free bits
- 		mov	pc, lr
--ENDPROC(_find_first_bit_be)
-+END(_find_first_bit_be)
- 
--ENTRY(_find_next_bit_be)
-+FUNC(_find_next_bit_be)
- 		cmp	r1, r2
- 		bls	3b
- 		ands	ip, r2, #7
-@@ -164,7 +164,7 @@ ENTRY(_find_next_bit_be)
- 		orr	r2, r2, #7		@ if zero, then no bits here
- 		add	r2, r2, #1		@ align bit pointer
- 		b	2b			@ loop for next bit
--ENDPROC(_find_next_bit_be)
-+END(_find_next_bit_be)
- 
- #endif
- 
---- a/xen/arch/arm/arm32/lib/lib1funcs.S
-+++ b/xen/arch/arm/arm32/lib/lib1funcs.S
-@@ -201,8 +201,8 @@ along with this program; see the file CO
+--- a/xen/arch/arm/arm32/mmu/head.S
++++ b/xen/arch/arm/arm32/mmu/head.S
+@@ -160,6 +160,13 @@
  .endm
  
+ .section .text.idmap, "ax", %progbits
++/*
++ * Code below wants to all live in the section established above.  Annotations
++ * from xen/linkage.h therefore may not switch sections (honoring
++ * CONFIG_CC_SPLIT_SECTIONS).  Override the respective macro.
++ */
++#undef SYM_PUSH_SECTION
++#define SYM_PUSH_SECTION(name, attr)
  
--ENTRY(__udivsi3)
--ENTRY(__aeabi_uidiv)
-+FUNC(__udivsi3)
-+LABEL(__aeabi_uidiv)
- UNWIND(.fnstart)
- 
- 	subs	r2, r1, #1
-@@ -228,10 +228,9 @@ UNWIND(.fnstart)
- 	mov	pc, lr
- 
- UNWIND(.fnend)
--ENDPROC(__udivsi3)
--ENDPROC(__aeabi_uidiv)
-+END(__udivsi3)
- 
--ENTRY(__umodsi3)
-+FUNC(__umodsi3)
- UNWIND(.fnstart)
- 
- 	subs	r2, r1, #1			@ compare divisor with 1
-@@ -247,10 +246,10 @@ UNWIND(.fnstart)
- 	mov	pc, lr
- 
- UNWIND(.fnend)
--ENDPROC(__umodsi3)
-+END(__umodsi3)
- 
--ENTRY(__divsi3)
--ENTRY(__aeabi_idiv)
-+FUNC(__divsi3)
-+LABEL(__aeabi_idiv)
- UNWIND(.fnstart)
- 
- 	cmp	r1, #0
-@@ -289,10 +288,9 @@ UNWIND(.fnstart)
- 	mov	pc, lr
- 
- UNWIND(.fnend)
--ENDPROC(__divsi3)
--ENDPROC(__aeabi_idiv)
-+END(__divsi3)
- 
--ENTRY(__modsi3)
-+FUNC(__modsi3)
- UNWIND(.fnstart)
- 
- 	cmp	r1, #0
-@@ -314,11 +312,11 @@ UNWIND(.fnstart)
- 	mov	pc, lr
- 
- UNWIND(.fnend)
--ENDPROC(__modsi3)
-+END(__modsi3)
- 
- #ifdef CONFIG_AEABI
- 
--ENTRY(__aeabi_uidivmod)
-+FUNC(__aeabi_uidivmod)
- UNWIND(.fnstart)
- UNWIND(.save {r0, r1, ip, lr}	)
- 
-@@ -330,9 +328,9 @@ UNWIND(.save {r0, r1, ip, lr}	)
- 	mov	pc, lr
- 
- UNWIND(.fnend)
--ENDPROC(__aeabi_uidivmod)
-+END(__aeabi_uidivmod)
- 
--ENTRY(__aeabi_idivmod)
-+FUNC(__aeabi_idivmod)
- UNWIND(.fnstart)
- UNWIND(.save {r0, r1, ip, lr}	)
- 	stmfd	sp!, {r0, r1, ip, lr}
-@@ -343,9 +341,9 @@ UNWIND(.save {r0, r1, ip, lr}	)
- 	mov	pc, lr
- 
- UNWIND(.fnend)
--ENDPROC(__aeabi_idivmod)
-+END(__aeabi_idivmod)
- 
--ENTRY(__aeabi_uldivmod)
-+FUNC(__aeabi_uldivmod)
- UNWIND(.fnstart)
- UNWIND(.save {lr}	)
- 	sub sp, sp, #8
-@@ -357,9 +355,9 @@ UNWIND(.save {lr}	)
- 	mov	pc, lr
- 
- UNWIND(.fnend)
--ENDPROC(__aeabi_uldivmod)
-+END(__aeabi_uldivmod)
- 
--ENTRY(__aeabi_ldivmod)
-+FUNC(__aeabi_ldivmod)
- UNWIND(.fnstart)
- UNWIND(.save {lr}	)
- 	sub sp, sp, #16
-@@ -371,10 +369,10 @@ UNWIND(.save {lr}	)
- 	mov	pc, lr
- 	
- UNWIND(.fnend)
--ENDPROC(__aeabi_ldivmod)
-+END(__aeabi_ldivmod)
- #endif
- 
--Ldiv0:
-+FUNC_LOCAL(Ldiv0)
- UNWIND(.fnstart)
- UNWIND(.pad #4)
- UNWIND(.save {lr})
-@@ -383,4 +381,4 @@ UNWIND(.save {lr})
- 	mov	r0, #0			@ About as wrong as it could be.
- 	ldr	pc, [sp], #8
- UNWIND(.fnend)
--ENDPROC(Ldiv0)
-+END(Ldiv0)
---- a/xen/arch/arm/arm32/lib/lshrdi3.S
-+++ b/xen/arch/arm/arm32/lib/lshrdi3.S
-@@ -34,8 +34,8 @@ along with this program; see the file CO
- #define ah r1
- #endif
- 
--ENTRY(__lshrdi3)
--ENTRY(__aeabi_llsr)
-+FUNC(__lshrdi3)
-+LABEL(__aeabi_llsr)
- 
- 	subs	r3, r2, #32
- 	rsb	ip, r2, #32
-@@ -47,5 +47,4 @@ ENTRY(__aeabi_llsr)
- 	mov	ah, ah, lsr r2
- 	mov	pc, lr
- 
--ENDPROC(__lshrdi3)
--ENDPROC(__aeabi_llsr)
-+END(__lshrdi3)
---- a/xen/arch/arm/arm32/lib/memchr.S
-+++ b/xen/arch/arm/arm32/lib/memchr.S
-@@ -12,8 +12,7 @@
- #include "assembler.h"
- 
- 	.text
--	.align	5
--ENTRY(memchr)
-+FUNC(memchr, 32)
- 	and	r1, r1, #0xff
- 1:	subs	r2, r2, #1
- 	bmi	2f
-@@ -23,4 +22,4 @@ ENTRY(memchr)
- 	sub	r0, r0, #1
- 2:	movne	r0, #0
- 	mov	pc, lr
--ENDPROC(memchr)
-+END(memchr)
---- a/xen/arch/arm/arm32/lib/memcpy.S
-+++ b/xen/arch/arm/arm32/lib/memcpy.S
-@@ -54,8 +54,8 @@
- 
- /* Prototype: void *memcpy(void *dest, const void *src, size_t n); */
- 
--ENTRY(memcpy)
-+FUNC(memcpy)
- 
- #include "copy_template.S"
- 
--ENDPROC(memcpy)
-+END(memcpy)
---- a/xen/arch/arm/arm32/lib/memmove.S
-+++ b/xen/arch/arm/arm32/lib/memmove.S
-@@ -24,7 +24,7 @@
-  * occurring in the opposite direction.
+ /*
+  * Rebuild the boot pagetable's first-level entries. The structure
+@@ -174,7 +181,7 @@
+  *
+  * Clobbers r0 - r5
   */
+-create_page_tables:
++FUNC_LOCAL(create_page_tables)
+         /* Prepare the page-tables for mapping Xen */
+         mov_w r0, XEN_VIRT_START
  
--ENTRY(memmove)
-+FUNC(memmove)
+@@ -263,7 +270,7 @@ use_temporary_mapping:
  
- 		subs	ip, r0, r1
- 		cmphi	r2, ip
-@@ -194,4 +194,4 @@ ENTRY(memmove)
+         mov   r12, #1                /* r12 := temporary mapping created */
+         mov   pc, lr
+-ENDPROC(create_page_tables)
++END(create_page_tables)
  
- 18:		backward_copy_shift	push=24	pull=8
+ /*
+  * Turn on the Data Cache and the MMU. The function will return
+@@ -276,7 +283,7 @@ ENDPROC(create_page_tables)
+  *
+  * Clobbers r0 - r5
+  */
+-enable_mmu:
++FUNC_LOCAL(enable_mmu)
+         PRINT("- Turning on paging -\r\n")
  
--ENDPROC(memmove)
-+END(memmove)
---- a/xen/arch/arm/arm32/lib/memset.S
-+++ b/xen/arch/arm/arm32/lib/memset.S
-@@ -12,9 +12,8 @@
- #include "assembler.h"
+         /*
+@@ -346,7 +353,7 @@ enable_mmu:
+         teq   r12, #0
+         beq   remove_identity_mapping
+         b     remove_temporary_mapping
+-ENDPROC(enable_mmu)
++END(enable_mmu)
  
- 	.text
--	.align	5
+ /*
+  * Switch to the runtime mapping. The logic depends on whether the
+@@ -366,7 +373,7 @@ ENDPROC(enable_mmu)
+  *
+  * Clobbers r0 - r4
+  */
+-switch_to_runtime_mapping:
++FUNC_LOCAL(switch_to_runtime_mapping)
+         /*
+          * Jump to the runtime mapping if the virt and phys are not
+          * clashing
+@@ -411,7 +418,7 @@ ready_to_switch:
+         PRINT_ID("- Jumping to runtime address -\r\n")
  
--ENTRY(memset)
-+FUNC(memset, 32)
- 	and	r1, r1, #0xff
- 	ands	r3, r0, #3		@ 1 unaligned?
- 	mov	ip, r0			@ preserve r0 as return value
-@@ -120,4 +119,4 @@ ENTRY(memset)
- 	strb	r1, [ip], #1		@ 1
- 	add	r2, r2, r3		@ 1 (r2 = r2 - (4 - r3))
- 	b	1b
--ENDPROC(memset)
-+END(memset)
---- a/xen/arch/arm/arm32/lib/strchr.S
-+++ b/xen/arch/arm/arm32/lib/strchr.S
-@@ -14,8 +14,7 @@
- #include "assembler.h"
+         mov   pc, lr
+-ENDPROC(switch_to_runtime_mapping)
++END(switch_to_runtime_mapping)
  
- 		.text
--		.align	5
--ENTRY(strchr)
-+FUNC(strchr, 32)
- 		and	r1, r1, #0xff
- 1:		ldrb	r2, [r0], #1
- 		teq	r2, r1
-@@ -25,4 +24,4 @@ ENTRY(strchr)
- 		movne	r0, #0
- 		subeq	r0, r0, #1
- 		mov	pc, lr
--ENDPROC(strchr)
-+END(strchr)
---- a/xen/arch/arm/arm32/lib/strrchr.S
-+++ b/xen/arch/arm/arm32/lib/strrchr.S
-@@ -12,8 +12,7 @@
- #include "assembler.h"
+ /*
+  * Enable mm (turn on the data cache and the MMU) for secondary CPUs.
+@@ -428,7 +435,7 @@ ENDPROC(switch_to_runtime_mapping)
+  *
+  * Clobbers r0 - r6
+  */
+-ENTRY(enable_secondary_cpu_mm)
++FUNC(enable_secondary_cpu_mm)
+         mov   r6, lr
  
- 		.text
--		.align	5
--ENTRY(strrchr)
-+FUNC(strrchr, 32)
- 		and	r1, r1, #0xff
- 		mov	r3, #0
- 1:		ldrb	r2, [r0], #1
-@@ -23,4 +22,4 @@ ENTRY(strrchr)
- 		bne	1b
- 		mov	r0, r3
- 		mov	pc, lr
--ENDPROC(strrchr)
-+END(strrchr)
+         bl    create_page_tables
+@@ -456,7 +463,7 @@ ENTRY(enable_secondary_cpu_mm)
+ 
+         /* Return to the virtual address requested by the caller. */
+         mov   pc, r6
+-ENDPROC(enable_secondary_cpu_mm)
++END(enable_secondary_cpu_mm)
+ 
+ /*
+  * Enable mm (turn on the data cache and the MMU) for the boot CPU.
+@@ -474,7 +481,7 @@ ENDPROC(enable_secondary_cpu_mm)
+  *
+  * Clobbers r0 - r6
+  */
+-ENTRY(enable_boot_cpu_mm)
++FUNC(enable_boot_cpu_mm)
+         mov   r6, lr
+ 
+ #ifdef CONFIG_EARLY_PRINTK
+@@ -491,7 +498,7 @@ ENTRY(enable_boot_cpu_mm)
+         /* Address in the runtime mapping to jump to after the MMU is enabled */
+         mov   lr, r6
+         b     enable_mmu
+-ENDPROC(enable_boot_cpu_mm)
++END(enable_boot_cpu_mm)
+ 
+ /*
+  * Remove the 1:1 map from the page-tables. It is not easy to keep track
+@@ -503,7 +510,7 @@ ENDPROC(enable_boot_cpu_mm)
+  *
+  * Clobbers r0 - r3
+  */
+-remove_identity_mapping:
++FUNC_LOCAL(remove_identity_mapping)
+         PRINT("- Removing the identity mapping -\r\n")
+ 
+         /* r2:r3 := invalid page-table entry */
+@@ -518,14 +525,14 @@ remove_identity_mapping:
+ 
+         flush_xen_tlb_local r0
+         mov   pc, lr
+-ENDPROC(remove_identity_mapping)
++END(remove_identity_mapping)
+ 
+ /*
+  * Remove the temporary mapping of Xen starting at TEMPORARY_XEN_VIRT_START.
+  *
+  * Clobbers r0 - r3
+  */
+-remove_temporary_mapping:
++FUNC_LOCAL(remove_temporary_mapping)
+         PRINT("- Removing the temporary mapping -\r\n")
+ 
+         /* r2:r3 := invalid page-table entry */
+@@ -541,13 +548,14 @@ remove_temporary_mapping:
+         flush_xen_tlb_local r0
+ 
+         mov  pc, lr
+-ENDPROC(remove_temporary_mapping)
++END(remove_temporary_mapping)
+ 
+ /* Fail-stop */
+-fail:   PRINT("- Boot failed -\r\n")
++FUNC_LOCAL(fail)
++        PRINT("- Boot failed -\r\n")
+ 1:      wfe
+         b     1b
+-ENDPROC(fail)
++END(fail)
+ 
+ /*
+  * Switch TTBR
+@@ -555,7 +563,7 @@ ENDPROC(fail)
+  *
+  * TODO: This code does not comply with break-before-make.
+  */
+-ENTRY(switch_ttbr)
++FUNC(switch_ttbr)
+         dsb                            /* Ensure the flushes happen before
+                                         * continuing */
+         isb                            /* Ensure synchronization with previous
+@@ -579,4 +587,4 @@ ENTRY(switch_ttbr)
+         isb
+ 
+         mov pc, lr
+-ENDPROC(switch_ttbr)
++END(switch_ttbr)
 
 
