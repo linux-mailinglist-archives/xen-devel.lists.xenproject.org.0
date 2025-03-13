@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9AA4A5EF6B
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 10:19:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.911655.1318061 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB28CA5EF75
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 10:22:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.911667.1318070 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tseic-000367-LR; Thu, 13 Mar 2025 09:19:10 +0000
+	id 1tselh-0005vR-0x; Thu, 13 Mar 2025 09:22:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 911655.1318061; Thu, 13 Mar 2025 09:19:10 +0000
+Received: by outflank-mailman (output) from mailman id 911667.1318070; Thu, 13 Mar 2025 09:22:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tseic-00033m-IZ; Thu, 13 Mar 2025 09:19:10 +0000
-Received: by outflank-mailman (input) for mailman id 911655;
- Thu, 13 Mar 2025 09:19:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=a3gq=WA=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tseib-00033g-3S
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 09:19:09 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 36ca2d46-ffec-11ef-9898-31a8f345e629;
- Thu, 13 Mar 2025 10:19:07 +0100 (CET)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3912baafc58so581715f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 02:19:07 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-395c8975afesm1433755f8f.47.2025.03.13.02.19.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Mar 2025 02:19:06 -0700 (PDT)
+	id 1tselg-0005t7-Ue; Thu, 13 Mar 2025 09:22:20 +0000
+Received: by outflank-mailman (input) for mailman id 911667;
+ Thu, 13 Mar 2025 09:22:18 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1tsele-0005t1-NI
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 09:22:18 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1tsele-000f3i-14;
+ Thu, 13 Mar 2025 09:22:18 +0000
+Received: from [2a02:8012:3a1:0:f06b:e0c6:4c54:6a31]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1tseld-008S1h-32;
+ Thu, 13 Mar 2025 09:22:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,105 +39,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36ca2d46-ffec-11ef-9898-31a8f345e629
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741857546; x=1742462346; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=9aqWUUKxKN6Whd+pw7h8oyju+T6yXGmM8SNdTWptgx0=;
-        b=RR3wM/Ty/MsF/hOebDu875r8o0lNqLWOXS1oSyQCJF5wIEXATQHb4jXrDrDBCbBh6S
-         lFU5QjcPBeX2SosUmpLiApdc0W88eWUosY7MRLOJ3BvBLmVPsNyadEe0b2rwjb31Rjpb
-         zEKiFIigY5M3/SemGiCEverqCr6UJapcA3zo8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741857546; x=1742462346;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=9aqWUUKxKN6Whd+pw7h8oyju+T6yXGmM8SNdTWptgx0=;
-        b=UdNMfSYVcONOHd9wNaio3vLEmmQTjGQDDLpPO7BE/VrffRBLD0rNUeAfWZbh1Raqpe
-         Tf2AAzZowFJYBGqUGYPXa8KdPr2+VV9kJu6f302aGymrb113JbELsjXIbc3YcKJuQkoU
-         sh888Q5xhooJG2K4Yhwohs1M5sgYQymreSCGxf4ggW9uuZVH1AJdRjq7e/7bHIQ4FmbA
-         lH0t+Hq5FYjn6EP2L8vcDq4MlgBFDOPChfaUnV/pXByFHCYrYyybq9bUQCGFdS95EW4F
-         Smt0XV0aSOiUyxrlvmCe5+9ZyAL4NB/kcOO1Rxhz6d8Kk7p+4CYAirP/LLKgTrBs4MxU
-         jENg==
-X-Gm-Message-State: AOJu0YwMJTdya0T00Yv85qYSKaSdyZAkzsDIVrz6aJlWB3Oqt4ke5qhT
-	NCO2wt73njqbnHKdmL8jANs4ELS8jhRvtj3bJihEb8wiaymfv38l8ptpi5MRNsM=
-X-Gm-Gg: ASbGncsw5Qsa0e+FSAVGBdQNtYp/yOvsRkzO+2hQk0lg1xmCpEiFcFlYUml3SRE8nUf
-	Ns7ewuYsr5Tz7MZm/UlA4QxXEpRH5hYyFJ2hp5yDuqMw/sUteRNarLSH9pg2+4vOlPgdKPtFpyT
-	DFLfyixfJY4TwikcMRo0f6XZMo2mcFJM177C7n3F7T+mqqsLXNqWR41unRo6F+3EF/JfNFubtY5
-	I/6hTNAtLVm5QeQWfSIbLrTabe3u045PPGpXHfSMwMyxQIcTTTQsWeKRA+bFTJABKwDh4FJibLB
-	tiYRGWUxtO1fcPg5VfOX9Pe89FQ0o0WvsnlU206xteAA8xLd7w==
-X-Google-Smtp-Source: AGHT+IFEHG1sXTFqPJADUBqcWsOU7HQDVFfcUX3U6dlUFaqrOkqal9gv1aJ+tEkIsrWJP6bZK5JSEw==
-X-Received: by 2002:a05:6000:1fa9:b0:391:253b:404a with SMTP id ffacd0b85a97d-39132d30c5bmr18025482f8f.8.1741857546554;
-        Thu, 13 Mar 2025 02:19:06 -0700 (PDT)
-Date: Thu, 13 Mar 2025 10:19:05 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Tim Deegan <tim@xen.org>
-Subject: Re: [PATCH] x86/shadow: replace p2m_is_valid() uses
-Message-ID: <Z9KjCfUslJKa0Rlj@macbook.local>
-References: <6a7391fc-4abf-4e65-8159-30f4eae8fec5@suse.com>
- <Z9F-Xul18_96ok1N@macbook.local>
- <61a7d917-c044-4064-91ee-f558f6416c0a@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=jEvASP4PbwIRCknRX2cyVtXVghEJuTxjwd8KsTxMuzw=; b=dpCs3DDUPD0tZIGreeq/ngHHVw
+	aido8TaqbpgsmyJ6mrYvKbsiHwi0sf1tISTUE2zrWysdVJzjhQ16f8Rd7bKux8zHyCCYKRMr06xe4
+	q0/8tgCl2MrRg3yZ68AeQkx7eRI5aDBWxrWhYgdQ9HyRVNAxDwzUZdblf6dU0maHRFds=;
+Message-ID: <df0ad31e-1842-41fa-9112-9e3892bfdf65@xen.org>
+Date: Thu, 13 Mar 2025 09:22:16 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <61a7d917-c044-4064-91ee-f558f6416c0a@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 05/10] arm/mpu: Introduce frame_table, virt_to_page,
+ maddr_to_virt
+Content-Language: en-GB
+To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20250312135258.1815706-1-luca.fancellu@arm.com>
+ <20250312135258.1815706-6-luca.fancellu@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20250312135258.1815706-6-luca.fancellu@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Mar 13, 2025 at 07:55:42AM +0100, Jan Beulich wrote:
-> On 12.03.2025 13:30, Roger Pau Monné wrote:
-> > On Wed, Mar 12, 2025 at 12:30:40PM +0100, Jan Beulich wrote:
-> >> The justification for dropping p2m_mmio_dm from p2m_is_valid() was wrong
-> >> for two of the shadow mode uses.
-> >>
-> >> In _sh_propagate() we want to create special L1 entries for p2m_mmio_dm
-> >> pages. Hence we need to make sure we don't bail early for that type.
-> >>
-> >> In _sh_page_fault() we want to handle p2m_mmio_dm by forwarding to
-> >> (internal or external) emulation. Pull the !p2m_is_mmio() check out of
-> >> the || expression (as otherwise it would need adding to the lhs as
-> >> well).
-> >>
-> >> In both cases, p2m_is_valid() in combination with p2m_is_grant() still
-> >> doesn't cover foreign mappings. Hence use p2m_is_any_ram() plus (as
-> >> necessary) p2m_mmio_* instead.
-> >>
-> >> Fixes: be59cceb2dbb ("x86/P2M: don't include MMIO_DM in p2m_is_valid()")
-> >> Reported-by: Luca Fancellu <Luca.Fancellu@arm.com>
-> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> > 
-> > Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> Thanks.
-> 
-> >> @@ -2366,8 +2371,8 @@ static int cf_check sh_page_fault(
-> >>      gmfn = get_gfn(d, gfn, &p2mt);
-> >>  
-> >>      if ( shadow_mode_refcounts(d) &&
-> >> -         ((!p2m_is_valid(p2mt) && !p2m_is_grant(p2mt)) ||
-> >> -          (!p2m_is_mmio(p2mt) && !mfn_valid(gmfn))) )
-> >> +         !p2m_is_mmio(p2mt) &&
-> >> +         (!p2m_is_any_ram(p2mt) || !mfn_valid(gmfn)) )
-> > 
-> > Would you mind adding some comment here about the need to forward
-> > p2m_mmio_dm to the emulation, and hence not possible to short-circuit
-> > here?
-> 
-> Will this do?
-> 
->     /*
->      * p2m_mmio_dm in particular is handled further down, and hence can't be
->      * short-circuited here. Furthermore, while not fitting with architectural
->      * behavior, propagating #PF to the guest when a sensible shadow entry
->      * can't be written is necessary. Without doing so (by installing a non-
->      * present entry) we'd get back right here immediately afterwards, thus
->      * preventing the guest from making further forward progress.
->      */
+Hi,
 
-LGTM.
+On 12/03/2025 13:52, Luca Fancellu wrote:
+> Introduce variables and functions used in the common Arm code by
+> MPU memory management subsystem, provide struct page_info and
+> the MPU implementation for helpers and macros used in the common
+> arm code.
+> 
+> Moving virt_to_page helper to mmu/mpu part is not easy as it needs
+> visibility of 'struct page_info', so protect it with CONFIG_MMU
+> and provide the MPU variant in the #else branch.
 
-Thanks, Roger.
+Have you considered including "asm/{mmu,mpu}/mm.h" **after** struct 
+page_info is declared?
+> 
+> Introduce FRAMETABLE_NR that is required for 'pdx_group_valid' in
+> pdx.c.
+
+
+Maybe clarify in the commit message that the frametable will be setup at 
+a later stage?
+
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> ---
+>   xen/arch/arm/include/asm/mm.h         | 18 ++++++++++++++++++
+>   xen/arch/arm/include/asm/mpu/layout.h |  3 +++
+>   xen/arch/arm/include/asm/mpu/mm.h     |  3 +++
+>   xen/arch/arm/mpu/mm.c                 |  4 ++++
+>   4 files changed, 28 insertions(+)
+> 
+> diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
+> index e7767cdab493..c96d33aceaf0 100644
+> --- a/xen/arch/arm/include/asm/mm.h
+> +++ b/xen/arch/arm/include/asm/mm.h
+> @@ -341,6 +341,8 @@ static inline uint64_t gvirt_to_maddr(vaddr_t va, paddr_t *pa,
+>   #define virt_to_mfn(va)     __virt_to_mfn(va)
+>   #define mfn_to_virt(mfn)    __mfn_to_virt(mfn)
+>   
+> +#ifdef CONFIG_MMU
+> +
+>   /* Convert between Xen-heap virtual addresses and page-info structures. */
+>   static inline struct page_info *virt_to_page(const void *v)
+>   {
+> @@ -355,6 +357,22 @@ static inline struct page_info *virt_to_page(const void *v)
+>       return frame_table + pdx - frametable_base_pdx;
+>   }
+>   
+> +#else /* !CONFIG_MMU */
+> +
+> +/* Convert between virtual address to page-info structure. */
+> +static inline struct page_info *virt_to_page(const void *v)
+> +{
+> +    unsigned long pdx;
+> +
+> +    pdx = paddr_to_pdx(virt_to_maddr(v));
+> +    ASSERT(pdx >= frametable_base_pdx);
+> +    ASSERT(pdx < frametable_pdx_end);
+> +
+> +    return frame_table + pdx - frametable_base_pdx;
+> +}
+> +
+> +#endif /* CONFIG_MMU */
+> +
+>   static inline void *page_to_virt(const struct page_info *pg)
+>   {
+>       return mfn_to_virt(mfn_x(page_to_mfn(pg)));
+> diff --git a/xen/arch/arm/include/asm/mpu/layout.h b/xen/arch/arm/include/asm/mpu/layout.h
+> index 248e55f8882d..c46b634c9c15 100644
+> --- a/xen/arch/arm/include/asm/mpu/layout.h
+> +++ b/xen/arch/arm/include/asm/mpu/layout.h
+> @@ -3,6 +3,9 @@
+>   #ifndef __ARM_MPU_LAYOUT_H__
+>   #define __ARM_MPU_LAYOUT_H__
+>   
+> +#define FRAMETABLE_SIZE   GB(32)
+
+I guess you copied the value for the MMU code for arm64. But is this 
+value still sensible for MPU? What about arm32?
+
+In any case, some documentation would be useful.
+
+> +#define FRAMETABLE_NR     (FRAMETABLE_SIZE / sizeof(*frame_table))
+> +
+>   #define XEN_START_ADDRESS CONFIG_XEN_START_ADDRESS
+>   
+>   /*
+> diff --git a/xen/arch/arm/include/asm/mpu/mm.h b/xen/arch/arm/include/asm/mpu/mm.h
+> index 57f1e558fd44..2219c9979548 100644
+> --- a/xen/arch/arm/include/asm/mpu/mm.h
+> +++ b/xen/arch/arm/include/asm/mpu/mm.h
+> @@ -5,6 +5,9 @@
+>   
+>   #include <xen/macros.h>
+>   
+> +extern struct page_info *frame_table;
+> +extern unsigned long frametable_pdx_end;
+> +
+>   #define virt_to_maddr(va) ({  \
+>       (paddr_t)va;              \
+>   })
+> diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
+> index a11e017d8a96..4036dd62eeeb 100644
+> --- a/xen/arch/arm/mpu/mm.c
+> +++ b/xen/arch/arm/mpu/mm.c
+> @@ -3,6 +3,10 @@
+>   #include <xen/lib.h>
+>   #include <xen/init.h>
+>   #include <xen/sizes.h>
+> +#include <xen/mm.h>
+> +
+> +struct page_info *frame_table;
+> +unsigned long __read_mostly frametable_pdx_end;
+>   
+>   static void __init __maybe_unused build_assertions(void)
+>   {
+
+Cheers,
+
+-- 
+Julien Grall
+
 
