@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2764A5EE4D
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 09:45:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.911494.1317904 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71AA1A5EE4E
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 09:45:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.911504.1317914 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tseBW-0003be-R7; Thu, 13 Mar 2025 08:44:58 +0000
+	id 1tseC4-00046N-7A; Thu, 13 Mar 2025 08:45:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 911494.1317904; Thu, 13 Mar 2025 08:44:58 +0000
+Received: by outflank-mailman (output) from mailman id 911504.1317914; Thu, 13 Mar 2025 08:45:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tseBW-0003ZE-O3; Thu, 13 Mar 2025 08:44:58 +0000
-Received: by outflank-mailman (input) for mailman id 911494;
- Thu, 13 Mar 2025 08:44:57 +0000
+	id 1tseC4-000446-4U; Thu, 13 Mar 2025 08:45:32 +0000
+Received: by outflank-mailman (input) for mailman id 911504;
+ Thu, 13 Mar 2025 08:45:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7Xn0=WA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tseBV-0003Z8-6q
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 08:44:57 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ id 1tseC3-0003Z8-K4
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 08:45:31 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7021518c-ffe7-11ef-9ab9-95dc52dad729;
- Thu, 13 Mar 2025 09:44:55 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-43d0c18e84eso3748385e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 01:44:55 -0700 (PDT)
+ id 8537ae60-ffe7-11ef-9ab9-95dc52dad729;
+ Thu, 13 Mar 2025 09:45:31 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-43d04dc73b7so5415245e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 01:45:31 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395c83b6e92sm1371621f8f.38.2025.03.13.01.44.54
+ 5b1f17b1804b1-43d0a75aa22sm45471295e9.19.2025.03.13.01.45.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Mar 2025 01:44:54 -0700 (PDT)
+ Thu, 13 Mar 2025 01:45:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7021518c-ffe7-11ef-9ab9-95dc52dad729
+X-Inumbo-ID: 8537ae60-ffe7-11ef-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741855495; x=1742460295; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741855530; x=1742460330; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=k/Vv0m7e8TP/eZ8pg1BZ8/WgIdEBJH+8JRXCFcnzxO4=;
-        b=WmfmCg81BwihSh6vXrc/TOofIn4OOBJfPaZx+bWXJnjWo6Wxh5YSjx+R1de/Lly10z
-         9oL59B/Nmf4WoUnrIdlYEETgtT8lJYibpwuLZryW9USpN8YNu7HzUbVQJXCZFu7cBKpv
-         fPl7NMGwy54T2fMhzwSNhSdbcHZFcnfFL9dTVfpuJwQXzynYsBXZTs1qr0cwE6epKByg
-         RFbjCjkyHhb3kRI0wQ594YhKEuP6gqq/5OP9zFFoyHA7XTKPKfvIn4sJEgBU0s1d9IcQ
-         e2aU1WOd1IaDFLZUKepCnzhgPtHOVa7OVgVJ2ACPpttN52vrGQJh5wJCp5T9g7oTifmK
-         smug==
+        bh=QdOzKmn2LLe0Y8qR+H9Wrv+TpivLXMHdPDyy5F1wqHo=;
+        b=MG0HjBvB5as5CkoKtkFmGrj+fXX32lfpC126VQiyHgawVem/HQ5UTaRi+GlabKNQcO
+         th3e73Qj1vLwk9hPMz1p0Fx6xDNgvYSHLT2lc+1LZ8QbZHR2sc+5ryLSQwxyktMeDOBa
+         Cb7vQAtcZ7icchuMkg4xH4q7t8aRJRdoyly8y9u/vQMkL67D9KU4ow2B2nlADaTD38VI
+         wKFziSbsQ0q/QPhN3FFP9eCEvT4L8SMey6RV91Nc0zkCCJQUiO5tdRB05D2X5Qf3Syo9
+         YJBKGwYnK3DyPO7PFS7EZiuuSDaYqH+fI1s3BBpTi76AXOL5N9szsjyRv3A/UB7SJf2e
+         T7GA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741855495; x=1742460295;
+        d=1e100.net; s=20230601; t=1741855530; x=1742460330;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=k/Vv0m7e8TP/eZ8pg1BZ8/WgIdEBJH+8JRXCFcnzxO4=;
-        b=dVp6qGX3cC3Qi2BV3rRDjsPdSirLg13B5QqmcXRpKMn+qTxd3BXkpTwC7Bjp51Ger2
-         1zBf0EaKOQIA2w+r1i43cumE93dopQrHg9vZpSb4b3Ho9lHRWuxCVyeRzQsvPqDiraU3
-         aqjJucXQ3Q7YovmTzqHsN0jnrXxi7X92sSMZTLAvk6x76L+ZUP3mf7ESMC3kUrkRvEe1
-         8aQ9jySX17AO717h2KIZsHUJi+DJkP3HJFa0Pv8IQFNIw/p8ThfWCg22A+jKc35Zg6x6
-         wn33B0t5PZWIJtJtXMse9Smdsem5I4b2A5gXUUyfYXw+NThjHQ9PNslUzrW1k2A0VQyJ
-         L3EA==
-X-Forwarded-Encrypted: i=1; AJvYcCXewP1yGTrEizHFy5rDD9rQIvArnsICZFp3UkmMnBeFO3aUucNuQJ0cGgzQbL81H4ux8W67tbMNcTE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxx4bH1IE6eyJjZtYr+FX+OQn6TkUYNx4f1xyxgre8RyY1mlDfD
-	CRwDgiZTsqz5j3yjHtJMVL9jbsR+uXLkw4rX8MdY7M1DPCACeXnMMDuP0fELvQ==
-X-Gm-Gg: ASbGncuotwblHh+PtbEgKe/JyuO7sf5vWFdyCanyZbs6zP3i+T1mU2GiZYxTwG3t/if
-	R6ylLbpiMdhptOMucnJj6W+y4lLwHu3XDb92DYvUVcQqkGlDvNjqPtZn/IyLGxMQTjWB9U12qRJ
-	sHtHiJH0/p7fkS6G/73orKin1IN+J5ftHveRCGCJRbzviWvUb7buIAHDIDBivXaXq5+4jpMTWfI
-	2vem7sWeHldv6tlzcI8Du3q5SCINiSGovcxkzzudeBpsHq3AMv6tVBMiyNnPNoyjizYkvtdoIIi
-	Wiw3WYmfenUtTZrdjSjjr+TQ1goHPh/3dDOkyK/yLn8rggWRinWOE63swBKryW3Wr4mWfEpf2Jh
-	xeJYMkGckbMk7l8MjtfMazNfpr1RnplSorNTnsRj9
-X-Google-Smtp-Source: AGHT+IGwudAk6PHJLz0mv+sSKtoGbAlgJZKIUmRPQKMpVnooQDvhFpWUqxnTmzJsdbkii5USwZKRaQ==
-X-Received: by 2002:a05:6000:1867:b0:391:253b:405d with SMTP id ffacd0b85a97d-39132d98a1emr20175944f8f.41.1741855495091;
-        Thu, 13 Mar 2025 01:44:55 -0700 (PDT)
-Message-ID: <d4a4b8ff-161f-47c3-a2bc-dd7e1ba3ce1a@suse.com>
-Date: Thu, 13 Mar 2025 09:44:53 +0100
+        bh=QdOzKmn2LLe0Y8qR+H9Wrv+TpivLXMHdPDyy5F1wqHo=;
+        b=pUgf4ZsknBBN1VDHxxh1JUu0xIUCJ3TMpmG4rrMYBXiSXNatz93lJYh8ruku63bE/k
+         OSf+9XioU8Hsdd4IFbBCjfWlKC48gVriB7Sq9S1UqxOtFw5IpJ+7AsiuXwln+cyOtg4D
+         WnGuXpD9+JgMpuxBCf3jH5f9nyWRCNHr1iGV+3RtYVP/U7Kp61xXmwko7ozl3/m1F1eT
+         /XuNA54L3uxxPBmePdHIgGjxfE1aXfe882c9rxAJsNGru6gE8fVXTnJe21p6TsNWxh/9
+         H5UeWI5mSurLSZC3ZX9NoKpnwSsOGRdA8+GZ/KDPs0V4NpoDdR2cF95V8992zX3jiNdL
+         FGDA==
+X-Forwarded-Encrypted: i=1; AJvYcCX2OdbY24g9gDFW6JJ986U3iJaOSgrsZ/37MPQaWx30NO8xdcfWsWhcSBo3K5Lk5UMGdHj72PsnsP4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyugf2n+7+V7Aw6GOZiSXu6c8CZxFJGsCfqf9pqqT4l8LtIsjg6
+	vDDq1I7OGHoWZOkwqRgJVZcwpk3lzw58sPBCPDWy/3smPwyWhrynO0C58GqR6Q==
+X-Gm-Gg: ASbGnctsBjniWK+3l3HBIaRaSV6QWz2uKwCPkOzvD+FUKg8418VeGfO7iBDemBy9sJI
+	lBUfp0RmJP5ACIOiwB79+avR+eWsicMSVtm1rz8iOTC9odVIobfDgapZ91f24Qem76x0zM020Y9
+	yb63PLDLkmihKS8A/luO29E2+gCtnzPGxryW5c9nedMc19rkJY0YqaMX5Y4/v5halQyJq2Mr+t6
+	o3BeYJl16/XaDU+mQRB9EH8LdlOIfSj4/eWtnLc0znci+cRcvt5HQGyRVna7gfWptYJ8qiNyJ9X
+	OoKTfIve92wVrnr9qNWgnj4G6AOhd8KT2x95LKDFh4dOtxWvGTOMaqYB9ZkjrfhCRTJ306gfdr9
+	N8XBakW+kht2qOLxZelobJLXsCgT51g==
+X-Google-Smtp-Source: AGHT+IFcvzFJOcWGFiERbcS1N995pcmZL/kftda9ZrU3I85Y+6o4/v3xMI0dlVvxdKbTphP9Q7QYsg==
+X-Received: by 2002:a05:600c:524d:b0:43c:f470:75df with SMTP id 5b1f17b1804b1-43cf470797emr135957235e9.3.1741855530535;
+        Thu, 13 Mar 2025 01:45:30 -0700 (PDT)
+Message-ID: <9143899a-06b9-4deb-a365-dea385e2012a@suse.com>
+Date: Thu, 13 Mar 2025 09:45:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 08/19] xen/sysctl: introduce CONFIG_PM_STATISTIC
+Subject: Re: [PATCH v1 09/19] xen/sysctl: make CONFIG_PM_STATISTIC depend on
+ CONFIG_SYSCTL
 To: Penny Zheng <Penny.Zheng@amd.com>
 Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20250312040632.2853485-1-Penny.Zheng@amd.com>
- <20250312040632.2853485-9-Penny.Zheng@amd.com>
+ <20250312040632.2853485-10-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,381 +122,31 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250312040632.2853485-9-Penny.Zheng@amd.com>
+In-Reply-To: <20250312040632.2853485-10-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 12.03.2025 05:06, Penny Zheng wrote:
-> This commit introduces CONFIG_PM_STATISTIC for wrapping all operations
-> regarding performance management statistic operations.
-
-Please can descriptions not use "This patch ..." or "This commit ..." or
-anyhting like these?
-
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> ---
+>  xen/common/Kconfig | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+> index ffc6b9d4df..fbaca097ff 100644
 > --- a/xen/common/Kconfig
 > +++ b/xen/common/Kconfig
-> @@ -107,6 +107,11 @@ config NEEDS_LIBELF
->  config NUMA
->  	bool
+> @@ -109,7 +109,7 @@ config NUMA
 >  
-> +config PM_STATISTIC
-
-I think this wants to use plural, i.e. PM_STATISTICS or PM_STATS.
-
-> +        bool "Enable Performance Management Statistic Operations"
-
-"Enable Performance Management Statistics" ?
-
-> +        depends on ACPI && HAS_CPUFREQ
-> +        default y
-
-Nit: Indentation.
-
-> --- a/xen/common/sysctl.c
-> +++ b/xen/common/sysctl.c
-> @@ -170,7 +170,7 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
->          op->u.availheap.avail_bytes <<= PAGE_SHIFT;
->          break;
+>  config PM_STATISTIC
+>          bool "Enable Performance Management Statistic Operations"
+> -        depends on ACPI && HAS_CPUFREQ
+> +        depends on ACPI && HAS_CPUFREQ && SYSCTL
+>          default y
 >  
-> -#if defined (CONFIG_ACPI) && defined (CONFIG_HAS_CPUFREQ)
-> +#ifdef CONFIG_PM_STATISTIC
->      case XEN_SYSCTL_get_pmstat:
->          ret = do_get_pm_info(&op->u.get_pmstat);
->          break;
-> @@ -180,7 +180,7 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
->          if ( ret == -EAGAIN )
->              copyback = 1;
->          break;
-> -#endif
-> +#endif /* CONFIG_PM_STATISTIC */
->  
->      case XEN_SYSCTL_page_offline_op:
->      {
-> diff --git a/xen/drivers/acpi/Makefile b/xen/drivers/acpi/Makefile
-> index 2fc5230253..70156ee0a4 100644
-> --- a/xen/drivers/acpi/Makefile
-> +++ b/xen/drivers/acpi/Makefile
-> @@ -5,7 +5,7 @@ obj-$(CONFIG_X86) += apei/
->  obj-bin-y += tables.init.o
->  obj-$(CONFIG_ACPI_NUMA) += numa.o
->  obj-y += osl.o
-> -obj-$(CONFIG_HAS_CPUFREQ) += pmstat.o
-> +obj-$(CONFIG_PM_STATISTIC) += pmstat.o
->  
->  obj-$(CONFIG_X86) += hwregs.o
->  obj-$(CONFIG_X86) += reboot.o
-> diff --git a/xen/drivers/acpi/pmstat.c b/xen/drivers/acpi/pmstat.c
-> index df309e27b4..58cccd589b 100644
-> --- a/xen/drivers/acpi/pmstat.c
-> +++ b/xen/drivers/acpi/pmstat.c
-> @@ -43,6 +43,167 @@
->  
->  DEFINE_PER_CPU_READ_MOSTLY(struct pm_px *, cpufreq_statistic_data);
->  
-> +DEFINE_PER_CPU(spinlock_t, cpufreq_statistic_lock);
-> +
-> +/*********************************************************************
-> + *                    Px STATISTIC INFO                              *
-> + *********************************************************************/
-> +
-> +static void cpufreq_residency_update(unsigned int cpu, uint8_t state)
-> +{
-> +    uint64_t now, total_idle_ns;
-> +    int64_t delta;
-> +    struct pm_px *pxpt = per_cpu(cpufreq_statistic_data, cpu);
-> +
-> +    total_idle_ns = get_cpu_idle_time(cpu);
-> +    now = NOW();
-> +
-> +    delta = (now - pxpt->prev_state_wall) -
-> +            (total_idle_ns - pxpt->prev_idle_wall);
-> +
-> +    if ( likely(delta >= 0) )
-> +        pxpt->u.pt[state].residency += delta;
-> +
-> +    pxpt->prev_state_wall = now;
-> +    pxpt->prev_idle_wall = total_idle_ns;
-> +}
-> +
-> +void cpufreq_statistic_update(unsigned int cpu, uint8_t from, uint8_t to)
-> +{
-> +    struct pm_px *pxpt;
-> +    struct processor_pminfo *pmpt = processor_pminfo[cpu];
-> +    spinlock_t *cpufreq_statistic_lock =
-> +               &per_cpu(cpufreq_statistic_lock, cpu);
-> +
-> +    spin_lock(cpufreq_statistic_lock);
-> +
-> +    pxpt = per_cpu(cpufreq_statistic_data, cpu);
-> +    if ( !pxpt || !pmpt ) {
-> +        spin_unlock(cpufreq_statistic_lock);
-> +        return;
-> +    }
-> +
-> +    pxpt->u.last = from;
-> +    pxpt->u.cur = to;
-> +    pxpt->u.pt[to].count++;
-> +
-> +    cpufreq_residency_update(cpu, from);
-> +
-> +    (*(pxpt->u.trans_pt + from * pmpt->perf.state_count + to))++;
-> +
-> +    spin_unlock(cpufreq_statistic_lock);
-> +}
-> +
-> +int cpufreq_statistic_init(unsigned int cpu)
-> +{
-> +    uint32_t i, count;
-> +    struct pm_px *pxpt;
-> +    const struct processor_pminfo *pmpt = processor_pminfo[cpu];
-> +    spinlock_t *cpufreq_statistic_lock = &per_cpu(cpufreq_statistic_lock, cpu);
-> +
-> +    spin_lock_init(cpufreq_statistic_lock);
-> +
-> +    if ( !pmpt )
-> +        return -EINVAL;
-> +
-> +    spin_lock(cpufreq_statistic_lock);
-> +
-> +    pxpt = per_cpu(cpufreq_statistic_data, cpu);
-> +    if ( pxpt ) {
-> +        spin_unlock(cpufreq_statistic_lock);
-> +        return 0;
-> +    }
-> +
-> +    count = pmpt->perf.state_count;
-> +
-> +    pxpt = xzalloc(struct pm_px);
-> +    if ( !pxpt ) {
-> +        spin_unlock(cpufreq_statistic_lock);
-> +        return -ENOMEM;
-> +    }
-> +    per_cpu(cpufreq_statistic_data, cpu) = pxpt;
-> +
-> +    pxpt->u.trans_pt = xzalloc_array(uint64_t, count * count);
-> +    if (!pxpt->u.trans_pt) {
-> +        xfree(pxpt);
-> +        spin_unlock(cpufreq_statistic_lock);
-> +        return -ENOMEM;
-> +    }
-> +
-> +    pxpt->u.pt = xzalloc_array(struct pm_px_val, count);
-> +    if (!pxpt->u.pt) {
-> +        xfree(pxpt->u.trans_pt);
-> +        xfree(pxpt);
-> +        spin_unlock(cpufreq_statistic_lock);
-> +        return -ENOMEM;
-> +    }
-> +
-> +    pxpt->u.total = pmpt->perf.state_count;
-> +    pxpt->u.usable = pmpt->perf.state_count - pmpt->perf.platform_limit;
-> +
-> +    for (i=0; i < pmpt->perf.state_count; i++)
-> +        pxpt->u.pt[i].freq = pmpt->perf.states[i].core_frequency;
-> +
-> +    pxpt->prev_state_wall = NOW();
-> +    pxpt->prev_idle_wall = get_cpu_idle_time(cpu);
-> +
-> +    spin_unlock(cpufreq_statistic_lock);
-> +
-> +    return 0;
-> +}
-> +
-> +void cpufreq_statistic_exit(unsigned int cpu)
-> +{
-> +    struct pm_px *pxpt;
-> +    spinlock_t *cpufreq_statistic_lock = &per_cpu(cpufreq_statistic_lock, cpu);
-> +
-> +    spin_lock(cpufreq_statistic_lock);
-> +
-> +    pxpt = per_cpu(cpufreq_statistic_data, cpu);
-> +    if (!pxpt) {
-> +        spin_unlock(cpufreq_statistic_lock);
-> +        return;
-> +    }
-> +
-> +    xfree(pxpt->u.trans_pt);
-> +    xfree(pxpt->u.pt);
-> +    xfree(pxpt);
-> +    per_cpu(cpufreq_statistic_data, cpu) = NULL;
-> +
-> +    spin_unlock(cpufreq_statistic_lock);
-> +}
-> +
-> +static void cpufreq_statistic_reset(unsigned int cpu)
-> +{
-> +    uint32_t i, j, count;
-> +    struct pm_px *pxpt;
-> +    const struct processor_pminfo *pmpt = processor_pminfo[cpu];
-> +    spinlock_t *cpufreq_statistic_lock = &per_cpu(cpufreq_statistic_lock, cpu);
-> +
-> +    spin_lock(cpufreq_statistic_lock);
-> +
-> +    pxpt = per_cpu(cpufreq_statistic_data, cpu);
-> +    if ( !pmpt || !pxpt || !pxpt->u.pt || !pxpt->u.trans_pt ) {
-> +        spin_unlock(cpufreq_statistic_lock);
-> +        return;
-> +    }
-> +
-> +    count = pmpt->perf.state_count;
-> +
-> +    for (i=0; i < count; i++) {
-> +        pxpt->u.pt[i].residency = 0;
-> +        pxpt->u.pt[i].count = 0;
-> +
-> +        for (j=0; j < count; j++)
-> +            *(pxpt->u.trans_pt + i*count + j) = 0;
-> +    }
-> +
-> +    pxpt->prev_state_wall = NOW();
-> +    pxpt->prev_idle_wall = get_cpu_idle_time(cpu);
-> +
-> +    spin_unlock(cpufreq_statistic_lock);
-> +}
+>  config STATIC_MEMORY
 
-The want/need for this code movement wants mentioning in the description imo.
-It may even be desirable to split this out. The more that while you move it,
-it would be quite nice if various style corrections could be applied.
-
-> @@ -522,34 +683,3 @@ int do_pm_op(struct xen_sysctl_pm_op *op)
->  
->      return ret;
->  }
-> -
-> -int acpi_set_pdc_bits(uint32_t acpi_id, XEN_GUEST_HANDLE(uint32) pdc)
-> -{
-> -    u32 bits[3];
-> -    int ret;
-> -
-> -    if ( copy_from_guest(bits, pdc, 2) )
-> -        ret = -EFAULT;
-> -    else if ( bits[0] != ACPI_PDC_REVISION_ID || !bits[1] )
-> -        ret = -EINVAL;
-> -    else if ( copy_from_guest_offset(bits + 2, pdc, 2, 1) )
-> -        ret = -EFAULT;
-> -    else
-> -    {
-> -        u32 mask = 0;
-> -
-> -        if ( xen_processor_pmbits & XEN_PROCESSOR_PM_CX )
-> -            mask |= ACPI_PDC_C_MASK | ACPI_PDC_SMP_C1PT;
-> -        if ( xen_processor_pmbits & XEN_PROCESSOR_PM_PX )
-> -            mask |= ACPI_PDC_P_MASK | ACPI_PDC_SMP_C1PT;
-> -        if ( xen_processor_pmbits & XEN_PROCESSOR_PM_TX )
-> -            mask |= ACPI_PDC_T_MASK | ACPI_PDC_SMP_C1PT;
-> -        bits[2] &= (ACPI_PDC_C_MASK | ACPI_PDC_P_MASK | ACPI_PDC_T_MASK |
-> -                    ACPI_PDC_SMP_C1PT) & ~mask;
-> -        ret = arch_acpi_set_pdc_bits(acpi_id, bits, mask);
-> -    }
-> -    if ( !ret && __copy_to_guest_offset(pdc, 2, bits + 2, 1) )
-> -        ret = -EFAULT;
-> -
-> -    return ret;
-> -}
-> --- a/xen/drivers/cpufreq/cpufreq.c
-> +++ b/xen/drivers/cpufreq/cpufreq.c
-> @@ -582,6 +582,37 @@ out:
->      return ret;
->  }
->  
-> +int acpi_set_pdc_bits(uint32_t acpi_id, XEN_GUEST_HANDLE(uint32) pdc)
-> +{
-> +    u32 bits[3];
-> +    int ret;
-> +
-> +    if ( copy_from_guest(bits, pdc, 2) )
-> +        ret = -EFAULT;
-> +    else if ( bits[0] != ACPI_PDC_REVISION_ID || !bits[1] )
-> +        ret = -EINVAL;
-> +    else if ( copy_from_guest_offset(bits + 2, pdc, 2, 1) )
-> +        ret = -EFAULT;
-> +    else
-> +    {
-> +        u32 mask = 0;
-> +
-> +        if ( xen_processor_pmbits & XEN_PROCESSOR_PM_CX )
-> +            mask |= ACPI_PDC_C_MASK | ACPI_PDC_SMP_C1PT;
-> +        if ( xen_processor_pmbits & XEN_PROCESSOR_PM_PX )
-> +            mask |= ACPI_PDC_P_MASK | ACPI_PDC_SMP_C1PT;
-> +        if ( xen_processor_pmbits & XEN_PROCESSOR_PM_TX )
-> +            mask |= ACPI_PDC_T_MASK | ACPI_PDC_SMP_C1PT;
-> +        bits[2] &= (ACPI_PDC_C_MASK | ACPI_PDC_P_MASK | ACPI_PDC_T_MASK |
-> +                    ACPI_PDC_SMP_C1PT) & ~mask;
-> +        ret = arch_acpi_set_pdc_bits(acpi_id, bits, mask);
-> +    }
-> +    if ( !ret && __copy_to_guest_offset(pdc, 2, bits + 2, 1) )
-> +        ret = -EFAULT;
-> +
-> +    return ret;
-> +}
-
-Same here - looks pretty independent.
-
-> --- a/xen/include/acpi/cpufreq/processor_perf.h
-> +++ b/xen/include/acpi/cpufreq/processor_perf.h
-> @@ -9,11 +9,19 @@
->  
->  unsigned int powernow_register_driver(void);
->  unsigned int get_measured_perf(unsigned int cpu, unsigned int flag);
-> -void cpufreq_residency_update(unsigned int cpu, uint8_t state);
-> +#ifdef CONFIG_PM_STATISTIC
->  void cpufreq_statistic_update(unsigned int cpu, uint8_t from, uint8_t to);
->  int  cpufreq_statistic_init(unsigned int cpu);
->  void cpufreq_statistic_exit(unsigned int cpu);
-> -void cpufreq_statistic_reset(unsigned int cpu);
-> +#else
-> +static inline  void cpufreq_statistic_update(unsigned int cpu, uint8_t from,
-> +                                             uint8_t to) {};
-
-Nit: Stray semicolon. I'm also uncertain whether we like this kind of
-formatting (i.e. if already things don't fit on a single line, I'm unsure
-whether we like then having the braces not on their own line).
-
-> +static inline int cpufreq_statistic_init(unsigned int cpu)
-> +{
-> +    return 0;
-> +}
-> +static inline void cpufreq_statistic_exit(unsigned int cpu) {};
-
-Stray semicolon again.
-
-> --- a/xen/include/xen/acpi.h
-> +++ b/xen/include/xen/acpi.h
-> @@ -158,6 +158,7 @@ int acpi_gsi_to_irq (u32 gsi, unsigned int *irq);
->  extern unsigned int max_cstate;
->  extern unsigned int max_csubstate;
->  
-> +#ifdef CONFIG_PM_STATISTIC
->  static inline unsigned int acpi_get_cstate_limit(void)
->  {
->  	return max_cstate;
-> @@ -177,6 +178,7 @@ static inline void acpi_set_csubstate_limit(unsigned int new_limit)
->  {
->  	max_csubstate = new_limit;
->  }
-> +#endif /* CONFIG_PM_STATISTIC */
-
-Is this really necessary? Afaict these inline functions would still
-compile fine; they'd merely end up without any user for now. (Not sure
-what Misra's take is on unused inline functions.)
-
-> --- a/xen/include/xen/pmstat.h
-> +++ b/xen/include/xen/pmstat.h
-> @@ -15,11 +15,13 @@ struct compat_processor_power;
->  long compat_set_cx_pminfo(uint32_t acpi_id, struct compat_processor_power *power);
->  #endif
->  
-> +#ifdef CONFIG_PM_STATISTIC
->  uint32_t pmstat_get_cx_nr(unsigned int cpu);
->  int pmstat_get_cx_stat(unsigned int cpu, struct pm_cx_stat *stat);
->  int pmstat_reset_cx_stat(unsigned int cpu);
->  
->  int do_get_pm_info(struct xen_sysctl_get_pmstat *op);
->  int do_pm_op(struct xen_sysctl_pm_op *op);
-> +#endif /* CONFIG_PM_STATISTIC */
-
-Similarly leaving these declarations visible isn't going to be a problem.
-We do so quite frequently elsewhere.
+Better fold into the previous patch?
 
 Jan
 
