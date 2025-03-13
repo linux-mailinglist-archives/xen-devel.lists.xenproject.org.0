@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19F36A5FB0F
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 17:15:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.912773.1318976 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19F23A5FB45
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 17:20:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.912786.1318986 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tslDm-000755-GW; Thu, 13 Mar 2025 16:15:46 +0000
+	id 1tslID-0000DM-3u; Thu, 13 Mar 2025 16:20:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 912773.1318976; Thu, 13 Mar 2025 16:15:46 +0000
+Received: by outflank-mailman (output) from mailman id 912786.1318986; Thu, 13 Mar 2025 16:20:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tslDm-00073E-D5; Thu, 13 Mar 2025 16:15:46 +0000
-Received: by outflank-mailman (input) for mailman id 912773;
- Thu, 13 Mar 2025 16:15:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=w2IX=WA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tslDl-000738-5q
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 16:15:45 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6921222f-0026-11f0-9ab9-95dc52dad729;
- Thu, 13 Mar 2025 17:15:42 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-43cfecdd8b2so10284275e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 09:15:42 -0700 (PDT)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395c4f9d59dsm2591232f8f.0.2025.03.13.09.15.40
+	id 1tslID-0000Ar-0I; Thu, 13 Mar 2025 16:20:21 +0000
+Received: by outflank-mailman (input) for mailman id 912786;
+ Thu, 13 Mar 2025 16:20:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=7Xn0=WA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tslIB-0000AQ-Ej
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 16:20:19 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0bd9f370-0027-11f0-9898-31a8f345e629;
+ Thu, 13 Mar 2025 17:20:15 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-43948f77f1aso8289835e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 09:20:17 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43d0a8c5cbfsm57734195e9.30.2025.03.13.09.20.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Mar 2025 09:15:41 -0700 (PDT)
+ Thu, 13 Mar 2025 09:20:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,115 +45,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6921222f-0026-11f0-9ab9-95dc52dad729
+X-Inumbo-ID: 0bd9f370-0027-11f0-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741882542; x=1742487342; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741882817; x=1742487617; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=70tr7Me46dxDdy/OHGrbBDotjQ8EooizTDRqxHCOGoI=;
-        b=nflqAD5Dwu7f5b5XfGxXk8lGEF5xnDDSeG3s6bGP3oIiNa6koFHpapjyN/07lm7H53
-         bIrxGk8JTN60NfN9gD2VQHCxsMwfbo8EXfN/yvmDsRew/LQm6YT9UvCcjEyHmoliaSmN
-         PChKxQntjMDuJMzSciBrhjWCFCNF6HCX9V0so=
+        bh=CN2dl8hKbg4jB89UynxSOh+FhyrGQWCOyXDvUEro5kQ=;
+        b=H2Rgu+K1kx04ASGvZlAJXm7c/W3f38D6fVvj4zl54XI0UJ68OtSVWNnY8eiy9GdPq+
+         zLv8odHKrAKIbFs2X3XiSx5TBylo2c3w1c65AzrCQ5cIu+SzruhrTc4HJwLaDPz6XdEf
+         OWScRoeiT2FBFbk3qn1NBKdnR2+y/EVMTJ1PkyWMSh0PDgWtdvxdmfazTK+60SztgCsQ
+         kRCsrc7Xs57/66HbJsYuUTNRMxFCCi77lRvZJQNKtRHVmta+aglmrnxfz/gBQOimVTNK
+         0RWHwU2wTNcy8lNZxegRNYpydekXfysqhj8kqWTEoMmj6paMvu3rdJbsR/YqP/topzJ/
+         8YSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741882542; x=1742487342;
+        d=1e100.net; s=20230601; t=1741882817; x=1742487617;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=70tr7Me46dxDdy/OHGrbBDotjQ8EooizTDRqxHCOGoI=;
-        b=b82iHH23Y2OYWQOqEOkR0BYWCHPe8mfVaY+4J1w4Yo5tuXrrLKWTB1JQtxbXSSuZ0R
-         hwMrL0sf+VlGpKCH9hI9CdFoW9zwTVZoUxUoKxWhHxT2bPOLYuvm+1//vEQkAAkbHEtg
-         +7dYeqjpbCZbgjTJ9UJ1GEcJ/3yZB69TZqw/NaRaQl6gzvoQHJZX9zoEgFIVlk+IOIZ0
-         J789c0OPTioEjypxKr/4oHbQhhLEBJrjz36w3MZxv0AuBKE6T2EPH2th/cVcoYWR2lVy
-         SfRgiOO21euJbS1tnQtaicX7LnaXy9wKo6G7DRx2Vw2JN7N9XXfu9RrGTF0p6kobr0Kb
-         qATA==
-X-Forwarded-Encrypted: i=1; AJvYcCWfC9dkVoGYVmdUlP6x/492/oV9yElK7oVaMWIMFY9oM4fTvQpXBcmWD9la3CN/deyrKr09SZ9bQ8c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywd+FvGIWJAcbS8QIojVTUKrdHozl8LMChE9ycw0k1BUy2Sl5Xt
-	Xv6ZYmfh/y2tWPVr+G83fUgS3Re9MIh8b0+fQ5hg9HAZlQsWu8VTVBpCBOW/DJk=
-X-Gm-Gg: ASbGncuRByIqEKKK9yLXHcowoWl6cL+8ozCRYD7b5KriK4P8rW/8oEmZ5cw/jaw7T3U
-	U0q0oD6Vu+YAbT+53H9RR+6JDWqS2aEzeBeoVr8rzEnbmcwmSyb8T/iGamu61LSlry8trMQ9o5y
-	Qh9yinMhMVu5ygDwJpec46wXzHhpDgWxvfPUlvmIgDb/Dj4fxy9hSu4JSEtZBT9i0z0cpNtY8TE
-	6zvIvVRfNbDylOwvfciUp6DrK4GaLIrmQXUZa9KJdDfAlKBr+S5E/xWEjcOMvvrxEJ83Xgdf7iH
-	iw2Dj/Xa9Wz0GWwopn+86nwov2Rgw180Y6s0OI+/R1Ozop/qa5uYmr39NtOnmq2UO1zBC1zFlwt
-	cKkQpdvPt
-X-Google-Smtp-Source: AGHT+IFzlSfLcmf9x+8ZoFIuqu9gHhSmquLo0XeNW4cxZIAbk/VMUINH6XXZ6dP9k+9FzU93IaWVeA==
-X-Received: by 2002:a05:600c:1c0b:b0:43c:fceb:91f with SMTP id 5b1f17b1804b1-43d1d8976b3mr3298775e9.11.1741882541653;
-        Thu, 13 Mar 2025 09:15:41 -0700 (PDT)
-Message-ID: <78dc00ee-1225-49ee-a067-8d29f5709c76@citrix.com>
-Date: Thu, 13 Mar 2025 16:15:40 +0000
+        bh=CN2dl8hKbg4jB89UynxSOh+FhyrGQWCOyXDvUEro5kQ=;
+        b=MHcqvjCkn+zcc4s1eI8XD5HGXCn0YzD0oaf85Vjdf1k7miZMd/+xjvdnje4Tg75WY8
+         6fcxUrYeFsN9qJZhn+PfRO+VSzZRhTw1dukS+/Wli91BdCFqZBSL1vTctJ+0fbQgftUA
+         pyQDKgr9UNtrLIAv/bbyd7CxU15Mo/abey5CEtWd6x6Ff8J0GM7uWnETXPZecFzIr5EA
+         4t8X264wggYVrOi3AkiEITLYv6e0z6txXyk1Kn7fw83SoPy1oyqCSVM67mWPxQdj5Gpp
+         lKGUg7gUddFMQvs1Se+27LAaNGF3vQ/jbqwu8URHqykK83lkdGAmzlMYr8Ozg6Yfin+F
+         fAew==
+X-Forwarded-Encrypted: i=1; AJvYcCVZM3tlyDA+QdA7i7p9fpOySQeDnK4PLHdxsrEYiUj24rTBZNXZRp+IUYbDLkI9Id1i5A5BsX6jNG4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxG9x0fPNrp+uzzKZR6aaO5SmqXvC9n00nzS0xj7Xbjrp5UOEzJ
+	vTVQi76Rt4F6f4yUCVdsCZx/czdbTXzMWW8SaXJpbuGSQb5/2/vtxk0pB91K9A==
+X-Gm-Gg: ASbGncvh4ArakNDIkhVPtOkFdif1zAjP9RzsXE7jDEi2nxJbGItcMxO07oQp9V6uCZt
+	MPd2XHdGKF7/aQ3z4JRZDAGZgt2n1pptE+7gyRcPph2WVZD3cjs05YT4xFf1XPE4IK/5DJsoeLq
+	KvHtgxTeggi8zcbuCorCP9ukZ/Tfcp3P4cmxrufNXo0o1iwv04fEWE5X73M1dAFpSi+WLFXGnVA
+	xIm1iBTY+pgWwcgEg6k5oEZQvEfMGAjrbSQrIDRhVouafQjMqNjcSLp+fxjTgPi90mL3K8d9Gzj
+	81UDUMqbVe091KRi7j5uTntOwIK2yl+pOF9cElndPdPgVN0OpDenYAh52BC5FZdOhG2uPSy6rpC
+	8UaVZwuSA/9e1Ibabr64GsooHZR62mQ==
+X-Google-Smtp-Source: AGHT+IHiAv4zIgw+G18Ng3gwseaAkIWqFTWCIqiJHJ355h6rWe0iRM9d9bXFcZyQWVYP+ZX64dSPAQ==
+X-Received: by 2002:a05:600c:1911:b0:43d:649:4e50 with SMTP id 5b1f17b1804b1-43d1d8c6329mr2609365e9.13.1741882816849;
+        Thu, 13 Mar 2025 09:20:16 -0700 (PDT)
+Message-ID: <08cf29e4-8029-4c3b-bb32-f84bcb6d3678@suse.com>
+Date: Thu, 13 Mar 2025 17:20:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/6] symbols: sanitize a few variable's types
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
+Subject: Re: [PATCH 05/16] xen/percpu: don't initialize percpu on resume
+To: Mykola Kvach <xakep.amatop@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <58b3d7dc-5966-432c-8def-e841feaee1c8@suse.com>
- <c4b7f6ce-baa9-4b55-bdea-a67ff7d5daa1@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <c4b7f6ce-baa9-4b55-bdea-a67ff7d5daa1@suse.com>
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Mykyta Poturai <mykyta_poturai@epam.com>,
+ Mykola Kvach <mykola_kvach@epam.com>, xen-devel@lists.xenproject.org,
+ =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ Julien Grall <julien@xen.org>
+References: <cover.1741164138.git.xakep.amatop@gmail.com>
+ <e44b56f18fe5e1c7f1d6cd9d33ba84cf0e26b440.1741164138.git.xakep.amatop@gmail.com>
+ <c5ccb703-45eb-4fb1-842c-75317354afad@xen.org>
+ <e8ddc992-a092-46d8-8c87-6b3c516fe464@suse.com>
+ <32989e14-4754-427d-8347-73fc83a8bd62@suse.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <32989e14-4754-427d-8347-73fc83a8bd62@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 13/03/2025 1:53 pm, Jan Beulich wrote:
-> Parameter and return types of symbols_expand_symbol() make clear that
-> xensyms_read()'s next_offset doesn't need to be 64-bit.
->
-> xensyms_read()'s first parameter type makes clear that the function's
-> next_symbols doesn't need to be 64-bit.
->
-> symbols_num_syms'es type makes clear that iteration locals in
-> symbols_lookup() don't need to be unsigned long (i.e. 64-bit on 64-bit
-> architectures).
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 13.03.2025 17:05, Jürgen Groß wrote:
+> On 13.03.25 16:54, Jan Beulich wrote:
+>> On 11.03.2025 21:59, Julien Grall wrote:
+>>> On 05/03/2025 09:11, Mykola Kvach wrote:
+>>>> Invocation of the CPU_UP_PREPARE notification
+>>>> on ARM64 during resume causes a crash:
+>>>>
+>>>> (XEN) [  315.807606] Error bringing CPU1 up: -16
+>>>> (XEN) [  315.811926] Xen BUG at common/cpu.c:258
+>>>> [...]
+>>>> (XEN) [  316.142765] Xen call trace:
+>>>> (XEN) [  316.146048]    [<00000a0000202264>] enable_nonboot_cpus+0x128/0x1ac (PC)
+>>>> (XEN) [  316.153219]    [<00000a000020225c>] enable_nonboot_cpus+0x120/0x1ac (LR)
+>>>> (XEN) [  316.160391]    [<00000a0000278180>] suspend.c#system_suspend+0x4c/0x1a0
+>>>> (XEN) [  316.167476]    [<00000a0000206b70>] domain.c#continue_hypercall_tasklet_handler+0x54/0xd0
+>>>> (XEN) [  316.176117]    [<00000a0000226538>] tasklet.c#do_tasklet_work+0xb8/0x100
+>>>> (XEN) [  316.183288]    [<00000a0000226920>] do_tasklet+0x68/0xb0
+>>>> (XEN) [  316.189077]    [<00000a000026e120>] domain.c#idle_loop+0x7c/0x194
+>>>> (XEN) [  316.195644]    [<00000a0000277638>] shutdown.c#halt_this_cpu+0/0x14
+>>>> (XEN) [  316.202383]    [<0000000000000008>] 0000000000000008
+>>>>
+>>>> Freeing per-CPU areas and setting __per_cpu_offset to INVALID_PERCPU_AREA
+>>>> only occur when !park_offline_cpus and system_state is not SYS_STATE_suspend.
+>>>> On ARM64, park_offline_cpus is always false, so setting __per_cpu_offset to
+>>>> INVALID_PERCPU_AREA depends solely on the system state.
+>>>>
+>>>> If the system is suspended, this area is not freed, and during resume, an error
+>>>> occurs in init_percpu_area, causing a crash because INVALID_PERCPU_AREA is not
+>>>> set and park_offline_cpus remains 0:
+>>>>
+>>>>       if ( __per_cpu_offset[cpu] != INVALID_PERCPU_AREA )
+>>>>           return park_offline_cpus ? 0 : -EBUSY;
+>>>>
+>>>> It appears that the same crash can occur on x86 if park_offline_cpus is set
+>>>> to 0 during Xen suspend.
+>>>
+>>> I am rather confused. Looking at the x86 code, it seems
+>>> park_offline_cpus is cleared for AMD platforms. So are you saying the
+>>> suspend/resume doesn't work on AMD?
+>>
+>> Right now I can't see how it would work there. I've asked Marek for clarification
+>> as to their users using S3 only on Intel hardware.
+> 
+> Seems as if this issue has been introduced with commit f75780d26b2f
+> ("xen: move per-cpu area management into common code"). Before that
+> on x86 there was just:
+> 
+>      if ( __per_cpu_offset[cpu] != INVALID_PERCPU_AREA )
+>          return 0;
+> 
+> in init_percpu_area().
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Ah yes. Mykola, can you then please address this by adjusting init_percpu_area(),
+adding a Fixes: tag to reference the commit above?
+
+Looking at the tags of the patch, please also make sure you clarify who's the
+original author of the patch. Your S-o-b isn't first, but there's also no From:.
+
+Jan
 
