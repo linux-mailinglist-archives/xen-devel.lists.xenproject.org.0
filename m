@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7108CA600A5
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 20:08:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.913389.1319436 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B250DA60159
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 20:36:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.913413.1319456 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsnuF-0007Ar-MP; Thu, 13 Mar 2025 19:07:47 +0000
+	id 1tsoLG-0007kP-1s; Thu, 13 Mar 2025 19:35:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 913389.1319436; Thu, 13 Mar 2025 19:07:47 +0000
+Received: by outflank-mailman (output) from mailman id 913413.1319456; Thu, 13 Mar 2025 19:35:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsnuF-00078E-J9; Thu, 13 Mar 2025 19:07:47 +0000
-Received: by outflank-mailman (input) for mailman id 913389;
- Thu, 13 Mar 2025 19:07:46 +0000
+	id 1tsoLF-0007ix-UP; Thu, 13 Mar 2025 19:35:41 +0000
+Received: by outflank-mailman (input) for mailman id 913413;
+ Thu, 13 Mar 2025 19:35:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=w2IX=WA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tsnuE-000788-HA
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 19:07:46 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ id 1tsoLE-0007ir-Pn
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 19:35:40 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7232f6f2-003e-11f0-9ab9-95dc52dad729;
- Thu, 13 Mar 2025 20:07:45 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-43cec5cd73bso9159755e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 12:07:45 -0700 (PDT)
+ id 5835691e-0042-11f0-9ab9-95dc52dad729;
+ Thu, 13 Mar 2025 20:35:39 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-4393dc02b78so8861105e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 12:35:39 -0700 (PDT)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395cb318aa1sm3107921f8f.64.2025.03.13.12.07.43
+ 5b1f17b1804b1-43d0a74cfa5sm63028495e9.10.2025.03.13.12.35.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Mar 2025 12:07:43 -0700 (PDT)
+ Thu, 13 Mar 2025 12:35:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7232f6f2-003e-11f0-9ab9-95dc52dad729
+X-Inumbo-ID: 5835691e-0042-11f0-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741892865; x=1742497665; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1741894539; x=1742499339; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=n4M7QB00+B44fpKgjSqyj4KKHn4WFk8WpJcQMngINto=;
-        b=aqKLC18NglUgJqPrlEmGUxxoBi21VG1+9/wvMfwn+smzMnFm3Y8SPhYTA50asuDZWw
-         QiVDDemmtz0LwNo6Q0eX4FcVbPlZuXuh3r1ZqR3GOfuJ1r7Ezy9kiqx9J4FgzR4NEpzG
-         qSfpe501/x7mLZ0+/jCdhqmtscbKDBGXWkVIA=
+        bh=R3jsyrBbLWibeofmp9YUXQYQok3XUyGchQXvUaE2978=;
+        b=IcP6JFO4cP3t2/Z1QpBz2gjUEH4kjjtI+ZSTTN8ABiW7UCGsm5Pc00d+OUJmrGgAH3
+         m9jVSbGICPPaN/ILMfMw/nPmEFCL1kWGiLC6Ktj0cJBUDgcWXtjcMaVJgqdn0OGjMoWo
+         eEDHCYsaTDVtIei1/zCZJ1FPNa1JhX8juKVQ0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741892865; x=1742497665;
+        d=1e100.net; s=20230601; t=1741894539; x=1742499339;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=n4M7QB00+B44fpKgjSqyj4KKHn4WFk8WpJcQMngINto=;
-        b=Z9+eIIxPHeq2V0F3nzU0i4vCYbhdcJgfH2h4uvistDpQ4bJoerUFKxUtUE6uzHA3Yg
-         pXfCiiTss0LeOz1oYhdJy2da0w9pxdTDfTTXU/e6cH9B6UmLUC5DO4MN8hLMW/QkmCO7
-         eWzZPzFSrQtnpSLVM+oXu7dHtuuGVAsapBbVonnxdSBoVKEePq2tMuYoIXF43c0xNDqY
-         m/wbUc3R+/G21NKXzv4MhF0WAqK5j5d+eKaZcGgwuh3Z3ZWfBWw1h0+1XVH9PDZpD9I1
-         ACKhu/hQYnc08cHHBJU+tht+3b7Gukc0iwFUMpxI6Hp81PoI4sjL41M4SCUy5SUqMeis
-         RpKQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUB3fBHYXB5fP95uWR/E8mkLrLDiG44v/woACMiaq3XZj4A977nd4p3E2huqusOpSzfkqSW5OiOtRA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz14ALJ8PggOSuIe71JIUWe8biqvplw8sObPFFY1Y/rUTwUFCsh
-	4/czLp11SMOhmI+kQapX6EevANGv5eWjPFCF+FpGSU1QEe7tOlKAJLu4fd5jVpc=
-X-Gm-Gg: ASbGncuKWZKtgKfaCcuyN4wa4OJeZkGCj38RTQbwj+Q5JxQqKDtvYT1FJXD4ZtYcVLH
-	G+wQ7iyqcUKQq74eNn/oN7uSfdxna6Gfu6wFexQe7JwIwXyN9ffG9UiPPdO0U6DakfkoktB2SYN
-	EOzX83Vp4uub4gN14XNq4BVEOB5AgyokQFwzzD4K1zm0JcXX368f/U+kK+yu0E4shfyVtbwbDmx
-	glmF9jJWOVeG135Ph4ChdU0Tkqw/rPMZY4r3+ZQXhQWdt7wSrHSAv9aI471rkCnyhKcas1apL/9
-	J95lRSHX8v7PB/L1lwbZiBGH9c1TtJokKWgjT5SCmVuVgnudJ7RpcwFfE4iHgMGR2PFE+Gp6Fki
-	IwU/sFM+cb+cit13PZpo=
-X-Google-Smtp-Source: AGHT+IGmG57tzvTxtBdGFowO3jSvOz85AyyzH4dEKVm/WR+xoWSEs62VggwTDMmkBAQNX77zVguK8w==
-X-Received: by 2002:a05:600c:580c:b0:43c:fab3:4fad with SMTP id 5b1f17b1804b1-43d1d97c682mr7988585e9.16.1741892864807;
-        Thu, 13 Mar 2025 12:07:44 -0700 (PDT)
-Message-ID: <a51d185c-0d7b-4244-b891-c56496e012f7@citrix.com>
-Date: Thu, 13 Mar 2025 19:07:42 +0000
+        bh=R3jsyrBbLWibeofmp9YUXQYQok3XUyGchQXvUaE2978=;
+        b=icSS91c/fLraDwhLg/5K1hwoW8XX4PqqEN7tN1Lh4WEl2R5PduJwlbWSoNZmno1wXT
+         4WhIXwvhaAjguqQhDYeWRCTgE0PHMP/Wr9ElC3vfVp8/HucyaTYCOsMTCUlfrV0zywSH
+         5hZhXW3XQ8k4Y8+OnC5mR8O7Ykh+WoyjkscCDqyPP4GzyhJLDk6d1OEmrkLtdArOaeIo
+         RI3WdmFYx7EpzKgUZSFk9RJIuERCWJynrUqMRIWpXtCWM78ONVG6bLF/7NDcg1NEE2jm
+         lIgzCU89yIecU22yYOukW6rjiU3VTriNaRlK28MAsVUDc410Li4Pt0kJP+iW1nj6LhV6
+         dnjQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXjnMiYYhiAECyPJySADkCyeVtDkyj3S080IDb+CAFcGxCGkNid3jZVXEybAVMzbNf6rXKQFgVxr5Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwoAMm4FlRFVSf48MJRpq0g+jwCCw7Icp/f5w4Sh1yop+/JYTFE
+	2HkEXqJ2nEl3I9KXM/OtW35qfz8wGqIaFaSp711Mdw8RqvT5KG9fHP9J+Xntn3c=
+X-Gm-Gg: ASbGncvHcFrdUDBrD6ELnDwwRfIUPLJekbOm0WgAtXeW+Hypd7CqwTplt/NGunR1bDZ
+	idq0uoig9peARnUVNPXoIlaQNDiBLeVO0kRCBsYwb2dyQOOkXnbSaBMNWFPaXf7wWwiF6iR+bSm
+	9GCLsNMJuDa8ruzV2ae1iS08HURiePPKqE40gbUgHWx1MUrO4AcPh3EKIakZaZEuiTZSLy6/KNc
+	AxcU8HhMBdebBEUNHfuUx8LDZbS7OhUyggEPCAgLB7d9ymQxr92ExM07i176ZEwrl88H6sEAyIx
+	7O7vD60uogfBa87zbuacQwCfILsgDgZEmb/I3Ke6dk7cv+csZyFIjRETzvp6gMq58DwAFVCM1F2
+	psC8h9mB9
+X-Google-Smtp-Source: AGHT+IE8sTAtjhj/7icwZAKoMxdYfZML0QN+yciWb8qZtOyVjqjLDDShC9+6SaIVwI6Rk8NQPNrl5Q==
+X-Received: by 2002:a05:600c:3110:b0:43c:e9d0:9ee5 with SMTP id 5b1f17b1804b1-43d1e48edd3mr2100345e9.18.1741894539122;
+        Thu, 13 Mar 2025 12:35:39 -0700 (PDT)
+Message-ID: <8ebbe639-119b-4f13-b660-c492175bbef4@citrix.com>
+Date: Thu, 13 Mar 2025 19:35:37 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] x86/wait: prevent duplicated assembly labels
+Subject: Re: [PATCH 3/7] x86/dom0: placate GCC 12 compile-time errors with
+ UBSAN and PVH_GUEST
 To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Cc: Jan Beulich <jbeulich@suse.com>
 References: <20250313153029.93347-1-roger.pau@citrix.com>
- <20250313153029.93347-3-roger.pau@citrix.com>
+ <20250313153029.93347-4-roger.pau@citrix.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -136,55 +135,46 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250313153029.93347-3-roger.pau@citrix.com>
+In-Reply-To: <20250313153029.93347-4-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 13/03/2025 3:30 pm, Roger Pau Monne wrote:
-> diff --git a/xen/common/wait.c b/xen/common/wait.c
-> index cb6f5ff3c20a..2fcbbe8d0c71 100644
-> --- a/xen/common/wait.c
-> +++ b/xen/common/wait.c
-> @@ -170,6 +162,54 @@ static void __prepare_to_wait(struct waitqueue_vcpu *wqv)
->          : "0" (0), "1" (cpu_info), "2" (wqv->stack),
->            [sz] "i" (PAGE_SIZE)
->          : "memory", "rax", "rdx", "r8", "r9", "r10", "r11" );
-> +}
-> +
-> +/*
-> + * Since context_save() is noinline, context_restore() must also be noinline,
-> + * to balance the RET vs CALL instructions.
+> When building Xen with GCC 12 with UBSAN and PVH_GUEST both enabled the
+> compiler emits the following errors:
+>
+> arch/x86/setup.c: In function '__start_xen':
+> arch/x86/setup.c:1504:19: error: 'consider_modules' reading 40 bytes from a region of size 4 [-Werror=stringop-overread]
+>  1504 |             end = consider_modules(s, e, reloc_size + mask,
+>       |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>  1505 |                                    bi->mods, bi->nr_modules, -1);
+>       |                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> arch/x86/setup.c:1504:19: note: referencing argument 4 of type 'const struct boot_module[0]'
+> arch/x86/setup.c:686:24: note: in a call to function 'consider_modules'
+>   686 | static uint64_t __init consider_modules(
+>       |                        ^~~~~~~~~~~~~~~~
+> arch/x86/setup.c:1535:19: error: 'consider_modules' reading 40 bytes from a region of size 4 [-Werror=stringop-overread]
+>  1535 |             end = consider_modules(s, e, size, bi->mods,
+>       |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>  1536 |                                    bi->nr_modules + relocated, j);
+>       |                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> arch/x86/setup.c:1535:19: note: referencing argument 4 of type 'const struct boot_module[0]'
+> arch/x86/setup.c:686:24: note: in a call to function 'consider_modules'
+>   686 | static uint64_t __init consider_modules(
+>       |                        ^~~~~~~~~~~~~~~~
+>
+> This seems to be the result of some function manipulation done by UBSAN
+> triggering GCC stringops related errors.  Placate the errors by declaring
+> the function parameter as `const struct *boot_module` instead of `const
+> struct boot_module[]`.
+>
+> Note that GCC 13 seems to be fixed, and doesn't trigger the error when
+> using `[]`.
+>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Why are you caring about balancing CALLs and RETs?
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-This infrastructure exists for cases which don't.
-
-> +#ifdef CONFIG_SELF_TESTS
-> +static void __init __constructor test_save_restore_ctx(void)
-> +{
-> +    static unsigned int __initdata count;
-> +    struct waitqueue_vcpu wqv = {};
-> +
-> +    wqv.stack = alloc_xenheap_page();
-> +    if ( !wqv.stack )
-> +        panic("unable to allocate memory for context selftest\n");
-> +
-> +    context_save(&wqv);
-> +    if ( !count++ )
-> +        context_restore(&wqv);
-> +
-> +    if ( count != 2 )
-> +        panic("context save and restore not working as expected\n");
-> +
-> +    free_xenheap_page(wqv.stack);
-> +}
-> +#endif
-
-The wait infrastructure is incompatible with CET-SS.  (yet another
-reason why I want to delete it.)
-
-The only reason this wont blow up in CI because shadow stacks are
-enabled later in boot, but I was hoping to change this with FRED.
-
-~Andrew
+(I swear I've seen this before, and already fixed it once by switching
+to a pointer...)
 
