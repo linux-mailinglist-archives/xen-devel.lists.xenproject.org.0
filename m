@@ -2,40 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEFB4A5F036
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 11:04:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.911802.1318197 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7003A5F068
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 11:16:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.911813.1318209 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsfQQ-0007R8-N0; Thu, 13 Mar 2025 10:04:26 +0000
+	id 1tsfcH-0002Ig-OE; Thu, 13 Mar 2025 10:16:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 911802.1318197; Thu, 13 Mar 2025 10:04:26 +0000
+Received: by outflank-mailman (output) from mailman id 911813.1318209; Thu, 13 Mar 2025 10:16:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsfQQ-0007PG-KE; Thu, 13 Mar 2025 10:04:26 +0000
-Received: by outflank-mailman (input) for mailman id 911802;
- Thu, 13 Mar 2025 10:04:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tsfcH-0002H2-LS; Thu, 13 Mar 2025 10:16:41 +0000
+Received: by outflank-mailman (input) for mailman id 911813;
+ Thu, 13 Mar 2025 10:16:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=a6QA=WA=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1tsfQO-0007PA-Ti
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 10:04:24 +0000
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on20607.outbound.protection.outlook.com
- [2a01:111:f403:2406::607])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8976ec12-fff2-11ef-9898-31a8f345e629;
- Thu, 13 Mar 2025 11:04:22 +0100 (CET)
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
- by BN7PPF8FCE094C0.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::6d8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.28; Thu, 13 Mar
- 2025 10:04:17 +0000
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13%6]) with mapi id 15.20.8511.026; Thu, 13 Mar 2025
- 10:04:17 +0000
+ <SRS0=4VRv=WA=bounce.vates.tech=bounce-md_30504962.67d2b084.v1-d96656fc4bef4c46a67b20849d138f86@srs-se1.protection.inumbo.net>)
+ id 1tsfcF-0002Gw-G9
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 10:16:39 +0000
+Received: from mail128-10.atl41.mandrillapp.com
+ (mail128-10.atl41.mandrillapp.com [198.2.128.10])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3f4f883e-fff4-11ef-9ab9-95dc52dad729;
+ Thu, 13 Mar 2025 11:16:37 +0100 (CET)
+Received: from pmta08.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail128-10.atl41.mandrillapp.com (Mailchimp) with ESMTP id
+ 4ZD3Lr2QTMzLfHTDM
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 10:16:36 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ d96656fc4bef4c46a67b20849d138f86; Thu, 13 Mar 2025 10:16:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,148 +43,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8976ec12-fff2-11ef-9898-31a8f345e629
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YMWqMAoquWBu7eP/k0+R5T5Z8XzzjbqYs/qMcTE1udPbBXL4X9G4J8WUoDU6PLWRF79FYT7ngB90HRyTQmRIgyu/OAAsYvOn2kPfXukoe1/c5kL0kWL9ehS0ZLXNH7lvHdPmf2kINdVAWPC6GF5K5z8+1ZitBcZpQ20c2W/TiiXMHQ/ir/socIs9pDrfzOOLHpQp4YsPeOrshLhGx41CKM0lw7qDXo9HzJAyT/rKnsh8hYMMsjypFPiNpke6P4TqOi6s+UgKuBADEtyZexttIEErrMJHWwU/O0BKYU2kg7ShwbGaNHgbARTYHf2AwoPUrH1kLE+a4Tcp0VubNB9iMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5bwfNq62fClrcctu2qzFN2pIWgGzk5osp6y6onnH/FA=;
- b=UeY/SpnKJX9VNCDq8297KybN89Y+J3Ad7Dt0caXwMrwgbyl585z6QJtcuE6tkHd04JrhS0yDeQylmRZzRlJAbrzC18IfMaTY5j0Co0T4d/wMXprQnmfIXPZsI8C4emI+2vRhrhayOSsa14/m5ADot7KtrLURQuJPBZermV351X2z1zeNpjb2rXeYB3bKPgXBP7rcDfgpcQUwNfkUVZUJM/sVqSOxJFMHNC+54nhvb/mFw73CHLltgwS6Wl4AUPy6+icyA8+v8oIC/t7I8+v/XURC0CZ4Zlw7GTUWeXbz1RVm3xc12Iq0QvRSLzYNX1v2UEnIXzW19wt5DZK5ACDLMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5bwfNq62fClrcctu2qzFN2pIWgGzk5osp6y6onnH/FA=;
- b=Qqp6UIBiizciijSZ3rWQEhp1MAWDF33M2mdKIZW5+uF+1ad4HM4KFZBHVKdCkU/vCQGdP+wycYYsijrPC6N1TjIw+mc9fZg9FV5mqB0bgPJEs6JDJnfNbLsQem9JzeUCJjyES5e3cMMQoKtgXUgBcvJXkOTQ0bvFvjc54EnJv20=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <db103ce9-091c-4bff-807f-38155ef1b3ca@amd.com>
-Date: Thu, 13 Mar 2025 11:04:14 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/10] arm/mpu: Implement stubs for ioremap_attr on MPU
-To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20250312135258.1815706-1-luca.fancellu@arm.com>
- <20250312135258.1815706-8-luca.fancellu@arm.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
-Content-Language: en-US
-In-Reply-To: <20250312135258.1815706-8-luca.fancellu@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0034.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1c::20) To BN9PR12MB5273.namprd12.prod.outlook.com
- (2603:10b6:408:11e::22)
+X-Inumbo-ID: 3f4f883e-fff4-11ef-9ab9-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1741860996; x=1742130996;
+	bh=9OLHqGV56y1iWNtM4YA49so3Lpe1f8FMl65Ei94dkao=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=U/GlslXtcnLPKmODogomWnYEBesd0WJxIzutbah4YoL5jye6COSHUT4fvBAYvoUps
+	 2Cgm7omOupCpM6ACz7aGUVHYpaoMevA8uQwY8/Av8oU3YOiDgFlV5m0F6sY0uPOmZJ
+	 UFfUHzEf8qyaeL07u4bLq94O7ms9evN0Zif26GwZFtUTeiZ3ITXAgmRNrxOhyPbvUd
+	 KNQW1t1Vun1HG1cvDGEohtreGBbOl8JGKaIEAYq0oY3XVd2YwogYIoEZRCH7M/lrYA
+	 RFJ90mRZSDdgrO2nUTDP2fWhcJN4JpjaUBivT4iVhUmSIFKJtR6jIvTDPlaW5suJ0z
+	 10LXMWXkDid9w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1741860996; x=1742121496; i=anthony.perard@vates.tech;
+	bh=9OLHqGV56y1iWNtM4YA49so3Lpe1f8FMl65Ei94dkao=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=h8tIiW59Z9bTtud3IPzgnD6wwJ+9t6h91BLOq1Ku7qFMuY0gl6kwioh71kph6rdw+
+	 aIeFTfPlJYfKBsADH3E3FczYLQYP6nvuVJ7uKF8ivCYwBgOhRF9voNyQMOMOYYb6uq
+	 Wzv5NdtJriHrgVcXpMdaNBcSnGHSiw34eoJJrBoWiKfGV0tDrJUajm90V6uTPgCfSa
+	 gH6A+Fg/rK6NnMwoT8DrdszmoUnrGLUs5rWAJx4HezgRwDrCcZ1f3SNe13Bxt8JDUt
+	 2RCZpdLimGFOUgeOz8Oytvo+nfgsj88QeMt18auR5WPuODbSMIXYLhB7ZEFUZRk+jX
+	 YHlzIWTH9WNdA==
+From: "Anthony PERARD" <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20v3]=20docs:=20specify=20numerical=20values=20of=20Xenstore=20commands?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1741860994568
+To: "=?utf-8?Q?J=C3=BCrgen=20Gro=C3=9F?=" <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Michal Orzel" <michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>
+Message-Id: <Z9Kwgqe9FUgrpSUs@l14>
+References: <20250312084143.14045-1-jgross@suse.com> <Z9G6dXyhM01MFD_q@l14> <ade9e905-f9d5-468c-bad6-acc996378f06@suse.com>
+In-Reply-To: <ade9e905-f9d5-468c-bad6-acc996378f06@suse.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.d96656fc4bef4c46a67b20849d138f86?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250313:md
+Date: Thu, 13 Mar 2025 10:16:36 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|BN7PPF8FCE094C0:EE_
-X-MS-Office365-Filtering-Correlation-Id: d052746a-0cac-4a4f-049b-08dd62166abb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?QWpMN1Q4MloyelNkSUdsVVRvOUsra2VBb0dMQXQxTzI5ZWl2ZmdxT1VCT1BQ?=
- =?utf-8?B?WmZXZ2lIbm9uZDlmT2FNLzhtcEVpV3BQQjVzT0hTeElPVHZiOTZ5Qi9QQk9T?=
- =?utf-8?B?dkExbHNHZHNtZ2RTdVR1Lys3YUp0UUEwRDdGekQ3N1UrWG5Ta0RDcW5udjMy?=
- =?utf-8?B?RndxRmxpbk1RS0U2OXJlNHprNFdHbG5Ed3JISk1jQThDbjZKZkxwbk5PeGdR?=
- =?utf-8?B?VHdGSlJOeE93aWs4VWxVL1o5R1JyNHphdUc5RXFMSi9DZDVYcFh3YzNVV3lw?=
- =?utf-8?B?WE9aZW16UUYvelJJZXhweGsyZktHaEErOXNuTXlOeDY1RS84T0VwN3YrWTdF?=
- =?utf-8?B?S0hQYk9NaWdoMGgrRk8rcTlhRUlIc1F1WHQ0V0NCYlNyK1NNeFBKUjRtQVgv?=
- =?utf-8?B?TElrbjNtZUpLc1c3bUR6WksvTzdJTjFIWjM3WG9qRHBMSFBOWjBydnpUTmxK?=
- =?utf-8?B?azNwa0FnQzNscmtYNExOM3A0bjZCcGdDZHpUUFRadnlJdlF3N1E3ZHBJT1Vo?=
- =?utf-8?B?QWtuQm84MzBLNVlwbUdETDVJdngwZkJrK21IaUpVS0p2cDdXemxocWZtKzZu?=
- =?utf-8?B?NE5ZUlFCTXVaWElmL3V5LzM2Zy9YVXBTZ1VJYVZ5eHhpd3NqeUZrR05qd21m?=
- =?utf-8?B?L2ptc1haOWxsUkJNSTFqV3ZDVHpmTHZvTjIzRWpjd0FHb0R4YmRTYzhRZ0t6?=
- =?utf-8?B?WThxenIyUDJHMEZrSC90NXN5M1hCWFNxKyt3NEkvNDk1Mjk1Tk5neUd0dW5D?=
- =?utf-8?B?c3YyM3FJcmdRelhzY29rL08xaFZMQXBpTHdVdkdxeE1Eb1R3RHVtWHdoZ0ll?=
- =?utf-8?B?SlhJVFRLM1R2cUk3eTdRYnZINlhWUEFaNHVVclY2Y0pJNkpCOEZ3SENmTkN4?=
- =?utf-8?B?Z01QVHhBV1d6N05tc0JGZTIwaWhlSGw5Q2FiL3Q5V0V3QXMyblNtSUJlRzJx?=
- =?utf-8?B?OHJOY3pZa0lMVkc2dG1Tc01aZ2pDUjBlcnoyUjhmcFdrczdkRVhQRXRXbHdO?=
- =?utf-8?B?VUdydVAzWmNNVmpKMDYrODA5VUc4Q3JuUlNZb0RURzlyUlNuVWZyemdxWmVT?=
- =?utf-8?B?YWRiOTFKM01rMUgvRTlBRkdZSk9zVGl2T1ByS3IreEpOaU00cTRIVWc2NitD?=
- =?utf-8?B?alMxanMzR01FeGpwemFBYmpwWW1sQzkzWkFqNUorcmtwL1pVcjFtK0hBSEZx?=
- =?utf-8?B?bk41TFlIUUxURlI0RUhhdDdJTVJpU1ppMlpyMUxUd3N4YXExd1dOdWp3UEdq?=
- =?utf-8?B?RjFFVlROdlg1ZXdTbW1Mb25FUVEwa1NkN0VPTktjaDUyZW5JTStKMTNjbVF3?=
- =?utf-8?B?emxJcjdGcXVOQkErL3pCSTF3UGNOUFE2QTZCcU0rdVMyei9ITjVZemxxSDM2?=
- =?utf-8?B?Mm1SbUZMUStWVS80dDllMUdDdVVaT1lmQmc3RkVRMTFkaVBVa2JsazVTdUoz?=
- =?utf-8?B?bnF0RXg0NHhDU1hqYm92UnBJN0owWjhBRlNwdUlaNTBwdW0zbUNDbk9jZldI?=
- =?utf-8?B?T2dpU2xzYnh4UDNWZVBKOCtmVkZBZFEzMWY2bUV1T3VOenl5MlhlRmJSaDlY?=
- =?utf-8?B?b1NxTktLVlN5YzhKdGhWTWpxQWMzaHYzNFBZd2NYTCtuT253VU42QUxQd1RQ?=
- =?utf-8?B?dUF4TnpZRExqd3lTbUFuSGlqa3hKc0lLM3N4dWg3QW9NV0JuWFBSNWx3b2hh?=
- =?utf-8?B?V3ZocUR2MmJrL1M3TjJRVHFMSTJiQ0ZNcTFad2gvbHhkYjVFU3RweU5JSkxM?=
- =?utf-8?B?UG9uTStXeXh1ZGFrek9WU1ZYbHUwQUFMMTJyblhXczErcTVad05xdVp4RXRt?=
- =?utf-8?B?OWFyWVdHdHY0SkNkK0dGd1ovbWlyRzJ3RFpnbnd1ZnZ0eXVpN0l4Qm5tM0k3?=
- =?utf-8?Q?Qya01tiO8xd4U?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZzUvZ3B1VkJHWE9WL3liZ3VPbUZCMUdUVTB2SkpBc1pSSmdndFUxUnM1SzRr?=
- =?utf-8?B?WXJDc1IzSU9yTjlGa1ZzK0h0OWNJdVR1dnY0WEtXUVUvWFd0U1cveDRrd0dk?=
- =?utf-8?B?SXJxOEMwc0JYbFkrNWV1b1RlODNRWGEyQ2dnNHBBNWdvb1ZzK1FKeXpkRDRn?=
- =?utf-8?B?cmhCNEIyL2lYeHFjbHpTQk9BcXZ4YjJRMFBaVWdLcmFHQ3B4REl6MU9ERzVr?=
- =?utf-8?B?UUY5MlQzbE9MSjJ4L3IwYTlpUThoWkVaSkFqL0NlNTh0eDJWUlBvbXBjRW1E?=
- =?utf-8?B?TnE4UDJFT3V5aGNkbzN4ek5FQWdyWXd4TS9mWjU4b0RNK09rVUtmQ2FGc3dx?=
- =?utf-8?B?YzBXTUlXc0ZxNEFad0svTEl4WDFrYXlESmpvTUZKVWQ2amZ0TU5QTEZvUTl3?=
- =?utf-8?B?dVZOYk9CckRIbFl4dXJMOVZuaGVKZHFVak5LWjBmSHQzOTBuQ3Y2c1VvK25L?=
- =?utf-8?B?TGJYeUNtckZYWWxJRTUzenhxREZOVmhoMzkzekw0SWs3K2ltZ2VNRlFkTHFY?=
- =?utf-8?B?ck1lTDcvUVBMZFo4aGF2TitSRCtMVE0wL0xaQUxxcXBQdGRQVmdBL2ZMei9z?=
- =?utf-8?B?a1Q0dWVUbmxqN1pXZ3VMVldiNGJ1dkZ2UGV0ajlzNVdHOTVjQmpqZXJlcWU0?=
- =?utf-8?B?SlViQzdma2xvSWV6Q1lMM01LaTkvYURmVEQwaHpuTXozV0V6bUdpYWFLNGRi?=
- =?utf-8?B?dzdFVkkzKytUT2dVUUtTNkpoQmtXYTZrbHBmUWtrdFlBS2ZKeHA4THZ4emlY?=
- =?utf-8?B?a2hHbFcvck1UUFFiVTZ5c3drU0FDS2NhdHNEYW44L3pLYmFHcnAxMmpsV1pt?=
- =?utf-8?B?bTJtSE9IbkR0TVpweU5kSVNBbm5pYUdNdUVEby9NMFVsK2FZK3pjUmlMdSsy?=
- =?utf-8?B?SnZ0MGVLYzZ5WmtJbXlUSnhRSVZjTkt6U2FFckhaV2V2VGV1R3hzMjNxZGJa?=
- =?utf-8?B?bTd1NEdOZ0sxYm12RUlhZlUvUVJiNGVORThYYWJERmx3eDVXMmZWL3FMQlRL?=
- =?utf-8?B?UmJZdGx5RnY5R3FIbnBhYlEzZXlZMUkyc1owR3BDdjRtYUJRRlk1ZVZOZDZw?=
- =?utf-8?B?TTBMRE11VVRXb3h4Mmk0OVNMNWdGbVE0RTdSTko3TmlFMjlQSUE0emVUYTN1?=
- =?utf-8?B?MHZ5cm01bno4YVpBR1c3QWdsVUphSU5iS09jMGFIbjVlMUlxLzhrZDBQU3Ex?=
- =?utf-8?B?M3psenJkQ0pnWFRabE1PQnowOW5XQ0IwTW5JRGlFZTBlWTAvNFV5MzBFMVFp?=
- =?utf-8?B?M01aWHZXYllYODh1cEZrZ2FGcXhhY0JSandBU2Z1UFgxanZxSzdxdW00TTNu?=
- =?utf-8?B?MGpRWmhRbWhjNjFxYmdwRFBITVRFRlJ3bzUxQ0VoM1doWit3UzFzNVdEeGZr?=
- =?utf-8?B?ajlnKzg1YzM4dllaZW82WSs4RVF1aXlPTkdTclFPM1pLWlQxVmo3V1R2dWRM?=
- =?utf-8?B?WWdzVzgrclNMYzFiclNTR0Erb3JUVEg5VnFJb0VYRlhxclVKdXFKL3c5aXRC?=
- =?utf-8?B?N0trNlJsLy9NQmxqSXBZQUFsM1ozazBnclVEMVlpNFh4SlBZZFpETUJZTXpu?=
- =?utf-8?B?cmFDUHZ0VW9lN01LOWdxYmZ3RjRIQTVGbjZrWG9aWjZJY2pFS1JHMGhNL2xL?=
- =?utf-8?B?bDlwS0ljemxia09tc0dwTnhLcnViUyt4TCtJcm5FM1FWeHVBRkR1Wnl2SGdu?=
- =?utf-8?B?VmpmRG1hcnFHbmx1emFOUXVIcHVVc3NIMUg1eG80UitXa0tYNlNyTExkdFhO?=
- =?utf-8?B?RWlLeGpTbExkSzA4Y2N5OXlvWjJVNjFacjBoUWlQYVAySVNjbFdJWjRpSFVx?=
- =?utf-8?B?WkI3S0RJcncwRThPdjVVTFF2ZTAvVERhRERQUUdTbFFxa1dUNUFtTWtzV0Rj?=
- =?utf-8?B?Uk0ySDFjNnl4MGx6dUFwbXQyblpTc2ZBNFROQ3Zib1QrSmF3azBLWkFsS2NG?=
- =?utf-8?B?T3QrZGJWQU85K29VMVl0dHZQVE1ON0kzN2tSN0dvSUJoRUJTWUt4SVNIbVFi?=
- =?utf-8?B?UHBBL2trMWYwdUJpeVVFRFZTenRlOGNNMkFTRlkzbERmZUNzTmd3YnZxeGgy?=
- =?utf-8?B?d2lIMmluYnU2Z1g1MStCeHkvTDA0WHAyL1JvMEhRZisvSHgyYVFZcVFjclBo?=
- =?utf-8?Q?77rc=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d052746a-0cac-4a4f-049b-08dd62166abb
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2025 10:04:17.8110
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Uo1mDymzd4ip1WdbFzg/MpNp7ILmVgiZY0NOlF05oebsm+FNmCSUIFNIHZKiEG79
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF8FCE094C0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-
-
-On 12/03/2025 14:52, Luca Fancellu wrote:
+On Thu, Mar 13, 2025 at 10:51:06AM +0100, J=C3=BCrgen Gro=C3=9F wrote:
+> On 12.03.25 17:46, Anthony PERARD wrote:
+> > On Wed, Mar 12, 2025 at 09:41:43AM +0100, Juergen Gross wrote:
+> > > diff --git a/docs/misc/xenstore.txt b/docs/misc/xenstore.txt
+> > > index 7e1f031520..72db73deef 100644
+> > > --- a/docs/misc/xenstore.txt
+> > > +++ b/docs/misc/xenstore.txt
+> > > @@ -86,6 +86,67 @@ parts of xenstore inaccessible to some clients.  I=
+n any case passing
+> > > +XS_CONTROL               0    optional
+> > > +    If not supported, xenstore-control command will not work.
+> > > +    XS_DEBUG is a deprecated alias of XS_CONTROL.
+> > > +XS_DIRECTORY             1
+> > > +XS_READ                  2
+> > > +XS_GET_PERMS             3
+> > 
+> > This new table prefix message type names with "XS_", but the rest of th=
+e
+> > document describe each type without the prefix. Isn't it going to be
+> > confusing, and make it slightly harder to link this table to rest of th=
+e
+> > document? (I often search by full word, like '\<GET_PERMS\>', because
+> > that one key stroke in vim '*', so having different prefix makes it
+> > harder to search)
 > 
+> Question is, should I change the table to drop "XS_", or the rest documen=
+t
+> to add "XS_" instead? After all xs_wire.h is defining the names with "XS_=
+".
 > 
-> Implement ioremap_attr() stub for MPU system; the
-> implementation of ioremap() is the same between MMU
-> and MPU system, and it relies on ioremap_attr(), so
-> move the definition from mmu/pt.c to arm/mm.c.
-I could see this bundled with the last patch, but as you already split it.
+> I'm slightly leaning towards a preparatory patch adding "XS_".
 
-> 
-> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+Well, I'm actually for dropping the prefix from the table. The prefix is
+more of a C specific namespace than anything else. The ocaml
+implementation in tree doesn't use this prefix, but a different one (if
+we ignore the different case:
+> Xenbus.Xb.Op.Watch
+https://elixir.bootlin.com/xen/v4.20.0/source/tools/ocaml/xenstored/process=
+.ml#L632
+And have a link to a string without the prefix:
+> | Watch=09=09=09-> "WATCH"
+https://elixir.bootlin.com/xen/v4.20.0/source/tools/ocaml/libs/xb/op.ml#L49
 
-~Michal
+There's also a version in Rust which also use a different prefix,
+"XsMessageType::".
+https://github.com/Wenzel/xenstore/blob/f82bd45cbcd1aa98306c57d35847e3d77f7=
+cc8ee/src/wire.rs#L55
+
+So the prefix is really programming language specific and I don't think
+introducing it to this document would be useful.
+
+Thanks,
+
+-- 
+
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
 
