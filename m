@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56B42A5F601
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 14:32:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.912152.1318476 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43244A5F604
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 14:33:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.912165.1318485 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsifz-0004or-Ve; Thu, 13 Mar 2025 13:32:43 +0000
+	id 1tsigp-0005PV-AK; Thu, 13 Mar 2025 13:33:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 912152.1318476; Thu, 13 Mar 2025 13:32:43 +0000
+Received: by outflank-mailman (output) from mailman id 912165.1318485; Thu, 13 Mar 2025 13:33:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsifz-0004nG-Rq; Thu, 13 Mar 2025 13:32:43 +0000
-Received: by outflank-mailman (input) for mailman id 912152;
- Thu, 13 Mar 2025 13:32:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tsigp-0005NZ-7d; Thu, 13 Mar 2025 13:33:35 +0000
+Received: by outflank-mailman (input) for mailman id 912165;
+ Thu, 13 Mar 2025 13:33:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7Xn0=WA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tsify-0004nA-0Z
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 13:32:42 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a317bfc8-000f-11f0-9ab9-95dc52dad729;
- Thu, 13 Mar 2025 14:32:41 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-43cf257158fso6330145e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 06:32:41 -0700 (PDT)
+ id 1tsign-00054A-Rq
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 13:33:33 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c1306f21-000f-11f0-9898-31a8f345e629;
+ Thu, 13 Mar 2025 14:33:31 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-43cfecdd8b2so8256875e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 06:33:31 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d18a4c2dasm20311705e9.33.2025.03.13.06.32.39
+ ffacd0b85a97d-395cb318aa1sm2188236f8f.64.2025.03.13.06.33.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Mar 2025 06:32:40 -0700 (PDT)
+ Thu, 13 Mar 2025 06:33:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a317bfc8-000f-11f0-9ab9-95dc52dad729
+X-Inumbo-ID: c1306f21-000f-11f0-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741872760; x=1742477560; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=pS91R4lqSFQb5EgX2ajpaaJQDBB/79zDPw+ncyKE3OM=;
-        b=QuwrPqI9Yw5yhIlcGrG1QMkdxN5yCaYJtdSRzPQDUmwdNVJ5S8i0FGDd9lh7s72vhm
-         L7ET544K/M8wOwkgtJe2xRpA2WZAKNW3W33273bxdvM85Ny8RbelU8QjUFhZH/gEZtGk
-         wsOl937P0Fzyw/R76TlJ+NoKgWTVMPhd7s4yrE0Efgfy6Gfx0omVLTUOQPzhwYfqgFvi
-         ShmNXRUbmerkyq3ooDysztPMWKqf8g/0P0qhkzZoZXulLC1TpVQrdRWL7f/XnlcO0RpK
-         Uotq3lOjYFB+yL4tdoQV82etquADMPPIN39w71GM0jZYE0DBaovwRlF9VqRADsHbQSFM
-         Vd/A==
+        d=suse.com; s=google; t=1741872811; x=1742477611; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Me251RWcZ43pewsUtLw3vQfNxPNwcf840kn0EwBGFJs=;
+        b=dmpT/IHLLLb2jQKU+VBqfzCPOKfLY6lhybHMPE/Hr0s/pB1OdkugXf9sauZf/j630L
+         1V9rw8c0nDcymuZ+EsN25C6ipzF13h6KxFzpdy8ix6fGumjSd8huYmy+C9htMCzi6C1z
+         exGltjMbnoBR7T0QlW8RydUbRCbtguFN4rNNC3lZxicZ0XRHd/rYhLgynR8VAO2JddA9
+         WkbYUXkbHlUBlmV4DAeYd6mzsLOqXtsb/svw3HXDSeKDY/VJg+BxPIkrzDTA34ZwCkxi
+         mszF65NrDM8PTsf0RkByrkUUS69nr/LIob2QQ2DeiVF5Q/qPA5fkphVHqufn5QW8E5bL
+         xozA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741872760; x=1742477560;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=pS91R4lqSFQb5EgX2ajpaaJQDBB/79zDPw+ncyKE3OM=;
-        b=bdE4UBq6xpyILRF5kUyH/xVRTgp4Ej/BmW2HLrtL9qmfRgtqWeqvyVWuqC2ncuehRG
-         KNS3vIcNlOfunfp6xeDL/ou6uRuaQPXnV/flqsKelMXKLb4Nb77vtBIyVvqqPxxPTmqw
-         xz84hn4brSgrofDGL5qPOEAl0txnCRmAkzE1tWceJP01RHcxG8IuiWuZYFWj7K4M19O+
-         J8b7mYvAdURp+WJOtycTSZpo4YLzcg6wiOr2thZc/EsU+3K/qCzkxV4vzz5KFgu/UCnQ
-         GOWozgwVbV88qqMfe82lsPi1zqZr6MRBCUVcb6okORc8duCXWHxmzb6nVEeJorBVGT7X
-         ngjQ==
-X-Gm-Message-State: AOJu0YzdiWWBFCiuo3VByqTNi96u/FFlUm+eIfMp7txdkvdOZ0E3TbPN
-	uvYDSsUBsj/vzLq+nXd0ecdvNbim+XpHWhjulXJMd6r8kXFG8ahQiMke4JJJ+Hfkvmo6k3SMnnU
+        d=1e100.net; s=20230601; t=1741872811; x=1742477611;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Me251RWcZ43pewsUtLw3vQfNxPNwcf840kn0EwBGFJs=;
+        b=CDkoT6dgDqDs2Qh1099zgpsYHp0H6dguAwjgZ5eE/kdrgGtlO5aOE7YXWtigTVal1Q
+         xJDx8dwz/+Ql2byKhGwWwHXeAweamunIR8jQCLoRSx4NVVtLB6qMCvyDT9zP8BCRt6RY
+         NPTs3k8mZ69zzFJDWvpokZhWNLXn/b4G2cC5nMCoB8QcHwotnj64//aZ3xNtvjl1bCwI
+         k7Q1LYIr4ZX/Lnk/WkzqI5zfg09ZuBbAt9QDbQKat8wfgP6Afl4bMrte6SE4u1NXmmQT
+         3FzziTYyQgXWvKI7Kwl6CwaHRR75rQW7VKpc9A6fdmNOoun+y0gHvWEfYUOXeHBxkt/y
+         mImQ==
+X-Gm-Message-State: AOJu0YwlPIiB6zUM8LgltZSgn84XG+jmO/CUjan/l9OCg55bfYshdXLz
+	Wi4MatkRZ5gzNwPcwibJVyRQVoo5iyKhhZ6ksNXlkI4wcYNmogjDgfxBJsy1fwidXdnk0KWPnNI
 	=
-X-Gm-Gg: ASbGnctd0dCjvsYibX9M9GfFZXYaflPa29Y7uEjji5wnqG/FX1y9lFJdr8Ddy4jUcfG
-	tOQk4rqMjLmdMbsGJGRdaViMDREoI5H6DfqfADuBWhDb4BlptNxEzv0OvZvFgE1LBmnQw1WgqRm
-	9c378KM3SUr3IHadPwcZwJ4O54xeXQwKAUVFj51Uf/r9NbcC5gVVhV8vaJ9m03lRXKPMk04hqKv
-	DdsiKFpPbLOw41c13+cNL9za9A20mRGbqLTkV52kBDuzWOjtoyG8KQD7HMrF6DRAoKJe4VnTJ82
-	kTG0jpnaFkD8ScuVbaDLH1QGdnHk59XmLUX/Qs/obh+34jK5OMDXc75GHDDObT7SPznnDZuPH2y
-	IaVGDBXgmu3n0PpwMigAWDPHFA3QDlQ==
-X-Google-Smtp-Source: AGHT+IHillONlWUY4GDGVx5bJ0xxX0XbLzFEBH3X+TGyQsDtrVhiA2kkPIlffRQodAO/IsKai8qz9g==
-X-Received: by 2002:a5d:5f93:0:b0:391:2e6a:30fe with SMTP id ffacd0b85a97d-39132da07d0mr21436154f8f.39.1741872760483;
-        Thu, 13 Mar 2025 06:32:40 -0700 (PDT)
-Message-ID: <8b610dba-0ce9-47ed-808d-035dc48f4f04@suse.com>
-Date: Thu, 13 Mar 2025 14:32:39 +0100
+X-Gm-Gg: ASbGnctiyK7vNeuvJUEeaDCDKFTfjNc+/lK7ZID0MVMcfv8tOZspWPVSTSBCPhal+Xf
+	h9jrMs7TporV9mQ47dGy5vzQbQ/2Kj1vQafpixrietQWkj9ucm49EsUGkd5h0DHNgqV8eR0ogSK
+	1THtEv5l/B4rQ1r2YokYrkjFU5e8tWpF+PfkQduvKekxYAExB0LYMyYoOtEgX8mPJB/6fgMap+l
+	OhYdSgGjNk3elHYY3kFM7gtzZXY6lQBzyFTqhTp3qS2+9wk6K5mDIJLskxkf0s4VNcSxTR3nMVV
+	TQCO94VVjE9gjsk8mMbf7LxoI+6UAlsEStsyaDXPNfWKY0bwPrEXtIIQgPzwIR/VggiCQDXW7yA
+	pjgoIpSKC8wm7Tnlb2CFTL373JcfJow==
+X-Google-Smtp-Source: AGHT+IFIuB5tfUpB/P1VsNzLMI+pUqeK67zi/bdexalWFWe2qSO/aADXxhXOsNFGEhbjy3XXHG8Sxw==
+X-Received: by 2002:a5d:64ec:0:b0:391:1473:336a with SMTP id ffacd0b85a97d-39132dbc5afmr17663153f8f.36.1741872810977;
+        Thu, 13 Mar 2025 06:33:30 -0700 (PDT)
+Message-ID: <b09c2c89-ae6b-4942-8e22-61a2ae2862a4@suse.com>
+Date: Thu, 13 Mar 2025 14:33:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
+Subject: [PATCH 1/2] VT-d: move obtaining of MSI/HPET source ID
+From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH 0/2] VT-d: set_msi_source_id() (XSA-467 follow-up)
+References: <8b610dba-0ce9-47ed-808d-035dc48f4f04@suse.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -115,11 +117,50 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <8b610dba-0ce9-47ed-808d-035dc48f4f04@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-1: move obtaining of MSI/HPET source ID
-2: have set_msi_source_id() return a success indicator
+This was the original attempt to address XSA-467, until it was found
+that IRQs can be off already from higher up the call stack. Nevertheless
+moving code out of locked regions is generally desirable anyway; some of
+the callers, after all, don't disable interrupts or acquire other locks.
 
-Jan
+Hence, despite this not addressing the original report:
+
+Data collection solely depends on the passed in PCI device. Furthermore,
+since the function only writes to a local variable, we can pull the
+invocation of set_msi_source_id() (and also set_hpet_source_id()) ahead
+of the acquiring of the (IRQ-safe) lock.
+
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+
+--- a/xen/drivers/passthrough/vtd/intremap.c
++++ b/xen/drivers/passthrough/vtd/intremap.c
+@@ -508,6 +508,11 @@ static int msi_msg_to_remap_entry(
+     const struct pi_desc *pi_desc = msi_desc->pi_desc;
+     bool alloc = false;
+ 
++    if ( pdev )
++        set_msi_source_id(pdev, &new_ire);
++    else
++        set_hpet_source_id(msi_desc->hpet_id, &new_ire);
++
+     if ( msi_desc->msi_attrib.type == PCI_CAP_ID_MSI )
+         nr = msi_desc->msi.nvec;
+ 
+@@ -575,11 +580,6 @@ static int msi_msg_to_remap_entry(
+         new_ire.post.p = 1;
+     }
+ 
+-    if ( pdev )
+-        set_msi_source_id(pdev, &new_ire);
+-    else
+-        set_hpet_source_id(msi_desc->hpet_id, &new_ire);
+-
+     /* now construct new MSI/MSI-X rte entry */
+     remap_rte = (struct msi_msg_remap_entry *)msg;
+     remap_rte->address_lo.dontcare = 0;
+
 
