@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AF0EA5EDA1
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 09:08:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.911364.1317815 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F9C7A5EDC3
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 09:16:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.911390.1317835 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsdbn-0003vh-9E; Thu, 13 Mar 2025 08:08:03 +0000
+	id 1tsdjf-0007CJ-8t; Thu, 13 Mar 2025 08:16:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 911364.1317815; Thu, 13 Mar 2025 08:08:03 +0000
+Received: by outflank-mailman (output) from mailman id 911390.1317835; Thu, 13 Mar 2025 08:16:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsdbn-0003ta-5i; Thu, 13 Mar 2025 08:08:03 +0000
-Received: by outflank-mailman (input) for mailman id 911364;
- Thu, 13 Mar 2025 08:08:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tsdjf-00079Y-5N; Thu, 13 Mar 2025 08:16:11 +0000
+Received: by outflank-mailman (input) for mailman id 911390;
+ Thu, 13 Mar 2025 08:16:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7Xn0=WA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tsdbm-0002PI-JH
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 08:08:02 +0000
+ id 1tsdc7-0002fh-II
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 08:08:23 +0000
 Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
  [2a00:1450:4864:20::336])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4898289d-ffe2-11ef-9ab9-95dc52dad729;
- Thu, 13 Mar 2025 09:08:01 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 549695ef-ffe2-11ef-9898-31a8f345e629;
+ Thu, 13 Mar 2025 09:08:22 +0100 (CET)
 Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-43948021a45so5238405e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 01:08:01 -0700 (PDT)
+ 5b1f17b1804b1-43cfdc2c8c9so3588385e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 01:08:22 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d188b7185sm11831465e9.12.2025.03.13.01.08.00
+ 5b1f17b1804b1-43d18a4c71esm11567045e9.39.2025.03.13.01.08.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Mar 2025 01:08:00 -0700 (PDT)
+ Thu, 13 Mar 2025 01:08:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4898289d-ffe2-11ef-9ab9-95dc52dad729
+X-Inumbo-ID: 549695ef-ffe2-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741853281; x=1742458081; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741853301; x=1742458101; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1pF3zG1Lu286gm/rHp2c7FaZjiC0YCZORJZgvDubhLo=;
-        b=Gi2NfSOuf0/gLnszN8av9HOq6IMXH1Rn7D0yO2OV1VrDfLyUshuzSext20G+GiqWkS
-         f7g8c0zQsnyOwvBsOnVZkKOz6QuEbyvUsiEYOk35xMry0Mv2udt66dhP9CVXzlpk6TRx
-         jRlVVFr0ay/Ll9/djPGUpan7Q6/gwkVMJBWU/fMhafFes0QpGGEYbzUVbfxWGBe8cby4
-         xxR+hINvHhUFYTRyYBcIYM09SuLqQu+DVy2X9+kJ2g4ucHhLfb9TyQ7KKxpqGXce/ZG/
-         zaE/LTPR+Eqq+VXk+NZqCIAoVxPtF9B9S0CVkeRlMLtm0bi4Kyz8GdzyDF51zlOEcqDC
-         45pg==
+        bh=V2ayXPNTBMmuD+MnIRKXvHvXy9zY3DBe7QT9taI8yfA=;
+        b=dajOHvIsAoJZ+5SPu07YMjM4a27Lki3NLM7mgYH41ZDjaBP6Oua8R1uzwamF28S9Gu
+         9qSsGlzeQCraYBp9nKTKP5sBaMw0FZvOYMNdfGRs4jjxk+chGycN5Lfbbh9Tg8p+U2/E
+         kwmYMzjgxZbszGd3CIKXfGj1rR5kDKWJLYaBY8pnnDiAo8dV7LQOctZdrcXT+fp+8qKc
+         ZmC/CIMFP2K7kHl9LRNsyTKohRv3kDvVPMR2dbpf9H0yQAMk1z9hpDOZ+6H9o+0sZ6HF
+         HLA/lE8p8xwszaAcRFXNjjjm0jeilykizEwCzFvMmlnzIDfeO7WQN81ONyIBpNu3psWW
+         rEcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741853281; x=1742458081;
+        d=1e100.net; s=20230601; t=1741853301; x=1742458101;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=1pF3zG1Lu286gm/rHp2c7FaZjiC0YCZORJZgvDubhLo=;
-        b=byvtU1CoUYIaZAhcxoly+gtGyHPadAJlwjqY2Ku81YBEKPwUEWhEy8QSDPrmKG1J3Y
-         qunPsZoxuJQLulRdnPsaZAWYZUWM855FOvpfg+vWvCdqpjqWwIoXC1YX9bzzmqdBP9lC
-         9ApNxLhXACYXMnMjNf3bgwG6/hSuYe87O8GM7lChrS+GJp5OZ8cbP/RSE0Ueqr7hqImu
-         CIkJwon/lZP5eL1ygeXJjy3gGHcDbwBVOQ0nzzuDBDtloO2aGRiUuBXzHm231JEW6b2/
-         O4rB4eiuF1RUbDPv8R+/V9T0oNu1meg58C3jDmxOgdoEEVETNuOhbDZ4fZmOet2KoUY8
-         71lQ==
-X-Gm-Message-State: AOJu0YyG9Wi2yC3vMbK+ern8JUwXi7EdCNcwW/tbMiF4NK3p4t5or6/R
-	iGQre2d8AhWC6xxJHOywqsBPxuPr5O2EGEE1Txci/94q/UKpBelV9H5DMZKHCqgiqiWgtnoUGpE
+        bh=V2ayXPNTBMmuD+MnIRKXvHvXy9zY3DBe7QT9taI8yfA=;
+        b=TMv4Vl5ug+/nn32tuwP/m8xUNRe9exw8JPPaYChhKvLx/QW3iwX2hl7Wu0BbATAiPJ
+         aaGEHhX9XxSwc7FodXL4wIUnc6OsinRwEcjnrKzpLu3EhLfZhPVwtmOSG1LZy1WcOPLM
+         8ZOVl/dZgKtMRaO6vnkaWHSD6mAAny/nHJjgHEvdJlaQPnGHQgp2629sXVTv6Rp1DTEi
+         +gwfmmMryWRRhCla1DXn1v3DvGT9q0JNErZxjSeirvzyUYp4MVU2cuptb6DyZW9oPRoF
+         dTESQAK+izX779X56cegVCYTLFBUHFWcbgsoMxYCgcP9eAfs7eOnDgaxCZRTL8T9AdXL
+         a6iA==
+X-Gm-Message-State: AOJu0YwInTAvRLdUJXRftPYQV7BW8ktJZJ0wot3sI8VajQ991zv/dRIG
+	KWRJK8x93TDEhg8k66fvf/o3PjYBP/4MKGOosxo1HnkyuCQPjLjYMjhEHksKJx34aRO7IfthuQg
 	=
-X-Gm-Gg: ASbGncvuglGLBoFMbIx45bbp3v6qD9VJTv+onVgNplDN1hjaJqaxMrRrusvoAETDOE+
-	7eUgP910ipBUa7bQxgeL7hCJyNDm/x9v79ywAfTARHaudEANb5pzLRIHJ6lhtjJTVF1fo5MUN8x
-	46EG6EnUv+YEPFE+ZtntkVB9phlMhsWCkv69A6Yo7ULFrKzoPUIw2ATqEMgSnTo05ACyJwCRldv
-	AgJFKVNU0eKKa7FX3hTU5QqIxVmrtFADix0h6BUcZdMxcEDlYhtPt+4QkYcx/hWgZ9Vd019l1kT
-	tbnalKJDWTrTdugCU2FAX331nHBgN8QBzc6oxzAGiwq90wHGQkZKuMEkF2czpkZFHyp+DgZ+1m2
-	oxGwPsYcqEoQq+lt7TlCJoWS8oMvLCA==
-X-Google-Smtp-Source: AGHT+IF6WHDW7hwE+z2543czQSgp/Nft/ARqReljA80uKWlCAa5BrOcutZtNgMkH2l4iHal9SdE3xg==
-X-Received: by 2002:a05:600c:3b0e:b0:43c:f513:9585 with SMTP id 5b1f17b1804b1-43cf5139ae7mr145751395e9.13.1741853281275;
-        Thu, 13 Mar 2025 01:08:01 -0700 (PDT)
-Message-ID: <cffeb50d-5d99-4fa9-871c-f710da8bd028@suse.com>
-Date: Thu, 13 Mar 2025 09:08:00 +0100
+X-Gm-Gg: ASbGncscayn2v0DCZS+pZNiH25wxtnXF2xoOcRIxC290mWbYYysFFtxW6jeX69jI43z
+	uR5o/81bF8OTVx3y2eG9p46QlinmTrQtgIgK0yXMgdu+kOEZf2rRO8gqVHAktoktYuTQmorBjll
+	jitqdI+pG9JYIh0aw485Xck5gGVtAYGL/dJYAQkXdhnQtu1vuhajKSqc/sE5duhzNSj9Y/O4f9n
+	sbfoXOdyPK1l2XcTmWqeMMKFUKqr5QJBgN2D6/wmEdXJfoCxGIIYENbbhcthdTjRgk47aM7B+J3
+	gXXECgTl2hwA7r1xwG4qjWZOfpsAf4rfLbJlSj9JBfCtKLBvWWUFgkzQxxmcJui2wV/L4qcwJsQ
+	lizm0CHwgYDweG1tTRUm5olBcfzDOXA==
+X-Google-Smtp-Source: AGHT+IHj74m/bqqWj11m3m8dDP3+N8s8544b1+LtqndUJlFNSifYnr2gbtasbdhScEcsuupGLxGCoA==
+X-Received: by 2002:a05:600c:3b1d:b0:43c:fe15:41d4 with SMTP id 5b1f17b1804b1-43cfe15436emr126281805e9.18.1741853301202;
+        Thu, 13 Mar 2025 01:08:21 -0700 (PDT)
+Message-ID: <867b783c-4fb5-40f0-8253-54b181a95b82@suse.com>
+Date: Thu, 13 Mar 2025 09:08:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v8 RESEND 4/6] Arm32: use new-style entry annotations in
- head.S
+Subject: [PATCH v8 RESEND 5/6] Arm: purge ENTRY(), ENDPROC(), and ALIGN
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
@@ -125,216 +124,45 @@ In-Reply-To: <ebc98ba6-4ced-4e74-baa6-089240465eca@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Locally override SYM_PUSH_SECTION() to retain the intended section
-association.
+They're no longer used. This also makes it unnecessary to #undef two of
+them in the linker script.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Julien Grall <jgrall@amazon.com>
 Tested-by: Luca Fancellu <luca.fancellu@arm.com> # arm
 ---
-v8: Re-base.
 v7: New.
 
---- a/xen/arch/arm/arm32/head.S
-+++ b/xen/arch/arm/arm32/head.S
-@@ -48,13 +48,20 @@
+--- a/xen/arch/arm/include/asm/config.h
++++ b/xen/arch/arm/include/asm/config.h
+@@ -53,17 +53,9 @@
  
-         .section .text.header, "ax", %progbits
-         .arm
-+/*
-+ * Code below wants to all live in the section established above.  Annotations
-+ * from xen/linkage.h therefore may not switch sections (honoring
-+ * CONFIG_CC_SPLIT_SECTIONS).  Override the respective macro.
-+ */
-+#undef SYM_PUSH_SECTION
-+#define SYM_PUSH_SECTION(name, attr)
- 
-         /*
-          * This must be the very first address in the loaded image.
-          * It should be linked at XEN_VIRT_START, and loaded at any
-          * 4K-aligned address.
-          */
--GLOBAL(start)
-+FUNC(start)
-         /*
-          * zImage magic header, see:
-          * http://www.simtec.co.uk/products/SWLINUX/files/booting_article.html#d0e309
-@@ -104,9 +111,9 @@ primary_switched:
-         mov   r0, r8                 /* r0 := paddr(FDT) */
-         mov_w r1, start_xen
-         b     launch
--ENDPROC(start)
-+END(start)
- 
--GLOBAL(init_secondary)
-+FUNC(init_secondary)
-         cpsid aif                    /* Disable all interrupts */
- 
-         /* Find out where we are */
-@@ -142,7 +149,7 @@ secondary_switched:
-         /* Jump to C world */
-         mov_w r1, start_secondary
-         b     launch
--ENDPROC(init_secondary)
-+END(init_secondary)
- 
- /*
-  * Check if the CPU supports virtualization extensions and has been booted
-@@ -154,7 +161,7 @@ ENDPROC(init_secondary)
-  *
-  * Clobbers r0 - r3
-  */
--check_cpu_mode:
-+FUNC_LOCAL(check_cpu_mode)
-         /* Check that this CPU has Hyp mode */
-         mrc   CP32(r0, ID_PFR1)
-         and   r0, r0, #0xf000        /* Bits 12-15 define virt extensions */
-@@ -174,14 +181,14 @@ check_cpu_mode:
-         PRINT("- Xen must be entered in NS Hyp mode -\r\n")
-         PRINT("- Please update the bootloader -\r\n")
-         b     fail
--ENDPROC(check_cpu_mode)
-+END(check_cpu_mode)
- 
- /*
-  * Zero BSS
-  *
-  * Clobbers r0 - r3
-  */
--zero_bss:
-+FUNC_LOCAL(zero_bss)
-         PRINT("- Zero BSS -\r\n")
-         mov_w r0, __bss_start        /* r0 := vaddr(__bss_start) */
-         mov_w r1, __bss_end          /* r1 := vaddr(__bss_end)   */
-@@ -195,9 +202,9 @@ zero_bss:
- 
- skip_bss:
-         mov   pc, lr
--ENDPROC(zero_bss)
-+END(zero_bss)
- 
--cpu_init:
-+FUNC_LOCAL(cpu_init)
-         PRINT("- Setting up control registers -\r\n")
- 
-         mov   r5, lr                       /* r5 := return address */
-@@ -238,7 +245,7 @@ cpu_init_done:
-         isb
- 
-         mov   pc, r5                        /* Return address is in r5 */
--ENDPROC(cpu_init)
-+END(cpu_init)
- 
- /*
-  * Setup the initial stack and jump to the C world
-@@ -249,7 +256,7 @@ ENDPROC(cpu_init)
-  *
-  * Clobbers r3
-  */
--launch:
-+FUNC_LOCAL(launch)
-         mov_w r3, init_data
-         add   r3, #INITINFO_stack    /* Find the boot-time stack */
-         ldr   sp, [r3]
-@@ -258,13 +265,14 @@ launch:
- 
-         /* Jump to C world */
-        bx    r1
--ENDPROC(launch)
-+END(launch)
- 
- /* Fail-stop */
--fail:   PRINT("- Boot failed -\r\n")
-+FUNC_LOCAL(fail)
-+        PRINT("- Boot failed -\r\n")
- 1:      wfe
-         b     1b
--ENDPROC(fail)
-+END(fail)
- 
- #ifdef CONFIG_EARLY_PRINTK
- /*
-@@ -275,14 +283,14 @@ ENDPROC(fail)
-  *
-  * Clobbers r0 - r3
-  */
--init_uart:
-+FUNC_LOCAL(init_uart)
-         mov_w r11, CONFIG_EARLY_UART_BASE_ADDRESS
- #ifdef CONFIG_EARLY_UART_INIT
-         early_uart_init r11, r1, r2
+ /* Linkage for ARM */
+ #ifdef __ASSEMBLY__
+-#define ALIGN .balign CONFIG_FUNCTION_ALIGNMENT
+-#define ENTRY(name)                             \
+-  .globl name;                                  \
+-  ALIGN;                                        \
+-  name:
+ #define GLOBAL(name)                            \
+   .globl name;                                  \
+   name:
+-#define ENDPROC(name) \
+-  .type name, %function; \
+-  END(name)
  #endif
-         PRINT("- UART enabled -\r\n")
-         mov   pc, lr
--ENDPROC(init_uart)
-+END(init_uart)
  
- /*
-  * Print early debug messages.
-@@ -291,14 +299,14 @@ ENDPROC(init_uart)
-  * r11: Early UART base address
-  * Clobbers r0-r1
-  */
--ENTRY(asm_puts)
-+FUNC(asm_puts)
-         early_uart_ready r11, r1
-         ldrb  r1, [r0], #1           /* Load next char */
-         teq   r1, #0                 /* Exit on nul */
-         moveq pc, lr
-         early_uart_transmit r11, r1
-         b asm_puts
--ENDPROC(asm_puts)
-+END(asm_puts)
+ #include <xen/const.h>
+--- a/xen/arch/arm/xen.lds.S
++++ b/xen/arch/arm/xen.lds.S
+@@ -6,8 +6,6 @@
+ #include <xen/lib.h>
+ #include <xen/xen.lds.h>
+ #include <asm/page.h>
+-#undef ENTRY
+-#undef ALIGN
  
- /*
-  * Print a 32-bit number in hex.
-@@ -307,7 +315,7 @@ ENDPROC(asm_puts)
-  * r11: Early UART base address
-  * Clobbers r0-r3
-  */
--ENTRY(asm_putn)
-+FUNC(asm_putn)
-         adr_l r1, hex
-         mov   r3, #8
- 1:
-@@ -319,18 +327,19 @@ ENTRY(asm_putn)
-         subs  r3, r3, #1
-         bne   1b
-         mov   pc, lr
--ENDPROC(asm_putn)
-+END(asm_putn)
+ ENTRY(start)
  
- RODATA_SECT(.rodata.idmap, hex, "0123456789abcdef")
- 
- #endif /* CONFIG_EARLY_PRINTK */
- 
- /* This provides a C-API version of __lookup_processor_type */
--ENTRY(lookup_processor_type)
-+FUNC(lookup_processor_type)
-         stmfd sp!, {r4, lr}
-         bl    __lookup_processor_type
-         mov r0, r1
-         ldmfd sp!, {r4, pc}
-+END(lookup_processor_type)
- 
- /*
-  * Read processor ID register (CP#15, CR0), and Look up in the linker-built
-@@ -341,7 +350,7 @@ ENTRY(lookup_processor_type)
-  * r1: proc_info pointer
-  * Clobbers r2-r4
-  */
--__lookup_processor_type:
-+FUNC_LOCAL(__lookup_processor_type)
-         mrc   CP32(r0, MIDR)                /* r0 := our cpu id */
-         adr_l r1, __proc_info_start
-         adr_l r2, __proc_info_end
-@@ -357,7 +366,7 @@ __lookup_processor_type:
-         mov   r1, #0
- 2:
-         mov   pc, lr
--ENDPROC(__lookup_processor_type)
-+END(__lookup_processor_type)
- 
- /*
-  * Local variables:
 
 
