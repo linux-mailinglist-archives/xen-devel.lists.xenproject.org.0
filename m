@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED614A5F544
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 14:05:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.912120.1318446 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBC28A5F5A6
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 14:14:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.912130.1318456 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsiFj-0004ma-LG; Thu, 13 Mar 2025 13:05:35 +0000
+	id 1tsiO9-0007a4-Do; Thu, 13 Mar 2025 13:14:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 912120.1318446; Thu, 13 Mar 2025 13:05:35 +0000
+Received: by outflank-mailman (output) from mailman id 912130.1318456; Thu, 13 Mar 2025 13:14:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsiFj-0004js-I0; Thu, 13 Mar 2025 13:05:35 +0000
-Received: by outflank-mailman (input) for mailman id 912120;
- Thu, 13 Mar 2025 13:05:34 +0000
+	id 1tsiO9-0007X6-Ao; Thu, 13 Mar 2025 13:14:17 +0000
+Received: by outflank-mailman (input) for mailman id 912130;
+ Thu, 13 Mar 2025 13:14:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7Xn0=WA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tsiFi-0004jk-77
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 13:05:34 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ id 1tsiO7-0007X0-Oq
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 13:14:15 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d8438239-000b-11f0-9898-31a8f345e629;
- Thu, 13 Mar 2025 14:05:32 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-43cf034d4abso8291875e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 06:05:32 -0700 (PDT)
+ id 0eafc444-000d-11f0-9898-31a8f345e629;
+ Thu, 13 Mar 2025 14:14:13 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-43948021a45so8100975e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 06:14:13 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395c82c258bsm2027930f8f.24.2025.03.13.06.05.30
+ 5b1f17b1804b1-43d0a74d558sm53464955e9.15.2025.03.13.06.14.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Mar 2025 06:05:31 -0700 (PDT)
+ Thu, 13 Mar 2025 06:14:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d8438239-000b-11f0-9898-31a8f345e629
+X-Inumbo-ID: 0eafc444-000d-11f0-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741871132; x=1742475932; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741871652; x=1742476452; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=jM45XkxNyBQjNkMLZBsVHXbkMf4SzfY6mn/uxfZVz9k=;
-        b=a5UH+i9zVjB471nCyjR3SH+W/YvkSHBPFphRwbBf4TVZLxuWTIlsVTOYX5+pDbhybg
-         IKN41lbB0jeGa9OhMsHKZW4yChPDJckhxL+d6n0oNj0MdOc+jD9A441cOJz6I8rW2Frg
-         8+aeL/hPF1Gx+LH2S+Uzey2i+/pLUXA2iGzWf39zDRCQjr2qRzJ5ds8VdYK4GGUzBj20
-         pZRAW20JAGtwjPXwmQo3Q3q/9F8I67lbcpOwUWmIopVnNfwNhFZ2HKuWcKVI7o4P5PWc
-         rNlJaA8c2EhVlnY418xax6bgCyazQkOFPUDnuoEFuzrAZslkD1a9a9MY9DJ/sTxU/56c
-         sXbg==
+        bh=guEkeWx/FqE3FMvJpuz9pVjvKgSt0VIztTBPUY/p+Q8=;
+        b=Nr9bqWjL538DQslTBACZFOzKMxk1nffoeeU6e/7JNThWl2DYTC+K/5XESosAT+zTWg
+         2Eb+OmaEYVdFeb952rGTR3GPyO8gkmVl+4ModX88YDPG5mIZfW+Vfp2dTsWPsjISg8aS
+         wdPZ+zTToAWO6ZVD+yurvhh058sk5Ub467KKNIGuRVldCpNHft7RNfoPa0fQLLoMl4MU
+         /yH2oiZm3C/Beh+Z1DC4DEjl5mTNerLJzYjyTR3uBHfSo3Hfft72rKAZCgsZExXmWBvP
+         eJc7goi2yrwfGSAaYutADhevLhhNHLM30MZMhKTFH3+SOYIKU1AsAKKkoBhvvws5658h
+         2lAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741871132; x=1742475932;
+        d=1e100.net; s=20230601; t=1741871652; x=1742476452;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jM45XkxNyBQjNkMLZBsVHXbkMf4SzfY6mn/uxfZVz9k=;
-        b=vyy7KDLa96LaF69j7RgemCJOBtx5vYtogpmsE5r3x6c4/kVUQfgbJSfbZbdjnC32xY
-         GJX7LMlrQV8fpwh2yyejZuz5OXI23AZ36kwLVAz5Mn9mGMeXTVd0V2+/yplvrJ40Ua/F
-         5rKS65YcDxC/Doeigk8BDuVmnjPZLSsiJEKfhNRDqIs6ywROMuiHLi600LwbZ7OGqD+2
-         /wPtJlYzKb8lVrXO8LOqGFj3K+8ibV8/b7f7y4AZzRRCl6KSkJSYuORf3qXmIAPUEYkC
-         ypo1Athat7WlBUe5AYPbKp0F50RXjBKeS0bHySASzXrSVgyfD7YetjC+/E57fqzK/FFB
-         M8tg==
-X-Forwarded-Encrypted: i=1; AJvYcCVPCz6JHz/RxsI55LYqACXBoZ2RMIx6t3IgfY1Ts9g7QthZmnJ6ZXVbW0yooK8gr0zQElf8bz3LVsg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzdKGiEIVKWn1H4EMEyOI7y2x7rEUSXZCfV9sHS7s1v73pwLnmx
-	TD/v6FJGJUMFh5VKaAk9BVzkmBJ9509f4ejR0AYjpUTNkAyVgxrk63IPWqimhQ==
-X-Gm-Gg: ASbGnctPdJ3Tu2zFJd+naEURe2dZJDRB7YWew2W58P7YtiIBCoVikwT7DL5x3lKNKvZ
-	acQrMvum6NOhlZ8gvnfz5pDbMU0JEJworeVZMFTg/K00m4keuhFx3AfUNV9s1HAFSsjSjgW2kSm
-	cVD+E3EV4iIq3vFyKRnd3LQR0QzJIGmykQqF5abMr6DwrfW66GaS24EpEPjg5rI3pNX0DJk5+ez
-	6FnITE15omr1XICtOmMjbgFi60BBz11MSIcaL9kK6/svRKzqdih2wgGnCUTOCahuPEN86Lo8JQE
-	/2oF+K9LN4H/rchuZCtAN3IhW48RD2sax7yp/cD0oSR04ELzrt4LwybVPKX8JNF5eBc5SIiF7w7
-	37i/SwfvjEP5wG8Z+17+6ffovDS40ag==
-X-Google-Smtp-Source: AGHT+IE1LWuUc3IwZwS99hBeWjS+AOjAUUv5wIAg1O78kdyDfQ3k1AsrcCGga65D5UuEOyRSnSeGbQ==
-X-Received: by 2002:a5d:5f94:0:b0:38f:4d20:4a17 with SMTP id ffacd0b85a97d-392641bcf76mr12741627f8f.13.1741871131636;
-        Thu, 13 Mar 2025 06:05:31 -0700 (PDT)
-Message-ID: <c3890a8a-afe5-44ef-9c67-2ef0d73346a6@suse.com>
-Date: Thu, 13 Mar 2025 14:05:30 +0100
+        bh=guEkeWx/FqE3FMvJpuz9pVjvKgSt0VIztTBPUY/p+Q8=;
+        b=K8OgbqtoQ6usQBqJM5iPI4DQ1z213F/8IKbAO4e+Pe4U/HSO9o7VYTu/vrbuKdyFnQ
+         Oc9DFcvV+aZbbTvQlbrlWN9u4X/QyB3oH5Uvr5jL9IGc3KM5V0dUhrj/DGMhsIZDadpA
+         iFnjM2bUwGi0eaJ3wZXfk6YSFBdhbspX2UAEBPMp7q+xQKabM3skpqNbNQIcHuxloqq3
+         4rWHcxVwo8tqXhjKJK3YSt6iXuWaYlqf252811qS1sanJL7lYkXo1PoJxDZyVxBDmJUW
+         bJWlvArsYEaDt0a7lmTJdbPVoHfCqcrJ4qsE3dr8fFLO13RUhTVtu/67GO6Klk+e4T0F
+         jsxQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUgTHqTdE/mjkjX/OmHLiEyJesTK02/gkMbIiv4xfXKn24aq8HmczJTml7lDZ3mdOrr0W2U5luiHn0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwEqUuX8obr5LVp9eoejST/3YlaG1Ef4/m6J2kXmVMykyrPovjt
+	N/30BAHxylqfDxgaUSr5eTVWnC4t23B+oIQY0h30hIZJfEG5IGUfOL+gprsQ7A==
+X-Gm-Gg: ASbGncvPJZNu+OeCnSpH6XD3AijSvIDnZGBYJNM3xsGSUNKfQIdVTnIpsfLE/3ZC8sF
+	MQbGLH0qIT9+VhRX3grMYk0CTX2wGmtqAE/iqg6LcKtfEwV2CIryBU9XzFeHBeDF4yhLKxZCex+
+	LtfsrQhpJRgWAITCq11VCi8R/N4s6/CgoHXW+AOyJPdUlgS7ngnhqX0w9Z1vRT6CmzRM6v7M2ha
+	naFfZlSl9UF3I4WKx4EUuuttXNqlY7t/JaB33nRnx0NrKRzWj4JBA1c9NOO4Nj0WRyVEYlAmeoB
+	xOfjHZ0bdO5PjMQFoGVtRvQuQEaJwslY8XSB4Ud5A91BdoFX3BLbycr34HVv3pQ/NQog+fmrSDt
+	FYAjCBAhf8X0MZnXQdFBoyvQtrXHFkw==
+X-Google-Smtp-Source: AGHT+IH6QkdAPlUsT08mgJ1aY28Z4I5uFTPTVbQQjhMmWhZSSVJZ0pRIsc2uHDEZEeSobVDvB6Ba9Q==
+X-Received: by 2002:a05:600c:4fcc:b0:43c:fcb1:528a with SMTP id 5b1f17b1804b1-43cfcb1544bmr131037775e9.6.1741871652447;
+        Thu, 13 Mar 2025 06:14:12 -0700 (PDT)
+Message-ID: <9cb526f9-fd2c-424c-82b1-7db57e0db50c@suse.com>
+Date: Thu, 13 Mar 2025 14:14:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/8] xen/arch: Strip out tlb-clock stubs for
- non-implementors
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH v2] tools: Mark ACPI SDTs as NVS in the PVH build path
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250312174513.4075066-1-andrew.cooper3@citrix.com>
- <20250312174513.4075066-7-andrew.cooper3@citrix.com>
+ Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>,
+ xen-devel@lists.xenproject.org
+References: <20250311092905.991-1-alejandro.vallejo@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,21 +119,95 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250312174513.4075066-7-andrew.cooper3@citrix.com>
+In-Reply-To: <20250311092905.991-1-alejandro.vallejo@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12.03.2025 18:45, Andrew Cooper wrote:
-> Now that there's a common stub implementation TLB clocks, there's no need for
-> architectures to provide their own.
+On 11.03.2025 10:29, Alejandro Vallejo wrote:
+> Commit cefeffc7e583 marked ACPI tables as NVS in the hvmloader path
+> because SeaBIOS may otherwise just mark it as RAM. There is, however,
+> yet another reason to do it even in the PVH path. Xen's incarnation of
+> AML relies on having access to some ACPI tables (e.g: _STA of Processor
+> objects relies on reading the processor online bit in its MADT entry)
 > 
-> Repeatedly zeroing page->tlbflush_timestamp is no use, so provide an even more
-> empty common stub for page_set_tlbflush_timestamp().
+> This is problematic if the OS tries to reclaim ACPI memory for page
+> tables as it's needed for runtime and can't be reclaimed after the OSPM
+> is up and running.
+> 
+> Fixes: de6d188a519f("hvmloader: flip "ACPI data" to "ACPI NVS" type for ACPI table region)"
+> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> ---
+> v1->v2:
+>   * Copy explanatory comment in hvmloader/e820.c to its libxl_x86.c counterpart
+> 
+> ---
+>  tools/firmware/hvmloader/e820.c |  4 ++++
+>  tools/libs/light/libxl_x86.c    | 17 ++++++++++++++++-
+>  2 files changed, 20 insertions(+), 1 deletion(-)
+> 
+> diff --git a/tools/firmware/hvmloader/e820.c b/tools/firmware/hvmloader/e820.c
+> index c490a0bc790c..86d39544e887 100644
+> --- a/tools/firmware/hvmloader/e820.c
+> +++ b/tools/firmware/hvmloader/e820.c
+> @@ -210,6 +210,10 @@ int build_e820_table(struct e820entry *e820,
+>       * space reuse by an ACPI unaware / buggy bootloader, option ROM, etc.
+>       * before an ACPI OS takes control. This is possible due to the fact that
+>       * ACPI NVS memory is explicitly described as non-reclaimable in ACPI spec.
+> +     *
+> +     * Furthermore, Xen relies on accessing ACPI tables from within the AML
+> +     * code exposed to guests. So Xen's ACPI tables are not, in general,
+> +     * reclaimable.
+>       */
+>  
+>      if ( acpi_enabled )
+> diff --git a/tools/libs/light/libxl_x86.c b/tools/libs/light/libxl_x86.c
+> index a3164a3077fe..2ba96d12e595 100644
+> --- a/tools/libs/light/libxl_x86.c
+> +++ b/tools/libs/light/libxl_x86.c
+> @@ -737,12 +737,27 @@ static int domain_construct_memmap(libxl__gc *gc,
+>          nr++;
+>      }
+>  
+> +    /*
+> +     * Mark populated reserved memory that contains ACPI tables as ACPI NVS.
+> +     * That should help the guest to treat it correctly later: e.g. pass to
+> +     * the next kernel on kexec.
+> +     *
+> +     * Using NVS type instead of a regular one helps to prevent potential
+> +     * space reuse by an ACPI unaware / buggy bootloader, option ROM, etc.
+> +     * before an ACPI OS takes control. This is possible due to the fact that
+> +     * ACPI NVS memory is explicitly described as non-reclaimable in ACPI spec.
+> +     *
+> +     * Furthermore, Xen relies on accessing ACPI tables from within the AML
+> +     * code exposed to guests. So Xen's ACPI tables are not, in general,
+> +     * reclaimable.
+> +     */
 
-At which point the field itself could in principle go away. There are three
-printk()s (accompanying BUG()s) which use it; surely we can find a way to
-abstract that out. This may then still be enough of a reason to introduce
-HAS_TLB_CLOCK.
+When asking for a comment here I really only was after what the last paragraph says.
+Especially the middle paragraph seems questionable to me: It would not only be ACPI-
+unawareness, but also E820-unawareness, for the range to be prematurely re-used. And
+buggy bootloaders really would need fixing, I think - they'd put OSes into trouble on
+real hardware as well.
+
+In short - I'd like to ask that the middle paragraph be dropped from here (which
+surely could be done while committing).
+
+However, there's a second concern: You say "PVH" in the title, yet this function is
+in use also for HVM, and ...
+
+>      for (i = 0; i < MAX_ACPI_MODULES; i++) {
+>          if (dom->acpi_modules[i].length) {
+>              e820[nr].addr = dom->acpi_modules[i].guest_addr_out & ~(page_size - 1);
+>              e820[nr].size = dom->acpi_modules[i].length +
+>                  (dom->acpi_modules[i].guest_addr_out & (page_size - 1));
+> -            e820[nr].type = E820_ACPI;
+> +            e820[nr].type = E820_NVS;
+>              nr++;
+>          }
+>      }
+
+... this code is outside of any conditionals. This imo needs sorting one way or
+another.
 
 Jan
 
