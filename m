@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7ABC3A5FBCB
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 17:33:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.912842.1319036 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3598FA5FBEF
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 17:37:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.912873.1319046 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tslUb-0007lg-32; Thu, 13 Mar 2025 16:33:09 +0000
+	id 1tslYb-0008O0-Hw; Thu, 13 Mar 2025 16:37:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 912842.1319036; Thu, 13 Mar 2025 16:33:09 +0000
+Received: by outflank-mailman (output) from mailman id 912873.1319046; Thu, 13 Mar 2025 16:37:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tslUa-0007jY-VL; Thu, 13 Mar 2025 16:33:08 +0000
-Received: by outflank-mailman (input) for mailman id 912842;
- Thu, 13 Mar 2025 16:33:07 +0000
+	id 1tslYb-0008LI-El; Thu, 13 Mar 2025 16:37:17 +0000
+Received: by outflank-mailman (input) for mailman id 912873;
+ Thu, 13 Mar 2025 16:37:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7Xn0=WA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tslUZ-0007jS-IH
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 16:33:07 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
+ id 1tslYZ-0008Js-FS
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 16:37:15 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d7781f40-0028-11f0-9ab9-95dc52dad729;
- Thu, 13 Mar 2025 17:33:06 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-4394a0c65fcso11277325e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 09:33:06 -0700 (PDT)
+ id 6b8cfaa2-0029-11f0-9ab9-95dc52dad729;
+ Thu, 13 Mar 2025 17:37:14 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-3912fdddf8fso1534631f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 09:37:14 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d0a74cf8bsm59580315e9.12.2025.03.13.09.33.04
+ 5b1f17b1804b1-43d18a2aac5sm25715755e9.28.2025.03.13.09.37.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Mar 2025 09:33:05 -0700 (PDT)
+ Thu, 13 Mar 2025 09:37:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d7781f40-0028-11f0-9ab9-95dc52dad729
+X-Inumbo-ID: 6b8cfaa2-0029-11f0-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741883586; x=1742488386; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741883834; x=1742488634; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Bdgvrlj+8ATY6up6dBRR966j2QHpKJh9PP/iYbKOS58=;
-        b=dC2wTImTn94Y/aeY3rqp1cjqhzPHQdxnaybcsEPmSSeAJQt4U8SBTldgKx/KZSeZDl
-         SEdQyuqXEVBUIBRTC/zggengtJKF6JexzWu4Nj6jmwxctImJPAN4q7Qk5BIzZDedbsP1
-         cBvawuTMYp7RabJzgQv5Ep0q5DGCEgv9gLn/KOGis8+pbBjjyYv9CkBTjjOEuyWHSTl2
-         uQVQSnM8ZKjYMpUAM5u1u/cYzIe1Anj56b7VK+vH0mcJHs4Mv7nMoNzKdjO9DnprOIZp
-         7BBeqF8NlSzaXPxDnbgeHLRW05A1LBYv0yLwK+z3Mzy+zmz7uATTg/GI+pglUgdqZa3q
-         jR3g==
+        bh=GU5LSbric0lnhcBmKC+wsweM0DvBMW9A2WFSbsMM9/M=;
+        b=RDcgkREtAafARdm5YcBb7z7HMOs0L31BKNzNHyoLYLTJY7NNThEO/LjkgCj4x9eZRL
+         MmcvIyp9FVP4mWno1AGC2JTbe2cilpCJUce1o6bV8utdKHGQqP7U8iDmYWn0ae/e9X2F
+         G2jAQPkv0GLFPrqV5Ir3jGvsKv2vuaPDXVo84hLkJV2UTIBbYGpfIbgg+C7UQkWl0Vka
+         lWtbiqQMT6PPGWFLnN2TN0QtpTf68fXP4gmmHJs3KwVuxEVawf90XBk9+6QSr+rRPwEY
+         rGgtQT+gTw+P/bZ+BGDHGB8QtLSapdvMnIHjbREuVmViDLzy7FKutGVS3LrV3tj9AC+/
+         BBRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741883586; x=1742488386;
+        d=1e100.net; s=20230601; t=1741883834; x=1742488634;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Bdgvrlj+8ATY6up6dBRR966j2QHpKJh9PP/iYbKOS58=;
-        b=H/YBTC4+XgIYv+wsDOTO2W9pEZRXOnRvGBrzzrmSLNMeaXf1j3AHL4oWTIun0YqtWt
-         UrbU1BvgHhSE7lgB0AzRsyzLr8AbS3fGeZA+Sx7g72emlhhpUoRb1S+ulmCPwZLfFj0K
-         gz5KMw8poQ5hR5TmQdoxjjzo2GXMLs6dDHlB10oY9S5Fd1lnY0HYFv5x30rESP4tH712
-         YQxjXHAal11tpzov2BnuyN/1r3ECrjiPTnXV+c8INS4/m8iff8TQWAJ2O+j7qh5axFk7
-         3vDYwlh1M0BbTFXY71vyKISLhakyA7dOCFDZGWCfBicVQG5/DqS0eZrsZpK1TikYxTOo
-         /CxQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU0kyGxd1ejsvu048dc7bp3zXn2F/AkqTZyFEE9YPTFvRimpuTqImhVkBowPwuguuwT5VK/wr6dTp4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzEtSvPtt46uYuyhAaUJ3RpogWl6R5rC8IXjTGqbDLt6FCu1ctu
-	psKL3jHVbGSksNv8diXKtuonTXhtb7cb4UcVYMDInAuIZrlj6C0pg5qjdZXQGw==
-X-Gm-Gg: ASbGncsxToe2mmlrQoibz7Zc4XH7gjcXPOykKzU55Be0fG2M+KowXNt5KdjRmaTJLgY
-	USVPBTTEh/ES/cTKJ6X8WyHwtOTzVAp08geXRk3Ul8YkXW+uSzYTrD9ATHUUhtODsVPuzkob5vH
-	jW3J89KEnBO3gq3WMStuLuTBGbRTNXxhxf/PF9JTAzUnsNq/8hq7qvN5CVKdzgKlR68waKkO+Ck
-	/sb3wYXbmd46v4tbtxGIDNtHsdZMUgYZtxRqrcd/fsyjBorQi/VWlD5wE63ZMq+PjfwWsUTlpRU
-	Yydedva2xlM+5VVOZup2jXtifVJka1iKUSofkiDxhYcgVT57Oll1iIu5hQzo5nBerpY8JLyZsAL
-	0Qffk5oDfYWFj8uk8lOoGGtgLrEY3zmMJisy1yCJy
-X-Google-Smtp-Source: AGHT+IEpSFNsjQkZ83qNgg5+vrJGwZt48Z4+ivt+JFsMmsVcx/xYLJW892wDk57fay9SiugXmc2Qgw==
-X-Received: by 2002:a05:600c:3513:b0:43c:ea36:9840 with SMTP id 5b1f17b1804b1-43d1d8e4734mr2667485e9.22.1741883585618;
-        Thu, 13 Mar 2025 09:33:05 -0700 (PDT)
-Message-ID: <18983fc2-08e7-40eb-b5d7-738e36a2a271@suse.com>
-Date: Thu, 13 Mar 2025 17:33:04 +0100
+        bh=GU5LSbric0lnhcBmKC+wsweM0DvBMW9A2WFSbsMM9/M=;
+        b=YJDnMRHQ5AyieikwTdL7kL4d7/sZmYWEIqp08ZiOF5VoMpU2qTlguJr8shOBLyzrPI
+         BZbP04kNre7ZL52IbOihDL4hvYVmslF4fJHeSCJNHaROKaxZ0OwTfELqKWieGApcG57b
+         me/JFf2kkhzY0SVOj4LtQvbcP+ujacU1fpGocDKeZq/HTUm5AlAPZNy8zk496xbNo3nH
+         iwpFXfKhCKzoQla3grJFc5dpankLZLRZOkakNwoIVefj3+ggiD5X1IxM0FWIuT3+m9pK
+         DF0RtkaXj8ilM874lfUxA1DeRGFSDxbh9LQhg4YYdztPP0VUGKkKtPu10T6CNp81P/ko
+         xCeg==
+X-Forwarded-Encrypted: i=1; AJvYcCUlI1JNVPrcsHVUrZgVGbYeu2xG1mb3KQRd9MWYTdh3hf+vrTOWU6RDs2dFSpGso4cuxAl0qOJNgZQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzp3gDJ/rZonKTCmikw343J7NMMnUqmdGeVWTIzT9E+EMgvu9QD
+	iH6vbEJL/hfG7SHAodiTfsjfOvVvFtKcvKlouX4VUkVMqRnG9al/9a4FVTz1AQ==
+X-Gm-Gg: ASbGnctfqxCq9nZPk12f+scaUKaC8CW6vLVYpKXIWCEzoeYH6EViUVhSc0KFEQooi9v
+	+eoR66CKwHphCVB7Jsvb6C+/H/aRb/6zFZkPy8irfkC2g965mI/jFua7FUJ/HBiqtjjNv6e43dd
+	SABgeFnYWaEtO5It3gkO1SGgLRrkdQjOuMM9db+RbYmgqKqBkdJjW8JEzCir9fpoIRc31YidmkZ
+	f3aYt/+vt8rprPqNkRdqDwmJD+XLEVOYyX9eODOV0cScCE46Ldc1c6KSK9H+5uc0W8R21H1mVpX
+	iHeAErCKi32HeCI6YFup09QGzEK3RTEaCvsQ/xmmIsQ2011DrDL/f70XeLdFS8KCO8Otrc7w8CY
+	9cVndnksACMGSzovEPYbhui36PMezpQ==
+X-Google-Smtp-Source: AGHT+IF6/xvzPGYHnVQpeZvWvFgAou1GzRntVfILa7CtsaqfoWVM1++c0QzcBBACUIHe6tgRuOfpKw==
+X-Received: by 2002:a5d:6d83:0:b0:38d:d166:d44 with SMTP id ffacd0b85a97d-395b9a1c648mr2775630f8f.23.1741883834270;
+        Thu, 13 Mar 2025 09:37:14 -0700 (PDT)
+Message-ID: <61b762d0-d513-4d02-80ac-50fa12a725f3@suse.com>
+Date: Thu, 13 Mar 2025 17:37:12 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 18/19] xen/sysctl: wrap around arch-specific
- arch_do_sysctl
-To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Stefano Stabellini <stefano.stabellini@amd.com>,
- Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org
-References: <20250312040632.2853485-1-Penny.Zheng@amd.com>
- <20250312040632.2853485-19-Penny.Zheng@amd.com>
+Subject: Re: [PATCH] trace: convert init_trace_bufs() to constructor
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <e1e556c4-ed71-41f7-acfc-b7fa866a0d3e@suse.com>
+ <6ff81326-762c-46ec-a06a-254ba166433b@citrix.com>
+ <b59ea14e-0bce-4c3e-b1fb-021b53af1780@suse.com>
+ <d597523c-aa3a-4682-824f-e6e2f8ce753a@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,176 +124,25 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250312040632.2853485-19-Penny.Zheng@amd.com>
+In-Reply-To: <d597523c-aa3a-4682-824f-e6e2f8ce753a@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 12.03.2025 05:06, Penny Zheng wrote:
-> --- a/xen/arch/arm/Kconfig
-> +++ b/xen/arch/arm/Kconfig
-> @@ -140,7 +140,7 @@ config HAS_ITS
->          depends on GICV3 && !NEW_VGIC && !ARM_32
->  
->  config OVERLAY_DTB
-> -	bool "DTB overlay support (UNSUPPORTED)" if UNSUPPORTED
-> +	bool "DTB overlay support (UNSUPPORTED)" if UNSUPPORTED && SYSCTL
->  	help
->  	  Dynamic addition/removal of Xen device tree nodes using a dtbo.
+On 13.03.2025 17:28, Andrew Cooper wrote:
+> On 13/03/2025 2:19 pm, Jan Beulich wrote:
+>> On 13.03.2025 14:58, Andrew Cooper wrote:
+>>> On 13/03/2025 1:38 pm, Jan Beulich wrote:
+>>> I'm tempted to ack this on the basis that it is an improvement, but a /*
+>>> TODO this is all mad, please fix */ wouldn't go amiss either.
+>> I understand you like adding such comments; I, however, at least
+>> sometimes (e.g.) don't. Especially without at least outlining what
+>> would need doing. Just saying "this is all mad" doesn't really help
+>> very much.
+> 
+> I was being somewhat flippant.  But a /* TODO, try and make this a
+> presmp_initcall() to improve alloc_trace_bufs() */ would be fine.
 
-This wants to be "depends on", not an extension to the prompt's visibility.
-Else a "select OVERLAY_DTB" somewhere would be permitted by kconfig without
-issuing a warning.
-
-> --- a/xen/arch/riscv/stubs.c
-> +++ b/xen/arch/riscv/stubs.c
-> @@ -322,13 +322,13 @@ unsigned long raw_copy_from_guest(void *to, const void __user *from,
->  
->  /* sysctl.c */
->  
-> +#ifdef CONFIG_SYSCTL
->  long arch_do_sysctl(struct xen_sysctl *sysctl,
->                      XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
->  {
->      BUG_ON("unimplemented");
->  }
->  
-> -#ifdef CONFIG_SYSCTL
->  void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
->  {
->      BUG_ON("unimplemented");
-
-This kind of a change would preferrably have the #endif annotated with a comment
-mentioning the #ifdef's condition. Such comments may best be added as the #ifdef-s
-are introduced. They can certainly continue to be omitted when the range covered
-is only very few lines.
-
-> --- a/xen/arch/x86/include/asm/psr.h
-> +++ b/xen/arch/x86/include/asm/psr.h
-> @@ -75,8 +75,10 @@ static inline bool psr_cmt_enabled(void)
->  int psr_alloc_rmid(struct domain *d);
->  void psr_free_rmid(struct domain *d);
->  
-> +#ifdef CONFIG_SYSCTL
->  int psr_get_info(unsigned int socket, enum psr_type type,
->                   uint32_t data[], unsigned int array_len);
-> +#endif
-
-As before declarations alone may not need #ifdef-ing out.
-
-> --- a/xen/arch/x86/psr.c
-> +++ b/xen/arch/x86/psr.c
-> @@ -133,9 +133,11 @@ static const struct feat_props {
->       */
->      enum psr_type alt_type;
->  
-> +#ifdef CONFIG_SYSCTL
->      /* get_feat_info is used to return feature HW info through sysctl. */
->      bool (*get_feat_info)(const struct feat_node *feat,
->                            uint32_t data[], unsigned int array_len);
-> +#endif
->  
->      /* write_msr is used to write out feature MSR register. */
->      void (*write_msr)(unsigned int cos, uint32_t val, enum psr_type type);
-> @@ -418,6 +420,7 @@ static bool mba_init_feature(const struct cpuid_leaf *regs,
->      return true;
->  }
->  
-> +#ifdef CONFIG_SYSCTL
->  static bool cf_check cat_get_feat_info(
->      const struct feat_node *feat, uint32_t data[], unsigned int array_len)
->  {
-> @@ -430,6 +433,7 @@ static bool cf_check cat_get_feat_info(
->  
->      return true;
->  }
-> +#endif
->  
->  /* L3 CAT props */
->  static void cf_check l3_cat_write_msr(
-> @@ -442,11 +446,14 @@ static const struct feat_props l3_cat_props = {
->      .cos_num = 1,
->      .type[0] = PSR_TYPE_L3_CBM,
->      .alt_type = PSR_TYPE_UNKNOWN,
-> +#ifdef CONFIG_SYSCTL
->      .get_feat_info = cat_get_feat_info,
-> +#endif
->      .write_msr = l3_cat_write_msr,
->      .sanitize = cat_check_cbm,
->  };
->  
-> +#ifdef CONFIG_SYSCTL
->  /* L3 CDP props */
->  static bool cf_check l3_cdp_get_feat_info(
->      const struct feat_node *feat, uint32_t data[], uint32_t array_len)
-> @@ -458,6 +465,7 @@ static bool cf_check l3_cdp_get_feat_info(
->  
->      return true;
->  }
-> +#endif
->  
->  static void cf_check l3_cdp_write_msr(
->      unsigned int cos, uint32_t val, enum psr_type type)
-> @@ -473,7 +481,9 @@ static const struct feat_props l3_cdp_props = {
->      .type[0] = PSR_TYPE_L3_DATA,
->      .type[1] = PSR_TYPE_L3_CODE,
->      .alt_type = PSR_TYPE_L3_CBM,
-> +#ifdef CONFIG_SYSCTL
->      .get_feat_info = l3_cdp_get_feat_info,
-> +#endif
->      .write_msr = l3_cdp_write_msr,
->      .sanitize = cat_check_cbm,
->  };
-> @@ -489,11 +499,14 @@ static const struct feat_props l2_cat_props = {
->      .cos_num = 1,
->      .type[0] = PSR_TYPE_L2_CBM,
->      .alt_type = PSR_TYPE_UNKNOWN,
-> +#ifdef CONFIG_SYSCTL
->      .get_feat_info = cat_get_feat_info,
-> +#endif
->      .write_msr = l2_cat_write_msr,
->      .sanitize = cat_check_cbm,
->  };
->  
-> +#ifdef CONFIG_SYSCTL
->  /* MBA props */
->  static bool cf_check mba_get_feat_info(
->      const struct feat_node *feat, uint32_t data[], unsigned int array_len)
-> @@ -508,6 +521,7 @@ static bool cf_check mba_get_feat_info(
->  
->      return true;
->  }
-> +#endif
->  
->  static void cf_check mba_write_msr(
->      unsigned int cos, uint32_t val, enum psr_type type)
-> @@ -545,7 +559,9 @@ static const struct feat_props mba_props = {
->      .cos_num = 1,
->      .type[0] = PSR_TYPE_MBA_THRTL,
->      .alt_type = PSR_TYPE_UNKNOWN,
-> +#ifdef CONFIG_SYSCTL
->      .get_feat_info = mba_get_feat_info,
-> +#endif
->      .write_msr = mba_write_msr,
->      .sanitize = mba_sanitize_thrtl,
->  };
-> @@ -808,6 +824,7 @@ static struct psr_socket_info *get_socket_info(unsigned int socket)
->      return socket_info + socket;
->  }
->  
-> +#ifdef CONFIG_SYSCTL
->  int psr_get_info(unsigned int socket, enum psr_type type,
->                   uint32_t data[], unsigned int array_len)
->  {
-> @@ -839,6 +856,7 @@ int psr_get_info(unsigned int socket, enum psr_type type,
->  
->      return -EINVAL;
->  }
-> +#endif /* CONFIG_SYSCTL */
->  
->  int psr_get_val(struct domain *d, unsigned int socket,
->                  uint32_t *val, enum psr_type type)
-
-That's quite a lot of #ifdef-ary here. I wonder if we can't do any better.
+Okay, added (to the existing comment).
 
 Jan
 
