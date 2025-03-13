@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43244A5F604
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 14:33:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.912165.1318485 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55B06A5F606
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 14:34:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.912174.1318496 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsigp-0005PV-AK; Thu, 13 Mar 2025 13:33:35 +0000
+	id 1tsihZ-0005vY-JI; Thu, 13 Mar 2025 13:34:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 912165.1318485; Thu, 13 Mar 2025 13:33:35 +0000
+Received: by outflank-mailman (output) from mailman id 912174.1318496; Thu, 13 Mar 2025 13:34:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsigp-0005NZ-7d; Thu, 13 Mar 2025 13:33:35 +0000
-Received: by outflank-mailman (input) for mailman id 912165;
- Thu, 13 Mar 2025 13:33:33 +0000
+	id 1tsihZ-0005ta-GH; Thu, 13 Mar 2025 13:34:21 +0000
+Received: by outflank-mailman (input) for mailman id 912174;
+ Thu, 13 Mar 2025 13:34:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7Xn0=WA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tsign-00054A-Rq
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 13:33:33 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
+ id 1tsihY-00054A-8G
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 13:34:20 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c1306f21-000f-11f0-9898-31a8f345e629;
- Thu, 13 Mar 2025 14:33:31 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-43cfecdd8b2so8256875e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 06:33:31 -0700 (PDT)
+ id dd26f5e5-000f-11f0-9898-31a8f345e629;
+ Thu, 13 Mar 2025 14:34:18 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-43d0782d787so8833465e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 06:34:18 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395cb318aa1sm2188236f8f.64.2025.03.13.06.33.30
+ 5b1f17b1804b1-43d18a2af67sm20481095e9.26.2025.03.13.06.34.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Mar 2025 06:33:30 -0700 (PDT)
+ Thu, 13 Mar 2025 06:34:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1306f21-000f-11f0-9898-31a8f345e629
+X-Inumbo-ID: dd26f5e5-000f-11f0-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741872811; x=1742477611; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741872858; x=1742477658; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Me251RWcZ43pewsUtLw3vQfNxPNwcf840kn0EwBGFJs=;
-        b=dmpT/IHLLLb2jQKU+VBqfzCPOKfLY6lhybHMPE/Hr0s/pB1OdkugXf9sauZf/j630L
-         1V9rw8c0nDcymuZ+EsN25C6ipzF13h6KxFzpdy8ix6fGumjSd8huYmy+C9htMCzi6C1z
-         exGltjMbnoBR7T0QlW8RydUbRCbtguFN4rNNC3lZxicZ0XRHd/rYhLgynR8VAO2JddA9
-         WkbYUXkbHlUBlmV4DAeYd6mzsLOqXtsb/svw3HXDSeKDY/VJg+BxPIkrzDTA34ZwCkxi
-         mszF65NrDM8PTsf0RkByrkUUS69nr/LIob2QQ2DeiVF5Q/qPA5fkphVHqufn5QW8E5bL
-         xozA==
+        bh=/cFDH4BsF1WCIyJLCwf7ShUHdgAtkyNcWW6hhvurbhQ=;
+        b=Q48VOlgvQXsYyX4BDU8e/qz8sJpMQkyG/v80fOQNt3U7+HChm5PXo3ORanD1lWyYcQ
+         utZT/YQ5VZHXqIgwxozIHtFCk8rgsP0OArgRSgMjj3pyKaQLZjJ8DWjWNUfHYQiHd52j
+         jB/L2PplPHqZGjt3+e/dnRm3mY0R5NPMXfTeYj6I4kFcwE7KsBcA/jPZ1Xfn0YJ29rgh
+         OAjVa0YUKfWo7EKlYMlZHUbUrWtZOzsiH4PweRFVOB2ObCv6NmUtTM+OQsS1sOh1EMoz
+         x6W7oGTLZ7eeY28ZWMp6KbgfGLcOkCm+ym6ax+6P4T+8VRycBqUTivmz5N7xDg0tslVd
+         hCRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741872811; x=1742477611;
+        d=1e100.net; s=20230601; t=1741872858; x=1742477658;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=Me251RWcZ43pewsUtLw3vQfNxPNwcf840kn0EwBGFJs=;
-        b=CDkoT6dgDqDs2Qh1099zgpsYHp0H6dguAwjgZ5eE/kdrgGtlO5aOE7YXWtigTVal1Q
-         xJDx8dwz/+Ql2byKhGwWwHXeAweamunIR8jQCLoRSx4NVVtLB6qMCvyDT9zP8BCRt6RY
-         NPTs3k8mZ69zzFJDWvpokZhWNLXn/b4G2cC5nMCoB8QcHwotnj64//aZ3xNtvjl1bCwI
-         k7Q1LYIr4ZX/Lnk/WkzqI5zfg09ZuBbAt9QDbQKat8wfgP6Afl4bMrte6SE4u1NXmmQT
-         3FzziTYyQgXWvKI7Kwl6CwaHRR75rQW7VKpc9A6fdmNOoun+y0gHvWEfYUOXeHBxkt/y
-         mImQ==
-X-Gm-Message-State: AOJu0YwlPIiB6zUM8LgltZSgn84XG+jmO/CUjan/l9OCg55bfYshdXLz
-	Wi4MatkRZ5gzNwPcwibJVyRQVoo5iyKhhZ6ksNXlkI4wcYNmogjDgfxBJsy1fwidXdnk0KWPnNI
+        bh=/cFDH4BsF1WCIyJLCwf7ShUHdgAtkyNcWW6hhvurbhQ=;
+        b=Z2G5Bn+vZL+PAnk6pAhrlZHY5g+Rg5Y1D2hHoh29KH5laEi/vgZb8Cu/NSU9JhudR0
+         c0+lKAX4m3VAgENd1WlTmpnfegUVJf0jGP7L4At1a9GO3OZjvNv3V59HlbAOxbC1d02f
+         oWsA5lAx680yfso5q3C4PbcFYYE09C7s+x+WCOboj4Fi6C0s8S3l+HOyLZxMPbuGY9Dk
+         qH4abFTdhiFwnDTNgzRrP0Q3EPEXvEe5mCBPma9Hc79WPm3upmfHD5BwZaB+QEXQnXZd
+         CVJUKQNgJZCNrRbPNa81UZPN2a9wkg1D93x4R32xbSTSMZ3+KFx+vBZlAbAkTtiOic7W
+         LrLg==
+X-Gm-Message-State: AOJu0YweI9MTsixRiinkKZz5v7i45WJ6/GnaSOjS+JKyBVUhgf6Iekgs
+	aB17gFBLAfxwyIWV91Sktgf5it41AXs/RXd6btfCIiKYEUw4diTG5iBp8Agq44F17blWDg50IA4
 	=
-X-Gm-Gg: ASbGnctiyK7vNeuvJUEeaDCDKFTfjNc+/lK7ZID0MVMcfv8tOZspWPVSTSBCPhal+Xf
-	h9jrMs7TporV9mQ47dGy5vzQbQ/2Kj1vQafpixrietQWkj9ucm49EsUGkd5h0DHNgqV8eR0ogSK
-	1THtEv5l/B4rQ1r2YokYrkjFU5e8tWpF+PfkQduvKekxYAExB0LYMyYoOtEgX8mPJB/6fgMap+l
-	OhYdSgGjNk3elHYY3kFM7gtzZXY6lQBzyFTqhTp3qS2+9wk6K5mDIJLskxkf0s4VNcSxTR3nMVV
-	TQCO94VVjE9gjsk8mMbf7LxoI+6UAlsEStsyaDXPNfWKY0bwPrEXtIIQgPzwIR/VggiCQDXW7yA
-	pjgoIpSKC8wm7Tnlb2CFTL373JcfJow==
-X-Google-Smtp-Source: AGHT+IFIuB5tfUpB/P1VsNzLMI+pUqeK67zi/bdexalWFWe2qSO/aADXxhXOsNFGEhbjy3XXHG8Sxw==
-X-Received: by 2002:a5d:64ec:0:b0:391:1473:336a with SMTP id ffacd0b85a97d-39132dbc5afmr17663153f8f.36.1741872810977;
-        Thu, 13 Mar 2025 06:33:30 -0700 (PDT)
-Message-ID: <b09c2c89-ae6b-4942-8e22-61a2ae2862a4@suse.com>
-Date: Thu, 13 Mar 2025 14:33:30 +0100
+X-Gm-Gg: ASbGncvBSV7iJnN2Ix1Hs7xLTgsDwT/Hyu+MpzOxFqICxhnyncbMPzlU1enOjHSZm2T
+	zw8cE2/294586u9KXc+sTiZR0PfydU6wIcxcyQ1kf80xv7BiuUyAG4vUvKnYW7T12RG4ZZZuYFJ
+	9R5POgAXuA0vAFPNP9Zrg5WOoyiCWVB9wPsQhOnafe+dzTE/c4WQY/bd1dmftV3O1vv5u3+zLD5
+	WpzvqfbMwzr+NhOU1T/RYxH9a3B1W0UyuzGwCaMYWiUkliH9CQH8k3cZLfkwguPZHuzLKnb79lx
+	0aDIrkcU+wxJwFCekE5mt0yQDhe90RJERTI0AiG5gLjLGOQLD+mv0VeN4HNzz3iHDVXOMWy0sj+
+	OviZzhmFKoa4Ji+GJfBnEzwvc70FrWA==
+X-Google-Smtp-Source: AGHT+IFInBjcEUX6YGaTOvYShhvblVrxOubP1v8/7fEIqiL2wpKZJJ1Sm4z4Yd2eH5Kw1c6PzyxFzQ==
+X-Received: by 2002:a05:600c:1d1b:b0:43c:fcbc:9680 with SMTP id 5b1f17b1804b1-43cfcbc9883mr118885555e9.25.1741872857884;
+        Thu, 13 Mar 2025 06:34:17 -0700 (PDT)
+Message-ID: <6468c44a-772e-45a6-b712-0732c9017234@suse.com>
+Date: Thu, 13 Mar 2025 14:34:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 1/2] VT-d: move obtaining of MSI/HPET source ID
+Subject: [PATCH 2/2] VT-d: have set_msi_source_id() return a success indicator
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -119,48 +119,78 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
 In-Reply-To: <8b610dba-0ce9-47ed-808d-035dc48f4f04@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-This was the original attempt to address XSA-467, until it was found
-that IRQs can be off already from higher up the call stack. Nevertheless
-moving code out of locked regions is generally desirable anyway; some of
-the callers, after all, don't disable interrupts or acquire other locks.
+Handling possible internal errors by just emitting a (debug-build-only)
+log message can't be quite enough. Return error codes in those cases,
+and have the caller propagate those up.
 
-Hence, despite this not addressing the original report:
+Drop a pointless return path, rather than "inventing" an error code for
+it.
 
-Data collection solely depends on the passed in PCI device. Furthermore,
-since the function only writes to a local variable, we can pull the
-invocation of set_msi_source_id() (and also set_hpet_source_id()) ahead
-of the acquiring of the (IRQ-safe) lock.
+While touching the function declarator anyway also constify its first
+parameter.
 
+Fixes: 476bbccc811c ("VT-d: fix MSI source-id of interrupt remapping")
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
 --- a/xen/drivers/passthrough/vtd/intremap.c
 +++ b/xen/drivers/passthrough/vtd/intremap.c
-@@ -508,6 +508,11 @@ static int msi_msg_to_remap_entry(
-     const struct pi_desc *pi_desc = msi_desc->pi_desc;
+@@ -436,15 +436,13 @@ void cf_check io_apic_write_remap_rte(
+     __ioapic_write_entry(apic, pin, true, old_rte);
+ }
+ 
+-static void set_msi_source_id(struct pci_dev *pdev, struct iremap_entry *ire)
++static int set_msi_source_id(const struct pci_dev *pdev,
++                             struct iremap_entry *ire)
+ {
+     u16 seg;
+     u8 bus, devfn, secbus;
+     int ret;
+ 
+-    if ( !pdev || !ire )
+-        return;
+-
+     seg = pdev->seg;
+     bus = pdev->bus;
+     devfn = pdev->devfn;
+@@ -485,16 +483,21 @@ static void set_msi_source_id(struct pci
+                             PCI_BDF(bus, devfn));
+         }
+         else
++        {
+             dprintk(XENLOG_WARNING VTDPREFIX,
+                     "d%d: no upstream bridge for %pp\n",
+                     pdev->domain->domain_id, &pdev->sbdf);
++            return -ENXIO;
++        }
+         break;
+ 
+     default:
+         dprintk(XENLOG_WARNING VTDPREFIX, "d%d: unknown(%u): %pp\n",
+                 pdev->domain->domain_id, pdev->type, &pdev->sbdf);
+-        break;
+-   }
++        return -EOPNOTSUPP;
++    }
++
++    return 0;
+ }
+ 
+ static int msi_msg_to_remap_entry(
+@@ -509,7 +512,12 @@ static int msi_msg_to_remap_entry(
      bool alloc = false;
  
-+    if ( pdev )
-+        set_msi_source_id(pdev, &new_ire);
-+    else
-+        set_hpet_source_id(msi_desc->hpet_id, &new_ire);
-+
-     if ( msi_desc->msi_attrib.type == PCI_CAP_ID_MSI )
-         nr = msi_desc->msi.nvec;
- 
-@@ -575,11 +580,6 @@ static int msi_msg_to_remap_entry(
-         new_ire.post.p = 1;
-     }
- 
--    if ( pdev )
+     if ( pdev )
 -        set_msi_source_id(pdev, &new_ire);
--    else
--        set_hpet_source_id(msi_desc->hpet_id, &new_ire);
--
-     /* now construct new MSI/MSI-X rte entry */
-     remap_rte = (struct msi_msg_remap_entry *)msg;
-     remap_rte->address_lo.dontcare = 0;
++    {
++        int rc = set_msi_source_id(pdev, &new_ire);
++
++        if ( rc )
++            return rc;
++    }
+     else
+         set_hpet_source_id(msi_desc->hpet_id, &new_ire);
+ 
 
 
