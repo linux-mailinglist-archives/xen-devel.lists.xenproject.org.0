@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 992CFA5F2BF
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 12:44:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.911945.1318316 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0373CA5F2BC
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 12:44:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.911946.1318326 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsgyq-0004NY-1m; Thu, 13 Mar 2025 11:44:04 +0000
+	id 1tsgyv-0004cz-8w; Thu, 13 Mar 2025 11:44:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 911945.1318316; Thu, 13 Mar 2025 11:44:04 +0000
+Received: by outflank-mailman (output) from mailman id 911946.1318326; Thu, 13 Mar 2025 11:44:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsgyp-0004M6-V2; Thu, 13 Mar 2025 11:44:03 +0000
-Received: by outflank-mailman (input) for mailman id 911945;
- Thu, 13 Mar 2025 11:44:02 +0000
+	id 1tsgyv-0004ap-5B; Thu, 13 Mar 2025 11:44:09 +0000
+Received: by outflank-mailman (input) for mailman id 911946;
+ Thu, 13 Mar 2025 11:44:06 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NEXk=WA=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1tsgyo-0004Ly-8X
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 11:44:02 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ <SRS0=w2IX=WA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tsgys-0004Ly-UG
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 11:44:06 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 74cf6aaa-0000-11f0-9ab9-95dc52dad729;
- Thu, 13 Mar 2025 12:44:01 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-39143200ddaso532135f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 04:44:01 -0700 (PDT)
-Received: from localhost ([66.81.170.107]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d03e2448bsm52007035e9.1.2025.03.13.04.43.59
+ id 77fcd1a5-0000-11f0-9ab9-95dc52dad729;
+ Thu, 13 Mar 2025 12:44:06 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-43d0c18e84eso5178685e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 04:44:06 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-395cb318a5fsm1851733f8f.79.2025.03.13.04.44.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Mar 2025 04:43:59 -0700 (PDT)
+ Thu, 13 Mar 2025 04:44:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,208 +45,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 74cf6aaa-0000-11f0-9ab9-95dc52dad729
+X-Inumbo-ID: 77fcd1a5-0000-11f0-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1741866240; x=1742471040; darn=lists.xenproject.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rJQB8DvVnfT03BdpUrS/G0RkWNXtCa6OJMD/PQfWZrs=;
-        b=DtKsU6Alp4PAUFzE2FaFWnDQjWxilrTE/f4PXgkFLq2STovtEli7qy3vd2J35gyit+
-         yki7vn7YeMwX3TyrvsnlLCGafnUkLrG0zCy+4uzISBYercudBssE/YTNzDtU7PNvRa0k
-         LxwvG406GN0xtXx48zd+5CTcZkp3Jjy0UwiFE=
+        d=citrix.com; s=google; t=1741866246; x=1742471046; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=4+dligUpIn7eZeZppXpXDaOpcvkUgqp7/b0zEBX4m14=;
+        b=rq3Wni/eFpTDGcbAYOfD1Pt6QYmn4+9y7zPaLz1yyVATlrvsg93woQk4nud3SePHwG
+         K9PzVhywxg+0Ci4Hzx6mOuC1Tj4eE8x3JPjjDap0CwWIF1/g+aLx8cB1RCMnQeQ3DICa
+         DhXLfc31xoOxZR5cMmJA52Z9UQ/Frbdpb1ILs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741866240; x=1742471040;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=rJQB8DvVnfT03BdpUrS/G0RkWNXtCa6OJMD/PQfWZrs=;
-        b=topW66HGjENGuDLKOG7+pq7pMmUzamKX7dv8MSPjJb7AIAAH4Wwxuxwe+hxIoTK41o
-         AOfWvZOU8SbBVd+u7zdBZHB0UKB9odafyMFCUifMaKNdvV56EguLW2eZ6SXxFpAzyibI
-         p/Ul2JCPNW0T19fE0zfIZJGKlg/5nMPWWwYyX6lKOecDJl1hSV+nNa+IScALGzIV/j/y
-         +rn4s6dHxDLzSIRL9UvdE1DyrhUt9lLZEcAYzTy3KhU0TZivLfktp4mNS0uYfUzO5CUg
-         x2xMCnBQCKP5mTpiCbbgNEBVUoHMpULzOkVhYOmkshjIxiYPKGdivQA6/DrET4OAg/nb
-         910w==
-X-Forwarded-Encrypted: i=1; AJvYcCWRhEx4eDBhC8/jkGGwGV99Nqgh4PNFbH3rueiiqMuODAUirgbnxznujm16aLqLw3mpAqM349THk0M=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyJvQrwvluQAGYevgDem3bK31An4XK1EJGkBv8J9DWxZbGWcpfO
-	P7UEqYTJTcjp3yFSQxjgZcQLoSPLhIe2X8je3SkUn0If//7nwXB0YCiRJNvR6RH9vDUVhwo11Po
-	u6DQ=
-X-Gm-Gg: ASbGnctmtBRLDW1OCcuLGQDJmydR9IxlSVF6Lsq6P60F8oMr7pfglSx9n5M6kv5mLlj
-	Aub9Kk+uqdx5aAqpAJ9qwiHvr0lVj7sDRBQVoITbdQaooqr8CKwRZhxJvMA5mKwauoWl9PXnrJJ
-	2vqyMFYC6tbFQ0B3w6mIbWZuCEaulo8gru+B1Ij36BPX7aUN60bQncY/ZE6JMzJ6KooFI+hCxuM
-	y1qXl1mOctt8ioS4kFS/sjPbZy+fumO9gxLbhAY8IEORLbteiUaZ4o5fJl89MMf3s4N/oTd7qjX
-	Kj4eo8R/H5dkDGOHBDlbxZHguWsFur8367srGrMKJlwvhKceBYA=
-X-Google-Smtp-Source: AGHT+IE7eC/mdnBSVTjY/AChHzeU15NP5mQsMxeau1PBHXPWFqD5/x+Kd8Dpvx1mC9XlKjSUzv8H1Q==
-X-Received: by 2002:a05:6000:2aa:b0:390:f400:2083 with SMTP id ffacd0b85a97d-39258949d55mr11959712f8f.0.1741866240296;
-        Thu, 13 Mar 2025 04:44:00 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+        d=1e100.net; s=20230601; t=1741866246; x=1742471046;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4+dligUpIn7eZeZppXpXDaOpcvkUgqp7/b0zEBX4m14=;
+        b=dZem0CQZJtzOFv5sX1NC0HqIddzo23Pq8cgE9SpWdB87+B1eCvPLNDzpepkB9J9dgX
+         5U9mYzBIvA/i+fvMh6mPZxM9mxZwnl1ChOSzVh3cB2D7InURORQXpsVYeOGvA9egyTqY
+         lRzAPHT2kqvHh0y+Vi3v+JxHEm22Ty7zRQkG3HoEHYjyUgY0fhVFGATPIcSC6+F1sBbO
+         d141n7OCT0QyeJl48DeNCiMEXFFkGScG4NEROTLTRbDE4ZewqqM0U2rLysyqq7cl9/vo
+         OAoomceVY8QoIpSOi6TxzUq2tz95MkJBCUrXXSubSnOtiUaA/p6acmnb3Gy54BFKgyLD
+         Se5w==
+X-Forwarded-Encrypted: i=1; AJvYcCVimcfbeDYM+sZJUR9JN8G7sesG5upPPCRCvtIAbi4HLTv9pN1xyvMJKw26pGSbtweRo/q75uG1xAc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy2LeIvY8GtUes01XtNYV3r+i1yIQR4HJ09SLED6BBb6SGQVBU2
+	OCpcXc+2CjTX3Xn1hU6//ZQ8DDktl7Wcd95Yor15KYXwn1TT/miZkXn7BbQrLZM=
+X-Gm-Gg: ASbGncuOnA7PcVm5PqVMHa5NopTsrc/Ysmf9xlp9AohQUefTt+6oVqlWwcusvTjkcWL
+	+IPr2J73p4k57bDnAZy+hRow3Ml3dPlJ+qdlQGipP7A/TgE+dBkVTxq7F17Fk+VxmFv0683HMQw
+	FUHJyfZTwSDkbbpZGLzCKw5K2iiSLmiy7LY/QXpkG879dapq0ZOm76trQzmNJWP0oJojf8ohceb
+	GxEYnNA+7M9DoP9FXhpJagdAsiKnBY4ZcF3dI3TzyRemjGeUZIpi1fWdVDW7FSc82bWDMkpnk0C
+	+lC0j/OPzOIRvyECYwP9bWyqMBwEkMVbPGG6V8FyccZ2cQv32kihukSfw3ULEC6SKF25JXlelKS
+	8aUQN0nub
+X-Google-Smtp-Source: AGHT+IGD5ZSgXrgNvl9nNf5lNKGAYJAFmXn7V2SKcM1e8jfX4L8ZOEOY7v8BVcsX7Do3CYGlBOQ01w==
+X-Received: by 2002:a5d:64cd:0:b0:390:f2f1:2a17 with SMTP id ffacd0b85a97d-39132da9d2amr20535279f8f.53.1741866245758;
+        Thu, 13 Mar 2025 04:44:05 -0700 (PDT)
+Message-ID: <8655362d-4019-4dca-b232-5adeb13c3ac1@citrix.com>
+Date: Thu, 13 Mar 2025 11:44:04 +0000
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/sched: fix arinc653 to not use variables across
+ cpupools
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+ xen-devel@dornerworks.com
+Cc: Nathan Studer <nathan.studer@dornerworks.com>,
+ Stewart Hildebrand <stewart@stew.dk>, Dario Faggioli <dfaggioli@suse.com>,
+ George Dunlap <gwd@xenproject.org>, Choi Anderson <Anderson.Choi@boeing.com>
+References: <20250313093157.30450-1-jgross@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20250313093157.30450-1-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 13 Mar 2025 11:43:54 +0000
-Message-Id: <D8F41PA5JHTU.ABSSG427OH5@cloud.com>
-Cc: <ray.huang@amd.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: Re: [PATCH v1 02/19] xen/xsm: wrap around xsm_sysctl with
- CONFIG_SYSCTL
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Penny Zheng" <Penny.Zheng@amd.com>, <xen-devel@lists.xenproject.org>
-X-Mailer: aerc 0.18.2
-References: <20250312040632.2853485-1-Penny.Zheng@amd.com>
- <20250312040632.2853485-3-Penny.Zheng@amd.com>
-In-Reply-To: <20250312040632.2853485-3-Penny.Zheng@amd.com>
+Content-Transfer-Encoding: 7bit
 
-Hi,
-
-On Wed Mar 12, 2025 at 4:06 AM GMT, Penny Zheng wrote:
-> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
-> ---
->  xen/include/xsm/dummy.h | 7 +++++++
->  xen/include/xsm/xsm.h   | 9 +++++++++
->  xen/xsm/dummy.c         | 2 ++
->  xen/xsm/flask/hooks.c   | 4 ++++
->  4 files changed, 22 insertions(+)
+On 13/03/2025 9:31 am, Juergen Gross wrote:
+> a653sched_do_schedule() is using two function local static variables,
+> which is resulting in bad behavior when using more than one cpupool
+> with the arinc653 scheduler.
 >
-> diff --git a/xen/include/xsm/dummy.h b/xen/include/xsm/dummy.h
-> index a8d06de6b0..afc54a0b2f 100644
-> --- a/xen/include/xsm/dummy.h
-> +++ b/xen/include/xsm/dummy.h
-> @@ -180,11 +180,18 @@ static XSM_INLINE int cf_check xsm_domctl(
->      }
->  }
-> =20
-> +#ifdef CONFIG_SYSCTL
->  static XSM_INLINE int cf_check xsm_sysctl(XSM_DEFAULT_ARG int cmd)
->  {
->      XSM_ASSERT_ACTION(XSM_PRIV);
->      return xsm_default_action(action, current->domain, NULL);
->  }
-> +#else
-> +static XSM_INLINE int cf_check xsm_sysctl(XSM_DEFAULT_ARG int cmd)
-> +{
-> +    return -EOPNOTSUPP;
-> +}
-> +#endif
+> Fix that by moving those variables to the scheduler private data.
+>
+> Fixes: 22787f2e107c ("ARINC 653 scheduler")
+> Reported-by: Choi Anderson <Anderson.Choi@boeing.com>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Doesn't this need to be -ENOSYS instead?
+Oh lovely, those statics are nicely hidden in the local variable list.
 
-I'd put the ifdefs inside the function (making the signature common) and
-then have the body ifdef-ed. But rather than that, I suspect the `else` bra=
-nch
-can just go away because...
-
-> =20
->  static XSM_INLINE int cf_check xsm_readconsole(XSM_DEFAULT_ARG uint32_t =
-clear)
->  {
-> diff --git a/xen/include/xsm/xsm.h b/xen/include/xsm/xsm.h
-> index 8c33b055fc..276507b515 100644
-> --- a/xen/include/xsm/xsm.h
-> +++ b/xen/include/xsm/xsm.h
-> @@ -60,7 +60,9 @@ struct xsm_ops {
->      int (*sysctl_scheduler_op)(int op);
->      int (*set_target)(struct domain *d, struct domain *e);
->      int (*domctl)(struct domain *d, unsigned int cmd, uint32_t ssidref);
-> +#ifdef CONFIG_SYSCTL
->      int (*sysctl)(int cmd);
-> +#endif
->      int (*readconsole)(uint32_t clear);
-
-... either you remove this field or make the dummy handler. Doing both seem=
-s
-redundant.
-
-The dummy handler would return -ENOTSUPP, so the field is benign (in which =
-case
-I don't really get why it must go). But if the field is gone, there's no ne=
-ed
-for the handler to begin with.
-
-All in all, removing the else branch in xsm_sysctl would make everything
-consistent. Same in the files below.
-
-Also, you may want to add the readconsole hook (and its handler) since that=
-'s
-a specific sysctl that would also be disabled by !CONFIG_SYSCTL.
-
-> =20
->      int (*evtchn_unbound)(struct domain *d, struct evtchn *chn, domid_t =
-id2);
-> @@ -259,10 +261,17 @@ static inline int xsm_domctl(xsm_default_t def, str=
-uct domain *d,
->      return alternative_call(xsm_ops.domctl, d, cmd, ssidref);
->  }
-> =20
-> +#ifdef CONFIG_SYSCTL
->  static inline int xsm_sysctl(xsm_default_t def, int cmd)
->  {
->      return alternative_call(xsm_ops.sysctl, cmd);
->  }
-> +#else
-> +static inline int xsm_sysctl(xsm_default_t def, int cmd)
-> +{
-> +    return -EOPNOTSUPP;
-> +}
-> +#endif
-
-Same as above
-
-> =20
->  static inline int xsm_readconsole(xsm_default_t def, uint32_t clear)
->  {
-
-> diff --git a/xen/xsm/dummy.c b/xen/xsm/dummy.c
-> index ce6fbdc6c5..0a5fc06bbf 100644
-> --- a/xen/xsm/dummy.c
-> +++ b/xen/xsm/dummy.c
-
-Same remarks here as in the header.
-
-> @@ -22,7 +22,9 @@ static const struct xsm_ops __initconst_cf_clobber dumm=
-y_ops =3D {
->      .sysctl_scheduler_op           =3D xsm_sysctl_scheduler_op,
->      .set_target                    =3D xsm_set_target,
->      .domctl                        =3D xsm_domctl,
-> +#ifdef CONFIG_SYSCTL
->      .sysctl                        =3D xsm_sysctl,
-> +#endif
->      .readconsole                   =3D xsm_readconsole,
-> =20
->      .evtchn_unbound                =3D xsm_evtchn_unbound,
-> diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
-> index 389707a164..7c5e7f5879 100644
-> --- a/xen/xsm/flask/hooks.c
-> +++ b/xen/xsm/flask/hooks.c
-> @@ -856,6 +856,7 @@ static int cf_check flask_domctl(struct domain *d, un=
-signed int cmd,
->      }
->  }
-> =20
-> +#ifdef CONFIG_SYSCTL
->  static int cf_check flask_sysctl(int cmd)
->  {
->      switch ( cmd )
-> @@ -933,6 +934,7 @@ static int cf_check flask_sysctl(int cmd)
->          return avc_unknown_permission("sysctl", cmd);
->      }
->  }
-> +#endif
-> =20
->  static int cf_check flask_readconsole(uint32_t clear)
->  {
-> @@ -1884,7 +1886,9 @@ static const struct xsm_ops __initconst_cf_clobber =
-flask_ops =3D {
->      .sysctl_scheduler_op =3D flask_sysctl_scheduler_op,
->      .set_target =3D flask_set_target,
->      .domctl =3D flask_domctl,
-> +#ifdef CONFIG_SYSCTL
->      .sysctl =3D flask_sysctl,
-> +#endif
->      .readconsole =3D flask_readconsole,
-
-readconsole ought to be included, imo. And its handler wiped out as well.
-
-> =20
->      .evtchn_unbound =3D flask_evtchn_unbound,
-
-Cheers,
-Alejandro
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
