@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C555A5F6A3
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 14:52:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.912225.1318536 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB47CA5F6C4
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 14:53:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.912236.1318546 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsiz3-0004jO-NF; Thu, 13 Mar 2025 13:52:25 +0000
+	id 1tsj0D-0005Gp-05; Thu, 13 Mar 2025 13:53:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 912225.1318536; Thu, 13 Mar 2025 13:52:25 +0000
+Received: by outflank-mailman (output) from mailman id 912236.1318546; Thu, 13 Mar 2025 13:53:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsiz3-0004ga-Jk; Thu, 13 Mar 2025 13:52:25 +0000
-Received: by outflank-mailman (input) for mailman id 912225;
- Thu, 13 Mar 2025 13:52:24 +0000
+	id 1tsj0C-0005Ew-TT; Thu, 13 Mar 2025 13:53:36 +0000
+Received: by outflank-mailman (input) for mailman id 912236;
+ Thu, 13 Mar 2025 13:53:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7Xn0=WA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tsiz2-0004gU-Ax
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 13:52:24 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ id 1tsj0B-0005Eo-Bm
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 13:53:35 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 63c459df-0012-11f0-9ab9-95dc52dad729;
- Thu, 13 Mar 2025 14:52:23 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-43cfb6e9031so9262215e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 06:52:23 -0700 (PDT)
+ id 8e1fbc28-0012-11f0-9ab9-95dc52dad729;
+ Thu, 13 Mar 2025 14:53:34 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-43cf0d787eeso8868695e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 06:53:34 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d0a74cf8bsm55030405e9.12.2025.03.13.06.52.22
+ 5b1f17b1804b1-43d188bb81bsm21058715e9.23.2025.03.13.06.53.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Mar 2025 06:52:22 -0700 (PDT)
+ Thu, 13 Mar 2025 06:53:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 63c459df-0012-11f0-9ab9-95dc52dad729
+X-Inumbo-ID: 8e1fbc28-0012-11f0-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741873943; x=1742478743; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741874014; x=1742478814; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fO6uuX/NNeoYzMSs64Qkp5bjEbxgGLcuU9dVefmd5QY=;
-        b=QdQoJw2ZH7ek3dGMXaDo5dN73myQKoAWKiVaVTFeLLFzQ6WIn96RGgx66rVgilYXV+
-         k2SXGc1rPBrzNCeHCqWK8M69uUfPxjk4ax3PRskemdcWZmZJ1l6BS0alaCw2HuAMCPSw
-         ytaIUIzEJ/M1GuZ89fZNd6Q1gGUYiLkhG4kDv0VM9FpyUhYUbZb4MF2NixVZo6xNOWZl
-         2sOvburOalkqC5VwV7uvj9ygdiei9hD1Qi3rQKqorkJyo+fbjxSCYKoqiG3R+/kgrc21
-         JhWEoDvNRHcxzW17D58YItEP0Z1sAqCNoaajrEmGUNCLGFrdALGeDwFy4RWIdQoRlwC/
-         aIiA==
+        bh=fCxxDGYuy2Cc/IFubfex0MjwHffrK4iFN5U1SgdHJM0=;
+        b=gkw5rDRXCn5NJeyC37OadYrar6eFKzGfgGSisNWoFjxFKLYceoY7FNEup5AEDhC7jH
+         7BYyo9odLKNlqNn50g+gE8NAUWEa6xpOcuifOEZjMbxe0LDeonEVT6v6Qs3Lxp92KeVN
+         7ICwgrdavJMvw2vc7cxHTIkXpRkaZiKlkUKGXKrZWNfcdq7GooK9Ts3IfxLPafLlajbF
+         DXPq9xaC86sjwkp0splyYk+ytEzMGGU9btgYhok1mKkTioueeYEY5MzpaIM+ncOMkWft
+         wcGdUxAgHOmOVWeUjM2meEs+KLMcLc+BNStfbl4yQkezaeG4OfchnLgesJ9CFFCw5z3V
+         LsBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741873943; x=1742478743;
+        d=1e100.net; s=20230601; t=1741874014; x=1742478814;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=fO6uuX/NNeoYzMSs64Qkp5bjEbxgGLcuU9dVefmd5QY=;
-        b=cmCR36YkWXcLwH9VEpsTzBdt+nxsgD3UWnw1dzw3UOAaIB3sQUKsQHtz8VvwDG92d4
-         zz2piYUtczTqNKJ+EPr65MgZePf7g6vuG32aV65PAStRHx31qB+3iRLtrMfVFPdp0I2X
-         Akkmt0ol5DEYXXOfLMGBX6lCnP+3VrlGBxDtYDt/gFUW8KN1FXUt5yixSs2reOMy8uV5
-         qIBDhxVvFxL1+1yOHUR3zN+oP9/hAfFnMFmFHGgp/OjgY4VHrEqjYWkRkDGE069sRt27
-         l2d0IDovmlVDyNc0Jb+LLgz7H97XIf1Rt4YkZuIbJI1iG5KBTMQd7of6st0koaEhyhzA
-         7NfQ==
-X-Gm-Message-State: AOJu0Yz4ljTK66ceMKOKXtxJveypIi1g4llwednH+ndtdAo9ZO/qEBBI
-	D2HcNT3DLHCQpJH8m4qgKdNll5Aifip9JMT/s5o7gEMQxTiEvsqZMTgzEXa4KSxheZ2Y3fyxg/M
+        bh=fCxxDGYuy2Cc/IFubfex0MjwHffrK4iFN5U1SgdHJM0=;
+        b=CRpWfnAcBaQXIORS39dHYrT6KA4WeW1Bye/GVIa3uAxisSB22FhsUtvyxZUNP5yPn0
+         An+fgULSKv3PobRFvv8NNC3q9ccAZiXloktuc94cmCT3rBGKtgdv7bSipjo9U/iKb6OC
+         XeI3otZleV38MuywdqSV/a/4vDMagveVTcQpEhazLoTP7aI9OL/R4VT2Ijiy+YraB+/I
+         YyGXlne6nNxDmQrHlXY0eL0eKb3diCsPIlR+YJlefu7W/y31rQxoDEqIfoLoXlbUR1mB
+         LBqTzpfLJHwTJL+vFu2XbD/QwzNIZDwgcYa161JLKW7iry3n4ZK/3oqBiiBuGtk3Kn+D
+         mORg==
+X-Gm-Message-State: AOJu0YwvoUdXSAwY1xhB81JmEmQEDBRgky7DsGLTGn88y7BL9hSNqJx2
+	GuNtCTPC5C3+AfBtuxlWSlrlP8r1FT+LGzJtxNXGraPNstY+G0JcrzK50cjAPqOcVgDby5Q/8Zs
 	=
-X-Gm-Gg: ASbGncv53HZTH6YJyvDQHybbQ99+Z1zn+O0h1x2QbQ+vJvepe/A/Z7B3i+3wxYqBy6Y
-	GSVIEBE1Ay+WJEo6Na1q9ah1onGEER6i7t6aJaHnbNYBXgk3ZqLffx7gzQ4Eo/kI85okWeH0TsC
-	ZZiHPjvjc6M5Bu3KVn/myWjMLv7LDs3edhDT5uwVvR0V9vZs6ebd7W9Ervkdmm74yH4J1pyudOy
-	3YIo6skueG6npTZVO90xowUyabf+DOA0KKQ9JkAaByaqYYKjyWQ7q+FCCXAj9oJ2vpGvn/QYBow
-	j8Dk4pAEDQUjTgspR8aQvIBk4tKagWjrPXCjk61YyixNs2I4DQ7Edxjj1u9GKkM6I08n6v8ogsR
-	ExoyQjDFkuFF4XfdbL9uf2nS2PJ2UIw==
-X-Google-Smtp-Source: AGHT+IEQcc1w3qVtZd/nrWClsUIJLEx1OCdv2qxru5vIJE6ASkLEWvwvH1zuUdJDbUKuiIKe6TieDw==
-X-Received: by 2002:a05:600c:524a:b0:43c:f75a:eb54 with SMTP id 5b1f17b1804b1-43cf75aed5emr172596805e9.13.1741873942752;
-        Thu, 13 Mar 2025 06:52:22 -0700 (PDT)
-Message-ID: <a556439c-b652-4789-bbdd-6d6402b2a124@suse.com>
-Date: Thu, 13 Mar 2025 14:52:21 +0100
+X-Gm-Gg: ASbGncvC77X4bNzB2AmJf46IaUuI8awfFFLEquOIelTxQaw2eLz5vJbYvOCB6IDNLZG
+	s9ncUdH7kjvmj9vJAQdfrHMDoiLxHQ2H3N2rgnyWpzE0VBB1dzSBuSDQCtLhn5Io0Wudo/sZDCO
+	kbqJgzcrwg71MleEM2dUr91Q4tjNUUq4qESEGXgceuT2p85eudnsArxoLUbmXKwxbcDQK95DNS5
+	lE5dq4C8p33fmAEy8olMxd1yMBmU66KMnJvsRrgcfc5vWcjONR+9ustOlqzgBvKMZ91aOuwAYxX
+	fCoAyrOlkcinnLuVynpBFV06zkXC+R6Aury4phdGvIk5ulWpsjkmo6eqWxIQHngso7GGKBO7byu
+	wwRC5plrQoxUKqrlS2VLBR8yAWOFFBA==
+X-Google-Smtp-Source: AGHT+IFZjjQ0qBDB7b0zosF9/jHin5+CIaPO9cDuH6HESGaEsN6bV6XkBUq5irp9zrsar20f4aT0qA==
+X-Received: by 2002:a05:600c:3b8b:b0:43c:f6b0:e807 with SMTP id 5b1f17b1804b1-43cf6b2135cmr156894775e9.31.1741874013813;
+        Thu, 13 Mar 2025 06:53:33 -0700 (PDT)
+Message-ID: <816a0320-d229-4f7e-b1b5-51dbb640c5c8@suse.com>
+Date: Thu, 13 Mar 2025 14:53:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 1/6] symbols: add minimal self-test
+Subject: [PATCH 2/6] symbols: don't over-align generated data
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
+ <roger.pau@citrix.com>, Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
 References: <58b3d7dc-5966-432c-8def-e841feaee1c8@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,57 +125,36 @@ In-Reply-To: <58b3d7dc-5966-432c-8def-e841feaee1c8@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-... before making changes to the involved logic.
+x86 is one of the few architectures where .align has the same meaning as
+.balign; most other architectures (Arm, PPC, and RISC-V in particular)
+give it the same meaning as .p2align. Aligning every one of these item
+to 256 bytes (on all 64-bit architectures except x86-64) is clearly too
+much.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-With this FAST_SYMBOL_LOOKUP may make sense to permit enabling even
-when LIVEPATCH=n. Thoughts? (In this case "symbols: centralize and re-
-arrange $(all_symbols) calculation" would want pulling ahead.)
+Even uniformly aligning to 4 (x86, Arm32) or 8 bytes is too much imo,
+when some of the items require only 1- or 2-byte alignment.
 
---- a/xen/common/symbols.c
-+++ b/xen/common/symbols.c
-@@ -260,6 +260,41 @@ unsigned long symbols_lookup_by_name(con
-     return 0;
- }
+Is there a reason only x86 defines SYMBOLS_ORIGIN, to halve the address
+table in size? (Arm32 and other possible 32-bit ports of course have no
+need for doing so, but for 64-bit ones that can make quite a bit of a
+difference.)
+
+--- a/xen/tools/symbols.c
++++ b/xen/tools/symbols.c
+@@ -304,10 +304,10 @@ static void write_src(void)
+ 	printf("#include <xen/config.h>\n");
+ 	printf("#if BITS_PER_LONG == 64 && !defined(SYMBOLS_ORIGIN)\n");
+ 	printf("#define PTR .quad\n");
+-	printf("#define ALGN .align 8\n");
++	printf("#define ALGN .balign 8\n");
+ 	printf("#else\n");
+ 	printf("#define PTR .long\n");
+-	printf("#define ALGN .align 4\n");
++	printf("#define ALGN .balign 4\n");
+ 	printf("#endif\n");
  
-+#ifdef CONFIG_SELF_TESTS
-+
-+static void __init test_lookup(unsigned long addr, const char *expected)
-+{
-+    char buf[KSYM_NAME_LEN + 1];
-+    const char *name, *symname;
-+    unsigned long size, offs;
-+
-+    name = symbols_lookup(addr, &size, &offs, buf);
-+    if ( !name )
-+        panic("%s: address not found\n", expected);
-+    if ( offs )
-+        panic("%s: non-zero offset (%#lx) unexpected\n", expected, offs);
-+
-+    /* Cope with static symbols, where varying file names/paths may be used. */
-+    symname = strchr(name, '#');
-+    symname = symname ? symname + 1 : name;
-+    if ( strcmp(symname, expected) )
-+        panic("%s: unexpected symbol name: '%s'\n", expected, symname);
-+
-+    offs = symbols_lookup_by_name(name);
-+    if ( offs != addr )
-+        panic("%s: address %#lx unexpected; wanted %#lx\n",
-+              expected, offs, addr);
-+}
-+
-+static void __init __constructor test_symbols(void)
-+{
-+    /* Be sure to only try this for cf_check functions. */
-+    test_lookup((unsigned long)dump_execstate, "dump_execstate");
-+    test_lookup((unsigned long)test_symbols, __func__);
-+}
-+
-+#endif /* CONFIG_SELF_TESTS */
-+
- /*
-  * Local variables:
-  * mode: C
+ 	printf("\t.section .rodata, \"a\"\n");
 
 
