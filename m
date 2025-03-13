@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B3F2A5FAE8
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 17:12:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.912743.1318955 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19F36A5FB0F
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 17:15:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.912773.1318976 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tslAJ-00050H-RD; Thu, 13 Mar 2025 16:12:11 +0000
+	id 1tslDm-000755-GW; Thu, 13 Mar 2025 16:15:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 912743.1318955; Thu, 13 Mar 2025 16:12:11 +0000
+Received: by outflank-mailman (output) from mailman id 912773.1318976; Thu, 13 Mar 2025 16:15:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tslAJ-0004xL-OM; Thu, 13 Mar 2025 16:12:11 +0000
-Received: by outflank-mailman (input) for mailman id 912743;
- Thu, 13 Mar 2025 16:12:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=7Xn0=WA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tslAI-0004xF-JK
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 16:12:10 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e88834fc-0025-11f0-9898-31a8f345e629;
- Thu, 13 Mar 2025 17:12:06 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-43cebe06e9eso8055345e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 09:12:08 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395cb318a3dsm2549864f8f.74.2025.03.13.09.12.07
+	id 1tslDm-00073E-D5; Thu, 13 Mar 2025 16:15:46 +0000
+Received: by outflank-mailman (input) for mailman id 912773;
+ Thu, 13 Mar 2025 16:15:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=w2IX=WA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tslDl-000738-5q
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 16:15:45 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6921222f-0026-11f0-9ab9-95dc52dad729;
+ Thu, 13 Mar 2025 17:15:42 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-43cfecdd8b2so10284275e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 09:15:42 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-395c4f9d59dsm2591232f8f.0.2025.03.13.09.15.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Mar 2025 09:12:07 -0700 (PDT)
+ Thu, 13 Mar 2025 09:15:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,123 +45,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e88834fc-0025-11f0-9898-31a8f345e629
+X-Inumbo-ID: 6921222f-0026-11f0-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741882328; x=1742487128; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1741882542; x=1742487342; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7pD43WYx7h5WIEm4qKmoGo5dMRCJtIqX3bMyJ2GTlmo=;
-        b=dhlFs0FiZu+CxMmOpXSeaj17ih38Tt96glAWVnwx55PbRxX3P9678wTYW+Y+ELbTwD
-         sARTG2EBpeQMTitpP9JwrjLi3w5i0yR4zpUHC6rfTXuCoqObGYZ6+REQYTGC6np7xflN
-         cHGGYMIc5EoRkl5UDSCLobAYQpyHsyHYHhHy5unyzuLh0E5J/nnxnL2LlrkAqarZgcpW
-         x/ceFyM1j7KKdcB7XWS/NMHOey7PPU22Cc6gfrCn/Tw5hCXjV+C6VDTX737cogngUE4C
-         v2Q6zwgHwbYoGY47HN8RJRz1xj/J8A3xDQVYnuz4AWqEvzVrOFJFm21tjwzxhE3A8HDv
-         ojwQ==
+        bh=70tr7Me46dxDdy/OHGrbBDotjQ8EooizTDRqxHCOGoI=;
+        b=nflqAD5Dwu7f5b5XfGxXk8lGEF5xnDDSeG3s6bGP3oIiNa6koFHpapjyN/07lm7H53
+         bIrxGk8JTN60NfN9gD2VQHCxsMwfbo8EXfN/yvmDsRew/LQm6YT9UvCcjEyHmoliaSmN
+         PChKxQntjMDuJMzSciBrhjWCFCNF6HCX9V0so=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741882328; x=1742487128;
+        d=1e100.net; s=20230601; t=1741882542; x=1742487342;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7pD43WYx7h5WIEm4qKmoGo5dMRCJtIqX3bMyJ2GTlmo=;
-        b=dznkFN0fiSUTRauO07S4cu/1NRD/xlP+hWD5tDocuK7FMQgUDMDZg3TjXDj8y4xsf3
-         3oYKzBLWDvscejEF+OLWM9xIfAzkbzsTxUtczFDNKrYiwuR9qcbd8gKIrL6sBdRRxmnh
-         Esk2Y65on2sGCLwETxZsOKVLwTiA+XRzR85BQXA9qNu73i//oamXY9a3XitJhTVmgjVI
-         BbjwZpD3gqpH9g7dL1KvmkA5OvzDf7irrU25hcLT572PCxrYMVXvOZUHli+pCTzO264/
-         +ANvOGid9XtTdNKIvzLEF8/Zklseof+kKXrEZ+fmAeGxJYwyo8W9Gw/KtKRBONBeXJq/
-         1wXQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVIlggaAJWIcLc0OTRRNZxVpEYNxnhn7+OvAEq9fpO4V/GWSyDsLOBJ3FvpFYPQpcFIV1/VsbuOaL0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwPKvQQTkA+hdrvABdxmoCjDUUoYoJqp/Myo/vqb9meKcpRDfe1
-	hfEf20Ms5e3J5IX/7ri1uFchgYkYMpKhJ2lUiqJW8rlDAPe1OkmufG/zZ2pbbg==
-X-Gm-Gg: ASbGncvP1G8rQ9jWryGXvrIZ6zj+v6LfmrL21Id8weq23qnduPUgBV3hkAAGpKJwEQv
-	THRrqHbCvLLTB2AqRAQdez3KTK1wClO2J1iWk24Mhggp6y628V9tXy257bxqRW3AM5eNcfLdQ88
-	vFc25KCcULGiLQxkIHY7I9aS+dmh+osXE7Wk1PlFLcy4Q2YLv6+0I2MNjULW73tMznKSFth/dXz
-	nEk+ySfVXSFU5LU/l2lEkULsH0TxglgYGwB1sEmLHCqZlfLQ7YvL4BR6zvFFcWruxKWbX2ws4et
-	pAQoy6tTMPWdCy747+BwyLqrOahqSWoB1KUC1bolO5DjcXYtJZiG+/4Myhc7kXOe7BnwJ47R56v
-	ddpkCicBrpLDhdfEUC9A+Vu02tXddcA==
-X-Google-Smtp-Source: AGHT+IG7cWuDP6icKTUBpL8jkMuJEusmMpq5PY9gltHNNhnyl8WRTp4hcH4AGVUiYk1vEOAsRfA74g==
-X-Received: by 2002:adf:a31e:0:b0:390:e85b:a8ee with SMTP id ffacd0b85a97d-396c1471b8fmr126016f8f.1.1741882328001;
-        Thu, 13 Mar 2025 09:12:08 -0700 (PDT)
-Message-ID: <775e644d-10a0-4cbe-a6de-20b3464245d0@suse.com>
-Date: Thu, 13 Mar 2025 17:12:06 +0100
+        bh=70tr7Me46dxDdy/OHGrbBDotjQ8EooizTDRqxHCOGoI=;
+        b=b82iHH23Y2OYWQOqEOkR0BYWCHPe8mfVaY+4J1w4Yo5tuXrrLKWTB1JQtxbXSSuZ0R
+         hwMrL0sf+VlGpKCH9hI9CdFoW9zwTVZoUxUoKxWhHxT2bPOLYuvm+1//vEQkAAkbHEtg
+         +7dYeqjpbCZbgjTJ9UJ1GEcJ/3yZB69TZqw/NaRaQl6gzvoQHJZX9zoEgFIVlk+IOIZ0
+         J789c0OPTioEjypxKr/4oHbQhhLEBJrjz36w3MZxv0AuBKE6T2EPH2th/cVcoYWR2lVy
+         SfRgiOO21euJbS1tnQtaicX7LnaXy9wKo6G7DRx2Vw2JN7N9XXfu9RrGTF0p6kobr0Kb
+         qATA==
+X-Forwarded-Encrypted: i=1; AJvYcCWfC9dkVoGYVmdUlP6x/492/oV9yElK7oVaMWIMFY9oM4fTvQpXBcmWD9la3CN/deyrKr09SZ9bQ8c=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywd+FvGIWJAcbS8QIojVTUKrdHozl8LMChE9ycw0k1BUy2Sl5Xt
+	Xv6ZYmfh/y2tWPVr+G83fUgS3Re9MIh8b0+fQ5hg9HAZlQsWu8VTVBpCBOW/DJk=
+X-Gm-Gg: ASbGncuRByIqEKKK9yLXHcowoWl6cL+8ozCRYD7b5KriK4P8rW/8oEmZ5cw/jaw7T3U
+	U0q0oD6Vu+YAbT+53H9RR+6JDWqS2aEzeBeoVr8rzEnbmcwmSyb8T/iGamu61LSlry8trMQ9o5y
+	Qh9yinMhMVu5ygDwJpec46wXzHhpDgWxvfPUlvmIgDb/Dj4fxy9hSu4JSEtZBT9i0z0cpNtY8TE
+	6zvIvVRfNbDylOwvfciUp6DrK4GaLIrmQXUZa9KJdDfAlKBr+S5E/xWEjcOMvvrxEJ83Xgdf7iH
+	iw2Dj/Xa9Wz0GWwopn+86nwov2Rgw180Y6s0OI+/R1Ozop/qa5uYmr39NtOnmq2UO1zBC1zFlwt
+	cKkQpdvPt
+X-Google-Smtp-Source: AGHT+IFzlSfLcmf9x+8ZoFIuqu9gHhSmquLo0XeNW4cxZIAbk/VMUINH6XXZ6dP9k+9FzU93IaWVeA==
+X-Received: by 2002:a05:600c:1c0b:b0:43c:fceb:91f with SMTP id 5b1f17b1804b1-43d1d8976b3mr3298775e9.11.1741882541653;
+        Thu, 13 Mar 2025 09:15:41 -0700 (PDT)
+Message-ID: <78dc00ee-1225-49ee-a067-8d29f5709c76@citrix.com>
+Date: Thu, 13 Mar 2025 16:15:40 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] symbols: don't over-align generated data
-To: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 3/6] symbols: sanitize a few variable's types
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
  <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Shawn Anastasio <sanastasio@raptorengineering.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+ <roger.pau@citrix.com>
 References: <58b3d7dc-5966-432c-8def-e841feaee1c8@suse.com>
- <816a0320-d229-4f7e-b1b5-51dbb640c5c8@suse.com>
- <748ebdd6-9518-4c6b-9dd3-7ffd13ea08c7@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <748ebdd6-9518-4c6b-9dd3-7ffd13ea08c7@citrix.com>
+ <c4b7f6ce-baa9-4b55-bdea-a67ff7d5daa1@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <c4b7f6ce-baa9-4b55-bdea-a67ff7d5daa1@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 13.03.2025 17:07, Andrew Cooper wrote:
-> On 13/03/2025 1:53 pm, Jan Beulich wrote:
->> x86 is one of the few architectures where .align has the same meaning as
->> .balign; most other architectures (Arm, PPC, and RISC-V in particular)
->> give it the same meaning as .p2align. Aligning every one of these item
->> to 256 bytes (on all 64-bit architectures except x86-64) is clearly too
->> much.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
-> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+On 13/03/2025 1:53 pm, Jan Beulich wrote:
+> Parameter and return types of symbols_expand_symbol() make clear that
+> xensyms_read()'s next_offset doesn't need to be 64-bit.
+>
+> xensyms_read()'s first parameter type makes clear that the function's
+> next_symbols doesn't need to be 64-bit.
+>
+> symbols_num_syms'es type makes clear that iteration locals in
+> symbols_lookup() don't need to be unsigned long (i.e. 64-bit on 64-bit
+> architectures).
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Thanks.
-
->> ---
->> Even uniformly aligning to 4 (x86, Arm32) or 8 bytes is too much imo,
->> when some of the items require only 1- or 2-byte alignment.
-> 
-> It matters about the largest item, not the smallest.
-
-The labels we generate are all followed by uniform-granularity data.
-Labels starting arrays of bytes or shorts are nevertheless 4- or 8-byte
-aligned.
-
->> Is there a reason only x86 defines SYMBOLS_ORIGIN, to halve the address
->> table in size? (Arm32 and other possible 32-bit ports of course have no
->> need for doing so, but for 64-bit ones that can make quite a bit of a
->> difference.)
-> 
-> I think the likely answer is that noone really understands how the
-> symbol generation works, and didn't know that setting SYMBOLS_ORIGIN
-> would be relevant.
-
-Hmm, I didn't consider this might be the reason, but you may well be right.
-
-Jan
-
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
