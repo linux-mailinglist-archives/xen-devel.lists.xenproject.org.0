@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40BDFA5FA11
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 16:37:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.912583.1318845 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8865A5FA2A
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 16:39:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.912596.1318856 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tskcT-0004pM-QE; Thu, 13 Mar 2025 15:37:13 +0000
+	id 1tsken-0005Oo-5r; Thu, 13 Mar 2025 15:39:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 912583.1318845; Thu, 13 Mar 2025 15:37:13 +0000
+Received: by outflank-mailman (output) from mailman id 912596.1318856; Thu, 13 Mar 2025 15:39:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tskcT-0004mq-Ml; Thu, 13 Mar 2025 15:37:13 +0000
-Received: by outflank-mailman (input) for mailman id 912583;
- Thu, 13 Mar 2025 15:37:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tsken-0005MP-2v; Thu, 13 Mar 2025 15:39:37 +0000
+Received: by outflank-mailman (input) for mailman id 912596;
+ Thu, 13 Mar 2025 15:39:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7Xn0=WA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tskcR-0004mk-Jx
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 15:37:11 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0747057a-0021-11f0-9ab9-95dc52dad729;
- Thu, 13 Mar 2025 16:37:10 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-43690d4605dso7897295e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 08:37:10 -0700 (PDT)
+ id 1tskem-0005MJ-Bq
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 15:39:36 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5bb78f1c-0021-11f0-9898-31a8f345e629;
+ Thu, 13 Mar 2025 16:39:32 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3914aba1ce4so940890f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 08:39:34 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395c7df35f7sm2510940f8f.13.2025.03.13.08.37.09
+ ffacd0b85a97d-395c83b748bsm2527483f8f.39.2025.03.13.08.39.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Mar 2025 08:37:09 -0700 (PDT)
+ Thu, 13 Mar 2025 08:39:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0747057a-0021-11f0-9ab9-95dc52dad729
+X-Inumbo-ID: 5bb78f1c-0021-11f0-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741880230; x=1742485030; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741880374; x=1742485174; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=JIDOKshzjMLATMAQwSG8pmsWQPm95r5pi5IJnhbPMG4=;
-        b=fYW2JYtcOLvzFa8PlHHnerVf9NM1Q5yvGi1X/feVoQcFwp1Lnm5K+jijrb15ocdPrj
-         8Cw8o3h6X9OHq65gegYxCAKbOX0skZISgyhL3nnEvCSdOf2+q9CP2UfE42Aui/rdS8lw
-         twDywMBabITyn/NwrTheSkR1EI1KUefAkxt8p253ewhLKdya0JrV7ytgdBIwwq2JROSD
-         4ktOzVmYrV5QS+I5KBm1jToj1lkZPyxTGCkfkWs8rB9RZMW11T+NMbHaN/WsZcU96dxm
-         PVnUGe03x5qKcwSIlsB+PXsTR8z3mOxkf5SlDaE37o+ArNrldliE6/snZAjIfpN00kQH
-         x8eg==
+        bh=sUnEOnR1zyTLTcZwPe45QpQ9c6dxOs1+SiaaUG4/NsU=;
+        b=QGuHI/RY2paJitKhT6hg9EDhbBhewAfdkBggKHN1CtiRGZC8OqbkkvdIUqnGN2aNCI
+         yhMu62bc5Gw9pkdU/DeCSEwlyOGcxE5y+770kreYdbkDZPzxAw3yJ+iGGFF13T+5v0M8
+         CZ9hNa0Q+0UifNyWx3W6RIoUklC4HjyQ04KEOu4PZB2cEfk34k9hk/5Ynmt5wf2fmM1l
+         SR1FhOM6FKdppAcZoscH+MCLw/Hk+68Het/NR7WZRc3JkGdjptIgCukaxirR1wDmOzYK
+         txN2ID8qWobg1DwCPIiNl6jc3xBkV5nO9IhuxSNFSN/Lw0G/kvV07/oRDemj7B6jSrdm
+         4iQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741880230; x=1742485030;
+        d=1e100.net; s=20230601; t=1741880374; x=1742485174;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=JIDOKshzjMLATMAQwSG8pmsWQPm95r5pi5IJnhbPMG4=;
-        b=PVetNeqvcx/jjaTG5KeE4vIWvq0lOw+/HNQf3IYa2gQbLRbiglBQg1YSs2g6fcSp9c
-         flAq6SlyD8iSNIjJhtV2i3XpwnywFs3E7DrOaC16nIiQhROnz50a3ziVW/x4iaQI8xXV
-         MgxWMDDGTQ84pq5EUFNyxlJ+fmnbUD5UvqEz7qRd+aQhEk8dTrV+TFhcYj1TpDkwVBvk
-         pNvT7zzzrfgsbARQkWdEiN5aZrOD8uyZ7vzjhCj9bmRhH7S52nRTXI+ZO7cpYM5AdlS2
-         dSXKStA1V40P2A45YXpOLFyzjswMzyfk3L/mz4JYye6PY32uIrA5sw9ycjV+mruzDLmI
-         QSsw==
-X-Forwarded-Encrypted: i=1; AJvYcCWLslt4ZwBQ5MuJT2BkMc+ibaN+OFuMfAQY11NvVi6W366vNlVEFq/WFbRxvF8uF/oyUFu83HkKxac=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy01XddaOUT1EBK9pXPDrIjWQmsO+JEBsng+CY4kcc2pekX8pty
-	k5Z8Ec6/H93f5YY6UszEo6P6K31qZqCQRJ+90368oc5LvlO0G5eN7xLHHFxBaQ==
-X-Gm-Gg: ASbGncuG876jTugxYolH897RWR0QL3YPjVQBpn/IED5wQLshMVPv8x6Qy9X6RylAe1X
-	uOcv6ZaOI7GvE11YyhqlWvW1l0T5U6DVvh6VnYWJ8tZfzt6gbxMeIBwSeG3jPhYTJl3feHQCLmA
-	u3OuH3pJoTB+DFKLbJGP00xjSLz3AKoCRfv5i6HedqKASRy0dJPqPffSap6o5TTt9NylSZu4Mpy
-	LPaWHglDQs+SA82wkM2DCzXgeMfnnFyxgHaY+jhU/Oku9WSo2xR809bWgtoJYywmIadeVhR3Fg3
-	P0sa2Pd9jCj0cumJYbpHbNQORexEuBPKrdfbwH9zxJVHN0p1EeCPDDLYYilXh9mke8K/DjVulT1
-	JTTbGz0H8itjoKKEqcWQ3rFL7De1k4Q==
-X-Google-Smtp-Source: AGHT+IGFJMaTdhhLuyW6D1qsH9Mlu6ejF8C336kzQscU4mnj9XwA5yIuW36SXDYo0QBX/38cz2fmMg==
-X-Received: by 2002:a5d:5988:0:b0:391:41fb:89ff with SMTP id ffacd0b85a97d-396c1d1b783mr6551f8f.27.1741880230076;
-        Thu, 13 Mar 2025 08:37:10 -0700 (PDT)
-Message-ID: <6eddbd26-88ca-4d0c-b56a-4e7abcc3933b@suse.com>
-Date: Thu, 13 Mar 2025 16:37:08 +0100
+        bh=sUnEOnR1zyTLTcZwPe45QpQ9c6dxOs1+SiaaUG4/NsU=;
+        b=lIT7xdAH2MQ+QbKdxI5hkMbNq7Vsm7kvSel8qLws2rj/a1pdi9IY8uLNhvokM63T5D
+         zeQhiTS/2JOoRMStTZZgSka75emAUKUZiFE5P92+oB34EV8A+tRPhpEydLAZjIPvk4F3
+         BGCwtkKa7H/w6krOcsY7G8iNrolWM1eqWA2wnbCC8l7pYoJtJKXzffonxiAWKDSDIV6C
+         WpYlis/FpDcIELo99EKaLYobDXCIa73vtuE9jxln4kgbHxKMF/nlXgjqQ4X5J6TKVdSQ
+         r2gz9DasQKHPbNi4nh+WtbuH7w1wgLINPgmHV4ENR1zJphqs1MKr84tL1ES1hZQ3H7jQ
+         inzQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUDAK7nbbdz/vo/4eIMeEq7TzM4joptfPA5P3GH0LmyRZ/d2aHle+o2dWIVoZgxdmuUAIahWayNepk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxIVNis7P1h5MpOJgUy8daWVKEQbSsH1y7W7/oBpWLlbBMQKOYM
+	MZigcdYET+sgx5Dn02ZlxASQK9yOSpBqiCE7o4Q6Q1RV9wbGj02mUfVC4co4dQ==
+X-Gm-Gg: ASbGnctLqXaAQAg6VYl0WOuAzZNy94uQO1A/JnyDDrkb2eyIc0xYHeU9QypojKoMaWR
+	CSGhF4St7p/xQfYQ6SeFRwZttIPg0g1S6+MgviXc2ycPQZwXGrVZSFcstze5HxZwNL7p4Pru7bU
+	jxPNKREtZpdStbmfQLkkZkvUQBCCtHkpvlvMrwZumh24Vp2XjaDKI1hFD8XOJS1jUqzNiojdek8
+	KlXSvnl2Gb2iT0hQluSRKHyuTq55W4C9ml7aLwLL2XyE4nBWr3xIPDmnV/MCjeBpEvqWD6prHAv
+	489RAI0VlNDF7QZIlF+4rGTWgKBwcAT3P3m+fwZQZsYbdw9ytzlqLouDUead3xVQptOejD7+Zsd
+	y8ulOcSq1tjQe9lYCloeZQuLUJHoJJw==
+X-Google-Smtp-Source: AGHT+IGDMOLfPauwxHT4FwMIs/9gGdptDrbZnOVxQ1iNbl9oOK1GazWczXlJsT7Dbr7XYCMpTp+K9A==
+X-Received: by 2002:a5d:6d09:0:b0:38f:4fa6:68df with SMTP id ffacd0b85a97d-39132dbca7amr24322718f8f.51.1741880373826;
+        Thu, 13 Mar 2025 08:39:33 -0700 (PDT)
+Message-ID: <e455a54f-d2d9-4b6e-833f-67b62b8f6a88@suse.com>
+Date: Thu, 13 Mar 2025 16:39:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/16] xen/arm: Introduce system suspend config option
-To: Mykola Kvach <xakep.amatop@gmail.com>
-Cc: Mykola Kvach <mykola_kvach@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Mykyta Poturai <mykyta_poturai@epam.com>, xen-devel@lists.xenproject.org
-References: <cover.1741164138.git.xakep.amatop@gmail.com>
- <28da91c2859e0226585951ea3d6e7017b402ec0b.1741164138.git.xakep.amatop@gmail.com>
+Subject: Re: [PATCH 1/6] symbols: add minimal self-test
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <58b3d7dc-5966-432c-8def-e841feaee1c8@suse.com>
+ <a556439c-b652-4789-bbdd-6d6402b2a124@suse.com>
+ <7bc1c3c9-3c00-4b67-b4fd-9baf3e0f9cdb@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,30 +122,74 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <28da91c2859e0226585951ea3d6e7017b402ec0b.1741164138.git.xakep.amatop@gmail.com>
+In-Reply-To: <7bc1c3c9-3c00-4b67-b4fd-9baf3e0f9cdb@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 05.03.2025 10:11, Mykola Kvach wrote:
-> --- a/xen/arch/arm/Kconfig
-> +++ b/xen/arch/arm/Kconfig
-> @@ -475,6 +475,17 @@ config ARM64_HARDEN_BRANCH_PREDICTOR
->  config ARM32_HARDEN_BRANCH_PREDICTOR
->      def_bool y if ARM_32 && HARDEN_BRANCH_PREDICTOR
->  
-> +config SYSTEM_SUSPEND
-> +	bool "System suspend support"
-> +	default y
-> +	depends on ARM_64
-> +	help
-> +	  This option enables the system suspend support. This is the
-> +	  mechanism that allows the system to be suspended to RAM and
-> +	  later resumed.
-> +
-> +	  If unsure, say Y.
+On 13.03.2025 16:35, Andrew Cooper wrote:
+> On 13/03/2025 1:52 pm, Jan Beulich wrote:
+>> ... before making changes to the involved logic.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> With this FAST_SYMBOL_LOOKUP may make sense to permit enabling even
+>> when LIVEPATCH=n. Thoughts? (In this case "symbols: centralize and re-
+>> arrange $(all_symbols) calculation" would want pulling ahead.)
+>>
+>> --- a/xen/common/symbols.c
+>> +++ b/xen/common/symbols.c
+>> @@ -260,6 +260,41 @@ unsigned long symbols_lookup_by_name(con
+>>      return 0;
+>>  }
+>>  
+>> +#ifdef CONFIG_SELF_TESTS
+>> +
+>> +static void __init test_lookup(unsigned long addr, const char *expected)
+>> +{
+>> +    char buf[KSYM_NAME_LEN + 1];
+>> +    const char *name, *symname;
+>> +    unsigned long size, offs;
+>> +
+>> +    name = symbols_lookup(addr, &size, &offs, buf);
+>> +    if ( !name )
+>> +        panic("%s: address not found\n", expected);
+>> +    if ( offs )
+>> +        panic("%s: non-zero offset (%#lx) unexpected\n", expected, offs);
+>> +
+>> +    /* Cope with static symbols, where varying file names/paths may be used. */
+>> +    symname = strchr(name, '#');
+>> +    symname = symname ? symname + 1 : name;
+>> +    if ( strcmp(symname, expected) )
+>> +        panic("%s: unexpected symbol name: '%s'\n", expected, symname);
+>> +
+>> +    offs = symbols_lookup_by_name(name);
+>> +    if ( offs != addr )
+>> +        panic("%s: address %#lx unexpected; wanted %#lx\n",
+>> +              expected, offs, addr);
+>> +}
+>> +
+>> +static void __init __constructor test_symbols(void)
+>> +{
+>> +    /* Be sure to only try this for cf_check functions. */
+> 
+> I'm very happy to see the take-up of SELF_TESTs.  Although I probably
+> ought to tie it into a Kconfig option to make the errors non-fatal,
+> which I've been meaning to do for a bit.
+> 
+> One question though.  cf_check is an x86-ism, even if it leaks out into
+> common code.
+> 
+> I think you mean "functions emitted into the final image"?  If so, I
+> don't think this is relevant then, because ...
+> 
+>> +    test_lookup((unsigned long)dump_execstate, "dump_execstate");
+>> +    test_lookup((unsigned long)test_symbols, __func__);
+> 
+> ... taking the function address here forces it to be emitted even if it
+> would otherwise have been inlined.
 
-I wonder if something like this makes sense to place in an arch-specific
-Kconfig. It's also not becoming clear here why only Arm64 would permit it.
+No, I really mean cf_check. If we took the address of a non-cf_check
+function, the special gcc13 build's checking would trigger, aiui.
 
 Jan
 
