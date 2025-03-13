@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3CCFA5F6CE
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 14:54:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.912239.1318556 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72DBDA5F6DA
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 14:54:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.912257.1318566 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsj0V-0005fg-DM; Thu, 13 Mar 2025 13:53:55 +0000
+	id 1tsj0x-0006Hz-Kr; Thu, 13 Mar 2025 13:54:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 912239.1318556; Thu, 13 Mar 2025 13:53:55 +0000
+Received: by outflank-mailman (output) from mailman id 912257.1318566; Thu, 13 Mar 2025 13:54:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsj0V-0005de-9M; Thu, 13 Mar 2025 13:53:55 +0000
-Received: by outflank-mailman (input) for mailman id 912239;
- Thu, 13 Mar 2025 13:53:53 +0000
+	id 1tsj0x-0006GW-Gv; Thu, 13 Mar 2025 13:54:23 +0000
+Received: by outflank-mailman (input) for mailman id 912257;
+ Thu, 13 Mar 2025 13:54:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7Xn0=WA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tsj0T-0005Eo-Qa
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 13:53:53 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ id 1tsj0v-0005Eo-Qy
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 13:54:21 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 991c7f28-0012-11f0-9ab9-95dc52dad729;
- Thu, 13 Mar 2025 14:53:53 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-43948021a45so8562395e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 06:53:53 -0700 (PDT)
+ id a9ea97e7-0012-11f0-9ab9-95dc52dad729;
+ Thu, 13 Mar 2025 14:54:21 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-3914aba1ce4so812528f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 06:54:21 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d188bb577sm21275545e9.19.2025.03.13.06.53.51
+ 5b1f17b1804b1-43d188b0092sm21288445e9.5.2025.03.13.06.54.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Mar 2025 06:53:51 -0700 (PDT)
+ Thu, 13 Mar 2025 06:54:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 991c7f28-0012-11f0-9ab9-95dc52dad729
+X-Inumbo-ID: a9ea97e7-0012-11f0-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741874032; x=1742478832; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741874060; x=1742478860; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Hy8f/0LGlSutg/mtmD9f1iBXGGEL7ZBLLMqdPuSrLnU=;
-        b=Bq82f5+0XUOlWERvnfPtYutYU/H+RB1MAEXhjZUTbNz6T3Bn8zm4MLfM0Ij9nhPi9s
-         RFYzCvzjv1FooG69+Onni6bXbieeTv3N2KhJSv2oIUrddAe4Z52PmFpgz+7fRJ+oHRGW
-         sp7gblv1lwHytuQsYDw16HHnIs1g0SPHgd2OyTsZW4HkL/FPVKSV2M4t7YSOhaM+0szc
-         B+YJQ0VvX/6JXJhQ8yLCCyRGvcj0sllD49DVxiuWqG17qDAx+ZMdQ7g0p/v3bA0gBegw
-         wA1G2sfFRsSLU2Hs7faCq0FqLsAJeeeAHQ5fAlIhL2+eL+aERtCKmcpwMBfXCVWQ67Nv
-         wknA==
+        bh=pZ0/V7ZT52/4wqdqp0m7EzpxDL3ASTPBl65f2eq3ZWc=;
+        b=F9v+O4/4HHONiImkwPPbKHOcoIccKOGppK492xNDJqKfwOveZRDyy20RFrTpYRMtyt
+         IbMKZ3r+S2O9Oj4KZa8v1XQ7bVczkRIDeNcgnEmLelqmNNf6f1vzzalmvmdQKYu22dO6
+         RMMH8N84gUD+AFFWb+QYscQ6PvlxP7kyNEuA4KbaOBXbHccOP7tES1GYOGySu3+K1IA2
+         8xpF/nxLlM91bwDkSBw5DQAVrtF5QxHmnhPkzCfJ0889TUGTc+/pYazxSOHRG1oDae9A
+         L5uWwQorvsqiHdU6K3LG1XSUBifLdhyA93N70VIr6AYX5duuYw+IE8uBaAJQZFUNP2Cr
+         fJzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741874032; x=1742478832;
+        d=1e100.net; s=20230601; t=1741874060; x=1742478860;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=Hy8f/0LGlSutg/mtmD9f1iBXGGEL7ZBLLMqdPuSrLnU=;
-        b=DeWgUsPjJEElPgyBHRSFmP3jH9KIzHH3qSeUIIyRx2Ku6W33k6dhCcgVjoDzo1csbE
-         ZlJ6Oy1CwfRbayucO/F3X5CuBxLdP9n2lUQXi+KGaFlcCQwMoCBNuCn0ZiYKUvStR0w0
-         FLfQxMLi+Fl4NbJffBC4BoEcKZLOcd1rOLuftFHbJTKOpy5SGGlPgrt4srVXCHwYvEbz
-         KEUCc880nSOvHRiZX+Z5ewKRMTRLLTyLM8gUrVDz9kROGtyvLTYTrPPSCzJEstLleGeP
-         wOIVW0QVJGOy0Rs8pKkUddGvqTHA15QGJZsUykpSyCUZLLAwDu7xt6x1VNrgUPV7kH/v
-         AGPw==
-X-Gm-Message-State: AOJu0YzwscQJ1It65bArsOv/DOYQSUmP07NfsBSBMFr2ZLS8o0a5058U
-	FmgaOpM5oKyDPR2TfQM6cshd+9Xhy36LmxekaARtFdZVSf8XsOj2AJvQR8Ts7C9jfRw9buGB7ig
+        bh=pZ0/V7ZT52/4wqdqp0m7EzpxDL3ASTPBl65f2eq3ZWc=;
+        b=rUxyLMZr1Djorp0MuXgV5Qf7n+Uak9rduLjiM/F3w2ZNNCCVFOpEDGlOQ9nJ1LlrdL
+         RiQS1efdz1V3NDmpbxQEivPpdHcCoCcXcfU7FufdVWxW2wcM0UEJ/i5hE48UcYnAWpaw
+         YqJjqYCxYRoYdf1FKML6peebqIYIdBGGRfUtiXc4fyS2iBmHFghJu2LMcgaOe4NKbVwQ
+         gw85HHzecopAJQrsNer4At15JcmHf8z4QXueQkIzpLDMNFzcILvbkP4XZUd+ymsWx0cU
+         DbEsQp4tnCz9v9ZcwV5genwBdSNDFeuE2uv9f6M0jSSUqEpcDZIRQ+kuVJ5o5l6jRRdC
+         Zebw==
+X-Gm-Message-State: AOJu0YycBMBlo5S8Ie4ULoXYLGoewVdvgo79rsem+1uKDMeKuTN1j0Pm
+	D9mR4r3qXKj1LPAjyNIe0F0voTS1BUv5g4A9axbEKY98/72EAxzyj/f83nu102VjYWq26VlOuGw
 	=
-X-Gm-Gg: ASbGncvhFUVIyV7TndA9uG1CNPn/8pvYu9swSZ7Aq2W6swKMTafatKLzvfFnlCY/knl
-	KG/7NWYQ0hJG6gzLYehzHl9iLtK6JWl2KEgOFvaabqxtA5C/QyScRMVW4u92IEPXrWRzHlx62d0
-	1uX/E5Ej1WV4zhjR0bIqrxEiBgto5owhXJ6Za0UN1AgNZHWihNqEBzVG8QmRaMy8uOh4nMLxtQ0
-	Zjl5wCcN+UfkMGBbJ2eRmqwUiBFgcjwwz/9Dg+S+i0qfl2pG9Zrz+pKeg6/DXkedFBM5bsumFkJ
-	9O3DftCkOZElqXLmgyWVPQTOiwRAMaHIF5uM8enufterr/cpPwh2GFbkmfwPF3FDdRH+LbCkE+/
-	kPPX4z7XaYa+TKT7KGQdtGq9BSR136A==
-X-Google-Smtp-Source: AGHT+IGyDuPMAywci6EIpal80CSyYfIDp2RwhSjgzL9ACvgV48UFjVYb+yKpq2vwLE2ZhpgL0nqMnQ==
-X-Received: by 2002:a05:600c:3b21:b0:43c:fee3:2bce with SMTP id 5b1f17b1804b1-43cfee32d16mr103982915e9.26.1741874032154;
-        Thu, 13 Mar 2025 06:53:52 -0700 (PDT)
-Message-ID: <c4b7f6ce-baa9-4b55-bdea-a67ff7d5daa1@suse.com>
-Date: Thu, 13 Mar 2025 14:53:51 +0100
+X-Gm-Gg: ASbGncskFk4JcdKKlrUJp3MJzdr/iu+m3nB+aCdZAwUq/FmlGjAFWZf5pL0cezb+OuG
+	PskTrNBHv7bpCCj6d9mnGpAQFAAxt2WXqLkfoXPXGtXLWtjpX00Kc0+rAvWrOBCD1Gj3ZsgB9UC
+	iB3oVd1IQqoyy0qVM488PP05Wnelr7vd4CM4FqVX0MmoBJt+QaW+0LuY+h2yvtKNGU8EaznMsBB
+	BZDNK/dwLb3YvQl9S7jL/Yr/5nZYc+jddypDNWrwkcY7/jjvtupBgU8HSHA5/lmvqLDVinPv2IO
+	VYHG/kvjcp1POq2ViI37P+4jSDkI7Uylu1o5tK+R4eaYhIDdNX79s6WueHIOO30y/BAgcT16xCf
+	yG0Mzb2LvXUAkFshTx5z2s5YgAiOttQ==
+X-Google-Smtp-Source: AGHT+IFGgmG1dRPjfBySTm/GbUtIWXMTCxzMjd2YdzNUe1gnX313Gdpu829R1iQoCuJQJXo5SDpFBg==
+X-Received: by 2002:a5d:6d09:0:b0:38f:4fa6:68df with SMTP id ffacd0b85a97d-39132dbca7amr23825541f8f.51.1741874060421;
+        Thu, 13 Mar 2025 06:54:20 -0700 (PDT)
+Message-ID: <82494869-2565-4a20-b43d-224641919d68@suse.com>
+Date: Thu, 13 Mar 2025 14:54:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 3/6] symbols: sanitize a few variable's types
+Subject: [PATCH 4/6] symbols: split symbols_num_syms
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
@@ -124,37 +124,177 @@ In-Reply-To: <58b3d7dc-5966-432c-8def-e841feaee1c8@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Parameter and return types of symbols_expand_symbol() make clear that
-xensyms_read()'s next_offset doesn't need to be 64-bit.
+In preparation for inserting address entries into symbols_addresses[] /
+symbols_offsets[] without enlarging symbols_sorted_offsets[], split
+symbols_num_syms into symbols_num_addrs (counting entries in the former
+plus symbols_names[] as well as, less directly, symbols_markers[]) and
+symbols_num_names (counting entries in the latter).
 
-xensyms_read()'s first parameter type makes clear that the function's
-next_symbols doesn't need to be 64-bit.
-
-symbols_num_syms'es type makes clear that iteration locals in
-symbols_lookup() don't need to be unsigned long (i.e. 64-bit on 64-bit
-architectures).
+While doing the adjustment move declarations to a new private symbols.h,
+to be used by both symbols.c and symbols-dummy.c. Replace u8/u16 while
+doing so.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 --- a/xen/common/symbols.c
 +++ b/xen/common/symbols.c
-@@ -108,7 +108,7 @@ const char *symbols_lookup(unsigned long
-                            unsigned long *offset,
-                            char *namebuf)
- {
--    unsigned long i, low, high, mid;
-+    unsigned int i, low, high, mid;
-     unsigned long symbol_end = 0;
-     const struct virtual_region *region;
+@@ -10,7 +10,6 @@
+  *      compression (see tools/symbols.c for a more complete description)
+  */
  
-@@ -179,7 +179,7 @@ int xensyms_read(uint32_t *symnum, char
-      * from previous read. This can help us avoid the extra call to
-      * get_symbol_offset().
-      */
--    static uint64_t next_symbol, next_offset;
-+    static unsigned int next_symbol, next_offset;
+-#include <xen/symbols.h>
+ #include <xen/kernel.h>
+ #include <xen/init.h>
+ #include <xen/lib.h>
+@@ -21,22 +20,7 @@
+ #include <xen/guest_access.h>
+ #include <xen/errno.h>
+ 
+-#ifdef SYMBOLS_ORIGIN
+-extern const unsigned int symbols_offsets[];
+-#define symbols_address(n) (SYMBOLS_ORIGIN + symbols_offsets[n])
+-#else
+-extern const unsigned long symbols_addresses[];
+-#define symbols_address(n) symbols_addresses[n]
+-#endif
+-extern const unsigned int symbols_num_syms;
+-extern const u8 symbols_names[];
+-
+-extern const struct symbol_offset symbols_sorted_offsets[];
+-
+-extern const u8 symbols_token_table[];
+-extern const u16 symbols_token_index[];
+-
+-extern const unsigned int symbols_markers[];
++#include "symbols.h"
+ 
+ /* expand a compressed symbol data into the resulting uncompressed string,
+    given the offset to where the symbol is in the compressed stream */
+@@ -124,7 +108,7 @@ const char *symbols_lookup(unsigned long
+ 
+         /* do a binary search on the sorted symbols_addresses array */
+     low = 0;
+-    high = symbols_num_syms;
++    high = symbols_num_addrs;
+ 
+     while (high-low > 1) {
+         mid = (low + high) / 2;
+@@ -141,7 +125,7 @@ const char *symbols_lookup(unsigned long
+     symbols_expand_symbol(get_symbol_offset(low), namebuf);
+ 
+     /* Search for next non-aliased symbol */
+-    for (i = low + 1; i < symbols_num_syms; i++) {
++    for (i = low + 1; i < symbols_num_addrs; i++) {
+         if (symbols_address(i) > symbols_address(low)) {
+             symbol_end = symbols_address(i);
+             break;
+@@ -182,9 +166,9 @@ int xensyms_read(uint32_t *symnum, char
+     static unsigned int next_symbol, next_offset;
      static DEFINE_SPINLOCK(symbols_mutex);
  
-     if ( *symnum > symbols_num_syms )
+-    if ( *symnum > symbols_num_syms )
++    if ( *symnum > symbols_num_addrs )
+         return -ERANGE;
+-    if ( *symnum == symbols_num_syms )
++    if ( *symnum == symbols_num_addrs )
+     {
+         /* No more symbols */
+         name[0] = '\0';
+@@ -227,7 +211,7 @@ unsigned long symbols_lookup_by_name(con
+ 
+ #ifdef CONFIG_FAST_SYMBOL_LOOKUP
+     low = 0;
+-    high = symbols_num_syms;
++    high = symbols_num_names;
+     while ( low < high )
+     {
+         unsigned long mid = low + ((high - low) / 2);
+--- /dev/null
++++ b/xen/common/symbols.h
+@@ -0,0 +1,31 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#include <xen/stdint.h>
++#include <xen/symbols.h>
++
++#ifdef SYMBOLS_ORIGIN
++extern const unsigned int symbols_offsets[];
++#define symbols_address(n) (SYMBOLS_ORIGIN + symbols_offsets[n])
++#else
++extern const unsigned long symbols_addresses[];
++#define symbols_address(n) symbols_addresses[n]
++#endif
++extern const unsigned int symbols_num_addrs;
++extern const unsigned char symbols_names[];
++
++extern const unsigned int symbols_num_names;
++extern const struct symbol_offset symbols_sorted_offsets[];
++
++extern const uint8_t symbols_token_table[];
++extern const uint16_t symbols_token_index[];
++
++extern const unsigned int symbols_markers[];
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * tab-width: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
+--- a/xen/common/symbols-dummy.c
++++ b/xen/common/symbols-dummy.c
+@@ -3,22 +3,22 @@
+  *                  link of the hypervisor image.
+  */
+ 
+-#include <xen/types.h>
+-#include <xen/symbols.h>
++#include "symbols.h"
+ 
+ #ifdef SYMBOLS_ORIGIN
+ const unsigned int symbols_offsets[1];
+ #else
+ const unsigned long symbols_addresses[1];
+ #endif
+-const unsigned int symbols_num_syms;
+-const u8 symbols_names[1];
++const unsigned int symbols_num_addrs;
++const unsigned char symbols_names[1];
+ 
+ #ifdef CONFIG_FAST_SYMBOL_LOOKUP
++const unsigned int symbols_num_names;
+ const struct symbol_offset symbols_sorted_offsets[1];
+ #endif
+ 
+-const u8 symbols_token_table[1];
+-const u16 symbols_token_index[1];
++const uint8_t symbols_token_table[1];
++const uint16_t symbols_token_index[1];
+ 
+ const unsigned int symbols_markers[1];
+--- a/xen/tools/symbols.c
++++ b/xen/tools/symbols.c
+@@ -323,7 +323,7 @@ static void write_src(void)
+ 	}
+ 	printf("\n");
+ 
+-	output_label("symbols_num_syms");
++	output_label("symbols_num_addrs");
+ 	printf("\t.long\t%d\n", table_cnt);
+ 	printf("\n");
+ 
+@@ -373,6 +373,10 @@ static void write_src(void)
+ 		return;
+ 	}
+ 
++	output_label("symbols_num_names");
++	printf("\t.long\t%d\n", table_cnt);
++	printf("\n");
++
+ 	/* Sorted by original symbol names and type. */
+ 	qsort(table, table_cnt, sizeof(*table), compare_name_orig);
+ 
 
 
