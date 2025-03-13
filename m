@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2A53A5F663
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 14:51:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.912214.1318525 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C555A5F6A3
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 14:52:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.912225.1318536 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsixV-0003bJ-DP; Thu, 13 Mar 2025 13:50:49 +0000
+	id 1tsiz3-0004jO-NF; Thu, 13 Mar 2025 13:52:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 912214.1318525; Thu, 13 Mar 2025 13:50:49 +0000
+Received: by outflank-mailman (output) from mailman id 912225.1318536; Thu, 13 Mar 2025 13:52:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsixV-0003Yx-AR; Thu, 13 Mar 2025 13:50:49 +0000
-Received: by outflank-mailman (input) for mailman id 912214;
- Thu, 13 Mar 2025 13:50:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tsiz3-0004ga-Jk; Thu, 13 Mar 2025 13:52:25 +0000
+Received: by outflank-mailman (input) for mailman id 912225;
+ Thu, 13 Mar 2025 13:52:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7Xn0=WA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tsixT-0003DO-Lq
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 13:50:47 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 24bc50ee-0012-11f0-9898-31a8f345e629;
- Thu, 13 Mar 2025 14:50:37 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-43bb6b0b898so8974945e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 06:50:37 -0700 (PDT)
+ id 1tsiz2-0004gU-Ax
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 13:52:24 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 63c459df-0012-11f0-9ab9-95dc52dad729;
+ Thu, 13 Mar 2025 14:52:23 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-43cfb6e9031so9262215e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 06:52:23 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d188b12ddsm21449345e9.8.2025.03.13.06.50.36
+ 5b1f17b1804b1-43d0a74cf8bsm55030405e9.12.2025.03.13.06.52.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Mar 2025 06:50:36 -0700 (PDT)
+ Thu, 13 Mar 2025 06:52:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24bc50ee-0012-11f0-9898-31a8f345e629
+X-Inumbo-ID: 63c459df-0012-11f0-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741873837; x=1742478637; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=h5SSNAzy1KE2sJ7MPhzvTCHZEPpuQWMh2ct9GK6cMrs=;
-        b=aDQ7oWod4GR3ol86eXjLtRTM3Tj3p+eQLB0/MK65/rIeorZMgfX1Uz5vz9REQczcrD
-         TbKQgAl7EEKqkPNpVPEYHXGhyVgylqAoMefu3DZo3DSGMV6IiddqleU11RlIL81DwU+g
-         58zS3eyVm9Hsn2b82jEp9/OrVE0ivoidaAxZzdPRwVNDt6TL3YqtZiDVv4meEQl1D/oL
-         l5s/Eyj5JOvR46uocZw6xuZ+GkylfSdY4gTO6yEg/XvXY1eJEZzQQYDRCh/RdAxPzJpg
-         QZNqJDi2S+tPriKVDxbpl5tb+sKO+C9WnDgC+kqZtISmJk2uGeyg4sisX9EfVm097lxX
-         fyiA==
+        d=suse.com; s=google; t=1741873943; x=1742478743; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=fO6uuX/NNeoYzMSs64Qkp5bjEbxgGLcuU9dVefmd5QY=;
+        b=QdQoJw2ZH7ek3dGMXaDo5dN73myQKoAWKiVaVTFeLLFzQ6WIn96RGgx66rVgilYXV+
+         k2SXGc1rPBrzNCeHCqWK8M69uUfPxjk4ax3PRskemdcWZmZJ1l6BS0alaCw2HuAMCPSw
+         ytaIUIzEJ/M1GuZ89fZNd6Q1gGUYiLkhG4kDv0VM9FpyUhYUbZb4MF2NixVZo6xNOWZl
+         2sOvburOalkqC5VwV7uvj9ygdiei9hD1Qi3rQKqorkJyo+fbjxSCYKoqiG3R+/kgrc21
+         JhWEoDvNRHcxzW17D58YItEP0Z1sAqCNoaajrEmGUNCLGFrdALGeDwFy4RWIdQoRlwC/
+         aIiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741873837; x=1742478637;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=h5SSNAzy1KE2sJ7MPhzvTCHZEPpuQWMh2ct9GK6cMrs=;
-        b=kTKD54A/nnK+CFiPzgcVm02Qfa72Es5GHePRZ3EszVTnSHgHLCKQl1xFVqhq1Innds
-         2Y4X1Su15TvVwX0QegmQONBJjr7/12tKPKrDiRMqtwqvsg0FH9gyZMLdHWxnuQ1a4VJG
-         oThyIVIqm35Fxkbi6r5jB9YAY3rNCSeIgE1wu7D+SRJbNG+2iRPszwIAJO9E1yXHgxyv
-         Uj50I0qZF8gOLUc8rOtlsLOgeT4/xTMx14lKFg2scR2G9YnCn91oSZvwixvmnx/p7RCF
-         daYSWtj8m1KqBVQPxP2d/KRYOsBhdMhIu5nY2VdM6YzwL5EMnFPWOj41N/Qz6ybHLdXv
-         bynQ==
-X-Gm-Message-State: AOJu0YzQhEZplDuV8SnZwDcJbdRDEGCEWIkzcqBlgYRh9gDj4kheZ5n9
-	Ac9bITf0c1q7Z9Y77vVPd2sygenmlfq2zNRrNzcOJY7FqC2eTFLS8YUazXFUj9b2ckiNq7Y8ufw
+        d=1e100.net; s=20230601; t=1741873943; x=1742478743;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=fO6uuX/NNeoYzMSs64Qkp5bjEbxgGLcuU9dVefmd5QY=;
+        b=cmCR36YkWXcLwH9VEpsTzBdt+nxsgD3UWnw1dzw3UOAaIB3sQUKsQHtz8VvwDG92d4
+         zz2piYUtczTqNKJ+EPr65MgZePf7g6vuG32aV65PAStRHx31qB+3iRLtrMfVFPdp0I2X
+         Akkmt0ol5DEYXXOfLMGBX6lCnP+3VrlGBxDtYDt/gFUW8KN1FXUt5yixSs2reOMy8uV5
+         qIBDhxVvFxL1+1yOHUR3zN+oP9/hAfFnMFmFHGgp/OjgY4VHrEqjYWkRkDGE069sRt27
+         l2d0IDovmlVDyNc0Jb+LLgz7H97XIf1Rt4YkZuIbJI1iG5KBTMQd7of6st0koaEhyhzA
+         7NfQ==
+X-Gm-Message-State: AOJu0Yz4ljTK66ceMKOKXtxJveypIi1g4llwednH+ndtdAo9ZO/qEBBI
+	D2HcNT3DLHCQpJH8m4qgKdNll5Aifip9JMT/s5o7gEMQxTiEvsqZMTgzEXa4KSxheZ2Y3fyxg/M
 	=
-X-Gm-Gg: ASbGncvtcObEtLNQA2GDJ0lwSqNtAZiaDsjuvTTooLqbg1FVczJM+wbhYJDEc04RgA9
-	PDoC7QM0I6fJ++aXEfaEaleOrNfcysVLRDsXckh1XqTgLuwGxZgXWXTbHd7ulhjkflicQ5TLl7E
-	DDuWyFITB2Yc6ERoVRsBLH9c8UJqyfrMK5WTkFs64M31afvzGMHek4Ho6jedHi0JCbVS7F+D/Mw
-	zB4zxYoQjfNEVKOGeeNjAJyDhOH2HcKPsj650i9U/tGot6fq8ASY4PeXqYtoGyazYY2UOkeyxjt
-	fJjwjeCRiwsN0c0xQLnVAoJA71KlGDZAQfWlfQ6uWQz+wXO3gwHtfnJGhmn+Xi/a4AD5PL70tKa
-	awiM30ow3tuoYTL1z43qEVj/2W6pXgQ==
-X-Google-Smtp-Source: AGHT+IFegTjXNc7tBFIu+ywfm/3a7gVNDTDAu7JEXEbnGG83ZlZVxlpwIuu/PCz0IMHOmeGE/MaBCA==
-X-Received: by 2002:a05:600c:3b8a:b0:43c:f64c:44a4 with SMTP id 5b1f17b1804b1-43d01bdbde9mr118694545e9.8.1741873836912;
-        Thu, 13 Mar 2025 06:50:36 -0700 (PDT)
-Message-ID: <58b3d7dc-5966-432c-8def-e841feaee1c8@suse.com>
-Date: Thu, 13 Mar 2025 14:50:35 +0100
+X-Gm-Gg: ASbGncv53HZTH6YJyvDQHybbQ99+Z1zn+O0h1x2QbQ+vJvepe/A/Z7B3i+3wxYqBy6Y
+	GSVIEBE1Ay+WJEo6Na1q9ah1onGEER6i7t6aJaHnbNYBXgk3ZqLffx7gzQ4Eo/kI85okWeH0TsC
+	ZZiHPjvjc6M5Bu3KVn/myWjMLv7LDs3edhDT5uwVvR0V9vZs6ebd7W9Ervkdmm74yH4J1pyudOy
+	3YIo6skueG6npTZVO90xowUyabf+DOA0KKQ9JkAaByaqYYKjyWQ7q+FCCXAj9oJ2vpGvn/QYBow
+	j8Dk4pAEDQUjTgspR8aQvIBk4tKagWjrPXCjk61YyixNs2I4DQ7Edxjj1u9GKkM6I08n6v8ogsR
+	ExoyQjDFkuFF4XfdbL9uf2nS2PJ2UIw==
+X-Google-Smtp-Source: AGHT+IEQcc1w3qVtZd/nrWClsUIJLEx1OCdv2qxru5vIJE6ASkLEWvwvH1zuUdJDbUKuiIKe6TieDw==
+X-Received: by 2002:a05:600c:524a:b0:43c:f75a:eb54 with SMTP id 5b1f17b1804b1-43cf75aed5emr172596805e9.13.1741873942752;
+        Thu, 13 Mar 2025 06:52:22 -0700 (PDT)
+Message-ID: <a556439c-b652-4789-bbdd-6d6402b2a124@suse.com>
+Date: Thu, 13 Mar 2025 14:52:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
+Subject: [PATCH 1/6] symbols: add minimal self-test
+From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH 0/6] symbols: assorted adjustments
+References: <58b3d7dc-5966-432c-8def-e841feaee1c8@suse.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -118,18 +120,61 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <58b3d7dc-5966-432c-8def-e841feaee1c8@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-The main goal was what patch 5 does, but on the way there various other
-things became noticeable, and some preparation was necessary, too.
+... before making changes to the involved logic.
 
-1: add minimal self-test
-2: don't over-align generated data
-3: sanitize a few variable's types
-4: split symbols_num_syms
-5: arrange to know where functions end
-6: centralize and re-arrange $(all_symbols) calculation
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+With this FAST_SYMBOL_LOOKUP may make sense to permit enabling even
+when LIVEPATCH=n. Thoughts? (In this case "symbols: centralize and re-
+arrange $(all_symbols) calculation" would want pulling ahead.)
 
-Jan
+--- a/xen/common/symbols.c
++++ b/xen/common/symbols.c
+@@ -260,6 +260,41 @@ unsigned long symbols_lookup_by_name(con
+     return 0;
+ }
+ 
++#ifdef CONFIG_SELF_TESTS
++
++static void __init test_lookup(unsigned long addr, const char *expected)
++{
++    char buf[KSYM_NAME_LEN + 1];
++    const char *name, *symname;
++    unsigned long size, offs;
++
++    name = symbols_lookup(addr, &size, &offs, buf);
++    if ( !name )
++        panic("%s: address not found\n", expected);
++    if ( offs )
++        panic("%s: non-zero offset (%#lx) unexpected\n", expected, offs);
++
++    /* Cope with static symbols, where varying file names/paths may be used. */
++    symname = strchr(name, '#');
++    symname = symname ? symname + 1 : name;
++    if ( strcmp(symname, expected) )
++        panic("%s: unexpected symbol name: '%s'\n", expected, symname);
++
++    offs = symbols_lookup_by_name(name);
++    if ( offs != addr )
++        panic("%s: address %#lx unexpected; wanted %#lx\n",
++              expected, offs, addr);
++}
++
++static void __init __constructor test_symbols(void)
++{
++    /* Be sure to only try this for cf_check functions. */
++    test_lookup((unsigned long)dump_execstate, "dump_execstate");
++    test_lookup((unsigned long)test_symbols, __func__);
++}
++
++#endif /* CONFIG_SELF_TESTS */
++
+ /*
+  * Local variables:
+  * mode: C
+
 
