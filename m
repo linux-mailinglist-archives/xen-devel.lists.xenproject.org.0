@@ -2,42 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8304A5ECCF
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 08:21:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.911279.1317726 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68417A5ED34
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 08:43:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.911291.1317735 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tscs9-0005nu-7G; Thu, 13 Mar 2025 07:20:53 +0000
+	id 1tsdD3-0000GL-S3; Thu, 13 Mar 2025 07:42:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 911279.1317726; Thu, 13 Mar 2025 07:20:53 +0000
+Received: by outflank-mailman (output) from mailman id 911291.1317735; Thu, 13 Mar 2025 07:42:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tscs9-0005lL-4R; Thu, 13 Mar 2025 07:20:53 +0000
-Received: by outflank-mailman (input) for mailman id 911279;
- Thu, 13 Mar 2025 07:20:51 +0000
+	id 1tsdD3-0000EP-PT; Thu, 13 Mar 2025 07:42:29 +0000
+Received: by outflank-mailman (input) for mailman id 911291;
+ Thu, 13 Mar 2025 07:42:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=qPCs=WA=redhat.com=mst@srs-se1.protection.inumbo.net>)
- id 1tscs7-0005lB-HJ
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 07:20:51 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (envelope-from <SRS0=7Xn0=WA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tsdD2-0000EI-0c
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 07:42:28 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id af59e818-ffdb-11ef-9ab9-95dc52dad729;
- Thu, 13 Mar 2025 08:20:49 +0100 (CET)
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-357-L1Youx75MRqpbrHvDwdjUA-1; Thu, 13 Mar 2025 03:20:45 -0400
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-43cf5196c25so2792595e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 00:20:45 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc0:1517:1000:ea83:8e5f:3302:3575])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d18a2af42sm10316185e9.32.2025.03.13.00.20.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Mar 2025 00:20:43 -0700 (PDT)
+ id b5b59d6d-ffde-11ef-9ab9-95dc52dad729;
+ Thu, 13 Mar 2025 08:42:26 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-43cfebc343dso3247335e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 00:42:26 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-395c83b6a5esm1161599f8f.27.2025.03.13.00.42.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 13 Mar 2025 00:42:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,97 +45,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: af59e818-ffdb-11ef-9ab9-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1741850447;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=o4bfYEIbp/kS2X2cwGn1CJqsR/J4F2IpC4H45RKU2a4=;
-	b=FqJo5nOPWDZvXMnUaMq8yz7DAur3XgvRRlldH1KzVjncJ0fRNlVzjqNZFuXxvAjubh5CLt
-	5jKxjXawWTfdH8AWnvBzqXRPxrEq0ySpYNjo+t4cSIWfVKj7VHmk6qIelpyJAHuOg2rHkT
-	6r9zYLj7QvIxHGSArTietsOR7zVC46A=
-X-MC-Unique: L1Youx75MRqpbrHvDwdjUA-1
-X-Mimecast-MFC-AGG-ID: L1Youx75MRqpbrHvDwdjUA_1741850444
+X-Inumbo-ID: b5b59d6d-ffde-11ef-9ab9-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1741851746; x=1742456546; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=sp115kcCjP3SycZJyUlo/1IujeQwzQ/7854cSJgGcyI=;
+        b=CxawcrGPMfmoz1Fh8RMVFYE9ZiCG8Y2pTX5d1d6i2Wd+icvGcY8O2oyxlXB/aKAz+5
+         kX/y4bJmXuMC0dllt5mTJG1OKsis9KkD25RoBLoA8HarFo9nu4fOGpDuQUvmlE1Y6k09
+         qSKT1/GPusAowUoeGPfBPd9Fh0jOEVBGompNO5eSPpQmpCq/aP48zjdXIGGoZS2+leHQ
+         mR5EiHu7LAz01eO7tFp51b3j2X375L6kzbGHCodRpelTd97JL8dMB9LPoc82FN49k2Qg
+         CVByLywFjIVEZt8X0UQgpX87sdYBmSPhx2HXxBdaGxjuS6sxoelhtmjDTGSJKvJoWxMZ
+         yErg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741850444; x=1742455244;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1741851746; x=1742456546;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=o4bfYEIbp/kS2X2cwGn1CJqsR/J4F2IpC4H45RKU2a4=;
-        b=mWTVmwHYEPA5NocIsz7aslU/YD3DfbROHO+FGZWDWY9OsjGxdAiBTazDmRhVia/s18
-         0XVbaa257X7gOictjQGBTiCYiwD5GQGQRPAOmdYRcHAU4cYpAOOylnTWz00JHtDsJN/h
-         oQN3Jjp2HP6IOE6hq7Yw+idSQappPcBf3NnYD2fOMVAND70cUYexRB6KTVcjVN6rAOtW
-         DhMBjAuzB9pWtuUQq8h087n3bZEsyHzysNl5Vs1414B6tZVLteF9GzbOWozregDGUlpF
-         unKtgd7VKxzkDb2kur72tbEuX9xBiWfvddEZeiSJ2+SLkz15puRJ385j07UGq5xd2Xp5
-         CjMw==
-X-Forwarded-Encrypted: i=1; AJvYcCUybLHffzuZhSLMu9uWPzP21BWU9BvFFG4ybCiEyOmBNaqGfne+onNVvNIYLXn9la6zi4BX9GLe6Ew=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx5Xs0cGxkFjvHunatGmZ/0NtTv24+AM6QO1xw1VLtAI4BbBkiq
-	/W5ceayKTVwDTmYMZr860ib0yOJOZGYtyohbmUW6Ah4lXJ5ipNLAaY24BwmZacB13en1upA25aj
-	BZJg/veYGd0wXTW72qkkPF26KghiO+HqyRGFPaYX5P3kavNZ9ICUy3ZRJq/5NlBnK
-X-Gm-Gg: ASbGncsphMBBuae+1hUeAHmcBv8ZGTx/J//GAeBaHG3HNIcWo+JLrwE6WZyAk8Cp93T
-	nWHFgZT38OKm1Ogg8rH8YkcJQcpny9H6Xxr96p4bSkswvab1/8xwRfhc6CWbYldbCq/xc2AKOLa
-	BU2QD+Vhkr4U25gIGQbBMg32xJYtrpoWW7s3tnKsPSz9MpBA1S7XJ8j7VOFgJDcIWyNwJkhYxMw
-	748EuqE47mWcB+x9KOk2zeYNJUdXgaIAQAL0Lu/qkGLwb2DcLDyosRtBxEcxAjOr+fArfRkCCRY
-	i7nv4OEdkQ==
-X-Received: by 2002:a05:6000:144d:b0:391:2e58:f085 with SMTP id ffacd0b85a97d-39132dab192mr19228454f8f.54.1741850444462;
-        Thu, 13 Mar 2025 00:20:44 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGdSno6hSKVsk5d06B4EsgagrhEFS5vVdfXL2wu7cQUeZCwJ3oOQpqMw11c+iVNeKk+NLYSpA==
-X-Received: by 2002:a05:6000:144d:b0:391:2e58:f085 with SMTP id ffacd0b85a97d-39132dab192mr19228411f8f.54.1741850444109;
-        Thu, 13 Mar 2025 00:20:44 -0700 (PDT)
-Date: Thu, 13 Mar 2025 03:20:37 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: David Hildenbrand <david@redhat.com>
-Cc: Nico Pache <npache@redhat.com>, linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org, virtualization@lists.linux.dev,
-	xen-devel@lists.xenproject.org, linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org, cgroups@vger.kernel.org, kys@microsoft.com,
-	haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
-	jerrin.shaji-george@broadcom.com,
-	bcm-kernel-feedback-list@broadcom.com, arnd@arndb.de,
-	gregkh@linuxfoundation.org, jasowang@redhat.com,
-	xuanzhuo@linux.alibaba.com, eperezma@redhat.com, jgross@suse.com,
-	sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
-	akpm@linux-foundation.org, hannes@cmpxchg.org, mhocko@kernel.org,
-	roman.gushchin@linux.dev, shakeel.butt@linux.dev,
-	muchun.song@linux.dev, nphamcs@gmail.com, yosry.ahmed@linux.dev,
-	kanchana.p.sridhar@intel.com, alexander.atanasov@virtuozzo.com
-Subject: Re: [RFC 1/5] meminfo: add a per node counter for balloon drivers
-Message-ID: <20250313032001-mutt-send-email-mst@kernel.org>
-References: <20250312000700.184573-1-npache@redhat.com>
- <20250312000700.184573-2-npache@redhat.com>
- <c4229ea5-d991-4f5e-a0ff-45dce78a242a@redhat.com>
+        bh=sp115kcCjP3SycZJyUlo/1IujeQwzQ/7854cSJgGcyI=;
+        b=AHn0fMp07C87Aan84NSXGodx5c20KCYFceFf9s5FD4rF1GHWdswyhGiW0UzRcYdCm6
+         sh5RyeKaDAoKHAzTVE7FLOARsWQHCQ4V1a7WJEBVMuLnZOEWX5C3BeqjqKCNNlUBbVXq
+         oVfEz6KvjVuR68KBqp9iOHzhPMfUQ46Tw0Wz1hvTPTyeI4pzMbAsyjU9nVpu/v8fCfrQ
+         BHUltomkteWGA/KDg5+6OE7dyYTewXX/51lY+sOQpmbOX42vpNk7GtrsGzntdDGEvpNT
+         KVR8/0CNynV0aNBKON0EGU5UqD6l8QdjSPBwREzOANxSuHFe/qoPDlz7kPO9D9T5BKKm
+         SdXA==
+X-Forwarded-Encrypted: i=1; AJvYcCWIQm7FlxYsND5vC5wKpSp16emBnbajv4m4zc5VIUTs8kuKMXAkQmOo+BlZ3WuahbRWQXckMIvu8JA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyLRqnwnXX3w1ubIVFTUUjCwC7wQ5k+V2SCbTxPzwkH/m7qrsnm
+	fPEBfyDTI4B5lQkTKL3GBCPCyZXII3R1JYM+ADiKyzg1Rgw0CDvQYvni3F4Z4w==
+X-Gm-Gg: ASbGnctRv6+bFlQ5eIW+MIGBCQsZ/COK9FpaxpPOL7tVwuVrDq578WL3GjtRC3vG+Eh
+	1CJXzKLU+YzZMFIEx7tiY38RAev1N6IxshJKiFVLmF6yHy0OWCVxmKUQsiaFqSuPGtbjs9Quxu7
+	JjGteWHZszfzLBnx39l6NKTZGJdjqxZ0bZPx8bbkiabc+59DaxGNw8Boc2sZsQXP0boqoZM0Xxp
+	BEH1IBayI4nIadtwurkhY27+mfVBYykR1azF541vEv190/C2gx6TDxRFtfl926Q0/BxOju2n27a
+	IAYFXCQq1QoDBtEx2lDf1Q4zPjmBrZcSLfJbLksSU9xpcu+K/EE3b7/HjRAK6EDHUJ2B/JsIAKz
+	PUfQZ5lWZ51Wpp/icT8ziFzoYa7Ge5A==
+X-Google-Smtp-Source: AGHT+IFKjXTe63yOsaGQSvz7SFEPIUwEjXIgpi8F3oyP3zMF7iKLMNrQkVpPiiQ4c8McRAneve5jSg==
+X-Received: by 2002:a5d:6dad:0:b0:390:de66:cc0c with SMTP id ffacd0b85a97d-3926c69b260mr10806525f8f.46.1741851746274;
+        Thu, 13 Mar 2025 00:42:26 -0700 (PDT)
+Message-ID: <7977cc2d-d654-49be-8bf9-9d3fe9286857@suse.com>
+Date: Thu, 13 Mar 2025 08:42:25 +0100
 MIME-Version: 1.0
-In-Reply-To: <c4229ea5-d991-4f5e-a0ff-45dce78a242a@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: rXLjSn-FufnJVXC_lH-eH1jbJ_7JAhcdc1sw2cvzY2w_1741850444
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] CHANGELOG.md: Mention PCI passthrough for HVM domUs
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Jiqian Chen <Jiqian.Chen@amd.com>,
+ Community Manager <community.manager@xenproject.org>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>, Huang Rui
+ <ray.huang@amd.com>, xen-devel@lists.xenproject.org
+References: <20250312040220.2624329-1-Jiqian.Chen@amd.com>
+ <a8919be5-020c-47f3-8bfa-02dab2f1e2ca@suse.com>
+ <Z9G39ULeHr7fp9ur@macbook.local>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <Z9G39ULeHr7fp9ur@macbook.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Mar 12, 2025 at 11:19:06PM +0100, David Hildenbrand wrote:
-> On 12.03.25 01:06, Nico Pache wrote:
-> > Add NR_BALLOON_PAGES counter to track memory used by balloon drivers and
-> > expose it through /proc/meminfo and other memory reporting interfaces.
+On 12.03.2025 17:36, Roger Pau Monné wrote:
+> On Wed, Mar 12, 2025 at 09:51:09AM +0100, Jan Beulich wrote:
+>> On 12.03.2025 05:02, Jiqian Chen wrote:
+>>> PCI passthrough is already supported for HVM domUs when dom0 is PVH
+>>> on x86. The last related patch on Qemu side was merged after Xen4.20
+>>> release. So mention this feature in Xen4.21 entry.
+>>>
+>>> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+>>> ---
+>>>  CHANGELOG.md | 1 +
+>>>  1 file changed, 1 insertion(+)
+>>>
+>>> diff --git a/CHANGELOG.md b/CHANGELOG.md
+>>> index 7201c484f899..b6de9b72ea7a 100644
+>>> --- a/CHANGELOG.md
+>>> +++ b/CHANGELOG.md
+>>> @@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>>>   - On x86:
+>>>     - Option to attempt to fixup p2m page-faults on PVH dom0.
+>>>     - Resizable BARs is supported for PVH dom0.
+>>> +   - Support PCI passthrough for HVM domUs when dom0 is PVH.
+>>
+>> Aren't we still in need of SR-IOV support in order to make such an
+>> unconditional statement?
 > 
-> In balloon_page_enqueue_one(), we perform a
-> 
-> __count_vm_event(BALLOON_INFLATE)
-> 
-> and in balloon_page_list_dequeue
-> 
-> __count_vm_event(BALLOON_DEFLATE);
-> 
-> 
-> Should we maybe simply do the per-node accounting similarly there?
+> I view SR-IOV as kind of orthogonal to this: SR-IOV is not
+> supported at all on PVH dom0, so it's not just pass through, but the
+> capability itself that won't work as expected when using such devices.
 
+Hmm, yes and no. No in so far as I as someone who simply wants to use Xen
+would read the above statement as indicating full pass-through support.
+Which first and foremost includes the passing through of VFs.
 
-BTW should virtio mem be tied into this too, in some way? or is it too
-different?
-
-> -- 
-> Cheers,
-> 
-> David / dhildenb
-
+Jan
 
