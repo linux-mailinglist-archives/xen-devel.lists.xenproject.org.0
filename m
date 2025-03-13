@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7827DA5F71A
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 14:58:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.912279.1318586 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B5DEA5F75E
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 15:12:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.912310.1318606 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsj4k-0007TG-94; Thu, 13 Mar 2025 13:58:18 +0000
+	id 1tsjHp-0004bu-Lr; Thu, 13 Mar 2025 14:11:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 912279.1318586; Thu, 13 Mar 2025 13:58:18 +0000
+Received: by outflank-mailman (output) from mailman id 912310.1318606; Thu, 13 Mar 2025 14:11:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsj4k-0007RL-6R; Thu, 13 Mar 2025 13:58:18 +0000
-Received: by outflank-mailman (input) for mailman id 912279;
- Thu, 13 Mar 2025 13:58:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tsjHp-0004aS-Id; Thu, 13 Mar 2025 14:11:49 +0000
+Received: by outflank-mailman (input) for mailman id 912310;
+ Thu, 13 Mar 2025 14:11:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=w2IX=WA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tsj4i-0007RE-Qa
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 13:58:16 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 35ed092d-0013-11f0-9ab9-95dc52dad729;
- Thu, 13 Mar 2025 14:58:15 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-43cf034d4abso8993625e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 06:58:15 -0700 (PDT)
+ id 1tsjHn-0004aM-Qs
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 14:11:47 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 18987558-0015-11f0-9898-31a8f345e629;
+ Thu, 13 Mar 2025 15:11:45 +0100 (CET)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-394780e98easo679429f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 07:11:45 -0700 (PDT)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d188b12ddsm21647405e9.8.2025.03.13.06.58.14
+ ffacd0b85a97d-395c8975d1dsm2267209f8f.50.2025.03.13.07.11.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Mar 2025 06:58:14 -0700 (PDT)
+ Thu, 13 Mar 2025 07:11:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 35ed092d-0013-11f0-9ab9-95dc52dad729
+X-Inumbo-ID: 18987558-0015-11f0-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741874295; x=1742479095; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1741875105; x=1742479905; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5ENqAw/ooDKAWUJCFTq03ijJWR72T+RJ8gdQoWV47OY=;
-        b=LMMVsqsJlikFoegv+KcrwE+Zo2gwpDqmsTfCCOX8SDrdavEs9hIeXLb5wlptDny7lJ
-         sjtfYhNFHjFDKJBwam+ICMB4GYovVmAqz6kPjvg+dXMNioY0yPNoHEU5ICUmDDQ4b/cB
-         gFw3YizlvqFTkl9CvZXu7+Dk4ZOnvBEkvp2bk=
+        bh=H+5RPWlLpGfgrzDi0c/skDzcg4uEt5HfQwp1QOIZpso=;
+        b=FHeQwlzCpQE7Vi2JHBq3IXSIgldo0YK6ugwWPNIm/tmNEbKy95vrBYAvY/iPmRuzmz
+         YtG4irvnuTMPmxsqaTf4JAhYYUawff0iF7cZZI6SgFwswiWco+VN8W5Ab6VeqxwH/hDb
+         Qo5JG/K/uto6yjaPFlyUq44SlRT3Rk4ER3204=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741874295; x=1742479095;
+        d=1e100.net; s=20230601; t=1741875105; x=1742479905;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5ENqAw/ooDKAWUJCFTq03ijJWR72T+RJ8gdQoWV47OY=;
-        b=nFZgtTvvPiJ24K+oSuCJ/k4lhZTQrR1FAY3vNDi7EKKKDGa+JJwdKV4dKcjhFgNv3U
-         fEJ+toeE+WAK83vhcUPXzIyaeAg/3cIyCjfOK33YNvNOI6pUMPaT251qSLi5NGkX9igo
-         Qx+vbbsSYHF9ad1cQAGfAafNdd+0OtMow80MtksLrfGIiF6M1jpZ3nuh536M83uCjUxK
-         RoEoGzzdWnYruugO32hCLE29zZrB1nOjTt3MY4zvNMTvsJWHzIQcEZArF6VnHDhgKpE7
-         D125qVP8od3MtV1PNnPdWNkWgsRnuY4x48ES5HNnq2SHua9kMRFtEbLSYykySPahrJA3
-         DhFw==
-X-Forwarded-Encrypted: i=1; AJvYcCU+QHSmdsS5YELlOrAgld172MTG9mj/ffg7EuVexF5k8DkV5jgjK1rJYVupWr8xitai/qsvmxpNrds=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YywrpKNric7cWr19F6CgxLTI+XKGin5Zz3YUUFHJUb6pLIu7ZZ3
-	Fubd5MED3bgrnfFJiq8kGTTMLoY2zwMt3RYXr/01XSIlZtqpAlBgSDDDZJhJnmo=
-X-Gm-Gg: ASbGncsmjwYcxjrJOJ53f6OtKTLa5P0jtmKqXcRNXK5ygapNgR7QleEiGlvJUVQymeK
-	bLhx2jqSBLjmZphx8DLj6restH7qyjBaQLQwWZOU38KgXssalOuQV/skDch3yd/6n8Z+Dzg2pDd
-	O7eoXQ0I8SxGL9Z/B0Fk9KJgG2bdRAzbOHm+jR+PIMJvBRcryEUki3YIi6KSmeTtkk6gQYQRAZB
-	W1s7BzpYnYQwVtLIZuytzWJdjKPiT26zripXA6utv30OIJduyX3u0xGiZLqCKj4UAQMhIpqUX9w
-	nIWuacnlgAWyk1d7s79/lKjQwvuBkBINsySEiCH8w520IxxLf4jU2NXfAVIhbH7hnpCqzicSdHf
-	2IDm5YYvi
-X-Google-Smtp-Source: AGHT+IEEZcTBB/GVqJGgoFPUJJPevAdDJReyUsHw+kRBKV4/BpUfjN8s/YU0NjYGigvK4xu4xHC4Yw==
-X-Received: by 2002:a05:600c:4f02:b0:43c:f87c:24d3 with SMTP id 5b1f17b1804b1-43d01c121bbmr101302695e9.20.1741874295315;
-        Thu, 13 Mar 2025 06:58:15 -0700 (PDT)
-Message-ID: <6ff81326-762c-46ec-a06a-254ba166433b@citrix.com>
-Date: Thu, 13 Mar 2025 13:58:14 +0000
+        bh=H+5RPWlLpGfgrzDi0c/skDzcg4uEt5HfQwp1QOIZpso=;
+        b=F3q4YucI3Vawn9BNJ2l9u8mDNZ8KnslnlZCzg710wDvm9PlTavAbllXMBJP7W0FmnU
+         JrOz4MSVcuuUNWyeKCCmBnqZsVFkOKZVkKfiqFxQCz81WstUaK/JvT7UglYX/3uMh8mp
+         yDg/4SJVJc4q/QmTeF2MW0Cc6hUgBTs8j0ylc6s5JL5zcy4ZIWxBuAwcgv99yzL1xx0m
+         hTGm44HZsA5KYbwTnTlyPDPbdC01mlGmoLaYPTpHJIHzIdoaOA20wDYhaL38ux3986GM
+         hLPeKGxzmaPw8qKO3qDmB1yj5Cgg/7cNylU3v89sZUN5hxMa2oN/bveNrBArsYXv2qRh
+         M7DQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXYsDZ0g94Nqhzxzm2KRzLjwjX4x2ONmPUgha87wh/zeGhlGJSeqCaW1uzWYegn8RJOGA2sit/AE9E=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw4kT+eXw7RdP+vD8h/0vXSVeNNOPBYVmkZ2g0i8JTL+5a6Qsuf
+	SR8Z412Q9Z+Vys9Fd7g0iLjrI69mQY3nvS+6RMdqem1HHgJQNohqOeH3DbSRYek=
+X-Gm-Gg: ASbGncs1Tp4nsI1CflHbtQK0NAEuuv51uT+YntC8YGkfTY53sm0thKfDhHMKBZ++rtw
+	2cVrCRhikJY5nali+oi5Kt7IAtbE50RmH6AQac2aj0/EDxebD/xTwArfToOXwzTRmcJ1fPR+zaT
+	KIWbgOvGGaWRYXFEZzj95txDqkooC0Tl7brXI97N3KMUL0V7q+ARlsy57AP4Ag0u8srVcNxaUZn
+	HveKAi5S6Ws8Z8Xf9Y+hncpsa5n9RkcJfBK9BFA2IxIAmYbKujNmy21UWdjJCu0PGE/yhuGqD+/
+	bjwFwpW8W5gr/mDfICLXvZlVAXmfXQ+i9zgc+kcrSzzd4fKck5PPSKoBdzz2lFUzOHHYJ5T7pYf
+	nsUzZ67uq
+X-Google-Smtp-Source: AGHT+IGR7KTg8RJdO38n4eJNHkiFWbR0gFsn6e/vKQN9a6fLkGP5bEomBLH3SLYB5cZGSmWYKDsLiA==
+X-Received: by 2002:a5d:5889:0:b0:391:4389:f36a with SMTP id ffacd0b85a97d-3914389f8a9mr17442791f8f.48.1741875105095;
+        Thu, 13 Mar 2025 07:11:45 -0700 (PDT)
+Message-ID: <504726b4-0e21-4664-87b9-3dd78526abc9@citrix.com>
+Date: Thu, 13 Mar 2025 14:11:43 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] trace: convert init_trace_bufs() to constructor
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-References: <e1e556c4-ed71-41f7-acfc-b7fa866a0d3e@suse.com>
+Subject: Re: [PATCH 5/8] xen/arch: Strip out tlb-clock stubs for
+ non-implementors
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250312174513.4075066-1-andrew.cooper3@citrix.com>
+ <20250312174513.4075066-7-andrew.cooper3@citrix.com>
+ <c3890a8a-afe5-44ef-9c67-2ef0d73346a6@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -138,36 +144,27 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <e1e556c4-ed71-41f7-acfc-b7fa866a0d3e@suse.com>
+In-Reply-To: <c3890a8a-afe5-44ef-9c67-2ef0d73346a6@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 13/03/2025 1:38 pm, Jan Beulich wrote:
-> There's no need for each arch to invoke it directly, and there's no need
-> for having a stub either. With the present placement of the calls to
-> init_constructors() it can easily be a constructor itself.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 13/03/2025 1:05 pm, Jan Beulich wrote:
+> On 12.03.2025 18:45, Andrew Cooper wrote:
+>> Now that there's a common stub implementation TLB clocks, there's no need for
+>> architectures to provide their own.
+>>
+>> Repeatedly zeroing page->tlbflush_timestamp is no use, so provide an even more
+>> empty common stub for page_set_tlbflush_timestamp().
+> At which point the field itself could in principle go away. There are three
+> printk()s (accompanying BUG()s) which use it; surely we can find a way to
+> abstract that out. This may then still be enough of a reason to introduce
+> HAS_TLB_CLOCK.
 
-This has a side effect of wiring it up on RISC-V and PPC, as they
-process constructors.  It looks safe enough, but have you double checked?
+I wanted to remove the field, but it wasn't trivial, and I've probably
+spent more time than I can afford on this.
 
-
-However, the position and logic during init is nonsense, I think.
-
-It registers a cpu notifier which only does spin_lock_init() on a
-per-cpu variable, which I think only works today because 0 is the init
-value.
-
-alloc_trace_bufs() on the other hand has a for_each_online_cpu() loop
-because it's too late and ought to be a presmp_initcall().
-
-Also the allocations could be NUMA-local for all but the biggest of
-servers (given the 16T upper limit because there are raw uint32_t's
-involved in the protocol).
-
-I'm tempted to ack this on the basis that it is an improvement, but a /*
-TODO this is all mad, please fix */ wouldn't go amiss either.
+I'm tempted to leave a TODO in tlb-clock.h to make it clear that there's
+more that ought to be done.
 
 ~Andrew
 
