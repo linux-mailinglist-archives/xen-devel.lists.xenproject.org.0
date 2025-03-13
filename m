@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94340A5F94E
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 16:13:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.912444.1318696 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22D3DA5F959
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 16:14:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.912459.1318705 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tskEg-00087a-Qb; Thu, 13 Mar 2025 15:12:38 +0000
+	id 1tskGY-00013W-7i; Thu, 13 Mar 2025 15:14:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 912444.1318696; Thu, 13 Mar 2025 15:12:38 +0000
+Received: by outflank-mailman (output) from mailman id 912459.1318705; Thu, 13 Mar 2025 15:14:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tskEg-00084Z-Nb; Thu, 13 Mar 2025 15:12:38 +0000
-Received: by outflank-mailman (input) for mailman id 912444;
- Thu, 13 Mar 2025 15:12:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=7Xn0=WA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tskEf-00084T-8e
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 15:12:37 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9608dbb5-001d-11f0-9898-31a8f345e629;
- Thu, 13 Mar 2025 16:12:32 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-43cf680d351so14183995e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 08:12:32 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d188b74b0sm23078215e9.15.2025.03.13.08.12.30
+	id 1tskGY-00011T-5A; Thu, 13 Mar 2025 15:14:34 +0000
+Received: by outflank-mailman (input) for mailman id 912459;
+ Thu, 13 Mar 2025 15:14:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=NEXk=WA=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1tskGW-00011I-UT
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 15:14:32 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id dd3dfaf3-001d-11f0-9ab9-95dc52dad729;
+ Thu, 13 Mar 2025 16:14:31 +0100 (CET)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-390fdaf2897so957393f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 08:14:31 -0700 (PDT)
+Received: from localhost ([66.81.170.107]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43d0a8c5d04sm59050935e9.27.2025.03.13.08.14.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Mar 2025 08:12:31 -0700 (PDT)
+ Thu, 13 Mar 2025 08:14:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,118 +44,252 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9608dbb5-001d-11f0-9898-31a8f345e629
+X-Inumbo-ID: dd3dfaf3-001d-11f0-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741878751; x=1742483551; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xswvuqI4925Zu2z6tJL/W6tD726VoNpqtQ7PpnvAriI=;
-        b=C0rvngOkAipFqy25ovIDVfJYPFYLfrx2ilyGWWwo+rufQAbqeFQYkS9D/W6DZ1xuyV
-         H0VdsP4Nvuvq2GXXH6hTHL3Pqc+8+x8qdNqalHxyVNdys70JImM9mTv6iGmQRBo9j29A
-         XDGYtA6I5mGvBQ17mg48zPPeK4sSrNqVBvOI7BKWXxaTbtl0Y9PrsTeLTYNzkuOQ6Esk
-         MoQIaEWPPKJE7pLB2xvSDZdg6GSlddLyl76g+ViQ+hh8tJlpEKslREuHB/3wz2oHQZs5
-         L2mR99TtlVCED857A/4IX1HdSZEwqCerBFTMIygVSY51WOEeZc07Wsko4yQvOfquygw3
-         t1iw==
+        d=cloud.com; s=cloud; t=1741878871; x=1742483671; darn=lists.xenproject.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kO0QriGb73abMdge3Lw944L0uK4ZRHzpf7qlrKSncAA=;
+        b=OF8qq5/QfRFJ7sv9wMJ9m+WU+BumBcPOddNXzu9Bv37/XbSD5GmBTflRn2WLn1fsd1
+         Ez0Z0MVQrd0Myc6XfPKOCfa5A+gDVrxBa8DnKWbMRIcEYACCVUuzLdGCSduZCIH2kqhy
+         BWnLa6EiCjembsaE25M5yFd1bprZcSbHdufds=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741878751; x=1742483551;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=xswvuqI4925Zu2z6tJL/W6tD726VoNpqtQ7PpnvAriI=;
-        b=r9fX7P7bQ661UvHJj7qawhMUH/d0aRamdNDwfM3M7mp49P5NaUVZhimiahqk8CWDBa
-         kL4XFshnhfQ+EIRpHYAYbo2zPDklySSuADXrIbTjrT6nihc0YsCK7xGort6pCld0zrmW
-         w7PnWGXfPqvVGylvsUpcUg+kuRE4F2Xqur1YvtWB/An+ByqZwCUmK4v7l9e0dz4b+Pyx
-         e19EcBsTGki7Pv9VD2841KVOvGFjDJUFw0zd+t8KgpDqhc+1zV/VOd0d3527T/c8JuzO
-         XDUKUJlKH2v/kil46mvbqrlu842fGApqVLtKjFDNhE6Is6OMEJlXqHn/0aKNa8emWgFh
-         9XUw==
-X-Forwarded-Encrypted: i=1; AJvYcCXAtswrjm1AJB45Tc5I7VUEe7//SAPDUDraiEB/UNdFcWvS0tHBT0LpEWge/W2yszAWXxC68qRt5i0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YynFmlCW2UQtKAJVHrqz33uJgmBNxOrjQwMKUXIGxgf6ZS3i3D6
-	6R6pKjFAwTu5zjVjKPgHWH0/g071YkCV9PmHJJF1RwRjoqkZVNKJ4mhCAhwaBg==
-X-Gm-Gg: ASbGncu81CkWsPwqv5sEh9srrloTwcbN68y2YYJ0cZ5CBuSmPJplrTWltw3TMG/+qY2
-	MYyIe9kpr+n3qfp7h1VoVIEjXMsprPrtkb4b+7wtaXUCcIHQ6+H7GURU70S6NnnxrqoyXwaP2vl
-	2lj8iqZvkYJ9dpXpcLcspJkG6KqAMnnPf76WolWx3u073r5SLiJa5E0ghnlX0fjE7pgtn0bvpxS
-	SBigBEo4Ch2eMsqqv+5m0ivmZQBPcp7dcTupNxqosELAJg7oKJSqb/xDuDatuHoOZ+XlFraodbS
-	kOwxpJqOgccLaomwjE0bXhu0hH1WK08TwXOZjsx74DAiWi8rnYYhKY5Ze1kb2fVWua7VOKRoqrb
-	SEWLpikpTmQzxXsnbpYG80a+nmrsuUw==
-X-Google-Smtp-Source: AGHT+IFDF0LIN4r0fl9yK1K0GG9UJm3PmEFU1LcuH/hTnA+neD8qM3xkHNRcSJGpJ+DZU4347rW66g==
-X-Received: by 2002:a5d:59a3:0:b0:390:e904:63ee with SMTP id ffacd0b85a97d-395b954eb3fmr2447775f8f.17.1741878751598;
-        Thu, 13 Mar 2025 08:12:31 -0700 (PDT)
-Message-ID: <1ecd92f6-ab92-4d9d-acad-b1fa96908984@suse.com>
-Date: Thu, 13 Mar 2025 16:12:30 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 10/19] xen/page: fix return type of online_page()
-From: Jan Beulich <jbeulich@suse.com>
-To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250312040632.2853485-1-Penny.Zheng@amd.com>
- <20250312040632.2853485-11-Penny.Zheng@amd.com>
- <9f75fb88-c050-48ec-881f-b963607e89f5@suse.com>
-Content-Language: en-US
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <9f75fb88-c050-48ec-881f-b963607e89f5@suse.com>
+        d=1e100.net; s=20230601; t=1741878871; x=1742483671;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=kO0QriGb73abMdge3Lw944L0uK4ZRHzpf7qlrKSncAA=;
+        b=BOWaufgQMtCrpiU9t9FViINtAwHK84tOPo7I56E+UVmeR63NuuXhTEivym04Z7/sxU
+         OtbL0Df3Yqv61luvg6Qj4wI6Gg0V2kFv/B9Xp8EPHWalKTLxHltDvmSdMa44v1Xco9B3
+         0F9stVpLZtFQz7zxLmOs05XBDNC5EikkrW/ny2AJXxEnenhhTji5/O2hlEc4D+vYrZKy
+         4Zdoe1QvR04ZT0qF2ANvMa1tkDJWRIdoMCvcz6t4lBOMz3MsJRtP6ujou4yXIR00dWRw
+         F89piuan7PiZMjh5qnA8K2hojLVbF74rlJJTrJKh5GqWBq2tILyRZu1ifgJddUGcUIBp
+         pXiQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWtDl2Pq4umrK7yiwo+UFOEgYcd+PqRGzbCewKxUNy7UEDSegg0sgvKzaPGjNftNQBmkpQNtj/yllg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxe64+SmRHN+CE812OiYVtM4q1n7IElgRCSGswXAyRAjusaSwFH
+	Qf/4GjFghLNb78bvdarwALAHBYKHn5tOOkczKJaNzk2rnhhPjlZtcTC+Yrs70gI=
+X-Gm-Gg: ASbGncuQOCE0j5WNJPmR3j8ySYm5pjSyiN1OriTWT16Jgwg/Fr3HcNprU6zftyhbsx6
+	R4/eMvvY98RV5TPzavaszjTLE34wWMUGGXMV9Ws3Vy4K+DZtn8cLQiS2kC7vRWLubTofkaBfev+
+	jp40F53SzsZcrdmzO13o7hjtXdStoR3VQHg+rlimPOOIraFG50Pjju1BaLKQoPSpaYIHlDBxb0G
+	iNxEet6DL0S6WTvCCDK0+Cq354l8QmkTtKQAH44Bqsol/Xs6K/sFfN69R/x6KEChsZMI1xSgQ4K
+	Qq33VpognutqEIJ5NfN5XqzKGWREm2h1jyv4ZMO21kLvrSk6Ieo=
+X-Google-Smtp-Source: AGHT+IGg5ls3u5Oi43WsW2IvI2eeXO9PLgzXoW+G9b3Y2cmuLAATCevEI4byaIB0c94EK9nvdRTpHw==
+X-Received: by 2002:a5d:6d83:0:b0:390:e9b5:d69c with SMTP id ffacd0b85a97d-39132d5670bmr27081374f8f.25.1741878870942;
+        Thu, 13 Mar 2025 08:14:30 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Thu, 13 Mar 2025 15:14:26 +0000
+Message-Id: <D8F8IW559J11.2G40MDQH23I44@cloud.com>
+To: "Stewart Hildebrand" <stewart.hildebrand@amd.com>,
+ <xen-devel@lists.xenproject.org>
+Cc: =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH] [RFC] vpci: allow BAR write while mapped
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+X-Mailer: aerc 0.18.2
+References: <20250312195019.382926-1-stewart.hildebrand@amd.com>
+In-Reply-To: <20250312195019.382926-1-stewart.hildebrand@amd.com>
 
-On 13.03.2025 09:30, Jan Beulich wrote:
-> On 12.03.2025 05:06, Penny Zheng wrote:
->> This commit fixes return type of online_page(), which shall be int
->> to include correct error value.
->>
->> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
-> 
-> While the patch can certainly be taken as-is, ...
-> 
->> --- a/xen/common/page_alloc.c
->> +++ b/xen/common/page_alloc.c
->> @@ -1764,7 +1764,7 @@ int offline_page(mfn_t mfn, int broken, uint32_t *status)
->>   *   The caller should make sure end_pfn <= max_page,
->>   *   if not, expand_pages() should be called prior to online_page().
->>   */
->> -unsigned int online_page(mfn_t mfn, uint32_t *status)
->> +int online_page(mfn_t mfn, uint32_t *status)
->>  {
->>      unsigned long x, nx, y;
->>      struct page_info *pg;
-> 
-> ... below here we have
-> 
->         ret = *status = 0;
-> 
-> which aiui will need splitting for Misra anyway. Perhaps a good opportunity
-> to do so right here? (I wouldn't mind doing the extra change while committing.
-> Yet I can also see that this may be deemed too orthogonal to the main purpose
-> of the change here.)
+On Wed Mar 12, 2025 at 7:50 PM GMT, Stewart Hildebrand wrote:
+> Xen vPCI refuses BAR writes if the BAR is mapped in p2m. If firmware
+> initialized the BAR to a bad address, Linux will try to write a new
+> address to the BAR without disabling memory decoding. Allow the write
+> by updating p2m right away in the vPCI BAR write handler.
+>
+> Resolves: https://gitlab.com/xen-project/xen/-/issues/197
+> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> ---
+> RFC: Currently the deferred mapping machinery supports only map or
+>      unmap, not both. It might be better to rework the mapping machinery
+>      to support unmap-then-map operations, but please let me know your
+>      thoughts.
+> RFC: This patch has not yet made an attempt to distinguish between
+>      32-bit and 64-bit writes. It probably should.
+> ---
+>  xen/drivers/vpci/header.c | 65 +++++++++++++++++++++++++++++++--------
+>  1 file changed, 53 insertions(+), 12 deletions(-)
+>
+> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
+> index ef6c965c081c..66adb2183cfe 100644
+> --- a/xen/drivers/vpci/header.c
+> +++ b/xen/drivers/vpci/header.c
+> @@ -173,7 +173,7 @@ static void modify_decoding(const struct pci_dev *pde=
+v, uint16_t cmd,
+>          ASSERT_UNREACHABLE();
+>  }
+> =20
+> -bool vpci_process_pending(struct vcpu *v)
+> +static bool process_pending(struct vcpu *v, bool need_lock)
+>  {
+>      struct pci_dev *pdev =3D v->vpci.pdev;
+>      struct vpci_header *header =3D NULL;
+> @@ -182,12 +182,14 @@ bool vpci_process_pending(struct vcpu *v)
+>      if ( !pdev )
+>          return false;
+> =20
+> -    read_lock(&v->domain->pci_lock);
+> +    if ( need_lock )
+> +        read_lock(&v->domain->pci_lock);
+> =20
+>      if ( !pdev->vpci || (v->domain !=3D pdev->domain) )
+>      {
+>          v->vpci.pdev =3D NULL;
+> -        read_unlock(&v->domain->pci_lock);
+> +        if ( need_lock )
+> +            read_unlock(&v->domain->pci_lock);
+>          return false;
+>      }
+> =20
+> @@ -209,17 +211,20 @@ bool vpci_process_pending(struct vcpu *v)
+> =20
+>          if ( rc =3D=3D -ERESTART )
+>          {
+> -            read_unlock(&v->domain->pci_lock);
+> +            if ( need_lock )
+> +                read_unlock(&v->domain->pci_lock);
+>              return true;
+>          }
+> =20
+>          if ( rc )
+>          {
+> -            spin_lock(&pdev->vpci->lock);
+> +            if ( need_lock )
+> +                spin_lock(&pdev->vpci->lock);
+>              /* Disable memory decoding unconditionally on failure. */
+>              modify_decoding(pdev, v->vpci.cmd & ~PCI_COMMAND_MEMORY,
+>                              false);
+> -            spin_unlock(&pdev->vpci->lock);
+> +            if ( need_lock )
+> +                spin_unlock(&pdev->vpci->lock);
+> =20
+>              /* Clean all the rangesets */
+>              for ( i =3D 0; i < ARRAY_SIZE(header->bars); i++ )
+> @@ -228,7 +233,8 @@ bool vpci_process_pending(struct vcpu *v)
+> =20
+>              v->vpci.pdev =3D NULL;
+> =20
+> -            read_unlock(&v->domain->pci_lock);
+> +            if ( need_lock )
+> +                read_unlock(&v->domain->pci_lock);
+> =20
+>              if ( !is_hardware_domain(v->domain) )
+>                  domain_crash(v->domain);
+> @@ -238,15 +244,23 @@ bool vpci_process_pending(struct vcpu *v)
+>      }
+>      v->vpci.pdev =3D NULL;
+> =20
+> -    spin_lock(&pdev->vpci->lock);
+> +    if ( need_lock )
+> +        spin_lock(&pdev->vpci->lock);
+>      modify_decoding(pdev, v->vpci.cmd, v->vpci.rom_only);
+> -    spin_unlock(&pdev->vpci->lock);
+> +    if ( need_lock )
+> +        spin_unlock(&pdev->vpci->lock);
+> =20
+> -    read_unlock(&v->domain->pci_lock);
+> +    if ( need_lock )
+> +        read_unlock(&v->domain->pci_lock);
+> =20
+>      return false;
+>  }
+> =20
+> +bool vpci_process_pending(struct vcpu *v)
+> +{
+> +    return process_pending(v, true);
+> +}
+> +
+>  static int __init apply_map(struct domain *d, const struct pci_dev *pdev=
+,
+>                              uint16_t cmd)
+>  {
+> @@ -565,6 +579,8 @@ static void cf_check bar_write(
+>  {
+>      struct vpci_bar *bar =3D data;
+>      bool hi =3D false;
+> +    bool reenable =3D false;
+> +    uint32_t cmd =3D 0;
+> =20
+>      ASSERT(is_hardware_domain(pdev->domain));
+> =20
+> @@ -585,10 +601,31 @@ static void cf_check bar_write(
+>      {
+>          /* If the value written is the current one avoid printing a warn=
+ing. */
+>          if ( val !=3D (uint32_t)(bar->addr >> (hi ? 32 : 0)) )
+> +        {
+>              gprintk(XENLOG_WARNING,
+> -                    "%pp: ignored BAR %zu write while mapped\n",
+> +                    "%pp: allowing BAR %zu write while mapped\n",
+>                      &pdev->sbdf, bar - pdev->vpci->header.bars + hi);
+> -        return;
+> +            ASSERT(rw_is_write_locked(&pdev->domain->pci_lock));
+> +            ASSERT(spin_is_locked(&pdev->vpci->lock));
+> +            reenable =3D true;
+> +            cmd =3D pci_conf_read16(pdev->sbdf, PCI_COMMAND);
+> +            /*
+> +             * Write-while-mapped: unmap the old BAR in p2m. We want thi=
+s to
+> +             * finish right away since the deferral machinery only suppo=
+rts
+> +             * unmap OR map, not unmap-then-remap. Ultimately, it probab=
+ly would
+> +             * be better to defer the write-while-mapped case just like =
+regular
+> +             * BAR writes (but still only allow it for 32-bit BAR writes=
+).
+> +             */
+> +            /* Disable memory decoding */
+> +            modify_bars(pdev, cmd & ~PCI_COMMAND_MEMORY, false);
+> +            /* Call process pending here to ensure P2M operations are do=
+ne */
+> +            while ( process_pending(current, false) )
+> +            {
+> +                /* Pre-empted, try again */
 
-Actually, having thought about this some more, let's just put it in as is.
+This seems a tad dangerous. There may be a non-negligible amount of work qu=
+eued
+up. I also wonder whether the guest can induce spinning by increasing
+contention on the p2m (e.g: via ballooning) or by induces work being queued=
+ up.
 
-Jan
+I don't quite understand the logic, but I suspect you could
+raise_softirq(SCHEDULE_SOFTIRQ), decrease the IP so the instruction is
+replayed, release the locks, and simply exit the hypervisor. The system oug=
+ht
+to naturally split the operation in several continuations each of which doe=
+s
+either unmapping or mapping if it couldn't be done in a single one. Replayi=
+ng
+the instruction after decoding is disabled ought to be benign.
+
+I haven't tried any of what I just wrote, so take it with with several tons=
+ of
+salt though.
+
+Do you know if Linux intentionally skips disabling decode? Or is it a bug?
+
+> +            }
+> +        }
+> +        else
+> +            return;
+>      }
+> =20
+> =20
+> @@ -610,6 +647,10 @@ static void cf_check bar_write(
+>      }
+> =20
+>      pci_conf_write32(pdev->sbdf, reg, val);
+> +
+> +    if ( reenable )
+> +        /* Write-while-mapped: map the new BAR in p2m. OK to defer. */
+> +        modify_bars(pdev, cmd, false);
+>  }
+> =20
+>  static void cf_check guest_mem_bar_write(const struct pci_dev *pdev,
+>
+> base-commit: 8e60d47cf0112c145b6b0e454d102b04c857db8c
+
+Cheers,
+Alejandro
 
