@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 429CBA5EE16
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 09:33:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.911481.1317894 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2764A5EE4D
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 09:45:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.911494.1317904 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tse0N-0007Ea-Qq; Thu, 13 Mar 2025 08:33:27 +0000
+	id 1tseBW-0003be-R7; Thu, 13 Mar 2025 08:44:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 911481.1317894; Thu, 13 Mar 2025 08:33:27 +0000
+Received: by outflank-mailman (output) from mailman id 911494.1317904; Thu, 13 Mar 2025 08:44:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tse0N-0007CH-Nj; Thu, 13 Mar 2025 08:33:27 +0000
-Received: by outflank-mailman (input) for mailman id 911481;
- Thu, 13 Mar 2025 08:33:26 +0000
+	id 1tseBW-0003ZE-O3; Thu, 13 Mar 2025 08:44:58 +0000
+Received: by outflank-mailman (input) for mailman id 911494;
+ Thu, 13 Mar 2025 08:44:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=a6QA=WA=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1tse0M-0007CB-06
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 08:33:26 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2060d.outbound.protection.outlook.com
- [2a01:111:f403:2413::60d])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=7Xn0=WA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tseBV-0003Z8-6q
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 08:44:57 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d387ea71-ffe5-11ef-9ab9-95dc52dad729;
- Thu, 13 Mar 2025 09:33:24 +0100 (CET)
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
- by BL1PR12MB5875.namprd12.prod.outlook.com (2603:10b6:208:397::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.28; Thu, 13 Mar
- 2025 08:33:18 +0000
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13%6]) with mapi id 15.20.8511.026; Thu, 13 Mar 2025
- 08:33:18 +0000
+ id 7021518c-ffe7-11ef-9ab9-95dc52dad729;
+ Thu, 13 Mar 2025 09:44:55 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-43d0c18e84eso3748385e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 01:44:55 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-395c83b6e92sm1371621f8f.38.2025.03.13.01.44.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 13 Mar 2025 01:44:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,148 +45,457 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d387ea71-ffe5-11ef-9ab9-95dc52dad729
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O2YQgKnh6iBhlQrYwZm9hznijvFEGWCtIUpGxSz/XPR1n3YVUeRST4zktjpJO9doDyP3Ug81KzpSpmrjalaMHfF15oUePoH0/QXRxiQ0T7kkbWAykYlZ8kYh7GYii4vR63K1HeIhYVGawNtbNzPT1PVVAHm0SdJRmct5BVQOxjSS0nXtOulaZqfdbTAp/VzpSPtr0fBPJit2yxqTfEJ8ksosRYjalIFBiyjBlx8YkDS0WkOMr6Pu46ryy+nu8cYPgQobal3peEkNxkZGrxB64AfuSDA+VqdWr2HXhPt8A+p9cDzug/+GrHe/Dqt/kfTBmf5LR4K+1sq/Dh/RplBdCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6gBJwQYWAdp7HzEi53CS9g9yi+HW35tukfTWf58FFzc=;
- b=HOl4P7uN7mkQkmXjpPMXi2UcP2ivEyDMo/zPXNQ7XKhDDnc2NXWPSBAFqQ+6gW5XQluvMcybAibtuERdoLIEzh/Ko2eZ+sWbNmRISflfGdmKJspW1fdcJvgH3Dx41AAM/NDnAFiHbU8dVSfF5oXDrwii0SXA0iprucCRYuO/EkUr8KzWw+Scg9z722BcfmK/G77Sk2GeMKmudXhQ4ySSBlUUN9mtRZ7kRT/py7Xbn/9YifzybEZszz5x37Z+T191yuSQ4EuJDffrYOt3a08zN3IC9+JvwVQxhEeq5/voLz9DOPAeI9Ot6BjMzvaxEFOObJrNbR9MiZo4E4yUM4NsRQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6gBJwQYWAdp7HzEi53CS9g9yi+HW35tukfTWf58FFzc=;
- b=S/s8ihNqP+gdGOICA7ZsdX1hxi1Os5xTfbQiE5Spb0WyKcUeEquQu8b4CHYiaK2bwMT46eiO1PZownI3GLHTZpgYzpBXOM3FExBRKaEMr6no5c/At8YAzhSmbSm26+pZIl64PmZwYDwUJeX3gzQ1XOHivvL9mfMmmqQFes9GJwY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <2778a487-ec57-4fa5-b6f7-002e97935aef@amd.com>
-Date: Thu, 13 Mar 2025 09:33:13 +0100
+X-Inumbo-ID: 7021518c-ffe7-11ef-9ab9-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1741855495; x=1742460295; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=k/Vv0m7e8TP/eZ8pg1BZ8/WgIdEBJH+8JRXCFcnzxO4=;
+        b=WmfmCg81BwihSh6vXrc/TOofIn4OOBJfPaZx+bWXJnjWo6Wxh5YSjx+R1de/Lly10z
+         9oL59B/Nmf4WoUnrIdlYEETgtT8lJYibpwuLZryW9USpN8YNu7HzUbVQJXCZFu7cBKpv
+         fPl7NMGwy54T2fMhzwSNhSdbcHZFcnfFL9dTVfpuJwQXzynYsBXZTs1qr0cwE6epKByg
+         RFbjCjkyHhb3kRI0wQ594YhKEuP6gqq/5OP9zFFoyHA7XTKPKfvIn4sJEgBU0s1d9IcQ
+         e2aU1WOd1IaDFLZUKepCnzhgPtHOVa7OVgVJ2ACPpttN52vrGQJh5wJCp5T9g7oTifmK
+         smug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1741855495; x=1742460295;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=k/Vv0m7e8TP/eZ8pg1BZ8/WgIdEBJH+8JRXCFcnzxO4=;
+        b=dVp6qGX3cC3Qi2BV3rRDjsPdSirLg13B5QqmcXRpKMn+qTxd3BXkpTwC7Bjp51Ger2
+         1zBf0EaKOQIA2w+r1i43cumE93dopQrHg9vZpSb4b3Ho9lHRWuxCVyeRzQsvPqDiraU3
+         aqjJucXQ3Q7YovmTzqHsN0jnrXxi7X92sSMZTLAvk6x76L+ZUP3mf7ESMC3kUrkRvEe1
+         8aQ9jySX17AO717h2KIZsHUJi+DJkP3HJFa0Pv8IQFNIw/p8ThfWCg22A+jKc35Zg6x6
+         wn33B0t5PZWIJtJtXMse9Smdsem5I4b2A5gXUUyfYXw+NThjHQ9PNslUzrW1k2A0VQyJ
+         L3EA==
+X-Forwarded-Encrypted: i=1; AJvYcCXewP1yGTrEizHFy5rDD9rQIvArnsICZFp3UkmMnBeFO3aUucNuQJ0cGgzQbL81H4ux8W67tbMNcTE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxx4bH1IE6eyJjZtYr+FX+OQn6TkUYNx4f1xyxgre8RyY1mlDfD
+	CRwDgiZTsqz5j3yjHtJMVL9jbsR+uXLkw4rX8MdY7M1DPCACeXnMMDuP0fELvQ==
+X-Gm-Gg: ASbGncuotwblHh+PtbEgKe/JyuO7sf5vWFdyCanyZbs6zP3i+T1mU2GiZYxTwG3t/if
+	R6ylLbpiMdhptOMucnJj6W+y4lLwHu3XDb92DYvUVcQqkGlDvNjqPtZn/IyLGxMQTjWB9U12qRJ
+	sHtHiJH0/p7fkS6G/73orKin1IN+J5ftHveRCGCJRbzviWvUb7buIAHDIDBivXaXq5+4jpMTWfI
+	2vem7sWeHldv6tlzcI8Du3q5SCINiSGovcxkzzudeBpsHq3AMv6tVBMiyNnPNoyjizYkvtdoIIi
+	Wiw3WYmfenUtTZrdjSjjr+TQ1goHPh/3dDOkyK/yLn8rggWRinWOE63swBKryW3Wr4mWfEpf2Jh
+	xeJYMkGckbMk7l8MjtfMazNfpr1RnplSorNTnsRj9
+X-Google-Smtp-Source: AGHT+IGwudAk6PHJLz0mv+sSKtoGbAlgJZKIUmRPQKMpVnooQDvhFpWUqxnTmzJsdbkii5USwZKRaQ==
+X-Received: by 2002:a05:6000:1867:b0:391:253b:405d with SMTP id ffacd0b85a97d-39132d98a1emr20175944f8f.41.1741855495091;
+        Thu, 13 Mar 2025 01:44:55 -0700 (PDT)
+Message-ID: <d4a4b8ff-161f-47c3-a2bc-dd7e1ba3ce1a@suse.com>
+Date: Thu, 13 Mar 2025 09:44:53 +0100
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/10] arm/mpu: Add HYPERVISOR_VIRT_START and avoid a
- check in xen.lds.S
-To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20250312135258.1815706-1-luca.fancellu@arm.com>
- <20250312135258.1815706-4-luca.fancellu@arm.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
+Subject: Re: [PATCH v1 08/19] xen/sysctl: introduce CONFIG_PM_STATISTIC
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250312040632.2853485-1-Penny.Zheng@amd.com>
+ <20250312040632.2853485-9-Penny.Zheng@amd.com>
 Content-Language: en-US
-In-Reply-To: <20250312135258.1815706-4-luca.fancellu@arm.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250312040632.2853485-9-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0058.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:93::9) To BN9PR12MB5273.namprd12.prod.outlook.com
- (2603:10b6:408:11e::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|BL1PR12MB5875:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3de7abd6-b57a-4658-9914-08dd6209b4de
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?dzNMakVod09aai82VmxXUnQwbEF6Qm1TOEpURlBXaDhmSHBxZ0tEK1ZnMWdh?=
- =?utf-8?B?S3ZQWnNTcURLS2M3N0Q2a2VFSVpHR0Y1ZllKS2dMeVp6elIrcjlRK1hOUDJV?=
- =?utf-8?B?b0RZSEpwYmlXMnE4OXJEZUlpN25tMkVEdERDK1ZsSFFUcW5NeFJBS3ZBb1p2?=
- =?utf-8?B?QW9RU09SSWl2SlgvbEtGV29xRmxHaG14aTNxc3JpeXljUHlVTi8zZGo1a3FS?=
- =?utf-8?B?QXVBKzloRlMrWVBSbUNHZTF6TU01SGZIdG9zR1FzUkF4MXF2eWdYd2tqK0Fp?=
- =?utf-8?B?alFlalFEaU1hcHR3MnF4VGpMMDZhVmRSTHJQeXQrU0FYZW1vbGMvbTdXRjBw?=
- =?utf-8?B?L2N0RXdHMm1wZDZxKzJRNU15YXdyZnl4K2QvOWJERjd0ZVdDSjFBUE1nRmNT?=
- =?utf-8?B?TE44a1Fkck1ONU5WeDQ2d1lpM1pXRXVBOXlSUGd3L1p2czJrZk1qKzFsV2dE?=
- =?utf-8?B?QUh4bk1wV1hCb2ZuOHdBNGNwWFpZNS9CZjBTczJRa0VBR0FMN0RuRXpiM3ZB?=
- =?utf-8?B?U25ObXFsVjgycVRMYUplbGlvdTg2N2d6RzNiajJRQ3NYbStCZm4vNEprT0V3?=
- =?utf-8?B?aE9JUWg0eDQ3M0QyRHUxaTZwMzhjTEdWVG9PVnN2TnlGVWdNTXFEb3VGOGlZ?=
- =?utf-8?B?UE9tMEw1S1B0ZmIwZWxld3J3aDhQOVJmdTR0Qkd1TU9PdFBQY1NIQ042UXNw?=
- =?utf-8?B?R1ZOb0orNmxFQ3NKZGRhMzVMcWJkcU92TGpGcWtXVDBIREs5RXNGYmdkOEZw?=
- =?utf-8?B?NkFUbHpiL2tYelUvSFQwb1hqaURqbTJtUTJlMjh1bEtlanBMcDZJNGhHWXpJ?=
- =?utf-8?B?YzA2WnpRZFZ1Z3F0Zkp6VlN3NEtXeFBwSnhaRGJoVWgxbElsZC9jQ0ExVzFZ?=
- =?utf-8?B?UjYzd0FnaHFBa0ZZckRvUkVNVWJWV3V2L1I3Vm9sN2lMajQ4TVc1ZzdWYkRn?=
- =?utf-8?B?UmExYzdnWG1kQmwwY3hwQkpaRmxtdmc3OXlkWVZSUmphakRZSVc0ZG1OSEc3?=
- =?utf-8?B?TDV4UDZuQW1BdlQrMzBsakkyWE5jV0VDQWlJRGFoZEpyUEhQaDg5SDlmOFVW?=
- =?utf-8?B?QldYYVlzQ0tvK0h2eHhBSEpxL3dzUGV3NW1XQjZDeHVNdWZnS3NuT0Z4eTJY?=
- =?utf-8?B?QkhLekFFbFVSYXQ3cGY2bnhvczdOTFRxTFg1ZkwzQWJ5RUE5L3d1a29qM2JK?=
- =?utf-8?B?cXhSU2JkQVV0bnBkUVFlNVdUNi9aVGx6cGgrV0UxVS9Xa0hxckdRZVRFOXVp?=
- =?utf-8?B?a283VDErMlFySmZuMkZEc05xWkUxNjA0TGRkZExSN0JSZHhPamVWMktsaHNi?=
- =?utf-8?B?bGI2YVBTM3FiWnJNUVVuSXVYRkwvTjd2ckMvcUZ2SW04R3JERjlNK00xUXN1?=
- =?utf-8?B?YnE0eWJDekNBZTkxSGhoN2dMVWJMa2RIeVoralZGejJNQytIV3BMMFBhUlFF?=
- =?utf-8?B?Wk9neUdPSGRRZVptQ1Uzd25IbktFanNEUTNqZno4VVZ6dS95cStOQllVY25S?=
- =?utf-8?B?TGkvUTBXeHNFUUpOSlhzM3VOc2kvbGljVGE4NVNwNlRLQU9ZQXRDZGlhbXF6?=
- =?utf-8?B?Mm9HRFpJcy9JN1BZVUpCY2Q5RXZRQ2UzOWZSYmZlK1N6WVEramhXcXV2blZI?=
- =?utf-8?B?YnFiUDcwOGdpRWZGRFZWVFhnWHNHaW5vL3dyZUtSK3dyNVJPSm55QTRSRGF0?=
- =?utf-8?B?RXVBcit2YlhtUkN2SkVEZjR2cDBFL3pNM1ZPaW80NWFEelJLeHFvRDZKcHJl?=
- =?utf-8?B?M2puSC9MWkI0dm9Ibk0zYitnU0JteFdNLzZMQVYveHJBZktZVVp3aWxBejhC?=
- =?utf-8?B?UmxzT2xOMWVrYVBEZzZOMk16TFVDaVhFWWJ6cmJXd0ppeE1QMndoYXFLajFN?=
- =?utf-8?Q?O8Fu/GkR4HbmH?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WmtVMVE2NWltQjgzOU4rekpvRkRtNlg4dlNjMTR6OEdjTUN3cHlmWUhpU1Vw?=
- =?utf-8?B?NXY4bmRNaGpTK3I4YnlOTTJYaHNSRktIakRnQk1CRHhneU5MWUx4bjhNSjZX?=
- =?utf-8?B?UXFMWUZhSitIdlQ4SjIrN3pJOWJsR0xPemYreUdCOFhScGlTVVZDWGFjKysr?=
- =?utf-8?B?RWMzZEtzcGNMcjREUEN0eHdob1BkZ3M0VVRJRG4wQitoT0FrZlZIeVB2dnNT?=
- =?utf-8?B?RFhwL3p4eVBmWU1vQkRUb21yMm0rdEJrQjMxejBVL0NsdWlzRGk1dlAvTVZp?=
- =?utf-8?B?MEhjbnJSRjBBTTl5dDBDZy9pVGxNYmNXSzNRUm5RQm5YYXY5Y3BxTVluRHlL?=
- =?utf-8?B?U2dVOUFwVFdYY0lRY0gydDdyR3FRbSs4eXVESWZiaUhXQ29iZWgvZTNkbTJx?=
- =?utf-8?B?WmNMV2J0U0hOakZod1N5NkxTTm0xTlNUa29kN3F5RmNOYmxxY0JaeXpMbThp?=
- =?utf-8?B?akM1dDU2ajhMUEdnb1FQbVJ6dFl0R2Jvb2M0WFVGVkUzNm5jeU5MY1poeVQ0?=
- =?utf-8?B?a1VJM1NvTkx2bEhwQlk5eDZjT0ZLT0ZFZWtpbm9tZGlOUFgxZlFyK2lkcDcv?=
- =?utf-8?B?Q3RrODllRVNsMktrLzdsMG1FUnd5MnN1VVFVS0dVRXNTeFMzelRGNHQ3Vngw?=
- =?utf-8?B?aElZM2xhQXNqWHVIa2g5bU1ZT2tMWmJnS0JoeUUzaFVXWFpUNTdkVGxENlVD?=
- =?utf-8?B?ajZtRDFYSGdZeDZ0Q3VBVVFZZ0QvekExODFjeWFqcUNqVFZaeENHZDZGNU5C?=
- =?utf-8?B?V2NUV0V1cGg4ZHBPTHR5bXVTaXB3WkE0YlJMVEtsYTYzcXlhOEg1S05vRE1H?=
- =?utf-8?B?UUZZMEdVWldraHY1TjlaVGFJNUNBS01nQk5NSnduVlp3NWRhMm9NRDBmcVRM?=
- =?utf-8?B?Wjk5LzMvS2ZELzhUMGxSWnFoRlZIWHZGNDdEOU52bHV6ajBPNWJKUkxBeVZN?=
- =?utf-8?B?WE9FRlhOMktGK29EY3dVQ2V2U0cyZ2lrUEZFMnRmaWFvbXROU3RxSDlFTnBD?=
- =?utf-8?B?eVZVSk56OXV2bnJTajE5bnpZclUrUlNRVndJVVlyR0ROY29Gb0I1TlIrY1c0?=
- =?utf-8?B?R014d2tZS0ttNXRPWTlqSWY2SWRaQVdnTjlLN0c2OHB3SXJJd1dXRmhoVmVH?=
- =?utf-8?B?bktMNzdOby9MQ3c5amFlU3lpcjBiUzl1M0FlYUwxNFJ3cnF2ZURzWXdsTm55?=
- =?utf-8?B?TVg5RWt3dTEvSmNxY0VFc1dNRy9yMGQ0SG5MMGdaNVM2S3FnSFdEeDNLZzVo?=
- =?utf-8?B?cUFDeFNZOGltLzJOcG1RcjNFMXdSRHpyTWNWcEVNazk0L1BQNTJPRkdUWG1Y?=
- =?utf-8?B?SjVKRWFtVGlxK2ZoL1BYbzcwNlBKSjM5eU1RZExqcTc0UFVDZ3FGeHkxeDRF?=
- =?utf-8?B?VlRFem9EMW1jNXB3UTRmK3dYeHVsV2lPZm1nODJBclRiQzJTZjAwWWRZZ0Uy?=
- =?utf-8?B?OG96QWtsWnBVMURUOEJmOUx2bTd2cGQvbHBENDJTYXRPQUpNeGtNS2w1RDZS?=
- =?utf-8?B?aTVLQndNTEdqR1pOMjQzbUhQdkRBbUhJbXFsb3hmdDZKN0ZJV0toaTNENHAr?=
- =?utf-8?B?VExzTmFDN05EQkNpSDlMQkVlRDE4RThvRHRKaGZGWVZ2SjZDRnl3UUhERXVi?=
- =?utf-8?B?S2FxakNhZENOdkFFeUNqcTBJRkRCbmdidWpKdEJKbWRZWHVEVVpxMnFITVRp?=
- =?utf-8?B?YmtzVld1RjBJZ1NGYnFYZTFSL0g1TnYvSWJ5bkF5ZGQxaGpLaDdvcHR3UWJl?=
- =?utf-8?B?cWYvNGN5b0JRbCtZcDIxY2VHR1dVSEVxem9ZNCtFWW1UVnVRQ0d3a29yTXNk?=
- =?utf-8?B?ZlI3OGFIREJ4VjMrVEFzYkdhOXhHLzZwb1p3aE5PK1NxN2djK0xQVmRoNzRj?=
- =?utf-8?B?akwzY0tkS0NUOVYzNmVGYytMTnUxeWdlc0RVSmJPdTRZUWFwUGZodmVZYzVn?=
- =?utf-8?B?MjRwQlBCODcrb1dVcCtjdjJWTVVMbFlXTkZyL1hiaEdWUWhHRFVNVjdIaWlW?=
- =?utf-8?B?TFNQS3hoS3g0M3JwSTVDdmhhRzZiMmlnMDRJRFFEaVh0VXkweTF0ZTZwakIv?=
- =?utf-8?B?bmhQSnc5WnBtSWRMZDVldUtuUmR1ZlNPNHhqcFdtYjIwblkveEFKc044RGht?=
- =?utf-8?Q?DjQE=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3de7abd6-b57a-4658-9914-08dd6209b4de
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2025 08:33:18.8699
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KY33otNJqRgFcNJ6YgN8GigR1gF955JgwnG/xfdYJXnCtasoUGnEuxJ+cKMRRvmo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5875
 
+On 12.03.2025 05:06, Penny Zheng wrote:
+> This commit introduces CONFIG_PM_STATISTIC for wrapping all operations
+> regarding performance management statistic operations.
 
+Please can descriptions not use "This patch ..." or "This commit ..." or
+anyhting like these?
 
-On 12/03/2025 14:52, Luca Fancellu wrote:
-> 
-> 
-> The define HYPERVISOR_VIRT_START is required by the common code,
-> even if MPU system doesn't use virtual memory, define it in
-> mpu/layout.h in order to reuse existing code.
-> 
-> Disable a check in the linker script for arm for !MMU systems.
-> 
-> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+> --- a/xen/common/Kconfig
+> +++ b/xen/common/Kconfig
+> @@ -107,6 +107,11 @@ config NEEDS_LIBELF
+>  config NUMA
+>  	bool
+>  
+> +config PM_STATISTIC
 
-~Michal
+I think this wants to use plural, i.e. PM_STATISTICS or PM_STATS.
 
+> +        bool "Enable Performance Management Statistic Operations"
+
+"Enable Performance Management Statistics" ?
+
+> +        depends on ACPI && HAS_CPUFREQ
+> +        default y
+
+Nit: Indentation.
+
+> --- a/xen/common/sysctl.c
+> +++ b/xen/common/sysctl.c
+> @@ -170,7 +170,7 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+>          op->u.availheap.avail_bytes <<= PAGE_SHIFT;
+>          break;
+>  
+> -#if defined (CONFIG_ACPI) && defined (CONFIG_HAS_CPUFREQ)
+> +#ifdef CONFIG_PM_STATISTIC
+>      case XEN_SYSCTL_get_pmstat:
+>          ret = do_get_pm_info(&op->u.get_pmstat);
+>          break;
+> @@ -180,7 +180,7 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+>          if ( ret == -EAGAIN )
+>              copyback = 1;
+>          break;
+> -#endif
+> +#endif /* CONFIG_PM_STATISTIC */
+>  
+>      case XEN_SYSCTL_page_offline_op:
+>      {
+> diff --git a/xen/drivers/acpi/Makefile b/xen/drivers/acpi/Makefile
+> index 2fc5230253..70156ee0a4 100644
+> --- a/xen/drivers/acpi/Makefile
+> +++ b/xen/drivers/acpi/Makefile
+> @@ -5,7 +5,7 @@ obj-$(CONFIG_X86) += apei/
+>  obj-bin-y += tables.init.o
+>  obj-$(CONFIG_ACPI_NUMA) += numa.o
+>  obj-y += osl.o
+> -obj-$(CONFIG_HAS_CPUFREQ) += pmstat.o
+> +obj-$(CONFIG_PM_STATISTIC) += pmstat.o
+>  
+>  obj-$(CONFIG_X86) += hwregs.o
+>  obj-$(CONFIG_X86) += reboot.o
+> diff --git a/xen/drivers/acpi/pmstat.c b/xen/drivers/acpi/pmstat.c
+> index df309e27b4..58cccd589b 100644
+> --- a/xen/drivers/acpi/pmstat.c
+> +++ b/xen/drivers/acpi/pmstat.c
+> @@ -43,6 +43,167 @@
+>  
+>  DEFINE_PER_CPU_READ_MOSTLY(struct pm_px *, cpufreq_statistic_data);
+>  
+> +DEFINE_PER_CPU(spinlock_t, cpufreq_statistic_lock);
+> +
+> +/*********************************************************************
+> + *                    Px STATISTIC INFO                              *
+> + *********************************************************************/
+> +
+> +static void cpufreq_residency_update(unsigned int cpu, uint8_t state)
+> +{
+> +    uint64_t now, total_idle_ns;
+> +    int64_t delta;
+> +    struct pm_px *pxpt = per_cpu(cpufreq_statistic_data, cpu);
+> +
+> +    total_idle_ns = get_cpu_idle_time(cpu);
+> +    now = NOW();
+> +
+> +    delta = (now - pxpt->prev_state_wall) -
+> +            (total_idle_ns - pxpt->prev_idle_wall);
+> +
+> +    if ( likely(delta >= 0) )
+> +        pxpt->u.pt[state].residency += delta;
+> +
+> +    pxpt->prev_state_wall = now;
+> +    pxpt->prev_idle_wall = total_idle_ns;
+> +}
+> +
+> +void cpufreq_statistic_update(unsigned int cpu, uint8_t from, uint8_t to)
+> +{
+> +    struct pm_px *pxpt;
+> +    struct processor_pminfo *pmpt = processor_pminfo[cpu];
+> +    spinlock_t *cpufreq_statistic_lock =
+> +               &per_cpu(cpufreq_statistic_lock, cpu);
+> +
+> +    spin_lock(cpufreq_statistic_lock);
+> +
+> +    pxpt = per_cpu(cpufreq_statistic_data, cpu);
+> +    if ( !pxpt || !pmpt ) {
+> +        spin_unlock(cpufreq_statistic_lock);
+> +        return;
+> +    }
+> +
+> +    pxpt->u.last = from;
+> +    pxpt->u.cur = to;
+> +    pxpt->u.pt[to].count++;
+> +
+> +    cpufreq_residency_update(cpu, from);
+> +
+> +    (*(pxpt->u.trans_pt + from * pmpt->perf.state_count + to))++;
+> +
+> +    spin_unlock(cpufreq_statistic_lock);
+> +}
+> +
+> +int cpufreq_statistic_init(unsigned int cpu)
+> +{
+> +    uint32_t i, count;
+> +    struct pm_px *pxpt;
+> +    const struct processor_pminfo *pmpt = processor_pminfo[cpu];
+> +    spinlock_t *cpufreq_statistic_lock = &per_cpu(cpufreq_statistic_lock, cpu);
+> +
+> +    spin_lock_init(cpufreq_statistic_lock);
+> +
+> +    if ( !pmpt )
+> +        return -EINVAL;
+> +
+> +    spin_lock(cpufreq_statistic_lock);
+> +
+> +    pxpt = per_cpu(cpufreq_statistic_data, cpu);
+> +    if ( pxpt ) {
+> +        spin_unlock(cpufreq_statistic_lock);
+> +        return 0;
+> +    }
+> +
+> +    count = pmpt->perf.state_count;
+> +
+> +    pxpt = xzalloc(struct pm_px);
+> +    if ( !pxpt ) {
+> +        spin_unlock(cpufreq_statistic_lock);
+> +        return -ENOMEM;
+> +    }
+> +    per_cpu(cpufreq_statistic_data, cpu) = pxpt;
+> +
+> +    pxpt->u.trans_pt = xzalloc_array(uint64_t, count * count);
+> +    if (!pxpt->u.trans_pt) {
+> +        xfree(pxpt);
+> +        spin_unlock(cpufreq_statistic_lock);
+> +        return -ENOMEM;
+> +    }
+> +
+> +    pxpt->u.pt = xzalloc_array(struct pm_px_val, count);
+> +    if (!pxpt->u.pt) {
+> +        xfree(pxpt->u.trans_pt);
+> +        xfree(pxpt);
+> +        spin_unlock(cpufreq_statistic_lock);
+> +        return -ENOMEM;
+> +    }
+> +
+> +    pxpt->u.total = pmpt->perf.state_count;
+> +    pxpt->u.usable = pmpt->perf.state_count - pmpt->perf.platform_limit;
+> +
+> +    for (i=0; i < pmpt->perf.state_count; i++)
+> +        pxpt->u.pt[i].freq = pmpt->perf.states[i].core_frequency;
+> +
+> +    pxpt->prev_state_wall = NOW();
+> +    pxpt->prev_idle_wall = get_cpu_idle_time(cpu);
+> +
+> +    spin_unlock(cpufreq_statistic_lock);
+> +
+> +    return 0;
+> +}
+> +
+> +void cpufreq_statistic_exit(unsigned int cpu)
+> +{
+> +    struct pm_px *pxpt;
+> +    spinlock_t *cpufreq_statistic_lock = &per_cpu(cpufreq_statistic_lock, cpu);
+> +
+> +    spin_lock(cpufreq_statistic_lock);
+> +
+> +    pxpt = per_cpu(cpufreq_statistic_data, cpu);
+> +    if (!pxpt) {
+> +        spin_unlock(cpufreq_statistic_lock);
+> +        return;
+> +    }
+> +
+> +    xfree(pxpt->u.trans_pt);
+> +    xfree(pxpt->u.pt);
+> +    xfree(pxpt);
+> +    per_cpu(cpufreq_statistic_data, cpu) = NULL;
+> +
+> +    spin_unlock(cpufreq_statistic_lock);
+> +}
+> +
+> +static void cpufreq_statistic_reset(unsigned int cpu)
+> +{
+> +    uint32_t i, j, count;
+> +    struct pm_px *pxpt;
+> +    const struct processor_pminfo *pmpt = processor_pminfo[cpu];
+> +    spinlock_t *cpufreq_statistic_lock = &per_cpu(cpufreq_statistic_lock, cpu);
+> +
+> +    spin_lock(cpufreq_statistic_lock);
+> +
+> +    pxpt = per_cpu(cpufreq_statistic_data, cpu);
+> +    if ( !pmpt || !pxpt || !pxpt->u.pt || !pxpt->u.trans_pt ) {
+> +        spin_unlock(cpufreq_statistic_lock);
+> +        return;
+> +    }
+> +
+> +    count = pmpt->perf.state_count;
+> +
+> +    for (i=0; i < count; i++) {
+> +        pxpt->u.pt[i].residency = 0;
+> +        pxpt->u.pt[i].count = 0;
+> +
+> +        for (j=0; j < count; j++)
+> +            *(pxpt->u.trans_pt + i*count + j) = 0;
+> +    }
+> +
+> +    pxpt->prev_state_wall = NOW();
+> +    pxpt->prev_idle_wall = get_cpu_idle_time(cpu);
+> +
+> +    spin_unlock(cpufreq_statistic_lock);
+> +}
+
+The want/need for this code movement wants mentioning in the description imo.
+It may even be desirable to split this out. The more that while you move it,
+it would be quite nice if various style corrections could be applied.
+
+> @@ -522,34 +683,3 @@ int do_pm_op(struct xen_sysctl_pm_op *op)
+>  
+>      return ret;
+>  }
+> -
+> -int acpi_set_pdc_bits(uint32_t acpi_id, XEN_GUEST_HANDLE(uint32) pdc)
+> -{
+> -    u32 bits[3];
+> -    int ret;
+> -
+> -    if ( copy_from_guest(bits, pdc, 2) )
+> -        ret = -EFAULT;
+> -    else if ( bits[0] != ACPI_PDC_REVISION_ID || !bits[1] )
+> -        ret = -EINVAL;
+> -    else if ( copy_from_guest_offset(bits + 2, pdc, 2, 1) )
+> -        ret = -EFAULT;
+> -    else
+> -    {
+> -        u32 mask = 0;
+> -
+> -        if ( xen_processor_pmbits & XEN_PROCESSOR_PM_CX )
+> -            mask |= ACPI_PDC_C_MASK | ACPI_PDC_SMP_C1PT;
+> -        if ( xen_processor_pmbits & XEN_PROCESSOR_PM_PX )
+> -            mask |= ACPI_PDC_P_MASK | ACPI_PDC_SMP_C1PT;
+> -        if ( xen_processor_pmbits & XEN_PROCESSOR_PM_TX )
+> -            mask |= ACPI_PDC_T_MASK | ACPI_PDC_SMP_C1PT;
+> -        bits[2] &= (ACPI_PDC_C_MASK | ACPI_PDC_P_MASK | ACPI_PDC_T_MASK |
+> -                    ACPI_PDC_SMP_C1PT) & ~mask;
+> -        ret = arch_acpi_set_pdc_bits(acpi_id, bits, mask);
+> -    }
+> -    if ( !ret && __copy_to_guest_offset(pdc, 2, bits + 2, 1) )
+> -        ret = -EFAULT;
+> -
+> -    return ret;
+> -}
+> --- a/xen/drivers/cpufreq/cpufreq.c
+> +++ b/xen/drivers/cpufreq/cpufreq.c
+> @@ -582,6 +582,37 @@ out:
+>      return ret;
+>  }
+>  
+> +int acpi_set_pdc_bits(uint32_t acpi_id, XEN_GUEST_HANDLE(uint32) pdc)
+> +{
+> +    u32 bits[3];
+> +    int ret;
+> +
+> +    if ( copy_from_guest(bits, pdc, 2) )
+> +        ret = -EFAULT;
+> +    else if ( bits[0] != ACPI_PDC_REVISION_ID || !bits[1] )
+> +        ret = -EINVAL;
+> +    else if ( copy_from_guest_offset(bits + 2, pdc, 2, 1) )
+> +        ret = -EFAULT;
+> +    else
+> +    {
+> +        u32 mask = 0;
+> +
+> +        if ( xen_processor_pmbits & XEN_PROCESSOR_PM_CX )
+> +            mask |= ACPI_PDC_C_MASK | ACPI_PDC_SMP_C1PT;
+> +        if ( xen_processor_pmbits & XEN_PROCESSOR_PM_PX )
+> +            mask |= ACPI_PDC_P_MASK | ACPI_PDC_SMP_C1PT;
+> +        if ( xen_processor_pmbits & XEN_PROCESSOR_PM_TX )
+> +            mask |= ACPI_PDC_T_MASK | ACPI_PDC_SMP_C1PT;
+> +        bits[2] &= (ACPI_PDC_C_MASK | ACPI_PDC_P_MASK | ACPI_PDC_T_MASK |
+> +                    ACPI_PDC_SMP_C1PT) & ~mask;
+> +        ret = arch_acpi_set_pdc_bits(acpi_id, bits, mask);
+> +    }
+> +    if ( !ret && __copy_to_guest_offset(pdc, 2, bits + 2, 1) )
+> +        ret = -EFAULT;
+> +
+> +    return ret;
+> +}
+
+Same here - looks pretty independent.
+
+> --- a/xen/include/acpi/cpufreq/processor_perf.h
+> +++ b/xen/include/acpi/cpufreq/processor_perf.h
+> @@ -9,11 +9,19 @@
+>  
+>  unsigned int powernow_register_driver(void);
+>  unsigned int get_measured_perf(unsigned int cpu, unsigned int flag);
+> -void cpufreq_residency_update(unsigned int cpu, uint8_t state);
+> +#ifdef CONFIG_PM_STATISTIC
+>  void cpufreq_statistic_update(unsigned int cpu, uint8_t from, uint8_t to);
+>  int  cpufreq_statistic_init(unsigned int cpu);
+>  void cpufreq_statistic_exit(unsigned int cpu);
+> -void cpufreq_statistic_reset(unsigned int cpu);
+> +#else
+> +static inline  void cpufreq_statistic_update(unsigned int cpu, uint8_t from,
+> +                                             uint8_t to) {};
+
+Nit: Stray semicolon. I'm also uncertain whether we like this kind of
+formatting (i.e. if already things don't fit on a single line, I'm unsure
+whether we like then having the braces not on their own line).
+
+> +static inline int cpufreq_statistic_init(unsigned int cpu)
+> +{
+> +    return 0;
+> +}
+> +static inline void cpufreq_statistic_exit(unsigned int cpu) {};
+
+Stray semicolon again.
+
+> --- a/xen/include/xen/acpi.h
+> +++ b/xen/include/xen/acpi.h
+> @@ -158,6 +158,7 @@ int acpi_gsi_to_irq (u32 gsi, unsigned int *irq);
+>  extern unsigned int max_cstate;
+>  extern unsigned int max_csubstate;
+>  
+> +#ifdef CONFIG_PM_STATISTIC
+>  static inline unsigned int acpi_get_cstate_limit(void)
+>  {
+>  	return max_cstate;
+> @@ -177,6 +178,7 @@ static inline void acpi_set_csubstate_limit(unsigned int new_limit)
+>  {
+>  	max_csubstate = new_limit;
+>  }
+> +#endif /* CONFIG_PM_STATISTIC */
+
+Is this really necessary? Afaict these inline functions would still
+compile fine; they'd merely end up without any user for now. (Not sure
+what Misra's take is on unused inline functions.)
+
+> --- a/xen/include/xen/pmstat.h
+> +++ b/xen/include/xen/pmstat.h
+> @@ -15,11 +15,13 @@ struct compat_processor_power;
+>  long compat_set_cx_pminfo(uint32_t acpi_id, struct compat_processor_power *power);
+>  #endif
+>  
+> +#ifdef CONFIG_PM_STATISTIC
+>  uint32_t pmstat_get_cx_nr(unsigned int cpu);
+>  int pmstat_get_cx_stat(unsigned int cpu, struct pm_cx_stat *stat);
+>  int pmstat_reset_cx_stat(unsigned int cpu);
+>  
+>  int do_get_pm_info(struct xen_sysctl_get_pmstat *op);
+>  int do_pm_op(struct xen_sysctl_pm_op *op);
+> +#endif /* CONFIG_PM_STATISTIC */
+
+Similarly leaving these declarations visible isn't going to be a problem.
+We do so quite frequently elsewhere.
+
+Jan
 
