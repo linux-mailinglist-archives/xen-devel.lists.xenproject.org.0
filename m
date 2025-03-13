@@ -2,37 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B401A5E9B2
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 03:17:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.911110.1317636 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92DD4A5E9FC
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 03:39:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.911124.1317645 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsY7I-00062m-Ht; Thu, 13 Mar 2025 02:16:12 +0000
+	id 1tsYTs-0004tb-De; Thu, 13 Mar 2025 02:39:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 911110.1317636; Thu, 13 Mar 2025 02:16:12 +0000
+Received: by outflank-mailman (output) from mailman id 911124.1317645; Thu, 13 Mar 2025 02:39:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsY7I-0005zd-DC; Thu, 13 Mar 2025 02:16:12 +0000
-Received: by outflank-mailman (input) for mailman id 911110;
- Thu, 13 Mar 2025 02:16:10 +0000
+	id 1tsYTs-0004rh-B5; Thu, 13 Mar 2025 02:39:32 +0000
+Received: by outflank-mailman (input) for mailman id 911124;
+ Thu, 13 Mar 2025 02:39:31 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=js1q=WA=intel.com=lkp@srs-se1.protection.inumbo.net>)
- id 1tsY7G-0005zE-Gu
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 02:16:10 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1946fcf3-ffb1-11ef-9898-31a8f345e629;
- Thu, 13 Mar 2025 03:15:59 +0100 (CET)
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Mar 2025 19:15:55 -0700
-Received: from lkp-server02.sh.intel.com (HELO a4747d147074) ([10.239.97.151])
- by fmviesa004.fm.intel.com with ESMTP; 12 Mar 2025 19:15:31 -0700
-Received: from kbuild by a4747d147074 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1tsY6V-000936-1q;
- Thu, 13 Mar 2025 02:15:25 +0000
+ (envelope-from <SRS0=L04T=WA=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1tsYTq-0004rZ-I4
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 02:39:31 +0000
+Received: from mail-40133.protonmail.ch (mail-40133.protonmail.ch
+ [185.70.40.133]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6047658b-ffb4-11ef-9898-31a8f345e629;
+ Thu, 13 Mar 2025 03:39:24 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,110 +36,244 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1946fcf3-ffb1-11ef-9898-31a8f345e629
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1741832159; x=1773368159;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=96yJDyEP9BeK2cVK+9MUvmIHjdk7wR1LKgFfN3+p/fM=;
-  b=G84TJZqugmG+cV2GRcJA7EejKnBYR0pjZP90LE3ccCKyLv7KBMjaqMhT
-   zVyk6YCI7/tO/kZudICx5EWKOU8VFx0QCVGx5L3CuJ76G0PITa9edoetv
-   mMWkWT8igplhb4JK89C3yZQjYiC4E++NwaFZrtom6s39asJ2hFoWXJldS
-   IJPboUJQDhd20UjYrQM07NK1jNM0XDh9XdbJ6eJCQmXjxV2RWQVmj+8C7
-   N/+28tnoc5sAAJWmWDPlr9uoN/vQ20hE/oBit76ULEIs+X0MxL/7lX2fC
-   xP8m09RAkhpzLJrNYEKm2pUeK41EilJiXvYZAELNVLYqeF240+Vs/QqOp
-   A==;
-X-CSE-ConnectionGUID: oWo7LnZuT5mMfSAKkZt4uw==
-X-CSE-MsgGUID: 57E4IgZzQmy3qr9zjwvqKg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11371"; a="43038844"
-X-IronPort-AV: E=Sophos;i="6.14,243,1736841600"; 
-   d="scan'208";a="43038844"
-X-CSE-ConnectionGUID: KHahmpZOTNOqvrR+C7Song==
-X-CSE-MsgGUID: H65afRTcQ5CspG2G7V7fvw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,243,1736841600"; 
-   d="scan'208";a="125887063"
-Date: Thu, 13 Mar 2025 10:15:12 +0800
-From: kernel test robot <lkp@intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, simona@ffwll.ch,
-	airlied@gmail.com, mripard@kernel.org,
-	maarten.lankhorst@linux.intel.com, geert@linux-m68k.org,
-	tomi.valkeinen@ideasonboard.com
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
-	freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
-	imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
-	nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
-	spice-devel@lists.freedesktop.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
-	intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Biju Das <biju.das.jz@bp.renesas.com>
-Subject: Re: [PATCH v4 18/25] drm/renesas/rz-du: Compute dumb-buffer sizes
- with drm_mode_size_dumb()
-Message-ID: <202503130956.VyNIuYfU-lkp@intel.com>
-References: <20250311155120.442633-19-tzimmermann@suse.de>
+X-Inumbo-ID: 6047658b-ffb4-11ef-9898-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1741833562; x=1742092762;
+	bh=A7IUvS4kYW8IfUwPTZsrjBVUqNAzzBlmL2LwefwIiG4=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector:
+	 List-Unsubscribe:List-Unsubscribe-Post;
+	b=PDZCtwpZ5gZHw7UL5wAh1bDueP0lKWn4QWSpviCwQ3JPF6dQ6LEukvtbKFyX4NLfi
+	 yVyrcqiNQYi5OD09eUzq/tLCSPjhe8wiRCA82+xme3hiy5EDvl3oYjUnN8d8c5UIqk
+	 dWnW2kPMAt/L9sXMJ0UcDvX5aWTQ+o9LycZxzz3U5GO8JH/Mx5e8IHBJtJ5YSNVz41
+	 uwMYgd4L+se+M/YhSH4tJkBa7liR0PBJYvCCLC1qSVaAFfKRZ6pLHN+5kRlJLKMITo
+	 7ueYZxhmF1b0Md6JcjdimwcWD1SCLU/KRsN7zth4/1eBuoha7xpD8u6W+7YUHtRESu
+	 Rk2OiiCZKEIOQ==
+Date: Thu, 13 Mar 2025 02:39:16 +0000
+To: xen-devel@lists.xenproject.org
+From: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
+Subject: [PATCH v2] x86/hvm: add HVM-specific Kconfig
+Message-ID: <20250313023822.2523270-1-dmukhin@ford.com>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: 3abd2f6ab8b7bd7e32de09768e162955c676d8de
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250311155120.442633-19-tzimmermann@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Thomas,
+Add a separate menu for configuring HVM build-time settings to better organ=
+ize
+HVM-specific options.
 
-kernel test robot noticed the following build errors:
+HVM options will now appear in a dedicated sub-menu in the menuconfig tool.
 
-[auto build test ERROR on next-20250311]
-[also build test ERROR on v6.14-rc6]
-[cannot apply to drm-exynos/exynos-drm-next rockchip/for-next tegra/for-next drm-xe/drm-xe-next linus/master v6.14-rc6 v6.14-rc5 v6.14-rc4]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+A new sub-menu, "Hardware Support for Virtualization" has been added for
+selecting per-CPU vendor virtualization extensions on x86 systems.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Thomas-Zimmermann/drm-dumb-buffers-Sanitize-output-on-errors/20250311-235818
-base:   next-20250311
-patch link:    https://lore.kernel.org/r/20250311155120.442633-19-tzimmermann%40suse.de
-patch subject: [PATCH v4 18/25] drm/renesas/rz-du: Compute dumb-buffer sizes with drm_mode_size_dumb()
-config: powerpc64-randconfig-003-20250313 (https://download.01.org/0day-ci/archive/20250313/202503130956.VyNIuYfU-lkp@intel.com/config)
-compiler: powerpc64-linux-gcc (GCC) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250313/202503130956.VyNIuYfU-lkp@intel.com/reproduce)
+Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+---
+Changes v1->v2:
+- Added grouping for hardware virtualization extentions on x86
+- Moved HVM options declarations as per review
+- CI: https://gitlab.com/xen-project/people/dmukhin/xen/-/pipelines/1714049=
+371
+---
+ xen/arch/x86/Kconfig     | 75 +--------------------------------------
+ xen/arch/x86/hvm/Kconfig | 76 ++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 77 insertions(+), 74 deletions(-)
+ create mode 100644 xen/arch/x86/hvm/Kconfig
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202503130956.VyNIuYfU-lkp@intel.com/
+diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+index 6e41bc0fb4..18efdb2e31 100644
+--- a/xen/arch/x86/Kconfig
++++ b/xen/arch/x86/Kconfig
+@@ -107,42 +107,7 @@ config PV_LINEAR_PT
+=20
+          If unsure, say Y.
+=20
+-config HVM
+-=09bool "HVM support"
+-=09depends on !PV_SHIM_EXCLUSIVE
+-=09default !PV_SHIM
+-=09select COMPAT
+-=09select IOREQ_SERVER
+-=09select MEM_ACCESS_ALWAYS_ON
+-=09help
+-=09  Interfaces to support HVM domains.  HVM domains require hardware
+-=09  virtualisation extensions (e.g. Intel VT-x, AMD SVM), but can boot
+-=09  guests which have no specific Xen knowledge.
+-
+-=09  This option is needed if you want to run HVM or PVH domains.
+-
+-=09  If unsure, say Y.
+-
+-config AMD_SVM
+-=09bool "AMD-V" if EXPERT
+-=09depends on HVM
+-=09default y
+-=09help
+-=09  Enables virtual machine extensions on platforms that implement the
+-=09  AMD Virtualization Technology (AMD-V).
+-=09  If your system includes a processor with AMD-V support, say Y.
+-=09  If in doubt, say Y.
+-
+-config INTEL_VMX
+-=09bool "Intel VT-x" if EXPERT
+-=09depends on HVM
+-=09default y
+-=09select ARCH_VCPU_IOREQ_COMPLETION
+-=09help
+-=09  Enables virtual machine extensions on platforms that implement the
+-=09  Intel Virtualization Technology (Intel VT-x).
+-=09  If your system includes a processor with Intel VT-x support, say Y.
+-=09  If in doubt, say Y.
++source "arch/x86/hvm/Kconfig"
+=20
+ config XEN_SHSTK
+ =09bool "Supervisor Shadow Stacks"
+@@ -201,25 +166,6 @@ config BIGMEM
+=20
+ =09  If unsure, say N.
+=20
+-config HVM_FEP
+-=09bool "HVM Forced Emulation Prefix support (UNSUPPORTED)" if UNSUPPORTED
+-=09default DEBUG
+-=09depends on HVM
+-=09help
+-
+-=09  Compiles in a feature that allows HVM guest to arbitrarily
+-=09  exercise the instruction emulator.
+-
+-=09  This feature can only be enabled during boot time with
+-=09  appropriate hypervisor command line option. Please read
+-=09  hypervisor command line documentation before trying to use
+-=09  this feature.
+-
+-=09  This is strictly for testing purposes, and not appropriate
+-=09  for use in production.
+-
+-=09  If unsure, say N.
+-
+ config TBOOT
+ =09bool "Xen tboot support (UNSUPPORTED)"
+ =09depends on INTEL && UNSUPPORTED
+@@ -348,14 +294,6 @@ config HYPERV_GUEST
+=20
+ endif
+=20
+-config MEM_PAGING
+-=09bool "Xen memory paging support (UNSUPPORTED)" if UNSUPPORTED
+-=09depends on HVM
+-
+-config MEM_SHARING
+-=09bool "Xen memory sharing support (UNSUPPORTED)" if UNSUPPORTED
+-=09depends on HVM
+-
+ config REQUIRE_NX
+ =09bool "Require NX (No eXecute) support"
+ =09help
+@@ -372,17 +310,6 @@ config REQUIRE_NX
+ =09  was unavailable. However, if enabled, Xen will no longer boot on
+ =09  any CPU which is lacking NX support.
+=20
+-config ALTP2M
+-=09bool "Alternate P2M support" if EXPERT
+-=09depends on INTEL_VMX
+-=09default y
+-=09help
+-=09  Alternate-p2m allows a guest to manage multiple p2m guest physical
+-=09  "memory views" (as opposed to a single p2m).
+-=09  Useful for memory introspection.
+-
+-=09  If unsure, stay with defaults.
+-
+ config UCODE_SCAN_DEFAULT
+ =09bool "Scan for microcode by default"
+ =09help
+diff --git a/xen/arch/x86/hvm/Kconfig b/xen/arch/x86/hvm/Kconfig
+new file mode 100644
+index 0000000000..2ca664f36f
+--- /dev/null
++++ b/xen/arch/x86/hvm/Kconfig
+@@ -0,0 +1,76 @@
++menuconfig HVM
++=09bool "HVM support"
++=09depends on !PV_SHIM_EXCLUSIVE
++=09default !PV_SHIM
++=09select COMPAT
++=09select IOREQ_SERVER
++=09select MEM_ACCESS_ALWAYS_ON
++=09help
++=09  Interfaces to support HVM domains.  HVM domains require hardware
++=09  virtualisation extensions (e.g. Intel VT-x, AMD SVM), but can boot
++=09  guests which have no specific Xen knowledge.
++
++=09  This option is needed if you want to run HVM or PVH domains.
++
++=09  If unsure, say Y.
++
++if HVM
++
++menu "Hardware Support for Virtualization"
++
++config AMD_SVM
++=09bool "AMD-V" if AMD && EXPERT
++=09default y
++=09help
++=09  Enables virtual machine extensions on platforms that implement the
++=09  AMD Virtualization Technology (AMD-V).
++=09  If your system includes a processor with AMD-V support, say Y.
++=09  If in doubt, say Y.
++
++config INTEL_VMX
++=09bool "Intel VT-x" if INTEL && EXPERT
++=09default y
++=09select ARCH_VCPU_IOREQ_COMPLETION
++=09help
++=09  Enables virtual machine extensions on platforms that implement the
++=09  Intel Virtualization Technology (Intel VT-x).
++=09  If your system includes a processor with Intel VT-x support, say Y.
++=09  If in doubt, say Y.
++
++endmenu
++
++config HVM_FEP
++=09bool "HVM Forced Emulation Prefix support (UNSUPPORTED)" if UNSUPPORTED
++=09default DEBUG
++=09help
++=09  Compiles in a feature that allows HVM guest to arbitrarily
++=09  exercise the instruction emulator.
++
++=09  This feature can only be enabled during boot time with
++=09  appropriate hypervisor command line option. Please read
++=09  hypervisor command line documentation before trying to use
++=09  this feature.
++
++=09  This is strictly for testing purposes, and not appropriate
++=09  for use in production.
++
++=09  If unsure, say N.
++
++config ALTP2M
++=09bool "Alternate P2M support" if EXPERT
++=09depends on INTEL_VMX
++=09default y
++=09help
++=09  Alternate-p2m allows a guest to manage multiple p2m guest physical
++=09  "memory views" (as opposed to a single p2m).
++=09  Useful for memory introspection.
++
++=09  If unsure, stay with defaults.
++
++config MEM_PAGING
++=09bool "Xen memory paging support (UNSUPPORTED)" if UNSUPPORTED
++
++config MEM_SHARING
++=09bool "Xen memory sharing support (UNSUPPORTED)" if UNSUPPORTED
++
++endif
+--=20
+2.34.1
 
-All errors (new ones prefixed by >>):
 
-   drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c: In function 'rzg2l_du_dumb_create':
->> drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c:80:15: error: implicit declaration of function 'drm_mode_size_dumb'; did you mean 'drm_mode_set_name'? [-Wimplicit-function-declaration]
-      80 |         ret = drm_mode_size_dumb(dev, args, 16 * args->bpp / 8, 0);
-         |               ^~~~~~~~~~~~~~~~~~
-         |               drm_mode_set_name
-
-
-vim +80 drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c
-
-    70	
-    71	/* -----------------------------------------------------------------------------
-    72	 * Frame buffer
-    73	 */
-    74	
-    75	int rzg2l_du_dumb_create(struct drm_file *file, struct drm_device *dev,
-    76				 struct drm_mode_create_dumb *args)
-    77	{
-    78		int ret;
-    79	
-  > 80		ret = drm_mode_size_dumb(dev, args, 16 * args->bpp / 8, 0);
-    81		if (ret)
-    82			return ret;
-    83	
-    84		return drm_gem_dma_dumb_create_internal(file, dev, args);
-    85	}
-    86	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
 
