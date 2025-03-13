@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74C0FA5ED99
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 09:07:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.911341.1317794 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43316A5ED9F
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 09:08:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.911352.1317805 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsdb7-0002rh-NM; Thu, 13 Mar 2025 08:07:21 +0000
+	id 1tsdbS-0003O5-Uo; Thu, 13 Mar 2025 08:07:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 911341.1317794; Thu, 13 Mar 2025 08:07:21 +0000
+Received: by outflank-mailman (output) from mailman id 911352.1317805; Thu, 13 Mar 2025 08:07:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsdb7-0002pJ-Jr; Thu, 13 Mar 2025 08:07:21 +0000
-Received: by outflank-mailman (input) for mailman id 911341;
- Thu, 13 Mar 2025 08:07:20 +0000
+	id 1tsdbS-0003MM-R9; Thu, 13 Mar 2025 08:07:42 +0000
+Received: by outflank-mailman (input) for mailman id 911352;
+ Thu, 13 Mar 2025 08:07:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7Xn0=WA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tsdb6-0002fh-FE
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 08:07:20 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ id 1tsdbR-0002fh-92
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 08:07:41 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2ed36e0f-ffe2-11ef-9898-31a8f345e629;
- Thu, 13 Mar 2025 09:07:18 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-43cf628cb14so10528775e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 01:07:18 -0700 (PDT)
+ id 3b579f7f-ffe2-11ef-9898-31a8f345e629;
+ Thu, 13 Mar 2025 09:07:39 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-390e3b3d3f4so350797f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 01:07:39 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395c83b6e87sm1272056f8f.32.2025.03.13.01.07.17
+ ffacd0b85a97d-395c83b6a27sm1260836f8f.31.2025.03.13.01.07.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Mar 2025 01:07:17 -0700 (PDT)
+ Thu, 13 Mar 2025 01:07:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2ed36e0f-ffe2-11ef-9898-31a8f345e629
+X-Inumbo-ID: 3b579f7f-ffe2-11ef-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741853238; x=1742458038; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741853259; x=1742458059; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=JZSRw1yeJ0fgmNmD4NFPkk5QxMfczbYCBB42jjWa7ro=;
-        b=dbNenuFxlb21MPiLDaqkXptFxlFStdi3Jef9jtunGkg1RcnQZi6HFzMaBpmPbcUaN6
-         GFYL1roUANTGRhVY2a7Bl+F4v6qiDjHZhh5rr2giYZmSGBJuimIveVKq9dtWnd3l/FMq
-         x2iWryHhsaigXUGYKXZkjQ76WTIQXJEnO84ucSG8iplzlG+zzeRAABlOJ2S+asLAfhYL
-         fQ60u3MTtfr4QOv3JfyNPycANdYHG9h6J58U8y8V8lWJd+KMR1TPqEntFwprgVwfLz2q
-         0ltJ4bBN50SBGsJQXoJWuHdkKU7YCVdwu4/lw0gRJGpKUTqxx1Vae0y9UybIT49ButVa
-         7mqg==
+        bh=XKljBacIPM6MhfkERp0GTy5k2MofG0GpSZ3K3Fzb1sA=;
+        b=OrghxjR0FUV0qmWPUM8uA96f4+o38isfCyq+OLIj+yrqxrywIgpkVzgJKeSc1z98dR
+         EBkI4ud73Z4LdCugXyZv3Asp/zP9T208rm2M+Wq/tCfV4ZaTs2ccKt+jO0zQussPu+W1
+         uZEGQebG8zugSK2gFXtJZM2y7OoQ7nOPypfkD73ETGwO0JCYUdzXALM6fKBYf6btSxfw
+         EjnWxp8q0L33gzHab1Q+MF+JLRK4JvQK8VBBXVQ+Auw0VgxPGZU4WSg/ETCDe05ttcHH
+         1gsRQzIc7JwiCmvAxQboG9LpRQAgtDJn5WePwBCwpAsFS738WLlwTsSv9i/zLJ7HQ7vD
+         SVsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741853238; x=1742458038;
+        d=1e100.net; s=20230601; t=1741853259; x=1742458059;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=JZSRw1yeJ0fgmNmD4NFPkk5QxMfczbYCBB42jjWa7ro=;
-        b=i/S2Xb4bBRBG+0cunhybKEu/gd8oIiX/vHeihoCKZcBgnmmySckHlxiDHFqWEb73qJ
-         AVGdeBH5bpdtQOwJx+Z7oadIdlO29o6NXuFg5v5Ud3HrhErQqNCIJOjsj86GTr05DO41
-         1ar5Z66hERcH+M5MEmvpjgk90DOGq1dxK4khdmjU6a0vTUk91Zo5cIe4euOGZKQsXX2D
-         BgCmfJHCbcu83kzk+b4m8AgoNgR4JEVEfpgYF2j9GsZyocWqLpLM435k0Fepytif6knu
-         ibk5bgxAjxwcbOVn4p5YQw+mqUKZXsuY8pCARVCPGiqjkdB2ts7NSgLcKIwm2sEoaqVf
-         vnXQ==
-X-Gm-Message-State: AOJu0YyvnnmrCaGI/OblqjvQIpErPw/BDo/Z8IWrwHnXta3uNGOpOPYD
-	qh9DGQbfesJAqfNuzb6TpcQhk2cfFKczwDET8JG0kapGJ56y45EZ9coodAy4GqDlY318IS9v6DI
+        bh=XKljBacIPM6MhfkERp0GTy5k2MofG0GpSZ3K3Fzb1sA=;
+        b=TZSbl01e4c4xDoHJvqV9IWb6s+nGlDtJLSrnoRxl2EBtk3cDvIcoxsH6Zj7g9m4Wet
+         PtuyzHLWil+eEycn8mZQg//TK3/7VjfLxbksEsLm/BNPGmDx+mKqO/MMgjh4/FZ0fpX2
+         e0WnHiub9N5rPE9pGNSxJv4E6+BGttuzGazQOG94sAoBZM+4MZHTbfPN1rpfKXNQu+Yl
+         H2+rdvrPzLAPEOHfKEwwoSDwhChMIXfKaVn0RdG97Vuv6deVGy0ijOxqmzH4lygIRdQn
+         tSZdOyiygi2lZehqmulyyxm1+gZUsXpEL0hT44QfeMQQfdOpbMapwjPoXzmdt6ofDfgu
+         9a/g==
+X-Gm-Message-State: AOJu0Yxb1MI2wv6zbbo7akU2cLxUqGUxKleGGfimwRrEIbCp+UgXGVnz
+	9OuWVPiIOx+pjATzqmbHCnwQ/XIWFGK0wWFFUEMPaOOPH8r09a8+M3/2H7wCYsSEUmva8JcUNCk
 	=
-X-Gm-Gg: ASbGncvNRxGNcEfST2t59lXmoc74Z7kuCneX6f7pWG4nxc6sKrkn4ER54LL1zyfO9NU
-	5yu6V2GUJM9dtLR4p0rH1DfxS78zuNAXcSv4HufELVyZCkxk0JODAStalctMHJkR9vXAt7AT27r
-	FzKxt7D6+g1ous3tuo02Qwi2xyAylsMwQSLLvVEU9N8+4Go/PwmuVG+l8pGM6eccdU7EZR1gJKc
-	yKceACt/zfGKV8NN5gVlryxXJvl2LFWg+m1sbnLdJWeoHfSe5GUg6X+RUpood7OEZxfTYoaEe7G
-	C3aStphZD/dQ5yfr6h0P6sb+HrG+ygO4YTwjRVesqrCxaFtnLGr4Xr46zRtx3ptKY9Wtd2Dvmr0
-	jJbaXm8qafhcBMYaJ+xHgEvTiICOFag==
-X-Google-Smtp-Source: AGHT+IFUQAYgdwylcRt17N6aDzg8lVuRZinZ/67XT/+6aKMIt6u3gbVMpzUPLXDGMc3NmVZOw/29Ug==
-X-Received: by 2002:a05:6000:18a3:b0:38d:ae1e:2f3c with SMTP id ffacd0b85a97d-395b86ea83amr1129332f8f.25.1741853238105;
-        Thu, 13 Mar 2025 01:07:18 -0700 (PDT)
-Message-ID: <1287edd8-188f-4b1a-b087-0beb3eea5ed4@suse.com>
-Date: Thu, 13 Mar 2025 09:07:16 +0100
+X-Gm-Gg: ASbGnctfwp19jFLLb/6wrUwDfKcIKXMqWb+9h8OyhCuN4+Qv59kNLvhpW71W3fjc+Ij
+	i3Mh8+M8NfrusaK0DQsNn4d0ODDo51OrDuFKtcarzVqwda0f2+vUMupW50No48hS6Vqf2q2oww5
+	S9OR/rHB5KfffEYKfnDiwBGCQo1mHClJ6D0nx8gWUog2rZ9amvXLgMzFGs3EnsZl8pDdWLCUgE3
+	THl8fUAaskn4XXLvyE2sTRKINKo8Yx1IqB9xEJGAN6JYLHHFQFSF+MW6G25Ehm4qCwFH4768sFr
+	JCbGWV6YlnicUbid4FiYDQn9CPu7GygUofYyh2HHqcIQlnRRhDpHNNpEskbwtkwN8jdXgeLBSGo
+	jGk1FCswevSaXQO3yZeuQw0dpNdxMDw==
+X-Google-Smtp-Source: AGHT+IFNjs9EtZR3jdS2HP7+IJGkzdIAwAMYmDJ5lsx4B1od1jm2hZCT5zOuMLeP/65L63JlwkEXcg==
+X-Received: by 2002:a5d:64e4:0:b0:391:48f7:bd8a with SMTP id ffacd0b85a97d-39148f7be31mr13713225f8f.30.1741853259131;
+        Thu, 13 Mar 2025 01:07:39 -0700 (PDT)
+Message-ID: <149aff98-bccb-4671-9961-484e5651bf1f@suse.com>
+Date: Thu, 13 Mar 2025 09:07:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v8 RESEND 2/6] Arm32: use new-style entry annotations for MMU
- code
+Subject: [PATCH v8 RESEND 3/6] Arm32: use new-style entry annotations for
+ entry code
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
@@ -125,178 +125,71 @@ In-Reply-To: <ebc98ba6-4ced-4e74-baa6-089240465eca@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Locally override SYM_PUSH_SECTION() to retain the intended section
-association.
-
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 Tested-by: Luca Fancellu <luca.fancellu@arm.com> # arm
 ---
+Should the GLOBAL()s also be replaced?
+---
 v7: New.
 
---- a/xen/arch/arm/arm32/mmu/head.S
-+++ b/xen/arch/arm/arm32/mmu/head.S
-@@ -160,6 +160,13 @@
- .endm
- 
- .section .text.idmap, "ax", %progbits
-+/*
-+ * Code below wants to all live in the section established above.  Annotations
-+ * from xen/linkage.h therefore may not switch sections (honoring
-+ * CONFIG_CC_SPLIT_SECTIONS).  Override the respective macro.
-+ */
-+#undef SYM_PUSH_SECTION
-+#define SYM_PUSH_SECTION(name, attr)
- 
- /*
-  * Rebuild the boot pagetable's first-level entries. The structure
-@@ -174,7 +181,7 @@
-  *
-  * Clobbers r0 - r5
+--- a/xen/arch/arm/arm32/entry.S
++++ b/xen/arch/arm/arm32/entry.S
+@@ -31,7 +31,7 @@
+  *  r4: Set to a non-zero value if a pending Abort exception took place.
+  *      Otherwise, it will be set to zero.
   */
--create_page_tables:
-+FUNC_LOCAL(create_page_tables)
-         /* Prepare the page-tables for mapping Xen */
-         mov_w r0, XEN_VIRT_START
+-prepare_context_from_guest:
++FUNC_LOCAL(prepare_context_from_guest)
+ #ifdef CONFIG_ARM32_HARDEN_BRANCH_PREDICTOR
+         /*
+          * Restore vectors table to the default as it may have been
+@@ -140,7 +140,7 @@ abort_guest_exit_end:
  
-@@ -263,7 +270,7 @@ use_temporary_mapping:
- 
-         mov   r12, #1                /* r12 := temporary mapping created */
-         mov   pc, lr
--ENDPROC(create_page_tables)
-+END(create_page_tables)
- 
- /*
-  * Turn on the Data Cache and the MMU. The function will return
-@@ -276,7 +283,7 @@ ENDPROC(create_page_tables)
-  *
-  * Clobbers r0 - r5
-  */
--enable_mmu:
-+FUNC_LOCAL(enable_mmu)
-         PRINT("- Turning on paging -\r\n")
+ skip_check:
+         b   enter_hypervisor_from_guest_preirq
+-ENDPROC(prepare_context_from_guest)
++END(prepare_context_from_guest)
  
          /*
-@@ -346,7 +353,7 @@ enable_mmu:
-         teq   r12, #0
-         beq   remove_identity_mapping
-         b     remove_temporary_mapping
--ENDPROC(enable_mmu)
-+END(enable_mmu)
+          * Macro to define a trap entry.
+@@ -362,13 +362,13 @@ trap_irq:
+ trap_fiq:
+         vector fiq
  
- /*
-  * Switch to the runtime mapping. The logic depends on whether the
-@@ -366,7 +373,7 @@ ENDPROC(enable_mmu)
-  *
-  * Clobbers r0 - r4
-  */
--switch_to_runtime_mapping:
-+FUNC_LOCAL(switch_to_runtime_mapping)
+-return_from_trap:
++LABEL_LOCAL(return_from_trap)
          /*
-          * Jump to the runtime mapping if the virt and phys are not
-          * clashing
-@@ -411,7 +418,7 @@ ready_to_switch:
-         PRINT_ID("- Jumping to runtime address -\r\n")
- 
-         mov   pc, lr
--ENDPROC(switch_to_runtime_mapping)
-+END(switch_to_runtime_mapping)
- 
- /*
-  * Enable mm (turn on the data cache and the MMU) for secondary CPUs.
-@@ -428,7 +435,7 @@ ENDPROC(switch_to_runtime_mapping)
-  *
-  * Clobbers r0 - r6
-  */
--ENTRY(enable_secondary_cpu_mm)
-+FUNC(enable_secondary_cpu_mm)
-         mov   r6, lr
- 
-         bl    create_page_tables
-@@ -456,7 +463,7 @@ ENTRY(enable_secondary_cpu_mm)
- 
-         /* Return to the virtual address requested by the caller. */
-         mov   pc, r6
--ENDPROC(enable_secondary_cpu_mm)
-+END(enable_secondary_cpu_mm)
+          * Restore the stack pointer from r11. It was saved on exception
+          * entry (see __DEFINE_TRAP_ENTRY).
+          */
+         mov sp, r11
+-ENTRY(return_to_new_vcpu32)
++LABEL(return_to_new_vcpu32)
+         ldr r11, [sp, #UREGS_cpsr]
+         and r11, #PSR_MODE_MASK
+         cmp r11, #PSR_MODE_HYP
+@@ -426,6 +426,7 @@ return_to_hypervisor:
+         clrex
+         eret
+         sb
++END(return_from_trap)
  
  /*
-  * Enable mm (turn on the data cache and the MMU) for the boot CPU.
-@@ -474,7 +481,7 @@ ENDPROC(enable_secondary_cpu_mm)
+  * struct vcpu *__context_switch(struct vcpu *prev, struct vcpu *next)
+@@ -435,12 +436,13 @@ return_to_hypervisor:
   *
-  * Clobbers r0 - r6
+  * Returns prev in r0
   */
--ENTRY(enable_boot_cpu_mm)
-+FUNC(enable_boot_cpu_mm)
-         mov   r6, lr
+-ENTRY(__context_switch)
++FUNC(__context_switch)
+         add     ip, r0, #VCPU_arch_saved_context
+         stmia   ip!, {r4 - sl, fp, sp, lr}      /* Save register state */
  
- #ifdef CONFIG_EARLY_PRINTK
-@@ -491,7 +498,7 @@ ENTRY(enable_boot_cpu_mm)
-         /* Address in the runtime mapping to jump to after the MMU is enabled */
-         mov   lr, r6
-         b     enable_mmu
--ENDPROC(enable_boot_cpu_mm)
-+END(enable_boot_cpu_mm)
+         add     r4, r1, #VCPU_arch_saved_context
+         ldmia   r4, {r4 - sl, fp, sp, pc}       /* Load registers and return */
++END(__context_switch)
  
  /*
-  * Remove the 1:1 map from the page-tables. It is not easy to keep track
-@@ -503,7 +510,7 @@ ENDPROC(enable_boot_cpu_mm)
-  *
-  * Clobbers r0 - r3
-  */
--remove_identity_mapping:
-+FUNC_LOCAL(remove_identity_mapping)
-         PRINT("- Removing the identity mapping -\r\n")
- 
-         /* r2:r3 := invalid page-table entry */
-@@ -518,14 +525,14 @@ remove_identity_mapping:
- 
-         flush_xen_tlb_local r0
-         mov   pc, lr
--ENDPROC(remove_identity_mapping)
-+END(remove_identity_mapping)
- 
- /*
-  * Remove the temporary mapping of Xen starting at TEMPORARY_XEN_VIRT_START.
-  *
-  * Clobbers r0 - r3
-  */
--remove_temporary_mapping:
-+FUNC_LOCAL(remove_temporary_mapping)
-         PRINT("- Removing the temporary mapping -\r\n")
- 
-         /* r2:r3 := invalid page-table entry */
-@@ -541,13 +548,14 @@ remove_temporary_mapping:
-         flush_xen_tlb_local r0
- 
-         mov  pc, lr
--ENDPROC(remove_temporary_mapping)
-+END(remove_temporary_mapping)
- 
- /* Fail-stop */
--fail:   PRINT("- Boot failed -\r\n")
-+FUNC_LOCAL(fail)
-+        PRINT("- Boot failed -\r\n")
- 1:      wfe
-         b     1b
--ENDPROC(fail)
-+END(fail)
- 
- /*
-  * Switch TTBR
-@@ -555,7 +563,7 @@ ENDPROC(fail)
-  *
-  * TODO: This code does not comply with break-before-make.
-  */
--ENTRY(switch_ttbr)
-+FUNC(switch_ttbr)
-         dsb                            /* Ensure the flushes happen before
-                                         * continuing */
-         isb                            /* Ensure synchronization with previous
-@@ -579,4 +587,4 @@ ENTRY(switch_ttbr)
-         isb
- 
-         mov pc, lr
--ENDPROC(switch_ttbr)
-+END(switch_ttbr)
+  * Local variables:
 
 
