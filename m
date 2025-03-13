@@ -2,37 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2784AA5FEB5
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 18:59:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.913266.1319356 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF1BCA5FEC3
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 19:04:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.913277.1319365 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsmpR-0005H6-Pw; Thu, 13 Mar 2025 17:58:45 +0000
+	id 1tsmui-0000p8-C2; Thu, 13 Mar 2025 18:04:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 913266.1319356; Thu, 13 Mar 2025 17:58:45 +0000
+Received: by outflank-mailman (output) from mailman id 913277.1319365; Thu, 13 Mar 2025 18:04:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsmpR-0005FB-NE; Thu, 13 Mar 2025 17:58:45 +0000
-Received: by outflank-mailman (input) for mailman id 913266;
- Thu, 13 Mar 2025 17:58:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tsmui-0000md-9C; Thu, 13 Mar 2025 18:04:12 +0000
+Received: by outflank-mailman (input) for mailman id 913277;
+ Thu, 13 Mar 2025 18:04:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=a3gq=WA=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tsmpQ-0005F5-7m
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 17:58:44 +0000
-Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
- [2607:f8b0:4864:20::1030])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cc96d5a2-0034-11f0-9ab9-95dc52dad729;
- Thu, 13 Mar 2025 18:58:42 +0100 (CET)
-Received: by mail-pj1-x1030.google.com with SMTP id
- 98e67ed59e1d1-2f9b9c0088fso2570122a91.0
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 10:58:42 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- 98e67ed59e1d1-301182181c3sm4148809a91.5.2025.03.13.10.58.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Mar 2025 10:58:40 -0700 (PDT)
+ <SRS0=4VEl=WA=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1tsmuh-0000lB-BP
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 18:04:11 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2062c.outbound.protection.outlook.com
+ [2a01:111:f403:2417::62c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8f7955d2-0035-11f0-9898-31a8f345e629;
+ Thu, 13 Mar 2025 19:04:09 +0100 (CET)
+Received: from DS7PR05CA0097.namprd05.prod.outlook.com (2603:10b6:8:56::26) by
+ MN0PR12MB6125.namprd12.prod.outlook.com (2603:10b6:208:3c7::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.27; Thu, 13 Mar
+ 2025 18:04:00 +0000
+Received: from DS3PEPF000099DB.namprd04.prod.outlook.com
+ (2603:10b6:8:56:cafe::c2) by DS7PR05CA0097.outlook.office365.com
+ (2603:10b6:8:56::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.27 via Frontend Transport; Thu,
+ 13 Mar 2025 18:03:59 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DS3PEPF000099DB.mail.protection.outlook.com (10.167.17.197) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8534.20 via Frontend Transport; Thu, 13 Mar 2025 18:03:59 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 13 Mar
+ 2025 13:03:59 -0500
+Received: from [172.19.213.155] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Thu, 13 Mar 2025 13:03:57 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,232 +59,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc96d5a2-0034-11f0-9ab9-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741888721; x=1742493521; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=iNCZY87r+ZlGEzCF7anawqE69Cnd0PAVlCq7sAiI7n8=;
-        b=LaRTch4l2UAZEryJ/g+REgP5EDY63BJUdUrcUF92ir5x5C4X0A61Ef/5iLp++VwNMU
-         hDTR04wHTTtitKW8veDqR1P1XEN1hhsAvFw2RVBxqPaXq3alUFjnWBIgbpbX6YnCqi6w
-         5t5VThzno7N598MTZBxjHIGI8MEZXwEtmTwIs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741888721; x=1742493521;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=iNCZY87r+ZlGEzCF7anawqE69Cnd0PAVlCq7sAiI7n8=;
-        b=i6EloxocQQ4r5+EXtZiDIpLgbM5KyCDxqt7NvYFsP1CMK3WTkAM/QoyMTHTLE7P2hE
-         PeM5BQOqALn9SZ75nqb2Ws8Env4XSCgdBjkwsOEcvsyKBqD/Fx3ox/80Gv8qkDk48PwJ
-         3BfaA0yNdL14UgDF7xYt0RFiRxwjxL/3aAtcZFfrQ4Q7u0Q8m8S4eZX6XWG/ag4KvgXo
-         QEyfmnhX4gi6jPzfpbhYLtRiGEfnMs0a1B99YL9BZ30NiLTTS97vewhbgAuRoDv/pHb9
-         Qo4i4QpFH9+neihBq+v2N7MS0gEEuwJvU+pkso3fxOcpkD8M+VBNXjt0tbyqPRlbEg0t
-         XgcQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXzwnShwo+msWfrd8PMp+RzgUQ+O3n6EYPsJOTRG6oi8LQubdVLRrt4t+VqE2cmMHt2OSQ6ImBybiQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxwOM9RE80Chm4tNfRxdSoChf3sD2Imzdo3es0Wwq6/KyWiMPUm
-	ZoqRz/QxcFQYBuiQMd/Ff/ajNFavt77tBe0IqoDxKcjHLHj3CIciAPF+QHS9zlOSNehp/9y5reY
-	H
-X-Gm-Gg: ASbGncsOAYWbn/IekWQDBP93lP/MFWyQ3qdjyTAHepc3VPQQnuyWH451WK4rUkNiiPk
-	JIh2G5ZJQRahBaKEdMyU98NBCDP6ukF6xcP/LQDcMtBSR6g8/jcRURBsDm21m/Ark+x0oiClIDW
-	IRAPtIT7vzjId6womXV3YJbt7QWPmCWdTUi1R+J5ZhNyXrPXzxNH9T6O4NAgWjDkwa4iGxn1RKL
-	MTEz7ptoaiq1FbMfYE1HjZkAv4D3WaapSHFJgZmIQdFokinJ2/PlSaj8B2yaQdjH4gHZnYLEvTz
-	kAfpVFxSpmKoWZQ5pA8rlNus2oHvqCNVmRLmCchZKx52lE9fdw==
-X-Google-Smtp-Source: AGHT+IG/xGnqATyWZwmPcLenpH7bmoIvvTCClsy4lVLZoEfht0jZflnE2KgJ+XxLB35IvHO317rngQ==
-X-Received: by 2002:a17:90b:5247:b0:2ee:5c9b:35c0 with SMTP id 98e67ed59e1d1-30135ed4067mr4410306a91.9.1741888721211;
-        Thu, 13 Mar 2025 10:58:41 -0700 (PDT)
-Date: Thu, 13 Mar 2025 18:58:35 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] [RFC] vpci: allow BAR write while mapped
-Message-ID: <Z9Mcy9j8ec-TjipY@macbook.local>
-References: <20250312195019.382926-1-stewart.hildebrand@amd.com>
- <D8F8IW559J11.2G40MDQH23I44@cloud.com>
+X-Inumbo-ID: 8f7955d2-0035-11f0-9898-31a8f345e629
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tBvkhxpqPscEorPdzpkeVF74JjWDNuLjQ3pPLbaulDdm4NWadg13VD86iX8Aw3uQvtZweoVmhHTMe8mb0ePoMnoKRkuPtq0a7r/46U4XFeCGzVjHuYMlS1HjcKrPgQM29sjnMmUBGGZF9mg6quauuyjyoek9MT/pTsjB8qFfrKMsFbMq50SXqaZbBi2tDsF1IKiaciTCtXTAOZzTQfZP/F1dVatFXQjwk6DBwvOnvk3VTcs5uqlWx3aqA4SFws8BDIm1lRIsMzq7eGX9SSuY5ss7HN+KF6yztwExc6t/0weuvLJdhfzaJcXKDCIbXh+4z0qRxQTpIAqkq1ICqeJ/SQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=s2OA9DMKEYxTYSOiKaFyfiw7EyS3kCkKTqCcx/4PT1g=;
+ b=Rh0pBNh5hBjg/cX4TDLLnxixWvIpUBb+7JpYh2zegAWRq49zhtnxkbRegkTjv5/bYFjolA2Y9H9nU6Cm0AtsRwOzhcj1pUgZcmWOHUVbQ9MeZ1M7Ii14h9wWW97cnrHUnmVjuiJxTI0gkV9fEgng+mWDvrF36hleHJ60h5Ho9/Jp+7BTVt1w26u0XbDsCut+nz0zs7irPQG2tJQ8xhGXj/pf1LCCCJgi6q08gy4/BUXh+fdSyC+EbvPP7lKoDphfn5nldAISnQZHXj5ptBddyetI6slUIifSSczJAyaSkZRpPq0EHTY0vkgNUkY43DVzzvSMuYMn2n+jdoQuwawi8w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=s2OA9DMKEYxTYSOiKaFyfiw7EyS3kCkKTqCcx/4PT1g=;
+ b=Vdh0r38bCgfUlZ4Ob+7USFzQvuLNCqR/mShVWcYiuofpHq4kFbhcCdbhKWO+go2wXH99sBqJIgscndUHsYm0Jcj9VnkB9LTBhYijZJsehgsvZy2zUSHTRfpWFrRKaQB/dcUpW813aGrd6x8iQ48lqzWdXQCenMX7TShEWqPu5Q4=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <555c355e-1269-4429-aa08-c2804bacc839@amd.com>
+Date: Thu, 13 Mar 2025 14:03:57 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <D8F8IW559J11.2G40MDQH23I44@cloud.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] xen/amd-iommu: Add interrupt remapping quirk for
+ ath11k
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
+CC: <xen-devel@lists.xenproject.org>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
+ Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, "Xenia
+ Ragiadakou" <xenia.ragiadakou@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>
+References: <20250226211125.43625-1-jason.andryuk@amd.com>
+ <Z8A9LYjgr92IignP@macbook.local>
+ <1d3ac61a-1acf-46b3-91bc-1dcb8bab1559@amd.com>
+ <Z9L-HPlfZhvIh8yn@macbook.local>
+ <d3378c73-7185-4f9f-8e61-be12171dfc21@citrix.com>
+ <5cb338cb-3e5d-4c3d-8ee6-6c0c7c76348e@suse.com>
+ <818b6a3c-bf65-489b-a551-d8539f52b452@citrix.com>
+Content-Language: en-US
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <818b6a3c-bf65-489b-a551-d8539f52b452@citrix.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB03.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099DB:EE_|MN0PR12MB6125:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5c1355f3-31f3-42e4-e65c-08dd62596e3a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?SmJTbjNEa25aSHFlKzlZR1NJNlpnWU9VdEs2STE4Z2FiZEhtR1YrR2RkaGZP?=
+ =?utf-8?B?Skl4NDBEMTkrNzZJcjhsKzV5dkNzUDBKOW1uL1JvTzdOTDNOYmlvTXI0UFhI?=
+ =?utf-8?B?QXBIMkRFdEFqVHJjRUFHcnErNlNodGdwYVBJd2lTRVFIWHlUY1RJai96YkhI?=
+ =?utf-8?B?VFZhbEg0ZjF2amsxcUM2ZEFRZnA0NDZHUllLZFFEY3NJSERJcTdJNG54LzhL?=
+ =?utf-8?B?U1NpSGdZTTd6OWcvaDRhVTBiZW5OUU1rODh1U3lkWmNidnkzZERIU2RCSE04?=
+ =?utf-8?B?TlA5OFlqOWV0ZnRCcmVoUDlQamdkU2pndGRIc0t5WGtaRVBFb0tuSVpOWnNu?=
+ =?utf-8?B?WmF6anV0dUJ5aGt5VmFqVGxIVWxxOUlGVFhOOTRlMFFBamx5RklvQTViTWp0?=
+ =?utf-8?B?ZFluY3B6TkRTdTMybU12aWd5STEzNkpiS1hZRlVJcEJ4U0ZVVFBwY3ZlK3lI?=
+ =?utf-8?B?aGtKVTFzN01wbWhnN1VqNDRveklHVDE1bUswY2JTRXU0SHNvTlRpV3RtT1Jo?=
+ =?utf-8?B?S3NDd0Z4a2Nxd3BoSFNkcjIyRnNnUEF1OURCVTgzMTFWWnZYWXgxNDdscktw?=
+ =?utf-8?B?c0Mzd3NzS2NuWG5SRnJHYjgwVjRrQWZFV1pZbGJKRmp2aVgwUE9sT0c3TVdX?=
+ =?utf-8?B?TFNUV2pBY0NCQnAvbHRJWXdtTzNNaUg1eWRpMEtvSTF1UGtaRDBTQkp1K3dp?=
+ =?utf-8?B?QTBjRlI1MHNBSy8wd2xoTGtKMlRNY2MyczFpQitPa2NyQWFKSG5sbTBHb1Z5?=
+ =?utf-8?B?YVFZZ0lrcUVBYnpuSStodldjd2Vkd01DUjVsMndnM2lYWm5qWFYvTmhsN0w5?=
+ =?utf-8?B?Q2RXa1Q3dmZ3QVRkNWd6UXZtZnZZMVRuMDVXb1h4UlQrSlhVUm5uaVZwMHh1?=
+ =?utf-8?B?OC9VdCtjKzUralcrVitaM2NqQkVWODlnQVRnVm9WMUZUZW54cGI5SnJ6NitX?=
+ =?utf-8?B?ZUlDZXkrd0l1SVRHK003TjhvV28rc2lWTVdTRVI2bnZMZEt6LzFXelN1KzNu?=
+ =?utf-8?B?akc0TFQyVmx3bVVPalNEaTVNY09IVnVHdmJEYVhHRE55TDlJOFJxbUw3RUtk?=
+ =?utf-8?B?S1JjMVpzTFF2dXUrSGR4YlBCaDBNT1ZFcXpqTjhacjByRlVWYzZMd2lkR3BU?=
+ =?utf-8?B?alorcFFqMEFzTEc1SndmVjkrdFh0Y0QwQm91MUI4ZXJTb2l1QTExOGF0eTMx?=
+ =?utf-8?B?RTRyck5aUGwzZ1l6ZWM3WFlNL2JnTmFiejRma0xZRy9WS05KVTBReFpzNFha?=
+ =?utf-8?B?em5EaXRjZGFZbW1uRWtkT0ZIUDlteXRrSlpkVStZcmJWQ0JOZWdoWVNJWitR?=
+ =?utf-8?B?UHczQUMrS3pCVDg1cnZrOEVnVHFtWnRUMlJNQXJoMXZDRHc0ME5qb1paMFZY?=
+ =?utf-8?B?UVBJSlpURDFnV1FFZGJ5RTZzQmZxRDNEWGp2L3Z3cFBxbTROeUFmNWhTaEFa?=
+ =?utf-8?B?VCtXbGl0T01VTVBKWHpVclZvdUFZRldQa1RkQmt2NS90YlRNOExNTHgvL1Ix?=
+ =?utf-8?B?Sm44aU9Mb3o5QWFQUXo5M080QjF4eDJySHRLcXVZVGw4SXVpNUxHR1UzeXFB?=
+ =?utf-8?B?YWUyRHZQKzUzRmNyNCt2SkIzSXNycE95bS9TL1VxTk9yTnFoTXk0bWt3VHlF?=
+ =?utf-8?B?aXdzZVJicGxsemt3VkVFZHJzNEJaeGtWbkRMeDA4Z0NTUi9kYkwxM3c2THYx?=
+ =?utf-8?B?ZjlUQTM4Si9sV0owQTBtYU5aOGVveGtUV2NUcWdSZXljZjROZFo0Mm12RWlu?=
+ =?utf-8?B?eGhCU3hNaEl2NzJOTFFoMm52aFUrWGY4UHh1S3JTcyt3dndkM09xVlBTMFhZ?=
+ =?utf-8?B?QmQrZ3pqTlZvbHpvS3VNejAvTzlvV1BYN1I1TDdaNHpHS01aSG1JTURtY2hq?=
+ =?utf-8?B?OXowbXcvc0R6MURvd0hvUTJ0UGFOOXl2VUpnQytqbjRIUC83bGk2d21UdzhU?=
+ =?utf-8?B?N3FocWEza3RJS1ZOWlNMMWNzb1QzaXVGWXl0OXFYNmY0NU9WQUVCNmp1NGF5?=
+ =?utf-8?B?aEVtWDB5d1l3PT0=?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2025 18:03:59.6506
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5c1355f3-31f3-42e4-e65c-08dd62596e3a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS3PEPF000099DB.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6125
 
-On Thu, Mar 13, 2025 at 03:14:26PM +0000, Alejandro Vallejo wrote:
-> On Wed Mar 12, 2025 at 7:50 PM GMT, Stewart Hildebrand wrote:
-> > Xen vPCI refuses BAR writes if the BAR is mapped in p2m. If firmware
-> > initialized the BAR to a bad address, Linux will try to write a new
-> > address to the BAR without disabling memory decoding. Allow the write
-> > by updating p2m right away in the vPCI BAR write handler.
-> >
-> > Resolves: https://gitlab.com/xen-project/xen/-/issues/197
-> > Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-> > ---
-> > RFC: Currently the deferred mapping machinery supports only map or
-> >      unmap, not both. It might be better to rework the mapping machinery
-> >      to support unmap-then-map operations, but please let me know your
-> >      thoughts.
-> > RFC: This patch has not yet made an attempt to distinguish between
-> >      32-bit and 64-bit writes. It probably should.
-> > ---
-> >  xen/drivers/vpci/header.c | 65 +++++++++++++++++++++++++++++++--------
-> >  1 file changed, 53 insertions(+), 12 deletions(-)
-> >
-> > diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-> > index ef6c965c081c..66adb2183cfe 100644
-> > --- a/xen/drivers/vpci/header.c
-> > +++ b/xen/drivers/vpci/header.c
-> > @@ -173,7 +173,7 @@ static void modify_decoding(const struct pci_dev *pdev, uint16_t cmd,
-> >          ASSERT_UNREACHABLE();
-> >  }
-> >  
-> > -bool vpci_process_pending(struct vcpu *v)
-> > +static bool process_pending(struct vcpu *v, bool need_lock)
-> >  {
-> >      struct pci_dev *pdev = v->vpci.pdev;
-> >      struct vpci_header *header = NULL;
-> > @@ -182,12 +182,14 @@ bool vpci_process_pending(struct vcpu *v)
-> >      if ( !pdev )
-> >          return false;
-> >  
-> > -    read_lock(&v->domain->pci_lock);
-> > +    if ( need_lock )
-> > +        read_lock(&v->domain->pci_lock);
-> >  
-> >      if ( !pdev->vpci || (v->domain != pdev->domain) )
-> >      {
-> >          v->vpci.pdev = NULL;
-> > -        read_unlock(&v->domain->pci_lock);
-> > +        if ( need_lock )
-> > +            read_unlock(&v->domain->pci_lock);
-> >          return false;
-> >      }
-> >  
-> > @@ -209,17 +211,20 @@ bool vpci_process_pending(struct vcpu *v)
-> >  
-> >          if ( rc == -ERESTART )
-> >          {
-> > -            read_unlock(&v->domain->pci_lock);
-> > +            if ( need_lock )
-> > +                read_unlock(&v->domain->pci_lock);
-> >              return true;
-> >          }
-> >  
-> >          if ( rc )
-> >          {
-> > -            spin_lock(&pdev->vpci->lock);
-> > +            if ( need_lock )
-> > +                spin_lock(&pdev->vpci->lock);
-> >              /* Disable memory decoding unconditionally on failure. */
-> >              modify_decoding(pdev, v->vpci.cmd & ~PCI_COMMAND_MEMORY,
-> >                              false);
-> > -            spin_unlock(&pdev->vpci->lock);
-> > +            if ( need_lock )
-> > +                spin_unlock(&pdev->vpci->lock);
-> >  
-> >              /* Clean all the rangesets */
-> >              for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
-> > @@ -228,7 +233,8 @@ bool vpci_process_pending(struct vcpu *v)
-> >  
-> >              v->vpci.pdev = NULL;
-> >  
-> > -            read_unlock(&v->domain->pci_lock);
-> > +            if ( need_lock )
-> > +                read_unlock(&v->domain->pci_lock);
-> >  
-> >              if ( !is_hardware_domain(v->domain) )
-> >                  domain_crash(v->domain);
-> > @@ -238,15 +244,23 @@ bool vpci_process_pending(struct vcpu *v)
-> >      }
-> >      v->vpci.pdev = NULL;
-> >  
-> > -    spin_lock(&pdev->vpci->lock);
-> > +    if ( need_lock )
-> > +        spin_lock(&pdev->vpci->lock);
-> >      modify_decoding(pdev, v->vpci.cmd, v->vpci.rom_only);
-> > -    spin_unlock(&pdev->vpci->lock);
-> > +    if ( need_lock )
-> > +        spin_unlock(&pdev->vpci->lock);
-> >  
-> > -    read_unlock(&v->domain->pci_lock);
-> > +    if ( need_lock )
-> > +        read_unlock(&v->domain->pci_lock);
-> >  
-> >      return false;
-> >  }
-> >  
-> > +bool vpci_process_pending(struct vcpu *v)
-> > +{
-> > +    return process_pending(v, true);
-> > +}
-> > +
-> >  static int __init apply_map(struct domain *d, const struct pci_dev *pdev,
-> >                              uint16_t cmd)
-> >  {
-> > @@ -565,6 +579,8 @@ static void cf_check bar_write(
-> >  {
-> >      struct vpci_bar *bar = data;
-> >      bool hi = false;
-> > +    bool reenable = false;
-> > +    uint32_t cmd = 0;
-> >  
-> >      ASSERT(is_hardware_domain(pdev->domain));
-> >  
-> > @@ -585,10 +601,31 @@ static void cf_check bar_write(
-> >      {
-> >          /* If the value written is the current one avoid printing a warning. */
-> >          if ( val != (uint32_t)(bar->addr >> (hi ? 32 : 0)) )
-> > +        {
-> >              gprintk(XENLOG_WARNING,
-> > -                    "%pp: ignored BAR %zu write while mapped\n",
-> > +                    "%pp: allowing BAR %zu write while mapped\n",
-> >                      &pdev->sbdf, bar - pdev->vpci->header.bars + hi);
-> > -        return;
-> > +            ASSERT(rw_is_write_locked(&pdev->domain->pci_lock));
-> > +            ASSERT(spin_is_locked(&pdev->vpci->lock));
-> > +            reenable = true;
-> > +            cmd = pci_conf_read16(pdev->sbdf, PCI_COMMAND);
-> > +            /*
-> > +             * Write-while-mapped: unmap the old BAR in p2m. We want this to
-> > +             * finish right away since the deferral machinery only supports
-> > +             * unmap OR map, not unmap-then-remap. Ultimately, it probably would
-> > +             * be better to defer the write-while-mapped case just like regular
-> > +             * BAR writes (but still only allow it for 32-bit BAR writes).
-> > +             */
-> > +            /* Disable memory decoding */
-> > +            modify_bars(pdev, cmd & ~PCI_COMMAND_MEMORY, false);
-> > +            /* Call process pending here to ensure P2M operations are done */
-> > +            while ( process_pending(current, false) )
-> > +            {
-> > +                /* Pre-empted, try again */
+On 2025-03-13 12:24, Andrew Cooper wrote:
+> On 13/03/2025 4:07 pm, Jan Beulich wrote:
+>> On 13.03.2025 17:02, Andrew Cooper wrote:
+>>> On 13/03/2025 3:47 pm, Roger Pau Monné wrote:
+>>>> On Thu, Mar 13, 2025 at 11:30:28AM -0400, Jason Andryuk wrote:
+>>>>> On 2025-02-27 05:23, Roger Pau Monné wrote:
+>>>>>> On Wed, Feb 26, 2025 at 04:11:25PM -0500, Jason Andryuk wrote:
+>>>>>>> The ath11k device supports and tries to enable 32 MSIs.  Linux in PVH
+>>>>>>> dom0 and HVM domU fails enabling 32 and falls back to just 1, so that is
+>>>>>>> all that has been tested.
+>>>>>> DYK why it fails to enable 32?
+>>>>> In Linux msi_capability_init()
+>>>>>
+>>>>>          /* Reject multi-MSI early on irq domain enabled architectures */
+>>>>>          if (nvec > 1 && !pci_msi_domain_supports(dev,
+>>>>> MSI_FLAG_MULTI_PCI_MSI, ALLOW_LEGACY))
+>>>>>                  return 1;
+>>>>>
+>>>>> MSI_FLAG_MULTI_PCI_MSI is only set for AMD and Intel interrupt remapping,
+>>>>> and Xen PVH and HVM don't have either of those.  They are using "VECTOR", so
+>>>>> this check fails.
+>>>> Oh, interesting.  So classic PV MSI domain supports
+>>>> MSI_FLAG_MULTI_PCI_MSI, even when no IOMMU is exposed there either.
+
+I was told PV dom0 used 32 MSIs, but I don' readily see 
+MSI_FLAG_MULTI_PCI_MSI set anywhere.  I guess it gets to 
+xen_initdom_setup_msi_irqs() which supports multiple nvecs.
+
+>>>>
+>>>> Thanks, so it's nothing specific to Xen, just how Linux works.
+>>> This is something which TGLX and I have discussed in the past.  It is a
+>>> mistake for any x86 system to do MSI multi-message without an IOMMU.
+>> Well, with PVH there always will be an IOMMU, just that Linux can't see
+>> it. Even with PV it should be the hypervisor to determine whether multi-
+>> message MSI is possible. Hence how the classic (non-pvops) kernel had
+>> worked in this regard.
 > 
-> This seems a tad dangerous. There may be a non-negligible amount of work queued
-> up. I also wonder whether the guest can induce spinning by increasing
-> contention on the p2m (e.g: via ballooning) or by induces work being queued up.
-> 
-> I don't quite understand the logic, but I suspect you could
-> raise_softirq(SCHEDULE_SOFTIRQ), decrease the IP so the instruction is
-> replayed, release the locks, and simply exit the hypervisor.
+> Xen should hide (and instruct Qemu to hide) multi-message on non-IOMMU
+> hardware.  The result of "supporting" them on non-IOMMU hardware is
+> worse than making the driver run in single MSI mode.
 
-There's no instruction replay in this case, instead the vCPU is
-prevented from resuming operation until the deferred pending operation
-is finished.  This is done by preventing hvm_do_resume() from
-succeeding as long as vpci_process_pending() return true.
+FWIW, QEMU MSI support hardcodes 1 MSI.
 
-> The system ought
-> to naturally split the operation in several continuations each of which does
-> either unmapping or mapping if it couldn't be done in a single one. Replaying
-> the instruction after decoding is disabled ought to be benign.
-
-IMO the main issue is how to signal which operations are pending, so
-they can be executed in the deferred context.  `struct vpci_vcpu` is
-used to hold a single pending operation.
-
-> I haven't tried any of what I just wrote, so take it with with several tons of
-> salt though.
-> 
-> Do you know if Linux intentionally skips disabling decode? Or is it a bug?
-
-For 32bit BARs it's possible to atomically reposition them with a
-single atomic write, so Linux will try to do that.  For 64bit BARs
-this is not possible (as it involves writes to two registers), and
-hence Linux won't usually attempt to atomically reposition 64bit BARs.
-
-Thanks, Roger.
+Regards,
+Jason
 
