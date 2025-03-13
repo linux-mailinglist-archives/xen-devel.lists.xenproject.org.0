@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BE2AA5FD74
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 18:18:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.913183.1319296 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A192CA5FD9A
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 18:21:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.913196.1319306 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsmC5-0004Bb-KA; Thu, 13 Mar 2025 17:18:05 +0000
+	id 1tsmFD-0006Eg-5q; Thu, 13 Mar 2025 17:21:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 913183.1319296; Thu, 13 Mar 2025 17:18:05 +0000
+Received: by outflank-mailman (output) from mailman id 913196.1319306; Thu, 13 Mar 2025 17:21:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsmC5-00048W-HE; Thu, 13 Mar 2025 17:18:05 +0000
-Received: by outflank-mailman (input) for mailman id 913183;
- Thu, 13 Mar 2025 17:18:04 +0000
+	id 1tsmFD-0006C7-2h; Thu, 13 Mar 2025 17:21:19 +0000
+Received: by outflank-mailman (input) for mailman id 913196;
+ Thu, 13 Mar 2025 17:21:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=w2IX=WA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tsmC4-00048Q-0r
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 17:18:04 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ id 1tsmFB-0006Ac-99
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 17:21:17 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1e32024a-002f-11f0-9898-31a8f345e629;
- Thu, 13 Mar 2025 18:18:02 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-43cf257158fso8631875e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 10:18:02 -0700 (PDT)
+ id 9173fc92-002f-11f0-9898-31a8f345e629;
+ Thu, 13 Mar 2025 18:21:15 +0100 (CET)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-39133f709f5so803310f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 10:21:15 -0700 (PDT)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d188b6d48sm26426975e9.9.2025.03.13.10.18.00
+ 5b1f17b1804b1-43d0a8c5cbfsm59264775e9.30.2025.03.13.10.21.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Mar 2025 10:18:01 -0700 (PDT)
+ Thu, 13 Mar 2025 10:21:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1e32024a-002f-11f0-9898-31a8f345e629
+X-Inumbo-ID: 9173fc92-002f-11f0-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741886281; x=1742491081; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1741886475; x=1742491275; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=OlY5hPPfZJ39V5jSsRjdc+aoDS1ilq7Yc9E3ZTAEpMk=;
-        b=E7xazoH+IaJrOeIEsA8KJ+ax1rinlEOqyjw84O8mhrbTcHlIKIIqO2SqSOpo2NbaDu
-         MpJR1xCHPrib8lrstMskQHbF0NRENXmMBzCq5QJ3pttIT1PGPEjvz569Zz4dwrXojbUI
-         zv5hKkQyMiJVoE5M6MH3KHY0GGHIlYnJQwMsg=
+        bh=pX7wc8U4+Fgb1mawaqBgjRggQr6QnkqSkEFNcohXYeI=;
+        b=cRtamqPRS/bQwKLg/acR484EdUrOnI1JPv8VLbhwAJdo7caW/TFP4JjqGmXayO5mMZ
+         xrdmQuHXV+RTzlzVSngPrHh+orcgbSUInzU39BqnO5Rno8LVXpA1+w5ojSlvNUtsgcBk
+         Ovr8iLP6U+mhDF1b1nyaAHwpUEX+MB9on8S8E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741886281; x=1742491081;
+        d=1e100.net; s=20230601; t=1741886475; x=1742491275;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OlY5hPPfZJ39V5jSsRjdc+aoDS1ilq7Yc9E3ZTAEpMk=;
-        b=JN28j3+wjRW4cVUKkTe0D1b7Jpz252m6x1lhAjS8iG8sVVmf9qWNsGoDL3dC7HyHnL
-         Z1uDSHlN5g50kw7Wj1VptrscqL8yPJaRY2ZGS64QVss5nlr2oILvsfvzJDTrss5yegH6
-         GmIzmCptwFfNPOkq4HApZ+KwwlBG8p1gVbpXFLYPnbJKp8QwUwBbr2nDrG0rvYygz8FJ
-         OxyIglt/CoGpIL8WehwVugxuac4HZgeXsXyKgVzIj03LitBSLopjNn/MwpB1DhQGbry1
-         s/zpqb2H/iYaBWRPDlcjezFOB9vq8S9cGzQPFXD+RgvREVrS++2E5gIBhrCdYp0T58FB
-         UVIQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWDzXQctKaIz6A7CORBPvtqCiTstuSFB5ZxM08JKxdAqqqEXb/9fopIeP6XqJXl+UPg4q7pi82Ia98=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxvILj7SM9+HaKgVeJWUgE4iRjE6OWrDObuIWjYF9TVJFW+xt4L
-	p6UZfv434vf5gpg1Tt9VahTIKi9QGuzqTTWwpK3X0c6Kr/JWIXUb2h4W34V8sE4=
-X-Gm-Gg: ASbGncvige49fJ2baYj3TMsbLgeLoEbjVkk2h5R687H1uOaMwkj/H7wkWKUlU5KnzVS
-	xnyTyNSIbqYkKSkRggKKNCvawCSH5+PjZZz0mVVfuLo0x1IZlksZ1lkk4LszH3v/x9wanWoQg5b
-	5x8iyGhugmeqZajJv4bmSBhdLhkGhwikAPd5z8HTQ0ggvJT5Z59eAMHDPO/Qn1457dZtEbSZrjb
-	kJU/2E6D/abGxcDieuSBMgI9ri6HjwtEQpqF1zoAj/3itR8L9yny9lR5Vts5tD2ZfVfkpSgKopr
-	0BJXsFpbu7BW9k7hy+ni0773Zh2XNs913jgEI/Mv/ovCJozosA0npFn5SRtnf5hW5CVh79vd+JT
-	IXEGsPYaF
-X-Google-Smtp-Source: AGHT+IGSQwMFfGJJ3q8NEKWIno0/HtaINPHWue53x70j8m70WulSDvSyPG/vaYON2naO9n5Cfws+fA==
-X-Received: by 2002:a05:600c:35cf:b0:43b:d0fe:b8ac with SMTP id 5b1f17b1804b1-43d1d8f20b7mr4653995e9.30.1741886281455;
-        Thu, 13 Mar 2025 10:18:01 -0700 (PDT)
-Message-ID: <7eaba269-8cf6-4b92-86a2-a998cd544054@citrix.com>
-Date: Thu, 13 Mar 2025 17:18:00 +0000
+        bh=pX7wc8U4+Fgb1mawaqBgjRggQr6QnkqSkEFNcohXYeI=;
+        b=xUFT473AFenjBaaojIWXzn3DsxHcl0kw98y/9GRO/gbJR+TRltuI2ZsGaHvekq9k4P
+         dbkO608JFOd3kWilDwXGhyOFKf9Ray+XtQ6VxZWw4JJ09h655IanUvC+HRl3XRWlvRHU
+         Vbrvps0gjMQ+CsZyeycMKsdFhuqLMGewi1RQue6M3FhBcnwx1i30I/+z1hZFzoHyzrfW
+         iFnqOOTgTtpKPLl3MEzoWgzDi6oWKvIDLMyPFtaIIquGSB6rqTLaCukDkq39nE0sRK6K
+         GqVFQRkacAnS9qgS4EXnzUuV10Ud6RoKeU3xMdz4xAuLz/RsOmbBxVCG4CNxvz/uAcGp
+         KaLw==
+X-Forwarded-Encrypted: i=1; AJvYcCUeBC7htLxbNcG0ZIPddPadDSHoAlfzlqdmNbykZwpKO2atClJlxU84yFduP+e2quBL4tm4jnzBqMM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw7HLKjMoR5VMIH1gaT6jw/drx7/Zf40lMhASk2bBgUAz4eNLmh
+	cuiJv+d4R2ZUGPtzFiBR9ECJZXGQczYVo2CZrsYfYo5xFFx1dk1szW0M1Hzq9wg=
+X-Gm-Gg: ASbGncsFbFsC4oZ1iG9O9Nd3PuDqWgz3wX661+VOJx6CS6rfZPqlI7fjvxwyrqXp15C
+	pU+onvx9/k7qBrYlVErjvxJFPUD1BuMcn1xoYd56beV8fYs+qGoJNJYJXWyH80/kOs+D+nfdjMP
+	q5JY1Y8WpeNEku7UZp8kQ/N5+x5InnGAfC7y35Z8UaY7r5+8DZbaXWzPT3Q0rCCaRaUEZXbC6Mq
+	PZW+NlXw1YJM4ogwYRAIdE93U8/AoKydUQM939/hYdbUlmdSWvtdqxTrQJS2N0FK1DHi2Szlqcj
+	ebUAg1315pxm+UxPlgmMxr/U9qgDgSzZkaE1f1lv8kNW8ZQPSEvaU/IMc7PY6+j0zwSRoQyy6hd
+	CYhcUtBVT
+X-Google-Smtp-Source: AGHT+IHRH9t1CBbaRWWq+A1+zBLU/GPCuVguo7u1CPINZduFoUere3BphV49cBwwNN251OkFUsPiJA==
+X-Received: by 2002:a5d:6488:0:b0:38f:5057:5810 with SMTP id ffacd0b85a97d-396c1e1f319mr441033f8f.25.1741886474799;
+        Thu, 13 Mar 2025 10:21:14 -0700 (PDT)
+Message-ID: <ad26bb49-4025-4190-ba69-c03584cf2229@citrix.com>
+Date: Thu, 13 Mar 2025 17:21:13 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/7] xen/ubsan: provide helper for clang's
- -fsanitize=function
+Subject: Re: [PATCH 5/7] x86/ioremap: prevent additions against the NULL
+ pointer
 To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Cc: Jan Beulich <jbeulich@suse.com>
 References: <20250313153029.93347-1-roger.pau@citrix.com>
- <20250313153029.93347-2-roger.pau@citrix.com>
+ <20250313153029.93347-6-roger.pau@citrix.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -137,23 +135,52 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250313153029.93347-2-roger.pau@citrix.com>
+In-Reply-To: <20250313153029.93347-6-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 13/03/2025 3:30 pm, Roger Pau Monne wrote:
-> clang's -fsanitize=function relies on the presence of
-> __ubsan_handle_function_type_mismatch() to print the detection of indirect
-> calls of a function through a function pointer of the wrong type.
+> This was reported by clang UBSAN as:
 >
-> Implement the helper, inspired on the llvm ubsan lib implementation.
+> UBSAN: Undefined behaviour in arch/x86/mm.c:6297:40
+> applying zero offset to null pointer
+> [...]
+> Xen call trace:
+>     [<ffff82d040303662>] R common/ubsan/ubsan.c#ubsan_epilogue+0xa/0xc0
+>     [<ffff82d040304aa3>] F __ubsan_handle_pointer_overflow+0xcb/0x100
+>     [<ffff82d0406ebbc0>] F ioremap_wc+0xc8/0xe0
+>     [<ffff82d0406c3728>] F video_init+0xd0/0x180
+>     [<ffff82d0406ab6f5>] F console_init_preirq+0x3d/0x220
+>     [<ffff82d0406f1876>] F __start_xen+0x68e/0x5530
+>     [<ffff82d04020482e>] F __high_start+0x8e/0x90
 >
+> Fix bt_ioremap() and ioremap{,_wc}() to not add the offset if the returned
+> pointer from __vmap() is NULL.
+>
+> Fixes: d0d4635d034f ('implement vmap()')
+> Fixes: f390941a92f1 ('x86/DMI: fix table mapping when one lives above 1Mb')
+> Fixes: 81d195c6c0e2 ('x86: introduce ioremap_wc()')
 > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>, with one style fix.
 
-It's weird, but we're now ahead of Linux by two sanitisers (this, and
-invalid_builtin visible in context).
+It's unfortunate, because C23 makes this one case (add 0 to NULL
+pointer) explicitly well defined to avoid corner cases like this.  Oh well.
+
+> diff --git a/xen/arch/x86/dmi_scan.c b/xen/arch/x86/dmi_scan.c
+> index 2fcc485295eb..a05492037519 100644
+> --- a/xen/arch/x86/dmi_scan.c
+> +++ b/xen/arch/x86/dmi_scan.c
+> @@ -119,8 +120,10 @@ static const void *__init bt_ioremap(paddr_t addr, unsigned int len)
+>      if ( system_state < SYS_STATE_boot )
+>          return __acpi_map_table(addr, len);
+>  
+> -    return __vmap(&mfn, PFN_UP(offs + len), 1, 1, PAGE_HYPERVISOR_RO,
+> -                  VMAP_DEFAULT) + offs;
+> +    va = __vmap(&mfn, PFN_UP(offs + len), 1, 1, PAGE_HYPERVISOR_RO,
+> +	        VMAP_DEFAULT);
+
+You've got mixed tabs/spaces here.
 
 ~Andrew
 
