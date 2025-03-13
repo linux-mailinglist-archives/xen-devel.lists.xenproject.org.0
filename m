@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47BF2A5FA84
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 16:57:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.912684.1318906 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3071AA5FAAE
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Mar 2025 17:03:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.912698.1318915 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tskw0-0005b6-HN; Thu, 13 Mar 2025 15:57:24 +0000
+	id 1tsl1Z-0000FS-8u; Thu, 13 Mar 2025 16:03:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 912684.1318906; Thu, 13 Mar 2025 15:57:24 +0000
+Received: by outflank-mailman (output) from mailman id 912698.1318915; Thu, 13 Mar 2025 16:03:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tskw0-0005Xy-ER; Thu, 13 Mar 2025 15:57:24 +0000
-Received: by outflank-mailman (input) for mailman id 912684;
- Thu, 13 Mar 2025 15:57:23 +0000
+	id 1tsl1Z-0000Bx-67; Thu, 13 Mar 2025 16:03:09 +0000
+Received: by outflank-mailman (input) for mailman id 912698;
+ Thu, 13 Mar 2025 16:03:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=7Xn0=WA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tskvz-0005Xs-RQ
- for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 15:57:23 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=w2IX=WA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tsl1X-0000AX-U2
+ for xen-devel@lists.xenproject.org; Thu, 13 Mar 2025 16:03:08 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d9e3c486-0023-11f0-9ab9-95dc52dad729;
- Thu, 13 Mar 2025 16:57:22 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-43cfb6e9031so10976775e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 08:57:22 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d0a5f48a8sm58708505e9.0.2025.03.13.08.57.21
+ id 9fd27ad3-0024-11f0-9ab9-95dc52dad729;
+ Thu, 13 Mar 2025 17:02:55 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-43948021a45so10221865e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 09:02:55 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-395c7df339asm2531944f8f.3.2025.03.13.09.02.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Mar 2025 08:57:22 -0700 (PDT)
+ Thu, 13 Mar 2025 09:02:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,107 +45,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d9e3c486-0023-11f0-9ab9-95dc52dad729
+X-Inumbo-ID: 9fd27ad3-0024-11f0-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741881442; x=1742486242; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1741881774; x=1742486574; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=b0U5O4W0os+6r5aw1BEhRROqA2AGLe7bJIr9ViJkUrc=;
-        b=TyDuC72JHyq6dDVX9oqmIHjUffuMVYOBljArxIm5BaEibcyE1GHVoH7GhGckfGxMgS
-         VK//fCQEMaD0SdzW2+RfwSFnhpFP1tDvAZUpPt07ROBk2GpEq7avRb0tPQSRT0d8Kbej
-         mE2I9WyFWJ6sIn9mPq2Kj0x3ArSlnweQQfmRcw5oe5neGmMeUCRGCuSUea8QvaO5RFvU
-         KBLn0L03dBO2En4nGG0nMSStwkUSTU+XZEBQlSeipkjgdIwZmwQRF+2t2af1R223qyV3
-         wa7wslFqmsyKBHZF7uIUDQ2PK7+kzh6Gi67vEuGBXJsMevhZ/ZKgKV52jW1tnxZdG/SN
-         vAUg==
+        bh=yzFVRz4IZSOD2U2A55u08ze08q0scqSfKn70VP4b9YM=;
+        b=TZUp1D/S7z8pfZ4VYNBsyMjk5bN1gByhFKaMdk1IqJbgMKrDB7uXs+dviKeBtBZL/W
+         Ek/5t0y/0OwMEyr12vrTqdI4oDj4hyX5ZxUTj4wOxjfFarFTECk/IvG/XjvNO5us2iCT
+         XVTvoDFqUZDIk1l1B994Q8tXbPeKrBPo8cX8A=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741881442; x=1742486242;
+        d=1e100.net; s=20230601; t=1741881774; x=1742486574;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=b0U5O4W0os+6r5aw1BEhRROqA2AGLe7bJIr9ViJkUrc=;
-        b=fNHU4p+AErptbeK+1yPwLxs8rvxc8XwAGpM96GnHzAQ1hh4Us7hkpypJbp0gdeshxN
-         /g5XFfb9wMvz1XtvttkLsMqUyEAixd5Ckp2k2nunAadvh/6U2SBeI9FNqXEsZdfpDRb7
-         GFIsJp8c70t6FcuGx8uB2JUwRUDsgDHAmCzpAA06kAUU54c3mWRe5CtO2DBhFVTDC/tn
-         aAzUWRdDbKOxCkVqswQhKuya4uIU1d/swlDOYvkbzbHdgTfTejHvlMRxFvRzosWA5ez3
-         JtJ7r0izhqAICcm0BZ0d3hr2qFnTdheMVXwF7GiRdL7NTgCmc7zqMYiUmjdVdXiPZ6/Z
-         wkow==
-X-Forwarded-Encrypted: i=1; AJvYcCXLUrjlu2rsCHIaqL8IAuoE+ykZuq6pJS5jc5PkAjyhAQQzzfF67YjSUkn5B2uuFqhk1YilU6djsaU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy5XpKQba5mCprafxvXOMEM+fRW+fcS3zSzgmC3MaxGHU2utDTq
-	H0OV8bIh1xSlkPRqa1VY3Ldh4+JusFHDXWjKEjq6PNvg68+KPVqxf48aFeruzQ==
-X-Gm-Gg: ASbGncv2bvpZ4n9XfMAWweOTuDU02evD37zLoVKjg745Mf9FB48yA2Ee9DlxLM2kbfQ
-	TpSPCRMfkVQcQMAt/HXupY3FxXRGo/8TDF/Upv/3Vw3WUDb9pnHOlcAIjW0ZobMpd1HEDgoyWQc
-	eV+4oNCMP2c3jVXqmFDTYPT+NIo6pMgRQg9ee30GKnoYjG71kLVrnihOuzWepUa4HlBCoEsrYTA
-	NzWWhdBjJTi//QkXi9lWWmliOuy8mOEsU5hAajiLEqhPO6LApsRZou8RreRx2+kVbWEDwCUrxj6
-	OxWHUeM3ihGaVB/3xj7hLPlptji1i/X95PQvYvSppS9EMlJmOhMuYdTJWGA0AylwKt7Q8HGhzR9
-	GCmq4PHgZ8mBOo3LzOW+K1FFyEBY43fCzZXV1DVkk
-X-Google-Smtp-Source: AGHT+IGYES8q7jhCjppQf3xkqW9ekn4wHFLWmI0qwk5/zpjAlTt7sElK1IpfN7ITAmGdP1hEGNDoGQ==
-X-Received: by 2002:a05:600c:1c26:b0:43c:fe9f:ab90 with SMTP id 5b1f17b1804b1-43d1d8ebd84mr1217415e9.28.1741881442389;
-        Thu, 13 Mar 2025 08:57:22 -0700 (PDT)
-Message-ID: <107c6532-c923-4364-b56a-4ccbbd9af425@suse.com>
-Date: Thu, 13 Mar 2025 16:57:21 +0100
+        bh=yzFVRz4IZSOD2U2A55u08ze08q0scqSfKn70VP4b9YM=;
+        b=l8MHrsHmdtk065JMsuGmpT6KUfwUw+OjwIyYcYCPoHdUKo0PUEZ50qDWnAAQ5qKhzO
+         rhWIT1xa6jWh/fIxa8lCI397s/anxbo6RkwCaS+sB6Zuh3HYdJCEuF+kOb49uTQifS7x
+         Lskhv8cDfT4hH+rn0uYJ1gYbPbrd7Pc2Q0glSoZU/v7Js+yUO85/OwzBpdquY516ttYG
+         wn/dk9tED2/9Gv1XslqPTlYFKJavSi2BQ1BY26fQVS6b1KlVJ6n6C1+LuoYhS0KWYuQV
+         jtajcJp1flv2UgnwG0TAlBRNgyo0LXZlyS1l6F5w/SicR6YIzQDwPQN9cFAICjQ0jzR9
+         IGJQ==
+X-Gm-Message-State: AOJu0YxVNw7mgpsRmojqQdkZHjCv7pRBiQvGeQRQWyUTcy2RZF6Obzgg
+	SDVtsMNgpHEghM1yqwivIgIdXFSgSwD60BtO2PL8T/J9jv/I1IFehcPGiufd4i8=
+X-Gm-Gg: ASbGncsh3+eWh4MN3/fIAtc7OlAiX//oqiYgTdF5ZS6buRIoB15QstNo7fgX4UUatHt
+	/JMWJnIqniMxFnxMFZ8jkDB97FSc1rE+hbxocgddN3W5U+asrZMff6nWsX6oJiZBmgXiHKg66SD
+	9RgQsFwhi0sjQtnxVmXZTgoWrbJ/lwnf53EuYuAKDexFovNOQyZPOLKAJwXr7Jmc0gncOZ9gSad
+	7lGeMEjfaw423udfFz1tcJQki8FxTtA6W3ZYNDhDxwgGkg/Axe7xIkaoFPauvEqS9S+e6vREuwY
+	pqqrgCHCewDjdNDh38ivXsXAJj/ckW2zwROdTXKuM1mRlJnAj3pH6PGYPSH45rn/zAyibxnmnoZ
+	2wn/8mujw
+X-Google-Smtp-Source: AGHT+IHD0e2VkLc035ynRxFebvzKVnxgPA1dGGQsWPN4fB82Fp5aT9Wb5duozriX0CVTVlQmcoeKrg==
+X-Received: by 2002:a05:6000:154b:b0:391:412b:e22b with SMTP id ffacd0b85a97d-396c200fc00mr83394f8f.18.1741881773809;
+        Thu, 13 Mar 2025 09:02:53 -0700 (PDT)
+Message-ID: <d3378c73-7185-4f9f-8e61-be12171dfc21@citrix.com>
+Date: Thu, 13 Mar 2025 16:02:51 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/16] xen/percpu: don't initialize percpu on resume
-To: Mykola Kvach <xakep.amatop@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [RFC PATCH] xen/amd-iommu: Add interrupt remapping quirk for
+ ath11k
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jason Andryuk <jason.andryuk@amd.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Mykyta Poturai <mykyta_poturai@epam.com>,
- Mykola Kvach <mykola_kvach@epam.com>, xen-devel@lists.xenproject.org
-References: <cover.1741164138.git.xakep.amatop@gmail.com>
- <e44b56f18fe5e1c7f1d6cd9d33ba84cf0e26b440.1741164138.git.xakep.amatop@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e44b56f18fe5e1c7f1d6cd9d33ba84cf0e26b440.1741164138.git.xakep.amatop@gmail.com>
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+References: <20250226211125.43625-1-jason.andryuk@amd.com>
+ <Z8A9LYjgr92IignP@macbook.local>
+ <1d3ac61a-1acf-46b3-91bc-1dcb8bab1559@amd.com>
+ <Z9L-HPlfZhvIh8yn@macbook.local>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <Z9L-HPlfZhvIh8yn@macbook.local>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 05.03.2025 10:11, Mykola Kvach wrote:
-> --- a/xen/common/percpu.c
-> +++ b/xen/common/percpu.c
-> @@ -74,7 +74,8 @@ static int cf_check cpu_percpu_callback(
->      switch ( action )
->      {
->      case CPU_UP_PREPARE:
-> -        rc = init_percpu_area(cpu);
-> +        if ( system_state != SYS_STATE_resume )
-> +            rc = init_percpu_area(cpu);
->          break;
->  
->      case CPU_UP_CANCELED:
+On 13/03/2025 3:47 pm, Roger Pau Monné wrote:
+> On Thu, Mar 13, 2025 at 11:30:28AM -0400, Jason Andryuk wrote:
+>> On 2025-02-27 05:23, Roger Pau Monné wrote:
+>>> On Wed, Feb 26, 2025 at 04:11:25PM -0500, Jason Andryuk wrote:
+>>>> The ath11k device supports and tries to enable 32 MSIs.  Linux in PVH
+>>>> dom0 and HVM domU fails enabling 32 and falls back to just 1, so that is
+>>>> all that has been tested.
+>>> DYK why it fails to enable 32?
+>> In Linux msi_capability_init()
+>>
+>>         /* Reject multi-MSI early on irq domain enabled architectures */
+>>         if (nvec > 1 && !pci_msi_domain_supports(dev,
+>> MSI_FLAG_MULTI_PCI_MSI, ALLOW_LEGACY))
+>>                 return 1;
+>>
+>> MSI_FLAG_MULTI_PCI_MSI is only set for AMD and Intel interrupt remapping,
+>> and Xen PVH and HVM don't have either of those.  They are using "VECTOR", so
+>> this check fails.
+> Oh, interesting.  So classic PV MSI domain supports
+> MSI_FLAG_MULTI_PCI_MSI, even when no IOMMU is exposed there either.
+>
+> Thanks, so it's nothing specific to Xen, just how Linux works.
 
-Right now I can't see why we wouldn't need such an adjustment also for S3 on
-AMD x86 hardware. However, please let's not further split how things are
-being checked for. I.e. can we please keep the park_offline_cpus and the
-system_state checks together, either here or in init_percpu_area()? Just
-like CPU_DEAD etc handling has it.
+This is something which TGLX and I have discussed in the past.  It is a
+mistake for any x86 system to do MSI multi-message without an IOMMU.
 
-Jan
+MSI multi-message gets you a power-of-2, aligned, block of vectors, up
+to a maximum of 32, which must always target the same CPU.
+
+The LAPIC prioritisation is on groups of 16, aligned, vectors.
+
+If MSI has 16 or fewer vectors, then any interrupt causes all others to
+be blocked owing to LAPIC behaviour.
+
+With 32 vectors, you can get two vectors (one from the first 16, one
+from the second 16) where the higher vector can interrupt the lower
+one.  And you pay 32 vectors for this.
+
+With the IOMMU, every message gets a controllable CPU and controllable
+priority, because they come from the IRTE, not the device.
+
+Removing Multi-MSI support makes vector allocation much easier because
+you you never need to allocate/move blocks.
+
+~Andrew
 
