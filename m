@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49EDBA61783
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 18:26:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.914887.1320542 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76959A617BD
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 18:32:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.914976.1320662 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt8nF-0005PC-Hg; Fri, 14 Mar 2025 17:25:57 +0000
+	id 1tt8t9-00056M-La; Fri, 14 Mar 2025 17:32:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 914887.1320542; Fri, 14 Mar 2025 17:25:57 +0000
+Received: by outflank-mailman (output) from mailman id 914976.1320662; Fri, 14 Mar 2025 17:32:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt8nF-0005NX-DW; Fri, 14 Mar 2025 17:25:57 +0000
-Received: by outflank-mailman (input) for mailman id 914887;
- Fri, 14 Mar 2025 17:25:55 +0000
+	id 1tt8t9-00051h-Fu; Fri, 14 Mar 2025 17:32:03 +0000
+Received: by outflank-mailman (input) for mailman id 914976;
+ Fri, 14 Mar 2025 17:32:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SsSs=WB=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1tt8nD-0003IK-S9
- for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 17:25:55 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1tt8nL-0003IK-5c
+ for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 17:26:03 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 62c9cc77-00f9-11f0-9ab9-95dc52dad729;
- Fri, 14 Mar 2025 18:25:55 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-ac298c8fa50so442924466b.1
- for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 10:25:55 -0700 (PDT)
+ id 6720e508-00f9-11f0-9ab9-95dc52dad729;
+ Fri, 14 Mar 2025 18:26:02 +0100 (CET)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-ac2bb7ca40bso444803866b.3
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 10:26:02 -0700 (PDT)
 Received: from localhost.localdomain ([66.81.170.107])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac3146aeb24sm250677566b.9.2025.03.14.10.25.53
+ a640c23a62f3a-ac3146aeb24sm250677566b.9.2025.03.14.10.25.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Mar 2025 10:25:54 -0700 (PDT)
+ Fri, 14 Mar 2025 10:26:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,39 +45,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 62c9cc77-00f9-11f0-9ab9-95dc52dad729
+X-Inumbo-ID: 6720e508-00f9-11f0-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1741973154; x=1742577954; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1741973162; x=1742577962; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Rdh/nRp2GmOU7roCTz/BcdnWbFJ7a9N+rEjKItErqUM=;
-        b=eKRB1iWXLDSEB5gZyzMO3hvVdVUNYWC+Ue1cO7+mEPkBt6+LSL/W9x0PIy/q87yquN
-         PMGsaT0HRhWrTIC6KsVBBlYhSy5WX9mpIRAqvbR0kzasj/eFzaWr2VDc12B7OEY/f428
-         fcOQYTLwX7fHXclSuLH/u9oh4ewrVIcfSkF+E=
+        bh=WOoPVJhq5a/XEAMxWlBgBdgROSgA1Iks8/9HeBPk9Vk=;
+        b=kwFwRMX/icEl6/PGslirYjI0YHysECTgiUie6QxjAMGhIO4TflSp4N3km3+a/X41sL
+         cQ+R2bTWSrc8NYu64P3lwFMGfz+uiBJyZi3NSMAZvruHu7lnTyypHn6VinkqeuFviVR7
+         vjhFRtsXf/xACzengGUDi/AasZH3M7P5cVMEM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741973154; x=1742577954;
+        d=1e100.net; s=20230601; t=1741973162; x=1742577962;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Rdh/nRp2GmOU7roCTz/BcdnWbFJ7a9N+rEjKItErqUM=;
-        b=gGk1wPKJoTYJUBTcqO2zLk29DHY3djmAm6GDVlUrz52jn0oby+Dkgm5riJ+mQTi4Fk
-         GgcLB0URoaRo6iN+/Q9yuVpvcf+XAbGmUCGCldL3P5DPjMKdZHSor04klZK2UvZuo90n
-         X0SxLDde/WeN8ZgPs2Uk9OirInLDu0yir20AsH1l7LqbKkRje9NbW4fWqRg4ZIZ3LB+a
-         zyP9SRlvSWXxksPzSqae/1Gg+lf9JyqaxVas2HwSxnv3Xu7QShcq2/69DmNTY8ZAg+Sl
-         trc6390owb5Ce5XnkLDmITqTvjphTSjuclIDaTRrXKeQmS6r1s4MNnBcfmN+FrQLjOlm
-         JW8A==
-X-Gm-Message-State: AOJu0YwxRRYxuZQ/VMsIAltkyAnma4CjQ6O60vVdpXQS2aWp6h9sXHmB
-	66MBnJhBfJxkkXm2f6jFbOFzk0u0ePe4E8MwOaoyJICBYlYrir7uve9MRyK7LgcMC1fo88Dfdds
-	g
-X-Gm-Gg: ASbGncsMerED8kTsO+ozzFN/28Y1ENzOjP/ahC790xelurFAbSTUB45QuLgVs2NCQWI
-	byOXTCWqrZXs8Pz2q9XlQV9bxyzt9KB4qIgWcvUBthofNZcTbdA136aNQO3N9bmGFheviqjKclG
-	mQSJLSY0cxmaOhjfsps9n3PteHeNQTg+g6gjMiMtjHk56Zyn2fAuX51hwXDLdmwI4B+sYnYXA8O
-	bc9Z7HzvDX/8N3RdcWeljSrrEYYU40nUhf7TKWTgsUDG1xFHgAq4SarpO8x8GNB2h4Jw1cQOn+V
-	96rytlfKm+W+GZhSNDP6tPqYt5C9x6E+d8Ci6bfte2zCRD09DBBcv8SXEfUouOar4rw=
-X-Google-Smtp-Source: AGHT+IEk8nbANZEXxTyw0X2Q7BGwqyDIUuQMlWuNOdLVVwuv2DgDtuJtPUADZ4WCiPLZq08dAnvteA==
-X-Received: by 2002:a17:906:4795:b0:ac1:fbf8:6ae7 with SMTP id a640c23a62f3a-ac33026213amr390563666b.13.1741973154557;
-        Fri, 14 Mar 2025 10:25:54 -0700 (PDT)
+        bh=WOoPVJhq5a/XEAMxWlBgBdgROSgA1Iks8/9HeBPk9Vk=;
+        b=N8JJA5BFNRvZDmvCGZPmSvHYC9jQtAnhZuvADBoc5IZlatT4iVujxTNIQOX3oIUXBI
+         sd7yRldV460cjYJM3vFJuuNtsEA7mwtOvsUUdB1Vz1j65ibj24NZkPEI1Q2xwqUlTIlx
+         8WVFfVbDI4hr+1qdCCyS17a4VNFHupQvLGRqKXqPSrGXqptVn+xQt9IM3zkLz02eKVvi
+         CXhy1ozyZXsKBu4BJQgkPR6dEBmWkn860Lm/HBUJrTKx1hR2FGryaerPdXkFxj+kOCJT
+         y9qB1NId7oREdkag8zQzCCIxEaz9ySVRKhO9REP3BOiUHFv/sBWeMoFxZq1LqOwcqYyK
+         vdwg==
+X-Gm-Message-State: AOJu0Yxa+/cjQ8xamjrkNoNTJd8fGh55oNXe2By+1dQxyQoqG2mOQvTE
+	1Tue16Te/UQq9fvQhKvgWPY5zFKSum4WFiH+e952OD+3KzgMZsH6qrF85CsRsvDBI2U/BKMcpzI
+	v
+X-Gm-Gg: ASbGncuyvzvwWZ5uoS5LymcQGsGtrZwzfllBAshJ7K8+V3bJDPKPT9gO4KjlUGnDPFc
+	/OnOyxCYySnjlBYrWJgFQE82sM075EQaaBq7dXmSt2JcDGdkmQ2HDpDXomUkfa0u95BBMfaAz57
+	32cnRTit2t4wQ6ufgYS0kHqu4cA9IY14DE82HytwKuCn0yMqpOrFRA0X/Ra2YXRwxN+wbubC08j
+	70aWBEX1IxkZN5j/NigJKVkqJpe2XgVOQyqRUeGz4k+uXK2l9M7BnKZ3jbhppYbn0JhURQeZput
+	tHcIc0vO0CRDlj8bvixfokxKOxhQIU0zzwVpgal876ARCo1uBUYsKF0qbkSA/ssRi7E=
+X-Google-Smtp-Source: AGHT+IH7BlA4vCgTd4VLYiuH5xIPV1du5rzeNPEjhgKwzB0hRnTvUWdLLIXdHbXU2JzPDm4QdcUwAg==
+X-Received: by 2002:a17:907:9713:b0:ac2:7e56:5ca5 with SMTP id a640c23a62f3a-ac3302771cdmr393348266b.34.1741973161918;
+        Fri, 14 Mar 2025 10:26:01 -0700 (PDT)
 From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: xen-devel@lists.xenproject.org
 Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
@@ -89,89 +89,54 @@ Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH 06/11] xen/page_alloc: Hook per-node claims to alloc_heap_pages()
-Date: Fri, 14 Mar 2025 17:24:57 +0000
-Message-ID: <20250314172502.53498-7-alejandro.vallejo@cloud.com>
+Subject: [PATCH 07/11] xen/page_alloc: Set node affinity when claiming pages from an exact node
+Date: Fri, 14 Mar 2025 17:24:58 +0000
+Message-ID: <20250314172502.53498-8-alejandro.vallejo@cloud.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250314172502.53498-1-alejandro.vallejo@cloud.com>
 References: <20250314172502.53498-1-alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Extend the claim checks in alloc_heap_pages() to exact-node claims. The
-logic is slightly more complicated, so the patch moves it all to an
-auxiliary function.
+Set the domain's node affinity to the claimed node if the claim
+specified an exact node. Do it immediately before making any changes in
+case setting the affinity fails (even though it shouldn't).
 
-exact-node claims also follow global claims in order to ensure both can
-coexist in the same system.
+This allows preferentially allocating from the closest NUMA node when
+"exact" is not specified (e.g: p2m tables, etc).
 
 Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 ---
- xen/common/page_alloc.c | 44 ++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 41 insertions(+), 3 deletions(-)
+Toolstacks can just do it themselves, but it's more error prone. If it
+claimed pages from an exact node (and remember we can only hold a single
+claim at a time) it makes no sense for the domain to be intentionally
+allocating from NUMA nodes other than its home node.
+---
+ xen/common/page_alloc.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index 7fe574b29407..cfaa64d3b858 100644
+index cfaa64d3b858..e69a5fcc8d31 100644
 --- a/xen/common/page_alloc.c
 +++ b/xen/common/page_alloc.c
-@@ -991,6 +991,46 @@ static void init_free_page_fields(struct page_info *pg)
-     page_set_owner(pg, NULL);
- }
+@@ -586,10 +586,16 @@ int domain_set_outstanding_pages(struct domain *d, nodeid_t node,
  
-+/*
-+ * Determine whether a heap allocation is allowed after considering all
-+ * outstanding claims in the system.
-+ *
-+ * Exact-node allocations must also take into account global claims!
-+ *
-+ * e.g:
-+ *   Consider a domain for which toolstack issued a non-exact claim of 75% of
-+ *   host memory and another domain for which toolstack tries to issue an
-+ *   exact-node claim of 50% of host memory. If the exact claim didn't consider
-+ *   non-exact claims too we would overallocate, which is exactly what claims
-+ *   are trying to prevent.
-+ */
-+static bool can_alloc(struct domain *d, unsigned int memflags,
-+                      unsigned long request)
-+{
-+    nodeid_t node = (memflags & MEMF_exact_node) ? MEMF_get_node(memflags) :
-+                                                   NUMA_NO_NODE;
-+
-+    if ( outstanding_claims + request <= total_avail_pages )
-+    {
-+        if ( node == NUMA_NO_NODE )
-+            return true;
-+
-+        if ( pernode_oc[node] + request <= pernode_avail_pages[node] )
-+            return true;
-+    }
-+
-+    /*
-+     * Not enough unclaimed memory. Only allow if it's already claimed on the
-+     * right node. d->claim_node == NUMA_NO_NODE if the claim isn't on an
-+     * exact node.
-+     *
-+     * Only refcounted allocs attributed to domains may have been claimed
-+     */
-+
-+    return d && d->claim_node == node && d->outstanding_pages >= request &&
-+           !(memflags & MEMF_no_refcount);
-+}
-+
- /* Allocate 2^@order contiguous pages. */
- static struct page_info *alloc_heap_pages(
-     unsigned int zone_lo, unsigned int zone_hi,
-@@ -1021,9 +1061,7 @@ static struct page_info *alloc_heap_pages(
-      * Claimed memory is considered unavailable unless the request
-      * is made by a domain with sufficient unclaimed pages.
-      */
--    if ( (outstanding_claims + request > total_avail_pages) &&
--          ((memflags & MEMF_no_refcount) ||
--           !d || d->outstanding_pages < request) )
-+    if ( !can_alloc(d, memflags, request) )
+     if ( node != NUMA_NO_NODE )
      {
-         spin_unlock(&heap_lock);
-         return NULL;
+-        avail_pages = pernode_avail_pages[node] - pernode_oc[node];
++        nodemask_t affinity = NODE_MASK_NONE;
+ 
++        avail_pages = pernode_avail_pages[node] - pernode_oc[node];
+         if ( pages > avail_pages )
+             goto out;
++
++        node_set(node, affinity);
++        ret = domain_set_node_affinity(d, &affinity);
++        if ( ret )
++            goto out;
+     }
+ 
+     /* yay, claim fits in available memory, stake the claim, success! */
 -- 
 2.48.1
 
