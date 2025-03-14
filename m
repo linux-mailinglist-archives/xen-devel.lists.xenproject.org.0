@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B80FA60CFD
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 10:18:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.914215.1320002 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 624F0A60D42
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 10:27:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.914228.1320011 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt1BQ-0005po-T5; Fri, 14 Mar 2025 09:18:24 +0000
+	id 1tt1K6-0001pv-MD; Fri, 14 Mar 2025 09:27:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 914215.1320002; Fri, 14 Mar 2025 09:18:24 +0000
+Received: by outflank-mailman (output) from mailman id 914228.1320011; Fri, 14 Mar 2025 09:27:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt1BQ-0005ms-Pc; Fri, 14 Mar 2025 09:18:24 +0000
-Received: by outflank-mailman (input) for mailman id 914215;
- Fri, 14 Mar 2025 09:18:23 +0000
+	id 1tt1K6-0001oE-JO; Fri, 14 Mar 2025 09:27:22 +0000
+Received: by outflank-mailman (input) for mailman id 914228;
+ Fri, 14 Mar 2025 09:27:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vXxa=WB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tt1BP-0005Q9-Ey
- for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 09:18:23 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=gDv/=WB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tt1K5-0001o8-Ua
+ for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 09:27:21 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 46f1adc5-00b5-11f0-9ab9-95dc52dad729;
- Fri, 14 Mar 2025 10:18:22 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-43948021a45so16732565e9.1
- for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 02:18:22 -0700 (PDT)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d2010e2e4sm10689385e9.37.2025.03.14.02.18.21
+ id 8768b7cf-00b6-11f0-9ab9-95dc52dad729;
+ Fri, 14 Mar 2025 10:27:20 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-43d07ca6a80so12627985e9.1
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 02:27:20 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43d200fae32sm11004635e9.31.2025.03.14.02.27.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Mar 2025 02:18:22 -0700 (PDT)
+ Fri, 14 Mar 2025 02:27:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,119 +45,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 46f1adc5-00b5-11f0-9ab9-95dc52dad729
+X-Inumbo-ID: 8768b7cf-00b6-11f0-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741943902; x=1742548702; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741944440; x=1742549240; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Z+bGNCNgSiR1Q0tiLQS5aZLu3UxZIWtcxJJJiR67HjU=;
-        b=TjySt6+GMSkdN/1d6TWPk09VcNM8CbO5dzd4ANUMSUTBx63hhNfu43ho00y+gfclaK
-         FB0PuYhIi+D119B3YsYdcnv6RetXJkepyaG7xB/7h26v1ebL6k4q2NRPj4ZTgKL6bCuI
-         gJ4OuJeoDqEl6T93qIjj11cqHx96rlAQ5xVqs=
+        bh=6ZWvYCAzh1yX1DaJgu1fvFwOeD8btmo3VZhXUV0kWEA=;
+        b=WGhLc0R16rtpZsOsXXH94pfKfc+2PP5mHuHcQqSOJmWW230udeaWTQJIJyHl9loZY3
+         WZjr+YeFekGhnVqJ6/atuWZvz2W9YQI6TGBGtak4kvpcAsAKyovOEMUo8m4jkyygauHB
+         ofs5xWXO1cfUpZxYeXyLtK/EvDCp9VQAcPqDGgmDK6hGUOxcwMyylswwL92bbo3JLf1s
+         gfLmieliY7peDE83zqJWt0QguOCQaH54twXQz0hSoez+yqO+WjFUi+H+oLxoW5INeplX
+         HZ4qWkw8YW3O2sCz1/qtVcTWNOj4z4WGs1q2Y8WrwizI9dipDarShFFjr5YwBF0PGApC
+         Hfxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741943902; x=1742548702;
+        d=1e100.net; s=20230601; t=1741944440; x=1742549240;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Z+bGNCNgSiR1Q0tiLQS5aZLu3UxZIWtcxJJJiR67HjU=;
-        b=FG/mJ6uI7I02Ulq3ZdqFyTxVB3ysBhfpRTr9qmqjNZ4lAHNslUgYA1QcvNEJqHdc68
-         dsQToycaYCf+KaQbQRc3crRnBKXurW9cvnS6Hr9NIz+NqGkZ6lPIqnZrB9VFk5V/ox+2
-         DrOgN+B62/Jat/ep15GB+sTe0z/7jyX0CfmSLu2V9cgaMZOwfJeGbCQBVyNQAm0+a+Ie
-         C58uqIHoKBuHuovU+lz9hERT0BgaPOCgtd7bkc7jcIHAosCN99y7jp2kqNXTLXjQn8v6
-         HeCqlgFHeqqwFgO/lVtFJ4KiSYE59hDcoOI/CwGWf+EF5hZqH9R5iQ3dOfBrNJQuEUso
-         YgbQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXxg+1yCsburKeG45fY21qGwuBCcFfvmBfmBsB7XZ5HOmnFZpdMdw3JaOQNWceQI0GkU2muZ+rhGNI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxTTkXC2Csw0NebJjNqpY9kFbDrYFUB//F3aGJXKGG0E2IfmzKo
-	NE61A3fpU6Hwk4uP3oKSVf0u/9+WPk5hx4lKnNjW8bNoSE1zgr4c+MQ+sBZVrf4=
-X-Gm-Gg: ASbGnctrwxiHSoUd32cQmRceWhtHxx6f0I2qB8YzeuC9zdwCTN2yYSGUQExl4BA7OMm
-	ZmuUJLKvEPsuIbe3sviDRvaooj6c57jwBd1AzT4ogLni88KUGecGwTH7iLEPeWwYFKxRMlIxw/y
-	LjaF//gLbMUnFMucfE8HXubaA2jNFR+5YsaY/jacyJthoi+/jmtxOQsybrS1GZ1n9mop9jSmycL
-	3d9+E2xYOSPFIoofvFwbfYFll9FfBQzUenUnjwMDtKsUEZknbsvN+mBadN7Luy+9akjCc3awVse
-	1PUagxFvx+5p4j9fDYu3x3mHhKEiWdGbVlGDbJD+Xm7h2m9clz1L2fPFIO7vx65qx+6x5Af4LsL
-	eBRlAAz3TigSBcnuNuuE=
-X-Google-Smtp-Source: AGHT+IGWbtPUh9QgR1IrFHQrJ0oWLpydbsAGPs7az6UeOOh0cCeju+2dIaEP1bPbVqFz4wp4Dy8b6g==
-X-Received: by 2002:a05:600c:3b0a:b0:43c:e70d:44f0 with SMTP id 5b1f17b1804b1-43d1ecc31b8mr20062445e9.19.1741943902393;
-        Fri, 14 Mar 2025 02:18:22 -0700 (PDT)
-Message-ID: <b6ce5ff4-17bd-4199-a89d-2a6d4f5a7a46@citrix.com>
-Date: Fri, 14 Mar 2025 09:18:21 +0000
+        bh=6ZWvYCAzh1yX1DaJgu1fvFwOeD8btmo3VZhXUV0kWEA=;
+        b=AHT1xAfKN0qTKd50c8iKIu5APJEvtOX/vCmGAwc09tmIKuPY4IQs2En6OhsIBI2mRu
+         q4RddO9CHWUM/5AYmBewGV8UVrqgiNfj1liS19zwsyNRg+8rRMfR52rFYM9lQGBjYzU+
+         gUZzMrav6d7k1R9w6e1tvCjHKE8iInZiC/mJmDvHM9yc3gC4BRZCV7h5+tx+NCr+0XuD
+         CXQjuPVEjHh8Fvh72q/OBDdQOUguL/dVzkxDMNSo64KeARXgG8hI4lqOvF9amG1cDjEu
+         lF02KkLjm6TmOt8Rl74DTwb5VQevAmydl6WbNaCO+3oKVyX+RtK7NEIH+g1Aanmk/rxi
+         2ILA==
+X-Forwarded-Encrypted: i=1; AJvYcCV2NAtSN2aR02/uqHVqE5oMU/B8p1sTKSR8GqGoqIqmcP94oFQW3p5TqeekMa+bd5lA42fst5Qf3sE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyG36V0rH3rdIlvfeTyKID9Ap/cNOOadZVbNadQAzOpZynzHN9C
+	k9/X61s9cXlm061Ay6wBiFtGkwdw9AclXsMyJXyFSzHAgOMXYDw8kC9Cz9U3UA==
+X-Gm-Gg: ASbGncvLSwqG+QktcuVqiujs81MSVLNuab2yUsDSJPcVR4jf/Gy5JDYP7EI6/IackvZ
+	oQixkhsIOw8chYimrR4+BeZzS/oN5UxY9DhlwL7bj4/CQflmqx9XD6prRnW/H6TGah5y4n0Bzy6
+	zInGHI7HsrXUbl7lqB9CKEwX7Jj5k92EkVzqGe4ltfNsyYSO6rzsaCQQjC3Ct/h867lZZJm+rW/
+	nYf2P7q02Qjr4s3rb/7ioyvlLj0N8aP6mVkdFU6XvibVsg8HYLSXDnZxih0TIIqI2bIWUsBYf8R
+	4O3DnKL6W8tchjo9x5jMlOzitHOR0rc5HMnnN2iRo90NHENRjF+K2M4B8wzHYKpLGqqfLnibL0h
+	Kz/YsKHNQuhIdm6uxy8nd2z20HUlwzQ==
+X-Google-Smtp-Source: AGHT+IGTbFqJS0baiPZnJTVCVX4JN8Z7qyN+ToFu5qXaEEm4xlSSINu9axdsvtw1odepLepbPvN5cA==
+X-Received: by 2002:a05:600c:5493:b0:43b:ce36:7574 with SMTP id 5b1f17b1804b1-43d1ecb430cmr24775675e9.11.1741944439991;
+        Fri, 14 Mar 2025 02:27:19 -0700 (PDT)
+Message-ID: <b8e760b1-df5a-414e-862a-34fd66f957c3@suse.com>
+Date: Fri, 14 Mar 2025 10:27:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/irq: use NR_ISAIRQS instead of open-coded value
-To: Jan Beulich <jbeulich@suse.com>, dmkhn@proton.me
-Cc: anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com,
- roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com,
- xen-devel@lists.xenproject.org
-References: <20250314011528.2608217-1-dmukhin@ford.com>
- <94879059-1a38-45e3-ab3a-4f8eacd885cf@citrix.com>
- <2fd26b5f-2d72-4261-a963-e05cf7fe56b7@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <2fd26b5f-2d72-4261-a963-e05cf7fe56b7@suse.com>
+Subject: Re: [PATCH v1 19/19] xen/sysctl: wrap around sysctl hypercall
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Stefano Stabellini <stefano.stabellini@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org
+References: <20250312040632.2853485-1-Penny.Zheng@amd.com>
+ <20250312040632.2853485-20-Penny.Zheng@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250312040632.2853485-20-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 14/03/2025 9:16 am, Jan Beulich wrote:
-> On 14.03.2025 10:14, Andrew Cooper wrote:
->> On 14/03/2025 1:20 am, dmkhn@proton.me wrote:
->>> Replace the open-coded value 16 with the NR_ISAIRQS symbol to enhance
->>> readability.
->>>
->>> No functional changes.
->>>
->>> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
->> There are currently very few uses of NR_ISAIRQS, and you're about
->> tripling that.
->>
->> Please could you do a prep patch renaming to NR_IRS_IRQS first for
->> legibility?
-> Ftaod - did you perhaps mean NR_ISA_IRQS?
+On 12.03.2025 05:06, Penny Zheng wrote:
+> --- a/xen/common/Makefile
+> +++ b/xen/common/Makefile
+> @@ -69,7 +69,7 @@ obj-$(CONFIG_COMPAT) += $(addprefix compat/,domain.o memory.o multicall.o xlat.o
+>  ifneq ($(CONFIG_PV_SHIM_EXCLUSIVE),y)
+>  obj-y += domctl.o
+>  obj-y += monitor.o
+> -obj-y += sysctl.o
+> +obj-$(CONFIG_SYSCTL) += sysctl.o
 
-Oh, yes, sorry.  That was a typo.
+This wants to move back up then, into the main (alphabetically sorted)
+list of objects.
 
-~Andrew
+> --- a/xen/include/hypercall-defs.c
+> +++ b/xen/include/hypercall-defs.c
+> @@ -195,7 +195,9 @@ kexec_op(unsigned long op, void *uarg)
+>  dm_op(domid_t domid, unsigned int nr_bufs, xen_dm_op_buf_t *bufs)
+>  #endif
+>  #ifndef CONFIG_PV_SHIM_EXCLUSIVE
+> +#ifdef CONFIG_SYSCTL
+>  sysctl(xen_sysctl_t *u_sysctl)
+> +#endif
+>  domctl(xen_domctl_t *u_domctl)
+>  paging_domctl_cont(xen_domctl_t *u_domctl)
+>  platform_op(xen_platform_op_t *u_xenpf_op)
+> @@ -274,7 +276,9 @@ physdev_op                         compat   do       hvm      hvm      do_arm
+>  hvm_op                             do       do       do       do       do
+>  #endif
+>  #ifndef CONFIG_PV_SHIM_EXCLUSIVE
+> +#ifdef CONFIG_SYSCTL
+>  sysctl                             do       do       do       do       do
+> +#endif
+>  domctl                             do       do       do       do       do
+>  #endif
+>  #ifdef CONFIG_KEXEC
+
+As indicated earlier on, PV_SHIM_EXCLUSIVE likely wants / needs sorting as
+a prereq anyway. Otherwise I think the new #ifdef-s better wouldn't end up
+inside the PV_SHIM_EXCLUSIVE ones.
+
+Jan
 
