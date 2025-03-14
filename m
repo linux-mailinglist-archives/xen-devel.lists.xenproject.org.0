@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE611A60A42
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 08:45:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.913849.1319712 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 173C8A60A6D
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 08:53:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.913858.1319722 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tszjY-0007sH-BC; Fri, 14 Mar 2025 07:45:32 +0000
+	id 1tszqd-0002OZ-1y; Fri, 14 Mar 2025 07:52:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 913849.1319712; Fri, 14 Mar 2025 07:45:32 +0000
+Received: by outflank-mailman (output) from mailman id 913858.1319722; Fri, 14 Mar 2025 07:52:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tszjY-0007pB-8R; Fri, 14 Mar 2025 07:45:32 +0000
-Received: by outflank-mailman (input) for mailman id 913849;
- Fri, 14 Mar 2025 07:45:30 +0000
+	id 1tszqc-0002Ls-Tt; Fri, 14 Mar 2025 07:52:50 +0000
+Received: by outflank-mailman (input) for mailman id 913858;
+ Fri, 14 Mar 2025 07:52:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=LNZA=WB=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1tszjW-0007on-Ok
- for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 07:45:30 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ (envelope-from <SRS0=gDv/=WB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tszqb-0002Lm-0n
+ for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 07:52:49 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4d22254d-00a8-11f0-9ab9-95dc52dad729;
- Fri, 14 Mar 2025 08:45:29 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 7091421184;
- Fri, 14 Mar 2025 07:45:29 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3E2CE13A31;
- Fri, 14 Mar 2025 07:45:29 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id W6hTDJne02eYLwAAD6G6ig
- (envelope-from <jgross@suse.com>); Fri, 14 Mar 2025 07:45:29 +0000
+ id 51b3697f-00a9-11f0-9ab9-95dc52dad729;
+ Fri, 14 Mar 2025 08:52:47 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-43d0618746bso12070325e9.2
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 00:52:47 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43d1ffb62c1sm8733825e9.4.2025.03.14.00.52.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 14 Mar 2025 00:52:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,202 +45,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4d22254d-00a8-11f0-9ab9-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1741938329; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=2He6U1T3rx01SlC4U068AwRELpGzmBrbp6AF8j0ikQU=;
-	b=Mlic8t4NlhWaCCxQ4cL9MxZSb4cw0vxNE6RAHoVkl+T+ZD32GirdQJjpvoqfYZWr5xXjZP
-	PJ9q8O1dbH7Oish8hGCspK0U0gzX4POJ/22yYm8EsxwiRKrXDt/rMGGLuERJ/5HmL7f06O
-	+aEei8XQXTEwxo/8XwDa13SMkVkcR7I=
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1741938329; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=2He6U1T3rx01SlC4U068AwRELpGzmBrbp6AF8j0ikQU=;
-	b=Mlic8t4NlhWaCCxQ4cL9MxZSb4cw0vxNE6RAHoVkl+T+ZD32GirdQJjpvoqfYZWr5xXjZP
-	PJ9q8O1dbH7Oish8hGCspK0U0gzX4POJ/22yYm8EsxwiRKrXDt/rMGGLuERJ/5HmL7f06O
-	+aEei8XQXTEwxo/8XwDa13SMkVkcR7I=
-Message-ID: <cf579113-538d-4104-96cc-df6b3919e618@suse.com>
-Date: Fri, 14 Mar 2025 08:45:28 +0100
+X-Inumbo-ID: 51b3697f-00a9-11f0-9ab9-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1741938766; x=1742543566; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=RxFYc2WR46xcU5k0WDMyRk2dWYxjJzpH3Nfh6b3bdrY=;
+        b=InAKknFVWwjB2qvazotMAXgPRGYgNSVxcx2NBMhZLKCjvk5GjoAHqtS4kEFAN9Kk9J
+         I6Yx3jPbiII9gxHyvIGGpNveT5mIkXWAJ6bSWQQ3saeIG+OiqbYqKHqtlGbZE46HtSS7
+         x7bbcEi2sDXcTWAMsw7EpdgHsf58KRxHxFNismOGDvrg5QJ228mtQghACMu3v1KcQQuF
+         PkAfSRLu2KNJjXtfkSrZpPeYPTL5Cfn04UVKkFsepUGz4vbGKpXhcRa6sOoZjbcczYTd
+         Ao3179/YYKtiWtPDpm1sX4fOIlOMiuTiKJ4TB86aMgwuKOY6dGsqGSJuJE/dMY/5LK+d
+         dgAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1741938766; x=1742543566;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RxFYc2WR46xcU5k0WDMyRk2dWYxjJzpH3Nfh6b3bdrY=;
+        b=lSndF/RzrBvSX6GcnME3AAZrW2trThzu2krKCFN0VWvIXjgRO3G+UkU+nadKXZuM3n
+         DAWaWGMkIuKpazo+NCayTj1N5MFoKBIfE25XD+O3JJs8/0kr9E2738puaCPzUaoS4rhC
+         /l/kvedIEkTuNSf22sNgT/l11wEYXXB5WDp0pMMMYamjKC/wHi5qh/aZV9oxq7mwoCmu
+         7OvWFqltQJp8GvKxaILsSKWlxeH9BXQLMh74pf7EzfihUMdKaaQdmn5p+hB3T17aXTRl
+         g/5OuFtPPUsKOcNBPfcOS0KCPpQ6IpCqUnWGaWXmxv8+ctA6eBSDmZsifo+x0c0FKENu
+         oxZw==
+X-Forwarded-Encrypted: i=1; AJvYcCXxwCum/K+RMPXDquCfSuMw7bykI2yISJA4RncbnjmuJarz5QwucLrkLuyMwSgY5ErYfMua5hyG7Pc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyNVu/b+hs09cHU1fUPHnoQ2i57zfcUvXeBTNBTRctoPGSpcght
+	BI5FjNSnUNrvmO1hKH0W9KrPx6vR09lzh5QMymeLyiijEEF+kq3hAg8JSRerfQ==
+X-Gm-Gg: ASbGncv/5/41N5wNFnfYQwFSnUeidfOj7Y39QhQV79lWKWQFc3OXIkPh8XSD2QoeYGE
+	5vLw5GVy14eI4gEtgghUrwOgpNz3fMu0A5dEqCTZvF3dchbFRb0O1AdHqqprnBBN84g/+nf0oOB
+	H9pL+yMhNnwJkGxIHpBONuu2OcniSogIWtVM1VcnuHMY+mW+OPHBKAnLpgb50+AyZsbCyc7ZW7V
+	wc2eKWozB0NLjpeC5M3dVAWxUTHMWuVfVXzqDLXWoyNL73M1zpJtGU+e2g44Vk49VFBpOkRd9G8
+	gQGEUcThcS9FI76koEkH0TVp3TvczsF1ctYAimkWFD9FlqQ6zQ5Q63p2aOoABKCwbpJOiPCa/q6
+	WUdop9PrQWm9i4a9h5D8uu+Vbt+0r4Q==
+X-Google-Smtp-Source: AGHT+IEItZYugDlkpSgcHePfOYVm99OewHlQa6xaDxYnFs6yBFq0YyUSYIyh0txIv59mpVPW3wHNpA==
+X-Received: by 2002:a05:600c:3ba6:b0:43c:eea9:f45d with SMTP id 5b1f17b1804b1-43d1eccbba1mr18824835e9.18.1741938766317;
+        Fri, 14 Mar 2025 00:52:46 -0700 (PDT)
+Message-ID: <5d090922-4d3e-4b9c-9d0f-e6b2ab310f18@suse.com>
+Date: Fri, 14 Mar 2025 08:52:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/pciback: Remove unused pcistub_get_pci_dev
-To: linux@treblig.org, sstabellini@kernel.org, oleksandr_tyshchenko@epam.com
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-References: <20250307004736.291229-1-linux@treblig.org>
+Subject: Re: [PATCH 5/6] symbols: arrange to know where functions end
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <58b3d7dc-5966-432c-8def-e841feaee1c8@suse.com>
+ <51f2cd39-e92f-4745-8053-e51ada22d601@suse.com>
+ <aace0fab-ce3f-4b9f-87c7-2daafd8442ba@citrix.com>
+ <9bf90547-43de-416e-b064-b54c0e79fc93@suse.com>
+ <ea40ec3a-2f6d-42b5-8e98-ab5f4db5d4b4@citrix.com>
 Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20250307004736.291229-1-linux@treblig.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------ix365KrzVuZWdMjLvhE6CMac"
-X-Spam-Level: 
-X-Spamd-Result: default: False [-5.19 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SIGNED_PGP(-2.00)[];
-	MIME_BASE64_TEXT_BOGUS(1.00)[];
-	NEURAL_HAM_LONG(-0.99)[-0.989];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	NEURAL_HAM_SHORT(-0.20)[-0.996];
-	MIME_BASE64_TEXT(0.10)[];
-	MIME_UNKNOWN(0.10)[application/pgp-keys];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TO_DN_NONE(0.00)[];
-	HAS_ATTACHMENT(0.00)[]
-X-Spam-Score: -5.19
-X-Spam-Flag: NO
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ea40ec3a-2f6d-42b5-8e98-ab5f4db5d4b4@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------ix365KrzVuZWdMjLvhE6CMac
-Content-Type: multipart/mixed; boundary="------------GipTESq8HJbUyOR7EHkbaoNP";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: linux@treblig.org, sstabellini@kernel.org, oleksandr_tyshchenko@epam.com
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Message-ID: <cf579113-538d-4104-96cc-df6b3919e618@suse.com>
-Subject: Re: [PATCH] xen/pciback: Remove unused pcistub_get_pci_dev
-References: <20250307004736.291229-1-linux@treblig.org>
-In-Reply-To: <20250307004736.291229-1-linux@treblig.org>
+On 13.03.2025 18:13, Andrew Cooper wrote:
+> On 13/03/2025 4:48 pm, Jan Beulich wrote:
+>> On 13.03.2025 17:39, Andrew Cooper wrote:
+>>> On 13/03/2025 1:54 pm, Jan Beulich wrote:
+>>>> When determining the symbol for a given address (e.g. for the %pS
+>>>> logging format specifier), so far the size of a symbol (function) was
+>>>> assumed to be everything until the next symbol. There may be gaps
+>>>> though, which would better be recognizable in output (often suggesting
+>>>> something odd is going on).
+>>> Do you have an example %pS for this new case?
+>> I haven't encountered one yet, and I wasn't particularly trying to
+>> make up one.
+>>
+>>>> Insert "fake" end symbols in the address table, accompanied by zero-
+>>>> length type/name entries (to keep lookup reasonably close to how it
+>>>> was).
+>>>>
+>>>> Note however that this, with present GNU binutils, won't work for
+>>>> xen.efi: The linker loses function sizes (they're not part of a normal
+>>>> symbol table entry), and hence nm has no way of reporting them.
+>>> By "present GNU binutils", does this mean that you've got a fix in mind
+>>> (or in progress), or that it's an open problem to be solved?
+>> The latter; I can't even tell yet whether this is legitimate to be
+>> arranged for in a PE executable's symbol table.
+> 
+> In which case, I'd suggest using the phrase "open problem" to make it
+> clear that there's no fix.
 
---------------GipTESq8HJbUyOR7EHkbaoNP
-Content-Type: multipart/mixed; boundary="------------Yrz9RgzTLwG3B9vyTaAel2Iw"
+I'd like to leave it as is; right here it's not overly important what
+state the binutils side is. Furthermore, by the time this goes in the
+binutils side may have changed state already (e.g. from "open problem" to
+"fix in progress").
 
---------------Yrz9RgzTLwG3B9vyTaAel2Iw
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+>>>> Older GNU ld retains section symbols, which nm then also lists. Should
+>>>> we perhaps strip those as we read in nm's output? They don't provide any
+>>>> useful extra information, as our linker scripts add section start
+>>>> symbols anyway. (For the purposes here, luckily such section symbols are
+>>>> at least emitted without size.)
+>>> Will symbols_lookup() ever produce these?  If not, it might be better to
+>>> ignore the problem.
+>>>
+>>> Taking extra logic to work around a benign issue in older toolchains
+>>> isn't necessarily ideal.
+>> Afaict it's unpredictable from Xen's pov. All depends on the order of
+>> entries after we sorted the table by address. The only criteria the
+>> tool's compare_value() applies for multiple symbols at the same address
+>> is to prefer global over local. As long as the first symbol in a section
+>> is global, we wouldn't see section symbols as lookup result.
+> 
+> Hmm, thinking about it, the global-ness does cause problems.
+> 
+> e.g. we get _stextentry()+x rather than restore_all_guest()+x, and RAG
+> is more likely than some to show up in a backtrace.
+> 
+> So maybe we should strip section symbols, even the explicit linker ones,
+> from the symbol table.
 
-T24gMDcuMDMuMjUgMDE6NDcsIGxpbnV4QHRyZWJsaWcub3JnIHdyb3RlOg0KPiBGcm9tOiAi
-RHIuIERhdmlkIEFsYW4gR2lsYmVydCIgPGxpbnV4QHRyZWJsaWcub3JnPg0KPiANCj4gcGNp
-c3R1Yl9nZXRfcGNpX2RldigpIHdhcyBhZGRlZCBpbiAyMDA5IGFzIHBhcnQgb2Y6DQo+IGNv
-bW1pdCAzMGVkYzE0YmYzOWEgKCJ4ZW4vcGNpYmFjazogeGVuIHBjaSBiYWNrZW5kIGRyaXZl
-ci4iKQ0KPiANCj4gUmVtb3ZlIGl0Lg0KPiANCj4gU2lnbmVkLW9mZi1ieTogRHIuIERhdmlk
-IEFsYW4gR2lsYmVydCA8bGludXhAdHJlYmxpZy5vcmc+DQoNClJldmlld2VkLWJ5OiBKdWVy
-Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+DQoNCg0KSnVlcmdlbg0K
---------------Yrz9RgzTLwG3B9vyTaAel2Iw
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+So one thing we could do is to prefer FUNC/OBJECT symbols over NOTYPE
+ones, and only use global-ness as a last resort criteria.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+But "prefer" != "strip" in any event.
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+Stripping section symbols is reasonably easy for ELF, as rather than
+being NOTYPE they have no type at all. Stripping section start symbols,
+otoh, can only be done by name, and hence we'd need to maintain a list
+of them in the symbols tool. Not overly nice, but doable of course.
 
---------------Yrz9RgzTLwG3B9vyTaAel2Iw--
+An intrusive - to the symbol table - alternative may be to simply strip
+all NOTYPE symbols. Yet that would take as a prereq marking quite a few
+more as FUNC or OBJECT.
 
---------------GipTESq8HJbUyOR7EHkbaoNP--
+>  I can't offhand think of a case where we want to
+> look up a symbol by address and get back a section name.
 
---------------ix365KrzVuZWdMjLvhE6CMac
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+We also need to keep in mind the opposite (lookup by name) for livepatch.
+I for one have no idea how (un)likely it might be for there to be a need
+to lookup a section symbol (then we'd be in trouble with newer binutils)
+or a section start symbol.
 
------BEGIN PGP SIGNATURE-----
+> (Feel free to leave this as a todo.  I wasn't intending to scope creep
+> like this, but it would be a nice to have.)
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmfT3pgFAwAAAAAACgkQsN6d1ii/Ey90
-XAgAhP8i9hk4NALIilJPCP8Kf2UqEg7F6D1ngyIv0BJosfaoh9v73ffK+7v/h/dLPPJd1wlwFNnl
-PqSNhvXfrBTF7QEXfoSRm/ZLuiK9styF3/pwHEgpRoIWfZJfYfOJG1JhNxRFbqpPiErAAWcIosq/
-UX8wBOkhdRaVwFF2+jLoL4CFfIX/RR1z623f3a/bBvpA7qp9H6mt/2Hvh3gfuEVmyrTWwmKwcEhs
-yV66SGdN8b8Duw0XJ1N9e8ijTvSVkWFDhgIshQoYUjlbQnUD+pn6c0+wD6bbdzF7culZIjhvxyAY
-7aYawAhbbIlYK7xNaYJ28qIRjSbxyfHZMLKkFS4cnQ==
-=g6z6
------END PGP SIGNATURE-----
+If we can agree on what behavior we want, I can see about adding further
+patches to the series.
 
---------------ix365KrzVuZWdMjLvhE6CMac--
+Jan
 
