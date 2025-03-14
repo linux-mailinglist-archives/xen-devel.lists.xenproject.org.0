@@ -2,35 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79C5EA612CF
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 14:35:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.914607.1320392 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A21EA613BC
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 15:35:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.914734.1320402 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt5Bs-0006IF-Cd; Fri, 14 Mar 2025 13:35:08 +0000
+	id 1tt683-0008VC-G9; Fri, 14 Mar 2025 14:35:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 914607.1320392; Fri, 14 Mar 2025 13:35:08 +0000
+Received: by outflank-mailman (output) from mailman id 914734.1320402; Fri, 14 Mar 2025 14:35:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt5Bs-0006FM-4M; Fri, 14 Mar 2025 13:35:08 +0000
-Received: by outflank-mailman (input) for mailman id 914607;
- Fri, 14 Mar 2025 13:35:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=liwF=WB=bounce.vates.tech=bounce-md_30504962.67d43086.v1-d5e0b5c140f5486eb4d5bdaf868ac800@srs-se1.protection.inumbo.net>)
- id 1tt5Bp-0003Jp-Ty
- for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 13:35:05 +0000
-Received: from mail177-1.suw61.mandrillapp.com
- (mail177-1.suw61.mandrillapp.com [198.2.177.1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2201e7a5-00d9-11f0-9898-31a8f345e629;
- Fri, 14 Mar 2025 14:35:03 +0100 (CET)
-Received: from pmta14.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail177-1.suw61.mandrillapp.com (Mailchimp) with ESMTP id 4ZDljL0b3CzBsThPJ
- for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 13:35:02 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- d5e0b5c140f5486eb4d5bdaf868ac800; Fri, 14 Mar 2025 13:35:02 +0000
+	id 1tt683-0008Tc-CM; Fri, 14 Mar 2025 14:35:15 +0000
+Received: by outflank-mailman (input) for mailman id 914734;
+ Fri, 14 Mar 2025 14:35:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=iXy+=WB=redhat.com=armbru@srs-se1.protection.inumbo.net>)
+ id 1tt681-0008TQ-T2
+ for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 14:35:13 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 888aebc0-00e1-11f0-9ab9-95dc52dad729;
+ Fri, 14 Mar 2025 15:35:12 +0100 (CET)
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-561-ZX-hc9rrOPurN8WmEXRzfw-1; Fri,
+ 14 Mar 2025 10:35:06 -0400
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 60F521800267; Fri, 14 Mar 2025 14:35:04 +0000 (UTC)
+Received: from blackfin.pond.sub.org (unknown [10.22.74.4])
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id D866318001F6; Fri, 14 Mar 2025 14:35:03 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id 1FE3521E675F; Fri, 14 Mar 2025 15:35:00 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,83 +54,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2201e7a5-00d9-11f0-9898-31a8f345e629
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1741959302; x=1742229302;
-	bh=uG1KcJgwcW9T2cGN3oyD/12pz8pEMNAmvmnymfhPGS4=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=g9hfdA/eM7vcBcCDkScEmdyush/aDVF9niLOhO1Tls29AehJMunYoTLPcqPx4URix
-	 /aMh2g12ndPjgUTy22QDmBO2Q/RAv0cXaFZI+qOcWz1ZgrHfQZCrr1K3y464VLIJyL
-	 qwG0X7PDYl8MR1m8vayWQ7hjrpV24L5fx3uL30NrDreDdDALoHwoF2h0fysd+K3iam
-	 uuGcNVID5TPwnEu+AzI8k4h0x2P7SOTZNSkGAuW/rTouVWcrQV+q0j9IK/9Uc1NvBZ
-	 Z7+4wG6V3IKm+zhLAqIfOwcWPE+QHkNe69r5WmAQgVIJNVrhCRzbohvB2D7UahSoln
-	 xxQo5w3wwGFsA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1741959302; x=1742219802; i=anthony.perard@vates.tech;
-	bh=uG1KcJgwcW9T2cGN3oyD/12pz8pEMNAmvmnymfhPGS4=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=JLfWifvyw3oMpzh/DIkhmNZnn3FOeOLirZx5hCQxLEpJmiyfjBrlmwr/pGpcuVoIu
-	 fByVYbcweMsQZSr7P+jLoVx6FJX4LBZ/iPwhvohnmYlx2QihXR4olRcsJr2TAYMy5/
-	 hudYvliyweXeQ59PZIeXS3fEzmoqQIVSV6WfgZ8kP/fcI+MggULGuM1sVWsTSFvWHP
-	 wXDJuAaRWZnF/BAQRml7SWQp9RISG2jZlaNr/J+RKpmHFJEJy5WNTAhhvlfN+4YBHH
-	 UwqWVJizjxihe4lGii0OSWJTOD6a2L1zM3QHS6AxlxRtem1HD3UbiF+zgVJ/AFupkT
-	 hzdtfbtU4eblQ==
-From: "Anthony PERARD" <anthony.perard@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v4=2012/17]=20hw/xen:=20add=20stubs=20for=20various=20functions?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1741959300664
-To: "Pierrick Bouvier" <pierrick.bouvier@linaro.org>
-Cc: qemu-devel@nongnu.org, "Paul Durrant" <paul@xen.org>, "=?utf-8?Q?Philippe=20Mathieu-Daud=C3=A9?=" <philmd@linaro.org>, "Harsh Prateek Bora" <harshpb@linux.ibm.com>, "Liu Zhiwei" <zhiwei_liu@linux.alibaba.com>, "Edgar E. Iglesias" <edgar.iglesias@gmail.com>, xen-devel@lists.xenproject.org, "Peter Xu" <peterx@redhat.com>, alex.bennee@linaro.org, manos.pitsidianakis@linaro.org, "Stefano Stabellini" <sstabellini@kernel.org>, "Paolo Bonzini" <pbonzini@redhat.com>, qemu-ppc@nongnu.org, "Richard Henderson" <richard.henderson@linaro.org>, kvm@vger.kernel.org, "David Hildenbrand" <david@redhat.com>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Weiwei Li" <liwei1518@gmail.com>, qemu-riscv@nongnu.org, "Alistair Francis" <alistair.francis@wdc.com>, "Yoshinori Sato" <ysato@users.sourceforge.jp>, "Daniel Henrique Barboza" <danielhb413@gmail.com>, "Nicholas Piggin" <npiggin@gmail.com>
-Message-Id: <Z9Qwg4PC_1bEaOLK@l14>
-References: <20250313163903.1738581-1-pierrick.bouvier@linaro.org> <20250313163903.1738581-13-pierrick.bouvier@linaro.org>
-In-Reply-To: <20250313163903.1738581-13-pierrick.bouvier@linaro.org>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.d5e0b5c140f5486eb4d5bdaf868ac800?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250314:md
-Date: Fri, 14 Mar 2025 13:35:02 +0000
+X-Inumbo-ID: 888aebc0-00e1-11f0-9ab9-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1741962910;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=5JZ21SMl1GeBJ0cIQwsQQgUDcr1yWmvE50eUD2Kyya8=;
+	b=HvLY9/9HrZl8hXxas/OofOiBlLMjsc6HBPQxCF09M1OICJx+FTgjgXZMQhLVnAxfSt5oLX
+	GVPtASkdjoK8AzV9nfVmaDsBDqlJcOPiz5aD5QZHBxq4woXfTjH3uXciJEETQCDGINaJ7y
+	n5Xzy+oINKpbnI5Wert4ZPpmFpu1Q2U=
+X-MC-Unique: ZX-hc9rrOPurN8WmEXRzfw-1
+X-Mimecast-MFC-AGG-ID: ZX-hc9rrOPurN8WmEXRzfw_1741962905
+From: Markus Armbruster <armbru@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: sstabellini@kernel.org,
+	anthony@xenproject.org,
+	paul@xen.org,
+	edgar.iglesias@gmail.com,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH 0/2] xen: An error handling fix
+Date: Fri, 14 Mar 2025 15:34:58 +0100
+Message-ID: <20250314143500.2449658-1-armbru@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On Thu, Mar 13, 2025 at 09:38:58AM -0700, Pierrick Bouvier wrote:
-> Those functions are used by system/physmem.c, and are called only if
-> xen is enabled (which happens only if CONFIG_XEN is not set).
+Question to reviewers: should PATCH 2 downgrade to warning, to info,
+or delete the report entirely?
 
-You mean, 's/is not set/is set/'?
-> 
-> So we can crash in case those are called.
-> 
-> Acked-by: Richard Henderson <richard.henderson@linaro.org>
-> Signed-off-by: Pierrick Bouvier <pierrick.bouvier@linaro.org>
-> ---
-> diff --git a/hw/xen/xen_stubs.c b/hw/xen/xen_stubs.c
-> new file mode 100644
-> index 00000000000..19cee84bbb4
-> --- /dev/null
-> +++ b/hw/xen/xen_stubs.c
-> +
-> +void xen_invalidate_map_cache(void)
-> +{
+Markus Armbruster (2):
+  hw/xen: Fix xen_bus_realize() error handling
+  hw/xen: Downgrade a xen_bus_realize() non-error to warning
 
-Is this stub actually necessary? xen_invalidate_map_cache() doesn't
-seems to be used outside of xen's code.
-
-In anycase:
-Acked-by: Anthony PERARD <anthony.perard@vates.tech>
-
-Thanks,
+ hw/xen/xen-bus.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 -- 
+2.48.1
 
-Anthony Perard | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
 
