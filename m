@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DD4AA617A8
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 18:31:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.914963.1320577 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71C20A617AE
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 18:31:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.914966.1320602 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt8ss-0002CJ-Ul; Fri, 14 Mar 2025 17:31:46 +0000
+	id 1tt8sy-0002vz-JL; Fri, 14 Mar 2025 17:31:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 914963.1320577; Fri, 14 Mar 2025 17:31:46 +0000
+Received: by outflank-mailman (output) from mailman id 914966.1320602; Fri, 14 Mar 2025 17:31:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt8ss-00029c-RP; Fri, 14 Mar 2025 17:31:46 +0000
-Received: by outflank-mailman (input) for mailman id 914963;
- Fri, 14 Mar 2025 17:31:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tt8sy-0002ty-Bx; Fri, 14 Mar 2025 17:31:52 +0000
+Received: by outflank-mailman (input) for mailman id 914966;
+ Fri, 14 Mar 2025 17:31:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SsSs=WB=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1tt8nV-0003IK-3V
- for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 17:26:13 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6d0d8caa-00f9-11f0-9ab9-95dc52dad729;
- Fri, 14 Mar 2025 18:26:12 +0100 (CET)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-ac2ed007aacso471710366b.0
- for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 10:26:12 -0700 (PDT)
-Received: from localhost.localdomain ([66.81.170.107])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac3146aeb24sm250677566b.9.2025.03.14.10.26.09
+ <SRS0=Zh9v=WB=linaro.org=pierrick.bouvier@srs-se1.protection.inumbo.net>)
+ id 1tt8sx-0000xy-0L
+ for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 17:31:51 +0000
+Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
+ [2607:f8b0:4864:20::634])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 337c03ed-00fa-11f0-9899-31a8f345e629;
+ Fri, 14 Mar 2025 18:31:46 +0100 (CET)
+Received: by mail-pl1-x634.google.com with SMTP id
+ d9443c01a7336-223959039f4so52138005ad.3
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 10:31:46 -0700 (PDT)
+Received: from pc.. ([38.39.164.180]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-af56e9cd03bsm2990529a12.8.2025.03.14.10.31.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Mar 2025 10:26:11 -0700 (PDT)
+ Fri, 14 Mar 2025 10:31:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,129 +44,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d0d8caa-00f9-11f0-9ab9-95dc52dad729
+X-Inumbo-ID: 337c03ed-00fa-11f0-9899-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1741973172; x=1742577972; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xM6Gpx3RAeeK1cS7aS7L8nNeRymkrBxeUEa3FM/T9W8=;
-        b=VwcO7GDdwGkhy8sl5JtDbfF8GMUPD1u4jETFbeHSOMNBguBHiK0oLrLHrVxnrAk0ES
-         nDBd7whfajuc39g3QwL8iLmugkOaMJmrwXNluo7UO6zeawc5Aih4uyexsyrdEoHegxb6
-         Sg9jakSdlCPK55VBqWwgkH9phzUDZdR5nzRlI=
+        d=linaro.org; s=google; t=1741973505; x=1742578305; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=mbx4XaRe0fsea/1JxsaLA7ueH0t1s6VZZ5QhNdIFgD0=;
+        b=jKSZCF2wdCaFgTLm+vOnxxAhqQVeOrl+Y58K8zfhZaT6HH1VkYo9bH+ZeSM6hev18e
+         JUo/TNnyNAfIMXEYbKFbm0z4BTeykKnBSou7HhhazGeJ3ZW/wWaoKTWIhOLqMiGVVlYh
+         6W1sFFSf1CWzpgqBkfNMdNTgmQYWpbr/q8v8OMjfkT5ougO0ukbqc37q0guBr7mJBwwZ
+         Ec1u4aTf7EahhVGj3dRcKSp/8IlvaOqe1QeoRDB+Afzr9mJfTtkT7AQEnrhV6oSbQiLc
+         aXzhagiUNx356LqOgHAM6tSgqXy1U2ztL8ZWfsLhr4HpOghjQSaPcQCzfka0bxJiqWe8
+         uOpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741973172; x=1742577972;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=xM6Gpx3RAeeK1cS7aS7L8nNeRymkrBxeUEa3FM/T9W8=;
-        b=jaM4M9D+FUMa6uFA6y/Gl4XCyMFNgU9ej3zxCKKsK6a6aJ+/JHramQjgMwltNoKyyR
-         CR/aSF+r1HWBwq7YZ9jxH/ji24Wdolv3dlkS869DoBzQ5NbqgBeXEtSuQVSW7za9MXqH
-         Lyv3h1UTl3nG+iiBJiVMuvoCkOYXHU9UTbcvvGtODFdIPjK2c86F1GsjIVpcjgzRKHqC
-         wkX5TS9/YmWIILjjNyvplp0bNR03vS+ql4kuicmdrftZtm4hy40q3kAQhytiIf2Kntj0
-         yG1cDnxt1PHti1v2iizr7dwhIw990ryeTxNXiNsDsYF1i9eZ0G4I/ufvX/groQ2tNRPK
-         dFvg==
-X-Gm-Message-State: AOJu0Yzb4oMoVftWo3njCUcNB8WgGVCktdB/h0K0fahpisTNORk6479K
-	SNqNReJ911WholptRg+tzhmjMBQktAc34/jbHgbM8HBEiSkeGE/QCbGjS1HHgc8oiuinWzwh+Q/
-	+
-X-Gm-Gg: ASbGncvbz/uvpdpq9tid1AaOkj7j4qwKPtO0UUqSS35qeoW0CaEPrZkBY5n+dybRhSX
-	QgQ5e1aYxG7ip0QOVRkagg3bQ+I4j7Lpsq0dojCksaIA5BTCv4xGk/elVBY2wXb3mwsmvfPKH0h
-	lXFNPVlsEoBGuYTzsIJ7JcVOoRJbytuaaW+VBjoNYyD2PjE6RN/Iy8YoBSLsT3DiuPYb4wP9MVx
-	CLqTHywtexnaJgaUTDdq0r1ZYi1tH2LNJrKbWuQakS4+rsvOgg9bT25qqgTS5e9Zv2t2HrRq2K0
-	3AgOSORi2To5FrEmt8YghyO9xuO8aODzaAmzWghrjZn/o7r9KCrxbLcZBSJge+nBqOY=
-X-Google-Smtp-Source: AGHT+IGfbH9E97ClSGH+YxIoQoOpNF6fagjScq5vU+UIamVvniNyic7xwyEhG5dNza9bp8wEwncgRQ==
-X-Received: by 2002:a17:906:4795:b0:ac3:2d43:2249 with SMTP id a640c23a62f3a-ac330104b97mr460261266b.2.1741973171738;
-        Fri, 14 Mar 2025 10:26:11 -0700 (PDT)
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
-	Bernhard Kaindl <bernhard.kaindl@cloud.com>,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: [PATCH 11/11] docs/man: Document the new claim_on_node option
-Date: Fri, 14 Mar 2025 17:25:02 +0000
-Message-ID: <20250314172502.53498-12-alejandro.vallejo@cloud.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250314172502.53498-1-alejandro.vallejo@cloud.com>
-References: <20250314172502.53498-1-alejandro.vallejo@cloud.com>
+        d=1e100.net; s=20230601; t=1741973505; x=1742578305;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=mbx4XaRe0fsea/1JxsaLA7ueH0t1s6VZZ5QhNdIFgD0=;
+        b=TLCa6tqNi+iFqcIQSG6JZ28tGaO6JN12lPTgGlEMH8K6W2k4qPPE1dWx2p2JeMVQ1f
+         9CCo9PEMwS+/ujl5fUn878K0687g95Spm/zkwFgHdVVDGsgh1fJPOA3R7i4DXD/KIX2l
+         CBEye2521p8/n+50LmqzKIFnQagt3lpd+luSTxxNVYZ90YbfF1CL+u8oTAiyQaMT4Wcq
+         mEcFFzA2sRFbEHGx0DoKFD+KnNRM4WSITOzXkt9l26w3MziJQ153FTcUG37jpvpH60H1
+         DA71pIDnmhZN9IYD3PPhAcBy9AA4ZxE8O8jT0ylm3smAcL04FzS7QqITp89uaY6lpCZq
+         +eGg==
+X-Forwarded-Encrypted: i=1; AJvYcCX4gRgD/nBGq9jk/7FS31Xqm3k78auX5+drOhrbeeh/MkUUrhZr9EkJ6dexdmrp5AVZ0GvFvF68inc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyEsh9/YSYlIsqLabcXDHayVDAYd+VdjZrwWOOAE7gYGGH1wTbK
+	r4kMwcikRBHpbN+4TQt9JhpC8d5L05xRe+ZmlntojmZWBidIM1pZRnKbKpI+nxI=
+X-Gm-Gg: ASbGncsBKX6swe2uMjGYXBO/6hDNO3EZenklTKhw6m4nn6m3PHp7YsErlIMn4ToKrP3
+	R5CiFFG2K0gf6Jmcb7gJmeI8ayWvv8xPOAtMlw78KcsAk97Srob5fCcvk+cDN8v6ccEpc2Y/KT4
+	J/2kWLguiD/oKYY96Zciafu2pWKRKAErmF70DHKZvNaoOkyPzxbq0DYBusN27NYPJhyn4Yw8169
+	LBNrQa2ViaI1CVjiMMRJPn8VyPE4rN2y3eIb7UeabBTsBR5p1IlwvXVzdG3VygGqRjGduGMXMLK
+	gUPayVVU3KAQsopTQPLXSZBWGKPcEvjXf6L2m8ZV9CiW
+X-Google-Smtp-Source: AGHT+IG45qOt2dgsJDV7nujhL0kdPo+5GKsExuYeufblXdBnsz6vqmVVLVscbpfExXfMyu2MvPKFvA==
+X-Received: by 2002:a05:6a00:a1f:b0:732:5164:3cc with SMTP id d2e1a72fcca58-737223e7399mr3832223b3a.19.1741973504748;
+        Fri, 14 Mar 2025 10:31:44 -0700 (PDT)
+From: Pierrick Bouvier <pierrick.bouvier@linaro.org>
+To: qemu-devel@nongnu.org
+Cc: qemu-ppc@nongnu.org,
+	Yoshinori Sato <ysato@users.sourceforge.jp>,
+	Paul Durrant <paul@xen.org>,
+	Peter Xu <peterx@redhat.com>,
+	alex.bennee@linaro.org,
+	Harsh Prateek Bora <harshpb@linux.ibm.com>,
+	David Hildenbrand <david@redhat.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Daniel Henrique Barboza <danielhb413@gmail.com>,
+	qemu-riscv@nongnu.org,
+	manos.pitsidianakis@linaro.org,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Anthony PERARD <anthony@xenproject.org>,
+	kvm@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Weiwei Li <liwei1518@gmail.com>,
+	Pierrick Bouvier <pierrick.bouvier@linaro.org>
+Subject: [PATCH v5 00/17] make system memory API available for common code
+Date: Fri, 14 Mar 2025 10:31:22 -0700
+Message-Id: <20250314173139.2122904-1-pierrick.bouvier@linaro.org>
+X-Mailer: git-send-email 2.39.5
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-... and while at it, add missing relevant links to xl-numa-placement(7)
-in xl.1.pod.in and xl.cfg.5.pod.in, which describes libxl's behaviour on
-NUMA placement.
+The main goal of this series is to be able to call any memory ld/st function
+from code that is *not* target dependent. As a positive side effect, we can
+turn related system compilation units into common code.
 
-Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
----
- docs/man/xl-numa-placement.7.pod |  8 ++++++++
- docs/man/xl.1.pod.in             |  2 +-
- docs/man/xl.cfg.5.pod.in         | 14 ++++++++++++++
- 3 files changed, 23 insertions(+), 1 deletion(-)
+The first 5 patches remove dependency of memory API to cpu headers and remove
+dependency to target specific code. This could be a series on its own, but it's
+great to be able to turn system memory compilation units into common code to
+make sure it can't regress, and prove it achieves the desired result.
 
-diff --git a/docs/man/xl-numa-placement.7.pod b/docs/man/xl-numa-placement.7.pod
-index 4d83f26d412e..287ad41e5071 100644
---- a/docs/man/xl-numa-placement.7.pod
-+++ b/docs/man/xl-numa-placement.7.pod
-@@ -173,6 +173,14 @@ soft affinity belong.
- 
- =back
- 
-+It's possible to force memory to be allocated from a specific NUMA node via the
-+"claim_on_node" option (See B<claim_mode> in L<xl.conf(5)> for more details on
-+claims). "claim_on_node" associates the domain with a single NUMA node. Domain
-+creation fails if not enough memory can be reserved in the node and memory is
-+preferentially allocated from that node at runtime. The downside is that
-+claiming memory on a node via "claim_on_node" doesn't automatically set
-+soft-affinity for the vCPUs, so that must still be done manually for a fully
-+optimised single-node domain.
- 
- =head2 Placing the guest automatically
- 
-diff --git a/docs/man/xl.1.pod.in b/docs/man/xl.1.pod.in
-index fe38724b2b82..27a972486296 100644
---- a/docs/man/xl.1.pod.in
-+++ b/docs/man/xl.1.pod.in
-@@ -2012,7 +2012,7 @@ otherwise behavior is undefined.  Setting to 0 disables the timeout.
- The following man pages:
- 
- L<xl.cfg(5)>, L<xlcpupool.cfg(5)>, L<xentop(1)>, L<xl-disk-configuration(5)>
--L<xl-network-configuration(5)>
-+L<xl-network-configuration(5)>, L<xl-numa-placement(7)>
- 
- And the following documents on the xenproject.org website:
- 
-diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-index 7339c44efd54..c1ffc29d312a 100644
---- a/docs/man/xl.cfg.5.pod.in
-+++ b/docs/man/xl.cfg.5.pod.in
-@@ -278,6 +278,18 @@ memory=8096 will report significantly less memory available for use
- than a system with maxmem=8096 memory=8096 due to the memory overhead
- of having to track the unused pages.
- 
-+=item B<claim_on_node=NUMBER>
-+
-+Binds guest memory to a particular host NUMA node. Creation only starts if
-+enough memory on this NUMA node can be reserved beforehand on the hypervisor.
-+Failure to claim memory aborts creation early.
-+
-+See B<claim_mode> in L<xl.conf(5)> for further details on memory claims.
-+
-+Overriding B<claim_on_node> forces B<claim_mode> to be set on this guest and
-+disables automatic NUMA placement (See L<xl-numa-placement(7)> for further
-+details on NUMA placement and the effects of this option.)
-+
- =back
- 
- =head3 Guest Virtual NUMA Configuration
-@@ -3143,6 +3155,8 @@ If using this option is necessary to fix an issue, please report a bug.
- 
- =item L<xl-network-configuration(5)>
- 
-+=item L<xl-numa-placement(7)>
-+
- =item L<xen-tscmode(7)>
- 
- =back
+The next patches remove more dependencies on cpu headers (exec-all,
+memory-internal, ram_addr).
+Then, we add access to a needed function from kvm, some xen stubs, and we
+finally can turn our compilation units into common code.
+
+Every commit was tested to build correctly for all targets (on windows, linux,
+macos), and the series was fully tested by running all tests we have (linux,
+x86_64 host).
+
+v2:
+- reorder first commits (tswap change first, so memory cached functions can use it)
+- move st/ld*_p functions to tswap instead of bswap
+- add define for target_words_bigendian when COMPILING_PER_TARGET, equals to
+  TARGET_BIG_ENDIAN (avoid overhead in target code)
+- rewrite devend_memop
+- remove useless exec-all.h in concerned patch
+- extract devend_big_endian function to reuse in system/memory.c
+- rewrite changes to system/memory.c
+
+v3:
+- move devend functions to memory_internal.h
+- completed description for commits removing cpu.h dependency
+
+v4:
+- rebase on top of master
+  * missing include in 'codebase: prepare to remove cpu.h from exec/exec-all.h'
+  * meson build conflict
+
+v5:
+- remove extra xen stub xen_invalidate_map_cache()
+- edit xen stubs commit message
+
+Pierrick Bouvier (17):
+  exec/tswap: target code can use TARGET_BIG_ENDIAN instead of
+    target_words_bigendian()
+  exec/tswap: implement {ld,st}.*_p as functions instead of macros
+  exec/memory_ldst: extract memory_ldst declarations from cpu-all.h
+  exec/memory_ldst_phys: extract memory_ldst_phys declarations from
+    cpu-all.h
+  exec/memory.h: make devend_memop "target defines" agnostic
+  codebase: prepare to remove cpu.h from exec/exec-all.h
+  exec/exec-all: remove dependency on cpu.h
+  exec/memory-internal: remove dependency on cpu.h
+  exec/ram_addr: remove dependency on cpu.h
+  system/kvm: make kvm_flush_coalesced_mmio_buffer() accessible for
+    common code
+  exec/ram_addr: call xen_hvm_modified_memory only if xen is enabled
+  hw/xen: add stubs for various functions
+  system/physmem: compilation unit is now common to all targets
+  include/exec/memory: extract devend_big_endian from devend_memop
+  include/exec/memory: move devend functions to memory-internal.h
+  system/memory: make compilation unit common
+  system/ioport: make compilation unit common
+
+ include/exec/cpu-all.h              | 66 -----------------------
+ include/exec/exec-all.h             |  1 -
+ include/exec/memory-internal.h      | 21 +++++++-
+ include/exec/memory.h               | 30 ++++-------
+ include/exec/ram_addr.h             | 11 ++--
+ include/exec/tswap.h                | 81 +++++++++++++++++++++++++++--
+ include/system/kvm.h                |  6 +--
+ include/tcg/tcg-op.h                |  1 +
+ target/ppc/helper_regs.h            |  2 +
+ include/exec/memory_ldst.h.inc      |  4 --
+ include/exec/memory_ldst_phys.h.inc |  5 +-
+ cpu-target.c                        |  1 +
+ hw/ppc/spapr_nested.c               |  1 +
+ hw/sh4/sh7750.c                     |  1 +
+ hw/xen/xen_stubs.c                  | 51 ++++++++++++++++++
+ page-vary-target.c                  |  2 +-
+ system/ioport.c                     |  1 -
+ system/memory.c                     | 17 ++----
+ target/ppc/tcg-excp_helper.c        |  1 +
+ target/riscv/bitmanip_helper.c      |  2 +-
+ hw/xen/meson.build                  |  3 ++
+ system/meson.build                  |  6 +--
+ 22 files changed, 188 insertions(+), 126 deletions(-)
+ create mode 100644 hw/xen/xen_stubs.c
+
 -- 
-2.48.1
+2.39.5
 
 
