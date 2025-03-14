@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82B6BA60840
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 06:21:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.913738.1319642 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 858DFA60841
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 06:23:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.913749.1319652 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsxTx-0003iN-1M; Fri, 14 Mar 2025 05:21:17 +0000
+	id 1tsxVw-0004El-Af; Fri, 14 Mar 2025 05:23:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 913738.1319642; Fri, 14 Mar 2025 05:21:16 +0000
+Received: by outflank-mailman (output) from mailman id 913749.1319652; Fri, 14 Mar 2025 05:23:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsxTw-0003fm-TN; Fri, 14 Mar 2025 05:21:16 +0000
-Received: by outflank-mailman (input) for mailman id 913738;
- Fri, 14 Mar 2025 05:21:16 +0000
+	id 1tsxVw-0004Ch-80; Fri, 14 Mar 2025 05:23:20 +0000
+Received: by outflank-mailman (input) for mailman id 913749;
+ Fri, 14 Mar 2025 05:23:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HRIH=WB=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
- id 1tsxTw-0003fg-43
- for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 05:21:16 +0000
+ id 1tsxVv-0004CX-B3
+ for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 05:23:19 +0000
 Received: from fforwardh-a2-smtp.messagingengine.com
  (fforwardh-a2-smtp.messagingengine.com [103.168.172.197])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 25f03fbe-0094-11f0-9ab9-95dc52dad729;
- Fri, 14 Mar 2025 06:21:14 +0100 (CET)
-Received: from phl-compute-10.internal (phl-compute-10.phl.internal
- [10.202.2.50])
- by mailfforwardh.phl.internal (Postfix) with ESMTP id BC3052920258;
- Fri, 14 Mar 2025 01:21:13 -0400 (EDT)
+ id 6f68f9cb-0094-11f0-9ab9-95dc52dad729;
+ Fri, 14 Mar 2025 06:23:18 +0100 (CET)
+Received: from phl-compute-11.internal (phl-compute-11.phl.internal
+ [10.202.2.51])
+ by mailfforwardh.phl.internal (Postfix) with ESMTP id 0BB9A292013B;
+ Fri, 14 Mar 2025 01:23:17 -0400 (EDT)
 Received: from phl-frontend-01 ([10.202.2.160])
- by phl-compute-10.internal (MEProxy); Fri, 14 Mar 2025 01:21:13 -0400
+ by phl-compute-11.internal (MEProxy); Fri, 14 Mar 2025 01:23:17 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 14 Mar 2025 01:21:12 -0400 (EDT)
+ 14 Mar 2025 01:23:16 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,24 +45,24 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 25f03fbe-0094-11f0-9ab9-95dc52dad729
+X-Inumbo-ID: 6f68f9cb-0094-11f0-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm1; t=1741929673; x=1742016073; bh=G
-	fJYaqe6YN6CUxc1EMksZLsBCJrUXeTXrgTIO72XhRA=; b=Svg6P22Zw8f/fJ5D2
-	ZreglmjulsovkDiAy4kj5CREOJgLKq6JsaDishZI9ebU7YGGDxrxgEBAYS5aSYqR
-	oSOscbIfbBr9s2L7VW9vxPFT1v2WhWa/PN/RphGiNT780lhBFBw7V1Sccb+hK+Ey
-	xXReQ96g0t0+HdLmJofL3nwwKBGkDwYxRTkWCyrBxSt+fQW1TAaoAFIrgywQkFWV
-	8mB/E6jxXVTGn2Wewal+AY8ZRzSWJJsJs39E9tPsP6oZ+GP9twGuO8j9bLp4fPfM
-	xqhN5iuNLO6YeddqYuQxE2U1JkTQG70L8ASAfPIbW0TEyrLufDFCN6TY6bOJEJdU
-	X8bpQ==
-X-ME-Sender: <xms:ybzTZ0M4UuYlPB8mRGVBv9nkVn4-RPX85dByMUJakN2oIXaVEFSq0A>
-    <xme:ybzTZ69CSC8Y-rgwTCh0h8S_If_lIrMK-tr2ZxKyrR7rbqMooMxGrYFy8ClaElsUx
-    OIpTqrqIDOzK67WKPs>
-X-ME-Received: <xmr:ybzTZ7T2YUDNGDZq1t1E7rzEIQ9EA8RuRJnHWucdErrBO2ZaVHAYTVBN0xkbd_9kXiO43NOW29-pFG2nQzILOINjBpRmiM2-Ya3PbSuYp3xdBw>
+	:x-me-sender:x-sasl-enc; s=fm1; t=1741929797; x=1742016197; bh=8
+	gtu3M66RCphGMRnb9LvcGgL3tCIvFU0NSfbGCgNSNk=; b=vjqOggn0UkV48q7di
+	8aEmT0T/pHq3yLSL2Q9vR5z5Z/8rzjxu+MLZN9wligkzgfhdnZZtq0OqjVOGVQz/
+	Xh3LI2NzmDZqlTRJMKkBlv14DxKOBVYqe8U5x+rThcwemrbEHunVsC74wONzXjsj
+	KCIlYlgoCSc4osTe1O5sJMblW7QNXA6IHNLX4qeNTFvtti8LB4deCemZfvtt1Hmm
+	T1kQYDAx+79VzhyCKMmMeffRFDWQN902mkfc2xeTnywwhiRErszmLwUZx/s6OkpW
+	sp3teYVPvb5mOaQUYOp+M4pLJHdTkmlMo93BaSmLpKUGB35XiEg0y/WwAoAuRfVi
+	A75Tw==
+X-ME-Sender: <xms:RL3TZ9Q9NYz2VQxOHy9_DMwsd6cKTn5yJJ6qM9F1X3-w9JHDZHopwA>
+    <xme:RL3TZ2znnacEC1eM_FOnazemZQklqlhsIFPwoYAcJp6qZsO4S_J0BrJdsjuyaN4HK
+    38ebwDR5pM2lPLhk9A>
+X-ME-Received: <xmr:RL3TZy3pFjMqfLDEKp4PwqmOekTLySD-Tli4BDXWkihE6YfmvG5448uFtrty-fOUT7Pwwa11uvmwW2ZyoDHw4-nSvF7sRKkdcTMv5i5vqoBw7w>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdduvdelleekucetufdoteggodetrf
     dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
     pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
@@ -71,320 +71,60 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdduvdelleekucetufdote
     hksegvphgrmhdrtghomheqnecuggftrfgrthhtvghrnheptdejgeegvdffkeekleefueev
     gfduheevkedvhfdvkeeludehleegheeivedugfejnecuvehluhhsthgvrhfuihiivgeptd
     enucfrrghrrghmpehmrghilhhfrhhomhepshgrkhhisgesuggrrhhkshhtrghrrdhsihht
-    vgdpnhgspghrtghpthhtohepvddupdhmohguvgepshhmthhpohhuthdprhgtphhtthhope
-    igvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphht
-    thhopehsvghrghhihigpkhhisghrihhksegvphgrmhdrtghomhdprhgtphhtthhopegtrg
-    hrughovgestggrrhguohgvrdgtohhmpdhrtghpthhtoheprghnughrvgifrdgtohhophgv
-    rhefsegtihhtrhhigidrtghomhdprhgtphhtthhopegrnhhthhhonhihrdhpvghrrghrug
-    esvhgrthgvshdrthgvtghhpdhrtghpthhtohepmhhitghhrghlrdhorhiivghlsegrmhgu
-    rdgtohhmpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtghomhdprhgtphhtth
-    hopehjuhhlihgvnhesgigvnhdrohhrghdprhgtphhtthhopehrohhgvghrrdhprghusegt
-    ihhtrhhigidrtghomh
-X-ME-Proxy: <xmx:ybzTZ8suLzgPpTdEtQKRTo_ZWy_zKWFtPPKn8-WkEmhx3ZRO0AV2HQ>
-    <xmx:ybzTZ8cSibkU9hrDxzS2hf7XW9tEkicmsOR0mp_dd_gpPg3evQotdA>
-    <xmx:ybzTZw1lloiiyQB-F3yoXl4wC2iXvxwbybiEqx3GvNfugwol0weEiw>
-    <xmx:ybzTZw9GbCeQ-ydG7TYe3YNK-d6_Xurw-75xo3gx-3QHBGIX5he9FA>
-    <xmx:ybzTZz8bkLDb7BOHM9jSf8-0TAXyHBX4jyPDJVVZ1Z9wIwYrevoZYw>
-    <xmx:ybzTZ69zrPmtDr1aUYkwta-cvI0YfGHt3beZoWQWLKe6Bp2-VII6QW2KAxjx>
-Feedback-ID: i5ff96cea:Fastmail
+    vgdpnhgspghrtghpthhtohepiedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepgi
+    gvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdhrtghpthht
+    ohepshgvrhhgihihpghkihgsrhhikhesvghprghmrdgtohhmpdhrtghpthhtohepjhgsvg
+    hulhhitghhsehsuhhsvgdrtghomhdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghr
+    feestghithhrihigrdgtohhmpdhrtghpthhtoheprhhoghgvrhdrphgruhestghithhrih
+    igrdgtohhmpdhrtghpthhtohepshhsthgrsggvlhhlihhniheskhgvrhhnvghlrdhorhhg
+X-ME-Proxy: <xmx:RL3TZ1Ain5YkZdltNUfE7V5y4b02I2rLSku7W4M-2TbXn2ccyBl8JQ>
+    <xmx:RL3TZ2hAmVjKy2qdGVuq-85CK0G3dKYCV74rcP4i8vXVJQCS3UGvSQ>
+    <xmx:RL3TZ5p45HmmJwuKW3VenQZuOuh3QCm2JwnQ6DWVwEpOlOiCEk4KwA>
+    <xmx:RL3TZxhHN1ddz2ouVY8kvePKN6zHToJFmaFFYujtqsbHwPUvXTDe0A>
+    <xmx:RL3TZxSiOS8AjP3kCErp50AUT87oh76PkNGnD58kbZrX1Exhdliajg>
+    <xmx:Rb3TZ4YCbhs19XUF900yDhxE3hMNHQ2UbsenzAIsqJYTp4gaFdQw4SQXjVOr>
+Feedback-ID: if5db0626:Fastmail
 From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 To: xen-devel@lists.xenproject.org
 Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Tamas K Lengyel <tamas@tklengyel.com>,
-	Alexandru Isaila <aisaila@bitdefender.com>,
-	Petre Pircalabu <ppircalabu@bitdefender.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v4 1/3] xen: kconfig: rename MEM_ACCESS -> VM_EVENT
-Date: Fri, 14 Mar 2025 07:21:09 +0200
-Message-Id: <58f66091cd1b28fe38ab9687b87ae99ecb7520eb.1741772330.git.Sergiy_Kibrik@epam.com>
+Subject: [PATCH v4 2/3] x86:monitor: control monitor.c build with CONFIG_VM_EVENT option
+Date: Fri, 14 Mar 2025 07:23:14 +0200
+Message-Id: <39235285ffe341e446bf0fd5cc345379ae394e50.1741772330.git.Sergiy_Kibrik@epam.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1741772330.git.Sergiy_Kibrik@epam.com>
 References: <cover.1741772330.git.Sergiy_Kibrik@epam.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Use more generic CONFIG_VM_EVENT name throughout Xen code instead of
-CONFIG_MEM_ACCESS. This reflects the fact that vm_event is a higher level
-feature, with mem_access & monitor depending on it.
+Replace more general CONFIG_HVM option with CONFIG_VM_EVENT which is more
+relevant and specific to monitoring. This is only to clarify at build level
+to which subsystem this file belongs.
 
-Suggested-by: Tamas K Lengyel <tamas@tklengyel.com>
-Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
+No functional change here, as VM_EVENT depends on HVM.
+
+Acked-by: Jan Beulich <jbeulich@suse.com>
 Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 ---
-changes in v3:
- - squash with automation patch
- - tags & minor addition of blanks
----
- automation/gitlab-ci/build.yaml         | 2 +-
- xen/arch/arm/Makefile                   | 2 +-
- xen/arch/arm/configs/tiny64_defconfig   | 2 +-
- xen/arch/arm/include/asm/mem_access.h   | 4 ++--
- xen/arch/ppc/configs/ppc64_defconfig    | 2 +-
- xen/arch/riscv/configs/tiny64_defconfig | 2 +-
- xen/arch/x86/mm/Makefile                | 2 +-
- xen/common/Kconfig                      | 2 +-
- xen/common/Makefile                     | 2 +-
- xen/common/domctl.c                     | 2 +-
- xen/include/xen/mem_access.h            | 6 +++---
- xen/include/xsm/dummy.h                 | 2 +-
- xen/include/xsm/xsm.h                   | 4 ++--
- xen/xsm/dummy.c                         | 2 +-
- xen/xsm/flask/hooks.c                   | 4 ++--
- 15 files changed, 20 insertions(+), 20 deletions(-)
+ xen/arch/x86/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index 034d6d9c3a..b6383c4fc8 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -744,7 +744,7 @@ debian-12-riscv64-gcc:
-       CONFIG_EXPERT=y
-       CONFIG_GRANT_TABLE=n
-       CONFIG_LIVEPATCH=n
--      CONFIG_MEM_ACCESS=n
-+      CONFIG_VM_EVENT=n
-       CONFIG_QEMU_PLATFORM=y
-       CONFIG_XSM=n
- 
-diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-index fb0948f067..3bd5125e64 100644
---- a/xen/arch/arm/Makefile
-+++ b/xen/arch/arm/Makefile
-@@ -38,7 +38,7 @@ obj-y += irq.o
- obj-y += kernel.init.o
- obj-$(CONFIG_LIVEPATCH) += livepatch.o
- obj-$(CONFIG_LLC_COLORING) += llc-coloring.o
--obj-$(CONFIG_MEM_ACCESS) += mem_access.o
-+obj-$(CONFIG_VM_EVENT) += mem_access.o
- obj-y += mm.o
- obj-y += monitor.o
- obj-y += p2m.o
-diff --git a/xen/arch/arm/configs/tiny64_defconfig b/xen/arch/arm/configs/tiny64_defconfig
-index cc6d93f2f8..469a1eb9f9 100644
---- a/xen/arch/arm/configs/tiny64_defconfig
-+++ b/xen/arch/arm/configs/tiny64_defconfig
-@@ -5,7 +5,7 @@ CONFIG_ARM=y
- # Architecture Features
- #
- # CONFIG_GICV3 is not set
--# CONFIG_MEM_ACCESS is not set
-+# CONFIG_VM_EVENT is not set
- # CONFIG_SBSA_VUART_CONSOLE is not set
- 
- #
-diff --git a/xen/arch/arm/include/asm/mem_access.h b/xen/arch/arm/include/asm/mem_access.h
-index abac8032fc..d42f28e8b7 100644
---- a/xen/arch/arm/include/asm/mem_access.h
-+++ b/xen/arch/arm/include/asm/mem_access.h
-@@ -37,7 +37,7 @@ static inline bool p2m_mem_access_sanity_check(struct domain *d)
-  * Send mem event based on the access. Boolean return value indicates if trap
-  * needs to be injected into guest.
-  */
--#ifdef CONFIG_MEM_ACCESS
-+#ifdef CONFIG_VM_EVENT
- bool p2m_mem_access_check(paddr_t gpa, vaddr_t gla, const struct npfec npfec);
- 
- struct page_info*
-@@ -58,7 +58,7 @@ p2m_mem_access_check_and_get_page(vaddr_t gva, unsigned long flag,
-     return NULL;
- }
- 
--#endif /*CONFIG_MEM_ACCESS*/
-+#endif /* CONFIG_VM_EVENT */
- #endif /* _ASM_ARM_MEM_ACCESS_H */
- 
- /*
-diff --git a/xen/arch/ppc/configs/ppc64_defconfig b/xen/arch/ppc/configs/ppc64_defconfig
-index 4924d881a2..d6aaf772e7 100644
---- a/xen/arch/ppc/configs/ppc64_defconfig
-+++ b/xen/arch/ppc/configs/ppc64_defconfig
-@@ -1,6 +1,6 @@
- # CONFIG_GRANT_TABLE is not set
- # CONFIG_SPECULATIVE_HARDEN_ARRAY is not set
--# CONFIG_MEM_ACCESS is not set
-+# CONFIG_VM_EVENT is not set
- 
- CONFIG_PPC64=y
- CONFIG_DEBUG=y
-diff --git a/xen/arch/riscv/configs/tiny64_defconfig b/xen/arch/riscv/configs/tiny64_defconfig
-index bb3ae26a44..2399f7b918 100644
---- a/xen/arch/riscv/configs/tiny64_defconfig
-+++ b/xen/arch/riscv/configs/tiny64_defconfig
-@@ -1,6 +1,6 @@
- # CONFIG_BOOT_TIME_CPUPOOLS is not set
- # CONFIG_GRANT_TABLE is not set
--# CONFIG_MEM_ACCESS is not set
-+# CONFIG_VM_EVENT is not set
- # CONFIG_COVERAGE is not set
- # CONFIG_LIVEPATCH is not set
- # CONFIG_XSM is not set
-diff --git a/xen/arch/x86/mm/Makefile b/xen/arch/x86/mm/Makefile
-index 0345388359..960f6e8409 100644
---- a/xen/arch/x86/mm/Makefile
-+++ b/xen/arch/x86/mm/Makefile
-@@ -4,7 +4,7 @@ obj-$(CONFIG_HVM) += hap/
- obj-$(CONFIG_ALTP2M) += altp2m.o
- obj-$(CONFIG_HVM) += guest_walk_2.o guest_walk_3.o guest_walk_4.o
- obj-$(CONFIG_SHADOW_PAGING) += guest_walk_4.o
--obj-$(CONFIG_MEM_ACCESS) += mem_access.o
-+obj-$(CONFIG_VM_EVENT) += mem_access.o
- obj-$(CONFIG_MEM_PAGING) += mem_paging.o
- obj-$(CONFIG_MEM_SHARING) += mem_sharing.o
- obj-$(CONFIG_HVM) += nested.o
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index 6166327f4d..a6aa2c5c14 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -92,7 +92,7 @@ config HAS_VMAP
- config MEM_ACCESS_ALWAYS_ON
- 	bool
- 
--config MEM_ACCESS
-+config VM_EVENT
- 	def_bool MEM_ACCESS_ALWAYS_ON
- 	prompt "Memory Access and VM events" if !MEM_ACCESS_ALWAYS_ON
- 	depends on HVM
-diff --git a/xen/common/Makefile b/xen/common/Makefile
-index cba3b32733..b71d4b3efa 100644
---- a/xen/common/Makefile
-+++ b/xen/common/Makefile
-@@ -26,7 +26,7 @@ obj-$(CONFIG_KEXEC) += kexec.o
- obj-$(CONFIG_KEXEC) += kimage.o
- obj-$(CONFIG_LIVEPATCH) += livepatch.o livepatch_elf.o
- obj-$(CONFIG_LLC_COLORING) += llc-coloring.o
--obj-$(CONFIG_MEM_ACCESS) += mem_access.o
-+obj-$(CONFIG_VM_EVENT) += mem_access.o
- obj-y += memory.o
- obj-y += multicall.o
- obj-y += notifier.o
-diff --git a/xen/common/domctl.c b/xen/common/domctl.c
-index b897ca8723..bfe2e1f9f0 100644
---- a/xen/common/domctl.c
-+++ b/xen/common/domctl.c
-@@ -809,7 +809,7 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
-             copyback = true;
-         break;
- 
--#ifdef CONFIG_MEM_ACCESS
-+#ifdef CONFIG_VM_EVENT
-     case XEN_DOMCTL_set_access_required:
-         if ( unlikely(current->domain == d) ) /* no domain_pause() */
-             ret = -EPERM;
-diff --git a/xen/include/xen/mem_access.h b/xen/include/xen/mem_access.h
-index 2231341b5d..4de651038d 100644
---- a/xen/include/xen/mem_access.h
-+++ b/xen/include/xen/mem_access.h
-@@ -33,7 +33,7 @@
-  */
- struct vm_event_st;
- 
--#ifdef CONFIG_MEM_ACCESS
-+#ifdef CONFIG_VM_EVENT
- #include <asm/mem_access.h>
- #endif
- 
-@@ -99,7 +99,7 @@ long p2m_set_mem_access_multi(struct domain *d,
- int p2m_get_mem_access(struct domain *d, gfn_t gfn, xenmem_access_t *access,
-                        unsigned int altp2m_idx);
- 
--#ifdef CONFIG_MEM_ACCESS
-+#ifdef CONFIG_VM_EVENT
- int mem_access_memop(unsigned long cmd,
-                      XEN_GUEST_HANDLE_PARAM(xen_mem_access_op_t) arg);
- #else
-@@ -109,7 +109,7 @@ int mem_access_memop(unsigned long cmd,
- {
-     return -ENOSYS;
- }
--#endif /* CONFIG_MEM_ACCESS */
-+#endif /* CONFIG_VM_EVENT */
- 
- #endif /* _XEN_MEM_ACCESS_H */
- 
-diff --git a/xen/include/xsm/dummy.h b/xen/include/xsm/dummy.h
-index a8d06de6b0..9227205fcd 100644
---- a/xen/include/xsm/dummy.h
-+++ b/xen/include/xsm/dummy.h
-@@ -647,7 +647,7 @@ static XSM_INLINE int cf_check xsm_vm_event_control(
-     return xsm_default_action(action, current->domain, d);
- }
- 
--#ifdef CONFIG_MEM_ACCESS
-+#ifdef CONFIG_VM_EVENT
- static XSM_INLINE int cf_check xsm_mem_access(XSM_DEFAULT_ARG struct domain *d)
- {
-     XSM_ASSERT_ACTION(XSM_DM_PRIV);
-diff --git a/xen/include/xsm/xsm.h b/xen/include/xsm/xsm.h
-index 8c33b055fc..24acc16125 100644
---- a/xen/include/xsm/xsm.h
-+++ b/xen/include/xsm/xsm.h
-@@ -153,7 +153,7 @@ struct xsm_ops {
- 
-     int (*vm_event_control)(struct domain *d, int mode, int op);
- 
--#ifdef CONFIG_MEM_ACCESS
-+#ifdef CONFIG_VM_EVENT
-     int (*mem_access)(struct domain *d);
- #endif
- 
-@@ -637,7 +637,7 @@ static inline int xsm_vm_event_control(
-     return alternative_call(xsm_ops.vm_event_control, d, mode, op);
- }
- 
--#ifdef CONFIG_MEM_ACCESS
-+#ifdef CONFIG_VM_EVENT
- static inline int xsm_mem_access(xsm_default_t def, struct domain *d)
- {
-     return alternative_call(xsm_ops.mem_access, d);
-diff --git a/xen/xsm/dummy.c b/xen/xsm/dummy.c
-index ce6fbdc6c5..93fbfc43cc 100644
---- a/xen/xsm/dummy.c
-+++ b/xen/xsm/dummy.c
-@@ -111,7 +111,7 @@ static const struct xsm_ops __initconst_cf_clobber dummy_ops = {
- 
-     .vm_event_control              = xsm_vm_event_control,
- 
--#ifdef CONFIG_MEM_ACCESS
-+#ifdef CONFIG_VM_EVENT
-     .mem_access                    = xsm_mem_access,
- #endif
- 
-diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
-index 389707a164..6a53487ea4 100644
---- a/xen/xsm/flask/hooks.c
-+++ b/xen/xsm/flask/hooks.c
-@@ -1362,7 +1362,7 @@ static int cf_check flask_vm_event_control(struct domain *d, int mode, int op)
-     return current_has_perm(d, SECCLASS_DOMAIN2, DOMAIN2__VM_EVENT);
- }
- 
--#ifdef CONFIG_MEM_ACCESS
-+#ifdef CONFIG_VM_EVENT
- static int cf_check flask_mem_access(struct domain *d)
- {
-     return current_has_perm(d, SECCLASS_DOMAIN2, DOMAIN2__MEM_ACCESS);
-@@ -1955,7 +1955,7 @@ static const struct xsm_ops __initconst_cf_clobber flask_ops = {
- 
-     .vm_event_control = flask_vm_event_control,
- 
--#ifdef CONFIG_MEM_ACCESS
-+#ifdef CONFIG_VM_EVENT
-     .mem_access = flask_mem_access,
- #endif
- 
+diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+index c763f80b0b..f59c9665fd 100644
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -49,7 +49,7 @@ obj-$(CONFIG_PV) += ioport_emulate.o
+ obj-y += irq.o
+ obj-$(CONFIG_KEXEC) += machine_kexec.o
+ obj-y += mm.o x86_64/mm.o
+-obj-$(CONFIG_HVM) += monitor.o
++obj-$(CONFIG_VM_EVENT) += monitor.o
+ obj-y += mpparse.o
+ obj-y += nmi.o
+ obj-y += numa.o
 -- 
 2.25.1
 
