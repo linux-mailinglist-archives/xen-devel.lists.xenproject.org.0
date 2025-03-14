@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D65FDA60F2B
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 11:39:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.914341.1320121 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28A82A60F2E
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 11:39:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.914343.1320132 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt2Rh-0008IB-EX; Fri, 14 Mar 2025 10:39:17 +0000
+	id 1tt2Rn-00007x-Q8; Fri, 14 Mar 2025 10:39:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 914341.1320121; Fri, 14 Mar 2025 10:39:17 +0000
+Received: by outflank-mailman (output) from mailman id 914343.1320132; Fri, 14 Mar 2025 10:39:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt2Rh-0008Fz-Bd; Fri, 14 Mar 2025 10:39:17 +0000
-Received: by outflank-mailman (input) for mailman id 914341;
- Fri, 14 Mar 2025 10:39:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tt2Rn-00004z-Mx; Fri, 14 Mar 2025 10:39:23 +0000
+Received: by outflank-mailman (input) for mailman id 914343;
+ Fri, 14 Mar 2025 10:39:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SsSs=WB=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1tt2Rf-0008Ft-8W
- for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 10:39:15 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9224d039-00c0-11f0-9898-31a8f345e629;
- Fri, 14 Mar 2025 11:39:13 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-abbb12bea54so377814766b.0
- for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 03:39:13 -0700 (PDT)
-Received: from localhost ([66.81.170.107]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac3149d0bfbsm210057866b.95.2025.03.14.03.39.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Mar 2025 03:39:12 -0700 (PDT)
+ <SRS0=OT8H=WB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tt2Rm-0008Vd-Mq
+ for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 10:39:22 +0000
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
+ [2607:f8b0:4864:20::636])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 96c23a09-00c0-11f0-9ab9-95dc52dad729;
+ Fri, 14 Mar 2025 11:39:22 +0100 (CET)
+Received: by mail-pl1-x636.google.com with SMTP id
+ d9443c01a7336-2255003f4c6so34450635ad.0
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 03:39:22 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ d9443c01a7336-225c6bd4b30sm26180485ad.235.2025.03.14.03.39.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 Mar 2025 03:39:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,112 +44,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9224d039-00c0-11f0-9898-31a8f345e629
+X-Inumbo-ID: 96c23a09-00c0-11f0-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1741948753; x=1742553553; darn=lists.xenproject.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ULN6swvzDosjW4dBgOc1H3sXcVGUEArw17CMTPoO5eo=;
-        b=V6tiW7G7act/QT2EBDJPDsEquP61OExKstdbFZKo/4XTkQX9DcUsbUv+CAY62afVV2
-         nnAt+ErwsOEC0W+MszZhkvI07GSU5+vwGsI5MhN1y/g9o9Ndmuv1oFS61dyVIAg9YET3
-         P/kWbUNiymX72fzHFpgxMCMXGm8j4zNsW1UOg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741948753; x=1742553553;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+        d=citrix.com; s=google; t=1741948760; x=1742553560; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=ULN6swvzDosjW4dBgOc1H3sXcVGUEArw17CMTPoO5eo=;
-        b=GuqDLNfenYndR5ZWsXbMguB/CbK7hFSSK5SAunj6R+Q/F5LvKcjb507pSYle1XpO2y
-         N/SMwHdnKw69+q5AxKU1u799tIcToOM/XnZPcgJyrU8DtcIQV/5JW3N9yr0ty1oCLc0x
-         8yXWfIh3VSSVh27QzjcBEZg8tjhqDdTFoacJ3S9Gy7dWXzXnMcuUa9ZcHO0g9AkWLTLF
-         OG1ZGvGKjdGNXkA1kob2rYAnL8Yhv7eZ393EOgoEPdIS1cL7MVtFve8cE1KNsoHmwLnA
-         XjG+j/0pHGeDzZUnv0ZSGetJtz2h+JFXHVptjnl+vlvHPwHJeKlDMmHorvOlB2oXfZCe
-         ui5w==
-X-Forwarded-Encrypted: i=1; AJvYcCVJMAno7XRjJ/CXMDp+3XTh/xdfC4Jyxr+RomGGyWP1d+N+bVZs2EN/u6bhT8NDhXFtSP9whRmTFnU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyGv4DptaWiBooof5bsjx2cwa48SZ6FT02gBpsRHPEeaPpAZqxe
-	qcQphAbi8zDmEW/urHCysdfw74vhsf8PXzYKwbL2lA2x6JBDXFNprF59yV7RIx0=
-X-Gm-Gg: ASbGncspKMAFzGlCt+VhOgG5j7PWrUp3y7bma487XbCNkbWMjGb8Ppj3WeEjvYLiBid
-	ukopakLxSG+uaXWUUttFUYCzBry/pJS0S+SQphKdhXPrJuOe39R78nghTLXKX/vUMLSwE0lcEQV
-	kj771JHiI9QRDddBVisnc7qlbOCIPp7WpN0JuCjEK0aUNhEt70gs1GKSGPOPqEbKZ6mq+Hf13AS
-	PEoYbS4/PVCVqntM7NJ+7mtPaI1S1k4mq4fAlbuBTX26vy0dj1TimHNsqIWldGJvl4eWohzCKG7
-	ExsFZXi8Ue0PyRxaoBbBYy4Jo8aV41J/ryf4YKyLgnK2CbVIA7k=
-X-Google-Smtp-Source: AGHT+IEFe8avrpBaFzzcRZrEcldvsNGjk81I5sL5wszR96qFlb+zzYcGBDOlGrDx7N41bJCmUWLkjQ==
-X-Received: by 2002:a17:907:7290:b0:ac2:fd70:dd98 with SMTP id a640c23a62f3a-ac3301ea161mr201777666b.22.1741948752947;
-        Fri, 14 Mar 2025 03:39:12 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 14 Mar 2025 10:39:04 +0000
-Message-Id: <D8FXALVEWMGZ.2C16ABCKLKQRY@cloud.com>
-Cc: =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [PATCH] [RFC] vpci: allow BAR write while mapped
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Stewart Hildebrand" <stewart.hildebrand@amd.com>,
- <xen-devel@lists.xenproject.org>
-X-Mailer: aerc 0.18.2
-References: <20250312195019.382926-1-stewart.hildebrand@amd.com>
- <D8F8IW559J11.2G40MDQH23I44@cloud.com>
- <7b4f47c2-ce03-44e9-907a-acd56e56a9ff@amd.com>
-In-Reply-To: <7b4f47c2-ce03-44e9-907a-acd56e56a9ff@amd.com>
+        bh=z/s3kf1LnoKkq+QgQqWhOPCisDs2xQNI8h+forCSQYg=;
+        b=so/yhjDUeZwL15EvXgh426JVcIu6gX84BB5L44KDM+MHhyMiBVXOZtpskh3jb+cfMe
+         MQfU19KIHmn0qz7EC9oG9a6Un/aAbstj4TIS6poAkvRy0wGnQVrfVvEsWY+Gk/DlChZo
+         fY/p7ENFKuNzPNY95/eHFreYtWeR04iIQuWao=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1741948760; x=1742553560;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=z/s3kf1LnoKkq+QgQqWhOPCisDs2xQNI8h+forCSQYg=;
+        b=YQiPAJ7q+k0AYBV3iqvBp9Ndl6YZeNQPqN2ETZdLoskBdRWNMibch1Y/wUL7i6P5vl
+         6lQGLjYfp95f0jN0uTr7IC7JYJQHPUyTzahGZcN/qEBCnr/rEpjduOll1fwxI8ef5xx7
+         OQUozRaB81pTkTCMYpnb+OwhhsrRU5LDroS6e0XPUTsoRHx51l7frrenBAqOMWfd86Ps
+         wCbVN5ZPswHFfXCbHrpMr9Anf34SGC6LNIoCqiSVXxhlSG6mw+bwcKJOnI8GDMO4opbx
+         j3PDk1cPd8a/vRf8k+5yn6jb3VHVXyKTsKZzP+BpVDVaec8MxFOWaoT3hfTZPC0RF2QM
+         shxg==
+X-Gm-Message-State: AOJu0Ywx65cHlBXwbVs7cNnXDS+OdN8Q4/cCbZ/jEKj5iim1tNZ9YJH2
+	YuyXPyhHa7cVnLg1f4BUAK5SvzJtJwqwRnYnX94jgihj1Bbkiz4kDIlmAV8PI4s=
+X-Gm-Gg: ASbGncuxX5djDYonJMEIjTD5w5OfcFrz+DEd6qhXMlBTbC2NA6f3fbp2ub8GD6k2upv
+	ESUKvzx1sPInCF2ynXMROZK5biwZ5SL6NA9mIlX9K4+nvH0kHmnNrPZIQFLuSiUJodU76YZEMRr
+	7IDhqKDfZty6UoFmXf+2hdYx6TQebAS/bU0etoMB6zrjEcdlak063XIpUzcEejElzyUjaZOCywK
+	Zf14omaYaR2Hh9IAtdUS5cy1iArLL07hGR0+8dQ0C+Z1+oGiEDwoB6BTueoYF4wfkPxkx4Iuq5d
+	3Je6hoKbZSvjxOeG3tWuuVm+iuJHwKkwriDk26FDnbvwFeK12Q==
+X-Google-Smtp-Source: AGHT+IEr6wSoWexutMvaj64VhJ3L4RtCHqbym5PMJ2yCLaYu+ljq2AfzozKJJuEpGnql6WSxwxbTzg==
+X-Received: by 2002:a17:902:c948:b0:223:501c:7576 with SMTP id d9443c01a7336-225e0a546dbmr28041465ad.12.1741948760522;
+        Fri, 14 Mar 2025 03:39:20 -0700 (PDT)
+Date: Fri, 14 Mar 2025 11:39:15 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH 6/7] x86/vga: fix mapping of the VGA text buffer
+Message-ID: <Z9QHU-KozrXR95sL@macbook.local>
+References: <20250313153029.93347-1-roger.pau@citrix.com>
+ <20250313153029.93347-7-roger.pau@citrix.com>
+ <8ce7caae-8bf6-4ba2-8705-399129a411b6@citrix.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <8ce7caae-8bf6-4ba2-8705-399129a411b6@citrix.com>
 
-On Thu Mar 13, 2025 at 5:43 PM GMT, Stewart Hildebrand wrote:
-> The idea was that the unmap-then-map operation would appear atomic from
-> the guest's point of view. I've only queued up the unmap operation at
-> this point in the new logic. Due to the mentioned limitation in the BAR
-> mapping deferral machinery, I wanted to make sure *this BAR* was
-> unmapped before queuing up the map operation (see below). Waiting for
-> *all* pending operations to finish here is likely not appropriate.
+(resending because I seem to have inadvertently corrupted the Cc field)
 
-Looking more closely after reading Roger's answer, I misunderstood what was
-being queued where. There's space for a single deferred operation that's
-retried if pending on each attempt to resume the vCPU, whereas I initially
-thought it was the mutations to the p2m (which would've competed with other
-mutations from other vCPUs). This makes more sense, sorry for the noise.
+On Thu, Mar 13, 2025 at 07:39:58PM +0000, Andrew Cooper wrote:
+> On 13/03/2025 3:30 pm, Roger Pau Monne wrote:
+> > The call to ioremap_wc() in video_init() will always fail, because
+> > video_init() is called ahead of vm_init_type(), and so the underlying
+> > __vmap() call will fail to allocate the linear address space.
+> >
+> > Fix by reverting to the previous behavior and using the directmap entries
+> > in the low 1MB.  Note the VGA text buffer directmap entries are also
+> > adjusted to map the VGA text buffer as WC instead of UC-.
+> >
+> > Fixes: 81d195c6c0e2 ('x86: introduce ioremap_wc()')
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > ---
+> >  xen/arch/x86/boot/x86_64.S        | 10 +++++++---
+> >  xen/arch/x86/include/asm/config.h |  5 +++++
+> >  xen/drivers/video/vga.c           | 11 ++++++++---
+> >  3 files changed, 20 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/xen/arch/x86/boot/x86_64.S b/xen/arch/x86/boot/x86_64.S
+> > index 26b9d1c2df9a..07f4bdf46e31 100644
+> > --- a/xen/arch/x86/boot/x86_64.S
+> > +++ b/xen/arch/x86/boot/x86_64.S
+> > @@ -84,15 +84,19 @@ ENTRY(__high_start)
+> >  /*
+> >   * Mapping of first 2 megabytes of memory. This is mapped with 4kB mappings
+> >   * to avoid type conflicts with fixed-range MTRRs covering the lowest megabyte
+> > - * of physical memory. In any case the VGA hole should be mapped with type UC.
+> > + * of physical memory. VGA hole should be mapped with type UC, with the
+> > + * exception of the text buffer that uses WC.
+> >   * Uses 1x 4k page.
+> >   */
+> >  l1_directmap:
+> >          pfn = 0
+> >          .rept L1_PAGETABLE_ENTRIES
+> > -        /* VGA hole (0xa0000-0xc0000) should be mapped UC-. */
+> > -        .if pfn >= 0xa0 && pfn < 0xc0
+> > +        /* VGA hole (0xa0000-0xb8000) should be mapped UC-. */
+> > +        .if pfn >= 0xa0 && pfn < 0xb8
+> >          .quad (pfn << PAGE_SHIFT) | __PAGE_HYPERVISOR_UCMINUS | _PAGE_GLOBAL | MAP_SMALL_PAGES
+> > +        /* VGA text buffer (0xb80000-0xc0000) should be mapped WC. */
+> > +        .elseif pfn >= 0xb8 && pfn < 0xc0
+> > +        .quad (pfn << PAGE_SHIFT) | __PAGE_HYPERVISOR_WC | _PAGE_GLOBAL | MAP_SMALL_PAGES
+> >          .else
+> >          .quad (pfn << PAGE_SHIFT) | PAGE_HYPERVISOR_RWX | MAP_SMALL_PAGES
+> >          .endif
+> 
+> We have to be careful doing this.
+> 
+> It probably is safe to use WC in the pagetables.  We don't start using
+> the pagetables until after we're sure we're on a 64bit CPU, which means
+> WC is available.
+> 
+> However, doing so now means that we need explicit SFENCE's when using
+> this, even in places like early_error.  The IN/OUT instructions do flush
+> WC buffers, but the UART is written to before the screen, so there's a
+> chance that you'll lose the final character of the message on the screen.
 
-> I think this just reinforces the need to rework the BAR mapping
-> machinery.
+I don't think early_error will ever use this mapping.
 
-Right. The most delicate part is dealing with races with another vCPU when =
-the
-unmap-then-map operation does not complete in a single taking of the vpci l=
-ock
-I'd say. And that much is unavoidable, I think, because either unmapping or
-mapping might take a while.
+`vga_text_buffer` contains the address 0xb8000, and AFAICT it's
+exclusively used with paging disabled (as the multiboot2 efi path
+explicitly sets vga_text_buffer = 0).  The WC mapping created above is
+on the directmap, so va > DIRECTMAP_VIRT_START.
 
->
-> > Do you know if Linux intentionally skips disabling decode? Or is it a b=
-ug?
->
-> I think it's intentional. See https://gitlab.com/xen-project/xen/-/issues=
-/197
+vga_text_puts() might need such SFENCE, but arguably that should be a
+different patch IMO.  Might be best to ask Jan whether this is on
+purpose?
 
-Interesting. I seemed to recall some devices being able to decode their own=
- BAR
-accesses. But I must've been wrong.
+My hypothesis is that the SFENCE might only be needed in
+video_endboot() and before reboot if Xen crashed ahead of
+relinquishing the VGA console.
 
->
-> >> +            }
-> >> +        }
-> >> +        else
-> >> +            return;
-> >>      }
-> >> =20
-> >> =20
-> >> @@ -610,6 +647,10 @@ static void cf_check bar_write(
-> >>      }
-> >> =20
-> >>      pci_conf_write32(pdev->sbdf, reg, val);
-> >> +
-> >> +    if ( reenable )
-> >> +        /* Write-while-mapped: map the new BAR in p2m. OK to defer. *=
-/
-> >> +        modify_bars(pdev, cmd, false);
->
-> This call to modify_bars() will raise a softirq for the map operation.
-
-Ah, fair enough. I clearly didn't look closely enough.
-
-Cheers,
-Alejandro
+Thanks, Roger.
 
