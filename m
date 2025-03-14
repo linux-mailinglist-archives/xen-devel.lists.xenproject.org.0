@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53A66A60B44
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 09:24:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.913953.1319792 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2DF5A60B54
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 09:26:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.913964.1319801 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt0L8-0004pN-1m; Fri, 14 Mar 2025 08:24:22 +0000
+	id 1tt0My-00064H-Cd; Fri, 14 Mar 2025 08:26:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 913953.1319792; Fri, 14 Mar 2025 08:24:22 +0000
+Received: by outflank-mailman (output) from mailman id 913964.1319801; Fri, 14 Mar 2025 08:26:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt0L7-0004mF-VB; Fri, 14 Mar 2025 08:24:21 +0000
-Received: by outflank-mailman (input) for mailman id 913953;
- Fri, 14 Mar 2025 08:24:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tt0My-00061v-9Z; Fri, 14 Mar 2025 08:26:16 +0000
+Received: by outflank-mailman (input) for mailman id 913964;
+ Fri, 14 Mar 2025 08:26:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gDv/=WB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tt0L6-0004m9-QV
- for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 08:24:20 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b363b4fc-00ad-11f0-9898-31a8f345e629;
- Fri, 14 Mar 2025 09:24:08 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-43cfa7e7f54so11962615e9.1
- for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 01:24:10 -0700 (PDT)
+ id 1tt0Mw-0005yT-9U
+ for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 08:26:14 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fd8259cd-00ad-11f0-9ab9-95dc52dad729;
+ Fri, 14 Mar 2025 09:26:13 +0100 (CET)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-390fdaf2897so1604047f8f.0
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 01:26:13 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d2010e0bfsm9156875e9.36.2025.03.14.01.24.09
+ ffacd0b85a97d-395c7df344dsm4969432f8f.10.2025.03.14.01.26.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Mar 2025 01:24:09 -0700 (PDT)
+ Fri, 14 Mar 2025 01:26:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b363b4fc-00ad-11f0-9898-31a8f345e629
+X-Inumbo-ID: fd8259cd-00ad-11f0-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741940650; x=1742545450; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741940773; x=1742545573; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=jwsBmNW/8kfrYzUlhKaC61M0iEjDzrCkrpi4vsxyy7s=;
-        b=Wd2paPCmk83AYtBDpCOmZEHIRSFn5fR26cf+vK+tYKbxPwbOgXx2QWS7NxcT5FjXae
-         0RY28g9gbH7SJiMsj39ScV8YXX5B0TZJwgTY2VGPm1t2IHuvtB36dgsdForyJRCpJKr3
-         hVqqy6hzVKMhElpntPz7JqnrvJWHWUMcQ2fd/mRRkYNQkxoUt8Kfc7tVbt2/o1eIz7aJ
-         F5+6KbqM2hQkJ9aNrDel5zvwm1VzHViP5tf2mkwmVUvHxs9kFolLWy9fweKDivWs2qJp
-         DfndA3dW+bVlXpE5YBEQH5O8+EsFgFQBcq9dcyHFz4bSkhAatJV8k31MO/zh5kXmbrSS
-         wNfg==
+        bh=IF2zOYedI4KkuUV0EmcyNGux7EbwCaCv3DcoObu87fI=;
+        b=C0ddhSDJmU3CVvDMvnDUlDlbsYx7i0Xa8Vq26XDMS3GPqPJecOVEvIBliA9GftOVYn
+         YWKbu3AerFiSh7Xi2Pw/405rtZd1nrziHfc7QNoafNdbnBI47HM81Y+kyDRX/pG1V+TI
+         gs8haA+Gyt/u1XT8u6OQbgOCmrBBeyVtLlCpX/hvUsNOHypW8H6dnx7uDKk0o35zHtRk
+         /ovZFjclxCCPRCOAZyLfxQ/7E9S0Pjt61ysBI1y/OXiDwti7dCcHCC5qAXK6PAM0EaSK
+         MYyN5CxYYltc/9Y+W4I/yDeIA+B0v6DYjMhF2M5ymzUWaAGPIHVJju90WEdZkrDkUYl9
+         sELA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741940650; x=1742545450;
+        d=1e100.net; s=20230601; t=1741940773; x=1742545573;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jwsBmNW/8kfrYzUlhKaC61M0iEjDzrCkrpi4vsxyy7s=;
-        b=VkVU/m0BLVrc6gMqhvhXRMhT3G9zgGogMHBjTXaSuPFrgvnX5xetF/5KiIGqiZPkp8
-         AkM+9qVEsu2QHu90Hoax8wEtX5Be4Z0ZW/NxTRdANRltSizdV3od/aIn68sxyCPfWaVX
-         VLiKRNcn24nwU8Es3tAcRnAUfBbtJLS4kloy0HS+9vtag2Sm3uzklyMMbxMx6dLLfMwi
-         gpwoPt4LrGe7L2Qp8sBMg9WrZO6izRnI46zkl8vjmwx10UyWzaXY7O/C/omrpfepISpK
-         00MFo7LK6JfsEGU0YGJOkIGLHH62crPLIowxpYvR5X4UeYbT7LcnufgGiyBFkQNt1ay6
-         9Gcg==
-X-Forwarded-Encrypted: i=1; AJvYcCWsXO/YqSw8+30/MRCsj3nvBZ+9AsylBh4ZxQGYsN1p+B0nrWVfMP+4RHYfwus6J9FxkD2QD8xIMOo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyE4LblURYZQpnN6ftpA/IiQ4zdlRrSRHqDe7JM71Vjkm1PVpQz
-	rPqJP1uGTLt9BvT3BX6jDA2bsUh9I3ukH3GeC4AuGf+2nC/8xTi3BL5oOvSIog==
-X-Gm-Gg: ASbGnct7S8T/1wDDzlCONgF1o73ASgm0dTgkrb/w71VxAHJ8MM5LcN++LryfiIH0fhC
-	3vCRHOm/tPCrgqXraMUmAV/yywKa1+97scdEHO1rNZj0fMTvP0Li0sxNh/NENfV6h7eIcaE9j1k
-	UQXqZ74Eay5/h59GfgGz09U+rifuRKgCED/LYX45ch7kGsHzf2eVDmLVVySgkg+8DLPwvBx+Sqk
-	JgY9Zs9UCh9ZtP952pSxmRk+0yVqZUhF/lxWwTV8yb8SPvCfARdej62eeBc+bhnjK7+6lTSGTQZ
-	jIlV2wPIVUlxcIJjEXRHaJraIxjVB0sB/pTFwMlrQtqlDQoYjif6aBPdonIGbRxgNwU0hZnqWWR
-	WkLKpHNbwhxmW2Ciu6wClpUtV2SDdpQ==
-X-Google-Smtp-Source: AGHT+IHMJ0v90zEE/6k2/m4k3QhOxuKYO16QxY8K5baR8X8ghcqPy44jMuPxfi7k7D5YRl0mzW7Hdg==
-X-Received: by 2002:a05:600c:3c9e:b0:439:9737:675b with SMTP id 5b1f17b1804b1-43d1f1f3fccmr17802375e9.7.1741940650162;
-        Fri, 14 Mar 2025 01:24:10 -0700 (PDT)
-Message-ID: <8c58e1d6-b591-4211-9364-fa586a5c6d2e@suse.com>
-Date: Fri, 14 Mar 2025 09:24:09 +0100
+        bh=IF2zOYedI4KkuUV0EmcyNGux7EbwCaCv3DcoObu87fI=;
+        b=jGMgV7Tt7LMIYjMN20P4fVYxa1qhM2Mak3NK/UCmTEU8347qXkUryUOhHUuP528fjM
+         plGz/ZbHd+xYY5u7+kK4vAD9FE0wZGQqvvOTelW2Y3zWV4ijjRtdELlE8TpDEcOUVQf8
+         c97rzJnMdJdnDap20eOLM9cxjXut1DYCMmRawYS/rf+VO28MHttRCMEAm9DRnGFHTC8R
+         FLOJm+wsLdOqEan8UlXTC0hYo7OfvUKnhnVtcwsnXhjqI4lHpO1yg6UQ/TaL8qbHQ8bb
+         IcKME93YdTPBMORHYIn1qmWR1+XjAvcuTlQdFlewgDeXXb8RGI0l+bEzwpGTBE13h/r5
+         LN7Q==
+X-Gm-Message-State: AOJu0Yyj4zfUdUJ/uDDVlULDGIoN+7q6MOUWHk+nL1ILxNsT1rlESG6K
+	JwgYv5OEJh933iDZE5xhXJiQtRjOBnbVcbiFyMTO/uHrPF/f+sD9EnxCMYTcmA==
+X-Gm-Gg: ASbGncuqzrk9mlf3Yz6BTrELmepL0LOj6wbzyGqf4Mkaj7rmn4TIE7LLTIpQh8/RDwX
+	ha+6E+bCNJ1nLw/eqnrkrT6A4pQ8cJGVe3zHEfbDwivblJA4TciGQehm7V/gN1ES8MDbgzRNFKZ
+	uXvmzyF+GPFCLwLBTZ56MTunJIQ/Jj7vx35bk4NlmleIS4fJMMnL2q22VkBxV5vF3fCob0rbZmn
+	15lf23TzKcdvPxUIApAO5EfaS2ShGYfCETpDO7oSDZuh94YrImu8lmHd0FJc1W9hN01QMfDIw2z
+	30Lu5qK+JgLsfHH6y2lkhAF1WEueomwy9KS1f0WknLiNWo4OgwuBlLhxaEruTeonwk6H/J4H8uR
+	Cr0uQyQxRLuYrBFdswoFeZSaTH3zxP4g4lGIRSJiE
+X-Google-Smtp-Source: AGHT+IFpu67XOuQ3xCNsuX8MtWI6vHtlwtCC6nUp3JvtQbBAauGELfr2NyFe5R+KGscSog8gL48x8g==
+X-Received: by 2002:a05:6000:1786:b0:390:ee34:228b with SMTP id ffacd0b85a97d-3971e876832mr2140463f8f.24.1741940772638;
+        Fri, 14 Mar 2025 01:26:12 -0700 (PDT)
+Message-ID: <cc789c05-3a10-46cf-b979-57b4c29bac4c@suse.com>
+Date: Fri, 14 Mar 2025 09:26:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] x86/wait: prevent duplicated assembly labels
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250313153029.93347-1-roger.pau@citrix.com>
- <20250313153029.93347-3-roger.pau@citrix.com>
+Subject: Re: [PATCH] [RFC] vpci: allow BAR write while mapped
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org,
+ Stewart Hildebrand <stewart.hildebrand@amd.com>
+References: <20250312195019.382926-1-stewart.hildebrand@amd.com>
+ <Z9MaZVMtI86eAmDJ@macbook.local>
+ <9e619631-a7f7-4f69-aff8-13202d61b79a@suse.com>
+ <Z9PnDOn4t0vzApaQ@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,46 +119,56 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250313153029.93347-3-roger.pau@citrix.com>
+In-Reply-To: <Z9PnDOn4t0vzApaQ@macbook.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 13.03.2025 16:30, Roger Pau Monne wrote:
-> When enabling UBSAN with clang, the following error is triggered during the
-> build:
+On 14.03.2025 09:21, Roger Pau Monné wrote:
+> On Fri, Mar 14, 2025 at 09:04:55AM +0100, Jan Beulich wrote:
+>> On 13.03.2025 18:48, Roger Pau Monné wrote:
+>>> On Wed, Mar 12, 2025 at 03:50:17PM -0400, Stewart Hildebrand wrote:
+>>>> @@ -585,10 +601,31 @@ static void cf_check bar_write(
+>>>>      {
+>>>>          /* If the value written is the current one avoid printing a warning. */
+>>>>          if ( val != (uint32_t)(bar->addr >> (hi ? 32 : 0)) )
+>>>> +        {
+>>>>              gprintk(XENLOG_WARNING,
+>>>> -                    "%pp: ignored BAR %zu write while mapped\n",
+>>>> +                    "%pp: allowing BAR %zu write while mapped\n",
+>>>>                      &pdev->sbdf, bar - pdev->vpci->header.bars + hi);
+>>>
+>>> If Xen now handles BARs writes with memory decoding enabled the
+>>> message can be removed.  It's only purpose was to signal this missing
+>>> handling.
+>>>
+>>>> -        return;
+>>>> +            ASSERT(rw_is_write_locked(&pdev->domain->pci_lock));
+>>>> +            ASSERT(spin_is_locked(&pdev->vpci->lock));
+>>>> +            reenable = true;
+>>>> +            cmd = pci_conf_read16(pdev->sbdf, PCI_COMMAND);
+>>>> +            /*
+>>>> +             * Write-while-mapped: unmap the old BAR in p2m. We want this to
+>>>> +             * finish right away since the deferral machinery only supports
+>>>> +             * unmap OR map, not unmap-then-remap. Ultimately, it probably would
+>>>> +             * be better to defer the write-while-mapped case just like regular
+>>>> +             * BAR writes (but still only allow it for 32-bit BAR writes).
+>>>> +             */
+>>>> +            /* Disable memory decoding */
+>>>> +            modify_bars(pdev, cmd & ~PCI_COMMAND_MEMORY, false);
+>>>
+>>> I think if the guest explicitly avoids toggling memory decoding Xen
+>>> should also to the same, and not touch the bit.
+>>
+>> For Dom0 I'm inclined to agree, but for DomU-s it may be unsafe to do so.
+>> (You may have meant it like this, but you said "guest".)
 > 
-> common/wait.c:154:9: error: symbol '.L_wq_resume' is already defined
->   154 |         "push %%rbx; push %%rbp; push %%r12;"
->       |         ^
-> <inline asm>:1:121: note: instantiated into assembly here
->     1 |         push %rbx; push %rbp; push %r12;push %r13; push %r14; push %r15;sub %esp,%ecx;cmp $4096, %ecx;ja .L_skip;mov %rsp,%rsi;.L_wq_resume: rep movsb;mov %rsp,%rsi;.L_skip:pop %r15; pop %r14; pop %r13;pop %r12; pop %rbp; pop %rbx
->       |                                                                                                                                ^
-> common/wait.c:154:9: error: symbol '.L_skip' is already defined
->   154 |         "push %%rbx; push %%rbp; push %%r12;"
->       |         ^
-> <inline asm>:1:159: note: instantiated into assembly here
->     1 |         push %rbx; push %rbp; push %r12;push %r13; push %r14; push %r15;sub %esp,%ecx;cmp $4096, %ecx;ja .L_skip;mov %rsp,%rsi;.L_wq_resume: rep movsb;mov %rsp,%rsi;.L_skip:pop %r15; pop %r14; pop %r13;pop %r12; pop %rbp; pop %rbx
->       |                                                                                                                                                                      ^
-> 2 errors generated.
-> 
-> The inline assembly block in __prepare_to_wait() is duplicated, thus
-> leading to multiple definitions of the otherwise unique labels inside the
-> assembly block.  GCC extended-asm documentation notes the possibility of
-> duplicating asm blocks:
-> 
->> Under certain circumstances, GCC may duplicate (or remove duplicates of)
->> your assembly code when optimizing. This can lead to unexpected duplicate
->> symbol errors during compilation if your asm code defines symbols or
->> labels. Using ‘%=’ (see AssemblerTemplate) may help resolve this problem.
-> 
-> Move the assembly blocks that deal with saving and restoring the current
-> CPU context into it's own explicitly non-inline functions.  This prevents
-> clang from duplicating the assembly blocks.  Just using noinline attribute
-> seems to be enough to prevent assembly duplication, in the future noclone
-> might also be required if asm block duplication issues arise again.
+> Sorry, I'm not sure I'm following.  For domUs the BAR register write
+> is not propagated to the hardware, it's just the p2m mappings that
+> change, and hence it's even safer to not toggle the memory decoding
+> bit for that case? (as there's no write to the device BAR registers
+> for domUs).
 
-Wouldn't it be a far easier / less intrusive change to simply append %= to
-the label names?
+Oh, right. I'm sorry for the noise.
 
 Jan
 
