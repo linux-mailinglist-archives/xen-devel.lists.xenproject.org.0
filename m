@@ -2,45 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8E75A61E55
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 22:38:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.915469.1321022 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A53CA62040
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 23:24:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.915527.1321032 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ttCjs-0000a3-AT; Fri, 14 Mar 2025 21:38:44 +0000
+	id 1ttDRS-0008AF-J6; Fri, 14 Mar 2025 22:23:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 915469.1321022; Fri, 14 Mar 2025 21:38:44 +0000
+Received: by outflank-mailman (output) from mailman id 915527.1321032; Fri, 14 Mar 2025 22:23:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ttCjs-0000WA-3b; Fri, 14 Mar 2025 21:38:44 +0000
-Received: by outflank-mailman (input) for mailman id 915469;
- Fri, 14 Mar 2025 21:38:42 +0000
+	id 1ttDRS-00087g-G1; Fri, 14 Mar 2025 22:23:46 +0000
+Received: by outflank-mailman (input) for mailman id 915527;
+ Fri, 14 Mar 2025 22:23:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=TLrw=WB=redhat.com=npache@srs-se1.protection.inumbo.net>)
- id 1ttCjq-000827-GO
- for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 21:38:42 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=vjjD=WB=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1ttDRJ-00087K-Ko
+ for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 22:23:45 +0000
+Received: from fout-a4-smtp.messagingengine.com
+ (fout-a4-smtp.messagingengine.com [103.168.172.147])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b24b6d7c-011c-11f0-9ab9-95dc52dad729;
- Fri, 14 Mar 2025 22:38:42 +0100 (CET)
-Received: from mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-171-4j3QuXoCNQOrm0DeJ5-F4Q-1; Fri,
- 14 Mar 2025 17:38:37 -0400
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 1B7E419560BB; Fri, 14 Mar 2025 21:38:34 +0000 (UTC)
-Received: from h1.redhat.com (unknown [10.22.80.88])
- by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id A74201944E42; Fri, 14 Mar 2025 21:38:28 +0000 (UTC)
+ id f7638563-0122-11f0-9ab9-95dc52dad729;
+ Fri, 14 Mar 2025 23:23:35 +0100 (CET)
+Received: from phl-compute-09.internal (phl-compute-09.phl.internal
+ [10.202.2.49])
+ by mailfout.phl.internal (Postfix) with ESMTP id 7015A1380F08;
+ Fri, 14 Mar 2025 18:23:33 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-09.internal (MEProxy); Fri, 14 Mar 2025 18:23:33 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 14 Mar 2025 18:23:30 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,87 +45,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b24b6d7c-011c-11f0-9ab9-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1741988320;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dGPxM9RdXtkX+Els8nvXOJm60GkYwZd/fztNUeVaxvI=;
-	b=N1KiB4sC3veL8yihY/K7w70PEUapQvZnYNJOxn00MX4IkqAvvXInzqGpxiFnRN3lT4JJW6
-	IP+fjhE1uNnCkPswfRlQ76q4V50CCDYc1X9QcBQMsxpYb1Ambma43PLZhuFuyvs1qqXvAI
-	SvcAwlSOU9u/3aCDEZS5GAbTZBLmY+g=
-X-MC-Unique: 4j3QuXoCNQOrm0DeJ5-F4Q-1
-X-Mimecast-MFC-AGG-ID: 4j3QuXoCNQOrm0DeJ5-F4Q_1741988314
-From: Nico Pache <npache@redhat.com>
-To: linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
-	virtualization@lists.linux.dev
-Cc: alexander.atanasov@virtuozzo.com,
-	muchun.song@linux.dev,
-	roman.gushchin@linux.dev,
-	mhocko@kernel.org,
-	kys@microsoft.com,
-	haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	jgross@suse.com,
-	sstabellini@kernel.org,
-	oleksandr_tyshchenko@epam.com,
-	akpm@linux-foundation.org,
-	mst@redhat.com,
-	david@redhat.com,
-	yosry.ahmed@linux.dev,
-	hannes@cmpxchg.org,
-	nphamcs@gmail.com,
-	chengming.zhou@linux.dev,
-	kanchana.p.sridhar@intel.com,
-	llong@redhat.com,
-	shakeel.butt@linux.dev
-Subject: [PATCH v2 4/4] xen: balloon: update the NR_BALLOON_PAGES state
-Date: Fri, 14 Mar 2025 15:37:57 -0600
-Message-ID: <20250314213757.244258-5-npache@redhat.com>
-In-Reply-To: <20250314213757.244258-1-npache@redhat.com>
-References: <20250314213757.244258-1-npache@redhat.com>
+X-Inumbo-ID: f7638563-0122-11f0-9ab9-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1741991013;
+	 x=1742077413; bh=FEiAqfIaYZE3VyOBQ80H8WMCS2w8fo0Csp8fAtdYVK8=; b=
+	w1x9dwmvwGI3FQPlFtVoxCERNyEbcs85hI6/yuFZsi442NZWAKezasToUVOY52tq
+	7GG2Nn8xtEL2Wov98gXdTKiuvCsfoBLbJh7/CuvJfDP8P/RHwII6GrWbnZg8Swzi
+	NZL/1Qfovdi0GecfIXq/Dsqf02Mx0+z2JedtfaGlLGj/665wDfEoYY9ALFQGYmX3
+	+hjUawqq/I5jS1Bjtna5I8hHdpjpOAFvIfefE18mDUNyYyqqBl/UjxBuJSMryw9c
+	UdyUmDfjT2jaOkiZG4akfeH3jYinH1ozww6v3lOckznrSmaRGVM726zZuzipTRji
+	V8x871c7E/3aj53B+XBwiQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1741991013; x=1742077413; bh=FEiAqfIaYZE3VyOBQ80H8WMCS2w8fo0Csp8
+	fAtdYVK8=; b=qqm2BO8V4i1wOCnqnDN8I27a/h/meNXfPgMpstqRah6ucQ9mNZm
+	2pncGf33T9+z/pOh2+rK0XH+1JkZDVShcKxctj8BS6WCfDEFguZAS9R2mWuA3SdV
+	fsJ2Udy/wRiwDY6m8uCb5SKlngr4M0ZbLkLxTxMEgNEY70nCtarmyApz9AYtenSb
+	b82P5KrNIh4s53KMcs5Roe7COJD9foMIc9nriugNuknmFGL2/lJClivE+9MMpCE1
+	EP51IpWgYW1GjcD4/N8Qpfel1LeJnoaZ7wJSybKl7JStgXY+MJ5LSBnMsaCoCBOA
+	k85GOUn9TjuginbYVgULs7g5x42QkbPdQ4A==
+X-ME-Sender: <xms:ZKzUZ3nSkqxDQlghuo5QS2QgqyN-OpQ45EAeA2zxLGSYUKMI_XSa8g>
+    <xme:ZKzUZ61vHqFlX7xfY6FJayRy6v1-oryv-zL5-8jT_JUMW99lozAAYipON7J1S1iQT
+    rIOoYn9VreBXQ>
+X-ME-Received: <xmr:ZKzUZ9pSJ-MZo1sIZb6Fbgjy2txLvqP02EYa8SF1iSThXexuTqXxN8bwBC4Vv_eJMmvZr8PTgBam2t8bEL7GVRSs_22HhSspkw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddufedvtdduucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
+    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
+    gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddt
+    jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
+    eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
+    ggftrfgrthhtvghrnhepveeujeetgeelleetudeuvefhtefgffejvedtvdfgieevheethe
+    elgeeuledvjeevnecuffhomhgrihhnpehgihhtlhgrsgdrtghomhenucevlhhushhtvghr
+    ufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeelpdhmohgu
+    vgepshhmthhpohhuthdprhgtphhtthhopehsshhtrggsvghllhhinhhisehkvghrnhgvlh
+    drohhrghdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhj
+    vggtthdrohhrghdprhgtphhtthhopehjsggvuhhlihgthhesshhushgvrdgtohhmpdhrtg
+    hpthhtoheprghnughrvgifrdgtohhophgvrhefsegtihhtrhhigidrtghomhdprhgtphht
+    thhopegtrghrughovgestggrrhguohgvrdgtohhmpdhrtghpthhtoheprhhoghgvrhdrph
+    gruhestghithhrihigrdgtohhmpdhrtghpthhtohepohhlvghkshhiihdrkhhurhhotghh
+    khhosehgmhgrihhlrdgtohhmpdhrtghpthhtohepgigrkhgvphdrrghmrghtohhpsehgmh
+    grihhlrdgtohhmpdhrtghpthhtohepmhihkhihthgrpghpohhtuhhrrghisegvphgrmhdr
+    tghomh
+X-ME-Proxy: <xmx:ZKzUZ_mOCb4rTZTYfD-uqI0m4W6pcEoodcEiLr-EWCoG6tt4piApEQ>
+    <xmx:ZKzUZ11aVXh4IZRR7ZQZdeyadlQtPXIkcEvHqOu3Pb8tGyfqIPV3QQ>
+    <xmx:ZKzUZ-ujKWDtFlKeYOEoFDtiubK6vB_l-ZZxcVM4B14EReYLVEhuwg>
+    <xmx:ZKzUZ5V-QbRnK4L7PMkH2oCAL3_ZxumfQomOVF_ihY16yp4NSaaAhg>
+    <xmx:ZazUZ_xfdJlTECZnQpBvHtehpGenxHEIl_fTqr5QSCiIry4HNVFKE3ag>
+Feedback-ID: i1568416f:Fastmail
+Date: Fri, 14 Mar 2025 23:23:28 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Mykola Kvach <xakep.amatop@gmail.com>,
+	Mykyta Poturai <mykyta_poturai@epam.com>
+Subject: S3 regression on AMD in 4.20 (was: Re: [PATCH] ci: add yet another
+ HW runner)
+Message-ID: <Z9SsYF0pYTkZXg9I@mail-itl>
+References: <20250314030628.96166-1-marmarek@invisiblethingslab.com>
+ <alpine.DEB.2.22.394.2503141417540.3477110@ubuntu-linux-20-04-desktop>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="UB5wfNeIlVJsLyIt"
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.22.394.2503141417540.3477110@ubuntu-linux-20-04-desktop>
 
-Update the NR_BALLOON_PAGES counter when pages are added to or
-removed from the Xen balloon.
 
-Signed-off-by: Nico Pache <npache@redhat.com>
----
- drivers/xen/balloon.c | 4 ++++
- 1 file changed, 4 insertions(+)
+--UB5wfNeIlVJsLyIt
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 14 Mar 2025 23:23:28 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Mykola Kvach <xakep.amatop@gmail.com>,
+	Mykyta Poturai <mykyta_poturai@epam.com>
+Subject: S3 regression on AMD in 4.20 (was: Re: [PATCH] ci: add yet another
+ HW runner)
 
-diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
-index 163f7f1d70f1..65d4e7fa1eb8 100644
---- a/drivers/xen/balloon.c
-+++ b/drivers/xen/balloon.c
-@@ -157,6 +157,8 @@ static void balloon_append(struct page *page)
- 		list_add(&page->lru, &ballooned_pages);
- 		balloon_stats.balloon_low++;
- 	}
-+	inc_node_page_state(page, NR_BALLOON_PAGES);
-+
- 	wake_up(&balloon_wq);
- }
- 
-@@ -179,6 +181,8 @@ static struct page *balloon_retrieve(bool require_lowmem)
- 		balloon_stats.balloon_low--;
- 
- 	__ClearPageOffline(page);
-+	dec_node_page_state(page, NR_BALLOON_PAGES);
-+
- 	return page;
- }
- 
--- 
-2.48.1
+On Fri, Mar 14, 2025 at 02:19:19PM -0700, Stefano Stabellini wrote:
+> On Fri, 14 Mar 2025, Marek Marczykowski-G=C3=B3recki wrote:
+> > This is AMD Zen2 (Ryzen 5 4500U specifically), in a HP Probook 445 G7.
+> >=20
+> > This one has working S3, so add a test for it here.
+> >=20
+> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
+slab.com>
+> > ---
+> > Cc: Jan Beulich <jbeulich@suse.com>
+> > Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+> >=20
+> > The suspend test added here currently fails on staging[1], but passes on
+> > staging-4.19[2]. So the regression wants fixing before committing this
+> > patch.
+> >
+> > [1] https://gitlab.com/xen-project/people/marmarek/xen/-/jobs/9408437140
+> > [2] https://gitlab.com/xen-project/people/marmarek/xen/-/jobs/9408943441
+>=20
+> We could commit the patch now without the s3 test.
+>=20
+> I don't know what the x86 maintainers think about fixing the suspend
+> bug, but one idea would be to run a bisection between 4.20 and 4.19.
 
+I'm on it already, but it's annoying. Lets convert this thread to
+discussion about the issue:
+
+So, I bisected it between staging-4.19 and master. The breakage is
+somewhere between (inclusive):
+eb21ce14d709 x86/boot: Rewrite EFI/MBI2 code partly in C
+and
+47990ecef286 x86/boot: Improve MBI2 structure check
+
+But, the first one breaks booting on this system and it remains broken
+until the second commit (or its parent) - at which point S3 is already
+broken. So, there is a range of 71 commits that may be responsible...
+
+But then, based on a matrix chat and Jan's observation I've tried
+reverting f75780d26b2f "xen: move per-cpu area management into common
+code" just on top of 47990ecef286, and that fixed suspend.
+Applying "xen/percpu: don't initialize percpu on resume" on top of
+47990ecef286 fixes suspend too.
+But applying it on top of master
+(91772f8420dfa2fcfe4db68480c216db5b79c512 specifically) does not fix it,
+but the failure mode is different than without the patch - system resets
+on S3 resume, with no crash message on the serial console (even with
+sync_console), instead of hanging.
+And one more data point: reverting f75780d26b2f on top of master is the
+same as applying "xen/percpu: don't initialize percpu on resume" on
+master - system reset on S3 resume.
+So, it looks like there are more issues...
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--UB5wfNeIlVJsLyIt
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmfUrGAACgkQ24/THMrX
+1ywAWwf/dV2G9ZNdT4aTyFqCJXhxyHugXwAa2Wv762SqViopb0sIXmB1gVRUhoMU
+spdmhHbB9FnFHaoBzJsiXzXtGtQJkceOPdqmd7VuWo0KsGb51upbEQw7LyO/tZaB
+C+uDlMv//NKD0hjQrS5cMY+TSQmzQdmzqFbZCXchJcTwHKPo9Zu5Wv3awo7UGjSf
+lUvdjdV0MNOSRXN4ZlWitMouZw+VM4BmzY2+nAODenCl8yLrHsb3KVqexUGNReQL
+uLOs9NLgQZtgM3vEoboFlDrFaHTGKnEW7iwUe8Vs8YOpv+9njuUg+gMuozOSoNNQ
+Cu0ncWxOIaBPNIsitNOTjJhFoz6GZw==
+=C0Lp
+-----END PGP SIGNATURE-----
+
+--UB5wfNeIlVJsLyIt--
 
