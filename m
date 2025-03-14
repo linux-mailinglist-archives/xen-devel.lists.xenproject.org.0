@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 029D9A60951
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 07:50:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.913785.1319672 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F011EA60A0A
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 08:27:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.913814.1319683 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsyr1-0008Rm-Lh; Fri, 14 Mar 2025 06:49:11 +0000
+	id 1tszQw-0000Wc-Ca; Fri, 14 Mar 2025 07:26:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 913785.1319672; Fri, 14 Mar 2025 06:49:11 +0000
+Received: by outflank-mailman (output) from mailman id 913814.1319683; Fri, 14 Mar 2025 07:26:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tsyr1-0008Pc-Ib; Fri, 14 Mar 2025 06:49:11 +0000
-Received: by outflank-mailman (input) for mailman id 913785;
- Fri, 14 Mar 2025 06:49:10 +0000
+	id 1tszQw-0000Sh-9S; Fri, 14 Mar 2025 07:26:18 +0000
+Received: by outflank-mailman (input) for mailman id 913814;
+ Fri, 14 Mar 2025 07:26:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gDv/=WB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tsyr0-0008PW-6x
- for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 06:49:10 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ id 1tszQv-0000Sb-L5
+ for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 07:26:17 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6c85e59e-00a0-11f0-9ab9-95dc52dad729;
- Fri, 14 Mar 2025 07:49:06 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-38a25d4b9d4so1004461f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 23:49:06 -0700 (PDT)
+ id 9d56db8a-00a5-11f0-9ab9-95dc52dad729;
+ Fri, 14 Mar 2025 08:26:16 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-43d04dc73b7so15790405e9.3
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 00:26:16 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d1ffb62ccsm7127315e9.7.2025.03.13.23.49.04
+ 5b1f17b1804b1-43d1fe152ffsm8205315e9.13.2025.03.14.00.26.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Mar 2025 23:49:05 -0700 (PDT)
+ Fri, 14 Mar 2025 00:26:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6c85e59e-00a0-11f0-9ab9-95dc52dad729
+X-Inumbo-ID: 9d56db8a-00a5-11f0-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741934946; x=1742539746; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741937175; x=1742541975; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=aDYBP5s0KcIGVf4+3ZAh1FmuEIkAwb5QIXmwhO4kw5U=;
-        b=dopPaTQ7PeqU+Q1oJQx/42jGhmkQ5il/l0Q5KH3Tz6aZc1dxNl1DFPBVtKGxs3xYzf
-         auw97uRhf3WTwFYAxnzdPHAVXw6JQ6p6HRF6epo5RrVusYWUPlIK92mzbH69nd3egOGU
-         j++97J06XAf/lm70TQLXKXWpJx2GEMkHIea+EzTkmlfUyrjtqKK3XBjMXWqfm4plPW8r
-         GtTQFmAM2YElK+q6SUSQDFTmZrovNGDoawen9qq4kbJ7gUH3FfdsnjxgbRFlkPm1Uxln
-         lqWsdNqxodc6nP8opZVxCUVKWlvFc2GMVaxXe5viQdwJfMzDjY1A0CD10z9mZ8lknhSn
-         q7Kw==
+        bh=rFcwUdZjV4aCb4JuiNGr+0B/Qwx+h2+9pw2jfQTMTVw=;
+        b=BeUEdPqzO33vlSc4Al6RS+XqSUm8DWfLrGUeFHozMNbBdkk6+0FAtGwOHUY7H5+H48
+         VMPYh6eKBsP5JtK+1qPUc4BcstUvo3Y1xPS0t/Xovk92HHU8vrsCHEgFf0z0cg8zaBGY
+         D0Ju+vq9s9YR06a1q7VgSxl7DBIZx0PnXA/bOKAlXoYm2YryPyPLlZIMxUeVwVDfwTnS
+         nS124Chh0efEwYda1GKpCU2iDCZXoqlyP1kiX5c8+AvJfxAi2GRjoU5ECCksudHFXtU2
+         CppNk0bfCPfewdbsj+0cBO9j/N5C6Y0UbcFBe0EdTUE/+ue2710HrgFaqKGpFbkqtpeK
+         RrbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741934946; x=1742539746;
+        d=1e100.net; s=20230601; t=1741937175; x=1742541975;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=aDYBP5s0KcIGVf4+3ZAh1FmuEIkAwb5QIXmwhO4kw5U=;
-        b=esBXZZdd1lFB6d4WWyOgKHGpaXB6emu9nmNWaDj/AxpaVuQWy9xpBsuxHWcCgpfEE4
-         c51RV/6OM/8q3OfC9WVuzCyYUqIq97LlMWT4zPxz/Mn9JI/E+fFbEwRByQ2dTdyjKW7O
-         kCgeth5WT5CN59rywskSnZdh0OkUqug96kdcyXojtpYz+rakfUBkjgb2VcjlbKLt+1i1
-         Ry/klFR5CF2/JS2MLVZRUUmdJ9/uOHcmrDScHzl++iFTqQ3HKA0uxGaNkQ2UfkwLYOfU
-         1YjoOC3w33arMKg44djZFD5qaMwTpqdgakZe9ajRkoH4nMeUL6e55+C0GavB3XMcIOIR
-         iSVQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUB/ztrFRREHq3vwwFgVwi7Fl1oEna0WhlqChQW9L6cS7uwiY05pO5G1xSSRrg3pXJwHYUDh1/GdNE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwvxJbiDXllWJQ46GfZ+RfyMo3Jyvbd+vnT+CQ7REHf7HOyvrKW
-	cqyajPZA3t7YjJg3nP3Z2wO0F+iafoX4d2kJUbhGt+eMQTX1lmEgINTbIu4xKQ==
-X-Gm-Gg: ASbGncv8N68/BPuY3Apgd5SkvdEpW0HMi7UJVZqd/I//JUHP5zaiWeV4gWW0RmMhnhp
-	DzFNrDMBn1GKocjeQ2NDTBfFIr5hxtVbPMy0lMy2XkYTZdWmjr4YicEiZtihvt8Z6bEN1vDMVYZ
-	Tz4EEOH+0fvifidg/SozWdcljRi3kkOt7suHrBfl1Tu2vZnubtH03Sw9SHP+2XRjuDLJI1Nwre3
-	kl+9xo2+cGYSv9CKKPOn7K5pLVmsV7wlSDWktzyjs4E4f3h58ncZUj5wBBXvDDOovg8NiACK8+/
-	t0ca7bZ+9kQVDUn9LXIuAFCle2Cltg5Mm1fQqw64y/pbb5kw5+gcVC49aTt+mCA3NNx5nxX6v7t
-	9aPLk5vwDH58XtJMNUK/Rv0g3RQ1maQ==
-X-Google-Smtp-Source: AGHT+IGawQTziwRyAOZXzvM0W5SIL9IAgh+HhfC4Mwk730PVfjhr9WBV5VT/l8NliyLOeFnA5dnEMA==
-X-Received: by 2002:a05:6000:178d:b0:38f:2a53:1d78 with SMTP id ffacd0b85a97d-3971ddd8d44mr1595078f8f.10.1741934945875;
-        Thu, 13 Mar 2025 23:49:05 -0700 (PDT)
-Message-ID: <e016d8e7-e662-419f-a181-5bbfdc71764b@suse.com>
-Date: Fri, 14 Mar 2025 07:49:04 +0100
+        bh=rFcwUdZjV4aCb4JuiNGr+0B/Qwx+h2+9pw2jfQTMTVw=;
+        b=FLwACeoJW0gHSIYTV+enlK3NrxvgR3AATMRj+V3jAQJnjy6nzLCugUz1OmEeHuPC/d
+         njJlKNUn1jU0cZqdpKAJyQWFBign5M+I6rG+3gB8oq1CcSzzQZRCsv/SDS8GNmQvfy5h
+         ++RuxX0EbsFZHzp1ZwlYQ7pEyqCJcIw+y9z5yEFejPPc5Ly1ZQUyhfpbyo8Af4EC1adk
+         vCHMeSWjLpb+jDg711nVpamCy1WCk1+j6T6SgwsiGkxxUBrl7xjt17mIMMw45rg91mYp
+         nk8jwKzOzxvwpqdq9hsZMaT1vTald/FjQQn2kWj7aBX/GHskszyIjuuSd1FbvXUF/AzE
+         0jYg==
+X-Forwarded-Encrypted: i=1; AJvYcCXMSSpSUg7ud3KjUOoNQkjEgdfvf8G4S9dJZGAtUF6hUw+8gGCnjXHUW/uCBAPp2oJcxx8/8jfoBcE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxoTw+0SWTD3KCsVR1li2D89xML3Eu163rNxg8OnbjEMbS+PDwS
+	UEEF1nyrwlindeUARXQ5bHzfP9sVXd83HVllmQHyHCeXlihhGgfEdPx7iH9GfQ==
+X-Gm-Gg: ASbGncsjSqpZtw25IOF1tuPmVQ9UOHnbkvP4+mH4Cpx2WYqsiUggHKeRfvPbMia4zKp
+	09Yg+OB/BS5Tqdb4IBbKPKOyYscL45h4kFTIjKEEPSGsOz0YKoN778YcMJT/ir6smsHaDuxMixr
+	rc/ld9rt4vCsrA7a/aFe0Fir/frNQ3LsGFlB2gbd/BUKOYFMhThgxHesKvtauzIv5dkmSUD+4+1
+	mqfeg/YtEbjc2WyV52e3whnVtyplhqWMFB5y7OeZ3wdq68iyTHEQG1bUmyGX1q2LJl5V8HG8Mmm
+	Iw7AhSVKgFRohHX9FhTBDUSfM/uKMmefaRopbnE0zz2mkf56DKlMkIwyWq8KRMDKtkT6dDkyvHA
+	5sgik2S4af/ahBbr3aitToLFmpGPN9w==
+X-Google-Smtp-Source: AGHT+IGBd/4I63LudYWNctqE6+C1FwHqPmogyOr+gqOWZMR3InUvUUZST+zz1dwoOl2S4MeBU5sqkA==
+X-Received: by 2002:a05:600c:3505:b0:43c:efae:a73 with SMTP id 5b1f17b1804b1-43d1ec72abemr18062755e9.10.1741937175339;
+        Fri, 14 Mar 2025 00:26:15 -0700 (PDT)
+Message-ID: <385a98d5-0b08-45e0-90b7-bcc3a18f921a@suse.com>
+Date: Fri, 14 Mar 2025 08:26:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] trace: convert init_trace_bufs() to constructor
+Subject: Re: [PATCH 6/6] symbols: centralize and re-arrange $(all_symbols)
+ calculation
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
  <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
@@ -95,12 +96,9 @@ Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
  <roger.pau@citrix.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
  Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <e1e556c4-ed71-41f7-acfc-b7fa866a0d3e@suse.com>
- <6ff81326-762c-46ec-a06a-254ba166433b@citrix.com>
- <b59ea14e-0bce-4c3e-b1fb-021b53af1780@suse.com>
- <d597523c-aa3a-4682-824f-e6e2f8ce753a@citrix.com>
- <61b762d0-d513-4d02-80ac-50fa12a725f3@suse.com>
- <b13543a1-4d43-4e2d-8fcd-08ec60be9dd3@citrix.com>
+References: <58b3d7dc-5966-432c-8def-e841feaee1c8@suse.com>
+ <d0521cf8-dc85-4b31-9850-2bb94c560fc5@suse.com>
+ <17c27c8a-7314-4e89-9c21-f1a807867428@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,32 +124,63 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b13543a1-4d43-4e2d-8fcd-08ec60be9dd3@citrix.com>
+In-Reply-To: <17c27c8a-7314-4e89-9c21-f1a807867428@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 13.03.2025 18:03, Andrew Cooper wrote:
-> On 13/03/2025 4:37 pm, Jan Beulich wrote:
->> On 13.03.2025 17:28, Andrew Cooper wrote:
->>> On 13/03/2025 2:19 pm, Jan Beulich wrote:
->>>> On 13.03.2025 14:58, Andrew Cooper wrote:
->>>>> On 13/03/2025 1:38 pm, Jan Beulich wrote:
->>>>> I'm tempted to ack this on the basis that it is an improvement, but a /*
->>>>> TODO this is all mad, please fix */ wouldn't go amiss either.
->>>> I understand you like adding such comments; I, however, at least
->>>> sometimes (e.g.) don't. Especially without at least outlining what
->>>> would need doing. Just saying "this is all mad" doesn't really help
->>>> very much.
->>> I was being somewhat flippant.  But a /* TODO, try and make this a
->>> presmp_initcall() to improve alloc_trace_bufs() */ would be fine.
->> Okay, added (to the existing comment).
+On 13.03.2025 18:02, Andrew Cooper wrote:
+> On 13/03/2025 1:55 pm, Jan Beulich wrote:
+>> For one there's no need for each architecture to have the same logic.
+>> Move to the root Makefile, also to calculate just once.
+>>
+>> And then re-arrange to permit FAST_SYMBOL_LOOKUP to be independent of
+>> LIVEPATCH, which may be useful in (at least) debugging.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> Likely syms-warn-dup-y wants to follow suit; it doesn't even have an Arm
+>> counterpart right now.
 > 
-> RISC-V and PPC were both green in the pipeline, so they seem happy.
+> Recently, I thought the same about --orphan-handling={warn,error} too. 
+> We need to up it to error, and enforce it consistently.
+> 
+> There's actually a lot of $(TARGET)-syms which ought to be less
+> copy&paste.
 
-As alluded to, not surprising at all, as the tests surely don't supply
-a "tbuf_size=" command line option. Without which init_trace_bufs() does
-close to nothing. Still - thanks for double checking. May I imply an ack
-from this (formally I'll need a separate Arm one then still anyway)?
+Indeed. Iirc like me I think you indicated you'd like to also break up
+those multi-step rules, to properly work through dependencies instead.
+
+>  I'll submit my cleanup so far, which doesn't interact here
+> I don't think, but is also incomplete.
+> 
+>> --- a/xen/Makefile
+>> +++ b/xen/Makefile
+>> @@ -460,6 +460,10 @@ ALL_OBJS-$(CONFIG_CRYPTO) += crypto/buil
+>>  
+>>  ALL_LIBS-y                := lib/lib.a
+>>  
+>> +all-symbols-y :=
+>> +all-symbols-$(CONFIG_LIVEPATCH) += --all-symbols
+>> +all-symbols-$(CONFIG_FAST_SYMBOL_LOOKUP) += --sort-by-name
+>> +
+> 
+> I presume this works, so it's after we've processed Kconfig, but is
+> there really nowhere better for it to live?
+
+What do you mean by "better"? If we're to (slowly) centralize the
+linking, this is where all of that would move. xen/Makefile is processed
+just once (twice if .config changed), and ...
+
+> If we're moving others, this is going to turn into a lot, and it's
+> specific to one final stage.
+
+... applicable in exactly that one case. Or are you suggesting to
+introduce a new helper makefile where just the linking settings and
+(eventually) logic live? That would be a bigger piece of work, which I'm
+afraid I'm not up to right now.
+
+For now it seemed quite natural to place all-symbols next to ALL_OBJS
+and ALL_LIBS.
 
 Jan
 
