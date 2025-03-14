@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B827AA60FAB
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 12:12:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.914381.1320152 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37390A60FAD
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 12:15:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.914391.1320161 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt2xP-0001Vg-Ao; Fri, 14 Mar 2025 11:12:03 +0000
+	id 1tt30T-0003Ld-Ot; Fri, 14 Mar 2025 11:15:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 914381.1320152; Fri, 14 Mar 2025 11:12:03 +0000
+Received: by outflank-mailman (output) from mailman id 914391.1320161; Fri, 14 Mar 2025 11:15:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt2xP-0001Tk-87; Fri, 14 Mar 2025 11:12:03 +0000
-Received: by outflank-mailman (input) for mailman id 914381;
- Fri, 14 Mar 2025 11:12:02 +0000
+	id 1tt30T-0003Im-Lj; Fri, 14 Mar 2025 11:15:13 +0000
+Received: by outflank-mailman (input) for mailman id 914391;
+ Fri, 14 Mar 2025 11:15:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gDv/=WB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tt2xO-0001TY-93
- for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 11:12:02 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ id 1tt30S-0003Ig-9Z
+ for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 11:15:12 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 26f77565-00c5-11f0-9ab9-95dc52dad729;
- Fri, 14 Mar 2025 12:12:01 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-43cf05f0c3eso13188305e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 04:12:01 -0700 (PDT)
+ id 9843e81f-00c5-11f0-9ab9-95dc52dad729;
+ Fri, 14 Mar 2025 12:15:11 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-39104c1cbbdso1129426f8f.3
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 04:15:11 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395cb318a80sm5295100f8f.61.2025.03.14.04.12.00
+ 5b1f17b1804b1-43d1ffb62ccsm14029665e9.7.2025.03.14.04.15.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Mar 2025 04:12:00 -0700 (PDT)
+ Fri, 14 Mar 2025 04:15:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 26f77565-00c5-11f0-9ab9-95dc52dad729
+X-Inumbo-ID: 9843e81f-00c5-11f0-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741950721; x=1742555521; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741950911; x=1742555711; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=aOdt+TF+5jCROqr6LrWav4exmtUL+WDYUGY7F3zuLiY=;
-        b=DFI8fA0DRtM+uPssf5CTDrRx8NCGlKGDkmoFs/i73chWFS9HjKM7CrQ7PB1ojZ+drr
-         QGcB3F+Y0FztCyBOXfidskk14BbXChm62q1gGll30HR/EM5nuZeHRfa7ihszvMM9xY3B
-         Go2vfKeEA7Ax6J0r++yeM8Ogc3mjhFUi2OfpAjMxNdZ9sCv7EsNYw50JrQ0u6jXzthPD
-         2j+XD8cSYcNYWHf1PINi1vOZ+GIebC73XtPGKjKQUjLIWzsMYmVw4hbz6qiaFT8tsDcY
-         cy7ltkuNjrpNkorklAHd3tIoCDntwcNFVn24K1CPDvK832ykyjVVWesOpNHL6NUvLaaQ
-         YzHA==
+        bh=Ok851lRuO3ipcGUuvU2zBSQe+WZL1VTMXl5lai23YlQ=;
+        b=Nz6GaYE/GFgEuvhnrUmx1+QCYgY/SIXW4V6wi4qAhhvSLu9vFcxRlXbZ1yzPRzEv/s
+         ktWKsI8hrqmDjRCXWXbgoyZBDhTBNUOKRIJ/Feq/v6OxoOekgUQZq0kkvDBA0Fscanhi
+         E9Odkd7kLXsYKkeKsris3dhHnZqk7s/kQtxSY9qCpMLZuoxCzQaQAzQz48mcIF2nCH3+
+         xHANX2A3f2UdYkxhVTgkeGoHgd1SwSwajxt5ssWFaVw3DSdHjmdf8jCwdQViLGZ6jljE
+         Ok7cgDvqiq9fAShRQo06dnez48JYR8Krxfy22iziEO8Qbg7x2Tg4D+ukyIsZFGMlkXX4
+         SAHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741950721; x=1742555521;
+        d=1e100.net; s=20230601; t=1741950911; x=1742555711;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=aOdt+TF+5jCROqr6LrWav4exmtUL+WDYUGY7F3zuLiY=;
-        b=ftZi5p44xSKCm2buWcx7JkY7j1yLUJjGQWLE3e9KYihGfzCawPtBR6nbO3vuurBzbk
-         DqkEKu17oZO/Sb2dhlaMCnrHnapg771lym/EjZg0CfAFO1xRLn9QO3Muu39pX7wz1+zE
-         Pm1rV5NImgYaQxgMq1ftJecFc7p2wcWO5UIzBH4zzk7Wz8xCQaNBgjeaM6u0L0NPSmsr
-         znFt5BzH2RtL8kWLi5tRXLSb9cr5byUUebP1+nmIyg665d8MdVZ1XDNw/CO+Begoqi9U
-         jwTXGSL8oo1+ffkV3mJFPCSuX++OjUalVjIZkNo9I/1zqV3KaLWlMgiFOKdKANwarFHr
-         ABSA==
-X-Forwarded-Encrypted: i=1; AJvYcCWlchxnt28mFQfNMiQW063Knf8HVZix5j0m3URj47wXqR2wE4j8xeyR7+dmhJS7aPeuljv9dUl+1k4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzA30dzsnfbMwVYN/Rx0R+NyAblQrqxN8QoNfpgjGfpv495eCO2
-	IxJanXtQyjk5fCq2Kk6cG9NMOGz8045FUE1bEfJUxv4lyUKV1DdPu6mxFkqYGw==
-X-Gm-Gg: ASbGncvwVlzwL1Zwm6k5qTDGXPtj+1wdOMnTozqw9rKR7f8vf/iJ6ToWfOixDJ/kYeq
-	J6SnPxAhxb9MmP1IoEvfydNSmGPz1fyVUCWo+b6AsYk+oZREoJ+arDxijfhYamsXLQpQ2o+QQXp
-	7zMeP16bPztKrev9wXl8cJ5/YB9jvOdAKjoMRZShIia3vSaWgIZOJj3y9CVusbX0bBNJ5vyoEMk
-	MjFYm6ZRkoFyHjKadNWnvDR63hNJTOhpvdm6oiLWhGEFxxA409kpwJakNer6J7MgbrWjVDVQPsy
-	fqbx/6PTrITK6TSumQRDk1PDr9zkeOCLjIUVs9vamTpmnUzLo284vyZj5VjcIjmjt4gOEms5cUg
-	PuGGL/3RgnDppFcZ6zwTWM8xuNeHDnA==
-X-Google-Smtp-Source: AGHT+IFE6snGgKELAikGDvNTTq9wOY5ycnL7glLwhLNdqcyZ9rzJK10D7tW4bBF8bDaX7eWgzP1GWA==
-X-Received: by 2002:a05:600c:3b10:b0:43d:ed:acd5 with SMTP id 5b1f17b1804b1-43d1ec78437mr27357865e9.10.1741950720824;
-        Fri, 14 Mar 2025 04:12:00 -0700 (PDT)
-Message-ID: <871f6abf-5046-4435-91d6-b8ce2d9dac06@suse.com>
-Date: Fri, 14 Mar 2025 12:11:59 +0100
+        bh=Ok851lRuO3ipcGUuvU2zBSQe+WZL1VTMXl5lai23YlQ=;
+        b=vD3GsSHf+Bd0zJlvgF2+i/xqk3B0jX/qRSvN3sP7FgjPvd/9IIUlCRmQjAGr6OpK43
+         7/XhZCo3vMHwvsM7l+juiJ3DoxDk0ExywnbhAxRLiikxYYKBL4Nfrjpzwp/XyKDKzfq7
+         7YPxr2YDPj57Lth4afBGT6/EfuTEe14aYqSZ6GbBzHMXocsqyqRuUMja7wfcu5VPzO0z
+         RyhgIyZQ6ZSJHPp/YL7R9caS8lT7EPWJPgl27YdMZeaAM/aQORKlVAhaGF895/grH1Hw
+         j4PFAKr75SM+1RS6UmSftHbR1XmkjHpXKNosK53SbbBDdDq0Gf65gZ4yfgJdGd1Ss4XL
+         SysQ==
+X-Gm-Message-State: AOJu0YzTtST4cSM4FynNLcXgVzCZ2WxsmKE6tFV4m1TV5nbrQWw5vSSd
+	ONCyHn+6QEWJtEjg3qP6R763l5h/s3KEBhvOTCttyXGxf+4r5fGbdVYV+z9ntelE+PNEFszH/Z4
+	=
+X-Gm-Gg: ASbGncvGp67zzwTwxzZ2QSEbenX0ptnzHpEuRet9YLqX0MuuV6hswsM9jknpswF9N3L
+	MApNVAUUikJCTfJHWyp8DVmZm1oVspnuorg3YeR6WnBOzpwboTyJ6enBhcgJhsIshmGLgvH6E7Q
+	L0BZ9IeNbTC6Jc3nN8pAyYASrSvBLidNxOfmzVYZJtmxiZHr47tfIDoDkUyi/FtDGIv1Sc56hea
+	GRCRQMp0i3BFId4GbitdyZ/9UWhK2z3IVBWnBYuQh2bHv0ZM4uBsBTsgjZ+hZzRAagbIhHFL0Vd
+	+0TsPzzlkWAlCXH3kUxjbgf7TT1fHARjfD6V/ojPEI9jPRD/st+thOe8GdNZecOTD66kdNVWBtw
+	/jJPpDp5AOMnn79g92sBxYqEEBt5KQA==
+X-Google-Smtp-Source: AGHT+IHtRnUdylcaCH/ze9wACpido2xthzbuPDhbzO/fdEgTfGEk7u1V76W9n+PVruZcaqIxAfyMQA==
+X-Received: by 2002:a05:6000:1546:b0:391:c78:8895 with SMTP id ffacd0b85a97d-3971f511f32mr2745819f8f.50.1741950910880;
+        Fri, 14 Mar 2025 04:15:10 -0700 (PDT)
+Message-ID: <95537b19-9852-4f7e-8657-8da0d8150e8a@suse.com>
+Date: Fri, 14 Mar 2025 12:15:09 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] x86:monitor: control monitor.c build with
- CONFIG_VM_EVENT option
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1741772330.git.Sergiy_Kibrik@epam.com>
- <39235285ffe341e446bf0fd5cc345379ae394e50.1741772330.git.Sergiy_Kibrik@epam.com>
+Subject: Re: [PATCH v1] drivers: Change amd_iommu struct to contain
+ pci_sbdf_t, simplify code
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Andriy Sultanov <sultanovandriy@gmail.com>
+Cc: xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Jason Andryuk <jason.andryuk@amd.com>
+References: <7e5a37e51303ba17dab8e6a92830257f670f3355.1741891599.git.sultanovandriy@gmail.com>
+ <f308cbf6-0d2d-4843-982a-a59ea70c7ad1@amd.com>
+ <CAHPYgaXc8X5tBYN6BL2w2PVSNLwaTPP=zWhATBbjYRN-2dmE-g@mail.gmail.com>
+ <1e36cec6-c02c-47b9-b957-087e8eb62328@suse.com>
+ <23d2b793-42a8-45cc-9314-750b84526aaa@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,22 +123,44 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <39235285ffe341e446bf0fd5cc345379ae394e50.1741772330.git.Sergiy_Kibrik@epam.com>
+In-Reply-To: <23d2b793-42a8-45cc-9314-750b84526aaa@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14.03.2025 06:23, Sergiy Kibrik wrote:
-> Replace more general CONFIG_HVM option with CONFIG_VM_EVENT which is more
-> relevant and specific to monitoring. This is only to clarify at build level
-> to which subsystem this file belongs.
+On 14.03.2025 10:30, Andrew Cooper wrote:
+> On 14/03/2025 8:56 am, Jan Beulich wrote:
+>> On 14.03.2025 09:07, Andriy Sultanov wrote:
+>>> On Thu, 13 Mar 2025 at 19:59, Jason Andryuk <jason.andryuk@amd.com> wrote:
+>>>> On 2025-03-13 14:57, Andrii Sultanov wrote:
+>>>>> --- a/xen/drivers/passthrough/amd/iommu.h
+>>>>> +++ b/xen/drivers/passthrough/amd/iommu.h
+>>>>> @@ -77,8 +77,14 @@ struct amd_iommu {
+>>>>>       struct list_head list;
+>>>>>       spinlock_t lock; /* protect iommu */
+>>>>>
+>>>>> -    u16 seg;
+>>>>> -    u16 bdf;
+>>>>> +    union {
+>>>>> +        struct {
+>>>>> +            uint16_t bdf;
+>>>>> +            uint16_t seg;
+>>>> Are these still needed by the end of this patch?
+>>> Yes - otherwise the patch would be larger as bdf and seg would be one
+>>> namespace deeper - /iommu->seg/iommu->sbdf.seg/
+>> This kind of union is fragile. Hence we want to avoid it, even if this means
+>> an overall larger diff.
 > 
-> No functional change here, as VM_EVENT depends on HVM.
-> 
-> Acked-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+> This is my suggestion, and it's the pattern used in struct pci_dev.
 
-I see you've adjusted tag order in patch 3. Why not also here and in patch 1?
+And I'm hoping to eliminate it there, too, at some point. But adding a hidden
+dependency on the layout in an entirely different part of the tree just cannot
+do us any good.
+
+> pci_sbdf_t is nice for code generation, but it's not great for source
+> verbosity.
+
+I agree, yet if anything we'd need a global approach to deal with that
+aspect.
 
 Jan
-
 
