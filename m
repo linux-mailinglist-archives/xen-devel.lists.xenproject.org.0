@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D741A60FE3
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 12:25:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.914443.1320202 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1907A61005
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 12:36:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.914456.1320212 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt3AW-00086R-Hj; Fri, 14 Mar 2025 11:25:36 +0000
+	id 1tt3KG-0002pn-Db; Fri, 14 Mar 2025 11:35:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 914443.1320202; Fri, 14 Mar 2025 11:25:36 +0000
+Received: by outflank-mailman (output) from mailman id 914456.1320212; Fri, 14 Mar 2025 11:35:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt3AW-00084W-EM; Fri, 14 Mar 2025 11:25:36 +0000
-Received: by outflank-mailman (input) for mailman id 914443;
- Fri, 14 Mar 2025 11:25:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tt3KG-0002n7-Av; Fri, 14 Mar 2025 11:35:40 +0000
+Received: by outflank-mailman (input) for mailman id 914456;
+ Fri, 14 Mar 2025 11:35:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vXxa=WB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tt3AU-00084L-FY
- for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 11:25:34 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0b275c04-00c7-11f0-9ab9-95dc52dad729;
- Fri, 14 Mar 2025 12:25:33 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-43cfb6e9031so18961645e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 04:25:33 -0700 (PDT)
+ id 1tt3KE-0002n1-IA
+ for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 11:35:38 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 728cfd59-00c8-11f0-9898-31a8f345e629;
+ Fri, 14 Mar 2025 12:35:36 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-38f2f391864so1142935f8f.3
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 04:35:36 -0700 (PDT)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d1fdda32fsm14499055e9.4.2025.03.14.04.25.31
+ ffacd0b85a97d-395cb40cdc5sm5295923f8f.80.2025.03.14.04.35.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Mar 2025 04:25:32 -0700 (PDT)
+ Fri, 14 Mar 2025 04:35:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b275c04-00c7-11f0-9ab9-95dc52dad729
+X-Inumbo-ID: 728cfd59-00c8-11f0-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741951533; x=1742556333; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1741952136; x=1742556936; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BztVFSmMh26mVXzxpp7isWIJahsK74R+pWfSWlZ4N2I=;
-        b=bViyyv66SZwX4Ls1Jpnkz8kqyZwzBGayhjiIrhDXkfhuwlxNDG6xOXxZceDm25ZK3B
-         wdHUXsZHShZ8GEPMeF32cQOaPZ1y0u+THT/vM+rFiALH66ebIiDZlkCNZSHEx2BPXVGg
-         i21RfrISsfc2SXLCmXE8ftYhjQQJ3Bw794+us=
+        bh=0tbA7FFfpQbHDRbUIMNxV0ur4xKx7ECZKozsA70cDPs=;
+        b=lWnGfCmIVJIvANe4/EkgkL+8i2G93vxbAedjqG0hgv2d1BeIsOWi/qAfrYFGm/SXpY
+         o8peQOkYWoKnDdpUFd3Go4CDik3iJUpSNTMXALmhc06dKIzkWSddl1L9J/oJHxc5Ei4i
+         rqUXLAhM3P+I3yQ/BT+nDrTZ6ZCNO6rl+N9Ho=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741951533; x=1742556333;
+        d=1e100.net; s=20230601; t=1741952136; x=1742556936;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BztVFSmMh26mVXzxpp7isWIJahsK74R+pWfSWlZ4N2I=;
-        b=DzDhemql1I0IoupbtsAh10jueQm8Wd6QW2ZZ/W2632jJbfWt3BbiUBGa9wY+ql5Rv2
-         jeE3+GS9yOAkMDbzOo3qbZIBb0W/rvUhfeXXRBXOLXWvuaJlpbbHB48X+MVpVo7YNf8h
-         9Qo/wabQAkY2rx/TdGXdvo19fnI86bmypt9SFKWNAUI4+U6MxQKFQPtxvFJCshmdKTGE
-         T11G/ku6J1B18DKY17vGWQLqSc2VPjPkcfUgGyPO8S5b3S1hepkT4Vtq9ohztgXmm0gc
-         V/sp430rur6kJ0q2H6pv3DH2qF8go22QbJpxT2iolRc/8DWWWN03Bef+eJ9ARI+VIOjo
-         FQhA==
-X-Gm-Message-State: AOJu0Yw5IQXNkXsj7Dssle4X2IIfqjF5C/YsQ+l/pnNUO4I46XY69Dt0
-	NHwbtK/O4oXC1XNorwdOW1V6TzNB58jDHRZq3odk1/TUPF9CktFKVLB55YICmr8=
-X-Gm-Gg: ASbGncsBvkBSB9ktGtrud7cvOhmSwtUg98T70nRoT/OCOZPnQJYm2P+qJXBat06dz82
-	KmV2tjLGp0FOdaJER2Oi+0POrxK3rRt3A1R6M05ImK5gGNiu2MvMhORQnConB6rW318FYiTT6Z6
-	KoGgrNKMWhVu8DE2ZWHiD3DiatC8GcJsWLqz1sBCbDk0xQJtkY24EYQGZAyJ7umD2ujPccDb/3H
-	GA7xlFLUfJ7ncq+BDPF7J+ASl60QySh9WBI+Zv4c8jajot4MM0p6p3JWmos7GxSR56JVvBVgzum
-	VROFI4ZLfEnRFKkh5oj8njsDRhkraDgsgR6ON/vcalLSUa02gVRgpLz74h3a4T8TDQV41nK45cU
-	8Hzuigb9/ZaPuLHyHIk8=
-X-Google-Smtp-Source: AGHT+IF+AMzP66NaxcUNCbiMVli0NpnmBL25N5Nr8JjRCz5KpUYlKc46YDAPpw3gXN8sRDLDTba5yA==
-X-Received: by 2002:a05:600c:5128:b0:43d:3df:42d8 with SMTP id 5b1f17b1804b1-43d1ec73305mr27076605e9.6.1741951533112;
-        Fri, 14 Mar 2025 04:25:33 -0700 (PDT)
-Message-ID: <d7b6b1ee-76d8-400f-96fd-f72271701861@citrix.com>
-Date: Fri, 14 Mar 2025 11:25:31 +0000
+        bh=0tbA7FFfpQbHDRbUIMNxV0ur4xKx7ECZKozsA70cDPs=;
+        b=JlKm5pzrXgxnXlyn8bg34S6Z3lX910DFDMCkmuFgc1939kwARMKYVyVLPXPfP2+3hC
+         64fUxSJAxNlmI8XxnXNCB4xdcI7fW4pUFknPAk1WAAx+urQnrPhq/LN0zGIZrIWFi1S7
+         71U9qT4Lwi0MExDy73+V7QFzfrKjLqwXoo+5VDwmVQf4BmW/pOxY1sM91+4ci8rczRsp
+         iXJNg8pEtNfe1K5uktgnqfGy+GKiTJSzEaf/ZK20fwe/MH1Thw42ivQP4XAPx1Uar1Na
+         liUxjMYsEdJriXlrxjvaqJ4q5gq8UiKXmCTWhJs8mWpdPl1A7hxpVopjaCyEoEx5rqQc
+         M2PA==
+X-Forwarded-Encrypted: i=1; AJvYcCVmkfNBUS9VXrvVe8jyEbAk3oEdom0bopwKfbcjSogH40+DQ1tb0Z2sQSNyGfB4ZQnv/kR60oVFptk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzdNChF90yIpVQhI25Y/L7KJFbXbql/v5+6oDLQ7kbiWajd/oIY
+	j3cquhai3mcWFkX8gQwQ40/egLw1XkaNrxMB62IL587PP60weACAi+crgvPfc14=
+X-Gm-Gg: ASbGnctdjiUnc+VE/0bbAwFJiP0HVsV1SdhIBq4MwpBdf780wL+58Lcjlm3bGzCxApF
+	f8OfYkyqe06p0iXUS6IT/jqb9bnDgB6dktHTpaJdjxn167OORFn35W39aKj50rHHrwZmtuGGPnb
+	yiKx3nyxGXRr8nqNnGHI3pohO84p5LhamKHl1PMVU241xxn/L4n/3h71cXizBU52AC2ollkzVKv
+	WHK6aWqyeFeFblldGx5ehKNHJwOuHv4y5V8+xtybNhe50UDgl7c2zoDUeUIiBgtrk812Kv1wssp
+	JcMfQFyp/R/DdxiQeqTZasggEzRVOT1//K6gYrLkcDsTPWl/dEjZlgdZXKSt1rGRHXXag3UOEAS
+	ASgYCUKmt
+X-Google-Smtp-Source: AGHT+IEQFw7TU+tRDRyQinGCfDFZ6PjD6+2ItfRZxnu9LM0ofY9MPgyRjVYoT64tcitH0MOOkJufVg==
+X-Received: by 2002:adf:cb83:0:b0:391:2d8f:dd59 with SMTP id ffacd0b85a97d-3971dae8de5mr2039294f8f.24.1741952135782;
+        Fri, 14 Mar 2025 04:35:35 -0700 (PDT)
+Message-ID: <82a5c9e4-6498-4c3d-b9a9-7e4425f0bd8f@citrix.com>
+Date: Fri, 14 Mar 2025 11:35:34 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/7] x86/ioremap: prevent additions against the NULL
- pointer
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>
-References: <20250313153029.93347-1-roger.pau@citrix.com>
- <20250313153029.93347-6-roger.pau@citrix.com>
- <ad26bb49-4025-4190-ba69-c03584cf2229@citrix.com>
- <Z9PsNVbC4leLFMqO@macbook.local>
+Subject: Re: [PATCH] trace: convert init_trace_bufs() to constructor
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <e1e556c4-ed71-41f7-acfc-b7fa866a0d3e@suse.com>
+ <6ff81326-762c-46ec-a06a-254ba166433b@citrix.com>
+ <b59ea14e-0bce-4c3e-b1fb-021b53af1780@suse.com>
+ <d597523c-aa3a-4682-824f-e6e2f8ce753a@citrix.com>
+ <61b762d0-d513-4d02-80ac-50fa12a725f3@suse.com>
+ <b13543a1-4d43-4e2d-8fcd-08ec60be9dd3@citrix.com>
+ <e016d8e7-e662-419f-a181-5bbfdc71764b@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -136,49 +144,31 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <Z9PsNVbC4leLFMqO@macbook.local>
+In-Reply-To: <e016d8e7-e662-419f-a181-5bbfdc71764b@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 14/03/2025 8:43 am, Roger Pau Monné wrote:
-> On Thu, Mar 13, 2025 at 05:21:13PM +0000, Andrew Cooper wrote:
->> On 13/03/2025 3:30 pm, Roger Pau Monne wrote:
->>> This was reported by clang UBSAN as:
->>>
->>> UBSAN: Undefined behaviour in arch/x86/mm.c:6297:40
->>> applying zero offset to null pointer
->>> [...]
->>> Xen call trace:
->>>     [<ffff82d040303662>] R common/ubsan/ubsan.c#ubsan_epilogue+0xa/0xc0
->>>     [<ffff82d040304aa3>] F __ubsan_handle_pointer_overflow+0xcb/0x100
->>>     [<ffff82d0406ebbc0>] F ioremap_wc+0xc8/0xe0
->>>     [<ffff82d0406c3728>] F video_init+0xd0/0x180
->>>     [<ffff82d0406ab6f5>] F console_init_preirq+0x3d/0x220
->>>     [<ffff82d0406f1876>] F __start_xen+0x68e/0x5530
->>>     [<ffff82d04020482e>] F __high_start+0x8e/0x90
->>>
->>> Fix bt_ioremap() and ioremap{,_wc}() to not add the offset if the returned
->>> pointer from __vmap() is NULL.
->>>
->>> Fixes: d0d4635d034f ('implement vmap()')
->>> Fixes: f390941a92f1 ('x86/DMI: fix table mapping when one lives above 1Mb')
->>> Fixes: 81d195c6c0e2 ('x86: introduce ioremap_wc()')
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>, with one style fix.
->>
->> It's unfortunate, because C23 makes this one case (add 0 to NULL
->> pointer) explicitly well defined to avoid corner cases like this.  Oh well.
-> Interesting, so they added a new type (nullptr_t) that has a single
-> possible value (nullptr), and hence arithmetic operations against it
-> always result in nullptr.  That's helpful to prevent this kind of
-> bugs.
+On 14/03/2025 6:49 am, Jan Beulich wrote:
+> On 13.03.2025 18:03, Andrew Cooper wrote:
+>> On 13/03/2025 4:37 pm, Jan Beulich wrote:
+>>> On 13.03.2025 17:28, Andrew Cooper wrote:
+>>>> On 13/03/2025 2:19 pm, Jan Beulich wrote:
+>>>>> On 13.03.2025 14:58, Andrew Cooper wrote:
+>>>>>> On 13/03/2025 1:38 pm, Jan Beulich wrote:
+>>>>>> I'm tempted to ack this on the basis that it is an improvement, but a /*
+>>>>>> TODO this is all mad, please fix */ wouldn't go amiss either.
+>>>>> I understand you like adding such comments; I, however, at least
+>>>>> sometimes (e.g.) don't. Especially without at least outlining what
+>>>>> would need doing. Just saying "this is all mad" doesn't really help
+>>>>> very much.
+>>>> I was being somewhat flippant.  But a /* TODO, try and make this a
+>>>> presmp_initcall() to improve alloc_trace_bufs() */ would be fine.
+>>> Okay, added (to the existing comment).
+>> RISC-V and PPC were both green in the pipeline, so they seem happy.
+> As alluded to, not surprising at all, as the tests surely don't supply
+> a "tbuf_size=" command line option. Without which init_trace_bufs() does
+> close to nothing. Still - thanks for double checking. May I imply an ack
+> from this (formally I'll need a separate Arm one then still anyway)?
 
-nullptr_t is unrelated.  That's for _Generic() and friends.
-
-I'm struggling to find the reference to NULL + 0 being made well
-defined.  It was in the context of library implementations of memset()/etc.
-
-Nevertheless, we've got to cope with it, given our current -std.
-
-~Andrew
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
