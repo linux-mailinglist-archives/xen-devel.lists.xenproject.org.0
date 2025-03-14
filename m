@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 729A4A60B97
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 09:30:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.914010.1319842 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A605BA60BB0
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 09:33:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.914024.1319852 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt0R9-0001IH-Op; Fri, 14 Mar 2025 08:30:35 +0000
+	id 1tt0Ta-0001wC-3N; Fri, 14 Mar 2025 08:33:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 914010.1319842; Fri, 14 Mar 2025 08:30:35 +0000
+Received: by outflank-mailman (output) from mailman id 914024.1319852; Fri, 14 Mar 2025 08:33:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt0R9-0001Fd-Lc; Fri, 14 Mar 2025 08:30:35 +0000
-Received: by outflank-mailman (input) for mailman id 914010;
- Fri, 14 Mar 2025 08:30:34 +0000
+	id 1tt0Ta-0001uk-0Z; Fri, 14 Mar 2025 08:33:06 +0000
+Received: by outflank-mailman (input) for mailman id 914024;
+ Fri, 14 Mar 2025 08:33:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OT8H=WB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tt0R8-0001FX-37
- for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 08:30:34 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=gDv/=WB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tt0TY-0001tJ-Pl
+ for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 08:33:04 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 95f86ff7-00ae-11f0-9898-31a8f345e629;
- Fri, 14 Mar 2025 09:30:29 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-5e64700a38cso2742928a12.1
- for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 01:30:29 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- 4fb4d7f45d1cf-5e8169b04e5sm1740719a12.35.2025.03.14.01.30.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Mar 2025 01:30:28 -0700 (PDT)
+ id f1843369-00ae-11f0-9898-31a8f345e629;
+ Fri, 14 Mar 2025 09:33:02 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-38f403edb4eso1030023f8f.3
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 01:33:02 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-395c7df3512sm5058086f8f.12.2025.03.14.01.33.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 14 Mar 2025 01:33:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,103 +45,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95f86ff7-00ae-11f0-9898-31a8f345e629
+X-Inumbo-ID: f1843369-00ae-11f0-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741941028; x=1742545828; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=RerXeC9ll5YfPm6IfD3QPYvFKchMgNq3OiVCh0tACcU=;
-        b=DPgB6KlY6+YZUeYZ4rmh27RxOx6wLYcqkNuMfJAfqxcMkfVMLIkw/NoCx7kGXG15t4
-         OxJeSxsLFAVnESKVzJfW5ejS7zbEH4yp3hSpASF4DFtr3IGx7p4XSu7oP6PwwOL9s5Ct
-         KZdm3ySTX1Ne6MGxXnAzoyamwZQU3w5tFRDxs=
+        d=suse.com; s=google; t=1741941182; x=1742545982; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=nwBNWw9Yoa+2bqIsjD0tJzd3lQnt2MxGFLSRe/bpgrY=;
+        b=IeuZA16nGh3btQtzarC6bJdvk+Z1TSmbd4I7UieG+YubDVfrSvp9EHmV8Yx8r0Uu/Q
+         oaKwJ6kL9Gt/RRkaMS2I+4BQ5evcdtf5hcUYdS3CRo5pvH2yU2//dUa8+HHE02IC454S
+         20M5uA4HdxajlHRbw2/e+5KqKl4hdPGWuoSjZHqkvgmBlymM4iikOSLVpoQILTkKe/rh
+         YUArKDnDFwNJl56Vs0jxme9+K1VZzCr/x9F1OZDZY16LAtpKvljAwfd9ilAPte5Xx2Yg
+         y9vGzbNZ//YQCXop2N8E68r+F6yfT8Czcff4PQk25BUmSSJ2rj6fEuW6ukTfn7D8fNy7
+         y3Zg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741941028; x=1742545828;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=RerXeC9ll5YfPm6IfD3QPYvFKchMgNq3OiVCh0tACcU=;
-        b=UKYVDovloDkxUsn0kWhgGhsxczYZjh7DQIRzfSRhAYGNa5+hEBX/vEFuOKvLoyKwRZ
-         ZGYVkQ6jB9cEKyO5bPHV2Ojj7H0flLA0CFlOqU5hKNsegRAZTawguHoyHMiPCOl6WYks
-         7NrjP+4NWg8C7qKTfWynJMrL/rjm5EoJCJr0MAsy0gAyQ4eGVnstRnqt85wyn1n9SAZu
-         jWlYXSQS+LlhCPsPGMoe3ywE/4lijb1XwSeBFrVCMlTGLjSVkBgtn7fQafQC6OtCHwhU
-         Chn3vGxQbonmMhTQQ+CaVbbsFv0pu12C7g7FRS1CAR28JgZ73q1IppbCfJ5I/xnQ/1Qn
-         QyxQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX+Y08fYtaTTav5l4lQUnXoEgwc44z+RXtaK6kcUxXBlk1LBnEy/HqT9iIauAf+1NYw88PCFeT5z3E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzd6fYJ2skjQdAk72LJQliPYsMBaho/QaMwGj1R4awqEiytGafH
-	ZTTLWP/RVXwWwf9gtEZa20gqFMjeIwWP1Vvu2yJij3qvIFtfMbphcipmQ6d8QCc=
-X-Gm-Gg: ASbGnctmp0Wq9aaOvTML6Q8mNx+4QQTsdTto1UYg2Wb80aJMud7cG+Fli1GRc7whTm8
-	WPozavwm/0EVTDCW/MgKU+otvJnzS97hxXsEINF2XGv0xAFgPkEXa8u63wOpA/UyL/WMOHLPxdP
-	GxoZvZLzBTMii8Ak4NK2LESVakTurEzSbZH5QV1BC3P8fnrbXIwhHrFwLENcnHMCMrWcxIuisP8
-	YY7SHzsYW3/rIBTuX12KLmk3yF8QRQLkNE6B2IWfLdW1VT+jkxlWw43rXE5Iyy3ubLwaWXCHipD
-	TjzXBFpp74tECw6sgXgqtG1+bdqouxET012/88VC0g8UVubnFA==
-X-Google-Smtp-Source: AGHT+IFNA1AsHVhG8fwh63Cur3fvsjFKHLU7vyIC4XBzKFXMS2nauT8+3dhq9UofBiBr/VWJxWjcwg==
-X-Received: by 2002:a05:6402:35ce:b0:5e6:e68c:9d66 with SMTP id 4fb4d7f45d1cf-5e89f1532d1mr1519374a12.8.1741941028402;
-        Fri, 14 Mar 2025 01:30:28 -0700 (PDT)
-Date: Fri, 14 Mar 2025 09:30:27 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 2/7] x86/wait: prevent duplicated assembly labels
-Message-ID: <Z9PpI8KQnA_gHy9e@macbook.local>
-References: <20250313153029.93347-1-roger.pau@citrix.com>
- <20250313153029.93347-3-roger.pau@citrix.com>
- <8c58e1d6-b591-4211-9364-fa586a5c6d2e@suse.com>
+        d=1e100.net; s=20230601; t=1741941182; x=1742545982;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nwBNWw9Yoa+2bqIsjD0tJzd3lQnt2MxGFLSRe/bpgrY=;
+        b=bUen0r/KZfp4E6iv0y4CAjFZ3WBcClvEnlxShFAwfVVxbKsHreowBibZY93dY4W0NI
+         fA9dxzpjFEMo/hzwOvHDXb86NYocyf+bJA9o2/BPamVgs0OsJfSNnFrk4Re6+yZmiufo
+         jZST7ZnpMhftZZxjZKWp1jwoQZ5yS1MjtDUWR9WHIWcKGwUZ/CTtmLcFZyGA8xejravr
+         4FsLMTutykyEC+ulQZstfo7p14TIy0YmauSb0YTBXAEeaNQyAx+KiI9LgzTZ1Bb5pgkd
+         BYhDrHVRwOfwr/FM4Pbekh1BJXkHS3MXLRI1eqdweLg0nJhEjgS+SBn4m4ApkxtGtjnr
+         zXeA==
+X-Forwarded-Encrypted: i=1; AJvYcCVg7nehCz5GUEX4bT18vEnaP8IDJVP5wOGLIe/7PUfyvSTFRHMm30/Nd5bTvtA15ILmYoYL3eEj9U4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyMsuf6jLk9Bziyvzek6aZ6KDFrDqJ6FH8l8+PtCcbigdTuSEmf
+	p692TegCrLYweb+8iy83jtUHyrCoM3nqc0mKW2QWuZBLrO+lKlceWntXaRag1fO3p7e6GZbQ1sI
+	=
+X-Gm-Gg: ASbGncvxDgUhsodonI2zadHWpNcGSoc4UXS5dIk5Wu4UcbbOKG7Xxk9oIAKe9zdDCKb
+	PnHu0bOcVNb4iDmowFmTI5r7Nub3Znx2MlgsuTyy29YFMuY5xQuhRBOXUXFe9WiMP+3IyaobgJF
+	74UNajVJnnaXGNKGYHsAgSm2JyaVtYYNp48i8ktGRHOoNI6ahaVZKuvA+n1GC6WuH6x22hde1qg
+	dMUlEaju1qHC6Xof0E0fvfBeqFhaiELXgwO3JFg6aiacTIMV8KCA0cREHlzxtZsPtv1eGUpY2Ip
+	p6Lsjz3iLQB2nVV3zRrna3h60wu39F/aIswDjDa+/a+KleJcCAAjA0sHm6w7nsOZ/6uKoNxB8q9
+	8jF2YQxFbQ001TVVV/gPl43+Amnz+FA==
+X-Google-Smtp-Source: AGHT+IH3LFF91aKNRj9XkaVOf9J2HzBtCvgJYOTz+CWJoNtdam1wyjEg7c7ShBYNGnf9Wz8wpFrM6g==
+X-Received: by 2002:a05:6000:470a:b0:391:9b2:f48d with SMTP id ffacd0b85a97d-3971e686fdcmr2238579f8f.33.1741941182048;
+        Fri, 14 Mar 2025 01:33:02 -0700 (PDT)
+Message-ID: <f5eb7710-c709-46a0-9821-bfc147d8cd53@suse.com>
+Date: Fri, 14 Mar 2025 09:33:01 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/7] x86/dom0: placate GCC 12 compile-time errors with
+ UBSAN and PVH_GUEST
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20250313153029.93347-1-roger.pau@citrix.com>
+ <20250313153029.93347-4-roger.pau@citrix.com>
+ <eaf90340-929c-4c89-99cf-0383918e9d5a@suse.com>
+ <Z9PobmG8lDy-oscG@macbook.local>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <Z9PobmG8lDy-oscG@macbook.local>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <8c58e1d6-b591-4211-9364-fa586a5c6d2e@suse.com>
 
-On Fri, Mar 14, 2025 at 09:24:09AM +0100, Jan Beulich wrote:
-> On 13.03.2025 16:30, Roger Pau Monne wrote:
-> > When enabling UBSAN with clang, the following error is triggered during the
-> > build:
-> > 
-> > common/wait.c:154:9: error: symbol '.L_wq_resume' is already defined
-> >   154 |         "push %%rbx; push %%rbp; push %%r12;"
-> >       |         ^
-> > <inline asm>:1:121: note: instantiated into assembly here
-> >     1 |         push %rbx; push %rbp; push %r12;push %r13; push %r14; push %r15;sub %esp,%ecx;cmp $4096, %ecx;ja .L_skip;mov %rsp,%rsi;.L_wq_resume: rep movsb;mov %rsp,%rsi;.L_skip:pop %r15; pop %r14; pop %r13;pop %r12; pop %rbp; pop %rbx
-> >       |                                                                                                                                ^
-> > common/wait.c:154:9: error: symbol '.L_skip' is already defined
-> >   154 |         "push %%rbx; push %%rbp; push %%r12;"
-> >       |         ^
-> > <inline asm>:1:159: note: instantiated into assembly here
-> >     1 |         push %rbx; push %rbp; push %r12;push %r13; push %r14; push %r15;sub %esp,%ecx;cmp $4096, %ecx;ja .L_skip;mov %rsp,%rsi;.L_wq_resume: rep movsb;mov %rsp,%rsi;.L_skip:pop %r15; pop %r14; pop %r13;pop %r12; pop %rbp; pop %rbx
-> >       |                                                                                                                                                                      ^
-> > 2 errors generated.
-> > 
-> > The inline assembly block in __prepare_to_wait() is duplicated, thus
-> > leading to multiple definitions of the otherwise unique labels inside the
-> > assembly block.  GCC extended-asm documentation notes the possibility of
-> > duplicating asm blocks:
-> > 
-> >> Under certain circumstances, GCC may duplicate (or remove duplicates of)
-> >> your assembly code when optimizing. This can lead to unexpected duplicate
-> >> symbol errors during compilation if your asm code defines symbols or
-> >> labels. Using ‘%=’ (see AssemblerTemplate) may help resolve this problem.
-> > 
-> > Move the assembly blocks that deal with saving and restoring the current
-> > CPU context into it's own explicitly non-inline functions.  This prevents
-> > clang from duplicating the assembly blocks.  Just using noinline attribute
-> > seems to be enough to prevent assembly duplication, in the future noclone
-> > might also be required if asm block duplication issues arise again.
+On 14.03.2025 09:27, Roger Pau Monné wrote:
+> On Fri, Mar 14, 2025 at 09:10:59AM +0100, Jan Beulich wrote:
+>> On 13.03.2025 16:30, Roger Pau Monne wrote:
+>>> When building Xen with GCC 12 with UBSAN and PVH_GUEST both enabled the
+>>> compiler emits the following errors:
+>>>
+>>> arch/x86/setup.c: In function '__start_xen':
+>>> arch/x86/setup.c:1504:19: error: 'consider_modules' reading 40 bytes from a region of size 4 [-Werror=stringop-overread]
+>>>  1504 |             end = consider_modules(s, e, reloc_size + mask,
+>>>       |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>>>  1505 |                                    bi->mods, bi->nr_modules, -1);
+>>>       |                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>>> arch/x86/setup.c:1504:19: note: referencing argument 4 of type 'const struct boot_module[0]'
+>>> arch/x86/setup.c:686:24: note: in a call to function 'consider_modules'
+>>>   686 | static uint64_t __init consider_modules(
+>>>       |                        ^~~~~~~~~~~~~~~~
+>>> arch/x86/setup.c:1535:19: error: 'consider_modules' reading 40 bytes from a region of size 4 [-Werror=stringop-overread]
+>>>  1535 |             end = consider_modules(s, e, size, bi->mods,
+>>>       |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>>>  1536 |                                    bi->nr_modules + relocated, j);
+>>>       |                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>>> arch/x86/setup.c:1535:19: note: referencing argument 4 of type 'const struct boot_module[0]'
+>>> arch/x86/setup.c:686:24: note: in a call to function 'consider_modules'
+>>>   686 | static uint64_t __init consider_modules(
+>>>       |                        ^~~~~~~~~~~~~~~~
+>>>
+>>> This seems to be the result of some function manipulation done by UBSAN
+>>> triggering GCC stringops related errors.  Placate the errors by declaring
+>>> the function parameter as `const struct *boot_module` instead of `const
+>>> struct boot_module[]`.
+>>>
+>>> Note that GCC 13 seems to be fixed, and doesn't trigger the error when
+>>> using `[]`.
+>>>
+>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>> ---
+>>>  xen/arch/x86/setup.c | 2 +-
+>>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+>>> index 4a32d8491186..bde5d75ea6ab 100644
+>>> --- a/xen/arch/x86/setup.c
+>>> +++ b/xen/arch/x86/setup.c
+>>> @@ -684,7 +684,7 @@ static void __init noinline move_xen(void)
+>>>  #undef BOOTSTRAP_MAP_LIMIT
+>>>  
+>>>  static uint64_t __init consider_modules(
+>>> -    uint64_t s, uint64_t e, uint32_t size, const struct boot_module mods[],
+>>> +    uint64_t s, uint64_t e, uint32_t size, const struct boot_module *mods,
+>>>      unsigned int nr_mods, unsigned int this_mod)
+>>>  {
+>>>      unsigned int i;
+>>
+>> While I'm okay-ish with the change, how are we going to make sure it won't be
+>> re-introduced? Or something similar be introduced elsewhere?
 > 
-> Wouldn't it be a far easier / less intrusive change to simply append %= to
-> the label names?
+> I'm afraid I don't have a good response, as I don't even know exactly
+> why the error triggers.
 
-That won't work AFAICT, as the inline asm in check_wakeup_from_wait()
-won't be able to make a jump to the .L_wq_resume label defined in the
-__prepare_to_wait() assembly block if the label is declared as
-.L_wq_resume%=.
+One option might be to amend ./CODING_STYLE for dis-encourage [] notation
+in function parameters. I wouldn't be happy about us doing so, as I think
+that serves a documentation purpose, but compiler deficiencies getting in
+the way is certainly higher priority here.
 
-Also we want to make sure there's a single .L_wq_resume seeing how
-check_wakeup_from_wait() uses it as the restore entry point?
+Trying to abstract this (vaguely along the lines of gcc11_wrap()), otoh,
+wouldn't be desirable imo, as it would still lose the doc effect, at least
+to some degree.
 
-Thanks, Roger.
+>  We will rely on the CI to start doing
+> randconfig builds with UBSAN enabled (see patch 7/7).
+
+Right. Just that randconfig is, well, random in what it covers.
+
+Jan
 
