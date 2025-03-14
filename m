@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37390A60FAD
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 12:15:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.914391.1320161 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1051BA60FB3
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 12:17:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.914406.1320171 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt30T-0003Ld-Ot; Fri, 14 Mar 2025 11:15:13 +0000
+	id 1tt32s-0003wA-8V; Fri, 14 Mar 2025 11:17:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 914391.1320161; Fri, 14 Mar 2025 11:15:13 +0000
+Received: by outflank-mailman (output) from mailman id 914406.1320171; Fri, 14 Mar 2025 11:17:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt30T-0003Im-Lj; Fri, 14 Mar 2025 11:15:13 +0000
-Received: by outflank-mailman (input) for mailman id 914391;
- Fri, 14 Mar 2025 11:15:12 +0000
+	id 1tt32s-0003uB-5u; Fri, 14 Mar 2025 11:17:42 +0000
+Received: by outflank-mailman (input) for mailman id 914406;
+ Fri, 14 Mar 2025 11:17:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gDv/=WB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tt30S-0003Ig-9Z
- for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 11:15:12 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ id 1tt32r-0003u5-KE
+ for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 11:17:41 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9843e81f-00c5-11f0-9ab9-95dc52dad729;
- Fri, 14 Mar 2025 12:15:11 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-39104c1cbbdso1129426f8f.3
- for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 04:15:11 -0700 (PDT)
+ id f1416b8d-00c5-11f0-9ab9-95dc52dad729;
+ Fri, 14 Mar 2025 12:17:40 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-43cf848528aso18674965e9.2
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 04:17:40 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d1ffb62ccsm14029665e9.7.2025.03.14.04.15.10
+ ffacd0b85a97d-395cb7eb9c0sm5323744f8f.97.2025.03.14.04.17.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Mar 2025 04:15:10 -0700 (PDT)
+ Fri, 14 Mar 2025 04:17:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9843e81f-00c5-11f0-9ab9-95dc52dad729
+X-Inumbo-ID: f1416b8d-00c5-11f0-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741950911; x=1742555711; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741951060; x=1742555860; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ok851lRuO3ipcGUuvU2zBSQe+WZL1VTMXl5lai23YlQ=;
-        b=Nz6GaYE/GFgEuvhnrUmx1+QCYgY/SIXW4V6wi4qAhhvSLu9vFcxRlXbZ1yzPRzEv/s
-         ktWKsI8hrqmDjRCXWXbgoyZBDhTBNUOKRIJ/Feq/v6OxoOekgUQZq0kkvDBA0Fscanhi
-         E9Odkd7kLXsYKkeKsris3dhHnZqk7s/kQtxSY9qCpMLZuoxCzQaQAzQz48mcIF2nCH3+
-         xHANX2A3f2UdYkxhVTgkeGoHgd1SwSwajxt5ssWFaVw3DSdHjmdf8jCwdQViLGZ6jljE
-         Ok7cgDvqiq9fAShRQo06dnez48JYR8Krxfy22iziEO8Qbg7x2Tg4D+ukyIsZFGMlkXX4
-         SAHQ==
+        bh=6u5MzcwOd2vfEY6AoYlbvzECFSZBWFWIhH/AyJtzIw0=;
+        b=KmuQs5xKxQyOrs3IHzYLODpFFR/2Yf0kixgVBOx8E2LDFHBdt0aFp+VAwGQtftLBpr
+         tapSZHooprpM3yBl3SaNvXhJsPaXUdq7gNSsJJHBzT9dE1853nQT0Hx3HErnaBfpej04
+         4U8DQiLMWtL6SR3a09+tqOI6nMOTXn88ZpWfSc8VGJCoTtn89f2bpszGC7odaJsdiH0b
+         QSiB/N0g/q1kijsT0RE/u5ePpnODc7b8EQ8r4GYM0Sx5lCdoduRH/ffUILbWLAaymzX1
+         c15SOoGP0JJmW8fBzioTzf6gAFdzQ8+UZXjOEGKVKk1cx9P/uMRyjBpjZaHn8XiIHBo7
+         HMUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741950911; x=1742555711;
+        d=1e100.net; s=20230601; t=1741951060; x=1742555860;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Ok851lRuO3ipcGUuvU2zBSQe+WZL1VTMXl5lai23YlQ=;
-        b=vD3GsSHf+Bd0zJlvgF2+i/xqk3B0jX/qRSvN3sP7FgjPvd/9IIUlCRmQjAGr6OpK43
-         7/XhZCo3vMHwvsM7l+juiJ3DoxDk0ExywnbhAxRLiikxYYKBL4Nfrjpzwp/XyKDKzfq7
-         7YPxr2YDPj57Lth4afBGT6/EfuTEe14aYqSZ6GbBzHMXocsqyqRuUMja7wfcu5VPzO0z
-         RyhgIyZQ6ZSJHPp/YL7R9caS8lT7EPWJPgl27YdMZeaAM/aQORKlVAhaGF895/grH1Hw
-         j4PFAKr75SM+1RS6UmSftHbR1XmkjHpXKNosK53SbbBDdDq0Gf65gZ4yfgJdGd1Ss4XL
-         SysQ==
-X-Gm-Message-State: AOJu0YzTtST4cSM4FynNLcXgVzCZ2WxsmKE6tFV4m1TV5nbrQWw5vSSd
-	ONCyHn+6QEWJtEjg3qP6R763l5h/s3KEBhvOTCttyXGxf+4r5fGbdVYV+z9ntelE+PNEFszH/Z4
-	=
-X-Gm-Gg: ASbGncvGp67zzwTwxzZ2QSEbenX0ptnzHpEuRet9YLqX0MuuV6hswsM9jknpswF9N3L
-	MApNVAUUikJCTfJHWyp8DVmZm1oVspnuorg3YeR6WnBOzpwboTyJ6enBhcgJhsIshmGLgvH6E7Q
-	L0BZ9IeNbTC6Jc3nN8pAyYASrSvBLidNxOfmzVYZJtmxiZHr47tfIDoDkUyi/FtDGIv1Sc56hea
-	GRCRQMp0i3BFId4GbitdyZ/9UWhK2z3IVBWnBYuQh2bHv0ZM4uBsBTsgjZ+hZzRAagbIhHFL0Vd
-	+0TsPzzlkWAlCXH3kUxjbgf7TT1fHARjfD6V/ojPEI9jPRD/st+thOe8GdNZecOTD66kdNVWBtw
-	/jJPpDp5AOMnn79g92sBxYqEEBt5KQA==
-X-Google-Smtp-Source: AGHT+IHtRnUdylcaCH/ze9wACpido2xthzbuPDhbzO/fdEgTfGEk7u1V76W9n+PVruZcaqIxAfyMQA==
-X-Received: by 2002:a05:6000:1546:b0:391:c78:8895 with SMTP id ffacd0b85a97d-3971f511f32mr2745819f8f.50.1741950910880;
-        Fri, 14 Mar 2025 04:15:10 -0700 (PDT)
-Message-ID: <95537b19-9852-4f7e-8657-8da0d8150e8a@suse.com>
-Date: Fri, 14 Mar 2025 12:15:09 +0100
+        bh=6u5MzcwOd2vfEY6AoYlbvzECFSZBWFWIhH/AyJtzIw0=;
+        b=Jc4ihx1JXVh1875LwyM6i+3Zk1ZSxuiv6Dk6aJtCA+kFAK9NuzMtAPm8NadC8w8kEA
+         oORPUyKfKQpWOQJcmNcImUhOntzTP3GDJZ065Xrq3sJGoMdXf4/OBCvhjgndKCDmzJ4g
+         7ISU00gVo4npLdT0wmEOyI6IimX3DeRmVBLaXOsZ3qpePQXJR6eRZZCL6No2cS36pDl3
+         Byixg609DN41RXeg83qDYhAYtPVT39Vrf8U4cDDa2AN4Xvn2RKa/s/I8nZo1dax5+Iu5
+         SXrEtxPr4xUxX8GPeMHUbE5LtlUGmeKeHBjbky/ZK8ReVO1g7TOjE9OAzPZxUl4ru3jq
+         xKeA==
+X-Forwarded-Encrypted: i=1; AJvYcCWtpEJZ1tTk+wB1/db8ntO8aXHPmJmBaj47+rAUJUGGgmQ2jsxQWbjbRQBi3Vo2TBakwvRz7hmZUno=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwO06gMChuoRR5AGvdwZcS61LM8lkpB3xX08aO+3tieaWoIJHKg
+	Lbk5Qin5BwoJwvIaoDZtVJcAxOCG/YFvlqga9vQ3lFbw2Ut3VJ4qJltdZ6oPig==
+X-Gm-Gg: ASbGncs6o0oSX1smWTgta3dkU5CZf8yyW9RGnQ70Y6DFNmBDFNFNWtDuwoiMXU584DW
+	Aw8o67Av2c5FpjF2dqy87jsgxFAAH7xZWFCtuf11iZonYIMscJ3VNK2WgysEHgc4FVwAMpe4Wui
+	81uWbMBPWLwgsxvTDkVx5w4fYXJ/WNljZKWvbrXNUTvN96uXqwCWTbHMFtG0VT84vWxQORos5AU
+	4tyYm4xXxXaEt3irU9nbnAcMPu33WLRetS6r9V2YI7e58xNMezd6j49D9uVs35L0AJWzdkdQxxJ
+	rcD3RF+VxZZj17o9FEFJPihGaN91PjHThcvSRMkYAo2PuL+AY2MiFluQ6h+dkp3M8zH8lIOih0K
+	WWS/23f/civGWwLZZ3Gc7A3AKjohKXw==
+X-Google-Smtp-Source: AGHT+IGOjh43o38WpEJ8FpyWhiqEdrzJPXTsABuCyJL2l6lRvXruQ2CAtzkNRvyHtNSa/nxi06jxKw==
+X-Received: by 2002:a05:6000:1564:b0:391:487f:2828 with SMTP id ffacd0b85a97d-3971cd5741emr2734700f8f.10.1741951060113;
+        Fri, 14 Mar 2025 04:17:40 -0700 (PDT)
+Message-ID: <1f11b5f6-923b-4432-a763-45b4d025de60@suse.com>
+Date: Fri, 14 Mar 2025 12:17:39 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] drivers: Change amd_iommu struct to contain
- pci_sbdf_t, simplify code
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Andriy Sultanov <sultanovandriy@gmail.com>
-Cc: xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Jason Andryuk <jason.andryuk@amd.com>
-References: <7e5a37e51303ba17dab8e6a92830257f670f3355.1741891599.git.sultanovandriy@gmail.com>
- <f308cbf6-0d2d-4843-982a-a59ea70c7ad1@amd.com>
- <CAHPYgaXc8X5tBYN6BL2w2PVSNLwaTPP=zWhATBbjYRN-2dmE-g@mail.gmail.com>
- <1e36cec6-c02c-47b9-b957-087e8eb62328@suse.com>
- <23d2b793-42a8-45cc-9314-750b84526aaa@citrix.com>
+Subject: Re: [PATCH 2/7] x86/wait: prevent duplicated assembly labels
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250313153029.93347-1-roger.pau@citrix.com>
+ <20250313153029.93347-3-roger.pau@citrix.com>
+ <8c58e1d6-b591-4211-9364-fa586a5c6d2e@suse.com>
+ <Z9PpI8KQnA_gHy9e@macbook.local>
+ <729fe31f-69d2-4b4f-8f2b-ac507a65fa27@suse.com>
+ <dd147c79-055e-4a94-bb23-4c59821d520a@citrix.com>
+ <3d905488-b3ec-452f-afca-9a7d85484fe9@suse.com>
+ <Z9QBIEICQIQH2WD9@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,44 +126,134 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <23d2b793-42a8-45cc-9314-750b84526aaa@citrix.com>
+In-Reply-To: <Z9QBIEICQIQH2WD9@macbook.local>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 14.03.2025 10:30, Andrew Cooper wrote:
-> On 14/03/2025 8:56 am, Jan Beulich wrote:
->> On 14.03.2025 09:07, Andriy Sultanov wrote:
->>> On Thu, 13 Mar 2025 at 19:59, Jason Andryuk <jason.andryuk@amd.com> wrote:
->>>> On 2025-03-13 14:57, Andrii Sultanov wrote:
->>>>> --- a/xen/drivers/passthrough/amd/iommu.h
->>>>> +++ b/xen/drivers/passthrough/amd/iommu.h
->>>>> @@ -77,8 +77,14 @@ struct amd_iommu {
->>>>>       struct list_head list;
->>>>>       spinlock_t lock; /* protect iommu */
+On 14.03.2025 11:12, Roger Pau Monné wrote:
+> On Fri, Mar 14, 2025 at 10:13:07AM +0100, Jan Beulich wrote:
+>> On 14.03.2025 10:05, Andrew Cooper wrote:
+>>> On 14/03/2025 8:44 am, Jan Beulich wrote:
+>>>> On 14.03.2025 09:30, Roger Pau Monné wrote:
+>>>>> On Fri, Mar 14, 2025 at 09:24:09AM +0100, Jan Beulich wrote:
+>>>>>> On 13.03.2025 16:30, Roger Pau Monne wrote:
+>>>>>>> When enabling UBSAN with clang, the following error is triggered during the
+>>>>>>> build:
+>>>>>>>
+>>>>>>> common/wait.c:154:9: error: symbol '.L_wq_resume' is already defined
+>>>>>>>   154 |         "push %%rbx; push %%rbp; push %%r12;"
+>>>>>>>       |         ^
+>>>>>>> <inline asm>:1:121: note: instantiated into assembly here
+>>>>>>>     1 |         push %rbx; push %rbp; push %r12;push %r13; push %r14; push %r15;sub %esp,%ecx;cmp $4096, %ecx;ja .L_skip;mov %rsp,%rsi;.L_wq_resume: rep movsb;mov %rsp,%rsi;.L_skip:pop %r15; pop %r14; pop %r13;pop %r12; pop %rbp; pop %rbx
+>>>>>>>       |                                                                                                                                ^
+>>>>>>> common/wait.c:154:9: error: symbol '.L_skip' is already defined
+>>>>>>>   154 |         "push %%rbx; push %%rbp; push %%r12;"
+>>>>>>>       |         ^
+>>>>>>> <inline asm>:1:159: note: instantiated into assembly here
+>>>>>>>     1 |         push %rbx; push %rbp; push %r12;push %r13; push %r14; push %r15;sub %esp,%ecx;cmp $4096, %ecx;ja .L_skip;mov %rsp,%rsi;.L_wq_resume: rep movsb;mov %rsp,%rsi;.L_skip:pop %r15; pop %r14; pop %r13;pop %r12; pop %rbp; pop %rbx
+>>>>>>>       |                                                                                                                                                                      ^
+>>>>>>> 2 errors generated.
+>>>>>>>
+>>>>>>> The inline assembly block in __prepare_to_wait() is duplicated, thus
+>>>>>>> leading to multiple definitions of the otherwise unique labels inside the
+>>>>>>> assembly block.  GCC extended-asm documentation notes the possibility of
+>>>>>>> duplicating asm blocks:
+>>>>>>>
+>>>>>>>> Under certain circumstances, GCC may duplicate (or remove duplicates of)
+>>>>>>>> your assembly code when optimizing. This can lead to unexpected duplicate
+>>>>>>>> symbol errors during compilation if your asm code defines symbols or
+>>>>>>>> labels. Using ‘%=’ (see AssemblerTemplate) may help resolve this problem.
+>>>>>>> Move the assembly blocks that deal with saving and restoring the current
+>>>>>>> CPU context into it's own explicitly non-inline functions.  This prevents
+>>>>>>> clang from duplicating the assembly blocks.  Just using noinline attribute
+>>>>>>> seems to be enough to prevent assembly duplication, in the future noclone
+>>>>>>> might also be required if asm block duplication issues arise again.
+>>>>>> Wouldn't it be a far easier / less intrusive change to simply append %= to
+>>>>>> the label names?
+>>>>> That won't work AFAICT, as the inline asm in check_wakeup_from_wait()
+>>>>> won't be able to make a jump to the .L_wq_resume label defined in the
+>>>>> __prepare_to_wait() assembly block if the label is declared as
+>>>>> .L_wq_resume%=.
 >>>>>
->>>>> -    u16 seg;
->>>>> -    u16 bdf;
->>>>> +    union {
->>>>> +        struct {
->>>>> +            uint16_t bdf;
->>>>> +            uint16_t seg;
->>>> Are these still needed by the end of this patch?
->>> Yes - otherwise the patch would be larger as bdf and seg would be one
->>> namespace deeper - /iommu->seg/iommu->sbdf.seg/
->> This kind of union is fragile. Hence we want to avoid it, even if this means
->> an overall larger diff.
+>>>>> Also we want to make sure there's a single .L_wq_resume seeing how
+>>>>> check_wakeup_from_wait() uses it as the restore entry point?
+>>>> Hmm, yes on both points; the %= would only work for .Lskip. Have you gained
+>>>> understanding why there is this duplication? The breaking out of the asm()
+>>>> that you do isn't going to be reliable, as in principle the compiler is
+>>>> still permitted to duplicate stuff. Afaict the only reliable way is to move
+>>>> the code to a separate assembly file (with the asm() merely JMPing there,
+>>>> providing a pseudo-return-address by some custom means). Or to a file-scope
+>>>> asm(), as those can't be duplicated.
+>>>
+>>> See the simplified example in
+>>> https://github.com/llvm/llvm-project/issues/92161
+>>>
+>>> When I debugged this a while back, The multiple uses of wqv->esp (one
+>>> explicit after the asm, one as an asm parameter) gain pointer
+>>> sanitisation, so the structure looks like:
+>>>
+>>>     ...
+>>>     if ( bad pointer )
+>>>         __ubsan_report();
+>>>     asm volatile (...);
+>>>     if ( bad pointer )
+>>>         __ubsan_report();
+>>>     ...
+>>>
+>>> which then got transformed to:
+>>>
+>>>     if ( bad pointer )
+>>>     {
+>>>         __ubsan_report();
+>>>         asm volatile (...);
+>>>         __ubsan_report();
+>>>     }
+>>>     else
+>>>         asm volatile (...);
+>>
+>> But isn't it then going to be enough to latch &wqv->esp into a local variable,
+>> and use that in the asm() and in the subsequent if()?
 > 
-> This is my suggestion, and it's the pattern used in struct pci_dev.
+> I have the following diff which seems to prevent the duplication,
+> would you both be OK with this approach?
 
-And I'm hoping to eliminate it there, too, at some point. But adding a hidden
-dependency on the layout in an entirely different part of the tree just cannot
-do us any good.
-
-> pci_sbdf_t is nice for code generation, but it's not great for source
-> verbosity.
-
-I agree, yet if anything we'd need a global approach to deal with that
-aspect.
+Yes (with a brief comment added as to the need for the local). And thanks.
 
 Jan
+
+> --- a/xen/common/wait.c
+> +++ b/xen/common/wait.c
+> @@ -124,6 +124,7 @@ static void __prepare_to_wait(struct waitqueue_vcpu *wqv)
+>      struct cpu_info *cpu_info = get_cpu_info();
+>      struct vcpu *curr = current;
+>      unsigned long dummy;
+> +    void *esp = NULL;
+>  
+>      ASSERT(wqv->esp == NULL);
+>  
+> @@ -166,12 +167,12 @@ static void __prepare_to_wait(struct waitqueue_vcpu *wqv)
+>          ".L_skip:"
+>          "pop %%r15; pop %%r14; pop %%r13;"
+>          "pop %%r12; pop %%rbp; pop %%rbx"
+> -        : "=&S" (wqv->esp), "=&c" (dummy), "=&D" (dummy)
+> +        : "=&S" (esp), "=&c" (dummy), "=&D" (dummy)
+>          : "0" (0), "1" (cpu_info), "2" (wqv->stack),
+>            [sz] "i" (PAGE_SIZE)
+>          : "memory", "rax", "rdx", "r8", "r9", "r10", "r11" );
+>  
+> -    if ( unlikely(wqv->esp == NULL) )
+> +    if ( unlikely(esp == NULL) )
+>      {
+>          gdprintk(XENLOG_ERR, "Stack too large in %s\n", __func__);
+>          domain_crash(curr->domain);
+> @@ -179,6 +180,7 @@ static void __prepare_to_wait(struct waitqueue_vcpu *wqv)
+>          for ( ; ; )
+>              do_softirq();
+>      }
+> +    wqv->esp = esp;
+>  }
+>  
+>  static void __finish_wait(struct waitqueue_vcpu *wqv)
+> 
+
 
