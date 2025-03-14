@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1907A61005
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 12:36:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.914456.1320212 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E650A6106E
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 12:52:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.914473.1320221 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt3KG-0002pn-Db; Fri, 14 Mar 2025 11:35:40 +0000
+	id 1tt3Zm-00005D-OG; Fri, 14 Mar 2025 11:51:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 914456.1320212; Fri, 14 Mar 2025 11:35:40 +0000
+Received: by outflank-mailman (output) from mailman id 914473.1320221; Fri, 14 Mar 2025 11:51:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt3KG-0002n7-Av; Fri, 14 Mar 2025 11:35:40 +0000
-Received: by outflank-mailman (input) for mailman id 914456;
- Fri, 14 Mar 2025 11:35:38 +0000
+	id 1tt3Zm-0008U6-La; Fri, 14 Mar 2025 11:51:42 +0000
+Received: by outflank-mailman (input) for mailman id 914473;
+ Fri, 14 Mar 2025 11:51:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vXxa=WB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tt3KE-0002n1-IA
- for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 11:35:38 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
+ id 1tt3Zl-0008U0-LY
+ for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 11:51:41 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 728cfd59-00c8-11f0-9898-31a8f345e629;
- Fri, 14 Mar 2025 12:35:36 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-38f2f391864so1142935f8f.3
- for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 04:35:36 -0700 (PDT)
+ id b0c1dc05-00ca-11f0-9898-31a8f345e629;
+ Fri, 14 Mar 2025 12:51:39 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-4394a823036so19151665e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 04:51:39 -0700 (PDT)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395cb40cdc5sm5295923f8f.80.2025.03.14.04.35.34
+ 5b1f17b1804b1-43d2010e2d6sm14747385e9.38.2025.03.14.04.51.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Mar 2025 04:35:35 -0700 (PDT)
+ Fri, 14 Mar 2025 04:51:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 728cfd59-00c8-11f0-9898-31a8f345e629
+X-Inumbo-ID: b0c1dc05-00ca-11f0-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741952136; x=1742556936; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1741953099; x=1742557899; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0tbA7FFfpQbHDRbUIMNxV0ur4xKx7ECZKozsA70cDPs=;
-        b=lWnGfCmIVJIvANe4/EkgkL+8i2G93vxbAedjqG0hgv2d1BeIsOWi/qAfrYFGm/SXpY
-         o8peQOkYWoKnDdpUFd3Go4CDik3iJUpSNTMXALmhc06dKIzkWSddl1L9J/oJHxc5Ei4i
-         rqUXLAhM3P+I3yQ/BT+nDrTZ6ZCNO6rl+N9Ho=
+        bh=qEJdKHXE6RtavgHtntvlabHtXHCsQrpAhTpDHoqeno0=;
+        b=i/yno4a/OuhoiuqvUdtXepKkvRyVKzLmCa7VlPWMmM3BhypWIKSh5aXluO5rat0zK2
+         yTYwQkc9dUsYeBKK6KnH6chVtENZbhaqB9MRa8CVqrPXzLr9C8/QYQHN0FgPWl06EBWa
+         IbXcaLbdaW5mkQcZpVJNYroU6brnMjhsCut5U=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741952136; x=1742556936;
+        d=1e100.net; s=20230601; t=1741953099; x=1742557899;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0tbA7FFfpQbHDRbUIMNxV0ur4xKx7ECZKozsA70cDPs=;
-        b=JlKm5pzrXgxnXlyn8bg34S6Z3lX910DFDMCkmuFgc1939kwARMKYVyVLPXPfP2+3hC
-         64fUxSJAxNlmI8XxnXNCB4xdcI7fW4pUFknPAk1WAAx+urQnrPhq/LN0zGIZrIWFi1S7
-         71U9qT4Lwi0MExDy73+V7QFzfrKjLqwXoo+5VDwmVQf4BmW/pOxY1sM91+4ci8rczRsp
-         iXJNg8pEtNfe1K5uktgnqfGy+GKiTJSzEaf/ZK20fwe/MH1Thw42ivQP4XAPx1Uar1Na
-         liUxjMYsEdJriXlrxjvaqJ4q5gq8UiKXmCTWhJs8mWpdPl1A7hxpVopjaCyEoEx5rqQc
-         M2PA==
-X-Forwarded-Encrypted: i=1; AJvYcCVmkfNBUS9VXrvVe8jyEbAk3oEdom0bopwKfbcjSogH40+DQ1tb0Z2sQSNyGfB4ZQnv/kR60oVFptk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzdNChF90yIpVQhI25Y/L7KJFbXbql/v5+6oDLQ7kbiWajd/oIY
-	j3cquhai3mcWFkX8gQwQ40/egLw1XkaNrxMB62IL587PP60weACAi+crgvPfc14=
-X-Gm-Gg: ASbGnctdjiUnc+VE/0bbAwFJiP0HVsV1SdhIBq4MwpBdf780wL+58Lcjlm3bGzCxApF
-	f8OfYkyqe06p0iXUS6IT/jqb9bnDgB6dktHTpaJdjxn167OORFn35W39aKj50rHHrwZmtuGGPnb
-	yiKx3nyxGXRr8nqNnGHI3pohO84p5LhamKHl1PMVU241xxn/L4n/3h71cXizBU52AC2ollkzVKv
-	WHK6aWqyeFeFblldGx5ehKNHJwOuHv4y5V8+xtybNhe50UDgl7c2zoDUeUIiBgtrk812Kv1wssp
-	JcMfQFyp/R/DdxiQeqTZasggEzRVOT1//K6gYrLkcDsTPWl/dEjZlgdZXKSt1rGRHXXag3UOEAS
-	ASgYCUKmt
-X-Google-Smtp-Source: AGHT+IEQFw7TU+tRDRyQinGCfDFZ6PjD6+2ItfRZxnu9LM0ofY9MPgyRjVYoT64tcitH0MOOkJufVg==
-X-Received: by 2002:adf:cb83:0:b0:391:2d8f:dd59 with SMTP id ffacd0b85a97d-3971dae8de5mr2039294f8f.24.1741952135782;
-        Fri, 14 Mar 2025 04:35:35 -0700 (PDT)
-Message-ID: <82a5c9e4-6498-4c3d-b9a9-7e4425f0bd8f@citrix.com>
-Date: Fri, 14 Mar 2025 11:35:34 +0000
+        bh=qEJdKHXE6RtavgHtntvlabHtXHCsQrpAhTpDHoqeno0=;
+        b=Lv/dwyw25cufDMWeprlrcj93pEyHqjdmQDuQTRxeb1r2lnFiuUWj9MJQXfUW4+uyDU
+         61cFDBZbFz6Hu65U4ap4t1ajy+1pqnPzpqv4he8HgD4OLNHTYf0LeASQqzD0SSCB4Sj9
+         ynwyFPhhAPqt9RZ0a4lAr/AUgPgN+4EYnAWN1TvK7BjUUOx4dHajQVLUOcayF9UTIh/h
+         lD+mtLXcqBGbhtd8hV61ihFmA+kas2nc++4yboQzh5+B7BZe2DdaCUeL97byWnRAXEp0
+         sArBlhqxxjhPTjXks/ujUGT+ghDslqpz1OD0d6FBcDjkILhvIezzC8leJIKSS4OG0vwV
+         tOYA==
+X-Gm-Message-State: AOJu0Yw6k9erpu1jF/cW18a1zG3tN6bBzId+c1LLe27kYLCbnamuIoI3
+	449tWOZvYIEXtPG7JFVVZtLi2aBeaap5J3wB+1C1sGMz7fllmQp5iwsBVwVyF8Y=
+X-Gm-Gg: ASbGnctCJ4B9H0+drRL/UkGRoDS720tYJ/LFyNResYrn5C5ORlNeCAl2g+K6wHCJYwG
+	djgfdlQ34A94WJLEvTdG5L+wI9AEXcHzx/HBO7/4+MPDTTwNdSYYdrhvR+Ee7bL9SNAgwZJKCIz
+	mmr1D1XI1507xnvqYMdZi3Uoq7AntoJUpyZafmGbws1u6cItPhbAYU6bHluQYEhYE562W04zgjn
+	lzQvZDBv2qBe3/eeDuLTo/OfxxVv5JWx3ZBhQeu378zUX1SXFucP9fPFfxFVlLUIk98A57X8WP7
+	H7OMjcMGSdLh/N6sO7BWdrfZ4mskuy0ZM0g1rbgYwKYu0aMcZYnECP0rahKxiNdFjCVsN+4px6D
+	4fsXVZBbUk9M1uBf69jE=
+X-Google-Smtp-Source: AGHT+IE4P5btkh4L53YO2AF5/aRIr9FYAJQKm4GZIG/ehuJwh6VMMLDN5uDIepSiyJKweizlQ4ImDQ==
+X-Received: by 2002:a05:600c:46d1:b0:43c:eec7:eab7 with SMTP id 5b1f17b1804b1-43d1ec81224mr32412935e9.11.1741953099013;
+        Fri, 14 Mar 2025 04:51:39 -0700 (PDT)
+Message-ID: <a7765286-36d9-4c33-835a-6d836b4ffef6@citrix.com>
+Date: Fri, 14 Mar 2025 11:51:37 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] trace: convert init_trace_bufs() to constructor
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <e1e556c4-ed71-41f7-acfc-b7fa866a0d3e@suse.com>
- <6ff81326-762c-46ec-a06a-254ba166433b@citrix.com>
- <b59ea14e-0bce-4c3e-b1fb-021b53af1780@suse.com>
- <d597523c-aa3a-4682-824f-e6e2f8ce753a@citrix.com>
- <61b762d0-d513-4d02-80ac-50fa12a725f3@suse.com>
- <b13543a1-4d43-4e2d-8fcd-08ec60be9dd3@citrix.com>
- <e016d8e7-e662-419f-a181-5bbfdc71764b@suse.com>
+Subject: Re: [PATCH] VT-d: Adjust diagnostics in set_msi_source_id()
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Jan Beulich <JBeulich@suse.com>
+References: <20250314095523.4096604-1-andrew.cooper3@citrix.com>
+ <Z9QB0ymmaygrFFUc@macbook.local>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -144,31 +134,54 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <e016d8e7-e662-419f-a181-5bbfdc71764b@suse.com>
+In-Reply-To: <Z9QB0ymmaygrFFUc@macbook.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 14/03/2025 6:49 am, Jan Beulich wrote:
-> On 13.03.2025 18:03, Andrew Cooper wrote:
->> On 13/03/2025 4:37 pm, Jan Beulich wrote:
->>> On 13.03.2025 17:28, Andrew Cooper wrote:
->>>> On 13/03/2025 2:19 pm, Jan Beulich wrote:
->>>>> On 13.03.2025 14:58, Andrew Cooper wrote:
->>>>>> On 13/03/2025 1:38 pm, Jan Beulich wrote:
->>>>>> I'm tempted to ack this on the basis that it is an improvement, but a /*
->>>>>> TODO this is all mad, please fix */ wouldn't go amiss either.
->>>>> I understand you like adding such comments; I, however, at least
->>>>> sometimes (e.g.) don't. Especially without at least outlining what
->>>>> would need doing. Just saying "this is all mad" doesn't really help
->>>>> very much.
->>>> I was being somewhat flippant.  But a /* TODO, try and make this a
->>>> presmp_initcall() to improve alloc_trace_bufs() */ would be fine.
->>> Okay, added (to the existing comment).
->> RISC-V and PPC were both green in the pipeline, so they seem happy.
-> As alluded to, not surprising at all, as the tests surely don't supply
-> a "tbuf_size=" command line option. Without which init_trace_bufs() does
-> close to nothing. Still - thanks for double checking. May I imply an ack
-> from this (formally I'll need a separate Arm one then still anyway)?
+On 14/03/2025 10:15 am, Roger Pau Monné wrote:
+> On Fri, Mar 14, 2025 at 09:55:23AM +0000, Andrew Cooper wrote:
+>> Use %pd, and state what the unknown is.  As it's an enum, it's a signed type.
+>>
+>> Also drop one piece of trailing whitespace.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Thanks.
+
+>
+>> ---
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>> ---
+>>  xen/drivers/passthrough/vtd/intremap.c | 10 +++++-----
+>>  1 file changed, 5 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/xen/drivers/passthrough/vtd/intremap.c b/xen/drivers/passthrough/vtd/intremap.c
+>> index 81394ef45299..9272a2511398 100644
+>> --- a/xen/drivers/passthrough/vtd/intremap.c
+>> +++ b/xen/drivers/passthrough/vtd/intremap.c
+>> @@ -485,15 +485,15 @@ static int set_msi_source_id(const struct pci_dev *pdev,
+>>          else
+>>          {
+>>              dprintk(XENLOG_WARNING VTDPREFIX,
+>> -                    "d%d: no upstream bridge for %pp\n",
+>> -                    pdev->domain->domain_id, &pdev->sbdf);
+>> +                    "%pd: no upstream bridge for %pp\n",
+>> +                    pdev->domain, &pdev->sbdf);
+>>              return -ENXIO;
+>>          }
+>>          break;
+>>  
+>>      default:
+>> -        dprintk(XENLOG_WARNING VTDPREFIX, "d%d: unknown(%u): %pp\n",
+>> -                pdev->domain->domain_id, pdev->type, &pdev->sbdf);
+>> +        dprintk(XENLOG_WARNING VTDPREFIX, "%pd: %pp unknown device type %d\n",
+>> +                pdev->domain, &pdev->sbdf, pdev->type);
+> Would be nice to have a pdev_type_to_str() or similar helper.
+
+In this case, I think we'd only get UNKNOWN out of it, based on what
+else the switch() handles.
+
+~Andrew
 
