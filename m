@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3D85A60F1D
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 11:36:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.914330.1320112 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D65FDA60F2B
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 11:39:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.914341.1320121 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt2OV-0007jE-18; Fri, 14 Mar 2025 10:35:59 +0000
+	id 1tt2Rh-0008IB-EX; Fri, 14 Mar 2025 10:39:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 914330.1320112; Fri, 14 Mar 2025 10:35:59 +0000
+Received: by outflank-mailman (output) from mailman id 914341.1320121; Fri, 14 Mar 2025 10:39:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt2OU-0007ge-Tx; Fri, 14 Mar 2025 10:35:58 +0000
-Received: by outflank-mailman (input) for mailman id 914330;
- Fri, 14 Mar 2025 10:35:57 +0000
+	id 1tt2Rh-0008Fz-Bd; Fri, 14 Mar 2025 10:39:17 +0000
+Received: by outflank-mailman (input) for mailman id 914341;
+ Fri, 14 Mar 2025 10:39:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OT8H=WB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tt2OT-0007gY-01
- for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 10:35:57 +0000
+ <SRS0=SsSs=WB=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1tt2Rf-0008Ft-8W
+ for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 10:39:15 +0000
 Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
  [2a00:1450:4864:20::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1bde70d3-00c0-11f0-9898-31a8f345e629;
- Fri, 14 Mar 2025 11:35:55 +0100 (CET)
+ id 9224d039-00c0-11f0-9898-31a8f345e629;
+ Fri, 14 Mar 2025 11:39:13 +0100 (CET)
 Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-ac25313ea37so388283566b.1
- for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 03:35:55 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- a640c23a62f3a-ac3147f0ecdsm205535566b.73.2025.03.14.03.35.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Mar 2025 03:35:54 -0700 (PDT)
+ a640c23a62f3a-abbb12bea54so377814766b.0
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 03:39:13 -0700 (PDT)
+Received: from localhost ([66.81.170.107]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ac3149d0bfbsm210057866b.95.2025.03.14.03.39.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 14 Mar 2025 03:39:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,82 +44,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1bde70d3-00c0-11f0-9898-31a8f345e629
+X-Inumbo-ID: 9224d039-00c0-11f0-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741948554; x=1742553354; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=4R6SxKYWf0UJYMh+URvu0b6k/Nx7GMOWw7bCQzgOTA4=;
-        b=ZAGac5jJMX/A2Ib0VK3RSQzU5xdg6yg7UrPgUq/jwYhqHl9Yxhh0SXfOLUIOOZxgnU
-         qJxLDWRUmcyhznEGF2tMAU+3X5ZkGIIKYLopf2lbZMhsx2EwzyHbgrbZ7SmadbCwmm9g
-         4vyeqLi7poa4yiWKuGDgiqrenGTfhbEc3tYFw=
+        d=cloud.com; s=cloud; t=1741948753; x=1742553553; darn=lists.xenproject.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ULN6swvzDosjW4dBgOc1H3sXcVGUEArw17CMTPoO5eo=;
+        b=V6tiW7G7act/QT2EBDJPDsEquP61OExKstdbFZKo/4XTkQX9DcUsbUv+CAY62afVV2
+         nnAt+ErwsOEC0W+MszZhkvI07GSU5+vwGsI5MhN1y/g9o9Ndmuv1oFS61dyVIAg9YET3
+         P/kWbUNiymX72fzHFpgxMCMXGm8j4zNsW1UOg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741948554; x=1742553354;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=4R6SxKYWf0UJYMh+URvu0b6k/Nx7GMOWw7bCQzgOTA4=;
-        b=RZQSlOIgklOFlnQJnMPUNH/EvtCZR+hXW8c6TO5nAFXdTcZehTD/L8IIRXfwhmoSAB
-         JrZ3vk6uZQ6LS+NabFbr+nZ+PRRn+jrmgzL7iPLJSeSc4B4wAeActphOyypGC6Q0aASZ
-         hgUZxWKAdRLPELICxfQgXHKv+9Ze1gzZPyjNrw12ClPi9H+vK+C8UQ///1zlRhXHGaqd
-         4C0H5xT9tzPpAN5qLeXusbWAmM+raZSUVHnJG8aaRHEe//LsjH0P9POksRsnnuntghdW
-         s7jL7xHupW3kpL6y+bY71t6GJj9qEbqMhlBGc6iVe7usC6nhjSQ3oVxd9608pmQH/jN0
-         SOtg==
-X-Gm-Message-State: AOJu0YzGjDomFGol3DlzyGtMwBMQcp6/YpAheGKPUrXg7wGaBn5MjqGm
-	UOr9lZAPnvtWL43raEgoGwEUVLz1jSPRtKZszyhYji4NCdcEdj7neF/ebteRY+0=
-X-Gm-Gg: ASbGnctzMLsr34U/0Ncc3l12Yq/BQ58u/Gfyp3v6oelKEXqKv4ORpdWw3ObbpQZuJNB
-	35AduzQaaChch1Ewop+0dsF2q3GImXd63maRPpyRUWGXctHq+GDPENnffv7Fte9YS8VnV9n6mQm
-	psTlGxuhJ+W6CNUV9NVl9NIwuOnvHmuHEmH9EmzLBIgZ4m3iiseb9+d8Wp59Nuzu3eoBn42x06Z
-	T8yYtoaQh7Eg4E/Zb/llxFlKzmAUPHweeM7GklqIhRtXwtCitEvd0kLffvhGZD5W9PMLu368YbX
-	jVJrrnG3LeCKT7SaiIGdVHpooqWZjV0TxLW6Zsik5HzAvHPaKGpUEJ4I35U0
-X-Google-Smtp-Source: AGHT+IHIh60o3qulbIzUnHx+8fIZ86SMJrBsB/LBGtruIou6sOFYe0kupRUa3yeuV3XZy+3y1rcQBQ==
-X-Received: by 2002:a17:907:9281:b0:abf:b2d1:bb4c with SMTP id a640c23a62f3a-ac33040c694mr232906166b.52.1741948554462;
-        Fri, 14 Mar 2025 03:35:54 -0700 (PDT)
-Date: Fri, 14 Mar 2025 11:35:53 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>
-Subject: Re: [PATCH] xen: Update minimum toolchain requirements
-Message-ID: <Z9QGiSl8vfeYdjXm@macbook.local>
-References: <20250307175435.3089686-1-andrew.cooper3@citrix.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250307175435.3089686-1-andrew.cooper3@citrix.com>
+        d=1e100.net; s=20230601; t=1741948753; x=1742553553;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=ULN6swvzDosjW4dBgOc1H3sXcVGUEArw17CMTPoO5eo=;
+        b=GuqDLNfenYndR5ZWsXbMguB/CbK7hFSSK5SAunj6R+Q/F5LvKcjb507pSYle1XpO2y
+         N/SMwHdnKw69+q5AxKU1u799tIcToOM/XnZPcgJyrU8DtcIQV/5JW3N9yr0ty1oCLc0x
+         8yXWfIh3VSSVh27QzjcBEZg8tjhqDdTFoacJ3S9Gy7dWXzXnMcuUa9ZcHO0g9AkWLTLF
+         OG1ZGvGKjdGNXkA1kob2rYAnL8Yhv7eZ393EOgoEPdIS1cL7MVtFve8cE1KNsoHmwLnA
+         XjG+j/0pHGeDzZUnv0ZSGetJtz2h+JFXHVptjnl+vlvHPwHJeKlDMmHorvOlB2oXfZCe
+         ui5w==
+X-Forwarded-Encrypted: i=1; AJvYcCVJMAno7XRjJ/CXMDp+3XTh/xdfC4Jyxr+RomGGyWP1d+N+bVZs2EN/u6bhT8NDhXFtSP9whRmTFnU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyGv4DptaWiBooof5bsjx2cwa48SZ6FT02gBpsRHPEeaPpAZqxe
+	qcQphAbi8zDmEW/urHCysdfw74vhsf8PXzYKwbL2lA2x6JBDXFNprF59yV7RIx0=
+X-Gm-Gg: ASbGncspKMAFzGlCt+VhOgG5j7PWrUp3y7bma487XbCNkbWMjGb8Ppj3WeEjvYLiBid
+	ukopakLxSG+uaXWUUttFUYCzBry/pJS0S+SQphKdhXPrJuOe39R78nghTLXKX/vUMLSwE0lcEQV
+	kj771JHiI9QRDddBVisnc7qlbOCIPp7WpN0JuCjEK0aUNhEt70gs1GKSGPOPqEbKZ6mq+Hf13AS
+	PEoYbS4/PVCVqntM7NJ+7mtPaI1S1k4mq4fAlbuBTX26vy0dj1TimHNsqIWldGJvl4eWohzCKG7
+	ExsFZXi8Ue0PyRxaoBbBYy4Jo8aV41J/ryf4YKyLgnK2CbVIA7k=
+X-Google-Smtp-Source: AGHT+IEFe8avrpBaFzzcRZrEcldvsNGjk81I5sL5wszR96qFlb+zzYcGBDOlGrDx7N41bJCmUWLkjQ==
+X-Received: by 2002:a17:907:7290:b0:ac2:fd70:dd98 with SMTP id a640c23a62f3a-ac3301ea161mr201777666b.22.1741948752947;
+        Fri, 14 Mar 2025 03:39:12 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 14 Mar 2025 10:39:04 +0000
+Message-Id: <D8FXALVEWMGZ.2C16ABCKLKQRY@cloud.com>
+Cc: =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH] [RFC] vpci: allow BAR write while mapped
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+To: "Stewart Hildebrand" <stewart.hildebrand@amd.com>,
+ <xen-devel@lists.xenproject.org>
+X-Mailer: aerc 0.18.2
+References: <20250312195019.382926-1-stewart.hildebrand@amd.com>
+ <D8F8IW559J11.2G40MDQH23I44@cloud.com>
+ <7b4f47c2-ce03-44e9-907a-acd56e56a9ff@amd.com>
+In-Reply-To: <7b4f47c2-ce03-44e9-907a-acd56e56a9ff@amd.com>
 
-On Fri, Mar 07, 2025 at 05:54:35PM +0000, Andrew Cooper wrote:
-> GCC 4.1.2 is from 2007, and Binutils 2.16 is a similar vintage.  Clang 3.5 is
-> from 2014.  Supporting toolchains this old is a massive development and
-> testing burden.
-> 
-> Set a minimum baseline of GCC 5.1 across the board, along with Binutils 2.25
-> which is the same age.  These were chosen *3 years ago* as Linux's minimum
-> requirements because even back then, they were ubiquitous in distros.  Choose
-> Clang/LLVM 11 as a baseline for similar reasons; the Linux commit making this
-> change two years ago cites a laudry list of code generation bugs.
-> 
-> This will allow us to retire a lot of compatiblity logic, and start using new
-> features previously unavailable because of no viable compatibility option.
-> 
-> Merge the ARM 32bit and 64bit sections now they're the same.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+On Thu Mar 13, 2025 at 5:43 PM GMT, Stewart Hildebrand wrote:
+> The idea was that the unmap-then-map operation would appear atomic from
+> the guest's point of view. I've only queued up the unmap operation at
+> this point in the new logic. Due to the mentioned limitation in the BAR
+> mapping deferral machinery, I wanted to make sure *this BAR* was
+> unmapped before queuing up the map operation (see below). Waiting for
+> *all* pending operations to finish here is likely not appropriate.
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+Looking more closely after reading Roger's answer, I misunderstood what was
+being queued where. There's space for a single deferred operation that's
+retried if pending on each attempt to resume the vCPU, whereas I initially
+thought it was the mutations to the p2m (which would've competed with other
+mutations from other vCPUs). This makes more sense, sorry for the noise.
 
-IIRC Ld in LLVM 11 should be capable of linking Xen.  I think the
-first LLVM release with an LD capable of linking Xen was version 6 or
-7.
+> I think this just reinforces the need to rework the BAR mapping
+> machinery.
 
-Thanks, Roger.
+Right. The most delicate part is dealing with races with another vCPU when =
+the
+unmap-then-map operation does not complete in a single taking of the vpci l=
+ock
+I'd say. And that much is unavoidable, I think, because either unmapping or
+mapping might take a while.
+
+>
+> > Do you know if Linux intentionally skips disabling decode? Or is it a b=
+ug?
+>
+> I think it's intentional. See https://gitlab.com/xen-project/xen/-/issues=
+/197
+
+Interesting. I seemed to recall some devices being able to decode their own=
+ BAR
+accesses. But I must've been wrong.
+
+>
+> >> +            }
+> >> +        }
+> >> +        else
+> >> +            return;
+> >>      }
+> >> =20
+> >> =20
+> >> @@ -610,6 +647,10 @@ static void cf_check bar_write(
+> >>      }
+> >> =20
+> >>      pci_conf_write32(pdev->sbdf, reg, val);
+> >> +
+> >> +    if ( reenable )
+> >> +        /* Write-while-mapped: map the new BAR in p2m. OK to defer. *=
+/
+> >> +        modify_bars(pdev, cmd, false);
+>
+> This call to modify_bars() will raise a softirq for the map operation.
+
+Ah, fair enough. I clearly didn't look closely enough.
+
+Cheers,
+Alejandro
 
