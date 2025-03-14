@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68910A61773
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 18:22:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.914851.1320472 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10F14A61780
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 18:26:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.914865.1320483 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt8jK-0002fk-8s; Fri, 14 Mar 2025 17:21:54 +0000
+	id 1tt8mr-0003LY-S1; Fri, 14 Mar 2025 17:25:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 914851.1320472; Fri, 14 Mar 2025 17:21:54 +0000
+Received: by outflank-mailman (output) from mailman id 914865.1320483; Fri, 14 Mar 2025 17:25:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt8jK-0002dM-5g; Fri, 14 Mar 2025 17:21:54 +0000
-Received: by outflank-mailman (input) for mailman id 914851;
- Fri, 14 Mar 2025 17:21:52 +0000
+	id 1tt8mr-0003IQ-Or; Fri, 14 Mar 2025 17:25:33 +0000
+Received: by outflank-mailman (input) for mailman id 914865;
+ Fri, 14 Mar 2025 17:25:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8Ghv=WB=bounce.vates.tech=bounce-md_30504962.67d465a7.v1-256441ed796046d18e590df1063c32c2@srs-se1.protection.inumbo.net>)
- id 1tt8jI-0002dE-KP
- for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 17:21:52 +0000
-Received: from mail136-29.atl41.mandrillapp.com
- (mail136-29.atl41.mandrillapp.com [198.2.136.29])
+ <SRS0=SsSs=WB=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1tt8mq-0003IK-1W
+ for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 17:25:32 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ccd007b1-00f8-11f0-9ab9-95dc52dad729;
- Fri, 14 Mar 2025 18:21:44 +0100 (CET)
-Received: from pmta11.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail136-29.atl41.mandrillapp.com (Mailchimp) with ESMTP id
- 4ZDrkv0hkSz6CQ6y4
- for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 17:21:43 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 256441ed796046d18e590df1063c32c2; Fri, 14 Mar 2025 17:21:43 +0000
+ id 5452c2c5-00f9-11f0-9ab9-95dc52dad729;
+ Fri, 14 Mar 2025 18:25:31 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-aaeec07b705so369682066b.2
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 10:25:31 -0700 (PDT)
+Received: from localhost.localdomain ([66.81.170.107])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ac3146aeb24sm250677566b.9.2025.03.14.10.25.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 Mar 2025 10:25:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,198 +45,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ccd007b1-00f8-11f0-9ab9-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1741972903; x=1742242903;
-	bh=+ipbAFapUV5Tenj3xh/aa5u3Lx9iXG1q2x4JxsPfdd4=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=OKbNMYdJAbPOfa48hjBFo+llYsUEKGpa/WuHCKyi6pPUhBiy6dst9TVYmAdk+/K7L
-	 AVjLVEQwADJVLskWITSCIMmZUwGgQheWi4E0oWkxq4Jv6ooceRPuPY4tONSevn0EDc
-	 c9eiboyaIFud4uLupGKQMStbyYDxRASPFIY4NwytHGC5MQKJD+ACCmM45t4kRrlq37
-	 cDvcU3utgYoc9Z/2jmzW8QSL7ch4yaeyCvex0xCXNR0RkLhGEGOGoktOkt7gkwk655
-	 FrvsVwtMwQSVK9tWzDQMl2l+/r97BA5rWq894EwKGwoVr1y6MYqPfaXW+4lzbjoX3r
-	 +0u5/ZAflNgrg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1741972903; x=1742233403; i=anthony.perard@vates.tech;
-	bh=+ipbAFapUV5Tenj3xh/aa5u3Lx9iXG1q2x4JxsPfdd4=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=FCww7K91Ic6wLjnP+pEBt/vKebl/lO1Z/EqCmqSx4PGpeIWAjYF2vbRTg7Gdm5gso
-	 wP4IKzXJRacfPOzL7zVjUyp/x2jzfvag+EqWRXk6FxBCjwIMoxasNQWgR/3uASmrMq
-	 xwR3Xde8APugzEi+WoxF+TKTqSRvAlXWHUwuheCOSn+TDSh5xzXqkSxHtHH6DIIvX4
-	 DdFnt5oduzSYVeSD9iUtWrOEX9rnwIN6GgVtCF0zh0Q0t7oPE+CNfSS60bHagsS/D5
-	 5C7oYJ1xdKHSs1M0uwAk1P/xi4hatKWsU5WsEhjL/ty6tB+XM2LqSm3uKcU9CU5P6d
-	 6SAUxOix9Wqxg==
-From: "Anthony PERARD" <anthony.perard@vates.tech>
-Subject: =?utf-8?Q?Re:=20[RFC=20PATCH=20v3=204/7]=20xen/arm:=20scmi:=20introduce=20SCI=20SCMI=20SMC=20multi-agent=20driver?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1741972900861
-To: "Grygorii Strashko" <gragst.linux@gmail.com>
-Cc: xen-devel@lists.xenproject.org, "Stefano Stabellini" <sstabellini@kernel.org>, "Julien Grall" <julien@xen.org>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Michal Orzel" <michal.orzel@amd.com>, "Roger Pau Monne" <roger.pau@citrix.com>, "Jan Beulich" <jbeulich@suse.com>, "Volodymyr Babchuk" <Volodymyr_Babchuk@epam.com>, "Oleksii Moisieiev" <oleksii_moisieiev@epam.com>, "Bertrand Marquis" <bertrand.marquis@arm.com>, "Juergen Gross" <jgross@suse.com>, "Grygorii Strashko" <grygorii_strashko@epam.com>
-Message-Id: <Z9RlpF7oAACpQdSi@l14>
-References: <20250311111618.1850927-1-grygorii_strashko@epam.com> <20250311111618.1850927-5-grygorii_strashko@epam.com>
-In-Reply-To: <20250311111618.1850927-5-grygorii_strashko@epam.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.256441ed796046d18e590df1063c32c2?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250314:md
-Date: Fri, 14 Mar 2025 17:21:43 +0000
+X-Inumbo-ID: 5452c2c5-00f9-11f0-9ab9-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1741973130; x=1742577930; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=YjvqXYyEEnHbKJZz92/fZWoNj/3Jm20gx4F4RpsQxSE=;
+        b=L5UZ8tzKDZ+mN9idQp4Qgsv9DxcbCIM8tfrny+UOJPJxvYJgWD/f4OkP8o+NZxJYrZ
+         U2pnULhtcE6tYqBTTcijiEFkeIKUeL0Q9zRk9aXsWcXKvsF5Czq85/voUnSrtceArf00
+         IQMDSH6c45qMyKxEo0PVd/CXA7M17UUjGifEM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1741973130; x=1742577930;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=YjvqXYyEEnHbKJZz92/fZWoNj/3Jm20gx4F4RpsQxSE=;
+        b=vtwz8ApBCFNAbHA4w52aFhBaSE72do+3dLobnePKBTpBGgG0hSzDELqgyaNX0IprIj
+         omxIiQZ505fAYHF0ceCEKaoVK6wW6QMvDlrfajcEWKcQnTm/tvqvrCGKGxjo6yXoSOQZ
+         m1iBk3ytqpOybakX9J/OQ0nbd1wiIfZ5h2c1NZKmYUQ1IQrRXBAeMI2Q96n2butc7DFx
+         FIkFHy0Kd6hTpTsN0pTeqzqx+0f32ou+b/AfqVErZJbj3VjIaa1ii7saQlxrWyeWMbuP
+         F6c1h81RG5U6gtj1dcV6mrluRaPcDM9o6EhEsTKqwIuljvFWF1OIA6A1nirLXNIEAXlC
+         uatw==
+X-Gm-Message-State: AOJu0Yyha8Ox5KWe2ytUkcwpdjRtSxmbpDXSSQgMaw/HGwefAmSlesfu
+	ky1G/tNyLYsYlM0/jj4ck0vIeAATVevtzl3fpCGNJ5urHTSlwt5Jra2tE2WO/nPb51ca84sN4gN
+	o
+X-Gm-Gg: ASbGncuuPr4I62Fwq+U9lgMXTqKGD8v092nhe/LjB6Wlxez10aqrBgo7u9sxS09xO5W
+	q93FXCz634wrOlfmcHuyFGR7/zfU2djArTDRURlG1zzvTogvqaC6FLzjGgsgpkGZQaWyxmGOcKh
+	O7w/5i4CjHn1qv5ogcu2RHoXm8s+2Uak0KBlPaAY+jtr40Ilu0RG5p/ukcfPNBryz8l0V8SpiIe
+	VA4a88IXDQUXlvVfc5rmsfnpJnz+QYJLwgA9T3QlnEbVCelGDAu8PEVMEIIuGzdsfxj/lGQPOsD
+	oNDOWA0dUjDpSNFhzSItdzHkpDwuQf3MBDiSKy0raKMj99Fn4yKPrEPxTN0lItmI5Fc=
+X-Google-Smtp-Source: AGHT+IH8a5jyo/RjLx/Yw5KHGQgXGW2HCEPTx08EbGJYgU3PiwVAhczDrObRz9K7szwRs9VBurjQSw==
+X-Received: by 2002:a17:907:da3:b0:ac2:7c68:b3fe with SMTP id a640c23a62f3a-ac3301771demr481681966b.15.1741973130243;
+        Fri, 14 Mar 2025 10:25:30 -0700 (PDT)
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+	Bernhard Kaindl <bernhard.kaindl@cloud.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Juergen Gross <jgross@suse.com>,
+	Nick Rosbrook <rosbrookn@gmail.com>,
+	George Dunlap <gwd@xenproject.org>
+Subject: [PATCH 00/11] Add support for exact-node memory claims
+Date: Fri, 14 Mar 2025 17:24:51 +0000
+Message-ID: <20250314172502.53498-1-alejandro.vallejo@cloud.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Tue, Mar 11, 2025 at 01:16:15PM +0200, Grygorii Strashko wrote:
-> diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-> index 7edf272386e3..fc6041724a13 100644
-> --- a/docs/man/xl.cfg.5.pod.in
-> +++ b/docs/man/xl.cfg.5.pod.in
-> @@ -3126,6 +3126,21 @@ single SCMI OSPM agent support.
->  Should be used together with B<dom0_scmi_smc_passthrough> Xen command line
->  option.
->  
-> +=item B<scmi_smc_multiagent>
-> +
-> +Enables ARM SCMI SMC multi-agent support for the guest by enabling SCMI over
-> +SMC calls forwarding from domain to the EL3 firmware (like Trusted Firmware-A)
-> +with a multi SCMI OSPM agent support. The SCMI B<agent_id> should be
-> +specified for the guest.
-> +
-> +=back
+The Xen toolstack supports claiming memory ahead of allocating it with the
+intent of assisting bootstorms of massive VMs. This works ok for general VMs,
+but falls appart miserably whenever the toolstack attempts to force placement
+of specific NUMA nodes.
 
-This new =back shouldn't exist in this patch, because there's no =over
-been added. This just fix a bug present in the previous patch.
+This series extends the in-hypervisor claim infrastructure to support per-node
+claims, and propagates the knob all the way to xl.cfg.
 
-> +
-> +=item B<agent_id=NUMBER>
-> +
-> +Specifies a non-zero ARM SCI agent id for the guest. This option is mandatory
-> +if the SCMI SMC support is enabled for the guest. The agent ids of domains
-> +existing on a single host must be unique.
+A worthy future goal is the support of multi-node claims per domain, but the
+objective of this series is far more modest and merely intends to enable
+claiming memory on a single node for specific domains. This solves a
+real-world use case of bundling many small VMs in a single NUMA machine.
 
-Are they other restriction on what agent_id value can be? I mean from
-the description -4242 is a valid value.
+The feature specifically allows combining domains with exact-node claims,
+general claims and no claims at all in a consistent fashion.
 
->  =back
->  
->  =back
-> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-> index 8e50f6b7c7ac..bc3c64d6ec90 100644
-> --- a/docs/misc/xen-command-line.pandoc
-> +++ b/docs/misc/xen-command-line.pandoc
-> @@ -1091,6 +1091,15 @@ which serves as Driver domain. The SCMI will be disabled for Dom0/hwdom and
->  SCMI nodes removed from Dom0/hwdom device tree.
->  (for example, thin Dom0 with Driver domain use-case).
->  
-> +### dom0_scmi_agent_id (ARM)
-> +> `= <integer>`
-> +
-> +The option is available when `CONFIG_SCMI_SMC_MA` is compiled in, and allows to
-> +enable SCMI functionality for Dom0 by specifying a non-zero ARM SCMI agent id.
-> +The SCMI will be disabled for Dom0 if this option is not specified
-> +(for example, thin Dom0 or dom0less use-cases).
-> +The agent ids of domains existing on a single host must be unique.
-> +
->  ### dtuart (ARM)
->  > `= path [:options]`
->  
-> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-> index d41adea1cefd..cdf5edb299af 100644
-> --- a/tools/libs/light/libxl_arm.c
-> +++ b/tools/libs/light/libxl_arm.c
-> @@ -229,6 +229,10 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
->      case LIBXL_ARM_SCI_TYPE_SCMI_SMC:
->          config->arch.arm_sci_type = XEN_DOMCTL_CONFIG_ARM_SCI_SCMI_SMC;
->          break;
-> +    case LIBXL_ARM_SCI_TYPE_SCMI_SMC_MULTIAGENT:
-> +        config->arch.arm_sci_type = XEN_DOMCTL_CONFIG_ARM_SCI_SCMI_SMC_MA;
-> +        config->arch.arm_sci_agent_id = d_config->b_info.arm_sci.agent_id;
-> +        break;
->      default:
->          LOG(ERROR, "Unknown ARM_SCI type %d",
->              d_config->b_info.arm_sci.type);
-> diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-> index ea0d30654cdd..e6707c7ca9e7 100644
-> --- a/tools/libs/light/libxl_types.idl
-> +++ b/tools/libs/light/libxl_types.idl
-> @@ -553,11 +553,13 @@ libxl_sve_type = Enumeration("sve_type", [
->  
->  libxl_arm_sci_type = Enumeration("arm_sci_type", [
->      (0, "none"),
-> -    (1, "scmi_smc")
-> +    (1, "scmi_smc"),
-> +    (2, "scmi_smc_multiagent")
->      ], init_val = "LIBXL_ARM_SCI_TYPE_NONE")
->  
->  libxl_arm_sci = Struct("arm_sci", [
->      ("type", libxl_arm_sci_type),
-> +    ("agent_id", uint8)
+Alejandro Vallejo (11):
+  xen/memory: Mask XENMEMF_node() to 8 bits
+  xen/page_alloc: Remove `claim` from domain_set_outstanding_pages()
+  xen/page_alloc: Add static per-node counts of free pages
+  xen: Add node argument to
+    domain_{adjust_tot_pages,set_outstanding_pages}()
+  xen: Create per-node outstanding claims
+  xen/page_alloc: Hook per-node claims to alloc_heap_pages()
+  xen/page_alloc: Set node affinity when claiming pages from an exact
+    node
+  xen/memory: Enable parsing NUMA node argument in XENMEM_claim_pages
+  tools/xc: Add `node` argument to xc_domain_claim_pages()
+  tools/xl: Expose a "claim_on_node" setting in xl.cfg
+  docs/man: Document the new claim_on_node option
 
-Is it necessary to limit this value to a 8-bit value here? Skimming
-through the Xen code, it seems that that value can be 32-bits at times,
-but just restricted to 8-bits in the hypercall.
-
->      ])
->  
->  libxl_rdm_reserve = Struct("rdm_reserve", [
-> diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-> index ac9bf0b25c5a..011222ec55b9 100644
-> --- a/tools/xl/xl_parse.c
-> +++ b/tools/xl/xl_parse.c
-> @@ -1324,11 +1327,24 @@ static int parse_arm_sci_config(XLU_Config *cfg, libxl_arm_sci *arm_sci,
->                  tok = ptr + 1;
->              }
->              break;
-> +        case STATE_AGENT_ID:
-> +            if (*ptr == ',' || *ptr == '\0') {
-> +                state = *ptr == ',' ? STATE_OPTION : STATE_TERMINAL;
-> +                *ptr = '\0';
-> +                arm_sci->agent_id = strtoul(tok, NULL, 0);
-
-You should check that the value returned by strtoul() is actually valid
-and does fit in `agent_id`.
-
-> +                tok = ptr + 1;
-> +            }
->          default:
->              break;
->          }
->      }
->  
-> +    if (arm_sci->type == LIBXL_ARM_SCI_TYPE_SCMI_SMC_MULTIAGENT &&
-> +        arm_sci->agent_id == 0) {
-> +        fprintf(stderr, "A non-zero ARM_SCI agent_id must be specified\n");
-> +        goto parse_error;
-> +    }
-> +
->      if (tok != ptr || state != STATE_TERMINAL)
->          goto parse_error;
->  
-> @@ -3042,6 +3058,7 @@ skip_usbdev:
->          libxl_arm_sci arm_sci = { 0 };
->          if (!parse_arm_sci_config(config, &arm_sci, buf)) {
->              b_info->arm_sci.type = arm_sci.type;
-> +            b_info->arm_sci.agent_id = arm_sci.agent_id;
-
-I just realise that it's probably enough to call
-parse_arm_sci_config(.., &b_info->arm_sci) instead of declaring
-another local `arm_sci` variable. Or is it necessary to have a different
-variable somehow?
-
->          } else {
->              exit(EXIT_FAILURE);
->          }
-
-Thanks,
+ docs/man/xl-numa-placement.7.pod     |   8 ++
+ docs/man/xl.1.pod.in                 |   2 +-
+ docs/man/xl.cfg.5.pod.in             |  14 +++
+ tools/golang/xenlight/helpers.gen.go |   2 +
+ tools/golang/xenlight/types.gen.go   |   1 +
+ tools/include/xenctrl.h              |   1 +
+ tools/include/xenguest.h             |   7 ++
+ tools/libs/ctrl/xc_domain.c          |  13 ++-
+ tools/libs/guest/xg_dom_core.c       |   1 +
+ tools/libs/guest/xg_dom_x86.c        |  22 ++---
+ tools/libs/light/libxl_dom.c         |   2 +
+ tools/libs/light/libxl_types.idl     |   3 +-
+ tools/xl/xl_parse.c                  |  11 +++
+ xen/arch/x86/mm.c                    |   3 +-
+ xen/arch/x86/mm/mem_sharing.c        |   4 +-
+ xen/common/domain.c                  |   2 +-
+ xen/common/grant_table.c             |   4 +-
+ xen/common/memory.c                  |  25 +++++-
+ xen/common/page_alloc.c              | 125 ++++++++++++++++++++++-----
+ xen/include/public/memory.h          |   5 +-
+ xen/include/xen/mm.h                 |   6 +-
+ xen/include/xen/sched.h              |   3 +
+ 22 files changed, 216 insertions(+), 48 deletions(-)
 
 -- 
+2.48.1
 
-Anthony Perard | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
 
