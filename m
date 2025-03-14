@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76959A617BD
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 18:32:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.914976.1320662 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE16CA617A2
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 18:30:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.914922.1320551 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt8t9-00056M-La; Fri, 14 Mar 2025 17:32:03 +0000
+	id 1tt8rr-0008QH-1B; Fri, 14 Mar 2025 17:30:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 914976.1320662; Fri, 14 Mar 2025 17:32:03 +0000
+Received: by outflank-mailman (output) from mailman id 914922.1320551; Fri, 14 Mar 2025 17:30:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt8t9-00051h-Fu; Fri, 14 Mar 2025 17:32:03 +0000
-Received: by outflank-mailman (input) for mailman id 914976;
- Fri, 14 Mar 2025 17:32:01 +0000
+	id 1tt8rq-0008O9-Ue; Fri, 14 Mar 2025 17:30:42 +0000
+Received: by outflank-mailman (input) for mailman id 914922;
+ Fri, 14 Mar 2025 17:30:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SsSs=WB=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1tt8nL-0003IK-5c
- for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 17:26:03 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
+ id 1tt8nM-0003IK-8K
+ for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 17:26:04 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6720e508-00f9-11f0-9ab9-95dc52dad729;
- Fri, 14 Mar 2025 18:26:02 +0100 (CET)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-ac2bb7ca40bso444803866b.3
- for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 10:26:02 -0700 (PDT)
+ id 67bd6e5a-00f9-11f0-9ab9-95dc52dad729;
+ Fri, 14 Mar 2025 18:26:03 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-ab7430e27b2so432440766b.3
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 10:26:03 -0700 (PDT)
 Received: from localhost.localdomain ([66.81.170.107])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac3146aeb24sm250677566b.9.2025.03.14.10.25.55
+ a640c23a62f3a-ac3146aeb24sm250677566b.9.2025.03.14.10.26.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Mar 2025 10:26:01 -0700 (PDT)
+ Fri, 14 Mar 2025 10:26:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,39 +45,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6720e508-00f9-11f0-9ab9-95dc52dad729
+X-Inumbo-ID: 67bd6e5a-00f9-11f0-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1741973162; x=1742577962; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1741973163; x=1742577963; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=WOoPVJhq5a/XEAMxWlBgBdgROSgA1Iks8/9HeBPk9Vk=;
-        b=kwFwRMX/icEl6/PGslirYjI0YHysECTgiUie6QxjAMGhIO4TflSp4N3km3+a/X41sL
-         cQ+R2bTWSrc8NYu64P3lwFMGfz+uiBJyZi3NSMAZvruHu7lnTyypHn6VinkqeuFviVR7
-         vjhFRtsXf/xACzengGUDi/AasZH3M7P5cVMEM=
+        bh=VE78O4y1CQrjvnjU/sv6CX84h6wiIa5A36mM72fUABs=;
+        b=Jvk38QZZ8GOKvvSiZGYZSjtelHZW2dNvfUFuoydPbJKSRl7lIqiNBwL4HWHrGHYxzq
+         0GUZ3aZY7S+6dIFa1P24UzjTfn1t5JF3DSghqx+01XeJeNTuf/X7Z2Mc4Gfh+eUmuq97
+         TdwAyTP5lVBraGsHaPYzTX2+Vx+KmqxBPgllU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741973162; x=1742577962;
+        d=1e100.net; s=20230601; t=1741973163; x=1742577963;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=WOoPVJhq5a/XEAMxWlBgBdgROSgA1Iks8/9HeBPk9Vk=;
-        b=N8JJA5BFNRvZDmvCGZPmSvHYC9jQtAnhZuvADBoc5IZlatT4iVujxTNIQOX3oIUXBI
-         sd7yRldV460cjYJM3vFJuuNtsEA7mwtOvsUUdB1Vz1j65ibj24NZkPEI1Q2xwqUlTIlx
-         8WVFfVbDI4hr+1qdCCyS17a4VNFHupQvLGRqKXqPSrGXqptVn+xQt9IM3zkLz02eKVvi
-         CXhy1ozyZXsKBu4BJQgkPR6dEBmWkn860Lm/HBUJrTKx1hR2FGryaerPdXkFxj+kOCJT
-         y9qB1NId7oREdkag8zQzCCIxEaz9ySVRKhO9REP3BOiUHFv/sBWeMoFxZq1LqOwcqYyK
-         vdwg==
-X-Gm-Message-State: AOJu0Yxa+/cjQ8xamjrkNoNTJd8fGh55oNXe2By+1dQxyQoqG2mOQvTE
-	1Tue16Te/UQq9fvQhKvgWPY5zFKSum4WFiH+e952OD+3KzgMZsH6qrF85CsRsvDBI2U/BKMcpzI
-	v
-X-Gm-Gg: ASbGncuyvzvwWZ5uoS5LymcQGsGtrZwzfllBAshJ7K8+V3bJDPKPT9gO4KjlUGnDPFc
-	/OnOyxCYySnjlBYrWJgFQE82sM075EQaaBq7dXmSt2JcDGdkmQ2HDpDXomUkfa0u95BBMfaAz57
-	32cnRTit2t4wQ6ufgYS0kHqu4cA9IY14DE82HytwKuCn0yMqpOrFRA0X/Ra2YXRwxN+wbubC08j
-	70aWBEX1IxkZN5j/NigJKVkqJpe2XgVOQyqRUeGz4k+uXK2l9M7BnKZ3jbhppYbn0JhURQeZput
-	tHcIc0vO0CRDlj8bvixfokxKOxhQIU0zzwVpgal876ARCo1uBUYsKF0qbkSA/ssRi7E=
-X-Google-Smtp-Source: AGHT+IH7BlA4vCgTd4VLYiuH5xIPV1du5rzeNPEjhgKwzB0hRnTvUWdLLIXdHbXU2JzPDm4QdcUwAg==
-X-Received: by 2002:a17:907:9713:b0:ac2:7e56:5ca5 with SMTP id a640c23a62f3a-ac3302771cdmr393348266b.34.1741973161918;
-        Fri, 14 Mar 2025 10:26:01 -0700 (PDT)
+        bh=VE78O4y1CQrjvnjU/sv6CX84h6wiIa5A36mM72fUABs=;
+        b=oSacrO302I0aOdbuGOzi6WQsB3EYS4tnY0pdrv+x6anmvxjLbZE66rA0iaFnlmj6qD
+         CHy/sTRskQtquKa4NGEgamm+x4nYqqKy1v4808bx28KDHFUaoyRcoZfq2urwTz0v+z0P
+         06sP0wBECT4LkgIUI1Rr3N00BiwjjwU/cY2OSfiKULNhIyfyEVpA0kAPrDeiMhxI4KKA
+         yJTBq7PMyAFS9reMGZ4MBBxtK0irMXr0zxV4ZX6MwbEJaZAp6R5bd+KgPgKBW3v9vt39
+         pquzvXDv7x3CalkrVV+fQJyJ9XXvE3HG9ofZslMLvXYY7aAB75kk1J3uBJDR/huvRpTy
+         t3pQ==
+X-Gm-Message-State: AOJu0YzxKB1vMonfEVkQRMzu3Qa5yeUq1SUlN8pU6W7N9/dUSgZnRCV2
+	kMNU3Nqus52FG0SvsiYKZ2yvHstyMPImUCZHiCWY+7vydOin6bUD4G+ao5Gh13/4FQJFnXtgZci
+	O
+X-Gm-Gg: ASbGncshsLxQiJwHma+wZMCKhXes2CrnlJcOSWumvTyfmWYnvzZdUV83GjWDmdLnfbp
+	aNcloptpnVGGLBZ+0X8xuYtPqKoyS5NQFug4M0zi3+ekV8iyXWjLEy5xFxy793zbS5thBIH4T7h
+	2nL+v2jE+svQ/ObVGpkI2DMzdn9Sh5oj/hYBTk6hYn0TGyRw0GB3qiIpO2vK7e1OizdB61aNIRS
+	Ypg3rXG32cUHQGMdeMRqIyJOiDFlHOXHwHMdeX2FcxLAH40aH7fA1QnClsY5tSxs9kbS6udd4he
+	I2khJDGMHDO5iZl9OetkZiC/h/p1Pj+92F7VKfjhIBtvxXuPrTjUzTt3VU4K1QQq9Fs=
+X-Google-Smtp-Source: AGHT+IEdopHbhE1LscWV8fC/ITAGnDYTgseivOma1qqY5jAv9prfwdGhdthegQG/gWPHu/DlBzBzUA==
+X-Received: by 2002:a17:907:2d91:b0:ac2:d6d1:fe65 with SMTP id a640c23a62f3a-ac3303bb742mr421704566b.41.1741973162944;
+        Fri, 14 Mar 2025 10:26:02 -0700 (PDT)
 From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: xen-devel@lists.xenproject.org
 Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
@@ -89,54 +89,78 @@ Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH 07/11] xen/page_alloc: Set node affinity when claiming pages from an exact node
-Date: Fri, 14 Mar 2025 17:24:58 +0000
-Message-ID: <20250314172502.53498-8-alejandro.vallejo@cloud.com>
+Subject: [PATCH 08/11] xen/memory: Enable parsing NUMA node argument in XENMEM_claim_pages
+Date: Fri, 14 Mar 2025 17:24:59 +0000
+Message-ID: <20250314172502.53498-9-alejandro.vallejo@cloud.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250314172502.53498-1-alejandro.vallejo@cloud.com>
 References: <20250314172502.53498-1-alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Set the domain's node affinity to the claimed node if the claim
-specified an exact node. Do it immediately before making any changes in
-case setting the affinity fails (even though it shouldn't).
-
-This allows preferentially allocating from the closest NUMA node when
-"exact" is not specified (e.g: p2m tables, etc).
+Extract a NUMA node from mem_flags. This _must_ be an exact node, and
+has the semantics of making a claim on a specific node.
 
 Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 ---
-Toolstacks can just do it themselves, but it's more error prone. If it
-claimed pages from an exact node (and remember we can only hold a single
-claim at a time) it makes no sense for the domain to be intentionally
-allocating from NUMA nodes other than its home node.
----
- xen/common/page_alloc.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ xen/common/memory.c | 23 ++++++++++++++++++++---
+ 1 file changed, 20 insertions(+), 3 deletions(-)
 
-diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index cfaa64d3b858..e69a5fcc8d31 100644
---- a/xen/common/page_alloc.c
-+++ b/xen/common/page_alloc.c
-@@ -586,10 +586,16 @@ int domain_set_outstanding_pages(struct domain *d, nodeid_t node,
+diff --git a/xen/common/memory.c b/xen/common/memory.c
+index 1ab0bac4e7da..28f9db89ba62 100644
+--- a/xen/common/memory.c
++++ b/xen/common/memory.c
+@@ -1659,6 +1659,9 @@ long do_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+         break;
  
-     if ( node != NUMA_NO_NODE )
-     {
--        avail_pages = pernode_avail_pages[node] - pernode_oc[node];
-+        nodemask_t affinity = NODE_MASK_NONE;
- 
-+        avail_pages = pernode_avail_pages[node] - pernode_oc[node];
-         if ( pages > avail_pages )
-             goto out;
+     case XENMEM_claim_pages:
++    {
++        nodeid_t node;
 +
-+        node_set(node, affinity);
-+        ret = domain_set_node_affinity(d, &affinity);
-+        if ( ret )
-+            goto out;
-     }
+         if ( unlikely(start_extent) )
+             return -EINVAL;
  
-     /* yay, claim fits in available memory, stake the claim, success! */
+@@ -1671,9 +1674,23 @@ long do_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+         if ( reservation.extent_order != 0 )
+             return -EINVAL;
+ 
+-        if ( reservation.mem_flags != 0 )
++        /* Only allow NUMA-related memory flags to claim on exact nodes */
++        if ( (reservation.mem_flags &
++              !XENMEMF_exact_node(XENMEMF_node_mask - 1)) != 0 )
+             return -EINVAL;
+ 
++        node = XENMEMF_get_node(reservation.mem_flags);
++        if ( node != NUMA_NO_NODE )
++        {
++            /* Disallow advisory nodes. If present, must be exact */
++            if ( !(reservation.mem_flags & XENMEMF_exact_node_request) )
++                return -EINVAL;
++
++            /* Disallow nodes that would overflow the in-hypervisor arrays */
++            if ( node >= MAX_NUMNODES )
++                return -EINVAL;
++        }
++
+         d = rcu_lock_domain_by_id(reservation.domid);
+         if ( d == NULL )
+             return -EINVAL;
+@@ -1681,13 +1698,13 @@ long do_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+         rc = xsm_claim_pages(XSM_PRIV, d);
+ 
+         if ( !rc )
+-            rc = domain_set_outstanding_pages(d, NUMA_NO_NODE,
+-                                              reservation.nr_extents);
++            rc = domain_set_outstanding_pages(d, node, reservation.nr_extents);
+ 
+         rcu_unlock_domain(d);
+ 
+         break;
+ 
++    }
+     case XENMEM_get_vnumainfo:
+     {
+         struct xen_vnuma_topology_info topology;
 -- 
 2.48.1
 
