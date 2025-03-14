@@ -2,38 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FE26A6065D
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 01:03:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.913649.1319601 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AEDBA60703
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 02:21:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.913680.1319611 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tssWF-0005en-PM; Fri, 14 Mar 2025 00:03:19 +0000
+	id 1tstjN-0006cH-6D; Fri, 14 Mar 2025 01:20:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 913649.1319601; Fri, 14 Mar 2025 00:03:19 +0000
+Received: by outflank-mailman (output) from mailman id 913680.1319611; Fri, 14 Mar 2025 01:20:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tssWF-0005cw-Mm; Fri, 14 Mar 2025 00:03:19 +0000
-Received: by outflank-mailman (input) for mailman id 913649;
- Fri, 14 Mar 2025 00:03:18 +0000
+	id 1tstjN-0006as-1K; Fri, 14 Mar 2025 01:20:57 +0000
+Received: by outflank-mailman (input) for mailman id 913680;
+ Fri, 14 Mar 2025 01:20:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vXxa=WB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tssWE-0005co-8u
- for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 00:03:18 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=X8m4=WB=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1tstjK-0006ah-Rq
+ for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 01:20:56 +0000
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b511d01f-0067-11f0-9898-31a8f345e629;
- Fri, 14 Mar 2025 01:03:07 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-390fdaf2897so1348056f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 13 Mar 2025 17:03:06 -0700 (PDT)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395cb318a5fsm3670582f8f.79.2025.03.13.17.03.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Mar 2025 17:03:05 -0700 (PDT)
+ id 8b4c62c7-0072-11f0-9898-31a8f345e629;
+ Fri, 14 Mar 2025 02:20:41 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,185 +36,302 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b511d01f-0067-11f0-9898-31a8f345e629
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741910586; x=1742515386; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=p9N4YCcvK7R6tymxQcV9qGbYvN5kXJlP7prQksHWdZM=;
-        b=cemcnH76MyGVZAUjAnRn0d7zdp+qtUgwWVjxDGAzxBNG3eWLZY1R875Dr0BfRd9/nj
-         Y9b8q+95ZdqcMW2FKK8jZEnwfw+/ch7PAZbOdnV1dz45Vd3uMtqM/DIMiqJMsSNV1G33
-         Dp2a1+SMU+FBSMCez6lrXJfNmgq85UMYk31sI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741910586; x=1742515386;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=p9N4YCcvK7R6tymxQcV9qGbYvN5kXJlP7prQksHWdZM=;
-        b=CUye1FJBywQFfaR74pAo8gTRaoVyBG/Zaq4gTUgGyLsiXjvftMXwUjjff2CVkN87Jg
-         SllW74o7KHC5fe5gsv6mUjTBuV4TBQVOyMuuTewIkOKT+9LjX95Vc6fcswLO1B+wRu57
-         qjQJ+p0bGdPTG9xQTMbTLWOu0rnmAkN3p39RzhPuBO6jWnwL6UPlk2D+sLVSichvf8Eg
-         2c6iypRgxh9QnMGW0pUspxy77ZE/v5f/7zsSwQvGlehAO4v7wyi0Xr6FfABzUfAwfpXS
-         PN60vUV3v8/kVvnVGLWJ836zTalW+niqjJLkNw7gXLQaZzyzygfs929Qss8IpCJMXEev
-         +afw==
-X-Forwarded-Encrypted: i=1; AJvYcCWw4KjqSqNeKMotkPdKzUjUtBakf5eiLegK4VBrrPdSAhuR8gkaP4wslQ8yQgpTFm6PmvVV/M6Zono=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwrrdoNkccEuGjrV5RymO0wIXUhyKxliFE3Tvt+UQRBXoViYIi4
-	XS4OzvMaPwLo66+lrWeRC4KYxjT3WarX6PoqRkgU4WolDabIfU5uy13tBE2SDCg=
-X-Gm-Gg: ASbGnctopjm2n2Uw7ZzgvxZlCzei4Qn2hdTSbuoQZpcVdAVdeQrEDFHL9iexlsO5XMP
-	uQoPEP4MscqCtFoOGho/586RPpINvf6Bfk7aC61NfmJhPefgdRe/UfitCJoobVaPZHIvjMry3ma
-	VMKX5KqNVodRMMcGpgLEVov6ZiJkjEEseQl1uBqJz4XROF2yNIQ1XdrzzozwaxECoEv367PUNQS
-	cbMk+psj6psSfqTeqHNkqp01fws44hTsdHDhKbytOUD/FKy7QKlozb9a5nyrkefqEnOvzYLaqiU
-	XXl2n7bmFuV9ZJXKGzdnh0zdCQKfHkyiM4enmjZvFn820BfD0/HOmdQ68pIDhddzSqG5DQRt/6J
-	ex6EfB8Yd
-X-Google-Smtp-Source: AGHT+IGo+QWGU8vkG7O6/BZFtmjCXBL+Y8JvHmQQRZKkAPVIYRAN3NPaY0QXzTuAcSxEpFugU0C0gQ==
-X-Received: by 2002:a05:6000:2c7:b0:391:2e7:67ff with SMTP id ffacd0b85a97d-3971dce07bcmr421562f8f.10.1741910586353;
-        Thu, 13 Mar 2025 17:03:06 -0700 (PDT)
-Message-ID: <d3fa362b-0a4b-47e5-860b-d85183730379@citrix.com>
-Date: Fri, 14 Mar 2025 00:03:03 +0000
+X-Inumbo-ID: 8b4c62c7-0072-11f0-9898-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1741915240; x=1742174440;
+	bh=d/FeSQcbrR3V+F32qIcaQA6q7A6YDnF+ZPVJg1zOWfc=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector:
+	 List-Unsubscribe:List-Unsubscribe-Post;
+	b=Sx8vmCrvKLt520g07xg8eGB2Uu42iRURM1DLO3q+jd3gzOk75eVba/tEuVZFR/Ti+
+	 iTviC/XGHWed8Npz2S4kayogkdi/D1cCxPXL3kOI2yO80NV2abHmFD71a+s2Ix/c94
+	 6lmNbjYcG9u/SSRWhHtt1DtRPrCVc2nIiM/pxXfnZ6tpznIZDAbeSjG9GRcI5i0+2L
+	 xt72wMZrm8y5A9qC5y0/rQxgMsS+lAVCeVfjWmENipFWPzeRnY7nt/XawRf5T7QeZr
+	 rm4piaftjibyAvblcROQKFrFc0oCFSq0Ros/KZCNOstrcf9UxxVL0yigngFLpiXU2Q
+	 fT1i9CvstQ0RQ==
+Date: Fri, 14 Mar 2025 01:20:35 +0000
+To: xen-devel@lists.xenproject.org
+From: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
+Subject: [PATCH] x86/irq: use NR_ISAIRQS instead of open-coded value
+Message-ID: <20250314011528.2608217-1-dmukhin@ford.com>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: 163c1ec1db06e885859b1bb0ce361c103b1b997d
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: Update minimum toolchain requirements
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250307175435.3089686-1-andrew.cooper3@citrix.com>
- <05057b1c-cca1-4495-b037-47a896ab9f6f@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <05057b1c-cca1-4495-b037-47a896ab9f6f@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 10/03/2025 8:18 am, Jan Beulich wrote:
-> On 07.03.2025 18:54, Andrew Cooper wrote:
->> GCC 4.1.2 is from 2007, and Binutils 2.16 is a similar vintage.  Clang 3.5 is
->> from 2014.  Supporting toolchains this old is a massive development and
->> testing burden.
->>
->> Set a minimum baseline of GCC 5.1 across the board, along with Binutils 2.25
->> which is the same age.  These were chosen *3 years ago* as Linux's minimum
->> requirements because even back then, they were ubiquitous in distros.
-> I'm certainly fine with this bump, but my main earlier request remains: I'd
-> like it to be clear up front what the criteria are going to be for future
-> bumps. Imo what Linux does is at best a data point; we don't need to follow
-> what they do.
+Replace the open-coded value 16 with the NR_ISAIRQS symbol to enhance
+readability.
 
-I'm reluctant to try and put anything in writing, because it will just
-make the arguments worse.
+No functional changes.
 
-We can and may change the toolchain requirements at any point for any
-reason, depending on the situation.
+Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+---
+ xen/arch/x86/hvm/dm.c          |  2 +-
+ xen/arch/x86/hvm/irq.c         | 17 +++++++++--------
+ xen/arch/x86/hvm/vlapic.c      | 10 +++++-----
+ xen/arch/x86/hvm/vpic.c        |  4 ++--
+ xen/arch/x86/include/asm/irq.h |  2 +-
+ xen/arch/x86/io_apic.c         | 12 ++++++------
+ xen/arch/x86/irq.c             |  6 +++---
+ 7 files changed, 27 insertions(+), 26 deletions(-)
 
-Retpolines for Spectre-v2 are the obvious example.  That reset the
-compiler baseline to "bleeding edge plus secret patches" for all intents
-and purposes.  Distros also backported those patches into their older
-compilers.  Yes, we did eventually manage to make this conditional, but
-that's not terribly relevant.
+diff --git a/xen/arch/x86/hvm/dm.c b/xen/arch/x86/hvm/dm.c
+index a1f7a4d30a..36d47664e9 100644
+--- a/xen/arch/x86/hvm/dm.c
++++ b/xen/arch/x86/hvm/dm.c
+@@ -90,7 +90,7 @@ static int set_pci_intx_level(struct domain *d, uint16_t =
+domain,
+ static int set_isa_irq_level(struct domain *d, uint8_t isa_irq,
+                              uint8_t level)
+ {
+-    if ( isa_irq > 15 )
++    if ( isa_irq >=3D NR_ISAIRQS )
+         return -EINVAL;
+=20
+     switch ( level )
+diff --git a/xen/arch/x86/hvm/irq.c b/xen/arch/x86/hvm/irq.c
+index 1eab44defc..1f7d8ca43e 100644
+--- a/xen/arch/x86/hvm/irq.c
++++ b/xen/arch/x86/hvm/irq.c
+@@ -209,7 +209,7 @@ int hvm_isa_irq_assert(struct domain *d, unsigned int i=
+sa_irq,
+     unsigned int gsi =3D hvm_isa_irq_to_gsi(isa_irq);
+     int vector =3D -1;
+=20
+-    ASSERT(isa_irq <=3D 15);
++    ASSERT(isa_irq < NR_ISAIRQS);
+=20
+     spin_lock(&d->arch.hvm.irq_lock);
+=20
+@@ -231,7 +231,7 @@ void hvm_isa_irq_deassert(
+     struct hvm_irq *hvm_irq =3D hvm_domain_irq(d);
+     unsigned int gsi =3D hvm_isa_irq_to_gsi(isa_irq);
+=20
+-    ASSERT(isa_irq <=3D 15);
++    ASSERT(isa_irq < NR_ISAIRQS);
+=20
+     spin_lock(&d->arch.hvm.irq_lock);
+=20
+@@ -266,12 +266,12 @@ static void hvm_set_callback_irq_level(struct vcpu *v=
+)
+         if ( asserted && (hvm_irq->gsi_assert_count[gsi]++ =3D=3D 0) )
+         {
+             vioapic_irq_positive_edge(d, gsi);
+-            if ( gsi <=3D 15 )
++            if ( gsi < NR_ISAIRQS )
+                 vpic_irq_positive_edge(d, gsi);
+         }
+         else if ( !asserted && (--hvm_irq->gsi_assert_count[gsi] =3D=3D 0)=
+ )
+         {
+-            if ( gsi <=3D 15 )
++            if ( gsi < NR_ISAIRQS )
+                 vpic_irq_negative_edge(d, gsi);
+         }
+         break;
+@@ -328,7 +328,7 @@ int hvm_set_pci_link_route(struct domain *d, u8 link, u=
+8 isa_irq)
+     u8 old_isa_irq;
+     int i;
+=20
+-    if ( (link > 3) || (isa_irq > 15) )
++    if ( (link > 3) || (isa_irq >=3D NR_ISAIRQS) )
+         return -EINVAL;
+=20
+     spin_lock(&d->arch.hvm.irq_lock);
+@@ -440,7 +440,8 @@ void hvm_set_callback_via(struct domain *d, uint64_t vi=
+a)
+         {
+         case HVMIRQ_callback_gsi:
+             gsi =3D hvm_irq->callback_via.gsi;
+-            if ( (--hvm_irq->gsi_assert_count[gsi] =3D=3D 0) && (gsi <=3D =
+15) )
++            if ( (--hvm_irq->gsi_assert_count[gsi] =3D=3D 0) &&
++                 (gsi < NR_ISAIRQS) )
+                 vpic_irq_negative_edge(d, gsi);
+             break;
+         case HVMIRQ_callback_pci_intx:
+@@ -464,7 +465,7 @@ void hvm_set_callback_via(struct domain *d, uint64_t vi=
+a)
+                   (hvm_irq->gsi_assert_count[gsi]++ =3D=3D 0) )
+         {
+             vioapic_irq_positive_edge(d, gsi);
+-            if ( gsi <=3D 15 )
++            if ( gsi < NR_ISAIRQS )
+                 vpic_irq_positive_edge(d, gsi);
+         }
+         break;
+@@ -764,7 +765,7 @@ static int cf_check irq_check_link(const struct domain =
+*d,
+             return -EINVAL;
+=20
+     for ( link =3D 0; link < ARRAY_SIZE(pci_link->route); link++ )
+-        if ( pci_link->route[link] > 15 )
++        if ( pci_link->route[link] >=3D NR_ISAIRQS )
+         {
+             printk(XENLOG_G_ERR
+                    "HVM restore: PCI-ISA link %u out of range (%u)\n",
+diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
+index 065b2aab5b..7511d6c434 100644
+--- a/xen/arch/x86/hvm/vlapic.c
++++ b/xen/arch/x86/hvm/vlapic.c
+@@ -123,7 +123,7 @@ static void vlapic_error(struct vlapic *vlapic, unsigne=
+d int err_bit)
+              * will end up back here.  Break the cycle by only injecting L=
+VTERR
+              * if it will succeed, and folding in RECVILL otherwise.
+              */
+-            if ( (lvterr & APIC_VECTOR_MASK) >=3D 16 )
++            if ( (lvterr & APIC_VECTOR_MASK) >=3D NR_ISAIRQS )
+                 inj =3D true;
+             else
+                 set_bit(ilog2(APIC_ESR_RECVILL), &vlapic->hw.pending_esr);
+@@ -136,7 +136,7 @@ static void vlapic_error(struct vlapic *vlapic, unsigne=
+d int err_bit)
+=20
+ bool vlapic_test_irq(const struct vlapic *vlapic, uint8_t vec)
+ {
+-    if ( unlikely(vec < 16) )
++    if ( unlikely(vec < NR_ISAIRQS) )
+         return false;
+=20
+     if ( hvm_funcs.test_pir &&
+@@ -150,7 +150,7 @@ void vlapic_set_irq(struct vlapic *vlapic, uint8_t vec,=
+ uint8_t trig)
+ {
+     struct vcpu *target =3D vlapic_vcpu(vlapic);
+=20
+-    if ( unlikely(vec < 16) )
++    if ( unlikely(vec < NR_ISAIRQS) )
+     {
+         vlapic_error(vlapic, ilog2(APIC_ESR_RECVILL));
+         return;
+@@ -523,7 +523,7 @@ void vlapic_ipi(
+         struct vlapic *target =3D vlapic_lowest_prio(
+             vlapic_domain(vlapic), vlapic, short_hand, dest, dest_mode);
+=20
+-        if ( unlikely((icr_low & APIC_VECTOR_MASK) < 16) )
++        if ( unlikely((icr_low & APIC_VECTOR_MASK) < NR_ISAIRQS) )
+             vlapic_error(vlapic, ilog2(APIC_ESR_SENDILL));
+         else if ( target )
+             vlapic_accept_irq(vlapic_vcpu(target), icr_low);
+@@ -531,7 +531,7 @@ void vlapic_ipi(
+     }
+=20
+     case APIC_DM_FIXED:
+-        if ( unlikely((icr_low & APIC_VECTOR_MASK) < 16) )
++        if ( unlikely((icr_low & APIC_VECTOR_MASK) < NR_ISAIRQS) )
+         {
+             vlapic_error(vlapic, ilog2(APIC_ESR_SENDILL));
+             break;
+diff --git a/xen/arch/x86/hvm/vpic.c b/xen/arch/x86/hvm/vpic.c
+index 6427b08086..c4ff96a2ad 100644
+--- a/xen/arch/x86/hvm/vpic.c
++++ b/xen/arch/x86/hvm/vpic.c
+@@ -523,7 +523,7 @@ void vpic_irq_positive_edge(struct domain *d, int irq)
+     uint8_t mask =3D 1 << (irq & 7);
+=20
+     ASSERT(has_vpic(d));
+-    ASSERT(irq <=3D 15);
++    ASSERT(irq < NR_ISAIRQS);
+     ASSERT(vpic_is_locked(vpic));
+=20
+     TRACE_TIME(TRC_HVM_EMUL_PIC_POSEDGE, irq);
+@@ -541,7 +541,7 @@ void vpic_irq_negative_edge(struct domain *d, int irq)
+     uint8_t mask =3D 1 << (irq & 7);
+=20
+     ASSERT(has_vpic(d));
+-    ASSERT(irq <=3D 15);
++    ASSERT(irq < NR_ISAIRQS);
+     ASSERT(vpic_is_locked(vpic));
+=20
+     TRACE_TIME(TRC_HVM_EMUL_PIC_NEGEDGE, irq);
+diff --git a/xen/arch/x86/include/asm/irq.h b/xen/arch/x86/include/asm/irq.=
+h
+index f9ed5dc86c..c7a557133b 100644
+--- a/xen/arch/x86/include/asm/irq.h
++++ b/xen/arch/x86/include/asm/irq.h
+@@ -108,7 +108,7 @@ extern bool opt_noirqbalance;
+=20
+ extern int opt_irq_vector_map;
+=20
+-#define platform_legacy_irq(irq)=09((irq) < 16)
++#define platform_legacy_irq(irq)=09((irq) < NR_ISAIRQS)
+=20
+ void cf_check event_check_interrupt(void);
+ void cf_check invalidate_interrupt(void);
+diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
+index c6cf944811..e224fae80f 100644
+--- a/xen/arch/x86/io_apic.c
++++ b/xen/arch/x86/io_apic.c
+@@ -2715,15 +2715,15 @@ void __init ioapic_init(void)
+                               " than \"nr_irqs=3D\"\n");
+         max_gsi_irqs =3D nr_irqs;
+     }
+-    if ( max_gsi_irqs < 16 )
+-        max_gsi_irqs =3D 16;
++    if ( max_gsi_irqs < NR_ISAIRQS )
++        max_gsi_irqs =3D NR_ISAIRQS;
+=20
+     /* for PHYSDEVOP_pirq_eoi_gmfn guest assumptions */
+     if ( max_gsi_irqs > PAGE_SIZE * 8 )
+         max_gsi_irqs =3D PAGE_SIZE * 8;
+=20
+-    if ( !smp_found_config || skip_ioapic_setup || nr_irqs_gsi < 16 )
+-        nr_irqs_gsi =3D 16;
++    if ( !smp_found_config || skip_ioapic_setup || nr_irqs_gsi < NR_ISAIRQ=
+S )
++        nr_irqs_gsi =3D NR_ISAIRQS;
+     else if ( nr_irqs_gsi > max_gsi_irqs )
+     {
+         printk(XENLOG_WARNING "Limiting to %u GSI IRQs (found %u)\n",
+@@ -2736,8 +2736,8 @@ void __init ioapic_init(void)
+                   max(0U + num_present_cpus() * NR_DYNAMIC_VECTORS,
+                       8 * nr_irqs_gsi) :
+                   nr_irqs_gsi;
+-    else if ( nr_irqs < 16 )
+-        nr_irqs =3D 16;
++    else if ( nr_irqs < NR_ISAIRQS )
++        nr_irqs =3D NR_ISAIRQS;
+     printk(XENLOG_INFO "IRQ limits: %u GSI, %u MSI/MSI-X\n",
+            nr_irqs_gsi, nr_irqs - nr_irqs_gsi);
+ }
+diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
+index f35894577b..8c64cf1605 100644
+--- a/xen/arch/x86/irq.c
++++ b/xen/arch/x86/irq.c
+@@ -36,7 +36,7 @@
+ bool __read_mostly opt_noirqbalance;
+ boolean_param("noirqbalance", opt_noirqbalance);
+=20
+-unsigned int __read_mostly nr_irqs_gsi =3D 16;
++unsigned int __read_mostly nr_irqs_gsi =3D NR_ISAIRQS;
+ unsigned int __read_mostly nr_irqs;
+ integer_param("nr_irqs", nr_irqs);
+=20
+@@ -1525,7 +1525,7 @@ void desc_guest_eoi(struct irq_desc *desc, struct pir=
+q *pirq)
+ int pirq_guest_unmask(struct domain *d)
+ {
+     unsigned int pirq =3D 0, n, i;
+-    struct pirq *pirqs[16];
++    struct pirq *pirqs[NR_ISAIRQS];
+=20
+     do {
+         n =3D radix_tree_gang_lookup(&d->pirq_tree, (void **)pirqs, pirq,
+@@ -2113,7 +2113,7 @@ int get_free_pirq(struct domain *d, int type)
+=20
+     if ( type =3D=3D MAP_PIRQ_TYPE_GSI )
+     {
+-        for ( i =3D 16; i < nr_irqs_gsi; i++ )
++        for ( i =3D NR_ISAIRQS; i < nr_irqs_gsi; i++ )
+             if ( is_free_pirq(d, pirq_info(d, i)) )
+             {
+                 pirq_get_info(d, i);
+--=20
+2.34.1
 
-Here, I've proposed several concrete things which would be good to use,
-and that we cannot because the baseline is too old.
 
-And that's how it's always going to be.  We move forwards when there's a
-good enough reason to, and the downsides are tolerable.
-
-
-The Linux aspect is a datapoint, but it's an important one; it means
-that anyone building Linux (i.e. ~all of our target audience) already
-has these tools.  That is "there's no real downside" put a little less
-bluntly.
->>  Choose
->> Clang/LLVM 11 as a baseline for similar reasons; the Linux commit making this
->> change two years ago cites a laudry list of code generation bugs.
-> I'm less happy about this one. It'll mean I now also need to arrange for
-> building Clang on my own, which so far I was quite happy to be able to avoid.
-
-Prebuilt binaries are available. 
-https://github.com/ClangBuiltLinux/tc-build has instructions for local
-builds, and a script which tries to help out with what to turn off.
-
-Everything in GitlabCI is available locally from within xen.git itself
-via automation/scripts/containerize.  There's also FreeBSD testing
-available via CirrusCI.
-
-The reason for going with Clang/LLVM 11 is because it's a known entity,
-and is already 5 years old, and it's necessary if we want to use
-asm_goto, which was one of the key justifications for making the jump.
-
-> Tangentially, as also mentioned during earlier discussions, it would also be
-> nice to have an understanding what other basic platform components (e.g.
-> coreutils) are required to fulfill certain minimal requirements. While
-> putting in place a custom toolchain is (to me at least) relatively easy,
-> doing the same for other base platform software isn't. For some of the very
-> old systems I try to keep testing Xen on, extra requirements there may mean
-> that building Xen there isn't going to be possible anymore. Which in turn
-> may mean running the toolstack (built on a newer distro) there may also not
-> be possible anymore. Which would, perhaps severely, limit the usefulness of
-> such testing attempts.
-
-As before, I don't expect us to change things unless there is a good
-reason to.
-
-That said, a few things come to mind:
-
-We need to drop Python2 support at some point.  It's substantially EOL,
-and we're about to drop the last test environment that has it (IIRC).
-
-Make 3.80 is also ancient, and I'm still irritated at not being able to
-use $(abspath) to fix XEN_ROOT.  We have an insane amount of ../../../
-embedded in our binaries and debug symbols because of how XEN_ROOT is
-constructed.
-
-~Andrew
 
