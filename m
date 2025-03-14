@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E650A6106E
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 12:52:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.914473.1320221 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F322A6107F
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 12:58:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.914483.1320232 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt3Zm-00005D-OG; Fri, 14 Mar 2025 11:51:42 +0000
+	id 1tt3fx-0000jL-Db; Fri, 14 Mar 2025 11:58:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 914473.1320221; Fri, 14 Mar 2025 11:51:42 +0000
+Received: by outflank-mailman (output) from mailman id 914483.1320232; Fri, 14 Mar 2025 11:58:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt3Zm-0008U6-La; Fri, 14 Mar 2025 11:51:42 +0000
-Received: by outflank-mailman (input) for mailman id 914473;
- Fri, 14 Mar 2025 11:51:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tt3fx-0000hR-AL; Fri, 14 Mar 2025 11:58:05 +0000
+Received: by outflank-mailman (input) for mailman id 914483;
+ Fri, 14 Mar 2025 11:58:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vXxa=WB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tt3Zl-0008U0-LY
- for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 11:51:41 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b0c1dc05-00ca-11f0-9898-31a8f345e629;
- Fri, 14 Mar 2025 12:51:39 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-4394a823036so19151665e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 04:51:39 -0700 (PDT)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d2010e2d6sm14747385e9.38.2025.03.14.04.51.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Mar 2025 04:51:38 -0700 (PDT)
+ <SRS0=OT8H=WB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tt3fw-0000hL-Be
+ for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 11:58:04 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9538a44f-00cb-11f0-9ab9-95dc52dad729;
+ Fri, 14 Mar 2025 12:58:03 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-ac2c663a3daso410437766b.2
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 04:58:03 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ a640c23a62f3a-ac314a481absm213702966b.155.2025.03.14.04.58.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 Mar 2025 04:58:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,143 +44,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b0c1dc05-00ca-11f0-9898-31a8f345e629
+X-Inumbo-ID: 9538a44f-00cb-11f0-9ab9-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741953099; x=1742557899; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qEJdKHXE6RtavgHtntvlabHtXHCsQrpAhTpDHoqeno0=;
-        b=i/yno4a/OuhoiuqvUdtXepKkvRyVKzLmCa7VlPWMmM3BhypWIKSh5aXluO5rat0zK2
-         yTYwQkc9dUsYeBKK6KnH6chVtENZbhaqB9MRa8CVqrPXzLr9C8/QYQHN0FgPWl06EBWa
-         IbXcaLbdaW5mkQcZpVJNYroU6brnMjhsCut5U=
+        d=citrix.com; s=google; t=1741953482; x=1742558282; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=diYV6dIuO25gXeIAUwd6amf3ebUeI4QccQeZLYBE8jQ=;
+        b=tXIjd3EaxWnhNCW2yA0VzXhnAff4bWsvJF9/ADeaKoqxImzJYtiy981Q+3JKYpKO6/
+         WZr1fREscxvGlbnfcKcwoYZq7VeAX5NYOQ7yvKarXpy1dvBSMCT2z5KRo4fpVv2y0gLY
+         Zw/XByr1XBcujIy1p/9zj+aco/3xQx/ovIkKo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741953099; x=1742557899;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qEJdKHXE6RtavgHtntvlabHtXHCsQrpAhTpDHoqeno0=;
-        b=Lv/dwyw25cufDMWeprlrcj93pEyHqjdmQDuQTRxeb1r2lnFiuUWj9MJQXfUW4+uyDU
-         61cFDBZbFz6Hu65U4ap4t1ajy+1pqnPzpqv4he8HgD4OLNHTYf0LeASQqzD0SSCB4Sj9
-         ynwyFPhhAPqt9RZ0a4lAr/AUgPgN+4EYnAWN1TvK7BjUUOx4dHajQVLUOcayF9UTIh/h
-         lD+mtLXcqBGbhtd8hV61ihFmA+kas2nc++4yboQzh5+B7BZe2DdaCUeL97byWnRAXEp0
-         sArBlhqxxjhPTjXks/ujUGT+ghDslqpz1OD0d6FBcDjkILhvIezzC8leJIKSS4OG0vwV
-         tOYA==
-X-Gm-Message-State: AOJu0Yw6k9erpu1jF/cW18a1zG3tN6bBzId+c1LLe27kYLCbnamuIoI3
-	449tWOZvYIEXtPG7JFVVZtLi2aBeaap5J3wB+1C1sGMz7fllmQp5iwsBVwVyF8Y=
-X-Gm-Gg: ASbGnctCJ4B9H0+drRL/UkGRoDS720tYJ/LFyNResYrn5C5ORlNeCAl2g+K6wHCJYwG
-	djgfdlQ34A94WJLEvTdG5L+wI9AEXcHzx/HBO7/4+MPDTTwNdSYYdrhvR+Ee7bL9SNAgwZJKCIz
-	mmr1D1XI1507xnvqYMdZi3Uoq7AntoJUpyZafmGbws1u6cItPhbAYU6bHluQYEhYE562W04zgjn
-	lzQvZDBv2qBe3/eeDuLTo/OfxxVv5JWx3ZBhQeu378zUX1SXFucP9fPFfxFVlLUIk98A57X8WP7
-	H7OMjcMGSdLh/N6sO7BWdrfZ4mskuy0ZM0g1rbgYwKYu0aMcZYnECP0rahKxiNdFjCVsN+4px6D
-	4fsXVZBbUk9M1uBf69jE=
-X-Google-Smtp-Source: AGHT+IE4P5btkh4L53YO2AF5/aRIr9FYAJQKm4GZIG/ehuJwh6VMMLDN5uDIepSiyJKweizlQ4ImDQ==
-X-Received: by 2002:a05:600c:46d1:b0:43c:eec7:eab7 with SMTP id 5b1f17b1804b1-43d1ec81224mr32412935e9.11.1741953099013;
-        Fri, 14 Mar 2025 04:51:39 -0700 (PDT)
-Message-ID: <a7765286-36d9-4c33-835a-6d836b4ffef6@citrix.com>
-Date: Fri, 14 Mar 2025 11:51:37 +0000
+        d=1e100.net; s=20230601; t=1741953482; x=1742558282;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=diYV6dIuO25gXeIAUwd6amf3ebUeI4QccQeZLYBE8jQ=;
+        b=U2qBjU11I6SUSyR5JRzhH50yIaRvZiGxIQfkrIYiq/wVMaV6vIfAFJhr6iOskdkf4E
+         DY9/fDXbdMlCshMAmpQbHJx6mBGwsK57kRATlE7GwaeubssY2ruPBQ6Okjbmln6C33X8
+         PvE6ZPT1d1HrfJEWnIG5Ee8fnH5BpAQcfY0E82v9YLFAPipmAND6WhL68lT+gtPwXrpo
+         vIU5TGarPmn/YxSaBgDpWUZybaFRl+NT9RRtqzVUNs6B60oi7dhicvyoDB2VrJxsHnMP
+         GRWqWBEtkjhm8SoirOtIee1wzPJG0Gy/kBxQVtBj9QZgE4Up8NeJWPgnJlAb04NtkSad
+         NXGQ==
+X-Gm-Message-State: AOJu0YwqIW1plMg1Ng5Q2NYMiC1luSg8SpMMyMBA5YxEN/sdzu6cIA6s
+	fH2Evljx2pcIjRioQAXezk8emGVffRR5qTFN59DXcXIqquzlS1Dd7O2AZIO3vmo=
+X-Gm-Gg: ASbGnct6KlYh7VY3bWqVhQIJwuVF+5zrN/km1mb/XQ5uwoDV7UI4wMsPMBGxNaPjjmr
+	chejoP+OwNJscavHna71I8Kz8ovEUUozx92znlwymMbVwq3USn0Yy65dedym4QQc0anSYHc5APt
+	PjPdPoZM7BWOiV4SH22Y1PmLIjcNYpjGFgYA340qSiTOU3Z2xt2AFQiXNiAjz7BNZiHS1mxLVCR
+	wM7xsko0wv4mf8CD6Z3fMaUTl7uMM71EkKSTIOSZ/5sN7gd3AkRhql/CAq88uXBaa6IUNMS3c3L
+	KAB0bWgCStNB2Gq9f/5ylNgRydfAKcmVwCFNRrEFuphkmoAqzQ==
+X-Google-Smtp-Source: AGHT+IGokwH9TN2+OP4RunZx7cQfcyuwNl8HrCXUjT8j8RbmCR1BAbRxF6n36P6EtF1tKuLZL3U9HQ==
+X-Received: by 2002:a17:907:9694:b0:abf:72c1:6e6c with SMTP id a640c23a62f3a-ac3303bce6bmr289987466b.45.1741953482521;
+        Fri, 14 Mar 2025 04:58:02 -0700 (PDT)
+Date: Fri, 14 Mar 2025 12:58:01 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 6/7] x86/vga: fix mapping of the VGA text buffer
+Message-ID: <Z9QZyYUz2qJxjUmp@macbook.local>
+References: <20250313153029.93347-1-roger.pau@citrix.com>
+ <20250313153029.93347-7-roger.pau@citrix.com>
+ <8ce7caae-8bf6-4ba2-8705-399129a411b6@citrix.com>
+ <Z9QHU-KozrXR95sL@macbook.local>
+ <16149a89-4b77-4498-84a7-66810e6f0815@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] VT-d: Adjust diagnostics in set_msi_source_id()
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Jan Beulich <JBeulich@suse.com>
-References: <20250314095523.4096604-1-andrew.cooper3@citrix.com>
- <Z9QB0ymmaygrFFUc@macbook.local>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <Z9QB0ymmaygrFFUc@macbook.local>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <16149a89-4b77-4498-84a7-66810e6f0815@suse.com>
 
-On 14/03/2025 10:15 am, Roger Pau Monné wrote:
-> On Fri, Mar 14, 2025 at 09:55:23AM +0000, Andrew Cooper wrote:
->> Use %pd, and state what the unknown is.  As it's an enum, it's a signed type.
->>
->> Also drop one piece of trailing whitespace.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+On Fri, Mar 14, 2025 at 12:23:32PM +0100, Jan Beulich wrote:
+> On 14.03.2025 11:39, Roger Pau Monné wrote:
+> > (resending because I seem to have inadvertently corrupted the Cc field)
+> > 
+> > On Thu, Mar 13, 2025 at 07:39:58PM +0000, Andrew Cooper wrote:
+> >> On 13/03/2025 3:30 pm, Roger Pau Monne wrote:
+> >>> The call to ioremap_wc() in video_init() will always fail, because
+> >>> video_init() is called ahead of vm_init_type(), and so the underlying
+> >>> __vmap() call will fail to allocate the linear address space.
+> >>>
+> >>> Fix by reverting to the previous behavior and using the directmap entries
+> >>> in the low 1MB.  Note the VGA text buffer directmap entries are also
+> >>> adjusted to map the VGA text buffer as WC instead of UC-.
+> >>>
+> >>> Fixes: 81d195c6c0e2 ('x86: introduce ioremap_wc()')
+> >>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> >>> ---
+> >>>  xen/arch/x86/boot/x86_64.S        | 10 +++++++---
+> >>>  xen/arch/x86/include/asm/config.h |  5 +++++
+> >>>  xen/drivers/video/vga.c           | 11 ++++++++---
+> >>>  3 files changed, 20 insertions(+), 6 deletions(-)
+> >>>
+> >>> diff --git a/xen/arch/x86/boot/x86_64.S b/xen/arch/x86/boot/x86_64.S
+> >>> index 26b9d1c2df9a..07f4bdf46e31 100644
+> >>> --- a/xen/arch/x86/boot/x86_64.S
+> >>> +++ b/xen/arch/x86/boot/x86_64.S
+> >>> @@ -84,15 +84,19 @@ ENTRY(__high_start)
+> >>>  /*
+> >>>   * Mapping of first 2 megabytes of memory. This is mapped with 4kB mappings
+> >>>   * to avoid type conflicts with fixed-range MTRRs covering the lowest megabyte
+> >>> - * of physical memory. In any case the VGA hole should be mapped with type UC.
+> >>> + * of physical memory. VGA hole should be mapped with type UC, with the
+> >>> + * exception of the text buffer that uses WC.
+> >>>   * Uses 1x 4k page.
+> >>>   */
+> >>>  l1_directmap:
+> >>>          pfn = 0
+> >>>          .rept L1_PAGETABLE_ENTRIES
+> >>> -        /* VGA hole (0xa0000-0xc0000) should be mapped UC-. */
+> >>> -        .if pfn >= 0xa0 && pfn < 0xc0
+> >>> +        /* VGA hole (0xa0000-0xb8000) should be mapped UC-. */
+> >>> +        .if pfn >= 0xa0 && pfn < 0xb8
+> >>>          .quad (pfn << PAGE_SHIFT) | __PAGE_HYPERVISOR_UCMINUS | _PAGE_GLOBAL | MAP_SMALL_PAGES
+> >>> +        /* VGA text buffer (0xb80000-0xc0000) should be mapped WC. */
+> >>> +        .elseif pfn >= 0xb8 && pfn < 0xc0
+> >>> +        .quad (pfn << PAGE_SHIFT) | __PAGE_HYPERVISOR_WC | _PAGE_GLOBAL | MAP_SMALL_PAGES
+> >>>          .else
+> >>>          .quad (pfn << PAGE_SHIFT) | PAGE_HYPERVISOR_RWX | MAP_SMALL_PAGES
+> >>>          .endif
+> >>
+> >> We have to be careful doing this.
+> >>
+> >> It probably is safe to use WC in the pagetables.  We don't start using
+> >> the pagetables until after we're sure we're on a 64bit CPU, which means
+> >> WC is available.
+> >>
+> >> However, doing so now means that we need explicit SFENCE's when using
+> >> this, even in places like early_error.  The IN/OUT instructions do flush
+> >> WC buffers, but the UART is written to before the screen, so there's a
+> >> chance that you'll lose the final character of the message on the screen.
+> > 
+> > I don't think early_error will ever use this mapping.
+> > 
+> > `vga_text_buffer` contains the address 0xb8000, and AFAICT it's
+> > exclusively used with paging disabled (as the multiboot2 efi path
+> > explicitly sets vga_text_buffer = 0).  The WC mapping created above is
+> > on the directmap, so va > DIRECTMAP_VIRT_START.
+> > 
+> > vga_text_puts() might need such SFENCE, but arguably that should be a
+> > different patch IMO.  Might be best to ask Jan whether this is on
+> > purpose?
+> 
+> I think that was wrongly omitted before already.
 
-Thanks.
+OK, so we should likely have an SFENCE in vga_text_puts() then.
 
->
->> ---
->> CC: Jan Beulich <JBeulich@suse.com>
->> CC: Roger Pau Monné <roger.pau@citrix.com>
->> ---
->>  xen/drivers/passthrough/vtd/intremap.c | 10 +++++-----
->>  1 file changed, 5 insertions(+), 5 deletions(-)
->>
->> diff --git a/xen/drivers/passthrough/vtd/intremap.c b/xen/drivers/passthrough/vtd/intremap.c
->> index 81394ef45299..9272a2511398 100644
->> --- a/xen/drivers/passthrough/vtd/intremap.c
->> +++ b/xen/drivers/passthrough/vtd/intremap.c
->> @@ -485,15 +485,15 @@ static int set_msi_source_id(const struct pci_dev *pdev,
->>          else
->>          {
->>              dprintk(XENLOG_WARNING VTDPREFIX,
->> -                    "d%d: no upstream bridge for %pp\n",
->> -                    pdev->domain->domain_id, &pdev->sbdf);
->> +                    "%pd: no upstream bridge for %pp\n",
->> +                    pdev->domain, &pdev->sbdf);
->>              return -ENXIO;
->>          }
->>          break;
->>  
->>      default:
->> -        dprintk(XENLOG_WARNING VTDPREFIX, "d%d: unknown(%u): %pp\n",
->> -                pdev->domain->domain_id, pdev->type, &pdev->sbdf);
->> +        dprintk(XENLOG_WARNING VTDPREFIX, "%pd: %pp unknown device type %d\n",
->> +                pdev->domain, &pdev->sbdf, pdev->type);
-> Would be nice to have a pdev_type_to_str() or similar helper.
+> > My hypothesis is that the SFENCE might only be needed in
+> > video_endboot() and before reboot if Xen crashed ahead of
+> > relinquishing the VGA console.
+> 
+> This might suffice for being able to see the final picture, but it may
+> result in display artifacts earlier on.
+> 
+> Question is whether simply undoing the ioremap_wc() (for not functioning
+> correctly) isn't going to be good enough.
 
-In this case, I think we'd only get UNKNOWN out of it, based on what
-else the switch() handles.
+Yeah, that was indeed my first approach, as I was under the impression
+that not use WC wouldn't make that much of a difference in the text
+buffer (as opposed to not using WC for the frame buffer).  But then I
+saw that making the directmap mappings of the text buffer WC wasn't
+that complicated.
 
-~Andrew
+> Prior to the change to use that,
+> we had been using UC- quite okay (even if a bit slow). An option may be
+> to make a WC mapping a little later, when __vmap() is usable.
+
+Hm, yes, that's another possibility, albeit it seems to add even more
+complexity, for a display mode that I assume is not that used anymore.
+Otherwise someone would have complained of not getting any output
+since 81d195c6c0e2?
+
+If there are no further objections I will just revert to use ioremap()
+and leave it like that.
+
+Thanks, Roger.
 
