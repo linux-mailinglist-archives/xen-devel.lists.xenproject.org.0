@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B040A619F8
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 20:00:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.915336.1320861 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E8A3A61B1D
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 20:54:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.915356.1320892 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ttAGc-0000aV-5m; Fri, 14 Mar 2025 19:00:22 +0000
+	id 1ttB6O-0002dZ-7O; Fri, 14 Mar 2025 19:53:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 915336.1320861; Fri, 14 Mar 2025 19:00:22 +0000
+Received: by outflank-mailman (output) from mailman id 915356.1320892; Fri, 14 Mar 2025 19:53:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ttAGc-0000Zs-32; Fri, 14 Mar 2025 19:00:22 +0000
-Received: by outflank-mailman (input) for mailman id 915336;
- Fri, 14 Mar 2025 19:00:20 +0000
+	id 1ttB6O-0002a4-3s; Fri, 14 Mar 2025 19:53:52 +0000
+Received: by outflank-mailman (input) for mailman id 915356;
+ Fri, 14 Mar 2025 19:53:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vXxa=WB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ttAGa-0000Zm-Ad
- for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 19:00:20 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ id 1ttB6M-0002Zx-2k
+ for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 19:53:50 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9212e32b-0106-11f0-9899-31a8f345e629;
- Fri, 14 Mar 2025 20:00:18 +0100 (CET)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5e033c2f106so3425713a12.3
- for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 12:00:18 -0700 (PDT)
+ id 09845876-010e-11f0-9899-31a8f345e629;
+ Fri, 14 Mar 2025 20:53:45 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-ac27cb35309so390373066b.2
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 12:53:45 -0700 (PDT)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5e816968c0csm2294723a12.22.2025.03.14.12.00.14
+ a640c23a62f3a-ac3147f0e4esm264417566b.72.2025.03.14.12.53.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Mar 2025 12:00:16 -0700 (PDT)
+ Fri, 14 Mar 2025 12:53:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9212e32b-0106-11f0-9899-31a8f345e629
+X-Inumbo-ID: 09845876-010e-11f0-9899-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1741978818; x=1742583618; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1741982024; x=1742586824; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=h+8Kl7blnO9v5TZlqRALsYQmVX9kUG7y67xsP3zzOrw=;
-        b=jSCEMtQe4hLSAtkpyPYWMODY/rYoyw2T0129jNSnTRqUApFYdF2ZRrxbYfN2J1IrsS
-         4sLp3RCHc9apOqitGwg15/eDAo97as/3MG1bgn2MxRzD9jjAeTStScpuhXhcx7mgJZ9y
-         9Oq1C/zThtmnoChgscc+eeobHFzm+t3FD/zZc=
+        bh=OlCdn30LuLx3jkLNkZf5pQ4aorBumVllxG/LbpbOxaU=;
+        b=YMuYJe2lX/YIxomEsk4PSmhiIw+Un4RiGKWa5xhW5eKjdG4EwIzNsoNRYod/lnPUpP
+         +eKOsE7d6GYp3U0k+xy/uy/CISj9uYtj8O2PpceOZ9C8uHCD+RxVudhC4bYjPBBxUDvO
+         ksVGcC3NVjPNMdaTdoUQKoelkA+qMQUZfrYNM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741978818; x=1742583618;
+        d=1e100.net; s=20230601; t=1741982024; x=1742586824;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=h+8Kl7blnO9v5TZlqRALsYQmVX9kUG7y67xsP3zzOrw=;
-        b=ZJGyq83eQ3TtxvXs/ejlT9L7RjI8LCzZyVcipls82xI7tyP8gdfnc3+oQtWb0LkXHX
-         p07O01OlXaCrA9AOcAQBZsjy38ol22vTnic9ucgCLts5ffjB9BDYW5GyCnP3K7P/glTM
-         ue3IU/RGXy0uzofm6SLR5x0JpPcIAMFU/F7MyNJU4u8RLgJn8b5DeStydSBY2Uqmd4Z/
-         Igss4N3U4BhnahGRX4Nw7xrmSThhKXmWW12gYsj6EwXjt3wO99OQp2Ure+7bGB7gtHaP
-         EcCeUskTSjJHE9DKHBxw+HJvfkIi1W6r5OoeRGt1WZai5WVoSEL/lcFauVM2u6yLutdu
-         mfLg==
-X-Gm-Message-State: AOJu0YxeFfsGdOjmhRjNH7eYcUfxd6vcwp7BcygVIWLfwobzXP53vs7W
-	N1JLHlf7Kfd3NQbmcinTiSPgqgE2OyoVfL/ngyXg+EuDyJJlxMXGhZHdD8U1z34=
-X-Gm-Gg: ASbGnctE8LMOkgqTzlMk2D5x4JQ6ho6TO0mF2JyUkHHaTMzzAxhnqIF+K+Wx0EO59cF
-	ht3e8us/kZBPpsKL20Nl3JhHg1vPVKxeSWrUJ044f7U/Vp+g9TnPFDbOl4GXxICIv5kq2FcUNE2
-	hiIz9NuE7Q5vqNIoBy+U3rBTSYeZm1Jw8XCbMRpdcUIlHgsdC5a03SNSIYZ3byb7B36g0heQFtY
-	j2tjgnNxI6nbnknlplty0JyogRpHKkUCksZMmA3yGd/DPZXdlhpGooBbljef6UeNjhupMvNzcZn
-	6/7+2GQ1QQDiIIATChmQW+C0oeqb5vPXujXEc7VbYnxScTDIMhwc1Sm3EKrJxa9oKDjze0Ppq84
-	Qf6veIQ4O
-X-Google-Smtp-Source: AGHT+IHj0qoL6oFmnJA7gqWxYpdXj2oRyAuGyxveI0rFSreEYmI+A/jEj2nJwQxxVVn1nzNAg2NFvA==
-X-Received: by 2002:a05:6402:348d:b0:5e7:b015:ad42 with SMTP id 4fb4d7f45d1cf-5e8a0bf3c68mr4757722a12.28.1741978817595;
-        Fri, 14 Mar 2025 12:00:17 -0700 (PDT)
-Message-ID: <82348f8b-7e5e-43ab-8eab-975d84cdda46@citrix.com>
-Date: Fri, 14 Mar 2025 19:00:14 +0000
+        bh=OlCdn30LuLx3jkLNkZf5pQ4aorBumVllxG/LbpbOxaU=;
+        b=iNN++//ew0OhK9LCfbiHkNEEzS+hbEWts4VS2uzozmj87PoQYhRruEs1yWGfDVMocG
+         tCePgL1SsijHrh55ZOBgqzZCgTgJNFWPZWiXS522FxNX3ptgw3e9aTf0SiHMsMWP3nWX
+         QFJT/7pK08aQ8NzWSfJoA/nUA+wK9QlBC4Q9tqKbX8DUFSG8AuLdnEuoTUssR4483lB7
+         CKf8awS7VLmTm8W/XUhzHsToPihpC5kBP3J1CiygPk/pBJteXI7d2cnT3k3SBJEcxsms
+         HXkhNikVgCTZ1lRLXtg3DIYbkHdvhIDFG6J6GjhT/nfFkRHAq60+bpthw0ISHUaIFiOQ
+         pMGQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWrqjkHoHV9fAlr1yx3FRY2igDsAyuZXQXrqRPSlliIE15FIDDXMuuOolDOLrct8i2SlVICFDf66mM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz2OoLnVUkIjycg1yu+3P5Rz+Q9ruK1qGFpdzlCDuYFHKK1s3yh
+	jo4fO8tbOiTutHAk2EywxrV3dy5SjhWplEqFnTNk//7XWjENgQ+W/66F995h9Gdehj0jzYdvDsg
+	G
+X-Gm-Gg: ASbGnctfOmBcDYLiATH8X3lP0lV2eeLVNIX4KagdDLddW54OeCj1eNWiojr3z3yM5Jz
+	xZksmq6bv1WSUABbeUS/JfwJm5GzcVOF1B4bSh5dKv5xWyuP/vY0HN0LFatG5kHrgGezfF8vnm1
+	bnYDV2tq/erZNAioiN3m7T0FxDSeFiAKvzdOml8AcLsmX5SeTBs0YdFT/kBzoPqsVqES1c28iOK
+	KvuPuKOVY8MU9d1c4XOmP4rYDDuvkLJATforzz1YNDUfZrJWhM6Q8LlpZuglV8t5QcnM+AG/92w
+	QEYZmjY1e9tuG0h1T+RCWd/zsuTFcZiCbZ/opsAwST0ksPy8GiZtPYZPiULZ2DZrlm/H/sD3sF8
+	gvIPGmK7L
+X-Google-Smtp-Source: AGHT+IFmoDGu/19XzP4LypzCLyqsP2keYT1aY78OnGJIYaMVXmiqcSfo2hrhc/kJ8az5h+fVnjiz0Q==
+X-Received: by 2002:a17:907:7296:b0:ac2:92df:fab3 with SMTP id a640c23a62f3a-ac330181aaamr468296766b.16.1741982024469;
+        Fri, 14 Mar 2025 12:53:44 -0700 (PDT)
+Message-ID: <1a5ed8ad-0cc7-4e05-9b9c-cd6930d9b9ea@citrix.com>
+Date: Fri, 14 Mar 2025 19:53:43 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/boot: Fix zap_low_mappings() to map less of the
- trampoline
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jan Beulich <jbeulich@suse.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250106112652.579310-1-andrew.cooper3@citrix.com>
- <2f12f38e-9629-40fd-b532-6b6f82ecfe1f@suse.com>
- <4bff530c-9f96-4b59-b6cb-86349c576690@citrix.com>
- <0565db90-5734-4795-8988-efd3e72cc770@suse.com>
- <Z9FaeksA0d9Ms15m@macbook.local>
+Subject: Re: [PATCH v4] xen/console: make console buffer size configurable
+To: dmkhn@proton.me, xen-devel@lists.xenproject.org
+Cc: anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com
+References: <20250311070912.730334-1-dmkhn@proton.me>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -138,100 +136,82 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <Z9FaeksA0d9Ms15m@macbook.local>
+In-Reply-To: <20250311070912.730334-1-dmkhn@proton.me>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 12/03/2025 9:57 am, Roger Pau Monné wrote:
-> On Wed, Mar 12, 2025 at 09:31:37AM +0100, Jan Beulich wrote:
->> On 11.03.2025 21:47, Andrew Cooper wrote:
->>> On 06/01/2025 11:54 am, Jan Beulich wrote:
->>>> On 06.01.2025 12:26, Andrew Cooper wrote:
->>>>> Regular data access into the trampoline is via the directmap.
->>>>>
->>>>> As now discussed quite extensively in asm/trampoline.h, the trampoline is
->>>>> arranged so that only the AP and S3 paths need an identity mapping, and that
->>>>> they fit within a single page.
->>>>>
->>>>> Right now, PFN_UP(trampoline_end - trampoline_start) is 2, causing more than
->>>>> expected of the trampoline to be mapped.  Cut it down just the single page it
->>>>> ought to be.
->>>>>
->>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>>> Acked-by: Jan Beulich <jbeulich@suse.com>
->>> Thanks.  However,
->>>
->>>> on the basis that this improves things. However, ...
->>>>
->>>>> --- a/xen/arch/x86/x86_64/mm.c
->>>>> +++ b/xen/arch/x86/x86_64/mm.c
->>>>> @@ -718,14 +718,16 @@ void __init zap_low_mappings(void)
->>>>>  {
->>>>>      BUG_ON(num_online_cpus() != 1);
->>>>>  
->>>>> -    /* Remove aliased mapping of first 1:1 PML4 entry. */
->>>>> +    /* Stop using l?_bootmap[] mappings. */
->>>>>      l4e_write(&idle_pg_table[0], l4e_empty());
->>>>>      flush_local(FLUSH_TLB_GLOBAL);
->>>>>  
->>>>> -    /* Replace with mapping of the boot trampoline only. */
->>>>> +    /*
->>>>> +     * Insert an identity mapping of the AP/S3 part of the trampoline, which
->>>>> +     * is arranged to fit in a single page.
->>>>> +     */
->>>>>      map_pages_to_xen(trampoline_phys, maddr_to_mfn(trampoline_phys),
->>>>> -                     PFN_UP(trampoline_end - trampoline_start),
->>>>> -                     __PAGE_HYPERVISOR_RX);
->>>>> +                     1, __PAGE_HYPERVISOR_RX);
->>>> ... literal numbers like this - however well they are commented - are
->>>> potentially problematic to locate in case something changes significantly.
->>>> The 1 here really would want connecting with the .equ establishing
->>>> wakeup_stack.
->>> how do you propose doing this?
->>>
->>> PFN_UP(wakeup_stack - trampoline_start) doesn't have the same obvious
->>> connection, and it would involve partly undoing 7d73c6f196a5 which hid
->>> the symbol recently.
->>>
->>> While 1 isn't ideal, it is next to a comment explaining what's going on,
->>> and it's not going to go stale in a silent way...  (It's also not liable
->>> to go stale either.)
->> If in
->>
->>         .equ    wakeup_stack, trampoline_start + PAGE_SIZE
->>
->> PAGE_SIZE was replaced by a new (in asm/trampoline.h) TRAMPOLINE_PERM_SIZE,
->> you could use PFN_UP(TRAMPOLINE_PERM_SIZE) here to establish a connection.
->>
->> I have to admit I also don't really see why things going stale here would
->> (a) be unlikely and (b) be guaranteed to not go silently.
+On 11/03/2025 7:09 am, dmkhn@proton.me wrote:
+> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+> index 89db6e83be..a471a9f7ce 100644
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -425,10 +425,11 @@ The following are examples of correct specifications:
+>  ### conring_size
+>  > `= <size>`
+>  
+> -> Default: `conring_size=16k`
+> -
+>  Specify the size of the console ring buffer.
+>  
+> +The default console ring buffer size is selected at build time via
+> +CONFIG_CONRING_SHIFT setting.
 
-The size can't go to 0 or everything will break, and if it goes larger
-than 1 (which it almost certainly never will), then APs and/or S3 will
-break, and we've got both of these in CI.
+I am firmly in support of this option.  I've been carrying:
 
-Furthermore, the actual thing which matters is:
+-#define _CONRING_SIZE 16384
++#define _CONRING_SIZE KB(64)
 
-> /* Map the permanent trampoline page into l1_bootmap[]. */
-> mov     sym_esi(trampoline_phys), %ecx
-> lea     __PAGE_HYPERVISOR_RX(%ecx), %edx /* %edx = PTE to write  */
-> shr     $PAGE_SHIFT, %ecx                /* %ecx = Slot to write */
-> mov     %edx, sym_offs(l1_bootmap)(%esi, %ecx, 8)
+in the XenServer patchqueue for more than a decade now, seeing as the
+default simply isn't big enough.
 
-which hardcodes 1 page, because there's almost certainly no chance this
-will ever change.
 
->>  We just don't
->> know what we may need to add to the trampoline, sooner or later.
-> Maybe we could introduce trampoline_{ap?,runtime?}_{start,end} that
-> covers this more narrow section of the trampoline code?
+However, there's a subtlety which probably needs expanding on, now it's
+being discussed in documentation.
 
-We already have one of those, and a linker assertion that it stays below
-1k, so wakeup_stack is at least 3k.
+The new CONFIG_CONRING_SHIFT controls the size of of the buffer in
+.init.data.  We don't have .init.bss, so this affects the compiled size
+of Xen.
 
-The complexity is that the wakeup_stack overlays some init-only logic in
-the placed trampoline.  It's not something that exists concretely in the
-Xen image.
+The command line controls the size of the dynamic allocation.  This is
+effectively a realloc() of the .init buffer, and happens unconditionally
+whether the numbers are the same or not.
+
+opt_conring_size is guestimated in console_init_postirq() if the user
+hasn't chosen a value.  When allocating the runtime buffer, the larger
+of conring_size and opt_conring_size is taken, and then the buffer is
+progressively rounded by order until a successful allocation can be made.
+
+i.e. there's no sane relationship between the options given, and the
+eventual size of the buffer.
+
+In order to not drop boot messages, the .init.data needs to be large
+enough to contain the messages until console_init_ring() is run.  The
+situation could be improved by moving this as early as possible.
+
+
+Anyway, we obviously don't want to go into that detail, but it's also a
+little more complicated than currently given.
+
+
+Not for this patch, but if anyone is feeling at a loose end, `conring`
+and `conring_size` should become __ro_after_init, and
+console_init_ring() can become much more efficient by using 1 or 2
+memcpy()'s, rather than copying the ring a byte at a time.
+
+Also, "opt_conring_size = PAGE_SIZE << order" is UB when the user
+selects 2G size, as PAGE_SIZE is signed, and will overflow to 0 if the
+user selects 4G-or-more, and then all the masking logic breaks.
+
+Given that the size is rounded down without the users consent anyway,
+it's probably better to to just clamp a maximum.
+
+Finally, the buffer doesn't need to be aligned on it's size; it just
+needs to be contiguous (and even then, only for kexec).  Combined with
+the rounding-down, this might result in the buffer being unnecessarily
+smaller than requested.
+
+IIRC, ARM has another case which wants contiguous but not page aligned,
+and it would be nice to make this an available allocation option.
 
 ~Andrew
 
