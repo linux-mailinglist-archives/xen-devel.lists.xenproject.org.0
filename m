@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2589AA60C01
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 09:44:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.914074.1319893 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 410C6A60C2B
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 09:51:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.914093.1319901 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt0eM-0007OO-ST; Fri, 14 Mar 2025 08:44:14 +0000
+	id 1tt0lC-00020y-JX; Fri, 14 Mar 2025 08:51:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 914074.1319893; Fri, 14 Mar 2025 08:44:14 +0000
+Received: by outflank-mailman (output) from mailman id 914093.1319901; Fri, 14 Mar 2025 08:51:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt0eM-0007LC-Ny; Fri, 14 Mar 2025 08:44:14 +0000
-Received: by outflank-mailman (input) for mailman id 914074;
- Fri, 14 Mar 2025 08:44:13 +0000
+	id 1tt0lC-0001yb-Gu; Fri, 14 Mar 2025 08:51:18 +0000
+Received: by outflank-mailman (input) for mailman id 914093;
+ Fri, 14 Mar 2025 08:51:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gDv/=WB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tt0eL-00078H-IT
- for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 08:44:13 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ id 1tt0lA-0001yV-Hc
+ for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 08:51:16 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 80555e74-00b0-11f0-9898-31a8f345e629;
- Fri, 14 Mar 2025 09:44:11 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-43cf680d351so18487215e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 01:44:11 -0700 (PDT)
+ id 7c3e2939-00b1-11f0-9898-31a8f345e629;
+ Fri, 14 Mar 2025 09:51:14 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-390fdaf2897so1621125f8f.0
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 01:51:14 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d2010e618sm9998115e9.40.2025.03.14.01.44.10
+ ffacd0b85a97d-395c83b6b37sm4916561f8f.37.2025.03.14.01.51.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Mar 2025 01:44:10 -0700 (PDT)
+ Fri, 14 Mar 2025 01:51:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 80555e74-00b0-11f0-9898-31a8f345e629
+X-Inumbo-ID: 7c3e2939-00b1-11f0-9898-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1741941851; x=1742546651; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1741942274; x=1742547074; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=F2TzFYQkMyh1r3ab/xmonrYY8vjLg9ESkSpVC/smkf0=;
-        b=fvKw/4pLIIeOZZtWB8ssYLciaBNH1s7mdzQIWYalMKG11bWX6BDctp6swwbpAr+peX
-         5lK133taGUudL5w86fFdmxEY4r4cMUEwuHtHb45wo7D9QDpF5FXIJMtJOCZaAGAYF0IR
-         AMXFc8l1F8jLvq7Vg+hkECLPQt/6mzNop3+rJdUUqDonvl6TF+t/hlL6SoIF8qxH7Gf8
-         l0S/firxEssL1rS7AF+2F/R6U7//yi4oAtWdEVc2vXa7IjJaqNgOeXANOg3oobY0YHME
-         kYl2rVS1qeobaOG3ow9ihze1AOKrkdAp2E9bqdfmJMhrpvF+suVFKuCGrHDwC0RxXRBm
-         /lXQ==
+        bh=NZKQPJjOBvbwXWimtb+HpEUVwOR9avKHpxfrv5k7xys=;
+        b=WrX00fQwHaN7e1wL8flvY4knnTzRpFoaOY1HOkhytYU16+96cLhX0c6aQZLCwQRi8l
+         cvOucfkIRotyRyHxKKJ+8LteXhnWofDeH4tPlFIA65dAkC+ZwxKxSHOfdQUZwL9oM5WY
+         nnAJtJerdQo3kI1utJCU7QbCXDPeUUksGcWAj+VcUgF6geLs5mKzN/WCwNg8Nswe0R6M
+         hkhVpDIyzyQ04wUZWHR8y3dj1zHeCniAXONPA4REh1EmY8nZTprzyRRnRQZszk7Phmf8
+         DBz7KKr4mCbEXnt2HacNBpsuTUevzBH28kqSa66j1KCY98pT3m6RcavJz8lEMda1W5Sm
+         14tA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741941851; x=1742546651;
+        d=1e100.net; s=20230601; t=1741942274; x=1742547074;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=F2TzFYQkMyh1r3ab/xmonrYY8vjLg9ESkSpVC/smkf0=;
-        b=Jxsm8KLr1rBu/pO+5AWnM8tOY+4HQaWG7O6vTNGg7Ju1xFhTSeUwXWacS5NM48F0sC
-         ZE7vZbaYd+NDwLvsE54wcUpOYXAiQtAQUNAtydN/TTopokKBXYWeo00zYeGlUYbGccCr
-         +VOftbVWGKLbvbZS7fbqyjTx+7irr9bolAxaP8+D1sd0TBv7fjtv8dUzOf5boR3erUNT
-         mVmR58olToZ903941B93yDyKU+FqccjGl2Ei2IZnAf90LLQ1gQbRpCuk9iCiiPhBfZts
-         DJpj88+6/ccZHFLeCZYk5DH0ELwy0WCcEKWEgAJCwz+e/OnrF8lIHcW36eqU/VqEFT6p
-         ct7w==
-X-Forwarded-Encrypted: i=1; AJvYcCWjEv/089ImbTaYpFULgUjv3k8WIDuzYPosvRVFKz9WvxhqLY1xeZ4EAxBZfKxIgcoftXSpQ94DVug=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw/I0bd8llYl2+mcSd9XwJWhxe8/yiMyuyKchSCU4TpC2IMBmQH
-	/cNt2yJleYToMMQ04vNQhE0t1dN/p6HbvkPoqh4A8gptAZcM8h1x8bxSMf/vFA==
-X-Gm-Gg: ASbGnctSoYLzcvq7VcpefHB5+PWqNCRQT1nuJeZ30lVlXdsWP9XG+LleflqkLEwNikH
-	7mbj4QL6uOnI9clUm38otZVMvkowVTEe65zPC/V8be3UVg5fBiVUwQ0AVYvdcsD9HfOR9Hhwbx3
-	juV4jDb2UXrL3ViQf5jZ/YyFrRDzJVTO7W1DZebk7dYCY2hKGCeqHhe1eSnvnxdDNLm+oYB1zHd
-	yQBSlWsD4YgDzROjCA3AgEQrphrbdXz8xwhOvdh9a0dxNDmFv23SDQy9afr2yh7Y6+OtZWYgQDv
-	YRLVD8hdI8xt7MV5UFk+hh4BgS8m9d/c4pcpHF3VX44FDsq9HlmUB11eFTr+fwGeRLA/BwFbx5O
-	QtR1253qKew11b8dPLuPNwtWmjF+4SY6waKoFhEO4
-X-Google-Smtp-Source: AGHT+IG+BbEF00MaUVrJ4cWsUILLXm3xvrajbRLUJP+21BW2uY7N35jsXB5kkQAM5KxuyM5nabz7fA==
-X-Received: by 2002:a05:600c:2e49:b0:439:91c7:895a with SMTP id 5b1f17b1804b1-43d18077785mr52091545e9.7.1741941851129;
-        Fri, 14 Mar 2025 01:44:11 -0700 (PDT)
-Message-ID: <729fe31f-69d2-4b4f-8f2b-ac507a65fa27@suse.com>
-Date: Fri, 14 Mar 2025 09:44:10 +0100
+        bh=NZKQPJjOBvbwXWimtb+HpEUVwOR9avKHpxfrv5k7xys=;
+        b=l9h37TA2tvN9fdgX5HsnwMV0sKZk2u/3pl83DIWQUjvHvB3ThdSfpJjGs/nLGbh587
+         Q2yhY0LsRT2eQ+PlIvJM6uGgNTQHXO27c74ADgEGdmWkcDspFnrH2vPbLE10jnfE33w8
+         p+q984LdCRZZRMQivth/QCrRqqW2O3OUGThLyHjC9kGanUuveemv1qgca6VsLoB9fRsv
+         zkzk0QiAtWnaq1wxsaXvRriWY76MG32rPQ4NbyqN5qkqgUfCneIFqqo8dwqXX6dy+YsB
+         BjmdREPQb7VCTMboiG6y2fzDEh07uRxrwQZoRAewd9rTdQkO3NLBjH3E8OfbcqIR28KA
+         9J0A==
+X-Forwarded-Encrypted: i=1; AJvYcCVtQBRQdgyGuFwthPL/9D4DA9xaHfVkXimQonFJ5wDw+wKUMXFdlzNgwB9FnkHFo8amW7xLa5m2quY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxwZh+tSnGXaMp0lzipJYcs1wbCiPs9jKxRskTdDRsSSG80QkI1
+	9i285GTSRDinSx4PSxNEiKVIMfKYJzE4JHdg1LFOQrPfoZcfwz3sD0LGPRUGXw==
+X-Gm-Gg: ASbGncuNfWcDZLCzCsGi1bEEKTQDwpc4+Vcsl2MMKWjmkFYxpkl4bJk+racqHtZ3LTg
+	QKizi+tW95ewZkSdOeUtrqBe5aCqWeI3cxnzP1+hmK6m/K95kewJbZjYFYNu0bDSa/I+f68qDr2
+	Gje+NLcR0ck0hoWvilLrYj47Y9g+3t0EuPiyXXrdvibNOXqvdSGdC0HF9mYhUetneL+8HxSIEz9
+	EaNNJDOMN4plDc+xjEREI+1RURUTvmvf8Sl6rIrPjdKr54clPpTca70/wty6AkoFWohnLWbDW7T
+	QfswpRKP9op2VoWL5KHX/+ajmqvOVVCNTte54f4kSGkWrdnFp9LqzARZM+T0YfPsbNyWwOwZTZk
+	yKex3zfmHzLXhJ9dWQufsgy8Vhezlpw==
+X-Google-Smtp-Source: AGHT+IE7kcQ0xC+f+oLPER2GXtKYNBh0qZYfCpplu+yHPVdkdasU5yD+eL4gGtx/m/wSr0T624jtVQ==
+X-Received: by 2002:a05:6000:25e9:b0:38d:d666:5457 with SMTP id ffacd0b85a97d-3972029e75fmr1702406f8f.42.1741942273767;
+        Fri, 14 Mar 2025 01:51:13 -0700 (PDT)
+Message-ID: <2f365e4a-1d01-4f1c-85b4-25be22545822@suse.com>
+Date: Fri, 14 Mar 2025 09:51:12 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] x86/wait: prevent duplicated assembly labels
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250313153029.93347-1-roger.pau@citrix.com>
- <20250313153029.93347-3-roger.pau@citrix.com>
- <8c58e1d6-b591-4211-9364-fa586a5c6d2e@suse.com>
- <Z9PpI8KQnA_gHy9e@macbook.local>
+Subject: Re: [PATCH] x86/irq: use NR_ISAIRQS instead of open-coded value
+To: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com, xen-devel@lists.xenproject.org
+References: <20250314011528.2608217-1-dmukhin@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,64 +118,167 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Z9PpI8KQnA_gHy9e@macbook.local>
+In-Reply-To: <20250314011528.2608217-1-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 14.03.2025 09:30, Roger Pau Monné wrote:
-> On Fri, Mar 14, 2025 at 09:24:09AM +0100, Jan Beulich wrote:
->> On 13.03.2025 16:30, Roger Pau Monne wrote:
->>> When enabling UBSAN with clang, the following error is triggered during the
->>> build:
->>>
->>> common/wait.c:154:9: error: symbol '.L_wq_resume' is already defined
->>>   154 |         "push %%rbx; push %%rbp; push %%r12;"
->>>       |         ^
->>> <inline asm>:1:121: note: instantiated into assembly here
->>>     1 |         push %rbx; push %rbp; push %r12;push %r13; push %r14; push %r15;sub %esp,%ecx;cmp $4096, %ecx;ja .L_skip;mov %rsp,%rsi;.L_wq_resume: rep movsb;mov %rsp,%rsi;.L_skip:pop %r15; pop %r14; pop %r13;pop %r12; pop %rbp; pop %rbx
->>>       |                                                                                                                                ^
->>> common/wait.c:154:9: error: symbol '.L_skip' is already defined
->>>   154 |         "push %%rbx; push %%rbp; push %%r12;"
->>>       |         ^
->>> <inline asm>:1:159: note: instantiated into assembly here
->>>     1 |         push %rbx; push %rbp; push %r12;push %r13; push %r14; push %r15;sub %esp,%ecx;cmp $4096, %ecx;ja .L_skip;mov %rsp,%rsi;.L_wq_resume: rep movsb;mov %rsp,%rsi;.L_skip:pop %r15; pop %r14; pop %r13;pop %r12; pop %rbp; pop %rbx
->>>       |                                                                                                                                                                      ^
->>> 2 errors generated.
->>>
->>> The inline assembly block in __prepare_to_wait() is duplicated, thus
->>> leading to multiple definitions of the otherwise unique labels inside the
->>> assembly block.  GCC extended-asm documentation notes the possibility of
->>> duplicating asm blocks:
->>>
->>>> Under certain circumstances, GCC may duplicate (or remove duplicates of)
->>>> your assembly code when optimizing. This can lead to unexpected duplicate
->>>> symbol errors during compilation if your asm code defines symbols or
->>>> labels. Using ‘%=’ (see AssemblerTemplate) may help resolve this problem.
->>>
->>> Move the assembly blocks that deal with saving and restoring the current
->>> CPU context into it's own explicitly non-inline functions.  This prevents
->>> clang from duplicating the assembly blocks.  Just using noinline attribute
->>> seems to be enough to prevent assembly duplication, in the future noclone
->>> might also be required if asm block duplication issues arise again.
->>
->> Wouldn't it be a far easier / less intrusive change to simply append %= to
->> the label names?
+On 14.03.2025 02:20, dmkhn@proton.me wrote:
+> Replace the open-coded value 16 with the NR_ISAIRQS symbol to enhance
+> readability.
 > 
-> That won't work AFAICT, as the inline asm in check_wakeup_from_wait()
-> won't be able to make a jump to the .L_wq_resume label defined in the
-> __prepare_to_wait() assembly block if the label is declared as
-> .L_wq_resume%=.
+> No functional changes.
 > 
-> Also we want to make sure there's a single .L_wq_resume seeing how
-> check_wakeup_from_wait() uses it as the restore entry point?
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> ---
+>  xen/arch/x86/hvm/dm.c          |  2 +-
+>  xen/arch/x86/hvm/irq.c         | 17 +++++++++--------
+>  xen/arch/x86/hvm/vlapic.c      | 10 +++++-----
+>  xen/arch/x86/hvm/vpic.c        |  4 ++--
+>  xen/arch/x86/include/asm/irq.h |  2 +-
+>  xen/arch/x86/io_apic.c         | 12 ++++++------
+>  xen/arch/x86/irq.c             |  6 +++---
+>  7 files changed, 27 insertions(+), 26 deletions(-)
+> 
+> diff --git a/xen/arch/x86/hvm/dm.c b/xen/arch/x86/hvm/dm.c
+> index a1f7a4d30a..36d47664e9 100644
+> --- a/xen/arch/x86/hvm/dm.c
+> +++ b/xen/arch/x86/hvm/dm.c
+> @@ -90,7 +90,7 @@ static int set_pci_intx_level(struct domain *d, uint16_t domain,
+>  static int set_isa_irq_level(struct domain *d, uint8_t isa_irq,
+>                               uint8_t level)
+>  {
+> -    if ( isa_irq > 15 )
+> +    if ( isa_irq >= NR_ISAIRQS )
+>          return -EINVAL;
+>  
+>      switch ( level )
+> diff --git a/xen/arch/x86/hvm/irq.c b/xen/arch/x86/hvm/irq.c
+> index 1eab44defc..1f7d8ca43e 100644
+> --- a/xen/arch/x86/hvm/irq.c
+> +++ b/xen/arch/x86/hvm/irq.c
+> @@ -209,7 +209,7 @@ int hvm_isa_irq_assert(struct domain *d, unsigned int isa_irq,
+>      unsigned int gsi = hvm_isa_irq_to_gsi(isa_irq);
+>      int vector = -1;
+>  
+> -    ASSERT(isa_irq <= 15);
+> +    ASSERT(isa_irq < NR_ISAIRQS);
+>  
+>      spin_lock(&d->arch.hvm.irq_lock);
+>  
+> @@ -231,7 +231,7 @@ void hvm_isa_irq_deassert(
+>      struct hvm_irq *hvm_irq = hvm_domain_irq(d);
+>      unsigned int gsi = hvm_isa_irq_to_gsi(isa_irq);
+>  
+> -    ASSERT(isa_irq <= 15);
+> +    ASSERT(isa_irq < NR_ISAIRQS);
+>  
+>      spin_lock(&d->arch.hvm.irq_lock);
+>  
+> @@ -266,12 +266,12 @@ static void hvm_set_callback_irq_level(struct vcpu *v)
+>          if ( asserted && (hvm_irq->gsi_assert_count[gsi]++ == 0) )
+>          {
+>              vioapic_irq_positive_edge(d, gsi);
+> -            if ( gsi <= 15 )
+> +            if ( gsi < NR_ISAIRQS )
+>                  vpic_irq_positive_edge(d, gsi);
+>          }
+>          else if ( !asserted && (--hvm_irq->gsi_assert_count[gsi] == 0) )
+>          {
+> -            if ( gsi <= 15 )
+> +            if ( gsi < NR_ISAIRQS )
+>                  vpic_irq_negative_edge(d, gsi);
+>          }
+>          break;
+> @@ -328,7 +328,7 @@ int hvm_set_pci_link_route(struct domain *d, u8 link, u8 isa_irq)
+>      u8 old_isa_irq;
+>      int i;
+>  
+> -    if ( (link > 3) || (isa_irq > 15) )
+> +    if ( (link > 3) || (isa_irq >= NR_ISAIRQS) )
+>          return -EINVAL;
+>  
+>      spin_lock(&d->arch.hvm.irq_lock);
+> @@ -440,7 +440,8 @@ void hvm_set_callback_via(struct domain *d, uint64_t via)
+>          {
+>          case HVMIRQ_callback_gsi:
+>              gsi = hvm_irq->callback_via.gsi;
+> -            if ( (--hvm_irq->gsi_assert_count[gsi] == 0) && (gsi <= 15) )
+> +            if ( (--hvm_irq->gsi_assert_count[gsi] == 0) &&
+> +                 (gsi < NR_ISAIRQS) )
+>                  vpic_irq_negative_edge(d, gsi);
+>              break;
+>          case HVMIRQ_callback_pci_intx:
+> @@ -464,7 +465,7 @@ void hvm_set_callback_via(struct domain *d, uint64_t via)
+>                    (hvm_irq->gsi_assert_count[gsi]++ == 0) )
+>          {
+>              vioapic_irq_positive_edge(d, gsi);
+> -            if ( gsi <= 15 )
+> +            if ( gsi < NR_ISAIRQS )
+>                  vpic_irq_positive_edge(d, gsi);
+>          }
+>          break;
+> @@ -764,7 +765,7 @@ static int cf_check irq_check_link(const struct domain *d,
+>              return -EINVAL;
+>  
+>      for ( link = 0; link < ARRAY_SIZE(pci_link->route); link++ )
+> -        if ( pci_link->route[link] > 15 )
+> +        if ( pci_link->route[link] >= NR_ISAIRQS )
+>          {
+>              printk(XENLOG_G_ERR
+>                     "HVM restore: PCI-ISA link %u out of range (%u)\n",
 
-Hmm, yes on both points; the %= would only work for .Lskip. Have you gained
-understanding why there is this duplication? The breaking out of the asm()
-that you do isn't going to be reliable, as in principle the compiler is
-still permitted to duplicate stuff. Afaict the only reliable way is to move
-the code to a separate assembly file (with the asm() merely JMPing there,
-providing a pseudo-return-address by some custom means). Or to a file-scope
-asm(), as those can't be duplicated.
+Up to here I agree with the adjustments made, but ...
+
+> --- a/xen/arch/x86/hvm/vlapic.c
+> +++ b/xen/arch/x86/hvm/vlapic.c
+> @@ -123,7 +123,7 @@ static void vlapic_error(struct vlapic *vlapic, unsigned int err_bit)
+>               * will end up back here.  Break the cycle by only injecting LVTERR
+>               * if it will succeed, and folding in RECVILL otherwise.
+>               */
+> -            if ( (lvterr & APIC_VECTOR_MASK) >= 16 )
+> +            if ( (lvterr & APIC_VECTOR_MASK) >= NR_ISAIRQS )
+>                  inj = true;
+>              else
+>                  set_bit(ilog2(APIC_ESR_RECVILL), &vlapic->hw.pending_esr);
+> @@ -136,7 +136,7 @@ static void vlapic_error(struct vlapic *vlapic, unsigned int err_bit)
+>  
+>  bool vlapic_test_irq(const struct vlapic *vlapic, uint8_t vec)
+>  {
+> -    if ( unlikely(vec < 16) )
+> +    if ( unlikely(vec < NR_ISAIRQS) )
+>          return false;
+>  
+>      if ( hvm_funcs.test_pir &&
+> @@ -150,7 +150,7 @@ void vlapic_set_irq(struct vlapic *vlapic, uint8_t vec, uint8_t trig)
+>  {
+>      struct vcpu *target = vlapic_vcpu(vlapic);
+>  
+> -    if ( unlikely(vec < 16) )
+> +    if ( unlikely(vec < NR_ISAIRQS) )
+>      {
+>          vlapic_error(vlapic, ilog2(APIC_ESR_RECVILL));
+>          return;
+> @@ -523,7 +523,7 @@ void vlapic_ipi(
+>          struct vlapic *target = vlapic_lowest_prio(
+>              vlapic_domain(vlapic), vlapic, short_hand, dest, dest_mode);
+>  
+> -        if ( unlikely((icr_low & APIC_VECTOR_MASK) < 16) )
+> +        if ( unlikely((icr_low & APIC_VECTOR_MASK) < NR_ISAIRQS) )
+>              vlapic_error(vlapic, ilog2(APIC_ESR_SENDILL));
+>          else if ( target )
+>              vlapic_accept_irq(vlapic_vcpu(target), icr_low);
+> @@ -531,7 +531,7 @@ void vlapic_ipi(
+>      }
+>  
+>      case APIC_DM_FIXED:
+> -        if ( unlikely((icr_low & APIC_VECTOR_MASK) < 16) )
+> +        if ( unlikely((icr_low & APIC_VECTOR_MASK) < NR_ISAIRQS) )
+>          {
+>              vlapic_error(vlapic, ilog2(APIC_ESR_SENDILL));
+>              break;
+
+... the 16 here has a different origin (in the local APIC spec). Changes
+further down look okay again.
 
 Jan
 
