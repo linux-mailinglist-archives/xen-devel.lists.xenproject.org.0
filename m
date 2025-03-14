@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9C3EA6185D
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 18:43:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.915104.1320712 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F19F9A61860
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Mar 2025 18:44:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.915131.1320721 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt941-0003Y2-G4; Fri, 14 Mar 2025 17:43:17 +0000
+	id 1tt94o-0004Ox-Nk; Fri, 14 Mar 2025 17:44:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 915104.1320712; Fri, 14 Mar 2025 17:43:17 +0000
+Received: by outflank-mailman (output) from mailman id 915131.1320721; Fri, 14 Mar 2025 17:44:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tt941-0003Vh-D3; Fri, 14 Mar 2025 17:43:17 +0000
-Received: by outflank-mailman (input) for mailman id 915104;
- Fri, 14 Mar 2025 17:43:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tt94o-0004MY-Kq; Fri, 14 Mar 2025 17:44:06 +0000
+Received: by outflank-mailman (input) for mailman id 915131;
+ Fri, 14 Mar 2025 17:44:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Zh9v=WB=linaro.org=pierrick.bouvier@srs-se1.protection.inumbo.net>)
- id 1tt8t4-0000Ih-Py
- for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 17:31:58 +0000
-Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
- [2607:f8b0:4864:20::62c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3a7f9c9b-00fa-11f0-9ab9-95dc52dad729;
- Fri, 14 Mar 2025 18:31:58 +0100 (CET)
-Received: by mail-pl1-x62c.google.com with SMTP id
- d9443c01a7336-223fd89d036so50298055ad.1
- for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 10:31:58 -0700 (PDT)
+ id 1tt8t7-0000xy-AP
+ for xen-devel@lists.xenproject.org; Fri, 14 Mar 2025 17:32:01 +0000
+Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
+ [2607:f8b0:4864:20::632])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3b329b2f-00fa-11f0-9899-31a8f345e629;
+ Fri, 14 Mar 2025 18:31:59 +0100 (CET)
+Received: by mail-pl1-x632.google.com with SMTP id
+ d9443c01a7336-2254e0b4b79so61940125ad.2
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Mar 2025 10:31:59 -0700 (PDT)
 Received: from pc.. ([38.39.164.180]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-af56e9cd03bsm2990529a12.8.2025.03.14.10.31.55
+ 41be03b00d2f7-af56e9cd03bsm2990529a12.8.2025.03.14.10.31.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Mar 2025 10:31:56 -0700 (PDT)
+ Fri, 14 Mar 2025 10:31:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,42 +44,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3a7f9c9b-00fa-11f0-9ab9-95dc52dad729
+X-Inumbo-ID: 3b329b2f-00fa-11f0-9899-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1741973516; x=1742578316; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1741973518; x=1742578318; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BsftdeZcZ0LsVJ43Vlgc1kB7SrUHDvnjwuIeYSteybs=;
-        b=Ps8DwMv30OnOS1pr8llj0bYh339y0ndrO1BaV7/V3E2W2TlLE37W7c/+5Lfdf/ZAMR
-         /payVKpsFrGWd4VEri8sw89YgK7mrhSSEpyyuuM6N6hyaT1I6v3VX73/F8HsFninIM0f
-         q3uRU527iFq0dD3b+Y6C4e1zS74sqjt4XHXpNG8WNh+vCDO6mxhv0baXswRzJbGNSFOy
-         XeHV53yvtrN+rm/ciFZoq2n8rfmipjviNPY/j6miQVs5ypy0w8F9QyibcnzIY+RDAcn3
-         3UjZb1hp44SEwupVslRKqd40o731o8EBqiN0mCNPNmB1Xeqc5kJxF/NKjKag7LxVqkZ/
-         czdQ==
+        bh=PABH8iZPN9WF+wJr72ZMp6Lm7i1C+9jWBJAvssLik90=;
+        b=NMqmIYHkM3pA5Qs3eB7qIU2gRhelkCPgF18JXX95gDDTvD0wnpd9a3nktj1SaHa6QM
+         lTa9TV27adarjnTtTZQxQJh3vUPJp33o6bb6GYmitQKaJySYX8rc7CcEgjq0iYtbfnPz
+         OZbcuBxccsSS9oZnFnb4k8k3LVRfMJoEPp6Fx6wisEWCnuE3XMaqWCA6rcRlCBAzDFhT
+         wr5HWloDIP02hkF6eWyJ9+9a/EV/7E/Q4wN3bfIz8TyoaoT8uqbv5AJDUxW5KUYgAItj
+         b7bKSZijKxmY4/lUOyu9XAuxk+fTqznJAdEoYE8VNNppUNO535heFdnAbGIyCsQZNgA8
+         g3Og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741973516; x=1742578316;
+        d=1e100.net; s=20230601; t=1741973518; x=1742578318;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=BsftdeZcZ0LsVJ43Vlgc1kB7SrUHDvnjwuIeYSteybs=;
-        b=iicepINbLKbcFjGUYVKbLHWDPxkU1tJpIBYpleA/9iLqbTTB49wSKqS9KdrfprcyK7
-         iomm/lw+MFVNwt0/AvD1pA1gbpSB/8XQFIlmAHrU/eVGy19lp70/oBTWGilwa5VDdTNF
-         hyL6q0Tsi6Vzccj3WwBwBf1ujlXP1eKzu7H2AF/lKDWx/ajJ8gOYYwFn0awqOHHGn+eg
-         vZwS+QRTbwj3Fu3mY8gOEo4TPCUC7XM+1UnsguBd0nmmhuwyq9+PiXTJBpYKUYDd1DGt
-         XFb3A037mKXGqz6HoG4U36Py8FEBT85TYSW81QFCxVIQP1LCOUkOxMRTifwYPCmdDi5t
-         ZtRg==
-X-Forwarded-Encrypted: i=1; AJvYcCX9AL7OVCnbfdIKHJlUgk9G/8BnMnIwBeDgho1QnZbtlYs/KXp+TmXtGFoVmS3LIAGIS9rokiaRo6U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxwTv/hjgshi5nHQHHIpmc7/xg1sg2XM5I4Fl2FaReqxfrGTyVT
-	0AHYWX6NsTEDyUcCiwd4Nv7nXHtEM9FEvHKpDkRBxlw1PZPRxFj4YW+Y5868oVs=
-X-Gm-Gg: ASbGncuW2G7Py7ehAIG5H6dN9dX16IX0eZqIy9WqOQaWnq2kEX63A4ii+pTkbw1KqpD
-	kF3wZg1BgftPNeB43zagwPH0LGGFdADMMorjRWGAIHuDIhg3vDR6HdGmfckPhDRRrU57SG5+QPT
-	RQzgnY+kijOicpo+PHB5WTmzPBMMeXkn7Sie/nv3YkWi1nnNqlzOA4CXcoNmnLLIgJANktGeKnp
-	pAV90584VwVtq4y4jUBAvEDMq5Zej6MOPeMY41hQ2cqLljTHvUGjmvmT3Xp8FKUFQSeRySfGyec
-	weBWaAcy8LfNQsmmoNficRlZgcYo32bGWKAg9ODn1Arr
-X-Google-Smtp-Source: AGHT+IHMleMJwhfQuIw2SImS8wKBtMic5A4ELNmhk5zJYoh3vglYg1/X+SLV/IgTuYLv0/Y4ZISJug==
-X-Received: by 2002:a05:6a20:1595:b0:1f5:8622:5ecd with SMTP id adf61e73a8af0-1f5c12c78aamr4816767637.32.1741973516583;
-        Fri, 14 Mar 2025 10:31:56 -0700 (PDT)
+        bh=PABH8iZPN9WF+wJr72ZMp6Lm7i1C+9jWBJAvssLik90=;
+        b=atwWgmvCTS/gHF4ue8cbzpPjs0fZgA3UgpaNxz37dmd5INfCAP6S7cbT6+mrmJELDs
+         gPrb1tVwI+te/+fZuot4iNwDvXJ/RoS/tI5wyOnoCVJt8r6iUzYMpMLkEcCkgXU4VRtY
+         gvfA2d2C1AycZFks0Wmw9EgLmB5NvrQIdkF/K3kK+KCHw4b6alER0p6O7C1SS2nfFhNF
+         uUwkn3v4StTHNwg53FaA5X5Z08f1Xb5S48yVn+0yas3iIhZlyk0GvEtoKd/69c4dytXj
+         tAbqDN6kPlauz9sXlTpx/MwXpIROuvG1REfA5EPjFiMgQ2BaOp1nfdjnVkGsX0cv9yI7
+         Izxw==
+X-Forwarded-Encrypted: i=1; AJvYcCXstVUMBQKw+V9dMonFdIowY8QjiJxZKkTcBOmZ2WkokUsqgzcqJYl3SRvUuKs2gghsYa4XYN5O0cg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy2PvaujFo2XcU6rSdEEdOolySUISu9mFfnM2k4XB4VSVmVJ5bL
+	QidBgVNOMd9EL/cke+t7OfxTzMDK+ky4MvL7afLnKl4dCii8pAHsCOUW0Wes0z4=
+X-Gm-Gg: ASbGncsSwV8PciItv9qGPrLtz0wFBFgkYwe0OjAth8ERt7fG4b31mGvGWjPn+nDq+JP
+	8d8eB6GZ78o96fD8drQ3vW541s6b+BwOsBTwrobu+1VzmkY+LpTqJ1UKWUHXZyf8989YOlen1Hx
+	AqnvDbBcgXGHa7YL7mcGK20nkuYOCfawgvybfmZT7Yg+c6XxR6lca4ne3hMpzBvydwKsn9BSKvF
+	WDj5rtyVd2/CWp3Mx1Vq48Vv0fQYTXbK2DvfdWBe2GYsLw34pBwbS4j9uSCmQ8WiT2w4rLG5kPl
+	pgan0QKs2lZy9GsG0xCgpvN/e9ALO51WUtAsZPPHmZBp
+X-Google-Smtp-Source: AGHT+IGnTvSqXO1fzlE+2xVmojsF7Bo5wJQ+q4TppfmkSKTjR2FsyvyfU5Ot+87AVkRJkvXuDcvBmA==
+X-Received: by 2002:a05:6a00:228e:b0:736:562b:9a9c with SMTP id d2e1a72fcca58-7372242d387mr4348766b3a.18.1741973517785;
+        Fri, 14 Mar 2025 10:31:57 -0700 (PDT)
 From: Pierrick Bouvier <pierrick.bouvier@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: qemu-ppc@nongnu.org,
@@ -106,43 +106,47 @@ Cc: qemu-ppc@nongnu.org,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	Weiwei Li <liwei1518@gmail.com>,
 	Pierrick Bouvier <pierrick.bouvier@linaro.org>
-Subject: [PATCH v5 10/17] system/kvm: make kvm_flush_coalesced_mmio_buffer() accessible for common code
-Date: Fri, 14 Mar 2025 10:31:32 -0700
-Message-Id: <20250314173139.2122904-11-pierrick.bouvier@linaro.org>
+Subject: [PATCH v5 11/17] exec/ram_addr: call xen_hvm_modified_memory only if xen is enabled
+Date: Fri, 14 Mar 2025 10:31:33 -0700
+Message-Id: <20250314173139.2122904-12-pierrick.bouvier@linaro.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250314173139.2122904-1-pierrick.bouvier@linaro.org>
 References: <20250314173139.2122904-1-pierrick.bouvier@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This function is used by system/physmem.c will be turn into common code
-in next commit.
-
 Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
 Signed-off-by: Pierrick Bouvier <pierrick.bouvier@linaro.org>
 ---
- include/system/kvm.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ include/exec/ram_addr.h | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/include/system/kvm.h b/include/system/kvm.h
-index ab17c09a551..21da3b8b052 100644
---- a/include/system/kvm.h
-+++ b/include/system/kvm.h
-@@ -210,11 +210,11 @@ bool kvm_arm_supports_user_irq(void);
- int kvm_on_sigbus_vcpu(CPUState *cpu, int code, void *addr);
- int kvm_on_sigbus(int code, void *addr);
+diff --git a/include/exec/ram_addr.h b/include/exec/ram_addr.h
+index f5d574261a3..92e8708af76 100644
+--- a/include/exec/ram_addr.h
++++ b/include/exec/ram_addr.h
+@@ -339,7 +339,9 @@ static inline void cpu_physical_memory_set_dirty_range(ram_addr_t start,
+         }
+     }
  
--#ifdef COMPILING_PER_TARGET
--#include "cpu.h"
--
- void kvm_flush_coalesced_mmio_buffer(void);
+-    xen_hvm_modified_memory(start, length);
++    if (xen_enabled()) {
++        xen_hvm_modified_memory(start, length);
++    }
+ }
  
-+#ifdef COMPILING_PER_TARGET
-+#include "cpu.h"
-+
- /**
-  * kvm_update_guest_debug(): ensure KVM debug structures updated
-  * @cs: the CPUState for this cpu
+ #if !defined(_WIN32)
+@@ -415,7 +417,9 @@ uint64_t cpu_physical_memory_set_dirty_lebitmap(unsigned long *bitmap,
+             }
+         }
+ 
+-        xen_hvm_modified_memory(start, pages << TARGET_PAGE_BITS);
++        if (xen_enabled()) {
++            xen_hvm_modified_memory(start, pages << TARGET_PAGE_BITS);
++        }
+     } else {
+         uint8_t clients = tcg_enabled() ? DIRTY_CLIENTS_ALL : DIRTY_CLIENTS_NOCODE;
+ 
 -- 
 2.39.5
 
