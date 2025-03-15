@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 765E7A62391
+	by mail.lfdr.de (Postfix) with ESMTPS id E4E80A62392
 	for <lists+xen-devel@lfdr.de>; Sat, 15 Mar 2025 02:01:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.915596.1321091 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.915597.1321102 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ttFtb-0005da-T8; Sat, 15 Mar 2025 01:00:59 +0000
+	id 1ttFtg-0007Qe-5w; Sat, 15 Mar 2025 01:01:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 915596.1321091; Sat, 15 Mar 2025 01:00:59 +0000
+Received: by outflank-mailman (output) from mailman id 915597.1321102; Sat, 15 Mar 2025 01:01:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ttFtb-0005aE-QC; Sat, 15 Mar 2025 01:00:59 +0000
-Received: by outflank-mailman (input) for mailman id 915596;
- Sat, 15 Mar 2025 01:00:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ttFtg-0007LQ-27; Sat, 15 Mar 2025 01:01:04 +0000
+Received: by outflank-mailman (input) for mailman id 915597;
+ Sat, 15 Mar 2025 01:01:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ms5H=WC=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1ttFtZ-0003LX-N2
- for xen-devel@lists.xenproject.org; Sat, 15 Mar 2025 01:00:57 +0000
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f3d209f9-0138-11f0-9ab9-95dc52dad729;
- Sat, 15 Mar 2025 02:00:57 +0100 (CET)
+ id 1ttFte-0000Y2-Qy
+ for xen-devel@lists.xenproject.org; Sat, 15 Mar 2025 01:01:02 +0000
+Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch
+ [79.135.106.28]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f655ccaf-0138-11f0-9899-31a8f345e629;
+ Sat, 15 Mar 2025 02:01:01 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,248 +36,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f3d209f9-0138-11f0-9ab9-95dc52dad729
+X-Inumbo-ID: f655ccaf-0138-11f0-9899-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1742000455; x=1742259655;
-	bh=VgICWf/0L3aRWRS3ZzhM6wzowwRkjjVOrPqBoDmn4Io=;
+	s=protonmail; t=1742000459; x=1742259659;
+	bh=DRer+9clbTpnjbxvNyAPigTWFkAdFBrXKLnJAbMCgYA=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=gnxBfY7RfTJ0OKgqkgwIi+Z1uGq7Jp6yx8i49P2BfEEYTS6DtLiXImXmc5JmDnxL2
-	 aqz3aE0nakD7aRwQ4Ie8KHfSL7MhMNU9haI8c8kbp62l+Ivn8kd/E5+JI7r2jLQiZd
-	 tMolneYDqYqVx6MYF/M7ccdjg+2zvgzHA++ofOUZy/fG0HiXws1apWB+P6SzIxXIUn
-	 72cLZCniNdNEqwRtpI3vcAUw77VyD2TZZF4YdGeZTscHZmfZ/BOzfsQPDxjtCFubKn
-	 r+t9KH3jS+x12g97IWo5JdEKn9vU+Qnyg6hTczRfHvHFmATqmrEACFfzbDvXTB4rlo
-	 SY+9Z4OMSV1bQ==
-Date: Sat, 15 Mar 2025 01:00:51 +0000
+	b=R+D6o6LpjFh9sxnmTqAEL+HYMKXwWdhf90LvqyLTx4JTEqC+ges309ZStORW/CU6b
+	 TkSHZcLUsdt2Q2JN8gEBuwqE/POhU5tI7im9rVpXzuIUyjsOTftOCG+sJmGpnhFpgf
+	 P2oD9AzHlTPo00IDSwn7rY5i1wJl9RRI6iAzdZ+6xMxNCnKAa6Jzi5Aee1ajjA9KMZ
+	 w7BGrOMUpjGKMAiEbPbEXyorNQWs2hAPHfv08UKonq6dvfr/AE7QJwbUDM11tH+qnW
+	 fppaQHnSIEGj8HHgpC9+zBcbgwXbjg+ZJ8mQS1DqSx0orU0kjhTxuRB4sYOfsv4HIF
+	 nc6eNJg1iXxHA==
+Date: Sat, 15 Mar 2025 01:00:56 +0000
 To: xen-devel@lists.xenproject.org
 From: dmkhn@proton.me
 Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: [PATCH 2/3] x86/irq: use NR_ISA_IRQS instead of open-coded value
-Message-ID: <20250315010033.2917197-3-dmukhin@ford.com>
+Subject: [PATCH 3/3] x86/irq: introduce APIC_VECTOR_VALID
+Message-ID: <20250315010033.2917197-4-dmukhin@ford.com>
 In-Reply-To: <20250315010033.2917197-1-dmukhin@ford.com>
 References: <20250315010033.2917197-1-dmukhin@ford.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: f3148e4b784f25b54c3d5b94135fb3f479f74331
+X-Pm-Message-ID: 3906a16afa138c91d372b37b17afbb6d60d33471
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Replace the open-coded value 16 with the NR_ISA_IRQS symbol to enhance
-readability.
+Add new symbol APIC_VECTOR_VALID to replace open-coded value 16 in
+LAPIC and virtual LAPIC code.
 
-No functional changes.
+See:
+  Intel SDM volume 3A
+  Chapter "ADVANCED PROGRAMMABLE INTERRUPT CONTROLLER"
+  Section "Valid Interrupt Vectors"
+
+No functional change.
 
 Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 ---
- xen/arch/x86/hvm/dm.c          |  2 +-
- xen/arch/x86/hvm/irq.c         | 17 +++++++++--------
- xen/arch/x86/hvm/vpic.c        |  4 ++--
- xen/arch/x86/include/asm/irq.h |  2 +-
- xen/arch/x86/io_apic.c         | 12 ++++++------
- xen/arch/x86/irq.c             |  6 +++---
- 6 files changed, 22 insertions(+), 21 deletions(-)
+ xen/arch/x86/cpu/mcheck/mce_intel.c |  2 +-
+ xen/arch/x86/hvm/vlapic.c           | 10 +++++-----
+ xen/arch/x86/include/asm/apicdef.h  |  1 +
+ 3 files changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/dm.c b/xen/arch/x86/hvm/dm.c
-index a1f7a4d30a..3b53471af0 100644
---- a/xen/arch/x86/hvm/dm.c
-+++ b/xen/arch/x86/hvm/dm.c
-@@ -90,7 +90,7 @@ static int set_pci_intx_level(struct domain *d, uint16_t =
-domain,
- static int set_isa_irq_level(struct domain *d, uint8_t isa_irq,
-                              uint8_t level)
+diff --git a/xen/arch/x86/cpu/mcheck/mce_intel.c b/xen/arch/x86/cpu/mcheck/=
+mce_intel.c
+index 07b50f8793..e8c252e03a 100644
+--- a/xen/arch/x86/cpu/mcheck/mce_intel.c
++++ b/xen/arch/x86/cpu/mcheck/mce_intel.c
+@@ -136,7 +136,7 @@ static void intel_init_thermal(struct cpuinfo_x86 *c)
+      * is required to set the same value for all threads/cores).
+      */
+     if ( (val & APIC_DM_MASK) !=3D APIC_DM_FIXED
+-         || (val & APIC_VECTOR_MASK) > 0xf )
++         || (val & APIC_VECTOR_MASK) > APIC_VECTOR_VALID )
+         apic_write(APIC_LVTTHMR, val);
+=20
+     if ( (msr_content & (1ULL<<3))
+diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
+index 065b2aab5b..a0f46e540c 100644
+--- a/xen/arch/x86/hvm/vlapic.c
++++ b/xen/arch/x86/hvm/vlapic.c
+@@ -123,7 +123,7 @@ static void vlapic_error(struct vlapic *vlapic, unsigne=
+d int err_bit)
+              * will end up back here.  Break the cycle by only injecting L=
+VTERR
+              * if it will succeed, and folding in RECVILL otherwise.
+              */
+-            if ( (lvterr & APIC_VECTOR_MASK) >=3D 16 )
++            if ( (lvterr & APIC_VECTOR_MASK) >=3D APIC_VECTOR_VALID )
+                 inj =3D true;
+             else
+                 set_bit(ilog2(APIC_ESR_RECVILL), &vlapic->hw.pending_esr);
+@@ -136,7 +136,7 @@ static void vlapic_error(struct vlapic *vlapic, unsigne=
+d int err_bit)
+=20
+ bool vlapic_test_irq(const struct vlapic *vlapic, uint8_t vec)
  {
--    if ( isa_irq > 15 )
-+    if ( isa_irq >=3D NR_ISA_IRQS )
-         return -EINVAL;
+-    if ( unlikely(vec < 16) )
++    if ( unlikely(vec < APIC_VECTOR_VALID) )
+         return false;
 =20
-     switch ( level )
-diff --git a/xen/arch/x86/hvm/irq.c b/xen/arch/x86/hvm/irq.c
-index 1eab44defc..5f64361113 100644
---- a/xen/arch/x86/hvm/irq.c
-+++ b/xen/arch/x86/hvm/irq.c
-@@ -209,7 +209,7 @@ int hvm_isa_irq_assert(struct domain *d, unsigned int i=
-sa_irq,
-     unsigned int gsi =3D hvm_isa_irq_to_gsi(isa_irq);
-     int vector =3D -1;
+     if ( hvm_funcs.test_pir &&
+@@ -150,7 +150,7 @@ void vlapic_set_irq(struct vlapic *vlapic, uint8_t vec,=
+ uint8_t trig)
+ {
+     struct vcpu *target =3D vlapic_vcpu(vlapic);
 =20
--    ASSERT(isa_irq <=3D 15);
-+    ASSERT(isa_irq < NR_ISA_IRQS);
+-    if ( unlikely(vec < 16) )
++    if ( unlikely(vec < APIC_VECTOR_VALID) )
+     {
+         vlapic_error(vlapic, ilog2(APIC_ESR_RECVILL));
+         return;
+@@ -523,7 +523,7 @@ void vlapic_ipi(
+         struct vlapic *target =3D vlapic_lowest_prio(
+             vlapic_domain(vlapic), vlapic, short_hand, dest, dest_mode);
 =20
-     spin_lock(&d->arch.hvm.irq_lock);
-=20
-@@ -231,7 +231,7 @@ void hvm_isa_irq_deassert(
-     struct hvm_irq *hvm_irq =3D hvm_domain_irq(d);
-     unsigned int gsi =3D hvm_isa_irq_to_gsi(isa_irq);
-=20
--    ASSERT(isa_irq <=3D 15);
-+    ASSERT(isa_irq < NR_ISA_IRQS);
-=20
-     spin_lock(&d->arch.hvm.irq_lock);
-=20
-@@ -266,12 +266,12 @@ static void hvm_set_callback_irq_level(struct vcpu *v=
-)
-         if ( asserted && (hvm_irq->gsi_assert_count[gsi]++ =3D=3D 0) )
-         {
-             vioapic_irq_positive_edge(d, gsi);
--            if ( gsi <=3D 15 )
-+            if ( gsi < NR_ISA_IRQS )
-                 vpic_irq_positive_edge(d, gsi);
-         }
-         else if ( !asserted && (--hvm_irq->gsi_assert_count[gsi] =3D=3D 0)=
- )
-         {
--            if ( gsi <=3D 15 )
-+            if ( gsi < NR_ISA_IRQS )
-                 vpic_irq_negative_edge(d, gsi);
-         }
-         break;
-@@ -328,7 +328,7 @@ int hvm_set_pci_link_route(struct domain *d, u8 link, u=
-8 isa_irq)
-     u8 old_isa_irq;
-     int i;
-=20
--    if ( (link > 3) || (isa_irq > 15) )
-+    if ( (link > 3) || (isa_irq >=3D NR_ISA_IRQS) )
-         return -EINVAL;
-=20
-     spin_lock(&d->arch.hvm.irq_lock);
-@@ -440,7 +440,8 @@ void hvm_set_callback_via(struct domain *d, uint64_t vi=
-a)
-         {
-         case HVMIRQ_callback_gsi:
-             gsi =3D hvm_irq->callback_via.gsi;
--            if ( (--hvm_irq->gsi_assert_count[gsi] =3D=3D 0) && (gsi <=3D =
-15) )
-+            if ( (--hvm_irq->gsi_assert_count[gsi] =3D=3D 0) &&
-+                 (gsi < NR_ISA_IRQS) )
-                 vpic_irq_negative_edge(d, gsi);
-             break;
-         case HVMIRQ_callback_pci_intx:
-@@ -464,7 +465,7 @@ void hvm_set_callback_via(struct domain *d, uint64_t vi=
-a)
-                   (hvm_irq->gsi_assert_count[gsi]++ =3D=3D 0) )
-         {
-             vioapic_irq_positive_edge(d, gsi);
--            if ( gsi <=3D 15 )
-+            if ( gsi < NR_ISA_IRQS )
-                 vpic_irq_positive_edge(d, gsi);
-         }
-         break;
-@@ -764,7 +765,7 @@ static int cf_check irq_check_link(const struct domain =
-*d,
-             return -EINVAL;
-=20
-     for ( link =3D 0; link < ARRAY_SIZE(pci_link->route); link++ )
--        if ( pci_link->route[link] > 15 )
-+        if ( pci_link->route[link] >=3D NR_ISA_IRQS )
-         {
-             printk(XENLOG_G_ERR
-                    "HVM restore: PCI-ISA link %u out of range (%u)\n",
-diff --git a/xen/arch/x86/hvm/vpic.c b/xen/arch/x86/hvm/vpic.c
-index 6427b08086..22020322fb 100644
---- a/xen/arch/x86/hvm/vpic.c
-+++ b/xen/arch/x86/hvm/vpic.c
-@@ -523,7 +523,7 @@ void vpic_irq_positive_edge(struct domain *d, int irq)
-     uint8_t mask =3D 1 << (irq & 7);
-=20
-     ASSERT(has_vpic(d));
--    ASSERT(irq <=3D 15);
-+    ASSERT(irq < NR_ISA_IRQS);
-     ASSERT(vpic_is_locked(vpic));
-=20
-     TRACE_TIME(TRC_HVM_EMUL_PIC_POSEDGE, irq);
-@@ -541,7 +541,7 @@ void vpic_irq_negative_edge(struct domain *d, int irq)
-     uint8_t mask =3D 1 << (irq & 7);
-=20
-     ASSERT(has_vpic(d));
--    ASSERT(irq <=3D 15);
-+    ASSERT(irq < NR_ISA_IRQS);
-     ASSERT(vpic_is_locked(vpic));
-=20
-     TRACE_TIME(TRC_HVM_EMUL_PIC_NEGEDGE, irq);
-diff --git a/xen/arch/x86/include/asm/irq.h b/xen/arch/x86/include/asm/irq.=
-h
-index f9ed5dc86c..3c73073b71 100644
---- a/xen/arch/x86/include/asm/irq.h
-+++ b/xen/arch/x86/include/asm/irq.h
-@@ -108,7 +108,7 @@ extern bool opt_noirqbalance;
-=20
- extern int opt_irq_vector_map;
-=20
--#define platform_legacy_irq(irq)=09((irq) < 16)
-+#define platform_legacy_irq(irq)=09((irq) < NR_ISA_IRQS)
-=20
- void cf_check event_check_interrupt(void);
- void cf_check invalidate_interrupt(void);
-diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
-index c6cf944811..84bd87a5e4 100644
---- a/xen/arch/x86/io_apic.c
-+++ b/xen/arch/x86/io_apic.c
-@@ -2715,15 +2715,15 @@ void __init ioapic_init(void)
-                               " than \"nr_irqs=3D\"\n");
-         max_gsi_irqs =3D nr_irqs;
+-        if ( unlikely((icr_low & APIC_VECTOR_MASK) < 16) )
++        if ( unlikely((icr_low & APIC_VECTOR_MASK) < APIC_VECTOR_VALID) )
+             vlapic_error(vlapic, ilog2(APIC_ESR_SENDILL));
+         else if ( target )
+             vlapic_accept_irq(vlapic_vcpu(target), icr_low);
+@@ -531,7 +531,7 @@ void vlapic_ipi(
      }
--    if ( max_gsi_irqs < 16 )
--        max_gsi_irqs =3D 16;
-+    if ( max_gsi_irqs < NR_ISA_IRQS )
-+        max_gsi_irqs =3D NR_ISA_IRQS;
 =20
-     /* for PHYSDEVOP_pirq_eoi_gmfn guest assumptions */
-     if ( max_gsi_irqs > PAGE_SIZE * 8 )
-         max_gsi_irqs =3D PAGE_SIZE * 8;
-=20
--    if ( !smp_found_config || skip_ioapic_setup || nr_irqs_gsi < 16 )
--        nr_irqs_gsi =3D 16;
-+    if ( !smp_found_config || skip_ioapic_setup || nr_irqs_gsi < NR_ISA_IR=
-QS )
-+        nr_irqs_gsi =3D NR_ISA_IRQS;
-     else if ( nr_irqs_gsi > max_gsi_irqs )
-     {
-         printk(XENLOG_WARNING "Limiting to %u GSI IRQs (found %u)\n",
-@@ -2736,8 +2736,8 @@ void __init ioapic_init(void)
-                   max(0U + num_present_cpus() * NR_DYNAMIC_VECTORS,
-                       8 * nr_irqs_gsi) :
-                   nr_irqs_gsi;
--    else if ( nr_irqs < 16 )
--        nr_irqs =3D 16;
-+    else if ( nr_irqs < NR_ISA_IRQS )
-+        nr_irqs =3D NR_ISA_IRQS;
-     printk(XENLOG_INFO "IRQ limits: %u GSI, %u MSI/MSI-X\n",
-            nr_irqs_gsi, nr_irqs - nr_irqs_gsi);
- }
-diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
-index f35894577b..dd8d921f18 100644
---- a/xen/arch/x86/irq.c
-+++ b/xen/arch/x86/irq.c
-@@ -36,7 +36,7 @@
- bool __read_mostly opt_noirqbalance;
- boolean_param("noirqbalance", opt_noirqbalance);
-=20
--unsigned int __read_mostly nr_irqs_gsi =3D 16;
-+unsigned int __read_mostly nr_irqs_gsi =3D NR_ISA_IRQS;
- unsigned int __read_mostly nr_irqs;
- integer_param("nr_irqs", nr_irqs);
-=20
-@@ -1525,7 +1525,7 @@ void desc_guest_eoi(struct irq_desc *desc, struct pir=
-q *pirq)
- int pirq_guest_unmask(struct domain *d)
- {
-     unsigned int pirq =3D 0, n, i;
--    struct pirq *pirqs[16];
-+    struct pirq *pirqs[NR_ISA_IRQS];
-=20
-     do {
-         n =3D radix_tree_gang_lookup(&d->pirq_tree, (void **)pirqs, pirq,
-@@ -2113,7 +2113,7 @@ int get_free_pirq(struct domain *d, int type)
-=20
-     if ( type =3D=3D MAP_PIRQ_TYPE_GSI )
-     {
--        for ( i =3D 16; i < nr_irqs_gsi; i++ )
-+        for ( i =3D NR_ISA_IRQS; i < nr_irqs_gsi; i++ )
-             if ( is_free_pirq(d, pirq_info(d, i)) )
-             {
-                 pirq_get_info(d, i);
+     case APIC_DM_FIXED:
+-        if ( unlikely((icr_low & APIC_VECTOR_MASK) < 16) )
++        if ( unlikely((icr_low & APIC_VECTOR_MASK) < APIC_VECTOR_VALID) )
+         {
+             vlapic_error(vlapic, ilog2(APIC_ESR_SENDILL));
+             break;
+diff --git a/xen/arch/x86/include/asm/apicdef.h b/xen/arch/x86/include/asm/=
+apicdef.h
+index 49e29ec801..7750583481 100644
+--- a/xen/arch/x86/include/asm/apicdef.h
++++ b/xen/arch/x86/include/asm/apicdef.h
+@@ -78,6 +78,7 @@
+ #define=09=09=09APIC_DM_STARTUP=09=090x00600
+ #define=09=09=09APIC_DM_EXTINT=09=090x00700
+ #define=09=09=09APIC_VECTOR_MASK=090x000FF
++#define=09=09=09APIC_VECTOR_VALID=09(16)
+ #define=09=09APIC_ICR2=090x310
+ #define=09=09=09GET_xAPIC_DEST_FIELD(x)=09(((x)>>24)&0xFF)
+ #define=09=09=09SET_xAPIC_DEST_FIELD(x)=09((x)<<24)
 --=20
 2.34.1
 
