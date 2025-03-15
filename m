@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D199FA625D0
-	for <lists+xen-devel@lfdr.de>; Sat, 15 Mar 2025 05:10:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.915715.1321162 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37B6BA62FB3
+	for <lists+xen-devel@lfdr.de>; Sat, 15 Mar 2025 16:55:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.915841.1321171 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ttIqA-0005Jy-3G; Sat, 15 Mar 2025 04:09:38 +0000
+	id 1ttTqb-0005uy-Oa; Sat, 15 Mar 2025 15:54:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 915715.1321162; Sat, 15 Mar 2025 04:09:38 +0000
+Received: by outflank-mailman (output) from mailman id 915841.1321171; Sat, 15 Mar 2025 15:54:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ttIq9-0005HM-TE; Sat, 15 Mar 2025 04:09:37 +0000
-Received: by outflank-mailman (input) for mailman id 915715;
- Sat, 15 Mar 2025 04:09:36 +0000
+	id 1ttTqb-0005tO-IH; Sat, 15 Mar 2025 15:54:49 +0000
+Received: by outflank-mailman (input) for mailman id 915841;
+ Sat, 15 Mar 2025 15:54:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=P9V1=WC=outlook.com=mhklinux@srs-se1.protection.inumbo.net>)
- id 1ttIq8-0005HG-IV
- for xen-devel@lists.xenproject.org; Sat, 15 Mar 2025 04:09:36 +0000
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazolkn190100000.outbound.protection.outlook.com
- [2a01:111:f403:d003::])
+ <SRS0=wIvq=WC=gmail.com=sultanovandriy@srs-se1.protection.inumbo.net>)
+ id 1ttTqa-0005tG-Ug
+ for xen-devel@lists.xenproject.org; Sat, 15 Mar 2025 15:54:48 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4b1f7119-0153-11f0-9899-31a8f345e629;
- Sat, 15 Mar 2025 05:09:31 +0100 (CET)
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
- by MW4PR02MB7153.namprd02.prod.outlook.com (2603:10b6:303:65::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.28; Sat, 15 Mar
- 2025 04:09:26 +0000
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::cedd:1e64:8f61:b9df]) by SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::cedd:1e64:8f61:b9df%3]) with mapi id 15.20.8511.026; Sat, 15 Mar 2025
- 04:09:26 +0000
+ id d12652f6-01b5-11f0-9899-31a8f345e629;
+ Sat, 15 Mar 2025 16:54:45 +0100 (CET)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-54298ec925bso4686917e87.3
+ for <xen-devel@lists.xenproject.org>; Sat, 15 Mar 2025 08:54:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,166 +40,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4b1f7119-0153-11f0-9899-31a8f345e629
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uQzpwH+lO9jpic+ItF7Ii44puVZpqFWqXsjSWNtZaUAg6Qb2oF4d4JpQuOrR9d/B+nNFTqYGlQDPNXHMU1+4uWOTqyFCJx4j7jvj7Ew2gW7SOvlnlCiAcvDIk6MvvmhMxzZtmsrM2oIkGLNLpTvrjk/x23pqEYy6hOU3RSzSRI4xPL2F1WPYj0LJIv3uMzHmeZB3RQnSz6493JDyGkvjkmGS8P7V905ICOTq65W47OkXMj9YVOGOnQsYYoosMhfC2U0sLywzyW2qn9J30f0Qr/P2eMzZivSnsx/2WGbPBiorPWoe6Jws5w4hWAl9F1Z+yUborijhAD13TD6Cl34W8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=64mYpXW+f131fQnCaBygXOJ3YNrUCNaVkPytPqvI030=;
- b=LewznFo4SQK2O2qXcvtznpeehv6IbEO4LAZG6bh/oSMZlAGjV/xAuXEpA93i+rBBE8GjKb0sINNd3DS2FOgxDgwq8HJrqDe1C3/zQOD62yPKMhmezNipK5H4PREWvbnERD1bO+XFVoXe9jSi3ZnBvNT5QGocOc8gSdSagtUKrYqUHyrsTzCoLkFmNEoJiF1588HH0ITCQ72I04kEgpzqR+42sCixy9Yd3i/4S50BOttt5MgXOxgjXzh9gARXJtZuAp7YHNAEpctNveJ7fL//TIjfhulsuG5ABDPL97OlyvgLZjhnSJkfUMdaY81CT41TOOA+c8/kdKUIy5SpDar9KQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=64mYpXW+f131fQnCaBygXOJ3YNrUCNaVkPytPqvI030=;
- b=dmkMH3Mf6gOpsbjQIfw63N1BpGauARGZJk0bPAOt9+9M9oJ1iDdWukeciis/rmit41rrw7oFalkGnqF2GjPuYY0mGfEF0AZnBVpE1H5HuJp8pDXiXWpwbfKpsvY5cxEjkVX0mMml2k6q9FLndH1KV4X1/poA2ACNe/8/dr4tYtBwo7GbpVWPiBvFrvXaaedZxmvzvdl48Z52WzVlXf0fmgAUnAMvdr6gNGQ5rHY48KgdAikzfxNXZCSdDjRkbWqdjsF/Jk0nEb1wFFC+W65EztZk7xpr03tl7oD2XeID5d0G0rm8Q/I7f8HzGdZN40IRmIw+80XN7GAwZtWFkElxkQ==
-From: Michael Kelley <mhklinux@outlook.com>
-To: Nico Pache <npache@redhat.com>, "linux-hyperv@vger.kernel.org"
-	<linux-hyperv@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, "linux-fsdevel@vger.kernel.org"
-	<linux-fsdevel@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
-	"virtualization@lists.linux.dev" <virtualization@lists.linux.dev>
-CC: "alexander.atanasov@virtuozzo.com" <alexander.atanasov@virtuozzo.com>,
-	"muchun.song@linux.dev" <muchun.song@linux.dev>, "roman.gushchin@linux.dev"
-	<roman.gushchin@linux.dev>, "mhocko@kernel.org" <mhocko@kernel.org>,
-	"kys@microsoft.com" <kys@microsoft.com>, "haiyangz@microsoft.com"
-	<haiyangz@microsoft.com>, "wei.liu@kernel.org" <wei.liu@kernel.org>,
-	"decui@microsoft.com" <decui@microsoft.com>, "jgross@suse.com"
-	<jgross@suse.com>, "sstabellini@kernel.org" <sstabellini@kernel.org>,
-	"oleksandr_tyshchenko@epam.com" <oleksandr_tyshchenko@epam.com>,
-	"akpm@linux-foundation.org" <akpm@linux-foundation.org>, "mst@redhat.com"
-	<mst@redhat.com>, "david@redhat.com" <david@redhat.com>,
-	"yosry.ahmed@linux.dev" <yosry.ahmed@linux.dev>, "hannes@cmpxchg.org"
-	<hannes@cmpxchg.org>, "nphamcs@gmail.com" <nphamcs@gmail.com>,
-	"chengming.zhou@linux.dev" <chengming.zhou@linux.dev>,
-	"kanchana.p.sridhar@intel.com" <kanchana.p.sridhar@intel.com>,
-	"llong@redhat.com" <llong@redhat.com>, "shakeel.butt@linux.dev"
-	<shakeel.butt@linux.dev>
-Subject: RE: [PATCH v2 3/4] hv_balloon: update the NR_BALLOON_PAGES state
-Thread-Topic: [PATCH v2 3/4] hv_balloon: update the NR_BALLOON_PAGES state
-Thread-Index: AQHblSmRG3n+QHZh2UuvvmIQtVK9S7Nzk1Gg
-Date: Sat, 15 Mar 2025 04:09:25 +0000
-Message-ID:
- <SN6PR02MB4157924B97EF67299E751082D4DD2@SN6PR02MB4157.namprd02.prod.outlook.com>
-References: <20250314213757.244258-1-npache@redhat.com>
- <20250314213757.244258-4-npache@redhat.com>
-In-Reply-To: <20250314213757.244258-4-npache@redhat.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|MW4PR02MB7153:EE_
-x-ms-office365-filtering-correlation-id: 5e196a76-6ccf-4672-aa10-08dd63772cba
-x-microsoft-antispam:
- BCL:0;ARA:14566002|461199028|15080799006|8060799006|19110799003|8062599003|3412199025|102099032|440099028|21061999003|12071999003|41001999003|12091999003;
-x-microsoft-antispam-message-info:
- =?us-ascii?Q?Joa5iZXqQKE7NVUcCzXjSnFMEIgdycBpAyBc8g5GNyArUUVMIhxfohXYA7MT?=
- =?us-ascii?Q?nVscz1F/GjckkqFqVTRb4sTDvZMrPhuQVFYeYJM1xv0xiJgIFM6+huWTB3Tq?=
- =?us-ascii?Q?JX4rjbbjpiryUwmssA7NZTzoKf6KuX39c3UqGwmjXax2u4CnEhJplupbXzJE?=
- =?us-ascii?Q?OCv53VXg/TssJJO2JEVKG9If+OirO6cJ0LIptXWW4tlMZZLBUVMZ8vyH2m60?=
- =?us-ascii?Q?3Je1xp5z2/IWu1znH6pZBBGJhy8hkjk8ny1yS3VIs0u33jCyTBQHehWbl+pc?=
- =?us-ascii?Q?jABCzIKG3ZiamgfExxCnI5a5i+QW+BfOM4XCNyIX57NY1EQxzMNddjA6iWz/?=
- =?us-ascii?Q?oxAdToaXP/0En8wlEyDEpHlFVz+xsdkFemyRubGG17h1EmYNj+zhcKaODvQ2?=
- =?us-ascii?Q?ShORWOs3MfubnnSDmMhPB/ejD7b9AWkvNvK5bcCnMMD/SV80wlRlou3R/fcP?=
- =?us-ascii?Q?EQ/EPpHXEB2shhtcS4YzZ3tDNZ1uL//bcKyQcIk+OGzhiI3Qtt2KR4W5OtCg?=
- =?us-ascii?Q?bsCZdQdsW7MtfVciEsvIsaHT+kHkwlrJXGWfl+m2dC+1cGjQ43485nqXghJM?=
- =?us-ascii?Q?mN6auZ9JZgZewfhaPu+nDDwUBAuy1OAUziSoVMKRHtb1pq49P2W6S0te9+xX?=
- =?us-ascii?Q?uyb3BnfPyKqwUcYKruWcATl8OyuI+AiljrN1rUUmS6Vy4IEKBZkii98d22Dm?=
- =?us-ascii?Q?DI7pT/aY1RFeyF1urZr8F9u6FfWVq4JfX+EzLgm7IpPpTDAFwoBRQenFKAQL?=
- =?us-ascii?Q?FQ1iS2Q2gp+wI14KVYIBzEteR2tN7/hBbIJy8kLD59gxq+fLAGrVOs7U5WUd?=
- =?us-ascii?Q?jDJjwWyWwr6Kgmo5QvYTKxh8etMjBKH8jDfnvCjQRo3kQ4xyASNdJqt5TAad?=
- =?us-ascii?Q?B+b2lsqtlVJMjMbNQ77OBIB6GwQbDtJsnFreL3FIdnsIkKUk3usDNf2w39NQ?=
- =?us-ascii?Q?eAWP5G/kZUx5QXxMDa0GD9LvuJBjclzsVeOslRzNas5k98hcUEOATSolB1SP?=
- =?us-ascii?Q?1mK4M8C9Q5fTjkfG2TjE7c8MSImWLUNOp8rYk8DdsFZjk8kt+lcrUYAtPeGJ?=
- =?us-ascii?Q?dykh+tIi5GNdb4P0H2NlhDOAeZmtyRsIF18Nau128bUVY71ak4M8xm7fjqzF?=
- =?us-ascii?Q?KKTXVtBsn50qTv/pt0a0GffSoeCJ4O/r7/10hlKW8rlXRiyXkisyjqsAwe5h?=
- =?us-ascii?Q?VtpIsLxOKIFgTWP8Rzwj74p7dx0QrivHjrQhMQ=3D=3D?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?eScN9FUXkCFumpPxKilEpYL3A6pcx2OeV9QVYttctOZtaFitafTQwH/BR9Sm?=
- =?us-ascii?Q?cQrs4WjbYFhWVZAFnnpSgW6/O0kFUUgKDDVScjJS+9ZOzQgVPFfWV/WAiPsJ?=
- =?us-ascii?Q?9ACDbtKenrqV0C6eLpjPLb45dwB+9hF7k9iDmd9ohbTvIkt6Ce1BhXOaeV6F?=
- =?us-ascii?Q?KbRJ6QJUG/S4BBrJIBFow5M6xY/Kr7NnNriWQdJf3Fivwu1tIg2y0Sr1HhM5?=
- =?us-ascii?Q?aS13crVE/cNy2yHlI7eiyh+XzMGoeTP8lJxfkXTxnlWOKGhorxTGw0wNEK9k?=
- =?us-ascii?Q?ujrLXAWNaHqPZOM3pQDnaovsX5oVj9uwodKSKX6wsvsMcv8o1nXLp2Z3M4yn?=
- =?us-ascii?Q?br5+o+Nps5786UQsunf4GBIRQsJaP01AVqF0S3C23e0HQM+His4K+FhTEyJ/?=
- =?us-ascii?Q?1aYCv9PlMrB0YDTPYYdzydplPWB78ACTwrXGZ44PyiFTMTJZ8lgZ8zoav0O7?=
- =?us-ascii?Q?PaF8nzH47xjpQs+xp2alSe05e2jf27vMvBeQ7vy76uDwuMfImy7ORvMRN9PO?=
- =?us-ascii?Q?uFRVR1Vk7pRB8Gqbv/hQHhtO5XW4EmMT6JBPNDHvnjg3/iyWmw9POxTx877g?=
- =?us-ascii?Q?OlfgBvR+DYJG7axa0cS0ABmHtge75SCfJOHTg6Mb3Nu5NzkbavQfj36Aprx0?=
- =?us-ascii?Q?aSalBwu+EZnhKr2iwojXjut/9aqJyZ78+6wj0NMp6TDI2bgA/wCWvE+4yW/1?=
- =?us-ascii?Q?IDAZIB4h4PQ5SlCYmXv5WXlmY89K9X7hGHQrGihegqpz4LFdIlcqXddRO3S8?=
- =?us-ascii?Q?/26HultOgyKovp6i/dEBGMc7+BGBlvn3xWqd/famkzqlOLTE1QLJ2IYyXCXe?=
- =?us-ascii?Q?xndnIX2oOzVrIYqqy9v9Y1Wlst0KFdAeAbPtWN/xOXg4j0zWE7oz8axwb1ke?=
- =?us-ascii?Q?TBG55JqFXh1uzcllR1TcC6e+UXcEhh3aRTYaVgAOzFemfz6tM/kERy4zlKmq?=
- =?us-ascii?Q?oaBl8WO8YcIXKqp6uJhKR+CAn7xozXulwpEWXIPt1toprBCsnCYblQ7lz7Cy?=
- =?us-ascii?Q?XNQlpAfN7yEAaBSRj/fG7jFaQLfRB4Ul6U9Abc3x9TviK3XtmjgdH/WRuIiO?=
- =?us-ascii?Q?0jcN3nT4AFg2pYa8JPBzL/Aoeh79w9hJ54UN89XJ8udKyQKRcQShxvh3IuC8?=
- =?us-ascii?Q?+Qxv27OQjjmHrj/PgJfwMe5E+7fwJKE0maocY5B1AdrssLa0VYHThfghwar3?=
- =?us-ascii?Q?EHEv/T/U1QajrdOZ8Ia+5hBiH07HZ4N7MfAyzy+xEMWX0nXouv4tYqT8M18?=
- =?us-ascii?Q?=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: d12652f6-01b5-11f0-9899-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1742054085; x=1742658885; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=qxQS40i0Ch68XwgXa+Jru8hgZRhDi7GFz9Uqyb44yWE=;
+        b=Z6NniDk9Pq2/REu07GGyiUkyHSAKj741GCxbLcCen0t9mnlfzc3n6XiNRKJwjqDEzX
+         R4/8NEKXlT6OwlyNWdHi8ReUhK5KgnKPPnDKiV5WHJbFgdNGotAhp+i+JktScXMIXAdQ
+         kff3afyou6DoMfQsfIv+ZXwK4XtBM9zct4dWQvsgfX6jK7Mn/jwUOv4/lgFrtMvBkVGz
+         YSfWJn7D42Wd+9MVQ4dspp+UBuDNBJwN02DS3VtFIqo9+MGFZ1j1KbiuebMhwQd8DstG
+         BIpFkv1vRyEmyDgEXrRhl39L1E/KIf/CEtXFlwj0pLEJWMvuzA5NmO4t6jOFeTemA2rY
+         FVxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742054085; x=1742658885;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=qxQS40i0Ch68XwgXa+Jru8hgZRhDi7GFz9Uqyb44yWE=;
+        b=sjG7EDsDEznD13d6+9O7kITAZPyV3ridWVue0uC+0w1xvpiiVfDPoRWEsZkCd2/xCb
+         hM0U+rE68FPqqUcd4AYKPEbrIrlsCbIKDRqcVMbwtkD60lQlV44b6jizsrithvOXuthP
+         WO6v+o4zGHpVw5yQLu4KDfXPWV92wcmnXZXTlL+SiD/pwT4j2r28pZsoiThEXTnPZ7zw
+         XFCJK9l0WFSvOkXVFrgFTdlbnbnNrYaP1RDvMTS3eaTw3XRW3p4wcDr9N6Kqh6+YwoPu
+         XB0XZ/itX+NJDAPGUk2RexkIml9GVwppJ0eoHqq+g13mXE20KItsMuF7TfetH7LFHcUn
+         dMVg==
+X-Gm-Message-State: AOJu0YxkxVLJekrWmO2KR04Ua7BV6OCpz14hbKWtoa/bLuU+v/FlEiJV
+	0mpapkFD3PFsq1Yo69IgJURBBDc2C7Jxy0R7UsINgYlK0/wQmFLXtbQD2OaWoKIAMWjlm9FY00Q
+	ssdTyY4tdMYiO+QORHwdQASFTk4AQEA==
+X-Gm-Gg: ASbGncsDikkIKmVOgo9LM6qCQdwsluNRf4idwh3KtnuJwinuha/6RsfmwwqFAN9SZ0g
+	PtwR1NG/OFeJvv73TSOOURDBsLuhi8P0eauM0OvCRb2bC6BFafv09qePjcd9/oGPcpJi23ooAso
+	p3aGBMOi7BKQv3xQIsbvTFY2wR
+X-Google-Smtp-Source: AGHT+IFCaEI2DZdnGsgfV+lasn7746U+l7Gd9aOV9sWuQDcllPHilPpO/VDS7+hVLfUOXsQ7165wifXBQSg6Hu4huwg=
+X-Received: by 2002:a05:6512:b9e:b0:549:78bd:6b8e with SMTP id
+ 2adb3069b0e04-549c396e744mr2247829e87.37.1742054084285; Sat, 15 Mar 2025
+ 08:54:44 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e196a76-6ccf-4672-aa10-08dd63772cba
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Mar 2025 04:09:25.8815
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR02MB7153
+References: <7e5a37e51303ba17dab8e6a92830257f670f3355.1741891599.git.sultanovandriy@gmail.com>
+In-Reply-To: <7e5a37e51303ba17dab8e6a92830257f670f3355.1741891599.git.sultanovandriy@gmail.com>
+From: Andriy Sultanov <sultanovandriy@gmail.com>
+Date: Sat, 15 Mar 2025 15:54:32 +0000
+X-Gm-Features: AQ5f1JoayLnUQPrWcVsSc6_FJ-onmdkrAWorhDjFCLP6OTuV_tapk1iPnu0POsU
+Message-ID: <CAHPYgaUwCwKBtWBJCroBJZscvi5ODZAQiFbDXe=pXB=yPHOQ1Q@mail.gmail.com>
+Subject: Re: [PATCH v1] drivers: Change amd_iommu struct to contain
+ pci_sbdf_t, simplify code
+To: xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Nico Pache <npache@redhat.com> Sent: Friday, March 14, 2025 2:38 PM
->=20
-> Update the NR_BALLOON_PAGES counter when pages are added to or
-> removed from the Hyper-V balloon.
->=20
-> Signed-off-by: Nico Pache <npache@redhat.com>
-> ---
->  drivers/hv/hv_balloon.c | 2 ++
->  1 file changed, 2 insertions(+)
->=20
-> diff --git a/drivers/hv/hv_balloon.c b/drivers/hv/hv_balloon.c
-> index fec2f18679e3..2b4080e51f97 100644
-> --- a/drivers/hv/hv_balloon.c
-> +++ b/drivers/hv/hv_balloon.c
-> @@ -1192,6 +1192,7 @@ static void free_balloon_pages(struct hv_dynmem_dev=
-ice *dm,
->  		__ClearPageOffline(pg);
->  		__free_page(pg);
->  		dm->num_pages_ballooned--;
-> +		mod_node_page_state(page_pgdat(pg), NR_BALLOON_PAGES, -1);
->  		adjust_managed_page_count(pg, 1);
->  	}
->  }
-> @@ -1221,6 +1222,7 @@ static unsigned int alloc_balloon_pages(struct hv_d=
-ynmem_device *dm,
->  			return i * alloc_unit;
->=20
->  		dm->num_pages_ballooned +=3D alloc_unit;
-> +		mod_node_page_state(page_pgdat(pg), NR_BALLOON_PAGES, alloc_unit);
->=20
->  		/*
->  		 * If we allocatted 2M pages; split them so we
-> --
-> 2.48.1
->=20
+On Thu, 13 Mar 2025 at 18:57, Andrii Sultanov <sultanovandriy@gmail.com> wrote:
+> --- a/xen/drivers/passthrough/amd/iommu_acpi.c
+> +++ b/xen/drivers/passthrough/amd/iommu_acpi.c
+> @@ -297,7 +297,7 @@ static int __init register_range_for_iommu_devices(
+>      /* reserve unity-mapped page entries for devices */
+>      for ( bdf = rc = 0; !rc && bdf < ivrs_bdf_entries; bdf++ )
+>      {
+> -        if ( iommu != find_iommu_for_device(iommu->seg, bdf) )
+> +        if ( iommu != find_iommu_for_device(iommu->sbdf) )
+>              continue;
 
-As is evident from the code, the hv_balloon driver already has accounting
-for the number of pages that have been ballooned out of the VM. This
-accounting and other details of the hv_balloon driver state is available in
-/sys/kernel/debug/hv-balloon when CONFIG_DEBUGFS=3Dy. But it seems OK
-to also report the # of pages ballooned through /proc/meminfo, which
-works even if CONFIG_DEBUGFS=3Dn.
-
-Reviewed-by: Michael Kelley <mhklinux@outlook.com>
-
+Note there's a bug here, this needs to stay as is. Will fix in V2.
 
