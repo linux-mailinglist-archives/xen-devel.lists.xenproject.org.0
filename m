@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA6D6A63731
-	for <lists+xen-devel@lfdr.de>; Sun, 16 Mar 2025 20:26:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.916073.1321288 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E22DA63735
+	for <lists+xen-devel@lfdr.de>; Sun, 16 Mar 2025 20:26:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.916072.1321281 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tttcB-0005mH-Qk; Sun, 16 Mar 2025 19:25:39 +0000
+	id 1tttcB-0005go-GO; Sun, 16 Mar 2025 19:25:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 916073.1321288; Sun, 16 Mar 2025 19:25:39 +0000
+Received: by outflank-mailman (output) from mailman id 916072.1321281; Sun, 16 Mar 2025 19:25:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tttcB-0005gT-L1; Sun, 16 Mar 2025 19:25:39 +0000
-Received: by outflank-mailman (input) for mailman id 916073;
+	id 1tttcB-0005cs-A0; Sun, 16 Mar 2025 19:25:39 +0000
+Received: by outflank-mailman (input) for mailman id 916072;
  Sun, 16 Mar 2025 19:25:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=84OC=WD=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
- id 1tttc9-0005Uc-Ng
+ id 1tttc9-0004Ab-MC
  for xen-devel@lists.xenproject.org; Sun, 16 Mar 2025 19:25:37 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 6f3d15a9-029c-11f0-9899-31a8f345e629;
- Sun, 16 Mar 2025 20:25:35 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 6fb61cc2-029c-11f0-9aba-95dc52dad729;
+ Sun, 16 Mar 2025 20:25:36 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1D10B2573;
- Sun, 16 Mar 2025 12:25:44 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6482012FC;
+ Sun, 16 Mar 2025 12:25:45 -0700 (PDT)
 Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.43])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EC7F43F694;
- Sun, 16 Mar 2025 12:25:32 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2070A3F694;
+ Sun, 16 Mar 2025 12:25:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,211 +42,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6f3d15a9-029c-11f0-9899-31a8f345e629
+X-Inumbo-ID: 6fb61cc2-029c-11f0-9aba-95dc52dad729
 From: Luca Fancellu <luca.fancellu@arm.com>
 To: xen-devel@lists.xenproject.org
-Cc: Penny Zheng <Penny.Zheng@arm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Penny Zheng <penny.zheng@arm.com>,
-	Wei Chen <wei.chen@arm.com>
-Subject: [PATCH v2 6/7] xen: introduce Kconfig HAS_PAGING_MEMPOOL
-Date: Sun, 16 Mar 2025 19:24:44 +0000
-Message-Id: <20250316192445.2376484-7-luca.fancellu@arm.com>
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v2 7/7] arm/mpu: Create the skeleton for MPU compilation
+Date: Sun, 16 Mar 2025 19:24:45 +0000
+Message-Id: <20250316192445.2376484-8-luca.fancellu@arm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250316192445.2376484-1-luca.fancellu@arm.com>
 References: <20250316192445.2376484-1-luca.fancellu@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Penny Zheng <Penny.Zheng@arm.com>
+This commit introduces the skeleton for the MPU memory management
+subsystem that allows the compilation on Arm64.
 
-ARM MPU system doesn't need to use paging memory pool, as MPU memory
-mapping table at most takes only one 4KB page, which is enough to
-manage the maximum 255 MPU memory regions, for all EL2 stage 1
-translation and EL1 stage 2 translation.
-
-Introduce HAS_PAGING_MEMPOOL Kconfig common symbol, selected for Arm
-MMU systems.
-
-Wrap the code inside 'construct_domU' that deal with p2m paging
-allocation in a new function 'domu_p2m_set_allocation', protected
-by HAS_PAGING_MEMPOOL, this is done in this way to prevent polluting
-the former function with #ifdefs and improve readability
-
-Introduce arch_{get,set}_paging_mempool_size implementation for MPU
-system.
-
-Remove 'struct paging_domain' from Arm 'struct arch_domain' when the
-field is not required.
-
-Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-Signed-off-by: Wei Chen <wei.chen@arm.com>
 Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 ---
-v2 changes:
- - make Kconfig HAS_PAGING_MEMPOOL common
- - protect also "xen,domain-p2m-mem-mb" reading with HAS_PAGING_MEMPOOL
- - do not define p2m_teardown{_allocation} in this patch
- - change commit message
----
- xen/arch/arm/Kconfig              |  1 +
- xen/arch/arm/dom0less-build.c     | 48 ++++++++++++++++++++++++-------
- xen/arch/arm/include/asm/domain.h |  2 ++
- xen/arch/arm/mpu/Makefile         |  1 +
- xen/arch/arm/mpu/p2m.c            | 25 ++++++++++++++++
- xen/common/Kconfig                |  3 ++
- 6 files changed, 69 insertions(+), 11 deletions(-)
- create mode 100644 xen/arch/arm/mpu/p2m.c
+The implementation of setup_virt_paging() is under arm64/mpu
+because it will have a different implementation from arm32.
 
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index 5ac6ec0212d2..6b4bcf12683e 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -76,6 +76,7 @@ choice
- config MMU
- 	bool "MMU"
- 	select HAS_LLC_COLORING if !NUMA && ARM_64
-+	select HAS_PAGING_MEMPOOL
- 	select HAS_PMAP
- 	select HAS_VMAP
- 	select HAS_PASSTHROUGH
-diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
-index 573b0d25ae41..a65bbbb05301 100644
---- a/xen/arch/arm/dom0less-build.c
-+++ b/xen/arch/arm/dom0less-build.c
-@@ -673,6 +673,8 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
-     return -EINVAL;
- }
- 
-+#ifdef CONFIG_HAS_PAGING_MEMPOOL
-+
- static unsigned long __init domain_p2m_pages(unsigned long maxmem_kb,
-                                              unsigned int smp_cpus)
- {
-@@ -688,6 +690,8 @@ static unsigned long __init domain_p2m_pages(unsigned long maxmem_kb,
-     return DIV_ROUND_UP(memkb, 1024) << (20 - PAGE_SHIFT);
- }
- 
-+#endif
-+
- static int __init alloc_xenstore_evtchn(struct domain *d)
- {
-     evtchn_alloc_unbound_t alloc;
-@@ -841,6 +845,38 @@ static void __init domain_vcpu_affinity(struct domain *d,
-     }
- }
- 
-+#ifdef CONFIG_HAS_PAGING_MEMPOOL
-+
-+static int __init domu_p2m_set_allocation(struct domain *d, u64 mem,
-+                                          const struct dt_device_node *node)
-+{
-+    unsigned long p2m_pages;
-+    u32 p2m_mem_mb;
-+    int rc;
-+
-+    rc = dt_property_read_u32(node, "xen,domain-p2m-mem-mb", &p2m_mem_mb);
-+    /* If xen,domain-p2m-mem-mb is not specified, use the default value. */
-+    p2m_pages = rc ?
-+                p2m_mem_mb << (20 - PAGE_SHIFT) :
-+                domain_p2m_pages(mem, d->max_vcpus);
-+
-+    spin_lock(&d->arch.paging.lock);
-+    rc = p2m_set_allocation(d, p2m_pages, NULL);
-+    spin_unlock(&d->arch.paging.lock);
-+
-+    return rc;
-+}
-+
-+#else /* !CONFIG_HAS_PAGING_MEMPOOL */
-+
-+static inline int domu_p2m_set_allocation(struct domain *d, u64 mem,
-+                                          const struct dt_device_node *node)
-+{
-+    return 0;
-+}
-+
-+#endif /* CONFIG_HAS_PAGING_MEMPOOL */
-+
- static int __init construct_domU(struct domain *d,
-                                  const struct dt_device_node *node)
- {
-@@ -848,8 +884,6 @@ static int __init construct_domU(struct domain *d,
-     const char *dom0less_enhanced;
-     int rc;
-     u64 mem;
--    u32 p2m_mem_mb;
--    unsigned long p2m_pages;
- 
-     rc = dt_property_read_u64(node, "memory", &mem);
-     if ( !rc )
-@@ -859,15 +893,7 @@ static int __init construct_domU(struct domain *d,
-     }
-     kinfo.unassigned_mem = (paddr_t)mem * SZ_1K;
- 
--    rc = dt_property_read_u32(node, "xen,domain-p2m-mem-mb", &p2m_mem_mb);
--    /* If xen,domain-p2m-mem-mb is not specified, use the default value. */
--    p2m_pages = rc ?
--                p2m_mem_mb << (20 - PAGE_SHIFT) :
--                domain_p2m_pages(mem, d->max_vcpus);
--
--    spin_lock(&d->arch.paging.lock);
--    rc = p2m_set_allocation(d, p2m_pages, NULL);
--    spin_unlock(&d->arch.paging.lock);
-+    rc = domu_p2m_set_allocation(d, mem, node);
-     if ( rc != 0 )
-         return rc;
- 
-diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
-index 50b6a4b00982..fadec7d8fa9e 100644
---- a/xen/arch/arm/include/asm/domain.h
-+++ b/xen/arch/arm/include/asm/domain.h
-@@ -75,7 +75,9 @@ struct arch_domain
- 
-     struct hvm_domain hvm;
- 
-+#ifdef CONFIG_HAS_PAGING_MEMPOOL
-     struct paging_domain paging;
-+#endif
- 
-     struct vmmio vmmio;
- 
-diff --git a/xen/arch/arm/mpu/Makefile b/xen/arch/arm/mpu/Makefile
-index b18cec483671..5424ab6239c8 100644
---- a/xen/arch/arm/mpu/Makefile
-+++ b/xen/arch/arm/mpu/Makefile
-@@ -1 +1,2 @@
- obj-y += mm.o
+v2 changes:
+ - p2m_teardown{_allocation} stubs are now part of this patch
+ - included missing headers
+ - rename vmap-mpu.c to vmap.c
+ - remove comment "Not used on MPU system" on implemented stubs
+---
+---
+ xen/arch/arm/arm64/mpu/Makefile    |  2 +
+ xen/arch/arm/arm64/mpu/p2m.c       | 19 ++++++++
+ xen/arch/arm/arm64/mpu/smpboot.c   | 26 +++++++++++
+ xen/arch/arm/include/asm/mpu/p2m.h | 21 +++++++++
+ xen/arch/arm/include/asm/p2m.h     |  2 +-
+ xen/arch/arm/mpu/Makefile          |  2 +
+ xen/arch/arm/mpu/mm.c              | 25 +++++++++++
+ xen/arch/arm/mpu/p2m.c             | 69 ++++++++++++++++++++++++++++++
+ xen/arch/arm/mpu/setup.c           | 40 +++++++++++++++++
+ xen/arch/arm/mpu/vmap.c            | 26 +++++++++++
+ 10 files changed, 231 insertions(+), 1 deletion(-)
+ create mode 100644 xen/arch/arm/arm64/mpu/p2m.c
+ create mode 100644 xen/arch/arm/arm64/mpu/smpboot.c
+ create mode 100644 xen/arch/arm/include/asm/mpu/p2m.h
+ create mode 100644 xen/arch/arm/mpu/setup.c
+ create mode 100644 xen/arch/arm/mpu/vmap.c
+
+diff --git a/xen/arch/arm/arm64/mpu/Makefile b/xen/arch/arm/arm64/mpu/Makefile
+index 3340058c08c6..cf0540aecc84 100644
+--- a/xen/arch/arm/arm64/mpu/Makefile
++++ b/xen/arch/arm/arm64/mpu/Makefile
+@@ -1 +1,3 @@
+ obj-y += head.o
 +obj-y += p2m.o
-diff --git a/xen/arch/arm/mpu/p2m.c b/xen/arch/arm/mpu/p2m.c
++obj-y += smpboot.o
+diff --git a/xen/arch/arm/arm64/mpu/p2m.c b/xen/arch/arm/arm64/mpu/p2m.c
 new file mode 100644
-index 000000000000..71f9cdbf2fdb
+index 000000000000..b6d8b2777b58
 --- /dev/null
-+++ b/xen/arch/arm/mpu/p2m.c
-@@ -0,0 +1,25 @@
-+
++++ b/xen/arch/arm/arm64/mpu/p2m.c
+@@ -0,0 +1,19 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +
-+#include <xen/domain.h>
-+#include <xen/errno.h>
-+#include <xen/types.h>
++#include <xen/bug.h>
++#include <xen/init.h>
++#include <asm/p2m.h>
 +
-+int arch_get_paging_mempool_size(struct domain *d, uint64_t *size)
++void __init setup_virt_paging(void)
 +{
-+    return -EOPNOTSUPP;
-+}
-+
-+int arch_set_paging_mempool_size(struct domain *d, uint64_t size)
-+{
-+    return -EOPNOTSUPP;
++    BUG_ON("unimplemented");
 +}
 +
 +/*
@@ -257,20 +124,294 @@ index 000000000000..71f9cdbf2fdb
 + * indent-tabs-mode: nil
 + * End:
 + */
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index 6166327f4d14..a3bdf546d02f 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -74,6 +74,9 @@ config HAS_KEXEC
- config HAS_LLC_COLORING
- 	bool
- 
-+config HAS_PAGING_MEMPOOL
-+	bool
+diff --git a/xen/arch/arm/arm64/mpu/smpboot.c b/xen/arch/arm/arm64/mpu/smpboot.c
+new file mode 100644
+index 000000000000..5090f443f577
+--- /dev/null
++++ b/xen/arch/arm/arm64/mpu/smpboot.c
+@@ -0,0 +1,26 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
 +
- config HAS_PIRQ
- 	bool
++#include <xen/bug.h>
++#include <xen/errno.h>
++#include <xen/mm.h>
++#include <xen/stdbool.h>
++
++int prepare_secondary_mm(int cpu)
++{
++    BUG_ON("unimplemented");
++    return -EINVAL;
++}
++
++void update_boot_mapping(bool enable)
++{
++    BUG_ON("unimplemented");
++}
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
+diff --git a/xen/arch/arm/include/asm/mpu/p2m.h b/xen/arch/arm/include/asm/mpu/p2m.h
+new file mode 100644
+index 000000000000..e46d9e757a1d
+--- /dev/null
++++ b/xen/arch/arm/include/asm/mpu/p2m.h
+@@ -0,0 +1,21 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++
++#ifndef __ARM_MPU_P2M_H__
++#define __ARM_MPU_P2M_H__
++
++struct p2m_domain;
++
++static inline void p2m_clear_root_pages(struct p2m_domain *p2m) {}
++
++static inline void p2m_tlb_flush_sync(struct p2m_domain *p2m) {}
++
++#endif /* __ARM_MPU_P2M_H__ */
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
+diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
+index 594dc4004138..2d53bf9b6177 100644
+--- a/xen/arch/arm/include/asm/p2m.h
++++ b/xen/arch/arm/include/asm/p2m.h
+@@ -168,7 +168,7 @@ typedef enum {
+ #if defined(CONFIG_MMU)
+ # include <asm/mmu/p2m.h>
+ #else
+-# error "Unknown memory management layout"
++# include <asm/mpu/p2m.h>
+ #endif
  
+ static inline bool arch_acquire_resource_check(struct domain *d)
+diff --git a/xen/arch/arm/mpu/Makefile b/xen/arch/arm/mpu/Makefile
+index 5424ab6239c8..21bbc517b51a 100644
+--- a/xen/arch/arm/mpu/Makefile
++++ b/xen/arch/arm/mpu/Makefile
+@@ -1,2 +1,4 @@
+ obj-y += mm.o
+ obj-y += p2m.o
++obj-y += setup.init.o
++obj-y += vmap.o
+diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
+index 4e9a2405d8c5..07c8959f4ee9 100644
+--- a/xen/arch/arm/mpu/mm.c
++++ b/xen/arch/arm/mpu/mm.c
+@@ -1,9 +1,12 @@
+ /* SPDX-License-Identifier: GPL-2.0-only */
+ 
++#include <xen/bug.h>
++#include <xen/errno.h>
+ #include <xen/init.h>
+ #include <xen/lib.h>
+ #include <xen/mm.h>
+ #include <xen/sizes.h>
++#include <xen/types.h>
+ 
+ struct page_info *frame_table;
+ 
+@@ -17,6 +20,28 @@ static void __init __maybe_unused build_assertions(void)
+     BUILD_BUG_ON(PAGE_SIZE != SZ_4K);
+ }
+ 
++void __init setup_mm(void)
++{
++    BUG_ON("unimplemented");
++}
++
++int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
++{
++    BUG_ON("unimplemented");
++    return -EINVAL;
++}
++
++void dump_hyp_walk(vaddr_t addr)
++{
++    BUG_ON("unimplemented");
++}
++
++/* Release all __init and __initdata ranges to be reused */
++void free_init_memory(void)
++{
++    BUG_ON("unimplemented");
++}
++
+ void __iomem *ioremap_attr(paddr_t start, size_t len, unsigned int flags)
+ {
+     BUG_ON("unimplemented");
+diff --git a/xen/arch/arm/mpu/p2m.c b/xen/arch/arm/mpu/p2m.c
+index 71f9cdbf2fdb..f464c74f3288 100644
+--- a/xen/arch/arm/mpu/p2m.c
++++ b/xen/arch/arm/mpu/p2m.c
+@@ -1,9 +1,78 @@
+ 
+ /* SPDX-License-Identifier: GPL-2.0-only */
+ 
++#include <xen/bug.h>
+ #include <xen/domain.h>
+ #include <xen/errno.h>
++#include <xen/mm-frame.h>
++#include <xen/sched.h>
+ #include <xen/types.h>
++#include <asm/p2m.h>
++
++int p2m_set_entry(struct p2m_domain *p2m, gfn_t sgfn, unsigned long nr,
++                  mfn_t smfn, p2m_type_t t, p2m_access_t a)
++{
++    BUG_ON("unimplemented");
++    return -EINVAL;
++}
++
++mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn, p2m_type_t *t,
++                    p2m_access_t *a, unsigned int *page_order, bool *valid)
++{
++    BUG_ON("unimplemented");
++    return INVALID_MFN;
++}
++
++void p2m_dump_info(struct domain *d)
++{
++    BUG_ON("unimplemented");
++}
++
++int p2m_init(struct domain *d)
++{
++    BUG_ON("unimplemented");
++    return -EINVAL;
++}
++
++void p2m_save_state(struct vcpu *p)
++{
++    BUG_ON("unimplemented");
++}
++
++void p2m_restore_state(struct vcpu *n)
++{
++    BUG_ON("unimplemented");
++}
++
++void p2m_final_teardown(struct domain *d)
++{
++    BUG_ON("unimplemented");
++}
++
++bool p2m_resolve_translation_fault(struct domain *d, gfn_t gfn)
++{
++    BUG_ON("unimplemented");
++    return false;
++}
++
++void p2m_flush_vm(struct vcpu *v) {}
++
++int relinquish_p2m_mapping(struct domain *d)
++{
++    return 0;
++}
++
++void p2m_domain_creation_finished(struct domain *d) {}
++
++int p2m_teardown(struct domain *d)
++{
++    return 0;
++}
++
++int p2m_teardown_allocation(struct domain *d)
++{
++    return 0;
++}
+ 
+ int arch_get_paging_mempool_size(struct domain *d, uint64_t *size)
+ {
+diff --git a/xen/arch/arm/mpu/setup.c b/xen/arch/arm/mpu/setup.c
+new file mode 100644
+index 000000000000..b4da77003f47
+--- /dev/null
++++ b/xen/arch/arm/mpu/setup.c
+@@ -0,0 +1,40 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++
++#include <xen/bug.h>
++#include <xen/init.h>
++#include <xen/mm.h>
++#include <xen/types.h>
++#include <asm/setup.h>
++
++void __init setup_pagetables(void) {}
++
++void * __init early_fdt_map(paddr_t fdt_paddr)
++{
++    BUG_ON("unimplemented");
++    return NULL;
++}
++
++/*
++ * copy_from_paddr - copy data from a physical address
++ * @dst: destination virtual address
++ * @paddr: source physical address
++ * @len: length to copy
++ */
++void __init copy_from_paddr(void *dst, paddr_t paddr, unsigned long len)
++{
++    BUG_ON("unimplemented");
++}
++
++void __init remove_early_mappings(void)
++{
++    BUG_ON("unimplemented");
++}
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
+diff --git a/xen/arch/arm/mpu/vmap.c b/xen/arch/arm/mpu/vmap.c
+new file mode 100644
+index 000000000000..f977b79cd436
+--- /dev/null
++++ b/xen/arch/arm/mpu/vmap.c
+@@ -0,0 +1,26 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++
++#include <xen/bug.h>
++#include <xen/mm-frame.h>
++#include <xen/types.h>
++#include <xen/vmap.h>
++
++void *vmap_contig(mfn_t mfn, unsigned int nr)
++{
++    BUG_ON("unimplemented");
++    return NULL;
++}
++
++void vunmap(const void *va)
++{
++    BUG_ON("unimplemented");
++}
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
 -- 
 2.34.1
 
