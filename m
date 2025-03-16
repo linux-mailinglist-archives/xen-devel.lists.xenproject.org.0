@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC5C1A63732
-	for <lists+xen-devel@lfdr.de>; Sun, 16 Mar 2025 20:26:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.916067.1321225 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FD86A63737
+	for <lists+xen-devel@lfdr.de>; Sun, 16 Mar 2025 20:26:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.916068.1321232 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tttc5-0004Ex-0i; Sun, 16 Mar 2025 19:25:33 +0000
+	id 1tttc5-0004LB-BK; Sun, 16 Mar 2025 19:25:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 916067.1321225; Sun, 16 Mar 2025 19:25:32 +0000
+Received: by outflank-mailman (output) from mailman id 916068.1321232; Sun, 16 Mar 2025 19:25:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tttc4-0004BL-TF; Sun, 16 Mar 2025 19:25:32 +0000
-Received: by outflank-mailman (input) for mailman id 916067;
+	id 1tttc5-0004FF-6x; Sun, 16 Mar 2025 19:25:33 +0000
+Received: by outflank-mailman (input) for mailman id 916068;
  Sun, 16 Mar 2025 19:25:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=84OC=WD=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
- id 1tttc2-0004Ab-Vn
- for xen-devel@lists.xenproject.org; Sun, 16 Mar 2025 19:25:30 +0000
+ id 1tttc3-0004Ab-IC
+ for xen-devel@lists.xenproject.org; Sun, 16 Mar 2025 19:25:31 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 6b5511c0-029c-11f0-9aba-95dc52dad729;
+ id 6bfe6a78-029c-11f0-9aba-95dc52dad729;
  Sun, 16 Mar 2025 20:25:29 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 034241A32;
- Sun, 16 Mar 2025 12:25:38 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 46B5F1D34;
+ Sun, 16 Mar 2025 12:25:39 -0700 (PDT)
 Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.43])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 751883F694;
- Sun, 16 Mar 2025 12:25:27 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 215313F694;
+ Sun, 16 Mar 2025 12:25:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,245 +42,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b5511c0-029c-11f0-9aba-95dc52dad729
+X-Inumbo-ID: 6bfe6a78-029c-11f0-9aba-95dc52dad729
 From: Luca Fancellu <luca.fancellu@arm.com>
 To: xen-devel@lists.xenproject.org
-Cc: Penny Zheng <Penny.Zheng@arm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Penny Zheng <penny.zheng@arm.com>,
-	Wei Chen <wei.chen@arm.com>
-Subject: [PATCH v2 2/7] xen/arm: Implement virt/maddr conversion in MPU system
-Date: Sun, 16 Mar 2025 19:24:40 +0000
-Message-Id: <20250316192445.2376484-3-luca.fancellu@arm.com>
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v2 3/7] xen/arm: Introduce frame_table and virt_to_page
+Date: Sun, 16 Mar 2025 19:24:41 +0000
+Message-Id: <20250316192445.2376484-4-luca.fancellu@arm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250316192445.2376484-1-luca.fancellu@arm.com>
 References: <20250316192445.2376484-1-luca.fancellu@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Penny Zheng <Penny.Zheng@arm.com>
+Introduce frame_table in order to provide the implementation of
+virt_to_page for MPU system, move the MMU variant in mmu/mm.h.
 
-virt_to_maddr and maddr_to_virt are used widely in Xen code. So
-even there is no VMSA in MPU system, we keep the interface in MPU to
-to avoid changing the existing common code.
+Introduce FRAMETABLE_NR that is required for 'pdx_group_valid' in
+pdx.c, but leave the initialisation of the frame table to a later
+stage.
+Define FRAMETABLE_SIZE for MPU to support up to 1TB of ram, as the
+only current implementation of armv8-r aarch64, which is cortex R82,
+can address up to that memory.
 
-In order to do that, move the virt_to_maddr() and maddr_to_virt()
-definitions to mmu/mm.h, move the include of memory management
-subsystems (MMU/MPU) on a different place because the mentioned
-helpers needs visibility of some macro in asm/mm.h.
+Take the occasion to sort alphabetically the headers following
+the Xen code style and add the emacs footer in mpu/mm.c.
 
-Finally implement virt_to_maddr() and maddr_to_virt() for MPU systems
-under mpu/mm.h, the MPU version of virt/maddr conversion is simple since
-VA==PA.
-
-Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-Signed-off-by: Wei Chen <wei.chen@arm.com>
 Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 ---
 v2 changes:
- - add missing headers, fix header protection macro name convention
- - take into account PADDR_MASK in virt_to_maddr
- - fixed typo in commit message
- - moved also maddr_to_virt to mmu/mm.h and moved include of mmu/mpu.
- - moved introduction of mm.c footer on commit that touches that file.
+ - sorted headers in mm.c
+ - modified commit message
+ - moved virt_to_page to MMU and MPU
+ - removed frametable_pdx_end, used mfn_valid
 ---
- xen/arch/arm/include/asm/mm.h     | 64 +++++--------------------------
- xen/arch/arm/include/asm/mmu/mm.h | 56 +++++++++++++++++++++++++++
- xen/arch/arm/include/asm/mpu/mm.h | 27 +++++++++++++
- 3 files changed, 92 insertions(+), 55 deletions(-)
- create mode 100644 xen/arch/arm/include/asm/mpu/mm.h
+ xen/arch/arm/include/asm/mm.h         | 14 --------------
+ xen/arch/arm/include/asm/mmu/mm.h     | 14 ++++++++++++++
+ xen/arch/arm/include/asm/mpu/layout.h |  3 +++
+ xen/arch/arm/include/asm/mpu/mm.h     | 15 +++++++++++++++
+ xen/arch/arm/mpu/mm.c                 | 14 +++++++++++++-
+ 5 files changed, 45 insertions(+), 15 deletions(-)
 
 diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
-index a0d8e5afe977..444fd03823ec 100644
+index 444fd03823ec..fbffaccef49b 100644
 --- a/xen/arch/arm/include/asm/mm.h
 +++ b/xen/arch/arm/include/asm/mm.h
-@@ -14,12 +14,6 @@
- # error "unknown ARM variant"
+@@ -294,20 +294,6 @@ static inline uint64_t gvirt_to_maddr(vaddr_t va, paddr_t *pa,
+ #error "Unknown memory management layout"
  #endif
  
--#if defined(CONFIG_MMU)
--# include <asm/mmu/mm.h>
--#elif !defined(CONFIG_MPU)
--# error "Unknown memory management layout"
--#endif
--
- /* Align Xen to a 2 MiB boundary. */
- #define XEN_PADDR_ALIGN (1 << 21)
- 
-@@ -261,55 +255,6 @@ static inline void __iomem *ioremap_wc(paddr_t start, size_t len)
- /* Page-align address and convert to frame number format */
- #define paddr_to_pfn_aligned(paddr)    paddr_to_pfn(PAGE_ALIGN(paddr))
- 
--#define virt_to_maddr(va) ({                                        \
--    vaddr_t va_ = (vaddr_t)(va);                                    \
--    (paddr_t)((va_to_par(va_) & PADDR_MASK & PAGE_MASK) | (va_ & ~PAGE_MASK)); \
--})
--
--#ifdef CONFIG_ARM_32
--/**
-- * Find the virtual address corresponding to a machine address
-- *
-- * Only memory backing the XENHEAP has a corresponding virtual address to
-- * be found. This is so we can save precious virtual space, as it's in
-- * short supply on arm32. This mapping is not subject to PDX compression
-- * because XENHEAP is known to be physically contiguous and can't hence
-- * jump over the PDX hole. This means we can avoid the roundtrips
-- * converting to/from pdx.
-- *
-- * @param ma Machine address
-- * @return Virtual address mapped to `ma`
-- */
--static inline void *maddr_to_virt(paddr_t ma)
+-/* Convert between Xen-heap virtual addresses and page-info structures. */
+-static inline struct page_info *virt_to_page(const void *v)
 -{
--    ASSERT(is_xen_heap_mfn(maddr_to_mfn(ma)));
--    ma -= mfn_to_maddr(directmap_mfn_start);
--    return (void *)(unsigned long) ma + XENHEAP_VIRT_START;
--}
--#else
--/**
-- * Find the virtual address corresponding to a machine address
-- *
-- * The directmap covers all conventional memory accesible by the
-- * hypervisor. This means it's subject to PDX compression.
-- *
-- * Note there's an extra offset applied (directmap_base_pdx) on top of the
-- * regular PDX compression logic. Its purpose is to skip over the initial
-- * range of non-existing memory, should there be one.
-- *
-- * @param ma Machine address
-- * @return Virtual address mapped to `ma`
-- */
--static inline void *maddr_to_virt(paddr_t ma)
--{
--    ASSERT((mfn_to_pdx(maddr_to_mfn(ma)) - directmap_base_pdx) <
--           (DIRECTMAP_SIZE >> PAGE_SHIFT));
--    return (void *)(XENHEAP_VIRT_START -
--                    (directmap_base_pdx << PAGE_SHIFT) +
--                    maddr_to_directmapoff(ma));
--}
--#endif
+-    unsigned long va = (unsigned long)v;
+-    unsigned long pdx;
 -
- /*
-  * Translate a guest virtual address to a machine address.
-  * Return the fault information if the translation has failed else 0.
-@@ -340,6 +285,15 @@ static inline uint64_t gvirt_to_maddr(vaddr_t va, paddr_t *pa,
- #define virt_to_mfn(va)     __virt_to_mfn(va)
- #define mfn_to_virt(mfn)    __mfn_to_virt(mfn)
- 
-+/* Memory management subsystem header placed here to see the above macros */
-+#if defined(CONFIG_MMU)
-+# include <asm/mmu/mm.h>
-+#elif defined(CONFIG_MPU)
-+# include <asm/mpu/mm.h>
-+#else
-+#error "Unknown memory management layout"
-+#endif
-+
- /* Convert between Xen-heap virtual addresses and page-info structures. */
- static inline struct page_info *virt_to_page(const void *v)
+-    ASSERT(va >= XENHEAP_VIRT_START);
+-    ASSERT(va < directmap_virt_end);
+-
+-    pdx = (va - XENHEAP_VIRT_START) >> PAGE_SHIFT;
+-    pdx += mfn_to_pdx(directmap_mfn_start);
+-    return frame_table + pdx - frametable_base_pdx;
+-}
+-
+ static inline void *page_to_virt(const struct page_info *pg)
  {
+     return mfn_to_virt(mfn_x(page_to_mfn(pg)));
 diff --git a/xen/arch/arm/include/asm/mmu/mm.h b/xen/arch/arm/include/asm/mmu/mm.h
-index f5a00558c47b..6737c3ede783 100644
+index 6737c3ede783..caba987edc85 100644
 --- a/xen/arch/arm/include/asm/mmu/mm.h
 +++ b/xen/arch/arm/include/asm/mmu/mm.h
-@@ -2,6 +2,13 @@
- #ifndef __ARM_MMU_MM_H__
- #define __ARM_MMU_MM_H__
+@@ -70,6 +70,20 @@ static inline void *maddr_to_virt(paddr_t ma)
+ }
+ #endif
  
-+#include <xen/bug.h>
-+#include <xen/pdx.h>
-+#include <xen/types.h>
-+#include <asm/mm.h>
-+#include <asm/mmu/layout.h>
-+#include <asm/page.h>
-+
- /* Non-boot CPUs use this to find the correct pagetables. */
- extern uint64_t init_ttbr;
- 
-@@ -14,6 +21,55 @@ extern unsigned long directmap_base_pdx;
- 
- #define frame_table ((struct page_info *)FRAMETABLE_VIRT_START)
- 
-+#define virt_to_maddr(va) ({                                                   \
-+    vaddr_t va_ = (vaddr_t)(va);                                               \
-+    (paddr_t)((va_to_par(va_) & PADDR_MASK & PAGE_MASK) | (va_ & ~PAGE_MASK)); \
-+})
-+
-+#ifdef CONFIG_ARM_32
-+/**
-+ * Find the virtual address corresponding to a machine address
-+ *
-+ * Only memory backing the XENHEAP has a corresponding virtual address to
-+ * be found. This is so we can save precious virtual space, as it's in
-+ * short supply on arm32. This mapping is not subject to PDX compression
-+ * because XENHEAP is known to be physically contiguous and can't hence
-+ * jump over the PDX hole. This means we can avoid the roundtrips
-+ * converting to/from pdx.
-+ *
-+ * @param ma Machine address
-+ * @return Virtual address mapped to `ma`
-+ */
-+static inline void *maddr_to_virt(paddr_t ma)
++/* Convert between Xen-heap virtual addresses and page-info structures. */
++static inline struct page_info *virt_to_page(const void *v)
 +{
-+    ASSERT(is_xen_heap_mfn(maddr_to_mfn(ma)));
-+    ma -= mfn_to_maddr(directmap_mfn_start);
-+    return (void *)(unsigned long) ma + XENHEAP_VIRT_START;
++    unsigned long va = (unsigned long)v;
++    unsigned long pdx;
++
++    ASSERT(va >= XENHEAP_VIRT_START);
++    ASSERT(va < directmap_virt_end);
++
++    pdx = (va - XENHEAP_VIRT_START) >> PAGE_SHIFT;
++    pdx += mfn_to_pdx(directmap_mfn_start);
++    return frame_table + pdx - frametable_base_pdx;
 +}
-+#else
-+/**
-+ * Find the virtual address corresponding to a machine address
-+ *
-+ * The directmap covers all conventional memory accesible by the
-+ * hypervisor. This means it's subject to PDX compression.
-+ *
-+ * Note there's an extra offset applied (directmap_base_pdx) on top of the
-+ * regular PDX compression logic. Its purpose is to skip over the initial
-+ * range of non-existing memory, should there be one.
-+ *
-+ * @param ma Machine address
-+ * @return Virtual address mapped to `ma`
-+ */
-+static inline void *maddr_to_virt(paddr_t ma)
-+{
-+    ASSERT((mfn_to_pdx(maddr_to_mfn(ma)) - directmap_base_pdx) <
-+           (DIRECTMAP_SIZE >> PAGE_SHIFT));
-+    return (void *)(XENHEAP_VIRT_START -
-+                    (directmap_base_pdx << PAGE_SHIFT) +
-+                    maddr_to_directmapoff(ma));
-+}
-+#endif
 +
  /*
   * Print a walk of a page table or p2m
   *
+diff --git a/xen/arch/arm/include/asm/mpu/layout.h b/xen/arch/arm/include/asm/mpu/layout.h
+index 248e55f8882d..c331d1feaa84 100644
+--- a/xen/arch/arm/include/asm/mpu/layout.h
++++ b/xen/arch/arm/include/asm/mpu/layout.h
+@@ -3,6 +3,9 @@
+ #ifndef __ARM_MPU_LAYOUT_H__
+ #define __ARM_MPU_LAYOUT_H__
+ 
++#define FRAMETABLE_SIZE   GB(16)
++#define FRAMETABLE_NR     (FRAMETABLE_SIZE / sizeof(*frame_table))
++
+ #define XEN_START_ADDRESS CONFIG_XEN_START_ADDRESS
+ 
+ /*
 diff --git a/xen/arch/arm/include/asm/mpu/mm.h b/xen/arch/arm/include/asm/mpu/mm.h
-new file mode 100644
-index 000000000000..6cfd0f5cd2c2
---- /dev/null
+index 6cfd0f5cd2c2..3a0a60dbfa18 100644
+--- a/xen/arch/arm/include/asm/mpu/mm.h
 +++ b/xen/arch/arm/include/asm/mpu/mm.h
-@@ -0,0 +1,27 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
+@@ -3,9 +3,13 @@
+ #ifndef __ARM_MPU_MM_H__
+ #define __ARM_MPU_MM_H__
+ 
++#include <xen/bug.h>
+ #include <xen/macros.h>
+ #include <xen/page-size.h>
+ #include <xen/types.h>
++#include <asm/mm.h>
 +
-+#ifndef __ARM_MPU_MM_H__
-+#define __ARM_MPU_MM_H__
-+
-+#include <xen/macros.h>
-+#include <xen/page-size.h>
-+#include <xen/types.h>
-+
-+#define virt_to_maddr(va) ((paddr_t)((vaddr_t)(va) & PADDR_MASK))
-+
-+/* On MPU systems there is no translation, ma == va. */
-+static inline void *maddr_to_virt(paddr_t ma)
++extern struct page_info *frame_table;
+ 
+ #define virt_to_maddr(va) ((paddr_t)((vaddr_t)(va) & PADDR_MASK))
+ 
+@@ -15,6 +19,17 @@ static inline void *maddr_to_virt(paddr_t ma)
+     return _p(ma);
+ }
+ 
++/* Convert between virtual address to page-info structure. */
++static inline struct page_info *virt_to_page(const void *v)
 +{
-+    return _p(ma);
++    paddr_t paddr = virt_to_maddr(v);
++    unsigned long pdx = paddr_to_pdx(paddr);
++
++    ASSERT(mfn_valid(maddr_to_mfn(paddr)));
++
++    return frame_table + pdx - frametable_base_pdx;
 +}
 +
-+#endif /* __ARM_MPU_MM_H__ */
+ #endif /* __ARM_MPU_MM_H__ */
+ 
+ /*
+diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
+index 0b8748e57598..3632011c1013 100644
+--- a/xen/arch/arm/mpu/mm.c
++++ b/xen/arch/arm/mpu/mm.c
+@@ -1,9 +1,12 @@
+ /* SPDX-License-Identifier: GPL-2.0-only */
+ 
+-#include <xen/lib.h>
+ #include <xen/init.h>
++#include <xen/lib.h>
++#include <xen/mm.h>
+ #include <xen/sizes.h>
+ 
++struct page_info *frame_table;
++
+ static void __init __maybe_unused build_assertions(void)
+ {
+     /*
+@@ -13,3 +16,12 @@ static void __init __maybe_unused build_assertions(void)
+      */
+     BUILD_BUG_ON(PAGE_SIZE != SZ_4K);
+ }
 +
 +/*
 + * Local variables:
