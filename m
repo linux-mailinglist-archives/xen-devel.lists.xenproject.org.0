@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47472A64E5C
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 13:15:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.916659.1321711 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE98AA64E64
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 13:16:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.916677.1321732 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tu9NK-0000Jq-Gv; Mon, 17 Mar 2025 12:15:22 +0000
+	id 1tu9OU-0001GX-1V; Mon, 17 Mar 2025 12:16:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 916659.1321711; Mon, 17 Mar 2025 12:15:22 +0000
+Received: by outflank-mailman (output) from mailman id 916677.1321732; Mon, 17 Mar 2025 12:16:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tu9NK-0000Iv-EJ; Mon, 17 Mar 2025 12:15:22 +0000
-Received: by outflank-mailman (input) for mailman id 916659;
- Mon, 17 Mar 2025 12:15:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=UoSe=WE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tu9NJ-0000Ip-2a
- for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 12:15:21 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7dc78427-0329-11f0-9899-31a8f345e629;
- Mon, 17 Mar 2025 13:15:18 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-43ce70f9afbso20255915e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 05:15:18 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395c7df3537sm14880293f8f.8.2025.03.17.05.15.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Mar 2025 05:15:17 -0700 (PDT)
+	id 1tu9OT-0001F0-Tp; Mon, 17 Mar 2025 12:16:33 +0000
+Received: by outflank-mailman (input) for mailman id 916677;
+ Mon, 17 Mar 2025 12:16:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=VoqB=WE=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tu9OS-0000kV-HP
+ for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 12:16:32 +0000
+Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
+ [2607:f8b0:4864:20::62d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a8edfed1-0329-11f0-9aba-95dc52dad729;
+ Mon, 17 Mar 2025 13:16:32 +0100 (CET)
+Received: by mail-pl1-x62d.google.com with SMTP id
+ d9443c01a7336-225df540edcso49176785ad.0
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 05:16:32 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ d2e1a72fcca58-7371169c3desm7368772b3a.155.2025.03.17.05.16.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Mar 2025 05:16:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,190 +44,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7dc78427-0329-11f0-9899-31a8f345e629
+X-Inumbo-ID: a8edfed1-0329-11f0-9aba-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742213718; x=1742818518; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=D+iY/t+aG1F0v/mba54n10zeHBRwBrhrkn1rRM7r+GU=;
-        b=S//U63nAvk1bwXhKWitrQkTV7m6fFlGuz6BtD9GuflY9jGLI5JdmlSlxz91mFCDMTO
-         Au4zhcngkENHgXN7cQBIGmVNq4qzJCVNRXQ2j/N1VzBtlCQANNC6WveYR47MsMS1IztL
-         kZDbHY525SMmh/KOZL83vmsYrZI22GEDZiQfxBBhSajtMyyrxkKOt40q6rqz7AFY9aIg
-         2+eyWKFgePlls93e75IG0tlQ3jN0zg9odoXLysQp76FTytMpMf5u9u5VwNdoDi0ieB5P
-         /a+NUzC7OsPsEH+ZDxVLQRsC2yGfqzvR/fA5D0NS4Mu2Ump9v0UGjH425W7niPOzOl1c
-         V7IQ==
+        d=citrix.com; s=google; t=1742213790; x=1742818590; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=4FOBbhCP0imDkUgjKqMbBcMw13NboVeuC+jJxhcpiYg=;
+        b=I9zwihrvetcdZB8nhX6SKX6QOCuHWiiY915EjP5PEeBn5nd4AJnY62rUP9213njjj+
+         dfkfdJJuTBhC2Zwfzxh9VohAecKexXJgeTTzOD/2KRcnBHFV2NjTcTkJhS21KJeFMN/G
+         mCJjVx7cv272ovK7/u3QSuzNi83NvY+bahbiE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742213718; x=1742818518;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=D+iY/t+aG1F0v/mba54n10zeHBRwBrhrkn1rRM7r+GU=;
-        b=M46FSrejxcQhT+lIDpCtjW6S5P9QJL05zjuFtyhqzkFvCJtUeWvlRg9L0xgDEJjAOV
-         c/GGcSYa1c7Y3qAlKqAjZ4qQXw+VvEMdJq9Rj2/l+/Kamd4EGQD9B2588gsooKCz5NDP
-         32B9Fd/RDgkYU4sQo4GoQrxtElygHmPJT1XNm0yIXvjV4vFIJdODUcn4pW0r0Wa9n3FF
-         9ybfFMIolidilopLLUN5kP51wfOkDmQb7uujrOExZiE4Nq3wKqC4/kAswDdxDnAtarhJ
-         9T3bEGz3EtSl8DrZt9qlUFxENOjbn3NOmlCLF7/WF1LhGC8PqsTJ1lA5MCY/VCyFkzAh
-         wsvg==
-X-Forwarded-Encrypted: i=1; AJvYcCXSEPQlnCH1hCnriG/2yxHlGBQ/OmBCW+kMs9QyzreBRTV7tW7MaUQ5OQp0MV1xCbaaRITM62mnNgU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxgdB+gC76OSTLFpBbH6tK6teYxwt1ZdrP4HmUNofku2h3TTE1E
-	D7V7RNxJYVOVACYbd+VXktwl6Htai9I2QDA/eNPRLw15SxgXnHizLHAJxCVQvg==
-X-Gm-Gg: ASbGncsbH3aNp6IxgBqD8U1s9tzAUBOhc+iUcym9aBcWX0cD41bFHZa+a/FCXx/deX9
-	1OcJEkBYjRLenhWNkkTyghKCW3O/5B5qKGHWGxmI6Lpmdrf5Fe83py7b8cnnhqBIULNFmJZ62bZ
-	KTgyV1KFv9EB0PW/OeyiUrTGiAHdRO6N4s99PrNQg3vXAK95twlVEJK3n2aoX7/dMMREoyLaPxh
-	qlbFrXMWIVij5es88Ra0Z87kTjVNcYW5bUBxtP6EzaBKMzmebXVHtfOep4gQCLQaVg8Kj4d0+ED
-	EZCv0TTPhI6T1k49oBq+MS2poIGuMKHWtmrw5YZZhAeFJwXZmZKc2l0MSFj50c4TUE2t+n2zo1V
-	rji1MsIeoCR4QdLO5awzInuRkM5SKXQ==
-X-Google-Smtp-Source: AGHT+IGNNlGNGfPeBV6DyJQAz73rllUQWPjm05YwM09BynYpp4xDjMT3rulqdpcupzDWsKbZUeWjeQ==
-X-Received: by 2002:a05:600c:190e:b0:43c:f513:9585 with SMTP id 5b1f17b1804b1-43d1ec808ebmr131458115e9.13.1742213718186;
-        Mon, 17 Mar 2025 05:15:18 -0700 (PDT)
-Message-ID: <8edba542-9844-409e-bbf0-5ff1c9287a10@suse.com>
-Date: Mon, 17 Mar 2025 13:15:17 +0100
+        d=1e100.net; s=20230601; t=1742213790; x=1742818590;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=4FOBbhCP0imDkUgjKqMbBcMw13NboVeuC+jJxhcpiYg=;
+        b=PXAC0vvARZ9ruxFWGoClOuDxAPR7gu7PfXFwzFaS1B1IGKJxlvdk+6I6fN3exA61/M
+         zvR1tm01OBJKlmBZwVudqayCTSkZs/qQcWYzXOnO4nUZmvNubEgfAxoSY2MUgGvWGt80
+         QxdFWsptA1jsr2NbYlCsOBE1if0D3/Lp5n5sllAs1h12FUr08GEcYkdQupZ62kXe6wGw
+         HA40/a6q8KuyzTpIQ7ISxteSqMJvCfG0ZeX+JCNrC1/4t5jNZBY9sinoKCiYCGfv3QqG
+         xKn8/E7JdOoch0mPQKS2JVBr/eJHOXPsV/AFX0RO9V22apKVg4zEKFoN5PZ3gew6o3FF
+         j4kw==
+X-Gm-Message-State: AOJu0YzezqNYXlcWPiw1YE8paJPbFILQ6XUqiFvf0r4kBpjVlXU4QNRu
+	RhtnjO6ZUNHB4GkDQVK9pwP/RhvImV8vSYvpclzAueVYx/aKDswTEL9eay1fUD3Ln8kSpjkFb3R
+	H
+X-Gm-Gg: ASbGncvee/zfNKBmtz8VCAZrc1gf+fqJS2YOzyZ5zotVhssVMXrcp931FWtq7hRv3D4
+	YOJZdnloxkkTWFn7D3j5tfc72zH6fZjTo0fiYrARr1zPBDPP3qCIHF/0HXqIgqGovEEfC7LxkM/
+	AhIGJ6AylYG+gVIsEDzE3+d991XDPJpFF4f7zPEuFheXNcLMw/ZIfh4taXKLKISUL9hbhcDlaZv
+	naZG0+L5gwc8Ewy9tqgdk2GKSlOmiH2Upn6yeRyfdvv34JfGQt0KhCq0dYC4NCtoDDDk+p6ruY+
+	0QFz21WxbFehLhujRvbs6xfr2FJ17fmn6rvSzOrto4dg3Ang5sizECo=
+X-Google-Smtp-Source: AGHT+IHujT+Wo9PhSePZ4ffaBUfBR8oQHSQsDQgGhoWR920enGK+d78uzn7H6xNSyWVz4JXhpdgxjw==
+X-Received: by 2002:a05:6a00:80e:b0:736:b923:5323 with SMTP id d2e1a72fcca58-7371080d21dmr23154388b3a.10.1742213789947;
+        Mon, 17 Mar 2025 05:16:29 -0700 (PDT)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Community Manager <community.manager@xenproject.org>
+Subject: [PATCH 0/8] automation/cirrus-ci: add smoke tests of the FreeBSD builds
+Date: Mon, 17 Mar 2025 13:16:08 +0100
+Message-ID: <20250317121616.40687-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/8] x86/public: Split the struct cpu_user_regs type
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250311211043.3629696-1-andrew.cooper3@citrix.com>
- <20250311211043.3629696-8-andrew.cooper3@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250311211043.3629696-8-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11.03.2025 22:10, Andrew Cooper wrote:
-> In order to support FRED, we're going to have to remove the {ds..gs} fields
-> from struct cpu_user_regs, meaning that it is going to have to become a
-> different type to the structure embedded in vcpu_guest_context_u.
-> 
-> struct cpu_user_regs is a name used in common Xen code (i.e. needs to stay
-> using this name), so renaming the public struct to be guest_user_regs in Xen's
-> view only.
-> 
-> Introduce a brand hew cpu-user-regs.h, currently containing a duplicate
-> structure.  This removes the need for current.h to include public/xen.h, and
-> highlights a case where the emulator was picking up cpu_user_regs
-> transitively.
-> 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Hello,
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+The aim of the series is to introduce a basic set of smoke tests using
+QEMU and XTF, to ensure some minimal run-time testing of the LLVM
+toolchain generated Xen binary.
 
-Albeit, besides a few remarks, a suggestion below.
+Roger Pau Monne (8):
+  automation/cirrus-ci: add timestamps
+  automation/cirrus-ci: update FreeBSD to 13.5
+  automation/cirrus-ci: store Xen Kconfig before doing a build
+  automation/cirrus-ci: use matrix keyword to generate per-version build
+    tasks
+  automation/cirrus-ci: build XTF
+  automation/cirrus-ci: store XTF and Xen build artifacts
+  automation/console.exp: do not assume expect is always at /usr/bin/
+  automation/cirrus-ci: add smoke tests for the FreeBSD builds
 
-> Jan: Is this what you intended?
+ .cirrus.yml                    | 170 +++++++++++++++++++++++++--------
+ CHANGELOG.md                   |   1 +
+ automation/scripts/console.exp |   2 +-
+ 3 files changed, 133 insertions(+), 40 deletions(-)
 
-Yes.
+-- 
+2.48.1
 
-> cpu_user_regs_t and the guest handle don't seem to be used anywhere.  I'm
-> tempted to exclude them from Xen builds.
-
-I concur. We can always re-expose them should they be needed somewhere.
-
-> --- /dev/null
-> +++ b/xen/arch/x86/include/asm/cpu-user-regs.h
-> @@ -0,0 +1,69 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +#ifndef X86_CPU_USER_REGS_H
-> +#define X86_CPU_USER_REGS_H
-> +
-> +#define DECL_REG_LOHI(which) union { \
-> +    uint64_t r ## which ## x; \
-> +    uint32_t e ## which ## x; \
-> +    uint16_t which ## x; \
-> +    struct { \
-> +        uint8_t which ## l; \
-> +        uint8_t which ## h; \
-> +    }; \
-> +}
-> +#define DECL_REG_LO8(name) union { \
-> +    uint64_t r ## name; \
-> +    uint32_t e ## name; \
-> +    uint16_t name; \
-> +    uint8_t name ## l; \
-> +}
-> +#define DECL_REG_LO16(name) union { \
-> +    uint64_t r ## name; \
-> +    uint32_t e ## name; \
-> +    uint16_t name; \
-> +}
-> +#define DECL_REG_HI(num) union { \
-> +    uint64_t r ## num; \
-> +    uint32_t r ## num ## d; \
-> +    uint16_t r ## num ## w; \
-> +    uint8_t r ## num ## b; \
-> +}
-
-Can we try to avoid repeating these here? The #undef-s in the public header are
-to keep external consumers' namespaces reasonably tidy. In Xen, since we don't
-otherwise use identifiers of these names, can't we simply #ifdef-out those
-#undef-s, and then not re-introduce the same (less the two underscores) here?
-Granted we then need to include the public header here, but I think that's a
-fair price to pay to avoid the redundancy.
-
-> +struct cpu_user_regs
-> +{
-> +    DECL_REG_HI(15);
-> +    DECL_REG_HI(14);
-> +    DECL_REG_HI(13);
-> +    DECL_REG_HI(12);
-> +    DECL_REG_LO8(bp);
-> +    DECL_REG_LOHI(b);
-> +    DECL_REG_HI(11);
-> +    DECL_REG_HI(10);
-> +    DECL_REG_HI(9);
-> +    DECL_REG_HI(8);
-> +    DECL_REG_LOHI(a);
-> +    DECL_REG_LOHI(c);
-> +    DECL_REG_LOHI(d);
-> +    DECL_REG_LO8(si);
-> +    DECL_REG_LO8(di);
-> +    uint32_t error_code;
-> +    uint32_t entry_vector;
-> +    DECL_REG_LO16(ip);
-> +    uint16_t cs, _pad0[1];
-> +    uint8_t  saved_upcall_mask;
-> +    uint8_t  _pad1[3];
-> +    DECL_REG_LO16(flags); /* rflags.IF == !saved_upcall_mask */
-> +    DECL_REG_LO8(sp);
-> +    uint16_t ss, _pad2[3];
-> +    uint16_t es, _pad3[3];
-> +    uint16_t ds, _pad4[3];
-> +    uint16_t fs, _pad5[3];
-> +    uint16_t gs, _pad6[3];
-
-I had to peek ahead at the last patch to figure why you introduce these 4 fields
-(plus their padding) here, just to remove them again. Personally I think it would
-be neater if both were folded; nevertheless I'd like to leave this entirely to
-you.
-
-Jan
 
