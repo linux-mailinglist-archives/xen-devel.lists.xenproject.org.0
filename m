@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B799A64356
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 08:20:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.916187.1321322 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26B0EA64469
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 08:56:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.916211.1321342 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tu4kz-0000zR-CX; Mon, 17 Mar 2025 07:19:29 +0000
+	id 1tu5KX-0000g3-7D; Mon, 17 Mar 2025 07:56:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 916187.1321322; Mon, 17 Mar 2025 07:19:29 +0000
+Received: by outflank-mailman (output) from mailman id 916211.1321342; Mon, 17 Mar 2025 07:56:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tu4kz-0000xL-9u; Mon, 17 Mar 2025 07:19:29 +0000
-Received: by outflank-mailman (input) for mailman id 916187;
- Mon, 17 Mar 2025 07:19:28 +0000
+	id 1tu5KX-0000eS-4P; Mon, 17 Mar 2025 07:56:13 +0000
+Received: by outflank-mailman (input) for mailman id 916211;
+ Mon, 17 Mar 2025 07:56:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EnY3=WE=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
- id 1tu4ky-0000xF-HO
- for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 07:19:28 +0000
-Received: from fforwardh-b4-smtp.messagingengine.com
- (fforwardh-b4-smtp.messagingengine.com [202.12.124.199])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=UoSe=WE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tu5KW-0000e1-6Q
+ for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 07:56:12 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 27cce7e0-0300-11f0-9899-31a8f345e629;
- Mon, 17 Mar 2025 08:19:26 +0100 (CET)
-Received: from phl-compute-06.internal (phl-compute-06.phl.internal
- [10.202.2.46])
- by mailfforwardh.stl.internal (Postfix) with ESMTP id 6698E174029F;
- Mon, 17 Mar 2025 03:19:24 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
- by phl-compute-06.internal (MEProxy); Mon, 17 Mar 2025 03:19:24 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 17 Mar 2025 03:19:23 -0400 (EDT)
+ id 4a2b7d2d-0305-11f0-9899-31a8f345e629;
+ Mon, 17 Mar 2025 08:56:10 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-43948021a45so18852265e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 00:56:10 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43d1ffb629dsm97638435e9.3.2025.03.17.00.56.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 17 Mar 2025 00:56:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,255 +45,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 27cce7e0-0300-11f0-9899-31a8f345e629
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1742195964; x=1742282364; bh=sPu8+6eEudw5U5gDAhN6T1GTyZngizfhufi
-	p1TCOUzs=; b=a2ci3NCdNda5KQ9iqNol4v8JSB82yzvXdbM6bYe1R9AOZnzX/za
-	rhWXp5T0JDx19eww78N8/GqWWddK3jD5ZMQVW7EoWeXoiq2DLLRymvxft9pghsA3
-	eMomQZyK8Sm9KSkPBkNzAdAwZwneN5B7eN3zifkh+f2YRKOKV/GCr1GTa0jCIL/h
-	i2ugKoXjgBg71H8hEcWfmzHlHd3RYk3FDo7whaZGszJtcEqzfMHVvHy+g+dD26Ff
-	ygt4f8bvlm1BxkIC4c70Nr2ulVpuiAdoTQy/xUhanA86bxyi76hplkNZASUlZcF5
-	YKZrWc/bANHBmNT19yQpQTWLMYh9JmBNtpQ==
-X-ME-Sender: <xms:-8zXZyW6yt1YmjLCsLWlFWiME6XBvRAqfYN48lP0v4wS4o7IL1-V_g>
-    <xme:-8zXZ-mboIrjrFukEFmGU5IxJ1V-ByuDikprwKU4yMKkfmDMol5Kk0xSZbsPLAxtb
-    BHY4nAGJAnKtXfKRbs>
-X-ME-Received: <xmr:-8zXZ2YQohJJ6Cf2h3GaqYBVOPnkuTK0jndMjPkUVa_XodFFkvmkjxKboT1POuReBjR9oL6xGMfsYP23bHWh6Or-76lQFT-uvwUTh4ZY2rFaYQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddufeekledtucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
-    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
-    gvnhhtshculddquddttddmnecujfgurhephffvvefufffkofgggfestdekredtredttden
-    ucfhrhhomhepufgvrhhgihihucfmihgsrhhikhcuoefuvghrghhihigpmfhisghrihhkse
-    gvphgrmhdrtghomheqnecuggftrfgrthhtvghrnhepffffvdeifeeijefhheefuedvvedt
-    heffjeeiveehgfettedvgedujefgudejgedvnecuvehluhhsthgvrhfuihiivgeptdenuc
-    frrghrrghmpehmrghilhhfrhhomhepshgrkhhisgesuggrrhhkshhtrghrrdhsihhtvgdp
-    nhgspghrtghpthhtohepiedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepgigvnh
-    dquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtohep
-    shgvrhhgihihpghkihgsrhhikhesvghprghmrdgtohhmpdhrtghpthhtohepjhgsvghulh
-    hitghhsehsuhhsvgdrtghomhdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfees
-    tghithhrihigrdgtohhmpdhrtghpthhtoheprhhoghgvrhdrphgruhestghithhrihigrd
-    gtohhmpdhrtghpthhtohepshhsthgrsggvlhhlihhniheskhgvrhhnvghlrdhorhhg
-X-ME-Proxy: <xmx:-8zXZ5ULqGBkjZlmgWbbYMSWEUEIdTzRuxfeZOyNqlyczIZEu4oWzg>
-    <xmx:-8zXZ8mQlEHLvghzYWCpLITAFj9FAF1csJIzJfq_sM7sOOrdjpeg0g>
-    <xmx:-8zXZ-fXiK7uCkMZMUO2ibIsOiJdbizB4XJjjBS9cTEoNJWJojV91A>
-    <xmx:-8zXZ-EIzw_2y5BUrN7HetKRsI9qd8ySPufB6sLVgiv_GA7Py0Y9nA>
-    <xmx:-8zXZ6m6PRNrKIWRUcsQydINTp8ZbjbZu2PAnvTAxdBcyXlBOpGI-A>
-    <xmx:_MzXZ7u4wiOIgtiZm_DLoUcezyxBYLg6u0J_aLSmr6WXdVuUqyMU03aWU8sb>
-Feedback-ID: i5dfb0d4a:Fastmail
-From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-To: xen-devel@lists.xenproject.org
-Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v1] x86: make Viridian support optional
-Date: Mon, 17 Mar 2025 09:19:19 +0200
-Message-Id: <20250317071919.3766976-1-Sergiy_Kibrik@epam.com>
-X-Mailer: git-send-email 2.25.1
+X-Inumbo-ID: 4a2b7d2d-0305-11f0-9899-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1742198170; x=1742802970; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Hw06q73juRh5NWGHmPTU/HK49xkgtaSCXS5Al4KvMNk=;
+        b=PlCt3RT37AjZOPnvK/TwvpEOZTCD1HyK0P67W2VAqZm7LVe7D3i6Lj6HN5oJfWyNWS
+         L+3ITyZhyN19BdelQUtlHNR3tKoXUh5mtLs1Qv/ZTHWXRop1Gssbg3hyY2NEFiPAmKyF
+         6/ChB0f5FgiX3Jo4NITErmHn7lGJpVkHnGBvMYrN/IvJ0fdUa94WL6MFUluLEwwxoS7V
+         +njp9IMh7wKVl50Mgq+1hvDCDTikI/R5MmOeCpqRzoUYo8h0SnkUydmkZidzVKafuH0r
+         rUNnv39+Ju2gCcXmiPqMswhhDXBxkRKH0Y7+ubvRmQNafFHNCi586JO2SwV8DEL1b0iK
+         xJKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742198170; x=1742802970;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Hw06q73juRh5NWGHmPTU/HK49xkgtaSCXS5Al4KvMNk=;
+        b=JdIRsuzdP3NWZYOWacH/8kcXjccY1xOiKldFt4nKJOiR8Rt6H/xpWYYtgbsG636Qof
+         VzX4OzXLgddh736puTj/cDH97/UUb0qu44MSbbI/Y9PTEMu5bNcA0TmzrS8CkHMU6FtE
+         Ji4NcUgn/Eb+l5tzNzm5Hh1iUiOLKjhyKmtQ8A3oPBYXoS+ki/03GndZ4Kg8ENSRgJHA
+         7wV04XGC9W8usZbwVlir/88YeL82AWCsvQEpNvYhjesk53KS7PNsK+0dQDAF3swmu2GG
+         JxzGE6qH831YDj+l4p6R0WP4vb8J+girb95pwlDSre7Xs+sc0eMnA8ioSm0FwwTQBu+d
+         gQjQ==
+X-Gm-Message-State: AOJu0YywD+Hf8JxDjoBibsQebtS67lX5wiEQ5jwyQhTWXZjqM5CnpLwy
+	Vqc9A0bFzhEHapxUt+tTA0xhGbjCtYPx9kp8nGLK/h33ls42VDYBVsMwrOr0zg==
+X-Gm-Gg: ASbGncs5INmhFVadhuc1EYwuweOJwJc1E/eqIz8h0E5llaQzZrlW4qgnKQF+gkn9pId
+	flncVqKv6R2TWf0l0HFtfR8Q9Nc17eqHtX4fO+Ay89aPN7nefPCk7f7NgCz450ReNeAdEXcqzAm
+	A5+QfcEFynG3Ah/6TOffWwS8wLAuvCOvOA6w68VHsjXAAmYDyRcHV3M9SmDQHhmwMlYuo2/+0tP
+	De+3rvtTI9QmdTAh9aRz31nqw2fGybUGF81ndjNvvhWIVcOakT1kf9TqixFz+ax9PvcQocX0lw6
+	l+/PIz4y48Ku7420V5GP44j60fg8k0MAB/NKyrlV7Bm3Znl5vbyaG83pCtj7qoM3GasMIUcAKuc
+	+NMnlKGHxFsWX/7PyB8EPb1slp9vfmaqxEerwxryq
+X-Google-Smtp-Source: AGHT+IFMBn7lhnbc/6czO2QnHyyDJCpIx3gddWpOhkeENnYSeEhRPbBGXs2s9Kex1q8Y5pT80OQ1iQ==
+X-Received: by 2002:adf:a31b:0:b0:390:eb50:37c3 with SMTP id ffacd0b85a97d-3971e0bfa2emr10160215f8f.27.1742198169790;
+        Mon, 17 Mar 2025 00:56:09 -0700 (PDT)
+Message-ID: <555dcea6-1359-43c3-93fd-338744099387@suse.com>
+Date: Mon, 17 Mar 2025 08:56:11 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/boot: Fix zap_low_mappings() to map less of the
+ trampoline
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20250106112652.579310-1-andrew.cooper3@citrix.com>
+ <2f12f38e-9629-40fd-b532-6b6f82ecfe1f@suse.com>
+ <4bff530c-9f96-4b59-b6cb-86349c576690@citrix.com>
+ <0565db90-5734-4795-8988-efd3e72cc770@suse.com>
+ <Z9FaeksA0d9Ms15m@macbook.local>
+ <82348f8b-7e5e-43ab-8eab-975d84cdda46@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <82348f8b-7e5e-43ab-8eab-975d84cdda46@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Add config option HVM_VIRIDIAN that covers viridian code within HVM.
-Calls to viridian functions guarded by is_viridian_domain() and related macros.
-Having this option may be beneficial by reducing code footprint for systems
-that are not using Hyper-V.
+On 14.03.2025 20:00, Andrew Cooper wrote:
+> On 12/03/2025 9:57 am, Roger Pau Monné wrote:
+>> On Wed, Mar 12, 2025 at 09:31:37AM +0100, Jan Beulich wrote:
+>>> On 11.03.2025 21:47, Andrew Cooper wrote:
+>>>> On 06/01/2025 11:54 am, Jan Beulich wrote:
+>>>>> On 06.01.2025 12:26, Andrew Cooper wrote:
+>>>>>> Regular data access into the trampoline is via the directmap.
+>>>>>>
+>>>>>> As now discussed quite extensively in asm/trampoline.h, the trampoline is
+>>>>>> arranged so that only the AP and S3 paths need an identity mapping, and that
+>>>>>> they fit within a single page.
+>>>>>>
+>>>>>> Right now, PFN_UP(trampoline_end - trampoline_start) is 2, causing more than
+>>>>>> expected of the trampoline to be mapped.  Cut it down just the single page it
+>>>>>> ought to be.
+>>>>>>
+>>>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>>>> Acked-by: Jan Beulich <jbeulich@suse.com>
+>>>> Thanks.  However,
+>>>>
+>>>>> on the basis that this improves things. However, ...
+>>>>>
+>>>>>> --- a/xen/arch/x86/x86_64/mm.c
+>>>>>> +++ b/xen/arch/x86/x86_64/mm.c
+>>>>>> @@ -718,14 +718,16 @@ void __init zap_low_mappings(void)
+>>>>>>  {
+>>>>>>      BUG_ON(num_online_cpus() != 1);
+>>>>>>  
+>>>>>> -    /* Remove aliased mapping of first 1:1 PML4 entry. */
+>>>>>> +    /* Stop using l?_bootmap[] mappings. */
+>>>>>>      l4e_write(&idle_pg_table[0], l4e_empty());
+>>>>>>      flush_local(FLUSH_TLB_GLOBAL);
+>>>>>>  
+>>>>>> -    /* Replace with mapping of the boot trampoline only. */
+>>>>>> +    /*
+>>>>>> +     * Insert an identity mapping of the AP/S3 part of the trampoline, which
+>>>>>> +     * is arranged to fit in a single page.
+>>>>>> +     */
+>>>>>>      map_pages_to_xen(trampoline_phys, maddr_to_mfn(trampoline_phys),
+>>>>>> -                     PFN_UP(trampoline_end - trampoline_start),
+>>>>>> -                     __PAGE_HYPERVISOR_RX);
+>>>>>> +                     1, __PAGE_HYPERVISOR_RX);
+>>>>> ... literal numbers like this - however well they are commented - are
+>>>>> potentially problematic to locate in case something changes significantly.
+>>>>> The 1 here really would want connecting with the .equ establishing
+>>>>> wakeup_stack.
+>>>> how do you propose doing this?
+>>>>
+>>>> PFN_UP(wakeup_stack - trampoline_start) doesn't have the same obvious
+>>>> connection, and it would involve partly undoing 7d73c6f196a5 which hid
+>>>> the symbol recently.
+>>>>
+>>>> While 1 isn't ideal, it is next to a comment explaining what's going on,
+>>>> and it's not going to go stale in a silent way...  (It's also not liable
+>>>> to go stale either.)
+>>> If in
+>>>
+>>>         .equ    wakeup_stack, trampoline_start + PAGE_SIZE
+>>>
+>>> PAGE_SIZE was replaced by a new (in asm/trampoline.h) TRAMPOLINE_PERM_SIZE,
+>>> you could use PFN_UP(TRAMPOLINE_PERM_SIZE) here to establish a connection.
+>>>
+>>> I have to admit I also don't really see why things going stale here would
+>>> (a) be unlikely and (b) be guaranteed to not go silently.
+> 
+> The size can't go to 0 or everything will break, and if it goes larger
+> than 1 (which it almost certainly never will), then APs and/or S3 will
+> break, and we've got both of these in CI.
+> 
+> Furthermore, the actual thing which matters is:
+> 
+>> /* Map the permanent trampoline page into l1_bootmap[]. */
+>> mov     sym_esi(trampoline_phys), %ecx
+>> lea     __PAGE_HYPERVISOR_RX(%ecx), %edx /* %edx = PTE to write  */
+>> shr     $PAGE_SHIFT, %ecx                /* %ecx = Slot to write */
+>> mov     %edx, sym_offs(l1_bootmap)(%esi, %ecx, 8)
+> 
+> which hardcodes 1 page, because there's almost certainly no chance this
+> will ever change.
+> 
+>>>  We just don't
+>>> know what we may need to add to the trampoline, sooner or later.
+>> Maybe we could introduce trampoline_{ap?,runtime?}_{start,end} that
+>> covers this more narrow section of the trampoline code?
+> 
+> We already have one of those, and a linker assertion that it stays below
+> 1k, so wakeup_stack is at least 3k.
+> 
+> The complexity is that the wakeup_stack overlays some init-only logic in
+> the placed trampoline.  It's not something that exists concretely in the
+> Xen image.
 
-Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
----
- xen/arch/x86/Kconfig                  |  5 +++++
- xen/arch/x86/hvm/Makefile             |  2 +-
- xen/arch/x86/hvm/hvm.c                | 27 ++++++++++++++++++---------
- xen/arch/x86/hvm/vlapic.c             | 11 +++++++----
- xen/arch/x86/include/asm/hvm/domain.h |  4 ++--
- xen/arch/x86/include/asm/hvm/hvm.h    |  3 ++-
- xen/arch/x86/include/asm/hvm/vcpu.h   |  3 ++-
- 7 files changed, 37 insertions(+), 18 deletions(-)
+Well - you've got an ack; while I'd prefer if connections were properly
+made, I agree it's unlikely the size will grow enough for it to matter. So
+I think you should feel free to put this in as is.
 
-diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-index 6e41bc0fb4..34f9b79d98 100644
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -348,6 +348,11 @@ config HYPERV_GUEST
- 
- endif
- 
-+config HVM_VIRIDIAN
-+	bool "Viridian enlightenments support" if EXPERT
-+	depends on HVM
-+	default y
-+
- config MEM_PAGING
- 	bool "Xen memory paging support (UNSUPPORTED)" if UNSUPPORTED
- 	depends on HVM
-diff --git a/xen/arch/x86/hvm/Makefile b/xen/arch/x86/hvm/Makefile
-index 4c1fa5c6c2..6cc2e74fc4 100644
---- a/xen/arch/x86/hvm/Makefile
-+++ b/xen/arch/x86/hvm/Makefile
-@@ -1,6 +1,6 @@
- obj-$(CONFIG_AMD_SVM) += svm/
- obj-$(CONFIG_INTEL_VMX) += vmx/
--obj-y += viridian/
-+obj-$(CONFIG_HVM_VIRIDIAN) += viridian/
- 
- obj-y += asid.o
- obj-y += dm.o
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 2f31180b6f..4f51d0f66c 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -695,9 +695,12 @@ int hvm_domain_initialise(struct domain *d,
-     if ( hvm_tsc_scaling_supported )
-         d->arch.hvm.tsc_scaling_ratio = hvm_default_tsc_scaling_ratio;
- 
--    rc = viridian_domain_init(d);
--    if ( rc )
--        goto fail2;
-+    if ( is_viridian_domain(d) )
-+    {
-+        rc = viridian_domain_init(d);
-+        if ( rc )
-+            goto fail2;
-+    }
- 
-     rc = alternative_call(hvm_funcs.domain_initialise, d);
-     if ( rc != 0 )
-@@ -733,7 +736,8 @@ void hvm_domain_relinquish_resources(struct domain *d)
-     if ( hvm_funcs.nhvm_domain_relinquish_resources )
-         alternative_vcall(hvm_funcs.nhvm_domain_relinquish_resources, d);
- 
--    viridian_domain_deinit(d);
-+    if ( is_viridian_domain(d) )
-+        viridian_domain_deinit(d);
- 
-     ioreq_server_destroy_all(d);
- 
-@@ -1637,9 +1641,12 @@ int hvm_vcpu_initialise(struct vcpu *v)
-          && (rc = nestedhvm_vcpu_initialise(v)) < 0 ) /* teardown: nestedhvm_vcpu_destroy */
-         goto fail5;
- 
--    rc = viridian_vcpu_init(v);
--    if ( rc )
--        goto fail6;
-+    if ( is_viridian_domain(v->domain) )
-+    {
-+        rc = viridian_vcpu_init(v);
-+        if ( rc )
-+            goto fail6;
-+    }
- 
-     rc = ioreq_server_add_vcpu_all(d, v);
-     if ( rc != 0 )
-@@ -1669,13 +1676,15 @@ int hvm_vcpu_initialise(struct vcpu *v)
-  fail2:
-     hvm_vcpu_cacheattr_destroy(v);
-  fail1:
--    viridian_vcpu_deinit(v);
-+    if ( is_viridian_domain(v->domain) )
-+        viridian_vcpu_deinit(v);
-     return rc;
- }
- 
- void hvm_vcpu_destroy(struct vcpu *v)
- {
--    viridian_vcpu_deinit(v);
-+    if ( is_viridian_domain(v->domain) )
-+        viridian_vcpu_deinit(v);
- 
-     ioreq_server_remove_vcpu_all(v->domain, v);
- 
-diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
-index 065b2aab5b..b8236dade0 100644
---- a/xen/arch/x86/hvm/vlapic.c
-+++ b/xen/arch/x86/hvm/vlapic.c
-@@ -426,7 +426,8 @@ void vlapic_EOI_set(struct vlapic *vlapic)
-      * priority vector and then recurse to handle the lower priority
-      * vector.
-      */
--    bool missed_eoi = viridian_apic_assist_completed(v);
-+    bool missed_eoi = has_viridian_apic_assist(v->domain) ?
-+                          viridian_apic_assist_completed(v) : false;
-     int vector;
- 
-  again:
-@@ -442,7 +443,7 @@ void vlapic_EOI_set(struct vlapic *vlapic)
-      * NOTE: It is harmless to call viridian_apic_assist_clear() on a
-      *       recursion, even though it is not necessary.
-      */
--    if ( !missed_eoi )
-+    if ( has_viridian_apic_assist(v->domain) && !missed_eoi )
-         viridian_apic_assist_clear(v);
- 
-     vlapic_clear_vector(vector, &vlapic->regs->data[APIC_ISR]);
-@@ -1360,7 +1361,8 @@ int vlapic_has_pending_irq(struct vcpu *v)
-      * If so, we need to emulate the EOI here before comparing ISR
-      * with IRR.
-      */
--    if ( viridian_apic_assist_completed(v) )
-+    if ( has_viridian_apic_assist(v->domain) &&
-+         viridian_apic_assist_completed(v) )
-         vlapic_EOI_set(vlapic);
- 
-     isr = vlapic_find_highest_isr(vlapic);
-@@ -1373,7 +1375,8 @@ int vlapic_has_pending_irq(struct vcpu *v)
-     if ( isr >= 0 &&
-          (irr & 0xf0) <= (isr & 0xf0) )
-     {
--        viridian_apic_assist_clear(v);
-+        if ( has_viridian_apic_assist(v->domain) )
-+            viridian_apic_assist_clear(v);
-         return -1;
-     }
- 
-diff --git a/xen/arch/x86/include/asm/hvm/domain.h b/xen/arch/x86/include/asm/hvm/domain.h
-index 333501d5f2..bc52504cdd 100644
---- a/xen/arch/x86/include/asm/hvm/domain.h
-+++ b/xen/arch/x86/include/asm/hvm/domain.h
-@@ -110,9 +110,9 @@ struct hvm_domain {
- 
-     /* hypervisor intercepted msix table */
-     struct list_head       msixtbl_list;
--
-+#ifdef CONFIG_HVM_VIRIDIAN
-     struct viridian_domain *viridian;
--
-+#endif
-     /*
-      * TSC value that VCPUs use to calculate their tsc_offset value.
-      * Used during initialization and save/restore.
-diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/hvm/hvm.h
-index 963e820113..1bbeece117 100644
---- a/xen/arch/x86/include/asm/hvm/hvm.h
-+++ b/xen/arch/x86/include/asm/hvm/hvm.h
-@@ -507,7 +507,8 @@ hvm_get_cpl(struct vcpu *v)
-     (has_hvm_params(d) ? (d)->arch.hvm.params[HVM_PARAM_VIRIDIAN] : 0)
- 
- #define is_viridian_domain(d) \
--    (is_hvm_domain(d) && (viridian_feature_mask(d) & HVMPV_base_freq))
-+    (is_hvm_domain(d) && IS_ENABLED(CONFIG_HVM_VIRIDIAN) && \
-+                         (viridian_feature_mask(d) & HVMPV_base_freq))
- 
- #define is_viridian_vcpu(v) \
-     is_viridian_domain((v)->domain)
-diff --git a/xen/arch/x86/include/asm/hvm/vcpu.h b/xen/arch/x86/include/asm/hvm/vcpu.h
-index 196fed6d5d..bac35ec47a 100644
---- a/xen/arch/x86/include/asm/hvm/vcpu.h
-+++ b/xen/arch/x86/include/asm/hvm/vcpu.h
-@@ -171,8 +171,9 @@ struct hvm_vcpu {
- 
-     /* Pending hw/sw interrupt (.vector = -1 means nothing pending). */
-     struct x86_event     inject_event;
--
-+#ifdef CONFIG_HVM_VIRIDIAN
-     struct viridian_vcpu *viridian;
-+#endif
- };
- 
- #endif /* __ASM_X86_HVM_VCPU_H__ */
--- 
-2.25.1
-
+Jan
 
