@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1585A64E93
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 13:21:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.916738.1321802 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1227A64E92
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 13:20:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.916726.1321792 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tu9Sg-0006Ff-61; Mon, 17 Mar 2025 12:20:54 +0000
+	id 1tu9SZ-0005WT-Pu; Mon, 17 Mar 2025 12:20:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 916738.1321802; Mon, 17 Mar 2025 12:20:54 +0000
+Received: by outflank-mailman (output) from mailman id 916726.1321792; Mon, 17 Mar 2025 12:20:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tu9Sg-0006Dj-2A; Mon, 17 Mar 2025 12:20:54 +0000
-Received: by outflank-mailman (input) for mailman id 916738;
- Mon, 17 Mar 2025 12:20:53 +0000
+	id 1tu9SZ-0005TL-N8; Mon, 17 Mar 2025 12:20:47 +0000
+Received: by outflank-mailman (input) for mailman id 916726;
+ Mon, 17 Mar 2025 12:20:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=VoqB=WE=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tu9Ou-0000kV-5Q
- for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 12:17:00 +0000
-Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
- [2607:f8b0:4864:20::631])
+ id 1tu9Oz-0000kV-MM
+ for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 12:17:05 +0000
+Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
+ [2607:f8b0:4864:20::1033])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b9384b9c-0329-11f0-9aba-95dc52dad729;
- Mon, 17 Mar 2025 13:16:59 +0100 (CET)
-Received: by mail-pl1-x631.google.com with SMTP id
- d9443c01a7336-223f4c06e9fso71133495ad.1
- for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 05:16:59 -0700 (PDT)
+ id bcbbb15f-0329-11f0-9aba-95dc52dad729;
+ Mon, 17 Mar 2025 13:17:05 +0100 (CET)
+Received: by mail-pj1-x1033.google.com with SMTP id
+ 98e67ed59e1d1-2ff80290debso2943863a91.3
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 05:17:05 -0700 (PDT)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- d9443c01a7336-225c6bd3c59sm73542445ad.218.2025.03.17.05.16.55
+ 98e67ed59e1d1-30153afe386sm6619992a91.23.2025.03.17.05.17.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Mar 2025 05:16:57 -0700 (PDT)
+ Mon, 17 Mar 2025 05:17:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,39 +44,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b9384b9c-0329-11f0-9aba-95dc52dad729
+X-Inumbo-ID: bcbbb15f-0329-11f0-9aba-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1742213817; x=1742818617; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1742213823; x=1742818623; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xUsBJSIma7yjz93E7RpDRmIhEyEuY2Kg9Qaa2/f7iLM=;
-        b=UhHrW6GkhPEh+GrAQ1v8OU8lXrMO90Sf44tK97kPZ/LIIPCF14fnavBv+Z6WoQE5Jp
-         5K0VqhvFKIv8Mro42Y9SXxKSuBx2oFpSoMhuTR9RhrNK3J81MBfWvEQQ22VWKGTuINCl
-         snz8hR4rS+iQh5Xk2C5mUBqRNrbqso1pxuXv0=
+        bh=ExAF3QnqtzCyOB+XNnlCTfh/d/FC0K/Qux+S5c/zFfQ=;
+        b=Aj6j67jrz0tnwxX2dqetRl7aBBVUssaXcKX4MkbgnrRQWzfzcZVxmBG0rSSHoHJJxH
+         uFXneLO30yZm/tQ7WwaGKt7OoN0FoCfaQlvVMK8qlXAXdCj8/a4xjm+pGtBqgUwmn3P5
+         whtr5TA9teqeMfOycFuaPv+dR/ak9uCFUkJ+o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742213817; x=1742818617;
+        d=1e100.net; s=20230601; t=1742213823; x=1742818623;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=xUsBJSIma7yjz93E7RpDRmIhEyEuY2Kg9Qaa2/f7iLM=;
-        b=ZNNB1aGTQFVprl7GkxryenWdP8eLr/TcPAFXy9LQ0TnLEjHEQj8ss/fCF6HyWZXtnx
-         JfhF91GH+5imBk2tkpgriPkI22a/c5EY5AuHHOvnwlKmeeA4Xrh/v34SQH9LA+cCzDUx
-         6YHXwoyI8usER2WsFZk8AYQwdcIpIR2twhPblRo2CBYgPQOIGh1eE017L+2El11GZ66g
-         uIzDTxx0VSxzgEeTo0n+MI+I6+7Pr7DEIPo/4G3llVFMt/GS0m66qTy+SyrDqYZZ0TnO
-         4y1c1OVRPBFWSxz0xBwpNZWzZXrTcRQg7LrHN0x3knOAdbkN4bs2mDIc37oS2Ux8QpeC
-         9M4A==
-X-Gm-Message-State: AOJu0YwrrrvBlX3N1VaxBJcZEat/w+5+2Fyad6iEEnAX3qyiG8tClNLu
-	/a7KsK/f0fHzJrbL6pD2NJyMfz3gXxpmvmPpKseGq9i3ZBTbtWQQVo+ePZYkcXgR7j7ObRxImJT
-	M
-X-Gm-Gg: ASbGnct6XpfcTMcN/bz1j2RhI5WcXcLZFA/FVsEoqD02GQmE+DKA/0yTkHKzqJm/hLs
-	6wvUK+JGtYd2vC1VUQfnXR0ckDbTYrWLxM/rLvrGJr3Spm4GB3cPWlEzxp1A6olyT7ecQnMUlNI
-	/SMOpzjOVxQHqOqacbyVrDiapLxgSKfvz2Ow12BUAaax/fZgrcUGzLXbX+7t01LBcpvFCWTlAla
-	tkbZxHlyJqKqeMjOl0+v3c29kaYpaCIWSxMRUAgT5IEFMonmBHxHlNyRJ4CCw+1heAeuj0pvz9w
-	yDXH/LgKejeQux887hmAWapCQySG3LhXUTCPXPjy1F1Oi8UdFnBkR4KpPGBsjH/6YA==
-X-Google-Smtp-Source: AGHT+IF88YpQ97cTf2WJGT1i+TzVo5CsTp1aRr6gCSQhZrishF+mMqFvZjIPbFEYQVl8tpSiK1Z3AQ==
-X-Received: by 2002:a17:903:189:b0:221:8568:c00f with SMTP id d9443c01a7336-225c64097abmr212985615ad.0.1742213817459;
-        Mon, 17 Mar 2025 05:16:57 -0700 (PDT)
+        bh=ExAF3QnqtzCyOB+XNnlCTfh/d/FC0K/Qux+S5c/zFfQ=;
+        b=IVjssv+oIx7aFlkqL8XReBVsPZ//O3XiugPe9gl6oDOJ4DaZSuC3gN26nazu7nQXK4
+         Wo+/1aX+TKBbbd+f50xwPkVQZWvwuQnYoyNobA2PMpztYpyJ2UfI+T8+gu+jhiG2yAEA
+         fwpxri+ZuX1cfJbkEy3bXVjVQdOq0i0efNhX4SDn+nG08YTANhhocJmJo2/xXhj5zats
+         VSOY8eumX5ZyKXID0xcoLO1EVwVSBVLB+JjLDJY4DYv+LrlF+njMetR90gtPzc5dWwm5
+         48Luo3oxO88WWtYeUhKd+deA/qymwAzcXlwacbQmBpJ1pJ3xPTTl1u95YzgR3fNbhyFU
+         Q3CQ==
+X-Gm-Message-State: AOJu0Ywl5F1DV8o0pGF2jgGBIOni/KA/JAN+grCMPM+dB+zmwdovgNca
+	1bhY50v5iUQCT9JKwSD3rKYamueLwMSAAqa310LPVV0uNaJn0TT0eajeq+T6G5fxa+YcOqGUxVd
+	0
+X-Gm-Gg: ASbGncs0l30QBUJOFOax2ZJDl2/lU/kury8/OAL/oN8N4w5ZvS9f8apujwTgkIPkBrB
+	iRhmfq4iFc1+P0RP8AGNHnzw35tvrU8r3Bho/JIIAMCEk3U486TNmPmiTOblSsB3PqO64U7oBj/
+	+8TRv5SJU3XDuqgulPPfyC8h015S33ADyYC7BhcKDAJPX02Blv7IkoMnWP0EzT58PPreTRdjXNm
+	iuZMeE05ycPx9AtdhnmONTkTpmB+EVanDffXwXB02DB04MG4MpJkM8hiS0FXfWgh0W/1ldlSL3x
+	t4tsHbZo4wrxvN6VfvtVQKveVxMEn6Hz6rdRdREJxchaPAo+hZtJqmg=
+X-Google-Smtp-Source: AGHT+IG9VKBFGpRSjlxMyzHMkXA4I35suEnyblv2xyrab/O0Jwaix+SsdyOLzPLqJNtiEGpC+FCUAA==
+X-Received: by 2002:a17:90b:56c5:b0:2ee:df70:1ff3 with SMTP id 98e67ed59e1d1-301519cc392mr17495270a91.0.1742213823079;
+        Mon, 17 Mar 2025 05:17:03 -0700 (PDT)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
@@ -86,9 +86,9 @@ Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH 5/8] automation/cirrus-ci: build XTF
-Date: Mon, 17 Mar 2025 13:16:13 +0100
-Message-ID: <20250317121616.40687-6-roger.pau@citrix.com>
+Subject: [PATCH 6/8] automation/cirrus-ci: store XTF and Xen build artifacts
+Date: Mon, 17 Mar 2025 13:16:14 +0100
+Message-ID: <20250317121616.40687-7-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250317121616.40687-1-roger.pau@citrix.com>
 References: <20250317121616.40687-1-roger.pau@citrix.com>
@@ -96,56 +96,40 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-In preparation for using the XTF selftests to smoke test the FreeBSD based
-Xen builds.
+In preparation for adding some smoke tests that will consume those outputs.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
-I've used the current version of FreeBSD to build XTF, but it might be
-safer to use the latest production (release) version instead.
----
- .cirrus.yml | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ .cirrus.yml | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
 diff --git a/.cirrus.yml b/.cirrus.yml
-index bda4dbe86a7c..d8a322acd54c 100644
+index d8a322acd54c..c74d5cf6eb9a 100644
 --- a/.cirrus.yml
 +++ b/.cirrus.yml
-@@ -12,6 +12,12 @@ freebsd_template: &FREEBSD_ENV
-     CIRRUS_CLONE_DEPTH: 1
-     CIRRUS_LOG_TIMESTAMP: true
- 
-+freebsd_template_latest: &FREEBSD_ENV_LATEST
-+  << : *FREEBSD_VERSIONS
-+  freebsd_instance:
-+    image_family: $FREEBSD_15
-+  << : *FREEBSD_ENV
-+
- freebsd_configure_artifacts: &FREEBSD_CONFIGURE_ARTIFACTS
-   always:
-     rename_script:
-@@ -82,3 +88,21 @@ task:
- 
+@@ -61,6 +61,14 @@ task:
    build_script:
-     - gmake -j`sysctl -n hw.ncpu` build-xen clang=y
+     - gmake -j`sysctl -n hw.ncpu` clang=y
+ 
++  xen_artifacts:
++    path: xen/xen
++    type: application/octet-stream
 +
-+task:
-+  name: 'FreeBSD: XTF build'
-+  alias: xtf
++  debug_artifacts:
++    path: xen/xen-syms
++    type: application/octet-stream
 +
-+  << : *FREEBSD_ENV_LATEST
+ task:
+   name: 'FreeBSD: randconfig build'
+ 
+@@ -106,3 +114,7 @@ task:
+     - cc --version
+     - git rev-parse HEAD
+     - gmake -j`sysctl -n hw.ncpu` LLVM=y
 +
-+  clone_script:
-+    - pkg install -y git
-+    - git clone --depth 1 https://xenbits.xen.org/git-http/xtf.git
-+
-+  install_script: pkg install -y gmake
-+
-+  build_script:
-+    - cd xtf
-+    - cc --version
-+    - git rev-parse HEAD
-+    - gmake -j`sysctl -n hw.ncpu` LLVM=y
++  xtf_artifacts:
++    path: xtf/tests/selftest/test-*-selftest
++    type: application/octet-stream
 -- 
 2.48.1
 
