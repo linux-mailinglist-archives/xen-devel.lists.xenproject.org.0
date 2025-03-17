@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAC99A64F43
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 13:39:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.916815.1321842 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDB52A64F77
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 13:42:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.916828.1321852 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tu9kM-0003tB-6T; Mon, 17 Mar 2025 12:39:10 +0000
+	id 1tu9nH-0006OV-Lv; Mon, 17 Mar 2025 12:42:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 916815.1321842; Mon, 17 Mar 2025 12:39:10 +0000
+Received: by outflank-mailman (output) from mailman id 916828.1321852; Mon, 17 Mar 2025 12:42:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tu9kM-0003qm-36; Mon, 17 Mar 2025 12:39:10 +0000
-Received: by outflank-mailman (input) for mailman id 916815;
- Mon, 17 Mar 2025 12:39:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tu9nH-0006M4-If; Mon, 17 Mar 2025 12:42:11 +0000
+Received: by outflank-mailman (input) for mailman id 916828;
+ Mon, 17 Mar 2025 12:42:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kom6=WE=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tu9kL-0003qe-F7
- for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 12:39:09 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d158b4ea-032c-11f0-9899-31a8f345e629;
- Mon, 17 Mar 2025 13:39:07 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-43cfb6e9031so17680545e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 05:39:07 -0700 (PDT)
+ id 1tu9nF-0006Ka-UF
+ for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 12:42:09 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3d85b730-032d-11f0-9aba-95dc52dad729;
+ Mon, 17 Mar 2025 13:42:09 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-390e3b3d3f4so2563802f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 05:42:09 -0700 (PDT)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d1fe609a2sm103275555e9.30.2025.03.17.05.39.05
+ ffacd0b85a97d-395c888117csm14663202f8f.44.2025.03.17.05.42.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Mar 2025 05:39:06 -0700 (PDT)
+ Mon, 17 Mar 2025 05:42:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d158b4ea-032c-11f0-9899-31a8f345e629
+X-Inumbo-ID: 3d85b730-032d-11f0-9aba-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1742215147; x=1742819947; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1742215328; x=1742820128; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=yy7UblOdya72+AXgCbiP0q8d0JXaeV2NapHM3MGFX9w=;
-        b=CTeC1+xBCyLF1vBE8xX/lRoI1mbY4GMyQHq9yGstsR0SD2FOkJ6oOkim3sWsisjCuq
-         uewgKpUoY8CVOY7RwMoaD9UMs3Ig6pWk3QDABFY6OfFqdrOlRSSKNchrjRJVWfzXkk/Y
-         iA12/1dfecc2sAnLvM/5/6WAvjUW+G1qfiQjE=
+        bh=mombFkLQhrvyUyrJB8DEv0DVDhmEvDRHay+ZAwFp1ko=;
+        b=k6Cmb44HsBqIu2UHpHh9RZk2lcbCgzAj1bLDBFBfzrmWP27RvLMe2kg26NXQBIikug
+         Ibp2YbxptiDf9Qe0vMYbzxxaalxTnBsCohsHf9caNTsnxmpFZ5l52JjDVgwyaa25xZJ6
+         c0KbkWSi/DcrelOGRm1iJMJWr8nqkfRPGe5E8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742215147; x=1742819947;
+        d=1e100.net; s=20230601; t=1742215328; x=1742820128;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yy7UblOdya72+AXgCbiP0q8d0JXaeV2NapHM3MGFX9w=;
-        b=KULaRPSvtciUW5BNszX4P7dpe4kWbuqq6Ukl+enhKNtH0d+kTx2vPiw0YxmlnI1Bbo
-         cIMEdAvgY2bCf3IKLhcnLEG166hRfPw14IDoqxBm4ozD4GrlHthETerriT9Ghl9zQBQJ
-         I14RXOH694sS4ZejkR+FdJXBrrVuQj8uds5a4DE1qKBmH1eXhw8yxDB6O59yKCHDubdW
-         DtBfKxYhyVQ1UEl7YIGjlLTCx2YAPsTrguok0gWt51O8Y7BkQ/0h47PKyvZsN6QmzQGB
-         4n86DgBXKCgg5Fl3eTXhk0U+5US4OD+/UEala6em0IixMWKpxNIvLZcEE/FZA79jX6Ue
-         mR5g==
-X-Gm-Message-State: AOJu0YwRpgp+s5TyqEhencrBWOQgZJTTPWV1OihOrEaGG4XdDzQzhBvZ
-	lCKnoi7wNZXw3RoZBDL0Xvj7CFMCLDiRChjqmhKTYDLDqrnnb89TXLfJFvjEF2s=
-X-Gm-Gg: ASbGncsyX8zk4+WgvGgYgsDMGlu/8bGvsB9m+zNux63CUFeZsHWJlW7nIeVuqbHJsYw
-	f94W2O8KzxjWIl5INGezPuhI+lufNl2wylIVRiWIFHTUNPj/WjKuebI/6uk+FWr0f+CZKlQIQ6r
-	QyCb9zfs7GWrgPfExCg7/Utq1K2Slec8HJoNRZJe41a1J6N9L3zfBzFzMi0QfHXkGQkDo9ErgxP
-	JK4x1l05/oPVB9KcaltliRO4MDoygZO7IMdPBWN1H1+IOrFuG4SWL0WCZWKMOevNrJshKV5Nfma
-	0xbqd8r7E98VjOktfYionasUVvdA9UVFXYHXBdgwEVkQEsRnKQVyJ7YSQTw90dyocNWlKHhr622
-	kPVnLRiNNGV9KCmH/71w=
-X-Google-Smtp-Source: AGHT+IHb4DIKOWc0AHVgVob44c3YuFwSurOgVMR6UbUt/jVq1y2btERl+8o3KRryS7hZjUjd4+c3lg==
-X-Received: by 2002:a05:600c:418a:b0:43c:e7ae:4bc9 with SMTP id 5b1f17b1804b1-43d23b968damr63426255e9.1.1742215146879;
-        Mon, 17 Mar 2025 05:39:06 -0700 (PDT)
-Message-ID: <aefc3dd1-1509-4021-9a43-a09ed57ba5b4@citrix.com>
-Date: Mon, 17 Mar 2025 12:39:05 +0000
+        bh=mombFkLQhrvyUyrJB8DEv0DVDhmEvDRHay+ZAwFp1ko=;
+        b=p9r7CRXs4r1HUSDs6gGfcUpCOeETexQlagt9y5mx9vPTDpn+RmuLqnEdL4nn9kVNDA
+         LKwyTby1gBQ8i8fxWYyjJ5rM5fnJWcjYprw4tLBF9hVpjgURwh8Xw2Rb+k5y40L5Iaf4
+         5Wgy2CKqLXRuzgrMQgJRcOKFmQUSEIgV1o62KevfPlUxk0yLDQpMyBdoXP2VtnhrSWKn
+         abTu2+6nYVfuFjiiCRZyFe5YgK5JaX5A6so2BHoXbXIajkloffReMqrs3CsoZY17JnqY
+         Nnjjpt2hsV4QbyEJrfquXCjqGMgVXaDQ/BBt5sun3A+e7eLV/Q0u9ddOij+LLSGtWUk+
+         Wu2Q==
+X-Forwarded-Encrypted: i=1; AJvYcCU49/j6p4W68IexzFD0raYO4MGaRKcfQHV9Y3sH+yXRWpOqx0vjpkO1ROms4HIh3R1Pvw6WMaGSdc4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyph/uOYHyPdA/CALGyianaR1bNrpMGOuXxcf0RXo9VbjazVYsq
+	1f6h95KqEoclWkGIkzstC8pR4f/UGjG4acbmtmY4msZWc63hg2EfGsignMFpCTg=
+X-Gm-Gg: ASbGncsz3PAuV53+jccPL0UpDKrcOEMmIUpbi1mgLqY0605DgWmzgrQBmwCt+E65ixC
+	F7gM8EHeumRluY4H9LpXvpUNBnFiLX3C9/8sGrMjWZ+cuozzYe6sEImVS2EQu9albhWcZ+j0i+t
+	N5dHtEIA51vizW0DNSaYQQigLw3caayBRGF6b0JgV/JupycEoJrZPhNp+omCDEW4HO89j9yHxM6
+	inJ5Aqq/cYoPpZaJsQJmC6wm9AKXfoZYTnD6kH+o4XmYFDLx+8+s8iuZnLjsXuxi+lg/jPVra6F
+	pB6qg1lKabW53Upk7PpkZ9wZsrD2P3sA3Rz1SeNHENqa9ukhcjwjcY+5OSofn41mjqou2+ExdLr
+	E7s1n/snb
+X-Google-Smtp-Source: AGHT+IGEgSy3Mjj1BDcZX5Hnjxf6m3XWfeQQRcY5G4JmOcPjJ4yqJMEn5X7AIeQ+gRyAhrquKnXXzg==
+X-Received: by 2002:a5d:64e5:0:b0:391:496b:5646 with SMTP id ffacd0b85a97d-3971e2adae5mr10620376f8f.28.1742215328521;
+        Mon, 17 Mar 2025 05:42:08 -0700 (PDT)
+Message-ID: <d65e6700-87e9-4cb3-bf00-165e9cd4464f@citrix.com>
+Date: Mon, 17 Mar 2025 12:42:07 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/boot: Fix zap_low_mappings() to map less of the
- trampoline
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20250106112652.579310-1-andrew.cooper3@citrix.com>
- <2f12f38e-9629-40fd-b532-6b6f82ecfe1f@suse.com>
- <4bff530c-9f96-4b59-b6cb-86349c576690@citrix.com>
- <0565db90-5734-4795-8988-efd3e72cc770@suse.com>
- <Z9FaeksA0d9Ms15m@macbook.local>
- <82348f8b-7e5e-43ab-8eab-975d84cdda46@citrix.com>
- <555dcea6-1359-43c3-93fd-338744099387@suse.com>
+Subject: Re: [PATCH v3] x86/hvm: add HVM-specific Kconfig
+To: dmkhn@proton.me, xen-devel@lists.xenproject.org
+Cc: anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com
+References: <20250315011945.2927542-1-dmukhin@ford.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -140,104 +135,25 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <555dcea6-1359-43c3-93fd-338744099387@suse.com>
+In-Reply-To: <20250315011945.2927542-1-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 17/03/2025 7:56 am, Jan Beulich wrote:
-> On 14.03.2025 20:00, Andrew Cooper wrote:
->> On 12/03/2025 9:57 am, Roger Pau Monné wrote:
->>> On Wed, Mar 12, 2025 at 09:31:37AM +0100, Jan Beulich wrote:
->>>> On 11.03.2025 21:47, Andrew Cooper wrote:
->>>>> On 06/01/2025 11:54 am, Jan Beulich wrote:
->>>>>> On 06.01.2025 12:26, Andrew Cooper wrote:
->>>>>>> Regular data access into the trampoline is via the directmap.
->>>>>>>
->>>>>>> As now discussed quite extensively in asm/trampoline.h, the trampoline is
->>>>>>> arranged so that only the AP and S3 paths need an identity mapping, and that
->>>>>>> they fit within a single page.
->>>>>>>
->>>>>>> Right now, PFN_UP(trampoline_end - trampoline_start) is 2, causing more than
->>>>>>> expected of the trampoline to be mapped.  Cut it down just the single page it
->>>>>>> ought to be.
->>>>>>>
->>>>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>>>>> Acked-by: Jan Beulich <jbeulich@suse.com>
->>>>> Thanks.  However,
->>>>>
->>>>>> on the basis that this improves things. However, ...
->>>>>>
->>>>>>> --- a/xen/arch/x86/x86_64/mm.c
->>>>>>> +++ b/xen/arch/x86/x86_64/mm.c
->>>>>>> @@ -718,14 +718,16 @@ void __init zap_low_mappings(void)
->>>>>>>  {
->>>>>>>      BUG_ON(num_online_cpus() != 1);
->>>>>>>  
->>>>>>> -    /* Remove aliased mapping of first 1:1 PML4 entry. */
->>>>>>> +    /* Stop using l?_bootmap[] mappings. */
->>>>>>>      l4e_write(&idle_pg_table[0], l4e_empty());
->>>>>>>      flush_local(FLUSH_TLB_GLOBAL);
->>>>>>>  
->>>>>>> -    /* Replace with mapping of the boot trampoline only. */
->>>>>>> +    /*
->>>>>>> +     * Insert an identity mapping of the AP/S3 part of the trampoline, which
->>>>>>> +     * is arranged to fit in a single page.
->>>>>>> +     */
->>>>>>>      map_pages_to_xen(trampoline_phys, maddr_to_mfn(trampoline_phys),
->>>>>>> -                     PFN_UP(trampoline_end - trampoline_start),
->>>>>>> -                     __PAGE_HYPERVISOR_RX);
->>>>>>> +                     1, __PAGE_HYPERVISOR_RX);
->>>>>> ... literal numbers like this - however well they are commented - are
->>>>>> potentially problematic to locate in case something changes significantly.
->>>>>> The 1 here really would want connecting with the .equ establishing
->>>>>> wakeup_stack.
->>>>> how do you propose doing this?
->>>>>
->>>>> PFN_UP(wakeup_stack - trampoline_start) doesn't have the same obvious
->>>>> connection, and it would involve partly undoing 7d73c6f196a5 which hid
->>>>> the symbol recently.
->>>>>
->>>>> While 1 isn't ideal, it is next to a comment explaining what's going on,
->>>>> and it's not going to go stale in a silent way...  (It's also not liable
->>>>> to go stale either.)
->>>> If in
->>>>
->>>>         .equ    wakeup_stack, trampoline_start + PAGE_SIZE
->>>>
->>>> PAGE_SIZE was replaced by a new (in asm/trampoline.h) TRAMPOLINE_PERM_SIZE,
->>>> you could use PFN_UP(TRAMPOLINE_PERM_SIZE) here to establish a connection.
->>>>
->>>> I have to admit I also don't really see why things going stale here would
->>>> (a) be unlikely and (b) be guaranteed to not go silently.
->> The size can't go to 0 or everything will break, and if it goes larger
->> than 1 (which it almost certainly never will), then APs and/or S3 will
->> break, and we've got both of these in CI.
->>
->> Furthermore, the actual thing which matters is:
->>
->>> /* Map the permanent trampoline page into l1_bootmap[]. */
->>> mov     sym_esi(trampoline_phys), %ecx
->>> lea     __PAGE_HYPERVISOR_RX(%ecx), %edx /* %edx = PTE to write  */
->>> shr     $PAGE_SHIFT, %ecx                /* %ecx = Slot to write */
->>> mov     %edx, sym_offs(l1_bootmap)(%esi, %ecx, 8)
->> which hardcodes 1 page, because there's almost certainly no chance this
->> will ever change.
->>
->>>>  We just don't
->>>> know what we may need to add to the trampoline, sooner or later.
->>> Maybe we could introduce trampoline_{ap?,runtime?}_{start,end} that
->>> covers this more narrow section of the trampoline code?
->> We already have one of those, and a linker assertion that it stays below
->> 1k, so wakeup_stack is at least 3k.
->>
->> The complexity is that the wakeup_stack overlays some init-only logic in
->> the placed trampoline.  It's not something that exists concretely in the
->> Xen image.
-> Well - you've got an ack; while I'd prefer if connections were properly
-> made, I agree it's unlikely the size will grow enough for it to matter. So
-> I think you should feel free to put this in as is.
+On 15/03/2025 1:19 am, dmkhn@proton.me wrote:
+> Add a separate menu for configuring HVM build-time settings to better
+> organize HVM-specific options.
+>
+> HVM options will now appear in a dedicated sub-menu in the menuconfig
+> tool.
+>
+> Also, make AMD_SVM config dependent on AMD config and INTEL_VMX on INTEL
+> respectively.
+>
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 
-Thankyou.
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+I'll take this as-is, and the cleanup can come later.
 
 ~Andrew
 
