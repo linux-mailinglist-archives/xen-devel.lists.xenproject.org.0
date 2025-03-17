@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4D71A64C18
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 12:16:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.916571.1321641 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D242A64CEE
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 12:38:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.916582.1321652 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tu8S6-0000n6-Ta; Mon, 17 Mar 2025 11:16:14 +0000
+	id 1tu8nU-0005Vx-J4; Mon, 17 Mar 2025 11:38:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 916571.1321641; Mon, 17 Mar 2025 11:16:14 +0000
+Received: by outflank-mailman (output) from mailman id 916582.1321652; Mon, 17 Mar 2025 11:38:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tu8S6-0000kQ-Qh; Mon, 17 Mar 2025 11:16:14 +0000
-Received: by outflank-mailman (input) for mailman id 916571;
- Mon, 17 Mar 2025 11:16:13 +0000
+	id 1tu8nU-0005TW-G5; Mon, 17 Mar 2025 11:38:20 +0000
+Received: by outflank-mailman (input) for mailman id 916582;
+ Mon, 17 Mar 2025 11:38:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7xTS=WE=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1tu8S5-0000kK-Cs
- for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 11:16:13 +0000
-Received: from DUZPR83CU001.outbound.protection.outlook.com
- (mail-northeuropeazlp170130004.outbound.protection.outlook.com
- [2a01:111:f403:c200::4])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=UoSe=WE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tu8nT-0005T8-48
+ for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 11:38:19 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3b1e60e9-0321-11f0-9899-31a8f345e629;
- Mon, 17 Mar 2025 12:16:11 +0100 (CET)
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
- by DU2PR03MB9999.eurprd03.prod.outlook.com (2603:10a6:10:490::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.33; Mon, 17 Mar
- 2025 11:16:08 +0000
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593%4]) with mapi id 15.20.8534.031; Mon, 17 Mar 2025
- 11:16:08 +0000
+ id 515e45a3-0324-11f0-9899-31a8f345e629;
+ Mon, 17 Mar 2025 12:38:16 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3913cf69784so3657446f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 04:38:16 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-395c83b6b37sm14937865f8f.37.2025.03.17.04.38.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 17 Mar 2025 04:38:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,182 +45,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b1e60e9-0321-11f0-9899-31a8f345e629
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qi4BuVgRYmt/ZgHPOgR2hBJ2KR5tvaICZaCAdH1yebJadxZhM7pxSZWyNieRjMQOHlwugbPTkOnrPi32byrnu+HMH74CDXd7LNTE+SCLDXwY2N3wEkN9ppPNJ0m16h39PqgBginbWkY1v9z2TNl+1hh276uuiBkrGeR91B7rTvC36TjpiDgoNt7tVu3+zjk4GW3z4+mupu8B5YmQ4k4lmELu86UVtENXobzrbFvF/E/3vRbyfnGd6HJKEtPZeLxK8eNVDTI1IDgx9R4NSlLqOy27lyRrJYCt/G2mSw5Kci7BfOh9QV+ZoG7hu9ERBGQCb9wwCGNkhW68v8OH2bsB1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qfI1fp9pZIPfQSq8BsdXPAntvA4TYc/mID6Sigz3ifY=;
- b=jrJtt3tosaTCeFnOiyvm+r4ujRyzZdHPHTsEudadDkpxmpg/wKA8g1m0UzB9ZrRPi6s0ZneJQwJIN1zr4HVZ1CwJo8YtWbVUvKyWB4Cqya0h8y5AGx9NiyAZ8g6yWjo0UZsXOdlv1QIx3D2lzXeUgNzP/4RSAgxorK0i8lcTiHZSgtIIpeo/DEXDQJaRRVZvt1G1BRdeRhWuh76N5c1v6zz2UHzqpN59m1qYCQMu4bSDIQX82xp2E0Pg6Gqp4/pE/zBQu5jmil72mHCC13e/ODWHwLyC8vAT1S24zIBG5uJElXR1jOkl1/uXIjjgnXVJMqhriRbLQt6qH0JbvXF1sw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qfI1fp9pZIPfQSq8BsdXPAntvA4TYc/mID6Sigz3ifY=;
- b=uBZrB4EJTwFgEOmEbPq7mA3YK2P9KTEfUvGXLG3H3T3+P8K4c/CeQRZLfEspQGrdrnR4flC9W6r0/pVDI2ZfPqd7MQA/lMOVhEPDkTAcMx1UJSsChu+JB8D780ONq8l0UaEVrjWkcttKoTYRIdDDRyZgP/q0+OQ9dq54vvL8wC979XED6cIM+elzCYzLs1q8l+2dpKQ0MIcL9TcjdFMr6eCjTpElhwMDlqS13ilYn/gLTCv8IQNThjG2ws0a1C4g1SvznjhBIB+lJlAjWY+vZedOztZvmdvsWDS2SBk9DKSt9NruYeFUKEy8Rc+mea+d80plcFvI5yrCD6J58YBdfw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-Message-ID: <0c399cdc-7a89-4482-a7fe-780da9ad6ca2@epam.com>
-Date: Mon, 17 Mar 2025 13:16:06 +0200
-User-Agent: Mozilla Thunderbird
-From: Grygorii Strashko <grygorii_strashko@epam.com>
-Subject: [ImageBuilder][PATCH] uboot-script-gen: add debug option to print
- final dt "chosen" node
-To: xen-devel@lists.xenproject.org
-Cc: Michal Orzel <michal.orzel@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0120.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a8::10) To AS2PR03MB8907.eurprd03.prod.outlook.com
- (2603:10a6:20b:5e4::22)
+X-Inumbo-ID: 515e45a3-0324-11f0-9899-31a8f345e629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1742211496; x=1742816296; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=1qcrCvKZ3DFoQMksi7T9egVtF2dgZzfgXW4ot9a0/D0=;
+        b=U0uhSx5LzcBSRs+zS/PjN1akW7FYqDW5aKeFToyj4Dhsy/D++zCzsUjOaLzswuqGJJ
+         DiLWof5AWxtDrPDhsw0PLyAQjeMHDgdRKhUxQdtCLY/sqrLRRIlGPdvMzqZyz1RoGIuF
+         mjl0WGsvHcL8LX5dqNn/pik7nlBn/9yI5lZeICrYtSxEAd17pvRbeKwmDc9JRh11Ktpi
+         jW/IYsAgz05jSBHWM+iQFuCHhm7p0CLwAMokMwSeDtzITI9cn8YhqwUpxyBcUDl/biX4
+         /ZeJszpeehFVZYvATgk+A2tZ8mjomPt4ioY02oV20qvYAgOB1I+n1TxUauJhWTQXprPe
+         2HBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742211496; x=1742816296;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1qcrCvKZ3DFoQMksi7T9egVtF2dgZzfgXW4ot9a0/D0=;
+        b=h3nYKYJos6apEkbE2QdtVmKoTWnR7qoi8SVJCH9srb2nILDoXATuoCR/Twl+oR0O32
+         h4m8pNgIso9GGusHxeWLMBUSHiKBYUuChIyWTT8gNKmic8u2pL73YHOX77NGVdO35ypa
+         J99tcMWzno7QbwEbKcADiACVJMsNBNbWa5M3/bpLaFOefIMb7GEn55q5uxCSt06MDsD4
+         SCdIPcgkqTYxqTjrwARjDBv3xsrsYQrZxup5bUoSO4m4269d8b1clD2l4ta8HL2qaIHL
+         93UdSLGXDlHwIriWnfcqULQE/R2bmXxh1W7sliFO/fazoVBaFnYAkAxBxfYGrX9IjQ2N
+         mx+g==
+X-Forwarded-Encrypted: i=1; AJvYcCUonjd7SQCdwWWptIYaM1SxM44MUjACA2O/CS9vOHJyH0oPVKN775KCB8ej/MpisBAx0K7R0VWno6Q=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzAAIUV9ttVG54kebFBeUJadrRgfqtkVypTxQwC0KO9OuceKFKD
+	4pjKUfkqNYlWVz3Ms+3b8NTWNnU3wflY0eetM0E7nsJAp0QRI1+P2BqFos1lHw==
+X-Gm-Gg: ASbGncsG58sM6073CghUv6vyOajIwcSxDo9SH04/FOX6qnV5Ep1OmTZlMhA8QbhinBh
+	lEnv5HYGyzH9phXQ5HvBx0hc01trd0G5VZNrnN8uPCbPFHQHSjYzNKgMd+57oTlhr0cjppGYocl
+	HVE7v3N2LLokclW7V7P+Y2bkK3cRMgvZVpwuQ3a7DOXqSN4UZiQOggjwWzPhx7l7fH3JT0sm+0d
+	ol14CFoD4LbS/lqbrjjSA6Vd4I+CJ3714OdgjJbZFw/XanSYEHwSfb2z29lmEYsdEbN/o0pR8qX
+	polDvy53S3bt9EHOsR5cicaNYoInFDkVI0zx8IDCISl8oFDMnMDZSUpJHN7/xZrmiscECvKpEbD
+	BGdvJirxZlQwQBS6yLmRFkh+993OmTcCijLaf2m6D
+X-Google-Smtp-Source: AGHT+IHTr1FInE4s04gEnaH2xWr7HMWZTnaYhptuFerPUlji+DXrCF//UlA0UZEtL+y1uX9m5LcYbA==
+X-Received: by 2002:a05:6000:4011:b0:391:3124:f287 with SMTP id ffacd0b85a97d-3971e2add48mr12084898f8f.16.1742211496312;
+        Mon, 17 Mar 2025 04:38:16 -0700 (PDT)
+Message-ID: <703471bf-d5e7-4f97-b17e-61dffdcb828d@suse.com>
+Date: Mon, 17 Mar 2025 12:38:15 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|DU2PR03MB9999:EE_
-X-MS-Office365-Filtering-Correlation-Id: 50e87f1a-d2cc-480f-741f-08dd65451df1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?UmJMa2pETTI3enl2L0E0NnZ1NHlQWUwyNjRRUWFRUVhWUkZzM25vYWQ1WEhi?=
- =?utf-8?B?STBHSnpKUy9vbGRBdWx6OWJ4TEtoaVBMMEpuMUpJSzVsaU5lcjRZVENUdFd2?=
- =?utf-8?B?RWFMLzhZSjdqWUh3cGFVbFJ1TG9LZDVnODJIN011N3gzNFh5b21LYVk5d0VX?=
- =?utf-8?B?WjdaMHgwNjd1WDhZRU13VVBDQVRUd0FYcEFQY3podjdMMzhWclBtaUFvd1o2?=
- =?utf-8?B?b0pUTWpLVUVxRnFqMk4zem03ZkhvYzFhclRua3I4SEFaTXJtTTBabXE2TXAv?=
- =?utf-8?B?ZkJ0Z3JrMCtGem9USittMnM4TENCcllySEZqYjVBRW84bGdXVFYycUZoUWxC?=
- =?utf-8?B?aGhjL3hQZ05rc2RzZVJRa0V1OU1jWXliTEZxMDZsTDl2dmY0ZkZsTjZ5Wi94?=
- =?utf-8?B?b1VCNTN5YmZ3Q2daSkx4N2g4SXJ5NGZMcGFYK3F2VWljZHN3aUwweTI5Tjh3?=
- =?utf-8?B?WlRMTG5jQVVWcVQxL0ZVN1RRUjVDeUtGQ1U5VGp6ekVDWExJdWZaRlFMZk1R?=
- =?utf-8?B?aDR6NWpNUUFibS9UZzVBWmlaNFRxdHNSd3JId1ZoYkh4aExrZllXNENhZDZp?=
- =?utf-8?B?a0hGa1NXWjV3cjhRQVBXY0Z2eWtnanpMbWd3N1gzSEQ5Z3VTMUxDaDk2NkdW?=
- =?utf-8?B?dlNRWDFCdkRSSnVYaE5VWVFibExicFI4a1AwWjI3VUtKSjVNWndzQVFJeEN1?=
- =?utf-8?B?Nkl0ZWtrRWxUOFk3ZXZJUzdmRFhodXlFdnZweHZWS3pNbm5YNVBQdkcwdEJa?=
- =?utf-8?B?dUQ4N1VSTTJreGlrMzJHQ005NU1nWnBQL0M0NzhqKzlXVWtjRnhyMFc2eWN0?=
- =?utf-8?B?Qmxuby8xbUIvamVNTTlNdXZHSk5OWEwwM1JrSFF0R0hWbVg3VWxuTnFJMUE4?=
- =?utf-8?B?VFBMN2ZMc1dWdkFNeFBYb3VzN1YybHczWFpGcDhxT1hVYVVvSEZpc3BsV0pk?=
- =?utf-8?B?Q0dOYVlNbk5oZDhLYmN0ZWlzK1FPT1o2SEFZVzRnT3dXV2xSVzM5ZEgwVUxH?=
- =?utf-8?B?VkhtUkVjUERURGxRYkhEdFcxVHllWkpjdGd4UnF1bTRzZ1VYeCsvcnBucmpw?=
- =?utf-8?B?MXlBamZDZjRJM3hCK1VhNlBLTnpvNVgzMVN1YnhBVzIxdTV0TFVUNzEwQ1Ra?=
- =?utf-8?B?dVQ5eXNrUDBjVXA0ZEYwd0VhcXNQQmgxS0FTWHozaS9GaUVYYjhUWGZuZzdw?=
- =?utf-8?B?WkhUaHgrTUJsSmFMZGZIWGJIZTJXRFJQR3FjK01jRm1QOFh6eEpiN1NwNlIv?=
- =?utf-8?B?VElUNlRyVkRFRjhjNno3TUhnTTFFYzVSYkhvaDRtSjIxT3lzMEo0L3JnVXJI?=
- =?utf-8?B?VXBDcWFEMzQ0RkR6V1gxTVVIN0VYcVRsQnVYdFR4NEllK2RxTUkxZTYrVmQy?=
- =?utf-8?B?TjQ2UFhxWmhhbUZweWp2c2c0VmVFaGNXZ0ZENGFpRU5HK3BKby83bC9xUWpz?=
- =?utf-8?B?UTlPNmtMTGluRllwMzJVRXl6RUtSSi9Nd3VGVDc4ZXNRWmlVUnExWkZmNHVm?=
- =?utf-8?B?QlhlVWwrWFpnNDBEVWU3ZmVWMG1VRFNUaHBiQis0YUVVK09wNHlRQ2U2S1ND?=
- =?utf-8?B?ZUFlSVJPM1psOW9FMzNLQS80dGQxdkl3KzBtRzVtM3h1bEREcnJsUUlpZCsv?=
- =?utf-8?B?M1JGQ3NITEdqaUVnSk5JQm5INHRYZk1MQnFFQlJmMEFjdWJQZHgvMUZDRDlE?=
- =?utf-8?B?V3htYUhzS0x1OVdHN0htdXlNZ0g5UkdoandqeHU1eVh3TEkxMFI4ejdmT1lq?=
- =?utf-8?B?UEFsZXdsaytUZnBlY2owR1dtRjUwd3hmSm5pS1d5L3UwS2g2Q3hBMGhKUGtW?=
- =?utf-8?B?Q05rR21veVZJWlFqdkZLV1F5SlB2bzlSYjBmRTdOMVRRT2F0VTkxQXhkbE44?=
- =?utf-8?Q?fXunCJL/C8jjX?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eEZCL21QVG5PaTkyZktwaEs2TllsVjVZZ3VHUWwxZ2pMWDNqL0x1c2NTV2VL?=
- =?utf-8?B?b2hDNkZJQ2xKK2hJdmxXVjNqSEp3OW5MdzVPN3BOVFgzOWo2UHRDVTdHdHlB?=
- =?utf-8?B?dlN3OGZ3cnNvM084ajBoc04yY2g3elBHN2RsMjY4N2M0RlNWMzg0REtZRU5Q?=
- =?utf-8?B?MEFuWkgzcEJ5cEpmWmQ2WXRyVVJuN3oyRDRFdmU0T3h6NGdqQmJSa1Erelly?=
- =?utf-8?B?OTNSM3p3Mktsc1oyVEh4VW5oNTRrWkt2U2RoQ0krQVdFM2l0LytiZVlieXNw?=
- =?utf-8?B?dk5qYTBzYktQMWNiYXV1MVR0K0g5MkY0aUMwQTl5RXp1Uy9vOG4zM0NkbG9K?=
- =?utf-8?B?T1BVSGRvVVZXY0ZQNG9BU3B4eFNpUFZ0bCs5c0cvV1psSHg0T0tDUlhZdmEv?=
- =?utf-8?B?cWo4OG1NTjNDOENBR3JOZFpqcWpxQWF6SVVOeFQwRzhpR3hzQ09ZeWs2TkJz?=
- =?utf-8?B?eHVrS2J4NjZDSEdpaU1Vem5zRWU0d2RUbUdHMlNqL1EwRVVQaG5RSG1pUUNq?=
- =?utf-8?B?ZnFDK05UVEJ5YVVCYlJwNmVIdjRhd3daOVUxcGNBRjVPTWZWdCtuUUxFNExn?=
- =?utf-8?B?WXNBK0duTW5Ed0NHbU1mSlpkYUZBN29WWWVCUTZqMmtBNWRoKzFUQnJVZGFJ?=
- =?utf-8?B?OStURzVoZ3pWQ2REM1VqTkNzQjBNY2dCZWJhRXpaamJwZUlGQThIYzVtV1N6?=
- =?utf-8?B?aDdGenl5WFVDYlQ5bnp5SXdFc2VWazVIeHdLZXJWVFVMVnBwOVd2Q0VjcFZJ?=
- =?utf-8?B?a01wUzhsOUxpL1YzN1JTSWhwSXhFYWRkMmZGTUhmeFJuNktxWWwvV2Y1WFly?=
- =?utf-8?B?dnRwK3o5dkVxbHBIMEhveG5KcC8yd0xHZ3F4U3luWkRnalkrNWlKa09ZNnNE?=
- =?utf-8?B?enZXb0g3R2hQRFJCdWowV3lPUEpzZXZaS3lpUUNWSnhMY0llTlh4WGhseExX?=
- =?utf-8?B?N0pxa1B2bnY4Zi96aWVBMjM1K2NjdDVqQ3BqZWVzQnRoenhBa2VmZTRJdllh?=
- =?utf-8?B?V3JTQWpUL2VQcEE4bnh3cDJDMWlqQ0RGMXYxVklmTms1MXpSd01uR2hsVERa?=
- =?utf-8?B?Q1owcVRwa044ZUNBZVR1NldOUjNYQ3hEUGdaREFjcVNUY09peGNmL1M4Qnlw?=
- =?utf-8?B?UENpRU1ZTHRPdTNJU1cwQjJZMzQ4TFRjZjRSV3ZhR3c2SkRXeW1uUTl4THJ2?=
- =?utf-8?B?WDl0SEVkZWpjK0N3ajVsbDhEWjBkVlZzUGROR2ttOU5tUXVSZHpmWUovR3Va?=
- =?utf-8?B?TkpIa3ZGVmRTbXRiakc0b0pPUUpVb2trVm0yQ0ZEVE5MRkNOK1RHaENPc3RG?=
- =?utf-8?B?dU5XK3NMOU1JV1NuUmk4RFVuYWlHMjJwME45ajdhT2RUZDh2V1BqZmVsekgz?=
- =?utf-8?B?VnJRMmY5cHRxbml1YjZyMENqb25OS2ZBUmJiWjcvclVFbHpndGhEU01BbGlu?=
- =?utf-8?B?R0VOcTVlSG9TYS8vZU9KSXVyay9Kd25nZHJZNHZwYjBldSs0dnVoU0NVN1dk?=
- =?utf-8?B?VHlDKzExU3BJaU0yYUR2aWpKZHlsbDVxenA2c1ovaDVnQWxjVy9IV2xjcXYv?=
- =?utf-8?B?UlVXV212VzRvV1JoNnBCTW81VCtKZDdHV1R0NEdrR3J6Z0JrajFlU2RpdzEx?=
- =?utf-8?B?c3NuWjdBWldSY0pENXZuV1NVWTZaSlBSZVU3L3hhRkV6aE9ER1hoRjhCUWhI?=
- =?utf-8?B?eXppYzE4dW9GcEtPMnJ4ZVEwWE9FQUF5S3RFYkNxaTFSUDMyemY2SC9LQSsw?=
- =?utf-8?B?MU5yaTYwSVl5ZzZDUkpQSjNYaEh5QXZqQnltcFB3YTFMYlRoWW9qdmxjUWtM?=
- =?utf-8?B?UTdrTFNWeE53cXBNaStzeVVIazBqaTBzbDlSdWoybmc0NXB3aUFmSW5kamsz?=
- =?utf-8?B?c3ZYcnNDVWVOcWQrRlJxdXdqeU9UVWlBSmJveC9EcjJjMXRraWlEVzRyaXh5?=
- =?utf-8?B?Q0dtbUk4ZEE1Ynh1bEpITC8rcFQ5OUxJekNTa0l6elE5NllKa3RIRkhrczhL?=
- =?utf-8?B?ZjEzdXNrejloVWpNY292TlNiZWdzbXY5KzJRZ2NGWGJsajhDYS9zRlErQlFJ?=
- =?utf-8?B?VGtBcWZjVHIxcXZpbkM4ZnY3T1psMXVqcWNPcnZOTXQxL011WUVMTzlpQ3RE?=
- =?utf-8?B?WWZucU8zUEhxenlLNHBKRDZvUjRxN095SWoyTkUycXRZOVd1TjZDUWZ5Nnl3?=
- =?utf-8?B?K0E9PQ==?=
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 50e87f1a-d2cc-480f-741f-08dd65451df1
-X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2025 11:16:08.7988
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BCZTsmHp3NgUeuZNCHbZ+AhV4dXqpi0LuKtbmJCL8B+553wnPb0kqicrJfg7ju8CZS8X1c4NC5FNGp00vXhg1U8uLVzCUAJWzRZdw6fypm0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR03MB9999
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/8] x86/domctl: Stop using XLAT_cpu_user_regs()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250311211043.3629696-1-andrew.cooper3@citrix.com>
+ <20250311211043.3629696-6-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250311211043.3629696-6-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Add debug DBG_FDT_PRINT_CHOSEN config file option which adds
-print of DT "chosen" node at the end of generated U-boot script.
+On 11.03.2025 22:10, Andrew Cooper wrote:
+> In order to support FRED, we're going to have to remove the {ds..gs} fields
+> from struct cpu_user_regs, meaning that it is going to have to become a
+> different type to the structure embedded in vcpu_guest_context_u.
+> 
+> In both arch_{get,set}_info_guest(), expand the memcpy()/XLAT_cpu_user_regs()
+> to copy the fields individually.  This will allow us to eventually make them
+> different types.
+> 
+> No practical change.  The compat cases are identical, while the non-compat
+> cases no longer copy _pad fields.
 
-This is useful for debug and development purposes.
+That's fine for "set", but potentially not for "get": Someone simply doing
+memcmp() on two pieces of output might then break.
 
-Example:
-   ...
-   setenv fdt_high 0xffffffffffffffff
-   fdt print /chosen
-   booti 0x43000000 - 0x43200000
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> Should we really be copying error_code/entry_vector?  They're already listed
+> as explicitly private fields, and I don't think anything good can come of
+> providing/consuming them.
 
-Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
----
-  README.md                | 8 ++++++++
-  scripts/uboot-script-gen | 5 +++++
-  2 files changed, 13 insertions(+)
+I don't see a reason why we'd need to copy them in arch_set_info_guest();
+arch_set_info_hvm_guest() doesn't copy them either. For
+arch_get_info_guest() it's less clear - toolstack components may have
+grown a dependency on them (e.g. introspection?), so I'd err on the side
+of retaining prior behavior. (Of course there's then the corner case of
+someone calling "get" right after "set", expecting the two fields to come
+back unchanged.)
 
-diff --git a/README.md b/README.md
-index 4ba430ce74c5..5b75018ea956 100644
---- a/README.md
-+++ b/README.md
-@@ -396,3 +396,11 @@ disk\_image supports these additional parameters on the config file:
-  disk_image also generates on the fly a xl config file for each domU and
-  adds them to the dom0 rootfs partition under /etc/xen. It makes it
-  easier to start those domUs from dom0.
-+
-+
-+## Debug
-+
-+This section defines config file debug options
-+
-+- DBG_FDT_PRINT_CHOSEN specifies that U-Boot script command to print DT "chosen"
-+  node will be added to the boot script.
-diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
-index 0607542b1872..74e3b076910c 100755
---- a/scripts/uboot-script-gen
-+++ b/scripts/uboot-script-gen
-@@ -1357,6 +1357,11 @@ device_tree_editing $device_tree_addr
-  # disable device tree reloation
-  echo "setenv fdt_high 0xffffffffffffffff" >> $UBOOT_SOURCE
-  
-+if test "$DBG_FDT_PRINT_CHOSEN"
-+then
-+    echo "fdt print /chosen" >> $UBOOT_SOURCE
-+fi
-+
-  # append extra u-boot commands (fixups) to script before boot command
-  if test "$APPEND_EXTRA_CMDS"
-  then
--- 
-2.34.1
+> @@ -1204,7 +1223,26 @@ int arch_set_info_guest(
+>  #ifdef CONFIG_COMPAT
+>      else
+>      {
+> -        XLAT_cpu_user_regs(&v->arch.user_regs, &c.cmp->user_regs);
+> +        v->arch.user_regs.ebx               = c.cmp->user_regs.ebx;
+> +        v->arch.user_regs.ecx               = c.cmp->user_regs.ecx;
+> +        v->arch.user_regs.edx               = c.cmp->user_regs.edx;
+> +        v->arch.user_regs.esi               = c.cmp->user_regs.esi;
+> +        v->arch.user_regs.edi               = c.cmp->user_regs.edi;
+> +        v->arch.user_regs.ebp               = c.cmp->user_regs.ebp;
+> +        v->arch.user_regs.eax               = c.cmp->user_regs.eax;
+> +        v->arch.user_regs.error_code        = c.cmp->user_regs.error_code;
+> +        v->arch.user_regs.entry_vector      = c.cmp->user_regs.entry_vector;
+> +        v->arch.user_regs.eip               = c.cmp->user_regs.eip;
+> +        v->arch.user_regs.cs                = c.cmp->user_regs.cs;
+> +        v->arch.user_regs.saved_upcall_mask = c.cmp->user_regs.saved_upcall_mask;
+> +        v->arch.user_regs.eflags            = c.cmp->user_regs.eflags;
+> +        v->arch.user_regs.esp               = c.cmp->user_regs.esp;
+> +        v->arch.user_regs.ss                = c.cmp->user_regs.ss;
+> +        v->arch.user_regs.es                = c.cmp->user_regs.es;
+> +        v->arch.user_regs.ds                = c.cmp->user_regs.ds;
+> +        v->arch.user_regs.fs                = c.cmp->user_regs.fs;
+> +        v->arch.user_regs.gs                = c.cmp->user_regs.gs;
 
+Just to mention it (there's no change in behavior here afaict): Us writing
+only half of the register fields looks like a latent (but perhaps only
+theoretical) problem to me. A dis-aggregated toolstack may set 64-bit PV
+context, then toggle address size, then set 32-bit context. That'll leave
+the high halves of respective fields non-zero. I didn't check whether any
+badness could result from that, as for the time being
+XEN_DOMCTL_set_address_size isn't marked dis-aggregation-safe, and hence
+this at least isn't of immediate concern.
+
+Jan
 
