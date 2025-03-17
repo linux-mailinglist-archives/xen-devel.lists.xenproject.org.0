@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63CFCA66268
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 00:08:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.918192.1322920 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABD8CA662DA
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 00:42:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.918203.1322931 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuJZ9-0004Ei-54; Mon, 17 Mar 2025 23:08:15 +0000
+	id 1tuK4w-0003sC-HZ; Mon, 17 Mar 2025 23:41:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 918192.1322920; Mon, 17 Mar 2025 23:08:15 +0000
+Received: by outflank-mailman (output) from mailman id 918203.1322931; Mon, 17 Mar 2025 23:41:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuJZ9-0004Cy-1p; Mon, 17 Mar 2025 23:08:15 +0000
-Received: by outflank-mailman (input) for mailman id 918192;
- Mon, 17 Mar 2025 23:08:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tuK4w-0003q0-Es; Mon, 17 Mar 2025 23:41:06 +0000
+Received: by outflank-mailman (input) for mailman id 918203;
+ Mon, 17 Mar 2025 23:41:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LEb3=WE=epam.com=Volodymyr_Babchuk@srs-se1.protection.inumbo.net>)
- id 1tuJZ8-0004Cs-BC
- for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 23:08:14 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on20609.outbound.protection.outlook.com
- [2a01:111:f403:2613::609])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b30fff00-0384-11f0-9899-31a8f345e629;
- Tue, 18 Mar 2025 00:08:12 +0100 (CET)
-Received: from GV1PR03MB10456.eurprd03.prod.outlook.com
- (2603:10a6:150:16a::21) by PAXPR03MB8015.eurprd03.prod.outlook.com
- (2603:10a6:102:21e::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.33; Mon, 17 Mar
- 2025 23:08:09 +0000
-Received: from GV1PR03MB10456.eurprd03.prod.outlook.com
- ([fe80::a41e:5aa8:e298:757e]) by GV1PR03MB10456.eurprd03.prod.outlook.com
- ([fe80::a41e:5aa8:e298:757e%4]) with mapi id 15.20.8534.031; Mon, 17 Mar 2025
- 23:08:08 +0000
+ <SRS0=kom6=WE=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tuK4v-0003pu-3g
+ for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 23:41:05 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4947bdc7-0389-11f0-9aba-95dc52dad729;
+ Tue, 18 Mar 2025 00:41:02 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-43cfebc343dso19492005e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 16:41:02 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43d1fdda2dbsm118908895e9.2.2025.03.17.16.41.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 17 Mar 2025 16:41:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,160 +45,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b30fff00-0384-11f0-9899-31a8f345e629
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gihpf9zPBTA12I+Wgp3vznpi64udN0vrkjarJczbmjLEmaHy40JmqKMvxyGksWXX1pXbYIszvrLJZUkk/bhvsEbg6xbmRDkevyda+PeuBQnT0XRBOw53xk9ZAIOQGHoSr0cj1Y10b3yWQ3gszdervo+DLc/mRd580a66qDbzY0yM5bbQuF4CvljqfBmGQiP09vo8rOGuyuZ9HUIxSuPv2N/JqRNA3a/OirjxsyWQZhRIyerJ8j5+Zm9nykgp8ms5a3hs/CONFtmpUIpoimQuFk1gxKl4ifZZbL36h5oXSHsYNh/nugXl10FSX6rQjFYsnXKAyAjG2Yr2KR1/J15wVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DlMwrJCMLe42goTjVdw8aYjZxe8B17WCQCexhbej2/E=;
- b=NlT5wUn6RC6rPfyx2p1+4TAMQVK1UKe/l6Xe6/+B3NS6x80py9t2VRlgSNFbw2geycJq/HTAv2YGtUVl+PjNj/m0v3Lt2SyJ7OB2LKVTqrraa1q/fUM/I12tpNL3lX7sEkyeX6aiUiOYCjgTakbFndw+FV+WNiy/wna8QHt4xSU3XIRQ2SRy4wwoOqZxf2ezg6/6QSaYV66qeNLyRHjkEScGUR2Ba//Qj3nLx7SeTs5irS1/h2bxDo+viBTMntAxEmSZzWDH0CDea7bXNMgFKoQ9y2djM80+ARbCLyO1hQc4PvDcKI9uZe4mXLt6QaEq7wnnRmqZFP02pKpz/jROGg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DlMwrJCMLe42goTjVdw8aYjZxe8B17WCQCexhbej2/E=;
- b=IRPN8cRMXAZCaC3JB7HRNnDfxShC0KCiPM7LSDNgLWYZ2KWYOauqGjdUXYlNDN0My8soZTlFRaNre6tIQsqn/bmMC6Wuz9pHX94/EwoPRkJ+o2rkjL06UTJ0lVgc6lJmbDw/6NUWfSszLeTPSRHGNEDjTImHt3iFI1oOftfehelAf/PotIshssrdaub8QE+SiIqm03J+wTEIGZDo0GrGYlc0D/2CI5wlf4DFowNXe8xVOMgwkCi5p2WpamhdZXH1iCy65UB0J07cUdkJKy8C9y0IYEgfiJyUVmhGYPnN4tDquh2QGOWfoPKz3IZH63wJOE4S1WtCJ7Z8+EDSn2WsDA==
-From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>,
-	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Tamas K Lengyel <tamas@tklengyel.com>,
-	Alexandru Isaila <aisaila@bitdefender.com>, Petre Pircalabu
-	<ppircalabu@bitdefender.com>
-Subject: [PATCH] xen: vm_event: do not do vm_event_op for an invalid domain
-Thread-Topic: [PATCH] xen: vm_event: do not do vm_event_op for an invalid
- domain
-Thread-Index: AQHbl5FytTUpgHIInUKTmFbOO0oHkQ==
-Date: Mon, 17 Mar 2025 23:08:08 +0000
-Message-ID: <20250317230806.1179478-1-volodymyr_babchuk@epam.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: git-send-email 2.48.1
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV1PR03MB10456:EE_|PAXPR03MB8015:EE_
-x-ms-office365-filtering-correlation-id: 6bfc5ee5-722e-4dad-6f68-08dd65a8953c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|1800799024|38070700018;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?xiKZ6HEk/xLSom46P1sRm9Vp8MUv0WS9Z8z5m2TGzKGy8VLqD+Ymu2daRc?=
- =?iso-8859-1?Q?PKPWBR6ZNBAnQfmFiyuYSuLXexQjsFjQTuLJ7005YRlDCtCfOQgGeQUPJI?=
- =?iso-8859-1?Q?Z4z3PTHetnRu0AZ6rcEWMQGPj34qg2+D9pVNILAs3dT8oxsALUQ8GlSKrb?=
- =?iso-8859-1?Q?9QJgtcuylfP6prj2fDsXPdOWg6LJ9EnxXtJsCEIgKwso2qLOlPOlEv41kf?=
- =?iso-8859-1?Q?8+ftacnigrXfpB+vM++5XhWEOrlQ1wOGTBTb9/9tx7XVZMWqxcGWRC505e?=
- =?iso-8859-1?Q?DFuEBnodTuxHlbOUITX991yYOfTaoZckxbAGFjZB0MmsAiEPaM6l8IUcQW?=
- =?iso-8859-1?Q?JwKtP6N56f50hvV3suTxvoBpBOkVES3GmX3NYzphsvYp1wKXPKsQZidLeV?=
- =?iso-8859-1?Q?cMGNkPdFklyplR6Rj4yheQCYsd16fcJU6HFNj6ZbaTkH7FB7HLh1q8OmRu?=
- =?iso-8859-1?Q?7a7pHyDCKvguTOSrkXyvv5X9nXoRbXW6P7MVby79boDQWIANIr0cNkIJa8?=
- =?iso-8859-1?Q?8+nkJleiQHNbAnVhxZbXK7Xd+p8nUH6N1rbcZInYc3JghMR6JIVqj4lGtP?=
- =?iso-8859-1?Q?cigJoCF9ShdnzdbwJMe3tp25dbdCefQ74tDJs0ryt7P7ON49b0AtQF+Suc?=
- =?iso-8859-1?Q?H8AgkULgWonI2oUKMMjADcnNVp0Il8lh3XFHonk/Azi6WTRSrC5tQCdcSc?=
- =?iso-8859-1?Q?C083FJEL6pKOQSRlMOoPAbGvOENXY6zMspq6GWkM6407LJlZolj0vI2MOC?=
- =?iso-8859-1?Q?KeRY2Ws148n4y7pYG0C2yNmFpVvbDO6/SNfFQx7UG5+IEh7YAy/CTfv59q?=
- =?iso-8859-1?Q?QhFeHApTfPDG0TeaxkxWeTa79ceY1xp+YN48RoLd8ISgIX2GMZau6HNWSo?=
- =?iso-8859-1?Q?VrMbOPHo+Jz3Z5olU82CbSmqoMAwUUwjVmEmQnjeIz2mONPJuYNAQdvuzV?=
- =?iso-8859-1?Q?M1lpQ1aovp62o8k8r/FdStkx6qw/+4JD/kL90SWgMC3eItTtR2qF021HGW?=
- =?iso-8859-1?Q?qrl5a9WjCThM0carssNyC8bd1wgRkligsof+25jy/+rRAFMXzxMQHhlQO2?=
- =?iso-8859-1?Q?6RFfGOoBuZ+7O+LwPB6J+coEXElo9Lt073Az29OnIJoKNHTLskUY6JWnVT?=
- =?iso-8859-1?Q?y0fw5fft6TKur7ocTxk19D99jkZwBJ/BLeQEOqvrErDIVaS7DZciER04DT?=
- =?iso-8859-1?Q?NgfOsXvrodh5bjihWWKBHWPd9FMHMi2VomSl2OHjc1qChhh7RracmAa6C1?=
- =?iso-8859-1?Q?ydruKZQ/RJVwsY7Zx/gth/2AQVNqOmxuWhD2IZTyjmVV2N6O0JiQdk52dW?=
- =?iso-8859-1?Q?64O8TzdfDkb2K42EA0KbuyLv7uigavrrGAiO1pLkRuByq7jd6DEaOMhKV9?=
- =?iso-8859-1?Q?fZwik+LU/ugehmCSKRgyKIiZsEMRJwfUN/MYd1kzQ/cxO9+MaIABodOcUO?=
- =?iso-8859-1?Q?Xjw1TOI7LyPBVdaLlw7LE+b7uWDNQFIvXTz7BYb90Ly8kUHjmWEnoi1DgZ?=
- =?iso-8859-1?Q?GUUAdMdgur5+nmtwAfqxkf?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV1PR03MB10456.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?KlwNq2ckI7SuQVbECYIeyF96FW50XYvhYF+6mZ6or2THROYiqsDRqyWM8W?=
- =?iso-8859-1?Q?ap3ZD5Fe3ttio90ndOGIgn9ZwPHaYwrD8LzbJP+uygLFtbb6HX/jayMSxa?=
- =?iso-8859-1?Q?XEdaQ3xUjO5k+doYmMaofmN9uTPRg5Ui+RQS9f+gwYtx5xJMQ9rfgz4XOT?=
- =?iso-8859-1?Q?9SOPA8sZt3zIiZl3gOrIFzSeMPrUsKX8yKvfQOL/unJYCU/Ddyi0lmF7gM?=
- =?iso-8859-1?Q?wcAwl2vwrld7JhABvHVT2KTVdQ+FEs1kvIOSum0r1X6lTuDNo6Y5u0sdsW?=
- =?iso-8859-1?Q?Wvy8vs6ILZcKwMe+nKM6ZzQA4j49aneImHDis/q0Q1meEjrSWcJAhP4dea?=
- =?iso-8859-1?Q?v1wlwzTeKxKAMmUp026ulLK5dV72Cy4Eod+IzYVunGSPGNwJedfUabLpgK?=
- =?iso-8859-1?Q?/NdBl4yoU8ul5i+ix3gVbzmjt9Q8E5vlD3ori4nysHo2P/qyjIXIU1LRPv?=
- =?iso-8859-1?Q?Jyv6Z4O75YbTrplWB6gg0GsMdzLJ82lvMOoJ9K5GizBWkNNhCBGdIcI1Ai?=
- =?iso-8859-1?Q?o0jrLNH98SAl3UR3Xl6BotVUyPHt7Bwi7zjZpqJ3INBBzZ6bFe/XBK68X0?=
- =?iso-8859-1?Q?4Bd1f34Ahrd6nj8SLCDpg6B+5ekIRA6sgxbv7hq9C1SQGpZ9QHTo1dwZm0?=
- =?iso-8859-1?Q?3JBsqkkwxTPRHgcL1732+iqeLno8x87xs+D3lPYcMNfIyjYLx/4NDLSXHx?=
- =?iso-8859-1?Q?tNr9R4HVPwRo1Aa0bEE7z1F0ulwJc0YqJ4jHxGG1jEM6pmAOzZVEZ0MRGO?=
- =?iso-8859-1?Q?GZzHjObEGxtGfxq0ErIxr9qMkBSY5c/DXSuTJ8bLSQSab21ihgNjTniN0w?=
- =?iso-8859-1?Q?atN12ynNreCh5hm9pN8v1+oV3KXhKMr9MYMVV8pa6uKBKgzIT/N2rvzup1?=
- =?iso-8859-1?Q?JPkO89D5d9WDq8nYQ/2aDjTsBjVIu8FjANMr0k11ZVNhRRDzA6lqhoKRut?=
- =?iso-8859-1?Q?/375MUKljK/ReGfNYWCW/f23OJM+Hg2hOGMS9cbQey2f2s/1oAQVIxvxf5?=
- =?iso-8859-1?Q?j+FlbmGmfcNvPHpT5AgX5aEfSgYl1hHfnS0kG9lkdXYzialXcN30DK9EKD?=
- =?iso-8859-1?Q?atMvbQWp7KtAS8nMMUXU9/tmSC1CjH3VlOcXb85pp9NQSqoHwvMugAx9Oq?=
- =?iso-8859-1?Q?VxNS9G43Gx1SSEF2SvWRNDwuKn/Uud5lBs3Qn/x7GKi8wCTARLqZdNHXGS?=
- =?iso-8859-1?Q?wtHq4Gx3Q3CbAY6nGr28vSCe1+oNR0Z5Qa3/1dnjAyBGPFd3VilhvUDJ26?=
- =?iso-8859-1?Q?4VJyW8YdXlP6Edr0eI6X7b5iZmoNm2D/DSen0YlV6BNwO6lbi3DGrcPPfp?=
- =?iso-8859-1?Q?pIBAi5RJj6bcKd7bePnfrEiH+LUWRyeOGZu+tncpLA1G9JqPbRYsdXJMmg?=
- =?iso-8859-1?Q?rcGZiVEbnkxuEkiEh47yyW9x25DZzaQKB6spr0UYnkaVG1vZdRBB5Cg2Bb?=
- =?iso-8859-1?Q?f4o5XiLhLhHU9H32pbD3YPhhATWEplsEE/WPXjACJhAtUhSeFjax2NqzZf?=
- =?iso-8859-1?Q?+c57w26LtBHoNRNOS4+3+YoMn8jQpTqKYYjxTA3sNW1b5GmrISKbY6AV4/?=
- =?iso-8859-1?Q?n6HgPwY/30z95IHw/zrXw8xzJ9KfTBl25nQuKbGoJIrlmdV8+G1HBwL30p?=
- =?iso-8859-1?Q?3K9iqAq53CDY5ar5Hgjf+eaKWq5tncX8J/O5u8QE/c/3+MgufNoCeaMw?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 4947bdc7-0389-11f0-9aba-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1742254862; x=1742859662; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=hLn+cZWQQQi+D4BK3x1bQ6M40SBT245bCWtzLbfAazA=;
+        b=Cl5D+Um3QmEZE7nQJEhu4+8Vud1+5NDdROGHKPQAatJmuD27lD9dFAS+OTsaR0FTAL
+         +mquYVcSwBijn7M/h9Y0KtS/R8LfNjp6MK204e0FQzANzaUbb4Yfmq/m0ZdUkRu15EVA
+         1xvczi95ABLSzv5GlyjwgDRNEhkto+7tWgYM4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742254862; x=1742859662;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hLn+cZWQQQi+D4BK3x1bQ6M40SBT245bCWtzLbfAazA=;
+        b=mtzLSIrdzW8X+yxnDK3HGb6I9w1RxmpHDeNc7pf6tWODltgL54Ct9rWs5Vyre+W8Bw
+         pERLVjUmLZSXdpsZ+o8PRYUBSgBESclg/OEPrKCYASDsFHfaMI254QmrVxhfIY4uhQV5
+         MGZuRpqdkddPihmyRljra92hxM3mV4jZ8L2UX9iPatwPY8W1/yYiRf0Upf8ENCiOIjlD
+         Lel2gRSTU0CqpJQ95JlmwGFTFPdJCOfK3L/+WWMsMuBLdeA+Ausx6Uty4IocnoiBeysh
+         Ljl79K9tvUZ8f1GRHT4Ze8KCcIQK8jTlhfM7Wl9/V8zATuet+ZAn3qeOxnO6CelgKx7D
+         Gkfw==
+X-Forwarded-Encrypted: i=1; AJvYcCXhD8PCUPf3RajbhkDKvVKUOcLbjEtuW8ojjH/qL/76kSggmRzaFprRNCo0/c7zL6+3WsGmHsSDrzg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzuZbbpL1LyPr1Kw+TEPnG10nQgPU4g10UaweJ80pnW3gKRiV29
+	8o98iAXY+EFN/cI0FrlAmpZQ7Hd+iOZmdBEdX3kY0rKJksxZsRCCt0zSGKbsews=
+X-Gm-Gg: ASbGncucf94edZcGHVzmUofFH+VLL+aq6EIiqtucIkparSnQxhH6TnekJpbpomfBdF1
+	o+YMvvbSum7v0S94pEzrb2bVydF4kl3two/yEHGCb4kRv4BtoXY6jwqYBvbHpyfcyDExJsOqJk7
+	LatHM+NjN6nQ7Tr8PUxvtjUETVV6Vf/mso1BgJbRElQHoG6RwaAWOMFvZuUq4f0uFTJC++HoQay
+	J8EAqt4wy8mzvD9m9jHe5X+HqR6ajU+QRA/NdplYETZ1pwdnjNxzXAjdP1HQIqmtJ/zCWja6Ufj
+	gXmKovR5AkkrvBoFzY9tozWuvSUOEETqDFLCZL2CYXWfGHrs6XkqEsKMI+FrBd/ceoHrWEjAIM/
+	Qx/IU0SWl
+X-Google-Smtp-Source: AGHT+IGjB+frjehLzO9BrlMVgSSE9lT+TasUMLt40aM+ebeJ7gIi+ZDmu4AKKwOMjiFgMV9+Fv18eg==
+X-Received: by 2002:a5d:47c5:0:b0:391:39fb:59c8 with SMTP id ffacd0b85a97d-3971dae9542mr16692700f8f.25.1742254861840;
+        Mon, 17 Mar 2025 16:41:01 -0700 (PDT)
+Message-ID: <497de03e-4dbb-4025-806f-46274d7a7c19@citrix.com>
+Date: Mon, 17 Mar 2025 23:40:59 +0000
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV1PR03MB10456.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6bfc5ee5-722e-4dad-6f68-08dd65a8953c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Mar 2025 23:08:08.8573
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 69liaeHsV4NZgYMEBZfPbqJYwbrdAzB5G1B6s+XNvdMaNah4MART4ZA2Yn1BCVkA/cDt421XarURE038qxFg3/GBNLYwTpEfddvq//92ECc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR03MB8015
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen: vm_event: do not do vm_event_op for an invalid
+ domain
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>
+References: <20250317230806.1179478-1-volodymyr_babchuk@epam.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20250317230806.1179478-1-volodymyr_babchuk@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-A privileged domain can issue XEN_DOMCTL_vm_event_op with
-op->domain =3D=3D DOMID_INVALID. In this case vm_event_domctl()
-function will get NULL as the first parameter and this will
-cause hypervisor panic, as it tries to derefer this pointer.
+On 17/03/2025 11:08 pm, Volodymyr Babchuk wrote:
+> A privileged domain can issue XEN_DOMCTL_vm_event_op with
+> op->domain == DOMID_INVALID. In this case vm_event_domctl()
+> function will get NULL as the first parameter and this will
+> cause hypervisor panic, as it tries to derefer this pointer.
+>
+> Fix the issue by checking if valid domain is passed in.
+>
+> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+>
+> ---
+>
+> This issue was found by the xen fuzzer ([1])
+>
+> [1] https://lore.kernel.org/all/20250315003544.1101488-1-volodymyr_babchuk@epam.com/
+> ---
+>  xen/common/vm_event.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+>
+> diff --git a/xen/common/vm_event.c b/xen/common/vm_event.c
+> index fbf1aa0848..a4c233de52 100644
+> --- a/xen/common/vm_event.c
+> +++ b/xen/common/vm_event.c
+> @@ -600,6 +600,13 @@ int vm_event_domctl(struct domain *d, struct xen_domctl_vm_event_op *vec)
+>          return 0;
+>      }
+>  
+> +    if ( unlikely(!d) )
+> +    {
+> +        gdprintk(XENLOG_INFO,
+> +                 "Tried to do a memory event op on invalid domain\n");
+> +        return -EINVAL;
+> +    }
+> +
+>      rc = xsm_vm_event_control(XSM_PRIV, d, vec->mode, vec->op);
+>      if ( rc )
+>          return rc;
 
-Fix the issue by checking if valid domain is passed in.
+Oops.  Git blame says this is my fault.
 
-Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+This behaviour is intentional.  See XEN_DOMCTL_vm_event_op (along with
+test_assign_device and get_domain_state) early in do_domctl().
 
----
+It was introduced in commit d48e1836074c ("vm_event: Add a new opcode to
+get VM_EVENT_INTERFACE_VERSION") so that XEN_VM_EVENT_GET_VERSION could
+succeed.
 
-This issue was found by the xen fuzzer ([1])
+Apparently I deleted it in commit 48b84249459f ("xen/vm-event: Drop
+unused u_domctl parameter from vm_event_domctl()"), and that wasn't
+intentional.
 
-[1] https://lore.kernel.org/all/20250315003544.1101488-1-volodymyr_babchuk@=
-epam.com/
----
- xen/common/vm_event.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+That will want putting in with an extra comment.
 
-diff --git a/xen/common/vm_event.c b/xen/common/vm_event.c
-index fbf1aa0848..a4c233de52 100644
---- a/xen/common/vm_event.c
-+++ b/xen/common/vm_event.c
-@@ -600,6 +600,13 @@ int vm_event_domctl(struct domain *d, struct xen_domct=
-l_vm_event_op *vec)
-         return 0;
-     }
-=20
-+    if ( unlikely(!d) )
-+    {
-+        gdprintk(XENLOG_INFO,
-+                 "Tried to do a memory event op on invalid domain\n");
-+        return -EINVAL;
-+    }
-+
-     rc =3D xsm_vm_event_control(XSM_PRIV, d, vec->mode, vec->op);
-     if ( rc )
-         return rc;
---=20
-2.48.1
+/* All other subops need to target a real domain. */
+if ( unlikely(d == NULL) )
+    return -ESRCH;
+
+Don't both with a printk().  It's just noise, and -ESRCH is correct code
+to use.
+
+~Andrew
 
