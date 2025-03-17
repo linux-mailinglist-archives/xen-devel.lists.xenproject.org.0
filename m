@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AC14A647DA
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 10:44:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.916481.1321562 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6544DA6481F
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 10:51:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.916491.1321572 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tu71G-0002Zb-0c; Mon, 17 Mar 2025 09:44:26 +0000
+	id 1tu77p-0004R7-Nj; Mon, 17 Mar 2025 09:51:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 916481.1321562; Mon, 17 Mar 2025 09:44:25 +0000
+Received: by outflank-mailman (output) from mailman id 916491.1321572; Mon, 17 Mar 2025 09:51:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tu71F-0002Wr-Tn; Mon, 17 Mar 2025 09:44:25 +0000
-Received: by outflank-mailman (input) for mailman id 916481;
- Mon, 17 Mar 2025 09:44:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=UoSe=WE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tu71E-0002Wl-E1
- for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 09:44:24 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 67b6e2d0-0314-11f0-9899-31a8f345e629;
- Mon, 17 Mar 2025 10:44:22 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-ac25313ea37so848958866b.1
- for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 02:44:22 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d1ffb627csm99884955e9.5.2025.03.17.02.44.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Mar 2025 02:44:10 -0700 (PDT)
+	id 1tu77p-0004OG-Ib; Mon, 17 Mar 2025 09:51:13 +0000
+Received: by outflank-mailman (input) for mailman id 916491;
+ Mon, 17 Mar 2025 09:51:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WXuz=WE=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1tu77o-0004Mg-HM
+ for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 09:51:12 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20625.outbound.protection.outlook.com
+ [2a01:111:f403:2415::625])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5984b6df-0315-11f0-9aba-95dc52dad729;
+ Mon, 17 Mar 2025 10:51:11 +0100 (CET)
+Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
+ by CH3PR12MB8755.namprd12.prod.outlook.com (2603:10b6:610:17e::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.33; Mon, 17 Mar
+ 2025 09:51:06 +0000
+Received: from BN9PR12MB5273.namprd12.prod.outlook.com
+ ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
+ ([fe80::cf66:58ab:47be:4b13%6]) with mapi id 15.20.8534.031; Mon, 17 Mar 2025
+ 09:51:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,205 +47,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 67b6e2d0-0314-11f0-9899-31a8f345e629
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742204662; x=1742809462; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Gq8zC1bmtsNrqAokFJllexeWTVEPVYL8dmOU5yW+cGg=;
-        b=RNNtPCTMcgx/3JNE+Jcc0dhA6wBz8QIDpH2NNN1o738Gc4kv/7vHKcuDXwQr57EMV2
-         ay3RPlqWoZQAiAQFHXhPYSncU28BdlSVpq2bZes5fvkwCD+4Ue8mM1KArGWE7u38NsQA
-         mO0seLyZUCIN7TyMV9vLHbQVxCnbpQKXY2ZoyLmVnL+x37dmyfviVhkLDT4fDPC+lE0N
-         0w4P+1fjaY5pdUBkvbY1vYuaizJtZ3vSxVK6LwvG6tK4z0Z4XvIsXaEcN/PLyBLnSX/N
-         kUlPGqsS7jFjV/bs8T/D10wfHIJViXEmoA4Js1NpsW0VDVxrXXduritB9sHegEitkm/I
-         taEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742204662; x=1742809462;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Gq8zC1bmtsNrqAokFJllexeWTVEPVYL8dmOU5yW+cGg=;
-        b=D4YexMPMA+oBQSCeuaM1wBbXXVmaa/63+lZ5Q/cd+1J6dv7074X3TVwOTT26JztpCy
-         0Fivyuo9tejzWKqCvYCG3i/d5MKaYXertKQAKEmD6+a2jQFRzOzEs5X6iGxj1IO27rfM
-         w378L0TBlacNw0m+CewClMhMMzhvR5/BbGEMtDfKn8W3Dk0wzDRm5Pv4OMiA0OoHZ9qw
-         qkA78zlGBGgwT2hb4qnVCgDVHiOaszWOweMsvqT1uHvzsctT1nfUPv27+T/Oeym63QQx
-         3rKSfL16gDix8s4VjQDSbsMHjDLb6AICvQ3hlrihZZhKnnSM1zOFVz7ZMJrFp6frxhl+
-         ON6w==
-X-Forwarded-Encrypted: i=1; AJvYcCXF/UeUcFRSyP+b6nrGziU8eqaRJ4OxNlz4o5WeiA7xSZb7JjlZNzCH64NzBH1+0ZUQk7OBQXiwKEs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyx34Ll9jOxoZdGr+M6CjT7CIw1I4NFCGmeiSdDFPsNN768hwMC
-	ZSKwlca8e8nt+BqNRFPpygO7xwSqsYcyKlsleVly7G3oiZLbgs1ywOqbadrdXWD1THn2MzNg3R0
-	=
-X-Gm-Gg: ASbGncvF3LonnvENNVEI2UVWbi8aMNgmRrIwsVwQKlHd5dSaNJTF3nR1Ydhe2XVPq2E
-	JeZeeGnmlIiWGmH6xP64c33L32+paCheXH5LRZF9fMLu2GcT/T7gJdUodluQncuvq9baMMvfZuR
-	K+ShjUgjJ/4D1MjQRYkUZH3wzBM6kgDv2hIiKGinORPyRJAJhtf2AXJ7SMxmOpbGMKzN67KEkiy
-	qrEI39NIHzjOTRDPypMRoT01ZWBF/4vpOcTOjAVbiCg7bCWKVnJ5qdgM6R7brkQKx3FNiHm9phq
-	hnG0QdEiPtGmsq1rXqoh8W3yYj7LCRx40bbJIaTeP5IIgOkUcx6OeP/GrRMllaC9DW5LEaQwUoN
-	lH1sXQvpp83oFxJ/yhY80LnyToYX225W+a6unLFij
-X-Google-Smtp-Source: AGHT+IEqe5ou6K6SvZGceqmSIYUpaZBRGkgrz+W6aElgR1PtSN9kAufDqQozLWFBTExlW7HzXUWNVg==
-X-Received: by 2002:a05:600c:4e8d:b0:43d:4e9:27ff with SMTP id 5b1f17b1804b1-43d1ecb256bmr120260805e9.7.1742204650918;
-        Mon, 17 Mar 2025 02:44:10 -0700 (PDT)
-Message-ID: <90bd696f-f31e-4356-a9ea-267da384f820@suse.com>
-Date: Mon, 17 Mar 2025 10:44:12 +0100
-MIME-Version: 1.0
+X-Inumbo-ID: 5984b6df-0315-11f0-9aba-95dc52dad729
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HkPll5JyVprj/Ci9UU11/YOKc+iDTGhAB6goNmGKl8s/uTytQfWylRoORktsWRoNvJIjW/KLl7xJ+SIhyZmcJFiEDoRSC0EMrfQIpizGLLh3BTTRX5ORbGOZgipcCqTGNpne60Q06HMl79e3ZLqLXnd1uBIMRoCeEzpC8GLh7J/HW0AytGB0fot7pYcJ0FVinPcTVLWFu6an4EU8vfuUONtfH1KwM9snlRB0SyafK/eNQHxBgCPBwTV7xfAv4oNyH9NNjjNS2XLxvewopx/do2GN/YKnF5Pvo+QGZYoP6fWdX5qj4BfoNB+2ieaHm3NNurY5J/tGCskLPyVLwsLzUw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bd5wRmxm4lkPwmTkymPkBWIRcWq6kk8FWC//PTGNJtc=;
+ b=DioOAjwUBpLgw0zQQvGAE7F7J8GRbi5clGPo9lZQ5Ry1AN3iVdAf1hI3ZPAUEyV40BILADmGkPvsPRwWv9YKifS/rrEJhhO2BIPZjSY8QODbcnypMaT1U2BukiTg4CYsMc3FR1iUwiHd2KMKDanpxADmVMQumYhYmGoWQeHjbHBB516IgMqKJOGdoe+QGsAsFwAoyM2ZHtz35itQypxb0NzbTYQu9yuANoi4mRORKf35GYBI1fGHqi9WNxeL2KzjBIx7Li5NnldA6fneo70e7SFo+BKftJ1kf0Ij+jxnyktzDQEjk352Sfx107yyrkZWU6qfcvAwHACQxEE8NgVwZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bd5wRmxm4lkPwmTkymPkBWIRcWq6kk8FWC//PTGNJtc=;
+ b=HF4MXpt2JoW/hVmEHeANtQcPtahQu4/8t21YUl1jKyppz83Ywxcr2WRYhelvBZIHLXJqlfUNiId857dCmdhiaQEuB4vVGeTOfiOv9NpTsQkuKfR6v6Q51fw9BWULy/J1CiNQp/0UFfn/Cz1jhNkbaUfsN0bAsPD9xp7glmyW8fI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <4247ad5a-dd96-4dca-aff0-abe6a2fd0aaa@amd.com>
+Date: Mon, 17 Mar 2025 10:51:01 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] x86: make Viridian support optional
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250317071919.3766976-1-Sergiy_Kibrik@epam.com>
+Subject: Re: [PATCH v2 3/7] xen/arm: Introduce frame_table and virt_to_page
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20250316192445.2376484-1-luca.fancellu@arm.com>
+ <20250316192445.2376484-4-luca.fancellu@arm.com>
+ <799e2b1a-aea8-43d4-99bb-eab4fd4f6b93@amd.com>
+ <5CDD6327-BCC1-4383-ACDE-19B75C085631@arm.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250317071919.3766976-1-Sergiy_Kibrik@epam.com>
+In-Reply-To: <5CDD6327-BCC1-4383-ACDE-19B75C085631@arm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR5P281CA0030.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f1::6) To BN9PR12MB5273.namprd12.prod.outlook.com
+ (2603:10b6:408:11e::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|CH3PR12MB8755:EE_
+X-MS-Office365-Filtering-Correlation-Id: 23a8ef78-c76c-4bf8-3184-08dd65393be7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?S25kdUJBbE1aVldNMk83L1Jjb0pJQzNMS2YycC9hdGFRUGNWSnRPYlVqelNW?=
+ =?utf-8?B?Y3Y0c1g3YlFOMVJqVVNidGFNaHJ5Vm5BczRJN3oyRzR5NllPRWhyUHNyZVF5?=
+ =?utf-8?B?Y1paaE9TNnl5aVYrNnBkY04xZzE2RVk0TmVrcWx1OUZTQnp6WUU4QkVCdzB6?=
+ =?utf-8?B?cWtsKzUweHJjTTFoWGRlVjVFMDNkcmhXcEVkV3lvQzJia1FKWW93YzNySjd6?=
+ =?utf-8?B?TWcwVEVSL0k1amRmZlg0aG13L3ZpbHFjbEFNR1BCYnhaQXhhT3UxYm5Hb3BM?=
+ =?utf-8?B?ZGtWbDdWcTJTRWNlNWtvR3d5aFkvNkxuZnVrSVF6QWhWNUgyT2pzbDdMeGIz?=
+ =?utf-8?B?bk9sZDQweFRieUhGZzBCbWo0aURlcEpxYXk1b0xRQlFrMzVreHZBVFBJWklX?=
+ =?utf-8?B?b0lCTEFhSGZVTmZ2Y3NqSGt1UlBQbUNNanUvTUFuQzBNL0hGdWd0OVkrTVhS?=
+ =?utf-8?B?eFdTaDNXcGdwaG9iUnpReDRKdVpVRTVvVXFZOWJwSnZFYUxKMjJFNmN0Y0I0?=
+ =?utf-8?B?bHFsUldNVU5JSWdRcVl2T0FTYXA2ZGNKK21sVWhNbjZwUkk4Nzd0cGFBejRj?=
+ =?utf-8?B?M0RWVWZMQjZDbmZ0OExNTHBHRGNYUU1adWttZWFhVEo2MTBYdXlDYUgwdXQx?=
+ =?utf-8?B?Mjl4dWdCZDk4MkFKUExsMTErZTExTU92VlMrWEVOeTQwaFVSeEhFeGpZZy9y?=
+ =?utf-8?B?ekdzQ3dYZWN5ajRwWE5td2R4RGhnZGc3RTRwYzZsSlVjUzFvWE5UZGpJaEY3?=
+ =?utf-8?B?ZjZNVGxSL2ZqRHpkZTZuMmZVUHo2K0ROcWl4Q04wN2cva1l1aFdMZmFTZzZz?=
+ =?utf-8?B?NWoweE9SK0Y4bWhXMktCakU3NlNYOGJCL1hKWUsxNjlhYTNtcUZhS2ZHM0pq?=
+ =?utf-8?B?NFovRUJaVDREaUlsOUZDOUxjQ29FOTNyZXlBOFFvbEJEVzluSDR6UUxmYWlI?=
+ =?utf-8?B?YWptK2N1SHhUMC9lbFZOaFA0dzNuNy8zVFlCaEViL3Z3MkpobnRWRDAxbWZs?=
+ =?utf-8?B?amN1UlVDbHlkc2RBM0NVSWMwNzBZSXlxWXVYWnRHTFV3eHJPUEI4Uy9lTm50?=
+ =?utf-8?B?MDdaSnQxR2Z4TUdqaW1VRHRrZ0NvaExjR2tlS0lxdjk5aTRiSEEwdG91WnFM?=
+ =?utf-8?B?UUxvRmpRUEVvQ29SVHNXZDFaNlE1dFpJSEVqc1VGV3FjL0J4SzRRd2pFc1pQ?=
+ =?utf-8?B?WEpqT3hPdnhkV3RWblk4bWwyTEI3VW1SUTBKcWRZOFZiaWdxU1VQWU00bkJm?=
+ =?utf-8?B?Tkl3OWlHbVFQYWhJSEhpUkYyaG9laGk0cUVrOGV2T2FzMGc1dm1OVVdvWGpE?=
+ =?utf-8?B?UzlxOFo0SktnMmVyR3hCREdtcmNOZUNCNEozUFlnUDVnM09PV01wT0QzN2tS?=
+ =?utf-8?B?TW85N3hIM3NZcHR3MTVBdmtzQnVvN1V1UjZTbStCREptUXlwVjhVNzJXQmJF?=
+ =?utf-8?B?dEczUjNDYVI2NVdFM0s0WDdySU9lV3pLSHVsMHd6N2VlQmNpbEpYa1FMZE1r?=
+ =?utf-8?B?NjhrWUFjQTU5SUVya2JyZDA2VkVRMEsyNkpNb1NBTG5JS2haOVhnb0Q0Smg4?=
+ =?utf-8?B?MDJvLzNSa29SaVh1QnVGUEZZYmlUd0NmUUk0Y2ZML3F6a1I1YStvTnE2VWhw?=
+ =?utf-8?B?MkZiWldCOHg4aHovZEh5dGx4Qng4c2lqYlJURHNSRWJXYWFiTng5STNlYkln?=
+ =?utf-8?B?SHhSaDVWQmNPMFZGdnArTjVEbUFFZHAxVGlWUmdNTFp4S3FZVE1pUVNFRG5l?=
+ =?utf-8?B?a3IxeEFHYjJHYUF1WUczMkNxcGRpbm9TS0FLUUFUR3JiNkNsWHZLWFlzQ0hq?=
+ =?utf-8?B?L1U2Ujd5aitpa1BKdEVSM2xrRHU3VmhHbC82dHM1dHI4bnFyNCs2UkdzcUpU?=
+ =?utf-8?Q?m1IkvUPjgCqQ5?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?V0xvMGFWMEZ2aENlV0ZDMGg2Sk4rTnRyTGV1eWdnMVJIUzU2by9SMDd0R1FE?=
+ =?utf-8?B?dUsxWXE1SFl3VGRjQy96ZEVjY0ZMSXRkUHM5OGVJM2E4R0FhalpQS2pTd0tK?=
+ =?utf-8?B?V3F1NUthS3NtWFRUU09QaW93Z0RRN2ZoQ2R6b0VqVWtLT2Faam5pNXhLWkt0?=
+ =?utf-8?B?U1dDeDF1c01YdHNBcWxINkJKbVU5YzZVRFM4ZldpQzZjVGRpaE1WR1VNRUJ1?=
+ =?utf-8?B?QUJybHArM2ZSUDJIV3VBaE1vTUp2R2E1ajFoMXFZc0FCcklpRm40bTRvdm5L?=
+ =?utf-8?B?Zm5HNWIwNDZzSlRkejVySm16aHRLSnk5eWJJaXV5YU1FYnM5YmhOZFlNcmtH?=
+ =?utf-8?B?T1J2N05DQVVZM2Z6V1NKaHJEMHZmemhxM01FWGtGd3YweDJrTFl4eEVvZndH?=
+ =?utf-8?B?aU8zcERGZWdhYVBCdWhVSU56MUVKdVdOSE50RUpJVHFpc0tmSjRUcVRhRlFW?=
+ =?utf-8?B?R2FzTDlsN1g0bUc1MzE1VnQ1NlpuUGIxY1hLV0kzbkhVRzc5THpNRDBMbGxv?=
+ =?utf-8?B?aUJsVU9VWU9JWUdwQWFkcVlvVWdMVDdUbXpjTk5tczhmM3g2Yjc0MmVSSkU5?=
+ =?utf-8?B?WGk1SkZPbXdoWjlxa3dYNU5CWkNoRzJxV0ZyTTA3RXVNaklyYm1RMzZDOVI5?=
+ =?utf-8?B?MytnTi9EMGM2OXhwMDdRTW14WG9zQ0JaV3YwZXNJY2s0MDQwYTZtU1pqUjNO?=
+ =?utf-8?B?TFJ3Q2FxMjlkRktKYkZvN3Z6aUZYbGRpV21BbXVJMldqZkthTFpZSzU5Vld3?=
+ =?utf-8?B?dFNoeHMrMnBlcndaT1VOQkt1UzFwa0pPTDZnbkRubC9BeU5uNkM3VFFPNVd4?=
+ =?utf-8?B?N0hMS3E4RUUxamo5NE45a3hGZzU1Z2hNeHAxUFlCenRrUU14YkRmRTNRc2hQ?=
+ =?utf-8?B?MnM2UEVwWitqWnViWXVNMHVZUWU5bEpMWjdUb3NuVjJ0Wm9yMW1PVGEyMDk2?=
+ =?utf-8?B?OEFnV2t1R0ltT05ja3J2MVB6RU1EZUwvZTMrUWwzRVphdnpCNkVYRS9aZ1I0?=
+ =?utf-8?B?UVNDb1d5NnlGd1VGbERRWXBuWXlGRzdNajhYaDdKaUpkNUFIOUMzcU5mTzJy?=
+ =?utf-8?B?OTA1ZytaNDRUMExJVENnQkNOdDJHMlZ0U2JCODkyd3ZFQnRDdzVsam9LM1Vk?=
+ =?utf-8?B?MGZoZ3ZvY2xOZW5IV2dldVhuMldIV3VyRm96cUMwVDIrcXQ5NHM2enIrQll5?=
+ =?utf-8?B?eU1mRGlVVWZRM0VyblhPVlpsT3I1Ukk3Z2FQUVVlWUZTNWtRa0wvZWZoWjVK?=
+ =?utf-8?B?WmtIR200Ync3OWcyL1lhZm10YnlUSXFLN0t0TUlzZ2lWUmdQMWg3NXpFVEo1?=
+ =?utf-8?B?ZDg4a2EySzl5WTNHNk9DTUQzZ0Z0VXh0Y0J6bXQ2enhWNFpaQTkvSU1CMXRu?=
+ =?utf-8?B?TWxlZnVzMHlHTHFXNkRaUWx4VGUwM09jU29mR0J5ejBjVERNdThJOG5sTkdq?=
+ =?utf-8?B?UDdKWk1GOEp2czdpZVoveDQ4Z28zaGx3Q3Y1MVU4QkdpU1hPWWFpTjhLNmRR?=
+ =?utf-8?B?RGVReUFybFVZNmZRcGYwMUhCRlo2K3NZUDI1VGlUQ2lZN2RJWUpNUXE1ZVZJ?=
+ =?utf-8?B?UmNiaUdONi9wME85VkZYdEtrcnk3SWtRWE9aUVdSNGZqbHhoNHNqN3ZRemtM?=
+ =?utf-8?B?akxENitycWFRSUcvUjd6VjF0STFDNWh3aSt3TjVVOUVGRkl4ZzU1MENEbzBN?=
+ =?utf-8?B?UHZJQUY0OHhrbGh6Y3pKakNlUXpVZ3hNN2hTa21Vb0c5NGxwc29DYUdjRmlP?=
+ =?utf-8?B?Wlk5WUxxQ1NUR3FTdDRsc3BTVldBWjhiLy9saFZsRjlucHk5ZFNsa2YyK0pq?=
+ =?utf-8?B?aFU4bUo2cFJsMWkvaDR3WnRRZXAvMXpZQXlZVFdLVThwcUtzYWszM2hGUmZI?=
+ =?utf-8?B?a2k4MzNrNDc4N0RVVFJUd1BqT01yZWZudzBVODlaTnp6cWl4MEYzSGlUYmNT?=
+ =?utf-8?B?empSc2pTeTFkbHI4Y3J5ZVJ0a253SGp0K05zYzZOaGpYcjVjLytHNHBQMysx?=
+ =?utf-8?B?RWdKWnV0SDdwUkx2eGU5Skp1bTArN0xTd0IyWFRnckp1S01DTGwzcGVCdDEz?=
+ =?utf-8?B?c0lKSVRDVDc1bVpQeEZaZXBoRmNtS2oxbDRyNHgyVlVHSVZxS2svL3d2UXlF?=
+ =?utf-8?Q?K4Ac=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 23a8ef78-c76c-4bf8-3184-08dd65393be7
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2025 09:51:05.0918
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3yM0z1pt224lAm9zNbc14GNsLaPe0CKevQwI1B4g7kzOD/mIDlXU5FO6+m6laOA/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8755
 
-On 17.03.2025 08:19, Sergiy Kibrik wrote:
-> --- a/xen/arch/x86/Kconfig
-> +++ b/xen/arch/x86/Kconfig
-> @@ -348,6 +348,11 @@ config HYPERV_GUEST
->  
->  endif
->  
-> +config HVM_VIRIDIAN
-> +	bool "Viridian enlightenments support" if EXPERT
-> +	depends on HVM
-> +	default y
 
-Imo the prompt wants to include "guest", somewhat along the lines of what
-Alejandro has also said.
 
-> --- a/xen/arch/x86/hvm/hvm.c
-> +++ b/xen/arch/x86/hvm/hvm.c
-> @@ -695,9 +695,12 @@ int hvm_domain_initialise(struct domain *d,
->      if ( hvm_tsc_scaling_supported )
->          d->arch.hvm.tsc_scaling_ratio = hvm_default_tsc_scaling_ratio;
->  
-> -    rc = viridian_domain_init(d);
-> -    if ( rc )
-> -        goto fail2;
-> +    if ( is_viridian_domain(d) )
-> +    {
-> +        rc = viridian_domain_init(d);
-> +        if ( rc )
-> +            goto fail2;
-> +    }
->  
->      rc = alternative_call(hvm_funcs.domain_initialise, d);
->      if ( rc != 0 )
-> @@ -733,7 +736,8 @@ void hvm_domain_relinquish_resources(struct domain *d)
->      if ( hvm_funcs.nhvm_domain_relinquish_resources )
->          alternative_vcall(hvm_funcs.nhvm_domain_relinquish_resources, d);
->  
-> -    viridian_domain_deinit(d);
-> +    if ( is_viridian_domain(d) )
-> +        viridian_domain_deinit(d);
->  
->      ioreq_server_destroy_all(d);
->  
-> @@ -1637,9 +1641,12 @@ int hvm_vcpu_initialise(struct vcpu *v)
->           && (rc = nestedhvm_vcpu_initialise(v)) < 0 ) /* teardown: nestedhvm_vcpu_destroy */
->          goto fail5;
->  
-> -    rc = viridian_vcpu_init(v);
-> -    if ( rc )
-> -        goto fail6;
-> +    if ( is_viridian_domain(v->domain) )
+On 17/03/2025 10:33, Luca Fancellu wrote:
+> 
+> 
+> Hi Michal,
+> 
+>> On 17 Mar 2025, at 09:29, Orzel, Michal <michal.orzel@amd.com> wrote:
+>>
+>>
+>>
+>> On 16/03/2025 20:24, Luca Fancellu wrote:
+>>>
+>>>
+>>> Introduce frame_table in order to provide the implementation of
+>>> virt_to_page for MPU system, move the MMU variant in mmu/mm.h.
+>>>
+>>> Introduce FRAMETABLE_NR that is required for 'pdx_group_valid' in
+>>> pdx.c, but leave the initialisation of the frame table to a later
+>>> stage.
+>>> Define FRAMETABLE_SIZE for MPU to support up to 1TB of ram, as the
+>>> only current implementation of armv8-r aarch64, which is cortex R82,
+>>> can address up to that memory.
+>> When mentioning support statements like this one, it'd be beneficial to provide
+>> a reference to a doc of some sort.
+> 
+> So the only reference I have is this: https://developer.arm.com/Processors/Cortex-R82
+> 
+> but I would not be confident to use the link in the commit message as it could go stale
+> very quickly. So I’m not sure about what I can do more.
+Well, not really. Max physical memory is advertised via ID_AA64MMFR0_EL1. I
+found some old R82 technical manual (you can surely find the latest one and
+provide reference to it - not the web page) and indeed it mentions PARange as
+0b0010 which is 40bit which is 1TB. With the R82 being the only CPU model
+implementing ARMv8R-AArch64, that's solid information.
 
-Like you do further up, please also use "d" here and ...
+~Michal
 
-> @@ -1669,13 +1676,15 @@ int hvm_vcpu_initialise(struct vcpu *v)
->   fail2:
->      hvm_vcpu_cacheattr_destroy(v);
->   fail1:
-> -    viridian_vcpu_deinit(v);
-> +    if ( is_viridian_domain(v->domain) )
-
-... here.
-
-> --- a/xen/arch/x86/hvm/vlapic.c
-> +++ b/xen/arch/x86/hvm/vlapic.c
-> @@ -426,7 +426,8 @@ void vlapic_EOI_set(struct vlapic *vlapic)
->       * priority vector and then recurse to handle the lower priority
->       * vector.
->       */
-> -    bool missed_eoi = viridian_apic_assist_completed(v);
-> +    bool missed_eoi = has_viridian_apic_assist(v->domain) ?
-> +                          viridian_apic_assist_completed(v) : false;
-
-    bool missed_eoi = has_viridian_apic_assist(v->domain) &&
-                      viridian_apic_assist_completed(v);
-
-?
-
-> --- a/xen/arch/x86/include/asm/hvm/domain.h
-> +++ b/xen/arch/x86/include/asm/hvm/domain.h
-> @@ -110,9 +110,9 @@ struct hvm_domain {
->  
->      /* hypervisor intercepted msix table */
->      struct list_head       msixtbl_list;
-> -
-> +#ifdef CONFIG_HVM_VIRIDIAN
->      struct viridian_domain *viridian;
-> -
-> +#endif
->      /*
->       * TSC value that VCPUs use to calculate their tsc_offset value.
->       * Used during initialization and save/restore.
-
-Why would the blank lines need to go away?
-
-> --- a/xen/arch/x86/include/asm/hvm/hvm.h
-> +++ b/xen/arch/x86/include/asm/hvm/hvm.h
-> @@ -507,7 +507,8 @@ hvm_get_cpl(struct vcpu *v)
->      (has_hvm_params(d) ? (d)->arch.hvm.params[HVM_PARAM_VIRIDIAN] : 0)
->  
->  #define is_viridian_domain(d) \
-> -    (is_hvm_domain(d) && (viridian_feature_mask(d) & HVMPV_base_freq))
-> +    (is_hvm_domain(d) && IS_ENABLED(CONFIG_HVM_VIRIDIAN) && \
-> +                         (viridian_feature_mask(d) & HVMPV_base_freq))
-
-May I suggest to put IS_ENABLED() first? And to adjust (reduce) indentation
-on the 2nd line?
-
-> --- a/xen/arch/x86/include/asm/hvm/vcpu.h
-> +++ b/xen/arch/x86/include/asm/hvm/vcpu.h
-> @@ -171,8 +171,9 @@ struct hvm_vcpu {
->  
->      /* Pending hw/sw interrupt (.vector = -1 means nothing pending). */
->      struct x86_event     inject_event;
-> -
-> +#ifdef CONFIG_HVM_VIRIDIAN
->      struct viridian_vcpu *viridian;
-> +#endif
->  };
-
-Again, not need for the blank line to go away.
-
-Jan
 
