@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EECC9A657F2
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 17:25:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.917464.1322379 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12265A65825
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 17:33:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.917479.1322388 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuDHM-0000gA-Gc; Mon, 17 Mar 2025 16:25:28 +0000
+	id 1tuDOk-0003RC-Ak; Mon, 17 Mar 2025 16:33:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 917464.1322379; Mon, 17 Mar 2025 16:25:28 +0000
+Received: by outflank-mailman (output) from mailman id 917479.1322388; Mon, 17 Mar 2025 16:33:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuDHM-0000ed-Bw; Mon, 17 Mar 2025 16:25:28 +0000
-Received: by outflank-mailman (input) for mailman id 917464;
- Mon, 17 Mar 2025 16:25:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tuDOk-0003PV-7F; Mon, 17 Mar 2025 16:33:06 +0000
+Received: by outflank-mailman (input) for mailman id 917479;
+ Mon, 17 Mar 2025 16:33:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UoSe=WE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tuDHL-0000eS-2Z
- for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 16:25:27 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6ec3c3c2-034c-11f0-9aba-95dc52dad729;
- Mon, 17 Mar 2025 17:25:26 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-43cfba466b2so24153495e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 09:25:26 -0700 (PDT)
+ id 1tuDOj-0003PP-NS
+ for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 16:33:05 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7f7df372-034d-11f0-9899-31a8f345e629;
+ Mon, 17 Mar 2025 17:33:03 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-4393dc02b78so14808275e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 09:33:03 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d1ffbcef5sm108510625e9.9.2025.03.17.09.25.24
+ ffacd0b85a97d-395c83b6a27sm15664227f8f.31.2025.03.17.09.33.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Mar 2025 09:25:25 -0700 (PDT)
+ Mon, 17 Mar 2025 09:33:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6ec3c3c2-034c-11f0-9aba-95dc52dad729
+X-Inumbo-ID: 7f7df372-034d-11f0-9899-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742228725; x=1742833525; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=e3U+Gwajy3gbFJlLeomnzcVheV4svf2YItnasUFghbA=;
-        b=LkcrlduvG30wqCi2KQkNXUvcjC/ri4V+5uXqiqcp45mxSF4iPMlxegoKp0Fko4hnSz
-         n59cAPnKrk8s+0als9n7wc+MuArt/ywvbS1wbqTUfa/xQNS7nAXMbBhHRX/jjOZWPb72
-         7uHQXKbsT3ta0RunQqcO+ISv3UQJxyd3ITo4vHZx7WcxbathkP7464EeFEt3C7Mc8KLS
-         5T897d3dJrHAGR9Nl/s1XDGSmUoYpZe6UAskclS8QajrtTGLFzGLp3/06sXlB/ucAU8W
-         DGqKytL0xIm96HHFJFZM04VpryPChnvJ0vZjKkvmKFozNbTwXONuXZixDW70DKwRkqrU
-         QvDw==
+        d=suse.com; s=google; t=1742229183; x=1742833983; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=UUPIuXbgojsFkfSS33DanfFpA4pcf9t302qVRhBlNTM=;
+        b=Kt/LZ8HLGaLUMOTSGPG5MRuzShxyaZQrfc9/tKG+TTLJmjYzrOCh182n4KUsk4FYmE
+         AVRAoxwsP/0O1JzN5WCPIZlWN/RK95bkAe/QXQWpueJkgZHNOs/qa/Ad2OHQ7jFF30ys
+         GursTIwtb6eGmbkw6o4o0ZVfVJF8LomS5pVcmrpgy2HUIQrt6yLuJB6c5hQ0uhuLY8F1
+         S9wca1Gv9Ov7FE+1MWfaebkPojLQSEi99fC+PfUzlsBLGFzb/Ho1JW4rC1eptEJMuW6h
+         olLPNj96bxjw+WffsBsII9pYcFdh9tQosm09P8BCyDp9kmccxkzuAKwoDSMa4YBc4czn
+         jJ3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742228725; x=1742833525;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=e3U+Gwajy3gbFJlLeomnzcVheV4svf2YItnasUFghbA=;
-        b=Mj55tztnTCyUF6CP9/8/eeXUeblaPOkvm03+EzoUmBHRF3dckw1QtBZwxPyoe1C+h4
-         tF4S7Fxv4RZ15bDcmuptmA+MGh1Ftq7+uLDvZIBXAqPNl4OMGP0uHM3jMDLmsWmYSlk/
-         hfEpIA93C0P9YsLeyplL+mLMEBtCwbaJWNRtj7J3JzaVmz3a5m2JrZp/vlkiKYG65TOf
-         Cy3/uRlk74fgWmw6SpdGVPHk9FpMWPaXZ7d35rYctOqnp6/4hMIY615RcMqbPzDNj+ZR
-         S+EcAzmUtkeGtwokGzxWeHSbAFGMxzzJvTEUYWKfnJbOgjmFFwyM8VAPNVmN20+op5Ds
-         l8mA==
-X-Forwarded-Encrypted: i=1; AJvYcCWIe3Q/FmZBrryiu/9sUX9uNX7Tz1QjiLPGWzg0iuy/KRN/T2unKIXROnHQju8A1Ral/raelxIZCm4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyRpVQlM8L7VSZKhzRrp0SCCSyiaG+gfXJ88sScZnQfIX0cXNBC
-	1z1dza7AMaGc+ym9E8fI+MuES+36zVOwTUGUbVu/eN3i5avtT0hhO/WXldmEWw==
-X-Gm-Gg: ASbGncs7oLXrnzsijIVYosp1Nv8oa1nFRE5lKiGneMU/HLSZRc/AhcfDbyvLwrjhRRA
-	7LLBp86ui97L4iQG0ons4TllbbtuA2YCaX7qXc0zTfVp4WoJIaPYhzQOOWtKzYuIOjZWSMrvclk
-	cVHDLnrW7aufQeHbmi5Xo8wgc6gRMT5W6d9BEDzKSbuqerWOMn8o2tdSQMhwyPuZEx+J6UwrblL
-	1wJPmzA2TEwmBCpc9FMCijCSVLFIYaojyoOhaH8LwBrwA/IXEQGOJYsY0US9sLqZEumg55pDKSI
-	+Gq4Z3UPQdBZoZEr7q9+BCmnLj0GrCjRqm8BCzAXW3I7/1Qnyi43M26sGg/KoRQ52nfJbycjYJg
-	1YzaGX1FH1U5qTzZ6CUXMqDnpVgGbkQT5RdRpnQUt
-X-Google-Smtp-Source: AGHT+IFPj3CQcN5agumCot86iiVTrsoAT/TfSJFjv2ImBF8BsC8nhCxoJEIwW7pPsv985MiGK5pVCA==
-X-Received: by 2002:a05:600c:a21b:b0:43c:fcbc:968c with SMTP id 5b1f17b1804b1-43d1ef4b09amr139858095e9.7.1742228725407;
-        Mon, 17 Mar 2025 09:25:25 -0700 (PDT)
-Message-ID: <fd28943f-33c4-424c-b05f-f383acb30ea4@suse.com>
-Date: Mon, 17 Mar 2025 17:25:24 +0100
+        d=1e100.net; s=20230601; t=1742229183; x=1742833983;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=UUPIuXbgojsFkfSS33DanfFpA4pcf9t302qVRhBlNTM=;
+        b=WGm+FaRGUQEMrOrgW/kiF/wcFsbX0AUfF2ibgViD07S0a96+7fP/Zz4+6RN5u6mbeU
+         Wn/ZNPBndq1ql5x59Dx/ExeHsfV5h7/h6oLHiOiSQBN0tiHYgCAJYtaf3JfqygfEI16X
+         8UDxPxIWl4tQCHM897ULrNl5XezwVk9tx88zWWxvhfLe/NL10AO09xsS8dXKSreEh8GS
+         Txnh1sYS0Tk35qDRTzLbb5jJuJhh6nrvWDvDhSUk5HCjq/vqQJx3lYJq+p6F3TNg+WrL
+         +I5WtFwikwCiw2cprYlraR8BSWDX7M0bX0Ets1cAdhTVJeNNt/V4OVygFrosYk4DMhmF
+         ToXg==
+X-Forwarded-Encrypted: i=1; AJvYcCVJ2bFIrbyJNLLaDMw+dHvzPS4BuOpnTczbORCfTRRK5UTy1MvaZaLRpRdCcRK5z/R9DJZxZdoVUpE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxY4YJ5J8LBrYjSyeXnc60sCOEhC1P6TUqmYGCAFi65CNkAS1U2
+	2YdjXNmQ89ZhUBffPEYR9Cnw/lwRjOgsYLSWa+d6liPyas1nNG77r7j72f/kSw==
+X-Gm-Gg: ASbGnctTqT+jmY5xgpkNMLH0ZKcqJ8sYfjQB/Qus9vh2YCjzsOQEPbhvIbvMUpm3T0+
+	1WyHqiv9tKUxoDAtEoMaTwkpeCW7KVyiqj9UKLQ2vLVgL1LZsDu05xQ7YzQoAFqqdDu4XeggFBk
+	nYkm5l9guQGgi3ml8YMGTCI6yhonU2z5GrANJlqKbzVV/5eblCveyCKwE4BfbutEpraOnRYLSZd
+	+dbHAdqSDV9TTpT5KUrswReei1TdMpolgOEK+4GEUs1p5BfevdK540r9/yjAmfNL2hp3Ft0/HJv
+	p+f10QszinO8c2MUsw8LaoEZCNLuoOpwe4MxrHeZV0wUB1cvmbG/6yiR+gq5m+tBIi7wht9DtDB
+	k7avpVFS7MVbDUb+kjV85rE5JyHlnQw==
+X-Google-Smtp-Source: AGHT+IHvPIU7Z8bN+5O8SVljaet3pPrYhJpDisTZUeG/+u+xT4lMaC1SPiJvrJxcaPDyDbCrVJtNFw==
+X-Received: by 2002:adf:a35e:0:b0:391:3aaf:1d5d with SMTP id ffacd0b85a97d-3971dbe8060mr12234133f8f.27.1742229183044;
+        Mon, 17 Mar 2025 09:33:03 -0700 (PDT)
+Message-ID: <314dee7c-1ee0-484a-921b-279617258325@suse.com>
+Date: Mon, 17 Mar 2025 17:33:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 17/23] xsm/dummy: Allow hwdom more - except targeting
- control
-From: Jan Beulich <jbeulich@suse.com>
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-References: <20250306220343.203047-1-jason.andryuk@amd.com>
- <20250306220343.203047-18-jason.andryuk@amd.com>
- <66291536-a164-48a6-ab3e-304dc6035ed6@suse.com>
- <a89753a3-c8e4-49fa-bb4d-744ba16581d6@amd.com>
- <94a6e5d4-4491-4fb9-b3b0-067164acb973@suse.com>
+Subject: Re: [PATCH 01/11] xen/memory: Mask XENMEMF_node() to 8 bits
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Bernhard Kaindl <bernhard.kaindl@cloud.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250314172502.53498-1-alejandro.vallejo@cloud.com>
+ <20250314172502.53498-2-alejandro.vallejo@cloud.com>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -122,37 +122,39 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <94a6e5d4-4491-4fb9-b3b0-067164acb973@suse.com>
+In-Reply-To: <20250314172502.53498-2-alejandro.vallejo@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 17.03.2025 17:23, Jan Beulich wrote:
-> On 17.03.2025 17:17, Jason Andryuk wrote:
->> On 2025-03-17 10:28, Jan Beulich wrote:
->>> On 06.03.2025 23:03, Jason Andryuk wrote:
->>>> Allow hwdom all perms, except XSM_PRIV, and except commands where the
->>>> target is the control domain.  This protects the control domain from
->>>> hwdom while allowing the hardware domain to serve as the backend and
->>>> device model for other domUs.
->>>
->>> I can see why backends may need to live there. But device models don't
->>> belong in the hardware domain, do they?
->>
->> One of my tests was on x86 with hardware domain running QEMU providing 
->> virtio-gpu to a domU.  QEMU needs to access the GPU for virtio-gpu. 
->> Also HVM/QEMU PCI passthrough would need to run from hardware domain. 
->> for the config space access.
->>
->> I viewed the hardware domain as the place to run the device model - sort 
->> of like a stubdom moving out of dom0.
-> 
-> Hmm, yes, when dealing with hardware made accessible to a guest, the DM
-> would need to live in hwdom (in the absence of stubdom-s). For non-pass-
-> through guests that's less clear though.
+On 14.03.2025 18:24, Alejandro Vallejo wrote:
+> As it is, it's incredibly easy for a buggy call to XENMEMF_node() to
+> unintentionally overflow into bit 17 and beyond. Prevent it by masking,
+> just like MEMF_* does.
 
-So perhaps I'm in (conceptual) trouble with this kind of dis-aggregation:
-To split ctrldom from hwdom without moving DMs to stubdom-s feels a little
-"incomplete" to me.
+Yet then ...
+
+> --- a/xen/include/public/memory.h
+> +++ b/xen/include/public/memory.h
+> @@ -32,8 +32,9 @@
+>  #define XENMEMF_address_bits(x)     (x)
+>  #define XENMEMF_get_address_bits(x) ((x) & 0xffu)
+>  /* NUMA node to allocate from. */
+> -#define XENMEMF_node(x)     (((x) + 1) << 8)
+> -#define XENMEMF_get_node(x) ((((x) >> 8) - 1) & 0xffu)
+> +#define XENMEMF_node_mask   (0xffu)
+> +#define XENMEMF_node(n)     ((((n) + 1) & XENMEMF_node_mask) << 8)
+
+... this still won't have the intended effect: Rather than spilling into
+higher bits (with a certain chance of causing an error) you now truncate
+the node number, thus making the misbehavior almost certainly silent.
+Further, if you do this for the node, why not also for the address bits?
+(Rhetorical question; I don't really want you to do that.)
 
 Jan
+
+> +#define XENMEMF_get_node(f) ((((f) >> 8) - 1) & XENMEMF_node_mask)
+>  /* Flag to populate physmap with populate-on-demand entries */
+>  #define XENMEMF_populate_on_demand (1<<16)
+>  /* Flag to request allocation only from the node specified */
+
 
