@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5469DA65605
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 16:40:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.917214.1322177 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FE60A65633
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 16:46:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.917225.1322187 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuCZd-0003o9-23; Mon, 17 Mar 2025 15:40:17 +0000
+	id 1tuCfI-0005Xy-M9; Mon, 17 Mar 2025 15:46:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 917214.1322177; Mon, 17 Mar 2025 15:40:17 +0000
+Received: by outflank-mailman (output) from mailman id 917225.1322187; Mon, 17 Mar 2025 15:46:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuCZc-0003l3-Ux; Mon, 17 Mar 2025 15:40:16 +0000
-Received: by outflank-mailman (input) for mailman id 917214;
- Mon, 17 Mar 2025 15:40:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tuCfI-0005Vn-Iz; Mon, 17 Mar 2025 15:46:08 +0000
+Received: by outflank-mailman (input) for mailman id 917225;
+ Mon, 17 Mar 2025 15:46:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UoSe=WE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tuCZc-0003kx-4d
- for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 15:40:16 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1b60f185-0346-11f0-9899-31a8f345e629;
- Mon, 17 Mar 2025 16:40:14 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3996af42857so202496f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 08:40:09 -0700 (PDT)
+ id 1tuCfH-0005Vh-0N
+ for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 15:46:07 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id efdececf-0346-11f0-9aba-95dc52dad729;
+ Mon, 17 Mar 2025 16:46:05 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-43d07ca6a80so10972735e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 08:46:05 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395c8975b34sm15458763f8f.55.2025.03.17.08.40.07
+ 5b1f17b1804b1-43d2010de59sm107091175e9.33.2025.03.17.08.46.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Mar 2025 08:40:08 -0700 (PDT)
+ Mon, 17 Mar 2025 08:46:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1b60f185-0346-11f0-9899-31a8f345e629
+X-Inumbo-ID: efdececf-0346-11f0-9aba-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742226008; x=1742830808; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742226365; x=1742831165; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QPt7KF+lNJEyOT0Ld0v1dwJXVJeRy5UpOiPKFqyk38A=;
-        b=KGEpnO0AclJ0tDffSWMCYJJ6XIfIFKKHMVvZ5VFs7lTjwF23FPbTEchjgB3X96bmcs
-         IuYn8YA1vl9R9RUkKn7uixjIiYYB/ruGFw5+YMHblXeExpWbVCObyU/28SQiwiBacL3X
-         6fro98K14Fqh0ibIbqPa73UQ+L/jjIstLU+Bh32YGh78SL6D1fJ8EpjRCfQl0CF3kv7x
-         llayhLFz6YEYSHHbJYfnaGOwQMqvJJF4/oT0jXuGAXxpu/HaT/S7YXbh0QueeBlV7xQs
-         zf1uXIssLLoVcuR2ZtUrq8BoaaO0Jxa3+296kXxuzWJ4PDC+Ib0lpAnGXH+1oSKZmcjl
-         fo2Q==
+        bh=BR4Yu6sxzZTHUZRz+Wmvg20MakRxVoGTUWJQc7RROzE=;
+        b=PNk7e1jD/N7jUA0xf/gD5OVEzDXCHo6UtK+pgR+He4phoWLkUpHUyKZUmE44Uc2jGA
+         OWM9Cnx2EYCOzliBnR7XvUs0lPwWB60o8uLNw15XJPJG724HyOcNRPZkxg0B6z0X8HeZ
+         ZEO9rIoEj6XbMij1u3OrNSXrDTOMdTfCCbnOVP8+LmN22hST3+4htwh/YNDkwvoEedk/
+         BeKopQxVkt8HN7LHpI57u+K/+e6n2NnbIN79WIrYtr+vQRmb5YZq2Pt3DWkHHLiqYiSa
+         j3EeSMlMTkKNxKgYjmiB9PIDDlycG6LsKt+Q9JTj7Oyp1wFP4moTgamvW4pFSH6zgBKh
+         41+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742226008; x=1742830808;
+        d=1e100.net; s=20230601; t=1742226365; x=1742831165;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QPt7KF+lNJEyOT0Ld0v1dwJXVJeRy5UpOiPKFqyk38A=;
-        b=sbFF68sDJKKE3tUsPEkJCKyFSaBIrGvz32z2w8Bo/BGJQ+QGQAK1y+GdDOmV9VFKMm
-         oqtSC1nVvcoXN4PVCvbAzXFWuiCG2O5pVohdVrbEQb0rWzTU8JA6K56u0HR1OUzPYfYX
-         blnvjK85RAns57ptT9ZBjJUZvKG5OO5XtbSa//fYBFeU+NTNnzusRzwnD5pv1pW7eLv7
-         C9PPzq6voYEbjMGPIWBeaV0hSemfgLOXAgFo7IbW840fBTI13h4BOvUEm9NwSFR9bTDI
-         TuVNJA+/ghXFWUdv0ci1b8Sl2Ym2wCKlmiPtObndfEAqPFkzpBRJTHhcgpGFvXoKJHJ7
-         jcOA==
-X-Forwarded-Encrypted: i=1; AJvYcCU+y0QkXtVZYrbLDLUrvqvUijw2d2RaXhw9loErUut3yBnYTCJ1j+aOYqehU+mLmuuRCfBFzKSQH/E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw71AZP71pdrigUKDwuW+ZCDZSHILn5nWrVRHVlUm926VnNYfJl
-	hfba02SBnFjFQjY9TExYRwmAh1M9a7cXhuKupbIX/l5K5W3cPvVI5vWx2Xmtug==
-X-Gm-Gg: ASbGncuKxaZQK3ap+2mYi4g97KFcnJRTwZZMs0j8htSGhS++958V/Nd78eaKABg/yGL
-	8kvjqC2aa58YKAQ7aY0Ww4XmRq8otjhXQLpd7CV4fvrU/u0EKnh9znPHv8GmjgkDrreR8rbbP8r
-	InzzZNB5F332Q/hGWsOaWuHpz2FaaC8SVivoccmETtguoqm+GNjnF8tKwsskjCeF2KTvlh6cOix
-	JEKQjsCSqVRPCAB/VtDd9dJJk4diKYkULidLv2HeR+9Fl5JilujvRk9Rah+zWdsgHZV0ViJh5QL
-	qGlR7GtanZb7kDJ45HAQ9qWtoB32Ec8kvdMp3nfL29OPL574V8GT+kBf5RYeVS+bc1eCbv75fAD
-	aWfAwChkcDHOKxWAhuQolp0m7EzT+Vg==
-X-Google-Smtp-Source: AGHT+IFOTgigvQ4nIOlYoVa2D/ADiTxNAky8eUy9TLZmh/pkW522xiy9YrH8/RiyqzLqsIx0J0Sx0A==
-X-Received: by 2002:a05:6000:1acd:b0:390:dec3:2780 with SMTP id ffacd0b85a97d-3971dae92ddmr15016362f8f.24.1742226008623;
-        Mon, 17 Mar 2025 08:40:08 -0700 (PDT)
-Message-ID: <9187583f-a4d0-429e-a666-113c4f8aabaa@suse.com>
-Date: Mon, 17 Mar 2025 16:40:07 +0100
+        bh=BR4Yu6sxzZTHUZRz+Wmvg20MakRxVoGTUWJQc7RROzE=;
+        b=VnslSqtXFbv4GgNvhrIa+FpHa/vo0ZkqwteBD4WIVU5exVUOpYp/cF0dkYyt76YMJd
+         loXYOSZFSRbERiLHYfdlZX2qt7sPJfw2ElABaxdux7zxiHy3jojcYwBeXxQtMWIeIXI2
+         IhocuWXn8OIeIvySOIbNbWcCOv7x/AF7SSFhdiNA43SAyJPBbfw9svQn95OIUYw3bSGP
+         aEt/Dv2X60USnwgZw+Hp4jZfOVEOMAEUY7HUFogCGJeXTZi0WueUKmWqK1QEQFBYkD2I
+         w2t5dBGN2qE91IL3ocarPPO6C4TklXVS/JtA8JIwE7DsbC7mtSOzhql0H/dcjA/mG6jN
+         awBw==
+X-Forwarded-Encrypted: i=1; AJvYcCWrx+TBOpcHKbj+KkAXg38+ErDFYRTAbTXd/x3ZKGs7CocUYfyoJGR1F9toZ54uibIfaZ9NCki6YLk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx80EcnkhjXrGVui7lJCDuOPdncY8PBN4MttAd41tlJs2Fc5jNZ
+	Uj5rfltaJRglchjYGlWZLpfg9KpFO+bUlgWLnn7bMzOZPX4L3Wq/fc7+wmii6A==
+X-Gm-Gg: ASbGncu6XAjKG2sZ8oSyXAPARjqDuBrC9aGVXSaNSACNHR0azIIEgWBMF0GEWli1zwK
+	RvTtPYWQZwBdt8VsiiqqhV1AWLrMy3oVEXwK51640qHtOrnb5w73rJJyydQ3gd3WMjXVMNKSmvD
+	KJFAV4Jyqa0+VzbbuRSiCmyQDm/+Cq8ZLAQWCmXcZaKPiIwEg+fifBZJAwtczL+ki1iYlOeqCx3
+	vrFFH1PXWDwH/Qn2zytCcpHqPFnlwXYZlD5oSNemvuoKscBbhpSabhMl8oOhgt6wJ5w74UvZA4r
+	9oPt4qoZYN9Ds+VqhmemISJyY6SFQvvjYSHFxPIut6JttyMdpADqxj4O8Ju7H3ofgFg1HmDnhdK
+	fGZe2ZSlhc/EoEHKSkqP5B8If+aG2ew==
+X-Google-Smtp-Source: AGHT+IGiv1JQJ2a02B4BCCa6WUDDX+Jxy8BGQ4QOHol8idxQ2lZsrVyw8ddIuEfxKzSBp6owo3bG5g==
+X-Received: by 2002:a05:600c:444b:b0:43d:16a0:d82c with SMTP id 5b1f17b1804b1-43d1ec906acmr123184225e9.2.1742226365069;
+        Mon, 17 Mar 2025 08:46:05 -0700 (PDT)
+Message-ID: <c9f6bfcc-cf74-42bf-bcf3-65ca6c89bdd5@suse.com>
+Date: Mon, 17 Mar 2025 16:46:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/4] xen/riscv: implement basic aplic_preinit()
+Subject: Re: [PATCH v1 4/4] xen/riscv: introduce intc_preinit()
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -95,10 +95,9 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <3152c755e31367370f3e1d955253a9d4fc095f68.1741709885.git.oleksii.kurochko@gmail.com>
- <6e2212313a47772d6929ae76f5e4be0f365766e9.1741709885.git.oleksii.kurochko@gmail.com>
+ <d89d647a0b71b0a0bc8aeb90395b28bcab15074e.1741709885.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,79 +123,29 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6e2212313a47772d6929ae76f5e4be0f365766e9.1741709885.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <d89d647a0b71b0a0bc8aeb90395b28bcab15074e.1741709885.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 11.03.2025 17:19, Oleksii Kurochko wrote:
-> Based on the code from [1] provided by Romain Caritey from Microchip
-> with some minor changes():
-
-"Based on", to me at least, suggests an import from some other project. The
-reference looks to be to a Xen tree though. With that, a proper description
-would then be needed here, rather than a list of differences.
-
-> --- /dev/null
-> +++ b/xen/arch/riscv/aplic.c
-> @@ -0,0 +1,50 @@
-> +/* SPDX-License-Identifier: MIT */
-> +
-> +/*
-> + * xen/arch/riscv/aplic.c
-> + *
-> + * RISC-V Advanced Platform-Level Interrupt Controller support
-> + *
-> + * Copyright (c) 2023-2024 Microchip.
-> + * Copyright (c) 2024 Vates
-> + */
-> +
-> +#include <xen/errno.h>
-> +#include <xen/init.h>
-> +#include <xen/types.h>
-> +
-> +#include <asm/device.h>
+> --- a/xen/arch/riscv/setup.c
+> +++ b/xen/arch/riscv/setup.c
+> @@ -16,6 +16,7 @@
+>  #include <asm/cpufeature.h>
+>  #include <asm/early_printk.h>
+>  #include <asm/fixmap.h>
 > +#include <asm/intc.h>
-> +
-> +static struct intc_info aplic_info = {
-> +    .hw_version = INTC_APLIC,
-> +    .node = NULL
+>  #include <asm/sbi.h>
+>  #include <asm/setup.h>
+>  #include <asm/smp.h>
+> @@ -128,6 +129,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+>  
+>      preinit_xen_time();
+>  
+> +    intc_preinit();
 
-This latter one can be omitted.
-
-> +};
-> +
-> +static int __init aplic_preinit(struct dt_device_node *node, const void *dat)
-> +{
-> +    if ( aplic_info.node )
-> +    {
-> +        printk("XEN doesn't support more than one S mode APLIC\n");
-> +        return -ENODEV;
-> +    }
-> +
-> +    /* don't process if APLIC node is not for S mode */
-> +    if ( dt_get_property(node, "riscv,children", NULL) )
-> +        return -ENODEV;
-> +
-> +    aplic_info.node = node;
-> +
-> +    return 0;
-> +}
-> +
-> +static const struct dt_device_match aplic_dt_match[] __initconst =
-> +{
-> +    DT_MATCH_COMPATIBLE("riscv,aplic"),
-
-Iirc this requires use of __initconstrel, which would also be nice to
-be put between type and identifier.
-
-> +    { /* sentinel */ },
-> +};
-> +
-> +DT_DEVICE_START(aplic, "APLIC", DEVICE_INTERRUPT_CONTROLLER)
-> +        .dt_match = aplic_dt_match,
-> +        .init = aplic_preinit,
-
-Nit: Indentation looks too deep here.
+And there's only ever going to be a single interrupt controller type on RISC-V?
+IOW - no abstraction needed?
 
 Jan
 
