@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 039CEA651D8
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 14:53:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.916917.1321921 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40D9DA651E5
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 14:55:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.916927.1321932 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuAtn-00012O-5U; Mon, 17 Mar 2025 13:52:59 +0000
+	id 1tuAwI-0001Z6-Hq; Mon, 17 Mar 2025 13:55:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 916917.1321921; Mon, 17 Mar 2025 13:52:59 +0000
+Received: by outflank-mailman (output) from mailman id 916927.1321932; Mon, 17 Mar 2025 13:55:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuAtn-0000zy-2u; Mon, 17 Mar 2025 13:52:59 +0000
-Received: by outflank-mailman (input) for mailman id 916917;
- Mon, 17 Mar 2025 13:52:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=UoSe=WE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tuAtm-0000zr-Gd
- for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 13:52:58 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 21a72cb5-0337-11f0-9aba-95dc52dad729;
- Mon, 17 Mar 2025 14:52:57 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-390fdaf2897so4181917f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 06:52:57 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d1fe29386sm105743075e9.17.2025.03.17.06.52.56
+	id 1tuAwI-0001XS-Eu; Mon, 17 Mar 2025 13:55:34 +0000
+Received: by outflank-mailman (input) for mailman id 916927;
+ Mon, 17 Mar 2025 13:55:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Fdmo=WE=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1tuAwH-0001XM-Os
+ for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 13:55:33 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7dbdece0-0337-11f0-9899-31a8f345e629;
+ Mon, 17 Mar 2025 14:55:31 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-ac29af3382dso735556766b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 06:55:31 -0700 (PDT)
+Received: from localhost ([46.149.103.14]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ac314a49d33sm674984166b.141.2025.03.17.06.55.30
+ for <xen-devel@lists.xenproject.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Mar 2025 06:52:56 -0700 (PDT)
+ Mon, 17 Mar 2025 06:55:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,144 +45,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 21a72cb5-0337-11f0-9aba-95dc52dad729
+X-Inumbo-ID: 7dbdece0-0337-11f0-9899-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742219577; x=1742824377; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=OI/sNQPGpE5axWZw6pXz8ry29y/MzA8Ef8wvSkNtpG8=;
-        b=FYor/CsyCoJbtaZGnej94iDwjE6pNTTBDb6hxrPFb5hGyJv9SYPf+YJOrsGfB9s6S2
-         JtGBuTBi1mDYAdf45Bda3tK01XZjgPS8aGJzN1cBe7vSS+2jfHBZzxXG8cPChZVyd2g/
-         dB0xsgAKKsp1Ox/SCGGE8Tewzu1klXgltevTKpBNaV54ZnSinprztev8Y5xPEwUE3lc4
-         2swsUG7/M3itH711B3tsnimI5zmQb/2WphJWe38J+/m8VL0WdhxpbzIp8+oCFqWU5sb0
-         B5VxNRP87u3JqpyVPLHqTaTPvxUxNqkTBASfXIVwnBm3/N/VRLomMFooD/vJyJgFxi6J
-         vDNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742219577; x=1742824377;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1742219731; x=1742824531; darn=lists.xenproject.org;
+        h=in-reply-to:references:to:from:subject:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OI/sNQPGpE5axWZw6pXz8ry29y/MzA8Ef8wvSkNtpG8=;
-        b=iDdgZMiAZd+aPxmmEU9skJjMfM5REb3IZ+wQndBoLdUCpx1Oa9NMGPWb3QSAmvl0iG
-         kGPj4c6AO3HoXws1AyMDbuMXKt2c61hva3tGfwq+sODeQk/kX4IQbh+gwp+NB60Tl42X
-         6nUzsL1/+9K4WfypnhLO2r4hkZufEZ/8lOun7b7AbmI2AqnCtUN8FL1EIpJSpJtxWncT
-         zUTi8NG5xImZhfIniyqpAJeFYfpIl7YMf/apMLJJkkgm2ha69t4qGXzjsXk3y91pzIoX
-         yyAq4QbrDPQMfxqSQVIIfj0eK7UQJOf6TSX950/WfUnJPOPy6eoz+mg4xgjwfQdTPE/v
-         2Cgg==
-X-Forwarded-Encrypted: i=1; AJvYcCWTBLphKMa5Z6Ob6N8bteEDN9psoMv5X0JGcfmaf88qSN1wP2D0sF7R9UyRaN2R+fiV40J+wBaMpZc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzMEgRDP3KLLVglCh1mzpBHDbufW5SQxXcKpVMEAEVQgpkuO8pb
-	Rwd2aSILHnxUxS5HSLahLLaR8rFU9s8854126J8QjrpCR7agpLb3xdqksUM3Dg==
-X-Gm-Gg: ASbGncuNEeLm2peVpt7wJNIwwaQeVc9z6ay/BilAk/Vs/75cXuT8NUFSVVklmbBLzsg
-	LQzs6D0ZMzdjms7bqNl8gSvoToigd00omAczCA00hTlIZw7MMjlgrqzYYMctC/uOOiTY4F89Hex
-	BjhVV8U3yimRvU4Ulwx33zcV+71UiWaPQ37M5zDhEns990UvMC6lPS7OdA73yk2ufFJ7StD+hMz
-	Sf29zr+GqXeqqkC8rghXO5eUliS5aNrp15dEaQfpxF2rjjywxBKeJs3MSeo2SLFApa1B00B7AyS
-	Mxh6PVJdYObam5TlRzjr+voWjT1yCP3D9XmVSe1hs9TdYBKUNSvEmgJFk8Rffka3joSbxLqT/Uv
-	5UrxLEEKARjB17974xQargwcHPKz331xe+SItyenU
-X-Google-Smtp-Source: AGHT+IHj6I5l6w3kQkxdJAzipZCHtKcl21AZctscgUcP5B3SiIzLB1kg0HOJeb8unkcX10i5/uaJnQ==
-X-Received: by 2002:a05:6000:1567:b0:391:2f2f:828 with SMTP id ffacd0b85a97d-3971ee443f8mr14426278f8f.29.1742219576650;
-        Mon, 17 Mar 2025 06:52:56 -0700 (PDT)
-Message-ID: <5b6364ef-53b0-4d59-acee-4df778eacbd5@suse.com>
-Date: Mon, 17 Mar 2025 14:52:55 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/hvm: Use for_each_set_bit() in
- hvm_emulate_writeback()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250314204920.118065-1-andrew.cooper3@citrix.com>
- <781a020c-351d-4211-ae51-8057646c28e2@suse.com>
- <6f0aa9e8-4176-4360-8031-625d99096452@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6f0aa9e8-4176-4360-8031-625d99096452@citrix.com>
+        bh=NMLaqNbjaHo3zTBtrmIcqj6xOEBNVYx4hoPvJh//nHA=;
+        b=HVAPAugS8FDdboPiIkmwL8Ayx/71yocMSQWSs2g4xTRAtKG5LyxpAz73lSz/9LsJVz
+         49ZxtMwo/BrCSOSNDoBxAJO2PmM/U5oXMgH+vBBSjaMyfQRHJGONII9W/0Qfn6YxROEB
+         ukmbHCd6a334VvbwDPdyc9hEiVe/Sc3SCn++w=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742219731; x=1742824531;
+        h=in-reply-to:references:to:from:subject:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=NMLaqNbjaHo3zTBtrmIcqj6xOEBNVYx4hoPvJh//nHA=;
+        b=jlPcNaY1VomKXSluVlCyGoflL56pfDnCRKblb1WnO7U2H/D/DkYyu35N2tKql435OF
+         1QEQHzxqLdsL2gXcFOhDZt3IhyGkMBhJeVkFbC5/f4e3Uv8qDXibzCHijJLwNxHNVUYS
+         3iK8r7swdi+KC4e5x+kSdco2K8CfAOQ4VaEOhSS4dURjBVRJKVktL59eYYe3SIsHmq5T
+         KvUq7Gf07uyElR923xwGNHgDKHwgJ4R9LkbloG0rEKFgF7yCh7KG7lb+DN5eLp/gwl9E
+         P3p7hIwVjJWXqqUVkNrPXK0Au7q9XayxhR7/WXyRQ/h41M9wH9Gvz1p+HSFaCv6hvCSb
+         Bk5w==
+X-Gm-Message-State: AOJu0YxFhmkx6szNt8xA2ZKeDp/xm+JNVZ+cgisWJfuaWFRHrK/Xyp68
+	O2UV2VawnKqbMe6JYVR1N6cGcCNmsD0k/241F0f/J3kjVUS6ZUv3lq4SQgaV4YL+MYYXxMiAxQ/
+	Eozk=
+X-Gm-Gg: ASbGnctJsXQr1NRKl2uNBRL/elt8mr5xMGJ8kHRI/VeM4QIf5+FGKfdYUre2y5ZcwZN
+	eKVQ2/6i1Wl9NHWNh4W6q1QuzcIh1rTb/dKjDtfVLC1/xLKhv+JilEBGgOnL9DXqT/Wh6V8pgMh
+	r+0HIkTazub6iN3jtKEkGv3TOWpkIHNkk3VWqORMzYMuJY8OqwY0Jz8xw6vE5MVGuhLLtSbSxES
+	XQP6uBJINhnwzY+Xle4IKSi6+9JDFpL/l7QubSDO5UaqXI4tJcFqroBpGaaVDWxxIE/NiFELpmT
+	Ijf2uOph+bEeV4xv8anopcz55a3KPxmZUISFiR8E3ZN1D6CJ2lD4ZF3GqRt2bQ==
+X-Google-Smtp-Source: AGHT+IFoYlnrhf2YMTK9nKlMgxhaXYqMBMZTH39KV3Cu5UhWnN3KkEJF2GPul6cBpNj5PGTCj+mLxg==
+X-Received: by 2002:a17:907:a18f:b0:ac3:3f13:98aa with SMTP id a640c23a62f3a-ac33f1398e4mr907743466b.32.1742219730769;
+        Mon, 17 Mar 2025 06:55:30 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Mon, 17 Mar 2025 13:55:29 +0000
+Message-Id: <D8ILCMMM9QFI.2TWP5REOAE2JB@cloud.com>
+Subject: Re: [PATCH v1] x86: make Viridian support optional
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+To: "Xen-devel" <xen-devel@lists.xenproject.org>
+X-Mailer: aerc 0.18.2
+References: <20250317071919.3766976-1-Sergiy_Kibrik@epam.com>
+ <CAFi36o263XOQbTpSGDcM3PmpY+MwodHi1tOXDp3W60N0n9b9YA@mail.gmail.com>
+ <98bf4aa4-b896-4240-b13a-80a0f964a8b1@suse.com>
+ <CAFi36o2sVRrhs7GXpW3Qpnc+VNQBfAzg8zEofqrEjYXz-wgU9A@mail.gmail.com>
+In-Reply-To: <CAFi36o2sVRrhs7GXpW3Qpnc+VNQBfAzg8zEofqrEjYXz-wgU9A@mail.gmail.com>
 
-On 17.03.2025 14:34, Andrew Cooper wrote:
-> On 17/03/2025 9:09 am, Jan Beulich wrote:
->> On 14.03.2025 21:49, Andrew Cooper wrote:
->>> ... which is more consise than the opencoded form, and more efficient when
->>> compiled.
->>>
->>> For production VMs, ~100% of emulations are simple MOVs, so it is likely that
->>> there are no segments to write back.
->>>
->>> Furthermore, now that find_{first,next}_bit() are no longer in use, the
->>> seg_reg_{accessed,dirty} fields aren't forced to be unsigned long, although
->>> they do need to remain unsigned int because of __set_bit() elsewhere.
->>>
->>> No functional change.
->>>
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->>
->>> I still can't persuade GCC to do the early exit prior to establishing the
->>> stack frame, and unlike do_livepatch_work(), it's not critical enough to
->>> require noinline games.
->> Then is ...
->>
->>> --- a/xen/arch/x86/hvm/emulate.c
->>> +++ b/xen/arch/x86/hvm/emulate.c
->>> @@ -3022,18 +3022,16 @@ void hvm_emulate_init_per_insn(
->>>  void hvm_emulate_writeback(
->>>      struct hvm_emulate_ctxt *hvmemul_ctxt)
->>>  {
->>> -    enum x86_segment seg;
->>> +    struct vcpu *curr;
->>> +    unsigned int dirty = hvmemul_ctxt->seg_reg_dirty;
->>>  
->>> -    seg = find_first_bit(&hvmemul_ctxt->seg_reg_dirty,
->>> -                         ARRAY_SIZE(hvmemul_ctxt->seg_reg));
->>> +    if ( likely(!dirty) )
->>> +        return;
->> ... this worthwhile at all? I'm surprised anyway that I see you use likely()
->> here, when generally you argue against its use.
-> 
-> No, it's not worth it.  In fact, simplifying makes the function smaller.
-> 
-> void hvm_emulate_writeback(
->     struct hvm_emulate_ctxt *hvmemul_ctxt)
-> {
->     struct vcpu *curr = current;
->     unsigned int dirty = hvmemul_ctxt->seg_reg_dirty;
-> 
->     for_each_set_bit ( seg, dirty )
->         hvm_set_segment_register(curr, seg, &hvmemul_ctxt->seg_reg[seg]);
-> }
-> 
-> gets a bloat-o-meter score of 131 down to 72 (-59).
++xen-devel (sent it on private by mistake)
 
-That's surprisingly much.
+On Mon, 17 Mar 2025, 09:29 Jan Beulich, <jbeulich@suse.com> wrote:
 
-> Are you happy for your R-by to stand, given this adjustment?
+> On 17.03.2025 10:19, Alejandro Vallejo wrote:
+> > Hi,
+> >
+> > I'm surprised this isn't already possible. Neat!
+> >
+> > On Mon, 17 Mar 2025, 07:19 Sergiy Kibrik, <Sergiy_Kibrik@epam.com>
+> wrote:
+> >
+> >> Add config option HVM_VIRIDIAN that covers viridian code within HVM.
+> >> Calls to viridian functions guarded by is_viridian_domain() and relate=
+d
+> >> macros.
+> >> Having this option may be beneficial by reducing code footprint for
+> systems
+> >> that are not using Hyper-V.
+> >>
+> >> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+> >> ---
+> >>  xen/arch/x86/Kconfig                  |  5 +++++
+> >>  xen/arch/x86/hvm/Makefile             |  2 +-
+> >>  xen/arch/x86/hvm/hvm.c                | 27 ++++++++++++++++++--------=
+-
+> >>  xen/arch/x86/hvm/vlapic.c             | 11 +++++++----
+> >>  xen/arch/x86/include/asm/hvm/domain.h |  4 ++--
+> >>  xen/arch/x86/include/asm/hvm/hvm.h    |  3 ++-
+> >>  xen/arch/x86/include/asm/hvm/vcpu.h   |  3 ++-
+> >>  7 files changed, 37 insertions(+), 18 deletions(-)
+> >>
+> >> diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+> >> index 6e41bc0fb4..34f9b79d98 100644
+> >> --- a/xen/arch/x86/Kconfig
+> >> +++ b/xen/arch/x86/Kconfig
+> >> @@ -348,6 +348,11 @@ config HYPERV_GUEST
+> >>
+> >>  endif
+> >>
+> >> +config HVM_VIRIDIAN
+> >> +       bool "Viridian enlightenments support" if EXPERT
+> >> +       depends on HVM
+> >> +       default y
+> >> +
+> >>
+> >
+> >
+> > I don't see why this should be gated by EXPERT, provided a
+> > suitable (now absent) help message was to exist explaining
+> > what it does in plain simple words.
+> >
+> > For the title, I'd say it needs to properly state it refers to
+> > enlightenments for guests, rather than enlightenments for
+> > Xen itself when running under Hyper-V. As it is, it sounds
+> > ambiguous (Maybe "Hyper-V enlighnments for guests"?).
+>
+> I'm slightly puzzled: Here you're worried about ambiguity, yet then ...
+>
+> > On a personal nitpicky preference note, I'd say HVM_VIRIDIAN sounds
+> > rather redundant, and I think just VIRIDIAN works just as well
+> > while being shorter.
+>
+> ... you suggest to introduce ambiguity here. I'd expect VIRIDIAN alone
+> to cover whatever enlightenments Xen might want to use itself, when
+> run on top of Viridian.
+>
+> Jan
+>
 
-Certainly.
+For the define name, I did say it it was a matter of preference rather
+than a worry. I'm perfectly happy with HVM_VIRIDIAN :)
 
-Jan
+CONFIG_{HVM_}VIRIDIAN would only be seen in code, where we use that
+name exclusively for enlightenments given to a guest, AFAIK, so I don't
+see as much ambiguity. Doesn't matter much either way.
+
+However,
+
+Non-Xen-developers rely on nconfig/menuconfig titles and descriptions
+alone to make decisions, so not providing adequate background (even
+if under EXPERT) seems less than great.
+
+Cheers,
+Alejandro
 
