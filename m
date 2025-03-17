@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4677CA65D0D
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 19:43:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.917942.1322731 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51149A65D03
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 19:41:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.917823.1322680 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuFQr-0001XH-9b; Mon, 17 Mar 2025 18:43:25 +0000
+	id 1tuFOM-0005iz-1c; Mon, 17 Mar 2025 18:40:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 917942.1322731; Mon, 17 Mar 2025 18:43:25 +0000
+Received: by outflank-mailman (output) from mailman id 917823.1322680; Mon, 17 Mar 2025 18:40:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuFQr-0001Vn-6r; Mon, 17 Mar 2025 18:43:25 +0000
-Received: by outflank-mailman (input) for mailman id 917942;
- Mon, 17 Mar 2025 18:43:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tuFOL-0005ga-Ux; Mon, 17 Mar 2025 18:40:49 +0000
+Received: by outflank-mailman (input) for mailman id 917823;
+ Mon, 17 Mar 2025 18:40:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=q3WP=WE=linaro.org=pierrick.bouvier@srs-se1.protection.inumbo.net>)
- id 1tuFIf-0006uj-JH
- for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 18:34:57 +0000
-Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
- [2607:f8b0:4864:20::629])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7ff93322-035e-11f0-9899-31a8f345e629;
- Mon, 17 Mar 2025 19:34:46 +0100 (CET)
-Received: by mail-pl1-x629.google.com with SMTP id
- d9443c01a7336-22580c9ee0aso83029745ad.2
- for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 11:34:46 -0700 (PDT)
-Received: from pc.. ([38.39.164.180]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-73711695a2esm8188770b3a.144.2025.03.17.11.34.44
+ <SRS0=kom6=WE=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tuFOK-0005gI-SB
+ for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 18:40:48 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5772791e-035f-11f0-9aba-95dc52dad729;
+ Mon, 17 Mar 2025 19:40:47 +0100 (CET)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-39143200ddaso3034595f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 11:40:47 -0700 (PDT)
+Received: from andrewcoop.eng.citrite.net (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-395cb7ebe4bsm16118634f8f.98.2025.03.17.11.40.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Mar 2025 11:34:44 -0700 (PDT)
+ Mon, 17 Mar 2025 11:40:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,115 +45,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ff93322-035e-11f0-9899-31a8f345e629
+X-Inumbo-ID: 5772791e-035f-11f0-9aba-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1742236485; x=1742841285; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=pdsNHldr91xnqdGHk1DTLXuYnmkD/cCe/HKmA2EoKL4=;
-        b=FjBymkTHfff2RMvzLyGjlCHHgDIF3LvcR90UbIpi5/j7fU8dS1ZatYaReOvbWTg/cZ
-         rcKTZm0rmNtOErdqRvbRdkEOwNj11nsmMHblzVklCrMTXY13B/GEXjx3k+e9bR8O0UXQ
-         yUmPKIq1u6JAVg0KY/cWccjGQgfK8YVWZr914wAjTmC5rPsPg81LfvL9X7rzocGyAnvx
-         ZjqF7SNb8n9z6Z0VoFruw7VlG+zj+6lFtvA6lmHfxI057JGl1fF+O6VQKe2XiWkN2jnO
-         oE8mYf7gmZbi8hIrdxUZ3GkICBHHeUCtlKpgUTBS4XVnJ6zer8qnBOs2ghzp+FCrNj4i
-         SmLQ==
+        d=citrix.com; s=google; t=1742236846; x=1742841646; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=LQMPdbs5n7jlJF2V8rD6Jm1jdMD2vppH8sg7+sJDxj0=;
+        b=kmG+tQedMJCfJyq7gurSOf3vgUO3WRrE8ZqpyX+nKMra8yw3kHsDzhZV1u7kngNLAz
+         tiySXGXNr2RGKnp7n7xe1OUU+1YBOslKv7CS4RBfuiFQXzdBoRQMxFZtHRuHGm14zVBe
+         1LS356/Hdh8Bfnu6Uy1w+gFhuMHpGllo/8h7w=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742236485; x=1742841285;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=pdsNHldr91xnqdGHk1DTLXuYnmkD/cCe/HKmA2EoKL4=;
-        b=Lp8buqyBaYwRzMVXVMjKyaePngqv9RFWGM5cTO5o7QBEpBrBHy8BVV1zuTb66wa/Se
-         7e+J7tzYITH7tkTPv8p172ERE617xmN9ysmNKHLpOJdAyLr4GzcDqQ+Yl+lt6A+wPBsQ
-         S6Hd9kUi6Dwh5wvssXkS7ZZ68n/MeLv7kj1y/L8Hd0Mh/j1J7nASwGzsuCBup2qk/Eui
-         +Ip1qRSGlwbHgkboW9O89+ddF7qbP8QMUEQAgsFywJqX90Oan5s2A1JFSqHjeXVMMiaS
-         r1YF6d6wmUpLs/O8fiw74pDplpMp3/7SEhDq/YXyg3VJUm4XPULY9DLymI8O5rtfPB61
-         kVXg==
-X-Forwarded-Encrypted: i=1; AJvYcCWSCR3j4EhB6e7eLJkrkcLJKFL80JhHIKpLnZhoq0xLM3R92cNgnJ77G566xzeSaBKkdfDs/Pwi2Bs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzOL9N2WmNQ1n5IXsbSwMM2j/MEvTFKMJ/+a8LOCg3ch6DCCkGy
-	hh8TimAkEaGgtfsHEZsyJjfjbUzTEYg3tYVap72G3WTy5zVO65ksiK5kdyslTPc=
-X-Gm-Gg: ASbGnct6NBC1HVcW8UXEJSs97JSbeo1zOmI6IqLky2zcMtNiZxJtEaRRuVX+526EmWX
-	8ZYwJKfjyhj8h7i16batejqXaGb6UIN5X8BHivJ90KvXQFOTZe8vJQrVAcRGqIpIBXLAkXTUs+U
-	ZLKIG7dhn4eN3hqOnGjzMURMbVBXL9TX22Z6kgWXvEbWGJGVjRaqtfqWHXoDW9G+wRKiZcl28Fd
-	lRHCE+Du2381g0F/aMaI9RFIot3LNh+krd7VIrO5axM3z+wuaGksj9yAogFgXZQeGbBowbNLWra
-	dXU1MgpOPPkMnfD/fTdFp5Hwd2JeftFvFryJjsTtVj2a
-X-Google-Smtp-Source: AGHT+IHzNNUW3sLQt1T364FsCohrjLgSsBCXmjd/XRyR5B72Si2GIa2LUJ+5Zkf6gr6cDVKPRd/CWg==
-X-Received: by 2002:a05:6a00:b95:b0:736:3d7c:2368 with SMTP id d2e1a72fcca58-73722353269mr15820164b3a.7.1742236485130;
-        Mon, 17 Mar 2025 11:34:45 -0700 (PDT)
-From: Pierrick Bouvier <pierrick.bouvier@linaro.org>
-To: qemu-devel@nongnu.org
-Cc: Paul Durrant <paul@xen.org>,
-	xen-devel@lists.xenproject.org,
-	David Hildenbrand <david@redhat.com>,
-	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
-	qemu-riscv@nongnu.org,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Harsh Prateek Bora <harshpb@linux.ibm.com>,
-	alex.bennee@linaro.org,
-	manos.pitsidianakis@linaro.org,
-	Daniel Henrique Barboza <danielhb413@gmail.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	qemu-ppc@nongnu.org,
-	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
-	Weiwei Li <liwei1518@gmail.com>,
-	kvm@vger.kernel.org,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Peter Xu <peterx@redhat.com>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Anthony PERARD <anthony@xenproject.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Pierrick Bouvier <pierrick.bouvier@linaro.org>
-Subject: [PATCH v6 18/18] system/ioport: make compilation unit common
-Date: Mon, 17 Mar 2025 11:34:17 -0700
-Message-Id: <20250317183417.285700-19-pierrick.bouvier@linaro.org>
+        d=1e100.net; s=20230601; t=1742236846; x=1742841646;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=LQMPdbs5n7jlJF2V8rD6Jm1jdMD2vppH8sg7+sJDxj0=;
+        b=IfHPl2h49Yvwyec2GzRIHE8pZPGuB5268vBO6lY2bKZLxAVx7cvoz8iu3bxS2EXO2Q
+         IAwlSkV5vx28xOni3cnMpTzJ0M0Fy9pQuiuN6boUXDZZqno7tvIxX96pVq/7u0D/NhJG
+         MqU6NtoFalmUwfHHuc+dYoBoVkDA7CZVkwVuPRTkSWovDRzl6Gry92r6wsYT16ePAnTA
+         UelqvkFoSmq1i5ZP+iCRPIDDZwxD8GLAGGPJxwZRvpvNpZc/72ykXtVklDB3Pm96GI8S
+         ZWhSbCJnbmgn5q1tJMMwSpc7WH6UTpvvlRv7VrHSfcd4nbP9oVXfYzsmuLSHYGIYrMtr
+         9VFQ==
+X-Gm-Message-State: AOJu0YxZ9FGU2iSho7bS81Eg5TWFDHOhFXXnFilr9EhltocgLmKMvbMp
+	BOsEFPxsJG9JvMHbjgxM0OJYEaNsCMUG1uJwSXx+YcWXuIRpG+eII96zUx/OGtp8Pa4sPnEIm3T
+	L
+X-Gm-Gg: ASbGncupuIWES8o32N2YAugqVfE5Ex5yg6ZoGNUYf9cABBzF9WHTCVc0jaShaUZtjlv
+	qv7JRQYu4ZGZHopy30b93Kb4/3/JRExf/jM+egTQ6V3dFJ7R8WfxWDiHd86RNol6eF0XWnXnNhO
+	j+YVsaArbhAIxrQxuYHe0JaevMi9ZQKZcLNVTzRSJmthqhVhswIobPzM+zKHMrOgaw1An5AXsQL
+	uuODrFG4lzOPY4wV0t4/0qe/P3eWOGbI6WVSMfb+NIBayuiqKe/oR7ChwInoaTnoSwmYA4IT8m4
+	1n5gZMGygII7WLBWJRmm1ymon86KotS7594rd/nHMrTZKPElFYf1XIrI1tlAiSBIXyQtLCfQJEp
+	kXuX55nqB1bdsVsnYRKi/nrJ6
+X-Google-Smtp-Source: AGHT+IHRQFYBKXE6JmNFPOa1zBeztYXy+hkF/S3+pV1YDgc/LEN99p50R13UPTMjxjIxuyDcFiNkDA==
+X-Received: by 2002:a05:6000:381:b0:391:489a:ce12 with SMTP id ffacd0b85a97d-3971daebbc5mr9885741f8f.26.1742236846547;
+        Mon, 17 Mar 2025 11:40:46 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Petr=20Bene=C5=A1?= <w1benny@gmail.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH] x86/emul: Emulate %cr8 accesses
+Date: Mon, 17 Mar 2025 18:40:44 +0000
+Message-Id: <20250317184044.560367-1-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250317183417.285700-1-pierrick.bouvier@linaro.org>
-References: <20250317183417.285700-1-pierrick.bouvier@linaro.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
-Signed-off-by: Pierrick Bouvier <pierrick.bouvier@linaro.org>
----
- system/ioport.c    | 1 -
- system/meson.build | 2 +-
- 2 files changed, 1 insertion(+), 2 deletions(-)
+Petr reports:
 
-diff --git a/system/ioport.c b/system/ioport.c
-index 55c2a752396..89daae9d602 100644
---- a/system/ioport.c
-+++ b/system/ioport.c
-@@ -26,7 +26,6 @@
-  */
+  (XEN) MMIO emulation failed (1): d12v1 64bit @ 0010:fffff8057ba7dfbf -> 45 0f 20 c2 ...
+
+during introspection.
+
+This is MOV %cr8, which is wired up for hvm_mov_{to,from}_cr(); the VMExit
+fastpaths, but not for the full emulation slowpaths.  Wire %cr8 up in
+hvmemul_{read,write}_cr() too.
+
+Reported-by: Petr Beneš <w1benny@gmail.com>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Petr Beneš <w1benny@gmail.com>
+
+Like the fastpaths, this depends on all HVM/PVH guests strictly getting an
+LAPIC, which is guaranteed by XSA-256.  There's no such thing as a 64bit CPU
+without a Local APIC, so no such thing as %cr8 not being TPR.
+---
+ xen/arch/x86/hvm/emulate.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/xen/arch/x86/hvm/emulate.c b/xen/arch/x86/hvm/emulate.c
+index dbf6b5543adf..852240b29d74 100644
+--- a/xen/arch/x86/hvm/emulate.c
++++ b/xen/arch/x86/hvm/emulate.c
+@@ -2285,6 +2285,11 @@ static int cf_check hvmemul_read_cr(
+         *val = current->arch.hvm.guest_cr[reg];
+         TRACE(TRC_HVM_CR_READ64, reg, *val, *val >> 32);
+         return X86EMUL_OKAY;
++
++    case 8:
++        *val = (vlapic_get_reg(vcpu_vlapic(current), APIC_TASKPRI) & 0xf0) >> 4;
++        return X86EMUL_OKAY;
++
+     default:
+         break;
+     }
+@@ -2325,6 +2330,11 @@ static int cf_check hvmemul_write_cr(
+         rc = hvm_set_cr4(val, true);
+         break;
  
- #include "qemu/osdep.h"
--#include "cpu.h"
- #include "exec/ioport.h"
- #include "exec/memory.h"
- #include "exec/address-spaces.h"
-diff --git a/system/meson.build b/system/meson.build
-index 4f44b78df31..063301c3ad0 100644
---- a/system/meson.build
-+++ b/system/meson.build
-@@ -1,6 +1,5 @@
- specific_ss.add(when: 'CONFIG_SYSTEM_ONLY', if_true: [files(
-   'arch_init.c',
--  'ioport.c',
-   'globals-target.c',
- )])
- 
-@@ -13,6 +12,7 @@ system_ss.add(files(
-   'dirtylimit.c',
-   'dma-helpers.c',
-   'globals.c',
-+  'ioport.c',
-   'memory_mapping.c',
-   'memory.c',
-   'physmem.c',
++    case 8:
++        vlapic_set_reg(vcpu_vlapic(current), APIC_TASKPRI, ((val & 0x0f) << 4));
++        rc = X86EMUL_OKAY;
++        break;
++
+     default:
+         rc = X86EMUL_UNHANDLEABLE;
+         break;
+
+base-commit: e7e0d485e993e97b1c816adcfc610e7c7258ce96
 -- 
 2.39.5
 
