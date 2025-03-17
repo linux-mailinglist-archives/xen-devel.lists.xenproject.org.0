@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDB52A64F77
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 13:42:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.916828.1321852 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B282FA6502B
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 14:04:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.916841.1321862 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tu9nH-0006OV-Lv; Mon, 17 Mar 2025 12:42:11 +0000
+	id 1tuA88-0003Cf-A8; Mon, 17 Mar 2025 13:03:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 916828.1321852; Mon, 17 Mar 2025 12:42:11 +0000
+Received: by outflank-mailman (output) from mailman id 916841.1321862; Mon, 17 Mar 2025 13:03:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tu9nH-0006M4-If; Mon, 17 Mar 2025 12:42:11 +0000
-Received: by outflank-mailman (input) for mailman id 916828;
- Mon, 17 Mar 2025 12:42:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tuA88-00039X-7E; Mon, 17 Mar 2025 13:03:44 +0000
+Received: by outflank-mailman (input) for mailman id 916841;
+ Mon, 17 Mar 2025 13:03:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kom6=WE=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tu9nF-0006Ka-UF
- for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 12:42:09 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3d85b730-032d-11f0-9aba-95dc52dad729;
- Mon, 17 Mar 2025 13:42:09 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-390e3b3d3f4so2563802f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 05:42:09 -0700 (PDT)
+ id 1tuA87-00039R-3a
+ for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 13:03:43 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3dd7a622-0330-11f0-9899-31a8f345e629;
+ Mon, 17 Mar 2025 14:03:38 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-39127512371so2669687f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 06:03:38 -0700 (PDT)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395c888117csm14663202f8f.44.2025.03.17.05.42.07
+ ffacd0b85a97d-395c83b69eesm15093717f8f.34.2025.03.17.06.03.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Mar 2025 05:42:08 -0700 (PDT)
+ Mon, 17 Mar 2025 06:03:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d85b730-032d-11f0-9aba-95dc52dad729
+X-Inumbo-ID: 3dd7a622-0330-11f0-9899-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1742215328; x=1742820128; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1742216617; x=1742821417; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=mombFkLQhrvyUyrJB8DEv0DVDhmEvDRHay+ZAwFp1ko=;
-        b=k6Cmb44HsBqIu2UHpHh9RZk2lcbCgzAj1bLDBFBfzrmWP27RvLMe2kg26NXQBIikug
-         Ibp2YbxptiDf9Qe0vMYbzxxaalxTnBsCohsHf9caNTsnxmpFZ5l52JjDVgwyaa25xZJ6
-         c0KbkWSi/DcrelOGRm1iJMJWr8nqkfRPGe5E8=
+        bh=iituPOWeN7/57AUuX7w7eZmcJ2mfPtwbbhqzrl7zGf0=;
+        b=IdvQK52eF7zXxkC/pcNQppnNMlUfQ2maJIjXZsOeI6H/IiJIeUke75knS6PY6fsIKi
+         euG+PZv4lParIejkDQuqHPrWlO8DkGv2xaWQ68nCgPdNqwDB+yqAj4KSy909QYmlP8vB
+         T/VFC1SZDiNA/EqZlznxQ0x7Pybttd1ga/Rpg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742215328; x=1742820128;
+        d=1e100.net; s=20230601; t=1742216617; x=1742821417;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mombFkLQhrvyUyrJB8DEv0DVDhmEvDRHay+ZAwFp1ko=;
-        b=p9r7CRXs4r1HUSDs6gGfcUpCOeETexQlagt9y5mx9vPTDpn+RmuLqnEdL4nn9kVNDA
-         LKwyTby1gBQ8i8fxWYyjJ5rM5fnJWcjYprw4tLBF9hVpjgURwh8Xw2Rb+k5y40L5Iaf4
-         5Wgy2CKqLXRuzgrMQgJRcOKFmQUSEIgV1o62KevfPlUxk0yLDQpMyBdoXP2VtnhrSWKn
-         abTu2+6nYVfuFjiiCRZyFe5YgK5JaX5A6so2BHoXbXIajkloffReMqrs3CsoZY17JnqY
-         Nnjjpt2hsV4QbyEJrfquXCjqGMgVXaDQ/BBt5sun3A+e7eLV/Q0u9ddOij+LLSGtWUk+
-         Wu2Q==
-X-Forwarded-Encrypted: i=1; AJvYcCU49/j6p4W68IexzFD0raYO4MGaRKcfQHV9Y3sH+yXRWpOqx0vjpkO1ROms4HIh3R1Pvw6WMaGSdc4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyph/uOYHyPdA/CALGyianaR1bNrpMGOuXxcf0RXo9VbjazVYsq
-	1f6h95KqEoclWkGIkzstC8pR4f/UGjG4acbmtmY4msZWc63hg2EfGsignMFpCTg=
-X-Gm-Gg: ASbGncsz3PAuV53+jccPL0UpDKrcOEMmIUpbi1mgLqY0605DgWmzgrQBmwCt+E65ixC
-	F7gM8EHeumRluY4H9LpXvpUNBnFiLX3C9/8sGrMjWZ+cuozzYe6sEImVS2EQu9albhWcZ+j0i+t
-	N5dHtEIA51vizW0DNSaYQQigLw3caayBRGF6b0JgV/JupycEoJrZPhNp+omCDEW4HO89j9yHxM6
-	inJ5Aqq/cYoPpZaJsQJmC6wm9AKXfoZYTnD6kH+o4XmYFDLx+8+s8iuZnLjsXuxi+lg/jPVra6F
-	pB6qg1lKabW53Upk7PpkZ9wZsrD2P3sA3Rz1SeNHENqa9ukhcjwjcY+5OSofn41mjqou2+ExdLr
-	E7s1n/snb
-X-Google-Smtp-Source: AGHT+IGEgSy3Mjj1BDcZX5Hnjxf6m3XWfeQQRcY5G4JmOcPjJ4yqJMEn5X7AIeQ+gRyAhrquKnXXzg==
-X-Received: by 2002:a5d:64e5:0:b0:391:496b:5646 with SMTP id ffacd0b85a97d-3971e2adae5mr10620376f8f.28.1742215328521;
-        Mon, 17 Mar 2025 05:42:08 -0700 (PDT)
-Message-ID: <d65e6700-87e9-4cb3-bf00-165e9cd4464f@citrix.com>
-Date: Mon, 17 Mar 2025 12:42:07 +0000
+        bh=iituPOWeN7/57AUuX7w7eZmcJ2mfPtwbbhqzrl7zGf0=;
+        b=tMZRyS7V8gC2UzpLzvLOWtyHxM2nDJe5fy5ULZl4L71glSqF7k+A7Do3xf79xAcaCx
+         bM/HLEVt7AGJeQhCzN/PRKZ1+4XaRZzdcJZ5BnDAY7Nvc7bfjs2yMkkyS7pjuQKlCFww
+         aN5It0Ya65TLLdmsAKLA8gfyD08uehVmUnWjwmXVTYA08JtgEqrZH4ZS/KhvNkMTYT/4
+         YUHO7jKICHrp8XI3Rf0hpV3PrG2Geo4p1zk5+WkszvWaJuVkPWUB1FmJIR1LsNO9/eqS
+         k1tjivjB96OsEytEjzU009TfTPjxJv8gp8qBydChA9erluJKf0NbuNT4zQd1jWcY33bM
+         ytgg==
+X-Forwarded-Encrypted: i=1; AJvYcCX7eb4b6grPiKTI0J0hBSakj2StLLIuhJLIVjcPzUymcOmPzfQHy/o/ITd667F+k9JMeT+6mxBZzrc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YybzJrWOY+udyMiT1jWNrzNBvxA22qz04diX64ZlavKJhcP74Hs
+	CQ4x3yxQLtwmiFN6JvCGUfZefN0KPZDhzYvzH6H1ktVj5j+7TdlvuNf404LMkqs=
+X-Gm-Gg: ASbGncsbMk+szdI9V+td3raQqIdIIMaUjVOlbJ73oEZshGairfWTIjx3UB4dt3ie8GK
+	iaVk6iXrWu6i4InmERi+RjAUc+18NK1bhpX3IMK2bB28p5p1NJ6TKHcKyVoJbOMWZmDnzTP3OCg
+	lxTzFt28HeMeed/v715eV1FYC14skdY9u1xMHL93w9THQ1Ibb78rbo5Uenwuagq9QlZn2ylZKHL
+	Zl+70gNEJp1wGIxBBtEmIiTwr6RCECowW21fW8Uz+VppZnxbkDa8C3TncgvDglDUgYRN50Ayo4J
+	wI6lheLD6ZvpktLjBhgS0DlZXSVOV+e+faZqo3TbdYBXj2lxsnKC8GaP3ijClkxG8x3Kwr/e8t3
+	0Qc9FGwMR
+X-Google-Smtp-Source: AGHT+IF+UldFh51k9l/O2zC6OSOfy6DhcKnIk97JYdNdj4AQaGB2K0o7ZMWTCZIvwtdlHKzDhSLiWA==
+X-Received: by 2002:a05:6000:2aa:b0:390:f400:2083 with SMTP id ffacd0b85a97d-3971a2a2ba7mr15568493f8f.0.1742216615948;
+        Mon, 17 Mar 2025 06:03:35 -0700 (PDT)
+Message-ID: <d6c32a72-5bf3-4d02-ab2c-a1ba04e6d8f7@citrix.com>
+Date: Mon, 17 Mar 2025 13:03:34 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] x86/hvm: add HVM-specific Kconfig
+Subject: Re: [PATCH 0/3] x86/irq: cleanup use of open-coded values
 To: dmkhn@proton.me, xen-devel@lists.xenproject.org
 Cc: anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org,
  michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
  dmukhin@ford.com
-References: <20250315011945.2927542-1-dmukhin@ford.com>
+References: <20250315010033.2917197-1-dmukhin@ford.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -135,25 +135,34 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250315011945.2927542-1-dmukhin@ford.com>
+In-Reply-To: <20250315010033.2917197-1-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15/03/2025 1:19 am, dmkhn@proton.me wrote:
-> Add a separate menu for configuring HVM build-time settings to better
-> organize HVM-specific options.
+On 15/03/2025 1:00 am, dmkhn@proton.me wrote:
+> Remove uses of open-coded value 16 in x86's interrupt management code
+> to enhance readability.
+>   
+> Patch 0 makes a cosmetic rename NR_ISAIRQS -> NR_ISA_IRQS as per
+> code review [1].
 >
-> HVM options will now appear in a dedicated sub-menu in the menuconfig
-> tool.
+> Patch 1 makes use of NR_ISA_IRQS in the code where necessary.
+>  
+> Patch 2 adds new symbol APIC_VECTOR_VALID and makes use of it.
+>  
+> No functional changes.
+>  
+> [1]: https://lore.kernel.org/xen-devel/20250314011528.2608217-1-dmukhin@ford.com/
 >
-> Also, make AMD_SVM config dependent on AMD config and INTEL_VMX on INTEL
-> respectively.
->
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> Denis Mukhin (3):
+>   x86/irq: rename NR_ISAIRQS to NR_ISA_IRQS
+>   x86/irq: use NR_ISA_IRQS instead of open-coded value
+>   x86/irq: introduce APIC_VECTOR_VALID
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+I've taken patches 1 and 2, and confirmed that 2 has no compiled delta
+in it.
 
-I'll take this as-is, and the cleanup can come later.
+I'm on the fence over 3, for similar reasons to Jan.
 
 ~Andrew
 
