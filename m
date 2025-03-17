@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EB6BA6583E
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 17:37:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.917509.1322409 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18A57A658AA
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 17:45:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.917523.1322418 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuDSz-00053Z-0U; Mon, 17 Mar 2025 16:37:29 +0000
+	id 1tuDaj-0008JT-Pz; Mon, 17 Mar 2025 16:45:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 917509.1322409; Mon, 17 Mar 2025 16:37:28 +0000
+Received: by outflank-mailman (output) from mailman id 917523.1322418; Mon, 17 Mar 2025 16:45:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuDSy-000527-T3; Mon, 17 Mar 2025 16:37:28 +0000
-Received: by outflank-mailman (input) for mailman id 917509;
- Mon, 17 Mar 2025 16:37:27 +0000
+	id 1tuDaj-0008Hm-NP; Mon, 17 Mar 2025 16:45:29 +0000
+Received: by outflank-mailman (input) for mailman id 917523;
+ Mon, 17 Mar 2025 16:45:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=J4wc=WE=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1tuDSx-00051z-RC
- for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 16:37:27 +0000
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2061a.outbound.protection.outlook.com
- [2a01:111:f403:2406::61a])
+ <SRS0=34V3=WE=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1tuDah-0008Hg-Rh
+ for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 16:45:27 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1b8dda08-034e-11f0-9aba-95dc52dad729;
- Mon, 17 Mar 2025 17:37:26 +0100 (CET)
-Received: from BL1P222CA0009.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:2c7::14)
- by DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8534.33; Mon, 17 Mar 2025 16:37:21 +0000
-Received: from MN1PEPF0000F0E5.namprd04.prod.outlook.com
- (2603:10b6:208:2c7:cafe::99) by BL1P222CA0009.outlook.office365.com
- (2603:10b6:208:2c7::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.33 via Frontend Transport; Mon,
- 17 Mar 2025 16:37:21 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000F0E5.mail.protection.outlook.com (10.167.242.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8534.20 via Frontend Transport; Mon, 17 Mar 2025 16:37:21 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 17 Mar
- 2025 11:37:20 -0500
-Received: from [172.24.79.67] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Mon, 17 Mar 2025 11:37:19 -0500
+ id 3a836279-034f-11f0-9aba-95dc52dad729;
+ Mon, 17 Mar 2025 17:45:26 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-ac27cb35309so769831466b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 09:45:26 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
+ [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ac314858a8fsm681408666b.80.2025.03.17.09.45.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 17 Mar 2025 09:45:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,151 +45,289 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1b8dda08-034e-11f0-9aba-95dc52dad729
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ogoT8aXI3yDtpjYWY1+aYBlptyVYgQj3/NU7eyLoc84lxxmvTE+nwxc1dEGaIXL//4pEMbPkbL2e5eTkgJ5023MjUF3+png3JwrTD3NsKQmpqFvPU1lVuuP2TX/I3EYZaM3HKm3cYm+qoemGhQ1vpqPXrwCjmMMhG+MRhizAC98OsRbSakObi3j3cBLTvhpr6CZfK1hX/oS/7cVJ+iJkD3aDGL5CUXzhnWvFkN3oD04uQHKzHGEjzlbRBkP1FdkK/OrKk+5JjIMoYSVz55pWcv5EodJyoFoHuuEHFSa/kXzS2tO6IMAFU+iZmRD0doa8aMgyxw6G3Wga8p8ib/yfCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sDJYWTcfnZ31VuFH5iGTJG2LI/i+KQLO7hgmYkxFWJ8=;
- b=fp3YWdB1zs5TOdPVwhO6GG/sVt1v5Orj6BsyLTo4wlMwm8qX5DtdcGY8cOiDKvq8sGt0AtmitrKBs6gjWN9rZ1MdHLMbOfjgoF9ekO3z//MvyJaxVMFzo/J6Ju4vYhg0cfnJs6vBXJJm99Sn91C126xrQZeAOUc96UXIK4DdZJNfTzdEuo6SNAv2ThTUMuufSEul6l5SvsqfTBeO2GRhde4rGaQZJu9c5Vg5tzmI9+WkgaaumhvvqlQvtyMKPRFGOHg1/8nwh25d59uvI/8KAf2e75i1ZLx5dLcQTa3pWe1BgaF/nKGqtV7mBXc0j82sJ6wSL016xULerqjKhVwmfQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sDJYWTcfnZ31VuFH5iGTJG2LI/i+KQLO7hgmYkxFWJ8=;
- b=D3s2EwUqiXMz87aHo3Z9lTtMJPJ9yNQhXW4Hws9DxVv/fTz1NGuwVcDRYZCewAcBrGtFBW1J3YNcx3uRYTq6i7o3pyKCMJNAbmX2m2I3YooP/39Fy3X4cy3vCR4SeRBIus+EqbD4W/v/5yakTuEowXvf227pLsN4yVrXWfaebaE=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <3360d9dd-9be5-4ae3-8c9a-f35e1873058b@amd.com>
-Date: Mon, 17 Mar 2025 12:37:14 -0400
+X-Inumbo-ID: 3a836279-034f-11f0-9aba-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1742229926; x=1742834726; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lLtdOXGUKb+gzM89xEuLuV0E9VyAPUANd/cKWsBd9IQ=;
+        b=dc3EUvawq2Z7S7SdWPeB/JKtqx1xhL9SdSXJaojznwFNCRcUf+QwKy0qnVn/t/3RSn
+         FEFYbbVwelpFluD9uKKxFDtur98OcXvEEbVnyMKm7OO+wa0MnBQLikKxkN0mIs/lBHh4
+         uWKIjUlHALdRLcz6UwQTFa5Q9IZx2QevFMrI6y9lloeiAwAXgbUr0U6hg7wGmejdBrDC
+         qEt8XQPaYafYVUfML7GRbRK8UwxqxNkqkbL/pIBdj2FCqBcZaEOo27hu80vHp757lLJU
+         h587o8pWNbL3KOsawnPuV2xfPQqa54h3h33eYFHwg3beTF3uYW57XQc0tRZa5yvBTkQV
+         lOrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742229926; x=1742834726;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=lLtdOXGUKb+gzM89xEuLuV0E9VyAPUANd/cKWsBd9IQ=;
+        b=AQ9s8QVTMsSVlNekvQZfLU5LYh9AxCDIFZOo6Jp+FR2eyMyHIiw2WcjrfSt6mBWb3E
+         tRDaSlDD47BYhgSGGQkQNE8M0hcHPNVzaTGSYpJbKRKZN6uM/aNRmVW0OBeyhj0Lf2K4
+         cS6DAEmmxTTFZR/ShzNuuhr/nEGZPiYoys62Os/tk8YxIRDrq5lUgTun+HGJOnflQN+Q
+         8eztsJUAyrxOpM8PXOTkduzWmJo/cIG3wbZHA2jHZTplRSHK5kBEKYxDpEe6Za+s2mO2
+         NMLDlm8QJmMjiXFZBicgD25jydM39pdSlwkB2sYlNRxnVi7YqG9oDosjMX/NmkMn3sgh
+         DVkg==
+X-Forwarded-Encrypted: i=1; AJvYcCXr2dEvmOWzyK4JjsnnoD+niM3O+YizzlMGq26r+QWVNpD6wLnqpSYGMIQmSsyI1cUMnqkd6RBTlx8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxVHC6YNqFFQgfhA6F7A2sqV+Y1jzSdY/gWflnaVD79A4XjDf0y
+	e2tZKNHEvqiuEaTaYSDgiEXUXwIbKT4EwFEMpK5nyMFNJD1l5J2r
+X-Gm-Gg: ASbGncs3ZDkZFMIBtBuNcqS1KPlmbiaWuPEFoTMwiVjM2EQHT0hPKf1EXcAgrL3GKdz
+	+QYrbe6OD77uR3P1JKLBA1ES1YMnTpC1XxMTOlj1tZHOLfAfQJ1jj9aYdT1sef2GaUwNzJkIdg6
+	qt1KasWbch9kzhnoOjI3FS5BI2KvSHBdgU8X616bjyi2XvpZ/cNhd2a2piaNY/tWcyuRTUh3LbD
+	eaFFNxomEGXKMLzWumjkzUnz0byyIZpaQTfciYfZ6V89GnkLOKxdn6ZgG/b1yuYP2KO6IYuFb5o
+	q7PPElNM/BqXUrqVAovm+OZ9eDU80zunHaTTmD1USN4pz1MhnPPeGzaE1v+mRmvPcDUsEKl7l+J
+	5qvvtqTuQy6uVRh8qq/7G
+X-Google-Smtp-Source: AGHT+IETDFFJEhlTQYTQPdXbgsQvYe9QH+AEBCdZAv7mgtBkZ0lAQungI9nRxPYW5rw8xSleVA+3PA==
+X-Received: by 2002:a17:907:c88a:b0:ac3:8976:8e4f with SMTP id a640c23a62f3a-ac389769a2fmr101323366b.2.1742229925847;
+        Mon, 17 Mar 2025 09:45:25 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------uHe4yYhL36akIsXWa8Ahth68"
+Message-ID: <3b3a97cc-9389-4fec-83bc-cdefdfa4b6a3@gmail.com>
+Date: Mon, 17 Mar 2025 17:45:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 19/23] xsm/dummy: Allow sysctls to both hardware and
- control
-To: Jan Beulich <jbeulich@suse.com>
-CC: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	<xen-devel@lists.xenproject.org>
-References: <20250306220343.203047-1-jason.andryuk@amd.com>
- <20250306220343.203047-20-jason.andryuk@amd.com>
- <9ca3ec40-7b90-444c-a682-bcb5f17bd3d4@suse.com>
+Subject: Re: [PATCH 8/8] automation/cirrus-ci: add smoke tests for the FreeBSD
+ builds
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Community Manager <community.manager@xenproject.org>
+References: <20250317121616.40687-1-roger.pau@citrix.com>
+ <20250317121616.40687-9-roger.pau@citrix.com>
 Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <9ca3ec40-7b90-444c-a682-bcb5f17bd3d4@suse.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB04.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E5:EE_|DM3PR12MB9416:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3e83b0e3-e49b-4a57-6b89-08dd6571fd45
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|82310400026|36860700013;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?ek4wNjVCdVdicitrVnBQc3VOZWh3UWdVK1ZLWUlFc2JITUo1b24yQzNndkx6?=
- =?utf-8?B?djBpOVJCT3hYcnUrTFM3N0xyelhsTjZhTGFIQ1lhYllidUg5NlFKSTc3bGVL?=
- =?utf-8?B?Ri9kZVF6N1YxNERIcFhWejJGUDhrczF1dVo4UHB3bUFQblNndlg4SUZxYlBu?=
- =?utf-8?B?bGpudVhRb1lLWStSZFUyYm9MTDNldDVmVmYzaFJMYldmaTUzMnpyNjkzZlFR?=
- =?utf-8?B?am5FbkpLVUlzYnNvSjJGOGZuZFBVU3VQanE5K09RZ0V5VUM0SjZ1ekdkVW9L?=
- =?utf-8?B?OVZrYy9OYmhZbzVUY21SQnl3NXRhK0VPYXJrbjBHdWp4NmgreXdudHhENi9X?=
- =?utf-8?B?K1NBNUdBNlkwdGlPWW9FNHNjR2dmeDlNZU5SQmtNcTFHQVpqY0NpRGluMXhB?=
- =?utf-8?B?bFl5ZCtlYjRXRS9yL0FPRkcrRUdWRldzL25TWHlKUzdJdEVPV3JwMm1tYlpZ?=
- =?utf-8?B?YlloNzVsVkE4SzN6cGlzVk83b0tJTTAxL3FJVWNjdzFWWjY2NTVPV1B2Yktr?=
- =?utf-8?B?SW9CcURmZDVNQS9ZM3lSMmYwQkRYZnpXZzROTXg3NXVwQmlYOXZSUnpycXdI?=
- =?utf-8?B?ajhBY3gyeWVabGE1L2ZaOVlXRTlpMTRaR1k2SkpDeTRSb3B1Wk9jeWtsL2tq?=
- =?utf-8?B?TjFNZ3M4SHRMNEJJSEk4cTBBWFJZbFZWallUNmExL3RkOXNBWFZJSU9TSEpI?=
- =?utf-8?B?YWZxcFFDbFlTT21kN28wdStodzFNczRJWlZhWnNxamJyVWpHRDQweUlzbkZL?=
- =?utf-8?B?NWhFeDRHOEQxOHFmNTNzaW5JS1NhVDN1b3IwSGJEZG5UMU9lSENaZEVnNFUw?=
- =?utf-8?B?RzNnWGVmeG9vekh1MEdRbzNFVldxUzhnWEpDS012dW1LUElFZWp0dk9CM0dj?=
- =?utf-8?B?bWRBeVB6NVVxZFFPQVdiM3F4ZEpRTmxXNlVZM0dMdXR5S3JaL1prOVI4QzBB?=
- =?utf-8?B?VFFsTEtKWjdFalZWVGdIMXd0RXVvc2hLaFd0NWR6L3FVYXNmd2ErQ093UXI3?=
- =?utf-8?B?d1E4RXkvdEhJbHlkdVBWeXk5eTZiSlpKSVNYWlRCYU9rM0l5Uy9UN0x4aU9Z?=
- =?utf-8?B?aWIySVhDYjFBRWIrak5PWTU4dXAyOE83bDR5bHhRVGdwdkpjRDM3UUx2YkEr?=
- =?utf-8?B?bkFVV2lET1ZqYnQ1MEJTWFRrM0VSS0RYWkVDMlZRNk9rZWNKR1hJR1pDYjF3?=
- =?utf-8?B?NC9HQ1hySTFEUm9DTWRDZHhPR3hPek0zYWdIYk03c0FLajkveEJIUVNXTlBF?=
- =?utf-8?B?ZTE2YW9oYXFPL1VaU3NJL09BVitvWGJTUTBuWlRaVlBZeEo3aFcydzdzQm1v?=
- =?utf-8?B?NjNvVSszOWN1M2w1RnYwN3BSd1pkaFNJWnF5T1NJYjk0R3VXb29hUDRSdXdF?=
- =?utf-8?B?NStpVEZnYmVManU4MVVZempweFRUcmE3SG1xdy9Gek5sZjh2N1hPT1hhcFdP?=
- =?utf-8?B?NCtBc0dPQUNtWEt5WXZhMzZpQ1FLK0hVRjREdTV0UUt5MjZsNnR1UG10R3NT?=
- =?utf-8?B?dWgyZVQvR1Y0Mnl5NGVuVU1UblhFeWh5VVhWZER1bGtFWFVwTWk3aFYwRkxD?=
- =?utf-8?B?RTZ0YTlHaGQyaUhUbWhuOVV6Tk5JNXZtRHlBdXY0WmxvUE53OXAzbnZ1bmhL?=
- =?utf-8?B?bXVoZk5tUTdwaGYvVWo2WEZBU1hFWTRDZG5tQXVhakttRjczbW1WejRUZytl?=
- =?utf-8?B?c0w2T2NkNmdJNStZQjZ1ZWwvYml0eSsxUDAzQVlNQ1N4QnhpWVpHMDRVWVhE?=
- =?utf-8?B?NjR2MWk0VnlDMkNBN2RoMXhwdjJQNVRjd2hObzA5amthOWtvVkF1RlRIOHE0?=
- =?utf-8?B?dUFZdGJxQzg5bEcwa2xLK0o5YllJeEhEZ0J0Uy9aaXErN1RCSEZpUU9oQ2pE?=
- =?utf-8?B?d1lubm43c3RIaDJIbW42a3pjWjFPN01zK1diUlRJOCtzZ0IwVDJDaW03cVRn?=
- =?utf-8?B?RzVYRWJsQythRTh5NU1Wd1llR3RneGdZL2RxQnpuR0p6YUVGS0pWZzhHSEty?=
- =?utf-8?Q?02kaxZn+NOtUlucVopAHqNqKfMJOUU=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2025 16:37:21.0904
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3e83b0e3-e49b-4a57-6b89-08dd6571fd45
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000F0E5.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9416
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <20250317121616.40687-9-roger.pau@citrix.com>
 
-On 2025-03-17 10:36, Jan Beulich wrote:
-> On 06.03.2025 23:03, Jason Andryuk wrote:
->> xl queries SYSCTL_physinfo for the physical cpus:
->> domU:~# xl list
->> libxl: error: libxl_utils.c:817:libxl_cpu_bitmap_alloc: failed to retrieve the maximum number of cpus
->> libxl: error: libxl_utils.c:817:libxl_cpu_bitmap_alloc: failed to retrieve the maximum number of cpus
->> libxl: error: libxl_utils.c:817:libxl_cpu_bitmap_alloc: failed to retrieve the maximum number of cpus
->> Name                    ID   Mem VCPUs        State   Time(s)
->> Domain-0                 0   800     1     r-----     130.0
->> dom0less-1               1   400     1     r-----     130.3
->> dom0less-2               2   800     1     r-----     130.3
->>
->> Hardware and control are both privileged.  Allow them both access to
->> sysctls so they have insight into the running system.  This is coarse
->> grained permissions for the dummy policy.
-> 
-> In an earlier patch you alluded to the control domain being guarded against
-> the hardware one. Shouldn't hwdom be limited operations retrieving info,
-> but refused to make any changes to the system? Or maybe some kinds of
-> changes are to be done by hwdom, but then shouldn't be possible to be made
-> by the control domain?
+This is a multi-part message in MIME format.
+--------------uHe4yYhL36akIsXWa8Ahth68
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-As an example, with ACPI living in the hardware_domain, it would be the 
-domain to issue XEN_SYSCTL_pm_op to upload cpufreq data.  But then 
-control domain should be in charge of controlling how the system is 
-running by setting cpufreq parameters.
 
->> --- a/xen/include/xsm/dummy.h
->> +++ b/xen/include/xsm/dummy.h
->> @@ -194,9 +194,10 @@ static XSM_INLINE int cf_check xsm_sysctl(XSM_DEFAULT_ARG int cmd)
->>       case XEN_SYSCTL_getdomaininfolist:
->>           return xsm_default_action(XSM_XS_PRIV, current->domain, NULL);
->>       case XEN_SYSCTL_readconsole:
->> -    case XEN_SYSCTL_physinfo:
-> 
-> Didn't you add this line just a single patch ago?
+On 3/17/25 1:16 PM, Roger Pau Monne wrote:
+> Introduce a basic set of smoke tests using the XTF selftest image, and run
+> them on QEMU.  Use the matrix keyword to create a different task for each
+> XTF flavor on each FreeBSD build.
+>
+> Signed-off-by: Roger Pau Monné<roger.pau@citrix.com>
+> ---
+> I've used the current version of FreeBSD to run the tests, but it might be
+> safer to use the latest production (release) version instead.
+> ---
+>   .cirrus.yml  | 54 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+>   CHANGELOG.md |  1 +
 
-Yes.  The previous patch was a minimal change.  This patch is a maximal 
-change.  I thought this could be rejected and didn't want to merge the 
-two.  Though XEN_SYSCTL_physinfo should be handled better even for the 
-minimal change.
+Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+~ Oleksii
 
-This patch may go too far, hardware domain does have legitimate use to 
-some sysctls.  For a coarse, base policy I went with allowing more to 
-hardware domain.  Hardware domain can't be untrusted, so I erred on the 
-side of more permissions rather than fewer.
+>   2 files changed, 55 insertions(+)
+>
+> diff --git a/.cirrus.yml b/.cirrus.yml
+> index c74d5cf6eb9a..9c8b4b235cfd 100644
+> --- a/.cirrus.yml
+> +++ b/.cirrus.yml
+> @@ -5,6 +5,8 @@ freebsd_versions: &FREEBSD_VERSIONS
+>       FREEBSD_14: freebsd-14-2
+>       FREEBSD_15: freebsd-15-0-snap
+>   
+> +# Build jobs
+> +
+>   freebsd_template: &FREEBSD_ENV
+>     environment:
+>       APPEND_LIB: /usr/local/lib
+> @@ -118,3 +120,55 @@ task:
+>     xtf_artifacts:
+>       path: xtf/tests/selftest/test-*-selftest
+>       type: application/octet-stream
+> +
+> +# Test jobs
+> +
+> +task:
+> +  name: 'FreeBSD: XTF selftest'
+> +
+> +  << : *FREEBSD_ENV_LATEST
+> +
+> +  env:
+> +    matrix:
+> +      FREEBSD_BUILD: $FREEBSD_13
+> +      FREEBSD_BUILD: $FREEBSD_14
+> +      FREEBSD_BUILD: $FREEBSD_15
+> +
+> +  depends_on:
+> +    - freebsd_full_$FREEBSD_BUILD
+> +    - xtf
+> +
+> +  install_script: pkg install -y qemu-nox11 expect
+> +
+> +  env:
+> +    matrix:
+> +      XTF_ARCH: hvm32
+> +      XTF_ARCH: hvm32pae
+> +      XTF_ARCH: hvm32pse
+> +      XTF_ARCH: hvm64
+> +      XTF_ARCH: pv64
+> +
+> +  fetch_script:
+> +    - fetchhttps://api.cirrus-ci.com/v1/artifact/build/$CIRRUS_BUILD_ID/xtf/xtf.zip
+> +    - fetchhttps://api.cirrus-ci.com/v1/artifact/build/$CIRRUS_BUILD_ID/freebsd_full_$FREEBSD_BUILD/xen.zip
+> +    - unzip xtf.zip
+> +    - unzip xen.zip
+> +
+> +  test_script: |
+> +    case "$XTF_ARCH" in \
+> +      *hvm*) \
+> +        XEN_EXTRA_CMD="dom0=pvh dom0-iommu=none" \
+> +        ;; \
+> +    esac
+> +    export TEST_CMD="qemu-system-x86_64 -kernel xen/xen -initrd xtf/tests/selftest/test-${XTF_ARCH}-selftest \
+> +                                        -append \"loglvl=all console=com1 noreboot console_timestamps=boot dom0=verbose ${XEN_EXTRA_CMD}\" \
+> +                                        -m 512 -nographic -monitor none -serial stdio"
+> +    export TEST_LOG="serial-${FREEBSD_BUILD}-${XTF_ARCH}.txt"
+> +    export PASSED="Test result: SUCCESS"
+> +    export TEST_TIMEOUT=120
+> +    ./automation/scripts/console.exp | sed 's/\r\+$//'
+> +
+> +  always:
+> +    serial_artifacts:
+> +      path: serial-*.txt
+> +      type: text/plain
+> diff --git a/CHANGELOG.md b/CHANGELOG.md
+> index 7201c484f899..16c14e933c80 100644
+> --- a/CHANGELOG.md
+> +++ b/CHANGELOG.md
+> @@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>    - On x86:
+>      - Option to attempt to fixup p2m page-faults on PVH dom0.
+>      - Resizable BARs is supported for PVH dom0.
+> +   - Smoke tests for the FreeBSD Xen builds in Cirrus CI.
+>   
+>   ### Removed
+>   
+--------------uHe4yYhL36akIsXWa8Ahth68
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Regards,
-Jason
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 3/17/25 1:16 PM, Roger Pau Monne
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:20250317121616.40687-9-roger.pau@citrix.com">
+      <pre wrap="" class="moz-quote-pre">Introduce a basic set of smoke tests using the XTF selftest image, and run
+them on QEMU.  Use the matrix keyword to create a different task for each
+XTF flavor on each FreeBSD build.
+
+Signed-off-by: Roger Pau Monné <a class="moz-txt-link-rfc2396E" href="mailto:roger.pau@citrix.com">&lt;roger.pau@citrix.com&gt;</a>
+---
+I've used the current version of FreeBSD to run the tests, but it might be
+safer to use the latest production (release) version instead.
+---
+ .cirrus.yml  | 54 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ CHANGELOG.md |  1 +</pre>
+    </blockquote>
+    <pre>Acked-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+~ Oleksii</pre>
+    <blockquote type="cite"
+      cite="mid:20250317121616.40687-9-roger.pau@citrix.com">
+      <pre wrap="" class="moz-quote-pre">
+ 2 files changed, 55 insertions(+)
+
+diff --git a/.cirrus.yml b/.cirrus.yml
+index c74d5cf6eb9a..9c8b4b235cfd 100644
+--- a/.cirrus.yml
++++ b/.cirrus.yml
+@@ -5,6 +5,8 @@ freebsd_versions: &amp;FREEBSD_VERSIONS
+     FREEBSD_14: freebsd-14-2
+     FREEBSD_15: freebsd-15-0-snap
+ 
++# Build jobs
++
+ freebsd_template: &amp;FREEBSD_ENV
+   environment:
+     APPEND_LIB: /usr/local/lib
+@@ -118,3 +120,55 @@ task:
+   xtf_artifacts:
+     path: xtf/tests/selftest/test-*-selftest
+     type: application/octet-stream
++
++# Test jobs
++
++task:
++  name: 'FreeBSD: XTF selftest'
++
++  &lt;&lt; : *FREEBSD_ENV_LATEST
++
++  env:
++    matrix:
++      FREEBSD_BUILD: $FREEBSD_13
++      FREEBSD_BUILD: $FREEBSD_14
++      FREEBSD_BUILD: $FREEBSD_15
++
++  depends_on:
++    - freebsd_full_$FREEBSD_BUILD
++    - xtf
++
++  install_script: pkg install -y qemu-nox11 expect
++
++  env:
++    matrix:
++      XTF_ARCH: hvm32
++      XTF_ARCH: hvm32pae
++      XTF_ARCH: hvm32pse
++      XTF_ARCH: hvm64
++      XTF_ARCH: pv64
++
++  fetch_script:
++    - fetch <a class="moz-txt-link-freetext" href="https://api.cirrus-ci.com/v1/artifact/build/$CIRRUS_BUILD_ID/xtf/xtf.zip">https://api.cirrus-ci.com/v1/artifact/build/$CIRRUS_BUILD_ID/xtf/xtf.zip</a>
++    - fetch <a class="moz-txt-link-freetext" href="https://api.cirrus-ci.com/v1/artifact/build/$CIRRUS_BUILD_ID/freebsd_full_$FREEBSD_BUILD/xen.zip">https://api.cirrus-ci.com/v1/artifact/build/$CIRRUS_BUILD_ID/freebsd_full_$FREEBSD_BUILD/xen.zip</a>
++    - unzip xtf.zip
++    - unzip xen.zip
++
++  test_script: |
++    case "$XTF_ARCH" in \
++      *hvm*) \
++        XEN_EXTRA_CMD="dom0=pvh dom0-iommu=none" \
++        ;; \
++    esac
++    export TEST_CMD="qemu-system-x86_64 -kernel xen/xen -initrd xtf/tests/selftest/test-${XTF_ARCH}-selftest \
++                                        -append \"loglvl=all console=com1 noreboot console_timestamps=boot dom0=verbose ${XEN_EXTRA_CMD}\" \
++                                        -m 512 -nographic -monitor none -serial stdio"
++    export TEST_LOG="serial-${FREEBSD_BUILD}-${XTF_ARCH}.txt"
++    export PASSED="Test result: SUCCESS"
++    export TEST_TIMEOUT=120
++    ./automation/scripts/console.exp | sed 's/\r\+$//'
++
++  always:
++    serial_artifacts:
++      path: serial-*.txt
++      type: text/plain
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 7201c484f899..16c14e933c80 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](<a class="moz-txt-link-freetext" href="https://keepachangelog.com/en/1.0.0/">https://keepachangelog.com/en/1.0.0/</a>)
+  - On x86:
+    - Option to attempt to fixup p2m page-faults on PVH dom0.
+    - Resizable BARs is supported for PVH dom0.
++   - Smoke tests for the FreeBSD Xen builds in Cirrus CI.
+ 
+ ### Removed
+ 
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------uHe4yYhL36akIsXWa8Ahth68--
 
