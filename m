@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 858DBA650D5
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 14:29:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.916881.1321892 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9A79A65133
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 14:34:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.916892.1321901 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuAWu-0001WZ-RA; Mon, 17 Mar 2025 13:29:20 +0000
+	id 1tuAba-00049L-Av; Mon, 17 Mar 2025 13:34:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 916881.1321892; Mon, 17 Mar 2025 13:29:20 +0000
+Received: by outflank-mailman (output) from mailman id 916892.1321901; Mon, 17 Mar 2025 13:34:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuAWu-0001TT-Ns; Mon, 17 Mar 2025 13:29:20 +0000
-Received: by outflank-mailman (input) for mailman id 916881;
- Mon, 17 Mar 2025 13:29:20 +0000
+	id 1tuAba-00046u-8G; Mon, 17 Mar 2025 13:34:10 +0000
+Received: by outflank-mailman (input) for mailman id 916892;
+ Mon, 17 Mar 2025 13:34:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kom6=WE=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tuAWu-0001TM-1I
- for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 13:29:20 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
+ id 1tuAbZ-00046o-9h
+ for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 13:34:09 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d1dff809-0333-11f0-9899-31a8f345e629;
- Mon, 17 Mar 2025 14:29:14 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-39127512371so2689542f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 06:29:14 -0700 (PDT)
+ id 80202f53-0334-11f0-9899-31a8f345e629;
+ Mon, 17 Mar 2025 14:34:07 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-3996af42857so68295f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 06:34:07 -0700 (PDT)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d1fe065b0sm104385395e9.14.2025.03.17.06.29.13
+ ffacd0b85a97d-395c83b6a27sm15215081f8f.31.2025.03.17.06.34.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Mar 2025 06:29:13 -0700 (PDT)
+ Mon, 17 Mar 2025 06:34:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d1dff809-0333-11f0-9899-31a8f345e629
+X-Inumbo-ID: 80202f53-0334-11f0-9899-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1742218154; x=1742822954; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1742218447; x=1742823247; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=hStTkF7j2otea7P+xm7CmRMLUm81O+hHPxrJVVQiLl4=;
-        b=FNBpFk0GRDBp5Rt8KBDttqvbaSmxfpO82Ma5hMxd7rt1JDhAxBBarxtnZOOOUBwFtY
-         udoZqvsVoXTteYgz5ywSyNbMYAveYAeI+pdcETWQSRalWfPaHX2+eKkkb3V307HM29Kj
-         MOHrZlCiEGIzSJGlq5ONk7NBpNdA3L26bA1Yg=
+        bh=5u+PQ7Wy1rSWKvAKqXkJ9a+LjL+Cz/yG5Dbo6siKkag=;
+        b=g7otuO2KoODS1r1L9txjdxbOSLyvAA3iaacaLnC4bno7AySFqLMMUt50Go+q+azG1a
+         PMKguJrP9vSi+uIAc8J4Pn5Ikp0dhCDlsoVuV1kfVFK3l1XUq6jvZE3cEBovLkMq/v4a
+         Qho47amXxPk1XvowPzSTk9soLn7GzRKd/ddwI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742218154; x=1742822954;
+        d=1e100.net; s=20230601; t=1742218447; x=1742823247;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hStTkF7j2otea7P+xm7CmRMLUm81O+hHPxrJVVQiLl4=;
-        b=FPKt0jed51amuuUmq1lgjzzHNkOedzQL5Ka2cmRIILtZynicvqrr773HCCkzBF0HNi
-         KpNYAD+LZ1AMGYAyK7WGcp2p8VyvGZDWyLIfZkiTj9zJ8mI8psi8G+B1h0JgMhnMW44J
-         Ryy6STcGkDrMNgAEy2KFINQrC31MULIVgq3umLbJTTzsZ+zpmgwexwPBjVpdv+yUqntM
-         DlR8NHw+XoXk8ojTg4/WtIRcwvpwyIScBYvVDWV109OoKNMtfrr3gHAANIXzRwjHWFi/
-         X99kowZXjQLAJxp0AZ8NeYej6HCk0JrzlIGsl+E6imojq13c9fmaEgIOHAatbsNaoUZI
-         Zntg==
-X-Forwarded-Encrypted: i=1; AJvYcCVzMVgIW9E7QBnjGFtPWwJqYDoUpnEdmNuCgVMGr4d60limfeFXS+Ah2r5atIWaJoPWDab2UckxYWI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzOpaw9wAAMiEqGL03WWAnHgY8d4XTDZLdTMJptgJqpnjwFJNOy
-	95mSNmXP8k2kaBNCnJVRuFatgTq9SM+8Rl1RXn5zJyo4GFavyFgYWMM/KCWhrYU=
-X-Gm-Gg: ASbGncslB5AroIedRY7KOpFM8U5VtbjmDGjswckG8jmtmGi2ZyGCbWSeQGN6i673kXN
-	apd4ivGM+NiHiEtn0angd87iMd7HV7Hcju1PynZ7Lk5N6Q/vuVqgQOwvcCaBkfKVYLkoCe3+jOJ
-	kskLOUmtjsroZ4RSAihYZTPbGHPMOaEkt2KpRr4seXbzUT3jWLAAEbRIIHZBb55WQpxNqtbJddW
-	O0S7CJeyNyLi1GQM+wMF8XcMG+QUoqubAK8yjZ+ARrqXy1LymVeoVwXWuSS2KurCSpQAp/hPMCS
-	d5lJgAn/5PjUcALgUynMSiQU7Xkjn5/z5VqaI0mU44mtFghUxuh+yI7IfGrOjOCJZ7QJC/YNk5q
-	h2x1MJyR2
-X-Google-Smtp-Source: AGHT+IGcZ2MjuHGarvTM76iqT8zzZB/enpembMVjcg1YGOPPpK9NDPJyTuwSTMckHhhZ52Gai1fZ6A==
-X-Received: by 2002:a05:6000:2aa:b0:390:f400:2083 with SMTP id ffacd0b85a97d-3971a2a2ba7mr15686698f8f.0.1742218154269;
-        Mon, 17 Mar 2025 06:29:14 -0700 (PDT)
-Message-ID: <ddc56efc-5f18-45db-85c2-1749e8ef715a@citrix.com>
-Date: Mon, 17 Mar 2025 13:29:12 +0000
+        bh=5u+PQ7Wy1rSWKvAKqXkJ9a+LjL+Cz/yG5Dbo6siKkag=;
+        b=piDrSUQdEpQPdFz8yH5KLSbp32A/rGPzVOL91Zxj9VDRnvktwKAd3mBZvr25Hn1RA0
+         9ZuD7P3siwIHlxyyqr90oUohtHVaK8l+RFk61rXOyfel/MSnFFkwmnNVhlVJ2rg+PHgj
+         SoXEEOTBPbk90t+zO+KEYEOGeKtDJqHwGWRwp45OoAYjHt++2U2mQPvZALMDUCaDLRFX
+         ZxCk/2OEuniOr+Sgk/YP2ANCG0X2yKxDoZJQ2kpq85DNFP/W8veECktTZba0OFG/hk2r
+         9ApyWSCZKf+FAwbucq2/efNQUTaznun2LGt78F8+N0ghjIUkt2jqIVVuKUvYxcitvJlg
+         yEzg==
+X-Forwarded-Encrypted: i=1; AJvYcCVRt7NdsxOFuOnmmbJITff+M0tL2nU+hUGJKCKr4oEWvGqnibxbtsUmuHWkN8Mhcu7NN1xRqwbhXlg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwbKu913z43FLKm0HVqP7nVFvXwh9kFgjG9lMg/o5rN5Zhdx8WO
+	8IVPTYiwuBcoYmn7KxG5BKffUnlXvWAMzLbKpA/qSI40M9YZhfmYhUZUEBmaeZk=
+X-Gm-Gg: ASbGnctwVqJ2GAn0OLBStbAYKa/lVaXa6dShzHx6MqUEh4incq5UqBdj7mwo5NRKRUE
+	Gp0DULWeGqt5UisUUpkTBimhl/OOUrwiXlmR6N116z7b1/ISwXZQ822Sst9VR/uaHF07W8pMyWq
+	TqamlPkdCPd+jCyBhj2ZRdPT2FNXG3WTT/slLyX8DZUUNUUSaIBX/CICfUBwO+/qzqDpDPDQ2tr
+	GnV16E4ZaK+ptIEpL+VU44m16JRYd9foXr7HXmkTrsn0GnazeszwdyDHDrl3Lv7ycbXJgjm06Ez
+	VIfEJ3mQyReH7pfzSd1C5xL7LKYDGdImk1rcpVPEDnDCD0ZZFyEfgi6XW9g5iZwa17ZAqCUiXIL
+	XeiUhnLUw
+X-Google-Smtp-Source: AGHT+IHIhhiu++HMEBnwawbD0hyqkPqyirrvrN2VJLdElAnchAKa0Hp/IzGe+56hyFsyjtoS0tNVXQ==
+X-Received: by 2002:a05:6000:186d:b0:390:f9e0:f0d0 with SMTP id ffacd0b85a97d-3971b9f6811mr14890513f8f.6.1742218446710;
+        Mon, 17 Mar 2025 06:34:06 -0700 (PDT)
+Message-ID: <6f0aa9e8-4176-4360-8031-625d99096452@citrix.com>
+Date: Mon, 17 Mar 2025 13:34:05 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Xen panic when shutting down ARINC653 cpupool
-To: "Choi, Anderson" <Anderson.Choi@boeing.com>, =?UTF-8?B?SsO8cmdlbiBHcm8=?=
- =?UTF-8?B?w58=?= <jgross@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: "nathan.studer@dornerworks.com" <nathan.studer@dornerworks.com>,
- "stewart@stew.dk" <stewart@stew.dk>,
- "Weber (US), Matthew L" <matthew.l.weber3@boeing.com>,
- "Whitehead (US), Joshua C" <joshua.c.whitehead@boeing.com>
-References: <BN0P110MB21487F77F8E578780A3FE44490DFA@BN0P110MB2148.NAMP110.PROD.OUTLOOK.COM>
- <fd4fe44c-6c8d-402c-8b0f-466cf596f8af@suse.com>
- <BN0P110MB21482540CB855953D54BAB1090DFA@BN0P110MB2148.NAMP110.PROD.OUTLOOK.COM>
+Subject: Re: [PATCH v2] x86/hvm: Use for_each_set_bit() in
+ hvm_emulate_writeback()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250314204920.118065-1-andrew.cooper3@citrix.com>
+ <781a020c-351d-4211-ae51-8057646c28e2@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -140,118 +136,64 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <BN0P110MB21482540CB855953D54BAB1090DFA@BN0P110MB2148.NAMP110.PROD.OUTLOOK.COM>
+In-Reply-To: <781a020c-351d-4211-ae51-8057646c28e2@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 17/03/2025 1:21 pm, Choi, Anderson wrote:
-> Jürgen,
+On 17/03/2025 9:09 am, Jan Beulich wrote:
+> On 14.03.2025 21:49, Andrew Cooper wrote:
+>> ... which is more consise than the opencoded form, and more efficient when
+>> compiled.
+>>
+>> For production VMs, ~100% of emulations are simple MOVs, so it is likely that
+>> there are no segments to write back.
+>>
+>> Furthermore, now that find_{first,next}_bit() are no longer in use, the
+>> seg_reg_{accessed,dirty} fields aren't forced to be unsigned long, although
+>> they do need to remain unsigned int because of __set_bit() elsewhere.
+>>
+>> No functional change.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 >
->> On 17.03.25 06:07, Choi, Anderson wrote:
->>> I'd like to report xen panic when shutting down an ARINC653 domain 
->>> with the following setup. Note that this is only observed when 
->>> CONFIG_DEBUG is enabled.
->>>
->>> [Test environment]
->>> Yocto release : 5.05
->>> Xen release : 4.19 (hash = 026c9fa29716b0ff0f8b7c687908e71ba29cf239)
->>> Target machine : QEMU ARM64
->>> Number of physical CPUs : 4
->>>
->>> [Xen config]
->>> CONFIG_DEBUG = y
->>>
->>> [CPU pool configuration files]
->>> cpupool_arinc0.cfg
->>> - name= "Pool-arinc0"
->>> - sched="arinc653"
->>> - cpus=["2"]
->>>
->>> [Domain configuration file]
->>> dom1.cfg
->>> - vcpus = 1
->>> - pool = "Pool-arinc0"
->>>
->>> $ xl cpupool-cpu-remove Pool-0 2
->>> $ xl cpupool-create -f cpupool_arinc0.cfg $ xl create dom1.cfg $ 
->>> a653_sched -P Pool-arinc0 dom1:100
->>>
->>> ** Wait for DOM1 to complete boot.**
->>>
->>> $ xl shutdown dom1
->>>
->>> [xen log] root@boeing-linux-ref:~# xl shutdown dom1 Shutting down 
->>> domain 1 root@boeing-linux-ref:~# (XEN) Assertion '!in_irq() &&
->>> (local_irq_is_enabled() || num_online_cpus() <= 1)' failed at
->>> common/xmalloc_tlsf.c:714 (XEN) ----[ Xen-4.19.1-pre  arm64  debug=y 
->>> Tainted: I      ]---- (XEN) CPU:    2 (XEN) PC:     00000a000022d2b0
->>> xfree+0x130/0x1a4 (XEN) LR:     00000a000022d2a4 (XEN) SP:    
->>> 00008000fff77b50 (XEN) CPSR:   00000000200002c9 MODE:64-bit EL2h
->>> (Hypervisor, handler) ... (XEN) Xen call trace: (XEN)   
->>> [<00000a000022d2b0>] xfree+0x130/0x1a4 (PC) (XEN)   
->>> [<00000a000022d2a4>] xfree+0x124/0x1a4 (LR) (XEN)   
->>> [<00000a00002321f0>] arinc653.c#a653sched_free_udata+0x50/0xc4 (XEN)   
->>> [<00000a0000241bc0>] core.c#sched_move_domain_cleanup+0x5c/0x80 (XEN)  
->>>  [<00000a0000245328>] sched_move_domain+0x69c/0x70c (XEN)   
->>> [<00000a000022f840>] cpupool.c#cpupool_move_domain_locked+0x38/0x70
->>> (XEN)    [<00000a0000230f20>] cpupool_move_domain+0x34/0x54 (XEN)   
->>> [<00000a0000206c40>] domain_kill+0xc0/0x15c (XEN)   
->>> [<00000a000022e0d4>] do_domctl+0x904/0x12ec (XEN)   
->>> [<00000a0000277a1c>] traps.c#do_trap_hypercall+0x1f4/0x288 (XEN)   
->>> [<00000a0000279018>] do_trap_guest_sync+0x448/0x63c (XEN)   
->>> [<00000a0000262c80>] entry.o#guest_sync_slowpath+0xa8/0xd8 (XEN) 
->>> (XEN)
->>> (XEN) **************************************** (XEN) Panic on CPU 2:
->>> (XEN) Assertion '!in_irq() && (local_irq_is_enabled() ||
->>> num_online_cpus() <= 1)' failed at common/xmalloc_tlsf.c:714 (XEN)
->>> ****************************************
->>>
->>> In commit 19049f8d (sched: fix locking in a653sched_free_vdata()), 
->>> locking
->> was introduced to prevent a race against the list manipulation but 
->> leads to assertion failure when the ARINC 653 domain is shutdown.
->>> I think this can be fixed by calling xfree() after
->>> spin_unlock_irqrestore() as shown below.
->>>
->>> xen/common/sched/arinc653.c | 3 ++-
->>>   1 file changed, 2 insertions(+), 1 deletion(-) diff --git 
->>> a/xen/common/sched/arinc653.c b/xen/common/sched/arinc653.c index 
->>> 7bf288264c..1615f1bc46 100644
->>> --- a/xen/common/sched/arinc653.c
->>> +++ b/xen/common/sched/arinc653.c
->>> @@ -463,10 +463,11 @@ a653sched_free_udata(const struct scheduler 
->>> *ops,
->> void *priv)
->>>       if ( !is_idle_unit(av->unit) )
->>>           list_del(&av->list);
->>> -    xfree(av);
->>>       update_schedule_units(ops);
->>>       
->>>       spin_unlock_irqrestore(&sched_priv->lock, flags);
->>> +
->>> +    xfree(av);
->>>   }
->>> Can I hear your opinion on this?
->> Yes, this seems the right way to fix the issue.
->>
->> Could you please send a proper patch (please have a look at [1] in 
->> case you are unsure how a proper patch should look like)?
->>
->> Juergen
->>
->> [1]
->> http://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=docs/process/sending
->> -
->> patches.pandoc
-> Thanks for your opinion. Let me read through the link and submit the patch.
+>> I still can't persuade GCC to do the early exit prior to establishing the
+>> stack frame, and unlike do_livepatch_work(), it's not critical enough to
+>> require noinline games.
+> Then is ...
+>
+>> --- a/xen/arch/x86/hvm/emulate.c
+>> +++ b/xen/arch/x86/hvm/emulate.c
+>> @@ -3022,18 +3022,16 @@ void hvm_emulate_init_per_insn(
+>>  void hvm_emulate_writeback(
+>>      struct hvm_emulate_ctxt *hvmemul_ctxt)
+>>  {
+>> -    enum x86_segment seg;
+>> +    struct vcpu *curr;
+>> +    unsigned int dirty = hvmemul_ctxt->seg_reg_dirty;
+>>  
+>> -    seg = find_first_bit(&hvmemul_ctxt->seg_reg_dirty,
+>> -                         ARRAY_SIZE(hvmemul_ctxt->seg_reg));
+>> +    if ( likely(!dirty) )
+>> +        return;
+> ... this worthwhile at all? I'm surprised anyway that I see you use likely()
+> here, when generally you argue against its use.
 
-Other good references are:
+No, it's not worth it.  In fact, simplifying makes the function smaller.
 
-https://lore.kernel.org/xen-devel/20250313093157.30450-1-jgross@suse.com/
-https://lore.kernel.org/xen-devel/d8c08c22-ee70-4c06-8fcd-ad44fc0dc58f@suse.com/
+void hvm_emulate_writeback(
+    struct hvm_emulate_ctxt *hvmemul_ctxt)
+{
+    struct vcpu *curr = current;
+    unsigned int dirty = hvmemul_ctxt->seg_reg_dirty;
 
-One you hopefully recognise, and the other is another bugfix to ARINC
-noticed by the Coverity run over the weekend.
+    for_each_set_bit ( seg, dirty )
+        hvm_set_segment_register(curr, seg, &hvmemul_ctxt->seg_reg[seg]);
+}
+
+gets a bloat-o-meter score of 131 down to 72 (-59).
+
+Are you happy for your R-by to stand, given this adjustment?
 
 ~Andrew
 
