@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80C9FA6548B
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 15:57:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.917100.1322101 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D58D0A654F0
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 16:05:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.917146.1322127 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuBtb-0006FG-AQ; Mon, 17 Mar 2025 14:56:51 +0000
+	id 1tuC18-0001Je-GI; Mon, 17 Mar 2025 15:04:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 917100.1322101; Mon, 17 Mar 2025 14:56:51 +0000
+Received: by outflank-mailman (output) from mailman id 917146.1322127; Mon, 17 Mar 2025 15:04:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuBtb-0006Cc-74; Mon, 17 Mar 2025 14:56:51 +0000
-Received: by outflank-mailman (input) for mailman id 917100;
- Mon, 17 Mar 2025 14:56:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=UoSe=WE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tuBta-0006CW-4t
- for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 14:56:50 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0d7e4d03-0340-11f0-9aba-95dc52dad729;
- Mon, 17 Mar 2025 15:56:48 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-4394036c0efso14915395e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 07:56:48 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395cb7ec14bsm15154422f8f.100.2025.03.17.07.56.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Mar 2025 07:56:47 -0700 (PDT)
+	id 1tuC18-0001HA-D2; Mon, 17 Mar 2025 15:04:38 +0000
+Received: by outflank-mailman (input) for mailman id 917146;
+ Mon, 17 Mar 2025 15:04:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=J4wc=WE=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1tuC17-0001Gy-HD
+ for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 15:04:37 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20625.outbound.protection.outlook.com
+ [2a01:111:f403:200a::625])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 22a0d507-0341-11f0-9899-31a8f345e629;
+ Mon, 17 Mar 2025 16:04:35 +0100 (CET)
+Received: from BL0PR1501CA0034.namprd15.prod.outlook.com
+ (2603:10b6:207:17::47) by MW4PR12MB6952.namprd12.prod.outlook.com
+ (2603:10b6:303:207::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.33; Mon, 17 Mar
+ 2025 15:04:27 +0000
+Received: from BL02EPF0001A0FF.namprd03.prod.outlook.com
+ (2603:10b6:207:17:cafe::66) by BL0PR1501CA0034.outlook.office365.com
+ (2603:10b6:207:17::47) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.28 via Frontend Transport; Mon,
+ 17 Mar 2025 15:04:26 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF0001A0FF.mail.protection.outlook.com (10.167.242.106) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8534.20 via Frontend Transport; Mon, 17 Mar 2025 15:04:26 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 17 Mar
+ 2025 10:04:26 -0500
+Received: from [172.24.79.67] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Mon, 17 Mar 2025 10:04:25 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,190 +59,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d7e4d03-0340-11f0-9aba-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742223408; x=1742828208; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=osOn3GFo3q5/DPuTeDnhQ4u6DQUGkLET9/F9zhspBGg=;
-        b=ROixsBu2EGJOcQ4h16UadfkKvjvwXefKwBAlYeUjGqRSGWcJXjNEKasxtDb9YqY3+A
-         DBDP6XDVximb8YJz9QX4qGNt6jqKzcPyWngXMN2ominuisqfDXaM6xfY2wZvt0Rc9der
-         K+aYEGhgiamM0wpBO1FIkoZZmXb+o9Vad3KmA7nhhum4WpmkMC4fR0faVf1XPpTSFjwy
-         8DO7g2pSwmhZgMUdo7tUhhYi7IF93nK9AX+W1ha6UxzpDvctOX2ITJh73wjDEBozHj2k
-         4eHKrIzGVMAp9mp+RCsL/c/4XakmXi8eWHZsrVvHH+JwMkyvwtVVKtU9T5BHcAnTqFAR
-         OZCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742223408; x=1742828208;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=osOn3GFo3q5/DPuTeDnhQ4u6DQUGkLET9/F9zhspBGg=;
-        b=tV1zhSxEU3A6etvNI6Jw/0eL5ApxObYA0Yp4UmxfzvfeHSr8bHfNxz7RT09Z1ee8oG
-         g3672iuJyauiYMgSFRzW3+y7bVuGcVO8rYVcv7lBqJQIBVOChT0VRKmqXI9hUR4HV51a
-         SAQdVtTp/YoMhOy443v1NsEhAsf+mmmJvDK60nhpyHd8/f3UrjQOfgqbR3Q/mcnMSgmD
-         Ko5aMLc/FjKKHAXoxawP5EfjHYGgWOmfflxdECc+nemh7+Rqd5YPv8y8pCjazZmAMUYi
-         M6DzwtpQx4gm5Ta1ksM07ow9hKxk2WxPNs8W3uE7kOhdzHFt2iVJIPKA3NN6de4+zodJ
-         VedA==
-X-Forwarded-Encrypted: i=1; AJvYcCWRD16kRfHWUOc8BBOzLJmLYzjQAhgOr3q7V3qPgTDCxFwD4QejSqUqg7D2q2O7ZKKXiuoUT9KK1cs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw6jO8r6/J7xED0F1LmDq0KgAmUr+v5qgTFwRVhV/DnNzFgE+2Y
-	oZHYjOzWd3+xs1O8yqm6ogZWBhMjHQtPVOx2gcNgS4t+DKdwTjk0PUetIlszwAoherQ2CeT6ATI
-	=
-X-Gm-Gg: ASbGncscuL/Pt/iYx48SYf02QkAgrOqa84dpncV+1zQDJWU3GLfzNooLAAkWepzY/kq
-	piORXK69178+r5+4fMi77NcKylYfA128YFGunETeJKkTrTFfZ+Tp5BfER/Qy9zweGy7woZgK+ZL
-	buFrZ0XgAki2yTIiEfZ59LVK9ok41wZyK4JhHr1vrNVpxBdqpWqFiDvcflOqv5/MIY8eLmRCERN
-	hYLt2Y9CoyjhQj7gLvFHJ4dp5kx51ph18JdRD8UKBjOTs2TX5jbkXi+Djfj07e7LwPO2nTh+KK0
-	krflrhTBm/3vev7epE7PJlQ+EKQbrxFOQAY+vOfA4M2vHLb+Z7U/tfkIo/esw7PeF8ZOZfVlFZG
-	uorXEwPtPbnUC6IiUrmZMgi8dO/CSDw==
-X-Google-Smtp-Source: AGHT+IFWAvO9kxg0Dq4FOpjKL3+86oNZtRJ9Ymzr4s5ten32kwahcqc+jJuNXx7FcdHuSDr8XWt9iw==
-X-Received: by 2002:adf:cb83:0:b0:391:2d8f:dd59 with SMTP id ffacd0b85a97d-3971dae8de5mr9901457f8f.24.1742223408263;
-        Mon, 17 Mar 2025 07:56:48 -0700 (PDT)
-Message-ID: <d646b0b9-bae8-4f97-908a-f2e52cac708d@suse.com>
-Date: Mon, 17 Mar 2025 15:56:47 +0100
+X-Inumbo-ID: 22a0d507-0341-11f0-9899-31a8f345e629
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PHTgssDo8HI649DclZAZDLBUfi/OeKZLw/I0+Tqmhu4ITZbc49tpHz6EgN0Z+4kTuJCqI4wDk0nY9c+jZkUs97z1fRMtfVz+R0elmjEK1Rm2lw0720CtV75V97IZ6KPqQnIKGBgx/KQG0rpFv8zF4yQJGkBK5ulDnCDZSQwsOcI5O5uo88gf6z1Hh8Lwivn+xK/Rg7F+3i/Mn+fpyKC79kZGgYvqe4di+dE53yz3jOmQb314+BESVrnt+5sOEOZC0uZ0mj5uzSGfuGuxiCS3TcskO+PeqLUSXBe0A7Io0HtaMZ1+c0TktY3xE46c8JIrRTinAjITxQG9dWKUfli9ZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5Ll7WWcHIk5jMdkgWMJiBL2PgtHt1OJxUrcDlsr83cs=;
+ b=u4kOhvCR96QuZL2nG3UBnvggpfMnWUaz1HuRieY0n3TbzG1uR63gF+6j3LwuO3t7HLKHlMSj1xelnl2SFiCJD9sKqj0+eUrJBvikyQSWRLcuhMYeBIVXhESrAVW/hJLj0ATOF5GqkkL8ZO4VpdY8UpBAXTS/x3R/G/1LvJQORF609YEZUI8h54ZToRmA/cN82UYQtfrg4zpE+ycaWOl1dvtzoUsGX57H6+p8RP08vpDguklHDv96jMlDfW5e2edr9jw6qJ3O5jLpxrD4rrEUkFCicNUlWabaikIu1VAJ123j3qZrla5r4K3lKCNUz/v0vuRsuvZWlKKyRg8ksOMdsQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5Ll7WWcHIk5jMdkgWMJiBL2PgtHt1OJxUrcDlsr83cs=;
+ b=vpjBizV3srucdLgh1MslIfLmcYhkEJbRwrafOWHA+nM2Vdumq8bcmljsrSXgAKqsDaUGWlPfo5a8j1e0IUfnDPxlPBlO1BUhNfaTlxgjhvQjXsGxgytddQ2NOpVRUq/Pk1drZDqhjilxxnVbzewRjfFpOc6sUObvNruyUTke8Ds=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <a6bd6175-32fb-4da5-b70d-70e8dabadf66@amd.com>
+Date: Mon, 17 Mar 2025 11:04:19 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 2/8] iommu/arm: Introduce iommu_add_dt_pci_sideband_ids
- API
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>
-Cc: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stewart Hildebrand <stewart.hildebrand@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1741958647.git.mykyta_poturai@epam.com>
- <95d779f00127defa37f3c5056c762ea0da47fc53.1741958647.git.mykyta_poturai@epam.com>
+Subject: Re: [PATCH 15/23] xen/xsm: Add XSM_HW_PRIV
+To: Jan Beulich <jbeulich@suse.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
+	<michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	<xen-devel@lists.xenproject.org>
+References: <20250306220343.203047-1-jason.andryuk@amd.com>
+ <20250306220343.203047-16-jason.andryuk@amd.com>
+ <095042a0-94c1-4f86-b6df-836a7107efa2@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <95d779f00127defa37f3c5056c762ea0da47fc53.1741958647.git.mykyta_poturai@epam.com>
-Content-Type: text/plain; charset=UTF-8
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <095042a0-94c1-4f86-b6df-836a7107efa2@suse.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB04.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FF:EE_|MW4PR12MB6952:EE_
+X-MS-Office365-Filtering-Correlation-Id: 84d60bae-4767-463d-7ec8-08dd656502a6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|82310400026|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?ZXY1ZEJCMkNGVTlpcFI1cDNHdkJzNUx4MHBTaVJHS1RYNHBoRjNlTTl3UkV6?=
+ =?utf-8?B?YWNCNDNmZmVWK001M3hDSGpwR0tjeGUrL3pUZHI2UnJGUnR6bVFOV0hrNmE0?=
+ =?utf-8?B?QnF5L0VWOVNPbERmd1NDUVFCN1VQMEFYMjBmMi9LZm9IdDVESTcrYjJpVkFT?=
+ =?utf-8?B?SEFidjRrR1RIYmloajJGN0I3WFdiZlFHN3lsanFTS3JuaXBTcTBFL1NZY1NT?=
+ =?utf-8?B?UnRGV1NNOXBMeEZqZ1dUY1dlWUFEb2xDNHV6RGJwZXRwSmsrZkVhY2Fubk8y?=
+ =?utf-8?B?STMxZEw5N29Xd3NEWEZLd0dkYmNHMnJrNlBETXRmWXU1WjZZb3ZQaVJxWVZW?=
+ =?utf-8?B?Q2w5RFVQUUU3b3I3N0ZraEV1QlhUT0xkMGgwdUNXTUlkb0NRU0x4ZmIrYkxM?=
+ =?utf-8?B?M0dQV2U3UStvWHY0eE9DbXNnTVo5T3ZNenFrTXF2dEwvNkVVcDZ2TTl3OUkz?=
+ =?utf-8?B?NXUrWGZ3dDkveFpVK3FYTDd0dGEvNzZrTmRGWFppZ1lGVWwyMnBvbzExNGpk?=
+ =?utf-8?B?cGpudWRwZE5HbDg1Y2gxOUpPNnZQdWhxQVhucUF1KzZ4TEVLZ2E5NnpCdW1p?=
+ =?utf-8?B?TmRrdDlnWmMwTVp1RndKNXlXNUZmdlVVVmROWHhWMDNyRmlNbXYvWEdSeUNz?=
+ =?utf-8?B?SWRWSDBreFNuOHBMVGp6NWlSbzNHKzE1eHhWZUhNSW1VL3k4c0FhRjBrMnhv?=
+ =?utf-8?B?c3J6WVdvZWRyR0xJNU9DbkZaWkxJay9pVSttakduSVZQNHhpUlJjRjhDazRk?=
+ =?utf-8?B?WVNsaUZrYklsMFd4aVJPNkN3bWk0QXhKRld4NzBhTnlTZmRHa1ZoMWcyVVdO?=
+ =?utf-8?B?ZDlvVjBDbFk2RjNHbDRXMThPSnNYWWxsc0pVY0J1S0ZkQlV1VDVJZzBWTU5V?=
+ =?utf-8?B?WjRaUEJKZmxUa2NaQS9jQ3NIWlVlZTU2dTNnS1pHVmlmOTJSV2JPRHJQQ21M?=
+ =?utf-8?B?dFBreHZ5ZzczRnp6N3FqY2xhakZmcThNMDFsTTQrMUdtQXVybHNIeldpTHRW?=
+ =?utf-8?B?enU2RTcvRkVONEUycGowWkg2Ui80QTE5YXFQVHc3aEs5RmJtMXZWWHhhOHFX?=
+ =?utf-8?B?Y09wOTJMekN3SDZmSHU3aFZWcW1QNXhXcmc4eFhtYVRkZjlEUGpEOTlFaEtB?=
+ =?utf-8?B?TEI1bUhwN3A0Q2VRTll1Y0lxeGszTy9CcVhNaUY4cU92bnhYaVBpRkpCakk0?=
+ =?utf-8?B?a1dlWCtFZ2lRUUtyQUk1MGR1bTNaQ1VXMGFFaFR3UGZ2aWdKTll1MmVPV2l4?=
+ =?utf-8?B?RitOMGFPZm1xekNiTjNrbnh3Q1pSV1RaK1NwYkYra3VDeUMzMXFrVVhhdWVj?=
+ =?utf-8?B?M1RVbnF5cXNPNlgvUk5ZU1VBZ1ZHSjNrVnF2eVE5aGZKWktjQ3NldXE4OC93?=
+ =?utf-8?B?UU9ETFpEMFdNM0NsMFpjQktDaFRPK1o3TEY2MFNqRFBCQWNFQ2lXcVNRWjhv?=
+ =?utf-8?B?R2NGZ1JrSkxNb0Rsb24xendEZ3drakZhS3BINWsyNXJjQldpREhIZDllSW1N?=
+ =?utf-8?B?L0g0dkJBa3ora1lmMlFQTjJaL3h6SXY4cUdCOU8zV0xxNDkxcUcyaXBUSThp?=
+ =?utf-8?B?WWYxT0dWNkxRdmN6dGNXeUlmUmx3czlOVkZLYUI4UTNBK3VNczJYYldBR3ZR?=
+ =?utf-8?B?R09yc0NaTUZKS3RDMTdJNDRRZ0VkTXNwckJYWjdDOHNPdnk4UVFMSEhPUExj?=
+ =?utf-8?B?T2R1aXdUZGJVd1lIbFRVOUNtd3NqN0lWK1BoMVI2NUx4ZjM4ZFdOMWE4K2RM?=
+ =?utf-8?B?VURLSlhMd2hCRWozZHBNS05uYk5Hd3IwREJmTVlNYVV3N2FxNzRadFdUQjZ2?=
+ =?utf-8?B?dGh0N0JmMStvZ1ppcXZKYlRycWNxeWdGTml0dk84NHBqcmRYQ0o2N2cvU0Ro?=
+ =?utf-8?B?MUY3aTlNdnBDWE5sYzBobW9MdCsvVlFnYTlKV0xNdGFjREsrZk1qL1Z1UXdL?=
+ =?utf-8?B?LzJXNEtWamZLeWlteHF2dnVkNXdpY3VwQXpVeHZQWXlCQ3pUdG5mWmdUMkNm?=
+ =?utf-8?Q?JuojLZPEih+V0wLXCmRGphtIkXVcVU=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(82310400026)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2025 15:04:26.5484
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 84d60bae-4767-463d-7ec8-08dd656502a6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF0001A0FF.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6952
 
-On 14.03.2025 14:34, Mykyta Poturai wrote:
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+On 2025-03-17 10:22, Jan Beulich wrote:
+> On 06.03.2025 23:03, Jason Andryuk wrote:
+>> --- a/xen/include/xsm/dummy.h
+>> +++ b/xen/include/xsm/dummy.h
+>> @@ -95,7 +95,11 @@ static always_inline int xsm_default_action(
+>>               return 0;
+>>           fallthrough;
+>>       case XSM_PRIV:
+>> -        if ( is_control_domain(src) )
+>> +    case XSM_HW_PRIV:
+>> +        if ( is_control_domain(src) && action != XSM_HW_PRIV )
+>> +            return 0;
+>> +        if ( is_hardware_domain(src) &&
+>> +             (action == XSM_HW_PRIV || action == XSM_DM_PRIV) )
+>>               return 0;
+>>           return -EPERM;
 > 
-> The main purpose of this patch is to add a way to register PCI device
-> (which is behind the IOMMU) using the generic PCI-IOMMU DT bindings [1]
-> before assigning that device to a domain.
-> 
-> This behaves similarly to the existing iommu_add_dt_device API, except it
-> handles PCI devices, and it is to be invoked from the add_device hook in the
-> SMMU driver.
-> 
-> The function dt_map_id to translate an ID through a downstream mapping
-> (which is also suitable for mapping Requester ID) was borrowed from Linux
-> (v5.10-rc6) and updated according to the Xen code base.
-> 
-> [1] https://www.kernel.org/doc/Documentation/devicetree/bindings/pci/pci-iommu.txt
-> 
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
-> ---
-> Regarding pci_for_each_dma_alias question: getting host bridge node
-> directly seems like a simpler solution with the same result. AFAIU
-> with pci_for_each_dma_alias in linux we would arrive to the host brige
-> node anyway, but also try to call dt_map_id for each device along the
-> way. I am not sure why exactly it is done this way in linux, as
-> according to the pci-iommu.txt, iommu-map node can only be present in
-> the PCI root.
-> 
-> v8->v9:
-> * replace DT_NO_IOMMU with 1
-> * guard iommu_add_pci_sideband_ids with CONFIG_ARM
+> Hmm. Isn't DM_PRIV a property applying to the control domain (besides
+> any stub domains), but not the hardware one?
 
-I fear I'm confused: Isn't this contradicting ...
+I ran QEMU in hardware domain to provide devices to a domU.  I thought 
+QEMU would better run in hardware domain than control domain.
 
-> v7->v8:
-> * ENOSYS->EOPNOTSUPP
-> * move iommu_add_pci_sideband_ids to iommu.c to fix x86 build
-
-... this earlier change? Really, with there being no caller, I can't see
-why there could be any build issue here affecting only x86. Except for
-Misra complaining about unreachable code being introduced, which I'm sure
-I said before should be avoided.
-
-> --- a/xen/drivers/passthrough/iommu.c
-> +++ b/xen/drivers/passthrough/iommu.c
-> @@ -20,6 +20,7 @@
->  #include <xen/param.h>
->  #include <xen/softirq.h>
->  #include <xen/keyhandler.h>
-> +#include <xen/acpi.h>
->  #include <xsm/xsm.h>
->  
->  #ifdef CONFIG_X86
-> @@ -744,6 +745,20 @@ int __init iommu_get_extra_reserved_device_memory(iommu_grdm_t *func,
->      return 0;
->  }
->  
-> +#ifdef CONFIG_ARM
-
-I realize we have CONFIG_X86 here as well (visible even in context of the
-earlier hunk. Yet then the goal ought to be to reduce these anomalies, not
-add new ones. Since I don't have a clear picture of what's wanted, I'm also
-in trouble suggesting any alternative, I'm afraid.
-
-> +int iommu_add_pci_sideband_ids(struct pci_dev *pdev)
-> +{
-> +    int ret = -EOPNOTSUPP;
-> +
-> +#ifdef CONFIG_HAS_PCI
-> +    if ( acpi_disabled )
-> +        ret = iommu_add_dt_pci_sideband_ids(pdev);
-> +#endif
-> +
-> +    return ret;
-> +}
-> +#endif
-> +
->  /*
->   * Local variables:
->   * mode: C
-
-Having reached the end of the changes to this file, it's also not quite clear
-why xen/acpi.h would need including uniformly. Can't this live inside the
-outer #ifdef?
-
-Further, since #ifdef-ary is used here already anyway, why ...
-
-> @@ -238,8 +252,32 @@ int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
->   */
->  int iommu_remove_dt_device(struct dt_device_node *np);
->  
-> +#else /* !HAS_DEVICE_TREE */
-> +static inline int iommu_add_dt_pci_sideband_ids(struct pci_dev *pdev)
-> +{
-> +    return -EOPNOTSUPP;
-> +}
-> +
->  #endif /* HAS_DEVICE_TREE */
-
-... resort to a stub when the inner #ifdef could simple be extended?
-
-Jan
+Regards,
+Jason
 
