@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36123A6535E
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 15:28:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.917024.1322025 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFE90A653BE
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 15:37:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.917035.1322034 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuBRl-0004MF-SC; Mon, 17 Mar 2025 14:28:05 +0000
+	id 1tuBaD-00077r-KY; Mon, 17 Mar 2025 14:36:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 917024.1322025; Mon, 17 Mar 2025 14:28:05 +0000
+Received: by outflank-mailman (output) from mailman id 917035.1322034; Mon, 17 Mar 2025 14:36:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuBRl-0004JN-PJ; Mon, 17 Mar 2025 14:28:05 +0000
-Received: by outflank-mailman (input) for mailman id 917024;
- Mon, 17 Mar 2025 14:28:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tuBaD-00075k-Hp; Mon, 17 Mar 2025 14:36:49 +0000
+Received: by outflank-mailman (input) for mailman id 917035;
+ Mon, 17 Mar 2025 14:36:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UoSe=WE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tuBRk-0004JH-B8
- for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 14:28:04 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 091432b2-033c-11f0-9aba-95dc52dad729;
- Mon, 17 Mar 2025 15:28:03 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-39149bccb69so4443218f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 07:28:03 -0700 (PDT)
+ id 1tuBaC-00075e-Nj
+ for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 14:36:48 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 400aaaf7-033d-11f0-9899-31a8f345e629;
+ Mon, 17 Mar 2025 15:36:45 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-43cef035a3bso15736215e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 07:36:45 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395cb40fa30sm15291697f8f.68.2025.03.17.07.28.02
+ ffacd0b85a97d-395c83b6b43sm15376704f8f.35.2025.03.17.07.36.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Mar 2025 07:28:02 -0700 (PDT)
+ Mon, 17 Mar 2025 07:36:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 091432b2-033c-11f0-9aba-95dc52dad729
+X-Inumbo-ID: 400aaaf7-033d-11f0-9899-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742221683; x=1742826483; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742222205; x=1742827005; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=FYdDW5jSfYx+xj9nsz8mqNBnwgpXKwb/NGczNDARr/A=;
-        b=TiX0zYaxhOTPekxsE4yfrJaPzYtD9OiA5PhejhEjZsdAADyaUBRQQSZIhs5YBjfB77
-         iLIfG9L/q+BYiRXeeQIUftnCRKuR1W/dAJMslbaL/oPfcwQT7RnnyVg8NVBgQGLrZwoK
-         4YRQr+2lg0Ft03kcvHejApphk2iNijIj+6Myq+gvnld3O3YXaT+ebVpFhKLZ8dV7JfKh
-         2B7bYmaaomEdbTCXGg78vQGKl/4HtuQcbFmGDZwKBiJ/NiDCFhfjsZo/bXhk1rDQNkgc
-         5J+M2zIgqDpWj8gHtSHDveNATNvjv4LpTvsJgRrukQ4GEbm0i5oobZv06dEjTTcieWAO
-         vKGQ==
+        bh=l3Tj3cSQJP9ZgGn61qeuoZ4GpiyZjdMJ4QRd66Y928k=;
+        b=akqruF2x7NKIiQra98dL6JNBuoTJFplhtqlyUA8Np15k+DriDVSzbtrwYEs3n0U4i/
+         OVUF3BGDXyF2N4dX1ZTMS+LZKr05KZrghTh32YcI9k6CF74XxbkJhj6QccEQeghSiaWC
+         nggwtXI6JS8H8zRjTZ361Z423DWSX/tEIr9EMy+cDx5sHGsUs7C1oKHJy1rWd63zvEYA
+         TSdHrIaaAvnCwI83dNRekGhkkSpIc4KZh7XP4Bct5qawqg9W0oBnLfdnk0IV/shbO7gW
+         do6eRPC0PNIn5CqfsPQy6+stXG21BKNFYI4czvNGguiAPr4wrY/KkfgGzWfQGjSFWzzG
+         uoqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742221683; x=1742826483;
+        d=1e100.net; s=20230601; t=1742222205; x=1742827005;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FYdDW5jSfYx+xj9nsz8mqNBnwgpXKwb/NGczNDARr/A=;
-        b=IVRFqpp0r+nCTAK3o1MUSVme9etdM6Hq03JnF83mrD6aHorD24viSxnLBFhqsyxQTP
-         Mm1BOQhCg6dPRwgcJsTn5XIXl6RaJtQwfZTDkd3fiGcj2vWl97JfG8UfIl4Kh/DkHmSB
-         ll/idCvZzhLunEVJDc8pizLlO6CdWCjL7sjnI71tVNZefxQBWtV6dAw5ThzE5U4EarPA
-         JtpM7h0vcdr5XGlhWXFS22Fh7znrHu0CFWnmbU+bNNgd3pYeKCcNfdtD2V3LoP/ZnuVc
-         MqH+qw6it2RU1hQ9l1OmmiK/77qDGv1tp24jWLUKmfBO6l7LjJ3j0CMVKfGM/nWjQHHh
-         3hrg==
-X-Forwarded-Encrypted: i=1; AJvYcCXGNeZK+MYY/SCYxKnJIVyVNboxhvtbjYAh0WRYOvxkrhHvS7thgR3gZr4GHVX9yk/Eeei7f8FKn+w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxz/l6gsZTQ09gRNHsJScnu4YdZ4tpLaJDhucfh4F2nVLTHC9I5
-	brQxr8KqoBcjigDNE6tO+ku3ndyInLeJkf8Vm8YUnKtzdDtX6TZPTp9hpWGwsA==
-X-Gm-Gg: ASbGncvaX8ABXBq3wU/cKzBATyslY7uQgeGcYnu0nYQRp0gtukZdDN/9ZYshDODiyap
-	6hVk8a+WkswNjAHnP2fxXFTHhcSRJ6+ge2R3EsGNNkBmD87F6WYGgfkmtng7ZmTew/vIpSXoHpg
-	WKgN8YM5ia5lzHBmivzgucCbaNXVFXPZ9siHeVglgdbusFSP7yt9tFN8xTppBk+MhNuSIYZj+xg
-	zebFqj13nfGmjRZUSz3oqsBZ153CSdCk7Nb4GEQi1n1jy9NdoNOe0PT2lKHpwQ4fQ+t0HwE/2cl
-	f7r5WR8eYCaRLsa5bCpBx7kcQPeOBIkMJ2dpJvVDEJLv82o0RduZX6OdgcU8GvjYIQ+gQIPG3e9
-	UaDduVbJQWQyHlATXpHSLw0spVH3vfw==
-X-Google-Smtp-Source: AGHT+IE2rF3t4VgL3VSek4wTNsJ/iNLLrIRqUdD39ShTMut5X/AEg/5DIOhVhzcbndyDSrlCuci4XA==
-X-Received: by 2002:a5d:588b:0:b0:391:1213:9475 with SMTP id ffacd0b85a97d-3971d8021e7mr13124238f8f.24.1742221682997;
-        Mon, 17 Mar 2025 07:28:02 -0700 (PDT)
-Message-ID: <66291536-a164-48a6-ab3e-304dc6035ed6@suse.com>
-Date: Mon, 17 Mar 2025 15:28:02 +0100
+        bh=l3Tj3cSQJP9ZgGn61qeuoZ4GpiyZjdMJ4QRd66Y928k=;
+        b=gcW/Dd0bIFIO9qCLBQjPXYbB+UAooP8suo6IidagSi5MxRwtNPJ4I/4PkxJUQ18Agc
+         GK9XLBB+ID+Hck3NhvBZK2qb/Wme6iyQOWBgE0Ka6EqoDVnUZ0jjGnFaD9LVw0VMAdlW
+         H55JQ4nEYYsF77tSk7BPIiGUYz3MJFqV5Zl1/5HkcOnVHGitvnC5ex0iL9dJvkt/QNdc
+         h2HMFAny1i7x2AGTQuo3UpjYzCgZgDAIpE/ChZhZB5w1A5JbyzBfXFedIhZ7SFtWfq/T
+         wbMLpsQuDPoapoBjZozykPYPhCP8q3fjQVZ4183JmYVQlwM7MNQ0HEMgBnWm4J7fNiBK
+         q6Qg==
+X-Forwarded-Encrypted: i=1; AJvYcCVfyt+iy1ZTOncDKFFezv9m1OG6WIQ7XP/msbHTU0ljaOxpj7Iwd6UCLYleOaB99Bbm0sjj2Le1lT8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YydNo1jw4L5BBUsV/qaCRidM47hKxG/jKgfF4BtJWCCfAkAVKJY
+	0uYlOhjCgyRo6k8FfWYAJBxDAikNlcUav97dbKzg0hqicp8tk6OQlb47XwubrA==
+X-Gm-Gg: ASbGncvwWPc0rPzvYLCCeUrgu+oDYI2eupO9XWeJeVqDqYFCBfHEWLkWvdjozB8zKdO
+	Ee2JORaDGNAkYIi/BZKC4us9zoWicLSKBdJ0Ufuk5vBBiIuYDk5xObiWx+EE7KFF44MnM04VTWZ
+	k1Kxg13AtupTiZKSnhSeLtlXoft95XvtUDdFA89Aqt7AxvkvcRpUTjcUoNJO1Gi/FxpkZkm5/VZ
+	Sracr/10BdaRs2iwMbJDAdJqKbc3IP3zzAcfx+4BRWw0yKQFfrtN/9EQATsx8kqVC3VScEnAdEs
+	erZlXlfISJK9IndtA5vF3dFWMcZ5UqOvR9syTsr+zKO7nQzrkhRIoUx18dvCdLPu27KKs6yFvYy
+	opGiSQYNzSiiM1VX2M1p6bFnuoHi9SQ==
+X-Google-Smtp-Source: AGHT+IE3odevN7Xc2V7BQwWcwQV2hHQCUJE8mShecrdEU1w4rXAhgJjIt7KqBYdHkm0YI/4MChUyqQ==
+X-Received: by 2002:a05:600c:1d05:b0:43c:efed:732c with SMTP id 5b1f17b1804b1-43d1ed0f578mr118184935e9.28.1742222204657;
+        Mon, 17 Mar 2025 07:36:44 -0700 (PDT)
+Message-ID: <9ca3ec40-7b90-444c-a682-bcb5f17bd3d4@suse.com>
+Date: Mon, 17 Mar 2025 15:36:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 17/23] xsm/dummy: Allow hwdom more - except targeting
+Subject: Re: [PATCH 19/23] xsm/dummy: Allow sysctls to both hardware and
  control
 To: Jason Andryuk <jason.andryuk@amd.com>
 Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  xen-devel@lists.xenproject.org
 References: <20250306220343.203047-1-jason.andryuk@amd.com>
- <20250306220343.203047-18-jason.andryuk@amd.com>
+ <20250306220343.203047-20-jason.andryuk@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,18 +119,49 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250306220343.203047-18-jason.andryuk@amd.com>
+In-Reply-To: <20250306220343.203047-20-jason.andryuk@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 06.03.2025 23:03, Jason Andryuk wrote:
-> Allow hwdom all perms, except XSM_PRIV, and except commands where the
-> target is the control domain.  This protects the control domain from
-> hwdom while allowing the hardware domain to serve as the backend and
-> device model for other domUs.
+> xl queries SYSCTL_physinfo for the physical cpus:
+> domU:~# xl list
+> libxl: error: libxl_utils.c:817:libxl_cpu_bitmap_alloc: failed to retrieve the maximum number of cpus
+> libxl: error: libxl_utils.c:817:libxl_cpu_bitmap_alloc: failed to retrieve the maximum number of cpus
+> libxl: error: libxl_utils.c:817:libxl_cpu_bitmap_alloc: failed to retrieve the maximum number of cpus
+> Name                    ID   Mem VCPUs        State   Time(s)
+> Domain-0                 0   800     1     r-----     130.0
+> dom0less-1               1   400     1     r-----     130.3
+> dom0less-2               2   800     1     r-----     130.3
+> 
+> Hardware and control are both privileged.  Allow them both access to
+> sysctls so they have insight into the running system.  This is coarse
+> grained permissions for the dummy policy.
 
-I can see why backends may need to live there. But device models don't
-belong in the hardware domain, do they?
+In an earlier patch you alluded to the control domain being guarded against
+the hardware one. Shouldn't hwdom be limited operations retrieving info,
+but refused to make any changes to the system? Or maybe some kinds of
+changes are to be done by hwdom, but then shouldn't be possible to be made
+by the control domain?
+
+> --- a/xen/include/xsm/dummy.h
+> +++ b/xen/include/xsm/dummy.h
+> @@ -194,9 +194,10 @@ static XSM_INLINE int cf_check xsm_sysctl(XSM_DEFAULT_ARG int cmd)
+>      case XEN_SYSCTL_getdomaininfolist:
+>          return xsm_default_action(XSM_XS_PRIV, current->domain, NULL);
+>      case XEN_SYSCTL_readconsole:
+> -    case XEN_SYSCTL_physinfo:
+
+Didn't you add this line just a single patch ago?
 
 Jan
+
+>          return xsm_default_action(XSM_HW_PRIV, current->domain, NULL);
+>      default:
+> +        if ( is_hardware_domain(current->domain) )
+> +            return xsm_default_action(XSM_HW_PRIV, current->domain, NULL);
+>          return xsm_default_action(XSM_PRIV, current->domain, NULL);
+>      }
+>  }
+
 
