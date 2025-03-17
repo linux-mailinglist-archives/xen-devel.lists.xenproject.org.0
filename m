@@ -2,35 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E22DA63735
-	for <lists+xen-devel@lfdr.de>; Sun, 16 Mar 2025 20:26:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.916072.1321281 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F9C5A63F26
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 06:09:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.916158.1321301 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tttcB-0005go-GO; Sun, 16 Mar 2025 19:25:39 +0000
+	id 1tu2ho-0001ds-JU; Mon, 17 Mar 2025 05:08:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 916072.1321281; Sun, 16 Mar 2025 19:25:39 +0000
+Received: by outflank-mailman (output) from mailman id 916158.1321301; Mon, 17 Mar 2025 05:08:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tttcB-0005cs-A0; Sun, 16 Mar 2025 19:25:39 +0000
-Received: by outflank-mailman (input) for mailman id 916072;
- Sun, 16 Mar 2025 19:25:37 +0000
+	id 1tu2ho-0001cM-D6; Mon, 17 Mar 2025 05:08:04 +0000
+Received: by outflank-mailman (input) for mailman id 916158;
+ Mon, 17 Mar 2025 05:08:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=84OC=WD=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
- id 1tttc9-0004Ab-MC
- for xen-devel@lists.xenproject.org; Sun, 16 Mar 2025 19:25:37 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 6fb61cc2-029c-11f0-9aba-95dc52dad729;
- Sun, 16 Mar 2025 20:25:36 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6482012FC;
- Sun, 16 Mar 2025 12:25:45 -0700 (PDT)
-Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.43])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2070A3F694;
- Sun, 16 Mar 2025 12:25:35 -0700 (PDT)
+ <SRS0=1Z1w=WE=boeing.com=Anderson.Choi@srs-se1.protection.inumbo.net>)
+ id 1tu2hm-0001c8-V3
+ for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 05:08:03 +0000
+Received: from ewa-mbsout-02.mbs.boeing.net (ewa-mbsout-02.mbs.boeing.net
+ [130.76.20.195]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ca16a7d0-02ed-11f0-9aba-95dc52dad729;
+ Mon, 17 Mar 2025 06:07:59 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by ewa-mbsout-02.mbs.boeing.net (8.15.2/8.15.2/DOWNSTREAM_MBSOUT) with SMTP id
+ 52H57tlj016652; Sun, 16 Mar 2025 22:07:55 -0700
+Received: from XCH16-04-04.nos.boeing.com (xch16-04-04.nos.boeing.com
+ [137.137.111.19])
+ by ewa-mbsout-02.mbs.boeing.net (8.15.2/8.15.2/8.15.2/UPSTREAM_MBSOUT) with
+ ESMTPS id 52H57iJD016553
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+ Sun, 16 Mar 2025 22:07:44 -0700
+Received: from XCH16-06-01.nos.boeing.com (137.137.111.28) by
+ XCH16-04-04.nos.boeing.com (137.137.111.19) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.44; Sun, 16 Mar 2025 22:07:43 -0700
+Received: from XCH19-EDGE-Q02.nos.boeing.com (130.76.23.14) by
+ XCH16-06-01.nos.boeing.com (137.137.111.28) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.44 via Frontend Transport; Sun, 16 Mar 2025 22:07:43 -0700
+Received: from USG02-CY1-obe.outbound.protection.office365.us (23.103.199.181)
+ by boeing.com (130.76.23.14) with Microsoft SMTP Server
+ (version=TLS1_2, 
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Sun, 16 Mar
+ 2025 22:07:40 -0700
+Received: from BN0P110MB2148.NAMP110.PROD.OUTLOOK.COM (2001:489a:200:19b::17)
+ by PH1P110MB1396.NAMP110.PROD.OUTLOOK.COM (2001:489a:200:189::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.31; Mon, 17 Mar
+ 2025 05:07:38 +0000
+Received: from BN0P110MB2148.NAMP110.PROD.OUTLOOK.COM
+ ([fe80::394b:7a34:da07:485d]) by BN0P110MB2148.NAMP110.PROD.OUTLOOK.COM
+ ([fe80::394b:7a34:da07:485d%6]) with mapi id 15.20.8511.031; Mon, 17 Mar 2025
+ 05:07:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,377 +67,219 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6fb61cc2-029c-11f0-9aba-95dc52dad729
-From: Luca Fancellu <luca.fancellu@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v2 7/7] arm/mpu: Create the skeleton for MPU compilation
-Date: Sun, 16 Mar 2025 19:24:45 +0000
-Message-Id: <20250316192445.2376484-8-luca.fancellu@arm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250316192445.2376484-1-luca.fancellu@arm.com>
-References: <20250316192445.2376484-1-luca.fancellu@arm.com>
+X-Inumbo-ID: ca16a7d0-02ed-11f0-9aba-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=boeing.com;
+	s=boeing-s1912; t=1742188075;
+	bh=Z7IUTuOwfQpuS/VQLgUi8jPOyLtavJ0bguvSIR4AbeE=;
+	h=From:To:CC:Subject:Date:From;
+	b=PIfcSvnMeybjZ47UcpypMGnU18ov/av8qHfcX4bklN5D7YmDbPB4Z/HcMk/pV95Y/
+	 hcYlSibIY4nCnnrzrV44y+MmQoHOqx3ChjM9wvmBlHfcz+6spwnV87dKWvEM2UJ4+W
+	 kTTeUkbqt++nfmOJtB9seCL0lAOw/xl0aZE+uy1iIckv+lvngHuSfo8+5ku0Kt4dDp
+	 GNDS1qX1+EE6dEHmrdvF5rFchC/mQ9lxAFRaEoOReweRkjh6WVed0F9sARXYz1rLgf
+	 YE1g+/KLZGFqAsNNgI1xTCYgJMw2AEsaD34g5uxOrQ1SMSLbGN3T4bT6wV1xRLS4li
+	 oBL7sg0E+tWYg==
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector5401; d=microsoft.com; cv=none;
+ b=ZmwUxdG7NvKkID1MTHcM+0GsB1VS5fzAnsW2J92A35PTzb6mdPb30VgIGuIs896FT2knOhA8tN1eZmR2F6hbXS2zwf5IIa/05JoJlRCoRi4jdHPe9TrzVQwtBsmWSkFCsBvMc1P+j+6UDdcyUT4DbxlCH+bQrd5hyQykqNQDs5pE8CNs4v2lvJnIp1rfYbJJ82MQ2oWKU+SL5XeUfbLFmYyi5uXvKnCCAM8f8Zqzhz4py/AVod/iiw43E2Yk95tHF7zIh3QgDs0WJuWjH+79sfrNtbWfw5wcogQ9+T7oN0n2bpyZkJsPIqmj9Tplyb8IL5NVE5Cm5VBaRwNR8CVE5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector5401;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Z7IUTuOwfQpuS/VQLgUi8jPOyLtavJ0bguvSIR4AbeE=;
+ b=wmfgRiUsqeUy6WOJJA/Sw2fWC4RPvit8iuOr55chMv+mHzPJG8gqRoAR+CBNawaOmu7Xojzwka7paPd5RXa4LDHhLqEbQj2yruQwbhQxf7EAFej6VtNVqf9IeNYK2U0cWNwDfHpGE24y7WeoHn+s2esPlRxEWIebEZFgsymntM669CkwbhFA5Bk3YtcOtKJJBggKsnetX06L90nnTeJCYXR2xTyiMtKj2W0ULzqjWK0zL+W5zpAMuCcIIyK7qVxiWtD1JqsRefgWYzGc6Tg6ML7VgqbAujIX94ClqaA7VC1/KdcW2GGKQ4FuWeCnH6D4ZhxXAd7DV5FS5X5T+J6V/g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=boeing.com; dmarc=pass action=none header.from=boeing.com;
+ dkim=pass header.d=boeing.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=boeing.onmicrosoft.com; s=selector1-boeing-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Z7IUTuOwfQpuS/VQLgUi8jPOyLtavJ0bguvSIR4AbeE=;
+ b=BbRJ+47xslnPE9WRB6zH51rh6PnWOXT46Vly5EZ4ZLyxYZ9dz+6tA/D9+r93JcPt0CPY9nLzGP0RRJhazhEAyjj3NllJTF4Df7CAaWklA5z8zzi5DGbPq4UMLKyAfd+i1lCNcMJhm2gc+ISXLSuQkwX25njC+Kx6avD5xmadkIs=
+From: "Choi, Anderson" <Anderson.Choi@boeing.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: "nathan.studer@dornerworks.com" <nathan.studer@dornerworks.com>,
+        "stewart@stew.dk" <stewart@stew.dk>,
+        "Weber (US), Matthew L"
+	<matthew.l.weber3@boeing.com>,
+        "Whitehead (US), Joshua C"
+	<joshua.c.whitehead@boeing.com>
+Subject: Xen panic when shutting down ARINC653 cpupool
+Thread-Topic: Xen panic when shutting down ARINC653 cpupool
+Thread-Index: AduW+TkPYPhh1TXsRdStDrK0/zWwnA==
+Date: Mon, 17 Mar 2025 05:07:38 +0000
+Message-ID: <BN0P110MB21487F77F8E578780A3FE44490DFA@BN0P110MB2148.NAMP110.PROD.OUTLOOK.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=boeing.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN0P110MB2148:EE_|PH1P110MB1396:EE_
+x-ms-office365-filtering-correlation-id: 8418bc6e-272e-442d-5a7a-08dd6511a370
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|38070700018;
+x-microsoft-antispam-message-info: =?us-ascii?Q?P5LYiOBT1eZ6ubIVbIKTmoaZFMRasOfikcKZfFtkH1leLb+FGzwQ/ewb7W4p?=
+ =?us-ascii?Q?r1+AvOrwM6/wqjnhH2yOrWvYHQCTM2mpK9vZ7tvyouEKozhZzySJ54Eec4zL?=
+ =?us-ascii?Q?IXHTRE6Jj1elsrZ1aVXbES5hQQkWCcxBt3HWtnJwZ5VJnNkWQzRSOlo8wBsC?=
+ =?us-ascii?Q?Pc7h2aN8WD2oZFpPG/F9439tWc0Wme2c9Y9arO87mrIuXRvKGHGQ84ddKPS2?=
+ =?us-ascii?Q?vWBV3rDRdh9Hg4JGFzJh6qQOeOIyxOrEi+liU0g9jd/g3PJ/8hXBwjm1dVsQ?=
+ =?us-ascii?Q?as4/HkofCPC6h3WcL/jhO81erJOGd8vvRM+rVAqGsaXYTb4sCZJU/4Wq4vvT?=
+ =?us-ascii?Q?q+P8WYQzyzI+BLGTP+fViTxgzCLaYDZZRX3onTp7yke4XDTxdgcCbnGKRPyb?=
+ =?us-ascii?Q?QRcetn6jtM2zztNgHGSoOBjDmVoQeHbUzkUtE3r8i/PdB/O7TVSd30s2lNmD?=
+ =?us-ascii?Q?dTCivevbm/7lgdWkXBIV6eu6BEWG5C/JDz6m6sAj3AjHcN1eyQJGNw8ox8Nm?=
+ =?us-ascii?Q?ahURf6bpLcJeVciP0dqsSpBh5101kIejbpF1e/A5v+lUtm8p0TPSuUHvzBYE?=
+ =?us-ascii?Q?/HAv0IaP4bnMtK6wGFKR9TCYKKOAwNXLdCCaOMzQZ68n14VCmNot49k/UsV1?=
+ =?us-ascii?Q?Y1mrHr5LePHLNjn5+LrZ5mU1w8uhItia8KY3K/Zb8gXc00IfeoFcONQC37wa?=
+ =?us-ascii?Q?bysRGsxmEaonY8jbpAtjzhBQoIDvlxaLOqzdPjJx379H5rdG7ntUPZVpTzLm?=
+ =?us-ascii?Q?KuVMsS7Z4HEjoO2uuRAwPLNvWBLncgo1eJBifn+F9OdBFEkvNPWQ8/lqpP/N?=
+ =?us-ascii?Q?eOrR6Twft5tIYP4i/dowEUX/WsWPnR7swDN3BKJ4ez8pSVr4kcSElDwzJP6E?=
+ =?us-ascii?Q?nM2BnA7V5z89Ys0TF7dna09s+5/ErCOLRMAu/Q5o8OazUTpzYnNtiTk0S4tA?=
+ =?us-ascii?Q?j9t8j8DRceNOCK0FjQTYSZEVeK4enJmhCbmIpUlLpo65gF6p8JNCHOI//l/5?=
+ =?us-ascii?Q?oBZo3853MZvOUsMYctnImD3E3iaAMBI4tAPJAFPUi7g6ZGC8uZ4LlwCMLtnq?=
+ =?us-ascii?Q?fioP2KU2qLalz9AWXkk4xcJOo9WJvMCRcLSZ6O2Fb3CE+xJDPaxJTaoWc2IJ?=
+ =?us-ascii?Q?vKzyH/aofs2b/B5UfK0jR1mEis2khrjGjhu1/Gbc/j+fnoFrTZ6YkHJPFQFZ?=
+ =?us-ascii?Q?IL6Fmzh988l5ziWksyKMkyy2CcpjYskdzgHPpLuXwBJzjFiQsEBkN9saix4z?=
+ =?us-ascii?Q?3bv45actUJmhLvwZFmql0bKnVDTVFTN+vYR9i18rVgRQhxEq1J8WY7E8O28M?=
+ =?us-ascii?Q?VG3n/6hTP47upLPqLQeJXd/oMySHeqMQnXCE4vOn4NYemp8RZT0H4VrAZmrH?=
+ =?us-ascii?Q?Cd9EHpb7ph5oyIzUxLuFX1nRQdEIs5TCZg4rAD37vR/Bv1M5qyXIhevCcowZ?=
+ =?us-ascii?Q?Gh2Gv77rtyrExD5hGsoNOp7NxMAw59Bc?=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN0P110MB2148.NAMP110.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?7uy84ms81+vB2CgE3NJ0xj6iTy0OSY0xVRB66shfADt6SPC7mO3WasUwojQ3?=
+ =?us-ascii?Q?jqOe1L9mO69KReh3kH8j6Kl19YfjtJ5AtZxeEE/vxke/QecjglnzuCTUATtN?=
+ =?us-ascii?Q?n6k824IrlXy7qlpoGmievQ99f0ig5rYozOpBJDzCcW6kSoC0OIIeqrTntUbC?=
+ =?us-ascii?Q?ejQQD7UUk/Zkgm4VVvlrA30qzT337El0CiaShgZil2jkCVKvvMkFfFrr4us3?=
+ =?us-ascii?Q?+lfUq5R4CVvn83lGW6FDaJI036Aby6vMWiw6JiBCrz7fbCLBFzvwIdMcX8Ff?=
+ =?us-ascii?Q?WN7s2TeBPUQdrXme7FOGuk2nl7PH9k3HI3c8KF4A++giNkvtAreR8TAcUwkX?=
+ =?us-ascii?Q?kAKoK5RupW+uper/VmxJ8fEDsuJx2qjB10tl19ZuEBvh2HeCya6QHhII1sx3?=
+ =?us-ascii?Q?cguj3AgQJ5Bn4y3zRyyfY/CEBxoO2TxrPsd/6zvTqZLYz9lylI442Y6uFOFQ?=
+ =?us-ascii?Q?UanLyZqZ8j25y+gyX3ntaMLtd2Pxl4Xqfdq4HMuVpKEkyumbTVpD1IsOlxH9?=
+ =?us-ascii?Q?4aA+1tZnIwHh0F1D6//eNA4axW7I+l3zugdJYXlQ5B8HefSE7otYsvxihIfs?=
+ =?us-ascii?Q?Azsd0pTR8VOL/XHyeS9+1xBPAE176f0gHLTnUIVgy/ID9lcObWoIHcTROfJ7?=
+ =?us-ascii?Q?4/U5d1mb33PxByltpQgJCecx/KHGupGwS0+HluFUWF83oywjLcWLx4yvOx20?=
+ =?us-ascii?Q?hc6f0iOr2nUHapI+x8+ee9TdQsvhZ9H7veGnGDzYIJHf1TFhVx772O++lbEV?=
+ =?us-ascii?Q?NU2NN+u8FT3J0QeZBvu99/NvGFPVSczHEW5y6ADPmLVQQBN+HBviLiqQOzbn?=
+ =?us-ascii?Q?/7IU+db64ZUEuZX+SYckexS+Dc21FMPHW0V3XsIaOFx1CTVF0q5jNu6WO5qX?=
+ =?us-ascii?Q?u3Ee0BljNlECgboLQDbeplcXud1lBJOiODSfHCfcmEqIvtBWqrVCqvt+fGmQ?=
+ =?us-ascii?Q?sMxGPohpeIE09QXanr/wZEsKAxWejxKUdBusBrSXzR3rzKDVzXuQsT/VhsYv?=
+ =?us-ascii?Q?KZ+nGTkCyoM0ns8W7DQ9UsUFMbdy1GdupTHZnub+xJC84yjeNuEwxXQkMVNg?=
+ =?us-ascii?Q?C8dB/CQeaXu4aLnemg3Vpuj8J04MxI3R1B2zKivgLC6ssHVY49ko6bZBnYdN?=
+ =?us-ascii?Q?WIbRG7qjMWuYZXHZqvXmwMcAPCSFD7Yz8eQGPVYQq3i1KMVauooTuKGdloyK?=
+ =?us-ascii?Q?39c011TEDe9uZwbDYBnYghbp9Rt4rzD4UqFyUft9nFs0MIXp2SUgSx/NVi/V?=
+ =?us-ascii?Q?c2dO9LqCLh9UGceWRZVzKbEPakXAwu8pe0/hDeE3ZAsXC/kHC54QKdf7xR/2?=
+ =?us-ascii?Q?WtvLYPJwVoUvaIU1LfAJPq+q5Rr1GZ6Jlh1Hpywu2A47MGGguo4pPv+C0uYQ?=
+ =?us-ascii?Q?at4AFSxpjIdgoRcVkxH74GCRpDFjDHpH+pUDBCj2Z7LVQnilG5vQdY90ohiT?=
+ =?us-ascii?Q?Ir2anw/iYqR0MkmnaQOzEvozFtjx0hXri7OHHiVMf0Zq9ORYsaW2/b08rvov?=
+ =?us-ascii?Q?FRyxZ2cwEDLLWomWt2sIQl5Tb23qGcP57ENR?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN0P110MB2148.NAMP110.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8418bc6e-272e-442d-5a7a-08dd6511a370
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Mar 2025 05:07:38.7282
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: bcf48bba-4d6f-4dee-a0d2-7df59cc36629
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH1P110MB1396
+X-OriginatorOrg: boeing.com
+X-TM-AS-GCONF: 00
 
-This commit introduces the skeleton for the MPU memory management
-subsystem that allows the compilation on Arm64.
+I'd like to report xen panic when shutting down an ARINC653 domain with the=
+ following setup.
+Note that this is only observed when CONFIG_DEBUG is enabled.
 
-Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
----
-The implementation of setup_virt_paging() is under arm64/mpu
-because it will have a different implementation from arm32.
+[Test environment]
+Yocto release : 5.05
+Xen release : 4.19 (hash =3D 026c9fa29716b0ff0f8b7c687908e71ba29cf239)
+Target machine : QEMU ARM64
+Number of physical CPUs : 4
 
-v2 changes:
- - p2m_teardown{_allocation} stubs are now part of this patch
- - included missing headers
- - rename vmap-mpu.c to vmap.c
- - remove comment "Not used on MPU system" on implemented stubs
----
----
- xen/arch/arm/arm64/mpu/Makefile    |  2 +
- xen/arch/arm/arm64/mpu/p2m.c       | 19 ++++++++
- xen/arch/arm/arm64/mpu/smpboot.c   | 26 +++++++++++
- xen/arch/arm/include/asm/mpu/p2m.h | 21 +++++++++
- xen/arch/arm/include/asm/p2m.h     |  2 +-
- xen/arch/arm/mpu/Makefile          |  2 +
- xen/arch/arm/mpu/mm.c              | 25 +++++++++++
- xen/arch/arm/mpu/p2m.c             | 69 ++++++++++++++++++++++++++++++
- xen/arch/arm/mpu/setup.c           | 40 +++++++++++++++++
- xen/arch/arm/mpu/vmap.c            | 26 +++++++++++
- 10 files changed, 231 insertions(+), 1 deletion(-)
- create mode 100644 xen/arch/arm/arm64/mpu/p2m.c
- create mode 100644 xen/arch/arm/arm64/mpu/smpboot.c
- create mode 100644 xen/arch/arm/include/asm/mpu/p2m.h
- create mode 100644 xen/arch/arm/mpu/setup.c
- create mode 100644 xen/arch/arm/mpu/vmap.c
+[Xen config]
+CONFIG_DEBUG =3D y
 
-diff --git a/xen/arch/arm/arm64/mpu/Makefile b/xen/arch/arm/arm64/mpu/Makefile
-index 3340058c08c6..cf0540aecc84 100644
---- a/xen/arch/arm/arm64/mpu/Makefile
-+++ b/xen/arch/arm/arm64/mpu/Makefile
-@@ -1 +1,3 @@
- obj-y += head.o
-+obj-y += p2m.o
-+obj-y += smpboot.o
-diff --git a/xen/arch/arm/arm64/mpu/p2m.c b/xen/arch/arm/arm64/mpu/p2m.c
-new file mode 100644
-index 000000000000..b6d8b2777b58
---- /dev/null
-+++ b/xen/arch/arm/arm64/mpu/p2m.c
-@@ -0,0 +1,19 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
+[CPU pool configuration files]
+cpupool_arinc0.cfg
+- name=3D "Pool-arinc0"
+- sched=3D"arinc653"
+- cpus=3D["2"]
+
+[Domain configuration file]
+dom1.cfg
+- vcpus =3D 1
+- pool =3D "Pool-arinc0"
+
+$ xl cpupool-cpu-remove Pool-0 2
+$ xl cpupool-create -f cpupool_arinc0.cfg
+$ xl create dom1.cfg
+$ a653_sched -P Pool-arinc0 dom1:100
+
+** Wait for DOM1 to complete boot.**
+
+$ xl shutdown dom1
+
+[xen log]
+root@boeing-linux-ref:~# xl shutdown dom1
+Shutting down domain 1
+root@boeing-linux-ref:~# (XEN) Assertion '!in_irq() && (local_irq_is_enable=
+d() || num_online_cpus() <=3D 1)' failed at common/xmalloc_tlsf.c:714
+(XEN) ----[ Xen-4.19.1-pre  arm64  debug=3Dy  Tainted: I      ]----
+(XEN) CPU:    2
+(XEN) PC:     00000a000022d2b0 xfree+0x130/0x1a4
+(XEN) LR:     00000a000022d2a4
+(XEN) SP:     00008000fff77b50
+(XEN) CPSR:   00000000200002c9 MODE:64-bit EL2h (Hypervisor, handler)
+...
+(XEN) Xen call trace:
+(XEN)    [<00000a000022d2b0>] xfree+0x130/0x1a4 (PC)
+(XEN)    [<00000a000022d2a4>] xfree+0x124/0x1a4 (LR)
+(XEN)    [<00000a00002321f0>] arinc653.c#a653sched_free_udata+0x50/0xc4
+(XEN)    [<00000a0000241bc0>] core.c#sched_move_domain_cleanup+0x5c/0x80
+(XEN)    [<00000a0000245328>] sched_move_domain+0x69c/0x70c
+(XEN)    [<00000a000022f840>] cpupool.c#cpupool_move_domain_locked+0x38/0x7=
+0
+(XEN)    [<00000a0000230f20>] cpupool_move_domain+0x34/0x54
+(XEN)    [<00000a0000206c40>] domain_kill+0xc0/0x15c
+(XEN)    [<00000a000022e0d4>] do_domctl+0x904/0x12ec
+(XEN)    [<00000a0000277a1c>] traps.c#do_trap_hypercall+0x1f4/0x288
+(XEN)    [<00000a0000279018>] do_trap_guest_sync+0x448/0x63c
+(XEN)    [<00000a0000262c80>] entry.o#guest_sync_slowpath+0xa8/0xd8
+(XEN)
+(XEN)
+(XEN) ****************************************
+(XEN) Panic on CPU 2:
+(XEN) Assertion '!in_irq() && (local_irq_is_enabled() || num_online_cpus() =
+<=3D 1)' failed at common/xmalloc_tlsf.c:714
+(XEN) ****************************************
+
+In commit 19049f8d (sched: fix locking in a653sched_free_vdata()), locking =
+was introduced to prevent a race against the list manipulation but leads to=
+ assertion failure when the ARINC 653 domain is shutdown.
+
+I think this can be fixed by calling xfree() after spin_unlock_irqrestore()=
+ as shown below.
+
+xen/common/sched/arinc653.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/xen/common/sched/arinc653.c b/xen/common/sched/arinc653.c
+index 7bf288264c..1615f1bc46 100644
+--- a/xen/common/sched/arinc653.c
++++ b/xen/common/sched/arinc653.c
+@@ -463,10 +463,11 @@ a653sched_free_udata(const struct scheduler *ops, voi=
+d *priv)
+     if ( !is_idle_unit(av->unit) )
+         list_del(&av->list);
+
+-    xfree(av);
+     update_schedule_units(ops);
+
+     spin_unlock_irqrestore(&sched_priv->lock, flags);
 +
-+#include <xen/bug.h>
-+#include <xen/init.h>
-+#include <asm/p2m.h>
-+
-+void __init setup_virt_paging(void)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/arch/arm/arm64/mpu/smpboot.c b/xen/arch/arm/arm64/mpu/smpboot.c
-new file mode 100644
-index 000000000000..5090f443f577
---- /dev/null
-+++ b/xen/arch/arm/arm64/mpu/smpboot.c
-@@ -0,0 +1,26 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+
-+#include <xen/bug.h>
-+#include <xen/errno.h>
-+#include <xen/mm.h>
-+#include <xen/stdbool.h>
-+
-+int prepare_secondary_mm(int cpu)
-+{
-+    BUG_ON("unimplemented");
-+    return -EINVAL;
-+}
-+
-+void update_boot_mapping(bool enable)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/arch/arm/include/asm/mpu/p2m.h b/xen/arch/arm/include/asm/mpu/p2m.h
-new file mode 100644
-index 000000000000..e46d9e757a1d
---- /dev/null
-+++ b/xen/arch/arm/include/asm/mpu/p2m.h
-@@ -0,0 +1,21 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+
-+#ifndef __ARM_MPU_P2M_H__
-+#define __ARM_MPU_P2M_H__
-+
-+struct p2m_domain;
-+
-+static inline void p2m_clear_root_pages(struct p2m_domain *p2m) {}
-+
-+static inline void p2m_tlb_flush_sync(struct p2m_domain *p2m) {}
-+
-+#endif /* __ARM_MPU_P2M_H__ */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
-index 594dc4004138..2d53bf9b6177 100644
---- a/xen/arch/arm/include/asm/p2m.h
-+++ b/xen/arch/arm/include/asm/p2m.h
-@@ -168,7 +168,7 @@ typedef enum {
- #if defined(CONFIG_MMU)
- # include <asm/mmu/p2m.h>
- #else
--# error "Unknown memory management layout"
-+# include <asm/mpu/p2m.h>
- #endif
- 
- static inline bool arch_acquire_resource_check(struct domain *d)
-diff --git a/xen/arch/arm/mpu/Makefile b/xen/arch/arm/mpu/Makefile
-index 5424ab6239c8..21bbc517b51a 100644
---- a/xen/arch/arm/mpu/Makefile
-+++ b/xen/arch/arm/mpu/Makefile
-@@ -1,2 +1,4 @@
- obj-y += mm.o
- obj-y += p2m.o
-+obj-y += setup.init.o
-+obj-y += vmap.o
-diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
-index 4e9a2405d8c5..07c8959f4ee9 100644
---- a/xen/arch/arm/mpu/mm.c
-+++ b/xen/arch/arm/mpu/mm.c
-@@ -1,9 +1,12 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
- 
-+#include <xen/bug.h>
-+#include <xen/errno.h>
- #include <xen/init.h>
- #include <xen/lib.h>
- #include <xen/mm.h>
- #include <xen/sizes.h>
-+#include <xen/types.h>
- 
- struct page_info *frame_table;
- 
-@@ -17,6 +20,28 @@ static void __init __maybe_unused build_assertions(void)
-     BUILD_BUG_ON(PAGE_SIZE != SZ_4K);
++    xfree(av);
  }
- 
-+void __init setup_mm(void)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
-+{
-+    BUG_ON("unimplemented");
-+    return -EINVAL;
-+}
-+
-+void dump_hyp_walk(vaddr_t addr)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+/* Release all __init and __initdata ranges to be reused */
-+void free_init_memory(void)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
- void __iomem *ioremap_attr(paddr_t start, size_t len, unsigned int flags)
- {
-     BUG_ON("unimplemented");
-diff --git a/xen/arch/arm/mpu/p2m.c b/xen/arch/arm/mpu/p2m.c
-index 71f9cdbf2fdb..f464c74f3288 100644
---- a/xen/arch/arm/mpu/p2m.c
-+++ b/xen/arch/arm/mpu/p2m.c
-@@ -1,9 +1,78 @@
- 
- /* SPDX-License-Identifier: GPL-2.0-only */
- 
-+#include <xen/bug.h>
- #include <xen/domain.h>
- #include <xen/errno.h>
-+#include <xen/mm-frame.h>
-+#include <xen/sched.h>
- #include <xen/types.h>
-+#include <asm/p2m.h>
-+
-+int p2m_set_entry(struct p2m_domain *p2m, gfn_t sgfn, unsigned long nr,
-+                  mfn_t smfn, p2m_type_t t, p2m_access_t a)
-+{
-+    BUG_ON("unimplemented");
-+    return -EINVAL;
-+}
-+
-+mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn, p2m_type_t *t,
-+                    p2m_access_t *a, unsigned int *page_order, bool *valid)
-+{
-+    BUG_ON("unimplemented");
-+    return INVALID_MFN;
-+}
-+
-+void p2m_dump_info(struct domain *d)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+int p2m_init(struct domain *d)
-+{
-+    BUG_ON("unimplemented");
-+    return -EINVAL;
-+}
-+
-+void p2m_save_state(struct vcpu *p)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void p2m_restore_state(struct vcpu *n)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void p2m_final_teardown(struct domain *d)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+bool p2m_resolve_translation_fault(struct domain *d, gfn_t gfn)
-+{
-+    BUG_ON("unimplemented");
-+    return false;
-+}
-+
-+void p2m_flush_vm(struct vcpu *v) {}
-+
-+int relinquish_p2m_mapping(struct domain *d)
-+{
-+    return 0;
-+}
-+
-+void p2m_domain_creation_finished(struct domain *d) {}
-+
-+int p2m_teardown(struct domain *d)
-+{
-+    return 0;
-+}
-+
-+int p2m_teardown_allocation(struct domain *d)
-+{
-+    return 0;
-+}
- 
- int arch_get_paging_mempool_size(struct domain *d, uint64_t *size)
- {
-diff --git a/xen/arch/arm/mpu/setup.c b/xen/arch/arm/mpu/setup.c
-new file mode 100644
-index 000000000000..b4da77003f47
---- /dev/null
-+++ b/xen/arch/arm/mpu/setup.c
-@@ -0,0 +1,40 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+
-+#include <xen/bug.h>
-+#include <xen/init.h>
-+#include <xen/mm.h>
-+#include <xen/types.h>
-+#include <asm/setup.h>
-+
-+void __init setup_pagetables(void) {}
-+
-+void * __init early_fdt_map(paddr_t fdt_paddr)
-+{
-+    BUG_ON("unimplemented");
-+    return NULL;
-+}
-+
-+/*
-+ * copy_from_paddr - copy data from a physical address
-+ * @dst: destination virtual address
-+ * @paddr: source physical address
-+ * @len: length to copy
-+ */
-+void __init copy_from_paddr(void *dst, paddr_t paddr, unsigned long len)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void __init remove_early_mappings(void)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/arch/arm/mpu/vmap.c b/xen/arch/arm/mpu/vmap.c
-new file mode 100644
-index 000000000000..f977b79cd436
---- /dev/null
-+++ b/xen/arch/arm/mpu/vmap.c
-@@ -0,0 +1,26 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+
-+#include <xen/bug.h>
-+#include <xen/mm-frame.h>
-+#include <xen/types.h>
-+#include <xen/vmap.h>
-+
-+void *vmap_contig(mfn_t mfn, unsigned int nr)
-+{
-+    BUG_ON("unimplemented");
-+    return NULL;
-+}
-+
-+void vunmap(const void *va)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
--- 
-2.34.1
 
+Can I hear your opinion on this?
+
+Regards,
+Anderson
 
