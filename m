@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7681A65D06
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 19:41:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.917867.1322701 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A371A65CB1
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 19:34:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.917743.1322611 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuFP4-0007F3-IK; Mon, 17 Mar 2025 18:41:34 +0000
+	id 1tuFIL-00082z-Lx; Mon, 17 Mar 2025 18:34:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 917867.1322701; Mon, 17 Mar 2025 18:41:34 +0000
+Received: by outflank-mailman (output) from mailman id 917743.1322611; Mon, 17 Mar 2025 18:34:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuFP4-0007DW-FT; Mon, 17 Mar 2025 18:41:34 +0000
-Received: by outflank-mailman (input) for mailman id 917867;
- Mon, 17 Mar 2025 18:41:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tuFIL-0007zx-HN; Mon, 17 Mar 2025 18:34:37 +0000
+Received: by outflank-mailman (input) for mailman id 917743;
+ Mon, 17 Mar 2025 18:34:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=q3WP=WE=linaro.org=pierrick.bouvier@srs-se1.protection.inumbo.net>)
- id 1tuFIV-0006uj-Hn
- for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 18:34:47 +0000
-Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
- [2607:f8b0:4864:20::634])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7899dc0a-035e-11f0-9899-31a8f345e629;
- Mon, 17 Mar 2025 19:34:34 +0100 (CET)
-Received: by mail-pl1-x634.google.com with SMTP id
- d9443c01a7336-22359001f1aso41894345ad.3
- for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 11:34:34 -0700 (PDT)
+ id 1tuFIJ-0006VW-UQ
+ for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 18:34:35 +0000
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
+ [2607:f8b0:4864:20::636])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 79546c03-035e-11f0-9aba-95dc52dad729;
+ Mon, 17 Mar 2025 19:34:35 +0100 (CET)
+Received: by mail-pl1-x636.google.com with SMTP id
+ d9443c01a7336-225b5448519so88590925ad.0
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 11:34:35 -0700 (PDT)
 Received: from pc.. ([38.39.164.180]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-73711695a2esm8188770b3a.144.2025.03.17.11.34.31
+ d2e1a72fcca58-73711695a2esm8188770b3a.144.2025.03.17.11.34.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Mar 2025 11:34:32 -0700 (PDT)
+ Mon, 17 Mar 2025 11:34:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,43 +44,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7899dc0a-035e-11f0-9899-31a8f345e629
+X-Inumbo-ID: 79546c03-035e-11f0-9aba-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1742236473; x=1742841273; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1742236474; x=1742841274; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bYYGOsy+zcSjxVOnigwMonGaAhWbZB7W76ZyOX5Jlgc=;
-        b=ou5iumzeKO3KYBOeU8S37Bw5DN7fJHy8MdESIyp/mO1Y1tYJ0TvC9cRX2tX4GJhPof
-         t0nJcKPI80Z7cwHiysjNMjA6ZxQZ2URM56aJ82nfDTKSYD9B8/SbNUD0TnrhrCBiaskj
-         FLaqDfsn7M/AuMJp74H9oyLiG4XWr5m9f4w/tzsgJxuBRCPv7CkkOT4oFugVcY3dqzO6
-         xAoNKySLz8mi3FoHg6sVg689SsEGN/BANdMr5HLYkZuWYlrLOs2H+cxZQ00m9pA4g1hZ
-         NBBSSPS0o8GPMO3WXYubIPJHFZ2UXYCnDLllAM/UI27pHKL7lEYcNtK0Y6Uqfh/lT9zi
-         PuwQ==
+        bh=Rp8GQC6vA5rTxSSazblnkjuLZPjrJAYUOFg9uGM493s=;
+        b=WQrZry/u3rQFy/srQzn32K/ERX5LuRjJF4kpNxsflRdD+XgMBmhJ5o13VKlOMUm+lI
+         bqkHZ5QtNa5J6BFculxpo/y3jRqO0kgZHFIC79vwW+MqoS0qstav23EWa1IGYZ8zATMT
+         U1lA7qxU9+WeQGs2VirkUzFil9it4K7llOSRpYs4ohvZ2COMpMMXH8DwInn3cFUqFZaL
+         6LVrg3PUqlbKr3jhzOqJFAOK3DF57Texajvb+BbHk1+UxBoFh4Sr9yMxQMRNwPtM2cni
+         W31REbR2q+9i/gkQpETlsPt5BEyCunyqtkzgOgz5zGjtboJVJBjo0GR3UsdPZNdlEzjz
+         BwIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742236473; x=1742841273;
+        d=1e100.net; s=20230601; t=1742236474; x=1742841274;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=bYYGOsy+zcSjxVOnigwMonGaAhWbZB7W76ZyOX5Jlgc=;
-        b=qVZY6A6xfb+ywhlckHdiD74Zy441CZDKWPzk7Rq4hCUDm10s0FRGJumVh66M6ue9OW
-         WHbIOqSL366Q0iaEzeEC/zz3yF4Pr277lP4nfbSDn8rOeCyaJ8Pf7i2INU903jJVvRgW
-         o2JWIYJ/32MPsmzx0HwIx3Q4Ksl9tK0p3FGgGcl7zus0b7MrUjQiSvJTXphohf6cIbl3
-         pmxHJFGPYa9xkQ0RgDeR9g/mRfskvZUB2sD5P679VD9py+UlzTRGUcRyK4gkhrL5Z7vh
-         pkEnw9zX14C0DcphoVOlI/yFP9Wk+1FM9XXVJKPokLhk4dOdvopzdWaV9Mg/BMfZCFi+
-         hNjg==
-X-Forwarded-Encrypted: i=1; AJvYcCWfVi5acfDUihYI/oUCMMFrD585Z23ccxzKPjDAWViH7HcnTUGK1YFMxMLqmxcapUPJ+WC+iJSSgRI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yytxw3S7jKO4z9uVJ39SVeKfPDoWhd5oKZ0Y0v/vXTS1KZUJzLm
-	U1J9d1nXXiK1Dxrea5F4J6UeuqyspZrvuzcK1bV3lKK+Ot/kumRi/JD2MuDBr8zdC20wIrLouyt
-	7
-X-Gm-Gg: ASbGnct4mo+SLktaOBnJEAGKSVLhjF8PI8f4a5aIjdM9hJ1k2KKjmmX3Hl/x4l0oa+U
-	zvb98sZpArEx91bUs31dWScGrzmYEjpd2A8Vm69KhMyTFNXiSPjPplU9gY4hjcZ/ed+Jo1JhF6f
-	gVrRRfrQpzTCZL7wzTGxj7e64mJba8gk8sWUeXHMZ2XBOCA4ruLV+pU2oDhkTxebMakI/7WCw6U
-	pdDO2iKsLa1Hguxdbmp0rBbivTISx8af3xELSTbAWKIOPIgb7pnqEuBwpwPD6G6naCMrKVF9Zis
-	dFz4K3eTcddq6uAYjrZPrP7IuClWdKXR9BZD9Dg5bbsl
-X-Google-Smtp-Source: AGHT+IFV6DhukzDJTQhxKL2T76dlm4rDEmTDcVzAIQ6vxy9qm1/fBJU2mGtWaSFzbonBb3tr3G7FIw==
-X-Received: by 2002:a05:6a20:a11b:b0:1ee:efa5:6573 with SMTP id adf61e73a8af0-1fa43cbf794mr1071010637.8.1742236472852;
-        Mon, 17 Mar 2025 11:34:32 -0700 (PDT)
+        bh=Rp8GQC6vA5rTxSSazblnkjuLZPjrJAYUOFg9uGM493s=;
+        b=BhXRhHUm3JalkfH2a2LPXgzKDjMQdyHtf4NXpfvfG2XH3aQ6CD5aNQZbl5f4DIV5SF
+         +F/9JeHmVXIkiXMKOoN7PTWhDZxGG1Mep2A4r/j7NNAIg2wrQRobKKFTA84hBg4Mvznm
+         g5HBHgIpD2uLtXm52KAKxF8MfM+Ms7bwPucGaz6r/q/rmmBo8NWWtLGkQS+j47y7x4SY
+         UrB+LntQLa65/PT1gmhrTrSUMECEs4FTnvgpXCrBvm+4QMJEEywiso7Fi0KFp3jn1Qyj
+         YStJWIP9HM2ylcILOLkmF209jLmTngYjY8ztHJemSdcXkm2Zh9X4t6vtokOaoMVw+TkL
+         Ck1w==
+X-Forwarded-Encrypted: i=1; AJvYcCXpPjYMZDaDzur8oM9kNNC1nqWQPYUplDr5aZxSXle1jee/wwBrw9bqwTvSpuVy1DRktO/+knA8PO8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxiacCP2X/o1ztXfrB+6AofPTdFQAt1O9tpRIqborpcNwOsjp0q
+	tgL8WhUz73LZYM+mTaSj+FboJhMkuM8kxIVvvsaTEvg3K/GTEGptjDDmpNTEm74=
+X-Gm-Gg: ASbGnctJYDKLBAHPfCYJ1msXZALxldSFNCFqbawfLLKduwgczO42MuujZ2leCUEftTk
+	TiMq35Yq9ub5M1PUJ9Ghzi7Tx/opDqAzgKUnV1pwzw50pUgXwQM0FptU/mqpZ+zdFAsaNVgXGZ0
+	7wUM2vvodzpdoPdIxBR7ATbk4o/E9SPEf6mVl2/akeM+jqQj8IsDbYbc0L16h0MdCXWzyTejmZ4
+	xDizWwGsX0n/djC1vVLxBHPnOjsKVdANy2Iv4A2P2BTk/T5qcbVkEg1tG+I3XCUtNwDYGZXCfpf
+	yUJ8MGHjEwXpea4yG7u8mEKhg2io2EE0vuplyETueWwN
+X-Google-Smtp-Source: AGHT+IHGRjUHfsZhtfemIo+dlcyT/9a20csro4vrsnSjWHRpRL87+9vnxPcq6naL2TxBdu+3gDVtPg==
+X-Received: by 2002:a05:6a00:9a7:b0:736:6ac4:d204 with SMTP id d2e1a72fcca58-73722375218mr14371340b3a.11.1742236473962;
+        Mon, 17 Mar 2025 11:34:33 -0700 (PDT)
 From: Pierrick Bouvier <pierrick.bouvier@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Paul Durrant <paul@xen.org>,
@@ -107,35 +106,36 @@ Cc: Paul Durrant <paul@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Nicholas Piggin <npiggin@gmail.com>,
 	Pierrick Bouvier <pierrick.bouvier@linaro.org>
-Subject: [PATCH v6 07/18] exec/exec-all: remove dependency on cpu.h
-Date: Mon, 17 Mar 2025 11:34:06 -0700
-Message-Id: <20250317183417.285700-8-pierrick.bouvier@linaro.org>
+Subject: [PATCH v6 08/18] exec/memory-internal: remove dependency on cpu.h
+Date: Mon, 17 Mar 2025 11:34:07 -0700
+Message-Id: <20250317183417.285700-9-pierrick.bouvier@linaro.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250317183417.285700-1-pierrick.bouvier@linaro.org>
 References: <20250317183417.285700-1-pierrick.bouvier@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Previous commit changed files relying transitively on it.
+Needed so compilation units including it can be common.
 
 Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
 Signed-off-by: Pierrick Bouvier <pierrick.bouvier@linaro.org>
 ---
- include/exec/exec-all.h | 1 -
- 1 file changed, 1 deletion(-)
+ include/exec/memory-internal.h | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/include/exec/exec-all.h b/include/exec/exec-all.h
-index dd5c40f2233..19b0eda44a7 100644
---- a/include/exec/exec-all.h
-+++ b/include/exec/exec-all.h
-@@ -20,7 +20,6 @@
- #ifndef EXEC_ALL_H
- #define EXEC_ALL_H
+diff --git a/include/exec/memory-internal.h b/include/exec/memory-internal.h
+index 100c1237ac2..b729f3b25ad 100644
+--- a/include/exec/memory-internal.h
++++ b/include/exec/memory-internal.h
+@@ -20,8 +20,6 @@
+ #ifndef MEMORY_INTERNAL_H
+ #define MEMORY_INTERNAL_H
  
 -#include "cpu.h"
- #if defined(CONFIG_USER_ONLY)
- #include "exec/cpu_ldst.h"
- #endif
+-
+ #ifndef CONFIG_USER_ONLY
+ static inline AddressSpaceDispatch *flatview_to_dispatch(FlatView *fv)
+ {
 -- 
 2.39.5
 
