@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D61AA65CB0
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 19:34:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.917736.1322550 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7289CA65CAC
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Mar 2025 19:34:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.917737.1322561 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuFID-0006Xq-Mu; Mon, 17 Mar 2025 18:34:29 +0000
+	id 1tuFIE-0006lp-Uk; Mon, 17 Mar 2025 18:34:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 917736.1322550; Mon, 17 Mar 2025 18:34:29 +0000
+Received: by outflank-mailman (output) from mailman id 917737.1322561; Mon, 17 Mar 2025 18:34:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuFID-0006Vc-Jt; Mon, 17 Mar 2025 18:34:29 +0000
-Received: by outflank-mailman (input) for mailman id 917736;
- Mon, 17 Mar 2025 18:34:28 +0000
+	id 1tuFIE-0006jU-RJ; Mon, 17 Mar 2025 18:34:30 +0000
+Received: by outflank-mailman (input) for mailman id 917737;
+ Mon, 17 Mar 2025 18:34:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=q3WP=WE=linaro.org=pierrick.bouvier@srs-se1.protection.inumbo.net>)
- id 1tuFIC-0006VW-OI
- for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 18:34:28 +0000
-Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
- [2607:f8b0:4864:20::636])
+ id 1tuFID-0006VW-Dr
+ for xen-devel@lists.xenproject.org; Mon, 17 Mar 2025 18:34:29 +0000
+Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
+ [2607:f8b0:4864:20::635])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 749a4835-035e-11f0-9aba-95dc52dad729;
- Mon, 17 Mar 2025 19:34:27 +0100 (CET)
-Received: by mail-pl1-x636.google.com with SMTP id
- d9443c01a7336-225fbdfc17dso32761415ad.3
- for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 11:34:27 -0700 (PDT)
+ id 753978ae-035e-11f0-9aba-95dc52dad729;
+ Mon, 17 Mar 2025 19:34:28 +0100 (CET)
+Received: by mail-pl1-x635.google.com with SMTP id
+ d9443c01a7336-224100e9a5cso92050275ad.2
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Mar 2025 11:34:28 -0700 (PDT)
 Received: from pc.. ([38.39.164.180]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-73711695a2esm8188770b3a.144.2025.03.17.11.34.25
+ d2e1a72fcca58-73711695a2esm8188770b3a.144.2025.03.17.11.34.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Mar 2025 11:34:25 -0700 (PDT)
+ Mon, 17 Mar 2025 11:34:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,42 +44,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 749a4835-035e-11f0-9aba-95dc52dad729
+X-Inumbo-ID: 753978ae-035e-11f0-9aba-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1742236466; x=1742841266; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1742236467; x=1742841267; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=949DeBQijWmgHqYCdDdupcSTn3rDdND8nLqwkILEwEI=;
-        b=WO1hDLydXsc7OZ7t5g4FthRZtjra2wRWu8Ilq6KjPNb4fEABSgywqUVgt9d9UsKfvr
-         m+s8yBmlWacZ/u6QdmeOdH/LuNsxQ5d3dCCpILT6JlOMh9BoFE4/OW/50ZoncrP5rRJM
-         Kn10rrIVBR2kf3AUVX8tqYBaitD8wyPeVyo69hMW/mFR+zHtxnTXQfL1oEQdBj1A7mJ3
-         AYbTRConn83QsN+VmqvkU1P3SOkmCFWSEDaeDSJVK+ehgWyhcnd+tNJT+twuXrTK2AsW
-         OLu4kz5bUMcch7Syp/PBdwcnMZkkivI4vkWkCigG2qbi5rZZXApk4su4eeYXKf9zMcz1
-         g8PA==
+        bh=fjQjYNlvDIsMbe7+veFF5h4s6vvln32m8yANkT1fS5Y=;
+        b=sS69qPedddzcE3cU3tsH2II1l4yqScO3VP+ufyBiypjyZnIW8GjuOvd3kabIu8ehK4
+         3uLuU7F6/dWRUBBVgKVT3DDpX9kFKyiMAja8jZDusFF2eSbnNtjs8sSuDJP1Rk9FRSKC
+         /6cljaUnOXg1RoPZWyIlslY3F/osXTTn71RNn7TQ7372RE7BtP4FDeNqSEeYHE7TBMKQ
+         TC+PDTjKvafVoDkXx5NaeLsQ2fdg+6JTLq4DjMq6HV1AKcY8gfRzi/Jo6PHHvsNyCkAO
+         mm67uniLu1a11a+n9eP/qhgqexnn6dlhzc7K3xAdBava7M5go7dsr/K6l6hNTYibSz8B
+         zQkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742236466; x=1742841266;
+        d=1e100.net; s=20230601; t=1742236467; x=1742841267;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=949DeBQijWmgHqYCdDdupcSTn3rDdND8nLqwkILEwEI=;
-        b=bMPzKM0s7d1H6gvugjt2yw4EGGVmptef9VRSk+nIy9zKsiDDJBHhkfavUCTcp7IM6v
-         ePsvQUMy5oaYS0E3pCDhdj/lWFG4i/Y7OPMjKA6tC2vZuB4B4UXyQ5SCRHfleuJ3CFC/
-         r5DVjC5vqXQ/WNJjFd3Y3kdJ0Plnl6p6UH75+sgUT+3iF3xq4WDo2ksaArTgyuT7l/zJ
-         7N7mtknqdWBkoXSM5OEPHkTcQMKBQUpNLi2Wv7kFn6gNT6J27WriPiFRcIlgme1ODZpn
-         JgQJ0nD5e5I8Lv6qdBEIgXVBuT5i87ldC8SFivYTwyQjwIvciwQojjDMpqCU4N1yHBI5
-         VJWQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX7SH21ftS/5reg36w6aF68XhKpqsEiFccyzvKoH3peYkjJ9lDgKjIZ2tRwc76243+pIXo5eCK7Fbg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywb0PPYPyPIfnb+y4E4BFglq9p3mBWqbiVjcbIjaLaqgndgeedS
-	AYW6jD5O5etE2SOQwevwZ9lY6Tgpaw3i9i2ioLL0JsXNg9VNzLlIRWJ9X5ViTQA=
-X-Gm-Gg: ASbGncuA775tYZmbu9tnkiA4IKZXRCDbZWjUQ3f5VIoTPbnJqBO1xQ+Sf9xD1m0yE3R
-	D92GEqdlv3zcrPJXmTULuL4zxvsUGjs78RhvD+Z8v5V0vIcXwPl5LBia+3Ih4K/QJMhLMkFHkKM
-	0B+HWUYDRCF2tcvxzWGMt09gEFNfR6mpVY1Y1p2MT6KSpfIN2JE0kd5scquDTDy8k+K2BeQS77V
-	7IVNqOc1qKbSN06RWgCzMV2rZTFKBpIX2TS5AUqU15CxfJlG/N3o7DNZoShlfOTYWrmUvb4msq9
-	WNd06w4DS/nDem63fWW7cybxMQnJZBP/pB3Qz4JxJTfR
-X-Google-Smtp-Source: AGHT+IEMdkhHnCOZBQ+9EV0uYxPSw6/JcOSk+BrsDVDiw8khDcGewsFrIqa6c3AgQ8Es/TqwcULwNA==
-X-Received: by 2002:a05:6a00:139f:b0:736:9e40:13b1 with SMTP id d2e1a72fcca58-737224726e5mr14180634b3a.23.1742236465994;
-        Mon, 17 Mar 2025 11:34:25 -0700 (PDT)
+        bh=fjQjYNlvDIsMbe7+veFF5h4s6vvln32m8yANkT1fS5Y=;
+        b=YGQ+34HLo6sXrOX+W2jDn8lwkQC42OH+ZeIABOLVtpSjmkSpG26rEKBgjw/NuLQmjT
+         unHFt3nP8VmqP0oqnFztW1ChMIEj6xpMyRoNkiASqb/FyA2RlS0EUoWVKn09Dflb9h7+
+         P2LrHaj8KfukTGjwbcKsUi+U7cdYRHWn6mELyggxNr97ss1u3+mMCOVXRwGq+rj00gsj
+         19+ubL1tNaxfJu1W7OAKil829kI3IpYHIv9TVGWhWugSubhbRe8lmVtay+ZXxaZBluJj
+         vZHtvbgx6XnAjk6/5eZnmonI/gYHwcdv4DOzvC/csr6fflgPqnSVsGrL4SZpdILVki6j
+         v+nA==
+X-Forwarded-Encrypted: i=1; AJvYcCUYIcVpd62CEiUuUjHUT4BoudpNtrLyNicurw2wioqfTj7D2NstM+7wVViRgqN4ghgh3z0HvME25O8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwPBJT9oTWoIW+k/ftOF/TXN1A/lOP2WH9XT2Z5PqESe5oGjmiQ
+	IsGHDzUY7AwDbMRF3ZONZTW41T7QB/DRrlmQ49meeY2RqotYzXXr872IE5pcfL4=
+X-Gm-Gg: ASbGncuUvafPjI+g+a2Pwd6x6wBdVaK2pNqoInnzS3fDg2Mv5KoHbIuWw6NeJuO9Sfn
+	350zDCJlz0D4rabSucGRrvG+g/CAe55+sComuzDwKwuGjKz26dBRlxHKPAPOEhue7vj0ZUDs/Qw
+	2+YEGX4+rGfh7/Uk6A09ryLFFp9tWDNpNFXdQcNsQCFQKbZzzDB4CZCGuwsYiIsnxXyYRHoMdXE
+	hTmIaBZ0j6XAYn7xqi9sUOXBYBx6gnTFilZaNJelTKPa810qe5S0CNfxWwcYN6oLIboTS33wYr6
+	OY3tRp6qWf459X38yfo89N5InXI1+3J46zvnXfp+G+AI
+X-Google-Smtp-Source: AGHT+IFi3tqJwrzQePDsXIvC4P2qzcui7bHazmhEI/k1ekPUyZPPBb0NOgqZr9PPYc71RHo1sxISkg==
+X-Received: by 2002:a05:6a20:4e08:b0:1f5:902e:1e97 with SMTP id adf61e73a8af0-1f5c133476fmr13616359637.41.1742236467105;
+        Mon, 17 Mar 2025 11:34:27 -0700 (PDT)
 From: Pierrick Bouvier <pierrick.bouvier@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Paul Durrant <paul@xen.org>,
@@ -106,58 +106,143 @@ Cc: Paul Durrant <paul@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Nicholas Piggin <npiggin@gmail.com>,
 	Pierrick Bouvier <pierrick.bouvier@linaro.org>
-Subject: [PATCH v6 01/18] exec/tswap: target code can use TARGET_BIG_ENDIAN instead of target_words_bigendian()
-Date: Mon, 17 Mar 2025 11:34:00 -0700
-Message-Id: <20250317183417.285700-2-pierrick.bouvier@linaro.org>
+Subject: [PATCH v6 02/18] exec/tswap: implement {ld,st}.*_p as functions instead of macros
+Date: Mon, 17 Mar 2025 11:34:01 -0700
+Message-Id: <20250317183417.285700-3-pierrick.bouvier@linaro.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250317183417.285700-1-pierrick.bouvier@linaro.org>
 References: <20250317183417.285700-1-pierrick.bouvier@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
+Defining functions allows to use them from common code, by not depending
+on TARGET_BIG_ENDIAN.
+Remove previous macros from exec/cpu-all.h.
+By moving them out of cpu-all.h, we'll be able to break dependency on
+cpu.h for memory related functions coming in next commits.
+
 Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
 Signed-off-by: Pierrick Bouvier <pierrick.bouvier@linaro.org>
 ---
- include/exec/tswap.h | 11 ++++++-----
- cpu-target.c         |  1 +
- 2 files changed, 7 insertions(+), 5 deletions(-)
+ include/exec/cpu-all.h | 25 ---------------
+ include/exec/tswap.h   | 70 ++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 70 insertions(+), 25 deletions(-)
 
+diff --git a/include/exec/cpu-all.h b/include/exec/cpu-all.h
+index 8cd6c00cf89..e56c064d46f 100644
+--- a/include/exec/cpu-all.h
++++ b/include/exec/cpu-all.h
+@@ -38,31 +38,6 @@
+ #define BSWAP_NEEDED
+ #endif
+ 
+-/* Target-endianness CPU memory access functions. These fit into the
+- * {ld,st}{type}{sign}{size}{endian}_p naming scheme described in bswap.h.
+- */
+-#if TARGET_BIG_ENDIAN
+-#define lduw_p(p) lduw_be_p(p)
+-#define ldsw_p(p) ldsw_be_p(p)
+-#define ldl_p(p) ldl_be_p(p)
+-#define ldq_p(p) ldq_be_p(p)
+-#define stw_p(p, v) stw_be_p(p, v)
+-#define stl_p(p, v) stl_be_p(p, v)
+-#define stq_p(p, v) stq_be_p(p, v)
+-#define ldn_p(p, sz) ldn_be_p(p, sz)
+-#define stn_p(p, sz, v) stn_be_p(p, sz, v)
+-#else
+-#define lduw_p(p) lduw_le_p(p)
+-#define ldsw_p(p) ldsw_le_p(p)
+-#define ldl_p(p) ldl_le_p(p)
+-#define ldq_p(p) ldq_le_p(p)
+-#define stw_p(p, v) stw_le_p(p, v)
+-#define stl_p(p, v) stl_le_p(p, v)
+-#define stq_p(p, v) stq_le_p(p, v)
+-#define ldn_p(p, sz) ldn_le_p(p, sz)
+-#define stn_p(p, sz, v) stn_le_p(p, sz, v)
+-#endif
+-
+ /* MMU memory access macros */
+ 
+ #if !defined(CONFIG_USER_ONLY)
 diff --git a/include/exec/tswap.h b/include/exec/tswap.h
-index ecd4faef015..2683da0adb7 100644
+index 2683da0adb7..84060a49994 100644
 --- a/include/exec/tswap.h
 +++ b/include/exec/tswap.h
-@@ -13,13 +13,14 @@
- /**
-  * target_words_bigendian:
-  * Returns true if the (default) endianness of the target is big endian,
-- * false otherwise. Note that in target-specific code, you can use
-- * TARGET_BIG_ENDIAN directly instead. On the other hand, common
-- * code should normally never need to know about the endianness of the
-- * target, so please do *not* use this function unless you know very well
-- * what you are doing!
-+ * false otherwise. Common code should normally never need to know about the
-+ * endianness of the target, so please do *not* use this function unless you
-+ * know very well what you are doing!
-  */
- bool target_words_bigendian(void);
-+#ifdef COMPILING_PER_TARGET
-+#define target_words_bigendian()  TARGET_BIG_ENDIAN
-+#endif
- 
- /*
-  * If we're in target-specific code, we can hard-code the swapping
-diff --git a/cpu-target.c b/cpu-target.c
-index cae77374b38..519b0f89005 100644
---- a/cpu-target.c
-+++ b/cpu-target.c
-@@ -155,6 +155,7 @@ void cpu_abort(CPUState *cpu, const char *fmt, ...)
-     abort();
+@@ -80,4 +80,74 @@ static inline void tswap64s(uint64_t *s)
+     }
  }
  
-+#undef target_words_bigendian
- bool target_words_bigendian(void)
- {
-     return TARGET_BIG_ENDIAN;
++/* Return ld{word}_{le,be}_p following target endianness. */
++#define LOAD_IMPL(word, args...)                    \
++do {                                                \
++    if (target_words_bigendian()) {                 \
++        return glue(glue(ld, word), _be_p)(args);   \
++    } else {                                        \
++        return glue(glue(ld, word), _le_p)(args);   \
++    }                                               \
++} while (0)
++
++static inline int lduw_p(const void *ptr)
++{
++    LOAD_IMPL(uw, ptr);
++}
++
++static inline int ldsw_p(const void *ptr)
++{
++    LOAD_IMPL(sw, ptr);
++}
++
++static inline int ldl_p(const void *ptr)
++{
++    LOAD_IMPL(l, ptr);
++}
++
++static inline uint64_t ldq_p(const void *ptr)
++{
++    LOAD_IMPL(q, ptr);
++}
++
++static inline uint64_t ldn_p(const void *ptr, int sz)
++{
++    LOAD_IMPL(n, ptr, sz);
++}
++
++#undef LOAD_IMPL
++
++/* Call st{word}_{le,be}_p following target endianness. */
++#define STORE_IMPL(word, args...)           \
++do {                                        \
++    if (target_words_bigendian()) {         \
++        glue(glue(st, word), _be_p)(args);  \
++    } else {                                \
++        glue(glue(st, word), _le_p)(args);  \
++    }                                       \
++} while (0)
++
++
++static inline void stw_p(void *ptr, uint16_t v)
++{
++    STORE_IMPL(w, ptr, v);
++}
++
++static inline void stl_p(void *ptr, uint32_t v)
++{
++    STORE_IMPL(l, ptr, v);
++}
++
++static inline void stq_p(void *ptr, uint64_t v)
++{
++    STORE_IMPL(q, ptr, v);
++}
++
++static inline void stn_p(void *ptr, int sz, uint64_t v)
++{
++    STORE_IMPL(n, ptr, sz, v);
++}
++
++#undef STORE_IMPL
++
+ #endif  /* TSWAP_H */
 -- 
 2.39.5
 
